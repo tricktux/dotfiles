@@ -26,6 +26,7 @@ if has('win32')
 	" let Vundle manage Vundle, required
 	Plugin 'VundleVim/Vundle.vim'
 	Plugin 'chrisbra/vim-diff-enhanced'
+	Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
 
 
 	" All of your Plugins must be added before the following line
@@ -76,7 +77,7 @@ if has('unix')
 	"let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 
 	Plugin 'scrooloose/nerdcommenter'
-	Plugin 'scrooloose/nerdtree'
+	"Plugin 'scrooloose/nerdtree'
 	Plugin 'chrisbra/vim-diff-enhanced'
 
 	" All of your Plugins must be added before the following line
