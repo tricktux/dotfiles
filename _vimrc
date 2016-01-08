@@ -219,7 +219,12 @@ noremap <Leader>op :e.<CR>
 noremap <Leader>o <C-w>k
 "/////////////GIT_PLUGIN/////////////////////
 noremap <Leader>gw :Gwrite<CR> 
+noremap <Leader>gr :Gremove<CR> 
 noremap <Leader>gc :Gcommit<CR> 
+noremap <Leader>gp :!git push origin master<CR> 
+"typical order also depends where you are pushing
+noremap <Leader>gd :Gdiff<CR> 
+noremap <Leader>gb :Git branch<Space>
 
 " Insert empty line below
 nnoremap <S-CR> o<Esc> 
