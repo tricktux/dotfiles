@@ -80,6 +80,7 @@ if has('unix')
 	Plugin 'scrooloose/nerdcommenter'
 	"Plugin 'scrooloose/nerdtree'
 	Plugin 'chrisbra/vim-diff-enhanced'
+	"git plugin
 	Plugin 'fugitive.vim'
 
 	" All of your Plugins must be added before the following line
@@ -192,6 +193,7 @@ set autochdir " working directory is always the same as the file you are editing
 " automatic syntax for *.scp
 autocmd! BufNewFile,BufRead *.scp set syntax=asm
 syntax on
+au BufNewFile,BufRead,BufEnter *.cpp,*.hpp,*.h set omnifunc=omni#cpp#complete#Main
 "////////////////////////////////////////////////////////
 " comment line uses plug in
 noremap - <Leader>ci
@@ -225,6 +227,7 @@ noremap <Leader>gp :!git push origin master<CR>
 "typical order also depends where you are pushing
 noremap <Leader>gd :Gdiff<CR> 
 noremap <Leader>gb :Git branch<Space>
+"///////////////////////////////////////////
 
 " Insert empty line below
 nnoremap <S-CR> o<Esc> 
@@ -302,7 +305,8 @@ noremap e <C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y>
 noremap d <C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e>26j
 
 
-" ------MISC NOTES-------------
+
+"///////////////MISC NOTES///////////////////
 "useful command to convert all , into new lines
 	":%s,/\r/g  
 " to umap something simply type it in the command :unmap ii for example
