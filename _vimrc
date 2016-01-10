@@ -1,4 +1,5 @@
 set nocompatible
+filetype off                  " required
 if has('win32')
 	source $VIMRUNTIME/vimrc_example.vim
 	source $VIMRUNTIME/mswin.vim
@@ -15,7 +16,6 @@ if has('win32')
 	map <F3> :source C:\Program Files (x86)\Vim\vimfiles\sessions\
 
 	"//////////////////Vundle Stuff for windows/////////////////////
-	filetype off                  " required
 
 	" set the runtime path to include Vundle and initialize
 	set rtp+=$HOME/vimfiles/bundle/Vundle.vim/
@@ -29,10 +29,12 @@ if has('win32')
 	Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
 	Plugin 'fugitive.vim'
 
+	" Status bar line
+	Plugin 'bling/vim-airline'
+	set laststatus=2
 
 	" All of your Plugins must be added before the following line
 	call vundle#end()            " required
-	filetype plugin indent on    " required
 	" To ignore plugin indent changes, instead use:
 	"filetype plugin on
 	"
@@ -45,13 +47,15 @@ if has('win32')
 	" see :h vundle for more details or wiki for FAQ
 	" Put your non-Plugin stuff after this line
 	"///////////////////////////////////////////////////////////////////
+	"//////////////////////Specific settings for Windows///////////////
+	set nowrap        " don't wrap lines
 
 endif
 
 if has('unix')
 	if has('gui_running')
 		set guioptions-=T  " no toolbar
-		set guifont=Monospace\ 8
+		set guifont=Monospace\ 9
 		colorscheme desert
 	endif
 	set ffs=unix
@@ -60,9 +64,6 @@ if has('unix')
 	" And load session with F3
 	map <F3> :source /home/reinaldo/.vim/sessions/
 	" ///////////////VIM_VUNDLE_STUFF////////////////////////
-	set nocompatible
-	filetype off                  " required
-
 	" set the runtime path to include Vundle and initialize
 	set rtp+=~/.vim/bundle/Vundle.vim
 	call vundle#begin()
@@ -70,23 +71,78 @@ if has('unix')
 	Plugin 'VundleVim/Vundle.vim'
 
 	Plugin 'file:///home/reinaldo/.vim/bundle/vim-hardy'
+	let g:hardy_arduino_path='/home/reinaldo/Downloads/arduino-1.6.5-r5/arduino'
+	"Plugin '4Evergreen4/vim-hardy'
 	
-	" Smart autocomplete
+	"Smart autocomplete
 	"Plugin 'Valloric/YouCompleteMe'
 	" Installation instructions:
 	"	run ~/Google Drive/scripts/install_software/vim_ycm.sh
-	"let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+	"let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'Plugin 'justmao945/vim-clang'Plugin 'justmao945/vim-clang'
+
+	"Another trial at autocomplete
+	" Track the engine.
+	Plugin 'SirVer/ultisnips'
+
+	" Snippets are separated from the engine. Add this if you want them:
+	Plugin 'honza/vim-snippets'
+
+	" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+	let g:UltiSnipsExpandTrigger="<tab>"
+	let g:UltiSnipsJumpForwardTrigger="<c-b>"
+	let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+	" If you want :UltiSnipsEdit to split your window.
+	let g:UltiSnipsEditSplit="vertical"
 
 	Plugin 'scrooloose/nerdcommenter'
-	"Plugin 'scrooloose/nerdtree'
 	Plugin 'chrisbra/vim-diff-enhanced'
 	"git plugin
 	Plugin 'fugitive.vim'
+	Plugin 'justmao945/vim-clang'
+
+	" Status bar line
+	Plugin 'bling/vim-airline'
+	set laststatus=2
+
+	" potential plugins
+	"Plugin 'scrooloose/syntastic'
+	"Plugin 'vim-scripts/UltiSnips'
+	"Plugin 'taketwo/vim-ros'
 
 	" All of your Plugins must be added before the following line
 	call vundle#end()            " required
-	filetype plugin indent on    " requiredutocmd BufNewFile,BufReadPost *.ino,*.pde setlocal ft=arduino
 	" ////////////////////////////////////////////////////////
+	"///////////////////Specific settings for Unix////////////////////////
+	" This is to make it consistent with Windows making C-q be visual block mode now
+	noremap <C-q> <C-v>
+	" making C-v paste stuff from system register
+	noremap <C-v> "+p
+	set wrap        " wrap lines
+	autocmd BufNewFile,BufReadPost *.ino,*.pde setlocal ft=arduino
+	" Omni complete stuff
+	au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
+	" configure tags - add additional tags here or comment out not-used ones
+	set tags+=~/.vim/tags/cpp
+	set tags+=~/.vim/tags/tags
+	" build tags of your own project with Ctrl-F12
+	map <C-F12> :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+
+	" OmniCppComplete
+	let OmniCpp_NamespaceSearch = 1
+	let OmniCpp_GlobalScopeSearch = 1
+	let OmniCpp_ShowAccess = 1
+	let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
+	let OmniCpp_MayCompleteDot = 1 " autocomplete after .
+	let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
+	let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
+	let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+	" automatically open and close the popup menu / preview window
+	au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+	set completeopt=menuone,menu,longest,preview
+	" ////////////////////////////////////////////////////////
+
+
 endif
 
 "/////////////////////STUFF_FOR_BOTH_SYSTEMS///////////////////////
@@ -162,9 +218,9 @@ function! MyDiff()
 let mapleader=","
 " save marks 
 set viminfo='1000,f1
+filetype plugin indent on   
 set cursorline
 set showtabline=2 " always show tabs in gvim, but not vim
-set nowrap        " don't wrap lines
 set tabstop=4     " a tab is four spaces
 set backspace=indent,eol,start
                     " allow backspacing over everything in insert mode
@@ -193,7 +249,6 @@ set autochdir " working directory is always the same as the file you are editing
 " automatic syntax for *.scp
 autocmd! BufNewFile,BufRead *.scp set syntax=asm
 syntax on
-au BufNewFile,BufRead,BufEnter *.cpp,*.hpp,*.h set omnifunc=omni#cpp#complete#Main
 "////////////////////////////////////////////////////////
 " comment line uses plug in
 noremap - <Leader>ci
@@ -230,7 +285,7 @@ noremap <Leader>gb :Git branch<Space>
 "///////////////////////////////////////////
 
 " Insert empty line below
-nnoremap <S-CR> o<Esc> 
+nnoremap <S-CR> o<Esc>
 " Substitue for ESC   
 nnoremap <Space> i <Esc> 
 " Normal backspace functionalit y
