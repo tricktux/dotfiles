@@ -69,6 +69,7 @@ if has('unix')
 	call vundle#begin()
 
 	Plugin 'VundleVim/Vundle.vim'
+	
 
 	Plugin 'file:///home/reinaldo/.vim/bundle/vim-hardy'
 	let g:hardy_arduino_path='/home/reinaldo/Downloads/arduino-1.6.5-r5/arduino'
@@ -78,7 +79,7 @@ if has('unix')
 	"Plugin 'Valloric/YouCompleteMe'
 	" Installation instructions:
 	"	run ~/Google Drive/scripts/install_software/vim_ycm.sh
-	"let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'Plugin 'justmao945/vim-clang'Plugin 'justmao945/vim-clang'
+	"let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 
 	"Another trial at autocomplete
 	" Track the engine.
@@ -97,18 +98,16 @@ if has('unix')
 
 	Plugin 'scrooloose/nerdcommenter'
 	Plugin 'chrisbra/vim-diff-enhanced'
-	"git plugin
-	Plugin 'fugitive.vim'
+	Plugin 'fugitive.vim' "git plugin
 	Plugin 'justmao945/vim-clang'
-
-	" Status bar line
-	Plugin 'bling/vim-airline'
+	Plugin 'lervag/vimtex' " Latex support
+	Plugin 'taketwo/vim-ros'
+	Plugin 'bling/vim-airline' " Status bar line
 	set laststatus=2
 
 	" potential plugins
 	"Plugin 'scrooloose/syntastic'
 	"Plugin 'vim-scripts/UltiSnips'
-	"Plugin 'taketwo/vim-ros'
 
 	" All of your Plugins must be added before the following line
 	call vundle#end()            " required
@@ -125,8 +124,9 @@ if has('unix')
 	" configure tags - add additional tags here or comment out not-used ones
 	set tags+=~/.vim/tags/cpp
 	set tags+=~/.vim/tags/tags
+	set tags+=~/.vim/tags/copter
 	" build tags of your own project with Ctrl-F12
-	map <C-F12> :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+	map <C-F12> :!ctags -R --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
 
 	" OmniCppComplete
 	let OmniCpp_NamespaceSearch = 1
@@ -216,6 +216,7 @@ function! MyDiff()
 
 "////////////SET_OPTIONS///////////////////////////
 let mapleader=","
+let maplocalleader=","
 " save marks 
 set viminfo='1000,f1
 filetype plugin indent on   
