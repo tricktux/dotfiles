@@ -26,12 +26,15 @@ if has('win32')
 	" let Vundle manage Vundle, required
 	Plugin 'VundleVim/Vundle.vim'
 	Plugin 'chrisbra/vim-diff-enhanced'
-	Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
+	Plugin 'lervag/vimtex' " Latex support
+	set shellslash
 	Plugin 'fugitive.vim'
 
 	" Status bar line
 	Plugin 'bling/vim-airline'
 	set laststatus=2
+
+	"Plugin 'lervag/vimtex' " Latex support
 
 	" All of your Plugins must be added before the following line
 	call vundle#end()            " required
@@ -146,7 +149,6 @@ if has('unix')
 endif
 
 "/////////////////////STUFF_FOR_BOTH_SYSTEMS///////////////////////
-
 "/////////Stuff to show tab numbers at begginig///////////////////
 " set up tab labels with tab number, buffer name, number of windows
 function! GuiTabLabel()
@@ -181,7 +183,6 @@ function! GuiTabLabel()
 endfunction
 set guitablabel=%{GuiTabLabel()}
 "////////////////////////////////////////////////////////
-
 "///////////////////FUNCTION_FOR_DIFF///////////////////
 set diffexpr=MyDiff()
 function! MyDiff()
@@ -213,13 +214,19 @@ function! MyDiff()
    endif
  endfunction
 "////////////////////////////////////////////////////////
-
 "////////////SET_OPTIONS///////////////////////////
+" LaTex Stuff
+set grepprg=grep\ -nH\ $*
+set sw=2
+set iskeyword+=:
+
+filetype plugin on   
+filetype indent on   
+
 let mapleader=","
 let maplocalleader=","
 " save marks 
 set viminfo='1000,f1
-filetype plugin indent on   
 set cursorline
 set showtabline=2 " always show tabs in gvim, but not vim
 set tabstop=4     " a tab is four spaces
@@ -252,7 +259,7 @@ autocmd! BufNewFile,BufRead *.scp set syntax=asm
 syntax on
 "////////////////////////////////////////////////////////
 " comment line uses plug in
-noremap - <Leader>ci
+map - <Leader>ci
 " on quickfix window go to line selected
 noremap <Leader>c :.cc<CR>
 " on quickfix close window
@@ -376,4 +383,4 @@ noremap d <C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e>
 " <C-v> in linux Visual Block mode
 " --------------------------
 
-
+	
