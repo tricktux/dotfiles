@@ -355,10 +355,10 @@ nmap <C-n> :tab split<CR>
 noremap <Tab> i<Tab><Esc>
 noremap <S-x> :tabclose<CR>
 
-"This is a very good to show and search all current but a much better is 
-"to download vim-easygrep its a lot better 
+" This is a very good to show and search all current but a much better is 
+" to download vim-easygrep its a lot better 
 nnoremap gr :vimgrep <cword> %:p:h/*<CR> :copen 20<CR>
-"nnoremap gr :vimgrep <cword>/".input("Replace with: ")" %:p:h/*<CR> :copen 20<CR>
+" nnoremap gr :vimgrep <cword>/".input("Replace with: ")" %:p:h/*<CR> :copen 20<CR>
 
 " remaped search to s
 noremap s #
@@ -366,11 +366,14 @@ noremap s #
 noremap <C-d> d
 	
 "//////////FOLDING//////////////
-" folding select text then S-f to fold or just S-f to toggle folding
-"inoremap <S-f> <C-O>za interferes when input mode is on
+" Folding select text then S-f to fold or just S-f to toggle folding
+" Inoremap <S-f> <C-O>za interferes when input mode is on
 nnoremap <S-f> za
 onoremap <S-f> <C-C>za
 vnoremap <S-f> zf
+" Save folding
+autocmd BufWinLeave * if expand("%") != "" | mkview | endif
+autocmd BufWinEnter * if expand("%") != "" | loadview | endif
 
 "//////////SCROLLING//////////////
 noremap e <C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-Y>26k
