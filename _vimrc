@@ -10,13 +10,8 @@ if has('win32')
 		colorscheme desert
 		set guioptions-=T  " no toolbar
 	endif
-	" Quick write session with F2
-	map <F2> :mksession! C:\Program Files (x86)\Vim\vimfiles\sessions\
-	" And load session with F3
-	map <F3> :source C:\Program Files (x86)\Vim\vimfiles\sessions\
 
 	"//////////////////Vundle Stuff for windows/////////////////////
-
 	" set the runtime path to include Vundle and initialize
 	set rtp+=$HOME/vimfiles/bundle/Vundle.vim/
 	call vundle#begin('$HOME/vimfiles/bundle/')
@@ -27,14 +22,21 @@ if has('win32')
 	Plugin 'VundleVim/Vundle.vim'
 	Plugin 'chrisbra/vim-diff-enhanced'
 	Plugin 'lervag/vimtex' " Latex support
-	set shellslash
 	Plugin 'fugitive.vim'
 
 	" Status bar line
 	Plugin 'bling/vim-airline'
 	set laststatus=2
 
-	"Plugin 'lervag/vimtex' " Latex support
+	Plugin 'Vim-R-plugin'
+	" Install R, Rtools 
+	" git clone https://github.com/jalvesaq/VimCom.git // Do this in command to
+	" download the library then in R do the bottom command by substituting path
+	" with your path to where you downloaded vimcom
+	" install.packages("C:\\Users\\h129522\\Downloads\\vim\\vimcom\\VimCom", type = "source", repos = NULL)
+	" put this in your InstallationRdir/etc/Rprofile.site
+						"options(vimcom.verbose = 1)
+						"library(vimcom)
 
 	" All of your Plugins must be added before the following line
 	call vundle#end()            " required
@@ -52,6 +54,13 @@ if has('win32')
 	"///////////////////////////////////////////////////////////////////
 	"//////////////////////Specific settings for Windows///////////////
 	set nowrap        " don't wrap lines
+	" Execute current R script in command line
+	noremap <Leader>re :!Rscript %<CR>
+	imap _ <-
+	" Quick write session with F2
+	map <F2> :mksession! C:\Program Files (x86)\Vim\vimfiles\sessions\
+	" And load session with F3
+	map <F3> :source C:\Program Files (x86)\Vim\vimfiles\sessions\
 
 endif
 
@@ -259,11 +268,11 @@ autocmd! BufNewFile,BufRead *.scp set syntax=asm
 syntax on
 "////////////////////////////////////////////////////////
 " comment line uses plug in
-map - <Leader>ci
+noremap - <Leader>ci
 " on quickfix window go to line selected
 noremap <Leader>c :.cc<CR>
 " on quickfix close window
-noremap <Leader>cl :ccl<CR>
+nnoremap <Leader>cl :ccl<CR>
 " open quickfix window
 noremap <Leader>co :copen 20<CR>
 " edit vimrc on a new tab
