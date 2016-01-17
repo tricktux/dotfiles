@@ -20,132 +20,14 @@ if has('win32')
 
 	" let Vundle manage Vundle, required
 	Plugin 'VundleVim/Vundle.vim'
-	" :PluginList       - lists configured plugins
-	" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-	" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-	" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-	"
-	" see :h vundle for more details or wiki for FAQ
 	Plugin 'chrisbra/vim-diff-enhanced'
+	Plugin 'scrooloose/nerdtree'
+	Plugin 'scrooloose/nerdcommenter'
 	Plugin 'lervag/vimtex' " Latex support
-	let g:tex_flavor = 'latex'
-	let g:vimtex_latexmk_continuous = 1
-	let g:vimtex_latexmk_background = 1
-	"Let g:vimtex_latexmk_options = '-pdf'
-	let g:vimtex_latexmk_options = '-pdfdvi'
-	let g:vimtex_view_method = 'sumatrapdf'
-	"Let g:vimtex_latexmk_options = '-pdfps'
-	"let g:vimtex_view_general_viewer = 'SumatraPDF'
-	"let g:vimtex_view_general_options = '-reuse-instance -inverse-search "\"' $ VIM '\ gvim.exe \ "-n --remote-silent + \% l \" \% f \ "" -forward -searchtexlinepdf '
-	"let g:vimtex_view_general_options_latexmk = '-reuse-instance'
-
-	let g:vimtex_view_general_viewer = 'SumatraPDF'
-	let g:vimtex_view_general_options = '-forward-search @tex @line @pdf'
-	let g:vimtex_view_general_options_latexmk = '-reuse-instance'
-	"Let g: vimtex_view_general_viewer = 'texworks'
-	let g:vimtex_view_general_viewer = 'SumatraPDF -reuse-instance '
-		\ . '-inverse-search "gvim --servername ' . v:servername
-		\ . ' --remote-send \"^<C-\^>^<C-n^>'
-		\ . ':drop \%f^<CR^>:\%l^<CR^>:normal\! zzzv^<CR^>'
-		\ . ':execute ''drop '' . fnameescape(''\%f'')^<CR^>'
-		\ . ':\%l^<CR^>:normal\! zzzv^<CR^>'
-		\ . ':call remote_foreground('''.v:servername.''')^<CR^>\""'
-	if !exists('g:neocomplete#sources#omni#input_patterns')
-		let g:neocomplete#sources#omni#input_patterns = {}
-	endif
-	let g:neocomplete#sources#omni#input_patterns.tex =
-			\ '\v\\%('
-			\ . '\a*%(ref|cite)\a*%(\s*\[[^]]*\])?\s*\{[^{}]*'
-			\ . '|includegraphics%(\s*\[[^]]*\])?\s*\{[^{}]*'
-			\ . '|%(include|input)\s*\{[^{}]*'
-			\ . ')'
-	
 	Plugin 'fugitive.vim'
 	Plugin 'bling/vim-airline'	" Status bar line
-	set laststatus=2
 	Plugin 'Vim-R-plugin'
-	" Install R, Rtools 
-	" git clone https://github.com/jalvesaq/VimCom.git // Do this in command to
-	" download the library then in R do the bottom command by substituting path
-	" with your path to where you downloaded vimcom
-	" install.packages("C:\\Users\\h129522\\Downloads\\vim\\vimcom\\VimCom", type = "source", repos = NULL)
-	" put this in your InstallationRdir/etc/Rprofile.site
-						"options(vimcom.verbose = 1)
-						"library(vimcom)
-	
 	Plugin 'Shougo/neocomplete.vim'
-	"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-	" Disable AutoComplPop.
-	let g:acp_enableAtStartup = 0
-	" Use neocomplete.
-	let g:neocomplete#enable_at_startup = 1
-	" Use smartcase.
-	let g:neocomplete#enable_smart_case = 1
-	" Set minimum syntax keyword length.
-	let g:neocomplete#sources#syntax#min_keyword_length = 3
-	let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-
-	" Define dictionary.
-	let g:neocomplete#sources#dictionary#dictionaries = {
-		\ 'default' : '',
-		\ 'vimshell' : $HOME.'/.vimshell_hist',
-		\ 'scheme' : $HOME.'/.gosh_completions'
-			\ }
-
-	" Define keyword.
-	if !exists('g:neocomplete#keyword_patterns')
-		let g:neocomplete#keyword_patterns = {}
-	endif
-	let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-	" Plugin key-mappings.
-	inoremap <expr><C-g>     neocomplete#undo_completion()
-	inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-	" Recommended key-mappings.
-	" <CR>: close popup and save indent.
-	inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-	function! s:my_cr_function()
-		return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-		" For no inserting <CR> key.
-		"return pumvisible() ? "\<C-y>" : "\<CR>"
-	endfunction
-	" <TAB>: completion.
-	inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-	" <C-h>, <BS>: close popup and delete backword char.
-	inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-	inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-	" Close popup by <Space>.
-	"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-
-	" AutoComplPop like behavior.
-	"let g:neocomplete#enable_auto_select = 1
-
-	" Shell like behavior(not recommended).
-	"set completeopt+=longest
-	"let g:neocomplete#enable_auto_select = 1
-	"let g:neocomplete#disable_auto_complete = 1
-	"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-
-	" Enable omni completion.
-	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-	autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-	autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-	autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-	" Enable heavy omni completion.
-	if !exists('g:neocomplete#sources#omni#input_patterns')
-		let g:neocomplete#sources#omni#input_patterns = {}
-	endif
-	"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-	"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-	"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-	" For perlomni.vim setting.
-	" https://github.com/c9s/perlomni.vim
-	let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-
 
 	" All of your Plugins must be added before the following line
 	call vundle#end()            " required
@@ -186,48 +68,16 @@ if has('unix')
 
 	Plugin 'VundleVim/Vundle.vim'
 	Plugin 'scrooloose/nerdcommenter'
+	Plugin 'scrooloose/nerdtree'
 	Plugin 'chrisbra/vim-diff-enhanced'
 	Plugin 'fugitive.vim' "git plugin
-	Plugin 'justmao945/vim-clang'
 	Plugin 'lervag/vimtex' " Latex support
-	let g:vimtex_latexmk_continuous = 1
-	let g:vimtex_latexmk_background = 1
-	"Let g:vimtex_latexmk_options = '-pdf'
-	let g:vimtex_latexmk_options = '-pdfdvi'
-	"Let g:vimtex_latexmk_options = '-pdfps'
-	let g:vimtex_view_general_viewer = 'xdg-open'
-	"Let g:vimtex_view_general_viewer = 'okular'
-	"Let g:vimtex_view_general_options = '--uniquepdf \ #src: @ line @ tex'
-	"Let g:vimtex_view_general_options_latexmk = '--unique'
-	"Let g:vimtex_view_general_viewer = 'qpdfview'
-	"Let g:vimtex_view_general_options = '--uniquepdf \ #src:tex:line:col'
-	"Let g:vimtex_view_general_options_latexmk = '--unique'
 	Plugin 'taketwo/vim-ros'
-	Plugin 'SirVer/ultisnips'  " Track the engine.
-
-	" Snippets are separated from the engine. Add this if you want them:
-	Plugin 'honza/vim-snippets'
-
-	" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-	let g:UltiSnipsExpandTrigger="<tab>"
-	let g:UltiSnipsJumpForwardTrigger="<c-b>"
-	let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-	" If you want :UltiSnipsEdit to split your window.
-	let g:UltiSnipsEditSplit="vertical"
 	Plugin 'bling/vim-airline' " Status bar line
-	set laststatus=2
-	Plugin 'file:///home/reinaldo/.vim/bundle/vim-hardy'
-	let g:hardy_arduino_path='/home/reinaldo/Downloads/arduino-1.6.5-r5/arduino'
-	"Plugin '4Evergreen4/vim-hardy'
-	Plugin 'Valloric/YouCompleteMe'  "Smart autocomplete
-	" Installation instructions:
-	"	run ~/Google Drive/scripts/install_software/vim_ycm.sh
-	"let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-
-	" potential plugins
-	"Plugin 'scrooloose/syntastic'
-	"Plugin 'vim-scripts/UltiSnips'
+	Plugin 'file:///home/reinaldo/.vim/bundle/vim-hardy' "Arduino
+	Plugin 'Shougo/neocomplete.vim'
+	Plugin 'Vim-R-plugin'
+	Plugin 'Tagbar'
 
 	" All of your Plugins must be added before the following line
 	call vundle#end()            " required
@@ -343,6 +193,7 @@ filetype indent on
 let mapleader=","
 let maplocalleader=","
 " save marks 
+set spell spelllang=en_us
 set viminfo='1000,f1
 set cursorline
 set showtabline=2 " always show tabs in gvim, but not vim
@@ -401,15 +252,6 @@ nnoremap <Leader>p ylp
 noremap <Leader>op :e.<CR>
 " move to upper window
 noremap <Leader>o <C-w>k
-"/////////////GIT_PLUGIN/////////////////////
-noremap <Leader>gw :Gwrite<CR> 
-noremap <Leader>gr :Gremove<CR> 
-noremap <Leader>gc :Gcommit<CR> 
-noremap <Leader>gp :!git push origin master<CR> 
-"typical order also depends where you are pushing
-noremap <Leader>gd :Gdiff<CR> 
-noremap <Leader>gb :Git branch<Space>
-"///////////////////////////////////////////
 
 " Insert empty line below
 nnoremap <S-CR> o<Esc>
@@ -482,16 +324,169 @@ nnoremap <S-f> za
 onoremap <S-f> <C-C>za
 vnoremap <S-f> zf
 " Save folding
-autocmd BufWinLeave *.* if expand("%") != "" | mkview | endif
-autocmd BufWinEnter *.* if expand("%") != "" | silent loadview | endif
+autocmd BufWinLeave ?* mkview
+autocmd BufWinEnter ?* silent loadview
 
 "//////////SCROLLING//////////////
 noremap e <C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-Y>26k
 noremap d <C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e>26j
 
+" /////////////////PLUGIN_OPTIONS////////////////////////////////////////////
+	"Plugin 'VundleVim/Vundle.vim'
+		" :PluginList       - lists configured plugins
+		" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+		" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+		" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+		"
+		" see :h vundle for more details or wiki for FAQ
+	"Plugin 'scrooloose/nerdtree'
+		nmap <Leader>nb :Bookmark 
+		nmap <Leader>no :NERDTree<CR>
+		let NERDTreeShowBookmarks=1 
+		let NERDTreeMapJumpLastChild=',j' 
+		let NERDTreeMapJumpFirstChild=',k' 
+	"Plugin 'fugitive.vim' "git plugin
+		noremap <Leader>gw :Gwrite<CR> 
+		noremap <Leader>gr :Gremove<CR> 
+		noremap <Leader>gc :Gcommit<CR> 
+		noremap <Leader>gp :!git push origin master<CR> 
+		"typical order also depends where you are pushing
+		noremap <Leader>gd :Gdiff<CR> 
+		noremap <Leader>gb :Git branch<Space>
+	"Plugin 'lervag/vimtex' " Latex support
+		let g:vimtex_view_enabled = 0
 
+		" latexmk
+		let g:vimtex_latexmk_continuous=1
+		let g:vimtex_latexmk_callback=1
+		" neocomplete stuff of vimtex
+		if !exists('g:neocomplete#sources#omni#input_patterns')
+			let g:neocomplete#sources#omni#input_patterns = {}
+		endif
+		let g:neocomplete#sources#omni#input_patterns.tex =
+				\ '\v\\%('
+				\ . '\a*%(ref|cite)\a*%(\s*\[[^]]*\])?\s*\{[^{}]*'
+				\ . '|includegraphics%(\s*\[[^]]*\])?\s*\{[^{}]*'
+				\ . '|%(include|input)\s*\{[^{}]*'
+				\ . ')'
+		" AutoComplete 
+		let g:vimtex_complete_close_braces=1
+		let g:vimtex_complete_recursive_bib=1
+		let g:vimtex_complete_img_use_tail=1
 
-"///////////////MISC NOTES///////////////////
+		" ToC
+		let g:vimtex_toc_enabled=1
+		let g:vimtex_index_show_help=1
+
+	"Plugin 'xuhdev/vim-latex-live-preview'
+		"autocmd Filetype tex setl updatetime=1000
+		"let g:livepreview_previewer = 'okular'
+		" LLPStartPreview
+
+	"Plugin 'bling/vim-airline' " Status bar line
+		set laststatus=2
+	"Plugin 'file:///home/reinaldo/.vim/bundle/vim-hardy'
+		if has('unix')
+			let g:hardy_arduino_path='/home/reinaldo/Downloads/arduino-1.6.5-r5/arduino'
+		endif
+	"Plugin 'Valloric/YouCompleteMe'  "Smart autocomplete
+	" Installation instructions:
+	"	run ~/Google Drive/scripts/install_software/vim_ycm.sh
+	"let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+
+	" potential plugins
+	"Plugin 'scrooloose/syntastic'
+	"Plugin 'vim-scripts/UltiSnips'
+	"Plugin 'Shougo/neocomplete.vim'
+		"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+		" Disable AutoComplPop.
+		let g:acp_enableAtStartup = 0
+		" Use neocomplete.
+		let g:neocomplete#enable_at_startup = 1
+		" Use smartcase.
+		let g:neocomplete#enable_smart_case = 1
+		" Set minimum syntax keyword length.
+		let g:neocomplete#sources#syntax#min_keyword_length = 3
+		let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+		" Define dictionary.
+		let g:neocomplete#sources#dictionary#dictionaries = {
+			\ 'default' : '',
+			\ 'vimshell' : $HOME.'/.vimshell_hist',
+			\ 'scheme' : $HOME.'/.gosh_completions'
+				\ }
+
+		" Define keyword.
+		if !exists('g:neocomplete#keyword_patterns')
+			let g:neocomplete#keyword_patterns = {}
+		endif
+		let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+		" Plugin key-mappings.
+		inoremap <expr><C-g>     neocomplete#undo_completion()
+		inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+		" Recommended key-mappings.
+		" <CR>: close popup and save indent.
+		inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+		function! s:my_cr_function()
+			return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+			" For no inserting <CR> key.
+			"return pumvisible() ? "\<C-y>" : "\<CR>"
+		endfunction
+		" <TAB>: completion.
+		inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+		" <C-h>, <BS>: close popup and delete backword char.
+		inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+		inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+		" Close popup by <Space>.
+		"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+		" AutoComplPop like behavior.
+		"let g:neocomplete#enable_auto_select = 1
+
+		" Shell like behavior(not recommended).
+		"set completeopt+=longest
+		"let g:neocomplete#enable_auto_select = 1
+		"let g:neocomplete#disable_auto_complete = 1
+		"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+		" Enable omni completion.
+		autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+		autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+		autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+		autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+		autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+		" Enable heavy omni completion.
+		if !exists('g:neocomplete#sources#omni#input_patterns')
+			let g:neocomplete#sources#omni#input_patterns = {}
+		endif
+		"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+		"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+		"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+		" For perlomni.vim setting.
+		" https://github.com/c9s/perlomni.vim
+		let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
+	"Plugin 'Vim-R-plugin'
+		" http://cran.revolutionanalytics.com
+		" Install R, Rtools 
+		" git clone https://github.com/jalvesaq/VimCom.git // Do this in command to
+		" download the library then in R do the bottom command by substituting path
+		" with your path to where you downloaded vimcom
+		" install.packages("C:\\Users\\h129522\\Downloads\\vim\\vimcom\\VimCom", type = "source", repos = NULL)
+		" put this in your InstallationRdir/etc/Rprofile.site
+							"options(vimcom.verbose = 1)
+							"library(vimcom)
+	"Plugin 'Tagbar'
+		nmap <Leader>tt :TagbarToggle<CR>
+
+	" Deleted plugins
+	"Plugin 'justmao945/vim-clang'
+"//////////////////////////////////////////////////////////////////////////////////////////
+"/////////////////////////////////MISC NOTES/////////////////////////////////////////////
 "useful command to convert all , into new lines
 	":%s,/\r/g  
 " to umap something simply type it in the command :unmap ii for example
