@@ -28,6 +28,7 @@ if has('win32')
 	Plugin 'bling/vim-airline'	" Status bar line
 	Plugin 'Vim-R-plugin'
 	Plugin 'Shougo/neocomplete.vim'
+	Plugin 'Tagbar'
 
 	" All of your Plugins must be added before the following line
 	call vundle#end()            " required
@@ -41,9 +42,9 @@ if has('win32')
 	set nowrap        " don't wrap lines
 	" Execute current R script in command line
 	" Quick write session with F2
-	map <F2> :mksession! C:\Program Files (x86)\Vim\vimfiles\sessions\
+	map <F2> :mksession! C:\Users\h129522\Downloads\vim\sessions\
 	" And load session with F3
-	map <F3> :source C:\Program Files (x86)\Vim\vimfiles\sessions\
+	map <F3> :source C:\Users\h129522\Downloads\vim\sessions\
 	" configure tags - add additional tags here or comment out not-used ones
 	set tags+=$HOME/vimfiles/tags/cpp
 	set tags+=$HOME/vimfiles/tags/tags
@@ -324,8 +325,10 @@ nnoremap <S-f> za
 onoremap <S-f> <C-C>za
 vnoremap <S-f> zf
 " Save folding
-autocmd BufWinLeave ?* mkview
-autocmd BufWinEnter ?* silent loadview
+if has('unix')
+	autocmd BufWinLeave ?* mkview
+	autocmd BufWinEnter ?* silent loadview
+endif
 
 "//////////SCROLLING//////////////
 noremap e <C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-Y>26k
@@ -345,6 +348,8 @@ noremap d <C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e>
 		let NERDTreeShowBookmarks=1 
 		let NERDTreeMapJumpLastChild=',j' 
 		let NERDTreeMapJumpFirstChild=',k' 
+		let NERDTreeMapOpenExpl=',e' 
+" ///////////////////////////////////////////////////////////////////
 	"Plugin 'fugitive.vim' "git plugin
 		noremap <Leader>gw :Gwrite<CR> 
 		noremap <Leader>gr :Gremove<CR> 
@@ -353,6 +358,7 @@ noremap d <C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e>
 		"typical order also depends where you are pushing
 		noremap <Leader>gd :Gdiff<CR> 
 		noremap <Leader>gb :Git branch<Space>
+" ///////////////////////////////////////////////////////////////////
 	"Plugin 'lervag/vimtex' " Latex support
 		let g:vimtex_view_enabled = 0
 
@@ -377,18 +383,20 @@ noremap d <C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e>
 		" ToC
 		let g:vimtex_toc_enabled=1
 		let g:vimtex_index_show_help=1
-
+" ///////////////////////////////////////////////////////////////////
 	"Plugin 'xuhdev/vim-latex-live-preview'
 		"autocmd Filetype tex setl updatetime=1000
 		"let g:livepreview_previewer = 'okular'
 		" LLPStartPreview
-
+" ///////////////////////////////////////////////////////////////////
 	"Plugin 'bling/vim-airline' " Status bar line
 		set laststatus=2
+" ///////////////////////////////////////////////////////////////////
 	"Plugin 'file:///home/reinaldo/.vim/bundle/vim-hardy'
 		if has('unix')
 			let g:hardy_arduino_path='/home/reinaldo/Downloads/arduino-1.6.5-r5/arduino'
 		endif
+" ///////////////////////////////////////////////////////////////////
 	"Plugin 'Valloric/YouCompleteMe'  "Smart autocomplete
 	" Installation instructions:
 	"	run ~/Google Drive/scripts/install_software/vim_ycm.sh
@@ -397,6 +405,7 @@ noremap d <C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e>
 	" potential plugins
 	"Plugin 'scrooloose/syntastic'
 	"Plugin 'vim-scripts/UltiSnips'
+" ///////////////////////////////////////////////////////////////////
 	"Plugin 'Shougo/neocomplete.vim'
 		"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 		" Disable AutoComplPop.
@@ -470,6 +479,7 @@ noremap d <C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e>
 		" https://github.com/c9s/perlomni.vim
 		let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
+" ///////////////////////////////////////////////////////////////////
 	"Plugin 'Vim-R-plugin'
 		" http://cran.revolutionanalytics.com
 		" Install R, Rtools 
@@ -480,6 +490,8 @@ noremap d <C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e>
 		" put this in your InstallationRdir/etc/Rprofile.site
 							"options(vimcom.verbose = 1)
 							"library(vimcom)
+							
+" ///////////////////////////////////////////////////////////////////
 	"Plugin 'Tagbar'
 		nmap <Leader>tt :TagbarToggle<CR>
 
