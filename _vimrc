@@ -20,8 +20,8 @@ if has('win32')
 
 	" let Vundle manage Vundle, required
 	Plugin 'VundleVim/Vundle.vim'
-	Plugin 'chrisbra/vim-diff-enhanced'
-	Plugin 'scrooloose/nerdtree'
+	"Plugin 'chrisbra/vim-diff-enhanced'
+	"Plugin 'scrooloose/nerdtree'
 	Plugin 'scrooloose/nerdcommenter'
 	Plugin 'lervag/vimtex' " Latex support
 	Plugin 'fugitive.vim'
@@ -100,7 +100,6 @@ endif
 
 "/////////////////////STUFF_FOR_BOTH_SYSTEMS///////////////////////
 	" Omni complete stuff
-	au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
 	" build tags of your own project with Ctrl-F12
 	map <C-F12> :!ctags -R --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
 
@@ -193,8 +192,9 @@ filetype indent on
 
 let mapleader=","
 let maplocalleader=","
+"set spell spelllang=en_us
+set nospell
 " save marks 
-set spell spelllang=en_us
 set viminfo='1000,f1
 set cursorline
 set showtabline=2 " always show tabs in gvim, but not vim
@@ -329,10 +329,16 @@ if has('unix')
 	autocmd BufWinLeave ?* mkview
 	autocmd BufWinEnter ?* silent loadview
 endif
-
+" Automatically insert date
+nnoremap <F5> "=strftime("%c")<CR>P
+inoremap <F5> <C-R>=strftime("%c")<CR>
 "//////////SCROLLING//////////////
 noremap e <C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-Y>26k
 noremap d <C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e>26j
+" Search for highlighted word
+vnoremap // y/<C-R>"<CR>
+inoremap <C-p> ->
+
 
 " /////////////////PLUGIN_OPTIONS////////////////////////////////////////////
 	"Plugin 'VundleVim/Vundle.vim'
@@ -342,10 +348,11 @@ noremap d <C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e>
 		" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
 		"
 		" see :h vundle for more details or wiki for FAQ
-	"Plugin 'scrooloose/nerdtree'
+	"Plugin 'scrooloose/nerdcommenter'
 		nmap <Leader>nb :Bookmark 
 		nmap <Leader>no :NERDTree<CR>
-		let NERDTreeShowBookmarks=1 
+		let NERDTreeShowBookmarks=1  " B key to toogle
+		let NERDTreeShowHidden=1 " i key to toogle
 		let NERDTreeMapJumpLastChild=',j' 
 		let NERDTreeMapJumpFirstChild=',k' 
 		let NERDTreeMapOpenExpl=',e' 
@@ -466,6 +473,7 @@ noremap d <C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e>
 		autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 		autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 		autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+		autocmd FileType cpp setlocal omnifunc=omni#cpp#complete#Main
 
 		" Enable heavy omni completion.
 		if !exists('g:neocomplete#sources#omni#input_patterns')
@@ -495,6 +503,10 @@ noremap d <C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e>
 	"Plugin 'Tagbar'
 		nmap <Leader>tt :TagbarToggle<CR>
 
+" ///////////////////////////////////////////////////////////////////
+	"Plugin 'Newtr' VIM built in Explorer
+		let g:netrw_sort_sequence='[\/]$,*,\.bak$,\.o$,\.h$,\.info$,\.swp$,\.obj$'
+" ///////////////////////////////////////////////////////////////////
 	" Deleted plugins
 	"Plugin 'justmao945/vim-clang'
 "//////////////////////////////////////////////////////////////////////////////////////////
@@ -515,6 +527,8 @@ noremap d <C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e>
 " 	Donwload lua windows binaries from the website for the architecture you
 " 	have
 " 	Put lua in your path and also lua52.dll in your vim executable
+" - To read output of a command use:
+"   	:read !<command>
 " --------------------------
 
 	
