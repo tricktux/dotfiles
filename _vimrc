@@ -24,11 +24,13 @@ if has('win32')
 	"Plugin 'scrooloose/nerdtree'
 	Plugin 'scrooloose/nerdcommenter'
 	Plugin 'lervag/vimtex' " Latex support
-	Plugin 'fugitive.vim'
+	"Plugin 'fugitive.vim'
 	Plugin 'bling/vim-airline'	" Status bar line
 	Plugin 'Vim-R-plugin'
 	Plugin 'Shougo/neocomplete.vim'
 	Plugin 'Tagbar'
+	Plugin 'juneedahamed/vc.vim' " SVN, GIT, HG, and BZR repo support
+ 
 
 	" All of your Plugins must be added before the following line
 	call vundle#end()            " required
@@ -253,6 +255,8 @@ nnoremap <Leader>p ylp
 noremap <Leader>op :e.<CR>
 " move to upper window
 noremap <Leader>o <C-w>k
+" Switch back and forth between header file
+nnoremap <Leader>oh :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>"
 
 " Insert empty line below
 nnoremap <S-CR> o<Esc>
@@ -289,7 +293,7 @@ noremap <S-j> gT
 " move tab to the left
 nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 " move tab to the right
-nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
+noremap <silent> <A-Right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
 nmap <S-t> :Te<CR>
 " dupplicate current tab
 " bring line down up
