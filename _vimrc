@@ -337,7 +337,7 @@ noremap e <C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y>
 noremap d <C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e>26j
 " Search for highlighted word
 vnoremap // y/<C-R>"<CR>
-inoremap <C-p> ->
+inoremap <C-k> ->
 
 
 " /////////////////PLUGIN_OPTIONS////////////////////////////////////////////
