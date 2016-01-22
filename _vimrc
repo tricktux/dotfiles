@@ -346,10 +346,10 @@ inoremap <C-k> ->
 
 " /////////////////PLUGIN_OPTIONS////////////////////////////////////////////
 	"Plugin 'VundleVim/Vundle.vim'
-		" :PluginList       - lists configured plugins
-		" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-		" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-		" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+		noremap <Leader>pl :PluginList       " lists configured plugins
+		noremap <Leader>pi :PluginInstall    " installs plugins; append `!` to update or just :PluginUpdate
+		noremap <Leader>ps :PluginSearch foo " searches for foo; append `!` to refresh local cache
+		noremap <Leader>pc :PluginClean      " confirms removal of unused plugins; append `!` to auto-approve removal
 		"
 		" see :h vundle for more details or wiki for FAQ
 	"Plugin 'scrooloose/nerdcommenter'
@@ -361,14 +361,13 @@ inoremap <C-k> ->
 		let NERDTreeMapJumpFirstChild=',k' 
 		let NERDTreeMapOpenExpl=',e' 
 " ///////////////////////////////////////////////////////////////////
-	"Plugin 'fugitive.vim' "git plugin
-		noremap <Leader>gw :Gwrite<CR> 
-		noremap <Leader>gr :Gremove<CR> 
-		noremap <Leader>gc :Gcommit<CR> 
-		noremap <Leader>gp :!git push origin master<CR> 
+	"Plugin 'vc.vim' "version control plugin
+		noremap <Leader>va :VCAdd<CR>
+		noremap <Leader>vc :VCCommit<CR> 
+		noremap <Leader>vp :VCPush<CR> 
 		"typical order also depends where you are pushing
-		noremap <Leader>gd :Gdiff<CR> 
-		noremap <Leader>gb :Git branch<Space>
+		noremap <Leader>vd :VCDiff<CR> 
+		noremap <Leader>vl :VCLog<Space>
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'lervag/vimtex' " Latex support
 		let g:vimtex_view_enabled = 0
