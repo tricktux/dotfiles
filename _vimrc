@@ -388,7 +388,6 @@ set nowrap        " wrap lines
 		noremap <Leader>vl :VCLog<Space>
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'lervag/vimtex' " Latex support
-		autocmd BufNewFile,BufReadPost *.tex setlocal spell spelllang=en_us
 		let g:vimtex_view_enabled = 0
 
 		" latexmk
