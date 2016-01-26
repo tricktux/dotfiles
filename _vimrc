@@ -255,16 +255,31 @@ noremap <Leader>op :e.<CR>
 noremap <Leader>o <C-w>k
 " Switch back and forth between header file
 nnoremap <Leader>oh :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>"
+"///////////SPELL_CHECK////////////////
+" search forward
+nmap <Leader>sf ]s  
+" search backwards
+nmap <Leader>sb [s 
+" suggestion
+nmap <Leader>sc z= 
+" toggle spelling
+nmap <Leader>st :setlocal spell! spelllang=en_us<CR>
+" add to dictionary
+nmap <Leader>sa zg 
+" mark wrong
+nmap <Leader>sw zw 
+" repeat last spell correction
+nmap <Leader>sr :spellr<CR> 
 
 " Insert empty line below
 nnoremap <S-CR> o<Esc>
-" Substitue for ESC   
+" Substitute for ESC   
 nnoremap <Space> i <Esc> 
 " Normal backspace functionalit y
 nnoremap <Backspace> hxh<Esc> 
- " Substitue for ESC  
+ " Substitute for ESC  
 imap qq <Esc>
- " Substitue for ESC  
+ " Substitute for ESC  
 vmap qq <Esc>
 " save all buffer s
 map <C-s> :wall<CR>
@@ -340,7 +355,7 @@ noremap d <C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e>
 " Search for highlighted word
 vnoremap // y/<C-R>"<CR>
 inoremap <C-k> ->
-set wrap        " wrap lines
+set nowrap        " wrap lines
 
 
 " /////////////////PLUGIN_OPTIONS////////////////////////////////////////////
