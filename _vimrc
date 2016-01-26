@@ -30,7 +30,7 @@ if has('win32')
 	Plugin 'Shougo/neocomplete.vim'
 	Plugin 'Tagbar'
 	Plugin 'juneedahamed/vc.vim' " SVN, GIT, HG, and BZR repo support
- 
+	Plugin 'Raimondi/delimitMate' " AutoClose brackets, etc...
 
 	" All of your Plugins must be added before the following line
 	call vundle#end()            " required
@@ -41,7 +41,6 @@ if has('win32')
 	" Put your non-Plugin stuff after this line
 	"///////////////////////////////////////////////////////////////////
 	"//////////////////////Specific settings for Windows///////////////
-	set nowrap        " don't wrap lines
 	" Execute current R script in command line
 	" Quick write session with F2
 	map <F2> :mksession! C:\Users\h129522\Downloads\vim\sessions\
@@ -90,7 +89,6 @@ if has('unix')
 	noremap <C-q> <C-v>
 	" making C-v paste stuff from system register
 	noremap <C-v> "+p
-	set wrap        " wrap lines
 	autocmd BufNewFile,BufReadPost *.ino,*.pde setlocal ft=arduino
 	" configure tags - add additional tags here or comment out not-used ones
 	set tags+=~/.vim/tags/cpp
@@ -236,7 +234,7 @@ vmap - <Leader>ci
 " on quickfix window go to line selected
 noremap <Leader>c :.cc<CR>
 " on quickfix close window
-nnoremap <Leader>cl :ccl<CR>
+noremap <Leader>cl :ccl<CR>
 " open quickfix window
 noremap <Leader>co :copen 20<CR>
 " edit vimrc on a new tab
@@ -303,7 +301,7 @@ noremap <S-w> $
 " move to the end of line
 noremap <S-b> ^
 " jump to corresponding item<Leader> ending {,(, etc..
-noremap t %
+nnoremap t %
 " Close all
 nmap <C-x> :qall!<CR>
 " open new to tab to explorer
@@ -342,24 +340,29 @@ noremap d <C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e>
 " Search for highlighted word
 vnoremap // y/<C-R>"<CR>
 inoremap <C-k> ->
+set wrap        " wrap lines
 
 
 " /////////////////PLUGIN_OPTIONS////////////////////////////////////////////
 	"Plugin 'VundleVim/Vundle.vim'
-		noremap <Leader>pl :PluginList       " lists configured plugins
-		noremap <Leader>pi :PluginInstall    " installs plugins; append `!` to update or just :PluginUpdate
-		noremap <Leader>ps :PluginSearch foo " searches for foo; append `!` to refresh local cache
-		noremap <Leader>pc :PluginClean      " confirms removal of unused plugins; append `!` to auto-approve removal
+		noremap <Leader>pl :PluginList<CR>
+		" lists configured plugins
+		noremap <Leader>pi :PluginInstall<CR>
+		" installs plugins; append `!` to update or just :PluginUpdate
+		noremap <Leader>ps :PluginSearch<CR>
+		" searches for foo; append `!` to refresh local cache
+		noremap <Leader>pc :PluginClean<CR>      
+		" confirms removal of unused plugins; append `!` to auto-approve removal
 		"
 		" see :h vundle for more details or wiki for FAQ
 	"Plugin 'scrooloose/nerdcommenter'
-		nmap <Leader>nb :Bookmark 
-		nmap <Leader>no :NERDTree<CR>
-		let NERDTreeShowBookmarks=1  " B key to toogle
-		let NERDTreeShowHidden=1 " i key to toogle
-		let NERDTreeMapJumpLastChild=',j' 
-		let NERDTreeMapJumpFirstChild=',k' 
-		let NERDTreeMapOpenExpl=',e' 
+		"nmap <Leader>nb :Bookmark 
+		"nmap <Leader>no :NERDTree<CR>
+		"let NERDTreeShowBookmarks=1  " B key to toogle
+		"let NERDTreeShowHidden=1 " i key to toogle
+		"let NERDTreeMapJumpLastChild=',j' 
+		"let NERDTreeMapJumpFirstChild=',k' 
+		"let NERDTreeMapOpenExpl=',e' 
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'vc.vim' "version control plugin
 		noremap <Leader>va :VCAdd<CR>
@@ -370,6 +373,7 @@ inoremap <C-k> ->
 		noremap <Leader>vl :VCLog<Space>
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'lervag/vimtex' " Latex support
+		autocmd BufNewFile,BufReadPost *.tex setlocal spell spelllang=en_us
 		let g:vimtex_view_enabled = 0
 
 		" latexmk
