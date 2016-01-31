@@ -257,19 +257,19 @@ noremap <Leader>o <C-w>k
 nnoremap <Leader>oh :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>"
 "///////////SPELL_CHECK////////////////
 " search forward
-nmap <Leader>sf ]s  
+nmap <Leader>sf ]s
 " search backwards
-nmap <Leader>sb [s 
+nmap <Leader>sb [s
 " suggestion
-nmap <Leader>sc z= 
+nmap <Leader>sc z=
 " toggle spelling
 nmap <Leader>st :setlocal spell! spelllang=en_us<CR>
 " add to dictionary
-nmap <Leader>sa zg 
+nmap <Leader>sa zg
 " mark wrong
-nmap <Leader>sw zw 
+nmap <Leader>sw zw
 " repeat last spell correction
-nmap <Leader>sr :spellr<CR> 
+nmap <Leader>sr :spellr<CR>
 
 " Insert empty line below
 nnoremap <S-CR> o<Esc>
@@ -282,7 +282,7 @@ imap qq <Esc>
  " Substitute for ESC  
 vmap qq <Esc>
 " save all buffer s
-map <C-s> :wall<CR>
+map <C-s> :w<CR>
 " move from left window
 map <C-h> <C-w>h
 " move to right window 
@@ -527,6 +527,7 @@ set nowrap        " wrap lines
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'Newtr' VIM built in Explorer
 		let g:netrw_sort_sequence='[\/]$,*,\.bak$,\.o$,\.h$,\.info$,\.swp$,\.obj$'
+		let g:netrw_localcopydircmd	="copy /-y"
 " ///////////////////////////////////////////////////////////////////
 	" Deleted plugins
 	"Plugin 'justmao945/vim-clang'
