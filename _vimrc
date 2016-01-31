@@ -20,7 +20,7 @@ if has('win32')
 
 	" let Vundle manage Vundle, required
 	Plugin 'VundleVim/Vundle.vim'
-	"Plugin 'chrisbra/vim-diff-enhanced'
+	Plugin 'chrisbra/vim-diff-enhanced'
 	"Plugin 'scrooloose/nerdtree'
 	Plugin 'scrooloose/nerdcommenter'
 	Plugin 'lervag/vimtex' " Latex support
@@ -151,7 +151,8 @@ endfunction
 set guitablabel=%{GuiTabLabel()}
 "////////////////////////////////////////////////////////
 "///////////////////FUNCTION_FOR_DIFF///////////////////
-set diffexpr=MyDiff()
+set diffexpr=
+"MyDiff()
 function! MyDiff()
    let opt = '-a --binary '
    if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
@@ -190,8 +191,8 @@ set iskeyword+=:
 filetype plugin on   
 filetype indent on   
 
-let mapleader=","
-let maplocalleader=","
+let mapleader=";"
+let maplocalleader=";"
 "set spell spelllang=en_us
 set nospell
 " save marks 
@@ -243,6 +244,14 @@ noremap <Leader>v :tabedit $MYVIMRC<CR>
 noremap <Leader>s :so %<CR>
 " diff left and right window
 noremap <Leader>d :windo diffthis<CR>
+" diff go to next diff
+noremap <Leader>dn ]c
+" diff go to previous diff
+noremap <Leader>dp [c
+" diff get from the other window
+noremap <Leader>dg :diffget<CR>
+" diff put difference onto other window
+noremap <Leader>du :diffput<CR>
 " close diff
 noremap <Leader>dl :diffoff!<CR> ZZ
 " off highlited search
@@ -371,13 +380,15 @@ set nowrap        " wrap lines
 		"
 		" see :h vundle for more details or wiki for FAQ
 	"Plugin 'scrooloose/nerdcommenter'
-		"nmap <Leader>nb :Bookmark 
-		"nmap <Leader>no :NERDTree<CR>
-		"let NERDTreeShowBookmarks=1  " B key to toogle
-		"let NERDTreeShowHidden=1 " i key to toogle
-		"let NERDTreeMapJumpLastChild=',j' 
-		"let NERDTreeMapJumpFirstChild=',k' 
-		"let NERDTreeMapOpenExpl=',e' 
+		let NERDCommentWholeLinesInVMode=2
+	"Plugin 'scrooloose/NERDTree'
+		nmap <Leader>nb :Bookmark 
+		let NERDTreeShowBookmarks=1  " B key to toogle
+		nmap <Leader>no :NERDTree<CR>
+		let NERDTreeShowHidden=1 " i key to toogle
+		let NERDTreeMapJumpLastChild=',j' 
+		let NERDTreeMapJumpFirstChild=',k' 
+		let NERDTreeMapOpenExpl=',e' 
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'vc.vim' "version control plugin
 		noremap <Leader>va :VCAdd<CR>
@@ -523,6 +534,8 @@ set nowrap        " wrap lines
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'Tagbar'
 		nmap <Leader>tt :TagbarToggle<CR>
+		nmap <Leader>tj <C-]>
+		nmap <Leader>tr <C-t>
 
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'Newtr' VIM built in Explorer
@@ -551,6 +564,8 @@ set nowrap        " wrap lines
 " 	Put lua in your path and also lua52.dll in your vim executable
 " - To read output of a command use:
 "   	:read !<command>
+" C-] jumps to tag
+" A insert at end of line
 " --------------------------
 
 	
