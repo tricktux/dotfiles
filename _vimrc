@@ -259,11 +259,13 @@ noremap <Leader>n :noh<CR>
 " duplicate current char
 nnoremap <Leader>p ylp
 " open explorer on current tab
-noremap <Leader>op :e.<CR>
+"lnoremap <Leader>op :e.<CR>
 " move to upper window
 noremap <Leader>o <C-w>k
 " Switch back and forth between header file
 nnoremap <Leader>oh :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>"
+" Run current script
+nmap <Leader>r :!%<CR>
 "///////////SPELL_CHECK////////////////
 " search forward
 nmap <Leader>sf ]s
@@ -571,6 +573,25 @@ set nowrap        " wrap lines
 "   	:read !<command>
 " C-] jumps to tag
 " A insert at end of line
+" Instructions to installing GVim on windows
+" 	- copy your vim Installation folder 
+" 	- install git
+" 	- copy the curl.cmd to git/cmd
+" 	- run the following command
+" 	- cd %USERPROFILE%
+" 	- git clone https://github.com/gmark/Vundle.vim.git
+" 	%USERPROFILE%/vimfiles/bundle/Vundle.vim
+" 	- set up your git
+" 		git config --global user.name "Reinaldo Molina"
+"		git config --global user.email rmolin88@gmail.com
+		"git config --global core.editor gvim 
+"		*make sure you have internet
+"		git init
+"		git add remote origin https://github.com/rmolin88/vimrc.git
+"		this downloads your _vimrc
+" 	- add ctags folder to path
+" 	- the latest vim folder should have the lua53.dll already inside
+"
 " --------------------------
 
 	
