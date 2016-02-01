@@ -21,7 +21,7 @@ if has('win32')
 	" let Vundle manage Vundle, required
 	Plugin 'VundleVim/Vundle.vim'
 	Plugin 'chrisbra/vim-diff-enhanced'
-	"Plugin 'scrooloose/nerdtree'
+	Plugin 'scrooloose/nerdtree'
 	Plugin 'scrooloose/nerdcommenter'
 	Plugin 'lervag/vimtex' " Latex support
 	"Plugin 'fugitive.vim'
@@ -389,6 +389,7 @@ set nowrap        " wrap lines
 		let NERDTreeMapJumpLastChild=',j' 
 		let NERDTreeMapJumpFirstChild=',k' 
 		let NERDTreeMapOpenExpl=',e' 
+        let NERDTreeQuitOnOpen=1 " AutoClose after openning file
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'vc.vim' "version control plugin
 		noremap <Leader>va :VCAdd<CR>
@@ -562,6 +563,10 @@ set nowrap        " wrap lines
 " 	Donwload lua windows binaries from the website for the architecture you
 " 	have
 " 	Put lua in your path and also lua52.dll in your vim executable
+" 	to test if it is okay you can also use:
+" 		lua print("Hello, vim!")
+" 		this will tell you the error you are getting
+" 		last time wih only the lua53.dll fixed it
 " - To read output of a command use:
 "   	:read !<command>
 " C-] jumps to tag
