@@ -584,7 +584,8 @@ set nowrap        " wrap lines
 " 	- set up your git
 " 		git config --global user.name "Reinaldo Molina"
 "		git config --global user.email rmolin88@gmail.com
-		"git config --global core.editor gvim 
+"		git config --global core.editor gvim 
+"   	git config credential.helper 'cache --timeout=3600'		#not working				 
 "		*make sure you have internet
 "		git init
 "		git add remote origin https://github.com/rmolin88/vimrc.git
