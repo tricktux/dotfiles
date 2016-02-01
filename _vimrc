@@ -43,9 +43,9 @@ if has('win32')
 	"//////////////////////Specific settings for Windows///////////////
 	" Execute current R script in command line
 	" Quick write session with F2
-	map <F2> :mksession! C:\Users\h129522\Downloads\vim\sessions\
+	map <F2> :mksession! C:\vim_sessions\
 	" And load session with F3
-	map <F3> :source C:\Users\h129522\Downloads\vim\sessions\
+	map <F3> :source C:\vim_sessions\
 	" configure tags - add additional tags here or comment out not-used ones
 	set tags+=$HOME/vimfiles/tags/cpp
 	set tags+=$HOME/vimfiles/tags/tags
@@ -529,7 +529,7 @@ set nowrap        " wrap lines
 		" git clone https://github.com/jalvesaq/VimCom.git // Do this in command to
 		" download the library then in R do the bottom command by substituting path
 		" with your path to where you downloaded vimcom
-		" install.packages("C:\\Users\\h129522\\Downloads\\vim\\vimcom\\VimCom", type = "source", repos = NULL)
+		" install.packages("<location>", type = "source", repos = NULL)
 		" put this in your InstallationRdir/etc/Rprofile.site
 							"options(vimcom.verbose = 1)
 							"library(vimcom)
