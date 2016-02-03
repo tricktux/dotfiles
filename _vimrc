@@ -328,6 +328,7 @@ noremap <S-w> $
 noremap <S-b> ^
 " jump to corresponding item<Leader> ending {,(, etc..
 nnoremap t %
+vnoremap t %
 " Close all
 nmap <C-x> :qall!<CR>
 " open new to tab to explorer
@@ -536,6 +537,7 @@ set nowrap        " wrap lines
 							
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'Tagbar'
+        let g:tagbar_autofocus = 1
 		nmap <Leader>tt :TagbarToggle<CR>
 		nmap <Leader>tj <C-]>
 		nmap <Leader>tr <C-t>
