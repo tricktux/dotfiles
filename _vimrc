@@ -49,6 +49,13 @@ if has('win32')
 	" configure tags - add additional tags here or comment out not-used ones
 	set tags+=$HOME/vimfiles/tags/cpp
 	set tags+=$HOME/vimfiles/tags/tags
+	" sets path to cscope.exe 
+
+	" for this to work you must be in the root directory of your code
+	" doesnt work dont know why created script for this
+	"nmap <F11> :!dir /b /s *.cpp *.h > cscope.files ;
+	"\:!cscope -b -i cscope.files -f cscope.out<CR>
+	"\:cs kill -1<CR>:cs add cscope.out<CR>
 
 endif
 
@@ -95,13 +102,19 @@ if has('unix')
 	set tags+=~/.vim/tags/tags
 	set tags+=~/.vim/tags/copter
 
+	" this one below might work in linux
+	nmap <F11> :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files ;
+	\:!cscope -b -i cscope.files -f cscope.out<CR>
+	\:cs kill -1<CR>:cs add cscope.out<CR>
 
 endif
 
 "/////////////////////STUFF_FOR_BOTH_SYSTEMS///////////////////////
 	" Omni complete stuff
 	" build tags of your own project with Ctrl-F12
-	map <C-F12> :!ctags -R --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
+	" TDOD: Need to fix this later with time
+	"map <C-F12> :!ctags -R<CR>
+	"map <C-F12> :!ctags -R --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
 
 	" OmniCppComplete
 	let OmniCpp_NamespaceSearch = 1
@@ -182,6 +195,23 @@ function! MyDiff()
    endif
  endfunction
 "////////////////////////////////////////////////////////
+"function LoadCscope()
+	"if (executable("cscope") && has("cscope"))
+		"let UpperPath = findfile("cscope.out", ".;")
+		"if (!empty(UpperPath))
+			"let path = strpart(UpperPath, 0, match(UpperPath, "cscope.out$") - 1)	
+			"if (!empty(path))
+				"let s:CurrentDir = getcwd()
+				"let direct = strpart(s:CurrentDir, 0, 2) 
+				"let s:FullPath = direct . path
+				"let s:AFullPath = globpath(s:FullPath, "cscope.out")
+				"let s:CscopeAddString = "cs add " . s:AFullPath . " " . s:FullPath 
+				"execute s:CscopeAddString 
+			"endif
+		"endif
+	"endif
+"endfunction
+"command LoadCscope call LoadCscope()"
 "////////////SET_OPTIONS///////////////////////////
 " LaTex Stuff
 set grepprg=grep\ -nH\ $*
@@ -368,6 +398,33 @@ noremap d <C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e>
 vnoremap // y/<C-R>"<CR>
 inoremap <C-k> ->
 set nowrap        " wrap lines
+" will look in current directory for tags
+" THE BEST FEATURE I'VE ENCOUNTERED SO FAR OF VIM
+" CAN BELIEVE I DIDNT DO THIS BEFORE
+" To crete tags do ctags -R on highest folder
+" need to inverstigate why F12 to create tags not working
+set tags+=.\tags;\
+
+if has('cscope')
+	set cscopetag cscopeverbose
+
+	if has('quickfix')
+		set cscopequickfix=s+,c+,d+,i+,t+,e+
+	endif
+
+	if has('win32')
+		set csprg=C:\vim_sessions\cscope.exe
+	endif
+
+	cnoreabbrev csa cs add
+	cnoreabbrev csf cs find
+	cnoreabbrev csk cs kill
+	cnoreabbrev csr cs reset
+	cnoreabbrev css cs show
+	cnoreabbrev csh cs help
+
+	"command -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
+endif"
 
 
 " /////////////////PLUGIN_OPTIONS////////////////////////////////////////////
@@ -541,6 +598,13 @@ set nowrap        " wrap lines
 		nmap <Leader>tt :TagbarToggle<CR>
 		nmap <Leader>tj <C-]>
 		nmap <Leader>tr <C-t>
+		nmap <Leader>tn :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+		" ReLoad cscope database
+		nmap <Leader>tl :cs kill -1<CR>:cs add cscope.out<CR>
+		" Find functions calling this function
+		nmap <Leader>tc :cs find c <C-R>=expand("<cword>")<CR><CR>
+		" Find functions called by this function
+		nmap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
 
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'Newtr' VIM built in Explorer
@@ -594,6 +658,15 @@ set nowrap        " wrap lines
 "		this downloads your _vimrc
 " 	- add ctags folder to path
 " 	- the latest vim folder should have the lua53.dll already inside
+" 	- Cscope:
+" 		- To create database:
+" 			- Win: 
+" 			add cscope.exe and sort.exe to PATH
+" 			do this command on root folder of files
+	" 			dir /b /s *.cpp *.h > cscope.files
+	" 			cscope -b
+" 			This will create the cscope.out
+" 			then in vim cs add <PATH to cscope.out>
 "
 " --------------------------
 
