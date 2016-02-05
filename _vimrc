@@ -7,7 +7,7 @@ if has('win32')
 	set ffs=dos
 	if has('gui_running')
 		set guifont=consolas:h8
-		colorscheme desert
+		"colorscheme desert
 		set guioptions-=T  " no toolbar
 	endif
 
@@ -31,6 +31,13 @@ if has('win32')
 	Plugin 'Tagbar'
 	Plugin 'juneedahamed/vc.vim' " SVN, GIT, HG, and BZR repo support
 	Plugin 'Raimondi/delimitMate' " AutoClose brackets, etc...
+	"Plugin 'Shougo/unite.vim' " quick file searchh
+	Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh
+	Plugin 'oblitum/rainbow' " braces coloring
+	Plugin 'morhetz/gruvbox' " colorscheme gruvbox 
+	"Plugin 'Yggdroot/indentLine' " colorscheme gruvbox 
+	Plugin 'nathanaelkane/vim-indent-guides' " colorscheme gruvbox 
+
 
 	" All of your Plugins must be added before the following line
 	call vundle#end()            " required
@@ -263,17 +270,32 @@ syntax on
 nmap - <Leader>ci
 vmap - <Leader>ci
 " on quickfix window go to line selected
-noremap <Leader>c :.cc<CR>
+noremap <Leader>qg :.cc<CR>
 " on quickfix close window
-noremap <Leader>cl :ccl<CR>
+noremap <Leader>ql :ccl<CR>
 " open quickfix window
-noremap <Leader>co :copen 20<CR>
+noremap <Leader>qo :copen 20<CR>
+
+"//////MISCELANEOUS MAPPINGS/////////////
 " edit vimrc on a new tab
-noremap <Leader>v :tabedit $MYVIMRC<CR>
+noremap <Leader>mv :tabedit $MYVIMRC<CR>
 " source current document(usually used with vimrc)
-noremap <Leader>s :so %<CR>
+noremap <Leader>ms :so %<CR>
+noremap <Leader>mn :noh<CR>
+" duplicate current char
+nnoremap <Leader>mp ylp
+" open explorer on current tab
+"lnoremap <Leader>op :e.<CR>
+" move to upper window
+noremap <Leader>mo <C-w>k
+" Switch back and forth between header file
+nnoremap <Leader>moh :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>"
+" Run current script
+nmap <Leader>mr :!%<CR>
+
+" ////////////////DIFF SUTFF///////////////
 " diff left and right window
-noremap <Leader>d :windo diffthis<CR>
+noremap <Leader>do :windo diffthis<CR>
 " diff go to next diff
 noremap <Leader>dn ]c
 " diff go to previous diff
@@ -285,17 +307,8 @@ noremap <Leader>du :diffput<CR>
 " close diff
 noremap <Leader>dl :diffoff!<CR> ZZ
 " off highlited search
-noremap <Leader>n :noh<CR>
-" duplicate current char
-nnoremap <Leader>p ylp
-" open explorer on current tab
-"lnoremap <Leader>op :e.<CR>
-" move to upper window
-noremap <Leader>o <C-w>k
-" Switch back and forth between header file
-nnoremap <Leader>oh :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>"
-" Run current script
-nmap <Leader>r :!%<CR>
+" ///////////////////////////////////////
+
 "///////////SPELL_CHECK////////////////
 " search forward
 nmap <Leader>sf ]s
@@ -607,9 +620,52 @@ endif"
 		nmap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
 
 " ///////////////////////////////////////////////////////////////////
+	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh
+		nmap <Leader>ao :CtrlP<CR>
+		nmap <Leader>am :CtrlPMRU<CR>
+		let g:ctrlp_by_filename = 0 " Search by filename as opposed to path
+		let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
+		set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
+		let g:ctrlp_custom_ignore = {
+			\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+			\ 'file': '\v\.(exe|so|dll|dfm)$',
+			\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+			\ }
+
+" ///////////////////////////////////////////////////////////////////
 	"Plugin 'Newtr' VIM built in Explorer
 		let g:netrw_sort_sequence='[\/]$,*,\.bak$,\.o$,\.h$,\.info$,\.swp$,\.obj$'
 		let g:netrw_localcopydircmd	="copy /-y"
+
+" ///////////////////////////////////////////////////////////////////
+	"Plugin 'oblitum/rainbow' " braces coloring
+		let g:rainbow_active = 1
+
+		"let g:rainbow_load_separately = [
+			"\ [ '*' , [['(', ')'], ['\[', '\]'], ['{', '}']] ],
+			"\ [ '*.tex' , [['(', ')'], ['\[', '\]']] ],
+			"\ [ '*.cpp' , [['(', ')'], ['\[', '\]'], ['{', '}']] ],
+			"\ [ '*.{html,htm}' , [['(', ')'], ['\[', '\]'], ['{', '}'], ['<\a[^>]*>', '</[^>]*>']] ],
+			"\ ]
+
+		"let g:rainbow_guifgs = ['RoyalBlue3', 'DarkOrange3', 'DarkOrchid3', 'FireBrick']
+		"let g:rainbow_ctermfgs = ['lightblue', 'lightgreen', 'lightyellow', 'red', 'magenta']
+	"Plugin 'morhetz/gruvbox' " colorscheme gruvbox 
+		colorscheme gruvbox
+		set background=dark    " Setting dark mode
+		set lazyredraw " Had to addit to speed up scrolling 
+		set ttyfast " Had to addit to speed up scrolling 
+
+" ///////////////////////////////////////////////////////////////////
+	"Plugin 'Yggdroot/indentLine' " colorscheme gruvbox 
+		"let g:indentLine_enabled = 1
+" ///////////////////////////////////////////////////////////////////
+	"Plugin 'nathanaelkane/vim-indent-guides' " colorscheme gruvbox 
+		let g:indent_guides_auto_colors = 1
+		let g:indent_guides_guide_size = 1
+		let g:indent_guides_start_level = 3
+		"autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
+		"autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4"
 " ///////////////////////////////////////////////////////////////////
 	" Deleted plugins
 	"Plugin 'justmao945/vim-clang'
@@ -624,8 +680,19 @@ endif"
 " M - jump cursor to middle of screen
 " L - jump cursor to end of screen
 " vib - visual mode select all inside ()
+" cib - even better
+" ci" - inner quotes
+" ci< - inner <>
+" :nmap shows all your normal mode mappings
+" :vmap shows all your visual mode mappings
+" :imap shows all your insert mode mappings
+" :map shows all mappings
 " <C-q> in windows Visual Block mode
 " <C-v> in linux Visual Block mode
+" A insert at end of line
+" To read output of a command use:
+"   	:read !<command>
+" Search for INdENTGUIDES to join braces with \
 " LUA Installation in windows:
 " 	download latest vim from DOWNLOAD VIM in bookmarks
 " 	Donwload lua windows binaries from the website for the architecture you
@@ -635,10 +702,6 @@ endif"
 " 		lua print("Hello, vim!")
 " 		this will tell you the error you are getting
 " 		last time wih only the lua53.dll fixed it
-" - To read output of a command use:
-"   	:read !<command>
-" C-] jumps to tag
-" A insert at end of line
 " Instructions to installing GVim on windows
 " 	- copy your vim Installation folder 
 " 	- install git
