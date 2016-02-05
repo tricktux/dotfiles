@@ -653,8 +653,6 @@ endif"
 	"Plugin 'morhetz/gruvbox' " colorscheme gruvbox 
 		colorscheme gruvbox
 		set background=dark    " Setting dark mode
-		set lazyredraw " Had to addit to speed up scrolling 
-		set ttyfast " Had to addit to speed up scrolling 
 
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'Yggdroot/indentLine' " colorscheme gruvbox 
@@ -664,6 +662,9 @@ endif"
 		let g:indent_guides_auto_colors = 1
 		let g:indent_guides_guide_size = 1
 		let g:indent_guides_start_level = 3
+		let g:indent_guides_faster = 1
+		set lazyredraw " Had to addit to speed up scrolling 
+		set ttyfast " Had to addit to speed up scrolling 
 		"autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
 		"autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4"
 " ///////////////////////////////////////////////////////////////////
