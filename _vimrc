@@ -33,6 +33,14 @@ if has('win32')
 	Plugin 'Raimondi/delimitMate' " AutoClose brackets, etc...
 	"Plugin 'Shougo/unite.vim' " quick file searchh
 	Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh
+		set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
+		let g:ctrlp_custom_ignore = {
+			\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+			\ 'file': '\v\.(exe|so|dll|dfm)$',
+			\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+			\ }
+		let g:ctrlp_user_command = ['.hg', 'for /f "tokens=1" %%a in (''hg root'') '
+			\ . 'do hg --cwd %s status -numac -I . %%a']           " Windows
 	Plugin 'oblitum/rainbow' " braces coloring
 	Plugin 'morhetz/gruvbox' " colorscheme gruvbox 
 	"Plugin 'Yggdroot/indentLine' " colorscheme gruvbox 
@@ -70,7 +78,7 @@ if has('unix')
 	if has('gui_running')
 		set guioptions-=T  " no toolbar
 		set guifont=Monospace\ 9
-		colorscheme desert
+		"colorscheme desert
 	endif
 	set ffs=unix
 	" Quick write session with F2
@@ -86,7 +94,7 @@ if has('unix')
 	Plugin 'scrooloose/nerdcommenter'
 	Plugin 'scrooloose/nerdtree'
 	Plugin 'chrisbra/vim-diff-enhanced'
-	Plugin 'fugitive.vim' "git plugin
+	"Plugin 'fugitive.vim' "git plugin
 	Plugin 'lervag/vimtex' " Latex support
 	Plugin 'taketwo/vim-ros'
 	Plugin 'bling/vim-airline' " Status bar line
@@ -94,6 +102,19 @@ if has('unix')
 	Plugin 'Shougo/neocomplete.vim'
 	Plugin 'Vim-R-plugin'
 	Plugin 'Tagbar'
+	Plugin 'juneedahamed/vc.vim' " SVN, GIT, HG, and BZR repo support
+	Plugin 'Raimondi/delimitMate' " AutoClose brackets, etc...
+	"Plugin 'Shougo/unite.vim' " quick file searchh
+	Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh
+		set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
+		let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+		let g:ctrlp_user_command =
+			\ ['.hg', 'hg --cwd %s status -numac -I . $(hg root)'] " MacOSX/Linux
+
+	Plugin 'oblitum/rainbow' " braces coloring
+	Plugin 'morhetz/gruvbox' " colorscheme gruvbox 
+	"Plugin 'Yggdroot/indentLine' " colorscheme gruvbox 
+	Plugin 'nathanaelkane/vim-indent-guides' " colorscheme gruvbox 
 
 	" All of your Plugins must be added before the following line
 	call vundle#end()            " required
@@ -623,14 +644,7 @@ endif"
 	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh
 		nmap <Leader>ao :CtrlP<CR>
 		nmap <Leader>am :CtrlPMRU<CR>
-		let g:ctrlp_by_filename = 0 " Search by filename as opposed to path
 		let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
-		set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
-		let g:ctrlp_custom_ignore = {
-			\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-			\ 'file': '\v\.(exe|so|dll|dfm)$',
-			\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
-			\ }
 
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'Newtr' VIM built in Explorer
