@@ -220,11 +220,6 @@ function! MyDiff()
 "endfunction
 "command LoadCscope call LoadCscope()"
 "////////////SET_OPTIONS///////////////////////////
-" LaTex Stuff
-set grepprg=grep\ -nH\ $*
-set sw=2
-set iskeyword+=:
-
 filetype plugin on   
 filetype indent on   
 
@@ -287,7 +282,10 @@ nnoremap <Leader>mp ylp
 " open explorer on current tab
 "lnoremap <Leader>op :e.<CR>
 " move to upper window
-noremap <Leader>mo <C-w>k
+noremap <Leader>mh <C-w>h
+noremap <Leader>mj <C-w>j
+noremap <Leader>mk <C-w>k
+noremap <Leader>ml <C-w>l
 " Switch back and forth between header file
 nnoremap <Leader>moh :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>"
 " Run current script
@@ -342,7 +340,7 @@ map <C-h> <C-w>h
 " move to right window 
 map <C-l> <C-w>l
 " move to lower window
-noremap <C-m> <C-w>j
+"noremap <C-m> <C-w>j
 " not paste the deleted word
 map <C-p> "0p
 " move current line up
@@ -406,7 +404,9 @@ nnoremap <F5> "=strftime("%c")<CR>P
 inoremap <F5> <C-R>=strftime("%c")<CR>
 "//////////SCROLLING//////////////
 noremap e <C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-Y>26k
+noremap <Leader>e 26k
 noremap d <C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e>26j
+noremap <Leader>dd 26j
 " Search for highlighted word
 vnoremap // y/<C-R>"<CR>
 inoremap <C-k> ->
