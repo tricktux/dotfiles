@@ -1,15 +1,14 @@
 set nocompatible
 filetype off                  " required
+" Change all mappings from <C- into <Leader>m except those of insert mode 
+" command line change cursor in Insert mode
+" fix paste and delete
 if has('win32')
+	" TODO: delete this and see results and install Console 2
 	source $VIMRUNTIME/vimrc_example.vim
 	source $VIMRUNTIME/mswin.vim
 	behave mswin
 	set ffs=dos
-	if has('gui_running')
-		set guifont=consolas:h8
-		"colorscheme desert
-		set guioptions-=T  " no toolbar
-	endif
 
 	"//////////////////Vundle Stuff for windows/////////////////////
 	" set the runtime path to include Vundle and initialize
@@ -24,7 +23,6 @@ if has('win32')
 	Plugin 'scrooloose/nerdtree'
 	Plugin 'scrooloose/nerdcommenter'
 	Plugin 'lervag/vimtex' " Latex support
-	"Plugin 'fugitive.vim'
 	Plugin 'bling/vim-airline'	" Status bar line
 	Plugin 'Vim-R-plugin'
 	Plugin 'Shougo/neocomplete.vim'
@@ -43,8 +41,7 @@ if has('win32')
 			\ . 'do hg --cwd %s status -numac -I . %%a']           " Windows
 	Plugin 'oblitum/rainbow' " braces coloring
 	Plugin 'morhetz/gruvbox' " colorscheme gruvbox 
-	"Plugin 'Yggdroot/indentLine' " colorscheme gruvbox 
-	Plugin 'nathanaelkane/vim-indent-guides' " colorscheme gruvbox 
+	Plugin 'nathanaelkane/vim-indent-guides' 
 
 
 	" All of your Plugins must be added before the following line
@@ -58,33 +55,42 @@ if has('win32')
 	"//////////////////////Specific settings for Windows///////////////
 	" Execute current R script in command line
 	" Quick write session with F2
-	map <F2> :mksession! C:\vim_sessions\
+	nnoremap <Leader>mz :mksession! C:\vim_sessions\
 	" And load session with F3
-	map <F3> :source C:\vim_sessions\
+	nnoremap <Leader>mx :source C:\vim_sessions\
 	" configure tags - add additional tags here or comment out not-used ones
 	set tags+=$HOME/vimfiles/tags/cpp
 	set tags+=$HOME/vimfiles/tags/tags
 	" sets path to cscope.exe 
 
+	"au BufEnter *.c *.cpp *.h *.hpp call LoadWinCscope()"
+	if has('gui_running')
+		set guifont=consolas:h8
+		"colorscheme desert
+		set guioptions-=T  " no toolbar
+		nnoremap <S-CR> o<Esc>
+	else
+		set t_Co=256
+		nnoremap <CR> o<Esc>
+	endif
+
+	" consistent in all systems
+	noremap <Leader>mq <C-q>
 	" for this to work you must be in the root directory of your code
 	" doesnt work dont know why created script for this
-	"nmap <F11> :!dir /b /s *.cpp *.h > cscope.files ;
-	"\:!cscope -b -i cscope.files -f cscope.out<CR>
-	"\:cs kill -1<CR>:cs add cscope.out<CR>
+	noremap <Leader>tu :!dir /b /s *.cpp *.h > cscope.files<CR> 
+	\:!cscope -b -i cscope.files -f cscope.out<CR>
+	\:cs kill -1<CR>:cs add cscope.out<CR>
+	\:!ctags -R --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
 
 endif
 
 if has('unix')
-	if has('gui_running')
-		set guioptions-=T  " no toolbar
-		set guifont=Monospace\ 9
-		"colorscheme desert
-	endif
 	set ffs=unix
 	" Quick write session with F2
-	map <F2> :mksession! /home/reinaldo/.vim/sessions/
+	nnoremap <Leader>mz :mksession! /home/reinaldo/.vim/sessions/
 	" And load session with F3
-	map <F3> :source /home/reinaldo/.vim/sessions/
+	nnoremap <Leader>mx :source /home/reinaldo/.vim/sessions/
 	" ///////////////VIM_VUNDLE_STUFF////////////////////////
 	" set the runtime path to include Vundle and initialize
 	set rtp+=~/.vim/bundle/Vundle.vim
@@ -113,36 +119,68 @@ if has('unix')
 
 	Plugin 'oblitum/rainbow' " braces coloring
 	Plugin 'morhetz/gruvbox' " colorscheme gruvbox 
-	"Plugin 'Yggdroot/indentLine' " colorscheme gruvbox 
-	Plugin 'nathanaelkane/vim-indent-guides' " colorscheme gruvbox 
+	Plugin 'nathanaelkane/vim-indent-guides' 
+	Plugin 'mattn/emmet-vim' " HTML fast code
+	" Track the engine.
+	Plugin 'SirVer/ultisnips'  	" Track the engine.
+		" Snippets are separated from the engine. Add this if you want them:
+		Plugin 'honza/vim-snippets'
+
+	"///////////////LH-CPP//////////////////"
+	"Plugin 'LucHermitte/lh-vim-lib'"
+	"Plugin 'LucHermitte/lh-tags'"
+	"Plugin 'LucHermitte/lh-dev'"
+	"Plugin 'LucHermitte/lh-brackets'"
+	"Plugin 'LucHermitte/searchInRuntime'"
+	"Plugin 'LucHermitte/mu-template'"
+	"Plugin 'tomtom/stakeholders_vim'"
+	"Plugin 'LucHermitte/lh-cpp'"
+	"//////////////////////////////////////
+
 
 	" All of your Plugins must be added before the following line
 	call vundle#end()            " required
 	" ////////////////////////////////////////////////////////
 	"///////////////////Specific settings for Unix////////////////////////
 	" This is to make it consistent with Windows making C-q be visual block mode now
-	noremap <C-q> <C-v>
+	noremap <Leader>mq <C-v>
 	" making C-v paste stuff from system register
-	noremap <C-v> "+p
+	noremap ,v "+p
 	autocmd BufNewFile,BufReadPost *.ino,*.pde setlocal ft=arduino
+	"au BufEnter *.c *.cpp *.h *.hpp :call LinuxLoadCscope()<CR>"
 	" configure tags - add additional tags here or comment out not-used ones
 	set tags+=~/.vim/tags/cpp
 	set tags+=~/.vim/tags/tags
 	set tags+=~/.vim/tags/copter
+	if has('gui_running')
+		set guioptions-=T  " no toolbar
+		set guifont=Monospace\ 9
+		nnoremap <S-CR> o<Esc>
+	else
+		set t_Co=256
+		nnoremap <CR> o<Esc>
+	endif
+	" Use a blinking upright bar cursor in Insert mode, a blinking block in normal
+	"if &term == 'xterm' || &term == 'screen-256color'"
+		"let &t_SI = "\<Esc>[5 q""
+		"let &t_EI = "\<Esc>[1 q""
+	"endif"
 
-	" this one below might work in linux
-	nmap <F11> :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files ;
-	\:!cscope -b -i cscope.files -f cscope.out<CR>
+	"if exists('$TMUX')"
+		"let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\""
+		"let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\""
+	"endif"
+
+	" this one below DOES WORK in linux just make sure is ran at root folder
+	noremap <Leader>tu :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files<CR>
+  	\:!cscope -b -i cscope.files -f cscope.out<CR>
 	\:cs kill -1<CR>:cs add cscope.out<CR>
-
+	\:!ctags -R --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
 endif
 
 "/////////////////////STUFF_FOR_BOTH_SYSTEMS///////////////////////
 	" Omni complete stuff
 	" build tags of your own project with Ctrl-F12
-	" TDOD: Need to fix this later with time
-	"map <C-F12> :!ctags -R<CR>
-	"map <C-F12> :!ctags -R --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
 
 	" OmniCppComplete
 	let OmniCpp_NamespaceSearch = 1
@@ -223,23 +261,31 @@ function! MyDiff()
    endif
  endfunction
 "////////////////////////////////////////////////////////
-"function LoadCscope()
-	"if (executable("cscope") && has("cscope"))
-		"let UpperPath = findfile("cscope.out", ".;")
-		"if (!empty(UpperPath))
-			"let path = strpart(UpperPath, 0, match(UpperPath, "cscope.out$") - 1)	
-			"if (!empty(path))
-				"let s:CurrentDir = getcwd()
-				"let direct = strpart(s:CurrentDir, 0, 2) 
-				"let s:FullPath = direct . path
-				"let s:AFullPath = globpath(s:FullPath, "cscope.out")
-				"let s:CscopeAddString = "cs add " . s:AFullPath . " " . s:FullPath 
-				"execute s:CscopeAddString 
-			"endif
-		"endif
-	"endif
-"endfunction
-"command LoadCscope call LoadCscope()"
+function! LinuxLoadCscope()
+  let db = findfile("cscope.out", ".;")
+  if (!empty(db))
+    let path = strpart(db, 0, match(db, "/cscope.out$"))
+    set nocscopeverbose " suppress 'duplicate connection' error
+    exe "cs add " . db . " " . path
+    set cscopeverbose
+  endif
+endfunction
+function! WinLoadCscope()
+	if (executable("cscope") && has("cscope"))
+		let UpperPath = findfile("cscope.out", ".;")
+		if (!empty(UpperPath))
+			let path = strpart(UpperPath, 0, match(UpperPath, "cscope.out$") - 1)	
+			if (!empty(path))
+				let s:CurrentDir = getcwd()
+				let direct = strpart(s:CurrentDir, 0, 2) 
+				let s:FullPath = direct . path
+				let s:AFullPath = globpath(s:FullPath, "cscope.out")
+				let s:CscopeAddString = "cs add " . s:AFullPath . " " . s:FullPath 
+				execute s:CscopeAddString 
+			endif
+		endif
+	endif
+endfunction
 "////////////SET_OPTIONS///////////////////////////
 filetype plugin on   
 filetype indent on   
@@ -281,10 +327,6 @@ set autochdir " working directory is always the same as the file you are editing
 " automatic syntax for *.scp
 autocmd! BufNewFile,BufRead *.scp set syntax=asm
 syntax on
-"////////////////////////////////////////////////////////
-" comment line uses plug in
-nmap - <Leader>ci
-vmap - <Leader>ci
 " on quickfix window go to line selected
 noremap <Leader>qg :.cc<CR>
 " on quickfix close window
@@ -297,16 +339,17 @@ noremap <Leader>qo :copen 20<CR>
 noremap <Leader>mv :tabedit $MYVIMRC<CR>
 " source current document(usually used with vimrc)
 noremap <Leader>ms :so %<CR>
+noremap <Leader>ma :w<CR> " used to save in command line 
 noremap <Leader>mn :noh<CR>
 " duplicate current char
 nnoremap <Leader>mp ylp
 " open explorer on current tab
 "lnoremap <Leader>op :e.<CR>
 " move to upper window
-noremap <Leader>mh <C-w>h
-noremap <Leader>mj <C-w>j
-noremap <Leader>mk <C-w>k
-noremap <Leader>ml <C-w>l
+noremap ,h <C-w>h
+noremap ,J <C-w>j
+noremap ,K <C-w>k
+noremap ,l <C-w>l
 " Switch back and forth between header file
 nnoremap <Leader>moh :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>"
 " Run current script
@@ -345,7 +388,6 @@ nmap <Leader>sw zw
 nmap <Leader>sr :spellr<CR>
 
 " Insert empty line below
-nnoremap <S-CR> o<Esc>
 " Substitute for ESC   
 nnoremap <Space> i <Esc> 
 " Normal backspace functionalit y
@@ -355,19 +397,13 @@ imap qq <Esc>
  " Substitute for ESC  
 vmap qq <Esc>
 " save all buffer s
-map <C-s> :w<CR>
-" move from left window
-map <C-h> <C-w>h
-" move to right window 
-map <C-l> <C-w>l
-" move to lower window
-"noremap <C-m> <C-w>j
+"map <C-s> :w<CR>"
 " not paste the deleted word
-map <C-p> "0p
+map ,p "0p
 " move current line up
-nnoremap <C-k> ddkk""p
+nnoremap ,k ddkk""p
 " move current line down
-noremap <C-j> dd""p
+noremap ,j dd""p
 " duplicate current line down
 map <S-q> yyp
 
@@ -392,9 +428,9 @@ noremap <S-b> ^
 nnoremap t %
 vnoremap t %
 " Close all
-nmap <C-x> :qall!<CR>
+nmap ,x :qall!<CR>
 " open new to tab to explorer
-nmap <C-n> :tab split<CR>
+nmap ,n :tab split<CR>
 " insert tab spaces in normal mode
 noremap <Tab> i<Tab><Esc>
 noremap <S-x> :tabclose<CR>
@@ -407,7 +443,7 @@ nnoremap gr :vimgrep <cword> %:p:h/*<CR> :copen 20<CR>
 " remaped search to s
 noremap s #
 " remaped delete to use it for scrolling
-noremap <C-d> d
+noremap ,d d
 	
 "//////////FOLDING//////////////
 " Folding select text then S-f to fold or just S-f to toggle folding
@@ -424,10 +460,11 @@ endif
 nnoremap <F5> "=strftime("%c")<CR>P
 inoremap <F5> <C-R>=strftime("%c")<CR>
 "//////////SCROLLING//////////////
-noremap e <C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-Y>26k
-noremap <Leader>e 26k
-noremap d <C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e>26j
-noremap <Leader>dd 26j
+"noremap e <C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-Y>26k"
+"noremap <Leader>e 26k"
+noremap e 26k
+"noremap d <C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e>26j"
+noremap d 26j
 " Search for highlighted word
 vnoremap // y/<C-R>"<CR>
 inoremap <C-k> ->
@@ -435,8 +472,6 @@ set nowrap        " wrap lines
 " will look in current directory for tags
 " THE BEST FEATURE I'VE ENCOUNTERED SO FAR OF VIM
 " CAN BELIEVE I DIDNT DO THIS BEFORE
-" To crete tags do ctags -R on highest folder
-" need to inverstigate why F12 to create tags not working
 set tags+=.\tags;\
 
 if has('cscope')
@@ -457,6 +492,16 @@ if has('cscope')
 	cnoreabbrev css cs show
 	cnoreabbrev csh cs help
 
+	if &filetype=="cpp" || &filetype=="c"|| &filetype=="hpp"|| &filetype=="h"
+		if filereadable("cscope.out")
+				cs add cscope.out
+				" else add database pointed to by environment
+		elseif $CSCOPE_DB != ""
+			cs kill -1 " in case was loaded before
+			cs add $CSCOPE_DB
+		endif
+	endif
+
 	"command -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
 endif"
 
@@ -473,13 +518,29 @@ endif"
 		" confirms removal of unused plugins; append `!` to auto-approve removal
 		"
 		" see :h vundle for more details or wiki for FAQ
+
+" /////////////////PLUGIN_OPTIONS////////////////////////////////////////////
 	"Plugin 'scrooloose/nerdcommenter'
 		let NERDCommentWholeLinesInVMode=2
+		let NERDCreateDefaultMappings=0 " Eliminate default mappings
+		let NERDRemoveAltComs=0 " Do not use alt comments /*
+		let NERDMenuMode=0 " no menu
+		let g:NERDCustomDelimiters = {
+			\ 'vim': { 'left': '"', 'right': '"' }}
+			"\ 'vim': { 'left': '"', 'right': '' }
+			"\ 'grondle': { 'left': '{{', 'right': '}}' }
+		"\ }
+		nmap - <plug>NERDCommenterToggle
+		vmap - <plug>NERDCommenterToggle
+		imap <C-c> <plug>NERDCommenterInsert
+		nmap <Leader>ca <plug>NERDCommenterAppend
+		nmap <Leader>cy <plug>NERDCommenterYank
+		nmap <Leader>cw <plug>NERDCommenterToEOL
 	"Plugin 'scrooloose/NERDTree'
 		nmap <Leader>nb :Bookmark 
-		let NERDTreeShowBookmarks=1  " B key to toogle
+		let NERDTreeShowBookmarks=1  " B key to toggle
 		nmap <Leader>no :NERDTree<CR>
-		let NERDTreeShowHidden=1 " i key to toogle
+		let NERDTreeShowHidden=1 " i key to toggle
 		let NERDTreeMapJumpLastChild=',j' 
 		let NERDTreeMapJumpFirstChild=',k' 
 		let NERDTreeMapOpenExpl=',e' 
@@ -489,6 +550,9 @@ endif"
 		noremap <Leader>va :VCAdd<CR>
 		noremap <Leader>vc :VCCommit<CR> 
 		noremap <Leader>vp :VCPush<CR> 
+		noremap <Leader>ga :!git add %<CR>
+		noremap <Leader>gc :!git commit -m "
+		noremap <Leader>gp :!git push origin master<CR> 
 		"typical order also depends where you are pushing
 		noremap <Leader>vd :VCDiff<CR> 
 		noremap <Leader>vl :VCLog<Space>
@@ -634,11 +698,16 @@ endif"
 		nmap <Leader>tr <C-t>
 		nmap <Leader>tn :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 		" ReLoad cscope database
-		nmap <Leader>tl :cs kill -1<CR>:cs add cscope.out<CR>
+		if has('unix')
+			noremap <Leader>tl :call LinuxLoadCscope()<CR>
+		else
+			noremap <Leader>tl :call WinLoadCscope()<CR>
+		endif
 		" Find functions calling this function
 		nmap <Leader>tc :cs find c <C-R>=expand("<cword>")<CR><CR>
 		" Find functions called by this function
 		nmap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
+		nmap <Leader>ts :cs show<CR>
 
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh
@@ -664,15 +733,13 @@ endif"
 
 		"let g:rainbow_guifgs = ['RoyalBlue3', 'DarkOrange3', 'DarkOrchid3', 'FireBrick']
 		"let g:rainbow_ctermfgs = ['lightblue', 'lightgreen', 'lightyellow', 'red', 'magenta']
-	"Plugin 'morhetz/gruvbox' " colorscheme gruvbox 
-		colorscheme gruvbox
-		set background=dark    " Setting dark mode
 
 " ///////////////////////////////////////////////////////////////////
-	"Plugin 'Yggdroot/indentLine' " colorscheme gruvbox 
-		"let g:indentLine_enabled = 1
+	"Plugin 'Yggdroot/indentLine' " shows line indents
+		let g:indentLine_enabled = 1
+
 " ///////////////////////////////////////////////////////////////////
-	"Plugin 'nathanaelkane/vim-indent-guides' " colorscheme gruvbox 
+	"Plugin 'nathanaelkane/vim-indent-guides' 
 		let g:indent_guides_auto_colors = 1
 		let g:indent_guides_guide_size = 1
 		let g:indent_guides_start_level = 3
@@ -682,9 +749,46 @@ endif"
 		"autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
 		"autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4"
 " ///////////////////////////////////////////////////////////////////
+		"Plugin 'morhetz/gruvbox' " colorscheme gruvbox 
+			colorscheme gruvbox
+			set background=dark    " Setting dark mode
+" ///////////////////////////////////////////////////////////////////
+	"Plugin 'SirVer/ultisnips'  	" Track the engine.
+	" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+		let g:UltiSnipsExpandTrigger="<nop>"
+		let g:UltiSnipsJumpForwardTrigger="<c-b>"
+		let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+		" makes possible the use of CR to enter snippet 
+		let g:ulti_expand_or_jump_res = 0
+		function! ExpandSnippetOrCarriageReturn()
+			let snippet = UltiSnips#ExpandSnippetOrJump()
+			if g:ulti_expand_or_jump_res > 0
+				return snippet
+			else
+				return "\<CR>"
+			endif
+		endfunction
+		inoremap <expr> <CR> pumvisible() ? "<C-R>=ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
+		""""""""""""""""""""""""""""""""""""""""""""""""""
+		" If you want :UltiSnipsEdit to split your window.
+		"let g:UltiSnipsEditSplit="vertical""
+"//////////////////////////////////////////////////////////////////////////////////////////
+	"Plugin 'mattn/emmet-vim' [> HTML fast code"
+		let g:user_emmet_settings = {
+		\  'php' : {
+		\    'extends' : 'html',
+		\    'filters' : 'c',
+		\  },
+		\  'xml' : {
+		\    'extends' : 'html',
+		\  },
+		\  'haml' : {
+		\    'extends' : 'html',
+		\  },
+		\}
+"//////////////////////////////////////////////////////////////////////////////////////////
 	" Deleted plugins
 	"Plugin 'justmao945/vim-clang'
-"//////////////////////////////////////////////////////////////////////////////////////////
 "/////////////////////////////////MISC NOTES/////////////////////////////////////////////
 "useful command to convert all , into new lines
 	":%s,/\r/g  
@@ -702,11 +806,15 @@ endif"
 " :vmap shows all your visual mode mappings
 " :imap shows all your insert mode mappings
 " :map shows all mappings
+" :mapclear Clears all mappings then do :so % 
 " <C-q> in windows Visual Block mode
 " <C-v> in linux Visual Block mode
 " A insert at end of line
 " To read output of a command use:
 "   	:read !<command>
+" Create vim log run vim with command:
+"	vim -V9myVimLog
+" When using <plug> do a :nmap and make sure your option is listed, usually at the end
 " Search for INdENTGUIDES to join braces with \
 " LUA Installation in windows:
 " 	download latest vim from DOWNLOAD VIM in bookmarks
@@ -745,6 +853,11 @@ endif"
 	" 			cscope -b
 " 			This will create the cscope.out
 " 			then in vim cs add <PATH to cscope.out>
+"			- Linux:
+"			download latest
+"			./configure
+"			make
+"			sudo make install
 "
 " --------------------------
 
