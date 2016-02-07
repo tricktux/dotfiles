@@ -82,6 +82,7 @@ if has('win32')
 	\:!cscope -b -i cscope.files -f cscope.out<CR>
 	\:cs kill -1<CR>:cs add cscope.out<CR>
 	\:!ctags -R --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
+	noremap <Leader>mr :!%<CR>
 
 endif
 
@@ -176,6 +177,8 @@ if has('unix')
   	\:!cscope -b -i cscope.files -f cscope.out<CR>
 	\:cs kill -1<CR>:cs add cscope.out<CR>
 	\:!ctags -R --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
+	nmap <Leader>mr :!./%<CR>
+
 endif
 
 "/////////////////////STUFF_FOR_BOTH_SYSTEMS///////////////////////
@@ -353,7 +356,6 @@ noremap ,l <C-w>l
 " Switch back and forth between header file
 nnoremap <Leader>moh :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>"
 " Run current script
-nmap <Leader>mr :!%<CR>
 
 " ////////////////DIFF SUTFF///////////////
 " diff left and right window
@@ -439,11 +441,10 @@ noremap <S-x> :tabclose<CR>
 " to download vim-easygrep its a lot better 
 nnoremap gr :vimgrep <cword> %:p:h/*<CR> :copen 20<CR>
 " nnoremap gr :vimgrep <cword>/".input("Replace with: ")" %:p:h/*<CR> :copen 20<CR>
-
-" remaped search to s
-noremap s #
+" remaped search to f
+noremap f #
 " remaped delete to use it for scrolling
-noremap ,d d
+"noremap ,d d"
 	
 "//////////FOLDING//////////////
 " Folding select text then S-f to fold or just S-f to toggle folding
@@ -464,7 +465,7 @@ inoremap <F5> <C-R>=strftime("%c")<CR>
 "noremap <Leader>e 26k"
 noremap e 26k
 "noremap d <C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e>26j"
-noremap d 26j
+noremap s 26j
 " Search for highlighted word
 vnoremap // y/<C-R>"<CR>
 inoremap <C-k> ->
@@ -858,6 +859,9 @@ endif"
 "			./configure
 "			make
 "			sudo make install
+" Installin vim in unix:
+"	- Download vim_source_install.sh from drive
+"	- run. done
 "
 " --------------------------
 
