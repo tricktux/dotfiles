@@ -234,7 +234,8 @@ noremap <Leader>qo :copen 20<CR>
 noremap <Leader>mv :tabedit $MYVIMRC<CR>
 " source current document(usually used with vimrc)
 noremap <Leader>ms :so %<CR>
-noremap <Leader>ma :w<CR> " used to save in command line 
+ " used to save in command line 
+noremap <Leader>ma :w<CR>
 noremap <Leader>mn :noh<CR>
 " duplicate current char
 nnoremap <Leader>mp ylp
@@ -429,6 +430,7 @@ endif
 		let NERDTreeMapJumpLastChild=',j' 
 		let NERDTreeMapJumpFirstChild=',k' 
 		let NERDTreeMapOpenExpl=',e' 
+		let NERDTreeMapOpenVSplit=',s'
         let NERDTreeQuitOnOpen=1 " AutoClose after openning file
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'vc.vim' "version control plugin
@@ -728,6 +730,10 @@ endif
 "		- it intalls to ~/AppData/Local/Programs/Python/Python35/
 "		- if didnt select option to add to path do it.
 "		- copy DLL from previous path.
+"		- this works on 64 bit systems
+"		////////////////
+"		- 32 bit: Download and install python 2.7.9 for 32-bit
+"		- copy DLL from Windosws/System32/python27.dll
 " Installin vim in unix:
 "	- Download vim_source_install.sh from drive
 "	- run. done
