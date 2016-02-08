@@ -42,6 +42,11 @@ if has('win32')
 	Plugin 'oblitum/rainbow' " braces coloring
 	Plugin 'morhetz/gruvbox' " colorscheme gruvbox 
 	Plugin 'nathanaelkane/vim-indent-guides' 
+	Plugin 'mattn/emmet-vim' " HTML fast code
+	" Track the engine.
+	Plugin 'SirVer/ultisnips'  	" Track the engine.
+		" Snippets are separated from the engine. Add this if you want them:
+		Plugin 'honza/vim-snippets'
 
 
 	" All of your Plugins must be added before the following line
@@ -826,6 +831,7 @@ endif"
 " 		lua print("Hello, vim!")
 " 		this will tell you the error you are getting
 " 		last time wih only the lua53.dll fixed it
+" 		or just look through the :ver output to see what DLL is expecting
 " Instructions to installing GVim on windows
 " 	- copy your vim Installation folder 
 " 	- install git
