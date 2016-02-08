@@ -1,64 +1,14 @@
 set nocompatible
 filetype off                  " required
-" Change all mappings from <C- into <Leader>m except those of insert mode 
-" command line change cursor in Insert mode
-" fix paste and delete
+let mapleader=";" " moved here otherwise conditional mappings get / instead ; as leader 
+let maplocalleader=";"
 if has('win32')
-	" TODO: delete this and see results and install Console 2
 	source $VIMRUNTIME/vimrc_example.vim
 	source $VIMRUNTIME/mswin.vim
 	behave mswin
 	set ffs=dos
 
-	"//////////////////Vundle Stuff for windows/////////////////////
-	" set the runtime path to include Vundle and initialize
-	set rtp+=$HOME/vimfiles/bundle/Vundle.vim/
-	call vundle#begin('$HOME/vimfiles/bundle/')
-	" alternatively, pass a path where Vundle should install plugins
-	"call vundle#begin('~/some/path/here')
 
-	" let Vundle manage Vundle, required
-	Plugin 'VundleVim/Vundle.vim'
-	Plugin 'chrisbra/vim-diff-enhanced'
-	Plugin 'scrooloose/nerdtree'
-	Plugin 'scrooloose/nerdcommenter'
-	Plugin 'lervag/vimtex' " Latex support
-	Plugin 'bling/vim-airline'	" Status bar line
-	Plugin 'Vim-R-plugin'
-	Plugin 'Shougo/neocomplete.vim'
-	Plugin 'Tagbar'
-	Plugin 'juneedahamed/vc.vim' " SVN, GIT, HG, and BZR repo support
-	Plugin 'Raimondi/delimitMate' " AutoClose brackets, etc...
-	"Plugin 'Shougo/unite.vim' " quick file searchh
-	Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh
-		set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
-		let g:ctrlp_custom_ignore = {
-			\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-			\ 'file': '\v\.(exe|so|dll|dfm)$',
-			\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
-			\ }
-		let g:ctrlp_user_command = ['.hg', 'for /f "tokens=1" %%a in (''hg root'') '
-			\ . 'do hg --cwd %s status -numac -I . %%a']           " Windows
-	Plugin 'oblitum/rainbow' " braces coloring
-	Plugin 'morhetz/gruvbox' " colorscheme gruvbox 
-	Plugin 'nathanaelkane/vim-indent-guides' 
-	Plugin 'mattn/emmet-vim' " HTML fast code
-	" Track the engine.
-	Plugin 'SirVer/ultisnips'  	" Track the engine.
-		" Snippets are separated from the engine. Add this if you want them:
-		Plugin 'honza/vim-snippets'
-
-
-	" All of your Plugins must be added before the following line
-	call vundle#end()            " required
-	" To ignore plugin indent changes, instead use:
-	"filetype plugin on
-	"
-	" Brief help
-	" Put your non-Plugin stuff after this line
-	"///////////////////////////////////////////////////////////////////
-	"//////////////////////Specific settings for Windows///////////////
-	" Execute current R script in command line
 	" Quick write session with F2
 	nnoremap <Leader>mz :mksession! C:\vim_sessions\
 	" And load session with F3
@@ -88,72 +38,33 @@ if has('win32')
 	\:cs kill -1<CR>:cs add cscope.out<CR>
 	\:!ctags -R --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
 	noremap <Leader>mr :!%<CR>
+	noremap ,v "*p
+
+	"//////////////////Vundle Stuff for windows/////////////////////
+	" set the runtime path to include Vundle and initialize
+	set rtp+=$HOME/vimfiles/bundle/Vundle.vim/
+	call vundle#begin('$HOME/vimfiles/bundle/')
+	" alternatively, pass a path where Vundle should install plugins
+	"call vundle#begin('~/some/path/here')
+	"Plugin 'ctrlpvim/ctrlp.vim' [> quick file searchh"
+		set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
+		let g:ctrlp_custom_ignore = {
+			\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+			\ 'file': '\v\.(exe|so|dll|dfm)$',
+			\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+			\ }
+		let g:ctrlp_user_command = ['.hg', 'for /f "tokens=1" %%a in (''hg root'') '
+			\ . 'do hg --cwd %s status -numac -I . %%a']           " Windows
 
 endif
 
 if has('unix')
 	set ffs=unix
-	" Quick write session with F2
 	nnoremap <Leader>mz :mksession! /home/reinaldo/.vim/sessions/
-	" And load session with F3
 	nnoremap <Leader>mx :source /home/reinaldo/.vim/sessions/
-	" ///////////////VIM_VUNDLE_STUFF////////////////////////
-	" set the runtime path to include Vundle and initialize
-	set rtp+=~/.vim/bundle/Vundle.vim
-	call vundle#begin()
-
-	Plugin 'VundleVim/Vundle.vim'
-	Plugin 'scrooloose/nerdcommenter'
-	Plugin 'scrooloose/nerdtree'
-	Plugin 'chrisbra/vim-diff-enhanced'
-	"Plugin 'fugitive.vim' "git plugin
-	Plugin 'lervag/vimtex' " Latex support
-	Plugin 'taketwo/vim-ros'
-	Plugin 'bling/vim-airline' " Status bar line
-	Plugin 'file:///home/reinaldo/.vim/bundle/vim-hardy' "Arduino
-	Plugin 'Shougo/neocomplete.vim'
-	Plugin 'Vim-R-plugin'
-	Plugin 'Tagbar'
-	Plugin 'juneedahamed/vc.vim' " SVN, GIT, HG, and BZR repo support
-	Plugin 'Raimondi/delimitMate' " AutoClose brackets, etc...
-	"Plugin 'Shougo/unite.vim' " quick file searchh
-	Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh
-		set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
-		let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-		let g:ctrlp_user_command =
-			\ ['.hg', 'hg --cwd %s status -numac -I . $(hg root)'] " MacOSX/Linux
-
-	Plugin 'oblitum/rainbow' " braces coloring
-	Plugin 'morhetz/gruvbox' " colorscheme gruvbox 
-	Plugin 'nathanaelkane/vim-indent-guides' 
-	Plugin 'mattn/emmet-vim' " HTML fast code
-	" Track the engine.
-	Plugin 'SirVer/ultisnips'  	" Track the engine.
-		" Snippets are separated from the engine. Add this if you want them:
-		Plugin 'honza/vim-snippets'
-
-	"///////////////LH-CPP//////////////////"
-	"Plugin 'LucHermitte/lh-vim-lib'"
-	"Plugin 'LucHermitte/lh-tags'"
-	"Plugin 'LucHermitte/lh-dev'"
-	"Plugin 'LucHermitte/lh-brackets'"
-	"Plugin 'LucHermitte/searchInRuntime'"
-	"Plugin 'LucHermitte/mu-template'"
-	"Plugin 'tomtom/stakeholders_vim'"
-	"Plugin 'LucHermitte/lh-cpp'"
-	"//////////////////////////////////////
-
-
-	" All of your Plugins must be added before the following line
-	call vundle#end()            " required
-	" ////////////////////////////////////////////////////////
-	"///////////////////Specific settings for Unix////////////////////////
-	" This is to make it consistent with Windows making C-q be visual block mode now
 	noremap <Leader>mq <C-v>
 	" making C-v paste stuff from system register
-	noremap ,v "+p
 	autocmd BufNewFile,BufReadPost *.ino,*.pde setlocal ft=arduino
-	"au BufEnter *.c *.cpp *.h *.hpp :call LinuxLoadCscope()<CR>"
 	" configure tags - add additional tags here or comment out not-used ones
 	set tags+=~/.vim/tags/cpp
 	set tags+=~/.vim/tags/tags
@@ -166,27 +77,53 @@ if has('unix')
 		set t_Co=256
 		nnoremap <CR> o<Esc>
 	endif
-	" Use a blinking upright bar cursor in Insert mode, a blinking block in normal
-	"if &term == 'xterm' || &term == 'screen-256color'"
-		"let &t_SI = "\<Esc>[5 q""
-		"let &t_EI = "\<Esc>[1 q""
-	"endif"
-
-	"if exists('$TMUX')"
-		"let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\""
-		"let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\""
-	"endif"
-
 	" this one below DOES WORK in linux just make sure is ran at root folder
 	noremap <Leader>tu :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files<CR>
   	\:!cscope -b -i cscope.files -f cscope.out<CR>
 	\:cs kill -1<CR>:cs add cscope.out<CR>
 	\:!ctags -R --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
 	nmap <Leader>mr :!./%<CR>
+	noremap ,v "+p
+
+	" ///////////////VIM_VUNDLE_STUFF////////////////////////
+	" set the runtime path to include Vundle and initialize
+	set rtp+=~/.vim/bundle/Vundle.vim
+	call vundle#begin()
+	"Plugin 'ctrlpvim/ctrlp.vim' [> quick file searchh"
+		set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
+		let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+		let g:ctrlp_user_command =
+			\ ['.hg', 'hg --cwd %s status -numac -I . $(hg root)'] " MacOSX/Linux
+	Plugin 'file:///home/reinaldo/.vim/bundle/vim-hardy' "Arduino
 
 endif
 
 "/////////////////////STUFF_FOR_BOTH_SYSTEMS///////////////////////
+"/////////////////////PLUGINS_FOR_BOTH_SYSTEMS///////////////////////
+	" let Vundle manage Vundle, required
+	Plugin 'VundleVim/Vundle.vim'
+	Plugin 'chrisbra/vim-diff-enhanced'
+	Plugin 'scrooloose/nerdtree'
+	Plugin 'scrooloose/nerdcommenter'
+	Plugin 'lervag/vimtex' " Latex support
+	Plugin 'bling/vim-airline'	" Status bar line
+	Plugin 'Vim-R-plugin'
+	Plugin 'Shougo/neocomplete.vim'
+	Plugin 'Tagbar'
+	Plugin 'juneedahamed/vc.vim' " SVN, GIT, HG, and BZR repo support
+	Plugin 'Raimondi/delimitMate' " AutoClose brackets, etc...
+	Plugin 'junegunn/rainbow_parentheses.vim'
+	Plugin 'morhetz/gruvbox' " colorscheme gruvbox 
+	Plugin 'nathanaelkane/vim-indent-guides' 
+	Plugin 'mattn/emmet-vim' " HTML fast code
+	" Track the engine.
+	Plugin 'SirVer/ultisnips'  	" Track the engine.
+		" Snippets are separated from the engine. Add this if you want them:
+		Plugin 'honza/vim-snippets'
+
+
+	" All of your Plugins must be added before the following line
+	call vundle#end()            " required
 	" Omni complete stuff
 	" build tags of your own project with Ctrl-F12
 
@@ -237,69 +174,18 @@ function! GuiTabLabel()
 endfunction
 set guitablabel=%{GuiTabLabel()}
 "////////////////////////////////////////////////////////
+function! SetCppOptions()
+	setlocal omnifunc=omni#cpp#complete#Main
+	IndentGuidesToggle
+	RainbowParentheses
+endfunction
 "///////////////////FUNCTION_FOR_DIFF///////////////////
 set diffexpr=
-"MyDiff()
-function! MyDiff()
-   let opt = '-a --binary '
-   if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-   if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-   let arg1 = v:fname_in
-   if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-   let arg2 = v:fname_new
-   if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-   let arg3 = v:fname_out
-   if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-   if $VIMRUNTIME =~ ' '
-     if &sh =~ '\<cmd'
-       if empty(&shellxquote)
-         let l:shxq_sav = ''
-         set shellxquote&
-       endif
-       let cmd = '"' . $VIMRUNTIME . '\diff"'
-     else
-       let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
-     endif
-   else
-     let cmd = $VIMRUNTIME . '\diff'
-   endif
-   silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3
-   if exists('l:shxq_sav')
-     let &shellxquote=l:shxq_sav
-   endif
- endfunction
 "////////////////////////////////////////////////////////
-function! LinuxLoadCscope()
-  let db = findfile("cscope.out", ".;")
-  if (!empty(db))
-    let path = strpart(db, 0, match(db, "/cscope.out$"))
-    set nocscopeverbose " suppress 'duplicate connection' error
-    exe "cs add " . db . " " . path
-    set cscopeverbose
-  endif
-endfunction
-function! WinLoadCscope()
-	if (executable("cscope") && has("cscope"))
-		let UpperPath = findfile("cscope.out", ".;")
-		if (!empty(UpperPath))
-			let path = strpart(UpperPath, 0, match(UpperPath, "cscope.out$") - 1)	
-			if (!empty(path))
-				let s:CurrentDir = getcwd()
-				let direct = strpart(s:CurrentDir, 0, 2) 
-				let s:FullPath = direct . path
-				let s:AFullPath = globpath(s:FullPath, "cscope.out")
-				let s:CscopeAddString = "cs add " . s:AFullPath . " " . s:FullPath 
-				execute s:CscopeAddString 
-			endif
-		endif
-	endif
-endfunction
 "////////////SET_OPTIONS///////////////////////////
 filetype plugin on   
 filetype indent on   
 
-let mapleader=";"
-let maplocalleader=";"
 "set spell spelllang=en_us
 set nospell
 " save marks 
@@ -352,12 +238,27 @@ noremap <Leader>mn :noh<CR>
 " duplicate current char
 nnoremap <Leader>mp ylp
 " open explorer on current tab
-"lnoremap <Leader>op :e.<CR>
+" all the ctrl to , mappings
 " move to upper window
 noremap ,h <C-w>h
 noremap ,J <C-w>j
 noremap ,K <C-w>k
 noremap ,l <C-w>l
+" not paste the deleted word
+nmap ,p "0p
+" move current line up
+nnoremap ,k ddkk""p
+" move current line down
+noremap ,j dd""p
+" Close all
+nmap ,x :qall!<CR>
+" open new to tab to explorer
+nmap ,n :tab split<CR>
+" previous cursor position
+nmap ,e <c-o>
+" next cursor position
+"nmap ,s <c-i>" this is never going to work because you cant separate tab and
+"c-i
 " Switch back and forth between header file
 nnoremap <Leader>moh :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>"
 " Run current script
@@ -405,12 +306,6 @@ imap qq <Esc>
 vmap qq <Esc>
 " save all buffer s
 "map <C-s> :w<CR>"
-" not paste the deleted word
-map ,p "0p
-" move current line up
-nnoremap ,k ddkk""p
-" move current line down
-noremap ,j dd""p
 " duplicate current line down
 map <S-q> yyp
 
@@ -434,12 +329,8 @@ noremap <S-b> ^
 " jump to corresponding item<Leader> ending {,(, etc..
 nnoremap t %
 vnoremap t %
-" Close all
-nmap ,x :qall!<CR>
-" open new to tab to explorer
-nmap ,n :tab split<CR>
 " insert tab spaces in normal mode
-noremap <Tab> i<Tab><Esc>
+nmap <Tab> i<Tab><Esc>
 noremap <S-x> :tabclose<CR>
 
 " This is a very good to show and search all current but a much better is 
@@ -466,11 +357,8 @@ endif
 nnoremap <F5> "=strftime("%c")<CR>P
 inoremap <F5> <C-R>=strftime("%c")<CR>
 "//////////SCROLLING//////////////
-"noremap e <C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-Y>26k"
-"noremap <Leader>e 26k"
-noremap e 26k
-"noremap d <C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e>26j"
-noremap s 26j
+map e 26k
+map s 26j
 " Search for highlighted word
 vnoremap // y/<C-R>"<CR>
 inoremap <C-k> ->
@@ -588,11 +476,6 @@ endif"
 		let g:vimtex_toc_enabled=1
 		let g:vimtex_index_show_help=1
 " ///////////////////////////////////////////////////////////////////
-	"Plugin 'xuhdev/vim-latex-live-preview'
-		"autocmd Filetype tex setl updatetime=1000
-		"let g:livepreview_previewer = 'okular'
-		" LLPStartPreview
-" ///////////////////////////////////////////////////////////////////
 	"Plugin 'bling/vim-airline' " Status bar line
 		set laststatus=2
 " ///////////////////////////////////////////////////////////////////
@@ -600,15 +483,6 @@ endif"
 		if has('unix')
 			let g:hardy_arduino_path='/home/reinaldo/Downloads/arduino-1.6.5-r5/arduino'
 		endif
-" ///////////////////////////////////////////////////////////////////
-	"Plugin 'Valloric/YouCompleteMe'  "Smart autocomplete
-	" Installation instructions:
-	"	run ~/Google Drive/scripts/install_software/vim_ycm.sh
-	"let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-
-	" potential plugins
-	"Plugin 'scrooloose/syntastic'
-	"Plugin 'vim-scripts/UltiSnips'
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'Shougo/neocomplete.vim'
 		"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
@@ -670,7 +544,8 @@ endif"
 		autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 		autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 		autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-		autocmd FileType cpp setlocal omnifunc=omni#cpp#complete#Main
+		autocmd FileType cpp call SetCppOptions()
+		
 
 		" Enable heavy omni completion.
 		if !exists('g:neocomplete#sources#omni#input_patterns')
@@ -700,15 +575,12 @@ endif"
 	"Plugin 'Tagbar'
         let g:tagbar_autofocus = 1
 		nmap <Leader>tt :TagbarToggle<CR>
+		nmap <Leader>tk :cs kill -1<CR>
 		nmap <Leader>tj <C-]>
 		nmap <Leader>tr <C-t>
 		nmap <Leader>tn :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 		" ReLoad cscope database
-		if has('unix')
-			noremap <Leader>tl :call LinuxLoadCscope()<CR>
-		else
-			noremap <Leader>tl :call WinLoadCscope()<CR>
-		endif
+		noremap <Leader>tl :cs add $CSCOPE_DB<CR>
 		" Find functions calling this function
 		nmap <Leader>tc :cs find c <C-R>=expand("<cword>")<CR><CR>
 		" Find functions called by this function
@@ -727,24 +599,6 @@ endif"
 		let g:netrw_localcopydircmd	="copy /-y"
 
 " ///////////////////////////////////////////////////////////////////
-	"Plugin 'oblitum/rainbow' " braces coloring
-		let g:rainbow_active = 1
-
-		"let g:rainbow_load_separately = [
-			"\ [ '*' , [['(', ')'], ['\[', '\]'], ['{', '}']] ],
-			"\ [ '*.tex' , [['(', ')'], ['\[', '\]']] ],
-			"\ [ '*.cpp' , [['(', ')'], ['\[', '\]'], ['{', '}']] ],
-			"\ [ '*.{html,htm}' , [['(', ')'], ['\[', '\]'], ['{', '}'], ['<\a[^>]*>', '</[^>]*>']] ],
-			"\ ]
-
-		"let g:rainbow_guifgs = ['RoyalBlue3', 'DarkOrange3', 'DarkOrchid3', 'FireBrick']
-		"let g:rainbow_ctermfgs = ['lightblue', 'lightgreen', 'lightyellow', 'red', 'magenta']
-
-" ///////////////////////////////////////////////////////////////////
-	"Plugin 'Yggdroot/indentLine' " shows line indents
-		let g:indentLine_enabled = 1
-
-" ///////////////////////////////////////////////////////////////////
 	"Plugin 'nathanaelkane/vim-indent-guides' 
 		let g:indent_guides_auto_colors = 1
 		let g:indent_guides_guide_size = 1
@@ -758,6 +612,13 @@ endif"
 		"Plugin 'morhetz/gruvbox' " colorscheme gruvbox 
 			colorscheme gruvbox
 			set background=dark    " Setting dark mode
+" ///////////////////////////////////////////////////////////////////
+	"Plug 'junegunn/rainbow_parentheses.vim'
+		let g:rainbow#max_level = 16
+		let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
+
+		" List of colors that you do not want. ANSI code or #RRGGBB
+		let g:rainbow#blacklist = [233, 234]
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'SirVer/ultisnips'  	" Track the engine.
 	" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
@@ -822,6 +683,9 @@ endif"
 "	vim -V9myVimLog
 " When using <plug> do a :nmap and make sure your option is listed, usually at the end
 " Search for INdENTGUIDES to join braces with \
+" use :verbose map <c-i> to understand mappings
+" use z. to make current line center of screen
+" use c-w+<H,J,K,L> to swap windows around
 " LUA Installation in windows:
 " 	download latest vim from DOWNLOAD VIM in bookmarks
 " 	Donwload lua windows binaries from the website for the architecture you
@@ -865,10 +729,13 @@ endif"
 "			./configure
 "			make
 "			sudo make install
+"	- Python:
+"		- install python-3.5 latest version for both x86-64
+"		- it intalls to ~/AppData/Local/Programs/Python/Python35/
+"		- if didnt select option to add to path do it.
+"		- copy DLL from previous path.
 " Installin vim in unix:
 "	- Download vim_source_install.sh from drive
 "	- run. done
 "
 " --------------------------
-
-	
