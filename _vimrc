@@ -33,10 +33,10 @@ if has('win32')
 	noremap <Leader>mq <C-q>
 	" for this to work you must be in the root directory of your code
 	" doesnt work dont know why created script for this
-	noremap <Leader>tu :!dir /b /s *.cpp *.h > cscope.files<CR> 
-	\:!cscope -b -i cscope.files -f cscope.out<CR>
+	noremap <Leader>tu :silent !dir /b /s *.cpp *.h > cscope.files<CR> 
+	\:silent !cscope -b -i cscope.files -f cscope.out<CR>
 	\:cs kill -1<CR>:cs add cscope.out<CR>
-	\:!ctags -R --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
+	\:silent !ctags -R --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
 	noremap <Leader>mr :!%<CR>
 	noremap ,v "*p
 
@@ -46,7 +46,7 @@ if has('win32')
 	call vundle#begin('$HOME/vimfiles/bundle/')
 	" alternatively, pass a path where Vundle should install plugins
 	"call vundle#begin('~/some/path/here')
-	"Plugin 'ctrlpvim/ctrlp.vim' [> quick file searchh"
+	Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
 		set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
 		let g:ctrlp_custom_ignore = {
 			\ 'dir':  '\v[\/]\.(git|hg|svn)$',
@@ -89,7 +89,7 @@ if has('unix')
 	" set the runtime path to include Vundle and initialize
 	set rtp+=~/.vim/bundle/Vundle.vim
 	call vundle#begin()
-	"Plugin 'ctrlpvim/ctrlp.vim' [> quick file searchh"
+	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
 		set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
 		let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 		let g:ctrlp_user_command =
@@ -176,6 +176,7 @@ set guitablabel=%{GuiTabLabel()}
 "////////////////////////////////////////////////////////
 function! SetCppOptions()
 	setlocal omnifunc=omni#cpp#complete#Main
+	set cindent
 	IndentGuidesToggle
 	RainbowParentheses
 endfunction
@@ -189,9 +190,9 @@ filetype indent on
 "set spell spelllang=en_us
 set nospell
 " save marks 
-set viminfo='1000,f1
+set viminfo='1000,f1,<800
 set cursorline
-set showtabline=2 " always show tabs in gvim, but not vim
+set showtabline=2 " always show tabs in gvim, but not vim"
 set tabstop=4     " a tab is four spaces
 set backspace=indent,eol,start
                     " allow backspacing over everything in insert mode
@@ -386,18 +387,7 @@ if has('cscope')
 	cnoreabbrev css cs show
 	cnoreabbrev csh cs help
 
-	if &filetype=="cpp" || &filetype=="c"|| &filetype=="hpp"|| &filetype=="h"
-		if filereadable("cscope.out")
-				cs add cscope.out
-				" else add database pointed to by environment
-		elseif $CSCOPE_DB != ""
-			cs kill -1 " in case was loaded before
-			cs add $CSCOPE_DB
-		endif
-	endif
-
-	"command -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
-endif"
+endif
 
 
 " /////////////////PLUGIN_OPTIONS////////////////////////////////////////////
@@ -414,13 +404,14 @@ endif"
 		" see :h vundle for more details or wiki for FAQ
 
 " /////////////////PLUGIN_OPTIONS////////////////////////////////////////////
-	"Plugin 'scrooloose/nerdcommenter'
+	"Plugin 'scrooloose/nerdcommenter'"
+		let NERDUsePlaceHolders=0 " avoid commenter doing weird stuff
 		let NERDCommentWholeLinesInVMode=2
 		let NERDCreateDefaultMappings=0 " Eliminate default mappings
 		let NERDRemoveAltComs=0 " Do not use alt comments /*
 		let NERDMenuMode=0 " no menu
 		let g:NERDCustomDelimiters = {
-			\ 'vim': { 'left': '"', 'right': '"' }}
+			\ 'vim': { 'left': '"', 'right': '' }}
 			"\ 'vim': { 'left': '"', 'right': '' }
 			"\ 'grondle': { 'left': '{{', 'right': '}}' }
 		"\ }
@@ -591,6 +582,9 @@ endif"
 	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh
 		nmap <Leader>ao :CtrlP<CR>
 		nmap <Leader>am :CtrlPMRU<CR>
+		nmap <Leader>at :tabnew<CR>:CtrlPMRU<CR>
+		nmap <Leader>av :vs<CR>:CtrlPMRU<CR>
+		nmap <Leader>as :sp<CR>:CtrlPMRU<CR>
 		let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
 
 " ///////////////////////////////////////////////////////////////////
@@ -640,7 +634,7 @@ endif"
 		" If you want :UltiSnipsEdit to split your window.
 		"let g:UltiSnipsEditSplit="vertical""
 "//////////////////////////////////////////////////////////////////////////////////////////
-	"Plugin 'mattn/emmet-vim' [> HTML fast code"
+	"Plugin 'mattn/emmet-vim' " HTML fast code"
 		let g:user_emmet_settings = {
 		\  'php' : {
 		\    'extends' : 'html',
