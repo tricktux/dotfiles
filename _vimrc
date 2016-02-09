@@ -1,7 +1,8 @@
 set nocompatible
 filetype off                  " required
-let mapleader=";" " moved here otherwise conditional mappings get / instead ; as leader 
-let maplocalleader=";"
+" moved here otherwise conditional mappings get / instead ; as leader 
+let mapleader="\<Space>"
+let maplocalleader="\<Space>"
 if has('win32')
 	source $VIMRUNTIME/vimrc_example.vim
 	source $VIMRUNTIME/mswin.vim
@@ -38,7 +39,7 @@ if has('win32')
 	\:cs kill -1<CR>:cs add cscope.out<CR>
 	\:silent !ctags -R --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
 	noremap <Leader>mr :silent !%<CR>
-	noremap ,v "*p
+	noremap 'v "*p
 
 	"//////////////////Vundle Stuff for windows/////////////////////
 	" set the runtime path to include Vundle and initialize
@@ -56,6 +57,8 @@ if has('win32')
 		let g:ctrlp_user_command = ['.hg', 'for /f "tokens=1" %%a in (''hg root'') '
 			\ . 'do hg --cwd %s status -numac -I . %%a']           " Windows
 
+	" make of the copy command for NerdTree for windows
+		let g:NERDTreeCopyCmd= 'cp -r '
 endif
 
 if has('unix')
@@ -83,7 +86,7 @@ if has('unix')
 	\:cs kill -1<CR>:cs add cscope.out<CR>
 	\:silent !ctags -R --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
 	nmap <Leader>mr :silent !./%<CR>
-	noremap ,v "+p
+	noremap 'v "+p
 
 	" ///////////////VIM_VUNDLE_STUFF////////////////////////
 	" set the runtime path to include Vundle and initialize
@@ -121,6 +124,10 @@ endif
 	Plugin 'SirVer/ultisnips'  	" Track the engine.
 		" Snippets are separated from the engine. Add this if you want them:
 		Plugin 'honza/vim-snippets'
+	" support for c sharp coding
+	Plugin 'OmniSharp/omnisharp-vim'
+	" used to support omnisharp server
+	Plugin 'tpope/vim-dispatch'
 
 
 	" All of your Plugins must be added before the following line
@@ -243,25 +250,34 @@ noremap <Leader>mn :noh<CR>
 nnoremap <Leader>mp ylp
 nmap <Leader>mt :set relativenumber!<CR>
 nmap <Leader>md :Dox<CR>
+"//////////FOLDING//////////////
+" Folding select text then S-f to fold or just S-f to toggle folding
+" Inoremap <S-f> <C-O>za interferes when input mode is on
+nnoremap <Leader>mf za
+onoremap <Leader>mf <C-C>za
+vnoremap <Leader>mf zf
+" reload configuration
+noremap <Leader>ml :mapclear<CR>:so %<CR>
+" Save folding
 " open explorer on current tab
 " all the ctrl to , mappings
 " move to upper window
-noremap ,h <C-w>h
-noremap ,J <C-w>j
-noremap ,K <C-w>k
-noremap ,l <C-w>l
+noremap 'h <C-w>h
+noremap 'J <C-w>j
+noremap 'K <C-w>k
+noremap 'l <C-w>l
 " not paste the deleted word
-nmap ,p "0p
+nmap 'p "0p
 " move current line up
-nnoremap ,k ddkk""p
+nnoremap 'k ddkk""p
 " move current line down
-noremap ,j dd""p
+noremap 'j dd""p
 " Close all
-nmap ,x :qall!<CR>
+nmap 'x :qall!<CR>
 " open new to tab to explorer
-nmap ,n :tab split<CR>
+nmap 'n :tab split<CR>
 " previous cursor position
-nmap ,e <c-o>
+nmap 'e <c-o>
 " next cursor position
 "nmap ,s <c-i>" this is never going to work because you cant separate tab and
 "c-i
@@ -303,7 +319,7 @@ nmap <Leader>sr :spellr<CR>
 
 " Insert empty line below
 " Substitute for ESC   
-nnoremap <Space> i <Esc> 
+ "nnoremap <Space> i <Esc> 
 " Normal backspace functionalit y
 nnoremap <Backspace> hxh<Esc> 
  " Substitute for ESC  
@@ -333,8 +349,8 @@ noremap <S-w> $
 " move to the end of line
 noremap <S-b> ^
 " jump to corresponding item<Leader> ending {,(, etc..
-nnoremap t %
-vnoremap t %
+nnoremap T %
+vnoremap T %
 " insert tab spaces in normal mode
 nmap <Tab> i<Tab><Esc>
 noremap <S-x> :tabclose<CR>
@@ -348,13 +364,6 @@ noremap S #
 " remaped delete to use it for scrolling
 "noremap ,d d"
 	
-"//////////FOLDING//////////////
-" Folding select text then S-f to fold or just S-f to toggle folding
-" Inoremap <S-f> <C-O>za interferes when input mode is on
-nnoremap <S-f> za
-onoremap <S-f> <C-C>za
-vnoremap <S-f> zf
-" Save folding
 if has('unix')
 	autocmd BufWinLeave ?* mkview
 	autocmd BufWinEnter ?* silent loadview
@@ -363,8 +372,20 @@ endif
 nnoremap <F5> "=strftime("%c")<CR>P
 inoremap <F5> <C-R>=strftime("%c")<CR>
 "//////////SCROLLING//////////////
-map e 26k
-map s 26j
+nmap e 20k
+vmap e 20k
+nmap s 20j
+vmap s 20j
+" repeat last f command forward
+"nmap , ,
+" repeat last f command backwards
+"nmap " ,
+" see :h timeout this was done to make use of ' faster and keep the other
+" timeout the same
+set notimeout
+set nottimeout
+set timeoutlen=300
+set ttimeoutlen=1000
 " Search for highlighted word
 vnoremap // y/<C-R>"<CR>
 inoremap <C-k> ->
@@ -399,7 +420,7 @@ endif
 	"Plugin 'VundleVim/Vundle.vim'
 		noremap <Leader>pl :PluginList<CR>
 		" lists configured plugins
-		noremap <Leader>pi :PluginInstall<CR>
+		noremap <Leader>pi :PluginInstall!<CR>
 		" installs plugins; append `!` to update or just :PluginUpdate
 		noremap <Leader>ps :PluginSearch<CR>
 		" searches for foo; append `!` to refresh local cache
@@ -430,6 +451,10 @@ endif
 		nmap <Leader>nb :Bookmark 
 		let NERDTreeShowBookmarks=1  " B key to toggle
 		nmap <Leader>no :NERDTree<CR>
+		" enable line numbers
+		let NERDTreeShowLineNumbers=1
+		" make sure relative line numbers are used
+		autocmd FileType nerdtree setlocal relativenumber
 		let NERDTreeShowHidden=1 " i key to toggle
 		let NERDTreeMapJumpLastChild=',j' 
 		let NERDTreeMapJumpFirstChild=',k' 
@@ -446,7 +471,7 @@ endif
 		noremap <Leader>gp :!git push origin master<CR> 
 		"typical order also depends where you are pushing
 		noremap <Leader>vd :VCDiff<CR> 
-		noremap <Leader>vl :VCLog<Space>
+		noremap <Leader>vl :VCLog<CR>
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'lervag/vimtex' " Latex support
 		let g:vimtex_view_enabled = 0
@@ -554,7 +579,8 @@ endif
 
 		" For perlomni.vim setting.
 		" https://github.com/c9s/perlomni.vim
-		let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+		"let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+		"let g:neocomplete#sources#omni#input_patterns.cs = '.*[^=\);]'
 
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'Vim-R-plugin'
@@ -574,7 +600,7 @@ endif
         let g:tagbar_show_linenumbers = 2
 		nmap <Leader>tt :TagbarToggle<CR>
 		nmap <Leader>tk :cs kill -1<CR>
-		nmap <Leader>tj <C-]>
+		nmap <silent> <Leader>tj <C-]>
 		nmap <Leader>tr <C-t>
 		nmap <Leader>tn :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 		" ReLoad cscope database
@@ -663,12 +689,94 @@ endif
 		let g:DoxygenToolkit_blockFooter="----------------------------------------------------------------------------" 
 		let g:DoxygenToolkit_authorName="Reinaldo Molina" 
 		let g:DoxygenToolkit_licenseTag=""
+"//////////////////////////////////////////////////////////////////////////////////////////
+"	OmniSharp Stuff
+		"Timeout in seconds to wait for a response from the server
+		let g:OmniSharp_timeout = 1
+		"Showmatch significantly slows down omnicomplete
+		"when the first match contains parentheses.
+		set noshowmatch
+		"Move the preview window (code documentation) to the bottom of the screen, so it doesn't move the code!
+		"You might also want to look at the echodoc plugin
+		set splitbelow
+		" Get Code Issues and syntax errors
+		let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues']
+		"augroup omnisharp_commands
+			"autocmd!
+
+			""Set autocomplete function to OmniSharp (if not using YouCompleteMe completion plugin)
+			"autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
+
+			"" Synchronous build (blocks Vim)
+			""autocmd FileType cs nnoremap <F5> :wa!<cr>:OmniSharpBuild<cr>
+			"" Builds can also run asynchronously with vim-dispatch installed
+			"autocmd FileType cs nnoremap <leader>b :wa!<cr>:OmniSharpBuildAsync<cr>
+			"" automatic syntax check on events (TextChanged requires Vim 7.4)
+			"autocmd BufEnter,TextChanged,InsertLeave *.cs SyntasticCheck
+
+			"" Automatically add new cs files to the nearest project on save
+			"autocmd BufWritePost *.cs call OmniSharp#AddToProject()
+
+			""show type information automatically when the cursor stops moving
+			"autocmd CursorHold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
+
+			""The following commands are contextual, based on the current cursor position.
+
+			"autocmd FileType cs nnoremap gd :OmniSharpGotoDefinition<cr>
+			"autocmd FileType cs nnoremap <leader>fi :OmniSharpFindImplementations<cr>
+			"autocmd FileType cs nnoremap <leader>ft :OmniSharpFindType<cr>
+			"autocmd FileType cs nnoremap <leader>fs :OmniSharpFindSymbol<cr>
+			"autocmd FileType cs nnoremap <leader>fu :OmniSharpFindUsages<cr>
+			""finds members in the current buffer
+			"autocmd FileType cs nnoremap <leader>fm :OmniSharpFindMembers<cr>
+			"" cursor can be anywhere on the line containing an issue
+			"autocmd FileType cs nnoremap <leader>x  :OmniSharpFixIssue<cr>
+			"autocmd FileType cs nnoremap <leader>fx :OmniSharpFixUsings<cr>
+			"autocmd FileType cs nnoremap <leader>tt :OmniSharpTypeLookup<cr>
+			"autocmd FileType cs nnoremap <leader>dc :OmniSharpDocumentation<cr>
+			""navigate up by method/property/field
+			"autocmd FileType cs nnoremap <C-K> :OmniSharpNavigateUp<cr>
+			""navigate down by method/property/field
+			"autocmd FileType cs nnoremap <C-J> :OmniSharpNavigateDown<cr>
+		"augroup END
+		" this setting controls how long to wait (in ms) before fetching type / symbol information.
+		set updatetime=500
+		" Remove 'Press Enter to continue' message when type information is longer than one line.
+		set cmdheight=2
+
+		"" Contextual code actions (requires CtrlP or unite.vim)
+		"nnoremap <leader><space> :OmniSharpGetCodeActions<cr>
+		"" Run code actions with text selected in visual mode to extract method
+		"vnoremap <leader><space> :call OmniSharp#GetCodeActions('visual')<cr>
+
+		"" rename with dialog
+		"nnoremap <leader>nm :OmniSharpRename<cr>
+		"nnoremap <F2> :OmniSharpRename<cr>
+		"" rename without dialog - with cursor on the symbol to rename... ':Rename newname'
+		"command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
+
+		"" Force OmniSharp to reload the solution. Useful when switching branches etc.
+		"nnoremap <leader>rl :OmniSharpReloadSolution<cr>
+		"nnoremap <leader>cf :OmniSharpCodeFormat<cr>
+		"" Load the current .cs file to the nearest project
+		"nnoremap <leader>tp :OmniSharpAddToProject<cr>
+
+		"" (Experimental - uses vim-dispatch or vimproc plugin) - Start the omnisharp server for the current solution
+		"nnoremap <leader>ss :OmniSharpStartServer<cr>
+		"nnoremap <leader>sp :OmniSharpStopServer<cr>
+
+		"" Add syntax highlighting for types and interfaces
+		"nnoremap <leader>th :OmniSharpHighlightTypes<cr>
+		""Don't ask to save when changing buffers (i.e. when jumping to a type definition)
+
+
+"/////////////////////////////////MISC NOTES/////////////////////////////////////////////
 	" Deleted plugins
 	"Plugin 'justmao945/vim-clang'
 "/////////////////////////////////MISC NOTES/////////////////////////////////////////////
 "useful command to convert all , into new lines
 	":%s,/\r/g  
-" to umap something simply type it in the command :unmap ii for example
+		" to umap something simply type it in the command :unmap ii for example
 " :w xxx - save as xxx keep working on original
 " :sav xxx -save as xxx switch to new file
 " H - jump cursor to begging of screen
