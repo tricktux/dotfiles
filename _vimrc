@@ -443,7 +443,7 @@ endif
 		noremap <Leader>vp :VCPush<CR> 
 		noremap <Leader>ga :silent !git add %<CR>
 		noremap <Leader>gc :silent !git commit -m "
-		noremap <Leader>gp :silent !git push origin master<CR> 
+		noremap <Leader>gp :!git push origin master<CR> 
 		"typical order also depends where you are pushing
 		noremap <Leader>vd :VCDiff<CR> 
 		noremap <Leader>vl :VCLog<Space>
