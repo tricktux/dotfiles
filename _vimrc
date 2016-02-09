@@ -37,7 +37,7 @@ if has('win32')
 	\:silent !cscope -b -i cscope.files -f cscope.out<CR>
 	\:cs kill -1<CR>:cs add cscope.out<CR>
 	\:silent !ctags -R --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
-	noremap <Leader>mr :!%<CR>
+	noremap <Leader>mr :silent !%<CR>
 	noremap ,v "*p
 
 	"//////////////////Vundle Stuff for windows/////////////////////
@@ -78,11 +78,11 @@ if has('unix')
 		nnoremap <CR> o<Esc>
 	endif
 	" this one below DOES WORK in linux just make sure is ran at root folder
-	noremap <Leader>tu :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files<CR>
-  	\:!cscope -b -i cscope.files -f cscope.out<CR>
+	noremap <Leader>tu :silent !find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files<CR>
+  	\:silent !cscope -b -i cscope.files -f cscope.out<CR>
 	\:cs kill -1<CR>:cs add cscope.out<CR>
-	\:!ctags -R --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
-	nmap <Leader>mr :!./%<CR>
+	\:silent !ctags -R --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
+	nmap <Leader>mr :silent !./%<CR>
 	noremap ,v "+p
 
 	" ///////////////VIM_VUNDLE_STUFF////////////////////////
@@ -111,7 +111,8 @@ endif
 	Plugin 'Shougo/neocomplete.vim'
 	Plugin 'Tagbar'
 	Plugin 'juneedahamed/vc.vim' " SVN, GIT, HG, and BZR repo support
-	Plugin 'Raimondi/delimitMate' " AutoClose brackets, etc...
+	"Plugin 'Raimondi/delimitMate' " AutoClose brackets, etc...
+	Plugin 'tpope/vim-surround'
 	Plugin 'junegunn/rainbow_parentheses.vim'
 	Plugin 'morhetz/gruvbox' " colorscheme gruvbox 
 	Plugin 'nathanaelkane/vim-indent-guides' 
@@ -208,6 +209,7 @@ set smartcase     " ignore case if search pattern is all lowercase,
 set smarttab      " insert tabs on the start of a line according to
                     "    shiftwidth, not tabstop
 set hlsearch      " highlight search terms
+set relativenumber
 set incsearch     " show search matches as you type
 set history=1000         " remember more commands and search history
 set undolevels=1000      " use many muchos levels of undo
@@ -239,6 +241,8 @@ noremap <Leader>ma :w<CR>
 noremap <Leader>mn :noh<CR>
 " duplicate current char
 nnoremap <Leader>mp ylp
+nmap <Leader>mt :set relativenumber!<CR>
+nmap <Leader>md :Dox<CR>
 " open explorer on current tab
 " all the ctrl to , mappings
 " move to upper window
@@ -340,7 +344,7 @@ noremap <S-x> :tabclose<CR>
 nnoremap gr :vimgrep <cword> %:p:h/*<CR> :copen 20<CR>
 " nnoremap gr :vimgrep <cword>/".input("Replace with: ")" %:p:h/*<CR> :copen 20<CR>
 " remaped search to f
-noremap f #
+noremap S #
 " remaped delete to use it for scrolling
 "noremap ,d d"
 	
@@ -437,9 +441,9 @@ endif
 		noremap <Leader>va :VCAdd<CR>
 		noremap <Leader>vc :VCCommit<CR> 
 		noremap <Leader>vp :VCPush<CR> 
-		noremap <Leader>ga :!git add %<CR>
-		noremap <Leader>gc :!git commit -m "
-		noremap <Leader>gp :!git push origin master<CR> 
+		noremap <Leader>ga :silent !git add %<CR>
+		noremap <Leader>gc :silent !git commit -m "
+		noremap <Leader>gp :silent !git push origin master<CR> 
 		"typical order also depends where you are pushing
 		noremap <Leader>vd :VCDiff<CR> 
 		noremap <Leader>vl :VCLog<Space>
@@ -567,6 +571,7 @@ endif
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'Tagbar'
         let g:tagbar_autofocus = 1
+        let g:tagbar_show_linenumbers = 2
 		nmap <Leader>tt :TagbarToggle<CR>
 		nmap <Leader>tk :cs kill -1<CR>
 		nmap <Leader>tj <C-]>
@@ -650,6 +655,14 @@ endif
 		\  },
 		\}
 "//////////////////////////////////////////////////////////////////////////////////////////
+"	Doxygen.vim
+		let g:DoxygenToolkit_briefTag_pre="@Description:  " 
+		let g:DoxygenToolkit_paramTag_pre="@Var: " 
+		let g:DoxygenToolkit_returnTag="@Returns:   " 
+		let g:DoxygenToolkit_blockHeader="//////////////////////////////////////////////////////////////////////////" 
+		let g:DoxygenToolkit_blockFooter="----------------------------------------------------------------------------" 
+		let g:DoxygenToolkit_authorName="Reinaldo Molina" 
+		let g:DoxygenToolkit_licenseTag=""
 	" Deleted plugins
 	"Plugin 'justmao945/vim-clang'
 "/////////////////////////////////MISC NOTES/////////////////////////////////////////////
@@ -682,6 +695,19 @@ endif
 " use :verbose map <c-i> to understand mappings
 " use z. to make current line center of screen
 " use c-w+<H,J,K,L> to swap windows around
+" Surround stuff:
+" 	change(c) surrournd(s): cs<from><to>, i.e: cs("
+" 	change(c) surrournd(s) to(t): cst<to>
+" 	insert(y) surround: ys<text object>, i.e: ysiw
+" 	using opening surrounds, i.e:{,( inserts spaces, closing deletes them
+" 	wrap entire line with yss<to>, i.e: yssb or yss( which are the same
+" 	delete(d) surrournd(s): ds<surround>, i.e: ds{
+" 	Select visual mode line and press:
+"		S<p class="important">
+" Another important motion is f
+" 	df. deletes everything until period
+" 	it works with c, v as well 
+"
 " LUA Installation in windows:
 " 	download latest vim from DOWNLOAD VIM in bookmarks
 " 	Donwload lua windows binaries from the website for the architecture you
