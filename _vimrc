@@ -38,8 +38,10 @@ if has('win32')
 	\:silent !cscope -b -i cscope.files -f cscope.out<CR>
 	\:cs kill -1<CR>:cs add cscope.out<CR>
 	\:silent !ctags -R -f ./.svn/tags<CR>
-	noremap <Leader>mr :silent !%<CR>
+	noremap <Leader>mr :!%<CR>
+	" Copy and paste into system wide clipboard
 	noremap 'v "*p
+	noremap 'y "*yy
 
 	"//////////////////Vundle Stuff for windows/////////////////////
 	" set the runtime path to include Vundle and initialize
@@ -85,8 +87,9 @@ if has('unix')
   	\:silent !cscope -b -i cscope.fiels -f cscope.out<CR>
 	\:cs kill -1<CR>:cs add cscope.out<CR>
 	\:silent !ctags -R --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
-	nmap <Leader>mr :silent !./%<CR>
+	nmap <Leader>mr :!./%<CR>
 	noremap 'v "+p
+	noremap 'y "+yy
 
 	" ///////////////VIM_VUNDLE_STUFF////////////////////////
 	" set the runtime path to include Vundle and initialize
@@ -272,6 +275,7 @@ noremap <Leader>m. 20<C-w>>
 noremap <Leader>m, 20<C-w><
 " not paste the deleted word
 nmap 'p "0p
+vmap 'p "0p
 " move current line up
 nnoremap <Leader>K ddkk""p
 " move current line down
@@ -642,6 +646,8 @@ endif
 		noremap <Leader>tl :cs add $CSCOPE_DB<CR>
 		" Find functions calling this function
 		nmap <Leader>tc :cs find c <C-R>=expand("<cword>")<CR><CR>
+		" Find functions definition
+		nmap <Leader>tg :cs find g <C-R>=expand("<cword>")<CR><CR>
 		" Find functions called by this function
 		nmap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
 		nmap <Leader>ts :cs show<CR>
