@@ -34,10 +34,10 @@ if has('win32')
 	noremap <Leader>mq <C-q>
 	" for this to work you must be in the root directory of your code
 	" doesnt work dont know why created script for this
-	noremap <Leader>tu :silent !dir /b /s *.cpp *.h > cscope.files<CR> 
+	noremap <Leader>tu :silent !dir /b /s *.cpp *.h *.cs > cscope.files<CR> 
 	\:silent !cscope -b -i cscope.files -f cscope.out<CR>
 	\:cs kill -1<CR>:cs add cscope.out<CR>
-	\:silent !ctags -R --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
+	\:silent !ctags -R -f ./.svn/tags<CR>
 	noremap <Leader>mr :silent !%<CR>
 	noremap 'v "*p
 
@@ -82,7 +82,7 @@ if has('unix')
 	endif
 	" this one below DOES WORK in linux just make sure is ran at root folder
 	noremap <Leader>tu :silent !find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files<CR>
-  	\:silent !cscope -b -i cscope.files -f cscope.out<CR>
+  	\:silent !cscope -b -i cscope.fiels -f cscope.out<CR>
 	\:cs kill -1<CR>:cs add cscope.out<CR>
 	\:silent !ctags -R --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
 	nmap <Leader>mr :silent !./%<CR>
@@ -120,10 +120,9 @@ endif
 	Plugin 'morhetz/gruvbox' " colorscheme gruvbox 
 	Plugin 'nathanaelkane/vim-indent-guides' 
 	Plugin 'mattn/emmet-vim' " HTML fast code
-	" Track the engine.
-	Plugin 'SirVer/ultisnips'  	" Track the engine.
-		" Snippets are separated from the engine. Add this if you want them:
-		Plugin 'honza/vim-snippets'
+	Plugin 'Shougo/neosnippet'
+	Plugin 'Shougo/neosnippet-snippets'
+	Plugin 'honza/vim-snippets'
 	" support for c sharp coding
 	Plugin 'OmniSharp/omnisharp-vim'
 	" used to support omnisharp server
@@ -257,32 +256,32 @@ nmap <Leader>mt :set relativenumber!<CR>
 nmap <Leader>md :Dox<CR>
 "//////////FOLDING//////////////
 " Folding select text then S-f to fold or just S-f to toggle folding
-" Inoremap <S-f> <C-O>za interferes when input mode is on
 nnoremap <Leader>mf za
 onoremap <Leader>mf <C-C>za
 vnoremap <Leader>mf zf
-" reload configuration
-noremap <Leader>ml :mapclear<CR>:so %<CR>
-" Save folding
-" open explorer on current tab
-" all the ctrl to , mappings
 " move to upper window
-noremap 'h <C-w>h
-noremap 'J <C-w>j
-noremap 'K <C-w>k
-noremap 'l <C-w>l
+noremap <Leader>h <C-w>h
+noremap <Leader>mh <C-w>H
+noremap <Leader>j <C-w>j
+noremap <Leader>mj <C-w>J
+noremap <Leader>k <C-w>k
+noremap <Leader>mk <C-w>K
+noremap <Leader>l <C-w>l
+noremap <Leader>ml <C-w>L
+noremap <Leader>m. 20<C-w>>
+noremap <Leader>m, 20<C-w><
 " not paste the deleted word
 nmap 'p "0p
 " move current line up
-nnoremap 'k ddkk""p
+nnoremap <Leader>K ddkk""p
 " move current line down
-noremap 'j dd""p
+noremap <Leader>J dd""p
 " Close all
 nmap 'x :qall!<CR>
 " open new to tab to explorer
 nmap 'n :tab split<CR>
 " previous cursor position
-nmap 'e <c-o>
+nmap <Leader>e <c-o>
 " next cursor position
 "nmap ,s <c-i>" this is never going to work because you cant separate tab and
 "c-i
@@ -395,7 +394,7 @@ set timeoutlen=300
 set ttimeoutlen=1000
 " Search for highlighted word
 vnoremap // y/<C-R>"<CR>
-inoremap <C-k> ->
+imap <C-l> ->
 set nowrap        " wrap lines
 " will look in current directory for tags
 " THE BEST FEATURE I'VE ENCOUNTERED SO FAR OF VIM
@@ -515,6 +514,7 @@ endif
 		endif
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'Shougo/neocomplete.vim'
+	
 		"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 		" Disable AutoComplPop.
 		let g:acp_enableAtStartup = 0
@@ -588,7 +588,34 @@ endif
 		" For perlomni.vim setting.
 		" https://github.com/c9s/perlomni.vim
 		"let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-		"let g:neocomplete#sources#omni#input_patterns.cs = '.*[^=\);]'
+		let g:neocomplete#sources#omni#input_patterns.cs = '.*[^=\);]'
+		"let g:neocomplete#sources.cs = ['omni']
+		let g:neocomplete#enable_refresh_always = 0
+		"let g:echodoc_enable_at_startup = 1
+		
+" ///////////////////////////////////////////////////////////////////
+	"Plugin 'Shougo/neocomplete-snippets.vim'
+		" Plugin key-mappings.
+		imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+		smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+		xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+		" SuperTab like snippets behavior.
+		"imap <expr><TAB>
+		" \ pumvisible() ? "\<C-n>" :
+		" \ neosnippet#expandable_or_jumpable() ?
+		" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+		smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+		\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+		" For conceal markers.
+		if has('conceal')
+		set conceallevel=2 concealcursor=niv
+		endif
+		" Enable snipMate compatibility feature.
+		let g:neosnippet#enable_snipmate_compatibility = 1
+
+		" Tell Neosnippet about the other snippets
+		let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'Vim-R-plugin'
@@ -655,23 +682,24 @@ endif
 		" List of colors that you do not want. ANSI code or #RRGGBB
 		let g:rainbow#blacklist = [233, 234]
 " ///////////////////////////////////////////////////////////////////
-	"Plugin 'SirVer/ultisnips'  	" Track the engine.
-	" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-		let g:UltiSnipsExpandTrigger="<nop>"
-		let g:UltiSnipsJumpForwardTrigger="<c-b>"
-		let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-		" makes possible the use of CR to enter snippet 
-		let g:ulti_expand_or_jump_res = 0
-		function! ExpandSnippetOrCarriageReturn()
-			let snippet = UltiSnips#ExpandSnippetOrJump()
-			if g:ulti_expand_or_jump_res > 0
-				return snippet
-			else
-				return "\<CR>"
-			endif
-		endfunction
-		inoremap <expr> <CR> pumvisible() ? "<C-R>=ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
-		""""""""""""""""""""""""""""""""""""""""""""""""""
+
+	""Plugin 'SirVer/ultisnips'  	" Track the engine.
+	"" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+		"let g:UltiSnipsExpandTrigger="<nop>"
+		"let g:UltiSnipsJumpForwardTrigger="<c-b>"
+		"let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+		"" makes possible the use of CR to enter snippet 
+		"let g:ulti_expand_or_jump_res = 0
+		"function! ExpandSnippetOrCarriageReturn()
+			"let snippet = UltiSnips#ExpandSnippetOrJump()
+			"if g:ulti_expand_or_jump_res > 0
+				"return snippet
+			"else
+				"return "\<CR>"
+			"endif
+		"endfunction
+		"inoremap <expr> <CR> pumvisible() ? "<C-R>=ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
+		"""""""""""""""""""""""""""""""""""""""""""""""""""
 		" If you want :UltiSnipsEdit to split your window.
 		"let g:UltiSnipsEditSplit="vertical""
 "//////////////////////////////////////////////////////////////////////////////////////////
@@ -774,22 +802,23 @@ endif
 			IndentGuidesToggle
 			RainbowParentheses
 		endfunction
+		let g:OmniSharp_server_type = 'v1'
 
 		"" Add syntax highlighting for types and interfaces
 		"nnoremap <leader>th :OmniSharpHighlightTypes<cr>
-		""Don't ask to save when changing buffers (i.e. when jumping to a type definition)
+		"""Don't ask to save when changing buffers (i.e. when jumping to a type definition)
 
-"/////////////////////////////////MISC NOTES/////////////////////////////////////////////
-	"Plugin 'scrooloose/syntastic'
+""/////////////////////////////////MISC NOTES/////////////////////////////////////////////
+	""Plugin 'scrooloose/syntastic'
 		set statusline+=%#warningmsg#
 		set statusline+=%{SyntasticStatuslineFlag()}
 		set statusline+=%*
 
 		let g:syntastic_always_populate_loc_list = 1
 		let g:syntastic_auto_loc_list = 1
-		let g:syntastic_check_on_open = 1
+		let g:syntastic_check_on_open = 0
 		let g:syntastic_check_on_wq = 0
-		let g:syntastic_always_populate_loc_list = 1 " populates list of error so you can use lnext 
+		"let g:syntastic_always_populate_loc_list = 1 " populates list of error so you can use lnext 
 "/////////////////////////////////MISC NOTES/////////////////////////////////////////////
 	" Deleted plugins
 	"Plugin 'justmao945/vim-clang'
@@ -893,3 +922,5 @@ endif
 "	- run. done
 "
 " --------------------------
+
+
