@@ -40,8 +40,19 @@ if has('win32')
 	\:silent !ctags -R -f ./.svn/tags<CR>
 	noremap <Leader>mr :!%<CR>
 	" Copy and paste into system wide clipboard
-	noremap 'v "*p
-	noremap 'y "*yy
+	noremap <Leader><Space>v "*p
+	noremap <Leader><Space>y "*yy
+
+	nnoremap <Leader><Space>= :silent! let &guifont = substitute(
+	\ &guifont,
+	\ ':h\zs\d\+',
+	\ '\=eval(submatch(0)+1)',
+	\ '')<CR>
+	nnoremap <Leader><Space>- :silent! let &guifont = substitute(
+	\ &guifont,
+	\ ':h\zs\d\+',
+	\ '\=eval(submatch(0)-1)',
+	\ '')<CR>
 
 	"//////////////////Vundle Stuff for windows/////////////////////
 	" set the runtime path to include Vundle and initialize
@@ -49,7 +60,7 @@ if has('win32')
 	call vundle#begin('$HOME/vimfiles/bundle/')
 	" alternatively, pass a path where Vundle should install plugins
 	"call vundle#begin('~/some/path/here')
-	Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
+	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
 		set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
 		let g:ctrlp_custom_ignore = {
 			\ 'dir':  '\v[\/]\.(git|hg|svn)$',
@@ -88,8 +99,19 @@ if has('unix')
 	\:cs kill -1<CR>:cs add cscope.out<CR>
 	\:silent !ctags -R --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
 	nmap <Leader>mr :!./%<CR>
-	noremap 'v "+p
-	noremap 'y "+yy
+	noremap <Leader><Space>v "+p
+	noremap <Leader><Space>y "+yy
+
+	nnoremap <Leader><Space>= :silent! let &guifont = substitute(
+	\ &guifont,
+	\ '\ \zs\d\+',
+	\ '\=eval(submatch(0)+1)',
+	\ '')<CR>
+	nnoremap <Leader><Space>- :silent! let &guifont = substitute(
+	\ &guifont,
+	\ '\ \zs\d\+',
+	\ '\=eval(submatch(0)-1)',
+	\ '')<CR>
 
 	" ///////////////VIM_VUNDLE_STUFF////////////////////////
 	" set the runtime path to include Vundle and initialize
@@ -131,6 +153,7 @@ endif
 	" used to support omnisharp server
 	Plugin 'tpope/vim-dispatch'
 	Plugin 'scrooloose/syntastic'
+	Plugin 'ctrlpvim/ctrlp.vim'
 
 
 	" All of your Plugins must be added before the following line
@@ -274,16 +297,16 @@ noremap <Leader>ml <C-w>L
 noremap <Leader>m. 20<C-w>>
 noremap <Leader>m, 20<C-w><
 " not paste the deleted word
-nmap 'p "0p
-vmap 'p "0p
+nmap <Leader><Space>p "0p
+vmap <Leader><Space>p "0p
 " move current line up
 nnoremap <Leader>K ddkk""p
 " move current line down
 noremap <Leader>J dd""p
 " Close all
-nmap 'x :qall!<CR>
+nmap <Leader><Space>x :qall!<CR>
 " open new to tab to explorer
-nmap 'n :tab split<CR>
+nmap <Leader><Space>n :tab split<CR>
 " previous cursor position
 nmap <Leader>e <c-o>
 " next cursor position
