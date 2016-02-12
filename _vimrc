@@ -682,6 +682,7 @@ endif
 		nmap <Leader>at :tabnew<CR>:CtrlPMRU<CR>
 		nmap <Leader>av :vs<CR>:CtrlPMRU<CR>
 		nmap <Leader>as :sp<CR>:CtrlPMRU<CR>
+		nmap <Leader>al :CtrlPClearCache<CR>
 		let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
 
 " ///////////////////////////////////////////////////////////////////
