@@ -1,12 +1,15 @@
+rem Updated on 2/12/2016 6:29:57 AM
+rem Purpose dirty flash nexus 5 with latest google factory image
 @echo off
 echo.
 echo ----- ANDROID WINDOWS UPGRADE W/O WIPING DATA -----
 echo. MAKE SURE THAT YOU: 
-echo 	-Make sure you do adb reboot bootloader before running the script
-echo 	-to make the adb command global in windows add ;<Path to SDK platform-tools & tools folder
+REM echo 	-Make sure you do adb reboot bootloader before running the script
+REM echo 	-to make the adb command global in windows add ;<Path to SDK platform-tools & tools folder
 echo 	-FIX THE NAMES OF THE BOOTLOADER AND RADIO HERE ON THIS SCRIPT
-echo. 	-COPIED THE CF-Auto-Root-hammerhead-hammerhead-nexus5.img into this folder
-echo 	-EXTRACTED image-hammerhead*.zip TO EXPOSE THE BOOT.IMG....
+echo 	-Are running script from inside extracted .tgz image
+REM echo. 	-COPIED THE CF-Auto-Root-hammerhead-hammerhead-nexus5.img into this folder
+REM echo 	-EXTRACTED image-hammerhead*.zip TO EXPOSE THE BOOT.IMG....
 REM we dont use franco anymoreecho 	-READ FRANCO KERNEL FORUM TO SEE IF IT HAS ANY UPDATES FOR THE NEW ANDROID VERSION
 REM echo 		-IF SO DOWNLOAD THE IMAGE AND COPY IT TO THIS FOLDER
 echo	-After installation steps are done go to  recovery
@@ -20,7 +23,13 @@ REM tools\fastboot-windows.exe oem unlock
 REM command to extract original file
 REM 	tar -xvzf
 REM command to extract zip file
-REM 	unzip
+unzip image*.zip
+
+adb reboot bootloader
+
+echo Is the phone in Bootloader mode?
+echo Press Ctrl+C followed by Y to cancel !
+pause
 
 REM FIX EACH NAME OF BOOTLOADER AND SO ON FOR THE NEW NAMES
 fastboot flash bootloader bootloader-hammerhead-hhz12k.img
