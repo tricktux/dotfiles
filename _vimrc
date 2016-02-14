@@ -1,5 +1,4 @@
 set nocompatible
-filetype off                  " required
 " moved here otherwise conditional mappings get / instead ; as leader 
 let mapleader="\<Space>"
 let maplocalleader="\<Space>"
@@ -56,7 +55,6 @@ if has('win32')
 
 	"//////////////////Vundle Stuff for windows/////////////////////
 	" set the runtime path to include Vundle and initialize
-	set rtp+=$HOME/vimfiles/bundle/Vundle.vim/
 	call vundle#begin('$HOME/vimfiles/bundle/')
 	" alternatively, pass a path where Vundle should install plugins
 	"call vundle#begin('~/some/path/here')
@@ -72,9 +70,10 @@ if has('win32')
 
 	" make of the copy command for NerdTree for windows
 		let g:NERDTreeCopyCmd= 'cp -r '
-endif
-
-if has('unix')
+	" support for c sharp coding
+	Plugin 'OmniSharp/omnisharp-vim'
+	" used to support omnisharp server
+elseif has('unix')
 	set ffs=unix
 	nnoremap <Leader>mz :mksession! /home/reinaldo/.vim/sessions/
 	nnoremap <Leader>mx :source /home/reinaldo/.vim/sessions/
@@ -115,49 +114,54 @@ if has('unix')
 
 	" ///////////////VIM_VUNDLE_STUFF////////////////////////
 	" set the runtime path to include Vundle and initialize
-	set rtp+=~/.vim/bundle/Vundle.vim
-	call vundle#begin()
+	if !has('nvim')
+		call plug#begin('~/.vim/plugged')
+	else
+		call plug#begin('~/.config/nvim/autoupload/plug.vim')
+	endif
+
+
+
 	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
 		set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
 		let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 		let g:ctrlp_user_command =
 			\ ['.hg', 'hg --cwd %s status -numac -I . $(hg root)'] " MacOSX/Linux
-	Plugin 'file:///home/reinaldo/.vim/bundle/vim-hardy' "Arduino
 
 endif
 
 "/////////////////////STUFF_FOR_BOTH_SYSTEMS///////////////////////
 "/////////////////////PLUGINS_FOR_BOTH_SYSTEMS///////////////////////
 	" let Vundle manage Vundle, required
-	Plugin 'VundleVim/Vundle.vim'
-	Plugin 'chrisbra/vim-diff-enhanced'
-	Plugin 'scrooloose/nerdtree'
-	Plugin 'scrooloose/nerdcommenter'
-	Plugin 'lervag/vimtex' " Latex support
-	Plugin 'bling/vim-airline'	" Status bar line
-	Plugin 'Vim-R-plugin'
-	Plugin 'Shougo/neocomplete.vim'
-	Plugin 'Tagbar'
-	Plugin 'juneedahamed/vc.vim' " SVN, GIT, HG, and BZR repo support
-	"Plugin 'Raimondi/delimitMate' " AutoClose brackets, etc...
-	Plugin 'tpope/vim-surround'
-	Plugin 'junegunn/rainbow_parentheses.vim'
-	Plugin 'morhetz/gruvbox' " colorscheme gruvbox 
-	Plugin 'nathanaelkane/vim-indent-guides' 
-	Plugin 'mattn/emmet-vim' " HTML fast code
-	Plugin 'Shougo/neosnippet'
-	Plugin 'Shougo/neosnippet-snippets'
-	Plugin 'honza/vim-snippets'
-	" support for c sharp coding
-	Plugin 'OmniSharp/omnisharp-vim'
-	" used to support omnisharp server
-	Plugin 'tpope/vim-dispatch'
-	Plugin 'scrooloose/syntastic'
-	Plugin 'ctrlpvim/ctrlp.vim'
+	Plug 'chrisbra/vim-diff-enhanced'
+	Plug 'scrooloose/nerdtree'
+	Plug 'scrooloose/nerdcommenter'
+	Plug 'lervag/vimtex' " Latex support
+	Plug 'bling/vim-airline'	" Status bar line
+	Plug 'Vim-R-plugin'
+	if has('nvim')
+		Plug 'Shougo/deoplete.nvim'
+	else
+		Plug 'Shougo/neocomplete.vim'
+		Plug 'tpope/vim-dispatch' " used for omnisharp completion 
+	endif
+	Plug 'tpope/vim-surround'
+	Plug 'junegunn/rainbow_parentheses.vim'
+	Plug 'tpope/vim-surround'
+	Plug 'morhetz/gruvbox' " colorscheme gruvbox 
+	Plug 'nathanaelkane/vim-indent-guides' 
+	Plug 'mattn/emmet-vim' " HTML fast code
+	Plug 'Shougo/neosnippet'
+	Plug 'Shougo/neosnippet-snippets'
+	Plug 'honza/vim-snippets'
+	Plug 'scrooloose/syntastic'
+	Plug 'ctrlpvim/ctrlp.vim'
+	Plug 'octol/vim-cpp-enhanced-highlight'
+	Plug 'Tagbar'
 
 
 	" All of your Plugins must be added before the following line
-	call vundle#end()            " required
+	call plug#end()            " required
 	" Omni complete stuff
 	" build tags of your own project with Ctrl-F12
 
@@ -211,8 +215,8 @@ set guitablabel=%{GuiTabLabel()}
 function! SetCppOptions()
 	setlocal omnifunc=omni#cpp#complete#Main
 	set cindent
-	IndentGuidesToggle
-	RainbowParentheses
+	:IndentGuidesToggle
+	:RainbowParentheses
 endfunction
 "///////////////////FUNCTION_FOR_DIFF///////////////////
 set diffexpr=
@@ -236,7 +240,6 @@ set number        " always show line numbers
 set shiftwidth=4  " number of spaces to use for autoindenting
 set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
 set showmatch     " set show matching parenthesis
-set ignorecase    " ignore case when searching
 set smartcase     " ignore case if search pattern is all lowercase,
                     "    case-sensitive otherwise
 set smarttab      " insert tabs on the start of a line according to
@@ -348,7 +351,7 @@ nmap <Leader>sw zw
 " repeat last spell correction
 nmap <Leader>sr :spellr<CR>
 " SyntasticCheck toggle
-nmap <Leader>so :SyntasticCheck<CR>:SyntasticToggleMode<CR>
+nmap <Leader>so :SyntasticToggleMode<CR>
 
 " Insert empty line below
 " Substitute for ESC   
@@ -397,10 +400,6 @@ noremap S #
 " remaped delete to use it for scrolling
 "noremap ,d d"
 	
-if has('unix')
-	autocmd BufWinLeave ?* mkview
-	autocmd BufWinEnter ?* silent loadview
-endif
 " Automatically insert date
 nnoremap <F5> "=strftime("%c")<CR>P
 inoremap <F5> <C-R>=strftime("%c")<CR>
@@ -451,14 +450,14 @@ endif
 
 " /////////////////PLUGIN_OPTIONS////////////////////////////////////////////
 	"Plugin 'VundleVim/Vundle.vim'
-		noremap <Leader>pl :PluginList<CR>
+		noremap <Leader>pl :PlugList<CR>
 		" lists configured plugins
-		noremap <Leader>pi :PluginInstall<CR>
-		noremap <Leader>pu :PluginInstall!<CR>
+		noremap <Leader>pi :PlugInstall<CR>
+		noremap <Leader>pu :PlugInstall!<CR>
 		" installs plugins; append `!` to update or just :PluginUpdate
-		noremap <Leader>ps :PluginSearch<CR>
+		noremap <Leader>ps :PlugSearch<CR>
 		" searches for foo; append `!` to refresh local cache
-		noremap <Leader>pc :PluginClean<CR>      
+		noremap <Leader>pc :PlugClean<CR>      
 		" confirms removal of unused plugins; append `!` to auto-approve removal
 		"
 		" see :h vundle for more details or wiki for FAQ
@@ -513,16 +512,6 @@ endif
 		" latexmk
 		let g:vimtex_latexmk_continuous=1
 		let g:vimtex_latexmk_callback=1
-		" neocomplete stuff of vimtex
-		if !exists('g:neocomplete#sources#omni#input_patterns')
-			let g:neocomplete#sources#omni#input_patterns = {}
-		endif
-		let g:neocomplete#sources#omni#input_patterns.tex =
-				\ '\v\\%('
-				\ . '\a*%(ref|cite)\a*%(\s*\[[^]]*\])?\s*\{[^{}]*'
-				\ . '|includegraphics%(\s*\[[^]]*\])?\s*\{[^{}]*'
-				\ . '|%(include|input)\s*\{[^{}]*'
-				\ . ')'
 		" AutoComplete 
 		let g:vimtex_complete_close_braces=1
 		let g:vimtex_complete_recursive_bib=1
@@ -541,84 +530,121 @@ endif
 		endif
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'Shougo/neocomplete.vim'
-	
 		"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 		" Disable AutoComplPop.
-		let g:acp_enableAtStartup = 0
-		" Use neocomplete.
-		let g:neocomplete#enable_at_startup = 1
-		" Use smartcase.
-		let g:neocomplete#enable_smart_case = 1
-		" Set minimum syntax keyword length.
-		let g:neocomplete#sources#syntax#min_keyword_length = 3
-		let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+		if !has('nvim')
+			let g:acp_enableAtStartup = 0
+			" Use neocomplete.
+			let g:neocomplete#enable_at_startup = 1
+			" Use smartcase.
+			let g:neocomplete#enable_smart_case = 1
+			" Set minimum syntax keyword length.
+			let g:neocomplete#sources#syntax#min_keyword_length = 3
+			let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
-		" Define dictionary.
-		let g:neocomplete#sources#dictionary#dictionaries = {
-			\ 'default' : '',
-			\ 'vimshell' : $HOME.'/.vimshell_hist',
-			\ 'scheme' : $HOME.'/.gosh_completions'
-				\ }
+			" Define dictionary.
+			let g:neocomplete#sources#dictionary#dictionaries = {
+				\ 'default' : '',
+				\ 'vimshell' : $HOME.'/.vimshell_hist',
+				\ 'scheme' : $HOME.'/.gosh_completions'
+					\ }
 
-		" Define keyword.
-		if !exists('g:neocomplete#keyword_patterns')
-			let g:neocomplete#keyword_patterns = {}
+			" Define keyword.
+			if !exists('g:neocomplete#keyword_patterns')
+				let g:neocomplete#keyword_patterns = {}
+			endif
+			let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+			" Plugin key-mappings.
+			inoremap <expr><C-g>     neocomplete#undo_completion()
+			inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+			" Recommended key-mappings.
+			" <CR>: close popup and save indent.
+			inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+			function! s:my_cr_function()
+				return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+				" For no inserting <CR> key.
+				"return pumvisible() ? "\<C-y>" : "\<CR>"
+			endfunction
+			" <TAB>: completion.
+			inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+			" <C-h>, <BS>: close popup and delete backword char.
+			inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+			inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+			" Close popup by <Space>.
+			"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+			" AutoComplPop like behavior.
+			"let g:neocomplete#enable_auto_select = 1
+
+			" Shell like behavior(not recommended).
+			"set completeopt+=longest
+			"let g:neocomplete#enable_auto_select = 1
+			"let g:neocomplete#disable_auto_complete = 1
+			"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+			" Enable omni completion.
+			autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+			autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+			autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+			autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+			autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+			autocmd FileType cpp call SetCppOptions()
+			
+
+			" Enable heavy omni completion.
+			if !exists('g:neocomplete#sources#omni#input_patterns')
+				let g:neocomplete#sources#omni#input_patterns = {}
+			endif
+			" neocomplete stuff of vimtex
+			if !exists('g:neocomplete#sources#omni#input_patterns')
+				let g:neocomplete#sources#omni#input_patterns = {}
+			endif
+			let g:neocomplete#sources#omni#input_patterns.tex =
+					\ '\v\\%('
+					\ . '\a*%(ref|cite)\a*%(\s*\[[^]]*\])?\s*\{[^{}]*'
+					\ . '|includegraphics%(\s*\[[^]]*\])?\s*\{[^{}]*'
+					\ . '|%(include|input)\s*\{[^{}]*'
+					\ . ')'
+			"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+			"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+			"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+			" For perlomni.vim setting.
+			" https://github.com/c9s/perlomni.vim
+			"let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+			let g:neocomplete#sources#omni#input_patterns.cs = '.*[^=\);]'
+			"let g:neocomplete#sources.cs = ['omni']
+			let g:neocomplete#enable_refresh_always = 0
+			"let g:echodoc_enable_at_startup = 1
+			"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+			"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+			"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+			" For perlomni.vim setting.
+			" https://github.com/c9s/perlomni.vim
+			"let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+			let g:neocomplete#sources#omni#input_patterns.cs = '.*[^=\);]'
+			"let g:neocomplete#sources.cs = ['omni']
+			let g:neocomplete#enable_refresh_always = 0
+			"let g:echodoc_enable_at_startup = 1
+		else
+			let g:deoplete#enable_at_startup = 1	
+			let g:deoplete#enable_smart_case = 1
+			" <C-h>, <BS>: close popup and delete backword char.
+			inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
+			inoremap <expr><BS>  deoplete#mappings#smart_close_popup()."\<C-h>"
+
+			" <CR>: close popup and save indent.
+			inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+			function! s:my_cr_function() abort
+				return deoplete#mappings#close_popup() . "\<CR>"
+			endfunction
+			inoremap <silent><expr> <Tab>
+			\ pumvisible() ? "\<C-n>" :
+			\ deoplete#mappings#manual_complete()
 		endif
-		let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-		" Plugin key-mappings.
-		inoremap <expr><C-g>     neocomplete#undo_completion()
-		inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-		" Recommended key-mappings.
-		" <CR>: close popup and save indent.
-		inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-		function! s:my_cr_function()
-			return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-			" For no inserting <CR> key.
-			"return pumvisible() ? "\<C-y>" : "\<CR>"
-		endfunction
-		" <TAB>: completion.
-		inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-		" <C-h>, <BS>: close popup and delete backword char.
-		inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-		inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-		" Close popup by <Space>.
-		"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-
-		" AutoComplPop like behavior.
-		"let g:neocomplete#enable_auto_select = 1
-
-		" Shell like behavior(not recommended).
-		"set completeopt+=longest
-		"let g:neocomplete#enable_auto_select = 1
-		"let g:neocomplete#disable_auto_complete = 1
-		"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-
-		" Enable omni completion.
-		autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-		autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-		autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-		autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-		autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-		autocmd FileType cpp call SetCppOptions()
-		
-
-		" Enable heavy omni completion.
-		if !exists('g:neocomplete#sources#omni#input_patterns')
-			let g:neocomplete#sources#omni#input_patterns = {}
-		endif
-		"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-		"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-		"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-		" For perlomni.vim setting.
-		" https://github.com/c9s/perlomni.vim
-		"let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-		let g:neocomplete#sources#omni#input_patterns.cs = '.*[^=\);]'
-		"let g:neocomplete#sources.cs = ['omni']
-		let g:neocomplete#enable_refresh_always = 0
-		"let g:echodoc_enable_at_startup = 1
 		
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'Shougo/neocomplete-snippets.vim'
@@ -712,27 +738,6 @@ endif
 		" List of colors that you do not want. ANSI code or #RRGGBB
 		let g:rainbow#blacklist = [233, 234]
 " ///////////////////////////////////////////////////////////////////
-
-	""Plugin 'SirVer/ultisnips'  	" Track the engine.
-	"" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-		"let g:UltiSnipsExpandTrigger="<nop>"
-		"let g:UltiSnipsJumpForwardTrigger="<c-b>"
-		"let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-		"" makes possible the use of CR to enter snippet 
-		"let g:ulti_expand_or_jump_res = 0
-		"function! ExpandSnippetOrCarriageReturn()
-			"let snippet = UltiSnips#ExpandSnippetOrJump()
-			"if g:ulti_expand_or_jump_res > 0
-				"return snippet
-			"else
-				"return "\<CR>"
-			"endif
-		"endfunction
-		"inoremap <expr> <CR> pumvisible() ? "<C-R>=ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
-		"""""""""""""""""""""""""""""""""""""""""""""""""""
-		" If you want :UltiSnipsEdit to split your window.
-		"let g:UltiSnipsEditSplit="vertical""
-"//////////////////////////////////////////////////////////////////////////////////////////
 	"Plugin 'mattn/emmet-vim' " HTML fast code"
 		let g:user_emmet_settings = {
 		\  'php' : {
@@ -838,7 +843,7 @@ endif
 		"nnoremap <leader>th :OmniSharpHighlightTypes<cr>
 		"""Don't ask to save when changing buffers (i.e. when jumping to a type definition)
 
-""/////////////////////////////////MISC NOTES/////////////////////////////////////////////
+"//////////////////////////////////////////////////////////////////////////////////////////
 	""Plugin 'scrooloose/syntastic'
 		set statusline+=%#warningmsg#
 		set statusline+=%{SyntasticStatuslineFlag()}
@@ -849,9 +854,11 @@ endif
 		let g:syntastic_check_on_open = 0
 		let g:syntastic_check_on_wq = 0
 		"let g:syntastic_always_populate_loc_list = 1 " populates list of error so you can use lnext 
-"/////////////////////////////////MISC NOTES/////////////////////////////////////////////
-	" Deleted plugins
-	"Plugin 'justmao945/vim-clang'
+		let g:syntastic_cpp_compiler_options = ' -std=c++11' 
+"//////////////////////////////////////////////////////////////////////////////////////////
+	"Plug 'octol/vim-cpp-enhanced-highlight'
+		let g:cpp_class_scope_highlight = 1	
+		let g:cpp_experimental_template_highlight = 1	
 "/////////////////////////////////MISC NOTES/////////////////////////////////////////////
 "useful command to convert all , into new lines
 	":%s,/\r/g  
@@ -950,7 +957,13 @@ endif
 " Installin vim in unix:
 "	- Download vim_source_install.sh from drive
 "	- run. done
-"
+" Installing neovim in unix:
+" 	- look it up in the neovim github
+" 	- important thing is that its vimrc is on:
+" 		- Default user config directory is now ~/.config/nvim/
+" 		- Default "vimrc" location is now ~/.config/nvim/init.vim
+" 		- you have to create the nvim folder and the init.vim
+" 		- install python and xclip
 " --------------------------
 
 
