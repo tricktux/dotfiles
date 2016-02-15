@@ -129,7 +129,6 @@ endif
 
 "/////////////////////STUFF_FOR_BOTH_SYSTEMS///////////////////////
 "/////////////////////PLUGINS_FOR_BOTH_SYSTEMS///////////////////////
-	" let Vundle manage Vundle, required
 	Plug 'chrisbra/vim-diff-enhanced'
 	Plug 'scrooloose/nerdtree'
 	Plug 'scrooloose/nerdcommenter'
@@ -155,15 +154,12 @@ endif
 	Plug 'ctrlpvim/ctrlp.vim'
 	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'Tagbar'
-Plug 'mhinz/vim-startify'
 
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
-	" Omni complete stuff
-	" build tags of your own project with Ctrl-F12
 
-	" OmniCppComplete
+	" OmniCppComplete, Functions, and set settings
 	let OmniCpp_NamespaceSearch = 1
 	let OmniCpp_GlobalScopeSearch = 1
 	let OmniCpp_ShowAccess = 1
@@ -227,7 +223,7 @@ set encoding=utf-8
 "set spell spelllang=en_us
 set nospell
 " save marks 
-set viminfo='1000,f1,<800
+set viminfo='1000,f1,<800,%1024
 set cursorline
 set showtabline=2 " always show tabs in gvim, but not vim"
 set tabstop=4     " a tab is four spaces
@@ -257,6 +253,7 @@ set nobackup
 set noswapfile
 set autochdir " working directory is always the same as the file you are editing
 set sessionoptions+=localoptions,winpos
+" Custom Mappings
 " automatic syntax for *.scp
 autocmd! BufNewFile,BufRead *.scp set syntax=asm
 syntax on
@@ -274,9 +271,10 @@ noremap <Leader>qo :copen 20<CR>
 "//////MISCELANEOUS MAPPINGS/////////////
 " edit vimrc on a new tab
 noremap <Leader>mv :tabedit $MYVIMRC<CR>
-" source current document(usually used with vimrc)
-noremap <Leader>ms :so %<CR>
- " used to save in command line 
+" source current document(usually used with vimrc) added airline
+" replace auto sourcing of $MYVIMRC
+noremap <Leader>ms :so %<CR>:AirlineRefresh<CR>
+ " used to save in command line something
 noremap <Leader>ma :w<CR>
 noremap <Leader>mn :noh<CR>
 " duplicate current char
@@ -381,17 +379,32 @@ map <S-q> yyp
 
 "/////////////TAB_STUFF//////////////////////
 " move to the right tab
-noremap <S-k> gt
+set hidden
+" wont open a currently open buffer
+set switchbuf=useopen
+noremap <S-k> :bn<CR>
+noremap <S-j> :bp<CR>
+noremap <Leader><Space>k gt
+noremap <Leader><Space>j gT
+noremap <Leader>bl :ls<CR>
+noremap <Leader>bd :bd %<CR>
+noremap <Leader>bs :buffers<CR>:buffer<Space>
 " move to the left tab
-noremap <S-j> gT
+"noremap <S-j> gT
 " move tab to the left
 nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 " move tab to the right
 noremap <silent> <A-Right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
-nmap <S-t> :Te<CR>
-" dupplicate current tab
-" bring line down up
-"noremap  <C-J> <S-j>
+nmap <Leader>bn :enew<CR>
+noremap <S-x> :tabclose<CR>
+" Uncomment below everytime you mapclear
+" This will map 1-99gb. i.e: 12gb :12b<CR>
+let c = 1
+while c <= 99
+  execute "nnoremap " . c . "gb :" . c . "b\<CR>"
+  let c += 1
+endwhile
+"/////////////TAB_STUFF//////////////////////
 " move to the beggning of line
 noremap <S-w> $
 " move to the end of line
@@ -401,12 +414,16 @@ nnoremap T %
 vnoremap T %
 " insert tab spaces in normal mode
 noremap <Tab> i<Tab><Esc>
-noremap <S-x> :tabclose<CR>
 
 " This is a very good to show and search all current but a much better is 
-" to download vim-easygrep its a lot better 
 nnoremap gr :vimgrep <cword> %:p:h/*<CR> :copen 20<CR>
-" nnoremap gr :vimgrep <cword>/".input("Replace with: ")" %:p:h/*<CR> :copen 20<CR>
+nnoremap gs :call GetSearch()<CR>:exe "vimgrep " . search . " %:p:h/*"<CR> :copen 20<CR>
+function! GetSearch()
+	call inputsave()
+	let g:search = input("Search for:")
+	call inputrestore()
+endfunction
+
 " remaped search to f
 noremap S #
 " remaped delete to use it for scrolling
@@ -460,8 +477,46 @@ if has('cscope')
 endif
 
 " Auto saving folds
-au BufWritePost,BufLeave,WinLeave ?* mkview
-au BufWinEnter ?* silent loadview
+" you can see the plugin buffer name once you jump to the next
+" window
+let g:skipview_files = [
+            \ '[Quickfix List]',
+            \ '[]',
+            \ '[EXAMPLE PLUGIN BUFFER]'
+            \ ]
+function! MakeViewCheck()
+    if has('quickfix') && &buftype =~ 'quickfix'
+        " Buffer is quickfix dont save
+        return 0
+    endif
+    if has('quickfix') && &buftype =~ 'nofile'
+        " Buffer is marked as not a file
+        return 0
+    endif
+    if empty(glob(expand('%:p')))
+        " File does not exist on disk
+        return 0
+    endif
+    if len($TEMP) && expand('%:p:h') == $TEMP
+        " We're in a temp dir
+        return 0
+    endif
+    if len($TMP) && expand('%:p:h') == $TMP
+        " Also in temp dir
+        return 0
+    endif
+    if index(g:skipview_files, expand('%')) >= 0
+        " File is in skip list
+        return 0
+    endif
+    return 1
+endfunction
+augroup vimrcAutoView
+    autocmd!
+    " Autosave & Load Views.
+    autocmd BufWritePost,BufLeave,WinLeave ?* if MakeViewCheck() | mkview | endif
+    autocmd BufWinEnter ?* if MakeViewCheck() | silent loadview | endif
+augroup end
 
 " /////////////////PLUGIN_OPTIONS////////////////////////////////////////////
 	"Plugin 'VundleVim/Vundle.vim'
@@ -538,6 +593,12 @@ au BufWinEnter ?* silent loadview
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'bling/vim-airline' " Status bar line
 		set laststatus=2
+		let g:airline#extensions#tabline#enabled = 1
+		let g:airline#extensions#tabline#fnamemod = ':t'
+		let g:airline#extensions#tabline#left_sep = ' '
+		let g:airline#extensions#tabline#left_alt_sep = '|'
+		let g:airline#extensions#tabline#buffer_nr_show = 1
+		let g:airline_section_b = '%{strftime("%c")}'
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'file:///home/reinaldo/.vim/bundle/vim-hardy'
 		if has('unix')
@@ -701,6 +762,7 @@ au BufWinEnter ?* silent loadview
 	"Plugin 'Tagbar'
         let g:tagbar_autofocus = 1
         let g:tagbar_show_linenumbers = 2
+        let g:tagbar_map_togglesort = "r"
 		nmap <Leader>tt :TagbarToggle<CR>
 		nmap <Leader>tk :cs kill -1<CR>
 		nmap <silent> <Leader>tj <C-]>
