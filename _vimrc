@@ -1,6 +1,6 @@
 set nocompatible
 " moved here otherwise conditional mappings get / instead ; as leader 
-let mapleader="\<Space>"
+	let mapleader="\<Space>"
 let maplocalleader="\<Space>"
 if has('win32')
 	source $VIMRUNTIME/vimrc_example.vim
@@ -13,6 +13,7 @@ if has('win32')
 	nnoremap <Leader>mz :mksession! C:\vim_sessions\
 	" And load session with F3
 	nnoremap <Leader>mx :source C:\vim_sessions\
+	set viewdir=C:\vim_sessions\
 	" configure tags - add additional tags here or comment out not-used ones
 	set tags+=$HOME/vimfiles/tags/cpp
 	set tags+=$HOME/vimfiles/tags/tags
@@ -53,11 +54,7 @@ if has('win32')
 	\ '\=eval(submatch(0)-1)',
 	\ '')<CR>
 
-	"//////////////////Vundle Stuff for windows/////////////////////
-	" set the runtime path to include Vundle and initialize
-	call vundle#begin('$HOME/vimfiles/bundle/')
-	" alternatively, pass a path where Vundle should install plugins
-	"call vundle#begin('~/some/path/here')
+	"//////////////////Windows specific plugins options/////////////////////
 	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
 		set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
 		let g:ctrlp_custom_ignore = {
@@ -68,11 +65,9 @@ if has('win32')
 		let g:ctrlp_user_command = ['.hg', 'for /f "tokens=1" %%a in (''hg root'') '
 			\ . 'do hg --cwd %s status -numac -I . %%a']           " Windows
 
-	" make of the copy command for NerdTree for windows
-		let g:NERDTreeCopyCmd= 'cp -r '
 	" support for c sharp coding
-	Plugin 'OmniSharp/omnisharp-vim'
-	" used to support omnisharp server
+	call plug#begin('~/vimfiles/plugged')
+		Plug 'OmniSharp/omnisharp-vim'
 elseif has('unix')
 	set ffs=unix
 	nnoremap <Leader>mz :mksession! /home/reinaldo/.vim/sessions/
@@ -160,6 +155,7 @@ endif
 	Plug 'ctrlpvim/ctrlp.vim'
 	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'Tagbar'
+Plug 'mhinz/vim-startify'
 
 
 	" All of your Plugins must be added before the following line
@@ -260,6 +256,7 @@ set noerrorbells         " don't beep
 set nobackup
 set noswapfile
 set autochdir " working directory is always the same as the file you are editing
+set sessionoptions+=localoptions,winpos
 " automatic syntax for *.scp
 autocmd! BufNewFile,BufRead *.scp set syntax=asm
 syntax on
@@ -288,9 +285,21 @@ nmap <Leader>mt :set relativenumber!<CR>
 nmap <Leader>md :Dox<CR>
 "//////////FOLDING//////////////
 " Folding select text then S-f to fold or just S-f to toggle folding
-nnoremap <Leader>mf za
-onoremap <Leader>mf <C-C>za
-vnoremap <Leader>mf zf
+nnoremap <Leader>ff za
+onoremap <Leader>ff <C-C>za
+vnoremap <Leader>ff zf
+" next fold
+vnoremap <Leader>fn zj
+" previous fold
+vnoremap <Leader>fp zk
+" close all open folds
+vnoremap <Leader>fo zM
+" delete fold
+vnoremap <Leader>fd zd
+" delete all fold
+vnoremap <Leader>fD zE
+" opens all folds at cursor
+vnoremap <Leader>fo zO
 " move to upper window
 noremap <Leader>h <C-w>h
 noremap <Leader>mh <C-w>H
@@ -391,7 +400,7 @@ noremap <S-b> ^
 nnoremap T %
 vnoremap T %
 " insert tab spaces in normal mode
-nmap <Tab> i<Tab><Esc>
+noremap <Tab> i<Tab><Esc>
 noremap <S-x> :tabclose<CR>
 
 " This is a very good to show and search all current but a much better is 
@@ -450,6 +459,9 @@ if has('cscope')
 
 endif
 
+" Auto saving folds
+au BufWritePost,BufLeave,WinLeave ?* mkview
+au BufWinEnter ?* silent loadview
 
 " /////////////////PLUGIN_OPTIONS////////////////////////////////////////////
 	"Plugin 'VundleVim/Vundle.vim'
