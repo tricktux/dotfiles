@@ -24,6 +24,8 @@ if has('win32')
 		set guifont=consolas:h8
 		"colorscheme desert
 		set guioptions-=T  " no toolbar
+		set guioptions-=m  " no menu bar
+		set guioptions-=r  " no scroll bar
 		nnoremap <S-CR> o<Esc>
 	else
 		set t_Co=256
@@ -34,7 +36,7 @@ if has('win32')
 	noremap <Leader>mq <C-q>
 	" for this to work you must be in the root directory of your code
 	" doesnt work dont know why created script for this
-	noremap <Leader>tu :silent !dir /b /s *.cpp *.h *.cs > cscope.files<CR> 
+	noremap <Leader>tu :silent !dir /b /s *.cpp *.h *.hpp *.c > cscope.files<CR> 
 	\:silent !cscope -b -i cscope.files -f cscope.out<CR>
 	\:cs kill -1<CR>:cs add cscope.out<CR>
 	\:silent !ctags -R -f ./.svn/tags<CR>
@@ -65,6 +67,7 @@ if has('win32')
 		let g:ctrlp_user_command = ['.hg', 'for /f "tokens=1" %%a in (''hg root'') '
 			\ . 'do hg --cwd %s status -numac -I . %%a']           " Windows
 
+		let g:neosnippet#snippets_directory='~\vimfiles\plugged\vim-snippets'
 	" support for c sharp coding
 	call plug#begin('~/vimfiles/plugged')
 		Plug 'OmniSharp/omnisharp-vim'
@@ -81,11 +84,16 @@ elseif has('unix')
 	set tags+=~/.vim/tags/copter
 	if has('gui_running')
 		set guioptions-=T  " no toolbar
+		set guioptions-=m  " no menu bar
+		set guioptions-=r  " no scroll bar
 		set guifont=Monospace\ 9
 		nnoremap <S-CR> o<Esc>
 	else
 		set t_Co=256
-		" fixes issue background not filling up entire screen
+		" fixes nerdtree showing weird car issue
+		set encoding=utf-8
+		" fixes issue colorscheme background not filling up entire screen in
+		" command line
 		set t_ut=
 		nnoremap <CR> o<Esc>
 	endif
@@ -125,6 +133,9 @@ elseif has('unix')
 		let g:ctrlp_user_command =
 			\ ['.hg', 'hg --cwd %s status -numac -I . $(hg root)'] " MacOSX/Linux
 
+	" Syntastic
+		let g:syntastic_cpp_compiler_options = ' -std=c++11' 
+
 endif
 
 "/////////////////////STUFF_FOR_BOTH_SYSTEMS///////////////////////
@@ -154,7 +165,7 @@ endif
 	Plug 'ctrlpvim/ctrlp.vim'
 	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'Tagbar'
-
+	Plug 'bling/vim-bufferline'
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
@@ -172,40 +183,6 @@ endif
 	au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 	set completeopt=menuone,menu,longest,preview
 	" ////////////////////////////////////////////////////////
-"/////////Stuff to show tab numbers at begginig///////////////////
-" set up tab labels with tab number, buffer name, number of windows
-function! GuiTabLabel()
-	let label = ''
-	let bufnrlist = tabpagebuflist(v:lnum)
-	" Add '+' if one of the buffers in the tab page is modified
-	for bufnr in bufnrlist
-		if getbufvar(bufnr, "&modified")
-		let label = '+'
-		break
-		endif
-	endfor
-	" Append the tab number
-	let label .= v:lnum.': '
-	" Append the buffer name
-	let name = bufname(bufnrlist[tabpagewinnr(v:lnum) - 1])
-	if name == ''
-		" give a name to no-name documents
-		if &buftype=='quickfix'
-		let name = '[Quickfix List]'
-		else
-		let name = '[No Name]'
-		endif
-	else
-		" get only the file name
-		let name = fnamemodify(name,":t")
-	endif
-	let label .= name
-	" Append the number of windows in the tab page
-	let wincount = tabpagewinnr(v:lnum, '$')
-	return label . '  [' . wincount . ']'
-endfunction
-set guitablabel=%{GuiTabLabel()}
-"////////////////////////////////////////////////////////
 function! SetCppOptions()
 	setlocal omnifunc=omni#cpp#complete#Main
 	set cindent
@@ -218,8 +195,6 @@ set diffexpr=
 "////////////SET_OPTIONS///////////////////////////
 filetype plugin on   
 filetype indent on   
-" fixes nerdtree showing weird car issue
-set encoding=utf-8
 "set spell spelllang=en_us
 set nospell
 " save marks 
@@ -275,7 +250,8 @@ noremap <Leader>mv :tabedit $MYVIMRC<CR>
 " replace auto sourcing of $MYVIMRC
 noremap <Leader>ms :so %<CR>:AirlineRefresh<CR>
  " used to save in command line something
-noremap <Leader>ma :w<CR>
+"noremap <Leader>ma :w<CR>
+noremap <A-s> :wa<CR>
 noremap <Leader>mn :noh<CR>
 " duplicate current char
 nnoremap <Leader>mp ylp
@@ -382,11 +358,11 @@ map <S-q> yyp
 set hidden
 " wont open a currently open buffer
 set switchbuf=useopen
-noremap <S-k> :bn<CR>
-noremap <S-j> :bp<CR>
+noremap <S-k> :b#<CR>
+noremap <S-j> :e#<CR>
 noremap <Leader><Space>k gt
 noremap <Leader><Space>j gT
-noremap <Leader>bl :ls<CR>
+noremap <Leader>bo :CtrlPBuffer<CR>
 noremap <Leader>bd :bd %<CR>
 noremap <Leader>bs :buffers<CR>:buffer<Space>
 " move to the left tab
@@ -395,7 +371,7 @@ noremap <Leader>bs :buffers<CR>:buffer<Space>
 nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 " move tab to the right
 noremap <silent> <A-Right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
-nmap <Leader>bn :enew<CR>
+noremap <Leader>be :enew<CR>
 noremap <S-x> :tabclose<CR>
 " Uncomment below everytime you mapclear
 " This will map 1-99gb. i.e: 12gb :12b<CR>
@@ -416,6 +392,7 @@ vnoremap T %
 noremap <Tab> i<Tab><Esc>
 
 " This is a very good to show and search all current but a much better is 
+
 nnoremap gr :vimgrep <cword> %:p:h/*<CR> :copen 20<CR>
 nnoremap gs :call GetSearch()<CR>:exe "vimgrep " . search . " %:p:h/*"<CR> :copen 20<CR>
 function! GetSearch()
@@ -449,7 +426,7 @@ set timeoutlen=300
 set ttimeoutlen=1000
 " Search for highlighted word
 vnoremap // y/<C-R>"<CR>
-imap <C-l> ->
+inoremap <A-c> ->
 set nowrap        " wrap lines
 " will look in current directory for tags
 " THE BEST FEATURE I'VE ENCOUNTERED SO FAR OF VIM
@@ -593,12 +570,16 @@ augroup end
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'bling/vim-airline' " Status bar line
 		set laststatus=2
-		let g:airline#extensions#tabline#enabled = 1
-		let g:airline#extensions#tabline#fnamemod = ':t'
-		let g:airline#extensions#tabline#left_sep = ' '
-		let g:airline#extensions#tabline#left_alt_sep = '|'
-		let g:airline#extensions#tabline#buffer_nr_show = 1
+		"let g:airline#extensions#tabline#enabled = 1
+		"let g:airline#extensions#tabline#fnamemod = ':t'
+		"let g:airline#extensions#tabline#left_sep = ' '
+		"let g:airline#extensions#tabline#left_alt_sep = '|'
+		"let g:airline#extensions#tabline#buffer_nr_show = 1
 		let g:airline_section_b = '%{strftime("%c")}'
+		let g:airline#extensions#bufferline#enabled = 1
+		let g:airline#extensions#bufferline#overwrite_variables = 1
+		" Bufferline
+			let g:bufferline_rotate = 1
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'file:///home/reinaldo/.vim/bundle/vim-hardy'
 		if has('unix')
@@ -740,11 +721,6 @@ augroup end
 		if has('conceal')
 		set conceallevel=2 concealcursor=niv
 		endif
-		" Enable snipMate compatibility feature.
-		let g:neosnippet#enable_snipmate_compatibility = 1
-
-		" Tell Neosnippet about the other snippets
-		let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'Vim-R-plugin'
@@ -781,7 +757,9 @@ augroup end
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh
 		nmap <Leader>ao :CtrlP<CR>
-		nmap <Leader>am :CtrlPMRU<CR>
+		noremap <A-c> :CtrlPBuffer<CR>
+		noremap <A-v> :vs<CR>:CtrlPBuffer<CR>
+		nmap <A-o> :CtrlPMixed<CR>
 		nmap <Leader>at :tabnew<CR>:CtrlPMRU<CR>
 		nmap <Leader>av :vs<CR>:CtrlPMRU<CR>
 		nmap <Leader>as :sp<CR>:CtrlPMRU<CR>
@@ -931,7 +909,6 @@ augroup end
 		let g:syntastic_check_on_open = 0
 		let g:syntastic_check_on_wq = 0
 		"let g:syntastic_always_populate_loc_list = 1 " populates list of error so you can use lnext 
-		let g:syntastic_cpp_compiler_options = ' -std=c++11' 
 "//////////////////////////////////////////////////////////////////////////////////////////
 	"Plug 'octol/vim-cpp-enhanced-highlight'
 		let g:cpp_class_scope_highlight = 1	
