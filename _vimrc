@@ -67,10 +67,16 @@ if has('win32')
 		let g:ctrlp_user_command = ['.hg', 'for /f "tokens=1" %%a in (''hg root'') '
 			\ . 'do hg --cwd %s status -numac -I . %%a']           " Windows
 
-		let g:neosnippet#snippets_directory='~\vimfiles\plugged\vim-snippets'
-	" support for c sharp coding
+	" NeoComplete/NeoSnippets for Windows
+		"let g:neosnippet#snippets_directory='~\vimfiles\plugged\vim-snippets'
+		let g:neocomplete#data_directory = 'C:\vim_sessions' " let neocomplete
+		"store its stuff
+
+
+	" Call Vim-Plug Windows Specific Plugins should be from here below
 	call plug#begin('~/vimfiles/plugged')
 		Plug 'OmniSharp/omnisharp-vim'
+" /////////// /////////// /////////// /////////// /////////// /////////// ////
 elseif has('unix')
 	set ffs=unix
 	nnoremap <Leader>mz :mksession! /home/reinaldo/.vim/sessions/
@@ -186,8 +192,8 @@ endif
 function! SetCppOptions()
 	setlocal omnifunc=omni#cpp#complete#Main
 	set cindent
-	:IndentGuidesToggle
-	:RainbowParentheses
+	IndentGuidesToggle
+	RainbowParentheses
 endfunction
 "///////////////////FUNCTION_FOR_DIFF///////////////////
 set diffexpr=
@@ -251,7 +257,7 @@ noremap <Leader>mv :tabedit $MYVIMRC<CR>
 noremap <Leader>ms :so %<CR>:AirlineRefresh<CR>
  " used to save in command line something
 "noremap <Leader>ma :w<CR>
-noremap <A-s> :wa<CR>
+noremap <A-s> :w<CR>
 noremap <Leader>mn :noh<CR>
 " duplicate current char
 nnoremap <Leader>mp ylp
@@ -364,6 +370,8 @@ noremap <Leader><Space>k gt
 noremap <Leader><Space>j gT
 noremap <Leader>bo :CtrlPBuffer<CR>
 noremap <Leader>bd :bd %<CR>
+" deletes all buffers
+noremap <Leader>bD :bufdo bd<CR>
 noremap <Leader>bs :buffers<CR>:buffer<Space>
 " move to the left tab
 "noremap <S-j> gT
@@ -570,11 +578,6 @@ augroup end
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'bling/vim-airline' " Status bar line
 		set laststatus=2
-		"let g:airline#extensions#tabline#enabled = 1
-		"let g:airline#extensions#tabline#fnamemod = ':t'
-		"let g:airline#extensions#tabline#left_sep = ' '
-		"let g:airline#extensions#tabline#left_alt_sep = '|'
-		"let g:airline#extensions#tabline#buffer_nr_show = 1
 		let g:airline_section_b = '%{strftime("%c")}'
 		let g:airline#extensions#bufferline#enabled = 1
 		let g:airline#extensions#bufferline#overwrite_variables = 1
@@ -596,6 +599,8 @@ augroup end
 			" Use smartcase.
 			let g:neocomplete#enable_smart_case = 1
 			" Set minimum syntax keyword length.
+			let g:neocomplete#enable_refresh_always = 1 " increases screen
+			"flickering
 			let g:neocomplete#sources#syntax#min_keyword_length = 3
 			let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
@@ -612,10 +617,6 @@ augroup end
 			endif
 			let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-			" Plugin key-mappings.
-			inoremap <expr><C-g>     neocomplete#undo_completion()
-			inoremap <expr><C-l>     neocomplete#complete_common_string()
-
 			" Recommended key-mappings.
 			" <CR>: close popup and save indent.
 			inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
@@ -624,22 +625,21 @@ augroup end
 				" For no inserting <CR> key.
 				"return pumvisible() ? "\<C-y>" : "\<CR>"
 			endfunction
+
 			" <TAB>: completion.
-			inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-			" <C-h>, <BS>: close popup and delete backword char.
-			inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+			inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
+					\ <SID>check_back_space() ? "\<TAB>" :
+					\ neocomplete#start_manual_complete()
+			  function! s:check_back_space() "{{{
+				let col = col('.') - 1
+				return !col || getline('.')[col - 1]  =~ '\s'
+			  endfunction"}}}
+
+			" <BS>: close popup and delete backword char.
 			inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-			" Close popup by <Space>.
-			"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-
-			" AutoComplPop like behavior.
-			"let g:neocomplete#enable_auto_select = 1
-
-			" Shell like behavior(not recommended).
-			"set completeopt+=longest
-			"let g:neocomplete#enable_auto_select = 1
-			"let g:neocomplete#disable_auto_complete = 1
-			"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+			" Search from neocomplete, omni candidates, vim keywords.
+			let g:neocomplete#fallback_mappings =
+			\ ["\<C-x>\<C-o>", "\<C-x>\<C-n>"]
 
 			" Enable omni completion.
 			autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -650,42 +650,35 @@ augroup end
 			autocmd FileType cpp call SetCppOptions()
 			
 
+			if !exists('g:neocomplete#delimiter_patterns')
+				let g:neocomplete#delimiter_patterns= {}
+			endif
+			let g:neocomplete#delimiter_patterns.vim = ['#']
+			let g:neocomplete#delimiter_patterns.cpp = ['::']
+
 			" Enable heavy omni completion.
-			if !exists('g:neocomplete#sources#omni#input_patterns')
-				let g:neocomplete#sources#omni#input_patterns = {}
+			if !exists('g:neocomplete#force_omni_input_patters')
+				let g:neocomplete#force_omni_input_patters= {}
 			endif
-			" neocomplete stuff of vimtex
-			if !exists('g:neocomplete#sources#omni#input_patterns')
-				let g:neocomplete#sources#omni#input_patterns = {}
-			endif
-			let g:neocomplete#sources#omni#input_patterns.tex =
+			let g:neocomplete#force_omni_input_patters.tex =
 					\ '\v\\%('
 					\ . '\a*%(ref|cite)\a*%(\s*\[[^]]*\])?\s*\{[^{}]*'
 					\ . '|includegraphics%(\s*\[[^]]*\])?\s*\{[^{}]*'
 					\ . '|%(include|input)\s*\{[^{}]*'
 					\ . ')'
-			"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-			"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-			"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+			let g:neocomplete#force_omni_input_patters.php = '[^. \t]->\h\w*\|\h\w*::'
+			let g:neocomplete#force_omni_input_patters.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+			let g:neocomplete#force_omni_input_patters.cpp =
+			\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+			let g:neocomplete#force_omni_input_patters.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
 			" For perlomni.vim setting.
 			" https://github.com/c9s/perlomni.vim
-			"let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-			let g:neocomplete#sources#omni#input_patterns.cs = '.*[^=\);]'
+			let g:neocomplete#force_omni_input_patters.perl = '\h\w*->\h\w*\|\h\w*::'
+			let g:neocomplete#force_omni_input_patters.cs = '.*[^=\);]'
 			"let g:neocomplete#sources.cs = ['omni']
 			let g:neocomplete#enable_refresh_always = 0
-			"let g:echodoc_enable_at_startup = 1
-			"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-			"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-			"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
-			" For perlomni.vim setting.
-			" https://github.com/c9s/perlomni.vim
-			"let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-			let g:neocomplete#sources#omni#input_patterns.cs = '.*[^=\);]'
-			"let g:neocomplete#sources.cs = ['omni']
-			let g:neocomplete#enable_refresh_always = 0
-			"let g:echodoc_enable_at_startup = 1
 		else
 			let g:deoplete#enable_at_startup = 1	
 			let g:deoplete#enable_smart_case = 1
@@ -719,8 +712,10 @@ augroup end
 		\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 		" For conceal markers.
 		if has('conceal')
-		set conceallevel=2 concealcursor=niv
+			set conceallevel=2 concealcursor=niv
 		endif
+
+		let g:neosnippet#enable_snipmate_compatibility = 1
 
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'Vim-R-plugin'
