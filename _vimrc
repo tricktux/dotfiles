@@ -22,7 +22,6 @@ if has('win32')
 	"au BufEnter *.c *.cpp *.h *.hpp call LoadWinCscope()"
 	if has('gui_running')
 		set guifont=consolas:h8
-		"colorscheme desert
 		set guioptions-=T  " no toolbar
 		set guioptions-=m  " no menu bar
 		set guioptions-=r  " no scroll bar
@@ -34,12 +33,19 @@ if has('win32')
 
 	" consistent in all systems
 	noremap <Leader>mq <C-q>
+
 	" for this to work you must be in the root directory of your code
-	" doesnt work dont know why created script for this
-	noremap <Leader>tu :silent !dir /b /s *.cpp *.h *.hpp *.c > cscope.files<CR> 
+	" 1. kill cscope database connection
+	" 2. delete previous cscope files
+	" 3. create new cscope.fiels, cscope.out, and ctags files
+	" 4. connect to new database
+	noremap <Leader>tu :cs kill -1<CR>
+	\:silent !del /F cscope.files cscope.out<CR>
+	\:silent !dir /b /s *.cpp *.h *.hpp *.c > cscope.files<CR> 
 	\:silent !cscope -b -i cscope.files -f cscope.out<CR>
-	\:cs kill -1<CR>:cs add cscope.out<CR>
 	\:silent !ctags -R -f ./.svn/tags<CR>
+	\:cs add cscope.out<CR>
+
 	noremap <Leader>mr :!%<CR>
 	" Copy and paste into system wide clipboard
 	noremap <Leader><Space>v "*p
@@ -162,6 +168,8 @@ endif
 	Plug 'junegunn/rainbow_parentheses.vim'
 	Plug 'tpope/vim-surround'
 	Plug 'morhetz/gruvbox' " colorscheme gruvbox 
+	Plug 'mhinz/vim-janah' " colorscheme 
+	Plug 'AlessandroYorba/Sierra' " colorscheme 
 	Plug 'nathanaelkane/vim-indent-guides' 
 	Plug 'mattn/emmet-vim' " HTML fast code
 	Plug 'Shougo/neosnippet'
@@ -257,7 +265,8 @@ noremap <Leader>ms :so %<CR>:AirlineRefresh<CR>
  " used to save in command line something
 "noremap <Leader>ma :w<CR>
 noremap <A-s> :w<CR>
-noremap <Leader>mn :noh<CR>
+noremap <A-n> :noh<CR>
+"noremap <Leader>mn :noh<CR>
 " duplicate current char
 nnoremap <Leader>mp ylp
 nmap <Leader>mt :set relativenumber!<CR>
@@ -314,15 +323,15 @@ nnoremap <Leader>moh :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>"
 " diff left and right window
 noremap <Leader>do :windo diffthis<CR>
 " diff go to next diff
-noremap <Leader>dn ]c
+noremap <C-Down> ]c
 " diff go to previous diff
-noremap <Leader>dp [c
+noremap <C-Up> [c
 " diff get from the other window
-noremap <Leader>dg :diffget<CR>
+noremap <C-Left> :diffget<CR>
 " diff put difference onto other window
-noremap <Leader>du :diffput<CR>
+noremap <C-Right> :diffput<CR>
 " close diff
-noremap <Leader>dl :diffoff!<CR> ZZ
+noremap <Leader>dl :diffoff!<CR>
 " off highlited search
 " ///////////////////////////////////////
 
@@ -433,7 +442,6 @@ set timeoutlen=300
 set ttimeoutlen=1000
 " Search for highlighted word
 vnoremap // y/<C-R>"<CR>
-inoremap <A-c> ->
 set nowrap        " wrap lines
 " will look in current directory for tags
 " THE BEST FEATURE I'VE ENCOUNTERED SO FAR OF VIM
@@ -550,6 +558,7 @@ augroup end
         let NERDTreeQuitOnOpen=1 " AutoClose after openning file
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'vc.vim' "version control plugin
+	" TODO: fix this either bring it back or figure better way to do it
 		noremap <Leader>va :VCAdd<CR>
 		noremap <Leader>vc :VCCommit<CR> 
 		noremap <Leader>vp :VCPush<CR> 
@@ -751,7 +760,7 @@ augroup end
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh
 		nmap <Leader>ao :CtrlP<CR>
-		noremap <A-c> :CtrlPBuffer<CR>
+		noremap <S-k> :CtrlPBuffer<CR>
 		noremap <A-v> :vs<CR>:CtrlPBuffer<CR>
 		nmap <A-o> :CtrlPMixed<CR>
 		nmap <Leader>at :tabnew<CR>:CtrlPMRU<CR>
@@ -775,10 +784,6 @@ augroup end
 		set ttyfast " Had to addit to speed up scrolling 
 		"autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
 		"autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4"
-" //////////////////////////////////////////////////////////////////
-		"Plugin 'morhetz/gruvbox' " colorscheme gruvbox 
-			colorscheme gruvbox
-			set background=dark    " Setting dark mode
 " ///////////////////////////////////////////////////////////////////
 	"Plug 'junegunn/rainbow_parentheses.vim'
 		let g:rainbow#max_level = 16
@@ -907,6 +912,13 @@ augroup end
 	"Plug 'octol/vim-cpp-enhanced-highlight'
 		let g:cpp_class_scope_highlight = 1	
 		let g:cpp_experimental_template_highlight = 1	
+" //////////////////////////////////////////////////////////////////
+		"Plugin 'morhetz/gruvbox' " colorscheme gruvbox 
+			"colorscheme desert
+			colorscheme gruvbox
+			"colorscheme janah
+			"colorscheme sierra
+			set background=dark    " Setting dark mode
 "/////////////////////////////////MISC NOTES/////////////////////////////////////////////
 "useful command to convert all , into new lines
 	":%s,/\r/g  
