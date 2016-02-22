@@ -198,6 +198,7 @@ endif
 	" ////////////////////////////////////////////////////////
 function! SetCppOptions()
 	setlocal omnifunc=omni#cpp#complete#Main
+	set textwidth=80
 	set cindent
 	IndentGuidesToggle
 	RainbowParentheses
@@ -223,7 +224,7 @@ set number        " always show line numbers
 set shiftwidth=4  " number of spaces to use for autoindenting
 set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
 set showmatch     " set show matching parenthesis
-set smartcase     " ignore case if search pattern is all lowercase,
+"set smartcase     " ignore case if search pattern is all lowercase,
                     "    case-sensitive otherwise
 set smarttab      " insert tabs on the start of a line according to
                     "    shiftwidth, not tabstop
@@ -266,9 +267,11 @@ noremap <Leader>ms :so %<CR>:AirlineRefresh<CR>
 "noremap <Leader>ma :w<CR>
 noremap <A-s> :w<CR>
 noremap <A-n> :noh<CR>
+noremap <A-c> i<Space><Esc>
 "noremap <Leader>mn :noh<CR>
 " duplicate current char
 nnoremap <Leader>mp ylp
+vnoremap <Leader>mp ylp
 nmap <Leader>mt :set relativenumber!<CR>
 nmap <Leader>md :Dox<CR>
 "//////////FOLDING//////////////
@@ -300,8 +303,8 @@ noremap <Leader>ml <C-w>L
 noremap <Leader>m. 20<C-w>>
 noremap <Leader>m, 20<C-w><
 " not paste the deleted word
-nmap <Leader><Space>p "0p
-vmap <Leader><Space>p "0p
+nnoremap <Leader><Space>p "0p
+vnoremap <Leader><Space>p "0p
 " move current line up
 nnoremap <Leader>K ddkk""p
 " move current line down
@@ -372,8 +375,18 @@ map <S-q> yyp
 set hidden
 " wont open a currently open buffer
 set switchbuf=useopen
-noremap <S-k> :b#<CR>
-noremap <S-j> :e#<CR>
+" noremap <S-k> :b#<CR>
+" trying to fix cursor at top when switching buffers
+"set scrolloff=999 " this didnt work, keeps screen centered around cursor all
+"the time
+" It turned out that it was this what was causing it
+	"augroup vimrcAutoView
+		"autocmd!
+		"" Autosave & Load Views.
+		"autocmd BufWritePost,BufLeave,WinLeave ?* if MakeViewCheck() | mkview | endif
+		"autocmd BufWinEnter ?* if MakeViewCheck() | silent loadview | endif
+	"augroup end
+noremap <S-j> :b#<CR>
 noremap <Leader><Space>k gt
 noremap <Leader><Space>j gT
 noremap <Leader>bo :CtrlPBuffer<CR>
@@ -423,8 +436,7 @@ noremap S #
 "noremap ,d d"
 	
 " Automatically insert date
-nnoremap <F5> "=strftime("%c")<CR>P
-inoremap <F5> <C-R>=strftime("%c")<CR>
+nnoremap <F5> i///////////////<Esc>"=strftime("%c")<CR>Pa///////////////<Esc>
 "//////////SCROLLING//////////////
 nmap e 20k
 vmap e 20k
@@ -503,12 +515,6 @@ function! MakeViewCheck()
     endif
     return 1
 endfunction
-augroup vimrcAutoView
-    autocmd!
-    " Autosave & Load Views.
-    autocmd BufWritePost,BufLeave,WinLeave ?* if MakeViewCheck() | mkview | endif
-    autocmd BufWinEnter ?* if MakeViewCheck() | silent loadview | endif
-augroup end
 
 " /////////////////PLUGIN_OPTIONS////////////////////////////////////////////
 	"Plugin 'VundleVim/Vundle.vim'
@@ -911,7 +917,8 @@ augroup end
 "//////////////////////////////////////////////////////////////////////////////////////////
 	"Plug 'octol/vim-cpp-enhanced-highlight'
 		let g:cpp_class_scope_highlight = 1	
-		let g:cpp_experimental_template_highlight = 1	
+		" turning this option breaks comments
+		"let g:cpp_experimental_template_highlight = 1	
 " //////////////////////////////////////////////////////////////////
 		"Plugin 'morhetz/gruvbox' " colorscheme gruvbox 
 			"colorscheme desert
