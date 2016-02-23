@@ -352,7 +352,6 @@ set notimeout
 set nottimeout
 set timeoutlen=300
 set ttimeoutlen=1000
-vnoremap // y/<C-R>"<CR>
 set nowrap        " wrap lines
 " will look in current directory for tags
 " THE BEST FEATURE I'VE ENCOUNTERED SO FAR OF VIM
@@ -426,37 +425,36 @@ vnoremap <Leader>fd zd
 vnoremap <Leader>fD zE
 " opens all folds at cursor
 vnoremap <Leader>fo zO
-" move to upper window
+" move between windows
 noremap <Leader>h <C-w>h
-noremap <Leader>mh <C-w>H
 noremap <Leader>j <C-w>j
-noremap <Leader>mj <C-w>J
 noremap <Leader>k <C-w>k
-noremap <Leader>mk <C-w>K
 noremap <Leader>l <C-w>l
-noremap <Leader>ml <C-w>L
-noremap <Leader>m. 20<C-w>>
-noremap <Leader>m, 20<C-w><
+" move windows positions
+noremap <Leader>H <C-w>H
+noremap <Leader>J <C-w>J
+noremap <Leader>K <C-w>K
+noremap <Leader>L <C-w>L
+" expand windows positions
+noremap <Leader>. <C-w>>
+noremap <Leader>, <C-w><
+noremap <Leader>- <C-w>-
+noremap <Leader>= <C-w>+
 " not paste the deleted word
 nnoremap <Leader><Space>p "0p
 vnoremap <Leader><Space>p "0p
 " move current line up
-nnoremap <Leader>K ddkk""p
+nnoremap <A-k> ddkk""p
 " move current line down
-noremap <Leader>J dd""p
+noremap <A-j> dd""p
 " Close all
 noremap <Leader><Space>x :qall!<CR>
 " open new to tab to explorer
 noremap <Leader><Space>n :tab split<CR>
 " previous cursor position
 noremap <Leader>e <c-o>
-" next cursor position
-"nmap ,s <c-i>" this is never going to work because you cant separate tab and
-"c-i
 " Switch back and forth between header file
 nnoremap <Leader>moh :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>"
-" Run current script
-
 " ////////////////DIFF SUTFF///////////////
 " diff left and right window
 noremap <Leader>do :windo diffthis<CR>
@@ -472,7 +470,6 @@ noremap <C-Right> :diffput<CR>
 noremap <Leader>dl :diffoff!<CR>
 " off highlited search
 " ///////////////////////////////////////
-
 "///////////SPELL_CHECK////////////////
 " search forward
 noremap <Leader>sn ]s
@@ -496,8 +493,6 @@ nnoremap <Backspace> hxh<Esc>
 inoremap qq <Esc>
 vnoremap qq <Esc>
 noremap <S-q> yyp
-
-
 "/////////////TAB_STUFF//////////////////////
 noremap <S-j> :b#<CR>
 noremap <Leader><Space>k gt
@@ -532,17 +527,12 @@ nnoremap T %
 vnoremap T %
 " insert tab spaces in normal mode
 noremap <Tab> i<Tab><Esc>
-
 " This is a very good to show and search all current but a much better is 
-
 nnoremap gr :vimgrep <cword> %:p:h/*<CR> :copen 20<CR>
 nnoremap gs :call GetString("search")<CR>:exe "vimgrep " . search . " %:p:h/*"<CR> :copen 20<CR>
-
 " remaped search to f
 noremap S #
-" remaped delete to use it for scrolling
-"noremap ,d d"
-	
+vnoremap // y/<C-R>"<CR>
 " Automatically insert date
 nnoremap <F5> i///////////////<Esc>"=strftime("%c")<CR>Pa///////////////<Esc>
 "//////////SCROLLING//////////////
