@@ -89,7 +89,6 @@ elseif has('unix')
 	nnoremap <Leader>mx :source /home/reinaldo/.vim/sessions/
 	noremap <Leader>mq <C-v>
 	" making C-v paste stuff from system register
-	autocmd BufNewFile,BufReadPost *.ino,*.pde setlocal ft=arduino
 	" configure tags - add additional tags here or comment out not-used ones
 	set tags+=~/.vim/tags/cpp
 	set tags+=~/.vim/tags/tags
@@ -114,7 +113,7 @@ elseif has('unix')
   	\:silent !cscope -b -i cscope.fiels -f cscope.out<CR>
 	\:cs kill -1<CR>:cs add cscope.out<CR>
 	\:silent !ctags -R --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
-	nmap <Leader>mr :!./%<CR>
+	noremap <Leader>mr :!./%<CR>
 	noremap <Leader><Space>v "+p
 	noremap <Leader><Space>y "+yy
 
@@ -182,20 +181,38 @@ endif
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
+"------------------ALL_AUTOGROUP_STUFF--------------------
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType cpp call SetCppOptions()
+autocmd FileType nerdtree setlocal relativenumber
+autocmd FileType cs call SetCsOptions()
+autocmd FileType text call TextEnableCodeSnip('cpp', '@begin=cpp@', '@end=cpp@','SpecialComment')
 
-	" OmniCppComplete, Functions, and set settings
-	let OmniCpp_NamespaceSearch = 1
-	let OmniCpp_GlobalScopeSearch = 1
-	let OmniCpp_ShowAccess = 1
-	let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
-	let OmniCpp_MayCompleteDot = 1 " autocomplete after .
-	let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
-	let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
-	let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
-	" automatically open and close the popup menu / preview window
-	au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-	set completeopt=menuone,menu,longest,preview
-	" ////////////////////////////////////////////////////////
+" automatically open and close the popup menu / preview window
+au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+" automatic syntax for *.scp
+autocmd! BufNewFile,BufRead *.scp set syntax=asm
+if has('unix')
+	autocmd BufNewFile,BufReadPost *.ino,*.pde setlocal ft=arduino
+endif
+"-----------------------------------------------------------
+
+" OmniCppComplete, Functions, and set settings
+let OmniCpp_NamespaceSearch = 1
+let OmniCpp_GlobalScopeSearch = 1
+let OmniCpp_ShowAccess = 1
+let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
+let OmniCpp_MayCompleteDot = 1 " autocomplete after .
+let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
+let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
+let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+" ////////////////////////////////////////////////////////
+" //////////////////FUNCTIONS//////////////////////////////////////
 function! SetCppOptions()
 	setlocal omnifunc=omni#cpp#complete#Main
 	set textwidth=80
@@ -203,14 +220,95 @@ function! SetCppOptions()
 	IndentGuidesToggle
 	RainbowParentheses
 endfunction
-"///////////////////FUNCTION_FOR_DIFF///////////////////
-set diffexpr=
-"////////////////////////////////////////////////////////
+" ////////////////////////////////////////////////////////
+function! GetSearch()
+	call inputsave()
+	let g:search = input("Search for:")
+	call inputrestore()
+endfunction
+" ////////////////////////////////////////////////////////
+" nobody using it because it breaks switching buffers
+"let g:skipview_files = [
+            "\ '[Quickfix List]',
+            "\ '[]',
+            "\ '[EXAMPLE PLUGIN BUFFER]'
+            "\ ]
+"function! MakeViewCheck()
+    "if has('quickfix') && &buftype =~ 'quickfix'
+        "" Buffer is quickfix dont save
+        "return 0
+    "endif
+    "if has('quickfix') && &buftype =~ 'nofile'
+        "" Buffer is marked as not a file
+        "return 0
+    "endif
+    "if empty(glob(expand('%:p')))
+        "" File does not exist on disk
+        "return 0
+    "endif
+    "if len($TEMP) && expand('%:p:h') == $TEMP
+        "" We're in a temp dir
+        "return 0
+    "endif
+    "if len($TMP) && expand('%:p:h') == $TMP
+        "" Also in temp dir
+        "return 0
+    "endif
+    "if index(g:skipview_files, expand('%')) >= 0
+        "" File is in skip list
+        "return 0
+    "endif
+    "return 1
+"endfunction
+" ////////////////////////////////////////////////////////
+"Function to enable different code snippets inside txt files
+function! TextEnableCodeSnip(filetype,start,end,textSnipHl) abort
+  let ft=toupper(a:filetype)
+  let group='textGroup'.ft
+  if exists('b:current_syntax')
+    let s:current_syntax=b:current_syntax
+    " Remove current syntax definition, as some syntax files (e.g. cpp.vim)
+    " do nothing if b:current_syntax is defined.
+    unlet b:current_syntax
+  endif
+  execute 'syntax include @'.group.' syntax/'.a:filetype.'.vim'
+  try
+    execute 'syntax include @'.group.' after/syntax/'.a:filetype.'.vim'
+  catch
+  endtry
+  if exists('s:current_syntax')
+    let b:current_syntax=s:current_syntax
+  else
+    unlet b:current_syntax
+  endif
+  execute 'syntax region textSnip'.ft.'
+  \ matchgroup='.a:textSnipHl.'
+  \ start="'.a:start.'" end="'.a:end.'"
+  \ contains=@'.group
+endfunction
+"call TextEnableCodeSnip(  'c',   '@begin=c@',   '@end=c@', 'SpecialComment')
+"call TextEnableCodeSnip('sql', '@begin=sql@', '@end=sql@', 'SpecialComment')
+" ////////////////////////////////////////////////////////
+function! SetCsOptions()
+	OmniSharpHighlightTypes
+	setlocal omnifunc=OmniSharp#Complete
+	" Automatically add new cs files to the nearest project on save
+	autocmd BufWritePost *.cs call OmniSharp#AddToProject()
+
+	"show type information automatically when the cursor stops moving
+	autocmd CursorHold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
+	IndentGuidesToggle
+	RainbowParentheses
+endfunction
+" ////////////////////////////////////////////////////////
 "////////////SET_OPTIONS///////////////////////////
 filetype plugin on   
 filetype indent on   
 "set spell spelllang=en_us
+"omnicomplete menu
+set completeopt=menuone,menu,longest,preview
 set nospell
+set diffexpr=
 " save marks 
 set viminfo='1000,f1,<800,%1024
 set cursorline
@@ -224,7 +322,7 @@ set number        " always show line numbers
 set shiftwidth=4  " number of spaces to use for autoindenting
 set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
 set showmatch     " set show matching parenthesis
-"set smartcase     " ignore case if search pattern is all lowercase,
+set smartcase     " ignore case if search pattern is all lowercase,
                     "    case-sensitive otherwise
 set smarttab      " insert tabs on the start of a line according to
                     "    shiftwidth, not tabstop
@@ -242,9 +340,42 @@ set nobackup
 set noswapfile
 set autochdir " working directory is always the same as the file you are editing
 set sessionoptions+=localoptions,winpos
-" Custom Mappings
-" automatic syntax for *.scp
-autocmd! BufNewFile,BufRead *.scp set syntax=asm
+set hidden
+" wont open a currently open buffer
+set switchbuf=useopen
+" see :h timeout this was done to make use of ' faster and keep the other
+" timeout the same
+set notimeout
+set nottimeout
+set timeoutlen=300
+set ttimeoutlen=1000
+vnoremap // y/<C-R>"<CR>
+set nowrap        " wrap lines
+" will look in current directory for tags
+" THE BEST FEATURE I'VE ENCOUNTERED SO FAR OF VIM
+" CAN BELIEVE I DIDNT DO THIS BEFORE
+set tags+=.\tags;\
+if has('cscope')
+	set cscopetag cscopeverbose
+
+	if has('quickfix')
+		set cscopequickfix=s+,c+,d+,i+,t+,e+
+	endif
+
+	"if has('win32')
+		"set csprg=C:\vim_sessions\cscope.exe
+	"endif
+
+	cnoreabbrev csa cs add
+	cnoreabbrev csf cs find
+	cnoreabbrev csk cs kill
+	cnoreabbrev csr cs reset
+	cnoreabbrev css cs show
+	cnoreabbrev csh cs help
+
+endif
+" ////////////////////////////////////////////////////////
+		" Custom Mappings
 syntax on
 " on quickfix window go to line selected
 noremap <Leader>qc :.cc<CR>
@@ -272,8 +403,8 @@ noremap <A-c> i<Space><Esc>
 " duplicate current char
 nnoremap <Leader>mp ylp
 vnoremap <Leader>mp ylp
-nmap <Leader>mt :set relativenumber!<CR>
-nmap <Leader>md :Dox<CR>
+noremap <Leader>mt :set relativenumber!<CR>
+noremap <Leader>md :Dox<CR>
 "//////////FOLDING//////////////
 " Folding select text then S-f to fold or just S-f to toggle folding
 nnoremap <Leader>ff za
@@ -310,11 +441,11 @@ nnoremap <Leader>K ddkk""p
 " move current line down
 noremap <Leader>J dd""p
 " Close all
-nmap <Leader><Space>x :qall!<CR>
+noremap <Leader><Space>x :qall!<CR>
 " open new to tab to explorer
-nmap <Leader><Space>n :tab split<CR>
+noremap <Leader><Space>n :tab split<CR>
 " previous cursor position
-nmap <Leader>e <c-o>
+noremap <Leader>e <c-o>
 " next cursor position
 "nmap ,s <c-i>" this is never going to work because you cant separate tab and
 "c-i
@@ -340,52 +471,30 @@ noremap <Leader>dl :diffoff!<CR>
 
 "///////////SPELL_CHECK////////////////
 " search forward
-nmap <Leader>sn ]s
+noremap <Leader>sn ]s
 " search backwards
-nmap <Leader>sp [s
+noremap <Leader>sp [s
 " suggestion
-nmap <Leader>sc z=
+noremap <Leader>sc z=
 " toggle spelling
-nmap <Leader>st :setlocal spell! spelllang=en_us<CR>
+noremap <Leader>st :setlocal spell! spelllang=en_us<CR>
 " add to dictionary
-nmap <Leader>sa zg
+noremap <Leader>sa zg
 " mark wrong
-nmap <Leader>sw zw
+noremap <Leader>sw zw
 " repeat last spell correction
-nmap <Leader>sr :spellr<CR>
+noremap <Leader>sr :spellr<CR>
 " SyntasticCheck toggle
-nmap <Leader>so :SyntasticToggleMode<CR>
-
-" Insert empty line below
-" Substitute for ESC   
- "nnoremap <Space> i <Esc> 
+noremap <Leader>so :SyntasticToggleMode<CR>
 " Normal backspace functionalit y
 nnoremap <Backspace> hxh<Esc> 
  " Substitute for ESC  
-imap qq <Esc>
- " Substitute for ESC  
-vmap qq <Esc>
-" save all buffer s
-"map <C-s> :w<CR>"
-" duplicate current line down
-map <S-q> yyp
+inoremap qq <Esc>
+vnoremap qq <Esc>
+noremap <S-q> yyp
+
 
 "/////////////TAB_STUFF//////////////////////
-" move to the right tab
-set hidden
-" wont open a currently open buffer
-set switchbuf=useopen
-" noremap <S-k> :b#<CR>
-" trying to fix cursor at top when switching buffers
-"set scrolloff=999 " this didnt work, keeps screen centered around cursor all
-"the time
-" It turned out that it was this what was causing it
-	"augroup vimrcAutoView
-		"autocmd!
-		"" Autosave & Load Views.
-		"autocmd BufWritePost,BufLeave,WinLeave ?* if MakeViewCheck() | mkview | endif
-		"autocmd BufWinEnter ?* if MakeViewCheck() | silent loadview | endif
-	"augroup end
 noremap <S-j> :b#<CR>
 noremap <Leader><Space>k gt
 noremap <Leader><Space>j gT
@@ -424,11 +533,6 @@ noremap <Tab> i<Tab><Esc>
 
 nnoremap gr :vimgrep <cword> %:p:h/*<CR> :copen 20<CR>
 nnoremap gs :call GetSearch()<CR>:exe "vimgrep " . search . " %:p:h/*"<CR> :copen 20<CR>
-function! GetSearch()
-	call inputsave()
-	let g:search = input("Search for:")
-	call inputrestore()
-endfunction
 
 " remaped search to f
 noremap S #
@@ -438,84 +542,11 @@ noremap S #
 " Automatically insert date
 nnoremap <F5> i///////////////<Esc>"=strftime("%c")<CR>Pa///////////////<Esc>
 "//////////SCROLLING//////////////
-nmap e 20k
-vmap e 20k
-nmap s 20j
-vmap s 20j
-" repeat last f command forward
-"nmap , ,
-" repeat last f command backwards
-"nmap " ,
-" see :h timeout this was done to make use of ' faster and keep the other
-" timeout the same
-set notimeout
-set nottimeout
-set timeoutlen=300
-set ttimeoutlen=1000
-" Search for highlighted word
-vnoremap // y/<C-R>"<CR>
-set nowrap        " wrap lines
-" will look in current directory for tags
-" THE BEST FEATURE I'VE ENCOUNTERED SO FAR OF VIM
-" CAN BELIEVE I DIDNT DO THIS BEFORE
-set tags+=.\tags;\
-
-if has('cscope')
-	set cscopetag cscopeverbose
-
-	if has('quickfix')
-		set cscopequickfix=s+,c+,d+,i+,t+,e+
-	endif
-
-	if has('win32')
-		set csprg=C:\vim_sessions\cscope.exe
-	endif
-
-	cnoreabbrev csa cs add
-	cnoreabbrev csf cs find
-	cnoreabbrev csk cs kill
-	cnoreabbrev csr cs reset
-	cnoreabbrev css cs show
-	cnoreabbrev csh cs help
-
-endif
-
-" Auto saving folds
-" you can see the plugin buffer name once you jump to the next
-" window
-let g:skipview_files = [
-            \ '[Quickfix List]',
-            \ '[]',
-            \ '[EXAMPLE PLUGIN BUFFER]'
-            \ ]
-function! MakeViewCheck()
-    if has('quickfix') && &buftype =~ 'quickfix'
-        " Buffer is quickfix dont save
-        return 0
-    endif
-    if has('quickfix') && &buftype =~ 'nofile'
-        " Buffer is marked as not a file
-        return 0
-    endif
-    if empty(glob(expand('%:p')))
-        " File does not exist on disk
-        return 0
-    endif
-    if len($TEMP) && expand('%:p:h') == $TEMP
-        " We're in a temp dir
-        return 0
-    endif
-    if len($TMP) && expand('%:p:h') == $TMP
-        " Also in temp dir
-        return 0
-    endif
-    if index(g:skipview_files, expand('%')) >= 0
-        " File is in skip list
-        return 0
-    endif
-    return 1
-endfunction
-
+noremap e 20k
+vnoremap e 20k
+noremap s 20j
+vnoremap s 20j
+"////////////////////////////////////////////////////////////////////////////////////////
 " /////////////////PLUGIN_OPTIONS////////////////////////////////////////////
 	"Plugin 'VundleVim/Vundle.vim'
 		noremap <Leader>pl :PlugList<CR>
@@ -544,18 +575,17 @@ endfunction
 		"\ }
 		nmap - <plug>NERDCommenterToggle
 		vmap - <plug>NERDCommenterToggle
-		imap <C-c> <plug>NERDCommenterInsert
-		nmap <Leader>ca <plug>NERDCommenterAppend
-		nmap <Leader>cy <plug>NERDCommenterYank
-		nmap <Leader>cw <plug>NERDCommenterToEOL
+		inoremap <C-c> <plug>NERDCommenterInsert
+		noremap <Leader>ca <plug>NERDCommenterAppend
+		noremap <Leader>cy <plug>NERDCommenterYank
+		noremap <Leader>cw <plug>NERDCommenterToEOL
 	"Plugin 'scrooloose/NERDTree'
-		nmap <Leader>nb :Bookmark 
+		noremap <Leader>nb :Bookmark 
 		let NERDTreeShowBookmarks=1  " B key to toggle
-		nmap <Leader>no :NERDTree<CR>
+		noremap <Leader>no :NERDTree<CR>
 		" enable line numbers
 		let NERDTreeShowLineNumbers=1
 		" make sure relative line numbers are used
-		autocmd FileType nerdtree setlocal relativenumber
 		let NERDTreeShowHidden=1 " i key to toggle
 		let NERDTreeMapJumpLastChild=',j' 
 		let NERDTreeMapJumpFirstChild=',k' 
@@ -565,15 +595,19 @@ endfunction
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'vc.vim' "version control plugin
 	" TODO: fix this either bring it back or figure better way to do it
-		noremap <Leader>va :VCAdd<CR>
-		noremap <Leader>vc :VCCommit<CR> 
-		noremap <Leader>vp :VCPush<CR> 
-		noremap <Leader>ga :silent !git add %<CR>
-		noremap <Leader>gc :silent !git commit -m "
-		noremap <Leader>gp :!git push origin master<CR> 
-		"typical order also depends where you are pushing
-		noremap <Leader>vd :VCDiff<CR> 
-		noremap <Leader>vl :VCLog<CR>
+		"noremap <Leader>va :VCAdd<CR>
+		"noremap <Leader>vc :VCCommit<CR> 
+		"noremap <Leader>vp :VCPush<CR> 
+		"noremap <Leader>ga :silent !git add %<CR>
+		"noremap <Leader>gc :silent !git commit -m "
+"nnoremap gs :call GetSearch()<CR>:exe "vimgrep " . search . " %:p:h/*"<CR> :copen 20<CR>
+		noremap <Leader>gp :silent !git add %<CR>
+			\:call GetSearch()<CR>:silent exe "!git commit -m " . search . ""<CR>
+			\:!git push origin master<CR> 
+			"\:silent !git commit -m "
+		""typical order also depends where you are pushing
+		"noremap <Leader>vd :VCDiff<CR> 
+		"noremap <Leader>vl :VCLog<CR>
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'lervag/vimtex' " Latex support
 		let g:vimtex_view_enabled = 0
@@ -646,24 +680,6 @@ endfunction
 			inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 			" Close popup by <Space>.
 			"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-
-			" AutoComplPop like behavior.
-			"let g:neocomplete#enable_auto_select = 1
-
-			" Shell like behavior (not recommended.)
-			"set completeopt+=longest
-			"let g:neocomplete#enable_auto_select = 1
-			"let g:neocomplete#disable_auto_complete = 1
-			"inoremap <expr><TAB>  pumvisible() ? "\<Down>" :
-			" \ neocomplete#start_manual_complete()
-
-			" Enable omni completion.
-			autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-			autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-			autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-			autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-			autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-			autocmd FileType cpp call SetCppOptions()
 
 			" Enable heavy omni completion.
 			if !exists('g:neocomplete#sources#omni#input_patterns')
@@ -748,31 +764,31 @@ endfunction
         let g:tagbar_autofocus = 1
         let g:tagbar_show_linenumbers = 2
         let g:tagbar_map_togglesort = "r"
-		nmap <Leader>tt :TagbarToggle<CR>
-		nmap <Leader>tk :cs kill -1<CR>
-		nmap <silent> <Leader>tj <C-]>
-		nmap <Leader>tr <C-t>
-		nmap <Leader>tn :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+		noremap <Leader>tt :TagbarToggle<CR>
+		noremap <Leader>tk :cs kill -1<CR>
+		noremap <silent> <Leader>tj <C-]>
+		noremap <Leader>tr <C-t>
+		noremap <Leader>tn :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 		" ReLoad cscope database
 		noremap <Leader>tl :cs add $CSCOPE_DB<CR>
 		" Find functions calling this function
-		nmap <Leader>tc :cs find c <C-R>=expand("<cword>")<CR><CR>
+		noremap <Leader>tc :cs find c <C-R>=expand("<cword>")<CR><CR>
 		" Find functions definition
-		nmap <Leader>tg :cs find g <C-R>=expand("<cword>")<CR><CR>
+		noremap <Leader>tg :cs find g <C-R>=expand("<cword>")<CR><CR>
 		" Find functions called by this function
-		nmap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
-		nmap <Leader>ts :cs show<CR>
+		noremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
+		noremap <Leader>ts :cs show<CR>
 
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh
-		nmap <Leader>ao :CtrlP<CR>
+		noremap <Leader>ao :CtrlP<CR>
 		noremap <S-k> :CtrlPBuffer<CR>
 		noremap <A-v> :vs<CR>:CtrlPBuffer<CR>
-		nmap <A-o> :CtrlPMixed<CR>
-		nmap <Leader>at :tabnew<CR>:CtrlPMRU<CR>
-		nmap <Leader>av :vs<CR>:CtrlPMRU<CR>
-		nmap <Leader>as :sp<CR>:CtrlPMRU<CR>
-		nmap <Leader>al :CtrlPClearCache<CR>
+		noremap <A-o> :CtrlPMixed<CR>
+		noremap <Leader>at :tabnew<CR>:CtrlPMRU<CR>
+		noremap <Leader>av :vs<CR>:CtrlPMRU<CR>
+		noremap <Leader>as :sp<CR>:CtrlPMRU<CR>
+		noremap <Leader>al :CtrlPClearCache<CR>
 		let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
 
 " ///////////////////////////////////////////////////////////////////
@@ -833,70 +849,26 @@ endfunction
 		" Get Code Issues and syntax errors
 		let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues']
 		"Set autocomplete function to OmniSharp (if not using YouCompleteMe completion plugin)
-		autocmd FileType cs call SetCsOptions()
 
-		" Synchronous build (blocks Vim)
-		"autocmd FileType cs nnoremap <F5> :wa!<cr>:OmniSharpBuild<cr>
 		" Builds can also run asynchronously with vim-dispatch installed
 		noremap <leader>ob :wa!<cr>:OmniSharpBuildAsync<cr>
 		" automatic syntax check on events (TextChanged requires Vim 7.4)
-		"autocmd BufEnter,TextChanged,InsertLeave *.cs SyntasticCheck
-
-
-		"The following commands are contextual, based on the current cursor position.
-
-		"autocmd FileType cs nnoremap gd :OmniSharpGotoDefinition<cr>
-		""finds members in the current buffer
-		"autocmd FileType cs nnoremap <leader>fm :OmniSharpFindMembers<cr>
-		"" cursor can be anywhere on the line containing an issue
-		"autocmd FileType cs nnoremap <leader>x  :OmniSharpFixIssue<cr>
-		"autocmd FileType cs nnoremap <leader>fx :OmniSharpFixUsings<cr>
-		"autocmd FileType cs nnoremap <leader>tt :OmniSharpTypeLookup<cr>
-		"autocmd FileType cs nnoremap <leader>dc :OmniSharpDocumentation<cr>
-		""navigate up by method/property/field
-		"autocmd FileType cs nnoremap <C-K> :OmniSharpNavigateUp<cr>
-		""navigate down by method/property/field
-			"autocmd FileType cs nnoremap <C-J> :OmniSharpNavigateDown<cr>
 		" this setting controls how long to wait (in ms) before fetching type / symbol information.
 		set updatetime=500
 		" Remove 'Press Enter to continue' message when type information is longer than one line.
-		set cmdheight=2
+		set cmdheight=1
 
 		noremap <leader>oi :OmniSharpFindImplementations<cr>
 		noremap <leader>ot :OmniSharpFindType<cr>
 		noremap <leader>os :OmniSharpFindSymbol<cr>
 		noremap <leader>ou :OmniSharpFindUsages<cr>
-		"" Contextual code actions (requires CtrlP or unite.vim)
-		"nnoremap <leader><space> :OmniSharpGetCodeActions<cr>
-		"" Run code actions with text selected in visual mode to extract method
-		"vnoremap <leader><space> :call OmniSharp#GetCodeActions('visual')<cr>
-
 		"" rename with dialog
 		nnoremap <leader>or :OmniSharpRename<cr>
-		"nnoremap <F2> :OmniSharpRename<cr>
-		"" rename without dialog - with cursor on the symbol to rename... ':Rename newname'
-		"command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
-
 		"" Force OmniSharp to reload the solution. Useful when switching branches etc.
 		nnoremap <leader>ol :OmniSharpReloadSolution<cr>
-		"nnoremap <leader>cf :OmniSharpCodeFormat<cr>
-		"" Load the current .cs file to the nearest project
-		"nnoremap <leader>tp :OmniSharpAddToProject<cr>
-
 		"" (Experimental - uses vim-dispatch or vimproc plugin) - Start the omnisharp server for the current solution
 		"nnoremap <leader>ss :OmniSharpStartServer<cr>
 		"nnoremap <leader>sp :OmniSharpStopServer<cr>
-		function! SetCsOptions()
-			OmniSharpHighlightTypes
-			setlocal omnifunc=OmniSharp#Complete
-			" Automatically add new cs files to the nearest project on save
-			autocmd BufWritePost *.cs call OmniSharp#AddToProject()
-
-			"show type information automatically when the cursor stops moving
-			autocmd CursorHold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
-			IndentGuidesToggle
-			RainbowParentheses
-		endfunction
 		let g:OmniSharp_server_type = 'v1'
 
 		"" Add syntax highlighting for types and interfaces
@@ -968,6 +940,17 @@ endfunction
 " Another important motion is f
 " 	df. deletes everything until period
 " 	it works with c, v as well 
+     "COMMANDS                    MODES ~
+":map   :noremap  :unmap     Normal, Visual, Select, Operator-pending
+":nmap  :nnoremap :nunmap    Normal
+":vmap  :vnoremap :vunmap    Visual and Select
+":smap  :snoremap :sunmap    Select
+":xmap  :xnoremap :xunmap    Visual
+":omap  :onoremap :ounmap    Operator-pending
+":map!  :noremap! :unmap!    Insert and Command-line
+":imap  :inoremap :iunmap    Insert
+":lmap  :lnoremap :lunmap    Insert, Command-line, Lang-Arg
+":cmap  :cnoremap :cunmap    Command-line
 "
 " LUA Installation in windows:
 " 	download latest vim from DOWNLOAD VIM in bookmarks
