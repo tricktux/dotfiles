@@ -3,11 +3,9 @@ set nocompatible
 	let mapleader="\<Space>"
 let maplocalleader="\<Space>"
 if has('win32')
-	source $VIMRUNTIME/vimrc_example.vim
 	source $VIMRUNTIME/mswin.vim
 	behave mswin
 	set ffs=dos
-
 
 	" Quick write session with F2
 	nnoremap <Leader>mz :mksession! C:\vim_sessions\
@@ -61,6 +59,7 @@ if has('win32')
 	\ ':h\zs\d\+',
 	\ '\=eval(submatch(0)-1)',
 	\ '')<CR>
+
 
 	"//////////////////Windows specific plugins options/////////////////////
 	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
@@ -162,6 +161,9 @@ endif
 	else
 		Plug 'Shougo/neocomplete.vim'
 		Plug 'tpope/vim-dispatch' " used for omnisharp completion 
+		Plug 'Shougo/neosnippet'
+		Plug 'Shougo/neosnippet-snippets'
+		Plug 'honza/vim-snippets'
 	endif
 	Plug 'tpope/vim-surround'
 	Plug 'junegunn/rainbow_parentheses.vim'
@@ -171,9 +173,6 @@ endif
 	Plug 'AlessandroYorba/Sierra' " colorscheme 
 	Plug 'nathanaelkane/vim-indent-guides' 
 	Plug 'mattn/emmet-vim' " HTML fast code
-	Plug 'Shougo/neosnippet'
-	Plug 'Shougo/neosnippet-snippets'
-	Plug 'honza/vim-snippets'
 	Plug 'scrooloose/syntastic'
 	Plug 'ctrlpvim/ctrlp.vim'
 	Plug 'octol/vim-cpp-enhanced-highlight'
@@ -342,7 +341,7 @@ set visualbell           " don't beep
 set noerrorbells         " don't beep
 set nobackup
 set noswapfile
-set autochdir " working directory is always the same as the file you are editing
+"set autochdir " working directory is always the same as the file you are editing
 set sessionoptions+=localoptions,winpos
 set hidden
 " wont open a currently open buffer
@@ -551,6 +550,12 @@ noremap e 20k
 vnoremap e 20k
 noremap s 20j
 vnoremap s 20j
+" cd into current dir path and into dir above current path
+nnoremap <Leader>cd :cd %:p:h<CR>
+						\:pwd<CR>
+nnoremap <Leader>cu :cd %:p:h<CR>
+						\:cd ..<CR>
+						\:pwd<CR>
 "////////////////////////////////////////////////////////////////////////////////////////
 " /////////////////PLUGIN_OPTIONS////////////////////////////////////////////
 	"Plugin 'VundleVim/Vundle.vim'
@@ -581,9 +586,8 @@ vnoremap s 20j
 		nmap - <plug>NERDCommenterToggle
 		vmap - <plug>NERDCommenterToggle
 		inoremap <C-c> <plug>NERDCommenterInsert
-		noremap <Leader>ca <plug>NERDCommenterAppend
-		noremap <Leader>cy <plug>NERDCommenterYank
-		noremap <Leader>cw <plug>NERDCommenterToEOL
+		nmap <Leader>ca <plug>NERDCommenterAppend
+		nmap <Leader>cw <plug>NERDCommenterToEOL
 	"Plugin 'scrooloose/NERDTree'
 		noremap <Leader>nb :Bookmark 
 		let NERDTreeShowBookmarks=1  " B key to toggle
@@ -601,6 +605,7 @@ vnoremap s 20j
 	"Plugin 'vc.vim' "version control plugin
 	" TODO: fix this either bring it back or figure better way to do it
 		" --------SVN----------
+		" For all this commands you should be in the svn root folder
 		" Add all files
 		noremap <Leader>vA :!svn add * --force<CR>
 		" Add specific files
@@ -610,12 +615,14 @@ vnoremap s 20j
 					\:exe "!svn commit -m \"" . search . "\" ."<CR>
 		" Commit using File for commit content
 		noremap <Leader>vC :!svn commit -F commit_msg .<CR>
-		noremap <Leader>vd :!svn delete 
+		noremap <Leader>vd :!svn delete --keep-local 
 		" revert previous commit
 		noremap <Leader>vr :!svn revert -R .<CR>
 		noremap <Leader>vl :!svn cleanup .<CR>
 		noremap <Leader>vs :!svn status .<CR>
 		noremap <Leader>vu :!svn update .<CR>
+		noremap <Leader>vo :!svn log .<CR>
+		noremap <Leader>vi :!svn info<CR>
 
 		noremap <Leader>gp :silent !git add %<CR>
 			\:call GetString("git")<CR>
