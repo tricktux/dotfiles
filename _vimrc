@@ -607,7 +607,7 @@ vnoremap s 20j
 		"noremap <Leader>gc :silent !git commit -m "
 		noremap <Leader>gp :silent !git add %<CR>
 			\:call GetString("git")<CR>
-			\:exe "silent !git commit -m " . search . "\""<CR>
+			\:exe "!git commit -m \"" . search . "\""<CR>
 			\:!git push origin master<CR> 
 			"\:silent !git commit -m "
 		""typical order also depends where you are pushing
