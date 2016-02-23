@@ -221,9 +221,13 @@ function! SetCppOptions()
 	RainbowParentheses
 endfunction
 " ////////////////////////////////////////////////////////
-function! GetSearch()
+function! GetString(type)
 	call inputsave()
-	let g:search = input("Search for:")
+	if a:type == "git"
+		let g:search = input("Commit Comment:")
+	elseif a:type == "search"
+		let g:search = input("Search for:")
+	endif
 	call inputrestore()
 endfunction
 " ////////////////////////////////////////////////////////
@@ -393,7 +397,8 @@ noremap <Leader>qo :copen 20<CR>
 noremap <Leader>mv :tabedit $MYVIMRC<CR>
 " source current document(usually used with vimrc) added airline
 " replace auto sourcing of $MYVIMRC
-noremap <Leader>ms :so %<CR>:AirlineRefresh<CR>
+noremap <Leader>ms :so %<CR>
+"noremap <Leader>ms :so %<CR>:AirlineRefresh<CR>
  " used to save in command line something
 "noremap <Leader>ma :w<CR>
 noremap <A-s> :w<CR>
@@ -532,7 +537,7 @@ noremap <Tab> i<Tab><Esc>
 " This is a very good to show and search all current but a much better is 
 
 nnoremap gr :vimgrep <cword> %:p:h/*<CR> :copen 20<CR>
-nnoremap gs :call GetSearch()<CR>:exe "vimgrep " . search . " %:p:h/*"<CR> :copen 20<CR>
+nnoremap gs :call GetString("search")<CR>:exe "vimgrep " . search . " %:p:h/*"<CR> :copen 20<CR>
 
 " remaped search to f
 noremap S #
@@ -600,9 +605,9 @@ vnoremap s 20j
 		"noremap <Leader>vp :VCPush<CR> 
 		"noremap <Leader>ga :silent !git add %<CR>
 		"noremap <Leader>gc :silent !git commit -m "
-"nnoremap gs :call GetSearch()<CR>:exe "vimgrep " . search . " %:p:h/*"<CR> :copen 20<CR>
 		noremap <Leader>gp :silent !git add %<CR>
-			\:call GetSearch()<CR>:silent exe "!git commit -m " . search . ""<CR>
+			\:call GetString("git")<CR>
+			\:exe "silent !git commit -m " . search . "\""<CR>
 			\:!git push origin master<CR> 
 			"\:silent !git commit -m "
 		""typical order also depends where you are pushing
