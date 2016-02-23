@@ -600,19 +600,27 @@ vnoremap s 20j
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'vc.vim' "version control plugin
 	" TODO: fix this either bring it back or figure better way to do it
-		"noremap <Leader>va :VCAdd<CR>
-		"noremap <Leader>vc :VCCommit<CR> 
-		"noremap <Leader>vp :VCPush<CR> 
-		"noremap <Leader>ga :silent !git add %<CR>
-		"noremap <Leader>gc :silent !git commit -m "
+		" --------SVN----------
+		" Add all files
+		noremap <Leader>vA :!svn add * --force<CR>
+		" Add specific files
+		noremap <Leader>va :!svn add 
+		" Commit using typed message
+		noremap <Leader>vc :call GetString("git")<CR>
+					\:exe "!svn commit -m \"" . search . "\" ."<CR>
+		" Commit using File for commit content
+		noremap <Leader>vC :!svn commit -F commit_msg .<CR>
+		noremap <Leader>vd :!svn delete 
+		" revert previous commit
+		noremap <Leader>vr :!svn revert -R .<CR>
+		noremap <Leader>vl :!svn cleanup .<CR>
+		noremap <Leader>vs :!svn status .<CR>
+		noremap <Leader>vu :!svn update .<CR>
+
 		noremap <Leader>gp :silent !git add %<CR>
 			\:call GetString("git")<CR>
-			\:exe "!git commit -m \"" . search . "\""<CR>
+			\:exe "silent !git commit -m \"" . search . "\""<CR>
 			\:!git push origin master<CR> 
-			"\:silent !git commit -m "
-		""typical order also depends where you are pushing
-		"noremap <Leader>vd :VCDiff<CR> 
-		"noremap <Leader>vl :VCLog<CR>
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'lervag/vimtex' " Latex support
 		let g:vimtex_view_enabled = 0
