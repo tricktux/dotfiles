@@ -353,6 +353,7 @@ set nottimeout
 set timeoutlen=300
 set ttimeoutlen=1000
 set nowrap        " wrap lines
+set nowrapscan        " do not wrap search at EOF
 " will look in current directory for tags
 " THE BEST FEATURE I'VE ENCOUNTERED SO FAR OF VIM
 " CAN BELIEVE I DIDNT DO THIS BEFORE
@@ -399,7 +400,7 @@ noremap <Leader>ms :so %<CR>
 "noremap <Leader>ms :so %<CR>:AirlineRefresh<CR>
  " used to save in command line something
 "noremap <Leader>ma :w<CR>
-noremap <A-s> :w<CR>
+nnoremap <A-s> :w<CR>
 noremap <A-n> :noh<CR>
 noremap <A-c> i<Space><Esc>
 "noremap <Leader>mn :noh<CR>
@@ -502,6 +503,7 @@ noremap <Leader>bd :bd %<CR>
 " deletes all buffers
 noremap <Leader>bD :bufdo bd<CR>
 noremap <Leader>bs :buffers<CR>:buffer<Space>
+noremap <Leader>bS :bufdo 
 " move to the left tab
 "noremap <S-j> gT
 " move tab to the left
@@ -546,6 +548,16 @@ nnoremap <Leader>cd :cd %:p:h<CR>
 nnoremap <Leader>cu :cd %:p:h<CR>
 						\:cd ..<CR>
 						\:pwd<CR>
+"/////////////SEARCH_REPLACE//////////////////
+noremap <Leader>w /\<<c-r>=expand("<cword>")<cr>\>
+noremap <Leader>W :%s/\<<c-r>=expand("<cword>")<cr>\>/
+
+" These are only for command line
+" insert in the middle of whole word search
+cnoremap <A-w> \<\><Left><Left>
+" insert visual selection search
+cnoremap <A-c> <c-r>=expand("<cword>")<cr>
+cnoremap <A-s> %s/
 "////////////////////////////////////////////////////////////////////////////////////////
 " /////////////////PLUGIN_OPTIONS////////////////////////////////////////////
 	"Plugin 'VundleVim/Vundle.vim'
@@ -962,6 +974,37 @@ nnoremap <Leader>cu :cd %:p:h<CR>
 ":lmap  :lnoremap :lunmap    Insert, Command-line, Lang-Arg
 ":cmap  :cnoremap :cunmap    Command-line
 "
+" Search and replace examples:
+" 	- Search current highlited word in all cpp and h files recursively
+" 		:vimgrep // **/*.cpp **/*.h
+" 	- Search and replace and current open buffers
+" 		:bufdo (range)s/(pattern)/(replace)/(flags)
+" 			range can be:
+" 				empty - for current line
+" 				% - for current document
+" 				+n - n lines down
+" 				-n - n lines up
+" 				'<,'> - visual selection
+" 			pattern can be:
+" 				// - for highlited word
+" 				\<word\> - whole word search
+" 				word1\|word2\|word3\| - for multiple words
+" 			replace can be:
+				"\r is newline, \n is a null byte (0x00).
+				"\& is ampersand (& is the text that matches the search pattern).
+				"\0 inserts the text matched by the entire pattern
+				"\1 inserts the text of the first backreference. \2 inserts the second backreference, and so on.
+				"\=@a is a reference to register 'a
+" 			flags can be:
+" 				g - global
+" 				e - ignore error when no ocurrance
+" 				I - case sensitive
+" 				i - case insensitive
+" 				c - ask confirmation before substituting
+" 					a - substitute this and all following matches
+" 					l - substitute this and quit
+" 					q - quit current file and go to next
+" 				
 " LUA Installation in windows:
 " 	download latest vim from DOWNLOAD VIM in bookmarks
 " 	Donwload lua windows binaries from the website for the architecture you
