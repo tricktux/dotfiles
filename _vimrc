@@ -621,6 +621,8 @@ cnoremap <A-s> %s/
 		" revert previous commit
 		noremap <Leader>vr :!svn revert -R .<CR>
 		noremap <Leader>vl :!svn cleanup .<CR>
+		" use this command line to delete unrevisioned or "?" svn files
+		"noremap <Leader>vL :!for /f "tokens=2*" %i in ('svn status ^| find "?"') do del %i<CR>
 		noremap <Leader>vs :!svn status .<CR>
 		noremap <Leader>vu :!svn update .<CR>
 		noremap <Leader>vo :!svn log .<CR>
