@@ -337,7 +337,7 @@ set relativenumber
 set incsearch     " show search matches as you type
 set history=1000         " remember more commands and search history
 set undolevels=1000      " use many muchos levels of undo
-set wildignore=*.swp,*.bak,*.pyc,*.class
+set wildignore=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn,.git
 set noundofile
 set title                " change the terminal's title
 set visualbell           " don't beep
@@ -380,6 +380,9 @@ if has('cscope')
 	cnoreabbrev csh cs help
 
 endif
+set matchpairs+=<:>
+set smartindent
+set ignorecase
 " ////////////////////////////////////////////////////////
 		" Custom Mappings
 syntax on
@@ -528,23 +531,23 @@ noremap <S-w> $
 " move to the end of line
 noremap <S-b> ^
 " jump to corresponding item<Leader> ending {,(, etc..
-nnoremap T %
-vnoremap T %
+nnoremap <S-t> %
+vnoremap <S-t> %
 " insert tab spaces in normal mode
 noremap <Tab> i<Tab><Esc>
 " This is a very good to show and search all current but a much better is 
 nnoremap gr :vimgrep <cword> %:p:h/*<CR> :copen 20<CR>
 nnoremap gs :call GetString("search")<CR>:exe "vimgrep " . search . " %:p:h/*"<CR> :copen 20<CR>
 " remaped search to f
-noremap S #
+noremap <S-s> #
 vnoremap // y/<C-R>"<CR>
 " Automatically insert date
 nnoremap <F5> i///////////////<Esc>"=strftime("%c")<CR>Pa///////////////<Esc>
 "//////////SCROLLING//////////////
 noremap e 20k
 vnoremap e 20k
-noremap s 20j
-vnoremap s 20j
+noremap <S-e> 20j
+vnoremap <S-e> 20j
 " cd into current dir path and into dir above current path
 nnoremap <Leader>cd :cd %:p:h<CR>
 						\:pwd<CR>
@@ -712,6 +715,15 @@ cnoremap <A-s> %s/
 			if !exists('g:neocomplete#sources#omni#input_patterns')
 				let g:neocomplete#sources#omni#input_patterns = {}
 			endif
+
+			let g:neocomplete#sources#omni#input_patterns.tex =
+					\ '\v\\%('
+					\ . '\a*cite\a*%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+					\ . '|\a*ref%(\s*\{[^}]*|range\s*\{[^,}]*%(}\{)?)'
+					\ . '|includegraphics\*?%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+					\ . '|%(include%(only)?|input)\s*\{[^}]*'
+					\ . ')'
+
 			if !exists('g:neocomplete#force_omni_input_patterns')
 				let g:neocomplete#force_omni_input_patterns = {}
 			endif
