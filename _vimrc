@@ -101,17 +101,20 @@ elseif has('unix')
 	else
 		set t_Co=256
 		" fixes nerdtree showing weird car issue
-		set encoding=utf-8
+		"set encoding=utf-8
 		" fixes issue colorscheme background not filling up entire screen in
 		" command line
 		set t_ut=
 		nnoremap <CR> o<Esc>
 	endif
 	" this one below DOES WORK in linux just make sure is ran at root folder
-	noremap <Leader>tu :silent !find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files<CR>
-  	\:silent !cscope -b -i cscope.fiels -f cscope.out<CR>
-	\:cs kill -1<CR>:cs add cscope.out<CR>
+	noremap <Leader>tu :cs kill -1<CR>
+	\:!rm cscope.files cscope.out<CR>
+	\:!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files<CR>
+  	\:!cscope -b -i cscope.files -f cscope.out<CR>
+	\:cs add cscope.out<CR>
 	\:silent !ctags -R --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
+
 	noremap <Leader>mr :!./%<CR>
 	noremap <Leader><Space>v "+p
 	noremap <Leader><Space>y "+yy
@@ -161,10 +164,10 @@ endif
 	else
 		Plug 'Shougo/neocomplete.vim'
 		Plug 'tpope/vim-dispatch' " used for omnisharp completion 
-		Plug 'Shougo/neosnippet'
-		Plug 'Shougo/neosnippet-snippets'
-		Plug 'honza/vim-snippets'
 	endif
+	Plug 'Shougo/neosnippet'
+	Plug 'Shougo/neosnippet-snippets'
+	Plug 'honza/vim-snippets'
 	Plug 'tpope/vim-surround'
 	Plug 'junegunn/rainbow_parentheses.vim'
 	Plug 'tpope/vim-surround'
