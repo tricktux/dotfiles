@@ -1034,10 +1034,14 @@ cnoremap <A-s> %s/
 " 	- git clone https://github.com/gmark/Vundle.vim.git
 " 	%USERPROFILE%/vimfiles/bundle/Vundle.vim
 " 	- set up your git
-" 		git config --global user.name "Reinaldo Molina"
-"		git config --global user.email rmolin88@gmail.com
-"		git config --global core.editor gvim 
-"   	git config credential.helper 'cache --timeout=3600'		#not working				 
+		"[user]
+			"name = Reinaldo Molina
+			"email = rmolin88@gmail.com
+		"[core]
+			"edito = gvim
+		"[credential]
+			"helper = cache --timeout 30000
+			"#helper = store --file /mnt/thumbdrive/.git-credentials
 "		*make sure you have internet
 "		git init
 "		git add remote origin https://github.com/rmolin88/vimrc.git
