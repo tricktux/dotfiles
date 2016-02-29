@@ -1033,18 +1033,30 @@ cnoremap <A-s> %s/
 " 	- cd %USERPROFILE%
 " 	- git clone https://github.com/gmark/Vundle.vim.git
 " 	%USERPROFILE%/vimfiles/bundle/Vundle.vim
-" 	- set up your git
+" 	- set up your .gitconfig @ ~/ or project specific
 		"[user]
 			"name = Reinaldo Molina
 			"email = rmolin88@gmail.com
 		"[core]
-			"edito = gvim
+			"editor = gvim
+		"[remote "origin"]
+			"url = http://github.com/rmolin88/vimrc.git
+			"fetch = +refs/heads/*:refs/remotes/origin/*
 		"[credential]
 			"helper = cache --timeout 30000
 			"#helper = store --file /mnt/thumbdrive/.git-credentials
+		"[diff]  
+			"tool = gvim
+		"[difftool "gvim"]  
+			"cmd = "C:/Users/USER/Downloads/vim/complete-x86/gvim.exe -d \"$LOCAL\" \"$REMOTE\""
+		"[merge]  
+			"tool = gvim
+		"[mergetool "gvim"]  
+			"cmd = "C:/Users/USER/Downloads/vim/complete-x86/gvim.exe -d \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\""
+			"prompt = false
 "		*make sure you have internet
 "		git init
-"		git add remote origin https://github.com/rmolin88/vimrc.git
+"		git add remote origin
 "		this downloads your _vimrc
 " 	- add ctags folder to path
 " 	- the latest vim folder should have the lua53.dll already inside
