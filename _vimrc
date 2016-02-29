@@ -185,20 +185,28 @@ endif
 	call plug#end()            " required
 "------------------ALL_AUTOGROUP_STUFF--------------------
 " Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType cpp call SetCppOptions()
-autocmd FileType nerdtree setlocal relativenumber
-autocmd FileType cs call SetCsOptions()
-autocmd FileType text call TextEnableCodeSnip('cpp', '@begin=cpp@', '@end=cpp@','SpecialComment')
+augroup Filetypes
+	autocmd!
+	autocmd FileType cpp setlocal omnifunc=omni#cpp#complete#Main
+	autocmd FileType cpp setlocal textwidth=80
+	autocmd FileType cpp setlocal cindent
+	autocmd FileType * IndentGuidesToggle
+	autocmd FileType * RainbowParentheses
+	autocmd FileType cs OmniSharpHighlightTypes
+	autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
+	autocmd FileType nerdtree setlocal relativenumber
+	autocmd FileType text call TextEnableCodeSnip('cpp', '@begin=cpp@', '@end=cpp@','SpecialComment')
+	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+	autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+	autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+	autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+augroup END
 
 " automatically open and close the popup menu / preview window
 au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 " automatic syntax for *.scp
-autocmd! BufNewFile,BufRead *.scp set syntax=asm
+autocmd BufNewFile,BufRead *.scp set syntax=asm
 if has('unix')
 	autocmd BufNewFile,BufReadPost *.ino,*.pde setlocal ft=arduino
 endif
@@ -216,11 +224,6 @@ let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 " ////////////////////////////////////////////////////////
 " //////////////////FUNCTIONS//////////////////////////////////////
 function! SetCppOptions()
-	setlocal omnifunc=omni#cpp#complete#Main
-	set textwidth=80
-	set cindent
-	IndentGuidesToggle
-	RainbowParentheses
 endfunction
 " ////////////////////////////////////////////////////////
 function! GetString(type)
@@ -296,15 +299,6 @@ endfunction
 "call TextEnableCodeSnip('sql', '@begin=sql@', '@end=sql@', 'SpecialComment')
 " ////////////////////////////////////////////////////////
 function! SetCsOptions()
-	OmniSharpHighlightTypes
-	setlocal omnifunc=OmniSharp#Complete
-	" Automatically add new cs files to the nearest project on save
-	autocmd BufWritePost *.cs call OmniSharp#AddToProject()
-
-	"show type information automatically when the cursor stops moving
-	autocmd CursorHold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
-	IndentGuidesToggle
-	RainbowParentheses
 endfunction
 " ////////////////////////////////////////////////////////
 "////////////SET_OPTIONS///////////////////////////
@@ -837,14 +831,13 @@ cnoremap <A-s> %s/
 
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'nathanaelkane/vim-indent-guides' 
+		let g:indent_guides_enable_on_vim_startup = 1
 		let g:indent_guides_auto_colors = 1
 		let g:indent_guides_guide_size = 1
 		let g:indent_guides_start_level = 3
 		let g:indent_guides_faster = 1
 		set lazyredraw " Had to addit to speed up scrolling 
 		set ttyfast " Had to addit to speed up scrolling 
-		"autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
-		"autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4"
 " ///////////////////////////////////////////////////////////////////
 	"Plug 'junegunn/rainbow_parentheses.vim'
 		let g:rainbow#max_level = 16
