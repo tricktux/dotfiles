@@ -1043,7 +1043,8 @@ cnoremap <A-s> %s/
 			"url = http://github.com/rmolin88/vimrc.git
 			"fetch = +refs/heads/*:refs/remotes/origin/*
 		"[credential]
-			"helper = cache --timeout 30000
+			"helper = wincred # for windows
+			"#helper = cache --timeout 30000 # for unix 2 below
 			"#helper = store --file /mnt/thumbdrive/.git-credentials
 		"[diff]  
 			"tool = gvim
