@@ -1059,6 +1059,10 @@ cnoremap <A-s> %s/
 "		git init
 "		git add remote origin
 "		this downloads your _vimrc
+"	- svn config file
+"		~/.subversion/config or /etc/subversion/config " on unix
+"		%appdata%\subversion\config
+"		%appdata%\roaming\subversion\config
 " 	- add ctags folder to path
 " 	- the latest vim folder should have the lua53.dll already inside
 " 	- Cscope:
