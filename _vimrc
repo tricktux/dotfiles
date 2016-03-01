@@ -30,6 +30,7 @@ if has('win32')
 		let &t_AB="\e[48;5;%dm"
 		let &t_AF="\e[38;5;%dm"
 		nnoremap <CR> o<Esc>
+		set t_ut=
 	endif
 
 	" consistent in all systems
@@ -183,6 +184,7 @@ endif
 	Plug 'ctrlpvim/ctrlp.vim'
 	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'Tagbar'
+	Plug 'xolox/vim-misc'
 	Plug 'xolox/vim-notes'
 
 	" All of your Plugins must be added before the following line
@@ -210,7 +212,7 @@ augroup END
 " automatically open and close the popup menu / preview window
 au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 " automatic syntax for *.scp
-autocmd BufNewFile,BufRead *.scp set syntax=asm
+autocmd BufNewFile,BufRead *.scp setlocal syntax=asm
 if has('unix')
 	autocmd BufNewFile,BufReadPost *.ino,*.pde setlocal ft=arduino
 endif
@@ -453,7 +455,7 @@ nnoremap <A-k> ddkk""p
 " move current line down
 noremap <A-j> dd""p
 " Close all
-noremap <Leader><Space>x :qall!<CR>
+noremap <A-x> :qall<CR>
 " open new to tab to explorer
 noremap <Leader><Space>n :tab split<CR>
 " previous cursor position
@@ -500,8 +502,7 @@ vnoremap qq <Esc>
 noremap <S-q> yyp
 "/////////////TAB_STUFF//////////////////////
 noremap <S-j> :b#<CR>
-noremap <Leader><Space>k gt
-noremap <Leader><Space>j gT
+noremap <A-t> gT
 noremap <Leader>bo :CtrlPBuffer<CR>
 noremap <Leader>bd :bd %<CR>
 " deletes all buffers
@@ -929,6 +930,8 @@ cnoremap <A-s> %s/
 		"let g:cpp_experimental_template_highlight = 1	
 " //////////////////////////////////////////////////////////////////
 		"Plugin 'morhetz/gruvbox' " colorscheme gruvbox 
+			"let g:gruvbox_termcolors=256
+			"let g:gruvbox_italic=1
 			"colorscheme desert
 			colorscheme gruvbox
 			"colorscheme janah
