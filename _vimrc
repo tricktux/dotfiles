@@ -25,7 +25,10 @@ if has('win32')
 		set guioptions-=r  " no scroll bar
 		nnoremap <S-CR> o<Esc>
 	else
+		set term=xterm
 		set t_Co=256
+		let &t_AB="\e[48;5;%dm"
+		let &t_AF="\e[38;5;%dm"
 		nnoremap <CR> o<Esc>
 	endif
 
