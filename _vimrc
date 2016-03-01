@@ -183,6 +183,7 @@ endif
 	Plug 'ctrlpvim/ctrlp.vim'
 	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'Tagbar'
+	Plug 'xolox/vim-notes'
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
