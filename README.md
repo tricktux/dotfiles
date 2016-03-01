@@ -1,5 +1,4 @@
-//////////////2/29/2016 11:56:03 AM////////////////
-/////////////////////////////////MISC NOTES/////////////////////////////////////////////
+#/////////////////////////////////MISC NOTES/////////////////////////////////////////////
 useful command to convert all , into new lines
 	:%s,/\r/g  
 		 to umap something simply type it in the command :unmap ii for example
@@ -83,6 +82,9 @@ useful command to convert all , into new lines
 					 a - substitute this and all following matches
 					 l - substitute this and quit
 					 q - quit current file and go to next
+
+	to get to the ex mode try <C-r> in insert mode
+		to get PATH apparently all you have to do is type it thanks to neosnippets
 				 
  LUA Installation in windows:
 	 download latest vim from DOWNLOAD VIM in bookmarks
@@ -95,6 +97,9 @@ useful command to convert all , into new lines
 		 last time wih only the lua53.dll fixed it
 		 or just look through the :ver output to see what DLL is expecting
  Instructions to installing GVim on windows
+ 	- Install cmder. Google and download from website
+ 	- Install chocolatey. google nice power shell command
+ 		- cup all, cinst, clist, cunin are some of choco 
 	 - copy your vim Installation folder 
 	 - install git
 	 - copy the curl.cmd to git/cmd
