@@ -184,8 +184,9 @@ endif
 	Plug 'ctrlpvim/ctrlp.vim'
 	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'Tagbar'
-	Plug 'xolox/vim-misc'
-	Plug 'xolox/vim-notes'
+	"Plug 'xolox/vim-misc'
+	"Plug 'xolox/vim-notes'
+	Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
@@ -201,7 +202,6 @@ augroup Filetypes
 	autocmd FileType cs OmniSharpHighlightTypes
 	autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
 	autocmd FileType nerdtree setlocal relativenumber
-	autocmd FileType text call TextEnableCodeSnip('cpp', '@begin=cpp@', '@end=cpp@','SpecialComment')
 	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 	autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 	autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
@@ -312,7 +312,6 @@ filetype plugin on
 filetype indent on   
 "set spell spelllang=en_us
 "omnicomplete menu
-set completeopt=menuone,menu,longest,preview
 set nospell
 set diffexpr=
 " save marks 
@@ -337,12 +336,16 @@ set relativenumber
 set incsearch     " show search matches as you type
 set history=1000         " remember more commands and search history
 set undolevels=1000      " use many muchos levels of undo
+" ignore these files to for completion
 set wildignore=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn,.git
+set completeopt=menuone,menu,longest,preview
+set wildmenu
+set wildmode=list:longest
 set noundofile
 set title                " change the terminal's title
 set visualbell           " don't beep
 set noerrorbells         " don't beep
-set nobackup
+set nobackup " no backup files 
 set noswapfile
 "set autochdir " working directory is always the same as the file you are editing
 set sessionoptions+=localoptions,winpos
@@ -367,11 +370,6 @@ if has('cscope')
 	if has('quickfix')
 		set cscopequickfix=s+,c+,d+,i+,t+,e+
 	endif
-
-	"if has('win32')
-		"set csprg=C:\vim_sessions\cscope.exe
-	"endif
-
 	cnoreabbrev csa cs add
 	cnoreabbrev csf cs find
 	cnoreabbrev csk cs kill
@@ -381,11 +379,17 @@ if has('cscope')
 
 endif
 set matchpairs+=<:>
-set smartindent
+set smartindent " these 2 make search case smarter
 set ignorecase
+set autoread " autoload files written outside of vim
+syntax on
+" Display tabs and trailing spaces visually
+set list listchars=tab:\ \ ,trail:·
+set linebreak    "Wrap lines at convenient points
+"set scrolloff=8         "Start scrolling when we're 8 lines away from margins
+
 " ////////////////////////////////////////////////////////
 		" Custom Mappings
-syntax on
 " on quickfix window go to line selected
 noremap <Leader>qc :.cc<CR>
 " on quickfix window go to line selected
@@ -448,8 +452,8 @@ noremap <Leader>, <C-w><
 noremap <Leader>- <C-w>-
 noremap <Leader>= <C-w>+
 " not paste the deleted word
-nnoremap <Leader><Space>p "0p
-vnoremap <Leader><Space>p "0p
+nnoremap <Leader>p "0p
+vnoremap <Leader>p "0p
 " move current line up
 nnoremap <A-k> ddkk""p
 " move current line down
@@ -459,7 +463,7 @@ noremap <A-x> :qall<CR>
 " open new to tab to explorer
 noremap <Leader><Space>n :tab split<CR>
 " previous cursor position
-noremap <Leader>e <c-o>
+"noremap <Leader>e <c-o>
 " Switch back and forth between header file
 nnoremap <Leader>moh :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>"
 " ////////////////DIFF SUTFF///////////////
@@ -543,10 +547,10 @@ vnoremap // y/<C-R>"<CR>
 " Automatically insert date
 nnoremap <F5> i///////////////<Esc>"=strftime("%c")<CR>Pa///////////////<Esc>
 "//////////SCROLLING//////////////
-noremap e 20k
-vnoremap e 20k
-noremap <S-e> 20j
-vnoremap <S-e> 20j
+"noremap e 20k
+"vnoremap e 20k
+"noremap <S-e> 20j
+"vnoremap <S-e> 20j
 " cd into current dir path and into dir above current path
 nnoremap <Leader>cd :cd %:p:h<CR>
 						\:pwd<CR>
@@ -556,24 +560,27 @@ nnoremap <Leader>cu :cd %:p:h<CR>
 "/////////////SEARCH_REPLACE//////////////////
 noremap <Leader>w /\<<c-r>=expand("<cword>")<cr>\>
 noremap <Leader>W :%s/\<<c-r>=expand("<cword>")<cr>\>/
-
 " These are only for command line
 " insert in the middle of whole word search
 cnoremap <A-w> \<\><Left><Left>
 " insert visual selection search
 cnoremap <A-c> <c-r>=expand("<cword>")<cr>
 cnoremap <A-s> %s/
+" Auto indent pasted text
+nnoremap p p=`]<C-o>
+nnoremap P P=`]<C-o>
+
 "////////////////////////////////////////////////////////////////////////////////////////
 " /////////////////PLUGIN_OPTIONS////////////////////////////////////////////
 	"Plugin 'VundleVim/Vundle.vim'
-		noremap <Leader>pl :PlugList<CR>
+		noremap <Leader>Pl :PlugList<CR>
 		" lists configured plugins
-		noremap <Leader>pi :PlugInstall<CR>
-		noremap <Leader>pu :PlugInstall!<CR>
+		noremap <Leader>Pi :PlugInstall<CR>
+		noremap <Leader>Pu :PlugInstall!<CR>
 		" installs plugins; append `!` to update or just :PluginUpdate
-		noremap <Leader>ps :PlugSearch<CR>
+		noremap <Leader>Ps :PlugSearch<CR>
 		" searches for foo; append `!` to refresh local cache
-		noremap <Leader>pc :PlugClean<CR>      
+		noremap <Leader>Pc :PlugClean<CR>      
 		" confirms removal of unused plugins; append `!` to auto-approve removal
 		"
 		" see :h vundle for more details or wiki for FAQ
@@ -632,15 +639,14 @@ cnoremap <A-s> %s/
 		noremap <Leader>vu :!svn update .<CR>
 		noremap <Leader>vo :!svn log .<CR>
 		noremap <Leader>vi :!svn info<CR>
-
 		noremap <Leader>gp :silent !git add %<CR>
 			\:call GetString("git")<CR>
 			\:exe "silent !git commit -m \"" . search . "\""<CR>
 			\:!git push origin master<CR> 
+
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'lervag/vimtex' " Latex support
 		let g:vimtex_view_enabled = 0
-
 		" latexmk
 		let g:vimtex_latexmk_continuous=1
 		let g:vimtex_latexmk_callback=1
@@ -648,23 +654,23 @@ cnoremap <A-s> %s/
 		let g:vimtex_complete_close_braces=1
 		let g:vimtex_complete_recursive_bib=1
 		let g:vimtex_complete_img_use_tail=1
-
 		" ToC
 		let g:vimtex_toc_enabled=1
 		let g:vimtex_index_show_help=1
+
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'bling/vim-airline' " Status bar line
 		set laststatus=2
 		let g:airline_section_b = '%{strftime("%c")}'
 		let g:airline#extensions#bufferline#enabled = 1
 		let g:airline#extensions#bufferline#overwrite_variables = 1
-		" Bufferline
-			let g:bufferline_rotate = 1
+
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'file:///home/reinaldo/.vim/bundle/vim-hardy'
 		if has('unix')
 			let g:hardy_arduino_path='/home/reinaldo/Downloads/arduino-1.6.5-r5/arduino'
 		endif
+
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'Shougo/neocomplete.vim'
 		"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
@@ -676,24 +682,20 @@ cnoremap <A-s> %s/
 			" Use smartcase.
 			let g:neocomplete#enable_smart_case = 1
 			let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-
 			" Define dictionary.
 			let g:neocomplete#sources#dictionary#dictionaries = {
 				\ 'default' : '',
 				\ 'vimshell' : $HOME.'/.vimshell_hist',
 				\ 'scheme' : $HOME.'/.gosh_completions'
 				\ }
-
 			" Define keyword.
 			if !exists('g:neocomplete#keyword_patterns')
 				let g:neocomplete#keyword_patterns = {}
 			endif
 			let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
 			" Plugin key-mappings.
 			inoremap <expr><C-g>     neocomplete#undo_completion()
 			inoremap <expr><C-l>     neocomplete#complete_common_string()
-
 			" Recommended key-mappings.
 			" <CR>: close popup and save indent.
 			inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
@@ -707,14 +709,10 @@ cnoremap <A-s> %s/
 			" <C-h>, <BS>: close popup and delete backword char.
 			inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 			inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-			" Close popup by <Space>.
-			"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-
 			" Enable heavy omni completion.
 			if !exists('g:neocomplete#sources#omni#input_patterns')
 				let g:neocomplete#sources#omni#input_patterns = {}
 			endif
-
 			let g:neocomplete#sources#omni#input_patterns.tex =
 					\ '\v\\%('
 					\ . '\a*cite\a*%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
@@ -722,7 +720,6 @@ cnoremap <A-s> %s/
 					\ . '|includegraphics\*?%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
 					\ . '|%(include%(only)?|input)\s*\{[^}]*'
 					\ . ')'
-
 			if !exists('g:neocomplete#force_omni_input_patterns')
 				let g:neocomplete#force_omni_input_patterns = {}
 			endif
@@ -732,12 +729,10 @@ cnoremap <A-s> %s/
 			\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?'
 			let g:neocomplete#sources#omni#input_patterns.cpp =
 			\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-
 			" For perlomni.vim setting.
 			" https://github.com/c9s/perlomni.vim
 			let g:neocomplete#sources#omni#input_patterns.perl =
 			\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-
 			" For smart TAB completion.
 			inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
 					\ <SID>check_back_space() ? "\<TAB>" :
@@ -746,14 +741,12 @@ cnoremap <A-s> %s/
 				let col = col('.') - 1
 				return !col || getline('.')[col - 1]  =~ '\s'
 			  endfunction"}}}
-
 		else
 			let g:deoplete#enable_at_startup = 1	
 			let g:deoplete#enable_smart_case = 1
 			" <C-h>, <BS>: close popup and delete backword char.
 			inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
 			inoremap <expr><BS>  deoplete#mappings#smart_close_popup()."\<C-h>"
-
 			" <CR>: close popup and save indent.
 			inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 			function! s:my_cr_function() abort
@@ -770,7 +763,6 @@ cnoremap <A-s> %s/
 		imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 		smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 		xmap <C-k>     <Plug>(neosnippet_expand_target)
-
 		" SuperTab like snippets behavior.
 		"imap <expr><TAB>
 		" \ pumvisible() ? "\<C-n>" :
@@ -782,7 +774,6 @@ cnoremap <A-s> %s/
 		if has('conceal')
 			set conceallevel=2 concealcursor=niv
 		endif
-
 		let g:neosnippet#enable_snipmate_compatibility = 1
 
 " ///////////////////////////////////////////////////////////////////
@@ -847,9 +838,9 @@ cnoremap <A-s> %s/
 	"Plug 'junegunn/rainbow_parentheses.vim'
 		let g:rainbow#max_level = 16
 		let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
-
 		" List of colors that you do not want. ANSI code or #RRGGBB
 		let g:rainbow#blacklist = [233, 234]
+
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'mattn/emmet-vim' " HTML fast code"
 		let g:user_emmet_settings = {
@@ -864,6 +855,7 @@ cnoremap <A-s> %s/
 		\    'extends' : 'html',
 		\  },
 		\}
+
 "//////////////////////////////////////////////////////////////////////////////////////////
 "	Doxygen.vim
 		let g:DoxygenToolkit_briefTag_pre="@Description:  " 
@@ -873,6 +865,7 @@ cnoremap <A-s> %s/
 		let g:DoxygenToolkit_blockFooter="----------------------------------------------------------------------------" 
 		let g:DoxygenToolkit_authorName="Reinaldo Molina" 
 		let g:DoxygenToolkit_licenseTag=""
+
 "//////////////////////////////////////////////////////////////////////////////////////////
 "	OmniSharp Stuff
 		"Timeout in seconds to wait for a response from the server
@@ -886,7 +879,6 @@ cnoremap <A-s> %s/
 		" Get Code Issues and syntax errors
 		let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues']
 		"Set autocomplete function to OmniSharp (if not using YouCompleteMe completion plugin)
-
 		" Builds can also run asynchronously with vim-dispatch installed
 		noremap <leader>ob :wa!<cr>:OmniSharpBuildAsync<cr>
 		" automatic syntax check on events (TextChanged requires Vim 7.4)
@@ -894,7 +886,6 @@ cnoremap <A-s> %s/
 		set updatetime=500
 		" Remove 'Press Enter to continue' message when type information is longer than one line.
 		set cmdheight=1
-
 		noremap <leader>oi :OmniSharpFindImplementations<cr>
 		noremap <leader>ot :OmniSharpFindType<cr>
 		noremap <leader>os :OmniSharpFindSymbol<cr>
@@ -907,7 +898,6 @@ cnoremap <A-s> %s/
 		"nnoremap <leader>ss :OmniSharpStartServer<cr>
 		"nnoremap <leader>sp :OmniSharpStopServer<cr>
 		let g:OmniSharp_server_type = 'v1'
-
 		"" Add syntax highlighting for types and interfaces
 		"nnoremap <leader>th :OmniSharpHighlightTypes<cr>
 		"""Don't ask to save when changing buffers (i.e. when jumping to a type definition)
@@ -917,17 +907,18 @@ cnoremap <A-s> %s/
 		set statusline+=%#warningmsg#
 		set statusline+=%{SyntasticStatuslineFlag()}
 		set statusline+=%*
-
 		let g:syntastic_always_populate_loc_list = 1
 		let g:syntastic_auto_loc_list = 1
 		let g:syntastic_check_on_open = 0
 		let g:syntastic_check_on_wq = 0
 		"let g:syntastic_always_populate_loc_list = 1 " populates list of error so you can use lnext 
+		
 "//////////////////////////////////////////////////////////////////////////////////////////
 	"Plug 'octol/vim-cpp-enhanced-highlight'
 		let g:cpp_class_scope_highlight = 1	
 		" turning this option breaks comments
 		"let g:cpp_experimental_template_highlight = 1	
+		
 " //////////////////////////////////////////////////////////////////
 		"Plugin 'morhetz/gruvbox' " colorscheme gruvbox 
 			"let g:gruvbox_termcolors=256
@@ -937,3 +928,7 @@ cnoremap <A-s> %s/
 			"colorscheme janah
 			"colorscheme sierra
 			set background=dark    " Setting dark mode
+
+" //////////////////////////////////////////////////////////////////
+		"Plug 'xolox/vim-notes'
+			let g:notes_tab_indents = 0
