@@ -934,4 +934,14 @@ nnoremap P P=`]<C-o>
 
 " //////////////////////////////////////////////////////////////////
 		"Plug 'xolox/vim-notes'
-			let g:notes_tab_indents = 0
+			"let g:notes_tab_indents = 0
+			"let g:notes_directories = ['C:\vimfiles']
+			"let g:notes_suffix = '.txt'
+" //////////////////////////////////////////////////////////////////
+		"Plug 'xolox/vim-notes'
+			let wiki = {}
+			let wiki.path = '~/my_wiki/'
+			let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp'}
+			let g:vimwiki_list = [wiki]
+			let g:vimwiki_hl_cb_checked=1
+			let g:vimwiki_menu=''
