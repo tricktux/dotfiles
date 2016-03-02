@@ -166,12 +166,6 @@ endif
 	Plug 'lervag/vimtex' " Latex support
 	Plug 'bling/vim-airline'	" Status bar line
 	Plug 'Vim-R-plugin'
-	if has('nvim')
-		Plug 'Shougo/deoplete.nvim'
-	else
-		Plug 'Shougo/neocomplete.vim'
-		Plug 'tpope/vim-dispatch' " used for omnisharp completion 
-	endif
 	Plug 'Shougo/neosnippet'
 	Plug 'Shougo/neosnippet-snippets'
 	Plug 'honza/vim-snippets'
@@ -187,9 +181,15 @@ endif
 	Plug 'ctrlpvim/ctrlp.vim'
 	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'Tagbar'
-	Plug 'xolox/vim-misc'
-	Plug 'xolox/vim-notes'
-	"Plug 'vimwiki/vimwiki', {'branch': 'dev'}
+	"Plug 'xolox/vim-misc'
+	"Plug 'xolox/vim-notes'
+	Plug 'vimwiki/vimwiki', {'branch': 'dev'}
+	if has('nvim')
+		Plug 'Shougo/deoplete.nvim'
+	else
+		Plug 'Shougo/neocomplete.vim'
+		Plug 'tpope/vim-dispatch' " used for omnisharp completion 
+	endif
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
@@ -387,7 +387,7 @@ set ignorecase
 set autoread " autoload files written outside of vim
 syntax on
 " Display tabs and trailing spaces visually
-set list listchars=tab:\ \ ,trail:?
+"set list listchars=tab:\ \ ,trail:?
 set linebreak    "Wrap lines at convenient points
 "set scrolloff=8         "Start scrolling when we're 8 lines away from margins
 
@@ -737,7 +737,7 @@ nnoremap P P=`]<C-o>
 			let g:neocomplete#sources#omni#input_patterns.perl =
 			\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 			" For smart TAB completion.
-			inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
+			imap <expr><TAB>  pumvisible() ? "\<C-n>" :
 					\ <SID>check_back_space() ? "\<TAB>" :
 					\ neocomplete#start_manual_complete()
 			  function! s:check_back_space() "{{{
@@ -934,14 +934,22 @@ nnoremap P P=`]<C-o>
 
 " //////////////////////////////////////////////////////////////////
 		"Plug 'xolox/vim-notes'
-			let g:notes_tab_indents = 0
-			let g:notes_directories = ['C:\vimfiles']
-			let g:notes_suffix = '.txt'
+			"let g:notes_tab_indents = 0
+			"let g:notes_directories = ['C:\vimfiles']
+			"let g:notes_suffix = '.txt'
 " //////////////////////////////////////////////////////////////////
-		"Plug 'xolox/vim-notes'
+		"Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 			"let wiki = {}
 			"let wiki.path = '~/my_wiki/'
 			"let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp'}
 			"let g:vimwiki_list = [wiki]
-			"let g:vimwiki_hl_cb_checked=1
-			"let g:vimwiki_menu=''
+			let g:vimwiki_hl_cb_checked=1
+			let g:vimwiki_menu=''
+			let g:vimwiki_folding='expr'
+			let g:vimwiki_table_mappings=0
+			nmap <Leader>wn <Plug>VimwikiNextLink
+			nmap <Leader>wp <Plug>VimwikiPrevLink
+			nmap == <Plug>VimwikiAddHeaderLevel
+			nmap -- <Plug>VimwikiRemoveHeaderLevel
+			map >> <Plug>VimwikiIncreaseLvlSingleItem
+			map << <Plug>VimwikiDecreaseLvlSingleItem
