@@ -232,9 +232,6 @@ let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
 let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 " ////////////////////////////////////////////////////////
 " //////////////////FUNCTIONS//////////////////////////////////////
-function! SetCppOptions()
-endfunction
-" ////////////////////////////////////////////////////////
 function! GetString(type)
 	call inputsave()
 	if a:type == "git"
@@ -244,72 +241,6 @@ function! GetString(type)
 	endif
 	call inputrestore()
 endfunction
-" ////////////////////////////////////////////////////////
-" nobody using it because it breaks switching buffers
-"let g:skipview_files = [
-            "\ '[Quickfix List]',
-            "\ '[]',
-            "\ '[EXAMPLE PLUGIN BUFFER]'
-            "\ ]
-"function! MakeViewCheck()
-    "if has('quickfix') && &buftype =~ 'quickfix'
-        "" Buffer is quickfix dont save
-        "return 0
-    "endif
-    "if has('quickfix') && &buftype =~ 'nofile'
-        "" Buffer is marked as not a file
-        "return 0
-    "endif
-    "if empty(glob(expand('%:p')))
-        "" File does not exist on disk
-        "return 0
-    "endif
-    "if len($TEMP) && expand('%:p:h') == $TEMP
-        "" We're in a temp dir
-        "return 0
-    "endif
-    "if len($TMP) && expand('%:p:h') == $TMP
-        "" Also in temp dir
-        "return 0
-    "endif
-    "if index(g:skipview_files, expand('%')) >= 0
-        "" File is in skip list
-        "return 0
-    "endif
-    "return 1
-"endfunction
-" ////////////////////////////////////////////////////////
-"Function to enable different code snippets inside txt files
-function! TextEnableCodeSnip(filetype,start,end,textSnipHl) abort
-  let ft=toupper(a:filetype)
-  let group='textGroup'.ft
-  if exists('b:current_syntax')
-    let s:current_syntax=b:current_syntax
-    " Remove current syntax definition, as some syntax files (e.g. cpp.vim)
-    " do nothing if b:current_syntax is defined.
-    unlet b:current_syntax
-  endif
-  execute 'syntax include @'.group.' syntax/'.a:filetype.'.vim'
-  try
-    execute 'syntax include @'.group.' after/syntax/'.a:filetype.'.vim'
-  catch
-  endtry
-  if exists('s:current_syntax')
-    let b:current_syntax=s:current_syntax
-  else
-    unlet b:current_syntax
-  endif
-  execute 'syntax region textSnip'.ft.'
-  \ matchgroup='.a:textSnipHl.'
-  \ start="'.a:start.'" end="'.a:end.'"
-  \ contains=@'.group
-endfunction
-"call TextEnableCodeSnip(  'c',   '@begin=c@',   '@end=c@', 'SpecialComment')
-"call TextEnableCodeSnip('sql', '@begin=sql@', '@end=sql@', 'SpecialComment')
-" ////////////////////////////////////////////////////////
-function! SetCsOptions()
-endfunction
-" ////////////////////////////////////////////////////////
 "////////////SET_OPTIONS///////////////////////////
 filetype plugin on   
 filetype indent on   
