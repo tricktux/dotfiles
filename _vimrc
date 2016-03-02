@@ -109,7 +109,10 @@ elseif has('unix')
 		" fixes issue colorscheme background not filling up entire screen in
 		" command line
 		set t_ut=
+		exe "set <m-a>=\ea"
+		nnoremap <m-a> :qall!<CR>
 		nnoremap <CR> o<Esc>
+		"x
 	endif
 	" this one below DOES WORK in linux just make sure is ran at root folder
 	noremap <Leader>tu :cs kill -1<CR>
