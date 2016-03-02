@@ -187,9 +187,9 @@ endif
 	Plug 'ctrlpvim/ctrlp.vim'
 	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'Tagbar'
-	"Plug 'xolox/vim-misc'
-	"Plug 'xolox/vim-notes'
-	Plug 'vimwiki/vimwiki', {'branch': 'dev'}
+	Plug 'xolox/vim-misc'
+	Plug 'xolox/vim-notes'
+	"Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
@@ -387,7 +387,7 @@ set ignorecase
 set autoread " autoload files written outside of vim
 syntax on
 " Display tabs and trailing spaces visually
-set list listchars=tab:\ \ ,trail:·
+set list listchars=tab:\ \ ,trail:?
 set linebreak    "Wrap lines at convenient points
 "set scrolloff=8         "Start scrolling when we're 8 lines away from margins
 
@@ -934,14 +934,14 @@ nnoremap P P=`]<C-o>
 
 " //////////////////////////////////////////////////////////////////
 		"Plug 'xolox/vim-notes'
-			"let g:notes_tab_indents = 0
-			"let g:notes_directories = ['C:\vimfiles']
-			"let g:notes_suffix = '.txt'
+			let g:notes_tab_indents = 0
+			let g:notes_directories = ['C:\vimfiles']
+			let g:notes_suffix = '.txt'
 " //////////////////////////////////////////////////////////////////
 		"Plug 'xolox/vim-notes'
-			let wiki = {}
-			let wiki.path = '~/my_wiki/'
-			let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp'}
-			let g:vimwiki_list = [wiki]
-			let g:vimwiki_hl_cb_checked=1
-			let g:vimwiki_menu=''
+			"let wiki = {}
+			"let wiki.path = '~/my_wiki/'
+			"let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp'}
+			"let g:vimwiki_list = [wiki]
+			"let g:vimwiki_hl_cb_checked=1
+			"let g:vimwiki_menu=''
