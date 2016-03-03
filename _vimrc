@@ -200,8 +200,10 @@ augroup Filetypes
 	autocmd FileType cpp setlocal omnifunc=omni#cpp#complete#Main
 	autocmd FileType cpp setlocal textwidth=80
 	autocmd FileType cpp setlocal cindent
+
 	autocmd FileType * IndentGuidesToggle
 	autocmd FileType * RainbowParentheses
+
 	autocmd FileType cs OmniSharpHighlightTypes
 	autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
 	autocmd FileType nerdtree setlocal relativenumber
@@ -210,6 +212,15 @@ augroup Filetypes
 	autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 	autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+	" Wiki specific mappings
+	autocmd FileType vimwiki nmap <buffer> <Leader>wn <Plug>VimwikiNextLink
+	autocmd FileType vimwiki nmap <buffer> <Leader>wp <Plug>VimwikiPrevLink
+	autocmd FileType vimwiki nmap <buffer> == <Plug>VimwikiAddHeaderLevel
+	autocmd FileType vimwiki nmap <buffer> -- <Plug>VimwikiRemoveHeaderLevel
+	autocmd FileType vimwiki nmap <buffer> >> <Plug>VimwikiIncreaseLvlSingleItem
+	autocmd FileType vimwiki nmap <buffer> << <Plug>VimwikiDecreaseLvlSingleItem
+	autocmd FileType vimwiki nmap <buffer> <Leader>wt :call WikiTable()<CR>
 augroup END
 
 " automatically open and close the popup menu / preview window
@@ -232,15 +243,46 @@ let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
 let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 " ////////////////////////////////////////////////////////
 " //////////////////FUNCTIONS//////////////////////////////////////
-function! GetString(type)
+" Support for other functions
+function! GetString(type) abort
 	call inputsave()
 	if a:type == "git"
-		let g:search = input("Commit Comment:")
+		let s:input = input("Commit Comment:")
 	elseif a:type == "search"
-		let g:search = input("Search for:")
+		let s:input = input("Search for:")
+	elseif a:type == "wiki"
+		let s:input = input("Enter col row:")
 	endif
 	call inputrestore()
+	return s:input
 endfunction
+
+" Only works in vimwiki filetypes
+function! WikiTable() abort
+	let s:sColRows = GetString("wiki")
+	exe ":VimwikiTable " . s:sColRows
+endfunction
+
+function! GlobalSearch() abort
+	let s:search = GetString("search")
+	exe "vimgrep " . s:search . " %:p:h/*"
+	copen 20
+endfunction
+
+" Commits current buffer
+function! GitCommit() abort
+	silent !git add %
+	let s:commit = GetString("git")
+	exe "silent !git commit -m \"" . s:commit . "\""
+	!git push origin master 
+endfunction
+
+" Should be performed on root .svn folder
+function! SvnCommit() abort
+	let s:commit = GetString("git")
+	exe "!svn commit -m \"" . s:commit . "\" ."
+endfunction
+
 "////////////SET_OPTIONS///////////////////////////
 filetype plugin on   
 filetype indent on   
@@ -457,11 +499,11 @@ noremap <Leader>be :enew<CR>
 noremap <S-x> :tabclose<CR>
 " Uncomment below everytime you mapclear
 " This will map 1-99gb. i.e: 12gb :12b<CR>
-let c = 1
-while c <= 99
-  execute "nnoremap " . c . "gb :" . c . "b\<CR>"
-  let c += 1
-endwhile
+"let c = 1
+"while c <= 99
+  "execute "nnoremap " . c . "gb :" . c . "b\<CR>"
+  "let c += 1
+"endwhile
 "/////////////TAB_STUFF//////////////////////
 " move to the beggning of line
 noremap <S-w> $
@@ -473,8 +515,13 @@ vnoremap <S-t> %
 " insert tab spaces in normal mode
 noremap <Tab> i<Tab><Esc>
 " This is a very good to show and search all current but a much better is 
-nnoremap gr :vimgrep <cword> %:p:h/*<CR> :copen 20<CR>
-nnoremap gs :call GetString("search")<CR>:exe "vimgrep " . search . " %:p:h/*"<CR> :copen 20<CR>
+nnoremap gr :vimgrep <cword> %:p:h/*<CR>
+			\:copen 20<CR>
+nnoremap gs :call GlobalSearch()<CR>
+"nnoremap gs :call GetString("search")<CR>:exe "vimgrep " . search . " %:p:h/*"<CR> :copen 20<CR>
+"function! GlobalSearch() abort
+	"let 
+"endfunction
 " remaped search to f
 noremap <S-s> #
 vnoremap // y/<C-R>"<CR>
@@ -491,6 +538,8 @@ nnoremap <Leader>cd :cd %:p:h<CR>
 nnoremap <Leader>cu :cd %:p:h<CR>
 						\:cd ..<CR>
 						\:pwd<CR>
+nnoremap <Leader>cc :pwd<CR>
+
 "/////////////SEARCH_REPLACE//////////////////
 noremap <Leader>w /\<<c-r>=expand("<cword>")<cr>\>
 noremap <Leader>W :%s/\<<c-r>=expand("<cword>")<cr>\>/
@@ -559,10 +608,9 @@ nnoremap P P=`]<C-o>
 		" Add specific files
 		noremap <Leader>va :!svn add 
 		" Commit using typed message
-		noremap <Leader>vc :call GetString("git")<CR>
-					\:exe "!svn commit -m \"" . search . "\" ."<CR>
+		noremap <Leader>vc :call SvnCommit()<CR>
 		" Commit using File for commit content
-		noremap <Leader>vC :!svn commit -F commit_msg .<CR>
+		noremap <Leader>vC :!svn commit --force-log -F commit_msg .<CR>
 		noremap <Leader>vd :!svn delete --keep-local 
 		" revert previous commit
 		noremap <Leader>vr :!svn revert -R .<CR>
@@ -573,10 +621,7 @@ nnoremap P P=`]<C-o>
 		noremap <Leader>vu :!svn update .<CR>
 		noremap <Leader>vo :!svn log .<CR>
 		noremap <Leader>vi :!svn info<CR>
-		noremap <Leader>gp :silent !git add %<CR>
-			\:call GetString("git")<CR>
-			\:exe "silent !git commit -m \"" . search . "\""<CR>
-			\:!git push origin master<CR> 
+		noremap <Leader>gp :call GitCommit()<CR>
 
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'lervag/vimtex' " Latex support
@@ -878,9 +923,3 @@ nnoremap P P=`]<C-o>
 			let g:vimwiki_menu=''
 			let g:vimwiki_folding='expr'
 			let g:vimwiki_table_mappings=0
-			nmap <Leader>wn <Plug>VimwikiNextLink
-			nmap <Leader>wp <Plug>VimwikiPrevLink
-			nmap == <Plug>VimwikiAddHeaderLevel
-			nmap -- <Plug>VimwikiRemoveHeaderLevel
-			map >> <Plug>VimwikiIncreaseLvlSingleItem
-			map << <Plug>VimwikiDecreaseLvlSingleItem
