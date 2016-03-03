@@ -1,6 +1,7 @@
+"//////////////3/3/2016 2:22:39 PM////////////////
 set nocompatible
 " moved here otherwise conditional mappings get / instead ; as leader 
-	let mapleader="\<Space>"
+let mapleader="\<Space>"
 let maplocalleader="\<Space>"
 if has('win32')
 	source $VIMRUNTIME/mswin.vim
@@ -52,7 +53,6 @@ if has('win32')
 	" Copy and paste into system wide clipboard
 	noremap <Leader><Space>v "*p
 	noremap <Leader><Space>y "*yy
-
 	nnoremap <Leader><Space>= :silent! let &guifont = substitute(
 	\ &guifont,
 	\ ':h\zs\d\+',
@@ -63,7 +63,6 @@ if has('win32')
 	\ ':h\zs\d\+',
 	\ '\=eval(submatch(0)-1)',
 	\ '')<CR>
-
 
 	"//////////////////Windows specific plugins options/////////////////////
 	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
@@ -81,9 +80,8 @@ if has('win32')
 		let g:neocomplete#data_directory = 'C:\vim_sessions' " let neocomplete
 		"store its stuff
 
-
 	" Call Vim-Plug Windows Specific Plugins should be from here below
-	call plug#begin('~/vimfiles/plugged')
+	call plug#begin('~\vimfiles\plugged')
 		Plug 'OmniSharp/omnisharp-vim'
 " /////////// /////////// /////////// /////////// /////////// /////////// ////
 elseif has('unix')
@@ -109,10 +107,7 @@ elseif has('unix')
 		" fixes issue colorscheme background not filling up entire screen in
 		" command line
 		set t_ut=
-		exe "set <m-a>=\ea"
-		nnoremap <m-a> :qall!<CR>
 		nnoremap <CR> o<Esc>
-		"x
 	endif
 	" this one below DOES WORK in linux just make sure is ran at root folder
 	noremap <Leader>tu :cs kill -1<CR>
@@ -137,15 +132,13 @@ elseif has('unix')
 	\ '\=eval(submatch(0)-1)',
 	\ '')<CR>
 
-	" ///////////////VIM_VUNDLE_STUFF////////////////////////
+	" ///////////////VIM_PLUG_STUFF////////////////////////
 	" set the runtime path to include Vundle and initialize
 	if !has('nvim')
 		call plug#begin('~/.vim/plugged')
 	else
 		call plug#begin('~/.config/nvim/autoupload/plug.vim')
 	endif
-
-
 
 	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
 		set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
@@ -241,46 +234,42 @@ let OmniCpp_MayCompleteDot = 1 " autocomplete after .
 let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
 let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
 let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
-" ////////////////////////////////////////////////////////
+
 " //////////////////FUNCTIONS//////////////////////////////////////
 " Support for other functions
 function! GetString(type) abort
 	call inputsave()
 	if a:type == "git"
-		let s:input = input("Commit Comment:")
+		let l:input = input("Commit Comment:")
 	elseif a:type == "search"
-		let s:input = input("Search for:")
+		let l:input = input("Search for:")
 	elseif a:type == "wiki"
-		let s:input = input("Enter col row:")
+		let l:input = input("Enter col row:")
 	endif
 	call inputrestore()
-	return s:input
+	return l:input
 endfunction
 
 " Only works in vimwiki filetypes
 function! WikiTable() abort
-	let s:sColRows = GetString("wiki")
-	exe ":VimwikiTable " . s:sColRows
+	exe ":VimwikiTable " . GetString("wiki")
 endfunction
 
 function! GlobalSearch() abort
-	let s:search = GetString("search")
-	exe "vimgrep " . s:search . " %:p:h/*"
+	exe "vimgrep " . GetString("search") . " %:p:h/*"
 	copen 20
 endfunction
 
 " Commits current buffer
 function! GitCommit() abort
 	silent !git add %
-	let s:commit = GetString("git")
-	exe "silent !git commit -m \"" . s:commit . "\""
+	exe "silent !git commit -m \"" . GetString("git") . "\""
 	!git push origin master 
 endfunction
 
 " Should be performed on root .svn folder
 function! SvnCommit() abort
-	let s:commit = GetString("git")
-	exe "!svn commit -m \"" . s:commit . "\" ."
+	exe "!svn commit -m \"" . GetString("git") . "\" ."
 endfunction
 
 "////////////SET_OPTIONS///////////////////////////
@@ -340,9 +329,9 @@ set nowrapscan        " do not wrap search at EOF
 " THE BEST FEATURE I'VE ENCOUNTERED SO FAR OF VIM
 " CAN BELIEVE I DIDNT DO THIS BEFORE
 set tags+=.\tags;\
+
 if has('cscope')
 	set cscopetag cscopeverbose
-
 	if has('quickfix')
 		set cscopequickfix=s+,c+,d+,i+,t+,e+
 	endif
@@ -352,7 +341,6 @@ if has('cscope')
 	cnoreabbrev csr cs reset
 	cnoreabbrev css cs show
 	cnoreabbrev csh cs help
-
 endif
 set matchpairs+=<:>
 set smartindent " these 2 make search case smarter
@@ -599,9 +587,7 @@ nnoremap P P=`]<C-o>
 		let NERDTreeMapOpenVSplit=',s'
         let NERDTreeQuitOnOpen=1 " AutoClose after openning file
 " ///////////////////////////////////////////////////////////////////
-	"Plugin 'vc.vim' "version control plugin
-	" TODO: fix this either bring it back or figure better way to do it
-		" --------SVN----------
+	" --------VERSION_CONTROL----------
 		" For all this commands you should be in the svn root folder
 		" Add all files
 		noremap <Leader>vA :!svn add * --force<CR>
