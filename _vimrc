@@ -3,19 +3,21 @@ set nocompatible
 " moved here otherwise conditional mappings get / instead ; as leader 
 let mapleader="\<Space>"
 let maplocalleader="\<Space>"
+
+"//////////////WINDOWS_SETTINGS////////////////
 if has('win32')
 	source $VIMRUNTIME/mswin.vim
 	behave mswin
 	set ffs=dos
 
 	" Quick write session with F2
-	nnoremap <Leader>mz :mksession! C:\vim_sessions\
+	nnoremap <Leader>mz :mksession! C:\vimfiles\personal\sessions\
 	" And load session with F3
-	nnoremap <Leader>mx :source C:\vim_sessions\
-	set viewdir=C:\vim_sessions\
+	nnoremap <Leader>mx :source C:\vimfiles\personal\sessions\
+	set viewdir=C:\vimfiles\personal\viewdir\
 	" configure tags - add additional tags here or comment out not-used ones
-	set tags+=$HOME/vimfiles/tags/cpp
-	set tags+=$HOME/vimfiles/tags/tags
+	set tags+=$HOME\vimfiles\tags\cpp
+	set tags+=$HOME\vimfiles\tags\tags
 	" sets path to cscope.exe 
 
 	"au BufEnter *.c *.cpp *.h *.hpp call LoadWinCscope()"
@@ -77,13 +79,18 @@ if has('win32')
 
 	" NeoComplete/NeoSnippets for Windows
 		"let g:neosnippet#snippets_directory='~\vimfiles\plugged\vim-snippets'
-		let g:neocomplete#data_directory = 'C:\vim_sessions' " let neocomplete
+		let g:neocomplete#data_directory = 'C:\vimfiles\personal\neocomplete' " let neocomplete
 		"store its stuff
+	"Plug 'vimwiki/vimwiki', {'branch': 'dev'}
+		let g:vimwiki_list = [{'path': '~\vimfiles\personal\wiki\', 'index': 'main'}]
+	"Plug 'Tagbar'
+		let s:vwtagpy = '~/vimfiles/personal/wiki/vwtags.py'
 
 	" Call Vim-Plug Windows Specific Plugins should be from here below
 	call plug#begin('~\vimfiles\plugged')
 		Plug 'OmniSharp/omnisharp-vim'
-" /////////// /////////// /////////// /////////// /////////// /////////// ////
+
+"//////////////UNIX_SETTINGS////////////////
 elseif has('unix')
 	set ffs=unix
 	nnoremap <Leader>mz :mksession! /home/reinaldo/.vim/sessions/
@@ -102,10 +109,7 @@ elseif has('unix')
 		nnoremap <S-CR> o<Esc>
 	else
 		set t_Co=256
-		" fixes nerdtree showing weird car issue
-		"set encoding=utf-8
-		" fixes issue colorscheme background not filling up entire screen in
-		" command line
+		" fixes colorscheme not filling entire backgroud
 		set t_ut=
 		nnoremap <CR> o<Esc>
 	endif
@@ -148,6 +152,10 @@ elseif has('unix')
 
 	" Syntastic
 		let g:syntastic_cpp_compiler_options = ' -std=c++11' 
+	"Plug 'vimwiki/vimwiki', {'branch': 'dev'}
+		let g:vimwiki_list = [{'path': '~/.vim/personal/wiki/', 'index': 'main'}]
+	"Plug 'Tagbar'
+		let s:vwtagpy = '~/.vim/personal/wiki/vwtags.py'
 
 endif
 
@@ -772,6 +780,16 @@ nnoremap P P=`]<C-o>
 		" Find functions called by this function
 		noremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
 		noremap <Leader>ts :cs show<CR>
+		" tag wiki files, requires python script on path s:vwtagpy
+		let g:tagbar_type_vimwiki = {
+				\   'ctagstype':'vimwiki'
+				\ , 'kinds':['h:header']
+				\ , 'sro':'&&&'
+				\ , 'kind2scope':{'h':'header'}
+				\ , 'sort':0
+				\ , 'ctagsbin':s:vwtagpy
+				\ , 'ctagsargs': 'all'
+				\ }
 
 " ///////////////////////////////////////////////////////////////////
 	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh
@@ -805,21 +823,6 @@ nnoremap P P=`]<C-o>
 		let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 		" List of colors that you do not want. ANSI code or #RRGGBB
 		let g:rainbow#blacklist = [233, 234]
-
-" ///////////////////////////////////////////////////////////////////
-	"Plugin 'mattn/emmet-vim' " HTML fast code"
-		let g:user_emmet_settings = {
-		\  'php' : {
-		\    'extends' : 'html',
-		\    'filters' : 'c',
-		\  },
-		\  'xml' : {
-		\    'extends' : 'html',
-		\  },
-		\  'haml' : {
-		\    'extends' : 'html',
-		\  },
-		\}
 
 "//////////////////////////////////////////////////////////////////////////////////////////
 "	Doxygen.vim
@@ -886,19 +889,9 @@ nnoremap P P=`]<C-o>
 		
 " //////////////////////////////////////////////////////////////////
 		"Plugin 'morhetz/gruvbox' " colorscheme gruvbox 
-			"let g:gruvbox_termcolors=256
-			"let g:gruvbox_italic=1
-			"colorscheme desert
 			colorscheme gruvbox
-			"colorscheme janah
-			"colorscheme sierra
 			set background=dark    " Setting dark mode
 
-" //////////////////////////////////////////////////////////////////
-		"Plug 'xolox/vim-notes'
-			"let g:notes_tab_indents = 0
-			"let g:notes_directories = ['C:\vimfiles']
-			"let g:notes_suffix = '.txt'
 " //////////////////////////////////////////////////////////////////
 		"Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 			"let wiki = {}
@@ -907,5 +900,5 @@ nnoremap P P=`]<C-o>
 			"let g:vimwiki_list = [wiki]
 			let g:vimwiki_hl_cb_checked=1
 			let g:vimwiki_menu=''
-			let g:vimwiki_folding='expr'
+			let g:vimwiki_folding=''
 			let g:vimwiki_table_mappings=0
