@@ -11,10 +11,10 @@ if has('win32')
 	set ffs=dos
 
 	" Quick write session with F2
-	nnoremap <Leader>mz :mksession! C:\vimfiles\personal\sessions\
+	nnoremap <Leader>mz :mksession! ~\vimfiles\personal\sessions\
 	" And load session with F3
-	nnoremap <Leader>mx :source C:\vimfiles\personal\sessions\
-	set viewdir=C:\vimfiles\personal\viewdir\
+	nnoremap <Leader>mx :source ~\vimfiles\personal\sessions\
+	set viewdir=~\vimfiles\personal\viewdir\
 	" configure tags - add additional tags here or comment out not-used ones
 	set tags+=$HOME\vimfiles\tags\cpp
 	set tags+=$HOME\vimfiles\tags\tags
@@ -79,7 +79,7 @@ if has('win32')
 
 	" NeoComplete/NeoSnippets for Windows
 		"let g:neosnippet#snippets_directory='~\vimfiles\plugged\vim-snippets'
-		let g:neocomplete#data_directory = 'C:\vimfiles\personal\neocomplete' " let neocomplete
+		let g:neocomplete#data_directory = '~\vimfiles\personal\neocomplete' " let neocomplete
 		"store its stuff
 	"Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 		let g:vimwiki_list = [{'path': '~\vimfiles\personal\wiki\', 'index': 'main'}]
@@ -199,49 +199,6 @@ endif
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 	" }}}
-" ALL_AUTOGROUP_STUFF {{{
-" Enable omni completion.
-augroup Filetypes
-	autocmd!
-	autocmd FileType cpp setlocal omnifunc=omni#cpp#complete#Main
-	autocmd FileType cpp setlocal textwidth=80
-	autocmd FileType cpp setlocal cindent
-
-	autocmd FileType * IndentGuidesToggle
-	autocmd FileType * RainbowParentheses
-
-	autocmd FileType cs OmniSharpHighlightTypes
-	autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
-	autocmd FileType nerdtree setlocal relativenumber
-	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-	autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-	autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-	autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-	" Wiki specific mappings
-	autocmd FileType vimwiki nmap <buffer> <Leader>wn <Plug>VimwikiNextLink
-	autocmd FileType vimwiki nmap <buffer> <Leader>wp <Plug>VimwikiPrevLink
-	autocmd FileType vimwiki nmap <buffer> == <Plug>VimwikiAddHeaderLevel
-	autocmd FileType vimwiki nmap <buffer> -- <Plug>VimwikiRemoveHeaderLevel
-	autocmd FileType vimwiki nmap <buffer> >> <Plug>VimwikiIncreaseLvlSingleItem
-	autocmd FileType vimwiki nmap <buffer> << <Plug>VimwikiDecreaseLvlSingleItem
-	autocmd FileType vimwiki nmap <buffer> <Leader>wt :call WikiTable()<CR>
-	autocmd FileType vimwiki nmap <buffer> <Leader>wf <Plug>VimwikiFollowLink
-	autocmd FileType vimwiki setlocal spell spelllang=en_us
-
-	" Display help vertical window not split
-	autocmd FileType help wincmd L
-augroup END
-
-" automatically open and close the popup menu / preview window
-au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-" automatic syntax for *.scp
-autocmd BufNewFile,BufRead *.scp setlocal syntax=asm
-if has('unix')
-	autocmd BufNewFile,BufReadPost *.ino,*.pde setlocal ft=arduino
-endif
-" }}}
 
 " OmniCppComplete, Functions, and set settings {{{
 let OmniCpp_NamespaceSearch = 1
@@ -373,10 +330,63 @@ set linebreak    "Wrap lines at convenient points
 "set scrolloff=8         "Start scrolling when we're 8 lines away from margins
 
 " Open and close folds Automatically
-set foldmethod=marker
+set foldenable
+"set foldmethod=indent   "fold based on indent
+set foldnestmax=10      "deepest fold is 10 levels
+"set nofoldenable        "dont fold by default
+set foldlevel=1         "this is just what i use
 " use this below option to set other markers
 "'foldmarker' 'fmr'	string (default: "{{{,}}}")
+set viewoptions=folds,options,cursor,unix,slash " better unix /
 
+" }}}
+
+" ALL_AUTOGROUP_STUFF {{{
+" Enable omni completion.
+augroup Filetypes
+	autocmd!
+	autocmd FileType cpp,c,h,hpp setlocal omnifunc=omni#cpp#complete#Main
+	autocmd FileType cpp,c,h,hpp setlocal textwidth=80
+	autocmd FileType cpp,c,h,hpp setlocal cindent
+	autocmd FileType cpp,c,h,hpp setlocal foldmethod=indent
+
+	autocmd FileType * IndentGuidesToggle
+	autocmd FileType * RainbowParentheses
+
+	autocmd FileType cs OmniSharpHighlightTypes
+	autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
+	autocmd FileType nerdtree setlocal relativenumber
+	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+	autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+	autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+	autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+	" Wiki specific mappings
+	autocmd FileType vimwiki nmap <buffer> <Leader>wn <Plug>VimwikiNextLink
+	autocmd FileType vimwiki nmap <buffer> <Leader>wp <Plug>VimwikiPrevLink
+	autocmd FileType vimwiki nmap <buffer> == <Plug>VimwikiAddHeaderLevel
+	autocmd FileType vimwiki nmap <buffer> -- <Plug>VimwikiRemoveHeaderLevel
+	autocmd FileType vimwiki nmap <buffer> >> <Plug>VimwikiIncreaseLvlSingleItem
+	autocmd FileType vimwiki nmap <buffer> << <Plug>VimwikiDecreaseLvlSingleItem
+	autocmd FileType vimwiki nmap <buffer> <Leader>wt :call WikiTable()<CR>
+	autocmd FileType vimwiki nmap <buffer> <Leader>wf <Plug>VimwikiFollowLink
+	autocmd FileType vimwiki setlocal spell spelllang=en_us
+
+	" Display help vertical window not split
+	autocmd FileType help wincmd L
+
+	" autofold my vimrc
+	autocmd FileType vim setlocal foldmethod=marker
+augroup END
+
+" automatically open and close the popup menu / preview window
+au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+" automatic syntax for *.scp
+autocmd BufNewFile,BufRead *.scp setlocal syntax=asm
+if has('unix')
+	autocmd BufNewFile,BufReadPost *.ino,*.pde setlocal ft=arduino
+endif
 " }}}
 " Custom Mappings {{{
 " on quickfix window go to line selected
