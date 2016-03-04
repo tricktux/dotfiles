@@ -1,4 +1,4 @@
-"//////////////3/3/2016 2:22:39 PM////////////////
+"//////////////3/4/2016 2:36:01 PM////////////////
 set nocompatible
 " moved here otherwise conditional mappings get / instead ; as leader 
 let mapleader="\<Space>"
@@ -738,10 +738,10 @@ nnoremap P P=`]<C-o>
 			imap <expr><TAB>  pumvisible() ? "\<C-n>" :
 					\ <SID>check_back_space() ? "\<TAB>" :
 					\ neocomplete#start_manual_complete()
-			  function! s:check_back_space() "{{{
+			  function! s:check_back_space() 
 				let col = col('.') - 1
 				return !col || getline('.')[col - 1]  =~ '\s'
-			  endfunction"}}}
+			  endfunction
 		else
 			let g:deoplete#enable_at_startup = 1	
 			let g:deoplete#enable_smart_case = 1
@@ -757,6 +757,7 @@ nnoremap P P=`]<C-o>
 			\ pumvisible() ? "\<C-n>" :
 			\ deoplete#mappings#manual_complete()
 		endif
+		" }}}
 		
 " Plugin 'Shougo/neocomplete-snippets.vim' {{{
 		" Plugin key-mappings.
