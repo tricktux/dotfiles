@@ -227,7 +227,11 @@ augroup Filetypes
 	autocmd FileType vimwiki nmap <buffer> >> <Plug>VimwikiIncreaseLvlSingleItem
 	autocmd FileType vimwiki nmap <buffer> << <Plug>VimwikiDecreaseLvlSingleItem
 	autocmd FileType vimwiki nmap <buffer> <Leader>wt :call WikiTable()<CR>
+	autocmd FileType vimwiki nmap <buffer> <Leader>wf <Plug>VimwikiFollowLink
 	autocmd FileType vimwiki setlocal spell spelllang=en_us
+
+	" Display help vertical window not split
+	autocmd FileType help wincmd L
 augroup END
 
 " automatically open and close the popup menu / preview window
@@ -408,19 +412,19 @@ noremap <Leader>md :Dox<CR>
 " Folding select text then S-f to fold or just S-f to toggle folding
 nnoremap <Leader>ff za
 onoremap <Leader>ff <C-C>za
-vnoremap <Leader>ff zf
+nnoremap <Leader>ff zf
 " next fold
-vnoremap <Leader>fn zj
+nnoremap <Leader>fn zj
 " previous fold
-vnoremap <Leader>fp zk
+nnoremap <Leader>fp zk
 " close all open folds
-vnoremap <Leader>fo zM
+nnoremap <Leader>fc zM
 " delete fold
-vnoremap <Leader>fd zd
+nnoremap <Leader>fd zd
 " delete all fold
-vnoremap <Leader>fD zE
+nnoremap <Leader>fD zE
 " opens all folds at cursor
-vnoremap <Leader>fo zO
+nnoremap <Leader>fo zO
 " move between windows
 noremap <Leader>h <C-w>h
 noremap <Leader>j <C-w>j
