@@ -388,12 +388,14 @@ if has('unix')
 	autocmd BufNewFile,BufReadPost *.ino,*.pde setlocal ft=arduino
 endif
 " }}}
-" Custom Mappings {{{
+" CUSTOM MAPPINGS {{{
 " on quickfix window go to line selected
 noremap <Leader>qc :.cc<CR>
-" on quickfix window go to line selected
+" go to next result
 noremap <Leader>qn :cn<CR>
-" on quickfix window go to line selected
+" go to previous result
+noremap <Leader>qp :cn<CR>
+" on quickfix window go to next file
 noremap <Leader>qf :cnf<CR>
 " on quickfix close window
 noremap <Leader>ql :ccl<CR>
@@ -418,23 +420,20 @@ nnoremap <Leader>mp ylp
 vnoremap <Leader>mp ylp
 noremap <Leader>mt :set relativenumber!<CR>
 noremap <Leader>md :Dox<CR>
-"//////////FOLDING//////////////
+
+" FOLDING {{{
 " Folding select text then S-f to fold or just S-f to toggle folding
 nnoremap <Leader>ff za
 onoremap <Leader>ff <C-C>za
 nnoremap <Leader>ff zf
-" next fold
-nnoremap <Leader>fn zj
-" previous fold
-nnoremap <Leader>fp zk
-" close all open folds
-nnoremap <Leader>fc zM
-" delete fold
-nnoremap <Leader>fd zd
-" delete all fold
-nnoremap <Leader>fD zE
-" opens all folds at cursor
-nnoremap <Leader>fo zO
+" toggle fold za
+" next fold zj
+" previous fold zk
+" close all folds zM
+" delete fold zd
+" opens all folds at cursor zO
+" }}}
+
 " move between windows
 noremap <Leader>h <C-w>h
 noremap <Leader>j <C-w>j
@@ -450,6 +449,7 @@ noremap <Leader>. <C-w>>
 noremap <Leader>, <C-w><
 noremap <Leader>- <C-w>-
 noremap <Leader>= <C-w>+
+
 " not paste the deleted word
 nnoremap <Leader>p "0p
 vnoremap <Leader>p "0p
@@ -465,7 +465,7 @@ noremap <Leader><Space>n :tab split<CR>
 "noremap <Leader>e <c-o>
 " Switch back and forth between header file
 nnoremap <Leader>moh :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>"
-" ////////////////DIFF SUTFF///////////////
+" DIFF SUTFF {{{
 " diff left and right window
 noremap <Leader>do :windo diffthis<CR>
 " diff go to next diff
@@ -479,8 +479,9 @@ noremap <C-Right> :diffput<CR>
 " close diff
 noremap <Leader>dl :diffoff!<CR>
 " off highlited search
-" ///////////////////////////////////////
-"///////////SPELL_CHECK////////////////
+" }}}
+
+"SPELL_CHECK {{{
 " search forward
 noremap <Leader>sn ]s
 " search backwards
@@ -498,12 +499,13 @@ noremap <Leader>sr :spellr<CR>
 " SyntasticCheck toggle
 noremap <Leader>so :SyntasticToggleMode<CR>
 " Normal backspace functionalit y
-nnoremap <Backspace> hxh<Esc> 
+" }}}
+
  " Substitute for ESC  
 inoremap qq <Esc>
 vnoremap qq <Esc>
 noremap <S-q> yyp
-"/////////////TAB_STUFF//////////////////////
+"TAB_STUFF {{{
 noremap <S-j> :b#<CR>
 noremap <A-t> gT
 noremap <Leader>bo :CtrlPBuffer<CR>
@@ -512,22 +514,14 @@ noremap <Leader>bd :bd %<CR>
 noremap <Leader>bD :bufdo bd<CR>
 noremap <Leader>bs :buffers<CR>:buffer<Space>
 noremap <Leader>bS :bufdo 
-" move to the left tab
-"noremap <S-j> gT
 " move tab to the left
 nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 " move tab to the right
 noremap <silent> <A-Right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
 noremap <Leader>be :enew<CR>
 noremap <S-x> :tabclose<CR>
-" Uncomment below everytime you mapclear
-" This will map 1-99gb. i.e: 12gb :12b<CR>
-"let c = 1
-"while c <= 99
-  "execute "nnoremap " . c . "gb :" . c . "b\<CR>"
-  "let c += 1
-"endwhile
-"/////////////TAB_STUFF//////////////////////
+" }}}
+
 " move to the beggning of line
 noremap <S-w> $
 " move to the end of line
@@ -537,24 +531,9 @@ nnoremap <S-t> %
 vnoremap <S-t> %
 " insert tab spaces in normal mode
 noremap <Tab> i<Tab><Esc>
-" This is a very good to show and search all current but a much better is 
-nnoremap gr :vimgrep <cword> %:p:h/*<CR>
-			\:copen 20<CR>
-nnoremap gs :call GlobalSearch()<CR>
-"nnoremap gs :call GetString("search")<CR>:exe "vimgrep " . search . " %:p:h/*"<CR> :copen 20<CR>
-"function! GlobalSearch() abort
-	"let 
-"endfunction
-" remaped search to f
-noremap <S-s> #
-vnoremap // y/<C-R>"<CR>
 " Automatically insert date
 nnoremap <F5> i///////////////<Esc>"=strftime("%c")<CR>Pa///////////////<Esc>
-"//////////SCROLLING//////////////
-"noremap e 20k
-"vnoremap e 20k
-"noremap <S-e> 20j
-"vnoremap <S-e> 20j
+
 " cd into current dir path and into dir above current path
 nnoremap <Leader>cd :cd %:p:h<CR>
 						\:pwd<CR>
@@ -563,7 +542,7 @@ nnoremap <Leader>cu :cd %:p:h<CR>
 						\:pwd<CR>
 nnoremap <Leader>cc :pwd<CR>
 
-"/////////////SEARCH_REPLACE//////////////////
+"SEARCH_REPLACE {{{
 noremap <Leader>w /\<<c-r>=expand("<cword>")<cr>\>
 noremap <Leader>W :%s/\<<c-r>=expand("<cword>")<cr>\>/
 " These are only for command line
@@ -572,9 +551,22 @@ cnoremap <A-w> \<\><Left><Left>
 " insert visual selection search
 cnoremap <A-c> <c-r>=expand("<cword>")<cr>
 cnoremap <A-s> %s/
+" This is a very good to show and search all current but a much better is 
+nnoremap gr :vimgrep <cword> %:p:h/*<CR>
+			\:copen 20<CR>
+nnoremap gs :call GlobalSearch()<CR>
+" remaped search to f
+noremap <S-s> #
+vnoremap // y/<C-R>"<CR>
+" }}}
+
 " Auto indent pasted text
 nnoremap p p=`]<C-o>
 nnoremap P P=`]<C-o>
+" Visual shifting (does not exit Visual mode)
+vnoremap < <gv
+vnoremap > >gv
+
 " }}}
 
 " PLUGIN_OPTIONS {{{
