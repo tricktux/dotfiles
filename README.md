@@ -1,5 +1,5 @@
 # /////////////////////////////////VIM_NOTES///////////////////////////////////////////// #
-	##Random##
+	##Random
 		:w xxx - save as xxx keep working on original
 		:sav xxx -save as xxx switch to new file
 		To read output of a command use:
@@ -7,7 +7,7 @@
 		Create vim log run vim with command:
 			vim -V9myVimLog
  
-	## Surround stuff: ##
+	## Surround stuff
 		change(c) surrournd(s): cs<from><to>, i.e: cs("
 		change(c) surrournd(s) to(t): cst<to>
 		insert(y) surround: ys<text object>, i.e: ysiw
@@ -17,7 +17,7 @@
 		Select visual mode line and press:
 			S<p class#"important">
 	
-	## Motion ##
+	## Motion 
 		df. deletes everything until period
 		it works with c, v as well 
 		H - jump cursor to begging of screen
@@ -33,7 +33,7 @@
 		use z. to make current line center of screen
 		use c-w+<H,J,K,L> to swap windows around
 		
-	## Mappings ##
+	## Mappings 
 		COMMANDS                    MODES ~
 		:map   :noremap  :unmap     Normal, Visual, Select, Operator-pending
 		:nmap  :nnoremap :nunmap    Normal
@@ -54,7 +54,7 @@
 		use :verbose map <c-i> to understand mappings
 		to umap something simply type it in the command :unmap ii for example
 
-	## Search and replace examples: ##
+	## Search and replace examples
 	 - Search for INdENTGUIDES to join braces with \
 	 - useful command to convert all , into new lines
 		:%s,/\r/g  
@@ -92,7 +92,7 @@
 	to get to the ex mode try <C-r> in insert mode
 		to get PATH apparently all you have to do is type it thanks to neosnippets
 				 
-	## LUA Installation in windows: ##
+	## LUA Installation in windows:
 		download latest vim from DOWNLOAD VIM in bookmarks
 		Donwload lua windows binaries from the website for the architecture you
 		have
@@ -103,7 +103,7 @@
 			last time wih only the lua53.dll fixed it
 			or just look through the :ver output to see what DLL is expecting
 		 
-	## Instructions to installing GVim on windows ##
+	## Instructions to installing GVim on windows
 		- Install cmder. Google and download from website
 		- Install chocolatey. google nice power shell command
 			- cup all, cinst, clist, cunin are some of choco 
@@ -115,7 +115,7 @@
 		 - git clone https://github.com/gmark/Vundle.vim.git
 		 %USERPROFILE%/vimfiles/bundle/Vundle.vim
 		 
-	 ## Cscope: ##
+	 ## Cscope
 		 - To create database:
 			 - Win: 
 			 add cscope.exe and sort.exe to PATH
@@ -129,7 +129,7 @@
 			./configure
 			make
 			sudo make install
-	## Python: ##
+	## Python
 		- install python-3.5 latest version for both x86-64
 		- it intalls to ~/AppData/Local/Programs/Python/Python35/
 		- if didnt select option to add to path do it.
@@ -138,11 +138,11 @@
 		- 32 bit: Download and install python 2.7.9 for 32-bit
 		- copy DLL from Windosws/System32/python27.dll
 		
-	## Installin vim in unix: ##
+	## Installin vim in unix
 		- Download vim_source_install.sh from drive
 		- run. done
 	
-	## Installing neovim in unix: ##
+	## Installing neovim in unix
 		- look it up in the neovim github
 		- important thing is that its vimrc is on:
 			- Default user config directory is now ~/.config/nvim/
