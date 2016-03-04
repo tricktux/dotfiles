@@ -71,7 +71,7 @@ if has('win32')
 		set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
 		let g:ctrlp_custom_ignore = {
 			\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-			\ 'file': '\v\.(exe|so|dll|dfm)$',
+			\ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
 			\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
 			\ }
 		let g:ctrlp_user_command = ['.hg', 'for /f "tokens=1" %%a in (''hg root'') '
@@ -279,7 +279,7 @@ set incsearch     " show search matches as you type
 set history=1000         " remember more commands and search history
 set undolevels=1000      " use many muchos levels of undo
 " ignore these files to for completion
-set wildignore=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn,.git
+set wildignore+=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn,.git
 set completeopt=menuone,menu,longest,preview
 set wildmenu
 set wildmode=list:longest
