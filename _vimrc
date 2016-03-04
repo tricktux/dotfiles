@@ -4,7 +4,7 @@ set nocompatible
 let mapleader="\<Space>"
 let maplocalleader="\<Space>"
 
-"//////////////WINDOWS_SETTINGS////////////////
+"WINDOWS_SETTINGS {{{
 if has('win32')
 	source $VIMRUNTIME/mswin.vim
 	behave mswin
@@ -66,7 +66,7 @@ if has('win32')
 	\ '\=eval(submatch(0)-1)',
 	\ '')<CR>
 
-	"//////////////////Windows specific plugins options/////////////////////
+	" Windows specific plugins options {{{
 	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
 		set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
 		let g:ctrlp_custom_ignore = {
@@ -89,8 +89,10 @@ if has('win32')
 	" Call Vim-Plug Windows Specific Plugins should be from here below
 	call plug#begin('~\vimfiles\plugged')
 		Plug 'OmniSharp/omnisharp-vim'
+	" }}}
+" }}}
 
-"//////////////UNIX_SETTINGS////////////////
+" UNIX_SETTINGS {{{
 elseif has('unix')
 	set ffs=unix
 	nnoremap <Leader>mz :mksession! /home/reinaldo/.vim/sessions/
@@ -136,7 +138,7 @@ elseif has('unix')
 	\ '\=eval(submatch(0)-1)',
 	\ '')<CR>
 
-	" ///////////////VIM_PLUG_STUFF////////////////////////
+	" VIM_PLUG_STUFF {{{
 	" set the runtime path to include Vundle and initialize
 	if !has('nvim')
 		call plug#begin('~/.vim/plugged')
@@ -158,9 +160,11 @@ elseif has('unix')
 		let s:vwtagpy = '~/.vim/personal/wiki/vwtags.py'
 
 endif
+	" }}}
+" }}}
 
-"/////////////////////STUFF_FOR_BOTH_SYSTEMS///////////////////////
-"/////////////////////PLUGINS_FOR_BOTH_SYSTEMS///////////////////////
+" STUFF_FOR_BOTH_SYSTEMS {{{
+	" PLUGINS_FOR_BOTH_SYSTEMS {{{
 	Plug 'chrisbra/vim-diff-enhanced'
 	Plug 'scrooloose/nerdtree'
 	Plug 'scrooloose/nerdcommenter'
@@ -194,7 +198,8 @@ endif
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
-"------------------ALL_AUTOGROUP_STUFF--------------------
+	" }}}
+" ALL_AUTOGROUP_STUFF {{{
 " Enable omni completion.
 augroup Filetypes
 	autocmd!
@@ -222,6 +227,7 @@ augroup Filetypes
 	autocmd FileType vimwiki nmap <buffer> >> <Plug>VimwikiIncreaseLvlSingleItem
 	autocmd FileType vimwiki nmap <buffer> << <Plug>VimwikiDecreaseLvlSingleItem
 	autocmd FileType vimwiki nmap <buffer> <Leader>wt :call WikiTable()<CR>
+	autocmd FileType vimwiki setlocal spell spelllang=en_us
 augroup END
 
 " automatically open and close the popup menu / preview window
@@ -231,9 +237,9 @@ autocmd BufNewFile,BufRead *.scp setlocal syntax=asm
 if has('unix')
 	autocmd BufNewFile,BufReadPost *.ino,*.pde setlocal ft=arduino
 endif
-"-----------------------------------------------------------
+" }}}
 
-" OmniCppComplete, Functions, and set settings
+" OmniCppComplete, Functions, and set settings {{{
 let OmniCpp_NamespaceSearch = 1
 let OmniCpp_GlobalScopeSearch = 1
 let OmniCpp_ShowAccess = 1
@@ -242,8 +248,9 @@ let OmniCpp_MayCompleteDot = 1 " autocomplete after .
 let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
 let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
 let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+" }}}
 
-" //////////////////FUNCTIONS//////////////////////////////////////
+" FUNCTIONS {{{
 " Support for other functions
 function! GetString(type) abort
 	call inputsave()
@@ -279,8 +286,9 @@ endfunction
 function! SvnCommit() abort
 	exe "!svn commit -m \"" . GetString("git") . "\" ."
 endfunction
+" }}}
 
-"////////////SET_OPTIONS///////////////////////////
+" SET_OPTIONS {{{
 filetype plugin on   
 filetype indent on   
 "set spell spelllang=en_us
@@ -360,8 +368,13 @@ syntax on
 set linebreak    "Wrap lines at convenient points
 "set scrolloff=8         "Start scrolling when we're 8 lines away from margins
 
-" ////////////////////////////////////////////////////////
-		" Custom Mappings
+" Open and close folds Automatically
+set foldmethod=marker
+" use this below option to set other markers
+"'foldmarker' 'fmr'	string (default: "{{{,}}}")
+
+" }}}
+" Custom Mappings {{{
 " on quickfix window go to line selected
 noremap <Leader>qc :.cc<CR>
 " on quickfix window go to line selected
@@ -548,10 +561,10 @@ cnoremap <A-s> %s/
 " Auto indent pasted text
 nnoremap p p=`]<C-o>
 nnoremap P P=`]<C-o>
+" }}}
 
-"////////////////////////////////////////////////////////////////////////////////////////
-" /////////////////PLUGIN_OPTIONS////////////////////////////////////////////
-	"Plugin 'VundleVim/Vundle.vim'
+" PLUGIN_OPTIONS {{{
+	"Plugin 'VundleVim/Vundle.vim' {{{
 		noremap <Leader>Pl :PlugList<CR>
 		" lists configured plugins
 		noremap <Leader>Pi :PlugInstall<CR>
@@ -563,9 +576,9 @@ nnoremap P P=`]<C-o>
 		" confirms removal of unused plugins; append `!` to auto-approve removal
 		"
 		" see :h vundle for more details or wiki for FAQ
+	" }}}
 
-" /////////////////PLUGIN_OPTIONS////////////////////////////////////////////
-	"Plugin 'scrooloose/nerdcommenter'"
+	"Plugin 'scrooloose/nerdcommenter'" {{{
 		let NERDUsePlaceHolders=0 " avoid commenter doing weird stuff
 		let NERDCommentWholeLinesInVMode=2
 		let NERDCreateDefaultMappings=0 " Eliminate default mappings
@@ -581,7 +594,8 @@ nnoremap P P=`]<C-o>
 		inoremap <C-c> <plug>NERDCommenterInsert
 		nmap <Leader>ca <plug>NERDCommenterAppend
 		nmap <Leader>cw <plug>NERDCommenterToEOL
-	"Plugin 'scrooloose/NERDTree'
+		" }}}
+	"Plugin 'scrooloose/NERDTree' {{{
 		noremap <Leader>nb :Bookmark 
 		let NERDTreeShowBookmarks=1  " B key to toggle
 		noremap <Leader>no :NERDTree<CR>
@@ -594,8 +608,8 @@ nnoremap P P=`]<C-o>
 		let NERDTreeMapOpenExpl=',e' 
 		let NERDTreeMapOpenVSplit=',s'
         let NERDTreeQuitOnOpen=1 " AutoClose after openning file
-" ///////////////////////////////////////////////////////////////////
-	" --------VERSION_CONTROL----------
+		" }}}
+" VERSION_CONTROL {{{
 		" For all this commands you should be in the svn root folder
 		" Add all files
 		noremap <Leader>vA :!svn add * --force<CR>
@@ -616,9 +630,9 @@ nnoremap P P=`]<C-o>
 		noremap <Leader>vo :!svn log .<CR>
 		noremap <Leader>vi :!svn info<CR>
 		noremap <Leader>gp :call GitCommit()<CR>
+		" }}}
 
-" ///////////////////////////////////////////////////////////////////
-	"Plugin 'lervag/vimtex' " Latex support
+" Plugin 'lervag/vimtex' " Latex support {{{
 		let g:vimtex_view_enabled = 0
 		" latexmk
 		let g:vimtex_latexmk_continuous=1
@@ -630,22 +644,22 @@ nnoremap P P=`]<C-o>
 		" ToC
 		let g:vimtex_toc_enabled=1
 		let g:vimtex_index_show_help=1
+		" }}}
 
-" ///////////////////////////////////////////////////////////////////
-	"Plugin 'bling/vim-airline' " Status bar line
+" Plugin 'bling/vim-airline' " Status bar line {{{
 		set laststatus=2
 		let g:airline_section_b = '%{strftime("%c")}'
 		let g:airline#extensions#bufferline#enabled = 1
 		let g:airline#extensions#bufferline#overwrite_variables = 1
+		" }}}
 
-" ///////////////////////////////////////////////////////////////////
-	"Plugin 'file:///home/reinaldo/.vim/bundle/vim-hardy'
+" Plugin 'file:///home/reinaldo/.vim/bundle/vim-hardy' {{{
 		if has('unix')
 			let g:hardy_arduino_path='/home/reinaldo/Downloads/arduino-1.6.5-r5/arduino'
 		endif
+		" }}}
 
-" ///////////////////////////////////////////////////////////////////
-	"Plugin 'Shougo/neocomplete.vim'
+" Plugin 'Shougo/neocomplete.vim' {{{
 		"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 		" Disable AutoComplPop.
 		if !has('nvim')
@@ -730,8 +744,7 @@ nnoremap P P=`]<C-o>
 			\ deoplete#mappings#manual_complete()
 		endif
 		
-" ///////////////////////////////////////////////////////////////////
-	"Plugin 'Shougo/neocomplete-snippets.vim'
+" Plugin 'Shougo/neocomplete-snippets.vim' {{{
 		" Plugin key-mappings.
 		imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 		smap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -748,9 +761,9 @@ nnoremap P P=`]<C-o>
 			set conceallevel=2 concealcursor=niv
 		endif
 		let g:neosnippet#enable_snipmate_compatibility = 1
+		" }}}
 
-" ///////////////////////////////////////////////////////////////////
-	"Plugin 'Vim-R-plugin'
+" Plugin 'Vim-R-plugin' {{{
 		" http://cran.revolutionanalytics.com
 		" Install R, Rtools 
 		" git clone https://github.com/jalvesaq/VimCom.git // Do this in command to
@@ -760,9 +773,9 @@ nnoremap P P=`]<C-o>
 		" put this in your InstallationRdir/etc/Rprofile.site
 							"options(vimcom.verbose = 1)
 							"library(vimcom)
+							" }}}
 							
-" ///////////////////////////////////////////////////////////////////
-	"Plugin 'Tagbar'
+" Plugin 'Tagbar' {{{
         let g:tagbar_autofocus = 1
         let g:tagbar_show_linenumbers = 2
         let g:tagbar_map_togglesort = "r"
@@ -790,9 +803,9 @@ nnoremap P P=`]<C-o>
 				\ , 'ctagsbin':s:vwtagpy
 				\ , 'ctagsargs': 'all'
 				\ }
+		" }}}
 
-" ///////////////////////////////////////////////////////////////////
-	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh
+" Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh {{{
 		noremap <Leader>ao :CtrlP<CR>
 		noremap <S-k> :CtrlPBuffer<CR>
 		noremap <A-v> :vs<CR>:CtrlPBuffer<CR>
@@ -802,14 +815,14 @@ nnoremap P P=`]<C-o>
 		noremap <Leader>as :sp<CR>:CtrlPMRU<CR>
 		noremap <Leader>al :CtrlPClearCache<CR>
 		let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
+		" }}}
 
-" ///////////////////////////////////////////////////////////////////
-	"Plugin 'Newtr' VIM built in Explorer
+" Plugin 'Newtr' VIM built in Explorer {{{
 		let g:netrw_sort_sequence='[\/]$,*,\.bak$,\.o$,\.h$,\.info$,\.swp$,\.obj$'
 		let g:netrw_localcopydircmd	="copy /-y"
+		" }}}
 
-" ///////////////////////////////////////////////////////////////////
-	"Plugin 'nathanaelkane/vim-indent-guides' 
+" Plugin 'nathanaelkane/vim-indent-guides'  {{{
 		let g:indent_guides_enable_on_vim_startup = 1
 		let g:indent_guides_auto_colors = 1
 		let g:indent_guides_guide_size = 1
@@ -817,15 +830,15 @@ nnoremap P P=`]<C-o>
 		let g:indent_guides_faster = 1
 		set lazyredraw " Had to addit to speed up scrolling 
 		set ttyfast " Had to addit to speed up scrolling 
-" ///////////////////////////////////////////////////////////////////
-	"Plug 'junegunn/rainbow_parentheses.vim'
+		" }}}
+" Plug 'junegunn/rainbow_parentheses.vim' {{{
 		let g:rainbow#max_level = 16
 		let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 		" List of colors that you do not want. ANSI code or #RRGGBB
 		let g:rainbow#blacklist = [233, 234]
+		" }}}
 
-"//////////////////////////////////////////////////////////////////////////////////////////
-"	Doxygen.vim
+"/	Doxygen.vim {{{
 		let g:DoxygenToolkit_briefTag_pre="@Description:  " 
 		let g:DoxygenToolkit_paramTag_pre="@Var: " 
 		let g:DoxygenToolkit_returnTag="@Returns:   " 
@@ -833,9 +846,9 @@ nnoremap P P=`]<C-o>
 		let g:DoxygenToolkit_blockFooter="----------------------------------------------------------------------------" 
 		let g:DoxygenToolkit_authorName="Reinaldo Molina" 
 		let g:DoxygenToolkit_licenseTag=""
+		" }}}
 
-"//////////////////////////////////////////////////////////////////////////////////////////
-"	OmniSharp Stuff
+"/	OmniSharp Stuff {{{
 		"Timeout in seconds to wait for a response from the server
 		let g:OmniSharp_timeout = 1
 		"Showmatch significantly slows down omnicomplete
@@ -869,9 +882,9 @@ nnoremap P P=`]<C-o>
 		"" Add syntax highlighting for types and interfaces
 		"nnoremap <leader>th :OmniSharpHighlightTypes<cr>
 		"""Don't ask to save when changing buffers (i.e. when jumping to a type definition)
+		" }}}
 
-"//////////////////////////////////////////////////////////////////////////////////////////
-	""Plugin 'scrooloose/syntastic'
+"/"Plugin 'scrooloose/syntastic' {{{
 		set statusline+=%#warningmsg#
 		set statusline+=%{SyntasticStatuslineFlag()}
 		set statusline+=%*
@@ -880,20 +893,20 @@ nnoremap P P=`]<C-o>
 		let g:syntastic_check_on_open = 0
 		let g:syntastic_check_on_wq = 0
 		"let g:syntastic_always_populate_loc_list = 1 " populates list of error so you can use lnext 
+		" }}}
 		
-"//////////////////////////////////////////////////////////////////////////////////////////
-	"Plug 'octol/vim-cpp-enhanced-highlight'
+"/Plug 'octol/vim-cpp-enhanced-highlight' {{{
 		let g:cpp_class_scope_highlight = 1	
 		" turning this option breaks comments
 		"let g:cpp_experimental_template_highlight = 1	
+		" }}}
 		
-" //////////////////////////////////////////////////////////////////
-		"Plugin 'morhetz/gruvbox' " colorscheme gruvbox 
+" Plugin 'morhetz/gruvbox' " colorscheme gruvbox  {{{
 			colorscheme gruvbox
 			set background=dark    " Setting dark mode
+			" }}}
 
-" //////////////////////////////////////////////////////////////////
-		"Plug 'vimwiki/vimwiki', {'branch': 'dev'}
+	" Plug 'vimwiki/vimwiki', {'branch': 'dev'} {{{
 			"let wiki = {}
 			"let wiki.path = '~/my_wiki/'
 			"let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp'}
@@ -902,3 +915,13 @@ nnoremap P P=`]<C-o>
 			let g:vimwiki_menu=''
 			let g:vimwiki_folding=''
 			let g:vimwiki_table_mappings=0
+			let g:vimwiki_use_calendar=0
+			function! VimwikiLinkHandler(link)
+				if match(a:link, ".cpp") != -1
+					let l:neolink = strpart(a:link, 5)
+					execute "e " . l:neolink
+				endif
+			endfunction
+		" }}}
+	" }}}
+" }}}
