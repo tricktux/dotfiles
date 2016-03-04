@@ -1,5 +1,5 @@
 # /////////////////////////////////VIM_NOTES///////////////////////////////////////////// #
-	## Random ##
+	##Random##
 		:w xxx - save as xxx keep working on original
 		:sav xxx -save as xxx switch to new file
 		To read output of a command use:
@@ -138,16 +138,16 @@
 		- 32 bit: Download and install python 2.7.9 for 32-bit
 		- copy DLL from Windosws/System32/python27.dll
 		
- ## Installin vim in unix: ##
-	- Download vim_source_install.sh from drive
-	- run. done
+	## Installin vim in unix: ##
+		- Download vim_source_install.sh from drive
+		- run. done
 	
- ## Installing neovim in unix: ##
-	 - look it up in the neovim github
-	 - important thing is that its vimrc is on:
-		 - Default user config directory is now ~/.config/nvim/
-		 - Default "vimrc" location is now ~/.config/nvim/init.vim
-		 - you have to create the nvim folder and the init.vim
-		 - install python and xclip
+	## Installing neovim in unix: ##
+		- look it up in the neovim github
+		- important thing is that its vimrc is on:
+			- Default user config directory is now ~/.config/nvim/
+			- Default "vimrc" location is now ~/.config/nvim/init.vim
+			- you have to create the nvim folder and the init.vim
+			- install python and xclip
 
 
