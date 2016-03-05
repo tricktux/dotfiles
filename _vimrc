@@ -78,9 +78,8 @@ if has('win32')
 			\ . 'do hg --cwd %s status -numac -I . %%a']           " Windows
 
 	" NeoComplete/NeoSnippets for Windows
-		"let g:neosnippet#snippets_directory='~\vimfiles\plugged\vim-snippets'
+		let g:neosnippet#snippets_directory='~\vimfiles\plugged\vim-snippets'
 		let g:neocomplete#data_directory = '~\vimfiles\personal\neocomplete' " let neocomplete
-		"store its stuff
 	"Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 		let g:vimwiki_list = [{'path': '~\vimfiles\personal\wiki\', 'index': 'main'}]
 	"Plug 'Tagbar'
@@ -95,8 +94,8 @@ if has('win32')
 " UNIX_SETTINGS {{{
 elseif has('unix')
 	set ffs=unix
-	nnoremap <Leader>mz :mksession! /home/reinaldo/.vim/sessions/
-	nnoremap <Leader>mx :source /home/reinaldo/.vim/sessions/
+	nnoremap <Leader>mz :mksession! ~/.vim/personal/sessions/
+	nnoremap <Leader>mx :source ~/.vim/personal/sessions/
 	noremap <Leader>mq <C-v>
 	" making C-v paste stuff from system register
 	" configure tags - add additional tags here or comment out not-used ones
@@ -107,7 +106,7 @@ elseif has('unix')
 		set guioptions-=T  " no toolbar
 		set guioptions-=m  " no menu bar
 		set guioptions-=r  " no scroll bar
-		set guifont=Monospace\ 9
+		set guifont=Monospace\ 8
 		nnoremap <S-CR> o<Esc>
 	else
 		set t_Co=256
@@ -146,6 +145,10 @@ elseif has('unix')
 		call plug#begin('~/.config/nvim/autoupload/plug.vim')
 	endif
 
+	" NeoComplete/NeoSnippets for Windows
+		let g:neosnippet#snippets_directory='~/.vim/plugged/vim-snippets'
+		let g:neocomplete#data_directory = '~/.vim/personal/neocomplete' " let neocomplete
+	
 	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
 		set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
 		let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
@@ -158,6 +161,11 @@ elseif has('unix')
 		let g:vimwiki_list = [{'path': '~/.vim/personal/wiki/', 'index': 'main'}]
 	"Plug 'Tagbar'
 		let s:vwtagpy = '~/.vim/personal/wiki/vwtags.py'
+
+	"Plug 'vim-wiki'
+		"let g:vimwiki_ext2syntax = {'.md': 'markdown',
+						"\ '.mkd': 'markdown',
+						"\ '.wiki': 'media'}
 
 endif
 	" }}}
@@ -366,7 +374,7 @@ augroup Filetypes
 	autocmd FileType vimwiki nmap <buffer> <Leader>wn <Plug>VimwikiNextLink
 	autocmd FileType vimwiki nmap <buffer> <Leader>wp <Plug>VimwikiPrevLink
 	autocmd FileType vimwiki nmap <buffer> == <Plug>VimwikiAddHeaderLevel
-	autocmd FileType vimwiki nmap <buffer> -- <Plug>VimwikiRemoveHeaderLevel
+	autocmd FileType vimwiki nmap <buffer> ++ <Plug>VimwikiRemoveHeaderLevel
 	autocmd FileType vimwiki nmap <buffer> >> <Plug>VimwikiIncreaseLvlSingleItem
 	autocmd FileType vimwiki nmap <buffer> << <Plug>VimwikiDecreaseLvlSingleItem
 	autocmd FileType vimwiki nmap <buffer> <Leader>wt :call WikiTable()<CR>
@@ -591,15 +599,18 @@ vnoremap > >gv
 		let NERDRemoveAltComs=0 " Do not use alt comments /*
 		let NERDMenuMode=0 " no menu
 		let g:NERDCustomDelimiters = {
-			\ 'vim': { 'left': '"', 'right': '' }}
+			\ 'vim': { 'left': '"', 'right': '' },
+			\ 'vimwiki': { 'left': '%%', 'right': '' }}
 			"\ 'vim': { 'left': '"', 'right': '' }
 			"\ 'grondle': { 'left': '{{', 'right': '}}' }
 		"\ }
 		nmap - <plug>NERDCommenterToggle
+		nmap <Leader>ct <plug>NERDCommenterToggle
 		vmap - <plug>NERDCommenterToggle
 		inoremap <C-c> <plug>NERDCommenterInsert
 		nmap <Leader>ca <plug>NERDCommenterAppend
 		nmap <Leader>cw <plug>NERDCommenterToEOL
+		vmap <Leader>cs <plug>NERDCommenterSexy
 		" }}}
 	"Plugin 'scrooloose/NERDTree' {{{
 		noremap <Leader>nb :Bookmark 
@@ -636,6 +647,9 @@ vnoremap > >gv
 		noremap <Leader>vo :!svn log .<CR>
 		noremap <Leader>vi :!svn info<CR>
 		noremap <Leader>gp :call GitCommit()<CR>
+		nnoremap <Leader>gP :!git add .<CR>
+							\:!git commit -F commit_msg.wiki<CR>
+							\:!git push CppTut master<CR>
 		" }}}
 
 " Plugin 'lervag/vimtex' " Latex support {{{
