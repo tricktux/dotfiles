@@ -1,0 +1,24 @@
+[user]
+	email = rmolin88@gmail.com
+	name = Reinaldo Molina
+[alias]
+	st = status
+	co = checkout
+	br = branch
+	up = rebase
+	ci = commit
+[core]
+	editor = vim
+	excludesfile = /home/reinaldo/.gitignore_global
+
+[remote "CppTut"]
+	url = https://github.com/rmolin88/CppTut.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+
+[remote "vimrc"]
+	url = https://github.com/rmolin88/vimrc.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+
+[credential]
+	helper = cache --timeout=3000
+	;helper = wincred ; for windows
