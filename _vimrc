@@ -85,6 +85,10 @@ if has('win32')
 	"Plug 'Tagbar'
 		let s:vwtagpy = '~/vimfiles/personal/wiki/vwtags.py'
 
+	" Clang-Format
+		let s:pathToClangPythonFormatScript='~/vimfiles/personal/clang-format.py'
+		"TODO: let g:clang_format_path='clang-format-3.8'
+
 	" Call Vim-Plug Windows Specific Plugins should be from here below
 	call plug#begin('~\vimfiles\plugged')
 		Plug 'OmniSharp/omnisharp-vim'
@@ -156,7 +160,7 @@ elseif has('unix')
 			\ ['.hg', 'hg --cwd %s status -numac -I . $(hg root)'] " MacOSX/Linux
 
 	" Syntastic
-		let g:syntastic_cpp_compiler_options = ' -std=c++11' 
+		let g:syntastic_cpp_compiler_options = ' -std=c++14' 
 	"Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 		let g:vimwiki_list = [{'path': '~/.vim/personal/wiki/', 'index': 'main'}]
 	"Plug 'Tagbar'
@@ -166,6 +170,11 @@ elseif has('unix')
 		"let g:vimwiki_ext2syntax = {'.md': 'markdown',
 						"\ '.mkd': 'markdown',
 						"\ '.wiki': 'media'}
+	
+	" Clang-Format script
+	 	let s:pathToClangPythonFormatScript='~/.vim/personal/clang-format.py'
+	 	let g:clang_format_path='clang-format-3.8'
+		 "let g:clang_format_fallback_style='~/.clang-format'
 
 endif
 	" }}}
@@ -189,13 +198,10 @@ endif
 	Plug 'mhinz/vim-janah' " colorscheme 
 	Plug 'AlessandroYorba/Sierra' " colorscheme 
 	Plug 'nathanaelkane/vim-indent-guides' 
-	Plug 'mattn/emmet-vim' " HTML fast code
 	Plug 'scrooloose/syntastic'
 	Plug 'ctrlpvim/ctrlp.vim'
 	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'Tagbar'
-	"Plug 'xolox/vim-misc'
-	"Plug 'xolox/vim-notes'
 	Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 	if has('nvim')
 		Plug 'Shougo/deoplete.nvim'
@@ -255,6 +261,11 @@ endfunction
 function! SvnCommit() abort
 	exe "!svn commit -m \"" . GetString("git") . "\" ."
 endfunction
+
+function! FormatFile() abort
+  let l:lines="all"
+  exe "pyf " .s:pathToClangPythonFormatScript
+endfunction
 " }}}
 
 " SET_OPTIONS {{{
@@ -274,7 +285,7 @@ set backspace=indent,eol,start
 set autoindent    " always set autoindenting on
 set copyindent    " copy the previous indentation on autoindenting
 set number        " always show line numbers
-set shiftwidth=4  " number of spaces to use for autoindenting
+set shiftwidth=2  " number of spaces to use for autoindenting
 set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
 set showmatch     " set show matching parenthesis
 set smartcase     " ignore case if search pattern is all lowercase,
@@ -340,7 +351,7 @@ set linebreak    "Wrap lines at convenient points
 " Open and close folds Automatically
 set foldenable
 "set foldmethod=indent   "fold based on indent
-set foldnestmax=10      "deepest fold is 10 levels
+set foldnestmax=18      "deepest fold is 10 levels
 "set nofoldenable        "dont fold by default
 set foldlevel=1         "this is just what i use
 " use this below option to set other markers

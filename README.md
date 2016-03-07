@@ -150,4 +150,17 @@ to get to the ex mode try <C-r> in insert mode
 		- you have to create the nvim folder and the init.vim
 		- install python and xclip
 
+## Clang
+	### Clang-Format to implement Google style
+		- Copy this python script and assign a mapping to it
+			- https://llvm.org/svn/llvm-project/cfe/trunk/tools/clang-format/clang-format.py
+		- To follow Google's style, in the root of your project, create a .clang-format file with the 
+		following command:
+			clang-format -style=google -dump-config > .clang-format
+		Make vim obey Google standard:
+		- download:
+			https://github.com/vim-scripts/google.vim
+		- Move google.vim to ~/.vim/indent as cpp.vim
+
+
 
