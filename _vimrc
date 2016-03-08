@@ -1,4 +1,4 @@
-"//////////////3/4/2016 2:36:01 PM////////////////
+"//////////////3/7/2016 7:07:42 AM////////////////
 set nocompatible
 " moved here otherwise conditional mappings get / instead ; as leader 
 let mapleader="\<Space>"
@@ -81,7 +81,10 @@ if has('win32')
 		let g:neosnippet#snippets_directory='~\vimfiles\plugged\vim-snippets'
 		let g:neocomplete#data_directory = '~\vimfiles\personal\neocomplete' " let neocomplete
 	"Plug 'vimwiki/vimwiki', {'branch': 'dev'}
-		let g:vimwiki_list = [{'path': '~\vimfiles\personal\wiki\', 'index': 'main'}]
+		"let g:vimwiki_list = [{'path': '~/vimfiles/personal/wiki/'}]
+		"let g:vimwiki_list = [{'path': '~/vimfiles/personal/wiki/', 'index': 'index'}]
+		"let g:vimwiki_list = [{'auto_tags': 1}]
+		let g:vimwiki_stripsym = '_'
 	"Plug 'Tagbar'
 		let s:vwtagpy = '~/vimfiles/personal/wiki/vwtags.py'
 
@@ -278,14 +281,14 @@ set diffexpr=
 " save marks 
 set viminfo='1000,f1,<800,%1024
 set cursorline
-set showtabline=2 " always show tabs in gvim, but not vim"
+set showtabline=1 " always show tabs in gvim, but not vim"
 set tabstop=4     " a tab is four spaces
 set backspace=indent,eol,start
                     " allow backspacing over everything in insert mode
 set autoindent    " always set autoindenting on
 set copyindent    " copy the previous indentation on autoindenting
 set number        " always show line numbers
-set shiftwidth=2  " number of spaces to use for autoindenting
+set shiftwidth=4  " number of spaces to use for autoindenting
 set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
 set showmatch     " set show matching parenthesis
 set smartcase     " ignore case if search pattern is all lowercase,
@@ -939,10 +942,17 @@ vnoremap > >gv
 			" }}}
 
 	" Plug 'vimwiki/vimwiki', {'branch': 'dev'} {{{
-			"let wiki = {}
-			"let wiki.path = '~/my_wiki/'
-			"let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp'}
-			"let g:vimwiki_list = [wiki]
+			" personal wiki configuraton. 
+			" you can configure multiple wikis
+			" see :h g:vimwiki_list
+			" also look at vimwiki.vim vimwiki_defaults for all possible options
+			let wiki = {}
+			let wiki.path = '~/vimfiles/personal/wiki/'
+			"let wiki.index = 'main'
+			let wiki.auto_tags = 1
+			let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp'}
+			let g:vimwiki_list = [wiki]
+
 			let g:vimwiki_hl_cb_checked=1
 			let g:vimwiki_menu=''
 			let g:vimwiki_folding=''
