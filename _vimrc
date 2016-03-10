@@ -196,11 +196,7 @@ endif
 	Plug 'honza/vim-snippets'
 	Plug 'tpope/vim-surround'
 	Plug 'junegunn/rainbow_parentheses.vim'
-	Plug 'tpope/vim-surround'
 	Plug 'morhetz/gruvbox' " colorscheme gruvbox 
-	Plug 'mhinz/vim-janah' " colorscheme 
-	Plug 'AlessandroYorba/Sierra' " colorscheme 
-	Plug 'nathanaelkane/vim-indent-guides' 
 	Plug 'scrooloose/syntastic'
 	Plug 'ctrlpvim/ctrlp.vim'
 	Plug 'octol/vim-cpp-enhanced-highlight'
@@ -212,6 +208,9 @@ endif
 		Plug 'Shougo/neocomplete.vim'
 		Plug 'tpope/vim-dispatch' " used for omnisharp completion 
 	endif
+	Plug 'justmao945/vim-clang'
+	Plug 'mileszs/ack.vim'
+
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
@@ -238,6 +237,9 @@ function! GetString(type) abort
 		let l:input = input("Search for:")
 	elseif a:type == "wiki"
 		let l:input = input("Enter col row:")
+	elseif a:type == "fileType"
+		let l:input = input("Search in: All Files(1), Cpp Files(2), Specify
+							\ your Own(i.e: **/*.cs):")
 	endif
 	call inputrestore()
 	return l:input
@@ -249,13 +251,19 @@ function! WikiTable() abort
 endfunction
 
 function! GlobalSearch() abort
-	exe "vimgrep " . GetString("search") . " %:p:h/*"
+	let l:file = GetString("fileType")
+	if l:file == "1"
+		let l:file = "**/*"
+	elseif l:file == "2"
+		let l:file = "**/*.cpp **/*.h **/*.c **/*.hpp"
+	endif
+	exe "vimgrep /" . GetString("search") . "/ " . l:file
 	copen 20
 endfunction
 
 " Commits current buffer
 function! GitCommit() abort
-	silent !git add %
+	silent !git add .
 	exe "silent !git commit -m \"" . GetString("git") . "\""
 	!git push origin master 
 endfunction
@@ -372,7 +380,6 @@ augroup Filetypes
 	autocmd FileType cpp,c,h,hpp setlocal cindent
 	autocmd FileType cpp,c,h,hpp setlocal foldmethod=indent
 
-	autocmd FileType * IndentGuidesToggle
 	autocmd FileType * RainbowParentheses
 
 	autocmd FileType cs OmniSharpHighlightTypes
@@ -410,6 +417,7 @@ if has('unix')
 	autocmd BufNewFile,BufReadPost *.ino,*.pde setlocal ft=arduino
 endif
 " }}}
+
 " CUSTOM MAPPINGS {{{
 " on quickfix window go to line selected
 noremap <Leader>qc :.cc<CR>
@@ -509,6 +517,7 @@ noremap <Leader>sn ]s
 " search backwards
 noremap <Leader>sp [s
 " suggestion
+noremap <Leader>sC z=1<CR>
 noremap <Leader>sc z=
 " toggle spelling
 noremap <Leader>st :setlocal spell! spelllang=en_us<CR>
@@ -554,7 +563,7 @@ vnoremap <S-t> %
 " insert tab spaces in normal mode
 noremap <Tab> i<Tab><Esc>
 " Automatically insert date
-nnoremap <F5> i///////////////<Esc>"=strftime("%c")<CR>Pa///////////////<Esc>
+nnoremap <F5> a///////////////<Esc>"=strftime("%c")<CR>Pa///////////////<Esc>
 
 " cd into current dir path and into dir above current path
 nnoremap <Leader>cd :cd %:p:h<CR>
@@ -588,6 +597,8 @@ nnoremap P P=`]<C-o>
 " Visual shifting (does not exit Visual mode)
 vnoremap < <gv
 vnoremap > >gv
+" refactor
+nnoremap <A-r> :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
 
 " }}}
 
@@ -640,6 +651,7 @@ vnoremap > >gv
 		let NERDTreeMapOpenVSplit=',s'
         let NERDTreeQuitOnOpen=1 " AutoClose after openning file
 		" }}}
+
 " VERSION_CONTROL {{{
 		" For all this commands you should be in the svn root folder
 		" Add all files
@@ -649,7 +661,7 @@ vnoremap > >gv
 		" Commit using typed message
 		noremap <Leader>vc :call SvnCommit()<CR>
 		" Commit using File for commit content
-		noremap <Leader>vC :!svn commit --force-log -F commit_msg .<CR>
+		noremap <Leader>vC :!svn commit --force-log -F commit_msg.wiki<CR>
 		noremap <Leader>vd :!svn delete --keep-local 
 		" revert previous commit
 		noremap <Leader>vr :!svn revert -R .<CR>
@@ -964,6 +976,8 @@ vnoremap > >gv
 					execute "e " . l:neolink
 				endif
 			endfunction
+		" }}}
+	" Plug 'vin-clang', {'branch': 'dev'} {{{
 		" }}}
 	" }}}
 " }}}
