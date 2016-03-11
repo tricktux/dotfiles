@@ -233,11 +233,11 @@ function! GetString(type) abort
 	if a:type == "git"
 		let l:input = input("Commit Comment:")
 	elseif a:type == "search"
-		let l:input = input("Search for:")
+		let l:input = input("Search in \"" . getcwd() . "\" for:")
 	elseif a:type == "wiki"
 		let l:input = input("Enter col row:")
 	elseif a:type == "fileType"
-		let l:input = input("Search in: All Files(1), Cpp Files(2), Specify
+		let l:input = input("Search Filetypes: All(1), Cpp(2), Specify
 							\ your Own(i.e: **/*.cs):")
 	endif
 	call inputrestore()
@@ -249,8 +249,14 @@ function! WikiTable() abort
 	exe ":VimwikiTable " . GetString("wiki")
 endfunction
 
-function! GlobalSearch() abort
-	let l:file = GetString("fileType")
+" Input: empty- It will ask you what type of file you want to search
+" 		 String- "1", "2", or specify files in which you want to search
+function! GlobalSearch(...) abort 
+	if empty(a:0)  
+		let l:file = GetString("fileType")
+	else
+		let l:file = a:0
+	endif
 	if l:file == "1"
 		let l:file = "**/*"
 	elseif l:file == "2"
@@ -261,6 +267,7 @@ function! GlobalSearch() abort
 endfunction
 
 " Commits current buffer
+" TODO: warning when .git or .svn not found
 function! GitCommit() abort
 	silent !git add .
 	exe "silent !git commit -m \"" . GetString("git") . "\""
@@ -367,7 +374,10 @@ set foldlevel=1         "this is just what i use
 " use this below option to set other markers
 "'foldmarker' 'fmr'	string (default: "{{{,}}}")
 set viewoptions=folds,options,cursor,unix,slash " better unix /
-set conceallevel=0  " never hide anything
+" For conceal markers.
+if has('conceal')
+	set conceallevel=2 concealcursor=nv
+endif
 
 " }}}
 
@@ -404,6 +414,7 @@ augroup Filetypes
 	" Latex
 	autocmd FileType tex setlocal spell spelllang=en_us
 	autocmd FileType tex setlocal fdm=indent
+	"autocmd FileType tex setlocal conceallevel=0  " never hide anything
 	" Display help vertical window not split
 	autocmd FileType help wincmd L
 	" autofold my vimrc
@@ -411,7 +422,12 @@ augroup Filetypes
 	" Arduino
 	autocmd BufNewFile,BufReadPost *.ino,*.pde setlocal ft=arduino
 	" automatic syntax for *.scp
-	autocmd BufNewFile,BufRead *.scp setlocal syntax=asm
+	autocmd BufNewFile,BufReadPost *.scp setlocal syntax=asm
+	" binary
+	"autocmd BufNewFile,BufReadPost *.bin setlocal ft=xxd
+	"autocmd BufWritePre xxd %!xxd -r | setlocal binary | setlocal ft=modibin
+	"autocmd FileType xxd %!xxd
+
 augroup END
 " }}}
 
@@ -531,6 +547,9 @@ noremap <Leader>sw zw
 noremap <Leader>sr :spellr<CR>
 " SyntasticCheck toggle
 noremap <Leader>so :SyntasticToggleMode<CR>
+nnoremap <Leader>Sa :call GlobalSearch("1")<CR>
+nnoremap <Leader>Sc :call GlobalSearch("2")<CR>
+nnoremap <Leader>Sf :call GlobalSearch()<CR>
 " Normal backspace functionalit y
 " }}}
 
@@ -585,9 +604,8 @@ cnoremap <A-w> \<\><Left><Left>
 cnoremap <A-c> <c-r>=expand("<cword>")<cr>
 cnoremap <A-s> %s/
 " This is a very good to show and search all current but a much better is 
-nnoremap gr :vimgrep <cword> %:p:h/*<CR>
-			\:copen 20<CR>
-nnoremap gs :call GlobalSearch()<CR>
+"nnoremap gr :vimgrep <cword> %:p:h/*<CR>
+			"\:copen 20<CR>
 " remaped search to f
 noremap <S-s> #
 vnoremap // y/<C-R>"<CR>
@@ -606,6 +624,15 @@ nnoremap <Down> :cn<CR>
 nnoremap <Up> :cp<CR>
 nnoremap <Right> :cnf<CR>
 nnoremap <Left> :cpf<CR>
+
+" vim-hex
+"nnoremap <Leader>hr :%!xxd<CR>
+				"\:set ft=xxd<CR>
+"nnoremap <Leader>hw :%!xxd -r<CR>
+				"\:set binary<CR>
+				"\:set ft=<CR>
+
+
 
 " }}}
 
@@ -810,10 +837,6 @@ nnoremap <Left> :cpf<CR>
 		" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 		smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 		\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-		" For conceal markers.
-		"if has('conceal')
-			"set conceallevel=2 concealcursor=niv
-		"endif
 		let g:neosnippet#enable_snipmate_compatibility = 1
 		" }}}
 
@@ -977,14 +1000,13 @@ nnoremap <Left> :cpf<CR>
 			let g:vimwiki_folding=''
 			let g:vimwiki_table_mappings=0
 			let g:vimwiki_use_calendar=0
+			let g:vimwiki_concellevel=3
 			function! VimwikiLinkHandler(link)
 				if match(a:link, ".cpp") != -1
 					let l:neolink = strpart(a:link, 5)
 					execute "e " . l:neolink
 				endif
 			endfunction
-		" }}}
-	" Plug 'vin-clang', {'branch': 'dev'} {{{
 		" }}}
 	" }}}
 " }}}
