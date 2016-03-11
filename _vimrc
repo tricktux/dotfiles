@@ -329,7 +329,7 @@ set notimeout
 set nottimeout
 set timeoutlen=300
 set ttimeoutlen=1000
-set wrap        " wrap lines
+set nowrap        " wrap lines
 set nowrapscan        " do not wrap search at EOF
 " will look in current directory for tags
 " THE BEST FEATURE I'VE ENCOUNTERED SO FAR OF VIM
