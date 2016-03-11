@@ -209,7 +209,6 @@ endif
 		Plug 'tpope/vim-dispatch' " used for omnisharp completion 
 	endif
 	Plug 'justmao945/vim-clang'
-	Plug 'mileszs/ack.vim'
 
 
 	" All of your Plugins must be added before the following line
@@ -330,7 +329,7 @@ set notimeout
 set nottimeout
 set timeoutlen=300
 set ttimeoutlen=1000
-set nowrap        " wrap lines
+set wrap        " wrap lines
 set nowrapscan        " do not wrap search at EOF
 " will look in current directory for tags
 " THE BEST FEATURE I'VE ENCOUNTERED SO FAR OF VIM
@@ -368,20 +367,22 @@ set foldlevel=1         "this is just what i use
 " use this below option to set other markers
 "'foldmarker' 'fmr'	string (default: "{{{,}}}")
 set viewoptions=folds,options,cursor,unix,slash " better unix /
+set conceallevel=0  " never hide anything
 
 " }}}
 
 " ALL_AUTOGROUP_STUFF {{{
-" Enable omni completion.
 augroup Filetypes
 	autocmd!
+	" Cpp
 	autocmd FileType cpp,c,h,hpp setlocal omnifunc=omni#cpp#complete#Main
-	autocmd FileType cpp,c,h,hpp setlocal textwidth=80
 	autocmd FileType cpp,c,h,hpp setlocal cindent
 	autocmd FileType cpp,c,h,hpp setlocal foldmethod=indent
-
+	" All files
 	autocmd FileType * RainbowParentheses
-
+	autocmd FileType * setlocal textwidth=110
+	" automatically open and close the popup menu / preview window
+	autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 	autocmd FileType cs OmniSharpHighlightTypes
 	autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
 	autocmd FileType nerdtree setlocal relativenumber
@@ -390,7 +391,6 @@ augroup Filetypes
 	autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 	autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
 	" Wiki specific mappings
 	autocmd FileType vimwiki nmap <buffer> <Leader>wn <Plug>VimwikiNextLink
 	autocmd FileType vimwiki nmap <buffer> <Leader>wp <Plug>VimwikiPrevLink
@@ -401,21 +401,18 @@ augroup Filetypes
 	autocmd FileType vimwiki nmap <buffer> <Leader>wt :call WikiTable()<CR>
 	autocmd FileType vimwiki nmap <buffer> <Leader>wf <Plug>VimwikiFollowLink
 	autocmd FileType vimwiki setlocal spell spelllang=en_us
-
+	" Latex
+	autocmd FileType tex setlocal spell spelllang=en_us
+	autocmd FileType tex setlocal fdm=indent
 	" Display help vertical window not split
 	autocmd FileType help wincmd L
-
 	" autofold my vimrc
 	autocmd FileType vim setlocal foldmethod=marker
-augroup END
-
-" automatically open and close the popup menu / preview window
-au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-" automatic syntax for *.scp
-autocmd BufNewFile,BufRead *.scp setlocal syntax=asm
-if has('unix')
+	" Arduino
 	autocmd BufNewFile,BufReadPost *.ino,*.pde setlocal ft=arduino
-endif
+	" automatic syntax for *.scp
+	autocmd BufNewFile,BufRead *.scp setlocal syntax=asm
+augroup END
 " }}}
 
 " CUSTOM MAPPINGS {{{
@@ -517,10 +514,15 @@ noremap <Leader>sn ]s
 " search backwards
 noremap <Leader>sp [s
 " suggestion
-noremap <Leader>sC z=1<CR>
+noremap <Leader>sC z=1<CR><CR>
 noremap <Leader>sc z=
 " toggle spelling
 noremap <Leader>st :setlocal spell! spelllang=en_us<CR>
+
+noremap <Leader>sf :call FixPreviousWord()<CR>
+function! FixPreviousWord() abort
+	normal [s1z=`m
+endfunction
 " add to dictionary
 noremap <Leader>sa zg
 " mark wrong
@@ -599,6 +601,11 @@ vnoremap < <gv
 vnoremap > >gv
 " refactor
 nnoremap <A-r> :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
+
+nnoremap <Down> :cn<CR>
+nnoremap <Up> :cp<CR>
+nnoremap <Right> :cnf<CR>
+nnoremap <Left> :cpf<CR>
 
 " }}}
 
@@ -804,9 +811,9 @@ nnoremap <A-r> :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
 		smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 		\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 		" For conceal markers.
-		if has('conceal')
-			set conceallevel=2 concealcursor=niv
-		endif
+		"if has('conceal')
+			"set conceallevel=2 concealcursor=niv
+		"endif
 		let g:neosnippet#enable_snipmate_compatibility = 1
 		" }}}
 
