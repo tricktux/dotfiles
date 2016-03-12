@@ -1000,7 +1000,6 @@ nnoremap <Left> :cpf<CR>
 			let g:vimwiki_folding=''
 			let g:vimwiki_table_mappings=0
 			let g:vimwiki_use_calendar=0
-			let g:vimwiki_concellevel=3
 			function! VimwikiLinkHandler(link)
 				if match(a:link, ".cpp") != -1
 					let l:neolink = strpart(a:link, 5)
