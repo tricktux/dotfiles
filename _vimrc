@@ -208,7 +208,7 @@ endif
 		Plug 'Shougo/neocomplete.vim'
 		Plug 'tpope/vim-dispatch' " used for omnisharp completion 
 	endif
-	Plug 'justmao945/vim-clang'
+	Plug 'mhinz/vim-startify'
 
 
 	" All of your Plugins must be added before the following line
@@ -227,42 +227,26 @@ let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 " }}}
 
 " FUNCTIONS {{{
-" Support for other functions
-function! GetString(type) abort
-	call inputsave()
-	if a:type == "git"
-		let l:input = input("Commit Comment:")
-	elseif a:type == "search"
-		let l:input = input("Search in \"" . getcwd() . "\" for:")
-	elseif a:type == "wiki"
-		let l:input = input("Enter col row:")
-	elseif a:type == "fileType"
-		let l:input = input("Search Filetypes: All(1), Cpp(2), Specify
-							\ your Own(i.e: **/*.cs):")
-	endif
-	call inputrestore()
-	return l:input
-endfunction
-
 " Only works in vimwiki filetypes
 function! WikiTable() abort
-	exe ":VimwikiTable " . GetString("wiki")
+	exe ":VimwikiTable " . input("Enter col row:")
 endfunction
 
 " Input: empty- It will ask you what type of file you want to search
 " 		 String- "1", "2", or specify files in which you want to search
 function! GlobalSearch(...) abort 
 	if empty(a:0)  
-		let l:file = GetString("fileType")
+		let l:file = input("Search Filetypes: All(1), Cpp(2), Specify
+							\ your Own(i.e: **/*.cs):")
 	else
 		let l:file = a:0
 	endif
-	if l:file == "1"
+	if l:file =~ "1"
 		let l:file = "**/*"
-	elseif l:file == "2"
+	elseif l:file =~ "2"
 		let l:file = "**/*.cpp **/*.h **/*.c **/*.hpp"
 	endif
-	exe "vimgrep /" . GetString("search") . "/ " . l:file
+	exe "vimgrep /" . input("Search in \"" . getcwd() . "\" for:") . "/ " . l:file
 	copen 20
 endfunction
 
@@ -270,13 +254,13 @@ endfunction
 " TODO: warning when .git or .svn not found
 function! GitCommit() abort
 	silent !git add .
-	exe "silent !git commit -m \"" . GetString("git") . "\""
+	exe "silent !git commit -m \"" . input("Commit comment:") . "\""
 	!git push origin master 
 endfunction
 
 " Should be performed on root .svn folder
 function! SvnCommit() abort
-	exe "!svn commit -m \"" . GetString("git") . "\" ."
+	exe "!svn commit -m \"" . input("Commit comment:") . "\" ."
 endfunction
 
 function! FormatFile() abort
@@ -1009,3 +993,4 @@ nnoremap <Left> :cpf<CR>
 		" }}}
 	" }}}
 " }}}
+"
