@@ -94,7 +94,7 @@ if has('win32')
 
 	" Call Vim-Plug Windows Specific Plugins should be from here below
 	call plug#begin('~\vimfiles\plugged')
-		Plug 'OmniSharp/omnisharp-vim'
+		"Plug 'OmniSharp/omnisharp-vim'
 	" }}}
 " }}}
 
@@ -209,6 +209,7 @@ endif
 		Plug 'tpope/vim-dispatch' " used for omnisharp completion 
 	endif
 	Plug 'mhinz/vim-startify'
+	Plug 'PProvost/vim-ps1'
 
 
 	" All of your Plugins must be added before the following line
