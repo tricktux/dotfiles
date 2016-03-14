@@ -1,5 +1,6 @@
 REM //////////////3/12/2016 3:00:31 PM////////////////
 REM Full developer setup
+REM Installing Choco
 @powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" && SET PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin
 choco install -y cmder
 choco install -y git.installer
