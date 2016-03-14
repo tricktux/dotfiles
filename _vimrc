@@ -1,4 +1,5 @@
-"//////////////3/7/2016 7:07:42 AM////////////////
+"//////////////3/13/2016 8:33:59 PM////////////////
+" Req to always be here
 set nocompatible
 " moved here otherwise conditional mappings get / instead ; as leader 
 let mapleader="\<Space>"
@@ -6,28 +7,14 @@ let maplocalleader="\<Space>"
 
 "WINDOWS_SETTINGS {{{
 if has('win32')
-	source $VIMRUNTIME/mswin.vim
-	behave mswin
+	" Path variables
+	let g:PersonalPath='~\vimfiles\personal\'
+	let g:PluggedPath='~\vimfiles\plugged\'
+	let g:CustomFont = 'consolas:h8'
+
 	set ffs=dos
 
-	" Quick write session with F2
-	nnoremap <Leader>mz :mksession! ~\vimfiles\personal\sessions\
-	" And load session with F3
-	nnoremap <Leader>mx :source ~\vimfiles\personal\sessions\
-	set viewdir=~\vimfiles\personal\viewdir\
-	" configure tags - add additional tags here or comment out not-used ones
-	set tags+=$HOME\vimfiles\tags\cpp
-	set tags+=$HOME\vimfiles\tags\tags
-	" sets path to cscope.exe 
-
-	"au BufEnter *.c *.cpp *.h *.hpp call LoadWinCscope()"
-	if has('gui_running')
-		set guifont=consolas:h8
-		set guioptions-=T  " no toolbar
-		set guioptions-=m  " no menu bar
-		set guioptions-=r  " no scroll bar
-		nnoremap <S-CR> o<Esc>
-	else
+	if !has('gui_running')
 		set term=xterm
 		set t_Co=256
 		let &t_AB="\e[48;5;%dm"
@@ -74,48 +61,20 @@ if has('win32')
 			\ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
 			\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
 			\ }
-		let g:ctrlp_user_command = ['.hg', 'for /f "tokens=1" %%a in (''hg root'') '
-			\ . 'do hg --cwd %s status -numac -I . %%a']           " Windows
-
-	" NeoComplete/NeoSnippets for Windows
-		let g:neosnippet#snippets_directory='~\vimfiles\plugged\vim-snippets'
-		let g:neocomplete#data_directory = '~\vimfiles\personal\neocomplete' " let neocomplete
-	"Plug 'vimwiki/vimwiki', {'branch': 'dev'}
-		"let g:vimwiki_list = [{'path': '~/vimfiles/personal/wiki/'}]
-		"let g:vimwiki_list = [{'path': '~/vimfiles/personal/wiki/', 'index': 'index'}]
-		"let g:vimwiki_list = [{'auto_tags': 1}]
-		let g:vimwiki_stripsym = '_'
-	"Plug 'Tagbar'
-		let s:vwtagpy = '~/vimfiles/personal/wiki/vwtags.py'
-
-	" Clang-Format
-		let s:pathToClangPythonFormatScript='~/vimfiles/personal/clang-format.py'
-		"TODO: let g:clang_format_path='clang-format-3.8'
-
-	" Call Vim-Plug Windows Specific Plugins should be from here below
-	call plug#begin('~\vimfiles\plugged')
-		"Plug 'OmniSharp/omnisharp-vim'
 	" }}}
 " }}}
 
 " UNIX_SETTINGS {{{
 elseif has('unix')
+	" Path variables
+	let g:PersonalPath='~/.vim/personal/'
+	let g:PluggedPath='~/.vim/plugged/'
+	let g:CustomFont = 'Monospace\ 8'
+
 	set ffs=unix
-	nnoremap <Leader>mz :mksession! ~/.vim/personal/sessions/
-	nnoremap <Leader>mx :source ~/.vim/personal/sessions/
-	noremap <Leader>mq <C-v>
 	" making C-v paste stuff from system register
-	" configure tags - add additional tags here or comment out not-used ones
-	set tags+=~/.vim/tags/cpp
-	set tags+=~/.vim/tags/tags
-	set tags+=~/.vim/tags/copter
-	if has('gui_running')
-		set guioptions-=T  " no toolbar
-		set guioptions-=m  " no menu bar
-		set guioptions-=r  " no scroll bar
-		set guifont=Monospace\ 8
-		nnoremap <S-CR> o<Esc>
-	else
+	noremap <Leader>mq <C-v>
+	if !has('gui_running')
 		set t_Co=256
 		" fixes colorscheme not filling entire backgroud
 		set t_ut=
@@ -145,46 +104,29 @@ elseif has('unix')
 	\ '')<CR>
 
 	" VIM_PLUG_STUFF {{{
-	" set the runtime path to include Vundle and initialize
-	if !has('nvim')
-		call plug#begin('~/.vim/plugged')
-	else
-		call plug#begin('~/.config/nvim/autoupload/plug.vim')
-	endif
-
-	" NeoComplete/NeoSnippets for Windows
-		let g:neosnippet#snippets_directory='~/.vim/plugged/vim-snippets'
-		let g:neocomplete#data_directory = '~/.vim/personal/neocomplete' " let neocomplete
-	
 	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
 		set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
 		let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-		let g:ctrlp_user_command =
-			\ ['.hg', 'hg --cwd %s status -numac -I . $(hg root)'] " MacOSX/Linux
 
 	" Syntastic
 		let g:syntastic_cpp_compiler_options = ' -std=c++14' 
-	"Plug 'vimwiki/vimwiki', {'branch': 'dev'}
-		let g:vimwiki_list = [{'path': '~/.vim/personal/wiki/', 'index': 'main'}]
-	"Plug 'Tagbar'
-		let s:vwtagpy = '~/.vim/personal/wiki/vwtags.py'
-
-	"Plug 'vim-wiki'
-		"let g:vimwiki_ext2syntax = {'.md': 'markdown',
-						"\ '.mkd': 'markdown',
-						"\ '.wiki': 'media'}
-	
-	" Clang-Format script
-	 	let s:pathToClangPythonFormatScript='~/.vim/personal/clang-format.py'
-	 	let g:clang_format_path='clang-format-3.8'
-		 "let g:clang_format_fallback_style='~/.clang-format'
-
 endif
 	" }}}
 " }}}
 
 " STUFF_FOR_BOTH_SYSTEMS {{{
+
 	" PLUGINS_FOR_BOTH_SYSTEMS {{{
+	" Call Vim-Plug Plugins should be from here below
+	if !has('nvim')
+		call plug#begin(g:PluggedPath)
+		Plug 'Shougo/neocomplete.vim'
+	else
+		call plug#begin('~/.config/nvim/autoupload/plug.vim')
+		Plug 'Shougo/deoplete.nvim'
+	endif
+	"Plug 'OmniSharp/omnisharp-vim'
+	"Plug 'tpope/vim-dispatch' " used for omnisharp completion 
 	Plug 'chrisbra/vim-diff-enhanced'
 	Plug 'scrooloose/nerdtree'
 	Plug 'scrooloose/nerdcommenter'
@@ -202,19 +144,23 @@ endif
 	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'Tagbar'
 	Plug 'vimwiki/vimwiki', {'branch': 'dev'}
-	if has('nvim')
-		Plug 'Shougo/deoplete.nvim'
-	else
-		Plug 'Shougo/neocomplete.vim'
-		Plug 'tpope/vim-dispatch' " used for omnisharp completion 
-	endif
-	Plug 'mhinz/vim-startify'
-	Plug 'PProvost/vim-ps1'
-
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 	" }}}
+
+" GUI SETTINGS {{{
+if has('gui_running')
+	let &guifont = g:CustomFont
+	set guioptions-=T  " no toolbar
+	set guioptions-=m  " no menu bar
+	set guioptions-=r  " no scroll bar
+	nnoremap <S-CR> O<Esc>
+	" mapping <CR> in gvim to new empty line
+	nnoremap  o<Esc>
+endif
+
+"}}}
 
 " OmniCppComplete, Functions, and set settings {{{
 let OmniCpp_NamespaceSearch = 1
@@ -265,8 +211,9 @@ function! SvnCommit() abort
 endfunction
 
 function! FormatFile() abort
+  let g:clang_format_path='clang-format-3.8'
   let l:lines="all"
-  exe "pyf " .s:pathToClangPythonFormatScript
+  exe "pyf " . g:PersonalPath . 'wiki/clang-format.py'
 endfunction
 " }}}
 
@@ -363,6 +310,14 @@ set viewoptions=folds,options,cursor,unix,slash " better unix /
 if has('conceal')
 	set conceallevel=2 concealcursor=nv
 endif
+
+" record undo history in this path
+let &undodir= g:PersonalPath . 'undodir'
+set undofile
+
+set lazyredraw " Had to addit to speed up scrolling 
+set ttyfast " Had to addit to speed up scrolling 
+
 
 " }}}
 
@@ -617,6 +572,11 @@ nnoremap <Left> :cpf<CR>
 				"\:set binary<CR>
 				"\:set ft=<CR>
 
+" Quick write session with F2
+nnoremap <Leader>mz :exe("mksession! " . g:PersonalPath . "sessions\")<CR>
+" And load session with F3
+nnoremap <Leader>mx :exe("source! " . g:PersonalPath . "sessions\")<CR>
+
 
 
 " }}}
@@ -740,6 +700,7 @@ nnoremap <Left> :cpf<CR>
 				\ 'vimshell' : $HOME.'/.vimshell_hist',
 				\ 'scheme' : $HOME.'/.gosh_completions'
 				\ }
+			let g:neocomplete#data_directory = g:PersonalPath . 'neocomplete'  " let neocomplete
 			" Define keyword.
 			if !exists('g:neocomplete#keyword_patterns')
 				let g:neocomplete#keyword_patterns = {}
@@ -823,6 +784,7 @@ nnoremap <Left> :cpf<CR>
 		smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 		\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 		let g:neosnippet#enable_snipmate_compatibility = 1
+		let g:neosnippet#snippets_directory= g:PluggedPath . 'vim-snippets'
 		" }}}
 
 " Plugin 'Vim-R-plugin' {{{
@@ -856,6 +818,7 @@ nnoremap <Left> :cpf<CR>
 		noremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
 		noremap <Leader>ts :cs show<CR>
 		" tag wiki files, requires python script on path s:vwtagpy
+		let s:vwtagpy = g:PersonalPath . '/wiki/vwtags.py'
 		let g:tagbar_type_vimwiki = {
 				\   'ctagstype':'vimwiki'
 				\ , 'kinds':['h:header']
@@ -877,6 +840,10 @@ nnoremap <Left> :cpf<CR>
 		noremap <Leader>as :sp<CR>:CtrlPMRU<CR>
 		noremap <Leader>al :CtrlPClearCache<CR>
 		let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
+		let g:ctrlp_cache_dir = g:PersonalPath . 'ctrlp'
+		"if executable('ag')
+			"let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+		"endif
 		" }}}
 
 " Plugin 'Newtr' VIM built in Explorer {{{
@@ -885,13 +852,11 @@ nnoremap <Left> :cpf<CR>
 		" }}}
 
 " Plugin 'nathanaelkane/vim-indent-guides'  {{{
-		let g:indent_guides_enable_on_vim_startup = 1
-		let g:indent_guides_auto_colors = 1
-		let g:indent_guides_guide_size = 1
-		let g:indent_guides_start_level = 3
-		let g:indent_guides_faster = 1
-		set lazyredraw " Had to addit to speed up scrolling 
-		set ttyfast " Had to addit to speed up scrolling 
+		"let g:indent_guides_enable_on_vim_startup = 1
+		"let g:indent_guides_auto_colors = 1
+		"let g:indent_guides_guide_size = 1
+		"let g:indent_guides_start_level = 3
+		"let g:indent_guides_faster = 1
 		" }}}
 " Plug 'junegunn/rainbow_parentheses.vim' {{{
 		let g:rainbow#max_level = 16
@@ -974,7 +939,7 @@ nnoremap <Left> :cpf<CR>
 			" see :h g:vimwiki_list
 			" also look at vimwiki.vim vimwiki_defaults for all possible options
 			let wiki = {}
-			let wiki.path = '~/vimfiles/personal/wiki/'
+			let wiki.path = g:PersonalPath . 'wiki'
 			"let wiki.index = 'main'
 			let wiki.auto_tags = 1
 			let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp'}
@@ -994,4 +959,3 @@ nnoremap <Left> :cpf<CR>
 		" }}}
 	" }}}
 " }}}
-"
