@@ -318,7 +318,6 @@ set undofile
 
 set lazyredraw " Had to addit to speed up scrolling 
 set ttyfast " Had to addit to speed up scrolling 
-set wildcharm=<Tab>
 
 " }}}
 
@@ -578,7 +577,7 @@ nnoremap <Leader>mx :exe("source! " . g:PersonalPath . "sessions\")<CR>
 
 " Mappings to execute programs
 nnoremap <Leader>ewf :!start cmd /k "WINGS.exe 3 . 4.ini" & exit<CR>
-nnoremap <Leader>ewg :exe("!start cmd /k \"WINGS.exe 3 . " . input("Config file:") . "\" & exit")<CR>
+nnoremap <Leader>ewg :exe("!start cmd /k \"WINGS.exe 3 . " . input("Config file:", "", "file") . "\" & exit")<CR>
 
 " VERSION_CONTROL {{{
 " For all this commands you should be in the svn root folder
