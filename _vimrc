@@ -181,16 +181,17 @@ endfunction
 
 " Input: empty- It will ask you what type of file you want to search
 " 		 String- "1", "2", or specify files in which you want to search
-function! GlobalSearch(...) abort 
-	if empty(a:0)  
-		let l:file = input("Search Filetypes: All(1), Cpp(2), Specify
-							\ your Own(i.e: **/*.cs):")
+function! GlobalSearch(type) abort 
+	"echomsg string(a:type)  " Debugging purposes
+	if a:type == "0" 
+		let l:file = inputlist(['Search Filetypes:', '1.Any', '2.Cpp']) 
 	else
-		let l:file = a:0
+		let l:file = a:type
 	endif
-	if l:file =~ "1"
+	"echomsg string(l:file)  " Debugging purposes
+	if l:file == 1
 		let l:file = "**/*"
-	elseif l:file =~ "2"
+	elseif l:file == 2
 		let l:file = "**/*.cpp **/*.h **/*.c **/*.hpp"
 	endif
 	exe "vimgrep /" . input("Search in \"" . getcwd() . "\" for:") . "/ " . l:file
@@ -484,9 +485,9 @@ noremap <Leader>sw zw
 noremap <Leader>sr :spellr<CR>
 " SyntasticCheck toggle
 noremap <Leader>so :SyntasticToggleMode<CR>
-nnoremap <Leader>Sa :call GlobalSearch("1")<CR>
-nnoremap <Leader>Sc :call GlobalSearch("2")<CR>
-nnoremap <Leader>Sf :call GlobalSearch()<CR>
+nnoremap <Leader>Sa :call GlobalSearch(1)<CR>
+nnoremap <Leader>Sc :call GlobalSearch(2)<CR>
+nnoremap <Leader>Sf :call GlobalSearch(0)<CR>
 " Normal backspace functionalit y
 " }}}
 
@@ -957,3 +958,4 @@ nnoremap <Leader>gP :!git add .<CR>
 		" }}}
 	" }}}
 " }}}
+
