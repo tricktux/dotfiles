@@ -387,13 +387,12 @@ noremap <Leader>qo :copen 20<CR>
 
 "//////MISCELANEOUS MAPPINGS/////////////
 " edit vimrc on a new tab
-noremap <Leader>mv :tabedit $MYVIMRC<CR>
+noremap <Leader>mv :e $MYVIMRC<CR>
 " source current document(usually used with vimrc) added airline
 " replace auto sourcing of $MYVIMRC
 noremap <Leader>ms :so %<CR>
 "noremap <Leader>ms :so %<CR>:AirlineRefresh<CR>
  " used to save in command line something
-"noremap <Leader>ma :w<CR>
 nnoremap <A-s> :w<CR>
 noremap <A-n> :noh<CR>
 noremap <A-c> i<Space><Esc>
@@ -444,8 +443,6 @@ noremap <A-j> dd""p
 noremap <A-x> :qall<CR>
 " open new to tab to explorer
 noremap <Leader><Space>n :tab split<CR>
-" previous cursor position
-"noremap <Leader>e <c-o>
 " Switch back and forth between header file
 nnoremap <Leader>moh :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>"
 " DIFF SUTFF {{{
@@ -577,7 +574,34 @@ nnoremap <Leader>mz :exe("mksession! " . g:PersonalPath . "sessions\")<CR>
 " And load session with F3
 nnoremap <Leader>mx :exe("source! " . g:PersonalPath . "sessions\")<CR>
 
+" Mappings to execute programs
+nnoremap <Leader>ew :!start cmd /k "WINGS.exe 3 . "<Left>
 
+" VERSION_CONTROL {{{
+" For all this commands you should be in the svn root folder
+" Add all files
+noremap <Leader>vA :!svn add * --force<CR>
+" Add specific files
+noremap <Leader>va :!svn add 
+" Commit using typed message
+noremap <Leader>vc :call SvnCommit()<CR>
+" Commit using File for commit content
+noremap <Leader>vC :!svn commit --force-log -F commit_msg.wiki<CR>
+noremap <Leader>vd :!svn delete --keep-local 
+" revert previous commit
+noremap <Leader>vr :!svn revert -R .<CR>
+noremap <Leader>vl :!svn cleanup .<CR>
+" use this command line to delete unrevisioned or "?" svn files
+"noremap <Leader>vL :!for /f "tokens=2*" %i in ('svn status ^| find "?"') do del %i<CR>
+noremap <Leader>vs :!svn status .<CR>
+noremap <Leader>vu :!svn update .<CR>
+noremap <Leader>vo :!svn log .<CR>
+noremap <Leader>vi :!svn info<CR>
+noremap <Leader>gp :call GitCommit()<CR>
+nnoremap <Leader>gP :!git add .<CR>
+			\:!git commit -F commit_msg.wiki<CR>
+			\:!git push CppTut master<CR>
+" }}}
 
 " }}}
 
@@ -629,32 +653,6 @@ nnoremap <Leader>mx :exe("source! " . g:PersonalPath . "sessions\")<CR>
 		let NERDTreeMapOpenExpl=',e' 
 		let NERDTreeMapOpenVSplit=',s'
         let NERDTreeQuitOnOpen=1 " AutoClose after openning file
-		" }}}
-
-" VERSION_CONTROL {{{
-		" For all this commands you should be in the svn root folder
-		" Add all files
-		noremap <Leader>vA :!svn add * --force<CR>
-		" Add specific files
-		noremap <Leader>va :!svn add 
-		" Commit using typed message
-		noremap <Leader>vc :call SvnCommit()<CR>
-		" Commit using File for commit content
-		noremap <Leader>vC :!svn commit --force-log -F commit_msg.wiki<CR>
-		noremap <Leader>vd :!svn delete --keep-local 
-		" revert previous commit
-		noremap <Leader>vr :!svn revert -R .<CR>
-		noremap <Leader>vl :!svn cleanup .<CR>
-		" use this command line to delete unrevisioned or "?" svn files
-		"noremap <Leader>vL :!for /f "tokens=2*" %i in ('svn status ^| find "?"') do del %i<CR>
-		noremap <Leader>vs :!svn status .<CR>
-		noremap <Leader>vu :!svn update .<CR>
-		noremap <Leader>vo :!svn log .<CR>
-		noremap <Leader>vi :!svn info<CR>
-		noremap <Leader>gp :call GitCommit()<CR>
-		nnoremap <Leader>gP :!git add .<CR>
-							\:!git commit -F commit_msg.wiki<CR>
-							\:!git push CppTut master<CR>
 		" }}}
 
 " Plugin 'lervag/vimtex' " Latex support {{{
