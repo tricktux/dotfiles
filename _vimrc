@@ -54,6 +54,8 @@ if has('win32')
 	\ '\=eval(submatch(0)-1)',
 	\ '')<CR>
 
+	nnoremap  o<Esc>
+
 	" Windows specific plugins options {{{
 	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
 		set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
@@ -95,16 +97,16 @@ elseif has('unix')
 	noremap <Leader><Space>v "+p
 	noremap <Leader><Space>y "+yy
 
-	"nnoremap <Leader><Space>= :silent! let &guifont = substitute(
-	"\ &guifont,
-	"\ '\ \zs\d\+',
-	"\ '\=eval(submatch(0)+1)',
-	"\ '')<CR>
-	"nnoremap <Leader><Space>- :silent! let &guifont = substitute(
-	"\ &guifont,
-	"\ '\ \zs\d\+',
-	"\ '\=eval(submatch(0)-1)',
-	"\ '')<CR>
+	nnoremap <Leader><Space>= :silent! let &guifont = substitute(
+	\ &guifont,
+	\ '\ \zs\d\+',
+	\ '\=eval(submatch(0)+1)',
+	\ '')<CR>
+	nnoremap <Leader><Space>- :silent! let &guifont = substitute(
+	\ &guifont,
+	\ '\ \zs\d\+',
+	\ '\=eval(submatch(0)-1)',
+	\ '')<CR>
 
 	" VIM_PLUG_STUFF {{{
 	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
@@ -160,8 +162,6 @@ if has('gui_running')
 	set guioptions-=r  " no scroll bar
 	nnoremap <S-CR> O<Esc>
 	" mapping <CR> in gvim to new empty line
-	nnoremap 
- o<Esc>
 endif
 
 "}}}
