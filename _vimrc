@@ -12,7 +12,8 @@ if has('win32')
 	let g:PluggedPath='~\vimfiles\plugged\'
 	let g:CustomFont = 'consolas:h8'
 
-	set ffs=dos
+	set ffs=dos,unix
+	set ff=dos
 
 	if !has('gui_running')
 		set term=xterm
@@ -69,15 +70,17 @@ elseif has('unix')
 	" Path variables
 	let g:PersonalPath='~/.vim/personal/'
 	let g:PluggedPath='~/.vim/plugged/'
-	let g:CustomFont = 'Monospace\ 8'
+	let g:CustomFont = 'monospace\ 8'
 
-	set ffs=unix
+	set ffs=unix,dos
+	set ff=unix
 	" making C-v paste stuff from system register
 	noremap <Leader>mq <C-v>
 	if !has('gui_running')
 		set t_Co=256
 		" fixes colorscheme not filling entire backgroud
 		set t_ut=
+		nmap x :w<CR>
 		nnoremap <CR> o<Esc>
 	endif
 	" this one below DOES WORK in linux just make sure is ran at root folder
@@ -92,16 +95,16 @@ elseif has('unix')
 	noremap <Leader><Space>v "+p
 	noremap <Leader><Space>y "+yy
 
-	nnoremap <Leader><Space>= :silent! let &guifont = substitute(
-	\ &guifont,
-	\ '\ \zs\d\+',
-	\ '\=eval(submatch(0)+1)',
-	\ '')<CR>
-	nnoremap <Leader><Space>- :silent! let &guifont = substitute(
-	\ &guifont,
-	\ '\ \zs\d\+',
-	\ '\=eval(submatch(0)-1)',
-	\ '')<CR>
+	"nnoremap <Leader><Space>= :silent! let &guifont = substitute(
+	"\ &guifont,
+	"\ '\ \zs\d\+',
+	"\ '\=eval(submatch(0)+1)',
+	"\ '')<CR>
+	"nnoremap <Leader><Space>- :silent! let &guifont = substitute(
+	"\ &guifont,
+	"\ '\ \zs\d\+',
+	"\ '\=eval(submatch(0)-1)',
+	"\ '')<CR>
 
 	" VIM_PLUG_STUFF {{{
 	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
@@ -157,7 +160,8 @@ if has('gui_running')
 	set guioptions-=r  " no scroll bar
 	nnoremap <S-CR> O<Esc>
 	" mapping <CR> in gvim to new empty line
-	nnoremap  o<Esc>
+	nnoremap 
+ o<Esc>
 endif
 
 "}}}
