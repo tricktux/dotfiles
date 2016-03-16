@@ -220,6 +220,18 @@ function! FormatFile() abort
   let l:lines="all"
   exe "pyf " . g:PersonalPath . 'wiki/clang-format.py'
 endfunction
+
+function! EndOfIfComment() abort
+	let l:end = "  // End of \""
+	execute "normal a" . l:end . "\<Esc>^%kyWj%W"
+	if strchars(@0)>26
+		let l:com = strpart(@0,0,26)
+		execute "normal a" . @0 . "...\""
+	else
+		execute "normal a" . @0 . "\""
+	endif
+endfunction
+nnoremap <Leader>ce :call EndOfIfComment()<CR>
 " }}}
 
 " SET_OPTIONS {{{

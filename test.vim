@@ -32,16 +32,30 @@
 "
 "exe("!start cmd /k \"WINGS.exe 3 . " . input("Config file:") . "\" & exit")
 
+"let &undodir= g:PersonalPath . 'undodir'
+"" Create undo dir if it doesnt exist
+"if !isdirectory(&undodir) 
+"if exists("*mkdir") 
+"call mkdir(&undodir, "p")
+"else
+"echo "Failed to create undodir"
+"endif
+"endif
+"set undofile
+"endif
 " record undo history in this path
-if has('persistent_undo')
-	let &undodir= g:PersonalPath . 'undodir'
-	" Create undo dir if it doesnt exist
-	if !isdirectory(&undodir) 
-		if exists("*mkdir") 
-			call mkdir(&undodir, "p")
-		else
-			echo "Failed to create undodir"
-		endif
+if has('pelkkajsdfl;kkajsdf
+{
+}  // End of "if has('pelkkajsdfl;kkajsdf..."
+
+function! EndOfIfComment() abort
+	let l:end = "  // End of \""
+	execute "normal a" . l:end . "\<Esc>^%kyWj%W"
+	let l:com = @0
+	if strchars(l:com)>26
+		let l:com = strpart(l:com,0,26)
+		execute "normal a" . l:com . "...\""
+	else
+		execute "normal a" . l:com . "\""
 	endif
-	set undofile
-endif
+endfunction
