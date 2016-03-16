@@ -8,9 +8,9 @@ let maplocalleader="\<Space>"
 "WINDOWS_SETTINGS {{{
 if has('win32')
 	" Path variables
-	let g:PersonalPath='~\vimfiles\personal\'
-	let g:PluggedPath='~\vimfiles\plugged\'
-	let g:CustomFont = 'consolas:h8'
+	let g:PersonalPath= $HOME . '\vimfiles\personal\'
+	let g:PluggedPath=  $HOME . '\vimfiles\plugged\'
+	let g:CustomFont =  'consolas:h8'
 
 	set ffs=dos,unix
 	set ff=dos
@@ -70,8 +70,8 @@ if has('win32')
 " UNIX_SETTINGS {{{
 elseif has('unix')
 	" Path variables
-	let g:PersonalPath='~/.vim/personal/'
-	let g:PluggedPath='~/.vim/plugged/'
+	let g:PersonalPath= $HOME . '/.vim/personal/'
+	let g:PluggedPath=  $HOME . '/.vim/plugged/'
 	let g:CustomFont = 'monospace\ 8'
 
 	set ffs=unix,dos
@@ -317,8 +317,22 @@ if has('conceal')
 endif
 
 " record undo history in this path
-let &undodir= g:PersonalPath . 'undodir'
-set undofile
+if has('persistent_undo')
+	let dir= g:PersonalPath . 'undodir'
+	" Create undo dir if it doesnt exist
+	if !isdirectory(dir) 
+		if exists("*mkdir") 
+			call mkdir(dir, "p")
+			let &undodir= dir
+			set undofile
+			set undolevels=10000
+			set undoreload=10000
+		else
+			set noundofile
+			echo "Failed to create undodir"
+		endif
+	endif
+endif
 
 set lazyredraw " Had to addit to speed up scrolling 
 set ttyfast " Had to addit to speed up scrolling 
