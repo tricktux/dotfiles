@@ -61,27 +61,42 @@
 "endfunction
 " Input can be folder or file
 function! GitCommit() abort
-	if has('file_in_path') 
-		if !empty(finddir(".git",".")) 
-			silent !git add .
-			exe "silent !git commit -m \"" . input("Commit comment:") . "\""
-			!git push origin master 
-		endif
+	if CheckFileOrDir(1, ".git") > 0
+		silent !git add .
+		exe "silent !git commit -m \"" . input("Commit comment:") . "\""
+		!git push origin master 
 	else
-		echo "No .git directory was found or no feature +file_in_path"
+		echo "No .git directory was found"
 	endif
 endfunction
 call GitCommit()
-function! CheckCurrentDirForFile(folder) abort
-	let l:folder_list = split(globpath('.', '*'), '\n')
-	let l:k1 = 0
-	for item in l:folder_list
-		"echo l:folder_list[k1]
-		if match(l:folder_list[k1], a:folder, 1)>-1
-			return 1
-		endif
-		let k1 += 1
-	endfor
-	return -1
+function! CheckFileOrDir(type,name) abort
+	if !has('file_in_path')  " sanity check 
+		echo "CheckFileOrDir(): This vim install has no support for +find_in_path"
+		return -10
+	endif
+	if a:type == 0  " use 0 for file, 1 for dir
+		let l:func = findfile(a:name,",,")  " see :h cd for ,, 
+	else
+		let l:func = finddir(a:name,",,") 
+	endif
+	if !empty(l:func)
+		return 1
+	else
+		return -1
+	endif
 endfunction
+echo CheckFileOrDir(1, "_vimrc")
+"function! CheckCurrentDirForFile(folder) abort
+	"let l:folder_list = split(globpath('.', '*'), '\n')
+	"let l:k1 = 0
+	"for item in l:folder_list
+		""echo l:folder_list[k1]
+		"if match(l:folder_list[k1], a:folder, 1)>-1
+			"return 1
+		"endif
+		"let k1 += 1
+	"endfor
+	"return -1
+"endfunction
 "echo CheckCurrentDirForFile("_vimrc")

@@ -203,9 +203,8 @@ function! GlobalSearch(type) abort
 endfunction
 
 " Commits current buffer
-" TODO: warning when .git or .svn not found
 function! GitCommit() abort
-	if has('file_in_path') & finddir(".git",".") 
+	if CheckFileOrDir(1, ".git") > 0
 		silent !git add .
 		exe "silent !git commit -m \"" . input("Commit comment:") . "\""
 		!git push origin master 
@@ -225,6 +224,7 @@ function! FormatFile() abort
   exe "pyf " . g:PersonalPath . 'wiki/clang-format.py'
 endfunction
 
+" TODO: make smarter
 function! EndOfIfComment() abort
 	let l:end = "  // End of \""
 	execute "normal a" . l:end . "\<Esc>^%kyWj%W"
@@ -236,6 +236,23 @@ function! EndOfIfComment() abort
 	endif
 endfunction
 nnoremap <Leader>ce :call EndOfIfComment()<CR>
+
+function! CheckFileOrDir(type,name) abort
+	if !has('file_in_path')  " sanity check 
+		echo "CheckFileOrDir(): This vim install has no support for +find_in_path"
+		return -10
+	endif
+	if a:type == 0  " use 0 for file, 1 for dir
+		let l:func = findfile(a:name,",,")  " see :h cd for ,, 
+	else
+		let l:func = finddir(a:name,",,") 
+	endif
+	if !empty(l:func)
+		return 1
+	else
+		return -1
+	endif
+endfunction
 " }}}
 
 " SET_OPTIONS {{{
