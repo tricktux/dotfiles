@@ -120,7 +120,6 @@ endif
 " }}}
 
 " STUFF_FOR_BOTH_SYSTEMS {{{
-
 	" PLUGINS_FOR_BOTH_SYSTEMS {{{
 	" Call Vim-Plug Plugins should be from here below
 	if !has('nvim')
@@ -160,6 +159,7 @@ if has('gui_running')
 	set guioptions-=T  " no toolbar
 	set guioptions-=m  " no menu bar
 	set guioptions-=r  " no scroll bar
+	set guioptions-=l  " no scroll bar
 	nnoremap <S-CR> O<Esc>
 	" mapping <CR> in gvim to new empty line
 endif
@@ -205,9 +205,13 @@ endfunction
 " Commits current buffer
 " TODO: warning when .git or .svn not found
 function! GitCommit() abort
-	silent !git add .
-	exe "silent !git commit -m \"" . input("Commit comment:") . "\""
-	!git push origin master 
+	if has('file_in_path') & finddir(".git",".") 
+		silent !git add .
+		exe "silent !git commit -m \"" . input("Commit comment:") . "\""
+		!git push origin master 
+	else
+		echo "No .git directory was found"
+	endif
 endfunction
 
 " Should be performed on root .svn folder

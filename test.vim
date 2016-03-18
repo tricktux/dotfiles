@@ -44,18 +44,44 @@
 "set undofile
 "endif
 " record undo history in this path
-if has('pelkkajsdfl;kkajsdf
-{
-}  // End of "if has('pelkkajsdfl;kkajsdf..."
+"if has('pelkkajsdfl;kkajsdf
+"{
+"}  // End of "if has('pelkkajsdfl;kkajsdf..."
 
-function! EndOfIfComment() abort
-	let l:end = "  // End of \""
-	execute "normal a" . l:end . "\<Esc>^%kyWj%W"
-	let l:com = @0
-	if strchars(l:com)>26
-		let l:com = strpart(l:com,0,26)
-		execute "normal a" . l:com . "...\""
+"function! EndOfIfComment() abort
+	"let l:end = "  // End of \""
+	"execute "normal a" . l:end . "\<Esc>^%kyWj%W"
+	"let l:com = @0
+	"if strchars(l:com)>26
+		"let l:com = strpart(l:com,0,26)
+		"execute "normal a" . l:com . "...\""
+	"else
+		"execute "normal a" . l:com . "\""
+	"endif
+"endfunction
+" Input can be folder or file
+function! GitCommit() abort
+	if has('file_in_path') 
+		if !empty(finddir(".git",".")) 
+			silent !git add .
+			exe "silent !git commit -m \"" . input("Commit comment:") . "\""
+			!git push origin master 
+		endif
 	else
-		execute "normal a" . l:com . "\""
+		echo "No .git directory was found or no feature +file_in_path"
 	endif
 endfunction
+call GitCommit()
+function! CheckCurrentDirForFile(folder) abort
+	let l:folder_list = split(globpath('.', '*'), '\n')
+	let l:k1 = 0
+	for item in l:folder_list
+		"echo l:folder_list[k1]
+		if match(l:folder_list[k1], a:folder, 1)>-1
+			return 1
+		endif
+		let k1 += 1
+	endfor
+	return -1
+endfunction
+"echo CheckCurrentDirForFile("_vimrc")
