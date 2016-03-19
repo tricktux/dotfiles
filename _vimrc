@@ -8,9 +8,9 @@ let maplocalleader="\<Space>"
 "WINDOWS_SETTINGS {{{
 if has('win32')
 	" Path variables
-	let g:PersonalPath= $HOME . '\vimfiles\personal\'
-	let g:PluggedPath=  $HOME . '\vimfiles\plugged\'
-	let g:CustomFont =  'consolas:h8'
+	let s:personal_path= $HOME . '\vimfiles\personal\'
+	let s:plugged_path=  $HOME . '\vimfiles\plugged\'
+	let s:custom_font =  'consolas:h8'
 
 	set ffs=dos,unix
 	set ff=dos
@@ -70,9 +70,9 @@ if has('win32')
 " UNIX_SETTINGS {{{
 elseif has('unix')
 	" Path variables
-	let g:PersonalPath= $HOME . '/.vim/personal/'
-	let g:PluggedPath=  $HOME . '/.vim/plugged/'
-	let g:CustomFont = 'monospace\ 8'
+	let s:personal_path= $HOME . '/.vim/personal/'
+	let s:plugged_path=  $HOME . '/.vim/plugged/'
+	let s:custom_font = 'monospace\ 8'
 
 	set ffs=unix,dos
 	set ff=unix
@@ -82,6 +82,7 @@ elseif has('unix')
 		set t_Co=256
 		" fixes colorscheme not filling entire backgroud
 		set t_ut=
+		" TODO: fix all this
 		nmap x :w<CR>
 		nnoremap <CR> o<Esc>
 	endif
@@ -123,7 +124,7 @@ endif
 	" PLUGINS_FOR_BOTH_SYSTEMS {{{
 	" Call Vim-Plug Plugins should be from here below
 	if !has('nvim')
-		call plug#begin(g:PluggedPath)
+		call plug#begin(s:plugged_path)
 		Plug 'Shougo/neocomplete.vim'
 	else
 		call plug#begin('~/.config/nvim/autoupload/plug.vim')
@@ -155,11 +156,12 @@ endif
 
 " GUI SETTINGS {{{
 if has('gui_running')
-	let &guifont = g:CustomFont
+	let &guifont = s:custom_font
 	set guioptions-=T  " no toolbar
 	set guioptions-=m  " no menu bar
 	set guioptions-=r  " no scroll bar
 	set guioptions-=l  " no scroll bar
+	set guioptions-=L  " no scroll bar
 	nnoremap <S-CR> O<Esc>
 	" mapping <CR> in gvim to new empty line
 endif
@@ -179,16 +181,23 @@ let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 
 " FUNCTIONS {{{
 " Only works in vimwiki filetypes
-function! WikiTable() abort
-	exe ":VimwikiTable " . input("Enter col row:")
+" TODO: make every function much smarter
+" TODO: autodownload files
+function! s:WikiTable() abort
+	if &ft =~ 'wiki'
+		exe ":VimwikiTable " . input("Enter col row:")
+	else
+		echo "Current buffer is not of wiki filetype"
+	endif
 endfunction
 
 " Input: empty- It will ask you what type of file you want to search
 " 		 String- "1", "2", or specify files in which you want to search
-function! GlobalSearch(type) abort 
+function! s:GlobalSearch(type) abort 
 	"echomsg string(a:type)  " Debugging purposes
 	if a:type == "0" 
-		let l:file = inputlist(['Search Filetypes:', '1.Any', '2.Cpp']) 
+		echo "Search Filetypes:\n\t1.Any\n\t2.Cpp\n" 
+		let l:file = nr2char(getchar())
 	else
 		let l:file = a:type
 	endif
@@ -198,13 +207,14 @@ function! GlobalSearch(type) abort
 	elseif l:file == 2
 		let l:file = "**/*.cpp **/*.h **/*.c **/*.hpp"
 	endif
+	" search in all files of type l:file the input string recursively
 	exe "vimgrep /" . input("Search in \"" . getcwd() . "\" for:") . "/ " . l:file
 	copen 20
 endfunction
 
 " Commits current buffer
-function! GitCommit() abort
-	if CheckFileOrDir(1, ".git") > 0
+function! s:GitCommit() abort
+	if <SID>CheckFileOrDir(1, ".git") > 0
 		silent !git add .
 		exe "silent !git commit -m \"" . input("Commit comment:") . "\""
 		!git push origin master 
@@ -214,19 +224,26 @@ function! GitCommit() abort
 endfunction
 
 " Should be performed on root .svn folder
-function! SvnCommit() abort
+function! s:SvnCommit() abort
 	exe "!svn commit -m \"" . input("Commit comment:") . "\" ."
 endfunction
 
-function! FormatFile() abort
-  let g:clang_format_path='clang-format-3.8'
-  let l:lines="all"
-  exe "pyf " . g:PersonalPath . 'wiki/clang-format.py'
+function! s:FormatFile() abort
+	let g:clang_format_path='clang-format-3.8'
+	let l:lines="all"
+	let l:format = s:personal_path . 'clang-format.py' 
+	if filereadable(l:format) > 0
+		exe "pyf " . l:format
+	else	
+		echo "File \"" . l:format . "\" does not exist"
+	endif
 endfunction
 
 " TODO: make smarter
-function! EndOfIfComment() abort
+function! s:EndOfIfComment() abort
 	let l:end = "  // End of \""
+	let l:curr_line = line(".")
+	if match(getline(l:curr_line, l:curr_line+1), "else") > -1
 	execute "normal a" . l:end . "\<Esc>^%kyWj%W"
 	if strchars(@0)>26
 		let l:com = strpart(@0,0,26)
@@ -235,9 +252,9 @@ function! EndOfIfComment() abort
 		execute "normal a" . @0 . "\""
 	endif
 endfunction
-nnoremap <Leader>ce :call EndOfIfComment()<CR>
+nnoremap <Leader>ce :call <SID>EndOfIfComment()<CR>
 
-function! CheckFileOrDir(type,name) abort
+function! s:CheckFileOrDir(type,name) abort
 	if !has('file_in_path')  " sanity check 
 		echo "CheckFileOrDir(): This vim install has no support for +find_in_path"
 		return -10
@@ -253,6 +270,16 @@ function! CheckFileOrDir(type,name) abort
 		return -1
 	endif
 endfunction
+
+function! s:YankFrom() abort
+	exe "normal :" . input("Yank From Line:") . "y\<CR>p"
+endfunction
+nnoremap yl :call <SID>YankFrom()<CR>
+
+function! s:DeleteLine() abort
+	exe "normal :" . input("Delete Line:") . "d\<CR>``"
+endfunction
+nnoremap dl :call <SID>DeleteLine()<CR>
 " }}}
 
 " SET_OPTIONS {{{
@@ -351,7 +378,7 @@ endif
 
 " record undo history in this path
 if has('persistent_undo')
-	let dir= g:PersonalPath . 'undodir'
+	let dir= s:personal_path . 'undodir'
 	" Create undo dir if it doesnt exist
 	if !isdirectory(dir) 
 		if exists("*mkdir") 
@@ -399,7 +426,8 @@ augroup Filetypes
 	autocmd FileType vimwiki nmap <buffer> ++ <Plug>VimwikiRemoveHeaderLevel
 	autocmd FileType vimwiki nmap <buffer> >> <Plug>VimwikiIncreaseLvlSingleItem
 	autocmd FileType vimwiki nmap <buffer> << <Plug>VimwikiDecreaseLvlSingleItem
-	autocmd FileType vimwiki nmap <buffer> <Leader>wt :call WikiTable()<CR>
+	autocmd FileType vimwiki nmap <buffer> <Leader>wa <Plug>VimwikiTabIndex
+	"autocmd FileType vimwiki nmap <buffer><unique> <Leader>wt :call <SID>WikiTable()<CR>
 	autocmd FileType vimwiki nmap <buffer> <Leader>wf <Plug>VimwikiFollowLink
 	autocmd FileType vimwiki setlocal spell spelllang=en_us
 	" Latex
@@ -535,15 +563,16 @@ noremap <Leader>sw zw
 noremap <Leader>sr :spellr<CR>
 " SyntasticCheck toggle
 noremap <Leader>so :SyntasticToggleMode<CR>
-nnoremap <Leader>Sa :call GlobalSearch(1)<CR>
-nnoremap <Leader>Sc :call GlobalSearch(2)<CR>
-nnoremap <Leader>Sf :call GlobalSearch(0)<CR>
+nnoremap <Leader>Sa :call <SID>GlobalSearch(1)<CR>
+nnoremap <Leader>Sc :call <SID>GlobalSearch(2)<CR>
+nnoremap <Leader>Sf :call <SID>GlobalSearch(0)<CR>
 " Normal backspace functionalit y
 " }}}
 
  " Substitute for ESC  
 inoremap qq <Esc>
 vnoremap qq <Esc>
+cnoremap qq <Esc>
 noremap <S-q> yyp
 "TAB_STUFF {{{
 noremap <S-j> :b#<CR>
@@ -622,9 +651,9 @@ nnoremap <Left> :cpf<CR>
 
 " Quick write session with F2
 "TODO:
-nnoremap <Leader>mz :exe("mksession! " . g:PersonalPath . "sessions\")<CR>
+nnoremap <Leader>mz :exe("mksession! " . s:personal_path . "sessions\")<CR>
 " And load session with F3
-nnoremap <Leader>mx :exe("source! " . g:PersonalPath . "sessions\")<CR>
+nnoremap <Leader>mx :exe("source! " . s:personal_path . "sessions\")<CR>
 
 " Mappings to execute programs
 nnoremap <Leader>ewf :!start cmd /k "WINGS.exe 3 . 4.ini" & exit<CR>
@@ -650,12 +679,14 @@ noremap <Leader>vs :!svn status .<CR>
 noremap <Leader>vu :!svn update .<CR>
 noremap <Leader>vo :!svn log .<CR>
 noremap <Leader>vi :!svn info<CR>
-noremap <Leader>gp :call GitCommit()<CR>
+noremap <Leader>gp :call <SID>GitCommit()<CR>
 nnoremap <Leader>gP :!git add .<CR>
 			\:!git commit -F commit_msg.wiki<CR>
 			\:!git push CppTut master<CR>
 " }}}
 
+" see :h <c-r>
+cnoremap <A-p> <c-r>0
 " }}}
 
 " PLUGIN_OPTIONS {{{
@@ -751,7 +782,7 @@ nnoremap <Leader>gP :!git add .<CR>
 				\ 'vimshell' : $HOME.'/.vimshell_hist',
 				\ 'scheme' : $HOME.'/.gosh_completions'
 				\ }
-			let g:neocomplete#data_directory = g:PersonalPath . 'neocomplete'  " let neocomplete
+			let g:neocomplete#data_directory = s:personal_path . 'neocomplete'  " let neocomplete
 			" Define keyword.
 			if !exists('g:neocomplete#keyword_patterns')
 				let g:neocomplete#keyword_patterns = {}
@@ -835,7 +866,7 @@ nnoremap <Leader>gP :!git add .<CR>
 		smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 		\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 		let g:neosnippet#enable_snipmate_compatibility = 1
-		let g:neosnippet#snippets_directory= g:PluggedPath . 'vim-snippets'
+		let g:neosnippet#snippets_directory= s:plugged_path . 'vim-snippets'
 		" }}}
 
 " Plugin 'Vim-R-plugin' {{{
@@ -869,16 +900,18 @@ nnoremap <Leader>gP :!git add .<CR>
 		noremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
 		noremap <Leader>ts :cs show<CR>
 		" tag wiki files, requires python script on path s:vwtagpy
-		let s:vwtagpy = g:PersonalPath . '/wiki/vwtags.py'
-		let g:tagbar_type_vimwiki = {
-				\   'ctagstype':'vimwiki'
-				\ , 'kinds':['h:header']
-				\ , 'sro':'&&&'
-				\ , 'kind2scope':{'h':'header'}
-				\ , 'sort':0
-				\ , 'ctagsbin':s:vwtagpy
-				\ , 'ctagsargs': 'all'
-				\ }
+		let s:vwtagpy = s:personal_path . '/wiki/vwtags.py'
+		if filereadable(s:vwtagpy) > 0
+			let g:tagbar_type_vimwiki = {
+					\   'ctagstype':'vimwiki'
+					\ , 'kinds':['h:header']
+					\ , 'sro':'&&&'
+					\ , 'kind2scope':{'h':'header'}
+					\ , 'sort':0
+					\ , 'ctagsbin':s:vwtagpy
+					\ , 'ctagsargs': 'all'
+					\ }
+		endif
 		" }}}
 
 " Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh {{{
@@ -891,7 +924,7 @@ nnoremap <Leader>gP :!git add .<CR>
 		noremap <Leader>as :sp<CR>:CtrlPMRU<CR>
 		noremap <Leader>al :CtrlPClearCache<CR>
 		let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
-		let g:ctrlp_cache_dir = g:PersonalPath . 'ctrlp'
+		let g:ctrlp_cache_dir = s:personal_path . 'ctrlp'
 		"if executable('ag')
 			"let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
 		"endif
@@ -989,8 +1022,10 @@ nnoremap <Leader>gP :!git add .<CR>
 			" you can configure multiple wikis
 			" see :h g:vimwiki_list
 			" also look at vimwiki.vim vimwiki_defaults for all possible options
+			"unmap <Leader>wt
+			nmap <buffer> <Leader>wt :call <SID>WikiTable()<CR>
 			let wiki = {}
-			let wiki.path = g:PersonalPath . 'wiki'
+			let wiki.path = s:personal_path . 'wiki'
 			"let wiki.index = 'main'
 			let wiki.auto_tags = 1
 			let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp'}
