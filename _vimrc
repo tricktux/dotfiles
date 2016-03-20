@@ -240,16 +240,78 @@ function! s:FormatFile() abort
 endfunction
 
 " TODO: make smarter
+function! s:FindIf() abort
+	while 1
+		" jump to matching {
+		 normal %
+		 " check to see if there is another else
+		 if match(getline(line(".")-1, line(".")), "else") > -1
+			" search curr and previous 2 lines for }
+			if match(getline(line(".")-2, line(".")), "}") > -1
+				" jump to it
+				exe "normal ?}\<CR>"
+			" if there is no } could be no braces else if
+			else
+				" go up to lines and see what happens
+				normal kk
+			endif
+		else
+			" if original if was found copy it to @7 and jump back to origin
+			exe "normal k^\"7y$`m"
+			break
+		endif
+	endwhile
+endfunction
+
+function! s:TruncComment(comment) abort
+	" brute trunc at 46
+	let l:strip = a:comment
+	if strchars(l:strip) > 46
+		let l:strip = strpart(l:strip,0,46)
+		let l:strip .= "..."
+	endif
+	" if theres a comment still get rid of it
+	let l:com = match(l:strip, "/")
+	if l:com > -1
+		let l:strip = strpart(l:strip,0,l:com-1)
+	endif
+	return l:strip
+endfunction
+
 function! s:EndOfIfComment() abort
-	let l:end = "  // End of \""
-	let l:curr_line = line(".")
-	if match(getline(l:curr_line, l:curr_line+1), "else") > -1
-	execute "normal a" . l:end . "\<Esc>^%kyWj%W"
-	if strchars(@0)>26
-		let l:com = strpart(@0,0,26)
-		execute "normal a" . @0 . "...\""
+	" is there a } in this line?
+	let l:ref_col = match(getline("."), "}")
+	if  l:ref_col > -1 " if it exists
+		" Determine what kind of statement is this i.e: for, while, if, else if
+		" jump to matchin {, mark it with m, copy previous line to @8, and jump back down to original }
+		exe "normal mm" . l:ref_col . "|%k^\"8y$j%"
+		" if it is and else if || else
+		if match(getline(line(".")-1, line(".")+1), "else") > -1
+			" if { already contains closing if put it
+			" fix this to make search for else not only in @8 line
+			if match(@8, "else") > -1
+				" search upwards until you find initial if and copy it to @7
+				call <SID>FindIf()
+				" truncate comment line in case too long
+				let @7 = <SID>TruncComment(@7)
+				" append // "initial if..." : "
+				let l:end = "  // \""
+				execute "normal a" . l:end . @7 . "\" : \"\<Esc>"
+			else
+				let l:end = "  // \""
+				execute "normal a" . l:end . "\<Esc>"
+			endif
+		" if not very easy
+		else
+			" Append // End of "..."
+			let l:end = "  // End of \""
+			execute "normal a" . l:end . "\<Esc>"
+		endif
+		" truncate comment line in case too long
+		let @8 = <SID>TruncComment(@8)
+		execute "normal a" . @8 . "\""
 	else
-		execute "normal a" . @0 . "\""
+		echo "EndOfIfComment(): Closing brace } needs to be present at the line"
 	endif
 endfunction
 nnoremap <Leader>ce :call <SID>EndOfIfComment()<CR>
@@ -272,7 +334,7 @@ function! s:CheckFileOrDir(type,name) abort
 endfunction
 
 function! s:YankFrom() abort
-	exe "normal :" . input("Yank From Line:") . "y\<CR>p"
+	exe "normal :" . input("Yank From Line:") . "y\<CR>"
 endfunction
 nnoremap yl :call <SID>YankFrom()<CR>
 
@@ -280,7 +342,17 @@ function! s:DeleteLine() abort
 	exe "normal :" . input("Delete Line:") . "d\<CR>``"
 endfunction
 nnoremap dl :call <SID>DeleteLine()<CR>
-" }}}
+
+function! s:CommentLine() abort
+	if exists("*NERDComment")
+		exe "normal mm:" . input("Comment Line:") . "\<CR>"
+		exe "normal :call NERDComment(\"n\", \"Toggle\")\<CR>`m"
+	else
+		echo "Please install NERDCommenter"
+	endif
+endfunction
+nnoremap cl :call <SID>CommentLine()<CR>
+ "}}}
 
 " SET_OPTIONS {{{
 filetype plugin on   
