@@ -279,17 +279,23 @@ function! s:TruncComment(comment) abort
 endfunction
 
 function! s:EndOfIfComment() abort
+	" TDOD: Eliminate comments on lines very important
 	" is there a } in this line?
+	let g:testa = 0  " Debugging variable
 	let l:ref_col = match(getline("."), "}")
 	if  l:ref_col > -1 " if it exists
 		" Determine what kind of statement is this i.e: for, while, if, else if
 		" jump to matchin {, mark it with m, copy previous line to @8, and jump back down to original }
-		exe "normal mm" . l:ref_col . "|%k^\"8y$j%"
+		"exe "normal mm" . l:ref_col . "|%k^\"8y$j%"
+		exe "normal mm" . l:ref_col . "|%"
+		let g:upper_line = line(".")
+		exe "normal k^\"8y$j%"
 		" if it is and else if || else
 		if match(getline(line(".")-1, line(".")+1), "else") > -1
+			let g:testa = 1
 			" if { already contains closing if put it
-			" fix this to make search for else not only in @8 line
-			if match(@8, "else") > -1
+			" TODO:fix this to make search for else not only in @8 line
+			if match(getline(g:upper_line-1,g:upper_line+1), "else") > -1
 				" search upwards until you find initial if and copy it to @7
 				call <SID>FindIf()
 				" truncate comment line in case too long
@@ -301,8 +307,18 @@ function! s:EndOfIfComment() abort
 				let l:end = "  // \""
 				execute "normal a" . l:end . "\<Esc>"
 			endif
+		" search upper_line for else
+		elseif match(getline(g:upper_line-1,g:upper_line+1), "else") > -1
+			let g:testa = 2
+			" search upwards until you find initial if and copy it to @7
+			call <SID>FindIf()
+			" truncate comment line in case too long
+			let @7 = <SID>TruncComment(@7)
+			" append // "initial if..." : "
+			let l:end = "  // End of \""
+			execute "normal a" . l:end . @7 . "\" : \"\<Esc>"
 		" if not very easy
-		else
+		else 
 			" Append // End of "..."
 			let l:end = "  // End of \""
 			execute "normal a" . l:end . "\<Esc>"
