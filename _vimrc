@@ -270,7 +270,7 @@ function! s:TruncComment(comment) abort
 		let l:strip = strpart(l:strip,0,46)
 		let l:strip .= "..."
 	endif
-	" if theres a comment still get rid of it
+	" if theres a comment get rid of it
 	let l:com = match(l:strip, "/")
 	if l:com > -1
 		let l:strip = strpart(l:strip,0,l:com-1)
@@ -278,10 +278,11 @@ function! s:TruncComment(comment) abort
 	return l:strip
 endfunction
 
+" Gotchas: Start from the bottom up commeting
 function! s:EndOfIfComment() abort
 	" TDOD: Eliminate comments on lines very important
 	" is there a } in this line?
-	let g:testa = 0  " Debugging variable
+	"let g:testa = 0  " Debugging variable
 	let l:ref_col = match(getline("."), "}")
 	if  l:ref_col > -1 " if it exists
 		" Determine what kind of statement is this i.e: for, while, if, else if
@@ -290,12 +291,12 @@ function! s:EndOfIfComment() abort
 		exe "normal mm" . l:ref_col . "|%"
 		let g:upper_line = line(".")
 		exe "normal k^\"8y$j%"
-		" if it is and else if || else
-		if match(getline(line(".")-1, line(".")+1), "else") > -1
+		" if original closing brace it is and else if || else
+		if match(getline(line(".")-1, line(".")), "else") > -1
 			let g:testa = 1
 			" if { already contains closing if put it
 			" TODO:fix this to make search for else not only in @8 line
-			if match(getline(g:upper_line-1,g:upper_line+1), "else") > -1
+			if match(getline(g:upper_line-1,g:upper_line), "else") > -1
 				" search upwards until you find initial if and copy it to @7
 				call <SID>FindIf()
 				" truncate comment line in case too long
@@ -307,8 +308,8 @@ function! s:EndOfIfComment() abort
 				let l:end = "  // \""
 				execute "normal a" . l:end . "\<Esc>"
 			endif
-		" search upper_line for else
-		elseif match(getline(g:upper_line-1,g:upper_line+1), "else") > -1
+		" search openning brace for else
+		elseif match(getline(g:upper_line-1,g:upper_line), "else") > -1
 			let g:testa = 2
 			" search upwards until you find initial if and copy it to @7
 			call <SID>FindIf()
