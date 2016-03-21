@@ -289,14 +289,14 @@ function! s:EndOfIfComment() abort
 		" jump to matchin {, mark it with m, copy previous line to @8, and jump back down to original }
 		"exe "normal mm" . l:ref_col . "|%k^\"8y$j%"
 		exe "normal mm" . l:ref_col . "|%"
-		let g:upper_line = line(".")
+		let l:upper_line = line(".")
 		exe "normal k^\"8y$j%"
 		" if original closing brace it is and else if || else
 		if match(getline(line(".")-1, line(".")), "else") > -1
 			let g:testa = 1
 			" if { already contains closing if put it
 			" TODO:fix this to make search for else not only in @8 line
-			if match(getline(g:upper_line-1,g:upper_line), "else") > -1
+			if match(getline(l:upper_line-1,l:upper_line), "else") > -1
 				" search upwards until you find initial if and copy it to @7
 				call <SID>FindIf()
 				" truncate comment line in case too long
@@ -309,7 +309,7 @@ function! s:EndOfIfComment() abort
 				execute "normal a" . l:end . "\<Esc>"
 			endif
 		" search openning brace for else
-		elseif match(getline(g:upper_line-1,g:upper_line), "else") > -1
+		elseif match(getline(l:upper_line-1,l:upper_line), "else") > -1
 			let g:testa = 2
 			" search upwards until you find initial if and copy it to @7
 			call <SID>FindIf()
@@ -725,6 +725,7 @@ vnoremap < <gv
 vnoremap > >gv
 " refactor
 nnoremap <A-r> :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
+vnoremap <A-r> :%s///gc<Left><Left><Left>
 
 nnoremap <Down> :cn<CR>
 nnoremap <Up> :cp<CR>
