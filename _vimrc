@@ -34,7 +34,7 @@ if has('win32')
 	" 4. connect to new database
 	noremap <Leader>tu :cs kill -1<CR>
 	\:silent !del /F cscope.files cscope.out<CR>
-	\:silent !dir /b /s *.cpp *.h *.hpp *.c > cscope.files<CR> 
+	\:silent !dir /b /s *.cpp *.h *.hpp *.c *.cc > cscope.files<CR> 
 	\:silent !cscope -b -i cscope.files -f cscope.out<CR>
 	\:silent !ctags -R -f ./.svn/tags<CR>
 	\:cs add cscope.out<CR>
@@ -64,6 +64,8 @@ if has('win32')
 			\ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
 			\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
 			\ }
+	" Netrw
+		"g:netrw_localrmdir="del"
 	" }}}
 " }}}
 
@@ -89,7 +91,7 @@ elseif has('unix')
 	" this one below DOES WORK in linux just make sure is ran at root folder
 	noremap <Leader>tu :cs kill -1<CR>
 	\:!rm cscope.files cscope.out<CR>
-	\:!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files<CR>
+	\:!find . -iname '*.c' -o -iname '*.cpp' '*.cc'  -o -iname '*.h' -o -iname '*.hpp' > cscope.files<CR>
   	\:!cscope -b -i cscope.files -f cscope.out<CR>
 	\:cs add cscope.out<CR>
 	\:silent !ctags -R --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
@@ -205,7 +207,9 @@ function! s:GlobalSearch(type) abort
 	if l:file == 1
 		let l:file = "**/*"
 	elseif l:file == 2
-		let l:file = "**/*.cpp **/*.h **/*.c **/*.hpp"
+		let l:file = "**/*.cpp **/*.h **/*.c **/*.hpp **/*.cc"
+	elseif l:file == 3
+		let l:file = "**/*.wiki"
 	endif
 	" search in all files of type l:file the input string recursively
 	exe "vimgrep /" . input("Search in \"" . getcwd() . "\" for:") . "/ " . l:file
@@ -491,10 +495,12 @@ set ttyfast " Had to addit to speed up scrolling
 " ALL_AUTOGROUP_STUFF {{{
 augroup Filetypes
 	autocmd!
+	autocmd GUIEnter * simalt ~x
+	"autocmd VimEnter * bro old
 	" Cpp
-	autocmd FileType cpp,c,h,hpp setlocal omnifunc=omni#cpp#complete#Main
-	autocmd FileType cpp,c,h,hpp setlocal cindent
-	autocmd FileType cpp,c,h,hpp setlocal foldmethod=indent
+	autocmd FileType cpp setlocal omnifunc=omni#cpp#complete#Main
+	autocmd FileType cpp setlocal cindent
+	autocmd FileType cpp setlocal foldmethod=indent
 	" All files
 	autocmd FileType * RainbowParentheses
 	autocmd FileType * setlocal textwidth=110
@@ -535,6 +541,8 @@ augroup Filetypes
 	"autocmd BufNewFile,BufReadPost *.bin setlocal ft=xxd
 	"autocmd BufWritePre xxd %!xxd -r | setlocal binary | setlocal ft=modibin
 	"autocmd FileType xxd %!xxd
+	" Netwr
+	autocmd FileType netrw nmap <buffer> e <cr>
 
 augroup END
 " }}}
@@ -652,9 +660,12 @@ noremap <Leader>sw zw
 noremap <Leader>sr :spellr<CR>
 " SyntasticCheck toggle
 noremap <Leader>so :SyntasticToggleMode<CR>
+" search all type of files
 nnoremap <Leader>Sa :call <SID>GlobalSearch(1)<CR>
+" search cpp files
 nnoremap <Leader>Sc :call <SID>GlobalSearch(2)<CR>
-nnoremap <Leader>Sf :call <SID>GlobalSearch(0)<CR>
+" search wiki files
+nnoremap <Leader>Sw :call <SID>GlobalSearch(3)<CR>
 " Normal backspace functionalit y
 " }}}
 
@@ -669,7 +680,7 @@ noremap <A-t> gT
 noremap <Leader>bo :CtrlPBuffer<CR>
 noremap <Leader>bd :bd %<CR>
 " deletes all buffers
-noremap <Leader>bD :bufdo bd<CR>
+noremap <Leader>bD :%bd<CR>
 noremap <Leader>bs :buffers<CR>:buffer<Space>
 noremap <Leader>bS :bufdo 
 " move tab to the left
@@ -777,6 +788,7 @@ nnoremap <Leader>gP :!git add .<CR>
 
 " see :h <c-r>
 cnoremap <A-p> <c-r>0
+nnoremap <Leader>nl :bro old<CR>
 " }}}
 
 " PLUGIN_OPTIONS {{{
@@ -826,7 +838,7 @@ cnoremap <A-p> <c-r>0
 		let NERDTreeMapJumpFirstChild=',k' 
 		let NERDTreeMapOpenExpl=',e' 
 		let NERDTreeMapOpenVSplit=',s'
-        let NERDTreeQuitOnOpen=1 " AutoClose after openning file
+		let NERDTreeQuitOnOpen=1 " AutoClose after openning file
 		" }}}
 
 " Plugin 'lervag/vimtex' " Latex support {{{
@@ -1020,9 +1032,14 @@ cnoremap <A-p> <c-r>0
 		"endif
 		" }}}
 
-" Plugin 'Newtr' VIM built in Explorer {{{
-		let g:netrw_sort_sequence='[\/]$,*,\.bak$,\.o$,\.h$,\.info$,\.swp$,\.obj$'
-		let g:netrw_localcopydircmd	="copy /-y"
+	" Plugin 'Netrw' VIM built in Explorer {{{
+		"nnoremap <Leader>no :Rex<CR>
+		""nnoremap <Leader>nb :exe("normal ". v:count . "gb")<CR>
+		"let g:netrw_sort_sequence='[\/]$,*,\.bak$,\.o$,\.h$,\.info$,\.swp$,\.obj$'
+		""let g:netrw_localcopydircmd	="copy"
+		""let g:netrw_cygwin= 1
+		"let g:netrw_bufsettings="noma nomod nonu nobl nowrap ro rnu"
+		"let g:netrw_liststyle= 3
 		" }}}
 
 " Plugin 'nathanaelkane/vim-indent-guides'  {{{
@@ -1123,7 +1140,7 @@ cnoremap <A-p> <c-r>0
 
 			let g:vimwiki_hl_cb_checked=1
 			let g:vimwiki_menu=''
-			let g:vimwiki_folding=''
+			let g:vimwiki_folding='expr'
 			let g:vimwiki_table_mappings=0
 			let g:vimwiki_use_calendar=0
 			function! VimwikiLinkHandler(link)
