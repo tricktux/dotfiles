@@ -74,8 +74,11 @@ elseif has('unix')
 	" Path variables
 	let s:personal_path= $HOME . '/.vim/personal/'
 	let s:plugged_path=  $HOME . '/.vim/plugged/'
-	let s:custom_font = 'monospace\ 8'
-
+	"let s:custom_font = 'Monospace 8'
+	let s:custom_font = 'Andale Mono 8'
+	" to fix vimrc ff stuff do:
+	" :w ++ff=unix
+	" :e
 	set ffs=unix,dos
 	set ff=unix
 	" making C-v paste stuff from system register
@@ -759,7 +762,16 @@ nnoremap <Leader>mx :exe("source! " . s:personal_path . "sessions\")<CR>
 " Mappings to execute programs
 nnoremap <Leader>ewf :!start cmd /k "WINGS.exe 3 . 4.ini" & exit<CR>
 nnoremap <Leader>ewg :exe("!start cmd /k \"WINGS.exe 3 . " . input("Config file:", "", "file") . "\" & exit")<CR>
+" see :h <c-r>
+cnoremap <A-p> <c-r>0
+nnoremap <Leader>nl :bro old<CR>
 
+" MAKE {{{
+nnoremap <Leader>ma :make all<CR>
+nnoremap <Leader>mc :make clean<CR>
+"nnoremap <Leader>ra :make all<CR>
+
+"}}}
 " VERSION_CONTROL {{{
 " For all this commands you should be in the svn root folder
 " Add all files
@@ -786,9 +798,6 @@ nnoremap <Leader>gP :!git add .<CR>
 			\:!git push CppTut master<CR>
 " }}}
 
-" see :h <c-r>
-cnoremap <A-p> <c-r>0
-nnoremap <Leader>nl :bro old<CR>
 " }}}
 
 " PLUGIN_OPTIONS {{{
