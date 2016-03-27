@@ -626,17 +626,30 @@ noremap <Leader><Space>n :tab split<CR>
 nnoremap <Leader>moh :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>"
 " DIFF SUTFF {{{
 " diff left and right window
-noremap <Leader>do :windo diffthis<CR>
+noremap <Leader>do :call SetDiff()<CR>
+function! SetDiff() abort
+	nnoremap <C-Down> ]c
+	nnoremap <C-Up> [c
+	nnoremap <C-Left> :diffget<CR>
+	nnoremap <C-Right> :diffput<CR>
+	windo diffthis
+endfunction
 " diff go to next diff
-noremap <C-Down> ]c
+nnoremap <Leader>dl :call UnsetDiff()<CR>
+function! UnsetDiff() abort
+	nunmap <C-Down>
+	nunmap <C-Up>
+	nunmap <C-Left>
+	nunmap <C-Right>
+	diffoff!
+endfunction
 " diff go to previous diff
-noremap <C-Up> [c
 " diff get from the other window
-noremap <C-Left> :diffget<CR>
+
 " diff put difference onto other window
-noremap <C-Right> :diffput<CR>
+
 " close diff
-noremap <Leader>dl :diffoff!<CR>
+
 " off highlited search
 " }}}
 
