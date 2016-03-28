@@ -246,7 +246,7 @@ function! s:FormatFile() abort
 	endif
 endfunction
 
-" TODO: make smarter
+" Special comment function {{{
 function! s:FindIf() abort
 	while 1
 		" jump to matching {
@@ -339,6 +339,7 @@ function! s:EndOfIfComment() abort
 	endif
 endfunction
 nnoremap <Leader>ce :call <SID>EndOfIfComment()<CR>
+" End of Special Comment function }{}
 
 function! s:CheckFileOrDir(type,name) abort
 	if !has('file_in_path')  " sanity check 
@@ -419,7 +420,7 @@ set noerrorbells         " don't beep
 set nobackup " no backup files 
 set noswapfile
 "set autochdir " working directory is always the same as the file you are editing
-set sessionoptions+=localoptions,winpos
+set sessionoptions=buffers,curdir,folds,localoptions,options
 set hidden
 " wont open a currently open buffer
 set switchbuf=useopen
@@ -472,6 +473,7 @@ if has('conceal')
 	set conceallevel=2 concealcursor=nv
 endif
 
+" TODO: fix and make this a function currently not working
 " record undo history in this path
 if has('persistent_undo')
 	let dir= s:personal_path . 'undodir'
@@ -726,6 +728,8 @@ nnoremap <Leader>cu :cd %:p:h<CR>
 						\:cd ..<CR>
 						\:pwd<CR>
 nnoremap <Leader>cc :pwd<CR>
+nnoremap <Leader>ch :cd ~<CR>
+			\pwd<CR>
 
 "SEARCH_REPLACE {{{
 noremap <Leader>w /\<<c-r>=expand("<cword>")<cr>\>
@@ -740,7 +744,7 @@ cnoremap <A-s> %s/
 "nnoremap gr :vimgrep <cword> %:p:h/*<CR>
 			"\:copen 20<CR>
 " remaped search to f
-noremap <S-s> #
+noremap <S-s> #<C-o>
 vnoremap // y/<C-R>"<CR>
 " }}}
 
@@ -775,6 +779,7 @@ nnoremap <Leader>mx :exe("source! " . s:personal_path . "sessions\")<CR>
 " Mappings to execute programs
 nnoremap <Leader>ewf :!start cmd /k "WINGS.exe 3 . 4.ini" & exit<CR>
 nnoremap <Leader>ewg :exe("!start cmd /k \"WINGS.exe 3 . " . input("Config file:", "", "file") . "\" & exit")<CR>
+nnoremap <Leader>e1 :silent e ~/Documents/1.MyDocuments/2.WINGS/OneWINGS/
 " see :h <c-r>
 cnoremap <A-p> <c-r>0
 nnoremap <Leader>nl :bro old<CR>
@@ -1049,6 +1054,7 @@ nnoremap <Leader>gP :!git add .<CR>
 		noremap <Leader>al :CtrlPClearCache<CR>
 		let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
 		let g:ctrlp_cache_dir = s:personal_path . 'ctrlp'
+		let g:ctrlp_working_path_mode = 'c'
 		"if executable('ag')
 			"let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
 		"endif

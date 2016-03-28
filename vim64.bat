@@ -14,4 +14,5 @@ copy /Y C:\ProgramData\chocolatey\lib\lua53\tools\lua53.dll C:\ProgramData\choco
 copy /Y C:\Windows\system32\python27.dll C:\ProgramData\chocolatey\lib\vim-x64.install\tools\vim74\
 REM copy /Y C:\ProgramData\chocolatey\lib\python3\tools\python35.dll C:\ProgramData\chocolatey\lib\vim-x64.install\tools\vim74\
 REM choco install -y python :: Installs python3
+REM Install cscope manually anc copy to ProgramData/chocolatey/bin
 choco install -y ctags
