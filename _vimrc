@@ -407,6 +407,7 @@ function! s:CommentLine() abort
 endfunction
 nnoremap cl :call <SID>CommentLine()<CR>
 
+" TODO: substitute this for a custom neosnippet see :h neosnippet
 function! s:InsertStrncpy() abort
 	echo "Usage: Yank dst into @0 and src into @1\n"
 	echo "Choose 1.strncpy, 2.strncmp, 3.strncat\n"
@@ -429,6 +430,12 @@ function! s:InsertStrncpy() abort
 	endif
 endfunction
 nnoremap <Leader>cy :call <SID>InsertStrncpy()<CR>
+
+function! s:InsertTODO() abort
+	exe "normal i\<C-c>\<Space>TODO:\<Space>"
+endfunction
+inoremap <A-t> <ESC>:call <SID>InsertTODO()<CR>
+
  "}}}
 
 " SET_OPTIONS {{{
@@ -840,7 +847,6 @@ nnoremap <Leader>ma :make all<CR>
 nnoremap <Leader>mc :make clean<CR>
 "}}}
 "
-inoremap <A-t> // TODO:
 " VERSION_CONTROL {{{
 " For all this commands you should be in the svn root folder
 " Add all files
@@ -900,7 +906,7 @@ nnoremap <Leader>gP :!git add .<CR>
 		nmap - <plug>NERDCommenterToggle
 		nmap <Leader>ct <plug>NERDCommenterToggle
 		vmap - <plug>NERDCommenterToggle
-		inoremap <C-c> <plug>NERDCommenterInsert
+		imap <C-c> <plug>NERDCommenterInsert
 		nmap <Leader>ca <plug>NERDCommenterAppend
 		nmap <Leader>cw <plug>NERDCommenterToEOL
 		vmap <Leader>cs <plug>NERDCommenterSexy
