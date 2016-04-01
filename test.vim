@@ -221,86 +221,113 @@ endfunction
 "
 "
 "}  // End of ""for(lkajsdlfkjasldfj)"
-function! s:TruncCommentCust(comment) abort
-	" brute trunc at 46
-	if strchars(a:comment) > 46
-		let l:strip = strpart(a:comment,0,46)
-	endif
-	" if theres a comment still get rid of it
-	let l:com = match(l:strip, "/")
-	if l:com > -1
-		let l:strip = strpart(l:strip,0,l:com)
-		let l:strip .= "..."
-	endif
-	return l:strip
-endfunction
-let @9 = <SID>TruncCommentCust(@9)
-function! s:FindIf() abort
-	while 1
-		" jump to matching {
-		 normal %
-		 " check to see if there is another else
-		 if match(getline(line(".")-1, line(".")), "else") > -1
-			" search curr and previous 2 lines for }
-			if match(getline(line(".")-2, line(".")), "}") > -1
-				" jump to it
-				exe "normal ?}\<CR>"
-			" if there is no } could be no braces else if
-			else
-				" go up to lines and see what happens
-				normal kk
-			endif
-		else
-			" if original if was found copy it to @7 and jump back to origin
-			exe "normal k^\"7y$`m"
-			break
-		endif
-	endwhile
-endfunction
-"call <SID>FindIf()
+"function! s:TruncCommentCust(comment) abort
+	"" brute trunc at 46
+	"if strchars(a:comment) > 46
+		"let l:strip = strpart(a:comment,0,46)
+	"endif
+	"" if theres a comment still get rid of it
+	"let l:com = match(l:strip, "/")
+	"if l:com > -1
+		"let l:strip = strpart(l:strip,0,l:com)
+		"let l:strip .= "..."
+	"endif
+	"return l:strip
+"endfunction
+"let @9 = <SID>TruncCommentCust(@9)
+"function! s:FindIf() abort
+	"while 1
+		"" jump to matching {
+		 "normal %
+		 "" check to see if there is another else
+		 "if match(getline(line(".")-1, line(".")), "else") > -1
+			"" search curr and previous 2 lines for }
+			"if match(getline(line(".")-2, line(".")), "}") > -1
+				"" jump to it
+				"exe "normal ?}\<CR>"
+			"" if there is no } could be no braces else if
+			"else
+				"" go up to lines and see what happens
+				"normal kk
+			"endif
+		"else
+			"" if original if was found copy it to @7 and jump back to origin
+			"exe "normal k^\"7y$`m"
+			"break
+		"endif
+	"endwhile
+"endfunction
+""call <SID>FindIf()
 
 
-function! s:EndOfIfComment() abort
-	" is there a } in this line?
-	let l:ref_col = match(getline("."), "}")
-	if  l:ref_col > -1 " if it exists
-		" Determine what kind of statement is this i.e: for, while, if, else if
-		" jump to matchin {, mark it with m, copy previous line to @8, and jump back down to original }
-		exe "normal " . l:ref_col . "|mm%k^\"8y$j%"
-		" if it is and else if || else
-		if match(getline(line(".")-1, line(".")+1), "else") > -1
-			echo "else"
-			" if { already contains closing if put it
-			if match(@8, "else") > -1
-				" search upwards until you find initial if and copy it to @7
-				call <SID>FindIf()
-				" truncate comment line in case too long
-				if strchars(@7)>26
-					let @7 = strpart(@7,0,26)
-				endif
-				" append // "initial if..." : "
-				let l:end = "  // \""
-				execute "normal a" . l:end . @7 . "\" : \"\<Esc>"
-			else
-				let l:end = "  // \""
-				execute "normal a" . l:end . "\<Esc>"
-			endif
-		" if not very easy
-		else
-			echo "something else"
-			" Append // End of "..."
-			let l:end = "  // End of \""
-			execute "normal a" . l:end . "\<Esc>"
-		endif
-		" truncate comment line in case too long
-		if strchars(@8)>26
-			let @8 = strpart(@8,0,26)
-			execute "normal a" . @8 . "...\""
-		else
-			execute "normal a" . @8 . "\""
-		endif
+"function! s:EndOfIfComment() abort
+	"" is there a } in this line?
+	"let l:ref_col = match(getline("."), "}")
+	"if  l:ref_col > -1 " if it exists
+		"" Determine what kind of statement is this i.e: for, while, if, else if
+		"" jump to matchin {, mark it with m, copy previous line to @8, and jump back down to original }
+		"exe "normal " . l:ref_col . "|mm%k^\"8y$j%"
+		"" if it is and else if || else
+		"if match(getline(line(".")-1, line(".")+1), "else") > -1
+			"echo "else"
+			"" if { already contains closing if put it
+			"if match(@8, "else") > -1
+				"" search upwards until you find initial if and copy it to @7
+				"call <SID>FindIf()
+				"" truncate comment line in case too long
+				"if strchars(@7)>26
+					"let @7 = strpart(@7,0,26)
+				"endif
+				"" append // "initial if..." : "
+				"let l:end = "  // \""
+				"execute "normal a" . l:end . @7 . "\" : \"\<Esc>"
+			"else
+				"let l:end = "  // \""
+				"execute "normal a" . l:end . "\<Esc>"
+			"endif
+		"" if not very easy
+		"else
+			"echo "something else"
+			"" Append // End of "..."
+			"let l:end = "  // End of \""
+			"execute "normal a" . l:end . "\<Esc>"
+		"endif
+		"" truncate comment line in case too long
+		"if strchars(@8)>26
+			"let @8 = strpart(@8,0,26)
+			"execute "normal a" . @8 . "...\""
+		"else
+			"execute "normal a" . @8 . "\""
+		"endif
+	"else
+		"echo "EndOfIfComment(): Closing brace } needs to be present at the line"
+	"endif
+"endfunction
+""call <SID>EndOfIfComment()
+
+
+"let s:dec= getchar()
+"exe "echo " . s:dec
+"
+"
+function! InsertStrncpy() abort
+	echo "Usage: Yank dst into @0 and src into @1\n"
+	echo "Choose 1.strncpy, 2.strncmp, 3.strncat\n"
+	let l:type = nr2char(getchar())
+	if l:type == 1
+		let l:type = "strncpy"
+	elseif l:type == 2
+		let l:type = "strncmp"
+	elseif l:type == 3
+		let l:type = "strncat"
 	else
-		echo "EndOfIfComment(): Closing brace } needs to be present at the line"
+		echo "Wrong Choice!!"
+		return
+	endif
+	exe "normal i" . l:type . "(". @0 . ", ". @1 .", sizeof(". @0 ."));\<CR>\<Esc>"
+	if match(l:type, "cat") < 0
+		exe "normal i". @0 . "[sizeof(" . @0 . ")] = \'\\0\';  // Null terminating cpy\<Esc>"
 	endif
 endfunction
-"call <SID>EndOfIfComment()
+
+call InsertStrncpy()

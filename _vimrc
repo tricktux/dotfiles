@@ -245,7 +245,26 @@ function! s:FormatFile() abort
 		echo "File \"" . l:format . "\" does not exist"
 	endif
 endfunction
+"TODO:
+nnoremap <Leader>mz :call <SID>SaveSession()<CR>
+function! s:SaveSession() abort
+	let l:path = "\"" . s:personal_path . "\sessions\""
+	exe "let g:func = <SID>CheckFileOrDir(1, " . l:path . ")"
+	if g:func > 0
+		exe "cd " . l:path 
+		exe "mksession! " . input("Save Session as:","","file")
+		cd!
+	else
+		echo "Failed to save session"
+	endif
+endfunction
 
+nnoremap <Leader>mx :call <SID>LoadSession()<CR>
+function! s:LoadSession() abort
+	cd s:personal_path . "sessions"\"
+	exe "mksession! " . input("Save Session as:","","file")
+	cd!
+endfunction
 " Special comment function {{{
 function! s:FindIf() abort
 	while 1
@@ -339,7 +358,7 @@ function! s:EndOfIfComment() abort
 	endif
 endfunction
 nnoremap <Leader>ce :call <SID>EndOfIfComment()<CR>
-" End of Special Comment function }{}
+" End of Special Comment function }}}
 
 function! s:CheckFileOrDir(type,name) abort
 	if !has('file_in_path')  " sanity check 
@@ -354,6 +373,16 @@ function! s:CheckFileOrDir(type,name) abort
 	if !empty(l:func)
 		return 1
 	else
+		echo "Folder does not exists.\nDo you want to create it (y)es or (n)o"
+		let l:decision = nr2char(getchar())
+		if l:decision == "y"
+			if exists("*mkdir") 
+				exe "call mkdir(". a:name .", \"p\")"
+				return 1
+			else
+				return -1
+			endif
+		endif
 		return -1
 	endif
 endfunction
@@ -377,6 +406,29 @@ function! s:CommentLine() abort
 	endif
 endfunction
 nnoremap cl :call <SID>CommentLine()<CR>
+
+function! s:InsertStrncpy() abort
+	echo "Usage: Yank dst into @0 and src into @1\n"
+	echo "Choose 1.strncpy, 2.strncmp, 3.strncat\n"
+	let l:type = nr2char(getchar())
+	if l:type == 1
+		let l:type = "strncpy"
+	elseif l:type == 2
+		let l:type = "strncmp"
+		"TODO: fix this stuff here. each function has different behavior 
+		exe "normal i" . l:type . "(". @0 . ", ". @1 .", sizeof(". @0 .")-1);\<Esc>"
+	elseif l:type == 3
+		let l:type = "strncat"
+	else
+		echo "Wrong Choice!!"
+		return
+	endif
+	exe "normal i" . l:type . "(". @0 . ", ". @1 .", sizeof(". @0 ."));\<CR>\<Esc>"
+	if match(l:type, "cat") < 0
+		exe "normal i". @0 . "[sizeof(" . @0 . ")-1] = \'\\0\';  // Null terminating cpy\<Esc>"
+	endif
+endfunction
+nnoremap <Leader>cy :call <SID>InsertStrncpy()<CR>
  "}}}
 
 " SET_OPTIONS {{{
@@ -527,7 +579,6 @@ augroup Filetypes
 	autocmd FileType vimwiki nmap <buffer> >> <Plug>VimwikiIncreaseLvlSingleItem
 	autocmd FileType vimwiki nmap <buffer> << <Plug>VimwikiDecreaseLvlSingleItem
 	autocmd FileType vimwiki nmap <buffer> <Leader>wa <Plug>VimwikiTabIndex
-	"autocmd FileType vimwiki nmap <buffer><unique> <Leader>wt :call <SID>WikiTable()<CR>
 	autocmd FileType vimwiki nmap <buffer> <Leader>wf <Plug>VimwikiFollowLink
 	autocmd FileType vimwiki setlocal spell spelllang=en_us
 	" Latex
@@ -575,13 +626,15 @@ noremap <Leader>ms :so %<CR>
 "noremap <Leader>ms :so %<CR>:AirlineRefresh<CR>
  " used to save in command line something
 nnoremap <A-s> :w<CR>
+inoremap <A-s> :w<CR>
 noremap <A-n> :noh<CR>
 noremap <A-c> i<Space><Esc>
 "noremap <Leader>mn :noh<CR>
 " duplicate current char
 nnoremap <Leader>mp ylp
 vnoremap <Leader>mp ylp
-noremap <Leader>mt :set relativenumber!<CR>
+nnoremap <Leader>mt iTODO:
+"noremap <Leader>mt :set relativenumber!<CR>
 noremap <Leader>md :Dox<CR>
 
 " FOLDING {{{
@@ -668,7 +721,7 @@ noremap <Leader>st :setlocal spell! spelllang=en_us<CR>
 
 noremap <Leader>sf :call FixPreviousWord()<CR>
 function! FixPreviousWord() abort
-	normal [s1z=`m
+	normal mm[s1z=`m
 endfunction
 " add to dictionary
 noremap <Leader>sa zg
@@ -694,7 +747,7 @@ cnoremap qq <Esc>
 noremap <S-q> yyp
 "TAB_STUFF {{{
 noremap <S-j> :b#<CR>
-noremap <A-t> gT
+nnoremap <A-t> gT
 noremap <Leader>bo :CtrlPBuffer<CR>
 noremap <Leader>bd :bd %<CR>
 " deletes all buffers
@@ -770,16 +823,14 @@ nnoremap <Left> :cpf<CR>
 				"\:set binary<CR>
 				"\:set ft=<CR>
 
-" Quick write session with F2
-"TODO:
-nnoremap <Leader>mz :exe("mksession! " . s:personal_path . "sessions\")<CR>
-" And load session with F3
-nnoremap <Leader>mx :exe("source! " . s:personal_path . "sessions\")<CR>
-
 " Mappings to execute programs
-nnoremap <Leader>ewf :!start cmd /k "WINGS.exe 3 . 4.ini" & exit<CR>
+"nnoremap <Leader>ewf :!start cmd /k "WINGS.exe 3 . 4.ini" & exit<CR>
+nnoremap <Leader>ewf :!start cmd /k "WINGS.exe 3 . 6_LOG.ini" & exit<CR>
+nnoremap <Leader>ewd :!start cmd /k "WINGS.exe 3 . default.ini" & exit<CR>
 nnoremap <Leader>ewg :exe("!start cmd /k \"WINGS.exe 3 . " . input("Config file:", "", "file") . "\" & exit")<CR>
 nnoremap <Leader>e1 :silent e ~/Documents/1.MyDocuments/2.WINGS/OneWINGS/
+nnoremap <Leader>e2 :silent e ~/Desktop/daily\ check/
+nnoremap <Leader>e3 :silent e ~/Documents/1.MyDocuments/3.Training/2.NI_Testand/
 " see :h <c-r>
 cnoremap <A-p> <c-r>0
 nnoremap <Leader>nl :bro old<CR>
@@ -787,9 +838,9 @@ nnoremap <Leader>nl :bro old<CR>
 " MAKE {{{
 nnoremap <Leader>ma :make all<CR>
 nnoremap <Leader>mc :make clean<CR>
-"nnoremap <Leader>ra :make all<CR>
-
 "}}}
+"
+inoremap <A-t> // TODO:
 " VERSION_CONTROL {{{
 " For all this commands you should be in the svn root folder
 " Add all files
@@ -823,7 +874,8 @@ nnoremap <Leader>gP :!git add .<CR>
 		noremap <Leader>Pl :PlugList<CR>
 		" lists configured plugins
 		noremap <Leader>Pi :PlugInstall<CR>
-		noremap <Leader>Pu :PlugInstall!<CR>
+		noremap <Leader>Pu :PlugUpdate<CR>
+							\:PlugUpgrade<CR>
 		" installs plugins; append `!` to update or just :PluginUpdate
 		noremap <Leader>Ps :PlugSearch<CR>
 		" searches for foo; append `!` to refresh local cache
@@ -1157,8 +1209,7 @@ nnoremap <Leader>gP :!git add .<CR>
 			" you can configure multiple wikis
 			" see :h g:vimwiki_list
 			" also look at vimwiki.vim vimwiki_defaults for all possible options
-			"unmap <Leader>wt
-			nmap <buffer> <Leader>wt :call <SID>WikiTable()<CR>
+			nnoremap <Leader>wtt :call <SID>WikiTable()<CR>
 			let wiki = {}
 			let wiki.path = s:personal_path . 'wiki'
 			"let wiki.index = 'main'
