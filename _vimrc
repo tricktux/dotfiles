@@ -135,32 +135,30 @@ endif
 	" Call Vim-Plug Plugins should be from here below
 	if !has('nvim')
 		call plug#begin(s:plugged_path)
-		"Plug 'Shougo/neocomplete.vim'
 	else
 		call plug#begin('~/.config/nvim/autoupload/plug.vim')
-		"Plug 'Shougo/deoplete.nvim'
+		Plug 'Shougo/deoplete.nvim'
 	endif
-	"Plug 'OmniSharp/omnisharp-vim'
-	"Plug 'tpope/vim-dispatch' " used for omnisharp completion 
 	Plug 'chrisbra/vim-diff-enhanced'
 	Plug 'scrooloose/nerdtree'
 	Plug 'scrooloose/nerdcommenter'
 	Plug 'lervag/vimtex' " Latex support
 	Plug 'bling/vim-airline'	" Status bar line
-	Plug 'Vim-R-plugin'
-	"Plug 'Shougo/neosnippet'
-	"Plug 'Shougo/neosnippet-snippets'
-	Plug 'honza/vim-snippets'
 	Plug 'tpope/vim-surround'
 	Plug 'junegunn/rainbow_parentheses.vim'
 	Plug 'morhetz/gruvbox' " colorscheme gruvbox 
-	Plug 'scrooloose/syntastic'
 	Plug 'ctrlpvim/ctrlp.vim'
 	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'Tagbar'
-	"Plug 'vimwiki/vimwiki', {'branch': 'dev'}
-	"Plug 'tpope/vim-repeat'
-	Plug 'Valloric/YouCompleteMe'
+	if has('win32')
+		Plug 'justmao945/vim-clang'
+		Plug 'Shougo/neocomplete.vim'
+		"Plug 'ervandew/supertab'
+	"else
+		" add YCM here for unix
+		"Plug 'ervandew/supertab'
+	endif
+	"Plug 'Shougo/neocomplete.vim'
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
@@ -185,9 +183,9 @@ let OmniCpp_NamespaceSearch = 1
 let OmniCpp_GlobalScopeSearch = 1
 let OmniCpp_ShowAccess = 1
 let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
-let OmniCpp_MayCompleteDot = 1 " autocomplete after .
-let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
-let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
+"let OmniCpp_MayCompleteDot = 1 " autocomplete after .
+"let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
+"let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
 let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 " }}}
 
@@ -574,8 +572,6 @@ augroup Filetypes
 	" All files
 	autocmd FileType * RainbowParentheses
 	autocmd FileType * setlocal textwidth=110
-	" automatically open and close the popup menu / preview window
-	"autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 	autocmd FileType cs OmniSharpHighlightTypes
 	autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
 	autocmd FileType nerdtree setlocal relativenumber
@@ -585,15 +581,15 @@ augroup Filetypes
 	autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 	" Wiki specific mappings
-	autocmd FileType vimwiki nmap <buffer> <Leader>wn <Plug>VimwikiNextLink
-	autocmd FileType vimwiki nmap <buffer> <Leader>wp <Plug>VimwikiPrevLink
-	autocmd FileType vimwiki nmap <buffer> == <Plug>VimwikiAddHeaderLevel
-	autocmd FileType vimwiki nmap <buffer> ++ <Plug>VimwikiRemoveHeaderLevel
-	autocmd FileType vimwiki nmap <buffer> >> <Plug>VimwikiIncreaseLvlSingleItem
-	autocmd FileType vimwiki nmap <buffer> << <Plug>VimwikiDecreaseLvlSingleItem
-	autocmd FileType vimwiki nmap <buffer> <Leader>wa <Plug>VimwikiTabIndex
-	autocmd FileType vimwiki nmap <buffer> <Leader>wf <Plug>VimwikiFollowLink
-	autocmd FileType vimwiki setlocal spell spelllang=en_us
+	"autocmd FileType vimwiki nmap <buffer> <Leader>wn <Plug>VimwikiNextLink
+	"autocmd FileType vimwiki nmap <buffer> <Leader>wp <Plug>VimwikiPrevLink
+	"autocmd FileType vimwiki nmap <buffer> == <Plug>VimwikiAddHeaderLevel
+	"autocmd FileType vimwiki nmap <buffer> ++ <Plug>VimwikiRemoveHeaderLevel
+	"autocmd FileType vimwiki nmap <buffer> >> <Plug>VimwikiIncreaseLvlSingleItem
+	"autocmd FileType vimwiki nmap <buffer> << <Plug>VimwikiDecreaseLvlSingleItem
+	"autocmd FileType vimwiki nmap <buffer> <Leader>wa <Plug>VimwikiTabIndex
+	"autocmd FileType vimwiki nmap <buffer> <Leader>wf <Plug>VimwikiFollowLink
+	"autocmd FileType vimwiki setlocal spell spelllang=en_us
 	" Latex
 	autocmd FileType tex setlocal spell spelllang=en_us
 	autocmd FileType tex setlocal fdm=indent
@@ -639,7 +635,6 @@ noremap <Leader>ms :so %<CR>
 "noremap <Leader>ms :so %<CR>:AirlineRefresh<CR>
  " used to save in command line something
 nnoremap <A-s> :w<CR>
-inoremap <A-s> :w<CR>
 noremap <A-n> :noh<CR>
 noremap <A-c> i<Space><Esc>
 "noremap <Leader>mn :noh<CR>
@@ -956,127 +951,6 @@ nnoremap <C-z> zz
 		let g:airline#extensions#bufferline#overwrite_variables = 1
 		" }}}
 
-" Plugin 'file:///home/reinaldo/.vim/bundle/vim-hardy' {{{
-		if has('unix')
-			let g:hardy_arduino_path='/home/reinaldo/Downloads/arduino-1.6.5-r5/arduino'
-		endif
-		" }}}
-
-" Plugin 'Shougo/neocomplete.vim' {{{
-		"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-		" Disable AutoComplPop.
-		"if !has('nvim')
-			"let g:acp_enableAtStartup = 0
-			"" Use neocomplete.
-			"let g:neocomplete#enable_at_startup = 1
-			"" Use smartcase.
-			"let g:neocomplete#enable_smart_case = 1
-			"let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-			"" Define dictionary.
-			"let g:neocomplete#sources#dictionary#dictionaries = {
-				"\ 'default' : '',
-				"\ 'vimshell' : $HOME.'/.vimshell_hist',
-				"\ 'scheme' : $HOME.'/.gosh_completions'
-				"\ }
-			"let g:neocomplete#data_directory = s:personal_path . 'neocomplete'  " let neocomplete
-			"" Define keyword.
-			"if !exists('g:neocomplete#keyword_patterns')
-				"let g:neocomplete#keyword_patterns = {}
-			"endif
-			"let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-			"" Plugin key-mappings.
-			"inoremap <expr><C-g>     neocomplete#undo_completion()
-			"inoremap <expr><C-l>     neocomplete#complete_common_string()
-			"" Recommended key-mappings.
-			"" <CR>: close popup and save indent.
-			"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-			"function! s:my_cr_function()
-				"return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-				"" For no inserting <CR> key.
-				""return pumvisible() ? "\<C-y>" : "\<CR>"
-			"endfunction
-			"" <TAB>: completion.
-			"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-			"" <C-h>, <BS>: close popup and delete backword char.
-			"inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-			"inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-			"" Enable heavy omni completion.
-			"if !exists('g:neocomplete#sources#omni#input_patterns')
-				"let g:neocomplete#sources#omni#input_patterns = {}
-			"endif
-			"let g:neocomplete#sources#omni#input_patterns.tex =
-					"\ '\v\\%('
-					"\ . '\a*cite\a*%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
-					"\ . '|\a*ref%(\s*\{[^}]*|range\s*\{[^,}]*%(}\{)?)'
-					"\ . '|includegraphics\*?%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
-					"\ . '|%(include%(only)?|input)\s*\{[^}]*'
-					"\ . ')'
-			"if !exists('g:neocomplete#force_omni_input_patterns')
-				"let g:neocomplete#force_omni_input_patterns = {}
-			"endif
-			"let g:neocomplete#sources#omni#input_patterns.php =
-			"\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-			"let g:neocomplete#sources#omni#input_patterns.c =
-			"\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?'
-			"let g:neocomplete#sources#omni#input_patterns.cpp =
-			"\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-			"" For perlomni.vim setting.
-			"" https://github.com/c9s/perlomni.vim
-			"let g:neocomplete#sources#omni#input_patterns.perl =
-			"\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-			"" For smart TAB completion.
-			""imap <expr><TAB>  pumvisible() ? "\<C-n>" :
-					""\ <SID>check_back_space() ? "\<TAB>" :
-					""\ neocomplete#start_manual_complete()
-			  ""function! s:check_back_space() 
-				""let col = col('.') - 1
-				""return !col || getline('.')[col - 1]  =~ '\s'
-			  ""endfunction
-		"else
-			"let g:deoplete#enable_at_startup = 1	
-			"let g:deoplete#enable_smart_case = 1
-			"" <C-h>, <BS>: close popup and delete backword char.
-			"inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
-			"inoremap <expr><BS>  deoplete#mappings#smart_close_popup()."\<C-h>"
-			"" <CR>: close popup and save indent.
-			"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-			"function! s:my_cr_function() abort
-				"return deoplete#mappings#close_popup() . "\<CR>"
-			"endfunction
-			"inoremap <silent><expr> <Tab>
-			"\ pumvisible() ? "\<C-n>" :
-			"\ deoplete#mappings#manual_complete()
-		"endif
-		" }}}
-		
-" Plugin 'Shougo/neocomplete-snippets.vim' {{{
-		" Plugin key-mappings.
-		"imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-		"smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-		"xmap <C-k>     <Plug>(neosnippet_expand_target)
-		"" SuperTab like snippets behavior.
-		""imap <expr><TAB>
-		"" \ pumvisible() ? "\<C-n>" :
-		"" \ neosnippet#expandable_or_jumpable() ?
-		"" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-		"smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-		"\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-		"let g:neosnippet#enable_snipmate_compatibility = 1
-		"let g:neosnippet#snippets_directory= s:plugged_path . 'vim-snippets'
-		" }}}
-
-" Plugin 'Vim-R-plugin' {{{
-		" http://cran.revolutionanalytics.com
-		" Install R, Rtools 
-		" git clone https://github.com/jalvesaq/VimCom.git // Do this in command to
-		" download the library then in R do the bottom command by substituting path
-		" with your path to where you downloaded vimcom
-		" install.packages("<location>", type = "source", repos = NULL)
-		" put this in your InstallationRdir/etc/Rprofile.site
-							"options(vimcom.verbose = 1)
-							"library(vimcom)
-							" }}}
-							
 " Plugin 'Tagbar' {{{
         let g:tagbar_autofocus = 1
         let g:tagbar_show_linenumbers = 2
@@ -1127,30 +1001,6 @@ nnoremap <C-z> zz
 		"endif
 		" }}}
 
-	" Plugin 'Netrw' VIM built in Explorer {{{
-		"nnoremap <Leader>no :Rex<CR>
-		""nnoremap <Leader>nb :exe("normal ". v:count . "gb")<CR>
-		"let g:netrw_sort_sequence='[\/]$,*,\.bak$,\.o$,\.h$,\.info$,\.swp$,\.obj$'
-		""let g:netrw_localcopydircmd	="copy"
-		""let g:netrw_cygwin= 1
-		"let g:netrw_bufsettings="noma nomod nonu nobl nowrap ro rnu"
-		"let g:netrw_liststyle= 3
-		" }}}
-
-" Plugin 'nathanaelkane/vim-indent-guides'  {{{
-		"let g:indent_guides_enable_on_vim_startup = 1
-		"let g:indent_guides_auto_colors = 1
-		"let g:indent_guides_guide_size = 1
-		"let g:indent_guides_start_level = 3
-		"let g:indent_guides_faster = 1
-		" }}}
-" Plug 'junegunn/rainbow_parentheses.vim' {{{
-		let g:rainbow#max_level = 16
-		let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
-		" List of colors that you do not want. ANSI code or #RRGGBB
-		let g:rainbow#blacklist = [233, 234]
-		" }}}
-
 "/	Doxygen.vim {{{
 		let g:DoxygenToolkit_briefTag_pre="@Description:  " 
 		let g:DoxygenToolkit_paramTag_pre="@Var: " 
@@ -1159,42 +1009,6 @@ nnoremap <C-z> zz
 		let g:DoxygenToolkit_blockFooter="----------------------------------------------------------------------------" 
 		let g:DoxygenToolkit_authorName="Reinaldo Molina" 
 		let g:DoxygenToolkit_licenseTag=""
-		" }}}
-
-"/	OmniSharp Stuff {{{
-		"Timeout in seconds to wait for a response from the server
-		let g:OmniSharp_timeout = 1
-		"Showmatch significantly slows down omnicomplete
-		"when the first match contains parentheses.
-		set noshowmatch
-		"Move the preview window (code documentation) to the bottom of the screen, so it doesn't move the code!
-		"You might also want to look at the echodoc plugin
-		set splitbelow
-		" Get Code Issues and syntax errors
-		let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues']
-		"Set autocomplete function to OmniSharp (if not using YouCompleteMe completion plugin)
-		" Builds can also run asynchronously with vim-dispatch installed
-		noremap <leader>ob :wa!<cr>:OmniSharpBuildAsync<cr>
-		" automatic syntax check on events (TextChanged requires Vim 7.4)
-		" this setting controls how long to wait (in ms) before fetching type / symbol information.
-		set updatetime=500
-		" Remove 'Press Enter to continue' message when type information is longer than one line.
-		set cmdheight=1
-		noremap <leader>oi :OmniSharpFindImplementations<cr>
-		noremap <leader>ot :OmniSharpFindType<cr>
-		noremap <leader>os :OmniSharpFindSymbol<cr>
-		noremap <leader>ou :OmniSharpFindUsages<cr>
-		"" rename with dialog
-		nnoremap <leader>or :OmniSharpRename<cr>
-		"" Force OmniSharp to reload the solution. Useful when switching branches etc.
-		nnoremap <leader>ol :OmniSharpReloadSolution<cr>
-		"" (Experimental - uses vim-dispatch or vimproc plugin) - Start the omnisharp server for the current solution
-		"nnoremap <leader>ss :OmniSharpStartServer<cr>
-		"nnoremap <leader>sp :OmniSharpStopServer<cr>
-		let g:OmniSharp_server_type = 'v1'
-		"" Add syntax highlighting for types and interfaces
-		"nnoremap <leader>th :OmniSharpHighlightTypes<cr>
-		"""Don't ask to save when changing buffers (i.e. when jumping to a type definition)
 		" }}}
 
 "/"Plugin 'scrooloose/syntastic' {{{
@@ -1218,31 +1032,102 @@ nnoremap <C-z> zz
 			colorscheme gruvbox
 			set background=dark    " Setting dark mode
 			" }}}
+			
+	" Plug Vim-Clang {{{
+		"let g:clang_auto = 0
+		let g:clang_diagsopt = ''
+		nnoremap <silent> <Leader>cl :exe("normal! <space>kZQ")<CR>
+	" }}}
 
-	" Plug 'vimwiki/vimwiki', {'branch': 'dev'} {{{
-			" personal wiki configuraton. 
-			" you can configure multiple wikis
-			" see :h g:vimwiki_list
-			" also look at vimwiki.vim vimwiki_defaults for all possible options
-			nnoremap <Leader>wtt :call <SID>WikiTable()<CR>
-			let wiki = {}
-			let wiki.path = s:personal_path . 'wiki'
-			"let wiki.index = 'main'
-			let wiki.auto_tags = 1
-			let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp'}
-			let g:vimwiki_list = [wiki]
+	" Plug Super-Tab{{{
+    function! MyTagContext()
+      if filereadable(expand('%:p:h') . '/tags')
+        return "\<c-x>\<c-]>"
+      endif
+      " no return will result in the evaluation of the next
+      " configured context
+    endfunction
+    let g:SuperTabCompletionContexts =
+        \ ['MyTagContext', 's:ContextText', 's:ContextDiscover']
+	let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
+	let g:SuperTabContextDiscoverDiscovery =
+				\ ["&completefunc:<c-x><c-u>", "&omnifunc:<c-x><c-o>"]
 
-			let g:vimwiki_hl_cb_checked=1
-			let g:vimwiki_menu=''
-			let g:vimwiki_folding='expr'
-			let g:vimwiki_table_mappings=0
-			let g:vimwiki_use_calendar=0
-			function! VimwikiLinkHandler(link)
-				if match(a:link, ".cpp") != -1
-					let l:neolink = strpart(a:link, 5)
-					execute "e " . l:neolink
-				endif
-			endfunction
-		" }}}
+	" }}}
+	
+    " Plug Neocomplete{{{
+	let g:clang_auto = 0
+	let g:clang_diagsopt = ''
+	" All new stuff 
+	let g:neocomplete#enable_cursor_hold_i=1
+	"let g:neocomplete#enable_auto_select=1
+	let g:neocomplete#enable_auto_delimiter=1
+	"let g:neocomplete#enable_refresh_always=1
+	let g:neocomplete#skip_auto_completion_time="1"
+	let g:neocomplete#sources#buffer#cache_limit_size=5000000000
+	let g:neocomplete#max_list=12
+	let g:neocomplete#auto_completion_start_length=4
+	" TODO: need to fix this i dont like the way he does it need my own for now is good I guess
+	let g:neocomplete#enable_auto_close_preview=1
+
+	let g:neocomplete#enable_at_startup = 1
+	let g:neocomplete#enable_smart_case = 1
+	let g:neocomplete#data_directory = s:personal_path . 'neocomplete'  " let neocomplete
+	" Define keyword.
+	if !exists('g:neocomplete#keyword_patterns')
+		let g:neocomplete#keyword_patterns = {}
+	endif
+	let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+	" Recommended key-mappings.
+	" <CR>: close popup and save indent.
+	inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+	function! s:my_cr_function()
+		return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+	endfunction
+	" <TAB>: completion.
+	inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+	" <C-h>, <BS>: close popup and delete backword char.
+	inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+	" Enable heavy omni completion.
+	if !exists('g:neocomplete#sources#omni#input_patterns')
+		let g:neocomplete#sources#omni#input_patterns = {}
+	endif
+	let g:neocomplete#sources#omni#input_patterns.tex =
+		\ '\v\\%('
+		\ . '\a*cite\a*%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+		\ . '|\a*ref%(\s*\{[^}]*|range\s*\{[^,}]*%(}\{)?)'
+		\ . '|includegraphics\*?%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+		\ . '|%(include%(only)?|input)\s*\{[^}]*'
+		\ . ')'
+	let g:neocomplete#sources#omni#input_patterns.php =
+	\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+	"let g:neocomplete#sources#omni#input_patterns.c =
+	"\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?'
+	"let g:neocomplete#sources#omni#input_patterns.cpp =
+	"\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+	" For perlomni.vim setting.
+	" https://github.com/c9s/perlomni.vim
+	let g:neocomplete#sources#omni#input_patterns.perl =
+	\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+
+	if !exists('g:neocomplete#force_omni_input_patterns')
+		let g:neocomplete#force_omni_input_patterns = {}
+	endif
+	let g:neocomplete#force_omni_input_patterns.c =
+				\ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
+	let g:neocomplete#force_omni_input_patterns.cpp =
+				\ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+	let g:neocomplete#force_omni_input_patterns.objc =
+				\ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
+	let g:neocomplete#force_omni_input_patterns.objcpp =
+				\ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
+
+	" all new stuff
+	if !exists('g:neocomplete#delimiter_patterns')
+	let g:neocomplete#delimiter_patterns= {}
+	endif
+	let g:neocomplete#delimiter_patterns.vim = ['#']
+	let g:neocomplete#delimiter_patterns.cpp = ['::']
+	" }}}
 	" }}}
 
