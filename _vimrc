@@ -76,6 +76,7 @@ elseif has('unix')
 	let s:plugged_path=  $HOME . '/.vim/plugged/'
 	"let s:custom_font = 'Monospace 8'
 	let s:custom_font = 'Andale Mono 8'
+	" TODO: fix this here unacceptable
 	" to fix vimrc ff stuff do:
 	" :w ++ff=unix
 	" :e
@@ -121,6 +122,10 @@ elseif has('unix')
 
 	" Syntastic
 		let g:syntastic_cpp_compiler_options = ' -std=c++14' 
+	" YCM
+	let g:ycm_global_ycm_extra_conf = '.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+
+
 endif
 	" }}}
 " }}}
@@ -560,7 +565,7 @@ set ttyfast " Had to addit to speed up scrolling
 " ALL_AUTOGROUP_STUFF {{{
 augroup Filetypes
 	autocmd!
-	autocmd GUIEnter * simalt ~x
+	"autocmd GUIEnter * simalt ~x
 	"autocmd VimEnter * bro old
 	" Cpp
 	autocmd FileType cpp setlocal omnifunc=omni#cpp#complete#Main
@@ -570,7 +575,7 @@ augroup Filetypes
 	autocmd FileType * RainbowParentheses
 	autocmd FileType * setlocal textwidth=110
 	" automatically open and close the popup menu / preview window
-	autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+	"autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 	autocmd FileType cs OmniSharpHighlightTypes
 	autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
 	autocmd FileType nerdtree setlocal relativenumber
@@ -960,104 +965,104 @@ nnoremap <C-z> zz
 " Plugin 'Shougo/neocomplete.vim' {{{
 		"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 		" Disable AutoComplPop.
-		if !has('nvim')
-			let g:acp_enableAtStartup = 0
-			" Use neocomplete.
-			let g:neocomplete#enable_at_startup = 1
-			" Use smartcase.
-			let g:neocomplete#enable_smart_case = 1
-			let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-			" Define dictionary.
-			let g:neocomplete#sources#dictionary#dictionaries = {
-				\ 'default' : '',
-				\ 'vimshell' : $HOME.'/.vimshell_hist',
-				\ 'scheme' : $HOME.'/.gosh_completions'
-				\ }
-			let g:neocomplete#data_directory = s:personal_path . 'neocomplete'  " let neocomplete
-			" Define keyword.
-			if !exists('g:neocomplete#keyword_patterns')
-				let g:neocomplete#keyword_patterns = {}
-			endif
-			let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-			" Plugin key-mappings.
-			inoremap <expr><C-g>     neocomplete#undo_completion()
-			inoremap <expr><C-l>     neocomplete#complete_common_string()
-			" Recommended key-mappings.
-			" <CR>: close popup and save indent.
-			inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-			function! s:my_cr_function()
-				return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-				" For no inserting <CR> key.
-				"return pumvisible() ? "\<C-y>" : "\<CR>"
-			endfunction
-			" <TAB>: completion.
-			inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-			" <C-h>, <BS>: close popup and delete backword char.
-			inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-			inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-			" Enable heavy omni completion.
-			if !exists('g:neocomplete#sources#omni#input_patterns')
-				let g:neocomplete#sources#omni#input_patterns = {}
-			endif
-			let g:neocomplete#sources#omni#input_patterns.tex =
-					\ '\v\\%('
-					\ . '\a*cite\a*%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
-					\ . '|\a*ref%(\s*\{[^}]*|range\s*\{[^,}]*%(}\{)?)'
-					\ . '|includegraphics\*?%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
-					\ . '|%(include%(only)?|input)\s*\{[^}]*'
-					\ . ')'
-			if !exists('g:neocomplete#force_omni_input_patterns')
-				let g:neocomplete#force_omni_input_patterns = {}
-			endif
-			let g:neocomplete#sources#omni#input_patterns.php =
-			\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-			let g:neocomplete#sources#omni#input_patterns.c =
-			\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?'
-			let g:neocomplete#sources#omni#input_patterns.cpp =
-			\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-			" For perlomni.vim setting.
-			" https://github.com/c9s/perlomni.vim
-			let g:neocomplete#sources#omni#input_patterns.perl =
-			\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-			" For smart TAB completion.
-			"imap <expr><TAB>  pumvisible() ? "\<C-n>" :
-					"\ <SID>check_back_space() ? "\<TAB>" :
-					"\ neocomplete#start_manual_complete()
-			  "function! s:check_back_space() 
-				"let col = col('.') - 1
-				"return !col || getline('.')[col - 1]  =~ '\s'
-			  "endfunction
-		else
-			let g:deoplete#enable_at_startup = 1	
-			let g:deoplete#enable_smart_case = 1
-			" <C-h>, <BS>: close popup and delete backword char.
-			inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
-			inoremap <expr><BS>  deoplete#mappings#smart_close_popup()."\<C-h>"
-			" <CR>: close popup and save indent.
-			inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-			function! s:my_cr_function() abort
-				return deoplete#mappings#close_popup() . "\<CR>"
-			endfunction
-			inoremap <silent><expr> <Tab>
-			\ pumvisible() ? "\<C-n>" :
-			\ deoplete#mappings#manual_complete()
-		endif
+		"if !has('nvim')
+			"let g:acp_enableAtStartup = 0
+			"" Use neocomplete.
+			"let g:neocomplete#enable_at_startup = 1
+			"" Use smartcase.
+			"let g:neocomplete#enable_smart_case = 1
+			"let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+			"" Define dictionary.
+			"let g:neocomplete#sources#dictionary#dictionaries = {
+				"\ 'default' : '',
+				"\ 'vimshell' : $HOME.'/.vimshell_hist',
+				"\ 'scheme' : $HOME.'/.gosh_completions'
+				"\ }
+			"let g:neocomplete#data_directory = s:personal_path . 'neocomplete'  " let neocomplete
+			"" Define keyword.
+			"if !exists('g:neocomplete#keyword_patterns')
+				"let g:neocomplete#keyword_patterns = {}
+			"endif
+			"let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+			"" Plugin key-mappings.
+			"inoremap <expr><C-g>     neocomplete#undo_completion()
+			"inoremap <expr><C-l>     neocomplete#complete_common_string()
+			"" Recommended key-mappings.
+			"" <CR>: close popup and save indent.
+			"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+			"function! s:my_cr_function()
+				"return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+				"" For no inserting <CR> key.
+				""return pumvisible() ? "\<C-y>" : "\<CR>"
+			"endfunction
+			"" <TAB>: completion.
+			"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+			"" <C-h>, <BS>: close popup and delete backword char.
+			"inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+			"inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+			"" Enable heavy omni completion.
+			"if !exists('g:neocomplete#sources#omni#input_patterns')
+				"let g:neocomplete#sources#omni#input_patterns = {}
+			"endif
+			"let g:neocomplete#sources#omni#input_patterns.tex =
+					"\ '\v\\%('
+					"\ . '\a*cite\a*%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+					"\ . '|\a*ref%(\s*\{[^}]*|range\s*\{[^,}]*%(}\{)?)'
+					"\ . '|includegraphics\*?%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+					"\ . '|%(include%(only)?|input)\s*\{[^}]*'
+					"\ . ')'
+			"if !exists('g:neocomplete#force_omni_input_patterns')
+				"let g:neocomplete#force_omni_input_patterns = {}
+			"endif
+			"let g:neocomplete#sources#omni#input_patterns.php =
+			"\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+			"let g:neocomplete#sources#omni#input_patterns.c =
+			"\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?'
+			"let g:neocomplete#sources#omni#input_patterns.cpp =
+			"\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+			"" For perlomni.vim setting.
+			"" https://github.com/c9s/perlomni.vim
+			"let g:neocomplete#sources#omni#input_patterns.perl =
+			"\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+			"" For smart TAB completion.
+			""imap <expr><TAB>  pumvisible() ? "\<C-n>" :
+					""\ <SID>check_back_space() ? "\<TAB>" :
+					""\ neocomplete#start_manual_complete()
+			  ""function! s:check_back_space() 
+				""let col = col('.') - 1
+				""return !col || getline('.')[col - 1]  =~ '\s'
+			  ""endfunction
+		"else
+			"let g:deoplete#enable_at_startup = 1	
+			"let g:deoplete#enable_smart_case = 1
+			"" <C-h>, <BS>: close popup and delete backword char.
+			"inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
+			"inoremap <expr><BS>  deoplete#mappings#smart_close_popup()."\<C-h>"
+			"" <CR>: close popup and save indent.
+			"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+			"function! s:my_cr_function() abort
+				"return deoplete#mappings#close_popup() . "\<CR>"
+			"endfunction
+			"inoremap <silent><expr> <Tab>
+			"\ pumvisible() ? "\<C-n>" :
+			"\ deoplete#mappings#manual_complete()
+		"endif
 		" }}}
 		
 " Plugin 'Shougo/neocomplete-snippets.vim' {{{
 		" Plugin key-mappings.
-		imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-		smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-		xmap <C-k>     <Plug>(neosnippet_expand_target)
-		" SuperTab like snippets behavior.
-		"imap <expr><TAB>
-		" \ pumvisible() ? "\<C-n>" :
-		" \ neosnippet#expandable_or_jumpable() ?
-		" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-		smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-		\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-		let g:neosnippet#enable_snipmate_compatibility = 1
-		let g:neosnippet#snippets_directory= s:plugged_path . 'vim-snippets'
+		"imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+		"smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+		"xmap <C-k>     <Plug>(neosnippet_expand_target)
+		"" SuperTab like snippets behavior.
+		""imap <expr><TAB>
+		"" \ pumvisible() ? "\<C-n>" :
+		"" \ neosnippet#expandable_or_jumpable() ?
+		"" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+		"smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+		"\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+		"let g:neosnippet#enable_snipmate_compatibility = 1
+		"let g:neosnippet#snippets_directory= s:plugged_path . 'vim-snippets'
 		" }}}
 
 " Plugin 'Vim-R-plugin' {{{
