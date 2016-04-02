@@ -130,10 +130,10 @@ endif
 	" Call Vim-Plug Plugins should be from here below
 	if !has('nvim')
 		call plug#begin(s:plugged_path)
-		Plug 'Shougo/neocomplete.vim'
+		"Plug 'Shougo/neocomplete.vim'
 	else
 		call plug#begin('~/.config/nvim/autoupload/plug.vim')
-		Plug 'Shougo/deoplete.nvim'
+		"Plug 'Shougo/deoplete.nvim'
 	endif
 	"Plug 'OmniSharp/omnisharp-vim'
 	"Plug 'tpope/vim-dispatch' " used for omnisharp completion 
@@ -143,8 +143,8 @@ endif
 	Plug 'lervag/vimtex' " Latex support
 	Plug 'bling/vim-airline'	" Status bar line
 	Plug 'Vim-R-plugin'
-	Plug 'Shougo/neosnippet'
-	Plug 'Shougo/neosnippet-snippets'
+	"Plug 'Shougo/neosnippet'
+	"Plug 'Shougo/neosnippet-snippets'
 	Plug 'honza/vim-snippets'
 	Plug 'tpope/vim-surround'
 	Plug 'junegunn/rainbow_parentheses.vim'
@@ -153,7 +153,9 @@ endif
 	Plug 'ctrlpvim/ctrlp.vim'
 	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'Tagbar'
-	Plug 'vimwiki/vimwiki', {'branch': 'dev'}
+	"Plug 'vimwiki/vimwiki', {'branch': 'dev'}
+	"Plug 'tpope/vim-repeat'
+	Plug 'Valloric/YouCompleteMe'
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
@@ -186,7 +188,6 @@ let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 
 " FUNCTIONS {{{
 " Only works in vimwiki filetypes
-" TODO: make every function much smarter
 " TODO: autodownload files
 function! s:WikiTable() abort
 	if &ft =~ 'wiki'
@@ -873,6 +874,9 @@ nnoremap <Leader>gP :!git add .<CR>
 			\:!git push CppTut master<CR>
 " }}}
 
+nnoremap <C-j> zj
+nnoremap <C-k> zk
+nnoremap <C-z> zz
 " }}}
 
 " PLUGIN_OPTIONS {{{
@@ -987,7 +991,7 @@ nnoremap <Leader>gP :!git add .<CR>
 				"return pumvisible() ? "\<C-y>" : "\<CR>"
 			endfunction
 			" <TAB>: completion.
-			"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+			inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 			" <C-h>, <BS>: close popup and delete backword char.
 			inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 			inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
@@ -1016,13 +1020,13 @@ nnoremap <Leader>gP :!git add .<CR>
 			let g:neocomplete#sources#omni#input_patterns.perl =
 			\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 			" For smart TAB completion.
-			imap <expr><TAB>  pumvisible() ? "\<C-n>" :
-					\ <SID>check_back_space() ? "\<TAB>" :
-					\ neocomplete#start_manual_complete()
-			  function! s:check_back_space() 
-				let col = col('.') - 1
-				return !col || getline('.')[col - 1]  =~ '\s'
-			  endfunction
+			"imap <expr><TAB>  pumvisible() ? "\<C-n>" :
+					"\ <SID>check_back_space() ? "\<TAB>" :
+					"\ neocomplete#start_manual_complete()
+			  "function! s:check_back_space() 
+				"let col = col('.') - 1
+				"return !col || getline('.')[col - 1]  =~ '\s'
+			  "endfunction
 		else
 			let g:deoplete#enable_at_startup = 1	
 			let g:deoplete#enable_smart_case = 1
@@ -1236,5 +1240,4 @@ nnoremap <Leader>gP :!git add .<CR>
 			endfunction
 		" }}}
 	" }}}
-" }}}
 
