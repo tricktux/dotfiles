@@ -1,4 +1,3 @@
-"//////////////3/13/2016 8:33:59 PM////////////////
 " Req to always be here
 set nocompatible
 " moved here otherwise conditional mappings get / instead ; as leader 
@@ -55,6 +54,14 @@ if has('win32')
 	\ '')<CR>
 
 	nnoremap  o<Esc>
+	" Mappings to execute programs
+	"nnoremap <Leader>ewf :!start cmd /k "WINGS.exe 3 . 4.ini" & exit<CR>
+	nnoremap <Leader>ewf :!start cmd /k "WINGS.exe 3 . 6_LOG.ini" & exit<CR>
+	nnoremap <Leader>ewd :!start cmd /k "WINGS.exe 3 . default.ini" & exit<CR>
+	nnoremap <Leader>ewg :exe("!start cmd /k \"WINGS.exe 3 . " . input("Config file:", "", "file") . "\" & exit")<CR>
+	nnoremap <Leader>e1 :silent e ~/Documents/1.MyDocuments/2.WINGS/OneWINGS/
+	nnoremap <Leader>e2 :silent e ~/Desktop/daily\ check/
+	nnoremap <Leader>e3 :silent e ~/Documents/1.MyDocuments/3.Training/2.NI_Testand/
 
 	" Windows specific plugins options {{{
 	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
@@ -66,6 +73,9 @@ if has('win32')
 			\ }
 	" Netrw
 		"g:netrw_localrmdir="del"
+	" vim-clang
+		let g:clang_auto = 0
+		let g:clang_diagsopt = ''
 	" }}}
 " }}}
 
@@ -89,7 +99,8 @@ elseif has('unix')
 		" fixes colorscheme not filling entire backgroud
 		set t_ut=
 		" TODO: fix all this
-		nmap x :w<CR>
+		nmap x :qall<CR>
+		nmap s :w<CR>
 		nnoremap <CR> o<Esc>
 	endif
 	" this one below DOES WORK in linux just make sure is ran at root folder
@@ -124,6 +135,13 @@ elseif has('unix')
 		let g:syntastic_cpp_compiler_options = ' -std=c++14' 
 	" YCM
 	let g:ycm_global_ycm_extra_conf = '.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+	" vim-clang
+		let g:clang_cpp_options = '-std=c++14 -Weveything'
+		let g:clang_include_sysheaders_from_gcc = 1
+		let g:clang_exec = 'clang-3.8'
+		let g:clang_check_syntax_auto = 1
+		let g:clang_auto = 1
+		"let g:clang_diagsopt = ''
 
 
 endif
@@ -150,15 +168,16 @@ endif
 	Plug 'ctrlpvim/ctrlp.vim'
 	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'Tagbar'
-	if has('win32')
-		Plug 'justmao945/vim-clang'
-		Plug 'Shougo/neocomplete.vim'
+	" TODO: find a good snippets plugin
+	"if has('win32')
+	Plug 'justmao945/vim-clang'
+	Plug 'Shougo/neocomplete.vim'
 		"Plug 'ervandew/supertab'
 	"else
-		" add YCM here for unix
-		"Plug 'ervandew/supertab'
-	endif
-	"Plug 'Shougo/neocomplete.vim'
+		"" add YCM here for unix
+		""Plug 'ervandew/supertab'
+		"Plug 'Valloric/YouCompleteMe'
+	"endif
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
@@ -240,7 +259,7 @@ function! s:SvnCommit() abort
 endfunction
 
 function! s:FormatFile() abort
-	let g:clang_format_path='clang-format-3.8'
+	let g:clang_format_path='~/.clang-format'
 	let l:lines="all"
 	let l:format = s:personal_path . 'clang-format.py' 
 	if filereadable(l:format) > 0
@@ -249,6 +268,7 @@ function! s:FormatFile() abort
 		echo "File \"" . l:format . "\" does not exist"
 	endif
 endfunction
+nnoremap <Leader>cf :call <SID>FormatFile()<CR>
 "TODO:
 nnoremap <Leader>mz :call <SID>SaveSession()<CR>
 function! s:SaveSession() abort
@@ -831,14 +851,6 @@ nnoremap <Left> :cpf<CR>
 				"\:set binary<CR>
 				"\:set ft=<CR>
 
-" Mappings to execute programs
-"nnoremap <Leader>ewf :!start cmd /k "WINGS.exe 3 . 4.ini" & exit<CR>
-nnoremap <Leader>ewf :!start cmd /k "WINGS.exe 3 . 6_LOG.ini" & exit<CR>
-nnoremap <Leader>ewd :!start cmd /k "WINGS.exe 3 . default.ini" & exit<CR>
-nnoremap <Leader>ewg :exe("!start cmd /k \"WINGS.exe 3 . " . input("Config file:", "", "file") . "\" & exit")<CR>
-nnoremap <Leader>e1 :silent e ~/Documents/1.MyDocuments/2.WINGS/OneWINGS/
-nnoremap <Leader>e2 :silent e ~/Desktop/daily\ check/
-nnoremap <Leader>e3 :silent e ~/Documents/1.MyDocuments/3.Training/2.NI_Testand/
 " see :h <c-r>
 cnoremap <A-p> <c-r>0
 nnoremap <Leader>nl :bro old<CR>
@@ -877,6 +889,9 @@ nnoremap <Leader>gP :!git add .<CR>
 nnoremap <C-j> zj
 nnoremap <C-k> zk
 nnoremap <C-z> zz
+nnoremap <C-m> zM
+nnoremap <C-n> zR
+nnoremap <C-a> za
 " }}}
 
 " PLUGIN_OPTIONS {{{
@@ -1035,8 +1050,8 @@ nnoremap <C-z> zz
 			
 	" Plug Vim-Clang {{{
 		"let g:clang_auto = 0
-		let g:clang_diagsopt = ''
-		nnoremap <silent> <Leader>cl :exe("normal! <space>kZQ")<CR>
+		"let g:clang_diagsopt = ''
+			"nnoremap <silent> <Leader>cl <Esc>:ClangClosePreviewDiagWindow<CR>
 	" }}}
 
 	" Plug Super-Tab{{{
@@ -1056,78 +1071,76 @@ nnoremap <C-z> zz
 	" }}}
 	
     " Plug Neocomplete{{{
-	let g:clang_auto = 0
-	let g:clang_diagsopt = ''
-	" All new stuff 
-	let g:neocomplete#enable_cursor_hold_i=1
-	"let g:neocomplete#enable_auto_select=1
-	let g:neocomplete#enable_auto_delimiter=1
-	"let g:neocomplete#enable_refresh_always=1
-	let g:neocomplete#skip_auto_completion_time="1"
-	let g:neocomplete#sources#buffer#cache_limit_size=5000000000
-	let g:neocomplete#max_list=12
-	let g:neocomplete#auto_completion_start_length=4
-	" TODO: need to fix this i dont like the way he does it need my own for now is good I guess
-	let g:neocomplete#enable_auto_close_preview=1
+		" All new stuff 
+		let g:neocomplete#enable_cursor_hold_i=1
+		"let g:neocomplete#enable_auto_select=1
+		let g:neocomplete#enable_auto_delimiter=1
+		"let g:neocomplete#enable_refresh_always=1
+		let g:neocomplete#skip_auto_completion_time="1"
+		let g:neocomplete#sources#buffer#cache_limit_size=5000000000
+		let g:neocomplete#max_list=12
+		let g:neocomplete#auto_completion_start_length=4
+		" TODO: need to fix this i dont like the way he does it need my own for now is good I guess
+		let g:neocomplete#enable_auto_close_preview=1
 
-	let g:neocomplete#enable_at_startup = 1
-	let g:neocomplete#enable_smart_case = 1
-	let g:neocomplete#data_directory = s:personal_path . 'neocomplete'  " let neocomplete
-	" Define keyword.
-	if !exists('g:neocomplete#keyword_patterns')
-		let g:neocomplete#keyword_patterns = {}
-	endif
-	let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-	" Recommended key-mappings.
-	" <CR>: close popup and save indent.
-	inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-	function! s:my_cr_function()
-		return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-	endfunction
-	" <TAB>: completion.
-	inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-	" <C-h>, <BS>: close popup and delete backword char.
-	inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-	" Enable heavy omni completion.
-	if !exists('g:neocomplete#sources#omni#input_patterns')
-		let g:neocomplete#sources#omni#input_patterns = {}
-	endif
-	let g:neocomplete#sources#omni#input_patterns.tex =
-		\ '\v\\%('
-		\ . '\a*cite\a*%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
-		\ . '|\a*ref%(\s*\{[^}]*|range\s*\{[^,}]*%(}\{)?)'
-		\ . '|includegraphics\*?%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
-		\ . '|%(include%(only)?|input)\s*\{[^}]*'
-		\ . ')'
-	let g:neocomplete#sources#omni#input_patterns.php =
-	\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-	"let g:neocomplete#sources#omni#input_patterns.c =
-	"\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?'
-	"let g:neocomplete#sources#omni#input_patterns.cpp =
-	"\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-	" For perlomni.vim setting.
-	" https://github.com/c9s/perlomni.vim
-	let g:neocomplete#sources#omni#input_patterns.perl =
-	\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+		let g:neocomplete#enable_at_startup = 1
+		let g:neocomplete#enable_smart_case = 1
+		let g:neocomplete#data_directory = s:personal_path . 'neocomplete'  " let neocomplete
+		" Define keyword.
+		if !exists('g:neocomplete#keyword_patterns')
+			let g:neocomplete#keyword_patterns = {}
+		endif
+		let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+		" Recommended key-mappings.
+		" <CR>: close popup and save indent.
+		inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+		function! s:my_cr_function()
+			return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+		endfunction
+		" <TAB>: completion.
+		inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+		" <C-h>, <BS>: close popup and delete backword char.
+		inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+		" Enable heavy omni completion.
+		if !exists('g:neocomplete#sources#omni#input_patterns')
+			let g:neocomplete#sources#omni#input_patterns = {}
+		endif
+		let g:neocomplete#sources#omni#input_patterns.tex =
+			\ '\v\\%('
+			\ . '\a*cite\a*%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+			\ . '|\a*ref%(\s*\{[^}]*|range\s*\{[^,}]*%(}\{)?)'
+			\ . '|includegraphics\*?%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+			\ . '|%(include%(only)?|input)\s*\{[^}]*'
+			\ . ')'
+		let g:neocomplete#sources#omni#input_patterns.php =
+		\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+		"let g:neocomplete#sources#omni#input_patterns.c =
+		"\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?'
+		"let g:neocomplete#sources#omni#input_patterns.cpp =
+		"\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+		" For perlomni.vim setting.
+		" https://github.com/c9s/perlomni.vim
+		let g:neocomplete#sources#omni#input_patterns.perl =
+		\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 
-	if !exists('g:neocomplete#force_omni_input_patterns')
-		let g:neocomplete#force_omni_input_patterns = {}
-	endif
-	let g:neocomplete#force_omni_input_patterns.c =
-				\ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
-	let g:neocomplete#force_omni_input_patterns.cpp =
-				\ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-	let g:neocomplete#force_omni_input_patterns.objc =
-				\ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
-	let g:neocomplete#force_omni_input_patterns.objcpp =
-				\ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
+		if !exists('g:neocomplete#force_omni_input_patterns')
+			let g:neocomplete#force_omni_input_patterns = {}
+		endif
+		let g:neocomplete#force_omni_input_patterns.c =
+					\ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
+		let g:neocomplete#force_omni_input_patterns.cpp =
+					\ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+		let g:neocomplete#force_omni_input_patterns.objc =
+					\ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
+		let g:neocomplete#force_omni_input_patterns.objcpp =
+					\ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
 
-	" all new stuff
-	if !exists('g:neocomplete#delimiter_patterns')
-	let g:neocomplete#delimiter_patterns= {}
-	endif
-	let g:neocomplete#delimiter_patterns.vim = ['#']
-	let g:neocomplete#delimiter_patterns.cpp = ['::']
+		" all new stuff
+		if !exists('g:neocomplete#delimiter_patterns')
+		let g:neocomplete#delimiter_patterns= {}
+		endif
+		let g:neocomplete#delimiter_patterns.vim = ['#']
+		let g:neocomplete#delimiter_patterns.cpp = ['::']
 	" }}}
 	" }}}
 
