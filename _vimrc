@@ -60,8 +60,10 @@ if has('win32')
 	nnoremap <Leader>ewd :!start cmd /k "WINGS.exe 3 . default.ini" & exit<CR>
 	nnoremap <Leader>ewg :exe("!start cmd /k \"WINGS.exe 3 . " . input("Config file:", "", "file") . "\" & exit")<CR>
 	nnoremap <Leader>e1 :silent e ~/Documents/1.MyDocuments/2.WINGS/OneWINGS/
-	nnoremap <Leader>e2 :silent e ~/Desktop/daily\ check/
-	nnoremap <Leader>e3 :silent e ~/Documents/1.MyDocuments/3.Training/2.NI_Testand/
+	nnoremap <Leader>e2 :silent e ~/vimfiles/personal/wiki/
+	nnoremap <Leader>e3 :silent e ~/Desktop/daily\ check/
+	nnoremap <Leader>e4 :silent e ~/Documents/1.MyDocuments/Forms/Weekly_Reports/
+	nnoremap <Leader>e5 :silent e ~/Documents/1.MyDocuments/3.Training/2.NI_Testand/
 
 	" Windows specific plugins options {{{
 	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
@@ -169,15 +171,11 @@ endif
 	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'Tagbar'
 	" TODO: find a good snippets plugin
-	"if has('win32')
 	Plug 'justmao945/vim-clang'
 	Plug 'Shougo/neocomplete.vim'
-		"Plug 'ervandew/supertab'
-	"else
-		"" add YCM here for unix
-		""Plug 'ervandew/supertab'
-		"Plug 'Valloric/YouCompleteMe'
-	"endif
+	if has('unix')
+		Plug 'vivien/vim-linux-coding-style'
+	endif
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
@@ -886,12 +884,16 @@ nnoremap <Leader>gP :!git add .<CR>
 			\:!git push CppTut master<CR>
 " }}}
 
+" Fold movement
 nnoremap <C-j> zj
 nnoremap <C-k> zk
 nnoremap <C-z> zz
 nnoremap <C-m> zM
 nnoremap <C-n> zR
-nnoremap <C-a> za
+nnoremap <C-x> za
+" dont use <C-a> it conflicts with tmux prefix
+nnoremap <C-S-l> <S-l>zz
+nnoremap <C-S-h> <S-h>zz
 " }}}
 
 " PLUGIN_OPTIONS {{{
@@ -1048,12 +1050,6 @@ nnoremap <C-a> za
 			set background=dark    " Setting dark mode
 			" }}}
 			
-	" Plug Vim-Clang {{{
-		"let g:clang_auto = 0
-		"let g:clang_diagsopt = ''
-			"nnoremap <silent> <Leader>cl <Esc>:ClangClosePreviewDiagWindow<CR>
-	" }}}
-
 	" Plug Super-Tab{{{
     function! MyTagContext()
       if filereadable(expand('%:p:h') . '/tags')
@@ -1074,12 +1070,12 @@ nnoremap <C-a> za
 		" All new stuff 
 		let g:neocomplete#enable_cursor_hold_i=1
 		"let g:neocomplete#enable_auto_select=1
-		let g:neocomplete#enable_auto_delimiter=1
+		"let g:neocomplete#enable_auto_delimiter=1
 		"let g:neocomplete#enable_refresh_always=1
 		let g:neocomplete#skip_auto_completion_time="1"
 		let g:neocomplete#sources#buffer#cache_limit_size=5000000000
 		let g:neocomplete#max_list=12
-		let g:neocomplete#auto_completion_start_length=4
+		let g:neocomplete#auto_completion_start_length=3
 		" TODO: need to fix this i dont like the way he does it need my own for now is good I guess
 		let g:neocomplete#enable_auto_close_preview=1
 
