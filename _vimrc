@@ -172,7 +172,9 @@ endif
 	Plug 'Tagbar'
 	" TODO: find a good snippets plugin
 	Plug 'justmao945/vim-clang'
-	Plug 'Shougo/neocomplete.vim'
+	Plug 'Shougo/neocomplete'
+	Plug 'Shougo/neosnippet'
+	Plug 'Shougo/neosnippet-snippets'
 	if has('unix')
 		Plug 'vivien/vim-linux-coding-style'
 	endif
@@ -1110,12 +1112,6 @@ nnoremap <C-S-h> <S-h>zz
 			\ . ')'
 		let g:neocomplete#sources#omni#input_patterns.php =
 		\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-		"let g:neocomplete#sources#omni#input_patterns.c =
-		"\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?'
-		"let g:neocomplete#sources#omni#input_patterns.cpp =
-		"\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-		" For perlomni.vim setting.
-		" https://github.com/c9s/perlomni.vim
 		let g:neocomplete#sources#omni#input_patterns.perl =
 		\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 
@@ -1137,6 +1133,15 @@ nnoremap <C-S-h> <S-h>zz
 		endif
 		let g:neocomplete#delimiter_patterns.vim = ['#']
 		let g:neocomplete#delimiter_patterns.cpp = ['::']
+		" NeoSnippets
+		" Plugin key-mappings.
+		imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+		smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+		xmap <C-k>     <Plug>(neosnippet_expand_target)
+		smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+		\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+		" Tell Neosnippet about the other snippets
+		let g:neosnippet#snippets_directory= s:plugged_path . '/vim-snippets/snippets'
 	" }}}
 	" }}}
 
