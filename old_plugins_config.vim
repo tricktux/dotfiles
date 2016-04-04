@@ -220,3 +220,29 @@
 		endif
 	endfunction
 	" }}}
+	" Plug Super-Tab{{{
+    function! MyTagContext()
+      if filereadable(expand('%:p:h') . '/tags')
+        return "\<c-x>\<c-]>"
+      endif
+      " no return will result in the evaluation of the next
+      " configured context
+    endfunction
+    let g:SuperTabCompletionContexts =
+        \ ['MyTagContext', 's:ContextText', 's:ContextDiscover']
+	let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
+	let g:SuperTabContextDiscoverDiscovery =
+				\ ["&completefunc:<c-x><c-u>", "&omnifunc:<c-x><c-o>"]
+
+	" }}}
+	" Wiki specific mappings
+	"autocmd FileType vimwiki nmap <buffer> <Leader>wn <Plug>VimwikiNextLink
+	"autocmd FileType vimwiki nmap <buffer> <Leader>wp <Plug>VimwikiPrevLink
+	"autocmd FileType vimwiki nmap <buffer> == <Plug>VimwikiAddHeaderLevel
+	"autocmd FileType vimwiki nmap <buffer> ++ <Plug>VimwikiRemoveHeaderLevel
+	"autocmd FileType vimwiki nmap <buffer> >> <Plug>VimwikiIncreaseLvlSingleItem
+	"autocmd FileType vimwiki nmap <buffer> << <Plug>VimwikiDecreaseLvlSingleItem
+	"autocmd FileType vimwiki nmap <buffer> <Leader>wa <Plug>VimwikiTabIndex
+	"autocmd FileType vimwiki nmap <buffer> <Leader>wf <Plug>VimwikiFollowLink
+	"autocmd FileType vimwiki setlocal spell spelllang=en_us
+	" Latex

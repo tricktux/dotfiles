@@ -5,7 +5,7 @@ let mapleader="\<Space>"
 let maplocalleader="\<Space>"
 
 "WINDOWS_SETTINGS {{{
-if has('win32')
+if has('win32') 
 	" Path variables
 	let s:personal_path= $HOME . '\vimfiles\personal\'
 	let s:plugged_path=  $HOME . '\vimfiles\plugged\'
@@ -101,6 +101,8 @@ elseif has('unix')
 		" TODO: fix all this
 		nmap x :qall<CR>
 		nmap s :w<CR>
+		nmap n :noh<CR>
+		cmap w \<\><Left><Left>
 		nnoremap <CR> o<Esc>
 	endif
 	" this one below DOES WORK in linux just make sure is ran at root folder
@@ -169,15 +171,11 @@ endif
 	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'Tagbar'
 	" TODO: find a good snippets plugin
-	"if has('win32')
 	Plug 'justmao945/vim-clang'
 	Plug 'Shougo/neocomplete.vim'
-		"Plug 'ervandew/supertab'
-	"else
-		"" add YCM here for unix
-		""Plug 'ervandew/supertab'
-		"Plug 'Valloric/YouCompleteMe'
-	"endif
+	if has('unix')
+		Plug 'vivien/vim-linux-coding-style'
+	endif
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
@@ -259,7 +257,7 @@ function! s:SvnCommit() abort
 endfunction
 
 function! s:FormatFile() abort
-	let g:clang_format_path='~/.clang-format'
+	let g:clang_format_path='.clang-format'
 	let l:lines="all"
 	let l:format = s:personal_path . 'clang-format.py' 
 	if filereadable(l:format) > 0
@@ -580,6 +578,11 @@ set ttyfast " Had to addit to speed up scrolling
 
 " }}}
 
+" Highlight stuff {{{
+	highlight ExtraWhitespace ctermbg=red guibg=red
+	match ExtraWhitespace /\s\+$/
+	" }}}
+
 " ALL_AUTOGROUP_STUFF {{{
 augroup Filetypes
 	autocmd!
@@ -600,16 +603,6 @@ augroup Filetypes
 	autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 	autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-	" Wiki specific mappings
-	"autocmd FileType vimwiki nmap <buffer> <Leader>wn <Plug>VimwikiNextLink
-	"autocmd FileType vimwiki nmap <buffer> <Leader>wp <Plug>VimwikiPrevLink
-	"autocmd FileType vimwiki nmap <buffer> == <Plug>VimwikiAddHeaderLevel
-	"autocmd FileType vimwiki nmap <buffer> ++ <Plug>VimwikiRemoveHeaderLevel
-	"autocmd FileType vimwiki nmap <buffer> >> <Plug>VimwikiIncreaseLvlSingleItem
-	"autocmd FileType vimwiki nmap <buffer> << <Plug>VimwikiDecreaseLvlSingleItem
-	"autocmd FileType vimwiki nmap <buffer> <Leader>wa <Plug>VimwikiTabIndex
-	"autocmd FileType vimwiki nmap <buffer> <Leader>wf <Plug>VimwikiFollowLink
-	"autocmd FileType vimwiki setlocal spell spelllang=en_us
 	" Latex
 	autocmd FileType tex setlocal spell spelllang=en_us
 	autocmd FileType tex setlocal fdm=indent
@@ -628,8 +621,16 @@ augroup Filetypes
 	"autocmd FileType xxd %!xxd
 	" Netwr
 	autocmd FileType netrw nmap <buffer> e <cr>
-
 augroup END
+
+" TODO: get this to work
+" Extra space highlight	
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
 " }}}
 
 " CUSTOM MAPPINGS {{{
@@ -1054,22 +1055,6 @@ nnoremap <C-a> za
 			"nnoremap <silent> <Leader>cl <Esc>:ClangClosePreviewDiagWindow<CR>
 	" }}}
 
-	" Plug Super-Tab{{{
-    function! MyTagContext()
-      if filereadable(expand('%:p:h') . '/tags')
-        return "\<c-x>\<c-]>"
-      endif
-      " no return will result in the evaluation of the next
-      " configured context
-    endfunction
-    let g:SuperTabCompletionContexts =
-        \ ['MyTagContext', 's:ContextText', 's:ContextDiscover']
-	let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
-	let g:SuperTabContextDiscoverDiscovery =
-				\ ["&completefunc:<c-x><c-u>", "&omnifunc:<c-x><c-o>"]
-
-	" }}}
-	
     " Plug Neocomplete{{{
 		" All new stuff 
 		let g:neocomplete#enable_cursor_hold_i=1
