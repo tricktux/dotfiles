@@ -103,6 +103,9 @@ elseif has('unix')
 		" TODO: fix all this
 		nmap x :qall<CR>
 		nmap s :w<CR>
+		nmap n :noh<CR>
+		nmap c i<Space><Esc>
+		nmap r :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
 		nnoremap <CR> o<Esc>
 	endif
 	" this one below DOES WORK in linux just make sure is ran at root folder
@@ -170,11 +173,13 @@ endif
 	Plug 'ctrlpvim/ctrlp.vim'
 	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'Tagbar'
-	" TODO: find a good snippets plugin
 	Plug 'justmao945/vim-clang'
+
 	Plug 'Shougo/neocomplete'
 	Plug 'Shougo/neosnippet'
 	Plug 'Shougo/neosnippet-snippets'
+
+	Plug 'tpope/vim-fugitive'
 	if has('unix')
 		Plug 'vivien/vim-linux-coding-style'
 	endif
@@ -965,7 +970,7 @@ nnoremap <C-S-h> <S-h>zz
 
 " Plugin 'bling/vim-airline' " Status bar line {{{
 		set laststatus=2
-		let g:airline_section_b = '%{strftime("%c")}'
+		"let g:airline_section_b = '%{strftime("%c")}'
 		let g:airline#extensions#bufferline#enabled = 1
 		let g:airline#extensions#bufferline#overwrite_variables = 1
 		" }}}
