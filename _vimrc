@@ -65,6 +65,7 @@ if has('win32')
 	nnoremap <Leader>e4 :silent e ~/Documents/1.MyDocuments/Forms/Weekly_Reports/
 	nnoremap <Leader>e5 :silent e ~/Documents/1.MyDocuments/3.Training/2.NI_Testand/
 
+	nnoremap <Leader>es1 :silent e D:/Reinaldo/OneWINGS/
 	" Windows specific plugins options {{{
 	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
 		set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
@@ -879,7 +880,7 @@ noremap <Leader>va :!svn add
 noremap <Leader>vc :call SvnCommit()<CR>
 " Commit using File for commit content
 noremap <Leader>vC :!svn commit --force-log -F commit_msg.wiki<CR>
-noremap <Leader>vd :!svn delete --keep-local 
+noremap <Leader>vdl :!svn rm --force Log\*<CR>
 " revert previous commit
 noremap <Leader>vr :!svn revert -R .<CR>
 noremap <Leader>vl :!svn cleanup .<CR>
