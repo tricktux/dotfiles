@@ -171,6 +171,7 @@ endif
 	Plug 'junegunn/rainbow_parentheses.vim'
 	Plug 'morhetz/gruvbox' " colorscheme gruvbox 
 	Plug 'ctrlpvim/ctrlp.vim'
+
 	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'Tagbar'
 	Plug 'justmao945/vim-clang'
@@ -633,6 +634,8 @@ augroup Filetypes
 	"autocmd FileType xxd %!xxd
 	" Netwr
 	autocmd FileType netrw nmap <buffer> e <cr>
+	" Airline
+	autocmd User AirlineAfterInit call OnlyBufferNameOnAirline()
 
 augroup END
 " }}}
@@ -708,8 +711,6 @@ nnoremap <A-k> ddkk""p
 noremap <A-j> dd""p
 " Close all
 noremap <A-x> :qall<CR>
-" open new to tab to explorer
-noremap <Leader><Space>n :tab split<CR>
 " Switch back and forth between header file
 nnoremap <Leader>moh :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>"
 " DIFF SUTFF {{{
@@ -780,7 +781,6 @@ cnoremap qq <Esc>
 noremap <S-q> yyp
 "TAB_STUFF {{{
 noremap <S-j> :b#<CR>
-nnoremap <A-t> gT
 noremap <Leader>bo :CtrlPBuffer<CR>
 noremap <Leader>bd :bd %<CR>
 " deletes all buffers
@@ -792,7 +792,10 @@ nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 " move tab to the right
 noremap <silent> <A-Right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
 noremap <Leader>be :enew<CR>
-noremap <S-x> :tabclose<CR>
+" open new to tab to explorer
+nnoremap <S-i> gT
+nnoremap <S-e> :tab split<CR>
+nnoremap <S-x> :tabclose<CR>
 " }}}
 
 " move to the beggning of line
@@ -803,9 +806,10 @@ noremap <S-b> ^
 nnoremap <S-t> %
 vnoremap <S-t> %
 " insert tab spaces in normal mode
-noremap <Tab> i<Tab><Esc>
+"noremap <Tab> i<Tab><Esc>
 " Automatically insert date
 nnoremap <F5> a///////////////<Esc>"=strftime("%c")<CR>Pa///////////////<Esc>
+inoremap <F5> ///////////////<Esc>"=strftime("%c")<CR>Pa///////////////
 
 " cd into current dir path and into dir above current path
 nnoremap <Leader>cd :cd %:p:h<CR>
@@ -973,6 +977,10 @@ nnoremap <C-S-h> <S-h>zz
 		"let g:airline_section_b = '%{strftime("%c")}'
 		let g:airline#extensions#bufferline#enabled = 1
 		let g:airline#extensions#bufferline#overwrite_variables = 1
+		let g:airline#extensions#branch#format = 2
+		function! OnlyBufferNameOnAirline() abort
+			let g:airline_section_c = airline#section#create(['%{pathshorten(bufname("%"))}'])
+		endfunction
 		" }}}
 
 " Plugin 'Tagbar' {{{
