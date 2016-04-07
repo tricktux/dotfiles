@@ -57,8 +57,8 @@ if has('win32')
 	" Mappings to execute programs
 	"nnoremap <Leader>ewf :!start cmd /k "WINGS.exe 3 . 4.ini" & exit<CR>
 	"nnoremap <Leader>ewf :!start cmd /k "WINGS.exe 3 . 6_LOG.ini" & exit<CR>
-	nnoremap <Leader>ewf :!start cmd /k "WINGS.exe 3 . 7_OSCOPE.ini" & exit<CR>
-	nnoremap <Leader>ewd :!start cmd /k "WINGS.exe 3 . default.ini" & exit<CR>
+	nnoremap <Leader>ewf :silent !start cmd /k "WINGS.exe 3 . 7_OSCOPE.ini" & exit<CR>
+	nnoremap <Leader>ewd :silent !start cmd /k "WINGS.exe 3 . default.ini" & exit<CR>
 	nnoremap <Leader>ewg :exe("!start cmd /k \"WINGS.exe 3 . " . input("Config file:", "", "file") . "\" & exit")<CR>
 	nnoremap <Leader>e1 :silent e ~/Documents/1.MyDocuments/2.WINGS/OneWINGS/
 	nnoremap <Leader>e2 :silent e ~/vimfiles/personal/wiki/
@@ -514,7 +514,8 @@ set noswapfile
 set sessionoptions=buffers,curdir,folds,localoptions,options
 set hidden
 " wont open a currently open buffer
-set switchbuf=useopen
+"set switchbuf=useopen
+set switchbuf=
 " see :h timeout this was done to make use of ' faster and keep the other
 " timeout the same
 set notimeout
@@ -566,22 +567,22 @@ endif
 
 " TODO: fix and make this a function currently not working
 " record undo history in this path
-if has('persistent_undo')
-	let dir= s:personal_path . 'undodir'
-	" Create undo dir if it doesnt exist
-	if !isdirectory(dir) 
-		if exists("*mkdir") 
-			call mkdir(dir, "p")
-			let &undodir= dir
-			set undofile
-			set undolevels=10000
-			set undoreload=10000
-		else
-			set noundofile
-			echo "Failed to create undodir"
-		endif
-	endif
-endif
+"if has('persistent_undo')
+	"let dir= s:personal_path . 'undodir'
+	"" Create undo dir if it doesnt exist
+	"if !isdirectory(dir) 
+		"if exists("*mkdir") 
+			"call mkdir(dir, "p")
+			"let &undodir= dir
+			"set undofile
+			"set undolevels=10000
+			"set undoreload=10000
+		"else
+			"set noundofile
+			"echo "Failed to create undodir"
+		"endif
+	"endif
+"endif
 
 set lazyredraw " Had to addit to speed up scrolling 
 set ttyfast " Had to addit to speed up scrolling 
@@ -593,10 +594,10 @@ augroup Filetypes
 	autocmd!
 	"autocmd GUIEnter * simalt ~x
 	"autocmd VimEnter * bro old
-	" Cpp
-	autocmd FileType cpp setlocal omnifunc=omni#cpp#complete#Main
-	autocmd FileType cpp setlocal cindent
-	autocmd FileType cpp setlocal foldmethod=indent
+	" C/Cpp
+	autocmd FileType c,cpp setlocal omnifunc=omni#cpp#complete#Main
+	autocmd FileType c,cpp setlocal cindent
+	autocmd FileType c,cpp setlocal foldmethod=indent
 	" All files
 	autocmd FileType * RainbowParentheses
 	autocmd FileType * setlocal textwidth=110
