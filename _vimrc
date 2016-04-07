@@ -56,7 +56,8 @@ if has('win32')
 	"nnoremap o<Esc>
 	" Mappings to execute programs
 	"nnoremap <Leader>ewf :!start cmd /k "WINGS.exe 3 . 4.ini" & exit<CR>
-	nnoremap <Leader>ewf :!start cmd /k "WINGS.exe 3 . 6_LOG.ini" & exit<CR>
+	"nnoremap <Leader>ewf :!start cmd /k "WINGS.exe 3 . 6_LOG.ini" & exit<CR>
+	nnoremap <Leader>ewf :!start cmd /k "WINGS.exe 3 . 7_OSCOPE.ini" & exit<CR>
 	nnoremap <Leader>ewd :!start cmd /k "WINGS.exe 3 . default.ini" & exit<CR>
 	nnoremap <Leader>ewg :exe("!start cmd /k \"WINGS.exe 3 . " . input("Config file:", "", "file") . "\" & exit")<CR>
 	nnoremap <Leader>e1 :silent e ~/Documents/1.MyDocuments/2.WINGS/OneWINGS/
@@ -794,7 +795,7 @@ nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 noremap <silent> <A-Right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
 noremap <Leader>be :enew<CR>
 " open new to tab to explorer
-nnoremap <S-i> gT
+nnoremap <S-m> gT
 nnoremap <S-e> :tab split<CR>
 nnoremap <S-x> :tabclose<CR>
 " }}}
