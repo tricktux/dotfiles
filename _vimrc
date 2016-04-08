@@ -108,6 +108,7 @@ elseif has('unix')
 		nmap n :noh<CR>
 		nmap c i<Space><Esc>
 		nmap r :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
+		nmap j <Esc>
 		nnoremap <CR> o<Esc>
 	endif
 	" this one below DOES WORK in linux just make sure is ran at root folder
@@ -186,6 +187,7 @@ endif
 	if has('unix')
 		Plug 'vivien/vim-linux-coding-style'
 	endif
+	Plug 'NLKNguyen/papercolor-theme'
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
@@ -778,9 +780,9 @@ nnoremap <Leader>Sw :call <SID>GlobalSearch(3)<CR>
 " }}}
 
  " Substitute for ESC  
-inoremap qq <Esc>
-vnoremap qq <Esc>
-cnoremap qq <Esc>
+inoremap ê <Esc>
+vnoremap ê <Esc>
+cnoremap ê <Esc>
 noremap <S-q> yyp
 "TAB_STUFF {{{
 noremap <S-j> :b#<CR>
@@ -984,6 +986,7 @@ nnoremap <C-S-h> <S-h>zz
 		function! OnlyBufferNameOnAirline() abort
 			let g:airline_section_c = airline#section#create(['%{pathshorten(bufname("%"))}'])
 		endfunction
+		let g:airline_theme='PaperColor'
 		" }}}
 
 " Plugin 'Tagbar' {{{
@@ -1064,8 +1067,10 @@ nnoremap <C-S-h> <S-h>zz
 		" }}}
 		
 " Plugin 'morhetz/gruvbox' " colorscheme gruvbox  {{{
-			colorscheme gruvbox
-			set background=dark    " Setting dark mode
+			"colorscheme gruvbox
+			"set background=dark    " Setting dark mode
+			set background=light
+			colorscheme PaperColor
 			" }}}
 			
 	" Plug Super-Tab{{{
