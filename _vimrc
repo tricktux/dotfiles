@@ -53,7 +53,7 @@ if has('win32')
 	\ '\=eval(submatch(0)-1)',
 	\ '')<CR>
 
-	"nnoremap o<Esc>
+	nnoremap  o<Esc>
 	" Mappings to execute programs
 	"nnoremap <Leader>ewf :!start cmd /k "WINGS.exe 3 . 4.ini" & exit<CR>
 	"nnoremap <Leader>ewf :!start cmd /k "WINGS.exe 3 . 6_LOG.ini" & exit<CR>
@@ -469,6 +469,7 @@ function! s:InsertTODO() abort
 	exe "normal i\<C-c>\<Space>TODO:\<Space>"
 endfunction
 inoremap <A-t> <ESC>:call <SID>InsertTODO()<CR>
+nnoremap <A-t> <ESC>:call <SID>InsertTODO()<CR>
 
  "}}}
 
@@ -674,7 +675,6 @@ noremap <A-c> i<Space><Esc>
 " duplicate current char
 nnoremap <Leader>mp ylp
 vnoremap <Leader>mp ylp
-nnoremap <Leader>mt iTODO:
 "noremap <Leader>mt :set relativenumber!<CR>
 noremap <Leader>md :Dox<CR>
 
@@ -683,12 +683,15 @@ noremap <Leader>md :Dox<CR>
 nnoremap <Leader>ff za
 onoremap <Leader>ff <C-C>za
 nnoremap <Leader>ff zf
-" toggle fold za
-" next fold zj
-" previous fold zk
-" close all folds zM
-" delete fold zd
-" opens all folds at cursor zO
+nnoremap <C-j> zj
+nnoremap <C-k> zk
+nnoremap <C-z> zz
+nnoremap <C-c> zM
+nnoremap <C-n> zR
+nnoremap <C-x> za
+" dont use <C-a> it conflicts with tmux prefix
+nnoremap <C-S-l> <S-l>zz
+nnoremap <C-S-h> <S-h>zz
 " }}}
 
 " move between windows
@@ -780,9 +783,9 @@ nnoremap <Leader>Sw :call <SID>GlobalSearch(3)<CR>
 " }}}
 
  " Substitute for ESC  
-inoremap ê <Esc>
-vnoremap ê <Esc>
-cnoremap ê <Esc>
+inoremap <S-space> <Esc>zz:w<CR>
+vnoremap <S-space> <Esc>zz:w<CR>
+cnoremap <S-space> <Esc>zz:w<CR>
 noremap <S-q> yyp
 "TAB_STUFF {{{
 noremap <S-j> :b#<CR>
@@ -798,7 +801,7 @@ nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 noremap <silent> <A-Right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
 noremap <Leader>be :enew<CR>
 " open new to tab to explorer
-nnoremap <S-m> gT
+nnoremap <S-Tab> gT
 nnoremap <S-e> :tab split<CR>
 nnoremap <S-x> :tabclose<CR>
 " }}}
@@ -899,17 +902,6 @@ nnoremap <Leader>gP :!git add .<CR>
 			\:!git commit -F commit_msg.wiki<CR>
 			\:!git push CppTut master<CR>
 " }}}
-
-" Fold movement
-nnoremap <C-j> zj
-nnoremap <C-k> zk
-nnoremap <C-z> zz
-nnoremap <C-m> zM
-nnoremap <C-n> zR
-nnoremap <C-x> za
-" dont use <C-a> it conflicts with tmux prefix
-nnoremap <C-S-l> <S-l>zz
-nnoremap <C-S-h> <S-h>zz
 " }}}
 
 " PLUGIN_OPTIONS {{{
@@ -986,6 +978,7 @@ nnoremap <C-S-h> <S-h>zz
 		function! OnlyBufferNameOnAirline() abort
 			let g:airline_section_c = airline#section#create(['%{pathshorten(bufname("%"))}'])
 		endfunction
+		let g:airline#extensions#whitespace#checks = ['trailing']
 		let g:airline_theme='PaperColor'
 		" }}}
 
