@@ -55,10 +55,13 @@ if has('win32')
 
 	nnoremap  o<Esc>
 	" Mappings to execute programs
-	"nnoremap <Leader>ewf :!start cmd /k "WINGS.exe 3 . 4.ini" & exit<CR>
-	"nnoremap <Leader>ewf :!start cmd /k "WINGS.exe 3 . 6_LOG.ini" & exit<CR>
-	nnoremap <Leader>ewf :silent !start cmd /k "WINGS.exe 3 . 7_OSCOPE.ini" & exit<CR>
+	" Do not make a ew1 mapping. reserved for when issues get to #11, 12, etc
+	" TODO: Select file to load from
+	nnoremap <Leader>ew4 :!start cmd /k "WINGS.exe 3 . 4.ini" & exit<CR>
+	nnoremap <Leader>ew6 :!start cmd /k "WINGS.exe 3 . 6_LOG.ini" & exit<CR>
+	nnoremap <Leader>ew7 :silent !start cmd /k "WINGS.exe 3 . 7_OSCOPE.ini & exit<CR>
 	nnoremap <Leader>ewd :silent !start cmd /k "WINGS.exe 3 . default.ini" & exit<CR>
+	nnoremap <Leader>ewc :silent !start cmd /k "WINGS.exe 3 . % & exit<CR>
 	nnoremap <Leader>ewg :exe("!start cmd /k \"WINGS.exe 3 . " . input("Config file:", "", "file") . "\" & exit")<CR>
 	nnoremap <Leader>e1 :silent e ~/Documents/1.MyDocuments/2.WINGS/OneWINGS/
 	nnoremap <Leader>e2 :silent e ~/vimfiles/personal/wiki/
@@ -884,7 +887,7 @@ noremap <Leader>vA :!svn add * --force<CR>
 " Add specific files
 noremap <Leader>va :!svn add 
 " Commit using typed message
-noremap <Leader>vc :call SvnCommit()<CR>
+noremap <Leader>vc :call <SID>SvnCommit()<CR>
 " Commit using File for commit content
 noremap <Leader>vC :!svn commit --force-log -F commit_msg.wiki<CR>
 noremap <Leader>vdl :!svn rm --force Log\*<CR>
