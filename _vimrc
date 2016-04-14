@@ -888,8 +888,10 @@ noremap <Leader>vc :call SvnCommit()<CR>
 " Commit using File for commit content
 noremap <Leader>vC :!svn commit --force-log -F commit_msg.wiki<CR>
 noremap <Leader>vdl :!svn rm --force Log\*<CR>
+noremap <Leader>vda :!svn rm --force 
 " revert previous commit
-noremap <Leader>vr :!svn revert -R .<CR>
+" dangerous key TODO: warn before
+"noremap <Leader>vr :!svn revert -R .<CR>
 noremap <Leader>vl :!svn cleanup .<CR>
 " use this command line to delete unrevisioned or "?" svn files
 "noremap <Leader>vL :!for /f "tokens=2*" %i in ('svn status ^| find "?"') do del %i<CR>
@@ -1156,5 +1158,9 @@ nnoremap <Leader>gP :!git add .<CR>
 		\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 		" Tell Neosnippet about the other snippets
 		let g:neosnippet#snippets_directory= s:plugged_path . '/vim-snippets/snippets'
+	" }}}
+	" Plug Vim-R-plugin {{{
+	"C:\Program Files\R\R-3.2.3\bin\i386
+		let vimrplugin_r_path = 'C:\\Program Files\\R\\R-3.2.3\\bin\\i386'
 	" }}}
 	" }}}

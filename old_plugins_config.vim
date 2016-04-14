@@ -191,6 +191,7 @@
 	" with your path to where you downloaded vimcom
 	" install.packages("<location>", type = "source", repos = NULL)
 	" put this in your InstallationRdir/etc/Rprofile.site
+	" example C:\Program Files\R\etc\Rprofile.site
 	"options(vimcom.verbose = 1)
 	"library(vimcom)
 	" }}}
