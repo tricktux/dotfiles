@@ -698,10 +698,10 @@ nnoremap <C-S-h> <S-h>zz
 " }}}
 
 " move between windows
-noremap <Leader>h <C-w>h
-noremap <Leader>j <C-w>j
-noremap <Leader>k <C-w>k
-noremap <Leader>l <C-w>l
+noremap <Leader-h> <C-w>h
+noremap <Leader-j> <C-w>j
+noremap <Leader-k> <C-w>k
+noremap <Leader-l> <C-w>l
 " move windows positions
 noremap <Leader>H <C-w>H
 noremap <Leader>J <C-w>J
