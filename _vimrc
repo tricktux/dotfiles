@@ -697,21 +697,23 @@ nnoremap <C-S-l> <S-l>zz
 nnoremap <C-S-h> <S-h>zz
 " }}}
 
+" Window movement {{{
 " move between windows
-noremap <Leader-h> <C-w>h
-noremap <Leader-j> <C-w>j
-noremap <Leader-k> <C-w>k
-noremap <Leader-l> <C-w>l
+nnoremap <Leader>h <C-w>h
+nnoremap <Leader>j <C-w>j
+nnoremap <Leader>k <C-w>k
+nnoremap <Leader>l <C-w>l
 " move windows positions
-noremap <Leader>H <C-w>H
-noremap <Leader>J <C-w>J
-noremap <Leader>K <C-w>K
-noremap <Leader>L <C-w>L
+nnoremap <Leader>H <C-w>H
+nnoremap <Leader>J <C-w>J
+nnoremap <Leader>K <C-w>K
+nnoremap <Leader>L <C-w>L
 " expand windows positions
-noremap <Leader>. <C-w>>
-noremap <Leader>, <C-w><
-noremap <Leader>- <C-w>-
-noremap <Leader>= <C-w>+
+nnoremap <Leader>. <C-w>>
+nnoremap <Leader>, <C-w><
+nnoremap <Leader>- <C-w>-
+nnoremap <Leader>= <C-w>+
+" }}}
 
 " not paste the deleted word
 nnoremap <Leader>p "0p
