@@ -55,10 +55,13 @@ if has('win32')
 
 	nnoremap  o<Esc>
 	" Mappings to execute programs
-	"nnoremap <Leader>ewf :!start cmd /k "WINGS.exe 3 . 4.ini" & exit<CR>
-	"nnoremap <Leader>ewf :!start cmd /k "WINGS.exe 3 . 6_LOG.ini" & exit<CR>
-	nnoremap <Leader>ewf :silent !start cmd /k "WINGS.exe 3 . 7_OSCOPE.ini" & exit<CR>
+	" Do not make a ew1 mapping. reserved for when issues get to #11, 12, etc
+	" TODO: Select file to load from
+	nnoremap <Leader>ew4 :!start cmd /k "WINGS.exe 3 . 4.ini" & exit<CR>
+	nnoremap <Leader>ew6 :!start cmd /k "WINGS.exe 3 . 6_LOG.ini" & exit<CR>
+	nnoremap <Leader>ew7 :silent !start cmd /k "WINGS.exe 3 . 7_OSCOPE.ini & exit<CR>
 	nnoremap <Leader>ewd :silent !start cmd /k "WINGS.exe 3 . default.ini" & exit<CR>
+	nnoremap <Leader>ewc :silent !start cmd /k "WINGS.exe 3 . % & exit<CR>
 	nnoremap <Leader>ewg :exe("!start cmd /k \"WINGS.exe 3 . " . input("Config file:", "", "file") . "\" & exit")<CR>
 	nnoremap <Leader>e1 :silent e ~/Documents/1.MyDocuments/2.WINGS/OneWINGS/
 	nnoremap <Leader>e2 :silent e ~/vimfiles/personal/wiki/
@@ -695,10 +698,10 @@ nnoremap <C-S-h> <S-h>zz
 " }}}
 
 " move between windows
-noremap <Leader>h <C-w>h
-noremap <Leader>j <C-w>j
-noremap <Leader>k <C-w>k
-noremap <Leader>l <C-w>l
+noremap <Leader-h> <C-w>h
+noremap <Leader-j> <C-w>j
+noremap <Leader-k> <C-w>k
+noremap <Leader-l> <C-w>l
 " move windows positions
 noremap <Leader>H <C-w>H
 noremap <Leader>J <C-w>J
