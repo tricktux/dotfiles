@@ -330,4 +330,4 @@ function! InsertStrncpy() abort
 	endif
 endfunction
 
-call InsertStrncpy()
+"call InsertStrncpy()

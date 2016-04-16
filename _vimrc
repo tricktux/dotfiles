@@ -1,4 +1,4 @@
-" Req to always be here
+" Rqeq to always be here
 set nocompatible
 " moved here otherwise conditional mappings get / instead ; as leader 
 let mapleader="\<Space>"
@@ -56,13 +56,12 @@ if has('win32')
 	nnoremap  o<Esc>
 	" Mappings to execute programs
 	" Do not make a ew1 mapping. reserved for when issues get to #11, 12, etc
-	" TODO: Select file to load from
-	nnoremap <Leader>ew4 :!start cmd /k "WINGS.exe 3 . 4.ini" & exit<CR>
-	nnoremap <Leader>ew6 :!start cmd /k "WINGS.exe 3 . 6_LOG.ini" & exit<CR>
-	nnoremap <Leader>ew7 :silent !start cmd /k "WINGS.exe 3 . 7_OSCOPE.ini & exit<CR>
+	"nnoremap <Leader>ew4 :!start cmd /k "WINGS.exe 3 . 4.ini" & exit<CR>
+	"nnoremap <Leader>ew6 :!start cmd /k "WINGS.exe 3 . 6_LOG.ini" & exit<CR>
+	"nnoremap <Leader>ew7 :silent !start cmd /k "WINGS.exe 3 . 7_OSCOPE.ini & exit<CR>
 	nnoremap <Leader>ewd :silent !start cmd /k "WINGS.exe 3 . default.ini" & exit<CR>
 	nnoremap <Leader>ewc :silent !start cmd /k "WINGS.exe 3 . % & exit<CR>
-	nnoremap <Leader>ewg :exe("!start cmd /k \"WINGS.exe 3 . " . input("Config file:", "", "file") . "\" & exit")<CR>
+	nnoremap <Leader>ews :exe("!start cmd /k \"WINGS.exe 3 . " . input("Config file:", "", "file") . "\" & exit")<CR>
 	nnoremap <Leader>e1 :silent e ~/Documents/1.MyDocuments/2.WINGS/OneWINGS/
 	nnoremap <Leader>e2 :silent e ~/vimfiles/personal/wiki/
 	nnoremap <Leader>e3 :silent e ~/Desktop/daily\ check/
@@ -97,6 +96,13 @@ elseif has('unix')
 	" to fix vimrc ff stuff do:
 	" :w ++ff=unix
 	" :e
+	function! s:LinuxVIMRCFix() abort
+		:w ++ff=unix
+		:e
+		:so %
+	endfunction
+	nnoremap <Leader>lf <SID>LinuxVIMRCFix()<CR>
+
 	set ffs=unix,dos
 	set ff=unix
 	" making C-v paste stuff from system register
@@ -125,6 +131,8 @@ elseif has('unix')
 	noremap <Leader>mr :!./%<CR>
 	noremap <Leader><Space>v "+p
 	noremap <Leader><Space>y "+yy
+
+	nnoremap <Leader>e1 :silent e ~/Documents/
 
 	nnoremap <Leader><Space>= :silent! let &guifont = substitute(
 	\ &guifont,
