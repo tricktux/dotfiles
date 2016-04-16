@@ -884,7 +884,7 @@ noremap <Leader>vA :!svn add * --force<CR>
 " Add specific files
 noremap <Leader>va :!svn add 
 " Commit using typed message
-noremap <Leader>vc :call SvnCommit()<CR>
+noremap <Leader>vc :call <SID>SvnCommit()<CR>
 " Commit using File for commit content
 noremap <Leader>vC :!svn commit --force-log -F commit_msg.wiki<CR>
 noremap <Leader>vdl :!svn rm --force Log\*<CR>
@@ -994,7 +994,7 @@ nnoremap <Leader>gP :!git add .<CR>
 		noremap <Leader>tr <C-t>
 		noremap <Leader>tn :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 		" ReLoad cscope database
-		noremap <Leader>tl :cs add $CSCOPE_DB<CR>
+		noremap <Leader>tl :cs add cscope.out<CR>
 		" Find functions calling this function
 		noremap <Leader>tc :cs find c <C-R>=expand("<cword>")<CR><CR>
 		" Find functions definition
