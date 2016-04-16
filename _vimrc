@@ -101,7 +101,7 @@ elseif has('unix')
 		:e
 		:so %
 	endfunction
-	nnoremap <Leader>lf <SID>LinuxVIMRCFix()<CR>
+	nnoremap <Leader>fl <SID>LinuxVIMRCFix()<CR>
 
 	set ffs=unix,dos
 	set ff=unix
@@ -155,7 +155,7 @@ elseif has('unix')
 	" YCM
 	let g:ycm_global_ycm_extra_conf = '.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 	" vim-clang
-		let g:clang_cpp_options = '-std=c++14 -Weveything'
+		let g:clang_cpp_options = '-std=c++14 -Weverything'
 		let g:clang_include_sysheaders_from_gcc = 1
 		let g:clang_exec = 'clang-3.8'
 		let g:clang_check_syntax_auto = 1
@@ -795,10 +795,11 @@ nnoremap <Leader>Sw :call <SID>GlobalSearch(3)<CR>
 " Normal backspace functionalit y
 " }}}
 
- " Substitute for ESC  
-inoremap <S-space> <Esc>zz:w<CR>
-vnoremap <S-space> <Esc>zz:w<CR>
-cnoremap <S-space> <Esc>zz:w<CR>
+ " Substitute for ESC
+ " Not remapping esc anymore. going to get used to <c-[> its default doesnt require mapping
+"inoremap <S-space> <Esc>zz:w<CR>
+"vnoremap <S-space> <Esc>zz:w<CR>
+"cnoremap <S-space> <Esc>zz:w<CR>
 noremap <S-q> yyp
 "TAB_STUFF {{{
 noremap <S-j> :b#<CR>
