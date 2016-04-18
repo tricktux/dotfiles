@@ -20,16 +20,16 @@
 	fetch = +refs/heads/*:refs/remotes/origin/*
 
 [credential]
-	helper = wincred
-	#helper = cache --timeout 30000
+	;helper = wincred
+	helper = cache --timeout 30000
 	#helper = store --file /mnt/thumbdrive/.git-credentials
-[diff]  
-    tool = gvim
-[difftool "gvim"]  
-    cmd = "C:/Users/h129522/Downloads/vim/vim7.4.1089_x64/vim74/gvim.exe -d \"$LOCAL\" \"$REMOTE\""
-	prompt = false
-[merge]  
-    tool = gvim
-[mergetool "gvim"]  
-    cmd = "C:/Users/h129522/Downloads/vim/vim7.4.1089_x64/vim74/gvim.exe -d \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\""
-	prompt = false
+;[diff]  
+    ;tool = gvim
+;[difftool "gvim"]  
+    ;cmd = "C:/Users/h129522/Downloads/vim/vim7.4.1089_x64/vim74/gvim.exe -d \"$LOCAL\" \"$REMOTE\""
+	;prompt = false
+;[merge]  
+    ;tool = gvim
+;[mergetool "gvim"]  
+    ;cmd = "C:/Users/h129522/Downloads/vim/vim7.4.1089_x64/vim74/gvim.exe -d \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\""
+	;prompt = false
