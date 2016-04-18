@@ -1,7 +1,7 @@
 #sudo apt-get purge vim-gtk vim-runtime vim gvim
 #sudo apt-get build-dep vim-gtk
 cd
-sudo rm -f -r vim
+sudo rm -rf vim
 git clone https://github.com/vim/vim.git
 cd vim
 ./configure --with-features=huge \
