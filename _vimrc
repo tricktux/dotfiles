@@ -907,6 +907,7 @@ noremap <Leader>vu :!svn update .<CR>
 noremap <Leader>vo :!svn log .<CR>
 noremap <Leader>vi :!svn info<CR>
 noremap <Leader>gp :call <SID>GitCommit()<CR>
+noremap <Leader>gu :!git pull origin master<CR>
 nnoremap <Leader>gP :!git add .<CR>
 			\:!git commit -F commit_msg.wiki<CR>
 			\:!git push CppTut master<CR>
