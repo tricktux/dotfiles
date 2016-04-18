@@ -11,13 +11,13 @@
 	editor = vim
 	excludesfile = /home/reinaldo/.gitignore_global
 
-[remote "CppTut"]
-	url = https://github.com/rmolin88/CppTut.git
-	fetch = +refs/heads/*:refs/remotes/origin/*
+;[remote "CppTut"]
+	;url = https://github.com/rmolin88/CppTut.git
+	;fetch = +refs/heads/*:refs/remotes/origin/*
 
-[remote "vimrc"]
-	url = https://github.com/rmolin88/vimrc.git
-	fetch = +refs/heads/*:refs/remotes/origin/*
+;[remote "vimrc"]
+	;url = https://github.com/rmolin88/vimrc.git
+	;fetch = +refs/heads/*:refs/remotes/origin/*
 
 [credential]
 	;helper = wincred

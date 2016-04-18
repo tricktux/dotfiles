@@ -23,9 +23,6 @@ if has('win32')
 		set t_ut=
 	endif
 
-	" consistent in all systems
-	noremap <Leader>mq <C-q>
-
 	" for this to work you must be in the root directory of your code
 	" 1. kill cscope database connection
 	" 2. delete previous cscope files
@@ -92,10 +89,7 @@ elseif has('unix')
 	let s:plugged_path=  $HOME . '/.vim/plugged/'
 	"let s:custom_font = 'Monospace 8'
 	let s:custom_font = 'Andale Mono 8'
-	" TODO: fix this here unacceptable
-	" to fix vimrc ff stuff do:
-	" :w ++ff=unix
-	" :e
+
 	function! s:LinuxVIMRCFix() abort
 		:w ++ff=unix
 		:e
@@ -111,8 +105,7 @@ elseif has('unix')
 		set t_Co=256
 		" fixes colorscheme not filling entire backgroud
 		set t_ut=
-		" TODO: fix all this
-		nmap j <Esc>zz:w<CR>
+		"nmap j <Esc>
 		nnoremap <CR> o<Esc>
 	endif
 	" this one below DOES WORK in linux just make sure is ran at root folder
@@ -155,7 +148,8 @@ elseif has('unix')
 		"let g:clang_exec = 'clang-3.8'
 		let g:clang_exec = 'clang'
 		let g:clang_check_syntax_auto = 1
-		let g:clang_auto = 1
+		" enable or disable here depending on if neocomplete is present
+		let g:clang_auto = 0
 		let g:clang_diagsopt = ''
 
 
@@ -185,7 +179,7 @@ endif
 	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'Tagbar'
 	Plug 'justmao945/vim-clang'
-	Plug 'scroolose/syntastic'
+	Plug 'scrooloose/syntastic'
 
 	Plug 'Shougo/neocomplete'
 	Plug 'Shougo/neosnippet'
@@ -476,7 +470,6 @@ nnoremap <Leader>cy :call <SID>InsertStrncpy()<CR>
 function! s:InsertTODO() abort
 	exe "normal i\<C-c>\<Space>TODO:\<Space>"
 endfunction
-inoremap <Leader>mt <ESC>:call <SID>InsertTODO()<CR>
 nnoremap <Leader>mt <ESC>:call <SID>InsertTODO()<CR>
 
  "}}}
@@ -529,10 +522,10 @@ set hidden
 set switchbuf=
 " see :h timeout this was done to make use of ' faster and keep the other
 " timeout the same
-set notimeout
-set nottimeout
-set timeoutlen=300
-set ttimeoutlen=1000
+"set notimeout
+"set nottimeout
+set timeoutlen=1000
+set ttimeoutlen=0
 set nowrap        " wrap lines
 set nowrapscan        " do not wrap search at EOF
 " will look in current directory for tags
@@ -597,6 +590,7 @@ endif
 
 set lazyredraw " Had to addit to speed up scrolling 
 set ttyfast " Had to addit to speed up scrolling 
+set noesckeys "no mappings that start with <esc>
 
 " }}}
 
@@ -800,9 +794,9 @@ nnoremap <Leader>Sw :call <SID>GlobalSearch(3)<CR>
 
  " Substitute for ESC
  " Not remapping esc anymore. going to get used to <c-[> its default doesnt require mapping
-inoremap <A-j> <Esc>zz:w<CR>
-vnoremap <A-j> <Esc>zz:w<CR>
-cnoremap <A-j> <Esc>zz:w<CR>
+"inoremap <A-j> <Esc>zz:w<CR>
+"vnoremap <A-j> <Esc>zz:w<CR>
+"cnoremap <A-j> <Esc>zz:w<CR>
 noremap <S-q> yyp
 "TAB_STUFF {{{
 noremap <S-j> :b#<CR>
@@ -1167,6 +1161,7 @@ nnoremap <Leader>gP :!git add .<CR>
 		" Tell Neosnippet about the other snippets
 		let g:neosnippet#snippets_directory= s:plugged_path . '/vim-snippets/snippets'
 	" }}}
+	"
 	" Plug Vim-R-plugin {{{
 	"C:\Program Files\R\R-3.2.3\bin\i386
 		let vimrplugin_r_path = 'C:\\Program Files\\R\\R-3.2.3\\bin\\i386'
