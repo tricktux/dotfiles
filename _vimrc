@@ -481,8 +481,8 @@ nnoremap <Leader>cy :call <SID>InsertStrncpy()<CR>
 function! s:InsertTODO() abort
 	exe "normal i\<C-c>\<Space>TODO:\<Space>"
 endfunction
-inoremap <> <ESC>:call <SID>InsertTODO()<CR>
-nnoremap <A-t> <ESC>:call <SID>InsertTODO()<CR>
+inoremap <Leader>mt <ESC>:call <SID>InsertTODO()<CR>
+nnoremap <Leader>mt <ESC>:call <SID>InsertTODO()<CR>
 
  "}}}
 
@@ -681,9 +681,25 @@ noremap <Leader>mv :e $MYVIMRC<CR>
 noremap <Leader>ms :so %<CR>
 "noremap <Leader>ms :so %<CR>:AirlineRefresh<CR>
  " used to save in command line something
-nnoremap <A-s> :w<CR>
-noremap <A-n> :noh<CR>
-noremap <A-c> i<Space><Esc>
+nnoremap <Leader>1 :w<CR>
+nnoremap <Leader>2 :noh<CR>
+nnoremap <Leader>3 i<Space><Esc>
+" move current line up
+nnoremap <C-S-k> ddkk""p
+" move current line down
+noremap <C-S-j> dd""p
+" Close all
+noremap <C-S-x> :qall<CR>
+" These are only for command line
+" insert in the middle of whole word search
+cnoremap <Leader>w \<\><Left><Left>
+" insert visual selection search
+cnoremap <Leader>c <c-r>=expand("<cword>")<cr>
+cnoremap <Leader>s %s/
+" refactor
+nnoremap <Leader>r :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
+vnoremap <Leader>r :%s///gc<Left><Left><Left>
+cnoremap <A-p> <c-r>0
 "noremap <Leader>mn :noh<CR>
 " duplicate current char
 nnoremap <Leader>mp ylp
@@ -728,12 +744,6 @@ nnoremap <Leader>= <C-w>+
 " not paste the deleted word
 nnoremap <Leader>p "0p
 vnoremap <Leader>p "0p
-" move current line up
-nnoremap <A-k> ddkk""p
-" move current line down
-noremap <A-j> dd""p
-" Close all
-noremap <A-x> :qall<CR>
 " Switch back and forth between header file
 nnoremap <Leader>moh :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>"
 " DIFF SUTFF {{{
@@ -848,12 +858,6 @@ nnoremap <Leader>ch :cd ~<CR>
 "SEARCH_REPLACE {{{
 noremap <Leader>w /\<<c-r>=expand("<cword>")<cr>\>
 noremap <Leader>W :%s/\<<c-r>=expand("<cword>")<cr>\>/
-" These are only for command line
-" insert in the middle of whole word search
-cnoremap <A-w> \<\><Left><Left>
-" insert visual selection search
-cnoremap <A-c> <c-r>=expand("<cword>")<cr>
-cnoremap <A-s> %s/
 " This is a very good to show and search all current but a much better is 
 "nnoremap gr :vimgrep <cword> %:p:h/*<CR>
 			"\:copen 20<CR>
@@ -868,9 +872,6 @@ nnoremap P P=`]<C-o>
 " Visual shifting (does not exit Visual mode)
 vnoremap < <gv
 vnoremap > >gv
-" refactor
-nnoremap <A-r> :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
-vnoremap <A-r> :%s///gc<Left><Left><Left>
 
 nnoremap <Down> :cn<CR>
 nnoremap <Up> :cp<CR>
@@ -885,7 +886,6 @@ nnoremap <Left> :cpf<CR>
 				"\:set ft=<CR>
 
 " see :h <c-r>
-cnoremap <A-p> <c-r>0
 nnoremap <Leader>nl :bro old<CR>
 
 " MAKE {{{
