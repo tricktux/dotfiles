@@ -1,4 +1,4 @@
-" Rqeq to always be here
+" Req to always be here
 set nocompatible
 " moved here otherwise conditional mappings get / instead ; as leader 
 let mapleader="\<Space>"
@@ -112,12 +112,7 @@ elseif has('unix')
 		" fixes colorscheme not filling entire backgroud
 		set t_ut=
 		" TODO: fix all this
-		nmap x :qall<CR>
-		nmap s :w<CR>
-		nmap n :noh<CR>
-		nmap c i<Space><Esc>
-		nmap r :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
-		nmap j <Esc>
+		nmap j <Esc>zz:w<CR>
 		nnoremap <CR> o<Esc>
 	endif
 	" this one below DOES WORK in linux just make sure is ran at root folder
@@ -681,25 +676,23 @@ noremap <Leader>mv :e $MYVIMRC<CR>
 noremap <Leader>ms :so %<CR>
 "noremap <Leader>ms :so %<CR>:AirlineRefresh<CR>
  " used to save in command line something
-nnoremap <Leader>1 :w<CR>
-nnoremap <Leader>2 :noh<CR>
-nnoremap <Leader>3 i<Space><Esc>
+nnoremap <C-s> :w<CR>
+nnoremap <C-h> :noh<CR>
+nnoremap <C-Space> i<Space><Esc>
 " move current line up
-nnoremap <C-S-k> ddkk""p
+nnoremap <Leader>K ddkk""p
 " move current line down
-noremap <C-S-j> dd""p
-" Close all
-noremap <C-S-x> :qall<CR>
+noremap <Leader>J dd""p
 " These are only for command line
 " insert in the middle of whole word search
-cnoremap <Leader>w \<\><Left><Left>
+cnoremap <C-w> \<\><Left><Left>
 " insert visual selection search
-cnoremap <Leader>c <c-r>=expand("<cword>")<cr>
-cnoremap <Leader>s %s/
+cnoremap <C-u> <c-r>=expand("<cword>")<cr>
+cnoremap <C-s> %s/
 " refactor
 nnoremap <Leader>r :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
 vnoremap <Leader>r :%s///gc<Left><Left><Left>
-cnoremap <A-p> <c-r>0
+cnoremap <C-p> <c-r>0
 "noremap <Leader>mn :noh<CR>
 " duplicate current char
 nnoremap <Leader>mp ylp
@@ -719,8 +712,6 @@ nnoremap <C-c> zM
 nnoremap <C-n> zR
 nnoremap <C-x> za
 " dont use <C-a> it conflicts with tmux prefix
-nnoremap <C-S-l> <S-l>zz
-nnoremap <C-S-h> <S-h>zz
 " }}}
 
 " Window movement {{{
@@ -730,15 +721,15 @@ nnoremap <Leader>j <C-w>j
 nnoremap <Leader>k <C-w>k
 nnoremap <Leader>l <C-w>l
 " move windows positions
-nnoremap <Leader>H <C-w>H
-nnoremap <Leader>J <C-w>J
-nnoremap <Leader>K <C-w>K
-nnoremap <Leader>L <C-w>L
-" expand windows positions
-nnoremap <Leader>. <C-w>>
-nnoremap <Leader>, <C-w><
-nnoremap <Leader>- <C-w>-
-nnoremap <Leader>= <C-w>+
+"nnoremap <Leader>H <C-w>H
+"nnoremap <Leader>J <C-w>J
+"nnoremap <Leader>K <C-w>K
+"nnoremap <Leader>L <C-w>L
+"" expand windows positions
+"nnoremap <Leader>. <C-w>>
+"nnoremap <Leader>, <C-w><
+"nnoremap <Leader>- <C-w>-
+"nnoremap <Leader>= <C-w>+
 " }}}
 
 " not paste the deleted word
@@ -809,9 +800,9 @@ nnoremap <Leader>Sw :call <SID>GlobalSearch(3)<CR>
 
  " Substitute for ESC
  " Not remapping esc anymore. going to get used to <c-[> its default doesnt require mapping
-"inoremap <S-space> <Esc>zz:w<CR>
-"vnoremap <S-space> <Esc>zz:w<CR>
-"cnoremap <S-space> <Esc>zz:w<CR>
+inoremap <A-j> <Esc>zz:w<CR>
+vnoremap <A-j> <Esc>zz:w<CR>
+cnoremap <A-j> <Esc>zz:w<CR>
 noremap <S-q> yyp
 "TAB_STUFF {{{
 noremap <S-j> :b#<CR>
