@@ -794,9 +794,9 @@ nnoremap <Leader>Sw :call <SID>GlobalSearch(3)<CR>
 
  " Substitute for ESC
  " Not remapping esc anymore. going to get used to <c-[> its default doesnt require mapping
-"inoremap <A-j> <Esc>zz:w<CR>
-"vnoremap <A-j> <Esc>zz:w<CR>
-"cnoremap <A-j> <Esc>zz:w<CR>
+inoremap <C-j> <Esc>
+vnoremap <C-j> <Esc>
+cnoremap <C-j> <Esc>
 noremap <S-q> yyp
 "TAB_STUFF {{{
 noremap <S-j> :b#<CR>
