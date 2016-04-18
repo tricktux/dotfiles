@@ -151,16 +151,17 @@ elseif has('unix')
 		let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
 	" Syntastic
-		let g:syntastic_cpp_compiler_options = ' -std=c++14' 
+		let g:syntastic_cpp_compiler_options = ' -std=c++1y' 
 	" YCM
 	let g:ycm_global_ycm_extra_conf = '.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 	" vim-clang
-		let g:clang_cpp_options = '-std=c++14 -Weverything'
+		let g:clang_cpp_options = '-std=c++1y'
 		let g:clang_include_sysheaders_from_gcc = 1
-		let g:clang_exec = 'clang-3.8'
+		"let g:clang_exec = 'clang-3.8'
+		let g:clang_exec = 'clang'
 		let g:clang_check_syntax_auto = 1
 		let g:clang_auto = 1
-		"let g:clang_diagsopt = ''
+		let g:clang_diagsopt = ''
 
 
 endif
@@ -189,15 +190,16 @@ endif
 	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'Tagbar'
 	Plug 'justmao945/vim-clang'
+	Plug 'scroolose/syntastic'
 
 	Plug 'Shougo/neocomplete'
 	Plug 'Shougo/neosnippet'
 	Plug 'Shougo/neosnippet-snippets'
 
 	Plug 'tpope/vim-fugitive'
-	if has('unix')
-		Plug 'vivien/vim-linux-coding-style'
-	endif
+	"if has('unix')
+		"Plug 'vivien/vim-linux-coding-style'
+	"endif
 	Plug 'NLKNguyen/papercolor-theme'
 
 	" All of your Plugins must be added before the following line
@@ -479,7 +481,7 @@ nnoremap <Leader>cy :call <SID>InsertStrncpy()<CR>
 function! s:InsertTODO() abort
 	exe "normal i\<C-c>\<Space>TODO:\<Space>"
 endfunction
-inoremap <A-t> <ESC>:call <SID>InsertTODO()<CR>
+inoremap <> <ESC>:call <SID>InsertTODO()<CR>
 nnoremap <A-t> <ESC>:call <SID>InsertTODO()<CR>
 
  "}}}
@@ -949,7 +951,7 @@ nnoremap <Leader>gP :!git add .<CR>
 			"\ 'grondle': { 'left': '{{', 'right': '}}' }
 		"\ }
 		nmap - <plug>NERDCommenterToggle
-		nmap <Leader>ct <plug>NERDCommenterToggle
+		"nmap <Leader>ct <plug>NERDCommenterToggle
 		vmap - <plug>NERDCommenterToggle
 		imap <C-c> <plug>NERDCommenterInsert
 		nmap <Leader>ca <plug>NERDCommenterAppend
