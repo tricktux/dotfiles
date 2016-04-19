@@ -1020,14 +1020,14 @@ nnoremap <Leader>gP :!git add .<CR>
 		" }}}
 
 " Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh {{{
-		noremap <Leader>ao :CtrlP<CR>
-		noremap <S-k> :CtrlPBuffer<CR>
-		noremap <A-v> :vs<CR>:CtrlPBuffer<CR>
-		noremap <A-o> :CtrlPMixed<CR>
-		noremap <Leader>at :tabnew<CR>:CtrlPMRU<CR>
-		noremap <Leader>av :vs<CR>:CtrlPMRU<CR>
-		noremap <Leader>as :sp<CR>:CtrlPMRU<CR>
-		noremap <Leader>al :CtrlPClearCache<CR>
+		nnoremap <Leader>aO :CtrlP<CR>
+		nnoremap <S-k> :CtrlPBuffer<CR>
+		nnoremap <C-v> :vs<CR>:CtrlPBuffer<CR>
+		nnoremap <Leader>ao :CtrlPMixed<CR>
+		nnoremap <Leader>at :tabnew<CR>:CtrlPMRU<CR>
+		nnoremap <Leader>av :vs<CR>:CtrlPMRU<CR>
+		nnoremap <Leader>as :sp<CR>:CtrlPMRU<CR>
+		nnoremap <Leader>al :CtrlPClearCache<CR>
 		let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
 		let g:ctrlp_cache_dir = s:personal_path . 'ctrlp'
 		let g:ctrlp_working_path_mode = 'c'
