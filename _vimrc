@@ -887,7 +887,7 @@ noremap <Leader>va :!svn add
 " Commit using typed message
 noremap <Leader>vc :call <SID>SvnCommit()<CR>
 " Commit using File for commit content
-noremap <Leader>vC :!svn commit --force-log -F commit_msg.wiki<CR>
+noremap <Leader>vC :!svn commit -F %<CR>
 noremap <Leader>vdl :!svn rm --force Log\*<CR>
 noremap <Leader>vda :!svn rm --force 
 " revert previous commit
