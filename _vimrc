@@ -53,12 +53,11 @@ if has('win32')
 	nnoremap  o<Esc>
 	" Mappings to execute programs
 	" Do not make a ew1 mapping. reserved for when issues get to #11, 12, etc
-	"nnoremap <Leader>ew4 :!start cmd /k "WINGS.exe 3 . 4.ini" & exit<CR>
-	"nnoremap <Leader>ew6 :!start cmd /k "WINGS.exe 3 . 6_LOG.ini" & exit<CR>
-	"nnoremap <Leader>ew7 :silent !start cmd /k "WINGS.exe 3 . 7_OSCOPE.ini & exit<CR>
 	nnoremap <Leader>ewd :silent !start cmd /k "WINGS.exe 3 . default.ini" & exit<CR>
-	nnoremap <Leader>ewc :silent !start cmd /k "WINGS.exe 3 . % & exit<CR>
+	nnoremap <Leader>ewc :silent !start cmd /k "WINGS.exe 3 . %" & exit<CR>
 	nnoremap <Leader>ews :exe("!start cmd /k \"WINGS.exe 3 . " . input("Config file:", "", "file") . "\" & exit")<CR>
+	nnoremap <Leader>ewl :silent !del default.ini<CR>
+						\:!mklink default.ini 
 	nnoremap <Leader>e1 :silent e ~/Documents/1.MyDocuments/2.WINGS/OneWINGS/
 	nnoremap <Leader>e2 :silent e ~/vimfiles/personal/wiki/
 	nnoremap <Leader>e3 :silent e ~/Desktop/daily\ check/
@@ -881,6 +880,7 @@ nnoremap <Leader>mc :make clean<CR>
 " VERSION_CONTROL {{{
 " For all this commands you should be in the svn root folder
 " Add all files
+<<<<<<< HEAD
 noremap <Leader>vA :!svn add * --force<CR>
 " Add specific files
 noremap <Leader>va :!svn add 
@@ -902,6 +902,29 @@ noremap <Leader>vo :!svn log .<CR>
 noremap <Leader>vi :!svn info<CR>
 noremap <Leader>gp :call <SID>GitCommit()<CR>
 noremap <Leader>gu :!git pull origin master<CR>
+=======
+nnoremap <Leader>vA :!svn add * --force<CR>
+" Add specific files
+nnoremap <Leader>va :!svn add --force 
+" Commit using typed message
+nnoremap <Leader>vc :call <SID>SvnCommit()<CR>
+" Commit using File for commit content
+nnoremap <Leader>vC :!svn commit --force-log -F %<CR>
+nnoremap <Leader>vdl :!svn rm --force Log\*<CR>
+nnoremap <Leader>vda :!svn rm --force 
+" revert previous commit
+" dangerous key TODO: warn before
+"noremap <Leader>vr :!svn revert -R .<CR>
+nnoremap <Leader>vl :!svn cleanup .<CR>
+" use this command line to delete unrevisioned or "?" svn files
+"noremap <Leader>vL :!for /f "tokens=2*" %i in ('svn status ^| find "?"') do del %i<CR>
+nnoremap <Leader>vs :!svn status .<CR>
+nnoremap <Leader>vu :!svn update .<CR>
+nnoremap <Leader>vo :!svn log .<CR>
+nnoremap <Leader>vi :!svn info<CR>
+nnoremap <Leader>gp :call <SID>GitCommit()<CR>
+nnoremap <Leader>gu :!git pull origin master<CR>
+>>>>>>> 1874fc9c72cd12e502d1810e861a5ed7653784ab
 nnoremap <Leader>gP :!git add .<CR>
 			\:!git commit -F commit_msg.wiki<CR>
 			\:!git push CppTut master<CR>
