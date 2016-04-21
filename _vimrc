@@ -899,11 +899,18 @@ nnoremap <Leader>vs :!svn status .<CR>
 nnoremap <Leader>vu :!svn update .<CR>
 nnoremap <Leader>vo :!svn log .<CR>
 nnoremap <Leader>vi :!svn info<CR>
-nnoremap <Leader>gp :call <SID>GitCommit()<CR>
-nnoremap <Leader>gu :!git pull origin master<CR>
-nnoremap <Leader>gP :!git add .<CR>
-			\:!git commit -F commit_msg.wiki<CR>
-			\:!git push CppTut master<CR>
+" fugitive
+nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gp :Gpush<CR>
+nnoremap <Leader>gu :Gpull<CR>
+nnoremap <Leader>ga :!git add 
+
+" Hard coded git version control
+"nnoremap <Leader>gp :call <SID>GitCommit()<CR>
+"nnoremap <Leader>gu :!git pull origin master<CR>
+"nnoremap <Leader>gP :!git add .<CR>
+			"\:!git commit -F commit_msg.wiki<CR>
+			"\:!git push CppTut master<CR>
 " }}}
 " }}}
 
