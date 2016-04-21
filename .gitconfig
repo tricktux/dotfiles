@@ -20,8 +20,8 @@
 	;fetch = +refs/heads/*:refs/remotes/origin/*
 
 [credential]
-	;helper = wincred
-	helper = cache --timeout 30000
+	helper = wincred
+	;helper = cache --timeout 30000
 	#helper = store --file /mnt/thumbdrive/.git-credentials
 ;[diff]  
     ;tool = gvim
