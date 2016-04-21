@@ -880,29 +880,6 @@ nnoremap <Leader>mc :make clean<CR>
 " VERSION_CONTROL {{{
 " For all this commands you should be in the svn root folder
 " Add all files
-<<<<<<< HEAD
-noremap <Leader>vA :!svn add * --force<CR>
-" Add specific files
-noremap <Leader>va :!svn add 
-" Commit using typed message
-noremap <Leader>vc :call <SID>SvnCommit()<CR>
-" Commit using File for commit content
-noremap <Leader>vC :!svn commit -F %<CR>
-noremap <Leader>vdl :!svn rm --force Log\*<CR>
-noremap <Leader>vda :!svn rm --force 
-" revert previous commit
-" dangerous key TODO: warn before
-"noremap <Leader>vr :!svn revert -R .<CR>
-noremap <Leader>vl :!svn cleanup .<CR>
-" use this command line to delete unrevisioned or "?" svn files
-"noremap <Leader>vL :!for /f "tokens=2*" %i in ('svn status ^| find "?"') do del %i<CR>
-noremap <Leader>vs :!svn status .<CR>
-noremap <Leader>vu :!svn update .<CR>
-noremap <Leader>vo :!svn log .<CR>
-noremap <Leader>vi :!svn info<CR>
-noremap <Leader>gp :call <SID>GitCommit()<CR>
-noremap <Leader>gu :!git pull origin master<CR>
-=======
 nnoremap <Leader>vA :!svn add * --force<CR>
 " Add specific files
 nnoremap <Leader>va :!svn add --force 
@@ -924,7 +901,6 @@ nnoremap <Leader>vo :!svn log .<CR>
 nnoremap <Leader>vi :!svn info<CR>
 nnoremap <Leader>gp :call <SID>GitCommit()<CR>
 nnoremap <Leader>gu :!git pull origin master<CR>
->>>>>>> 1874fc9c72cd12e502d1810e861a5ed7653784ab
 nnoremap <Leader>gP :!git add .<CR>
 			\:!git commit -F commit_msg.wiki<CR>
 			\:!git push CppTut master<CR>
