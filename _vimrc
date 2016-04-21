@@ -904,6 +904,8 @@ nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gp :Gpush<CR>
 nnoremap <Leader>gu :Gpull<CR>
 nnoremap <Leader>ga :!git add 
+nnoremap <Leader>gl :silent Glog<CR>
+					\:copen 20<CR>
 
 " Hard coded git version control
 "nnoremap <Leader>gp :call <SID>GitCommit()<CR>
