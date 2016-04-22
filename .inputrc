@@ -1,0 +1,6 @@
+$include /etc/inputr
+set convert-meta on
+"\e[A": history-search-backward 
+"\e[B": history-search-forward
+"\e[C": forward-char
+"\e[D": backward-char
