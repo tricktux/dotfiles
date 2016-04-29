@@ -58,11 +58,12 @@ if has('win32')
 	nnoremap <Leader>ews :exe("!start cmd /k \"WINGS.exe 3 . " . input("Config file:", "", "file") . "\" & exit")<CR>
 	nnoremap <Leader>ewl :silent !del default.ini<CR>
 						\:!mklink default.ini 
-	nnoremap <Leader>e1 :silent e ~/Documents/1.MyDocuments/2.WINGS/OneWINGS/
-	nnoremap <Leader>e2 :silent e ~/vimfiles/personal/wiki/
-	nnoremap <Leader>e3 :silent e ~/Desktop/daily\ check/
-	nnoremap <Leader>e4 :silent e ~/Documents/1.MyDocuments/Forms/Weekly_Reports/
-	nnoremap <Leader>e5 :silent e ~/Documents/1.MyDocuments/3.Training/2.NI_Testand/
+	" e1 reserved for vimrc
+	nnoremap <Leader>e2 :silent e ~/Documents/1.MyDocuments/2.WINGS/OneWINGS/
+	nnoremap <Leader>e3 :silent e ~/vimfiles/personal/wiki/
+	nnoremap <Leader>e4 :silent e ~/Desktop/daily\ check/
+	nnoremap <Leader>e5 :silent e ~/Documents/1.MyDocuments/Forms/Weekly_Reports/
+	nnoremap <Leader>e6 :silent e ~/Documents/1.MyDocuments/3.Training/2.NI_Testand/
 
 	nnoremap <Leader>es1 :silent e D:/Reinaldo/OneWINGS/
 	" Windows specific plugins options {{{
@@ -189,6 +190,7 @@ endif
 		"Plug 'vivien/vim-linux-coding-style'
 	"endif
 	Plug 'NLKNguyen/papercolor-theme'
+	Plug 'honza/vim-snippets'
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
@@ -914,6 +916,8 @@ nnoremap <Leader>gl :silent Glog<CR>
 			"\:!git commit -F commit_msg.wiki<CR>
 			"\:!git push CppTut master<CR>
 " }}}
+"
+nnoremap <Leader>e1 :e ~/vimrc/
 " }}}
 
 " PLUGIN_OPTIONS {{{
@@ -1072,10 +1076,10 @@ nnoremap <Leader>gl :silent Glog<CR>
 		" }}}
 		
 " Plugin 'morhetz/gruvbox' " colorscheme gruvbox  {{{
-			"colorscheme gruvbox
-			"set background=dark    " Setting dark mode
-			set background=light
-			colorscheme PaperColor
+			colorscheme gruvbox
+			set background=dark    " Setting dark mode
+			"set background=light
+			"colorscheme PaperColor
 			" }}}
 			
 	" Plug Super-Tab{{{
