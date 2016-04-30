@@ -1,5 +1,5 @@
-#sudo apt-get purge vim-gtk vim-runtime vim gvim
-#sudo apt-get build-dep vim-gtk
+sudo apt-get purge vim-gtk vim-runtime vim gvim
+sudo apt-get build-dep vim-gtk
 cd
 sudo rm -rf vim
 git clone https://github.com/vim/vim.git
@@ -15,6 +15,6 @@ cd vim
 cd src
 make -j8
 sudo make install
-#make VIMRUNTIMEDIR=/usr/share/vim/vim74
-#sudo make install
+make VIMRUNTIMEDIR=/usr/share/vim/vim74
+sudo make install
 #git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim

@@ -1,0 +1,24 @@
+rm /usr/lib/gvfs/gvfsd-smb-browse
+download git
+git clone vimrc
+update
+copy fixed sources.list
+also on sources.list remove cannonical partners
+download chromium-browser
+download tilda
+g++6
+purge firefox
+run vim_source_install.sh
+download vim curl
+download vim plugins
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+copy .profile
+copy .vimrc
+add stty -ixon to bashrc
+download tmux, autoconf
+additional drivers
+autostart tilda, chrome
+associate text editor with vim
+sudo apt install libboost-all-dev
+
