@@ -875,8 +875,8 @@ nnoremap <Left> :cpf<CR>
 nnoremap <Leader>nl :bro old<CR>
 
 " MAKE {{{
-nnoremap <Leader>ma :make all<CR>
-nnoremap <Leader>mc :make clean<CR>
+nnoremap <Leader>ma :silent make all<CR>
+nnoremap <Leader>mc :silent make clean<CR>
 "}}}
 "
 " VERSION_CONTROL {{{
