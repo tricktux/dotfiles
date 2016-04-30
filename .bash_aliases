@@ -1,1 +1,1 @@
-alias install=sudo apt install
+alias install='sudo apt install'
