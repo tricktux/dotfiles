@@ -616,16 +616,6 @@ augroup Filetypes
 	autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 	autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-	" Wiki specific mappings
-	"autocmd FileType vimwiki nmap <buffer> <Leader>wn <Plug>VimwikiNextLink
-	"autocmd FileType vimwiki nmap <buffer> <Leader>wp <Plug>VimwikiPrevLink
-	"autocmd FileType vimwiki nmap <buffer> == <Plug>VimwikiAddHeaderLevel
-	"autocmd FileType vimwiki nmap <buffer> ++ <Plug>VimwikiRemoveHeaderLevel
-	"autocmd FileType vimwiki nmap <buffer> >> <Plug>VimwikiIncreaseLvlSingleItem
-	"autocmd FileType vimwiki nmap <buffer> << <Plug>VimwikiDecreaseLvlSingleItem
-	"autocmd FileType vimwiki nmap <buffer> <Leader>wa <Plug>VimwikiTabIndex
-	"autocmd FileType vimwiki nmap <buffer> <Leader>wf <Plug>VimwikiFollowLink
-	"autocmd FileType vimwiki setlocal spell spelllang=en_us
 	" Latex
 	autocmd FileType tex setlocal spell spelllang=en_us
 	autocmd FileType tex setlocal fdm=indent
@@ -646,6 +636,9 @@ augroup Filetypes
 	autocmd FileType netrw nmap <buffer> e <cr>
 	" Airline
 	autocmd User AirlineAfterInit call OnlyBufferNameOnAirline()
+	" Nerdtree Fix
+	autocmd FileType nerdtree setlocal encoding=utf-8
+	
 
 augroup END
 " }}}

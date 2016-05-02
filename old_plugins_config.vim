@@ -257,3 +257,13 @@
 		nnoremap <silent> <Leader>l :TmuxNavigateRight<cr>
 		nnoremap <silent> <Leader>. :TmuxNavigatePrevious<cr>
 		" vim-tmux-navigator shit a lot of trouble with remote terminals
+	" Wiki specific mappings
+	"autocmd FileType vimwiki nmap <buffer> <Leader>wn <Plug>VimwikiNextLink
+	"autocmd FileType vimwiki nmap <buffer> <Leader>wp <Plug>VimwikiPrevLink
+	"autocmd FileType vimwiki nmap <buffer> == <Plug>VimwikiAddHeaderLevel
+	"autocmd FileType vimwiki nmap <buffer> ++ <Plug>VimwikiRemoveHeaderLevel
+	"autocmd FileType vimwiki nmap <buffer> >> <Plug>VimwikiIncreaseLvlSingleItem
+	"autocmd FileType vimwiki nmap <buffer> << <Plug>VimwikiDecreaseLvlSingleItem
+	"autocmd FileType vimwiki nmap <buffer> <Leader>wa <Plug>VimwikiTabIndex
+	"autocmd FileType vimwiki nmap <buffer> <Leader>wf <Plug>VimwikiFollowLink
+	"autocmd FileType vimwiki setlocal spell spelllang=en_us
