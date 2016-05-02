@@ -12,12 +12,12 @@ sudo apt-get -f -y install &&
 sudo apt-get -y autoremove &&
 sudo apt-get -y autoclean 
 
-echo ""
-echo "--------------------Installing Google Chrome--------------------" &&
-echo ""
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb &&
-sudo dpkg -i google-chrome-stable_current_amd64.deb &&
-rm -f google-chrome-stable_current_amd64.deb
+#echo ""
+#echo "--------------------Installing Google Chrome--------------------" &&
+#echo ""
+#wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb &&
+#sudo dpkg -i google-chrome-stable_current_amd64.deb &&
+#rm -f google-chrome-stable_current_amd64.deb
 
 echo ""
 echo "--------------------Installing latest linux kernel, shutter, oracle-java, serial-term, vim, \
@@ -37,15 +37,43 @@ sudo add-apt-repository -y ppa:pi-rho/dev # tmux ppa
 sudo apt-get -y update &&
 sudo apt-get dist-upgrade &&
 sudo apt-get -y install python-software-properties software-properties-common \
-wine1.7 mesa-utils build-essential linux-headers-$(uname -r) \
-oracle-java7-installer gtkterm vim-gtk vim xcompmgr xscreensaver xscreensaver-data-extra \
-xscreensaver-gl grive grive-tools shutter android-tools-adb android-tools-fastboot guake \
+mesa-utils build-essential linux-headers-$(uname -r) \
+oracle-java7-installer gtkterm xcompmgr xscreensaver xscreensaver-data-extra \
+xscreensaver-gl grive grive-tools shutter android-tools-adb android-tools-fastboot \
 git gparted g++ gcc-avr binutils-avr gdb-avr avr-libc avrdude preload nmap arandr \
-libreOffice winetricks corefonts VideoDriver vcrun2005 python-dev python-pip python3-dev \
-python3-pip neovim tilda tmux g++-5
+corefonts VideoDriver vcrun2005 python-dev python-pip python3-dev \
+python3-pip neovim tilda tmux g++-5 autoconf chromium-browser curl
 sudo pip3 install neovim
+# not in this list wine1.7 winetricks guake libreOffice
 # see install_vim.sh if you want vim.
+
+# kernel dev
+sudo apt-get install libncurses5-dev gcc make git exuberant-ctags bc libssl-dev
  
+#rm /usr/lib/gvfs/gvfsd-smb-browse
+#download git
+#git clone vimrc
+#update
+#copy fixed sources.list
+#also on sources.list remove cannonical partners
+#download chromium-browser
+#download tilda
+#g++6
+#purge firefox
+#run vim_source_install.sh
+#download vim curl
+#download vim plugins
+#curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+	#https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+#copy .profile
+#copy .vimrc
+#add stty -ixon to bashrc
+#download tmux, autoconf
+#additional drivers
+#autostart tilda, chrome
+#associate text editor with vim
+#sudo apt install libboost-all-dev
+
 
 echo ""
 echo "--------------------Checking for updates--------------------" &&
