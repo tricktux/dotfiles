@@ -247,3 +247,13 @@
 	"autocmd FileType vimwiki nmap <buffer> <Leader>wf <Plug>VimwikiFollowLink
 	"autocmd FileType vimwiki setlocal spell spelllang=en_us
 	" Latex
+	" vim-tmux-navigator
+		let g:tmux_navigator_no_mappings = 0
+		let g:tmux_navigator_save_on_switch = 1
+
+		nnoremap <silent> <Leader>h :TmuxNavigateLeft<cr>
+		nnoremap <silent> <Leader>j :TmuxNavigateDown<cr>
+		nnoremap <silent> <Leader>k :TmuxNavigateUp<cr>
+		nnoremap <silent> <Leader>l :TmuxNavigateRight<cr>
+		nnoremap <silent> <Leader>. :TmuxNavigatePrevious<cr>
+		" vim-tmux-navigator shit a lot of trouble with remote terminals

@@ -67,11 +67,6 @@ if has('win32')
 
 	nnoremap <Leader>es1 :silent e D:/Reinaldo/OneWINGS/
 
-	" on unix we use vim-tmux-navigator
-	nnoremap <Leader>h <C-w>h
-	nnoremap <Leader>j <C-w>j
-	nnoremap <Leader>k <C-w>k
-	nnoremap <Leader>l <C-w>l
 	" Windows specific plugins options {{{
 	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
 		set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
@@ -162,16 +157,6 @@ elseif has('unix')
 		let g:clang_auto = 0
 		let g:clang_diagsopt = ''
 
-	" vim-tmux-navigator
-		let g:tmux_navigator_no_mappings = 0
-		let g:tmux_navigator_save_on_switch = 1
-
-		nnoremap <silent> <Leader>h :TmuxNavigateLeft<cr>
-		nnoremap <silent> <Leader>j :TmuxNavigateDown<cr>
-		nnoremap <silent> <Leader>k :TmuxNavigateUp<cr>
-		nnoremap <silent> <Leader>l :TmuxNavigateRight<cr>
-		nnoremap <silent> <Leader>. :TmuxNavigatePrevious<cr>
-
 endif
 	" }}}
 " }}}
@@ -205,9 +190,6 @@ endif
 	Plug 'Shougo/neosnippet-snippets'
 
 	Plug 'tpope/vim-fugitive'
-	if has('unix')
-		Plug 'christoomey/vim-tmux-navigator'
-	endif
 	Plug 'NLKNguyen/papercolor-theme'
 	Plug 'honza/vim-snippets'
 
@@ -730,8 +712,10 @@ nnoremap <C-x> za
 
 " Window movement {{{
 " move between windows
-if has('win32')
-endif
+nnoremap <Leader>h <C-w>h
+nnoremap <Leader>j <C-w>j
+nnoremap <Leader>k <C-w>k
+nnoremap <Leader>l <C-w>l
 " move windows positions
 "nnoremap <Leader>H <C-w>H
 "nnoremap <Leader>J <C-w>J
