@@ -146,19 +146,22 @@ elseif has('unix')
 		let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
 	" Syntastic
-		let g:syntastic_cpp_compiler_options = ' -std=c++1y' 
+		let g:syntastic_cpp_compiler_options = '-std=c++1y -pedantic -Wall -Wextra -Werror' 
+		let g:syntastic_c_compiler_options = '-std=gnu99 -pedantic -Wall -Wextra -Werror' 
 	" YCM
-	let g:ycm_global_ycm_extra_conf = '.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+	"let g:ycm_global_ycm_extra_conf = '.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+	"
 	" vim-clang
 		let g:clang_cpp_options = '-std=c++1y -pedantic -Wall -Wextra -Werror'
 		let g:clang_c_options = '-std=gnu99 -pedantic -Wall -Wextra -Werror'
 		let g:clang_include_sysheaders_from_gcc = 1
 		"let g:clang_exec = 'clang-3.8'
-		let g:clang_exec = 'clang'
+		"let g:clang_exec = 'clang'
 		let g:clang_check_syntax_auto = 1
 		" enable or disable here depending on if neocomplete is present
 		let g:clang_auto = 0
 		let g:clang_diagsopt = ''
+
 	" vim-tmux-navigator
 		let g:tmux_navigator_no_mappings = 0
 		let g:tmux_navigator_save_on_switch = 1
