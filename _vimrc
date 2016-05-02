@@ -150,7 +150,8 @@ elseif has('unix')
 	" YCM
 	let g:ycm_global_ycm_extra_conf = '.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 	" vim-clang
-		let g:clang_cpp_options = '-std=c++1y'
+		let g:clang_cpp_options = '-std=c++1y -pedantic -Wall -Wextra -Werror'
+		let g:clang_c_options = '-std=gnu99 -pedantic -Wall -Wextra -Werror'
 		let g:clang_include_sysheaders_from_gcc = 1
 		"let g:clang_exec = 'clang-3.8'
 		let g:clang_exec = 'clang'
@@ -888,8 +889,8 @@ nnoremap <Left> :cpf<CR>
 nnoremap <Leader>nl :bro old<CR>
 
 " MAKE {{{
-nnoremap <Leader>ma :silent make all<CR>
-nnoremap <Leader>mc :silent make clean<CR>
+nnoremap <Leader>ma :make all<CR>
+nnoremap <Leader>mc :make clean<CR>
 "}}}
 "
 " VERSION_CONTROL {{{
