@@ -869,8 +869,13 @@ nnoremap <Left> :cpf<CR>
 nnoremap <Leader>nl :bro old<CR>
 
 " MAKE {{{
-nnoremap <Leader>ma :make all<CR>
+"nnoremap <Leader>ma :make all<CR>
+nnoremap <Leader>ma :make clean<CR>
+			\:make all<CR>
 nnoremap <Leader>mc :make clean<CR>
+nnoremap <Leader>mf ::!sudo dfu-programmer atxmega128a4u erase<CR>
+			\:!sudo dfu-programmer atxmega128a4u flash atxmega.hex<CR>
+			\:!sudo dfu-programmer atxmega128a4u start<CR>
 "}}}
 "
 " VERSION_CONTROL {{{
@@ -934,7 +939,9 @@ nnoremap <Leader>e1 :e ~/vimrc/
 		let NERDUsePlaceHolders=0 " avoid commenter doing weird stuff
 		let NERDCommentWholeLinesInVMode=2
 		let NERDCreateDefaultMappings=0 " Eliminate default mappings
-		let NERDRemoveAltComs=0 " Do not use alt comments /*
+		let NERDRemoveAltComs=1 " Remove /* comments
+		let NERD_c_alt_style=0 " Do not use /* on C nor C++ 
+		let NERD_cpp_alt_style=0
 		let NERDMenuMode=0 " no menu
 		let g:NERDCustomDelimiters = {
 			\ 'vim': { 'left': '"', 'right': '' },
