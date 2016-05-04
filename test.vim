@@ -310,24 +310,75 @@ endfunction
 "exe "echo " . s:dec
 "
 "
-function! InsertStrncpy() abort
-	echo "Usage: Yank dst into @0 and src into @1\n"
-	echo "Choose 1.strncpy, 2.strncmp, 3.strncat\n"
-	let l:type = nr2char(getchar())
-	if l:type == 1
-		let l:type = "strncpy"
-	elseif l:type == 2
-		let l:type = "strncmp"
-	elseif l:type == 3
-		let l:type = "strncat"
+"function! InsertStrncpy() abort
+	"echo "Usage: Yank dst into @0 and src into @1\n"
+	"echo "Choose 1.strncpy, 2.strncmp, 3.strncat\n"
+	"let l:type = nr2char(getchar())
+	"if l:type == 1
+		"let l:type = "strncpy"
+	"elseif l:type == 2
+		"let l:type = "strncmp"
+	"elseif l:type == 3
+		"let l:type = "strncat"
+	"else
+		"echo "Wrong Choice!!"
+		"return
+	"endif
+	"exe "normal i" . l:type . "(". @0 . ", ". @1 .", sizeof(". @0 ."));\<CR>\<Esc>"
+	"if match(l:type, "cat") < 0
+		"exe "normal i". @0 . "[sizeof(" . @0 . ")] = \'\\0\';  // Null terminating cpy\<Esc>"
+	"endif
+"endfunction
+
+"call InsertStrncpy()
+" VIM LESSON
+":set noignorecase
+":if "foo" ==? "FOO"
+":    echom "first"
+":elseif "foo" ==? "foo"
+":    echom "second"
+":endif
+" Vim displays first because ==? is the "case-insensitive no matter what the user has set" comparison operator
+"
+":set ignorecase
+":if "foo" ==# "FOO"
+":    echom "one"
+":elseif "foo" ==# "foo"
+":    echom "two"
+":endif
+"Vim displays two because ==# is the "case-sensitive no matter what the user has set" comparison operator
+"
+"
+function! ListsMovement(cmd) abort
+	if !empty(getloclist(0)) " there is loclist
+		call DecodeListCmd(a:cmd, "ll")
 	else
-		echo "Wrong Choice!!"
-		return
-	endif
-	exe "normal i" . l:type . "(". @0 . ", ". @1 .", sizeof(". @0 ."));\<CR>\<Esc>"
-	if match(l:type, "cat") < 0
-		exe "normal i". @0 . "[sizeof(" . @0 . ")] = \'\\0\';  // Null terminating cpy\<Esc>"
+		call DecodeListCmd(a:cmd, "qf")
 	endif
 endfunction
 
-"call InsertStrncpy()
+function! DecodeListCmd(cmd, list) abort
+	if a:list == "ll"
+		if a:cmd == "ne"
+			lne
+		elseif a:cmd == "nf"
+			lnf
+		elseif a:cmd == "pe"
+			lp
+		elseif a:cmd == "pf"
+			lpf
+		endif
+	else
+		if a:cmd == "ne"
+			ce
+		elseif a:cmd == "nf"
+			cnf
+		elseif a:cmd == "pe"
+			cp
+		elseif a:cmd == "pf"
+			cpf
+		endif
+	endif
+endfunction
+
+call ListsMovement("ne")

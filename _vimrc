@@ -148,9 +148,6 @@ elseif has('unix')
 	if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/include')
 		set path+=/opt/avr8-gnu-toolchain-linux_x86_64/include
 	endif
-	" YCM
-	"let g:ycm_global_ycm_extra_conf = '.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
-	"
 	" vim-clang
 		let g:clang_cpp_options = '-std=c++1y -pedantic -Wall -Wextra -Werror'
 		let g:clang_c_options = '-std=gnu99 -pedantic -Wall -Wextra -Werror'
@@ -204,7 +201,7 @@ endif
 
 " GUI SETTINGS {{{
 if has('gui_running')
-	set lines=999 columns=999 " start maximized
+	"set lines=999 columns=999 " start maximized
 	let &guifont = s:custom_font " OS dependent font 
 	set guioptions-=T  " no toolbar
 	set guioptions-=m  " no menu bar
@@ -242,24 +239,31 @@ endfunction
 " Input: empty- It will ask you what type of file you want to search
 " 		 String- "1", "2", or specify files in which you want to search
 function! s:GlobalSearch(type) abort 
-	"echomsg string(a:type)  " Debugging purposes
-	if a:type == "0" 
-		echo "Search Filetypes:\n\t1.Any\n\t2.Cpp\n" 
-		let l:file = nr2char(getchar())
-	else
-		let l:file = a:type
-	endif
-	"echomsg string(l:file)  " Debugging purposes
-	if l:file == 1
-		let l:file = "**/*"
-	elseif l:file == 2
-		let l:file = "**/*.cpp **/*.h **/*.c **/*.hpp **/*.cc"
-	elseif l:file == 3
-		let l:file = "**/*.wiki"
-	endif
-	" search in all files of type l:file the input string recursively
-	exe "vimgrep /" . input("Search in \"" . getcwd() . "\" for:") . "/ " . l:file
-	copen 20
+	try
+		"echomsg string(a:type)  " Debugging purposes
+		if a:type == "0" 
+			echo "Search Filetypes:\n\t1.Any\n\t2.Cpp\n" 
+			let l:file = nr2char(getchar())
+		else
+			let l:file = a:type
+		endif
+		"echomsg string(l:file)  " Debugging purposes
+		if l:file == 1
+			let l:file = "**/*"
+		elseif l:file == 2
+			let l:file = "**/*.cpp **/*.h **/*.c **/*.hpp **/*.cc"
+		elseif l:file == 3
+			let l:file = "**/*.wiki"
+		endif
+		" search in all files of type l:file the input string recursively
+		exe "vimgrep /" . input("Search in \"" . getcwd() . "\" for:") . "/ " . l:file
+		copen 20
+	catch
+		echohl ErrorMsg
+		redraw " prevents the msg from misteriously dissapearing 
+		echomsg "GlobalSearch(): " . matchstr(v:exception, ':\zs.*')
+		echohl None
+	endtry
 endfunction
 
 " Commits current buffer
@@ -480,6 +484,31 @@ function! s:InsertTODO() abort
 endfunction
 nnoremap <Leader>mt <ESC>:call <SID>InsertTODO()<CR>
 
+function! s:ListsMovement(cmd) abort
+	try
+		try
+			let l:list = 0
+			if !empty(getloclist(0)) " there is loclist
+				let l:list = 1
+				exe "silent l" . a:cmd
+			else
+				exe "silent c" . a:cmd
+			endif
+		catch /:E553:/ " catch no more items error 
+			if l:list == 1
+				silent .ll
+			else
+				silent .cc
+			endif
+		endtry
+	catch /:E42:/ " catch no errors
+		echohl ErrorMsg
+		redraw " always use it to prevent msg from dissapearing
+		echomsg "ListsMovement(): Lists quickfix and location are empty"
+		echohl None
+	endtry
+endfunction
+
  "}}}
 
 " SET_OPTIONS {{{
@@ -650,18 +679,28 @@ augroup END
 " }}}
 
 " CUSTOM MAPPINGS {{{
-" on quickfix window go to line selected
-noremap <Leader>qc :.cc<CR>
-" go to next result
-noremap <Leader>qn :cn<CR>
-" go to previous result
-noremap <Leader>qp :cn<CR>
-" on quickfix window go to next file
-noremap <Leader>qf :cnf<CR>
-" on quickfix close window
-noremap <Leader>ql :ccl<CR>
-" open quickfix window
+
+" Quickfix and Location stuff {{{
+" C-Arrow forces movement on quickfix window
+" Arrow moves on whichever window open (qf || ll)
+" if both opened favors location window
+" Quickfix only mappings
+nnoremap <C-Down> :cn<CR>
+nnoremap <C-Up> :cp<CR>
+nnoremap <C-Right> :cnf<CR>
+nnoremap <C-Left> :cpf<CR>
 noremap <Leader>qo :copen 20<CR>
+noremap <Leader>qc :.cc<CR>
+
+nnoremap <Down> :call <SID>ListsMovement("next")<CR>
+nnoremap <Up> :call <SID>ListsMovement("previous")<CR>
+nnoremap <Right> :call <SID>ListsMovement("nfile")<CR>
+nnoremap <Left> :call <SID>ListsMovement("pfile")<CR>
+
+noremap <Leader>ql :ccl<CR>
+			\:lcl<CR>
+" }}}
+
 
 "//////MISCELANEOUS MAPPINGS/////////////
 " edit vimrc on a new tab
@@ -858,11 +897,6 @@ nnoremap P P=`]<C-o>
 " Visual shifting (does not exit Visual mode)
 vnoremap < <gv
 vnoremap > >gv
-
-nnoremap <Down> :cn<CR>
-nnoremap <Up> :cp<CR>
-nnoremap <Right> :cnf<CR>
-nnoremap <Left> :cpf<CR>
 
 " vim-hex
 "nnoremap <Leader>hr :%!xxd<CR>
