@@ -40,16 +40,19 @@ sudo apt-get -y install python-software-properties software-properties-common \
 mesa-utils build-essential linux-headers-$(uname -r) \
 oracle-java7-installer gtkterm xcompmgr xscreensaver xscreensaver-data-extra \
 xscreensaver-gl grive grive-tools shutter android-tools-adb android-tools-fastboot \
-git gparted g++ gcc-avr binutils-avr gdb-avr avr-libc avrdude preload nmap arandr \
+git gparted g++ preload nmap arandr \
 corefonts VideoDriver vcrun2005 python-dev python-pip python3-dev \
-python3-pip neovim tilda tmux g++-5 autoconf chromium-browser curl
+python3-pip neovim tilda tmux g++-5 autoconf chromium-browser curl \
+xdotool locate
 sudo pip3 install neovim
 # not in this list wine1.7 winetricks guake libreOffice
 # see install_vim.sh if you want vim.
+# xdotool is for focus_or_launch
 
 # kernel dev
 sudo apt-get install libncurses5-dev gcc make git exuberant-ctags bc libssl-dev
- 
+sudo apt-get install gcc-avr binutils-avr gdb-avr avr-libc avrdude 
+
 #rm /usr/lib/gvfs/gvfsd-smb-browse
 #download git
 #git clone vimrc

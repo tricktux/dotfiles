@@ -267,3 +267,9 @@
 	"autocmd FileType vimwiki nmap <buffer> <Leader>wa <Plug>VimwikiTabIndex
 	"autocmd FileType vimwiki nmap <buffer> <Leader>wf <Plug>VimwikiFollowLink
 	"autocmd FileType vimwiki setlocal spell spelllang=en_us
+	"function! s:LinuxVIMRCFix() abort
+		":w ++ff=unix
+		":e
+		":so %
+	"endfunction
+	"nnoremap <Leader>fl <SID>LinuxVIMRCFix()<CR>

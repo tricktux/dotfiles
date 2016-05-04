@@ -88,21 +88,13 @@ elseif has('unix')
 	" Path variables
 	let s:personal_path= $HOME . '/.vim/personal/'
 	let s:plugged_path=  $HOME . '/.vim/plugged/'
-	"let s:custom_font = 'Monospace 8'
 	let s:custom_font = 'Andale Mono 8'
 
-	" replaced by command dos2unix -f
-	"function! s:LinuxVIMRCFix() abort
-		":w ++ff=unix
-		":e
-		":so %
-	"endfunction
-	"nnoremap <Leader>fl <SID>LinuxVIMRCFix()<CR>
+	" fix dos chars by: dos2unix -f
 
 	set ffs=unix,dos
 	set ff=unix
-	" making C-v paste stuff from system register
-	noremap <Leader>mq <C-v>
+
 	if !has('gui_running')
 		set t_Co=256
 		" fixes colorscheme not filling entire backgroud
@@ -122,7 +114,7 @@ elseif has('unix')
 	noremap <Leader><Space>v "+p
 	noremap <Leader><Space>y "+yy
 
-	nnoremap <Leader>e1 :silent e ~/Documents/
+	nnoremap <Leader>el :silent e ~/
 
 	nnoremap <Leader><Space>= :silent! let &guifont = substitute(
 	\ &guifont,
@@ -135,6 +127,8 @@ elseif has('unix')
 	\ '\=eval(submatch(0)-1)',
 	\ '')<CR>
 
+	nnoremap <CR> o<ESC>
+
 	" VIM_PLUG_STUFF {{{
 	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
 		set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
@@ -142,7 +136,18 @@ elseif has('unix')
 
 	" Syntastic
 		let g:syntastic_cpp_compiler_options = '-std=c++1y -pedantic -Wall -Wextra -Werror' 
-		let g:syntastic_c_compiler_options = '-std=gnu99 -pedantic -Wall -Wextra -Werror' 
+		let g:syntastic_c_compiler_options = '-std=gnu99' " -pedantic -Wall -Wextra -Werror' 
+		let g:syntastic_c_config_file = s:personal_path . '.syntastic_avrgcc_config'
+	
+	" with this you can use gf to go to the #include <avr/io.h>
+	" also this path below are what go into the .syntastic_avrgcc_config
+	" i.e: -I/opt.....
+	if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
+		set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
+	endif
+	if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/include')
+		set path+=/opt/avr8-gnu-toolchain-linux_x86_64/include
+	endif
 	" YCM
 	"let g:ycm_global_ycm_extra_conf = '.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 	"
@@ -199,7 +204,8 @@ endif
 
 " GUI SETTINGS {{{
 if has('gui_running')
-	let &guifont = s:custom_font
+	set lines=999 columns=999 " start maximized
+	let &guifont = s:custom_font " OS dependent font 
 	set guioptions-=T  " no toolbar
 	set guioptions-=m  " no menu bar
 	set guioptions-=r  " no scroll bar
@@ -917,6 +923,7 @@ nnoremap <Leader>gl :silent Glog<CR>
 " }}}
 "
 nnoremap <Leader>e1 :e ~/vimrc/
+nnoremap <Leader>e :e 
 " }}}
 
 " PLUGIN_OPTIONS {{{
