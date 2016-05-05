@@ -131,31 +131,42 @@ elseif has('unix')
 	nnoremap <CR> o<ESC>
 
 	" VIM_PLUG_STUFF {{{
-	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
+	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh" {{{
 		set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
 		let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
-	" Syntastic
+		" }}}
+
+	" Syntastic {{{ 
 		let g:syntastic_cpp_compiler_options = '-std=c++14 ' " -pedantic -Wall -Wextra -Werror' 
 		let g:syntastic_c_compiler_options = '-std=gnu99' " -pedantic -Wall -Wextra -Werror' 
 		let g:syntastic_c_config_file = s:personal_path . '.syntastic_avrgcc_config'
+		let g:syntastic_quiet_messages = {
+				\ "!level":  "errors",
+				\ "type":    "style",
+				\ "regex":   '\m\[C03\d\d\]',
+				\ "file:p":  ['\m^/usr/include/', '\m\c\.h$'] }
+		" }}}
 	
-	" with this you can use gf to go to the #include <avr/io.h>
-	" also this path below are what go into the .syntastic_avrgcc_config
-	" i.e: -I/opt.....
-	if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
-		set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
-	endif
-	if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/include')
-		set path+=/opt/avr8-gnu-toolchain-linux_x86_64/include
-	endif
-	if isdirectory('/usr/local/include')
-		set path+=/usr/local/include
-	endif
-	if isdirectory('/usr/include')
-		set path+=/usr/include
-	endif
-	" vim-clang
+	" VIM_PATH includes {{{
+		" With this you can use gf to go to the #include <avr/io.h>
+		" also this path below are what go into the .syntastic_avrgcc_config
+		" i.e: -I/opt.....
+		if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
+			set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
+		endif
+		if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/include')
+			set path+=/opt/avr8-gnu-toolchain-linux_x86_64/include
+		endif
+		if isdirectory('/usr/local/include')
+			set path+=/usr/local/include
+		endif
+		if isdirectory('/usr/include')
+			set path+=/usr/include
+		endif
+	" }}}
+	"
+	" Vim-Clang {{{
 		let g:clang_cpp_options = '-std=c++1y -pedantic -Wall -Wextra -Werror'
 		let g:clang_c_options = '-std=gnu99 -pedantic -Wall -Wextra -Werror'
 		let g:clang_include_sysheaders_from_gcc = 1
@@ -165,6 +176,7 @@ elseif has('unix')
 		" enable or disable here depending on if neocomplete is present
 		let g:clang_auto = 0
 		let g:clang_diagsopt = ''
+		" }}}
 
 endif
 	" }}}
