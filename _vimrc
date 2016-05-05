@@ -115,6 +115,7 @@ elseif has('unix')
 	noremap <Leader><Space>y "+yy
 
 	nnoremap <Leader>el :silent e ~/
+	nnoremap <Leader>e2 :silent e ~/truck-server/Documents/NewRobot/
 
 	nnoremap <Leader><Space>= :silent! let &guifont = substitute(
 	\ &guifont,
@@ -484,28 +485,26 @@ function! s:InsertTODO() abort
 endfunction
 nnoremap <Leader>mt <ESC>:call <SID>InsertTODO()<CR>
 
-function! s:ListsMovement(cmd) abort
+function! s:ListsNavigation(cmd) abort
 	try
-		try
-			let l:list = 0
-			if !empty(getloclist(0)) " there is loclist
-				let l:list = 1
-				exe "silent l" . a:cmd
-			else
-				exe "silent c" . a:cmd
-			endif
-		catch /:E553:/ " catch no more items error 
-			if l:list == 1
-				silent .ll
-			else
-				silent .cc
-			endif
-		endtry
-	catch /:E42:/ " catch no errors
-		echohl ErrorMsg
-		redraw " always use it to prevent msg from dissapearing
-		echomsg "ListsMovement(): Lists quickfix and location are empty"
-		echohl None
+		let l:list = 0
+		if !empty(getloclist(0)) " if location list is not empty
+			let l:list = 1
+			exe "silent l" . a:cmd
+		elseif !empty(getqflist()) " if quickfix list is not empty
+			exe "silent c" . a:cmd
+		else
+			echohl ErrorMsg
+			redraw " always use it to prevent msg from dissapearing
+			echomsg "ListsNavigation(): Lists quickfix and location are empty"
+			echohl None
+		endif
+	catch /:E553:/ " catch no more items error 
+		if l:list == 1
+			silent .ll
+		else
+			silent .cc
+		endif
 	endtry
 endfunction
 
@@ -681,9 +680,11 @@ augroup END
 " CUSTOM MAPPINGS {{{
 
 " Quickfix and Location stuff {{{
+" Description:
 " C-Arrow forces movement on quickfix window
 " Arrow moves on whichever window open (qf || ll)
 " if both opened favors location window
+
 " Quickfix only mappings
 nnoremap <C-Down> :cn<CR>
 nnoremap <C-Up> :cp<CR>
@@ -692,10 +693,10 @@ nnoremap <C-Left> :cpf<CR>
 noremap <Leader>qo :copen 20<CR>
 noremap <Leader>qc :.cc<CR>
 
-nnoremap <Down> :call <SID>ListsMovement("next")<CR>
-nnoremap <Up> :call <SID>ListsMovement("previous")<CR>
-nnoremap <Right> :call <SID>ListsMovement("nfile")<CR>
-nnoremap <Left> :call <SID>ListsMovement("pfile")<CR>
+nnoremap <Down> :call <SID>ListsNavigation("next")<CR>
+nnoremap <Up> :call <SID>ListsNavigation("previous")<CR>
+nnoremap <Right> :call <SID>ListsNavigation("nfile")<CR>
+nnoremap <Left> :call <SID>ListsNavigation("pfile")<CR>
 
 noremap <Leader>ql :ccl<CR>
 			\:lcl<CR>
