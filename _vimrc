@@ -136,7 +136,7 @@ elseif has('unix')
 		let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
 	" Syntastic
-		let g:syntastic_cpp_compiler_options = '-std=c++1y -pedantic -Wall -Wextra -Werror' 
+		let g:syntastic_cpp_compiler_options = '-std=c++14 -pedantic -Wall -Wextra -Werror' 
 		let g:syntastic_c_compiler_options = '-std=gnu99' " -pedantic -Wall -Wextra -Werror' 
 		let g:syntastic_c_config_file = s:personal_path . '.syntastic_avrgcc_config'
 	
@@ -148,6 +148,12 @@ elseif has('unix')
 	endif
 	if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/include')
 		set path+=/opt/avr8-gnu-toolchain-linux_x86_64/include
+	endif
+	if isdirectory('/usr/local/include')
+		set path+=/usr/local/include
+	endif
+	if isdirectory('/usr/include')
+		set path+=/usr/include
 	endif
 	" vim-clang
 		let g:clang_cpp_options = '-std=c++1y -pedantic -Wall -Wextra -Werror'
