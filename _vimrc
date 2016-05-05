@@ -136,7 +136,7 @@ elseif has('unix')
 		let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
 	" Syntastic
-		let g:syntastic_cpp_compiler_options = '-std=c++14 -pedantic -Wall -Wextra -Werror' 
+		let g:syntastic_cpp_compiler_options = '-std=c++14 ' " -pedantic -Wall -Wextra -Werror' 
 		let g:syntastic_c_compiler_options = '-std=gnu99' " -pedantic -Wall -Wextra -Werror' 
 		let g:syntastic_c_config_file = s:personal_path . '.syntastic_avrgcc_config'
 	
