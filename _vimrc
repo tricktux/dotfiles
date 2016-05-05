@@ -138,14 +138,15 @@ elseif has('unix')
 		" }}}
 
 	" Syntastic {{{ 
-		let g:syntastic_cpp_compiler_options = '-std=c++14 ' " -pedantic -Wall -Wextra -Werror' 
+		let g:syntastic_cpp_compiler_options = '-std=c++14 -pedantic -Wall -Wextra -Werror' 
+		"let g:syntastic_cpp_compiler_options = '-std=c++14 ' " -pedantic -Wall -Wextra -Werror' 
 		let g:syntastic_c_compiler_options = '-std=gnu99' " -pedantic -Wall -Wextra -Werror' 
 		let g:syntastic_c_config_file = s:personal_path . '.syntastic_avrgcc_config'
-		let g:syntastic_quiet_messages = {
-				\ "!level":  "errors",
-				\ "type":    "style",
-				\ "regex":   '\m\[C03\d\d\]',
-				\ "file:p":  ['\m^/usr/include/', '\m\c\.h$'] }
+		"let g:syntastic_quiet_messages = {
+				"\ "!level":  "errors",
+				"\ "type":    "style",
+				"\ "regex":   '\m\[C03\d\d\]',
+				"\ "file:p":  ['\m^/usr/include/', '\m\c\.h$'] }
 		" }}}
 	
 	" VIM_PATH includes {{{
