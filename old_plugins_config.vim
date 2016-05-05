@@ -273,3 +273,65 @@
 		":so %
 	"endfunction
 	"nnoremap <Leader>fl <SID>LinuxVIMRCFix()<CR>
+	"let OmniCpp_MayCompleteDot = 1 " autocomplete after .
+	"let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
+	"let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
+		cnoreabbrev csa cs add
+		cnoreabbrev csf cs find
+		cnoreabbrev csk cs kill
+		cnoreabbrev csr cs reset
+		cnoreabbrev css cs show
+		cnoreabbrev csh cs help
+	" record undo history in this path
+	"if has('persistent_undo')
+		"let dir= s:personal_path . 'undodir'
+		"" Create undo dir if it doesnt exist
+		"if !isdirectory(dir) 
+			"if exists("*mkdir") 
+				"call mkdir(dir, "p")
+				"let &undodir= dir
+				"set undofile
+				"set undolevels=10000
+				"set undoreload=10000
+			"else
+				"set noundofile
+				"echo "Failed to create undodir"
+			"endif
+		"endif
+	"endif
+	" binary
+	"autocmd BufNewFile,BufReadPost *.bin setlocal ft=xxd
+	"autocmd BufWritePre xxd %!xxd -r | setlocal binary | setlocal ft=modibin
+	"autocmd FileType xxd %!xxd
+	" Netwr
+	autocmd FileType netrw nmap <buffer> e <cr>
+	"autocmd GUIEnter * simalt ~x
+	"autocmd VimEnter * bro old
+	"autocmd FileType tex setlocal conceallevel=0  " never hide anything
+	"autocmd FileType cs OmniSharpHighlightTypes
+	" move windows positions
+	"nnoremap <Leader>H <C-w>H
+	"nnoremap <Leader>J <C-w>J
+	"nnoremap <Leader>K <C-w>K
+	"nnoremap <Leader>L <C-w>L
+	"" expand windows positions
+	"nnoremap <Leader>. <C-w>>
+	"nnoremap <Leader>, <C-w><
+	"nnoremap <Leader>- <C-w>-
+	"nnoremap <Leader>= <C-w>+
+	" vim-hex
+	"nnoremap <Leader>hr :%!xxd<CR>
+					"\:set ft=xxd<CR>
+	"nnoremap <Leader>hw :%!xxd -r<CR>
+					"\:set binary<CR>
+					"\:set ft=<CR>
+
+	"noremap <Tab> i<Tab><Esc>
+	" Hard coded git version control
+	"nnoremap <Leader>gp :call <SID>GitCommit()<CR>
+	"nnoremap <Leader>gu :!git pull origin master<CR>
+	"nnoremap <Leader>gP :!git add .<CR>
+				"\:!git commit -F commit_msg.wiki<CR>
+				"\:!git push CppTut master<CR>
+	" }}}
+	"
