@@ -99,7 +99,7 @@ elseif has('unix')
 	" this one below DOES WORK in linux just make sure is ran at root folder
 	noremap <Leader>tu :cs kill -1<CR>
 	\:!rm cscope.files cscope.out<CR>
-	\:!find . -iname '*.c' -o -iname '*.cpp' '*.cc'  -o -iname '*.h' -o -iname '*.hpp' > cscope.files<CR>
+	\:!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.cc'  -o -iname '*.h' -o -iname '*.hpp' > cscope.files<CR>
 	\:!cscope -b -i cscope.files -f cscope.out<CR>
 	\:cs add cscope.out<CR>
 	\:silent !ctags -R --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
@@ -903,7 +903,7 @@ endif
 			"\ 'grondle': { 'left': '{{', 'right': '}}' }
 		"\ }
 		nmap - <plug>NERDCommenterToggle
-		"nmap <Leader>ct <plug>NERDCommenterToggle
+		nmap <Leader>ct <plug>NERDCommenterAltDelims
 		vmap - <plug>NERDCommenterToggle
 		imap <C-c> <plug>NERDCommenterInsert
 		nmap <Leader>ca <plug>NERDCommenterAppend
