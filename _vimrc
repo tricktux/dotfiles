@@ -87,8 +87,7 @@ elseif has('unix')
 	let s:plugged_path=  $HOME . '/.vim/plugged/'
 	let s:custom_font = 'Andale Mono 8'
 
-	" fix dos chars by: dos2unix -f
-
+	" fix dos chars by: dos2unix -f _vimrc
 	set ffs=unix,dos
 	set ff=unix
 
@@ -100,7 +99,7 @@ elseif has('unix')
 	" this one below DOES WORK in linux just make sure is ran at root folder
 	noremap <Leader>tu :cs kill -1<CR>
 	\:!rm cscope.files cscope.out<CR>
-	\:!find . -iname '*.c' -o -iname '*.cpp' '*.cc'  -o -iname '*.h' -o -iname '*.hpp' > cscope.files<CR>
+	\:!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.cc'  -o -iname '*.h' -o -iname '*.hpp' > cscope.files<CR>
 	\:!cscope -b -i cscope.files -f cscope.out<CR>
 	\:cs add cscope.out<CR>
 	\:silent !ctags -R --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
@@ -148,8 +147,8 @@ elseif has('unix')
 			endif
 
 		" Syntastic
-			let g:syntastic_cpp_compiler_options = '-std=c++14 -pedantic -Wall -Wextra -Werror' 
-			let g:syntastic_c_compiler_options = '-std=gnu99 -pedantic -Wall -Wextra -Werror' 
+			let g:syntastic_cpp_compiler_options = '-std=c++14 -pedantic -Wall -Wextra' " -Werror' 
+			let g:syntastic_c_compiler_options = '-std=gnu99 -pedantic -Wall -Wextra' " -Werror' 
 		
 endif
 " PLUGINS_FOR_BOTH_SYSTEMS 
@@ -605,7 +604,8 @@ endif
 	augroup Filetypes
 		autocmd!
 		" C/Cpp
-		autocmd FileType c,cpp setlocal omnifunc=omni#cpp#complete#Main
+		autocmd FileType c setlocal omnifunc=omni#c#complete#Main
+		autocmd FileType cpp setlocal omnifunc=omni#cpp#complete#Main
 		autocmd FileType c,cpp setlocal cindent
 		" All files
 		autocmd FileType * RainbowParentheses
@@ -880,8 +880,10 @@ endif
 			"\ 'vim': { 'left': '"', 'right': '' }
 			"\ 'grondle': { 'left': '{{', 'right': '}}' }
 		"\ }
+		let NERDSpaceDelims=1  " space around comments
+
 		nmap - <plug>NERDCommenterToggle
-		"nmap <Leader>ct <plug>NERDCommenterToggle
+		nmap <Leader>ct <plug>NERDCommenterAltDelims
 		vmap - <plug>NERDCommenterToggle
 		imap <C-c> <plug>NERDCommenterInsert
 		nmap <Leader>ca <plug>NERDCommenterAppend
@@ -1091,4 +1093,3 @@ endif
 		"let g:clang_c_options = '-std=gnu99 -pedantic -Wall -Wextra -Werror'
 		let g:clang_include_sysheaders_from_gcc = 1
 		let g:clang_check_syntax_auto = 1
->>>>>>> d9c4663e83298f734b739db13adf9de24c795e8e
