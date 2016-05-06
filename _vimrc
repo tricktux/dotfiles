@@ -68,17 +68,18 @@ if has('win32')
 	nnoremap <Leader>es1 :silent e D:/Reinaldo/OneWINGS/
 
 	" Windows specific plugins options 
-	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
-		set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
-		let g:ctrlp_custom_ignore = {
-			\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-			\ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
-			\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
-			\ }
+		" Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
+			set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
+			let g:ctrlp_custom_ignore = {
+				\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+				\ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
+				\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+				\ }
+		
+		" Syntastic
+			let g:syntastic_cpp_compiler_options = '-pedantic -Wall -Wextra -Werror' 
+			let g:syntastic_c_compiler_options = '-std=gnu99 -pedantic -Wall -Wextra -Werror' 
 
-	" vim-clang
-		let g:clang_auto = 0
-		let g:clang_diagsopt = ''
 " UNIX_SETTINGS 
 elseif has('unix')
 	" Path variables
@@ -124,54 +125,32 @@ elseif has('unix')
 
 	nnoremap <CR> o<ESC>
 
-	" VIM_PLUG_STUFF {{{
-	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh" {{{
-		set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
-		let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+	" Unix Specific Plugin Options
+		"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh" 
+			set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
+			let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
-		" }}}
+		" VIM_PATH includes 
+			" With this you can use gf to go to the #include <avr/io.h>
+			" also this path below are what go into the .syntastic_avrgcc_config
+			" i.e: -I/opt.....
+			if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
+				set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
+			endif
+			if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/include')
+				set path+=/opt/avr8-gnu-toolchain-linux_x86_64/include
+			endif
+			if isdirectory('/usr/local/include')
+				set path+=/usr/local/include
+			endif
+			if isdirectory('/usr/include')
+				set path+=/usr/include
+			endif
 
-	" Syntastic {{{ 
-		let g:syntastic_cpp_compiler_options = '-std=c++14 -pedantic -Wall -Wextra -Werror' 
-		"let g:syntastic_cpp_compiler_options = '-std=c++14 ' " -pedantic -Wall -Wextra -Werror' 
-		let g:syntastic_c_compiler_options = '-std=gnu99' " -pedantic -Wall -Wextra -Werror' 
-		let g:syntastic_c_config_file = s:personal_path . '.syntastic_avrgcc_config'
-		"let g:syntastic_quiet_messages = {
-				"\ "!level":  "errors",
-				"\ "type":    "style",
-				"\ "regex":   '\m\[C03\d\d\]',
-				"\ "file:p":  ['\m^/usr/include/', '\m\c\.h$'] }
-		" }}}
-	
-	" VIM_PATH includes {{{
-		" With this you can use gf to go to the #include <avr/io.h>
-		" also this path below are what go into the .syntastic_avrgcc_config
-		" i.e: -I/opt.....
-		if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
-			set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
-		endif
-		if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/include')
-			set path+=/opt/avr8-gnu-toolchain-linux_x86_64/include
-		endif
-		if isdirectory('/usr/local/include')
-			set path+=/usr/local/include
-		endif
-		if isdirectory('/usr/include')
-			set path+=/usr/include
-		endif
-	" }}}
-	"
-	" Vim-Clang {{{
-		let g:clang_cpp_options = '-std=c++1y -pedantic -Wall -Wextra -Werror'
-		let g:clang_c_options = '-std=gnu99 -pedantic -Wall -Wextra -Werror'
-		let g:clang_include_sysheaders_from_gcc = 1
-		"let g:clang_exec = 'clang-3.8'
-		"let g:clang_exec = 'clang'
-		let g:clang_check_syntax_auto = 1
-		" enable or disable here depending on if neocomplete is present
-		let g:clang_auto = 0
-		let g:clang_diagsopt = ''
-		" }}}
+		" Syntastic
+			let g:syntastic_cpp_compiler_options = '-std=c++14 -pedantic -Wall -Wextra -Werror' 
+			let g:syntastic_c_compiler_options = '-std=gnu99 -pedantic -Wall -Wextra -Werror' 
+		
 endif
 " PLUGINS_FOR_BOTH_SYSTEMS 
 	" Call Vim-Plug Plugins should be from here below
@@ -605,10 +584,9 @@ endif
 	set foldenable
 	" global fold indent
 	set foldmethod=indent
-	"set foldmethod=indent   "fold based on indent
-	set foldnestmax=18      "deepest fold is 10 levels
-	"set nofoldenable        "dont fold by default
-	set foldlevel=1         "this is just what i use
+	set foldnestmax=18      "deepest fold is 18 levels
+	set foldlevel=0         
+	set foldlevelstart=0   
 	" use this below option to set other markers
 	"'foldmarker' 'fmr'	string (default: "{{{,}}}")
 	set viewoptions=folds,options,cursor,unix,slash " better unix /
@@ -1014,34 +992,20 @@ endif
 		let g:syntastic_auto_loc_list = 1
 		let g:syntastic_check_on_open = 0
 		let g:syntastic_check_on_wq = 0
-		"let g:syntastic_always_populate_loc_list = 1 " populates list of error so you can use lnext 
+		let g:syntastic_c_config_file = s:personal_path . '.syntastic_avrgcc_config'
 		
 	"/Plug 'octol/vim-cpp-enhanced-highlight' 
 		let g:cpp_class_scope_highlight = 1	
 		" turning this option breaks comments
 		"let g:cpp_experimental_template_highlight = 1	
 		
-	" Plugin 'morhetz/gruvbox' " colorscheme gruvbox  {{{
+	" Plugin 'morhetz/gruvbox' " colorscheme gruvbox  
 		colorscheme gruvbox
 		set background=dark    " Setting dark mode
 		"set background=light
 		"colorscheme PaperColor
 			
-	" Plug Super-Tab{{{
-		function! MyTagContext()
-		if filereadable(expand('%:p:h') . '/tags')
-			return "\<c-x>\<c-]>"
-		endif
-		" no return will result in the evaluation of the next
-		" configured context
-		endfunction
-		let g:SuperTabCompletionContexts =
-			\ ['MyTagContext', 's:ContextText', 's:ContextDiscover']
-		let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
-		let g:SuperTabContextDiscoverDiscovery =
-					\ ["&completefunc:<c-x><c-u>", "&omnifunc:<c-x><c-o>"]
-	
-		" Plug Neocomplete
+	" Plug Neocomplete
 		" All new stuff 
 		let g:neocomplete#enable_cursor_hold_i=1
 		"let g:neocomplete#enable_auto_select=1
@@ -1118,3 +1082,12 @@ endif
 	
 	" Plug Vim-R-plugin {{{
 		let vimrplugin_r_path = 'C:\\Program Files\\R\\R-3.2.3\\bin\\i386'
+
+	" Vim-Clang
+		let g:clang_auto = 0
+		let g:clang_diagsopt = ''
+		" uncomment when using clang_diagsopt
+		"let g:clang_cpp_options = '-std=c++1y -pedantic -Wall -Wextra -Werror'
+		"let g:clang_c_options = '-std=gnu99 -pedantic -Wall -Wextra -Werror'
+		let g:clang_include_sysheaders_from_gcc = 1
+		let g:clang_check_syntax_auto = 1
