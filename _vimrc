@@ -77,8 +77,8 @@ if has('win32')
 				\ }
 		
 		" Syntastic
-			let g:syntastic_cpp_compiler_options = '-pedantic -Wall -Wextra -Werror' 
-			let g:syntastic_c_compiler_options = '-std=gnu99 -pedantic -Wall -Wextra -Werror' 
+			let g:syntastic_cpp_compiler_options = '-pedantic -Wall'
+			let g:syntastic_c_compiler_options = '-std=gnu99 -pedantic -Wall'
 
 " UNIX_SETTINGS 
 elseif has('unix')
@@ -147,8 +147,8 @@ elseif has('unix')
 			endif
 
 		" Syntastic
-			let g:syntastic_cpp_compiler_options = '-std=c++14 -pedantic -Wall -Wextra' " -Werror' 
-			let g:syntastic_c_compiler_options = '-std=gnu99 -pedantic -Wall -Wextra' " -Werror' 
+			let g:syntastic_cpp_compiler_options = '-std=c++14 -pedantic -Wall'
+			let g:syntastic_c_compiler_options = '-std=gnu99 -pedantic -Wall'
 		
 endif
 " PLUGINS_FOR_BOTH_SYSTEMS 
