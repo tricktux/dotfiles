@@ -335,3 +335,16 @@
 				"\:!git push CppTut master<CR>
 	" }}}
 	"
+	" Plug Super-Tab{{{
+		function! MyTagContext()
+			if filereadable(expand('%:p:h') . '/tags')
+				return "\<c-x>\<c-]>"
+			endif
+			" no return will result in the evaluation of the next
+			" configured context
+		endfunction
+		let g:SuperTabCompletionContexts =
+			\ ['MyTagContext', 's:ContextText', 's:ContextDiscover']
+		let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
+		let g:SuperTabContextDiscoverDiscovery =
+					\ ["&completefunc:<c-x><c-u>", "&omnifunc:<c-x><c-o>"]
