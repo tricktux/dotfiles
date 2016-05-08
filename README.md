@@ -35,6 +35,7 @@ use c-w+<H,J,K,L> to swap windows around
 	
 ## Mappings 
 COMMANDS                    MODES ~
+```
 	:map   :noremap  :unmap     Normal, Visual, Select, Operator-pending
 	:nmap  :nnoremap :nunmap    Normal
 	:vmap  :vnoremap :vunmap    Visual and Select
@@ -45,41 +46,51 @@ COMMANDS                    MODES ~
 	:imap  :inoremap :iunmap    Insert
 	:lmap  :lnoremap :lunmap    Insert, Command-line, Lang-Arg
 	:cmap  :cnoremap :cunmap    Command-line
+```
 When using <plug> do a :nmap and make sure your option is listed, usually at the end
+```
 	:nmap shows all your normal mode mappings
 	:vmap shows all your visual mode mappings
 	:imap shows all your insert mode mappings
 	:map shows all mappings
 	:mapclear Clears all mappings then do :so % 
+```
 use `:verbose map <c-i>` to understand mappings
 to umap something simply type it in the command :unmap ii for example
 
 ## Search and replace examples
-- Search for INdENTGUIDES to join braces with \
+- Search for INdENTGUIDES to join braces with `\`
 - useful command to convert all , into new lines
-	:%s,/\r/g  
+	`:%s,/\r/g`
 - Search current highlited word in all cpp and h files recursively
 	:vimgrep // **/*.cpp **/*.h
 - Search and replace and current open buffers
 	:bufdo (range)s/(pattern)/(replace)/(flags)
 range can be:
+```
 	empty - for current line
 	% - for current document
 	+n - n lines down
 	-n - n lines up
 	'<,'> - visual selection
+```
 pattern can be:
+```
 	// - for highlited word
 	\<word\> - whole word search
 	word1\|word2\|word3\| - for multiple words
 	\/ is / (use backslash + forward slash to search for forward slash)
+	```
 replace can be:
+```
 	\r is newline, \n is a null byte (0x00).
 	\& is ampersand (& is the text that matches the search pattern).
 	\0 inserts the text matched by the entire pattern
 	\1 inserts the text of the first backreference. \2 inserts the second backreference, and so on.
 	\#@a is a reference to register 'a
+	```
 flags can be:
+```
 	g - global
 	e - ignore error when no ocurrance
 	I - case sensitive
@@ -88,7 +99,7 @@ flags can be:
 		a - substitute this and all following matches
 		l - substitute this and quit
 		q - quit current file and go to next
-
+```
 to get to the ex mode try `<C-r>` in insert mode
 to get PATH apparently all you have to do is type it thanks to neosnippets
 				
