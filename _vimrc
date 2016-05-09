@@ -109,7 +109,10 @@ elseif has('unix')
 	noremap <Leader><Space>y "+yy
 
 	nnoremap <Leader>el :silent e ~/
-	nnoremap <Leader>e2 :silent e ~/truck-server/Documents/NewRobot/
+	" edit odroid
+	nnoremap <Leader>eo :silent e ~/truck-server/Documents/NewBot_v3/
+	" edit here
+	nnoremap <Leader>eh :silent e ~/Documents/NewBot_v3/
 
 	nnoremap <Leader><Space>= :silent! let &guifont = substitute(
 	\ &guifont,
@@ -148,7 +151,8 @@ elseif has('unix')
 
 		" Syntastic
 			let g:syntastic_cpp_compiler_options = '-std=c++14 -pedantic -Wall'
-			let g:syntastic_c_compiler_options = '-std=gnu99 -pedantic -Wall'
+			" keeping this option
+			let g:syntastic_c_compiler_options = '-std=c11 -pedantic -Wall'
 		
 endif
 " PLUGINS_FOR_BOTH_SYSTEMS 
