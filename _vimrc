@@ -134,6 +134,7 @@ elseif has('unix')
 			" With this you can use gf to go to the #include <avr/io.h>
 			" also this path below are what go into the .syntastic_avrgcc_config
 			" i.e: -I/opt.....
+			" TODO: create tags to be loaded for all these paths
 			if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
 				set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
 			endif
@@ -598,6 +599,13 @@ endif
 	set textwidth=80 " default text width set something different on the aucmds 
 	" no mouse enabled 
 	set mouse=""
+	" significantly improves ctrlp speed. requires installation of ag
+	if executable('ag')
+		set grepprg=ag\ --nogroup\ --nocolor
+	else
+		echomsg string("You should get ag. Makes ctrlp much faster")
+		set grepprg&
+	endif
 
 " ALL_AUTOGROUP_STUFF 
 	augroup Filetypes
@@ -970,9 +978,9 @@ endif
 		let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
 		let g:ctrlp_cache_dir = s:personal_path . 'ctrlp'
 		let g:ctrlp_working_path_mode = 'c'
-		"if executable('ag')
-			"let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
-		"endif
+		let g:ctrlp_default_input = 1
+		let g:ctrlp_mruf_relative = 1
+		let g:ctrlp_max_history = &history
 
 	" Doxygen.vim 
 		let g:DoxygenToolkit_briefTag_pre="@Description:  " 
