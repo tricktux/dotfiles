@@ -348,3 +348,47 @@
 		let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
 		let g:SuperTabContextDiscoverDiscovery =
 					\ ["&completefunc:<c-x><c-u>", "&omnifunc:<c-x><c-o>"]
+		" Airline
+		autocmd User AirlineAfterInit call OnlyBufferNameOnAirline()
+	" Plugin 'bling/vim-airline' " Status bar line 
+		set laststatus=2
+		"let g:airline_section_b = '%{strftime("%c")}'
+		let g:airline#extensions#bufferline#enabled = 1
+		let g:airline#extensions#bufferline#overwrite_variables = 1
+		let g:airline#extensions#branch#format = 2
+		function! OnlyBufferNameOnAirline() abort
+			let g:airline_section_c = airline#section#create(['%{pathshorten(bufname("%"))}'])
+		endfunction
+		let g:airline#extensions#whitespace#checks = ['trailing']
+		let g:airline_theme='PaperColor'
+	function! s:FormatFile() abort
+		let g:clang_format_path='~/.clang-format'
+		let l:lines="all"
+		let l:format = s:personal_path . 'clang-format.py' 
+		if filereadable(l:format) > 0
+			exe "pyf " . l:format
+		else	
+			echo "File \"" . l:format . "\" does not exist"
+		endif
+	endfunction
+	nnoremap <Leader>cf :call <SID>FormatFile()<CR>
+		" tag wiki files, requires python script on path s:vwtagpy
+		let s:vwtagpy = s:personal_path . '/wiki/vwtags.py'
+		if filereadable(s:vwtagpy) > 0
+			let g:tagbar_type_vimwiki = {
+					\   'ctagstype':'vimwiki'
+					\ , 'kinds':['h:header']
+					\ , 'sro':'&&&'
+					\ , 'kind2scope':{'h':'header'}
+					\ , 'sort':0
+					\ , 'ctagsbin':s:vwtagpy
+					\ , 'ctagsargs': 'all'
+					\ }
+		endif
+	function! s:WikiTable() abort
+		if &ft =~ 'wiki'
+			exe ":VimwikiTable " . input("Enter col row:")
+		else
+			echo "Current buffer is not of wiki filetype"
+		endif
+	endfunction

@@ -1,5 +1,11 @@
 " REQ AND LEADER
 	set nocompatible
+	" moving these lines here fixes losing 
+	" syntax whith split screen actually it doesnt
+	syntax on
+	filetype on
+	filetype plugin on
+	filetype indent on
 	" moved here otherwise conditional mappings get / instead ; as leader 
 	let mapleader="\<Space>"
 	let maplocalleader="\<Space>"
@@ -16,11 +22,8 @@ if has('win32')
 
 	if !has('gui_running')
 		set term=xterm
-		set t_Co=256
 		let &t_AB="\e[48;5;%dm"
 		let &t_AF="\e[38;5;%dm"
-		nnoremap <CR> o<Esc>
-		set t_ut=
 	endif
 
 	" for this to work you must be in the root directory of your code
@@ -91,11 +94,6 @@ elseif has('unix')
 	set ffs=unix,dos
 	set ff=unix
 
-	if !has('gui_running')
-		set t_Co=256
-		" fixes colorscheme not filling entire backgroud
-		set t_ut=
-	endif
 	" this one below DOES WORK in linux just make sure is ran at root folder
 	noremap <Leader>tu :cs kill -1<CR>
 	\:!rm cscope.files cscope.out<CR>
@@ -167,7 +165,6 @@ endif
 	Plug 'scrooloose/nerdtree'
 	Plug 'scrooloose/nerdcommenter'
 	Plug 'lervag/vimtex' " Latex support
-	Plug 'bling/vim-airline'	" Status bar line
 	Plug 'tpope/vim-surround'
 	Plug 'junegunn/rainbow_parentheses.vim'
 	Plug 'morhetz/gruvbox' " colorscheme gruvbox 
@@ -191,7 +188,6 @@ endif
 
 " GUI_SETTINGS 
 	if has('gui_running')
-		"set lines=999 columns=999 " start maximized
 		let &guifont = s:custom_font " OS dependent font 
 		set guioptions-=T  " no toolbar
 		set guioptions-=m  " no menu bar
@@ -199,8 +195,21 @@ endif
 		set guioptions-=l  " no scroll bar
 		set guioptions-=L  " no scroll bar
 		nnoremap <S-CR> O<Esc>
-		" mapping <CR> in gvim to new empty line
+	else " common cli options to both systems 
+		set t_Co=256
+		" fixes colorscheme not filling entire backgroud
+		set t_ut=
 	endif
+
+" PERFORMANCE_SETTINGS
+	" see :h slow-terminal
+	hi NonText cterm=NONE ctermfg=NONE
+	set showcmd " use noshowcmd if things are really slow 
+	set scrolljump=5
+	set sidescroll=5
+	set ttyscroll=3
+	set lazyredraw " Had to addit to speed up scrolling 
+	set ttyfast " Had to addit to speed up scrolling 
 
 " OMNICpp_SETINGS 
 	let OmniCpp_NamespaceSearch = 1
@@ -212,14 +221,6 @@ endif
 " FUNCTIONS 
 	" Only works in vimwiki filetypes
 	" TODO: autodownload files
-	function! s:WikiTable() abort
-		if &ft =~ 'wiki'
-			exe ":VimwikiTable " . input("Enter col row:")
-		else
-			echo "Current buffer is not of wiki filetype"
-		endif
-	endfunction
-
 	" Input: empty- It will ask you what type of file you want to search
 	" 		 String- "1", "2", or specify files in which you want to search
 	function! s:GlobalSearch(type) abort 
@@ -265,18 +266,6 @@ endif
 	function! s:SvnCommit() abort
 		exe "!svn commit -m \"" . input("Commit comment:") . "\" ."
 	endfunction
-
-	function! s:FormatFile() abort
-		let g:clang_format_path='~/.clang-format'
-		let l:lines="all"
-		let l:format = s:personal_path . 'clang-format.py' 
-		if filereadable(l:format) > 0
-			exe "pyf " . l:format
-		else	
-			echo "File \"" . l:format . "\" does not exist"
-		endif
-	endfunction
-	nnoremap <Leader>cf :call <SID>FormatFile()<CR>
 
 	"TODO:
 	nnoremap <Leader>mz :call <SID>SaveSession()<CR>
@@ -509,8 +498,6 @@ endif
 	endfunction
 
 " SET_OPTIONS 
-	filetype plugin on   
-	filetype indent on   
 	"set spell spelllang=en_us
 	"omnicomplete menu
 	set nospell
@@ -556,10 +543,13 @@ endif
 	set switchbuf=
 	" see :h timeout this was done to make use of ' faster and keep the other
 	" timeout the same
-	"set notimeout
-	"set nottimeout
-	set timeoutlen=1000
-	set ttimeoutlen=0
+	set notimeout
+	set nottimeout
+	" cant remember why I had a timeout len I think it was
+	" in order to use <c-j> in cli vim for esc
+	" removing it see what happens
+	" set timeoutlen=1000
+	" set ttimeoutlen=0
 	set nowrap        " wrap lines
 	set nowrapscan        " do not wrap search at EOF
 	" will look in current directory for tags
@@ -577,7 +567,6 @@ endif
 	set smartindent " these 2 make search case smarter
 	set ignorecase
 	set autoread " autoload files written outside of vim
-	syntax on
 	" Display tabs and trailing spaces visually
 	"set list listchars=tab:\ \ ,trail:?
 	set linebreak    "Wrap lines at convenient points
@@ -598,11 +587,17 @@ endif
 		set conceallevel=2 concealcursor=nv
 	endif
 
-	" TODO: fix and make this a function currently undo dir stuff not working
+	if v:version >= 703 " undo settings 
+		let &undodir= s:personal_path . '/undofiles' " TODO: todo mkdir if doesnt exist 
+		set undofile
 
-	set lazyredraw " Had to addit to speed up scrolling 
-	set ttyfast " Had to addit to speed up scrolling 
-	set noesckeys "no mappings that start with <esc>
+		set colorcolumn=+1 "mark the ideal max text width
+	endif
+	set noesckeys " No mappings that start with <esc>
+	set showmode
+	set textwidth=80 " default text width set something different on the aucmds 
+	" no mouse enabled 
+	set mouse=""
 
 " ALL_AUTOGROUP_STUFF 
 	augroup Filetypes
@@ -611,16 +606,13 @@ endif
 		autocmd FileType c setlocal omnifunc=omni#c#complete#Main
 		autocmd FileType cpp setlocal omnifunc=omni#cpp#complete#Main
 		autocmd FileType c,cpp setlocal cindent
-		" All files
-		autocmd FileType * RainbowParentheses
-		autocmd FileType * setlocal textwidth=110
-
-		autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
-
+		" rainbow cannot be enabled for help file. It breaks syntax highlight
+		autocmd FileType c,cpp RainbowParentheses
 		" Nerdtree Fix
 		autocmd FileType nerdtree setlocal relativenumber
-		autocmd FileType nerdtree setlocal encoding=utf-8
-
+		autocmd FileType nerdtree setlocal encoding=utf-8 " fixes little arrows
+		" All others 									" not showing
+		autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
 		autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 		autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 		autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
@@ -635,11 +627,12 @@ endif
 		autocmd BufNewFile,BufReadPost *.ino,*.pde setlocal ft=arduino
 		" automatic syntax for *.scp
 		autocmd BufNewFile,BufReadPost *.scp setlocal syntax=asm
-		" Airline
-		autocmd User AirlineAfterInit call OnlyBufferNameOnAirline()
 	augroup END
 
 " CUSTOM MAPPINGS 
+	" List of super useful mappings
+	" ga " prints ascii of char under cursor
+	
 	" Quickfix and Location stuff 
 		" Description:
 		" C-Arrow forces movement on quickfix window
@@ -665,11 +658,7 @@ endif
 	" Miscelaneous Mappings
 		" edit vimrc on a new tab
 		noremap <Leader>mv :e $MYVIMRC<CR>
-		" source current document(usually used with vimrc) added airline
-		" replace auto sourcing of $MYVIMRC
 		noremap <Leader>ms :so %<CR>
-		"noremap <Leader>ms :so %<CR>:AirlineRefresh<CR>
-		" used to save in command line something
 		nnoremap <C-s> :w<CR>
 		nnoremap <C-h> :noh<CR>
 		nnoremap <C-Space> i<Space><Esc>
@@ -715,7 +704,7 @@ endif
 
 		" cd into current dir path and into dir above current path
 		nnoremap <Leader>e1 :e ~/vimrc/
-		nnoremap <Leader>e :e 
+		" nnoremap <Leader>e :e  " timeout enabled dependant 
 		nnoremap <Leader>cd :cd %:p:h<CR>
 					\:pwd<CR>
 		nnoremap <Leader>cu :cd %:p:h<CR>
@@ -856,6 +845,35 @@ endif
 			nnoremap <Leader>gl :silent Glog<CR>
 							\:copen 20<CR>
 
+" STATUS_LINE
+	set statusline =%#identifier#
+	set statusline+=[%f]    "tail of the filename
+	set statusline+=%*
+
+	set statusline+=%h      "help file flag
+	set statusline+=%y      "filetype
+
+	"read only flag
+	set statusline+=%#identifier#
+	set statusline+=%r
+	set statusline+=%*
+
+	"modified flag
+	set statusline+=%#warningmsg#
+	set statusline+=%m
+	set statusline+=%*
+
+	"display a warning if &paste is set
+	set statusline+=%#error#
+	set statusline+=%{&paste?'[paste]':''}
+	set statusline+=%*
+
+	set statusline+=%=      "left/right separator
+	set statusline+=%c,     "cursor column
+	set statusline+=%l/%L   "cursor line/total lines
+	set statusline+=\ %P    "percent through file
+	set laststatus=2
+
 " PLUGIN_OPTIONS/MAPPINGS 
 	"Plugin 'VundleVim/Vundle.vim' 
 		noremap <Leader>Pl :PlugList<CR>
@@ -921,18 +939,6 @@ endif
 		let g:vimtex_toc_enabled=1
 		let g:vimtex_index_show_help=1
 
-	" Plugin 'bling/vim-airline' " Status bar line 
-		set laststatus=2
-		"let g:airline_section_b = '%{strftime("%c")}'
-		let g:airline#extensions#bufferline#enabled = 1
-		let g:airline#extensions#bufferline#overwrite_variables = 1
-		let g:airline#extensions#branch#format = 2
-		function! OnlyBufferNameOnAirline() abort
-			let g:airline_section_c = airline#section#create(['%{pathshorten(bufname("%"))}'])
-		endfunction
-		let g:airline#extensions#whitespace#checks = ['trailing']
-		let g:airline_theme='PaperColor'
-
 	" Plugin 'Tagbar' {{{
         let g:tagbar_autofocus = 1
         let g:tagbar_show_linenumbers = 2
@@ -951,19 +957,6 @@ endif
 		" Find functions called by this function
 		noremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
 		noremap <Leader>ts :cs show<CR>
-		" tag wiki files, requires python script on path s:vwtagpy
-		let s:vwtagpy = s:personal_path . '/wiki/vwtags.py'
-		if filereadable(s:vwtagpy) > 0
-			let g:tagbar_type_vimwiki = {
-					\   'ctagstype':'vimwiki'
-					\ , 'kinds':['h:header']
-					\ , 'sro':'&&&'
-					\ , 'kind2scope':{'h':'header'}
-					\ , 'sort':0
-					\ , 'ctagsbin':s:vwtagpy
-					\ , 'ctagsargs': 'all'
-					\ }
-		endif
 
 	" Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh 
 		nnoremap <Leader>aO :CtrlP<CR>
@@ -1096,4 +1089,4 @@ endif
 		"let g:clang_cpp_options = '-std=c++1y -pedantic -Wall -Wextra -Werror'
 		"let g:clang_c_options = '-std=gnu99 -pedantic -Wall -Wextra -Werror'
 		let g:clang_include_sysheaders_from_gcc = 1
-		let g:clang_check_syntax_auto = 1
+		" let g:clang_check_syntax_auto = 1
