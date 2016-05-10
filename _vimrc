@@ -29,13 +29,14 @@ if has('win32')
 	" for this to work you must be in the root directory of your code
 	" 1. kill cscope database connection
 	" 2. delete previous cscope files
-	" 3. create new cscope.fiels, cscope.out, and ctags files
+	" 3. create new cscope.fiels, cscope.out, and ctags files, the -q options
+	" makes it a lot faster by creating extra files 
 	" 4. connect to new database
 	noremap <Leader>tu :cs kill -1<CR>
-	\:silent !del /F cscope.files cscope.out<CR>
+	\:silent !del /F cscope.files cscope.out cscope.in.out cscope.po.out<CR>
 	\:silent !dir /b /s *.cpp *.h *.hpp *.c *.cc > cscope.files<CR> 
-	\:silent !cscope -b -i cscope.files -f cscope.out<CR>
-	\:silent !ctags -R -f ./.svn/tags<CR>
+	\:silent !cscope -b -q -R -i cscope.files<CR>
+	\:silent !ctags -R -L cscope.files -f ./.svn/tags<CR>
 	\:cs add cscope.out<CR>
 
 	noremap <Leader>mr :!%<CR>
@@ -96,11 +97,11 @@ elseif has('unix')
 
 	" this one below DOES WORK in linux just make sure is ran at root folder
 	noremap <Leader>tu :cs kill -1<CR>
-	\:!rm cscope.files cscope.out<CR>
+	\:!rm cscope.files cscope.out cscope.in.out cscope.po.out<CR>
 	\:!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.cc'  -o -iname '*.h' -o -iname '*.hpp' > cscope.files<CR>
-	\:!cscope -b -i cscope.files -f cscope.out<CR>
+	\:!cscope -b -q -R -i cscope.files<CR>
 	\:cs add cscope.out<CR>
-	\:silent !ctags -R --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
+	\:silent !ctags -R -L cscope.files<CR>
 
 	noremap <Leader>mr :!./%<CR>
 	noremap <Leader><Space>v "+p
@@ -981,6 +982,7 @@ endif
 		let g:ctrlp_default_input = 1
 		let g:ctrlp_mruf_relative = 1
 		let g:ctrlp_max_history = &history
+		let g:ctrlp_clear_cache_on_exit = 0
 
 	" Doxygen.vim 
 		let g:DoxygenToolkit_briefTag_pre="@Description:  " 
