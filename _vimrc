@@ -96,11 +96,11 @@ elseif has('unix')
 
 	" this one below DOES WORK in linux just make sure is ran at root folder
 	noremap <Leader>tu :cs kill -1<CR>
-	\:!rm cscope.files cscope.out<CR>
+	\:!rm cscope.files cscope.out cscope.po.out cscope.in.out<CR>
 	\:!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.cc'  -o -iname '*.h' -o -iname '*.hpp' > cscope.files<CR>
-	\:!cscope -b -i cscope.files -f cscope.out<CR>
+	\:!cscope -b -q -i cscope.files<CR>
 	\:cs add cscope.out<CR>
-	\:silent !ctags -R --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
+	\:silent !ctags -R -L cscope.files<CR>
 
 	noremap <Leader>mr :!./%<CR>
 	noremap <Leader><Space>v "+p
@@ -147,6 +147,8 @@ elseif has('unix')
 			if isdirectory('/usr/include')
 				set path+=/usr/include
 			endif
+			" these are avr tags created by vimrc/scripts/maketags.sh
+			let &tags= s:personal_path . 'ctags/tags'
 
 		" Syntastic
 			let g:syntastic_cpp_compiler_options = '-std=c++14 -pedantic -Wall'
@@ -603,7 +605,7 @@ endif
 	if executable('ag')
 		set grepprg=ag\ --nogroup\ --nocolor
 	else
-		echomsg string("You should get ag. Makes ctrlp much faster")
+		echomsg string("You should install silversearcher-ag. Makes ctrlp much faster")
 		set grepprg&
 	endif
 
@@ -978,9 +980,8 @@ endif
 		let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
 		let g:ctrlp_cache_dir = s:personal_path . 'ctrlp'
 		let g:ctrlp_working_path_mode = 'c'
-		let g:ctrlp_default_input = 1
-		let g:ctrlp_mruf_relative = 1
 		let g:ctrlp_max_history = &history
+		let g:ctrlp_clear_cache_on_exit = 0
 
 	" Doxygen.vim 
 		let g:DoxygenToolkit_briefTag_pre="@Description:  " 
