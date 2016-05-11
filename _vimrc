@@ -598,6 +598,7 @@ endif
 		echomsg string("You should install silversearcher-ag. Makes ctrlp much faster")
 		set grepprg&
 	endif
+	set laststatus=2
 
 " ALL_AUTOGROUP_STUFF 
 	augroup Filetypes
