@@ -17,25 +17,17 @@ if has('win32')
 	let s:plugged_path=  $HOME . '\vimfiles\plugged\'
 	let s:custom_font =  'consolas:h8'
 
-	set ffs=dos,unix
-	set ff=dos
-
 	if !has('gui_running')
 		set term=xterm
 		let &t_AB="\e[48;5;%dm"
 		let &t_AF="\e[38;5;%dm"
 	endif
 
-	" for this to work you must be in the root directory of your code
-	" 1. kill cscope database connection
-	" 2. delete previous cscope files
-	" 3. create new cscope.fiels, cscope.out, and ctags files, the -q options
-	" makes it a lot faster by creating extra files 
-	" 4. connect to new database
+	" update cscope and ctags
 	noremap <Leader>tu :cs kill -1<CR>
-	\:silent !del /F cscope.files cscope.out cscope.in.out cscope.po.out<CR>
+	\:silent !del /F cscope.files cscope.in.out cscope.po.out cscope.out<CR>
 	\:silent !dir /b /s *.cpp *.h *.hpp *.c *.cc > cscope.files<CR> 
-	\:silent !cscope -b -q -R -i cscope.files<CR>
+	\:!cscope -b -q -i cscope.files<CR>
 	\:silent !ctags -R -L cscope.files -f ./.svn/tags<CR>
 	\:cs add cscope.out<CR>
 
@@ -91,15 +83,11 @@ elseif has('unix')
 	let s:plugged_path=  $HOME . '/.vim/plugged/'
 	let s:custom_font = 'Andale Mono 8'
 
-	" fix dos chars by: dos2unix -f _vimrc
-	set ffs=unix,dos
-	set ff=unix
-
 	" this one below DOES WORK in linux just make sure is ran at root folder
 	noremap <Leader>tu :cs kill -1<CR>
-	\:!rm cscope.files cscope.out cscope.in.out cscope.po.out<CR>
+	\:!rm cscope.files cscope.out cscope.po.out cscope.in.out<CR>
 	\:!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.cc'  -o -iname '*.h' -o -iname '*.hpp' > cscope.files<CR>
-	\:!cscope -b -q -R -i cscope.files<CR>
+	\:!cscope -b -q -i cscope.files<CR>
 	\:cs add cscope.out<CR>
 	\:silent !ctags -R -L cscope.files<CR>
 
@@ -148,6 +136,8 @@ elseif has('unix')
 			if isdirectory('/usr/include')
 				set path+=/usr/include
 			endif
+			" these are avr tags created by vimrc/scripts/maketags.sh
+			let &tags= s:personal_path . 'ctags/tags'
 
 		" Syntastic
 			let g:syntastic_cpp_compiler_options = '-std=c++14 -pedantic -Wall'
@@ -163,27 +153,28 @@ endif
 		call plug#begin('~/.config/nvim/autoupload/plug.vim')
 		Plug 'Shougo/deoplete.nvim'
 	endif
+	" misc
 	Plug 'chrisbra/vim-diff-enhanced'
 	Plug 'scrooloose/nerdtree'
 	Plug 'scrooloose/nerdcommenter'
-	Plug 'lervag/vimtex' " Latex support
 	Plug 'tpope/vim-surround'
-	Plug 'junegunn/rainbow_parentheses.vim'
-	Plug 'morhetz/gruvbox' " colorscheme gruvbox 
 	Plug 'ctrlpvim/ctrlp.vim'
-
-	Plug 'octol/vim-cpp-enhanced-highlight'
+	" cpp
 	Plug 'Tagbar'
 	Plug 'justmao945/vim-clang'
 	Plug 'scrooloose/syntastic'
-
+	" autocomplete
 	Plug 'Shougo/neocomplete'
 	Plug 'Shougo/neosnippet'
 	Plug 'Shougo/neosnippet-snippets'
-
-	Plug 'tpope/vim-fugitive'
-	Plug 'NLKNguyen/papercolor-theme'
 	Plug 'honza/vim-snippets'
+	" version control
+	Plug 'tpope/vim-fugitive'
+	" aesthetic
+	Plug 'octol/vim-cpp-enhanced-highlight'
+	Plug 'NLKNguyen/papercolor-theme'
+	Plug 'junegunn/rainbow_parentheses.vim'
+	Plug 'morhetz/gruvbox' " colorscheme gruvbox 
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
@@ -193,9 +184,9 @@ endif
 		let &guifont = s:custom_font " OS dependent font 
 		set guioptions-=T  " no toolbar
 		set guioptions-=m  " no menu bar
-		set guioptions-=r  " no scroll bar
-		set guioptions-=l  " no scroll bar
-		set guioptions-=L  " no scroll bar
+		set guioptions-=r  " no right scroll bar
+		set guioptions-=l  " no left scroll bar
+		set guioptions-=L  " no side scroll bar
 		nnoremap <S-CR> O<Esc>
 	else " common cli options to both systems 
 		set t_Co=256
@@ -604,7 +595,7 @@ endif
 	if executable('ag')
 		set grepprg=ag\ --nogroup\ --nocolor
 	else
-		echomsg string("You should get ag. Makes ctrlp much faster")
+		echomsg string("You should install silversearcher-ag. Makes ctrlp much faster")
 		set grepprg&
 	endif
 
@@ -855,33 +846,18 @@ endif
 							\:copen 20<CR>
 
 " STATUS_LINE
-	set statusline =%#identifier#
-	set statusline+=[%f]    "tail of the filename
-	set statusline+=%*
-
-	set statusline+=%h      "help file flag
-	set statusline+=%y      "filetype
-
-	"read only flag
-	set statusline+=%#identifier#
-	set statusline+=%r
-	set statusline+=%*
-
-	"modified flag
-	set statusline+=%#warningmsg#
-	set statusline+=%m
-	set statusline+=%*
-
-	"display a warning if &paste is set
-	set statusline+=%#error#
-	set statusline+=%{&paste?'[paste]':''}
-	set statusline+=%*
-
-	set statusline+=%=      "left/right separator
-	set statusline+=%c,     "cursor column
-	set statusline+=%l/%L   "cursor line/total lines
-	set statusline+=\ %P    "percent through file
-	set laststatus=2
+	set statusline =
+	set statusline+=\[%n]                                  "buffernr
+	set statusline+=\ %<%F\ %m%r%w                         "File+path
+	set statusline+=\ %y\                                  "FileType
+	set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}      "Encoding
+	set statusline+=\ %{(&bomb?\",BOM\":\"\")}\            "Encoding2
+	set statusline+=\ %{&ff}\                              "FileFormat (dos/unix..) 
+	set statusline+=\ %=\ row:%l/%L\ (%03p%%)\             "Rownumber/total (%)
+	set statusline+=\ col:%03c\                            "Colnr
+	set statusline+=\ \ %m%r%w\ %P\ \                      "Modified? Readonly? Top/bot.
+	" if you want to put color to status line needs to be after command
+	" colorscheme. Otherwise this commands clears it the color
 
 " PLUGIN_OPTIONS/MAPPINGS 
 	"Plugin 'VundleVim/Vundle.vim' 
@@ -979,8 +955,6 @@ endif
 		let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
 		let g:ctrlp_cache_dir = s:personal_path . 'ctrlp'
 		let g:ctrlp_working_path_mode = 'c'
-		let g:ctrlp_default_input = 1
-		let g:ctrlp_mruf_relative = 1
 		let g:ctrlp_max_history = &history
 		let g:ctrlp_clear_cache_on_exit = 0
 
@@ -1013,7 +987,7 @@ endif
 		set background=dark    " Setting dark mode
 		"set background=light
 		"colorscheme PaperColor
-			
+
 	" Plug Neocomplete
 		" All new stuff 
 		let g:neocomplete#enable_cursor_hold_i=1
