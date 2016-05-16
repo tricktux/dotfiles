@@ -519,7 +519,7 @@ endif
 	set undolevels=1000      " use many muchos levels of undo
 	" ignore these files to for completion
 	set wildignore+=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn,.git
-	set completeopt=menuone,menu,longest,preview
+	set completeopt=menuone,menu,longest,preview,noselect,noinsert
 	set wildmenu
 	set wildmode=list:longest
 	set noundofile
