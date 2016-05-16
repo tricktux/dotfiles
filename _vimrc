@@ -73,8 +73,10 @@ if has('win32')
 				\ }
 		
 		" Syntastic
-			let g:syntastic_cpp_compiler_options = '-pedantic -Wall'
-			let g:syntastic_c_compiler_options = '-std=gnu99 -pedantic -Wall'
+			let g:syntastic_cpp_compiler_options = '-std=c++14 -pedantic -Wall'
+			let g:syntastic_c_compiler_options = '-std=gnu11 -pedantic -Wall'
+			let g:syntastic_cpp_check_header = 0
+			" let g:syntastic_cpp_config_file = s:personal_path . '.syntastic_avrgcc_config'
 
 " UNIX_SETTINGS 
 elseif has('unix')
@@ -143,6 +145,7 @@ elseif has('unix')
 			let g:syntastic_cpp_compiler_options = '-std=c++14 -pedantic -Wall'
 			" keeping this option
 			let g:syntastic_c_compiler_options = '-std=c11 -pedantic -Wall'
+			let g:syntastic_c_config_file = s:personal_path . '.syntastic_avrgcc_config'
 		
 endif
 " PLUGINS_FOR_BOTH_SYSTEMS 
@@ -203,6 +206,7 @@ endif
 	set ttyscroll=3
 	set lazyredraw " Had to addit to speed up scrolling 
 	set ttyfast " Had to addit to speed up scrolling 
+	set nofsync " see :h fsync
 
 " OMNICpp_SETINGS 
 	let OmniCpp_NamespaceSearch = 1
@@ -220,21 +224,28 @@ endif
 		try
 			"echomsg string(a:type)  " Debugging purposes
 			if a:type == "0" 
-				echo "Search Filetypes:\n\t1.Any\n\t2.Cpp\n" 
+				echo "Search Filetypes:\n\t1.Any\n\t2.Cpp\n\t3.Wiki" 
 				let l:file = nr2char(getchar())
 			else
 				let l:file = a:type
 			endif
-			"echomsg string(l:file)  " Debugging purposes
-			if l:file == 1
-				let l:file = "**/*"
-			elseif l:file == 2
-				let l:file = "**/*.cpp **/*.h **/*.c **/*.hpp **/*.cc"
-			elseif l:file == 3
-				let l:file = "**/*.wiki"
+			if !executable('ag') " use ag if possible 
+				if l:file == 1
+					let l:file = "**/*"
+				elseif l:file == 2
+					let l:file = "**/*.cpp **/*.h **/*.c **/*.hpp **/*.cc"
+				elseif l:file == 3
+					let l:file = "**/*.wiki"
+				endif
+				exe "vimgrep /" . input("Search in \"" . getcwd() . "\" for:") . "/ " . l:file
+			else
+				if l:file == 1
+					let l:file = ""
+				elseif l:file == 2
+					let l:file = "--cpp"
+				endif " relays on set grepprg=ag 
+				exe "grep " . l:file . " " . input("Search in \"" . getcwd() . "\" for:")
 			endif
-			" search in all files of type l:file the input string recursively
-			exe "vimgrep /" . input("Search in \"" . getcwd() . "\" for:") . "/ " . l:file
 			copen 20
 		catch
 			echohl ErrorMsg
@@ -607,6 +618,7 @@ endif
 		autocmd FileType c setlocal omnifunc=omni#c#complete#Main
 		autocmd FileType cpp setlocal omnifunc=omni#cpp#complete#Main
 		autocmd FileType c,cpp setlocal cindent
+		" autocmd FileType c,cpp silent SyntasticToggleMode
 		" rainbow cannot be enabled for help file. It breaks syntax highlight
 		autocmd FileType c,cpp RainbowParentheses
 		" Nerdtree Fix
@@ -775,10 +787,8 @@ endif
 		nnoremap <Leader>Sa :call <SID>GlobalSearch(1)<CR>
 		" search cpp files
 		nnoremap <Leader>Sc :call <SID>GlobalSearch(2)<CR>
-		" search wiki files
-		nnoremap <Leader>Sw :call <SID>GlobalSearch(3)<CR>
-		noremap <Leader>w /\<<c-r>=expand("<cword>")<cr>\>
-		noremap <Leader>W :%s/\<<c-r>=expand("<cword>")<cr>\>/
+		nnoremap <Leader>w /\<<c-r>=expand("<cword>")<cr>\>
+		nnoremap <Leader>W :%s/\<<c-r>=expand("<cword>")<cr>\>/
 		" This is a very good to show and search all current but a much better is 
 		" remaped search to f
 		noremap <S-s> #<C-o>
@@ -976,7 +986,6 @@ endif
 		let g:syntastic_auto_loc_list = 1
 		let g:syntastic_check_on_open = 0
 		let g:syntastic_check_on_wq = 0
-		let g:syntastic_c_config_file = s:personal_path . '.syntastic_avrgcc_config'
 		
 	"/Plug 'octol/vim-cpp-enhanced-highlight' 
 		let g:cpp_class_scope_highlight = 1	
@@ -1054,6 +1063,7 @@ endif
 		endif
 		let g:neocomplete#delimiter_patterns.vim = ['#']
 		let g:neocomplete#delimiter_patterns.cpp = ['::']
+
 		" NeoSnippets
 		" Plugin key-mappings.
 		imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -1069,9 +1079,8 @@ endif
 
 	" Vim-Clang
 		let g:clang_auto = 0
-		let g:clang_diagsopt = ''
-		" uncomment when using clang_diagsopt
-		"let g:clang_cpp_options = '-std=c++1y -pedantic -Wall -Wextra -Werror'
-		"let g:clang_c_options = '-std=gnu99 -pedantic -Wall -Wextra -Werror'
-		let g:clang_include_sysheaders_from_gcc = 1
 		" let g:clang_check_syntax_auto = 1
+		" uncomment when using clang_diagsopt
+		let g:clang_cpp_options = '-IC:\tools\mingw64\x86_64-w64-mingw32\include\c++ -nostdinc -pedantic -Wall'
+		let g:clang_c_options = '-std=gnu11 -pedantic -Wall'
+		let g:clang_include_sysheaders_from_gcc = 1
