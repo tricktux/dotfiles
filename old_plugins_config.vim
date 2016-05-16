@@ -392,3 +392,11 @@
 			echo "Current buffer is not of wiki filetype"
 		endif
 	endfunction
+	" Vim-Clang
+		let g:clang_auto = 0
+		let g:clang_check_syntax_auto = 1
+		" uncomment when using clang_diagsopt
+		let g:clang_cpp_options = '-std=c++14 -stdlib=libc++ -pedantic -Wall'
+		let g:clang_c_options = '-std=gnu11 -pedantic -Wall'
+		let g:clang_include_sysheaders_from_gcc = 1
+        let g:clang_diagsopt = 'rightbelow:6'
