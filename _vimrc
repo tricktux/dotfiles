@@ -72,11 +72,10 @@ if has('win32')
 				\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
 				\ }
 		
-		" Syntastic
-			let g:syntastic_cpp_compiler_options = '-std=c++14 -pedantic -Wall'
-			let g:syntastic_c_compiler_options = '-std=gnu11 -pedantic -Wall'
-			let g:syntastic_cpp_check_header = 0
-			" let g:syntastic_cpp_config_file = s:personal_path . '.syntastic_avrgcc_config'
+		" Vim-Clang " not being used currently but this below fixes 
+		" clang using mscv for target instead of mingw64
+			let g:clang_cpp_options = '-target x86_64-pc-windows-gnu -std=c++14 -pedantic -Wall'
+			let g:clang_c_options = '-target x86_64-pc-windows-gnu -std=gnu11 -pedantic -Wall'
 
 " UNIX_SETTINGS 
 elseif has('unix')
@@ -142,9 +141,6 @@ elseif has('unix')
 			let &tags= s:personal_path . 'ctags/tags'
 
 		" Syntastic
-			let g:syntastic_cpp_compiler_options = '-std=c++14 -pedantic -Wall'
-			" keeping this option
-			let g:syntastic_c_compiler_options = '-std=c11 -pedantic -Wall'
 			let g:syntastic_c_config_file = s:personal_path . '.syntastic_avrgcc_config'
 		
 endif
@@ -986,6 +982,8 @@ endif
 		let g:syntastic_auto_loc_list = 1
 		let g:syntastic_check_on_open = 0
 		let g:syntastic_check_on_wq = 0
+		let g:syntastic_cpp_compiler_options = '-std=c++14 -pedantic -Wall'
+		let g:syntastic_c_compiler_options = '-std=c11 -pedantic -Wall'
 		
 	"/Plug 'octol/vim-cpp-enhanced-highlight' 
 		let g:cpp_class_scope_highlight = 1	
@@ -1000,6 +998,10 @@ endif
 
 	" Plug Neocomplete
 		" All new stuff 
+		" Vim-clang
+		let g:clang_c_completeopt = 'menuone,preview,noinsert,noselect'
+		let g:clang_cpp_completeopt = 'menuone,preview,noinsert,noselect'
+
 		let g:neocomplete#enable_cursor_hold_i=1
 		"let g:neocomplete#enable_auto_select=1
 		"let g:neocomplete#enable_auto_delimiter=1
@@ -1077,10 +1079,6 @@ endif
 	" Plug Vim-R-plugin {{{
 		let vimrplugin_r_path = 'C:\\Program Files\\R\\R-3.2.3\\bin\\i386'
 
-	" Vim-Clang
-		let g:clang_auto = 0
-		" let g:clang_check_syntax_auto = 1
-		" uncomment when using clang_diagsopt
-		let g:clang_cpp_options = '-IC:\tools\mingw64\x86_64-w64-mingw32\include\c++ -nostdinc -pedantic -Wall'
-		let g:clang_c_options = '-std=gnu11 -pedantic -Wall'
-		let g:clang_include_sysheaders_from_gcc = 1
+	" Vim-Clang " syntastic is much better that is why is not 
+		let g:clang_auto = 0 " being used only for completion currently 
+		let g:clang_diagsopt = '' " no syntax check 
