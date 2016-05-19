@@ -202,7 +202,7 @@ endif
 	set ttyscroll=3
 	set lazyredraw " Had to addit to speed up scrolling 
 	set ttyfast " Had to addit to speed up scrolling 
-	set nofsync " see :h fsync
+	set nofsync " see :h fsync, maybe dangerous but no problems so far
 
 " OMNICpp_SETINGS 
 	let OmniCpp_NamespaceSearch = 1
@@ -595,7 +595,6 @@ endif
 	endif
 	set noesckeys " No mappings that start with <esc>
 	set showmode
-	set textwidth=80 " default text width set something different on the aucmds 
 	" no mouse enabled 
 	set mouse=""
 	" significantly improves ctrlp speed. requires installation of ag
@@ -606,6 +605,8 @@ endif
 		set grepprg&
 	endif
 	set laststatus=2
+	set formatoptions=croqt " this is textwidth actually breaks the lines 
+	set textwidth=80
 
 " ALL_AUTOGROUP_STUFF 
 	augroup Filetypes
@@ -614,13 +615,14 @@ endif
 		autocmd FileType c setlocal omnifunc=omni#c#complete#Main
 		autocmd FileType cpp setlocal omnifunc=omni#cpp#complete#Main
 		autocmd FileType c,cpp setlocal cindent
-		" autocmd FileType c,cpp silent SyntasticToggleMode
+		" enforce "t" in formatoptions on cpp files
+		autocmd FileType c,cpp setlocal formatoptions=croqt
 		" rainbow cannot be enabled for help file. It breaks syntax highlight
 		autocmd FileType c,cpp RainbowParentheses
 		" Nerdtree Fix
 		autocmd FileType nerdtree setlocal relativenumber
 		autocmd FileType nerdtree setlocal encoding=utf-8 " fixes little arrows
-		" All others 									" not showing
+		" Set omnifunc for all others 									" not showing
 		autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
 		autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 		autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
