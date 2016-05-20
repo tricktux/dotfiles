@@ -202,7 +202,8 @@ endif
 	set ttyscroll=3
 	set lazyredraw " Had to addit to speed up scrolling 
 	set ttyfast " Had to addit to speed up scrolling 
-	set nofsync " see :h fsync, maybe dangerous but no problems so far
+	set fsync " see :h fsync, maybe dangerous but no problems so far
+	" already had problems with it. lost an entire file. dont use it
 
 " OMNICpp_SETINGS 
 	let OmniCpp_NamespaceSearch = 1
