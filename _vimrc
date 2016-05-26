@@ -210,12 +210,20 @@ endif
 	set fsync " see :h fsync, maybe dangerous but no problems so far
 	" already had problems with it. lost an entire file. dont use it
 
-" OMNICpp_SETINGS 
-	let OmniCpp_NamespaceSearch = 1
-	let OmniCpp_GlobalScopeSearch = 1
-	let OmniCpp_ShowAccess = 1
-	let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
-	let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+" MISCELANEOUS_SETINGS 
+	" OmniCpp
+		let OmniCpp_NamespaceSearch = 1
+		let OmniCpp_GlobalScopeSearch = 1
+		let OmniCpp_ShowAccess = 1
+		let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
+		let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+
+	" TMP folder
+		if <SID>CheckFileOrDir(1,s:personal_path . "tmp")
+			let $TMP= s:personal_path . "tmp"
+		else
+			echomsg string("Go and create tmp folder on your own")
+		endif
 
 " FUNCTIONS 
 	" Only works in vimwiki filetypes
@@ -385,7 +393,11 @@ endif
 			let l:decision = nr2char(getchar())
 			if l:decision == "y"
 				if exists("*mkdir") 
-					exe "call mkdir(". a:name .", \"p\")"
+					if has('win32') " on win prepare name by escaping '\' 
+						let l:esc_name = escape(a:name, '\')
+						exe "call mkdir(\"". l:esc_name . "\", \"p\")"
+					endif " have to test check works fine on windows 
+						exe "call mkdir(\"". a:name . "\", \"p\")"
 					return 1
 				else
 					return -1

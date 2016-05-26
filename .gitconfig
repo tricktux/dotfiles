@@ -16,6 +16,9 @@
 	;helper = cache --timeout 30000
 	;helper = store --file /mnt/thumbdrive/.git-credentials
 
+; silence some strange warning
+[push]
+	default = simple
 ;[diff]  
     ;tool = gvim
 ;[difftool "gvim"]  
