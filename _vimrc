@@ -15,6 +15,7 @@ if has('win32')
 	" Path variables
 	let s:personal_path= $HOME . '\vimfiles\personal\'
 	let s:plugged_path=  $HOME . '\vimfiles\plugged\'
+	let s:vimfile_path=  $HOME . '\vimfiles\'
 	let s:custom_font =  'consolas:h8'
 
 	if !has('gui_running')
@@ -87,6 +88,7 @@ elseif has('unix')
 	" Path variables
 	let s:personal_path= $HOME . '/.vim/personal/'
 	let s:plugged_path=  $HOME . '/.vim/plugged/'
+	let s:vimfile_path=  $HOME . '/.vim/'
 	let s:custom_font = 'Andale Mono 8'
 
 	" this one below DOES WORK in linux just make sure is ran at root folder
@@ -149,82 +151,6 @@ elseif has('unix')
 			let g:syntastic_c_config_file = s:personal_path . '.syntastic_avrgcc_config'
 		
 endif
-" PLUGINS_FOR_BOTH_SYSTEMS 
-	" Call Vim-Plug Plugins should be from here below
-	if !has('nvim')
-		call plug#begin(s:plugged_path)
-	else
-		call plug#begin('~/.config/nvim/autoupload/plug.vim')
-		Plug 'Shougo/deoplete.nvim'
-	endif
-	" misc
-	Plug 'chrisbra/vim-diff-enhanced'
-	Plug 'scrooloose/nerdtree'
-	Plug 'scrooloose/nerdcommenter'
-	Plug 'tpope/vim-surround'
-	Plug 'ctrlpvim/ctrlp.vim'
-	" cpp
-	Plug 'Tagbar'
-	Plug 'justmao945/vim-clang'
-	Plug 'scrooloose/syntastic'
-	" autocomplete
-	Plug 'Shougo/neocomplete'
-	Plug 'Shougo/neosnippet'
-	Plug 'Shougo/neosnippet-snippets'
-	Plug 'honza/vim-snippets'
-	" version control
-	Plug 'tpope/vim-fugitive'
-	" aesthetic
-	Plug 'octol/vim-cpp-enhanced-highlight'
-	Plug 'NLKNguyen/papercolor-theme'
-	Plug 'junegunn/rainbow_parentheses.vim'
-	Plug 'morhetz/gruvbox' " colorscheme gruvbox 
-
-	" All of your Plugins must be added before the following line
-	call plug#end()            " required
-
-" GUI_SETTINGS 
-	if has('gui_running')
-		let &guifont = s:custom_font " OS dependent font 
-		set guioptions-=T  " no toolbar
-		set guioptions-=m  " no menu bar
-		set guioptions-=r  " no right scroll bar
-		set guioptions-=l  " no left scroll bar
-		set guioptions-=L  " no side scroll bar
-		nnoremap <S-CR> O<Esc>
-	else " common cli options to both systems 
-		set t_Co=256
-		" fixes colorscheme not filling entire backgroud
-		set t_ut=
-	endif
-
-" PERFORMANCE_SETTINGS
-	" see :h slow-terminal
-	hi NonText cterm=NONE ctermfg=NONE
-	set showcmd " use noshowcmd if things are really slow 
-	set scrolljump=5
-	set sidescroll=5
-	set ttyscroll=3
-	set lazyredraw " Had to addit to speed up scrolling 
-	set ttyfast " Had to addit to speed up scrolling 
-	set fsync " see :h fsync, maybe dangerous but no problems so far
-	" already had problems with it. lost an entire file. dont use it
-
-" MISCELANEOUS_SETINGS 
-	" OmniCpp
-		let OmniCpp_NamespaceSearch = 1
-		let OmniCpp_GlobalScopeSearch = 1
-		let OmniCpp_ShowAccess = 1
-		let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
-		let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
-
-	" TMP folder
-		if <SID>CheckFileOrDir(1,s:personal_path . "tmp")
-			let $TMP= s:personal_path . "tmp"
-		else
-			echomsg string("Go and create tmp folder on your own")
-		endif
-
 " FUNCTIONS 
 	" Only works in vimwiki filetypes
 	" TODO: autodownload files
@@ -292,7 +218,7 @@ endif
 				if match(getline(line(".")-2, line(".")), "}") > -1
 					" jump to it
 					exe "normal ?}\<CR>"
-				" if there is no } could be no braces else if
+					" if there is no } could be no braces else if
 				else
 					" go up to lines and see what happens
 					normal kk
@@ -350,7 +276,7 @@ endif
 					let l:end = "  // \""
 					execute "normal a" . l:end . "\<Esc>"
 				endif
-			" search openning brace for else
+				" search openning brace for else
 			elseif match(getline(l:upper_line-1,l:upper_line), "else") > -1
 				let g:testa = 2
 				" search upwards until you find initial if and copy it to @7
@@ -360,7 +286,7 @@ endif
 				" append // "initial if..." : "
 				let l:end = "  // End of \""
 				execute "normal a" . l:end . @7 . "\" : \"\<Esc>"
-			" if not very easy
+				" if not very easy
 			else 
 				" Append // End of "..."
 				let l:end = "  // End of \""
@@ -376,7 +302,7 @@ endif
 	nnoremap <Leader>ce :call <SID>EndOfIfComment()<CR>
 	" End of Special Comment function }}}
 
-	function! s:CheckFileOrDir(type,name) abort
+	function! s:CheckDirwPrompt(name) abort
 		if !has('file_in_path')  " sanity check 
 			echo "CheckFileOrDir(): This vim install has no support for +find_in_path"
 			return -10
@@ -389,21 +315,46 @@ endif
 		if !empty(l:func)
 			return 1
 		else
-			echo "Folder does not exists.\nDo you want to create it (y)es or (n)o"
+			exe "echo \"Folder " . escape(a:name, '\') . "does not exists.\n\""
+			exe "echo \"Do you want to create it (y)es or (n)o\""
 			let l:decision = nr2char(getchar())
 			if l:decision == "y"
 				if exists("*mkdir") 
 					if has('win32') " on win prepare name by escaping '\' 
 						let l:esc_name = escape(a:name, '\')
 						exe "call mkdir(\"". l:esc_name . "\", \"p\")"
-					endif " have to test check works fine on windows 
+					else  " have to test check works fine on linux 
 						exe "call mkdir(\"". a:name . "\", \"p\")"
+					endif
 					return 1
 				else
 					return -1
 				endif
 			endif
 			return -1
+		endif
+	endfunction
+
+	function! s:CheckDirwoPrompt(name) abort
+		if !has('file_in_path')  " sanity check 
+			echo "CheckFileOrDir(): This vim install has no support for +find_in_path"
+			return -10
+		else
+			if !empty(finddir(a:name,",,"))
+				return 1
+			else
+				if exists("*mkdir") 
+					if has('win32') " on win prepare name by escaping '\' 
+						exe "call mkdir(\"". escape(a:name, '\') . "\", \"p\")"
+					else  " have to test check works fine on linux 
+						exe "call mkdir(\"". a:name . "\", \"p\")"
+					endif
+					return 1
+				else
+					echomsg string("No +mkdir support. Can't create dir")
+					return -1
+				endif
+			endif
 		endif
 	endfunction
 
@@ -467,6 +418,99 @@ endif
 		nunmap <C-Right>
 		diffoff!
 	endfunction
+
+	function! s:CheckVimPlug() abort
+		if empty(glob(s:vimfile_path . 'autoload/plug.vim'))
+			if executable('curl')
+				echomsg "Master I am going to install all plugings for you"
+				exe "silent !curl -fLo " s:vimfile_path . "autoload/plug.vim --create-dirs"
+					\" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+				autocmd VimEnter * PlugInstall | source $MYVIMRC
+			else
+				echomsg "Master I cant install plugins for you because you"
+							\" do not have curl. Please fix this"
+			endif
+		endif
+	endfunction
+
+" PLUGINS_FOR_BOTH_SYSTEMS 
+	" Install vim-plug and all plugins in case of first use
+	call <SID>CheckVimPlug()
+
+	" Call Vim-Plug Plugins should be from here below
+	if !has('nvim')
+		call plug#begin(s:plugged_path)
+	else
+		call plug#begin('~/.config/nvim/plugged')
+		Plug 'Shougo/deoplete.nvim'
+	endif
+	" misc
+	Plug 'chrisbra/vim-diff-enhanced'
+	Plug 'scrooloose/nerdtree'
+	Plug 'scrooloose/nerdcommenter'
+	Plug 'tpope/vim-surround'
+	Plug 'ctrlpvim/ctrlp.vim'
+	" cpp
+	Plug 'Tagbar'
+	Plug 'justmao945/vim-clang'
+	Plug 'scrooloose/syntastic'
+	" autocomplete
+	Plug 'Shougo/neocomplete'
+	Plug 'Shougo/neosnippet'
+	Plug 'Shougo/neosnippet-snippets'
+	Plug 'honza/vim-snippets'
+	" version control
+	Plug 'tpope/vim-fugitive'
+	" aesthetic
+	Plug 'octol/vim-cpp-enhanced-highlight'
+	Plug 'NLKNguyen/papercolor-theme'
+	Plug 'junegunn/rainbow_parentheses.vim'
+	Plug 'morhetz/gruvbox' " colorscheme gruvbox 
+
+	" All of your Plugins must be added before the following line
+	call plug#end()            " required
+
+" GUI_SETTINGS 
+	if has('gui_running')
+		let &guifont = s:custom_font " OS dependent font 
+		set guioptions-=T  " no toolbar
+		set guioptions-=m  " no menu bar
+		set guioptions-=r  " no right scroll bar
+		set guioptions-=l  " no left scroll bar
+		set guioptions-=L  " no side scroll bar
+		nnoremap <S-CR> O<Esc>
+	else " common cli options to both systems 
+		set t_Co=256
+		" fixes colorscheme not filling entire backgroud
+		set t_ut=
+	endif
+
+" PERFORMANCE_SETTINGS
+	" see :h slow-terminal
+	hi NonText cterm=NONE ctermfg=NONE
+	set showcmd " use noshowcmd if things are really slow 
+	set scrolljump=5
+	set sidescroll=5
+	set ttyscroll=3
+	set lazyredraw " Had to addit to speed up scrolling 
+	set ttyfast " Had to addit to speed up scrolling 
+	set fsync " see :h fsync, maybe dangerous but no problems so far
+	" already had problems with it. lost an entire file. dont use it
+
+" MISCELANEOUS_SETINGS 
+	" OmniCpp
+	let OmniCpp_NamespaceSearch = 1
+	let OmniCpp_GlobalScopeSearch = 1
+	let OmniCpp_ShowAccess = 1
+	let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
+	let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+
+	" TMP folder
+	if <SID>CheckDirwoPrompt(s:personal_path . "tmp")
+		let $TMP= s:personal_path . "tmp"
+	else
+		echomsg string("Go and create tmp folder on your own")
+	endif
 
 " SET_OPTIONS 
 	"set spell spelllang=en_us
@@ -560,8 +604,10 @@ endif
 	endif
 
 	if v:version >= 703 " undo settings 
-		let &undodir= s:personal_path . '/undofiles' " TODO: todo mkdir if doesnt exist 
-		set undofile
+		if <SID>CheckDirwoPrompt(s:personal_path . '/undofiles')
+			let &undodir= s:personal_path . '/undofiles' " TODO: todo mkdir if doesnt exist 
+			set undofile
+		endif
 
 		set colorcolumn=+1 "mark the ideal max text width
 	endif

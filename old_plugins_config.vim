@@ -446,3 +446,36 @@
 		exe "normal i\<C-c>\<Space>TODO:\<Space>"
 	endfunction
 	nnoremap <Leader>mt <ESC>:call <SID>InsertTODO()<CR>
+	function! s:CheckFileOrDirwPrompt(type,name) abort
+		if !has('file_in_path')  " sanity check 
+			echo "CheckFileOrDir(): This vim install has no support for +find_in_path"
+			return -10
+		endif
+		if a:type == 0  " use 0 for file, 1 for dir
+			let l:func = findfile(a:name,",,")  " see :h cd for ,, 
+		else
+			let l:func = finddir(a:name,",,") 
+		endif
+		if !empty(l:func)
+			return 1
+		else
+			exe "echo \"Folder " . escape(a:name, '\') . "does not exists.\n\""
+			exe "echo \"Do you want to create it (y)es or (n)o\""
+			let l:decision = nr2char(getchar())
+			if l:decision == "y"
+				if exists("*mkdir") 
+					if has('win32') " on win prepare name by escaping '\' 
+						let l:esc_name = escape(a:name, '\')
+						exe "call mkdir(\"". l:esc_name . "\", \"p\")"
+					else  " have to test check works fine on linux 
+						exe "call mkdir(\"". a:name . "\", \"p\")"
+					endif
+					return 1
+				else
+					return -1
+				endif
+			endif
+			return -1
+		endif
+	endfunction
+
