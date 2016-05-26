@@ -77,6 +77,11 @@ if has('win32')
 			let g:clang_cpp_options = '-target x86_64-pc-windows-gnu -std=c++14 -pedantic -Wall'
 			let g:clang_c_options = '-target x86_64-pc-windows-gnu -std=gnu11 -pedantic -Wall'
 
+		" MaxT Path
+			if isdirectory('C:\maxapi')
+				set path+=C:\maxapi
+			endif
+
 " UNIX_SETTINGS 
 elseif has('unix')
 	" Path variables
@@ -268,26 +273,6 @@ endif
 		exe "!svn commit -m \"" . input("Commit comment:") . "\" ."
 	endfunction
 
-	"TODO:
-	nnoremap <Leader>mz :call <SID>SaveSession()<CR>
-	function! s:SaveSession() abort
-		let l:path = "\"" . s:personal_path . "\sessions\""
-		exe "let g:func = <SID>CheckFileOrDir(1, " . l:path . ")"
-		if g:func > 0
-			exe "cd " . l:path 
-			exe "mksession! " . input("Save Session as:","","file")
-			cd!
-		else
-			echo "Failed to save session"
-		endif
-	endfunction
-
-	nnoremap <Leader>mx :call <SID>LoadSession()<CR>
-	function! s:LoadSession() abort
-		cd s:personal_path . "sessions"\"
-		exe "mksession! " . input("Save Session as:","","file")
-		cd!
-	endfunction
 	" Special comment function {{{
 	function! s:FindIf() abort
 		while 1
@@ -327,7 +312,7 @@ endif
 		return l:strip
 	endfunction
 
-	" Gotchas: Start from the bottom up commeting
+	" Gotchas: Start from the bottom up commenting
 	function! s:EndOfIfComment() abort
 		" TDOD: Eliminate comments on lines very important
 		" is there a } in this line?
@@ -431,34 +416,7 @@ endif
 	nnoremap cl :call <SID>CommentLine()<CR>
 
 	" TODO: substitute this for a custom neosnippet see :h neosnippet
-	function! s:InsertStrncpy() abort
-		echo "Usage: Yank dst into @0 and src into @1\n"
-		echo "Choose 1.strncpy, 2.strncmp, 3.strncat\n"
-		let l:type = nr2char(getchar())
-		if l:type == 1
-			let l:type = "strncpy"
-		elseif l:type == 2
-			let l:type = "strncmp"
-			"TODO: fix this stuff here. each function has different behavior 
-			exe "normal i" . l:type . "(". @0 . ", ". @1 .", sizeof(". @0 .")-1);\<Esc>"
-		elseif l:type == 3
-			let l:type = "strncat"
-		else
-			echo "Wrong Choice!!"
-			return
-		endif
-		exe "normal i" . l:type . "(". @0 . ", ". @1 .", sizeof(". @0 ."));\<CR>\<Esc>"
-		if match(l:type, "cat") < 0
-			exe "normal i". @0 . "[sizeof(" . @0 . ")-1] = \'\\0\';  // Null terminating cpy\<Esc>"
-		endif
-	endfunction
-	nnoremap <Leader>cy :call <SID>InsertStrncpy()<CR>
-
-	function! s:InsertTODO() abort
-		exe "normal i\<C-c>\<Space>TODO:\<Space>"
-	endfunction
-	nnoremap <Leader>mt <ESC>:call <SID>InsertTODO()<CR>
-
+	"
 	function! s:ListsNavigation(cmd) abort
 		try
 			let l:list = 0
@@ -507,12 +465,12 @@ endif
 	set viminfo='1000,f1,<800,%1024
 	set cursorline
 	set showtabline=1 " always show tabs in gvim, but not vim"
-	set tabstop=4     " a tab is four spaces
 	set backspace=indent,eol,start
 						" allow backspacing over everything in insert mode
 	set autoindent    " always set autoindenting on
 	set copyindent    " copy the previous indentation on autoindenting
-	set number        " always show line numbers
+	set tabstop=4     " a tab is four spaces
+	set softtabstop=4
 	set shiftwidth=4  " number of spaces to use for autoindenting
 	set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
 	set showmatch     " set show matching parenthesis
@@ -521,6 +479,7 @@ endif
 	set smarttab      " insert tabs on the start of a line according to
 						"    shiftwidth, not tabstop
 	set hlsearch      " highlight search terms
+	set number
 	set relativenumber
 	set incsearch     " show search matches as you type
 	set history=1000         " remember more commands and search history

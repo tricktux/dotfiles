@@ -400,3 +400,49 @@
 		let g:clang_c_options = '-std=gnu11 -pedantic -Wall'
 		let g:clang_include_sysheaders_from_gcc = 1
         let g:clang_diagsopt = 'rightbelow:6'
+	"TODO:
+	nnoremap <Leader>mz :call <SID>SaveSession()<CR>
+	function! s:SaveSession() abort
+		let l:path = "\"" . s:personal_path . "\sessions\""
+		exe "let g:func = <SID>CheckFileOrDir(1, " . l:path . ")"
+		if g:func > 0
+			exe "cd " . l:path 
+			exe "mksession! " . input("Save Session as:","","file")
+			cd!
+		else
+			echo "Failed to save session"
+		endif
+	endfunction
+
+	nnoremap <Leader>mx :call <SID>LoadSession()<CR>
+	function! s:LoadSession() abort
+		cd s:personal_path . "sessions"\"
+		exe "mksession! " . input("Save Session as:","","file")
+		cd!
+	endfunction
+	function! s:InsertStrncpy() abort
+		echo "Usage: Yank dst into @0 and src into @1\n"
+		echo "Choose 1.strncpy, 2.strncmp, 3.strncat\n"
+		let l:type = nr2char(getchar())
+		if l:type == 1
+			let l:type = "strncpy"
+		elseif l:type == 2
+			let l:type = "strncmp"
+			"TODO: fix this stuff here. each function has different behavior 
+			exe "normal i" . l:type . "(". @0 . ", ". @1 .", sizeof(". @0 .")-1);\<Esc>"
+		elseif l:type == 3
+			let l:type = "strncat"
+		else
+			echo "Wrong Choice!!"
+			return
+		endif
+		exe "normal i" . l:type . "(". @0 . ", ". @1 .", sizeof(". @0 ."));\<CR>\<Esc>"
+		if match(l:type, "cat") < 0
+			exe "normal i". @0 . "[sizeof(" . @0 . ")-1] = \'\\0\';  // Null terminating cpy\<Esc>"
+		endif
+	endfunction
+	nnoremap <Leader>cy :call <SID>InsertStrncpy()<CR>
+	function! s:InsertTODO() abort
+		exe "normal i\<C-c>\<Space>TODO:\<Space>"
+	endfunction
+	nnoremap <Leader>mt <ESC>:call <SID>InsertTODO()<CR>
