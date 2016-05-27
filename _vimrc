@@ -86,9 +86,16 @@ if has('win32')
 " UNIX_SETTINGS 
 elseif has('unix')
 	" Path variables
-	let s:personal_path= $HOME . '/.vim/personal/'
-	let s:plugged_path=  $HOME . '/.vim/plugged/'
-	let s:vimfile_path=  $HOME . '/.vim/'
+	if has('nvim')
+		let s:personal_path= $HOME . '/.config/nvim/personal/'
+		let s:plugged_path=  $HOME . '/.config/nvim/plugged/'
+		let s:vimfile_path=  $HOME . '/.config/nvim/'
+	else
+		let s:personal_path= $HOME . '/.vim/personal/'
+		let s:plugged_path=  $HOME . '/.vim/plugged/'
+		let s:vimfile_path=  $HOME . '/.vim/'
+	endif
+
 	let s:custom_font = 'Andale Mono 8'
 
 	" this one below DOES WORK in linux just make sure is ran at root folder
@@ -438,10 +445,8 @@ endif
 	call <SID>CheckVimPlug()
 
 	" Call Vim-Plug Plugins should be from here below
-	if !has('nvim')
-		call plug#begin(s:plugged_path)
-	else
-		call plug#begin('~/.config/nvim/plugged')
+	call plug#begin(s:plugged_path)
+	if has('nvim')
 		Plug 'Shougo/deoplete.nvim'
 	endif
 	" misc
