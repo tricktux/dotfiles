@@ -479,3 +479,6 @@
 		endif
 	endfunction
 
+		"let g:neocomplete#enable_auto_select=1
+		"let g:neocomplete#enable_auto_delimiter=1
+		"let g:neocomplete#enable_refresh_always=1

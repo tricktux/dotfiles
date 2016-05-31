@@ -160,7 +160,6 @@ elseif has('unix')
 endif
 " FUNCTIONS 
 	" Only works in vimwiki filetypes
-	" TODO: autodownload files
 	" Input: empty- It will ask you what type of file you want to search
 	" 		 String- "1", "2", or specify files in which you want to search
 	function! s:GlobalSearch(type) abort 
@@ -386,7 +385,6 @@ endif
 	nnoremap cl :call <SID>CommentLine()<CR>
 
 	" TODO: substitute this for a custom neosnippet see :h neosnippet
-	"
 	function! s:ListsNavigation(cmd) abort
 		try
 			let l:list = 0
@@ -500,6 +498,9 @@ endif
 	set lazyredraw " Had to addit to speed up scrolling 
 	set ttyfast " Had to addit to speed up scrolling 
 	set fsync " see :h fsync, maybe dangerous but no problems so far
+	set nocursorline
+	" let g:tex_fast= "" " on super slow activate this, price: no syntax
+	" highlight
 	" already had problems with it. lost an entire file. dont use it
 
 " MISCELANEOUS_SETINGS 
@@ -524,7 +525,6 @@ endif
 	set diffexpr=
 	" save marks 
 	set viminfo='1000,f1,<800,%1024
-	set cursorline
 	set showtabline=1 " always show tabs in gvim, but not vim"
 	set backspace=indent,eol,start
 						" allow backspacing over everything in insert mode
@@ -544,13 +544,11 @@ endif
 	set relativenumber
 	set incsearch     " show search matches as you type
 	set history=1000         " remember more commands and search history
-	set undolevels=1000      " use many muchos levels of undo
 	" ignore these files to for completion
 	set wildignore+=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn,.git
-	set completeopt=menuone,menu,longest,preview,noselect,noinsert
+	set completeopt=menuone,menu,longest,preview
 	set wildmenu
 	set wildmode=list:longest
-	set noundofile
 	set title                " change the terminal's title
 	set visualbell           " don't beep
 	set noerrorbells         " don't beep
@@ -608,14 +606,14 @@ endif
 		set conceallevel=2 concealcursor=nv
 	endif
 
-	if v:version >= 703 " undo settings 
+	if has('persistent_undo')
 		if <SID>CheckDirwoPrompt(s:personal_path . '/undofiles')
 			let &undodir= s:personal_path . '/undofiles' " TODO: todo mkdir if doesnt exist 
 			set undofile
+			set undolevels=1000      " use many muchos levels of undo
 		endif
-
-		set colorcolumn=+1 "mark the ideal max text width
 	endif
+
 	set noesckeys " No mappings that start with <esc>
 	set showmode
 	" no mouse enabled 
@@ -1028,19 +1026,16 @@ endif
 		let g:clang_cpp_completeopt = 'menuone,preview,noinsert,noselect'
 
 		let g:neocomplete#enable_cursor_hold_i=1
-		"let g:neocomplete#enable_auto_select=1
-		"let g:neocomplete#enable_auto_delimiter=1
-		"let g:neocomplete#enable_refresh_always=1
 		let g:neocomplete#skip_auto_completion_time="1"
 		let g:neocomplete#sources#buffer#cache_limit_size=5000000000
-		let g:neocomplete#max_list=12
-		let g:neocomplete#auto_completion_start_length=3
+		let g:neocomplete#max_list=8
+		let g:neocomplete#auto_completion_start_length=2
 		" TODO: need to fix this i dont like the way he does it need my own for now is good I guess
 		let g:neocomplete#enable_auto_close_preview=1
 
 		let g:neocomplete#enable_at_startup = 1
 		let g:neocomplete#enable_smart_case = 1
-		let g:neocomplete#data_directory = s:personal_path . 'neocomplete'  " let neocomplete
+		let g:neocomplete#data_directory = s:personal_path . 'neocomplete'
 		" Define keyword.
 		if !exists('g:neocomplete#keyword_patterns')
 			let g:neocomplete#keyword_patterns = {}
@@ -1086,7 +1081,7 @@ endif
 
 		" all new stuff
 		if !exists('g:neocomplete#delimiter_patterns')
-		let g:neocomplete#delimiter_patterns= {}
+			let g:neocomplete#delimiter_patterns= {}
 		endif
 		let g:neocomplete#delimiter_patterns.vim = ['#']
 		let g:neocomplete#delimiter_patterns.cpp = ['::']
@@ -1100,6 +1095,7 @@ endif
 		\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 		" Tell Neosnippet about the other snippets
 		let g:neosnippet#snippets_directory= s:plugged_path . '/vim-snippets/snippets'
+		let g:neosnippet#data_directory = s:personal_path . 'neosnippets'
 	
 	" Plug Vim-R-plugin {{{
 		let vimrplugin_r_path = 'C:\\Program Files\\R\\R-3.2.3\\bin\\i386'
