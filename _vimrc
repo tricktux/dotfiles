@@ -528,15 +528,20 @@ endif
 	set showtabline=1 " always show tabs in gvim, but not vim"
 	set backspace=indent,eol,start
 						" allow backspacing over everything in insert mode
+	" indents
+	set smartindent " these 2 make search case smarter
 	set autoindent    " always set autoindenting on
 	set copyindent    " copy the previous indentation on autoindenting
+	" tabs
 	set tabstop=4     " a tab is four spaces
 	set softtabstop=4
 	set shiftwidth=4  " number of spaces to use for autoindenting
 	set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
+
 	set showmatch     " set show matching parenthesis
 	set smartcase     " ignore case if search pattern is all lowercase,
 						"    case-sensitive otherwise
+	set ignorecase
 	set smarttab      " insert tabs on the start of a line according to
 						"    shiftwidth, not tabstop
 	set hlsearch      " highlight search terms
@@ -583,8 +588,6 @@ endif
 		endif
 	endif
 	set matchpairs+=<:>
-	set smartindent " these 2 make search case smarter
-	set ignorecase
 	set autoread " autoload files written outside of vim
 	" Display tabs and trailing spaces visually
 	"set list listchars=tab:\ \ ,trail:?
