@@ -631,6 +631,7 @@ endif
 	set laststatus=2
 	set formatoptions=croqt " this is textwidth actually breaks the lines 
 	set textwidth=80
+	set com+=b:-,b:* " makes vim autocomplete - bullets
 
 " ALL_AUTOGROUP_STUFF 
 	augroup Filetypes
