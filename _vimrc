@@ -758,6 +758,8 @@ endif
 
 		" see :h <c-r>
 		nnoremap <Leader>nl :bro old<CR>
+		" decrease number
+		nnoremap <Leader>A <c-x>
 
 	" Folding 
 		" Folding select text then S-f to fold or just S-f to toggle folding

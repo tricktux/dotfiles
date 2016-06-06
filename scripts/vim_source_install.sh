@@ -1,5 +1,5 @@
-sudo apt-get purge vim-gtk vim-runtime vim gvim
-sudo apt-get build-dep vim-gtk
+# sudo apt-get purge vim-gtk vim-runtime vim gvim
+# sudo apt-get build-dep vim-gtk
 cd
 sudo rm -rf vim
 git clone https://github.com/vim/vim.git
