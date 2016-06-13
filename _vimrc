@@ -17,6 +17,8 @@ if has('win32')
 	let s:plugged_path=  $HOME . '\vimfiles\plugged\'
 	let s:vimfile_path=  $HOME . '\vimfiles\'
 	let s:custom_font =  'consolas:h8'
+	" always start in the home dir
+	cd $HOME
 
 	if !has('gui_running')
 		set term=xterm
@@ -611,7 +613,7 @@ endif
 
 	if has('persistent_undo')
 		if <SID>CheckDirwoPrompt(s:personal_path . '/undofiles')
-			let &undodir= s:personal_path . '/undofiles' " TODO: todo mkdir if doesnt exist 
+			let &undodir= s:personal_path . '/undofiles'
 			set undofile
 			set undolevels=1000      " use many muchos levels of undo
 		endif
@@ -695,7 +697,7 @@ endif
 		" edit vimrc on a new tab
 		noremap <Leader>mv :e $MYVIMRC<CR>
 		noremap <Leader>ms :so %<CR>
-		nnoremap <C-s> :w<CR>
+		nnoremap <C-s> :wa<CR>
 		nnoremap <C-h> :noh<CR>
 		nnoremap <C-Space> i<Space><Esc>
 		" move current line up
@@ -850,6 +852,14 @@ endif
 		nnoremap <Leader>mf ::!sudo dfu-programmer atxmega128a4u erase<CR>
 					\:!sudo dfu-programmer atxmega128a4u flash atxmega.hex<CR>
 					\:!sudo dfu-programmer atxmega128a4u start<CR>
+		" super custom compile and run command
+		nnoremap <Leader>mu :make all<CR>
+					\:!sep_calc.exe seprc<CR>
+					" \:!sep_calc.exe test.csv WINGS_EGI_GCORE_S3.mod.ini<CR>
+		nnoremap <Leader>mi :make all<CR>
+					\:!sep_calc.exe some.csv<CR>
+		nnoremap <Leader>mo :make all<CR>
+					\:!sep_calc.exe nada.csv<CR>
 	
 	" Version Control 
 		" For all this commands you should be in the svn root folder
