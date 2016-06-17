@@ -1,3 +1,7 @@
+" Improvements:
+" - comment remover
+" - commet indenter
+" - [ ] insertion and mark complete
 " REQ AND LEADER
 	set nocompatible
 	" moving these lines here fixes losing 
@@ -18,7 +22,6 @@ if has('win32')
 	let s:vimfile_path=  $HOME . '\vimfiles\'
 	let s:custom_font =  'consolas:h8'
 	" always start in the home dir
-	cd $HOME
 
 	if !has('gui_running')
 		set term=xterm
@@ -58,13 +61,14 @@ if has('win32')
 	nnoremap <Leader>ewl :silent !del default.ini<CR>
 						\:!mklink default.ini 
 	" e1 reserved for vimrc
-	nnoremap <Leader>e2 :silent e ~/Documents/1.MyDocuments/2.WINGS/OneWINGS/
+	nnoremap <Leader>e21 :silent e ~/Documents/1.MyDocuments/2.WINGS/NeoOneWINGS/
+	nnoremap <Leader>e22 :silent e ~/Documents/1.MyDocuments/2.WINGS/
 	nnoremap <Leader>e3 :silent e ~/vimfiles/personal/wiki/
 	nnoremap <Leader>e4 :silent e ~/Desktop/daily\ check/
 	nnoremap <Leader>e5 :silent e ~/Documents/1.MyDocuments/Forms/Weekly_Reports/
 	nnoremap <Leader>e6 :silent e ~/Documents/1.MyDocuments/3.Training/2.NI_Testand/
 
-	nnoremap <Leader>es1 :silent e D:/Reinaldo/OneWINGS/
+	nnoremap <Leader>es1 :silent e D:/Reinaldo/NeoOneWINGS/
 
 	" Windows specific plugins options 
 		" Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
@@ -440,6 +444,16 @@ endif
 		endif
 	endfunction
 
+	function! s:DeleteComment() abort
+		exe "normal Bf/D"
+	endfunction
+	nnoremap <Leader>cD :call <SID>DeleteComment()<CR>
+
+	function! s:IndentComment() abort
+		exe "normal Bf/i\<Tab>\<Tab>\<Esc>"
+	endfunction
+	nnoremap <Leader>ci :call <SID>IndentComment()<CR>
+
 " PLUGINS_FOR_BOTH_SYSTEMS 
 	" Install vim-plug and all plugins in case of first use
 	call <SID>CheckVimPlug()
@@ -639,6 +653,7 @@ endif
 	augroup Filetypes
 		autocmd!
 		" C/Cpp
+		autocmd VimEnter :cd $HOME<CR>
 		autocmd FileType c setlocal omnifunc=omni#c#complete#Main
 		autocmd FileType cpp setlocal omnifunc=omni#cpp#complete#Main
 		autocmd FileType c,cpp setlocal cindent
