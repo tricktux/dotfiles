@@ -442,15 +442,36 @@ endif
 		endif
 	endfunction
 
-	function! s:DeleteComment() abort
+	function! s:CommentDelete() abort
 		exe "normal Bf/D"
 	endfunction
-	nnoremap <Leader>cD :call <SID>DeleteComment()<CR>
+	nnoremap <Leader>cD :call <SID>CommentDelete()<CR>
 
-	function! s:IndentComment() abort
+	function! s:CommentIndent() abort
 		exe "normal Bf/i\<Tab>\<Tab>\<Esc>"
 	endfunction
-	nnoremap <Leader>ci :call <SID>IndentComment()<CR>
+	nnoremap <Leader>ci :call <SID>CommentIndent()<CR>
+
+	function! s:CommentReduceIndent() abort
+		exe "normal Bf/hxhx"
+	endfunction
+	nnoremap <Leader>cI :call <SID>CommentReduceIndent()<CR>
+
+	function! s:TodoCreate() abort
+		exe "normal Bi\<Space>[ ]\<Esc>"
+	endfunction
+	nnoremap <Leader>td :call <SID>TodoCreate()<CR>
+
+	function! s:TodoMark() abort
+		exe "normal Bf[lrX\<Esc>"
+	endfunction
+	nnoremap <Leader>tm :call <SID>TodoMark()<CR>
+
+	function! s:TodoClearMark() abort
+		exe "normal Bf[lr\<Space>\<Esc>"
+	endfunction
+	nnoremap <Leader>tM :call <SID>TodoClearMark()<CR>
+	" [ ]
 
 " PLUGINS_FOR_BOTH_SYSTEMS 
 	" Install vim-plug and all plugins in case of first use
@@ -998,9 +1019,9 @@ endif
 		noremap <Leader>tc :cs find c <C-R>=expand("<cword>")<CR><CR>
 		" Find functions definition
 		noremap <Leader>tg :cs find g <C-R>=expand("<cword>")<CR><CR>
-		" Find functions called by this function
-		noremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
-		noremap <Leader>ts :cs show<CR>
+		" Find functions called by this function not being used
+		" noremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
+		" noremap <Leader>ts :cs show<CR>
 
 	" Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh 
 		nnoremap <Leader>aO :CtrlP<CR>
