@@ -1,6 +1,4 @@
 " Improvements:
-" - comment remover
-" - commet indenter
 " - [ ] insertion and mark complete
 " REQ AND LEADER
 	set nocompatible
