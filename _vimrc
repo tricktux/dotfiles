@@ -471,7 +471,6 @@ endif
 		exe "normal Bf[lr\<Space>\<Esc>"
 	endfunction
 	nnoremap <Leader>tM :call <SID>TodoClearMark()<CR>
-	" [ ]
 
 " PLUGINS_FOR_BOTH_SYSTEMS 
 	" Install vim-plug and all plugins in case of first use
@@ -1021,7 +1020,7 @@ endif
 		noremap <Leader>tg :cs find g <C-R>=expand("<cword>")<CR><CR>
 		" Find functions called by this function not being used
 		" noremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
-		" noremap <Leader>ts :cs show<CR>
+		noremap <Leader>ts :cs show<CR>
 
 	" Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh 
 		nnoremap <Leader>aO :CtrlP<CR>
