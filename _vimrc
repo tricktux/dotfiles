@@ -65,6 +65,7 @@ if has('win32')
 	nnoremap <Leader>e4 :silent e ~/Desktop/daily\ check/
 	nnoremap <Leader>e5 :silent e ~/Documents/1.MyDocuments/Forms/Weekly_Reports/
 	nnoremap <Leader>e6 :silent e ~/Documents/1.MyDocuments/3.Training/2.NI_Testand/
+	nnoremap <Leader>ed :silent e default.ini<CR>
 
 	nnoremap <Leader>es1 :silent e D:/Reinaldo/NeoOneWINGS/
 
