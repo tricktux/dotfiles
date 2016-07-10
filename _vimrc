@@ -749,6 +749,10 @@ endif
 		vnoremap <Leader>r "hy:%s/<C-r>h//gc<left><left><left>
 		"vnoremap <Leader>r :%s///gc<Left><Left><Left>
 		cnoremap <C-p> <c-r>0
+		cnoremap <C-o> <Up>
+		cnoremap <C-k> <Down>
+		cnoremap <C-j> <Left>
+		cnoremap <C-l> <Right>
 		"noremap <Leader>mn :noh<CR>
 		" duplicate current char
 		nnoremap <Leader>mp ylp
@@ -859,7 +863,7 @@ endif
 		" Not remapping esc anymore. going to get used to <c-[> its default doesnt require mapping
 		inoremap <C-j> <Esc>
 		vnoremap <C-j> <Esc>
-		cnoremap <C-j> <Esc>
+		" cnoremap <C-j> <Esc>
 
 	" Tab Stuff 
 		noremap <S-j> :b#<CR>
@@ -882,6 +886,7 @@ endif
 	" make 
 		nnoremap <Leader>ma :make clean<CR>
 					\:make all<CR>
+					\:
 		nnoremap <Leader>mc :make clean<CR>
 		nnoremap <Leader>mf ::!sudo dfu-programmer atxmega128a4u erase<CR>
 					\:!sudo dfu-programmer atxmega128a4u flash atxmega.hex<CR>
@@ -1048,6 +1053,7 @@ endif
 		let g:DoxygenToolkit_licenseTag=""
 
 	" Plugin 'scrooloose/syntastic' 
+		nnoremap <Leader>ss :SyntasticCheck<CR>
 		set statusline+=%#warningmsg#
 		set statusline+=%{SyntasticStatuslineFlag()}
 		set statusline+=%*
