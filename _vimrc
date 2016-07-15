@@ -161,7 +161,6 @@ elseif has('unix')
 
 		" Syntastic
 			let g:syntastic_c_config_file = s:personal_path . '.syntastic_avrgcc_config'
-		
 endif
 " FUNCTIONS 
 	" Only works in vimwiki filetypes
@@ -701,7 +700,7 @@ endif
 		autocmd BufNewFile,BufReadPost *.scp setlocal syntax=asm
 	augroup END
 
-" CUSTOM MAPPINGS 
+" CUSTOM 
 	" List of super useful mappings
 	" ga " prints ascii of char under cursor
 	
@@ -899,6 +898,28 @@ endif
 					\:!sep_calc.exe some.csv<CR>
 		nnoremap <Leader>mo :make all<CR>
 					\:!sep_calc.exe nada.csv<CR>
+
+	" sessions
+		nnoremap <Leader>sS :call <SID>SaveSession()<CR>
+		function! s:SaveSession() abort
+			exe "wall"
+			exe "cd ". s:personal_path ."sessions/"
+			exe "normal :mksession! " . s:personal_path . "sessions/". input("Enter 
+						\save session name:", "", "file") . "\<CR>"
+			exe "cd -"
+		endfunction
+
+		nnoremap <Leader>sL :call <SID>LoadSession()<CR>
+		function! s:LoadSession() abort
+			" save all work
+			exe "wall"
+			" close out all buffers
+			exe "normal :%bdelete\<CR>"
+			exe "cd ". s:personal_path ."sessions/"
+			exe "normal :so " . s:personal_path . "sessions/". input("Enter 
+						\load session name:", "", "file") . "\<CR>"
+			exe "cd -"
+		endfunction
 	
 	" Version Control 
 		" For all this commands you should be in the svn root folder
