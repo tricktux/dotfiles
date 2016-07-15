@@ -162,6 +162,7 @@ elseif has('unix')
 		" Syntastic
 			let g:syntastic_c_config_file = s:personal_path . '.syntastic_avrgcc_config'
 endif
+
 " FUNCTIONS 
 	" Only works in vimwiki filetypes
 	" Input: empty- It will ask you what type of file you want to search
@@ -529,7 +530,7 @@ endif
 	set showcmd " use noshowcmd if things are really slow 
 	set scrolljump=5
 	set sidescroll=5
-	if !has('nvim')
+	if !has('nvim') " this option was deleted in nvim
 		set ttyscroll=3
 	endif
 	set lazyredraw " Had to addit to speed up scrolling 
@@ -552,8 +553,17 @@ endif
 	if <SID>CheckDirwoPrompt(s:personal_path . "tmp")
 		let $TMP= s:personal_path . "tmp"
 	else
-		echomsg string("Go and create tmp folder on your own")
+		echomsg string("Failed to create tmp dir")
 	endif
+
+" TODO: step here to go and check/create all the required folders:
+"	- sessions
+"	- tmp
+"	- undofiles
+"	- ctrlp
+"	- neocomplete
+"	- neosnippets
+
 
 " SET_OPTIONS 
 	"set spell spelllang=en_us
@@ -915,6 +925,7 @@ endif
 		nnoremap <Leader>sL :call <SID>LoadSession()<CR>
 		function! s:LoadSession() abort
 			" save all work
+			" TODO: before deleting buffers ask if to save them
 			exe "wall"
 			" close out all buffers
 			exe "normal :%bdelete\<CR>"
@@ -1167,9 +1178,19 @@ endif
 				endif
 				let g:neocomplete#delimiter_patterns.vim = ['#']
 				let g:neocomplete#delimiter_patterns.cpp = ['::']
+
+				let g:clang_auto = 0
+			else
+				let g:clang_auto = 1
 			endif
 		elseif has('python3')
+			" if it is nvim deoplete requires python3 to work
+			let g:clang_auto = 0
 			let g:deoplete#enable_at_startup = 1
+		else
+			" so if it doesnt have it activate clang instaed
+			let g:deoplete#enable_at_startup = 0
+			let g:clang_auto = 1
 		endif
 
 			" NeoSnippets
@@ -1187,13 +1208,7 @@ endif
 		let vimrplugin_r_path = 'C:\\Program Files\\R\\R-3.2.3\\bin\\i386'
 
 	" Vim-Clang " syntastic is much better that is why is not 
-		if !has('python3')
-			if !has('lua')
-				let g:clang_auto = 1 " being used only for completion currently 
-			else
-				let g:clang_auto = 0 " being used only for completion currently 
-			endif
-		else
-			let g:clang_auto = 0 " being used only for completion currently 
-		endif
+		" clan clang_auto option which enables autocomplete after . -> and ::
+		" is being handled along with neocompl and deocompl options to be
+		" activated in case non of those 2 are present
 		let g:clang_diagsopt = '' " no syntax check 

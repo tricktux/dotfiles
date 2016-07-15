@@ -22,4 +22,41 @@ snippet     cout
 options     head
     std::cout << "${1:text}" << ${2:var} << '\n';
 
+snippet     lout
+options     head
+    if ((${1:file}) && ($1->is_open()))
+        *$1 << "${2:text}" << ${3:var} << '\n';
+
+snippet     try
+options     head
+abbr        try catch
+    try 
+    {
+        ${2:#:TARGET}
+    } 
+    catch (std::exception& e) 
+    {
+        std::cout << CSI_RED "Exception@${1:function_name}(): " << e.what()
+        << CSI_RESET << '\n';
+        return -100;
+    }
+
+# range based for ( C++11 feature )
+snippet     for_CPP11
+options     head
+abbr        for (:) {}
+    for (${1:auto&& }${2:var} : ${3:container}) 
+    {
+        ${0:TARGET}
+    }
+
+
+snippet if_function
+options head
+abbr if RET_SUC
+    if ((${1} = ${2:function_name}(${3:function_args})) != ${4:RET_SUCCESS})
+    {
+            ${5:std::cout} << "Failed to $2(): Error: " << $1 << '\n';
+            exit($1);
+    }
 
