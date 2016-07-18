@@ -1,4 +1,5 @@
 alias install='sudo apt install'
+alias update='sudo apt update'
 alias purge='sudo apt purge'
 alias ga='git add'
 alias gs='git status'
