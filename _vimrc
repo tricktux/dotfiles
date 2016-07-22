@@ -713,7 +713,7 @@ endif
 		autocmd BufNewFile,BufReadPost *.scp setlocal syntax=asm
 	augroup END
 
-" CUSTOM 
+" CUSTOM MAPPINGS
 	" List of super useful mappings
 	" ga " prints ascii of char under cursor
 	
@@ -812,6 +812,7 @@ endif
 		nnoremap <Leader>nl :bro old<CR>
 		" decrease number
 		nnoremap <Leader>A <c-x>
+		inoremap <c-l> <c-o>x
 
 	" Folding 
 		" Folding select text then S-f to fold or just S-f to toggle folding
