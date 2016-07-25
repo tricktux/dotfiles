@@ -53,6 +53,12 @@ sudo pip3 install neovim
 sudo apt-get install libncurses5-dev gcc make git exuberant-ctags bc libssl-dev
 sudo apt-get install gcc-avr binutils-avr gdb-avr avr-libc avrdude 
 
+# image converter
+sudo apt-get install imagemagick
+# usage
+# mogrify -resize 20% picture-name.jpg 
+# convert -resize 4096x4096 picture-name.jpg new-pic.jpg
+
 #rm /usr/lib/gvfs/gvfsd-smb-browse
 #download git
 #git clone vimrc
