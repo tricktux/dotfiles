@@ -68,6 +68,8 @@ if has('win32')
 	nnoremap <Leader>ed :silent e default.ini<CR>
 
 	nnoremap <Leader>es1 :silent e D:/Reinaldo/NeoOneWINGS/
+	" Time runtime of a specific program
+	nnoremap <Leader>mt :!powershell -command "& {&'Measure-Command' {.\sep_calc.exe seprc}}"<CR>
 
 	" Windows specific plugins options 
 		" Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
@@ -80,7 +82,7 @@ if has('win32')
 		
 		" Vim-Clang " not being used currently but this below fixes 
 		" clang using mscv for target instead of mingw64
-			let g:clang_cpp_options = '-target x86_64-pc-windows-gnu -std=c++14 -pedantic -Wall'
+			let g:clang_cpp_options = '-target x86_64-pc-windows-gnu -std=c++17 -pedantic -Wall'
 			let g:clang_c_options = '-target x86_64-pc-windows-gnu -std=gnu11 -pedantic -Wall'
 
 		" MaxT Path
@@ -1097,7 +1099,7 @@ endif
 		let g:syntastic_auto_loc_list = 1
 		let g:syntastic_check_on_open = 0
 		let g:syntastic_check_on_wq = 0
-		let g:syntastic_cpp_compiler_options = '-std=c++14 -pedantic -Wall'
+		let g:syntastic_cpp_compiler_options = '-std=c++17 -pedantic -Wall'
 		let g:syntastic_c_compiler_options = '-std=c11 -pedantic -Wall'
 		
 	"/Plug 'octol/vim-cpp-enhanced-highlight' 
