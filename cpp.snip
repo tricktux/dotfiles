@@ -20,7 +20,7 @@ snippet     strcmp
 
 snippet     cout
 options     head
-    std::cout << "${1:text}" << ${2:var} << '\n';
+    std::cout << __func__ << ": ${1:text}" << ${2:var} << '\n';
 
 snippet     lout
 options     head
@@ -36,9 +36,32 @@ abbr        try catch
     } 
     catch (std::exception& e) 
     {
-        std::cout << CSI_RED "Exception@${1:function_name}(): " << e.what()
-        << CSI_RESET << '\n';
-        return -100;
+        throw CSI_RED + "Exception@" + (std::string) __func__ "(): "
+            + (std::string) e.what()+ CSI_RESET + '\n';
+    }
+    catch (std::string& sExcep) 
+    {
+        throw CSI_RED + "Exception@" + (std::string) __func__ "(): "
+            + sExcep + CSI_RESET + '\n';
+    }
+
+snippet     catch
+options     head
+abbr        catch string
+    catch (std::string& sExcep) 
+    {
+        throw CSI_RED + "Exception@" + (std::string) __func__ "(): "
+            + sExcep + CSI_RESET + '\n';
+    }
+
+
+snippet     catch
+options     head
+abbr        catch exception
+    catch (std::exception& e) 
+    {
+        throw CSI_RED + "Exception@" + (std::string) __func__ "(): "
+            + (std::string) e.what()+ CSI_RESET + '\n';
     }
 
 # range based for ( C++11 feature )

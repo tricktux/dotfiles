@@ -90,6 +90,10 @@ if has('win32')
 				set path+=C:\maxapi
 			endif
 
+		" //////////////7/28/2016 4:09:23 PM////////////////
+		" Tried using shell=bash on windows didnt work got all kinds of issues
+		" with syntastic and other things.
+		
 " UNIX_SETTINGS 
 elseif has('unix')
 	" Path variables
@@ -842,9 +846,9 @@ endif
 
 	" Spell Check 
 		" search forward
-		noremap <Leader>sn ]s
+		noremap <Leader>sN ]s
 		" search backwards
-		noremap <Leader>sp [s
+		noremap <Leader>sP [s
 		" suggestion
 		noremap <Leader>sC z=1<CR><CR>
 		noremap <Leader>sc z=
@@ -901,7 +905,6 @@ endif
 	" make 
 		nnoremap <Leader>ma :make clean<CR>
 					\:make all<CR>
-					\:
 		nnoremap <Leader>mc :make clean<CR>
 		nnoremap <Leader>mf ::!sudo dfu-programmer atxmega128a4u erase<CR>
 					\:!sudo dfu-programmer atxmega128a4u flash atxmega.hex<CR>
@@ -930,6 +933,12 @@ endif
 			" save all work
 			" TODO: before deleting buffers ask if to save them
 			exe "wall"
+			" TODO: show warning here
+			echo "Save Current Session before deleting all buffers: (y)es (any)no" 
+			let l:iResponse = getchar()
+			if l:iResponse == 121 " y
+				call <SID>SaveSession()
+			endif
 			" close out all buffers
 			exe "normal :%bdelete\<CR>"
 			exe "cd ". s:personal_path ."sessions/"
@@ -1091,6 +1100,8 @@ endif
 		let g:DoxygenToolkit_licenseTag=""
 
 	" Plugin 'scrooloose/syntastic' 
+		nnoremap <Leader>sn :call <SID>ListsNavigation("next")<CR>
+		nnoremap <Leader>sp :call <SID>ListsNavigation("previous")<CR>
 		nnoremap <Leader>ss :SyntasticCheck<CR>
 		set statusline+=%#warningmsg#
 		set statusline+=%{SyntasticStatuslineFlag()}
