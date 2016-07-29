@@ -36,33 +36,48 @@ abbr        try catch
     } 
     catch (std::exception& e) 
     {
-        throw CSI_RED + "Exception@" + (std::string) __func__ "(): "
-            + (std::string) e.what()+ CSI_RESET + '\n';
+        throw "Exception@" + (std::string) __func__ + "(): "
+            + (std::string) e.what()+ '\n';
     }
     catch (std::string& sExcep) 
     {
-        throw CSI_RED + "Exception@" + (std::string) __func__ "(): "
-            + sExcep + CSI_RESET + '\n';
+        throw "Exception@" + (std::string) __func__ + "(): "
+            + sExcep + '\n';
     }
 
-snippet     catch
+snippet     catch_s
 options     head
 abbr        catch string
     catch (std::string& sExcep) 
     {
-        throw CSI_RED + "Exception@" + (std::string) __func__ "(): "
-            + sExcep + CSI_RESET + '\n';
+        throw "Exception@" + (std::string) __func__ + "(): "
+            + sExcep + '\n';
     }
 
 
-snippet     catch
+snippet     catch_e
 options     head
 abbr        catch exception
     catch (std::exception& e) 
     {
-        throw CSI_RED + "Exception@" + (std::string) __func__ "(): "
-            + (std::string) e.what()+ CSI_RESET + '\n';
+        throw "Exception@" + (std::string) __func__ + "(): "
+            + (std::string) e.what()+ '\n';
     }
+
+snippet     catch_a
+options     head
+abbr        catch all
+    catch (std::exception& e) 
+    {
+        throw "Exception@" + (std::string) __func__ + "(): "
+            + (std::string) e.what()+ '\n';
+    }
+    catch (std::string& sExcep) 
+    {
+        throw "Exception@" + (std::string) __func__ + "(): "
+            + sExcep + '\n';
+    }
+
 
 # range based for ( C++11 feature )
 snippet     for_CPP11
