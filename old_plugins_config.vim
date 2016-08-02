@@ -482,3 +482,10 @@
 		"let g:neocomplete#enable_auto_select=1
 		"let g:neocomplete#enable_auto_delimiter=1
 		"let g:neocomplete#enable_refresh_always=1
+		"
+    " Still clang stuff but this is to use their python script
+    " let g:clang_format_fallback_style = 'Google'
+    " function! s:ClangFormatFile()
+      " let l:lines="all"
+      " pyf ~/vimrc/scripts/clang-format.py
+    " endfunction

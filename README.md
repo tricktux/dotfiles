@@ -56,6 +56,7 @@ When using <plug> do a :nmap and make sure your option is listed, usually at the
 	:mapclear Clears all mappings then do :so % 
 ```
 use `:verbose map <c-i>` to understand mappings
+use `:verbose set tabstop` to understand options
 to umap something simply type it in the command :unmap ii for example
 
 ## Search and replace examples

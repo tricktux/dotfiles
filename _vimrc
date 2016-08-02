@@ -55,7 +55,7 @@ if has('win32')
 	" Do not make a ew1 mapping. reserved for when issues get to #11, 12, etc
 	nnoremap <Leader>ewd :silent !start cmd /k "WINGS.exe 3 . default.ini" & exit<CR>
 	nnoremap <Leader>ewc :silent !start cmd /k "WINGS.exe 3 . %" & exit<CR>
-	nnoremap <Leader>ews :exe("!start cmd /k \"WINGS.exe 3 . " . input("Config file:", "", "file") . "\" & exit")<CR>
+	nnoremap <Leader>ews :execute("!start cmd /k \"WINGS.exe 3 . " . input("Config file:", "", "file") . "\" & exit")<CR>
 	nnoremap <Leader>ewl :silent !del default.ini<CR>
 						\:!mklink default.ini 
 	" e1 reserved for vimrc
@@ -190,14 +190,14 @@ endif
 				elseif l:file == 3
 					let l:file = "**/*.wiki"
 				endif
-				exe "vimgrep /" . input("Search in \"" . getcwd() . "\" for:") . "/ " . l:file
+				execute "vimgrep /" . input("Search in \"" . getcwd() . "\" for:") . "/ " . l:file
 			else
 				if l:file == 1
 					let l:file = ""
 				elseif l:file == 2
 					let l:file = "--cpp"
 				endif " relays on set grepprg=ag 
-				exe "grep " . l:file . " " . input("Search in \"" . getcwd() . "\" for:")
+				execute "grep " . l:file . " " . input("Search in \"" . getcwd() . "\" for:")
 			endif
 			copen 20
 		catch
@@ -212,7 +212,7 @@ endif
 	function! s:GitCommit() abort
 		if <SID>CheckFileOrDir(1, ".git") > 0
 			silent !git add .
-			exe "silent !git commit -m \"" . input("Commit comment:") . "\""
+			execute "silent !git commit -m \"" . input("Commit comment:") . "\""
 			!git push origin master 
 		else
 			echo "No .git directory was found"
@@ -221,7 +221,7 @@ endif
 
 	" Should be performed on root .svn folder
 	function! s:SvnCommit() abort
-		exe "!svn commit -m \"" . input("Commit comment:") . "\" ."
+		execute "!svn commit -m \"" . input("Commit comment:") . "\" ."
 	endfunction
 
 	" Special comment function {{{
@@ -234,7 +234,7 @@ endif
 				" search curr and previous 2 lines for }
 				if match(getline(line(".")-2, line(".")), "}") > -1
 					" jump to it
-					exe "normal ?}\<CR>"
+					execute "normal ?}\<CR>"
 					" if there is no } could be no braces else if
 				else
 					" go up to lines and see what happens
@@ -242,7 +242,7 @@ endif
 				endif
 			else
 				" if original if was found copy it to @7 and jump back to origin
-				exe "normal k^\"7y$`m"
+				execute "normal k^\"7y$`m"
 				break
 			endif
 		endwhile
@@ -272,10 +272,10 @@ endif
 		if  l:ref_col > -1 " if it exists
 			" Determine what kind of statement is this i.e: for, while, if, else if
 			" jump to matchin {, mark it with m, copy previous line to @8, and jump back down to original }
-			"exe "normal mm" . l:ref_col . "|%k^\"8y$j%"
-			exe "normal mm" . l:ref_col . "|%"
+			"execute "normal mm" . l:ref_col . "|%k^\"8y$j%"
+			execute "normal mm" . l:ref_col . "|%"
 			let l:upper_line = line(".")
-			exe "normal k^\"8y$j%"
+			execute "normal k^\"8y$j%"
 			" if original closing brace it is and else if || else
 			if match(getline(line(".")-1, line(".")), "else") > -1
 				let g:testa = 1
@@ -332,16 +332,16 @@ endif
 		if !empty(l:func)
 			return 1
 		else
-			exe "echo \"Folder " . escape(a:name, '\') . "does not exists.\n\""
-			exe "echo \"Do you want to create it (y)es or (n)o\""
+			execute "echo \"Folder " . escape(a:name, '\') . "does not exists.\n\""
+			execute "echo \"Do you want to create it (y)es or (n)o\""
 			let l:decision = nr2char(getchar())
 			if l:decision == "y"
 				if exists("*mkdir") 
 					if has('win32') " on win prepare name by escaping '\' 
 						let l:esc_name = escape(a:name, '\')
-						exe "call mkdir(\"". l:esc_name . "\", \"p\")"
+						execute "call mkdir(\"". l:esc_name . "\", \"p\")"
 					else  " have to test check works fine on linux 
-						exe "call mkdir(\"". a:name . "\", \"p\")"
+						execute "call mkdir(\"". a:name . "\", \"p\")"
 					endif
 					return 1
 				else
@@ -362,9 +362,9 @@ endif
 			else
 				if exists("*mkdir") 
 					if has('win32') " on win prepare name by escaping '\' 
-						exe "call mkdir(\"". escape(a:name, '\') . "\", \"p\")"
+						execute "call mkdir(\"". escape(a:name, '\') . "\", \"p\")"
 					else  " have to test check works fine on linux 
-						exe "call mkdir(\"". a:name . "\", \"p\")"
+						execute "call mkdir(\"". a:name . "\", \"p\")"
 					endif
 					return 1
 				else
@@ -376,19 +376,19 @@ endif
 	endfunction
 
 	function! s:YankFrom() abort
-		exe "normal :" . input("Yank From Line:") . "y\<CR>"
+		execute "normal :" . input("Yank From Line:") . "y\<CR>"
 	endfunction
 	nnoremap yl :call <SID>YankFrom()<CR>
 
 	function! s:DeleteLine() abort
-		exe "normal :" . input("Delete Line:") . "d\<CR>``"
+		execute "normal :" . input("Delete Line:") . "d\<CR>``"
 	endfunction
 	nnoremap dl :call <SID>DeleteLine()<CR>
 
 	function! s:CommentLine() abort
 		if exists("*NERDComment")
-			exe "normal mm:" . input("Comment Line:") . "\<CR>"
-			exe "normal :call NERDComment(\"n\", \"Toggle\")\<CR>`m"
+			execute "normal mm:" . input("Comment Line:") . "\<CR>"
+			execute "normal :call NERDComment(\"n\", \"Toggle\")\<CR>`m"
 		else
 			echo "Please install NERDCommenter"
 		endif
@@ -401,9 +401,9 @@ endif
 			let l:list = 0
 			if !empty(getloclist(0)) " if location list is not empty
 				let l:list = 1
-				exe "silent l" . a:cmd
+				execute "silent l" . a:cmd
 			elseif !empty(getqflist()) " if quickfix list is not empty
-				exe "silent c" . a:cmd
+				execute "silent c" . a:cmd
 			else
 				echohl ErrorMsg
 				redraw " always use it to prevent msg from dissapearing
@@ -439,7 +439,7 @@ endif
 		if empty(glob(s:vimfile_path . 'autoload/plug.vim'))
 			if executable('curl')
 				echomsg "Master I am going to install all plugings for you"
-				exe "silent !curl -fLo " s:vimfile_path . "autoload/plug.vim --create-dirs"
+				execute "silent !curl -fLo " s:vimfile_path . "autoload/plug.vim --create-dirs"
 					\" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 				autocmd VimEnter * PlugInstall | source $MYVIMRC
 			else
@@ -450,32 +450,32 @@ endif
 	endfunction
 
 	function! s:CommentDelete() abort
-		exe "normal Bf/D"
+		execute "normal Bf/D"
 	endfunction
 	nnoremap <Leader>cD :call <SID>CommentDelete()<CR>
 
 	function! s:CommentIndent() abort
-		exe "normal Bf/i\<Tab>\<Tab>\<Esc>"
+		execute "normal Bf/i\<Tab>\<Tab>\<Esc>"
 	endfunction
 	nnoremap <Leader>ci :call <SID>CommentIndent()<CR>
 
 	function! s:CommentReduceIndent() abort
-		exe "normal Bf/hxhx"
+		execute "normal Bf/hxhx"
 	endfunction
 	nnoremap <Leader>cI :call <SID>CommentReduceIndent()<CR>
 
 	function! s:TodoCreate() abort
-		exe "normal Bi\<Space>[ ]\<Esc>"
+		execute "normal Bi\<Space>[ ]\<Esc>"
 	endfunction
 	nnoremap <Leader>td :call <SID>TodoCreate()<CR>
 
 	function! s:TodoMark() abort
-		exe "normal Bf[lrX\<Esc>"
+		execute "normal Bf[lrX\<Esc>"
 	endfunction
 	nnoremap <Leader>tm :call <SID>TodoMark()<CR>
 
 	function! s:TodoClearMark() abort
-		exe "normal Bf[lr\<Space>\<Esc>"
+		execute "normal Bf[lr\<Space>\<Esc>"
 	endfunction
 	nnoremap <Leader>tM :call <SID>TodoClearMark()<CR>
 
@@ -586,9 +586,10 @@ endif
 	set autoindent    " always set autoindenting on
 	set copyindent    " copy the previous indentation on autoindenting
 	" tabs
-	set tabstop=4     " a tab is four spaces
-	set softtabstop=4
-	set shiftwidth=4  " number of spaces to use for autoindenting
+	set tabstop=2     " a tab is four spaces
+	set softtabstop=2
+  set expandtab " turns tabs into spaces
+	set shiftwidth=2  " number of spaces to use for autoindenting
 	set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
 
 	set showmatch     " set show matching parenthesis
@@ -613,7 +614,9 @@ endif
 	set nobackup " no backup files 
 	set noswapfile
 	"set autochdir " working directory is always the same as the file you are editing
-	set sessionoptions=buffers,curdir,folds,localoptions,options
+	"//////////////8/2/2016 3:06:49 PM////////////////
+	" Took out options from here. Makes the session script too long and annoying
+	set sessionoptions=buffers,curdir,folds,localoptions,tabpages,resize,winsize,winpos
 	set hidden
 	" wont open a currently open buffer
 	"set switchbuf=useopen
@@ -694,6 +697,7 @@ endif
 		autocmd FileType c setlocal omnifunc=omni#c#complete#Main
 		autocmd FileType cpp setlocal omnifunc=omni#cpp#complete#Main
 		autocmd FileType c,cpp setlocal cindent
+		autocmd FileType c,cpp compiler! gcc
 		" enforce "t" in formatoptions on cpp files
 		autocmd FileType c,cpp setlocal formatoptions=croqt
 		" rainbow cannot be enabled for help file. It breaks syntax highlight
@@ -713,11 +717,20 @@ endif
 		autocmd FileType tex setlocal fdm=indent
 		" Display help vertical window not split
 		autocmd FileType help wincmd L
-		" Arduino
-		autocmd BufNewFile,BufReadPost *.ino,*.pde setlocal ft=arduino
-		" automatic syntax for *.scp
-		autocmd BufNewFile,BufReadPost *.scp setlocal syntax=asm
+		" wrap syntastic messages
+		autocmd FileType qf setlocal wrap
 	augroup END
+
+	augroup Others
+    autocmd!
+    " Arduino
+    autocmd BufNewFile,BufReadPost *.ino,*.pde setlocal ft=arduino
+    " automatic syntax for *.scp
+    autocmd BufNewFile,BufReadPost *.scp setlocal syntax=asm
+    " Sessions
+    autocmd VimEnter * call <SID>LoadSession('default.vim')
+    autocmd VimLeave * call <SID>SaveSession('default.vim')
+  augroup END
 
 " CUSTOM MAPPINGS
 	" List of super useful mappings
@@ -920,31 +933,41 @@ endif
 
 	" sessions
 		nnoremap <Leader>sS :call <SID>SaveSession()<CR>
-		function! s:SaveSession() abort
-			exe "wall"
-			exe "cd ". s:personal_path ."sessions/"
-			exe "normal :mksession! " . s:personal_path . "sessions/". input("Enter 
-						\save session name:", "", "file") . "\<CR>"
-			exe "cd -"
+    function! s:SaveSession(...) abort
+			" if session name is not provided as function argument ask for it
+			if a:0 < 1
+        execute "wall"
+        execute "cd ". s:personal_path ."sessions/"
+        let l:sSessionName = input("Enter 
+              \save session name:", "", "file")
+      else
+        " Need to keep this option short and sweet
+        let l:sSessionName = a:1
+      endif
+			execute "normal :mksession! " . s:personal_path . "sessions/". l:sSessionName  . "\<CR>"
+			execute "cd -"
 		endfunction
 
 		nnoremap <Leader>sL :call <SID>LoadSession()<CR>
-		function! s:LoadSession() abort
+		function! s:LoadSession(...) abort
 			" save all work
-			" TODO: before deleting buffers ask if to save them
-			exe "wall"
-			" TODO: show warning here
-			echo "Save Current Session before deleting all buffers: (y)es (any)no" 
-			let l:iResponse = getchar()
-			if l:iResponse == 121 " y
-				call <SID>SaveSession()
-			endif
-			" close out all buffers
-			exe "normal :%bdelete\<CR>"
-			exe "cd ". s:personal_path ."sessions/"
-			exe "normal :so " . s:personal_path . "sessions/". input("Enter 
-						\load session name:", "", "file") . "\<CR>"
-			exe "cd -"
+			execute "cd ". s:personal_path ."sessions/"
+      if a:0 < 1
+        execute "wall"
+        echo "Save Current Session before deleting all buffers: (y)es (any)no" 
+        let l:iResponse = getchar()
+        if l:iResponse == 121 " y
+          call <SID>SaveSession()
+        endif
+        let l:sSessionName = input("Enter 
+              \load session name:", "", "file")
+      else
+        " close out all buffers
+        let l:sSessionName = a:1
+      endif
+      execute "normal :%bdelete\<CR>"
+      silent execute "normal :so " . s:personal_path . "sessions/". l:sSessionName . "\<CR>"
+			execute "cd -"
 		endfunction
 	
 	" Version Control 
@@ -1222,7 +1245,12 @@ endif
 		let vimrplugin_r_path = 'C:\\Program Files\\R\\R-3.2.3\\bin\\i386'
 
 	" Vim-Clang " syntastic is much better that is why is not 
-		" clan clang_auto option which enables autocomplete after . -> and ::
+		" clang clang_auto option which enables autocomplete after . -> and ::
 		" is being handled along with neocompl and deocompl options to be
 		" activated in case non of those 2 are present
 		let g:clang_diagsopt = '' " no syntax check 
+    let g:clang_format_style ='file'
+    " Just make sure that you have a .clang-format file in your project source
+    " directory
+    let g:clang_format_auto = 1
+    nnoremap <Leader>cf ClangFormat<CR>
