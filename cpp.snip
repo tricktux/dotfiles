@@ -36,23 +36,19 @@ abbr        try catch
     } 
     catch (std::exception& e) 
     {
-        throw "Exception@" + (std::string) __func__ + "(): "
+        std::cerr << "Exception@" + (std::string) __func__ + "(): "
             + (std::string) e.what()+ '\n';
-    }
-    catch (std::string& sExcep) 
-    {
-        throw "Exception@" + (std::string) __func__ + "(): "
-            + sExcep + '\n';
+        throw;
     }
 
-snippet     catch_s
-options     head
-abbr        catch string
-    catch (std::string& sExcep) 
-    {
-        throw "Exception@" + (std::string) __func__ + "(): "
-            + sExcep + '\n';
-    }
+# snippet     catch_s
+# options     head
+# abbr        catch string
+    # catch (std::string& sExcep) 
+    # {
+        # throw "Exception@" + (std::string) __func__ + "(): "
+            # + sExcep + '\n';
+    # }
 
 
 snippet     catch_e
@@ -60,23 +56,24 @@ options     head
 abbr        catch exception
     catch (std::exception& e) 
     {
-        throw "Exception@" + (std::string) __func__ + "(): "
+        std::cerr << "Exception@" + (std::string) __func__ + "(): "
             + (std::string) e.what()+ '\n';
+        throw;
     }
 
-snippet     catch_a
-options     head
-abbr        catch all
-    catch (std::exception& e) 
-    {
-        throw "Exception@" + (std::string) __func__ + "(): "
-            + (std::string) e.what()+ '\n';
-    }
-    catch (std::string& sExcep) 
-    {
-        throw "Exception@" + (std::string) __func__ + "(): "
-            + sExcep + '\n';
-    }
+# snippet     catch_a
+# options     head
+# abbr        catch all
+    # catch (std::exception& e) 
+    # {
+        # throw "Exception@" + (std::string) __func__ + "(): "
+            # + (std::string) e.what()+ '\n';
+    # }
+    # catch (std::string& sExcep) 
+    # {
+        # throw "Exception@" + (std::string) __func__ + "(): "
+            # + sExcep + '\n';
+    # }
 
 
 # range based for ( C++11 feature )

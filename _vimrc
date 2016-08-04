@@ -465,7 +465,7 @@ endif
 	nnoremap <Leader>cI :call <SID>CommentReduceIndent()<CR>
 
 	function! s:TodoCreate() abort
-		execute "normal Bi\<Space>[ ]\<Esc>"
+    execute "normal Blli\<Space>[ ]\<Space>\<Esc>"
 	endfunction
 	nnoremap <Leader>td :call <SID>TodoCreate()<CR>
 
@@ -478,6 +478,10 @@ endif
 		execute "normal Bf[lr\<Space>\<Esc>"
 	endfunction
 	nnoremap <Leader>tM :call <SID>TodoClearMark()<CR>
+
+	function! s:NormalizeWindowSize() abort
+        execute "normal \<c-w>="
+    endfunction
 
 " PLUGINS_FOR_BOTH_SYSTEMS 
 	" Install vim-plug and all plugins in case of first use
@@ -511,6 +515,10 @@ endif
 	Plug 'NLKNguyen/papercolor-theme'
 	Plug 'junegunn/rainbow_parentheses.vim'
 	Plug 'morhetz/gruvbox' " colorscheme gruvbox 
+	" markdown stuff
+    Plug 'godlygeek/tabular' " required by markdown
+    Plug 'plasticboy/vim-markdown'
+    Plug 'gonzaloserrano/vim-markdown-todo'
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
@@ -588,7 +596,7 @@ endif
 	" tabs
 	set tabstop=2     " a tab is four spaces
 	set softtabstop=2
-  set expandtab " turns tabs into spaces
+    set expandtab " turns tabs into spaces
 	set shiftwidth=2  " number of spaces to use for autoindenting
 	set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
 
@@ -606,6 +614,7 @@ endif
 	" ignore these files to for completion
 	set wildignore+=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn,.git
 	set completeopt=menuone,menu,longest,preview
+	" set complete+=kspell " currently not working
 	set wildmenu
 	set wildmode=list:longest
 	set title                " change the terminal's title
@@ -616,7 +625,7 @@ endif
 	"set autochdir " working directory is always the same as the file you are editing
 	"//////////////8/2/2016 3:06:49 PM////////////////
 	" Took out options from here. Makes the session script too long and annoying
-	set sessionoptions=buffers,curdir,folds,localoptions,tabpages,resize,winsize,winpos
+	set sessionoptions=buffers,curdir,folds,localoptions,options,tabpages,resize,winsize,winpos
 	set hidden
 	" wont open a currently open buffer
 	"set switchbuf=useopen
@@ -680,6 +689,7 @@ endif
 	" significantly improves ctrlp speed. requires installation of ag
 	if executable('ag')
 		set grepprg=ag\ --nogroup\ --nocolor
+    let g:ctrlp_user_command = 'ag -Q -l --nocolor --hidden -g "" %s'
 	else
 		echomsg string("You should install silversearcher-ag. Makes ctrlp much faster")
 		set grepprg&
@@ -687,7 +697,9 @@ endif
 	set laststatus=2
 	set formatoptions=croqt " this is textwidth actually breaks the lines 
 	set textwidth=80
-	set com+=b:-,b:* " makes vim autocomplete - bullets
+    " makes vim autocomplete - bullets
+	set comments+=b:-,b:*
+    set nolist " Do not display extra characters
 
 " ALL_AUTOGROUP_STUFF 
 	augroup Filetypes
@@ -719,18 +731,30 @@ endif
 		autocmd FileType help wincmd L
 		" wrap syntastic messages
 		autocmd FileType qf setlocal wrap
+        " Open markdown files with Chrome.
+        " TODO: set the chrome path to be system dependent
+        " autocmd BufEnter *.md exe 'noremap <F5> :!start C:\Users\tomas\AppData\Local\Google\Chrome\Application\chrome.exe %:p<CR>'
+        autocmd FileType markdown setlocal spell spelllang=en_us
+        " allows for autocompl of bullets
+        autocmd FileType markdown setlocal formatoptions=croqt
 	augroup END
 
-	augroup Others
+	augroup BuffTypes
     autocmd!
-    " Arduino
-    autocmd BufNewFile,BufReadPost *.ino,*.pde setlocal ft=arduino
-    " automatic syntax for *.scp
-    autocmd BufNewFile,BufReadPost *.scp setlocal syntax=asm
-    " Sessions
-    autocmd VimEnter * call <SID>LoadSession('default.vim')
-    autocmd VimLeave * call <SID>SaveSession('default.vim')
-  augroup END
+        " Arduino
+        autocmd BufNewFile,BufReadPost *.ino,*.pde setlocal ft=arduino
+        " automatic syntax for *.scp
+        autocmd BufNewFile,BufReadPost *.scp setlocal syntax=asm
+    augroup END
+
+    augroup VimType
+        autocmd!
+        " Sessions
+        autocmd VimEnter * call <SID>LoadSession('default.vim')
+        autocmd VimLeave * call <SID>SaveSession('default.vim')
+        " Keep splits normalize
+        autocmd VimResized * call <SID>NormalizeWindowSize()
+    augroup END
 
 " CUSTOM MAPPINGS
 	" List of super useful mappings
@@ -872,6 +896,8 @@ endif
 		function! FixPreviousWord() abort
 			normal mm[s1z=`m
 		endfunction
+
+
 		" add to dictionary
 		noremap <Leader>sa zg
 		" mark wrong
@@ -962,12 +988,16 @@ endif
         let l:sSessionName = input("Enter 
               \load session name:", "", "file")
       else
-        " close out all buffers
         let l:sSessionName = a:1
+        echo "Reload Last Session: (y)es (any)no" 
+        let l:iResponse = getchar()
+        if l:iResponse != 121 " y
+          return
+        endif
       endif
       execute "normal :%bdelete\<CR>"
       silent execute "normal :so " . s:personal_path . "sessions/". l:sSessionName . "\<CR>"
-			execute "cd -"
+      execute "cd -"
 		endfunction
 	
 	" Version Control 
@@ -1249,8 +1279,13 @@ endif
 		" is being handled along with neocompl and deocompl options to be
 		" activated in case non of those 2 are present
 		let g:clang_diagsopt = '' " no syntax check 
-    let g:clang_format_style ='file'
-    " Just make sure that you have a .clang-format file in your project source
-    " directory
-    let g:clang_format_auto = 1
-    nnoremap <Leader>cf ClangFormat<CR>
+        let g:clang_format_style ='file'
+        " Just make sure that you have a .clang-format file in your project source
+        " directory
+        let g:clang_format_auto = 1
+        nnoremap <Leader>cf ClangFormat<CR>
+
+    " Vim-Markdown
+        " messes up with neocomplete
+        let g:vim_markdown_folding_disabled = 1
+        let g:vim_markdown_conceal = 0
