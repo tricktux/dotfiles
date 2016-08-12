@@ -1,0 +1,13 @@
+let g:local_vimrc_wings = 1
+" This allows you to build using the command :make *.sln
+set makeprg=msbuild\ /nologo\ /v:q\ /property:GenerateFullPaths=true
+nnoremap <Leader>ma :make TsCommServer.sln<CR>
+" Disable syntastic
+SyntasticToggleMode
+let g:clang_format_auto = 0
+let g:clang_format_style =''
+" tab settings
+set tabstop=4     " a tab is four spaces
+set softtabstop=4
+set shiftwidth=4  " number of spaces to use for autoindenting
+set textwidth=120

@@ -61,7 +61,6 @@ if has('win32')
 	" e1 reserved for vimrc
 	nnoremap <Leader>e21 :silent e ~/Documents/1.MyDocuments/2.WINGS/NeoOneWINGS/
 	nnoremap <Leader>e22 :silent e ~/Documents/1.MyDocuments/2.WINGS/
-	nnoremap <Leader>e3 :silent e ~/vimfiles/personal/wiki/
 	nnoremap <Leader>e4 :silent e ~/Desktop/daily\ check/
 	nnoremap <Leader>e5 :silent e ~/Documents/1.MyDocuments/Forms/Weekly_Reports/
 	nnoremap <Leader>e6 :silent e ~/Documents/1.MyDocuments/3.Training/2.NI_Testand/
@@ -385,16 +384,6 @@ endif
 	endfunction
 	nnoremap dl :call <SID>DeleteLine()<CR>
 
-	function! s:CommentLine() abort
-		if exists("*NERDComment")
-			execute "normal mm:" . input("Comment Line:") . "\<CR>"
-			execute "normal :call NERDComment(\"n\", \"Toggle\")\<CR>`m"
-		else
-			echo "Please install NERDCommenter"
-		endif
-	endfunction
-	nnoremap cl :call <SID>CommentLine()<CR>
-
 	" TODO: substitute this for a custom neosnippet see :h neosnippet
 	function! s:ListsNavigation(cmd) abort
 		try
@@ -449,38 +438,24 @@ endif
 		endif
 	endfunction
 
-	function! s:CommentDelete() abort
-		execute "normal Bf/D"
-	endfunction
-	nnoremap <Leader>cD :call <SID>CommentDelete()<CR>
-
-	function! s:CommentIndent() abort
-		execute "normal Bf/i\<Tab>\<Tab>\<Esc>"
-	endfunction
-	nnoremap <Leader>ci :call <SID>CommentIndent()<CR>
-
-	function! s:CommentReduceIndent() abort
-		execute "normal Bf/hxhx"
-	endfunction
-	nnoremap <Leader>cI :call <SID>CommentReduceIndent()<CR>
-
-	function! s:TodoCreate() abort
-    execute "normal Blli\<Space>[ ]\<Space>\<Esc>"
-	endfunction
-	nnoremap <Leader>td :call <SID>TodoCreate()<CR>
-
-	function! s:TodoMark() abort
-		execute "normal Bf[lrX\<Esc>"
-	endfunction
-	nnoremap <Leader>tm :call <SID>TodoMark()<CR>
-
-	function! s:TodoClearMark() abort
-		execute "normal Bf[lr\<Space>\<Esc>"
-	endfunction
-	nnoremap <Leader>tM :call <SID>TodoClearMark()<CR>
-
 	function! s:NormalizeWindowSize() abort
         execute "normal \<c-w>="
+    endfunction
+    function! s:SetupEnvironment()
+        let l:path = expand('%:p')
+        if match(l:path,"\\2.WINGS\\NeoOneWINGS\\")
+            " set a g:local_vimrc_name in you local vimrc to avoid local vimrc
+            " reloadings
+            if !exists('g:local_vimrc_wings') 
+                echomsg "Sourcing _vimrc_wings"
+                source ~/Documents/1.MyDocuments/2.WINGS/NeoOneWINGS/_vimrc_wings
+            endif
+        else " if not wings assume its a personal project
+            if !exists('g:local_vimrc_personal') 
+                echomsg "Sourcing _vimrc_personal"
+                source ~/vimrc/_vimrc_personal
+            endif
+        endif
     endfunction
 
 " PLUGINS_FOR_BOTH_SYSTEMS 
@@ -519,6 +494,7 @@ endif
     Plug 'godlygeek/tabular' " required by markdown
     Plug 'plasticboy/vim-markdown'
     Plug 'gonzaloserrano/vim-markdown-todo'
+    Plug 'mrtazz/DoxygenToolkit.vim'
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
@@ -577,7 +553,6 @@ endif
 "	- ctrlp
 "	- neocomplete
 "	- neosnippets
-
 
 " SET_OPTIONS 
 	"set spell spelllang=en_us
@@ -700,6 +675,7 @@ endif
     " makes vim autocomplete - bullets
 	set comments+=b:-,b:*
     set nolist " Do not display extra characters
+    set scroll=8
 
 " ALL_AUTOGROUP_STUFF 
 	augroup Filetypes
@@ -709,7 +685,6 @@ endif
 		autocmd FileType c setlocal omnifunc=omni#c#complete#Main
 		autocmd FileType cpp setlocal omnifunc=omni#cpp#complete#Main
 		autocmd FileType c,cpp setlocal cindent
-		autocmd FileType c,cpp compiler! gcc
 		" enforce "t" in formatoptions on cpp files
 		autocmd FileType c,cpp setlocal formatoptions=croqt
 		" rainbow cannot be enabled for help file. It breaks syntax highlight
@@ -745,6 +720,13 @@ endif
         autocmd BufNewFile,BufReadPost *.ino,*.pde setlocal ft=arduino
         " automatic syntax for *.scp
         autocmd BufNewFile,BufReadPost *.scp setlocal syntax=asm
+        " local vimrc files
+        autocmd BufReadPost,BufNewFile * call <SID>SetupEnvironment()
+    augroup END
+
+    augroup SessionL
+        autocmd!
+        autocmd SessionLoadPost * call <SID>SetupEnvironment()
     augroup END
 
     augroup VimType
@@ -941,7 +923,7 @@ endif
 		nnoremap <S-e> :tab split<CR>
 		nnoremap <S-x> :tabclose<CR>
 
-	" make 
+	" Make 
 		nnoremap <Leader>ma :make clean<CR>
 					\:make all<CR>
 		nnoremap <Leader>mc :make clean<CR>
@@ -957,7 +939,7 @@ endif
 		nnoremap <Leader>mo :make all<CR>
 					\:!sep_calc.exe nada.csv<CR>
 
-	" sessions
+	" Sessions
 		nnoremap <Leader>sS :call <SID>SaveSession()<CR>
     function! s:SaveSession(...) abort
 			" if session name is not provided as function argument ask for it
@@ -978,6 +960,7 @@ endif
 		function! s:LoadSession(...) abort
 			" save all work
 			execute "cd ". s:personal_path ."sessions/"
+			" Logic path when not called at startup
       if a:0 < 1
         execute "wall"
         echo "Save Current Session before deleting all buffers: (y)es (any)no" 
@@ -989,9 +972,15 @@ endif
               \load session name:", "", "file")
       else
         let l:sSessionName = a:1
-        echo "Reload Last Session: (y)es (any)no" 
+        echo "Reload Last Session: (y)es (d)ifferent session or (any)nothing"
         let l:iResponse = getchar()
-        if l:iResponse != 121 " y
+        if l:iResponse == 100 " different session
+          let l:sSessionName = input("Enter 
+                \load session name:", "", "file")
+        elseif l:iResponse == 121 " reload last session
+          " continue to end of if
+        else 
+          " execute "normal :%bdelete\<CR>" " do not delete old buffers
           return
         endif
       endif
@@ -1029,6 +1018,54 @@ endif
 			nnoremap <Leader>ga :!git add 
 			nnoremap <Leader>gl :silent Glog<CR>
 							\:copen 20<CR>
+
+  " Todo mappings
+    function! s:TodoCreate() abort
+      execute "normal Blli\<Space>[ ]\<Space>\<Esc>"
+    endfunction
+    nnoremap <Leader>td :call <SID>TodoCreate()<CR>
+
+    function! s:TodoMark() abort
+      execute "normal Bf[lrX\<Esc>"
+    endfunction
+    nnoremap <Leader>tm :call <SID>TodoMark()<CR>
+
+    function! s:TodoClearMark() abort
+      execute "normal Bf[lr\<Space>\<Esc>"
+    endfunction
+    nnoremap <Leader>tM :call <SID>TodoClearMark()<CR>
+    " pull up todo/quick notes list
+    function! s:OpenWiki(sWikiName) abort
+      execute "e " . s:personal_path . "wiki/" . a:sWikiName
+    endfunction
+    nnoremap <Leader>wt :call <SID>OpenWiki('TODO.md')<CR>
+    nnoremap <Leader>wm :call <SID>OpenWiki('0.main.index.md')<CR>
+
+  " Comments
+    function! s:CommentDelete() abort
+      execute "normal Bf/D"
+    endfunction
+    nnoremap <Leader>cD :call <SID>CommentDelete()<CR>
+
+    function! s:CommentIndent() abort
+      execute "normal Bf/i\<Tab>\<Tab>\<Esc>"
+    endfunction
+    nnoremap <Leader>ci :call <SID>CommentIndent()<CR>
+
+    function! s:CommentReduceIndent() abort
+      execute "normal Bf/hxhx"
+    endfunction
+    nnoremap <Leader>cI :call <SID>CommentReduceIndent()<CR>
+
+    function! s:CommentLine() abort
+      if exists("*NERDComment")
+        execute "normal mm:" . input("Comment Line:") . "\<CR>"
+        execute "normal :call NERDComment(\"n\", \"Toggle\")\<CR>`m"
+      else
+        echo "Please install NERDCommenter"
+      endif
+    endfunction
+    nnoremap cl :call <SID>CommentLine()<CR>
 
 " STATUS_LINE
 	set statusline =
@@ -1144,11 +1181,12 @@ endif
 		let g:ctrlp_clear_cache_on_exit = 0
 
 	" Doxygen.vim 
+    nnoremap <Leader>cf :Dox<CR>
 		let g:DoxygenToolkit_briefTag_pre="@Description:  " 
 		let g:DoxygenToolkit_paramTag_pre="@Var: " 
 		let g:DoxygenToolkit_returnTag="@Returns:   " 
-		let g:DoxygenToolkit_blockHeader="//////////////////////////////////////////////////////////////////////////" 
-		let g:DoxygenToolkit_blockFooter="----------------------------------------------------------------------------" 
+		let g:DoxygenToolkit_blockHeader="" 
+		let g:DoxygenToolkit_blockFooter="" 
 		let g:DoxygenToolkit_authorName="Reinaldo Molina" 
 		let g:DoxygenToolkit_licenseTag=""
 
@@ -1165,6 +1203,7 @@ endif
 		let g:syntastic_check_on_wq = 0
 		let g:syntastic_cpp_compiler_options = '-std=c++17 -pedantic -Wall'
 		let g:syntastic_c_compiler_options = '-std=c11 -pedantic -Wall'
+    let g:syntastic_auto_jump = 3
 		
 	"/Plug 'octol/vim-cpp-enhanced-highlight' 
 		let g:cpp_class_scope_highlight = 1	
@@ -1279,13 +1318,14 @@ endif
 		" is being handled along with neocompl and deocompl options to be
 		" activated in case non of those 2 are present
 		let g:clang_diagsopt = '' " no syntax check 
-        let g:clang_format_style ='file'
-        " Just make sure that you have a .clang-format file in your project source
-        " directory
-        let g:clang_format_auto = 1
-        nnoremap <Leader>cf ClangFormat<CR>
+    " Just make sure that you have a .clang-format file in your project source
+    " directory
+    " these options is handled on a per project base
+    " let g:clang_format_auto = 1
+    " let g:clang_format_style ='file'
+    nnoremap <Leader>cf ClangFormat<CR>
 
-    " Vim-Markdown
-        " messes up with neocomplete
-        let g:vim_markdown_folding_disabled = 1
-        let g:vim_markdown_conceal = 0
+  " Vim-Markdown
+    " messes up with neocomplete
+    let g:vim_markdown_folding_disabled = 1
+    let g:vim_markdown_conceal = 0

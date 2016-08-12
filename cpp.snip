@@ -44,11 +44,11 @@ abbr        try catch
 # snippet     catch_s
 # options     head
 # abbr        catch string
-    # catch (std::string& sExcep) 
-    # {
-        # throw "Exception@" + (std::string) __func__ + "(): "
-            # + sExcep + '\n';
-    # }
+# catch (std::string& sExcep) 
+# {
+# throw "Exception@" + (std::string) __func__ + "(): "
+# + sExcep + '\n';
+# }
 
 
 snippet     catch_e
@@ -64,16 +64,16 @@ abbr        catch exception
 # snippet     catch_a
 # options     head
 # abbr        catch all
-    # catch (std::exception& e) 
-    # {
-        # throw "Exception@" + (std::string) __func__ + "(): "
-            # + (std::string) e.what()+ '\n';
-    # }
-    # catch (std::string& sExcep) 
-    # {
-        # throw "Exception@" + (std::string) __func__ + "(): "
-            # + sExcep + '\n';
-    # }
+# catch (std::exception& e) 
+# {
+# throw "Exception@" + (std::string) __func__ + "(): "
+# + (std::string) e.what()+ '\n';
+# }
+# catch (std::string& sExcep) 
+# {
+# throw "Exception@" + (std::string) __func__ + "(): "
+# + sExcep + '\n';
+# }
 
 
 # range based for ( C++11 feature )
