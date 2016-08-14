@@ -439,24 +439,48 @@ endif
 	endfunction
 
 	function! s:NormalizeWindowSize() abort
-        execute "normal \<c-w>="
-    endfunction
-    function! s:SetupEnvironment()
-        let l:path = expand('%:p')
-        if match(l:path,"\\2.WINGS\\NeoOneWINGS\\")
-            " set a g:local_vimrc_name in you local vimrc to avoid local vimrc
-            " reloadings
-            if !exists('g:local_vimrc_wings') 
-                echomsg "Sourcing _vimrc_wings"
-                source ~/Documents/1.MyDocuments/2.WINGS/NeoOneWINGS/_vimrc_wings
-            endif
-        else " if not wings assume its a personal project
-            if !exists('g:local_vimrc_personal') 
-                echomsg "Sourcing _vimrc_personal"
-                source ~/vimrc/_vimrc_personal
-            endif
+    execute "normal \<c-w>="
+  endfunction
+
+  " Performance warning on this function. If necesary disable au and just make
+  " function calls
+  function! s:SetupEnvironment()
+    let l:path = expand('%:p')
+    " use this as an example. just substitute NeoOneWINGS with your project
+    " specific folder name
+    if match(l:path,'NeoOneWINGS') > 0
+      " set a g:local_vimrc_name in you local vimrc to avoid local vimrc
+      " reloadings
+      if !exists('g:local_vimrc_wings') 
+        let g:local_vimrc_wings = 1
+        if exists('g:local_vimrc_personal') 
+          unlet g:local_vimrc_personal
         endif
-    endfunction
+        echomsg "Loading settings for Wings..."
+        " This allows you to build using the command :make *.sln
+        set makeprg=msbuild\ /nologo\ /v:q\ /property:GenerateFullPaths=true
+        nnoremap <Leader>ma :make TsCommServer.sln<CR>
+        " Disable syntastic
+        SyntasticToggleMode
+        " tab settings
+        set tabstop=4     " a tab is four spaces
+        set softtabstop=4
+        set shiftwidth=4  " number of spaces to use for autoindenting
+        set textwidth=120
+      endif
+    elseif match(l:path,'sep_calc') > 0 || match(l:path,'vimrc') > 0 || match(l:path,'wiki') > 0
+      if !exists('g:local_vimrc_personal') && exists('g:local_vimrc_wings')
+        let g:local_vimrc_personal = 1
+        unlet g:local_vimrc_wings
+        echomsg "Loading settings for sep, vimrc, and wikis..."
+        " tab settings
+        set tabstop=2     " a tab is four spaces
+        set softtabstop=2
+        set shiftwidth=2  " number of spaces to use for autoindenting
+        set textwidth=80
+      endif
+    endif
+  endfunction
 
 " PLUGINS_FOR_BOTH_SYSTEMS 
 	" Install vim-plug and all plugins in case of first use
@@ -571,7 +595,7 @@ endif
 	" tabs
 	set tabstop=2     " a tab is four spaces
 	set softtabstop=2
-    set expandtab " turns tabs into spaces
+  set expandtab " turns tabs into spaces
 	set shiftwidth=2  " number of spaces to use for autoindenting
 	set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
 
@@ -1318,12 +1342,8 @@ endif
 		" is being handled along with neocompl and deocompl options to be
 		" activated in case non of those 2 are present
 		let g:clang_diagsopt = '' " no syntax check 
-    " Just make sure that you have a .clang-format file in your project source
-    " directory
-    " these options is handled on a per project base
-    " let g:clang_format_auto = 1
-    " let g:clang_format_style ='file'
-    nnoremap <Leader>cf ClangFormat<CR>
+    let g:clang_format_style ='file'
+    nnoremap <c-f> :ClangFormat<CR>
 
   " Vim-Markdown
     " messes up with neocomplete
