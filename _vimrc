@@ -981,6 +981,7 @@ endif
 		" decrease number
 		nnoremap <Leader>A <c-x>
 		inoremap <c-l> <c-o>x
+		inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
 
 	" Folding 
 		" Folding select text then S-f to fold or just S-f to toggle folding
