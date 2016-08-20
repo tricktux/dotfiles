@@ -27,12 +27,12 @@ avr-gcc, preload, cutecom, vlc, nmap (ip scanning)--------------------" &&
 echo ""
 sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test # latest gcc-g++
 sudo add-apt-repository -y ppa:neovim-ppa/unstable # neovim 
-sudo add-apt-repository -y ppa:shutter/ppa 
+# sudo add-apt-repository -y ppa:shutter/ppa 
 sudo add-apt-repository -y ppa:webupd8team/java #java ppa
-sudo add-apt-repository -y ppa:nilarimogard/webupd8 #grive ppa
-sudo add-apt-repository -y ppa:thefanclub/grive-tools #grive-gui ppa
-sudo add-apt-repository -y ppa:libreoffice/ppa
-sudo add-apt-repository -y ppa:ubuntu-wine/ppa
+# sudo add-apt-repository -y ppa:nilarimogard/webupd8 #grive ppa
+# sudo add-apt-repository -y ppa:thefanclub/grive-tools #grive-gui ppa
+# sudo add-apt-repository -y ppa:libreoffice/ppa
+# sudo add-apt-repository -y ppa:ubuntu-wine/ppa
 sudo add-apt-repository -y ppa:pi-rho/dev # tmux ppa
 sudo apt-get -y update &&
 sudo apt-get dist-upgrade &&
@@ -41,7 +41,7 @@ mesa-utils build-essential linux-headers-$(uname -r) \
 oracle-java7-installer gtkterm xcompmgr xscreensaver xscreensaver-data-extra \
 xscreensaver-gl grive grive-tools shutter android-tools-adb android-tools-fastboot \
 git gparted g++ preload nmap arandr \
-corefonts VideoDriver vcrun2005 python-dev python-pip python3-dev \
+python-dev python-pip python3-dev \
 python3-pip neovim tilda tmux g++-5 autoconf chromium-browser curl \
 xdotool locate
 sudo pip3 install neovim
@@ -50,11 +50,14 @@ sudo pip3 install neovim
 # xdotool is for focus_or_launch
 
 # kernel dev
-sudo apt-get install libncurses5-dev gcc make git exuberant-ctags bc libssl-dev
-sudo apt-get install gcc-avr binutils-avr gdb-avr avr-libc avrdude 
+# sudo apt-get install libncurses5-dev gcc make git exuberant-ctags bc libssl-dev
+
+# atmel micro processor code
+# sudo apt-get install gcc-avr binutils-avr gdb-avr avr-libc avrdude 
 
 # image converter
 sudo apt-get install imagemagick
+# corefonts VideoDriver vcrun2005 
 # usage
 # mogrify -resize 20% picture-name.jpg 
 # convert -resize 4096x4096 picture-name.jpg new-pic.jpg
