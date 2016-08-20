@@ -489,3 +489,23 @@
       " let l:lines="all"
       " pyf ~/vimrc/scripts/clang-format.py
     " endfunction
+		nnoremap <Leader>ff za
+		onoremap <Leader>ff <C-C>za
+		nnoremap <Leader>ff zf
+  function! Hex2Dec() abort
+    execute "normal :echo str2nr('\<c-r>\<c-w>', 16)\<CR>" 
+  endfunction
+
+  " 8FFFF
+  function! Dec2Hex() abort
+    let l:sValue = expand("<cword>")
+    echo l:sValue
+    execute "normal :echo printf('%04X', '". l:sValue . "') str2nr('". l:sValue . "', 16) str2nr('". l:sValue . "', 2)\<CR>" 
+  endfunction
+  " F0
+  " 240
+  " Conque-GDB
+    let g:ConqueGdb_Leader = '<Leader>d' " debugging is the idea behing leader>d dl and do taken
+    let g:ConqueTerm_Color = 2         " 1: strip color after 200 lines, 2: always with color
+    let g:ConqueTerm_CloseOnEnd = 1    " close conque when program ends running
+    let g:ConqueTerm_StartMessages = 0 " display warning messages if conqueTerm is configured incorrectly
