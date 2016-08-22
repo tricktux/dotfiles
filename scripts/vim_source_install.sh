@@ -1,5 +1,7 @@
-# sudo apt-get purge vim-gtk vim-runtime vim gvim
+# sudo apt install vim-gtk
+# sudo apt-get autoremove --purge vim vim-runtime vim-gnome vim-tiny vim-common vim-gui-common
 # sudo apt-get build-dep vim-gtk
+# If make fails then try using the above line. And if that fails then install ncurses-dev
 cd
 sudo rm -rf vim
 git clone https://github.com/vim/vim.git

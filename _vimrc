@@ -138,6 +138,8 @@ elseif has('unix')
 	\ '')<CR>
 
 	nnoremap <CR> o<ESC>
+	" save file with sudo permissions
+	nnoremap <Leader>su :w !sudo tee %<CR>
 
 	" Unix Specific Plugin Options
 		"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh" 
@@ -598,6 +600,7 @@ endif
 	Plug 'ctrlpvim/ctrlp.vim'
   Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-dispatch'
+  Plug 'chrisbra/Colorizer'
 	" cpp
 	Plug 'Tagbar'
 	Plug 'justmao945/vim-clang'
@@ -666,20 +669,21 @@ endif
 	let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
 	let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 
-	" TMP folder
+" Create personal folders
+  " TMP folder
 	if <SID>CheckDirwoPrompt(s:personal_path . "tmp")
 		let $TMP= s:personal_path . "tmp"
 	else
 		echomsg string("Failed to create tmp dir")
 	endif
 
-" TODO: step here to go and check/create all the required folders:
-"	- sessions
-"	- tmp
-"	- undofiles
-"	- ctrlp
-"	- neocomplete
-"	- neosnippets
+  if !<SID>CheckDirwoPrompt(s:personal_path . "sessions")
+    echoerr string("Failed to create sessions dir")
+  endif
+
+  if !<SID>CheckDirwoPrompt(s:personal_path . "wiki")
+    echoerr string("Failed to create wiki dir")
+  endif
 
 " SET_OPTIONS 
 	"set spell spelllang=en_us
@@ -1344,6 +1348,7 @@ endif
 
 				let g:clang_auto = 0
 			else
+        echoerr "No lua installed so falling back to having only clang autocomplete"
 				let g:clang_auto = 1
 			endif
 		elseif has('python3')
@@ -1351,6 +1356,7 @@ endif
 			let g:clang_auto = 0
 			let g:deoplete#enable_at_startup = 1
 		else
+      echoerr "No python3 installed so falling back to having only clang autocomplete"
 			" so if it doesnt have it activate clang instaed
 			let g:deoplete#enable_at_startup = 0
 			let g:clang_auto = 1
@@ -1382,6 +1388,9 @@ endif
     " messes up with neocomplete
     let g:vim_markdown_folding_disabled = 1
     let g:vim_markdown_conceal = 0
+
+  " Colorizer
+  let g:colorizer_auto_filetype='css,html,xml'
 
 " see :h modeline
 " vim:tw=78:ts=2:sts=2:sw=2:

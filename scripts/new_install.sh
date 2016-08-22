@@ -26,29 +26,40 @@ echo "--------------------Compiz to Slide Windows CPU_INDICATOR Guake, git, gPar
 avr-gcc, preload, cutecom, vlc, nmap (ip scanning)--------------------" &&
 echo ""
 sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test # latest gcc-g++
+sudo apt-get -y install g++-6 autoconf 
+
 sudo add-apt-repository -y ppa:neovim-ppa/unstable # neovim 
+sudo apt-get -y install python-dev python-pip python3-dev python3-pip neovim
+sudo pip3 install neovim
+
 # sudo add-apt-repository -y ppa:shutter/ppa 
+# sudo apt-get -y install shutter
 sudo add-apt-repository -y ppa:webupd8team/java #java ppa
+sudo apt-get -y install oracle-java7-installer 
 # sudo add-apt-repository -y ppa:nilarimogard/webupd8 #grive ppa
 # sudo add-apt-repository -y ppa:thefanclub/grive-tools #grive-gui ppa
+# sudo apt-get -y install grive grive-tools
 # sudo add-apt-repository -y ppa:libreoffice/ppa
 # sudo add-apt-repository -y ppa:ubuntu-wine/ppa
+# sudo apt-get -y install wine
 sudo add-apt-repository -y ppa:pi-rho/dev # tmux ppa
+sudo apt-get -y install tmux
 sudo apt-get -y update &&
 sudo apt-get dist-upgrade &&
 sudo apt-get -y install python-software-properties software-properties-common \
 mesa-utils build-essential linux-headers-$(uname -r) \
-oracle-java7-installer gtkterm xcompmgr xscreensaver xscreensaver-data-extra \
-xscreensaver-gl grive grive-tools shutter android-tools-adb android-tools-fastboot \
-git gparted g++ preload nmap arandr \
-python-dev python-pip python3-dev \
-python3-pip neovim tilda tmux g++-5 autoconf chromium-browser curl \
-xdotool locate
-sudo pip3 install neovim
+gtkterm xcompmgr xscreensaver xscreensaver-data-extra \
+xscreensaver-gl android-tools-adb android-tools-fastboot \
+git gparted preload nmap arandr \
+tilda xdotool locate \
+vim-gtk ncurses-dev curl pulseaudio
+# pulseaudio for issues with audio
 # not in this list wine1.7 winetricks guake libreOffice
 # see install_vim.sh if you want vim.
 # xdotool is for focus_or_launch
 
+# **If you want to remove something use:
+# sudo apt-get autoremove --purge
 # kernel dev
 # sudo apt-get install libncurses5-dev gcc make git exuberant-ctags bc libssl-dev
 

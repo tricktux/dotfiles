@@ -1,8 +1,12 @@
 #!/bin/sh
-# Requirement 1 have downloaded jdk
+# Requirement 1 have downloaded jdk. 
+# Go to the jdk website
+# Copy the tar to the /usr/lib/jvm folder
+# Then do tar zxvf nameOfTar
+# Then update the jdk var
 # Requirement 2 set jdk folder name in var jdk
 # uncomment this code below if you dont want to set up jdk8
-jdk=jdk1.8.0_91
+jdk=jdk1.8.0_101/jdk1.8.0_101
 # sudo mkdir /usr/lib/jvm
 # sudo mv $jdk /usr/lib/jvm/$jdk
 sudo update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jvm/$jdk/bin/java" 2
