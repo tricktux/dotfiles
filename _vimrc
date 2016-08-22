@@ -170,7 +170,7 @@ elseif has('unix')
 			let g:syntastic_c_config_file = s:personal_path . '.syntastic_avrgcc_config'
 endif
 
-" Functions
+" FUNCTIONS
   " Only works in vimwiki filetypes
   " Input: empty- It will ask you what type of file you want to search
   " 		 String- "1", "2", or specify files in which you want to search
@@ -410,7 +410,7 @@ endif
     endtry
   endfunction
 
-  function! s:SetDiff() abort
+  function! SetDiff() abort
     nnoremap <C-Down> ]c
     nnoremap <C-Up> [c
     nnoremap <C-Left> :diffget<CR>
@@ -593,38 +593,37 @@ endif
 		Plug 'Shougo/neocomplete'
 	endif
 	" misc
-	Plug 'chrisbra/vim-diff-enhanced'
-	Plug 'scrooloose/nerdtree'
+	Plug 'chrisbra/vim-diff-enhanced', { 'on' : 'SetDiff' }
+	Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 	Plug 'scrooloose/nerdcommenter'
 	Plug 'tpope/vim-surround'
 	Plug 'ctrlpvim/ctrlp.vim'
   Plug 'tpope/vim-repeat'
-  Plug 'tpope/vim-dispatch'
   Plug 'chrisbra/Colorizer'
 	" cpp
-	Plug 'Tagbar'
-	Plug 'justmao945/vim-clang'
-	Plug 'scrooloose/syntastic'
+  Plug 'Tagbar', { 'on' : 'TagbarToggle' }
+  Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
+  Plug 'tpope/vim-dispatch', { 'for' : ['c' , 'cpp'] }
+  Plug 'justmao945/vim-clang', { 'for' : ['c' , 'cpp'] }
+  Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : ['c' , 'cpp'] }
+  Plug 'mrtazz/DoxygenToolkit.vim', { 'for' : ['c' , 'cpp'] }
+  Plug 'junegunn/rainbow_parentheses.vim', { 'for' : ['c' , 'cpp'] }
 	" Plug 'vim-scripts/Conque-GDB'
 	" Plug 'vim-scripts/Conque-Shell'
-	" autocomplete
+	" Autocomplete
 	Plug 'Shougo/neosnippet'
 	Plug 'Shougo/neosnippet-snippets'
 	Plug 'honza/vim-snippets'
 	" version control
-	Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-fugitive', { 'on' : 'Gstatus' }
 	" aesthetic
-	Plug 'octol/vim-cpp-enhanced-highlight'
-	Plug 'NLKNguyen/papercolor-theme'
-	Plug 'junegunn/rainbow_parentheses.vim'
+	" Plug 'NLKNguyen/papercolor-theme' " currently not being used
 	Plug 'morhetz/gruvbox' " colorscheme gruvbox 
 	" markdown stuff
-  Plug 'godlygeek/tabular' " required by markdown
-  Plug 'plasticboy/vim-markdown'
-  Plug 'gonzaloserrano/vim-markdown-todo'
-  Plug 'mrtazz/DoxygenToolkit.vim'
+  Plug 'godlygeek/tabular', { 'for' : 'md' } " required by markdown
+  Plug 'plasticboy/vim-markdown', { 'for' : 'md' }
   " radical 
-  Plug 'glts/vim-magnum'
+  Plug 'glts/vim-magnum' " required by markdown
   Plug 'glts/vim-radical'
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
@@ -815,7 +814,6 @@ endif
 		autocmd!
     " TODO convert each of these categories into its own augroup
 		" C/Cpp
-		autocmd VimEnter :cd $HOME<CR>
 		autocmd FileType c setlocal omnifunc=omni#c#complete#Main
 		autocmd FileType cpp setlocal omnifunc=omni#cpp#complete#Main
 		autocmd FileType c,cpp setlocal cindent
@@ -841,8 +839,6 @@ endif
 		" wrap syntastic messages
 		autocmd FileType qf setlocal wrap
     " Open markdown files with Chrome.
-    " TODO: set the chrome path to be system dependent
-    " autocmd BufEnter *.md exe 'noremap <F5> :!start C:\Users\tomas\AppData\Local\Google\Chrome\Application\chrome.exe %:p<CR>'
     autocmd FileType markdown setlocal spell spelllang=en_us
     " allows for autocompl of bullets
     autocmd FileType markdown setlocal formatoptions=croqt
@@ -1005,7 +1001,8 @@ endif
 		nnoremap <Leader>l <C-w>l
 
 	" Diff Sutff 
-		noremap <Leader>do :call <SID>SetDiff()<CR>
+	  command! SetDiff call SetDiff()
+		noremap <Leader>do :SetDiff<CR>
 		nnoremap <Leader>dl :call <SID>UnsetDiff()<CR>
 
 	" Spell Check 
@@ -1208,9 +1205,9 @@ endif
 		let g:vimtex_index_show_help=1
 
 	" Plugin 'Tagbar' {{{
-        let g:tagbar_autofocus = 1
-        let g:tagbar_show_linenumbers = 2
-        let g:tagbar_map_togglesort = "r"
+    let g:tagbar_autofocus = 1
+    let g:tagbar_show_linenumbers = 2
+    let g:tagbar_map_togglesort = "r"
 		noremap <Leader>tt :TagbarToggle<CR>
 		noremap <Leader>tk :cs kill -1<CR>
 		noremap <silent> <Leader>tj <C-]>
@@ -1255,9 +1252,9 @@ endif
 		nnoremap <Leader>sn :call <SID>ListsNavigation("next")<CR>
 		nnoremap <Leader>sp :call <SID>ListsNavigation("previous")<CR>
 		nnoremap <Leader>ss :SyntasticCheck<CR>
-		set statusline+=%#warningmsg#
-		set statusline+=%{SyntasticStatuslineFlag()}
-		set statusline+=%*
+		" set statusline+=%#warningmsg#
+		" set statusline+=%{SyntasticStatuslineFlag()}
+		" set statusline+=%*
 		let g:syntastic_always_populate_loc_list = 1
 		let g:syntastic_auto_loc_list = 1
 		let g:syntastic_check_on_open = 0
@@ -1390,7 +1387,7 @@ endif
     let g:vim_markdown_conceal = 0
 
   " Colorizer
-  let g:colorizer_auto_filetype='css,html,xml'
+    let g:colorizer_auto_filetype='css,html,xml'
 
 " see :h modeline
 " vim:tw=78:ts=2:sts=2:sw=2:
