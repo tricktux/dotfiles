@@ -447,7 +447,7 @@ endif
   " Performance warning on this function. If necesary disable au and just make
   " function calls
   " Note: Keep in mind vim modelines for vim type of files
-  function! <SID>SetupEnvironment()
+  function! s:SetupEnvironment()
     let l:path = expand('%:p')
     " use this as an example. just substitute NeoOneWINGS with your project
     " specific folder name
@@ -463,8 +463,6 @@ endif
         " This allows you to build using the command :make *.sln
         set makeprg=msbuild\ /nologo\ /v:q\ /property:GenerateFullPaths=true
         nnoremap <Leader>ma :Make TsCommServer.sln<CR>
-        " Disable syntastic
-        SyntasticToggleMode
         " tab settings
         set tabstop=4     " a tab is four spaces
         set softtabstop=4
@@ -603,10 +601,10 @@ endif
 	" cpp
   Plug 'Tagbar', { 'on' : 'TagbarToggle' }
   Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
+  Plug 'mrtazz/DoxygenToolkit.vim', { 'on' : 'Dox' }
   Plug 'tpope/vim-dispatch', { 'for' : ['c' , 'cpp'] }
   Plug 'justmao945/vim-clang', { 'for' : ['c' , 'cpp'] }
   Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : ['c' , 'cpp'] }
-  Plug 'mrtazz/DoxygenToolkit.vim', { 'for' : ['c' , 'cpp'] }
   Plug 'junegunn/rainbow_parentheses.vim', { 'for' : ['c' , 'cpp'] }
 	" Plug 'vim-scripts/Conque-GDB'
 	" Plug 'vim-scripts/Conque-Shell'
@@ -625,6 +623,8 @@ endif
   " radical 
   Plug 'glts/vim-magnum' " required by markdown
   Plug 'glts/vim-radical'
+  " Assmebly
+  Plug 'vim-scripts/avrasm.vim'
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
@@ -730,7 +730,7 @@ endif
 	"set autochdir " working directory is always the same as the file you are editing
 	"//////////////8/2/2016 3:06:49 PM////////////////
 	" Took out options from here. Makes the session script too long and annoying
-	set sessionoptions=buffers,curdir,folds,localoptions,options,tabpages,resize,winsize,winpos
+	set sessionoptions=buffers,curdir,folds,localoptions,options,tabpages,resize,winsize,winpos,help
 	set hidden
 	" wont open a currently open buffer
 	"set switchbuf=useopen
@@ -849,7 +849,7 @@ endif
     " Arduino
     autocmd BufNewFile,BufReadPost *.ino,*.pde setlocal ft=arduino
     " automatic syntax for *.scp
-    autocmd BufNewFile,BufReadPost *.scp setlocal syntax=asm
+    autocmd BufNewFile,BufReadPost *.scp setlocal syntax=wings_syntax
     " local vimrc files
     autocmd BufReadPost,BufNewFile * call <SID>SetupEnvironment()
 	augroup END
@@ -982,6 +982,14 @@ endif
 		nnoremap <Leader>A <c-x>
 		inoremap <c-l> <c-o>x
 		inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
+		" Count occurrances of last search
+    nnoremap <Leader>cs :%s///gn<CR>
+    " Reload syntax
+    " nnoremap <Leader>sl :syntax clear<CR>
+          " \:syntax sync fromstart<CR>
+          " \:set filetype=wings_syntax<CR>
+          " \:e<CR>
+    nnoremap <Leader>sl :set filetype=wings_syntax<CR>
 
 	" Folding 
 		" Folding select text then S-f to fold or just S-f to toggle folding
@@ -1046,7 +1054,7 @@ endif
 	" Tab Stuff 
 		noremap <S-j> :b#<CR>
 		noremap <Leader>bo :CtrlPBuffer<CR>
-		noremap <Leader>bd :bd %<CR>
+		noremap <Leader>bd :bp\|bd #<CR>
 		" deletes all buffers
 		noremap <Leader>bD :%bd<CR>
 		noremap <Leader>bs :buffers<CR>:buffer<Space>
