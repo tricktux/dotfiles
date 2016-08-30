@@ -811,13 +811,13 @@ endif
 		autocmd!
     " TODO convert each of these categories into its own augroup
 		" C/Cpp
-		autocmd FileType c setlocal omnifunc=omni#c#complete#Main
-		autocmd FileType cpp setlocal omnifunc=omni#cpp#complete#Main
-		autocmd FileType c,cpp setlocal cindent
-		" enforce "t" in formatoptions on cpp files
-		autocmd FileType c,cpp setlocal formatoptions=croqt
-		" rainbow cannot be enabled for help file. It breaks syntax highlight
-		autocmd FileType c,cpp,java RainbowParentheses
+		" autocmd FileType c setlocal omnifunc=omni#c#complete#Main
+		" autocmd FileType cpp setlocal omnifunc=omni#cpp#complete#Main
+		" autocmd FileType c,cpp setlocal cindent
+		" " enforce "t" in formatoptions on cpp files
+		" autocmd FileType c,cpp setlocal formatoptions=croqt
+		" " rainbow cannot be enabled for help file. It breaks syntax highlight
+		" autocmd FileType c,cpp,java RainbowParentheses
 		" Nerdtree Fix
 		autocmd FileType nerdtree setlocal relativenumber
 		autocmd FileType nerdtree setlocal encoding=utf-8 " fixes little arrows
