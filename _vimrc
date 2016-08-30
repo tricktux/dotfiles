@@ -111,7 +111,7 @@ elseif has('unix')
 	" this one below DOES WORK in linux just make sure is ran at root folder
 	noremap <Leader>tu :cs kill -1<CR>
 	\:!rm cscope.files cscope.out cscope.po.out cscope.in.out<CR>
-	\:!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.cc'  -o -iname '*.h' -o -iname '*.hpp' > cscope.files<CR>
+  \:!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.java' -o -iname '*.cc'  -o -iname '*.h' -o -iname '*.hpp' > cscope.files<CR>
 	\:!cscope -b -q -i cscope.files<CR>
 	\:cs add cscope.out<CR>
 	\:silent !ctags -R -L cscope.files<CR>
@@ -600,10 +600,11 @@ endif
   Plug 'mrtazz/DoxygenToolkit.vim', { 'on' : 'Dox' }
   Plug 'tpope/vim-dispatch', { 'for' : ['c' , 'cpp'] }
   Plug 'justmao945/vim-clang', { 'for' : ['c' , 'cpp'] }
-  Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : ['c' , 'cpp'] }
-  Plug 'junegunn/rainbow_parentheses.vim', { 'for' : ['c' , 'cpp'] }
-	" Plug 'vim-scripts/Conque-GDB'
-	" Plug 'vim-scripts/Conque-Shell'
+  Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : ['c' , 'cpp' ] }
+  Plug 'junegunn/rainbow_parentheses.vim', { 'on' : 'RainbowParentheses' }
+  " cpp/java
+  Plug 'sentientmachine/erics_vim_syntax_and_color_highlighting', { 'for' : 'java' }
+  Plug 'mattn/vim-javafmt', { 'for' : 'java' }
 	" Autocomplete
 	Plug 'Shougo/neosnippet'
 	Plug 'Shougo/neosnippet-snippets'
@@ -619,8 +620,7 @@ endif
   " radical
   Plug 'glts/vim-magnum' " required by markdown
   Plug 'glts/vim-radical'
-  " Assmebly
-  Plug 'vim-scripts/avrasm.vim'
+
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
@@ -816,7 +816,7 @@ endif
 		" enforce "t" in formatoptions on cpp files
 		autocmd FileType c,cpp setlocal formatoptions=croqt
 		" rainbow cannot be enabled for help file. It breaks syntax highlight
-		autocmd FileType c,cpp RainbowParentheses
+		autocmd FileType c,cpp,java RainbowParentheses
 		" Nerdtree Fix
 		autocmd FileType nerdtree setlocal relativenumber
 		autocmd FileType nerdtree setlocal encoding=utf-8 " fixes little arrows
