@@ -387,7 +387,6 @@ endif
 		execute "normal :" . input("Delete Line:") . "d\<CR>``"
 	endfunction
 
-	" TODO: substitute this for a custom neosnippet see :h neosnippet
 	function! s:ListsNavigation(cmd) abort
 		try
 			let l:list = 0
