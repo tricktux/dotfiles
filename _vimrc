@@ -32,7 +32,7 @@ if has('win32')
 	\:silent !del /F cscope.files cscope.in.out cscope.po.out cscope.out<CR>
 	\:silent !dir /b /s *.cpp *.h *.hpp *.c *.cc > cscope.files<CR>
 	\:!cscope -b -q -i cscope.files<CR>
-	\:silent !ctags -R -L cscope.files -f ./.svn/tags<CR>
+	\:silent !ctags -R -L cscope.files -f tags<CR>
 	\:cs add cscope.out<CR>
 
 	noremap <Leader>mr :!%<CR>
@@ -69,6 +69,8 @@ if has('win32')
 	nnoremap <Leader>es1 :silent e D:/Reinaldo/NeoOneWINGS/
 	" Time runtime of a specific program
 	nnoremap <Leader>mt :!powershell -command "& {&'Measure-Command' {.\sep_calc.exe seprc}}"<CR>
+
+	set tags+=~/vimfiles/personal/systags
 
 	" Windows specific plugins options
 		" Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
@@ -387,7 +389,6 @@ endif
 		execute "normal :" . input("Delete Line:") . "d\<CR>``"
 	endfunction
 
-	" TODO: substitute this for a custom neosnippet see :h neosnippet
 	function! s:ListsNavigation(cmd) abort
 		try
 			let l:list = 0
@@ -600,7 +601,7 @@ endif
   Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
   Plug 'mrtazz/DoxygenToolkit.vim', { 'on' : 'Dox' }
   Plug 'tpope/vim-dispatch', { 'for' : ['c' , 'cpp'] }
-  Plug 'justmao945/vim-clang', { 'for' : ['c' , 'cpp'] }
+  " Plug 'justmao945/vim-clang', { 'for' : ['c' , 'cpp'] }
   Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : ['c' , 'cpp' ] }
   Plug 'junegunn/rainbow_parentheses.vim', { 'on' : 'RainbowParentheses' }
   " cpp/java
@@ -811,13 +812,13 @@ endif
 		autocmd!
     " TODO convert each of these categories into its own augroup
 		" C/Cpp
-		" autocmd FileType c setlocal omnifunc=omni#c#complete#Main
+		autocmd FileType c setlocal omnifunc=omni#c#complete#Main
 		" autocmd FileType cpp setlocal omnifunc=omni#cpp#complete#Main
-		" autocmd FileType c,cpp setlocal cindent
-		" " enforce "t" in formatoptions on cpp files
-		" autocmd FileType c,cpp setlocal formatoptions=croqt
-		" " rainbow cannot be enabled for help file. It breaks syntax highlight
-		" autocmd FileType c,cpp,java RainbowParentheses
+		autocmd FileType c,cpp setlocal cindent
+		" enforce "t" in formatoptions on cpp files
+		autocmd FileType c,cpp setlocal formatoptions=croqt
+		" rainbow cannot be enabled for help file. It breaks syntax highlight
+		autocmd FileType c,cpp,java RainbowParentheses
 		" Nerdtree Fix
 		autocmd FileType nerdtree setlocal relativenumber
 		autocmd FileType nerdtree setlocal encoding=utf-8 " fixes little arrows
@@ -1199,19 +1200,6 @@ endif
 		let NERDTreeMapOpenVSplit=',s'
 		let NERDTreeQuitOnOpen=1 " AutoClose after openning file
 
-	" Plugin 'lervag/vimtex' " Latex support
-		let g:vimtex_view_enabled = 0
-		" latexmk
-		let g:vimtex_latexmk_continuous=1
-		let g:vimtex_latexmk_callback=1
-		" AutoComplete
-		let g:vimtex_complete_close_braces=1
-		let g:vimtex_complete_recursive_bib=1
-		let g:vimtex_complete_img_use_tail=1
-		" ToC
-		let g:vimtex_toc_enabled=1
-		let g:vimtex_index_show_help=1
-
 	" Plugin 'Tagbar' {{{
     let g:tagbar_autofocus = 1
     let g:tagbar_show_linenumbers = 2
@@ -1287,6 +1275,7 @@ endif
 			if has('lua')
 				" All new stuff
 				" Vim-clang
+        let g:clang_auto = 0
 				let g:clang_c_completeopt = 'menuone,preview,noinsert,noselect'
 				let g:clang_cpp_completeopt = 'menuone,preview,noinsert,noselect'
 
@@ -1351,7 +1340,6 @@ endif
 				let g:neocomplete#delimiter_patterns.vim = ['#']
 				let g:neocomplete#delimiter_patterns.cpp = ['::']
 
-				let g:clang_auto = 0
 			else
         echoerr "No lua installed so falling back to having only clang autocomplete"
 				let g:clang_auto = 1

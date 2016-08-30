@@ -521,3 +521,15 @@
     " execute "normal :echo str2nr('". l:sValue . "', 2)\<CR>" 
   endfunction
 
+	" Plugin 'lervag/vimtex' " Latex support
+		let g:vimtex_view_enabled = 0
+		" latexmk
+		let g:vimtex_latexmk_continuous=1
+		let g:vimtex_latexmk_callback=1
+		" AutoComplete
+		let g:vimtex_complete_close_braces=1
+		let g:vimtex_complete_recursive_bib=1
+		let g:vimtex_complete_img_use_tail=1
+		" ToC
+		let g:vimtex_toc_enabled=1
+		let g:vimtex_index_show_help=1
