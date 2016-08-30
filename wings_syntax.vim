@@ -66,9 +66,9 @@ syn keyword wingsCommands  	 UPDATE VMC VPC WAIT WINGSKEYSENCODE WINGSKEYSDECODE
 syn keyword wingsCommands  	 XMINIMUM XOR XOFF XUNITS XMULTIPLY XALIAS XINTERVAL YALIAS
 syn keyword wingsCommands  	 YAUTO YDESCRIPTION YENABLE YGRID YMAXIMUM YMINMUM YPENCOLOR YPENWIDTH
 syn keyword wingsCommands  	 YMULTIPLY YOFF YSTAIR YUNITS RET JMP STACKPUSH PMESS FSPRP
-syn keyword wingsCommands  	 INJECT IN OFP SPRP PMESSAGE JUMP
+syn keyword wingsCommands  	 INJECT IN OFP SPRP PMESSAGE JUMP CI
 
-syn keyword wingsLog    	 STATUS CI
+syn keyword wingsLog    	 STATUS
 
 syn keyword wingsOk             OK PASS
 

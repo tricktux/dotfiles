@@ -509,3 +509,15 @@
     let g:ConqueTerm_Color = 2         " 1: strip color after 200 lines, 2: always with color
     let g:ConqueTerm_CloseOnEnd = 1    " close conque when program ends running
     let g:ConqueTerm_StartMessages = 0 " display warning messages if conqueTerm is configured incorrectly
+  function! Hex2Dec() abort
+    execute "normal :echo str2nr('\<c-r>\<c-w>', 16)\<CR>" 
+  endfunction
+
+  function! Dec2Hex() abort
+    let l:sValue = expand("<cword>")
+    echo l:sValue
+    execute "normal :echo printf('%04X', '". l:sValue . "') str2nr('". l:sValue . "', 16) str2nr('". l:sValue . "', 2)\<CR>" 
+    " execute "normal :echo str2nr('". l:sValue . "', 16)\<CR>" 
+    " execute "normal :echo str2nr('". l:sValue . "', 2)\<CR>" 
+  endfunction
+

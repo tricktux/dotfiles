@@ -2,17 +2,17 @@
 " - [ ] insertion and mark complete
 " REQ AND LEADER
 	set nocompatible
-	" moving these lines here fixes losing 
+	" moving these lines here fixes losing
 	" syntax whith split screen actually it doesnt
 	syntax on
 	filetype on
 	filetype plugin on
 	filetype indent on
-	" moved here otherwise conditional mappings get / instead ; as leader 
+	" moved here otherwise conditional mappings get / instead ; as leader
 	let mapleader="\<Space>"
 	let maplocalleader="\<Space>"
 
-" WINDOWS_SETTINGS 
+" WINDOWS_SETTINGS
 if has('win32')
 	" Path variables
 	let s:personal_path= $HOME . '\vimfiles\personal\'
@@ -30,7 +30,7 @@ if has('win32')
 	" update cscope and ctags
 	noremap <Leader>tu :cs kill -1<CR>
 	\:silent !del /F cscope.files cscope.in.out cscope.po.out cscope.out<CR>
-	\:silent !dir /b /s *.cpp *.h *.hpp *.c *.cc > cscope.files<CR> 
+	\:silent !dir /b /s *.cpp *.h *.hpp *.c *.cc > cscope.files<CR>
 	\:!cscope -b -q -i cscope.files<CR>
 	\:silent !ctags -R -L cscope.files -f ./.svn/tags<CR>
 	\:cs add cscope.out<CR>
@@ -57,7 +57,7 @@ if has('win32')
 	nnoremap <Leader>ewc :silent !start cmd /k "WINGS.exe 3 . %" & exit<CR>
 	nnoremap <Leader>ews :execute("!start cmd /k \"WINGS.exe 3 . " . input("Config file:", "", "file") . "\" & exit")<CR>
 	nnoremap <Leader>ewl :silent !del default.ini<CR>
-						\:!mklink default.ini 
+						\:!mklink default.ini
 	" e1 reserved for vimrc
 	nnoremap <Leader>e21 :silent e ~/Documents/1.MyDocuments/2.WINGS/NeoOneWINGS/
 	nnoremap <Leader>e22 :silent e ~/Documents/1.MyDocuments/2.WINGS/
@@ -70,7 +70,7 @@ if has('win32')
 	" Time runtime of a specific program
 	nnoremap <Leader>mt :!powershell -command "& {&'Measure-Command' {.\sep_calc.exe seprc}}"<CR>
 
-	" Windows specific plugins options 
+	" Windows specific plugins options
 		" Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
 			set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
 			let g:ctrlp_custom_ignore = {
@@ -78,8 +78,8 @@ if has('win32')
 				\ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
 				\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
 				\ }
-		
-		" Vim-Clang " not being used currently but this below fixes 
+
+		" Vim-Clang " not being used currently but this below fixes
 		" clang using mscv for target instead of mingw64
 			let g:clang_cpp_options = '-target x86_64-pc-windows-gnu -std=c++17 -pedantic -Wall'
 			let g:clang_c_options = '-target x86_64-pc-windows-gnu -std=gnu11 -pedantic -Wall'
@@ -92,8 +92,8 @@ if has('win32')
 		" //////////////7/28/2016 4:09:23 PM////////////////
 		" Tried using shell=bash on windows didnt work got all kinds of issues
 		" with syntastic and other things.
-		
-" UNIX_SETTINGS 
+
+" UNIX_SETTINGS
 elseif has('unix')
 	" Path variables
 	if has('nvim')
@@ -142,11 +142,11 @@ elseif has('unix')
 	nnoremap <Leader>su :w !sudo tee %<CR>
 
 	" Unix Specific Plugin Options
-		"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh" 
+		"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
 			set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
 			let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
-		" VIM_PATH includes 
+		" VIM_PATH includes
 			" With this you can use gf to go to the #include <avr/io.h>
 			" also this path below are what go into the .syntastic_avrgcc_config
 			" i.e: -I/opt.....
@@ -171,276 +171,277 @@ elseif has('unix')
 endif
 
 " FUNCTIONS
-  " Only works in vimwiki filetypes
-  " Input: empty- It will ask you what type of file you want to search
-  " 		 String- "1", "2", or specify files in which you want to search
-  function! s:GlobalSearch(type) abort 
-    try
-      "echomsg string(a:type)  " Debugging purposes
-      if a:type == "0" 
-        echo "Search Filetypes:\n\t1.Any\n\t2.Cpp\n\t3.Wiki" 
-        let l:file = nr2char(getchar())
-      else
-        let l:file = a:type
-      endif
-      if !executable('ag') " use ag if possible 
-        if l:file == 1
-          let l:file = "**/*"
-        elseif l:file == 2
-          let l:file = "**/*.cpp **/*.h **/*.c **/*.hpp **/*.cc"
-        elseif l:file == 3
-          let l:file = "**/*.wiki"
-        endif
-        execute "vimgrep /" . input("Search in \"" . getcwd() . "\" for:") . "/ " . l:file
-      else
-        if l:file == 1
-          let l:file = ""
-        elseif l:file == 2
-          let l:file = "--cpp"
-        endif " relays on set grepprg=ag 
-        execute "grep " . l:file . " " . input("Search in \"" . getcwd() . "\" for:")
-      endif
-      copen 20
-    catch
-      echohl ErrorMsg
-      redraw " prevents the msg from misteriously dissapearing 
-      echomsg "GlobalSearch(): " . matchstr(v:exception, ':\zs.*')
-      echohl None
-    endtry
-  endfunction
+	" Only works in vimwiki filetypes
+	" Input: empty- It will ask you what type of file you want to search
+	" 		 String- "1", "2", or specify files in which you want to search
+	function! s:GlobalSearch(type) abort
+		try
+			"echomsg string(a:type)  " Debugging purposes
+			if a:type == "0"
+				echo "Search Filetypes:\n\t1.Any\n\t2.Cpp\n\t3.Wiki"
+				let l:file = nr2char(getchar())
+			else
+				let l:file = a:type
+			endif
+			if !executable('ag') " use ag if possible
+				if l:file == 1
+					let l:file = "**/*"
+				elseif l:file == 2
+					let l:file = "**/*.cpp **/*.h **/*.c **/*.hpp **/*.cc"
+				elseif l:file == 3
+					let l:file = "**/*.wiki"
+				endif
+				execute "vimgrep /" . input("Search in \"" . getcwd() . "\" for:") . "/ " . l:file
+			else
+				if l:file == 1
+					let l:file = ""
+				elseif l:file == 2
+					let l:file = "--cpp"
+				endif " relays on set grepprg=ag
+				execute "grep " . l:file . " " . input("Search in \"" . getcwd() . "\" for:")
+			endif
+			copen 20
+		catch
+			echohl ErrorMsg
+			redraw " prevents the msg from misteriously dissapearing
+			echomsg "GlobalSearch(): " . matchstr(v:exception, ':\zs.*')
+			echohl None
+		endtry
+	endfunction
 
-  " Commits current buffer
-  function! s:GitCommit() abort
-    if <SID>CheckFileOrDir(1, ".git") > 0
-      silent !git add .
-      execute "silent !git commit -m \"" . input("Commit comment:") . "\""
-      !git push origin master 
-    else
-      echo "No .git directory was found"
-    endif
-  endfunction
+	" Commits current buffer
+	function! s:GitCommit() abort
+		if <SID>CheckFileOrDir(1, ".git") > 0
+			silent !git add .
+			execute "silent !git commit -m \"" . input("Commit comment:") . "\""
+			!git push origin master
+		else
+			echo "No .git directory was found"
+		endif
+	endfunction
 
-  " Should be performed on root .svn folder
-  function! s:SvnCommit() abort
-    execute "!svn commit -m \"" . input("Commit comment:") . "\" ."
-  endfunction
+	" Should be performed on root .svn folder
+	function! s:SvnCommit() abort
+		execute "!svn commit -m \"" . input("Commit comment:") . "\" ."
+	endfunction
 
-  " Special comment function {{{
-  function! s:FindIf() abort
-    while 1
-      " jump to matching {
-      normal %
-      " check to see if there is another else
-      if match(getline(line(".")-1, line(".")), "else") > -1
-        " search curr and previous 2 lines for }
-        if match(getline(line(".")-2, line(".")), "}") > -1
-          " jump to it
-          execute "normal ?}\<CR>"
-          " if there is no } could be no braces else if
-        else
-          " go up to lines and see what happens
-          normal kk
-        endif
-      else
-        " if original if was found copy it to @7 and jump back to origin
-        execute "normal k^\"7y$`m"
-        break
-      endif
-    endwhile
-  endfunction
+	" Special comment function {{{
+	function! s:FindIf() abort
+		while 1
+			" jump to matching {
+			normal %
+			" check to see if there is another else
+			if match(getline(line(".")-1, line(".")), "else") > -1
+				" search curr and previous 2 lines for }
+				if match(getline(line(".")-2, line(".")), "}") > -1
+					" jump to it
+					execute "normal ?}\<CR>"
+					" if there is no } could be no braces else if
+				else
+					" go up to lines and see what happens
+					normal kk
+				endif
+			else
+				" if original if was found copy it to @7 and jump back to origin
+				execute "normal k^\"7y$`m"
+				break
+			endif
+		endwhile
+	endfunction
 
-  function! s:TruncComment(comment) abort
-    " brute trunc at 46
-    let l:strip = a:comment
-    if strchars(l:strip) > 46
-      let l:strip = strpart(l:strip,0,46)
-      let l:strip .= "..."
-    endif
-    " if theres a comment get rid of it
-    let l:com = match(l:strip, "/")
-    if l:com > -1
-      let l:strip = strpart(l:strip,0,l:com-1)
-    endif
-    return l:strip
-  endfunction
+	function! s:TruncComment(comment) abort
+		" brute trunc at 46
+		let l:strip = a:comment
+		if strchars(l:strip) > 46
+			let l:strip = strpart(l:strip,0,46)
+			let l:strip .= "..."
+		endif
+		" if theres a comment get rid of it
+		let l:com = match(l:strip, "/")
+		if l:com > -1
+			let l:strip = strpart(l:strip,0,l:com-1)
+		endif
+		return l:strip
+	endfunction
 
-  " Gotchas: Start from the bottom up commenting
-  function! s:EndOfIfComment() abort
-    " TDOD: Eliminate comments on lines very important
-    " is there a } in this line?
-    "let g:testa = 0  " Debugging variable
-    let l:ref_col = match(getline("."), "}")
-    if  l:ref_col > -1 " if it exists
-      " Determine what kind of statement is this i.e: for, while, if, else if
-      " jump to matchin {, mark it with m, copy previous line to @8, and jump back down to original }
-      "execute "normal mm" . l:ref_col . "|%k^\"8y$j%"
-      execute "normal mm" . l:ref_col . "|%"
-      let l:upper_line = line(".")
-      execute "normal k^\"8y$j%"
-      " if original closing brace it is and else if || else
-      if match(getline(line(".")-1, line(".")), "else") > -1
-        let g:testa = 1
-        " if { already contains closing if put it
-        " TODO:fix this to make search for else not only in @8 line
-        if match(getline(l:upper_line-1,l:upper_line), "else") > -1
-          " search upwards until you find initial if and copy it to @7
-          call <SID>FindIf()
-          " truncate comment line in case too long
-          let @7 = <SID>TruncComment(@7)
-          " append // "initial if..." : "
-          let l:end = "  // \""
-          execute "normal a" . l:end . @7 . "\" : \"\<Esc>"
-        else
-          let l:end = "  // \""
-          execute "normal a" . l:end . "\<Esc>"
-        endif
-        " search openning brace for else
-      elseif match(getline(l:upper_line-1,l:upper_line), "else") > -1
-        let g:testa = 2
-        " search upwards until you find initial if and copy it to @7
-        call <SID>FindIf()
-        " truncate comment line in case too long
-        let @7 = <SID>TruncComment(@7)
-        " append // "initial if..." : "
-        let l:end = "  // End of \""
-        execute "normal a" . l:end . @7 . "\" : \"\<Esc>"
-        " if not very easy
-      else 
-        " Append // End of "..."
-        let l:end = "  // End of \""
-        execute "normal a" . l:end . "\<Esc>"
-      endif
-      " truncate comment line in case too long
-      let @8 = <SID>TruncComment(@8)
-      execute "normal a" . @8 . "\""
-    else
-      echo "EndOfIfComment(): Closing brace } needs to be present at the line"
-    endif
-  endfunction
-  " End of Special Comment function }}}
+	" Gotchas: Start from the bottom up commenting
+	function! s:EndOfIfComment() abort
+		" TDOD: Eliminate comments on lines very important
+		" is there a } in this line?
+		"let g:testa = 0  " Debugging variable
+		let l:ref_col = match(getline("."), "}")
+		if  l:ref_col > -1 " if it exists
+			" Determine what kind of statement is this i.e: for, while, if, else if
+			" jump to matchin {, mark it with m, copy previous line to @8, and jump back down to original }
+			"execute "normal mm" . l:ref_col . "|%k^\"8y$j%"
+			execute "normal mm" . l:ref_col . "|%"
+			let l:upper_line = line(".")
+			execute "normal k^\"8y$j%"
+			" if original closing brace it is and else if || else
+			if match(getline(line(".")-1, line(".")), "else") > -1
+				let g:testa = 1
+				" if { already contains closing if put it
+				" TODO:fix this to make search for else not only in @8 line
+				if match(getline(l:upper_line-1,l:upper_line), "else") > -1
+					" search upwards until you find initial if and copy it to @7
+					call <SID>FindIf()
+					" truncate comment line in case too long
+					let @7 = <SID>TruncComment(@7)
+					" append // "initial if..." : "
+					let l:end = "  // \""
+					execute "normal a" . l:end . @7 . "\" : \"\<Esc>"
+				else
+					let l:end = "  // \""
+					execute "normal a" . l:end . "\<Esc>"
+				endif
+				" search openning brace for else
+			elseif match(getline(l:upper_line-1,l:upper_line), "else") > -1
+				let g:testa = 2
+				" search upwards until you find initial if and copy it to @7
+				call <SID>FindIf()
+				" truncate comment line in case too long
+				let @7 = <SID>TruncComment(@7)
+				" append // "initial if..." : "
+				let l:end = "  // End of \""
+				execute "normal a" . l:end . @7 . "\" : \"\<Esc>"
+				" if not very easy
+			else
+				" Append // End of "..."
+				let l:end = "  // End of \""
+				execute "normal a" . l:end . "\<Esc>"
+			endif
+			" truncate comment line in case too long
+			let @8 = <SID>TruncComment(@8)
+			execute "normal a" . @8 . "\""
+		else
+			echo "EndOfIfComment(): Closing brace } needs to be present at the line"
+		endif
+	endfunction
+	nnoremap <Leader>ce :call <SID>EndOfIfComment()<CR>
+	" End of Special Comment function }}}
 
-  function! s:CheckDirwPrompt(name) abort
-    if !has('file_in_path')  " sanity check 
-      echo "CheckFileOrDir(): This vim install has no support for +find_in_path"
-      return -10
-    endif
-    if a:type == 0  " use 0 for file, 1 for dir
-      let l:func = findfile(a:name,",,")  " see :h cd for ,, 
-    else
-      let l:func = finddir(a:name,",,") 
-    endif
-    if !empty(l:func)
-      return 1
-    else
-      execute "echo \"Folder " . escape(a:name, '\') . "does not exists.\n\""
-      execute "echo \"Do you want to create it (y)es or (n)o\""
-      let l:decision = nr2char(getchar())
-      if l:decision == "y"
-        if exists("*mkdir") 
-          if has('win32') " on win prepare name by escaping '\' 
-            let l:esc_name = escape(a:name, '\')
-            execute "call mkdir(\"". l:esc_name . "\", \"p\")"
-          else  " have to test check works fine on linux 
-            execute "call mkdir(\"". a:name . "\", \"p\")"
-          endif
-          return 1
-        else
-          return -1
-        endif
-      endif
-      return -1
-    endif
-  endfunction
+	function! s:CheckDirwPrompt(name) abort
+		if !has('file_in_path')  " sanity check
+			echo "CheckFileOrDir(): This vim install has no support for +find_in_path"
+			return -10
+		endif
+		if a:type == 0  " use 0 for file, 1 for dir
+			let l:func = findfile(a:name,",,")  " see :h cd for ,,
+		else
+			let l:func = finddir(a:name,",,")
+		endif
+		if !empty(l:func)
+			return 1
+		else
+			execute "echo \"Folder " . escape(a:name, '\') . "does not exists.\n\""
+			execute "echo \"Do you want to create it (y)es or (n)o\""
+			let l:decision = nr2char(getchar())
+			if l:decision == "y"
+				if exists("*mkdir")
+					if has('win32') " on win prepare name by escaping '\'
+						let l:esc_name = escape(a:name, '\')
+						execute "call mkdir(\"". l:esc_name . "\", \"p\")"
+					else  " have to test check works fine on linux
+						execute "call mkdir(\"". a:name . "\", \"p\")"
+					endif
+					return 1
+				else
+					return -1
+				endif
+			endif
+			return -1
+		endif
+	endfunction
 
-  " This function silently attemps to create the directory its checking if it
-  " exists in case it doesnt find it.
-  " Compatible with both Linux and Windows
-  function! <SID>CheckDirwoPrompt(name) abort
-    if !has('file_in_path')  " sanity check 
-      echo "CheckFileOrDir(): This vim install has no support for +find_in_path"
-      return -10
-    else
-      if !empty(finddir(a:name,",,"))
-        return 1
-      else
-        if exists("*mkdir") 
-          if has('win32') " on win prepare name by escaping '\' 
-            execute "call mkdir(\"". escape(a:name, '\') . "\", \"p\")"
-          else  " have to test check works fine on linux 
-            execute "call mkdir(\"". a:name . "\", \"p\")"
-          endif
-          return 1
-        else
-          echomsg string("No +mkdir support. Can't create dir")
-          return -1
-        endif
-      endif
-    endif
-  endfunction
+	" This function silently attemps to create the directory its checking if it
+	" exists in case it doesnt find it.
+	" Compatible with both Linux and Windows
+	function! <SID>CheckDirwoPrompt(name) abort
+		if !has('file_in_path')  " sanity check
+			echo "CheckFileOrDir(): This vim install has no support for +find_in_path"
+			return -10
+		else
+			if !empty(finddir(a:name,",,"))
+				return 1
+			else
+				if exists("*mkdir")
+					if has('win32') " on win prepare name by escaping '\'
+						execute "call mkdir(\"". escape(a:name, '\') . "\", \"p\")"
+					else  " have to test check works fine on linux
+						execute "call mkdir(\"". a:name . "\", \"p\")"
+					endif
+					return 1
+				else
+					echomsg string("No +mkdir support. Can't create dir")
+					return -1
+				endif
+			endif
+		endif
+	endfunction
 
-  function! s:YankFrom() abort
-    execute "normal :" . input("Yank From Line:") . "y\<CR>"
-  endfunction
+	function! s:YankFrom() abort
+		execute "normal :" . input("Yank From Line:") . "y\<CR>"
+	endfunction
 
-  function! s:DeleteLine() abort
-    execute "normal :" . input("Delete Line:") . "d\<CR>``"
-  endfunction
+	function! s:DeleteLine() abort
+		execute "normal :" . input("Delete Line:") . "d\<CR>``"
+	endfunction
 
-  " TODO: substitute this for a custom neosnippet see :h neosnippet
-  function! s:ListsNavigation(cmd) abort
-    try
-      let l:list = 0
-      if !empty(getloclist(0)) " if location list is not empty
-        let l:list = 1
-        execute "silent l" . a:cmd
-      elseif !empty(getqflist()) " if quickfix list is not empty
-        execute "silent c" . a:cmd
-      else
-        echohl ErrorMsg
-        redraw " always use it to prevent msg from dissapearing
-        echomsg "ListsNavigation(): Lists quickfix and location are empty"
-        echohl None
-      endif
-    catch /:E553:/ " catch no more items error 
-      if l:list == 1
-        silent .ll
-      else
-        silent .cc
-      endif
-    endtry
-  endfunction
+	" TODO: substitute this for a custom neosnippet see :h neosnippet
+	function! s:ListsNavigation(cmd) abort
+		try
+			let l:list = 0
+			if !empty(getloclist(0)) " if location list is not empty
+				let l:list = 1
+				execute "silent l" . a:cmd
+			elseif !empty(getqflist()) " if quickfix list is not empty
+				execute "silent c" . a:cmd
+			else
+				echohl ErrorMsg
+				redraw " always use it to prevent msg from dissapearing
+				echomsg "ListsNavigation(): Lists quickfix and location are empty"
+				echohl None
+			endif
+		catch /:E553:/ " catch no more items error
+			if l:list == 1
+				silent .ll
+			else
+				silent .cc
+			endif
+		endtry
+	endfunction
 
-  function! SetDiff() abort
-    nnoremap <C-Down> ]c
-    nnoremap <C-Up> [c
-    nnoremap <C-Left> :diffget<CR>
-    nnoremap <C-Right> :diffput<CR>
-    windo diffthis
-  endfunction
+	function! s:SetDiff() abort
+		nnoremap <C-Down> ]c
+		nnoremap <C-Up> [c
+		nnoremap <C-Left> :diffget<CR>
+		nnoremap <C-Right> :diffput<CR>
+		windo diffthis
+	endfunction
 
-  function! s:UnsetDiff() abort
-    nunmap <C-Down>
-    nunmap <C-Up>
-    nunmap <C-Left>
-    nunmap <C-Right>
-    diffoff!
-  endfunction
+	function! s:UnsetDiff() abort
+		nunmap <C-Down>
+		nunmap <C-Up>
+		nunmap <C-Left>
+		nunmap <C-Right>
+		diffoff!
+	endfunction
 
-  function! s:CheckVimPlug() abort
-    if empty(glob(s:vimfile_path . 'autoload/plug.vim'))
-      if executable('curl')
-        echomsg "Master I am going to install all plugings for you"
-        execute "silent !curl -fLo " s:vimfile_path . "autoload/plug.vim --create-dirs"
-              \" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-        autocmd VimEnter * PlugInstall | source $MYVIMRC
-      else
-        echomsg "Master I cant install plugins for you because you"
-              \" do not have curl. Please fix this"
-      endif
-    endif
-  endfunction
+	function! s:CheckVimPlug() abort
+		if empty(glob(s:vimfile_path . 'autoload/plug.vim'))
+			if executable('curl')
+				echomsg "Master I am going to install all plugings for you"
+				execute "silent !curl -fLo " s:vimfile_path . "autoload/plug.vim --create-dirs"
+					\" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+				autocmd VimEnter * PlugInstall | source $MYVIMRC
+			else
+				echomsg "Master I cant install plugins for you because you"
+							\" do not have curl. Please fix this"
+			endif
+		endif
+	endfunction
 
-  function! s:NormalizeWindowSize() abort
+	function! s:NormalizeWindowSize() abort
     execute "normal \<c-w>="
   endfunction
 
@@ -451,27 +452,27 @@ endif
     let l:path = expand('%:p')
     " use this as an example. just substitute NeoOneWINGS with your project
     " specific folder name
-    if match(l:path,'NeoOneWINGS') > 0
+    if match(l:path,'NeoOneWINGS') > 0 || match(l:path,'NeoWingsSupportFiles') > 0
       " set a g:local_vimrc_name in you local vimrc to avoid local vimrc
       " reloadings
-      if !exists('g:local_vimrc_wings') 
-        let g:local_vimrc_wings = 1
-        if exists('g:local_vimrc_personal') 
+      " TODO this entire thing needs to be redone
+      if !exists('g:local_vimrc_wings')
+        if exists('g:local_vimrc_personal')
           unlet g:local_vimrc_personal
         endif
         echomsg "Loading settings for Wings..."
         " This allows you to build using the command :make *.sln
         set makeprg=msbuild\ /nologo\ /v:q\ /property:GenerateFullPaths=true
         nnoremap <Leader>ma :Make TsCommServer.sln<CR>
-        " tab settings
         set tabstop=4     " a tab is four spaces
         set softtabstop=4
         set shiftwidth=4  " number of spaces to use for autoindenting
         set textwidth=120
+        let g:local_vimrc_wings = 1
       endif
     elseif match(l:path,'sep_calc') > 0 || match(l:path,'snippets') > 0 || match(l:path,'wiki') > 0
+      " TODO create command to undo all this settings. See :h ftpplugin
       if !exists('g:local_vimrc_personal') && exists('g:local_vimrc_wings')
-        let g:local_vimrc_personal = 1
         unlet g:local_vimrc_wings
         echomsg "Loading settings for sep, snippets, and wikis..."
         " tab settings
@@ -479,6 +480,7 @@ endif
         set softtabstop=2
         set shiftwidth=2
         set textwidth=80
+        let g:local_vimrc_personal = 1
       endif
     endif
   endfunction
@@ -492,7 +494,7 @@ endif
     if a:0 < 1
       execute "wall"
       execute "cd ". s:personal_path ."sessions/"
-      let l:sSessionName = input("Enter 
+      let l:sSessionName = input("Enter
             \save session name:", "", "file")
     else
       " Need to keep this option short and sweet
@@ -509,23 +511,23 @@ endif
     " Logic path when not called at startup
     if a:0 < 1
       execute "wall"
-      echo "Save Current Session before deleting all buffers: (y)es (any)no" 
+      echo "Save Current Session before deleting all buffers: (y)es (any)no"
       let l:iResponse = getchar()
       if l:iResponse == 121 " y
         call <SID>SaveSession()
       endif
-      let l:sSessionName = input("Enter 
+      let l:sSessionName = input("Enter
             \load session name:", "", "file")
     else
       let l:sSessionName = a:1
       echo "Reload Last Session: (y)es (d)ifferent session or (any)nothing"
       let l:iResponse = getchar()
       if l:iResponse == 100 " different session
-        let l:sSessionName = input("Enter 
+        let l:sSessionName = input("Enter
               \load session name:", "", "file")
       elseif l:iResponse == 121 " reload last session
         " continue to end of if
-      else 
+      else
         " execute "normal :%bdelete\<CR>" " do not delete old buffers
         return
       endif
@@ -572,14 +574,9 @@ endif
     endif
   endfunction
 
-  " Function mappings. Kept here not to override mappings
-  nnoremap <Leader>ce :call <SID>EndOfIfComment()<CR>
-  nnoremap yl :call <SID>YankFrom()<CR>
-  nnoremap dl :call <SID>DeleteLine()<CR>
-  nnoremap <Leader>H :call Hex2Dec()<CR>
-  nnoremap <Leader>D :call Dec2Hex()<CR>
+  " vim:tw=78:ts=2:sts=2:sw=2:
 
-" PLUGINS_FOR_BOTH_SYSTEMS 
+" PLUGINS_FOR_BOTH_SYSTEMS
 	" Install vim-plug and all plugins in case of first use
 	call s:CheckVimPlug()
 
@@ -617,27 +614,27 @@ endif
   Plug 'tpope/vim-fugitive', { 'on' : 'Gstatus' }
 	" aesthetic
 	" Plug 'NLKNguyen/papercolor-theme' " currently not being used
-	Plug 'morhetz/gruvbox' " colorscheme gruvbox 
+	Plug 'morhetz/gruvbox' " colorscheme gruvbox
 	" markdown stuff
   Plug 'godlygeek/tabular', { 'for' : 'md' } " required by markdown
   Plug 'plasticboy/vim-markdown', { 'for' : 'md' }
-  " radical 
+  " radical
   Plug 'glts/vim-magnum' " required by markdown
   Plug 'glts/vim-radical'
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
-" GUI_SETTINGS 
+" GUI_SETTINGS
 	if has('gui_running')
-		let &guifont = s:custom_font " OS dependent font 
+		let &guifont = s:custom_font " OS dependent font
 		set guioptions-=T  " no toolbar
 		set guioptions-=m  " no menu bar
 		set guioptions-=r  " no right scroll bar
 		set guioptions-=l  " no left scroll bar
 		set guioptions-=L  " no side scroll bar
 		nnoremap <S-CR> O<Esc>
-	else " common cli options to both systems 
+	else " common cli options to both systems
 		set t_Co=256
 		" fixes colorscheme not filling entire backgroud
 		set t_ut=
@@ -646,21 +643,21 @@ endif
 " PERFORMANCE_SETTINGS
 	" see :h slow-terminal
 	hi NonText cterm=NONE ctermfg=NONE
-	set showcmd " use noshowcmd if things are really slow 
+	set showcmd " use noshowcmd if things are really slow
 	set scrolljump=5
-	" set sidescroll=5 " see help for sidescroll
+  set sidescroll=15 " see help for sidescroll
 	if !has('nvim') " this option was deleted in nvim
 		set ttyscroll=3
 	endif
-	set lazyredraw " Had to addit to speed up scrolling 
-	set ttyfast " Had to addit to speed up scrolling 
+	set lazyredraw " Had to addit to speed up scrolling
+	set ttyfast " Had to addit to speed up scrolling
 	set fsync " see :h fsync, maybe dangerous but no problems so far
 	set nocursorline
 	" let g:tex_fast= "" " on super slow activate this, price: no syntax
 	" highlight
 	" already had problems with it. lost an entire file. dont use it
 
-" MISCELANEOUS_SETINGS 
+" MISCELANEOUS_SETINGS
 	" OmniCpp
 	let OmniCpp_NamespaceSearch = 1
 	let OmniCpp_GlobalScopeSearch = 1
@@ -684,12 +681,12 @@ endif
     echoerr string("Failed to create wiki dir")
   endif
 
-" SET_OPTIONS 
+" SET_OPTIONS
 	"set spell spelllang=en_us
 	"omnicomplete menu
 	set nospell
 	set diffexpr=
-	" save marks 
+	" save marks
 	set viminfo='1000,f1,<800,%1024
 	set showtabline=1 " always show tabs in gvim, but not vim"
 	set backspace=indent,eol,start
@@ -725,7 +722,7 @@ endif
 	set title                " change the terminal's title
 	set visualbell           " don't beep
 	set noerrorbells         " don't beep
-	set nobackup " no backup files 
+	set nobackup " no backup files
 	set noswapfile
 	"set autochdir " working directory is always the same as the file you are editing
 	"//////////////8/2/2016 3:06:49 PM////////////////
@@ -769,8 +766,8 @@ endif
 	" global fold indent
 	set foldmethod=indent
 	set foldnestmax=18      "deepest fold is 18 levels
-	set foldlevel=0         
-	set foldlevelstart=0   
+	set foldlevel=0
+	set foldlevelstart=0
 	" use this below option to set other markers
 	"'foldmarker' 'fmr'	string (default: "{{{,}}}")
 	set viewoptions=folds,options,cursor,unix,slash " better unix /
@@ -789,7 +786,7 @@ endif
 
 	set noesckeys " No mappings that start with <esc>
 	set showmode
-	" no mouse enabled 
+	" no mouse enabled
 	set mouse=""
 	" significantly improves ctrlp speed. requires installation of ag
 	if executable('ag')
@@ -800,7 +797,7 @@ endif
 		set grepprg&
 	endif
 	set laststatus=2
-	set formatoptions=croqt " this is textwidth actually breaks the lines 
+	set formatoptions=croqt " this is textwidth actually breaks the lines
 	set textwidth=80
     " makes vim autocomplete - bullets
 	set comments+=b:-,b:*
@@ -809,7 +806,7 @@ endif
   set modeline
   set modelines=1
 
-" ALL_AUTOGROUP_STUFF 
+" ALL_AUTOGROUP_STUFF
 	augroup Filetypes
 		autocmd!
     " TODO convert each of these categories into its own augroup
@@ -884,8 +881,8 @@ endif
 " CUSTOM MAPPINGS
 	" List of super useful mappings
 	" ga " prints ascii of char under cursor
-	
-	" Quickfix and Location stuff 
+
+	" Quickfix and Location stuff
 		" Description:
 		" C-Arrow forces movement on quickfix window
 		" Arrow moves on whichever window open (qf || ll)
@@ -960,7 +957,7 @@ endif
 
 		" cd into current dir path and into dir above current path
 		nnoremap <Leader>e1 :e ~/vimrc/
-		" nnoremap <Leader>e :e  " timeout enabled dependant 
+		" nnoremap <Leader>e :e  " timeout enabled dependant
 		nnoremap <Leader>cd :cd %:p:h<CR>
 					\:pwd<CR>
 		nnoremap <Leader>cu :cd %:p:h<CR>
@@ -989,9 +986,12 @@ endif
           " \:syntax sync fromstart<CR>
           " \:set filetype=wings_syntax<CR>
           " \:e<CR>
+    " Force wings_syntax on a file
     nnoremap <Leader>sl :set filetype=wings_syntax<CR>
+    " Remove Trailing Spaces
+    nnoremap <Leader>c<Space> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
-	" Folding 
+	" Folding
 		" Folding select text then S-f to fold or just S-f to toggle folding
 		nnoremap <C-j> zj
 		nnoremap <C-k> zk
@@ -1001,19 +1001,19 @@ endif
 		nnoremap <C-x> za
 		" dont use <C-a> it conflicts with tmux prefix
 
-	" Window movement 
+	" Window movement
 		" move between windows
 		nnoremap <Leader>h <C-w>h
 		nnoremap <Leader>j <C-w>j
 		nnoremap <Leader>k <C-w>k
 		nnoremap <Leader>l <C-w>l
 
-	" Diff Sutff 
-	  command! SetDiff call SetDiff()
+	" Diff Sutff
+	  command! SetDiff call <SID>SetDiff()
 		noremap <Leader>do :SetDiff<CR>
 		nnoremap <Leader>dl :call <SID>UnsetDiff()<CR>
 
-	" Spell Check 
+	" Spell Check
 		" search forward
 		noremap <Leader>sN ]s
 		" search backwards
@@ -1040,7 +1040,7 @@ endif
 		nnoremap <Leader>Sc :call <SID>GlobalSearch(2)<CR>
     nnoremap <Leader>w /\<<c-r>=expand("<cword>")<cr>\>
 		nnoremap <Leader>W :%s/\<<c-r>=expand("<cword>")<cr>\>/
-		" This is a very good to show and search all current but a much better is 
+		" This is a very good to show and search all current but a much better is
 		" remaped search to f
 		noremap <S-s> #<C-o>
 		vnoremap // y/<C-R>"<CR>
@@ -1051,14 +1051,14 @@ endif
 		vnoremap <C-j> <Esc>
 		" cnoremap <C-j> <Esc>
 
-	" Tab Stuff 
+	" Tab Stuff
 		noremap <S-j> :b#<CR>
 		noremap <Leader>bo :CtrlPBuffer<CR>
 		noremap <Leader>bd :bp\|bd #<CR>
 		" deletes all buffers
 		noremap <Leader>bD :%bd<CR>
 		noremap <Leader>bs :buffers<CR>:buffer<Space>
-		noremap <Leader>bS :bufdo 
+		noremap <Leader>bS :bufdo
 		" move tab to the left
 		nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 		" move tab to the right
@@ -1069,7 +1069,7 @@ endif
 		nnoremap <S-e> :tab split<CR>
 		nnoremap <S-x> :tabclose<CR>
 
-	" Make 
+	" Make
     nnoremap <Leader>ma :Dispatch<CR>
 		" nnoremap <Leader>ma :make clean<CR>
 					" \:make all<CR>
@@ -1088,19 +1088,19 @@ endif
 
 	" Sessions
 		nnoremap <Leader>sS :call <SID>SaveSession()<CR>
-	
-	" Version Control 
+
+	" Version Control
 		" For all this commands you should be in the svn root folder
 		" Add all files
 		nnoremap <Leader>vA :!svn add * --force<CR>
 		" Add specific files
-		nnoremap <Leader>va :!svn add --force 
+		nnoremap <Leader>va :!svn add --force
 		" Commit using typed message
 		nnoremap <Leader>vc :call <SID>SvnCommit()<CR>
 		" Commit using File for commit content
 		nnoremap <Leader>vC :!svn commit --force-log -F %<CR>
 		nnoremap <Leader>vdl :!svn rm --force Log\*<CR>
-		nnoremap <Leader>vda :!svn rm --force 
+		nnoremap <Leader>vda :!svn rm --force
 		" revert previous commit
 		" dangerous key TODO: warn before
 		"noremap <Leader>vr :!svn revert -R .<CR>
@@ -1115,7 +1115,7 @@ endif
 			nnoremap <Leader>gs :Gstatus<CR>
 			nnoremap <Leader>gp :Gpush<CR>
 			nnoremap <Leader>gu :Gpull<CR>
-			nnoremap <Leader>ga :!git add 
+			nnoremap <Leader>ga :!git add
 			nnoremap <Leader>gl :silent Glog<CR>
 							\:copen 20<CR>
 
@@ -1140,15 +1140,15 @@ endif
 	set statusline+=\ %y\                                  "FileType
 	set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}      "Encoding
 	set statusline+=\ %{(&bomb?\",BOM\":\"\")}\            "Encoding2
-	set statusline+=\ %{&ff}\                              "FileFormat (dos/unix..) 
+	set statusline+=\ %{&ff}\                              "FileFormat (dos/unix..)
 	set statusline+=\ %=\ row:%l/%L\ (%03p%%)\             "Rownumber/total (%)
 	set statusline+=\ col:%03c\                            "Colnr
 	set statusline+=\ \ %m%r%w\ %P\ \                      "Modified? Readonly? Top/bot.
 	" if you want to put color to status line needs to be after command
 	" colorscheme. Otherwise this commands clears it the color
 
-" PLUGIN_OPTIONS/MAPPINGS 
-	"Plugin 'VundleVim/Vundle.vim' 
+" PLUGIN_OPTIONS/MAPPINGS
+	"Plugin 'VundleVim/Vundle.vim'
 		noremap <Leader>Pl :PlugList<CR>
 		" lists configured plugins
 		noremap <Leader>Pi :PlugInstall<CR>
@@ -1157,16 +1157,16 @@ endif
 		" installs plugins; append `!` to update or just :PluginUpdate
 		noremap <Leader>Ps :PlugSearch<CR>
 		" searches for foo; append `!` to refresh local cache
-		noremap <Leader>Pc :PlugClean<CR>      
+		noremap <Leader>Pc :PlugClean<CR>
 		" confirms removal of unused plugins; append `!` to auto-approve removal
 		" see :h vundle for more details or wiki for FAQ
 
-	"Plugin 'scrooloose/nerdcommenter'" 
+	"Plugin 'scrooloose/nerdcommenter'"
 		let NERDUsePlaceHolders=0 " avoid commenter doing weird stuff
 		let NERDCommentWholeLinesInVMode=2
 		let NERDCreateDefaultMappings=0 " Eliminate default mappings
 		let NERDRemoveAltComs=1 " Remove /* comments
-		let NERD_c_alt_style=0 " Do not use /* on C nor C++ 
+		let NERD_c_alt_style=0 " Do not use /* on C nor C++
 		let NERD_cpp_alt_style=0
 		let NERDMenuMode=0 " no menu
 		let g:NERDCustomDelimiters = {
@@ -1184,27 +1184,27 @@ endif
 		nmap <Leader>ca <plug>NERDCommenterAppend
 		nmap <Leader>cw <plug>NERDCommenterToEOL
 		vmap <Leader>cs <plug>NERDCommenterSexy
-		
-	"Plugin 'scrooloose/NERDTree' 
-		noremap <Leader>nb :Bookmark 
+
+	"Plugin 'scrooloose/NERDTree'
+		noremap <Leader>nb :Bookmark
 		let NERDTreeShowBookmarks=1  " B key to toggle
 		noremap <Leader>no :NERDTree<CR>
 		" enable line numbers
 		let NERDTreeShowLineNumbers=1
 		" make sure relative line numbers are used
 		let NERDTreeShowHidden=1 " i key to toggle
-		let NERDTreeMapJumpLastChild=',j' 
-		let NERDTreeMapJumpFirstChild=',k' 
-		let NERDTreeMapOpenExpl=',e' 
+		let NERDTreeMapJumpLastChild=',j'
+		let NERDTreeMapJumpFirstChild=',k'
+		let NERDTreeMapOpenExpl=',e'
 		let NERDTreeMapOpenVSplit=',s'
 		let NERDTreeQuitOnOpen=1 " AutoClose after openning file
 
-	" Plugin 'lervag/vimtex' " Latex support 
+	" Plugin 'lervag/vimtex' " Latex support
 		let g:vimtex_view_enabled = 0
 		" latexmk
 		let g:vimtex_latexmk_continuous=1
 		let g:vimtex_latexmk_callback=1
-		" AutoComplete 
+		" AutoComplete
 		let g:vimtex_complete_close_braces=1
 		let g:vimtex_complete_recursive_bib=1
 		let g:vimtex_complete_img_use_tail=1
@@ -1231,7 +1231,7 @@ endif
 		" noremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
 		noremap <Leader>ts :cs show<CR>
 
-	" Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh 
+	" Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh
 		nnoremap <Leader>aO :CtrlP<CR>
 		nnoremap <S-k> :CtrlPBuffer<CR>
 		nnoremap <C-v> :vs<CR>:CtrlPBuffer<CR>
@@ -1246,17 +1246,17 @@ endif
 		let g:ctrlp_max_history = &history
 		let g:ctrlp_clear_cache_on_exit = 0
 
-	" Doxygen.vim 
+	" Doxygen.vim
     nnoremap <Leader>cf :Dox<CR>
-		let g:DoxygenToolkit_briefTag_pre="@Description:  " 
-		let g:DoxygenToolkit_paramTag_pre="@Var: " 
-		let g:DoxygenToolkit_returnTag="@Returns:   " 
-		let g:DoxygenToolkit_blockHeader="" 
-		let g:DoxygenToolkit_blockFooter="" 
-		let g:DoxygenToolkit_authorName="Reinaldo Molina" 
+		let g:DoxygenToolkit_briefTag_pre="@Description:  "
+		let g:DoxygenToolkit_paramTag_pre="@Var: "
+		let g:DoxygenToolkit_returnTag="@Returns:   "
+		let g:DoxygenToolkit_blockHeader=""
+		let g:DoxygenToolkit_blockFooter=""
+		let g:DoxygenToolkit_authorName="Reinaldo Molina"
 		let g:DoxygenToolkit_licenseTag=""
 
-	" Plugin 'scrooloose/syntastic' 
+	" Plugin 'scrooloose/syntastic'
 		nnoremap <Leader>sn :call <SID>ListsNavigation("next")<CR>
 		nnoremap <Leader>sp :call <SID>ListsNavigation("previous")<CR>
 		nnoremap <Leader>ss :SyntasticCheck<CR>
@@ -1270,13 +1270,13 @@ endif
 		let g:syntastic_cpp_compiler_options = '-std=c++17 -pedantic -Wall'
 		let g:syntastic_c_compiler_options = '-std=c11 -pedantic -Wall'
     let g:syntastic_auto_jump = 3
-		
-	"/Plug 'octol/vim-cpp-enhanced-highlight' 
-		let g:cpp_class_scope_highlight = 1	
+
+	"/Plug 'octol/vim-cpp-enhanced-highlight'
+		let g:cpp_class_scope_highlight = 1
 		" turning this option breaks comments
-		"let g:cpp_experimental_template_highlight = 1	
-		
-	" Plugin 'morhetz/gruvbox' " colorscheme gruvbox  
+		"let g:cpp_experimental_template_highlight = 1
+
+	" Plugin 'morhetz/gruvbox' " colorscheme gruvbox
 		colorscheme gruvbox
 		set background=dark    " Setting dark mode
 		"set background=light
@@ -1285,7 +1285,7 @@ endif
 	" Plug Neocomplete
 		if !has('nvim')
 			if has('lua')
-				" All new stuff 
+				" All new stuff
 				" Vim-clang
 				let g:clang_c_completeopt = 'menuone,preview,noinsert,noselect'
 				let g:clang_cpp_completeopt = 'menuone,preview,noinsert,noselect'
@@ -1377,15 +1377,15 @@ endif
 		" Tell Neosnippet about the other snippets
 		let g:neosnippet#snippets_directory= s:plugged_path . '/vim-snippets/snippets'
 		let g:neosnippet#data_directory = s:personal_path . 'neosnippets'
-	
+
 	" Plug Vim-R-plugin {{{
 		let vimrplugin_r_path = 'C:\\Program Files\\R\\R-3.2.3\\bin\\i386'
 
-	" Vim-Clang " syntastic is much better that is why is not 
+	" Vim-Clang " syntastic is much better that is why is not
 		" clang clang_auto option which enables autocomplete after . -> and ::
 		" is being handled along with neocompl and deocompl options to be
 		" activated in case non of those 2 are present
-		let g:clang_diagsopt = '' " no syntax check 
+		let g:clang_diagsopt = '' " no syntax check
     let g:clang_format_style ='file'
     nnoremap <c-f> :ClangFormat<CR>
 
