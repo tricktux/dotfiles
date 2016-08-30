@@ -70,6 +70,8 @@ if has('win32')
 	" Time runtime of a specific program
 	nnoremap <Leader>mt :!powershell -command "& {&'Measure-Command' {.\sep_calc.exe seprc}}"<CR>
 
+	set tags+=~/vimfiles/personal/systags
+
 	" Windows specific plugins options
 		" Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
 			set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
@@ -1286,6 +1288,7 @@ endif
 			if has('lua')
 				" All new stuff
 				" Vim-clang
+        let g:clang_auto = 0
 				let g:clang_c_completeopt = 'menuone,preview,noinsert,noselect'
 				let g:clang_cpp_completeopt = 'menuone,preview,noinsert,noselect'
 
@@ -1350,7 +1353,6 @@ endif
 				let g:neocomplete#delimiter_patterns.vim = ['#']
 				let g:neocomplete#delimiter_patterns.cpp = ['::']
 
-				let g:clang_auto = 0
 			else
         echoerr "No lua installed so falling back to having only clang autocomplete"
 				let g:clang_auto = 1
