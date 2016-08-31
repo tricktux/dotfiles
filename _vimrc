@@ -70,6 +70,8 @@ if has('win32')
 	" Time runtime of a specific program
 	nnoremap <Leader>mt :!powershell -command "& {&'Measure-Command' {.\sep_calc.exe seprc}}"<CR>
 
+  " call <SID>AutoCreateWinCtags()
+
 	" Windows specific plugins options
 		" Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
 			set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
@@ -140,6 +142,8 @@ elseif has('unix')
 	nnoremap <CR> o<ESC>
 	" save file with sudo permissions
 	nnoremap <Leader>su :w !sudo tee %<CR>
+
+  " call <SID>AutoCreateUnixCtags()
 
 	" Unix Specific Plugin Options
 		"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
@@ -416,24 +420,35 @@ endif
 	endfunction
 
 	function! s:CheckVimPlug() abort
+	  let b:bLoadPlugins = 0
 		if empty(glob(s:vimfile_path . 'autoload/plug.vim'))
 			if executable('curl')
+        " Create folder
+        call <SID>CheckDirwoPrompt(s:vimfile_path . "autoload")
 				echomsg "Master I am going to install all plugings for you"
-				execute "silent !curl -fLo " s:vimfile_path . "autoload/plug.vim --create-dirs"
+				execute "silent !curl -fLo " . s:vimfile_path . "autoload/plug.vim --create-dirs"
 					\" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 				autocmd VimEnter * PlugInstall | source $MYVIMRC
+        let b:bLoadPlugins = 1
+        return 1
 			else
 				echomsg "Master I cant install plugins for you because you"
-							\" do not have curl. Please fix this"
+							\" do not have curl. Please fix this. Plugins"
+              \" will not be loaded."
+        let b:bLoadPlugins = 0
+        return 0
 			endif
-		endif
+    else
+      let b:bLoadPlugins = 1
+      return 1
+    endif
 	endfunction
 
 	function! s:NormalizeWindowSize() abort
     execute "normal \<c-w>="
   endfunction
 
-  " Performance warning on this function. If necesary disable au and just make
+  " Performance warning on this function. If necesary disable and just make
   " function calls
   " Note: Keep in mind vim modelines for vim type of files
   function! s:SetupEnvironment()
@@ -452,10 +467,10 @@ endif
         " This allows you to build using the command :make *.sln
         set makeprg=msbuild\ /nologo\ /v:q\ /property:GenerateFullPaths=true
         nnoremap <Leader>ma :Make TsCommServer.sln<CR>
-        set tabstop=4     " a tab is four spaces
-        set softtabstop=4
-        set shiftwidth=4  " number of spaces to use for autoindenting
-        set textwidth=120
+        setlocal tabstop=4     " a tab is four spaces
+        setlocal softtabstop=4
+        setlocal shiftwidth=4  " number of spaces to use for autoindenting
+        setlocal textwidth=120
         let g:local_vimrc_wings = 1
       endif
     elseif match(l:path,'sep_calc') > 0 || match(l:path,'snippets') > 0 || match(l:path,'wiki') > 0
@@ -464,10 +479,10 @@ endif
         unlet g:local_vimrc_wings
         echomsg "Loading settings for sep, snippets, and wikis..."
         " tab settings
-        set tabstop=2
-        set softtabstop=2
-        set shiftwidth=2
-        set textwidth=80
+        setlocal tabstop=2
+        setlocal softtabstop=2
+        setlocal shiftwidth=2
+        setlocal textwidth=80
         let g:local_vimrc_personal = 1
       endif
     endif
@@ -581,7 +596,7 @@ endif
           !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.vim/personal/ctags/tags_sys2 /usr/local/include
           if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
             set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
-            !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.vim/personal/ctags/tags_avr /opt/avr8-gnu-toolchain-linux_x86_64/avr/include
+            !ctags -R --sort=yes --fields=+iaS --extra=+q --language-force=C -f ~/.vim/personal/ctags/tags_avr /opt/avr8-gnu-toolchain-linux_x86_64/avr/include
             set tags+=~/.vim/personal/ctags/tags_avr
           endif
           if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/include')
@@ -589,13 +604,78 @@ endif
             !ctags -R --sort=yes --fields=+iaS --extra=+q --language-force=C -f ~/.vim/personal/ctags/tags_avr2 /opt/avr8-gnu-toolchain-linux_x86_64/include
             set tags+=~/.vim/personal/ctags/tags_avr2
           endif
-        elseif has('win32') && isdirectory('c:/MinGw')
-          !ctags -R --sort=yes --fields=+iaS --extra=+q --language-force=C -f ~/vimfiles/personal/ctags/tags_sys c:/MinGw/include
+        elseif has('win32') && isdirectory('c:/MinGW')
+          set path+=c:/MinGW/include
+          execute "!ctags -R --verbose --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q
+                \ --language-force=C++ -f " . expand('~/vimfiles/personal/ctags/tags_sys') . " C:\\MinGW\\include"
         else
           echomsg string("Please install MinGW")
         endif
       endif
     elseif has('unix')
+      if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
+        set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
+      endif
+      set tags+=~/.vim/personal/ctags/tags_sys
+      set tags+=~/.vim/personal/ctags/tags_sys2
+    else
+      set tags+=~/vimfiles/personal/ctags/tags_sys
+    endif
+  endfunction
+
+  " Finish all this crap
+  function! s:AutoCreateUnixCtags() abort
+    if empty(finddir(s:personal_path . "ctags",",,"))
+      " Go ahead and create the ctags
+      if !executable('ctags')
+        echomsg string("Please install ctags")
+        return 0
+      else
+        " Create folder
+        if !<SID>CheckDirwoPrompt(s:personal_path . "ctags")
+          echoerr string("Failed to create ctags dir")
+          return 0
+        endif
+        let l:ctags_cmd = "!ctags -R --sort=yes --fields=+iaS --extra=+q -f "
+        " Ordered list that contains folder where tag is and where tag file
+        " goes
+        let l:list_folders = [
+              \"/usr/include",
+              \"~/.vim/personal/ctags/tags_sys",
+              \"/usr/local/include",
+              \"~/.vim/personal/ctags/tags_sys2",
+              \'/opt/avr8-gnu-toolchain-linux_x86_64/avr/include',
+              \"~/.vim/personal/ctags/tags_avr",
+              \'/opt/avr8-gnu-toolchain-linux_x86_64/include',
+              \"~/.vim/personal/ctags/tags_avr2",
+              \]
+
+        " Create ctags
+          " if isdirectory(l:list_folders
+          !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.vim/personal/ctags/tags_sys /usr/include
+          !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.vim/personal/ctags/tags_sys2 /usr/local/include
+          if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
+            set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
+            !ctags -R --sort=yes --fields=+iaS --extra=+q --language-force=C -f ~/.vim/personal/ctags/tags_avr /opt/avr8-gnu-toolchain-linux_x86_64/avr/include
+            set tags+=~/.vim/personal/ctags/tags_avr
+          endif
+          if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/include')
+            set path+=/opt/avr8-gnu-toolchain-linux_x86_64/include
+            !ctags -R --sort=yes --fields=+iaS --extra=+q --language-force=C -f ~/.vim/personal/ctags/tags_avr2 /opt/avr8-gnu-toolchain-linux_x86_64/include
+            set tags+=~/.vim/personal/ctags/tags_avr2
+          endif
+        elseif has('win32') && isdirectory('c:/MinGW')
+          set path+=c:/MinGW/include
+          execute "!ctags -R --verbose --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q
+                \ --language-force=C++ -f " . expand('~/vimfiles/personal/ctags/tags_sys') . " C:\\MinGW\\include"
+        else
+          echomsg string("Please install MinGW")
+        endif
+      endif
+    elseif has('unix')
+      if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
+        set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
+      endif
       set tags+=~/.vim/personal/ctags/tags_sys
       set tags+=~/.vim/personal/ctags/tags_sys2
     else
@@ -604,54 +684,54 @@ endif
   endfunction
 
 " PLUGINS_FOR_BOTH_SYSTEMS
-	" Install vim-plug and all plugins in case of first use
-	call s:CheckVimPlug()
+	" Attempt to install vim-plug and all plugins in case of first use
+	if <SID>CheckVimPlug()
+    " Call Vim-Plug Plugins should be from here below
+    call plug#begin(s:plugged_path)
+    if has('nvim')
+      Plug 'Shougo/deoplete.nvim'
+    else
+      Plug 'Shougo/neocomplete'
+    endif
+    " misc
+    Plug 'chrisbra/vim-diff-enhanced', { 'on' : 'SetDiff' }
+    Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+    Plug 'scrooloose/nerdcommenter'
+    Plug 'tpope/vim-surround'
+    Plug 'ctrlpvim/ctrlp.vim'
+    Plug 'tpope/vim-repeat'
+    Plug 'chrisbra/Colorizer'
+    " cpp
+    Plug 'Tagbar', { 'on' : 'TagbarToggle' }
+    Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
+    Plug 'mrtazz/DoxygenToolkit.vim', { 'on' : 'Dox' }
+    Plug 'tpope/vim-dispatch', { 'for' : ['c' , 'cpp'] }
+    Plug 'Rip-Rip/clang_complete', { 'for' : ['c' , 'cpp'] }
+    Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : ['c' , 'cpp' ] }
+    Plug 'junegunn/rainbow_parentheses.vim', { 'on' : 'RainbowParentheses' }
+    " cpp/java
+    Plug 'sentientmachine/erics_vim_syntax_and_color_highlighting', { 'for' : 'java' }
+    Plug 'mattn/vim-javafmt', { 'for' : 'java' }
+    Plug 'artur-shaik/vim-javacomplete2', { 'for' : 'java' }
+    " Autocomplete
+    Plug 'Shougo/neosnippet'
+    Plug 'Shougo/neosnippet-snippets'
+    Plug 'honza/vim-snippets'
+    " version control
+    Plug 'tpope/vim-fugitive', { 'on' : 'Gstatus' }
+    " aesthetic
+    " Plug 'NLKNguyen/papercolor-theme' " currently not being used
+    Plug 'morhetz/gruvbox' " colorscheme gruvbox
+    " markdown stuff
+    Plug 'godlygeek/tabular', { 'for' : 'md' } " required by markdown
+    Plug 'plasticboy/vim-markdown', { 'for' : 'md' }
+    " radical
+    Plug 'glts/vim-magnum' " required by markdown
+    Plug 'glts/vim-radical'
 
-	" Call Vim-Plug Plugins should be from here below
-	call plug#begin(s:plugged_path)
-	if has('nvim')
-		Plug 'Shougo/deoplete.nvim'
-  else
-    Plug 'Shougo/neocomplete'
-	endif
-	" misc
-	Plug 'chrisbra/vim-diff-enhanced', { 'on' : 'SetDiff' }
-	Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-	Plug 'scrooloose/nerdcommenter'
-	Plug 'tpope/vim-surround'
-	Plug 'ctrlpvim/ctrlp.vim'
-  Plug 'tpope/vim-repeat'
-  Plug 'chrisbra/Colorizer'
-	" cpp
-  Plug 'Tagbar', { 'on' : 'TagbarToggle' }
-  Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
-  Plug 'mrtazz/DoxygenToolkit.vim', { 'on' : 'Dox' }
-  Plug 'tpope/vim-dispatch', { 'for' : ['c' , 'cpp'] }
-  Plug 'Rip-Rip/clang_complete', { 'for' : ['c' , 'cpp'] }
-  Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : ['c' , 'cpp' ] }
-  Plug 'junegunn/rainbow_parentheses.vim', { 'on' : 'RainbowParentheses' }
-  " cpp/java
-  Plug 'sentientmachine/erics_vim_syntax_and_color_highlighting', { 'for' : 'java' }
-  Plug 'mattn/vim-javafmt', { 'for' : 'java' }
-  Plug 'artur-shaik/vim-javacomplete2', { 'for' : 'java' }
-	" Autocomplete
-	Plug 'Shougo/neosnippet'
-	Plug 'Shougo/neosnippet-snippets'
-	Plug 'honza/vim-snippets'
-	" version control
-  Plug 'tpope/vim-fugitive', { 'on' : 'Gstatus' }
-	" aesthetic
-	" Plug 'NLKNguyen/papercolor-theme' " currently not being used
-	Plug 'morhetz/gruvbox' " colorscheme gruvbox
-	" markdown stuff
-  Plug 'godlygeek/tabular', { 'for' : 'md' } " required by markdown
-  Plug 'plasticboy/vim-markdown', { 'for' : 'md' }
-  " radical
-  Plug 'glts/vim-magnum' " required by markdown
-  Plug 'glts/vim-radical'
-
-	" All of your Plugins must be added before the following line
-	call plug#end()            " required
+    " All of your Plugins must be added before the following line
+    call plug#end()            " required
+  endif
 
 " GUI_SETTINGS
 	if has('gui_running')
@@ -704,8 +784,6 @@ endif
   if !<SID>CheckDirwoPrompt(s:personal_path . "java_cache")
     echoerr string("Failed to create java_cache dir")
   endif
-
-  call <SID>AutoCreateCtags()
 
   if has('persistent_undo')
     if <SID>CheckDirwoPrompt(s:personal_path . '/undofiles')
@@ -1174,245 +1252,248 @@ endif
 	" colorscheme. Otherwise this commands clears it the color
 
 " PLUGIN_OPTIONS/MAPPINGS
-	"Plugin 'VundleVim/Vundle.vim'
-		noremap <Leader>Pl :PlugList<CR>
-		" lists configured plugins
-		noremap <Leader>Pi :PlugInstall<CR>
-		noremap <Leader>Pu :PlugUpdate<CR>
-							\:PlugUpgrade<CR>
-		" installs plugins; append `!` to update or just :PluginUpdate
-		noremap <Leader>Ps :PlugSearch<CR>
-		" searches for foo; append `!` to refresh local cache
-		noremap <Leader>Pc :PlugClean<CR>
-		" confirms removal of unused plugins; append `!` to auto-approve removal
-		" see :h vundle for more details or wiki for FAQ
+  " Only load plugin options in case they were loaded
+  if b:bLoadPlugins == 1
+    "Plugin 'VundleVim/Vundle.vim'
+      noremap <Leader>Pl :PlugList<CR>
+      " lists configured plugins
+      noremap <Leader>Pi :PlugInstall<CR>
+      noremap <Leader>Pu :PlugUpdate<CR>
+                \:PlugUpgrade<CR>
+      " installs plugins; append `!` to update or just :PluginUpdate
+      noremap <Leader>Ps :PlugSearch<CR>
+      " searches for foo; append `!` to refresh local cache
+      noremap <Leader>Pc :PlugClean<CR>
+      " confirms removal of unused plugins; append `!` to auto-approve removal
+      " see :h vundle for more details or wiki for FAQ
 
-	"Plugin 'scrooloose/nerdcommenter'"
-		let NERDUsePlaceHolders=0 " avoid commenter doing weird stuff
-		let NERDCommentWholeLinesInVMode=2
-		let NERDCreateDefaultMappings=0 " Eliminate default mappings
-		let NERDRemoveAltComs=1 " Remove /* comments
-		let NERD_c_alt_style=0 " Do not use /* on C nor C++
-		let NERD_cpp_alt_style=0
-		let NERDMenuMode=0 " no menu
-		let g:NERDCustomDelimiters = {
-			\ 'vim': { 'left': '"', 'right': '' },
-			\ 'vimwiki': { 'left': '%%', 'right': '' }}
-			"\ 'vim': { 'left': '"', 'right': '' }
-			"\ 'grondle': { 'left': '{{', 'right': '}}' }
-		"\ }
-		let NERDSpaceDelims=1  " space around comments
+    "Plugin 'scrooloose/nerdcommenter'"
+      let NERDUsePlaceHolders=0 " avoid commenter doing weird stuff
+      let NERDCommentWholeLinesInVMode=2
+      let NERDCreateDefaultMappings=0 " Eliminate default mappings
+      let NERDRemoveAltComs=1 " Remove /* comments
+      let NERD_c_alt_style=0 " Do not use /* on C nor C++
+      let NERD_cpp_alt_style=0
+      let NERDMenuMode=0 " no menu
+      let g:NERDCustomDelimiters = {
+        \ 'vim': { 'left': '"', 'right': '' },
+        \ 'vimwiki': { 'left': '%%', 'right': '' }}
+        "\ 'vim': { 'left': '"', 'right': '' }
+        "\ 'grondle': { 'left': '{{', 'right': '}}' }
+      "\ }
+      let NERDSpaceDelims=1  " space around comments
 
-		nmap - <plug>NERDCommenterToggle
-		nmap <Leader>ct <plug>NERDCommenterAltDelims
-		vmap - <plug>NERDCommenterToggle
-		imap <C-c> <plug>NERDCommenterInsert
-		nmap <Leader>ca <plug>NERDCommenterAppend
-		nmap <Leader>cw <plug>NERDCommenterToEOL
-		vmap <Leader>cs <plug>NERDCommenterSexy
+      nmap - <plug>NERDCommenterToggle
+      nmap <Leader>ct <plug>NERDCommenterAltDelims
+      vmap - <plug>NERDCommenterToggle
+      imap <C-c> <plug>NERDCommenterInsert
+      nmap <Leader>ca <plug>NERDCommenterAppend
+      nmap <Leader>cw <plug>NERDCommenterToEOL
+      vmap <Leader>cs <plug>NERDCommenterSexy
 
-	"Plugin 'scrooloose/NERDTree'
-		noremap <Leader>nb :Bookmark
-		let NERDTreeShowBookmarks=1  " B key to toggle
-		noremap <Leader>no :NERDTree<CR>
-		" enable line numbers
-		let NERDTreeShowLineNumbers=1
-		" make sure relative line numbers are used
-		let NERDTreeShowHidden=1 " i key to toggle
-		let NERDTreeMapJumpLastChild=',j'
-		let NERDTreeMapJumpFirstChild=',k'
-		let NERDTreeMapOpenExpl=',e'
-		let NERDTreeMapOpenVSplit=',s'
-		let NERDTreeQuitOnOpen=1 " AutoClose after openning file
+    "Plugin 'scrooloose/NERDTree'
+      noremap <Leader>nb :Bookmark
+      let NERDTreeShowBookmarks=1  " B key to toggle
+      noremap <Leader>no :NERDTree<CR>
+      " enable line numbers
+      let NERDTreeShowLineNumbers=1
+      " make sure relative line numbers are used
+      let NERDTreeShowHidden=1 " i key to toggle
+      let NERDTreeMapJumpLastChild=',j'
+      let NERDTreeMapJumpFirstChild=',k'
+      let NERDTreeMapOpenExpl=',e'
+      let NERDTreeMapOpenVSplit=',s'
+      let NERDTreeQuitOnOpen=1 " AutoClose after openning file
 
-	" Plugin 'Tagbar' {{{
-    let g:tagbar_autofocus = 1
-    let g:tagbar_show_linenumbers = 2
-    let g:tagbar_map_togglesort = "r"
-		noremap <Leader>tt :TagbarToggle<CR>
-		noremap <Leader>tk :cs kill -1<CR>
-		noremap <silent> <Leader>tj <C-]>
-		noremap <Leader>tr <C-t>
-		noremap <Leader>tn :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-		" ReLoad cscope database
-		noremap <Leader>tl :cs add cscope.out<CR>
-		" Find functions calling this function
-		noremap <Leader>tc :cs find c <C-R>=expand("<cword>")<CR><CR>
-		" Find functions definition
-		noremap <Leader>tg :cs find g <C-R>=expand("<cword>")<CR><CR>
-		" Find functions called by this function not being used
-		" noremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
-		noremap <Leader>ts :cs show<CR>
+    " Plugin 'Tagbar' {{{
+      let g:tagbar_autofocus = 1
+      let g:tagbar_show_linenumbers = 2
+      let g:tagbar_map_togglesort = "r"
+      noremap <Leader>tt :TagbarToggle<CR>
+      noremap <Leader>tk :cs kill -1<CR>
+      noremap <silent> <Leader>tj <C-]>
+      noremap <Leader>tr <C-t>
+      noremap <Leader>tn :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+      " ReLoad cscope database
+      noremap <Leader>tl :cs add cscope.out<CR>
+      " Find functions calling this function
+      noremap <Leader>tc :cs find c <C-R>=expand("<cword>")<CR><CR>
+      " Find functions definition
+      noremap <Leader>tg :cs find g <C-R>=expand("<cword>")<CR><CR>
+      " Find functions called by this function not being used
+      " noremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
+      noremap <Leader>ts :cs show<CR>
 
-	" Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh
-		nnoremap <Leader>aO :CtrlP<CR>
-		nnoremap <S-k> :CtrlPBuffer<CR>
-		nnoremap <C-v> :vs<CR>:CtrlPBuffer<CR>
-		nnoremap <Leader>ao :CtrlPMixed<CR>
-		nnoremap <Leader>at :tabnew<CR>:CtrlPMRU<CR>
-		nnoremap <Leader>av :vs<CR>:CtrlPMRU<CR>
-		nnoremap <Leader>as :sp<CR>:CtrlPMRU<CR>
-		nnoremap <Leader>al :CtrlPClearCache<CR>
-		let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
-		let g:ctrlp_cache_dir = s:personal_path . 'ctrlp'
-		let g:ctrlp_working_path_mode = 'wra'
-		let g:ctrlp_max_history = &history
-		let g:ctrlp_clear_cache_on_exit = 0
+    " Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh
+      nnoremap <Leader>aO :CtrlP<CR>
+      nnoremap <S-k> :CtrlPBuffer<CR>
+      nnoremap <C-v> :vs<CR>:CtrlPBuffer<CR>
+      nnoremap <Leader>ao :CtrlPMixed<CR>
+      nnoremap <Leader>at :tabnew<CR>:CtrlPMRU<CR>
+      nnoremap <Leader>av :vs<CR>:CtrlPMRU<CR>
+      nnoremap <Leader>as :sp<CR>:CtrlPMRU<CR>
+      nnoremap <Leader>al :CtrlPClearCache<CR>
+      let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
+      let g:ctrlp_cache_dir = s:personal_path . 'ctrlp'
+      let g:ctrlp_working_path_mode = 'wra'
+      let g:ctrlp_max_history = &history
+      let g:ctrlp_clear_cache_on_exit = 0
 
-	" Doxygen.vim
-    nnoremap <Leader>cf :Dox<CR>
-		let g:DoxygenToolkit_briefTag_pre="@Description:  "
-		let g:DoxygenToolkit_paramTag_pre="@Var: "
-		let g:DoxygenToolkit_returnTag="@Returns:   "
-		let g:DoxygenToolkit_blockHeader=""
-		let g:DoxygenToolkit_blockFooter=""
-		let g:DoxygenToolkit_authorName="Reinaldo Molina"
-		let g:DoxygenToolkit_licenseTag=""
+    " Doxygen.vim
+      nnoremap <Leader>cf :Dox<CR>
+      let g:DoxygenToolkit_briefTag_pre="@Description:  "
+      let g:DoxygenToolkit_paramTag_pre="@Var: "
+      let g:DoxygenToolkit_returnTag="@Returns:   "
+      let g:DoxygenToolkit_blockHeader=""
+      let g:DoxygenToolkit_blockFooter=""
+      let g:DoxygenToolkit_authorName="Reinaldo Molina"
+      let g:DoxygenToolkit_licenseTag=""
 
-	" Plugin 'scrooloose/syntastic'
-		nnoremap <Leader>sn :call <SID>ListsNavigation("next")<CR>
-		nnoremap <Leader>sp :call <SID>ListsNavigation("previous")<CR>
-		nnoremap <Leader>ss :SyntasticCheck<CR>
-		" set statusline+=%#warningmsg#
-		" set statusline+=%{SyntasticStatuslineFlag()}
-		" set statusline+=%*
-		let g:syntastic_always_populate_loc_list = 1
-		let g:syntastic_auto_loc_list = 1
-		let g:syntastic_check_on_open = 0
-		let g:syntastic_check_on_wq = 0
-		let g:syntastic_cpp_compiler_options = '-std=c++17 -pedantic -Wall'
-		let g:syntastic_c_compiler_options = '-std=c11 -pedantic -Wall'
-    let g:syntastic_auto_jump = 3
+    " Plugin 'scrooloose/syntastic'
+      nnoremap <Leader>sn :call <SID>ListsNavigation("next")<CR>
+      nnoremap <Leader>sp :call <SID>ListsNavigation("previous")<CR>
+      nnoremap <Leader>ss :SyntasticCheck<CR>
+      " set statusline+=%#warningmsg#
+      " set statusline+=%{SyntasticStatuslineFlag()}
+      " set statusline+=%*
+      let g:syntastic_always_populate_loc_list = 1
+      let g:syntastic_auto_loc_list = 1
+      let g:syntastic_check_on_open = 0
+      let g:syntastic_check_on_wq = 0
+      let g:syntastic_cpp_compiler_options = '-std=c++17 -pedantic -Wall'
+      let g:syntastic_c_compiler_options = '-std=c11 -pedantic -Wall'
+      let g:syntastic_auto_jump = 3
 
-	"/Plug 'octol/vim-cpp-enhanced-highlight'
-		let g:cpp_class_scope_highlight = 1
-		" turning this option breaks comments
-		"let g:cpp_experimental_template_highlight = 1
+    "/Plug 'octol/vim-cpp-enhanced-highlight'
+      let g:cpp_class_scope_highlight = 1
+      " turning this option breaks comments
+      "let g:cpp_experimental_template_highlight = 1
 
-	" Plugin 'morhetz/gruvbox' " colorscheme gruvbox
-		colorscheme gruvbox
-		set background=dark    " Setting dark mode
-		"set background=light
-		"colorscheme PaperColor
+    " Plugin 'morhetz/gruvbox' " colorscheme gruvbox
+      colorscheme gruvbox
+      set background=dark    " Setting dark mode
+      "set background=light
+      "colorscheme PaperColor
 
-	" Plug Neocomplete
-		if !has('nvim')
-			if has('lua')
-				" All new stuff
-				let g:neocomplete#enable_cursor_hold_i=1
-				let g:neocomplete#skip_auto_completion_time="1"
-				let g:neocomplete#sources#buffer#cache_limit_size=5000000000
-				let g:neocomplete#max_list=8
-				let g:neocomplete#auto_completion_start_length=2
-				" TODO: need to fix this i dont like the way he does it need my own for now is good I guess
-				let g:neocomplete#enable_auto_close_preview=1
+    " Plug Neocomplete
+      if !has('nvim')
+        if has('lua')
+          " All new stuff
+          let g:neocomplete#enable_cursor_hold_i=1
+          let g:neocomplete#skip_auto_completion_time="1"
+          let g:neocomplete#sources#buffer#cache_limit_size=5000000000
+          let g:neocomplete#max_list=8
+          let g:neocomplete#auto_completion_start_length=2
+          " TODO: need to fix this i dont like the way he does it need my own for now is good I guess
+          let g:neocomplete#enable_auto_close_preview=1
 
-				let g:neocomplete#enable_at_startup = 1
-				let g:neocomplete#enable_smart_case = 1
-				let g:neocomplete#data_directory = s:personal_path . 'neocomplete'
-				" Define keyword.
-				if !exists('g:neocomplete#keyword_patterns')
-					let g:neocomplete#keyword_patterns = {}
-				endif
-				let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-				" Recommended key-mappings.
-				" <CR>: close popup and save indent.
-				inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-				function! s:my_cr_function()
-					return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-				endfunction
-				" <TAB>: completion.
-				inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-				" <C-h>, <BS>: close popup and delete backword char.
-				inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-				" Enable heavy omni completion.
-				if !exists('g:neocomplete#sources#omni#input_patterns')
-					let g:neocomplete#sources#omni#input_patterns = {}
-				endif
-				let g:neocomplete#sources#omni#input_patterns.tex =
-					\ '\v\\%('
-					\ . '\a*cite\a*%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
-					\ . '|\a*ref%(\s*\{[^}]*|range\s*\{[^,}]*%(}\{)?)'
-					\ . '|includegraphics\*?%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
-					\ . '|%(include%(only)?|input)\s*\{[^}]*'
-					\ . ')'
-				let g:neocomplete#sources#omni#input_patterns.php =
-				\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-				let g:neocomplete#sources#omni#input_patterns.perl =
-				\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+          let g:neocomplete#enable_at_startup = 1
+          let g:neocomplete#enable_smart_case = 1
+          let g:neocomplete#data_directory = s:personal_path . 'neocomplete'
+          " Define keyword.
+          if !exists('g:neocomplete#keyword_patterns')
+            let g:neocomplete#keyword_patterns = {}
+          endif
+          let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+          " Recommended key-mappings.
+          " <CR>: close popup and save indent.
+          inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+          function! s:my_cr_function()
+            return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+          endfunction
+          " <TAB>: completion.
+          inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+          " <C-h>, <BS>: close popup and delete backword char.
+          inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+          " Enable heavy omni completion.
+          if !exists('g:neocomplete#sources#omni#input_patterns')
+            let g:neocomplete#sources#omni#input_patterns = {}
+          endif
+          let g:neocomplete#sources#omni#input_patterns.tex =
+            \ '\v\\%('
+            \ . '\a*cite\a*%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+            \ . '|\a*ref%(\s*\{[^}]*|range\s*\{[^,}]*%(}\{)?)'
+            \ . '|includegraphics\*?%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+            \ . '|%(include%(only)?|input)\s*\{[^}]*'
+            \ . ')'
+          let g:neocomplete#sources#omni#input_patterns.php =
+          \ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+          let g:neocomplete#sources#omni#input_patterns.perl =
+          \ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 
-				if !exists('g:neocomplete#force_omni_input_patterns')
-					let g:neocomplete#force_omni_input_patterns = {}
-				endif
-				let g:neocomplete#force_omni_input_patterns.c =
-							\ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
-				let g:neocomplete#force_omni_input_patterns.cpp =
-							\ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-				let g:neocomplete#force_omni_input_patterns.objc =
-							\ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
-				let g:neocomplete#force_omni_input_patterns.objcpp =
-							\ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
+          if !exists('g:neocomplete#force_omni_input_patterns')
+            let g:neocomplete#force_omni_input_patterns = {}
+          endif
+          let g:neocomplete#force_omni_input_patterns.c =
+                \ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
+          let g:neocomplete#force_omni_input_patterns.cpp =
+                \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+          let g:neocomplete#force_omni_input_patterns.objc =
+                \ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
+          let g:neocomplete#force_omni_input_patterns.objcpp =
+                \ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
 
-				" all new stuff
-				if !exists('g:neocomplete#delimiter_patterns')
-					let g:neocomplete#delimiter_patterns= {}
-				endif
-				let g:neocomplete#delimiter_patterns.vim = ['#']
-				let g:neocomplete#delimiter_patterns.cpp = ['::']
+          " all new stuff
+          if !exists('g:neocomplete#delimiter_patterns')
+            let g:neocomplete#delimiter_patterns= {}
+          endif
+          let g:neocomplete#delimiter_patterns.vim = ['#']
+          let g:neocomplete#delimiter_patterns.cpp = ['::']
 
-			else
-        echoerr "No lua installed so falling back to having only clang autocomplete"
-				let g:clang_auto = 1
-			endif
-		elseif has('python3')
-			" if it is nvim deoplete requires python3 to work
-			let g:clang_auto = 0
-			let g:deoplete#enable_at_startup = 1
-		else
-      echoerr "No python3 installed so falling back to having only clang autocomplete"
-			" so if it doesnt have it activate clang instaed
-			let g:deoplete#enable_at_startup = 0
-			let g:clang_auto = 1
-		endif
+        else
+          echoerr "No lua installed so falling back to having only clang autocomplete"
+          let g:clang_auto = 1
+        endif
+      elseif has('python3')
+        " if it is nvim deoplete requires python3 to work
+        let g:clang_auto = 0
+        let g:deoplete#enable_at_startup = 1
+      else
+        echoerr "No python3 installed so falling back to having only clang autocomplete"
+        " so if it doesnt have it activate clang instaed
+        let g:deoplete#enable_at_startup = 0
+        let g:clang_auto = 1
+      endif
 
-			" NeoSnippets
-		" Plugin key-mappings.
-		imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-		smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-		xmap <C-k>     <Plug>(neosnippet_expand_target)
-		smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-		\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-		" Tell Neosnippet about the other snippets
-		let g:neosnippet#snippets_directory= s:plugged_path . '/vim-snippets/snippets'
-		let g:neosnippet#data_directory = s:personal_path . 'neosnippets'
+        " NeoSnippets
+      " Plugin key-mappings.
+      imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+      smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+      xmap <C-k>     <Plug>(neosnippet_expand_target)
+      smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+      \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+      " Tell Neosnippet about the other snippets
+      let g:neosnippet#snippets_directory= s:plugged_path . '/vim-snippets/snippets'
+      let g:neosnippet#data_directory = s:personal_path . 'neosnippets'
 
-	" Vim-Clang " 
-    " Steps to get plugin to work:
-    " 1. Make sure that you can compile a program with clang++ command
-      " a. Example: clang++ -std=c++14 -stdlib=libc++ -pedantic -Wall hello.cpp -v
-    " 2. To get this to work I had to install libc++-dev package in unix
-    " 3. install libclang-dev package. See g:clang_library_path to where it gets
-    " installed. Also I had to make sym link: ln -s libclang.so.1 libclang.so
-	  if !executable('clang') || !executable('clang-format')
-		  echomsg string("No clang or clang-format present")
-    endif
-    " TODO: Go copy code from vim-clang that does this
-    nnoremap <c-f> :ClangFormat<CR>
-    
-    let g:clang_user_options = '-std=c++14 -stdlib=libc++ -Wall -pedantic'
-    " let g:clang_complete_copen = 1
-    " let g:clang_periodic_quickfix = 1
+    " Vim-Clang
+      " Steps to get plugin to work:
+      " 1. Make sure that you can compile a program with clang++ command
+        " a. Example: clang++ -std=c++14 -stdlib=libc++ -pedantic -Wall hello.cpp -v
+      " 2. To get this to work I had to install libc++-dev package in unix
+      " 3. install libclang-dev package. See g:clang_library_path to where it gets
+      " installed. Also I had to make sym link: ln -s libclang.so.1 libclang.so
+      if !executable('clang') || !executable('clang-format')
+        echomsg string("No clang or clang-format present")
+      endif
+      " TODO: Go copy code from vim-clang that does this
+      nnoremap <c-f> :ClangFormat<CR>
 
-  " Vim-Markdown
-    " messes up with neocomplete
-    let g:vim_markdown_folding_disabled = 1
-    let g:vim_markdown_conceal = 0
+      let g:clang_user_options = '-std=c++14 -stdlib=libc++ -Wall -pedantic'
+      " let g:clang_complete_copen = 1
+      " let g:clang_periodic_quickfix = 1
 
-  " Colorizer
-    let g:colorizer_auto_filetype='css,html,xml'
+    " Vim-Markdown
+      " messes up with neocomplete
+      let g:vim_markdown_folding_disabled = 1
+      let g:vim_markdown_conceal = 0
 
-  " JavaComplete
-    let g:JavaComplete_BaseDir = s:personal_path . 'java_cache'
+    " Colorizer
+      let g:colorizer_auto_filetype='css,html,xml'
+
+    " JavaComplete
+      let g:JavaComplete_BaseDir = s:personal_path . 'java_cache'
+  endif
 
 " see :h modeline
 " vim:tw=78:ts=2:sts=2:sw=2:
