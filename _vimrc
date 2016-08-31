@@ -70,8 +70,6 @@ if has('win32')
 	" Time runtime of a specific program
 	nnoremap <Leader>mt :!powershell -command "& {&'Measure-Command' {.\sep_calc.exe seprc}}"<CR>
 
-	set tags+=~/vimfiles/personal/systags
-
 	" Windows specific plugins options
 		" Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
 			set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
@@ -151,22 +149,11 @@ elseif has('unix')
 		" VIM_PATH includes
 			" With this you can use gf to go to the #include <avr/io.h>
 			" also this path below are what go into the .syntastic_avrgcc_config
-			" i.e: -I/opt.....
-			" TODO: create tags to be loaded for all these paths
-			if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
-				set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
-			endif
-			if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/include')
-				set path+=/opt/avr8-gnu-toolchain-linux_x86_64/include
-			endif
-			if isdirectory('/usr/local/include')
-				set path+=/usr/local/include
-			endif
-			if isdirectory('/usr/include')
-				set path+=/usr/include
-			endif
-			" these are avr tags created by vimrc/scripts/maketags.sh
-			let &tags= s:personal_path . 'ctags/tags'
+      set path+=/usr/local/include
+      set path+=/usr/include
+
+    " Vim-clang
+      let g:clang_library_path='/usr/lib/llvm-3.8/lib'
 
 		" Syntastic
 			let g:syntastic_c_config_file = s:personal_path . '.syntastic_avrgcc_config'
@@ -575,7 +562,46 @@ endif
     endif
   endfunction
 
-  " vim:tw=78:ts=2:sts=2:sw=2:
+  " To update ctags simply delete the ctags folder
+  " Note: There is also avr tags created by vimrc/scripts/maketags.sh
+  " let &tags= s:personal_path . 'ctags/tags'
+  function! s:AutoCreateCtags() abort
+    if empty(finddir(s:personal_path . "ctags",",,"))
+      " Go ahead and create the ctags
+      if !executable('ctags')
+        echomsg string("Please install ctags")
+      else
+        " Create folder
+        if !<SID>CheckDirwoPrompt(s:personal_path . "ctags")
+          echoerr string("Failed to create ctags dir")
+        endif
+        " Create ctags
+        if has('unix')
+          !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.vim/personal/ctags/tags_sys /usr/include
+          !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.vim/personal/ctags/tags_sys2 /usr/local/include
+          if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
+            set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
+            !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.vim/personal/ctags/tags_avr /opt/avr8-gnu-toolchain-linux_x86_64/avr/include
+            set tags+=~/.vim/personal/ctags/tags_avr
+          endif
+          if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/include')
+            set path+=/opt/avr8-gnu-toolchain-linux_x86_64/include
+            !ctags -R --sort=yes --fields=+iaS --extra=+q --language-force=C -f ~/.vim/personal/ctags/tags_avr2 /opt/avr8-gnu-toolchain-linux_x86_64/include
+            set tags+=~/.vim/personal/ctags/tags_avr2
+          endif
+        elseif has('win32') && isdirectory('c:/MinGw')
+          !ctags -R --sort=yes --fields=+iaS --extra=+q --language-force=C -f ~/vimfiles/personal/ctags/tags_sys c:/MinGw/include
+        else
+          echomsg string("Please install MinGW")
+        endif
+      endif
+    elseif has('unix')
+      set tags+=~/.vim/personal/ctags/tags_sys
+      set tags+=~/.vim/personal/ctags/tags_sys2
+    else
+      set tags+=~/vimfiles/personal/ctags/tags_sys
+    endif
+  endfunction
 
 " PLUGINS_FOR_BOTH_SYSTEMS
 	" Install vim-plug and all plugins in case of first use
@@ -585,8 +611,8 @@ endif
 	call plug#begin(s:plugged_path)
 	if has('nvim')
 		Plug 'Shougo/deoplete.nvim'
-	else
-		Plug 'Shougo/neocomplete'
+  else
+    Plug 'Shougo/neocomplete'
 	endif
 	" misc
 	Plug 'chrisbra/vim-diff-enhanced', { 'on' : 'SetDiff' }
@@ -601,12 +627,13 @@ endif
   Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
   Plug 'mrtazz/DoxygenToolkit.vim', { 'on' : 'Dox' }
   Plug 'tpope/vim-dispatch', { 'for' : ['c' , 'cpp'] }
-  " Plug 'justmao945/vim-clang', { 'for' : ['c' , 'cpp'] }
+  Plug 'Rip-Rip/clang_complete', { 'for' : ['c' , 'cpp'] }
   Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : ['c' , 'cpp' ] }
   Plug 'junegunn/rainbow_parentheses.vim', { 'on' : 'RainbowParentheses' }
   " cpp/java
   Plug 'sentientmachine/erics_vim_syntax_and_color_highlighting', { 'for' : 'java' }
   Plug 'mattn/vim-javafmt', { 'for' : 'java' }
+  Plug 'artur-shaik/vim-javacomplete2', { 'for' : 'java' }
 	" Autocomplete
 	Plug 'Shougo/neosnippet'
 	Plug 'Shougo/neosnippet-snippets'
@@ -658,14 +685,6 @@ endif
 	" highlight
 	" already had problems with it. lost an entire file. dont use it
 
-" MISCELANEOUS_SETINGS
-	" OmniCpp
-	let OmniCpp_NamespaceSearch = 1
-	let OmniCpp_GlobalScopeSearch = 1
-	let OmniCpp_ShowAccess = 1
-	let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
-	let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
-
 " Create personal folders
   " TMP folder
 	if <SID>CheckDirwoPrompt(s:personal_path . "tmp")
@@ -680,6 +699,20 @@ endif
 
   if !<SID>CheckDirwoPrompt(s:personal_path . "wiki")
     echoerr string("Failed to create wiki dir")
+  endif
+
+  if !<SID>CheckDirwoPrompt(s:personal_path . "java_cache")
+    echoerr string("Failed to create java_cache dir")
+  endif
+
+  call <SID>AutoCreateCtags()
+
+  if has('persistent_undo')
+    if <SID>CheckDirwoPrompt(s:personal_path . '/undofiles')
+      let &undodir= s:personal_path . '/undofiles'
+      set undofile
+      set undolevels=1000      " use many muchos levels of undo
+    endif
   endif
 
 " SET_OPTIONS
@@ -777,14 +810,6 @@ endif
 		set conceallevel=2 concealcursor=nv
 	endif
 
-	if has('persistent_undo')
-		if <SID>CheckDirwoPrompt(s:personal_path . '/undofiles')
-			let &undodir= s:personal_path . '/undofiles'
-			set undofile
-			set undolevels=1000      " use many muchos levels of undo
-		endif
-	endif
-
 	set noesckeys " No mappings that start with <esc>
 	set showmode
 	" no mouse enabled
@@ -813,12 +838,12 @@ endif
     " TODO convert each of these categories into its own augroup
 		" C/Cpp
 		autocmd FileType c setlocal omnifunc=omni#c#complete#Main
-		" autocmd FileType cpp setlocal omnifunc=omni#cpp#complete#Main
 		autocmd FileType c,cpp setlocal cindent
 		" enforce "t" in formatoptions on cpp files
 		autocmd FileType c,cpp setlocal formatoptions=croqt
 		" rainbow cannot be enabled for help file. It breaks syntax highlight
 		autocmd FileType c,cpp,java RainbowParentheses
+    autocmd FileType java setlocal omnifunc=javacomplete#Complete
 		" Nerdtree Fix
 		autocmd FileType nerdtree setlocal relativenumber
 		autocmd FileType nerdtree setlocal encoding=utf-8 " fixes little arrows
@@ -1274,11 +1299,6 @@ endif
 		if !has('nvim')
 			if has('lua')
 				" All new stuff
-				" Vim-clang
-        let g:clang_auto = 0
-				let g:clang_c_completeopt = 'menuone,preview,noinsert,noselect'
-				let g:clang_cpp_completeopt = 'menuone,preview,noinsert,noselect'
-
 				let g:neocomplete#enable_cursor_hold_i=1
 				let g:neocomplete#skip_auto_completion_time="1"
 				let g:neocomplete#sources#buffer#cache_limit_size=5000000000
@@ -1366,16 +1386,22 @@ endif
 		let g:neosnippet#snippets_directory= s:plugged_path . '/vim-snippets/snippets'
 		let g:neosnippet#data_directory = s:personal_path . 'neosnippets'
 
-	" Plug Vim-R-plugin {{{
-		let vimrplugin_r_path = 'C:\\Program Files\\R\\R-3.2.3\\bin\\i386'
-
-	" Vim-Clang " syntastic is much better that is why is not
-		" clang clang_auto option which enables autocomplete after . -> and ::
-		" is being handled along with neocompl and deocompl options to be
-		" activated in case non of those 2 are present
-		let g:clang_diagsopt = '' " no syntax check
-    let g:clang_format_style ='file'
+	" Vim-Clang " 
+    " Steps to get plugin to work:
+    " 1. Make sure that you can compile a program with clang++ command
+      " a. Example: clang++ -std=c++14 -stdlib=libc++ -pedantic -Wall hello.cpp -v
+    " 2. To get this to work I had to install libc++-dev package in unix
+    " 3. install libclang-dev package. See g:clang_library_path to where it gets
+    " installed. Also I had to make sym link: ln -s libclang.so.1 libclang.so
+	  if !executable('clang') || !executable('clang-format')
+		  echomsg string("No clang or clang-format present")
+    endif
+    " TODO: Go copy code from vim-clang that does this
     nnoremap <c-f> :ClangFormat<CR>
+    
+    let g:clang_user_options = '-std=c++14 -stdlib=libc++ -Wall -pedantic'
+    " let g:clang_complete_copen = 1
+    " let g:clang_periodic_quickfix = 1
 
   " Vim-Markdown
     " messes up with neocomplete
@@ -1384,6 +1410,9 @@ endif
 
   " Colorizer
     let g:colorizer_auto_filetype='css,html,xml'
+
+  " JavaComplete
+    let g:JavaComplete_BaseDir = s:personal_path . 'java_cache'
 
 " see :h modeline
 " vim:tw=78:ts=2:sts=2:sw=2:

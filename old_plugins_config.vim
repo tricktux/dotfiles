@@ -533,3 +533,125 @@
 		" ToC
 		let g:vimtex_toc_enabled=1
 		let g:vimtex_index_show_help=1
+
+	" Plug Neocomplete
+		if !has('nvim')
+			if has('lua')
+				" All new stuff
+				" Vim-clang
+        let g:clang_auto = 0
+				let g:clang_c_completeopt = 'menuone,preview,noinsert,noselect'
+				let g:clang_cpp_completeopt = 'menuone,preview,noinsert,noselect'
+
+				let g:neocomplete#enable_cursor_hold_i=1
+				let g:neocomplete#skip_auto_completion_time="1"
+				let g:neocomplete#sources#buffer#cache_limit_size=5000000000
+				let g:neocomplete#max_list=8
+				let g:neocomplete#auto_completion_start_length=2
+				" TODO: need to fix this i dont like the way he does it need my own for now is good I guess
+				let g:neocomplete#enable_auto_close_preview=1
+
+				let g:neocomplete#enable_at_startup = 1
+				let g:neocomplete#enable_smart_case = 1
+				let g:neocomplete#data_directory = s:personal_path . 'neocomplete'
+				" Define keyword.
+				if !exists('g:neocomplete#keyword_patterns')
+					let g:neocomplete#keyword_patterns = {}
+				endif
+				let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+				" Recommended key-mappings.
+				" <CR>: close popup and save indent.
+				inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+				function! s:my_cr_function()
+					return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+				endfunction
+				" <TAB>: completion.
+				inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+				" <C-h>, <BS>: close popup and delete backword char.
+				inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+				" Enable heavy omni completion.
+				if !exists('g:neocomplete#sources#omni#input_patterns')
+					let g:neocomplete#sources#omni#input_patterns = {}
+				endif
+				let g:neocomplete#sources#omni#input_patterns.tex =
+					\ '\v\\%('
+					\ . '\a*cite\a*%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+					\ . '|\a*ref%(\s*\{[^}]*|range\s*\{[^,}]*%(}\{)?)'
+					\ . '|includegraphics\*?%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+					\ . '|%(include%(only)?|input)\s*\{[^}]*'
+					\ . ')'
+				let g:neocomplete#sources#omni#input_patterns.php =
+				\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+				let g:neocomplete#sources#omni#input_patterns.perl =
+				\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+
+				if !exists('g:neocomplete#force_omni_input_patterns')
+					let g:neocomplete#force_omni_input_patterns = {}
+				endif
+				let g:neocomplete#force_omni_input_patterns.c =
+							\ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
+				let g:neocomplete#force_omni_input_patterns.cpp =
+							\ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+				let g:neocomplete#force_omni_input_patterns.objc =
+							\ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
+				let g:neocomplete#force_omni_input_patterns.objcpp =
+							\ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
+
+				" all new stuff
+				if !exists('g:neocomplete#delimiter_patterns')
+					let g:neocomplete#delimiter_patterns= {}
+				endif
+				let g:neocomplete#delimiter_patterns.vim = ['#']
+				let g:neocomplete#delimiter_patterns.cpp = ['::']
+
+			else
+        echoerr "No lua installed so falling back to having only clang autocomplete"
+				let g:clang_auto = 1
+			endif
+		elseif has('python3')
+			" if it is nvim deoplete requires python3 to work
+			let g:clang_auto = 0
+			let g:deoplete#enable_at_startup = 1
+		else
+      echoerr "No python3 installed so falling back to having only clang autocomplete"
+			" so if it doesnt have it activate clang instaed
+			let g:deoplete#enable_at_startup = 0
+			let g:clang_auto = 1
+		endif
+
+			" NeoSnippets
+		" Plugin key-mappings.
+		imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+		smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+		xmap <C-k>     <Plug>(neosnippet_expand_target)
+		smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+		\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+		" Tell Neosnippet about the other snippets
+		let g:neosnippet#snippets_directory= s:plugged_path . '/vim-snippets/snippets'
+		let g:neosnippet#data_directory = s:personal_path . 'neosnippets'
+
+" OmniCpp_SETINGS
+	" OmniCpp
+	let OmniCpp_NamespaceSearch = 1
+	let OmniCpp_GlobalScopeSearch = 1
+	let OmniCpp_ShowAccess = 1
+	let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
+  let OmniCpp_MayCompleteDot = 1 " autocomplete after .
+  let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
+  let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
+	let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+
+	" Plug Vim-R-plugin {{{
+		let vimrplugin_r_path = 'C:\\Program Files\\R\\R-3.2.3\\bin\\i386'
+
+    " Vim-clang
+      let g:clang_cpp_options = '-std=c++17 -pedantic -Wall'
+      let g:clang_c_options = '-std=gnu11 -pedantic -Wall'
+				"
+				" Vim-clang
+        let g:clang_auto = 0
+				let g:clang_c_completeopt = 'menuone,preview,noinsert,noselect'
+				let g:clang_cpp_completeopt = 'menuone,preview,noinsert,noselect'
+		let g:clang_diagsopt = '' " no syntax check
+    let g:clang_format_style ='file'
+    nnoremap <c-f> :ClangFormat<CR>
