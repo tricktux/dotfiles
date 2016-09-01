@@ -626,14 +626,15 @@ endif
   Plug 'Tagbar', { 'on' : 'TagbarToggle' }
   Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
   Plug 'mrtazz/DoxygenToolkit.vim', { 'on' : 'Dox' }
-  Plug 'tpope/vim-dispatch', { 'for' : ['c' , 'cpp'] }
+  Plug 'tpope/vim-dispatch', { 'for' : ['c' , 'cpp' , 'java'] }
   Plug 'Rip-Rip/clang_complete', { 'for' : ['c' , 'cpp'] }
   Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : ['c' , 'cpp' ] }
   Plug 'junegunn/rainbow_parentheses.vim', { 'on' : 'RainbowParentheses' }
   " cpp/java
   Plug 'sentientmachine/erics_vim_syntax_and_color_highlighting', { 'for' : 'java' }
   Plug 'mattn/vim-javafmt', { 'for' : 'java' }
-  Plug 'artur-shaik/vim-javacomplete2', { 'for' : 'java' }
+  Plug 'tfnico/vim-gradle', { 'for' : 'java' } 
+  " Plug 'artur-shaik/vim-javacomplete2', { 'for' : 'java' }
 	" Autocomplete
 	Plug 'Shougo/neosnippet'
 	Plug 'Shougo/neosnippet-snippets'
@@ -841,9 +842,12 @@ endif
 		autocmd FileType c,cpp setlocal cindent
 		" enforce "t" in formatoptions on cpp files
 		autocmd FileType c,cpp setlocal formatoptions=croqt
-		" rainbow cannot be enabled for help file. It breaks syntax highlight
-		autocmd FileType c,cpp,java RainbowParentheses
+		" Rainbow cannot be enabled for help file. It breaks syntax highlight
+    autocmd FileType c,cpp,java RainbowParentheses
+    " Java
     autocmd FileType java setlocal omnifunc=javacomplete#Complete
+    autocmd FileType java compiler gradlew
+    autocmd BufWritePost *.java JavaFmt
 		" Nerdtree Fix
 		autocmd FileType nerdtree setlocal relativenumber
 		autocmd FileType nerdtree setlocal encoding=utf-8 " fixes little arrows
@@ -1096,7 +1100,7 @@ endif
 		nnoremap <S-x> :tabclose<CR>
 
 	" Make
-    nnoremap <Leader>ma :Dispatch<CR>
+    nnoremap <Leader>ma :Dispatch 
 		" nnoremap <Leader>ma :make clean<CR>
 					" \:make all<CR>
 		nnoremap <Leader>mc :make clean<CR>

@@ -1,0 +1,35 @@
+inoremap <c-j> <ESC>
+cnoremap <c-j> <ESC>
+
+nnoremap <s-b> ^
+nnoremap <s-w> $
+
+nnoremap <s-q> yyp
+nnoremap <s-q> yyp
+
+nnoremap <s-t> %
+
+
+set relativenumber
+
+" Folding
+  " Folding select text then S-f to fold or just S-f to toggle folding
+  " not supported
+  nnoremap <C-j> zj
+  " not supported
+  nnoremap <C-k> zk
+  nnoremap <C-z> zz
+  nnoremap <C-c> zM
+  nnoremap <C-n> zR
+  " not supported
+  nnoremap <C-x> za
+  " dont use <C-a> it conflicts with tmux prefix
+  set foldenable
+  " global fold indent
+  set foldmethod=indent
+  set foldnestmax=18      "deepest fold is 18 levels
+  set foldlevel=0
+  set foldlevelstart=0
+
+" you can use :so ~/.ideavimrc just as <Leader>ms
+noremap <S-s> #<C-o>
