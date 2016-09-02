@@ -916,9 +916,12 @@ endif
 		autocmd FileType c,cpp setlocal cindent
 		" enforce "t" in formatoptions on cpp files
 		autocmd FileType c,cpp setlocal formatoptions=croqt
-		" rainbow cannot be enabled for help file. It breaks syntax highlight
-		autocmd FileType c,cpp,java RainbowParentheses
+		" Rainbow cannot be enabled for help file. It breaks syntax highlight
+    autocmd FileType c,cpp,java RainbowParentheses
+    " Java
     autocmd FileType java setlocal omnifunc=javacomplete#Complete
+    autocmd FileType java compiler gradlew
+    autocmd BufWritePost *.java JavaFmt
 		" Nerdtree Fix
 		autocmd FileType nerdtree setlocal relativenumber
 		autocmd FileType nerdtree setlocal encoding=utf-8 " fixes little arrows
@@ -1171,7 +1174,7 @@ endif
 		nnoremap <S-x> :tabclose<CR>
 
 	" Make
-    nnoremap <Leader>ma :Dispatch<CR>
+    nnoremap <Leader>ma :Dispatch 
 		" nnoremap <Leader>ma :make clean<CR>
 					" \:make all<CR>
 		nnoremap <Leader>mc :make clean<CR>
