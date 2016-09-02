@@ -59,11 +59,8 @@ if has('win32')
 	nnoremap <Leader>ewl :silent !del default.ini<CR>
 						\:!mklink default.ini
 	" e1 reserved for vimrc
-	nnoremap <Leader>e21 :silent e ~/Documents/1.MyDocuments/2.WINGS/NeoOneWINGS/
-	nnoremap <Leader>e22 :silent e ~/Documents/1.MyDocuments/2.WINGS/
-	nnoremap <Leader>e4 :silent e ~/Desktop/daily\ check/
-	nnoremap <Leader>e5 :silent e ~/Documents/1.MyDocuments/Forms/Weekly_Reports/
-	nnoremap <Leader>e6 :silent e ~/Documents/1.MyDocuments/3.Training/2.NI_Testand/
+	nnoremap <Leader>e21 :silent e ~/Documents/1.WINGS/NeoOneWINGS/
+	nnoremap <Leader>e22 :silent e ~/Documents/1.WINGS/
 	nnoremap <Leader>ed :silent e default.ini<CR>
 
 	nnoremap <Leader>es1 :silent e D:/Reinaldo/NeoOneWINGS/
@@ -705,7 +702,7 @@ endif
     Plug 'Tagbar', { 'on' : 'TagbarToggle' }
     Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
     Plug 'mrtazz/DoxygenToolkit.vim', { 'on' : 'Dox' }
-    Plug 'tpope/vim-dispatch', { 'for' : ['c' , 'cpp'] }
+    Plug 'tpope/vim-dispatch'
     Plug 'Rip-Rip/clang_complete', { 'for' : ['c' , 'cpp'] }
     Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : ['c' , 'cpp' ] }
     Plug 'junegunn/rainbow_parentheses.vim', { 'on' : 'RainbowParentheses' }
