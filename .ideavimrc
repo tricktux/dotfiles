@@ -1,3 +1,5 @@
+let mapleader="\<Space>"
+
 inoremap <c-j> <ESC>
 cnoremap <c-j> <ESC>
 
@@ -9,6 +11,9 @@ nnoremap <s-q> yyp
 
 nnoremap <s-t> %
 
+nnoremap <Leader><Space>v "*p
+nnoremap <c-m> o<ESC>
+nnoremap <cr> o<ESC>
 
 set relativenumber
 
