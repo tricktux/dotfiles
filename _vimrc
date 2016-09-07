@@ -461,20 +461,23 @@ endif
           unlet g:local_vimrc_personal
         endif
         echomsg "Loading settings for Wings..."
-        " This allows you to build using the command :make *.sln
-        set makeprg=msbuild\ /nologo\ /v:q\ /property:GenerateFullPaths=true
-        nnoremap <Leader>ma :Make TsCommServer.sln<CR>
         setlocal tabstop=4     " a tab is four spaces
         setlocal softtabstop=4
         setlocal shiftwidth=4  " number of spaces to use for autoindenting
         setlocal textwidth=120
         let g:local_vimrc_wings = 1
       endif
-    elseif match(l:path,'sep_calc') > 0 || match(l:path,'snippets') > 0 || match(l:path,'wiki') > 0
+      if match(l:path,'Source') > 0
+        compiler bcc
+      else
+        compiler msbuild
+      endif
+    " elseif match(l:path,'sep_calc') > 0 || match(l:path,'snippets') > 0 || match(l:path,'wiki') > 0
       " TODO create command to undo all this settings. See :h ftpplugin
-      if !exists('g:local_vimrc_personal') && exists('g:local_vimrc_wings')
+    else
+      if exists('g:local_vimrc_personal') && !exists('g:local_vimrc_personal')
         unlet g:local_vimrc_wings
-        echomsg "Loading settings for sep, snippets, and wikis..."
+        echomsg "Loading regular settings..."
         " tab settings
         setlocal tabstop=2
         setlocal softtabstop=2
@@ -916,6 +919,7 @@ endif
 		autocmd FileType c,cpp setlocal cindent
 		" enforce "t" in formatoptions on cpp files
 		autocmd FileType c,cpp setlocal formatoptions=croqt
+		autocmd FileType compiler gcc
 		" Rainbow cannot be enabled for help file. It breaks syntax highlight
     autocmd FileType c,cpp,java RainbowParentheses
     " Java
@@ -927,6 +931,7 @@ endif
 		autocmd FileType nerdtree setlocal encoding=utf-8 " fixes little arrows
 		" Set omnifunc for all others 									" not showing
 		autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
+		autocmd FileType compiler msbuild
 		autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 		autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 		autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
@@ -935,6 +940,7 @@ endif
 		" Latex
 		autocmd FileType tex setlocal spell spelllang=en_us
 		autocmd FileType tex setlocal fdm=indent
+		autocmd FileType compiler tex
 		" Display help vertical window not split
 		autocmd FileType help wincmd L
 		" wrap syntastic messages
