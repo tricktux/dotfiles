@@ -53,9 +53,9 @@ if has('win32')
 	nnoremap  o<Esc>
 	" Mappings to execute programs
 	" Do not make a ew1 mapping. reserved for when issues get to #11, 12, etc
-	nnoremap <Leader>ewd :silent !start cmd /k "WINGS.exe 3 . default.ini" & exit<CR>
-	nnoremap <Leader>ewc :silent !start cmd /k "WINGS.exe 3 . %" & exit<CR>
-	nnoremap <Leader>ews :execute("!start cmd /k \"WINGS.exe 3 . " . input("Config file:", "", "file") . "\" & exit")<CR>
+	nnoremap <Leader>ewd :Start! WINGS.exe 3 . default.ini<CR>
+	nnoremap <Leader>ewc :Start! WINGS.exe 3 . %<CR>
+	nnoremap <Leader>ews :execute("Start! WINGS.exe 3 . " . input("Config file:", "", "file"))<CR>
 	nnoremap <Leader>ewl :silent !del default.ini<CR>
 						\:!mklink default.ini
 	" e1 reserved for vimrc
@@ -65,9 +65,16 @@ if has('win32')
 
 	nnoremap <Leader>es1 :silent e D:/Reinaldo/NeoOneWINGS/
 	" Time runtime of a specific program
-	nnoremap <Leader>mt :!powershell -command "& {&'Measure-Command' {.\sep_calc.exe seprc}}"<CR>
+	nnoremap <Leader>mt :Dispatch powershell -command "& {&'Measure-Command' {.\sep_calc.exe seprc}}"<CR>
 
   " call <SID>AutoCreateWinCtags()
+  " Set up only for win32 at the moment
+  augroup EnvironMent
+    autocmd!
+    " local vimrc files
+    autocmd BufReadPost,BufNewFile * call <SID>SetupEnvironment()
+    autocmd SessionLoadPost * call <SID>SetupEnvironment()
+  augroup END
 
 	" Windows specific plugins options
 		" Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
@@ -697,15 +704,15 @@ endif
     Plug 'chrisbra/vim-diff-enhanced', { 'on' : 'SetDiff' }
     Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
     Plug 'scrooloose/nerdcommenter'
-    Plug 'tpope/vim-surround'
     Plug 'ctrlpvim/ctrlp.vim'
-    Plug 'tpope/vim-repeat'
     Plug 'chrisbra/Colorizer'
+    Plug 'tpope/vim-repeat'
+    Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-dispatch'
     " cpp
     Plug 'Tagbar', { 'on' : 'TagbarToggle' }
     Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
     Plug 'mrtazz/DoxygenToolkit.vim', { 'on' : 'Dox' }
-    Plug 'tpope/vim-dispatch'
     Plug 'Rip-Rip/clang_complete', { 'for' : ['c' , 'cpp'] }
     Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : ['c' , 'cpp' ] }
     Plug 'junegunn/rainbow_parentheses.vim', { 'on' : 'RainbowParentheses' }
@@ -720,14 +727,13 @@ endif
     " version control
     Plug 'tpope/vim-fugitive', { 'on' : 'Gstatus' }
     " aesthetic
-    " Plug 'NLKNguyen/papercolor-theme' " currently not being used
     Plug 'morhetz/gruvbox' " colorscheme gruvbox
     " markdown stuff
     Plug 'godlygeek/tabular', { 'for' : 'md' } " required by markdown
     Plug 'plasticboy/vim-markdown', { 'for' : 'md' }
     " radical
-    Plug 'glts/vim-magnum' " required by markdown
-    Plug 'glts/vim-radical'
+    Plug 'glts/vim-magnum' " required by radical
+    Plug 'glts/vim-radical' " use with gA
 
     " All of your Plugins must be added before the following line
     call plug#end()            " required
@@ -954,22 +960,16 @@ endif
 	augroup BuffTypes
 	autocmd!
     " Arduino
-    autocmd BufNewFile,BufReadPost *.ino,*.pde setlocal ft=arduino
+    autocmd BufNewFile,BufReadPost *.ino,*.pde setf arduino
     " automatic syntax for *.scp
-    autocmd BufNewFile,BufReadPost *.scp setlocal syntax=wings_syntax
-    " local vimrc files
-    autocmd BufReadPost,BufNewFile * call <SID>SetupEnvironment()
+    autocmd BufNewFile,BufReadPost *.scp setf wings_syntax
 	augroup END
 
-	augroup SessionL
-    autocmd!
-    autocmd SessionLoadPost * call <SID>SetupEnvironment()
-	augroup END
 
 	augroup VimType
     autocmd!
     " Sessions
-    autocmd VimEnter * call <SID>LoadSession('default.vim')
+    " autocmd VimEnter * call <SID>LoadSession('default.vim')
     autocmd VimLeave * call <SID>SaveSession('default.vim')
     " Keep splits normalize
     autocmd VimResized * call <SID>NormalizeWindowSize()
@@ -1003,7 +1003,8 @@ endif
 		nnoremap <C-Up> :cp<CR>
 		nnoremap <C-Right> :cnf<CR>
 		nnoremap <C-Left> :cpf<CR>
-		noremap <Leader>qo :copen 20<CR>
+		noremap <Leader>qo :Copen!<CR>
+		" noremap <Leader>qo :copen 20<CR>
 		noremap <Leader>qc :.cc<CR>
 
 		nnoremap <Down> :call <SID>ListsNavigation("next")<CR>
@@ -1180,7 +1181,7 @@ endif
 		nnoremap <S-x> :tabclose<CR>
 
 	" Make
-    nnoremap <Leader>ma :Dispatch 
+    nnoremap <Leader>ma :Make 
 		" nnoremap <Leader>ma :make clean<CR>
 					" \:make all<CR>
 		nnoremap <Leader>mc :make clean<CR>
