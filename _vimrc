@@ -126,11 +126,14 @@ elseif has('unix')
 	noremap <Leader><Space>v "+p
 	noremap <Leader><Space>y "+yy
 
+  " edit local
 	nnoremap <Leader>el :silent e ~/
+	" edit android
+	nnoremap <Leader>ea :silent e ~/Documents/android-projects/
 	" edit odroid
 	nnoremap <Leader>eo :silent e ~/truck-server/Documents/NewBot_v3/
-	" edit here
-	nnoremap <Leader>eh :silent e ~/Documents/NewBot_v3/
+	" edit bot
+	nnoremap <Leader>eb :silent e ~/Documents/NewBot_v3/
 
 	nnoremap <Leader><Space>= :silent! let &guifont = substitute(
 	\ &guifont,
@@ -147,6 +150,8 @@ elseif has('unix')
 	" save file with sudo permissions
 	nnoremap <Leader>su :w !sudo tee %<CR>
 
+  " TODO|
+  "    \/
   " call <SID>AutoCreateUnixCtags()
 
 	" Unix Specific Plugin Options

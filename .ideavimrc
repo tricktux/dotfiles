@@ -15,6 +15,13 @@ nnoremap <Leader><Space>v "*p
 nnoremap <c-m> o<ESC>
 nnoremap <cr> o<ESC>
 
+" Comment line
+nnoremap - <c-/>
+vnoremap - <c-/>
+
+" Source ideavimrc
+nnoremap <Leader>ms :so ~/.ideavimrc<CR>
+
 set relativenumber
 
 " Folding

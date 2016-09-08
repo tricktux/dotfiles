@@ -1,0 +1,68 @@
+set ssl_starttls=yes
+set ssl_force_tls=yes
+set imap_user = 'rmolin88@gmail.com'
+
+# Get password from encryption
+source "gpg -d ~/.mutt/passwords.gpg |"
+set realname='Reinaldo Molina'
+
+set folder = imaps://imap.gmail.com/
+set spoolfile = +INBOX
+
+# Specify where to save and/or look for postponed messages.
+set postponed="imaps://imap.gmail.com/[Gmail]/Drafts"
+
+# Store message headers locally to speed things up.
+# If hcache is a folder, Mutt will create sub cache folders for each account which may speeds things up even more.
+set header_cache = "~/.mutt/cache/headers"
+
+# Store messages locally to speed things up, like searching message bodies.
+# Can be the same folder as header_cache.
+# This will cost important disk usage according to your e-mail amount.
+set message_cachedir = "~/.mutt/cache/bodies"
+
+set certificate_file = "~/.mutt/certificates"
+set move = no
+
+# Keep IMAP connection alive by polling intermittently (time in seconds).
+set imap_keepalive = 900
+
+mailboxes       = +INBOX
+
+# Allow Mutt to open new imap connection automatically.
+unset imap_passive
+
+# How often to check for new mail (time in seconds).
+set mail_check = 120
+# To see both reply and recv in one thread
+fcc-hook .* =inbox
+# Sort to show most recent first
+set sort = reverse-date-received
+
+bind generic o select-entry
+bind generic - first-entry		
+#minus sign takes me to the top of the list
+
+bind generic = last-entry		
+#equals sign takes me to the bottom of the list
+
+bind generic L bottom-page		
+#to the bottom,
+
+bind generic M middle-page		
+#       middle, and
+
+bind generic H top-page			
+#       	top of the screen
+
+bind index [ previous-unread		
+#to the previous unread message in the list
+
+bind index ] next-unread		
+#or the next unread message.
+# Gmail-style keyboard shortcuts
+macro index,pager gi "<change-folder>=INBOX<enter>" "Go to inbox"
+macro index,pager ga "<change-folder>=[Gmail]/All Mail<enter>" "Go to all mail"
+macro index,pager gs "<change-folder>=[Gmail]/Starred<enter>" "Go to starred messages"
+macro index,pager gp "<change-folder>=[Gmail]/Important<enter>" "Go to priority inbox"
+macro index,pager gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
