@@ -505,7 +505,7 @@ endif
       execute "wall"
       execute "cd ". s:personal_path ."sessions/"
       let l:sSessionName = input("Enter
-            \save session name:", "", "file")
+            \ save session name:", "", "file")
     else
       " Need to keep this option short and sweet
       let l:sSessionName = a:1
@@ -527,7 +527,7 @@ endif
         call <SID>SaveSession()
       endif
       let l:sSessionName = input("Enter
-            \load session name:", "", "file")
+            \ load session name:", "", "file")
     else
       let l:sSessionName = a:1
       echo "Reload Last Session: (y)es (d)ifferent session or (any)nothing"
@@ -725,7 +725,7 @@ endif
     Plug 'Shougo/neosnippet-snippets'
     Plug 'honza/vim-snippets'
     " version control
-    Plug 'tpope/vim-fugitive', { 'on' : 'Gstatus' }
+    Plug 'tpope/vim-fugitive'
     " aesthetic
     Plug 'morhetz/gruvbox' " colorscheme gruvbox
     " markdown stuff
