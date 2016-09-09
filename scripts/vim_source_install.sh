@@ -2,11 +2,11 @@
 sudo apt-get autoremove --purge vim vim-gtk vim-runtime vim-gnome vim-tiny vim-common vim-gui-common
 # sudo apt-get build-dep vim-gtk
 # If make fails then try using the above line. And if that fails then install ncurses-dev
+cd ~/vim/src &&
+sudo make uninstall
 cd
 sudo rm -rf vim
 git clone https://github.com/vim/vim.git --depth 1
-cd ~/vim/src
-sudo make uninstall
 cd ~/vim
 ./configure --with-features=huge \
             --enable-multibyte \
