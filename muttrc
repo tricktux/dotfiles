@@ -4,10 +4,14 @@ set imap_user = 'rmolin88@gmail.com'
 
 # Get password from encryption
 source "gpg -d ~/.mutt/passwords.gpg |"
-set realname='Reinaldo Molina'
-set from = "Reinaldo Molina <rmolin88@gmail.com>
+# Alternative to encryption. Just annoying to type complicated password
+# everytime
+# set imap_pass=`read -s -p 'mail-password : ' mailpass ; echo $mailpass`
 
-set folder = imaps://imap.gmail.com/
+set realname='Reinaldo Molina'
+set from = "Reinaldo Molina <rmolin88@gmail.com>"
+
+set folder = 'imaps://imap.gmail.com:993'
 set spoolfile = +INBOX
 
 # Specify where to save and/or look for postponed messages.
@@ -78,7 +82,15 @@ set reverse_alias=yes
 source $alias_file
 
 set editor="vim -c 'set spell spelllang=es,en'"
+
 # Hopefully will fix emails not going out
 set smtp_url = "smtp://rmolin88@smtp.gmail.com:587/"
 # This will fix asking for pass when sending email
 set smtp_pass = $imap_pass
+
+set trash = '+[Gmail]/Trash'
+
+# From https://github.com/bubbl/bubb-confs/blob/master/mutt/.mutt/general
+# A lot of good configs in that link
+set edit_headers    = yes                # show headers when composing
+set fast_reply                           # skip to compose when replying
