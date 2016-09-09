@@ -5,6 +5,7 @@ set imap_user = 'rmolin88@gmail.com'
 # Get password from encryption
 source "gpg -d ~/.mutt/passwords.gpg |"
 set realname='Reinaldo Molina'
+set from = "Reinaldo Molina <rmolin88@gmail.com>
 
 set folder = imaps://imap.gmail.com/
 set spoolfile = +INBOX
@@ -66,3 +67,12 @@ macro index,pager ga "<change-folder>=[Gmail]/All Mail<enter>" "Go to all mail"
 macro index,pager gs "<change-folder>=[Gmail]/Starred<enter>" "Go to starred messages"
 macro index,pager gp "<change-folder>=[Gmail]/Important<enter>" "Go to priority inbox"
 macro index,pager gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
+
+# Option to Save contacts so that autocompletion is possible
+set display_filter='~/.mutt/mutt.save.contacts.sh' 
+
+# Options to load aliasses file
+set alias_file= ~/.mutt/aliases.txt
+set sort_alias= alias
+set reverse_alias=yes
+source $alias_file
