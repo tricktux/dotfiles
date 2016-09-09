@@ -714,6 +714,7 @@ endif
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-dispatch'
+    Plug 'jamessan/vim-gnupg'
     " cpp
     Plug 'Tagbar', { 'on' : 'TagbarToggle' }
     Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
@@ -1505,6 +1506,10 @@ endif
 
     " JavaComplete
       let g:JavaComplete_BaseDir = s:personal_path . 'java_cache'
+
+    " GnuPG
+      " This plugin doesnt work with gvim. Use only from cli
+      let g:GPGUseAgent = 0
   endif
 
 " see :h modeline
