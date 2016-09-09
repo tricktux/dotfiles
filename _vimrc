@@ -460,29 +460,35 @@ endif
   " Performance warning on this function. If necesary disable and just make
   " function calls
   " Note: Keep in mind vim modelines for vim type of files
-  function! s:SetupEnvironment()
+  " Input: Pass in any argument to the variable to force Wings indent settings
+  " to take effect
+  function! s:SetupEnvironment(...)
     let l:path = expand('%:p')
     " use this as an example. just substitute NeoOneWINGS with your project
     " specific folder name
-    if match(l:path,'NeoOneWINGS') > 0 || match(l:path,'NeoWingsSupportFiles') > 0
+    " Pass any random argument to the function to force wings settings
+    if match(l:path,'NeoOneWINGS') > 0 || match(l:path,'NeoWingsSupportFiles') > 0 || a:0>0
       " set a g:local_vimrc_name in you local vimrc to avoid local vimrc
       " reloadings
       " TODO this entire thing needs to be redone
-      if !exists('g:local_vimrc_wings')
+      if !exists('g:local_vimrc_wings') || a:0>0
         if exists('g:local_vimrc_personal')
           unlet g:local_vimrc_personal
         endif
         echomsg "Loading settings for Wings..."
-        setlocal tabstop=4     " a tab is four spaces
-        setlocal softtabstop=4
-        setlocal shiftwidth=4  " number of spaces to use for autoindenting
-        setlocal textwidth=120
+        set tabstop=4     " a tab is four spaces
+        set softtabstop=4
+        set shiftwidth=4  " number of spaces to use for autoindenting
+        set textwidth=120
         let g:local_vimrc_wings = 1
       endif
       if match(l:path,'Source') > 0
         compiler bcc
       else
         compiler msbuild
+        " Some helpful compiler swithces /t:Rebuild
+        " compiler's errorformat is not good
+        set errorformat&
       endif
     " elseif match(l:path,'sep_calc') > 0 || match(l:path,'snippets') > 0 || match(l:path,'wiki') > 0
       " TODO create command to undo all this settings. See :h ftpplugin
@@ -491,10 +497,10 @@ endif
         unlet g:local_vimrc_wings
         echomsg "Loading regular settings..."
         " tab settings
-        setlocal tabstop=2
-        setlocal softtabstop=2
-        setlocal shiftwidth=2
-        setlocal textwidth=80
+        set tabstop=2
+        set softtabstop=2
+        set shiftwidth=2
+        set textwidth=80
         let g:local_vimrc_personal = 1
       endif
     endif
@@ -519,7 +525,6 @@ endif
     execute "cd -"
   endfunction
 
-  nnoremap <Leader>sL :call <SID>LoadSession()<CR>
   function! s:LoadSession(...) abort
     " save all work
     execute "cd ". s:personal_path ."sessions/"
@@ -943,7 +948,7 @@ endif
 		autocmd FileType nerdtree setlocal encoding=utf-8 " fixes little arrows
 		" Set omnifunc for all others 									" not showing
 		autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
-		autocmd FileType compiler msbuild
+		autocmd FileType cs compiler msbuild
 		autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 		autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 		autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
@@ -1106,7 +1111,9 @@ endif
     " Force wings_syntax on a file
     nnoremap <Leader>sl :set filetype=wings_syntax<CR>
     " Remove Trailing Spaces
-    nnoremap <Leader>c<Space> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+    nnoremap <Leader>c<Space> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+    " Force Wings indent settings
+    nnoremap <Leader>cw :call <SID>SetupEnvironment("beast")<CR>
 
 	" Folding
 		" Folding select text then S-f to fold or just S-f to toggle folding
@@ -1187,7 +1194,7 @@ endif
 		nnoremap <S-x> :tabclose<CR>
 
 	" Make
-    nnoremap <Leader>ma :Make 
+    nnoremap <Leader>ma :Make
 		" nnoremap <Leader>ma :make clean<CR>
 					" \:make all<CR>
 		nnoremap <Leader>mc :make clean<CR>
@@ -1205,6 +1212,7 @@ endif
 
 	" Sessions
 		nnoremap <Leader>sS :call <SID>SaveSession()<CR>
+    nnoremap <Leader>sL :call <SID>LoadSession()<CR>
 
 	" Version Control
 		" For all this commands you should be in the svn root folder
@@ -1301,7 +1309,6 @@ endif
       vmap - <plug>NERDCommenterToggle
       imap <C-c> <plug>NERDCommenterInsert
       nmap <Leader>ca <plug>NERDCommenterAppend
-      nmap <Leader>cw <plug>NERDCommenterToEOL
       vmap <Leader>cs <plug>NERDCommenterSexy
 
     "Plugin 'scrooloose/NERDTree'
