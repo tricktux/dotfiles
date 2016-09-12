@@ -39,32 +39,30 @@ unset imap_passive
 
 # How often to check for new mail (time in seconds).
 set mail_check = 120
+
 # To see both reply and recv in one thread
-fcc-hook .* =inbox
+# I dont like this option. Makes sent emails show in gmail app
+# fcc-hook .* =inbox
+
 # Sort to show most recent first
 set sort = reverse-date-received
 
 bind index o display-message
 bind generic gg first-entry		
 #minus sign takes me to the top of the list
-
 bind generic G last-entry		
 #equals sign takes me to the bottom of the list
-
 bind generic L bottom-page		
 #to the bottom,
-
 bind generic M middle-page		
 #       middle, and
-
 bind generic H top-page			
 #       	top of the screen
-
 bind index [ previous-unread		
 #to the previous unread message in the list
-
 bind index ] next-unread		
 #or the next unread message.
+#
 # Gmail-style keyboard shortcuts
 macro index,pager gi "<change-folder>=INBOX<enter>" "Go to inbox"
 macro index,pager ga "<change-folder>=[Gmail]/All Mail<enter>" "Go to all mail"
@@ -85,7 +83,7 @@ set editor="vim -c 'set spell spelllang=es,en'"
 
 # Hopefully will fix emails not going out
 set smtp_url = "smtp://rmolin88@smtp.gmail.com:587/"
-# This will fix asking for pass when sending email
+# imap_pass was move to encrypted file as well
 
 set trash = '+[Gmail]/Trash'
 

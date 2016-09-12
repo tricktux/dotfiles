@@ -1,5 +1,5 @@
 " Improvements:
-" - [ ] insertion and mark complete
+" - [ ] make mail ft grab autocomplete from alias.sh
 " REQ AND LEADER
 	set nocompatible
 	" moving these lines here fixes losing
