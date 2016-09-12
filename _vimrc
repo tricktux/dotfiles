@@ -703,6 +703,10 @@ endif
     endif
   endfunction
 
+  function! s:LastCommand() abort
+    execute "normal :\<Up>\<CR>"
+  endfunction
+
 " PLUGINS_FOR_BOTH_SYSTEMS
 	" Attempt to install vim-plug and all plugins in case of first use
 	if <SID>CheckVimPlug()
@@ -1120,6 +1124,7 @@ endif
     nnoremap <Leader>c<Space> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
     " Force Wings indent settings
     nnoremap <Leader>cw :call <SID>SetupEnvironment("beast")<CR>
+    nnoremap <Leader>cl :call <SID>LastCommand()<CR>
 
 	" Folding
 		" Folding select text then S-f to fold or just S-f to toggle folding
