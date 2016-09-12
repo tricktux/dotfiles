@@ -1,6 +1,6 @@
 set ssl_starttls=yes
 set ssl_force_tls=yes
-set imap_user = 'rmolin88@gmail.com'
+set imap_user = 'rmolin88'
 
 # Get password from encryption
 source "gpg -d ~/.mutt/passwords.gpg |"
@@ -44,11 +44,11 @@ fcc-hook .* =inbox
 # Sort to show most recent first
 set sort = reverse-date-received
 
-bind generic o select-entry
-bind generic - first-entry		
+bind index o display-message
+bind generic gg first-entry		
 #minus sign takes me to the top of the list
 
-bind generic = last-entry		
+bind generic G last-entry		
 #equals sign takes me to the bottom of the list
 
 bind generic L bottom-page		
@@ -86,7 +86,6 @@ set editor="vim -c 'set spell spelllang=es,en'"
 # Hopefully will fix emails not going out
 set smtp_url = "smtp://rmolin88@smtp.gmail.com:587/"
 # This will fix asking for pass when sending email
-set smtp_pass = $imap_pass
 
 set trash = '+[Gmail]/Trash'
 
@@ -94,3 +93,21 @@ set trash = '+[Gmail]/Trash'
 # A lot of good configs in that link
 set edit_headers    = yes                # show headers when composing
 set fast_reply                           # skip to compose when replying
+
+bind pager gr group-reply
+
+bind generic N search-opposite
+
+bind index r sync-mailbox
+
+# Always include previous message when replying
+set include = yes
+
+# Scroll inside emails
+bind pager j next-line 
+bind pager k previous-line 
+
+set menu_scroll
+
+# If an opttion does not work search the manual. It may appear in different
+# types of options. You just need to put it in th correct one.

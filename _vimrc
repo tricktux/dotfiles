@@ -147,8 +147,11 @@ elseif has('unix')
 	\ '')<CR>
 
 	nnoremap <CR> o<ESC>
-	" save file with sudo permissions
+	" Save file with sudo permissions
 	nnoremap <Leader>su :w !sudo tee %<CR>
+
+  " Give execute permissions to current file
+	nnoremap <Leader>cp :!chmod a+x %<CR>
 
   " TODO|
   "    \/
@@ -720,6 +723,7 @@ endif
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-dispatch'
     Plug 'jamessan/vim-gnupg'
+    Plug 'EinfachToll/DidYouMeaN'
     " cpp
     Plug 'Tagbar', { 'on' : 'TagbarToggle' }
     Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
@@ -966,6 +970,8 @@ endif
     autocmd FileType markdown setlocal spell spelllang=en_us
     " allows for autocompl of bullets
     autocmd FileType markdown setlocal formatoptions=croqt
+    " Settings for mail
+    autocmd FileType mail setlocal wrap
 	augroup END
 
 	augroup BuffTypes
@@ -1487,6 +1493,7 @@ endif
       let g:neosnippet#data_directory = s:personal_path . 'neosnippets'
 
     " Vim-Clang
+      " Why I switched to Rip-Rip because it works
       " Steps to get plugin to work:
       " 1. Make sure that you can compile a program with clang++ command
         " a. Example: clang++ -std=c++14 -stdlib=libc++ -pedantic -Wall hello.cpp -v
