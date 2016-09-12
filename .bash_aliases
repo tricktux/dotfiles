@@ -20,7 +20,7 @@ alias mount-copter='sshfs odroid@copter-server:/home/odroid/ /home/reinaldo/copt
 alias version='apt-cache policy'
 alias tmux='tmux -2'
 # Reload rxvt and deamon
-alias urxvt='xrdb ~/.Xresources && urxvtcd'
+alias urxvt='xrdb ~/vimrc/.Xresources && urxvtcd'
 # Search help
 alias help=FuncHelp
 FuncHelp()
