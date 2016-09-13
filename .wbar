@@ -1,35 +1,19 @@
 i: /usr/share/pixmaps/wbar/dock.png
-c: wbar --bpress --above-desk --vbar --pos right --isize 64 --idist 5 --nanim 4 --falfa 65
+c: wbar --bpress --above-desk --pos bottom --isize 64 --idist 5 --nanim 4 --falfa 65
 t: /usr/share/fonts/truetype/liberation/LiberationMono-Regular/12
 
-i: /usr/share/icons/hicolor/128x128/apps/wbar.png
-c: wbar-config
-t: Config
-
-i: /usr/share/icons/nuoveXT2/128x128/apps/firefox.png
-c: iceweasel
+i: /usr/share/icons/hicolor/128x128/apps/google-chrome.png
+c: google-chrome
 t: Web Browser
 
-i: /usr/share/icons/nuoveXT2/128x128/apps/internet-mail.png
-c: claws-mail
-t: E-Mail
+i: /home/reinaldo/Pictures/gvim.png
+c: gvim
+t: gVim
 
-i: /usr/share/icons/nuoveXT2/128x128/apps/gthumb.png
-c: gthumb
-t: Image Viewer
+i: /home/reinaldo/Documents/android-studio/bin/studio.png
+c: studio.sh
+t: Android-Studio
 
-i: /usr/share/icons/nuoveXT2/128x128/devices/media-cdrom-audio.png
-c: audacious
-t: Audacious
-
-i: /usr/share/icons/nuoveXT2/128x128/apps/text-editor.png
-c: leafpad
-t: Leafpad
-
-i: /usr/share/icons/nuoveXT2/128x128/apps/kfm.png
-c: pcmanfm
-t: File Manager
-
-i: /usr/share/icons/nuoveXT2/128x128/apps/terminal.png
-c: urxvt
-t: Terminal
+# Reload wbar by right clicking on it
+# When installed copy /etc/wbar.d/wbar.cfg to the desktop as ~/.wbar and modify
+# that
