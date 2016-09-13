@@ -9,14 +9,13 @@
 # ln -s ~/vimrc/_vimrc init.vim
 cd
 rm -rf neovim
-git clone https://github.com/neovim/neovim.git
+git clone https://github.com/neovim/neovim --depth 1
 cd neovim
 make -j8 CMAKE_BUILD_TYPE=Release CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX:PATH=$HOME/neovim"
-make install
 # Sometimes this doesnt work then you could just
 # cd ~/bin
 # ln -s ~/neovim/bin/nvim
-export PATH="$HOME/neovim/bin:$PATH"
+# export PATH="$HOME/neovim/bin:$PATH"
 
 
 # Uninstallation if used sudo make install
