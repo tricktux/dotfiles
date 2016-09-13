@@ -1,5 +1,5 @@
 " Improvements:
-" - [ ] insertion and mark complete
+" - [ ] make mail ft grab autocomplete from alias.sh
 " REQ AND LEADER
 	set nocompatible
 	" moving these lines here fixes losing
@@ -147,8 +147,11 @@ elseif has('unix')
 	\ '')<CR>
 
 	nnoremap <CR> o<ESC>
-	" save file with sudo permissions
+	" Save file with sudo permissions
 	nnoremap <Leader>su :w !sudo tee %<CR>
+
+  " Give execute permissions to current file
+	nnoremap <Leader>cp :!chmod a+x %<CR>
 
   " TODO|
   "    \/
@@ -700,6 +703,10 @@ endif
     endif
   endfunction
 
+  function! s:LastCommand() abort
+    execute "normal :\<Up>\<CR>"
+  endfunction
+
 " PLUGINS_FOR_BOTH_SYSTEMS
 	" Attempt to install vim-plug and all plugins in case of first use
 	if <SID>CheckVimPlug()
@@ -720,6 +727,7 @@ endif
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-dispatch'
     Plug 'jamessan/vim-gnupg'
+    Plug 'EinfachToll/DidYouMeaN'
     " cpp
     Plug 'Tagbar', { 'on' : 'TagbarToggle' }
     Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
@@ -966,6 +974,8 @@ endif
     autocmd FileType markdown setlocal spell spelllang=en_us
     " allows for autocompl of bullets
     autocmd FileType markdown setlocal formatoptions=croqt
+    " Settings for mail
+    autocmd FileType mail setlocal wrap
 	augroup END
 
 	augroup BuffTypes
@@ -1114,6 +1124,7 @@ endif
     nnoremap <Leader>c<Space> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
     " Force Wings indent settings
     nnoremap <Leader>cw :call <SID>SetupEnvironment("beast")<CR>
+    nnoremap <Leader>cl :call <SID>LastCommand()<CR>
 
 	" Folding
 		" Folding select text then S-f to fold or just S-f to toggle folding
@@ -1487,6 +1498,7 @@ endif
       let g:neosnippet#data_directory = s:personal_path . 'neosnippets'
 
     " Vim-Clang
+      " Why I switched to Rip-Rip because it works
       " Steps to get plugin to work:
       " 1. Make sure that you can compile a program with clang++ command
         " a. Example: clang++ -std=c++14 -stdlib=libc++ -pedantic -Wall hello.cpp -v
