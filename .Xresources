@@ -35,7 +35,8 @@ URxvt.keysym.M-Delete: perl:matcher:list
 ! Color URLs
 URxvt.matcher.rend.0: Uline Bold fg5
 
-! TODO Get hotkey to pull up terminal
+! Get hotkey to pull up terminal
+! Use script focus_or_lunch with command urxvt
 URxvt.cursorColor: red
 
 ! Copied from https://github.com/alexbooker/dotfiles/blob/master/.Xresources
@@ -66,3 +67,6 @@ URxvt.cursorColor: red
 *color15: #C5C8C6
 
 ! TODO plugins
+! Get settings save over restart:
+! ln -s <location to .Xresources> ~/.Xdefaults-reinaldo-machine
+! where reinaldo-machine=$hostname
