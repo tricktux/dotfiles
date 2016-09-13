@@ -1507,13 +1507,14 @@ endif
       " installed. Also I had to make sym link: ln -s libclang.so.1 libclang.so
       if !executable('clang') || !executable('clang-format')
         echomsg string("No clang or clang-format present")
-      endif
-      " TODO: Go copy code from vim-clang that does this
-      nnoremap <c-f> :ClangFormat<CR>
+      else
+        " TODO: Go copy code from vim-clang that does this
+        nnoremap <c-f> :ClangFormat<CR>
 
-      let g:clang_user_options = '-std=c++14 -stdlib=libc++ -Wall -pedantic'
-      " let g:clang_complete_copen = 1
+        let g:clang_user_options = '-std=c++14 -stdlib=libc++ -Wall -pedantic'
+        " let g:clang_complete_copen = 1
       " let g:clang_periodic_quickfix = 1
+      endif
 
     " Vim-Markdown
       " messes up with neocomplete
