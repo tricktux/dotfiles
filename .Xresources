@@ -16,8 +16,8 @@ URxvt.font: xft:monospace:size=10
 ! VERY IMPORTANT: Reload config with xrdb ~/.Xresources
 
 ! Real Transparency. Requires work
-urxvt*depth: 32
-urxvt*background: rgba:0000/0000/0200/c800
+! urxvt*depth: 32
+! urxvt*background: rgba:0000/0000/0200/c800
 
 ! Command to search the help:
 ! rxvt --help 2&>1 | grep scroll
@@ -40,6 +40,7 @@ URxvt.matcher.rend.0: Uline Bold fg5
 URxvt.cursorColor: red
 
 ! Copied from https://github.com/alexbooker/dotfiles/blob/master/.Xresources
+*background: #232C31
 *foreground: #C5C8C6
 ! black
 *color0: #2D3C46
@@ -70,3 +71,5 @@ URxvt.cursorColor: red
 ! Get settings save over restart:
 ! ln -s <location to .Xresources> ~/.Xdefaults-reinaldo-machine
 ! where reinaldo-machine=$hostname
+
+URxvt*fading:  30
