@@ -1,0 +1,12 @@
+# This file belongs in ~/.config/lxsession/Lubuntu/
+google-chrome
+xcompmgr
+
+# rxvt
+sleep 2s
+urxvtd
+urxvtc
+
+# wbar
+sleep 7s &&
+wbar
