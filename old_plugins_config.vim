@@ -655,3 +655,40 @@
 		let g:clang_diagsopt = '' " no syntax check
     let g:clang_format_style ='file'
     nnoremap <c-f> :ClangFormat<CR>
+	" Only works in vimwiki filetypes
+	" Input: empty- It will ask you what type of file you want to search
+	" 		 String- "1", "2", or specify files in which you want to search
+	function! s:GlobalSearch(type) abort
+		try
+			"echomsg string(a:type)  " Debugging purposes
+			if a:type == "0"
+				echo "Search Filetypes:\n\t1.Any\n\t2.Cpp\n\t3.Wiki"
+				let l:file = nr2char(getchar())
+			else
+				let l:file = a:type
+			endif
+			if !executable('ag') " use ag if possible
+				if l:file == 1
+					let l:file = "**/*"
+				elseif l:file == 2
+					let l:file = "**/*.cpp **/*.h **/*.c **/*.hpp **/*.cc"
+				elseif l:file == 3
+					let l:file = "**/*.wiki"
+				endif
+				execute "vimgrep /" . input("Search in \"" . getcwd() . "\" for:") . "/ " . l:file
+			else
+				if l:file == 1
+					let l:file = ""
+				elseif l:file == 2
+					let l:file = "--cpp"
+				endif " relays on set grepprg=ag
+				execute "silent grep! " . l:file . " " . input("Search in \"" . getcwd() . "\" for:")
+			endif
+			copen 20
+		catch
+			echohl ErrorMsg
+			redraw " prevents the msg from misteriously dissapearing
+			echomsg "GlobalSearch(): " . matchstr(v:exception, ':\zs.*')
+			echohl None
+		endtry
+	endfunction
