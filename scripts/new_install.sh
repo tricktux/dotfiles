@@ -52,7 +52,8 @@ gtkterm xcompmgr xscreensaver xscreensaver-data-extra \
 xscreensaver-gl android-tools-adb android-tools-fastboot \
 git gparted preload nmap arandr \
 tilda xdotool locate \
-vim-gtk ncurses-dev curl cscope clang clang-format exuberant-ctags\
+vim-gtk ncurses-dev curl cscope clang clang-format exuberant-ctags \
+silversearcher-ag sshfs \
 pulseaudio
 # pulseaudio for issues with audio
 # not in this list wine1.7 winetricks guake libreOffice
