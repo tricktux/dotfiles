@@ -1,5 +1,6 @@
 " Improvements:
 " - [ ] insertion and mark complete
+" - [ ] Markdown tables
 " REQ AND LEADER
 	set nocompatible
 	" moving these lines here fixes losing
@@ -176,44 +177,6 @@ elseif has('unix')
 endif
 
 " FUNCTIONS
-	" Only works in vimwiki filetypes
-	" Input: empty- It will ask you what type of file you want to search
-	" 		 String- "1", "2", or specify files in which you want to search
-	function! s:GlobalSearch(type) abort
-		try
-			"echomsg string(a:type)  " Debugging purposes
-			if a:type == "0"
-				echo "Search Filetypes:\n\t1.Any\n\t2.Cpp\n\t3.Wiki"
-				let l:file = nr2char(getchar())
-			else
-				let l:file = a:type
-			endif
-			if !executable('ag') " use ag if possible
-				if l:file == 1
-					let l:file = "**/*"
-				elseif l:file == 2
-					let l:file = "**/*.cpp **/*.h **/*.c **/*.hpp **/*.cc"
-				elseif l:file == 3
-					let l:file = "**/*.wiki"
-				endif
-				execute "vimgrep /" . input("Search in \"" . getcwd() . "\" for:") . "/ " . l:file
-			else
-				if l:file == 1
-					let l:file = ""
-				elseif l:file == 2
-					let l:file = "--cpp"
-				endif " relays on set grepprg=ag
-				execute "grep " . l:file . " " . input("Search in \"" . getcwd() . "\" for:")
-			endif
-			copen 20
-		catch
-			echohl ErrorMsg
-			redraw " prevents the msg from misteriously dissapearing
-			echomsg "GlobalSearch(): " . matchstr(v:exception, ':\zs.*')
-			echohl None
-		endtry
-	endfunction
-
 	" Commits current buffer
 	function! s:GitCommit() abort
 		if <SID>CheckFileOrDir(1, ".git") > 0
@@ -487,6 +450,9 @@ endif
       endif
       if match(l:path,'Source') > 0
         compiler bcc
+      elseif match(l:path,'sandbox') > 0
+        set makeprg=mingw32-make
+        set errorformat&
       else
         compiler msbuild
         " Some helpful compiler swithces /t:Rebuild
@@ -727,7 +693,16 @@ endif
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-dispatch'
     Plug 'jamessan/vim-gnupg'
-    Plug 'EinfachToll/DidYouMeaN'
+    " Search
+    if has('unix') " Potential alternative to ctrlp
+      Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    endif
+    if executable('ag')
+      let s:ack = 1
+      Plug 'mileszs/ack.vim'
+    else
+      let s:ack = 0
+    endif
     " cpp
     Plug 'Tagbar', { 'on' : 'TagbarToggle' }
     Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
@@ -918,13 +893,6 @@ endif
 	" no mouse enabled
 	set mouse=""
 	" significantly improves ctrlp speed. requires installation of ag
-	if executable('ag')
-		set grepprg=ag\ --nogroup\ --nocolor
-    let g:ctrlp_user_command = 'ag -Q -l --nocolor --hidden -g "" %s'
-	else
-		echomsg string("You should install silversearcher-ag. Makes ctrlp much faster")
-		set grepprg&
-	endif
 	set laststatus=2
 	set formatoptions=croqt " this is textwidth actually breaks the lines
 	set textwidth=80
@@ -1169,10 +1137,6 @@ endif
 		noremap <Leader>sr :spellr<CR>
 
 	" Search
-		" search all type of files
-		nnoremap <Leader>Sa :call <SID>GlobalSearch(1)<CR>
-		" search cpp files
-		nnoremap <Leader>Sc :call <SID>GlobalSearch(2)<CR>
     nnoremap <Leader>w /\<<c-r>=expand("<cword>")<cr>\>
 		nnoremap <Leader>W :%s/\<<c-r>=expand("<cword>")<cr>\>/
 		" This is a very good to show and search all current but a much better is
@@ -1188,7 +1152,6 @@ endif
 
 	" Tab Stuff
 		noremap <S-j> :b#<CR>
-		noremap <Leader>bo :CtrlPBuffer<CR>
 		noremap <Leader>bd :bp\|bd #<CR>
 		" deletes all buffers
 		noremap <Leader>bD :%bd<CR>
@@ -1286,7 +1249,7 @@ endif
 " PLUGIN_OPTIONS/MAPPINGS
   " Only load plugin options in case they were loaded
   if b:bLoadPlugins == 1
-    "Plugin 'VundleVim/Vundle.vim'
+    "Vim-Plug
       noremap <Leader>Pl :PlugList<CR>
       " lists configured plugins
       noremap <Leader>Pi :PlugInstall<CR>
@@ -1355,15 +1318,38 @@ endif
       " noremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
       noremap <Leader>ts :cs show<CR>
 
+    " Plugin ack
+      " only active if ag present
+      if s:ack == 1
+        " TODO if no ack still search with grep or vimgrep. but without the
+        " plugin
+        " Bring back SearchGlobal function. Just change the command for Ack!
+        " when ack is present and leave as is when is not. Option to do this
+        " is to add another variable to the function. i.e: pass in ack so that
+        " you know which version type to run
+        let g:ackprg = "ag --vimgrep"
+        let g:ackhighlight = 1
+        let g:ack_use_dispatch = 1
+        let g:ack_autofold_results = 1
+        " search all type of files
+        " nnoremap <Leader>Sa :call <SID>GlobalSearch(1)<CR>
+        " " " search cpp files
+        " nnoremap <Leader>Sc :call <SID>GlobalSearch(2)<CR>
+
+        " ctrlp with ag
+        set grepprg=ag\ --nogroup\ --nocolor\ --smart-case
+        let g:ctrlp_user_command = 'ag -Q -l --smart-case --nocolor --hidden -g "" %s'
+      else
+        echomsg string("You should install silversearcher-ag.
+              \ \nNow no file search aka ack, plus slow ctrlp")
+      endif
+
     " Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh
-      nnoremap <Leader>aO :CtrlP<CR>
       nnoremap <S-k> :CtrlPBuffer<CR>
-      nnoremap <C-v> :vs<CR>:CtrlPBuffer<CR>
-      nnoremap <Leader>ao :CtrlPMixed<CR>
-      nnoremap <Leader>at :tabnew<CR>:CtrlPMRU<CR>
-      nnoremap <Leader>av :vs<CR>:CtrlPMRU<CR>
-      nnoremap <Leader>as :sp<CR>:CtrlPMRU<CR>
-      nnoremap <Leader>al :CtrlPClearCache<CR>
+      let g:ctrlp_cmd = 'CtrlPMixed'
+      " submit ? in CtrlP for more mapping help.
+      let g:ctrlp_lazy_update = 1
+      let g:ctrlp_show_hidden = 1
       let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
       let g:ctrlp_cache_dir = s:personal_path . 'ctrlp'
       let g:ctrlp_working_path_mode = 'wra'
@@ -1529,6 +1515,8 @@ endif
     " GnuPG
       " This plugin doesnt work with gvim. Use only from cli
       let g:GPGUseAgent = 0
+
+
   endif
 
 " see :h modeline
