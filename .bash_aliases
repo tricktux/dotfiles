@@ -11,9 +11,9 @@ alias gps='git push origin master'
 alias gpl='git pull origin master'
 
 # Mounting remote servers
-alias mount-truck='sshfs odroid@truck-server:/ /home/reinaldo/.mnt/truck-server/'
-alias mount-copter='sshfs odroid@copter-server:/ /home/reinaldo/.mnt/copter-server/'
-alias mount-hq='sshfs reinaldo@HQ:/ /home/reinaldo/.mnt/HQ-server/'
+alias mount-truck='sshfs odroid@truck-server:/home/odroid/ /home/reinaldo/.mnt/truck-server/'
+alias mount-copter='sshfs odroid@copter-server:/home/odroid/ /home/reinaldo/.mnt/copter-server/'
+alias mount-hq='sshfs reinaldo@HQ:/home/reinaldo/ /home/reinaldo/.mnt/HQ-server/'
 
 # Misc
 # After policy use package name. It will tell you what version of the package

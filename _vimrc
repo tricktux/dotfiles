@@ -15,9 +15,10 @@
 " WINDOWS_SETTINGS
 if has('win32')
 	" Path variables
-	let s:personal_path= $HOME . '\vimfiles\personal\'
+	let s:cache_path= $HOME . '\.cache\'
 	let s:plugged_path=  $HOME . '\vimfiles\plugged\'
 	let s:vimfile_path=  $HOME . '\vimfiles\'
+	let s:wiki_path =  $HOME . '\Documents\1.WINGS\wiki'
 	let s:custom_font =  'consolas:h8'
 	" always start in the home dir
 
@@ -103,16 +104,17 @@ if has('win32')
 elseif has('unix')
 	" Path variables
 	if has('nvim')
-		let s:personal_path= $HOME . '/.config/nvim/personal/'
+		let s:cache_path= $HOME . '/.cache/'
 		let s:plugged_path=  $HOME . '/.config/nvim/plugged/'
 		let s:vimfile_path=  $HOME . '/.config/nvim/'
 	else
-		let s:personal_path= $HOME . '/.vim/personal/'
+		let s:cache_path= $HOME . '/.cache/'
 		let s:plugged_path=  $HOME . '/.vim/plugged/'
 		let s:vimfile_path=  $HOME . '/.vim/'
 	endif
+  let s:wiki_path=  $HOME . '/Documents/seafile-client/Seafile/MyServer/wiki'
 
-	let s:custom_font = 'Andale Mono 8'
+	let s:custom_font = 'Andale Mono 10'
 
 	" this one below DOES WORK in linux just make sure is ran at root folder
 	noremap <Leader>tu :cs kill -1<CR>
@@ -131,9 +133,16 @@ elseif has('unix')
 	" edit android
 	nnoremap <Leader>ea :silent e ~/Documents/android-projects/
 	" edit odroid
-	nnoremap <Leader>eo :silent e ~/truck-server/Documents/NewBot_v3/
+	nnoremap <Leader>eo :silent e ~/.mnt/truck-server/Documents/NewBot_v3/
 	" edit bot
 	nnoremap <Leader>eb :silent e ~/Documents/NewBot_v3/
+	" Edit HQ
+	nnoremap <Leader>eh :silent e ~/.mnt/HQ-server/
+  " Edit Copter
+  nnoremap <Leader>ec :silent e ~/.mnt/copter-server/
+  " Edit Truck
+  nnoremap <Leader>et :silent e ~/.mnt/truck-server/
+
 
 	nnoremap <Leader><Space>= :silent! let &guifont = substitute(
 	\ &guifont,
@@ -168,11 +177,14 @@ elseif has('unix')
       set path+=/usr/local/include
       set path+=/usr/include
 
+      set tags+=~/.vim/ctags/tags_sys
+      set tags+=~/.vim/ctags/tags_sys2
+
     " Vim-clang
       let g:clang_library_path='/usr/lib/llvm-3.8/lib'
 
 		" Syntastic
-			let g:syntastic_c_config_file = s:personal_path . '.syntastic_avrgcc_config'
+			let g:syntastic_c_config_file = s:cache_path . '.syntastic_avrgcc_config'
 endif
 
 " FUNCTIONS
@@ -183,7 +195,7 @@ endif
 		try
 			"echomsg string(a:type)  " Debugging purposes
 			if a:type == "0"
-				echo "Search Filetypes:\n\t1.Any\n\t2.Cpp\n\t3.Wiki"
+				echo "Search Filetypes:\n\t1.Any\n\t2.Cpp"
 				let l:file = nr2char(getchar())
 			else
 				let l:file = a:type
@@ -193,8 +205,9 @@ endif
 					let l:file = "**/*"
 				elseif l:file == 2
 					let l:file = "**/*.cpp **/*.h **/*.c **/*.hpp **/*.cc"
-				elseif l:file == 3
-					let l:file = "**/*.wiki"
+				" reserve for future use of other languages
+				" elseif l:file == 3
+					" let l:file = "**/*.wiki"
 				endif
 				execute "vimgrep /" . input("Search in \"" . getcwd() . "\" for:") . "/ " . l:file
 			else
@@ -517,20 +530,20 @@ endif
     " if session name is not provided as function argument ask for it
     if a:0 < 1
       execute "wall"
-      execute "cd ". s:personal_path ."sessions/"
+      execute "cd ". s:cache_path ."sessions/"
       let l:sSessionName = input("Enter
             \ save session name:", "", "file")
     else
       " Need to keep this option short and sweet
       let l:sSessionName = a:1
     endif
-    execute "normal :mksession! " . s:personal_path . "sessions/". l:sSessionName  . "\<CR>"
+    execute "normal :mksession! " . s:cache_path . "sessions/". l:sSessionName  . "\<CR>"
     execute "cd -"
   endfunction
 
   function! s:LoadSession(...) abort
     " save all work
-    execute "cd ". s:personal_path ."sessions/"
+    execute "cd ". s:cache_path ."sessions/"
     " Logic path when not called at startup
     if a:0 < 1
       execute "wall"
@@ -556,7 +569,7 @@ endif
       endif
     endif
     execute "normal :%bdelete\<CR>"
-    silent execute "normal :so " . s:personal_path . "sessions/". l:sSessionName . "\<CR>"
+    silent execute "normal :so " . s:cache_path . "sessions/". l:sSessionName . "\<CR>"
     execute "cd -"
   endfunction
 
@@ -573,7 +586,7 @@ endif
   endfunction
 
   function! s:OpenWiki(sWikiName) abort
-    execute "e " . s:personal_path . "wiki/" . a:sWikiName
+    execute "e " . s:wiki_path . a:sWikiName
   endfunction
 
   function! s:CommentDelete() abort
@@ -599,15 +612,15 @@ endif
 
   " To update ctags simply delete the ctags folder
   " Note: There is also avr tags created by vimrc/scripts/maketags.sh
-  " let &tags= s:personal_path . 'ctags/tags'
+  " let &tags= s:cache_path . 'ctags/tags'
   function! s:AutoCreateCtags() abort
-    if empty(finddir(s:personal_path . "ctags",",,"))
+    if empty(finddir(s:cache_path . "ctags",",,"))
       " Go ahead and create the ctags
       if !executable('ctags')
         echomsg string("Please install ctags")
       else
         " Create folder
-        if !<SID>CheckDirwoPrompt(s:personal_path . "ctags")
+        if !<SID>CheckDirwoPrompt(s:cache_path . "ctags")
           echoerr string("Failed to create ctags dir")
         endif
         " Create ctags
@@ -645,14 +658,14 @@ endif
 
   " Finish all this crap
   function! s:AutoCreateUnixCtags() abort
-    if empty(finddir(s:personal_path . "ctags",",,"))
+    if empty(finddir(s:cache_path . "ctags",",,"))
       " Go ahead and create the ctags
       if !executable('ctags')
         echomsg string("Please install ctags")
         return 0
       else
         " Create folder
-        if !<SID>CheckDirwoPrompt(s:personal_path . "ctags")
+        if !<SID>CheckDirwoPrompt(s:cache_path . "ctags")
           echoerr string("Failed to create ctags dir")
           return 0
         endif
@@ -792,27 +805,25 @@ endif
 
 " Create personal folders
   " TMP folder
-	if <SID>CheckDirwoPrompt(s:personal_path . "tmp")
-		let $TMP= s:personal_path . "tmp"
+	if <SID>CheckDirwoPrompt(s:cache_path . "tmp")
+		let $TMP= s:cache_path . "tmp"
 	else
 		echomsg string("Failed to create tmp dir")
 	endif
 
-  if !<SID>CheckDirwoPrompt(s:personal_path . "sessions")
+  if !<SID>CheckDirwoPrompt(s:cache_path . "sessions")
     echoerr string("Failed to create sessions dir")
   endif
 
-  if !<SID>CheckDirwoPrompt(s:personal_path . "wiki")
-    echoerr string("Failed to create wiki dir")
-  endif
+  " We assume wiki folder is there. No creation of this wiki folder
 
-  if !<SID>CheckDirwoPrompt(s:personal_path . "java_cache")
-    echoerr string("Failed to create java_cache dir")
+  if !<SID>CheckDirwoPrompt(s:cache_path . "java")
+    echoerr string("Failed to create java dir")
   endif
 
   if has('persistent_undo')
-    if <SID>CheckDirwoPrompt(s:personal_path . '/undofiles')
-      let &undodir= s:personal_path . '/undofiles'
+    if <SID>CheckDirwoPrompt(s:cache_path . '/undofiles')
+      let &undodir= s:cache_path . '/undofiles'
       set undofile
       set undolevels=1000      " use many muchos levels of undo
     endif
@@ -1297,7 +1308,6 @@ endif
       " searches for foo; append `!` to refresh local cache
       noremap <Leader>Pc :PlugClean<CR>
       " confirms removal of unused plugins; append `!` to auto-approve removal
-      " see :h vundle for more details or wiki for FAQ
 
     "Plugin 'scrooloose/nerdcommenter'"
       let NERDUsePlaceHolders=0 " avoid commenter doing weird stuff
@@ -1365,7 +1375,7 @@ endif
       nnoremap <Leader>as :sp<CR>:CtrlPMRU<CR>
       nnoremap <Leader>al :CtrlPClearCache<CR>
       let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
-      let g:ctrlp_cache_dir = s:personal_path . 'ctrlp'
+      let g:ctrlp_cache_dir = s:cache_path . 'ctrlp'
       let g:ctrlp_working_path_mode = 'wra'
       let g:ctrlp_max_history = &history
       let g:ctrlp_clear_cache_on_exit = 0
@@ -1420,7 +1430,7 @@ endif
 
           let g:neocomplete#enable_at_startup = 1
           let g:neocomplete#enable_smart_case = 1
-          let g:neocomplete#data_directory = s:personal_path . 'neocomplete'
+          let g:neocomplete#data_directory = s:cache_path . 'neocomplete'
           " Define keyword.
           if !exists('g:neocomplete#keyword_patterns')
             let g:neocomplete#keyword_patterns = {}
@@ -1495,7 +1505,7 @@ endif
       \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
       " Tell Neosnippet about the other snippets
       let g:neosnippet#snippets_directory= s:plugged_path . '/vim-snippets/snippets'
-      let g:neosnippet#data_directory = s:personal_path . 'neosnippets'
+      let g:neosnippet#data_directory = s:cache_path . 'neosnippets'
 
     " Vim-Clang
       " Why I switched to Rip-Rip because it works
@@ -1525,7 +1535,7 @@ endif
       let g:colorizer_auto_filetype='css,html,xml'
 
     " JavaComplete
-      let g:JavaComplete_BaseDir = s:personal_path . 'java_cache'
+      let g:JavaComplete_BaseDir = s:cache_path . 'java'
 
     " GnuPG
       " This plugin doesnt work with gvim. Use only from cli
