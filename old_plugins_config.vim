@@ -692,3 +692,17 @@
 			echohl None
 		endtry
 	endfunction
+    " Plugin ack
+      " only active if ag present
+      if s:ack == 1
+        " TODO if no ack still search with grep or vimgrep. but without the
+        " plugin
+        " Bring back SearchGlobal function. Just change the command for Ack!
+        " when ack is present and leave as is when is not. Option to do this
+        " is to add another variable to the function. i.e: pass in ack so that
+        " you know which version type to run
+        let g:ackprg = "ag --vimgrep"
+        let g:ackhighlight = 1
+        " let g:ack_use_dispatch = 1
+        let g:ack_autofold_results = 1
+

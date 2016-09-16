@@ -163,6 +163,10 @@ elseif has('unix')
   " Give execute permissions to current file
 	nnoremap <Leader>cp :!chmod a+x %<CR>
 
+  augroup UnixMD
+    autocmd!
+    autocmd FileType markdown nnoremap <buffer> <Leader>mr :!google-chrome %<CR>
+  augroup END
   " TODO|
   "    \/
   " call <SID>AutoCreateUnixCtags()
@@ -748,12 +752,6 @@ endif
     if has('unix') " Potential alternative to ctrlp
       Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     endif
-    if executable('ag')
-      let s:ack = 1
-      Plug 'mileszs/ack.vim'
-    else
-      let s:ack = 0
-    endif
     " cpp
     Plug 'Tagbar', { 'on' : 'TagbarToggle' }
     Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
@@ -990,7 +988,7 @@ endif
     " Open markdown files with Chrome.
     autocmd FileType markdown setlocal spell spelllang=en_us
     " allows for autocompl of bullets
-    autocmd FileType markdown setlocal formatoptions=croqt
+    " autocmd FileType markdown setlocal formatoptions=croqt
     " Settings for mail
     autocmd FileType mail setlocal wrap
 	augroup END
@@ -1142,6 +1140,7 @@ endif
     " Force Wings indent settings
     nnoremap <Leader>cw :call <SID>SetupEnvironment("beast")<CR>
     nnoremap <Leader>cl :call <SID>LastCommand()<CR>
+    nnoremap <Leader>gf :e <cfile><CR>
 
 	" Folding
 		" Folding select text then S-f to fold or just S-f to toggle folding
@@ -1186,6 +1185,11 @@ endif
 		noremap <Leader>sr :spellr<CR>
 
 	" Search
+    " Tried ack.vim. Discovered that nothing is better than grep with ag.
+    " search all type of files
+    nnoremap <Leader>Sa :call <SID>GlobalSearch(1)<CR>
+    " " " search cpp files
+    nnoremap <Leader>Sc :call <SID>GlobalSearch(2)<CR>
     nnoremap <Leader>w /\<<c-r>=expand("<cword>")<cr>\>
 		nnoremap <Leader>W :%s/\<<c-r>=expand("<cword>")<cr>\>/
 		" This is a very good to show and search all current but a much better is
@@ -1366,24 +1370,8 @@ endif
       " noremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
       noremap <Leader>ts :cs show<CR>
 
-    " Plugin ack
-      " only active if ag present
-      if s:ack == 1
-        " TODO if no ack still search with grep or vimgrep. but without the
-        " plugin
-        " Bring back SearchGlobal function. Just change the command for Ack!
-        " when ack is present and leave as is when is not. Option to do this
-        " is to add another variable to the function. i.e: pass in ack so that
-        " you know which version type to run
-        let g:ackprg = "ag --vimgrep"
-        let g:ackhighlight = 1
-        let g:ack_use_dispatch = 1
-        let g:ack_autofold_results = 1
-        " search all type of files
-        " nnoremap <Leader>Sa :call <SID>GlobalSearch(1)<CR>
-        " " " search cpp files
-        " nnoremap <Leader>Sc :call <SID>GlobalSearch(2)<CR>
-
+    " Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh
+      if !executable('ag')
         " ctrlp with ag
         set grepprg=ag\ --nogroup\ --nocolor\ --smart-case
         let g:ctrlp_user_command = 'ag -Q -l --smart-case --nocolor --hidden -g "" %s'
@@ -1391,8 +1379,6 @@ endif
         echomsg string("You should install silversearcher-ag.
               \ \nNow no file search aka ack, plus slow ctrlp")
       endif
-
-    " Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh
       nnoremap <S-k> :CtrlPBuffer<CR>
       let g:ctrlp_cmd = 'CtrlPMixed'
       " submit ? in CtrlP for more mapping help.
@@ -1552,7 +1538,7 @@ endif
 
     " Vim-Markdown
       " messes up with neocomplete
-      let g:vim_markdown_folding_disabled = 1
+      let g:vim_markdown_folding_disabled = 0
       let g:vim_markdown_conceal = 0
 
     " Colorizer
@@ -1564,8 +1550,6 @@ endif
     " GnuPG
       " This plugin doesnt work with gvim. Use only from cli
       let g:GPGUseAgent = 0
-
-
   endif
 
 " see :h modeline
