@@ -13,7 +13,7 @@ cd
 sudo rm -rf vim
 git clone https://github.com/vim/vim.git --depth 1
 # USE JUST THIS PORTION WHEN CONFIGURE FAILS
-cd ~/vim
+cd ~/vim/src
 make distclean
 ./configure --with-features=huge \
             --enable-multibyte \
@@ -21,15 +21,16 @@ make distclean
             --enable-largefile \
             --disable-netbeans \
             --enable-pythoninterp \
-            --with-python-config-dir=/usr/lib/python2.7/config \
             --enable-python3interp \
-            --with-python3-config-dir=/usr/lib/python3.5/config \
             --enable-perlinterp \
             --enable-gui=auto \
             --enable-fail-if-missing \
             --enable-luainterp \
+            --enable-cscope
+
+            # --with-python3-config-dir=/usr/lib/python3.5/config \
+            # --with-python-config-dir=/usr/lib/python2.7/config \
             # --with-lua-prefix=/usr/include/lua5.2 \
-            --prefix=/usr
 # USE JUST THIS PORTION WHEN CONFIGURE FAILS
 cd ~/vim/src &&
 make -j8 &&

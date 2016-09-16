@@ -112,7 +112,7 @@ elseif has('unix')
 		let s:plugged_path=  $HOME . '/.vim/plugged/'
 		let s:vimfile_path=  $HOME . '/.vim/'
 	endif
-  let s:wiki_path=  $HOME . '/Documents/seafile-client/Seafile/MyServer/wiki'
+  let s:wiki_path=  $HOME . '/Documents/seafile-client/Seafile/KnowledgeIsPower/wiki'
 
 	let s:custom_font = 'Andale Mono 10'
 
@@ -586,7 +586,7 @@ endif
   endfunction
 
   function! s:OpenWiki(sWikiName) abort
-    execute "e " . s:wiki_path . a:sWikiName
+    execute "e " . s:wiki_path . '/'.  a:sWikiName
   endfunction
 
   function! s:CommentDelete() abort
@@ -1095,8 +1095,8 @@ endif
 		nnoremap <S-t> %
 		vnoremap <S-t> %
 		" Automatically insert date
-		nnoremap <F5> a///////////////<Esc>"=strftime("%c")<CR>Pa///////////////<Esc>
-		inoremap <F5> ///////////////<Esc>"=strftime("%c")<CR>Pa///////////////
+		nnoremap <F5> "=strftime("%c")<CR>P
+		inoremap <F5> <ESC>"=strftime("%c")<CR>Pa
 
 		" cd into current dir path and into dir above current path
 		nnoremap <Leader>e1 :e ~/vimrc/
