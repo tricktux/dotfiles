@@ -19,7 +19,7 @@ if has('win32')
 	let s:cache_path= $HOME . '\.cache\'
 	let s:plugged_path=  $HOME . '\vimfiles\plugged\'
 	let s:vimfile_path=  $HOME . '\vimfiles\'
-	let s:wiki_path =  $HOME . '\Documents\1.WINGS\wiki'
+	let s:wiki_path =  $HOME . '\Documents\wiki'
 	let s:custom_font =  'consolas:h8'
 	" always start in the home dir
 
@@ -125,7 +125,7 @@ elseif has('unix')
 	\:cs add cscope.out<CR>
 	\:silent !ctags -R -L cscope.files<CR>
 
-	noremap <Leader>mr :!./%<CR>
+	noremap <Leader>mr :silent !./%<CR>
 	noremap <Leader><Space>v "+p
 	noremap <Leader><Space>y "+yy
 
@@ -1538,6 +1538,7 @@ endif
     " Vim-Markdown
       " messes up with neocomplete
       let g:vim_markdown_folding_disabled = 0
+      let g:vim_markdown_folding_level = 6
       let g:vim_markdown_conceal = 0
 
     " Colorizer
