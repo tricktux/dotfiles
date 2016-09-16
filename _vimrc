@@ -1371,13 +1371,12 @@ endif
       noremap <Leader>ts :cs show<CR>
 
     " Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh
-      if !executable('ag')
+      if executable('ag')
         " ctrlp with ag
         set grepprg=ag\ --nogroup\ --nocolor\ --smart-case
         let g:ctrlp_user_command = 'ag -Q -l --smart-case --nocolor --hidden -g "" %s'
       else
-        echomsg string("You should install silversearcher-ag.
-              \ \nNow no file search aka ack, plus slow ctrlp")
+        echomsg string("You should install silversearcher-ag. Now you have a slow ctrlp")
       endif
       nnoremap <S-k> :CtrlPBuffer<CR>
       let g:ctrlp_cmd = 'CtrlPMixed'
