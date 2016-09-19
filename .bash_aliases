@@ -27,4 +27,3 @@ FuncHelp()
 {
   $1 --help 2>&1 | grep $2 
 }
-
