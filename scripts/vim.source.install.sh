@@ -70,3 +70,9 @@ sudo make install
 # sudo rm /usr/local/man/man1/vimdiff.1
 # sudo rm /usr/local/man/man1/vimtutor.1
 # sudo rm /usr/local/man/man1/xxd.1
+# 
+# Make vim default
+sudo update-alternatives --install /usr/bin/editor editor /usr/local/bin/vim 1
+sudo update-alternatives --set editor /usr/local/bin/vim
+sudo update-alternatives --install /usr/bin/vi vi /usr/local/bin/vim 1
+sudo update-alternatives --set vi /usr/local/bin/vim
