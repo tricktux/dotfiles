@@ -129,8 +129,6 @@ elseif has('unix')
 	noremap <Leader><Space>v "+p
 	noremap <Leader><Space>y "+yy
 
-  " edit local
-	nnoremap <Leader>el :silent e ~/
 	" edit android
 	nnoremap <Leader>ea :silent e ~/Documents/android-projects/
 	" edit odroid
@@ -748,9 +746,13 @@ endif
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-dispatch'
     Plug 'jamessan/vim-gnupg'
+    Plug 'wsdjeg/vim-cheat'
     " Search
     if has('unix') " Potential alternative to ctrlp
       Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+      Plug 'artur-shaik/simplecheats', { 'dir': '~/.cheat', 'do': './install.sh' }
+    else
+      Plug 'artur-shaik/simplecheats', { 'dir': '~/.cheat' }
     endif
     " cpp
     Plug 'Tagbar', { 'on' : 'TagbarToggle' }
@@ -762,7 +764,7 @@ endif
     " cpp/java
     Plug 'sentientmachine/erics_vim_syntax_and_color_highlighting', { 'for' : 'java' }
     Plug 'mattn/vim-javafmt', { 'for' : 'java' }
-    Plug 'artur-shaik/vim-javacomplete2', { 'for' : 'java' }
+    " Plug 'artur-shaik/vim-javacomplete2', { 'for' : 'java' }
     " Autocomplete
     Plug 'Shougo/neosnippet'
     Plug 'Shougo/neosnippet-snippets'
@@ -991,6 +993,8 @@ endif
     " autocmd FileType markdown setlocal formatoptions=croqt
     " Settings for mail
     autocmd FileType mail setlocal wrap
+    " ini
+    autocmd FileType dosini setlocal comments+=://
 	augroup END
 
 	augroup BuffTypes
@@ -1102,6 +1106,8 @@ endif
 		nnoremap <F5> "=strftime("%c")<CR>P
 		inoremap <F5> <ESC>"=strftime("%c")<CR>Pa
 
+    " edit local
+    nnoremap <Leader>el :silent e ~/
 		" cd into current dir path and into dir above current path
 		nnoremap <Leader>e1 :e ~/vimrc/
 		" nnoremap <Leader>e :e  " timeout enabled dependant
@@ -1109,6 +1115,8 @@ endif
 					\:pwd<CR>
 		nnoremap <Leader>cu :cd ..<CR>
 					\:pwd<CR>
+		" cd into dir. press <Tab> after ci to see folders
+    nnoremap <Leader>ci :cd 
 		nnoremap <Leader>cc :pwd<CR>
 		nnoremap <Leader>ch :cd ~<CR>
 					\pwd<CR>
@@ -1280,8 +1288,9 @@ endif
 
   " Comments
     nnoremap <Leader>cD :call <SID>CommentDelete()<CR>
-    nnoremap <Leader>ci :call <SID>CommentIndent()<CR>
-    nnoremap <Leader>cI :call <SID>CommentReduceIndent()<CR>
+    " Comment Indent Increase/Reduce
+    nnoremap <Leader>cIi :call <SID>CommentIndent()<CR>
+    nnoremap <Leader>cIr :call <SID>CommentReduceIndent()<CR>
     nnoremap cl :call <SID>CommentLine()<CR>
 
 " STATUS_LINE
@@ -1469,6 +1478,7 @@ endif
           \ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
           let g:neocomplete#sources#omni#input_patterns.perl =
           \ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+          let g:neocomplete#sources#omni#input_patterns.java = '\h\w*\.\w*'
 
           if !exists('g:neocomplete#force_omni_input_patterns')
             let g:neocomplete#force_omni_input_patterns = {}
@@ -1481,14 +1491,12 @@ endif
                 \ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
           let g:neocomplete#force_omni_input_patterns.objcpp =
                 \ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
-
           " all new stuff
           if !exists('g:neocomplete#delimiter_patterns')
             let g:neocomplete#delimiter_patterns= {}
           endif
           let g:neocomplete#delimiter_patterns.vim = ['#']
           let g:neocomplete#delimiter_patterns.cpp = ['::']
-
         else
           echoerr "No lua installed so falling back to having only clang autocomplete"
           let g:clang_auto = 1
@@ -1549,6 +1557,11 @@ endif
     " GnuPG
       " This plugin doesnt work with gvim. Use only from cli
       let g:GPGUseAgent = 0
+
+    " Vim-cheat
+      let g:cheats_dir = $HOME . '/.cheat/.cheat/'
+      let g:Cheat_EnableDefaultMappings = 0
+      nnoremap <Leader>C :call Cheat()<CR>
   endif
 
 " see :h modeline
