@@ -762,7 +762,7 @@ endif
     " cpp/java
     Plug 'sentientmachine/erics_vim_syntax_and_color_highlighting', { 'for' : 'java' }
     Plug 'mattn/vim-javafmt', { 'for' : 'java' }
-    Plug 'artur-shaik/vim-javacomplete2', { 'for' : 'java' }
+    Plug 'tfnico/vim-gradle', { 'for' : 'java' }
     " Autocomplete
     Plug 'Shougo/neosnippet'
     Plug 'Shougo/neosnippet-snippets'
@@ -1100,7 +1100,7 @@ endif
 		vnoremap <S-t> %
 		" Automatically insert date
 		nnoremap <F5> "=strftime("%c")<CR>P
-		inoremap <F5> <ESC>"=strftime("%c")<CR>Pa
+		inoremap <F5> <Space><ESC>"=strftime("%c")<CR>Pa
 
 		" cd into current dir path and into dir above current path
 		nnoremap <Leader>e1 :e ~/vimrc/
