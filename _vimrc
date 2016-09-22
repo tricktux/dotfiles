@@ -1107,8 +1107,7 @@ endif
 		" nnoremap <Leader>e :e  " timeout enabled dependant
 		nnoremap <Leader>cd :cd %:p:h<CR>
 					\:pwd<CR>
-		nnoremap <Leader>cu :cd %:p:h<CR>
-					\:cd ..<CR>
+		nnoremap <Leader>cu :cd ..<CR>
 					\:pwd<CR>
 		nnoremap <Leader>cc :pwd<CR>
 		nnoremap <Leader>ch :cd ~<CR>
