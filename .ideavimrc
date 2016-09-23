@@ -1,4 +1,4 @@
-let mapleader="<Space>"
+let mapleader=" "
 
 inoremap <c-j> <ESC>
 cnoremap <c-j> <ESC>
@@ -11,12 +11,12 @@ nnoremap <s-q> yyp
 
 nnoremap <s-t> %
 
-nnoremap <Space><Space>v "*p
+nnoremap <Leader><Space>v "*p
 nnoremap <c-m> o<ESC>
 nnoremap <cr> o<ESC>
 
 " Source ideavimrc
-nnoremap <Space>ms :so ~/.ideavimrc<CR>
+nnoremap <Leader>ms :so ~/.ideavimrc<CR>
 
 set relativenumber
 
@@ -42,44 +42,79 @@ noremap <S-s> #<C-o>
 nnoremap <c-j> 10j
 nnoremap <c-k> 10k
 
-nnoremap <Space><Space>v "+p
-nnoremap <Space><Space>y "+yy
+nnoremap <Leader><Space>v "+p
+nnoremap <Leader><Space>y "+yy
 
-noremap <Space>I ggvG=
+noremap <Leader>I ggvG=
 
 " Use :actionlist
 " nnoremap <Space>S :action Android.SyncProject<CR>:action Synchronize<CR>
-nnoremap <Space>S :action Synchronize<CR>
+nnoremap <Leader>S :action Synchronize<CR>
 
-nnoremap <Space>ad :action Debug<CR>
-nnoremap <Space>am :action MakeGradleProject<CR>
-nnoremap <Space>ar :action Run<CR>
-nnoremap <Space>as :action Stop<CR>
+" Android section
+nnoremap <Leader>ad :action Debug<CR>
+nnoremap <Leader>am :action MakeGradleProject<CR>
+nnoremap <Leader>ar :action Run<CR>
+nnoremap <Leader>as :action Stop<CR>
+nnoremap <Leader>al :actionlist<CR>
 
+" Zoom section
+nnoremap <Leader><Space>- :action EditorDecreaseFontSize<CR>
+nnoremap <Leader><Space>= :action EditorIncreaseFontSize<CR>
 
-nnoremap <Space><Space>- :action EditorDecreaseFontSize<CR>
-nnoremap <Space><Space>= :action EditorIncreaseFontSize<CR>
+" Go to section
+nnoremap <Leader>sn :action GotoNextError<CR>
+nnoremap <Leader>sp :action GotoPreviousError<CR>
 
-nnoremap <Space>sn :action GotoNextError<CR>
-nnoremap <Space>sp :action GotoPreviousError<CR>
+" Step section
+nnoremap <Leader>si :action StepInto<CR>
+nnoremap <Leader>so :action StepOver<CR>
+nnoremap <Leader>sO :action StepOut<CR>
+nnoremap <Leader>sr :action Resume<CR>
 
-nnoremap <Space>si :action StepInto<CR>
-nnoremap <Space>so :action StepOver<CR>
-nnoremap <Space>sO :action StepOut<CR>
-nnoremap <Space>sr :action Resume<CR>
+" Toggle Section
+nnoremap <Leader>td :action ToggleDistractionFreeMode<CR>
+nnoremap <Leader>tf :action ToggleFloatingMode<CR>
+nnoremap <Leader>tb :action ToggleLineBreakpoint<CR>
 
-nnoremap <Space>td :action ToggleDistractionFreeMode<CR>
-nnoremap <Space>tf :action ToggleFloatingMode<CR>
-nnoremap <Space>tb :action ToggleLineBreakpoint<CR>
-
-nnoremap <Space>hs :action HideSideWindows<CR>
-nnoremap <Space>ha :action HideAllWindows<CR>
 
 " EditorCreateRectangularSelection
 nnoremap - :action CommentByLineComment<CR>
 
-nnoremap <c-w> :action CloseContent<CR>
-nnoremap <Space>l :actionlist<CR>
+" Quit section
+nnoremap <Leader>ql :action CloseContent<CR>
+nnoremap <Leader>qs :action HideSideWindows<CR>
+nnoremap <Leader>qa :action HideAllWindows<CR>
+nnoremap <Leader>qA :action Exit<CR>
 
 cnoremap <c-o> <up>
 cnoremap <c-k> <down>
+
+set hlsearch      " highlight search terms
+set number
+nnoremap <c-h> :noh<CR>
+set showmode
+
+" Research show sample code
+" Goto class
+" Go to count g;
+" Refactor
+" Window managment
+"
+" Window navigation
+nnoremap <Leader>l <c-w>l
+nnoremap <Leader>j <c-w>j
+nnoremap <Leader>h <c-w>h
+nnoremap <Leader>k <c-w>k
+
+set notimeout
+set nottimeout
+set surround
+set incsearch
+
+" Help section
+nnoremap <Leader>He :action ExternalJavaDoc<CR>
+" File | Settings
+nnoremap <Leader>ft :action ShowSettings<CR>
+
+inoremap <c-c> //<Space> 
