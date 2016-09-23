@@ -706,3 +706,9 @@
         " let g:ack_use_dispatch = 1
         let g:ack_autofold_results = 1
 
+    " Plug 'wsdjeg/vim-cheat' " depends on simplecheats
+      " Based of this plugin created my own vim-wiki
+    " Plug 'artur-shaik/simplecheats', { 'dir' : '$HOME/.cheat' }
+      " not needed just copied info
+    " Plug 'sentientmachine/erics_vim_syntax_and_color_highlighting', { 'for' : 'java' }
+      " Dont notice the difference in highlight honestly
