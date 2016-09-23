@@ -101,9 +101,6 @@ if has('win32')
 		" Tried using shell=bash on windows didnt work got all kinds of issues
 		" with syntastic and other things.
 		
-    " Vim-cheat
-      let g:cheats_dir = $HOME . '/.cheat/.cheat/'
-
 " UNIX_SETTINGS
 elseif has('unix')
 	" Path variables
@@ -168,6 +165,7 @@ elseif has('unix')
     autocmd!
     autocmd FileType markdown nnoremap <buffer> <Leader>mr :!google-chrome %<CR>
   augroup END
+
   " TODO|
   "    \/
   " call <SID>AutoCreateUnixCtags()
@@ -192,8 +190,11 @@ elseif has('unix')
 		" Syntastic
 			let g:syntastic_c_config_file = s:cache_path . '.syntastic_avrgcc_config'
 
-    " Vim-cheat
-      let g:cheats_dir = $HOME . '/.cheat.orig/.cheat/'
+    " Vim-Man
+      runtime! ftplugin/man.vim
+      " Sample use: Man 3 printf
+      " Potential plug if you need more `vim-utils/vim-man` but this should be
+      " enough
 endif
 
 " FUNCTIONS
@@ -597,10 +598,6 @@ endif
     execute "normal Bf[lr\<Space>\<Esc>"
   endfunction
 
-  function! s:OpenWiki(sWikiName) abort
-    execute "e " . s:wiki_path . '/'.  a:sWikiName
-  endfunction
-
   function! s:CommentDelete() abort
     execute "normal Bf/D"
   endfunction
@@ -732,6 +729,33 @@ endif
     execute "normal :\<Up>\<CR>"
   endfunction
 
+  function! s:ListFiles(dir) abort
+    let l:directory = globpath(a:dir, '*')
+    if empty(l:directory)
+      echohl ErrorMsg | echom a:dir . " is not a valid directory name" | echohl None
+    endif
+    return map(split(l:directory,'\n'), "fnamemodify(v:val, ':t')")
+  endfunction
+
+  " Vim-Wiki
+    " Origin: Wang Shidong <wsdjeg@outlook.com>
+            " vim-cheat
+    func! CheatCompletion(ArgLead, CmdLine, CursorPos)
+      echom "arglead:[".a:ArgLead ."] cmdline:[" .a:CmdLine ."] cursorpos:[" .a:CursorPos ."]"
+      if a:ArgLead =~ '^-\w*'
+        echohl WarningMsg | echom a:ArgLead . " is not a valid wiki name" | echohl None
+      endif
+      return join(<SID>ListFiles(s:wiki_path . '//'),"\n")
+    endf
+
+    function! s:OpenWiki(...) abort
+      if a:0 > 0
+        execute "vs " . s:wiki_path . '/'.  a:1
+        return
+      endif
+      execute "vs " . fnameescape(s:wiki_path . '//' . input('Wiki Name: ', '', 'custom,CheatCompletion'))
+    endfunction
+
 " PLUGINS_FOR_BOTH_SYSTEMS
 	" Attempt to install vim-plug and all plugins in case of first use
 	if <SID>CheckVimPlug()
@@ -752,13 +776,9 @@ endif
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-dispatch'
     Plug 'jamessan/vim-gnupg'
-    Plug 'wsdjeg/vim-cheat'
     " Search
     if has('unix') " Potential alternative to ctrlp
       Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-      Plug 'artur-shaik/simplecheats', { 'dir': '~/.cheat', 'do': './install.sh' }
-    else
-      Plug 'artur-shaik/simplecheats', { 'dir': '~/.cheat' }
     endif
     " cpp
     Plug 'Tagbar', { 'on' : 'TagbarToggle' }
@@ -766,12 +786,11 @@ endif
     Plug 'mrtazz/DoxygenToolkit.vim', { 'on' : 'Dox' }
     Plug 'Rip-Rip/clang_complete', { 'for' : ['c' , 'cpp'] }
     Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : ['c' , 'cpp' ] }
-    Plug 'junegunn/rainbow_parentheses.vim', { 'for' : ['c' , 'cpp' , 'java' ] }
+    Plug 'junegunn/rainbow_parentheses.vim', { 'on' : 'RainbowParentheses' }
     " cpp/java
-    " Plug 'sentientmachine/erics_vim_syntax_and_color_highlighting', { 'for' : 'java' }
     Plug 'mattn/vim-javafmt', { 'for' : 'java' }
     Plug 'tfnico/vim-gradle', { 'for' : 'java' }
-    Plug 'vim-scripts/cSyntaxAfter', { 'for' : 'java' }
+    " Plug 'vim-scripts/cSyntaxAfter', { 'for' : 'java' }
     " Autocomplete
     Plug 'Shougo/neosnippet'
     Plug 'Shougo/neosnippet-snippets'
@@ -1109,7 +1128,9 @@ endif
 		nnoremap <S-t> %
 		vnoremap <S-t> %
 		" Automatically insert date
-		nnoremap <F5> "=strftime("%c")<CR>P
+    nnoremap <F5> i<Space><ESC>"=strftime("%c")<CR>P
+    " Designed this way to be used with snippet md header
+		vnoremap <F5> s<Space><ESC>"=strftime("%c")<CR>Pa
 		inoremap <F5> <Space><ESC>"=strftime("%c")<CR>Pa
 
     " edit local
@@ -1292,7 +1313,7 @@ endif
     nnoremap <Leader>tM :call <SID>TodoClearMark()<CR>
     " pull up todo/quick notes list
     nnoremap <Leader>wt :call <SID>OpenWiki('TODO.md')<CR>
-    nnoremap <Leader>wm :call <SID>OpenWiki('0.main.index.md')<CR>
+    nnoremap <Leader>wo :call <SID>OpenWiki()<CR>
 
   " Comments
     nnoremap <Leader>cD :call <SID>CommentDelete()<CR>
@@ -1565,11 +1586,6 @@ endif
     " GnuPG
       " This plugin doesnt work with gvim. Use only from cli
       let g:GPGUseAgent = 0
-
-    " Vim-cheat
-      " let g:cheats_dir = $HOME . '/.cheat/.cheat/'
-      let g:Cheat_EnableDefaultMappings = 0
-      nnoremap <Leader>C :call Cheat()<CR>
   endif
 
 " see :h modeline
