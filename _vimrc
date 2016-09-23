@@ -39,8 +39,8 @@ if has('win32')
 
 	noremap <Leader>mr :!%<CR>
 	" Copy and paste into system wide clipboard
-	noremap <Leader><Space>v "*p
-	noremap <Leader><Space>y "*yy
+	nnoremap <Leader><Space>v "*p
+	nnoremap <Leader><Space>y "*yy
 	nnoremap <Leader><Space>= :silent! let &guifont = substitute(
 	\ &guifont,
 	\ ':h\zs\d\+',
@@ -100,6 +100,9 @@ if has('win32')
 		" //////////////7/28/2016 4:09:23 PM////////////////
 		" Tried using shell=bash on windows didnt work got all kinds of issues
 		" with syntastic and other things.
+		
+    " Vim-cheat
+      let g:cheats_dir = $HOME . '/.cheat/.cheat/'
 
 " UNIX_SETTINGS
 elseif has('unix')
@@ -125,9 +128,9 @@ elseif has('unix')
 	\:cs add cscope.out<CR>
 	\:silent !ctags -R -L cscope.files<CR>
 
-	noremap <Leader>mr :silent !./%<CR>
-	noremap <Leader><Space>v "+p
-	noremap <Leader><Space>y "+yy
+  nnoremap <Leader>mr :silent !./%<CR>
+  nnoremap <Leader><Space>v "+p
+  nnoremap <Leader><Space>y "+yy
 
 	" edit android
 	nnoremap <Leader>ea :silent e ~/Documents/android-projects/
@@ -188,6 +191,9 @@ elseif has('unix')
 
 		" Syntastic
 			let g:syntastic_c_config_file = s:cache_path . '.syntastic_avrgcc_config'
+
+    " Vim-cheat
+      let g:cheats_dir = $HOME . '/.cheat.orig/.cheat/'
 endif
 
 " FUNCTIONS
@@ -760,11 +766,12 @@ endif
     Plug 'mrtazz/DoxygenToolkit.vim', { 'on' : 'Dox' }
     Plug 'Rip-Rip/clang_complete', { 'for' : ['c' , 'cpp'] }
     Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : ['c' , 'cpp' ] }
-    Plug 'junegunn/rainbow_parentheses.vim', { 'on' : 'RainbowParentheses' }
+    Plug 'junegunn/rainbow_parentheses.vim', { 'for' : ['c' , 'cpp' , 'java' ] }
     " cpp/java
-    Plug 'sentientmachine/erics_vim_syntax_and_color_highlighting', { 'for' : 'java' }
+    " Plug 'sentientmachine/erics_vim_syntax_and_color_highlighting', { 'for' : 'java' }
     Plug 'mattn/vim-javafmt', { 'for' : 'java' }
     Plug 'tfnico/vim-gradle', { 'for' : 'java' }
+    Plug 'vim-scripts/cSyntaxAfter', { 'for' : 'java' }
     " Autocomplete
     Plug 'Shougo/neosnippet'
     Plug 'Shougo/neosnippet-snippets'
@@ -966,6 +973,7 @@ endif
     autocmd FileType c,cpp,java RainbowParentheses
     " Java
     autocmd FileType java setlocal omnifunc=javacomplete#Complete
+    autocmd FileType java call CSyntaxAfter()
     autocmd FileType java compiler gradlew
     autocmd BufWritePost *.java JavaFmt
 		" Nerdtree Fix
@@ -993,8 +1001,6 @@ endif
     " autocmd FileType markdown setlocal formatoptions=croqt
     " Settings for mail
     autocmd FileType mail setlocal wrap
-    " ini
-    autocmd FileType dosini setlocal comments+=://
 	augroup END
 
 	augroup BuffTypes
@@ -1148,6 +1154,8 @@ endif
     nnoremap <Leader>cw :call <SID>SetupEnvironment("beast")<CR>
     nnoremap <Leader>cl :call <SID>LastCommand()<CR>
     nnoremap <Leader>gf :e <cfile><CR>
+    " Indent file
+    nnoremap <Leader>I ggvG=
 
 	" Folding
 		" Folding select text then S-f to fold or just S-f to toggle folding
@@ -1559,7 +1567,7 @@ endif
       let g:GPGUseAgent = 0
 
     " Vim-cheat
-      let g:cheats_dir = $HOME . '/.cheat/.cheat/'
+      " let g:cheats_dir = $HOME . '/.cheat/.cheat/'
       let g:Cheat_EnableDefaultMappings = 0
       nnoremap <Leader>C :call Cheat()<CR>
   endif

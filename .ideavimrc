@@ -1,4 +1,4 @@
-let mapleader="\<Space>"
+let mapleader="<Space>"
 
 inoremap <c-j> <ESC>
 cnoremap <c-j> <ESC>
@@ -11,30 +11,23 @@ nnoremap <s-q> yyp
 
 nnoremap <s-t> %
 
-nnoremap <Leader><Space>v "*p
+nnoremap <Space><Space>v "*p
 nnoremap <c-m> o<ESC>
 nnoremap <cr> o<ESC>
 
-" Comment line
-nnoremap - <c-/>
-vnoremap - <c-/>
-
 " Source ideavimrc
-nnoremap <Leader>ms :so ~/.ideavimrc<CR>
+nnoremap <Space>ms :so ~/.ideavimrc<CR>
 
 set relativenumber
 
 " Folding
   " Folding select text then S-f to fold or just S-f to toggle folding
   " not supported
-  nnoremap <C-j> zj
-  " not supported
-  nnoremap <C-k> zk
   nnoremap <C-z> zz
   nnoremap <C-c> zM
   nnoremap <C-n> zR
   " not supported
-  nnoremap <C-x> za
+  nnoremap <C-x> zo
   " dont use <C-a> it conflicts with tmux prefix
   set foldenable
   " global fold indent
@@ -43,5 +36,50 @@ set relativenumber
   set foldlevel=0
   set foldlevelstart=0
 
-" you can use :so ~/.ideavimrc just as <Leader>ms
+" you can use :so ~/.ideavimrc just as <Space>ms
 noremap <S-s> #<C-o>
+
+nnoremap <c-j> 10j
+nnoremap <c-k> 10k
+
+nnoremap <Space><Space>v "+p
+nnoremap <Space><Space>y "+yy
+
+noremap <Space>I ggvG=
+
+" Use :actionlist
+" nnoremap <Space>S :action Android.SyncProject<CR>:action Synchronize<CR>
+nnoremap <Space>S :action Synchronize<CR>
+
+nnoremap <Space>ad :action Debug<CR>
+nnoremap <Space>am :action MakeGradleProject<CR>
+nnoremap <Space>ar :action Run<CR>
+nnoremap <Space>as :action Stop<CR>
+
+
+nnoremap <Space><Space>- :action EditorDecreaseFontSize<CR>
+nnoremap <Space><Space>= :action EditorIncreaseFontSize<CR>
+
+nnoremap <Space>sn :action GotoNextError<CR>
+nnoremap <Space>sp :action GotoPreviousError<CR>
+
+nnoremap <Space>si :action StepInto<CR>
+nnoremap <Space>so :action StepOver<CR>
+nnoremap <Space>sO :action StepOut<CR>
+nnoremap <Space>sr :action Resume<CR>
+
+nnoremap <Space>td :action ToggleDistractionFreeMode<CR>
+nnoremap <Space>tf :action ToggleFloatingMode<CR>
+nnoremap <Space>tb :action ToggleLineBreakpoint<CR>
+
+nnoremap <Space>hs :action HideSideWindows<CR>
+nnoremap <Space>ha :action HideAllWindows<CR>
+
+" EditorCreateRectangularSelection
+nnoremap - :action CommentByLineComment<CR>
+
+nnoremap <c-w> :action CloseContent<CR>
+nnoremap <Space>l :actionlist<CR>
+
+cnoremap <c-o> <up>
+cnoremap <c-k> <down>

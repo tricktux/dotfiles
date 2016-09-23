@@ -129,4 +129,13 @@ sudo apt-get -y autoclean
 #also go to ~/.config/openbox/lubuntu-rc.xml and find the line command>lxpanelctl menu</command> \
 	#substitute key bind with "Super_L"
 #also install thinkorswim 
-lso add the cpu monitor to to task bar
+# lso add the cpu monitor to to task bar
+
+# Optional software
+# - solaar 
+#   - utility to control and manage remote keyboard. Used to swap function keys
+# - banshee
+#   - nice media player
+# - insync
+#   - Google_Drive replacement
+# - seafile-client
