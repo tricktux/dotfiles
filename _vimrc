@@ -790,7 +790,7 @@ endif
     " cpp/java
     Plug 'mattn/vim-javafmt', { 'for' : 'java' }
     Plug 'tfnico/vim-gradle', { 'for' : 'java' }
-    " Plug 'vim-scripts/cSyntaxAfter', { 'for' : 'java' }
+    Plug 'vim-scripts/cSyntaxAfter', { 'for' : 'java' }
     " Autocomplete
     Plug 'Shougo/neosnippet'
     Plug 'Shougo/neosnippet-snippets'
@@ -1135,6 +1135,7 @@ endif
 
     " edit local
     nnoremap <Leader>el :silent e ~/
+    nnoremap <Leader>ei :silent e 
 		" cd into current dir path and into dir above current path
 		nnoremap <Leader>e1 :e ~/vimrc/
 		" nnoremap <Leader>e :e  " timeout enabled dependant
@@ -1408,9 +1409,14 @@ endif
       noremap <Leader>ts :cs show<CR>
 
     " Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh
+      if executable('ucg')
+        set grepprg=ucg\ --nocolor\ --noenv
+      endif
       if executable('ag')
         " ctrlp with ag
-        set grepprg=ag\ --nogroup\ --nocolor\ --smart-case
+        " see :Man ag for help
+        " set grepprg=ag\ --nogroup\ --nocolor\ --smart-case\ --all-text\ --vimgrep\ $*
+        " set grepformat=%f:%l:%c:%m
         let g:ctrlp_user_command = 'ag -Q -l --smart-case --nocolor --hidden -g "" %s'
       else
         echomsg string("You should install silversearcher-ag. Now you have a slow ctrlp")

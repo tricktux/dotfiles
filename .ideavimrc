@@ -52,11 +52,14 @@ noremap <Leader>I ggvG=
 nnoremap <Leader>S :action Synchronize<CR>
 
 " Android section
-nnoremap <Leader>ad :action Debug<CR>
-nnoremap <Leader>am :action MakeGradleProject<CR>
-nnoremap <Leader>ar :action Run<CR>
-nnoremap <Leader>as :action Stop<CR>
-nnoremap <Leader>al :actionlist<CR>
+nnoremap <Leader>md :action Debug<CR>
+nnoremap <Leader>ma :action MakeGradleProject<CR>
+nnoremap <Leader>mr :action Run<CR>
+
+" nnoremap <Leader>ms :action Stop<CR>
+" nnoremap <Leader>al :actionlist<CR>
+nnoremap <Leader>am :action ActivateAndroidMonitorToolWindow<CR>
+nnoremap <Leader>ap :action ActivateProjectToolWindow<CR>
 
 " Zoom section
 nnoremap <Leader><Space>- :action EditorDecreaseFontSize<CR>
@@ -86,6 +89,9 @@ nnoremap <Leader>ql :action CloseContent<CR>
 nnoremap <Leader>qs :action HideSideWindows<CR>
 nnoremap <Leader>qa :action HideAllWindows<CR>
 nnoremap <Leader>qA :action Exit<CR>
+
+" New section
+nnoremap <Leader>nc :action NewClass<CR>
 
 cnoremap <c-o> <up>
 cnoremap <c-k> <down>
@@ -118,3 +124,13 @@ nnoremap <Leader>He :action ExternalJavaDoc<CR>
 nnoremap <Leader>ft :action ShowSettings<CR>
 
 inoremap <c-c> //<Space> 
+
+nnoremap zc :action CollapseBlock<CR>
+
+" not paste the deleted word
+nnoremap <Leader>p "0p
+vnoremap <Leader>p "0p
+
+" Dont use IDE's rename
+nnoremap <Leader>r :action RenameElement<CR>
+nnoremap <Leader>A <c-x>
