@@ -712,3 +712,77 @@
       " not needed just copied info
     " Plug 'sentientmachine/erics_vim_syntax_and_color_highlighting', { 'for' : 'java' }
       " Dont notice the difference in highlight honestly
+		" This is done automagically if you set filetype indent on
+		autocmd FileType c,cpp setlocal cindent
+	" tabs
+	" This settings are handled by either smartindent or indent.vim files
+	set tabstop=2     " a tab is four spaces
+	set softtabstop=2
+  set expandtab " turns tabs into spaces
+	set shiftwidth=2  " number of spaces to use for autoindenting
+	set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
+
+  " Set up only for win32 at the moment
+  " augroup EnvironMent
+    " autocmd!
+    " " local vimrc files
+    " autocmd BufReadPost,BufNewFile * call <SID>SetupEnvironment()
+    " autocmd SessionLoadPost * call <SID>SetupEnvironment()
+  " augroup END
+  " Performance warning on this function. If necesary disable and just make
+  " function calls
+  " Note: Keep in mind vim modelines for vim type of files
+  " Input: Pass in any argument to the variable to force Wings indent settings
+  " to take effect
+  function! s:SetupEnvironment(...)
+    let l:path = expand('%:p')
+    " use this as an example. just substitute NeoOneWINGS with your project
+    " specific folder name
+    " Pass any random argument to the function to force wings settings
+    if match(l:path,'NeoOneWINGS') > 0 || match(l:path,'NeoWingsSupportFiles') > 0 || a:0>0
+      " set a g:local_vimrc_name in you local vimrc to avoid local vimrc
+      " reloadings
+      " TODO this entire thing needs to be redone
+      if !exists('g:local_vimrc_wings') || a:0>0
+        if exists('g:local_vimrc_personal')
+          unlet g:local_vimrc_personal
+        endif
+        echomsg "Loading settings for Wings..."
+        set tabstop=4     " a tab is four spaces
+        set softtabstop=4
+        set shiftwidth=4  " number of spaces to use for autoindenting
+        set textwidth=120
+        let g:local_vimrc_wings = 1
+      endif
+      if match(l:path,'Source') > 0
+        compiler bcc
+      elseif match(l:path,'sandbox') > 0
+        set makeprg=mingw32-make
+        set errorformat&
+      else
+        compiler msbuild
+        " Some helpful compiler swithces /t:Rebuild
+        " compiler's errorformat is not good
+        set errorformat&
+      endif
+    " elseif match(l:path,'sep_calc') > 0 || match(l:path,'snippets') > 0 || match(l:path,'wiki') > 0
+      " TODO create command to undo all this settings. See :h ftpplugin
+    else
+      if exists('g:local_vimrc_personal') && !exists('g:local_vimrc_personal')
+        unlet g:local_vimrc_wings
+        echomsg "Loading regular settings..."
+        " tab settings
+        set tabstop=2
+        set softtabstop=2
+        set shiftwidth=2
+        set textwidth=80
+        let g:local_vimrc_personal = 1
+      endif
+    endif
+  endfunction
+
+		" autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+		" autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+		" autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+		" autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+		" autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
