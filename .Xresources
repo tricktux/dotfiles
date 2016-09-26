@@ -73,3 +73,7 @@ URxvt.cursorColor: red
 ! where reinaldo-machine=$hostname
 
 URxvt*fading:  30
+URxvt*iconFile: /usr/share/icons/Adwaita/32x32/apps/utilities-terminal.png
+
+! Save lines
+xterm*SaveLines: 80000
