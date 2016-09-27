@@ -1,6 +1,14 @@
-" IMPROVEMENTS:
+" File:					_vimrc
+" Description:  Vim configuration file
+" Author:				Reinaldo Molina
+" Version:			1.0.0
+" Date:					Tue Sep 27 2016 16:53 	
+" Improvements:
 	" - [ ] Markdown tables
 	" - [ ] make mail ft grab autocomplete from alias.sh
+	" - [ ] Fix GlobalSearch()
+	" - [ ] Customize Doxygen options or find replacement
+	" - [ ] Customize and install vim-formatter
 	
 " REQ AND LEADER
 	set nocompatible
@@ -37,7 +45,9 @@
 		noremap <Leader>mr :!%<CR>
 		" Copy and paste into system wide clipboard
 		nnoremap <Leader><Space>v "*p
-		nnoremap <Leader><Space>y "*yy
+		nnoremap <Leader><Space>y "*y
+		vnoremap <Leader><Space>y "*y
+
 		nnoremap <Leader><Space>= :silent! let &guifont = substitute(
 		\ &guifont,
 		\ ':h\zs\d\+',
@@ -65,6 +75,8 @@
 		nnoremap <Leader>es1 :silent e D:/Reinaldo/NeoOneWINGS/
 		" Time runtime of a specific program
 		nnoremap <Leader>mt :Dispatch powershell -command "& {&'Measure-Command' {.\sep_calc.exe seprc}}"<CR>
+
+		nnoremap <Leader>ep :e ~/vimfiles/plugged/
 
 		" call <SID>AutoCreateWinCtags()
 
@@ -116,8 +128,11 @@
 		\:silent !ctags -R -L cscope.files<CR>
 
 		nnoremap <Leader>mr :silent !./%<CR>
+
+		" System paste
 		nnoremap <Leader><Space>v "+p
-		nnoremap <Leader><Space>y "+yy
+		nnoremap <Leader><Space>y "+y
+		vnoremap <Leader><Space>y "+y
 
 		" edit android
 		nnoremap <Leader>ea :silent e ~/Documents/android-projects/
@@ -131,6 +146,8 @@
 		nnoremap <Leader>ec :silent e ~/.mnt/copter-server/
 		" Edit Truck
 		nnoremap <Leader>et :silent e ~/.mnt/truck-server/
+		" Edit plugin
+		nnoremap <Leader>ep :e ~/.vim/plugged/
 
 
 		nnoremap <Leader><Space>= :silent! let &guifont = substitute(
@@ -188,49 +205,22 @@
 	endif
 
 " FUNCTIONS
-	function! s:GlobalSearch(type) abort
-		try
-			" Set grepprg at the beggning only
-			" Then depending on the search type use ucg if available and search is
-			" of code or ag if search all files
-			" Add the --type-set=markdown:ext:md option to ucg for it to recognize
-			" md files
-			" Make a .agingnore and .ucgrc file to ignore searching arduino file and
-			" the others that you moved to MyServer folder
-			if a:type ==# "all"
-				" use ag
-				echo "Search Filetypes:\n\t1.Any\n\t2.Cpp"
-				let l:file = nr2char(getchar())
-			elseif a:type ==# "code"
-
-				let l:file = a:type
-			endif
-			if !executable('ag') " use ag if possible
-				if l:file == 1
-					let l:file = "**/*"
-				elseif l:file == 2
-					let l:file = "**/*.cpp **/*.h **/*.c **/*.hpp **/*.cc"
-				" reserve for future use of other languages
-				" elseif l:file == 3
-					" let l:file = "**/*.wiki"
-				endif
-				execute "vimgrep /" . input("Search in \"" . getcwd() . "\" for:") . "/ " . l:file
-			else
-				if l:file == 1
-					let l:file = ""
-				elseif l:file == 2
-					let l:file = "--cpp"
-				endif " relays on set grepprg=ag
-				execute "grep " . l:file . " " . input("Search in \"" . getcwd() . "\" for:")
-			endif
-			copen 20
-		catch
-			echohl ErrorMsg
-			redraw " prevents the msg from misteriously dissapearing
-			echomsg "GlobalSearch(): " . matchstr(v:exception, ':\zs.*')
-			echohl None
-		endtry
-	endfunction
+	function! s:SetGrep() abort
+		" use option --list-file-types if in doubt
+		" to specify a type of file just do `--cpp`
+		" Add the --type-set=markdown:ext:md option to ucg for it to recognize
+		" Use the -t option to search all text files; -a to search all files; and -u to search all, including hidden files.
+		" md files
+		if executable('ucg')
+			set grepprg=ucg\ --nocolor\ --noenv
+		elseif executable('ag')
+			" ctrlp with ag
+			" see :Man ag for help
+			"Use the -t option to search all text files; -a to search all files; and -u to search all, including hidden files.
+			set grepprg=ag\ --nogroup\ --nocolor\ --smart-case\ --vimgrep\ $*
+			set grepformat=%f:%l:%c:%m
+		endif
+	endfunction 
 
 	" Commits current buffer
 	function! s:GitCommit() abort
@@ -690,7 +680,7 @@
         echohl WarningMsg | echom a:ArgLead . " is not a valid wiki name" | echohl None
       endif
       return join(<SID>ListFiles(s:wiki_path . '//'),"\n")
-    endf
+		endfunction
 
     function! s:OpenWiki(...) abort
       if a:0 > 0
@@ -719,6 +709,7 @@
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-dispatch'
+		" Plug 'mrtazz/DoxygenToolkit.vim' " has being moved to plugin folder
 		if has('unix') && !has('gui_running')
 			Plug 'jamessan/vim-gnupg'
 		endif
@@ -731,7 +722,6 @@
     " cpp
     Plug 'Tagbar', { 'on' : 'TagbarToggle' }
     Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
-    Plug 'mrtazz/DoxygenToolkit.vim', { 'on' : 'Dox' }
 		Plug 'Rip-Rip/clang_complete', { 'for' : ['c' , 'cpp'] }
     Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : ['c' , 'cpp' ] }
     Plug 'junegunn/rainbow_parentheses.vim', { 'on' : 'RainbowParentheses' }
@@ -911,6 +901,7 @@
   set modelines=1
 	" Set omni for all filetypes
 	set omnifunc=syntaxcomplete#Complete
+	call <SID>SetGrep()
 
 " ALL_AUTOGROUP_STUFF
 	augroup Filetypes
@@ -920,7 +911,9 @@
 		autocmd FileType c,cpp setlocal omnifunc=ClangComplete
 		" Rainbow cannot be enabled for help file. It breaks syntax highlight
     autocmd FileType c,cpp,java RainbowParentheses
-    autocmd FileType c,cpp,java setlocal shiftwidth=4 tabstop=4
+		" Indent options
+    autocmd FileType c,cpp setlocal shiftwidth=4 tabstop=4
+    autocmd FileType tex,vim,java,markdown setlocal shiftwidth=2 tabstop=2
     " Java
     autocmd FileType java setlocal omnifunc=javacomplete#Complete
     autocmd FileType java call CSyntaxAfter()
@@ -940,7 +933,6 @@
 		autocmd FileType qf setlocal wrap
     " Open markdown files with Chrome.
     autocmd FileType markdown setlocal spell spelllang=en_us
-		autocmd FileType markdown setlocal shiftwidth=2 tabstop=2
 
     autocmd FileType mail setlocal wrap
 	augroup END
@@ -954,7 +946,6 @@
 		autocmd BufEnter * :syntax sync minlines=100
 		autocmd BufWritePost *.java JavaFmt
 	augroup END
-
 
 	augroup VimType
     autocmd!
@@ -995,9 +986,9 @@
 		nnoremap <C-Up> :cp<CR>
 		nnoremap <C-Right> :cnf<CR>
 		nnoremap <C-Left> :cpf<CR>
-		noremap <Leader>qo :Copen!<CR>
-		" noremap <Leader>qo :copen 20<CR>
-		noremap <Leader>qc :.cc<CR>
+		noremap <Leader>qO :Copen!<CR>
+		noremap <Leader>qo :copen 20<CR>
+		noremap <Leader>qc :cc<CR>
 
 		nnoremap <Down> :call <SID>ListsNavigation("next")<CR>
 		nnoremap <Up> :call <SID>ListsNavigation("previous")<CR>
@@ -1053,10 +1044,10 @@
 		nnoremap <S-t> %
 		vnoremap <S-t> %
 		" Automatically insert date
-    nnoremap <F5> i<Space><ESC>"=strftime("%c")<CR>P
+		nnoremap <F5> i<Space><ESC>"=strftime("%a %b %d %Y %H:%M")<CR>P
     " Designed this way to be used with snippet md header
-		vnoremap <F5> s<Space><ESC>"=strftime("%c")<CR>Pa
-		inoremap <F5> <Space><ESC>"=strftime("%c")<CR>Pa
+		vnoremap <F5> s<Space><ESC>"=strftime("%a %b %d %Y %H:%M")<CR>Pa
+		inoremap <F5> <Space><ESC>"=strftime("%a %b %d %Y %H:%M")<CR>Pa
 		" Auto indent pasted text
 		nnoremap p p=`]<C-o>
 		nnoremap P P=`]<C-o>
@@ -1085,6 +1076,8 @@
     nnoremap <Leader>I ggvG=
 		" Get vim help on current word
 		nnoremap <Leader>He :h <c-r>=expand("<cword>")<CR><CR>
+		" Markdown fix _ showing red
+		nnoremap <Leader>mf :s%/_/\\_/g<CR>
 
 	" Edit local
 		nnoremap <Leader>el :silent e ~/
@@ -1149,9 +1142,9 @@
 	" Search
     " Tried ack.vim. Discovered that nothing is better than grep with ag.
     " search all type of files
-    nnoremap <Leader>Sa :call <SID>GlobalSearch(1)<CR>
+    nnoremap <Leader>S :grep --cpp 
     " " " search cpp files
-    nnoremap <Leader>Sc :call <SID>GlobalSearch(2)<CR>
+    " nnoremap <Leader>Sc :call <SID>GlobalSearch(2)<CR>
     nnoremap <Leader>w /\<<c-r>=expand("<cword>")<cr>\>
 		nnoremap <Leader>W :%s/\<<c-r>=expand("<cword>")<cr>\>/
 		" This is a very good to show and search all current but a much better is
@@ -1186,9 +1179,9 @@
 		" nnoremap <Leader>ma :make clean<CR>
 					" \:make all<CR>
 		nnoremap <Leader>mc :make clean<CR>
-		nnoremap <Leader>mf ::!sudo dfu-programmer atxmega128a4u erase<CR>
-					\:!sudo dfu-programmer atxmega128a4u flash atxmega.hex<CR>
-					\:!sudo dfu-programmer atxmega128a4u start<CR>
+		" nnoremap <Leader>mf ::!sudo dfu-programmer atxmega128a4u erase<CR>
+					" \:!sudo dfu-programmer atxmega128a4u flash atxmega.hex<CR>
+					" \:!sudo dfu-programmer atxmega128a4u start<CR>
 		" super custom compile and run command
 		nnoremap <Leader>mu :make all<CR>
 					\:!sep_calc.exe seprc<CR>
@@ -1338,16 +1331,7 @@
       noremap <Leader>ts :cs show<CR>
 
     " Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh
-      if executable('ucg')
-        set grepprg=ucg\ --nocolor\ --noenv
-      endif
-      if executable('ag')
-        " ctrlp with ag
-        " see :Man ag for help
-        " set grepprg=ag\ --nogroup\ --nocolor\ --smart-case\ --all-text\ --vimgrep\ $*
-        " set grepformat=%f:%l:%c:%m
-        "Use the -t option to search all text files; -a to search all files; and -u to search all, including hidden files.
-        set grepprg=ag\ --nogroup\ --nocolor\ --smart-case
+			if executable('ag')
         let g:ctrlp_user_command = 'ag -Q -l --smart-case --nocolor --hidden -g "" %s'
       else
         echomsg string("You should install silversearcher-ag. Now you have a slow ctrlp")
@@ -1365,13 +1349,25 @@
 
     " Doxygen.vim
       nnoremap <Leader>cf :Dox<CR>
-      let g:DoxygenToolkit_briefTag_pre="@Description:  "
-      let g:DoxygenToolkit_paramTag_pre="@Var: "
-      let g:DoxygenToolkit_returnTag="@Returns:   "
+			" Other commands
+			" command! -nargs=0 DoxLic :call <SID>DoxygenLicenseFunc()
+			" command! -nargs=0 DoxAuthor :call <SID>DoxygenAuthorFunc()
+			" command! -nargs=1 DoxUndoc :call <SID>DoxygenUndocumentFunc(<q-args>)
+			" command! -nargs=0 DoxBlock :call <SID>DoxygenBlockFunc()
+			let g:DoxygenToolkit_briefTag_pre = "Brief:			"
+      let g:DoxygenToolkit_paramTag_pre=	"Var:				"
+      let g:DoxygenToolkit_returnTag=			"Returns:   "
       let g:DoxygenToolkit_blockHeader=""
       let g:DoxygenToolkit_blockFooter=""
       let g:DoxygenToolkit_authorName="Reinaldo Molina"
-      let g:DoxygenToolkit_licenseTag=""
+			let g:DoxygenToolkit_authorTag =	"Author:				"
+			let g:DoxygenToolkit_fileTag =		"File:					"
+			let g:DoxygenToolkit_briefTag_pre="Description:		"
+			let g:DoxygenToolkit_dateTag =		"Date:					"
+			let g:DoxygenToolkit_versionTag = "Version:				"
+			let g:DoxygenToolkit_commentType = "C++"
+			" See :h doxygen.vim this vim related. Not plugin related
+			let g:load_doxygen_syntax=1
 
     " Plugin 'scrooloose/syntastic'
 			nnoremap <Leader>so :SyntasticToggleMode<CR>

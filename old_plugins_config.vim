@@ -786,3 +786,52 @@
 		" autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 		" autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 		" autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+	" function! s:GlobalSearch(type) abort
+		" try
+			" " Set grepprg at the beggning only
+			" " Then depending on the search type use ucg if available and search is
+			" " of code or ag if search all files
+			" " Make a .agingnore and .ucgrc file to ignore searching arduino file and
+			" " the others that you moved to MyServer folder
+			" if a:type ==# "all"
+				" " use ag
+				" echo "Search Filetypes:\n\t1.Any\n\t2.Cpp"
+				" let l:file = nr2char(getchar())
+			" elseif a:type ==# "code"
+
+				" let l:file = a:type
+			" endif
+			" if !executable('ag') " use ag if possible
+				" if l:file == 1
+					" let l:file = "**/*"
+				" elseif l:file == 2
+					" let l:file = "**/*.cpp **/*.h **/*.c **/*.hpp **/*.cc"
+				" " reserve for future use of other languages
+				" " elseif l:file == 3
+					" " let l:file = "**/*.wiki"
+				" endif
+				" execute "vimgrep /" . input("Search in \"" . getcwd() . "\" for:") . "/ " . l:file
+			" else
+				" if l:file == 1
+					" let l:file = ""
+				" elseif l:file == 2
+					" let l:file = "--cpp"
+				" endif " relays on set grepprg=ag
+				" execute "grep " . l:file . " " . input("Search in \"" . getcwd() . "\" for:")
+			" endif
+			" copen 20
+		" catch
+			" echohl ErrorMsg
+			" redraw " prevents the msg from misteriously dissapearing
+			" echomsg "GlobalSearch(): " . matchstr(v:exception, ':\zs.*')
+			" echohl None
+		" endtry
+	" endfunction
+      " if executable('ucg')
+        " set grepprg=ucg\ --nocolor\ --noenv
+      " endif
+        " ctrlp with ag
+        " see :Man ag for help
+        " set grepprg=ag\ --nogroup\ --nocolor\ --smart-case\ --all-text\ --vimgrep\ $*
+        " set grepformat=%f:%l:%c:%m
+        "Use the -t option to search all text files; -a to search all files; and -u to search all, including hidden files.
