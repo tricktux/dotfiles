@@ -1,213 +1,208 @@
-" Improvements:
-" - [ ] Markdown tables
-" - [ ] make mail ft grab autocomplete from alias.sh
+" IMPROVEMENTS:
+	" - [ ] Markdown tables
+	" - [ ] make mail ft grab autocomplete from alias.sh
+	
 " REQ AND LEADER
 	set nocompatible
-	" moving these lines here fixes losing
-	" syntax whith split screen actually it doesnt
 	syntax on
-	filetype on
-	filetype plugin on
-	filetype indent on
+	filetype plugin indent on
 	" moved here otherwise conditional mappings get / instead ; as leader
 	let mapleader="\<Space>"
 	let maplocalleader="\<Space>"
 
 " WINDOWS_SETTINGS
-if has('win32')
-	" Path variables
-	let s:cache_path= $HOME . '\.cache\'
-	let s:plugged_path=  $HOME . '\vimfiles\plugged\'
-	let s:vimfile_path=  $HOME . '\vimfiles\'
-	let s:wiki_path =  $HOME . '\Documents\wiki'
-	let s:custom_font =  'consolas:h8'
-	" always start in the home dir
+	if has('win32')
+		" Path variables
+		let s:cache_path= $HOME . '\.cache\'
+		let s:plugged_path=  $HOME . '\vimfiles\plugged\'
+		let s:vimfile_path=  $HOME . '\vimfiles\'
+		let s:wiki_path =  $HOME . '\Documents\wiki'
+		let s:custom_font =  'consolas:h8'
+		" always start in the home dir
 
-	if !has('gui_running')
-		set term=xterm
-		let &t_AB="\e[48;5;%dm"
-		let &t_AF="\e[38;5;%dm"
-	endif
+		if !has('gui_running')
+			set term=xterm
+			let &t_AB="\e[48;5;%dm"
+			let &t_AF="\e[38;5;%dm"
+		endif
 
-	" update cscope and ctags
-	noremap <Leader>tu :cs kill -1<CR>
-	\:silent !del /F cscope.files cscope.in.out cscope.po.out cscope.out<CR>
-	\:silent !dir /b /s *.cpp *.h *.hpp *.c *.cc > cscope.files<CR>
-	\:!cscope -b -q -i cscope.files<CR>
-	\:silent !ctags -R -L cscope.files -f tags<CR>
-	\:cs add cscope.out<CR>
+		" update cscope and ctags
+		noremap <Leader>tu :cs kill -1<CR>
+		\:silent !del /F cscope.files cscope.in.out cscope.po.out cscope.out<CR>
+		\:silent !dir /b /s *.cpp *.h *.hpp *.c *.cc > cscope.files<CR>
+		\:!cscope -b -q -i cscope.files<CR>
+		\:silent !ctags -R -L cscope.files -f tags<CR>
+		\:cs add cscope.out<CR>
 
-	noremap <Leader>mr :!%<CR>
-	" Copy and paste into system wide clipboard
-	nnoremap <Leader><Space>v "*p
-	nnoremap <Leader><Space>y "*yy
-	nnoremap <Leader><Space>= :silent! let &guifont = substitute(
-	\ &guifont,
-	\ ':h\zs\d\+',
-	\ '\=eval(submatch(0)+1)',
-	\ '')<CR>
-	nnoremap <Leader><Space>- :silent! let &guifont = substitute(
-	\ &guifont,
-	\ ':h\zs\d\+',
-	\ '\=eval(submatch(0)-1)',
-	\ '')<CR>
+		noremap <Leader>mr :!%<CR>
+		" Copy and paste into system wide clipboard
+		nnoremap <Leader><Space>v "*p
+		nnoremap <Leader><Space>y "*yy
+		nnoremap <Leader><Space>= :silent! let &guifont = substitute(
+		\ &guifont,
+		\ ':h\zs\d\+',
+		\ '\=eval(submatch(0)+1)',
+		\ '')<CR>
+		nnoremap <Leader><Space>- :silent! let &guifont = substitute(
+		\ &guifont,
+		\ ':h\zs\d\+',
+		\ '\=eval(submatch(0)-1)',
+		\ '')<CR>
 
-	nnoremap  o<Esc>
-	" Mappings to execute programs
-	" Do not make a ew1 mapping. reserved for when issues get to #11, 12, etc
-	nnoremap <Leader>ewd :Start! WINGS.exe 3 . default.ini<CR>
-	nnoremap <Leader>ewc :Start! WINGS.exe 3 . %<CR>
-	nnoremap <Leader>ews :execute("Start! WINGS.exe 3 . " . input("Config file:", "", "file"))<CR>
-	nnoremap <Leader>ewl :silent !del default.ini<CR>
-						\:!mklink default.ini
-	" e1 reserved for vimrc
-	nnoremap <Leader>e21 :silent e ~/Documents/1.WINGS/NeoOneWINGS/
-	nnoremap <Leader>e22 :silent e ~/Documents/1.WINGS/
-	nnoremap <Leader>ed :silent e default.ini<CR>
+		nnoremap  o<Esc>
+		" Mappings to execute programs
+		" Do not make a ew1 mapping. reserved for when issues get to #11, 12, etc
+		nnoremap <Leader>ewd :Start! WINGS.exe 3 . default.ini<CR>
+		nnoremap <Leader>ewc :Start! WINGS.exe 3 . %<CR>
+		nnoremap <Leader>ews :execute("Start! WINGS.exe 3 . " . input("Config file:", "", "file"))<CR>
+		nnoremap <Leader>ewl :silent !del default.ini<CR>
+							\:!mklink default.ini
+		" e1 reserved for vimrc
+		nnoremap <Leader>e21 :silent e ~/Documents/1.WINGS/NeoOneWINGS/
+		nnoremap <Leader>e22 :silent e ~/Documents/1.WINGS/
+		nnoremap <Leader>ed :silent e default.ini<CR>
 
-	nnoremap <Leader>es1 :silent e D:/Reinaldo/NeoOneWINGS/
-	" Time runtime of a specific program
-	nnoremap <Leader>mt :Dispatch powershell -command "& {&'Measure-Command' {.\sep_calc.exe seprc}}"<CR>
+		nnoremap <Leader>es1 :silent e D:/Reinaldo/NeoOneWINGS/
+		" Time runtime of a specific program
+		nnoremap <Leader>mt :Dispatch powershell -command "& {&'Measure-Command' {.\sep_calc.exe seprc}}"<CR>
 
-  " call <SID>AutoCreateWinCtags()
-  " Set up only for win32 at the moment
-  augroup EnvironMent
-    autocmd!
-    " local vimrc files
-    autocmd BufReadPost,BufNewFile * call <SID>SetupEnvironment()
-    autocmd SessionLoadPost * call <SID>SetupEnvironment()
-  augroup END
+		" call <SID>AutoCreateWinCtags()
 
-	" Windows specific plugins options
-		" Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
-			set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
-			let g:ctrlp_custom_ignore = {
-				\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-				\ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
-				\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
-				\ }
+		" Windows specific plugins options
+			" Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
+				set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
+				let g:ctrlp_custom_ignore = {
+					\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+					\ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
+					\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+					\ }
 
-		" Vim-Clang " not being used currently but this below fixes
-		" clang using mscv for target instead of mingw64
-			let g:clang_cpp_options = '-target x86_64-pc-windows-gnu -std=c++17 -pedantic -Wall'
-			let g:clang_c_options = '-target x86_64-pc-windows-gnu -std=gnu11 -pedantic -Wall'
+			" Vim-Clang " not being used currently but this below fixes
+			" clang using mscv for target instead of mingw64
+				let g:clang_cpp_options = '-target x86_64-pc-windows-gnu -std=c++17 -pedantic -Wall'
+				let g:clang_c_options = '-target x86_64-pc-windows-gnu -std=gnu11 -pedantic -Wall'
 
-		" MaxT Path
-			if isdirectory('C:\maxapi')
-				set path+=C:\maxapi
-			endif
+			" MaxT Path
+				if isdirectory('C:\maxapi')
+					set path+=C:\maxapi
+				endif
 
-		" //////////////7/28/2016 4:09:23 PM////////////////
-		" Tried using shell=bash on windows didnt work got all kinds of issues
-		" with syntastic and other things.
+			" //////////////7/28/2016 4:09:23 PM////////////////
+			" Tried using shell=bash on windows didnt work got all kinds of issues
+			" with syntastic and other things.
 		
 " UNIX_SETTINGS
-elseif has('unix')
-	" Path variables
-	if has('nvim')
-		let s:cache_path= $HOME . '/.cache/'
-		let s:plugged_path=  $HOME . '/.config/nvim/plugged/'
-		let s:vimfile_path=  $HOME . '/.config/nvim/'
-	else
-		let s:cache_path= $HOME . '/.cache/'
-		let s:plugged_path=  $HOME . '/.vim/plugged/'
-		let s:vimfile_path=  $HOME . '/.vim/'
+	elseif has('unix')
+		" Path variables
+		if has('nvim')
+			let s:cache_path= $HOME . '/.cache/'
+			let s:plugged_path=  $HOME . '/.config/nvim/plugged/'
+			let s:vimfile_path=  $HOME . '/.config/nvim/'
+		else
+			let s:cache_path= $HOME . '/.cache/'
+			let s:plugged_path=  $HOME . '/.vim/plugged/'
+			let s:vimfile_path=  $HOME . '/.vim/'
+		endif
+		let s:wiki_path=  $HOME . '/Documents/seafile-client/Seafile/KnowledgeIsPower/wiki'
+
+		let s:custom_font = 'Andale Mono 10'
+
+		" this one below DOES WORK in linux just make sure is ran at root folder
+		noremap <Leader>tu :cs kill -1<CR>
+		\:!rm cscope.files cscope.out cscope.po.out cscope.in.out<CR>
+		\:!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.java' -o -iname '*.cc'  -o -iname '*.h' -o -iname '*.hpp' > cscope.files<CR>
+		\:!cscope -b -q -i cscope.files<CR>
+		\:cs add cscope.out<CR>
+		\:silent !ctags -R -L cscope.files<CR>
+
+		nnoremap <Leader>mr :silent !./%<CR>
+		nnoremap <Leader><Space>v "+p
+		nnoremap <Leader><Space>y "+yy
+
+		" edit android
+		nnoremap <Leader>ea :silent e ~/Documents/android-projects/
+		" edit odroid
+		nnoremap <Leader>eo :silent e ~/.mnt/truck-server/Documents/NewBot_v3/
+		" edit bot
+		nnoremap <Leader>eb :silent e ~/Documents/NewBot_v3/
+		" Edit HQ
+		nnoremap <Leader>eh :silent e ~/.mnt/HQ-server/
+		" Edit Copter
+		nnoremap <Leader>ec :silent e ~/.mnt/copter-server/
+		" Edit Truck
+		nnoremap <Leader>et :silent e ~/.mnt/truck-server/
+
+
+		nnoremap <Leader><Space>= :silent! let &guifont = substitute(
+		\ &guifont,
+		\ '\ \zs\d\+',
+		\ '\=eval(submatch(0)+1)',
+		\ '')<CR>
+		nnoremap <Leader><Space>- :silent! let &guifont = substitute(
+		\ &guifont,
+		\ '\ \zs\d\+',
+		\ '\=eval(submatch(0)-1)',
+		\ '')<CR>
+
+		nnoremap <CR> o<ESC>
+		" Save file with sudo permissions
+		nnoremap <Leader>su :w !sudo tee %<CR>
+
+		" Give execute permissions to current file
+		nnoremap <Leader>cp :!chmod a+x %<CR>
+
+		augroup UnixMD
+			autocmd!
+			autocmd FileType markdown nnoremap <buffer> <Leader>mr :!google-chrome %<CR>
+		augroup END
+
+		" TODO|
+		"    \/
+		" call <SID>AutoCreateUnixCtags()
+
+		" Unix Specific Plugin Options
+			"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
+				set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
+				let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+
+			" VIM_PATH includes
+				" With this you can use gf to go to the #include <avr/io.h>
+				" also this path below are what go into the .syntastic_avrgcc_config
+				set path+=/usr/local/include
+				set path+=/usr/include
+
+				set tags+=~/.vim/ctags/tags_sys
+				set tags+=~/.vim/ctags/tags_sys2
+
+			" Vim-clang
+				let g:clang_library_path='/usr/lib/llvm-3.8/lib'
+
+			" Syntastic
+				let g:syntastic_c_config_file = s:cache_path . '.syntastic_avrgcc_config'
+
+			" Vim-Man
+				runtime! ftplugin/man.vim
+				" Sample use: Man 3 printf
+				" Potential plug if you need more `vim-utils/vim-man` but this should be
+				" enough
 	endif
-  let s:wiki_path=  $HOME . '/Documents/seafile-client/Seafile/KnowledgeIsPower/wiki'
-
-	let s:custom_font = 'Andale Mono 10'
-
-	" this one below DOES WORK in linux just make sure is ran at root folder
-	noremap <Leader>tu :cs kill -1<CR>
-	\:!rm cscope.files cscope.out cscope.po.out cscope.in.out<CR>
-  \:!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.java' -o -iname '*.cc'  -o -iname '*.h' -o -iname '*.hpp' > cscope.files<CR>
-	\:!cscope -b -q -i cscope.files<CR>
-	\:cs add cscope.out<CR>
-	\:silent !ctags -R -L cscope.files<CR>
-
-  nnoremap <Leader>mr :silent !./%<CR>
-  nnoremap <Leader><Space>v "+p
-  nnoremap <Leader><Space>y "+yy
-
-	" edit android
-	nnoremap <Leader>ea :silent e ~/Documents/android-projects/
-	" edit odroid
-	nnoremap <Leader>eo :silent e ~/.mnt/truck-server/Documents/NewBot_v3/
-	" edit bot
-	nnoremap <Leader>eb :silent e ~/Documents/NewBot_v3/
-	" Edit HQ
-	nnoremap <Leader>eh :silent e ~/.mnt/HQ-server/
-  " Edit Copter
-  nnoremap <Leader>ec :silent e ~/.mnt/copter-server/
-  " Edit Truck
-  nnoremap <Leader>et :silent e ~/.mnt/truck-server/
-
-
-	nnoremap <Leader><Space>= :silent! let &guifont = substitute(
-	\ &guifont,
-	\ '\ \zs\d\+',
-	\ '\=eval(submatch(0)+1)',
-	\ '')<CR>
-	nnoremap <Leader><Space>- :silent! let &guifont = substitute(
-	\ &guifont,
-	\ '\ \zs\d\+',
-	\ '\=eval(submatch(0)-1)',
-	\ '')<CR>
-
-	nnoremap <CR> o<ESC>
-	" Save file with sudo permissions
-	nnoremap <Leader>su :w !sudo tee %<CR>
-
-  " Give execute permissions to current file
-	nnoremap <Leader>cp :!chmod a+x %<CR>
-
-  augroup UnixMD
-    autocmd!
-    autocmd FileType markdown nnoremap <buffer> <Leader>mr :!google-chrome %<CR>
-  augroup END
-
-  " TODO|
-  "    \/
-  " call <SID>AutoCreateUnixCtags()
-
-	" Unix Specific Plugin Options
-		"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
-			set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
-			let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-
-		" VIM_PATH includes
-			" With this you can use gf to go to the #include <avr/io.h>
-			" also this path below are what go into the .syntastic_avrgcc_config
-      set path+=/usr/local/include
-      set path+=/usr/include
-
-      set tags+=~/.vim/ctags/tags_sys
-      set tags+=~/.vim/ctags/tags_sys2
-
-    " Vim-clang
-      let g:clang_library_path='/usr/lib/llvm-3.8/lib'
-
-		" Syntastic
-			let g:syntastic_c_config_file = s:cache_path . '.syntastic_avrgcc_config'
-
-    " Vim-Man
-      runtime! ftplugin/man.vim
-      " Sample use: Man 3 printf
-      " Potential plug if you need more `vim-utils/vim-man` but this should be
-      " enough
-endif
 
 " FUNCTIONS
-	" Only works in vimwiki filetypes
-	" Input: empty- It will ask you what type of file you want to search
-	" 		 String- "1", "2", or specify files in which you want to search
 	function! s:GlobalSearch(type) abort
 		try
-			"echomsg string(a:type)  " Debugging purposes
-			if a:type == "0"
+			" Set grepprg at the beggning only
+			" Then depending on the search type use ucg if available and search is
+			" of code or ag if search all files
+			" Add the --type-set=markdown:ext:md option to ucg for it to recognize
+			" md files
+			" Make a .agingnore and .ucgrc file to ignore searching arduino file and
+			" the others that you moved to MyServer folder
+			if a:type ==# "all"
+				" use ag
 				echo "Search Filetypes:\n\t1.Any\n\t2.Cpp"
 				let l:file = nr2char(getchar())
-			else
+			elseif a:type ==# "code"
+
 				let l:file = a:type
 			endif
 			if !executable('ag') " use ag if possible
@@ -439,18 +434,19 @@ endif
 	endfunction
 
 	function! s:SetDiff() abort
-		nnoremap <C-Down> ]c
-		nnoremap <C-Up> [c
-		nnoremap <C-Left> :diffget<CR>
-		nnoremap <C-Right> :diffput<CR>
+		" Make sure you run diffget and diffput from left window
+		nnoremap <C-j> ]c
+		nnoremap <C-k> [c
+		nnoremap <C-h> :diffget<CR>
+		nnoremap <C-l> :diffput<CR>
 		windo diffthis
 	endfunction
 
 	function! s:UnsetDiff() abort
-		nunmap <C-Down>
-		nunmap <C-Up>
-		nunmap <C-Left>
-		nunmap <C-Right>
+		nnoremap <C-j> zj
+		nnoremap <C-k> zk
+		nnoremap <C-h> :noh<CR>
+		nunmap <C-l>
 		diffoff!
 	endfunction
 
@@ -481,58 +477,6 @@ endif
 
 	function! s:NormalizeWindowSize() abort
     execute "normal \<c-w>="
-  endfunction
-
-  " Performance warning on this function. If necesary disable and just make
-  " function calls
-  " Note: Keep in mind vim modelines for vim type of files
-  " Input: Pass in any argument to the variable to force Wings indent settings
-  " to take effect
-  function! s:SetupEnvironment(...)
-    let l:path = expand('%:p')
-    " use this as an example. just substitute NeoOneWINGS with your project
-    " specific folder name
-    " Pass any random argument to the function to force wings settings
-    if match(l:path,'NeoOneWINGS') > 0 || match(l:path,'NeoWingsSupportFiles') > 0 || a:0>0
-      " set a g:local_vimrc_name in you local vimrc to avoid local vimrc
-      " reloadings
-      " TODO this entire thing needs to be redone
-      if !exists('g:local_vimrc_wings') || a:0>0
-        if exists('g:local_vimrc_personal')
-          unlet g:local_vimrc_personal
-        endif
-        echomsg "Loading settings for Wings..."
-        set tabstop=4     " a tab is four spaces
-        set softtabstop=4
-        set shiftwidth=4  " number of spaces to use for autoindenting
-        set textwidth=120
-        let g:local_vimrc_wings = 1
-      endif
-      if match(l:path,'Source') > 0
-        compiler bcc
-      elseif match(l:path,'sandbox') > 0
-        set makeprg=mingw32-make
-        set errorformat&
-      else
-        compiler msbuild
-        " Some helpful compiler swithces /t:Rebuild
-        " compiler's errorformat is not good
-        set errorformat&
-      endif
-    " elseif match(l:path,'sep_calc') > 0 || match(l:path,'snippets') > 0 || match(l:path,'wiki') > 0
-      " TODO create command to undo all this settings. See :h ftpplugin
-    else
-      if exists('g:local_vimrc_personal') && !exists('g:local_vimrc_personal')
-        unlet g:local_vimrc_wings
-        echomsg "Loading regular settings..."
-        " tab settings
-        set tabstop=2
-        set softtabstop=2
-        set shiftwidth=2
-        set textwidth=80
-        let g:local_vimrc_personal = 1
-      endif
-    endif
   endfunction
 
   function! s:FixPreviousWord() abort
@@ -775,7 +719,11 @@ endif
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-dispatch'
-    Plug 'jamessan/vim-gnupg'
+		if has('unix') && !has('gui_running')
+			Plug 'jamessan/vim-gnupg'
+		endif
+		" TODO: Configure
+			" Plug 'Chiel92/vim-autoformat'
     " Search
     if has('unix') " Potential alternative to ctrlp
       Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -784,13 +732,13 @@ endif
     Plug 'Tagbar', { 'on' : 'TagbarToggle' }
     Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
     Plug 'mrtazz/DoxygenToolkit.vim', { 'on' : 'Dox' }
-    Plug 'Rip-Rip/clang_complete', { 'for' : ['c' , 'cpp'] }
+		Plug 'Rip-Rip/clang_complete', { 'for' : ['c' , 'cpp'] }
     Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : ['c' , 'cpp' ] }
     Plug 'junegunn/rainbow_parentheses.vim', { 'on' : 'RainbowParentheses' }
     " cpp/java
     Plug 'mattn/vim-javafmt', { 'for' : 'java' }
     Plug 'tfnico/vim-gradle', { 'for' : 'java' }
-    Plug 'vim-scripts/cSyntaxAfter', { 'for' : 'java' }
+		Plug 'vim-scripts/cSyntaxAfter', { 'for' : 'java' }
     " Autocomplete
     Plug 'Shougo/neosnippet'
     Plug 'Shougo/neosnippet-snippets'
@@ -830,17 +778,16 @@ endif
 	hi NonText cterm=NONE ctermfg=NONE
 	set showcmd " use noshowcmd if things are really slow
 	set scrolljump=5
-  set sidescroll=15 " see help for sidescroll
+	set sidescroll=15 " see help for sidescroll
 	if !has('nvim') " this option was deleted in nvim
 		set ttyscroll=3
 	endif
 	set lazyredraw " Had to addit to speed up scrolling
 	set ttyfast " Had to addit to speed up scrolling
-	set fsync " see :h fsync, maybe dangerous but no problems so far
-	set nocursorline
+	" set cursorline
 	" let g:tex_fast= "" " on super slow activate this, price: no syntax
 	" highlight
-	" already had problems with it. lost an entire file. dont use it
+	" set fsync " already had problems with it. lost an entire file. dont use it
 
 " Create personal folders
   " TMP folder
@@ -861,8 +808,8 @@ endif
   endif
 
   if has('persistent_undo')
-    if <SID>CheckDirwoPrompt(s:cache_path . '/undofiles')
-      let &undodir= s:cache_path . '/undofiles'
+    if <SID>CheckDirwoPrompt(s:cache_path . 'undofiles')
+      let &undodir= s:cache_path . 'undofiles'
       set undofile
       set undolevels=1000      " use many muchos levels of undo
     endif
@@ -871,30 +818,21 @@ endif
 " SET_OPTIONS
 	"set spell spelllang=en_us
 	"omnicomplete menu
-	set nospell
-	set diffexpr=
 	" save marks
 	set viminfo='1000,f1,<800,%1024
 	set showtabline=1 " always show tabs in gvim, but not vim"
 	set backspace=indent,eol,start
 						" allow backspacing over everything in insert mode
-	" indents
-	set smartindent " these 2 make search case smarter
-	set autoindent    " always set autoindenting on
-	set copyindent    " copy the previous indentation on autoindenting
-	" tabs
-	set tabstop=2     " a tab is four spaces
-	set softtabstop=2
-  set expandtab " turns tabs into spaces
-	set shiftwidth=2  " number of spaces to use for autoindenting
-	set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
+	" indents defaults. Custom values are changes in after/indent
+		" When 'sts' is negative, the value of 'shiftwidth' is used.
+	set softtabstop=-8
+	set smarttab      " insert tabs on the start of a line according to
+	" shiftwidth, not tabstop
 
 	set showmatch     " set show matching parenthesis
 	set smartcase     " ignore case if search pattern is all lowercase,
-						"    case-sensitive otherwise
+                    "    case-sensitive otherwise
 	set ignorecase
-	set smarttab      " insert tabs on the start of a line according to
-						"    shiftwidth, not tabstop
 	set hlsearch      " highlight search terms
 	set number
 	set relativenumber
@@ -912,13 +850,9 @@ endif
 	set nobackup " no backup files
 	set noswapfile
 	"set autochdir " working directory is always the same as the file you are editing
-	"//////////////8/2/2016 3:06:49 PM////////////////
 	" Took out options from here. Makes the session script too long and annoying
 	set sessionoptions=buffers,curdir,folds,localoptions,options,tabpages,resize,winsize,winpos,help
 	set hidden
-	" wont open a currently open buffer
-	"set switchbuf=useopen
-	set switchbuf=
 	" see :h timeout this was done to make use of ' faster and keep the other
 	" timeout the same
 	set notimeout
@@ -946,8 +880,6 @@ endif
 	" Display tabs and trailing spaces visually
 	"set list listchars=tab:\ \ ,trail:?
 	set linebreak    "Wrap lines at convenient points
-	"set scrolloff=8         "Start scrolling when we're 8 lines away from margins
-
 	" Open and close folds Automatically
 	set foldenable
 	" global fold indent
@@ -971,54 +903,45 @@ endif
 	set laststatus=2
 	set formatoptions=croqt " this is textwidth actually breaks the lines
 	set textwidth=80
-    " makes vim autocomplete - bullets
+	" makes vim autocomplete - bullets
 	set comments+=b:-,b:*
   set nolist " Do not display extra characters
   set scroll=8
   set modeline
   set modelines=1
+	" Set omni for all filetypes
+	set omnifunc=syntaxcomplete#Complete
 
 " ALL_AUTOGROUP_STUFF
 	augroup Filetypes
 		autocmd!
     " TODO convert each of these categories into its own augroup
 		" C/Cpp
-		autocmd FileType c setlocal omnifunc=omni#c#complete#Main
-		autocmd FileType c,cpp setlocal cindent
-		" enforce "t" in formatoptions on cpp files
-		autocmd FileType c,cpp setlocal formatoptions=croqt
-		autocmd FileType compiler gcc
+		autocmd FileType c,cpp setlocal omnifunc=ClangComplete
 		" Rainbow cannot be enabled for help file. It breaks syntax highlight
     autocmd FileType c,cpp,java RainbowParentheses
+    autocmd FileType c,cpp,java setlocal shiftwidth=4 tabstop=4
     " Java
     autocmd FileType java setlocal omnifunc=javacomplete#Complete
     autocmd FileType java call CSyntaxAfter()
     autocmd FileType java compiler gradlew
-    autocmd BufWritePost *.java JavaFmt
 		" Nerdtree Fix
 		autocmd FileType nerdtree setlocal relativenumber
 		autocmd FileType nerdtree setlocal encoding=utf-8 " fixes little arrows
 		" Set omnifunc for all others 									" not showing
-		autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
 		autocmd FileType cs compiler msbuild
-		autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-		autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-		autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-		autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-		autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 		" Latex
 		autocmd FileType tex setlocal spell spelllang=en_us
 		autocmd FileType tex setlocal fdm=indent
-		autocmd FileType compiler tex
+		autocmd FileType tex compiler tex
 		" Display help vertical window not split
 		autocmd FileType help wincmd L
 		" wrap syntastic messages
 		autocmd FileType qf setlocal wrap
     " Open markdown files with Chrome.
     autocmd FileType markdown setlocal spell spelllang=en_us
-    " allows for autocompl of bullets
-    " autocmd FileType markdown setlocal formatoptions=croqt
-    " Settings for mail
+		autocmd FileType markdown setlocal shiftwidth=2 tabstop=2
+
     autocmd FileType mail setlocal wrap
 	augroup END
 
@@ -1028,6 +951,8 @@ endif
     autocmd BufNewFile,BufReadPost *.ino,*.pde setf arduino
     " automatic syntax for *.scp
     autocmd BufNewFile,BufReadPost *.scp setf wings_syntax
+		autocmd BufEnter * :syntax sync minlines=100
+		autocmd BufWritePost *.java JavaFmt
 	augroup END
 
 
@@ -1056,6 +981,8 @@ endif
 " CUSTOM MAPPINGS
 	" List of super useful mappings
 	" ga " prints ascii of char under cursor
+	" = fixes indentantion
+	" gq formats code
 
 	" Quickfix and Location stuff
 		" Description:
@@ -1117,8 +1044,6 @@ endif
 		vnoremap <Leader>p "0p
 		" Switch back and forth between header file
 		nnoremap <Leader>moh :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>"
-		" SyntasticCheck toggle
-		noremap <Leader>so :SyntasticToggleMode<CR>
 		noremap <S-q> yyp
 		" move to the beggning of line
 		noremap <S-w> $
@@ -1132,22 +1057,6 @@ endif
     " Designed this way to be used with snippet md header
 		vnoremap <F5> s<Space><ESC>"=strftime("%c")<CR>Pa
 		inoremap <F5> <Space><ESC>"=strftime("%c")<CR>Pa
-
-    " edit local
-    nnoremap <Leader>el :silent e ~/
-    nnoremap <Leader>ei :silent e 
-		" cd into current dir path and into dir above current path
-		nnoremap <Leader>e1 :e ~/vimrc/
-		" nnoremap <Leader>e :e  " timeout enabled dependant
-		nnoremap <Leader>cd :cd %:p:h<CR>
-					\:pwd<CR>
-		nnoremap <Leader>cu :cd ..<CR>
-					\:pwd<CR>
-		" cd into dir. press <Tab> after ci to see folders
-    nnoremap <Leader>ci :cd 
-		nnoremap <Leader>cc :pwd<CR>
-		nnoremap <Leader>ch :cd ~<CR>
-					\pwd<CR>
 		" Auto indent pasted text
 		nnoremap p p=`]<C-o>
 		nnoremap P P=`]<C-o>
@@ -1159,25 +1068,41 @@ endif
 		nnoremap <Leader>nl :bro old<CR>
 		" decrease number
 		nnoremap <Leader>A <c-x>
+		" delete key
 		inoremap <c-l> <c-o>x
+		" math on insert mode
 		inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
 		" Count occurrances of last search
     nnoremap <Leader>cs :%s///gn<CR>
     " Reload syntax
-    " nnoremap <Leader>sl :syntax clear<CR>
-          " \:syntax sync fromstart<CR>
-          " \:set filetype=wings_syntax<CR>
-          " \:e<CR>
     " Force wings_syntax on a file
     nnoremap <Leader>sl :set filetype=wings_syntax<CR>
     " Remove Trailing Spaces
     nnoremap <Leader>c<Space> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
-    " Force Wings indent settings
-    nnoremap <Leader>cw :call <SID>SetupEnvironment("beast")<CR>
     nnoremap <Leader>cl :call <SID>LastCommand()<CR>
     nnoremap <Leader>gf :e <cfile><CR>
     " Indent file
     nnoremap <Leader>I ggvG=
+		" Get vim help on current word
+		nnoremap <Leader>He :h <c-r>=expand("<cword>")<CR><CR>
+
+	" Edit local
+		nnoremap <Leader>el :silent e ~/
+		" cd into current dir path and into dir above current path
+		nnoremap <Leader>e1 :e ~/vimrc/
+		" Edit Vimruntime
+		nnoremap <Leader>ev :e $VIMRUNTIME/
+
+	" CD
+		nnoremap <Leader>cd :cd %:p:h<CR>
+					\:pwd<CR>
+		nnoremap <Leader>cu :cd ..<CR>
+					\:pwd<CR>
+		" cd into dir. press <Tab> after ci to see folders
+		nnoremap <Leader>ci :cd 
+		nnoremap <Leader>cc :pwd<CR>
+		nnoremap <Leader>ch :cd ~<CR>
+					\pwd<CR>
 
 	" Folding
 		" Folding select text then S-f to fold or just S-f to toggle folding
@@ -1235,12 +1160,11 @@ endif
 		vnoremap // y/<C-R>"<CR>
 
 	" Substitute for ESC
-		" Not remapping esc anymore. going to get used to <c-[> its default doesnt require mapping
 		inoremap <C-j> <Esc>
 		vnoremap <C-j> <Esc>
 		" cnoremap <C-j> <Esc>
 
-	" Tab Stuff
+	" Buffers Stuff
 		noremap <S-j> :b#<CR>
 		noremap <Leader>bd :bp\|bd #<CR>
 		" deletes all buffers
@@ -1323,6 +1247,19 @@ endif
     nnoremap <Leader>cIr :call <SID>CommentReduceIndent()<CR>
     nnoremap cl :call <SID>CommentLine()<CR>
 
+	" Indenting
+		nnoremap <Leader>t2 :setlocal ts=2 sw=2 sts=2<CR>
+		nnoremap <Leader>t4 :setlocal ts=4 sw=4 sts=4<CR>
+		nnoremap <Leader>t8 :setlocal ts=8 sw=8 sts=8<CR>
+
+	" Compiler
+		nnoremap <Leader>Cb :compiler borland
+		nnoremap <Leader>Cv :compiler msbuild
+		nnoremap <Leader>Cg :compiler gcc<CR>
+					\:setlocal makeprg=mingw32-make<CR>
+		" Note: The placeholder "$*" can be given (even multiple times) to specify
+		" where the arguments will be included,
+
 " STATUS_LINE
 	set statusline =
 	set statusline+=\[%n]                                  "buffernr
@@ -1341,15 +1278,13 @@ endif
   " Only load plugin options in case they were loaded
   if b:bLoadPlugins == 1
     "Vim-Plug
-      noremap <Leader>Pl :PlugList<CR>
-      " lists configured plugins
       noremap <Leader>Pi :PlugInstall<CR>
       noremap <Leader>Pu :PlugUpdate<CR>
                 \:PlugUpgrade<CR>
       " installs plugins; append `!` to update or just :PluginUpdate
       noremap <Leader>Ps :PlugSearch<CR>
       " searches for foo; append `!` to refresh local cache
-      noremap <Leader>Pc :PlugClean<CR>
+      noremap <Leader>Pl :PlugClean<CR>
       " confirms removal of unused plugins; append `!` to auto-approve removal
 
     "Plugin 'scrooloose/nerdcommenter'"
@@ -1361,8 +1296,8 @@ endif
       let NERD_cpp_alt_style=0
       let NERDMenuMode=0 " no menu
       let g:NERDCustomDelimiters = {
-        \ 'vim': { 'left': '"', 'right': '' },
-        \ 'vimwiki': { 'left': '%%', 'right': '' }}
+        \ 'vim': { 'left': '"', 'right': '' }}
+        " \ 'vimwiki': { 'left': '%%', 'right': '' }}
         "\ 'vim': { 'left': '"', 'right': '' }
         "\ 'grondle': { 'left': '{{', 'right': '}}' }
       "\ }
@@ -1379,14 +1314,8 @@ endif
       noremap <Leader>nb :Bookmark
       let NERDTreeShowBookmarks=1  " B key to toggle
       noremap <Leader>no :NERDTree<CR>
-      " enable line numbers
       let NERDTreeShowLineNumbers=1
-      " make sure relative line numbers are used
       let NERDTreeShowHidden=1 " i key to toggle
-      let NERDTreeMapJumpLastChild=',j'
-      let NERDTreeMapJumpFirstChild=',k'
-      let NERDTreeMapOpenExpl=',e'
-      let NERDTreeMapOpenVSplit=',s'
       let NERDTreeQuitOnOpen=1 " AutoClose after openning file
 
     " Plugin 'Tagbar' {{{
@@ -1417,6 +1346,8 @@ endif
         " see :Man ag for help
         " set grepprg=ag\ --nogroup\ --nocolor\ --smart-case\ --all-text\ --vimgrep\ $*
         " set grepformat=%f:%l:%c:%m
+        "Use the -t option to search all text files; -a to search all files; and -u to search all, including hidden files.
+        set grepprg=ag\ --nogroup\ --nocolor\ --smart-case
         let g:ctrlp_user_command = 'ag -Q -l --smart-case --nocolor --hidden -g "" %s'
       else
         echomsg string("You should install silversearcher-ag. Now you have a slow ctrlp")
@@ -1443,6 +1374,7 @@ endif
       let g:DoxygenToolkit_licenseTag=""
 
     " Plugin 'scrooloose/syntastic'
+			nnoremap <Leader>so :SyntasticToggleMode<CR>
       nnoremap <Leader>sn :call <SID>ListsNavigation("next")<CR>
       nnoremap <Leader>sp :call <SID>ListsNavigation("previous")<CR>
       nnoremap <Leader>ss :SyntasticCheck<CR>
@@ -1472,6 +1404,7 @@ endif
       if !has('nvim')
         if has('lua')
           " All new stuff
+					let g:neocomplete#enable_at_startup = 1
           let g:neocomplete#enable_cursor_hold_i=1
           let g:neocomplete#skip_auto_completion_time="1"
           let g:neocomplete#sources#buffer#cache_limit_size=5000000000
@@ -1480,7 +1413,6 @@ endif
           " TODO: need to fix this i dont like the way he does it need my own for now is good I guess
           let g:neocomplete#enable_auto_close_preview=1
 
-          let g:neocomplete#enable_at_startup = 1
           let g:neocomplete#enable_smart_case = 1
           let g:neocomplete#data_directory = s:cache_path . 'neocomplete'
           " Define keyword.
@@ -1533,18 +1465,16 @@ endif
           let g:neocomplete#delimiter_patterns.vim = ['#']
           let g:neocomplete#delimiter_patterns.cpp = ['::']
         else
-          echoerr "No lua installed so falling back to having only clang autocomplete"
-          let g:clang_auto = 1
+          echoerr "No lua installed = No Neocomplete."
+          " let g:neocomplete#enable_at_startup = 0 " default option
         endif
       elseif has('python3')
         " if it is nvim deoplete requires python3 to work
-        let g:clang_auto = 0
         let g:deoplete#enable_at_startup = 1
       else
-        echoerr "No python3 installed so falling back to having only clang autocomplete"
+        echoerr "No python3 = No Deocomplete"
         " so if it doesnt have it activate clang instaed
         let g:deoplete#enable_at_startup = 0
-        let g:clang_auto = 1
       endif
 
         " NeoSnippets
@@ -1566,15 +1496,19 @@ endif
       " 2. To get this to work I had to install libc++-dev package in unix
       " 3. install libclang-dev package. See g:clang_library_path to where it gets
       " installed. Also I had to make sym link: ln -s libclang.so.1 libclang.so
-      if !executable('clang') || !executable('clang-format')
+      if !executable('clang')
         echomsg string("No clang or clang-format present")
+				let g:clang_complete_loaded = 1
       else
         " TODO: Go copy code from vim-clang that does this
-        nnoremap <c-f> :ClangFormat<CR>
+				" if !executable('clang-format')
+					" echomsg string("No clang formatter installed")
+				" endif
+        " nnoremap <c-f> :ClangFormat<CR>
 
         let g:clang_user_options = '-std=c++14 -stdlib=libc++ -Wall -pedantic'
         " let g:clang_complete_copen = 1
-      " let g:clang_periodic_quickfix = 1
+				" let g:clang_periodic_quickfix = 1
       endif
 
     " Vim-Markdown
