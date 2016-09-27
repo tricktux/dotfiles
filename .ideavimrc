@@ -60,6 +60,7 @@ nnoremap <Leader>mr :action Run<CR>
 " nnoremap <Leader>al :actionlist<CR>
 nnoremap <Leader>am :action ActivateAndroidMonitorToolWindow<CR>
 nnoremap <Leader>ap :action ActivateProjectToolWindow<CR>
+nnoremap <Leader>av :action ActivateThemePreviewToolWindow<CR>
 
 " Zoom section
 nnoremap <Leader><Space>- :action EditorDecreaseFontSize<CR>
@@ -92,6 +93,12 @@ nnoremap <Leader>qA :action Exit<CR>
 
 " New section
 nnoremap <Leader>nc :action NewClass<CR>
+
+" Tag jumps
+nnoremap <Leader>tj :action GotoDeclaration<CR>
+
+" Git
+nnoremap <Leader>ga :action Git.Add<CR>
 
 cnoremap <c-o> <up>
 cnoremap <c-k> <down>
@@ -134,3 +141,8 @@ vnoremap <Leader>p "0p
 " Dont use IDE's rename
 nnoremap <Leader>r :action RenameElement<CR>
 nnoremap <Leader>A <c-x>
+
+" nnoremap <s-j> :action GotoChangedFile<CR>
+" Switch doesnt work
+" nnoremap <s-j> :action SwitchLeft<CR>
+" nnoremap <s-k> :action SwitchRight<CR>
