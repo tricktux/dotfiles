@@ -835,3 +835,6 @@
         " set grepprg=ag\ --nogroup\ --nocolor\ --smart-case\ --all-text\ --vimgrep\ $*
         " set grepformat=%f:%l:%c:%m
         "Use the -t option to search all text files; -a to search all files; and -u to search all, including hidden files.
+		" Plug 'mrtazz/DoxygenToolkit.vim' " has being moved to plugin folder
+				" let g:syntastic_java_javac_classpath='/home/reinaldo/Documents/android-sdk/platforms/android-24/*.jar:
+							" \/home/reinaldo/Documents/seafile-client/Seafile/KnowledgeIsPower/udacity/android-projects/BaseballScore/app/build/generated/source/r/debug/com/hq/baseballscore/*.java'

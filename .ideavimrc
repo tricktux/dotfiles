@@ -39,8 +39,8 @@ set relativenumber
 " you can use :so ~/.ideavimrc just as <Space>ms
 noremap <S-s> #<C-o>
 
-nnoremap <c-j> 10j
-nnoremap <c-k> 10k
+nnoremap <c-j> :action MethodDown<CR>
+nnoremap <c-k> :action MethodUp<CR>
 
 nnoremap <Leader><Space>v "+p
 nnoremap <Leader><Space>y "+yy
@@ -75,6 +75,8 @@ nnoremap <Leader>si :action StepInto<CR>
 nnoremap <Leader>so :action StepOver<CR>
 nnoremap <Leader>sO :action StepOut<CR>
 nnoremap <Leader>sr :action Resume<CR>
+" Spelling fix
+nnoremap <Leader>sf :action com.intellij.spellchecker.actions.SpellingPopupActionGroup<CR>
 
 " Toggle Section
 nnoremap <Leader>td :action ToggleDistractionFreeMode<CR>
@@ -96,9 +98,14 @@ nnoremap <Leader>nc :action NewClass<CR>
 
 " Tag jumps
 nnoremap <Leader>tj :action GotoDeclaration<CR>
+nnoremap <Leader>th :action JavaMethodHierarchyPopupMenu<CR>
 
 " Git
 nnoremap <Leader>ga :action Git.Add<CR>
+
+" Code format
+nnoremap <c-f> :action ReformatCode<CR>
+nnoremap <Leader>co :action OptimizeImports<CR>
 
 cnoremap <c-o> <up>
 cnoremap <c-k> <down>
@@ -119,6 +126,7 @@ nnoremap <Leader>l <c-w>l
 nnoremap <Leader>j <c-w>j
 nnoremap <Leader>h <c-w>h
 nnoremap <Leader>k <c-w>k
+nnoremap <Leader>O :action MoveEditorToOppositeTabGroup<CR>
 
 set notimeout
 set nottimeout

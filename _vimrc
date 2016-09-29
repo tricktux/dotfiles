@@ -190,12 +190,14 @@
 
 				set tags+=~/.vim/ctags/tags_sys
 				set tags+=~/.vim/ctags/tags_sys2
-
+				
 			" Vim-clang
 				let g:clang_library_path='/usr/lib/llvm-3.8/lib'
 
 			" Syntastic
 				let g:syntastic_c_config_file = s:cache_path . '.syntastic_avrgcc_config'
+				let g:syntastic_java_javac_classpath='/home/reinaldo/Documents/android-sdk/platforms/android-24/*.jar:
+				\/home/reinaldo/Documents/seafile-client/Seafile/KnowledgeIsPower/udacity/android-projects/BaseballScore/app/build/intermediates/classes/androidTest/debug/com/hq/baseballscore/test/*.class'
 
 			" Vim-Man
 				runtime! ftplugin/man.vim
@@ -709,7 +711,7 @@
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-dispatch'
-		" Plug 'mrtazz/DoxygenToolkit.vim' " has being moved to plugin folder
+    Plug 'tpope/vim-classpath'
 		if has('unix') && !has('gui_running')
 			Plug 'jamessan/vim-gnupg'
 		endif
@@ -728,7 +730,7 @@
     " cpp/java
     Plug 'mattn/vim-javafmt', { 'for' : 'java' }
     Plug 'tfnico/vim-gradle', { 'for' : 'java' }
-		Plug 'vim-scripts/cSyntaxAfter', { 'for' : 'java' }
+		" Plug 'vim-scripts/cSyntaxAfter'
     " Autocomplete
     Plug 'Shougo/neosnippet'
     Plug 'Shougo/neosnippet-snippets'
@@ -737,6 +739,7 @@
     Plug 'tpope/vim-fugitive'
     " aesthetic
     Plug 'morhetz/gruvbox' " colorscheme gruvbox
+		Plug 'NLKNguyen/papercolor-theme'
     " markdown stuff
     Plug 'godlygeek/tabular', { 'for' : 'md' } " required by markdown
     Plug 'plasticboy/vim-markdown', { 'for' : 'md' }
@@ -916,7 +919,7 @@
     autocmd FileType tex,vim,java,markdown setlocal shiftwidth=2 tabstop=2
     " Java
     autocmd FileType java setlocal omnifunc=javacomplete#Complete
-    autocmd FileType java call CSyntaxAfter()
+    " autocmd FileType java call CSyntaxAfter() " Being called from after/syntax
     autocmd FileType java compiler gradlew
 		" Nerdtree Fix
 		autocmd FileType nerdtree setlocal relativenumber
@@ -1391,10 +1394,10 @@
       "let g:cpp_experimental_template_highlight = 1
 
     " Plugin 'morhetz/gruvbox' " colorscheme gruvbox
-      colorscheme gruvbox
-      set background=dark    " Setting dark mode
-      "set background=light
-      "colorscheme PaperColor
+			" colorscheme gruvbox
+			" set background=dark    " Setting dark mode
+			set background=light
+			colorscheme PaperColor
 
     " Plug Neocomplete
       if !has('nvim')
@@ -1522,6 +1525,14 @@
     " GnuPG
       " This plugin doesnt work with gvim. Use only from cli
       let g:GPGUseAgent = 0
+
+		" ft-java-syntax
+			let java_highlight_java_lang_ids=1
+			let java_highlight_functions="indent"
+			let java_highlight_debug=1
+			let java_space_errors=1
+			let java_comment_strings=1
+			hi javaParen ctermfg=blue guifg=#0000ff
   endif
 
 " see :h modeline
