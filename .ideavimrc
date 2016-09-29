@@ -1,156 +1,150 @@
-let mapleader=" "
+" File:					.ideavimrc
+" Description:	IntelliJ IdeaVim Plugin Configuration
+"								Tailored for Android-Studio 
+" Author:				Reinaldo Molina
+" Version:			0.8.0
+" Date:					Sep 29 2016 10:38
+" Improvements:
+	"  [ ] Research show sample code
+	"  [ ] Goto class
+	"  [ ] Go to count g;
+	"  [ ] Refactor
+	"  [ ] Window managment
 
-inoremap <c-j> <ESC>
-cnoremap <c-j> <ESC>
+" VIM MAPPINGS
+	" Miscelaneous
+		let mapleader=" "
+		inoremap <c-c> //<Space> 
 
-nnoremap <s-b> ^
-nnoremap <s-w> $
+		inoremap <c-j> <ESC>
+		cnoremap <c-j> <ESC>
 
-nnoremap <s-q> yyp
-nnoremap <s-q> yyp
+		nnoremap <s-b> ^
+		nnoremap <s-w> $
 
-nnoremap <s-t> %
+		nnoremap <s-q> yyp
+		nnoremap <s-q> yyp
 
-nnoremap <Leader><Space>v "*p
-nnoremap <c-m> o<ESC>
-nnoremap <cr> o<ESC>
+		nnoremap <s-t> %
 
-" Source ideavimrc
-nnoremap <Leader>ms :so ~/.ideavimrc<CR>
+		nnoremap <Leader><Space>v "*p
+		nnoremap <c-m> o<ESC>
+		nnoremap <cr> o<ESC>
+		" Source ideavimrc
+		nnoremap <Leader>ms :so ~/.ideavimrc<CR>
 
-set relativenumber
+		nnoremap <Leader><Space>v "+p
+		nnoremap <Leader><Space>y "+yy
 
-" Folding
-  " Folding select text then S-f to fold or just S-f to toggle folding
-  " not supported
-  nnoremap <C-z> zz
-  nnoremap <C-c> zM
-  nnoremap <C-n> zR
-  " not supported
-  nnoremap <C-x> zo
-  " dont use <C-a> it conflicts with tmux prefix
-  set foldenable
-  " global fold indent
-  set foldmethod=indent
-  set foldnestmax=18      "deepest fold is 18 levels
-  set foldlevel=0
-  set foldlevelstart=0
+		noremap <Leader>I ggvG=
+		nnoremap <c-h> :noh<CR>
+		noremap <S-s> #<C-o>
+		nnoremap <Leader>A <c-x>
 
-" you can use :so ~/.ideavimrc just as <Space>ms
-noremap <S-s> #<C-o>
+	" Window navigation
+		nnoremap <Leader>l <c-w>l
+		nnoremap <Leader>j <c-w>j
+		nnoremap <Leader>h <c-w>h
+		nnoremap <Leader>k <c-w>k
 
-nnoremap <c-j> :action MethodDown<CR>
-nnoremap <c-k> :action MethodUp<CR>
+	" Command Line
+		cnoremap <c-o> <up>
+		cnoremap <c-k> <down>
 
-nnoremap <Leader><Space>v "+p
-nnoremap <Leader><Space>y "+yy
+	" Folding
+		" Folding select text then S-f to fold or just S-f to toggle folding
+		" not supported
+		nnoremap <C-z> zz
+		nnoremap <C-c> zM
+		nnoremap <C-n> zR
+		" not supported
+		nnoremap <C-x> zo
+		" dont use <C-a> it conflicts with tmux prefix
+		set foldenable
+		" global fold indent
+		set foldmethod=indent
+		set foldnestmax=18      "deepest fold is 18 levels
+		set foldlevel=0
+		set foldlevelstart=0
 
-noremap <Leader>I ggvG=
+	" Not paste the deleted word
+		nnoremap <Leader>p "0p
+		vnoremap <Leader>p "0p
 
-" Use :actionlist
-" nnoremap <Space>S :action Android.SyncProject<CR>:action Synchronize<CR>
-nnoremap <Leader>S :action Synchronize<CR>
+" SET_OPTIONS
+	set relativenumber
+	set hlsearch      " highlight search terms
+	set number
+	set showmode
+	set notimeout
+	set nottimeout
+	set surround
+	set incsearch
 
-" Android section
-nnoremap <Leader>md :action Debug<CR>
-nnoremap <Leader>ma :action MakeGradleProject<CR>
-nnoremap <Leader>mr :action Run<CR>
+" ACTION_MAPPINGS
+	" Movement
+		nnoremap <c-j> :action MethodDown<CR>
+		nnoremap <c-k> :action MethodUp<CR>
 
-" nnoremap <Leader>ms :action Stop<CR>
-" nnoremap <Leader>al :actionlist<CR>
-nnoremap <Leader>am :action ActivateAndroidMonitorToolWindow<CR>
-nnoremap <Leader>ap :action ActivateProjectToolWindow<CR>
-nnoremap <Leader>av :action ActivateThemePreviewToolWindow<CR>
+		" nnoremap <Space>S :action Android.SyncProject<CR>:action Synchronize<CR>
+		nnoremap <Leader>S :action Synchronize<CR>
 
-" Zoom section
-nnoremap <Leader><Space>- :action EditorDecreaseFontSize<CR>
-nnoremap <Leader><Space>= :action EditorIncreaseFontSize<CR>
+	" Android Make-Run
+		nnoremap <Leader>md :action Debug<CR>
+		nnoremap <Leader>ma :action MakeGradleProject<CR>
+		nnoremap <Leader>mr :action Run<CR>
 
-" Go to section
-nnoremap <Leader>sn :action GotoNextError<CR>
-nnoremap <Leader>sp :action GotoPreviousError<CR>
+	" Screens
+		" nnoremap <Leader>ms :action Stop<CR>
+		" nnoremap <Leader>al :actionlist<CR>
+		nnoremap <Leader>am :action ActivateAndroidMonitorToolWindow<CR>
+		nnoremap <Leader>ap :action ActivateProjectToolWindow<CR>
+		nnoremap <Leader>av :action ActivateThemePreviewToolWindow<CR>
 
-" Step section
-nnoremap <Leader>si :action StepInto<CR>
-nnoremap <Leader>so :action StepOver<CR>
-nnoremap <Leader>sO :action StepOut<CR>
-nnoremap <Leader>sr :action Resume<CR>
-" Spelling fix
-nnoremap <Leader>sf :action com.intellij.spellchecker.actions.SpellingPopupActionGroup<CR>
+	" Zoom section
+		nnoremap <Leader><Space>- :action EditorDecreaseFontSize<CR>
+		nnoremap <Leader><Space>= :action EditorIncreaseFontSize<CR>
 
-" Toggle Section
-nnoremap <Leader>td :action ToggleDistractionFreeMode<CR>
-nnoremap <Leader>tf :action ToggleFloatingMode<CR>
-nnoremap <Leader>tb :action ToggleLineBreakpoint<CR>
+	" Go to section
+		nnoremap <Leader>sn :action GotoNextError<CR>
+		nnoremap <Leader>sp :action GotoPreviousError<CR>
 
+	" Step section
+		nnoremap <Leader>si :action StepInto<CR>
+		nnoremap <Leader>so :action StepOver<CR>
+		nnoremap <Leader>sO :action StepOut<CR>
+		nnoremap <Leader>sr :action Resume<CR>
+		" Spelling fix
+		" Doesnt work
+		" nnoremap <Leader>sf :action com.intellij.spellchecker.actions.SpellingPopupActionGroup<CR>
 
-" EditorCreateRectangularSelection
-nnoremap - :action CommentByLineComment<CR>
+	" Toggle Section
+		nnoremap <Leader>td :action ToggleDistractionFreeMode<CR>
+		nnoremap <Leader>tf :action ToggleFloatingMode<CR>
+		nnoremap <Leader>tb :action ToggleLineBreakpoint<CR>
 
-" Quit section
-nnoremap <Leader>ql :action CloseContent<CR>
-nnoremap <Leader>qs :action HideSideWindows<CR>
-nnoremap <Leader>qa :action HideAllWindows<CR>
-nnoremap <Leader>qA :action Exit<CR>
+	" Miscelaneous
+		nnoremap - :action CommentByLineComment<CR>
+		nnoremap <Leader>nc :action NewClass<CR>
+		nnoremap <Leader>O :action MoveEditorToOppositeTabGroup<CR>
+		" Help section
+		nnoremap <Leader>He :action ExternalJavaDoc<CR>
+		" File | Settings
+		nnoremap <Leader>ft :action ShowSettings<CR>
+		nnoremap zc :action CollapseBlock<CR>
+		" Use IDE's rename
+		nnoremap <Leader>r :action RenameElement<CR>
 
-" New section
-nnoremap <Leader>nc :action NewClass<CR>
+	" Quit section
+		nnoremap <Leader>ql :action CloseContent<CR>
+		nnoremap <Leader>qs :action HideSideWindows<CR>
+		nnoremap <Leader>qa :action HideAllWindows<CR>
+		nnoremap <Leader>qA :action Exit<CR>
 
-" Tag jumps
-nnoremap <Leader>tj :action GotoDeclaration<CR>
-nnoremap <Leader>th :action JavaMethodHierarchyPopupMenu<CR>
+	" Tag jumps
+		nnoremap <Leader>tj :action GotoDeclaration<CR>
+		nnoremap <Leader>th :action JavaMethodHierarchyPopupMenu<CR>
 
-" Git
-nnoremap <Leader>ga :action Git.Add<CR>
-
-" Code format
-nnoremap <c-f> :action ReformatCode<CR>
-nnoremap <Leader>co :action OptimizeImports<CR>
-
-cnoremap <c-o> <up>
-cnoremap <c-k> <down>
-
-set hlsearch      " highlight search terms
-set number
-nnoremap <c-h> :noh<CR>
-set showmode
-
-" Research show sample code
-" Goto class
-" Go to count g;
-" Refactor
-" Window managment
-"
-" Window navigation
-nnoremap <Leader>l <c-w>l
-nnoremap <Leader>j <c-w>j
-nnoremap <Leader>h <c-w>h
-nnoremap <Leader>k <c-w>k
-nnoremap <Leader>O :action MoveEditorToOppositeTabGroup<CR>
-
-set notimeout
-set nottimeout
-set surround
-set incsearch
-
-" Help section
-nnoremap <Leader>He :action ExternalJavaDoc<CR>
-" File | Settings
-nnoremap <Leader>ft :action ShowSettings<CR>
-
-inoremap <c-c> //<Space> 
-
-nnoremap zc :action CollapseBlock<CR>
-
-" not paste the deleted word
-nnoremap <Leader>p "0p
-vnoremap <Leader>p "0p
-
-" Dont use IDE's rename
-nnoremap <Leader>r :action RenameElement<CR>
-nnoremap <Leader>A <c-x>
-
-" nnoremap <s-j> :action GotoChangedFile<CR>
-" Switch doesnt work
-" nnoremap <s-j> :action SwitchLeft<CR>
-" nnoremap <s-k> :action SwitchRight<CR>
+	" Code format
+		nnoremap <c-f> :action ReformatCode<CR>
+		nnoremap <Leader>co :action OptimizeImports<CR>

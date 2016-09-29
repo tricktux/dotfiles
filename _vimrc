@@ -1,15 +1,15 @@
 " File:					_vimrc
 " Description:  Vim configuration file
 " Author:				Reinaldo Molina
-" Version:			1.0.0
-" Date:					Tue Sep 27 2016 16:53 	
+" Version:			1.0.1
+" Date:					Thu Sep 29 2016 10:37 	
 " Improvements:
-	" - [ ] Markdown tables
-	" - [ ] make mail ft grab autocomplete from alias.sh
-	" - [ ] Fix GlobalSearch()
-	" - [ ] Customize Doxygen options or find replacement
-	" - [ ] Customize and install vim-formatter
-	
+		" - [ ] Markdown tables
+		" - [ ] make mail ft grab autocomplete from alias.sh
+		" - [ ] Fix GlobalSearch()
+		" - [ ] Customize Doxygen options or find replacement
+		" - [ ] Customize and install vim-formatter
+		
 " REQ AND LEADER
 	set nocompatible
 	syntax on
@@ -26,7 +26,6 @@
 		let s:vimfile_path=  $HOME . '\vimfiles\'
 		let s:wiki_path =  $HOME . '\Documents\wiki'
 		let s:custom_font =  'consolas:h8'
-		" always start in the home dir
 
 		if !has('gui_running')
 			set term=xterm
@@ -60,6 +59,7 @@
 		\ '')<CR>
 
 		nnoremap  o<Esc>
+
 		" Mappings to execute programs
 		" Do not make a ew1 mapping. reserved for when issues get to #11, 12, etc
 		nnoremap <Leader>ewd :Start! WINGS.exe 3 . default.ini<CR>
@@ -67,12 +67,19 @@
 		nnoremap <Leader>ews :execute("Start! WINGS.exe 3 . " . input("Config file:", "", "file"))<CR>
 		nnoremap <Leader>ewl :silent !del default.ini<CR>
 							\:!mklink default.ini
-		" e1 reserved for vimrc
-		nnoremap <Leader>e21 :silent e ~/Documents/1.WINGS/NeoOneWINGS/
-		nnoremap <Leader>e22 :silent e ~/Documents/1.WINGS/
-		nnoremap <Leader>ed :silent e default.ini<CR>
 
-		nnoremap <Leader>es1 :silent e D:/Reinaldo/NeoOneWINGS/
+		" e1 reserved for vimrc
+		function! s:SetWingsPath(sPath) abort
+			execute "nnoremap <Leader>e21 :silent e " . a:sPath . "NeoOneWINGS/"
+			execute "nnoremap <Leader>e22 :silent e " . a:sPath
+			execute "nnoremap <Leader>ed :silent e ". a:sPath . "NeoOneWINGS/default.ini<CR>"
+		endfunction
+
+		" Switch Wings mappings for SWTestbed
+		nnoremap <Leader>es :call <SID>SetWingsPath('D:/Reinaldo/')<CR>
+		" Default Wings mappings are for laptop
+		call <SID>SetWingsPath('~/Documents/1.WINGS/')
+
 		" Time runtime of a specific program
 		nnoremap <Leader>mt :Dispatch powershell -command "& {&'Measure-Command' {.\sep_calc.exe seprc}}"<CR>
 
@@ -443,313 +450,312 @@
 	endfunction
 
 	function! s:CheckVimPlug() abort
-	  let b:bLoadPlugins = 0
+		let b:bLoadPlugins = 0
 		if empty(glob(s:vimfile_path . 'autoload/plug.vim'))
 			if executable('curl')
-        " Create folder
-        call <SID>CheckDirwoPrompt(s:vimfile_path . "autoload")
+				" Create folder
+				call <SID>CheckDirwoPrompt(s:vimfile_path . "autoload")
 				echomsg "Master I am going to install all plugings for you"
 				execute "silent !curl -fLo " . s:vimfile_path . "autoload/plug.vim --create-dirs"
 					\" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 				autocmd VimEnter * PlugInstall | source $MYVIMRC
-        let b:bLoadPlugins = 1
-        return 1
+				let b:bLoadPlugins = 1
+				return 1
 			else
 				echomsg "Master I cant install plugins for you because you"
 							\" do not have curl. Please fix this. Plugins"
-              \" will not be loaded."
-        let b:bLoadPlugins = 0
-        return 0
+							\" will not be loaded."
+				let b:bLoadPlugins = 0
+				return 0
 			endif
-    else
-      let b:bLoadPlugins = 1
-      return 1
-    endif
+		else
+			let b:bLoadPlugins = 1
+			return 1
+		endif
 	endfunction
 
 	function! s:NormalizeWindowSize() abort
-    execute "normal \<c-w>="
-  endfunction
+		execute "normal \<c-w>="
+	endfunction
 
-  function! s:FixPreviousWord() abort
-    normal mm[s1z=`m
-  endfunction
+	function! s:FixPreviousWord() abort
+		normal mm[s1z=`m
+	endfunction
 
-  function! s:SaveSession(...) abort
-    " if session name is not provided as function argument ask for it
-    if a:0 < 1
-      execute "wall"
-      execute "cd ". s:cache_path ."sessions/"
-      let l:sSessionName = input("Enter
-            \ save session name:", "", "file")
-    else
-      " Need to keep this option short and sweet
-      let l:sSessionName = a:1
-    endif
-    execute "normal :mksession! " . s:cache_path . "sessions/". l:sSessionName  . "\<CR>"
-    execute "cd -"
-  endfunction
+	function! s:SaveSession(...) abort
+		" if session name is not provided as function argument ask for it
+		if a:0 < 1
+			execute "wall"
+			execute "cd ". s:cache_path ."sessions/"
+			let l:sSessionName = input("Enter
+						\ save session name:", "", "file")
+		else
+			" Need to keep this option short and sweet
+			let l:sSessionName = a:1
+		endif
+		execute "normal :mksession! " . s:cache_path . "sessions/". l:sSessionName  . "\<CR>"
+		execute "cd -"
+	endfunction
 
-  function! s:LoadSession(...) abort
-    " save all work
-    execute "cd ". s:cache_path ."sessions/"
-    " Logic path when not called at startup
-    if a:0 < 1
-      execute "wall"
-      echo "Save Current Session before deleting all buffers: (y)es (any)no"
-      let l:iResponse = getchar()
-      if l:iResponse == 121 " y
-        call <SID>SaveSession()
-      endif
-      let l:sSessionName = input("Enter
-            \ load session name:", "", "file")
-    else
-      let l:sSessionName = a:1
-      echo "Reload Last Session: (y)es (d)ifferent session or (any)nothing"
-      let l:iResponse = getchar()
-      if l:iResponse == 100 " different session
-        let l:sSessionName = input("Enter
-              \load session name:", "", "file")
-      elseif l:iResponse == 121 " reload last session
-        " continue to end of if
-      else
-        " execute "normal :%bdelete\<CR>" " do not delete old buffers
-        return
-      endif
-    endif
-    execute "normal :%bdelete\<CR>"
-    silent execute "normal :so " . s:cache_path . "sessions/". l:sSessionName . "\<CR>"
-    execute "cd -"
-  endfunction
+	function! s:LoadSession(...) abort
+		" save all work
+		execute "cd ". s:cache_path ."sessions/"
+		" Logic path when not called at startup
+		if a:0 < 1
+			execute "wall"
+			echo "Save Current Session before deleting all buffers: (y)es (any)no"
+			let l:iResponse = getchar()
+			if l:iResponse == 121 " y
+				call <SID>SaveSession()
+			endif
+			let l:sSessionName = input("Enter
+						\ load session name:", "", "file")
+		else
+			let l:sSessionName = a:1
+			echo "Reload Last Session: (y)es (d)ifferent session or (any)nothing"
+			let l:iResponse = getchar()
+			if l:iResponse == 100 " different session
+				let l:sSessionName = input("Enter
+							\load session name:", "", "file")
+			elseif l:iResponse == 121 " reload last session
+				" continue to end of if
+			else
+				" execute "normal :%bdelete\<CR>" " do not delete old buffers
+				return
+			endif
+		endif
+		execute "normal :%bdelete\<CR>"
+		silent execute "normal :so " . s:cache_path . "sessions/". l:sSessionName . "\<CR>"
+		execute "cd -"
+	endfunction
 
-  function! s:TodoCreate() abort
-    execute "normal Blli\<Space>[ ]\<Space>\<Esc>"
-  endfunction
+	function! s:TodoCreate() abort
+		execute "normal Blli\<Space>[ ]\<Space>\<Esc>"
+	endfunction
 
-  function! s:TodoMark() abort
-    execute "normal Bf[lrX\<Esc>"
-  endfunction
+	function! s:TodoMark() abort
+		execute "normal Bf[lrX\<Esc>"
+	endfunction
 
-  function! s:TodoClearMark() abort
-    execute "normal Bf[lr\<Space>\<Esc>"
-  endfunction
+	function! s:TodoClearMark() abort
+		execute "normal Bf[lr\<Space>\<Esc>"
+	endfunction
 
-  function! s:CommentDelete() abort
-    execute "normal Bf/D"
-  endfunction
+	function! s:CommentDelete() abort
+		execute "normal Bf/D"
+	endfunction
 
-  function! s:CommentIndent() abort
-    execute "normal Bf/i\<Tab>\<Tab>\<Esc>"
-  endfunction
+	function! s:CommentIndent() abort
+		execute "normal Bf/i\<Tab>\<Tab>\<Esc>"
+	endfunction
 
-  function! s:CommentReduceIndent() abort
-    execute "normal Bf/hxhx"
-  endfunction
+	function! s:CommentReduceIndent() abort
+		execute "normal Bf/hxhx"
+	endfunction
 
-  function! s:CommentLine() abort
-    if exists("*NERDComment")
-      execute "normal mm:" . input("Comment Line:") . "\<CR>"
-      execute "normal :call NERDComment(\"n\", \"Toggle\")\<CR>`m"
-    else
-      echo "Please install NERDCommenter"
-    endif
-  endfunction
+	function! s:CommentLine() abort
+		if exists("*NERDComment")
+			execute "normal mm:" . input("Comment Line:") . "\<CR>"
+			execute "normal :call NERDComment(\"n\", \"Toggle\")\<CR>`m"
+		else
+			echo "Please install NERDCommenter"
+		endif
+	endfunction
 
-  " To update ctags simply delete the ctags folder
-  " Note: There is also avr tags created by vimrc/scripts/maketags.sh
-  " let &tags= s:cache_path . 'ctags/tags'
-  function! s:AutoCreateCtags() abort
-    if empty(finddir(s:cache_path . "ctags",",,"))
-      " Go ahead and create the ctags
-      if !executable('ctags')
-        echomsg string("Please install ctags")
-      else
-        " Create folder
-        if !<SID>CheckDirwoPrompt(s:cache_path . "ctags")
-          echoerr string("Failed to create ctags dir")
-        endif
-        " Create ctags
-        if has('unix')
-          !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.vim/personal/ctags/tags_sys /usr/include
-          !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.vim/personal/ctags/tags_sys2 /usr/local/include
-          if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
-            set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
-            !ctags -R --sort=yes --fields=+iaS --extra=+q --language-force=C -f ~/.vim/personal/ctags/tags_avr /opt/avr8-gnu-toolchain-linux_x86_64/avr/include
-            set tags+=~/.vim/personal/ctags/tags_avr
-          endif
-          if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/include')
-            set path+=/opt/avr8-gnu-toolchain-linux_x86_64/include
-            !ctags -R --sort=yes --fields=+iaS --extra=+q --language-force=C -f ~/.vim/personal/ctags/tags_avr2 /opt/avr8-gnu-toolchain-linux_x86_64/include
-            set tags+=~/.vim/personal/ctags/tags_avr2
-          endif
-        elseif has('win32') && isdirectory('c:/MinGW')
-          set path+=c:/MinGW/include
-          execute "!ctags -R --verbose --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q
-                \ --language-force=C++ -f " . expand('~/vimfiles/personal/ctags/tags_sys') . " C:\\MinGW\\include"
-        else
-          echomsg string("Please install MinGW")
-        endif
-      endif
-    elseif has('unix')
-      if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
-        set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
-      endif
-      set tags+=~/.vim/personal/ctags/tags_sys
-      set tags+=~/.vim/personal/ctags/tags_sys2
-    else
-      set tags+=~/vimfiles/personal/ctags/tags_sys
-    endif
-  endfunction
+	" To update ctags simply delete the ctags folder
+	" Note: There is also avr tags created by vimrc/scripts/maketags.sh
+	" let &tags= s:cache_path . 'ctags/tags'
+	function! s:AutoCreateCtags() abort
+		if empty(finddir(s:cache_path . "ctags",",,"))
+			" Go ahead and create the ctags
+			if !executable('ctags')
+				echomsg string("Please install ctags")
+			else
+				" Create folder
+				if !<SID>CheckDirwoPrompt(s:cache_path . "ctags")
+					echoerr string("Failed to create ctags dir")
+				endif
+				" Create ctags
+				if has('unix')
+					!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.vim/personal/ctags/tags_sys /usr/include
+					!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.vim/personal/ctags/tags_sys2 /usr/local/include
+					if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
+						set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
+						!ctags -R --sort=yes --fields=+iaS --extra=+q --language-force=C -f ~/.vim/personal/ctags/tags_avr /opt/avr8-gnu-toolchain-linux_x86_64/avr/include
+						set tags+=~/.vim/personal/ctags/tags_avr
+					endif
+					if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/include')
+						set path+=/opt/avr8-gnu-toolchain-linux_x86_64/include
+						!ctags -R --sort=yes --fields=+iaS --extra=+q --language-force=C -f ~/.vim/personal/ctags/tags_avr2 /opt/avr8-gnu-toolchain-linux_x86_64/include
+						set tags+=~/.vim/personal/ctags/tags_avr2
+					endif
+				elseif has('win32') && isdirectory('c:/MinGW')
+					set path+=c:/MinGW/include
+					execute "!ctags -R --verbose --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q
+								\ --language-force=C++ -f " . expand('~/vimfiles/personal/ctags/tags_sys') . " C:\\MinGW\\include"
+				else
+					echomsg string("Please install MinGW")
+				endif
+			endif
+		elseif has('unix')
+			if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
+				set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
+			endif
+			set tags+=~/.vim/personal/ctags/tags_sys
+			set tags+=~/.vim/personal/ctags/tags_sys2
+		else
+			set tags+=~/vimfiles/personal/ctags/tags_sys
+		endif
+	endfunction
 
-  " Finish all this crap
-  function! s:AutoCreateUnixCtags() abort
-    if empty(finddir(s:cache_path . "ctags",",,"))
-      " Go ahead and create the ctags
-      if !executable('ctags')
-        echomsg string("Please install ctags")
-        return 0
-      else
-        " Create folder
-        if !<SID>CheckDirwoPrompt(s:cache_path . "ctags")
-          echoerr string("Failed to create ctags dir")
-          return 0
-        endif
-        let l:ctags_cmd = "!ctags -R --sort=yes --fields=+iaS --extra=+q -f "
-        " Ordered list that contains folder where tag is and where tag file
-        " goes
-        let l:list_folders = [
-              \"/usr/include",
-              \"~/.vim/personal/ctags/tags_sys",
-              \"/usr/local/include",
-              \"~/.vim/personal/ctags/tags_sys2",
-              \'/opt/avr8-gnu-toolchain-linux_x86_64/avr/include',
-              \"~/.vim/personal/ctags/tags_avr",
-              \'/opt/avr8-gnu-toolchain-linux_x86_64/include',
-              \"~/.vim/personal/ctags/tags_avr2",
-              \]
+	" Finish all this crap
+	function! s:AutoCreateUnixCtags() abort
+		if empty(finddir(s:cache_path . "ctags",",,"))
+			" Go ahead and create the ctags
+			if !executable('ctags')
+				echomsg string("Please install ctags")
+				return 0
+			else
+				" Create folder
+				if !<SID>CheckDirwoPrompt(s:cache_path . "ctags")
+					echoerr string("Failed to create ctags dir")
+					return 0
+				endif
+				let l:ctags_cmd = "!ctags -R --sort=yes --fields=+iaS --extra=+q -f "
+				" Ordered list that contains folder where tag is and where tag file
+				" goes
+				let l:list_folders = [
+							\"/usr/include",
+							\"~/.vim/personal/ctags/tags_sys",
+							\"/usr/local/include",
+							\"~/.vim/personal/ctags/tags_sys2",
+							\'/opt/avr8-gnu-toolchain-linux_x86_64/avr/include',
+							\"~/.vim/personal/ctags/tags_avr",
+							\'/opt/avr8-gnu-toolchain-linux_x86_64/include',
+							\"~/.vim/personal/ctags/tags_avr2",
+							\]
 
-        " Create ctags
-          " if isdirectory(l:list_folders
-          !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.vim/personal/ctags/tags_sys /usr/include
-          !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.vim/personal/ctags/tags_sys2 /usr/local/include
-          if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
-            set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
-            !ctags -R --sort=yes --fields=+iaS --extra=+q --language-force=C -f ~/.vim/personal/ctags/tags_avr /opt/avr8-gnu-toolchain-linux_x86_64/avr/include
-            set tags+=~/.vim/personal/ctags/tags_avr
-          endif
-          if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/include')
-            set path+=/opt/avr8-gnu-toolchain-linux_x86_64/include
-            !ctags -R --sort=yes --fields=+iaS --extra=+q --language-force=C -f ~/.vim/personal/ctags/tags_avr2 /opt/avr8-gnu-toolchain-linux_x86_64/include
-            set tags+=~/.vim/personal/ctags/tags_avr2
-          endif
-        elseif has('win32') && isdirectory('c:/MinGW')
-          set path+=c:/MinGW/include
-          execute "!ctags -R --verbose --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q
-                \ --language-force=C++ -f " . expand('~/vimfiles/personal/ctags/tags_sys') . " C:\\MinGW\\include"
-        else
-          echomsg string("Please install MinGW")
-        endif
-      endif
-    elseif has('unix')
-      if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
-        set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
-      endif
-      set tags+=~/.vim/personal/ctags/tags_sys
-      set tags+=~/.vim/personal/ctags/tags_sys2
-    else
-      set tags+=~/vimfiles/personal/ctags/tags_sys
-    endif
-  endfunction
+				" Create ctags
+					" if isdirectory(l:list_folders
+					!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.vim/personal/ctags/tags_sys /usr/include
+					!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.vim/personal/ctags/tags_sys2 /usr/local/include
+					if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
+						set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
+						!ctags -R --sort=yes --fields=+iaS --extra=+q --language-force=C -f ~/.vim/personal/ctags/tags_avr /opt/avr8-gnu-toolchain-linux_x86_64/avr/include
+						set tags+=~/.vim/personal/ctags/tags_avr
+					endif
+					if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/include')
+						set path+=/opt/avr8-gnu-toolchain-linux_x86_64/include
+						!ctags -R --sort=yes --fields=+iaS --extra=+q --language-force=C -f ~/.vim/personal/ctags/tags_avr2 /opt/avr8-gnu-toolchain-linux_x86_64/include
+						set tags+=~/.vim/personal/ctags/tags_avr2
+					endif
+				elseif has('win32') && isdirectory('c:/MinGW')
+					set path+=c:/MinGW/include
+					execute "!ctags -R --verbose --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q
+								\ --language-force=C++ -f " . expand('~/vimfiles/personal/ctags/tags_sys') . " C:\\MinGW\\include"
+				else
+					echomsg string("Please install MinGW")
+				endif
+			endif
+		elseif has('unix')
+			if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
+				set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
+			endif
+			set tags+=~/.vim/personal/ctags/tags_sys
+			set tags+=~/.vim/personal/ctags/tags_sys2
+		else
+			set tags+=~/vimfiles/personal/ctags/tags_sys
+		endif
+	endfunction
 
-  function! s:LastCommand() abort
-    execute "normal :\<Up>\<CR>"
-  endfunction
+	function! s:LastCommand() abort
+		execute "normal :\<Up>\<CR>"
+	endfunction
 
-  function! s:ListFiles(dir) abort
-    let l:directory = globpath(a:dir, '*')
-    if empty(l:directory)
-      echohl ErrorMsg | echom a:dir . " is not a valid directory name" | echohl None
-    endif
-    return map(split(l:directory,'\n'), "fnamemodify(v:val, ':t')")
-  endfunction
+	function! s:ListFiles(dir) abort
+		let l:directory = globpath(a:dir, '*')
+		if empty(l:directory)
+			echohl ErrorMsg | echom a:dir . " is not a valid directory name" | echohl None
+		endif
+		return map(split(l:directory,'\n'), "fnamemodify(v:val, ':t')")
+	endfunction
 
-  " Vim-Wiki
-    " Origin: Wang Shidong <wsdjeg@outlook.com>
-            " vim-cheat
-    func! CheatCompletion(ArgLead, CmdLine, CursorPos)
-      echom "arglead:[".a:ArgLead ."] cmdline:[" .a:CmdLine ."] cursorpos:[" .a:CursorPos ."]"
-      if a:ArgLead =~ '^-\w*'
-        echohl WarningMsg | echom a:ArgLead . " is not a valid wiki name" | echohl None
-      endif
-      return join(<SID>ListFiles(s:wiki_path . '//'),"\n")
+	" Vim-Wiki
+		" Origin: Wang Shidong <wsdjeg@outlook.com>
+						" vim-cheat
+		func! CheatCompletion(ArgLead, CmdLine, CursorPos)
+			echom "arglead:[".a:ArgLead ."] cmdline:[" .a:CmdLine ."] cursorpos:[" .a:CursorPos ."]"
+			if a:ArgLead =~ '^-\w*'
+				echohl WarningMsg | echom a:ArgLead . " is not a valid wiki name" | echohl None
+			endif
+			return join(<SID>ListFiles(s:wiki_path . '//'),"\n")
 		endfunction
 
-    function! s:OpenWiki(...) abort
-      if a:0 > 0
-        execute "vs " . s:wiki_path . '/'.  a:1
-        return
-      endif
-      execute "vs " . fnameescape(s:wiki_path . '//' . input('Wiki Name: ', '', 'custom,CheatCompletion'))
-    endfunction
+		function! s:OpenWiki(...) abort
+			if a:0 > 0
+				execute "vs " . s:wiki_path . '/'.  a:1
+				return
+			endif
+			execute "vs " . fnameescape(s:wiki_path . '//' . input('Wiki Name: ', '', 'custom,CheatCompletion'))
+		endfunction
 
 " PLUGINS_FOR_BOTH_SYSTEMS
 	" Attempt to install vim-plug and all plugins in case of first use
 	if <SID>CheckVimPlug()
-    " Call Vim-Plug Plugins should be from here below
-    call plug#begin(s:plugged_path)
-    if has('nvim')
-      Plug 'Shougo/deoplete.nvim'
-    else
-      Plug 'Shougo/neocomplete'
-    endif
-    " misc
-    Plug 'chrisbra/vim-diff-enhanced', { 'on' : 'SetDiff' }
-    Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-    Plug 'scrooloose/nerdcommenter'
-    Plug 'ctrlpvim/ctrlp.vim'
-    Plug 'chrisbra/Colorizer'
-    Plug 'tpope/vim-repeat'
-    Plug 'tpope/vim-surround'
-    Plug 'tpope/vim-dispatch'
-    Plug 'tpope/vim-classpath'
+		" Call Vim-Plug Plugins should be from here below
+		call plug#begin(s:plugged_path)
+		if has('nvim')
+			Plug 'Shougo/deoplete.nvim'
+		else
+			Plug 'Shougo/neocomplete'
+		endif
+		" misc
+		Plug 'chrisbra/vim-diff-enhanced', { 'on' : 'SetDiff' }
+		Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+		Plug 'scrooloose/nerdcommenter'
+		Plug 'ctrlpvim/ctrlp.vim'
+		Plug 'chrisbra/Colorizer'
+		Plug 'tpope/vim-repeat'
+		Plug 'tpope/vim-surround'
+		Plug 'tpope/vim-dispatch'
 		if has('unix') && !has('gui_running')
 			Plug 'jamessan/vim-gnupg'
 		endif
 		" TODO: Configure
 			" Plug 'Chiel92/vim-autoformat'
-    " Search
-    if has('unix') " Potential alternative to ctrlp
-      Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-    endif
-    " cpp
-    Plug 'Tagbar', { 'on' : 'TagbarToggle' }
-    Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
+		" Search
+		if has('unix') " Potential alternative to ctrlp
+			Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+		endif
+		" cpp
+		Plug 'Tagbar', { 'on' : 'TagbarToggle' }
+		Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
 		Plug 'Rip-Rip/clang_complete', { 'for' : ['c' , 'cpp'] }
-    Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : ['c' , 'cpp' ] }
-    Plug 'junegunn/rainbow_parentheses.vim', { 'on' : 'RainbowParentheses' }
-    " cpp/java
-    Plug 'mattn/vim-javafmt', { 'for' : 'java' }
-    Plug 'tfnico/vim-gradle', { 'for' : 'java' }
+		Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : ['c' , 'cpp' ] }
+		Plug 'junegunn/rainbow_parentheses.vim', { 'on' : 'RainbowParentheses' }
+		" cpp/java
+		Plug 'mattn/vim-javafmt', { 'for' : 'java' }
+		Plug 'tfnico/vim-gradle', { 'for' : 'java' }
 		" Plug 'vim-scripts/cSyntaxAfter'
-    " Autocomplete
-    Plug 'Shougo/neosnippet'
-    Plug 'Shougo/neosnippet-snippets'
-    Plug 'honza/vim-snippets'
-    " version control
-    Plug 'tpope/vim-fugitive'
-    " aesthetic
-    Plug 'morhetz/gruvbox' " colorscheme gruvbox
+		" Autocomplete
+		Plug 'Shougo/neosnippet'
+		Plug 'Shougo/neosnippet-snippets'
+		Plug 'honza/vim-snippets'
+		" version control
+		Plug 'tpope/vim-fugitive'
+		" aesthetic
+		Plug 'morhetz/gruvbox' " colorscheme gruvbox
 		Plug 'NLKNguyen/papercolor-theme'
-    " markdown stuff
-    Plug 'godlygeek/tabular', { 'for' : 'md' } " required by markdown
-    Plug 'plasticboy/vim-markdown', { 'for' : 'md' }
-    " radical
-    Plug 'glts/vim-magnum' " required by radical
-    Plug 'glts/vim-radical' " use with gA
+		" markdown stuff
+		Plug 'godlygeek/tabular', { 'for' : 'md' } " required by markdown
+		Plug 'plasticboy/vim-markdown', { 'for' : 'md' }
+		" radical
+		Plug 'glts/vim-magnum' " required by radical
+		Plug 'glts/vim-radical' " use with gA
 
-    " All of your Plugins must be added before the following line
-    call plug#end()            " required
-  endif
+		" All of your Plugins must be added before the following line
+		call plug#end()            " required
+	endif
 
 " GUI_SETTINGS
 	if has('gui_running')
@@ -783,30 +789,30 @@
 	" set fsync " already had problems with it. lost an entire file. dont use it
 
 " Create personal folders
-  " TMP folder
+	" TMP folder
 	if <SID>CheckDirwoPrompt(s:cache_path . "tmp")
 		let $TMP= s:cache_path . "tmp"
 	else
 		echomsg string("Failed to create tmp dir")
 	endif
 
-  if !<SID>CheckDirwoPrompt(s:cache_path . "sessions")
-    echoerr string("Failed to create sessions dir")
-  endif
+	if !<SID>CheckDirwoPrompt(s:cache_path . "sessions")
+		echoerr string("Failed to create sessions dir")
+	endif
 
-  " We assume wiki folder is there. No creation of this wiki folder
+	" We assume wiki folder is there. No creation of this wiki folder
 
-  if !<SID>CheckDirwoPrompt(s:cache_path . "java")
-    echoerr string("Failed to create java dir")
-  endif
+	if !<SID>CheckDirwoPrompt(s:cache_path . "java")
+		echoerr string("Failed to create java dir")
+	endif
 
-  if has('persistent_undo')
-    if <SID>CheckDirwoPrompt(s:cache_path . 'undofiles')
-      let &undodir= s:cache_path . 'undofiles'
-      set undofile
-      set undolevels=1000      " use many muchos levels of undo
-    endif
-  endif
+	if has('persistent_undo')
+		if <SID>CheckDirwoPrompt(s:cache_path . 'undofiles')
+			let &undodir= s:cache_path . 'undofiles'
+			set undofile
+			set undolevels=1000      " use many muchos levels of undo
+		endif
+	endif
 
 " SET_OPTIONS
 	"set spell spelllang=en_us
@@ -824,7 +830,7 @@
 
 	set showmatch     " set show matching parenthesis
 	set smartcase     " ignore case if search pattern is all lowercase,
-                    "    case-sensitive otherwise
+										"    case-sensitive otherwise
 	set ignorecase
 	set hlsearch      " highlight search terms
 	set number
@@ -898,10 +904,10 @@
 	set textwidth=80
 	" makes vim autocomplete - bullets
 	set comments+=b:-,b:*
-  set nolist " Do not display extra characters
-  set scroll=8
-  set modeline
-  set modelines=1
+	set nolist " Do not display extra characters
+	set scroll=8
+	set modeline
+	set modelines=1
 	" Set omni for all filetypes
 	set omnifunc=syntaxcomplete#Complete
 	call <SID>SetGrep()
@@ -909,18 +915,18 @@
 " ALL_AUTOGROUP_STUFF
 	augroup Filetypes
 		autocmd!
-    " TODO convert each of these categories into its own augroup
+		" TODO convert each of these categories into its own augroup
 		" C/Cpp
 		autocmd FileType c,cpp setlocal omnifunc=ClangComplete
 		" Rainbow cannot be enabled for help file. It breaks syntax highlight
-    autocmd FileType c,cpp,java RainbowParentheses
+		autocmd FileType c,cpp,java RainbowParentheses
 		" Indent options
-    autocmd FileType c,cpp setlocal shiftwidth=4 tabstop=4
-    autocmd FileType tex,vim,java,markdown setlocal shiftwidth=2 tabstop=2
-    " Java
-    autocmd FileType java setlocal omnifunc=javacomplete#Complete
-    " autocmd FileType java call CSyntaxAfter() " Being called from after/syntax
-    autocmd FileType java compiler gradlew
+		autocmd FileType c,cpp setlocal shiftwidth=4 tabstop=4
+		autocmd FileType tex,vim,java,markdown setlocal shiftwidth=2 tabstop=2
+		" Java
+		autocmd FileType java setlocal omnifunc=javacomplete#Complete
+		" autocmd FileType java call CSyntaxAfter() " Being called from after/syntax
+		autocmd FileType java compiler gradlew
 		" Nerdtree Fix
 		autocmd FileType nerdtree setlocal relativenumber
 		autocmd FileType nerdtree setlocal encoding=utf-8 " fixes little arrows
@@ -934,29 +940,29 @@
 		autocmd FileType help wincmd L
 		" wrap syntastic messages
 		autocmd FileType qf setlocal wrap
-    " Open markdown files with Chrome.
-    autocmd FileType markdown setlocal spell spelllang=en_us
+		" Open markdown files with Chrome.
+		autocmd FileType markdown setlocal spell spelllang=en_us
 
-    autocmd FileType mail setlocal wrap
+		autocmd FileType mail setlocal wrap
 	augroup END
 
 	augroup BuffTypes
 	autocmd!
-    " Arduino
-    autocmd BufNewFile,BufReadPost *.ino,*.pde setf arduino
-    " automatic syntax for *.scp
-    autocmd BufNewFile,BufReadPost *.scp setf wings_syntax
+		" Arduino
+		autocmd BufNewFile,BufReadPost *.ino,*.pde setf arduino
+		" automatic syntax for *.scp
+		autocmd BufNewFile,BufReadPost *.scp setf wings_syntax
 		autocmd BufEnter * :syntax sync minlines=100
 		autocmd BufWritePost *.java JavaFmt
 	augroup END
 
 	augroup VimType
-    autocmd!
-    " Sessions
-    " autocmd VimEnter * call <SID>LoadSession('default.vim')
-    autocmd VimLeave * call <SID>SaveSession('default.vim')
-    " Keep splits normalize
-    autocmd VimResized * call <SID>NormalizeWindowSize()
+		autocmd!
+		" Sessions
+		" autocmd VimEnter * call <SID>LoadSession('default.vim')
+		autocmd VimLeave * call <SID>SaveSession('default.vim')
+		" Keep splits normalize
+		autocmd VimResized * call <SID>NormalizeWindowSize()
 	augroup END
 
 	" vim -b : edit binary using xxd-format!
@@ -1048,7 +1054,7 @@
 		vnoremap <S-t> %
 		" Automatically insert date
 		nnoremap <F5> i<Space><ESC>"=strftime("%a %b %d %Y %H:%M")<CR>P
-    " Designed this way to be used with snippet md header
+		" Designed this way to be used with snippet md header
 		vnoremap <F5> s<Space><ESC>"=strftime("%a %b %d %Y %H:%M")<CR>Pa
 		inoremap <F5> <Space><ESC>"=strftime("%a %b %d %Y %H:%M")<CR>Pa
 		" Auto indent pasted text
@@ -1067,16 +1073,16 @@
 		" math on insert mode
 		inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
 		" Count occurrances of last search
-    nnoremap <Leader>cs :%s///gn<CR>
-    " Reload syntax
-    " Force wings_syntax on a file
-    nnoremap <Leader>sl :set filetype=wings_syntax<CR>
-    " Remove Trailing Spaces
-    nnoremap <Leader>c<Space> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
-    nnoremap <Leader>cl :call <SID>LastCommand()<CR>
-    nnoremap <Leader>gf :e <cfile><CR>
-    " Indent file
-    nnoremap <Leader>I ggvG=
+		nnoremap <Leader>cs :%s///gn<CR>
+		" Reload syntax
+		" Force wings_syntax on a file
+		nnoremap <Leader>sl :set filetype=wings_syntax<CR>
+		" Remove Trailing Spaces
+		nnoremap <Leader>c<Space> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+		nnoremap <Leader>cl :call <SID>LastCommand()<CR>
+		nnoremap <Leader>gf :e <cfile><CR>
+		" Indent file
+		nnoremap <Leader>I ggvG=
 		" Get vim help on current word
 		nnoremap <Leader>He :h <c-r>=expand("<cword>")<CR><CR>
 		" Markdown fix _ showing red
@@ -1118,7 +1124,7 @@
 		nnoremap <Leader>l <C-w>l
 
 	" Diff Sutff
-	  command! SetDiff call <SID>SetDiff()
+		command! SetDiff call <SID>SetDiff()
 		noremap <Leader>do :SetDiff<CR>
 		nnoremap <Leader>dl :call <SID>UnsetDiff()<CR>
 
@@ -1143,12 +1149,12 @@
 		noremap <Leader>sr :spellr<CR>
 
 	" Search
-    " Tried ack.vim. Discovered that nothing is better than grep with ag.
-    " search all type of files
-    nnoremap <Leader>S :grep --cpp 
-    " " " search cpp files
-    " nnoremap <Leader>Sc :call <SID>GlobalSearch(2)<CR>
-    nnoremap <Leader>w /\<<c-r>=expand("<cword>")<cr>\>
+		" Tried ack.vim. Discovered that nothing is better than grep with ag.
+		" search all type of files
+		nnoremap <Leader>S :grep --cpp 
+		" " " search cpp files
+		" nnoremap <Leader>Sc :call <SID>GlobalSearch(2)<CR>
+		nnoremap <Leader>w /\<<c-r>=expand("<cword>")<cr>\>
 		nnoremap <Leader>W :%s/\<<c-r>=expand("<cword>")<cr>\>/
 		" This is a very good to show and search all current but a much better is
 		" remaped search to f
@@ -1178,7 +1184,7 @@
 		nnoremap <S-x> :tabclose<CR>
 
 	" Make
-    nnoremap <Leader>ma :Make
+		nnoremap <Leader>ma :Make
 		" nnoremap <Leader>ma :make clean<CR>
 					" \:make all<CR>
 		nnoremap <Leader>mc :make clean<CR>
@@ -1196,7 +1202,7 @@
 
 	" Sessions
 		nnoremap <Leader>sS :call <SID>SaveSession()<CR>
-    nnoremap <Leader>sL :call <SID>LoadSession()<CR>
+		nnoremap <Leader>sL :call <SID>LoadSession()<CR>
 
 	" Version Control
 		" For all this commands you should be in the svn root folder
@@ -1228,20 +1234,20 @@
 			nnoremap <Leader>gl :silent Glog<CR>
 							\:copen 20<CR>
 
-  " Todo mappings
-    nnoremap <Leader>td :call <SID>TodoCreate()<CR>
-    nnoremap <Leader>tm :call <SID>TodoMark()<CR>
-    nnoremap <Leader>tM :call <SID>TodoClearMark()<CR>
-    " pull up todo/quick notes list
-    nnoremap <Leader>wt :call <SID>OpenWiki('TODO.md')<CR>
-    nnoremap <Leader>wo :call <SID>OpenWiki()<CR>
+	" Todo mappings
+		nnoremap <Leader>td :call <SID>TodoCreate()<CR>
+		nnoremap <Leader>tm :call <SID>TodoMark()<CR>
+		nnoremap <Leader>tM :call <SID>TodoClearMark()<CR>
+		" pull up todo/quick notes list
+		nnoremap <Leader>wt :call <SID>OpenWiki('TODO.md')<CR>
+		nnoremap <Leader>wo :call <SID>OpenWiki()<CR>
 
-  " Comments
-    nnoremap <Leader>cD :call <SID>CommentDelete()<CR>
-    " Comment Indent Increase/Reduce
-    nnoremap <Leader>cIi :call <SID>CommentIndent()<CR>
-    nnoremap <Leader>cIr :call <SID>CommentReduceIndent()<CR>
-    nnoremap cl :call <SID>CommentLine()<CR>
+	" Comments
+		nnoremap <Leader>cD :call <SID>CommentDelete()<CR>
+		" Comment Indent Increase/Reduce
+		nnoremap <Leader>cIi :call <SID>CommentIndent()<CR>
+		nnoremap <Leader>cIr :call <SID>CommentReduceIndent()<CR>
+		nnoremap cl :call <SID>CommentLine()<CR>
 
 	" Indenting
 		nnoremap <Leader>t2 :setlocal ts=2 sw=2 sts=2<CR>
@@ -1249,8 +1255,8 @@
 		nnoremap <Leader>t8 :setlocal ts=8 sw=8 sts=8<CR>
 
 	" Compiler
-		nnoremap <Leader>Cb :compiler borland
-		nnoremap <Leader>Cv :compiler msbuild
+		nnoremap <Leader>Cb :compiler borland<CR>
+		nnoremap <Leader>Cv :compiler msbuild<CR>
 		nnoremap <Leader>Cg :compiler gcc<CR>
 					\:setlocal makeprg=mingw32-make<CR>
 		" Note: The placeholder "$*" can be given (even multiple times) to specify
@@ -1292,8 +1298,8 @@
       let NERD_cpp_alt_style=0
       let NERDMenuMode=0 " no menu
       let g:NERDCustomDelimiters = {
-        \ 'vim': { 'left': '"', 'right': '' }}
-        " \ 'vimwiki': { 'left': '%%', 'right': '' }}
+        \ 'vim': { 'left': '"', 'right': '' },
+				\ 'wings_syntax': { 'left': '//', 'right': '' }}
         "\ 'vim': { 'left': '"', 'right': '' }
         "\ 'grondle': { 'left': '{{', 'right': '}}' }
       "\ }
