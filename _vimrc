@@ -731,7 +731,8 @@
 		Plug 'Tagbar', { 'on' : 'TagbarToggle' }
 		Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
 		Plug 'Rip-Rip/clang_complete', { 'for' : ['c' , 'cpp'] }
-		Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : ['c' , 'cpp' ] }
+		Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'cpp' ] }
+		Plug 'justinmk/vim-syntax-extra', { 'for' : [ 'c' , 'cpp' ] }
 		Plug 'junegunn/rainbow_parentheses.vim', { 'on' : 'RainbowParentheses' }
 		" cpp/java
 		Plug 'mattn/vim-javafmt', { 'for' : 'java' }
@@ -747,8 +748,8 @@
 		Plug 'morhetz/gruvbox' " colorscheme gruvbox
 		Plug 'NLKNguyen/papercolor-theme'
 		" markdown stuff
-		Plug 'godlygeek/tabular', { 'for' : 'md' } " required by markdown
-		Plug 'plasticboy/vim-markdown', { 'for' : 'md' }
+		" Plug 'godlygeek/tabular', { 'for' : 'md' } " required by markdown
+		" Plug 'plasticboy/vim-markdown', { 'for' : 'md' }
 		" radical
 		Plug 'glts/vim-magnum' " required by radical
 		Plug 'glts/vim-radical' " use with gA
@@ -918,7 +919,7 @@
 		" TODO convert each of these categories into its own augroup
 		" C/Cpp
 		autocmd FileType c,cpp setlocal omnifunc=ClangComplete
-		" Rainbow cannot be enabled for help file. It breaks syntax highlight
+	 	" Rainbow cannot be enabled for help file. It breaks syntax highlight
 		autocmd FileType c,cpp,java RainbowParentheses
 		" Indent options
 		autocmd FileType c,cpp setlocal shiftwidth=4 tabstop=4
@@ -1256,7 +1257,9 @@
 
 	" Compiler
 		nnoremap <Leader>Cb :compiler borland<CR>
+		" msbuild errorformat looks horrible resetting here
 		nnoremap <Leader>Cv :compiler msbuild<CR>
+									\:set errorformat&<CR>
 		nnoremap <Leader>Cg :compiler gcc<CR>
 					\:setlocal makeprg=mingw32-make<CR>
 		" Note: The placeholder "$*" can be given (even multiple times) to specify
@@ -1364,11 +1367,11 @@
 			" command! -nargs=1 DoxUndoc :call <SID>DoxygenUndocumentFunc(<q-args>)
 			" command! -nargs=0 DoxBlock :call <SID>DoxygenBlockFunc()
 			let g:DoxygenToolkit_briefTag_pre = "Brief:			"
-      let g:DoxygenToolkit_paramTag_pre=	"Var:				"
+      let g:DoxygenToolkit_paramTag_pre=	"		Var:		"
       let g:DoxygenToolkit_returnTag=			"Returns:   "
       let g:DoxygenToolkit_blockHeader=""
       let g:DoxygenToolkit_blockFooter=""
-      let g:DoxygenToolkit_authorName="Reinaldo Molina"
+      let g:DoxygenToolkit_authorName="Reinaldo Molina <rmolin88@gmail.com>"
 			let g:DoxygenToolkit_authorTag =	"Author:				"
 			let g:DoxygenToolkit_fileTag =		"File:					"
 			let g:DoxygenToolkit_briefTag_pre="Description:		"
@@ -1400,10 +1403,10 @@
       "let g:cpp_experimental_template_highlight = 1
 
     " Plugin 'morhetz/gruvbox' " colorscheme gruvbox
-			" colorscheme gruvbox
-			" set background=dark    " Setting dark mode
-			set background=light
-			colorscheme PaperColor
+			colorscheme gruvbox
+			set background=dark    " Setting dark mode
+			" set background=light
+			" colorscheme PaperColor
 
     " Plug Neocomplete
       if !has('nvim')
