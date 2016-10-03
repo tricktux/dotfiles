@@ -25,7 +25,7 @@
 		let s:cache_path= $HOME . '\.cache\'
 		let s:plugged_path=  $HOME . '\vimfiles\plugged\'
 		let s:vimfile_path=  $HOME . '\vimfiles\'
-		let s:wiki_path =  $HOME . '\Documents\wiki'
+		let s:wiki_path =  $HOME . '\Documents\1.WINGS\NeoWingsSupportFiles\wiki'
 		let s:custom_font =  'consolas:h8'
 
 		if !has('gui_running')
@@ -1378,7 +1378,7 @@
 			" command! -nargs=1 DoxUndoc :call <SID>DoxygenUndocumentFunc(<q-args>)
 			" command! -nargs=0 DoxBlock :call <SID>DoxygenBlockFunc()
 			let g:DoxygenToolkit_briefTag_pre = "Brief:			"
-      let g:DoxygenToolkit_paramTag_pre=	"		Var:		"
+      let g:DoxygenToolkit_paramTag_pre=	"	"
       let g:DoxygenToolkit_returnTag=			"Returns:   "
       let g:DoxygenToolkit_blockHeader=""
       let g:DoxygenToolkit_blockFooter=""
@@ -1581,6 +1581,11 @@
 			let java_space_errors=1
 			let java_comment_strings=1
 			hi javaParen ctermfg=blue guifg=#0000ff
+
+		" Vim-Rooter
+			let g:rooter_manual_only = 1
+			nnoremap <Leader>cr :Rooter<CR>
+			
   endif
 
 " see :h modeline
