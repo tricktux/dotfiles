@@ -1,9 +1,10 @@
 " File:					_vimrc
-" Description:  Vim configuration file
+" Description:  Vim/Neovim configuration file
 " Author:				Reinaldo Molina
 " Version:			1.0.1
 " Date:					Thu Sep 29 2016 10:37 	
 " Improvements:
+"		" - Figure out how to handle Doxygen
 		" - [ ] Markdown tables
 		" - [ ] make mail ft grab autocomplete from alias.sh
 		" - [ ] Fix GlobalSearch()
@@ -142,7 +143,8 @@
 		vnoremap <Leader><Space>y "+y
 
 		" edit android
-		nnoremap <Leader>ea :silent e ~/Documents/android-projects/
+		nnoremap <Leader>ea :silent e
+					\ ~/Documents/seafile-client/Seafile/KnowledgeIsPower/udacity/android-projects/
 		" edit odroid
 		nnoremap <Leader>eo :silent e ~/.mnt/truck-server/Documents/NewBot_v3/
 		" edit bot
@@ -154,7 +156,11 @@
 		" Edit Truck
 		nnoremap <Leader>et :silent e ~/.mnt/truck-server/
 		" Edit plugin
-		nnoremap <Leader>ep :e ~/.vim/plugged/
+		if has('nvim')
+			nnoremap <Leader>ep :e ~/.config/nvim/plugged/
+		else
+			nnoremap <Leader>ep :e ~/.vim/plugged/
+		endif
 
 
 		nnoremap <Leader><Space>= :silent! let &guifont = substitute(
@@ -197,6 +203,9 @@
 
 				set tags+=~/.vim/ctags/tags_sys
 				set tags+=~/.vim/ctags/tags_sys2
+				set tags+=~/.vim/ctags/tags_android
+
+				let $CLASSPATH='/home/reinaldo/Documents/android-sdk/platforms/android-24/android.jar'
 				
 			" Vim-clang
 				let g:clang_library_path='/usr/lib/llvm-3.8/lib'
@@ -705,10 +714,17 @@
 		" Call Vim-Plug Plugins should be from here below
 		call plug#begin(s:plugged_path)
 		if has('nvim')
+			" Neovim exclusive plugins
+			Plug 'DonnieWest/VimStudio'
+			Plug 'neomake/neomake'
 			Plug 'Shougo/deoplete.nvim'
 		else
+			" Vim exclusive plugins
 			Plug 'Shougo/neocomplete'
+			Plug 'tpope/vim-dispatch'
+			Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
 		endif
+		" Plugins for both
 		" misc
 		Plug 'chrisbra/vim-diff-enhanced', { 'on' : 'SetDiff' }
 		Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -717,7 +733,6 @@
 		Plug 'chrisbra/Colorizer'
 		Plug 'tpope/vim-repeat'
 		Plug 'tpope/vim-surround'
-		Plug 'tpope/vim-dispatch'
 		if has('unix') && !has('gui_running')
 			Plug 'jamessan/vim-gnupg'
 		endif
@@ -729,7 +744,6 @@
 		endif
 		" cpp
 		Plug 'Tagbar', { 'on' : 'TagbarToggle' }
-		Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
 		Plug 'Rip-Rip/clang_complete', { 'for' : ['c' , 'cpp'] }
 		Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'cpp' ] }
 		Plug 'justinmk/vim-syntax-extra', { 'for' : [ 'c' , 'cpp' ] }
@@ -737,7 +751,8 @@
 		" cpp/java
 		Plug 'mattn/vim-javafmt', { 'for' : 'java' }
 		Plug 'tfnico/vim-gradle', { 'for' : 'java' }
-		" Plug 'vim-scripts/cSyntaxAfter'
+		Plug 'airblade/vim-rooter'
+		Plug 'artur-shaik/vim-javacomplete2'
 		" Autocomplete
 		Plug 'Shougo/neosnippet'
 		Plug 'Shougo/neosnippet-snippets'
@@ -747,9 +762,6 @@
 		" aesthetic
 		Plug 'morhetz/gruvbox' " colorscheme gruvbox
 		Plug 'NLKNguyen/papercolor-theme'
-		" markdown stuff
-		" Plug 'godlygeek/tabular', { 'for' : 'md' } " required by markdown
-		" Plug 'plasticboy/vim-markdown', { 'for' : 'md' }
 		" radical
 		Plug 'glts/vim-magnum' " required by radical
 		Plug 'glts/vim-radical' " use with gA
@@ -930,7 +942,6 @@
 		autocmd FileType java compiler gradlew
 		" Nerdtree Fix
 		autocmd FileType nerdtree setlocal relativenumber
-		autocmd FileType nerdtree setlocal encoding=utf-8 " fixes little arrows
 		" Set omnifunc for all others 									" not showing
 		autocmd FileType cs compiler msbuild
 		" Latex
@@ -1479,6 +1490,33 @@
       elseif has('python3')
         " if it is nvim deoplete requires python3 to work
         let g:deoplete#enable_at_startup = 1
+				" Settings for javacomplete2
+				let g:deoplete#enable_ignore_case = 1
+				let g:deoplete#enable_smart_case = 1
+				let g:deoplete#enable_refresh_always = 1
+				let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
+				let g:deoplete#omni#input_patterns.java = [
+						\'[^. \t0-9]\.\w*',
+						\'[^. \t0-9]\->\w*',
+						\'[^. \t0-9]\::\w*',
+						\]
+				let g:deoplete#omni#input_patterns.jsp = ['[^. \t0-9]\.\w*']
+				let g:deoplete#ignore_sources = {}
+				let g:deoplete#ignore_sources._ = ['javacomplete2']
+			 
+				" Regular settings
+				inoremap <silent><expr> <TAB>
+							\ pumvisible() ? "\<C-n>" :
+							\ <SID>check_back_space() ? "\<TAB>" :
+							\ deoplete#mappings#manual_complete()
+				function! s:check_back_space() abort
+					let col = col('.') - 1
+					return !col || getline('.')[col - 1]  =~ '\s'
+				endfunction
+				inoremap <expr><C-h>
+							\ deoplete#smart_close_popup()."\<C-h>"
+				inoremap <expr><BS>
+							\ deoplete#smart_close_popup()."\<C-h>"
       else
         echoerr "No python3 = No Deocomplete"
         " so if it doesnt have it activate clang instaed
@@ -1528,8 +1566,9 @@
     " Colorizer
       let g:colorizer_auto_filetype='css,html,xml'
 
-    " JavaComplete
-      let g:JavaComplete_BaseDir = s:cache_path . 'java'
+    " JavaComplete2
+			let g:JavaComplete_SourcesPath='~/Documents/seafile-client/Seafile/KnowledgeIsPower/udacity/android-projects/BaseballScore/app/build/generated/source/r/'
+			let g:JavaComplete_ClosingBrace = 1 
 
     " GnuPG
       " This plugin doesnt work with gvim. Use only from cli

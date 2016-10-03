@@ -2,9 +2,13 @@ i: /usr/share/pixmaps/wbar/dock.png
 c: wbar --bpress --above-desk --pos bottom --isize 64 --idist 5 --nanim 4 --falfa 65
 t: /usr/share/fonts/truetype/liberation/LiberationMono-Regular/12
 
+i: /home/reinaldo/Downloads/packages/neowim-qt/neovim-qt/third-party/neovim.png
+c: nvim-qt
+t: Neovim
+
 i: /usr/share/icons/hicolor/128x128/apps/google-chrome.png
 c: google-chrome
-t: Web Browser
+t: Google-Chrome
 
 i: /home/reinaldo/Pictures/gvim.png
 c: gvim
