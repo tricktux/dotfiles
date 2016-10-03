@@ -29,3 +29,5 @@
 ;[mergetool "gvim"]  
     ;cmd = "<PATH/TO/VIM> -d \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\""
 	;prompt = false
+[color]
+	ui = auto

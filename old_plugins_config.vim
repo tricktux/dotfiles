@@ -838,3 +838,10 @@
 		" Plug 'mrtazz/DoxygenToolkit.vim' " has being moved to plugin folder
 				" let g:syntastic_java_javac_classpath='/home/reinaldo/Documents/android-sdk/platforms/android-24/*.jar:
 							" \/home/reinaldo/Documents/seafile-client/Seafile/KnowledgeIsPower/udacity/android-projects/BaseballScore/app/build/generated/source/r/debug/com/hq/baseballscore/*.java'
+		"	I considere it not necessary
+		" Plug 'godlygeek/tabular', { 'for' : 'md' } " required by markdown
+		" Plug 'plasticboy/vim-markdown', { 'for' : 'md' }
+		" Conflicts with neovim
+		autocmd FileType nerdtree setlocal encoding=utf-8 " fixes little arrows
+			" Default directory is already .cache
+      let g:JavaComplete_BaseDir = s:cache_path . 'java'
