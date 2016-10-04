@@ -845,3 +845,7 @@
 		autocmd FileType nerdtree setlocal encoding=utf-8 " fixes little arrows
 			" Default directory is already .cache
       let g:JavaComplete_BaseDir = s:cache_path . 'java'
+		" CSyntaxAfter() not longer needed we got pretty good highlight with
+		" native methods. Also gradlew will be set by VimStudio
+		" autocmd FileType java call CSyntaxAfter() " Being called from after/syntax
+		" autocmd FileType java compiler gradlew
