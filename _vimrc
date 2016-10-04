@@ -125,7 +125,7 @@
 		endif
 		let s:wiki_path=  $HOME . '/Documents/seafile-client/Seafile/KnowledgeIsPower/wiki'
 
-		let s:custom_font = 'Andale Mono 10'
+		let s:custom_font = 'Andale Mono 8'
 
 		" this one below DOES WORK in linux just make sure is ran at root folder
 		noremap <Leader>tu :cs kill -1<CR>
@@ -205,15 +205,13 @@
 				set tags+=~/.vim/ctags/tags_sys2
 				set tags+=~/.vim/ctags/tags_android
 
-				let $CLASSPATH='/home/reinaldo/Documents/android-sdk/platforms/android-24/android.jar'
+				" let $CLASSPATH='/home/reinaldo/Documents/android-sdk/platforms/android-24/android.jar'
 				
 			" Vim-clang
 				let g:clang_library_path='/usr/lib/llvm-3.8/lib'
 
 			" Syntastic
 				let g:syntastic_c_config_file = s:cache_path . '.syntastic_avrgcc_config'
-				let g:syntastic_java_javac_classpath='/home/reinaldo/Documents/android-sdk/platforms/android-24/*.jar:
-				\/home/reinaldo/Documents/seafile-client/Seafile/KnowledgeIsPower/udacity/android-projects/BaseballScore/app/build/intermediates/classes/androidTest/debug/com/hq/baseballscore/test/*.class'
 
 			" Vim-Man
 				runtime! ftplugin/man.vim
@@ -749,10 +747,10 @@
 		Plug 'justinmk/vim-syntax-extra', { 'for' : [ 'c' , 'cpp' ] }
 		Plug 'junegunn/rainbow_parentheses.vim', { 'on' : 'RainbowParentheses' }
 		" cpp/java
-		Plug 'mattn/vim-javafmt', { 'for' : 'java' }
-		Plug 'tfnico/vim-gradle', { 'for' : 'java' }
+		" Plug 'mattn/vim-javafmt', { 'for' : 'java' }
+		" Plug 'tfnico/vim-gradle', { 'for' : 'java' }
 		Plug 'airblade/vim-rooter'
-		Plug 'artur-shaik/vim-javacomplete2'
+		Plug 'artur-shaik/vim-javacomplete2', { 'branch' : 'master' }
 		" Autocomplete
 		Plug 'Shougo/neosnippet'
 		Plug 'Shougo/neosnippet-snippets'
@@ -762,6 +760,7 @@
 		" aesthetic
 		Plug 'morhetz/gruvbox' " colorscheme gruvbox
 		Plug 'NLKNguyen/papercolor-theme'
+		" Plug 'Lokaltog/vim-powerline', { 'branch' : 'develop' }
 		" radical
 		Plug 'glts/vim-magnum' " required by radical
 		Plug 'glts/vim-radical' " use with gA
@@ -911,7 +910,6 @@
 	set showmode
 	" no mouse enabled
 	set mouse=""
-	" significantly improves ctrlp speed. requires installation of ag
 	set laststatus=2
 	set formatoptions=croqt " this is textwidth actually breaks the lines
 	set textwidth=80
@@ -939,7 +937,7 @@
 		" Java
 		autocmd FileType java setlocal omnifunc=javacomplete#Complete
 		" autocmd FileType java call CSyntaxAfter() " Being called from after/syntax
-		autocmd FileType java compiler gradlew
+		" autocmd FileType java compiler gradlew
 		" Nerdtree Fix
 		autocmd FileType nerdtree setlocal relativenumber
 		" Set omnifunc for all others 									" not showing
@@ -965,7 +963,7 @@
 		" automatic syntax for *.scp
 		autocmd BufNewFile,BufReadPost *.scp setf wings_syntax
 		autocmd BufEnter * :syntax sync minlines=100
-		autocmd BufWritePost *.java JavaFmt
+		" autocmd BufWritePost *.java JavaFmt
 	augroup END
 
 	augroup VimType
@@ -1490,10 +1488,13 @@
       elseif has('python3')
         " if it is nvim deoplete requires python3 to work
         let g:deoplete#enable_at_startup = 1
-				" Settings for javacomplete2
+				" New settings
 				let g:deoplete#enable_ignore_case = 1
 				let g:deoplete#enable_smart_case = 1
+				let g:deoplete#enable_camel_case = 1
 				let g:deoplete#enable_refresh_always = 1
+				let g:deoplete#max_abbr_width = 0
+				let g:deoplete#max_menu_width = 0
 				let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
 				let g:deoplete#omni#input_patterns.java = [
 						\'[^. \t0-9]\.\w*',
@@ -1501,10 +1502,30 @@
 						\'[^. \t0-9]\::\w*',
 						\]
 				let g:deoplete#omni#input_patterns.jsp = ['[^. \t0-9]\.\w*']
+				let g:deoplete#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 				let g:deoplete#ignore_sources = {}
-				let g:deoplete#ignore_sources._ = ['javacomplete2']
+				let g:deoplete#ignore_sources.java = ['omni']
+				call deoplete#custom#set('javacomplete2', 'mark', '')
+				call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
+				"call deoplete#custom#set('omni', 'min_pattern_length', 0)
+				inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
+				inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
+				" Old settings
+				" Settings for javacomplete2
+				" let g:deoplete#enable_ignore_case = 1
+				" let g:deoplete#enable_smart_case = 1
+				" let g:deoplete#enable_refresh_always = 1
+				" let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
+				" let g:deoplete#omni#input_patterns.java = [
+						" \'[^. \t0-9]\.\w*',
+						" \'[^. \t0-9]\->\w*',
+						" \'[^. \t0-9]\::\w*',
+						" \]
+				" let g:deoplete#omni#input_patterns.jsp = ['[^. \t0-9]\.\w*']
+				" let g:deoplete#ignore_sources = {}
+				" let g:deoplete#ignore_sources._ = ['javacomplete2']
 			 
-				" Regular settings
+				" " Regular settings
 				inoremap <silent><expr> <TAB>
 							\ pumvisible() ? "\<C-n>" :
 							\ <SID>check_back_space() ? "\<TAB>" :
@@ -1567,8 +1588,10 @@
       let g:colorizer_auto_filetype='css,html,xml'
 
     " JavaComplete2
-			let g:JavaComplete_SourcesPath='~/Documents/seafile-client/Seafile/KnowledgeIsPower/udacity/android-projects/BaseballScore/app/build/generated/source/r/'
 			let g:JavaComplete_ClosingBrace = 1 
+			let g:JavaComplete_EnableDefaultMappings = 0 
+			let g:JavaComplete_ImportSortType = 'packageName'
+			let g:JavaComplete_ImportOrder = ['android.', 'com.', 'junit.', 'net.', 'org.', 'java.', 'javax.']
 
     " GnuPG
       " This plugin doesnt work with gvim. Use only from cli
@@ -1585,7 +1608,6 @@
 		" Vim-Rooter
 			let g:rooter_manual_only = 1
 			nnoremap <Leader>cr :Rooter<CR>
-			
   endif
 
 " see :h modeline
