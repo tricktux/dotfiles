@@ -11,7 +11,12 @@ URxvt*scrollTtyKeypress: true
 ! urxvt*transparent: true
 ! urxvt*shading: 30
 
-URxvt.font: xft:monospace:size=10
+! Trying to get powerline to display correctly
+! URxvt.font: xft:monospace:size=10
+! urxvt*font: xft:Terminus:pixelsize=12,xft:Droid\ Sans\ Mono\ for \Powerline:pixelsize=12
+! URxvt*font: xft:Source\ Code\ Pro\ Medium:pixelsize=13:antialias=true:hinting=true,xft:Source\ Code\ Pro\ Medium:pixelsize=13:antialias=true:hinting=true
+! URxvt*font: xft:Terminess Powerline:size=12
+URxvt*font: xft:Hack:size=10
 
 ! VERY IMPORTANT: Reload config with xrdb ~/.Xresources
 
@@ -67,6 +72,47 @@ URxvt.cursorColor: red
 *color7: #6C7A80
 *color15: #C5C8C6
 
+! Blue theme
+! Too blue
+! *.foreground:           #ffffff
+! *.highlightColor:       #f28022
+! *.highlightTextColor:   #000000
+! *.cursorColor:          #ffffff
+! *.cursorColor2:         #000000
+! *.background:           #2196f3
+
+! ! black
+! *.color0:       #000000
+! *.color8:       #000000
+
+! ! red
+! *.color1:       #d50000
+! *.color9:       #d50000
+
+! ! green
+! *.color2:       #76ff03
+! *.color10:      #76ff03
+
+! ! yellow
+! *.color3:       #ffeb3b
+! *.color11:      #ffeb3b
+
+! ! blue
+! *.color4:       #1a237e
+! *.color12:      #1a237e
+
+! ! magenta
+! *.color5:       #e91e63
+! *.color13:      #e91e63
+
+! ! cyan
+! *.color6:       #e0f7fa
+! *.color14:      #e0f7fa
+
+! ! white
+! *.color7:       #ffffff
+! *.color15:      #ffffff
+
 ! TODO plugins
 ! Get settings save over restart:
 ! ln -s <location to .Xresources> ~/.Xdefaults-reinaldo-machine
@@ -77,3 +123,10 @@ URxvt*iconFile: /usr/share/icons/Adwaita/32x32/apps/utilities-terminal.png
 
 ! Save lines
 xterm*SaveLines: 80000
+
+! Change font size on the fly
+! URxvt.perl-ext-common: font-size
+! URxvt.keysym.C-Up:     perl:font-size:increase
+! URxvt.keysym.C-Down:   perl:font-size:decrease
+! URxvt.keysym.C-S-Up:   perl:font-size:incglobal
+! URxvt.keysym.C-S-Down: perl:font-size:decglobal
