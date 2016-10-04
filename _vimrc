@@ -1,8 +1,8 @@
 " File:					_vimrc
 " Description:  Vim/Neovim configuration file
 " Author:				Reinaldo Molina
-" Version:			1.0.1
-" Date:					Thu Sep 29 2016 10:37 	
+" Version:			1.0.2
+" Date:					Tue Oct 04 2016 12:11 	
 " Improvements:
 "		" - Figure out how to handle Doxygen
 		" - [ ] Markdown tables
@@ -548,6 +548,10 @@
 		execute "normal Bf[lr\<Space>\<Esc>"
 	endfunction
 
+	function! s:TodoAdd() abort
+		execute "normal aTODO.RM-\<F5>: "
+	endfunction
+
 	function! s:CommentDelete() abort
 		execute "normal Bf/D"
 	endfunction
@@ -731,6 +735,7 @@
 		Plug 'chrisbra/Colorizer'
 		Plug 'tpope/vim-repeat'
 		Plug 'tpope/vim-surround'
+		Plug 'Konfekt/FastFold'
 		if has('unix') && !has('gui_running')
 			Plug 'jamessan/vim-gnupg'
 		endif
@@ -924,6 +929,8 @@
 	call <SID>SetGrep()
 
 " ALL_AUTOGROUP_STUFF
+	" All of these options contain performance drawbacks but the most important
+	" is foldmethod=syntax
 	augroup Filetypes
 		autocmd!
 		" TODO convert each of these categories into its own augroup
@@ -931,13 +938,12 @@
 		autocmd FileType c,cpp setlocal omnifunc=ClangComplete
 	 	" Rainbow cannot be enabled for help file. It breaks syntax highlight
 		autocmd FileType c,cpp,java RainbowParentheses
+		autocmd FileType c,cpp,java setlocal foldmethod=syntax
 		" Indent options
 		autocmd FileType c,cpp setlocal shiftwidth=4 tabstop=4
 		autocmd FileType tex,vim,java,markdown setlocal shiftwidth=2 tabstop=2
 		" Java
 		autocmd FileType java setlocal omnifunc=javacomplete#Complete
-		" autocmd FileType java call CSyntaxAfter() " Being called from after/syntax
-		" autocmd FileType java compiler gradlew
 		" Nerdtree Fix
 		autocmd FileType nerdtree setlocal relativenumber
 		" Set omnifunc for all others 									" not showing
@@ -1248,6 +1254,7 @@
 		nnoremap <Leader>td :call <SID>TodoCreate()<CR>
 		nnoremap <Leader>tm :call <SID>TodoMark()<CR>
 		nnoremap <Leader>tM :call <SID>TodoClearMark()<CR>
+		nnoremap <Leader>ta :call <SID>TodoAdd()<CR>
 		" pull up todo/quick notes list
 		nnoremap <Leader>wt :call <SID>OpenWiki('TODO.md')<CR>
 		nnoremap <Leader>wo :call <SID>OpenWiki()<CR>
@@ -1608,6 +1615,23 @@
 		" Vim-Rooter
 			let g:rooter_manual_only = 1
 			nnoremap <Leader>cr :Rooter<CR>
+
+		" ft-c-syntax
+			let c_gnu = 1
+			" Makes it akward when typing
+			" If you really need to get rid of these just use <Leader>c<Space>
+			" let c_space_errors = 1
+			let c_ansi_constants = 1
+			let c_ansi_typedefs = 1
+			" Breaks too often
+			" let c_curly_error = 1
+
+		" FastFold
+			" Stop updating folds everytime I save a file
+			let g:fastfold_savehook = 0
+			" To update folds now you have to do it manually pressing 'zuz'
+			let g:fastfold_fold_command_suffixes =
+						\['x','X','a','A','o','O','c','C','r','R','m','M','i','n','N']
   endif
 
 " see :h modeline
