@@ -760,7 +760,7 @@
 		" aesthetic
 		Plug 'morhetz/gruvbox' " colorscheme gruvbox
 		Plug 'NLKNguyen/papercolor-theme'
-		" Plug 'Lokaltog/vim-powerline', { 'branch' : 'develop' }
+		" Plug 'vim-airline/vim-airline'
 		" radical
 		Plug 'glts/vim-magnum' " required by radical
 		Plug 'glts/vim-radical' " use with gA
