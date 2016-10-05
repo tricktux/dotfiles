@@ -1,8 +1,8 @@
 " File:					_vimrc
 " Description:  Vim/Neovim configuration file
 " Author:				Reinaldo Molina
-" Version:			1.0.2
-" Date:					Tue Oct 04 2016 12:11 	
+" Version:			2.0.0
+" Date:					Tue Oct 04 2016 23:40 	
 " Improvements:
 "		" - Figure out how to handle Doxygen
 		" - [ ] Markdown tables
