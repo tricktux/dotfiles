@@ -849,3 +849,25 @@
 		" native methods. Also gradlew will be set by VimStudio
 		" autocmd FileType java call CSyntaxAfter() " Being called from after/syntax
 		" autocmd FileType java compiler gradlew
+			" Syntastic
+				let g:syntastic_c_config_file = s:cache_path . '.syntastic_avrgcc_config'
+				" let $CLASSPATH='/home/reinaldo/Documents/android-sdk/platforms/android-24/android.jar'
+				
+		" Fails too many times
+		Plug 'jiangmiao/auto-pairs'
+		" Didnt highlight where I wanted it to
+		" Plug 'Yggdroot/indentLine'
+
+		" indentLine
+			let g:indentLine_char='¦'
+			let g:indentLine_color_gui = '#A4E57E'
+			let g:indentLine_color_term = 239
+			let g:indentLine_fileType = ['c', 'cpp']
+			" let g:indentLine_faster=1
+			let g:indentLine_indentLevel= 30
+
+			" Couldnt this plugin to expand on cr
+			" delimitMate
+			let g:delimitMate_expand_cr = 2
+			let g:delimitMate_expand_space = 1
+			let g:delimitMate_jump_expansion = 1
