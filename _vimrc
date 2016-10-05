@@ -1,8 +1,8 @@
 " File:					_vimrc
 " Description:  Vim/Neovim configuration file
 " Author:				Reinaldo Molina
-" Version:			2.0.0
-" Date:					Tue Oct 04 2016 23:40 	
+" Version:			2.1.0
+" Date:					Wed Oct 05 2016 10:58 	
 " Improvements:
 "		" - Figure out how to handle Doxygen
 		" - [ ] Markdown tables
@@ -87,6 +87,7 @@
 		nnoremap <Leader>ep :e ~/vimfiles/plugged/
 		nnoremap <Leader>ma :Make
 
+
 		" call <SID>AutoCreateWinCtags()
 
 		" Windows specific plugins options
@@ -111,7 +112,33 @@
 			" //////////////7/28/2016 4:09:23 PM////////////////
 			" Tried using shell=bash on windows didnt work got all kinds of issues
 			" with syntastic and other things.
-		
+		" Airline 
+			set encoding=utf-8
+
+			if !exists('g:airline_symbols')
+				let g:airline_symbols = {}
+			endif
+
+			" If you ever try a new font and want see if symbols work just go to h
+			" airline and check if the symbols display properly there. If they do they
+			" will display properly in the bar
+			" let g:airline_left_sep = '»'
+			let g:airline_left_sep = ''
+			" let g:airline_right_sep = '«'
+			let g:airline_right_sep = ''
+			" let g:airline_symbols.linenr = '¶'
+			let g:airline_symbols.linenr = ''
+			let g:airline_symbols.maxlinenr = '☰'
+			" let g:airline_symbols.maxlinenr = ''
+			let g:airline_symbols.paste = 'ρ'
+			" let g:airline_symbols.paste = 'Þ'
+			" let g:airline_symbols.paste = '∥'
+			let g:airline_symbols.whitespace = 'Ξ'
+			let g:airline_symbols.crypt = ''
+			let g:airline_symbols.branch = ''
+			let g:airline_symbols.notexists = ''
+			let g:airline_symbols.readonly = ''
+
 " UNIX_SETTINGS
 	elseif has('unix')
 		" Path variables
@@ -210,19 +237,46 @@
 				set tags+=~/.vim/ctags/tags_sys2
 				set tags+=~/.vim/ctags/tags_android
 
-				" let $CLASSPATH='/home/reinaldo/Documents/android-sdk/platforms/android-24/android.jar'
-				
 			" Vim-clang
 				let g:clang_library_path='/usr/lib/llvm-3.8/lib'
-
-			" Syntastic
-				let g:syntastic_c_config_file = s:cache_path . '.syntastic_avrgcc_config'
 
 			" Vim-Man
 				runtime! ftplugin/man.vim
 				" Sample use: Man 3 printf
 				" Potential plug if you need more `vim-utils/vim-man` but this should be
 				" enough
+				
+			" Airline
+				if !exists('g:airline_symbols')
+					let g:airline_symbols = {}
+				endif
+				" TODO: Fix this here
+				" let g:airline_left_sep = ''
+				" let g:airline_left_alt_sep = ''
+				" let g:airline_right_sep = ''
+				" let g:airline_right_alt_sep = ''
+				" let g:airline_symbols.branch = ''
+				" let g:airline_symbols.readonly = ''
+				" let g:airline_symbols.linenr = ''
+
+				" Todo fix here
+				let g:airline_left_sep = '»'
+				" let g:airline_left_sep = '▶'
+				let g:airline_right_sep = '«'
+				" let g:airline_right_sep = '◀'
+				" let g:airline_symbols.crypt = '🔒'
+				" let g:airline_symbols.linenr = '␊'
+				" let g:airline_symbols.linenr = '␤'
+				let g:airline_symbols.linenr = '¶'
+				let g:airline_symbols.maxlinenr = '☰'
+				" let g:airline_symbols.maxlinenr = ''
+				" let g:airline_symbols.branch = '⎇'
+				let g:airline_symbols.paste = 'ρ'
+				" let g:airline_symbols.paste = 'Þ'
+				" let g:airline_symbols.paste = '∥'
+				" let g:airline_symbols.spell = 'Ꞩ'
+				" let g:airline_symbols.notexists = '∄'
+				let g:airline_symbols.whitespace = 'Ξ'
 	endif
 
 " FUNCTIONS
@@ -742,6 +796,8 @@
 		Plug 'tpope/vim-repeat'
 		Plug 'tpope/vim-surround'
 		Plug 'Konfekt/FastFold'
+		Plug 'airblade/vim-rooter'
+		Plug 'Raimondi/delimitMate'
 		if has('unix') && !has('gui_running')
 			Plug 'jamessan/vim-gnupg'
 		endif
@@ -752,16 +808,14 @@
 			Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 		endif
 		" cpp
-		" Plug 'Tagbar', { 'on' : 'TagbarToggle' }
-		Plug 'Tagbar'
+		Plug 'Tagbar', { 'on' : 'TagbarToggle' }
 		Plug 'Rip-Rip/clang_complete', { 'for' : ['c' , 'cpp'] }
-		Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'cpp' ] }
-		Plug 'justinmk/vim-syntax-extra', { 'for' : [ 'c' , 'cpp' ] }
+		Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'c' , 'cpp' ] }
+		Plug 'justinmk/vim-syntax-extra'
 		Plug 'junegunn/rainbow_parentheses.vim', { 'on' : 'RainbowParentheses' }
 		" cpp/java
 		" Plug 'mattn/vim-javafmt', { 'for' : 'java' }
 		Plug 'tfnico/vim-gradle', { 'for' : 'java' }
-		Plug 'airblade/vim-rooter'
 		Plug 'artur-shaik/vim-javacomplete2', { 'branch' : 'master' }
 		" Autocomplete
 		Plug 'Shougo/neosnippet'
@@ -792,6 +846,7 @@
 		set guioptions-=L  " no side scroll bar
 		nnoremap <S-CR> O<Esc>
 	else " common cli options to both systems
+		" TODO maybe set font for terminal instead of accepting terminal font
 		set t_Co=256
 		" fixes colorscheme not filling entire backgroud
 		set t_ut=
@@ -930,7 +985,7 @@
 	endif
 
 	set noesckeys " No mappings that start with <esc>
-	set showmode
+	set noshowmode
 	" no mouse enabled
 	set mouse=""
 	set laststatus=2
@@ -956,7 +1011,7 @@
 		autocmd FileType c,cpp setlocal omnifunc=ClangComplete
 	 	" Rainbow cannot be enabled for help file. It breaks syntax highlight
 		autocmd FileType c,cpp,java RainbowParentheses
-		autocmd FileType c,cpp setlocal foldmethod=syntax
+		" autocmd FileType c,cpp setlocal foldmethod=syntax
 		" Indent options
 		autocmd FileType c,cpp setlocal shiftwidth=4 tabstop=4
 		autocmd FileType tex,vim,java,markdown setlocal shiftwidth=2 tabstop=2
@@ -987,6 +1042,7 @@
 		autocmd BufNewFile,BufReadPost *.ino,*.pde setf arduino
 		" automatic syntax for *.scp
 		autocmd BufNewFile,BufReadPost *.scp setf wings_syntax
+		autocmd BufNewFile,BufReadPost *.set,*.sum setf dosini
 		autocmd BufWritePost *.java Neomake
 		"Automatically go back to where you were last editing this file
 		autocmd BufReadPost *
@@ -1420,20 +1476,22 @@
 			let g:load_doxygen_syntax=1
 
     " Plugin 'scrooloose/syntastic'
-			nnoremap <Leader>so :SyntasticToggleMode<CR>
-      nnoremap <Leader>sn :call <SID>ListsNavigation("next")<CR>
-      nnoremap <Leader>sp :call <SID>ListsNavigation("previous")<CR>
-      nnoremap <Leader>ss :SyntasticCheck<CR>
-      " set statusline+=%#warningmsg#
-      " set statusline+=%{SyntasticStatuslineFlag()}
-      " set statusline+=%*
-      let g:syntastic_always_populate_loc_list = 1
-      let g:syntastic_auto_loc_list = 1
-      let g:syntastic_check_on_open = 0
-      let g:syntastic_check_on_wq = 0
-      let g:syntastic_cpp_compiler_options = '-std=c++17 -pedantic -Wall'
-      let g:syntastic_c_compiler_options = '-std=c11 -pedantic -Wall'
-      let g:syntastic_auto_jump = 3
+			if exists(':SyntasticCheck')
+				nnoremap <Leader>so :SyntasticToggleMode<CR>
+				nnoremap <Leader>sn :call <SID>ListsNavigation("next")<CR>
+				nnoremap <Leader>sp :call <SID>ListsNavigation("previous")<CR>
+				nnoremap <Leader>ss :SyntasticCheck<CR>
+				" set statusline+=%#warningmsg#
+				" set statusline+=%{SyntasticStatuslineFlag()}
+				" set statusline+=%*
+				let g:syntastic_always_populate_loc_list = 1
+				let g:syntastic_auto_loc_list = 1
+				let g:syntastic_check_on_open = 0
+				let g:syntastic_check_on_wq = 0
+				let g:syntastic_cpp_compiler_options = '-std=c++17 -pedantic -Wall'
+				let g:syntastic_c_compiler_options = '-std=c11 -pedantic -Wall'
+				let g:syntastic_auto_jump = 3
+			endif
 
     "/Plug 'octol/vim-cpp-enhanced-highlight'
       let g:cpp_class_scope_highlight = 1
@@ -1446,7 +1504,7 @@
 			" set background=light
 			" colorscheme PaperColor
 
-    " Plug Neocomplete
+    " Plug Neocomplete/Deoplete
       if !has('nvim')
         if has('lua')
           " All new stuff
@@ -1656,53 +1714,30 @@
 						\['x','X','a','A','o','O','c','C','r','R','m','M','i','n','N']
 
 		" Airline
-			"" airline symbols
-			if !exists('g:airline_symbols')
-				let g:airline_symbols = {}
-			endif
-
 			let g:airline_theme="term"
-
-			let g:airline_left_sep = ''
-			let g:airline_left_alt_sep = ''
-			let g:airline_right_sep = ''
-			let g:airline_right_alt_sep = ''
-			let g:airline_symbols.branch = ''
-			let g:airline_symbols.readonly = ''
-			" let g:airline_symbols.linenr = ''
-
-			" let g:airline_left_sep = '»'
-			" let g:airline_left_sep = '▶'
-			" let g:airline_right_sep = '«'
-			" let g:airline_right_sep = '◀'
-			" let g:airline_symbols.crypt = '🔒'
-			let g:airline_symbols.linenr = '␊'
-			let g:airline_symbols.linenr = '␤'
-			let g:airline_symbols.linenr = '¶'
-			" let g:airline_symbols.maxlinenr = '☰'
-			" let g:airline_symbols.maxlinenr = ''
-			" let g:airline_symbols.branch = '⎇'
-			" let g:airline_symbols.paste = 'ρ'
-			" let g:airline_symbols.paste = 'Þ'
-			" let g:airline_symbols.paste = '∥'
-			" let g:airline_symbols.spell = 'Ꞩ'
-			" let g:airline_symbols.notexists = '∄'
-			" let g:airline_symbols.whitespace = 'Ξ'
 
 			let g:airline#extensions#whitespace#checks = []
 			let g:airline#extensions#disable_rtp_load = 1
 			let g:airline_extensions = ['branch']
 
 		" Neomake
+			if exists(':Neomake')
 				let g:neomake_warning_sign = {
 				\ 'text': '?',
 				\ 'texthl': 'WarningMsg',
 				\ }
 
-			let g:neomake_error_sign = {
-				\ 'text': 'X',
-				\ 'texthl': 'ErrorMsg',
-				\ }
+				let g:neomake_error_sign = {
+					\ 'text': 'X',
+					\ 'texthl': 'ErrorMsg',
+					\ }
+			endif
+			" delimitMate
+				let g:delimitMate_expand_cr = 2
+				let g:delimitMate_expand_space = 1
+				let g:delimitMate_jump_expansion = 1
+				imap <expr> <CR> <Plug>delimitMateCR
+
 	endif
 
 " see :h modeline
