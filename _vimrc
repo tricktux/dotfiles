@@ -85,6 +85,7 @@
 		nnoremap <Leader>mt :Dispatch powershell -command "& {&'Measure-Command' {.\sep_calc.exe seprc}}"<CR>
 
 		nnoremap <Leader>ep :e ~/vimfiles/plugged/
+		nnoremap <Leader>ma :Make
 
 		" call <SID>AutoCreateWinCtags()
 
@@ -180,6 +181,10 @@
 
 		" Give execute permissions to current file
 		nnoremap <Leader>cp :!chmod a+x %<CR>
+		nnoremap <Leader>ma :make 
+		" Experimenting substitute for ctrl-p
+		nnoremap <C-p> :FZF<ENTER>
+		let g:ctrlp_map = ''
 
 		augroup UnixMD
 			autocmd!
@@ -717,7 +722,8 @@
 		call plug#begin(s:plugged_path)
 		if has('nvim')
 			" Neovim exclusive plugins
-			Plug 'DonnieWest/VimStudio'
+			" Currently not working
+			" Plug 'DonnieWest/VimStudio'
 			Plug 'neomake/neomake'
 			Plug 'Shougo/deoplete.nvim'
 		else
@@ -746,14 +752,15 @@
 			Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 		endif
 		" cpp
-		Plug 'Tagbar', { 'on' : 'TagbarToggle' }
+		" Plug 'Tagbar', { 'on' : 'TagbarToggle' }
+		Plug 'Tagbar'
 		Plug 'Rip-Rip/clang_complete', { 'for' : ['c' , 'cpp'] }
 		Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'cpp' ] }
 		Plug 'justinmk/vim-syntax-extra', { 'for' : [ 'c' , 'cpp' ] }
 		Plug 'junegunn/rainbow_parentheses.vim', { 'on' : 'RainbowParentheses' }
 		" cpp/java
 		" Plug 'mattn/vim-javafmt', { 'for' : 'java' }
-		" Plug 'tfnico/vim-gradle', { 'for' : 'java' }
+		Plug 'tfnico/vim-gradle', { 'for' : 'java' }
 		Plug 'airblade/vim-rooter'
 		Plug 'artur-shaik/vim-javacomplete2', { 'branch' : 'master' }
 		" Autocomplete
@@ -765,7 +772,8 @@
 		" aesthetic
 		Plug 'morhetz/gruvbox' " colorscheme gruvbox
 		Plug 'NLKNguyen/papercolor-theme'
-		" Plug 'vim-airline/vim-airline'
+		Plug 'vim-airline/vim-airline'
+		Plug 'vim-airline/vim-airline-themes'
 		" radical
 		Plug 'glts/vim-magnum' " required by radical
 		Plug 'glts/vim-radical' " use with gA
@@ -787,6 +795,16 @@
 		set t_Co=256
 		" fixes colorscheme not filling entire backgroud
 		set t_ut=
+		" Set blinking cursor shape everywhere
+		if has('nvim')
+			let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+		elseif exists('$TMUX')
+			let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+			let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+		else
+			let &t_SI = "\<Esc>[5 q"
+			let &t_EI = "\<Esc>[1 q"
+		endif
 	endif
 
 " PERFORMANCE_SETTINGS
@@ -938,12 +956,13 @@
 		autocmd FileType c,cpp setlocal omnifunc=ClangComplete
 	 	" Rainbow cannot be enabled for help file. It breaks syntax highlight
 		autocmd FileType c,cpp,java RainbowParentheses
-		autocmd FileType c,cpp,java setlocal foldmethod=syntax
+		autocmd FileType c,cpp setlocal foldmethod=syntax
 		" Indent options
 		autocmd FileType c,cpp setlocal shiftwidth=4 tabstop=4
 		autocmd FileType tex,vim,java,markdown setlocal shiftwidth=2 tabstop=2
 		" Java
 		autocmd FileType java setlocal omnifunc=javacomplete#Complete
+		autocmd FileType java compiler gradlew
 		" Nerdtree Fix
 		autocmd FileType nerdtree setlocal relativenumber
 		" Set omnifunc for all others 									" not showing
@@ -958,8 +977,8 @@
 		autocmd FileType qf setlocal wrap
 		" Open markdown files with Chrome.
 		autocmd FileType markdown setlocal spell spelllang=en_us
-
 		autocmd FileType mail setlocal wrap
+		autocmd FileType mail setlocal spell spelllang=es,en
 	augroup END
 
 	augroup BuffTypes
@@ -968,9 +987,12 @@
 		autocmd BufNewFile,BufReadPost *.ino,*.pde setf arduino
 		" automatic syntax for *.scp
 		autocmd BufNewFile,BufReadPost *.scp setf wings_syntax
-		autocmd BufEnter * :syntax sync minlines=100
-		" autocmd BufWritePost *.java JavaFmt
-	augroup END
+		autocmd BufWritePost *.java Neomake
+		"Automatically go back to where you were last editing this file
+		autocmd BufReadPost *
+			\ if line("'\"") > 0 && line("'\"") <= line("$") |
+			\ exe "normal g`\"" |
+			\ endif
 
 	augroup VimType
 		autocmd!
@@ -1011,7 +1033,8 @@
 		nnoremap <C-Up> :cp<CR>
 		nnoremap <C-Right> :cnf<CR>
 		nnoremap <C-Left> :cpf<CR>
-		noremap <Leader>qO :Copen!<CR>
+		" noremap <Leader>qO :Copen!<CR>
+		noremap <Leader>qO :lopen 20<CR>
 		noremap <Leader>qo :copen 20<CR>
 		noremap <Leader>qc :cc<CR>
 
@@ -1200,7 +1223,6 @@
 		nnoremap <S-x> :tabclose<CR>
 
 	" Make
-		nnoremap <Leader>ma :Make
 		" nnoremap <Leader>ma :make clean<CR>
 					" \:make all<CR>
 		nnoremap <Leader>mc :make clean<CR>
@@ -1282,16 +1304,16 @@
 		" where the arguments will be included,
 
 " STATUS_LINE
-	set statusline =
-	set statusline+=\[%n]                                  "buffernr
-	set statusline+=\ %<%F\ %m%r%w                         "File+path
-	set statusline+=\ %y\                                  "FileType
-	set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}      "Encoding
-	set statusline+=\ %{(&bomb?\",BOM\":\"\")}\            "Encoding2
-	set statusline+=\ %{&ff}\                              "FileFormat (dos/unix..)
-	set statusline+=\ %=\ row:%l/%L\ (%03p%%)\             "Rownumber/total (%)
-	set statusline+=\ col:%03c\                            "Colnr
-	set statusline+=\ \ %m%r%w\ %P\ \                      "Modified? Readonly? Top/bot.
+	" set statusline =
+	" set statusline+=\[%n]                                  "buffernr
+	" set statusline+=\ %<%F\ %m%r%w                         "File+path
+	" set statusline+=\ %y\                                  "FileType
+	" set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}      "Encoding
+	" set statusline+=\ %{(&bomb?\",BOM\":\"\")}\            "Encoding2
+	" set statusline+=\ %{&ff}\                              "FileFormat (dos/unix..)
+	" set statusline+=\ %=\ row:%l/%L\ (%03p%%)\             "Rownumber/total (%)
+	" set statusline+=\ col:%03c\                            "Colnr
+	" set statusline+=\ \ %m%r%w\ %P\ \                      "Modified? Readonly? Top/bot.
 	" if you want to put color to status line needs to be after command
 	" colorscheme. Otherwise this commands clears it the color
 
@@ -1632,7 +1654,56 @@
 			" To update folds now you have to do it manually pressing 'zuz'
 			let g:fastfold_fold_command_suffixes =
 						\['x','X','a','A','o','O','c','C','r','R','m','M','i','n','N']
-  endif
+
+		" Airline
+			"" airline symbols
+			if !exists('g:airline_symbols')
+				let g:airline_symbols = {}
+			endif
+
+			let g:airline_theme="term"
+
+			let g:airline_left_sep = ''
+			let g:airline_left_alt_sep = ''
+			let g:airline_right_sep = ''
+			let g:airline_right_alt_sep = ''
+			let g:airline_symbols.branch = ''
+			let g:airline_symbols.readonly = ''
+			" let g:airline_symbols.linenr = ''
+
+			" let g:airline_left_sep = '»'
+			" let g:airline_left_sep = '▶'
+			" let g:airline_right_sep = '«'
+			" let g:airline_right_sep = '◀'
+			" let g:airline_symbols.crypt = '🔒'
+			let g:airline_symbols.linenr = '␊'
+			let g:airline_symbols.linenr = '␤'
+			let g:airline_symbols.linenr = '¶'
+			" let g:airline_symbols.maxlinenr = '☰'
+			" let g:airline_symbols.maxlinenr = ''
+			" let g:airline_symbols.branch = '⎇'
+			" let g:airline_symbols.paste = 'ρ'
+			" let g:airline_symbols.paste = 'Þ'
+			" let g:airline_symbols.paste = '∥'
+			" let g:airline_symbols.spell = 'Ꞩ'
+			" let g:airline_symbols.notexists = '∄'
+			" let g:airline_symbols.whitespace = 'Ξ'
+
+			let g:airline#extensions#whitespace#checks = []
+			let g:airline#extensions#disable_rtp_load = 1
+			let g:airline_extensions = ['branch']
+
+		" Neomake
+				let g:neomake_warning_sign = {
+				\ 'text': '?',
+				\ 'texthl': 'WarningMsg',
+				\ }
+
+			let g:neomake_error_sign = {
+				\ 'text': 'X',
+				\ 'texthl': 'ErrorMsg',
+				\ }
+	endif
 
 " see :h modeline
 " vim:tw=78:ts=2:sts=2:sw=2:

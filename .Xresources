@@ -16,7 +16,9 @@ URxvt*scrollTtyKeypress: true
 ! urxvt*font: xft:Terminus:pixelsize=12,xft:Droid\ Sans\ Mono\ for \Powerline:pixelsize=12
 ! URxvt*font: xft:Source\ Code\ Pro\ Medium:pixelsize=13:antialias=true:hinting=true,xft:Source\ Code\ Pro\ Medium:pixelsize=13:antialias=true:hinting=true
 ! URxvt*font: xft:Terminess Powerline:size=12
-URxvt*font: xft:Hack:size=10
+URxvt*font: xft:Hack:size=9
+! URxvt*font:xft:dejavu sans mono for powerline:medium:pixelsize=14,xft:dejavu sans mono for powerline:medium:pixelsize=13
+! URxvt*boldFont:xft:dejavu sans mono for powerline:bold:pixelsize=14,xft:dejavu sans mono for powerline:bold:pixelsize=13
 
 ! VERY IMPORTANT: Reload config with xrdb ~/.Xresources
 
@@ -42,7 +44,7 @@ URxvt.matcher.rend.0: Uline Bold fg5
 
 ! Get hotkey to pull up terminal
 ! Use script focus_or_lunch with command urxvt
-URxvt.cursorColor: red
+! URxvt.cursorColor: red
 
 ! Copied from https://github.com/alexbooker/dotfiles/blob/master/.Xresources
 *background: #232C31
