@@ -45,6 +45,8 @@
 		noremap <Leader>mr :!%<CR>
 		" Copy and paste into system wide clipboard
 		nnoremap <Leader><Space>v "*p
+		vnoremap <Leader><Space>v "*p
+
 		nnoremap <Leader><Space>y "*y
 		vnoremap <Leader><Space>y "*y
 
@@ -167,6 +169,8 @@
 
 		" System paste
 		nnoremap <Leader><Space>v "+p
+		vnoremap <Leader><Space>v "+p
+
 		nnoremap <Leader><Space>y "+y
 		vnoremap <Leader><Space>y "+y
 
@@ -798,6 +802,9 @@
 		Plug 'Konfekt/FastFold'
 		Plug 'airblade/vim-rooter'
 		Plug 'Raimondi/delimitMate'
+		Plug 'rmolin88/DoxygenToolkit.vim'
+		" Mutt
+		Plug 'guanqun/vim-mutt-aliases-plugin'
 		if has('unix') && !has('gui_running')
 			Plug 'jamessan/vim-gnupg'
 		endif
@@ -814,7 +821,7 @@
 		Plug 'justinmk/vim-syntax-extra'
 		Plug 'junegunn/rainbow_parentheses.vim', { 'on' : 'RainbowParentheses' }
 		" cpp/java
-		" Plug 'mattn/vim-javafmt', { 'for' : 'java' }
+		Plug 'mattn/vim-javafmt', { 'for' : 'java' }
 		Plug 'tfnico/vim-gradle', { 'for' : 'java' }
 		Plug 'artur-shaik/vim-javacomplete2', { 'branch' : 'master' }
 		" Autocomplete
@@ -1034,6 +1041,7 @@
 		autocmd FileType markdown setlocal spell spelllang=en_us
 		autocmd FileType mail setlocal wrap
 		autocmd FileType mail setlocal spell spelllang=es,en
+		autocmd FileType mail setlocal omnifunc=muttaliases#CompleteMuttAliases
 	augroup END
 
 	augroup BuffTypes
@@ -1736,8 +1744,14 @@
 				let g:delimitMate_expand_cr = 2
 				let g:delimitMate_expand_space = 1
 				let g:delimitMate_jump_expansion = 1
-				imap <expr> <CR> <Plug>delimitMateCR
-
+				" imap <expr> <CR> <Plug>delimitMateCR
+			
+		" MuttAliases
+			let g:mutt_alias_filename = '~/.mutt/muttrc'
+			" let g:deoplete#omni#input_patterns.mail =
+			" TODO.RM-Fri Oct 07 2016 00:56: Need to come up with regex pattern to
+			" match Cc:, Bcc:  
+			" Fork repo and fix readme to mention i_CTRL-X_CTRL-O and fix the function
 	endif
 
 " see :h modeline
