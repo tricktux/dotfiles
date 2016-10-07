@@ -11,13 +11,20 @@ URxvt*scrollTtyKeypress: true
 ! urxvt*transparent: true
 ! urxvt*shading: 30
 
-URxvt.font: xft:monospace:size=10
+! Trying to get powerline to display correctly
+! URxvt.font: xft:monospace:size=10
+! urxvt*font: xft:Terminus:pixelsize=12,xft:Droid\ Sans\ Mono\ for \Powerline:pixelsize=12
+! URxvt*font: xft:Source\ Code\ Pro\ Medium:pixelsize=13:antialias=true:hinting=true,xft:Source\ Code\ Pro\ Medium:pixelsize=13:antialias=true:hinting=true
+! URxvt*font: xft:Terminess Powerline:size=12
+URxvt*font: xft:Hack:size=9
+! URxvt*font:xft:dejavu sans mono for powerline:medium:pixelsize=14,xft:dejavu sans mono for powerline:medium:pixelsize=13
+! URxvt*boldFont:xft:dejavu sans mono for powerline:bold:pixelsize=14,xft:dejavu sans mono for powerline:bold:pixelsize=13
 
 ! VERY IMPORTANT: Reload config with xrdb ~/.Xresources
 
 ! Real Transparency. Requires work
-urxvt*depth: 32
-urxvt*background: rgba:0000/0000/0200/c800
+! urxvt*depth: 32
+! urxvt*background: rgba:0000/0000/0200/c800
 
 ! Command to search the help:
 ! rxvt --help 2&>1 | grep scroll
@@ -35,10 +42,12 @@ URxvt.keysym.M-Delete: perl:matcher:list
 ! Color URLs
 URxvt.matcher.rend.0: Uline Bold fg5
 
-! TODO Get hotkey to pull up terminal
-URxvt.cursorColor: red
+! Get hotkey to pull up terminal
+! Use script focus_or_lunch with command urxvt
+! URxvt.cursorColor: red
 
 ! Copied from https://github.com/alexbooker/dotfiles/blob/master/.Xresources
+*background: #232C31
 *foreground: #C5C8C6
 ! black
 *color0: #2D3C46
@@ -65,4 +74,61 @@ URxvt.cursorColor: red
 *color7: #6C7A80
 *color15: #C5C8C6
 
+! Blue theme
+! Too blue
+! *.foreground:           #ffffff
+! *.highlightColor:       #f28022
+! *.highlightTextColor:   #000000
+! *.cursorColor:          #ffffff
+! *.cursorColor2:         #000000
+! *.background:           #2196f3
+
+! ! black
+! *.color0:       #000000
+! *.color8:       #000000
+
+! ! red
+! *.color1:       #d50000
+! *.color9:       #d50000
+
+! ! green
+! *.color2:       #76ff03
+! *.color10:      #76ff03
+
+! ! yellow
+! *.color3:       #ffeb3b
+! *.color11:      #ffeb3b
+
+! ! blue
+! *.color4:       #1a237e
+! *.color12:      #1a237e
+
+! ! magenta
+! *.color5:       #e91e63
+! *.color13:      #e91e63
+
+! ! cyan
+! *.color6:       #e0f7fa
+! *.color14:      #e0f7fa
+
+! ! white
+! *.color7:       #ffffff
+! *.color15:      #ffffff
+
 ! TODO plugins
+! Get settings save over restart:
+! ln -s <location to .Xresources> ~/.Xdefaults-reinaldo-machine
+! where reinaldo-machine=$hostname
+
+URxvt*fading:  30
+URxvt*iconFile: /usr/share/icons/Adwaita/32x32/apps/utilities-terminal.png
+
+! Save lines
+xterm*SaveLines: 80000
+
+! Change font size on the fly
+! URxvt.perl-ext-common: font-size
+! URxvt.keysym.C-Up:     perl:font-size:increase
+! URxvt.keysym.C-Down:   perl:font-size:decrease
+! URxvt.keysym.C-S-Up:   perl:font-size:incglobal
+! URxvt.keysym.C-S-Down: perl:font-size:decglobal

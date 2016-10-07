@@ -79,7 +79,8 @@ set sort_alias= alias
 set reverse_alias=yes
 source $alias_file
 
-set editor="vim -c 'set spell spelllang=es,en'"
+set editor="nvim"
+# set editor="vim -c 'set spell spelllang=es,en'"
 
 # Hopefully will fix emails not going out
 set smtp_url = "smtp://rmolin88@smtp.gmail.com:587/"

@@ -655,3 +655,219 @@
 		let g:clang_diagsopt = '' " no syntax check
     let g:clang_format_style ='file'
     nnoremap <c-f> :ClangFormat<CR>
+	" Only works in vimwiki filetypes
+	" Input: empty- It will ask you what type of file you want to search
+	" 		 String- "1", "2", or specify files in which you want to search
+	function! s:GlobalSearch(type) abort
+		try
+			"echomsg string(a:type)  " Debugging purposes
+			if a:type == "0"
+				echo "Search Filetypes:\n\t1.Any\n\t2.Cpp\n\t3.Wiki"
+				let l:file = nr2char(getchar())
+			else
+				let l:file = a:type
+			endif
+			if !executable('ag') " use ag if possible
+				if l:file == 1
+					let l:file = "**/*"
+				elseif l:file == 2
+					let l:file = "**/*.cpp **/*.h **/*.c **/*.hpp **/*.cc"
+				elseif l:file == 3
+					let l:file = "**/*.wiki"
+				endif
+				execute "vimgrep /" . input("Search in \"" . getcwd() . "\" for:") . "/ " . l:file
+			else
+				if l:file == 1
+					let l:file = ""
+				elseif l:file == 2
+					let l:file = "--cpp"
+				endif " relays on set grepprg=ag
+				execute "silent grep! " . l:file . " " . input("Search in \"" . getcwd() . "\" for:")
+			endif
+			copen 20
+		catch
+			echohl ErrorMsg
+			redraw " prevents the msg from misteriously dissapearing
+			echomsg "GlobalSearch(): " . matchstr(v:exception, ':\zs.*')
+			echohl None
+		endtry
+	endfunction
+    " Plugin ack
+      " only active if ag present
+      if s:ack == 1
+        " TODO if no ack still search with grep or vimgrep. but without the
+        " plugin
+        " Bring back SearchGlobal function. Just change the command for Ack!
+        " when ack is present and leave as is when is not. Option to do this
+        " is to add another variable to the function. i.e: pass in ack so that
+        " you know which version type to run
+        let g:ackprg = "ag --vimgrep"
+        let g:ackhighlight = 1
+        " let g:ack_use_dispatch = 1
+        let g:ack_autofold_results = 1
+
+    " Plug 'wsdjeg/vim-cheat' " depends on simplecheats
+      " Based of this plugin created my own vim-wiki
+    " Plug 'artur-shaik/simplecheats', { 'dir' : '$HOME/.cheat' }
+      " not needed just copied info
+    " Plug 'sentientmachine/erics_vim_syntax_and_color_highlighting', { 'for' : 'java' }
+      " Dont notice the difference in highlight honestly
+		" This is done automagically if you set filetype indent on
+		autocmd FileType c,cpp setlocal cindent
+	" tabs
+	" This settings are handled by either smartindent or indent.vim files
+	set tabstop=2     " a tab is four spaces
+	set softtabstop=2
+  set expandtab " turns tabs into spaces
+	set shiftwidth=2  " number of spaces to use for autoindenting
+	set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
+
+  " Set up only for win32 at the moment
+  " augroup EnvironMent
+    " autocmd!
+    " " local vimrc files
+    " autocmd BufReadPost,BufNewFile * call <SID>SetupEnvironment()
+    " autocmd SessionLoadPost * call <SID>SetupEnvironment()
+  " augroup END
+  " Performance warning on this function. If necesary disable and just make
+  " function calls
+  " Note: Keep in mind vim modelines for vim type of files
+  " Input: Pass in any argument to the variable to force Wings indent settings
+  " to take effect
+  function! s:SetupEnvironment(...)
+    let l:path = expand('%:p')
+    " use this as an example. just substitute NeoOneWINGS with your project
+    " specific folder name
+    " Pass any random argument to the function to force wings settings
+    if match(l:path,'NeoOneWINGS') > 0 || match(l:path,'NeoWingsSupportFiles') > 0 || a:0>0
+      " set a g:local_vimrc_name in you local vimrc to avoid local vimrc
+      " reloadings
+      " TODO this entire thing needs to be redone
+      if !exists('g:local_vimrc_wings') || a:0>0
+        if exists('g:local_vimrc_personal')
+          unlet g:local_vimrc_personal
+        endif
+        echomsg "Loading settings for Wings..."
+        set tabstop=4     " a tab is four spaces
+        set softtabstop=4
+        set shiftwidth=4  " number of spaces to use for autoindenting
+        set textwidth=120
+        let g:local_vimrc_wings = 1
+      endif
+      if match(l:path,'Source') > 0
+        compiler bcc
+      elseif match(l:path,'sandbox') > 0
+        set makeprg=mingw32-make
+        set errorformat&
+      else
+        compiler msbuild
+        " Some helpful compiler swithces /t:Rebuild
+        " compiler's errorformat is not good
+        set errorformat&
+      endif
+    " elseif match(l:path,'sep_calc') > 0 || match(l:path,'snippets') > 0 || match(l:path,'wiki') > 0
+      " TODO create command to undo all this settings. See :h ftpplugin
+    else
+      if exists('g:local_vimrc_personal') && !exists('g:local_vimrc_personal')
+        unlet g:local_vimrc_wings
+        echomsg "Loading regular settings..."
+        " tab settings
+        set tabstop=2
+        set softtabstop=2
+        set shiftwidth=2
+        set textwidth=80
+        let g:local_vimrc_personal = 1
+      endif
+    endif
+  endfunction
+
+		" autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+		" autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+		" autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+		" autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+		" autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+	" function! s:GlobalSearch(type) abort
+		" try
+			" " Set grepprg at the beggning only
+			" " Then depending on the search type use ucg if available and search is
+			" " of code or ag if search all files
+			" " Make a .agingnore and .ucgrc file to ignore searching arduino file and
+			" " the others that you moved to MyServer folder
+			" if a:type ==# "all"
+				" " use ag
+				" echo "Search Filetypes:\n\t1.Any\n\t2.Cpp"
+				" let l:file = nr2char(getchar())
+			" elseif a:type ==# "code"
+
+				" let l:file = a:type
+			" endif
+			" if !executable('ag') " use ag if possible
+				" if l:file == 1
+					" let l:file = "**/*"
+				" elseif l:file == 2
+					" let l:file = "**/*.cpp **/*.h **/*.c **/*.hpp **/*.cc"
+				" " reserve for future use of other languages
+				" " elseif l:file == 3
+					" " let l:file = "**/*.wiki"
+				" endif
+				" execute "vimgrep /" . input("Search in \"" . getcwd() . "\" for:") . "/ " . l:file
+			" else
+				" if l:file == 1
+					" let l:file = ""
+				" elseif l:file == 2
+					" let l:file = "--cpp"
+				" endif " relays on set grepprg=ag
+				" execute "grep " . l:file . " " . input("Search in \"" . getcwd() . "\" for:")
+			" endif
+			" copen 20
+		" catch
+			" echohl ErrorMsg
+			" redraw " prevents the msg from misteriously dissapearing
+			" echomsg "GlobalSearch(): " . matchstr(v:exception, ':\zs.*')
+			" echohl None
+		" endtry
+	" endfunction
+      " if executable('ucg')
+        " set grepprg=ucg\ --nocolor\ --noenv
+      " endif
+        " ctrlp with ag
+        " see :Man ag for help
+        " set grepprg=ag\ --nogroup\ --nocolor\ --smart-case\ --all-text\ --vimgrep\ $*
+        " set grepformat=%f:%l:%c:%m
+        "Use the -t option to search all text files; -a to search all files; and -u to search all, including hidden files.
+		" Plug 'mrtazz/DoxygenToolkit.vim' " has being moved to plugin folder
+				" let g:syntastic_java_javac_classpath='/home/reinaldo/Documents/android-sdk/platforms/android-24/*.jar:
+							" \/home/reinaldo/Documents/seafile-client/Seafile/KnowledgeIsPower/udacity/android-projects/BaseballScore/app/build/generated/source/r/debug/com/hq/baseballscore/*.java'
+		"	I considere it not necessary
+		" Plug 'godlygeek/tabular', { 'for' : 'md' } " required by markdown
+		" Plug 'plasticboy/vim-markdown', { 'for' : 'md' }
+		" Conflicts with neovim
+		autocmd FileType nerdtree setlocal encoding=utf-8 " fixes little arrows
+			" Default directory is already .cache
+      let g:JavaComplete_BaseDir = s:cache_path . 'java'
+		" CSyntaxAfter() not longer needed we got pretty good highlight with
+		" native methods. Also gradlew will be set by VimStudio
+		" autocmd FileType java call CSyntaxAfter() " Being called from after/syntax
+		" autocmd FileType java compiler gradlew
+			" Syntastic
+				let g:syntastic_c_config_file = s:cache_path . '.syntastic_avrgcc_config'
+				" let $CLASSPATH='/home/reinaldo/Documents/android-sdk/platforms/android-24/android.jar'
+				
+		" Fails too many times
+		Plug 'jiangmiao/auto-pairs'
+		" Didnt highlight where I wanted it to
+		" Plug 'Yggdroot/indentLine'
+
+		" indentLine
+			let g:indentLine_char='¦'
+			let g:indentLine_color_gui = '#A4E57E'
+			let g:indentLine_color_term = 239
+			let g:indentLine_fileType = ['c', 'cpp']
+			" let g:indentLine_faster=1
+			let g:indentLine_indentLevel= 30
+
+			" Couldnt this plugin to expand on cr
+			" delimitMate
+			let g:delimitMate_expand_cr = 2
+			let g:delimitMate_expand_space = 1
+			let g:delimitMate_jump_expansion = 1
