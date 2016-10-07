@@ -3,29 +3,35 @@
 # sudo apt-get build-dep vim-gtk
 # sudo apt-get -y install liblua5.2-dev luajit libluajit-5.1 python-dev
 # If make fails then try using the above line. And if that fails then install ncurses-dev
-# When the lua is not there just go back during the configure and make sure that
-# it finds lua.h file. Forget about freaking luajit
- cd ~/vim/src &&
- sudo make uninstall
- cd
- sudo rm -rf vim
- git clone https://github.com/vim/vim.git --depth 1
- cd ~/vim
- ./configure --with-features=huge \
+# Installing LUA is very tricky. Play around with copying files from lua5.2 into
+# lua5.2/include. Also uncomment theh lua prefix. Comment everything except for
+# code inside PORTION to play around with ./configure. Not until you get it
+# right. Very fast way. Once you do uncomment rest of code.
+cd ~/vim/src &&
+sudo make uninstall
+cd
+sudo rm -rf vim
+git clone https://github.com/vim/vim.git --depth 1
+# USE JUST THIS PORTION WHEN CONFIGURE FAILS
+cd ~/vim/src
+make distclean
+./configure --with-features=huge \
             --enable-multibyte \
             --enable-rubyinterp \
             --enable-largefile \
             --disable-netbeans \
             --enable-pythoninterp \
-            --with-python-config-dir=/usr/lib/python2.7/config \
             --enable-python3interp \
-            --with-python3-config-dir=/usr/lib/python3.5/config \
             --enable-perlinterp \
             --enable-gui=auto \
             --enable-fail-if-missing \
             --enable-luainterp \
-            --with-lua-prefix=/usr/include/lua5.2 \
-            --prefix=/usr
+            --enable-cscope
+
+            # --with-python3-config-dir=/usr/lib/python3.5/config \
+            # --with-python-config-dir=/usr/lib/python2.7/config \
+            # --with-lua-prefix=/usr/include/lua5.2 \
+# USE JUST THIS PORTION WHEN CONFIGURE FAILS
 cd ~/vim/src &&
 make -j8 &&
 sudo make install
@@ -64,3 +70,9 @@ sudo make install
 # sudo rm /usr/local/man/man1/vimdiff.1
 # sudo rm /usr/local/man/man1/vimtutor.1
 # sudo rm /usr/local/man/man1/xxd.1
+# 
+# Make vim default
+# sudo update-alternatives --install /usr/bin/editor editor /usr/local/bin/vim 1
+# sudo update-alternatives --set editor /usr/local/bin/vim
+# sudo update-alternatives --install /usr/bin/vi vi /usr/local/bin/vim 1
+# sudo update-alternatives --set vi /usr/local/bin/vim

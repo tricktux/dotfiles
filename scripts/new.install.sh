@@ -52,7 +52,8 @@ gtkterm xcompmgr xscreensaver xscreensaver-data-extra \
 xscreensaver-gl android-tools-adb android-tools-fastboot \
 git gparted preload nmap arandr \
 tilda xdotool locate \
-vim-gtk ncurses-dev curl cscope clang clang-format exuberant-ctags\
+vim-gtk ncurses-dev curl cscope clang clang-format exuberant-ctags \
+silversearcher-ag sshfs \
 pulseaudio
 # pulseaudio for issues with audio
 # not in this list wine1.7 winetricks guake libreOffice
@@ -128,4 +129,13 @@ sudo apt-get -y autoclean
 #also go to ~/.config/openbox/lubuntu-rc.xml and find the line command>lxpanelctl menu</command> \
 	#substitute key bind with "Super_L"
 #also install thinkorswim 
-lso add the cpu monitor to to task bar
+# lso add the cpu monitor to to task bar
+
+# Optional software
+# - solaar 
+#   - utility to control and manage remote keyboard. Used to swap function keys
+# - banshee
+#   - nice media player
+# - insync
+#   - Google_Drive replacement
+# - seafile-client

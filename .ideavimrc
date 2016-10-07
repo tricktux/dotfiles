@@ -1,4 +1,20 @@
-let mapleader="\<Space>"
+" File:					.ideavimrc
+" Description:	IntelliJ IdeaVim Plugin Configuration
+"								Tailored for Android-Studio 
+" Author:				Reinaldo Molina
+" Version:			0.8.0
+" Date:					Sep 29 2016 10:38
+" Improvements:
+"  [ ] Research show sample code
+"  [ ] Goto class
+"  [ ] Go to count g;
+"  [ ] Refactor
+"  [ ] Window managment
+
+let mapleader=" "
+" VIM MAPPINGS
+" Miscelaneous
+inoremap <c-c> //<Space> 
 
 inoremap <c-j> <ESC>
 cnoremap <c-j> <ESC>
@@ -14,34 +30,123 @@ nnoremap <s-t> %
 nnoremap <Leader><Space>v "*p
 nnoremap <c-m> o<ESC>
 nnoremap <cr> o<ESC>
-
-" Comment line
-nnoremap - <c-/>
-vnoremap - <c-/>
-
 " Source ideavimrc
 nnoremap <Leader>ms :so ~/.ideavimrc<CR>
 
-set relativenumber
+nnoremap <Leader><Space>v "+p
+nnoremap <Leader><Space>y "+yy
+
+noremap <Leader>I ggvG=
+nnoremap <c-h> :noh<CR>
+noremap <S-s> #<C-o>
+nnoremap <Leader>A <c-x>
+
+" Window navigation
+nnoremap <Leader>l <c-w>l
+nnoremap <Leader>j <c-w>j
+nnoremap <Leader>h <c-w>h
+nnoremap <Leader>k <c-w>k
+
+" Command Line
+cnoremap <c-o> <up>
+cnoremap <c-k> <down>
 
 " Folding
-  " Folding select text then S-f to fold or just S-f to toggle folding
-  " not supported
-  nnoremap <C-j> zj
-  " not supported
-  nnoremap <C-k> zk
-  nnoremap <C-z> zz
-  nnoremap <C-c> zM
-  nnoremap <C-n> zR
-  " not supported
-  nnoremap <C-x> za
-  " dont use <C-a> it conflicts with tmux prefix
-  set foldenable
-  " global fold indent
-  set foldmethod=indent
-  set foldnestmax=18      "deepest fold is 18 levels
-  set foldlevel=0
-  set foldlevelstart=0
+" Folding select text then S-f to fold or just S-f to toggle folding
+" not supported
+nnoremap <C-z> zz
+nnoremap <C-c> zM
+nnoremap <C-n> zR
+" not supported
+nnoremap <C-x> zo
+" dont use <C-a> it conflicts with tmux prefix
+set foldenable
+" global fold indent
+set foldmethod=indent
+set foldnestmax=18      "deepest fold is 18 levels
+set foldlevel=0
+set foldlevelstart=0
 
-" you can use :so ~/.ideavimrc just as <Leader>ms
-noremap <S-s> #<C-o>
+" Not paste the deleted word
+nnoremap <Leader>p "0p
+vnoremap <Leader>p "0p
+
+" SET_OPTIONS
+set relativenumber
+set hlsearch      " highlight search terms
+set number
+set showmode
+set notimeout
+set nottimeout
+set surround
+set incsearch
+
+" ACTION_MAPPINGS
+" Movement
+nnoremap <c-j> :action MethodDown<CR>
+nnoremap <c-k> :action MethodUp<CR>
+
+" nnoremap <Space>S :action Android.SyncProject<CR>:action Synchronize<CR>
+nnoremap <Leader>S :action Synchronize<CR>
+
+" Android Make-Run
+nnoremap <Leader>md :action Debug<CR>
+nnoremap <Leader>ma :action MakeGradleProject<CR>
+nnoremap <Leader>mr :action Run<CR>
+
+" Screens
+" nnoremap <Leader>ms :action Stop<CR>
+" nnoremap <Leader>al :actionlist<CR>
+nnoremap <Leader>am :action ActivateAndroidMonitorToolWindow<CR>
+nnoremap <Leader>ap :action ActivateProjectToolWindow<CR>
+nnoremap <Leader>av :action ActivateThemePreviewToolWindow<CR>
+
+" Zoom section
+nnoremap <Leader><Space>- :action EditorDecreaseFontSize<CR>
+nnoremap <Leader><Space>= :action EditorIncreaseFontSize<CR>
+
+" Go to section
+nnoremap <Leader>sn :action GotoNextError<CR>
+nnoremap <Leader>sp :action GotoPreviousError<CR>
+
+" Step section
+nnoremap <Leader>si :action StepInto<CR>
+nnoremap <Leader>so :action StepOver<CR>
+nnoremap <Leader>sO :action StepOut<CR>
+nnoremap <Leader>sr :action Resume<CR>
+" Spelling fix
+" Doesnt work
+" nnoremap <Leader>sf :action com.intellij.spellchecker.actions.SpellingPopupActionGroup<CR>
+
+" Toggle Section
+nnoremap <Leader>td :action ToggleDistractionFreeMode<CR>
+nnoremap <Leader>tf :action ToggleFloatingMode<CR>
+nnoremap <Leader>tb :action ToggleLineBreakpoint<CR>
+
+" Miscelaneous
+nnoremap - :action CommentByLineComment<CR>
+nnoremap <Leader>nc :action NewClass<CR>
+nnoremap <Leader>O :action MoveEditorToOppositeTabGroup<CR>
+" Help section
+nnoremap <Leader>He :action ExternalJavaDoc<CR>
+" File | Settings
+nnoremap <Leader>ft :action ShowSettings<CR>
+nnoremap zc :action CollapseBlock<CR>
+" Use IDE's rename
+nnoremap <Leader>r :action RenameElement<CR>
+
+" Quit section
+nnoremap <Leader>ql :action CloseContent<CR>
+nnoremap <Leader>qs :action HideSideWindows<CR>
+nnoremap <Leader>qa :action HideAllWindows<CR>
+nnoremap <Leader>qA :action Exit<CR>
+
+" Tag jumps
+nnoremap <Leader>tj :action GotoDeclaration<CR>
+nnoremap <Leader>th :action JavaMethodHierarchyPopupMenu<CR>
+
+" Code format
+nnoremap <c-f> :action ReformatCode<CR>
+nnoremap <Leader>co :action OptimizeImports<CR>
+
+" vim:tw=78:ts=2:sts=2:sw=2:
