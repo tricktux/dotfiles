@@ -817,6 +817,7 @@
 		" Plug 'mattn/vim-javafmt', { 'for' : 'java' }
 		Plug 'tfnico/vim-gradle', { 'for' : 'java' }
 		Plug 'artur-shaik/vim-javacomplete2', { 'branch' : 'master' }
+		Plug 'nelstrom/vim-markdown-folding'
 		" Autocomplete
 		Plug 'Shougo/neosnippet'
 		Plug 'Shougo/neosnippet-snippets'
@@ -1421,6 +1422,11 @@
       let g:tagbar_autofocus = 1
       let g:tagbar_show_linenumbers = 2
       let g:tagbar_map_togglesort = "r"
+      let g:tagbar_map_nexttag = "<c-j>"
+      let g:tagbar_map_prevtag = "<c-k>"
+      let g:tagbar_map_openallfolds = "<c-n>"
+      let g:tagbar_map_closeallfolds = "<c-c>"
+      let g:tagbar_map_togglefold = "<c-x>"
       noremap <Leader>tt :TagbarToggle<CR>
       noremap <Leader>tk :cs kill -1<CR>
       noremap <silent> <Leader>tj <C-]>
@@ -1736,8 +1742,13 @@
 				let g:delimitMate_expand_cr = 2
 				let g:delimitMate_expand_space = 1
 				let g:delimitMate_jump_expansion = 1
-				imap <expr> <CR> <Plug>delimitMateCR
+				" imap <expr> <CR> <Plug>delimitMateCR
+		
+		" ft-markdown-syntax
+			let g:markdown_fenced_languages= [ 'cpp', 'vim' ]
 
+		" markdown-folding
+			let g:markdown_fold_style = 'nested'
 	endif
 
 " see :h modeline
