@@ -1,7 +1,7 @@
 " File:					_vimrc
 " Description:  Vim/Neovim configuration file
 " Author:				Reinaldo Molina
-" Version:			2.1.0
+" Version:			2.2.0
 " Date:					Wed Oct 05 2016 10:58 	
 " Improvements:
 "		" - Figure out how to handle Doxygen
@@ -290,7 +290,9 @@
 		" Add the --type-set=markdown:ext:md option to ucg for it to recognize
 		" Use the -t option to search all text files; -a to search all files; and -u to search all, including hidden files.
 		" md files
-		if executable('ucg')
+		if executable('rg')
+			set grepprg=rg\ --vimgrep
+		elseif executable('ucg')
 			set grepprg=ucg\ --nocolor\ --noenv
 		elseif executable('ag')
 			" ctrlp with ag
@@ -636,6 +638,24 @@
 		endif
 	endfunction
 
+	function! s:ManFind() abort
+		" execute "cexp system('man -wK ". expand("<cword>") ."')"
+		" let l:command = printf
+		let l:list = system("man -wK " . expand("<cword>"))
+		if !empty(l:list)
+			for item in l:list
+				" Strip name list them so they can be called with Man
+			endfor
+			cexpr l:list
+		endif
+		" TODO Sample output below. Strip file name in the form 5 login.conf for
+		" example and pass it to Man
+		" || /usr/share/man/man5/logind.conf.5.gz
+		" || /usr/share/man/man7/systemd.directives.7.gz
+	endfunction
+	nnoremap <Leader>Mc :call <SID>ManFind()<CR>
+	nnoremap <Leader>Ma :Man 
+
 	" To update ctags simply delete the ctags folder
 	" Note: There is also avr tags created by vimrc/scripts/maketags.sh
 	" let &tags= s:cache_path . 'ctags/tags'
@@ -813,6 +833,7 @@
 		" Search
 		if has('unix') " Potential alternative to ctrlp
 			Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+			Plug 'junegunn/fzf.vim'
 		endif
 		" cpp
 		Plug 'Tagbar', { 'on' : 'TagbarToggle' }
@@ -1388,6 +1409,7 @@
       noremap <Leader>Pi :PlugInstall<CR>
       noremap <Leader>Pu :PlugUpdate<CR>
                 \:PlugUpgrade<CR>
+								\:UpdateRemotePlugins<CR>
       " installs plugins; append `!` to update or just :PluginUpdate
       noremap <Leader>Ps :PlugSearch<CR>
       " searches for foo; append `!` to refresh local cache
@@ -1445,7 +1467,7 @@
       noremap <Leader>ts :cs show<CR>
 
     " Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh
-			if executable('ag')
+			if executable('ag') && !executable('ucg') || !exists('FZF')
         let g:ctrlp_user_command = 'ag -Q -l --smart-case --nocolor --hidden -g "" %s'
       else
         echomsg string("You should install silversearcher-ag. Now you have a slow ctrlp")
@@ -1752,6 +1774,10 @@
 			" TODO.RM-Fri Oct 07 2016 00:56: Need to come up with regex pattern to
 			" match Cc:, Bcc:  
 			" Fork repo and fix readme to mention i_CTRL-X_CTRL-O and fix the function
+		 
+		" Man
+			let g:no_plugin_maps = 1
+
 	endif
 
 " see :h modeline
