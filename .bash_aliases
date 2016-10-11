@@ -1,7 +1,16 @@
 # Apt
-alias install='sudo apt install'
-alias update='sudo apt update'
-alias purge='sudo apt purge'
+# Ubuntu package manager
+# After policy use package name. It will tell you what version of the package
+# will get installed
+# alias version='apt-cache policy'
+# alias install='sudo apt install'
+# alias purge='sudo apt purge'
+# alias update='sudo apt update'
+
+alias install='pacaur -S --noconfirm'
+alias update='pacaur -Syu --noconfirm'
+alias version='pacaur -Si'
+alias search='pacaur -Ss'
 
 # Git
 alias ga='git add'
@@ -16,10 +25,9 @@ alias mount-copter='sshfs odroid@copter-server:/home/odroid/ /home/reinaldo/.mnt
 alias mount-hq='sshfs reinaldo@HQ:/home/reinaldo/ /home/reinaldo/.mnt/HQ-server/'
 
 # Misc
-# After policy use package name. It will tell you what version of the package
-# will get installed
-alias version='apt-cache policy'
 alias tmux='tmux -2'
+alias ll='ls -als'
+alias vim='nvim'
 # Reload rxvt and deamon
 # Search help
 alias help=FuncHelp
