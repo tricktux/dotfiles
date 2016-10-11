@@ -11,6 +11,7 @@ URxvt*scrollTtyKeypress: true
 ! urxvt*transparent: true
 ! urxvt*shading: 30
 
+! To install prettier shell prompt see `banga/powerline-shell`
 ! Trying to get powerline to display correctly
 ! URxvt.font: xft:monospace:size=10
 ! urxvt*font: xft:Terminus:pixelsize=12,xft:Droid\ Sans\ Mono\ for \Powerline:pixelsize=12
