@@ -37,7 +37,7 @@
 		" update cscope and ctags
 		noremap <Leader>tu :cs kill -1<CR>
 		\:silent !del /F cscope.files cscope.in.out cscope.po.out cscope.out<CR>
-		\:silent !dir /b /s *.cpp *.h *.hpp *.c *.cc > cscope.files<CR>
+		\:silent !dir /b /s *.cpp *.h *.hpp *.c *.cc *.cs > cscope.files<CR>
 		\:!cscope -b -q -i cscope.files<CR>
 		\:silent !ctags -R -L cscope.files -f tags<CR>
 		\:cs add cscope.out<CR>
@@ -68,14 +68,24 @@
 		nnoremap <Leader>ewd :Start! WINGS.exe 3 . default.ini<CR>
 		nnoremap <Leader>ewc :Start! WINGS.exe 3 . %<CR>
 		nnoremap <Leader>ews :execute("Start! WINGS.exe 3 . " . input("Config file:", "", "file"))<CR>
-		nnoremap <Leader>ewl :silent !del default.ini<CR>
-							\:!mklink default.ini
 
 		" e1 reserved for vimrc
 		function! s:SetWingsPath(sPath) abort
 			execute "nnoremap <Leader>e21 :silent e " . a:sPath . "NeoOneWINGS/"
 			execute "nnoremap <Leader>e22 :silent e " . a:sPath
 			execute "nnoremap <Leader>ed :silent e ". a:sPath . "NeoOneWINGS/default.ini<CR>"
+			execute "nnoremap <Leader>ewl :call <SID>WingsSymLink('~/Documents/1.WINGS/')<CR>"
+			execute "nnoremap <Leader>ewl :call <SID>WingsSymLink(" . expand(a:sPath) . ")<CR>"
+			" execute "nnoremap <Leader>ewl :silent !del " . a:sPath . "/default.ini<CR>
+						" \:!mklink default.ini"
+		endfunction
+
+		function! s:WingsSymLink(sPath) abort
+			execute "cd " .a:sPath
+			let l:path = input("Enter path to new default.ini:", "", "file")
+			!del default.ini
+			execute "!mklink default.ini " . l:path
+			cd -
 		endfunction
 
 		" Switch Wings mappings for SWTestbed
@@ -774,6 +784,28 @@
 		return map(split(l:directory,'\n'), "fnamemodify(v:val, ':t')")
 	endfunction
 
+	function! MarkdownLevel()
+		if getline(v:lnum) =~ '^# .*$'
+			return ">1"
+		endif
+		if getline(v:lnum) =~ '^## .*$'
+			return ">2"
+		endif
+		if getline(v:lnum) =~ '^### .*$'
+			return ">3"
+		endif
+		if getline(v:lnum) =~ '^#### .*$'
+			return ">4"
+		endif
+		if getline(v:lnum) =~ '^##### .*$'
+			return ">5"
+		endif
+		if getline(v:lnum) =~ '^###### .*$'
+			return ">6"
+		endif
+		return "=" 
+	endfunction
+
 	" Vim-Wiki
 		" Origin: Wang Shidong <wsdjeg@outlook.com>
 						" vim-cheat
@@ -845,7 +877,7 @@
 		Plug 'mattn/vim-javafmt', { 'for' : 'java' }
 		Plug 'tfnico/vim-gradle', { 'for' : 'java' }
 		Plug 'artur-shaik/vim-javacomplete2', { 'branch' : 'master' }
-		Plug 'nelstrom/vim-markdown-folding'
+		" Plug 'nelstrom/vim-markdown-folding'
 		" Autocomplete
 		Plug 'Shougo/neosnippet'
 		Plug 'Shougo/neosnippet-snippets'
@@ -1079,6 +1111,9 @@
 			\ if line("'\"") > 0 && line("'\"") <= line("$") |
 			\ exe "normal g`\"" |
 			\ endif
+		au BufEnter *.md setlocal foldexpr=MarkdownLevel()  
+		au BufEnter *.md setlocal foldmethod=expr
+	augroup END
 
 	augroup VimType
 		autocmd!
@@ -1212,6 +1247,9 @@
 		nnoremap <Leader>He :h <c-r>=expand("<cword>")<CR><CR>
 		" Markdown fix _ showing red
 		nnoremap <Leader>mf :s%/_/\\_/g<CR>
+		" Reload syntax
+		noremap <F12> <Esc>:syntax sync fromstart<CR>
+		inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
 	" Edit local
 		nnoremap <Leader>el :silent e ~/
@@ -1293,7 +1331,7 @@
 
 	" Buffers Stuff
 		noremap <S-j> :b#<CR>
-		noremap <Leader>bd :bp\|bd #<CR>
+		noremap <Leader>bd :bp\|bw #\|bd #<CR>
 		" deletes all buffers
 		noremap <Leader>bD :%bd<CR>
 		noremap <Leader>bs :buffers<CR>:buffer<Space>
@@ -1778,7 +1816,8 @@
 			let g:markdown_fenced_languages= [ 'cpp', 'vim' ]
 
 		" markdown-folding
-			let g:markdown_fold_style = 'nested'
+			" let g:markdown_fold_style = 'nested'
+			let g:markdown_fold_override_foldtext = 0
 			
 		" MuttAliases
 			let g:mutt_alias_filename = '~/.mutt/muttrc'
@@ -1789,7 +1828,6 @@
 		 
 		" Man
 			let g:no_plugin_maps = 1
-
 	endif
 
 " see :h modeline
