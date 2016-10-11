@@ -1,8 +1,8 @@
 " File:					_vimrc
 " Description:  Vim/Neovim configuration file
 " Author:				Reinaldo Molina
-" Version:			2.1.0
-" Date:					Wed Oct 05 2016 10:58 	
+" Version:			2.1.1
+" Date:					Mon Oct 10 2016 16:50
 " Improvements:
 "		" - Figure out how to handle Doxygen
 		" - [ ] Markdown tables
@@ -790,7 +790,7 @@
 			Plug 'tpope/vim-dispatch'
 			Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
 		endif
-		" Plugins for both
+		" Plugins for All (nvim, linux, win32)
 		" misc
 		Plug 'chrisbra/vim-diff-enhanced', { 'on' : 'SetDiff' }
 		Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
