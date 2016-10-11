@@ -2,29 +2,34 @@
 # Description:				Script file that installs nvim to
 #					$HOME/neovim. If it failes check
 #					Dependencies.
+#					**Note** Depends on having setting proper var $install
 # Author:				Reinaldo Molina <rmolin88@gmail.com>
-# Version:				1.0.0
+# Version:				2.0.0
 # Date:					Sat Oct 01 2016 17:24 
 
+install='pacaur -S --noconfirm'
 
-#
 # Dependencies. Uncomment if installing for the first time
-# sudo apt-get install -y libtool libtool-bin autoconf automake cmake g++ pkg-config unzip 
-# sudo apt-get install -y python-dev python-pip python3-dev python3-pip
+# $install libtool libtool-bin autoconf automake cmake g++ pkg-config unzip 
+# Ubuntu specific
+# $install python-dev python-pip python3-dev python3-pip
+# $install python python-pip python2 python2-pip
 # ninja-build
-# pip2 install neovim
-# pip3 install neovim
+pip2 install neovim
+pip3 install neovim
+
 # Link vimrc file:
+# mdir .config/nvim
 # cd .config/nvim
 # ln -s ~/vimrc/_vimrc init.vim
-cd
+# cd
 # rm -rf neovim
-git clone https://github.com/neovim/neovim.git --depth 1
-cd neovim
+# git clone https://github.com/neovim/neovim.git --depth 1
+cd ~/neovim
 make -j8 CMAKE_BUILD_TYPE=Release CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX:PATH=$HOME/neovim"
 make install
-pip2 install --upgrade neovim
-pip3 install --upgrade neovim
+# pip2 install --upgrade neovim
+# pip3 install --upgrade neovim
 # cd ~/bin
 # ln -s ~/neovim/bin/nvim
 
