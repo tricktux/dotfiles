@@ -302,7 +302,6 @@
     tnoremap <A-k> <C-\><C-n><C-w>k
     tnoremap <A-l> <C-\><C-n><C-w>l
 		tnoremap <C-o> <Up>
-		tnoremap <C-k> <Down>
 		tnoremap <C-j> <Left>
 		tnoremap <C-l> <Right>
 		function! s:OpenTerminal() abort
@@ -1125,7 +1124,7 @@
 		" automatic syntax for *.scp
 		autocmd BufNewFile,BufReadPost *.scp setf wings_syntax
 		autocmd BufNewFile,BufReadPost *.set,*.sum setf dosini
-		autocmd BufWritePost *.java Neomake
+		autocmd BufWritePost *.java Neomake!
 		"Automatically go back to where you were last editing this file
 		autocmd BufReadPost *
 			\ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -1177,7 +1176,11 @@
 		" noremap <Leader>qO :Copen!<CR>
 		noremap <Leader>qO :lopen 20<CR>
 		noremap <Leader>qo :copen 20<CR>
-		noremap <Leader>qc :cc<CR>
+		noremap <Leader>qc :.cc<CR>
+		noremap <Leader>qC :cc<CR>
+
+		nnoremap <Leader>sn :call <SID>ListsNavigation("next")<CR>
+		nnoremap <Leader>sp :call <SID>ListsNavigation("previous")<CR>
 
 		nnoremap <Down> :call <SID>ListsNavigation("next")<CR>
 		nnoremap <Up> :call <SID>ListsNavigation("previous")<CR>
@@ -1572,8 +1575,6 @@
     " Plugin 'scrooloose/syntastic'
 			if exists(':SyntasticCheck')
 				nnoremap <Leader>so :SyntasticToggleMode<CR>
-				nnoremap <Leader>sn :call <SID>ListsNavigation("next")<CR>
-				nnoremap <Leader>sp :call <SID>ListsNavigation("previous")<CR>
 				nnoremap <Leader>ss :SyntasticCheck<CR>
 				" set statusline+=%#warningmsg#
 				" set statusline+=%{SyntasticStatuslineFlag()}
