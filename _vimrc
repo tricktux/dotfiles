@@ -834,7 +834,7 @@
 			return join(<SID>ListFiles(s:wiki_path . '//'),"\n")
 		endfunction
 
-		function! s:OpenWiki(...) abort
+		function! s:WikiOpen(...) abort
 			if a:0 > 0
 				execute "vs " . s:wiki_path . '/'.  a:1
 				return
@@ -872,7 +872,7 @@
 		Plug 'airblade/vim-rooter'
 		Plug 'Raimondi/delimitMate'
 		Plug 'rmolin88/DoxygenToolkit.vim'
-		" Mutt
+		Plug 'Yggdroot/indentLine'
 		Plug 'guanqun/vim-mutt-aliases-plugin'
 		if has('unix') && !has('gui_running')
 			Plug 'jamessan/vim-gnupg'
@@ -1428,8 +1428,14 @@
 		nnoremap <Leader>tM :call <SID>TodoClearMark()<CR>
 		nnoremap <Leader>ta :call <SID>TodoAdd()<CR>
 		" pull up todo/quick notes list
-		nnoremap <Leader>wt :call <SID>OpenWiki('TODO.md')<CR>
-		nnoremap <Leader>wo :call <SID>OpenWiki()<CR>
+		nnoremap <Leader>wt :call <SID>WikiOpen('TODO.md')<CR>
+		nnoremap <Leader>wo :call <SID>WikiOpen()<CR>
+		nnoremap <Leader>ws :call <SID>WikiSearch()<CR>
+		function! s:WikiSearch() abort
+			execute "cd " . s:wiki_path
+			execute "grep " . input("Enter wiki search string:")
+			cd -
+		endfunction
 
 	" Comments
 		nnoremap <Leader>cD :call <SID>CommentDelete()<CR>
@@ -1852,6 +1858,14 @@
 		 
 		" Man
 			let g:no_plugin_maps = 1
+
+		" indentLine
+			" let g:indentLine_char='¦'
+			" let g:indentLine_color_gui = '#A4E57E'
+			" let g:indentLine_color_term = 239
+			" let g:indentLine_fileType = ['c', 'cpp']
+			" " let g:indentLine_faster=1
+			" let g:indentLine_indentLevel= 30
 	endif
 
 " see :h modeline
