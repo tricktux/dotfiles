@@ -1,7 +1,7 @@
 " File:					_vimrc
 " Description:  Vim/Neovim configuration file
 " Author:				Reinaldo Molina
-" Version:			2.2.0
+" Version:			2.2.1
 " Date:					Wed Oct 05 2016 10:58 	
 " Improvements:
 "		" - Figure out how to handle Doxygen
@@ -1091,11 +1091,14 @@
 		autocmd FileType help wincmd L
 		" wrap syntastic messages
 		autocmd FileType qf setlocal wrap
-		" Open markdown files with Chrome.
-		autocmd FileType markdown setlocal spell spelllang=en_us
 		autocmd FileType mail setlocal wrap
 		autocmd FileType mail setlocal spell spelllang=es,en
 		autocmd FileType mail setlocal omnifunc=muttaliases#CompleteMuttAliases
+		" Markdown
+		autocmd FileType markdown setlocal spell spelllang=en_us
+		autocmd FileType markdown inoremap <buffer> * **<Left>
+		autocmd FileType markdown setlocal formatoptions=croqt comments-=fb:-
+					\ comments+=:-
 	augroup END
 
 	augroup BuffTypes
@@ -1807,7 +1810,7 @@
 					\ }
 			endif
 			" delimitMate
-				let g:delimitMate_expand_cr = 2
+				let g:delimitMate_expand_cr = 1
 				let g:delimitMate_expand_space = 1
 				let g:delimitMate_jump_expansion = 1
 				" imap <expr> <CR> <Plug>delimitMateCR
