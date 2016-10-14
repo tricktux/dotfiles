@@ -8,7 +8,7 @@
 	up = rebase
 	ci = commit
 [core]
-	editor = vim
+	editor = nvim
 	excludesfile = /home/reinaldo/.gitignore_global
 
 [credential]
