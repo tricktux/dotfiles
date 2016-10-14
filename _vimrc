@@ -1,8 +1,8 @@
 " File:					_vimrc
 " Description:  Vim/Neovim configuration file
 " Author:				Reinaldo Molina
-" Version:			2.2.0
-" Date:					Wed Oct 05 2016 10:58 	
+" Version:			2.3.0
+" Date:					Thu Oct 13 2016 22:21 	
 " Improvements:
 "		" - Figure out how to handle Doxygen
 		" - [ ] Markdown tables
@@ -47,7 +47,7 @@
 		nnoremap <Leader><Space>v "*p
 		vnoremap <Leader><Space>v "*p
 
-		nnoremap <Leader><Space>y "*y
+		nnoremap <Leader><Space>y "*yy
 		vnoremap <Leader><Space>y "*y
 
 		nnoremap <Leader><Space>= :silent! let &guifont = substitute(
@@ -229,7 +229,7 @@
 
 		augroup UnixMD
 			autocmd!
-			autocmd FileType markdown nnoremap <buffer> <Leader>mr :!google-chrome %<CR>
+			autocmd FileType markdown nnoremap <buffer> <Leader>mr :!google-chrome-stable %<CR>
 		augroup END
 
 		" TODO|
@@ -291,6 +291,24 @@
 				" let g:airline_symbols.spell = 'Ꞩ'
 				" let g:airline_symbols.notexists = '∄'
 				let g:airline_symbols.whitespace = 'Ξ'
+	endif
+
+" NVIM SPECIFIC
+	if has('nvim')
+		" terminal-emulator mappings
+		tnoremap <esc> <C-\><C-n>
+		tnoremap <A-h> <C-\><C-n><C-w>h
+    tnoremap <A-j> <C-\><C-n><C-w>j
+    tnoremap <A-k> <C-\><C-n><C-w>k
+    tnoremap <A-l> <C-\><C-n><C-w>l
+		tnoremap <C-o> <Up>
+		tnoremap <C-k> <Down>
+		tnoremap <C-j> <Left>
+		tnoremap <C-l> <Right>
+		function! s:OpenTerminal() abort
+			execute "normal :vs\<CR>\<c-w>l:terminal\<CR>"
+		endfunction
+		nnoremap <Leader>to :call <SID>OpenTerminal()<CR>
 	endif
 
 " FUNCTIONS
@@ -914,6 +932,8 @@
 		" Set blinking cursor shape everywhere
 		if has('nvim')
 			let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+			" Fixes broken nmap <c-h> inside of tmux
+			nnoremap <BS> :noh<CR>
 		elseif exists('$TMUX')
 			let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 			let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
@@ -1281,10 +1301,10 @@
 
 	" Window movement
 		" move between windows
-		nnoremap <Leader>h <C-w>h
-		nnoremap <Leader>j <C-w>j
-		nnoremap <Leader>k <C-w>k
-		nnoremap <Leader>l <C-w>l
+		nnoremap <a-h> <C-w>h
+		nnoremap <a-j> <C-w>j
+		nnoremap <a-k> <C-w>k
+		nnoremap <a-l> <C-w>l
 
 	" Diff Sutff
 		command! SetDiff call <SID>SetDiff()

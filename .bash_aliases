@@ -11,6 +11,7 @@ alias install='pacaur -S --noconfirm'
 alias update='pacaur -Syu --noconfirm'
 alias version='pacaur -Si'
 alias search='pacaur -Ss'
+alias remove='pacaur -Rscn'
 
 # Git
 alias ga='git add'
@@ -31,7 +32,28 @@ alias vim='nvim'
 # Reload rxvt and deamon
 # Search help
 alias help=FuncHelp
+alias cpstat=FuncCheckCopy
 FuncHelp()
 {
   $1 --help 2>&1 | grep $2 
+}
+
+FuncCheckCopy()
+{
+	if [[ $# -lt 1 ]]; then
+		echo "Usage: provide src dir"
+		return
+	fi
+	echo "Calculating size of src folder. Please wait ..."
+	local total=`nice -n -0 du -mhs $1`
+	# local total=888888888888
+	# echo $total
+	# return
+	while :
+	do
+		echo "Press [CTRL+C] to stop.."
+		local dst=`sudo nice -n -20 du -mhs`
+		echo "$dst of $total"
+		sleep 60
+	done
 }
