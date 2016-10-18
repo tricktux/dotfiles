@@ -1,15 +1,19 @@
 " File:					_vimrc
 " Description:  Vim/Neovim configuration file
 " Author:				Reinaldo Molina
-" Version:			2.3.0
-" Date:					Thu Oct 13 2016 22:21 	
+" Version:			2.3.2
+" Date:					Tue Oct 18 2016 10:41 	
 " Improvements:
 "		" - Figure out how to handle Doxygen
 		" - [ ] Markdown tables
 		" - [ ] make mail ft grab autocomplete from alias.sh
-		" - [ ] Fix GlobalSearch()
+		" - [ ] Substitute all of the capital <leader>X mapps with newer non capital
 		" - [ ] Customize Doxygen options or find replacement
 		" - [ ] Customize and install vim-formatter
+		" - [ ] Create a plugin with all of your functions. Make each function a
+		"   command 
+		" - [ ] Fix the markdown enter property
+		" - [ ] Get familiar with vim format
 		
 " REQ AND LEADER
 	set nocompatible
@@ -97,7 +101,7 @@
 		nnoremap <Leader>mt :Dispatch powershell -command "& {&'Measure-Command' {.\sep_calc.exe seprc}}"<CR>
 
 		nnoremap <Leader>ep :e ~/vimfiles/plugged/
-		nnoremap <Leader>ma :Make
+		nnoremap <Leader>ma :Make -f WINGS.mak<CR>:copen 20<CR>
 
 
 		" call <SID>AutoCreateWinCtags()
@@ -872,8 +876,7 @@
 		Plug 'airblade/vim-rooter'
 		Plug 'Raimondi/delimitMate'
 		Plug 'rmolin88/DoxygenToolkit.vim'
-		Plug 'Yggdroot/indentLine'
-		Plug 'guanqun/vim-mutt-aliases-plugin'
+		Plug 'dkarter/bullets.vim'
 		if has('unix') && !has('gui_running')
 			Plug 'jamessan/vim-gnupg'
 		endif
@@ -883,6 +886,7 @@
 		if has('unix') " Potential alternative to ctrlp
 			Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 			Plug 'junegunn/fzf.vim'
+			Plug 'guanqun/vim-mutt-aliases-plugin'
 		endif
 		" cpp
 		Plug 'Tagbar', { 'on' : 'TagbarToggle' }
@@ -988,6 +992,7 @@
 	"set spell spelllang=en_us
 	"omnicomplete menu
 	" save marks
+	set shiftwidth=2 tabstop=2
 	set viminfo='1000,f1,<800,%1024
 	set showtabline=1 " always show tabs in gvim, but not vim"
 	set backspace=indent,eol,start
@@ -1069,8 +1074,8 @@
 	" no mouse enabled
 	set mouse=""
 	set laststatus=2
-	set formatoptions=croqt " this is textwidth actually breaks the lines
-	set textwidth=80
+	" Default is 0. Good value
+	" set textwidth=80
 	" makes vim autocomplete - bullets
 	set comments+=b:-,b:*
 	set nolist " Do not display extra characters
@@ -1093,8 +1098,9 @@
 		autocmd FileType c,cpp,java RainbowParentheses
 		" autocmd FileType c,cpp setlocal foldmethod=syntax
 		" Indent options
-		autocmd FileType c,cpp setlocal shiftwidth=4 tabstop=4
-		autocmd FileType tex,vim,java,markdown setlocal shiftwidth=2 tabstop=2
+		" autocmd FileType c,cpp setlocal shiftwidth=4 tabstop=4
+		" autocmd FileType tex,vim,java,markdown setlocal shiftwidth=2 tabstop=2
+		" autocmd FileType * setlocal shiftwidth=2 tabstop=2
 		" Java
 		autocmd FileType java setlocal omnifunc=javacomplete#Complete
 		autocmd FileType java compiler gradlew
@@ -1116,8 +1122,10 @@
 		" Markdown
 		autocmd FileType markdown setlocal spell spelllang=en_us
 		autocmd FileType markdown inoremap <buffer> * **<Left>
-		autocmd FileType markdown setlocal formatoptions=croqt comments-=fb:-
-					\ comments+=:-
+		" autocmd FileType markdown setlocal formatoptions+=anro comments+=fb:-
+		" autocmd FileType markdown setlocal autoindent formatoptions+=anro comments+=fb:-
+		" autocmd FileType markdown setlocal autoindent formatlistpat=^\\s*\\(\\d\\+[\\]:.)}\\t\ ]\\|-\\)\\s*
+					" \ formatoptions+=anro comments+=b:-
 	augroup END
 
 	augroup BuffTypes
@@ -1371,22 +1379,6 @@
 		nnoremap <S-Tab> gT
 		nnoremap <S-e> :tab split<CR>
 		nnoremap <S-x> :tabclose<CR>
-
-	" Make
-		" nnoremap <Leader>ma :make clean<CR>
-					" \:make all<CR>
-		nnoremap <Leader>mc :make clean<CR>
-		" nnoremap <Leader>mf ::!sudo dfu-programmer atxmega128a4u erase<CR>
-					" \:!sudo dfu-programmer atxmega128a4u flash atxmega.hex<CR>
-					" \:!sudo dfu-programmer atxmega128a4u start<CR>
-		" super custom compile and run command
-		nnoremap <Leader>mu :make all<CR>
-					\:!sep_calc.exe seprc<CR>
-					" \:!sep_calc.exe test.csv WINGS_EGI_GCORE_S3.mod.ini<CR>
-		nnoremap <Leader>mi :make all<CR>
-					\:!sep_calc.exe some.csv<CR>
-		nnoremap <Leader>mo :make all<CR>
-					\:!sep_calc.exe nada.csv<CR>
 
 	" Sessions
 		nnoremap <Leader>sS :call <SID>SaveSession()<CR>
@@ -1859,13 +1851,9 @@
 		" Man
 			let g:no_plugin_maps = 1
 
-		" indentLine
-			" let g:indentLine_char='¦'
-			" let g:indentLine_color_gui = '#A4E57E'
-			" let g:indentLine_color_term = 239
-			" let g:indentLine_fileType = ['c', 'cpp']
-			" " let g:indentLine_faster=1
-			" let g:indentLine_indentLevel= 30
+		" Bullets
+			let g:bullets_set_mappings = 0
+			
 	endif
 
 " see :h modeline
