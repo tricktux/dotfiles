@@ -1074,8 +1074,7 @@
 	" no mouse enabled
 	set mouse=""
 	set laststatus=2
-	" Default is 0. Good value
-	" set textwidth=80
+	set textwidth=78
 	" makes vim autocomplete - bullets
 	set comments+=b:-,b:*
 	set nolist " Do not display extra characters
@@ -1096,11 +1095,6 @@
 		autocmd FileType c,cpp setlocal omnifunc=ClangComplete
 	 	" Rainbow cannot be enabled for help file. It breaks syntax highlight
 		autocmd FileType c,cpp,java RainbowParentheses
-		" autocmd FileType c,cpp setlocal foldmethod=syntax
-		" Indent options
-		" autocmd FileType c,cpp setlocal shiftwidth=4 tabstop=4
-		" autocmd FileType tex,vim,java,markdown setlocal shiftwidth=2 tabstop=2
-		" autocmd FileType * setlocal shiftwidth=2 tabstop=2
 		" Java
 		autocmd FileType java setlocal omnifunc=javacomplete#Complete
 		autocmd FileType java compiler gradlew
@@ -1122,10 +1116,6 @@
 		" Markdown
 		autocmd FileType markdown setlocal spell spelllang=en_us
 		autocmd FileType markdown inoremap <buffer> * **<Left>
-		" autocmd FileType markdown setlocal formatoptions+=anro comments+=fb:-
-		" autocmd FileType markdown setlocal autoindent formatoptions+=anro comments+=fb:-
-		" autocmd FileType markdown setlocal autoindent formatlistpat=^\\s*\\(\\d\\+[\\]:.)}\\t\ ]\\|-\\)\\s*
-					" \ formatoptions+=anro comments+=b:-
 	augroup END
 
 	augroup BuffTypes
