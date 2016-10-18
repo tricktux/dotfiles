@@ -168,12 +168,29 @@
 		let s:custom_font = 'Andale Mono 8'
 
 		" this one below DOES WORK in linux just make sure is ran at root folder
-		noremap <Leader>tu :cs kill -1<CR>
-		\:!rm cscope.files cscope.out cscope.po.out cscope.in.out<CR>
-		\:!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.java' -o -iname '*.cc'  -o -iname '*.h' -o -iname '*.hpp' > cscope.files<CR>
-		\:!cscope -b -q -i cscope.files<CR>
-		\:cs add cscope.out<CR>
-		\:silent !ctags -R -L cscope.files<CR>
+		noremap <Leader>tu :call <SID>UpdateCscope()<CR>
+
+		function! s:UpdateCscope() abort
+			if !executable('cscope') || !executable('ctags')
+				echoerr "Please install cscope and/or ctags before using this application"
+				return	
+			endif
+			try
+				cs kill -1
+			catch
+				" Dont do anything if it fails
+			endtry
+			!rm cscope.files cscope.out cscope.po.out cscope.in.out
+			!find . -iregex '.*\.\(c\|cpp\|java\|cc\|h\|hpp\)$' > cscope.files
+			!cscope -b -q -i cscope.files
+			if !filereadable('cscope.out')
+				echoerr "Couldnt create cscope.out files"
+				return
+			endif
+			cs add cscope.out
+			silent !ctags -R -L cscope.files -f .tags
+			set tags+=.tags
+		endfunction
 
 		nnoremap <Leader>mr :silent !./%<CR>
 
@@ -181,7 +198,7 @@
 		nnoremap <Leader><Space>v "+p
 		vnoremap <Leader><Space>v "+p
 
-		nnoremap <Leader><Space>y "+y
+		nnoremap <Leader><Space>y "+yy
 		vnoremap <Leader><Space>y "+y
 
 		" edit android
@@ -224,8 +241,6 @@
 		nnoremap <Leader>cp :!chmod a+x %<CR>
 		nnoremap <Leader>ma :make 
 		" Experimenting substitute for ctrl-p
-		nnoremap <C-p> :FZF<ENTER>
-		let g:ctrlp_map = ''
 
 		augroup UnixMD
 			autocmd!
@@ -236,61 +251,66 @@
 		"    \/
 		" call <SID>AutoCreateUnixCtags()
 
-		" Unix Specific Plugin Options
-			"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
-				set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
-				let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+		"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
+			set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
+			let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
-			" VIM_PATH includes
-				" With this you can use gf to go to the #include <avr/io.h>
-				" also this path below are what go into the .syntastic_avrgcc_config
-				set path+=/usr/local/include
-				set path+=/usr/include
+		" VIM_PATH includes
+			" With this you can use gf to go to the #include <avr/io.h>
+			" also this path below are what go into the .syntastic_avrgcc_config
+			set path+=/usr/local/include
+			set path+=/usr/include
 
-				set tags+=~/.vim/ctags/tags_sys
-				set tags+=~/.vim/ctags/tags_sys2
-				set tags+=~/.vim/ctags/tags_android
+			set tags+=~/.vim/ctags/tags_sys
+			set tags+=~/.vim/ctags/tags_sys2
+			set tags+=~/.vim/ctags/tags_android
 
-			" Vim-clang
-				let g:clang_library_path='/usr/lib/llvm-3.8/lib'
+		" Vim-clang
+			let g:clang_library_path='/usr/lib/llvm-3.8/lib'
 
-			" Vim-Man
-				runtime! ftplugin/man.vim
-				" Sample use: Man 3 printf
-				" Potential plug if you need more `vim-utils/vim-man` but this should be
-				" enough
-				
-			" Airline
-				if !exists('g:airline_symbols')
-					let g:airline_symbols = {}
-				endif
-				" TODO: Fix this here
-				" let g:airline_left_sep = ''
-				" let g:airline_left_alt_sep = ''
-				" let g:airline_right_sep = ''
-				" let g:airline_right_alt_sep = ''
-				" let g:airline_symbols.branch = ''
-				" let g:airline_symbols.readonly = ''
-				" let g:airline_symbols.linenr = ''
+		" Vim-Man
+			runtime! ftplugin/man.vim
+			" Sample use: Man 3 printf
+			" Potential plug if you need more `vim-utils/vim-man` but this should be
+			" enough
+			
+		" Airline
+			if !exists('g:airline_symbols')
+				let g:airline_symbols = {}
+			endif
+			let g:airline_left_sep = ''
+			let g:airline_left_alt_sep = ''
+			let g:airline_right_sep = ''
+			let g:airline_right_alt_sep = ''
+			let g:airline_symbols.branch = ''
+			let g:airline_symbols.readonly = ''
+			let g:airline_symbols.linenr = ''
+			let g:airline_symbols.linenr = '¶'
+			let g:airline_symbols.paste = 'ρ'
+			let g:airline_symbols.spell = 'Ꞩ'
+			let g:airline_symbols.paste = 'Þ'
 
-				" Todo fix here
-				let g:airline_left_sep = '»'
-				" let g:airline_left_sep = '▶'
-				let g:airline_right_sep = '«'
-				" let g:airline_right_sep = '◀'
-				" let g:airline_symbols.crypt = '🔒'
-				" let g:airline_symbols.linenr = '␊'
-				" let g:airline_symbols.linenr = '␤'
-				let g:airline_symbols.linenr = '¶'
-				let g:airline_symbols.maxlinenr = '☰'
-				" let g:airline_symbols.maxlinenr = ''
-				" let g:airline_symbols.branch = '⎇'
-				let g:airline_symbols.paste = 'ρ'
-				" let g:airline_symbols.paste = 'Þ'
-				" let g:airline_symbols.paste = '∥'
-				" let g:airline_symbols.spell = 'Ꞩ'
-				" let g:airline_symbols.notexists = '∄'
-				let g:airline_symbols.whitespace = 'Ξ'
+		" fzf
+			nnoremap <C-p> :History<CR>
+			nnoremap <A-p> :FZF<CR>
+			nnoremap <S-k> :Buffers<CR>
+			" cnoremap <C-r> :Commands<CR>
+			let g:fzf_history_dir = '~/.fzf-history'
+			" Customize fzf colors to match your color scheme
+			nmap <leader><tab> <plug>(fzf-maps-n)
+			let g:fzf_colors =
+						\ { 'fg':      ['fg', 'Normal'],
+						\ 'bg':      ['bg', 'Normal'],
+						\ 'hl':      ['fg', 'Comment'],
+						\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+						\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+						\ 'hl+':     ['fg', 'Statement'],
+						\ 'info':    ['fg', 'PreProc'],
+						\ 'prompt':  ['fg', 'Conditional'],
+						\ 'pointer': ['fg', 'Exception'],
+						\ 'marker':  ['fg', 'Keyword'],
+						\ 'spinner': ['fg', 'Label'],
+						\ 'header':  ['fg', 'Comment'] }
 	endif
 
 " NVIM SPECIFIC
@@ -858,13 +878,13 @@
 			Plug 'Shougo/neocomplete'
 			Plug 'tpope/vim-dispatch'
 			Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
+			Plug 'ctrlpvim/ctrlp.vim'
 		endif
 		" Plugins for All (nvim, linux, win32)
 		" misc
 		Plug 'chrisbra/vim-diff-enhanced', { 'on' : 'SetDiff' }
 		Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 		Plug 'scrooloose/nerdcommenter'
-		Plug 'ctrlpvim/ctrlp.vim'
 		Plug 'chrisbra/Colorizer'
 		Plug 'tpope/vim-repeat'
 		Plug 'tpope/vim-surround'
@@ -872,7 +892,6 @@
 		Plug 'airblade/vim-rooter'
 		Plug 'Raimondi/delimitMate'
 		Plug 'rmolin88/DoxygenToolkit.vim'
-		Plug 'Yggdroot/indentLine'
 		Plug 'guanqun/vim-mutt-aliases-plugin'
 		if has('unix') && !has('gui_running')
 			Plug 'jamessan/vim-gnupg'
@@ -1127,7 +1146,7 @@
 		" automatic syntax for *.scp
 		autocmd BufNewFile,BufReadPost *.scp setf wings_syntax
 		autocmd BufNewFile,BufReadPost *.set,*.sum setf dosini
-		autocmd BufWritePost *.java Neomake!
+		autocmd BufWritePost *.java Neomake
 		"Automatically go back to where you were last editing this file
 		autocmd BufReadPost *
 			\ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -1215,9 +1234,10 @@
 		vnoremap <Leader>r "hy:%s/<C-r>h//gc<left><left><left>
 		"vnoremap <Leader>r :%s///gc<Left><Left><Left>
 		cnoremap <C-p> <c-r>0
+		cnoremap <C-j> <Down>
 		cnoremap <C-o> <Up>
 		cnoremap <C-k> <Down>
-		cnoremap <C-j> <Left>
+		" cnoremap <C-j> <Left>
 		cnoremap <C-l> <Right>
 		"noremap <Leader>mn :noh<CR>
 		" duplicate current char
@@ -1268,7 +1288,7 @@
 		nnoremap <Leader>cl :call <SID>LastCommand()<CR>
 		nnoremap <Leader>gf :e <cfile><CR>
 		" Indent file
-		nnoremap <Leader>I ggvG=
+		nnoremap <Leader>I ggv=G
 		" Get vim help on current word
 		nnoremap <Leader>He :h <c-r>=expand("<cword>")<CR><CR>
 		" Markdown fix _ showing red
@@ -1548,16 +1568,18 @@
       else
         echomsg string("You should install silversearcher-ag. Now you have a slow ctrlp")
       endif
-      nnoremap <S-k> :CtrlPBuffer<CR>
-      let g:ctrlp_cmd = 'CtrlPMixed'
-      " submit ? in CtrlP for more mapping help.
-      let g:ctrlp_lazy_update = 1
-      let g:ctrlp_show_hidden = 1
-      let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
-      let g:ctrlp_cache_dir = s:cache_path . 'ctrlp'
-      let g:ctrlp_working_path_mode = 'wra'
-      let g:ctrlp_max_history = &history
-      let g:ctrlp_clear_cache_on_exit = 0
+			if has('win32')
+				nnoremap <S-k> :CtrlPBuffer<CR>
+				let g:ctrlp_cmd = 'CtrlPMixed'
+				" submit ? in CtrlP for more mapping help.
+				let g:ctrlp_lazy_update = 1
+				let g:ctrlp_show_hidden = 1
+				let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
+				let g:ctrlp_cache_dir = s:cache_path . 'ctrlp'
+				let g:ctrlp_working_path_mode = 'wra'
+				let g:ctrlp_max_history = &history
+				let g:ctrlp_clear_cache_on_exit = 0
+			endif
 
     " Doxygen.vim
       nnoremap <Leader>cf :Dox<CR>
@@ -1818,7 +1840,7 @@
 						\['x','X','a','A','o','O','c','C','r','R','m','M','i','n','N']
 
 		" Airline
-			let g:airline_theme="term"
+			let g:airline_theme="dark"
 
 			let g:airline#extensions#whitespace#checks = []
 			let g:airline#extensions#disable_rtp_load = 1
@@ -1858,14 +1880,6 @@
 		 
 		" Man
 			let g:no_plugin_maps = 1
-
-		" indentLine
-			" let g:indentLine_char='¦'
-			" let g:indentLine_color_gui = '#A4E57E'
-			" let g:indentLine_color_term = 239
-			" let g:indentLine_fileType = ['c', 'cpp']
-			" " let g:indentLine_faster=1
-			" let g:indentLine_indentLevel= 30
 	endif
 
 " see :h modeline
