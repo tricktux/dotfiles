@@ -871,3 +871,12 @@
 			let g:delimitMate_expand_cr = 2
 			let g:delimitMate_expand_space = 1
 			let g:delimitMate_jump_expansion = 1
+		" autocmd FileType c,cpp setlocal foldmethod=syntax
+		" Indent options
+		" autocmd FileType c,cpp setlocal shiftwidth=4 tabstop=4
+		" autocmd FileType tex,vim,java,markdown setlocal shiftwidth=2 tabstop=2
+		" autocmd FileType * setlocal shiftwidth=2 tabstop=2
+		" autocmd FileType markdown setlocal formatoptions+=anro comments+=fb:-
+		" autocmd FileType markdown setlocal autoindent formatoptions+=anro comments+=fb:-
+		" autocmd FileType markdown setlocal autoindent formatlistpat=^\\s*\\(\\d\\+[\\]:.)}\\t\ ]\\|-\\)\\s*
+					" \ formatoptions+=anro comments+=b:-
