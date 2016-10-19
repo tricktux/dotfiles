@@ -1,8 +1,8 @@
 " File:					_vimrc
 " Description:  Vim/Neovim configuration file
 " Author:				Reinaldo Molina
-" Version:			2.3.2
-" Date:					Tue Oct 18 2016 10:41 	
+" Version:			2.4.0
+" Date:					Tue Oct 18 2016 21:46 	
 " Improvements:
 "		" - Figure out how to handle Doxygen
 		" - [ ] Markdown tables
@@ -249,6 +249,7 @@
 		augroup UnixMD
 			autocmd!
 			autocmd FileType markdown nnoremap <buffer> <Leader>mr :!google-chrome-stable %<CR>
+			autocmd FileType fzf tnoremap <buffer> <C-j> <Down>
 		augroup END
 
 		" TODO|
@@ -298,10 +299,9 @@
 			nnoremap <C-p> :History<CR>
 			nnoremap <A-p> :FZF<CR>
 			nnoremap <S-k> :Buffers<CR>
-			" cnoremap <C-r> :Commands<CR>
 			let g:fzf_history_dir = '~/.fzf-history'
-			" Customize fzf colors to match your color scheme
-			nmap <leader><tab> <plug>(fzf-maps-n)
+			nnoremap <leader><tab> <plug>(fzf-maps-n)
+			nnoremap <leader><tab> <plug>(fzf-maps-n)
 			let g:fzf_colors =
 						\ { 'fg':      ['fg', 'Normal'],
 						\ 'bg':      ['bg', 'Normal'],
@@ -320,18 +320,19 @@
 " NVIM SPECIFIC
 	if has('nvim')
 		" terminal-emulator mappings
-		tnoremap <esc> <C-\><C-n>
+		g:terminal_scrollback_buffer_size = 100000
+		tnoremap <C-j> <C-\><C-n>
 		tnoremap <A-h> <C-\><C-n><C-w>h
     tnoremap <A-j> <C-\><C-n><C-w>j
     tnoremap <A-k> <C-\><C-n><C-w>k
     tnoremap <A-l> <C-\><C-n><C-w>l
 		tnoremap <C-o> <Up>
-		tnoremap <C-j> <Left>
 		tnoremap <C-l> <Right>
 		function! s:OpenTerminal() abort
 			execute "normal :vs\<CR>\<c-w>l:terminal\<CR>"
 		endfunction
-		nnoremap <Leader>to :call <SID>OpenTerminal()<CR>
+		nnoremap <Leader>tv :call <SID>OpenTerminal()<CR>
+		nnoremap <Leader>to :term<CR>
 	endif
 
 " FUNCTIONS
@@ -1289,7 +1290,8 @@
 		" Indent file
 		nnoremap <Leader>I ggv=G
 		" Get vim help on current word
-		nnoremap <Leader>He :h <c-r>=expand("<cword>")<CR><CR>
+		nnoremap <Leader>he :h <c-r>=expand("<cword>")<CR><CR>
+		nnoremap <Leader>hs :Helptags<CR>
 		" Markdown fix _ showing red
 		nnoremap <Leader>mf :s%/_/\\_/g<CR>
 		" Reload syntax
