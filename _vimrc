@@ -1,8 +1,8 @@
 " File:					_vimrc
 " Description:  Vim/Neovim configuration file
 " Author:				Reinaldo Molina
-" Version:			2.4.0
-" Date:					Tue Oct 18 2016 21:46 	
+" Version:			2.5.0
+" Date:					Wed Oct 19 2016 16:42 	
 " Improvements:
 "		" - Figure out how to handle Doxygen
 		" - [ ] Markdown tables
@@ -14,6 +14,9 @@
 		"   command 
 		" - [ ] Fix the markdown enter property
 		" - [ ] Get familiar with vim format
+		" - [ ] Download pandora likes list
+		" - [ ] Delete duplicate music. 
+		" - [ ] Construct unified music library
 		
 " REQ AND LEADER
 	set nocompatible
@@ -101,7 +104,16 @@
 		nnoremap <Leader>mt :Dispatch powershell -command "& {&'Measure-Command' {.\sep_calc.exe seprc}}"<CR>
 
 		nnoremap <Leader>ep :e ~/vimfiles/plugged/
-		nnoremap <Leader>ma :Make -f WINGS.mak<CR>:copen 20<CR>
+		nnoremap <Leader>ma :Make<CR>
+		nnoremap <Leader>mu :call <SID>MakeUpdateBorlandMakefile()<CR>
+		function! s:MakeUpdateBorlandMakefile() abort
+			" If compiler is not borland(set by SetupCompiler) fail.
+			if empty(get(b:, 'current_compiler', 0))
+				echomsg "Error, not in WINGS folder"
+			else
+				execute "!bpr2mak -omakefile WINGS.bpr"
+			endif
+		endfunction
 
 
 		" call <SID>AutoCreateWinCtags()
@@ -1114,6 +1126,7 @@
 		" TODO convert each of these categories into its own augroup
 		" C/Cpp
 		autocmd FileType c,cpp setlocal omnifunc=ClangComplete
+		autocmd FileType c,cpp setlocal ts=4 sw=4 sts=4
 	 	" Rainbow cannot be enabled for help file. It breaks syntax highlight
 		autocmd FileType c,cpp,java RainbowParentheses
 		" Java
@@ -1275,9 +1288,7 @@
 		" decrease number
 		nnoremap <Leader>A <c-x>
 		" delete key
-		inoremap <c-l> <c-o>x
 		" math on insert mode
-		inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
 		" Count occurrances of last search
 		nnoremap <Leader>cs :%s///gn<CR>
 		" Reload syntax
@@ -1298,6 +1309,11 @@
 		noremap <F12> <Esc>:syntax sync fromstart<CR>
 		inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
+	" Insert Mode (Individual) mappings 
+		inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
+		inoremap <c-f> <del>
+		inoremap <c-l> <Right>
+
 	" Edit local
 		nnoremap <Leader>el :silent e ~/
 		" cd into current dir path and into dir above current path
@@ -1306,8 +1322,22 @@
 		nnoremap <Leader>ev :e $VIMRUNTIME/
 
 	" CD
-		nnoremap <Leader>cd :cd %:p:h<CR>
-					\:pwd<CR>
+		" nnoremap <Leader>cd :cd %:p:h<CR>
+		nnoremap <Leader>cd :call <SID>SetupCompiler()<CR>
+		function! s:SetupCompiler(...)
+			cd %:p:h
+			if empty(get(b:, 'current_compiler'))
+				let l:path = expand('%:p')
+				" Notice inside the '' is a pat which is a regex. That is why \\
+				if match(l:path,'NeoOneWINGS\\Source') > 0
+					compiler borland
+				elseif match(l:path,'NeoOneWINGS') > 0
+					compiler msbuild
+					silent set errorformat&
+				endif
+			endif
+			pwd
+		endfunction
 		nnoremap <Leader>cu :cd ..<CR>
 					\:pwd<CR>
 		" cd into dir. press <Tab> after ci to see folders
