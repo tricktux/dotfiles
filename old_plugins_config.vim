@@ -880,3 +880,15 @@
 		" autocmd FileType markdown setlocal autoindent formatoptions+=anro comments+=fb:-
 		" autocmd FileType markdown setlocal autoindent formatlistpat=^\\s*\\(\\d\\+[\\]:.)}\\t\ ]\\|-\\)\\s*
 					" \ formatoptions+=anro comments+=b:-
+				" set statusline+=%#warningmsg#
+				" set statusline+=%{SyntasticStatuslineFlag()}
+				" set statusline+=%*
+      " turning this option breaks comments
+      "let g:cpp_experimental_template_highlight = 1
+		" " " search cpp files
+		" nnoremap <Leader>Sc :call <SID>GlobalSearch(2)<CR>
+		nnoremap <Leader>w /\<<c-r>=expand("<cword>")<cr>\>
+		nnoremap <Leader>W :%s/\<<c-r>=expand("<cword>")<cr>\>/
+		" This is a very good to show and search all current but a much better is
+		" remaped search to f
+		noremap <Leader>sC z=1<CR><CR>

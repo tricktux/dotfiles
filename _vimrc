@@ -1,8 +1,8 @@
 " File:					_vimrc
 " Description:  Vim/Neovim configuration file
 " Author:				Reinaldo Molina
-" Version:			2.5.0
-" Date:					Wed Oct 19 2016 16:42 	
+" Version:			2.6.0
+" Date:					Mon Oct 24 2016 09:58  	
 " Improvements:
 "		" - Figure out how to handle Doxygen
 		" - [ ] Markdown tables
@@ -250,13 +250,6 @@
 		\ '')<CR>
 
 		nnoremap <CR> o<ESC>
-		" Save file with sudo permissions
-		nnoremap <Leader>su :w !sudo tee %<CR>
-
-		" Give execute permissions to current file
-		nnoremap <Leader>cp :!chmod a+x %<CR>
-		nnoremap <Leader>ma :make 
-		" Experimenting substitute for ctrl-p
 
 		augroup UnixMD
 			autocmd!
@@ -1074,7 +1067,8 @@
 	" will look in current directory for tags
 	" THE BEST FEATURE I'VE ENCOUNTERED SO FAR OF VIM
 	" CAN BELIEVE I DIDNT DO THIS BEFORE
-	set tags+=.\tags;\
+	" set tags+=.\tags;\
+	set tags=./tags;,tags;
 
 	if has('cscope')
 		set cscopetag cscopeverbose
@@ -1126,6 +1120,7 @@
 		" TODO convert each of these categories into its own augroup
 		" C/Cpp
 		autocmd FileType c,cpp setlocal omnifunc=ClangComplete
+		autocmd FileType c,cpp,java,cs setlocal foldmethod=syntax
 		autocmd FileType c,cpp setlocal ts=4 sw=4 sts=4
 	 	" Rainbow cannot be enabled for help file. It breaks syntax highlight
 		autocmd FileType c,cpp,java RainbowParentheses
@@ -1225,10 +1220,12 @@
 		noremap <Leader>ql :ccl<CR>
 					\:lcl<CR>
 
-	" Miscelaneous Mappings
-		" edit vimrc on a new tab
-		noremap <Leader>mv :e $MYVIMRC<CR>
-		noremap <Leader>ms :so %<CR>
+	" Miscelaneous Mappings <Leader>j?
+		" Save file with sudo permissions
+		nnoremap <Leader>ju :w !sudo tee %<CR>
+		" Give execute permissions to current file
+		nnoremap <Leader>jp :!chmod a+x %<CR>
+		noremap <Leader>jv :e $MYVIMRC<CR>
 		nnoremap <C-s> :wa<CR>
 		nnoremap <C-h> :noh<CR>
 		nnoremap <C-Space> i<Space><Esc>
@@ -1299,7 +1296,7 @@
 		nnoremap <Leader>cl :call <SID>LastCommand()<CR>
 		nnoremap <Leader>gf :e <cfile><CR>
 		" Indent file
-		nnoremap <Leader>I ggv=G
+		nnoremap <Leader>I mzgg=G`z
 		" Get vim help on current word
 		nnoremap <Leader>he :h <c-r>=expand("<cword>")<CR><CR>
 		nnoremap <Leader>hs :Helptags<CR>
@@ -1323,20 +1320,22 @@
 
 	" CD
 		" nnoremap <Leader>cd :cd %:p:h<CR>
-		nnoremap <Leader>cd :call <SID>SetupCompiler()<CR>
-		function! s:SetupCompiler(...)
-			cd %:p:h
-			if empty(get(b:, 'current_compiler'))
+		nnoremap <Leader>ma :call <SID>Make()<CR>
+		function! s:Make(...)
+			" Check if it is vimrc
+			if expand('%:p') ==? expand('$MYVIMRC')
+				so %
+			elseif empty(get(b:, 'current_compiler'))
 				let l:path = expand('%:p')
 				" Notice inside the '' is a pat which is a regex. That is why \\
 				if match(l:path,'NeoOneWINGS\\Source') > 0
 					compiler borland
-				elseif match(l:path,'NeoOneWINGS') > 0
+					" TODO.RM-Mon Oct 24 2016 10:32: improve this with a good regex
+				elseif match(l:path,'NeoOneWINGS') > 0 || match(l:path,'NeoWingsSupportFiles') > 0
 					compiler msbuild
 					silent set errorformat&
 				endif
 			endif
-			pwd
 		endfunction
 		nnoremap <Leader>cu :cd ..<CR>
 					\:pwd<CR>
@@ -1368,19 +1367,16 @@
 		noremap <Leader>do :SetDiff<CR>
 		nnoremap <Leader>dl :call <SID>UnsetDiff()<CR>
 
-	" Spell Check
+	" Spell Check <Leader>s?
 		" search forward
-		noremap <Leader>sN ]s
+		noremap <Leader>sn ]s
 		" search backwards
-		noremap <Leader>sP [s
+		noremap <Leader>sp [s
 		" suggestion
-		noremap <Leader>sC z=1<CR><CR>
 		noremap <Leader>sc z=
 		" toggle spelling
 		noremap <Leader>st :setlocal spell! spelllang=en_us<CR>
-
 		noremap <Leader>sf :call <SID>FixPreviousWord()<CR>
-
 		" add to dictionary
 		noremap <Leader>sa zg
 		" mark wrong
@@ -1392,21 +1388,14 @@
 		" Tried ack.vim. Discovered that nothing is better than grep with ag.
 		" search all type of files
 		nnoremap <Leader>S :grep --cpp 
-		" " " search cpp files
-		" nnoremap <Leader>Sc :call <SID>GlobalSearch(2)<CR>
-		nnoremap <Leader>w /\<<c-r>=expand("<cword>")<cr>\>
-		nnoremap <Leader>W :%s/\<<c-r>=expand("<cword>")<cr>\>/
-		" This is a very good to show and search all current but a much better is
-		" remaped search to f
-		noremap <S-s> #<C-o>
+		nnoremap <S-s> #<C-o>
 		vnoremap // y/<C-R>"<CR>
 
 	" Substitute for ESC
 		inoremap <C-j> <Esc>
 		vnoremap <C-j> <Esc>
-		" cnoremap <C-j> <Esc>
 
-	" Buffers Stuff
+	" Buffers Stuff <Leader>b?
 		noremap <S-j> :b#<CR>
 		noremap <Leader>bd :bp\|bw #\|bd #<CR>
 		" deletes all buffers
@@ -1418,6 +1407,8 @@
 		" move tab to the right
 		noremap <silent> <A-Right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
 		noremap <Leader>be :enew<CR>
+
+	" Tabs <Leader>a?
 		" open new to tab to explorer
 		nnoremap <S-Tab> gT
 		nnoremap <S-e> :tab split<CR>
@@ -1427,7 +1418,7 @@
 		nnoremap <Leader>sS :call <SID>SaveSession()<CR>
 		nnoremap <Leader>sL :call <SID>LoadSession()<CR>
 
-	" Version Control
+	" Version Control <Leader>v?
 		" For all this commands you should be in the svn root folder
 		" Add all files
 		nnoremap <Leader>vA :!svn add * --force<CR>
@@ -1449,7 +1440,8 @@
 		nnoremap <Leader>vu :!svn update .<CR>
 		nnoremap <Leader>vo :!svn log .<CR>
 		nnoremap <Leader>vi :!svn info<CR>
-		" fugitive
+
+	" Fugitive <Leader>g?
 			nnoremap <Leader>gs :Gstatus<CR>
 			nnoremap <Leader>gp :Gpush<CR>
 			nnoremap <Leader>gu :Gpull<CR>
@@ -1622,9 +1614,6 @@
 			if exists(':SyntasticCheck')
 				nnoremap <Leader>so :SyntasticToggleMode<CR>
 				nnoremap <Leader>ss :SyntasticCheck<CR>
-				" set statusline+=%#warningmsg#
-				" set statusline+=%{SyntasticStatuslineFlag()}
-				" set statusline+=%*
 				let g:syntastic_always_populate_loc_list = 1
 				let g:syntastic_auto_loc_list = 1
 				let g:syntastic_check_on_open = 0
@@ -1636,8 +1625,6 @@
 
     "/Plug 'octol/vim-cpp-enhanced-highlight'
       let g:cpp_class_scope_highlight = 1
-      " turning this option breaks comments
-      "let g:cpp_experimental_template_highlight = 1
 
     " Plugin 'morhetz/gruvbox' " colorscheme gruvbox
 			colorscheme gruvbox
@@ -1845,7 +1832,7 @@
 			let c_ansi_constants = 1
 			let c_ansi_typedefs = 1
 			" Breaks too often
-			" let c_curly_error = 1
+			let c_curly_error = 1
 
 		" FastFold
 			" Stop updating folds everytime I save a file
