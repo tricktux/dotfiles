@@ -255,6 +255,9 @@
 		" TODO|
 		"    \/
 		" call <SID>AutoCreateUnixCtags()
+		
+		" !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/ctags/tags_sys /usr/include
+		" !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/ctags/tags_sys2 /usr/local/include
 
 		"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
 			set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
@@ -266,12 +269,15 @@
 			set path+=/usr/local/include
 			set path+=/usr/include
 
-			set tags+=~/.vim/ctags/tags_sys
-			set tags+=~/.vim/ctags/tags_sys2
-			set tags+=~/.vim/ctags/tags_android
+			set tags+=~/.cache/ctags/tags_sys
+			set tags+=~/.cache/ctags/tags_sys2
+			set tags+=~/.cache/ctags/tags_android
 
 		" Vim-clang
-			let g:clang_library_path='/usr/lib/llvm-3.8/lib'
+			let g:clang_library_path='/usr/lib/libclang.so'
+
+		" Chromatica
+			let g:chromatica#libclang_path='/usr/lib/libclang.so'
 
 		" Vim-Man
 			runtime! ftplugin/man.vim
@@ -320,7 +326,6 @@
 " NVIM SPECIFIC
 	if has('nvim')
 		" terminal-emulator mappings
-		g:terminal_scrollback_buffer_size = 100000
 		tnoremap <C-j> <C-\><C-n>
 		tnoremap <A-h> <C-\><C-n><C-w>h
     tnoremap <A-j> <C-\><C-n><C-w>j
@@ -874,10 +879,13 @@
 		call plug#begin(s:plugged_path)
 		if has('nvim')
 			" Neovim exclusive plugins
-			" Currently not working
-			" Plug 'DonnieWest/VimStudio'
+			Plug 'arakashic/chromatica.nvim'
 			Plug 'neomake/neomake'
 			Plug 'Shougo/deoplete.nvim'
+			Plug 'vhakulinen/neovim-intellij-complete-deoplete'
+			" Name of the Intellij Plugin for AndroidStudio
+			" Plug 'vhakulinen/neovim-intellij-complete'
+			Plug 'vhakulinen/neovim-java-client'
 		else
 			" Vim exclusive plugins
 			Plug 'Shougo/neocomplete'
@@ -916,9 +924,9 @@
 		Plug 'justinmk/vim-syntax-extra'
 		Plug 'junegunn/rainbow_parentheses.vim', { 'on' : 'RainbowParentheses' }
 		" cpp/java
-		Plug 'mattn/vim-javafmt', { 'for' : 'java' }
-		Plug 'tfnico/vim-gradle', { 'for' : 'java' }
-		Plug 'artur-shaik/vim-javacomplete2', { 'branch' : 'master' }
+		" Plug 'mattn/vim-javafmt', { 'for' : 'java' }
+		" Plug 'tfnico/vim-gradle', { 'for' : 'java' }
+		" Plug 'artur-shaik/vim-javacomplete2', { 'branch' : 'master' }
 		" Plug 'nelstrom/vim-markdown-folding'
 		" Autocomplete
 		Plug 'Shougo/neosnippet'
