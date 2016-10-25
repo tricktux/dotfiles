@@ -80,7 +80,7 @@
 		" Switch Wings mappings for SWTestbed
 		nnoremap <Leader>es :call utils#SetWingsPath('D:/Reinaldo/')<CR>
 		" Default Wings mappings are for laptop
-		call utils#SetWingsPath('~/Documents/1.WINGS/')
+		" call utils#SetWingsPath('~/Documents/1.WINGS/')
 
 		" Time runtime of a specific program
 		nnoremap <Leader>mt :Dispatch powershell -command "& {&'Measure-Command' {.\sep_calc.exe seprc}}"<CR>
@@ -295,8 +295,32 @@
 	endif
 
 " PLUGINS_FOR_BOTH_SYSTEMS
+	function! s:CheckVimPlug() abort
+		let b:bLoadPlugins = 0
+		if empty(glob(s:vimfile_path . 'autoload/plug.vim'))
+			if executable('curl')
+				" Create folder
+				call utils#CheckDirwoPrompt(s:vimfile_path . "autoload")
+				echomsg "Master I am going to install all plugings for you"
+				execute "silent !curl -fLo " . s:vimfile_path . "autoload/plug.vim --create-dirs"
+							\" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+				autocmd VimEnter * PlugInstall | source $MYVIMRC
+				let b:bLoadPlugins = 1
+				return 1
+			else
+				echomsg "Master I cant install plugins for you because you"
+							\" do not have curl. Please fix this. Plugins"
+							\" will not be loaded."
+				let b:bLoadPlugins = 0
+				return 0
+			endif
+		else
+			let b:bLoadPlugins = 1
+			return 1
+		endif
+	endfunction
 	" Attempt to install vim-plug and all plugins in case of first use
-	if utils#CheckVimPlug()
+	if <SID>CheckVimPlug()
 		" Call Vim-Plug Plugins should be from here below
 		call plug#begin(s:plugged_path)
 		if has('nvim')
@@ -316,7 +340,7 @@
 			Plug 'ctrlpvim/ctrlp.vim'
 		endif
 		" Plugins for All (nvim, linux, win32)
-		Plug '~/Documents/vim-utils'
+		Plug '~/vimrc/vim-utils'
 		" misc
 		Plug 'chrisbra/vim-diff-enhanced', { 'on' : 'SetDiff' }
 		Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -327,7 +351,6 @@
 		Plug 'Konfekt/FastFold'
 		Plug 'airblade/vim-rooter'
 		Plug 'Raimondi/delimitMate'
-		Plug 'rmolin88/DoxygenToolkit.vim'
 		Plug 'dkarter/bullets.vim'
 		if has('unix') && !has('gui_running')
 			Plug 'jamessan/vim-gnupg'
@@ -347,10 +370,10 @@
 		Plug 'justinmk/vim-syntax-extra'
 		Plug 'junegunn/rainbow_parentheses.vim', { 'on' : 'RainbowParentheses' }
 		" cpp/java
-		" Plug 'mattn/vim-javafmt', { 'for' : 'java' }
-		" Plug 'tfnico/vim-gradle', { 'for' : 'java' }
-		" Plug 'artur-shaik/vim-javacomplete2', { 'branch' : 'master' }
-		" Plug 'nelstrom/vim-markdown-folding'
+		Plug 'mattn/vim-javafmt', { 'for' : 'java' }
+		Plug 'tfnico/vim-gradle', { 'for' : 'java' }
+		Plug 'artur-shaik/vim-javacomplete2', { 'branch' : 'master' }
+		Plug 'nelstrom/vim-markdown-folding'
 		" Autocomplete
 		Plug 'Shougo/neosnippet'
 		Plug 'Shougo/neosnippet-snippets'
@@ -648,6 +671,9 @@
 
 	" Miscelaneous Mappings <Leader>j?
 		" Save file with sudo permissions
+		nnoremap <Leader>ce :call utils#EndOfIfComment()<CR>
+		nnoremap <Leader>Mc :call utils#ManFind()<CR>
+		nnoremap <Leader>Ma :Man 
 		nnoremap <Leader>ju :w !sudo tee %<CR>
 		" Give execute permissions to current file
 		nnoremap <Leader>jp :!chmod a+x %<CR>
