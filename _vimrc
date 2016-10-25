@@ -1,8 +1,8 @@
 " File:					_vimrc
 " Description:  Vim/Neovim configuration file
 " Author:				Reinaldo Molina
-" Version:			2.6.0
-" Date:					Mon Oct 24 2016 09:58  	
+" Version:			3.0.0
+" Date:					Tue Oct 25 2016 06:40  	
 " Improvements:
 "		" - Figure out how to handle Doxygen
 		" - [ ] Markdown tables
@@ -77,46 +77,19 @@
 		nnoremap <Leader>ews :execute("Start! WINGS.exe 3 . " . input("Config file:", "", "file"))<CR>
 
 		" e1 reserved for vimrc
-		function! s:SetWingsPath(sPath) abort
-			execute "nnoremap <Leader>e21 :silent e " . a:sPath . "NeoOneWINGS/"
-			execute "nnoremap <Leader>e22 :silent e " . a:sPath
-			execute "nnoremap <Leader>ed :silent e ". a:sPath . "NeoOneWINGS/default.ini<CR>"
-			execute "nnoremap <Leader>ewl :call <SID>WingsSymLink('~/Documents/1.WINGS/')<CR>"
-			execute "nnoremap <Leader>ewl :call <SID>WingsSymLink(" . expand(a:sPath) . ")<CR>"
-			" execute "nnoremap <Leader>ewl :silent !del " . a:sPath . "/default.ini<CR>
-						" \:!mklink default.ini"
-		endfunction
-
-		function! s:WingsSymLink(sPath) abort
-			execute "cd " .a:sPath
-			let l:path = input("Enter path to new default.ini:", "", "file")
-			!del default.ini
-			execute "!mklink default.ini " . l:path
-			cd -
-		endfunction
-
 		" Switch Wings mappings for SWTestbed
-		nnoremap <Leader>es :call <SID>SetWingsPath('D:/Reinaldo/')<CR>
+		nnoremap <Leader>es :call utils#SetWingsPath('D:/Reinaldo/')<CR>
 		" Default Wings mappings are for laptop
-		call <SID>SetWingsPath('~/Documents/1.WINGS/')
+		call utils#SetWingsPath('~/Documents/1.WINGS/')
 
 		" Time runtime of a specific program
 		nnoremap <Leader>mt :Dispatch powershell -command "& {&'Measure-Command' {.\sep_calc.exe seprc}}"<CR>
 
 		nnoremap <Leader>ep :e ~/vimfiles/plugged/
 		nnoremap <Leader>ma :Make<CR>
-		nnoremap <Leader>mu :call <SID>MakeUpdateBorlandMakefile()<CR>
-		function! s:MakeUpdateBorlandMakefile() abort
-			" If compiler is not borland(set by SetupCompiler) fail.
-			if empty(get(b:, 'current_compiler', 0))
-				echomsg "Error, not in WINGS folder"
-			else
-				execute "!bpr2mak -omakefile WINGS.bpr"
-			endif
-		endfunction
+		nnoremap <Leader>mu :call utils#MakeUpdateBorlandMakefile()<CR>
 
-
-		" call <SID>AutoCreateWinCtags()
+		" call utils#AutoCreateWinCtags()
 
 		" Windows specific plugins options
 			" Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
@@ -184,29 +157,8 @@
 		let s:custom_font = 'Andale Mono 8'
 
 		" this one below DOES WORK in linux just make sure is ran at root folder
-		noremap <Leader>tu :call <SID>UpdateCscope()<CR>
+		noremap <Leader>tu :call utils#UpdateCscope()<CR>
 
-		function! s:UpdateCscope() abort
-			if !executable('cscope') || !executable('ctags')
-				echoerr "Please install cscope and/or ctags before using this application"
-				return	
-			endif
-			try
-				cs kill -1
-			catch
-				" Dont do anything if it fails
-			endtry
-			!rm cscope.files cscope.out cscope.po.out cscope.in.out
-			!find . -iregex '.*\.\(c\|cpp\|java\|cc\|h\|hpp\)$' > cscope.files
-			!cscope -b -q -i cscope.files
-			if !filereadable('cscope.out')
-				echoerr "Couldnt create cscope.out files"
-				return
-			endif
-			cs add cscope.out
-			silent !ctags -R -L cscope.files -f .tags
-			set tags+=.tags
-		endfunction
 
 		nnoremap <Leader>mr :silent !./%<CR>
 
@@ -259,7 +211,10 @@
 
 		" TODO|
 		"    \/
-		" call <SID>AutoCreateUnixCtags()
+		" call utils#AutoCreateUnixCtags()
+		
+		" !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/ctags/tags_sys /usr/include
+		" !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/ctags/tags_sys2 /usr/local/include
 
 		"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
 			set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
@@ -271,12 +226,15 @@
 			set path+=/usr/local/include
 			set path+=/usr/include
 
-			set tags+=~/.vim/ctags/tags_sys
-			set tags+=~/.vim/ctags/tags_sys2
-			set tags+=~/.vim/ctags/tags_android
+			set tags+=~/.cache/ctags/tags_sys
+			set tags+=~/.cache/ctags/tags_sys2
+			set tags+=~/.cache/ctags/tags_android
 
 		" Vim-clang
-			let g:clang_library_path='/usr/lib/llvm-3.8/lib'
+			let g:clang_library_path='/usr/lib/libclang.so'
+
+		" Chromatica
+			let g:chromatica#libclang_path='/usr/lib/libclang.so'
 
 		" Vim-Man
 			runtime! ftplugin/man.vim
@@ -325,7 +283,6 @@
 " NVIM SPECIFIC
 	if has('nvim')
 		" terminal-emulator mappings
-		g:terminal_scrollback_buffer_size = 100000
 		tnoremap <C-j> <C-\><C-n>
 		tnoremap <A-h> <C-\><C-n><C-w>h
     tnoremap <A-j> <C-\><C-n><C-w>j
@@ -333,556 +290,24 @@
     tnoremap <A-l> <C-\><C-n><C-w>l
 		tnoremap <C-o> <Up>
 		tnoremap <C-l> <Right>
-		function! s:OpenTerminal() abort
-			execute "normal :vs\<CR>\<c-w>l:terminal\<CR>"
-		endfunction
-		nnoremap <Leader>tv :call <SID>OpenTerminal()<CR>
+		nnoremap <Leader>tv :call utils#OpenTerminal()<CR>
 		nnoremap <Leader>to :term<CR>
 	endif
 
-" FUNCTIONS
-	function! s:SetGrep() abort
-		" use option --list-file-types if in doubt
-		" to specify a type of file just do `--cpp`
-		" Add the --type-set=markdown:ext:md option to ucg for it to recognize
-		" Use the -t option to search all text files; -a to search all files; and -u to search all, including hidden files.
-		" md files
-		if executable('rg')
-			set grepprg=rg\ --vimgrep
-		elseif executable('ucg')
-			set grepprg=ucg\ --nocolor\ --noenv
-		elseif executable('ag')
-			" ctrlp with ag
-			" see :Man ag for help
-			"Use the -t option to search all text files; -a to search all files; and -u to search all, including hidden files.
-			set grepprg=ag\ --nogroup\ --nocolor\ --smart-case\ --vimgrep\ $*
-			set grepformat=%f:%l:%c:%m
-		endif
-	endfunction 
-
-	" Commits current buffer
-	function! s:GitCommit() abort
-		if <SID>CheckFileOrDir(1, ".git") > 0
-			silent !git add .
-			execute "silent !git commit -m \"" . input("Commit comment:") . "\""
-			!git push origin master
-		else
-			echo "No .git directory was found"
-		endif
-	endfunction
-
-	" Should be performed on root .svn folder
-	function! s:SvnCommit() abort
-		execute "!svn commit -m \"" . input("Commit comment:") . "\" ."
-	endfunction
-
-	" Special comment function {{{
-	function! s:FindIf() abort
-		while 1
-			" jump to matching {
-			normal %
-			" check to see if there is another else
-			if match(getline(line(".")-1, line(".")), "else") > -1
-				" search curr and previous 2 lines for }
-				if match(getline(line(".")-2, line(".")), "}") > -1
-					" jump to it
-					execute "normal ?}\<CR>"
-					" if there is no } could be no braces else if
-				else
-					" go up to lines and see what happens
-					normal kk
-				endif
-			else
-				" if original if was found copy it to @7 and jump back to origin
-				execute "normal k^\"7y$`m"
-				break
-			endif
-		endwhile
-	endfunction
-
-	function! s:TruncComment(comment) abort
-		" brute trunc at 46
-		let l:strip = a:comment
-		if strchars(l:strip) > 46
-			let l:strip = strpart(l:strip,0,46)
-			let l:strip .= "..."
-		endif
-		" if theres a comment get rid of it
-		let l:com = match(l:strip, "/")
-		if l:com > -1
-			let l:strip = strpart(l:strip,0,l:com-1)
-		endif
-		return l:strip
-	endfunction
-
-	" Gotchas: Start from the bottom up commenting
-	function! s:EndOfIfComment() abort
-		" TDOD: Eliminate comments on lines very important
-		" is there a } in this line?
-		"let g:testa = 0  " Debugging variable
-		let l:ref_col = match(getline("."), "}")
-		if  l:ref_col > -1 " if it exists
-			" Determine what kind of statement is this i.e: for, while, if, else if
-			" jump to matchin {, mark it with m, copy previous line to @8, and jump back down to original }
-			"execute "normal mm" . l:ref_col . "|%k^\"8y$j%"
-			execute "normal mm" . l:ref_col . "|%"
-			let l:upper_line = line(".")
-			execute "normal k^\"8y$j%"
-			" if original closing brace it is and else if || else
-			if match(getline(line(".")-1, line(".")), "else") > -1
-				let g:testa = 1
-				" if { already contains closing if put it
-				" TODO:fix this to make search for else not only in @8 line
-				if match(getline(l:upper_line-1,l:upper_line), "else") > -1
-					" search upwards until you find initial if and copy it to @7
-					call <SID>FindIf()
-					" truncate comment line in case too long
-					let @7 = <SID>TruncComment(@7)
-					" append // "initial if..." : "
-					let l:end = "  // \""
-					execute "normal a" . l:end . @7 . "\" : \"\<Esc>"
-				else
-					let l:end = "  // \""
-					execute "normal a" . l:end . "\<Esc>"
-				endif
-				" search openning brace for else
-			elseif match(getline(l:upper_line-1,l:upper_line), "else") > -1
-				let g:testa = 2
-				" search upwards until you find initial if and copy it to @7
-				call <SID>FindIf()
-				" truncate comment line in case too long
-				let @7 = <SID>TruncComment(@7)
-				" append // "initial if..." : "
-				let l:end = "  // End of \""
-				execute "normal a" . l:end . @7 . "\" : \"\<Esc>"
-				" if not very easy
-			else
-				" Append // End of "..."
-				let l:end = "  // End of \""
-				execute "normal a" . l:end . "\<Esc>"
-			endif
-			" truncate comment line in case too long
-			let @8 = <SID>TruncComment(@8)
-			execute "normal a" . @8 . "\""
-		else
-			echo "EndOfIfComment(): Closing brace } needs to be present at the line"
-		endif
-	endfunction
-	nnoremap <Leader>ce :call <SID>EndOfIfComment()<CR>
-	" End of Special Comment function }}}
-
-	function! s:CheckDirwPrompt(name) abort
-		if !has('file_in_path')  " sanity check
-			echo "CheckFileOrDir(): This vim install has no support for +find_in_path"
-			return -10
-		endif
-		if a:type == 0  " use 0 for file, 1 for dir
-			let l:func = findfile(a:name,",,")  " see :h cd for ,,
-		else
-			let l:func = finddir(a:name,",,")
-		endif
-		if !empty(l:func)
-			return 1
-		else
-			execute "echo \"Folder " . escape(a:name, '\') . "does not exists.\n\""
-			execute "echo \"Do you want to create it (y)es or (n)o\""
-			let l:decision = nr2char(getchar())
-			if l:decision == "y"
-				if exists("*mkdir")
-					if has('win32') " on win prepare name by escaping '\'
-						let l:esc_name = escape(a:name, '\')
-						execute "call mkdir(\"". l:esc_name . "\", \"p\")"
-					else  " have to test check works fine on linux
-						execute "call mkdir(\"". a:name . "\", \"p\")"
-					endif
-					return 1
-				else
-					return -1
-				endif
-			endif
-			return -1
-		endif
-	endfunction
-
-	" This function silently attemps to create the directory its checking if it
-	" exists in case it doesnt find it.
-	" Compatible with both Linux and Windows
-	function! <SID>CheckDirwoPrompt(name) abort
-		if !has('file_in_path')  " sanity check
-			echo "CheckFileOrDir(): This vim install has no support for +find_in_path"
-			return -10
-		else
-			if !empty(finddir(a:name,",,"))
-				return 1
-			else
-				if exists("*mkdir")
-					if has('win32') " on win prepare name by escaping '\'
-						execute "call mkdir(\"". escape(a:name, '\') . "\", \"p\")"
-					else  " have to test check works fine on linux
-						execute "call mkdir(\"". a:name . "\", \"p\")"
-					endif
-					return 1
-				else
-					echomsg string("No +mkdir support. Can't create dir")
-					return -1
-				endif
-			endif
-		endif
-	endfunction
-
-	function! s:YankFrom() abort
-		execute "normal :" . input("Yank From Line:") . "y\<CR>"
-	endfunction
-
-	function! s:DeleteLine() abort
-		execute "normal :" . input("Delete Line:") . "d\<CR>``"
-	endfunction
-
-	function! s:ListsNavigation(cmd) abort
-		try
-			let l:list = 0
-			if !empty(getloclist(0)) " if location list is not empty
-				let l:list = 1
-				execute "silent l" . a:cmd
-			elseif !empty(getqflist()) " if quickfix list is not empty
-				execute "silent c" . a:cmd
-			else
-				echohl ErrorMsg
-				redraw " always use it to prevent msg from dissapearing
-				echomsg "ListsNavigation(): Lists quickfix and location are empty"
-				echohl None
-			endif
-		catch /:E553:/ " catch no more items error
-			if l:list == 1
-				silent .ll
-			else
-				silent .cc
-			endif
-		endtry
-	endfunction
-
-	function! s:SetDiff() abort
-		" Make sure you run diffget and diffput from left window
-		nnoremap <C-j> ]c
-		nnoremap <C-k> [c
-		nnoremap <C-h> :diffget<CR>
-		nnoremap <C-l> :diffput<CR>
-		windo diffthis
-	endfunction
-
-	function! s:UnsetDiff() abort
-		nnoremap <C-j> zj
-		nnoremap <C-k> zk
-		nnoremap <C-h> :noh<CR>
-		nunmap <C-l>
-		diffoff!
-	endfunction
-
-	function! s:CheckVimPlug() abort
-		let b:bLoadPlugins = 0
-		if empty(glob(s:vimfile_path . 'autoload/plug.vim'))
-			if executable('curl')
-				" Create folder
-				call <SID>CheckDirwoPrompt(s:vimfile_path . "autoload")
-				echomsg "Master I am going to install all plugings for you"
-				execute "silent !curl -fLo " . s:vimfile_path . "autoload/plug.vim --create-dirs"
-					\" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-				autocmd VimEnter * PlugInstall | source $MYVIMRC
-				let b:bLoadPlugins = 1
-				return 1
-			else
-				echomsg "Master I cant install plugins for you because you"
-							\" do not have curl. Please fix this. Plugins"
-							\" will not be loaded."
-				let b:bLoadPlugins = 0
-				return 0
-			endif
-		else
-			let b:bLoadPlugins = 1
-			return 1
-		endif
-	endfunction
-
-	function! s:NormalizeWindowSize() abort
-		execute "normal \<c-w>="
-	endfunction
-
-	function! s:FixPreviousWord() abort
-		normal mm[s1z=`m
-	endfunction
-
-	function! s:SaveSession(...) abort
-		" if session name is not provided as function argument ask for it
-		if a:0 < 1
-			execute "wall"
-			execute "cd ". s:cache_path ."sessions/"
-			let l:sSessionName = input("Enter
-						\ save session name:", "", "file")
-		else
-			" Need to keep this option short and sweet
-			let l:sSessionName = a:1
-		endif
-		execute "normal :mksession! " . s:cache_path . "sessions/". l:sSessionName  . "\<CR>"
-		execute "cd -"
-	endfunction
-
-	function! s:LoadSession(...) abort
-		" save all work
-		execute "cd ". s:cache_path ."sessions/"
-		" Logic path when not called at startup
-		if a:0 < 1
-			execute "wall"
-			echo "Save Current Session before deleting all buffers: (y)es (any)no"
-			let l:iResponse = getchar()
-			if l:iResponse == 121 " y
-				call <SID>SaveSession()
-			endif
-			let l:sSessionName = input("Enter
-						\ load session name:", "", "file")
-		else
-			let l:sSessionName = a:1
-			echo "Reload Last Session: (y)es (d)ifferent session or (any)nothing"
-			let l:iResponse = getchar()
-			if l:iResponse == 100 " different session
-				let l:sSessionName = input("Enter
-							\load session name:", "", "file")
-			elseif l:iResponse == 121 " reload last session
-				" continue to end of if
-			else
-				" execute "normal :%bdelete\<CR>" " do not delete old buffers
-				return
-			endif
-		endif
-		execute "normal :%bdelete\<CR>"
-		silent execute "normal :so " . s:cache_path . "sessions/". l:sSessionName . "\<CR>"
-		execute "cd -"
-	endfunction
-
-	function! s:TodoCreate() abort
-		execute "normal Blli\<Space>[ ]\<Space>\<Esc>"
-	endfunction
-
-	function! s:TodoMark() abort
-		execute "normal Bf[lrX\<Esc>"
-	endfunction
-
-	function! s:TodoClearMark() abort
-		execute "normal Bf[lr\<Space>\<Esc>"
-	endfunction
-
-	function! s:TodoAdd() abort
-		execute "normal aTODO.RM-\<F5>: "
-	endfunction
-
-	function! s:CommentDelete() abort
-		execute "normal Bf/D"
-	endfunction
-
-	function! s:CommentIndent() abort
-		execute "normal Bf/i\<Tab>\<Tab>\<Esc>"
-	endfunction
-
-	function! s:CommentReduceIndent() abort
-		execute "normal Bf/hxhx"
-	endfunction
-
-	function! s:CommentLine() abort
-		if exists("*NERDComment")
-			execute "normal mm:" . input("Comment Line:") . "\<CR>"
-			execute "normal :call NERDComment(\"n\", \"Toggle\")\<CR>`m"
-		else
-			echo "Please install NERDCommenter"
-		endif
-	endfunction
-
-	function! s:ManFind() abort
-		" execute "cexp system('man -wK ". expand("<cword>") ."')"
-		" let l:command = printf
-		let l:list = system("man -wK " . expand("<cword>"))
-		if !empty(l:list)
-			for item in l:list
-				" Strip name list them so they can be called with Man
-			endfor
-			cexpr l:list
-		endif
-		" TODO Sample output below. Strip file name in the form 5 login.conf for
-		" example and pass it to Man
-		" || /usr/share/man/man5/logind.conf.5.gz
-		" || /usr/share/man/man7/systemd.directives.7.gz
-	endfunction
-	nnoremap <Leader>Mc :call <SID>ManFind()<CR>
-	nnoremap <Leader>Ma :Man 
-
-	" To update ctags simply delete the ctags folder
-	" Note: There is also avr tags created by vimrc/scripts/maketags.sh
-	" let &tags= s:cache_path . 'ctags/tags'
-	function! s:AutoCreateCtags() abort
-		if empty(finddir(s:cache_path . "ctags",",,"))
-			" Go ahead and create the ctags
-			if !executable('ctags')
-				echomsg string("Please install ctags")
-			else
-				" Create folder
-				if !<SID>CheckDirwoPrompt(s:cache_path . "ctags")
-					echoerr string("Failed to create ctags dir")
-				endif
-				" Create ctags
-				if has('unix')
-					!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.vim/personal/ctags/tags_sys /usr/include
-					!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.vim/personal/ctags/tags_sys2 /usr/local/include
-					if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
-						set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
-						!ctags -R --sort=yes --fields=+iaS --extra=+q --language-force=C -f ~/.vim/personal/ctags/tags_avr /opt/avr8-gnu-toolchain-linux_x86_64/avr/include
-						set tags+=~/.vim/personal/ctags/tags_avr
-					endif
-					if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/include')
-						set path+=/opt/avr8-gnu-toolchain-linux_x86_64/include
-						!ctags -R --sort=yes --fields=+iaS --extra=+q --language-force=C -f ~/.vim/personal/ctags/tags_avr2 /opt/avr8-gnu-toolchain-linux_x86_64/include
-						set tags+=~/.vim/personal/ctags/tags_avr2
-					endif
-				elseif has('win32') && isdirectory('c:/MinGW')
-					set path+=c:/MinGW/include
-					execute "!ctags -R --verbose --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q
-								\ --language-force=C++ -f " . expand('~/vimfiles/personal/ctags/tags_sys') . " C:\\MinGW\\include"
-				else
-					echomsg string("Please install MinGW")
-				endif
-			endif
-		elseif has('unix')
-			if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
-				set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
-			endif
-			set tags+=~/.vim/personal/ctags/tags_sys
-			set tags+=~/.vim/personal/ctags/tags_sys2
-		else
-			set tags+=~/vimfiles/personal/ctags/tags_sys
-		endif
-	endfunction
-
-	" Finish all this crap
-	function! s:AutoCreateUnixCtags() abort
-		if empty(finddir(s:cache_path . "ctags",",,"))
-			" Go ahead and create the ctags
-			if !executable('ctags')
-				echomsg string("Please install ctags")
-				return 0
-			else
-				" Create folder
-				if !<SID>CheckDirwoPrompt(s:cache_path . "ctags")
-					echoerr string("Failed to create ctags dir")
-					return 0
-				endif
-				let l:ctags_cmd = "!ctags -R --sort=yes --fields=+iaS --extra=+q -f "
-				" Ordered list that contains folder where tag is and where tag file
-				" goes
-				let l:list_folders = [
-							\"/usr/include",
-							\"~/.vim/personal/ctags/tags_sys",
-							\"/usr/local/include",
-							\"~/.vim/personal/ctags/tags_sys2",
-							\'/opt/avr8-gnu-toolchain-linux_x86_64/avr/include',
-							\"~/.vim/personal/ctags/tags_avr",
-							\'/opt/avr8-gnu-toolchain-linux_x86_64/include',
-							\"~/.vim/personal/ctags/tags_avr2",
-							\]
-
-				" Create ctags
-					" if isdirectory(l:list_folders
-					!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.vim/personal/ctags/tags_sys /usr/include
-					!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.vim/personal/ctags/tags_sys2 /usr/local/include
-					if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
-						set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
-						!ctags -R --sort=yes --fields=+iaS --extra=+q --language-force=C -f ~/.vim/personal/ctags/tags_avr /opt/avr8-gnu-toolchain-linux_x86_64/avr/include
-						set tags+=~/.vim/personal/ctags/tags_avr
-					endif
-					if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/include')
-						set path+=/opt/avr8-gnu-toolchain-linux_x86_64/include
-						!ctags -R --sort=yes --fields=+iaS --extra=+q --language-force=C -f ~/.vim/personal/ctags/tags_avr2 /opt/avr8-gnu-toolchain-linux_x86_64/include
-						set tags+=~/.vim/personal/ctags/tags_avr2
-					endif
-				elseif has('win32') && isdirectory('c:/MinGW')
-					set path+=c:/MinGW/include
-					execute "!ctags -R --verbose --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q
-								\ --language-force=C++ -f " . expand('~/vimfiles/personal/ctags/tags_sys') . " C:\\MinGW\\include"
-				else
-					echomsg string("Please install MinGW")
-				endif
-			endif
-		elseif has('unix')
-			if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
-				set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
-			endif
-			set tags+=~/.vim/personal/ctags/tags_sys
-			set tags+=~/.vim/personal/ctags/tags_sys2
-		else
-			set tags+=~/vimfiles/personal/ctags/tags_sys
-		endif
-	endfunction
-
-	function! s:LastCommand() abort
-		execute "normal :\<Up>\<CR>"
-	endfunction
-
-	function! s:ListFiles(dir) abort
-		let l:directory = globpath(a:dir, '*')
-		if empty(l:directory)
-			echohl ErrorMsg | echom a:dir . " is not a valid directory name" | echohl None
-		endif
-		return map(split(l:directory,'\n'), "fnamemodify(v:val, ':t')")
-	endfunction
-
-	function! MarkdownLevel()
-		if getline(v:lnum) =~ '^# .*$'
-			return ">1"
-		endif
-		if getline(v:lnum) =~ '^## .*$'
-			return ">2"
-		endif
-		if getline(v:lnum) =~ '^### .*$'
-			return ">3"
-		endif
-		if getline(v:lnum) =~ '^#### .*$'
-			return ">4"
-		endif
-		if getline(v:lnum) =~ '^##### .*$'
-			return ">5"
-		endif
-		if getline(v:lnum) =~ '^###### .*$'
-			return ">6"
-		endif
-		return "=" 
-	endfunction
-
-	" Vim-Wiki
-		" Origin: Wang Shidong <wsdjeg@outlook.com>
-						" vim-cheat
-		func! CheatCompletion(ArgLead, CmdLine, CursorPos)
-			echom "arglead:[".a:ArgLead ."] cmdline:[" .a:CmdLine ."] cursorpos:[" .a:CursorPos ."]"
-			if a:ArgLead =~ '^-\w*'
-				echohl WarningMsg | echom a:ArgLead . " is not a valid wiki name" | echohl None
-			endif
-			return join(<SID>ListFiles(s:wiki_path . '//'),"\n")
-		endfunction
-
-		function! s:WikiOpen(...) abort
-			if a:0 > 0
-				execute "vs " . s:wiki_path . '/'.  a:1
-				return
-			endif
-			execute "vs " . fnameescape(s:wiki_path . '//' . input('Wiki Name: ', '', 'custom,CheatCompletion'))
-		endfunction
-
 " PLUGINS_FOR_BOTH_SYSTEMS
 	" Attempt to install vim-plug and all plugins in case of first use
-	if <SID>CheckVimPlug()
+	if utils#CheckVimPlug()
 		" Call Vim-Plug Plugins should be from here below
 		call plug#begin(s:plugged_path)
 		if has('nvim')
 			" Neovim exclusive plugins
-			" Currently not working
-			" Plug 'DonnieWest/VimStudio'
+			Plug 'arakashic/chromatica.nvim'
 			Plug 'neomake/neomake'
 			Plug 'Shougo/deoplete.nvim'
+			Plug 'vhakulinen/neovim-intellij-complete-deoplete'
+			" Name of the Intellij Plugin for AndroidStudio
+			" Plug 'vhakulinen/neovim-intellij-complete'
+			Plug 'vhakulinen/neovim-java-client'
 		else
 			" Vim exclusive plugins
 			Plug 'Shougo/neocomplete'
@@ -891,6 +316,7 @@
 			Plug 'ctrlpvim/ctrlp.vim'
 		endif
 		" Plugins for All (nvim, linux, win32)
+		Plug '~/Documents/vim-utils'
 		" misc
 		Plug 'chrisbra/vim-diff-enhanced', { 'on' : 'SetDiff' }
 		Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -921,9 +347,9 @@
 		Plug 'justinmk/vim-syntax-extra'
 		Plug 'junegunn/rainbow_parentheses.vim', { 'on' : 'RainbowParentheses' }
 		" cpp/java
-		Plug 'mattn/vim-javafmt', { 'for' : 'java' }
-		Plug 'tfnico/vim-gradle', { 'for' : 'java' }
-		Plug 'artur-shaik/vim-javacomplete2', { 'branch' : 'master' }
+		" Plug 'mattn/vim-javafmt', { 'for' : 'java' }
+		" Plug 'tfnico/vim-gradle', { 'for' : 'java' }
+		" Plug 'artur-shaik/vim-javacomplete2', { 'branch' : 'master' }
 		" Plug 'nelstrom/vim-markdown-folding'
 		" Autocomplete
 		Plug 'Shougo/neosnippet'
@@ -990,24 +416,24 @@
 
 " Create personal folders
 	" TMP folder
-	if <SID>CheckDirwoPrompt(s:cache_path . "tmp")
+	if utils#CheckDirwoPrompt(s:cache_path . "tmp")
 		let $TMP= s:cache_path . "tmp"
 	else
 		echomsg string("Failed to create tmp dir")
 	endif
 
-	if !<SID>CheckDirwoPrompt(s:cache_path . "sessions")
+	if !utils#CheckDirwoPrompt(s:cache_path . "sessions")
 		echoerr string("Failed to create sessions dir")
 	endif
 
 	" We assume wiki folder is there. No creation of this wiki folder
 
-	if !<SID>CheckDirwoPrompt(s:cache_path . "java")
+	if !utils#CheckDirwoPrompt(s:cache_path . "java")
 		echoerr string("Failed to create java dir")
 	endif
 
 	if has('persistent_undo')
-		if <SID>CheckDirwoPrompt(s:cache_path . 'undofiles')
+		if utils#CheckDirwoPrompt(s:cache_path . 'undofiles')
 			let &undodir= s:cache_path . 'undofiles'
 			set undofile
 			set undolevels=1000      " use many muchos levels of undo
@@ -1110,7 +536,7 @@
 	set modelines=1
 	" Set omni for all filetypes
 	set omnifunc=syntaxcomplete#Complete
-	call <SID>SetGrep()
+	call utils#SetGrep()
 
 " ALL_AUTOGROUP_STUFF
 	" All of these options contain performance drawbacks but the most important
@@ -1167,10 +593,10 @@
 	augroup VimType
 		autocmd!
 		" Sessions
-		" autocmd VimEnter * call <SID>LoadSession('default.vim')
-		autocmd VimLeave * call <SID>SaveSession('default.vim')
+		" autocmd VimEnter * call utils#LoadSession('default.vim')
+		autocmd VimLeave * call utils#SaveSession('default.vim')
 		" Keep splits normalize
-		autocmd VimResized * call <SID>NormalizeWindowSize()
+		autocmd VimResized * call utils#NormalizeWindowSize()
 	augroup END
 
 	" vim -b : edit binary using xxd-format!
@@ -1209,13 +635,13 @@
 		noremap <Leader>qc :.cc<CR>
 		noremap <Leader>qC :cc<CR>
 
-		nnoremap <Leader>sn :call <SID>ListsNavigation("next")<CR>
-		nnoremap <Leader>sp :call <SID>ListsNavigation("previous")<CR>
+		nnoremap <Leader>sn :call utils#ListsNavigation("next")<CR>
+		nnoremap <Leader>sp :call utils#ListsNavigation("previous")<CR>
 
-		nnoremap <Down> :call <SID>ListsNavigation("next")<CR>
-		nnoremap <Up> :call <SID>ListsNavigation("previous")<CR>
-		nnoremap <Right> :call <SID>ListsNavigation("nfile")<CR>
-		nnoremap <Left> :call <SID>ListsNavigation("pfile")<CR>
+		nnoremap <Down> :call utils#ListsNavigation("next")<CR>
+		nnoremap <Up> :call utils#ListsNavigation("previous")<CR>
+		nnoremap <Right> :call utils#ListsNavigation("nfile")<CR>
+		nnoremap <Left> :call utils#ListsNavigation("pfile")<CR>
 
 		noremap <Leader>ql :ccl<CR>
 					\:lcl<CR>
@@ -1293,7 +719,7 @@
 		nnoremap <Leader>sl :set filetype=wings_syntax<CR>
 		" Remove Trailing Spaces
 		nnoremap <Leader>c<Space> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
-		nnoremap <Leader>cl :call <SID>LastCommand()<CR>
+		nnoremap <Leader>cl :call utils#LastCommand()<CR>
 		nnoremap <Leader>gf :e <cfile><CR>
 		" Indent file
 		nnoremap <Leader>I mzgg=G`z
@@ -1320,23 +746,7 @@
 
 	" CD
 		" nnoremap <Leader>cd :cd %:p:h<CR>
-		nnoremap <Leader>ma :call <SID>Make()<CR>
-		function! s:Make(...)
-			" Check if it is vimrc
-			if expand('%:p') ==? expand('$MYVIMRC')
-				so %
-			elseif empty(get(b:, 'current_compiler'))
-				let l:path = expand('%:p')
-				" Notice inside the '' is a pat which is a regex. That is why \\
-				if match(l:path,'NeoOneWINGS\\Source') > 0
-					compiler borland
-					" TODO.RM-Mon Oct 24 2016 10:32: improve this with a good regex
-				elseif match(l:path,'NeoOneWINGS') > 0 || match(l:path,'NeoWingsSupportFiles') > 0
-					compiler msbuild
-					silent set errorformat&
-				endif
-			endif
-		endfunction
+		nnoremap <Leader>cd :call utils#SetupCompiler()<CR>
 		nnoremap <Leader>cu :cd ..<CR>
 					\:pwd<CR>
 		" cd into dir. press <Tab> after ci to see folders
@@ -1363,9 +773,9 @@
 		nnoremap <a-l> <C-w>l
 
 	" Diff Sutff
-		command! SetDiff call <SID>SetDiff()
+		command! SetDiff call utils#SetDiff()
 		noremap <Leader>do :SetDiff<CR>
-		nnoremap <Leader>dl :call <SID>UnsetDiff()<CR>
+		nnoremap <Leader>dl :call utils#UnsetDiff()<CR>
 
 	" Spell Check <Leader>s?
 		" search forward
@@ -1376,7 +786,7 @@
 		noremap <Leader>sc z=
 		" toggle spelling
 		noremap <Leader>st :setlocal spell! spelllang=en_us<CR>
-		noremap <Leader>sf :call <SID>FixPreviousWord()<CR>
+		noremap <Leader>sf :call utils#FixPreviousWord()<CR>
 		" add to dictionary
 		noremap <Leader>sa zg
 		" mark wrong
@@ -1415,8 +825,8 @@
 		nnoremap <S-x> :tabclose<CR>
 
 	" Sessions
-		nnoremap <Leader>sS :call <SID>SaveSession()<CR>
-		nnoremap <Leader>sL :call <SID>LoadSession()<CR>
+		nnoremap <Leader>sS :call utils#SaveSession()<CR>
+		nnoremap <Leader>sL :call utils#LoadSession()<CR>
 
 	" Version Control <Leader>v?
 		" For all this commands you should be in the svn root folder
@@ -1425,7 +835,7 @@
 		" Add specific files
 		nnoremap <Leader>va :!svn add --force
 		" Commit using typed message
-		nnoremap <Leader>vc :call <SID>SvnCommit()<CR>
+		nnoremap <Leader>vc :call utils#SvnCommit()<CR>
 		" Commit using File for commit content
 		nnoremap <Leader>vC :!svn commit --force-log -F %<CR>
 		nnoremap <Leader>vdl :!svn rm --force Log\*<CR>
@@ -1450,26 +860,21 @@
 							\:copen 20<CR>
 
 	" Todo mappings
-		nnoremap <Leader>td :call <SID>TodoCreate()<CR>
-		nnoremap <Leader>tm :call <SID>TodoMark()<CR>
-		nnoremap <Leader>tM :call <SID>TodoClearMark()<CR>
-		nnoremap <Leader>ta :call <SID>TodoAdd()<CR>
+		nnoremap <Leader>td :call utils#TodoCreate()<CR>
+		nnoremap <Leader>tm :call utils#TodoMark()<CR>
+		nnoremap <Leader>tM :call utils#TodoClearMark()<CR>
+		nnoremap <Leader>ta :call utils#TodoAdd()<CR>
 		" pull up todo/quick notes list
-		nnoremap <Leader>wt :call <SID>WikiOpen('TODO.md')<CR>
-		nnoremap <Leader>wo :call <SID>WikiOpen()<CR>
-		nnoremap <Leader>ws :call <SID>WikiSearch()<CR>
-		function! s:WikiSearch() abort
-			execute "cd " . s:wiki_path
-			execute "grep " . input("Enter wiki search string:")
-			cd -
-		endfunction
+		nnoremap <Leader>wt :call utils#WikiOpen('TODO.md')<CR>
+		nnoremap <Leader>wo :call utils#WikiOpen()<CR>
+		nnoremap <Leader>ws :call utils#WikiSearch()<CR>
 
 	" Comments
-		nnoremap <Leader>cD :call <SID>CommentDelete()<CR>
+		nnoremap <Leader>cD :call utils#CommentDelete()<CR>
 		" Comment Indent Increase/Reduce
-		nnoremap <Leader>cIi :call <SID>CommentIndent()<CR>
-		nnoremap <Leader>cIr :call <SID>CommentReduceIndent()<CR>
-		nnoremap cl :call <SID>CommentLine()<CR>
+		nnoremap <Leader>cIi :call utils#CommentIndent()<CR>
+		nnoremap <Leader>cIr :call utils#CommentReduceIndent()<CR>
+		nnoremap cl :call utils#CommentLine()<CR>
 
 	" Indenting
 		nnoremap <Leader>t2 :setlocal ts=2 sw=2 sts=2<CR>
@@ -1725,20 +1130,6 @@
 				"call deoplete#custom#set('omni', 'min_pattern_length', 0)
 				inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
 				inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
-				" Old settings
-				" Settings for javacomplete2
-				" let g:deoplete#enable_ignore_case = 1
-				" let g:deoplete#enable_smart_case = 1
-				" let g:deoplete#enable_refresh_always = 1
-				" let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
-				" let g:deoplete#omni#input_patterns.java = [
-						" \'[^. \t0-9]\.\w*',
-						" \'[^. \t0-9]\->\w*',
-						" \'[^. \t0-9]\::\w*',
-						" \]
-				" let g:deoplete#omni#input_patterns.jsp = ['[^. \t0-9]\.\w*']
-				" let g:deoplete#ignore_sources = {}
-				" let g:deoplete#ignore_sources._ = ['javacomplete2']
 			 
 				" " Regular settings
 				inoremap <silent><expr> <TAB>

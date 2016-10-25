@@ -892,3 +892,17 @@
 		" This is a very good to show and search all current but a much better is
 		" remaped search to f
 		noremap <Leader>sC z=1<CR><CR>
+				" Old settings
+				" Settings for javacomplete2
+				" let g:deoplete#enable_ignore_case = 1
+				" let g:deoplete#enable_smart_case = 1
+				" let g:deoplete#enable_refresh_always = 1
+				" let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
+				" let g:deoplete#omni#input_patterns.java = [
+						" \'[^. \t0-9]\.\w*',
+						" \'[^. \t0-9]\->\w*',
+						" \'[^. \t0-9]\::\w*',
+						" \]
+				" let g:deoplete#omni#input_patterns.jsp = ['[^. \t0-9]\.\w*']
+				" let g:deoplete#ignore_sources = {}
+				" let g:deoplete#ignore_sources._ = ['javacomplete2']
