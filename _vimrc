@@ -8,10 +8,7 @@
 		" - [ ] Markdown tables
 		" - [ ] make mail ft grab autocomplete from alias.sh
 		" - [ ] Substitute all of the capital <leader>X mapps with newer non capital
-		" - [ ] Customize Doxygen options or find replacement
 		" - [ ] Customize and install vim-formatter
-		" - [ ] Create a plugin with all of your functions. Make each function a
-		"   command 
 		" - [ ] Fix the markdown enter property
 		" - [ ] Get familiar with vim format
 		" - [ ] Download pandora likes list
@@ -79,14 +76,22 @@
 		" e1 reserved for vimrc
 		" Switch Wings mappings for SWTestbed
 		nnoremap <Leader>es :call utils#SetWingsPath('D:/Reinaldo/')<CR>
+
 		" Default Wings mappings are for laptop
-		" call utils#SetWingsPath('~/Documents/1.WINGS/')
+		function! s:SetWingsPath(sPath) abort
+			execute "nnoremap <Leader>e21 :silent e " . a:sPath . "NeoOneWINGS/"
+			execute "nnoremap <Leader>e22 :silent e " . a:sPath
+			execute "nnoremap <Leader>ed :silent e ". a:sPath . "NeoOneWINGS/default.ini<CR>"
+			execute "nnoremap <Leader>ewl :call utils#WingsSymLink('~/Documents/1.WINGS/')<CR>"
+			execute "nnoremap <Leader>ewl :call utils#WingsSymLink(" . expand(a:sPath) . ")<CR>"
+		endfunction
+
+		call <SID>SetWingsPath('~/Documents/1.WINGS/')
 
 		" Time runtime of a specific program
 		nnoremap <Leader>mt :Dispatch powershell -command "& {&'Measure-Command' {.\sep_calc.exe seprc}}"<CR>
 
 		nnoremap <Leader>ep :e ~/vimfiles/plugged/
-		nnoremap <Leader>ma :Make<CR>
 		nnoremap <Leader>mu :call utils#MakeUpdateBorlandMakefile()<CR>
 
 		" call utils#AutoCreateWinCtags()
@@ -340,7 +345,7 @@
 			Plug 'ctrlpvim/ctrlp.vim'
 		endif
 		" Plugins for All (nvim, linux, win32)
-		Plug '~/vimrc/vim-utils'
+		Plug '~/.dotfiles/vim-utils'
 		" misc
 		Plug 'chrisbra/vim-diff-enhanced', { 'on' : 'SetDiff' }
 		Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -356,7 +361,7 @@
 			Plug 'jamessan/vim-gnupg'
 		endif
 		" TODO: Configure
-			" Plug 'Chiel92/vim-autoformat'
+		" Plug 'Chiel92/vim-autoformat'
 		" Search
 		if has('unix') " Potential alternative to ctrlp
 			Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -638,6 +643,7 @@
 " CUSTOM MAPPINGS
 	" List of super useful mappings
 	" ga " prints ascii of char under cursor
+	" gA " prints radix of number under cursor
 	" = fixes indentantion
 	" gq formats code
 
@@ -674,7 +680,12 @@
 		nnoremap <Leader>ce :call utils#EndOfIfComment()<CR>
 		nnoremap <Leader>Mc :call utils#ManFind()<CR>
 		nnoremap <Leader>Ma :Man 
+		nnoremap <Leader>ma :call utils#SetupCompiler()<CR> 
 		nnoremap <Leader>ju :w !sudo tee %<CR>
+		" Markdown fix _ showing red
+		nnoremap <Leader>jf :s%/_/\\_/g<CR>
+		" Reload syntax
+		noremap <Leader>js <Esc>:syntax sync fromstart<CR>
 		" Give execute permissions to current file
 		nnoremap <Leader>jp :!chmod a+x %<CR>
 		noremap <Leader>jv :e $MYVIMRC<CR>
@@ -752,11 +763,6 @@
 		" Get vim help on current word
 		nnoremap <Leader>he :h <c-r>=expand("<cword>")<CR><CR>
 		nnoremap <Leader>hs :Helptags<CR>
-		" Markdown fix _ showing red
-		nnoremap <Leader>mf :s%/_/\\_/g<CR>
-		" Reload syntax
-		noremap <F12> <Esc>:syntax sync fromstart<CR>
-		inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
 	" Insert Mode (Individual) mappings 
 		inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
@@ -766,13 +772,13 @@
 	" Edit local
 		nnoremap <Leader>el :silent e ~/
 		" cd into current dir path and into dir above current path
-		nnoremap <Leader>e1 :e ~/vimrc/
+		nnoremap <Leader>e1 :e ~/.dotfiles/
 		" Edit Vimruntime
 		nnoremap <Leader>ev :e $VIMRUNTIME/
 
 	" CD
-		" nnoremap <Leader>cd :cd %:p:h<CR>
-		nnoremap <Leader>cd :call utils#SetupCompiler()<CR>
+		nnoremap <Leader>cd :cd %:p:h<CR>
+					\:pwd<CR>
 		nnoremap <Leader>cu :cd ..<CR>
 					\:pwd<CR>
 		" cd into dir. press <Tab> after ci to see folders
