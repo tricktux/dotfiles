@@ -66,13 +66,15 @@ syn keyword wingsCommands  	 UPDATE VMC VPC WAIT WINGSKEYSENCODE WINGSKEYSDECODE
 syn keyword wingsCommands  	 XMINIMUM XOR XOFF XUNITS XMULTIPLY XALIAS XINTERVAL YALIAS
 syn keyword wingsCommands  	 YAUTO YDESCRIPTION YENABLE YGRID YMAXIMUM YMINMUM YPENCOLOR YPENWIDTH
 syn keyword wingsCommands  	 YMULTIPLY YOFF YSTAIR YUNITS RET JMP STACKPUSH PMESS FSPRP
-syn keyword wingsCommands  	 INJECT IN OFP SPRP PMESSAGE JUMP CI
+syn keyword wingsCommands  	 INJECT IN OFP SPRP PMESSAGE JUMP CI FILESEARCH
 
 syn keyword wingsLog    	 STATUS
 
 syn keyword wingsOk             OK PASS
 
 syn keyword wingsFail           FAIL
+syn match wingsFail           "Syntax Error.*$"
+syn match wingsFail           "Script Error.*$"
                                   
 syn match wingsFlgas          "\sZ\s"
 syn match wingsFlgas          "\sN\s"
