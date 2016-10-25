@@ -146,7 +146,6 @@ function! utils#EndOfIfComment() abort
 		echo "EndOfIfComment(): Closing brace } needs to be present at the line"
 	endif
 endfunction
-nnoremap <Leader>ce :call utils#EndOfIfComment()<CR>
 " End of Special Comment function }}}
 
 function! utils#CheckDirwPrompt(name) abort
@@ -388,8 +387,6 @@ function! utils#ManFind() abort
 	" || /usr/share/man/man5/logind.conf.5.gz
 	" || /usr/share/man/man7/systemd.directives.7.gz
 endfunction
-nnoremap <Leader>Mc :call utils#ManFind()<CR>
-nnoremap <Leader>Ma :Man 
 
 " To update ctags simply delete the ctags folder
 " Note: There is also avr tags created by vimrc/scripts/maketags.sh
