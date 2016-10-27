@@ -357,16 +357,15 @@
 		Plug 'airblade/vim-rooter'
 		Plug 'Raimondi/delimitMate'
 		Plug 'dkarter/bullets.vim'
-		if has('unix') && !has('gui_running')
-			Plug 'jamessan/vim-gnupg'
-		endif
 		" TODO: Configure
 		" Plug 'Chiel92/vim-autoformat'
-		" Search
 		if has('unix') " Potential alternative to ctrlp
 			Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 			Plug 'junegunn/fzf.vim'
 			Plug 'guanqun/vim-mutt-aliases-plugin'
+			if !has('gui_running')
+				Plug 'jamessan/vim-gnupg'
+			endif
 		endif
 		" cpp
 		Plug 'Tagbar', { 'on' : 'TagbarToggle' }
