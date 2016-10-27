@@ -120,6 +120,7 @@ URxvt.matcher.rend.0: Uline Bold fg5
 ! Get settings save over restart:
 ! ln -s <location to .Xresources> ~/.Xdefaults-reinaldo-machine
 ! where reinaldo-machine=$hostname
+! That is one way another is to put `
 
 URxvt*fading:  30
 URxvt*iconFile: /usr/share/icons/Adwaita/32x32/apps/utilities-terminal.png
@@ -133,3 +134,6 @@ xterm*SaveLines: 80000
 ! URxvt.keysym.C-Down:   perl:font-size:decrease
 ! URxvt.keysym.C-S-Up:   perl:font-size:incglobal
 ! URxvt.keysym.C-S-Down: perl:font-size:decglobal
+
+! Should fix some slow redrawing I've seeing in nvim
+URxvt*skipBuiltinGlyphs:    true
