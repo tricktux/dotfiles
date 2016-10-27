@@ -579,8 +579,13 @@ function! utils#UpdateCscope() abort
 	catch
 		" Dont do anything if it fails
 	endtry
-	!rm cscope.files cscope.out cscope.po.out cscope.in.out
-	!find . -iregex '.*\.\(c\|cpp\|java\|cc\|h\|hpp\)$' > cscope.files
+	if has('linux')
+		!rm cscope.files cscope.out cscope.po.out cscope.in.out
+		!find . -iregex '.*\.\(c\|cpp\|java\|cc\|h\|hpp\)$' > cscope.files
+	else
+		!del /F cscope.files cscope.in.out cscope.po.out cscope.out<CR>
+		!dir /b /s *.java *.cpp *.h *.hpp *.c *.cc *.cs > cscope.files<CR>
+	endif
 	!cscope -b -q -i cscope.files
 	if !filereadable('cscope.out')
 		echoerr "Couldnt create cscope.out files"
@@ -591,7 +596,7 @@ function! utils#UpdateCscope() abort
 	" set tags+=.tags
 endfunction
 
-function! utils#SetupCompiler(...)
+function! utils#Make(...)
 	if expand('%:p') ==? expand('$MYVIMRC')
 		so %
 		return

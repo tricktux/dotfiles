@@ -906,3 +906,79 @@
 				" let g:deoplete#omni#input_patterns.jsp = ['[^. \t0-9]\.\w*']
 				" let g:deoplete#ignore_sources = {}
 				" let g:deoplete#ignore_sources._ = ['javacomplete2']
+
+		" Netrw
+			let g:netrw_home=s:cache_path
+			let g:netrw_liststyle = 3
+			let g:netrw_browse_split = 4
+			let g:netrw_altv = 1
+			let g:netrw_winsize = 25
+			" let g:netrw_banner = 0
+			let g:netrw_list_hide = &wildignore
+			" Relative numbers
+			let g:netrw_bufsettings="noma nomod nonu nobl nowrap ro rnu"
+			let g:netrw_use_errorwindow    = 0
+			let g:netrw_usetab=1
+			let g:netrw_retmap= 1
+			" let g:netrw_browse_split = 4
+			let g:netrw_altv = 1
+			" let g:netrw_chgwin=0
+			function! s:NetrwMappings() abort
+				nmap <buffer> <silent> o <CR>
+				nmap <buffer> <silent> <nowait> <s-o>  <S-CR>
+				nmap <buffer> <c-tab> ZQ
+			endfunction
+		" Airline 
+			set encoding=utf-8
+
+			if !exists('g:airline_symbols')
+				let g:airline_symbols = {}
+			endif
+
+			" If you ever try a new font and want see if symbols work just go to h
+			" airline and check if the symbols display properly there. If they do they
+			" will display properly in the bar
+			" let g:airline_left_sep = '»'
+			let g:airline_left_sep = ''
+			" let g:airline_right_sep = '«'
+			let g:airline_right_sep = ''
+			" let g:airline_symbols.linenr = '¶'
+			let g:airline_symbols.linenr = ''
+			let g:airline_symbols.maxlinenr = '☰'
+			" let g:airline_symbols.maxlinenr = ''
+			let g:airline_symbols.paste = 'ρ'
+			" let g:airline_symbols.paste = 'Þ'
+			" let g:airline_symbols.paste = '∥'
+			let g:airline_symbols.whitespace = 'Ξ'
+			let g:airline_symbols.crypt = ''
+			let g:airline_symbols.branch = ''
+			let g:airline_symbols.notexists = ''
+			let g:airline_symbols.readonly = ''
+
+		" Airline
+			if !exists('g:airline_symbols')
+				let g:airline_symbols = {}
+			endif
+			let g:airline_left_sep = ''
+			let g:airline_left_alt_sep = ''
+			let g:airline_right_sep = ''
+			let g:airline_right_alt_sep = ''
+			let g:airline_symbols.branch = ''
+			let g:airline_symbols.readonly = ''
+			let g:airline_symbols.linenr = ''
+			let g:airline_symbols.linenr = '¶'
+			let g:airline_symbols.paste = 'ρ'
+			let g:airline_symbols.spell = 'Ꞩ'
+			let g:airline_symbols.paste = 'Þ'
+
+		" Too many lines of code and overhead
+		Plug 'vim-airline/vim-airline'
+		Plug 'vim-airline/vim-airline-themes'
+		" Airline
+			let g:airline_theme="dark"
+
+			let g:airline#extensions#whitespace#checks = []
+			let g:airline#extensions#disable_rtp_load = 1
+			let g:airline_extensions = ['branch']
+
+		nnoremap <Leader>md :Dox<CR>

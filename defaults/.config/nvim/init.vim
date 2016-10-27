@@ -1,8 +1,8 @@
 " File:					_vimrc
 " Description:  Vim/Neovim configuration file
 " Author:				Reinaldo Molina
-" Version:			3.0.0
-" Date:					Tue Oct 25 2016 06:40  	
+" Version:			3.1.2
+" Date:					Thu Oct 27 2016 09:23   	
 " Improvements:
 "		" - Figure out how to handle Doxygen
 		" - [ ] Markdown tables
@@ -11,7 +11,6 @@
 		" - [ ] Customize and install vim-formatter
 		" - [ ] Fix the markdown enter property
 		" - [ ] Get familiar with vim format
-		" - [ ] Download pandora likes list
 		" - [ ] Delete duplicate music. 
 		" - [ ] Construct unified music library
 		
@@ -38,21 +37,13 @@
 			let &t_AF="\e[38;5;%dm"
 		endif
 
-		" update cscope and ctags
-		noremap <Leader>tu :cs kill -1<CR>
-		\:silent !del /F cscope.files cscope.in.out cscope.po.out cscope.out<CR>
-		\:silent !dir /b /s *.cpp *.h *.hpp *.c *.cc *.cs > cscope.files<CR>
-		\:!cscope -b -q -i cscope.files<CR>
-		\:silent !ctags -R -L cscope.files -f tags<CR>
-		\:cs add cscope.out<CR>
-
-		noremap <Leader>mr :!%<CR>
+		nnoremap <Leader>mr :!%<CR>
 		" Copy and paste into system wide clipboard
-		nnoremap <Leader><Space>v "*p
-		vnoremap <Leader><Space>v "*p
+		nnoremap <Leader>jp "*p
+		vnoremap <Leader>jp "*p
 
-		nnoremap <Leader><Space>y "*yy
-		vnoremap <Leader><Space>y "*y
+		nnoremap <Leader>jy "*yy
+		vnoremap <Leader>jy "*y
 
 		nnoremap <Leader><Space>= :silent! let &guifont = substitute(
 		\ &guifont,
@@ -118,33 +109,7 @@
 			" //////////////7/28/2016 4:09:23 PM////////////////
 			" Tried using shell=bash on windows didnt work got all kinds of issues
 			" with syntastic and other things.
-		" Airline 
-			set encoding=utf-8
-
-			if !exists('g:airline_symbols')
-				let g:airline_symbols = {}
-			endif
-
-			" If you ever try a new font and want see if symbols work just go to h
-			" airline and check if the symbols display properly there. If they do they
-			" will display properly in the bar
-			" let g:airline_left_sep = '»'
-			let g:airline_left_sep = ''
-			" let g:airline_right_sep = '«'
-			let g:airline_right_sep = ''
-			" let g:airline_symbols.linenr = '¶'
-			let g:airline_symbols.linenr = ''
-			let g:airline_symbols.maxlinenr = '☰'
-			" let g:airline_symbols.maxlinenr = ''
-			let g:airline_symbols.paste = 'ρ'
-			" let g:airline_symbols.paste = 'Þ'
-			" let g:airline_symbols.paste = '∥'
-			let g:airline_symbols.whitespace = 'Ξ'
-			let g:airline_symbols.crypt = ''
-			let g:airline_symbols.branch = ''
-			let g:airline_symbols.notexists = ''
-			let g:airline_symbols.readonly = ''
-
+			
 " UNIX_SETTINGS
 	elseif has('unix')
 		" Path variables
@@ -161,18 +126,14 @@
 
 		let s:custom_font = 'Andale Mono 8'
 
-		" this one below DOES WORK in linux just make sure is ran at root folder
-		noremap <Leader>tu :call utils#UpdateCscope()<CR>
-
-
 		nnoremap <Leader>mr :silent !./%<CR>
 
 		" System paste
-		nnoremap <Leader><Space>v "+p
-		vnoremap <Leader><Space>v "+p
+		nnoremap <Leader>jp "+p
+		vnoremap <Leader>jp "+p
 
-		nnoremap <Leader><Space>y "+yy
-		vnoremap <Leader><Space>y "+y
+		nnoremap <Leader>jy "+yy
+		vnoremap <Leader>jy "+y
 
 		" edit android
 		nnoremap <Leader>ea :silent e
@@ -247,22 +208,6 @@
 			" Potential plug if you need more `vim-utils/vim-man` but this should be
 			" enough
 			
-		" Airline
-			if !exists('g:airline_symbols')
-				let g:airline_symbols = {}
-			endif
-			let g:airline_left_sep = ''
-			let g:airline_left_alt_sep = ''
-			let g:airline_right_sep = ''
-			let g:airline_right_alt_sep = ''
-			let g:airline_symbols.branch = ''
-			let g:airline_symbols.readonly = ''
-			let g:airline_symbols.linenr = ''
-			let g:airline_symbols.linenr = '¶'
-			let g:airline_symbols.paste = 'ρ'
-			let g:airline_symbols.spell = 'Ꞩ'
-			let g:airline_symbols.paste = 'Þ'
-
 		" fzf
 			nnoremap <C-p> :History<CR>
 			nnoremap <A-p> :FZF<CR>
@@ -297,6 +242,7 @@
 		tnoremap <C-l> <Right>
 		nnoremap <Leader>tv :call utils#OpenTerminal()<CR>
 		nnoremap <Leader>to :term<CR>
+		let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 	endif
 
 " PLUGINS_FOR_BOTH_SYSTEMS
@@ -348,7 +294,7 @@
 		Plug '~/.dotfiles/vim-utils'
 		" misc
 		Plug 'chrisbra/vim-diff-enhanced', { 'on' : 'SetDiff' }
-		Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+		Plug 'scrooloose/nerdtree'
 		Plug 'scrooloose/nerdcommenter'
 		Plug 'chrisbra/Colorizer'
 		Plug 'tpope/vim-repeat'
@@ -387,8 +333,6 @@
 		" aesthetic
 		Plug 'morhetz/gruvbox' " colorscheme gruvbox
 		Plug 'NLKNguyen/papercolor-theme'
-		Plug 'vim-airline/vim-airline'
-		Plug 'vim-airline/vim-airline-themes'
 		" radical
 		Plug 'glts/vim-magnum' " required by radical
 		Plug 'glts/vim-radical' " use with gA
@@ -436,7 +380,7 @@
 	endif
 	set lazyredraw " Had to addit to speed up scrolling
 	set ttyfast " Had to addit to speed up scrolling
-	" set cursorline
+	set cursorline
 	" let g:tex_fast= "" " on super slow activate this, price: no syntax
 	" highlight
 	" set fsync " already had problems with it. lost an entire file. dont use it
@@ -573,7 +517,6 @@
 		" TODO convert each of these categories into its own augroup
 		" C/Cpp
 		autocmd FileType c,cpp setlocal omnifunc=ClangComplete
-		autocmd FileType c,cpp,java,cs setlocal foldmethod=syntax
 		autocmd FileType c,cpp setlocal ts=4 sw=4 sts=4
 	 	" Rainbow cannot be enabled for help file. It breaks syntax highlight
 		autocmd FileType c,cpp,java RainbowParentheses
@@ -645,6 +588,8 @@
 	" gA " prints radix of number under cursor
 	" = fixes indentantion
 	" gq formats code
+	" Free keys: <Leader>fnzxlkiy;
+	" Taken keys: <Leader>qwertasdjcvghp<space>mb
 
 	" Quickfix and Location stuff
 		" Description:
@@ -657,11 +602,11 @@
 		nnoremap <C-Up> :cp<CR>
 		nnoremap <C-Right> :cnf<CR>
 		nnoremap <C-Left> :cpf<CR>
-		" noremap <Leader>qO :Copen!<CR>
-		noremap <Leader>qO :lopen 20<CR>
-		noremap <Leader>qo :copen 20<CR>
-		noremap <Leader>qc :.cc<CR>
-		noremap <Leader>qC :cc<CR>
+		" nnoremap <Leader>qO :Copen!<CR>
+		nnoremap <Leader>qO :lopen 20<CR>
+		nnoremap <Leader>qo :copen 20<CR>
+		nnoremap <Leader>qc :.cc<CR>
+		nnoremap <Leader>qC :cc<CR>
 
 		nnoremap <Leader>qn :call utils#ListsNavigation("next")<CR>
 		nnoremap <Leader>qp :call utils#ListsNavigation("previous")<CR>
@@ -671,30 +616,55 @@
 		nnoremap <Right> :call utils#ListsNavigation("nfile")<CR>
 		nnoremap <Left> :call utils#ListsNavigation("pfile")<CR>
 
-		noremap <Leader>ql :ccl<CR>
+		nnoremap <Leader>ql :ccl<CR>
 					\:lcl<CR>
 
 	" Miscelaneous Mappings <Leader>j?
 		" Save file with sudo permissions
+		" j mappings taken <fswypl;bqruihdma>
 		nnoremap <Leader>ce :call utils#EndOfIfComment()<CR>
-		nnoremap <Leader>Mc :call utils#ManFind()<CR>
-		nnoremap <Leader>Ma :Man 
-		nnoremap <Leader>ma :call utils#SetupCompiler()<CR> 
+		nnoremap <Leader>mr :silent !./%<CR>
+		" TODO
+		" nnoremap <Leader>Mc :call utils#ManFind()<CR>
+		" nnoremap <Leader>Ma :Man 
+		" Most used misc get jk, jj, jl, j;
+		nnoremap <Leader>jk :call utils#Make()<CR> 
+		nnoremap <Leader>jl :e $MYVIMRC<CR>
+		nnoremap <Leader>j; :NERDTreeToggle<CR>
+		nnoremap <Leader>jb :bro old<CR>
+		nnoremap <Leader>jq :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>"
+		nnoremap <Leader>jr :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
+		vnoremap <Leader>jr "hy:%s/<C-r>h//gc<left><left><left>
+		" Indent whole file
+		nnoremap <Leader>ji mzgg=G`z
+		" Help <Leader>h
+		nnoremap <Leader>jh :h <c-r>=expand("<cword>")<CR><CR>
+		nnoremap <Leader>jH :Helptags<CR>
+		" duplicate current char
+		nnoremap <Leader>jd ylp
+		vnoremap <Leader>jd ylp
 		nnoremap <Leader>ju :w !sudo tee %<CR>
 		" Markdown fix _ showing red
 		nnoremap <Leader>jf :s%/_/\\_/g<CR>
 		" Reload syntax
-		noremap <Leader>js <Esc>:syntax sync fromstart<CR>
+		nnoremap <Leader>js <Esc>:syntax sync fromstart<CR>
 		" Give execute permissions to current file
-		nnoremap <Leader>jp :!chmod a+x %<CR>
-		noremap <Leader>jv :e $MYVIMRC<CR>
+		nnoremap <Leader>jw :!chmod a+x %<CR>
+		" Indenting
+		nnoremap <Leader>j2 :setlocal ts=2 sw=2 sts=2<CR>
+		nnoremap <Leader>j4 :setlocal ts=4 sw=4 sts=4<CR>
+		nnoremap <Leader>j8 :setlocal ts=8 sw=8 sts=8<CR>
+
+		" not paste the deleted word
+		nnoremap <Leader>ja "0p
+		vnoremap <Leader>ja "0p
 		nnoremap <C-s> :wa<CR>
 		nnoremap <C-h> :noh<CR>
 		nnoremap <C-Space> i<Space><Esc>
 		" move current line up
 		nnoremap <Leader>K ddkk""p
 		" move current line down
-		noremap <Leader>J dd""p
+		nnoremap <Leader>J dd""p
 		" These are only for command line
 		" insert in the middle of whole word search
 		cnoremap <C-w> \<\><Left><Left>
@@ -702,31 +672,19 @@
 		cnoremap <C-u> <c-r>=expand("<cword>")<cr>
 		cnoremap <C-s> %s/
 		" refactor
-		nnoremap <Leader>r :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
-		vnoremap <Leader>r "hy:%s/<C-r>h//gc<left><left><left>
 		"vnoremap <Leader>r :%s///gc<Left><Left><Left>
 		cnoremap <C-p> <c-r>0
 		cnoremap <C-j> <Down>
 		cnoremap <C-o> <Up>
 		cnoremap <C-k> <Down>
-		" cnoremap <C-j> <Left>
+		cnoremap <C-j> <Left>
 		cnoremap <C-l> <Right>
-		"noremap <Leader>mn :noh<CR>
-		" duplicate current char
-		nnoremap <Leader>mp ylp
-		vnoremap <Leader>mp ylp
-		"noremap <Leader>mt :set relativenumber!<CR>
-		noremap <Leader>md :Dox<CR>
-		" not paste the deleted word
-		nnoremap <Leader>p "0p
-		vnoremap <Leader>p "0p
 		" Switch back and forth between header file
-		nnoremap <Leader>moh :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>"
-		noremap <S-q> yyp
+		nnoremap <S-q> yyp
 		" move to the beggning of line
-		noremap <S-w> $
+		nnoremap <S-w> $
 		" move to the end of line
-		noremap <S-b> ^
+		nnoremap <S-b> ^
 		" jump to corresponding item<Leader> ending {,(, etc..
 		nnoremap <S-t> %
 		vnoremap <S-t> %
@@ -743,7 +701,6 @@
 		vnoremap > >gv
 
 		" see :h <c-r>
-		nnoremap <Leader>nl :bro old<CR>
 		" decrease number
 		nnoremap <Leader>A <c-x>
 		" delete key
@@ -757,11 +714,7 @@
 		nnoremap <Leader>c<Space> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 		nnoremap <Leader>cl :call utils#LastCommand()<CR>
 		nnoremap <Leader>gf :e <cfile><CR>
-		" Indent file
-		nnoremap <Leader>I mzgg=G`z
-		" Get vim help on current word
-		nnoremap <Leader>he :h <c-r>=expand("<cword>")<CR><CR>
-		nnoremap <Leader>hs :Helptags<CR>
+
 
 	" Insert Mode (Individual) mappings 
 		inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
@@ -805,25 +758,25 @@
 
 	" Diff Sutff
 		command! SetDiff call utils#SetDiff()
-		noremap <Leader>do :SetDiff<CR>
+		nnoremap <Leader>do :SetDiff<CR>
 		nnoremap <Leader>dl :call utils#UnsetDiff()<CR>
 
 	" Spell Check <Leader>s?
 		" search forward
-		noremap <Leader>sn ]s
+		nnoremap <Leader>sn ]s
 		" search backwards
-		noremap <Leader>sp [s
+		nnoremap <Leader>sp [s
 		" suggestion
-		noremap <Leader>sc z=
+		nnoremap <Leader>sc z=
 		" toggle spelling
-		noremap <Leader>st :setlocal spell! spelllang=en_us<CR>
-		noremap <Leader>sf :call utils#FixPreviousWord()<CR>
+		nnoremap <Leader>st :setlocal spell! spelllang=en_us<CR>
+		nnoremap <Leader>sf :call utils#FixPreviousWord()<CR>
 		" add to dictionary
-		noremap <Leader>sa zg
+		nnoremap <Leader>sa zg
 		" mark wrong
-		noremap <Leader>sw zw
+		nnoremap <Leader>sw zw
 		" repeat last spell correction
-		noremap <Leader>sr :spellr<CR>
+		nnoremap <Leader>sr :spellr<CR>
 
 	" Search
 		" Tried ack.vim. Discovered that nothing is better than grep with ag.
@@ -837,17 +790,17 @@
 		vnoremap <C-j> <Esc>
 
 	" Buffers Stuff <Leader>b?
-		noremap <S-j> :b#<CR>
-		noremap <Leader>bd :bp\|bw #\|bd #<CR>
+		nnoremap <S-j> :b#<CR>
+		nnoremap <Leader>bd :bp\|bw #\|bd #<CR>
 		" deletes all buffers
-		noremap <Leader>bD :%bd<CR>
-		noremap <Leader>bs :buffers<CR>:buffer<Space>
-		noremap <Leader>bS :bufdo
+		nnoremap <Leader>bD :%bd<CR>
+		nnoremap <Leader>bs :buffers<CR>:buffer<Space>
+		nnoremap <Leader>bS :bufdo
 		" move tab to the left
 		nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 		" move tab to the right
-		noremap <silent> <A-Right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
-		noremap <Leader>be :enew<CR>
+		nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
+		nnoremap <Leader>be :enew<CR>
 
 	" Tabs <Leader>a?
 		" open new to tab to explorer
@@ -873,10 +826,10 @@
 		nnoremap <Leader>vda :!svn rm --force
 		" revert previous commit
 		" dangerous key TODO: warn before
-		"noremap <Leader>vr :!svn revert -R .<CR>
+		"nnoremap <Leader>vr :!svn revert -R .<CR>
 		nnoremap <Leader>vl :!svn cleanup .<CR>
 		" use this command line to delete unrevisioned or "?" svn files
-		"noremap <Leader>vL :!for /f "tokens=2*" %i in ('svn status ^| find "?"') do del %i<CR>
+		"nnoremap <Leader>vL :!for /f "tokens=2*" %i in ('svn status ^| find "?"') do del %i<CR>
 		nnoremap <Leader>vs :!svn status .<CR>
 		nnoremap <Leader>vu :!svn update .<CR>
 		nnoremap <Leader>vo :!svn log .<CR>
@@ -907,11 +860,6 @@
 		nnoremap <Leader>cIr :call utils#CommentReduceIndent()<CR>
 		nnoremap cl :call utils#CommentLine()<CR>
 
-	" Indenting
-		nnoremap <Leader>t2 :setlocal ts=2 sw=2 sts=2<CR>
-		nnoremap <Leader>t4 :setlocal ts=4 sw=4 sts=4<CR>
-		nnoremap <Leader>t8 :setlocal ts=8 sw=8 sts=8<CR>
-
 	" Compiler
 		nnoremap <Leader>Cb :compiler borland<CR>
 		" msbuild errorformat looks horrible resetting here
@@ -923,16 +871,16 @@
 		" where the arguments will be included,
 
 " STATUS_LINE
-	" set statusline =
-	" set statusline+=\[%n]                                  "buffernr
-	" set statusline+=\ %<%F\ %m%r%w                         "File+path
-	" set statusline+=\ %y\                                  "FileType
-	" set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}      "Encoding
-	" set statusline+=\ %{(&bomb?\",BOM\":\"\")}\            "Encoding2
-	" set statusline+=\ %{&ff}\                              "FileFormat (dos/unix..)
-	" set statusline+=\ %=\ row:%l/%L\ (%03p%%)\             "Rownumber/total (%)
-	" set statusline+=\ col:%03c\                            "Colnr
-	" set statusline+=\ \ %m%r%w\ %P\ \                      "Modified? Readonly? Top/bot.
+	set statusline =
+	set statusline+=\[%n]                                  "buffernr
+	set statusline+=\ %<%F\ %m%r%w                         "File+path
+	set statusline+=\ %y\                                  "FileType
+	set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}      "Encoding
+	set statusline+=\ %{(&bomb?\",BOM\":\"\")}\            "Encoding2
+	set statusline+=\ %{&ff}\                              "FileFormat (dos/unix..)
+	set statusline+=\ %=\ row:%l/%L\ (%03p%%)\             "Rownumber/total (%)
+	set statusline+=\ col:%03c\                            "Colnr
+	set statusline+=\ \ %m%r%w\ %P\ \                      "Modified? Readonly? Top/bot.
 	" if you want to put color to status line needs to be after command
 	" colorscheme. Otherwise this commands clears it the color
 
@@ -940,14 +888,14 @@
   " Only load plugin options in case they were loaded
   if b:bLoadPlugins == 1
     "Vim-Plug
-      noremap <Leader>Pi :PlugInstall<CR>
-      noremap <Leader>Pu :PlugUpdate<CR>
+      nnoremap <Leader>Pi :PlugInstall<CR>
+      nnoremap <Leader>Pu :PlugUpdate<CR>
                 \:PlugUpgrade<CR>
 								\:UpdateRemotePlugins<CR>
       " installs plugins; append `!` to update or just :PluginUpdate
-      noremap <Leader>Ps :PlugSearch<CR>
+      nnoremap <Leader>Ps :PlugSearch<CR>
       " searches for foo; append `!` to refresh local cache
-      noremap <Leader>Pl :PlugClean<CR>
+      nnoremap <Leader>Pl :PlugClean<CR>
       " confirms removal of unused plugins; append `!` to auto-approve removal
 
     "Plugin 'scrooloose/nerdcommenter'"
@@ -974,12 +922,14 @@
       vmap <Leader>cs <plug>NERDCommenterSexy
 
     "Plugin 'scrooloose/NERDTree'
-      noremap <Leader>nb :Bookmark
-      let NERDTreeShowBookmarks=1  " B key to toggle
-      noremap <Leader>no :NERDTree<CR>
-      let NERDTreeShowLineNumbers=1
-      let NERDTreeShowHidden=1 " i key to toggle
-      let NERDTreeQuitOnOpen=1 " AutoClose after openning file
+			let NERDTreeShowBookmarks=1  " B key to toggle
+			let NERDTreeShowLineNumbers=1
+			let NERDTreeShowHidden=1 " i key to toggle
+			let NERDTreeQuitOnOpen=1 " AutoClose after openning file
+			let NERDTreeBookmarksFile=s:cache_path . '.NERDTreeBookmarks'
+			" Do not load netrw
+			let g:loaded_netrw       = 1
+			let g:loaded_netrwPlugin = 1
 
     " Plugin 'Tagbar' {{{
       let g:tagbar_autofocus = 1
@@ -990,20 +940,21 @@
       let g:tagbar_map_openallfolds = "<c-n>"
       let g:tagbar_map_closeallfolds = "<c-c>"
       let g:tagbar_map_togglefold = "<c-x>"
-      noremap <Leader>tt :TagbarToggle<CR>
-      noremap <Leader>tk :cs kill -1<CR>
-      noremap <silent> <Leader>tj <C-]>
-      noremap <Leader>tr <C-t>
-      noremap <Leader>tn :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+      nnoremap <Leader>tt :TagbarToggle<CR>
+      nnoremap <Leader>tk :cs kill -1<CR>
+      nnoremap <silent> <Leader>tj <C-]>
+      nnoremap <Leader>tr <C-t>
+      nnoremap <Leader>tn :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
       " ReLoad cscope database
-      noremap <Leader>tl :cs add cscope.out<CR>
+      nnoremap <Leader>tl :cs add cscope.out<CR>
       " Find functions calling this function
-      noremap <Leader>tc :cs find c <C-R>=expand("<cword>")<CR><CR>
+      nnoremap <Leader>tc :cs find c <C-R>=expand("<cword>")<CR><CR>
       " Find functions definition
-      noremap <Leader>tg :cs find g <C-R>=expand("<cword>")<CR><CR>
+      nnoremap <Leader>tg :cs find g <C-R>=expand("<cword>")<CR><CR>
       " Find functions called by this function not being used
-      " noremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
-      noremap <Leader>ts :cs show<CR>
+      " nnoremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
+      nnoremap <Leader>ts :cs show<CR>
+			nnoremap <Leader>tu :call utils#UpdateCscope()<CR>
 
     " Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh
 			if executable('ag') && !executable('ucg') || !exists('FZF')
@@ -1262,13 +1213,6 @@
 			" To update folds now you have to do it manually pressing 'zuz'
 			let g:fastfold_fold_command_suffixes =
 						\['x','X','a','A','o','O','c','C','r','R','m','M','i','n','N']
-
-		" Airline
-			let g:airline_theme="dark"
-
-			let g:airline#extensions#whitespace#checks = []
-			let g:airline#extensions#disable_rtp_load = 1
-			let g:airline_extensions = ['branch']
 
 		" Neomake
 			if exists(':Neomake')
