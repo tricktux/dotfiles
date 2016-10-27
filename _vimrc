@@ -664,8 +664,8 @@
 		noremap <Leader>qc :.cc<CR>
 		noremap <Leader>qC :cc<CR>
 
-		nnoremap <Leader>sn :call utils#ListsNavigation("next")<CR>
-		nnoremap <Leader>sp :call utils#ListsNavigation("previous")<CR>
+		nnoremap <Leader>qn :call utils#ListsNavigation("next")<CR>
+		nnoremap <Leader>qp :call utils#ListsNavigation("previous")<CR>
 
 		nnoremap <Down> :call utils#ListsNavigation("next")<CR>
 		nnoremap <Up> :call utils#ListsNavigation("previous")<CR>
