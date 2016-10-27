@@ -1,0 +1,7 @@
+@lxpanel --profile LXDE
+@pcmanfm --daemon-mode --desktop --profile LXDE
+@xscreensaver -no-splash
+xset -b
+google-chrome-stable
+compton -b
+xflux -z 33760
