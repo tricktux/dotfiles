@@ -2,7 +2,7 @@
 " Description:  Vim/Neovim configuration file
 " Author:				Reinaldo Molina
 " Version:			3.4.0
-" Date:					Thu Oct 27 2016 21:14    	
+" Date:					Thu Oct 27 2016 21:14
 " Improvements:
 "		" - Figure out how to handle Doxygen
 		" - [ ] Markdown tables
@@ -11,9 +11,9 @@
 		" - [ ] Customize and install vim-formatter
 		" - [ ] Fix the markdown enter property
 		" - [ ] Get familiar with vim format
-		" - [ ] Delete duplicate music. 
+		" - [ ] Delete duplicate music.
 		" - [ ] Construct unified music library
-		
+
 " REQ AND LEADER
 	set nocompatible
 	syntax on
@@ -109,7 +109,7 @@
 			" //////////////7/28/2016 4:09:23 PM////////////////
 			" Tried using shell=bash on windows didnt work got all kinds of issues
 			" with syntastic and other things.
-			
+
 " UNIX_SETTINGS
 	elseif has('unix')
 		" Path variables
@@ -178,7 +178,7 @@
 		" TODO|
 		"    \/
 		" call utils#AutoCreateUnixCtags()
-		
+
 		" !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/ctags/tags_sys /usr/include
 		" !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/ctags/tags_sys2 /usr/local/include
 
@@ -207,7 +207,7 @@
 			" Sample use: Man 3 printf
 			" Potential plug if you need more `vim-utils/vim-man` but this should be
 			" enough
-			
+
 		" fzf
 			nnoremap <C-p> :History<CR>
 			nnoremap <A-p> :FZF<CR>
@@ -560,7 +560,7 @@
 			\ if line("'\"") > 0 && line("'\"") <= line("$") |
 			\ exe "normal g`\"" |
 			\ endif
-		au BufEnter *.md setlocal foldexpr=MarkdownLevel()  
+		au BufEnter *.md setlocal foldexpr=MarkdownLevel()
 		au BufEnter *.md setlocal foldmethod=expr
 	augroup END
 
@@ -624,18 +624,12 @@
 					\:lcl<CR>
 
 	" Miscelaneous Mappings <Leader>j?
-		" Save file with sudo permissions
-		" j mappings taken <fswypl;bqruihdma>
 		nnoremap <Leader>ce :call utils#EndOfIfComment()<CR>
-		nnoremap <Leader>mr :silent !./%<CR>
-		" TODO
-		" nnoremap <Leader>Mc :call utils#ManFind()<CR>
-		" nnoremap <Leader>Ma :Man 
+		" nnoremap <Leader>Ma :Man
 		" Most used misc get jk, jj, jl, j;
-		nnoremap <Leader>jk :call utils#Make()<CR> 
+		nnoremap <Leader>jk :call utils#Make()<CR>
 		nnoremap <Leader>jl :e $MYVIMRC<CR>
 		nnoremap <Leader>j; :NERDTree<CR>
-		nnoremap <Leader>jb :bro old<CR>
 		" Alternate between header and source file
 		nnoremap <Leader>jq :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 		" Refactor word under the cursor
@@ -649,21 +643,37 @@
 		" duplicate current char
 		nnoremap <Leader>jd ylp
 		vnoremap <Leader>jd ylp
+		" Save file with sudo permissions
 		nnoremap <Leader>ju :w !sudo tee %<CR>
 		" Markdown fix _ showing red
-		nnoremap <Leader>jf :s%/_/\\_/g<CR>
+		nnoremap <Leader>jm :%s/_/\\_/gc<CR>
 		" Reload syntax
 		nnoremap <Leader>js <Esc>:syntax sync fromstart<CR>
 		" Give execute permissions to current file
-		nnoremap <Leader>jw :!chmod a+x %<CR>
+		nnoremap <Leader>jo :!chmod a+x %<CR>
+		" Sessions
+		nnoremap <Leader>je :call utils#SaveSession()<CR>
+		nnoremap <Leader>jE :call utils#LoadSession()<CR>
+		" Count occurrances of last search
+		nnoremap <Leader>jc :%s///gn<CR>
+		" Remove Trailing Spaces
+		nnoremap <Leader>j<Space> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 		" Indenting
 		nnoremap <Leader>j2 :setlocal ts=2 sw=2 sts=2<CR>
 		nnoremap <Leader>j4 :setlocal ts=4 sw=4 sts=4<CR>
 		nnoremap <Leader>j8 :setlocal ts=8 sw=8 sts=8<CR>
-
 		" not paste the deleted word
 		nnoremap <Leader>ja "0p
 		vnoremap <Leader>ja "0p
+		" Force wings_syntax on a file
+		nnoremap <Leader>jw :set filetype=wings_syntax<CR>
+		nnoremap <Leader>jn :silent !./%<CR>
+		" Create file with name under the cursor
+		nnoremap <Leader>jf :e <cfile><CR>
+
+		" TODO
+		" j mappings taken <swypl;bqruihHdma248eEonf>
+		" nnoremap <Leader>Mc :call utils#ManFind()<CR>
 		nnoremap <C-s> :wa<CR>
 		nnoremap <C-h> :noh<CR>
 		nnoremap <C-Space> i<Space><Esc>
@@ -711,18 +721,9 @@
 		nnoremap <Leader>A <c-x>
 		" delete key
 		" math on insert mode
-		" Count occurrances of last search
-		nnoremap <Leader>cs :%s///gn<CR>
-		" Reload syntax
-		" Force wings_syntax on a file
-		nnoremap <Leader>sl :set filetype=wings_syntax<CR>
-		" Remove Trailing Spaces
-		nnoremap <Leader>c<Space> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
-		nnoremap <Leader>cl :call utils#LastCommand()<CR>
-		nnoremap <Leader>gf :e <cfile><CR>
 
 
-	" Insert Mode (Individual) mappings 
+	" Insert Mode (Individual) mappings
 		inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
 		inoremap <c-f> <del>
 		inoremap <c-l> <Right>
@@ -740,7 +741,7 @@
 		nnoremap <Leader>cu :cd ..<CR>
 					\:pwd<CR>
 		" cd into dir. press <Tab> after ci to see folders
-		nnoremap <Leader>ci :cd 
+		nnoremap <Leader>ci :cd
 		nnoremap <Leader>cc :pwd<CR>
 		nnoremap <Leader>ch :cd ~<CR>
 					\pwd<CR>
@@ -787,7 +788,7 @@
 	" Search
 		" Tried ack.vim. Discovered that nothing is better than grep with ag.
 		" search all type of files
-		nnoremap <Leader>S :grep --cpp 
+		nnoremap <Leader>S :grep --cpp
 		nnoremap <S-s> #<C-o>
 		vnoremap // y/<C-R>"<CR>
 
@@ -813,10 +814,6 @@
 		nnoremap <S-Tab> gT
 		nnoremap <S-e> :tab split<CR>
 		nnoremap <S-x> :tabclose<CR>
-
-	" Sessions
-		nnoremap <Leader>sS :call utils#SaveSession()<CR>
-		nnoremap <Leader>sL :call utils#LoadSession()<CR>
 
 	" Version Control <Leader>v?
 		" For all this commands you should be in the svn root folder
@@ -865,6 +862,7 @@
 		nnoremap <Leader>cIi :call utils#CommentIndent()<CR>
 		nnoremap <Leader>cIr :call utils#CommentReduceIndent()<CR>
 		nnoremap cl :call utils#CommentLine()<CR>
+		nnoremap <Leader>cl :call utils#LastCommand()<CR>
 
 	" Compiler
 		nnoremap <Leader>Cb :compiler borland<CR>
@@ -1118,7 +1116,7 @@
 				"call deoplete#custom#set('omni', 'min_pattern_length', 0)
 				inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
 				inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
-			 
+
 				" " Regular settings
 				inoremap <silent><expr> <TAB>
 							\ pumvisible() ? "\<C-n>" :
@@ -1182,8 +1180,8 @@
       let g:colorizer_auto_filetype='css,html,xml'
 
     " JavaComplete2
-			let g:JavaComplete_ClosingBrace = 1 
-			let g:JavaComplete_EnableDefaultMappings = 0 
+			let g:JavaComplete_ClosingBrace = 1
+			let g:JavaComplete_EnableDefaultMappings = 0
 			let g:JavaComplete_ImportSortType = 'packageName'
 			let g:JavaComplete_ImportOrder = ['android.', 'com.', 'junit.', 'net.', 'org.', 'java.', 'javax.']
 
@@ -1244,14 +1242,14 @@
 		" markdown-folding
 			" let g:markdown_fold_style = 'nested'
 			let g:markdown_fold_override_foldtext = 0
-			
+
 		" MuttAliases
 			let g:mutt_alias_filename = '~/.mutt/muttrc'
 			" let g:deoplete#omni#input_patterns.mail =
 			" TODO.RM-Fri Oct 07 2016 00:56: Need to come up with regex pattern to
-			" match Cc:, Bcc:  
+			" match Cc:, Bcc:
 			" Fork repo and fix readme to mention i_CTRL-X_CTRL-O and fix the function
-		 
+
 		" Man
 			let g:no_plugin_maps = 1
 
