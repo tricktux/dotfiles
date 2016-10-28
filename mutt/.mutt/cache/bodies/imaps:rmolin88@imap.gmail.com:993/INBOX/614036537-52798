@@ -1,0 +1,118 @@
+Delivered-To: rmolin88@gmail.com
+Received: by 10.182.19.233 with SMTP id i9csp1041340obe;
+        Fri, 28 Oct 2016 00:15:28 -0700 (PDT)
+X-Received: by 10.55.148.3 with SMTP id w3mr9099099qkd.248.1477638928033;
+        Fri, 28 Oct 2016 00:15:28 -0700 (PDT)
+Return-Path: <no-reply@alertsp.chase.com>
+Received: from shvj12.jpmchase.com (shvj12.jpmchase.com. [159.53.110.180])
+        by mx.google.com with ESMTPS id s63si7234594qkf.148.2016.10.28.00.15.27
+        for <rmolin88@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 28 Oct 2016 00:15:28 -0700 (PDT)
+Received-SPF: pass (google.com: domain of no-reply@alertsp.chase.com designates 159.53.110.180 as permitted sender) client-ip=159.53.110.180;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@alertsp.chase.com;
+       spf=pass (google.com: domain of no-reply@alertsp.chase.com designates 159.53.110.180 as permitted sender) smtp.mailfrom=no-reply@alertsp.chase.com;
+       dmarc=pass (p=REJECT dis=NONE) header.from=alertsp.chase.com
+Received: from spi3.svr.us.jpmchase.net (spi3.svr.us.jpmchase.net [169.81.124.221])       by shvj12.jpmchase.com  with ESMTP id u9S7FQJY011255       (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384(256 bits) verified OK)       for <rmolin88@gmail.com>; Fri, 28 Oct 2016 07:15:27 GMT
+DKIM-Filter: OpenDKIM Filter v2.7.5 shvj12.jpmchase.com u9S7FQJY011255
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alertsp.chase.com;
+	s=d4815; t=1477638927;
+	bh=d5CnEG5vvNyDv+loBc24j3cufriI9Z0FRRwaaaXpu10=;
+	h=Date:From:To:Subject;
+	b=IOylKiuvyF4HfG6ayQMmZjyjRzbrN4d6M5CfZ2ZvCAv0oywtcft3CbnuGy3gxHgxp
+	 bUOnHpRa3MReGH15hlwOE21v+ow5x5F3GzgaL2OSgTY8qR2Fs+8CsSgEm9Kt4VRgSq
+	 1orPVQ/cTzamsXHsKv+WLw+QDoLjb7h8I2Zmkvj1/VTohYiPf/UxJPGinzuleqgBtB
+	 FvUZEfxzdxDceBt/gXG4zq+mTqQmjNUz2iE7cdJpRHKoUwuUHfpejuJAMGqQxpPxEf
+	 MzLKnITaxzN59/Rdshgs0a61r0bfvpNHoGL60IsCbSfj82at7wZpG4hoLLwPTqN12a
+	 prwlGafxvYNTw==
+Received: from cdc2vpc5lpr17.svr.us.jpmchase.net (cdc2vpc5lpr17.svr.us.jpmchase.net [169.121.236.222])       by spi3.svr.us.jpmchase.net  with ESMTP id u9S7FQmW013091       for <rmolin88@gmail.com>; Fri, 28 Oct 2016 07:15:26 GMT
+Received: from cdc2vpc5lpr17 (loopback [127.0.0.1])
+	by cdc2vpc5lpr17.svr.us.jpmchase.net (AIX6.1/8.14.4/8.11.0) with ESMTP id u9S7FQkT47251634
+	for <rmolin88@gmail.com>; Fri, 28 Oct 2016 03:15:26 -0400
+Date: Fri, 28 Oct 2016 03:15:26 -0400 (EDT)
+From: Chase <no-reply@alertsp.chase.com>
+To: rmolin88@gmail.com
+Message-ID: <1699235769.3864695.1477638926475.JavaMail.wasadm@cdc2vpc5lpr17>
+Subject: An Alert From Chase about a Direct Deposit
+MIME-Version: 1.0
+Content-Type: text/html;charset=UTF-8
+Content-Transfer-Encoding: 7bit
+DEVICE-ID: 0
+APP-SOURCE: Alerts
+NOTIFICATION-ID: 1020807974584
+Content-Language: ENG
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN\"><html>
+	<head>
+		<title>Your Alert!!</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	</head>
+	<body>
+		<table style="color: black; background-color: white" width="580"
+			cellspacing="0" cellpadding="20" border="0">
+			<tr style="padding-bottom: 12pt">
+				<td>
+					<table cellspacing="0" cellpadding="10" border="0" width="100%" style="border: #003399 1px solid">
+						<tr>
+							<td>
+								<table cellspacing="0" cellpadding="10" width="100%"
+									border="0">
+									<tr>
+										<td nowrap valign="top" align="right">
+											<img src="https://www.chase.com/content/dam/chaseonline/en/alerts/content/secure/shared/image/chasenew.gif" alt="Chase">
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<table cellspacing="0" cellpadding="0" width="100%"
+												border="0">
+												<tr>
+													<td width="100%" style="padding-bottom: 4px" colspan="2">
+														<font size="2" face="Verdana, Arial, Helvetica, sans-serif">This is an Alert to
+															help manage your account ending in
+															6458.</font>
+													</td>
+												</tr>
+												<tr>
+													<td width="100%" style="padding-bottom: 4px" colspan="2">
+														<font size="2" face="Verdana, Arial, Helvetica, sans-serif">
+															<br>
+																																A recent $1,480.18 Direct Deposit posted on 10/28/2016 3:15:24 AM EDT to your account was more than $200.00 limit in your Alerts settings.
+																																<br>
+																	<br>
+																		<br>
+																			<br><table><tr><td><a href="www.chase.com/accountprotection" onBlur="window.status='';return true" onMouseOver="window.status='';return true" onFocus="window.status='';return true" onMouseOut="window.status='';return true"><img src="https://chaseonline.chase.com/images-preview//124747_NSF_Alert_Banner_513.gif" width="580" height="75" alt="Are these services right for you? -Account Alerts -Overdraft Protection -Chase Debit Card Overdraft Coverage(SM) Get informed!"/></a></td></tr><tr><td class="spacerh10">&nbsp;</td></tr></table>
+														</font>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p>
+					<font size="1" face="Verdana, Arial, Helvetica, sans-serif">
+						To see all of the Alerts available to you, please log on to
+						<a href="https://www.Chase.com">www.Chase.com</a>
+						.
+					</font>
+					</p><p>
+					<font size="1" face="Verdana, Arial, Helvetica, sans-serif">
+						To reply to this Alert, please send us a secure message from your
+						inbox on
+						<a href="https://www.Chase.com">www.Chase.com</a>
+						.
+					</font>
+					</p>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

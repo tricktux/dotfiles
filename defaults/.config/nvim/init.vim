@@ -634,9 +634,11 @@
 		" Most used misc get jk, jj, jl, j;
 		nnoremap <Leader>jk :call utils#Make()<CR> 
 		nnoremap <Leader>jl :e $MYVIMRC<CR>
-		nnoremap <Leader>j; :NERDTreeToggle<CR>
+		nnoremap <Leader>j; :NERDTree<CR>
 		nnoremap <Leader>jb :bro old<CR>
-		nnoremap <Leader>jq :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>"
+		" Alternate between header and source file
+		nnoremap <Leader>jq :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
+		" Refactor word under the cursor
 		nnoremap <Leader>jr :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
 		vnoremap <Leader>jr "hy:%s/<C-r>h//gc<left><left><left>
 		" Indent whole file
