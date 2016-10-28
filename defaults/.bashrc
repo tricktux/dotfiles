@@ -23,9 +23,9 @@ function _update_ps1() {
 	PS1="$(~/.powerline/powerline-shell/powerline-shell.py $? 2> /dev/null)"
 }
 
-if [ "$TERM" != "linux" ]; then
-	PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
-fi
+# if [ "$TERM" != "linux" ]; then
+	# PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+# fi
 
 # This is for fzf to use ripgrep
 # --files: List files that would be searched but do not search
@@ -48,7 +48,7 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.g
 export PATH=/home/reinaldo/.local/bin:$PATH
 
 # To use Nvim as a manpager:
-export MANPAGER="nvim -c 'set ft=man' -"
+export MANPAGER="nvim -"
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=8888
