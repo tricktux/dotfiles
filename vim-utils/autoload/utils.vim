@@ -596,7 +596,7 @@ function! utils#UpdateCscope() abort
 	" set tags+=.tags
 endfunction
 
-function! utils#Make(...)
+function! utils#Make()
 	if expand('%:p') ==? expand('$MYVIMRC')
 		so %
 		return

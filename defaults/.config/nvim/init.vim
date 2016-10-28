@@ -1,8 +1,8 @@
 " File:					_vimrc
 " Description:  Vim/Neovim configuration file
 " Author:				Reinaldo Molina
-" Version:			3.1.2
-" Date:					Thu Oct 27 2016 09:23   	
+" Version:			3.4.0
+" Date:					Thu Oct 27 2016 21:14    	
 " Improvements:
 "		" - Figure out how to handle Doxygen
 		" - [ ] Markdown tables
@@ -352,7 +352,11 @@
 		nnoremap <S-CR> O<Esc>
 	else " common cli options to both systems
 		" TODO maybe set font for terminal instead of accepting terminal font
-		set t_Co=256
+		if $TERM ==? 'linux'
+			set t_Co=8
+		else
+			set t_Co=256
+		endif
 		" fixes colorscheme not filling entire backgroud
 		set t_ut=
 		" Set blinking cursor shape everywhere
