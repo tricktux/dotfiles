@@ -71,13 +71,12 @@ macro index,pager gp "<change-folder>=[Gmail]/Important<enter>" "Go to priority 
 macro index,pager gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
 
 # Option to Save contacts so that autocompletion is possible
-set display_filter='~/.mutt/mutt.save.contacts.sh' 
-
+# set display_filter='~/.mutt/mutt.save.contacts.sh' 
 # Options to load aliasses file
-set alias_file= ~/.mutt/aliases.txt
-set sort_alias= alias
-set reverse_alias=yes
-source $alias_file
+# set alias_file= ~/.mutt/aliases.txt
+# set sort_alias= alias
+# set reverse_alias=yes
+# source $alias_file
 
 set editor="nvim"
 # set editor="vim -c 'set spell spelllang=es,en'"

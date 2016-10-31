@@ -39,8 +39,8 @@
 
 		nnoremap <Leader>mr :!%<CR>
 		" Copy and paste into system wide clipboard
-		nnoremap <Leader>jp "*p
-		vnoremap <Leader>jp "*p
+		nnoremap <Leader>jp "*p=`]<C-o>
+		vnoremap <Leader>jp "*p=`]<C-o>
 
 		nnoremap <Leader>jy "*yy
 		vnoremap <Leader>jy "*y
@@ -83,7 +83,7 @@
 		nnoremap <Leader>mt :Dispatch powershell -command "& {&'Measure-Command' {.\sep_calc.exe seprc}}"<CR>
 
 		nnoremap <Leader>ep :e ~/vimfiles/plugged/
-		nnoremap <Leader>mu :call utils#MakeUpdateBorlandMakefile()<CR>
+		nnoremap <Leader>mu :call utils#UpdateBorlandMakefile()<CR>
 
 		" call utils#AutoCreateWinCtags()
 
@@ -129,8 +129,8 @@
 		nnoremap <Leader>mr :silent !./%<CR>
 
 		" System paste
-		nnoremap <Leader>jp "+p
-		vnoremap <Leader>jp "+p
+		nnoremap <Leader>jp "+p=`]<C-o>
+		vnoremap <Leader>jp "+p=`]<C-o>
 
 		nnoremap <Leader>jy "+yy
 		vnoremap <Leader>jy "+y
@@ -173,6 +173,7 @@
 			autocmd!
 			autocmd FileType markdown nnoremap <buffer> <Leader>mr :!google-chrome-stable %<CR>
 			autocmd FileType fzf tnoremap <buffer> <C-j> <Down>
+			autocmd TermOpen * setlocal statusline=%{b:term_title}
 		augroup END
 
 		" TODO|
@@ -240,8 +241,6 @@
     tnoremap <A-l> <C-\><C-n><C-w>l
 		tnoremap <C-o> <Up>
 		tnoremap <C-l> <Right>
-		nnoremap <Leader>tv :call utils#OpenTerminal()<CR>
-		nnoremap <Leader>to :term<CR>
 		let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 	endif
 
@@ -280,9 +279,8 @@
 			Plug 'neomake/neomake'
 			Plug 'Shougo/deoplete.nvim'
 			Plug 'vhakulinen/neovim-intellij-complete-deoplete'
-			" Name of the Intellij Plugin for AndroidStudio
-			" Plug 'vhakulinen/neovim-intellij-complete'
 			Plug 'vhakulinen/neovim-java-client'
+			Plug 'critiqjo/lldb.nvim'
 		else
 			" Vim exclusive plugins
 			Plug 'Shougo/neocomplete'
@@ -624,7 +622,6 @@
 					\:lcl<CR>
 
 	" Miscelaneous Mappings <Leader>j?
-		nnoremap <Leader>ce :call utils#EndOfIfComment()<CR>
 		" nnoremap <Leader>Ma :Man
 		" Most used misc get jk, jj, jl, j;
 		nnoremap <Leader>jk :call utils#Make()<CR>
@@ -670,6 +667,13 @@
 		nnoremap <Leader>jn :silent !./%<CR>
 		" Create file with name under the cursor
 		nnoremap <Leader>jf :e <cfile><CR>
+		" Diff Sutff
+		command! SetDiff call utils#SetDiff()
+		nnoremap <Leader>jz :SetDiff<CR>
+		nnoremap <Leader>jZ :call utils#UnsetDiff()<CR>
+		nnoremap <Leader>jt :call utils#ToggleTerm()<CR>
+		nnoremap <Leader>j. :call utils#LastCommand()<CR>
+
 
 		" TODO
 		" j mappings taken <swypl;bqruihHdma248eEonf>
@@ -699,6 +703,7 @@
 		nnoremap <S-q> yyp
 		" move to the beggning of line
 		nnoremap <S-w> $
+		vnoremap <S-w> $
 		" move to the end of line
 		nnoremap <S-b> ^
 		" jump to corresponding item<Leader> ending {,(, etc..
@@ -728,14 +733,14 @@
 		inoremap <c-f> <del>
 		inoremap <c-l> <Right>
 
-	" Edit local
+	" Edit local <Leader>e?
 		nnoremap <Leader>el :silent e ~/
 		" cd into current dir path and into dir above current path
 		nnoremap <Leader>e1 :e ~/.dotfiles/
 		" Edit Vimruntime
 		nnoremap <Leader>ev :e $VIMRUNTIME/
 
-	" CD
+	" CD <Leader>c?
 		nnoremap <Leader>cd :cd %:p:h<CR>
 					\:pwd<CR>
 		nnoremap <Leader>cu :cd ..<CR>
@@ -763,11 +768,6 @@
 		nnoremap <a-k> <C-w>k
 		nnoremap <a-l> <C-w>l
 
-	" Diff Sutff
-		command! SetDiff call utils#SetDiff()
-		nnoremap <Leader>do :SetDiff<CR>
-		nnoremap <Leader>dl :call utils#UnsetDiff()<CR>
-
 	" Spell Check <Leader>s?
 		" search forward
 		nnoremap <Leader>sn ]s
@@ -785,7 +785,7 @@
 		" repeat last spell correction
 		nnoremap <Leader>sr :spellr<CR>
 
-	" Search
+	" Search <Leader>S
 		" Tried ack.vim. Discovered that nothing is better than grep with ag.
 		" search all type of files
 		nnoremap <Leader>S :grep --cpp
@@ -856,13 +856,13 @@
 		nnoremap <Leader>wo :call utils#WikiOpen()<CR>
 		nnoremap <Leader>ws :call utils#WikiSearch()<CR>
 
-	" Comments
+	" Comments <Leader>c
 		nnoremap <Leader>cD :call utils#CommentDelete()<CR>
 		" Comment Indent Increase/Reduce
 		nnoremap <Leader>cIi :call utils#CommentIndent()<CR>
 		nnoremap <Leader>cIr :call utils#CommentReduceIndent()<CR>
 		nnoremap cl :call utils#CommentLine()<CR>
-		nnoremap <Leader>cl :call utils#LastCommand()<CR>
+		nnoremap <Leader>ce :call utils#EndOfIfComment()<CR>
 
 	" Compiler
 		nnoremap <Leader>Cb :compiler borland<CR>

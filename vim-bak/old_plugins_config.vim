@@ -982,3 +982,5 @@
 			let g:airline_extensions = ['branch']
 
 		nnoremap <Leader>md :Dox<CR>
+			" Name of the Intellij Plugin for AndroidStudio
+			" Plug 'vhakulinen/neovim-intellij-complete'
