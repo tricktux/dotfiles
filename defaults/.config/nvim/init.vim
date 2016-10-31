@@ -699,6 +699,7 @@
 		nnoremap <S-q> yyp
 		" move to the beggning of line
 		nnoremap <S-w> $
+		vnoremap <S-w> $
 		" move to the end of line
 		nnoremap <S-b> ^
 		" jump to corresponding item<Leader> ending {,(, etc..
