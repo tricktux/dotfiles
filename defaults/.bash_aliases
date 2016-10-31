@@ -28,7 +28,7 @@ alias mount-hq='sshfs reinaldo@HQ:/home/reinaldo/ /home/reinaldo/.mnt/HQ-server/
 # Misc
 alias tmux='tmux -2'
 alias ll='ls -als'
-alias vim='nvim'
+alias vim=FuncNvim
 # Reload rxvt and deamon
 # Search help
 alias help=FuncHelp
@@ -56,4 +56,15 @@ FuncCheckCopy()
 		echo "$dst of $total"
 		sleep 60
 	done
+}
+
+FuncNvim()
+{
+	if hash nvim 2>/dev/null; then
+		nvim "$@"
+	elif hash vim 2>/dev/null; then
+		vim "$@"
+	else
+		vi "$@"
+	fi
 }

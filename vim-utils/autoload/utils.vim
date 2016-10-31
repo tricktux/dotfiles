@@ -556,7 +556,7 @@ function! utils#WingsSymLink(sPath) abort
 	cd -
 endfunction
 
-function! utils#MakeUpdateBorlandMakefile() abort
+function! utils#UpdateBorlandMakefile() abort
 	" If compiler is not borland(set by SetupCompiler) fail.
 	if empty(get(b:, 'current_compiler', 0))
 		echomsg "Error, not in WINGS folder"
@@ -598,9 +598,9 @@ endfunction
 
 function! utils#Make()
 	if expand('%:p') ==? expand('$MYVIMRC')
-		so %
+		so $MYVIMRC
 		return
-	elseif empty(get(b:, 'current_compiler'))
+	elseif has('win32') && empty(get(b:, 'current_compiler'))
 		let l:path = expand('%:p')
 		" Notice inside the '' is a pat which is a regex. That is why \\
 		if match(l:path,'NeoOneWINGS\\Source') > 0
@@ -609,6 +609,9 @@ function! utils#Make()
 			compiler msbuild
 			silent set errorformat&
 		endif
+	else
+		Neomake!
+		return
 	endif
 	make
 endfunction
@@ -619,4 +622,16 @@ function! utils#WikiSearch() abort
 	cd -
 endfunction
 
+function! utils#ToggleTerm() abort
+	if has('nvim')
+		if empty(bufname("term://*"))
+			" split window and term
+			call utils#OpenTerminal()
+		else
+			execute "b " . bufname("term*")
+		endif
+	else
+		echoerr "<term> only available on nvim"
+	endif
+endfunction
 " vim:tw=78:ts=2:sts=2:sw=2:
