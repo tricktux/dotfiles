@@ -15,6 +15,7 @@ let mapleader=" "
 " VIM MAPPINGS
 " Miscelaneous
 inoremap <c-c> //<Space> 
+inoremap <c-l> <Right>
 
 inoremap <c-j> <ESC>
 cnoremap <c-j> <ESC>
