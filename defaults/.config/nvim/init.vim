@@ -673,6 +673,8 @@
 		nnoremap <Leader>jZ :call utils#UnsetDiff()<CR>
 		nnoremap <Leader>jt :call utils#ToggleTerm()<CR>
 		nnoremap <Leader>j. :call utils#LastCommand()<CR>
+		" Encapsulate in markdown file from current line until end of file in ```
+		nnoremap <Leader>j` :normal i````cpp<Esc>Go```<Esc><CR>
 
 
 		" TODO
@@ -726,7 +728,6 @@
 		nnoremap <Leader>A <c-x>
 		" delete key
 		" math on insert mode
-
 
 	" Insert Mode (Individual) mappings
 		inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
