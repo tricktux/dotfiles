@@ -1,0 +1,83 @@
+" File:					.ideavimrc
+" Description:	IntelliJ IdeaVim Plugin Configuration
+"								Tailored for Android-Studio 
+" Author:				Reinaldo Molina
+" Version:			0.8.0
+" Date:					Sep 29 2016 10:38
+" Improvements:
+"  [ ] Research show sample code
+"  [ ] Goto class
+"  [ ] Go to count g;
+"  [ ] Refactor
+"  [ ] Window managment
+
+let mapleader=" "
+" VIM MAPPINGS
+" Miscelaneous
+inoremap <c-c> //<Space> 
+inoremap <c-l> <Right>
+
+inoremap <c-j> <ESC>
+cnoremap <c-j> <ESC>
+
+nnoremap <s-b> ^
+nnoremap <s-w> $
+
+nnoremap <s-q> yyp
+nnoremap <s-q> yyp
+
+nnoremap <s-t> %
+
+nnoremap <Leader><Space>v "*p
+nnoremap <c-m> o<ESC>
+nnoremap <cr> o<ESC>
+" Source ideavimrc
+nnoremap <Leader>ms :so ~/.ideavimrc<CR>
+
+nnoremap <Leader><Space>v "+p
+nnoremap <Leader><Space>y "+yy
+
+noremap <Leader>I ggvG=
+nnoremap <c-h> :noh<CR>
+noremap <S-s> #<C-o>
+nnoremap <Leader>A <c-x>
+
+" Window navigation
+nnoremap <Leader>l <c-w>l
+nnoremap <Leader>j <c-w>j
+nnoremap <Leader>h <c-w>h
+nnoremap <Leader>k <c-w>k
+
+" Command Line
+cnoremap <c-o> <up>
+cnoremap <c-k> <down>
+
+" Folding
+" Folding select text then S-f to fold or just S-f to toggle folding
+" not supported
+nnoremap <C-z> zz
+nnoremap <C-c> zM
+nnoremap <C-n> zR
+" not supported
+nnoremap <C-x> zo
+" dont use <C-a> it conflicts with tmux prefix
+set foldenable
+" global fold indent
+set foldmethod=indent
+set foldnestmax=18      "deepest fold is 18 levels
+set foldlevel=0
+set foldlevelstart=0
+
+" Not paste the deleted word
+nnoremap <Leader>p "0p
+vnoremap <Leader>p "0p
+
+" SET_OPTIONS
+set relativenumber
+set hlsearch      " highlight search terms
+set number
+set showmode
+set notimeout
+set nottimeout
+set surround
+set incsearch
