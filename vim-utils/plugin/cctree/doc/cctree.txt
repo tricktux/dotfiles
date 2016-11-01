@@ -5,7 +5,7 @@
 Author: Hari Rangarajan (First.Last AT gmail DOT com)
 Last Change: 20 May 2011
 
-CCTree version 1.51
+*CCTree* version 1.51
 
 For Vim version 7.0 and above
 

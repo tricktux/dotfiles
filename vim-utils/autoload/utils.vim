@@ -583,8 +583,8 @@ function! utils#UpdateCscope() abort
 		!rm cscope.files cscope.out cscope.po.out cscope.in.out
 		!find . -iregex '.*\.\(c\|cpp\|java\|cc\|h\|hpp\)$' > cscope.files
 	else
-		!del /F cscope.files cscope.in.out cscope.po.out cscope.out<CR>
-		!dir /b /s *.java *.cpp *.h *.hpp *.c *.cc *.cs > cscope.files<CR>
+		!del /F cscope.files cscope.in.out cscope.po.out cscope.out
+		!dir /b /s *.java *.cpp *.h *.hpp *.c *.cc *.cs > cscope.files
 	endif
 	!cscope -b -q -i cscope.files
 	if !filereadable('cscope.out')
