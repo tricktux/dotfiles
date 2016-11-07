@@ -600,14 +600,16 @@ function! utils#Make()
 	if expand('%:p') ==? expand('$MYVIMRC')
 		so $MYVIMRC
 		return
-	elseif has('win32') && empty(get(b:, 'current_compiler'))
-		let l:path = expand('%:p')
-		" Notice inside the '' is a pat which is a regex. That is why \\
-		if match(l:path,'NeoOneWINGS\\Source') > 0
-			compiler borland
-		elseif match(l:path,'NeoOneWINGS') > 0
-			compiler msbuild
-			silent set errorformat&
+	elseif has('win32') 
+		if empty(get(b:, 'current_compiler'))
+			let l:path = expand('%:p')
+			" Notice inside the '' is a pat which is a regex. That is why \\
+			if match(l:path,'NeoOneWINGS\\Source') > 0
+				compiler borland
+			elseif match(l:path,'NeoOneWINGS') > 0
+				compiler msbuild
+				silent set errorformat&
+			endif
 		endif
 	else
 		Neomake!
