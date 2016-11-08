@@ -45,17 +45,6 @@
 		nnoremap <Leader>jy "*yy
 		vnoremap <Leader>jy "*y
 
-		nnoremap <Leader><Space>= :silent! let &guifont = substitute(
-		\ &guifont,
-		\ ':h\zs\d\+',
-		\ '\=eval(submatch(0)+1)',
-		\ '')<CR>
-		nnoremap <Leader><Space>- :silent! let &guifont = substitute(
-		\ &guifont,
-		\ ':h\zs\d\+',
-		\ '\=eval(submatch(0)-1)',
-		\ '')<CR>
-
 		nnoremap  o<Esc>
 
 		" Mappings to execute programs
@@ -154,18 +143,6 @@
 		else
 			nnoremap <Leader>ep :e ~/.vim/plugged/
 		endif
-
-
-		nnoremap <Leader><Space>= :silent! let &guifont = substitute(
-		\ &guifont,
-		\ '\ \zs\d\+',
-		\ '\=eval(submatch(0)+1)',
-		\ '')<CR>
-		nnoremap <Leader><Space>- :silent! let &guifont = substitute(
-		\ &guifont,
-		\ '\ \zs\d\+',
-		\ '\=eval(submatch(0)-1)',
-		\ '')<CR>
 
 		nnoremap <CR> o<ESC>
 
@@ -675,6 +652,8 @@
 		nnoremap <Leader>j. :call utils#LastCommand()<CR>
 		" Encapsulate in markdown file from current line until end of file in ```
 		nnoremap <Leader>j` :normal i````cpp<Esc>Go```<Esc><CR>
+		nnoremap <Leader>j- :call utils#GuiFont("-")<CR>
+		nnoremap <Leader>j= :call utils#GuiFont("+")<CR>
 
 
 		" TODO
@@ -847,12 +826,12 @@
 			nnoremap <Leader>gl :silent Glog<CR>
 							\:copen 20<CR>
 
-	" Todo mappings
+	" Todo mappings <Leader>t?
 		nnoremap <Leader>td :call utils#TodoCreate()<CR>
 		nnoremap <Leader>tm :call utils#TodoMark()<CR>
 		nnoremap <Leader>tM :call utils#TodoClearMark()<CR>
 		nnoremap <Leader>ta :call utils#TodoAdd()<CR>
-		" pull up todo/quick notes list
+	" Wiki mappings <Leader>w?
 		nnoremap <Leader>wt :call utils#WikiOpen('TODO.md')<CR>
 		nnoremap <Leader>wo :call utils#WikiOpen()<CR>
 		nnoremap <Leader>ws :call utils#WikiSearch()<CR>
@@ -949,7 +928,7 @@
       nnoremap <Leader>tk :cs kill -1<CR>
       nnoremap <silent> <Leader>tj <C-]>
       nnoremap <Leader>tr <C-t>
-      nnoremap <Leader>tn :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+      nnoremap <Leader>tv :vs<CR>:exec("tag ".expand("<cword>"))<CR>
       " ReLoad cscope database
       nnoremap <Leader>tl :cs add cscope.out<CR>
       " Find functions calling this function
