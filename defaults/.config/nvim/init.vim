@@ -1,8 +1,8 @@
 " File:					_vimrc
 " Description:  Vim/Neovim configuration file
 " Author:				Reinaldo Molina
-" Version:			3.4.0
-" Date:					Thu Oct 27 2016 21:14
+" Version:			3.4.1
+" Date:					Tue Nov 08 2016 16:24 
 " Improvements:
 "		" - Figure out how to handle Doxygen
 		" - [ ] Markdown tables
@@ -71,7 +71,6 @@
 		" Time runtime of a specific program
 		nnoremap <Leader>mt :Dispatch powershell -command "& {&'Measure-Command' {.\sep_calc.exe seprc}}"<CR>
 
-		nnoremap <Leader>ep :e ~/vimfiles/plugged/
 		nnoremap <Leader>mu :call utils#UpdateBorlandMakefile()<CR>
 
 		" call utils#AutoCreateWinCtags()
@@ -137,12 +136,6 @@
 		nnoremap <Leader>ec :silent e ~/.mnt/copter-server/
 		" Edit Truck
 		nnoremap <Leader>et :silent e ~/.mnt/truck-server/
-		" Edit plugin
-		if has('nvim')
-			nnoremap <Leader>ep :e ~/.config/nvim/plugged/
-		else
-			nnoremap <Leader>ep :e ~/.vim/plugged/
-		endif
 
 		nnoremap <CR> o<ESC>
 
@@ -326,7 +319,6 @@
 		set guioptions-=L  " no side scroll bar
 		nnoremap <S-CR> O<Esc>
 	else " common cli options to both systems
-		" TODO maybe set font for terminal instead of accepting terminal font
 		if $TERM ==? 'linux'
 			set t_Co=8
 		else
@@ -493,7 +485,6 @@
 	" is foldmethod=syntax
 	augroup Filetypes
 		autocmd!
-		" TODO convert each of these categories into its own augroup
 		" C/Cpp
 		autocmd FileType c,cpp setlocal omnifunc=ClangComplete
 		autocmd FileType c,cpp setlocal ts=4 sw=4 sts=4
@@ -683,7 +674,8 @@
 		" Switch back and forth between header file
 		nnoremap <S-q> yyp
 		" move to the beggning of line
-		nnoremap <S-w> $
+		" Don't make this nnoremap. Breaks stuff
+		noremap <S-w> $
 		vnoremap <S-w> $
 		" move to the end of line
 		nnoremap <S-b> ^
@@ -701,6 +693,9 @@
 		" Visual shifting (does not exit Visual mode)
 		vnoremap < <gv
 		vnoremap > >gv
+		" Edit plugin
+		" nnoremap <Leader>ep :execute("e " . expand(s:plugged_path))
+		nnoremap <Leader>ep :call utils#EditPlugins()<CR>
 
 		" see :h <c-r>
 		" decrease number

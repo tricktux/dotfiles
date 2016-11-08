@@ -641,4 +641,9 @@ function! utils#GuiFont(sOp) abort
 	let &guifont = substitute(&guifont, sub,'\=eval(submatch(0)'.a:sOp.'1)','')
 endfunction
 
+function! utils#EditPlugins() abort
+	execute "cd " .s:plugged_path
+	execute "e " . input('e ' . expand(s:plugged_path), "", "file")
+	cd -
+endfunction
 " vim:tw=78:ts=2:sts=2:sw=2:
