@@ -636,4 +636,9 @@ function! utils#ToggleTerm() abort
 		echoerr "<term> only available on nvim"
 	endif
 endfunction
+function! utils#GuiFont(sOp) abort
+	let sub = has('win32') ? ':h\zs\d\+' : '\ \zs\d\+'
+	let &guifont = substitute(&guifont, sub,'\=eval(submatch(0)'.a:sOp.'1)','')
+endfunction
+
 " vim:tw=78:ts=2:sts=2:sw=2:
