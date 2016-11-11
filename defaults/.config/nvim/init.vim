@@ -1,7 +1,7 @@
 " File:					_vimrc
 " Description:  Vim/Neovim configuration file
 " Author:				Reinaldo Molina
-" Version:			3.4.1
+" Version:			3.4.2
 " Date:					Tue Nov 08 2016 16:24 
 " Improvements:
 "		" - Figure out how to handle Doxygen
@@ -694,8 +694,8 @@
 		vnoremap < <gv
 		vnoremap > >gv
 		" Edit plugin
-		" nnoremap <Leader>ep :execute("e " . expand(s:plugged_path))
 		nnoremap <Leader>ep :call utils#EditPlugins()<CR>
+		nnoremap <Leader>ei :e 
 
 		" see :h <c-r>
 		" decrease number
