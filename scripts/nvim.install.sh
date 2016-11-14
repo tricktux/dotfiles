@@ -15,21 +15,21 @@ install='pacaur -S --noconfirm'
 # $install python-dev python-pip python3-dev python3-pip
 # $install python python-pip python2 python2-pip
 # ninja-build
-pip2 install neovim
-pip3 install neovim
+# pip2 install neovim
+# pip3 install neovim
 
 # Link vimrc file:
 # mdir .config/nvim
 # cd .config/nvim
 # ln -s ~/vimrc/_vimrc init.vim
-# cd
-# rm -rf neovim
-# git clone https://github.com/neovim/neovim.git --depth 1
+cd
+rm -rf neovim
+git clone https://github.com/neovim/neovim.git --depth 1
 cd ~/neovim
 make -j8 CMAKE_BUILD_TYPE=Release CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX:PATH=$HOME/neovim"
 make install
-# pip2 install --upgrade neovim
-# pip3 install --upgrade neovim
+pip2 install --upgrade neovim
+pip3 install --upgrade neovim
 # cd ~/bin
 # ln -s ~/neovim/bin/nvim
 

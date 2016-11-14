@@ -612,7 +612,7 @@ function! utils#Make()
 			endif
 		endif
 	else
-		Neomake!
+		Neomake
 		return
 	endif
 	make
@@ -645,5 +645,23 @@ function! utils#EditPlugins() abort
 	execute "cd " .s:plugged_path
 	execute "e " . input('e ' . expand(s:plugged_path), "", "file")
 	cd -
+endfunction
+
+function! utils#FormatFile() abort
+	if &ft ==? 'cpp'
+		if exists(":Autoformat")
+			Autoformat
+		else
+			echomsg string("No Autoformat present")
+		endif
+	elseif &ft ==? 'java'
+		if exists(":JavaFmt")
+			JavaFmt
+		else
+			echomsg string("No java-fmt present")
+		endif
+	else
+		echomsg string("No formatter for this filetype")
+	endif
 endfunction
 " vim:tw=78:ts=2:sts=2:sw=2:

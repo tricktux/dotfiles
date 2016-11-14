@@ -143,7 +143,6 @@
 			autocmd!
 			autocmd FileType markdown nnoremap <buffer> <Leader>mr :!google-chrome-stable %<CR>
 			autocmd FileType fzf tnoremap <buffer> <C-j> <Down>
-			autocmd TermOpen * setlocal statusline=%{b:term_title}
 		augroup END
 
 		" TODO|
@@ -171,7 +170,8 @@
 			let g:clang_library_path='/usr/lib/libclang.so'
 
 		" Chromatica
-			let g:chromatica#libclang_path='/usr/lib/libclang.so'
+			let g:chromatica#enable_at_startup = 1
+
 
 		" Vim-Man
 			runtime! ftplugin/man.vim
@@ -245,11 +245,9 @@
 		call plug#begin(s:plugged_path)
 		if has('nvim')
 			" Neovim exclusive plugins
-			Plug 'arakashic/chromatica.nvim'
+			" Plug 'arakashic/chromatica.nvim', { 'for' : [ 'c' , 'cpp' ] }
 			Plug 'neomake/neomake'
 			Plug 'Shougo/deoplete.nvim'
-			Plug 'vhakulinen/neovim-intellij-complete-deoplete'
-			Plug 'vhakulinen/neovim-java-client'
 			Plug 'critiqjo/lldb.nvim'
 		else
 			" Vim exclusive plugins
@@ -271,8 +269,7 @@
 		Plug 'airblade/vim-rooter'
 		Plug 'Raimondi/delimitMate'
 		Plug 'dkarter/bullets.vim'
-		" TODO: Configure
-		" Plug 'Chiel92/vim-autoformat'
+		Plug 'Chiel92/vim-autoformat'
 		if has('unix') " Potential alternative to ctrlp
 			Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 			Plug 'junegunn/fzf.vim'
@@ -444,13 +441,12 @@
 			set cscopequickfix=s+,c+,d+,i+,t+,e+
 		endif
 	endif
-	set matchpairs+=<:>
+	" set matchpairs+=<:>
 	set autoread " autoload files written outside of vim
 	" Display tabs and trailing spaces visually
 	"set list listchars=tab:\ \ ,trail:?
 	set linebreak    "Wrap lines at convenient points
 	" Open and close folds Automatically
-	set foldenable
 	" global fold indent
 	set foldmethod=indent
 	set foldnestmax=18      "deepest fold is 18 levels
@@ -488,8 +484,11 @@
 		" C/Cpp
 		autocmd FileType c,cpp setlocal omnifunc=ClangComplete
 		autocmd FileType c,cpp setlocal ts=4 sw=4 sts=4
+		" autocmd FileType c,cpp ChromaticaStart
+		" autocmd FileType cpp set keywordprg=cppman
 	 	" Rainbow cannot be enabled for help file. It breaks syntax highlight
 		autocmd FileType c,cpp,java RainbowParentheses
+		autocmd FileType c,cpp,java,vim setlocal foldenable
 		" Java
 		autocmd FileType java setlocal omnifunc=javacomplete#Complete
 		autocmd FileType java compiler gradlew
@@ -634,7 +633,7 @@
 		nnoremap <Leader>jw :set filetype=wings_syntax<CR>
 		nnoremap <Leader>jn :silent !./%<CR>
 		" Create file with name under the cursor
-		nnoremap <Leader>jf :e <cfile><CR>
+		nnoremap <Leader>jf :call utils#FormatFile()<CR>
 		" Diff Sutff
 		command! SetDiff call utils#SetDiff()
 		nnoremap <Leader>jz :SetDiff<CR>
@@ -723,7 +722,7 @@
 		" cd into dir. press <Tab> after ci to see folders
 		nnoremap <Leader>ci :cd
 		nnoremap <Leader>cc :pwd<CR>
-		nnoremap <Leader>ch :cd ~<CR>
+		nnoremap <Leader>ch :cd ~/<CR>
 					\pwd<CR>
 
 	" Folding
@@ -1131,16 +1130,11 @@
       " 3. install libclang-dev package. See g:clang_library_path to where it gets
       " installed. Also I had to make sym link: ln -s libclang.so.1 libclang.so
       if !executable('clang')
-        echomsg string("No clang or clang-format present")
+        echomsg string("No clang present. Disabling vim-clang")
 				let g:clang_complete_loaded = 1
       else
-        " TODO: Go copy code from vim-clang that does this
-				" if !executable('clang-format')
-					" echomsg string("No clang formatter installed")
-				" endif
-        " nnoremap <c-f> :ClangFormat<CR>
-
         let g:clang_user_options = '-std=c++14 -stdlib=libc++ -Wall -pedantic'
+				let g:clang_close_preview = 1
         " let g:clang_complete_copen = 1
 				" let g:clang_periodic_quickfix = 1
       endif
@@ -1205,11 +1199,12 @@
 					\ 'texthl': 'ErrorMsg',
 					\ }
 			endif
-			" delimitMate
-				let g:delimitMate_expand_cr = 1
-				let g:delimitMate_expand_space = 1
-				let g:delimitMate_jump_expansion = 1
-				" imap <expr> <CR> <Plug>delimitMateCR
+
+		" delimitMate
+			let g:delimitMate_expand_cr = 1
+			let g:delimitMate_expand_space = 1
+			let g:delimitMate_jump_expansion = 1
+			" imap <expr> <CR> <Plug>delimitMateCR
 
 		" ft-markdown-syntax
 			let g:markdown_fenced_languages= [ 'cpp', 'vim' ]
@@ -1230,6 +1225,28 @@
 
 		" Bullets
 			let g:bullets_set_mappings = 0
+
+		" Autoformat
+			let g:autoformat_autoindent = 0
+			let g:autoformat_retab = 0
+			let g:autoformat_remove_trailing_spaces = 0
+
+		" lldb.vim
+			nmap <Leader>db <Plug>LLBreakSwitch
+			" vmap <F2> <Plug>LLStdInSelected
+			" nnoremap <F4> :LLstdin<CR>
+			" nnoremap <F5> :LLmode debug<CR>
+			" nnoremap <S-F5> :LLmode code<CR>
+			nnoremap <Leader>dc :LL continue<CR>
+			nnoremap <Leader>do :LL thread step-over<CR>
+			nnoremap <Leader>di :LL thread step-in<CR>
+			nnoremap <Leader>dt :LL thread step-out<CR>
+			nnoremap <Leader>dD :LLmode code<CR>
+			nnoremap <Leader>dd :LLmode debug<CR>
+			nnoremap <Leader>dp :LL print <C-R>=expand('<cword>')<CR>
+			" nnoremap <S-F8> :LL process interrupt<CR>
+			" nnoremap <F9> :LL print <C-R>=expand('<cword>')<CR>
+			" vnoremap <F9> :<C-U>LL print <C-R>=lldb#util#get_selection()<CR><CR>
 	endif
 
 " see :h modeline
