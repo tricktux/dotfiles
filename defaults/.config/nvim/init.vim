@@ -601,8 +601,7 @@
 		vnoremap <Leader>jr "hy:%s/<C-r>h//gc<left><left><left>
 		" Indent whole file
 		nnoremap <Leader>ji mzgg=G`z
-		" Help <Leader>h
-		nnoremap <Leader>jh :h <c-r>=expand("<cword>")<CR><CR>
+		nnoremap <Leader>jh K
 		nnoremap <Leader>jH :Helptags<CR>
 		" duplicate current char
 		nnoremap <Leader>jd ylp
@@ -696,11 +695,10 @@
 		nnoremap <Leader>ep :call utils#EditPlugins()<CR>
 		nnoremap <Leader>ei :e 
 
-		" see :h <c-r>
 		" decrease number
 		nnoremap <Leader>A <c-x>
-		" delete key
-		" math on insert mode
+		nnoremap yl :call utils#YankFrom()<CR>
+		nnoremap dl :call utils#DeleteLine()<CR>
 
 	" Insert Mode (Individual) mappings
 		inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
