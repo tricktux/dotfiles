@@ -984,3 +984,13 @@
 		nnoremap <Leader>md :Dox<CR>
 			" Name of the Intellij Plugin for AndroidStudio
 			" Plug 'vhakulinen/neovim-intellij-complete'
+			" Trying to get intellij con nvim didnt work
+			Plug 'vhakulinen/neovim-intellij-complete-deoplete'
+			Plug 'vhakulinen/neovim-java-client'
+
+				let g:neomake_cpp_make_maker = {
+							\ 'exe': 'make',
+							\ 'args': ['--build'],
+							\ 'errorformat': '%f:%l:%c: %m',
+							\ }
+				let g:neomake_cpp_enabled_makers = ['make']
