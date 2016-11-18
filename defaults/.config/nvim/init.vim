@@ -212,6 +212,7 @@
 		tnoremap <C-o> <Up>
 		tnoremap <C-l> <Right>
 		let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+		set inccommand=split
 	endif
 
 " PLUGINS_FOR_BOTH_SYSTEMS
