@@ -609,6 +609,9 @@ function! utils#Make()
 			elseif match(l:path,'NeoOneWINGS') > 0
 				compiler msbuild
 				silent set errorformat&
+			else " if outside wings folder set gcc compiler
+				compiler gcc
+				setlocal makeprg=mingw32-make
 			endif
 		endif
 	else
