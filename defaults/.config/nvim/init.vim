@@ -213,6 +213,7 @@
 		tnoremap <C-l> <Right>
 		let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 		set inccommand=split
+		set clipboard+=unnamedplus
 	endif
 
 " PLUGINS_FOR_BOTH_SYSTEMS
@@ -246,7 +247,7 @@
 		call plug#begin(s:plugged_path)
 		if has('nvim')
 			" Neovim exclusive plugins
-			" Plug 'arakashic/chromatica.nvim', { 'for' : [ 'c' , 'cpp' ] }
+			Plug 'equalsraf/neovim-gui-shim'
 			Plug 'neomake/neomake'
 			Plug 'Shougo/deoplete.nvim'
 			Plug 'critiqjo/lldb.nvim'
@@ -316,6 +317,10 @@
 		set guioptions-=l  " no left scroll bar
 		set guioptions-=L  " no side scroll bar
 		nnoremap <S-CR> O<Esc>
+		" if has('nvim')
+			" command -nargs=? Guifont call rpcnotify(0, 'Gui', 'SetFont', "\<args\>") | let g:Guifont="<args>"
+			" Guifont Courier New:h6
+		" endif
 	else " common cli options to both systems
 		if $TERM ==? 'linux'
 			set t_Co=8
@@ -336,6 +341,7 @@
 			let &t_SI = "\<Esc>[5 q"
 			let &t_EI = "\<Esc>[1 q"
 		endif
+		Guifont DejaVu Sans Mono:h13
 	endif
 
 " PERFORMANCE_SETTINGS
@@ -353,6 +359,9 @@
 	" let g:tex_fast= "" " on super slow activate this, price: no syntax
 	" highlight
 	" set fsync " already had problems with it. lost an entire file. dont use it
+	if has('nvim')
+		Guifont DejaVu Sans Mono:h13
+	endif
 
 " Create personal folders
 	" TMP folder
