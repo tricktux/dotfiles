@@ -21,6 +21,9 @@ commit_msg.wiki
 *.elf
 *.hex
 cache
+autoload
+plugged
+cppman
 
 # Qt ignore
 # C++ objects and libs
