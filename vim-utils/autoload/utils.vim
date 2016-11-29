@@ -1,3 +1,10 @@
+
+" File:					utils.vim
+" Description:	Function Container
+" Author:				Reinaldo Molina <rmolin88@gmail.com>
+" Version:			2.0.0
+" Date:					Sat Nov 26 2016 09:29
+
 if has('win32')
 	" Path variables
 	let s:cache_path= $HOME . '\.cache\'
@@ -566,7 +573,12 @@ function! utils#UpdateBorlandMakefile() abort
 endfunction
 
 function! utils#OpenTerminal() abort
-	execute "normal :vs\<CR>\<c-w>l:terminal\<CR>"
+	let sys = system('uname -o')
+	if sys =~ 'Android'
+		execute "normal :vs\<CR>\<c-w>l:e term:\/\/bash\<CR>"
+	else
+		execute "normal :vs\<CR>\<c-w>l:terminal\<CR>"
+	endif
 endfunction
 
 function! utils#UpdateCscope() abort
@@ -667,4 +679,27 @@ function! utils#FormatFile() abort
 		echomsg string("No formatter for this filetype")
 	endif
 endfunction
+
+function! utils#UpdateHeader()
+	exe "normal! mz"
+  if line("$") > 20
+    let l = 20
+  else
+    let l = line("$")
+  endif
+	" Last Modified
+  exe "1," . l . "g/Last modified:/s/Last modified:.*/Last modified: " .
+  \ strftime("%a %b %d %Y %H:%M")
+	" Last Author
+	exe "1," . l . "g/Last Author:/s/Last Author:.*/Last Author: " .
+				\ " Reinaldo Molina"
+	" Date
+	exe "1," . l . "g/Date:/s/Date:.*/Date:					" .
+				\ strftime("%a %b %d %Y %H:%M")
+	exe "normal! `z"
+	" TODO.RM-Sat Nov 26 2016 00:06: Add Last Author  
+	" See getmatches, and matchadd()
+endfun
+
+" TODO.RM-Sat Nov 26 2016 00:04: Function that auto adds SCR # and description  
 " vim:tw=78:ts=2:sts=2:sw=2:
