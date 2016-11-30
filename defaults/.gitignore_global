@@ -21,7 +21,7 @@ commit_msg.wiki
 *.elf
 *.hex
 cache
-autoload
+#autoload
 plugged
 cppman
 
