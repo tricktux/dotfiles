@@ -18,6 +18,8 @@ URxvt*scrollTtyKeypress: true
 ! URxvt*font: xft:Source\ Code\ Pro\ Medium:pixelsize=13:antialias=true:hinting=true,xft:Source\ Code\ Pro\ Medium:pixelsize=13:antialias=true:hinting=true
 ! URxvt*font: xft:Terminess Powerline:size=12
 URxvt*font: xft:Hack:size=9
+! URxvt.font: xft:Droid Sans Mono for Powerline Plus Nerd File Types Mono:pixelsize=16:antialias=true:hinting=true
+! URxvt.font: xft:ProggyCleanTT Plus Nerd File Types Mono:pixelsize=16:antialias=true:hinting=true
 ! URxvt*font:xft:dejavu sans mono for powerline:medium:pixelsize=14,xft:dejavu sans mono for powerline:medium:pixelsize=13
 ! URxvt*boldFont:xft:dejavu sans mono for powerline:bold:pixelsize=14,xft:dejavu sans mono for powerline:bold:pixelsize=13
 

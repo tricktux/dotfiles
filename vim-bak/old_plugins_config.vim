@@ -994,3 +994,12 @@
 							\ 'errorformat': '%f:%l:%c: %m',
 							\ }
 				let g:neomake_cpp_enabled_makers = ['make']
+			" //////////////7/28/2016 4:09:23 PM////////////////
+			" Tried using shell=bash on windows didnt work got all kinds of issues
+			" with syntastic and other things.
+		" Vim-Man
+			" Was causing nvim to start with just nvim
+			" runtime! ftplugin/man.vim
+			" Sample use: Man 3 printf
+			" Potential plug if you need more `vim-utils/vim-man` but this should be
+			" enough
