@@ -70,6 +70,8 @@
 		source ~/.dotfiles/vim-utils/autoload/plugin.vim
 		call plugin#Config()
 		let b:options_loaded = 1
+	else
+		echomsg "No plugins where loaded"
 	endif
 
 " NVIM SPECIFIC
