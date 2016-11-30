@@ -1003,3 +1003,253 @@
 			" Sample use: Man 3 printf
 			" Potential plug if you need more `vim-utils/vim-man` but this should be
 			" enough
+" TODO.RM-Wed Nov 30 2016 09:48: Finish all this crap
+function! utils#AutoCreateUnixCtags() abort
+	if empty(finddir(s:cache_path . "ctags",",,"))
+		" Go ahead and create the ctags
+		if !executable('ctags')
+			echomsg string("Please install ctags")
+			return 0
+		else
+			" Create folder
+			if !utils#CheckDirwoPrompt(s:cache_path . "ctags")
+				echoerr string("Failed to create ctags dir")
+				return 0
+			endif
+			let l:ctags_cmd = "!ctags -R --sort=yes --fields=+iaS --extra=+q -f "
+			" Ordered list that contains folder where tag is and where tag file
+			" goes
+			let l:list_folders = [
+						\"/usr/include",
+						\"~/.vim/personal/ctags/tags_sys",
+						\"/usr/local/include",
+						\"~/.vim/personal/ctags/tags_sys2",
+						\'/opt/avr8-gnu-toolchain-linux_x86_64/avr/include',
+						\"~/.vim/personal/ctags/tags_avr",
+						\'/opt/avr8-gnu-toolchain-linux_x86_64/include',
+						\"~/.vim/personal/ctags/tags_avr2",
+						\]
+
+			" Create ctags
+			" if isdirectory(l:list_folders
+			!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.vim/personal/ctags/tags_sys /usr/include
+			!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.vim/personal/ctags/tags_sys2 /usr/local/include
+			if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
+				set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
+				!ctags -R --sort=yes --fields=+iaS --extra=+q --language-force=C -f ~/.vim/personal/ctags/tags_avr /opt/avr8-gnu-toolchain-linux_x86_64/avr/include
+				set tags+=~/.vim/personal/ctags/tags_avr
+			endif
+			if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/include')
+				set path+=/opt/avr8-gnu-toolchain-linux_x86_64/include
+				!ctags -R --sort=yes --fields=+iaS --extra=+q --language-force=C -f ~/.vim/personal/ctags/tags_avr2 /opt/avr8-gnu-toolchain-linux_x86_64/include
+				set tags+=~/.vim/personal/ctags/tags_avr2
+			endif
+		elseif has('win32') && isdirectory('c:/MinGW')
+			set path+=c:/MinGW/include
+			execute "!ctags -R --verbose --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q
+						\ --language-force=C++ -f " . expand('~/vimfiles/personal/ctags/tags_sys') . " C:\\MinGW\\include"
+		else
+			echomsg string("Please install MinGW")
+		endif
+	endif
+elseif has('unix')
+	if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
+		set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
+	endif
+	set tags+=~/.vim/personal/ctags/tags_sys
+	set tags+=~/.vim/personal/ctags/tags_sys2
+else
+	set tags+=~/vimfiles/personal/ctags/tags_sys
+endif
+	endfunction
+" To update ctags simply delete the ctags folder
+" let &tags= s:cache_path . 'ctags/tags'
+function! utils#AutoCreateCtags() abort
+	if empty(finddir(s:cache_path . "ctags",",,"))
+		" Go ahead and create the ctags
+		if !executable('ctags')
+			echomsg string("Please install ctags")
+		else
+			" Create folder
+			if !utils#CheckDirwoPrompt(s:cache_path . "ctags")
+				echoerr string("Failed to create ctags dir")
+			endif
+			" Create ctags
+			if has('unix')
+				!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.vim/personal/ctags/tags_sys /usr/include
+				!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.vim/personal/ctags/tags_sys2 /usr/local/include
+				if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
+					set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
+					!ctags -R --sort=yes --fields=+iaS --extra=+q --language-force=C -f ~/.vim/personal/ctags/tags_avr /opt/avr8-gnu-toolchain-linux_x86_64/avr/include
+					set tags+=~/.vim/personal/ctags/tags_avr
+				endif
+				if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/include')
+					set path+=/opt/avr8-gnu-toolchain-linux_x86_64/include
+					!ctags -R --sort=yes --fields=+iaS --extra=+q --language-force=C -f ~/.vim/personal/ctags/tags_avr2 /opt/avr8-gnu-toolchain-linux_x86_64/include
+					set tags+=~/.vim/personal/ctags/tags_avr2
+				endif
+			elseif has('win32') && isdirectory('c:/MinGW')
+				set path+=c:/MinGW/include
+				execute "!ctags -R --verbose --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q
+							\ --language-force=C++ -f " . expand('~/vimfiles/personal/ctags/tags_sys') . " C:\\MinGW\\include"
+			else
+				echomsg string("Please install MinGW")
+			endif
+		endif
+	elseif has('unix')
+		if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
+			set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
+		endif
+		set tags+=~/.vim/personal/ctags/tags_sys
+		set tags+=~/.vim/personal/ctags/tags_sys2
+	else
+		set tags+=~/vimfiles/personal/ctags/tags_sys
+	endif
+endfunction
+
+		Plug 'nelstrom/vim-markdown-folding'
+			" messes up with neocomplete
+			let g:vim_markdown_folding_disabled = 0
+			let g:vim_markdown_folding_level = 6
+			let g:vim_markdown_conceal = 0
+			" let g:markdown_fold_style = 'nested'
+			let g:markdown_fold_override_foldtext = 0
+" To update ctags simply delete the ctags folder
+" Note: There is also avr tags created by vimrc/scripts/maketags.sh
+" let &tags= s:cache_path . 'ctags/tags'
+function! utils#AutoCreateCtags() abort
+	if empty(finddir(s:cache_path . "ctags",",,"))
+		" Go ahead and create the ctags
+		if !executable('ctags')
+			echomsg string("Please install ctags")
+		else
+			" Create folder
+			if !utils#CheckDirwoPrompt(s:cache_path . "ctags")
+				echoerr string("Failed to create ctags dir")
+			endif
+			" Create ctags
+			if has('unix')
+				!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.vim/personal/ctags/tags_sys /usr/include
+				!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.vim/personal/ctags/tags_sys2 /usr/local/include
+				if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
+					set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
+					!ctags -R --sort=yes --fields=+iaS --extra=+q --language-force=C -f ~/.vim/personal/ctags/tags_avr /opt/avr8-gnu-toolchain-linux_x86_64/avr/include
+					set tags+=~/.vim/personal/ctags/tags_avr
+				endif
+				if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/include')
+					set path+=/opt/avr8-gnu-toolchain-linux_x86_64/include
+					!ctags -R --sort=yes --fields=+iaS --extra=+q --language-force=C -f ~/.vim/personal/ctags/tags_avr2 /opt/avr8-gnu-toolchain-linux_x86_64/include
+					set tags+=~/.vim/personal/ctags/tags_avr2
+				endif
+			elseif has('win32') && isdirectory('c:/MinGW')
+				set path+=c:/MinGW/include
+				execute "!ctags -R --verbose --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q
+							\ --language-force=C++ -f " . expand('~/vimfiles/personal/ctags/tags_sys') . " C:\\MinGW\\include"
+			else
+				echomsg string("Please install MinGW")
+			endif
+		endif
+	elseif has('unix')
+		if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
+			set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
+		endif
+		set tags+=~/.vim/personal/ctags/tags_sys
+		set tags+=~/.vim/personal/ctags/tags_sys2
+	else
+		set tags+=~/vimfiles/personal/ctags/tags_sys
+	endif
+endfunction
+
+" Finish all this crap
+function! utils#AutoCreateUnixCtags() abort
+	if empty(finddir(s:cache_path . "ctags",",,"))
+		" Go ahead and create the ctags
+		if !executable('ctags')
+			echomsg string("Please install ctags")
+			return 0
+		else
+			" Create folder
+			if !utils#CheckDirwoPrompt(s:cache_path . "ctags")
+				echoerr string("Failed to create ctags dir")
+				return 0
+			endif
+			let l:ctags_cmd = "!ctags -R --sort=yes --fields=+iaS --extra=+q -f "
+			" Ordered list that contains folder where tag is and where tag file
+			" goes
+			let l:list_folders = [
+						\"/usr/include",
+						\"~/.vim/personal/ctags/tags_sys",
+						\"/usr/local/include",
+						\"~/.vim/personal/ctags/tags_sys2",
+						\'/opt/avr8-gnu-toolchain-linux_x86_64/avr/include',
+						\"~/.vim/personal/ctags/tags_avr",
+						\'/opt/avr8-gnu-toolchain-linux_x86_64/include',
+						\"~/.vim/personal/ctags/tags_avr2",
+						\]
+
+			" Create ctags
+			" if isdirectory(l:list_folders
+			!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.vim/personal/ctags/tags_sys /usr/include
+			!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.vim/personal/ctags/tags_sys2 /usr/local/include
+			if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
+				set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
+				!ctags -R --sort=yes --fields=+iaS --extra=+q --language-force=C -f ~/.vim/personal/ctags/tags_avr /opt/avr8-gnu-toolchain-linux_x86_64/avr/include
+				set tags+=~/.vim/personal/ctags/tags_avr
+			endif
+			if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/include')
+				set path+=/opt/avr8-gnu-toolchain-linux_x86_64/include
+				!ctags -R --sort=yes --fields=+iaS --extra=+q --language-force=C -f ~/.vim/personal/ctags/tags_avr2 /opt/avr8-gnu-toolchain-linux_x86_64/include
+				set tags+=~/.vim/personal/ctags/tags_avr2
+			endif
+		elseif has('win32') && isdirectory('c:/MinGW')
+			set path+=c:/MinGW/include
+			execute "!ctags -R --verbose --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q
+						\ --language-force=C++ -f " . expand('~/vimfiles/personal/ctags/tags_sys') . " C:\\MinGW\\include"
+		else
+			echomsg string("Please install MinGW")
+		endif
+	endif
+elseif has('unix')
+	if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
+		set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
+	endif
+	set tags+=~/.vim/personal/ctags/tags_sys
+	set tags+=~/.vim/personal/ctags/tags_sys2
+else
+	set tags+=~/vimfiles/personal/ctags/tags_sys
+endif
+	endfunction
+
+	function! utils#LastCommand() abort
+		execute "normal :\<Up>\<CR>"
+	endfunction
+
+	function! utils#ListFiles(dir) abort
+		let l:directory = globpath(a:dir, '*')
+		if empty(l:directory)
+			echohl ErrorMsg | echom a:dir . " is not a valid directory name" | echohl None
+		endif
+		return map(split(l:directory,'\n'), "fnamemodify(v:val, ':t')")
+	endfunction
+
+	function! MarkdownLevel()
+		if getline(v:lnum) =~ '^# .*$'
+			return ">1"
+		endif
+		if getline(v:lnum) =~ '^## .*$'
+			return ">2"
+		endif
+		if getline(v:lnum) =~ '^### .*$'
+			return ">3"
+		endif
+		if getline(v:lnum) =~ '^#### .*$'
+			return ">4"
+		endif
+		if getline(v:lnum) =~ '^##### .*$'
+			return ">5"
+		endif
+		if getline(v:lnum) =~ '^###### .*$'
+			return ">6"
+		endif
+		return "=" 
+	endfunction
