@@ -4,14 +4,9 @@
 " Version:			5.0.0
 "								Added granularity by moving different settings into different
 "								files
-" Date:					Wed Nov 30 2016 09:18
+" Date:					Wed Nov 30 2016 11:05
 " Improvements:
 		" - [ ] Markdown tables
-		" - [ ] make mail ft grab autocomplete from alias.sh
-		" - [ ] Substitute all of the capital <leader>X mapps with newer non capital
-		" - [ ] Customize and install vim-formatter
-		" - [ ] Fix the markdown enter property
-		" - [ ] Get familiar with vim format
 		" - [ ] Delete duplicate music.
 		" - [ ] Construct unified music library
 		" - [ ] Markdown math formulas
@@ -44,15 +39,17 @@
 		let g:wiki_path=  $HOME . '/Documents/seafile-client/Seafile/KnowledgeIsPower/wiki'
 		let g:custom_font = 'Andale Mono 8'
 		let g:usr_path = '/usr'
+
+		if system('uname -o') =~ 'Android'
+			let g:android = 1
+			let g:usr_path = $HOME . '/../usr'
+		endif
 	endif
 
 " PLUGINS_INIT
 	function! s:CheckVimPlug() abort
 		if empty(glob(g:vimfile_path . 'autoload/plug.vim'))
 			if executable('curl')
-				" Create folder
-				call utils#CheckDirwoPrompt(g:vimfile_path . "autoload")
-				echomsg "Master I am going to install all plugings for you"
 				execute "silent !curl -fLo " . g:vimfile_path . "autoload/plug.vim --create-dirs"
 							\" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 				autocmd VimEnter * PlugInstall | source $MYVIMRC
@@ -124,6 +121,9 @@
 				set undolevels=1000      " use many muchos levels of undo
 			endif
 		endif
+
+		" Beggining of set
+		call utils#SetGrep()
 	endif
 
 " SET_OPTIONS
@@ -182,6 +182,7 @@
 	" set tags+=.\tags;\
 	set tags=./tags;,tags;
 	let &tags .= substitute(glob("`find ~/.cache/ctags -name tags* -print`"), "\n", ",", "g")
+	" Note: There is also avr tags created by .dotfiles/scripts/maketags.sh
 	" !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/ctags/tags_sys /usr/include
 	" !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/ctags/tags_sys2 /usr/local/include
 
@@ -224,10 +225,13 @@
 	set modelines=1
 	" Set omni for all filetypes
 	set omnifunc=syntaxcomplete#Complete
-	call utils#SetGrep()
 
 	" Status Line
+		set background=dark    " Setting dark mode
 		if !exists("g:android")
+			" set background=light
+			" colorscheme PaperColor
+			colorscheme gruvbox
 			set statusline =
 			set statusline+=\[%n]                                  "buffernr
 			set statusline+=\ %<%F\ %m%r%w                         "File+path
@@ -238,11 +242,13 @@
 			set statusline+=\ %=\ row:%l/%L\ (%03p%%)\             "Rownumber/total (%)
 			set statusline+=\ col:%03c\                            "Colnr
 			set statusline+=\ \ %m%r%w\ %P\ \                      "Modified? Readonly? Top/bot.
+			" if you want to put color to status line needs to be after command
+			" colorscheme. Otherwise this commands clears it the color
+			set showcmd
 		else
 			set noshowmode
+			colorscheme desert
 		endif
-		" if you want to put color to status line needs to be after command
-		" colorscheme. Otherwise this commands clears it the color
 		
 	" Performance Settings
 		" see :h slow-terminal
@@ -291,14 +297,17 @@
 			\ endif
 	augroup END
 
-	augroup VimType
-		autocmd!
-		" Sessions
-		" autocmd VimEnter * call utils#LoadSession('default.vim')
-		autocmd VimLeave * call utils#SaveSession('default.vim')
-		" Keep splits normalize
-		autocmd VimResized * call utils#NormalizeWindowSize()
-	augroup END
+
+	if exists("b:options_loaded")
+		augroup VimType
+			autocmd!
+			" Sessions
+			" autocmd VimEnter * call utils#LoadSession('default.vim')
+			autocmd VimLeave * call utils#SaveSession('default.vim')
+			" Keep splits normalize
+			autocmd VimResized * call utils#NormalizeWindowSize()
+		augroup END
+	endif
 
 	" vim -b : edit binary using xxd-format!
 	" using let &l:option_name is the same as setlocal
@@ -407,7 +416,6 @@
 		nnoremap <Leader>j= :call utils#GuiFont("+")<CR>
 
 
-		" TODO
 		" j mappings taken <swypl;bqruihHdma248eEonf>
 		" nnoremap <Leader>Mc :call utils#ManFind()<CR>
 		nnoremap <C-s> :wa<CR>
@@ -524,6 +532,7 @@
 	" Search <Leader>S
 		" Tried ack.vim. Discovered that nothing is better than grep with ag.
 		" search all type of files
+		"TODO.RM-Wed Nov 30 2016 10:22: Improve grep to autodetect filetype  
 		nnoremap <Leader>S :grep --cpp
 		nnoremap <S-s> #<C-o>
 		vnoremap // y/<C-R>"<CR>
@@ -605,8 +614,6 @@
 									\:set errorformat&<CR>
 		nnoremap <Leader>Cg :compiler gcc<CR>
 					\:setlocal makeprg=mingw32-make<CR>
-		" Note: The placeholder "$*" can be given (even multiple times) to specify
-		" where the arguments will be included,
 
 " SYNTAX_OPTIONS
 	" ft-java-syntax
@@ -629,16 +636,5 @@
 
 	" Man
 		let g:no_plugin_maps = 1
-
-	" Colorscheme. Android performance
-		if exists("g:android")
-			colorscheme desert
-		else
-			" set background=light
-			" colorscheme PaperColor
-			set showcmd
-			colorscheme gruvbox
-		endif
-		set background=dark    " Setting dark mode
 
 " vim:tw=78:ts=2:sts=2:sw=2:
