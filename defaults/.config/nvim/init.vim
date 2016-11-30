@@ -1,9 +1,10 @@
-" File:					_vimrc
+" File:					init.vim
 " Description:  Vim/Neovim configuration file
 " Author:				Reinaldo Molina
-" Version:			4.0.0
-"								Plugin settings under plug#begin
-" Date:					Sat Nov 26 2016 00:02
+" Version:			5.0.0
+"								Added granularity by moving different settings into different
+"								files
+" Date:					Wed Nov 30 2016 09:18
 " Improvements:
 		" - [ ] Markdown tables
 		" - [ ] make mail ft grab autocomplete from alias.sh
@@ -15,227 +16,44 @@
 		" - [ ] Construct unified music library
 		" - [ ] Markdown math formulas
 
-" REQ AND LEADER
-	set nocompatible
-	syntax on
-	filetype plugin indent on
+" Req
 	" moved here otherwise conditional mappings get / instead ; as leader
 	let mapleader="\<Space>"
 	let maplocalleader="\<Space>"
+	set nocompatible
+	syntax on
+	filetype plugin indent on
 
-" WINDOWS_SETTINGS
+	" Set paths for plugins
 	if has('win32')
-		" Path variables
-		let s:cache_path= $HOME . '\.cache\'
-		let s:plugged_path=  $HOME . '\vimfiles\plugged\'
-		let s:vimfile_path=  $HOME . '\vimfiles\'
-		let s:wiki_path =  $HOME . '\Documents\1.WINGS\NeoWingsSupportFiles\wiki'
-		let s:custom_font =  'consolas:h8'
-
-		if !has('gui_running')
-			set term=xterm
-			let &t_AB="\e[48;5;%dm"
-			let &t_AF="\e[38;5;%dm"
-		endif
-
-		nnoremap <Leader>mr :!%<CR>
-		" Copy and paste into system wide clipboard
-		nnoremap <Leader>jp "*p=`]<C-o>
-		vnoremap <Leader>jp "*p=`]<C-o>
-
-		nnoremap <Leader>jy "*yy
-		vnoremap <Leader>jy "*y
-
-		nnoremap  o<Esc>
-
-		" Mappings to execute programs
-		" Do not make a ew1 mapping. reserved for when issues get to #11, 12, etc
-		nnoremap <Leader>ewd :Start! WINGS.exe 3 . default.ini<CR>
-		nnoremap <Leader>ewc :Start! WINGS.exe 3 . %<CR>
-		nnoremap <Leader>ews :execute("Start! WINGS.exe 3 . " . input("Config file:", "", "file"))<CR>
-
-		" e1 reserved for vimrc
-		" Switch Wings mappings for SWTestbed
-		nnoremap <Leader>es :call utils#SetWingsPath('D:/Reinaldo/')<CR>
-
-		" Default Wings mappings are for laptop
-		function! s:SetWingsPath(sPath) abort
-			execute "nnoremap <Leader>e21 :silent e " . a:sPath . "NeoOneWINGS/"
-			execute "nnoremap <Leader>e22 :silent e " . a:sPath
-			execute "nnoremap <Leader>ed :silent e ". a:sPath . "NeoOneWINGS/default.ini<CR>"
-			execute "nnoremap <Leader>ewl :call utils#WingsSymLink('~/Documents/1.WINGS/')<CR>"
-			execute "nnoremap <Leader>ewl :call utils#WingsSymLink(" . expand(a:sPath) . ")<CR>"
-		endfunction
-
-		call <SID>SetWingsPath('~/Documents/1.WINGS/')
-
-		" Time runtime of a specific program
-		nnoremap <Leader>mt :Dispatch powershell -command "& {&'Measure-Command' {.\sep_calc.exe seprc}}"<CR>
-
-		nnoremap <Leader>mu :call utils#UpdateBorlandMakefile()<CR>
-
-		" call utils#AutoCreateWinCtags()
-		"
+		let g:cache_path= $HOME . '\.cache\'
+		let g:plugged_path=  $HOME . '\vimfiles\plugged\'
+		let g:vimfile_path=  $HOME . '\vimfiles\'
+		let g:wiki_path =  $HOME . '\Documents\1.WINGS\NeoWingsSupportFiles\wiki'
+		let g:custom_font =  'consolas:h8'
+	else
 		if has('nvim')
-			Guifont DejaVu Sans Mono:h13
-		endif
-
-		" Windows specific plugins options
-			" Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
-				set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
-				let g:ctrlp_custom_ignore = {
-					\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-					\ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
-					\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
-					\ }
-
-			" Vim-Clang " not being used currently but this below fixes
-			" clang using mscv for target instead of mingw64
-				let g:clang_cpp_options = '-target x86_64-pc-windows-gnu -std=c++17 -pedantic -Wall'
-				let g:clang_c_options = '-target x86_64-pc-windows-gnu -std=gnu11 -pedantic -Wall'
-
-			" MaxT Path
-				if isdirectory('C:\maxapi')
-					set path+=C:\maxapi
-				endif
-
-			" //////////////7/28/2016 4:09:23 PM////////////////
-			" Tried using shell=bash on windows didnt work got all kinds of issues
-			" with syntastic and other things.
-
-" UNIX_SETTINGS
-	elseif has('unix')
-		" Path variables
-		if has('nvim')
-			let s:cache_path= $HOME . '/.cache/'
-			let s:plugged_path=  $HOME . '/.config/nvim/plugged/'
-			let s:vimfile_path=  $HOME . '/.config/nvim/'
-			" Termux specifix
+			let g:cache_path= $HOME . '/.cache/'
+			let g:plugged_path=  $HOME . '/.config/nvim/plugged/'
+			let g:vimfile_path=  $HOME . '/.config/nvim/'
 		else
-			let s:cache_path= $HOME . '/.cache/'
-			let s:plugged_path=  $HOME . '/.vim/plugged/'
-			let s:vimfile_path=  $HOME . '/.vim/'
+			let g:cache_path= $HOME . '/.cache/'
+			let g:plugged_path=  $HOME . '/.vim/plugged/'
+			let g:vimfile_path=  $HOME . '/.vim/'
 		endif
-		let s:wiki_path=  $HOME . '/Documents/seafile-client/Seafile/KnowledgeIsPower/wiki'
-		let s:custom_font = 'Andale Mono 8'
-
-		let s:usr_path = '/usr'
-		let s:android = 0
-		if system('uname -o') =~ 'Android'
-			let s:android = 1
-			let g:python3_host_prog = '/data/data/com.termux/files/usr/bin/python3'
-			" let g:python_host_skip_check = 1
-			let g:python_host_prog = '/data/data/com.termux/files/usr/bin/python2'
-			" let g:python3_host_skip_check = 1
-			let s:usr_path = $HOME . '/../usr'
-		endif
-
-		nnoremap <Leader>mr :silent !./%<CR>
-
-		" System paste
-		nnoremap <Leader>jp "+p=`]<C-o>
-		vnoremap <Leader>jp "+p=`]<C-o>
-
-		nnoremap <Leader>jy "+yy
-		vnoremap <Leader>jy "+y
-
-		" edit android
-		nnoremap <Leader>ea :silent e
-					\ ~/Documents/seafile-client/Seafile/KnowledgeIsPower/udacity/android-projects/
-		" edit odroid
-		nnoremap <Leader>eo :silent e ~/.mnt/truck-server/Documents/NewBot_v3/
-		" edit bot
-		nnoremap <Leader>eb :silent e ~/Documents/NewBot_v3/
-		" Edit HQ
-		nnoremap <Leader>eh :silent e ~/.mnt/HQ-server/
-		" Edit Copter
-		nnoremap <Leader>ec :silent e ~/.mnt/copter-server/
-		" Edit Truck
-		nnoremap <Leader>et :silent e ~/.mnt/truck-server/
-
-		nnoremap <CR> o<ESC>
-
-		augroup UnixMD
-			autocmd!
-			autocmd FileType markdown nnoremap <buffer> <Leader>mr :!google-chrome-stable %<CR>
-			autocmd FileType fzf tnoremap <buffer> <C-j> <Down>
-		augroup END
-
-		" TODO|
-		"    \/
-		" call utils#AutoCreateUnixCtags()
-
-		" !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/ctags/tags_sys /usr/include
-		" !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/ctags/tags_sys2 /usr/local/include
-
-		"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
-			set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
-			let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-
-		" VIM_PATH includes
-			" With this you can use gf to go to the #include <avr/io.h>
-			" also this path below are what go into the .syntastic_avrgcc_config
-			let &path = &path . s:usr_path . '/local/include'
-			let &path = &path . s:usr_path . '/include'
-
-			set tags+=~/.cache/ctags/tags_sys
-			set tags+=~/.cache/ctags/tags_sys2
-			set tags+=~/.cache/ctags/tags_android
-
-		" Vim-clang
-			let g:clang_library_path= s:usr_path . '/lib/libclang.so'
-
-		" Vim-Man
-			runtime! ftplugin/man.vim
-			" Sample use: Man 3 printf
-			" Potential plug if you need more `vim-utils/vim-man` but this should be
-			" enough
-
-		" fzf
-			nnoremap <C-p> :History<CR>
-			nnoremap <A-p> :FZF<CR>
-			nnoremap <S-k> :Buffers<CR>
-			let g:fzf_history_dir = '~/.fzf-history'
-			nnoremap <leader><tab> <plug>(fzf-maps-n)
-			nnoremap <leader><tab> <plug>(fzf-maps-n)
-			let g:fzf_colors =
-						\ { 'fg':      ['fg', 'Normal'],
-						\ 'bg':      ['bg', 'Normal'],
-						\ 'hl':      ['fg', 'Comment'],
-						\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-						\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-						\ 'hl+':     ['fg', 'Statement'],
-						\ 'info':    ['fg', 'PreProc'],
-						\ 'prompt':  ['fg', 'Conditional'],
-						\ 'pointer': ['fg', 'Exception'],
-						\ 'marker':  ['fg', 'Keyword'],
-						\ 'spinner': ['fg', 'Label'],
-						\ 'header':  ['fg', 'Comment'] }
-	endif
-
-" NVIM SPECIFIC
-	if has('nvim')
-		" terminal-emulator mappings
-		tnoremap <C-j> <C-\><C-n>
-		tnoremap <A-h> <C-\><C-n><C-w>h
-    tnoremap <A-j> <C-\><C-n><C-w>j
-    tnoremap <A-k> <C-\><C-n><C-w>k
-    tnoremap <A-l> <C-\><C-n><C-w>l
-		tnoremap <C-o> <Up>
-		tnoremap <C-l> <Right>
-		let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-		" set inccommand=split
-		" set clipboard+=unnamedplus
+		let g:wiki_path=  $HOME . '/Documents/seafile-client/Seafile/KnowledgeIsPower/wiki'
+		let g:custom_font = 'Andale Mono 8'
+		let g:usr_path = '/usr'
 	endif
 
 " PLUGINS_INIT
 	function! s:CheckVimPlug() abort
-		if empty(glob(s:vimfile_path . 'autoload/plug.vim'))
+		if empty(glob(g:vimfile_path . 'autoload/plug.vim'))
 			if executable('curl')
 				" Create folder
-				call utils#CheckDirwoPrompt(s:vimfile_path . "autoload")
+				call utils#CheckDirwoPrompt(g:vimfile_path . "autoload")
 				echomsg "Master I am going to install all plugings for you"
-				execute "silent !curl -fLo " . s:vimfile_path . "autoload/plug.vim --create-dirs"
+				execute "silent !curl -fLo " . g:vimfile_path . "autoload/plug.vim --create-dirs"
 							\" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 				autocmd VimEnter * PlugInstall | source $MYVIMRC
 				return 1
@@ -249,432 +67,62 @@
 			return 1
 		endif
 	endfunction
+	" ~/.dotfiles/vim-utils/autoload/plugin.vim
 	" Attempt to install vim-plug and all plugins in case of first use
-	if <SID>CheckVimPlug()
-    "Vim-Plug
-      nnoremap <Leader>Pi :PlugInstall<CR>
-      nnoremap <Leader>Pu :PlugUpdate<CR>
-                \:PlugUpgrade<CR>
-								\:UpdateRemotePlugins<CR>
-      " installs plugins; append `!` to update or just :PluginUpdate
-      nnoremap <Leader>Ps :PlugSearch<CR>
-      " searches for foo; append `!` to refresh local cache
-      nnoremap <Leader>Pl :PlugClean<CR>
-		call plug#begin(s:plugged_path)
-		" Neovim exclusive plugins
-		if has('nvim')
-			if has('unix') " Potential alternative to ctrlp
-				Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-				Plug 'junegunn/fzf.vim'
-				Plug 'guanqun/vim-mutt-aliases-plugin'
-					let g:mutt_alias_filename = '~/.mutt/muttrc'
-					" let g:deoplete#omni#input_patterns.mail =
-					" TODO.RM-Fri Oct 07 2016 00:56: Need to come up with regex pattern to
-					" match Cc:, Bcc:
-					" Fork repo and fix readme to mention i_CTRL-X_CTRL-O and fix the function
-			endif
-			if has('gui_running')
-				Plug 'equalsraf/neovim-gui-shim'
-			else
-				Plug 'jamessan/vim-gnupg'
-				" This plugin doesnt work with gvim. Use only from cli
-				let g:GPGUseAgent = 0
-			endif
-			Plug 'neomake/neomake'
-				let g:neomake_warning_sign = {
-							\ 'text': '?',
-							\ 'texthl': 'WarningMsg',
-							\ }
+	if <SID>CheckVimPlug() && !empty(glob("~/.dotfiles/vim-utils/autoload/plugin.vim"))
+		source ~/.dotfiles/vim-utils/autoload/plugin.vim
+		call plugin#Config()
+		let b:options_loaded = 1
+	endif
 
-				let g:neomake_error_sign = {
-							\ 'text': 'X',
-							\ 'texthl': 'ErrorMsg',
-							\ }
-			" Plug 'Shougo/deoplete.nvim'
-				" if has('python3')
-					" " if it is nvim deoplete requires python3 to work
-					" let g:deoplete#enable_at_startup = 1
-					" " New settings
-					" let g:deoplete#enable_ignore_case = 1
-					" let g:deoplete#enable_smart_case = 1
-					" let g:deoplete#enable_camel_case = 1
-					" let g:deoplete#enable_refresh_always = 1
-					" let g:deoplete#max_abbr_width = 0
-					" let g:deoplete#max_menu_width = 0
-					" let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
-					" let g:deoplete#omni#input_patterns.java = [
-								" \'[^. \t0-9]\.\w*',
-								" \'[^. \t0-9]\->\w*',
-								" \'[^. \t0-9]\::\w*',
-								" \]
-					" let g:deoplete#omni#input_patterns.jsp = ['[^. \t0-9]\.\w*']
-					" let g:deoplete#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-					" let g:deoplete#ignore_sources = {}
-					" let g:deoplete#ignore_sources.java = ['omni']
-					" call deoplete#custom#set('javacomplete2', 'mark', '')
-					" call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
-					" "call deoplete#custom#set('omni', 'min_pattern_length', 0)
-					" inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
-					" inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
-					" " Regular settings
-					" inoremap <silent><expr> <TAB>
-								" \ pumvisible() ? "\<C-n>" :
-								" \ <SID>check_back_space() ? "\<TAB>" :
-								" \ deoplete#mappings#manual_complete()
-					" function! s:check_back_space() abort
-						" let col = col('.') - 1
-						" return !col || getline('.')[col - 1]  =~ '\s'
-					" endfunction
-					" inoremap <expr><C-h>
-								" \ deoplete#smart_close_popup()."\<C-h>"
-					" inoremap <expr><BS>
-								" \ deoplete#smart_close_popup()."\<C-h>"
-				" else
-					" echoerr "No python3 = No Deocomplete"
-					" " so if it doesnt have it activate clang instaed
-					" let g:deoplete#enable_at_startup = 0
-				" endif
-			" Plug 'critiqjo/lldb.nvim'
-				" nmap <Leader>db <Plug>LLBreakSwitch
-				" " vmap <F2> <Plug>LLStdInSelected
-				" " nnoremap <F4> :LLstdin<CR>
-				" " nnoremap <F5> :LLmode debug<CR>
-				" " nnoremap <S-F5> :LLmode code<CR>
-				" nnoremap <Leader>dc :LL continue<CR>
-				" nnoremap <Leader>do :LL thread step-over<CR>
-				" nnoremap <Leader>di :LL thread step-in<CR>
-				" nnoremap <Leader>dt :LL thread step-out<CR>
-				" nnoremap <Leader>dD :LLmode code<CR>
-				" nnoremap <Leader>dd :LLmode debug<CR>
-				" nnoremap <Leader>dp :LL print <C-R>=expand('<cword>')<CR>
-				" " nnoremap <S-F8> :LL process interrupt<CR>
-				" " nnoremap <F9> :LL print <C-R>=expand('<cword>')<CR>
-				" " vnoremap <F9> :<C-U>LL print <C-R>=lldb#util#get_selection()<CR><CR>
-		else
-			" Vim exclusive plugins
-			Plug 'Shougo/neocomplete'
-				if has('lua')
-					" All new stuff
-					let g:neocomplete#enable_at_startup = 1
-					let g:neocomplete#enable_cursor_hold_i=1
-					let g:neocomplete#skip_auto_completion_time="1"
-					let g:neocomplete#sources#buffer#cache_limit_size=5000000000
-					let g:neocomplete#max_list=8
-					let g:neocomplete#auto_completion_start_length=2
-					" TODO: need to fix this i dont like the way he does it need my own for now is good I guess
-					let g:neocomplete#enable_auto_close_preview=1
+" NVIM SPECIFIC
+	" ~/.dotfiles/vim-utils/autoload/nvim.vim
+	if has('nvim') && exists("b:options_loaded")
+		call nvim#Config()
+	endif
 
-					let g:neocomplete#enable_smart_case = 1
-					let g:neocomplete#data_directory = s:cache_path . 'neocomplete'
-					" Define keyword.
-					if !exists('g:neocomplete#keyword_patterns')
-						let g:neocomplete#keyword_patterns = {}
-					endif
-					let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-					" Recommended key-mappings.
-					" <CR>: close popup and save indent.
-					inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-					function! s:my_cr_function()
-						return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-					endfunction
-					" <TAB>: completion.
-					inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-					" <C-h>, <BS>: close popup and delete backword char.
-					inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-					" Enable heavy omni completion.
-					if !exists('g:neocomplete#sources#omni#input_patterns')
-						let g:neocomplete#sources#omni#input_patterns = {}
-					endif
-					let g:neocomplete#sources#omni#input_patterns.tex =
-								\ '\v\\%('
-								\ . '\a*cite\a*%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
-								\ . '|\a*ref%(\s*\{[^}]*|range\s*\{[^,}]*%(}\{)?)'
-								\ . '|includegraphics\*?%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
-								\ . '|%(include%(only)?|input)\s*\{[^}]*'
-								\ . ')'
-					let g:neocomplete#sources#omni#input_patterns.php =
-								\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-					let g:neocomplete#sources#omni#input_patterns.perl =
-								\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-					let g:neocomplete#sources#omni#input_patterns.java = '\h\w*\.\w*'
+" WINDOWS_SETTINGS
+	" ~/.dotfiles/vim-utils/autoload/win32.vim
+	if has('win32') && exists("b:options_loaded")
+		call win32#Config()
 
-					if !exists('g:neocomplete#force_omni_input_patterns')
-						let g:neocomplete#force_omni_input_patterns = {}
-					endif
-					let g:neocomplete#force_omni_input_patterns.c =
-								\ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
-					let g:neocomplete#force_omni_input_patterns.cpp =
-								\ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-					let g:neocomplete#force_omni_input_patterns.objc =
-								\ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
-					let g:neocomplete#force_omni_input_patterns.objcpp =
-								\ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
-					" all new stuff
-					if !exists('g:neocomplete#delimiter_patterns')
-						let g:neocomplete#delimiter_patterns= {}
-					endif
-					let g:neocomplete#delimiter_patterns.vim = ['#']
-					let g:neocomplete#delimiter_patterns.cpp = ['::']
-				else
-					echoerr "No lua installed = No Neocomplete."
-				endif
-			Plug 'tpope/vim-dispatch'
-			Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
-				nnoremap <Leader>so :SyntasticToggleMode<CR>
-				nnoremap <Leader>ss :SyntasticCheck<CR>
-				let g:syntastic_always_populate_loc_list = 1
-				let g:syntastic_auto_loc_list = 1
-				let g:syntastic_check_on_open = 0
-				let g:syntastic_check_on_wq = 0
-				let g:syntastic_cpp_compiler_options = '-std=c++17 -pedantic -Wall'
-				let g:syntastic_c_compiler_options = '-std=c11 -pedantic -Wall'
-				let g:syntastic_auto_jump = 3
-			Plug 'ctrlpvim/ctrlp.vim'
-				if executable('ag') && !executable('ucg') || !exists('FZF')
-					let g:ctrlp_user_command = 'ag -Q -l --smart-case --nocolor --hidden -g "" %s'
-				else
-					echomsg string("You should install silversearcher-ag. Now you have a slow ctrlp")
-				endif
-				if has('win32')
-					nnoremap <S-k> :CtrlPBuffer<CR>
-					let g:ctrlp_cmd = 'CtrlPMixed'
-					" submit ? in CtrlP for more mapping help.
-					let g:ctrlp_lazy_update = 1
-					let g:ctrlp_show_hidden = 1
-					let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
-					let g:ctrlp_cache_dir = s:cache_path . 'ctrlp'
-					let g:ctrlp_working_path_mode = 'wra'
-					let g:ctrlp_max_history = &history
-					let g:ctrlp_clear_cache_on_exit = 0
-				endif
-		endif
-		" Plugins for All (nvim, linux, win32)
-		Plug '~/.dotfiles/vim-utils'
-			nnoremap <Leader>cf :Dox<CR>
-			" Other commands
-			" command! -nargs=0 DoxLic :call <SID>DoxygenLicenseFunc()
-			" command! -nargs=0 DoxAuthor :call <SID>DoxygenAuthorFunc()
-			" command! -nargs=1 DoxUndoc :call <SID>DoxygenUndocumentFunc(<q-args>)
-			" command! -nargs=0 DoxBlock :call <SID>DoxygenBlockFunc()
-			let g:DoxygenToolkit_briefTag_pre = "Brief:			"
-			let g:DoxygenToolkit_paramTag_pre=	"	"
-			let g:DoxygenToolkit_returnTag=			"Returns:   "
-			let g:DoxygenToolkit_blockHeader=""
-			let g:DoxygenToolkit_blockFooter=""
-			let g:DoxygenToolkit_authorName="Reinaldo Molina <rmolin88@gmail.com>"
-			let g:DoxygenToolkit_authorTag =	"Author:				"
-			let g:DoxygenToolkit_fileTag =		"File:					"
-			let g:DoxygenToolkit_briefTag_pre="Description:		"
-			let g:DoxygenToolkit_dateTag =		"Last modified:	"
-			let g:DoxygenToolkit_versionTag = "Version:				"
-			let g:DoxygenToolkit_commentType = "C++"
-			" See :h doxygen.vim this vim related. Not plugin related
-			let g:load_doxygen_syntax=1
-		" misc
-		Plug 'chrisbra/vim-diff-enhanced', { 'on' : 'SetDiff' }
-		Plug 'scrooloose/nerdtree'
-			let NERDTreeShowBookmarks=1  " B key to toggle
-			let NERDTreeShowLineNumbers=1
-			let NERDTreeShowHidden=1 " i key to toggle
-			let NERDTreeQuitOnOpen=1 " AutoClose after openning file
-			let NERDTreeBookmarksFile=s:cache_path . '.NERDTreeBookmarks'
-			" Do not load netrw
-			let g:loaded_netrw       = 1
-			let g:loaded_netrwPlugin = 1
-		Plug 'scrooloose/nerdcommenter'
-			let NERDUsePlaceHolders=0 " avoid commenter doing weird stuff
-			let NERDCommentWholeLinesInVMode=2
-			let NERDCreateDefaultMappings=0 " Eliminate default mappings
-			let NERDRemoveAltComs=1 " Remove /* comments
-			let NERD_c_alt_style=0 " Do not use /* on C nor C++
-			let NERD_cpp_alt_style=0
-			let NERDMenuMode=0 " no menu
-			let g:NERDCustomDelimiters = {
-						\ 'vim': { 'left': '"', 'right': '' },
-						\ 'wings_syntax': { 'left': '//', 'right': '' }}
-			let NERDSpaceDelims=1  " space around comments
-			nmap - <plug>NERDCommenterToggle
-			nmap <Leader>ot <plug>NERDCommenterAltDelims
-			vmap - <plug>NERDCommenterToggle
-			imap <C-c> <plug>NERDCommenterInsert
-			nmap <Leader>oa <plug>NERDCommenterAppend
-			vmap <Leader>os <plug>NERDCommenterSexy
-		Plug 'chrisbra/Colorizer'
-			let g:colorizer_auto_filetype='css,html,xml'
-		Plug 'tpope/vim-repeat'
-		Plug 'tpope/vim-surround'
-		Plug 'Konfekt/FastFold'
-			" Stop updating folds everytime I save a file
-			let g:fastfold_savehook = 0
-			" To update folds now you have to do it manually pressing 'zuz'
-			let g:fastfold_fold_command_suffixes =
-						\['x','X','a','A','o','O','c','C','r','R','m','M','i','n','N']
-		Plug 'airblade/vim-rooter'
-			let g:rooter_manual_only = 1
-			nnoremap <Leader>cr :Rooter<CR>
-		Plug 'Raimondi/delimitMate'
-			let g:delimitMate_expand_cr = 1
-			let g:delimitMate_expand_space = 1
-			let g:delimitMate_jump_expansion = 1
-			" imap <expr> <CR> <Plug>delimitMateCR
-		Plug 'dkarter/bullets.vim'
-		Plug 'Chiel92/vim-autoformat'
-			let g:autoformat_autoindent = 0
-			let g:autoformat_retab = 0
-			let g:autoformat_remove_trailing_spaces = 0
-		" cpp
-		Plug 'Tagbar', { 'on' : 'TagbarToggle' }
-			let g:tagbar_autofocus = 1
-			let g:tagbar_show_linenumbers = 2
-			let g:tagbar_map_togglesort = "r"
-			let g:tagbar_map_nexttag = "<c-j>"
-			let g:tagbar_map_prevtag = "<c-k>"
-			let g:tagbar_map_openallfolds = "<c-n>"
-			let g:tagbar_map_closeallfolds = "<c-c>"
-			let g:tagbar_map_togglefold = "<c-x>"
-			nnoremap <Leader>tt :TagbarToggle<CR>
-			nnoremap <Leader>tk :cs kill -1<CR>
-			nnoremap <silent> <Leader>tj <C-]>
-			nnoremap <Leader>tr <C-t>
-			nnoremap <Leader>tv :vs<CR>:exec("tag ".expand("<cword>"))<CR>
-			" ReLoad cscope database
-			nnoremap <Leader>tl :cs add cscope.out<CR>
-			" Find functions calling this function
-			nnoremap <Leader>tc :cs find c <C-R>=expand("<cword>")<CR><CR>
-			" Find functions definition
-			nnoremap <Leader>tg :cs find g <C-R>=expand("<cword>")<CR><CR>
-			" Find functions called by this function not being used
-			" nnoremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
-			nnoremap <Leader>ts :cs show<CR>
-			nnoremap <Leader>tu :call utils#UpdateCscope()<CR>
-		" Plug 'Rip-Rip/clang_complete', { 'for' : ['c' , 'cpp'] }
-			" " Why I switched to Rip-Rip because it works
-			" " Steps to get plugin to work:
-			" " 1. Make sure that you can compile a program with clang++ command
-			" " a. Example: clang++ -std=c++14 -stdlib=libc++ -pedantic -Wall hello.cpp -v
-			" " 2. To get this to work I had to install libc++-dev package in unix
-			" " 3. install libclang-dev package. See g:clang_library_path to where it gets
-			" " installed. Also I had to make sym link: ln -s libclang.so.1 libclang.so
-			" if !executable('clang')
-				" echomsg string("No clang present. Disabling vim-clang")
-				" let g:clang_complete_loaded = 1
-			" else
-				" let g:clang_user_options = '-std=c++14 -stdlib=libc++ -Wall -pedantic'
-				" let g:clang_close_preview = 1
-				" " let g:clang_complete_copen = 1
-				" " let g:clang_periodic_quickfix = 1
-			" endif
-		Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'c' , 'cpp' ] }
-			let g:cpp_class_scope_highlight = 1
-		Plug 'justinmk/vim-syntax-extra'
-		Plug 'junegunn/rainbow_parentheses.vim', { 'on' : 'RainbowParentheses' }
-			let g:rainbow#max_level = 16
-			let g:rainbow#pairs = [['(', ')'], ['[', ']']]
-		" cpp/java
-		Plug 'mattn/vim-javafmt', { 'for' : 'java' }
-		Plug 'tfnico/vim-gradle', { 'for' : 'java' }
-		Plug 'artur-shaik/vim-javacomplete2', { 'branch' : 'master' }
-			let g:JavaComplete_ClosingBrace = 1
-			let g:JavaComplete_EnableDefaultMappings = 0
-			let g:JavaComplete_ImportSortType = 'packageName'
-			let g:JavaComplete_ImportOrder = ['android.', 'com.', 'junit.', 'net.', 'org.', 'java.', 'javax.']
-		Plug 'nelstrom/vim-markdown-folding'
-			" messes up with neocomplete
-			let g:vim_markdown_folding_disabled = 0
-			let g:vim_markdown_folding_level = 6
-			let g:vim_markdown_conceal = 0
-			" let g:markdown_fold_style = 'nested'
-			let g:markdown_fold_override_foldtext = 0
-		" Autocomplete
-		Plug 'Shougo/neosnippet'
-			imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-			smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-			xmap <C-k>     <Plug>(neosnippet_expand_target)
-			smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-						\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-			" Tell Neosnippet about the other snippets
-			let g:neosnippet#snippets_directory= s:plugged_path . '/vim-snippets/snippets'
-			let g:neosnippet#data_directory = s:cache_path . 'neosnippets'
-			Plug 'Shougo/neosnippet-snippets'
-			Plug 'honza/vim-snippets'
-		" Version control
-		Plug 'tpope/vim-fugitive'
-		" aesthetic
-		Plug 'morhetz/gruvbox' " colorscheme gruvbox
-		" Plug 'NLKNguyen/papercolor-theme'
-		" radical
-		Plug 'glts/vim-magnum' " required by radical
-		Plug 'glts/vim-radical' " use with gA
-
-		" All of your Plugins must be added before the following line
-		call plug#end()            " required
+" UNIX_SETTINGS
+	" ~/.dotfiles/vim-utils/autoload/unix.vim
+	elseif has('unix') && exists("b:options_loaded")
+		call unix#Config()
 	endif
 
 " GUI_SETTINGS
-	if has('gui_running')
-		let &guifont = s:custom_font " OS dependent font
-		set guioptions-=T  " no toolbar
-		set guioptions-=m  " no menu bar
-		set guioptions-=r  " no right scroll bar
-		set guioptions-=l  " no left scroll bar
-		set guioptions-=L  " no side scroll bar
-		nnoremap <S-CR> O<Esc>
-	else " common cli options to both systems
-		if $TERM ==? 'linux'
-			set t_Co=8
-		else
-			set t_Co=256
-		endif
-		" fixes colorscheme not filling entire backgroud
-		set t_ut=
-		" Set blinking cursor shape everywhere
-		if has('nvim')
-			let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-			" Fixes broken nmap <c-h> inside of tmux
-			nnoremap <BS> :noh<CR>
-		elseif exists('$TMUX')
-			let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-			let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-		else
-			let &t_SI = "\<Esc>[5 q"
-			let &t_EI = "\<Esc>[1 q"
-		endif
+	" ~/.dotfiles/vim-utils/autoload/gui.vim
+	if exists("b:options_loaded")
+		call gui#Config()
 	endif
-
-" PERFORMANCE_SETTINGS
-	" see :h slow-terminal
-	hi NonText cterm=NONE ctermfg=NONE
-	set scrolljump=5
-	set sidescroll=15 " see help for sidescroll
-	if !has('nvim') " this options were deleted in nvim
-		set ttyscroll=3
-		set ttyfast " Had to addit to speed up scrolling
-	endif
-	set lazyredraw " Had to addit to speed up scrolling
 
 " Create personal folders
 	" TMP folder
-	if utils#CheckDirwoPrompt(s:cache_path . "tmp")
-		let $TMP= s:cache_path . "tmp"
-	else
-		echomsg string("Failed to create tmp dir")
-	endif
+	if exists("b:options_loaded")
+		if utils#CheckDirwoPrompt(g:cache_path . "tmp")
+			let $TMP= g:cache_path . "tmp"
+		else
+			echomsg string("Failed to create tmp dir")
+		endif
 
-	if !utils#CheckDirwoPrompt(s:cache_path . "sessions")
-		echoerr string("Failed to create sessions dir")
-	endif
+		if !utils#CheckDirwoPrompt(g:cache_path . "sessions")
+			echoerr string("Failed to create sessions dir")
+		endif
 
-	" We assume wiki folder is there. No creation of this wiki folder
+		" We assume wiki folder is there. No creation of this wiki folder
 
-	if !utils#CheckDirwoPrompt(s:cache_path . "java")
-		echoerr string("Failed to create java dir")
-	endif
+		if !utils#CheckDirwoPrompt(g:cache_path . "java")
+			echoerr string("Failed to create java dir")
+		endif
 
-	if has('persistent_undo')
-		if utils#CheckDirwoPrompt(s:cache_path . 'undofiles')
-			let &undodir= s:cache_path . 'undofiles'
-			set undofile
-			set undolevels=1000      " use many muchos levels of undo
+		if has('persistent_undo')
+			if utils#CheckDirwoPrompt(g:cache_path . 'undofiles')
+				let &undodir= g:cache_path . 'undofiles'
+				set undofile
+				set undolevels=1000      " use many muchos levels of undo
+			endif
 		endif
 	endif
 
@@ -733,6 +181,9 @@
 	" CAN BELIEVE I DIDNT DO THIS BEFORE
 	" set tags+=.\tags;\
 	set tags=./tags;,tags;
+	let &tags .= substitute(glob("`find ~/.cache/ctags -name tags* -print`"), "\n", ",", "g")
+	" !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/ctags/tags_sys /usr/include
+	" !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/ctags/tags_sys2 /usr/local/include
 
 	if has('cscope')
 		set cscopetag cscopeverbose
@@ -761,9 +212,6 @@
 
 	set noesckeys " No mappings that start with <esc>
 
-	if s:android == 0
-		set noshowmode
-	endif
 	" no mouse enabled
 	set mouse=""
 	set laststatus=2
@@ -778,26 +226,46 @@
 	set omnifunc=syntaxcomplete#Complete
 	call utils#SetGrep()
 
+	" Status Line
+		if !exists("g:android")
+			set statusline =
+			set statusline+=\[%n]                                  "buffernr
+			set statusline+=\ %<%F\ %m%r%w                         "File+path
+			set statusline+=\ %y\                                  "FileType
+			set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}      "Encoding
+			set statusline+=\ %{(&bomb?\",BOM\":\"\")}\            "Encoding2
+			set statusline+=\ %{&ff}\                              "FileFormat (dos/unix..)
+			set statusline+=\ %=\ row:%l/%L\ (%03p%%)\             "Rownumber/total (%)
+			set statusline+=\ col:%03c\                            "Colnr
+			set statusline+=\ \ %m%r%w\ %P\ \                      "Modified? Readonly? Top/bot.
+		else
+			set noshowmode
+		endif
+		" if you want to put color to status line needs to be after command
+		" colorscheme. Otherwise this commands clears it the color
+		
+	" Performance Settings
+		" see :h slow-terminal
+		hi NonText cterm=NONE ctermfg=NONE
+		set scrolljump=5
+		set sidescroll=15 " see help for sidescroll
+		if !has('nvim') " this options were deleted in nvim
+			set ttyscroll=3
+			set ttyfast " Had to addit to speed up scrolling
+		endif
+		set lazyredraw " Had to addit to speed up scrolling
+
 " ALL_AUTOGROUP_STUFF
 	" All of these options contain performance drawbacks but the most important
 	" is foldmethod=syntax
 	augroup Filetypes
 		autocmd!
-		" TODO.RM-Fri Nov 25 2016 23:42: Everything that is not a function/command
-		" call goes to after/ftplugin/*.vim
-	 	" Rainbow cannot be enabled for help file. It breaks syntax highlight
-		" autocmd FileType c,cpp,java RainbowParentheses
-		" autocmd FileType c,cpp,java,vim setlocal foldenable
-		" Java
-		autocmd FileType java setlocal omnifunc=javacomplete#Complete
-		autocmd FileType java compiler gradlew
 		" Nerdtree Fix
 		autocmd FileType nerdtree setlocal relativenumber
 		" Set omnifunc for all others 									" not showing
 		autocmd FileType cs compiler msbuild
 		" Latex
 		autocmd FileType tex setlocal spell spelllang=en_us
-		autocmd FileType tex setlocal fdm=indent
 		autocmd FileType tex compiler tex
 		" Display help vertical window not split
 		autocmd FileType help wincmd L
@@ -807,25 +275,20 @@
 		autocmd FileType mail setlocal spell spelllang=es,en
 		autocmd FileType mail setlocal omnifunc=muttaliases#CompleteMuttAliases
 		" Markdown
-		autocmd FileType markdown setlocal spell spelllang=en_us
-		autocmd FileType markdown inoremap <buffer> * **<Left>
 	augroup END
 
 	augroup BuffTypes
 	autocmd!
 		" Arduino
 		autocmd BufNewFile,BufReadPost *.ino,*.pde setf arduino
-		" automatic syntax for *.scp
+		" Automatic syntax for wings
 		autocmd BufNewFile,BufReadPost *.scp setf wings_syntax
 		autocmd BufNewFile,BufReadPost *.set,*.sum setf dosini
-		autocmd BufWritePost *.java Neomake
 		"Automatically go back to where you were last editing this file
 		autocmd BufReadPost *
 			\ if line("'\"") > 0 && line("'\"") <= line("$") |
 			\ exe "normal g`\"" |
 			\ endif
-		au BufEnter *.md setlocal foldexpr=MarkdownLevel()
-		au BufEnter *.md setlocal foldmethod=expr
 	augroup END
 
 	augroup VimType
@@ -999,6 +462,8 @@
 		nnoremap yl :call utils#YankFrom()<CR>
 		nnoremap dl :call utils#DeleteLine()<CR>
 
+		nnoremap <S-CR> O<Esc>
+
 	" Insert Mode (Individual) mappings
 		inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
 		inoremap <c-f> <del>
@@ -1068,11 +533,15 @@
 		vnoremap <C-j> <Esc>
 
 	" Buffers Stuff <Leader>b?
+		if !exists("b:options_loaded")
+			nnoremap <S-k> :buffers<CR>:buffer<Space>
+		else
+			nnoremap <Leader>bs :buffers<CR>:buffer<Space>
+		endif
 		nnoremap <S-j> :b#<CR>
 		nnoremap <Leader>bd :bp\|bw #\|bd #<CR>
 		" deletes all buffers
 		nnoremap <Leader>bD :%bd<CR>
-		nnoremap <Leader>bs :buffers<CR>:buffer<Space>
 		nnoremap <Leader>bS :bufdo
 		" move tab to the left
 		nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
@@ -1099,7 +568,6 @@
 		nnoremap <Leader>vdl :!svn rm --force Log\*<CR>
 		nnoremap <Leader>vda :!svn rm --force
 		" revert previous commit
-		" dangerous key TODO: warn before
 		"nnoremap <Leader>vr :!svn revert -R .<CR>
 		nnoremap <Leader>vl :!svn cleanup .<CR>
 		" use this command line to delete unrevisioned or "?" svn files
@@ -1109,19 +577,12 @@
 		nnoremap <Leader>vo :!svn log .<CR>
 		nnoremap <Leader>vi :!svn info<CR>
 
-	" Fugitive <Leader>g?
-			nnoremap <Leader>gs :Gstatus<CR>
-			nnoremap <Leader>gp :Gpush<CR>
-			nnoremap <Leader>gu :Gpull<CR>
-			nnoremap <Leader>ga :!git add
-			nnoremap <Leader>gl :silent Glog<CR>
-							\:copen 20<CR>
-
 	" Todo mappings <Leader>t?
 		nnoremap <Leader>td :call utils#TodoCreate()<CR>
 		nnoremap <Leader>tm :call utils#TodoMark()<CR>
 		nnoremap <Leader>tM :call utils#TodoClearMark()<CR>
 		nnoremap <Leader>ta :call utils#TodoAdd()<CR>
+
 	" Wiki mappings <Leader>w?
 		nnoremap <Leader>wt :call utils#WikiOpen('TODO.md')<CR>
 		nnoremap <Leader>wo :call utils#WikiOpen()<CR>
@@ -1132,9 +593,10 @@
 		" Comment Indent Increase/Reduce
 		nnoremap <Leader>oi :call utils#CommentIndent()<CR>
 		nnoremap <Leader>oI :call utils#CommentReduceIndent()<CR>
-		nnoremap ol :call utils#CommentLine()<CR>
+		" mapping ol conflicts with mapping o to new line
+		nnoremap cl :call utils#CommentLine()<CR>
 		nnoremap <Leader>oe :call utils#EndOfIfComment()<CR>
-		nnoremap <Leader>ou :call utils#UpdateHeader<CR>
+		nnoremap <Leader>ou :call utils#UpdateHeader()<CR>
 
 	" Compiler
 		nnoremap <Leader>Cb :compiler borland<CR>
@@ -1145,22 +607,6 @@
 					\:setlocal makeprg=mingw32-make<CR>
 		" Note: The placeholder "$*" can be given (even multiple times) to specify
 		" where the arguments will be included,
-
-" STATUS_LINE
-	if s:android == 0 " Android performance
-		set statusline =
-		set statusline+=\[%n]                                  "buffernr
-		set statusline+=\ %<%F\ %m%r%w                         "File+path
-		set statusline+=\ %y\                                  "FileType
-		set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}      "Encoding
-		set statusline+=\ %{(&bomb?\",BOM\":\"\")}\            "Encoding2
-		set statusline+=\ %{&ff}\                              "FileFormat (dos/unix..)
-		set statusline+=\ %=\ row:%l/%L\ (%03p%%)\             "Rownumber/total (%)
-		set statusline+=\ col:%03c\                            "Colnr
-		set statusline+=\ \ %m%r%w\ %P\ \                      "Modified? Readonly? Top/bot.
-	endif
-	" if you want to put color to status line needs to be after command
-	" colorscheme. Otherwise this commands clears it the color
 
 " SYNTAX_OPTIONS
 	" ft-java-syntax
@@ -1185,15 +631,14 @@
 		let g:no_plugin_maps = 1
 
 	" Colorscheme. Android performance
-		if s:android == 1
+		if exists("g:android")
 			colorscheme desert
-			set noshowcmd " use noshowcmd if things are really slow
 		else
 			" set background=light
 			" colorscheme PaperColor
+			set showcmd
 			colorscheme gruvbox
 		endif
 		set background=dark    " Setting dark mode
 
-" see :h modeline
 " vim:tw=78:ts=2:sts=2:sw=2:
