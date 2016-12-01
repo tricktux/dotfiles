@@ -27,6 +27,8 @@
 		if plugin#Check()
 			call plugin#Config()
 			let b:plugins_loaded = 1
+		else
+			echomsg "No plugins where loaded"
 		endif
 	endif
 
