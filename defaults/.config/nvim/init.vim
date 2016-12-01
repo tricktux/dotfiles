@@ -1,10 +1,10 @@
 " File:					init.vim
 " Description:  Vim/Neovim configuration file
 " Author:				Reinaldo Molina
-" Version:			5.0.1
+" Version:			5.1.0
 "								Added granularity by moving different settings into different
 "								files
-" Date:					Thu Dec 01 2016 07:43
+" Date:					Thu Dec 01 2016 12:16
 " Improvements:
 		" - [ ] Markdown tables
 		" - [ ] Delete duplicate music.
@@ -219,9 +219,9 @@
 	" Gui
 		if has('gui_running')
 			if has('win32')
-				set guifont = 'consolas:h8'
+				set guifont =consolas:h8
 			else
-				set guifont = 'Andale Mono 8'
+				set guifont =Andale Mono 8
 			endif
 			set guioptions-=T  " no toolbar
 			set guioptions-=m  " no menu bar
