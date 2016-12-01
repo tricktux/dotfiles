@@ -426,7 +426,6 @@ function! plugin#Check() abort
 		let g:plugged_path=  $HOME . '\vimfiles\plugged\'
 		let g:vimfile_path=  $HOME . '\vimfiles\'
 		let g:wiki_path =  $HOME . '\Documents\1.WINGS\NeoWingsSupportFiles\wiki'
-		let g:custom_font =  
 	else
 		if has('nvim')
 			let g:cache_path= $HOME . '/.cache/'
