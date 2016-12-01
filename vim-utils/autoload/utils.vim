@@ -242,31 +242,6 @@ function! utils#UnsetDiff() abort
 	diffoff!
 endfunction
 
-function! utils#CheckVimPlug() abort
-	let b:bLoadPlugins = 0
-	if empty(glob(s:vimfile_path . 'autoload/plug.vim'))
-		if executable('curl')
-			" Create folder
-			call utils#CheckDirwoPrompt(s:vimfile_path . "autoload")
-			echomsg "Master I am going to install all plugings for you"
-			execute "silent !curl -fLo " . s:vimfile_path . "autoload/plug.vim --create-dirs"
-						\" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-			autocmd VimEnter * PlugInstall | source $MYVIMRC
-			let b:bLoadPlugins = 1
-			return 1
-		else
-			echomsg "Master I cant install plugins for you because you"
-						\" do not have curl. Please fix this. Plugins"
-						\" will not be loaded."
-			let b:bLoadPlugins = 0
-			return 0
-		endif
-	else
-		let b:bLoadPlugins = 1
-		return 1
-	endif
-endfunction
-
 function! utils#NormalizeWindowSize() abort
 	execute "normal \<c-w>="
 endfunction
@@ -279,20 +254,20 @@ function! utils#SaveSession(...) abort
 	" if session name is not provided as function argument ask for it
 	if a:0 < 1
 		execute "wall"
-		execute "cd ". s:cache_path ."sessions/"
+		execute "cd ". g:cache_path ."sessions/"
 		let l:sSessionName = input("Enter
 					\ save session name:", "", "file")
 	else
 		" Need to keep this option short and sweet
 		let l:sSessionName = a:1
 	endif
-	execute "normal :mksession! " . s:cache_path . "sessions/". l:sSessionName  . "\<CR>"
+	execute "normal :mksession! " . g:cache_path . "sessions/". l:sSessionName  . "\<CR>"
 	execute "cd -"
 endfunction
 
 function! utils#LoadSession(...) abort
 	" save all work
-	execute "cd ". s:cache_path ."sessions/"
+	execute "cd ". g:cache_path ."sessions/"
 	" Logic path when not called at startup
 	if a:0 < 1
 		execute "wall"
@@ -318,7 +293,7 @@ function! utils#LoadSession(...) abort
 		endif
 	endif
 	execute "normal :%bdelete\<CR>"
-	silent execute "normal :so " . s:cache_path . "sessions/". l:sSessionName . "\<CR>"
+	silent execute "normal :so " . g:cache_path . "sessions/". l:sSessionName . "\<CR>"
 	execute "cd -"
 endfunction
 
@@ -417,15 +392,15 @@ func! CheatCompletion(ArgLead, CmdLine, CursorPos)
 	if a:ArgLead =~ '^-\w*'
 		echohl WarningMsg | echom a:ArgLead . " is not a valid wiki name" | echohl None
 	endif
-	return join(utils#ListFiles(s:wiki_path . '//'),"\n")
+	return join(utils#ListFiles(g:wiki_path . '//'),"\n")
 endfunction
 
 function! utils#WikiOpen(...) abort
 	if a:0 > 0
-		execute "vs " . s:wiki_path . '/'.  a:1
+		execute "vs " . g:wiki_path . '/'.  a:1
 		return
 	endif
-	execute "vs " . fnameescape(s:wiki_path . '//' . input('Wiki Name: ', '', 'custom,CheatCompletion'))
+	execute "vs " . fnameescape(g:wiki_path . '//' . input('Wiki Name: ', '', 'custom,CheatCompletion'))
 endfunction
 " }}}
 
@@ -508,7 +483,7 @@ function! utils#Make()
 endfunction
 
 function! utils#WikiSearch() abort
-	execute "cd " . s:wiki_path
+	execute "cd " . g:wiki_path
 	execute "grep " . input("Enter wiki search string:")
 	cd -
 endfunction
@@ -531,8 +506,8 @@ function! utils#GuiFont(sOp) abort
 endfunction
 
 function! utils#EditPlugins() abort
-	execute "cd " .s:plugged_path
-	execute "e " . input('e ' . expand(s:plugged_path), "", "file")
+	execute "cd " .g:plugged_path
+	execute "e " . input('e ' . expand(g:plugged_path), "", "file")
 	cd -
 endfunction
 
@@ -574,6 +549,15 @@ function! utils#UpdateHeader()
 	" TODO.RM-Sat Nov 26 2016 00:06: Add Last Author  
 	" See getmatches, and matchadd()
 endfun
+
+" Default Wings mappings are for laptop
+function! utils#SetWingsPath(sPath) abort
+	execute "nnoremap <Leader>e21 :silent e " . a:sPath . "NeoOneWINGS/"
+	execute "nnoremap <Leader>e22 :silent e " . a:sPath
+	execute "nnoremap <Leader>ed :silent e ". a:sPath . "NeoOneWINGS/default.ini<CR>"
+	execute "nnoremap <Leader>ewl :call utils#WingsSymLink('~/Documents/1.WINGS/')<CR>"
+	execute "nnoremap <Leader>ewl :call utils#WingsSymLink(" . expand(a:sPath) . ")<CR>"
+endfunction
 
 " TODO.RM-Sat Nov 26 2016 00:04: Function that auto adds SCR # and description  
 " vim:tw=78:ts=2:sts=2:sw=2:

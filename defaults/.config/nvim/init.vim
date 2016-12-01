@@ -1,10 +1,10 @@
 " File:					init.vim
 " Description:  Vim/Neovim configuration file
 " Author:				Reinaldo Molina
-" Version:			5.0.0
+" Version:			5.0.1
 "								Added granularity by moving different settings into different
 "								files
-" Date:					Wed Nov 30 2016 11:05
+" Date:					Thu Dec 01 2016 07:43
 " Improvements:
 		" - [ ] Markdown tables
 		" - [ ] Delete duplicate music.
@@ -19,85 +19,37 @@
 	syntax on
 	filetype plugin indent on
 
-	" Set paths for plugins
-	if has('win32')
-		let g:cache_path= $HOME . '\.cache\'
-		let g:plugged_path=  $HOME . '\vimfiles\plugged\'
-		let g:vimfile_path=  $HOME . '\vimfiles\'
-		let g:wiki_path =  $HOME . '\Documents\1.WINGS\NeoWingsSupportFiles\wiki'
-		let g:custom_font =  'consolas:h8'
-	else
-		if has('nvim')
-			let g:cache_path= $HOME . '/.cache/'
-			let g:plugged_path=  $HOME . '/.config/nvim/plugged/'
-			let g:vimfile_path=  $HOME . '/.config/nvim/'
-		else
-			let g:cache_path= $HOME . '/.cache/'
-			let g:plugged_path=  $HOME . '/.vim/plugged/'
-			let g:vimfile_path=  $HOME . '/.vim/'
-		endif
-		let g:wiki_path=  $HOME . '/Documents/seafile-client/Seafile/KnowledgeIsPower/wiki'
-		let g:custom_font = 'Andale Mono 8'
-		let g:usr_path = '/usr'
-
-		if system('uname -o') =~ 'Android'
-			let g:android = 1
-			let g:usr_path = $HOME . '/../usr'
-		endif
-	endif
-
 " PLUGINS_INIT
-	function! s:CheckVimPlug() abort
-		if empty(glob(g:vimfile_path . 'autoload/plug.vim'))
-			if executable('curl')
-				execute "silent !curl -fLo " . g:vimfile_path . "autoload/plug.vim --create-dirs"
-							\" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-				autocmd VimEnter * PlugInstall | source $MYVIMRC
-				return 1
-			else
-				echomsg "Master I cant install plugins for you because you"
-							\" do not have curl. Please fix this. Plugins"
-							\" will not be loaded."
-				return 0
-			endif
-		else
-			return 1
-		endif
-	endfunction
 	" ~/.dotfiles/vim-utils/autoload/plugin.vim
 	" Attempt to install vim-plug and all plugins in case of first use
-	if <SID>CheckVimPlug() && !empty(glob("~/.dotfiles/vim-utils/autoload/plugin.vim"))
+	if !empty(glob("~/.dotfiles/vim-utils/autoload/plugin.vim"))
 		source ~/.dotfiles/vim-utils/autoload/plugin.vim
-		call plugin#Config()
-		let b:options_loaded = 1
+		if plugin#Check()
+			call plugin#Config()
+			let b:plugins_loaded = 1
+		endif
 	endif
 
 " NVIM SPECIFIC
 	" ~/.dotfiles/vim-utils/autoload/nvim.vim
-	if has('nvim') && exists("b:options_loaded")
+	if has('nvim') && exists("b:plugins_loaded")
 		call nvim#Config()
 	endif
 
 " WINDOWS_SETTINGS
 	" ~/.dotfiles/vim-utils/autoload/win32.vim
-	if has('win32') && exists("b:options_loaded")
+	if has('win32') && exists("b:plugins_loaded")
 		call win32#Config()
 
 " UNIX_SETTINGS
 	" ~/.dotfiles/vim-utils/autoload/unix.vim
-	elseif has('unix') && exists("b:options_loaded")
+	elseif has('unix') && exists("b:plugins_loaded")
 		call unix#Config()
 	endif
 
-" GUI_SETTINGS
-	" ~/.dotfiles/vim-utils/autoload/gui.vim
-	if exists("b:options_loaded")
-		call gui#Config()
-	endif
-
-" Create personal folders
+" Create cache folders
 	" TMP folder
-	if exists("b:options_loaded")
+	if exists("b:plugins_loaded")
 		if utils#CheckDirwoPrompt(g:cache_path . "tmp")
 			let $TMP= g:cache_path . "tmp"
 		else
@@ -127,104 +79,105 @@
 	endif
 
 " SET_OPTIONS
-	"set spell spelllang=en_us
-	"omnicomplete menu
-	" save marks
-	set shiftwidth=2 tabstop=2
-	set viminfo='1000,f1,<800,%1024
-	set showtabline=1 " always show tabs in gvim, but not vim"
-	set backspace=indent,eol,start
-						" allow backspacing over everything in insert mode
-	" indents defaults. Custom values are changes in after/indent
-		" When 'sts' is negative, the value of 'shiftwidth' is used.
-	set softtabstop=-8
-	set smarttab      " insert tabs on the start of a line according to
-	" shiftwidth, not tabstop
+	" Regular stuff
+		"set spell spelllang=en_us
+		"omnicomplete menu
+		" save marks
+		set shiftwidth=2 tabstop=2
+		set viminfo='1000,f1,<800,%1024
+		set showtabline=1 " always show tabs in gvim, but not vim"
+		set backspace=indent,eol,start
+							" allow backspacing over everything in insert mode
+		" indents defaults. Custom values are changes in after/indent
+			" When 'sts' is negative, the value of 'shiftwidth' is used.
+		set softtabstop=-8
+		set smarttab      " insert tabs on the start of a line according to
+		" shiftwidth, not tabstop
 
-	set showmatch     " set show matching parenthesis
-	set smartcase     " ignore case if search pattern is all lowercase,
-										"    case-sensitive otherwise
-	set ignorecase
-	set hlsearch      " highlight search terms
-	set number
-	set relativenumber
-	set incsearch     " show search matches as you type
-	set history=1000         " remember more commands and search history
-	" ignore these files to for completion
-	set wildignore+=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn,.git
-	set completeopt=menuone,menu,longest,preview
-	" set complete+=kspell " currently not working
-	set wildmenu
-	set wildmode=list:longest
-	set title                " change the terminal's title
-	set visualbell           " don't beep
-	set noerrorbells         " don't beep
-	set nobackup " no backup files
-	set noswapfile
-	"set autochdir " working directory is always the same as the file you are editing
-	" Took out options from here. Makes the session script too long and annoying
-	set sessionoptions=buffers,curdir,folds,localoptions,options,tabpages,resize,winsize,winpos,help
-	set hidden
-	" see :h timeout this was done to make use of ' faster and keep the other
-	" timeout the same
-	set notimeout
-	set nottimeout
-	" cant remember why I had a timeout len I think it was
-	" in order to use <c-j> in cli vim for esc
-	" removing it see what happens
-	" set timeoutlen=1000
-	" set ttimeoutlen=0
-	set nowrap        " wrap lines
-	set nowrapscan        " do not wrap search at EOF
-	" will look in current directory for tags
-	" THE BEST FEATURE I'VE ENCOUNTERED SO FAR OF VIM
-	" CAN BELIEVE I DIDNT DO THIS BEFORE
-	" set tags+=.\tags;\
-	set tags=./tags;,tags;
-	let &tags .= substitute(glob("`find ~/.cache/ctags -name tags* -print`"), "\n", ",", "g")
-	" Note: There is also avr tags created by .dotfiles/scripts/maketags.sh
-	" !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/ctags/tags_sys /usr/include
-	" !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/ctags/tags_sys2 /usr/local/include
+		set showmatch     " set show matching parenthesis
+		set smartcase     " ignore case if search pattern is all lowercase,
+											"    case-sensitive otherwise
+		set ignorecase
+		set hlsearch      " highlight search terms
+		set number
+		set relativenumber
+		set incsearch     " show search matches as you type
+		set history=1000         " remember more commands and search history
+		" ignore these files to for completion
+		set wildignore+=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn,.git
+		set completeopt=menuone,menu,longest,preview
+		" set complete+=kspell " currently not working
+		set wildmenu
+		set wildmode=list:longest
+		set title                " change the terminal's title
+		set visualbell           " don't beep
+		set noerrorbells         " don't beep
+		set nobackup " no backup files
+		set noswapfile
+		"set autochdir " working directory is always the same as the file you are editing
+		" Took out options from here. Makes the session script too long and annoying
+		set sessionoptions=buffers,curdir,folds,localoptions,options,tabpages,resize,winsize,winpos,help
+		set hidden
+		" see :h timeout this was done to make use of ' faster and keep the other
+		" timeout the same
+		set notimeout
+		set nottimeout
+		" cant remember why I had a timeout len I think it was
+		" in order to use <c-j> in cli vim for esc
+		" removing it see what happens
+		" set timeoutlen=1000
+		" set ttimeoutlen=0
+		set nowrap        " wrap lines
+		set nowrapscan        " do not wrap search at EOF
+		" will look in current directory for tags
+		" THE BEST FEATURE I'VE ENCOUNTERED SO FAR OF VIM
+		" CAN BELIEVE I DIDNT DO THIS BEFORE
+		" set tags+=.\tags;\
+		set tags=./tags;,tags;
+		let &tags .= substitute(glob("`find ~/.cache/ctags -name tags* -print`"), "\n", ",", "g")
+		" Note: There is also avr tags created by .dotfiles/scripts/maketags.sh
+		" !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/ctags/tags_sys /usr/include
+		" !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/ctags/tags_sys2 /usr/local/include
 
-	if has('cscope')
-		set cscopetag cscopeverbose
-		if has('quickfix')
-			set cscopequickfix=s+,c+,d+,i+,t+,e+
+		if has('cscope')
+			set cscopetag cscopeverbose
+			if has('quickfix')
+				set cscopequickfix=s+,c+,d+,i+,t+,e+
+			endif
 		endif
-	endif
-	" set matchpairs+=<:>
-	set autoread " autoload files written outside of vim
-	" Display tabs and trailing spaces visually
-	"set list listchars=tab:\ \ ,trail:?
-	set linebreak    "Wrap lines at convenient points
-	" Open and close folds Automatically
-	" global fold indent
-	set foldmethod=indent
-	set foldnestmax=18      "deepest fold is 18 levels
-	set foldlevel=0
-	set foldlevelstart=0
-	" use this below option to set other markers
-	"'foldmarker' 'fmr'	string (default: "{{{,}}}")
-	set viewoptions=folds,options,cursor,unix,slash " better unix /
-	" For conceal markers.
-	if has('conceal')
-		set conceallevel=2 concealcursor=nv
-	endif
+		" set matchpairs+=<:>
+		set autoread " autoload files written outside of vim
+		" Display tabs and trailing spaces visually
+		"set list listchars=tab:\ \ ,trail:?
+		set linebreak    "Wrap lines at convenient points
+		" Open and close folds Automatically
+		" global fold indent
+		set foldmethod=indent
+		set foldnestmax=18      "deepest fold is 18 levels
+		set foldlevel=0
+		set foldlevelstart=0
+		" use this below option to set other markers
+		"'foldmarker' 'fmr'	string (default: "{{{,}}}")
+		set viewoptions=folds,options,cursor,unix,slash " better unix /
+		" For conceal markers.
+		if has('conceal')
+			set conceallevel=2 concealcursor=nv
+		endif
 
-	set noesckeys " No mappings that start with <esc>
+		set noesckeys " No mappings that start with <esc>
 
-	" no mouse enabled
-	set mouse=""
-	set laststatus=2
-	set textwidth=78
-	" makes vim autocomplete - bullets
-	set comments+=b:-,b:*
-	set nolist " Do not display extra characters
-	set scroll=8
-	set modeline
-	set modelines=1
-	" Set omni for all filetypes
-	set omnifunc=syntaxcomplete#Complete
+		" no mouse enabled
+		set mouse=""
+		set laststatus=2
+		set textwidth=78
+		" makes vim autocomplete - bullets
+		set comments+=b:-,b:*
+		set nolist " Do not display extra characters
+		set scroll=8
+		set modeline
+		set modelines=1
+		" Set omni for all filetypes
+		set omnifunc=syntaxcomplete#Complete
 
 	" Status Line
 		set background=dark    " Setting dark mode
@@ -260,6 +213,51 @@
 			set ttyfast " Had to addit to speed up scrolling
 		endif
 		set lazyredraw " Had to addit to speed up scrolling
+
+	" Gui
+		if has('gui_running')
+			if has('win32')
+				set guifont = 'consolas:h8'
+			else
+				set guifont = 'Andale Mono 8'
+			endif
+			set guioptions-=T  " no toolbar
+			set guioptions-=m  " no menu bar
+			set guioptions-=r  " no right scroll bar
+			set guioptions-=l  " no left scroll bar
+			set guioptions-=L  " no side scroll bar
+			if has('nvim') && has('win32')
+				Guifont DejaVu Sans Mono:h9
+			endif
+		else " common cli options to both systems
+			if $TERM ==? 'linux'
+				set t_Co=8
+			else
+				set t_Co=256
+			endif
+			" fixes colorscheme not filling entire backgroud
+			set t_ut=
+			" Set blinking cursor shape everywhere
+			if has('nvim')
+				let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+				let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+				" Fixes broken nmap <c-h> inside of tmux
+				nnoremap <BS> :noh<CR>
+			endif
+
+			" TODO.RM-Wed Nov 30 2016 09:01: Testing here may break things  
+			if exists('$TMUX')
+				let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+				let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+			elseif has('win32')
+				set term=xterm
+				let &t_AB="\e[48;5;%dm"
+				let &t_AF="\e[38;5;%dm"
+			else
+				let &t_SI = "\<Esc>[5 q"
+				let &t_EI = "\<Esc>[1 q"
+			endif
+		endif
 
 " ALL_AUTOGROUP_STUFF
 	" All of these options contain performance drawbacks but the most important
@@ -298,7 +296,7 @@
 	augroup END
 
 
-	if exists("b:options_loaded")
+	if exists("b:plugins_loaded")
 		augroup VimType
 			autocmd!
 			" Sessions
@@ -542,7 +540,7 @@
 		vnoremap <C-j> <Esc>
 
 	" Buffers Stuff <Leader>b?
-		if !exists("b:options_loaded")
+		if !exists("b:plugins_loaded")
 			nnoremap <S-k> :buffers<CR>:buffer<Space>
 		else
 			nnoremap <Leader>bs :buffers<CR>:buffer<Space>
