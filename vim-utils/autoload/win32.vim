@@ -25,24 +25,14 @@ function win32#Config()
 	" Switch Wings mappings for SWTestbed
 	nnoremap <Leader>es :call utils#SetWingsPath('D:/Reinaldo/')<CR>
 
-	" Default Wings mappings are for laptop
-	function! s:SetWingsPath(sPath) abort
-		execute "nnoremap <Leader>e21 :silent e " . a:sPath . "NeoOneWINGS/"
-		execute "nnoremap <Leader>e22 :silent e " . a:sPath
-		execute "nnoremap <Leader>ed :silent e ". a:sPath . "NeoOneWINGS/default.ini<CR>"
-		execute "nnoremap <Leader>ewl :call utils#WingsSymLink('~/Documents/1.WINGS/')<CR>"
-		execute "nnoremap <Leader>ewl :call utils#WingsSymLink(" . expand(a:sPath) . ")<CR>"
-	endfunction
-
-	call <SID>SetWingsPath('~/Documents/1.WINGS/')
+	call utils#SetWingsPath('~/Documents/1.WINGS/')
 
 	" Time runtime of a specific program
 	nnoremap <Leader>mt :Dispatch powershell -command "& {&'Measure-Command' {.\sep_calc.exe seprc}}"<CR>
-
 	nnoremap <Leader>mu :call utils#UpdateBorlandMakefile()<CR>
 
 	if isdirectory('C:\maxapi')
-		set path+=C:\maxapi
+		let &path .= 'C:\maxapi,'
 	endif
 endfunction
 

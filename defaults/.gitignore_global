@@ -24,6 +24,7 @@ cache
 #autoload
 plugged
 cppman
+.gitignore
 
 # Qt ignore
 # C++ objects and libs

@@ -29,13 +29,11 @@ function! unix#Config() abort
 	nnoremap <Leader>et :silent e ~/.mnt/truck-server/
 	nnoremap <CR> o<ESC>
 
-	"Plugin 'ctrlpvim/ctrlp.vim' " quick file searchh"
-
 	" VIM_PATH includes
 	" With this you can use gf to go to the #include <avr/io.h>
 	" also this path below are what go into the .syntastic_avrgcc_config
-	let &path .= g:usr_path . '/local/include'
-	let &path .= g:usr_path . '/include'
+	let &path .= g:usr_path . '/local/include,'
+	let &path .= g:usr_path . '/include,'
 
 	" Vim-clang
 endfunction
