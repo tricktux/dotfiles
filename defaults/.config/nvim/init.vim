@@ -4,7 +4,7 @@
 " Version:			5.1.0
 "								Added granularity by moving different settings into different
 "								files
-" Date:					Thu Dec 01 2016 12:16
+" Date:					Thu Dec 01 2016 21:58
 " Improvements:
 		" - [ ] Markdown tables
 		" - [ ] Delete duplicate music.
@@ -47,37 +47,6 @@
 	" ~/.dotfiles/vim-utils/autoload/unix.vim
 	elseif has('unix') && exists("b:plugins_loaded")
 		call unix#Config()
-	endif
-
-" Create cache folders
-	" TMP folder
-	if exists("b:plugins_loaded")
-		if utils#CheckDirwoPrompt(g:cache_path . "tmp")
-			let $TMP= g:cache_path . "tmp"
-		else
-			echomsg string("Failed to create tmp dir")
-		endif
-
-		if !utils#CheckDirwoPrompt(g:cache_path . "sessions")
-			echoerr string("Failed to create sessions dir")
-		endif
-
-		" We assume wiki folder is there. No creation of this wiki folder
-
-		if !utils#CheckDirwoPrompt(g:cache_path . "java")
-			echoerr string("Failed to create java dir")
-		endif
-
-		if has('persistent_undo')
-			if utils#CheckDirwoPrompt(g:cache_path . 'undofiles')
-				let &undodir= g:cache_path . 'undofiles'
-				set undofile
-				set undolevels=1000      " use many muchos levels of undo
-			endif
-		endif
-
-		" Beggining of set
-		call utils#SetGrep()
 	endif
 
 " SET_OPTIONS
@@ -259,6 +228,11 @@
 				let &t_SI = "\<Esc>[5 q"
 				let &t_EI = "\<Esc>[1 q"
 			endif
+		endif
+
+	" Grep
+		if exists("b:plugins_loaded")
+			call utils#SetGrep()
 		endif
 
 " ALL_AUTOGROUP_STUFF
@@ -533,7 +507,7 @@
 		" Tried ack.vim. Discovered that nothing is better than grep with ag.
 		" search all type of files
 		"TODO.RM-Wed Nov 30 2016 10:22: Improve grep to autodetect filetype  
-		nnoremap <Leader>S :grep --cpp
+		nnoremap <Leader>S :grep --&ft
 		nnoremap <S-s> #<C-o>
 		vnoremap // y/<C-R>"<CR>
 
@@ -550,7 +524,7 @@
 		nnoremap <S-j> :b#<CR>
 		nnoremap <Leader>bd :bp\|bw #\|bd #<CR>
 		" deletes all buffers
-		nnoremap <Leader>bD :%bd<CR>
+		nnoremap <Leader>bl :%bd<CR>
 		nnoremap <Leader>bS :bufdo
 		" move tab to the left
 		nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
@@ -637,4 +611,24 @@
 	" Man
 		let g:no_plugin_maps = 1
 
+	" NERD plugins options cant be anywhere else
+		let NERDTreeShowBookmarks=1  " B key to toggle
+		let NERDTreeShowLineNumbers=1
+		let NERDTreeShowHidden=1 " i key to toggle
+		let NERDTreeQuitOnOpen=1 " AutoClose after openning file
+		let NERDTreeBookmarksFile=g:cache_path . '.NERDTreeBookmarks'
+		" Do not load netrw
+		let g:loaded_netrw       = 1
+		let g:loaded_netrwPlugin = 1
+		let NERDUsePlaceHolders=0 " avoid commenter doing weird stuff
+		let NERDCommentWholeLinesInVMode=2
+		let NERDCreateDefaultMappings=0 " Eliminate default mappings
+		let NERDRemoveAltComs=1 " Remove /* comments
+		let NERD_c_alt_style=0 " Do not use /* on C nor C++
+		let NERD_cpp_alt_style=0
+		let NERDMenuMode=0 " no menu
+		let g:NERDCustomDelimiters = {
+					\ 'vim': { 'left': '"', 'right': '' },
+					\ 'wings_syntax': { 'left': '//', 'right': '' }}
+		let NERDSpaceDelims=1  " space around comments
 " vim:tw=78:ts=2:sts=2:sw=2:

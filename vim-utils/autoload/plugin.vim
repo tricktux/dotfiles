@@ -2,18 +2,18 @@
 " Description:Plugin specific settings
 " Author:Reinaldo Molina <rmolin88@gmail.com>
 " Version:1.0.0
-" Last modified: Thu Dec 01 2016 07:58
+" Last modified: Thu Dec 01 2016 20:11
 
 function! plugin#Config() abort
 	" Vim-Plug
-	nnoremap <Leader>Pi :PlugInstall<CR>
-	nnoremap <Leader>Pu :PlugUpdate<CR>
-				\:PlugUpgrade<CR>
-				\:UpdateRemotePlugins<CR>
-	" installs plugins; append `!` to update or just :PluginUpdate
-	nnoremap <Leader>Ps :PlugSearch<CR>
-	" searches for foo; append `!` to refresh local cache
-	nnoremap <Leader>Pl :PlugClean<CR>
+		nnoremap <Leader>Pi :PlugInstall<CR>
+		nnoremap <Leader>Pu :PlugUpdate<CR>
+					\:PlugUpgrade<CR>
+					\:UpdateRemotePlugins<CR>
+		" installs plugins; append `!` to update or just :PluginUpdate
+		nnoremap <Leader>Ps :PlugSearch<CR>
+		" searches for foo; append `!` to refresh local cache
+		nnoremap <Leader>Pl :PlugClean<CR>
 
 	call plug#begin(g:plugged_path)
 	if executable('fzf') " FZF
@@ -240,167 +240,148 @@ function! plugin#Config() abort
 
 	" Plugins for All (nvim, linux, win32)
 	Plug '~/.dotfiles/vim-utils'
-	nnoremap <Leader>of :Dox<CR>
-	" Other commands
-	" command! -nargs=0 DoxLic :call <SID>DoxygenLicenseFunc()
-	" command! -nargs=0 DoxAuthor :call <SID>DoxygenAuthorFunc()
-	" command! -nargs=1 DoxUndoc :call <SID>DoxygenUndocumentFunc(<q-args>)
-	" command! -nargs=0 DoxBlock :call <SID>DoxygenBlockFunc()
-	let g:DoxygenToolkit_briefTag_pre = "Brief:			"
-	let g:DoxygenToolkit_paramTag_pre=	"	"
-	let g:DoxygenToolkit_returnTag=			"Returns:   "
-	let g:DoxygenToolkit_blockHeader=""
-	let g:DoxygenToolkit_blockFooter=""
-	let g:DoxygenToolkit_authorName="Reinaldo Molina <rmolin88@gmail.com>"
-	let g:DoxygenToolkit_authorTag =	"Author:				"
-	let g:DoxygenToolkit_fileTag =		"File:					"
-	let g:DoxygenToolkit_briefTag_pre="Description:		"
-	let g:DoxygenToolkit_dateTag =		"Last modified:	"
-	let g:DoxygenToolkit_versionTag = "Version:				"
-	let g:DoxygenToolkit_commentType = "C++"
-	" See :h doxygen.vim this vim related. Not plugin related
-	let g:load_doxygen_syntax=1
+		nnoremap <Leader>of :Dox<CR>
+		" Other commands
+		" command! -nargs=0 DoxLic :call <SID>DoxygenLicenseFunc()
+		" command! -nargs=0 DoxAuthor :call <SID>DoxygenAuthorFunc()
+		" command! -nargs=1 DoxUndoc :call <SID>DoxygenUndocumentFunc(<q-args>)
+		" command! -nargs=0 DoxBlock :call <SID>DoxygenBlockFunc()
+		let g:DoxygenToolkit_briefTag_pre = "Brief:			"
+		let g:DoxygenToolkit_paramTag_pre=	"	"
+		let g:DoxygenToolkit_returnTag=			"Returns:   "
+		let g:DoxygenToolkit_blockHeader=""
+		let g:DoxygenToolkit_blockFooter=""
+		let g:DoxygenToolkit_authorName="Reinaldo Molina <rmolin88@gmail.com>"
+		let g:DoxygenToolkit_authorTag =	"Author:				"
+		let g:DoxygenToolkit_fileTag =		"File:					"
+		let g:DoxygenToolkit_briefTag_pre="Description:		"
+		let g:DoxygenToolkit_dateTag =		"Last modified:	"
+		let g:DoxygenToolkit_versionTag = "Version:				"
+		let g:DoxygenToolkit_commentType = "C++"
+		" See :h doxygen.vim this vim related. Not plugin related
+		let g:load_doxygen_syntax=1
 
 	" misc
 	Plug 'chrisbra/vim-diff-enhanced', { 'on' : 'SetDiff' }
 	Plug 'scrooloose/nerdtree'
-	let NERDTreeShowBookmarks=1  " B key to toggle
-	let NERDTreeShowLineNumbers=1
-	let NERDTreeShowHidden=1 " i key to toggle
-	let NERDTreeQuitOnOpen=1 " AutoClose after openning file
-	let NERDTreeBookmarksFile=g:cache_path . '.NERDTreeBookmarks'
-	" Do not load netrw
-	let g:loaded_netrw       = 1
-	let g:loaded_netrwPlugin = 1
 	Plug 'scrooloose/nerdcommenter'
-	let NERDUsePlaceHolders=0 " avoid commenter doing weird stuff
-	let NERDCommentWholeLinesInVMode=2
-	let NERDCreateDefaultMappings=0 " Eliminate default mappings
-	let NERDRemoveAltComs=1 " Remove /* comments
-	let NERD_c_alt_style=0 " Do not use /* on C nor C++
-	let NERD_cpp_alt_style=0
-	let NERDMenuMode=0 " no menu
-	let g:NERDCustomDelimiters = {
-				\ 'vim': { 'left': '"', 'right': '' },
-				\ 'wings_syntax': { 'left': '//', 'right': '' }}
-	let NERDSpaceDelims=1  " space around comments
-	nmap - <plug>NERDCommenterToggle
-	nmap <Leader>ot <plug>NERDCommenterAltDelims
-	vmap - <plug>NERDCommenterToggle
-	imap <C-c> <plug>NERDCommenterInsert
-	nmap <Leader>oa <plug>NERDCommenterAppend
-	vmap <Leader>os <plug>NERDCommenterSexy
+		nmap - <plug>NERDCommenterToggle
+		nmap <Leader>ot <plug>NERDCommenterAltDelims
+		vmap - <plug>NERDCommenterToggle
+		imap <C-c> <plug>NERDCommenterInsert
+		nmap <Leader>oa <plug>NERDCommenterAppend
+		vmap <Leader>os <plug>NERDCommenterSexy
 	Plug 'chrisbra/Colorizer'
-	let g:colorizer_auto_filetype='css,html,xml'
+		let g:colorizer_auto_filetype='css,html,xml'
 	Plug 'tpope/vim-repeat'
 	Plug 'tpope/vim-surround'
 	Plug 'Konfekt/FastFold'
-	" Stop updating folds everytime I save a file
-	let g:fastfold_savehook = 0
-	" To update folds now you have to do it manually pressing 'zuz'
-	let g:fastfold_fold_command_suffixes =
-				\['x','X','a','A','o','O','c','C','r','R','m','M','i','n','N']
-	Plug 'airblade/vim-rooter'
-	let g:rooter_manual_only = 1
-	nnoremap <Leader>cr :Rooter<CR>
+		" Stop updating folds everytime I save a file
+		let g:fastfold_savehook = 0
+		" To update folds now you have to do it manually pressing 'zuz'
+		let g:fastfold_fold_command_suffixes =
+					\['x','X','a','A','o','O','c','C','r','R','m','M','i','n','N']
+		Plug 'airblade/vim-rooter'
+		let g:rooter_manual_only = 1
+		nnoremap <Leader>cr :Rooter<CR>
 	Plug 'Raimondi/delimitMate'
-	let g:delimitMate_expand_cr = 1
-	let g:delimitMate_expand_space = 1
-	let g:delimitMate_jump_expansion = 1
-	" imap <expr> <CR> <Plug>delimitMateCR
+		let g:delimitMate_expand_cr = 1
+		let g:delimitMate_expand_space = 1
+		let g:delimitMate_jump_expansion = 1
+		" imap <expr> <CR> <Plug>delimitMateCR
 	Plug 'dkarter/bullets.vim'
 	Plug 'Chiel92/vim-autoformat'
-	let g:autoformat_autoindent = 0
-	let g:autoformat_retab = 0
-	let g:autoformat_remove_trailing_spaces = 0
+		let g:autoformat_autoindent = 0
+		let g:autoformat_retab = 0
+		let g:autoformat_remove_trailing_spaces = 0
 
 	" cpp
 	Plug 'Tagbar', { 'on' : 'TagbarToggle' }
-	let g:tagbar_autofocus = 1
-	let g:tagbar_show_linenumbers = 2
-	let g:tagbar_map_togglesort = "r"
-	let g:tagbar_map_nexttag = "<c-j>"
-	let g:tagbar_map_prevtag = "<c-k>"
-	let g:tagbar_map_openallfolds = "<c-n>"
-	let g:tagbar_map_closeallfolds = "<c-c>"
-	let g:tagbar_map_togglefold = "<c-x>"
-	nnoremap <Leader>tt :TagbarToggle<CR>
-	nnoremap <Leader>tk :cs kill -1<CR>
-	nnoremap <silent> <Leader>tj <C-]>
-	nnoremap <Leader>tr <C-t>
-	nnoremap <Leader>tv :vs<CR>:exec("tag ".expand("<cword>"))<CR>
-	" ReLoad cscope database
-	nnoremap <Leader>tl :cs add cscope.out<CR>
-	" Find functions calling this function
-	nnoremap <Leader>tc :cs find c <C-R>=expand("<cword>")<CR><CR>
-	" Find functions definition
-	nnoremap <Leader>tg :cs find g <C-R>=expand("<cword>")<CR><CR>
-	" Find functions called by this function not being used
-	" nnoremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
-	nnoremap <Leader>ts :cs show<CR>
-	nnoremap <Leader>tu :call utils#UpdateCscope()<CR>
-	if executable('clang') && has('python') " clang_complete
-		Plug 'Rip-Rip/clang_complete', { 'for' : ['c' , 'cpp'] }
-		" Why I switched to Rip-Rip because it works
-		" Steps to get plugin to work:
-		" 1. Make sure that you can compile a program with clang++ command
-		" a. Example: clang++ -std=c++14 -stdlib=libc++ -pedantic -Wall hello.cpp -v
-		" 2. To get this to work I had to install libc++-dev package in unix
-		" 3. install libclang-dev package. See g:clang_library_path to where it gets
-		" installed. Also I had to make sym link: ln -s libclang.so.1 libclang.so
-		let g:clang_user_options = '-std=c++14 -stdlib=libc++ -Wall -pedantic'
-		let g:clang_close_preview = 1
-		" let g:clang_complete_copen = 1
-		" let g:clang_periodic_quickfix = 1
-		if has('win32')
-			" clang using mscv for target instead of mingw64
-			let g:clang_cpp_options = '-target x86_64-pc-windows-gnu -std=c++17 -pedantic -Wall'
-			let g:clang_c_options = '-target x86_64-pc-windows-gnu -std=gnu11 -pedantic -Wall'
+		let g:tagbar_autofocus = 1
+		let g:tagbar_show_linenumbers = 2
+		let g:tagbar_map_togglesort = "r"
+		let g:tagbar_map_nexttag = "<c-j>"
+		let g:tagbar_map_prevtag = "<c-k>"
+		let g:tagbar_map_openallfolds = "<c-n>"
+		let g:tagbar_map_closeallfolds = "<c-c>"
+		let g:tagbar_map_togglefold = "<c-x>"
+		nnoremap <Leader>tt :TagbarToggle<CR>
+		nnoremap <Leader>tk :cs kill -1<CR>
+		nnoremap <silent> <Leader>tj <C-]>
+		nnoremap <Leader>tr <C-t>
+		nnoremap <Leader>tv :vs<CR>:exec("tag ".expand("<cword>"))<CR>
+		" ReLoad cscope database
+		nnoremap <Leader>tl :cs add cscope.out<CR>
+		" Find functions calling this function
+		nnoremap <Leader>tc :cs find c <C-R>=expand("<cword>")<CR><CR>
+		" Find functions definition
+		nnoremap <Leader>tg :cs find g <C-R>=expand("<cword>")<CR><CR>
+		" Find functions called by this function not being used
+		" nnoremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
+		nnoremap <Leader>ts :cs show<CR>
+		nnoremap <Leader>tu :call utils#UpdateCscope()<CR>
+		if executable('clang') && has('python') " clang_complete
+			Plug 'Rip-Rip/clang_complete', { 'for' : ['c' , 'cpp'] }
+			" Why I switched to Rip-Rip because it works
+			" Steps to get plugin to work:
+			" 1. Make sure that you can compile a program with clang++ command
+			" a. Example: clang++ -std=c++14 -stdlib=libc++ -pedantic -Wall hello.cpp -v
+			" 2. To get this to work I had to install libc++-dev package in unix
+			" 3. install libclang-dev package. See g:clang_library_path to where it gets
+			" installed. Also I had to make sym link: ln -s libclang.so.1 libclang.so
+			let g:clang_user_options = '-std=c++14 -stdlib=libc++ -Wall -pedantic'
+			let g:clang_close_preview = 1
+			" let g:clang_complete_copen = 1
+			" let g:clang_periodic_quickfix = 1
+			if has('win32')
+				" clang using mscv for target instead of mingw64
+				let g:clang_cpp_options = '-target x86_64-pc-windows-gnu -std=c++17 -pedantic -Wall'
+				let g:clang_c_options = '-target x86_64-pc-windows-gnu -std=gnu11 -pedantic -Wall'
+			else
+				let g:clang_library_path= g:usr_path . '/lib/libclang.so'
+			endif
 		else
-			let g:clang_library_path= g:usr_path . '/lib/libclang.so'
+			echomsg string("No clang and/or python present. Disabling vim-clang")
+			let g:clang_complete_loaded = 1
 		endif
-	else
-		echomsg string("No clang and/or python present. Disabling vim-clang")
-		let g:clang_complete_loaded = 1
-	endif
 	Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'c' , 'cpp' ] }
-	let g:cpp_class_scope_highlight = 1
+		let g:cpp_class_scope_highlight = 1
 	Plug 'justinmk/vim-syntax-extra'
 	Plug 'junegunn/rainbow_parentheses.vim', { 'on' : 'RainbowParentheses' }
-	let g:rainbow#max_level = 16
-	let g:rainbow#pairs = [['(', ')'], ['[', ']']]
+		let g:rainbow#max_level = 16
+		let g:rainbow#pairs = [['(', ')'], ['[', ']']]
 
 	" cpp/java
-	Plug 'mattn/vim-javafmt', { 'for' : 'java' }
-	Plug 'tfnico/vim-gradle', { 'for' : 'java' }
+	Plug 'mattn/vim-javafmt'
+	Plug 'tfnico/vim-gradle'
 	Plug 'artur-shaik/vim-javacomplete2', { 'branch' : 'master' }
-	let g:JavaComplete_ClosingBrace = 1
-	let g:JavaComplete_EnableDefaultMappings = 0
-	let g:JavaComplete_ImportSortType = 'packageName'
-	let g:JavaComplete_ImportOrder = ['android.', 'com.', 'junit.', 'net.', 'org.', 'java.', 'javax.']
+		let g:JavaComplete_ClosingBrace = 1
+		let g:JavaComplete_EnableDefaultMappings = 0
+		let g:JavaComplete_ImportSortType = 'packageName'
+		let g:JavaComplete_ImportOrder = ['android.', 'com.', 'junit.', 'net.', 'org.', 'java.', 'javax.']
 
 	" Autocomplete
 	Plug 'Shougo/neosnippet'
-	imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-	smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-	xmap <C-k>     <Plug>(neosnippet_expand_target)
-	smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-				\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-	" Tell Neosnippet about the other snippets
-	let g:neosnippet#snippets_directory= g:plugged_path . '/vim-snippets/snippets'
-	let g:neosnippet#data_directory = g:cache_path . 'neosnippets'
+		imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+		smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+		xmap <C-k>     <Plug>(neosnippet_expand_target)
+		smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+					\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+		" Tell Neosnippet about the other snippets
+		let g:neosnippet#snippets_directory= g:plugged_path . '/vim-snippets/snippets'
+		let g:neosnippet#data_directory = g:cache_path . 'neosnippets'
 	Plug 'Shougo/neosnippet-snippets'
 	Plug 'honza/vim-snippets'
 
 	" Version control
 	Plug 'tpope/vim-fugitive'
-	" Fugitive <Leader>g?
-	nnoremap <Leader>gs :Gstatus<CR>
-	nnoremap <Leader>gp :Gpush<CR>
-	nnoremap <Leader>gu :Gpull<CR>
-	nnoremap <Leader>ga :!git add
-	nnoremap <Leader>gl :silent Glog<CR>
-				\:copen 20<CR>
+		" Fugitive <Leader>g?
+		nnoremap <Leader>gs :Gstatus<CR>
+		nnoremap <Leader>gp :Gpush<CR>
+		nnoremap <Leader>gu :Gpull<CR>
+		nnoremap <Leader>ga :!git add
+		nnoremap <Leader>gl :silent Glog<CR>
+					\:copen 20<CR>
 
 	" aesthetic
 	Plug 'morhetz/gruvbox' " colorscheme gruvbox
@@ -416,6 +397,31 @@ function! plugin#Config() abort
 	if exists("b:deoplete_loaded") " Cant call this inside of plug#begin()
 		call deoplete#custom#set('javacomplete2', 'mark', '')
 		call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
+	endif
+
+	" Create cache folders
+	if utils#CheckDirwoPrompt(g:cache_path . "tmp")
+		let $TMP= g:cache_path . "tmp"
+	else
+		echomsg string("Failed to create tmp dir")
+	endif
+
+	if !utils#CheckDirwoPrompt(g:cache_path . "sessions")
+		echoerr string("Failed to create sessions dir")
+	endif
+
+	" We assume wiki folder is there. No creation of this wiki folder
+
+	if !utils#CheckDirwoPrompt(g:cache_path . "java")
+		echoerr string("Failed to create java dir")
+	endif
+
+	if has('persistent_undo')
+		if utils#CheckDirwoPrompt(g:cache_path . 'undofiles')
+			let &undodir= g:cache_path . 'undofiles'
+			set undofile
+			set undolevels=1000      " use many muchos levels of undo
+		endif
 	endif
 endfunction
 
