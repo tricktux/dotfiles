@@ -1,10 +1,10 @@
 " File:					init.vim
 " Description:  Vim/Neovim configuration file
 " Author:				Reinaldo Molina
-" Version:			5.1.0
+" Version:			5.2.0
 "								Added granularity by moving different settings into different
 "								files
-" Date:					Thu Dec 01 2016 21:58
+" Date:					Mon Dec 05 2016 15:23
 " Improvements:
 		" - [ ] Markdown tables
 		" - [ ] Delete duplicate music.
@@ -185,22 +185,8 @@
 		endif
 		set lazyredraw " Had to addit to speed up scrolling
 
-	" Gui
-		if has('gui_running')
-			if has('win32')
-				set guifont =consolas:h8
-			else
-				set guifont =Andale Mono 8
-			endif
-			set guioptions-=T  " no toolbar
-			set guioptions-=m  " no menu bar
-			set guioptions-=r  " no right scroll bar
-			set guioptions-=l  " no left scroll bar
-			set guioptions-=L  " no side scroll bar
-			if has('nvim') && has('win32')
-				Guifont DejaVu Sans Mono:h9
-			endif
-		else " common cli options to both systems
+	" CLI
+		if !has('gui_running')
 			if $TERM ==? 'linux'
 				set t_Co=8
 			else

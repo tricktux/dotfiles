@@ -16,7 +16,8 @@ function! plugin#Config() abort
 		nnoremap <Leader>Pl :PlugClean<CR>
 
 	call plug#begin(g:plugged_path)
-	if executable('fzf') " FZF
+	" if executable('fzf') " FZF
+	if has('nvim')
 		Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 		Plug 'junegunn/fzf.vim'
 		nnoremap <C-p> :History<CR>
@@ -53,9 +54,8 @@ function! plugin#Config() abort
 
 	" Neovim exclusive plugins
 	if has('nvim')
-		if has('gui_running') && has('win32')
-			Plug 'equalsraf/neovim-gui-shim'
-		endif
+		" nvim-qt on unix doesnt populate has('gui_running
+		Plug 'equalsraf/neovim-gui-shim'
 		Plug 'neomake/neomake'
 		let g:neomake_warning_sign = {
 					\ 'text': '?',
