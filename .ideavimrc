@@ -39,7 +39,7 @@ nnoremap <Leader><Space>y "+yy
 
 noremap <Leader>I ggvG=
 nnoremap <c-h> :noh<CR>
-noremap <S-s> #<C-o>
+nnoremap <S-s> #<C-o>
 nnoremap <Leader>A <c-x>
 
 " Window navigation
@@ -81,6 +81,7 @@ set notimeout
 set nottimeout
 set surround
 set incsearch
+set nowrapscan
 
 " ACTION_MAPPINGS
 " Movement
@@ -127,9 +128,14 @@ nnoremap <Leader>tb :action ToggleLineBreakpoint<CR>
 " Miscelaneous
 nnoremap - :action CommentByLineComment<CR>
 nnoremap <Leader>nc :action NewClass<CR>
+
+" Tab
 nnoremap <Leader>O :action MoveEditorToOppositeTabGroup<CR>
+nnoremap <s-j> :action PreviousTab<CR>
+
 " Help section
 nnoremap <Leader>He :action ExternalJavaDoc<CR>
+
 " File | Settings
 nnoremap <Leader>ft :action ShowSettings<CR>
 nnoremap zc :action CollapseBlock<CR>
@@ -147,7 +153,11 @@ nnoremap <Leader>tj :action GotoDeclaration<CR>
 nnoremap <Leader>th :action JavaMethodHierarchyPopupMenu<CR>
 
 " Code format
-nnoremap <c-f> :action ReformatCode<CR>
+nnoremap <Leader>jf :action ReformatCode<CR>
 nnoremap <Leader>co :action OptimizeImports<CR>
+
+" Paste
+nnoremap <Leader>jp :action $Paste
+nnoremap <Leader>jy :action $Copy
 
 " vim:tw=78:ts=2:sts=2:sw=2:

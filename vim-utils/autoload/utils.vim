@@ -440,7 +440,7 @@ function! utils#UpdateCscope() abort
 	catch
 		" Dont do anything if it fails
 	endtry
-	if has('linux')
+	if has('unix')
 		!rm cscope.files cscope.out cscope.po.out cscope.in.out
 		!find . -iregex '.*\.\(c\|cpp\|java\|cc\|h\|hpp\)$' > cscope.files
 	else
@@ -500,6 +500,7 @@ function! utils#ToggleTerm() abort
 		echoerr "<term> only available on nvim"
 	endif
 endfunction
+
 function! utils#GuiFont(sOp) abort
 	let sub = has('win32') ? ':h\zs\d\+' : '\ \zs\d\+'
 	let &guifont = substitute(&guifont, sub,'\=eval(submatch(0)'.a:sOp.'1)','')
@@ -512,20 +513,21 @@ function! utils#EditPlugins() abort
 endfunction
 
 function! utils#FormatFile() abort
-	if &ft ==? 'cpp'
-		if exists(":Autoformat")
+	let type = &ft
+	if type ==? 'cpp' || type ==? 'java' || type ==? 'c'
+		if executable("astyle") && exists(":Autoformat")
 			Autoformat
 		else
-			echomsg string("No Autoformat present")
+			echomsg string("No Autoformat/astyle present")
 		endif
-	elseif &ft ==? 'java'
-		if exists(":JavaFmt")
-			JavaFmt
-		else
-			echomsg string("No java-fmt present")
-		endif
+	"elseif &ft ==? 'java' " vim-javafmt its not working
+		"if exists(":JavaFmt")
+			"JavaFmt
+		"else
+			"echomsg string("No java-fmt present")
+		"endif
 	else
-		echomsg string("No formatter for this filetype")
+		echomsg string("No formatter set for this filetype")
 	endif
 endfunction
 

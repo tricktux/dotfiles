@@ -10,7 +10,6 @@ let b:match_words = '\<if\>:\<else\>,'
 			\ . '\<for\>:\<continue\>:\<break\>,'
 			\ . '\<try\>:\<catch\>'
 setlocal omnifunc=javacomplete#Complete
-setlocal ts=4 sw=4 sts=4
 :RainbowParentheses
 setlocal foldenable
 " Only for current buffer
