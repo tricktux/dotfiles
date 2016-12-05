@@ -45,7 +45,7 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.g
 # fi
 
 # Creating local bin folder
-export PATH=$HOME/.local/bin:$PATH
+export PATH=$PATH:$HOME/.local/bin
 
 export EMAIL="rmolin88@gmail.com"
 

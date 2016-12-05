@@ -5,3 +5,4 @@ xset -b
 google-chrome-stable
 compton -b
 xflux -z 33760
+arandr-indicator

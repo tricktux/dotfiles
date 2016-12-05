@@ -296,7 +296,7 @@
   <!-- Keybindings for custome desktop applications launch -->
   <keybind key="W-1">
 	  <action name="Execute">
-		  <command>~/.focus_or_launch urxvt</command>
+			<command>~/.focus_or_launch ~/.local/bin/nvim-qt</command>
 	  </action>
   </keybind>
   <keybind key="W-2">
@@ -304,19 +304,19 @@
 		  <command>~/.focus_or_launch google-chrome</command>
 	  </action>
   </keybind>
-  <keybind key="F2">
-	  <action name="Execute">
-		  <command>~/.focus_or_launch google-chrome</command>
-	  </action>
-  </keybind>
+  <!-- <keybind key="F2"> -->
+		<!-- <action name="Execute"> -->
+			<!-- <command>~/.focus_or_launch google-chrome</command> -->
+		<!-- </action> -->
+  <!-- </keybind> -->
+  <!-- <keybind key="W-3"> -->
+		<!-- <action name="Execute"> -->
+			<!-- <command>~/.focus_or_launch gvim</command> -->
+		<!-- </action> -->
+  <!-- </keybind> -->
   <keybind key="W-3">
 	  <action name="Execute">
-		  <command>~/.focus_or_launch gvim</command>
-	  </action>
-  </keybind>
-  <keybind key="W-4">
-	  <action name="Execute">
-		  <command>~/.focus_or_launch studio.sh</command>
+			<command>~/.focus_or_launch ~/.local/bin/studio.sh</command>
 	  </action>
   </keybind>
   <keybind key="F1">
@@ -371,6 +371,21 @@
 	<keybind key="W-j">        # HalfLowerScreen
 		<action name="UnmaximizeFull"/>
 		<action name="MoveResizeTo"><x>0</x><y>-0</y><width>100%</width><height>50%</height></action>
+	</keybind>
+	<keybind key="XF86AudioPlay">
+		<action name="Execute">
+			<command>~/.local/bin/cplay -u</command>
+		</action>
+	</keybind>
+	<keybind key="XF86AudioNext">
+		<action name="Execute">
+			<command>~/.local/bin/cplay -n</command>
+		</action>
+	</keybind>
+	<keybind key="XF86AudioPrev">
+		<action name="Execute">
+			<command>~/.local/bin/cplay -p</command>
+		</action>
 	</keybind>
 	<keybind key="F3">
 		<action name="Execute">
