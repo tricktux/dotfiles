@@ -137,5 +137,5 @@ xterm*SaveLines: 80000
 ! URxvt.keysym.C-S-Up:   perl:font-size:incglobal
 ! URxvt.keysym.C-S-Down: perl:font-size:decglobal
 
-! Should fix some slow redrawing I've seeing in nvim
+! Should fix some slow redrawing Ive seeing in nvim
 URxvt*skipBuiltinGlyphs:    true
