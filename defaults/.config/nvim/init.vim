@@ -87,7 +87,7 @@
 		set noswapfile
 		"set autochdir " working directory is always the same as the file you are editing
 		" Took out options from here. Makes the session script too long and annoying
-		set sessionoptions=buffers,curdir,folds,localoptions,options,tabpages,resize,winsize,winpos,help
+		set sessionoptions=buffers,curdir,folds,tabpages,resize,winsize,winpos,help
 		set hidden
 		" see :h timeout this was done to make use of ' faster and keep the other
 		" timeout the same
@@ -101,9 +101,6 @@
 		set nowrap        " wrap lines
 		set nowrapscan        " do not wrap search at EOF
 		" will look in current directory for tags
-		" THE BEST FEATURE I'VE ENCOUNTERED SO FAR OF VIM
-		" CAN BELIEVE I DIDNT DO THIS BEFORE
-		" set tags+=.\tags;\
 		set tags=./tags;,tags;
 		let &tags .= substitute(glob("`find ~/.cache/ctags -name tags* -print`"), "\n", ",", "g")
 		" Note: There is also avr tags created by .dotfiles/scripts/maketags.sh
@@ -186,7 +183,7 @@
 		set lazyredraw " Had to addit to speed up scrolling
 
 	" CLI
-		if !has('gui_running')
+		if !has('gui_running') && !exists('g:GuiLoaded')
 			if $TERM ==? 'linux'
 				set t_Co=8
 			else
@@ -215,7 +212,7 @@
 				let &t_EI = "\<Esc>[1 q"
 			endif
 		endif
-
+		
 	" Grep
 		if exists("b:plugins_loaded")
 			call utils#SetGrep()

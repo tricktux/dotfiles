@@ -212,6 +212,7 @@ function! plugin#Config() abort
 		Plug 'ctrlpvim/ctrlp.vim'
 		if executable('ag') && !executable('ucg') || !exists('FZF')
 			let g:ctrlp_user_command = 'ag -Q -l --smart-case --nocolor --hidden -g "" %s'
+			let g:ctrlp_switch_buffer = 0
 		else
 			echomsg string("You should install silversearcher-ag. Now you have a slow ctrlp")
 		endif
