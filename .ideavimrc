@@ -144,6 +144,7 @@ nnoremap <Leader>r :action RenameElement<CR>
 
 " Quit section
 nnoremap <Leader>ql :action CloseContent<CR>
+nnoremap <Leader>qo :action ActivateMessagesToolWindow<CR>
 nnoremap <Leader>qs :action HideSideWindows<CR>
 nnoremap <Leader>qa :action HideAllWindows<CR>
 nnoremap <Leader>qA :action Exit<CR>
