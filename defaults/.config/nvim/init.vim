@@ -186,7 +186,7 @@
 		set lazyredraw " Had to addit to speed up scrolling
 
 	" CLI
-		if !has('gui_running')
+		if !has('gui_running') && !exists('g:GuiLoaded')
 			if $TERM ==? 'linux'
 				set t_Co=8
 			else
@@ -200,9 +200,9 @@
 				let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 				" Fixes broken nmap <c-h> inside of tmux
 				nnoremap <BS> :noh<CR>
+				set shada='1000,f1,<500
 			endif
 
-			" TODO.RM-Wed Nov 30 2016 09:01: Testing here may break things  
 			if exists('$TMUX')
 				let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 				let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"

@@ -296,7 +296,7 @@
   <!-- Keybindings for custome desktop applications launch -->
   <keybind key="W-1">
 	  <action name="Execute">
-			<command>~/.focus_or_launch ~/.local/bin/nvim-qt</command>
+			<command>~/.focus_or_launch nyaovim</command>
 	  </action>
   </keybind>
   <keybind key="W-2">
