@@ -90,6 +90,8 @@ elseif has('unix')
 		nnoremap <S-CR> o<Esc>
 	else
 		set t_Co=256
+		" fixes issue background not filling up entire screen
+		set t_ut=
 		nnoremap <CR> o<Esc>
 	endif
 	" this one below DOES WORK in linux just make sure is ran at root folder
@@ -224,7 +226,8 @@ set diffexpr=
 "////////////SET_OPTIONS///////////////////////////
 filetype plugin on   
 filetype indent on   
-
+" fixes nerdtree showing weird car issue
+set encoding=utf-8
 "set spell spelllang=en_us
 set nospell
 " save marks 
@@ -726,7 +729,7 @@ endif
 		set ttyfast " Had to addit to speed up scrolling 
 		"autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
 		"autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4"
-" ///////////////////////////////////////////////////////////////////
+" //////////////////////////////////////////////////////////////////
 		"Plugin 'morhetz/gruvbox' " colorscheme gruvbox 
 			colorscheme gruvbox
 			set background=dark    " Setting dark mode
