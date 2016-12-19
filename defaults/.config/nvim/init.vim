@@ -405,8 +405,8 @@
 		" move to the end of line
 		nnoremap <S-b> ^
 		" jump to corresponding item<Leader> ending {,(, etc..
-		" noremap <S-t> %
-		" vmap <S-t> %
+		nmap <S-t> %
+		vmap <S-t> %
 		" Automatically insert date
 		nnoremap <F5> i<Space><ESC>"=strftime("%a %b %d %Y %H:%M")<CR>P
 		" Designed this way to be used with snippet md header
@@ -550,6 +550,7 @@
 		nnoremap <Leader>ta :call utils#TodoAdd()<CR>
 
 	" Wiki mappings <Leader>w?
+		" TODO.RM-Thu Dec 15 2016 16:00: Add support for wiki under SW-Testbed  
 		nnoremap <Leader>wt :call utils#WikiOpen('TODO.md')<CR>
 		nnoremap <Leader>wo :call utils#WikiOpen()<CR>
 		nnoremap <Leader>ws :call utils#WikiSearch()<CR>
