@@ -306,6 +306,7 @@ function! plugin#Config() abort
 		let g:tagbar_map_openallfolds = "<c-n>"
 		let g:tagbar_map_closeallfolds = "<c-c>"
 		let g:tagbar_map_togglefold = "<c-x>"
+		let g:tagbar_autoclose = 1
 		nnoremap <Leader>tt :TagbarToggle<CR>
 		nnoremap <Leader>tk :cs kill -1<CR>
 		nnoremap <silent> <Leader>tj <C-]>
