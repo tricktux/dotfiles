@@ -559,6 +559,7 @@ function! utils#SetWingsPath(sPath) abort
 	execute "nnoremap <Leader>ed :silent e ". a:sPath . "NeoOneWINGS/default.ini<CR>"
 	execute "nnoremap <Leader>ewl :call utils#WingsSymLink('~/Documents/1.WINGS/')<CR>"
 	execute "nnoremap <Leader>ewl :call utils#WingsSymLink(" . expand(a:sPath) . ")<CR>"
+	call utils#GuiFont("+")
 endfunction
 
 " TODO.RM-Sat Nov 26 2016 00:04: Function that auto adds SCR # and description  

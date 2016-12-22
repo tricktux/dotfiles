@@ -17,4 +17,3 @@ set guioptions-=l  " no left scroll bar
 set guioptions-=L  " no side scroll bar
 
 " vim:tw=78:ts=2:sts=2:sw=2:
-" Inconsolata for Powerline Nerd Font Complete
