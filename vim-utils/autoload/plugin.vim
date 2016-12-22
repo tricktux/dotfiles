@@ -212,6 +212,7 @@ function! plugin#Config() abort
 		Plug 'ctrlpvim/ctrlp.vim'
 		if executable('ag') && !executable('ucg') || !exists('FZF')
 			let g:ctrlp_user_command = 'ag -Q -l --smart-case --nocolor --hidden -g "" %s'
+			let g:ctrlp_switch_buffer = 0
 		else
 			echomsg string("You should install silversearcher-ag. Now you have a slow ctrlp")
 		endif
@@ -305,6 +306,7 @@ function! plugin#Config() abort
 		let g:tagbar_map_openallfolds = "<c-n>"
 		let g:tagbar_map_closeallfolds = "<c-c>"
 		let g:tagbar_map_togglefold = "<c-x>"
+		let g:tagbar_autoclose = 1
 		nnoremap <Leader>tt :TagbarToggle<CR>
 		nnoremap <Leader>tk :cs kill -1<CR>
 		nnoremap <silent> <Leader>tj <C-]>
