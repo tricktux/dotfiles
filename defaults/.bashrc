@@ -37,14 +37,14 @@ fi
 # --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 
-# if [[ -z "$TMUX" ]]; then
-	# ID="`tmux ls | grep -vm1 attached | cut -d: -f1`"
-	# if [[ -z "$ID" ]]; then
-		# tmux new-session
-	# else
-		# tmux attach-session -t "$ID"
-	# fi
-# fi
+if [[ -z "$TMUX" ]]; then
+	ID="`tmux ls | grep -vm1 attached | cut -d: -f1`"
+	if [[ -z "$ID" ]]; then
+		tmux new-session
+	else
+		tmux attach-session -t "$ID"
+	fi
+fi
 
 # Creating local bin folder
 export PATH=$PATH:$HOME/.local/bin

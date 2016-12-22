@@ -3,7 +3,7 @@ set ssl_force_tls=yes
 set imap_user = 'rmolin88'
 
 # Get password from encryption
-source "gpg -d ~/.mutt/passwords.gpg |"
+source "gpg -d ~/.mutt/password.gpg |"
 # Alternative to encryption. Just annoying to type complicated password
 # everytime
 # set imap_pass=`read -s -p 'mail-password : ' mailpass ; echo $mailpass`
@@ -38,7 +38,8 @@ mailboxes       = +INBOX
 unset imap_passive
 
 # How often to check for new mail (time in seconds).
-set mail_check = 120
+set timeout = 30
+set mail_check = 30
 
 # To see both reply and recv in one thread
 # I dont like this option. Makes sent emails show in gmail app
