@@ -139,3 +139,6 @@ xterm*SaveLines: 80000
 
 ! Should fix some slow redrawing Ive seeing in nvim
 URxvt*skipBuiltinGlyphs:    true
+
+! Beep for new email
+URxvt*urgentOnBell: true
