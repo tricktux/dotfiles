@@ -7,3 +7,6 @@ alias villamil-andrie Andrie Pérez Villamil <avillamil@uci.cu>
 alias molina-reinaldo Reinaldo Molina <rmolin88@gmail.com>
 alias freedom®-chase Chase Freedom® <chase@email.chase.com>
 alias program-costco Costco Auto Program <costcoauto@e.costcoauto.com>
+alias falcon-franklin Franklin Falcon <ffalcon46@gmail.com>
+alias Udacity <mentorship-support@udacity.com>
+alias MultiRace <info@multirace.com>
