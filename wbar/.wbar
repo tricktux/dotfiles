@@ -1,6 +1,6 @@
 i: /usr/share/pixmaps/wbar/dock.png
 c: wbar --bpress --above-desk --pos bottom --isize 64 --idist 5 --nanim 4 --falfa 65
-t: /usr/share/fonts/truetype/liberation/LiberationMono-Regular/12
+t: none
 
 i: /home/reinaldo/Downloads/packages/neowim-qt/neovim-qt/third-party/neovim.png
 c: nvim-qt
@@ -19,5 +19,6 @@ c: studio.sh
 t: Android-Studio
 
 # Reload wbar by right clicking on it
+# Specify under t: on the very first one the full path to a font
 # When installed copy /etc/wbar.d/wbar.cfg to the desktop as ~/.wbar and modify
 # that
