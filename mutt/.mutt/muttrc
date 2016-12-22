@@ -58,9 +58,9 @@ bind generic M middle-page
 #       middle, and
 bind generic H top-page			
 #       	top of the screen
-bind index [ previous-unread		
+# bind index [ previous-unread		
 #to the previous unread message in the list
-bind index ] next-unread		
+# bind index ] next-unread		
 #or the next unread message.
 #
 # Gmail-style keyboard shortcuts
@@ -71,12 +71,12 @@ macro index,pager gp "<change-folder>=[Gmail]/Important<enter>" "Go to priority 
 macro index,pager gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
 
 # Option to Save contacts so that autocompletion is possible
-# set display_filter='~/.mutt/mutt.save.contacts.sh' 
+set display_filter='~/.mutt/mutt.save.contacts.sh' 
 # Options to load aliasses file
-# set alias_file= ~/.mutt/aliases.txt
-# set sort_alias= alias
-# set reverse_alias=yes
-# source $alias_file
+set alias_file= ~/.mutt/aliases.txt
+set sort_alias= alias
+set reverse_alias=yes
+source $alias_file
 
 set editor="nvim"
 # set editor="vim -c 'set spell spelllang=es,en'"
@@ -104,8 +104,22 @@ set include = yes
 # Scroll inside emails
 bind pager j next-line 
 bind pager k previous-line 
+# Go to next page with z
+# Come back up with gg
 
 set menu_scroll
 
 # If an opttion does not work search the manual. It may appear in different
 # types of options. You just need to put it in th correct one.
+#
+set beep_new
+
+# Pretty cool colors
+source ~/.mutt/mutt-solarized-colors.muttrc
+
+# Only new and read msgs
+# Use $ to synch
+set mark_old=no
+
+auto_view text/html
+alternative_order text/plain text/enriched text/html

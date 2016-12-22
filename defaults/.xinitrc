@@ -4,6 +4,11 @@ userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
+# You also need to go to the file /etc/sddm.conf
+# and change the Session there as well. Values for this 
+# setup can be found at /usr/share/xsessions/
+# export XDG_CURRENT_DESKTOP=Budgie:GNOME
+# desktop=budgie-desktop
 desktop=startlxde
 # desktop=startlxqt
 # desktop=gnome-session
@@ -33,6 +38,9 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  done
  unset f
 fi
+
+# Make sure this is before the 'exec' command or it won't be sourced.
+[ -f ~/.xprofile ] && source ~/.xprofile
 
 # twm &
 # xclock -geometry 50x50-1+1 &

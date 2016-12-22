@@ -14,7 +14,7 @@ Global {
   setdocktype=1
   setpartialstrut=1
   usefontcolor=1
-  fontcolor=#ffffff
+  fontcolor=#ecfbf4
   background=0
   backgroundfile=/usr/share/lxpanel/images/background.png
 }
@@ -72,8 +72,15 @@ Plugin {
   }
 }
 Plugin {
-  type=tray
+  type=thermal
   Config {
+    NormalColor=#00ff00
+    Warning1Color=#fff000
+    Warning2Color=#ff0000
+    AutomaticLevels=1
+    Warning1Temp=140
+    Warning2Temp=145
+    AutomaticSensor=1
   }
 }
 Plugin {
@@ -86,26 +93,8 @@ Plugin {
   }
 }
 Plugin {
-  type=netstatus
+  type=tray
   Config {
-    iface=wlp2s0
-    configtool=nm-connection-editor
-  }
-}
-Plugin {
-  type=batt
-  Config {
-    BackgroundColor=black
-    ChargingColor1=#28f200
-    ChargingColor2=#22cc00
-    DischargingColor1=#ffee00
-    DischargingColor2=#d9ca00
-    HideIfNoBattery=0
-    AlarmCommand=notify-send "Battery low" --icon=battery-caution
-    AlarmTime=5
-    BorderWidth=1
-    Size=8
-    ShowExtendedInformation=0
   }
 }
 Plugin {

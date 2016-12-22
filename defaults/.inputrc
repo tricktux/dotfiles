@@ -4,3 +4,4 @@ set convert-meta on
 "\e[B": history-search-forward
 "\e[C": forward-char
 "\e[D": backward-char
+set bell-style none
