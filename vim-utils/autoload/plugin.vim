@@ -2,7 +2,7 @@
 " Description:Plugin specific settings
 " Author:Reinaldo Molina <rmolin88@gmail.com>
 " Version:1.0.0
-" Last modified: Thu Dec 01 2016 20:11
+" Last modified: Fri Dec 23 2016 13:03
 
 function! plugin#Config() abort
 	" Vim-Plug
@@ -66,7 +66,7 @@ function! plugin#Config() abort
 					\ 'text': 'X',
 					\ 'texthl': 'ErrorMsg',
 					\ }
-		if has('python3') " Deoplete
+		if has('python3') && !exists('g:android') " Deoplete
 			Plug 'Shougo/deoplete.nvim'
 			let b:deoplete_loaded = 1
 			" if it is nvim deoplete requires python3 to work
@@ -105,7 +105,7 @@ function! plugin#Config() abort
 			inoremap <expr><BS>
 						\ deoplete#smart_close_popup()."\<C-h>"
 		else
-			echoerr "No python3 = No Deocomplete. Supertab Activated"
+			echomsg "No python3 = No Deocomplete. Supertab Activated"
 			" so if it doesnt have it activate clang instaed
 			let g:deoplete#enable_at_startup = 0
 			Plug 'ervandew/supertab' " Activate Supertab
@@ -196,7 +196,7 @@ function! plugin#Config() abort
 		else
 			echoerr "No lua installed = No Neocomplete. Supertab Activated"
 			Plug 'ervandew/supertab' " Activate Supertab
-			let g:SuperTabDefaultCompletionType = "<c-n>"
+			let g:SuperTabDefaultCompletionType = "<Tab>"
 		endif
 		Plug 'tpope/vim-dispatch'
 		Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
@@ -256,7 +256,7 @@ function! plugin#Config() abort
 		let g:DoxygenToolkit_authorTag =	"Author:				"
 		let g:DoxygenToolkit_fileTag =		"File:					"
 		let g:DoxygenToolkit_briefTag_pre="Description:		"
-		let g:DoxygenToolkit_dateTag =		"Last modified:	"
+		let g:DoxygenToolkit_dateTag =		"Last modified: "
 		let g:DoxygenToolkit_versionTag = "Version:				"
 		let g:DoxygenToolkit_commentType = "C++"
 		" See :h doxygen.vim this vim related. Not plugin related
@@ -322,7 +322,7 @@ function! plugin#Config() abort
 		" nnoremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
 		nnoremap <Leader>ts :cs show<CR>
 		nnoremap <Leader>tu :call utils#UpdateCscope()<CR>
-		if executable('clang') && has('python') " clang_complete
+		if executable('clang') && has('python') && !exists('g:android') " clang_complete
 			Plug 'Rip-Rip/clang_complete', { 'for' : ['c' , 'cpp'] }
 			" Why I switched to Rip-Rip because it works
 			" Steps to get plugin to work:
