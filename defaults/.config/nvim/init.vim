@@ -167,7 +167,7 @@
 			" colorscheme. Otherwise this commands clears it the color
 			set showcmd
 		else
-			set noshowmode
+			" set noshowmode
 			colorscheme desert
 		endif
 		
