@@ -64,3 +64,5 @@ if [ `uname -o` != "Android" ]; then
 	export ANDROID_HOME=$HOME/Downloads/packages/android-sdk-linux
 	export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 fi
+
+export XTERM=screen-256

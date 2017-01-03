@@ -149,10 +149,10 @@
 
 	" Status Line
 		set background=dark    " Setting dark mode
+		colorscheme gruvbox
+		" set background=light
+		" colorscheme PaperColor
 		if !exists("g:android")
-			" set background=light
-			" colorscheme PaperColor
-			colorscheme gruvbox
 			set statusline =
 			set statusline+=\[%n]                                  "buffernr
 			set statusline+=\ %<%F\ %m%r%w                         "File+path
@@ -166,9 +166,6 @@
 			" if you want to put color to status line needs to be after command
 			" colorscheme. Otherwise this commands clears it the color
 			set showcmd
-		else
-			" set noshowmode
-			colorscheme desert
 		endif
 		
 	" Performance Settings

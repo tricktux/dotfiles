@@ -25,13 +25,45 @@ public:
 
 class ConfigFile
 {
-	libconfig::Config filecfg;
 public:
+	libconfig::Config filecfg;
+
 	ConfigFile(const char *pConfigFileName)
 	{
 		if ((pConfigFileName == 0) || (pConfigFileName[0] == 0))
 			throw "ConfigFile(): Bad Config File Name";
-		filecfg.readFile(pConfigFileName);
+		try{ filecfg.readFile(pConfigFileName); }
+		catch (const libconfig::FileIOException &fioex)
+		{
+			std::cerr << "ConfigFile(): I/O error while reading file.\n";
+			throw fioex;
+		}
+		catch (const libconfig::ParseException &pex)
+		{
+			std::cerr << "ConfigFile(): Parse error at " << pex.getFile() << ":" << pex.getLine() << " - " << pex.getError() << std::endl;
+			throw pex;
+		}
+	}
+
+	void GetMainOptions()
+	{
+		const libconfig::Setting &settRoot = filecfg.getRoot();
+		for (auto &&setting : settRoot)
+		{
+			std::cout << setting.getPath() << std::endl;
+			if (setting.isGroup())
+			{
+				for (auto &&sett : setting)
+				{
+					std::cout << sett.getPath() << std::endl;
+					if (sett.isGroup())
+					{
+						for (auto &&s : sett)
+							std::cout << s.getPath() << std::endl;
+					}
+				}
+			}
+		}
 	}
 
 };
