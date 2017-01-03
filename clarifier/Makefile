@@ -5,7 +5,7 @@ SRC = clarifier.cpp
 # use the notdir function to strip directory from name
 # then use the other part to substiture .cpp with .o
 OBJ = $(notdir $(SRC:.cpp=.o))
-CFLAGS=-g -std=c++14 -c -Wall
+CFLAGS=-g -std=c++17 -c -Wall
 EXECUTABLE = clarifier
 LDFLAGS=-lconfig++
 # first you the all target
