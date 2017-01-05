@@ -8,7 +8,7 @@
 # alias update='sudo apt update'
 
 alias install='pacaur -S --noconfirm'
-alias update='pacaur -Syu --noconfirm'
+alias update=FuncUpdate
 alias version='pacaur -Si'
 alias search='pacaur -Ss'
 alias remove='pacaur -Rscn'
@@ -56,6 +56,15 @@ FuncCheckCopy()
 		echo "$dst of $total"
 		sleep 60
 	done
+}
+
+FuncUpdate()
+{
+	# Update list of all installed packages
+	pacman -Qe > ~/.dotfiles/arch_packages
+	pacman -Qm >> ~/.dotfiles/arch_packages
+	# Now update packages
+	pacaur -Syu --noconfirm
 }
 
 FuncNvim()
