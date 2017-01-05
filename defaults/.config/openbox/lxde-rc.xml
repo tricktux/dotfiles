@@ -216,6 +216,12 @@
   <keybind key="W-d">
     <action name="ToggleShowDesktop"/>
   </keybind>
+	<keybind key="W-g">
+		<action name="MoveResizeTo">
+			<!-- move to next monitor -->
+			<monitor>next</monitor>
+		</action>
+	</keybind>
 
   <keybind key="C-A-d">
     <action name="ToggleShowDesktop"/>
@@ -319,7 +325,8 @@
 			<command>~/.focus_or_launch ~/.local/bin/studio.sh</command>
 	  </action>
   </keybind>
-  <keybind key="F1">
+  <keybind key="W-grave"> 
+		<!-- You can obtain the grave value by searching the key-bindings on arch -->
 	  <action name="Execute">
 		  <command>~/.focus_or_launch urxvt</command>
 	  </action>
