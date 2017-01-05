@@ -10,3 +10,4 @@ alias program-costco Costco Auto Program <costcoauto@e.costcoauto.com>
 alias falcon-franklin Franklin Falcon <ffalcon46@gmail.com>
 alias Udacity <mentorship-support@udacity.com>
 alias MultiRace <info@multirace.com>
+alias america-bank Bank of America <onlinebanking@ealerts.bankofamerica.com>
