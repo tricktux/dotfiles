@@ -1,10 +1,10 @@
 " File:					init.vim
 " Description:  Vim/Neovim configuration file
 " Author:				Reinaldo Molina
-" Version:			5.2.0
-"								Added granularity by moving different settings into different
+" Version:			6.0.0
+"								Support for portable vim version
 "								files
-" Date:					Mon Dec 05 2016 15:23
+" Date:					Fri Jan 06 2017 12:50
 " Improvements:
 		" - [ ] Markdown tables
 		" - [ ] Delete duplicate music.
@@ -22,14 +22,29 @@
 " PLUGINS_INIT
 	" ~/.dotfiles/vim-utils/autoload/plugin.vim
 	" Attempt to install vim-plug and all plugins in case of first use
-	if !empty(glob("~/.dotfiles/vim-utils/autoload/plugin.vim"))
-		source ~/.dotfiles/vim-utils/autoload/plugin.vim
-		if plugin#Check()
-			call plugin#Config()
-			let b:plugins_loaded = 1
-		else
-			echomsg "No plugins where loaded"
-		endif
+	let g:location_local_vim = "~/.dotfiles/vim-utils/autoload/plugin.vim"
+	let g:location_portable_vim = "../.dotfiles/vim-utils/autoload/plugin.vim"
+	if !empty(glob(g:location_local_vim))
+		execute "source " . g:location_local_vim
+		let b:plugins_present = 1
+		let g:location_vim_utils = "~/.dotfiles/vim-utils"
+	elseif !empty(glob(g:location_portable_vim))
+		execute "source " . g:location_portable_vim
+		let b:plugins_present = 1
+		let g:portable_vim = 1
+		let g:location_vim_utils = getcwd() . '/../.dotfiles/vim-utils'
+	else
+		echomsg "No plugins where loaded"
+	endif
+
+	if exists('b:plugins_present') && plugin#Check()
+			if plugin#Config()
+				let b:plugins_loaded = 1
+			else
+				echomsg "No plugins where loaded"
+			endif
+	else
+		echomsg "No plugins where loaded"
 	endif
 
 " NVIM SPECIFIC
