@@ -320,17 +320,27 @@
 			<!-- <command>~/.focus_or_launch gvim</command> -->
 		<!-- </action> -->
   <!-- </keybind> -->
-  <keybind key="W-3">
-	  <action name="Execute">
-			<command>~/.focus_or_launch ~/.local/bin/studio.sh</command>
-	  </action>
-  </keybind>
-  <keybind key="W-grave"> 
+  <!-- <keybind key="W-3"> -->
+		<!-- <action name="Execute"> -->
+			<!-- <command>~/.focus_or_launch ~/.local/bin/studio.sh</command> -->
+		<!-- </action> -->
+  <!-- </keybind> -->
+	<keybind key="W-grave"> 
 		<!-- You can obtain the grave value by searching the key-bindings on arch -->
-	  <action name="Execute">
-		  <command>~/.focus_or_launch urxvt</command>
-	  </action>
-  </keybind>
+		<action name="Execute">
+			<command>~/.focus_or_launch urxvt</command>
+		</action>
+	</keybind>
+	<!-- <keybind key="W-t"> -->
+		<!-- <action name="Execute"> -->
+			<!-- <command>~/.local/bin/urxvtc</command> -->
+		<!-- </action> -->
+	<!-- </keybind> -->
+	<!-- <keybind key="W-grave"> -->
+		<!-- <action name="Execute"> -->
+			<!-- <execute>~/.local/bin/urxvtq</execute> -->
+		<!-- </action> -->
+	<!-- </keybind> -->
   <keybind key="XF86MonBrightnessUp">
       <action name="Execute">
         <command>xbacklight +10</command>
@@ -855,6 +865,18 @@
 
   # end of the example
 -->
+		<application name="urxvtq">
+			<decor>no</decor>
+			<position force="yes">
+				<x>center</x>
+				<y>0</y>
+			</position>
+			<desktop>all</desktop>
+			<layer>above</layer>
+			<skip_pager>yes</skip_pager>
+			<skip_taskbar>yes</skip_taskbar>
+			<maximized>Horizontal</maximized>
+		</application>
 </applications>
 
 </openbox_config>
