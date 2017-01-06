@@ -15,8 +15,7 @@ function! plugin#Config() abort
 		" searches for foo; append `!` to refresh local cache
 		nnoremap <Leader>Pl :PlugClean<CR>
 
-	call plug#begin(g:plugged_path)
-	" if executable('fzf') " FZF
+	silent! call plug#begin(g:plugged_path)
 	if has('nvim')
 		Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 		Plug 'junegunn/fzf.vim'
@@ -194,7 +193,7 @@ function! plugin#Config() abort
 			let g:neocomplete#delimiter_patterns.vim = ['#']
 			let g:neocomplete#delimiter_patterns.cpp = ['::']
 		else
-			echoerr "No lua installed = No Neocomplete. Supertab Activated"
+			echomsg "No lua installed = No Neocomplete. Supertab Activated"
 			Plug 'ervandew/supertab' " Activate Supertab
 			let g:SuperTabDefaultCompletionType = "<Tab>"
 		endif
@@ -240,7 +239,7 @@ function! plugin#Config() abort
 	endif
 
 	" Plugins for All (nvim, linux, win32)
-	Plug '~/.dotfiles/vim-utils'
+	Plug g:location_vim_utils
 		nnoremap <Leader>of :Dox<CR>
 		" Other commands
 		" command! -nargs=0 DoxLic :call <SID>DoxygenLicenseFunc()
@@ -425,6 +424,7 @@ function! plugin#Config() abort
 			set undolevels=1000      " use many muchos levels of undo
 		endif
 	endif
+	return 1
 endfunction
 
 function! plugin#Check() abort
@@ -451,6 +451,11 @@ function! plugin#Check() abort
 			let g:android = 1
 			let g:usr_path = $HOME . '/../usr'
 		endif
+	endif
+
+	if exists('g:portable_vim')
+		let g:plugged_path=  '../vimfiles/plugged/'
+		return 1
 	endif
 
 	if empty(glob(g:vimfile_path . 'autoload/plug.vim'))
