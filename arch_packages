@@ -47,6 +47,7 @@ gcc-libs 6.2.1-1
 gettext 0.19.8.1-2
 git 2.10.2-1
 glibc 2.24-2
+gnome-disk-utility 3.22.1-1
 gnome-icon-theme 3.12.0-4
 gnome-mplayer 1.0.9-3
 gnome-power-manager 3.22.2-1
@@ -61,6 +62,7 @@ gvfs-afc 1.30.2+11+g7435ecc-1
 gvfs-gphoto2 1.30.2+11+g7435ecc-1
 gvfs-mtp 1.30.2+11+g7435ecc-1
 gzip 1.8-2
+htop 2.0.2-1
 inetutils 1.9.4-5
 inkscape 0.91-22
 iproute2 4.9.0-1
@@ -109,6 +111,7 @@ neovim-qt 0.2.4-1
 netctl 1.12-2
 network-manager-applet 1.4.2-1
 networkmanager 1.4.2-2
+nmap 7.40-1
 npm 4.0.3-1
 ntfs-3g 2016.2.22-1
 ntp 4.2.8.p9-1
@@ -143,6 +146,7 @@ python2-pip 8.1.2-1
 qt5-doc 5.7.0-1
 qtcreator 4.2.0-1
 rambox-bin 0.4.5-1
+ranger 1.7.2-1
 reiserfsprogs 3.6.25-1
 rfkill 0.5-1
 ripgrep 0.3.2-1

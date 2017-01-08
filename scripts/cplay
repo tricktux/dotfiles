@@ -1,0 +1,10 @@
+#!/bin/sh
+# This command will break if you rename it to
+# something containing "cmus".
+
+if ! pgrep cmus ; then
+	lxterminal -e cmus&
+	cmus-remote -u
+else
+  cmus-remote $1
+fi

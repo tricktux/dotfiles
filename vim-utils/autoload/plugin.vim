@@ -1,8 +1,8 @@
 " File:plugin.vim
 " Description:Plugin specific settings
 " Author:Reinaldo Molina <rmolin88@gmail.com>
-" Version:1.0.0
-" Last modified: Fri Dec 23 2016 13:03
+" Version:2.0.0
+" Last modified: Sun Jan 08 2017 04:22
 
 function! plugin#Config() abort
 	" Vim-Plug
@@ -19,26 +19,26 @@ function! plugin#Config() abort
 	if has('nvim')
 		Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 		Plug 'junegunn/fzf.vim'
-		nnoremap <C-p> :History<CR>
-		nnoremap <A-p> :FZF<CR>
-		nnoremap <S-k> :Buffers<CR>
-		let g:fzf_history_dir = '~/.cache/fzf-history'
-		autocmd FileType fzf tnoremap <buffer> <C-j> <Down>
-		nnoremap <leader><tab> <plug>(fzf-maps-n)
-		nnoremap <leader><tab> <plug>(fzf-maps-n)
-		let g:fzf_colors =
-					\ { 'fg':      ['fg', 'Normal'],
-					\ 'bg':      ['bg', 'Normal'],
-					\ 'hl':      ['fg', 'Comment'],
-					\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-					\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-					\ 'hl+':     ['fg', 'Statement'],
-					\ 'info':    ['fg', 'PreProc'],
-					\ 'prompt':  ['fg', 'Conditional'],
-					\ 'pointer': ['fg', 'Exception'],
-					\ 'marker':  ['fg', 'Keyword'],
-					\ 'spinner': ['fg', 'Label'],
-					\ 'header':  ['fg', 'Comment'] }
+			nnoremap <C-p> :History<CR>
+			nnoremap <A-p> :FZF<CR>
+			nnoremap <S-k> :Buffers<CR>
+			let g:fzf_history_dir = '~/.cache/fzf-history'
+			autocmd FileType fzf tnoremap <buffer> <C-j> <Down>
+			nnoremap <leader><tab> <plug>(fzf-maps-n)
+			nnoremap <leader><tab> <plug>(fzf-maps-n)
+			let g:fzf_colors =
+						\ { 'fg':      ['fg', 'Normal'],
+						\ 'bg':      ['bg', 'Normal'],
+						\ 'hl':      ['fg', 'Comment'],
+						\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+						\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+						\ 'hl+':     ['fg', 'Statement'],
+						\ 'info':    ['fg', 'PreProc'],
+						\ 'prompt':  ['fg', 'Conditional'],
+						\ 'pointer': ['fg', 'Exception'],
+						\ 'marker':  ['fg', 'Keyword'],
+						\ 'spinner': ['fg', 'Label'],
+						\ 'header':  ['fg', 'Comment'] }
 	endif
 
 	if executable('mutt')
@@ -56,15 +56,15 @@ function! plugin#Config() abort
 		" nvim-qt on unix doesnt populate has('gui_running
 		Plug 'equalsraf/neovim-gui-shim'
 		Plug 'neomake/neomake'
-		let g:neomake_warning_sign = {
-					\ 'text': '?',
-					\ 'texthl': 'WarningMsg',
-					\ }
+			let g:neomake_warning_sign = {
+						\ 'text': '?',
+						\ 'texthl': 'WarningMsg',
+						\ }
 
-		let g:neomake_error_sign = {
-					\ 'text': 'X',
-					\ 'texthl': 'ErrorMsg',
-					\ }
+			let g:neomake_error_sign = {
+						\ 'text': 'X',
+						\ 'texthl': 'ErrorMsg',
+						\ }
 		if has('python3') && !exists('g:android') " Deoplete
 			Plug 'Shougo/deoplete.nvim'
 			let b:deoplete_loaded = 1
@@ -127,6 +127,10 @@ function! plugin#Config() abort
 			" nnoremap <S-F8> :LL process interrupt<CR>
 			" nnoremap <F9> :LL print <C-R>=expand('<cword>')<CR>
 			" vnoremap <F9> :<C-U>LL print <C-R>=lldb#util#get_selection()<CR><CR>
+		endif
+		if executable('man')
+			Plug 'nhooyr/neoman.vim'
+				let g:no_neoman_maps = 1
 		endif
 	else
 		" Vim exclusive plugins
@@ -199,43 +203,43 @@ function! plugin#Config() abort
 		endif
 		Plug 'tpope/vim-dispatch'
 		Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
-		nnoremap <Leader>so :SyntasticToggleMode<CR>
-		nnoremap <Leader>ss :SyntasticCheck<CR>
-		let g:syntastic_always_populate_loc_list = 1
-		let g:syntastic_auto_loc_list = 1
-		let g:syntastic_check_on_open = 0
-		let g:syntastic_check_on_wq = 0
-		let g:syntastic_cpp_compiler_options = '-std=c++17 -pedantic -Wall'
-		let g:syntastic_c_compiler_options = '-std=c11 -pedantic -Wall'
-		let g:syntastic_auto_jump = 3
+			nnoremap <Leader>so :SyntasticToggleMode<CR>
+			nnoremap <Leader>ss :SyntasticCheck<CR>
+			let g:syntastic_always_populate_loc_list = 1
+			let g:syntastic_auto_loc_list = 1
+			let g:syntastic_check_on_open = 0
+			let g:syntastic_check_on_wq = 0
+			let g:syntastic_cpp_compiler_options = '-std=c++17 -pedantic -Wall'
+			let g:syntastic_c_compiler_options = '-std=c11 -pedantic -Wall'
+			let g:syntastic_auto_jump = 3
 		Plug 'ctrlpvim/ctrlp.vim'
-		if executable('ag') && !executable('ucg') || !exists('FZF')
-			let g:ctrlp_user_command = 'ag -Q -l --smart-case --nocolor --hidden -g "" %s'
-			let g:ctrlp_switch_buffer = 0
-		else
-			echomsg string("You should install silversearcher-ag. Now you have a slow ctrlp")
-		endif
-		if has('win32')
-			nnoremap <S-k> :CtrlPBuffer<CR>
-			let g:ctrlp_cmd = 'CtrlPMixed'
-			" submit ? in CtrlP for more mapping help.
-			let g:ctrlp_lazy_update = 1
-			let g:ctrlp_show_hidden = 1
-			let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
-			let g:ctrlp_cache_dir = g:cache_path . 'ctrlp'
-			let g:ctrlp_working_path_mode = 'wra'
-			let g:ctrlp_max_history = &history
-			let g:ctrlp_clear_cache_on_exit = 0
-			set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
-			let g:ctrlp_custom_ignore = {
-						\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-						\ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
-						\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
-						\ }
-		else
-			set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
-			let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-		endif
+			if executable('ag') && !executable('ucg') || !exists(':FZF')
+				let g:ctrlp_user_command = 'ag -Q -l --smart-case --nocolor --hidden -g "" %s'
+				let g:ctrlp_switch_buffer = 0
+			else
+				echomsg string("You should install silversearcher-ag. Now you have a slow ctrlp")
+			endif
+			if has('win32')
+				nnoremap <S-k> :CtrlPBuffer<CR>
+				let g:ctrlp_cmd = 'CtrlPMixed'
+				" submit ? in CtrlP for more mapping help.
+				let g:ctrlp_lazy_update = 1
+				let g:ctrlp_show_hidden = 1
+				let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
+				let g:ctrlp_cache_dir = g:cache_path . 'ctrlp'
+				let g:ctrlp_working_path_mode = 'wra'
+				let g:ctrlp_max_history = &history
+				let g:ctrlp_clear_cache_on_exit = 0
+				set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
+				let g:ctrlp_custom_ignore = {
+							\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+							\ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
+							\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+							\ }
+			else
+				set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
+				let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+			endif
 	endif
 
 	" Plugins for All (nvim, linux, win32)
@@ -444,7 +448,7 @@ function! plugin#Check() abort
 			let g:plugged_path=  $HOME . '/.vim/plugged/'
 			let g:vimfile_path=  $HOME . '/.vim/'
 		endif
-		let g:wiki_path=  $HOME . '/Documents/seafile-client/Seafile/KnowledgeIsPower/wiki'
+		let g:wiki_path=  $HOME . '/Seafile/OnServer/KnowledgeIsPower/wiki'
 		let g:usr_path = '/usr'
 
 		if system('uname -o') =~ 'Android'
