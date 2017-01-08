@@ -60,9 +60,14 @@ HISTCONTROL=ignoreboth
 
 # Adb, fastboot
 # Fixes vim-javacomplete2 issues
+# Remember to launch nvim at the code base
 if [ `uname -o` != "Android" ]; then
 	export ANDROID_HOME=$HOME/Downloads/packages/android-sdk-linux
 	export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 fi
 
 export XTERM=screen-256
+
+# Man settings
+export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:/usr/man
+export MANPAGER="nvim -c 'set ft=neoman' -"

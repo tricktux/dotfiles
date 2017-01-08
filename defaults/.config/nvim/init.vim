@@ -461,7 +461,7 @@
 		" cd into dir. press <Tab> after ci to see folders
 		nnoremap <Leader>ci :cd
 		nnoremap <Leader>cc :pwd<CR>
-		nnoremap <Leader>ch :cd ~/<CR>
+		nnoremap <Leader>ch :cd<CR>
 					\pwd<CR>
 
 	" Folding
