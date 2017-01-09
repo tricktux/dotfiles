@@ -1,8 +1,8 @@
 " File:plugin.vim
 " Description:Plugin specific settings
 " Author:Reinaldo Molina <rmolin88@gmail.com>
-" Version:2.0.0
-" Last modified: Sun Jan 08 2017 04:22
+" Version:2.0.1
+" Last modified: Mon Jan 09 2017 10:36
 
 function! plugin#Config() abort
 	" Vim-Plug
@@ -434,10 +434,10 @@ endfunction
 function! plugin#Check() abort
 	" Set paths for plugins
 	if has('win32')
+		" In windows wiki_path is set by the utils#SetWingsPath function
 		let g:cache_path= $HOME . '\.cache\'
 		let g:plugged_path=  $HOME . '\vimfiles\plugged\'
 		let g:vimfile_path=  $HOME . '\vimfiles\'
-		let g:wiki_path =  $HOME . '\Documents\1.WINGS\NeoWingsSupportFiles\wiki'
 	else
 		if has('nvim')
 			let g:cache_path= $HOME . '/.cache/'
