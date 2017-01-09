@@ -23,7 +23,7 @@ function win32#Config()
 
 	" e1 reserved for vimrc
 	" Switch Wings mappings for SWTestbed
-	nnoremap <Leader>es :call utils#SetWingsPath('D:/Reinaldo/')<CR>
+	nnoremap <Leader>es :call utils#SetWingsPath('D:/wings-dev/')<CR>
 
 	call utils#SetWingsPath('~/Documents/1.WINGS/')
 
