@@ -20,10 +20,9 @@ function _update_ps1() {
 	PS1="$(~/.powerline/powerline-shell/powerline-shell.py $? 2> /dev/null)"
 }
 
-liquid=~/Downloads/packages/liquidprompt/liquidprompt
 # If its not linux or android shell and file $liquid exists source it
-if [[ "$TERM" != "linux" && `uname -o` != "Android" && -f $liquid ]]; then
-	source $liquid
+if [[ "$TERM" != "linux" && `uname -o` != "Android" ]]; then
+	hash liquidprompt 2>/dev/null && source liquidprompt
 else
 	# Default PS1
 	PS1='[\u@\h \W]\$ '
