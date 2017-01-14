@@ -7,12 +7,14 @@
 # alias purge='sudo apt purge'
 # alias update='sudo apt update'
 
+machine=`hostname`
+
 alias install='pacaur -S --noconfirm'
 alias update=FuncUpdate
 alias version='pacaur -Si'
 alias search='pacaur -Ss'
 alias remove='pacaur -Rscn'
-alias remove-only='pacaur -R'
+alias remove-only='pacaur -Rdd'
 
 # Git
 alias ga='git add'
@@ -22,9 +24,9 @@ alias gps='git push origin master'
 alias gpl='git pull origin master'
 
 # Mounting remote servers
-alias mount-truck='sshfs odroid@truck-server:/ /home/reinaldo/.mnt/truck-server/'
-alias mount-copter='sshfs odroid@copter-server:/ /home/reinaldo/.mnt/copter-server/'
-alias mount-hq='sshfs reinaldo@HQ:/ /home/reinaldo/.mnt/HQ-server/'
+alias mount-truck='sshfs odroid@truck-server:/ /home/$USER/.mnt/truck-server/'
+alias mount-copter='sshfs odroid@copter-server:/ /home/$USER/.mnt/copter-server/'
+alias mount-hq='sshfs reinaldo@HQ:/ /home/$USER/.mnt/HQ-server/'
 
 # Misc
 alias tmux='tmux -2'
@@ -62,8 +64,8 @@ FuncCheckCopy()
 FuncUpdate()
 {
 	# Update list of all installed packages
-	pacman -Qe > ~/.dotfiles/arch_packages
-	pacman -Qm >> ~/.dotfiles/arch_packages
+	pacman -Qe > ~/.dotfiles/$machine-arch-packages
+	pacman -Qm >> ~/.dotfiles/$machine-arch-packages
 	# Now update packages
 	pacaur -Syu --noconfirm
 }
