@@ -12,6 +12,7 @@ alias update=FuncUpdate
 alias version='pacaur -Si'
 alias search='pacaur -Ss'
 alias remove='pacaur -Rscn'
+alias remove-only='pacaur -R'
 
 # Git
 alias ga='git add'
