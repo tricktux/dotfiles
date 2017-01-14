@@ -3,7 +3,7 @@
 " Description:	Function Container
 " Author:				Reinaldo Molina <rmolin88@gmail.com>
 " Version:			2.0.0
-" Date:					Sat Nov 26 2016 09:29
+" Date:					Mon Jan 09 2017 10:35
 
 " FUNCTIONS
 function! utils#SetGrep() abort
@@ -554,8 +554,9 @@ endfun
 
 " Default Wings mappings are for laptop
 function! utils#SetWingsPath(sPath) abort
+	let g:wiki_path =  a:sPath . 'NeoWingsSupportFiles\wiki'
 	execute "nnoremap <Leader>e21 :silent e " . a:sPath . "NeoOneWINGS/"
-	execute "nnoremap <Leader>e22 :silent e " . a:sPath
+	execute "nnoremap <Leader>e22 :silent e " . a:sPath . "NeoWingsSupportFiles/"
 	execute "nnoremap <Leader>ed :silent e ". a:sPath . "NeoOneWINGS/default.ini<CR>"
 	execute "nnoremap <Leader>ewl :call utils#WingsSymLink('~/Documents/1.WINGS/')<CR>"
 	execute "nnoremap <Leader>ewl :call utils#WingsSymLink(" . expand(a:sPath) . ")<CR>"
