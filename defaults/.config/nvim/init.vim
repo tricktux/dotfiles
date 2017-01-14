@@ -163,10 +163,15 @@
 		set omnifunc=syntaxcomplete#Complete
 
 	" Status Line
-		set background=dark    " Setting dark mode
-		colorscheme gruvbox
-		" set background=light
-		" colorscheme PaperColor
+		if exists('b:plugins_loaded')
+			set background=dark    " Setting dark mode
+			colorscheme gruvbox
+			" set background=light
+			" colorscheme PaperColor
+		else
+			colorscheme desert
+		endif
+
 		if !exists("g:android")
 			set statusline =
 			set statusline+=\[%n]                                  "buffernr
