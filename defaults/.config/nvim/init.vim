@@ -571,6 +571,8 @@
 		nnoremap <Leader>wt :call utils#WikiOpen('TODO.md')<CR>
 		nnoremap <Leader>wo :call utils#WikiOpen()<CR>
 		nnoremap <Leader>ws :call utils#WikiSearch()<CR>
+		" This mapping is special is to search the cpp-reference offline help with w3m
+		nnoremap <Leader>wc :W3m local /home/reinaldo/Downloads/reference/en/index.html<CR>
 
 	" Comments <Leader>o
 		nnoremap <Leader>od :call utils#CommentDelete()<CR>
