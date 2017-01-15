@@ -23,6 +23,11 @@ alias gc='git commit -m'
 alias gps='git push origin master'
 alias gpl='git pull origin master'
 
+# svn
+alias va='svn add --force'
+alias vs='svn status'
+alias vc='svn commit -m'
+
 # Mounting remote servers
 alias mount-truck='sshfs odroid@truck-server:/ /home/$USER/.mnt/truck-server/'
 alias mount-copter='sshfs odroid@copter-server:/ /home/$USER/.mnt/copter-server/'

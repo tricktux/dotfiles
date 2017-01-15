@@ -349,12 +349,12 @@
     <!-- <command>~/.focus_or_launch ~/.local/bin/studio.sh</command> -->
     <!-- </action> -->
     <!-- </keybind> -->
-    <keybind key="W-grave">
+    <!-- <keybind key="W-grave"> -->
       <!-- You can obtain the grave value by searching the key-bindings on arch -->
-      <action name="Execute">
-        <command>~/.focus_or_launch urxvt</command>
-      </action>
-    </keybind>
+      <!-- <action name="Execute"> -->
+        <!-- <command>~/.focus_or_launch urxvt</command> -->
+      <!-- </action> -->
+    <!-- </keybind> -->
     <!-- <keybind key="W-t"> -->
     <!-- <action name="Execute"> -->
     <!-- <command>~/.local/bin/urxvtc</command> -->
