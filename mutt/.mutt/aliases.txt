@@ -11,3 +11,4 @@ alias falcon-franklin Franklin Falcon <ffalcon46@gmail.com>
 alias Udacity <mentorship-support@udacity.com>
 alias MultiRace <info@multirace.com>
 alias america-bank Bank of America <onlinebanking@ealerts.bankofamerica.com>
+alias accounts-nvidia NVIDIA Accounts <noreply@account-nvidia.com>

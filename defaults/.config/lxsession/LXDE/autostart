@@ -1,8 +1,9 @@
 @lxpanel --profile LXDE
 @pcmanfm --daemon-mode --desktop --profile LXDE
 # @xscreensaver -no-splash # Dont have one now
-google-chrome-stable
 compton -b
 # xflux -z 33760 # I dont think we need this anymore
 arandr-indicator
 xfce4-power-manager
+seafile-applet
+google-chrome-stable
