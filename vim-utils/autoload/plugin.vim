@@ -448,7 +448,11 @@ function! plugin#Check() abort
 			let g:plugged_path=  $HOME . '/.vim/plugged/'
 			let g:vimfile_path=  $HOME . '/.vim/'
 		endif
-		let g:wiki_path=  $HOME . '/Seafile/OnServer/KnowledgeIsPower/wiki'
+		if system('hostname') =~ 'beast'
+			let g:wiki_path=  $HOME . '/Seafile/OnServer/KnowledgeIsPower/wiki'
+		elseif system('hostname') =~ 'predator'
+			let g:wiki_path=  $HOME . '/Seafile/KnowledgeIsPower/wiki'
+		endif
 		let g:usr_path = '/usr'
 
 		if system('uname -o') =~ 'Android'
