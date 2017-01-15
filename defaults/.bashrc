@@ -14,8 +14,6 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-export EDITOR=nvim
-
 function _update_ps1() {
 	PS1="$(~/.powerline/powerline-shell/powerline-shell.py $? 2> /dev/null)"
 }
@@ -34,7 +32,10 @@ fi
 # --hidden: Search hidden files and folders
 # --follow: Follow symlinks
 # --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+# if rg command exists
+if [ hash rg 2>/dev/null ]; then
+	export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+fi
 
 if [[ -z "$TMUX" ]]; then
 	ID="`tmux ls | grep -vm1 attached | cut -d: -f1`"
@@ -47,8 +48,8 @@ fi
 
 # Creating local bin folder
 export PATH=$PATH:$HOME/.local/bin
-
 export EMAIL="rmolin88@gmail.com"
+export EDITOR=nvim
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=8888

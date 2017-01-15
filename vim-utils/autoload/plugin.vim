@@ -396,6 +396,9 @@ function! plugin#Config() abort
 	Plug 'glts/vim-magnum' " required by radical
 	Plug 'glts/vim-radical' " use with gA
 
+	" W3M - to view cpp-reference help
+	Plug 'yuratomo/w3m.vim'
+
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 

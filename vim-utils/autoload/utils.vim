@@ -12,6 +12,7 @@ function! utils#SetGrep() abort
 	" Add the --type-set=markdown:ext:md option to ucg for it to recognize
 	" Use the -t option to search all text files; -a to search all files; and -u to search all, including hidden files.
 	" md files
+	" rg = ripgrep
 	if executable('rg')
 		set grepprg=rg\ --vimgrep
 	elseif executable('ucg')
