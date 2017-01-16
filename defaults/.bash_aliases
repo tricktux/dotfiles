@@ -27,6 +27,7 @@ alias gpl='git pull origin master'
 alias va='svn add --force'
 alias vs='svn status'
 alias vc='svn commit -m'
+alias svn-chekcout='svn co svn+ssh://odroid@copter-server/mnt/hq-storage/1.Myn/svn-server/'
 
 # Mounting remote servers
 alias mount-truck='sshfs odroid@truck-server:/ /home/$USER/.mnt/truck-server/'
