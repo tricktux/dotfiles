@@ -398,6 +398,7 @@ function! plugin#Config() abort
 
 	" W3M - to view cpp-reference help
 	Plug 'yuratomo/w3m.vim'
+		let g:w3m#history#save_file = g:cache_path . '/.vim_w3m_hist'
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
