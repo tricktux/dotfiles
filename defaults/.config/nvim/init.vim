@@ -1,10 +1,10 @@
 " File:					init.vim
 " Description:  Vim/Neovim configuration file
 " Author:				Reinaldo Molina
-" Version:			6.0.0
+" Version:			6.0.1
 "								Support for portable vim version
 "								files
-" Date:					Fri Jan 06 2017 12:50
+" Date:					Wed Jan 18 2017 09:53
 " Improvements:
 		" - [ ] Markdown tables
 		" - [ ] Delete duplicate music.
@@ -583,6 +583,7 @@
 		nnoremap cl :call utils#CommentLine()<CR>
 		nnoremap <Leader>oe :call utils#EndOfIfComment()<CR>
 		nnoremap <Leader>ou :call utils#UpdateHeader()<CR>
+		nnoremap <Leader>os :grep --cpp TODO.RM<CR>
 
 	" Compiler
 		nnoremap <Leader>Cb :compiler borland<CR>
