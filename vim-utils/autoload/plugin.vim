@@ -325,30 +325,30 @@ function! plugin#Config() abort
 		" nnoremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
 		nnoremap <Leader>ts :cs show<CR>
 		nnoremap <Leader>tu :call utils#UpdateCscope()<CR>
-		if executable('clang') && has('python') && !exists('g:android') " clang_complete
-			Plug 'Rip-Rip/clang_complete', { 'for' : ['c' , 'cpp'] }
-			" Why I switched to Rip-Rip because it works
-			" Steps to get plugin to work:
-			" 1. Make sure that you can compile a program with clang++ command
-			" a. Example: clang++ -std=c++14 -stdlib=libc++ -pedantic -Wall hello.cpp -v
-			" 2. To get this to work I had to install libc++-dev package in unix
-			" 3. install libclang-dev package. See g:clang_library_path to where it gets
-			" installed. Also I had to make sym link: ln -s libclang.so.1 libclang.so
-			let g:clang_user_options = '-std=c++14 -stdlib=libc++ -Wall -pedantic'
-			let g:clang_close_preview = 1
-			" let g:clang_complete_copen = 1
-			" let g:clang_periodic_quickfix = 1
-			if has('win32')
-				" clang using mscv for target instead of mingw64
-				let g:clang_cpp_options = '-target x86_64-pc-windows-gnu -std=c++17 -pedantic -Wall'
-				let g:clang_c_options = '-target x86_64-pc-windows-gnu -std=gnu11 -pedantic -Wall'
-			else
-				let g:clang_library_path= g:usr_path . '/lib/libclang.so'
-			endif
-		else
-			echomsg string("No clang and/or python present. Disabling vim-clang")
-			let g:clang_complete_loaded = 1
-		endif
+		" if executable('clang') && has('python') && !exists('g:android') " clang_complete
+			" Plug 'Rip-Rip/clang_complete', { 'for' : ['c' , 'cpp'] }
+			" " Why I switched to Rip-Rip because it works
+			" " Steps to get plugin to work:
+			" " 1. Make sure that you can compile a program with clang++ command
+			" " a. Example: clang++ -std=c++14 -stdlib=libc++ -pedantic -Wall hello.cpp -v
+			" " 2. To get this to work I had to install libc++-dev package in unix
+			" " 3. install libclang-dev package. See g:clang_library_path to where it gets
+			" " installed. Also I had to make sym link: ln -s libclang.so.1 libclang.so
+			" let g:clang_user_options = '-std=c++14 -stdlib=libc++ -Wall -pedantic'
+			" let g:clang_close_preview = 1
+			" " let g:clang_complete_copen = 1
+			" " let g:clang_periodic_quickfix = 1
+			" if has('win32')
+				" " clang using mscv for target instead of mingw64
+				" let g:clang_cpp_options = '-target x86_64-pc-windows-gnu -std=c++17 -pedantic -Wall'
+				" let g:clang_c_options = '-target x86_64-pc-windows-gnu -std=gnu11 -pedantic -Wall'
+			" else
+				" let g:clang_library_path= g:usr_path . '/lib/libclang.so'
+			" endif
+		" else
+			" echomsg string("No clang and/or python present. Disabling vim-clang")
+			" let g:clang_complete_loaded = 1
+		" endif
 	Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'c' , 'cpp' ] }
 		let g:cpp_class_scope_highlight = 1
 	Plug 'justinmk/vim-syntax-extra'
