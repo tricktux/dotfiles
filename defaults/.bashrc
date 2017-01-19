@@ -51,6 +51,10 @@ export PATH=$PATH:$HOME/.local/bin
 export EMAIL="rmolin88@gmail.com"
 export EDITOR=nvim
 
+# Pacaur environment variables. See man pacaur
+export BUILDIR=/tmp
+export PKGDEST=$HOME/.local/
+
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=8888
 HISTFILESIZE=8888

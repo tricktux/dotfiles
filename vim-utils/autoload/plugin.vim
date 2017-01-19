@@ -65,6 +65,7 @@ function! plugin#Config() abort
 						\ 'text': 'X',
 						\ 'texthl': 'ErrorMsg',
 						\ }
+			let g:neomake_cpp_enabled_makers = ['gcc']
 		if has('python3') && !exists('g:android') " Deoplete
 			Plug 'Shougo/deoplete.nvim'
 			let b:deoplete_loaded = 1
