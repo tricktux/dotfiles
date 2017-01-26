@@ -5,8 +5,6 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-alias ls='ls --color=auto'
-
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # For more aliases use bash_aliases
@@ -33,27 +31,21 @@ fi
 # --follow: Follow symlinks
 # --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 # if rg command exists
+# Debug this its not really working
 if [ hash rg 2>/dev/null ]; then
 	export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 fi
 
 if [[ -z "$TMUX" ]]; then
+	# Do not attach to the 
 	ID="`tmux ls | grep -vm1 attached | cut -d: -f1`"
-	if [[ -z "$ID" ]]; then
+	# Do not attach to the cmus session. Let it run in the background
+	if [[ -z "$ID" || "$ID" = "cmus" ]]; then
 		tmux new-session
 	else
 		tmux attach-session -t "$ID"
 	fi
 fi
-
-# Creating local bin folder
-export PATH=$PATH:$HOME/.local/bin
-export EMAIL="rmolin88@gmail.com"
-export EDITOR=nvim
-
-# Pacaur environment variables. See man pacaur
-export BUILDIR=/tmp
-export PKGDEST=$HOME/.local/
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=8888
@@ -70,8 +62,18 @@ if [ `uname -o` != "Android" ]; then
 	export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 fi
 
+# Exports
 export XTERM=screen-256
-
 # Man settings
 export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:/usr/man
 export MANPAGER="nvim -c 'set ft=neoman' -"
+# Creating local bin folder
+# Keep in mind you bin preceeds /usr/bin
+export PATH=$HOME/.local/bin:$PATH
+export EMAIL="rmolin88@gmail.com"
+export EDITOR=nvim
+
+# Pacaur environment variables. See man pacaur
+# Dangerous options
+# export BUILDIR=/tmp
+# export PKGDEST=$HOME/.local/

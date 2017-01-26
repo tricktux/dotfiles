@@ -37,6 +37,7 @@ alias mount-hq='sshfs reinaldo@HQ:/ /home/$USER/.mnt/HQ-server/'
 # Misc
 alias tmux='tmux -2'
 alias ll='ls -als'
+alias ls='ls --color=auto'
 alias vim=FuncNvim
 # Reload rxvt and deamon
 # Search help
@@ -69,11 +70,16 @@ FuncCheckCopy()
 
 FuncUpdate()
 {
+	# Get rid of unused packages and optimize first
+	sudo pacman -Sc
+	sudo pacman-optimize
 	# Update list of all installed packages
 	pacman -Qe > ~/.dotfiles/$machine-arch-packages
 	pacman -Qm >> ~/.dotfiles/$machine-arch-packages
 	# Now update packages
 	pacaur -Syu --noconfirm
+	# To install packages from list:
+	# pacaur -S - < <pgklist.txt>
 }
 
 FuncNvim()
