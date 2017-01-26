@@ -55,17 +55,17 @@ function! plugin#Config() abort
 	if has('nvim')
 		" nvim-qt on unix doesnt populate has('gui_running
 		Plug 'equalsraf/neovim-gui-shim'
-		Plug 'neomake/neomake'
-			let g:neomake_warning_sign = {
-						\ 'text': '?',
-						\ 'texthl': 'WarningMsg',
-						\ }
+		" Plug 'neomake/neomake'
+			" let g:neomake_warning_sign = {
+						" \ 'text': '?',
+						" \ 'texthl': 'WarningMsg',
+						" \ }
 
-			let g:neomake_error_sign = {
-						\ 'text': 'X',
-						\ 'texthl': 'ErrorMsg',
-						\ }
-			let g:neomake_cpp_enabled_makers = ['gcc']
+			" let g:neomake_error_sign = {
+						" \ 'text': 'X',
+						" \ 'texthl': 'ErrorMsg',
+						" \ }
+			" let g:neomake_cpp_enabled_makers = ['gcc']
 		if has('python3') && !exists('g:android') " Deoplete
 			Plug 'Shougo/deoplete.nvim'
 			let b:deoplete_loaded = 1
@@ -203,16 +203,6 @@ function! plugin#Config() abort
 			let g:SuperTabDefaultCompletionType = "<Tab>"
 		endif
 		Plug 'tpope/vim-dispatch'
-		Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
-			nnoremap <Leader>so :SyntasticToggleMode<CR>
-			nnoremap <Leader>ss :SyntasticCheck<CR>
-			let g:syntastic_always_populate_loc_list = 1
-			let g:syntastic_auto_loc_list = 1
-			let g:syntastic_check_on_open = 0
-			let g:syntastic_check_on_wq = 0
-			let g:syntastic_cpp_compiler_options = '-std=c++17 -pedantic -Wall'
-			let g:syntastic_c_compiler_options = '-std=c11 -pedantic -Wall'
-			let g:syntastic_auto_jump = 3
 		Plug 'ctrlpvim/ctrlp.vim'
 			if executable('ag') && !executable('ucg') || !exists(':FZF')
 				let g:ctrlp_user_command = 'ag -Q -l --smart-case --nocolor --hidden -g "" %s'
@@ -244,6 +234,16 @@ function! plugin#Config() abort
 	endif
 
 	" Plugins for All (nvim, linux, win32)
+	Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
+		nnoremap <Leader>so :SyntasticToggleMode<CR>
+		nnoremap <Leader>ss :SyntasticCheck<CR>
+		let g:syntastic_always_populate_loc_list = 1
+		let g:syntastic_auto_loc_list = 1
+		let g:syntastic_check_on_open = 0
+		let g:syntastic_check_on_wq = 0
+		let g:syntastic_cpp_compiler_options = '-std=c++17 -pedantic -Wall'
+		let g:syntastic_c_compiler_options = '-std=c11 -pedantic -Wall'
+		let g:syntastic_auto_jump = 3
 	Plug g:location_vim_utils
 		nnoremap <Leader>of :Dox<CR>
 		" Other commands

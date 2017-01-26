@@ -25,12 +25,13 @@ dosfstools 4.0-3
 e2fsprogs 1.43.3-1
 efibootmgr 14-2
 eog 3.20.5-1
-epiphany 3.22.4-1
+epiphany 3.22.5-1
 evince 3.22.1-1
 expac 8-1
 fakeroot 1.21-2
 feh 2.18-1
 file 5.29-1
+file-roller 3.22.2-1
 filesystem 2016.12-2
 findutils 4.6.0-2
 flex 2.6.3-1
@@ -43,6 +44,7 @@ git 2.11.0-2
 glibc 2.24-2
 gnome-backgrounds 3.22.1-1
 gnome-calculator 3.22.2-1
+gnome-calendar 3.22.2-1
 gnome-control-center 3.22.1-1
 gnome-dictionary 3.20.0+28+g7dce582-1
 gnome-disk-utility 3.22.1-1
@@ -53,6 +55,7 @@ gnome-session 3.22.2-1
 gnome-settings-daemon 3.22.1-1
 gnome-shell 3.22.2+18+gdf7727a-1
 gnome-shell-extension-openweather-git r967.27f2d95-1
+gnome-shell-extension-pixel-saver 1.10-1
 gnome-shell-extensions 3.22.2-1
 gnome-shell-theme-super-flat-remix-git r29.4b6bb1f-1
 gnome-system-log 3.9.90-2
@@ -67,7 +70,7 @@ grep 2.27-1
 grilo-plugins 0.3.3+7+gab5596b-1
 groff 1.22.3-7
 grub 1:2.02.beta3-6
-gtk3-print-backends 3.22.6-1
+gtk3-print-backends 3.22.7-1
 guake 0.8.8-1
 guake-colors-solarized-git 16-1
 gucharmap 9.0.2-1
@@ -85,13 +88,12 @@ intel-ucode 20161104-1
 iproute2 4.9.0-1
 iputils 20161105.1f2bb12-1
 jfsutils 1.1.15-4
-kdesvn 2.0.0-2
 less 487-1
 lib32-alsa-plugins 1.1.1-1
 lib32-libjpeg-turbo 1.5.1-1
 lib32-libldap 2.4.44-1
 lib32-libpng 1.6.27-1
-lib32-libpulse 9.0-2
+lib32-libpulse 10.0-1
 lib32-nvidia-libgl 375.26-2
 lib32-nvidia-utils 375.26-2
 libtool 2.4.6-7
@@ -130,6 +132,7 @@ neovim-qt 0.2.4-1
 netctl 1.12-2
 network-manager-applet 1.4.2-1
 networkmanager 1.4.4-1
+ntfs-3g 2016.2.22-1
 numix-themes 2.6.5-1
 nvidia 375.26-1
 nvidia-libgl 375.26-2
@@ -153,7 +156,7 @@ pkg-config 0.29.1-2
 preload 0.6.4-6
 procps-ng 3.3.12-1
 psmisc 22.21-3
-pulseaudio 9.0-1
+pulseaudio 10.0-2
 python-neovim-git 0.1.13.r2.ga2e1169-1
 python2-neovim-git 0.1.13.r2.ga2e1169-1
 qt4 4.8.7-12
@@ -184,7 +187,7 @@ qt5-translations 5.7.1-1
 qt5-virtualkeyboard 5.7.1-1
 qt5-wayland 5.7.1-1
 qt5-webchannel 5.7.1-1
-qt5-webengine 5.7.1-1
+qt5-webengine 5.7.1-2
 qt5-webkit 5.7.1-1
 qt5-websockets 5.7.1-1
 qt5-webview 5.7.1-1
@@ -195,7 +198,7 @@ ranger 1.8.1-1
 reiserfsprogs 3.6.25-1
 ripgrep 0.4.0-1
 rxvt-unicode 9.22-2
-s-nail 14.8.14-1
+s-nail 14.8.15-1
 seafile-client 6.0.1-3
 sed 4.3-1
 shadow 4.4-3
@@ -210,8 +213,9 @@ texinfo 6.3-1
 tigervnc 1.7.0-1
 tmux 2.3-1
 totem 3.22.0+5+ge0bf46e-1
-tracker 1.10.3-1
+tracker 1.10.4-1
 ttf-consolas-powerline 1.0.g3cd9d75-1
+ttf-google-fonts-git 20170118-1
 ttf-hack 2.020-2
 udiskie 1.5.1-2
 universal-ctags-git 0.r4596.df9a7911-1
@@ -221,6 +225,7 @@ usbutils 008-1
 util-linux 2.29-2
 vi 1:070224-2
 vino 3.22.0-1
+vlc 2.2.4-6
 w3m 0.5.3.git20170102-1
 which 2.21-2
 xclip 0.13-1
@@ -261,9 +266,11 @@ xorg-xvinfo 1.1.3-1
 xorg-xwd 1.0.6-1
 xorg-xwininfo 1.1.3-1
 xorg-xwud 1.0.4-2
+xscreensaver 5.36-1
 xterm 327-1
 yajl 2.1.0-1
 yelp 3.22.0+1+gfabd8eb-1
+youtube-dl-gui-git 0.3.8.r64.gfa3de1d-1
 zip 3.0-7
 capitaine-cursors r2-1
 ccnet 6.0.2-1
@@ -273,6 +280,7 @@ cmus-git v2.8.0.rc0.r4.gef65f69-1
 conky-nvidia 1.10.6-1
 cower 16-1
 gnome-shell-extension-openweather-git r967.27f2d95-1
+gnome-shell-extension-pixel-saver 1.10-1
 gnome-shell-theme-super-flat-remix-git r29.4b6bb1f-1
 google-chrome 55.0.2883.87-1
 guake-colors-solarized-git 16-1
@@ -291,5 +299,7 @@ rambox-bin 0.4.5-1
 seafile 6.0.2-4
 seafile-client 6.0.1-3
 ttf-consolas-powerline 1.0.g3cd9d75-1
+ttf-google-fonts-git 20170118-1
 universal-ctags-git 0.r4596.df9a7911-1
 unreal-engine 4.14.3-1
+youtube-dl-gui-git 0.3.8.r64.gfa3de1d-1
