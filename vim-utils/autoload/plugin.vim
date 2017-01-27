@@ -284,7 +284,7 @@ function! plugin#Config() abort
 		let g:DoxygenToolkit_authorTag =	"Author:				"
 		let g:DoxygenToolkit_fileTag =		"File:					"
 		let g:DoxygenToolkit_briefTag_pre="Description:		"
-		let g:DoxygenToolkit_dateTag =		"Last modified: "
+		let g:DoxygenToolkit_dateTag =		"Last Modified: "
 		let g:DoxygenToolkit_versionTag = "Version:				"
 		let g:DoxygenToolkit_commentType = "C++"
 		" See :h doxygen.vim this vim related. Not plugin related
@@ -325,6 +325,26 @@ function! plugin#Config() abort
 		let g:autoformat_remove_trailing_spaces = 0
 
 	" cpp
+	" Plug 'vim-scripts/TagHighlight'
+	Plug 'xolox/vim-easytags'
+		Plug 'xolox/vim-misc' " dependency of vim-easytags
+		Plug 'xolox/vim-shell' " dependency of vim-easytags
+		set regexpengine=1 " This speed up the engine alot but still not enough
+		let g:easytags_cmd = 'ctags.exe'
+		let g:easytags_file = '~/.cache/easy-tags'
+		let g:easytags_syntax_keyword = 'always'
+		" let g:easytags_on_cursorhold = 1
+		" let g:easytags_updatetime_min = 4000
+		" let g:easytags_auto_update = 1
+		let g:easytags_auto_update = 0
+		let g:easytags_auto_highlight = 1
+		let g:easytags_dynamic_files = 1
+		let g:easytags_by_filetype = '~/.cache/easy-tags-filetype'
+		" let g:easytags_events = ['BufReadPost' , 'BufWritePost']
+		let g:easytags_events = ['BufReadPost']
+		let g:easytags_include_members = 1
+		let g:easytags_async = 1
+		let g:easytags_python_enabled = 1
 	Plug 'Tagbar', { 'on' : 'TagbarToggle' }
 		let g:tagbar_autofocus = 1
 		let g:tagbar_show_linenumbers = 2
