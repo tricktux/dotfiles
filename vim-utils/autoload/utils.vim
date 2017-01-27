@@ -454,7 +454,7 @@ function! utils#UpdateCscope() abort
 		return
 	endif
 	cs add cscope.out
-	silent !ctags -R -L cscope.files -f .tags
+	silent !ctags -R -L cscope.files -f .tags --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q --language-force=C++
 	" set tags+=.tags
 endfunction
 
