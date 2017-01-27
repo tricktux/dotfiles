@@ -27,7 +27,12 @@ alias gpl='git pull origin master'
 alias va='svn add --force'
 alias vs='svn status'
 alias vc='svn commit -m'
-alias svn-chekcout='svn co svn+ssh://odroid@copter-server/mnt/hq-storage/1.Myn/svn-server/'
+alias svn-checkout=FuncSvnCheckout
+alias svn-create=FuncSvnCreate
+
+# Folder
+# UnrealEngineCourse
+alias svn-server='cd /home/reinaldo/.mnt/copter-server/mnt/hq-storage/1.Myn/svn-server'
 
 # Mounting remote servers
 alias mount-truck='sshfs odroid@truck-server:/ /home/$USER/.mnt/truck-server/'
@@ -92,3 +97,15 @@ FuncNvim()
 		vi "$@"
 	fi
 }
+
+FuncSvnCheckout()
+{
+	svn co svn+ssh://odroid@copter-server/mnt/hq-storage/1.Myn/svn-server$1
+}
+
+FuncSvnCreate()
+{
+	ssh odroid@copter-server mkdir -p /mnt/hq-storage/1.Myn/svn-server$1
+	ssh odroid@copter-server svnadmin create /mnt/hq-storage/1.Myn/svn-server$1
+}
+

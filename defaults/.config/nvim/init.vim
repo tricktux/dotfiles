@@ -263,6 +263,7 @@
 		autocmd BufNewFile,BufReadPost *.ino,*.pde setf arduino
 		" Automatic syntax for wings
 		autocmd BufNewFile,BufReadPost *.scp setf wings_syntax
+		autocmd BufNewFile,BufReadPost *.log setf unreal-log
 		autocmd BufNewFile,BufReadPost *.set,*.sum setf dosini
 		"Automatically go back to where you were last editing this file
 		autocmd BufReadPost *
@@ -388,6 +389,9 @@
 		nnoremap <Leader>j` :normal i````cpp<Esc>Go```<Esc><CR>
 		nnoremap <Leader>j- :call utils#GuiFont("-")<CR>
 		nnoremap <Leader>j= :call utils#GuiFont("+")<CR>
+
+		" Convert fileformat to dos
+		nnoremap <Leader>jD :e ++ff=dos<CR>
 
 
 		" j mappings taken <swypl;bqruihHdma248eEonf>
