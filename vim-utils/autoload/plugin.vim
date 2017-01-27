@@ -55,6 +55,10 @@ function! plugin#Config() abort
 	if has('nvim')
 		" nvim-qt on unix doesnt populate has('gui_running
 		Plug 'equalsraf/neovim-gui-shim'
+		Plug 'Valloric/YouCompleteMe'
+			let g:ycm_confirm_extra_conf = 0 
+		Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+
 		" Plug 'neomake/neomake'
 			" let g:neomake_warning_sign = {
 						" \ 'text': '?',
@@ -65,52 +69,72 @@ function! plugin#Config() abort
 						" \ 'text': 'X',
 						" \ 'texthl': 'ErrorMsg',
 						" \ }
-			" let g:neomake_cpp_enabled_makers = ['gcc']
-		if has('python3') && !exists('g:android') " Deoplete
-			Plug 'Shougo/deoplete.nvim'
-			let b:deoplete_loaded = 1
-			" if it is nvim deoplete requires python3 to work
-			let g:deoplete#enable_at_startup = 1
-			" New settings
-			let g:deoplete#enable_ignore_case = 1
-			let g:deoplete#enable_smart_case = 1
-			let g:deoplete#enable_camel_case = 1
-			let g:deoplete#enable_refresh_always = 1
-			let g:deoplete#max_abbr_width = 0
-			let g:deoplete#max_menu_width = 0
-			let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
-			let g:deoplete#omni#input_patterns.java = [
-						\'[^. \t0-9]\.\w*',
-						\'[^. \t0-9]\->\w*',
-						\'[^. \t0-9]\::\w*',
-						\]
-			let g:deoplete#omni#input_patterns.jsp = ['[^. \t0-9]\.\w*']
-			let g:deoplete#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-			let g:deoplete#ignore_sources = {}
-			let g:deoplete#ignore_sources.java = ['omni']
-			"call deoplete#custom#set('omni', 'min_pattern_length', 0)
-			inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
-			inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
-			" Regular settings
-			inoremap <silent><expr> <TAB>
-						\ pumvisible() ? "\<C-n>" :
-						\ <SID>check_back_space() ? "\<TAB>" :
-						\ deoplete#mappings#manual_complete()
-			function! s:check_back_space() abort
-				let col = col('.') - 1
-				return !col || getline('.')[col - 1]  =~ '\s'
-			endfunction
-			inoremap <expr><C-h>
-						\ deoplete#smart_close_popup()."\<C-h>"
-			inoremap <expr><BS>
-						\ deoplete#smart_close_popup()."\<C-h>"
-		else
-			echomsg "No python3 = No Deocomplete. Supertab Activated"
-			" so if it doesnt have it activate clang instaed
-			let g:deoplete#enable_at_startup = 0
-			Plug 'ervandew/supertab' " Activate Supertab
-			let g:SuperTabDefaultCompletionType = "<c-n>"
-		endif
+			" let g:neomake_cpp_enabled_makers = ['clang', 'gcc']
+			" let g:neomake_cpp_clang_maker = {
+						" \ 'args': ['-fsyntax-only', '-std=c++14', '-Wall', '-Wextra'],
+						" \ 'errorformat':
+						" \ '%-G%f:%s:,' .
+						" \ '%f:%l:%c: %trror: %m,' .
+						" \ '%f:%l:%c: %tarning: %m,' .
+						" \ '%f:%l:%c: %m,'.
+						" \ '%f:%l: %trror: %m,'.
+						" \ '%f:%l: %tarning: %m,'.
+						" \ '%f:%l: %m',
+						" \ }
+
+		" if has('python3') && !exists('g:android') " Deoplete
+			" Plug 'Shougo/deoplete.nvim'
+				" let b:deoplete_loaded = 1
+				" " if it is nvim deoplete requires python3 to work
+				" let g:deoplete#enable_at_startup = 1
+				" " New settings
+				" let g:deoplete#enable_ignore_case = 1
+				" let g:deoplete#enable_smart_case = 1
+				" let g:deoplete#enable_camel_case = 1
+				" let g:deoplete#enable_refresh_always = 1
+				" let g:deoplete#max_abbr_width = 0
+				" let g:deoplete#max_menu_width = 0
+				" let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
+				" let g:deoplete#omni#input_patterns.java = [
+							" \'[^. \t0-9]\.\w*',
+							" \'[^. \t0-9]\->\w*',
+							" \'[^. \t0-9]\::\w*',
+							" \]
+				" let g:deoplete#omni#input_patterns.jsp = ['[^. \t0-9]\.\w*']
+				" let g:deoplete#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+				" let g:deoplete#ignore_sources = {}
+				" let g:deoplete#ignore_sources.java = ['omni']
+				" "call deoplete#custom#set('omni', 'min_pattern_length', 0)
+				" inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
+				" inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
+				" " Regular settings
+				" inoremap <silent><expr> <TAB>
+							" \ pumvisible() ? "\<C-n>" :
+							" \ <SID>check_back_space() ? "\<TAB>" :
+							" \ deoplete#mappings#manual_complete()
+				" function! s:check_back_space() abort
+					" let col = col('.') - 1
+					" return !col || getline('.')[col - 1]  =~ '\s'
+				" endfunction
+				" inoremap <expr><C-h>
+							" \ deoplete#smart_close_popup()."\<C-h>"
+				" inoremap <expr><BS>
+							" \ deoplete#smart_close_popup()."\<C-h>"
+			" " ----------------------------------------------
+			" "  deoplete-clang
+			" Plug 'zchee/deoplete-clang'
+				" let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
+				" let g:deoplete#sources#clang#clang_header ="/usr/include/clang/"
+			" " ----------------------------------------------
+			" "  neoinclude
+			" Plug 'Shougo/neoinclude.vim'
+		" else
+			" echomsg "No python3 = No Deocomplete. Supertab Activated"
+			" " so if it doesnt have it activate clang instaed
+			" let g:deoplete#enable_at_startup = 0
+			" Plug 'ervandew/supertab' " Activate Supertab
+			" let g:SuperTabDefaultCompletionType = "<c-n>"
+		" endif
 		if executable('lldb')
 			Plug 'critiqjo/lldb.nvim'
 			nmap <Leader>db <Plug>LLBreakSwitch

@@ -1,7 +1,7 @@
 if exists('g:GuiLoaded') " nvim-qt gui
 	" Choose one
 	" Guifont DejaVu Sans Mono:h10
-	Guifont Hack:h10
+	Guifont Hack:h8
 	" Guifont Monospace:h10
 	" Guifont Consolas:h11
 	" Guifont Incosolata for Powerline:h10
