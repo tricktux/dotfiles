@@ -477,10 +477,10 @@ function! utils#Make()
 			endif
 		endif
 	else
-		" Neomake " Not using neomake at the moment
-		if exists(':SyntasticCheck')
-			SyntasticCheck
-		endif
+		Neomake " Not using neomake at the moment
+		" if exists(':SyntasticCheck')
+			" SyntasticCheck
+		" endif
 		return
 	endif
 	make
@@ -543,7 +543,7 @@ function! utils#UpdateHeader()
     let l = line("$")
   endif
 	" Last Modified
-  silent exe "1," . l . "g/Last modified:/s/Last modified:.*/Last modified: " .
+  silent exe "1," . l . "g/Last Modified:/s/Last Modified:.*/Last Modified: " .
   \ strftime("%a %b %d %Y %H:%M")
 	" Last Author
 	silent exe "1," . l . "g/Last Author:/s/Last Author:.*/Last Author: " .
