@@ -34,6 +34,7 @@ function! unix#Config() abort
 	" also this path below are what go into the .syntastic_avrgcc_config
 	let &path .= g:usr_path . '/local/include,'
 	let &path .= g:usr_path . '/include,'
+	let &path .= '/opt/unreal-engine/Engine/Source'
 
 	" Vim-clang
 endfunction
