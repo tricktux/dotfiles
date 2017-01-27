@@ -198,6 +198,7 @@
 			set ttyfast " Had to addit to speed up scrolling
 		endif
 		set lazyredraw " Had to addit to speed up scrolling
+		set synmaxcol=140 " Will not highlight passed this column #
 
 	" CLI
 		if !has('gui_running') && !exists('g:GuiLoaded')
@@ -270,6 +271,12 @@
 			\ if line("'\"") > 0 && line("'\"") <= line("$") |
 			\ exe "normal g`\"" |
 			\ endif
+	augroup END
+	" To improve syntax highlight speed. If something breaks with highlight
+	" increase these number below
+	augroup vimrc
+		autocmd!
+		autocmd BufWinEnter,Syntax * syn sync minlines=80 maxlines=80
 	augroup END
 
 
@@ -610,6 +617,7 @@
 		let c_gnu = 1
 		let c_ansi_constants = 1
 		let c_ansi_typedefs = 1
+		let c_minlines = 15
 		" Breaks too often
 		" let c_curly_error = 1
 
