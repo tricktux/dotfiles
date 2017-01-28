@@ -1033,6 +1033,7 @@ function! utils#AutoCreateUnixCtags() abort
 			" Create ctags
 			" if isdirectory(l:list_folders
 			!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.vim/personal/ctags/tags_sys /usr/include
+			!ctags -R --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/tags_sys /usr/include
 			!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.vim/personal/ctags/tags_sys2 /usr/local/include
 			if isdirectory('/opt/avr8-gnu-toolchain-linux_x86_64/avr/include')
 				set path+=/opt/avr8-gnu-toolchain-linux_x86_64/avr/include
