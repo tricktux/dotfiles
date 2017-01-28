@@ -70,7 +70,9 @@ function! plugin#Config() abort
 			let g:ycm_cache_omnifunc=0
 			"" complete syntax keywords
 			let g:ycm_seed_identifiers_with_syntax=1
-		Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+			let g:ycm_global_ycm_extra_conf = '~/.dotfiles/vim-utils/.ycm_extra_conf.py'
+			let g:ycm_autoclose_preview_window_after_completion = 1
+		" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 
 		" Plug 'neomake/neomake'
 			" let g:neomake_warning_sign = {
@@ -135,19 +137,42 @@ function! plugin#Config() abort
 							" \ deoplete#smart_close_popup()."\<C-h>"
 			" " ----------------------------------------------
 			" "  deoplete-clang
-			" Plug 'zchee/deoplete-clang'
-				" let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
-				" let g:deoplete#sources#clang#clang_header ="/usr/lib/clang"
-			" " ----------------------------------------------
-			" "  neoinclude
-			" Plug 'Shougo/neoinclude.vim'
-		" else
-			" echomsg "No python3 = No Deocomplete. Supertab Activated"
-			" " so if it doesnt have it activate clang instaed
-			" let g:deoplete#enable_at_startup = 0
-			" Plug 'ervandew/supertab' " Activate Supertab
-			" let g:SuperTabDefaultCompletionType = "<c-n>"
-		" endif
+			" " Plug 'zchee/deoplete-clang'
+				" " let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
+				" " let g:deoplete#sources#clang#clang_header ="/usr/lib/clang"
+			" " " ----------------------------------------------
+			" " "  neoinclude
+			" if executable('clang') && has('python') && !exists('g:android') " clang_complete
+				" Plug 'Rip-Rip/clang_complete', { 'for' : ['c' , 'cpp'] }
+				" " Why I switched to Rip-Rip because it works
+				" " Steps to get plugin to work:
+				" " 1. Make sure that you can compile a program with clang++ command
+				" " a. Example: clang++ -std=c++14 -stdlib=libc++ -pedantic -Wall hello.cpp -v
+				" " 2. To get this to work I had to install libc++-dev package in unix
+				" " 3. install libclang-dev package. See g:clang_library_path to where it gets
+				" " installed. Also I had to make sym link: ln -s libclang.so.1 libclang.so
+				" let g:clang_user_options = '-std=c++14 -stdlib=libc++ -Wall -pedantic'
+				" let g:clang_close_preview = 1
+				" " let g:clang_complete_copen = 1
+				" " let g:clang_periodic_quickfix = 1
+				" if has('win32')
+					" " clang using mscv for target instead of mingw64
+					" let g:clang_cpp_options = '-target x86_64-pc-windows-gnu -std=c++17 -pedantic -Wall'
+					" let g:clang_c_options = '-target x86_64-pc-windows-gnu -std=gnu11 -pedantic -Wall'
+				" else
+					" let g:clang_library_path= g:usr_path . '/lib/libclang.so'
+				" endif
+			" else
+				" echomsg string("No clang and/or python present. Disabling vim-clang")
+				" let g:clang_complete_loaded = 1
+			" endif
+			" else
+				" echomsg "No python3 = No Deocomplete. Supertab Activated"
+				" " so if it doesnt have it activate clang instaed
+				" let g:deoplete#enable_at_startup = 0
+				" Plug 'ervandew/supertab' " Activate Supertab
+				" let g:SuperTabDefaultCompletionType = "<c-n>"
+			" endif
 		if executable('lldb')
 			Plug 'critiqjo/lldb.nvim'
 			nmap <Leader>db <Plug>LLBreakSwitch
@@ -240,6 +265,25 @@ function! plugin#Config() abort
 			let g:SuperTabDefaultCompletionType = "<Tab>"
 		endif
 		Plug 'tpope/vim-dispatch'
+		Plug 'xolox/vim-easytags'
+			Plug 'xolox/vim-misc' " dependency of vim-easytags
+			Plug 'xolox/vim-shell' " dependency of vim-easytags
+			set regexpengine=1 " This speed up the engine alot but still not enough
+			let g:easytags_cmd = 'ctags'
+			let g:easytags_file = '~/.cache/easy-tags'
+			let g:easytags_syntax_keyword = 'always'
+			" let g:easytags_on_cursorhold = 1
+			" let g:easytags_updatetime_min = 4000
+			" let g:easytags_auto_update = 1
+			let g:easytags_auto_update = 0
+			let g:easytags_auto_highlight = 1
+			let g:easytags_dynamic_files = 1
+			let g:easytags_by_filetype = '~/.cache/easy-tags-filetype'
+			" let g:easytags_events = ['BufReadPost' , 'BufWritePost']
+			let g:easytags_events = ['BufReadPost']
+			let g:easytags_include_members = 1
+			let g:easytags_async = 1
+			let g:easytags_python_enabled = 1
 		Plug 'ctrlpvim/ctrlp.vim'
 			if executable('ag') && !executable('ucg') || !exists(':FZF')
 				let g:ctrlp_user_command = 'ag -Q -l --smart-case --nocolor --hidden -g "" %s'
@@ -265,7 +309,7 @@ function! plugin#Config() abort
 							\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
 							\ }
 			else
-				set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
+				 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
 				let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 			endif
 	endif
@@ -339,25 +383,6 @@ function! plugin#Config() abort
 
 	" cpp
 	" Plug 'vim-scripts/TagHighlight'
-	Plug 'xolox/vim-easytags'
-		Plug 'xolox/vim-misc' " dependency of vim-easytags
-		Plug 'xolox/vim-shell' " dependency of vim-easytags
-		set regexpengine=1 " This speed up the engine alot but still not enough
-		let g:easytags_cmd = 'ctags.exe'
-		let g:easytags_file = '~/.cache/easy-tags'
-		let g:easytags_syntax_keyword = 'always'
-		" let g:easytags_on_cursorhold = 1
-		" let g:easytags_updatetime_min = 4000
-		" let g:easytags_auto_update = 1
-		let g:easytags_auto_update = 0
-		let g:easytags_auto_highlight = 1
-		let g:easytags_dynamic_files = 1
-		let g:easytags_by_filetype = '~/.cache/easy-tags-filetype'
-		" let g:easytags_events = ['BufReadPost' , 'BufWritePost']
-		let g:easytags_events = ['BufReadPost']
-		let g:easytags_include_members = 1
-		let g:easytags_async = 1
-		let g:easytags_python_enabled = 1
 	Plug 'Tagbar', { 'on' : 'TagbarToggle' }
 		let g:tagbar_autofocus = 1
 		let g:tagbar_show_linenumbers = 2
@@ -383,30 +408,6 @@ function! plugin#Config() abort
 		" nnoremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
 		nnoremap <Leader>ts :cs show<CR>
 		nnoremap <Leader>tu :call utils#UpdateCscope()<CR>
-		" if executable('clang') && has('python') && !exists('g:android') " clang_complete
-			" Plug 'Rip-Rip/clang_complete', { 'for' : ['c' , 'cpp'] }
-			" " Why I switched to Rip-Rip because it works
-			" " Steps to get plugin to work:
-			" " 1. Make sure that you can compile a program with clang++ command
-			" " a. Example: clang++ -std=c++14 -stdlib=libc++ -pedantic -Wall hello.cpp -v
-			" " 2. To get this to work I had to install libc++-dev package in unix
-			" " 3. install libclang-dev package. See g:clang_library_path to where it gets
-			" " installed. Also I had to make sym link: ln -s libclang.so.1 libclang.so
-			" let g:clang_user_options = '-std=c++14 -stdlib=libc++ -Wall -pedantic'
-			" let g:clang_close_preview = 1
-			" " let g:clang_complete_copen = 1
-			" " let g:clang_periodic_quickfix = 1
-			" if has('win32')
-				" " clang using mscv for target instead of mingw64
-				" let g:clang_cpp_options = '-target x86_64-pc-windows-gnu -std=c++17 -pedantic -Wall'
-				" let g:clang_c_options = '-target x86_64-pc-windows-gnu -std=gnu11 -pedantic -Wall'
-			" else
-				" let g:clang_library_path= g:usr_path . '/lib/libclang.so'
-			" endif
-		" else
-			" echomsg string("No clang and/or python present. Disabling vim-clang")
-			" let g:clang_complete_loaded = 1
-		" endif
 	Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'c' , 'cpp' ] }
 		let g:cpp_class_scope_highlight = 1
 	Plug 'justinmk/vim-syntax-extra'
