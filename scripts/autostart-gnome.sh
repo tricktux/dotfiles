@@ -6,4 +6,4 @@ tmux new-session -s cmus -d -n cmus -d "/usr/bin/cmus $@"&
 sleep 10s
 killall conky
 conky -c "/home/reinaldo/.conky/Gotham/Gotham"&
-sshfs odroid@copter-server:/ /home/$USER/.mnt/copter-server/&
+sshfs -o allow_other odroid@copter-server:/ /home/reinaldo/.mnt/copter-server&
