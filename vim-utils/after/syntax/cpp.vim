@@ -5,4 +5,6 @@
 " Last Modified:	Jan 27 2017 16:05
 "
 " highlight link cMember Special
-highlight cMember gui=italic
+" highlight cMember gui=italic
+" hi default link cMember NONE
+" hi clear cMember
