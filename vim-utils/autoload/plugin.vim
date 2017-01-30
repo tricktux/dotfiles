@@ -285,7 +285,7 @@ function! plugin#Config() abort
 			let g:easytags_by_filetype = '~/.cache/easy-tags-filetype'
 			" let g:easytags_events = ['BufReadPost' , 'BufWritePost']
 			let g:easytags_events = ['BufReadPost']
-			let g:easytags_include_members = 1
+			" let g:easytags_include_members = 1
 			let g:easytags_async = 1
 			let g:easytags_python_enabled = 1
 		Plug 'ctrlpvim/ctrlp.vim'
