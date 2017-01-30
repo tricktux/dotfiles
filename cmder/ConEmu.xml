@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <key name="Software">
 	<key name="ConEmu">
-		<key name=".Vanilla" modified="2017-01-29 13:24:32" build="161206">
+		<key name=".Vanilla" modified="2017-01-30 09:49:23" build="161206">
 			<value name="StartType" type="hex" data="02"/>
 			<value name="CmdLine" type="string" data=""/>
 			<value name="StartTasksFile" type="string" data=""/>
@@ -191,9 +191,10 @@
 				<line data="alias gps=git push origin master"/>
 				<line data="alias gpl=git pull origin master"/>
 				<line data="alias ll=ls -alsF --color $*"/>
-				<line data="alias sa=svn add --force $*"/>
-				<line data="alias ss=svn status $*"/>
-				<line data="alias sc=svn commit -m $*"/>
+				<line data="alias va=svn add --force $*"/>
+				<line data="alias vs=svn status $*"/>
+				<line data="alias vc=svn commit -m $*"/>
+				<line data="alias vu=svn update $*"/>
 				<line data=" "/>
 			</value>
 			<value name="CTS.Intelligent" type="hex" data="01"/>
@@ -410,7 +411,7 @@
 			<value name="Update.DownloadPath" type="string" data="%TEMP%\ConEmu"/>
 			<value name="Update.LeavePackages" type="hex" data="00"/>
 			<value name="Update.PostUpdateCmd" type="string" data="echo Last successful update&gt;ConEmuUpdate.info &amp;&amp; date /t&gt;&gt;ConEmuUpdate.info &amp;&amp; time /t&gt;&gt;ConEmuUpdate.info"/>
-			<key name="HotKeys" modified="2017-01-29 13:24:32" build="161206">
+			<key name="HotKeys" modified="2017-01-30 09:49:23" build="161206">
 				<value name="KeyMacroVersion" type="hex" data="02"/>
 				<value name="Multi.Modifier" type="dword" data="00000011"/>
 				<value name="Multi.ArrowsModifier" type="dword" data="0000005b"/>
@@ -595,9 +596,9 @@
 				<value name="DndRKey" type="hex" data="a2"/>
 				<value name="WndDragKey" type="dword" data="00121101"/>
 			</key>
-			<key name="Tasks" modified="2017-01-29 13:24:32" build="161206">
+			<key name="Tasks" modified="2017-01-30 09:49:23" build="161206">
 				<value name="Count" type="long" data="8"/>
-				<key name="Task1" modified="2017-01-29 13:24:32" build="161206">
+				<key name="Task1" modified="2017-01-30 09:49:23" build="161206">
 					<value name="Name" type="string" data="{cmd::Cmder as Admin}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -606,7 +607,7 @@
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 				</key>
-				<key name="Task2" modified="2017-01-29 13:24:32" build="161206">
+				<key name="Task2" modified="2017-01-30 09:49:23" build="161206">
 					<value name="Name" type="string" data="{cmd::Cmder}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -615,7 +616,7 @@
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 				</key>
-				<key name="Task3" modified="2017-01-29 13:24:32" build="161206">
+				<key name="Task3" modified="2017-01-30 09:49:23" build="161206">
 					<value name="Name" type="string" data="{Powershell::PowerShell as Admin}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -624,7 +625,7 @@
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 				</key>
-				<key name="Task4" modified="2017-01-29 13:24:32" build="161206">
+				<key name="Task4" modified="2017-01-30 09:49:23" build="161206">
 					<value name="Name" type="string" data="{Powershell::Powershell}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -633,7 +634,7 @@
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 				</key>
-				<key name="Task5" modified="2017-01-29 13:24:32" build="161206">
+				<key name="Task5" modified="2017-01-30 09:49:23" build="161206">
 					<value name="Name" type="string" data="{bash::mintty as Admin}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -642,7 +643,7 @@
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 				</key>
-				<key name="Task6" modified="2017-01-29 13:24:32" build="161206">
+				<key name="Task6" modified="2017-01-30 09:49:23" build="161206">
 					<value name="Name" type="string" data="{bash::mintty}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -651,7 +652,7 @@
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 				</key>
-				<key name="Task7" modified="2017-01-29 13:24:32" build="161206">
+				<key name="Task7" modified="2017-01-30 09:49:23" build="161206">
 					<value name="Name" type="string" data="{bash::bash as Admin}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -660,7 +661,7 @@
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 				</key>
-				<key name="Task8" modified="2017-01-29 13:24:32" build="161206">
+				<key name="Task8" modified="2017-01-30 09:49:23" build="161206">
 					<value name="Name" type="string" data="{bash::bash}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -670,12 +671,12 @@
 					<value name="Count" type="long" data="1"/>
 				</key>
 			</key>
-			<key name="Apps" modified="2017-01-29 13:24:32" build="161206">
+			<key name="Apps" modified="2017-01-30 09:49:23" build="161206">
 				<value name="Count" type="long" data="0"/>
 			</key>
-			<key name="Colors" modified="2017-01-29 13:24:32" build="161206">
+			<key name="Colors" modified="2017-01-30 09:49:23" build="161206">
 				<value name="Count" type="long" data="1"/>
-				<key name="Palette1" modified="2017-01-29 13:24:32" build="161206">
+				<key name="Palette1" modified="2017-01-30 09:49:23" build="161206">
 					<value name="Name" type="string" data="Monokai"/>
 					<value name="ExtendColors" type="hex" data="00"/>
 					<value name="ExtendColorIdx" type="hex" data="0e"/>
