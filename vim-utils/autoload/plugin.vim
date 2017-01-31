@@ -123,6 +123,7 @@ function! plugin#Config() abort
 				" " let g:deoplete#sources#clang#clang_header ="/usr/lib/clang"
 			" " " ----------------------------------------------
 			" " "  neoinclude
+		endif
 			" if executable('clang') && has('python') && !exists('g:android') " clang_complete
 				" Plug 'Rip-Rip/clang_complete', { 'for' : ['c' , 'cpp'] }
 				" " Why I switched to Rip-Rip because it works
