@@ -55,23 +55,23 @@ function! plugin#Config() abort
 	if has('nvim')
 		" nvim-qt on unix doesnt populate has('gui_running
 		Plug 'equalsraf/neovim-gui-shim'
-		Plug 'Valloric/YouCompleteMe'
-			"" turn on completion in comments
-			let g:ycm_complete_in_comments=0
-			"" load ycm conf by default
-			let g:ycm_confirm_extra_conf=0
-			"" turn on tag completion
-			let g:ycm_collect_identifiers_from_tags_files=1
-			"" only show completion as a list instead of a sub-window
-			" set completeopt-=preview
-			"" start completion from the first character
-			let g:ycm_min_num_of_chars_for_completion=2
-			"" don't cache completion items
-			let g:ycm_cache_omnifunc=0
-			"" complete syntax keywords
-			let g:ycm_seed_identifiers_with_syntax=1
-			let g:ycm_global_ycm_extra_conf = '~/.dotfiles/vim-utils/.ycm_extra_conf.py'
-			let g:ycm_autoclose_preview_window_after_completion = 1
+		" Plug 'Valloric/YouCompleteMe'
+			" "" turn on completion in comments
+			" let g:ycm_complete_in_comments=0
+			" "" load ycm conf by default
+			" let g:ycm_confirm_extra_conf=0
+			" "" turn on tag completion
+			" let g:ycm_collect_identifiers_from_tags_files=1
+			" "" only show completion as a list instead of a sub-window
+			" " set completeopt-=preview
+			" "" start completion from the first character
+			" let g:ycm_min_num_of_chars_for_completion=2
+			" "" don't cache completion items
+			" let g:ycm_cache_omnifunc=0
+			" "" complete syntax keywords
+			" let g:ycm_seed_identifiers_with_syntax=1
+			" " let g:ycm_global_ycm_extra_conf = '~/.dotfiles/vim-utils/.ycm_extra_conf.py'
+			" let g:ycm_autoclose_preview_window_after_completion = 1
 		" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 
 		" Plug 'neomake/neomake'
