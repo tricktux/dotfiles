@@ -24,7 +24,7 @@ function! utils#SetGrep() abort
 		set grepprg=ag\ --nogroup\ --nocolor\ --smart-case\ --vimgrep\ $*
 		set grepformat=%f:%l:%c:%m
 	endif
-endfunction 
+endfunction
 
 " Commits current buffer
 function! utils#GitCommit() abort
@@ -382,7 +382,7 @@ function! MarkdownLevel()
 	if getline(v:lnum) =~ '^###### .*$'
 		return ">6"
 	endif
-	return "=" 
+	return "="
 endfunction
 
 " Vim-Wiki {{{
@@ -434,7 +434,7 @@ endfunction
 function! utils#UpdateCscope() abort
 	if !executable('cscope') || !executable('ctags')
 		echoerr "Please install cscope and/or ctags before using this application"
-		return	
+		return
 	endif
 	try
 		cs kill -1
@@ -454,7 +454,7 @@ function! utils#UpdateCscope() abort
 		return
 	endif
 	cs add cscope.out
-	silent !ctags -R -L cscope.files -f .tags --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q --language-force=C++
+	silent !ctags -R -L cscope.files -f .tags --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+ql --language-force=C++
 	" set tags+=.tags
 endfunction
 
@@ -462,7 +462,7 @@ function! utils#Make()
 	if expand('%:p') ==? expand('$MYVIMRC')
 		so $MYVIMRC
 		return
-	elseif has('win32') 
+	elseif has('win32')
 		if empty(get(b:, 'current_compiler'))
 			let l:path = expand('%:p')
 			" Notice inside the '' is a pat which is a regex. That is why \\
@@ -553,7 +553,7 @@ function! utils#UpdateHeader()
 	silent exe "1," . l . "g/Date:/s/Date:.*/Date:					" .
 				\ strftime("%a %b %d %Y %H:%M")
 	exe "normal! `z"
-	" TODO.RM-Sat Nov 26 2016 00:06: Add Last Author  
+	" TODO.RM-Sat Nov 26 2016 00:06: Add Last Author
 	" See getmatches, and matchadd()
 endfun
 
@@ -568,5 +568,22 @@ function! utils#SetWingsPath(sPath) abort
 	call utils#GuiFont("+")
 endfunction
 
-" TODO.RM-Sat Nov 26 2016 00:04: Function that auto adds SCR # and description  
+" Source: http://vim.wikia.com/wiki/Easily_switch_between_source_and_header_file
+function! utils#SwitchHeaderSource()
+	if expand("%:e") == "cpp" || expand("%:e") == "c"
+		try " Replace cpp or c with hpp
+			find %:t:r.hpp
+		catch /:E345:/ " catch not found in path and try to find then *.h
+			find %:t:r.h
+		endtry
+	else
+		try
+			find %:t:r.cpp
+		catch /:E345:/
+			find %:t:r.c
+		endtry
+	endif
+endfun
+
+" TODO.RM-Sat Nov 26 2016 00:04: Function that auto adds SCR # and description
 " vim:tw=78:ts=2:sts=2:sw=2:
