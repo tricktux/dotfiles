@@ -477,8 +477,8 @@ function! utils#Make()
 			endif
 		endif
 	else
-		" Neomake! " Not using neomake at the moment
-		make
+		Neomake! " Not using neomake at the moment
+		" make
 		" if exists(':SyntasticCheck')
 			" SyntasticCheck
 		" endif

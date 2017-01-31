@@ -78,67 +78,44 @@ function! plugin#Config() abort
 			" let g:ycm_autoclose_preview_window_after_completion = 1
 		" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 
-		" Plug 'neomake/neomake'
-			" let g:neomake_warning_sign = {
-						" \ 'text': '?',
-						" \ 'texthl': 'WarningMsg',
-						" \ }
-
-			" let g:neomake_error_sign = {
-						" \ 'text': 'X',
-						" \ 'texthl': 'ErrorMsg',
-						" \ }
-			" let g:neomake_cpp_enabled_makers = ['clang', 'gcc']
-			" let g:neomake_cpp_clang_maker = {
-						" \ 'args': ['-fsyntax-only', '-std=c++14', '-Wall', '-Wextra'],
-						" \ 'errorformat':
-						" \ '%-G%f:%s:,' .
-						" \ '%f:%l:%c: %trror: %m,' .
-						" \ '%f:%l:%c: %tarning: %m,' .
-						" \ '%f:%l:%c: %m,'.
-						" \ '%f:%l: %trror: %m,'.
-						" \ '%f:%l: %tarning: %m,'.
-						" \ '%f:%l: %m',
-						" \ }
-
-		" if has('python3') && !exists('g:android') " Deoplete
-			" Plug 'Shougo/deoplete.nvim'
-				" let b:deoplete_loaded = 1
-				" " if it is nvim deoplete requires python3 to work
-				" let g:deoplete#enable_at_startup = 1
-				" " New settings
-				" let g:deoplete#enable_ignore_case = 1
-				" let g:deoplete#enable_smart_case = 1
-				" let g:deoplete#enable_camel_case = 1
-				" let g:deoplete#enable_refresh_always = 1
-				" let g:deoplete#max_abbr_width = 0
-				" let g:deoplete#max_menu_width = 0
-				" let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
-				" let g:deoplete#omni#input_patterns.java = [
-							" \'[^. \t0-9]\.\w*',
-							" \'[^. \t0-9]\->\w*',
-							" \'[^. \t0-9]\::\w*',
-							" \]
-				" let g:deoplete#omni#input_patterns.jsp = ['[^. \t0-9]\.\w*']
-				" let g:deoplete#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-				" let g:deoplete#ignore_sources = {}
-				" let g:deoplete#ignore_sources.java = ['omni']
-				" "call deoplete#custom#set('omni', 'min_pattern_length', 0)
-				" inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
-				" inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
-				" " Regular settings
-				" inoremap <silent><expr> <TAB>
-							" \ pumvisible() ? "\<C-n>" :
-							" \ <SID>check_back_space() ? "\<TAB>" :
-							" \ deoplete#mappings#manual_complete()
-				" function! s:check_back_space() abort
-					" let col = col('.') - 1
-					" return !col || getline('.')[col - 1]  =~ '\s'
-				" endfunction
-				" inoremap <expr><C-h>
-							" \ deoplete#smart_close_popup()."\<C-h>"
-				" inoremap <expr><BS>
-							" \ deoplete#smart_close_popup()."\<C-h>"
+		if has('python3') && !exists('g:android') " Deoplete
+			Plug 'Shougo/deoplete.nvim'
+				let b:deoplete_loaded = 1
+				" if it is nvim deoplete requires python3 to work
+				let g:deoplete#enable_at_startup = 1
+				" New settings
+				let g:deoplete#enable_ignore_case = 1
+				let g:deoplete#enable_smart_case = 1
+				let g:deoplete#enable_camel_case = 1
+				let g:deoplete#enable_refresh_always = 1
+				let g:deoplete#max_abbr_width = 0
+				let g:deoplete#max_menu_width = 0
+				let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
+				let g:deoplete#omni#input_patterns.java = [
+							\'[^. \t0-9]\.\w*',
+							\'[^. \t0-9]\->\w*',
+							\'[^. \t0-9]\::\w*',
+							\]
+				let g:deoplete#omni#input_patterns.jsp = ['[^. \t0-9]\.\w*']
+				let g:deoplete#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+				let g:deoplete#ignore_sources = {}
+				let g:deoplete#ignore_sources.java = ['omni']
+				"call deoplete#custom#set('omni', 'min_pattern_length', 0)
+				inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
+				inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
+				" Regular settings
+				inoremap <silent><expr> <TAB>
+							\ pumvisible() ? "\<C-n>" :
+							\ <SID>check_back_space() ? "\<TAB>" :
+							\ deoplete#mappings#manual_complete()
+				function! s:check_back_space() abort
+					let col = col('.') - 1
+					return !col || getline('.')[col - 1]  =~ '\s'
+				endfunction
+				inoremap <expr><C-h>
+							\ deoplete#smart_close_popup()."\<C-h>"
+				inoremap <expr><BS>
+							\ deoplete#smart_close_popup()."\<C-h>"
 			" " ----------------------------------------------
 			" "  deoplete-clang
 			" " Plug 'zchee/deoplete-clang'
@@ -319,6 +296,29 @@ function! plugin#Config() abort
 	endif
 
 	" Plugins for All (nvim, linux, win32)
+	Plug 'neomake/neomake'
+		let g:neomake_warning_sign = {
+					\ 'text': '?',
+					\ 'texthl': 'WarningMsg',
+					\ }
+
+		let g:neomake_error_sign = {
+					\ 'text': 'X',
+					\ 'texthl': 'ErrorMsg',
+					\ }
+		let g:neomake_cpp_enabled_makers = ['clang', 'gcc']
+		let g:neomake_cpp_clang_maker = {
+					\ 'args': ['-fsyntax-only', '-std=c++14', '-Wall', '-Wextra'],
+					\ 'errorformat':
+					\ '%-G%f:%s:,' .
+					\ '%f:%l:%c: %trror: %m,' .
+					\ '%f:%l:%c: %tarning: %m,' .
+					\ '%f:%l:%c: %m,'.
+					\ '%f:%l: %trror: %m,'.
+					\ '%f:%l: %tarning: %m,'.
+					\ '%f:%l: %m',
+					\ }
+
 	Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
 		nnoremap <Leader>so :SyntasticToggleMode<CR>
 		nnoremap <Leader>ss :SyntasticCheck<CR>
