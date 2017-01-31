@@ -15,7 +15,11 @@ function! plugin#Config() abort
 		" searches for foo; append `!` to refresh local cache
 		nnoremap <Leader>Pl :PlugClean<CR>
 
-	silent! call plug#begin(g:plugged_path)
+	if exists('g:portable_vim')
+		silent! call plug#begin(g:plugged_path)
+	else
+		call plug#begin(g:plugged_path)
+	endif
 	if has('nvim')
 		Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 		Plug 'junegunn/fzf.vim'
@@ -281,7 +285,7 @@ function! plugin#Config() abort
 			let g:easytags_by_filetype = '~/.cache/easy-tags-filetype'
 			" let g:easytags_events = ['BufReadPost' , 'BufWritePost']
 			let g:easytags_events = ['BufReadPost']
-			let g:easytags_include_members = 1
+			" let g:easytags_include_members = 1
 			let g:easytags_async = 1
 			let g:easytags_python_enabled = 1
 		Plug 'ctrlpvim/ctrlp.vim'
@@ -456,8 +460,10 @@ function! plugin#Config() abort
 	Plug 'glts/vim-radical' " use with gA
 
 	" W3M - to view cpp-reference help
-	Plug 'yuratomo/w3m.vim'
-		let g:w3m#history#save_file = g:cache_path . '/.vim_w3m_hist'
+	if executable('w3m')
+		Plug 'yuratomo/w3m.vim'
+			let g:w3m#history#save_file = g:cache_path . '/.vim_w3m_hist'
+	endif
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required

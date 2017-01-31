@@ -69,6 +69,8 @@
 		"set spell spelllang=en_us
 		"omnicomplete menu
 		" save marks
+		
+		let &path .='.,,..,../..,./*,./*/*,../*,~/,~/**,/usr/include/*' " Useful for the find command
 		set shiftwidth=2 tabstop=2
 		set viminfo='1000,f1,<800,%1024
 		set showtabline=1 " always show tabs in gvim, but not vim"
@@ -353,7 +355,8 @@
 		nnoremap <Leader>jl :e $MYVIMRC<CR>
 		nnoremap <Leader>j; :NERDTree<CR>
 		" Alternate between header and source file
-		nnoremap <Leader>jq :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
+		nnoremap <Leader>jq :call utils#SwitchHeaderSource()<CR>
+		" nnoremap <Leader>jq :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 		" Refactor word under the cursor
 		nnoremap <Leader>jr :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
 		vnoremap <Leader>jr "hy:%s/<C-r>h//gc<left><left><left>
