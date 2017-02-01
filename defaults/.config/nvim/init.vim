@@ -159,7 +159,7 @@
 		" no mouse enabled
 		set mouse=""
 		set laststatus=2
-		set textwidth=78
+		set textwidth=118
 		" makes vim autocomplete - bullets
 		set comments+=b:-,b:*
 		set nolist " Do not display extra characters
