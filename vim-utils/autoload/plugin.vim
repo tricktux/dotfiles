@@ -320,6 +320,13 @@ function! plugin#Config() abort
 					\ '%f:%l: %m',
 					\ }
 
+		Plug 'dhruvasagar/vim-table-mode'
+			" To start using the plugin in the on-the-fly mode use :TableModeToggle mapped to <Leader>tm by default
+			" Enter the first line, delimiting columns by the | symbol. In the second line (without leaving Insert mode), enter | twice
+			" For Markdown-compatible tables use
+			let g:table_mode_corner="|"
+			let g:table_mode_align_char = ':'
+
 	Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
 		nnoremap <Leader>so :SyntasticToggleMode<CR>
 		nnoremap <Leader>ss :SyntasticCheck<CR>
