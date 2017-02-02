@@ -12,8 +12,8 @@
 	excludesfile = /home/reinaldo/.gitignore_global
 
 [credential]
-	helper = wincred
-  ; helper = cache --timeout 30000
+	; helper = wincred
+  helper = cache --timeout 30000
 	;helper = store --file /mnt/thumbdrive/.git-credentials
 
 ; silence some strange warning
