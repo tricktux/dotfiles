@@ -123,6 +123,7 @@ function! plugin#Config() abort
 				" " let g:deoplete#sources#clang#clang_header ="/usr/lib/clang"
 			" " " ----------------------------------------------
 			" " "  neoinclude
+		endif
 			" if executable('clang') && has('python') && !exists('g:android') " clang_complete
 				" Plug 'Rip-Rip/clang_complete', { 'for' : ['c' , 'cpp'] }
 				" " Why I switched to Rip-Rip because it works
@@ -318,6 +319,13 @@ function! plugin#Config() abort
 					\ '%f:%l: %tarning: %m,'.
 					\ '%f:%l: %m',
 					\ }
+
+		Plug 'dhruvasagar/vim-table-mode'
+			" To start using the plugin in the on-the-fly mode use :TableModeToggle mapped to <Leader>tm by default
+			" Enter the first line, delimiting columns by the | symbol. In the second line (without leaving Insert mode), enter | twice
+			" For Markdown-compatible tables use
+			let g:table_mode_corner="|"
+			let g:table_mode_align_char = ':'
 
 	Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
 		nnoremap <Leader>so :SyntasticToggleMode<CR>
