@@ -25,8 +25,6 @@ function win32#Config()
 	" Switch Wings mappings for SWTestbed
 	nnoremap <Leader>es :call utils#SetWingsPath('D:/wings-dev/')<CR>
 
-	call utils#SetWingsPath('~/Documents/1.WINGS/')
-
 	" Time runtime of a specific program
 	nnoremap <Leader>mt :Dispatch powershell -command "& {&'Measure-Command' {.\sep_calc.exe seprc}}"<CR>
 	nnoremap <Leader>mu :call utils#UpdateBorlandMakefile()<CR>
