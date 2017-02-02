@@ -515,6 +515,12 @@ function! plugin#Check() abort
 		let g:cache_path= $HOME . '\.cache\'
 		let g:plugged_path=  $HOME . '\vimfiles\plugged\'
 		let g:vimfile_path=  $HOME . '\vimfiles\'
+		" TODO.RM-Thu Feb 02 2017 11:13: Rename this to predator  
+		if system('hostname') =~ 'DESKTOP'
+			let g:wiki_path =  'D:\Seafile\KnowledgeIsPower\wiki'
+		else
+			call utils#SetWingsPath('~/Documents/1.WINGS/')
+		endif
 	else
 		if has('nvim')
 			let g:cache_path= $HOME . '/.cache/'
