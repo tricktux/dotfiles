@@ -559,13 +559,22 @@ endfun
 
 " Default Wings mappings are for laptop
 function! utils#SetWingsPath(sPath) abort
-	let g:wiki_path =  a:sPath . 'NeoWingsSupportFiles\wiki'
 	execute "nnoremap <Leader>e21 :silent e " . a:sPath . "NeoOneWINGS/"
 	execute "nnoremap <Leader>e22 :silent e " . a:sPath . "NeoWingsSupportFiles/"
 	execute "nnoremap <Leader>ed :silent e ". a:sPath . "NeoOneWINGS/default.ini<CR>"
 	execute "nnoremap <Leader>ewl :call utils#WingsSymLink('~/Documents/1.WINGS/')<CR>"
 	execute "nnoremap <Leader>ewl :call utils#WingsSymLink(" . expand(a:sPath) . ")<CR>"
-	call utils#GuiFont("+")
+
+	" Mappings to execute programs
+	" Do not make a ew1 mapping. reserved for when issues get to #11, 12, etc
+	nnoremap <Leader>ewd :Start! WINGS.exe 3 . default.ini<CR>
+	nnoremap <Leader>ewc :Start! WINGS.exe 3 . %<CR>
+	nnoremap <Leader>ews :execute("Start! WINGS.exe 3 . " . input("Config file:", "", "file"))<CR>
+
+	" Time runtime of a specific program
+	nnoremap <Leader>mt :Dispatch powershell -command "& {&'Measure-Command' {.\sep_calc.exe seprc}}"<CR>
+	nnoremap <Leader>mu :call utils#UpdateBorlandMakefile()<CR>
+	call utils#GuiFont('+')
 endfunction
 
 " Source: http://vim.wikia.com/wiki/Easily_switch_between_source_and_header_file
