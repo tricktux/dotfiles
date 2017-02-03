@@ -468,7 +468,7 @@ function! utils#Make()
 			" Notice inside the '' is a pat which is a regex. That is why \\
 			if match(l:path,'NeoOneWINGS\\Source') > 0
 				compiler borland
-			elseif match(l:path,'NeoOneWINGS') > 0
+			elseif match(l:path,'NeoOneWINGS') > 0 || l:path =~ 'UnrealProjects'
 				compiler msbuild
 				silent set errorformat&
 			else " if outside wings folder set gcc compiler
