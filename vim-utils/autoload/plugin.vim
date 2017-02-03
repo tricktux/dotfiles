@@ -326,6 +326,7 @@ function! plugin#Config() abort
 			" For Markdown-compatible tables use
 			let g:table_mode_corner="|"
 			let g:table_mode_align_char = ':'
+			let g:table_mode_map_prefix = '<Leader>l'
 
 	Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
 		nnoremap <Leader>so :SyntasticToggleMode<CR>
