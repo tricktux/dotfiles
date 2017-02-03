@@ -511,31 +511,26 @@ endfunction
 function! plugin#Check() abort
 	" Set paths for plugins
 	if has('win32')
-		" In windows wiki_path is set by the utils#SetWingsPath function
+		" In windows wiki_path is set in the win32.vim file
 		let g:cache_path= $HOME . '\.cache\'
 		let g:plugged_path=  $HOME . '\vimfiles\plugged\'
 		let g:vimfile_path=  $HOME . '\vimfiles\'
 	else
-		if has('nvim')
-			let g:cache_path= $HOME . '/.cache/'
-			let g:plugged_path=  $HOME . '/.config/nvim/plugged/'
-			let g:vimfile_path=  $HOME . '/.config/nvim/'
-		else
-			let g:cache_path= $HOME . '/.cache/'
-			let g:plugged_path=  $HOME . '/.vim/plugged/'
-			let g:vimfile_path=  $HOME . '/.vim/'
-		endif
-		if system('hostname') =~ 'beast'
-			let g:wiki_path=  $HOME . '/Seafile/OnServer/KnowledgeIsPower/wiki'
-		elseif system('hostname') =~ 'predator'
-			let g:wiki_path=  $HOME . '/Seafile/KnowledgeIsPower/wiki'
-		endif
-		let g:usr_path = '/usr'
+		let g:cache_path= $HOME . '/.cache/'
+		let g:plugged_path=  $HOME . '/.vim/plugged/'
+		let g:vimfile_path=  $HOME . '/.vim/'
+	endif
 
-		if system('uname -o') =~ 'Android'
-			let g:android = 1
-			let g:usr_path = $HOME . '/../usr'
-		endif
+	if has('nvim')
+		let g:cache_path= $HOME . '/.cache/'
+		let g:plugged_path=  $HOME . '/.config/nvim/plugged/'
+		let g:vimfile_path=  $HOME . '/.config/nvim/'
+	endif
+
+	let g:usr_path = '/usr'
+	if system('uname -o') =~ 'Android' " Termux stuff
+		let g:android = 1
+		let g:usr_path = $HOME . '/../usr'
 	endif
 
 	if exists('g:portable_vim')
