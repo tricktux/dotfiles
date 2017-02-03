@@ -15,22 +15,14 @@ function win32#Config()
 
 	nnoremap  o<Esc>
 
-	" Mappings to execute programs
-	" Do not make a ew1 mapping. reserved for when issues get to #11, 12, etc
-	nnoremap <Leader>ewd :Start! WINGS.exe 3 . default.ini<CR>
-	nnoremap <Leader>ewc :Start! WINGS.exe 3 . %<CR>
-	nnoremap <Leader>ews :execute("Start! WINGS.exe 3 . " . input("Config file:", "", "file"))<CR>
-
-	" e1 reserved for vimrc
-	" Switch Wings mappings for SWTestbed
-	nnoremap <Leader>es :call utils#SetWingsPath('D:/wings-dev/')<CR>
-
-	" Time runtime of a specific program
-	nnoremap <Leader>mt :Dispatch powershell -command "& {&'Measure-Command' {.\sep_calc.exe seprc}}"<CR>
-	nnoremap <Leader>mu :call utils#UpdateBorlandMakefile()<CR>
-
-	if isdirectory('C:\maxapi')
-		let &path .= 'C:\maxapi,'
+	" Set wiki_path
+	if system('hostname') =~ 'DESKTOP' " homepc
+		let g:wiki_path =  'D:\Reinaldo\Seafile\KnowledgeIsPower\wiki'
+	elseif system('hostname') =~ 'FL' " laptop
+		let g:wiki_path =  '~/Documents/1.WINGS/NeoWingsSupportFiles/wiki'
+		call utils#SetWingsPath('~/Documents/1.WINGS/')
+	else " Assume teststation
+		call utils#SetWingsPath('D:/wings-dev/')
 	endif
 endfunction
 
