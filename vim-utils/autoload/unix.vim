@@ -36,6 +36,12 @@ function! unix#Config() abort
 	let &path .= g:usr_path . '/include,'
 	let &path .= '/opt/unreal-engine/Engine/Source'
 
+	if system('hostname') =~ 'beast'
+		let g:wiki_path=  $HOME . '/Seafile/OnServer/KnowledgeIsPower/wiki'
+	elseif system('hostname') =~ 'predator'
+		let g:wiki_path=  $HOME . '/Seafile/KnowledgeIsPower/wiki'
+	endif
+
 	" Vim-clang
 endfunction
 
