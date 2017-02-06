@@ -59,7 +59,7 @@ function! plugin#Config() abort
 	if has('nvim')
 		" nvim-qt on unix doesnt populate has('gui_running
 		Plug 'equalsraf/neovim-gui-shim'
-		" Plug 'Valloric/YouCompleteMe'
+		" Plug 'Valloric/YouCompleteMe', { 'on' : 'YcmDebugInfo' }
 			" "" turn on completion in comments
 			" let g:ycm_complete_in_comments=0
 			" "" load ycm conf by default
@@ -156,7 +156,7 @@ function! plugin#Config() abort
 				" let g:SuperTabDefaultCompletionType = "<c-n>"
 			" endif
 		if executable('lldb')
-			Plug 'critiqjo/lldb.nvim'
+			Plug 'critiqjo/lldb.nvim', { 'on' , 'LLmode debug' }
 			nmap <Leader>db <Plug>LLBreakSwitch
 			" vmap <F2> <Plug>LLStdInSelected
 			" nnoremap <F4> :LLstdin<CR>
@@ -247,25 +247,6 @@ function! plugin#Config() abort
 			let g:SuperTabDefaultCompletionType = "<Tab>"
 		endif
 		Plug 'tpope/vim-dispatch'
-		Plug 'xolox/vim-easytags'
-			Plug 'xolox/vim-misc' " dependency of vim-easytags
-			Plug 'xolox/vim-shell' " dependency of vim-easytags
-			set regexpengine=1 " This speed up the engine alot but still not enough
-			let g:easytags_cmd = 'ctags'
-			let g:easytags_file = '~/.cache/easy-tags'
-			let g:easytags_syntax_keyword = 'always'
-			" let g:easytags_on_cursorhold = 1
-			" let g:easytags_updatetime_min = 4000
-			" let g:easytags_auto_update = 1
-			let g:easytags_auto_update = 0
-			let g:easytags_auto_highlight = 1
-			let g:easytags_dynamic_files = 1
-			let g:easytags_by_filetype = '~/.cache/easy-tags-filetype'
-			" let g:easytags_events = ['BufReadPost' , 'BufWritePost']
-			let g:easytags_events = ['BufReadPost']
-			" let g:easytags_include_members = 1
-			let g:easytags_async = 1
-			let g:easytags_python_enabled = 1
 		Plug 'ctrlpvim/ctrlp.vim'
 			if executable('ag') && !executable('ucg') || !exists(':FZF')
 				let g:ctrlp_user_command = 'ag -Q -l --smart-case --nocolor --hidden -g "" %s'
@@ -320,13 +301,17 @@ function! plugin#Config() abort
 					\ '%f:%l: %m',
 					\ }
 
-		Plug 'dhruvasagar/vim-table-mode'
-			" To start using the plugin in the on-the-fly mode use :TableModeToggle mapped to <Leader>tm by default
-			" Enter the first line, delimiting columns by the | symbol. In the second line (without leaving Insert mode), enter | twice
-			" For Markdown-compatible tables use
-			let g:table_mode_corner="|"
-			let g:table_mode_align_char = ':'
-			let g:table_mode_map_prefix = '<Leader>l'
+		" let g:neomake_highlight_lines = 1
+		let g:neomake_open_list = 1
+
+	Plug 'dhruvasagar/vim-table-mode'
+		" To start using the plugin in the on-the-fly mode use :TableModeToggle mapped to <Leader>tm by default
+		" Enter the first line, delimiting columns by the | symbol. In the second line (without leaving Insert mode), enter | twice
+		" For Markdown-compatible tables use
+		let g:table_mode_corner="|"
+		let g:table_mode_align_char = ':'
+		let g:table_mode_map_prefix = '<Leader>l'
+		" nnoremap <Leader>lm :TableModeToggle<CR>
 
 	Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
 		nnoremap <Leader>so :SyntasticToggleMode<CR>
@@ -353,7 +338,7 @@ function! plugin#Config() abort
 		let g:DoxygenToolkit_authorName="Reinaldo Molina <rmolin88@gmail.com>"
 		let g:DoxygenToolkit_authorTag =	"Author:				"
 		let g:DoxygenToolkit_fileTag =		"File:					"
-		let g:DoxygenToolkit_briefTag_pre="Description:		"
+		let g:DoxygenToolkit_briefTag_pre="		"
 		let g:DoxygenToolkit_dateTag =		"Last Modified: "
 		let g:DoxygenToolkit_versionTag = "Version:				"
 		let g:DoxygenToolkit_commentType = "C++"
@@ -370,7 +355,7 @@ function! plugin#Config() abort
 		imap <C-c> <plug>NERDCommenterInsert
 		nmap <Leader>oa <plug>NERDCommenterAppend
 		vmap <Leader>os <plug>NERDCommenterSexy
-	Plug 'chrisbra/Colorizer'
+	Plug 'chrisbra/Colorizer', { 'for' : [ 'css','html','xml' ] }
 		let g:colorizer_auto_filetype='css,html,xml'
 	Plug 'tpope/vim-repeat'
 	Plug 'tpope/vim-surround'
@@ -380,7 +365,7 @@ function! plugin#Config() abort
 		" To update folds now you have to do it manually pressing 'zuz'
 		let g:fastfold_fold_command_suffixes =
 					\['x','X','a','A','o','O','c','C','r','R','m','M','i','n','N']
-		Plug 'airblade/vim-rooter'
+	Plug 'airblade/vim-rooter'
 		let g:rooter_manual_only = 1
 		nnoremap <Leader>cr :Rooter<CR>
 	Plug 'Raimondi/delimitMate'
@@ -388,8 +373,8 @@ function! plugin#Config() abort
 		let g:delimitMate_expand_space = 1
 		let g:delimitMate_jump_expansion = 1
 		" imap <expr> <CR> <Plug>delimitMateCR
-	Plug 'dkarter/bullets.vim'
-	Plug 'Chiel92/vim-autoformat'
+	Plug 'dkarter/bullets.vim', { 'for' : 'markdown' }
+	Plug 'Chiel92/vim-autoformat', { 'on' : 'Autoformat' }
 		let g:autoformat_autoindent = 0
 		let g:autoformat_retab = 0
 		let g:autoformat_remove_trailing_spaces = 0
@@ -429,9 +414,9 @@ function! plugin#Config() abort
 		let g:rainbow#pairs = [['(', ')'], ['[', ']']]
 
 	" cpp/java
-	Plug 'mattn/vim-javafmt'
-	Plug 'tfnico/vim-gradle'
-	Plug 'artur-shaik/vim-javacomplete2', { 'branch' : 'master' }
+	Plug 'mattn/vim-javafmt', { 'for' : 'java' }
+	Plug 'tfnico/vim-gradle', { 'for' : 'java' }
+	Plug 'artur-shaik/vim-javacomplete2', { 'branch' : 'master', 'for' : 'java' }
 		let g:JavaComplete_ClosingBrace = 1
 		let g:JavaComplete_EnableDefaultMappings = 0
 		let g:JavaComplete_ImportSortType = 'packageName'
@@ -474,6 +459,41 @@ function! plugin#Config() abort
 			let g:w3m#history#save_file = g:cache_path . '/.vim_w3m_hist'
 	endif
 
+	Plug 'justinmk/vim-sneak'
+		"replace 'f' with 1-char Sneak
+		nmap f <Plug>Sneak_f
+		nmap F <Plug>Sneak_F
+		xmap f <Plug>Sneak_f
+		xmap F <Plug>Sneak_F
+		omap f <Plug>Sneak_f
+		omap F <Plug>Sneak_F
+		"replace 't' with 1-char Sneak
+		nmap t <Plug>Sneak_t
+		nmap T <Plug>Sneak_T
+		xmap t <Plug>Sneak_t
+		xmap T <Plug>Sneak_T
+		omap t <Plug>Sneak_t
+		omap T <Plug>Sneak_T
+
+	Plug 'xolox/vim-easytags'
+		Plug 'xolox/vim-misc' " dependency of vim-easytags
+		Plug 'xolox/vim-shell' " dependency of vim-easytags
+		set regexpengine=1 " This speed up the engine alot but still not enough
+		let g:easytags_cmd = 'ctags'
+		let g:easytags_file = '~/.cache/easy-tags'
+		let g:easytags_syntax_keyword = 'always'
+		" let g:easytags_on_cursorhold = 1
+		" let g:easytags_updatetime_min = 4000
+		" let g:easytags_auto_update = 1
+		" let g:easytags_auto_update = 0
+		" let g:easytags_auto_highlight = 1
+		let g:easytags_dynamic_files = 1
+		let g:easytags_by_filetype = '~/.cache/easy-tags-filetype'
+		" let g:easytags_events = ['BufReadPost' , 'BufWritePost']
+		let g:easytags_events = ['BufReadPost']
+		" let g:easytags_include_members = 1
+		let g:easytags_async = 1
+		let g:easytags_python_enabled = 1
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
@@ -494,7 +514,6 @@ function! plugin#Config() abort
 	endif
 
 	" We assume wiki folder is there. No creation of this wiki folder
-
 	if !utils#CheckDirwoPrompt(g:cache_path . "java")
 		echoerr string("Failed to create java dir")
 	endif
