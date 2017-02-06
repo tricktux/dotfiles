@@ -469,9 +469,9 @@ function! utils#Make()
 		endif
 		if empty(get(b:, 'current_compiler'))
 			" Notice inside the '' is a pat which is a regex. That is why \\
-			if l:path =~ 'NeoOneWINGS\\Source'
+			if l:path =~ 'OneWINGS\\Source'
 				compiler borland
-			elseif l:path =~ 'NeoOneWINGS' || l:path =~ 'UnrealProjects'
+			elseif l:path =~ 'OneWINGS' || l:path =~ 'UnrealProjects'
 				compiler msbuild
 				silent set errorformat&
 			else " if outside wings folder set gcc compiler
@@ -479,13 +479,6 @@ function! utils#Make()
 				setlocal makeprg=mingw32-make
 			endif
 		endif
-	else
-		Neomake! " Not using neomake at the moment
-		" make
-		" if exists(':SyntasticCheck')
-			" SyntasticCheck
-		" endif
-		return
 	endif
 	Neomake! " Used to run make asynchronously
 endfunction
@@ -562,10 +555,9 @@ endfun
 
 " Default Wings mappings are for laptop
 function! utils#SetWingsPath(sPath) abort
-	execute "nnoremap <Leader>e21 :silent e " . a:sPath . "NeoOneWINGS/"
-	execute "nnoremap <Leader>e22 :silent e " . a:sPath . "NeoWingsSupportFiles/"
-	execute "nnoremap <Leader>ed :silent e ". a:sPath . "NeoOneWINGS/default.ini<CR>"
-	execute "nnoremap <Leader>ewl :call utils#WingsSymLink('~/Documents/1.WINGS/')<CR>"
+	execute "nnoremap <Leader>e21 :silent e " . a:sPath . "OneWings/"
+	execute "nnoremap <Leader>e22 :silent e " . a:sPath . "OneWingsSupFiles/"
+	execute "nnoremap <Leader>ed :silent e ". a:sPath . "OneWings/default.ini<CR>"
 	execute "nnoremap <Leader>ewl :call utils#WingsSymLink(" . expand(a:sPath) . ")<CR>"
 
 	" Mappings to execute programs
