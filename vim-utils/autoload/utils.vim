@@ -463,12 +463,15 @@ function! utils#Make()
 		so $MYVIMRC
 		return
 	elseif has('win32')
+		let l:path = expand('%:p')
+		if l:path =~ 'UnrealProjects' && executable('clang-format') && exists(':Autoformat')
+			Autoformat
+		endif
 		if empty(get(b:, 'current_compiler'))
-			let l:path = expand('%:p')
 			" Notice inside the '' is a pat which is a regex. That is why \\
-			if match(l:path,'NeoOneWINGS\\Source') > 0
+			if l:path =~ 'NeoOneWINGS\\Source'
 				compiler borland
-			elseif match(l:path,'NeoOneWINGS') > 0 || l:path =~ 'UnrealProjects'
+			elseif l:path =~ 'NeoOneWINGS' || l:path =~ 'UnrealProjects'
 				compiler msbuild
 				silent set errorformat&
 			else " if outside wings folder set gcc compiler
@@ -484,7 +487,7 @@ function! utils#Make()
 		" endif
 		return
 	endif
-	make
+	Neomake! " Used to run make asynchronously
 endfunction
 
 function! utils#WikiSearch() abort
