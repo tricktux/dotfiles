@@ -142,7 +142,8 @@
 		set linebreak    "Wrap lines at convenient points
 		" Open and close folds Automatically
 		" global fold indent
-		set foldmethod=indent
+		" set foldmethod=indent
+		set foldmethod=syntax
 		set foldnestmax=18      "deepest fold is 18 levels
 		set foldlevel=0
 		set foldlevelstart=0
