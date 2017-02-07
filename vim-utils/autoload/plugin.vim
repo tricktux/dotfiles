@@ -375,6 +375,11 @@ function! plugin#Config() abort
 		" imap <expr> <CR> <Plug>delimitMateCR
 	Plug 'dkarter/bullets.vim', { 'for' : 'markdown' }
 	Plug 'Chiel92/vim-autoformat', { 'on' : 'Autoformat' }
+		" Simply make sure that executable('clang-format') == true
+		" Grab .ros-clang-format rename to .clang-format put it in root
+		" To format only partial use: 
+		" // clang-format off
+		" // clang-format on
 		let g:autoformat_autoindent = 0
 		let g:autoformat_retab = 0
 		let g:autoformat_remove_trailing_spaces = 0
