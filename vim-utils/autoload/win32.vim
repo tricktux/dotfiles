@@ -16,12 +16,11 @@ function win32#Config()
 	nnoremap  o<Esc>
 
 	" Set wiki_path
-	if system('hostname') =~ 'DESKTOP' " homepc
-		let g:wiki_path =  'D:\Reinaldo\Seafile\KnowledgeIsPower\wiki'
-	elseif system('hostname') =~ 'FL' " laptop
-		let g:wiki_path =  '~/Documents/1.WINGS/NeoWingsSupportFiles/wiki'
-		call utils#SetWingsPath('~/Documents/1.WINGS/')
-	else " Assume teststation
+	if system('hostname') =~ 'predator' " homepc
+		let g:wiki_path =  'D:\Seafile\KnowledgeIsPower\wiki'
+		nnoremap <Leader>eu :e D:/Reinaldo/Documents/UnrealProjects/
+	else " Assume work pc
+		let g:wiki_path =  'D:/wings-dev/OneWingsSupFiles/wiki'
 		call utils#SetWingsPath('D:/wings-dev/')
 	endif
 endfunction
