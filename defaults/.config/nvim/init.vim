@@ -143,7 +143,7 @@
 		" Open and close folds Automatically
 		" global fold indent
 		" set foldmethod=indent
-		set foldmethod=syntax
+		set foldmethod=indent
 		set foldnestmax=18      "deepest fold is 18 levels
 		set foldlevel=0
 		set foldlevelstart=0
