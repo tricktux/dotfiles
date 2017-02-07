@@ -516,10 +516,11 @@ endfunction
 function! utils#FormatFile() abort
 	let type = &ft
 	if type ==? 'cpp' || type ==? 'java' || type ==? 'c'
-		if executable("astyle") && exists(":Autoformat")
+		" if executable("astyle") && exists(":Autoformat")
+		if executable('clang-format')
 			Autoformat
 		else
-			echomsg string("No Autoformat/astyle present")
+			echomsg string("No clang-format present")
 		endif
 	"elseif &ft ==? 'java' " vim-javafmt its not working
 		"if exists(":JavaFmt")
