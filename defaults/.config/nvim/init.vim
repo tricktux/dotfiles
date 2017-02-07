@@ -142,6 +142,7 @@
 		set linebreak    "Wrap lines at convenient points
 		" Open and close folds Automatically
 		" global fold indent
+		" set foldmethod=indent
 		set foldmethod=indent
 		set foldnestmax=18      "deepest fold is 18 levels
 		set foldlevel=0
@@ -317,8 +318,8 @@
 	" gA " prints radix of number under cursor
 	" = fixes indentantion
 	" gq formats code
-	" Free keys: <Leader>fnzxlkiy;
-	" Taken keys: <Leader>qwertasdjcvghp<space>mbo
+	" Free keys: <Leader>fnzxkiy;
+	" Taken keys: <Leader>qwertasdjcvghp<space>mbol
 
 	" Quickfix and Location stuff
 		" Description:
@@ -348,6 +349,9 @@
 		nnoremap <Leader>ql :ccl<CR>
 					\:lcl<CR>
 
+	" Vim-Table-Mode <Leader>l?
+		" See plugin for the mappings set by this plugin
+		
 	" Miscelaneous Mappings <Leader>j?
 		" nnoremap <Leader>Ma :Man
 		" Most used misc get jk, jj, jl, j;
