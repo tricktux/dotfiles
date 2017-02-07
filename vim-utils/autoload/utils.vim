@@ -480,7 +480,8 @@ function! utils#Make()
 			endif
 		endif
 	endif
-	Neomake! " Used to run make asynchronously
+	" Neomake! " Used to run make asynchronously. Too annoying not knowing if make finished or not
+	make
 endfunction
 
 function! utils#WikiSearch() abort
