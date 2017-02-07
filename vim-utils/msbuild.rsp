@@ -1,0 +1,12 @@
+/maxcpucount:8
+/nologo
+/verbosity:quiet
+/property:GenerateFullPath=true
+/property:Configuration="Development Editor"
+/property:Platform=Win64
+# /property:Configuration=BuiltWithUnrealBuildTool
+# /property:Platform=Win32
+# /target:UE4:Build;BuildingEscape_v90:Build
+# /property:Configuration=Development_Editor
+# /property:Platform=x64
+# /target:BuildingEscape_v90:Build
