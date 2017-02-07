@@ -303,6 +303,7 @@ function! plugin#Config() abort
 
 		" let g:neomake_highlight_lines = 1
 		let g:neomake_open_list = 1
+		let g:neomake_ft_test_maker_buffer_output = 0
 
 	Plug 'dhruvasagar/vim-table-mode'
 		" To start using the plugin in the on-the-fly mode use :TableModeToggle mapped to <Leader>tm by default
@@ -479,6 +480,8 @@ function! plugin#Config() abort
 		xmap T <Plug>Sneak_T
 		omap t <Plug>Sneak_t
 		omap T <Plug>Sneak_T
+
+		xnoremap s s
 
 	Plug 'xolox/vim-easytags'
 		Plug 'xolox/vim-misc' " dependency of vim-easytags
