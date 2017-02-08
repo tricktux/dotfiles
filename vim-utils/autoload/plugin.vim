@@ -407,7 +407,7 @@ function! plugin#Config() abort
 		" Find functions calling this function
 		nnoremap <Leader>tc :cs find c <C-R>=expand("<cword>")<CR><CR>
 		" Find functions definition
-		nnoremap <Leader>tg :cs find g <C-R>=expand("<cword>")<CR><CR>
+		nnoremap <Leader>tg :cs find g <c-r>=expand("<cword>")<cr><cr>
 		" Find functions called by this function not being used
 		" nnoremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
 		nnoremap <Leader>ts :cs show<CR>
@@ -444,12 +444,12 @@ function! plugin#Config() abort
 	" Version control
 	Plug 'tpope/vim-fugitive'
 		" Fugitive <Leader>g?
-		nnoremap <Leader>gs :Gstatus<CR>
-		nnoremap <Leader>gp :Gpush<CR>
-		nnoremap <Leader>gu :Gpull<CR>
-		nnoremap <Leader>ga :!git add
-		nnoremap <Leader>gl :silent Glog<CR>
-					\:copen 20<CR>
+		" nnoremap <Leader>gs :Gstatus<CR>
+		" nnoremap <Leader>gp :Gpush<CR>
+		" nnoremap <Leader>gu :Gpull<CR>
+		" nnoremap <Leader>ga :!git add
+		" nnoremap <Leader>gl :silent Glog<CR>
+					" \:copen 20<CR>
 
 	" aesthetic
 	Plug 'morhetz/gruvbox' " colorscheme gruvbox
@@ -480,7 +480,6 @@ function! plugin#Config() abort
 		xmap T <Plug>Sneak_T
 		omap t <Plug>Sneak_t
 		omap T <Plug>Sneak_T
-
 		xnoremap s s
 
 	Plug 'xolox/vim-easytags'
@@ -502,6 +501,15 @@ function! plugin#Config() abort
 		" let g:easytags_include_members = 1
 		let g:easytags_async = 1
 		let g:easytags_python_enabled = 1
+
+	Plug 'waiting-for-dev/vim-www'
+		let g:www_default_search_engine = 'google'
+		let g:www_map_keys = 0
+		let g:www_launch_browser_command = "chrome {{URL}}"
+		let g:www_launch_cli_browser_command = "chrome {{URL}}"
+		nnoremap <Leader>gu :Wcsearch google <C-R>=expand("<cword>")<CR><CR>
+		nnoremap <Leader>gs :Wcsearch google 
+
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
