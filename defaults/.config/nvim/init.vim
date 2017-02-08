@@ -188,6 +188,7 @@
 			set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}      "Encoding
 			set statusline+=\ %{(&bomb?\",BOM\":\"\")}\            "Encoding2
 			set statusline+=\ %{&ff}\                              "FileFormat (dos/unix..)
+			set statusline+=\ %{tagbar#currenttag('%s\ ','')}		 " Current function name
 			set statusline+=\ %=\ row:%l/%L\ (%03p%%)\             "Rownumber/total (%)
 			set statusline+=\ col:%03c\                            "Colnr
 			set statusline+=\ \ %m%r%w\ %P\ \                      "Modified? Readonly? Top/bot.

@@ -39,7 +39,7 @@ endfunction
 
 " Should be performed on root .svn folder
 function! utils#SvnCommit() abort
-	execute "!svn commit -m \"" . input("Commit comment:") . "\" ."
+	execute "!svn commit -m \"" . input("Commit comment:") . "\""
 endfunction
 
 " Special comment function {{{
@@ -564,9 +564,9 @@ function! utils#SetWingsPath(sPath) abort
 
 	" Mappings to execute programs
 	" Do not make a ew1 mapping. reserved for when issues get to #11, 12, etc
-	nnoremap <Leader>ewd :Start! WINGS.exe 3 . default.ini<CR>
-	nnoremap <Leader>ewc :Start! WINGS.exe 3 . %<CR>
-	nnoremap <Leader>ews :execute("Start! WINGS.exe 3 . " . input("Config file:", "", "file"))<CR>
+	execute "nnoremap <Leader>ewd :Start! " . a:sPath . "OneWings/WINGS.exe 3 . default.ini<CR>"
+	execute "nnoremap <Leader>ewu :Start! " . a:sPath . "OneWings/WINGS.exe 3 . %<CR>"
+	execute "nnoremap <Leader>ewc :Start! " . a:sPath . "OneWings/WINGS.exe 3 . " 
 
 	" Time runtime of a specific program
 	nnoremap <Leader>mt :Dispatch powershell -command "& {&'Measure-Command' {.\sep_calc.exe seprc}}"<CR>

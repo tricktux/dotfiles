@@ -387,7 +387,7 @@ function! plugin#Config() abort
 
 	" cpp
 	" Plug 'vim-scripts/TagHighlight'
-	Plug 'Tagbar', { 'on' : 'TagbarToggle' }
+	Plug 'Tagbar'
 		let g:tagbar_autofocus = 1
 		let g:tagbar_show_linenumbers = 2
 		let g:tagbar_map_togglesort = "r"
