@@ -15,7 +15,7 @@ BreakBeforeBinaryOperators: false
 BreakBeforeTernaryOperators: false
 BreakConstructorInitializersBeforeComma: true
 BinPackParameters: true
-ColumnLimit:    120
+ColumnLimit:    0
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
 DerivePointerBinding: true
 ExperimentalAutoDetectBinPacking: false
@@ -24,18 +24,18 @@ MaxEmptyLinesToKeep: 1
 NamespaceIndentation: None
 ObjCSpaceBeforeProtocolList: true
 PenaltyBreakBeforeFirstCallParameter: 19
-PenaltyBreakComment: 60
-PenaltyBreakString: 1
-PenaltyBreakFirstLessLess: 1000
-PenaltyExcessCharacter: 1000
-PenaltyReturnTypeOnItsOwnLine: 90
+PenaltyBreakComment: 300
+PenaltyBreakFirstLessLess: 120
+PenaltyBreakString: 1000
+PenaltyExcessCharacter: 1000000
+PenaltyReturnTypeOnItsOwnLine: 60
 PointerBindsToType: false
 SpacesBeforeTrailingComments: 2
 Cpp11BracedListStyle: false
 Standard:        Auto
 IndentWidth:     4
 TabWidth:        4
-UseTab:          Never
+UseTab:          ForIndentation
 BreakBeforeBraces: Allman
 IndentFunctionDeclarationAfterType: false
 SpacesInParentheses: false
@@ -46,4 +46,12 @@ SpaceAfterControlStatementKeyword: true
 SpaceBeforeAssignmentOperators: true
 ContinuationIndentWidth: 4
 SortIncludes: false
+AllowShortFunctionsOnASingleLine: All
+PointerAlignment: Right
 ...
+# PenaltyBreakBeforeFirstCallParameter: 120
+# PenaltyBreakComment: 120
+# PenaltyBreakString: 120
+# PenaltyBreakFirstLessLess: 120
+# PenaltyExcessCharacter: 120
+# PenaltyReturnTypeOnItsOwnLine: 120
