@@ -562,8 +562,10 @@ function! utils#SetWingsPath(sPath) abort
 	execute "nnoremap <Leader>ed :silent e ". a:sPath . "OneWings/default.ini<CR>"
 	execute "nnoremap <Leader>ewl :call utils#WingsSymLink(" . expand(a:sPath) . ")<CR>"
 
+	execute "nnoremap <Leader>co :cd ". a:sPath . "OneWings<CR>"
+	execute "nnoremap <Leader>cs :cd ". a:sPath . "OneWingsSupFiles<CR>"
+
 	" Mappings to execute programs
-	" Do not make a ew1 mapping. reserved for when issues get to #11, 12, etc
 	execute "nnoremap <Leader>ewd :Start! " . a:sPath . "OneWings/WINGS.exe 3 . default.ini<CR>"
 	execute "nnoremap <Leader>ewu :Start! " . a:sPath . "OneWings/WINGS.exe 3 . %<CR>"
 	execute "nnoremap <Leader>ewc :Start! " . a:sPath . "OneWings/WINGS.exe 3 . " 
