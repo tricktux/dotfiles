@@ -23,6 +23,17 @@ function win32#Config()
 		let g:wiki_path =  'D:/wings-dev/OneWingsSupFiles/wiki'
 		call utils#SetWingsPath('D:/wings-dev/')
 	endif
+
+	if has('nvim')
+		let l:pyt3 = "C:\\Users\\" . $username . "\\AppData\\Local\\Programs\\Python\\Python36\\python.exe"
+		let l:pyt2 = "C:\\Python27\\python.exe"
+		if filereadable(l:pyt3)
+			let g:python3_host_prog= l:pyt3
+		endif
+		if filereadable(l:pyt2)
+			let g:python_host_prog= l:pyt2
+		endif
+	endif
 endfunction
 
 " vim:tw=78:ts=2:sts=2:sw=2:

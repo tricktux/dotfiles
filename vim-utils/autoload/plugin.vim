@@ -20,7 +20,8 @@ function! plugin#Config() abort
 	else
 		call plug#begin(g:plugged_path)
 	endif
-	if has('nvim')
+
+	if has('nvim') && has('unix')
 		Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 		Plug 'junegunn/fzf.vim'
 			nnoremap <C-p> :History<CR>
@@ -247,37 +248,39 @@ function! plugin#Config() abort
 			let g:SuperTabDefaultCompletionType = "<Tab>"
 		endif
 		Plug 'tpope/vim-dispatch'
-		Plug 'ctrlpvim/ctrlp.vim'
-			if executable('ag') && !executable('ucg') || !exists(':FZF')
-				let g:ctrlp_user_command = 'ag -Q -l --smart-case --nocolor --hidden -g "" %s'
-				let g:ctrlp_switch_buffer = 0
-			else
-				echomsg string("You should install silversearcher-ag. Now you have a slow ctrlp")
-			endif
-			if has('win32')
-				nnoremap <S-k> :CtrlPBuffer<CR>
-				let g:ctrlp_cmd = 'CtrlPMixed'
-				" submit ? in CtrlP for more mapping help.
-				let g:ctrlp_lazy_update = 1
-				let g:ctrlp_show_hidden = 1
-				let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
-				let g:ctrlp_cache_dir = g:cache_path . 'ctrlp'
-				let g:ctrlp_working_path_mode = 'wra'
-				let g:ctrlp_max_history = &history
-				let g:ctrlp_clear_cache_on_exit = 0
-				set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
-				let g:ctrlp_custom_ignore = {
-							\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-							\ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
-							\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
-							\ }
-			else
-				 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
-				let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-			endif
 	endif
 
 	" Plugins for All (nvim, linux, win32)
+	if !exists(":FZF")
+		Plug 'ctrlpvim/ctrlp.vim'
+		if executable('ag') && !executable('ucg') || !exists(':FZF')
+			let g:ctrlp_user_command = 'ag -Q -l --smart-case --nocolor --hidden -g "" %s'
+			let g:ctrlp_switch_buffer = 0
+		else
+			echomsg string("You should install silversearcher-ag. Now you have a slow ctrlp")
+		endif
+		if has('win32')
+			nnoremap <S-k> :CtrlPBuffer<CR>
+			let g:ctrlp_cmd = 'CtrlPMixed'
+			" submit ? in CtrlP for more mapping help.
+			let g:ctrlp_lazy_update = 1
+			let g:ctrlp_show_hidden = 1
+			let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
+			let g:ctrlp_cache_dir = g:cache_path . 'ctrlp'
+			let g:ctrlp_working_path_mode = 'wra'
+			let g:ctrlp_max_history = &history
+			let g:ctrlp_clear_cache_on_exit = 0
+			set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
+			let g:ctrlp_custom_ignore = {
+						\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+						\ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
+						\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+						\ }
+		else
+			set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
+			let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+		endif
+	endif
 	Plug 'neomake/neomake'
 		let g:neomake_warning_sign = {
 					\ 'text': '?',
