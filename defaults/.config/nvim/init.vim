@@ -231,7 +231,10 @@
 				let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 				let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
 			elseif has('win32')
-				set term=xterm
+				if !has('nvim')
+					set term=xterm
+				endif
+				set t_Co=256
 				let &t_AB="\e[48;5;%dm"
 				let &t_AF="\e[38;5;%dm"
 			else

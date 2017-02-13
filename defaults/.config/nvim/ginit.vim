@@ -1,9 +1,9 @@
 if exists('g:GuiLoaded') " nvim-qt gui
 	" Choose one
 	" Guifont DejaVu Sans Mono:h10
-	Guifont Hack:h8
+	" Guifont Hack:h8
 	" Guifont Monospace:h10
-	" Guifont Consolas:h11
+	silent Guifont Consolas:h8
 	" Guifont Incosolata for Powerline:h10
 elseif has('win32')
 	set guifont =consolas:h8
