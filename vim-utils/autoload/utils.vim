@@ -454,7 +454,7 @@ function! utils#UpdateCscope() abort
 		return
 	endif
 	cs add cscope.out
-	silent !ctags -R -L cscope.files -f .tags --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+ql --language-force=C++
+	silent !ctags -R -L cscope.files -f .tags --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q --language-force=C++
 	" set tags+=.tags
 endfunction
 
@@ -480,8 +480,8 @@ function! utils#Make()
 			endif
 		endif
 	endif
-	" Neomake! " Used to run make asynchronously. Too annoying not knowing if make finished or not
-	make
+	Neomake! " Used to run make asynchronously. Too annoying not knowing if make finished or not
+	" make
 endfunction
 
 function! utils#WikiSearch() abort
