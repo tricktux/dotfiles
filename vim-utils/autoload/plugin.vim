@@ -485,7 +485,7 @@ function! plugin#Config() abort
 		omap T <Plug>Sneak_T
 		xnoremap s s
 
-	Plug 'xolox/vim-easytags'
+	Plug 'xolox/vim-easytags', { 'on' : 'HighlightTags' }
 		Plug 'xolox/vim-misc' " dependency of vim-easytags
 		Plug 'xolox/vim-shell' " dependency of vim-easytags
 		set regexpengine=1 " This speed up the engine alot but still not enough
