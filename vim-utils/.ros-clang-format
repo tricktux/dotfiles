@@ -15,7 +15,7 @@ BreakBeforeBinaryOperators: false
 BreakBeforeTernaryOperators: false
 BreakConstructorInitializersBeforeComma: true
 BinPackParameters: true
-ColumnLimit:    0
+ColumnLimit:    120
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
 DerivePointerBinding: true
 ExperimentalAutoDetectBinPacking: false
@@ -42,12 +42,14 @@ SpacesInParentheses: false
 SpacesInAngles:  false
 SpaceInEmptyParentheses: false
 SpacesInCStyleCastParentheses: false
+SpaceAfterCStyleCast: true
 SpaceAfterControlStatementKeyword: true
 SpaceBeforeAssignmentOperators: true
 ContinuationIndentWidth: 4
 SortIncludes: false
 AllowShortFunctionsOnASingleLine: All
 PointerAlignment: Right
+AlignConsecutiveAssignments: true
 ...
 # PenaltyBreakBeforeFirstCallParameter: 120
 # PenaltyBreakComment: 120
