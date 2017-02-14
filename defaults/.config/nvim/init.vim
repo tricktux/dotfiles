@@ -316,6 +316,8 @@
 		au BufWritePost *.bin,*.hsr,*.pdf setlocal nomod | endif
 	augroup END
 
+	au QuickfixCmdPost make copen 20
+
 " CUSTOM MAPPINGS
 	" List of super useful mappings
 	" ga " prints ascii of char under cursor

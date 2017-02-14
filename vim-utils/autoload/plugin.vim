@@ -281,6 +281,7 @@ function! plugin#Config() abort
 			let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 		endif
 	endif
+
 	Plug 'neomake/neomake'
 		let g:neomake_warning_sign = {
 					\ 'text': '?',
@@ -303,9 +304,14 @@ function! plugin#Config() abort
 					\ '%f:%l: %tarning: %m,'.
 					\ '%f:%l: %m',
 					\ }
+		augroup custom_neomake
+			autocmd!
+			autocmd User NeomakeFinished call utils#NeomakeOpenWindow()
+		augroup END
 
-		" let g:neomake_highlight_lines = 1
-		let g:neomake_open_list = 1
+		" let g:neomake_highlight_lines = 1 " Not cool option. Plus very slow
+		let g:neomake_open_list = 0
+		let g:neomake_always_show_list = 1
 		let g:neomake_ft_test_maker_buffer_output = 0
 
 	Plug 'dhruvasagar/vim-table-mode'
