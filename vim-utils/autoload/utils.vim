@@ -593,5 +593,11 @@ function! utils#SwitchHeaderSource()
 	endif
 endfun
 
+function! utils#NeomakeOpenWindow() abort
+	let height = get(g:, 'neomake_list_height', 10)
+	exe g:neomake_hook_context.file_mode ? 'lopen' . height : 'copen' . height
+	wincmd p
+endfunction
+
 " TODO.RM-Sat Nov 26 2016 00:04: Function that auto adds SCR # and description
 " vim:tw=78:ts=2:sts=2:sw=2:
