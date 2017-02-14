@@ -49,8 +49,8 @@ ContinuationIndentWidth: 4
 SortIncludes: false
 AllowShortFunctionsOnASingleLine: All
 PointerAlignment: Right
-AlignConsecutiveAssignments: true
 ...
+# AlignConsecutiveAssignments: true it makes for very weird assignemnts
 # PenaltyBreakBeforeFirstCallParameter: 120
 # PenaltyBreakComment: 120
 # PenaltyBreakString: 120
