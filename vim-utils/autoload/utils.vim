@@ -594,9 +594,14 @@ function! utils#SwitchHeaderSource()
 endfun
 
 function! utils#NeomakeOpenWindow() abort
-	let height = get(g:, 'neomake_list_height', 10)
-	exe g:neomake_hook_context.file_mode ? 'lopen' . height : 'copen' . height
-	wincmd p
+	" let loc_list = g:neomake_hook_context.file_mode
+	if g:neomake_hook_context.file_mode
+		let loc_text = getloclist()
+		echon "(1 of " len(loc_text) "):" bufname(loc_text[0].bufnr) '|' loc_text[0].lnum '|: ' loc_text[0].text
+	else
+		let qf_text = getqflist()
+		echon "(1 of " len(qf_text) "):" bufname(qf_text[0].bufnr) '|' qf_text[0].lnum '|: ' qf_text[0].text
+	endif
 endfunction
 
 " TODO.RM-Sat Nov 26 2016 00:04: Function that auto adds SCR # and description
