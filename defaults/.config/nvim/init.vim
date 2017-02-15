@@ -182,13 +182,14 @@
 
 		if !exists("g:android")
 			set statusline =
-			set statusline+=\[%n]                                  "buffernr
+			set statusline+=\ [%n]                                  "buffernr
 			set statusline+=\ %<%F\ %m%r%w                         "File+path
 			set statusline+=\ %y\                                  "FileType
 			set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}      "Encoding
 			set statusline+=\ %{(&bomb?\",BOM\":\"\")}\            "Encoding2
 			set statusline+=\ %{&ff}\                              "FileFormat (dos/unix..)
 			set statusline+=\ %{tagbar#currenttag('%s\ ','')}		 " Current function name
+			set statusline+=\ %{neomake#statusline#QflistStatus('qf:\ ')}
 			set statusline+=\ %=\ row:%l/%L\ (%03p%%)\             "Rownumber/total (%)
 			set statusline+=\ col:%03c\                            "Colnr
 			set statusline+=\ \ %m%r%w\ %P\ \                      "Modified? Readonly? Top/bot.
