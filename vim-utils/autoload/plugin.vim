@@ -453,9 +453,10 @@ function! plugin#Config() abort
 	" Version control
 	Plug 'tpope/vim-fugitive'
 		" Fugitive <Leader>g?
+		" use g? to show help
 		nnoremap <Leader>gs :Gstatus<CR>
-		nnoremap <Leader>gp :Gpush<CR>
-		nnoremap <Leader>gu :Gpull<CR>
+		nnoremap <Leader>gps :Gpush<CR>
+		nnoremap <Leader>gpl :Gpull<CR>
 		nnoremap <Leader>ga :!git add
 		nnoremap <Leader>gl :silent Glog<CR>
 					\:copen 20<CR>
@@ -519,7 +520,11 @@ function! plugin#Config() abort
 		nnoremap <Leader>Gu :Wcsearch google <C-R>=expand("<cword>")<CR><CR>
 		nnoremap <Leader>Gs :Wcsearch google 
 
-	Plug 'mhinz/vim-signify'
+	Plug 'juneedahamed/svnj.vim'
+		let g:svnj_allow_leader_mappings=0
+		let g:svnj_cache_dir = g:cache_path
+		let g:svnj_browse_cache_all = 1 
+		nnoremap <silent> <leader>vs :SVNStatus<CR>  
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
