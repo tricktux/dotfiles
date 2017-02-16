@@ -311,9 +311,8 @@ function! plugin#Config() abort
 		augroup END
 
 		" let g:neomake_highlight_lines = 1 " Not cool option. Plus very slow
-		let g:neomake_open_list = 0
-		let g:neomake_always_show_list = 1
-		let g:neomake_ft_test_maker_buffer_output = 0
+		let g:neomake_open_list = 2
+		" let g:neomake_ft_test_maker_buffer_output = 0
 
 	Plug 'dhruvasagar/vim-table-mode'
 		" To start using the plugin in the on-the-fly mode use :TableModeToggle mapped to <Leader>tm by default
