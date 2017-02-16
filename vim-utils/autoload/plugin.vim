@@ -304,6 +304,7 @@ function! plugin#Config() abort
 					\ '%f:%l: %tarning: %m,'.
 					\ '%f:%l: %m',
 					\ }
+
 		augroup custom_neomake
 			autocmd!
 			autocmd User NeomakeFinished call utils#NeomakeOpenWindow()
