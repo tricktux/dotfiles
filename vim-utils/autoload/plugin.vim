@@ -311,7 +311,7 @@ function! plugin#Config() abort
 		augroup END
 
 		" let g:neomake_highlight_lines = 1 " Not cool option. Plus very slow
-		let g:neomake_open_list = 2
+		" let g:neomake_open_list = 2
 		" let g:neomake_ft_test_maker_buffer_output = 0
 
 	Plug 'dhruvasagar/vim-table-mode'
@@ -526,6 +526,35 @@ function! plugin#Config() abort
 		let g:svnj_browse_cache_all = 1 
 		nnoremap <silent> <leader>vs :SVNStatus<CR>  
 
+	Plug 'itchyny/lightline.vim'
+		let g:lightline = {
+								\ 'active': {
+								\   'left': [ [ 'mode', 'paste' ],
+								\             [ 'fugitive', 'readonly', 'filename', 'modified', 'tagbar', 'neomake'] ]
+								\		},
+								\ 'component': {
+								\   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}',
+								\   'neomake': '%#ErrorMsg#%{neomake#statusline#QflistStatus("qf:\ ")}%*', 
+								\   'tagbar': '%{tagbar#currenttag("%s\ ","")}' 
+								\		},
+								\ 'component_visible_condition': {
+								\   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())',
+								\   'neomake': '(!empty(neomake#statusline#QflistStatus("qf:\ ")))',
+								\   'tagbar': '(!empty(tagbar#currenttag("%s\ ","")))' 
+								\		},
+								\ }
+
+								" \ 'inactive': { 
+								" \   'right': [ 'neomake' ]
+								" \		},
+								" \ 'component_type': {
+								" \   'neomake': 'error'
+								" \ },
+		" let g:lightline.component = { 'neomake': '%{neomake#statusline#QflistStatus("qf:\\ ")}' }
+		" let g:lightline.component_visible_condition = {'neomake': '(!empty(neomake#statusline#QflistStatus("qf:\ ")))'}
+
+										" \   'neomake': '%{neomake#statusline#QflistStatus('qf:\ ')}',
+										" \   'neomake': '(!empty(neomake#statusline#QflistStatus('qf:\ ')))',
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
