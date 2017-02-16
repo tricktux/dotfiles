@@ -30,8 +30,8 @@ syn match hexNumber		"0[xX][0-9A-Fa-f]\+"
 syn match hexNumber     	"\$[0-9A-Fa-f]\+\>"
 syn match binNumber		"0[bB][0-1]*"
 
-syn match wingsComment    	";.*" contains=wingsTodo
-syn match wingsComment    	"/.*"
+syn match wingsComment    	"^[^:\$].*$" contains=wingsTodo
+" syn match wingsComment    	"/.*"
 
 syn region wingsString    	start=+"+ end=+"+
 syn region wingsChar    	start=+'+ end=+'+
@@ -66,7 +66,7 @@ syn keyword wingsCommands  	 UPDATE VMC VPC WAIT WINGSKEYSENCODE WINGSKEYSDECODE
 syn keyword wingsCommands  	 XMINIMUM XOR XOFF XUNITS XMULTIPLY XALIAS XINTERVAL YALIAS
 syn keyword wingsCommands  	 YAUTO YDESCRIPTION YENABLE YGRID YMAXIMUM YMINMUM YPENCOLOR YPENWIDTH
 syn keyword wingsCommands  	 YMULTIPLY YOFF YSTAIR YUNITS RET JMP STACKPUSH PMESS FSPRP
-syn keyword wingsCommands  	 INJECT IN OFP SPRP PMESSAGE JUMP CI FILESEARCH
+syn keyword wingsCommands  	 INJECT IN OFP SPRP PMESSAGE JUMP CI FILESEARCH DMM
 
 syn keyword wingsLog    	 STATUS
 
@@ -85,6 +85,7 @@ syn match wingsFlgas          "\sC\s"
 syn match wingsFlgas          "\sE\s"
 
 " OpCodes...
+" So that only wingsCommands are recognized
 syn match wingsOpcode  		"\$[a-z]*"
 syn match wingsOpcode  		"&"
 syn match wingsOpcode  		"\*"
@@ -103,7 +104,6 @@ if version >= 508 || !exists("did_wings_syntax_inits")
   endif
 
   HiLink wingsTodo		Todo
-  HiLink wingsComment		Comment
   HiLink wingsLabel		Type
   HiLink wingsString		String
   HiLink wingsChar		String
@@ -119,6 +119,7 @@ if version >= 508 || !exists("did_wings_syntax_inits")
   HiLink wingsLog		Identifier
   HiLink wingsOk		PreProc
   HiLink wingsFail		Error
+  HiLink wingsComment		Comment
 
   delcommand HiLink
 endif
