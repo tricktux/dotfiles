@@ -190,6 +190,7 @@
 			set statusline+=\ %{&ff}\                              "FileFormat (dos/unix..)
 			set statusline+=\ %{tagbar#currenttag('%s\ ','')}		 " Current function name
 			set statusline+=\ %{neomake#statusline#QflistStatus('qf:\ ')}
+			set statusline+=\ %{fugitive#statusline()}
 			set statusline+=\ %=\ row:%l/%L\ (%03p%%)\             "Rownumber/total (%)
 			set statusline+=\ col:%03c\                            "Colnr
 			set statusline+=\ \ %m%r%w\ %P\ \                      "Modified? Readonly? Top/bot.
