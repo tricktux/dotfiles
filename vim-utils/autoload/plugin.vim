@@ -452,12 +452,12 @@ function! plugin#Config() abort
 	" Version control
 	Plug 'tpope/vim-fugitive'
 		" Fugitive <Leader>g?
-		" nnoremap <Leader>gs :Gstatus<CR>
-		" nnoremap <Leader>gp :Gpush<CR>
-		" nnoremap <Leader>gu :Gpull<CR>
-		" nnoremap <Leader>ga :!git add
-		" nnoremap <Leader>gl :silent Glog<CR>
-					" \:copen 20<CR>
+		nnoremap <Leader>gs :Gstatus<CR>
+		nnoremap <Leader>gp :Gpush<CR>
+		nnoremap <Leader>gu :Gpull<CR>
+		nnoremap <Leader>ga :!git add
+		nnoremap <Leader>gl :silent Glog<CR>
+					\:copen 20<CR>
 
 	" aesthetic
 	Plug 'morhetz/gruvbox' " colorscheme gruvbox
@@ -515,8 +515,10 @@ function! plugin#Config() abort
 		let g:www_map_keys = 0
 		let g:www_launch_browser_command = "chrome {{URL}}"
 		let g:www_launch_cli_browser_command = "chrome {{URL}}"
-		nnoremap <Leader>gu :Wcsearch google <C-R>=expand("<cword>")<CR><CR>
-		nnoremap <Leader>gs :Wcsearch google 
+		nnoremap <Leader>Gu :Wcsearch google <C-R>=expand("<cword>")<CR><CR>
+		nnoremap <Leader>Gs :Wcsearch google 
+
+	Plug 'mhinz/vim-signify'
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
