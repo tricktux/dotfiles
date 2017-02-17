@@ -1,0 +1,177 @@
+snippet log Unreal Log
+options head
+  UE_LOG(Log${1:Category,Temp}, ${2:Fatal,Error,Warning,Display,Log,Verbose,VeryVerbose}, TEXT("${4:FormatStr}"), ${5:...})
+
+# snippet print "Unreal Print" b
+# UKismetSystemLibrary::PrintString(${1:Context (object in my world)}, ${2:FString::Printf(TEXT("${3:message}"), ${4:...})}${5:, ${6:bPrintToScreen}, ${7:bPrintToLog}, ${8:TextLinearColor}, ${9:Duration (negative uses config)}});$0
+# endsnippet
+
+# snippet str "Unreal string" w
+# ${1:TCHAR const* ${2:name} = }TEXT("${3:string}")$0
+# endsnippet
+
+# snippet unarrow "Draw a debug arrow" b
+# DrawDebugDirectionalArrow(${1:World}, ${2:LineStart}, ${3:LineEnd}, ${4:ArrowSize}, ${5:FColor}, ${6:${7:bPersistentLines}, ${8:Duration (negative uses config)}, ${9:DepthPriority}, ${10:Thickness}});$0
+# endsnippet
+
+# snippet unbox "Draw a debug box" b
+# DrawDebugBox(${1:World}, ${2:Centre}, ${3:Extents FVector(Radius)}, ${5:FColor}, ${6:${7:bPersistentLines}, ${8:LifeTime (negative uses config)}, ${9:DepthPriority} ${10:Thickness}});$0
+# endsnippet
+
+# snippet unline "Draw a debug line" b
+# DrawDebugLine(${1:World}, ${2:LineStart}, ${3:LineEnd}, ${4:FColor}, ${5:${6:bPersistentLines}, ${7:Duration (negative uses config)}, ${8:DepthPriority}, ${9:Thickness}});$0
+# endsnippet
+
+# snippet unsphere "Draw a debug sphere" b
+# DrawDebugSphere(${1:World}, ${2:Centre}, ${3:Radius}, ${4:NumSegments}, ${5:FColor}, ${6:${7:bPersistentLines}, ${8:Duration (negative uses config)}, ${9:DepthPriority}});$0
+# endsnippet
+
+# snippet untext "Draw debug world text" b
+# DrawDebugString(${1:World}, ${2:OffsetLocation}, ${3:TextString}, ${5:${6:RelativeActor}, ${7:FColor=white}, ${8:Duration=-1}, ${9:ShouldDrawShadow=false}});$0
+# endsnippet
+
+# snippet ctor "Unreal constructor with FObjectInitializer" b
+# ${2:${1:F}`!p snip.rv = snip.basename`}`!p
+# if fn.endswith('.cpp'):
+#snip.rv = '::'+ t[2]
+# `(const FObjectInitializer& ObjectInitializer)`!p
+# if fn.endswith('.cpp'):
+# snip.rv = '\n\t: Super(ObjectInitializer)\n\t'
+# `$0
+# endsnippet
+
+# snippet enum "Unreal old-school enum" b
+# UENUM()
+# namespace E${1:NameOfEnumeration}
+# {
+# enum Type
+# {
+# ${2:values}
+# COUNT
+# };
+# }$0
+# endsnippet
+
+# snippet enum "Unreal class enum" b
+# UENUM()
+# enum class E${1:NameOfEnumeration} : uint8
+# {
+# ${2:values},
+# COUNT
+# }$0
+# endsnippet
+
+# snippet struct "Unreal struct" b
+# USTRUCT()
+# struct F${1:`!p snip.rv = snip.basename`}
+# {
+# GENERATED_BODY()
+
+# $0
+# };
+
+# endsnippet
+
+# snippet class "Unreal class" b
+# UCLASS()
+# class ${2:${1:U}`!p snip.rv = snip.basename`}
+# {
+# GENERATED_BODY()
+
+# $0
+# };
+
+# endsnippet
+
+# snippet component "Unreal component impl" b
+# // Copyright 2016, `!v g:snips_company`
+# #include "${2:PCH file name}.h"
+
+# #include "${1:ComponentName}.h"
+
+
+# U$1::U$1()
+# {
+# bWantsBeginPlay = false;
+# PrimaryComponentTick.bCanEverTick = false;
+
+# }
+
+# endsnippet
+
+
+# snippet component "Unreal component header" b
+# // Copyright 2016, `!v g:snips_company`
+# #pragma once
+
+# #include "Components/ActorComponent.h"
+
+# #include "$1.generated.h"
+
+
+# UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+# class ${2:MODULE_NAME}_API U${1:ComponentName} : public UActorComponent
+# {
+# GENERATED_BODY()
+
+# public:
+# U$1();
+
+# };
+# endsnippet
+
+# # Unreal has its own macros for toggling optimization that do nothing on clang
+# # (which doesn't support this pragma).
+# snippet opt "Unreal unoptimize region" b
+# PRAGMA_DISABLE_OPTIMIZATION
+# PRAGMA_ENABLE_OPTIMIZATION
+# endsnippet
+
+# # Dynamic multicast delegates have parameter types, but no parameter names.
+# # They can have multiple targets and be serialized to disk.
+# # Use AddDynamic and RemoveDynamic to bind to them. You can only bind UFUNCTIONs to them.
+# snippet delegate "Delegate for blueprint" b
+# DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F${1:component}${2:name}Signature, ${3:first argument type}, ${4:first argument name}, ${5:second argument type}, ${6:second argument name});
+
+# // TODO(davidb): Move to inside class.$0
+# UPROPERTY(BlueprintAssignable, Category = "$1")
+# F$1$2Signature $2Delegate;
+
+# endsnippet
+
+# # Static multicast delegates have parameter types, but no parameter names.
+# # They can have multiple targets but are not accessible from BP.
+# snippet delegate "Multicast delegate" b
+# DECLARE_MULTICAST_DELEGATE_TwoParams(F${1:component}${2:name}Signature, ${3:first argument type}, ${4:second argument type});
+
+# // TODO(davidb): Move to inside class.$0
+# F$1$2Signature $2Delegate;
+
+# endsnippet
+
+# # Static delegates have parameter types, but no parameter names.
+# snippet delegate "Singlecast delegate" b
+# DECLARE_DELEGATE_TwoParams(F${1:component}${2:name}Signature, ${3:first argument type}, ${4:second argument type});
+
+# // TODO(davidb): Move to inside class.$0
+# F$1$2Signature $2Delegate;
+
+# endsnippet
+
+# # Clearer explanation of how to bind to delegates.
+# # Delegate.bind<Tab> should offer completions.
+# snippet bind "Bind UObject to static delegate" w
+# BindSP(${1:Object}, ${2:ClassName}::${3:FunctionName});
+# endsnippet
+# snippet bind "Bind C++ object to static delegate" w
+# BindRaw(${1:Object}, ${2:ClassName}::${3:FunctionName});
+# endsnippet
+
+# # Clearer explanation of how to invoke delegates.
+# # Delegate.invoke<Tab> should offer completions.
+# snippet invoke "Invoke UObject to dynamic multicast delegate" w
+# Broadcast(${1:arguments});
+# endsnippet
+# snippet invoke "Invoke static delegate" w
+# ExecuteIfBound(${1:arguments});
+# endsnippet
