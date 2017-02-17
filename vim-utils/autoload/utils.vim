@@ -560,7 +560,7 @@ function! utils#SetWingsPath(sPath) abort
 	execute "nnoremap <Leader>e21 :silent e " . a:sPath . "OneWings/"
 	execute "nnoremap <Leader>e22 :silent e " . a:sPath . "OneWingsSupFiles/"
 	execute "nnoremap <Leader>ed :silent e ". a:sPath . "OneWings/default.ini<CR>"
-	execute "nnoremap <Leader>ewl :call utils#WingsSymLink(" . expand(a:sPath) . ")<CR>"
+	execute "nnoremap <Leader>ewl :call utils#WingsSymLink('" . expand(a:sPath) . "OneWings')<CR>"
 
 	execute "nnoremap <Leader>co :cd ". a:sPath . "OneWings<CR>"
 	execute "nnoremap <Leader>cs :cd ". a:sPath . "OneWingsSupFiles<CR>"

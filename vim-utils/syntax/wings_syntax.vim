@@ -30,8 +30,9 @@ syn match hexNumber		"0[xX][0-9A-Fa-f]\+"
 syn match hexNumber     	"\$[0-9A-Fa-f]\+\>"
 syn match binNumber		"0[bB][0-1]*"
 
-syn match wingsComment    	"^[^:\$].*$" contains=wingsTodo
-" syn match wingsComment    	"/.*"
+" syn match wingsComment    	"^[^:\/\$\s].*$" contains=wingsTodo
+" syn match wingsComment    	"^[^:\/\$].*$" contains=@wingsCommands
+syn match wingsComment    	"/.*"
 
 syn region wingsString    	start=+"+ end=+"+
 syn region wingsChar    	start=+'+ end=+'+
@@ -75,6 +76,9 @@ syn keyword wingsOk             OK PASS
 syn keyword wingsFail           FAIL
 syn match wingsFail           "Syntax Error.*$"
 syn match wingsFail           "Script Error.*$"
+
+" syn match wingsLabel      	"_^:[A-Z]_$"
+syn match wingsFail           "/\_^[a-zA-Z].*$"
                                   
 syn match wingsFlgas          "\sZ\s"
 syn match wingsFlgas          "\sN\s"
