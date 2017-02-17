@@ -445,8 +445,11 @@ function! plugin#Config() abort
 		smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 					\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 		" Tell Neosnippet about the other snippets
-		let g:neosnippet#snippets_directory= [ g:plugged_path . '/vim-snippets/snippets', g:location_vim_utils . 'snippets/*.snippets' ]
+		let g:neosnippet#snippets_directory= [ g:plugged_path . '/vim-snippets/snippets', g:location_vim_utils . '/snippets/', ]
+								" \ g:plugged_path . '/vim-snippets/UltiSnips']
 		let g:neosnippet#data_directory = g:cache_path . 'neosnippets'
+
+	" Only contain snippets
 	Plug 'Shougo/neosnippet-snippets'
 	Plug 'honza/vim-snippets'
 
@@ -518,8 +521,8 @@ function! plugin#Config() abort
 		let g:www_launch_browser_command = "chrome {{URL}}"
 		let g:www_launch_cli_browser_command = "chrome {{URL}}"
 		nnoremap <Leader>Gu :Wcsearch google <C-R>=expand("<cword>")<CR><CR>
-		" TODO.RM-Fri Feb 17 2017 05:40: Fix this to go to link under curson  
-		" vnoremap <Leader>Gu :Wcopen<CR>
+		" Go to link under curson  
+		vnoremap <Leader>Gu :y<bar>Wcopen <c-r><c-p><CR>
 		nnoremap <Leader>Gs :Wcsearch google 
 
 	Plug 'juneedahamed/svnj.vim'
