@@ -182,13 +182,15 @@
 
 		if !exists("g:android")
 			set statusline =
-			set statusline+=\[%n]                                  "buffernr
+			set statusline+=\ [%n]                                  "buffernr
 			set statusline+=\ %<%F\ %m%r%w                         "File+path
 			set statusline+=\ %y\                                  "FileType
 			set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}      "Encoding
 			set statusline+=\ %{(&bomb?\",BOM\":\"\")}\            "Encoding2
 			set statusline+=\ %{&ff}\                              "FileFormat (dos/unix..)
 			set statusline+=\ %{tagbar#currenttag('%s\ ','')}		 " Current function name
+			set statusline+=\ %{neomake#statusline#QflistStatus('qf:\ ')}
+			set statusline+=\ %{fugitive#statusline()}
 			set statusline+=\ %=\ row:%l/%L\ (%03p%%)\             "Rownumber/total (%)
 			set statusline+=\ col:%03c\                            "Colnr
 			set statusline+=\ \ %m%r%w\ %P\ \                      "Modified? Readonly? Top/bot.
@@ -493,10 +495,9 @@
 		nnoremap <Leader>cu :cd ..<CR>
 					\:pwd<CR>
 		" cd into dir. press <Tab> after ci to see folders
-		nnoremap <Leader>ci :cd
+		nnoremap <Leader>ci :cd 
 		nnoremap <Leader>cc :pwd<CR>
-		nnoremap <Leader>ch :cd<CR>
-					\pwd<CR>
+		nnoremap <Leader>c1 :cd ~/.dotfiles
 
 	" Folding
 		" Folding select text then S-f to fold or just S-f to toggle folding
@@ -570,21 +571,20 @@
 	" Version Control <Leader>v?
 		" For all this commands you should be in the svn root folder
 		" Add all files
-		nnoremap <Leader>vA :!svn add * --force<CR>
+		nnoremap <Leader>vA :!svn add . --force<CR>
 		" Add specific files
-		nnoremap <Leader>va :!svn add --force
+		nnoremap <Leader>va :!svn add --force 
 		" Commit using typed message
 		nnoremap <Leader>vc :call utils#SvnCommit()<CR>
 		" Commit using File for commit content
 		nnoremap <Leader>vC :!svn commit --force-log -F %<CR>
-		nnoremap <Leader>vdl :!svn rm --force Log\*<CR>
-		nnoremap <Leader>vda :!svn rm --force
+		nnoremap <Leader>vd :!svn rm --force 
 		" revert previous commit
 		"nnoremap <Leader>vr :!svn revert -R .<CR>
 		nnoremap <Leader>vl :!svn cleanup .<CR>
 		" use this command line to delete unrevisioned or "?" svn files
 		"nnoremap <Leader>vL :!for /f "tokens=2*" %i in ('svn status ^| find "?"') do del %i<CR>
-		nnoremap <Leader>vs :!svn status .<CR>
+		" nnoremap <Leader>vs :!svn status .<CR>
 		nnoremap <Leader>vu :!svn update .<CR>
 		nnoremap <Leader>vo :!svn log .<CR>
 		nnoremap <Leader>vi :!svn info<CR>
