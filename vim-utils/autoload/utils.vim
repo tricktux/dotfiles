@@ -560,7 +560,7 @@ function! utils#SetWingsPath(sPath) abort
 	execute "nnoremap <Leader>e21 :silent e " . a:sPath . "OneWings/"
 	execute "nnoremap <Leader>e22 :silent e " . a:sPath . "OneWingsSupFiles/"
 	execute "nnoremap <Leader>ed :silent e ". a:sPath . "OneWings/default.ini<CR>"
-	execute "nnoremap <Leader>ewl :call utils#WingsSymLink(" . expand(a:sPath) . ")<CR>"
+	execute "nnoremap <Leader>ewl :call utils#WingsSymLink('" . expand(a:sPath) . "OneWings')<CR>"
 
 	execute "nnoremap <Leader>co :cd ". a:sPath . "OneWings<CR>"
 	execute "nnoremap <Leader>cs :cd ". a:sPath . "OneWingsSupFiles<CR>"
@@ -594,9 +594,21 @@ function! utils#SwitchHeaderSource()
 endfun
 
 function! utils#NeomakeOpenWindow() abort
-	let height = get(g:, 'neomake_list_height', 10)
-	exe g:neomake_hook_context.file_mode ? 'lopen' . height : 'copen' . height
-	wincmd p
+	if g:neomake_hook_context.file_mode
+		let loc_text = getloclist(0)
+		if len(loc_text) == 0
+			echo "Success"
+			return
+		endif
+		echon "(1 of " len(loc_text) "):" bufname(loc_text[0].bufnr) '|' loc_text[0].lnum '|: ' loc_text[0].text
+	else
+		let qf_text = getqflist()
+		if len(qf_text) == 0
+			echo "Success"
+			return
+		endif
+		echon "(1 of " len(qf_text) "):" bufname(qf_text[0].bufnr) '|' qf_text[0].lnum '|: ' qf_text[0].text
+	endif
 endfunction
 
 " TODO.RM-Sat Nov 26 2016 00:04: Function that auto adds SCR # and description
