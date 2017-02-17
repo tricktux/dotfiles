@@ -304,15 +304,15 @@ function! plugin#Config() abort
 					\ '%f:%l: %tarning: %m,'.
 					\ '%f:%l: %m',
 					\ }
+
 		augroup custom_neomake
 			autocmd!
 			autocmd User NeomakeFinished call utils#NeomakeOpenWindow()
 		augroup END
 
 		" let g:neomake_highlight_lines = 1 " Not cool option. Plus very slow
-		let g:neomake_open_list = 0
-		let g:neomake_always_show_list = 1
-		let g:neomake_ft_test_maker_buffer_output = 0
+		" let g:neomake_open_list = 2
+		" let g:neomake_ft_test_maker_buffer_output = 0
 
 	Plug 'dhruvasagar/vim-table-mode'
 		" To start using the plugin in the on-the-fly mode use :TableModeToggle mapped to <Leader>tm by default
@@ -445,20 +445,24 @@ function! plugin#Config() abort
 		smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 					\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 		" Tell Neosnippet about the other snippets
-		let g:neosnippet#snippets_directory= g:plugged_path . '/vim-snippets/snippets'
+		let g:neosnippet#snippets_directory= [ g:plugged_path . '/vim-snippets/snippets', g:location_vim_utils . '/snippets/', ]
+								" \ g:plugged_path . '/vim-snippets/UltiSnips']
 		let g:neosnippet#data_directory = g:cache_path . 'neosnippets'
+
+	" Only contain snippets
 	Plug 'Shougo/neosnippet-snippets'
 	Plug 'honza/vim-snippets'
 
 	" Version control
 	Plug 'tpope/vim-fugitive'
 		" Fugitive <Leader>g?
-		" nnoremap <Leader>gs :Gstatus<CR>
-		" nnoremap <Leader>gp :Gpush<CR>
-		" nnoremap <Leader>gu :Gpull<CR>
-		" nnoremap <Leader>ga :!git add
-		" nnoremap <Leader>gl :silent Glog<CR>
-					" \:copen 20<CR>
+		" use g? to show help
+		nnoremap <Leader>gs :Gstatus<CR>
+		nnoremap <Leader>gps :Gpush<CR>
+		nnoremap <Leader>gpl :Gpull<CR>
+		nnoremap <Leader>ga :!git add
+		nnoremap <Leader>gl :silent Glog<CR>
+					\:copen 20<CR>
 
 	" aesthetic
 	Plug 'morhetz/gruvbox' " colorscheme gruvbox
@@ -516,9 +520,46 @@ function! plugin#Config() abort
 		let g:www_map_keys = 0
 		let g:www_launch_browser_command = "chrome {{URL}}"
 		let g:www_launch_cli_browser_command = "chrome {{URL}}"
-		nnoremap <Leader>gu :Wcsearch google <C-R>=expand("<cword>")<CR><CR>
-		nnoremap <Leader>gs :Wcsearch google 
+		nnoremap <Leader>Gu :Wcsearch google <C-R>=expand("<cword>")<CR><CR>
+		" Go to link under curson  
+		vnoremap <Leader>Gu :y<bar>Wcopen <c-r><c-p><CR>
+		nnoremap <Leader>Gs :Wcsearch google 
 
+	Plug 'juneedahamed/svnj.vim'
+		let g:svnj_allow_leader_mappings=0
+		let g:svnj_cache_dir = g:cache_path
+		let g:svnj_browse_cache_all = 1 
+		nnoremap <silent> <leader>vs :SVNStatus<CR>  
+
+	Plug 'itchyny/lightline.vim'
+		let g:lightline = {
+								\ 'active': {
+								\   'left': [ [ 'mode', 'paste' ],
+								\             [ 'fugitive', 'readonly', 'filename', 'modified', 'tagbar', 'neomake'] ]
+								\		},
+								\ 'component': {
+								\   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}',
+								\   'neomake': '%#ErrorMsg#%{neomake#statusline#QflistStatus("qf:\ ")}%*', 
+								\   'tagbar': '%{tagbar#currenttag("%s\ ","")}' 
+								\		},
+								\ 'component_visible_condition': {
+								\   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())',
+								\   'neomake': '(!empty(neomake#statusline#QflistStatus("qf:\ ")))',
+								\   'tagbar': '(!empty(tagbar#currenttag("%s\ ","")))' 
+								\		},
+								\ }
+
+								" \ 'inactive': { 
+								" \   'right': [ 'neomake' ]
+								" \		},
+								" \ 'component_type': {
+								" \   'neomake': 'error'
+								" \ },
+		" let g:lightline.component = { 'neomake': '%{neomake#statusline#QflistStatus("qf:\\ ")}' }
+		" let g:lightline.component_visible_condition = {'neomake': '(!empty(neomake#statusline#QflistStatus("qf:\ ")))'}
+
+										" \   'neomake': '%{neomake#statusline#QflistStatus('qf:\ ')}',
+										" \   'neomake': '(!empty(neomake#statusline#QflistStatus('qf:\ ')))',
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
