@@ -537,7 +537,7 @@
 		" Tried ack.vim. Discovered that nothing is better than grep with ag.
 		" search all type of files
 		"TODO.RM-Wed Nov 30 2016 10:22: Improve grep to autodetect filetype  
-		nnoremap <Leader>S :grep --cpp
+		nnoremap <Leader>S :call utils#FileTypeSearch()<CR>
 		nnoremap <S-s> #<C-o>
 		vnoremap // y/<C-R>"<CR>
 

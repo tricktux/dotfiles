@@ -3,24 +3,24 @@
 " Description:	Function Container
 " Author:				Reinaldo Molina <rmolin88@gmail.com>
 " Version:			2.0.0
-" Date:					Mon Jan 09 2017 10:35
+" Date:					Mon Feb 20 2017 13:50
 
 " FUNCTIONS
 function! utils#SetGrep() abort
-	" use option --list-file-types if in doubt
-	" to specify a type of file just do `--cpp`
-	" Add the --type-set=markdown:ext:md option to ucg for it to recognize
-	" Use the -t option to search all text files; -a to search all files; and -u to search all, including hidden files.
-	" md files
-	" rg = ripgrep
 	if executable('rg')
+		" use option --list-file-types if in doubt
+		" rg = ripgrep
+		"Use the -t option to search all text files; -a to search all files; and -u to search all, including hidden files.
 		set grepprg=rg\ --vimgrep
+		set grepformat=%f:%l:%c:%m
 	elseif executable('ucg')
+		" Add the --type-set=markdown:ext:md option to ucg for it to recognize
+		" md files
 		set grepprg=ucg\ --nocolor\ --noenv
 	elseif executable('ag')
 		" ctrlp with ag
 		" see :Man ag for help
-		"Use the -t option to search all text files; -a to search all files; and -u to search all, including hidden files.
+		" to specify a type of file just do `--cpp`
 		set grepprg=ag\ --nogroup\ --nocolor\ --smart-case\ --vimgrep\ $*
 		set grepformat=%f:%l:%c:%m
 	endif
@@ -459,11 +459,13 @@ function! utils#UpdateCscope() abort
 endfunction
 
 function! utils#Make()
-	if expand('%:p') ==? expand('$MYVIMRC')
-		so $MYVIMRC
+	if &filetype =~ 'vim'
+		so %
 		return
 	elseif has('win32')
 		let l:path = expand('%:p')
+		" TODO.RM-Mon Feb 20 2017 12:54: Fix here. This is make function. Should
+		" not be doing formatting  
 		if l:path =~ 'UnrealProjects' && executable('clang-format') && exists(':Autoformat')
 			Autoformat
 		endif
@@ -608,6 +610,48 @@ function! utils#NeomakeOpenWindow() abort
 			return
 		endif
 		echon "(1 of " len(qf_text) "):" bufname(qf_text[0].bufnr) '|' qf_text[0].lnum '|: ' qf_text[0].text
+	endif
+endfunction
+
+function! utils#FileTypeSearch() abort
+	let grep_engine = &grepprg
+
+	" In the case that rg or ag doesnt exist perform simple search
+	if grep_engine !~? 'rg' && grep_engine !~? 'ag'
+		let search = input("Please enter search word:")
+		exe ":grep " . search
+		echon '|Grep Engine:' &grepprg ' |FileType: All| CWD: ' getcwd()
+		return
+	endif
+
+	" Otherwise allow user to specify `filetype`
+	let user_ft_selection = inputlist([
+				\ 'Please select the filetypes to search:',
+				\ '1 - ' . &filetype,
+				\ '2 - All filetypes'])
+				" \ '3 - To specify a different type'])
+	let search = input("Please enter search word:")
+	if &grepprg =~ 'rg'
+		" rg filetype for vim files is called vimscript
+		let rg_ft = &ft
+		if &ft =~ 'vim'
+			let rg_ft = 'vimscript'
+		endif
+		if user_ft_selection == 1
+			exe ":grep -t " . rg_ft . ' ' . search
+			echon '|Grep Engine:' &grepprg ' |FileType: ' rg_ft '| CWD: ' getcwd()
+		else
+			exe ":grep " . search
+			echon '|Grep Engine:' &grepprg ' |FileType: All| CWD: ' getcwd()
+		endif
+	elseif &grepprg =~ 'ag'
+		if user_ft_selection == 1
+			exe ":grep --" . &ft . ' ' . search
+			echon '|Grep Engine:' &grepprg ' |FileType: ' &ft '| CWD: ' getcwd()
+		else
+			exe ":grep " . search
+			echon '|Grep Engine:' &grepprg ' |FileType: All| CWD: ' getcwd()
+		endif
 	endif
 endfunction
 
