@@ -253,9 +253,10 @@ function! plugin#Config() abort
 	" Plugins for All (nvim, linux, win32)
 	if !exists(":FZF")
 		Plug 'ctrlpvim/ctrlp.vim'
-		if executable('ag') && !executable('ucg') || !exists(':FZF')
+		if executable('rg')
+			let g:ctrlp_user_command = 'rg %s --no-ignore --hidden --files -g "" '
+		elseif executable('ag')
 			let g:ctrlp_user_command = 'ag -Q -l --smart-case --nocolor --hidden -g "" %s'
-			let g:ctrlp_switch_buffer = 0
 		else
 			echomsg string("You should install silversearcher-ag. Now you have a slow ctrlp")
 		endif
@@ -271,6 +272,7 @@ function! plugin#Config() abort
 			let g:ctrlp_max_history = &history
 			let g:ctrlp_clear_cache_on_exit = 0
 			set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
+			let g:ctrlp_switch_buffer = 0
 			let g:ctrlp_custom_ignore = {
 						\ 'dir':  '\v[\/]\.(git|hg|svn)$',
 						\ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
