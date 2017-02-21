@@ -589,7 +589,7 @@
 		nnoremap <Leader>vu :!svn update .<CR>
 		" Overwritten from plugin.vim
 		" nnoremap <Leader>vo :!svn log .<CR>
-		nnoremap <Leader>vi :!svn info<CR>
+		" nnoremap <Leader>vi :!svn info<CR>
 
 	" Todo mappings <Leader>t?
 		nnoremap <Leader>td :call utils#TodoCreate()<CR>

@@ -1254,3 +1254,14 @@ endif
 		endif
 		return "=" 
 	endfunction
+								" \ 'inactive': { 
+								" \   'right': [ 'neomake' ]
+								" \		},
+								" \ 'component_type': {
+								" \   'neomake': 'error'
+								" \ },
+		" let g:lightline.component = { 'neomake': '%{neomake#statusline#QflistStatus("qf:\\ ")}' }
+		" let g:lightline.component_visible_condition = {'neomake': '(!empty(neomake#statusline#QflistStatus("qf:\ ")))'}
+
+										" \   'neomake': '%{neomake#statusline#QflistStatus('qf:\ ')}',
+										" \   'neomake': '(!empty(neomake#statusline#QflistStatus('qf:\ ')))',

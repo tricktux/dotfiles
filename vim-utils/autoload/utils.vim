@@ -564,8 +564,11 @@ function! utils#SetWingsPath(sPath) abort
 	execute "nnoremap <Leader>ed :silent e ". a:sPath . "OneWings/default.ini<CR>"
 	execute "nnoremap <Leader>ewl :call utils#WingsSymLink('" . expand(a:sPath) . "OneWings')<CR>"
 
-	execute "nnoremap <Leader>co :cd ". a:sPath . "OneWings<CR>"
-	execute "nnoremap <Leader>cs :cd ". a:sPath . "OneWingsSupFiles<CR>"
+	" Mappings
+	execute "nnoremap <Leader>cst :cd ". g:wings_path . "OneWings/trunk<CR>"
+	execute "nnoremap <Leader>csb :cd ". g:wings_path . "OneWings/branches/"
+	execute "nnoremap <Leader>css :cd ". g:wings_path . "OneWingsSupFiles<CR>"
+	execute "nnoremap <Leader>co :cd ". g:wings_path . "OneWings<CR>"
 
 	" Mappings to execute programs
 	execute "nnoremap <Leader>ewd :Start! " . a:sPath . "OneWings/WINGS.exe 3 . default.ini<CR>"
@@ -655,12 +658,16 @@ function! utils#FileTypeSearch() abort
 	endif
 endfunction
 
-function! utils#SetSvnjBranchesUrl(sPath) abort
-	if filereadable(a:sPath . '/OneWings/branches.vim')
-		exe 'source ' . a:sPath . '/OneWings/branches.vim'
-		echomsg "Svnj Attempting to sourceWorking!!"
-	endif
-endfunction
+function! utils#SvnWingsSetup() abort
+	let g:svnj_branch_url = [ g:wings_svn_url . 'OneWings/branches/OneWings_19',
+				\  g:wings_svn_url . 'OneWings/tags/OneWings-005'
+				\ ]
 
+	let g:svnj_trunk_url =   g:wings_svn_url . 'OneWings/trunk'
+
+	" Creating a branch
+	execute "nnoremap <Leader>vb :!svn copy --parents " . g:wings_svn_url . "OneWings/trunk " . g:wings_svn_url . "OneWings/branches/"
+	execute "nnoremap <Leader>vw :!svn switch " . g:wings_svn_url . "OneWings/branches/"
+endfunction
 " TODO.RM-Sat Nov 26 2016 00:04: Function that auto adds SCR # and description
 " vim:tw=78:ts=2:sts=2:sw=2:
