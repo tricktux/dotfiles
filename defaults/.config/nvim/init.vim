@@ -180,7 +180,9 @@
 			colorscheme desert
 		endif
 
-		if !exists("g:android")
+		" If this not and android device and we have no plugins setup "ugly"
+		" status line
+		if !exists("g:android") && !exists('b:plugins_loaded')
 			set statusline =
 			set statusline+=\ [%n]                                  "buffernr
 			set statusline+=\ %<%F\ %m%r%w                         "File+path
@@ -194,9 +196,8 @@
 			set statusline+=\ %=\ row:%l/%L\ (%03p%%)\             "Rownumber/total (%)
 			set statusline+=\ col:%03c\                            "Colnr
 			set statusline+=\ \ %m%r%w\ %P\ \                      "Modified? Readonly? Top/bot.
-			" if you want to put color to status line needs to be after command
+			" If you want to put color to status line needs to be after command
 			" colorscheme. Otherwise this commands clears it the color
-			set showcmd
 		endif
 		
 	" Performance Settings
@@ -586,7 +587,8 @@
 		"nnoremap <Leader>vL :!for /f "tokens=2*" %i in ('svn status ^| find "?"') do del %i<CR>
 		" nnoremap <Leader>vs :!svn status .<CR>
 		nnoremap <Leader>vu :!svn update .<CR>
-		nnoremap <Leader>vo :!svn log .<CR>
+		" Overwritten from plugin.vim
+		" nnoremap <Leader>vo :!svn log .<CR>
 		nnoremap <Leader>vi :!svn info<CR>
 
 	" Todo mappings <Leader>t?
