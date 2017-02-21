@@ -21,8 +21,14 @@ function win32#Config()
 		nnoremap <Leader>eu :e D:/Reinaldo/Documents/UnrealProjects/
 	else " Assume work pc
 		let g:wiki_path =  'D:/wings-dev/OneWingsSupFiles/wiki'
-		call utils#SetWingsPath('D:/wings-dev/')
-		call utils#SetSvnjBranchesUrl('D:/wings-dev/')
+		let g:wings_path =  'D:/wings-dev/'
+		call utils#SetWingsPath(g:wings_path)
+
+		" Load svnj branch, trunk, and tag settings
+		if filereadable(g:wings_path . 'OneWingsSupFiles/branches.vim')
+			exe 'source ' . g:wings_path . 'OneWingsSupFiles/branches.vim' 
+			call utils#SvnWingsSetup()
+		endif
 	endif
 
 	if has('nvim')
