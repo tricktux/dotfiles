@@ -465,7 +465,7 @@ function! utils#Make()
 	elseif has('win32')
 		let l:path = expand('%:p')
 		" TODO.RM-Mon Feb 20 2017 12:54: Fix here. This is make function. Should
-		" not be doing formatting  
+		" not be doing formatting
 		if l:path =~ 'UnrealProjects' && executable('clang-format') && exists(':Autoformat')
 			Autoformat
 		endif
@@ -570,7 +570,7 @@ function! utils#SetWingsPath(sPath) abort
 	" Mappings to execute programs
 	execute "nnoremap <Leader>ewd :Start! " . a:sPath . "OneWings/WINGS.exe 3 . default.ini<CR>"
 	execute "nnoremap <Leader>ewu :Start! " . a:sPath . "OneWings/WINGS.exe 3 . %<CR>"
-	execute "nnoremap <Leader>ewc :Start! " . a:sPath . "OneWings/WINGS.exe 3 . " 
+	execute "nnoremap <Leader>ewc :Start! " . a:sPath . "OneWings/WINGS.exe 3 . "
 
 	" Time runtime of a specific program
 	nnoremap <Leader>mt :Dispatch powershell -command "& {&'Measure-Command' {.\sep_calc.exe seprc}}"<CR>
@@ -652,6 +652,13 @@ function! utils#FileTypeSearch() abort
 			exe ":grep " . search
 			echon '|Grep Engine:' &grepprg ' |FileType: All| CWD: ' getcwd()
 		endif
+	endif
+endfunction
+
+function! utils#SetSvnjBranchesUrl(sPath) abort
+	if filereadable(a:sPath . '/OneWings/branches.vim')
+		exe 'source ' . a:sPath . '/OneWings/branches.vim'
+		echomsg "Svnj Attempting to sourceWorking!!"
 	endif
 endfunction
 
