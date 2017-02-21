@@ -531,7 +531,9 @@ function! plugin#Config() abort
 		let g:svnj_allow_leader_mappings=0
 		let g:svnj_cache_dir = g:cache_path
 		let g:svnj_browse_cache_all = 1 
+		let g:svnj_custom_statusbar_ops_hide = 0
 		nnoremap <silent> <leader>vs :SVNStatus<CR>  
+		nnoremap <silent> <leader>vo :SVNLog .<CR>  
 
 	Plug 'itchyny/lightline.vim'
 		let g:lightline = {

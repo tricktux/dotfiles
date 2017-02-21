@@ -22,6 +22,7 @@ function win32#Config()
 	else " Assume work pc
 		let g:wiki_path =  'D:/wings-dev/OneWingsSupFiles/wiki'
 		call utils#SetWingsPath('D:/wings-dev/')
+		call utils#SetSvnjBranchesUrl('D:/wings-dev/')
 	endif
 
 	if has('nvim')
