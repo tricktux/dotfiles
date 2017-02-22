@@ -659,15 +659,150 @@ function! utils#FileTypeSearch() abort
 endfunction
 
 function! utils#SvnWingsSetup() abort
-	let g:svnj_branch_url = [ g:wings_svn_url . 'OneWings/branches/OneWings_19',
-				\  g:wings_svn_url . 'OneWings/tags/OneWings-005'
-				\ ]
+	" let g:svnj_branch_url = [ g:wings_svn_url . 'OneWings/branches/OneWings_19',
+				" \  g:wings_svn_url . 'OneWings/tags/OneWings-005'
+				" \ ]
 
-	let g:svnj_trunk_url =   g:wings_svn_url . 'OneWings/trunk'
+	" let g:svnj_trunk_url =   g:wings_svn_url . 'OneWings/trunk'
 
-	" Creating a branch
-	execute "nnoremap <Leader>vb :!svn copy --parents " . g:wings_svn_url . "OneWings/trunk " . g:wings_svn_url . "OneWings/branches/"
-	execute "nnoremap <Leader>vw :!svn switch " . g:wings_svn_url . "OneWings/branches/"
+	" " Creating a branch
+	" TODO.RM-Wed Feb 22 2017 17:15: Create this SvnCopy()  
+	" execute "nnoremap <Leader>vb :!svn copy --parents " . g:wings_svn_url . "OneWings/trunk " . g:wings_svn_url . "OneWings/branches/"
+	" execute "nnoremap <Leader>vw :!svn switch " . g:wings_svn_url . "OneWings/branches/"
+	let g:svn_repo_url = g:wings_svn_url
+	nnoremap <Leader>vw :call utils#SvnSwitchBranchTag()<CR>
+endfunction
+
+" This function gets called on BufRead
+function! utils#UpdateSvnBranchInfo() abort
+	let file_path = expand('%:p:h')
+	execute "cd " . file_path
+	try
+		let info = system("cd " . file_path . " && svn info | findstr URL")
+	catch
+		cd - " Restore CWD
+		unlet! g:svn_branch_info
+		return
+	endtry
+	cd - " Restore CWD
+
+	" The system function returns something like "Relative URL: ^/...."
+	" Strip from "^/" forward and put that in status line
+	let index = stridx(info, "^/")
+	if index == -1
+		" echon "Couldnt Find needle"
+		unlet! g:svn_branch_info
+		return
+	else
+		let g:svn_branch_info = strpart(info, index+1) " Strip out the '^' from '^/'
+	endif
+	" Strip string if there are more than 2 '/'
+	let index = 0
+	let num_of_slashes = 0
+	" Count the number of slashes
+	while 1
+		let index = stridx(g:svn_branch_info, '/', index)
+		if index == -1
+			break
+		else
+			let num_of_slashes += 1
+			if num_of_slashes == 3
+				break
+			endif
+			let index += 1
+		endif
+	endw
+	" echo strpart(g:svn_branch_info, 0, index)
+	if num_of_slashes > 2
+		let g:svn_branch_info = strpart(g:svn_branch_info, 0, index)
+	endif
+endfunction
+
+" Called by statusline
+function! utils#GetSvnBranchInfo() abort
+	if exists('g:svn_branch_info')
+		return g:svn_branch_info
+	endif
+	return ""
+endfunction
+
+function! utils#GetSvnListOfBranchesTags(repo_name) abort
+	if empty(a:repo_name)
+		echohl ErrorMsg
+		echo "GetSvnListOfBranchesTags(): Invalid Input"
+		echohl None
+		return
+	endif
+	let branches_list = [ a:repo_name. '/trunk' ]
+	" Mark start position for branches list
+	let index = len(branches_list)
+
+	" Get branches
+	"TODO.RM-Wed Feb 22 2017 16:54: Switch g:wings_svn_url with g:svn_repo_url  
+	let brch = system("svn ls " . g:svn_repo_url . a:repo_name . "/branches")
+	let branches_list += split(brch, '\n')
+	" Insert branch in front of each
+	while index < len(branches_list)
+		let branches_list[index] = printf("%s%s", a:repo_name . "/branches/", branches_list[index] )
+		let index += 1
+	endwhile
+	" Mark start position for tags list
+	let index = len(branches_list)
+
+	" Get tags
+	let brch = system("svn ls " . g:svn_repo_url . a:repo_name . "/tags")
+	let branches_list += split(brch, '\n')
+	" Insert tags in front of each
+	while index < len(branches_list)
+		let branches_list[index] = printf("%s/%s", a:repo_name . "/tags", branches_list[index] )
+		let index += 1
+	endwhile
+	return branches_list
+endfunction
+
+function! utils#SvnSwitchBranchTag() abort
+	" TODO.RM-Wed Feb 22 2017 16:44: Add executable('svn') guard to all functions  
+	" TODO.RM-Wed Feb 22 2017 16:43: Turn 'OneWings' into a g: like varible  
+	"TODO.RM-Wed Feb 22 2017 17:11: Try to address the problem that this
+	"function depends on CWD being a valid branch  
+	let branches_list = utils#GetSvnListOfBranchesTags('OneWings')
+	let user_index = utils#SvnSelectBranchTagTrunk(branches_list, 
+				\'Please select a trunk, branch, or tag to switch to:')
+	" echon g:svn_repo_url . branches_list[user_index]
+
+	execute ":!svn switch " . g:svn_repo_url . branches_list[user_index]
+	" TODO.RM-Wed Feb 22 2017 17:14: Try to get some sort of confirmation that
+	" this went well  
+	" Update Status Line with New Branch information
+	call utils#UpdateSvnBranchInfo()
+endfunction
+
+function! utils#SvnSelectBranchTagTrunk(branch_list, question) abort
+	if empty(a:branch_list) || empty(a:question)
+		echohl ErrorMsg
+		echo "SvnSelectBranchTagTrunk(): Invalid Input(s)"
+		echohl None
+		return
+	endif
+
+	call insert(a:branch_list, a:question)
+	" Insert numbers in front of branches/tags
+	let index = 1
+	let brch = copy(a:branch_list)
+	while index < len(brch)
+		let brch[index] = printf("%u. %s", index, brch[index] )
+		let index += 1
+	endwhile
+
+	let user_index = inputlist(brch)
+	" Check user input
+	if user_index < 1 || user_index > len(a:branch_list)
+		echohl ErrorMsg
+		echo "SvnSelectBranchTagTrunk(): Invalid Branch/Tag/Trunk Selected"
+		echohl None
+		return -1
+	endif
+	return user_index
 endfunction
 " TODO.RM-Sat Nov 26 2016 00:04: Function that auto adds SCR # and description
 " vim:tw=78:ts=2:sts=2:sw=2:
