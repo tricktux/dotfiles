@@ -534,21 +534,27 @@ function! plugin#Config() abort
 		let g:svnj_custom_statusbar_ops_hide = 0
 		nnoremap <silent> <leader>vs :SVNStatus<CR>  
 		nnoremap <silent> <leader>vo :SVNLog .<CR>  
+		augroup svn_update_status_line
+			autocmd!
+			autocmd BufEnter * call utils#UpdateSvnBranchInfo()
+		augroup END
 
 	Plug 'itchyny/lightline.vim'
 		let g:lightline = {
 								\ 'active': {
 								\   'left': [ [ 'mode', 'paste' ],
-								\             [ 'fugitive', 'readonly', 'filename', 'modified', 'tagbar', 'neomake'] ]
+								\             [ 'readonly', 'filename', 'modified', 'fugitive', 'svn', 'tagbar', 'neomake'] ]
 								\		},
 								\ 'component': {
 								\   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}',
 								\   'neomake': '%#ErrorMsg#%{neomake#statusline#QflistStatus("qf:\ ")}%*', 
+								\   'svn': '%{utils#GetSvnBranchInfo()}', 
 								\   'tagbar': '%{tagbar#currenttag("%s\ ","")}' 
 								\		},
 								\ 'component_visible_condition': {
 								\   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())',
 								\   'neomake': '(!empty(neomake#statusline#QflistStatus("qf:\ ")))',
+								\   'svn': '(!empty(utils#GetSvnBranchInfo()))', 
 								\   'tagbar': '(!empty(tagbar#currenttag("%s\ ","")))' 
 								\		},
 								\ }
