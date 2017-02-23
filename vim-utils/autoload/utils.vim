@@ -675,16 +675,33 @@ endfunction
 
 " This function gets called on BufRead
 function! utils#UpdateSvnBranchInfo() abort
-	let file_path = expand('%:p:h')
-	execute "cd " . file_path
+	if !executable('svn')
+		echohl WarningMsg
+		echo "utils#UpdateSvnBranchInfo(): Please Install svn to use this functionality"
+		echohl None
+		return
+	endif
+
+	if !filereadable(expand('%'))
+		unlet! g:svn_branch_info
+		return
+	endif
+
+	if exists(':Rooter') " If vim-rooter present try it
+		silent Rooter
+	else
+		let file_path = expand('%:p:h')
+		silent execute "cd " . file_path
+	endif	
+
 	try
-		let info = system("cd " . file_path . " && svn info | findstr URL")
+		let info = system("svn info | findstr URL")
 	catch
-		cd - " Restore CWD
+		silent cd - " Restore CWD
 		unlet! g:svn_branch_info
 		return
 	endtry
-	cd - " Restore CWD
+	silent cd - " Restore CWD
 
 	" The system function returns something like "Relative URL: ^/...."
 	" Strip from "^/" forward and put that in status line
@@ -733,30 +750,22 @@ function! utils#GetSvnListOfBranchesTags(repo_name) abort
 		echohl None
 		return
 	endif
-	let branches_list = [ a:repo_name. '/trunk' ]
-	" Mark start position for branches list
-	let index = len(branches_list)
 
 	" Get branches
 	"TODO.RM-Wed Feb 22 2017 16:54: Switch g:wings_svn_url with g:svn_repo_url  
 	let brch = system("svn ls " . g:svn_repo_url . a:repo_name . "/branches")
-	let branches_list += split(brch, '\n')
-	" Insert branch in front of each
-	while index < len(branches_list)
-		let branches_list[index] = printf("%s%s", a:repo_name . "/branches/", branches_list[index] )
-		let index += 1
-	endwhile
-	" Mark start position for tags list
-	let index = len(branches_list)
-
+	let branches_list = split(brch, '\n')
+	" Insert branch in front of each element
+	call map(branches_list, 'a:repo_name . "/branches/" . v:val')
+	
 	" Get tags
 	let brch = system("svn ls " . g:svn_repo_url . a:repo_name . "/tags")
-	let branches_list += split(brch, '\n')
+	let brch = split(brch, '\n')
 	" Insert tags in front of each
-	while index < len(branches_list)
-		let branches_list[index] = printf("%s/%s", a:repo_name . "/tags", branches_list[index] )
-		let index += 1
-	endwhile
+	call map(brch, 'a:repo_name . "/tags/" . v:val')
+
+	let branches_list += brch
+	let branches_list += [ a:repo_name. '/trunk' ]
 	return branches_list
 endfunction
 
@@ -765,12 +774,24 @@ function! utils#SvnSwitchBranchTag() abort
 	" TODO.RM-Wed Feb 22 2017 16:43: Turn 'OneWings' into a g: like varible  
 	"TODO.RM-Wed Feb 22 2017 17:11: Try to address the problem that this
 	"function depends on CWD being a valid branch  
+	if !executable('svn')
+		echohl ErrorMsg
+		echo "SvnSelectBranchTagTrunk(): Please Install svn to use this functionality"
+		echohl None
+		return
+	endif
 	let branches_list = utils#GetSvnListOfBranchesTags('OneWings')
 	let user_index = utils#SvnSelectBranchTagTrunk(branches_list, 
 				\'Please select a trunk, branch, or tag to switch to:')
-	" echon g:svn_repo_url . branches_list[user_index]
+	if user_index == -1
+		return
+	endif
 
+	if exists(':Rooter') " If vim-rooter present try it
+		silent Rooter
+	endif	
 	execute ":!svn switch " . g:svn_repo_url . branches_list[user_index]
+	silent cd - " Restore CWD
 	" TODO.RM-Wed Feb 22 2017 17:14: Try to get some sort of confirmation that
 	" this went well  
 	" Update Status Line with New Branch information
@@ -785,18 +806,23 @@ function! utils#SvnSelectBranchTagTrunk(branch_list, question) abort
 		return
 	endif
 
-	call insert(a:branch_list, a:question)
-	" Insert numbers in front of branches/tags
-	let index = 1
-	let brch = copy(a:branch_list)
-	while index < len(brch)
-		let brch[index] = printf("%u. %s", index, brch[index] )
+	" Display question
+	echo a:question
+	" Insert numbers in front of branches/tags for user selection
+	let index = 0
+	for item in a:branch_list
+		echo printf("%u. %s", index+1, a:branch_list[index] )
 		let index += 1
-	endwhile
+	endfor
 
-	let user_index = inputlist(brch)
+	let user_index = getchar()  " Get user selection
+	" Convert to 0 based index
+	let user_index -= 49
 	" Check user input
-	if user_index < 1 || user_index > len(a:branch_list)
+	if user_index < 0 || user_index > len(a:branch_list)
+		if user_index == 27-49 " ESC key
+			return -1 " Handle properly cancel
+		endif
 		echohl ErrorMsg
 		echo "SvnSelectBranchTagTrunk(): Invalid Branch/Tag/Trunk Selected"
 		echohl None
