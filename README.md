@@ -21,6 +21,9 @@
 - `input && inputlist`
 - `try && catch`
 - `silent`
+- `getcursorpos()`
+- `getline()`
+- `exists()`
 
 ## Random
   - :w xxx - save as xxx keep working on original
