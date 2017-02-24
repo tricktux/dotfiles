@@ -263,7 +263,7 @@ function! utils#SaveSession(...) abort
 		let l:sSessionName = a:1
 	endif
 	execute "normal :mksession! " . g:cache_path . "sessions/". l:sSessionName  . "\<CR>"
-	execute "cd -"
+	silent! cd -
 endfunction
 
 function! utils#LoadSession(...) abort
@@ -295,7 +295,7 @@ function! utils#LoadSession(...) abort
 	endif
 	execute "normal :%bdelete\<CR>"
 	silent execute "normal :so " . g:cache_path . "sessions/". l:sSessionName . "\<CR>"
-	execute "cd -"
+	silent! cd -
 endfunction
 
 function! utils#TodoCreate() abort
@@ -410,7 +410,7 @@ function! utils#WingsSymLink(sPath) abort
 	let l:path = input("Enter path to new default.ini:", "", "file")
 	!del default.ini
 	execute "!mklink default.ini " . l:path
-	cd -
+	silent! cd -
 endfunction
 
 function! utils#UpdateBorlandMakefile() abort
@@ -489,7 +489,7 @@ endfunction
 function! utils#WikiSearch() abort
 	execute "cd " . g:wiki_path
 	execute "grep " . input("Enter wiki search string:")
-	cd -
+	silent! cd -
 endfunction
 
 function! utils#ToggleTerm() abort
@@ -513,7 +513,7 @@ endfunction
 function! utils#EditPlugins() abort
 	execute "cd " .g:plugged_path
 	execute "e " . input('e ' . expand(g:plugged_path), "", "file")
-	cd -
+	silent! cd -
 endfunction
 
 function! utils#FormatFile() abort
@@ -565,9 +565,7 @@ function! utils#SetWingsPath(sPath) abort
 	execute "nnoremap <Leader>ewl :call utils#WingsSymLink('" . expand(a:sPath) . "OneWings')<CR>"
 
 	" Mappings
-	execute "nnoremap <Leader>cst :cd ". g:wings_path . "OneWings/trunk<CR>"
-	execute "nnoremap <Leader>csb :cd ". g:wings_path . "OneWings/branches/"
-	execute "nnoremap <Leader>css :cd ". g:wings_path . "OneWingsSupFiles<CR>"
+	execute "nnoremap <Leader>cs :cd ". g:wings_path . "OneWingsSupFiles<CR>"
 	execute "nnoremap <Leader>co :cd ". g:wings_path . "OneWings<CR>"
 
 	" Mappings to execute programs
@@ -670,7 +668,7 @@ function! utils#SvnWingsSetup() abort
 	" execute "nnoremap <Leader>vb :!svn copy --parents " . g:wings_svn_url . "OneWings/trunk " . g:wings_svn_url . "OneWings/branches/"
 	" execute "nnoremap <Leader>vw :!svn switch " . g:wings_svn_url . "OneWings/branches/"
 	let g:svn_repo_url = g:wings_svn_url
-	nnoremap <Leader>vw :call utils#SvnSwitchBranchTag()<CR>
+	nnoremap <Leader>vw :call SvnSwitchBranchTag()<CR>
 endfunction
 
 " This function gets called on BufRead
@@ -688,7 +686,7 @@ function! utils#UpdateSvnBranchInfo() abort
 	endif
 
 	if exists(':Rooter') " If vim-rooter present try it
-		silent Rooter
+		silent! Rooter
 	else
 		let file_path = expand('%:p:h')
 		silent execute "cd " . file_path
@@ -697,11 +695,11 @@ function! utils#UpdateSvnBranchInfo() abort
 	try
 		let info = system("svn info | findstr URL")
 	catch
-		silent cd - " Restore CWD
+		silent! cd - " Restore CWD
 		unlet! g:svn_branch_info
 		return
 	endtry
-	silent cd - " Restore CWD
+	silent! cd - " Restore CWD
 
 	" The system function returns something like "Relative URL: ^/...."
 	" Strip from "^/" forward and put that in status line
@@ -743,92 +741,5 @@ function! utils#GetSvnBranchInfo() abort
 	return ""
 endfunction
 
-function! utils#GetSvnListOfBranchesTags(repo_name) abort
-	if empty(a:repo_name)
-		echohl ErrorMsg
-		echo "GetSvnListOfBranchesTags(): Invalid Input"
-		echohl None
-		return
-	endif
-
-	" Get branches
-	"TODO.RM-Wed Feb 22 2017 16:54: Switch g:wings_svn_url with g:svn_repo_url  
-	let brch = system("svn ls " . g:svn_repo_url . a:repo_name . "/branches")
-	let branches_list = split(brch, '\n')
-	" Insert branch in front of each element
-	call map(branches_list, 'a:repo_name . "/branches/" . v:val')
-	
-	" Get tags
-	let brch = system("svn ls " . g:svn_repo_url . a:repo_name . "/tags")
-	let brch = split(brch, '\n')
-	" Insert tags in front of each
-	call map(brch, 'a:repo_name . "/tags/" . v:val')
-
-	let branches_list += brch
-	let branches_list += [ a:repo_name. '/trunk' ]
-	return branches_list
-endfunction
-
-function! utils#SvnSwitchBranchTag() abort
-	" TODO.RM-Wed Feb 22 2017 16:44: Add executable('svn') guard to all functions  
-	" TODO.RM-Wed Feb 22 2017 16:43: Turn 'OneWings' into a g: like varible  
-	"TODO.RM-Wed Feb 22 2017 17:11: Try to address the problem that this
-	"function depends on CWD being a valid branch  
-	if !executable('svn')
-		echohl ErrorMsg
-		echo "SvnSelectBranchTagTrunk(): Please Install svn to use this functionality"
-		echohl None
-		return
-	endif
-	let branches_list = utils#GetSvnListOfBranchesTags('OneWings')
-	let user_index = utils#SvnSelectBranchTagTrunk(branches_list, 
-				\'Please select a trunk, branch, or tag to switch to:')
-	if user_index == -1
-		return
-	endif
-
-	if exists(':Rooter') " If vim-rooter present try it
-		silent Rooter
-	endif	
-	execute ":!svn switch " . g:svn_repo_url . branches_list[user_index]
-	silent cd - " Restore CWD
-	" TODO.RM-Wed Feb 22 2017 17:14: Try to get some sort of confirmation that
-	" this went well  
-	" Update Status Line with New Branch information
-	call utils#UpdateSvnBranchInfo()
-endfunction
-
-function! utils#SvnSelectBranchTagTrunk(branch_list, question) abort
-	if empty(a:branch_list) || empty(a:question)
-		echohl ErrorMsg
-		echo "SvnSelectBranchTagTrunk(): Invalid Input(s)"
-		echohl None
-		return
-	endif
-
-	" Display question
-	echo a:question
-	" Insert numbers in front of branches/tags for user selection
-	let index = 0
-	for item in a:branch_list
-		echo printf("%u. %s", index+1, a:branch_list[index] )
-		let index += 1
-	endfor
-
-	let user_index = getchar()  " Get user selection
-	" Convert to 0 based index
-	let user_index -= 49
-	" Check user input
-	if user_index < 0 || user_index > len(a:branch_list)
-		if user_index == 27-49 " ESC key
-			return -1 " Handle properly cancel
-		endif
-		echohl ErrorMsg
-		echo "SvnSelectBranchTagTrunk(): Invalid Branch/Tag/Trunk Selected"
-		echohl None
-		return -1
-	endif
-	return user_index
-endfunction
 " TODO.RM-Sat Nov 26 2016 00:04: Function that auto adds SCR # and description
 " vim:tw=78:ts=2:sts=2:sw=2:
