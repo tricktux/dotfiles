@@ -5,6 +5,10 @@
 " Version:				1.0.0
 " Last Modified: Thu Feb 23 2017 14:11
 " Created:				Feb 23 2017 14:09
+"
+" Plugin Configuration variables:
+"		g:svn_repo_url
+"		g:svn_repo_name
 
 " TODO.RM-Thu Feb 23 2017 14:12: Create the svn copy, and delete commands  
 function! GetSvnListOfBranchesTags(repo_name) abort
@@ -43,8 +47,8 @@ function! GetSvnListOfBranchesTags(repo_name) abort
 	return branches_list
 endfunction
 
+" TODO.RM-Fri Feb 24 2017 05:43: Turn this into a command  
 function! SvnSwitchBranchTag() abort
-	" TODO.RM-Wed Feb 22 2017 16:43: Turn 'OneWings' into a g: like varible  
 	if !executable('svn')
 		echohl ErrorMsg
 		echo "SvnSelectBranchTagTrunk(): Please Install svn to use this functionality"
@@ -52,7 +56,21 @@ function! SvnSwitchBranchTag() abort
 		return
 	endif
 
-	let branches_list = GetSvnListOfBranchesTags('OneWings')
+	if !exists('g:svn_repo_name')
+		echohl ErrorMsg
+		echo "SvnSelectBranchTagTrunk(): Please set g:svn_repo_name variable"
+		echohl None
+		return
+	endif
+
+	if !exists('g:svn_repo_url')
+		echohl ErrorMsg
+		echo "SvnSelectBranchTagTrunk(): Please set g:svn_repo_url variable"
+		echohl None
+		return
+	endif
+
+	let branches_list = GetSvnListOfBranchesTags(g:svn_repo_name)
 	if len(branches_list) == 0
 		return
 	endif
@@ -107,6 +125,7 @@ function! SvnSelectBranchTagTrunk(branch_list, question) abort
 	return user_index
 endfunction
 
+" TODO.RM-Fri Feb 24 2017 05:44: Make command out of this  
 function! SvnCopy() abort
 	if !executable('svn')
 		echohl ErrorMsg
@@ -115,7 +134,21 @@ function! SvnCopy() abort
 		return
 	endif
 	
-	let branches_list = GetSvnListOfBranchesTags('OneWings')
+	if !exists('g:svn_repo_name')
+		echohl ErrorMsg
+		echo "SvnCopy(): Please set g:svn_repo_name variable"
+		echohl None
+		return
+	endif
+
+	if !exists('g:svn_repo_url')
+		echohl ErrorMsg
+		echo "SvnCopy(): Please set g:svn_repo_url variable"
+		echohl None
+		return
+	endif
+
+	let branches_list = GetSvnListOfBranchesTags(g:svn_repo_name)
 	if len(branches_list) == 0
 		return
 	endif
@@ -126,7 +159,7 @@ function! SvnCopy() abort
 		return
 	endif
 
-	let new_branch_name = input("Please enter new branch/tag name:", "OneWings/branches/")
+	let new_branch_name = input("Please enter new branch/tag name:", g:svn_repo_name . "/branches/")
 	if empty(new_branch_name)
 		return
 	endif
@@ -136,16 +169,18 @@ function! SvnCopy() abort
 		let svn_commit_msg = " -m " . svn_commit_msg
 	endif
 
-	echo "Summary: Copying from: <" g:wings_svn_url . branches_list[user_index] ">"
-	echo "         To					 : <" g:wings_svn_url . new_branch_name ">"
+	echo "Summary: Copying from: <" g:svn_repo_url . branches_list[user_index] ">"
+	echo "         To					 : <" g:svn_repo_url . new_branch_name ">"
 	echo "Continue(y), Cancel(any other key)"
 	let response = getchar()
 	if response != 121 " y
 		return
 	endif
 
-	let svn_copy_cmd = "svn copy --parents " . g:wings_svn_url . branches_list[user_index] . " " 
-				\. g:wings_svn_url . new_branch_name . svn_commit_msg
+	" execute "nnoremap <Leader>vb :!svn copy --parents " . g:wings_svn_url . "OneWings/trunk " . g:wings_svn_url . "OneWings/branches/"
+	" execute "nnoremap <Leader>vw :!svn switch " . g:wings_svn_url . "OneWings/branches/"
+	let svn_copy_cmd = "svn copy --parents " . g:svn_repo_url . branches_list[user_index] . " " 
+				\. g:svn_repo_url . new_branch_name . svn_commit_msg
 	if exists(':Rooter') " If vim-rooter present try it
 		silent! Rooter
 	endif	

@@ -336,6 +336,11 @@ function! plugin#Config() abort
 		let g:syntastic_c_compiler_options = '-std=c11 -pedantic -Wall'
 		let g:syntastic_auto_jump = 3
 	Plug g:location_vim_utils
+		let g:svn_repo_url = 'svn://odroid@copter-server/' 
+		let g:svn_repo_name = 'UnrealEngineCourse/BattleTanks_2'
+		nnoremap <Leader>vw :call SvnSwitchBranchTag()<CR>
+		nnoremap <Leader>vb :call SvnCopy()<CR>
+
 		nnoremap <Leader>of :Dox<CR>
 		" Other commands
 		" command! -nargs=0 DoxLic :call <SID>DoxygenLicenseFunc()
