@@ -665,10 +665,6 @@ function! utils#SvnWingsSetup() abort
 
 	" " Creating a branch
 	" TODO.RM-Wed Feb 22 2017 17:15: Create this SvnCopy()  
-	" execute "nnoremap <Leader>vb :!svn copy --parents " . g:wings_svn_url . "OneWings/trunk " . g:wings_svn_url . "OneWings/branches/"
-	" execute "nnoremap <Leader>vw :!svn switch " . g:wings_svn_url . "OneWings/branches/"
-	let g:svn_repo_url = g:wings_svn_url
-	nnoremap <Leader>vw :call SvnSwitchBranchTag()<CR>
 endfunction
 
 " This function gets called on BufRead
