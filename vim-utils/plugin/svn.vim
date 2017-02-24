@@ -9,6 +9,7 @@
 " Plugin Configuration variables:
 "		g:svn_repo_url
 "		g:svn_repo_name
+"		TODO.RM-Fri Feb 24 2017 13:24: g:svn_update_statusline  
 
 " TODO.RM-Thu Feb 23 2017 14:12: Create the svn copy, and delete commands  
 function! GetSvnListOfBranchesTags(repo_name) abort
