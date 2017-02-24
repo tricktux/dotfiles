@@ -5,7 +5,7 @@
 " Last modified:Nov 29 2016 23:21
 
 function win32#Config()
-	nnoremap <Leader>mr :!%<CR>
+	nnoremap <Leader>mr :Start! %<CR>
 	" Copy and paste into system wide clipboard
 	nnoremap <Leader>jp "*p=`]<C-o>
 	vnoremap <Leader>jp "*p=`]<C-o>
