@@ -1,4 +1,27 @@
-# VIM_NOTES
+# VIM NOTES
+## List of commonly used functions
+- `systemlist` - Execute `system` get result in a `list`
+- `strpart` - Like extract parts from string
+- `stridx` - Similar to `strstr` and `strchr`
+- `strridx` - Similar to `strrstr` and `strrchr`
+- `map` - Modify every item in a `List`
+- `cexpr` - Add text to `qf window`
+- `cwindow`
+- `copy` - Copy `List`
+- `append` - Append to `List`
+- `filter` - Similar to `map` but for dictionaries
+- `v:shell_error` - Get error code from `!, read!, and system` commands
+- `setqflist` - Set `qf` window
+- `getqflist` - Get `qf` window
+- `setloclist` - Set `location` window
+- `getloclist` - Get `location` window
+- `<string1> =~ <string2>` - Check if `string1` matches `regex` patter `string2`. See `:h expr-=~`
+- `expand`
+- `printf`
+- `input && inputlist`
+- `try && catch`
+- `silent`
+
 ## Random
   - :w xxx - save as xxx keep working on original
   - :sav xxx -save as xxx switch to new file
