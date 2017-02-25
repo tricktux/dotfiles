@@ -335,11 +335,12 @@ function! plugin#Config() abort
 		let g:syntastic_cpp_compiler_options = '-std=c++17 -pedantic -Wall'
 		let g:syntastic_c_compiler_options = '-std=c11 -pedantic -Wall'
 		let g:syntastic_auto_jump = 3
+
 	Plug g:location_vim_utils
 		let g:svn_repo_url = 'svn://odroid@copter-server/' 
 		let g:svn_repo_name = 'UnrealEngineCourse/BattleTanks_2'
-		nnoremap <Leader>vw :call SvnSwitchBranchTag()<CR>
-		nnoremap <Leader>vb :call SvnCopy()<CR>
+		nnoremap <Leader>vw :call SVNSwitch<CR>
+		nnoremap <Leader>vb :call SVNCopy<CR>
 
 		nnoremap <Leader>of :Dox<CR>
 		" Other commands
@@ -453,7 +454,8 @@ function! plugin#Config() abort
 					\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 		" Tell Neosnippet about the other snippets
 		let g:neosnippet#snippets_directory= [ g:plugged_path . '/vim-snippets/snippets', g:location_vim_utils . '/snippets/', ]
-								" \ g:plugged_path . '/vim-snippets/UltiSnips']
+								" \ g:plugged_path . '/vim-snippets/UltiSnips'] " Not
+								" compatible syntax
 		let g:neosnippet#data_directory = g:cache_path . 'neosnippets'
 
 	" Only contain snippets
@@ -539,10 +541,6 @@ function! plugin#Config() abort
 		let g:svnj_custom_statusbar_ops_hide = 0
 		nnoremap <silent> <leader>vs :SVNStatus<CR>  
 		nnoremap <silent> <leader>vo :SVNLog .<CR>  
-		augroup svn_update_status_line
-			autocmd!
-			autocmd BufEnter * call utils#UpdateSvnBranchInfo()
-		augroup END
 
 	Plug 'itchyny/lightline.vim'
 		let g:lightline = {
@@ -553,16 +551,18 @@ function! plugin#Config() abort
 								\ 'component': {
 								\   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}',
 								\   'neomake': '%#ErrorMsg#%{neomake#statusline#QflistStatus("qf:\ ")}%*', 
-								\   'svn': '%{utils#GetSvnBranchInfo()}', 
+								\   'svn': '%{svn#GetSvnBranchInfo()}', 
 								\   'tagbar': '%{tagbar#currenttag("%s\ ","")}' 
 								\		},
 								\ 'component_visible_condition': {
 								\   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())',
 								\   'neomake': '(!empty(neomake#statusline#QflistStatus("qf:\ ")))',
-								\   'svn': '(!empty(utils#GetSvnBranchInfo()))', 
+								\   'svn': '(!empty(svn#GetSvnBranchInfo()))', 
 								\   'tagbar': '(!empty(tagbar#currenttag("%s\ ","")))' 
 								\		},
 								\ }
+
+	Plug 'xolox/vim-reload'
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
