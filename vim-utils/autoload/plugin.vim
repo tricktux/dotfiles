@@ -21,7 +21,7 @@ function! plugin#Config() abort
 		call plug#begin(g:plugged_path)
 	endif
 
-	if has('nvim') && has('unix')
+	if has('unix')
 		Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 		Plug 'junegunn/fzf.vim'
 			nnoremap <C-p> :History<CR>
@@ -260,7 +260,6 @@ function! plugin#Config() abort
 		else
 			echomsg string("You should install silversearcher-ag. Now you have a slow ctrlp")
 		endif
-		if has('win32')
 			nnoremap <S-k> :CtrlPBuffer<CR>
 			let g:ctrlp_cmd = 'CtrlPMixed'
 			" submit ? in CtrlP for more mapping help.
@@ -271,8 +270,9 @@ function! plugin#Config() abort
 			let g:ctrlp_working_path_mode = 'wra'
 			let g:ctrlp_max_history = &history
 			let g:ctrlp_clear_cache_on_exit = 0
-			set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
 			let g:ctrlp_switch_buffer = 0
+		if has('win32')
+			set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
 			let g:ctrlp_custom_ignore = {
 						\ 'dir':  '\v[\/]\.(git|hg|svn)$',
 						\ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
