@@ -61,6 +61,7 @@ URxvt.matcher.rend.0: Uline Bold fg5
 ! green
 *color2: #8C9440
 *color10: #B5BD68
+
 ! yellow
 *color3: #DE935F
 *color11: #F0C674

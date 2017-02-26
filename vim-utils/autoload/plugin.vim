@@ -80,8 +80,8 @@ function! plugin#Config() abort
 		" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 
 		if has('python3') && !exists('g:android') " Deoplete
-			Plug 'Shougo/deoplete.nvim'
-				let b:deoplete_loaded = 1
+			Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+				" let b:deoplete_loaded = 1
 				" if it is nvim deoplete requires python3 to work
 				let g:deoplete#enable_at_startup = 1
 				" New settings
@@ -178,6 +178,10 @@ function! plugin#Config() abort
 			Plug 'nhooyr/neoman.vim'
 				let g:no_neoman_maps = 1
 		endif
+		" Cpp Neovim highlight
+			" neocomplete#sources#buffer#cache_limit_size
+			let g:chromatica#libclang_path='/usr/local/opt/llvm/lib'
+
 	else
 		" Vim exclusive plugins
 		if has('lua') " Neocomplete
@@ -247,6 +251,13 @@ function! plugin#Config() abort
 			Plug 'ervandew/supertab' " Activate Supertab
 			let g:SuperTabDefaultCompletionType = "<Tab>"
 		endif
+		" Vim cpp syntax highlight
+		Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'c' , 'cpp' ] }
+			let g:cpp_class_scope_highlight = 1
+		Plug 'justinmk/vim-syntax-extra'
+		Plug 'junegunn/rainbow_parentheses.vim', { 'on' : 'RainbowParentheses' }
+			let g:rainbow#max_level = 16
+			let g:rainbow#pairs = [['(', ')'], ['[', ']']]
 	endif
 
 	" Plugins for All (nvim, linux, win32)
@@ -428,12 +439,6 @@ function! plugin#Config() abort
 		" nnoremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
 		nnoremap <Leader>ts :cs show<CR>
 		nnoremap <Leader>tu :call utils#UpdateCscope()<CR>
-	Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'c' , 'cpp' ] }
-		let g:cpp_class_scope_highlight = 1
-	Plug 'justinmk/vim-syntax-extra'
-	Plug 'junegunn/rainbow_parentheses.vim', { 'on' : 'RainbowParentheses' }
-		let g:rainbow#max_level = 16
-		let g:rainbow#pairs = [['(', ')'], ['[', ']']]
 
 	" cpp/java
 	Plug 'mattn/vim-javafmt', { 'for' : 'java' }
