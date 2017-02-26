@@ -1265,3 +1265,67 @@ endif
 
 										" \   'neomake': '%{neomake#statusline#QflistStatus('qf:\ ')}',
 										" \   'neomake': '(!empty(neomake#statusline#QflistStatus('qf:\ ')))',
+			" if executable('clang') && has('python') && !exists('g:android') " clang_complete
+				" Plug 'Rip-Rip/clang_complete', { 'for' : ['c' , 'cpp'] }
+				" " Why I switched to Rip-Rip because it works
+				" " Steps to get plugin to work:
+				" " 1. Make sure that you can compile a program with clang++ command
+				" " a. Example: clang++ -std=c++14 -stdlib=libc++ -pedantic -Wall hello.cpp -v
+				" " 2. To get this to work I had to install libc++-dev package in unix
+				" " 3. install libclang-dev package. See g:clang_library_path to where it gets
+				" " installed. Also I had to make sym link: ln -s libclang.so.1 libclang.so
+				" let g:clang_user_options = '-std=c++14 -stdlib=libc++ -Wall -pedantic'
+				" let g:clang_close_preview = 1
+				" " let g:clang_complete_copen = 1
+				" " let g:clang_periodic_quickfix = 1
+				" if has('win32')
+					" " clang using mscv for target instead of mingw64
+					" let g:clang_cpp_options = '-target x86_64-pc-windows-gnu -std=c++17 -pedantic -Wall'
+					" let g:clang_c_options = '-target x86_64-pc-windows-gnu -std=gnu11 -pedantic -Wall'
+				" else
+					" let g:clang_library_path= g:usr_path . '/lib/libclang.so'
+				" endif
+			" else
+				" echomsg string("No clang and/or python present. Disabling vim-clang")
+				" let g:clang_complete_loaded = 1
+			" endif
+			" else
+				" echomsg "No python3 = No Deocomplete. Supertab Activated"
+				" " so if it doesnt have it activate clang instaed
+				" let g:deoplete#enable_at_startup = 0
+				" Plug 'ervandew/supertab' " Activate Supertab
+				" let g:SuperTabDefaultCompletionType = "<c-n>"
+			" endif
+		" Highliting is too inconsistent
+		" Plug 'arakashic/chromatica.nvim', { 'do' : ':UpdateRemotePlugins' }
+			" let g:chromatica#enable_at_startup = 1
+			" let g:chromatica#libclang_path = '/usr/lib/libclang.so'
+			" let g:chromatica#highlight_feature_level = 1
+	" Dont believe this is having any effect at all
+	" Plug 'junegunn/rainbow_parentheses.vim', { 'on' : 'RainbowParentheses' }
+		" let g:rainbow#max_level = 16
+		" let g:rainbow#pairs = [['(', ')'], ['[', ']']]
+" .dotfiles/vim-utils/after/ftplugin/c.vim
+" if exists(':RainbowParentheses')
+	" RainbowParentheses
+" endif
+	" Too slow for not async abilities
+	Plug 'xolox/vim-easytags', { 'on' : 'HighlightTags' }
+		Plug 'xolox/vim-misc' " dependency of vim-easytags
+		Plug 'xolox/vim-shell' " dependency of vim-easytags
+		set regexpengine=1 " This speed up the engine alot but still not enough
+		let g:easytags_cmd = 'ctags'
+		let g:easytags_file = '~/.cache/easy-tags'
+		let g:easytags_syntax_keyword = 'always'
+		" let g:easytags_on_cursorhold = 1
+		" let g:easytags_updatetime_min = 4000
+		" let g:easytags_auto_update = 1
+		let g:easytags_auto_update = 0
+		" " let g:easytags_auto_highlight = 1
+		" let g:easytags_dynamic_files = 1
+		" let g:easytags_by_filetype = '~/.cache/easy-tags-filetype'
+		" " let g:easytags_events = ['BufReadPost' , 'BufWritePost']
+		" let g:easytags_events = ['BufReadPost']
+		" " let g:easytags_include_members = 1
+		" let g:easytags_async = 1
+		" let g:easytags_python_enabled = 1
