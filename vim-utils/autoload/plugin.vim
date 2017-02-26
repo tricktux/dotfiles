@@ -247,11 +247,10 @@ function! plugin#Config() abort
 			Plug 'ervandew/supertab' " Activate Supertab
 			let g:SuperTabDefaultCompletionType = "<Tab>"
 		endif
-		Plug 'tpope/vim-dispatch'
 	endif
 
 	" Plugins for All (nvim, linux, win32)
-	if !exists(":FZF")
+	if empty(glob('~/.fzf/bin/fzf'))
 		Plug 'ctrlpvim/ctrlp.vim'
 		if executable('rg')
 			let g:ctrlp_user_command = 'rg %s --no-ignore --hidden --files -g "" '
@@ -284,6 +283,7 @@ function! plugin#Config() abort
 		endif
 	endif
 
+	Plug 'tpope/vim-dispatch'
 	Plug 'neomake/neomake'
 		let g:neomake_warning_sign = {
 					\ 'text': '?',
@@ -403,7 +403,6 @@ function! plugin#Config() abort
 		let g:autoformat_remove_trailing_spaces = 0
 
 	" cpp
-	" Plug 'vim-scripts/TagHighlight'
 	Plug 'Tagbar'
 		let g:tagbar_autofocus = 1
 		let g:tagbar_show_linenumbers = 2
@@ -549,7 +548,7 @@ function! plugin#Config() abort
 								\             [ 'readonly', 'filename', 'modified', 'fugitive', 'svn', 'tagbar', 'neomake'] ]
 								\		},
 								\ 'component': {
-								\   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}',
+								\   'fugitive': '%{fugitive#statusline()}',
 								\   'neomake': '%#ErrorMsg#%{neomake#statusline#QflistStatus("qf:\ ")}%*', 
 								\   'svn': '%{svn#GetSvnBranchInfo()}', 
 								\   'tagbar': '%{tagbar#currenttag("%s\ ","")}' 
@@ -562,7 +561,7 @@ function! plugin#Config() abort
 								\		},
 								\ }
 
-	Plug 'xolox/vim-reload'
+	" Plug 'xolox/vim-reload'
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
