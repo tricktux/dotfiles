@@ -155,7 +155,9 @@
 			set conceallevel=2 concealcursor=nv
 		endif
 
-		set noesckeys " No mappings that start with <esc>
+		if !has('nvim')
+			set noesckeys " No mappings that start with <esc>
+		endif
 
 		" no mouse enabled
 		set mouse=""
