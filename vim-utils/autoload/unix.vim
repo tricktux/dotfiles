@@ -44,7 +44,6 @@ function! unix#Config() abort
 	elseif l:hostname =~ 'lubuntu'
 		let g:wiki_path=  $HOME . '/Documents/Seafile/KnowledgeIsPower/wiki'
 	endif
-
 endfunction
 
 " vim:tw=78:ts=2:sts=2:sw=2:
