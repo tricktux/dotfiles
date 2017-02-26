@@ -83,6 +83,7 @@
 		" shiftwidth, not tabstop
 
 		set showmatch     " set show matching parenthesis
+		set showcmd				" Show partial commands in the last lines
 		set smartcase     " ignore case if search pattern is all lowercase,
 											"    case-sensitive otherwise
 		set ignorecase
@@ -291,10 +292,10 @@
 	augroup END
 	" To improve syntax highlight speed. If something breaks with highlight
 	" increase these number below
-	augroup vimrc
-		autocmd!
-		autocmd BufWinEnter,Syntax * syn sync minlines=80 maxlines=80
-	augroup END
+	" augroup vimrc
+		" autocmd!
+		" autocmd BufWinEnter,Syntax * syn sync minlines=80 maxlines=80
+	" augroup END
 
 
 	if exists("b:plugins_loaded")
@@ -640,7 +641,7 @@
 		let c_gnu = 1
 		let c_ansi_constants = 1
 		let c_ansi_typedefs = 1
-		let c_minlines = 15
+		" let c_minlines = 15
 		" Breaks too often
 		" let c_curly_error = 1
 

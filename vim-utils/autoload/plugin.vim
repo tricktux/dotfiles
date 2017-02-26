@@ -117,47 +117,15 @@ function! plugin#Config() abort
 							\ deoplete#smart_close_popup()."\<C-h>"
 				inoremap <expr><BS>
 							\ deoplete#smart_close_popup()."\<C-h>"
-			" " ----------------------------------------------
-			" "  deoplete-clang
-			" " Plug 'zchee/deoplete-clang'
-				" " let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
-				" " let g:deoplete#sources#clang#clang_header ="/usr/lib/clang"
-			" " " ----------------------------------------------
-			" " "  neoinclude
+			" ----------------------------------------------
+			"  deoplete-clang
+			Plug 'zchee/deoplete-clang'
+				let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
+				let g:deoplete#sources#clang#clang_header ="/usr/lib/clang"
 		endif
-			" if executable('clang') && has('python') && !exists('g:android') " clang_complete
-				" Plug 'Rip-Rip/clang_complete', { 'for' : ['c' , 'cpp'] }
-				" " Why I switched to Rip-Rip because it works
-				" " Steps to get plugin to work:
-				" " 1. Make sure that you can compile a program with clang++ command
-				" " a. Example: clang++ -std=c++14 -stdlib=libc++ -pedantic -Wall hello.cpp -v
-				" " 2. To get this to work I had to install libc++-dev package in unix
-				" " 3. install libclang-dev package. See g:clang_library_path to where it gets
-				" " installed. Also I had to make sym link: ln -s libclang.so.1 libclang.so
-				" let g:clang_user_options = '-std=c++14 -stdlib=libc++ -Wall -pedantic'
-				" let g:clang_close_preview = 1
-				" " let g:clang_complete_copen = 1
-				" " let g:clang_periodic_quickfix = 1
-				" if has('win32')
-					" " clang using mscv for target instead of mingw64
-					" let g:clang_cpp_options = '-target x86_64-pc-windows-gnu -std=c++17 -pedantic -Wall'
-					" let g:clang_c_options = '-target x86_64-pc-windows-gnu -std=gnu11 -pedantic -Wall'
-				" else
-					" let g:clang_library_path= g:usr_path . '/lib/libclang.so'
-				" endif
-			" else
-				" echomsg string("No clang and/or python present. Disabling vim-clang")
-				" let g:clang_complete_loaded = 1
-			" endif
-			" else
-				" echomsg "No python3 = No Deocomplete. Supertab Activated"
-				" " so if it doesnt have it activate clang instaed
-				" let g:deoplete#enable_at_startup = 0
-				" Plug 'ervandew/supertab' " Activate Supertab
-				" let g:SuperTabDefaultCompletionType = "<c-n>"
-			" endif
+
 		if executable('lldb')
-			Plug 'critiqjo/lldb.nvim', { 'on' , 'LLmode debug' }
+			Plug 'critiqjo/lldb.nvim', { 'on' : 'LLmode debug' }
 			nmap <Leader>db <Plug>LLBreakSwitch
 			" vmap <F2> <Plug>LLStdInSelected
 			" nnoremap <F4> :LLstdin<CR>
@@ -174,14 +142,30 @@ function! plugin#Config() abort
 			" nnoremap <F9> :LL print <C-R>=expand('<cword>')<CR>
 			" vnoremap <F9> :<C-U>LL print <C-R>=lldb#util#get_selection()<CR><CR>
 		endif
+
 		if executable('man')
 			Plug 'nhooyr/neoman.vim'
 				let g:no_neoman_maps = 1
 		endif
 		" Cpp Neovim highlight
-			" neocomplete#sources#buffer#cache_limit_size
-			let g:chromatica#libclang_path='/usr/local/opt/llvm/lib'
-
+		if has("python3") && system('pip3 list | grep psutil') =~ 'psutil'
+			Plug 'c0r73x/neotags.nvim'
+				let g:neotags_enabled = 1
+				" let g:neotags_file = g:cache_path . 'tags_neotags'
+				" let g:neotags_run_ctags = 0
+				let g:neotags_appendpath = 0
+				let g:neotags_recursive = 0
+				let g:neotags_ctags_timeout = 10
+				let g:neotags_ctags_bin = 'rg -g "" --files '. getcwd() .' | ctags'
+				let g:neotags_ctags_args = [
+							\ '-L -',
+							\ '--fields=+l',
+							\ '--c-kinds=+p',
+							\ '--c++-kinds=+p',
+							\ '--sort=no',
+							\ '--extra=+q'
+							\ ]
+		endif
 	else
 		" Vim exclusive plugins
 		if has('lua') " Neocomplete
@@ -251,14 +235,12 @@ function! plugin#Config() abort
 			Plug 'ervandew/supertab' " Activate Supertab
 			let g:SuperTabDefaultCompletionType = "<Tab>"
 		endif
-		" Vim cpp syntax highlight
-		Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'c' , 'cpp' ] }
-			let g:cpp_class_scope_highlight = 1
-		Plug 'justinmk/vim-syntax-extra'
-		Plug 'junegunn/rainbow_parentheses.vim', { 'on' : 'RainbowParentheses' }
-			let g:rainbow#max_level = 16
-			let g:rainbow#pairs = [['(', ')'], ['[', ']']]
 	endif
+
+	" Vim cpp syntax highlight
+	Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'c' , 'cpp' ] }
+		let g:cpp_class_scope_highlight = 1
+	Plug 'justinmk/vim-syntax-extra'
 
 	" Plugins for All (nvim, linux, win32)
 	if empty(glob('~/.fzf/bin/fzf'))
@@ -414,6 +396,8 @@ function! plugin#Config() abort
 		let g:autoformat_remove_trailing_spaces = 0
 
 	" cpp
+	"TODO.RM-Sun Feb 26 2017 14:04: Fix here so that nvim :term command doent
+	"brake tagbar  
 	Plug 'Tagbar'
 		let g:tagbar_autofocus = 1
 		let g:tagbar_show_linenumbers = 2
@@ -507,26 +491,6 @@ function! plugin#Config() abort
 		omap t <Plug>Sneak_t
 		omap T <Plug>Sneak_T
 		xnoremap s s
-
-	Plug 'xolox/vim-easytags', { 'on' : 'HighlightTags' }
-		Plug 'xolox/vim-misc' " dependency of vim-easytags
-		Plug 'xolox/vim-shell' " dependency of vim-easytags
-		set regexpengine=1 " This speed up the engine alot but still not enough
-		let g:easytags_cmd = 'ctags'
-		let g:easytags_file = '~/.cache/easy-tags'
-		let g:easytags_syntax_keyword = 'always'
-		" let g:easytags_on_cursorhold = 1
-		" let g:easytags_updatetime_min = 4000
-		" let g:easytags_auto_update = 1
-		let g:easytags_auto_update = 0
-		" " let g:easytags_auto_highlight = 1
-		" let g:easytags_dynamic_files = 1
-		" let g:easytags_by_filetype = '~/.cache/easy-tags-filetype'
-		" " let g:easytags_events = ['BufReadPost' , 'BufWritePost']
-		" let g:easytags_events = ['BufReadPost']
-		" " let g:easytags_include_members = 1
-		" let g:easytags_async = 1
-		" let g:easytags_python_enabled = 1
 
 	Plug 'waiting-for-dev/vim-www'
 		let g:www_default_search_engine = 'google'
