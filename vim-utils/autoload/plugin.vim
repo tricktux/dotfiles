@@ -156,15 +156,15 @@ function! plugin#Config() abort
 				let g:neotags_appendpath = 0
 				let g:neotags_recursive = 0
 				let g:neotags_ctags_timeout = 10
-				let g:neotags_ctags_bin = 'rg -g "" --files '. getcwd() .' | ctags'
-				let g:neotags_ctags_args = [
-							\ '-L -',
-							\ '--fields=+l',
-							\ '--c-kinds=+p',
-							\ '--c++-kinds=+p',
-							\ '--sort=no',
-							\ '--extra=+q'
-							\ ]
+				" let g:neotags_ctags_bin = 'rg -g "" --files '. getcwd() .' | ctags'
+				" let g:neotags_ctags_args = [
+							" \ '-L -',
+							" \ '--fields=+l',
+							" \ '--c-kinds=+p',
+							" \ '--c++-kinds=+p',
+							" \ '--sort=no',
+							" \ '--extra=+q'
+							" \ ]
 		endif
 	else
 		" Vim exclusive plugins
