@@ -83,6 +83,7 @@
 		" shiftwidth, not tabstop
 
 		set showmatch     " set show matching parenthesis
+		set showcmd				" Show partial commands in the last lines
 		set smartcase     " ignore case if search pattern is all lowercase,
 											"    case-sensitive otherwise
 		set ignorecase
@@ -118,13 +119,18 @@
 		set nowrap        " wrap lines
 		set nowrapscan        " do not wrap search at EOF
 		" will look in current directory for tags
-		set tags=./tags;,tags;
-		set tags+=~/.cache/tags_sys
-		set tags+=~/.cache/tags_sys2
-		set tags+=~/.cache/tags_unreal
-		set tags+=~/.cache/tags_clang
+		set tags=./.tags;,.tags;
+		" set tags+=~/.cache/tags_sys
+		" set tags+=~/.cache/tags_sys2
+		" set tags+=~/.cache/tags_unreal
+		" set tags+=~/.cache/tags_clang
 
-		" let &tags .= substitute(glob("`find ~/.cache/ -name tags* -print`"), "\n", ",", "g")
+		if has('win32')
+			let &tags .= substitute(glob("`findstr ~/.cache/ -name tags* -print`"), "\n", ",", "g")
+		else
+			let &tags .= substitute(glob("`find ~/.cache/ -name tags* -print`"), "\n", ",", "g")
+		endif
+
 		" Note: There is also avr tags created by .dotfiles/scripts/maketags.sh
 		" !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/ctags/tags_sys /usr/include
 		" !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/ctags/tags_sys2 /usr/local/include
@@ -155,7 +161,9 @@
 			set conceallevel=2 concealcursor=nv
 		endif
 
-		set noesckeys " No mappings that start with <esc>
+		if !has('nvim')
+			set noesckeys " No mappings that start with <esc>
+		endif
 
 		" no mouse enabled
 		set mouse=""
@@ -289,10 +297,10 @@
 	augroup END
 	" To improve syntax highlight speed. If something breaks with highlight
 	" increase these number below
-	augroup vimrc
-		autocmd!
-		autocmd BufWinEnter,Syntax * syn sync minlines=80 maxlines=80
-	augroup END
+	" augroup vimrc
+		" autocmd!
+		" autocmd BufWinEnter,Syntax * syn sync minlines=80 maxlines=80
+	" augroup END
 
 
 	if exists("b:plugins_loaded")
@@ -638,7 +646,7 @@
 		let c_gnu = 1
 		let c_ansi_constants = 1
 		let c_ansi_typedefs = 1
-		let c_minlines = 15
+		" let c_minlines = 15
 		" Breaks too often
 		" let c_curly_error = 1
 

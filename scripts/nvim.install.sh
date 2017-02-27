@@ -22,16 +22,18 @@ install='pacaur -S --noconfirm'
 # mdir .config/nvim
 # cd .config/nvim
 # ln -s ~/vimrc/_vimrc init.vim
-cd ~/Downloads/packages/neovim
-rm -r build
-make clean
-git pull origin master
-# git clone https://github.com/neovim/neovim.git --depth 1
-# cd ~/neovim
+# cd ~/Downloads/packages/neovim
+# rm -r build
+# make clean
+# git pull origin master
+sudo rm /usr/local/bin/nvim
+sudo rm -r /usr/local/share/nvim/
+cd ~/ && git clone https://github.com/neovim/neovim.git --depth 1
+cd ~/neovim
 make -j8 CMAKE_BUILD_TYPE=Release CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX:PATH=$HOME/.local"
 make install
-sudo pip2 install --upgrade neovim
-sudo pip3 install --upgrade neovim
+sudo pip2 install --upgrade neovim --user
+sudo pip3 install --upgrade neovim --user
 # cd ~/bin
 # ln -s ~/neovim/bin/nvim
 

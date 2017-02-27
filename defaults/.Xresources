@@ -13,14 +13,14 @@ URxvt*scrollTtyKeypress: true
 
 ! To install prettier shell prompt see `banga/powerline-shell`
 ! Trying to get powerline to display correctly
-! URxvt.font: xft:monospace:size=10
+URxvt.font: xft:monospace:size=10
 ! urxvt*font: xft:Terminus:pixelsize=12,xft:Droid\ Sans\ Mono\ for \Powerline:pixelsize=12
 ! URxvt*font: xft:Source\ Code\ Pro\ Medium:pixelsize=13:antialias=true:hinting=true,xft:Source\ Code\ Pro\ Medium:pixelsize=13:antialias=true:hinting=true
 ! URxvt*font: xft:Terminess Powerline:size=12
-URxvt*font: xft:Hack:size=9
+! URxvt*font: xft:Hack:size=8
 ! URxvt.font: xft:Droid Sans Mono for Powerline Plus Nerd File Types Mono:pixelsize=16:antialias=true:hinting=true
 ! URxvt.font: xft:ProggyCleanTT Plus Nerd File Types Mono:pixelsize=16:antialias=true:hinting=true
-! URxvt*font:xft:dejavu sans mono for powerline:medium:pixelsize=14,xft:dejavu sans mono for powerline:medium:pixelsize=13
+!	URxvt*font:xft:dejavu sans mono:medium:pixelsize=10,xft:dejavu sans mono:medium:pixelsize=10
 ! URxvt*boldFont:xft:dejavu sans mono for powerline:bold:pixelsize=14,xft:dejavu sans mono for powerline:bold:pixelsize=13
 
 ! VERY IMPORTANT: Reload config with xrdb ~/.Xresources
@@ -61,6 +61,7 @@ URxvt.matcher.rend.0: Uline Bold fg5
 ! green
 *color2: #8C9440
 *color10: #B5BD68
+
 ! yellow
 *color3: #DE935F
 *color11: #F0C674
