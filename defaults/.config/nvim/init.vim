@@ -119,13 +119,18 @@
 		set nowrap        " wrap lines
 		set nowrapscan        " do not wrap search at EOF
 		" will look in current directory for tags
-		set tags=./tags;,tags;
-		set tags+=~/.cache/tags_sys
-		set tags+=~/.cache/tags_sys2
-		set tags+=~/.cache/tags_unreal
-		set tags+=~/.cache/tags_clang
+		set tags=./.tags;,.tags;
+		" set tags+=~/.cache/tags_sys
+		" set tags+=~/.cache/tags_sys2
+		" set tags+=~/.cache/tags_unreal
+		" set tags+=~/.cache/tags_clang
 
-		" let &tags .= substitute(glob("`find ~/.cache/ -name tags* -print`"), "\n", ",", "g")
+		if has('win32')
+			let &tags .= substitute(glob("`findstr ~/.cache/ -name tags* -print`"), "\n", ",", "g")
+		else
+			let &tags .= substitute(glob("`find ~/.cache/ -name tags* -print`"), "\n", ",", "g")
+		endif
+
 		" Note: There is also avr tags created by .dotfiles/scripts/maketags.sh
 		" !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/ctags/tags_sys /usr/include
 		" !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/ctags/tags_sys2 /usr/local/include
