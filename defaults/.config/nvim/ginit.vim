@@ -8,7 +8,8 @@ if exists('g:GuiLoaded') " nvim-qt gui
 elseif has('win32')
 	set guifont =consolas:h8
 else
-	set guifont =Hack 8
+	" set guifont =Hack 8
+	set guifont =DejaVu\ Sans\ Mono\ 8
 endif
 set guioptions-=T  " no toolbar
 set guioptions-=m  " no menu bar

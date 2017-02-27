@@ -454,6 +454,8 @@ function! utils#UpdateCscope() abort
 		return
 	endif
 	cs add cscope.out
+	" The extra=+q option is to highlight memebers
+	" Keep in mind that you are forcing the tags to be c++
 	silent !ctags -R -L cscope.files -f .tags --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q --language-force=C++
 	" set tags+=.tags
 endfunction
@@ -667,75 +669,6 @@ function! utils#SvnWingsSetup() abort
 	" TODO.RM-Wed Feb 22 2017 17:15: Create this SvnCopy()  
 endfunction
 
-" This function gets called on BufRead
-function! utils#UpdateSvnBranchInfo() abort
-	if !executable('svn')
-		echohl WarningMsg
-		echo "utils#UpdateSvnBranchInfo(): Please Install svn to use this functionality"
-		echohl None
-		return
-	endif
-
-	if !filereadable(expand('%'))
-		unlet! g:svn_branch_info
-		return
-	endif
-
-	if exists(':Rooter') " If vim-rooter present try it
-		silent! Rooter
-	else
-		let file_path = expand('%:p:h')
-		silent execute "cd " . file_path
-	endif	
-
-	try
-		let info = system("svn info | findstr URL")
-	catch
-		silent! cd - " Restore CWD
-		unlet! g:svn_branch_info
-		return
-	endtry
-	silent! cd - " Restore CWD
-
-	" The system function returns something like "Relative URL: ^/...."
-	" Strip from "^/" forward and put that in status line
-	let index = stridx(info, "^/")
-	if index == -1
-		" echon "Couldnt Find needle"
-		unlet! g:svn_branch_info
-		return
-	else
-		let g:svn_branch_info = strpart(info, index+1) " Strip out the '^' from '^/'
-	endif
-	" Strip string if there are more than 2 '/'
-	let index = 0
-	let num_of_slashes = 0
-	" Count the number of slashes
-	while 1
-		let index = stridx(g:svn_branch_info, '/', index)
-		if index == -1
-			break
-		else
-			let num_of_slashes += 1
-			if num_of_slashes == 3
-				break
-			endif
-			let index += 1
-		endif
-	endw
-	" echo strpart(g:svn_branch_info, 0, index)
-	if num_of_slashes > 2
-		let g:svn_branch_info = strpart(g:svn_branch_info, 0, index)
-	endif
-endfunction
-
-" Called by statusline
-function! utils#GetSvnBranchInfo() abort
-	if exists('g:svn_branch_info')
-		return g:svn_branch_info
-	endif
-	return ""
-endfunction
 
 " TODO.RM-Sat Nov 26 2016 00:04: Function that auto adds SCR # and description
 " vim:tw=78:ts=2:sts=2:sw=2:
