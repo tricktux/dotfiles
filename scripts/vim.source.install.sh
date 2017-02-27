@@ -7,8 +7,8 @@
 # lua5.2/include. Also uncomment theh lua prefix. Comment everything except for
 # code inside PORTION to play around with ./configure. Not until you get it
 # right. Very fast way. Once you do uncomment rest of code.
-cd ~/vim/src &&
-sudo make uninstall
+# cd ~/vim/src &&
+# sudo make uninstall
 cd
 sudo rm -rf vim
 git clone https://github.com/vim/vim.git --depth 1
