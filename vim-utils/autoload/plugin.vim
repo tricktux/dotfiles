@@ -119,13 +119,15 @@ function! plugin#Config() abort
 							\ deoplete#smart_close_popup()."\<C-h>"
 			" ----------------------------------------------
 			"  deoplete-clang
-			Plug 'zchee/deoplete-clang'
-				let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
-				let g:deoplete#sources#clang#clang_header ="/usr/lib/clang"
+			if !empty(glob('/usr/lib/libclang.so'))
+				Plug 'zchee/deoplete-clang'
+					let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
+					let g:deoplete#sources#clang#clang_header ="/usr/lib/clang"
+			endif
 		endif
 
 		if executable('lldb')
-			Plug 'critiqjo/lldb.nvim', { 'on' : 'LLmode debug' }
+			Plug 'critiqjo/lldb.nvim', { 'on' : 'LLmode debug', 'do' : ':UpdateRemotePlugins' } }
 			nmap <Leader>db <Plug>LLBreakSwitch
 			" vmap <F2> <Plug>LLStdInSelected
 			" nnoremap <F4> :LLstdin<CR>
@@ -149,22 +151,29 @@ function! plugin#Config() abort
 		endif
 		" Cpp Neovim highlight
 		if has("python3") && system('pip3 list | grep psutil') =~ 'psutil'
-			Plug 'c0r73x/neotags.nvim'
+			Plug 'c0r73x/neotags.nvim', { 'do' : ':UpdateRemotePlugins' }
 				let g:neotags_enabled = 1
-				" let g:neotags_file = g:cache_path . 'tags_neotags'
-				" let g:neotags_run_ctags = 0
-				let g:neotags_appendpath = 0
-				let g:neotags_recursive = 0
+				let g:neotags_file = g:cache_path . 'tags_neotags'
+				let g:neotags_run_ctags = 0
 				let g:neotags_ctags_timeout = 10
-				let g:neotags_ctags_bin = 'rg -g "" --files '. getcwd() .' | ctags'
-				let g:neotags_ctags_args = [
-							\ '-L -',
-							\ '--fields=+l',
-							\ '--c-kinds=+p',
-							\ '--c++-kinds=+p',
-							\ '--sort=no',
-							\ '--extra=+q'
+				let g:neotags_events_highlight = [
+							\   'BufReadPost', 'BufEnter'
 							\ ]
+
+				if executable('rg')
+					let g:neotags_appendpath = 0
+					let g:neotags_recursive = 0
+
+					let g:neotags_ctags_bin = 'rg -g "" --files '. getcwd() .' | ctags'
+					let g:neotags_ctags_args = [
+								\ '-L -',
+								\ '--fields=+l',
+								\ '--c-kinds=+p',
+								\ '--c++-kinds=+p',
+								\ '--sort=no',
+								\ '--extra=+q'
+								\ ]
+				endif
 		endif
 	else
 		" Vim exclusive plugins
