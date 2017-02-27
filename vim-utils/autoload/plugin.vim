@@ -127,7 +127,7 @@ function! plugin#Config() abort
 		endif
 
 		if executable('lldb')
-			Plug 'critiqjo/lldb.nvim', { 'on' : 'LLmode debug', 'do' : ':UpdateRemotePlugins' } }
+			Plug 'critiqjo/lldb.nvim', { 'on' : 'LLmode debug', 'do' : ':UpdateRemotePlugins' }
 			nmap <Leader>db <Plug>LLBreakSwitch
 			" vmap <F2> <Plug>LLStdInSelected
 			" nnoremap <F4> :LLstdin<CR>
