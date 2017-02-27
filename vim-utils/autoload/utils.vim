@@ -454,6 +454,8 @@ function! utils#UpdateCscope() abort
 		return
 	endif
 	cs add cscope.out
+	" The extra=+q option is to highlight memebers
+	" Keep in mind that you are forcing the tags to be c++
 	silent !ctags -R -L cscope.files -f .tags --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q --language-force=C++
 	" set tags+=.tags
 endfunction
