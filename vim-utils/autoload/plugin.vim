@@ -21,7 +21,7 @@ function! plugin#Config() abort
 		call plug#begin(g:plugged_path)
 	endif
 
-	if has('nvim') && has('unix')
+	if has('unix')
 		Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 		Plug 'junegunn/fzf.vim'
 			nnoremap <C-p> :History<CR>
@@ -80,8 +80,8 @@ function! plugin#Config() abort
 		" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 
 		if has('python3') && !exists('g:android') " Deoplete
-			Plug 'Shougo/deoplete.nvim'
-				let b:deoplete_loaded = 1
+			Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+				" let b:deoplete_loaded = 1
 				" if it is nvim deoplete requires python3 to work
 				let g:deoplete#enable_at_startup = 1
 				" New settings
@@ -117,47 +117,17 @@ function! plugin#Config() abort
 							\ deoplete#smart_close_popup()."\<C-h>"
 				inoremap <expr><BS>
 							\ deoplete#smart_close_popup()."\<C-h>"
-			" " ----------------------------------------------
-			" "  deoplete-clang
-			" " Plug 'zchee/deoplete-clang'
-				" " let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
-				" " let g:deoplete#sources#clang#clang_header ="/usr/lib/clang"
-			" " " ----------------------------------------------
-			" " "  neoinclude
+			" ----------------------------------------------
+			"  deoplete-clang
+			if !empty(glob('/usr/lib/libclang.so'))
+				Plug 'zchee/deoplete-clang'
+					let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
+					let g:deoplete#sources#clang#clang_header ="/usr/lib/clang"
+			endif
 		endif
-			" if executable('clang') && has('python') && !exists('g:android') " clang_complete
-				" Plug 'Rip-Rip/clang_complete', { 'for' : ['c' , 'cpp'] }
-				" " Why I switched to Rip-Rip because it works
-				" " Steps to get plugin to work:
-				" " 1. Make sure that you can compile a program with clang++ command
-				" " a. Example: clang++ -std=c++14 -stdlib=libc++ -pedantic -Wall hello.cpp -v
-				" " 2. To get this to work I had to install libc++-dev package in unix
-				" " 3. install libclang-dev package. See g:clang_library_path to where it gets
-				" " installed. Also I had to make sym link: ln -s libclang.so.1 libclang.so
-				" let g:clang_user_options = '-std=c++14 -stdlib=libc++ -Wall -pedantic'
-				" let g:clang_close_preview = 1
-				" " let g:clang_complete_copen = 1
-				" " let g:clang_periodic_quickfix = 1
-				" if has('win32')
-					" " clang using mscv for target instead of mingw64
-					" let g:clang_cpp_options = '-target x86_64-pc-windows-gnu -std=c++17 -pedantic -Wall'
-					" let g:clang_c_options = '-target x86_64-pc-windows-gnu -std=gnu11 -pedantic -Wall'
-				" else
-					" let g:clang_library_path= g:usr_path . '/lib/libclang.so'
-				" endif
-			" else
-				" echomsg string("No clang and/or python present. Disabling vim-clang")
-				" let g:clang_complete_loaded = 1
-			" endif
-			" else
-				" echomsg "No python3 = No Deocomplete. Supertab Activated"
-				" " so if it doesnt have it activate clang instaed
-				" let g:deoplete#enable_at_startup = 0
-				" Plug 'ervandew/supertab' " Activate Supertab
-				" let g:SuperTabDefaultCompletionType = "<c-n>"
-			" endif
+
 		if executable('lldb')
-			Plug 'critiqjo/lldb.nvim', { 'on' , 'LLmode debug' }
+			Plug 'critiqjo/lldb.nvim', { 'on' : 'LLmode debug', 'do' : ':UpdateRemotePlugins' }
 			nmap <Leader>db <Plug>LLBreakSwitch
 			" vmap <F2> <Plug>LLStdInSelected
 			" nnoremap <F4> :LLstdin<CR>
@@ -174,9 +144,36 @@ function! plugin#Config() abort
 			" nnoremap <F9> :LL print <C-R>=expand('<cword>')<CR>
 			" vnoremap <F9> :<C-U>LL print <C-R>=lldb#util#get_selection()<CR><CR>
 		endif
+
 		if executable('man')
 			Plug 'nhooyr/neoman.vim'
 				let g:no_neoman_maps = 1
+		endif
+		" Cpp Neovim highlight
+		if has("python3") && system('pip3 list | grep psutil') =~ 'psutil'
+			Plug 'c0r73x/neotags.nvim', { 'do' : ':UpdateRemotePlugins' }
+				let g:neotags_enabled = 1
+				let g:neotags_file = g:cache_path . 'tags_neotags'
+				let g:neotags_run_ctags = 0
+				let g:neotags_ctags_timeout = 10
+				let g:neotags_events_highlight = [
+							\   'BufReadPost', 'BufEnter'
+							\ ]
+
+				if executable('rg')
+					let g:neotags_appendpath = 0
+					let g:neotags_recursive = 0
+
+					let g:neotags_ctags_bin = 'rg -g "" --files '. getcwd() .' | ctags'
+					let g:neotags_ctags_args = [
+								\ '-L -',
+								\ '--fields=+l',
+								\ '--c-kinds=+p',
+								\ '--c++-kinds=+p',
+								\ '--sort=no',
+								\ '--extra=+q'
+								\ ]
+				endif
 		endif
 	else
 		" Vim exclusive plugins
@@ -247,11 +244,15 @@ function! plugin#Config() abort
 			Plug 'ervandew/supertab' " Activate Supertab
 			let g:SuperTabDefaultCompletionType = "<Tab>"
 		endif
-		Plug 'tpope/vim-dispatch'
 	endif
 
+	" Vim cpp syntax highlight
+	Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'c' , 'cpp' ] }
+		let g:cpp_class_scope_highlight = 1
+	Plug 'justinmk/vim-syntax-extra'
+
 	" Plugins for All (nvim, linux, win32)
-	if !exists(":FZF")
+	if empty(glob('~/.fzf/bin/fzf'))
 		Plug 'ctrlpvim/ctrlp.vim'
 		if executable('rg')
 			let g:ctrlp_user_command = 'rg %s --no-ignore --hidden --files -g "" '
@@ -260,7 +261,6 @@ function! plugin#Config() abort
 		else
 			echomsg string("You should install silversearcher-ag. Now you have a slow ctrlp")
 		endif
-		if has('win32')
 			nnoremap <S-k> :CtrlPBuffer<CR>
 			let g:ctrlp_cmd = 'CtrlPMixed'
 			" submit ? in CtrlP for more mapping help.
@@ -271,8 +271,9 @@ function! plugin#Config() abort
 			let g:ctrlp_working_path_mode = 'wra'
 			let g:ctrlp_max_history = &history
 			let g:ctrlp_clear_cache_on_exit = 0
-			set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
 			let g:ctrlp_switch_buffer = 0
+		if has('win32')
+			set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
 			let g:ctrlp_custom_ignore = {
 						\ 'dir':  '\v[\/]\.(git|hg|svn)$',
 						\ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
@@ -284,6 +285,7 @@ function! plugin#Config() abort
 		endif
 	endif
 
+	Plug 'tpope/vim-dispatch'
 	Plug 'neomake/neomake'
 		let g:neomake_warning_sign = {
 					\ 'text': '?',
@@ -335,11 +337,12 @@ function! plugin#Config() abort
 		let g:syntastic_cpp_compiler_options = '-std=c++17 -pedantic -Wall'
 		let g:syntastic_c_compiler_options = '-std=c11 -pedantic -Wall'
 		let g:syntastic_auto_jump = 3
+
 	Plug g:location_vim_utils
 		let g:svn_repo_url = 'svn://odroid@copter-server/' 
 		let g:svn_repo_name = 'UnrealEngineCourse/BattleTanks_2'
-		nnoremap <Leader>vw :call SvnSwitchBranchTag()<CR>
-		nnoremap <Leader>vb :call SvnCopy()<CR>
+		nnoremap <Leader>vw :call SVNSwitch<CR>
+		nnoremap <Leader>vb :call SVNCopy<CR>
 
 		nnoremap <Leader>of :Dox<CR>
 		" Other commands
@@ -402,7 +405,8 @@ function! plugin#Config() abort
 		let g:autoformat_remove_trailing_spaces = 0
 
 	" cpp
-	" Plug 'vim-scripts/TagHighlight'
+	"TODO.RM-Sun Feb 26 2017 14:04: Fix here so that nvim :term command doent
+	"brake tagbar  
 	Plug 'Tagbar'
 		let g:tagbar_autofocus = 1
 		let g:tagbar_show_linenumbers = 2
@@ -428,12 +432,6 @@ function! plugin#Config() abort
 		" nnoremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
 		nnoremap <Leader>ts :cs show<CR>
 		nnoremap <Leader>tu :call utils#UpdateCscope()<CR>
-	Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'c' , 'cpp' ] }
-		let g:cpp_class_scope_highlight = 1
-	Plug 'justinmk/vim-syntax-extra'
-	Plug 'junegunn/rainbow_parentheses.vim', { 'on' : 'RainbowParentheses' }
-		let g:rainbow#max_level = 16
-		let g:rainbow#pairs = [['(', ')'], ['[', ']']]
 
 	" cpp/java
 	Plug 'mattn/vim-javafmt', { 'for' : 'java' }
@@ -453,7 +451,8 @@ function! plugin#Config() abort
 					\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 		" Tell Neosnippet about the other snippets
 		let g:neosnippet#snippets_directory= [ g:plugged_path . '/vim-snippets/snippets', g:location_vim_utils . '/snippets/', ]
-								" \ g:plugged_path . '/vim-snippets/UltiSnips']
+								" \ g:plugged_path . '/vim-snippets/UltiSnips'] " Not
+								" compatible syntax
 		let g:neosnippet#data_directory = g:cache_path . 'neosnippets'
 
 	" Only contain snippets
@@ -502,26 +501,6 @@ function! plugin#Config() abort
 		omap T <Plug>Sneak_T
 		xnoremap s s
 
-	Plug 'xolox/vim-easytags', { 'on' : 'HighlightTags' }
-		Plug 'xolox/vim-misc' " dependency of vim-easytags
-		Plug 'xolox/vim-shell' " dependency of vim-easytags
-		set regexpengine=1 " This speed up the engine alot but still not enough
-		let g:easytags_cmd = 'ctags'
-		let g:easytags_file = '~/.cache/easy-tags'
-		let g:easytags_syntax_keyword = 'always'
-		" let g:easytags_on_cursorhold = 1
-		" let g:easytags_updatetime_min = 4000
-		" let g:easytags_auto_update = 1
-		let g:easytags_auto_update = 0
-		" " let g:easytags_auto_highlight = 1
-		" let g:easytags_dynamic_files = 1
-		" let g:easytags_by_filetype = '~/.cache/easy-tags-filetype'
-		" " let g:easytags_events = ['BufReadPost' , 'BufWritePost']
-		" let g:easytags_events = ['BufReadPost']
-		" " let g:easytags_include_members = 1
-		" let g:easytags_async = 1
-		" let g:easytags_python_enabled = 1
-
 	Plug 'waiting-for-dev/vim-www'
 		let g:www_default_search_engine = 'google'
 		let g:www_map_keys = 0
@@ -539,10 +518,6 @@ function! plugin#Config() abort
 		let g:svnj_custom_statusbar_ops_hide = 0
 		nnoremap <silent> <leader>vs :SVNStatus<CR>  
 		nnoremap <silent> <leader>vo :SVNLog .<CR>  
-		augroup svn_update_status_line
-			autocmd!
-			autocmd BufEnter * call utils#UpdateSvnBranchInfo()
-		augroup END
 
 	Plug 'itchyny/lightline.vim'
 		let g:lightline = {
@@ -551,18 +526,20 @@ function! plugin#Config() abort
 								\             [ 'readonly', 'filename', 'modified', 'fugitive', 'svn', 'tagbar', 'neomake'] ]
 								\		},
 								\ 'component': {
-								\   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}',
+								\   'fugitive': '%{fugitive#statusline()}',
 								\   'neomake': '%#ErrorMsg#%{neomake#statusline#QflistStatus("qf:\ ")}%*', 
-								\   'svn': '%{utils#GetSvnBranchInfo()}', 
+								\   'svn': '%{svn#GetSvnBranchInfo()}', 
 								\   'tagbar': '%{tagbar#currenttag("%s\ ","")}' 
 								\		},
 								\ 'component_visible_condition': {
 								\   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())',
 								\   'neomake': '(!empty(neomake#statusline#QflistStatus("qf:\ ")))',
-								\   'svn': '(!empty(utils#GetSvnBranchInfo()))', 
+								\   'svn': '(!empty(svn#GetSvnBranchInfo()))', 
 								\   'tagbar': '(!empty(tagbar#currenttag("%s\ ","")))' 
 								\		},
 								\ }
+
+	" Plug 'xolox/vim-reload'
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
