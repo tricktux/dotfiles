@@ -262,13 +262,11 @@ function! utils#SaveSession(...) abort
 		" Need to keep this option short and sweet
 		let l:sSessionName = a:1
 	endif
-	execute "normal :mksession! " . g:cache_path . "sessions/". l:sSessionName  . "\<CR>"
+	silent execute "normal :mksession! " . g:cache_path . "sessions/". l:sSessionName  . "\<CR>"
 	silent! cd -
 endfunction
 
 function! utils#LoadSession(...) abort
-	" save all work
-	execute "cd ". g:cache_path ."sessions/"
 	" Logic path when not called at startup
 	if a:0 < 1
 		execute "wall"
@@ -277,25 +275,20 @@ function! utils#LoadSession(...) abort
 		if l:iResponse == 121 " y
 			call utils#SaveSession()
 		endif
-		let l:sSessionName = input("Enter
-					\ load session name:", "", "file")
+		let l:sSessionName = input("Enter load session name:", "", "file")
+		execute "normal :%bdelete\<CR>"
 	else
-		let l:sSessionName = a:1
-		echo "Reload Last Session: (y)es (d)ifferent session or (any)nothing"
-		let l:iResponse = getchar()
-		if l:iResponse == 100 " different session
-			let l:sSessionName = input("Enter
-						\load session name:", "", "file")
-		elseif l:iResponse == 121 " reload last session
-			" continue to end of if
-		else
-			" execute "normal :%bdelete\<CR>" " do not delete old buffers
-			return
+		silent execute "normal :so " . g:cache_path . "sessions/". a:1 . "\<CR>"
+		if bufexists(1)
+			for l in range(1, bufnr('$'))
+				if bufwinnr(l) == -1
+					exec 'sbuffer ' . l
+				endif
+			endfor
 		endif
+		return
 	endif
-	execute "normal :%bdelete\<CR>"
 	silent execute "normal :so " . g:cache_path . "sessions/". l:sSessionName . "\<CR>"
-	silent! cd -
 endfunction
 
 function! utils#TodoCreate() abort
