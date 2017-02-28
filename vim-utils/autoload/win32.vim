@@ -19,7 +19,9 @@ function win32#Config()
 	if system('hostname') =~ 'predator' " homepc
 		let g:wiki_path =  'D:\Seafile\KnowledgeIsPower\wiki'
 		nnoremap <Leader>eu :e D:/Reinaldo/Documents/UnrealProjects/
+		let l:pyt3 = $userprofile . "\\AppData\\Local\\Programs\\Python\\Python36\\python.exe"
 	else " Assume work pc
+		let l:pyt3 = "C:\\Python36\\python.exe"
 		let g:wiki_path =  'D:/wings-dev/OneWingsSupFiles/wiki'
 		let g:wings_path =  'D:/wings-dev/'
 		call utils#SetWingsPath(g:wings_path)
@@ -31,7 +33,6 @@ function win32#Config()
 	endif
 
 	if has('nvim')
-		let l:pyt3 = "C:\\Users\\" . $username . "\\AppData\\Local\\Programs\\Python\\Python36\\python.exe"
 		let l:pyt2 = "C:\\Python27\\python.exe"
 		if filereadable(l:pyt3)
 			let g:python3_host_prog= l:pyt3
