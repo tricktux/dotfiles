@@ -27,7 +27,6 @@ function win32#Config()
 		" Load svnj branch, trunk, and tag settings
 		if filereadable(g:wings_path . 'OneWingsSupFiles/branches.vim')
 			exe 'source ' . g:wings_path . 'OneWingsSupFiles/branches.vim' 
-			let g:svn_repo_url = g:wings_svn_url
 		endif
 	endif
 
