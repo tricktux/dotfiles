@@ -105,7 +105,8 @@
 		set noswapfile
 		"set autochdir " working directory is always the same as the file you are editing
 		" Took out options from here. Makes the session script too long and annoying
-		set sessionoptions=buffers,curdir,folds,tabpages,resize,winsize,winpos,help
+		" set sessionoptions=buffers,curdir,folds,tabpages,resize,winsize,winpos
+		set sessionoptions=buffers
 		set hidden
 		" see :h timeout this was done to make use of ' faster and keep the other
 		" timeout the same
@@ -120,18 +121,21 @@
 		set nowrapscan        " do not wrap search at EOF
 		" will look in current directory for tags
 		set tags=./.tags;,.tags;
-		" set tags+=~/.cache/tags_sys
-		" set tags+=~/.cache/tags_sys2
-		" set tags+=~/.cache/tags_unreal
-		" set tags+=~/.cache/tags_clang
 
 		if has('win32')
-			let &tags .= substitute(glob("`findstr ~/.cache/ -name tags* -print`"), "\n", ",", "g")
+			" TODO.RM-Mon Feb 27 2017 12:04: Make this better in a function. Like is
+			" close but not really working
+			" let &tags .= split(system('cd %userprofile%\.cache && dir tags* /b'), "\n")
 		else
 			let &tags .= substitute(glob("`find ~/.cache/ -name tags* -print`"), "\n", ",", "g")
 		endif
 
 		" Note: There is also avr tags created by .dotfiles/scripts/maketags.sh
+		" TODO.RM-Mon Feb 27 2017 11:23: Create function that auto creates tags  
+		" set tags+=~/.cache/tags_sys
+		" set tags+=~/.cache/tags_sys2
+		" set tags+=~/.cache/tags_unreal
+		" set tags+=~/.cache/tags_clang
 		" !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/ctags/tags_sys /usr/include
 		" !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/ctags/tags_sys2 /usr/local/include
 
@@ -307,7 +311,7 @@
 		augroup VimType
 			autocmd!
 			" Sessions
-			" autocmd VimEnter * call utils#LoadSession('default.vim')
+			autocmd VimEnter * call utils#LoadSession('default.vim')
 			autocmd VimLeave * call utils#SaveSession('default.vim')
 			" Keep splits normalize
 			autocmd VimResized * call utils#NormalizeWindowSize()
@@ -383,7 +387,7 @@
 		vnoremap <Leader>jr "hy:%s/<C-r>h//gc<left><left><left>
 		" Indent whole file
 		nnoremap <Leader>ji mzgg=G`z
-		nnoremap <Leader>jh K
+		nnoremap <Leader>jh :h <c-r>=expand("<cword>")<CR><cr>
 		nnoremap <Leader>jH :Helptags<CR>
 		" duplicate current char
 		nnoremap <Leader>jd ylp
