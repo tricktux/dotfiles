@@ -59,6 +59,7 @@ function! plugin#Config() abort
 
 	" Neovim exclusive plugins
 	if has('nvim')
+		Plug 'radenling/vim-dispatch-neovim'
 		" nvim-qt on unix doesnt populate has('gui_running
 		Plug 'equalsraf/neovim-gui-shim'
 		" Plug 'Valloric/YouCompleteMe', { 'on' : 'YcmDebugInfo' }
@@ -247,6 +248,8 @@ function! plugin#Config() abort
 		endif
 	endif
 
+	Plug 'tpope/vim-dispatch'
+
 	" Vim cpp syntax highlight
 	Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'c' , 'cpp' ] }
 		let g:cpp_class_scope_highlight = 1
@@ -286,7 +289,6 @@ function! plugin#Config() abort
 		endif
 	endif
 
-	Plug 'tpope/vim-dispatch'
 	Plug 'neomake/neomake'
 		let g:neomake_warning_sign = {
 					\ 'text': '?',
