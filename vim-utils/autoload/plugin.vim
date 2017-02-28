@@ -21,7 +21,8 @@ function! plugin#Config() abort
 		call plug#begin(g:plugged_path)
 	endif
 
-	if has('unix')
+	" fzf only seems to work with nvim
+	if has('unix') && has('nvim')
 		Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 		Plug 'junegunn/fzf.vim'
 			nnoremap <C-p> :History<CR>
@@ -119,10 +120,10 @@ function! plugin#Config() abort
 							\ deoplete#smart_close_popup()."\<C-h>"
 			" ----------------------------------------------
 			"  deoplete-clang
-			if !empty(glob('/usr/lib/libclang.so'))
+			if exists('g:libclang_path') && exists('g:clangheader_path')
 				Plug 'zchee/deoplete-clang'
-					let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
-					let g:deoplete#sources#clang#clang_header ="/usr/lib/clang"
+					let g:deoplete#sources#clang#libclang_path = g:libclang_path
+					let g:deoplete#sources#clang#clang_header = g:clangheader_path
 			endif
 		endif
 
@@ -575,24 +576,41 @@ function! plugin#Config() abort
 	return 1
 endfunction
 
+" Move this function to the os independent stuff.
 function! plugin#Check() abort
 	" Set paths for plugins
 	if has('win32')
 		" In windows wiki_path is set in the win32.vim file
-		let g:cache_path= $HOME . '\.cache\'
-		let g:plugged_path=  $HOME . '\vimfiles\plugged\'
-		let g:vimfile_path=  $HOME . '\vimfiles\'
+		if has('nvim')
+			let g:vimfile_path=  $USERPROFILE . '\AppData\Local\nvim\'
+			" Find clang. Not working in windows yet.
+			" if !empty(glob('C:\Program Files\LLVM\lib\libclang.lib'))
+				" let g:libclang_path = 'C:\Program Files\LLVM\lib\libclang.lib'
+			" endif
+			" if !empty(glob('C:\Program Files\LLVM\lib\clang'))
+				" let g:clangheader_path = 'C:\Program Files\LLVM\lib\clang'
+			" endif
+		else
+			let g:vimfile_path=  $HOME . '\vimfiles\'
+		endif
 	else
-		let g:cache_path= $HOME . '/.cache/'
-		let g:plugged_path=  $HOME . '/.vim/plugged/'
-		let g:vimfile_path=  $HOME . '/.vim/'
+		if has('nvim')
+			let g:vimfile_path=  $HOME . '/.config/nvim/'
+			" deoplete-clang settings
+			if !empty(glob('/usr/lib/libclang.so'))
+				let g:libclang_path = '/usr/lib/libclang.so'
+			endif
+			if !empty(glob('/usr/lib/clang'))
+				let g:clangheader_path = '/usr/lib/clang'
+			endif
+		else
+			let g:vimfile_path=  $HOME . '/.vim/'
+		endif
 	endif
 
-	if has('nvim')
-		let g:cache_path= $HOME . '/.cache/'
-		let g:plugged_path=  $HOME . '/.config/nvim/plugged/'
-		let g:vimfile_path=  $HOME . '/.config/nvim/'
-	endif
+	" Same cache dir for both
+	let g:cache_path= $HOME . '\.cache\'
+	let g:plugged_path=  g:vimfile_path . 'plugged/'
 
 	let g:usr_path = '/usr'
 	if system('uname -o') =~ 'Android' " Termux stuff
