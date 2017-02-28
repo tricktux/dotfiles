@@ -3,10 +3,11 @@ if exists('g:GuiLoaded') " nvim-qt gui
 	" Guifont DejaVu Sans Mono:h10
 	" Guifont Hack:h8
 	" Guifont Monospace:h10
-	silent Guifont Consolas:h8
+	Guifont! Consolas:h9
 	" Guifont Incosolata for Powerline:h10
 elseif has('win32')
-	set guifont =consolas:h8
+	" No space is required here
+	set guifont=consolas:h8
 else
 	" set guifont =Hack 8
 	set guifont =DejaVu\ Sans\ Mono\ 8
