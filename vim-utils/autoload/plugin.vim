@@ -86,6 +86,7 @@ function! plugin#Config() abort
 				" let b:deoplete_loaded = 1
 				" if it is nvim deoplete requires python3 to work
 				let g:deoplete#enable_at_startup = 1
+				let g:deoplete#auto_complete_delay=50 " Fixes issue where Autocompletion triggers
 				" New settings
 				let g:deoplete#enable_ignore_case = 1
 				let g:deoplete#enable_smart_case = 1
@@ -157,25 +158,28 @@ function! plugin#Config() abort
 				let g:neotags_enabled = 1
 				let g:neotags_file = g:cache_path . 'tags_neotags'
 				let g:neotags_run_ctags = 0
-				let g:neotags_ctags_timeout = 10
+				let g:neotags_ctags_timeout = 60
 				let g:neotags_events_highlight = [
-							\   'BufReadPost', 'BufEnter'
-							\ ]
-
-				if executable('rg')
-					let g:neotags_appendpath = 0
-					let g:neotags_recursive = 0
-
-					let g:neotags_ctags_bin = 'rg -g "" --files '. getcwd() .' | ctags'
-					let g:neotags_ctags_args = [
-								\ '-L -',
-								\ '--fields=+l',
-								\ '--c-kinds=+p',
-								\ '--c++-kinds=+p',
-								\ '--sort=no',
-								\ '--extra=+q'
+								\   'BufEnter'
 								\ ]
-				endif
+					let g:neotags_events_update = [
+								\   'BufEnter'
+								\ ]
+
+				" if executable('rg')
+					" let g:neotags_appendpath = 0
+					" let g:neotags_recursive = 0
+
+					" let g:neotags_ctags_bin = 'rg -g "" --files '. getcwd() .' | ctags'
+					" let g:neotags_ctags_args = [
+								" \ '-L -',
+								" \ '--fields=+l',
+								" \ '--c-kinds=+p',
+								" \ '--c++-kinds=+p',
+								" \ '--sort=no',
+								" \ '--extra=+q'
+								" \ ]
+				" endif
 		endif
 	else
 		" Vim exclusive plugins
@@ -248,7 +252,8 @@ function! plugin#Config() abort
 		endif
 	endif
 
-	Plug 'tpope/vim-dispatch'
+	Plug 'tpope/vim-dispatch' " Possible Replacement `asyncvim`
+	Plug 'Shougo/neco-vim' " The vim source for neocomplete/deoplete
 
 	" Vim cpp syntax highlight
 	Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'c' , 'cpp' ] }
@@ -530,7 +535,7 @@ function! plugin#Config() abort
 								\		},
 								\ 'component': {
 								\   'fugitive': '%{fugitive#statusline()}',
-								\   'neomake': '%#ErrorMsg#%{neomake#statusline#QflistStatus("qf:\ ")}%*', 
+								\   'neomake': '%{neomake#statusline#QflistStatus("qf:\ ")}', 
 								\   'svn': '%{svn#GetSvnBranchInfo()}', 
 								\   'tagbar': '%{tagbar#currenttag("%s\ ","")}' 
 								\		},
@@ -541,8 +546,6 @@ function! plugin#Config() abort
 								\   'tagbar': '(!empty(tagbar#currenttag("%s\ ","")))' 
 								\		},
 								\ }
-
-	" Plug 'xolox/vim-reload'
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
@@ -584,20 +587,24 @@ function! plugin#Check() abort
 	if has('win32')
 		" In windows wiki_path is set in the win32.vim file
 		if has('nvim')
-			let g:vimfile_path=  $USERPROFILE . '\AppData\Local\nvim\'
+			let g:vimfile_path=  $LOCALAPPDATA . '\nvim\'
 			" Find clang. Not working in windows yet.
-			" if !empty(glob('C:\Program Files\LLVM\lib\libclang.lib'))
-				" let g:libclang_path = 'C:\Program Files\LLVM\lib\libclang.lib'
+			" if !empty(glob($ProgramFiles . '\LLVM\lib\libclang.lib'))
+				" let g:libclang_path = '$ProgramFiles . '\LLVM\lib\libclang.lib''
 			" endif
-			" if !empty(glob('C:\Program Files\LLVM\lib\clang'))
-				" let g:clangheader_path = 'C:\Program Files\LLVM\lib\clang'
+			" if !empty(glob($ProgramFiles . '\LLVM\lib\clang'))
+				" let g:clangheader_path = '$ProgramFiles . '\LLVM\lib\clang''
 			" endif
 		else
 			let g:vimfile_path=  $HOME . '\vimfiles\'
 		endif
 	else
 		if has('nvim')
-			let g:vimfile_path=  $HOME . '/.config/nvim/'
+			if exists("$XDG_CONFIG_HOME")
+				let g:vimfile_path=  $XDG_CONFIG_HOME . '/nvim/'
+			else
+				let g:vimfile_path=  $HOME . '/.config/nvim/'
+			endif
 			" deoplete-clang settings
 			if !empty(glob('/usr/lib/libclang.so'))
 				let g:libclang_path = '/usr/lib/libclang.so'
