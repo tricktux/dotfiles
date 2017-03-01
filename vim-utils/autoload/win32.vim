@@ -19,7 +19,7 @@ function win32#Config()
 	if system('hostname') =~ 'predator' " homepc
 		let g:wiki_path =  'D:\Seafile\KnowledgeIsPower\wiki'
 		nnoremap <Leader>eu :e D:/Reinaldo/Documents/UnrealProjects/
-		let l:pyt3 = $userprofile . "\\AppData\\Local\\Programs\\Python\\Python36\\python.exe"
+		let l:pyt3 = $LOCALAPPDATA . "\\Programs\\Python\\Python36\\python.exe"
 	else " Assume work pc
 		let l:pyt3 = "C:\\Python36\\python.exe"
 		let g:wiki_path =  'D:/wings-dev/OneWingsSupFiles/wiki'

@@ -408,7 +408,7 @@ endfunction
 
 function! utils#UpdateBorlandMakefile() abort
 	" If compiler is not borland(set by SetupCompiler) fail.
-	if empty(get(b:, 'current_compiler', 0))
+	if !exists('b:current_compiler')
 		echomsg "Error, not in WINGS folder"
 	else
 		execute "!bpr2mak -omakefile WINGS.bpr"
@@ -429,11 +429,7 @@ function! utils#UpdateCscope() abort
 		echoerr "Please install cscope and/or ctags before using this application"
 		return
 	endif
-	try
-		cs kill -1
-	catch
-		" Dont do anything if it fails
-	endtry
+	silent! cs kill -1
 	if has('unix')
 		!rm cscope.files cscope.out cscope.po.out cscope.in.out
 		!find . -iregex '.*\.\(c\|cpp\|java\|cc\|h\|hpp\)$' > cscope.files
@@ -464,7 +460,7 @@ function! utils#Make()
 		if l:path =~ 'UnrealProjects' && executable('clang-format') && exists(':Autoformat')
 			Autoformat
 		endif
-		if empty(get(b:, 'current_compiler'))
+		if !exists('b:current_compiler')
 			" Notice inside the '' is a pat which is a regex. That is why \\
 			if l:path =~ 'OneWINGS\\Source'
 				compiler borland
@@ -477,8 +473,7 @@ function! utils#Make()
 			endif
 		endif
 	endif
-	Neomake! " Used to run make asynchronously. Too annoying not knowing if make finished or not
-	" make
+	Neomake! " Used to run make asynchronously
 endfunction
 
 function! utils#WikiSearch() abort
@@ -513,7 +508,7 @@ endfunction
 
 function! utils#FormatFile() abort
 	let type = &ft
-	if type ==? 'cpp' || type ==? 'java' || type ==? 'c'
+	if type ==# 'cpp' || type ==# 'java' || type ==# 'c'
 		" if executable("astyle") && exists(":Autoformat")
 		if executable('clang-format')
 			Autoformat
@@ -613,7 +608,7 @@ function! utils#FileTypeSearch() abort
 	let grep_engine = &grepprg
 
 	" In the case that rg or ag doesnt exist perform simple search
-	if grep_engine !~? 'rg' && grep_engine !~? 'ag'
+	if grep_engine !~ 'rg' && grep_engine !~ 'ag'
 		let search = input("Please enter search word:")
 		exe ":grep " . search
 		echon '|Grep Engine:' &grepprg ' |FileType: All| CWD: ' getcwd()
