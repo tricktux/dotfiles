@@ -86,6 +86,8 @@ function! plugin#Config() abort
 				" let b:deoplete_loaded = 1
 				" if it is nvim deoplete requires python3 to work
 				let g:deoplete#enable_at_startup = 1
+				" Note: If you get autocomplete autotriggering issues keep increasing this option below. 
+				" Next value to try is 150. See:https://github.com/Shougo/deoplete.nvim/issues/440
 				let g:deoplete#auto_complete_delay=50 " Fixes issue where Autocompletion triggers
 				" New settings
 				let g:deoplete#enable_ignore_case = 1
@@ -153,34 +155,35 @@ function! plugin#Config() abort
 				let g:no_neoman_maps = 1
 		endif
 		" Cpp Neovim highlight
-		if has("python3") && system('pip3 list | grep psutil') =~ 'psutil'
-			Plug 'c0r73x/neotags.nvim', { 'do' : ':UpdateRemotePlugins' }
-				let g:neotags_enabled = 1
-				let g:neotags_file = g:cache_path . 'tags_neotags'
-				let g:neotags_run_ctags = 0
-				let g:neotags_ctags_timeout = 60
-				let g:neotags_events_highlight = [
-								\   'BufEnter'
-								\ ]
-					let g:neotags_events_update = [
-								\   'BufEnter'
-								\ ]
-
-				" if executable('rg')
-					" let g:neotags_appendpath = 0
-					" let g:neotags_recursive = 0
-
-					" let g:neotags_ctags_bin = 'rg -g "" --files '. getcwd() .' | ctags'
-					" let g:neotags_ctags_args = [
-								" \ '-L -',
-								" \ '--fields=+l',
-								" \ '--c-kinds=+p',
-								" \ '--c++-kinds=+p',
-								" \ '--sort=no',
-								" \ '--extra=+q'
+		" Really shitty thing
+		" if has("python3") && system('pip3 list | grep psutil') =~ 'psutil'
+			" Plug 'c0r73x/neotags.nvim', { 'do' : ':UpdateRemotePlugins' }
+				" let g:neotags_enabled = 1
+				" let g:neotags_file = g:cache_path . 'tags_neotags'
+				" let g:neotags_run_ctags = 0
+				" let g:neotags_ctags_timeout = 60
+				" let g:neotags_events_highlight = [
+								" \   'BufEnter'
 								" \ ]
-				" endif
-		endif
+					" let g:neotags_events_update = [
+								" \   'BufEnter'
+								" \ ]
+
+				" " if executable('rg')
+					" " let g:neotags_appendpath = 0
+					" " let g:neotags_recursive = 0
+
+					" " let g:neotags_ctags_bin = 'rg -g "" --files '. getcwd() .' | ctags'
+					" " let g:neotags_ctags_args = [
+								" " \ '-L -',
+								" " \ '--fields=+l',
+								" " \ '--c-kinds=+p',
+								" " \ '--c++-kinds=+p',
+								" " \ '--sort=no',
+								" " \ '--extra=+q'
+								" " \ ]
+				" " endif
+		" endif
 	else
 		" Vim exclusive plugins
 		if has('lua') " Neocomplete
