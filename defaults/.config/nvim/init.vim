@@ -6,6 +6,8 @@
 "								files
 " Date:					Wed Jan 18 2017 09:53
 " Improvements:
+		" - [ ] Create a after/syntax/gitcommit.vim to redline ahead and greenline
+		"   up-to-date
 		" - [ ] Markdown tables
 		" - [ ] Delete duplicate music.
 		" - [ ] Construct unified music library
@@ -105,8 +107,7 @@
 		set noswapfile
 		"set autochdir " working directory is always the same as the file you are editing
 		" Took out options from here. Makes the session script too long and annoying
-		" set sessionoptions=buffers,curdir,folds,tabpages,resize,winsize,winpos
-		set sessionoptions=buffers
+		set sessionoptions=buffers,curdir,folds,tabpages,resize,winsize,winpos
 		set hidden
 		" see :h timeout this was done to make use of ' faster and keep the other
 		" timeout the same
@@ -121,6 +122,7 @@
 		set nowrapscan        " do not wrap search at EOF
 		" will look in current directory for tags
 		set tags=./.tags;,.tags;
+		" let &tags .=~/.cache/tags_wings
 
 		if has('win32')
 			" TODO.RM-Mon Feb 27 2017 12:04: Make this better in a function. Like is
