@@ -278,13 +278,10 @@ function! utils#LoadSession(...) abort
 		let l:sSessionName = input("Enter load session name:", "", "file")
 		execute "normal :%bdelete\<CR>"
 	else
-		silent execute "normal :so " . g:cache_path . "sessions/". a:1 . "\<CR>"
-		if bufexists(1)
-			for l in range(1, bufnr('$'))
-				if bufwinnr(l) == -1
-					exec 'sbuffer ' . l
-				endif
-			endfor
+		echo "Reload previous session: (j|y)es (any)no"
+		let response = getchar()
+		if response == 121 || response == 106 " y|j
+			silent! execute "normal :so " . g:cache_path . "sessions/". a:1 . "\<CR>"
 		endif
 		return
 	endif
