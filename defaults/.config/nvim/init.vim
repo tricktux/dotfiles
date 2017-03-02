@@ -313,7 +313,7 @@
 		augroup VimType
 			autocmd!
 			" Sessions
-			autocmd VimEnter * call utils#LoadSession('default.vim')
+			" autocmd VimEnter * call utils#LoadSession('default.vim')
 			autocmd VimLeave * call utils#SaveSession('default.vim')
 			" Keep splits normalize
 			autocmd VimResized * call utils#NormalizeWindowSize()
@@ -332,8 +332,6 @@
 		au BufWritePost *.bin,*.hsr,*.pdf if &bin | %!xxd
 		au BufWritePost *.bin,*.hsr,*.pdf setlocal nomod | endif
 	augroup END
-
-	au QuickfixCmdPost make copen 20
 
 " CUSTOM MAPPINGS
 	" List of super useful mappings
