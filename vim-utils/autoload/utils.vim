@@ -255,6 +255,7 @@ function! utils#SaveSession(...) abort
 	" if session name is not provided as function argument ask for it
 	if a:0 < 1
 		execute "wall"
+		let dir = getcwd()
 		execute "cd ". g:cache_path ."sessions/"
 		let l:sSessionName = input("Enter
 					\ save session name:", "", "file")
@@ -263,7 +264,7 @@ function! utils#SaveSession(...) abort
 		let l:sSessionName = a:1
 	endif
 	silent execute "normal :mksession! " . g:cache_path . "sessions/". l:sSessionName  . "\<CR>"
-	silent! cd -
+	silent! execute "cd " . dir
 endfunction
 
 function! utils#LoadSession(...) abort
@@ -396,11 +397,12 @@ endfunction
 " }}}
 
 function! utils#WingsSymLink(sPath) abort
+	let dir = getcwd()
 	execute "cd " .a:sPath
 	let l:path = input("Enter path to new default.ini:", "", "file")
 	!del default.ini
 	execute "!mklink default.ini " . l:path
-	silent! cd -
+	silent! execute "cd " . dir
 endfunction
 
 function! utils#UpdateBorlandMakefile() abort
@@ -474,9 +476,10 @@ function! utils#Make()
 endfunction
 
 function! utils#WikiSearch() abort
+	let dir = getcwd()
 	execute "cd " . g:wiki_path
 	execute "grep " . input("Enter wiki search string:")
-	silent! cd -
+	silent! execute "cd " . dir
 endfunction
 
 function! utils#ToggleTerm() abort
@@ -498,9 +501,10 @@ function! utils#GuiFont(sOp) abort
 endfunction
 
 function! utils#EditPlugins() abort
+	let dir = getcwd()
 	execute "cd " .g:plugged_path
 	execute "e " . input('e ' . expand(g:plugged_path), "", "file")
-	silent! cd -
+	silent! execute "cd " . dir
 endfunction
 
 function! utils#FormatFile() abort
