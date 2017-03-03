@@ -259,12 +259,12 @@ function! utils#SaveSession(...) abort
 		execute "cd ". g:cache_path ."sessions/"
 		let l:sSessionName = input("Enter
 					\ save session name:", "", "file")
+		silent! execute "cd " . dir
 	else
 		" Need to keep this option short and sweet
 		let l:sSessionName = a:1
 	endif
-	silent execute "normal :mksession! " . g:cache_path . "sessions/". l:sSessionName  . "\<CR>"
-	silent! execute "cd " . dir
+	silent! execute "normal :mksession! " . g:cache_path . "sessions/". l:sSessionName  . "\<CR>"
 endfunction
 
 function! utils#LoadSession(...) abort
@@ -498,7 +498,20 @@ endfunction
 
 function! utils#GuiFont(sOp) abort
 	let sub = has('win32') ? ':h\zs\d\+' : '\ \zs\d\+'
-	let &guifont = substitute(&guifont, sub,'\=eval(submatch(0)'.a:sOp.'1)','')
+	if exists('g:GuiLoaded') && exists(':Guifont')
+		" Capture output of Guifont
+		redir => guifont_out
+		silent Guifont
+		redir END
+		" Substitute last number with a plus or minus value depending on input
+		if !empty(guifont_out)
+			let new_cmd = substitute(guifont_out, sub,'\=eval(submatch(0)'.a:sOp.'1)','')			
+			echomsg new_cmd
+			execute "GuiFont! " . new_cmd
+		endif
+	else " gvim
+		let &guifont = substitute(&guifont, sub,'\=eval(submatch(0)'.a:sOp.'1)','')
+	endif
 endfunction
 
 function! utils#EditPlugins() abort
@@ -657,6 +670,51 @@ function! utils#SvnWingsSetup() abort
 
 	" " Creating a branch
 	" TODO.RM-Wed Feb 22 2017 17:15: Create this SvnCopy()  
+endfunction
+
+function! utils#SetTags() abort
+	if has('win32')
+		" TODO.RM-Mon Feb 27 2017 12:04: Make this better in a function. Like is
+		" close but not really working
+		let tags_buff = split(system('cd %userprofile%\.cache && dir tags* /b'), "\n")
+		" set tags+=~/.cache/tags_unreal
+		" set tags+=~/.cache/tags_clang
+
+		call map(tags_buff, 'v:val . ","') " Append commas to values
+		for t in tags_buff
+			let &tags .= t
+		endfor
+	else
+		" TODO.RM-Thu Mar 02 2017 19:57: Need to test this in unix  
+		let tags_buff = substitute(glob("`find ~/.cache/ -name tags* -print`"), "\n", ",", "g")
+		let sys = 0
+		call map(tags_buff, '"," . v:val') " Append commas to values
+		for t in tags_buff
+			let &tags .= t
+			" Check to see if specific tags where loaded
+			if t =~# 'tags_sys'
+				let sys = 1
+				" elseif =~# 'tags_unreal'
+				" let unreal = 1
+			endif
+		endfor
+		if !sys
+			" Create tags
+			!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/ctags/tags_sys /usr/include
+			!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/ctags/tags_sys2 /usr/local/include
+		endif
+	endif
+	" Note: There is also avr tags created by .dotfiles/scripts/maketags.sh
+endfunction
+
+function! utils#RooterAutoloadCscope() abort
+	Rooter
+	redir => cs_show
+	silent! cs show
+	redir END
+	if cs_show =~# 'no cscope connection' && !empty(glob('cscope.out'))
+		cs add cscope.out
+	endif
 endfunction
 
 " TODO.RM-Sat Nov 26 2016 00:04: Function that auto adds SCR # and description
