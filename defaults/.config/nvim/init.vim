@@ -121,25 +121,11 @@
 		set nowrap        " wrap lines
 		set nowrapscan        " do not wrap search at EOF
 		" will look in current directory for tags
-		set tags=./.tags;,.tags;
-		" let &tags .=~/.cache/tags_wings
-
-		if has('win32')
-			" TODO.RM-Mon Feb 27 2017 12:04: Make this better in a function. Like is
-			" close but not really working
-			" let &tags .= split(system('cd %userprofile%\.cache && dir tags* /b'), "\n")
-		else
-			let &tags .= substitute(glob("`find ~/.cache/ -name tags* -print`"), "\n", ",", "g")
+		
+		set tags=./.tags;,.tags; " For the case where no plugins
+		if exists("b:plugins_loaded")
+			call utils#SetTags()
 		endif
-
-		" Note: There is also avr tags created by .dotfiles/scripts/maketags.sh
-		" TODO.RM-Mon Feb 27 2017 11:23: Create function that auto creates tags  
-		" set tags+=~/.cache/tags_sys
-		" set tags+=~/.cache/tags_sys2
-		" set tags+=~/.cache/tags_unreal
-		" set tags+=~/.cache/tags_clang
-		" !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/ctags/tags_sys /usr/include
-		" !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/ctags/tags_sys2 /usr/local/include
 
 		if has('cscope')
 			set cscopetag cscopeverbose
@@ -313,6 +299,7 @@
 		augroup VimType
 			autocmd!
 			" Sessions
+			" Note: Fri Mar 03 2017 14:13 - This never works. 
 			" autocmd VimEnter * call utils#LoadSession('default.vim')
 			autocmd VimLeave * call utils#SaveSession('default.vim')
 			" Keep splits normalize
@@ -417,7 +404,7 @@
 		vnoremap <Leader>ja "0p
 		" Force wings_syntax on a file
 		nnoremap <Leader>jw :set filetype=wings_syntax<CR>
-		nnoremap <Leader>jn :silent !./%<CR>
+		nnoremap <Leader>jn :silent !./%<CRutils#>
 		" Create file with name under the cursor
 		nnoremap <Leader>jf :call utils#FormatFile()<CR>
 		" Diff Sutff
