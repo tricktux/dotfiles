@@ -3,7 +3,7 @@
 " Description:	Function Container
 " Author:				Reinaldo Molina <rmolin88@gmail.com>
 " Version:			2.0.0
-" Date:					Mon Feb 20 2017 13:50
+" Date:					Thu Mar 02 2017 10:24
 
 " FUNCTIONS
 function! utils#SetGrep() abort
@@ -276,16 +276,17 @@ function! utils#LoadSession(...) abort
 			call utils#SaveSession()
 		endif
 		let l:sSessionName = input("Enter load session name:", "", "file")
-		execute "normal :%bdelete\<CR>"
+		silent! execute "normal :%bdelete\<CR>"
+		silent execute "normal :so " . g:cache_path . "sessions/". l:sSessionName . "\<CR>"
 	else
-		echo "Reload previous session: (j|y)es (any)no"
-		let response = getchar()
-		if response == 121 || response == 106 " y|j
-			silent! execute "normal :so " . g:cache_path . "sessions/". a:1 . "\<CR>"
-		endif
-		return
+		" echo "Reload previous session: (j|y)es (any)no"
+		" let response = getchar()
+		" if response == 121 || response == 106 " y|j
+			 " silent! execute "normal :so " . g:cache_path . "sessions/". a:1 . "\<CR>"
+		" endif
+		silent! execute "normal :%bdelete\<CR>"
+		silent! execute "normal :so " . g:cache_path . "sessions/". a:1 . "\<CR>"
 	endif
-	silent execute "normal :so " . g:cache_path . "sessions/". l:sSessionName . "\<CR>"
 endfunction
 
 function! utils#TodoCreate() abort
@@ -389,9 +390,9 @@ endfunction
 function! utils#WikiOpen(...) abort
 	if a:0 > 0
 		execute "vs " . g:wiki_path . '/'.  a:1
-		return
+	else
+		execute "vs " . fnameescape(g:wiki_path . '//' . input('Wiki Name: ', '', 'custom,CheatCompletion'))
 	endif
-	execute "vs " . fnameescape(g:wiki_path . '//' . input('Wiki Name: ', '', 'custom,CheatCompletion'))
 endfunction
 " }}}
 
@@ -653,7 +654,6 @@ function! utils#SvnWingsSetup() abort
 	" " Creating a branch
 	" TODO.RM-Wed Feb 22 2017 17:15: Create this SvnCopy()  
 endfunction
-
 
 " TODO.RM-Sat Nov 26 2016 00:04: Function that auto adds SCR # and description
 " vim:tw=78:ts=2:sts=2:sw=2:

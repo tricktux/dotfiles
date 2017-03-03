@@ -79,6 +79,20 @@ function! plugin#Config() abort
 			" let g:ycm_seed_identifiers_with_syntax=1
 			" " let g:ycm_global_ycm_extra_conf = '~/.dotfiles/vim-utils/.ycm_extra_conf.py'
 			" let g:ycm_autoclose_preview_window_after_completion = 1
+			" let g:ycm_semantic_triggers =  {
+						" \   'c' : ['->', '.'],
+						" \   'objc' : ['->', '.'],
+						" \   'ocaml' : ['.', '#'],
+						" \   'cpp,objcpp' : ['->', '.', '::'],
+						" \   'perl' : ['->'],
+						" \   'php' : ['->', '::'],
+						" \   'cs,javascript,d,python,perl6,scala,vb,elixir,go' : ['.'],
+						" \   'java,jsp' : ['.'],
+						" \   'vim' : ['re![_a-zA-Z]+[_\w]*\.'],
+						" \   'ruby' : ['.', '::'],
+						" \   'lua' : ['.', ':'],
+						" \   'erlang' : [':'],
+						" \ }
 		" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 
 		if has('python3') && !exists('g:android') " Deoplete
@@ -106,6 +120,8 @@ function! plugin#Config() abort
 				let g:deoplete#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 				let g:deoplete#ignore_sources = {}
 				let g:deoplete#ignore_sources.java = ['omni']
+				let g:deoplete#ignore_sources.c = ['omni']
+				let g:deoplete#ignore_sources._ = ['around']
 				"call deoplete#custom#set('omni', 'min_pattern_length', 0)
 				inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
 				inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
@@ -419,6 +435,7 @@ function! plugin#Config() abort
 	"TODO.RM-Sun Feb 26 2017 14:04: Fix here so that nvim :term command doent
 	"brake tagbar  
 	Plug 'Tagbar'
+		let g:tagbar_ctags_bin = 'ctags'
 		let g:tagbar_autofocus = 1
 		let g:tagbar_show_linenumbers = 2
 		let g:tagbar_map_togglesort = "r"
@@ -556,6 +573,8 @@ function! plugin#Config() abort
 	if exists("b:deoplete_loaded") " Cant call this inside of plug#begin()
 		call deoplete#custom#set('javacomplete2', 'mark', '')
 		call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
+		" c c++
+		call deoplete#custom#set('clang2', 'mark', '')
 	endif
 
 	" Create cache folders
