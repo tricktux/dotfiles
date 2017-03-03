@@ -87,6 +87,7 @@ function! svn#SvnSwitchBranchTag() abort
 		return
 	endif
 
+	let dir = getcwd()
 	if exists('*FindRootDirectory()') " If vim-rooter present try it
 		let file_path = FindRootDirectory()
 		if file_path ==# getcwd()
@@ -97,9 +98,7 @@ function! svn#SvnSwitchBranchTag() abort
 	endif	
 
 	cexpr systemlist("svn switch " . g:svn_repo_url . branches_list[user_index])
-	if !empty(file_path)
-		silent! cd - " Restore CWD
-	endif
+	silent! execute "cd " . dir
 	" Update Status Line with New Branch information
 	call svn#UpdateSvnBranchInfo()
 endfunction
