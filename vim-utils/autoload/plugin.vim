@@ -102,7 +102,7 @@ function! plugin#Config() abort
 				let g:deoplete#enable_at_startup = 1
 				" Note: If you get autocomplete autotriggering issues keep increasing this option below. 
 				" Next value to try is 150. See:https://github.com/Shougo/deoplete.nvim/issues/440
-				let g:deoplete#auto_complete_delay=50 " Fixes issue where Autocompletion triggers
+				let g:deoplete#auto_complete_delay=150 " Fixes issue where Autocompletion triggers
 				" New settings
 				let g:deoplete#enable_ignore_case = 1
 				let g:deoplete#enable_smart_case = 1
@@ -414,7 +414,7 @@ function! plugin#Config() abort
 					\['x','X','a','A','o','O','c','C','r','R','m','M','i','n','N']
 	Plug 'airblade/vim-rooter'
 		let g:rooter_manual_only = 1
-		nnoremap <Leader>cr :Rooter<CR>
+		nnoremap <Leader>cr :call utils#RooterAutoloadCscope()<CR>
 	Plug 'Raimondi/delimitMate'
 		let g:delimitMate_expand_cr = 1
 		let g:delimitMate_expand_space = 1
