@@ -401,8 +401,9 @@
 		" Give execute permissions to current file
 		nnoremap <Leader>jo :!chmod a+x %<CR>
 		" Sessions
-		nnoremap <Leader>je :call utils#SaveSession()<CR>
-		nnoremap <Leader>jE :call utils#LoadSession()<CR>
+		nnoremap <Leader>jes :call utils#SaveSession()<CR>
+		nnoremap <Leader>jel :call utils#LoadSession()<CR>
+		nnoremap <Leader>jee :call utils#LoadSession('default.vim')<CR>
 		" Count occurrances of last search
 		nnoremap <Leader>jc :%s///gn<CR>
 		" Remove Trailing Spaces
