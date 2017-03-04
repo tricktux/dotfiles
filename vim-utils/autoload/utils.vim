@@ -455,11 +455,9 @@ function! utils#Make()
 		return
 	elseif has('win32')
 		let l:path = expand('%:p')
-		" TODO.RM-Mon Feb 20 2017 12:54: Fix here. This is make function. Should
-		" not be doing formatting
-		if l:path =~ 'UnrealProjects' && executable('clang-format') && exists(':Autoformat')
-			Autoformat
-		endif
+		" if l:path =~ 'UnrealProjects' && executable('clang-format') && exists(':Autoformat')
+			" Autoformat
+		" endif
 		if !exists('b:current_compiler')
 			" Notice inside the '' is a pat which is a regex. That is why \\
 			if l:path =~ 'OneWINGS\\Source'
