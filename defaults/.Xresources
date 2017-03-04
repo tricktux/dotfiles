@@ -22,6 +22,8 @@ URxvt.font: xft:monospace:size=10
 ! URxvt.font: xft:ProggyCleanTT Plus Nerd File Types Mono:pixelsize=16:antialias=true:hinting=true
 !	URxvt*font:xft:dejavu sans mono:medium:pixelsize=10,xft:dejavu sans mono:medium:pixelsize=10
 ! URxvt*boldFont:xft:dejavu sans mono for powerline:bold:pixelsize=14,xft:dejavu sans mono for powerline:bold:pixelsize=13
+URxvt.letterSpace: -1
+URxvt.lineSpace: -1
 
 ! VERY IMPORTANT: Reload config with xrdb ~/.Xresources
 
