@@ -77,3 +77,6 @@ export EDITOR=nvim
 # Dangerous options
 # export BUILDIR=/tmp
 # export PKGDEST=$HOME/.local/
+
+# Ranger load only ~/.config/ranger/rc.conf
+export RANGER_LOAD_DEFAULT_RC=FALSE

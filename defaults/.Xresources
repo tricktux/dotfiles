@@ -145,3 +145,16 @@ URxvt*skipBuiltinGlyphs:    true
 
 ! Beep for new email
 URxvt*urgentOnBell: true
+
+!-----------------------------------------------------------------------
+!                         Xft settings
+!-----------------------------------------------------------------------
+
+! Use xdpyinfo | grep dots to find out this number
+! Xft.dpi:                88
+Xft.autohint:           0       
+Xft.antialias:          true
+Xft.rgba:               rgb
+Xft.hinting:            true
+Xft.lcdfilter:          lcddefault
+Xft.hintstyle:          hintsfull
