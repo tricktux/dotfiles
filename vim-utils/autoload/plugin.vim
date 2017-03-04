@@ -640,7 +640,7 @@ function! plugin#Check() abort
 	endif
 
 	" Same cache dir for both
-	let g:cache_path= $HOME . '\.cache\'
+	let g:cache_path= $HOME . '/.cache/'
 	let g:plugged_path=  g:vimfile_path . 'plugged/'
 
 	let g:usr_path = '/usr'
