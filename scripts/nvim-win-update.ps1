@@ -1,3 +1,4 @@
+Remove-Item 'C:\Program Files\nvim\*'
 wget "https://ci.appveyor.com/api/projects/neovim/neovim/artifacts/build/Neovim.zip?branch=master&job=Configuration%3A%20MINGW_64" `
 	-OutFile "$env:TEMP\neovim.zip"
 
