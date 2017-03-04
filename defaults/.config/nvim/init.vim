@@ -123,9 +123,9 @@
 		" will look in current directory for tags
 		
 		set tags=./.tags;,.tags; " For the case where no plugins
-		if exists("b:plugins_loaded")
-			call utils#SetTags()
-		endif
+		" if exists("b:plugins_loaded")
+		"	call utils#SetTags()
+		" endif
 
 		if has('cscope')
 			set cscopetag cscopeverbose

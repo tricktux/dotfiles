@@ -683,23 +683,26 @@ function! utils#SetTags() abort
 			let &tags .= t
 		endfor
 	else
-		" TODO.RM-Thu Mar 02 2017 19:57: Need to test this in unix  
-		let tags_buff = substitute(glob("`find ~/.cache/ -name tags* -print`"), "\n", ",", "g")
+		let tags_buff = split(system("find ~/.cache/ -name tags* -print -maxdepth 1"), "\n")
 		let sys = 0
-		call map(tags_buff, '"," . v:val') " Append commas to values
-		for t in tags_buff
-			let &tags .= t
-			" Check to see if specific tags where loaded
-			if t =~# 'tags_sys'
-				let sys = 1
-				" elseif =~# 'tags_unreal'
-				" let unreal = 1
-			endif
-		endfor
-		if !sys
+		if !empty(tags_buff)
+			call map(tags_buff, '"," . v:val') " Append commas to values
+			for t in tags_buff
+				let &tags .= t
+				" Check to see if specific tags where loaded
+				if t =~# 'tags_sys'
+					let sys = 1
+					" elseif =~# 'tags_unreal'
+					" let unreal = 1
+				endif
+			endfor
+		endif
+		" TODO.RM-Fri Mar 03 2017 22:10: These tags are super heafty. Maybe use it
+		" as example for creating other auto tags not so heavy but not
+		if !sys && executable('ctags')
 			" Create tags
-			!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/ctags/tags_sys /usr/include
-			!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/ctags/tags_sys2 /usr/local/include
+			!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/tags_sys /usr/include
+			!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/tags_sys2 /usr/local/include
 		endif
 	endif
 	" Note: There is also avr tags created by .dotfiles/scripts/maketags.sh
