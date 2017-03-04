@@ -496,7 +496,7 @@ endfunction
 
 function! utils#GuiFont(sOp) abort
 	let sub = has('win32') ? ':h\zs\d\+' : '\ \zs\d\+'
-	if exists('g:GuiLoaded') && exists(':Guifont')
+	if has('nvim') && exists('g:GuiLoaded') && exists(':Guifont')
 		" Capture output of Guifont
 		redir => guifont_out
 		silent Guifont
