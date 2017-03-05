@@ -30,6 +30,15 @@ function! svn#GetSvnListOfBranchesTags(repo_name) abort
 	" ls` recursively. Until you find only tags, branches, and trunk
 	" Get branches
 	" No reason to cd into svn root folder since we have full repo link
+	" Pseudo: 
+		" svn ls just repo name
+		" search for branches, tags, and trunk
+		" If branches, or tags is found then use that as your branches list
+		" If none is found. 
+			" Check the len of the list. If more than 3. No way there are that many
+			" repos. Just ignore and assume there are no brances/tags
+			" else
+			" Repeat operation but from the name of the first folder
 	let branches_list = systemlist("svn ls " . g:svn_repo_url . a:repo_name . "/branches")
 	" echo branches_list
 	if v:shell_error
