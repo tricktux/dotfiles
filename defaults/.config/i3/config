@@ -28,23 +28,86 @@ font pango:monospace 10
 
 # use these keys for focus, movement, and resize directions when reaching for
 # the arrows is not convenient
+
+# TODO{{{
+# - [X]  Set wallpaper
+# - [X]  i3lock
+# - [ ]  Configure font
+# - [X]  Volume
+# - [ ]  Icons on the status bar
+# - [ ]  Playerctl
+# - [ ]  i3bar
+# - [ ]  Exit stuff. Getting close
+# - [X]  workspaces
+# - [X]  floating window
+# - [ ]  Rofi transparency
+# - [ ]  Urxvt transparency
+# Close stuff with mod+shift+q
+# }}}
+
+########## Mod ############ {{{
 # Mod1 = Alt
 # Mod4 = Window key
 set $mod Mod4
+#}}}
 
-# thin borders
-hide_edge_borders both
+############# Colors #########################{{{
+set_from_resource $darkred     color1  #000000
+set_from_resource $red         color9  #000000
+set_from_resource $darkgreen   color2  #000000
+set_from_resource $green       color10 #000000
+set_from_resource $darkyellow  color3  #000000
+set_from_resource $yellow      color11 #000000
+set_from_resource $darkblue    color4  #000000
+set_from_resource $blue        color12 #000000
+set_from_resource $darkmagenta color5  #000000
+set_from_resource $magenta     color13 #000000
+set_from_resource $darkcyan    color6  #000000
+set_from_resource $cyan        color14 #000000
+set_from_resource $darkwhite   color7  #000000
+set_from_resource $white       color15 #000000
+# Use custom colors for black
+set $black       #282828
+set $darkblack   #1d2021
+set $transparent #00000000
 
-bindsym $mod+Shift+x exec i3lock --color 475263
+# Colors section | bookers's colors
+set $bg-color 	         #2f343f
+set $inactive-bg-color   #2f343f
+set $text-color          #f3f4f5
+set $inactive-text-color #676E7D
+set $urgent-bg-color     #E53935
 
+#############################################}}}
+
+# Window colors{{{
+#                       border              background         text                 indicator
+# client.focused          $bg-color           $bg-color          $text-color          #00ff00
+# client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-color #00ff00
+# client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color #00ff00
+# client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #00ff00
+#
+# Alternative colors
+#                       BORDER      BACKGROUND  TEXT        INDICATOR   CHILD_BORDER
+	client.focused          $black      $black      $darkwhite  $darkblack  $darkblack
+		client.unfocused        $black      $black      $white      $darkblack  $darkblack
+		client.focused_inactive $black      $black      $white      $darkblack  $darkblack
+		client.urgent           $darkred    $darkred    $black      $darkred    $darkred
+		client.background       $black
+# }}}
+
+# Movement keys{{{
 set $up k
 set $down j
 set $left l
 set $right h
+#}}}
 
+# Bindigs{{{
 # use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
+bindsym $mod+Shift+x exec i3lock --color 475263
 
+bindsym $mod+r mode "resize"
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
 
@@ -117,31 +180,6 @@ bindsym $mod+Shift+minus move scratchpad
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
 bindsym $mod+minus scratchpad show
-
-# switch to workspace
-bindsym $mod+1 workspace $workspace1 
-bindsym $mod+2 workspace $workspace2 
-bindsym $mod+3 workspace $workspace3 
-bindsym $mod+4 workspace $workspace4 
-bindsym $mod+5 workspace $workspace5 
-bindsym $mod+6 workspace $workspace6 
-bindsym $mod+7 workspace $workspace7 
-bindsym $mod+8 workspace $workspace8 
-bindsym $mod+9 workspace $workspace9 
-bindsym $mod+0 workspace $workspace10
-
-# move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $workspace1 
-bindsym $mod+Shift+2 move container to workspace $workspace2 
-bindsym $mod+Shift+3 move container to workspace $workspace3 
-bindsym $mod+Shift+4 move container to workspace $workspace4 
-bindsym $mod+Shift+5 move container to workspace $workspace5 
-bindsym $mod+Shift+6 move container to workspace $workspace6 
-bindsym $mod+Shift+7 move container to workspace $workspace7 
-bindsym $mod+Shift+8 move container to workspace $workspace8 
-bindsym $mod+Shift+9 move container to workspace $workspace9 
-bindsym $mod+Shift+0 move container to workspace $workspace10
-
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -149,73 +187,6 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-# resize window (you can also use the mouse for that)
-mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
-
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym $left       resize shrink width 10 px or 10 ppt
-        bindsym $down       resize grow height 10 px or 10 ppt
-        bindsym $up         resize shrink height 10 px or 10 ppt
-        bindsym $right      resize grow width 10 px or 10 ppt
-
-        # same bindings, but for the arrow keys
-        bindsym Left        resize shrink width 10 px or 10 ppt
-        bindsym Down        resize grow height 10 px or 10 ppt
-        bindsym Up          resize shrink height 10 px or 10 ppt
-        bindsym Right       resize grow width 10 px or 10 ppt
-
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-
-bindsym $mod+r mode "resize"
-
-# Colors section
-set $bg-color 	         #2f343f
-set $inactive-bg-color   #2f343f
-set $text-color          #f3f4f5
-set $inactive-text-color #676E7D
-set $urgent-bg-color     #E53935
-
-# window colors
-#                       border              background         text                 indicator
-client.focused          $bg-color           $bg-color          $text-color          #00ff00
-client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-color #00ff00
-client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color #00ff00
-client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #00ff00
-
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-bar {
-				# status_command i3blocks -c ~/.config/i3/i3blocks.conf
-				# i3bar_command ~/.config/i3/lemonbar/i3_lemonbar.sh
-				status_command i3blocks
-				colors {
-							background $bg-color
-							separator #757575
-							#                  border             background         text
-							focused_workspace  $bg-color          $bg-color          $text-color
-							inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-							urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
-					}
-}
-
-# - [X]  Set wallpaper
-# - [X]  i3lock
-# - [ ]  Configure font
-# - [X]  Volume
-# - [ ]  Icons on the status bar
-# - [ ]  i3bar
-# - [X]  workspaces
-# - [X]  floating window
-# - [ ]  Rofi transparency
-# Close stuff with mod+shift+q
-#
 ########### Custom Bindings ############################
 bindsym Print exec gnome-screenshot
 bindsym XF86MonBrightnessUp exec xbacklight +10
@@ -228,13 +199,9 @@ bindsym XF86AudioMute exec amixer sset Master toggle
 bindsym XF86AudioPlay exec ~/.local/bin/cplay -u
 bindsym XF86AudioNext exec ~/.local/bin/cplay -n
 bindsym XF86AudioPrev exec ~/.local/bin/cplay -p
+# }}}
 
-############ Border Settings ###########################
-# No borders
-new_window none
-new_float none
-
-############ Workspaces ###################
+############ Workspaces ###################{{{
 set $workspace1 "1: nvim"
 set $workspace2 "2: chrome"
 set $workspace3 "3"
@@ -246,11 +213,38 @@ set $workspace8 "8"
 set $workspace9 "9"
 set $workspace10 "10"
 
+# Switch to workspace
+bindsym $mod+1 workspace $workspace1 
+bindsym $mod+2 workspace $workspace2 
+bindsym $mod+3 workspace $workspace3 
+bindsym $mod+4 workspace $workspace4 
+bindsym $mod+5 workspace $workspace5 
+bindsym $mod+6 workspace $workspace6 
+bindsym $mod+7 workspace $workspace7 
+bindsym $mod+8 workspace $workspace8 
+bindsym $mod+9 workspace $workspace9 
+bindsym $mod+0 workspace $workspace10
+bindsym $mod+Tab workspace back_and_forth
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $workspace1 
+bindsym $mod+Shift+2 move container to workspace $workspace2 
+bindsym $mod+Shift+3 move container to workspace $workspace3 
+bindsym $mod+Shift+4 move container to workspace $workspace4 
+bindsym $mod+Shift+5 move container to workspace $workspace5 
+bindsym $mod+Shift+6 move container to workspace $workspace6 
+bindsym $mod+Shift+7 move container to workspace $workspace7 
+bindsym $mod+Shift+8 move container to workspace $workspace8 
+bindsym $mod+Shift+9 move container to workspace $workspace9 
+bindsym $mod+Shift+0 move container to workspace $workspace10
+
+# Assign stuff
 assign [class="URxvt"] $workspace1
 assign [class="Google-chrome"] $workspace2
 assign [class="Pcmanfm"] $workspace4
+# }}}
 
-#### RULES FOR SPECIFIC APPLICATIONS ####
+#### RULES FOR WORKSPACES AND SPECIFIC APPLICATIONS ####{{{
 # Taken from here: http://www.linuxlusers.com/2012/12/24/i3-window-manager-tip-making-specific-applications-and-child-windows-open-in-floating-mode-or-with-other-custom-settings/
 # by APPLICATION (WM_CLASS)
 # Note: class is typically useful for applying custom settings to
@@ -258,23 +252,140 @@ assign [class="Pcmanfm"] $workspace4
 #       isn't want you want see the ROLE section, below.
 # Tip: To find out what these values might be run:
 #       xprop | grep -i 'class' second name
-for_window [class="File-roller"] floating enable
-for_window [class="Speedcrunch"] floating enable
-for_window [class="Gloobus-preview"] floating enable
-for_window [class="Pavucontrol"] floating enable
-for_window [class="Seafile Client"] floating enable
+	for_window [class="File-roller"] floating enable
+		for_window [class="Speedcrunch"] floating enable
+		for_window [class="Gloobus-preview"] floating enable
+		for_window [class="Pavucontrol"] floating enable
 
+# My-own
+		for_window [class="Seafile Client"] floating enable
+		for_window [class="Gnome-system-monitor"] floating enable
+
+# Taken from https://github.com/Airblader/dotfiles-manjaro
+		for_window [class="Nitrogen"] floating enable
+		for_window [class="ARandR"] floating enable
+		for_window [class="lxappearance"] floating enable
+		for_window [title="xfce4-volumed"] floating enable
+		for_window [title="xfce4-notifyd"] floating enable
+		for_window [title="Steam*"] floating enable
+		for_window [title="Synergy"] floating enable
+		for_window [title="xfce4-volumed"] border pixel 0
+		for_window [title="xfce4-notifyd"] border pixel 0
+		for_window [class="File-roller"] floating enable
+		for_window [class="Battle.net.exe"] floating enable
+		for_window [class="Skype"] floating enable
+		for_window [class="gsimplecal"] floating enable
+		for_window [window_role="pop-up"] floating enable
+		for_window [window_role="task_dialog"] floating enable
 # by ROLE (WM_WINDOW_ROLE)
 # Note: window_role is Typically useful for effecting child windows
 #       such as instant messaging converstations, email composition
 #       windows, etc.
 # Tip: To find out what these values might be run:
 #       xprop | grep -i 'role'#
-for_window [window_role="conversation"] floating enable
-for_window [window_role="Msgcompose"] floating enable
+		for_window [window_role="conversation"] floating enable
+		for_window [window_role="Msgcompose"] floating enable
+#################################################### }}}
 
-######### STARTUP APPLICATIONS ################################
+# Options{{{
+floating_modifier $mod
+# thin borders
+hide_edge_borders both
+# No borders
+new_window none
+new_float none
 
+smart_gaps on
+
+# Border settings
+new_window pixel 3
+smart_borders on
+smart_borders no_gaps
+# }}}
+
+# Mode Resize window (you can also use the mouse for that){{{}
+mode "resize" {
+# These bindings trigger as soon as you enter the resize mode
+
+# Pressing left will shrink the window’s width.
+# Pressing right will grow the window’s width.
+# Pressing up will shrink the window’s height.
+# Pressing down will grow the window’s height.
+	bindsym $left       resize shrink width 10 px or 10 ppt
+		bindsym $down       resize grow height 10 px or 10 ppt
+		bindsym $up         resize shrink height 10 px or 10 ppt
+		bindsym $right      resize grow width 10 px or 10 ppt
+
+# same bindings, but for the arrow keys
+		bindsym Left        resize shrink width 10 px or 10 ppt
+		bindsym Down        resize grow height 10 px or 10 ppt
+		bindsym Up          resize shrink height 10 px or 10 ppt
+		bindsym Right       resize grow width 10 px or 10 ppt
+
+# back to normal: Enter or Escape
+		bindsym Return mode "default"
+		bindsym Escape mode "default"
+}
+# }}}
+
+# Mode Power{{{
+set $mode_power power
+bindsym $mod+Control+l mode "$mode_power"
+mode "$mode_power" {
+		bindsym l mode "default", exec --no-startup-id $HOME/.i3/i3exit lock
+		bindsym e mode "default", exec --no-startup-id $HOME/.config/i3/i3exit logout
+		bindsym r mode "default", exec --no-startup-id $HOME/.config/i3/i3exit reboot
+		bindsym p mode "default", exec --no-startup-id $HOME/.config/i3/i3exit shutdown
+
+		bindsym Return mode "default"
+		bindsym Escape mode "default"
+}
+# }}}
+
+# Bar{{{
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+				# status_command i3blocks -c ~/.config/i3/i3blocks.conf
+				# i3bar_command ~/.config/i3/lemonbar/i3_lemonbar.sh
+				status_command i3blocks -c ~/.config/i3/.i3blocks.conf
+				i3bar_command i3bar -t
+				position top
+				font pango:Hack, FontAwesome 11
+				strip_workspace_numbers no
+				separator_symbol "■"
+				# bindsym button4 nop
+				# bindsym button5 nop
+				# tray_output eDP1
+				# tray_output LVDS-0
+				tray_padding 0
+				height 20
+				colors {
+						statusline         $white
+						background         $transparent
+						separator          $transparent
+
+		                          #BORDER       BACKGROUND   TEXT
+						focused_workspace  $transparent $transparent $darkwhite
+						inactive_workspace $transparent $transparent $white
+						active_workspace   $transparent $transparent $white
+						urgent_workspace   $darkred     $darkred     $transparent
+						binding_mode       $darkred     $darkred     $transparent
+				}
+			# status_command i3blocks
+
+			# colors {
+				# background $bg-color
+					# separator #757575
+	# #                  border             background         text
+					# focused_workspace  $bg-color          $bg-color          $text-color
+					# inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
+					# urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
+			# }
+}
+# }}}
+
+######### STARTUP APPLICATIONS ################################{{{
 exec --no-startup-id compton -f
 exec --no-startup-id seafile-applet
 exec --no-startup-id xscreensaver -no-splash&
@@ -295,3 +406,5 @@ exec --no-startup-id urxvt
 # exec /home/reinaldo/.dotfiles/scripts/autostart-gnome.sh
 
 exec_always --no-startup-id feh --bg-scale /home/reinaldo/Pictures/o91lhkdb_sq-marco-bonomo.jpg 
+# }}}
+# vim:tw=78:ts=2:sts=2:sw=2:fdm=marker

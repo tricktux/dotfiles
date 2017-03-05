@@ -551,7 +551,7 @@ function! plugin#Config() abort
 		let g:lightline = {
 								\ 'active': {
 								\   'left': [ [ 'mode', 'paste' ],
-								\             [ 'readonly', 'filename', 'modified', 'fugitive', 'svn', 'tagbar', 'neomake'] ]
+								\             [ 'readonly', 'absolutepath', 'modified', 'fugitive', 'svn', 'tagbar', 'neomake'] ]
 								\		},
 								\ 'component': {
 								\   'fugitive': '%{fugitive#statusline()}',
@@ -567,6 +567,9 @@ function! plugin#Config() abort
 								\		},
 								\ }
 
+	if has('nvim')
+		Plug 'PotatoesMaster/i3-vim-syntax'
+	endif
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
