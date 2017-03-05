@@ -8,8 +8,8 @@ URxvt*scrollWithBuffer: true
 URxvt*scrollTtyKeypress: true
 
 ! Fake transparency. Only shows wallpaper
-! urxvt*transparent: true
-! urxvt*shading: 30
+urxvt*transparent: true
+urxvt*shading: 30
 
 ! To install prettier shell prompt see `banga/powerline-shell`
 ! Trying to get powerline to display correctly
@@ -28,8 +28,8 @@ URxvt.lineSpace: -1
 ! VERY IMPORTANT: Reload config with xrdb ~/.Xresources
 
 ! Real Transparency. Requires work
-! urxvt*depth: 32
-! urxvt*background: rgba:0000/0000/0200/c800
+! Urxvt*depth: 32
+! Urxvt*background: rgba:0000/0000/0200/c800
 
 ! Command to search the help:
 ! rxvt --help 2&>1 | grep scroll
@@ -51,34 +51,73 @@ URxvt.matcher.rend.0: Uline Bold fg5
 ! Use script focus_or_lunch with command urxvt
 ! URxvt.cursorColor: red
 
-! Copied from https://github.com/alexbooker/dotfiles/blob/master/.Xresources
-*background: #232C31
-*foreground: #C5C8C6
-! black
-*color0: #2D3C46
-*color8: #425059
-! red
-*color1: #A54242
-*color9: #CC6666
-! green
-*color2: #8C9440
-*color10: #B5BD68
+! -----------------------------------------------------------------------------
+! File: gruvbox-urxvt256.xresources
+! Description: Retro groove colorscheme generalized
+! Author: morhetz <morhetz@gmail.com>
+! Source: https://github.com/morhetz/gruvbox-generalized
+! Last Modified: 13 Dec 2013
+! -----------------------------------------------------------------------------
 
-! yellow
-*color3: #DE935F
-*color11: #F0C674
-! blue
-*color4: #5F819D
-*color12: #81A2BE
-! magenta
-*color5: #85678F
-*color13: #B294BB
-! cyan
-*color6: #5E8D87
-*color14: #8ABEB7
-! white
-*color7: #6C7A80
-*color15: #C5C8C6
+URxvt.color24:  #076678
+URxvt.color66:  #427b58
+URxvt.color88:  #9d0006
+URxvt.color96:  #8f3f71
+URxvt.color100: #79740e
+URxvt.color108: #8ec07c
+URxvt.color109: #83a598
+URxvt.color130: #af3a03
+URxvt.color136: #b57614
+URxvt.color142: #b8bb26
+URxvt.color167: #fb4934
+URxvt.color175: #d3869b
+URxvt.color208: #fe8019
+URxvt.color214: #fabd2f
+URxvt.color223: #ebdbb2
+URxvt.color228: #f2e5bc
+URxvt.color229: #fbf1c7
+URxvt.color230: #f9f5d7
+URxvt.color234: #1d2021
+URxvt.color235: #282828
+URxvt.color236: #32302f
+URxvt.color237: #3c3836
+URxvt.color239: #504945
+URxvt.color241: #665c54
+URxvt.color243: #7c6f64
+URxvt.color244: #928374
+URxvt.color245: #928374
+URxvt.color246: #a89984
+URxvt.color248: #bdae93
+URxvt.color250: #d5c4a1
+
+! Copied from https://github.com/alexbooker/dotfiles/blob/master/.Xresources
+! *background: #232C31
+! *foreground: #C5C8C6
+! ! black
+! *color0: #2D3C46
+! *color8: #425059
+! ! red
+! *color1: #A54242
+! *color9: #CC6666
+! ! green
+! *color2: #8C9440
+! *color10: #B5BD68
+
+! ! yellow
+! *color3: #DE935F
+! *color11: #F0C674
+! ! blue
+! *color4: #5F819D
+! *color12: #81A2BE
+! ! magenta
+! *color5: #85678F
+! *color13: #B294BB
+! ! cyan
+! *color6: #5E8D87
+! *color14: #8ABEB7
+! ! white
+! *color7: #6C7A80
+! *color15: #C5C8C6
 
 ! Blue theme
 ! Too blue
@@ -151,7 +190,7 @@ URxvt*urgentOnBell: true
 !-----------------------------------------------------------------------
 
 ! Use xdpyinfo | grep dots to find out this number
-Xft.dpi:                88
+! Xft.dpi:                88
 Xft.autohint:           0       
 Xft.antialias:          true
 Xft.rgba:               rgb
