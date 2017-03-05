@@ -151,7 +151,7 @@ URxvt*urgentOnBell: true
 !-----------------------------------------------------------------------
 
 ! Use xdpyinfo | grep dots to find out this number
-! Xft.dpi:                88
+Xft.dpi:                88
 Xft.autohint:           0       
 Xft.antialias:          true
 Xft.rgba:               rgb
