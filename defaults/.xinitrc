@@ -49,4 +49,5 @@ fi
 # exec xterm -geometry 80x66+0+0 -name login
 
 # Start desktop manager
-exec $desktop
+# exec $desktop
+exec i3
