@@ -9,7 +9,7 @@ function! plugin#Config() abort
 		nnoremap <Leader>Pi :PlugInstall<CR>
 		nnoremap <Leader>Pu :PlugUpdate<CR>
 					\:PlugUpgrade<CR>
-					\:UpdateRemotePlugins<CR>
+					" \:UpdateRemotePlugins<CR>
 		" installs plugins; append `!` to update or just :PluginUpdate
 		nnoremap <Leader>Ps :PlugSearch<CR>
 		" searches for foo; append `!` to refresh local cache
