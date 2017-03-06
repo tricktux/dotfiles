@@ -191,21 +191,25 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 bindsym Print exec gnome-screenshot
 bindsym XF86MonBrightnessUp exec xbacklight +10
 bindsym XF86MonBrightnessDown exec xbacklight -10
-bindsym XF86AudioLowerVolume exec amixer sset Master 5%-
-bindsym XF86AudioRaiseVolume exec amixer sset Master 5%+
-bindsym XF86AudioMute exec amixer sset Master toggle
+# So that it agrees with the volume-pulseaudio control
+bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+ && pkill -RTMIN+1 i3blocks 
+bindsym XF86AudioLowerVolume exec amixer -q -D pulse sset Master 5%- && pkill -RTMIN+1 i3blocks
+bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle && pkill -RTMIN+1
+# bindsym XF86AudioLowerVolume exec amixer sset Master 5%-
+# bindsym XF86AudioRaiseVolume exec amixer sset Master 5%+
+# bindsym XF86AudioMute exec amixer sset Master toggle
 
-# TODO.RM-Sat Mar 04 2017 16:52: Look into playerctl and cmus. This below is currently not working  
-bindsym XF86AudioPlay exec ~/.local/bin/cplay -u
-bindsym XF86AudioNext exec ~/.local/bin/cplay -n
-bindsym XF86AudioPrev exec ~/.local/bin/cplay -p
+# Depends on playerctl
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
 # }}}
 
 ############ Workspaces ###################{{{
-set $workspace1 "1: nvim"
-set $workspace2 "2: chrome"
+set $workspace1 "1:"
+set $workspace2 "2:"
 set $workspace3 "3"
-set $workspace4 "4: explorer"
+set $workspace4 "4:"
 set $workspace5 "5"
 set $workspace6 "6"
 set $workspace7 "7"
@@ -351,15 +355,15 @@ bar {
 				status_command i3blocks -c ~/.config/i3/.i3blocks.conf
 				i3bar_command i3bar -t
 				position top
-				font pango:Hack, FontAwesome 11
-				strip_workspace_numbers no
+				font pango:Hack, FontAwesome 10
+				strip_workspace_numbers yes
 				separator_symbol "■"
 				# bindsym button4 nop
 				# bindsym button5 nop
 				# tray_output eDP1
 				# tray_output LVDS-0
 				tray_padding 0
-				height 20
+				height 30
 				colors {
 						statusline         $white
 						background         $transparent
