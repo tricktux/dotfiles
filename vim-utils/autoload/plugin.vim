@@ -551,7 +551,7 @@ function! plugin#Config() abort
 		let g:lightline = {
 								\ 'active': {
 								\   'left': [ [ 'mode', 'paste' ],
-								\             [ 'readonly', 'absolutepath', 'modified', 'fugitive', 'svn', 'tagbar', 'neomake'] ]
+								\             [ 'readonly', 'relativepath', 'modified', 'fugitive', 'svn', 'tagbar', 'neomake'] ]
 								\		},
 								\ 'component': {
 								\   'fugitive': '%{fugitive#statusline()}',

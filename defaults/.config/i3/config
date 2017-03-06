@@ -43,6 +43,11 @@ font pango:monospace 10
 # - [ ]  Rofi transparency
 # - [ ]  Urxvt transparency
 # Close stuff with mod+shift+q
+# It turns out that you can make 2 monitors use the same workspace with this:
+# Got from here: https://faq.i3wm.org/question/1659/force-one-i3-instanceworkspace-across-multiple-monitors.1.html
+# fake-outputs 3840x1200+0+0
+
+# (I have two 1920x1200 screens.)
 # }}}
 
 ########## Mod ############ {{{
@@ -185,7 +190,9 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+# Here we replace default nagbar with i3-exit
+bindsym $mod+Shift+e exec "~/.config/i3/i3-exit"
 
 ########### Custom Bindings ############################
 bindsym Print exec gnome-screenshot
@@ -203,6 +210,8 @@ bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle && pkill -RTMIN
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
+
+# Scrappa
 # }}}
 
 ############ Workspaces ###################{{{
@@ -333,17 +342,18 @@ mode "resize" {
 # }}}
 
 # Mode Power{{{
-set $mode_power power
-bindsym $mod+Control+l mode "$mode_power"
-mode "$mode_power" {
-		bindsym l mode "default", exec --no-startup-id $HOME/.i3/i3exit lock
-		bindsym e mode "default", exec --no-startup-id $HOME/.config/i3/i3exit logout
-		bindsym r mode "default", exec --no-startup-id $HOME/.config/i3/i3exit reboot
-		bindsym p mode "default", exec --no-startup-id $HOME/.config/i3/i3exit shutdown
+# This wasnt really working so scratching this
+# set $mode_power power
+# bindsym $mod+Control+l mode "$mode_power"
+# mode "$mode_power" {
+		# bindsym l mode "default", exec --no-startup-id $HOME/.i3/i3exit lock
+		# bindsym e mode "default", exec --no-startup-id $HOME/.config/i3/i3exit logout
+		# bindsym r mode "default", exec --no-startup-id $HOME/.config/i3/i3exit reboot
+		# bindsym p mode "default", exec --no-startup-id $HOME/.config/i3/i3exit shutdown
 
-		bindsym Return mode "default"
-		bindsym Escape mode "default"
-}
+		# bindsym Return mode "default"
+		# bindsym Escape mode "default"
+# }
 # }}}
 
 # Bar{{{
@@ -358,8 +368,8 @@ bar {
 				font pango:Hack, FontAwesome 10
 				strip_workspace_numbers yes
 				separator_symbol "■"
-				# bindsym button4 nop
-				# bindsym button5 nop
+				bindsym button4 nop
+				bindsym button5 nop
 				# tray_output eDP1
 				# tray_output LVDS-0
 				tray_padding 0
@@ -376,16 +386,6 @@ bar {
 						urgent_workspace   $darkred     $darkred     $transparent
 						binding_mode       $darkred     $darkred     $transparent
 				}
-			# status_command i3blocks
-
-			# colors {
-				# background $bg-color
-					# separator #757575
-	# #                  border             background         text
-					# focused_workspace  $bg-color          $bg-color          $text-color
-					# inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-					# urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
-			# }
 }
 # }}}
 
