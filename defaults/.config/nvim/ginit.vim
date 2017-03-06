@@ -4,7 +4,8 @@ if exists('g:GuiLoaded') " nvim-qt gui
 	" Guifont Hack:h8
 	" Guifont Monospace:h10
 	" Guifont Incosolata for Powerline:h10
-	Guifont! Consolas:h9
+	" Guifont! Consolas:h9
+	Guifont! FontAwesome:h9
 	" Note: Fri Mar 03 2017 14:59 - Not having much of an effect in windows  
 	" call GuiMousehide(1)
 	call GuiWindowMaximized(1)
