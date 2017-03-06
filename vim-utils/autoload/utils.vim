@@ -3,7 +3,7 @@
 " Description:	Function Container
 " Author:				Reinaldo Molina <rmolin88@gmail.com>
 " Version:			2.0.0
-" Date:					Thu Mar 02 2017 10:24
+" Date:					Mon Mar 06 2017 09:22
 
 " FUNCTIONS
 function! utils#SetGrep() abort
@@ -718,5 +718,24 @@ function! utils#RooterAutoloadCscope() abort
 	endif
 endfunction
 
+" Excellent function but useless since pandoc prints shitty reports
+"TODO.RM-Mon Mar 06 2017 09:05: Try to get pandoc to print something useful  
+function! utils#ConvertWeeklyReport() abort
+	if !executable('pandoc')
+		echohl ErrorMsg
+		echo "Missing pandoc executable from path"
+		echohl None
+		return -1
+	endif
+
+	" Cd into current buffer file dir
+	let dir_buff = getcwd()
+	execute "cd " . expand('%:p:h')
+
+	" Execute command
+	cexpr systemlist("pandoc WeeklyReport.md -s -o WeeklyReport_ReinaldoMolina_" . strftime("%b-%d-%Y") . ".pdf")
+
+	execute "cd " dir_buff
+endfunction
 " TODO.RM-Sat Nov 26 2016 00:04: Function that auto adds SCR # and description
 " vim:tw=78:ts=2:sts=2:sw=2:
