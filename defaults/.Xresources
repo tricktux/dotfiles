@@ -13,8 +13,8 @@ urxvt*shading: 30
 
 ! To install prettier shell prompt see `banga/powerline-shell`
 ! Trying to get powerline to display correctly
-! URxvt.font: xft:monospace:size=10
-URxvt.font: xft:FontAwesome:size=10\xft:monospace:size=10\xft:Hack:size=8
+URxvt.font: xft:monospace:size=10
+! URxvt.font: xft:FontAwesome:size=10\xft:monospace:size=10\xft:Hack:size=8
 ! urxvt*font: xft:Terminus:pixelsize=12,xft:Droid\ Sans\ Mono\ for \Powerline:pixelsize=12
 ! URxvt*font: xft:Source\ Code\ Pro\ Medium:pixelsize=13:antialias=true:hinting=true,xft:Source\ Code\ Pro\ Medium:pixelsize=13:antialias=true:hinting=true
 ! URxvt*font: xft:Terminess Powerline:size=12
