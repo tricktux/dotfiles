@@ -648,7 +648,7 @@
 	" Man
 		let g:no_plugin_maps = 1
 
-	" NERD plugins options cant be anywhere else
+	" Nerdtree (Dont move. They need to be here)
 		let NERDTreeShowBookmarks=1  " B key to toggle
 		let NERDTreeShowLineNumbers=1
 		let NERDTreeShowHidden=1 " i key to toggle
@@ -657,6 +657,9 @@
 		" Do not load netrw
 		let g:loaded_netrw       = 1
 		let g:loaded_netrwPlugin = 1
+	
+	" NerdCommenter
+		let NERDSpaceDelims=1  " space around comments
 		let NERDUsePlaceHolders=0 " avoid commenter doing weird stuff
 		let NERDCommentWholeLinesInVMode=2
 		let NERDCreateDefaultMappings=0 " Eliminate default mappings
@@ -666,6 +669,6 @@
 		let NERDMenuMode=0 " no menu
 		let g:NERDCustomDelimiters = {
 					\ 'vim': { 'left': '"', 'right': '' },
+					\ 'dosini': { 'left': '#', 'leftAlt': '//', 'right': '', 'rightAlt': '' },
 					\ 'wings_syntax': { 'left': '//', 'right': '' }}
-		let NERDSpaceDelims=1  " space around comments
 " vim:tw=78:ts=2:sts=2:sw=2:

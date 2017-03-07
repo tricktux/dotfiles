@@ -217,7 +217,7 @@ bindsym XF86AudioPrev exec playerctl previous
 ############ Workspaces ###################{{{
 set $workspace1 "1:"
 set $workspace2 "2:"
-set $workspace3 "3"
+set $workspace3 "3:"
 set $workspace4 "4:"
 set $workspace5 "5"
 set $workspace6 "6"
@@ -256,6 +256,8 @@ assign [class="URxvt"] $workspace1
 assign [class="nvim-qt"] $workspace1
 assign [class="Google-chrome"] $workspace2
 assign [class="Pcmanfm"] $workspace4
+# All other new windows go to ws 3
+assign [class="^"] $workspace3
 # }}}
 
 #### RULES FOR WORKSPACES AND SPECIFIC APPLICATIONS ####{{{
@@ -309,12 +311,18 @@ hide_edge_borders both
 new_window none
 new_float none
 
+# Disables gaps when there is only one window
 smart_gaps on
 
 # Border settings
 new_window pixel 3
 smart_borders on
-smart_borders no_gaps
+#smart_borders no_gaps
+
+# Global gaps settings
+gaps inner 5
+gaps outer 5
+
 # }}}
 
 # Mode Resize window (you can also use the mouse for that){{{}
@@ -355,6 +363,45 @@ mode "resize" {
 		# bindsym Return mode "default"
 		# bindsym Escape mode "default"
 # }
+# }}}
+
+# Mode gaps{{{
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+	bindsym o      mode "$mode_gaps_outer"
+		bindsym i      mode "$mode_gaps_inner"
+		bindsym Return mode "default"
+		bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_inner" {
+	bindsym plus  gaps inner current plus 5
+		bindsym minus gaps inner current minus 5
+		bindsym 0     gaps inner current set 0
+
+		bindsym Shift+plus  gaps inner all plus 5
+		bindsym Shift+minus gaps inner all minus 5
+		bindsym Shift+0     gaps inner all set 0
+
+		bindsym Return mode "default"
+		bindsym Escape mode "default"
+}
+mode "$mode_gaps_outer" {
+	bindsym plus  gaps outer current plus 5
+		bindsym minus gaps outer current minus 5
+		bindsym 0     gaps outer current set 0
+
+		bindsym Shift+plus  gaps outer all plus 5
+		bindsym Shift+minus gaps outer all minus 5
+		bindsym Shift+0     gaps outer all set 0
+
+		bindsym Return mode "default"
+		bindsym Escape mode "default"
+}
 # }}}
 
 # Bar{{{
@@ -402,7 +449,8 @@ exec --no-startup-id tmux new-session -s cmus -d -n cmus -d "/usr/bin/cmus $@"&
 exec --no-startup-id sshfs odroid@copter-server:/ /home/reinaldo/.mnt/copter-server&
 
 # Autostart all programs that have a workspace
-exec --no-startup-id pcmanfm
+#exec --no-startup-id pcmanfm
+exec --no-startup-id insync start
 exec --no-startup-id google-chrome-stable
 exec --no-startup-id urxvt
 
