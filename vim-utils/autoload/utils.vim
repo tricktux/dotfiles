@@ -716,6 +716,7 @@ function! utils#RooterAutoloadCscope() abort
 	if cs_show =~# 'no cscope connection' && !empty(glob('cscope.out'))
 		cs add cscope.out
 	endif
+	echo getcwd()
 endfunction
 
 " Excellent function but useless since pandoc prints shitty reports
