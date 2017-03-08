@@ -201,7 +201,7 @@ bindsym XF86MonBrightnessDown exec xbacklight -10
 # So that it agrees with the volume-pulseaudio control
 bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+ && pkill -RTMIN+1 i3blocks 
 bindsym XF86AudioLowerVolume exec amixer -q -D pulse sset Master 5%- && pkill -RTMIN+1 i3blocks
-bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle && pkill -RTMIN+1
+bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle && pkill -RTMIN+1 i3blocks
 # bindsym XF86AudioLowerVolume exec amixer sset Master 5%-
 # bindsym XF86AudioRaiseVolume exec amixer sset Master 5%+
 # bindsym XF86AudioMute exec amixer sset Master toggle
@@ -325,7 +325,7 @@ gaps outer 5
 
 # }}}
 
-# Mode Resize window (you can also use the mouse for that){{{}
+# Mode Resize window (you can also use the mouse for that){{{
 mode "resize" {
 # These bindings trigger as soon as you enter the resize mode
 
@@ -333,7 +333,7 @@ mode "resize" {
 # Pressing right will grow the window’s width.
 # Pressing up will shrink the window’s height.
 # Pressing down will grow the window’s height.
-	bindsym $left       resize shrink width 10 px or 10 ppt
+		bindsym $left       resize shrink width 10 px or 10 ppt
 		bindsym $down       resize grow height 10 px or 10 ppt
 		bindsym $up         resize shrink height 10 px or 10 ppt
 		bindsym $right      resize grow width 10 px or 10 ppt
@@ -446,7 +446,7 @@ exec --no-startup-id x0vncserver -display :0 -passwordfile ~/.vnc/passwd&
 # pcmanfm --daemon-mode
 # Start cmus in "daemon" mode
 exec --no-startup-id tmux new-session -s cmus -d -n cmus -d "/usr/bin/cmus $@"&
-exec --no-startup-id sshfs odroid@copter-server:/ /home/reinaldo/.mnt/copter-server&
+# exec --no-startup-id sshfs odroid@copter-server:/ /home/reinaldo/.mnt/copter-server&
 
 # Autostart all programs that have a workspace
 #exec --no-startup-id pcmanfm
