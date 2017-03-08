@@ -11,7 +11,7 @@
 "		g:svn_repo_name
 "		Used to update the status line
 "			g:svn_branch_info
-"   g:svn_update_statusline
+"   g:svn_update_statusline && executable('svn')
 " let g:lightline = {
 " \   'svn': '%{svn#GetSvnBranchInfo()}', 
 " \   'svn': '(!empty(svn#GetSvnBranchInfo()))', 
