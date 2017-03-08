@@ -15,3 +15,5 @@ alias accounts-nvidia NVIDIA Accounts <noreply@account-nvidia.com>
 alias Rambox <noreply@rambox.pro>
 alias express-american American Express <americanexpress@member.americanexpress.com>
 alias hakulinen-ville Ville Hakulinen <notifications@github.com>
+alias express-american American Express <AmericanExpress@welcome.aexp.com>
+alias service@assistance.cuballama.com service@assistance.cuballama.com
