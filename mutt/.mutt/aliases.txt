@@ -17,3 +17,8 @@ alias express-american American Express <americanexpress@member.americanexpress.
 alias hakulinen-ville Ville Hakulinen <notifications@github.com>
 alias express-american American Express <AmericanExpress@welcome.aexp.com>
 alias service@assistance.cuballama.com service@assistance.cuballama.com
+alias clearwater-advanced Advanced Dental Care of Clearwater <DentalScheduling-fl@dentalcarealliance.com>
+alias Mint <team@Mint.com>
+alias reply-td TD Ameritrade Client Services-do not reply <client@notifications.tdameritrade.com>
+alias support-udacity Udacity Support <support@udacity.com>
+alias machado-rafael Rafael Lopez Machado <misa@capiro.vcl.sld.cu>
