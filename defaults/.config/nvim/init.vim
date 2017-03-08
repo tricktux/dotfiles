@@ -376,6 +376,8 @@
 		nnoremap <Leader>ji mzgg=G`z
 		nnoremap <Leader>jh :h <c-r>=expand("<cword>")<CR><cr>
 		nnoremap <Leader>jH :Helptags<CR>
+		" This mapping will load the journal from the most recent boot and highlight it for you
+		nnoremap <Leader>jJ :read !journalctl -b<CR><bar>:setf messages<CR>
 		" duplicate current char
 		nnoremap <Leader>jd ylp
 		vnoremap <Leader>jd ylp
