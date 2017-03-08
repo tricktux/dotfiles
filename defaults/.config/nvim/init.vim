@@ -671,6 +671,8 @@
 		let NERDMenuMode=0 " no menu
 		let g:NERDCustomDelimiters = {
 					\ 'vim': { 'left': '"', 'right': '' },
+					\ 'markdown': { 'left': '//', 'right': '' },
 					\ 'dosini': { 'left': '#', 'leftAlt': '//', 'right': '', 'rightAlt': '' },
 					\ 'wings_syntax': { 'left': '//', 'right': '' }}
+
 " vim:tw=78:ts=2:sts=2:sw=2:
