@@ -549,24 +549,32 @@ function! plugin#Config() abort
 		nnoremap <silent> <leader>vo :SVNLog .<CR>  
 
 	Plug 'itchyny/lightline.vim'
+		" Inside of the functions here there can be no single quotes (') only
+		" double (")
 		let g:lightline = {
 								\ 'active': {
 								\   'left': [ [ 'mode', 'paste' ],
-								\             [ 'readonly', 'relativepath', 'modified', 'fugitive', 'svn', 'tagbar', 'neomake'] ]
+								\             [ 'readonly', 'relativepath', 'modified', 'fugitive', 'svn', 'tagbar', 'neomake', 'gutentags'] ]
 								\		},
 								\ 'component': {
 								\   'fugitive': '%{fugitive#statusline()}',
 								\   'neomake': '%{neomake#statusline#QflistStatus("qf:\ ")}', 
 								\   'svn': '%{svn#GetSvnBranchInfo()}', 
+								\   'gutentags': '%{gutentags#statusline("Generating tags...")}', 
 								\   'tagbar': '%{tagbar#currenttag("%s\ ","")}' 
 								\		},
 								\ 'component_visible_condition': {
 								\   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())',
 								\   'neomake': '(!empty(neomake#statusline#QflistStatus("qf:\ ")))',
 								\   'svn': '(!empty(svn#GetSvnBranchInfo()))', 
+								\   'gutentags': '(!empty(gutentags#statusline("Generating tags...")))', 
 								\   'tagbar': '(!empty(tagbar#currenttag("%s\ ","")))' 
 								\		},
 								\ }
+
+	Plug 'ludovicchabant/vim-gutentags'
+		let g:gutentags_cache_dir = g:cache_path 
+		let g:gutentags_add_default_project_roots = '.svn'
 
 	if has('nvim')
 		Plug 'PotatoesMaster/i3-vim-syntax'
