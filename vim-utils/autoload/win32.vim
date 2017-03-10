@@ -22,13 +22,13 @@ function win32#Config()
 		let l:pyt3 = $LOCALAPPDATA . "\\Programs\\Python\\Python36\\python.exe"
 	else " Assume work pc
 		let l:pyt3 = "C:\\Python36\\python.exe"
-		let g:wiki_path =  'D:/wings-dev/OneWingsSupFiles/wiki'
+		let g:wiki_path =  'D:/wiki'
 		let g:wings_path =  'D:/wings-dev/'
 		call utils#SetWingsPath(g:wings_path)
 
 		" Load svnj branch, trunk, and tag settings
-		if filereadable(g:wings_path . 'OneWingsSupFiles/branches.vim')
-			exe 'source ' . g:wings_path . 'OneWingsSupFiles/branches.vim' 
+		if filereadable(g:wings_path . 'OneWings/branches.vim')
+			exe 'source ' . g:wings_path . 'OneWings/branches.vim' 
 		endif
 	endif
 
