@@ -272,7 +272,7 @@ function! plugin#Config() abort
 	endif
 
 	Plug 'tpope/vim-dispatch' " Possible Replacement `asyncvim`
-	Plug 'Shougo/neco-vim' " The vim source for neocomplete/deoplete
+	Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
 
 	" Vim cpp syntax highlight
 	Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'c' , 'cpp' ] }
@@ -290,7 +290,8 @@ function! plugin#Config() abort
 			echomsg string("You should install silversearcher-ag. Now you have a slow ctrlp")
 		endif
 			nnoremap <S-k> :CtrlPBuffer<CR>
-			let g:ctrlp_cmd = 'CtrlPMixed'
+			" let g:ctrlp_cmd = 'CtrlPMixed'
+			let g:ctrlp_cmd = 'CtrlPMRU'
 			" submit ? in CtrlP for more mapping help.
 			let g:ctrlp_lazy_update = 1
 			let g:ctrlp_show_hidden = 1
