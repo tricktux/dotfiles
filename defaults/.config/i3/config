@@ -257,7 +257,8 @@ assign [class="nvim-qt"] $workspace1
 assign [class="Google-chrome"] $workspace2
 assign [class="Pcmanfm"] $workspace4
 # All other new windows go to ws 3
-assign [class="^"] $workspace3
+# Very confusing. Most of the time things open and you do not notice
+# assign [class="^"] $workspace3
 # }}}
 
 #### RULES FOR WORKSPACES AND SPECIFIC APPLICATIONS ####{{{
