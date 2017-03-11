@@ -1,4 +1,16 @@
 # VIM NOTES
+## Sample of vim debugging 
+- Fri Mar 10 2017 11:22 
+```vim
+	if s:debug
+		silent 5verbose let ctags_output = system(a:ctags_cmd)
+		call s:LogDebugMessage(v:statusmsg)
+		redraw!
+	else
+		let ctags_output = system(a:ctags_cmd)
+	endif
+```
+
 ## List of commonly used functions
 - `systemlist` - Execute `system` get result in a `list`
 - `strpart` - Like extract parts from string
