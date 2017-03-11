@@ -446,7 +446,7 @@ exec --no-startup-id xscreensaver -no-splash&
 exec --no-startup-id x0vncserver -display :0 -passwordfile ~/.vnc/passwd&
 # pcmanfm --daemon-mode
 # Start cmus in "daemon" mode
-exec --no-startup-id tmux new-session -s cmus -d -n cmus -d "/usr/bin/cmus $@"&
+# exec --no-startup-id tmux new-session -s cmus -d -n cmus -d "/usr/bin/cmus $@"&
 # exec --no-startup-id sshfs odroid@copter-server:/ /home/reinaldo/.mnt/copter-server&
 
 # Autostart all programs that have a workspace
@@ -454,11 +454,12 @@ exec --no-startup-id tmux new-session -s cmus -d -n cmus -d "/usr/bin/cmus $@"&
 exec --no-startup-id insync start
 exec --no-startup-id google-chrome-stable
 exec --no-startup-id urxvt
+exec --no-startup-id fluxgui
 
 # Do not modify here. It can still be used by gnome
 # Not using because it sets up conky with not sure how to use right now
 # exec /home/reinaldo/.dotfiles/scripts/autostart-gnome.sh
 
-exec_always --no-startup-id feh --bg-scale /home/reinaldo/Pictures/4593754-material-wallpapers.jpg
+exec_always --no-startup-id ~/.fehbg
 # }}}
 # vim:tw=78:ts=2:sts=2:sw=2:fdm=marker

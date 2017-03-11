@@ -28,12 +28,12 @@ install='pacaur -S --noconfirm'
 # git pull origin master
 #sudo rm /usr/local/bin/nvim
 #sudo rm -r /usr/local/share/nvim/
-#cd ~/Documents && git clone https://github.com/neovim/neovim.git --depth 1
+cd ~/Documents && git clone https://github.com/neovim/neovim.git --depth 1
 cd ~/Documents/neovim
 # There is no need to recreate the build folder
-rm -r build
-make clean
-git pull origin master
+# rm -r build
+# make clean
+# git pull origin master
 make -j8 CMAKE_BUILD_TYPE=Release CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX:PATH=$HOME/.local"
 make install
 pip2 install --upgrade neovim --user
