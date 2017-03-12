@@ -45,6 +45,38 @@ function! plugin#Config() abort
 						\ 'marker':  ['fg', 'Keyword'],
 						\ 'spinner': ['fg', 'Label'],
 						\ 'header':  ['fg', 'Comment'] }
+	else
+		Plug 'ctrlpvim/ctrlp.vim'
+		if executable('rg')
+			let g:ctrlp_user_command = 'rg %s --no-ignore --hidden --files -g "" '
+		elseif executable('ag')
+			let g:ctrlp_user_command = 'ag -Q -l --smart-case --nocolor --hidden -g "" %s'
+		else
+			echomsg string("You should install silversearcher-ag. Now you have a slow ctrlp")
+		endif
+		nnoremap <S-k> :CtrlPBuffer<CR>
+		" let g:ctrlp_cmd = 'CtrlPMixed'
+		let g:ctrlp_cmd = 'CtrlPMRU'
+		" submit ? in CtrlP for more mapping help.
+		let g:ctrlp_lazy_update = 1
+		let g:ctrlp_show_hidden = 1
+		let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
+		let g:ctrlp_cache_dir = g:cache_path . 'ctrlp'
+		let g:ctrlp_working_path_mode = 'wra'
+		let g:ctrlp_max_history = &history
+		let g:ctrlp_clear_cache_on_exit = 0
+		let g:ctrlp_switch_buffer = 0
+		if has('win32')
+			set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
+			let g:ctrlp_custom_ignore = {
+						\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+						\ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
+						\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+						\ }
+		else
+			set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
+			let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+		endif
 	endif
 
 	if executable('mutt')
@@ -280,40 +312,6 @@ function! plugin#Config() abort
 	Plug 'justinmk/vim-syntax-extra'
 
 	" Plugins for All (nvim, linux, win32)
-	if empty(glob('~/.fzf/bin/fzf'))
-		Plug 'ctrlpvim/ctrlp.vim'
-		if executable('rg')
-			let g:ctrlp_user_command = 'rg %s --no-ignore --hidden --files -g "" '
-		elseif executable('ag')
-			let g:ctrlp_user_command = 'ag -Q -l --smart-case --nocolor --hidden -g "" %s'
-		else
-			echomsg string("You should install silversearcher-ag. Now you have a slow ctrlp")
-		endif
-			nnoremap <S-k> :CtrlPBuffer<CR>
-			" let g:ctrlp_cmd = 'CtrlPMixed'
-			let g:ctrlp_cmd = 'CtrlPMRU'
-			" submit ? in CtrlP for more mapping help.
-			let g:ctrlp_lazy_update = 1
-			let g:ctrlp_show_hidden = 1
-			let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
-			let g:ctrlp_cache_dir = g:cache_path . 'ctrlp'
-			let g:ctrlp_working_path_mode = 'wra'
-			let g:ctrlp_max_history = &history
-			let g:ctrlp_clear_cache_on_exit = 0
-			let g:ctrlp_switch_buffer = 0
-		if has('win32')
-			set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
-			let g:ctrlp_custom_ignore = {
-						\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-						\ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
-						\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
-						\ }
-		else
-			set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
-			let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-		endif
-	endif
-
 	Plug 'neomake/neomake'
 		let g:neomake_warning_sign = {
 					\ 'text': '?',

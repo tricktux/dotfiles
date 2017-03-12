@@ -443,7 +443,7 @@ exec --no-startup-id compton -f
 exec --no-startup-id seafile-applet
 exec --no-startup-id xscreensaver -no-splash&
 # Start vnc server service
-exec --no-startup-id x0vncserver -display :0 -passwordfile ~/.vnc/passwd&
+# exec --no-startup-id x0vncserver -display :0 -passwordfile ~/.vnc/passwd&
 # pcmanfm --daemon-mode
 # Start cmus in "daemon" mode
 # exec --no-startup-id tmux new-session -s cmus -d -n cmus -d "/usr/bin/cmus $@"&

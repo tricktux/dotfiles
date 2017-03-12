@@ -24,6 +24,7 @@ else
 	else
 		" set guifont =Hack 8
 		set guifont =DejaVu\ Sans\ Mono\ 8
+	endif
 endif
 set guioptions-=T  " no toolbar
 set guioptions-=m  " no menu bar

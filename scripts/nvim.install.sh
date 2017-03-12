@@ -5,7 +5,7 @@
 #					**Note** Depends on having setting proper var $install
 # Author:				Reinaldo Molina <rmolin88@gmail.com>
 # Version:				2.0.0
-# Date:					Sat Oct 01 2016 17:24 
+# Date:					Sun Mar 12 2017 10:51
 
 install='pacaur -S --noconfirm'
 
@@ -28,13 +28,15 @@ install='pacaur -S --noconfirm'
 # git pull origin master
 #sudo rm /usr/local/bin/nvim
 #sudo rm -r /usr/local/share/nvim/
-cd ~/Documents && git clone https://github.com/neovim/neovim.git --depth 1
+# cd ~/Documents && git clone https://github.com/neovim/neovim.git --depth 1
+rm ~/.local/bin/nvim
+rm -r ~/.local/share/nvim/
 cd ~/Documents/neovim
 # There is no need to recreate the build folder
-# rm -r build
-# make clean
-# git pull origin master
-make -j8 CMAKE_BUILD_TYPE=Release CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX:PATH=$HOME/.local"
+rm -r build
+make clean
+git pull origin master
+make -j8 CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX:PATH=$HOME/.local"
 make install
 pip2 install --upgrade neovim --user
 pip3 install --upgrade neovim --user
