@@ -554,27 +554,30 @@ function! plugin#Config() abort
 		let g:lightline = {
 								\ 'active': {
 								\   'left': [ [ 'mode', 'paste' ],
-								\             [ 'readonly', 'relativepath', 'modified', 'fugitive', 'svn', 'tagbar', 'neomake', 'gutentags'] ]
+								\             [ 'readonly', 'relativepath', 'modified', 'fugitive', 'svn', 'tagbar', 'neomake'] ]
 								\		},
 								\ 'component': {
 								\   'fugitive': '%{fugitive#statusline()}',
 								\   'neomake': '%{neomake#statusline#QflistStatus("qf:\ ")}', 
 								\   'svn': '%{svn#GetSvnBranchInfo()}', 
-								\   'gutentags': '%{gutentags#statusline("Generating tags...")}', 
 								\   'tagbar': '%{tagbar#currenttag("%s\ ","")}' 
 								\		},
 								\ 'component_visible_condition': {
 								\   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())',
 								\   'neomake': '(!empty(neomake#statusline#QflistStatus("qf:\ ")))',
 								\   'svn': '(!empty(svn#GetSvnBranchInfo()))', 
-								\   'gutentags': '(!empty(gutentags#statusline("Generating tags...")))', 
 								\   'tagbar': '(!empty(tagbar#currenttag("%s\ ","")))' 
 								\		},
 								\ }
+		" TODO.RM-Sat Mar 11 2017 19:49: Break down lightline options so that you
+		" dont have to shit like this below and can be better programming to where
+		" you can include it only if the plugin is present
+								" \   'gutentags': '%{gutentags#statusline("Generating tags...")}', 
+								" \   'gutentags': '(!empty(gutentags#statusline("Generating tags...")))', 
 
-	Plug 'ludovicchabant/vim-gutentags'
-		let g:gutentags_cache_dir = g:cache_path 
-		let g:gutentags_add_default_project_roots = '.svn'
+	" Plug 'ludovicchabant/vim-gutentags'
+		" let g:gutentags_cache_dir = g:cache_path 
+		" let g:gutentags_add_default_project_roots = '.svn'
 
 	if has('nvim')
 		Plug 'PotatoesMaster/i3-vim-syntax'
