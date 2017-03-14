@@ -21,12 +21,12 @@ let g:loaded_vim_svn = 1
 
 augroup svn_update_status_line
 	autocmd!
-	autocmd BufEnter * call svn#UpdateSvnBranchInfo()
+	autocmd BufEnter * call UpdateSvnBranchInfo()
 augroup END
 
 " TODO.RM-Sat Feb 25 2017 06:14: Make autocomplete functions for these
 " commands  
-command! -register -bar SVNSwitch call svn#SvnSwitchBranchTag()
-command! -register -bar SVNCopy call svn#SvnCopy()
+command! -register -bar SVNSwitch call SvnSwitchBranchTag()
+command! -register -bar SVNCopy call SvnCopy()
 
 " vim:tw=78:ts=2:sts=2:sw=2:

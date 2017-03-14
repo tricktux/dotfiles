@@ -202,36 +202,6 @@ function! plugin#Config() abort
 			Plug 'nhooyr/neoman.vim'
 				let g:no_neoman_maps = 1
 		endif
-		" Cpp Neovim highlight
-		" Really shitty thing
-		" if has("python3") && system('pip3 list | grep psutil') =~ 'psutil'
-			" Plug 'c0r73x/neotags.nvim', { 'do' : ':UpdateRemotePlugins' }
-				" let g:neotags_enabled = 1
-				" let g:neotags_file = g:cache_path . 'tags_neotags'
-				" let g:neotags_run_ctags = 0
-				" let g:neotags_ctags_timeout = 60
-				" let g:neotags_events_highlight = [
-								" \   'BufEnter'
-								" \ ]
-					" let g:neotags_events_update = [
-								" \   'BufEnter'
-								" \ ]
-
-				" " if executable('rg')
-					" " let g:neotags_appendpath = 0
-					" " let g:neotags_recursive = 0
-
-					" " let g:neotags_ctags_bin = 'rg -g "" --files '. getcwd() .' | ctags'
-					" " let g:neotags_ctags_args = [
-								" " \ '-L -',
-								" " \ '--fields=+l',
-								" " \ '--c-kinds=+p',
-								" " \ '--c++-kinds=+p',
-								" " \ '--sort=no',
-								" " \ '--extra=+q'
-								" " \ ]
-				" " endif
-		" endif
 	else
 		" Vim exclusive plugins
 		if has('lua') " Neocomplete
@@ -577,9 +547,12 @@ function! plugin#Config() abort
 		" let g:gutentags_cache_dir = g:cache_path 
 		" let g:gutentags_add_default_project_roots = '.svn'
 
-	if has('nvim')
-		Plug 'PotatoesMaster/i3-vim-syntax'
+	Plug 'PotatoesMaster/i3-vim-syntax'
+
+	if has('win32')
+		Plug 'PProvost/vim-ps1'
 	endif
+
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
