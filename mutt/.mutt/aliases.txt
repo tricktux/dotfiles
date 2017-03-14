@@ -22,3 +22,4 @@ alias Mint <team@Mint.com>
 alias reply-td TD Ameritrade Client Services-do not reply <client@notifications.tdameritrade.com>
 alias support-udacity Udacity Support <support@udacity.com>
 alias machado-rafael Rafael Lopez Machado <misa@capiro.vcl.sld.cu>
+alias rdaniel01@nauta.cu <rdaniel01@nauta.cu>
