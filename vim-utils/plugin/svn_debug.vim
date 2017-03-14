@@ -23,7 +23,14 @@ function! GetSvnListOfBranchesTags(repo_name) abort
 	" Repeat operation but from the name of the first folder
 	let repo_list = systemlist("svn ls " . g:svn_repo_url . a:repo_name)
 	for item in repo_list
-		echo item
+		" Search for trunk, tags, branches. recursively
+		if item !~# 'branches' && item !~# 'trunk' && item !~# 'tags' 
+			let recurse_repo_list = systemlist("svn ls " . g:svn_repo_url . a:repo_name . item)
+			for recurse_items in recurse_repo_list
+				if recurse_items !~# 'branches' && recurse_items !~# 'trunk' && recurse_items !~# 'tags' 
+					" We are empt handed. Do not keep recursing
+			endfor
+		endif
 	endfor
 	return
 	" echo branches_list
