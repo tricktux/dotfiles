@@ -1,3 +1,4 @@
+acpi 1.7-1
 alsa-firmware 1.0.29-1
 alsa-utils 1.1.2-1
 arandr 0.1.9-2
@@ -148,6 +149,7 @@ playerctl 0.5.0-1
 ponysay-git 3.0.2.r2360-1
 powerline 2.5.2-1
 powerline-fonts 2.5.2-1
+powertop 2.8-2
 preload 0.6.4-6
 procps-ng 3.3.12-1
 psmisc 22.21-3
@@ -180,6 +182,7 @@ stow 2.2.2-2
 subversion 1.9.5-1
 sudo 1.8.18.p1-1
 sysfsutils 2.1.0-9
+sysstat 11.4.0-1
 systemd-sysvcompat 232-6
 tar 1.29-2
 texinfo 6.3-1
