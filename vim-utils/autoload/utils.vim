@@ -450,8 +450,12 @@ function! utils#UpdateCscope() abort
 endfunction
 
 function! utils#Make()
-	if &filetype =~ 'vim'
+	let filet = &filetype
+	if filet =~ 'vim'
 		so %
+		return
+	elseif filet =~ 'python' && executable('flake8')
+		Neomake
 		return
 	elseif has('win32')
 		let l:path = expand('%:p')

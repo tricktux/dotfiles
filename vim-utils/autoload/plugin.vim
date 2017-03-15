@@ -2,7 +2,7 @@
 " Description:Plugin specific settings
 " Author:Reinaldo Molina <rmolin88@gmail.com>
 " Version:2.0.1
-" Last modified: Mon Jan 09 2017 10:36
+" Last Modified: Tue Mar 14 2017 20:07
 
 function! plugin#Config() abort
 	" Vim-Plug
@@ -305,6 +305,19 @@ function! plugin#Config() abort
 					\ '%f:%l: %m',
 					\ }
 
+		" Python. Taken from http://vi.stackexchange.com/questions/7834/how-to-setup-neomake-with-python
+		let g:neomake_python_flake8_maker = {
+				  \ 'args': '--format=default',
+					\ 'auto_enabled' : 1,
+					\ 'errorformat':
+					\ '%E%f:%l: could not compile,%-Z%p^,' .
+					\ '%A%f:%l:%c: %t%n %m,' .
+					\ '%A%f:%l: %t%n %m,' .
+					\ '%-G%.%#',
+					\ }
+					" \ 'args': ['--ignore=E221,E241,E272,E251,W702,E203,E201,E202',  '--format=default'],
+		let g:neomake_python_enabled_makers = ['flake8']
+
 		augroup custom_neomake
 			autocmd!
 			autocmd User NeomakeFinished call utils#NeomakeOpenWindow()
@@ -552,6 +565,10 @@ function! plugin#Config() abort
 	if has('win32')
 		Plug 'PProvost/vim-ps1'
 	endif
+
+	" Python plugins, requires `autopep8`, for Autoformat, and `flake8` for neomake,
+	" and jedi for autocompletion, `pip install jedi --user`
+	Plug 'zchee/deoplete-jedi'
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
