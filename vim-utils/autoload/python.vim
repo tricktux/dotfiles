@@ -18,6 +18,8 @@ delete_files = [ 'cscope.out', 'cscope.po.out', 'cscope.in.out', '.tags' ]
 file_ext_tuple = ('.c', '.cpp', '.java', '.cc', '.h', '.hpp')
 ctags_cmd = 'ctags -R -L cscope.files -f .tags --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q --language-force=C++'
 
+vim.command('silent! cs kill -1')
+
 # Silently delete files
 for files in delete_files:
     try:
