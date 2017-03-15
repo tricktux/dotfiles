@@ -1314,13 +1314,13 @@ endif
 		Plug 'xolox/vim-misc' " dependency of vim-easytags
 		Plug 'xolox/vim-shell' " dependency of vim-easytags
 		set regexpengine=1 " This speed up the engine alot but still not enough
-		let g:easytags_cmd = 'ctags'
-		let g:easytags_file = '~/.cache/easy-tags'
+		let g:easytags_file = '~/.cache/ctags'
 		let g:easytags_syntax_keyword = 'always'
+		let g:easytags_auto_update = 0
+		" let g:easytags_cmd = 'ctags'
 		" let g:easytags_on_cursorhold = 1
 		" let g:easytags_updatetime_min = 4000
 		" let g:easytags_auto_update = 1
-		let g:easytags_auto_update = 0
 		" " let g:easytags_auto_highlight = 1
 		" let g:easytags_dynamic_files = 1
 		" let g:easytags_by_filetype = '~/.cache/easy-tags-filetype'

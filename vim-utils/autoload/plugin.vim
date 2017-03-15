@@ -543,9 +543,14 @@ function! plugin#Config() abort
 								" \   'gutentags': '%{gutentags#statusline("Generating tags...")}', 
 								" \   'gutentags': '(!empty(gutentags#statusline("Generating tags...")))', 
 
-	" Plug 'ludovicchabant/vim-gutentags'
-		" let g:gutentags_cache_dir = g:cache_path 
-		" let g:gutentags_add_default_project_roots = '.svn'
+	" Plug 'xolox/vim-easytags', { 'on' : 'HighlightTags' }
+	Plug 'xolox/vim-easytags'
+		Plug 'xolox/vim-misc' " dependency of vim-easytags
+		Plug 'xolox/vim-shell' " dependency of vim-easytags
+		set regexpengine=1 " This speed up the engine alot but still not enough
+		let g:easytags_file = '~/.cache/ctags'
+		let g:easytags_syntax_keyword = 'always'
+		let g:easytags_auto_update = 0
 
 	Plug 'PotatoesMaster/i3-vim-syntax'
 
