@@ -122,7 +122,7 @@
 		set nowrapscan        " do not wrap search at EOF
 		" will look in current directory for tags
 		
-		set tags=./.tags;,.tags; " For the case where no plugins
+		set tags=./.tags;,.tags;,~/.cache/tags_wings " For the case where no plugins
 		" if exists("b:plugins_loaded")
 		"	call utils#SetTags()
 		" endif

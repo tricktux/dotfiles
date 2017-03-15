@@ -13,10 +13,18 @@ import neovim
 class RemovePlugin(object):
     def __init__(self, nvim):
         self.nvim = nvim
+        self.busy = 0
 
     @neovim.function('UpdateTagsRemote')
     def update_tags_remote(self, args):
-        delete_files = [ 'cscope.out', 'cscope.po.out', 'cscope.in.out', '.tags' ]
+        if self.busy != 0:
+            #  print("UpdateTagsRemote() is busy")
+            self.nvim.command(':echomsg "UpdateTagsRemote() is busy"')
+            return
+
+        self.busy = 1
+
+        delete_files = [ 'cscope.files', 'cscope.out', 'cscope.po.out', 'cscope.in.out', '.tags' ]
         file_ext_tuple = ('.c', '.cpp', '.java', '.cc', '.h', '.hpp')
         ctags_cmd = 'ctags -R -L cscope.files -f .tags --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q --language-force=C++'
 
@@ -31,11 +39,12 @@ class RemovePlugin(object):
                 pass
 
         # Populate list of source files
-        list_files = open('cscope.files', 'w+')
-        for root, dirs, files in os.walk(os.getcwd()):
-            for file in files:
-                if file.endswith(file_ext_tuple):
-                    list_files.write(os.path.join(root, file) + "\n")
+        #  list_files = open('cscope.files', 'w+')
+        os.system('rg --files -t cpp . > cscope.files')
+        #  for root, dirs, files in os.walk(os.getcwd()):
+            #  for file in files:
+                #  if file.endswith(file_ext_tuple):
+                    #  list_files.write(os.path.join(root, file) + "\n")
 
         # Silently try to create cscope files
         try:
@@ -52,6 +61,7 @@ class RemovePlugin(object):
 
         # Add new database
         self.nvim.command('cs add cscope.out')
+        self.busy = 0
 
 #  def _increment_calls(self):
     #  if self.calls == 5:
