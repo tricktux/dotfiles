@@ -429,6 +429,15 @@ function! utils#UpdateCscope() abort
 		echoerr "Please install cscope and/or ctags before using this application"
 		return
 	endif
+
+	if has('nvim') && has('python3') " Use asynch nvim call instead
+		call UpdateTagsRemote()
+		return	
+	elseif has('python3')			" If python3 is available use it
+		call python#UpdateCtags()
+		return
+	endif
+
 	silent! cs kill -1
 	if has('unix')
 		!rm cscope.files cscope.out cscope.po.out cscope.in.out
