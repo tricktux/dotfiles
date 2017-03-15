@@ -414,7 +414,7 @@ bar {
 				status_command i3blocks -c ~/.config/i3/.i3blocks.conf
 				i3bar_command i3bar -t
 				position top
-				font pango:Hack, FontAwesome 10
+				font pango:Hack, FontAwesome 11
 				strip_workspace_numbers yes
 				separator_symbol "■"
 				bindsym button4 nop

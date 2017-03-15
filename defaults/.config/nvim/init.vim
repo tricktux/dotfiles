@@ -4,7 +4,7 @@
 " Version:			6.0.1
 "								Support for portable vim version
 "								files
-" Date:					Wed Jan 18 2017 09:53
+" Date:					Tue Mar 14 2017 19:57
 " Improvements:
 		" - [ ] Create a after/syntax/gitcommit.vim to redline ahead and greenline
 		"   up-to-date
@@ -646,6 +646,10 @@
 
 	" ft-markdown-syntax
 		let g:markdown_fenced_languages= [ 'cpp', 'vim' ]
+
+	" ft-python-syntax
+		" This option also highlights erroneous whitespaces
+		let python_highlight_all = 1
 
 	" Man
 		let g:no_plugin_maps = 1
