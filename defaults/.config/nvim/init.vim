@@ -674,7 +674,7 @@
 		let NERD_cpp_alt_style=0
 		let NERDMenuMode=0 " no menu
 		let g:NERDCustomDelimiters = {
-					\ 'vim': { 'left': '"', 'right': '' },
+					\ 'vim': { 'left': '"', 'right': '', 'leftAlt': '#', 'rightAlt': ''},
 					\ 'markdown': { 'left': '//', 'right': '' },
 					\ 'dosini': { 'left': '#', 'leftAlt': '//', 'right': '', 'rightAlt': '' },
 					\ 'wings_syntax': { 'left': '//', 'right': '' }}
