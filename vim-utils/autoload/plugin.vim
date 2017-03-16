@@ -139,9 +139,11 @@ function! plugin#Config() abort
 				let g:deoplete#enable_ignore_case = 1
 				let g:deoplete#enable_smart_case = 1
 				let g:deoplete#enable_camel_case = 1
-				let g:deoplete#enable_refresh_always = 1
-				let g:deoplete#max_abbr_width = 0
-				let g:deoplete#max_menu_width = 0
+				" Note: Changed this here to increase speed
+				let g:deoplete#enable_refresh_always = 0
+				let g:deoplete#max_list = 10
+				" let g:deoplete#max_abbr_width = 0
+				" let g:deoplete#max_menu_width = 0
 				let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
 				let g:deoplete#omni#input_patterns.java = [
 							\'[^. \t0-9]\.\w*',
@@ -349,7 +351,7 @@ function! plugin#Config() abort
 
 	Plug g:location_vim_utils
 		let g:svn_repo_url = 'svn://odroid@copter-server/' 
-		let g:svn_repo_name = 'UnrealEngineCourse/BattleTanks_2'
+		let g:svn_repo_name = 'UnrealEngineCourse/BattleTanks_2/'
 		nnoremap <Leader>vw :call SVNSwitch<CR>
 		nnoremap <Leader>vb :call SVNCopy<CR>
 
