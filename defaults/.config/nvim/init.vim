@@ -122,7 +122,7 @@
 		set nowrapscan        " do not wrap search at EOF
 		" will look in current directory for tags
 		
-		set tags=./.tags;,.tags;,~/.cache/tags_wings " For the case where no plugins
+		set tags=./.tags;,.tags;,~/.cache/tags_wings
 		" if exists("b:plugins_loaded")
 		"	call utils#SetTags()
 		" endif
@@ -287,6 +287,7 @@
 			\ exe "normal g`\"" |
 			\ endif
 	augroup END
+
 	" To improve syntax highlight speed. If something breaks with highlight
 	" increase these number below
 	" augroup vimrc
@@ -326,8 +327,8 @@
 	" gA " prints radix of number under cursor
 	" = fixes indentantion
 	" gq formats code
-	" Free keys: <Leader>fnzxkiy;
-	" Taken keys: <Leader>qwertasdjcvghp<space>mbol
+	" Free keys: <Leader>fnzxkiy;h
+	" Taken keys: <Leader>qwertasdjcvgp<space>mbolu
 
 	" Quickfix and Location stuff
 		" Description:
@@ -374,8 +375,10 @@
 		vnoremap <Leader>jr "hy:%s/<C-r>h//gc<left><left><left>
 		" Indent whole file
 		nnoremap <Leader>ji mzgg=G`z
-		nnoremap <Leader>jh :h <c-r>=expand("<cword>")<CR><cr>
-		nnoremap <Leader>jH :Helptags<CR>
+		nnoremap <Leader>jhe :h <c-r>=expand("<cword>")<CR><cr>
+		" nnoremap <S-s> #<C-o> " Substituted for the AutoHighlightToggle function
+		nnoremap <Leader>u :call utils#AutoHighlightToggle()<CR>
+		nnoremap <Leader>jhs Helptags<CR>
 		" This mapping will load the journal from the most recent boot and highlight it for you
 		nnoremap <Leader>jJ :read !journalctl -b<CR><bar>:setf messages<CR>
 		" duplicate current char
@@ -541,7 +544,6 @@
 		" search all type of files
 		"TODO.RM-Wed Nov 30 2016 10:22: Improve grep to autodetect filetype  
 		nnoremap <Leader>S :call utils#FileTypeSearch()<CR>
-		nnoremap <S-s> #<C-o>
 		vnoremap // y/<C-R>"<CR>
 
 	" Substitute for ESC
@@ -678,5 +680,11 @@
 					\ 'markdown': { 'left': '//', 'right': '' },
 					\ 'dosini': { 'left': '#', 'leftAlt': '//', 'right': '', 'rightAlt': '' },
 					\ 'wings_syntax': { 'left': '//', 'right': '' }}
+
+" HIGHLITING
+	" TODO.RM-Thu Mar 16 2017 17:09: Set this to different colors. Confusing
+	" when substituting  
+	highlight Search guifg=Turquoise4
+	highlight IncSearch guifg=Turquoise4
 
 " vim:tw=78:ts=2:sts=2:sw=2:
