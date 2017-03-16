@@ -203,6 +203,7 @@ function! SvnCopy() abort
 	endif
 endfunction
 
+" TODO.RM-Thu Mar 16 2017 08:36: Update this function to make it async. Maybe the whole plugin be async  
 " This function gets called on BufEnter
 function! UpdateSvnBranchInfo() abort
 	if !executable('svn')
