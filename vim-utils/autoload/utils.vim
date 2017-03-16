@@ -751,5 +751,26 @@ function! utils#ConvertWeeklyReport() abort
 
 	execute "cd " dir_buff
 endfunction
+
+function! utils#AutoHighlightToggle()
+	let @/ = ''
+	if exists('#auto_highlight')
+		au! auto_highlight
+		augroup! auto_highlight
+		setl updatetime=4000
+		echo 'Highlight current word: off'
+		return 0
+	else
+		augroup auto_highlight
+			au!
+			" au CursorHold  *.py,*.c,*.cpp,*.h,*.hpp let @/ = '\V\<'.escape(expand('<cword>'), '\').'\>'
+			au CursorHold  *.py,*.c,*.cpp,*.h,*.hpp exe printf('match IncSearch /\<%s\>/', expand('<cword>')) 
+		augroup end
+		setl updatetime=500
+		echo 'Highlight current word: ON'
+		return 1
+	endif
+endfunction
+
 " TODO.RM-Sat Nov 26 2016 00:04: Function that auto adds SCR # and description
 " vim:tw=78:ts=2:sts=2:sw=2:

@@ -569,23 +569,13 @@ function! plugin#Config() abort
 		let g:easytags_auto_update = 0
 		let g:easytags_suppress_ctags_warning = 1
 		let g:easytags_python_enabled = 1
-	else
-		Plug 'c0r73x/neotags.nvim' " Depends on pip3 install --user psutil
-			let g:neotags_enabled = 1
+	" Too sluggish for now. To make it work create the tag manually and added it
+	" to 'tags'
+	" else
+		" Plug 'c0r73x/neotags.nvim' " Depends on pip3 install --user psutil
+			" let g:neotags_enabled = 1
+			" let g:neotags_file = g:cache_path . 'neotags'
 			" let g:neotags_run_ctags = 0
-			let g:neotags_file = g:cache_path . 'tags'
-
-			let g:neotags_appendpath = 0
-			let g:neotags_recursive = 0
-			let g:neotags_ctags_bin = 'rg --files -t cpp "'. getcwd() .'" | ctags'
-			let g:neotags_ctags_args = [
-						\ '-L -',
-						\ '--fields=+l',
-						\ '--c-kinds=+p',
-						\ '--c++-kinds=+p',
-						\ '--sort=no',
-						\ '--extra=+q'
-						\ ]
 	endif
 
 	Plug 'PotatoesMaster/i3-vim-syntax'
@@ -597,6 +587,13 @@ function! plugin#Config() abort
 	" Python plugins, requires `autopep8`, for Autoformat, and `flake8` for neomake,
 	" and jedi for autocompletion, `pip install jedi --user`
 	Plug 'zchee/deoplete-jedi'
+
+	" Force yourself to stop silly repeatition. Useful but annoying
+	" Plug 'takac/vim-hardtime'
+		" let g:hardtime_allow_different_key = 1
+		" let g:hardtime_maxcount = 2
+		" let g:hardtime_default_on = 1
+		" let g:list_of_normal_keys = ["h", "j", "k", "l", "w", "b" ]
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
