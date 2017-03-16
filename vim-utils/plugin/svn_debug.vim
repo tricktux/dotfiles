@@ -21,36 +21,36 @@ function! GetSvnListOfBranchesTags(repo_name) abort
 	" repos. Just ignore and assume there are no brances/tags
 	" else
 	" Repeat operation but from the name of the first folder
-	let repo_list = systemlist("svn ls " . g:svn_repo_url . a:repo_name)
-	for item in repo_list
-		" Search for trunk, tags, branches. recursively
-		if item !~# 'branches' && item !~# 'trunk' && item !~# 'tags' 
-			let recurse_repo_list = systemlist("svn ls " . g:svn_repo_url . a:repo_name . item)
-			for recurse_items in recurse_repo_list
-				if recurse_items !~# 'branches' && recurse_items !~# 'trunk' && recurse_items !~# 'tags' 
-					" We are empt handed. Do not keep recursing
-			endfor
-		endif
-	endfor
-	return
+	"TODO.RM-Thu Mar 16 2017 05:47: This is too awful hard. I am just going to asume that it is the normal trunk, branch
+	"stuff
+	" TODO.RM-Thu Mar 16 2017 06:01: Mention in the help that all url and repo names need to terminate in /  
+	let root_list = systemlist("svn ls " . g:svn_repo_url . a:repo_name)
+	let branches_list = []
 	" echo branches_list
 	if v:shell_error
-		cexpr branches_list
+		cexpr root_list
 		" TODO.RM-Thu Feb 23 2017 11:52: Insert option here to open or not the qf
 		" window  
 		copen 10
-		return []
+		return branches_list
 	endif
-	" Insert branch in front of each element
-	call map(branches_list, 'a:repo_name . "/branches/" . v:val')
 
-	" Get tags
-	let brch = systemlist("svn ls " . g:svn_repo_url . a:repo_name . "/tags")
-	" Insert tags in front of each
-	call map(brch, 'a:repo_name . "/tags/" . v:val')
-
-	let branches_list += brch
-	let branches_list += [ a:repo_name. '/trunk' ]
+	for item in root_list
+		" Search for trunk, tags, branches. recursively
+		if item =~ 'branches' || item =~ 'tag' 
+			let branches = systemlist("svn ls " . g:svn_repo_url . a:repo_name . item)
+			" TODO.RM-Thu Mar 16 2017 06:33: Should you list empty branches?
+			" It should be based on the command. If you are copying yes. If you are switching no
+			if len(branches) == 0
+				let branches_list += [ a:repo_name . item ]
+			else
+				call map(branches, 'a:repo_name . item . v:val')
+				let branches_list += branches
+			endif
+		elseif item =~ 'trunk'
+			let branches_list += [ a:repo_name . 'trunk' ]
+		endif
+	endfor
 
 	return branches_list
 endfunction
@@ -78,6 +78,7 @@ function! SvnSwitchBranchTag() abort
 		return
 	endif
 
+	" You dont have to be in a command per say
 	let branches_list = GetSvnListOfBranchesTags(g:svn_repo_name)
 	if len(branches_list) == 0
 		return
