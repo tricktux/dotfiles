@@ -24,3 +24,7 @@ alias support-udacity Udacity Support <support@udacity.com>
 alias machado-rafael Rafael Lopez Machado <misa@capiro.vcl.sld.cu>
 alias rdaniel01@nauta.cu <rdaniel01@nauta.cu>
 alias Michele <miboscol@gmail.com>
+alias fl-winter Winter Park Cycles - Orlando FL <info@winterparkcycles.com>
+alias c0r73x <notifications@github.com>
+alias Chase <no-reply@alertsp.chase.com>
+alias services-chase Chase Card Services <Chase@e.chase.com>
