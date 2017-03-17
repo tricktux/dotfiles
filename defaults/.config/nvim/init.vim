@@ -107,7 +107,7 @@
 		set noswapfile
 		"set autochdir " working directory is always the same as the file you are editing
 		" Took out options from here. Makes the session script too long and annoying
-		set sessionoptions=buffers,curdir,folds,tabpages,resize,winsize,winpos
+		set sessionoptions=buffers,curdir,folds,tabpages
 		set hidden
 		" see :h timeout this was done to make use of ' faster and keep the other
 		" timeout the same
@@ -122,7 +122,8 @@
 		set nowrapscan        " do not wrap search at EOF
 		" will look in current directory for tags
 		
-		set tags=./.tags;,.tags;,~/.cache/tags_wings
+		" TODO.RM-Fri Mar 17 2017 10:04: Fix the settags function  
+		set tags=./.tags;,.tags;
 		" if exists("b:plugins_loaded")
 		"	call utils#SetTags()
 		" endif
@@ -155,6 +156,8 @@
 
 		if !has('nvim')
 			set noesckeys " No mappings that start with <esc>
+		else
+			set inccommand = "nosplit"
 		endif
 
 		" no mouse enabled
@@ -270,7 +273,8 @@
 		autocmd FileType mail setlocal wrap
 		autocmd FileType mail setlocal spell spelllang=es,en
 		autocmd FileType mail setlocal omnifunc=muttaliases#CompleteMuttAliases
-		" Markdown
+		" Python
+		" autocmd FileType python setlocal foldmethod=syntax
 	augroup END
 
 	augroup BuffTypes
@@ -685,6 +689,6 @@
 	" TODO.RM-Thu Mar 16 2017 17:09: Set this to different colors. Confusing
 	" when substituting  
 	highlight Search guifg=Turquoise4
-	highlight IncSearch guifg=Turquoise4
+	highlight IncSearch guifg=Cyan
 
 " vim:tw=78:ts=2:sts=2:sw=2:

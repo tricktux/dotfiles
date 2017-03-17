@@ -430,7 +430,7 @@ function! utils#UpdateCscope() abort
 		return
 	endif
 
-	if has('nvim') && has('python3') " Use asynch nvim call instead
+	if executable('rg') && has('nvim') && has('python3') " Use asynch nvim call instead
 		call UpdateTagsRemote()
 		return	
 	elseif has('python3')			" If python3 is available use it
