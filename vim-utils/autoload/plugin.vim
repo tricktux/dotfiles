@@ -595,6 +595,8 @@ function! plugin#Config() abort
 		" let g:hardtime_default_on = 1
 		" let g:list_of_normal_keys = ["h", "j", "k", "l", "w", "b" ]
 
+	Plug 'tmhedberg/SimpylFold'
+
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
@@ -616,13 +618,18 @@ function! plugin#Config() abort
 		echoerr string("Failed to create sessions dir")
 	endif
 
-	" We assume wiki folder is there. No creation of this wiki folder
+	if !utils#CheckDirwoPrompt(g:cache_path . "ctags")
+		echoerr string("Failed to create ctags dir")
+	endif
+
 	if !utils#CheckDirwoPrompt(g:cache_path . "java")
 		echoerr string("Failed to create java dir")
 	endif
 
 	if has('persistent_undo')
 		if utils#CheckDirwoPrompt(g:cache_path . 'undofiles')
+			" TODO.RM-Fri Mar 17 2017 15:44: This shouldnt be here. Only creation of
+			" dirs
 			let &undodir= g:cache_path . 'undofiles'
 			set undofile
 			set undolevels=1000      " use many muchos levels of undo
