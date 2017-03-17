@@ -25,14 +25,21 @@ class RemovePlugin(object):
         #  EXT = ('.c', '.cpp', '.java', '.cc', '.h', '.hpp')
 
         # TODO.RM-Thu Mar 16 2017 17:17: Put the tag in the cache folder along with the cscope
-        lang = self.nvim_ft_to_ctags()
+        #  Determine for what language is the tags going to be
+        lang = self.nvim.eval('&ft').lower().split('.')
         if lang is None:
             self.nvim.command(':echomsg "Failed to retrieve &filetype"')
+            self.busy = 0
+            return []
+
+        lang_ctags = self.nvim_ft_to_ctags(lang)
+        if lang_ctags is None:
+            self.nvim.command(':echomsg "Failed to retrieve ctags language"')
             self.busy = 0
             return
 
         CMD = 'ctags -R -L cscope.files -f .tags --sort=yes --c++-kinds=+pl --fields=+iaS \
-                --extra=+q --language-force=%s' % lang
+                --extra=+q --language-force=%s' % lang_ctags
 
         #  Delete current connection if there is one
         self.nvim.command('silent! cs kill -1')
@@ -44,9 +51,15 @@ class RemovePlugin(object):
             except:
                 pass
 
+        lang_rg = self.nvim_ft_to_ctags(lang)
+        if lang_rg is None:
+            self.nvim.command(':echomsg "Failed to retrieve rg language"')
+            self.busy = 0
+            return
+
         # Populate list of source files
-        #  list_files = open('cscope.files', 'w+')
-        os.system('rg --files -t cpp . > cscope.files')
+        # Previous method was slower but not dependent on rg
+        os.system('rg --files -t %s . > cscope.files' % lang_rg)
         if os.path.isfile('cscope.files') == False:
             self.nvim.command(':echomsg "Failed to create cscope.files"')
             self.busy = 0
@@ -73,23 +86,28 @@ class RemovePlugin(object):
         self.nvim.command('cs add cscope.out')
         self.busy = 0
 
-    def nvim_ft_to_ctags(self):
-        #  Determine for what language is the tags going to be
-        lang = self.nvim.eval('&ft').lower().split('.')
-        if lang is None:
-            return []
-
-        if lang[0] == 'cpp':
-            lang[0] = 'C++'
-        elif lang[0] == 'vim':
-            lang[0] = 'Vim'
-        elif lang[0] == 'python':
-            lang[0] = 'Python'
-        elif lang[0] == 'java':
-            lang[0] = 'Java'
+    def nvim_ft_to_ctags(self, lang):
+        if lang == 'cpp':
+            lang = 'C++'
+        elif lang == 'vim':
+            lang = 'Vim'
+        elif lang == 'python':
+            lang = 'Python'
+        elif lang == 'java':
+            lang = 'Java'
         else:
             return []
 
         #  Use for debugging        
-        #  self.nvim.command(':echomsg "lang = %s"' %lang[0])
-        return lang[0]
+        #  self.nvim.command(':echomsg "lang = %s"' %lang
+        return lang
+
+    def nvim_ft_to_rg(self, lang):
+        if lang == 'vim':
+            lang = 'vimscript'
+        elif lang == 'python':
+            lang = 'py'
+        else:
+            return []
+
+        return lang
