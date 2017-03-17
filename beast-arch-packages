@@ -6,6 +6,7 @@ arandr-indicator-git 1-2
 arduino 1:1.6.13-1
 autoconf 2.69-4
 automake 1.15-2
+autopep8 2.0a1-2
 avr-binutils 2.27-2
 avr-gcc 6.2.0-2
 avr-libc 2.0.0-1
@@ -45,6 +46,7 @@ feh 2.18.2-1
 file 5.29-1
 filesystem 2016.12-2
 findutils 4.6.0-2
+flake8 1:3.3.0-1
 flex 2.6.1-1
 gawk 4.1.4-2
 gcc 6.2.1-1
@@ -75,6 +77,7 @@ inkscape 0.91-22
 iotop 0.6-5
 iproute2 4.9.0-1
 iputils 20161105.1f2bb12-1
+j4-dmenu-desktop 2.14-1
 jdk-devel 9b147-1
 jdk8-openjdk 8.u112-1
 jfsutils 1.1.15-4
@@ -237,6 +240,7 @@ gstreamer0.10 0.10.36-4
 gstreamer0.10-base 0.10.36-3
 i3-gaps 4.13-2
 i3blocks 1.4-3
+j4-dmenu-desktop 2.14-1
 jdk-devel 9b147-1
 js17 17.0.0-4
 lemonbar 1.2-1

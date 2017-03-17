@@ -24,16 +24,9 @@ else
 	PS1='[\u@\h \W]\$ '
 fi
 
-# This is for fzf to use ripgrep
-# --files: List files that would be searched but do not search
-# --no-ignore: Do not respect .gitignore, etc...
-# --hidden: Search hidden files and folders
-# --follow: Follow symlinks
-# --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
-# if rg command exists
-# Debug this its not really working
-if [ hash rg 2>/dev/null ]; then
-	export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+# fzf use ripgrep
+if [ -f /usr/bin/rg ]; then
+	export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 fi
 
 if [[ -z "$TMUX" ]]; then
@@ -41,7 +34,7 @@ if [[ -z "$TMUX" ]]; then
 	ID="`tmux ls | grep -vm1 attached | cut -d: -f1`"
 	# Do not attach to the cmus session. Let it run in the background
 	if [[ -z "$ID" || "$ID" = "cmus" ]]; then
-		tmux new-session
+		tmux -2 new-session
 	else
 		tmux attach-session -t "$ID"
 	fi
@@ -63,7 +56,7 @@ if [ `uname -o` != "Android" ]; then
 fi
 
 # Exports
-export XTERM=screen-256
+export XTERM=screen-256color
 # Man settings
 export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:/usr/man
 export MANPAGER="nvim -c 'set ft=neoman' -"
