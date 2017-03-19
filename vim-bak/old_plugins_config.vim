@@ -1359,3 +1359,6 @@ endif
 								" " \ ]
 				" " endif
 		" endif
+	" It doesnt fold if/while/for..etc. Only functions and classes
+	Plug 'tmhedberg/SimpylFold'
+
