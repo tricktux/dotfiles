@@ -595,8 +595,6 @@ function! plugin#Config() abort
 		" let g:hardtime_default_on = 1
 		" let g:list_of_normal_keys = ["h", "j", "k", "l", "w", "b" ]
 
-	Plug 'tmhedberg/SimpylFold'
-
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
