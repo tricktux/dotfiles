@@ -123,7 +123,7 @@
 		" will look in current directory for tags
 		
 		" TODO.RM-Fri Mar 17 2017 10:04: Fix the settags function  
-		set tags=./.tags;,.tags;
+		set tags=./.tags;,.tags;,~/.cache/ctags/tags_OneWings
 		" if exists("b:plugins_loaded")
 		"	call utils#SetTags()
 		" endif
