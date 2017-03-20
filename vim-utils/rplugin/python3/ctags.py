@@ -34,7 +34,8 @@ class RemovePlugin(object):
             return
         self.busy = 1
 
-        DIR_NEOVIM_CWD = (self.nvim.eval('getcwd()'))
+        DIR_NEOVIM_CWD = self.nvim.eval('getcwd()')
+        #  DIR_NEOVIM_CWD = (DIR_NEOVIM_CWD.replace(os.path.sep, '/'))
         DIR_CTAGS_CACHE = (os.path.expanduser('~') + "/.cache/ctags/")
         if self.deb:
             deb_file = open(DIR_CTAGS_CACHE + "deb", "w+")
@@ -79,6 +80,9 @@ class RemovePlugin(object):
 
         #  TODO.RM-Fri Mar 17 2017 15:20: Make this CMD_RG a nvim g: variable so that its no so hardcoded to rg
         #  TODO.RM-Fri Mar 17 2017 16:38: Replace all \ in DIR_NEOVIM_CWD with /  
+        for ch in DIR_NEOVIM_CWD:
+            if ch == '\\':
+                ch = '/'
         CMD_RG = ("rg -t %s --files %s > %s" % (lang_rg, DIR_NEOVIM_CWD, CSCOPE_FILES_NAME))
 
         if self.deb:
