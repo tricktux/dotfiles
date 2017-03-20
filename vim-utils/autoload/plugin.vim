@@ -571,11 +571,12 @@ function! plugin#Config() abort
 		let g:easytags_python_enabled = 1
 	" Too sluggish for now. To make it work create the tag manually and added it
 	" to 'tags'
-	" else
-		" Plug 'c0r73x/neotags.nvim' " Depends on pip3 install --user psutil
-			" let g:neotags_enabled = 1
-			" let g:neotags_file = g:cache_path . 'neotags'
-			" let g:neotags_run_ctags = 0
+	else
+		Plug 'c0r73x/neotags.nvim' " Depends on pip3 install --user psutil
+			let g:neotags_enabled = 1
+			let g:neotags_file = g:cache_path . 'ctags/neotags'
+			let g:neotags_verbose = 1
+			let g:neotags_run_ctags = 0
 	endif
 
 	Plug 'PotatoesMaster/i3-vim-syntax'
