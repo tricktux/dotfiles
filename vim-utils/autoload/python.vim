@@ -14,11 +14,9 @@ python3 << EOF
 import os
 import vim
 
-delete_files = [ 'cscope.out', 'cscope.po.out', 'cscope.in.out', '.tags' ]
+delete_files = ( 'cscope.out', 'cscope.po.out', 'cscope.in.out', '.tags' )
 file_ext_tuple = ('.c', '.cpp', '.java', '.cc', '.h', '.hpp')
-ctags_cmd = 'ctags -R -L cscope.files -f .tags --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q --language-force=C++'
-
-vim.command('silent! cs kill -1')
+ctags_cmd = 'ctags -L cscope.files -f .tags --sort=no --c-kinds=+pl --c++-kinds=+pl --fields=+iaSl --extra=+q'
 
 # Silently delete files
 for files in delete_files:
@@ -47,6 +45,8 @@ if os.path.isfile('cscope.out'):
 	except:
 		pass
 
+# Only delete current if succeded
+vim.command('silent! cs kill -1')
 # Add new database
 vim.command('cs add cscope.out')
 EOF

@@ -559,25 +559,25 @@ function! plugin#Config() abort
 								" \   'gutentags': '(!empty(gutentags#statusline("Generating tags...")))', 
 
 	" Plug 'xolox/vim-easytags', { 'on' : 'HighlightTags' }
-	if !(has('win32') && has('nvim'))    " This plugin wont work until neovim supporst system() calls in window
-		Plug 'xolox/vim-easytags'
-		Plug 'xolox/vim-misc' " dependency of vim-easytags
-		Plug 'xolox/vim-shell' " dependency of vim-easytags
-		set regexpengine=1 " This speed up the engine alot but still not enough
-		let g:easytags_file = '~/.cache/ctags'
-		let g:easytags_syntax_keyword = 'always'
-		let g:easytags_auto_update = 0
-		let g:easytags_suppress_ctags_warning = 1
-		let g:easytags_python_enabled = 1
-	" Too sluggish for now. To make it work create the tag manually and added it
-	" to 'tags'
-	else
+	" if !(has('win32') && has('nvim'))    " This plugin wont work until neovim supporst system() calls in window
+		" Plug 'xolox/vim-easytags'
+		" Plug 'xolox/vim-misc' " dependency of vim-easytags
+		" Plug 'xolox/vim-shell' " dependency of vim-easytags
+		" set regexpengine=1 " This speed up the engine alot but still not enough
+		" let g:easytags_file = '~/.cache/ctags'
+		" let g:easytags_syntax_keyword = 'always'
+		" let g:easytags_auto_update = 0
+		" let g:easytags_suppress_ctags_warning = 1
+		" let g:easytags_python_enabled = 1
+	" " Too sluggish for now. To make it work create the tag manually and added it
+	" " to 'tags'
+	" else
 		Plug 'c0r73x/neotags.nvim' " Depends on pip3 install --user psutil
 			let g:neotags_enabled = 1
 			let g:neotags_file = g:cache_path . 'ctags/neotags'
 			let g:neotags_verbose = 1
 			let g:neotags_run_ctags = 0
-	endif
+	" endif
 
 	Plug 'PotatoesMaster/i3-vim-syntax'
 
