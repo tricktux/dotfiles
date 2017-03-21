@@ -199,9 +199,9 @@ bindsym Print exec gnome-screenshot
 bindsym XF86MonBrightnessUp exec xbacklight +10
 bindsym XF86MonBrightnessDown exec xbacklight -10
 # So that it agrees with the volume-pulseaudio control
-bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+ && pkill -RTMIN+1 i3blocks 
-bindsym XF86AudioLowerVolume exec amixer -q -D pulse sset Master 5%- && pkill -RTMIN+1 i3blocks
-bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle && pkill -RTMIN+1 i3blocks
+bindsym XF86AudioRaiseVolume exec amixer -q sset Master 5%+ && pkill -RTMIN+1 i3blocks 
+bindsym XF86AudioLowerVolume exec amixer -q sset Master 5%- && pkill -RTMIN+1 i3blocks
+bindsym XF86AudioMute exec amixer -q sset Master toggle && pkill -RTMIN+1 i3blocks
 # bindsym XF86AudioLowerVolume exec amixer sset Master 5%-
 # bindsym XF86AudioRaiseVolume exec amixer sset Master 5%+
 # bindsym XF86AudioMute exec amixer sset Master toggle
@@ -313,16 +313,16 @@ new_window none
 new_float none
 
 # Disables gaps when there is only one window
-smart_gaps on
+# smart_gaps on
 
 # Border settings
 new_window pixel 3
-smart_borders on
+# smart_borders on
 #smart_borders no_gaps
 
 # Global gaps settings
-gaps inner 5
-gaps outer 5
+# gaps inner 5
+# gaps outer 5
 
 # }}}
 
@@ -367,42 +367,42 @@ mode "resize" {
 # }}}
 
 # Mode gaps{{{
-set $mode_gaps Gaps: (o) outer, (i) inner
-set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
-set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
-bindsym $mod+Shift+g mode "$mode_gaps"
+# set $mode_gaps Gaps: (o) outer, (i) inner
+# set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+# set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+# bindsym $mod+Shift+g mode "$mode_gaps"
 
-mode "$mode_gaps" {
-	bindsym o      mode "$mode_gaps_outer"
-		bindsym i      mode "$mode_gaps_inner"
-		bindsym Return mode "default"
-		bindsym Escape mode "default"
-}
+# mode "$mode_gaps" {
+	# bindsym o      mode "$mode_gaps_outer"
+		# bindsym i      mode "$mode_gaps_inner"
+		# bindsym Return mode "default"
+		# bindsym Escape mode "default"
+# }
 
-mode "$mode_gaps_inner" {
-	bindsym plus  gaps inner current plus 5
-		bindsym minus gaps inner current minus 5
-		bindsym 0     gaps inner current set 0
+# mode "$mode_gaps_inner" {
+	# bindsym plus  gaps inner current plus 5
+		# bindsym minus gaps inner current minus 5
+		# bindsym 0     gaps inner current set 0
 
-		bindsym Shift+plus  gaps inner all plus 5
-		bindsym Shift+minus gaps inner all minus 5
-		bindsym Shift+0     gaps inner all set 0
+		# bindsym Shift+plus  gaps inner all plus 5
+		# bindsym Shift+minus gaps inner all minus 5
+		# bindsym Shift+0     gaps inner all set 0
 
-		bindsym Return mode "default"
-		bindsym Escape mode "default"
-}
-mode "$mode_gaps_outer" {
-	bindsym plus  gaps outer current plus 5
-		bindsym minus gaps outer current minus 5
-		bindsym 0     gaps outer current set 0
+		# bindsym Return mode "default"
+		# bindsym Escape mode "default"
+# }
+# mode "$mode_gaps_outer" {
+	# bindsym plus  gaps outer current plus 5
+		# bindsym minus gaps outer current minus 5
+		# bindsym 0     gaps outer current set 0
 
-		bindsym Shift+plus  gaps outer all plus 5
-		bindsym Shift+minus gaps outer all minus 5
-		bindsym Shift+0     gaps outer all set 0
+		# bindsym Shift+plus  gaps outer all plus 5
+		# bindsym Shift+minus gaps outer all minus 5
+		# bindsym Shift+0     gaps outer all set 0
 
-		bindsym Return mode "default"
-		bindsym Escape mode "default"
-}
+		# bindsym Return mode "default"
+		# bindsym Escape mode "default"
+# }
 # }}}
 
 # Bar{{{
@@ -412,17 +412,17 @@ bar {
 				# status_command i3blocks -c ~/.config/i3/i3blocks.conf
 				# i3bar_command ~/.config/i3/lemonbar/i3_lemonbar.sh
 				status_command i3blocks -c ~/.config/i3/.i3blocks.conf
-				i3bar_command i3bar -t
+				# i3bar_command i3bar -t
 				position top
-				font pango:Hack, FontAwesome 11
+				# font FontAwesome 11
 				strip_workspace_numbers yes
 				separator_symbol "■"
-				bindsym button4 nop
-				bindsym button5 nop
+				# bindsym button4 nop
+				# bindsym button5 nop
 				# tray_output eDP1
 				# tray_output LVDS-0
 				tray_padding 0
-				height 30
+				# height 30
 				colors {
 						statusline         $white
 						background         $transparent
