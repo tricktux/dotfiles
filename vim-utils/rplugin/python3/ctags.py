@@ -25,7 +25,7 @@ class RemovePlugin(object):
     def __init__(self, nvim):
         self.nvim = nvim
         self.busy = 0
-        self.deb = 1
+        self.deb = 0
 
     @neovim.function('UpdateTagsRemote')
     def update_tags_remote(self, args):

@@ -431,8 +431,8 @@ function! plugin#Config() abort
 		let g:tagbar_autoclose = 1
 		nnoremap <Leader>tt :TagbarToggle<CR>
 		nnoremap <Leader>tk :cs kill -1<CR>
-		nnoremap <silent> <Leader>tj <C-]>
-		nnoremap <Leader>tr <C-t>
+		nmap <silent> gt <C-]>
+		nmap gr <C-t>
 		nnoremap <Leader>tv :vs<CR>:exec("tag ".expand("<cword>"))<CR>
 		" ReLoad cscope database
 		nnoremap <Leader>tl :cs add cscope.out<CR>
