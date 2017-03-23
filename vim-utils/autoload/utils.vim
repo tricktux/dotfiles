@@ -631,7 +631,12 @@ function! utils#NeomakeOpenWindow() abort
 	endif
 endfunction
 
-function! utils#FileTypeSearch() abort
+" Use current 'grepprg' to search files for text
+"		filteype - Possible values: 1 - Search only files of type 'filetype'. Any
+"								other value search all types of values
+"		word - Possible values: 1 - Search word under the cursor. Otherwise prompt
+"		for search word
+function! utils#FileTypeSearch(filetype, word) abort
 	let grep_engine = &grepprg
 
 	" In the case that rg or ag doesnt exist perform simple search
@@ -642,20 +647,20 @@ function! utils#FileTypeSearch() abort
 		return
 	endif
 
-	" Otherwise allow user to specify `filetype`
-	let user_ft_selection = inputlist([
-				\ 'Please select the filetypes to search:',
-				\ '1 - ' . &filetype,
-				\ '2 - All filetypes'])
-				" \ '3 - To specify a different type'])
-	let search = input("Please enter search word:")
+	if a:word == 1
+		let search = expand("<cword>")
+	else
+		let search = input("Please enter search word:")
+	endif
 	if &grepprg =~ 'rg'
 		" rg filetype for vim files is called vimscript
 		let rg_ft = &ft
-		if &ft =~ 'vim'
+		if rg_ft =~ 'vim'
 			let rg_ft = 'vimscript'
+		elseif rg_ft =~ 'python'
+			let rg_ft = 'py'
 		endif
-		if user_ft_selection == 1
+		if a:filetype == 1
 			exe ":grep -t " . rg_ft . ' ' . search
 			echon '|Grep Engine:' &grepprg ' |FileType: ' rg_ft '| CWD: ' getcwd()
 		else
@@ -663,7 +668,7 @@ function! utils#FileTypeSearch() abort
 			echon '|Grep Engine:' &grepprg ' |FileType: All| CWD: ' getcwd()
 		endif
 	elseif &grepprg =~ 'ag'
-		if user_ft_selection == 1
+		if a:filetype == 1
 			exe ":grep --" . &ft . ' ' . search
 			echon '|Grep Engine:' &grepprg ' |FileType: ' &ft '| CWD: ' getcwd()
 		else

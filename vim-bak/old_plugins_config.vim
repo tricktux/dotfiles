@@ -1362,3 +1362,6 @@ endif
 	" It doesnt fold if/while/for..etc. Only functions and classes
 	Plug 'tmhedberg/SimpylFold'
 
+	" Wed Mar 22 2017 12:51: Doenst support file type searches. Too bloated
+	Plug 'mhinz/vim-grepper'
+
