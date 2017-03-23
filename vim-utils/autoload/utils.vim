@@ -98,7 +98,6 @@ function! utils#EndOfIfComment() abort
 		if match(getline(line(".")-1, line(".")), "else") > -1
 			let g:testa = 1
 			" if { already contains closing if put it
-			" TODO:fix this to make search for else not only in @8 line
 			if match(getline(l:upper_line-1,l:upper_line), "else") > -1
 				" search upwards until you find initial if and copy it to @7
 				call utils#FindIf()
@@ -570,8 +569,6 @@ function! utils#UpdateHeader()
 	silent exe "1," . l . "g/Date:/s/Date:.*/Date:					" .
 				\ strftime("%a %b %d %Y %H:%M")
 	exe "normal! `z"
-	" TODO.RM-Sat Nov 26 2016 00:06: Add Last Author
-	" See getmatches, and matchadd()
 endfun
 
 " Default Wings mappings are for laptop
@@ -678,55 +675,6 @@ function! utils#FileTypeSearch(filetype, word) abort
 	endif
 endfunction
 
-function! utils#SvnWingsSetup() abort
-	" let g:svnj_branch_url = [ g:wings_svn_url . 'OneWings/branches/OneWings_19',
-				" \  g:wings_svn_url . 'OneWings/tags/OneWings-005'
-				" \ ]
-
-	" let g:svnj_trunk_url =   g:wings_svn_url . 'OneWings/trunk'
-
-	" " Creating a branch
-	" TODO.RM-Wed Feb 22 2017 17:15: Create this SvnCopy()  
-endfunction
-
-function! utils#SetTags() abort
-	if has('win32')
-		" TODO.RM-Mon Feb 27 2017 12:04: Make this better in a function. Like is
-		" close but not really working
-		let tags_buff = split(system('cd %userprofile%\.cache && dir tags* /b'), "\n")
-		" set tags+=~/.cache/tags_unreal
-		" set tags+=~/.cache/tags_clang
-
-		call map(tags_buff, 'v:val . ","') " Append commas to values
-		for t in tags_buff
-			let &tags .= t
-		endfor
-	else
-		let tags_buff = split(system("find ~/.cache/ -name tags* -print -maxdepth 1"), "\n")
-		let sys = 0
-		if !empty(tags_buff)
-			call map(tags_buff, '"," . v:val') " Append commas to values
-			for t in tags_buff
-				let &tags .= t
-				" Check to see if specific tags where loaded
-				if t =~# 'tags_sys'
-					let sys = 1
-					" elseif =~# 'tags_unreal'
-					" let unreal = 1
-				endif
-			endfor
-		endif
-		" TODO.RM-Fri Mar 03 2017 22:10: These tags are super heafty. Maybe use it
-		" as example for creating other auto tags not so heavy but not
-		if !sys && executable('ctags')
-			" Create tags
-			!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/tags_sys /usr/include
-			!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/tags_sys2 /usr/local/include
-		endif
-	endif
-	" Note: There is also avr tags created by .dotfiles/scripts/maketags.sh
-endfunction
-
 function! utils#RooterAutoloadCscope() abort
 	Rooter
 	redir => cs_show
@@ -778,5 +726,39 @@ function! utils#AutoHighlightToggle()
 	endif
 endfunction
 
+" Custom command
+function! utils#CaptureCmdOutput(...)
+	" this function output the result of the Ex command into a split scratch buffer
+	if a:0 == 0
+		return
+	endif
+	let cmd = join(a:000, ' ')
+	if cmd[0] == '!'
+		vnew
+		setlocal buftype=nofile bufhidden=wipe noswapfile nobuflisted
+		execute "read " . cmd
+		return
+	endif
+	redir => output
+	silent call execute(cmd)
+	redir END
+	if empty(output)
+		echomsg "No output from: " . cmd
+	else
+		vnew
+		setlocal buftype=nofile bufhidden=wipe noswapfile nobuflisted
+		put! =output
+	endif
+endfunction
+
+function! utils#SetTags() abort
+	" Obtain full path list of all files in ctags folder
+	let potential_tags = map(utils#ListFiles(g:cache_path . 'ctags'), "g:cache_path . 'ctags/' . v:val")
+	for item in potential_tags
+		if item =~ 'tags_'
+			execute "set tags +=" . item
+		endif
+	endfor
+endfunction
 " TODO.RM-Sat Nov 26 2016 00:04: Function that auto adds SCR # and description
 " vim:tw=78:ts=2:sts=2:sw=2:

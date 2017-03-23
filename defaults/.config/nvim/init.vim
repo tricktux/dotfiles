@@ -1,14 +1,13 @@
 " File:					init.vim
 " Description:  Vim/Neovim configuration file
 " Author:				Reinaldo Molina
-" Version:			6.0.1
-"								Support for portable vim version
+" Version:			7.0.0
+"								Python functions
 "								files
-" Date:					Tue Mar 14 2017 19:57
+" Date:					Thu Mar 23 2017 15:13
 " Improvements:
 		" - [ ] Create a after/syntax/gitcommit.vim to redline ahead and greenline
 		"   up-to-date
-		" - [ ] Markdown tables
 		" - [ ] Delete duplicate music.
 		" - [ ] Construct unified music library
 		" - [ ] Markdown math formulas
@@ -122,13 +121,6 @@
 		set nowrapscan        " do not wrap search at EOF
 		" will look in current directory for tags
 		
-		" TODO.RM-Fri Mar 17 2017 10:04: Fix the settags function  
-		set tags=./.tags;,.tags;,~/.cache/ctags/tags_OneWings
-		" set tags=./.tags;,.tags;
-		" if exists("b:plugins_loaded")
-		"	call utils#SetTags()
-		" endif
-
 		if has('cscope')
 			set cscopetag cscopeverbose
 			if has('quickfix')
@@ -253,6 +245,19 @@
 	" Grep
 		if exists("b:plugins_loaded")
 			call utils#SetGrep()
+		endif
+
+	" Undofiles
+		if !empty(glob(g:cache_path . 'undofiles'))
+			let &undodir= g:cache_path . 'undofiles'
+			set undofile
+			set undolevels=1000      " use many muchos levels of undo
+		endif
+
+	" Tags   
+		set tags=./.tags;,.tags;
+		if exists("b:plugins_loaded")
+			call utils#SetTags()
 		endif
 
 " ALL_AUTOGROUP_STUFF
@@ -703,5 +708,8 @@
 	" highlight cppEnum gui=italic
 	" highlight cppFunction gui=bold
 	" highlight cppMember ctermfg=2 guifg=#00ff00
+
+" CUSTOM_COMMANDS
+	command! -nargs=+ -complete=command CaptureCmdOutput call utils#CaptureCmdOutput(<f-args>)
 
 " vim:tw=78:ts=2:sts=2:sw=2:
