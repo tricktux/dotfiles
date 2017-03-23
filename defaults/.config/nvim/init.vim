@@ -124,6 +124,7 @@
 		
 		" TODO.RM-Fri Mar 17 2017 10:04: Fix the settags function  
 		set tags=./.tags;,.tags;,~/.cache/ctags/tags_OneWings
+		" set tags=./.tags;,.tags;
 		" if exists("b:plugins_loaded")
 		"	call utils#SetTags()
 		" endif
@@ -275,6 +276,7 @@
 		autocmd FileType mail setlocal omnifunc=muttaliases#CompleteMuttAliases
 		" Python
 		" autocmd FileType python setlocal foldmethod=syntax
+		autocmd FileType help setlocal relativenumber
 	augroup END
 
 	augroup BuffTypes
@@ -546,8 +548,15 @@
 	" Search <Leader>S
 		" Tried ack.vim. Discovered that nothing is better than grep with ag.
 		" search all type of files
-		"TODO.RM-Wed Nov 30 2016 10:22: Improve grep to autodetect filetype  
-		nnoremap <Leader>S :call utils#FileTypeSearch()<CR>
+		" Search '&filetype' type of files, and word under the cursor
+		nmap gsu :call utils#FileTypeSearch(1, 1)<CR>
+		" Search '&filetype' type of files, and prompt for search word
+		nmap gsi :call utils#FileTypeSearch(1, 8)<CR>
+		" Search all type of files, and word under the cursor
+		nmap gsa :call utils#FileTypeSearch(8, 1)<CR>
+		" Search all type of files, and prompt for search word
+		nmap gss :call utils#FileTypeSearch(8, 8)<CR>
+		" Search visual selection text
 		vnoremap // y/<C-R>"<CR>
 
 	" Substitute for ESC
@@ -690,5 +699,9 @@
 	" when substituting  
 	highlight Search guifg=Turquoise4
 	highlight IncSearch guifg=Cyan
+
+	" highlight cppEnum gui=italic
+	" highlight cppFunction gui=bold
+	" highlight cppMember ctermfg=2 guifg=#00ff00
 
 " vim:tw=78:ts=2:sts=2:sw=2:
