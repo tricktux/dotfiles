@@ -179,6 +179,11 @@ function! plugin#Config() abort
 					let g:deoplete#sources#clang#libclang_path = g:libclang_path
 					let g:deoplete#sources#clang#clang_header = g:clangheader_path
 			endif
+
+			" Python plugins, requires `autopep8`, for Autoformat, and `flake8` for neomake,
+			" and jedi for autocompletion, `pip install jedi --user`
+			Plug 'zchee/deoplete-jedi'
+			Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
 		endif
 
 		if executable('lldb')
@@ -276,8 +281,6 @@ function! plugin#Config() abort
 	endif
 
 	Plug 'tpope/vim-dispatch' " Possible Replacement `asyncvim`
-	Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
-
 	" Vim cpp syntax highlight
 	Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'c' , 'cpp' ] }
 		let g:cpp_class_scope_highlight = 1
@@ -416,8 +419,12 @@ function! plugin#Config() abort
 		let g:autoformat_remove_trailing_spaces = 0
 
 	" cpp
-	"TODO.RM-Sun Feb 26 2017 14:04: Fix here so that nvim :term command doent
-	"brake tagbar  
+	" Note: Fix for windows nvim: comment out: 
+	" set shellxquote=\"
+	" And add this to the system call:
+			" let ctags_output = system(substitute(a:ctags_cmd,"'", "","g"))
+		" All under here:
+			" function! s:ExecuteCtags(ctags_cmd) abort
 	Plug 'Tagbar'
 		let g:tagbar_ctags_bin = 'ctags'
 		let g:tagbar_autofocus = 1
@@ -475,10 +482,10 @@ function! plugin#Config() abort
 	Plug 'tpope/vim-fugitive'
 		" Fugitive <Leader>g?
 		" use g? to show help
-		nnoremap <Leader>gs :Gstatus<CR>
+		nnoremap <Leader>gs :Gstatus<bar>wincmd L<CR>
 		nnoremap <Leader>gps :Gpush<CR>
 		nnoremap <Leader>gpl :Gpull<CR>
-		nnoremap <Leader>ga :!git add
+		nnoremap <Leader>ga :!git add 
 		nnoremap <Leader>gl :silent Glog<CR>
 					\:copen 20<CR>
 
@@ -534,31 +541,26 @@ function! plugin#Config() abort
 	Plug 'itchyny/lightline.vim'
 		" Inside of the functions here there can be no single quotes (') only
 		" double (")
-		let g:lightline = {
-								\ 'active': {
-								\   'left': [ [ 'mode', 'paste' ],
-								\             [ 'readonly', 'relativepath', 'modified', 'fugitive', 'svn', 'tagbar', 'neomake'] ]
-								\		},
-								\ 'component': {
+			let g:lightline = {}
+			let g:lightline.active = {
+								\   'left': [ 
+								\							[ 'mode', 'paste' ], 
+								\							[ 'readonly', 'relativepath', 'modified', 'fugitive', 'svn', 'tagbar', 'neomake'] 
+								\						]
+								\		}
+		 let g:lightline.component = {
 								\   'fugitive': '%{fugitive#statusline()}',
 								\   'neomake': '%{neomake#statusline#QflistStatus("qf:\ ")}', 
 								\   'svn': '%{svn#GetSvnBranchInfo()}', 
 								\   'tagbar': '%{tagbar#currenttag("%s\ ","")}' 
-								\		},
-								\ 'component_visible_condition': {
+								\		}
+			let g:lightline.component_visible_condition = {
 								\   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())',
 								\   'neomake': '(!empty(neomake#statusline#QflistStatus("qf:\ ")))',
-								\   'svn': '(!empty(svn#GetSvnBranchInfo()))', 
-								\   'tagbar': '(!empty(tagbar#currenttag("%s\ ","")))' 
-								\		},
-								\ }
-		" TODO.RM-Sat Mar 11 2017 19:49: Break down lightline options so that you
-		" dont have to shit like this below and can be better programming to where
-		" you can include it only if the plugin is present
-								" \   'gutentags': '%{gutentags#statusline("Generating tags...")}', 
-								" \   'gutentags': '(!empty(gutentags#statusline("Generating tags...")))', 
+								\   'svn': '(!empty(svn#GetSvnBranchInfo()))',
+								\   'tagbar': '(!empty(tagbar#currenttag("%s\ ","")))'
+								\		}
 
-	" Plug 'xolox/vim-easytags', { 'on' : 'HighlightTags' }
 	if !(has('win32') && has('nvim'))    " This plugin wont work until neovim supporst system() calls in window
 		Plug 'xolox/vim-easytags'
 		Plug 'xolox/vim-misc' " dependency of vim-easytags
@@ -584,10 +586,6 @@ function! plugin#Config() abort
 	if has('win32')
 		Plug 'PProvost/vim-ps1'
 	endif
-
-	" Python plugins, requires `autopep8`, for Autoformat, and `flake8` for neomake,
-	" and jedi for autocompletion, `pip install jedi --user`
-	Plug 'zchee/deoplete-jedi'
 
 	" Force yourself to stop silly repeatition. Useful but annoying
 	" Plug 'takac/vim-hardtime'
@@ -625,15 +623,10 @@ function! plugin#Config() abort
 		echoerr string("Failed to create java dir")
 	endif
 
-	if has('persistent_undo')
-		if utils#CheckDirwoPrompt(g:cache_path . 'undofiles')
-			" TODO.RM-Fri Mar 17 2017 15:44: This shouldnt be here. Only creation of
-			" dirs
-			let &undodir= g:cache_path . 'undofiles'
-			set undofile
-			set undolevels=1000      " use many muchos levels of undo
-		endif
+	if has('persistent_undo') && !utils#CheckDirwoPrompt(g:cache_path . 'undofiles')
+		echoerr string("Failed to create undofiles dir")
 	endif
+
 	return 1
 endfunction
 
