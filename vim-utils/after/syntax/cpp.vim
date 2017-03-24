@@ -8,6 +8,8 @@
 " highlight cMember gui=italic
 " hi default link cMember NONE
 " hi clear cMember
-highlight cppEnumTag ctermfg=14 guifg=#00ff00
-highlight cppFunctionTag ctermfg=14 guifg=#00ff00
-highlight cppMemberTag ctermfg=14 guifg=#00ff00
+" highlight cppEnumTag ctermfg=14 guifg=#00ff00
+" highlight cppFunctionTag ctermfg=14 guifg=#00ff00
+" highlight cppMemberTag ctermfg=14 guifg=#00ff00
+highlight link cppMemberTag Special
+highlight link cppFunctionTag Function
