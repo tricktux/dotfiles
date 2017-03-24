@@ -1,0 +1,7 @@
+defaults/.config/nvim/autoload/
+defaults/.config/nvim/plugged/
+defaults/.config/ranger/bookmarks
+defaults/.config/ranger/history
+defaults/.config/ranger/tagged
+vim-utils/rplugin/python3/__pycache__/ctags.cpython-35.pyc
+vim-utils/rplugin/python3/__pycache__/ctags.cpython-36.pyc

@@ -43,7 +43,7 @@ alias mount-hq='sshfs reinaldo@HQ:/ /home/$USER/.mnt/HQ-server/'
 alias tmux='tmux -2'
 alias ll='ls -als'
 alias ls='ls --color=auto'
-alias vim=FuncNvim
+# alias vim=FuncNvim
 # Reload rxvt and deamon
 # Search help
 alias help=FuncHelp
