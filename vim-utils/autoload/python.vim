@@ -14,9 +14,12 @@ python3 << EOF
 import os
 import vim
 
-delete_files = [ 'cscope.out', 'cscope.po.out', 'cscope.in.out', '.tags' ]
-file_ext_tuple = ('.c', '.cpp', '.java', '.cc', '.h', '.hpp')
-ctags_cmd = 'ctags -R -L cscope.files -f .tags --sort=no --c-kinds=+l --c++-kinds=+l --fields=+iaSl --extra=+q'
+DIR_NEOVIM_CWD = self.nvim.eval('getcwd()')
+DIR_NEOVIM_CWD = (DIR_NEOVIM_CWD.replace(os.path.sep, '/'))
+DIR_CTAGS_CACHE = (os.path.expanduser('~') + "/.cache/ctags/")
+
+delete_files = ( 'cscope.out', 'cscope.po.out', 'cscope.in.out', '.tags' )
+ctags_cmd = 'ctags -L cscope.files -f .tags --sort=no --c-kinds=+l --c++-kinds=+l --fields=+iaSl --extra=+q'
 
 vim.command('silent! cs kill -1')
 

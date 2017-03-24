@@ -6,6 +6,7 @@
 " Date:					Mon Mar 06 2017 09:22
 
 " FUNCTIONS
+" Support here for rg, ucg, ag in that order
 function! utils#SetGrep() abort
 	if executable('rg')
 		" use option --list-file-types if in doubt
@@ -424,41 +425,6 @@ function! utils#OpenTerminal() abort
 	endif
 endfunction
 
-function! utils#UpdateCscope() abort
-	if !executable('cscope') || !executable('ctags')
-		echoerr "Please install cscope and/or ctags before using this application"
-		return
-	endif
-
-	if executable('rg') && has('nvim') && has('python3') " Use asynch nvim call instead
-		call UpdateTagsRemote()
-		return	
-	" elseif has('python3')			" If python3 is available use it
-	" if has('python3')			" If python3 is available use it
-		" call python#UpdateCtags()
-		" return
-	endif
-
-	silent! cs kill -1
-	if has('unix')
-		!rm cscope.files cscope.out cscope.po.out cscope.in.out
-		!find . -iregex '.*\.\(c\|cpp\|java\|cc\|h\|hpp\)$' > cscope.files
-	else
-		!del /F cscope.files cscope.in.out cscope.po.out cscope.out
-		!dir /b /s *.java *.cpp *.h *.hpp *.c *.cc *.cs > cscope.files
-	endif
-	!cscope -b -q -i cscope.files
-	if !filereadable('cscope.out')
-		echoerr "Couldnt create cscope.out files"
-		return
-	endif
-	cs add cscope.out
-	" The extra=+q option is to highlight memebers
-	" Keep in mind that you are forcing the tags to be c++
-	silent !ctags -R -L cscope.files -f .tags --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q --language-force=C++
-	" set tags+=.tags
-endfunction
-
 function! utils#Make()
 	let filet = &filetype
 	if filet =~ 'vim'
@@ -676,6 +642,8 @@ function! utils#FileTypeSearch(filetype, word) abort
 	endif
 endfunction
 
+" Kinda deprecated function because cscope databases are no longer created at
+" repo root
 function! utils#RooterAutoloadCscope() abort
 	Rooter
 	redir => cs_show
@@ -750,19 +718,6 @@ function! utils#CaptureCmdOutput(...)
 		setlocal buftype=nofile bufhidden=wipe noswapfile nobuflisted
 		put! =output
 	endif
-endfunction
-
-function! utils#SetTags() abort
-	" Obtain full path list of all files in ctags folder
-	let potential_tags = map(utils#ListFiles(g:cache_path . 'ctags'), "g:cache_path . 'ctags/' . v:val")
-	if len(potential_tags) == 0
-		return
-	endif
-	for item in potential_tags
-		if item =~ 'tags_'
-			execute "set tags +=" . item
-		endif
-	endfor
 endfunction
 " TODO.RM-Sat Nov 26 2016 00:04: Function that auto adds SCR # and description
 " vim:tw=78:ts=2:sts=2:sw=2:
