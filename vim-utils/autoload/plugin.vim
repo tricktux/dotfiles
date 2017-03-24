@@ -401,7 +401,8 @@ function! plugin#Config() abort
 					\['x','X','a','A','o','O','c','C','r','R','m','M','i','n','N']
 	Plug 'airblade/vim-rooter'
 		let g:rooter_manual_only = 1
-		nnoremap <Leader>cr :call utils#RooterAutoloadCscope()<CR>
+		nnoremap <Leader>cr :Rooter<CR>
+		" nnoremap <Leader>cr :call utils#RooterAutoloadCscope()<CR>
 	Plug 'Raimondi/delimitMate'
 		let g:delimitMate_expand_cr = 1
 		let g:delimitMate_expand_space = 1
@@ -450,7 +451,7 @@ function! plugin#Config() abort
 		" Find functions called by this function not being used
 		" nnoremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
 		nnoremap <Leader>ts :cs show<CR>
-		nnoremap <Leader>tu :call utils#UpdateCscope()<CR>
+		nnoremap <Leader>tu :call ctags#NvimSyncCtags()<CR>
 
 	" cpp/java
 	Plug 'mattn/vim-javafmt', { 'for' : 'java' }
@@ -562,10 +563,18 @@ function! plugin#Config() abort
 								\		}
 
 	Plug 'c0r73x/neotags.nvim' " Depends on pip3 install --user psutil
+		set regexpengine=1 " This speed up the engine alot but still not enough
 		let g:neotags_enabled = 1
-		let g:neotags_file = g:cache_path . 'ctags/neotags'
+		" let g:neotags_file = g:cache_path . 'ctags/neotags'
 		let g:neotags_verbose = 1
 		let g:neotags_run_ctags = 0
+		" let g:neotags#cpp#order = 'cgstuedfpm'
+		let g:neotags#cpp#order = 'ced'
+		" let g:neotags#c#order = 'cgstuedfpm'
+		let g:neotags#c#order = 'ced'
+		let g:neotags_events_highlight = [
+					\   'BufEnter'
+					\ ]
 
 	Plug 'PotatoesMaster/i3-vim-syntax'
 

@@ -257,7 +257,7 @@
 	" Tags   
 		set tags=./.tags;,.tags;
 		if exists("b:plugins_loaded")
-			call utils#SetTags()
+			call ctags#SetTags()
 		endif
 
 " ALL_AUTOGROUP_STUFF
@@ -700,14 +700,22 @@
 					\ 'wings_syntax': { 'left': '//', 'right': '' }}
 
 " HIGHLITING
-	" TODO.RM-Thu Mar 16 2017 17:09: Set this to different colors. Confusing
-	" when substituting  
 	highlight Search guifg=Turquoise4
 	highlight IncSearch guifg=Cyan
 
-	" highlight cppEnum gui=italic
-	" highlight cppFunction gui=bold
-	" highlight cppMember ctermfg=2 guifg=#00ff00
+	" c
+	highlight link cTypeTag Special
+	highlight link cppTypeTag Special
+	" e
+	highlight link cEnumTag Identifier
+	highlight link cppEnumTag Identifier
+	" d
+	" highlight link cppPreProcTag ctermfg=2 guifg=#00ff00
+	highlight link cPreProcTag PreProc
+	highlight link cppPreProcTag PreProc
+	" f
+	" highlight link cFunctionTag Function
+	" highlight link cppFunctionTag Function
 
 " CUSTOM_COMMANDS
 	command! -nargs=+ -complete=command CaptureCmdOutput call utils#CaptureCmdOutput(<f-args>)
