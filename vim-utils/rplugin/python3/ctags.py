@@ -35,7 +35,7 @@ class RemotePlugin(object):
         self.busy = 1
 
         DIR_NEOVIM_CWD = self.nvim.eval('getcwd()')
-        #  DIR_NEOVIM_CWD = (DIR_NEOVIM_CWD.replace(os.path.sep, '/'))
+        DIR_NEOVIM_CWD = (DIR_NEOVIM_CWD.replace(os.path.sep, '/'))
         DIR_CTAGS_CACHE = (os.path.expanduser('~') + "/.cache/ctags/")
         if self.deb:
             deb_file = open(DIR_CTAGS_CACHE + "deb", "w+")
