@@ -34,14 +34,18 @@ function! unix#Config() abort
 	" also this path below are what go into the .syntastic_avrgcc_config
 	let &path .= g:usr_path . '/local/include,'
 	let &path .= g:usr_path . '/include,'
-	let &path .= '/opt/unreal-engine/Engine/Source'
+	if !empty(glob('/opt/unreal-engine/Engine/Source'))
+		let &path .= '/opt/unreal-engine/Engine/Source'
+	endif
 
 	let l:hostname = system('hostname')
 	if l:hostname =~ 'beast'
 		let g:wiki_path=  $HOME . '/Seafile/OnServer/KnowledgeIsPower/wiki'
 	elseif l:hostname =~ 'predator'
 		let g:wiki_path=  $HOME . '/Seafile/KnowledgeIsPower/wiki'
-	elseif l:hostname =~ 'lubuntu'
+	elseif l:hostname =~ 'guajiro'
+		let g:wiki_path=  $HOME . '/Documents/Seafile/KnowledgeIsPower/wiki'
+	else " Some default location
 		let g:wiki_path=  $HOME . '/Documents/Seafile/KnowledgeIsPower/wiki'
 	endif
 
