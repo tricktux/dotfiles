@@ -349,7 +349,8 @@ endfunction
 function! utils#ListFiles(dir) abort
 	let l:directory = globpath(a:dir, '*')
 	if empty(l:directory)
-		echohl ErrorMsg | echom a:dir . " is not a valid directory name" | echohl None
+		" echohl ErrorMsg | echom a:dir . " is not a valid directory name" | echohl None
+		return []
 	endif
 	return map(split(l:directory,'\n'), "fnamemodify(v:val, ':t')")
 endfunction
@@ -433,10 +434,10 @@ function! utils#UpdateCscope() abort
 		" call UpdateTagsRemote()
 		" return	
 	" elseif has('python3')			" If python3 is available use it
-	if has('python3')			" If python3 is available use it
-		call python#UpdateCtags()
-		return
-	endif
+	" if has('python3')			" If python3 is available use it
+		" call python#UpdateCtags()
+		" return
+	" endif
 
 	silent! cs kill -1
 	if has('unix')
@@ -754,6 +755,9 @@ endfunction
 function! utils#SetTags() abort
 	" Obtain full path list of all files in ctags folder
 	let potential_tags = map(utils#ListFiles(g:cache_path . 'ctags'), "g:cache_path . 'ctags/' . v:val")
+	if len(potential_tags) == 0
+		return
+	endif
 	for item in potential_tags
 		if item =~ 'tags_'
 			execute "set tags +=" . item
