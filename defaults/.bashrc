@@ -74,3 +74,6 @@ export VISUAL=vim
 
 # Ranger load only ~/.config/ranger/rc.conf
 export RANGER_LOAD_DEFAULT_RC=FALSE
+
+# Fixes git weird issue
+export GIT_TERMINAL_PROMPT=1
