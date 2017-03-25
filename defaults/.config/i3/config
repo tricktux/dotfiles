@@ -453,7 +453,7 @@ exec --no-startup-id xscreensaver -no-splash&
 #exec --no-startup-id pcmanfm
 exec --no-startup-id insync start
 exec --no-startup-id google-chrome-stable
-exec --no-startup-id urxvt
+exec --no-startup-id termite
 exec --no-startup-id fluxgui
 exec --no-startup-id nm-applet
 
