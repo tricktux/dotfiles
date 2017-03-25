@@ -223,7 +223,7 @@ function! ctags#SetTags() abort
 		if item =~# 'tags_'
 			execute "set tags +=" . item
 		elseif item =~# 'cscope.out'
-			execute "cs add " . item
+			silent! execute "cs add " . item
 		endif
 	endfor
 endfunction
