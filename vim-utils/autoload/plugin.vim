@@ -340,6 +340,7 @@ function! plugin#Config() abort
 		let g:table_mode_align_char = ':'
 		let g:table_mode_map_prefix = '<Leader>l'
 		" nnoremap <Leader>lm :TableModeToggle<CR>
+		" <Leader>tr	Realigns table columns
 
 	Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
 		nnoremap <Leader>so :SyntasticToggleMode<CR>
