@@ -700,36 +700,40 @@
 					\ 'wings_syntax': { 'left': '//', 'right': '' }}
 
 " HIGHLITING
-" ~/.dotfiles/vim-utils/autoload/unix.vim
+" ~/.dotfiles/vim-utils/autoload/highlight.vim
 	if exists("b:plugins_loaded")
+		" C
 		call highlight#Set('cTypeTag',                { 'fg': g:brown })
 		call highlight#Set('cPreProcTag',             { 'fg': g:purple })
 		call highlight#Set('cFunctionTag',            { 'fg': g:darkred })
 		call highlight#Set('cMemberTag',              { 'link': 'cMember' })
 		call highlight#Set('cEnumTag',                { 'link': 'cEnum' })
 
+		" Cpp
 		call highlight#Set('cppTypeTag',              { 'fg': g:brown })
 		call highlight#Set('cppPreProcTag',           { 'fg': g:purple })
 		call highlight#Set('cppFunctionTag',          { 'fg': g:darkred })
 		call highlight#Set('cppMemberTag',            { 'link': 'cppMember' })
 		call highlight#Set('cppEnumTag',              { 'link': 'cppEnum' })
 
-		" highlight Search guifg=Turquoise4
-		" highlight IncSearch guifg=Cyan
+		" Search
+		call highlight#Set('Search',									{ 'bg': g:turquoise4 })
+		call highlight#Set('IncSearch',								{ 'bg': g:white })
 
-		" " c
-		" highlight link cTypeTag Special
-		" highlight link cppTypeTag Special
-		" " e
-		" highlight link cEnumTag Identifier
-		" highlight link cppEnumTag Identifier
-		" " d
-		" " highlight link cppPreProcTag ctermfg=2 guifg=#00ff00
-		" highlight link cPreProcTag PreProc
-		" highlight link cppPreProcTag PreProc
-		" f
-		" highlight link cFunctionTag Function
-		" highlight link cppFunctionTag Function
+		" Vim
+		call highlight#Set('vimAutoGroupTag',					{ 'fg': g:brown })
+		call highlight#Set('vimCommandTag',						{ 'fg': g:purple })
+		call highlight#Set('vimFuncNameTag',					{ 'fg': g:darkred })
+
+		" Python
+		call highlight#Set('pythonClassTag',          { 'fg': g:brown })
+		call highlight#Set('pythonFunctionTag',       { 'fg': g:darkred })
+		call highlight#Set('pythonMethodTag',         { 'link': 'cMember' })
+	
+		" Java
+		call highlight#Set('javaClassTag',						{ 'fg': g:brown })
+		call highlight#Set('javaMethodTag',						{ 'fg': g:darkred })
+		call highlight#Set('javaInterfaceTag',        { 'link': 'cMember' })
 	endif
 
 " CUSTOM_COMMANDS
