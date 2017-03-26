@@ -4,7 +4,9 @@
 " Version:1.0.0
 " Last Modified: Fri Mar 24 2017 16:22
 
-function! ctags#NvimSyncCtags() abort
+" ft_spec - If 1 will create ctags only for the &ft language
+"					- If 0 then create tags for all the files in the dir
+function! ctags#NvimSyncCtags(ft_spec) abort
 	if !executable('rg')
 		echomsg string("Ctags dependens on ripgrep. I know horrible")
 		return
@@ -20,7 +22,8 @@ function! ctags#NvimSyncCtags() abort
 		return
 	endif
 
-	let ft = ctags#NvimFt2Rg()
+	let nvim_ft = &ft
+	let rg_ft = ctags#NvimFt2Rg(nvim_ft)
 	let cwd_rg = getcwd()
 	if has('win32')
 		let cwd_rg = substitute(cwd_rg, "\\", "/", "g") " Fix cwd for the rg command
@@ -28,7 +31,11 @@ function! ctags#NvimSyncCtags() abort
 	" Get cscope files location
 	let files_loc = g:cache_path . "ctags/"
 	let files_name = files_loc . "cscope.files"
-	let files_cmd = 'rg -t ' . ft . ' --files ' .  cwd_rg .  ' > ' . files_name
+	if a:ft_spec == 1
+		let files_cmd = 'rg -t ' . rg_ft . ' --files ' .  cwd_rg .  ' > ' . files_name
+	else
+		let files_cmd = 'rg --files ' .  cwd_rg .  ' > ' . files_name
+	endif
 	" let files_cmd = substitute(files_cmd,"'", "","g")
 	call delete(files_name)	 " Delete old/previous cscope.files
 	" echomsg string(files_cmd) " Debugging
@@ -37,11 +44,13 @@ function! ctags#NvimSyncCtags() abort
 		echomsg string("Failed to create cscope.files")
 		return
 	endif
-	
-	let ctags_lang = ctags#NvimFt2Ctags(&filetype)
-	if empty(ctags_lang)
-		echomsg string("Failed to obtain ctags lang")
-		return
+		
+	if a:ft_spec == 1
+		let ctags_lang = ctags#NvimFt2Ctags(&filetype)
+		if empty(ctags_lang)
+			echomsg string("Failed to obtain ctags lang")
+			return
+		endif
 	endif
 
 	" Create unique tag file name based on cwd_rg
@@ -51,13 +60,34 @@ function! ctags#NvimSyncCtags() abort
 		return
 	endif
 
-	let ctags_cmd = "ctags -L cscope.files -f tags_" . tags_name . " --sort=no --c-kinds=+p --c++-kinds=+p --fields=+l extras=+q --language-force=" . ctags_lang
+	if a:ft_spec == 1
+		let ctags_cmd = "ctags -L cscope.files -f " . tags_name . " --sort=no --c-kinds=+p --c++-kinds=+p --fields=+l extras=+q --language-force=" . ctags_lang
+	else
+		let ctags_cmd = "ctags -L cscope.files -f " . tags_name . " --sort=no --c-kinds=+pl --c++-kinds=+pl --fields=+iaSl extras=+q"
+	endif
 
 	" echomsg string(ctags_cmd) " Debugging
 	execute "cd " . files_loc
 	call system(ctags_cmd)
 
-	if &ft ==# 'cpp' || &ft ==# 'c' || &ft ==# 'java'
+	if getfsize(tags_name) < 1 
+		echomsg "Failed to create tags file: " . tags_name
+		return
+	endif
+
+	" Add new tag file if not already on the list
+	let list_tags = tagfiles()
+	let tag_present = 0
+	for tag in list_tags
+		if tag =~# tags_name
+			let tag_present = 1
+		endif
+	endfor
+	if tag_present == 0
+		execute "set tags+=" . g:cache_path . tags_name
+	endif
+
+	if nvim_ft ==# 'cpp' || nvim_ft ==# 'c' || nvim_ft ==# 'java'
 		" Create cscope db as well
 		execute "silent! cs kill -1"
 		let del_files = ['cscope.out', 'cscope.po.out', 'cscope.in.out']
@@ -88,7 +118,7 @@ function! ctags#GetPathFolderName(curr_dir) abort
 		return
 	endif
 
-	return a:curr_dir[back_slash_index+1:]
+	return "tags_" . a:curr_dir[back_slash_index+1:]
 endfunction
 
 " TODO.RM-Fri Mar 24 2017 16:49: This function is suppose to be async version of ctags#NvimSyncCtags  
@@ -135,11 +165,11 @@ function! ctags#NvimAsyncCtags() abort
 	" set tags+=.tags
 endfunction
 
-function! ctags#NvimFt2Rg() abort
-	let rg_ft = &ft
-	if rg_ft =~ 'vim'
+function! ctags#NvimFt2Rg(ft) abort
+	let rg_ft = a:ft
+	if a:ft =~ 'vim'
 		let rg_ft = 'vimscript'
-	elseif rg_ft =~ 'python'
+	elseif a:ft =~ 'python'
 		let rg_ft = 'py'
 	endif
 	return rg_ft
