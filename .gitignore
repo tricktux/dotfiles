@@ -5,3 +5,4 @@ defaults/.config/ranger/history
 defaults/.config/ranger/tagged
 vim-utils/rplugin/python3/__pycache__/ctags.cpython-35.pyc
 vim-utils/rplugin/python3/__pycache__/ctags.cpython-36.pyc
+mutt/.mutt/cache/

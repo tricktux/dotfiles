@@ -452,7 +452,7 @@ function! plugin#Config() abort
 		" Find functions called by this function not being used
 		" nnoremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
 		nnoremap <Leader>ts :cs show<CR>
-		nnoremap <Leader>tu :call ctags#NvimSyncCtags()<CR>
+		nnoremap <Leader>tu :call ctags#NvimSyncCtags(0)<CR>
 
 	" cpp/java
 	Plug 'mattn/vim-javafmt', { 'for' : 'java' }
@@ -563,7 +563,8 @@ function! plugin#Config() abort
 								\   'tagbar': '(!empty(tagbar#currenttag("%s\ ","")))'
 								\		}
 
-	Plug 'c0r73x/neotags.nvim' " Depends on pip3 install --user psutil
+	" Plug 'c0r73x/neotags.nvim' " Depends on pip3 install --user psutil
+	Plug 'rmolin88/neotags.nvim' " Depends on pip3 install --user psutil
 		set regexpengine=1 " This speed up the engine alot but still not enough
 		let g:neotags_enabled = 1
 		" let g:neotags_file = g:cache_path . 'ctags/neotags'
@@ -573,9 +574,9 @@ function! plugin#Config() abort
 		let g:neotags#cpp#order = 'ced'
 		" let g:neotags#c#order = 'cgstuedfpm'
 		let g:neotags#c#order = 'ced'
-		let g:neotags_events_highlight = [
-					\   'BufEnter'
-					\ ]
+		" let g:neotags_events_highlight = [
+					" \   'BufEnter'
+					" \ ]
 
 	Plug 'PotatoesMaster/i3-vim-syntax'
 
