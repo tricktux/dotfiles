@@ -132,6 +132,8 @@ function! plugin#Config() abort
 				" let b:deoplete_loaded = 1
 				" if it is nvim deoplete requires python3 to work
 				let g:deoplete#enable_at_startup = 1
+				" Autoclose preview window
+				autocmd CompleteDone * pclose!
 				" Note: If you get autocomplete autotriggering issues keep increasing this option below. 
 				" Next value to try is 150. See:https://github.com/Shougo/deoplete.nvim/issues/440
 				let g:deoplete#auto_complete_delay=150 " Fixes issue where Autocompletion triggers
