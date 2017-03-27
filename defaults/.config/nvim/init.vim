@@ -704,14 +704,14 @@
 	if exists("b:plugins_loaded")
 		" C
 		call highlight#Set('cTypeTag',                { 'fg': g:brown })
-		call highlight#Set('cPreProcTag',             { 'fg': g:purple })
+		call highlight#Set('cPreProcTag',             { 'fg': g:cyan })
 		call highlight#Set('cFunctionTag',            { 'fg': g:darkred })
 		call highlight#Set('cMemberTag',              { 'link': 'cMember' })
 		call highlight#Set('cEnumTag',                { 'link': 'cEnum' })
 
 		" Cpp
 		call highlight#Set('cppTypeTag',              { 'fg': g:brown })
-		call highlight#Set('cppPreProcTag',           { 'fg': g:purple })
+		call highlight#Set('cppPreProcTag',           { 'fg': g:cyan })
 		call highlight#Set('cppFunctionTag',          { 'fg': g:darkred })
 		call highlight#Set('cppMemberTag',            { 'link': 'cppMember' })
 		call highlight#Set('cppEnumTag',              { 'link': 'cppEnum' })
@@ -722,7 +722,7 @@
 
 		" Vim
 		call highlight#Set('vimAutoGroupTag',					{ 'fg': g:brown })
-		call highlight#Set('vimCommandTag',						{ 'fg': g:purple })
+		call highlight#Set('vimCommandTag',						{ 'fg': g:cyan })
 		call highlight#Set('vimFuncNameTag',					{ 'fg': g:darkred })
 
 		" Python
