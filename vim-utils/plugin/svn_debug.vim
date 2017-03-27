@@ -1,58 +1,50 @@
 " TODO.RM-Thu Feb 23 2017 14:12: Create the svn copy, and delete commands  
-function! GetSvnListOfBranchesTags(repo_name) abort
-	if empty(a:repo_name)
-		echohl ErrorMsg
-		echo "GetSvnListOfBranchesTags(): Invalid Input"
-		echohl None
-		return []
+function! GetSvnListOfBranchesTags() abort
+	if !exists('g:svn_branch_info')
+		echomsg 'No svn repo detected'
+		return
 	endif
 
-	" TODO.RM-Thu Feb 23 2017 16:08: Do not ASSUME there are branches, tags, and
-	" trunk rather first `svn ls a:repo_name` to see whats there and then `svn
-	" ls` recursively. Until you find only tags, branches, and trunk
-	" Get branches
-	" No reason to cd into svn root folder since we have full repo link
-	" Pseudo: 
-	" svn ls just repo name
-	" search for branches, tags, and trunk
-	" If branches, or tags is found then use that as your branches list
-	" If none is found. 
-	" Check the len of the list. If more than 3. No way there are that many
-	" repos. Just ignore and assume there are no brances/tags
-	" else
-	" Repeat operation but from the name of the first folder
-	"TODO.RM-Thu Mar 16 2017 05:47: This is too awful hard. I am just going to asume that it is the normal trunk, branch
-	"stuff
-	" TODO.RM-Thu Mar 16 2017 06:01: Mention in the help that all url and repo names need to terminate in /  
-	let root_list = systemlist("svn ls " . g:svn_repo_url . a:repo_name)
-	let branches_list = []
-	" echo branches_list
-	if v:shell_error
-		cexpr root_list
-		" TODO.RM-Thu Feb 23 2017 11:52: Insert option here to open or not the qf
-		" window  
-		copen 10
-		return branches_list
+	if !executable('svn')
+		echomsg 'No svn executable detected'
+		return
 	endif
 
-	for item in root_list
-		" Search for trunk, tags, branches. recursively
-		if item =~ 'branches' || item =~ 'tag' 
-			let branches = systemlist("svn ls " . g:svn_repo_url . a:repo_name . item)
-			" TODO.RM-Thu Mar 16 2017 06:33: Should you list empty branches?
-			" It should be based on the command. If you are copying yes. If you are switching no
-			if len(branches) == 0
-				let branches_list += [ a:repo_name . item ]
-			else
-				call map(branches, 'a:repo_name . item . v:val')
-				let branches_list += branches
-			endif
-		elseif item =~ 'trunk'
-			let branches_list += [ a:repo_name . 'trunk' ]
-		endif
-	endfor
+	if !executable('grep')
+		echomsg 'No grep executable detected'
+		return
+	endif
 
-	return branches_list
+	let buf_dir = RootDirFinder()
+	if buf_dir == -1
+		echomsg 'Failed to detect repo root directory'
+		return
+	endif
+
+	let svn_info = systemlist('svn info | grep URL')
+	" Obtain repo URL from here
+	" Now try to obtain the Repo URL
+	let url = get(svn_info, 1, "")
+	if empty(url)
+		echomsg 'Failed to get svn info'
+		return
+	endif
+
+	" Get branch idx
+	" TODO.RM-Mon Mar 27 2017 17:22: Figure out why its not truncating properly  
+	let brch_idx = stridx(url, g:svn_branch_info[1:])
+	if brch_idx == -1
+		echomsg 'Failed to match branch to URL'
+	else
+		let svn_repo_url = strpart(url, 5, brch_idx)
+		echomsg 'Branch len = '. strlen(svn_repo_url)
+		echomsg 'Branch idx = '. brch_idx
+		echomsg 'Repo URL: '.svn_repo_url
+	endif
+
+	if !empty(buf_dir)
+		silent! execute "cd " . buf_dir
+	endif
 endfunction
 
 " TODO.RM-Fri Feb 24 2017 05:43: Turn this into a command  
@@ -205,11 +197,21 @@ endfunction
 
 " TODO.RM-Thu Mar 16 2017 08:36: Update this function to make it async. Maybe the whole plugin be async  
 " This function gets called on BufEnter
-function! UpdateSvnBranchInfo() abort
-	if !executable('svn')
+" Call the function from cli with any argument to obtain debugging output
+function! UpdateSvnBranchInfo(...) abort
+	if !executable('svn') && !exists('s:svn_not_exec')
 		echohl WarningMsg
-		echo "utils#UpdateSvnBranchInfo(): Please Install svn to use this functionality"
+		echomsg "utils#UpdateSvnBranchInfo(): Please Install svn to use this functionality"
 		echohl None
+		let s:svn_not_exec = 1
+		return
+	endif
+
+	if !executable('grep') && !exists('s:svn_not_exec')
+		echohl WarningMsg
+		echomsg "utils#UpdateSvnBranchInfo(): Please Install grep to use this functionality"
+		echohl None
+		let s:svn_not_exec = 1
 		return
 	endif
 
@@ -218,21 +220,13 @@ function! UpdateSvnBranchInfo() abort
 		return
 	endif
 
-	if exists('*FindRootDirectory()') " If vim-rooter present try it
-		let file_path = FindRootDirectory()
-		if file_path ==# getcwd()
-			let file_path = ""
-		endif
-	else
-		let file_path = expand('%:p:h')
-	endif	
 	let dir_buf = getcwd()
-
+	let file_path = expand('%:p:h')
 	if !empty(file_path)
 		silent! execute "cd " . file_path
 	endif
 	try
-		let info = system("svn info | findstr URL")
+		let info = systemlist("svn info | grep URL")
 	catch
 		if !empty(file_path)
 			silent! execute "cd " . dir_buf
@@ -246,33 +240,96 @@ function! UpdateSvnBranchInfo() abort
 
 	" The system function returns something like "Relative URL: ^/...."
 	" Strip from "^/" forward and put that in status line
-	let index = stridx(info, "^/")
+	let branches = get(info, 2, "")
+	let index = stridx(branches, "^/")
 	if index == -1
 		" echon "Couldnt Find needle"
 		unlet! g:svn_branch_info
+		if a:0 > 0
+			echomsg 'svn info did not return anything useful'
+		endif
 		return
 	else
-		let g:svn_branch_info = strpart(info, index+1) " Strip out the '^' from '^/'
+		" let g:svn_branch_info = strpart(branches, index+1, strlen(branches)-3) " Strip out the '^' from '^/'
+		let pot_display = branches[index+1:]
+		" echomsg 'Original Brch Info: "'g:svn_branch_info
 	endif
+
+	" Truncating trunk
+	let trunk_idx = stridx(pot_display, 'trunk')
+	if trunk_idx != -1
+		" let g:svn_branch_info = strpart(pot_display, 0, trunk_idx+5)
+		let g:svn_branch_info = pot_display[:trunk_idx+4]
+		return
+	endif
+
+	" Truncating branch/tags
+	let branch_idx = stridx(pot_display, 'branches')
+	if branch_idx == -1
+		let branch_idx = stridx(pot_display, 'tags')
+	endif
+
+	if branch_idx != -1
+		let idx = GetIdxTo2ndFSlash(pot_display, branch_idx)
+		if idx == -1
+			let g:svn_branch_info = pot_display
+			return
+		else
+			let g:svn_branch_info = pot_display[:idx]
+			return
+		endif
+	endif
+
+	" If there is no trunk/branches/tags just output everything 
+	if strlen(pot_display) > 16
+		let g:svn_branch_info = pot_display[0:16] . '...'
+	else
+		let g:svn_branch_info = pot_display
+	endif
+	" echo strpart(g:svn_branch_info, 0, index)
+	" if num_of_slashes > 2
+		" let g:svn_branch_info = strpart(g:svn_branch_info, 0, index)
+	" endif
+	" let g:svn_branch_info += " "
+endfunction
+
+" Cds to root dir if there is one and returns prev dir
+" if there is no root dir returns empty and doesnt do anything
+function! RootDirFinder() abort
+	if exists('*FindRootDirectory()') " If vim-rooter present try it
+		let dir_buf = getcwd()
+		let file_path = FindRootDirectory()
+		if file_path ==# dir_buf
+			return
+		elseif empty(file_path)
+			return -1
+		else
+			silent! execute "cd " . file_path
+			return dir_buf
+		endif
+	else
+		echomsg 'vim-rooter not present'
+	endif	
+endfunction
+
+" str - Haystack on which to search for the forward slashes
+" start_idx - At what position of the Haystack to start searching
+function! GetIdxTo2ndFSlash(str, start_idx)
 	" Strip string if there are more than 2 '/'
-	let index = 0
+	let index = a:start_idx
 	let num_of_slashes = 0
 	" Count the number of slashes
 	while 1
-		let index = stridx(g:svn_branch_info, '/', index)
+		let index = stridx(a:str, '/', index)
 		if index == -1
 			break
 		else
 			let num_of_slashes += 1
 			if num_of_slashes == 3
-				break
+				return index
 			endif
 			let index += 1
 		endif
-	endw
-	" echo strpart(g:svn_branch_info, 0, index)
-	if num_of_slashes > 2
-		let g:svn_branch_info = strpart(g:svn_branch_info, 0, index)
-	endif
-	" let g:svn_branch_info += " "
+	endwhile
+	return -1
 endfunction
