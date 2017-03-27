@@ -93,6 +93,8 @@ function! plugin#Config() abort
 	if has('nvim')
 		Plug 'radenling/vim-dispatch-neovim'
 		" nvim-qt on unix doesnt populate has('gui_running
+		"TODO.RM-Mon Mar 27 2017 05:17: Create variable that will allow you to
+		"switch from deoplete to YCM easily  
 		Plug 'equalsraf/neovim-gui-shim'
 		" Plug 'Valloric/YouCompleteMe', { 'on' : 'YcmDebugInfo' }
 			" "" turn on completion in comments
@@ -186,6 +188,7 @@ function! plugin#Config() abort
 			" and jedi for autocompletion, `pip install jedi --user`
 			Plug 'zchee/deoplete-jedi'
 			Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
+			Plug 'Shougo/echodoc' " Pop for functions info
 		endif
 
 		if executable('lldb')
@@ -549,7 +552,7 @@ function! plugin#Config() abort
 			let g:lightline.active = {
 								\   'left': [ 
 								\							[ 'mode', 'paste' ], 
-								\							[ 'readonly', 'relativepath', 'modified', 'fugitive', 'svn', 'tagbar', 'neomake'] 
+								\							[ 'readonly', 'absolutepath', 'modified', 'fugitive', 'svn', 'tagbar', 'neomake'] 
 								\						]
 								\		}
 		 let g:lightline.component = {
