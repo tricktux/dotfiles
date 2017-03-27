@@ -660,7 +660,7 @@ endfunction
 function! utils#ConvertWeeklyReport() abort
 	if !executable('pandoc')
 		echohl ErrorMsg
-		echo "Missing pandoc executable from path"
+		echomsg "Missing pandoc executable from path"
 		echohl None
 		return -1
 	endif
@@ -669,8 +669,13 @@ function! utils#ConvertWeeklyReport() abort
 	let dir_buff = getcwd()
 	execute "cd " . expand('%:p:h')
 
+	let out_name = "WeeklyReport_ReinaldoMolina_" . strftime("%b-%d-%Y") . ".docx"
+	if filereadable(out_name)
+		call delete(out_name)
+	endif
+
 	" Execute command
-	cexpr systemlist("pandoc WeeklyReport.md -s -o WeeklyReport_ReinaldoMolina_" . strftime("%b-%d-%Y") . ".pdf")
+	cexpr systemlist("pandoc WeeklyReport.md -s -o " . out_name)
 
 	execute "cd " dir_buff
 endfunction
