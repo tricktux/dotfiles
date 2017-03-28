@@ -7,11 +7,14 @@
 
 # Download neovim
 $neovim_link = "https://ci.appveyor.com/api/projects/neovim/neovim/artifacts/build/Neovim.zip?branch=master&job=Configuration%3A%20MINGW_64"
+$ctags_64 = "https://ci.appveyor.com/api/buildjobs/tcojv7tm2gu2x91y/artifacts/ctags-7a2d6aeb-x64.zip"
 $res = wget $neovim_link -OutFile "$env:TEMP\neovim.zip"
-if ($res -eq $null)
+$res_ctags = wget $ctags_64 -OutFile "$env:TEMP\universal-ctags.zip"
+if ($res -eq $null -and $res_ctags -eq $null)
 {
 	Remove-Item -path "C:\Program Files\nvim\Neovim" -force -recurse
 	expand-archive -Path "$env:TEMP\neovim.zip" -DestinationPath "C:\Program Files\nvim" -Force
+	expand-archive -Path "$env:TEMP\universal-ctags.zip" -DestinationPath "C:\Program Files\nvim\Neovim\bin" -Force
 }
 else
 {
