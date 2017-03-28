@@ -341,7 +341,8 @@ function! plugin#Config() abort
 		" To start using the plugin in the on-the-fly mode use :TableModeToggle mapped to <Leader>tm by default
 		" Enter the first line, delimiting columns by the | symbol. In the second line (without leaving Insert mode), enter | twice
 		" For Markdown-compatible tables use
-		let g:table_mode_corner="|"
+		" let g:table_mode_corner="|"
+		let g:table_mode_corner = '+'
 		let g:table_mode_align_char = ':'
 		let g:table_mode_map_prefix = '<Leader>l'
 		" nnoremap <Leader>lm :TableModeToggle<CR>
@@ -588,6 +589,11 @@ function! plugin#Config() abort
 	if has('win32')
 		Plug 'PProvost/vim-ps1'
 	endif
+
+	Plug 'vim-pandoc/vim-pandoc', { 'on' : 'Pandoc' }
+	Plug 'vim-pandoc/vim-pandoc-syntax', { 'on' : 'Pandoc' }
+		" You might be able to get away with xelatex in unix
+		let g:pandoc#command#latex_engine = "pdflatex"
 
 	" Force yourself to stop silly repeatition. Useful but annoying
 	" Plug 'takac/vim-hardtime'
