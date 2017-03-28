@@ -737,6 +737,8 @@
 	endif
 
 " CUSTOM_COMMANDS
-	command! -nargs=+ -complete=command CaptureCmdOutput call utils#CaptureCmdOutput(<f-args>)
+	" Convention: All commands names need to start with the autoload file name.
+	" And use camel case. This way is easier to search
+	command! -nargs=+ -complete=command UtilsCaptureCmdOutput call utils#CaptureCmdOutput(<f-args>)
 
 " vim:tw=78:ts=2:sts=2:sw=2:
