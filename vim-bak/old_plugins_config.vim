@@ -1378,3 +1378,10 @@ endif
 	" " Too sluggish for now. To make it work create the tag manually and added it
 	" " to 'tags'
 	" else
+	" Force yourself to stop silly repeatition. Useful but annoying
+	" Plug 'takac/vim-hardtime'
+		" let g:hardtime_allow_different_key = 1
+		" let g:hardtime_maxcount = 2
+		" let g:hardtime_default_on = 1
+		" let g:list_of_normal_keys = ["h", "j", "k", "l", "w", "b" ]
+
