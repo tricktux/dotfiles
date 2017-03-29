@@ -497,8 +497,9 @@ function! plugin#Config() abort
 		nnoremap <Leader>gl :silent Glog<CR>
 					\:copen 20<CR>
 
-	" aesthetic
+	" colorschemes
 	Plug 'morhetz/gruvbox' " colorscheme gruvbox
+	Plug 'joshdick/onedark.vim'
 	" Plug 'NLKNguyen/papercolor-theme'
 
 	" Radical
@@ -568,6 +569,8 @@ function! plugin#Config() abort
 								\   'svn': '(!empty(svn#GetSvnBranchInfo()))',
 								\   'tagbar': '(!empty(tagbar#currenttag("%s\ ","")))'
 								\		}
+			" let g:lightline.colorscheme = 'onedark'
+			let g:lightline.colorscheme = 'gruvbox'
 
 	" Plug 'c0r73x/neotags.nvim' " Depends on pip3 install --user psutil
 	Plug 'rmolin88/neotags.nvim' " Depends on pip3 install --user psutil
@@ -595,12 +598,7 @@ function! plugin#Config() abort
 		" You might be able to get away with xelatex in unix
 		let g:pandoc#command#latex_engine = "pdflatex"
 
-	" Force yourself to stop silly repeatition. Useful but annoying
-	" Plug 'takac/vim-hardtime'
-		" let g:hardtime_allow_different_key = 1
-		" let g:hardtime_maxcount = 2
-		" let g:hardtime_default_on = 1
-		" let g:list_of_normal_keys = ["h", "j", "k", "l", "w", "b" ]
+	" Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required

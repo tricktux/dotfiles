@@ -170,6 +170,7 @@
 		if exists('b:plugins_loaded')
 			set background=dark    " Setting dark mode
 			colorscheme gruvbox
+			" colorscheme onedark
 			" set background=light
 			" colorscheme PaperColor
 		else
