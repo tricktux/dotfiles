@@ -1,3 +1,9 @@
+" File:svn_debug.vim
+"	Description: Wrapper around svn switch/copy/delete commands
+" Author:Reinaldo Molina <rmolin88@gmail.com>
+" Version:1.0.0
+" Last Modified: Mar 29 2017 09:22
+
 " TODO.RM-Thu Feb 23 2017 14:12: Create the svn copy, and delete commands  
 " Returns a list where. The first item is the url of the repo
 function! GetSvnListOfBranchesTags() abort
@@ -12,7 +18,6 @@ function! GetSvnListOfBranchesTags() abort
 	endif
 
 	if !executable('grep')
-		" TODO.RM-Tue Mar 28 2017 05:39: Check if_win and switch to findstr  
 		echomsg 'No grep executable detected'
 		return
 	endif
@@ -40,7 +45,7 @@ function! GetSvnListOfBranchesTags() abort
 
 	let svn_info = get(svn_info, 0, "")
 
-	echomsg 'Repo URL: '.svn_info
+	" echomsg 'Repo URL: '.svn_info
 
 	if g:svn_branch_info =~# 'trunk'
 		let srch = 'trunk'
