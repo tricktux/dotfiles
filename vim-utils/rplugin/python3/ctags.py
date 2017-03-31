@@ -21,7 +21,7 @@ import neovim
 
 
 @neovim.plugin
-class RemovePlugin(object):
+class RemotePlugin(object):
     def __init__(self, nvim):
         self.nvim = nvim
         self.busy = 0
@@ -35,7 +35,7 @@ class RemovePlugin(object):
         self.busy = 1
 
         DIR_NEOVIM_CWD = self.nvim.eval('getcwd()')
-        #  DIR_NEOVIM_CWD = (DIR_NEOVIM_CWD.replace(os.path.sep, '/'))
+        DIR_NEOVIM_CWD = (DIR_NEOVIM_CWD.replace(os.path.sep, '/'))
         DIR_CTAGS_CACHE = (os.path.expanduser('~') + "/.cache/ctags/")
         if self.deb:
             deb_file = open(DIR_CTAGS_CACHE + "deb", "w+")
@@ -65,8 +65,13 @@ class RemovePlugin(object):
         CSCOPE_FILES_NAME = (DIR_CTAGS_CACHE + "cscope.files")
         CSCOPE_OUT_FILE = (DIR_CTAGS_CACHE + "cscope.out")
         CTAGS_FILE_NAME = (DIR_CTAGS_CACHE + "tags_" + ctags_file_name)
-        CMD_CTAGS = ("ctags -L cscope.files -f %s --sort=yes --c-kinds=+pl --c++-kinds=+pl --fields=+iaS"
-                " --extra=+q --language-force=%s" % (CTAGS_FILE_NAME, lang_ctags))
+        os.chdir(DIR_NEOVIM_CWD)
+        if self.deb:
+            deb_file.write("new python_cwd = %s" % os.getcwd() + "\n")
+
+        CMD_CTAGS = ("ctags -L cscope.files -f %s --sort=no --c-kinds=+p --c++-kinds=+p --fields=+l"
+                " --extras=+q --language-force=%s" % (CTAGS_FILE_NAME, lang_ctags))
+                #  " --extras=+q" % CTAGS_FILE_NAME)
 
         if self.deb:
             deb_file.write("ctags_cmd = %s" % CMD_CTAGS + "\n")
@@ -113,12 +118,11 @@ class RemovePlugin(object):
         if ctags_file_name not in tagfiles:
             self.nvim.command('set tags+=%s' % CTAGS_FILE_NAME)
 
-        if lang_nvim != 'cpp': # Only create cscope db for cpp files
+        if lang_nvim != 'cpp' and lang_nvim != 'c': # Only create cscope db for c/cpp files
             self.busy = 0
             return
 
         # Silently try to create cscope files
-        #  TODO.RM-Fri Mar 17 2017 10:30: Move cscope.out to ~/.cache and add it there  
         os.chdir(DIR_CTAGS_CACHE)
         if self.deb:
             deb_file.write("new python_cwd = %s" % os.getcwd() + "\n")
@@ -135,7 +139,8 @@ class RemovePlugin(object):
         except:
             pass
 
-        if os.path.isfile('cscope.out'):
+        #  if os.path.isfile('cscope.out'):
+        if not os.path.isfile(DIR_CTAGS_CACHE + "/cscope.out"):
             self.nvim.command(':echomsg "Failed to create cscope.out"')
             self.busy = 0
             return
@@ -156,6 +161,8 @@ class RemovePlugin(object):
             lang = 'Python'
         elif lang == 'java':
             lang = 'Java'
+        elif lang == 'c':
+            lang = 'C'
         else:
             return
         return lang

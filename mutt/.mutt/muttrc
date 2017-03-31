@@ -3,7 +3,7 @@ set ssl_force_tls=yes
 set imap_user = 'rmolin88'
 
 # Get password from encryption
-source "gpg -d ~/.mutt/password.gpg |"
+source "gpg -d ~/.config/mutt/password.gpg |"
 # Alternative to encryption. Just annoying to type complicated password
 # everytime
 # set imap_pass=`read -s -p 'mail-password : ' mailpass ; echo $mailpass`
@@ -19,14 +19,14 @@ set postponed="imaps://imap.gmail.com/[Gmail]/Drafts"
 
 # Store message headers locally to speed things up.
 # If hcache is a folder, Mutt will create sub cache folders for each account which may speeds things up even more.
-set header_cache = "~/.mutt/cache/headers"
+set header_cache = "~/.config/mutt/cache/headers"
 
 # Store messages locally to speed things up, like searching message bodies.
 # Can be the same folder as header_cache.
 # This will cost important disk usage according to your e-mail amount.
-set message_cachedir = "~/.mutt/cache/bodies"
+set message_cachedir = "~/.config/mutt/cache/bodies"
 
-set certificate_file = "~/.mutt/certificates"
+set certificate_file = "~/.config/mutt/certificates"
 set move = no
 
 # Keep IMAP connection alive by polling intermittently (time in seconds).
@@ -72,9 +72,9 @@ macro index,pager gp "<change-folder>=[Gmail]/Important<enter>" "Go to priority 
 macro index,pager gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
 
 # Option to Save contacts so that autocompletion is possible
-set display_filter='~/.mutt/mutt.save.contacts.sh' 
+set display_filter='~/.config/mutt/mutt.save.contacts.sh' 
 # Options to load aliasses file
-set alias_file= ~/.mutt/aliases.txt
+set alias_file= ~/.config/mutt/aliases.txt
 set sort_alias= alias
 set reverse_alias=yes
 source $alias_file
@@ -116,7 +116,7 @@ set menu_scroll
 set beep_new
 
 # Pretty cool colors
-source ~/.mutt/mutt-solarized-colors.muttrc
+source ~/.config/mutt/mutt-solarized-colors.muttrc
 
 # Only new and read msgs
 # Use $ to synch
