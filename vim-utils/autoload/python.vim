@@ -2,7 +2,7 @@
 " Description: All functions that use python within vim are going to be here
 " Author:Reinaldo Molina <rmolin88@gmail.com>
 " Version:1.0.0
-" Last Modified: Mar 14 2017 20:09
+" Last Modified: Thu Mar 23 2017 14:56
 
 " Called from utils#UpdateCscope. This parent function checks if cscope and ctags is available
 function! python#UpdateCtags() abort
@@ -14,9 +14,12 @@ python3 << EOF
 import os
 import vim
 
-delete_files = [ 'cscope.out', 'cscope.po.out', 'cscope.in.out', '.tags' ]
-file_ext_tuple = ('.c', '.cpp', '.java', '.cc', '.h', '.hpp')
-ctags_cmd = 'ctags -R -L cscope.files -f .tags --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q --language-force=C++'
+DIR_NEOVIM_CWD = self.nvim.eval('getcwd()')
+DIR_NEOVIM_CWD = (DIR_NEOVIM_CWD.replace(os.path.sep, '/'))
+DIR_CTAGS_CACHE = (os.path.expanduser('~') + "/.cache/ctags/")
+
+delete_files = ( 'cscope.out', 'cscope.po.out', 'cscope.in.out', '.tags' )
+ctags_cmd = 'ctags -L cscope.files -f .tags --sort=no --c-kinds=+l --c++-kinds=+l --fields=+iaSl --extra=+q'
 
 vim.command('silent! cs kill -1')
 
@@ -49,5 +52,24 @@ if os.path.isfile('cscope.out'):
 
 # Add new database
 vim.command('cs add cscope.out')
+EOF
+endfunction
+
+function! python#SetTags() abort
+	if !has('python3')
+    echomsg string("Why U NOT has python???")
+    return
+	endif
+
+python3 << EOF
+import os
+import neovim
+
+DIR_CTAGS_CACHE = (os.path.expanduser('~') + "/.cache/ctags/")
+# DIR_CTAGS_CACHE = (neovim.vars['cache_path'])
+for root, dirs, files in os.walk(DIR_CTAGS_CACHE):
+	for file in files:
+		if file.startswith("tags_"):
+			neovim.command('set tags+=%s' % os.path.join(root, file))
 EOF
 endfunction
