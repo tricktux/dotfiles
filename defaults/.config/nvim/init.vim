@@ -1,14 +1,13 @@
 " File:					init.vim
 " Description:  Vim/Neovim configuration file
 " Author:				Reinaldo Molina
-" Version:			6.0.1
-"								Support for portable vim version
+" Version:			7.0.0
+"								Python functions
 "								files
-" Date:					Tue Mar 14 2017 19:57
+" Date:					Thu Mar 23 2017 15:13
 " Improvements:
 		" - [ ] Create a after/syntax/gitcommit.vim to redline ahead and greenline
 		"   up-to-date
-		" - [ ] Markdown tables
 		" - [ ] Delete duplicate music.
 		" - [ ] Construct unified music library
 		" - [ ] Markdown math formulas
@@ -122,12 +121,6 @@
 		set nowrapscan        " do not wrap search at EOF
 		" will look in current directory for tags
 		
-		" TODO.RM-Fri Mar 17 2017 10:04: Fix the settags function  
-		set tags=./.tags;,.tags;,~/.cache/ctags/tags_OneWings
-		" if exists("b:plugins_loaded")
-		"	call utils#SetTags()
-		" endif
-
 		if has('cscope')
 			set cscopetag cscopeverbose
 			if has('quickfix')
@@ -177,6 +170,7 @@
 		if exists('b:plugins_loaded')
 			set background=dark    " Setting dark mode
 			colorscheme gruvbox
+			" colorscheme onedark
 			" set background=light
 			" colorscheme PaperColor
 		else
@@ -254,6 +248,19 @@
 			call utils#SetGrep()
 		endif
 
+	" Undofiles
+		if !empty(glob(g:cache_path . 'undofiles'))
+			let &undodir= g:cache_path . 'undofiles'
+			set undofile
+			set undolevels=1000      " use many muchos levels of undo
+		endif
+
+	" Tags   
+		set tags=./.tags;,.tags;
+		if exists("b:plugins_loaded")
+			call ctags#SetTags()
+		endif
+
 " ALL_AUTOGROUP_STUFF
 	" All of these options contain performance drawbacks but the most important
 	" is foldmethod=syntax
@@ -275,6 +282,7 @@
 		autocmd FileType mail setlocal omnifunc=muttaliases#CompleteMuttAliases
 		" Python
 		" autocmd FileType python setlocal foldmethod=syntax
+		autocmd FileType help setlocal relativenumber
 	augroup END
 
 	augroup BuffTypes
@@ -546,8 +554,15 @@
 	" Search <Leader>S
 		" Tried ack.vim. Discovered that nothing is better than grep with ag.
 		" search all type of files
-		"TODO.RM-Wed Nov 30 2016 10:22: Improve grep to autodetect filetype  
-		nnoremap <Leader>S :call utils#FileTypeSearch()<CR>
+		" Search '&filetype' type of files, and word under the cursor
+		nmap gsu :call utils#FileTypeSearch(1, 1)<CR>
+		" Search '&filetype' type of files, and prompt for search word
+		nmap gsi :call utils#FileTypeSearch(1, 8)<CR>
+		" Search all type of files, and word under the cursor
+		nmap gsa :call utils#FileTypeSearch(8, 1)<CR>
+		" Search all type of files, and prompt for search word
+		nmap gss :call utils#FileTypeSearch(8, 8)<CR>
+		" Search visual selection text
 		vnoremap // y/<C-R>"<CR>
 
 	" Substitute for ESC
@@ -686,9 +701,45 @@
 					\ 'wings_syntax': { 'left': '//', 'right': '' }}
 
 " HIGHLITING
-	" TODO.RM-Thu Mar 16 2017 17:09: Set this to different colors. Confusing
-	" when substituting  
-	highlight Search guifg=Turquoise4
-	highlight IncSearch guifg=Cyan
+" ~/.dotfiles/vim-utils/autoload/highlight.vim
+	if exists("b:plugins_loaded")
+		" C
+		call highlight#Set('cTypeTag',                { 'fg': g:brown })
+		call highlight#Set('cPreProcTag',             { 'fg': g:cyan })
+		call highlight#Set('cFunctionTag',            { 'fg': g:darkred })
+		call highlight#Set('cMemberTag',              { 'link': 'cMember' })
+		call highlight#Set('cEnumTag',                { 'link': 'cEnum' })
+
+		" Cpp
+		call highlight#Set('cppTypeTag',              { 'fg': g:brown })
+		call highlight#Set('cppPreProcTag',           { 'fg': g:cyan })
+		call highlight#Set('cppFunctionTag',          { 'fg': g:darkred })
+		call highlight#Set('cppMemberTag',            { 'link': 'cppMember' })
+		call highlight#Set('cppEnumTag',              { 'link': 'cppEnum' })
+
+		" Search
+		call highlight#Set('Search',									{ 'bg': g:turquoise4 })
+		call highlight#Set('IncSearch',								{ 'bg': g:white })
+
+		" Vim
+		call highlight#Set('vimAutoGroupTag',					{ 'fg': g:brown })
+		call highlight#Set('vimCommandTag',						{ 'fg': g:cyan })
+		call highlight#Set('vimFuncNameTag',					{ 'fg': g:darkred })
+
+		" Python
+		call highlight#Set('pythonClassTag',          { 'fg': g:brown })
+		call highlight#Set('pythonFunctionTag',       { 'fg': g:darkred })
+		call highlight#Set('pythonMethodTag',         { 'link': 'cMember' })
+	
+		" Java
+		call highlight#Set('javaClassTag',						{ 'fg': g:brown })
+		call highlight#Set('javaMethodTag',						{ 'fg': g:darkred })
+		call highlight#Set('javaInterfaceTag',        { 'link': 'cMember' })
+	endif
+
+" CUSTOM_COMMANDS
+	" Convention: All commands names need to start with the autoload file name.
+	" And use camel case. This way is easier to search
+	command! -nargs=+ -complete=command UtilsCaptureCmdOutput call utils#CaptureCmdOutput(<f-args>)
 
 " vim:tw=78:ts=2:sts=2:sw=2:

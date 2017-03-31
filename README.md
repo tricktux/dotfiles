@@ -39,7 +39,7 @@
 - `get(g:, 'neomake_place_signs', 1)` - Another example of getting global variables. Just shorter and allows you to
   set default value
 - `curly-braces-names` interesting section. Where you can create variables names with actual variables
-- 
+- `getfsize({fname})`
 
 ## Plugin convention
 - The plugin folder is only for the commands everything else (all the functions) go into autoload

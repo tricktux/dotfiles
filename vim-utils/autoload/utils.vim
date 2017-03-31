@@ -6,6 +6,7 @@
 " Date:					Mon Mar 06 2017 09:22
 
 " FUNCTIONS
+" Support here for rg, ucg, ag in that order
 function! utils#SetGrep() abort
 	if executable('rg')
 		" use option --list-file-types if in doubt
@@ -98,7 +99,6 @@ function! utils#EndOfIfComment() abort
 		if match(getline(line(".")-1, line(".")), "else") > -1
 			let g:testa = 1
 			" if { already contains closing if put it
-			" TODO:fix this to make search for else not only in @8 line
 			if match(getline(l:upper_line-1,l:upper_line), "else") > -1
 				" search upwards until you find initial if and copy it to @7
 				call utils#FindIf()
@@ -350,7 +350,8 @@ endfunction
 function! utils#ListFiles(dir) abort
 	let l:directory = globpath(a:dir, '*')
 	if empty(l:directory)
-		echohl ErrorMsg | echom a:dir . " is not a valid directory name" | echohl None
+		" echohl ErrorMsg | echom a:dir . " is not a valid directory name" | echohl None
+		return []
 	endif
 	return map(split(l:directory,'\n'), "fnamemodify(v:val, ':t')")
 endfunction
@@ -422,41 +423,6 @@ function! utils#OpenTerminal() abort
 	else
 		execute "normal :vs\<CR>\<c-w>l:terminal\<CR>"
 	endif
-endfunction
-
-function! utils#UpdateCscope() abort
-	if !executable('cscope') || !executable('ctags')
-		echoerr "Please install cscope and/or ctags before using this application"
-		return
-	endif
-
-	" if executable('rg') && has('nvim') && has('python3') " Use asynch nvim call instead
-		" call UpdateTagsRemote()
-		" return	
-	" elseif has('python3')			" If python3 is available use it
-	if has('python3')			" If python3 is available use it
-		call python#UpdateCtags()
-		return
-	endif
-
-	silent! cs kill -1
-	if has('unix')
-		!rm cscope.files cscope.out cscope.po.out cscope.in.out
-		!find . -iregex '.*\.\(c\|cpp\|java\|cc\|h\|hpp\)$' > cscope.files
-	else
-		!del /F cscope.files cscope.in.out cscope.po.out cscope.out
-		!dir /b /s *.java *.cpp *.h *.hpp *.c *.cc *.cs > cscope.files
-	endif
-	!cscope -b -q -i cscope.files
-	if !filereadable('cscope.out')
-		echoerr "Couldnt create cscope.out files"
-		return
-	endif
-	cs add cscope.out
-	" The extra=+q option is to highlight memebers
-	" Keep in mind that you are forcing the tags to be c++
-	silent !ctags -R -L cscope.files -f .tags --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q --language-force=C++
-	" set tags+=.tags
 endfunction
 
 function! utils#Make()
@@ -570,8 +536,6 @@ function! utils#UpdateHeader()
 	silent exe "1," . l . "g/Date:/s/Date:.*/Date:					" .
 				\ strftime("%a %b %d %Y %H:%M")
 	exe "normal! `z"
-	" TODO.RM-Sat Nov 26 2016 00:06: Add Last Author
-	" See getmatches, and matchadd()
 endfun
 
 " Default Wings mappings are for laptop
@@ -631,7 +595,12 @@ function! utils#NeomakeOpenWindow() abort
 	endif
 endfunction
 
-function! utils#FileTypeSearch() abort
+" Use current 'grepprg' to search files for text
+"		filteype - Possible values: 1 - Search only files of type 'filetype'. Any
+"								other value search all types of values
+"		word - Possible values: 1 - Search word under the cursor. Otherwise prompt
+"		for search word
+function! utils#FileTypeSearch(filetype, word) abort
 	let grep_engine = &grepprg
 
 	" In the case that rg or ag doesnt exist perform simple search
@@ -642,20 +611,20 @@ function! utils#FileTypeSearch() abort
 		return
 	endif
 
-	" Otherwise allow user to specify `filetype`
-	let user_ft_selection = inputlist([
-				\ 'Please select the filetypes to search:',
-				\ '1 - ' . &filetype,
-				\ '2 - All filetypes'])
-				" \ '3 - To specify a different type'])
-	let search = input("Please enter search word:")
+	if a:word == 1
+		let search = expand("<cword>")
+	else
+		let search = input("Please enter search word:")
+	endif
 	if &grepprg =~ 'rg'
 		" rg filetype for vim files is called vimscript
 		let rg_ft = &ft
-		if &ft =~ 'vim'
+		if rg_ft =~ 'vim'
 			let rg_ft = 'vimscript'
+		elseif rg_ft =~ 'python'
+			let rg_ft = 'py'
 		endif
-		if user_ft_selection == 1
+		if a:filetype == 1
 			exe ":grep -t " . rg_ft . ' ' . search
 			echon '|Grep Engine:' &grepprg ' |FileType: ' rg_ft '| CWD: ' getcwd()
 		else
@@ -663,7 +632,7 @@ function! utils#FileTypeSearch() abort
 			echon '|Grep Engine:' &grepprg ' |FileType: All| CWD: ' getcwd()
 		endif
 	elseif &grepprg =~ 'ag'
-		if user_ft_selection == 1
+		if a:filetype == 1
 			exe ":grep --" . &ft . ' ' . search
 			echon '|Grep Engine:' &grepprg ' |FileType: ' &ft '| CWD: ' getcwd()
 		else
@@ -673,55 +642,8 @@ function! utils#FileTypeSearch() abort
 	endif
 endfunction
 
-function! utils#SvnWingsSetup() abort
-	" let g:svnj_branch_url = [ g:wings_svn_url . 'OneWings/branches/OneWings_19',
-				" \  g:wings_svn_url . 'OneWings/tags/OneWings-005'
-				" \ ]
-
-	" let g:svnj_trunk_url =   g:wings_svn_url . 'OneWings/trunk'
-
-	" " Creating a branch
-	" TODO.RM-Wed Feb 22 2017 17:15: Create this SvnCopy()  
-endfunction
-
-function! utils#SetTags() abort
-	if has('win32')
-		" TODO.RM-Mon Feb 27 2017 12:04: Make this better in a function. Like is
-		" close but not really working
-		let tags_buff = split(system('cd %userprofile%\.cache && dir tags* /b'), "\n")
-		" set tags+=~/.cache/tags_unreal
-		" set tags+=~/.cache/tags_clang
-
-		call map(tags_buff, 'v:val . ","') " Append commas to values
-		for t in tags_buff
-			let &tags .= t
-		endfor
-	else
-		let tags_buff = split(system("find ~/.cache/ -name tags* -print -maxdepth 1"), "\n")
-		let sys = 0
-		if !empty(tags_buff)
-			call map(tags_buff, '"," . v:val') " Append commas to values
-			for t in tags_buff
-				let &tags .= t
-				" Check to see if specific tags where loaded
-				if t =~# 'tags_sys'
-					let sys = 1
-					" elseif =~# 'tags_unreal'
-					" let unreal = 1
-				endif
-			endfor
-		endif
-		" TODO.RM-Fri Mar 03 2017 22:10: These tags are super heafty. Maybe use it
-		" as example for creating other auto tags not so heavy but not
-		if !sys && executable('ctags')
-			" Create tags
-			!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/tags_sys /usr/include
-			!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f ~/.cache/tags_sys2 /usr/local/include
-		endif
-	endif
-	" Note: There is also avr tags created by .dotfiles/scripts/maketags.sh
-endfunction
-
+" Kinda deprecated function because cscope databases are no longer created at
+" repo root
 function! utils#RooterAutoloadCscope() abort
 	Rooter
 	redir => cs_show
@@ -738,7 +660,7 @@ endfunction
 function! utils#ConvertWeeklyReport() abort
 	if !executable('pandoc')
 		echohl ErrorMsg
-		echo "Missing pandoc executable from path"
+		echomsg "Missing pandoc executable from path"
 		echohl None
 		return -1
 	endif
@@ -747,8 +669,13 @@ function! utils#ConvertWeeklyReport() abort
 	let dir_buff = getcwd()
 	execute "cd " . expand('%:p:h')
 
+	let out_name = "WeeklyReport_ReinaldoMolina_" . strftime("%b-%d-%Y") . ".docx"
+	if filereadable(out_name)
+		call delete(out_name)
+	endif
+
 	" Execute command
-	cexpr systemlist("pandoc WeeklyReport.md -s -o WeeklyReport_ReinaldoMolina_" . strftime("%b-%d-%Y") . ".pdf")
+	cexpr systemlist("pandoc WeeklyReport.md -s -o " . out_name)
 
 	execute "cd " dir_buff
 endfunction
@@ -773,5 +700,29 @@ function! utils#AutoHighlightToggle()
 	endif
 endfunction
 
+" Custom command
+function! utils#CaptureCmdOutput(...)
+	" this function output the result of the Ex command into a split scratch buffer
+	if a:0 == 0
+		return
+	endif
+	let cmd = join(a:000, ' ')
+	if cmd[0] == '!'
+		vnew
+		setlocal buftype=nofile bufhidden=wipe noswapfile nobuflisted
+		execute "read " . cmd
+		return
+	endif
+	redir => output
+	silent call execute(cmd)
+	redir END
+	if empty(output)
+		echomsg "No output from: " . cmd
+	else
+		vnew
+		setlocal buftype=nofile bufhidden=wipe noswapfile nobuflisted
+		put! =output
+	endif
+endfunction
 " TODO.RM-Sat Nov 26 2016 00:04: Function that auto adds SCR # and description
 " vim:tw=78:ts=2:sts=2:sw=2:
