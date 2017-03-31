@@ -1362,3 +1362,26 @@ endif
 	" It doesnt fold if/while/for..etc. Only functions and classes
 	Plug 'tmhedberg/SimpylFold'
 
+	" Wed Mar 22 2017 12:51: Doenst support file type searches. Too bloated
+	Plug 'mhinz/vim-grepper'
+
+	" if !(has('win32') && has('nvim'))    " This plugin wont work until neovim supporst system() calls in window
+		" Plug 'xolox/vim-easytags'
+		" Plug 'xolox/vim-misc' " dependency of vim-easytags
+		" Plug 'xolox/vim-shell' " dependency of vim-easytags
+		" set regexpengine=1 " This speed up the engine alot but still not enough
+		" let g:easytags_file = '~/.cache/ctags'
+		" let g:easytags_syntax_keyword = 'always'
+		" let g:easytags_auto_update = 0
+		" let g:easytags_suppress_ctags_warning = 1
+		" let g:easytags_python_enabled = 1
+	" " Too sluggish for now. To make it work create the tag manually and added it
+	" " to 'tags'
+	" else
+	" Force yourself to stop silly repeatition. Useful but annoying
+	" Plug 'takac/vim-hardtime'
+		" let g:hardtime_allow_different_key = 1
+		" let g:hardtime_maxcount = 2
+		" let g:hardtime_default_on = 1
+		" let g:list_of_normal_keys = ["h", "j", "k", "l", "w", "b" ]
+

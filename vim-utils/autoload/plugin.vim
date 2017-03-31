@@ -93,6 +93,8 @@ function! plugin#Config() abort
 	if has('nvim')
 		Plug 'radenling/vim-dispatch-neovim'
 		" nvim-qt on unix doesnt populate has('gui_running
+		"TODO.RM-Mon Mar 27 2017 05:17: Create variable that will allow you to
+		"switch from deoplete to YCM easily  
 		Plug 'equalsraf/neovim-gui-shim'
 		" Plug 'Valloric/YouCompleteMe', { 'on' : 'YcmDebugInfo' }
 			" "" turn on completion in comments
@@ -132,6 +134,8 @@ function! plugin#Config() abort
 				" let b:deoplete_loaded = 1
 				" if it is nvim deoplete requires python3 to work
 				let g:deoplete#enable_at_startup = 1
+				" Autoclose preview window
+				autocmd CompleteDone * pclose!
 				" Note: If you get autocomplete autotriggering issues keep increasing this option below. 
 				" Next value to try is 150. See:https://github.com/Shougo/deoplete.nvim/issues/440
 				let g:deoplete#auto_complete_delay=150 " Fixes issue where Autocompletion triggers
@@ -179,6 +183,12 @@ function! plugin#Config() abort
 					let g:deoplete#sources#clang#libclang_path = g:libclang_path
 					let g:deoplete#sources#clang#clang_header = g:clangheader_path
 			endif
+
+			" Python plugins, requires `autopep8`, for Autoformat, and `flake8` for neomake,
+			" and jedi for autocompletion, `pip install jedi --user`
+			Plug 'zchee/deoplete-jedi'
+			Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
+			Plug 'Shougo/echodoc' " Pop for functions info
 		endif
 
 		if executable('lldb')
@@ -276,8 +286,6 @@ function! plugin#Config() abort
 	endif
 
 	Plug 'tpope/vim-dispatch' " Possible Replacement `asyncvim`
-	Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
-
 	" Vim cpp syntax highlight
 	Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'c' , 'cpp' ] }
 		let g:cpp_class_scope_highlight = 1
@@ -333,10 +341,12 @@ function! plugin#Config() abort
 		" To start using the plugin in the on-the-fly mode use :TableModeToggle mapped to <Leader>tm by default
 		" Enter the first line, delimiting columns by the | symbol. In the second line (without leaving Insert mode), enter | twice
 		" For Markdown-compatible tables use
-		let g:table_mode_corner="|"
+		" let g:table_mode_corner="|"
+		let g:table_mode_corner = '+'
 		let g:table_mode_align_char = ':'
 		let g:table_mode_map_prefix = '<Leader>l'
 		" nnoremap <Leader>lm :TableModeToggle<CR>
+		" <Leader>tr	Realigns table columns
 
 	Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
 		nnoremap <Leader>so :SyntasticToggleMode<CR>
@@ -398,7 +408,8 @@ function! plugin#Config() abort
 					\['x','X','a','A','o','O','c','C','r','R','m','M','i','n','N']
 	Plug 'airblade/vim-rooter'
 		let g:rooter_manual_only = 1
-		nnoremap <Leader>cr :call utils#RooterAutoloadCscope()<CR>
+		nnoremap <Leader>cr :Rooter<CR>
+		" nnoremap <Leader>cr :call utils#RooterAutoloadCscope()<CR>
 	Plug 'Raimondi/delimitMate'
 		let g:delimitMate_expand_cr = 1
 		let g:delimitMate_expand_space = 1
@@ -416,8 +427,12 @@ function! plugin#Config() abort
 		let g:autoformat_remove_trailing_spaces = 0
 
 	" cpp
-	"TODO.RM-Sun Feb 26 2017 14:04: Fix here so that nvim :term command doent
-	"brake tagbar  
+	" Note: Fix for windows nvim: comment out: 
+	" set shellxquote=\"
+	" And add this to the system call:
+			" let ctags_output = system(substitute(a:ctags_cmd,"'", "","g"))
+		" All under here:
+			" function! s:ExecuteCtags(ctags_cmd) abort
 	Plug 'Tagbar'
 		let g:tagbar_ctags_bin = 'ctags'
 		let g:tagbar_autofocus = 1
@@ -431,8 +446,8 @@ function! plugin#Config() abort
 		let g:tagbar_autoclose = 1
 		nnoremap <Leader>tt :TagbarToggle<CR>
 		nnoremap <Leader>tk :cs kill -1<CR>
-		nnoremap <silent> <Leader>tj <C-]>
-		nnoremap <Leader>tr <C-t>
+		nmap <silent> gt <C-]>
+		nmap gr <C-t>
 		nnoremap <Leader>tv :vs<CR>:exec("tag ".expand("<cword>"))<CR>
 		" ReLoad cscope database
 		nnoremap <Leader>tl :cs add cscope.out<CR>
@@ -443,7 +458,7 @@ function! plugin#Config() abort
 		" Find functions called by this function not being used
 		" nnoremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
 		nnoremap <Leader>ts :cs show<CR>
-		nnoremap <Leader>tu :call utils#UpdateCscope()<CR>
+		nnoremap <Leader>tu :call ctags#NvimSyncCtags(0)<CR>
 
 	" cpp/java
 	Plug 'mattn/vim-javafmt', { 'for' : 'java' }
@@ -475,15 +490,16 @@ function! plugin#Config() abort
 	Plug 'tpope/vim-fugitive'
 		" Fugitive <Leader>g?
 		" use g? to show help
-		nnoremap <Leader>gs :Gstatus<CR>
+		nnoremap <Leader>gs :Gstatus<bar>wincmd L<CR>
 		nnoremap <Leader>gps :Gpush<CR>
 		nnoremap <Leader>gpl :Gpull<CR>
-		nnoremap <Leader>ga :!git add
+		nnoremap <Leader>ga :!git add 
 		nnoremap <Leader>gl :silent Glog<CR>
 					\:copen 20<CR>
 
-	" aesthetic
+	" colorschemes
 	Plug 'morhetz/gruvbox' " colorscheme gruvbox
+	Plug 'joshdick/onedark.vim'
 	" Plug 'NLKNguyen/papercolor-theme'
 
 	" Radical
@@ -534,50 +550,42 @@ function! plugin#Config() abort
 	Plug 'itchyny/lightline.vim'
 		" Inside of the functions here there can be no single quotes (') only
 		" double (")
-		let g:lightline = {
-								\ 'active': {
-								\   'left': [ [ 'mode', 'paste' ],
-								\             [ 'readonly', 'relativepath', 'modified', 'fugitive', 'svn', 'tagbar', 'neomake'] ]
-								\		},
-								\ 'component': {
+			let g:lightline = {}
+			let g:lightline.active = {
+								\   'left': [ 
+								\							[ 'mode', 'paste' ], 
+								\							[ 'readonly', 'absolutepath', 'modified', 'fugitive', 'svn', 'tagbar', 'neomake'] 
+								\						]
+								\		}
+		 let g:lightline.component = {
 								\   'fugitive': '%{fugitive#statusline()}',
 								\   'neomake': '%{neomake#statusline#QflistStatus("qf:\ ")}', 
 								\   'svn': '%{svn#GetSvnBranchInfo()}', 
 								\   'tagbar': '%{tagbar#currenttag("%s\ ","")}' 
-								\		},
-								\ 'component_visible_condition': {
+								\		}
+			let g:lightline.component_visible_condition = {
 								\   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())',
 								\   'neomake': '(!empty(neomake#statusline#QflistStatus("qf:\ ")))',
-								\   'svn': '(!empty(svn#GetSvnBranchInfo()))', 
-								\   'tagbar': '(!empty(tagbar#currenttag("%s\ ","")))' 
-								\		},
-								\ }
-		" TODO.RM-Sat Mar 11 2017 19:49: Break down lightline options so that you
-		" dont have to shit like this below and can be better programming to where
-		" you can include it only if the plugin is present
-								" \   'gutentags': '%{gutentags#statusline("Generating tags...")}', 
-								" \   'gutentags': '(!empty(gutentags#statusline("Generating tags...")))', 
+								\   'svn': '(!empty(svn#GetSvnBranchInfo()))',
+								\   'tagbar': '(!empty(tagbar#currenttag("%s\ ","")))'
+								\		}
+			" let g:lightline.colorscheme = 'onedark'
+			let g:lightline.colorscheme = 'gruvbox'
 
-	" Plug 'xolox/vim-easytags', { 'on' : 'HighlightTags' }
-	if !(has('win32') && has('nvim'))    " This plugin wont work until neovim supporst system() calls in window
-		Plug 'xolox/vim-easytags'
-		Plug 'xolox/vim-misc' " dependency of vim-easytags
-		Plug 'xolox/vim-shell' " dependency of vim-easytags
+	" Plug 'c0r73x/neotags.nvim' " Depends on pip3 install --user psutil
+	Plug 'rmolin88/neotags.nvim' " Depends on pip3 install --user psutil
 		set regexpengine=1 " This speed up the engine alot but still not enough
-		let g:easytags_file = '~/.cache/ctags'
-		let g:easytags_syntax_keyword = 'always'
-		let g:easytags_auto_update = 0
-		let g:easytags_suppress_ctags_warning = 1
-		let g:easytags_python_enabled = 1
-	" Too sluggish for now. To make it work create the tag manually and added it
-	" to 'tags'
-	else
-		Plug 'c0r73x/neotags.nvim' " Depends on pip3 install --user psutil
-			let g:neotags_enabled = 1
-			let g:neotags_file = g:cache_path . 'ctags/neotags'
-			let g:neotags_verbose = 1
-			let g:neotags_run_ctags = 0
-	endif
+		let g:neotags_enabled = 1
+		" let g:neotags_file = g:cache_path . 'ctags/neotags'
+		let g:neotags_verbose = 1
+		let g:neotags_run_ctags = 0
+		" let g:neotags#cpp#order = 'cgstuedfpm'
+		let g:neotags#cpp#order = 'ced'
+		" let g:neotags#c#order = 'cgstuedfpm'
+		let g:neotags#c#order = 'ced'
+		" let g:neotags_events_highlight = [
+					" \   'BufEnter'
+					" \ ]
 
 	Plug 'PotatoesMaster/i3-vim-syntax'
 
@@ -585,16 +593,12 @@ function! plugin#Config() abort
 		Plug 'PProvost/vim-ps1'
 	endif
 
-	" Python plugins, requires `autopep8`, for Autoformat, and `flake8` for neomake,
-	" and jedi for autocompletion, `pip install jedi --user`
-	Plug 'zchee/deoplete-jedi'
+	Plug 'vim-pandoc/vim-pandoc', { 'on' : 'Pandoc' }
+	Plug 'vim-pandoc/vim-pandoc-syntax', { 'on' : 'Pandoc' }
+		" You might be able to get away with xelatex in unix
+		let g:pandoc#command#latex_engine = "pdflatex"
 
-	" Force yourself to stop silly repeatition. Useful but annoying
-	" Plug 'takac/vim-hardtime'
-		" let g:hardtime_allow_different_key = 1
-		" let g:hardtime_maxcount = 2
-		" let g:hardtime_default_on = 1
-		" let g:list_of_normal_keys = ["h", "j", "k", "l", "w", "b" ]
+	" Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
@@ -625,15 +629,10 @@ function! plugin#Config() abort
 		echoerr string("Failed to create java dir")
 	endif
 
-	if has('persistent_undo')
-		if utils#CheckDirwoPrompt(g:cache_path . 'undofiles')
-			" TODO.RM-Fri Mar 17 2017 15:44: This shouldnt be here. Only creation of
-			" dirs
-			let &undodir= g:cache_path . 'undofiles'
-			set undofile
-			set undolevels=1000      " use many muchos levels of undo
-		endif
+	if has('persistent_undo') && !utils#CheckDirwoPrompt(g:cache_path . 'undofiles')
+		echoerr string("Failed to create undofiles dir")
 	endif
+
 	return 1
 endfunction
 

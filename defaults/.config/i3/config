@@ -414,7 +414,7 @@ bar {
 				status_command i3blocks -c ~/.config/i3/.i3blocks.conf
 				i3bar_command i3bar -t
 				position top
-				font pango:Hack, FontAwesome 11
+				font pango:Hack, FontAwesome 10
 				strip_workspace_numbers yes
 				separator_symbol "■"
 				bindsym button4 nop
@@ -453,8 +453,9 @@ exec --no-startup-id xscreensaver -no-splash&
 #exec --no-startup-id pcmanfm
 exec --no-startup-id insync start
 exec --no-startup-id google-chrome-stable
-exec --no-startup-id urxvt
+exec --no-startup-id termite
 exec --no-startup-id fluxgui
+exec --no-startup-id nm-applet
 
 # Do not modify here. It can still be used by gnome
 # Not using because it sets up conky with not sure how to use right now

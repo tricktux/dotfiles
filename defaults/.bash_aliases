@@ -40,10 +40,10 @@ alias mount-copter='sshfs odroid@copter-server:/ /home/$USER/.mnt/copter-server/
 alias mount-hq='sshfs reinaldo@HQ:/ /home/$USER/.mnt/HQ-server/'
 
 # Misc
-alias tmux='tmux -2'
+alias tmux='tmux -2 -f ~/.config/tmux/.tmux.conf'
 alias ll='ls -als'
 alias ls='ls --color=auto'
-alias vim=FuncNvim
+# alias vim=FuncNvim
 # Reload rxvt and deamon
 # Search help
 alias help=FuncHelp
