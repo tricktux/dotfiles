@@ -1,0 +1,5 @@
+arch_packages.old
+defaults/.config/libfm/
+defaults/.config/nvim/autoload/
+defaults/.config/nvim/plugged/
+mutt/.mutt/certificates
