@@ -1,5 +1,9 @@
-arch_packages.old
-defaults/.config/libfm/
 defaults/.config/nvim/autoload/
 defaults/.config/nvim/plugged/
-mutt/.mutt/certificates
+defaults/.config/ranger/bookmarks
+defaults/.config/ranger/history
+defaults/.config/ranger/tagged
+vim-utils/rplugin/python3/__pycache__/ctags.cpython-35.pyc
+vim-utils/rplugin/python3/__pycache__/ctags.cpython-36.pyc
+mutt/.mutt/cache/
+defaults/.config/i3/i3blocks-email/
