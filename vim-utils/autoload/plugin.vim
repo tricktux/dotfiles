@@ -214,6 +214,20 @@ function! plugin#Config() abort
 			Plug 'nhooyr/neoman.vim'
 				let g:no_neoman_maps = 1
 		endif
+
+		" Plug 'rmolin88/neotags.nvim' " Depends on pip3 install --user psutil
+		" set regexpengine=1 " This speed up the engine alot but still not enough
+		" let g:neotags_enabled = 1
+		" " let g:neotags_file = g:cache_path . 'ctags/neotags'
+		" let g:neotags_verbose = 1
+		" let g:neotags_run_ctags = 0
+		" " let g:neotags#cpp#order = 'cgstuedfpm'
+		" let g:neotags#cpp#order = 'ced'
+		" " let g:neotags#c#order = 'cgstuedfpm'
+		" let g:neotags#c#order = 'ced'
+		" " let g:neotags_events_highlight = [
+		" " \   'BufEnter'
+		" " \ ]
 	else
 		" Vim exclusive plugins
 		if has('lua') " Neocomplete
@@ -573,19 +587,6 @@ function! plugin#Config() abort
 			let g:lightline.colorscheme = 'gruvbox'
 
 	" Plug 'c0r73x/neotags.nvim' " Depends on pip3 install --user psutil
-	Plug 'rmolin88/neotags.nvim' " Depends on pip3 install --user psutil
-		set regexpengine=1 " This speed up the engine alot but still not enough
-		let g:neotags_enabled = 1
-		" let g:neotags_file = g:cache_path . 'ctags/neotags'
-		let g:neotags_verbose = 1
-		let g:neotags_run_ctags = 0
-		" let g:neotags#cpp#order = 'cgstuedfpm'
-		let g:neotags#cpp#order = 'ced'
-		" let g:neotags#c#order = 'cgstuedfpm'
-		let g:neotags#c#order = 'ced'
-		" let g:neotags_events_highlight = [
-					" \   'BufEnter'
-					" \ ]
 
 	Plug 'PotatoesMaster/i3-vim-syntax'
 
