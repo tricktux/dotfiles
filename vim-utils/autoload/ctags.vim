@@ -25,12 +25,13 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 	let nvim_ft = &ft
 	let rg_ft = ctags#NvimFt2Rg(nvim_ft)
 	let cwd_rg = getcwd()
-	if has('win32')
-		let cwd_rg = substitute(cwd_rg, "\\", "/", "g") " Fix cwd for the rg command
-	endif
 	" Get cscope files location
 	let files_loc = g:cache_path . "ctags/"
 	let files_name = files_loc . "cscope.files"
+	if has('win32')
+		let cwd_rg = substitute(cwd_rg, "\\", "/", "g") " Fix cwd for the rg command
+		let files_name = substitute(files_name, "\\", "/", "g") " Fix cwd for the rg command
+	endif
 	if a:ft_spec == 1
 		let files_cmd = 'rg -t ' . rg_ft . ' --files ' .  cwd_rg .  ' > ' . files_name
 	else
@@ -39,9 +40,15 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 	" let files_cmd = substitute(files_cmd,"'", "","g")
 	call delete(files_name)	 " Delete old/previous cscope.files
 	" echomsg string(files_cmd) " Debugging
-	call system(files_cmd)
+	if has('nvim')
+		let res = systemlist(files_cmd)
+	else
+		silent! execute "!" . files_cmd
+	endif
 	if getfsize(files_name) < 1 
 		echomsg string("Failed to create cscope.files")
+		echomsg string(files_cmd)
+		" cexpr res
 		return
 	endif
 		
