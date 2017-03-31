@@ -714,7 +714,7 @@ function! utils#CaptureCmdOutput(...)
 		return
 	endif
 	redir => output
-	silent call execute(cmd)
+	execute cmd
 	redir END
 	if empty(output)
 		echomsg "No output from: " . cmd
