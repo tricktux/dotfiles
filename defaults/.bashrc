@@ -29,6 +29,13 @@ if [ -f /usr/bin/rg ]; then
 	export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 fi
 
+# context for resume making
+# install context-minimals-git
+# mtxrun --generate
+if [ -f /opt/context-minimals/setuptex ]; then
+	source /opt/context-minimals/setuptex
+fi
+
 if [[ -z "$TMUX" ]]; then
 	# Do not attach to the 
 	ID="`tmux ls | grep -vm1 attached | cut -d: -f1`"
