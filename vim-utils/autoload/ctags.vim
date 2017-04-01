@@ -2,7 +2,7 @@
 "	Description: All functions related to creation/deletion/update/loading of ctags and cscope
 " Author:Reinaldo Molina <rmolin88@gmail.com>
 " Version:1.0.0
-" Last Modified: Fri Mar 24 2017 16:22
+" Last Modified: Sat Apr 01 2017 17:04
 
 " ft_spec - If 1 will create ctags only for the &ft language
 "					- If 0 then create tags for all the files in the dir
@@ -70,7 +70,9 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 	if a:ft_spec == 1
 		let ctags_cmd = "ctags -L cscope.files -f " . tags_name . " --sort=no --c-kinds=+p --c++-kinds=+p --fields=+l extras=+q --language-force=" . ctags_lang
 	else
-		let ctags_cmd = "ctags -L cscope.files -f " . tags_name . " --sort=no --c-kinds=+pl --c++-kinds=+pl --fields=+iaSl extras=+q"
+		let ctags_cmd = "ctags -L cscope.files -f " . tags_name . " --sort=no --c-kinds=+p --c++-kinds=+p --fields=+l extras=+q"
+		" This made neovim extremely slow. Databases too big 
+		" let ctags_cmd = "ctags -L cscope.files -f " . tags_name . " --sort=no --c-kinds=+pl --c++-kinds=+pl --fields=+iaSl extras=+q" 
 	endif
 
 	" echomsg string(ctags_cmd) " Debugging
@@ -97,17 +99,19 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 	if nvim_ft ==# 'cpp' || nvim_ft ==# 'c' || nvim_ft ==# 'java'
 		" Create cscope db as well
 		execute "silent! cs kill -1"
-		let del_files = ['cscope.out', 'cscope.po.out', 'cscope.in.out']
+		let del_files = ['ncscope.out', 'cscope.out', 'cscope.po.out', 'cscope.in.out']
 		for item in del_files
 			call delete(item)
 		endfor
 		call system('cscope -b -q')
-		if getfsize('cscope.out') < 1 
-			echomsg string("Failed to create cscope.out")
+		if v:shell_error
+		let cs_db = !filereadable('cscope.out') ? 'ncscope.out' : 'cscope.out'
+		if getfsize(cs_db) < 1 
+			echomsg string("Failed to create cscope database")
 			execute "cd " . cwd_rg
 			return
 		endif
-		execute "cs add cscope.out"
+		execute "cs add " . cs_db
 	endif
 
 	execute "cd " . cwd_rg
