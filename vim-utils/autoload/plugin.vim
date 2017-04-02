@@ -600,6 +600,7 @@ function! plugin#Config() abort
 		let g:pandoc#command#latex_engine = "pdflatex"
 
 	" Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
+	Plug 'matze/vim-ini-fold'
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
