@@ -697,7 +697,7 @@
 		let g:NERDCustomDelimiters = {
 					\ 'vim': { 'left': '"', 'right': '', 'leftAlt': '#', 'rightAlt': ''},
 					\ 'markdown': { 'left': '//', 'right': '' },
-					\ 'dosini': { 'left': '#', 'leftAlt': '//', 'right': '', 'rightAlt': '' },
+					\ 'dosini': { 'left': ';', 'leftAlt': '//', 'right': '', 'rightAlt': '', 'leftAlt1': ';', 'rightAlt1': '' },
 					\ 'wings_syntax': { 'left': '//', 'right': '' }}
 
 " HIGHLITING
