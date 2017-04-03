@@ -77,13 +77,22 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 
 	" echomsg string(ctags_cmd) " Debugging
 	execute "cd " . files_loc
-	call system(ctags_cmd)
+	let res = systemlist(ctags_cmd)
 
-	if getfsize(tags_name) < 1 
-		echomsg "Failed to create tags file: " . tags_name
+	if v:shell_error || getfsize(tags_name) < 1 
+		if v:shell_error && !empty(res)
+			cexpr res
+		else
+			echomsg "Failed to create tags file: " . tags_name
+		endif
 		return
 	endif
 
+	if !(tags_name in tagfiles()) 
+		echo "New tagfile"
+	else
+		echo tags_name " already loaded"
+	endif
 	" Add new tag file if not already on the list
 	let list_tags = tagfiles()
 	let tag_present = 0
@@ -103,8 +112,12 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 		for item in del_files
 			call delete(item)
 		endfor
-		call system('cscope -b -q')
-		if v:shell_error
+		let res_cs = systemlist('cscope -b -q cscope.files')
+		if v:shell_error && !empty(res_cs)
+			cexpr res_cs
+			execute "cd " . cwd_rg
+			return
+		endif
 		let cs_db = !filereadable('cscope.out') ? 'ncscope.out' : 'cscope.out'
 		if getfsize(cs_db) < 1 
 			echomsg string("Failed to create cscope database")
