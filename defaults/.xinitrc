@@ -50,5 +50,6 @@ fi
 
 # Start desktop manager
 # exec $desktop
- [ -f /usr/bin/udiskie ] && udiskie&
+#
+# [ -f /usr/bin/udiskie ] && udiskie&
 exec i3
