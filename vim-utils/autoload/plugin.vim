@@ -136,6 +136,9 @@ function! plugin#Config() abort
 				let g:deoplete#enable_at_startup = 1
 				" Autoclose preview window
 				autocmd CompleteDone * pclose!
+				" New option. You have to summon deoplete with tab
+				" Makes typing much smoother
+				let g:deoplete#disable_auto_complete = 1
 				" Note: If you get autocomplete autotriggering issues keep increasing this option below. 
 				" Next value to try is 150. See:https://github.com/Shougo/deoplete.nvim/issues/440
 				let g:deoplete#auto_complete_delay=150 " Fixes issue where Autocompletion triggers
@@ -447,32 +450,34 @@ function! plugin#Config() abort
 			" let ctags_output = system(substitute(a:ctags_cmd,"'", "","g"))
 		" All under here:
 			" function! s:ExecuteCtags(ctags_cmd) abort
-	Plug 'Tagbar'
-		let g:tagbar_ctags_bin = 'ctags'
-		let g:tagbar_autofocus = 1
-		let g:tagbar_show_linenumbers = 2
-		let g:tagbar_map_togglesort = "r"
-		let g:tagbar_map_nexttag = "<c-j>"
-		let g:tagbar_map_prevtag = "<c-k>"
-		let g:tagbar_map_openallfolds = "<c-n>"
-		let g:tagbar_map_closeallfolds = "<c-c>"
-		let g:tagbar_map_togglefold = "<c-x>"
-		let g:tagbar_autoclose = 1
-		nnoremap <Leader>tt :TagbarToggle<CR>
-		nnoremap <Leader>tk :cs kill -1<CR>
-		nmap <silent> gt <C-]>
-		nmap gr <C-t>
-		nnoremap <Leader>tv :vs<CR>:exec("tag ".expand("<cword>"))<CR>
-		" ReLoad cscope database
-		nnoremap <Leader>tl :cs add cscope.out<CR>
-		" Find functions calling this function
-		nnoremap <Leader>tc :cs find c <C-R>=expand("<cword>")<CR><CR>
-		" Find functions definition
-		nnoremap <Leader>tg :cs find g <c-r>=expand("<cword>")<cr><cr>
-		" Find functions called by this function not being used
-		" nnoremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
-		nnoremap <Leader>ts :cs show<CR>
-		nnoremap <Leader>tu :call ctags#NvimSyncCtags(0)<CR>
+	if !(has('nvim') && has('win32'))
+		Plug 'Tagbar'
+			let g:tagbar_ctags_bin = 'ctags'
+			let g:tagbar_autofocus = 1
+			let g:tagbar_show_linenumbers = 2
+			let g:tagbar_map_togglesort = "r"
+			let g:tagbar_map_nexttag = "<c-j>"
+			let g:tagbar_map_prevtag = "<c-k>"
+			let g:tagbar_map_openallfolds = "<c-n>"
+			let g:tagbar_map_closeallfolds = "<c-c>"
+			let g:tagbar_map_togglefold = "<c-x>"
+			let g:tagbar_autoclose = 1
+			nnoremap <Leader>tt :TagbarToggle<CR>
+			nnoremap <Leader>tk :cs kill -1<CR>
+			nmap <silent> gt <C-]>
+			nmap gr <C-t>
+			nnoremap <Leader>tv :vs<CR>:exec("tag ".expand("<cword>"))<CR>
+			" ReLoad cscope database
+			nnoremap <Leader>tl :cs add cscope.out<CR>
+			" Find functions calling this function
+			nnoremap <Leader>tc :cs find c <C-R>=expand("<cword>")<CR><CR>
+			" Find functions definition
+			nnoremap <Leader>tg :cs find g <c-r>=expand("<cword>")<cr><cr>
+			" Find functions called by this function not being used
+			" nnoremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
+			nnoremap <Leader>ts :cs show<CR>
+			nnoremap <Leader>tu :call ctags#NvimSyncCtags(0)<CR>
+	endif
 
 	" cpp/java
 	Plug 'mattn/vim-javafmt', { 'for' : 'java' }
@@ -568,21 +573,21 @@ function! plugin#Config() abort
 			let g:lightline.active = {
 								\   'left': [ 
 								\							[ 'mode', 'paste' ], 
-								\							[ 'readonly', 'absolutepath', 'modified', 'fugitive', 'svn', 'tagbar', 'neomake'] 
+								\							[ 'readonly', 'absolutepath', 'modified', 'fugitive', 'svn', 'neomake'] 
 								\						]
 								\		}
 		 let g:lightline.component = {
 								\   'fugitive': '%{fugitive#statusline()}',
 								\   'neomake': '%{neomake#statusline#QflistStatus("qf:\ ")}', 
 								\   'svn': '%{svn#GetSvnBranchInfo()}', 
-								\   'tagbar': '%{tagbar#currenttag("%s\ ","")}' 
 								\		}
+								" \   'tagbar': '%{tagbar#currenttag("%s\ ","")}' 
 			let g:lightline.component_visible_condition = {
 								\   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())',
 								\   'neomake': '(!empty(neomake#statusline#QflistStatus("qf:\ ")))',
 								\   'svn': '(!empty(svn#GetSvnBranchInfo()))',
-								\   'tagbar': '(!empty(tagbar#currenttag("%s\ ","")))'
 								\		}
+								" \   'tagbar': '(!empty(tagbar#currenttag("%s\ ","")))'
 			" let g:lightline.colorscheme = 'onedark'
 			let g:lightline.colorscheme = 'gruvbox'
 
@@ -601,6 +606,8 @@ function! plugin#Config() abort
 
 	" Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
 	Plug 'matze/vim-ini-fold'
+
+	Plug 'tweekmonster/startuptime.vim'
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
