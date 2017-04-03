@@ -129,71 +129,6 @@ function! plugin#Config() abort
 						" \ }
 		" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 
-		if has('python3') && !exists('g:android') " Deoplete
-			Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-				" let b:deoplete_loaded = 1
-				" if it is nvim deoplete requires python3 to work
-				let g:deoplete#enable_at_startup = 1
-				" Autoclose preview window
-				autocmd CompleteDone * pclose!
-				" New option. You have to summon deoplete with tab
-				" Makes typing much smoother
-				let g:deoplete#disable_auto_complete = 1
-				" Note: If you get autocomplete autotriggering issues keep increasing this option below. 
-				" Next value to try is 150. See:https://github.com/Shougo/deoplete.nvim/issues/440
-				let g:deoplete#auto_complete_delay=150 " Fixes issue where Autocompletion triggers
-				" New settings
-				let g:deoplete#enable_ignore_case = 1
-				let g:deoplete#enable_smart_case = 1
-				let g:deoplete#enable_camel_case = 1
-				" Note: Changed this here to increase speed
-				let g:deoplete#enable_refresh_always = 0
-				let g:deoplete#max_list = 10
-				" let g:deoplete#max_abbr_width = 0
-				" let g:deoplete#max_menu_width = 0
-				let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
-				let g:deoplete#omni#input_patterns.java = [
-							\'[^. \t0-9]\.\w*',
-							\'[^. \t0-9]\->\w*',
-							\'[^. \t0-9]\::\w*',
-							\]
-				let g:deoplete#omni#input_patterns.jsp = ['[^. \t0-9]\.\w*']
-				let g:deoplete#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-				let g:deoplete#ignore_sources = {}
-				let g:deoplete#ignore_sources.java = ['omni']
-				let g:deoplete#ignore_sources.c = ['omni']
-				let g:deoplete#ignore_sources._ = ['around']
-				"call deoplete#custom#set('omni', 'min_pattern_length', 0)
-				inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
-				inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
-				" Regular settings
-				inoremap <silent><expr> <TAB>
-							\ pumvisible() ? "\<C-n>" :
-							\ <SID>check_back_space() ? "\<TAB>" :
-							\ deoplete#mappings#manual_complete()
-				function! s:check_back_space() abort
-					let col = col('.') - 1
-					return !col || getline('.')[col - 1]  =~ '\s'
-				endfunction
-				inoremap <expr><C-h>
-							\ deoplete#smart_close_popup()."\<C-h>"
-				inoremap <expr><BS>
-							\ deoplete#smart_close_popup()."\<C-h>"
-			" ----------------------------------------------
-			"  deoplete-clang
-			if exists('g:libclang_path') && exists('g:clangheader_path')
-				Plug 'zchee/deoplete-clang'
-					let g:deoplete#sources#clang#libclang_path = g:libclang_path
-					let g:deoplete#sources#clang#clang_header = g:clangheader_path
-			endif
-
-			" Python plugins, requires `autopep8`, for Autoformat, and `flake8` for neomake,
-			" and jedi for autocompletion, `pip install jedi --user`
-			Plug 'zchee/deoplete-jedi'
-			Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
-			Plug 'Shougo/echodoc' " Pop for functions info
-		endif
-
 		if executable('lldb')
 			Plug 'critiqjo/lldb.nvim', { 'on' : 'LLmode debug', 'do' : ':UpdateRemotePlugins' }
 			nmap <Leader>db <Plug>LLBreakSwitch
@@ -231,77 +166,10 @@ function! plugin#Config() abort
 			let g:neotags_events_highlight = [
 			\   'BufEnter'
 			\ ]
-	else
-		" Vim exclusive plugins
-		if has('lua') " Neocomplete
-			Plug 'Shougo/neocomplete'
-			" All new stuff
-			let g:neocomplete#enable_at_startup = 1
-			let g:neocomplete#enable_cursor_hold_i=1
-			let g:neocomplete#skip_auto_completion_time="1"
-			let g:neocomplete#sources#buffer#cache_limit_size=5000000000
-			let g:neocomplete#max_list=8
-			let g:neocomplete#auto_completion_start_length=2
-			let g:neocomplete#enable_auto_close_preview=1
-
-			let g:neocomplete#enable_smart_case = 1
-			let g:neocomplete#data_directory = g:cache_path . 'neocomplete'
-			" Define keyword.
-			if !exists('g:neocomplete#keyword_patterns')
-				let g:neocomplete#keyword_patterns = {}
-			endif
-			let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-			" Recommended key-mappings.
-			" <CR>: close popup and save indent.
-			inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-			function! s:my_cr_function()
-				return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-			endfunction
-			" <TAB>: completion.
-			inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-			" <C-h>, <BS>: close popup and delete backword char.
-			inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-			" Enable heavy omni completion.
-			if !exists('g:neocomplete#sources#omni#input_patterns')
-				let g:neocomplete#sources#omni#input_patterns = {}
-			endif
-			let g:neocomplete#sources#omni#input_patterns.tex =
-						\ '\v\\%('
-						\ . '\a*cite\a*%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
-						\ . '|\a*ref%(\s*\{[^}]*|range\s*\{[^,}]*%(}\{)?)'
-						\ . '|includegraphics\*?%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
-						\ . '|%(include%(only)?|input)\s*\{[^}]*'
-						\ . ')'
-			let g:neocomplete#sources#omni#input_patterns.php =
-						\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-			let g:neocomplete#sources#omni#input_patterns.perl =
-						\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-			let g:neocomplete#sources#omni#input_patterns.java = '\h\w*\.\w*'
-
-			if !exists('g:neocomplete#force_omni_input_patterns')
-				let g:neocomplete#force_omni_input_patterns = {}
-			endif
-			let g:neocomplete#force_omni_input_patterns.c =
-						\ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
-			let g:neocomplete#force_omni_input_patterns.cpp =
-						\ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-			let g:neocomplete#force_omni_input_patterns.objc =
-						\ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
-			let g:neocomplete#force_omni_input_patterns.objcpp =
-						\ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
-			" all new stuff
-			if !exists('g:neocomplete#delimiter_patterns')
-				let g:neocomplete#delimiter_patterns= {}
-			endif
-			let g:neocomplete#delimiter_patterns.vim = ['#']
-			let g:neocomplete#delimiter_patterns.cpp = ['::']
-		else
-			echomsg "No lua installed = No Neocomplete. Supertab Activated"
-			Plug 'ervandew/supertab' " Activate Supertab
-			let g:SuperTabDefaultCompletionType = "<Tab>"
-		endif
 	endif
 
+	Plug 'ervandew/supertab' " Activate Supertab
+		let g:SuperTabDefaultCompletionType = "context"
 	Plug 'tpope/vim-dispatch' " Possible Replacement `asyncvim`
 	" Vim cpp syntax highlight
 	Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'c' , 'cpp' ] }
