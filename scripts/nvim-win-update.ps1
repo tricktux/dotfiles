@@ -15,6 +15,10 @@ if ($res -eq $null -and $res_ctags -eq $null)
 	Remove-Item -path "C:\Program Files\nvim\Neovim" -force -recurse
 	expand-archive -Path "$env:TEMP\neovim.zip" -DestinationPath "C:\Program Files\nvim" -Force
 	expand-archive -Path "$env:TEMP\universal-ctags.zip" -DestinationPath "C:\Program Files\nvim\Neovim\bin" -Force
+	New-Item -path "C:\Program Files\nvim\Neovim\share\nvim\runtime" -name spell -itemtype directory
+	Copy-Item "C:\Program Files\Vim\vim80\spell\en.ascii.spl" -Destination "C:\Program Files\nvim\Neovim\share\nvim\runtime\spell"
+	Copy-Item "C:\Program Files\Vim\vim80\spell\en.latin1.spl"-Destination "C:\Program Files\nvim\Neovim\share\nvim\runtime\spell"
+	Copy-Item "C:\Program Files\Vim\vim80\spell\en.utf-8.spl"-Destination "C:\Program Files\nvim\Neovim\share\nvim\runtime\spell"
 }
 else
 {
