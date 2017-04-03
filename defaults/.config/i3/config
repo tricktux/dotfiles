@@ -215,10 +215,10 @@ bindsym XF86AudioPrev exec playerctl previous
 # }}}
 
 ############ Workspaces ###################{{{
-set $workspace1 "1:"
-set $workspace2 "2:"
-set $workspace3 "3:"
-set $workspace4 "4:"
+set $workspace1 "1"
+set $workspace2 "2"
+set $workspace3 "3"
+set $workspace4 "4"
 set $workspace5 "5"
 set $workspace6 "6"
 set $workspace7 "7"
@@ -408,34 +408,35 @@ mode "$mode_gaps_outer" {
 # Bar{{{
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-				# status_command i3blocks -c ~/.config/i3/i3blocks.conf
-				# i3bar_command ~/.config/i3/lemonbar/i3_lemonbar.sh
-				status_command i3blocks -c ~/.config/i3/.i3blocks.conf
-				i3bar_command i3bar -t
-				position top
-				font pango:Hack, FontAwesome 10
-				strip_workspace_numbers yes
-				separator_symbol "■"
-				bindsym button4 nop
-				bindsym button5 nop
-				# tray_output eDP1
-				# tray_output LVDS-0
-				tray_padding 0
-				height 30
-				colors {
-						statusline         $white
-						background         $transparent
-						separator          $transparent
+# bar {
+				# # status_command i3blocks -c ~/.config/i3/i3blocks.conf
+				# # i3bar_command ~/.config/i3/lemonbar/i3_lemonbar.sh
+				# # status_command i3blocks -c ~/.config/i3/.i3blocks.conf
+				# status_command polybar example
+				# # i3bar_command i3bar -t
+				# # position top
+				# # font pango:Hack, FontAwesome 10
+				# # strip_workspace_numbers yes
+				# # separator_symbol "■"
+				# # bindsym button4 nop
+				# # bindsym button5 nop
+				# # tray_output eDP1
+				# # tray_output LVDS-0
+				# tray_padding 0
+				# height 30
+				# colors {
+						# statusline         $white
+						# background         $transparent
+						# separator          $transparent
 
-		                          #BORDER       BACKGROUND   TEXT
-						focused_workspace  $transparent $transparent $darkwhite
-						inactive_workspace $transparent $transparent $white
-						active_workspace   $transparent $transparent $white
-						urgent_workspace   $darkred     $darkred     $transparent
-						binding_mode       $darkred     $darkred     $transparent
-				}
-}
+															# #BORDER       BACKGROUND   TEXT
+						# focused_workspace  $transparent $transparent $darkwhite
+						# inactive_workspace $transparent $transparent $white
+						# active_workspace   $transparent $transparent $white
+						# urgent_workspace   $darkred     $darkred     $transparent
+						# binding_mode       $darkred     $darkred     $transparent
+				# }
+# }
 # }}}
 
 ######### STARTUP APPLICATIONS ################################{{{
@@ -444,7 +445,7 @@ exec --no-startup-id seafile-applet
 exec --no-startup-id xscreensaver -no-splash&
 # Start vnc server service
 # exec --no-startup-id x0vncserver -display :0 -passwordfile ~/.vnc/passwd&
-# pcmanfm --daemon-mode
+exec --no-startup-id pcmanfm --daemon-mode
 # Start cmus in "daemon" mode
 # exec --no-startup-id tmux new-session -s cmus -d -n cmus -d "/usr/bin/cmus $@"&
 # exec --no-startup-id sshfs odroid@copter-server:/ /home/reinaldo/.mnt/copter-server&
@@ -462,5 +463,6 @@ exec --no-startup-id nm-applet
 # exec /home/reinaldo/.dotfiles/scripts/autostart-gnome.sh
 
 exec_always --no-startup-id ~/.fehbg
+exec_always --no-startup-id ~/.config/polybar/launch.sh
 # }}}
-# vim:tw=78:ts=2:sts=2:sw=2:fdm=marker
+# vim:tw=78:ts=2:sts=2:sw=2:fdm=marker:set relativenumber:
