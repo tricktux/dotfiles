@@ -620,6 +620,22 @@
 		nnoremap <Leader>tM :call utils#TodoClearMark()<CR>
 		nnoremap <Leader>ta :call utils#TodoAdd()<CR>
 
+		" Cscope and tag jumping mappings
+		nnoremap <Leader>tk :cs kill -1<CR>
+		nmap <silent> gt <C-]>
+		nmap gr <C-t>
+		nnoremap <Leader>tv :vs<CR>:exec("tag ".expand("<cword>"))<CR>
+		" ReLoad cscope database
+		nnoremap <Leader>tl :cs add cscope.out<CR>
+		" Find functions calling this function
+		nnoremap <Leader>tc :cs find c <C-R>=expand("<cword>")<CR><CR>
+		" Find functions definition
+		nnoremap <Leader>tg :cs find g <c-r>=expand("<cword>")<cr><cr>
+		" Find functions called by this function not being used
+		" nnoremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
+		nnoremap <Leader>ts :cs show<CR>
+		nnoremap <Leader>tu :call ctags#NvimSyncCtags(0)<CR>
+
 	" Wiki mappings <Leader>w?
 		" TODO.RM-Thu Dec 15 2016 16:00: Add support for wiki under SW-Testbed  
 		nnoremap <Leader>wt :call utils#WikiOpen('TODO.md')<CR>
