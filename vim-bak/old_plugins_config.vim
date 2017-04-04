@@ -1723,3 +1723,5 @@ endif
 			Plug 'ervandew/supertab' " Activate Supertab
 			let g:SuperTabDefaultCompletionType = "<Tab>"
 		endif
+	" Plug 'tweekmonster/startuptime.vim'
+
