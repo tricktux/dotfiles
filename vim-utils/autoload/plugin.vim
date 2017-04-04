@@ -153,23 +153,53 @@ function! plugin#Config() abort
 				let g:no_neoman_maps = 1
 		endif
 
-		Plug 'c0r73x/neotags.nvim' " Depends on pip3 install --user psutil
-			set regexpengine=1 " This speed up the engine alot but still not enough
-			let g:neotags_enabled = 1
-			" let g:neotags_file = g:cache_path . 'ctags/neotags'
-			" let g:neotags_verbose = 1
-			let g:neotags_run_ctags = 0
-			" let g:neotags#cpp#order = 'cgstuedfpm'
-			let g:neotags#cpp#order = 'ced'
-			" let g:neotags#c#order = 'cgstuedfpm'
-			let g:neotags#c#order = 'ced'
-			let g:neotags_events_highlight = [
-			\   'BufEnter'
-			\ ]
+		if has('python3') && system('pip3 list | grep psutil') =~# 'psutil'
+			Plug 'c0r73x/neotags.nvim' " Depends on pip3 install --user psutil
+				set regexpengine=1 " This speed up the engine alot but still not enough
+				let g:neotags_enabled = 1
+				" let g:neotags_file = g:cache_path . 'ctags/neotags'
+				" let g:neotags_verbose = 1
+				let g:neotags_run_ctags = 0
+				" let g:neotags#cpp#order = 'cgstuedfpm'
+				let g:neotags#cpp#order = 'ced'
+				" let g:neotags#c#order = 'cgstuedfpm'
+				let g:neotags#c#order = 'ced'
+				" let g:neotags_events_highlight = [
+				" \   'BufEnter'
+				" \ ]
+		endif
 	endif
 
 	Plug 'ervandew/supertab' " Activate Supertab
 		let g:SuperTabDefaultCompletionType = "context"
+
+	if executable('clang') && has('python') && !exists('g:android') " clang_complete
+		set pumheight = 15
+		Plug 'Rip-Rip/clang_complete', { 'for' : ['c' , 'cpp'] }
+		" Why I switched to Rip-Rip because it works
+		" Steps to get plugin to work:
+		" 1. Make sure that you can compile a program with clang++ command
+		" a. Example: clang++ -std=c++14 -stdlib=libc++ -pedantic -Wall hello.cpp -v
+		" 2. To get this to work I had to install libc++-dev package in unix
+		" 3. install libclang-dev package. See g:clang_library_path to where it gets
+		" installed. Also I had to make sym link: ln -s libclang.so.1 libclang.so
+		let g:clang_user_options = '-std=c++14 -stdlib=libc++ -Wall -pedantic'
+		let g:clang_close_preview = 1
+		" let g:clang_complete_copen = 1
+		" let g:clang_periodic_quickfix = 1
+		" let g:clang_complete_auto = 0
+		if has('win32')
+			" clang using mscv for target instead of mingw64
+			let g:clang_cpp_options = '-target x86_64-pc-windows-gnu -std=c++17 -pedantic -Wall'
+			let g:clang_c_options = '-target x86_64-pc-windows-gnu -std=gnu11 -pedantic -Wall'
+		else
+			let g:clang_library_path= g:usr_path . '/lib/libclang.so'
+		endif
+	else
+		echomsg string("No clang and/or python present. Disabling vim-clang")
+		let g:clang_complete_loaded = 1
+	endif
+
 	Plug 'tpope/vim-dispatch' " Possible Replacement `asyncvim`
 	" Vim cpp syntax highlight
 	Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'c' , 'cpp' ] }
@@ -331,20 +361,6 @@ function! plugin#Config() abort
 			let g:tagbar_map_togglefold = "<c-x>"
 			let g:tagbar_autoclose = 1
 			nnoremap <Leader>tt :TagbarToggle<CR>
-			nnoremap <Leader>tk :cs kill -1<CR>
-			nmap <silent> gt <C-]>
-			nmap gr <C-t>
-			nnoremap <Leader>tv :vs<CR>:exec("tag ".expand("<cword>"))<CR>
-			" ReLoad cscope database
-			nnoremap <Leader>tl :cs add cscope.out<CR>
-			" Find functions calling this function
-			nnoremap <Leader>tc :cs find c <C-R>=expand("<cword>")<CR><CR>
-			" Find functions definition
-			nnoremap <Leader>tg :cs find g <c-r>=expand("<cword>")<cr><cr>
-			" Find functions called by this function not being used
-			" nnoremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
-			nnoremap <Leader>ts :cs show<CR>
-			nnoremap <Leader>tu :call ctags#NvimSyncCtags(0)<CR>
 	endif
 
 	" cpp/java
@@ -473,9 +489,7 @@ function! plugin#Config() abort
 		let g:pandoc#command#latex_engine = "pdflatex"
 
 	" Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
-	Plug 'matze/vim-ini-fold'
-
-	Plug 'tweekmonster/startuptime.vim'
+	Plug 'matze/vim-ini-fold', { 'for': 'dosini' }
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
@@ -520,6 +534,7 @@ function! plugin#Check() abort
 		" In windows wiki_path is set in the win32.vim file
 		if has('nvim')
 			let g:vimfile_path=  $LOCALAPPDATA . '\nvim\'
+			" TODO.RM-Tue Apr 04 2017 08:48: For future support of clang on windows  
 			" Find clang. Not working in windows yet.
 			" if !empty(glob($ProgramFiles . '\LLVM\lib\libclang.lib'))
 				" let g:libclang_path = '$ProgramFiles . '\LLVM\lib\libclang.lib''
