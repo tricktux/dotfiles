@@ -32,11 +32,12 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 		let cwd_rg = substitute(cwd_rg, "\\", "/", "g") " Fix cwd for the rg command
 		let files_name = substitute(files_name, "\\", "/", "g") " Fix cwd for the rg command
 	endif
-	if a:ft_spec == 1
-		let files_cmd = 'rg -t ' . rg_ft . ' --files ' .  cwd_rg .  ' > ' . files_name
-	else
-		let files_cmd = 'rg --files ' .  cwd_rg .  ' > ' . files_name
-	endif
+	" Cscope db are not being created properly therefore making cscope.files filetype specific no matter what
+	" if a:ft_spec == 1
+	let files_cmd = 'rg -t ' . rg_ft . ' --files ' .  cwd_rg .  ' > ' . files_name
+	" else
+		" let files_cmd = 'rg --files ' .  cwd_rg .  ' > ' . files_name
+	" endif
 	" let files_cmd = substitute(files_cmd,"'", "","g")
 	call delete(files_name)	 " Delete old/previous cscope.files
 	" echomsg string(files_cmd) " Debugging
@@ -70,9 +71,10 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 	if a:ft_spec == 1
 		let ctags_cmd = "ctags -L cscope.files -f " . tags_name . " --sort=no --c-kinds=+p --c++-kinds=+p --fields=+l extras=+q --language-force=" . ctags_lang
 	else
-		let ctags_cmd = "ctags -L cscope.files -f " . tags_name . " --sort=no --c-kinds=+p --c++-kinds=+p --fields=+l extras=+q"
-		" This made neovim extremely slow. Databases too big 
-		" let ctags_cmd = "ctags -L cscope.files -f " . tags_name . " --sort=no --c-kinds=+pl --c++-kinds=+pl --fields=+iaSl extras=+q" 
+		" let ctags_cmd = "ctags -L cscope.files -f " . tags_name . " --sort=no --c-kinds=+p --c++-kinds=+p --fields=+l extras=+q"
+		" This made neovim extremely slow. Databases too big. It wasnt actually this. It was tagbar plugin not behaving in
+		" Windows
+		let ctags_cmd = "ctags -L cscope.files -f " . tags_name . " --sort=no --c-kinds=+pl --c++-kinds=+pl --fields=+iaSl extras=+q" 
 	endif
 
 	" echomsg string(ctags_cmd) " Debugging
@@ -88,11 +90,11 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 		return
 	endif
 
-	if !(tags_name in tagfiles()) 
-		echo "New tagfile"
-	else
-		echo tags_name " already loaded"
-	endif
+	" if !(tags_name in tagfiles()) 
+		" echo "New tagfile"
+	" else
+		" echo tags_name " already loaded"
+	" endif
 	" Add new tag file if not already on the list
 	let list_tags = tagfiles()
 	let tag_present = 0
