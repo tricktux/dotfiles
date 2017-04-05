@@ -478,7 +478,6 @@ function! plugin#Check() abort
 	if has('win32')
 		" In windows wiki_path is set in the win32.vim file
 		if has('nvim')
-			let g:vimfile_path=  $LOCALAPPDATA . '\nvim\'
 			" TODO.RM-Tue Apr 04 2017 08:48: For future support of clang on windows  
 			" Find clang. Not working in windows yet.
 			" if !empty(glob($ProgramFiles . '\LLVM\lib\libclang.lib'))
@@ -487,6 +486,11 @@ function! plugin#Check() abort
 			" if !empty(glob($ProgramFiles . '\LLVM\lib\clang'))
 				" let g:clangheader_path = '$ProgramFiles . '\LLVM\lib\clang''
 			" endif
+			if exists('g:portable_vim')
+				let g:vimfile_path=  '../../vimfiles/'
+			else
+				let g:vimfile_path=  $LOCALAPPDATA . '\nvim\'
+			endif
 		else
 			let g:vimfile_path=  $HOME . '\vimfiles\'
 		endif
@@ -517,11 +521,6 @@ function! plugin#Check() abort
 	if system('uname -o') =~ 'Android' " Termux stuff
 		let g:android = 1
 		let g:usr_path = $HOME . '/../usr'
-	endif
-
-	if exists('g:portable_vim')
-		let g:plugged_path=  '../vimfiles/plugged/'
-		return 1
 	endif
 
 	if empty(glob(g:vimfile_path . 'autoload/plug.vim'))
