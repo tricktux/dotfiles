@@ -38,12 +38,11 @@
 		echomsg "No plugins where loaded"
 	endif
 
-	if exists('b:plugins_present') && plugin#Check()
-			if plugin#Config()
-				let b:plugins_loaded = 1
-			else
-				echomsg "No plugins where loaded"
-			endif
+	" Choose a autcompl engine
+	let g:autcompl_engine = 'nvim_compl_manager'		
+
+	if exists('b:plugins_present') && plugin#Check() && plugin#Config()
+			let b:plugins_loaded = 1
 	else
 		echomsg "No plugins where loaded"
 	endif
