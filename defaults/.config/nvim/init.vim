@@ -24,7 +24,7 @@
 	" ~/.dotfiles/vim-utils/autoload/plugin.vim
 	" Attempt to install vim-plug and all plugins in case of first use
 	let g:location_local_vim = "~/.dotfiles/vim-utils/autoload/plugin.vim"
-	let g:location_portable_vim = "../.dotfiles/vim-utils/autoload/plugin.vim"
+	let g:location_portable_vim = "../../.dotfiles/vim-utils/autoload/plugin.vim"
 	if !empty(glob(g:location_local_vim))
 		execute "source " . g:location_local_vim
 		let b:plugins_present = 1
@@ -33,7 +33,7 @@
 		execute "source " . g:location_portable_vim
 		let b:plugins_present = 1
 		let g:portable_vim = 1
-		let g:location_vim_utils = getcwd() . '/../.dotfiles/vim-utils'
+		let g:location_vim_utils = getcwd() . '/../../.dotfiles/vim-utils'
 	else
 		echomsg "No plugins where loaded"
 	endif

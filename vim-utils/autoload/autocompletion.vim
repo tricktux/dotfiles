@@ -62,8 +62,12 @@ function! autocompletion#SetCompl() abort
 		Plug 'roxma/nvim-completion-manager'
 
 		inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
-		inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 		inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+		inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+
+		" This is to have manual autocompletion
+		" let g:cm_auto_popup = 0
+		" imap <Tab> <Plug>(cm_force_refresh)
 
 		if executable('clang')
 			Plug 'roxma/clang_complete'
@@ -204,10 +208,6 @@ function! autocompletion#SetShuogo() abort
 				let col = col('.') - 1
 				return !col || getline('.')[col - 1]  =~ '\s'
 			endfunction
-			inoremap <expr><C-h>
-						\ deoplete#smart_close_popup()."\<C-h>"
-			inoremap <expr><BS>
-						\ deoplete#smart_close_popup()."\<C-h>"
 			" ----------------------------------------------
 		"  deoplete-clang
 		if exists('g:libclang_path') && exists('g:clangheader_path')
