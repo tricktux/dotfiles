@@ -89,46 +89,17 @@ function! plugin#Config() abort
 		let g:GPGUseAgent = 0
 	endif
 
+	" Completion is set by g:autcompl_engine in init.vim
+	if !empty(glob(g:location_vim_utils . '/autoload/autocompletion.vim'))
+		execute 'source ' . g:location_vim_utils . '/autoload/autocompletion.vim'
+		call autocompletion#SetCompl()
+	endif
+
 	" Neovim exclusive plugins
 	if has('nvim')
 		Plug 'radenling/vim-dispatch-neovim'
 		" nvim-qt on unix doesnt populate has('gui_running
-		"TODO.RM-Mon Mar 27 2017 05:17: Create variable that will allow you to
-		"switch from deoplete to YCM easily  
 		Plug 'equalsraf/neovim-gui-shim'
-		" Plug 'Valloric/YouCompleteMe', { 'on' : 'YcmDebugInfo' }
-			" "" turn on completion in comments
-			" let g:ycm_complete_in_comments=0
-			" "" load ycm conf by default
-			" let g:ycm_confirm_extra_conf=0
-			" "" turn on tag completion
-			" let g:ycm_collect_identifiers_from_tags_files=1
-			" "" only show completion as a list instead of a sub-window
-			" " set completeopt-=preview
-			" "" start completion from the first character
-			" let g:ycm_min_num_of_chars_for_completion=2
-			" "" don't cache completion items
-			" let g:ycm_cache_omnifunc=0
-			" "" complete syntax keywords
-			" let g:ycm_seed_identifiers_with_syntax=1
-			" " let g:ycm_global_ycm_extra_conf = '~/.dotfiles/vim-utils/.ycm_extra_conf.py'
-			" let g:ycm_autoclose_preview_window_after_completion = 1
-			" let g:ycm_semantic_triggers =  {
-						" \   'c' : ['->', '.'],
-						" \   'objc' : ['->', '.'],
-						" \   'ocaml' : ['.', '#'],
-						" \   'cpp,objcpp' : ['->', '.', '::'],
-						" \   'perl' : ['->'],
-						" \   'php' : ['->', '::'],
-						" \   'cs,javascript,d,python,perl6,scala,vb,elixir,go' : ['.'],
-						" \   'java,jsp' : ['.'],
-						" \   'vim' : ['re![_a-zA-Z]+[_\w]*\.'],
-						" \   'ruby' : ['.', '::'],
-						" \   'lua' : ['.', ':'],
-						" \   'erlang' : [':'],
-						" \ }
-		" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
-
 		if executable('lldb')
 			Plug 'critiqjo/lldb.nvim', { 'on' : 'LLmode debug', 'do' : ':UpdateRemotePlugins' }
 			nmap <Leader>db <Plug>LLBreakSwitch
@@ -170,36 +141,6 @@ function! plugin#Config() abort
 		endif
 	endif
 
-	Plug 'ervandew/supertab' " Activate Supertab
-		let g:SuperTabDefaultCompletionType = "context"
-
-	if executable('clang') && has('python') && !exists('g:android') " clang_complete
-		set pumheight = 15
-		Plug 'Rip-Rip/clang_complete', { 'for' : ['c' , 'cpp'] }
-		" Why I switched to Rip-Rip because it works
-		" Steps to get plugin to work:
-		" 1. Make sure that you can compile a program with clang++ command
-		" a. Example: clang++ -std=c++14 -stdlib=libc++ -pedantic -Wall hello.cpp -v
-		" 2. To get this to work I had to install libc++-dev package in unix
-		" 3. install libclang-dev package. See g:clang_library_path to where it gets
-		" installed. Also I had to make sym link: ln -s libclang.so.1 libclang.so
-		let g:clang_user_options = '-std=c++14 -stdlib=libc++ -Wall -pedantic'
-		let g:clang_close_preview = 1
-		" let g:clang_complete_copen = 1
-		" let g:clang_periodic_quickfix = 1
-		" let g:clang_complete_auto = 0
-		if has('win32')
-			" clang using mscv for target instead of mingw64
-			let g:clang_cpp_options = '-target x86_64-pc-windows-gnu -std=c++17 -pedantic -Wall'
-			let g:clang_c_options = '-target x86_64-pc-windows-gnu -std=gnu11 -pedantic -Wall'
-		else
-			let g:clang_library_path= g:usr_path . '/lib/libclang.so'
-		endif
-	else
-		echomsg string("No clang and/or python present. Disabling vim-clang")
-		let g:clang_complete_loaded = 1
-	endif
-
 	Plug 'tpope/vim-dispatch' " Possible Replacement `asyncvim`
 	" Vim cpp syntax highlight
 	Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'c' , 'cpp' ] }
@@ -207,6 +148,7 @@ function! plugin#Config() abort
 	Plug 'justinmk/vim-syntax-extra'
 
 	" Plugins for All (nvim, linux, win32)
+
 	Plug 'neomake/neomake'
 		let g:neomake_warning_sign = {
 					\ 'text': '?',
@@ -218,6 +160,7 @@ function! plugin#Config() abort
 					\ 'texthl': 'ErrorMsg',
 					\ }
 		let g:neomake_cpp_enabled_makers = ['clang', 'gcc']
+		let g:neomake_c_enabled_makers = ['clang', 'gcc']
 		let g:neomake_cpp_clang_maker = {
 					\ 'args': ['-fsyntax-only', '-std=c++14', '-Wall', '-Wextra'],
 					\ 'errorformat':
@@ -241,6 +184,8 @@ function! plugin#Config() abort
 					\ '%-G%.%#',
 					\ }
 					" \ 'args': ['--ignore=E221,E241,E272,E251,W702,E203,E201,E202',  '--format=default'],
+
+		" Requires pip3 install --user flake8
 		let g:neomake_python_enabled_makers = ['flake8']
 
 		augroup custom_neomake
@@ -331,6 +276,8 @@ function! plugin#Config() abort
 		let g:delimitMate_jump_expansion = 1
 		" imap <expr> <CR> <Plug>delimitMateCR
 	Plug 'dkarter/bullets.vim', { 'for' : 'markdown' }
+
+	" Autoformat requires pip3 install --user autopep8
 	Plug 'Chiel92/vim-autoformat', { 'on' : 'Autoformat' }
 		" Simply make sure that executable('clang-format') == true
 		" Grab .ros-clang-format rename to .clang-format put it in root
@@ -474,8 +421,6 @@ function! plugin#Config() abort
 								" \   'tagbar': '(!empty(tagbar#currenttag("%s\ ","")))'
 			" let g:lightline.colorscheme = 'onedark'
 			let g:lightline.colorscheme = 'gruvbox'
-
-	" Plug 'c0r73x/neotags.nvim' " Depends on pip3 install --user psutil
 
 	Plug 'PotatoesMaster/i3-vim-syntax'
 
