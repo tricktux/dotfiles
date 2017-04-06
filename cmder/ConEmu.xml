@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <key name="Software">
 	<key name="ConEmu">
-		<key name=".Vanilla" modified="2017-04-03 08:34:38" build="161206">
+		<key name=".Vanilla" modified="2017-04-05 17:09:18" build="161206">
 			<value name="StartType" type="hex" data="02"/>
 			<value name="CmdLine" type="string" data=""/>
 			<value name="StartTasksFile" type="string" data=""/>
@@ -155,7 +155,7 @@
 			<value name="ConWnd Y" type="long" data="-3"/>
 			<value name="LastMonitor" type="string" data="0,0,1920,1032"/>
 			<value name="ConWnd Width" type="dword" data="00000062"/>
-			<value name="ConWnd Height" type="dword" data="02000061"/>
+			<value name="ConWnd Height" type="dword" data="02000064"/>
 			<value name="16bit Height" type="ulong" data="0"/>
 			<value name="QuakeStyle" type="hex" data="01"/>
 			<value name="Restore2ActiveMon" type="hex" data="00"/>

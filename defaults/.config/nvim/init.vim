@@ -165,13 +165,20 @@
 		" Set omni for all filetypes
 		set omnifunc=syntaxcomplete#Complete
 
-	" Status Line
+	" Status Line and Colorscheme
 		if exists('b:plugins_loaded')
-			set background=dark    " Setting dark mode
-			colorscheme gruvbox
+			" set background=dark    " Setting dark mode
+			" colorscheme gruvbox
 			" colorscheme onedark
 			" set background=light
 			" colorscheme PaperColor
+			let g:colorscheme_night_time = 20
+			let g:colorscheme_day = 'PaperColor'
+			let g:colorscheme_night = 'gruvbox'
+			augroup FluxLike
+				autocmd!
+				autocmd VimEnter,BufEnter * call utils#Flux()
+			augroup END
 		else
 			colorscheme desert
 		endif
