@@ -331,6 +331,8 @@ function! plugin#Config() abort
 								" \ g:plugged_path . '/vim-snippets/UltiSnips'] " Not
 								" compatible syntax
 		let g:neosnippet#data_directory = g:cache_path . 'neosnippets'
+		" Used by nvim-completion-mgr
+		let g:neosnippet#enable_completed_snippet=1
 
 	" Only contain snippets
 	Plug 'Shougo/neosnippet-snippets'
@@ -350,7 +352,7 @@ function! plugin#Config() abort
 	" colorschemes
 	Plug 'morhetz/gruvbox' " colorscheme gruvbox
 	Plug 'joshdick/onedark.vim'
-	" Plug 'NLKNguyen/papercolor-theme'
+	Plug 'NLKNguyen/papercolor-theme'
 
 	" Radical
 	Plug 'glts/vim-magnum' " required by radical
@@ -420,7 +422,8 @@ function! plugin#Config() abort
 								\		}
 								" \   'tagbar': '(!empty(tagbar#currenttag("%s\ ","")))'
 			" let g:lightline.colorscheme = 'onedark'
-			let g:lightline.colorscheme = 'gruvbox'
+			" let g:lightline.colorscheme = 'gruvbox'
+			let g:lightline.colorscheme = 'PaperColor'
 
 	Plug 'PotatoesMaster/i3-vim-syntax'
 

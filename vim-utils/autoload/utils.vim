@@ -724,5 +724,28 @@ function! utils#CaptureCmdOutput(...)
 		put! =output
 	endif
 endfunction
+
+function! utils#Flux() abort
+	if strftime("%H") > g:colorscheme_night_time
+		if exists('g:loaded_lightline') && g:colors_name !=# g:colorscheme_night
+			execute "colorscheme " . g:colorscheme_night
+			set background=dark
+			let g:lightline.colorscheme = g:colorscheme_night
+			call lightline#init()
+			call lightline#colorscheme()
+			call lightline#update()
+		endif
+	else
+		if exists('g:loaded_lightline') && g:colors_name !=# g:colorscheme_day
+			execute "colorscheme " . g:colorscheme_day
+			set background=light
+			let g:lightline.colorscheme = g:colorscheme_day
+			call lightline#init()
+			call lightline#colorscheme()
+			call lightline#update()
+		endif
+	endif
+endfunction
+
 " TODO.RM-Sat Nov 26 2016 00:04: Function that auto adds SCR # and description
-" vim:tw=78:ts=2:sts=2:sw=2:
+ " vim:tw=78:ts=2:sts=2:sw=2:
