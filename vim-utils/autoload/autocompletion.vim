@@ -66,8 +66,8 @@ function! autocompletion#SetCompl() abort
 		inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 
 		" This is to have manual autocompletion
-		" let g:cm_auto_popup = 0
-		" imap <Tab> <Plug>(cm_force_refresh)
+		let g:cm_auto_popup = 0
+		imap <silent> <Tab> <Plug>(cm_force_refresh)
 
 		if executable('clang')
 			Plug 'roxma/clang_complete'
