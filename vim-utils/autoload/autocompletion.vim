@@ -9,12 +9,7 @@ function! autocompletion#SetCompl() abort
 	let compl = get(g:, 'autcompl_engine', '')
 
 	if !has('python3') || exists('g:android') || empty(compl)
-		Plug 'ervandew/supertab' " Activate Supertab
-		let g:SuperTabDefaultCompletionType = "context"
-		if has('python') && executable('clang')
-			Plug 'Rip-Rip/clang_complete'
-			call autocompletion#SetClang()
-		endif
+		call autcompletion#SetTab()
 		return
 	endif
 
@@ -55,19 +50,23 @@ function! autocompletion#SetCompl() abort
 	elseif compl ==# 'nvim_compl_manager'
 		" Optional but useful python3 support
 		" pip3 install --user neovim jedi mistune psutil setproctitle
-		if !has('nvim')
+		if !has('nvim') && has('unix')
 			Plug 'roxma/vim-hug-neovim-rpc'
+		else
+			call autcompletion#SetTab()
+			return
 		endif
 
 		Plug 'roxma/nvim-completion-manager'
 
 		inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 		inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-		inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-
-		" This is to have manual autocompletion
-		let g:cm_auto_popup = 0
-		imap <silent> <Tab> <Plug>(cm_force_refresh)
+		if has('unix') " Automatic completion on unix
+			inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+		else " but not anywhere else
+			let g:cm_auto_popup = 0
+			imap <silent> <Tab> <Plug>(cm_force_refresh)
+		endif
 
 		if executable('clang')
 			Plug 'roxma/clang_complete'
@@ -220,5 +219,14 @@ function! autocompletion#SetShuogo() abort
 		Plug 'zchee/deoplete-jedi'
 		Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
 		Plug 'Shougo/echodoc' " Pop for functions info
+	endif
+endfunction
+
+function! autcompletion#SetTab() abort
+	Plug 'ervandew/supertab' " Activate Supertab
+	let g:SuperTabDefaultCompletionType = "context"
+	if has('python') && executable('clang')
+		Plug 'Rip-Rip/clang_complete'
+		call autocompletion#SetClang()
 	endif
 endfunction
