@@ -171,10 +171,11 @@
 			" colorscheme gruvbox
 			" colorscheme onedark
 			" set background=light
-			" colorscheme PaperColor
 			let g:colorscheme_night_time = 20
+			let g:colorscheme_day_time = 8
 			let g:colorscheme_day = 'PaperColor'
 			let g:colorscheme_night = 'gruvbox'
+			execute "colorscheme " . g:colorscheme_day
 			augroup FluxLike
 				autocmd!
 				autocmd VimEnter,BufEnter * call utils#Flux()
