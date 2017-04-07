@@ -9,7 +9,7 @@ function! autocompletion#SetCompl() abort
 	let compl = get(g:, 'autcompl_engine', '')
 
 	if !has('python3') || exists('g:android') || empty(compl)
-		call autcompletion#SetTab()
+		call autocompletion#SetTab()
 		return
 	endif
 
@@ -53,7 +53,7 @@ function! autocompletion#SetCompl() abort
 		if !has('nvim') && has('unix')
 			Plug 'roxma/vim-hug-neovim-rpc'
 		else
-			call autcompletion#SetTab()
+			call autocompletion#SetTab()
 			return
 		endif
 
@@ -222,7 +222,7 @@ function! autocompletion#SetShuogo() abort
 	endif
 endfunction
 
-function! autcompletion#SetTab() abort
+function! autocompletion#SetTab() abort
 	Plug 'ervandew/supertab' " Activate Supertab
 	let g:SuperTabDefaultCompletionType = "context"
 	if has('python') && executable('clang')
