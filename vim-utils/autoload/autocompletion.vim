@@ -73,7 +73,7 @@ function! autocompletion#SetCompl() abort
 			call autocompletion#SetClang()
 		endif
 	elseif compl ==# 'shuogo'
-		call autocompletion#SetShuogo
+		call autocompletion#SetShuogo()
 	endif
 endfunction
 
@@ -217,8 +217,12 @@ function! autocompletion#SetShuogo() abort
 
 		" and jedi for autocompletion, `pip install jedi --user`
 		Plug 'zchee/deoplete-jedi'
-		Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
-		Plug 'Shougo/echodoc' " Pop for functions info
+	endif
+	Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
+	Plug 'Shougo/echodoc' " Pop for functions info
+	if executable('clang')
+		Plug 'roxma/clang_complete'
+		call autocompletion#SetClang()
 	endif
 endfunction
 
