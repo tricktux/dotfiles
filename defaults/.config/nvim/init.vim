@@ -39,8 +39,11 @@
 	endif
 
 	" Choose a autcompl engine
-	let g:autcompl_engine = 'nvim_compl_manager'		
-
+	if has('nvim')
+		let g:autcompl_engine = 'nvim_compl_manager'		
+	else
+		let g:autcompl_engine = 'shuogo'		
+	endif
 	if exists('b:plugins_present') && plugin#Check() && plugin#Config()
 			let b:plugins_loaded = 1
 	else
@@ -176,6 +179,7 @@
 			let g:colorscheme_day = 'PaperColor'
 			let g:colorscheme_night = 'gruvbox'
 			execute "colorscheme " . g:colorscheme_day
+			set background=light
 			augroup FluxLike
 				autocmd!
 				autocmd VimEnter,BufEnter * call utils#Flux()
