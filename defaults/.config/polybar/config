@@ -55,7 +55,7 @@ font-1 = siji:pixelsize=10;1
 
 modules-left = i3
 modules-center = xwindow music
-modules-right = volume weather mail memory cpu battery temperature date powermenu
+modules-right = volume weather memory cpu battery temperature date powermenu
 ; fixed-center = true
 
 tray-position = center
