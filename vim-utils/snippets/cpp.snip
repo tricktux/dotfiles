@@ -2,6 +2,107 @@ snippet log Unreal Log
 options head
   UE_LOG(Log${1:Category,Temp}, ${2:Fatal,Error,Warning,Display,Log,Verbose,VeryVerbose}, TEXT("${4:FormatStr}"), ${5:...})
 
+
+##
+## Control Statements
+# if
+snippet if
+  if (${1:true}) 
+  {
+    ${0:${VISUAL}}
+  }
+snippet ife
+  if (${1:true}) 
+  {
+    ${2:${VISUAL}}
+  } 
+  else 
+  {
+    ${0}
+  }
+# else
+snippet el
+  else 
+  {
+    ${0:${VISUAL}}
+  }
+# else if
+snippet elif
+  else if (${1:true}) 
+  {
+    ${0:${VISUAL}}
+  }
+# ifi
+snippet ifi
+  if (${1:true}) ${0};
+# ternary
+snippet t
+  ${1:/* condition */} ? ${2:a} : ${3:b}
+# switch
+snippet switch
+  switch (${1:/* variable */}) 
+  {
+    case ${2:/* variable case */}:
+      ${3}
+      ${4:break;}${5}
+    default:
+      ${6}
+  }
+# switch without default
+snippet switchndef
+  switch (${1:/* variable */}) 
+  {
+    case ${2:/* variable case */}:
+      ${3}
+      ${4:break;}${5}
+  }
+# case
+snippet case
+  case ${1:/* variable case */}:
+    ${2}
+    ${3:break;}
+snippet ret
+  return ${0};
+##
+## Loops
+# for
+snippet for
+  for (int ${2:i} = 0; $2 < ${1:count}; $2${3:++}) 
+  {
+    ${4}
+  }
+# for (custom)
+snippet forr
+  for (int ${1:i} = ${2:0}; ${3:$1 < 10}; $1${4:++}) 
+  {
+    ${5}
+  }
+# while
+snippet wh
+  while (${1:/* condition */}) 
+  {
+    ${0:${VISUAL}}
+  }
+# do... while
+snippet do
+  do 
+  {
+    ${0:${VISUAL}}
+  } while (${1:/* condition */});
+
+
+snippet     try
+options     head
+abbr        try catch
+    try 
+    {
+        ${1:#:TARGET}
+    } 
+    catch (${2:...}) 
+    {
+        ${3}
+    }
+
 # snippet print "Unreal Print" b
 # UKismetSystemLibrary::PrintString(${1:Context (object in my world)}, ${2:FString::Printf(TEXT("${3:message}"), ${4:...})}${5:, ${6:bPrintToScreen}, ${7:bPrintToLog}, ${8:TextLinearColor}, ${9:Duration (negative uses config)}});$0
 # endsnippet
