@@ -726,7 +726,7 @@ function! utils#CaptureCmdOutput(...)
 endfunction
 
 function! utils#Flux() abort
-	if strftime("%H") >= g:colorscheme_night_time || strftime("%H") <= g:colorscheme_day_time
+	if strftime("%H") >= g:colorscheme_night_time || strftime("%H") < g:colorscheme_day_time
 		if exists('g:lightline.colorscheme') && g:lightline.colorscheme !=# g:colorscheme_night
 			execute "colorscheme " . g:colorscheme_night
 			set background=dark
