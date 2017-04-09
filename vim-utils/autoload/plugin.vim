@@ -89,108 +89,17 @@ function! plugin#Config() abort
 		let g:GPGUseAgent = 0
 	endif
 
+	" Completion is set by g:autcompl_engine in init.vim
+	if !empty(glob(g:location_vim_utils . '/autoload/autocompletion.vim'))
+		execute 'source ' . g:location_vim_utils . '/autoload/autocompletion.vim'
+		call autocompletion#SetCompl()
+	endif
+
 	" Neovim exclusive plugins
 	if has('nvim')
 		Plug 'radenling/vim-dispatch-neovim'
 		" nvim-qt on unix doesnt populate has('gui_running
-		"TODO.RM-Mon Mar 27 2017 05:17: Create variable that will allow you to
-		"switch from deoplete to YCM easily  
 		Plug 'equalsraf/neovim-gui-shim'
-		" Plug 'Valloric/YouCompleteMe', { 'on' : 'YcmDebugInfo' }
-			" "" turn on completion in comments
-			" let g:ycm_complete_in_comments=0
-			" "" load ycm conf by default
-			" let g:ycm_confirm_extra_conf=0
-			" "" turn on tag completion
-			" let g:ycm_collect_identifiers_from_tags_files=1
-			" "" only show completion as a list instead of a sub-window
-			" " set completeopt-=preview
-			" "" start completion from the first character
-			" let g:ycm_min_num_of_chars_for_completion=2
-			" "" don't cache completion items
-			" let g:ycm_cache_omnifunc=0
-			" "" complete syntax keywords
-			" let g:ycm_seed_identifiers_with_syntax=1
-			" " let g:ycm_global_ycm_extra_conf = '~/.dotfiles/vim-utils/.ycm_extra_conf.py'
-			" let g:ycm_autoclose_preview_window_after_completion = 1
-			" let g:ycm_semantic_triggers =  {
-						" \   'c' : ['->', '.'],
-						" \   'objc' : ['->', '.'],
-						" \   'ocaml' : ['.', '#'],
-						" \   'cpp,objcpp' : ['->', '.', '::'],
-						" \   'perl' : ['->'],
-						" \   'php' : ['->', '::'],
-						" \   'cs,javascript,d,python,perl6,scala,vb,elixir,go' : ['.'],
-						" \   'java,jsp' : ['.'],
-						" \   'vim' : ['re![_a-zA-Z]+[_\w]*\.'],
-						" \   'ruby' : ['.', '::'],
-						" \   'lua' : ['.', ':'],
-						" \   'erlang' : [':'],
-						" \ }
-		" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
-
-		if has('python3') && !exists('g:android') " Deoplete
-			Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-				" let b:deoplete_loaded = 1
-				" if it is nvim deoplete requires python3 to work
-				let g:deoplete#enable_at_startup = 1
-				" Autoclose preview window
-				autocmd CompleteDone * pclose!
-				" Note: If you get autocomplete autotriggering issues keep increasing this option below. 
-				" Next value to try is 150. See:https://github.com/Shougo/deoplete.nvim/issues/440
-				let g:deoplete#auto_complete_delay=150 " Fixes issue where Autocompletion triggers
-				" New settings
-				let g:deoplete#enable_ignore_case = 1
-				let g:deoplete#enable_smart_case = 1
-				let g:deoplete#enable_camel_case = 1
-				" Note: Changed this here to increase speed
-				let g:deoplete#enable_refresh_always = 0
-				let g:deoplete#max_list = 10
-				" let g:deoplete#max_abbr_width = 0
-				" let g:deoplete#max_menu_width = 0
-				let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
-				let g:deoplete#omni#input_patterns.java = [
-							\'[^. \t0-9]\.\w*',
-							\'[^. \t0-9]\->\w*',
-							\'[^. \t0-9]\::\w*',
-							\]
-				let g:deoplete#omni#input_patterns.jsp = ['[^. \t0-9]\.\w*']
-				let g:deoplete#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-				let g:deoplete#ignore_sources = {}
-				let g:deoplete#ignore_sources.java = ['omni']
-				let g:deoplete#ignore_sources.c = ['omni']
-				let g:deoplete#ignore_sources._ = ['around']
-				"call deoplete#custom#set('omni', 'min_pattern_length', 0)
-				inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
-				inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
-				" Regular settings
-				inoremap <silent><expr> <TAB>
-							\ pumvisible() ? "\<C-n>" :
-							\ <SID>check_back_space() ? "\<TAB>" :
-							\ deoplete#mappings#manual_complete()
-				function! s:check_back_space() abort
-					let col = col('.') - 1
-					return !col || getline('.')[col - 1]  =~ '\s'
-				endfunction
-				inoremap <expr><C-h>
-							\ deoplete#smart_close_popup()."\<C-h>"
-				inoremap <expr><BS>
-							\ deoplete#smart_close_popup()."\<C-h>"
-			" ----------------------------------------------
-			"  deoplete-clang
-			if exists('g:libclang_path') && exists('g:clangheader_path')
-				Plug 'zchee/deoplete-clang'
-					let g:deoplete#sources#clang#libclang_path = g:libclang_path
-					let g:deoplete#sources#clang#clang_header = g:clangheader_path
-			endif
-
-			" Python plugins, requires `autopep8`, for Autoformat, and `flake8` for neomake,
-			" and jedi for autocompletion, `pip install jedi --user`
-			Plug 'zchee/deoplete-jedi'
-			Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
-			Plug 'Shougo/echodoc' " Pop for functions info
-		endif
-
 		if executable('lldb')
 			Plug 'critiqjo/lldb.nvim', { 'on' : 'LLmode debug', 'do' : ':UpdateRemotePlugins' }
 			nmap <Leader>db <Plug>LLBreakSwitch
@@ -214,74 +123,21 @@ function! plugin#Config() abort
 			Plug 'nhooyr/neoman.vim'
 				let g:no_neoman_maps = 1
 		endif
-	else
-		" Vim exclusive plugins
-		if has('lua') " Neocomplete
-			Plug 'Shougo/neocomplete'
-			" All new stuff
-			let g:neocomplete#enable_at_startup = 1
-			let g:neocomplete#enable_cursor_hold_i=1
-			let g:neocomplete#skip_auto_completion_time="1"
-			let g:neocomplete#sources#buffer#cache_limit_size=5000000000
-			let g:neocomplete#max_list=8
-			let g:neocomplete#auto_completion_start_length=2
-			let g:neocomplete#enable_auto_close_preview=1
 
-			let g:neocomplete#enable_smart_case = 1
-			let g:neocomplete#data_directory = g:cache_path . 'neocomplete'
-			" Define keyword.
-			if !exists('g:neocomplete#keyword_patterns')
-				let g:neocomplete#keyword_patterns = {}
-			endif
-			let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-			" Recommended key-mappings.
-			" <CR>: close popup and save indent.
-			inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-			function! s:my_cr_function()
-				return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-			endfunction
-			" <TAB>: completion.
-			inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-			" <C-h>, <BS>: close popup and delete backword char.
-			inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-			" Enable heavy omni completion.
-			if !exists('g:neocomplete#sources#omni#input_patterns')
-				let g:neocomplete#sources#omni#input_patterns = {}
-			endif
-			let g:neocomplete#sources#omni#input_patterns.tex =
-						\ '\v\\%('
-						\ . '\a*cite\a*%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
-						\ . '|\a*ref%(\s*\{[^}]*|range\s*\{[^,}]*%(}\{)?)'
-						\ . '|includegraphics\*?%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
-						\ . '|%(include%(only)?|input)\s*\{[^}]*'
-						\ . ')'
-			let g:neocomplete#sources#omni#input_patterns.php =
-						\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-			let g:neocomplete#sources#omni#input_patterns.perl =
-						\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-			let g:neocomplete#sources#omni#input_patterns.java = '\h\w*\.\w*'
-
-			if !exists('g:neocomplete#force_omni_input_patterns')
-				let g:neocomplete#force_omni_input_patterns = {}
-			endif
-			let g:neocomplete#force_omni_input_patterns.c =
-						\ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
-			let g:neocomplete#force_omni_input_patterns.cpp =
-						\ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-			let g:neocomplete#force_omni_input_patterns.objc =
-						\ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
-			let g:neocomplete#force_omni_input_patterns.objcpp =
-						\ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
-			" all new stuff
-			if !exists('g:neocomplete#delimiter_patterns')
-				let g:neocomplete#delimiter_patterns= {}
-			endif
-			let g:neocomplete#delimiter_patterns.vim = ['#']
-			let g:neocomplete#delimiter_patterns.cpp = ['::']
-		else
-			echomsg "No lua installed = No Neocomplete. Supertab Activated"
-			Plug 'ervandew/supertab' " Activate Supertab
-			let g:SuperTabDefaultCompletionType = "<Tab>"
+		if has('python3') && system('pip3 list | grep psutil') =~# 'psutil'
+			Plug 'c0r73x/neotags.nvim' " Depends on pip3 install --user psutil
+				set regexpengine=1 " This speed up the engine alot but still not enough
+				let g:neotags_enabled = 1
+				" let g:neotags_file = g:cache_path . 'ctags/neotags'
+				" let g:neotags_verbose = 1
+				let g:neotags_run_ctags = 0
+				" let g:neotags#cpp#order = 'cgstuedfpm'
+				let g:neotags#cpp#order = 'ced'
+				" let g:neotags#c#order = 'cgstuedfpm'
+				let g:neotags#c#order = 'ced'
+				" let g:neotags_events_highlight = [
+				" \   'BufEnter'
+				" \ ]
 		endif
 	endif
 
@@ -292,6 +148,7 @@ function! plugin#Config() abort
 	Plug 'justinmk/vim-syntax-extra'
 
 	" Plugins for All (nvim, linux, win32)
+
 	Plug 'neomake/neomake'
 		let g:neomake_warning_sign = {
 					\ 'text': '?',
@@ -303,6 +160,7 @@ function! plugin#Config() abort
 					\ 'texthl': 'ErrorMsg',
 					\ }
 		let g:neomake_cpp_enabled_makers = ['clang', 'gcc']
+		let g:neomake_c_enabled_makers = ['clang', 'gcc']
 		let g:neomake_cpp_clang_maker = {
 					\ 'args': ['-fsyntax-only', '-std=c++14', '-Wall', '-Wextra'],
 					\ 'errorformat':
@@ -326,6 +184,8 @@ function! plugin#Config() abort
 					\ '%-G%.%#',
 					\ }
 					" \ 'args': ['--ignore=E221,E241,E272,E251,W702,E203,E201,E202',  '--format=default'],
+
+		" Requires pip3 install --user flake8
 		let g:neomake_python_enabled_makers = ['flake8']
 
 		augroup custom_neomake
@@ -416,6 +276,8 @@ function! plugin#Config() abort
 		let g:delimitMate_jump_expansion = 1
 		" imap <expr> <CR> <Plug>delimitMateCR
 	Plug 'dkarter/bullets.vim', { 'for' : 'markdown' }
+
+	" Autoformat requires pip3 install --user autopep8
 	Plug 'Chiel92/vim-autoformat', { 'on' : 'Autoformat' }
 		" Simply make sure that executable('clang-format') == true
 		" Grab .ros-clang-format rename to .clang-format put it in root
@@ -433,32 +295,20 @@ function! plugin#Config() abort
 			" let ctags_output = system(substitute(a:ctags_cmd,"'", "","g"))
 		" All under here:
 			" function! s:ExecuteCtags(ctags_cmd) abort
-	Plug 'Tagbar'
-		let g:tagbar_ctags_bin = 'ctags'
-		let g:tagbar_autofocus = 1
-		let g:tagbar_show_linenumbers = 2
-		let g:tagbar_map_togglesort = "r"
-		let g:tagbar_map_nexttag = "<c-j>"
-		let g:tagbar_map_prevtag = "<c-k>"
-		let g:tagbar_map_openallfolds = "<c-n>"
-		let g:tagbar_map_closeallfolds = "<c-c>"
-		let g:tagbar_map_togglefold = "<c-x>"
-		let g:tagbar_autoclose = 1
-		nnoremap <Leader>tt :TagbarToggle<CR>
-		nnoremap <Leader>tk :cs kill -1<CR>
-		nmap <silent> gt <C-]>
-		nmap gr <C-t>
-		nnoremap <Leader>tv :vs<CR>:exec("tag ".expand("<cword>"))<CR>
-		" ReLoad cscope database
-		nnoremap <Leader>tl :cs add cscope.out<CR>
-		" Find functions calling this function
-		nnoremap <Leader>tc :cs find c <C-R>=expand("<cword>")<CR><CR>
-		" Find functions definition
-		nnoremap <Leader>tg :cs find g <c-r>=expand("<cword>")<cr><cr>
-		" Find functions called by this function not being used
-		" nnoremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
-		nnoremap <Leader>ts :cs show<CR>
-		nnoremap <Leader>tu :call ctags#NvimSyncCtags(0)<CR>
+	if !(has('nvim') && has('win32'))
+		Plug 'Tagbar'
+			let g:tagbar_ctags_bin = 'ctags'
+			let g:tagbar_autofocus = 1
+			let g:tagbar_show_linenumbers = 2
+			let g:tagbar_map_togglesort = "r"
+			let g:tagbar_map_nexttag = "<c-j>"
+			let g:tagbar_map_prevtag = "<c-k>"
+			let g:tagbar_map_openallfolds = "<c-n>"
+			let g:tagbar_map_closeallfolds = "<c-c>"
+			let g:tagbar_map_togglefold = "<c-x>"
+			let g:tagbar_autoclose = 1
+			nnoremap <Leader>tt :TagbarToggle<CR>
+	endif
 
 	" cpp/java
 	Plug 'mattn/vim-javafmt', { 'for' : 'java' }
@@ -481,6 +331,8 @@ function! plugin#Config() abort
 								" \ g:plugged_path . '/vim-snippets/UltiSnips'] " Not
 								" compatible syntax
 		let g:neosnippet#data_directory = g:cache_path . 'neosnippets'
+		" Used by nvim-completion-mgr
+		let g:neosnippet#enable_completed_snippet=1
 
 	" Only contain snippets
 	Plug 'Shougo/neosnippet-snippets'
@@ -500,7 +352,7 @@ function! plugin#Config() abort
 	" colorschemes
 	Plug 'morhetz/gruvbox' " colorscheme gruvbox
 	Plug 'joshdick/onedark.vim'
-	" Plug 'NLKNguyen/papercolor-theme'
+	Plug 'NLKNguyen/papercolor-theme'
 
 	" Radical
 	Plug 'glts/vim-magnum' " required by radical
@@ -554,38 +406,24 @@ function! plugin#Config() abort
 			let g:lightline.active = {
 								\   'left': [ 
 								\							[ 'mode', 'paste' ], 
-								\							[ 'readonly', 'absolutepath', 'modified', 'fugitive', 'svn', 'tagbar', 'neomake'] 
+								\							[ 'readonly', 'absolutepath', 'modified', 'fugitive', 'svn', 'neomake'] 
 								\						]
 								\		}
 		 let g:lightline.component = {
 								\   'fugitive': '%{fugitive#statusline()}',
 								\   'neomake': '%{neomake#statusline#QflistStatus("qf:\ ")}', 
 								\   'svn': '%{svn#GetSvnBranchInfo()}', 
-								\   'tagbar': '%{tagbar#currenttag("%s\ ","")}' 
 								\		}
+								" \   'tagbar': '%{tagbar#currenttag("%s\ ","")}' 
 			let g:lightline.component_visible_condition = {
 								\   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())',
 								\   'neomake': '(!empty(neomake#statusline#QflistStatus("qf:\ ")))',
 								\   'svn': '(!empty(svn#GetSvnBranchInfo()))',
-								\   'tagbar': '(!empty(tagbar#currenttag("%s\ ","")))'
 								\		}
+								" \   'tagbar': '(!empty(tagbar#currenttag("%s\ ","")))'
 			" let g:lightline.colorscheme = 'onedark'
-			let g:lightline.colorscheme = 'gruvbox'
-
-	" Plug 'c0r73x/neotags.nvim' " Depends on pip3 install --user psutil
-	Plug 'rmolin88/neotags.nvim' " Depends on pip3 install --user psutil
-		set regexpengine=1 " This speed up the engine alot but still not enough
-		let g:neotags_enabled = 1
-		" let g:neotags_file = g:cache_path . 'ctags/neotags'
-		let g:neotags_verbose = 1
-		let g:neotags_run_ctags = 0
-		" let g:neotags#cpp#order = 'cgstuedfpm'
-		let g:neotags#cpp#order = 'ced'
-		" let g:neotags#c#order = 'cgstuedfpm'
-		let g:neotags#c#order = 'ced'
-		" let g:neotags_events_highlight = [
-					" \   'BufEnter'
-					" \ ]
+			" let g:lightline.colorscheme = 'gruvbox'
+			let g:lightline.colorscheme = 'PaperColor'
 
 	Plug 'PotatoesMaster/i3-vim-syntax'
 
@@ -599,6 +437,7 @@ function! plugin#Config() abort
 		let g:pandoc#command#latex_engine = "pdflatex"
 
 	" Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
+	Plug 'matze/vim-ini-fold', { 'for': 'dosini' }
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
@@ -642,7 +481,7 @@ function! plugin#Check() abort
 	if has('win32')
 		" In windows wiki_path is set in the win32.vim file
 		if has('nvim')
-			let g:vimfile_path=  $LOCALAPPDATA . '\nvim\'
+			" TODO.RM-Tue Apr 04 2017 08:48: For future support of clang on windows  
 			" Find clang. Not working in windows yet.
 			" if !empty(glob($ProgramFiles . '\LLVM\lib\libclang.lib'))
 				" let g:libclang_path = '$ProgramFiles . '\LLVM\lib\libclang.lib''
@@ -650,6 +489,11 @@ function! plugin#Check() abort
 			" if !empty(glob($ProgramFiles . '\LLVM\lib\clang'))
 				" let g:clangheader_path = '$ProgramFiles . '\LLVM\lib\clang''
 			" endif
+			if exists('g:portable_vim')
+				let g:vimfile_path=  '../../vimfiles/'
+			else
+				let g:vimfile_path=  $LOCALAPPDATA . '\nvim\'
+			endif
 		else
 			let g:vimfile_path=  $HOME . '\vimfiles\'
 		endif
@@ -680,11 +524,6 @@ function! plugin#Check() abort
 	if system('uname -o') =~ 'Android' " Termux stuff
 		let g:android = 1
 		let g:usr_path = $HOME . '/../usr'
-	endif
-
-	if exists('g:portable_vim')
-		let g:plugged_path=  '../vimfiles/plugged/'
-		return 1
 	endif
 
 	if empty(glob(g:vimfile_path . 'autoload/plug.vim'))

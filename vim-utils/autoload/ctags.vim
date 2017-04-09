@@ -2,7 +2,7 @@
 "	Description: All functions related to creation/deletion/update/loading of ctags and cscope
 " Author:Reinaldo Molina <rmolin88@gmail.com>
 " Version:1.0.0
-" Last Modified: Fri Mar 24 2017 16:22
+" Last Modified: Sat Apr 01 2017 17:04
 
 " ft_spec - If 1 will create ctags only for the &ft language
 "					- If 0 then create tags for all the files in the dir
@@ -25,23 +25,31 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 	let nvim_ft = &ft
 	let rg_ft = ctags#NvimFt2Rg(nvim_ft)
 	let cwd_rg = getcwd()
-	if has('win32')
-		let cwd_rg = substitute(cwd_rg, "\\", "/", "g") " Fix cwd for the rg command
-	endif
 	" Get cscope files location
 	let files_loc = g:cache_path . "ctags/"
 	let files_name = files_loc . "cscope.files"
-	if a:ft_spec == 1
-		let files_cmd = 'rg -t ' . rg_ft . ' --files ' .  cwd_rg .  ' > ' . files_name
-	else
-		let files_cmd = 'rg --files ' .  cwd_rg .  ' > ' . files_name
+	if has('win32')
+		let cwd_rg = substitute(cwd_rg, "\\", "/", "g") " Fix cwd for the rg command
+		let files_name = substitute(files_name, "\\", "/", "g") " Fix cwd for the rg command
 	endif
+	" Cscope db are not being created properly therefore making cscope.files filetype specific no matter what
+	" if a:ft_spec == 1
+	let files_cmd = 'rg -t ' . rg_ft . ' --files ' .  cwd_rg .  ' > ' . files_name
+	" else
+		" let files_cmd = 'rg --files ' .  cwd_rg .  ' > ' . files_name
+	" endif
 	" let files_cmd = substitute(files_cmd,"'", "","g")
 	call delete(files_name)	 " Delete old/previous cscope.files
 	" echomsg string(files_cmd) " Debugging
-	call system(files_cmd)
+	if has('nvim')
+		let res = systemlist(files_cmd)
+	else
+		silent! execute "!" . files_cmd
+	endif
 	if getfsize(files_name) < 1 
 		echomsg string("Failed to create cscope.files")
+		echomsg string(files_cmd)
+		" cexpr res
 		return
 	endif
 		
@@ -63,18 +71,30 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 	if a:ft_spec == 1
 		let ctags_cmd = "ctags -L cscope.files -f " . tags_name . " --sort=no --c-kinds=+p --c++-kinds=+p --fields=+l extras=+q --language-force=" . ctags_lang
 	else
-		let ctags_cmd = "ctags -L cscope.files -f " . tags_name . " --sort=no --c-kinds=+pl --c++-kinds=+pl --fields=+iaSl extras=+q"
+		" let ctags_cmd = "ctags -L cscope.files -f " . tags_name . " --sort=no --c-kinds=+p --c++-kinds=+p --fields=+l extras=+q"
+		" This made neovim extremely slow. Databases too big. It wasnt actually this. It was tagbar plugin not behaving in
+		" Windows
+		let ctags_cmd = "ctags -L cscope.files -f " . tags_name . " --sort=no --c-kinds=+pl --c++-kinds=+pl --fields=+iaSl extras=+q" 
 	endif
 
 	" echomsg string(ctags_cmd) " Debugging
 	execute "cd " . files_loc
-	call system(ctags_cmd)
+	let res = systemlist(ctags_cmd)
 
-	if getfsize(tags_name) < 1 
-		echomsg "Failed to create tags file: " . tags_name
+	if v:shell_error || getfsize(tags_name) < 1 
+		if v:shell_error && !empty(res)
+			cexpr res
+		else
+			echomsg "Failed to create tags file: " . tags_name
+		endif
 		return
 	endif
 
+	" if !(tags_name in tagfiles()) 
+		" echo "New tagfile"
+	" else
+		" echo tags_name " already loaded"
+	" endif
 	" Add new tag file if not already on the list
 	let list_tags = tagfiles()
 	let tag_present = 0
@@ -90,17 +110,23 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 	if nvim_ft ==# 'cpp' || nvim_ft ==# 'c' || nvim_ft ==# 'java'
 		" Create cscope db as well
 		execute "silent! cs kill -1"
-		let del_files = ['cscope.out', 'cscope.po.out', 'cscope.in.out']
+		let del_files = ['ncscope.out', 'cscope.out', 'cscope.po.out', 'cscope.in.out']
 		for item in del_files
 			call delete(item)
 		endfor
-		call system('cscope -b -q')
-		if getfsize('cscope.out') < 1 
-			echomsg string("Failed to create cscope.out")
+		let res_cs = systemlist('cscope -b -q cscope.files')
+		if v:shell_error && !empty(res_cs)
+			cexpr res_cs
 			execute "cd " . cwd_rg
 			return
 		endif
-		execute "cs add cscope.out"
+		let cs_db = !filereadable('cscope.out') ? 'ncscope.out' : 'cscope.out'
+		if getfsize(cs_db) < 1 
+			echomsg string("Failed to create cscope database")
+			execute "cd " . cwd_rg
+			return
+		endif
+		execute "cs add " . cs_db
 	endif
 
 	execute "cd " . cwd_rg
