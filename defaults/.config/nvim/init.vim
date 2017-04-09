@@ -24,7 +24,7 @@
 	" ~/.dotfiles/vim-utils/autoload/plugin.vim
 	" Attempt to install vim-plug and all plugins in case of first use
 	let g:location_local_vim = "~/.dotfiles/vim-utils/autoload/plugin.vim"
-	let g:location_portable_vim = "../.dotfiles/vim-utils/autoload/plugin.vim"
+	let g:location_portable_vim = "../../.dotfiles/vim-utils/autoload/plugin.vim"
 	if !empty(glob(g:location_local_vim))
 		execute "source " . g:location_local_vim
 		let b:plugins_present = 1
@@ -33,17 +33,19 @@
 		execute "source " . g:location_portable_vim
 		let b:plugins_present = 1
 		let g:portable_vim = 1
-		let g:location_vim_utils = getcwd() . '/../.dotfiles/vim-utils'
+		let g:location_vim_utils = getcwd() . '/../../.dotfiles/vim-utils'
 	else
 		echomsg "No plugins where loaded"
 	endif
 
-	if exists('b:plugins_present') && plugin#Check()
-			if plugin#Config()
-				let b:plugins_loaded = 1
-			else
-				echomsg "No plugins where loaded"
-			endif
+	" Choose a autcompl engine
+	if has('nvim')
+		let g:autcompl_engine = 'nvim_compl_manager'		
+	else
+		let g:autcompl_engine = 'shuogo'		
+	endif
+	if exists('b:plugins_present') && plugin#Check() && plugin#Config()
+			let b:plugins_loaded = 1
 	else
 		echomsg "No plugins where loaded"
 	endif
@@ -166,13 +168,22 @@
 		" Set omni for all filetypes
 		set omnifunc=syntaxcomplete#Complete
 
-	" Status Line
+	" Status Line and Colorscheme
 		if exists('b:plugins_loaded')
-			set background=dark    " Setting dark mode
-			colorscheme gruvbox
+			" set background=dark    " Setting dark mode
+			" colorscheme gruvbox
 			" colorscheme onedark
 			" set background=light
-			" colorscheme PaperColor
+			let g:colorscheme_night_time = 20
+			let g:colorscheme_day_time = 8
+			let g:colorscheme_day = 'PaperColor'
+			let g:colorscheme_night = 'gruvbox'
+			execute "colorscheme " . g:colorscheme_day
+			set background=light
+			augroup FluxLike
+				autocmd!
+				autocmd VimEnter,BufEnter * call utils#Flux()
+			augroup END
 		else
 			colorscheme desert
 		endif
@@ -620,6 +631,22 @@
 		nnoremap <Leader>tM :call utils#TodoClearMark()<CR>
 		nnoremap <Leader>ta :call utils#TodoAdd()<CR>
 
+		" Cscope and tag jumping mappings
+		nnoremap <Leader>tk :cs kill -1<CR>
+		nmap <silent> gt <C-]>
+		nmap gr <C-t>
+		nnoremap <Leader>tv :vs<CR>:exec("tag ".expand("<cword>"))<CR>
+		" ReLoad cscope database
+		nnoremap <Leader>tl :cs add cscope.out<CR>
+		" Find functions calling this function
+		nnoremap <Leader>tc :cs find c <C-R>=expand("<cword>")<CR><CR>
+		" Find functions definition
+		nnoremap <Leader>tg :cs find g <c-r>=expand("<cword>")<cr><cr>
+		" Find functions called by this function not being used
+		" nnoremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
+		nnoremap <Leader>ts :cs show<CR>
+		nnoremap <Leader>tu :call ctags#NvimSyncCtags(0)<CR>
+
 	" Wiki mappings <Leader>w?
 		" TODO.RM-Thu Dec 15 2016 16:00: Add support for wiki under SW-Testbed  
 		nnoremap <Leader>wt :call utils#WikiOpen('TODO.md')<CR>
@@ -697,7 +724,7 @@
 		let g:NERDCustomDelimiters = {
 					\ 'vim': { 'left': '"', 'right': '', 'leftAlt': '#', 'rightAlt': ''},
 					\ 'markdown': { 'left': '//', 'right': '' },
-					\ 'dosini': { 'left': '#', 'leftAlt': '//', 'right': '', 'rightAlt': '' },
+					\ 'dosini': { 'left': ';', 'leftAlt': '//', 'right': '', 'rightAlt': '', 'leftAlt1': ';', 'rightAlt1': '' },
 					\ 'wings_syntax': { 'left': '//', 'right': '' }}
 
 " HIGHLITING
