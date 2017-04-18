@@ -441,22 +441,21 @@ mode "$mode_gaps_outer" {
 
 ######### STARTUP APPLICATIONS ################################{{{
 exec --no-startup-id compton -f
-exec --no-startup-id seafile-applet
 exec --no-startup-id xscreensaver -no-splash&
+exec --no-startup-id pcmanfm --daemon-mode
+
+exec --no-startup-id termite
+exec --no-startup-id nm-applet
+exec --no-startup-id seafile-applet
+exec --no-startup-id insync start
+
 # Start vnc server service
 # exec --no-startup-id x0vncserver -display :0 -passwordfile ~/.vnc/passwd&
-exec --no-startup-id pcmanfm --daemon-mode
 # Start cmus in "daemon" mode
 # exec --no-startup-id tmux new-session -s cmus -d -n cmus -d "/usr/bin/cmus $@"&
 # exec --no-startup-id sshfs odroid@copter-server:/ /home/reinaldo/.mnt/copter-server&
-
-# Autostart all programs that have a workspace
-#exec --no-startup-id pcmanfm
-exec --no-startup-id insync start
-exec --no-startup-id opera
-exec --no-startup-id termite
-exec --no-startup-id fluxgui
-exec --no-startup-id nm-applet
+# exec --no-startup-id opera
+# exec --no-startup-id fluxgui
 
 # Do not modify here. It can still be used by gnome
 # Not using because it sets up conky with not sure how to use right now

@@ -10,7 +10,7 @@ function! autocompletion#SetCompl() abort
 
 	if !has('python3') || exists('g:android') || empty(compl)
 		call autocompletion#SetTab()
-		return
+		return -1
 	endif
 
 	if compl ==# 'ycm'
@@ -50,11 +50,13 @@ function! autocompletion#SetCompl() abort
 	elseif compl ==# 'nvim_compl_manager'
 		" Optional but useful python3 support
 		" pip3 install --user neovim jedi mistune psutil setproctitle
-		if !has('nvim') && has('unix')
-			Plug 'roxma/vim-hug-neovim-rpc'
-		else
+		if has('win32')
 			call autocompletion#SetTab()
-			return
+			return -1
+		endif
+
+		if has('vim')
+			Plug 'roxma/vim-hug-neovim-rpc'
 		endif
 
 		Plug 'roxma/nvim-completion-manager'
@@ -63,6 +65,7 @@ function! autocompletion#SetCompl() abort
 		inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 		if has('unix') " Automatic completion on unix
 			inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+			let g:cm_auto_popup = 1
 		else " but not anywhere else
 			let g:cm_auto_popup = 0
 			imap <silent> <Tab> <Plug>(cm_force_refresh)
@@ -74,7 +77,11 @@ function! autocompletion#SetCompl() abort
 		endif
 	elseif compl ==# 'shuogo'
 		call autocompletion#SetShuogo()
+	else
+		call autocompletion#SetTab()
+		return -1
 	endif
+	return 1
 endfunction
 
 " Settings for Rip-Rip/clang_complete and friends
