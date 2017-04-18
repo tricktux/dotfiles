@@ -3,7 +3,7 @@
 "									well as allowing you to Switch, Copy, and Delete branches intellengtly
 " Author:					Reinaldo Molina <rmolin88@gmail.com>
 " Version:				1.0.0
-" Last Modified: Sat Feb 25 2017 05:40
+" Last Modified: Thu Apr 13 2017 15:33
 " Created:			 Sat Feb 25 2017 05:40
 "
 " Plugin Configuration variables:

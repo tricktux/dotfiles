@@ -39,11 +39,11 @@
 	endif
 
 	" Choose a autcompl engine
-	if has('nvim')
-		let g:autcompl_engine = 'nvim_compl_manager'		
-	else
+	" if has('nvim')
+		" let g:autcompl_engine = 'nvim_compl_manager'		
+	" else
 		let g:autcompl_engine = 'shuogo'		
-	endif
+	" endif
 	if exists('b:plugins_present') && plugin#Check() && plugin#Config()
 			let b:plugins_loaded = 1
 	else
@@ -768,5 +768,6 @@
 	" Convention: All commands names need to start with the autoload file name.
 	" And use camel case. This way is easier to search
 	command! -nargs=+ -complete=command UtilsCaptureCmdOutput call utils#CaptureCmdOutput(<f-args>)
+	command! UtilsProfile call utils#ProfilePerformance()
 
 " vim:tw=78:ts=2:sts=2:sw=2:
