@@ -6,7 +6,7 @@
 
 function! plugin#Config() abort
 	" Vim-Plug
-		nnoremap <Leader>Pi :PlugInstall<CR>
+		nnoremap <Leader>Pi :so %<bar>call plugin#Config()<bar>PlugInstall<CR>
 		nnoremap <Leader>Pu :PlugUpdate<CR>
 					\:PlugUpgrade<CR>
 					" \:UpdateRemotePlugins<CR>
@@ -121,7 +121,7 @@ function! plugin#Config() abort
 
 		if executable('man')
 			Plug 'nhooyr/neoman.vim'
-				let g:no_neoman_maps = 1
+				" let g:no_neoman_maps = 1
 		endif
 
 		if has('python3') && system('pip3 list | grep psutil') =~# 'psutil'
@@ -406,21 +406,21 @@ function! plugin#Config() abort
 			let g:lightline.active = {
 								\   'left': [ 
 								\							[ 'mode', 'paste' ], 
-								\							[ 'readonly', 'absolutepath', 'modified', 'fugitive', 'svn', 'neomake'] 
+								\							[ 'readonly', 'absolutepath', 'modified', 'fugitive', 'svn', 'tagbar', 'neomake'] 
 								\						]
 								\		}
 		 let g:lightline.component = {
 								\   'fugitive': '%{fugitive#statusline()}',
 								\   'neomake': '%{neomake#statusline#QflistStatus("qf:\ ")}', 
 								\   'svn': '%{svn#GetSvnBranchInfo()}', 
+								\   'tagbar': '%{tagbar#currenttag("%s\ ","")}' 
 								\		}
-								" \   'tagbar': '%{tagbar#currenttag("%s\ ","")}' 
 			let g:lightline.component_visible_condition = {
 								\   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())',
 								\   'neomake': '(!empty(neomake#statusline#QflistStatus("qf:\ ")))',
 								\   'svn': '(!empty(svn#GetSvnBranchInfo()))',
+								\   'tagbar': '(!empty(tagbar#currenttag("%s\ ","")))'
 								\		}
-								" \   'tagbar': '(!empty(tagbar#currenttag("%s\ ","")))'
 			" let g:lightline.colorscheme = 'onedark'
 			" let g:lightline.colorscheme = 'gruvbox'
 			let g:lightline.colorscheme = 'PaperColor'
