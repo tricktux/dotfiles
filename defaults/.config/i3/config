@@ -254,6 +254,7 @@ bindsym $mod+Shift+0 move container to workspace $workspace10
 # Assign stuff
 assign [class="URxvt"] $workspace1
 assign [class="nvim-qt"] $workspace1
+assign [class="Google-chrome"] $workspace2
 assign [class="Opera"] $workspace2
 assign [class="Pcmanfm"] $workspace4
 # All other new windows go to ws 3
@@ -454,6 +455,15 @@ exec --no-startup-id insync start
 # Start cmus in "daemon" mode
 # exec --no-startup-id tmux new-session -s cmus -d -n cmus -d "/usr/bin/cmus $@"&
 # exec --no-startup-id sshfs odroid@copter-server:/ /home/reinaldo/.mnt/copter-server&
+
+# Autostart all programs that have a workspace
+#exec --no-startup-id pcmanfm
+exec --no-startup-id insync start
+exec --no-startup-id opera
+exec --no-startup-id termite
+exec --no-startup-id fluxgui
+exec --no-startup-id nm-applet
+
 # exec --no-startup-id opera
 # exec --no-startup-id fluxgui
 
