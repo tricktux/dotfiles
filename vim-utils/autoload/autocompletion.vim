@@ -72,7 +72,7 @@ function! autocompletion#SetCompl() abort
 		endif
 
 		if executable('clang')
-			Plug 'roxma/clang_complete'
+			Plug 'roxma/clang_complete', { 'as': 'roxma_clang_complete' }
 			call autocompletion#SetClang()
 		endif
 	elseif compl ==# 'shuogo'
@@ -171,6 +171,10 @@ function! autocompletion#SetShuogo() abort
 		endif
 		let g:neocomplete#delimiter_patterns.vim = ['#']
 		let g:neocomplete#delimiter_patterns.cpp = ['::']
+		if executable('clang')
+			Plug 'Rip-Rip/clang_complete', { 'as': 'rip_clang_complete' }
+			call autocompletion#SetClang()
+		endif
 	elseif has('nvim')
 		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 			" let b:deoplete_loaded = 1
@@ -227,17 +231,13 @@ function! autocompletion#SetShuogo() abort
 	endif
 	Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
 	Plug 'Shougo/echodoc' " Pop for functions info
-	if executable('clang')
-		Plug 'roxma/clang_complete'
-		call autocompletion#SetClang()
-	endif
 endfunction
 
 function! autocompletion#SetTab() abort
 	Plug 'ervandew/supertab' " Activate Supertab
 	let g:SuperTabDefaultCompletionType = "context"
 	if has('python') && executable('clang')
-		Plug 'Rip-Rip/clang_complete'
+		Plug 'Rip-Rip/clang_complete', { 'as': 'rip_clang_complete' }
 		call autocompletion#SetClang()
 	endif
 endfunction
