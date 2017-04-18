@@ -76,11 +76,10 @@ FuncCheckCopy()
 FuncUpdate()
 {
 	# Get rid of unused packages and optimize first
-	sudo pacman -Sc
-	sudo pacman-optimize
+	sudo pacman -Sc --noconfirm
+	sudo pacman-optimize --noconfirm
 	# Update list of all installed packages
 	pacman -Qe > ~/.dotfiles/$machine-arch-packages
-	pacman -Qm >> ~/.dotfiles/$machine-arch-packages
 	# Now update packages
 	pacaur -Syu --noconfirm
 	# To install packages from list:
