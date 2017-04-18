@@ -6,6 +6,7 @@
 -  [X] Make a new `autoload\autocomplete.vim` file where you handle all the autocompletion logic
 -  [X] Look into neovim completion manager
 -  [ ] cscope command its really not working
+	- I am sure that it has to do with the rg command creating some weird paths. Take a look at `cscope.files`
 
 ### Mon Apr 03 2017 11:15
 -  [X] Fix nvim-install.ps1 to include copying of the spells from vim to nvim
