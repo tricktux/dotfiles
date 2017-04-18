@@ -6,7 +6,7 @@
 
 function! plugin#Config() abort
 	" Vim-Plug
-		nnoremap <Leader>Pi :PlugInstall<CR>
+		nnoremap <Leader>Pi :so %<bar>call plugin#Config()<bar>PlugInstall<CR>
 		nnoremap <Leader>Pu :PlugUpdate<CR>
 					\:PlugUpgrade<CR>
 					" \:UpdateRemotePlugins<CR>
@@ -121,7 +121,7 @@ function! plugin#Config() abort
 
 		if executable('man')
 			Plug 'nhooyr/neoman.vim'
-				let g:no_neoman_maps = 1
+				" let g:no_neoman_maps = 1
 		endif
 
 		if has('python3') && system('pip3 list | grep psutil') =~# 'psutil'
