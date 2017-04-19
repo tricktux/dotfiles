@@ -199,9 +199,9 @@ bindsym Print exec gnome-screenshot
 bindsym XF86MonBrightnessUp exec xbacklight +10
 bindsym XF86MonBrightnessDown exec xbacklight -10
 # So that it agrees with the volume-pulseaudio control
-bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+ && pkill -RTMIN+1 i3blocks 
-bindsym XF86AudioLowerVolume exec amixer -q -D pulse sset Master 5%- && pkill -RTMIN+1 i3blocks
-bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle && pkill -RTMIN+1 i3blocks
+bindsym XF86AudioRaiseVolume exec amixer sset Master 5%+ 
+bindsym XF86AudioLowerVolume exec amixer sset Master 5%-
+bindsym XF86AudioMute exec amixer sset Master toggle
 # bindsym XF86AudioLowerVolume exec amixer sset Master 5%-
 # bindsym XF86AudioRaiseVolume exec amixer sset Master 5%+
 # bindsym XF86AudioMute exec amixer sset Master toggle
@@ -210,6 +210,12 @@ bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle && pkill -RTMIN
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
+
+# Using now the control keys with vi like mappings just like windows
+bindsym Control+Mod1+H exec playerctl play-pause
+bindsym Control+Mod1+L exec playerctl next
+bindsym Control+Mod1+K exec amixer sset Master 5%+
+bindsym Control+Mod1+J exec amixer sset Master 5%-
 
 # Scrappa
 # }}}
