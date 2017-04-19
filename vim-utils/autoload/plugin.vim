@@ -289,26 +289,18 @@ function! plugin#Config() abort
 		let g:autoformat_remove_trailing_spaces = 0
 
 	" cpp
-	" Note: Fix for windows nvim: comment out: 
-	" set shellxquote=\"
-	" And add this to the system call:
-			" let ctags_output = system(substitute(a:ctags_cmd,"'", "","g"))
-		" All under here:
-			" function! s:ExecuteCtags(ctags_cmd) abort
-	if !(has('nvim') && has('win32'))
-		Plug 'Tagbar'
-			let g:tagbar_ctags_bin = 'ctags'
-			let g:tagbar_autofocus = 1
-			let g:tagbar_show_linenumbers = 2
-			let g:tagbar_map_togglesort = "r"
-			let g:tagbar_map_nexttag = "<c-j>"
-			let g:tagbar_map_prevtag = "<c-k>"
-			let g:tagbar_map_openallfolds = "<c-n>"
-			let g:tagbar_map_closeallfolds = "<c-c>"
-			let g:tagbar_map_togglefold = "<c-x>"
-			let g:tagbar_autoclose = 1
-			nnoremap <Leader>tt :TagbarToggle<CR>
-	endif
+	Plug 'Tagbar'
+		let g:tagbar_ctags_bin = 'ctags'
+		let g:tagbar_autofocus = 1
+		let g:tagbar_show_linenumbers = 2
+		let g:tagbar_map_togglesort = "r"
+		let g:tagbar_map_nexttag = "<c-j>"
+		let g:tagbar_map_prevtag = "<c-k>"
+		let g:tagbar_map_openallfolds = "<c-n>"
+		let g:tagbar_map_closeallfolds = "<c-c>"
+		let g:tagbar_map_togglefold = "<c-x>"
+		let g:tagbar_autoclose = 1
+		nnoremap <Leader>tt :TagbarToggle<CR>
 
 	" cpp/java
 	Plug 'mattn/vim-javafmt', { 'for' : 'java' }
@@ -421,9 +413,9 @@ function! plugin#Config() abort
 								\   'svn': '(!empty(svn#GetSvnBranchInfo()))',
 								\   'tagbar': '(!empty(tagbar#currenttag("%s\ ","")))'
 								\		}
-			" let g:lightline.colorscheme = 'onedark'
-			" let g:lightline.colorscheme = 'gruvbox'
-			let g:lightline.colorscheme = 'PaperColor'
+		" let g:lightline.colorscheme = 'onedark'
+		" let g:lightline.colorscheme = 'gruvbox'
+		let g:lightline.colorscheme = 'PaperColor'
 
 	Plug 'PotatoesMaster/i3-vim-syntax'
 
