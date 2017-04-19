@@ -39,11 +39,11 @@
 	endif
 
 	" Choose a autcompl engine
-	" if has('nvim')
-	" let g:autcompl_engine = 'nvim_compl_manager'		
-	" else
-	let g:autcompl_engine = 'shuogo'		
-	" endif
+	if has('unix')
+		let g:autcompl_engine = 'nvim_compl_manager'		
+	else
+		let g:autcompl_engine = 'shuogo'		
+	endif
 	if exists('b:plugins_present') && plugin#Check() && plugin#Config()
 			let b:plugins_loaded = 1
 	else
@@ -234,6 +234,7 @@
 				" let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 				set termguicolors
 				" let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+				" This was Sub by set guicursor. But its default value its okay
 				" Fixes broken nmap <c-h> inside of tmux
 				nnoremap <BS> :noh<CR>
 				" set shada='1000,f1,<500
