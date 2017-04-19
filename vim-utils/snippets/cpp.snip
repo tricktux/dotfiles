@@ -2,6 +2,10 @@ snippet log Unreal Log
 options head
   UE_LOG(Log${1:Category,Temp}, ${2:Fatal,Error,Warning,Display,Log,Verbose,VeryVerbose}, TEXT("${4:FormatStr}"), ${5:...})
 
+snippet     upd
+abbr        UpdateStatusAreaEx
+options     head
+  UpdateStatusAreaEx("${1:Msg Here}", ${2:COLOR_ERROR, COLOR_WARNING, COLOR_SUCCESS});
 
 ##
 ## Control Statements
@@ -9,12 +13,12 @@ options head
 snippet if
   if (${1:true}) 
   {
-    ${0:${VISUAL}}
+    ${0:$VISUAL}
   }
 snippet ife
   if (${1:true}) 
   {
-    ${2:${VISUAL}}
+    ${2:$VISUAL}
   } 
   else 
   {
@@ -24,13 +28,13 @@ snippet ife
 snippet el
   else 
   {
-    ${0:${VISUAL}}
+    ${0:$VISUAL}
   }
 # else if
 snippet elif
   else if (${1:true}) 
   {
-    ${0:${VISUAL}}
+    ${0:$VISUAL}
   }
 # ifi
 snippet ifi
@@ -81,13 +85,13 @@ snippet forr
 snippet wh
   while (${1:/* condition */}) 
   {
-    ${0:${VISUAL}}
+    ${0:$VISUAL}
   }
 # do... while
 snippet do
   do 
   {
-    ${0:${VISUAL}}
+    ${0:$VISUAL}
   } while (${1:/* condition */});
 
 
