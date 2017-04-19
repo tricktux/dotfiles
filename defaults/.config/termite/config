@@ -5,11 +5,11 @@ audible_bell = false
 clickable_url = true
 dynamic_title = true
 # font = Monospace 9
-browser = google-chrome-stable
+browser = opera
 urgent_on_bell = true
 mouse_autohide = true
-cursor_shape = underline
+# cursor_shape = underline
 cursor_blink = off
 
 [colors]
-background = rgba(63, 63, 63, 0.2)
+background = rgba(63, 63, 63, 1)
