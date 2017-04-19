@@ -40,9 +40,9 @@
 
 	" Choose a autcompl engine
 	" if has('nvim')
-		" let g:autcompl_engine = 'nvim_compl_manager'		
+	" let g:autcompl_engine = 'nvim_compl_manager'		
 	" else
-		let g:autcompl_engine = 'shuogo'		
+	let g:autcompl_engine = 'shuogo'		
 	" endif
 	if exists('b:plugins_present') && plugin#Check() && plugin#Config()
 			let b:plugins_loaded = 1
@@ -231,11 +231,12 @@
 			set t_ut=
 			" Set blinking cursor shape everywhere
 			if has('nvim')
-				let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-				let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+				" let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+				set termguicolors
+				" let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 				" Fixes broken nmap <c-h> inside of tmux
 				nnoremap <BS> :noh<CR>
-				set shada='1000,f1,<500
+				" set shada='1000,f1,<500
 			endif
 
 			if exists('$TMUX')
@@ -729,7 +730,7 @@
 
 " HIGHLITING
 " ~/.dotfiles/vim-utils/autoload/highlight.vim
-	if exists("b:plugins_loaded")
+	if exists("b:plugins_loaded") && has('nvim')
 		" C
 		call highlight#Set('cTypeTag',                { 'fg': g:brown })
 		call highlight#Set('cPreProcTag',             { 'fg': g:cyan })

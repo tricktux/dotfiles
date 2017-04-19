@@ -1,3 +1,7 @@
+### Wed Apr 19 2017 09:17 
+-  [ ] On the svn.nvim plugin before switching to a branch make sure that the svn status command returns empty. Otherwise
+  the switch is not going to go well.
+
 ### Mon Apr 10 2017 16:42 
 - [  ] Fix svn.nvim plugin to obtain url from svn info instead of all of that twisted logic that you have.
 - [  ] Finish the svn.nvim plugin
