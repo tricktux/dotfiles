@@ -334,7 +334,9 @@ function! plugin#Config() abort
 	Plug 'tpope/vim-fugitive'
 		" Fugitive <Leader>g?
 		" use g? to show help
-		nnoremap <Leader>gs :Gstatus<bar>wincmd L<CR>
+		" nmap here is needed for the <C-n> to work. Otherwise it doesnt know what
+		" it means
+		nmap <Leader>gs :Gstatus<CR><C-w>L<C-n>
 		nnoremap <Leader>gps :Gpush<CR>
 		nnoremap <Leader>gpl :Gpull<CR>
 		nnoremap <Leader>ga :!git add 

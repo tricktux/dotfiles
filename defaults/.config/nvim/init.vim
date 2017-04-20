@@ -42,7 +42,7 @@
 	if has('unix')
 		let g:autcompl_engine = 'nvim_compl_manager'		
 	else
-		let g:autcompl_engine = 'shuogo'		
+		let g:autcompl_engine = 'nvim_compl_manager'		
 	endif
 	if exists('b:plugins_present') && plugin#Check() && plugin#Config()
 			let b:plugins_loaded = 1
@@ -368,7 +368,7 @@
 		nnoremap <C-Left> :cpf<CR>
 		" nnoremap <Leader>qO :Copen!<CR>
 		nnoremap <Leader>qO :lopen 20<CR>
-		nnoremap <Leader>qo :copen 20<CR>
+		nnoremap <Leader>qo :copen 20<CR><C-W>J
 		nnoremap <Leader>qc :.cc<CR>
 		nnoremap <Leader>qC :cc<CR>
 
