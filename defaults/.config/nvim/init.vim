@@ -42,7 +42,7 @@
 	if has('unix')
 		let g:autcompl_engine = 'nvim_compl_manager'		
 	else
-		let g:autcompl_engine = 'nvim_compl_manager'		
+		let g:autcompl_engine = 'autocomplpop'		
 	endif
 	if exists('b:plugins_present') && plugin#Check() && plugin#Config()
 			let b:plugins_loaded = 1
@@ -97,7 +97,7 @@
 		set history=1000         " remember more commands and search history
 		" ignore these files to for completion
 		set wildignore+=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn,.git
-		set completeopt=menuone,menu,longest,preview
+		set completeopt=menuone,longest,preview,noselect,noinsert
 		" set complete+=kspell " currently not working
 		set wildmenu
 		set wildmode=list:longest
