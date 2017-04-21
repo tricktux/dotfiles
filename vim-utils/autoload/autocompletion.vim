@@ -63,13 +63,13 @@ function! autocompletion#SetCompl() abort
 
 		inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 		inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-		if has('unix') " Automatic completion on unix
-			inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-			let g:cm_auto_popup = 1
-		else " but not anywhere else
-			let g:cm_auto_popup = 0
-			imap <silent> <Tab> <Plug>(cm_force_refresh)
-		endif
+		" if has('unix') " Automatic completion on unix
+		inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+		let g:cm_auto_popup = 1
+		" else " but not anywhere else
+			" let g:cm_auto_popup = 0
+			" imap <silent> <Tab> <Plug>(cm_force_refresh)
+		" endif
 
 		if executable('clang')
 			Plug 'roxma/clang_complete', { 'as': 'roxma_clang_complete' }
@@ -77,6 +77,14 @@ function! autocompletion#SetCompl() abort
 		endif
 	elseif compl ==# 'shuogo'
 		call autocompletion#SetShuogo()
+	elseif compl ==# 'autocomplpop'
+		Plug 'vim-scripts/AutoComplPop'
+		inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+		inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+		if executable('clang')
+			Plug 'Rip-Rip/clang_complete', { 'as': 'rip_clang_complete' }
+			call autocompletion#SetClang()
+		endif
 	else
 		call autocompletion#SetTab()
 		return -1
@@ -95,6 +103,7 @@ function! autocompletion#SetClang() abort
 	" installed. Also I had to make sym link: ln -s libclang.so.1 libclang.so
 	let g:clang_user_options = '-std=c++14 -stdlib=libc++ -Wall -pedantic'
 	let g:clang_close_preview = 1
+	autocmd CompleteDone * pclose!
 	" let g:clang_complete_copen = 1
 	" let g:clang_periodic_quickfix = 1
 	" let g:clang_complete_auto = 0

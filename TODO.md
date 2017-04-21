@@ -1,3 +1,7 @@
+### Fri Apr 21 2017 09:25 
+- Profile command didnt work
+- Look into using Neosolarized
+- Cool cursor in nvim-qt on windows
 ### Wed Apr 19 2017 09:17 
 -  [ ] On the svn.nvim plugin before switching to a branch make sure that the svn status command returns empty. Otherwise
   the switch is not going to go well.
