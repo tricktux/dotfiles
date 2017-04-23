@@ -39,10 +39,10 @@
 	endif
 
 	" Choose a autcompl engine
-	if has('nvim')
+	if has('unix')
 		let g:autcompl_engine = 'nvim_compl_manager'		
 	else
-		let g:autcompl_engine = 'shuogo'		
+		let g:autcompl_engine = 'autocomplpop'		
 	endif
 	if exists('b:plugins_present') && plugin#Check() && plugin#Config()
 			let b:plugins_loaded = 1
@@ -97,7 +97,7 @@
 		set history=1000         " remember more commands and search history
 		" ignore these files to for completion
 		set wildignore+=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn,.git
-		set completeopt=menuone,menu,longest,preview
+		set completeopt=menuone,longest,preview,noselect,noinsert
 		" set complete+=kspell " currently not working
 		set wildmenu
 		set wildmode=list:longest
@@ -231,11 +231,13 @@
 			set t_ut=
 			" Set blinking cursor shape everywhere
 			if has('nvim')
-				let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-				let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+				" let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+				set termguicolors
+				" let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+				" This was Sub by set guicursor. But its default value its okay
 				" Fixes broken nmap <c-h> inside of tmux
 				nnoremap <BS> :noh<CR>
-				set shada='1000,f1,<500
+				" set shada='1000,f1,<500
 			endif
 
 			if exists('$TMUX')
@@ -366,7 +368,7 @@
 		nnoremap <C-Left> :cpf<CR>
 		" nnoremap <Leader>qO :Copen!<CR>
 		nnoremap <Leader>qO :lopen 20<CR>
-		nnoremap <Leader>qo :copen 20<CR>
+		nnoremap <Leader>qo :copen 20<CR><C-W>J
 		nnoremap <Leader>qc :.cc<CR>
 		nnoremap <Leader>qC :cc<CR>
 
@@ -729,7 +731,7 @@
 
 " HIGHLITING
 " ~/.dotfiles/vim-utils/autoload/highlight.vim
-	if exists("b:plugins_loaded")
+	if exists("b:plugins_loaded") && has('nvim')
 		" C
 		call highlight#Set('cTypeTag',                { 'fg': g:brown })
 		call highlight#Set('cPreProcTag',             { 'fg': g:cyan })
@@ -768,5 +770,6 @@
 	" Convention: All commands names need to start with the autoload file name.
 	" And use camel case. This way is easier to search
 	command! -nargs=+ -complete=command UtilsCaptureCmdOutput call utils#CaptureCmdOutput(<f-args>)
+	command! UtilsProfile call utils#ProfilePerformance()
 
 " vim:tw=78:ts=2:sts=2:sw=2:
