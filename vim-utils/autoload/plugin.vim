@@ -2,7 +2,7 @@
 " Description:Plugin specific settings
 " Author:Reinaldo Molina <rmolin88@gmail.com>
 " Version:2.0.1
-" Last Modified: Tue Mar 14 2017 20:07
+" Last Modified: Thu Apr 20 2017 22:35
 
 function! plugin#Config() abort
 	" Vim-Plug
@@ -101,6 +101,7 @@ function! plugin#Config() abort
 		" nvim-qt on unix doesnt populate has('gui_running
 		Plug 'equalsraf/neovim-gui-shim'
 		if executable('lldb')
+			" TODO.RM-Thu Apr 20 2017 22:18: Figure out what is going on here
 			Plug 'critiqjo/lldb.nvim', { 'on' : 'LLmode debug', 'do' : ':UpdateRemotePlugins' }
 			nmap <Leader>db <Plug>LLBreakSwitch
 			" vmap <F2> <Plug>LLStdInSelected
@@ -346,6 +347,7 @@ function! plugin#Config() abort
 	" colorschemes
 	Plug 'morhetz/gruvbox' " colorscheme gruvbox
 	Plug 'joshdick/onedark.vim'
+	" TODO.RM-Thu Apr 20 2017 22:37: Maybe give neosolarized a chance  
 	Plug 'NLKNguyen/papercolor-theme'
 
 	" Radical
