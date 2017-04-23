@@ -6,7 +6,7 @@
 
 function! plugin#Config() abort
 	" Vim-Plug
-		nnoremap <Leader>Pi :PlugInstall<CR>
+		nnoremap <Leader>Pi :so %<bar>call plugin#Config()<bar>PlugInstall<CR>
 		nnoremap <Leader>Pu :PlugUpdate<CR>
 					\:PlugUpgrade<CR>
 					" \:UpdateRemotePlugins<CR>
@@ -121,7 +121,7 @@ function! plugin#Config() abort
 
 		if executable('man')
 			Plug 'nhooyr/neoman.vim'
-				let g:no_neoman_maps = 1
+				" let g:no_neoman_maps = 1
 		endif
 
 		if has('python3') && system('pip3 list | grep psutil') =~# 'psutil'
@@ -289,26 +289,18 @@ function! plugin#Config() abort
 		let g:autoformat_remove_trailing_spaces = 0
 
 	" cpp
-	" Note: Fix for windows nvim: comment out: 
-	" set shellxquote=\"
-	" And add this to the system call:
-			" let ctags_output = system(substitute(a:ctags_cmd,"'", "","g"))
-		" All under here:
-			" function! s:ExecuteCtags(ctags_cmd) abort
-	if !(has('nvim') && has('win32'))
-		Plug 'Tagbar'
-			let g:tagbar_ctags_bin = 'ctags'
-			let g:tagbar_autofocus = 1
-			let g:tagbar_show_linenumbers = 2
-			let g:tagbar_map_togglesort = "r"
-			let g:tagbar_map_nexttag = "<c-j>"
-			let g:tagbar_map_prevtag = "<c-k>"
-			let g:tagbar_map_openallfolds = "<c-n>"
-			let g:tagbar_map_closeallfolds = "<c-c>"
-			let g:tagbar_map_togglefold = "<c-x>"
-			let g:tagbar_autoclose = 1
-			nnoremap <Leader>tt :TagbarToggle<CR>
-	endif
+	Plug 'Tagbar'
+		let g:tagbar_ctags_bin = 'ctags'
+		let g:tagbar_autofocus = 1
+		let g:tagbar_show_linenumbers = 2
+		let g:tagbar_map_togglesort = "r"
+		let g:tagbar_map_nexttag = "<c-j>"
+		let g:tagbar_map_prevtag = "<c-k>"
+		let g:tagbar_map_openallfolds = "<c-n>"
+		let g:tagbar_map_closeallfolds = "<c-c>"
+		let g:tagbar_map_togglefold = "<c-x>"
+		let g:tagbar_autoclose = 1
+		nnoremap <Leader>tt :TagbarToggle<CR>
 
 	" cpp/java
 	Plug 'mattn/vim-javafmt', { 'for' : 'java' }
@@ -342,7 +334,9 @@ function! plugin#Config() abort
 	Plug 'tpope/vim-fugitive'
 		" Fugitive <Leader>g?
 		" use g? to show help
-		nnoremap <Leader>gs :Gstatus<bar>wincmd L<CR>
+		" nmap here is needed for the <C-n> to work. Otherwise it doesnt know what
+		" it means
+		nmap <Leader>gs :Gstatus<CR><C-w>L<C-n>
 		nnoremap <Leader>gps :Gpush<CR>
 		nnoremap <Leader>gpl :Gpull<CR>
 		nnoremap <Leader>ga :!git add 
@@ -406,24 +400,24 @@ function! plugin#Config() abort
 			let g:lightline.active = {
 								\   'left': [ 
 								\							[ 'mode', 'paste' ], 
-								\							[ 'readonly', 'absolutepath', 'modified', 'fugitive', 'svn', 'neomake'] 
+								\							[ 'readonly', 'absolutepath', 'modified', 'fugitive', 'svn', 'tagbar', 'neomake'] 
 								\						]
 								\		}
 		 let g:lightline.component = {
 								\   'fugitive': '%{fugitive#statusline()}',
 								\   'neomake': '%{neomake#statusline#QflistStatus("qf:\ ")}', 
 								\   'svn': '%{svn#GetSvnBranchInfo()}', 
+								\   'tagbar': '%{tagbar#currenttag("%s\ ","")}' 
 								\		}
-								" \   'tagbar': '%{tagbar#currenttag("%s\ ","")}' 
 			let g:lightline.component_visible_condition = {
 								\   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())',
 								\   'neomake': '(!empty(neomake#statusline#QflistStatus("qf:\ ")))',
 								\   'svn': '(!empty(svn#GetSvnBranchInfo()))',
+								\   'tagbar': '(!empty(tagbar#currenttag("%s\ ","")))'
 								\		}
-								" \   'tagbar': '(!empty(tagbar#currenttag("%s\ ","")))'
-			" let g:lightline.colorscheme = 'onedark'
-			" let g:lightline.colorscheme = 'gruvbox'
-			let g:lightline.colorscheme = 'PaperColor'
+		" let g:lightline.colorscheme = 'onedark'
+		" let g:lightline.colorscheme = 'gruvbox'
+		let g:lightline.colorscheme = 'PaperColor'
 
 	Plug 'PotatoesMaster/i3-vim-syntax'
 
