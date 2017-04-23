@@ -330,13 +330,13 @@ endfunction
 function! utils#ManFind() abort
 	" execute "cexp system('man -wK ". expand("<cword>") ."')"
 	" let l:command = printf
-	let l:list = system("man -wK " . expand("<cword>"))
-	if !empty(l:list)
-		for item in l:list
+	let list = systemlist("man -wK " . expand("<cword>"))
+	" if !empty(l:list)
+		" for item in l:list
 			" Strip name list them so they can be called with Man
-		endfor
-		cexpr l:list
-	endif
+		" endfor
+		" cexpr l:list
+	" endif
 	" TODO Sample output below. Strip file name in the form 5 login.conf for
 	" example and pass it to Man
 	" || /usr/share/man/man5/logind.conf.5.gz
@@ -747,6 +747,15 @@ function! utils#Flux() abort
 	endif
 endfunction
 
+function! utils#ProfilePerformance() abort
+	if exists('g:cache_path')	
+		execute 'profile start ' . g:cache_path . 'profile_' . strftime("%m%d%y-%T") . '.log'
+	else
+		execute 'profile start ~/.cache/profile_' . strftime("%m%d%y-%T") . '.log'
+	endif
+	execute 'profile func *'
+	execute 'profile file *'
+endfunction
 " TODO.RM-Sat Nov 26 2016 00:04: Function that auto adds SCR # and description
  " vim:tw=78:ts=2:sts=2:sw=2:
 

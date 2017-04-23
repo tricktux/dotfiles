@@ -1,24 +1,38 @@
+### Fri Apr 21 2017 09:25 
+- Profile command didnt work
+- Look into using Neosolarized
+- Cool cursor in nvim-qt on windows
+### Wed Apr 19 2017 09:17 
+-  [ ] On the svn.nvim plugin before switching to a branch make sure that the svn status command returns empty. Otherwise
+  the switch is not going to go well.
+
+### Mon Apr 10 2017 16:42 
+- [  ] Fix svn.nvim plugin to obtain url from svn info instead of all of that twisted logic that you have.
+- [  ] Finish the svn.nvim plugin
+- 
 ### Tue Apr 04 2017 08:50 
--  [ ] Make a new `autoload\autocomplete.vim` file where you handle all the autocompletion logic
--  [ ] Look into neovim completion manager
+-  [X] Make a new `autoload\autocomplete.vim` file where you handle all the autocompletion logic
+-  [X] Look into neovim completion manager
 -  [ ] cscope command its really not working
+	- I am sure that it has to do with the rg command creating some weird paths. Take a look at `cscope.files`
 
 ### Mon Apr 03 2017 11:15
 -  [X] Fix nvim-install.ps1 to include copying of the spells from vim to nvim
--  [ ] Fix the snippet `header`
--  [ ] Create profile command.
+-  [X] Fix the snippet `header`
+-  [X] Create profile command.
 ```vim
 profile start profile.log
+profile func *
 profile func *
 profile file *
 " At this point do slow actions
 profile pause
 noautocmd qall!
 ```
--  [ ] Improve PlugInstall to do `so % | call plugin#Config() | PlugInstall`
--  [ ] Profile why typing is kinda slow and slugish
+-  [X] Improve PlugInstall to do `so % | call plugin#Config() | PlugInstall`
+-  [X] Profile why typing is kinda slow and slugish
 - Created `~/.cache/profile_typing.log` for this purpose
-- [ ] Fix snippets for cpp for if and all so that they dont have the bad brackets
+- [X] Fix snippets for cpp for if and all so that they dont have the bad brackets
 
 ### Thu Mar 16 2017 09:20 
 -  [X] Remap `<Shift+s>`
