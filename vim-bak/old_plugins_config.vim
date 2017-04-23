@@ -1725,3 +1725,10 @@ endif
 		endif
 	" Plug 'tweekmonster/startuptime.vim'
 
+	" Note: Fix for windows nvim: comment out: 
+	" Note: Thankfully Issue has being fixed
+	" set shellxquote=\"
+	" And add this to the system call:
+			" let ctags_output = system(substitute(a:ctags_cmd,"'", "","g"))
+		" All under here:
+			" function! s:ExecuteCtags(ctags_cmd) abort
