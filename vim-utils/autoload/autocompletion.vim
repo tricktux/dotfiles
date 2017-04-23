@@ -10,7 +10,7 @@ function! autocompletion#SetCompl() abort
 
 	if !has('python3') || exists('g:android') || empty(compl)
 		call autocompletion#SetTab()
-		return
+		return -1
 	endif
 
 	if compl ==# 'ycm'
@@ -50,31 +50,46 @@ function! autocompletion#SetCompl() abort
 	elseif compl ==# 'nvim_compl_manager'
 		" Optional but useful python3 support
 		" pip3 install --user neovim jedi mistune psutil setproctitle
-		if !has('nvim') && has('unix')
-			Plug 'roxma/vim-hug-neovim-rpc'
-		else
+		if has('win32')
 			call autocompletion#SetTab()
-			return
+			return -1
+		endif
+
+		if has('vim')
+			Plug 'roxma/vim-hug-neovim-rpc'
 		endif
 
 		Plug 'roxma/nvim-completion-manager'
 
 		inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 		inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-		if has('unix') " Automatic completion on unix
-			inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-		else " but not anywhere else
-			let g:cm_auto_popup = 0
-			imap <silent> <Tab> <Plug>(cm_force_refresh)
-		endif
+		" if has('unix') " Automatic completion on unix
+		inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+		let g:cm_auto_popup = 1
+		" else " but not anywhere else
+			" let g:cm_auto_popup = 0
+			" imap <silent> <Tab> <Plug>(cm_force_refresh)
+		" endif
 
 		if executable('clang')
-			Plug 'roxma/clang_complete'
+			Plug 'roxma/clang_complete', { 'as': 'roxma_clang_complete' }
 			call autocompletion#SetClang()
 		endif
 	elseif compl ==# 'shuogo'
 		call autocompletion#SetShuogo()
+	elseif compl ==# 'autocomplpop'
+		Plug 'vim-scripts/AutoComplPop'
+		inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+		inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+		if executable('clang')
+			Plug 'Rip-Rip/clang_complete', { 'as': 'rip_clang_complete' }
+			call autocompletion#SetClang()
+		endif
+	else
+		call autocompletion#SetTab()
+		return -1
 	endif
+	return 1
 endfunction
 
 " Settings for Rip-Rip/clang_complete and friends
@@ -88,6 +103,7 @@ function! autocompletion#SetClang() abort
 	" installed. Also I had to make sym link: ln -s libclang.so.1 libclang.so
 	let g:clang_user_options = '-std=c++14 -stdlib=libc++ -Wall -pedantic'
 	let g:clang_close_preview = 1
+	autocmd CompleteDone * pclose!
 	" let g:clang_complete_copen = 1
 	" let g:clang_periodic_quickfix = 1
 	" let g:clang_complete_auto = 0
@@ -164,6 +180,10 @@ function! autocompletion#SetShuogo() abort
 		endif
 		let g:neocomplete#delimiter_patterns.vim = ['#']
 		let g:neocomplete#delimiter_patterns.cpp = ['::']
+		if executable('clang')
+			Plug 'Rip-Rip/clang_complete', { 'as': 'rip_clang_complete' }
+			call autocompletion#SetClang()
+		endif
 	elseif has('nvim')
 		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 			" let b:deoplete_loaded = 1
@@ -220,17 +240,13 @@ function! autocompletion#SetShuogo() abort
 	endif
 	Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
 	Plug 'Shougo/echodoc' " Pop for functions info
-	if executable('clang')
-		Plug 'roxma/clang_complete'
-		call autocompletion#SetClang()
-	endif
 endfunction
 
 function! autocompletion#SetTab() abort
 	Plug 'ervandew/supertab' " Activate Supertab
 	let g:SuperTabDefaultCompletionType = "context"
 	if has('python') && executable('clang')
-		Plug 'Rip-Rip/clang_complete'
+		Plug 'Rip-Rip/clang_complete', { 'as': 'rip_clang_complete' }
 		call autocompletion#SetClang()
 	endif
 endfunction

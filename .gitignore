@@ -6,4 +6,6 @@ defaults/.config/ranger/tagged
 vim-utils/rplugin/python3/__pycache__/ctags.cpython-35.pyc
 vim-utils/rplugin/python3/__pycache__/ctags.cpython-36.pyc
 mutt/.mutt/cache/
+defaults/.config/pcmanfm/LXDE/desktop-items-1.conf
+mutt/.mutt/certificates
 defaults/.config/i3/i3blocks-email/
