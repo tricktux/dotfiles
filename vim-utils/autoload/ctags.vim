@@ -114,7 +114,7 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 		for item in del_files
 			call delete(item)
 		endfor
-		let res_cs = systemlist('cscope -b -q cscope.files')
+		let res_cs = systemlist('cscope -bqi cscope.files')
 		if v:shell_error && !empty(res_cs)
 			cexpr res_cs
 			execute "cd " . cwd_rg
