@@ -749,9 +749,11 @@ endfunction
 
 function! utils#ProfilePerformance() abort
 	if exists('g:cache_path')	
-		execute 'profile start ' . g:cache_path . 'profile_' . strftime("%m%d%y-%T") . '.log'
+		execute 'profile start ' . g:cache_path . 'profile_' . strftime("%m%d%y-%H.%M.%S") . '.log'
 	else
-		execute 'profile start ~/.cache/profile_' . strftime("%m%d%y-%T") . '.log'
+		" TODO.RM-Mon Apr 24 2017 12:17: Check why this function is not working
+		" execute 'profile start ~/.cache/profile_' . strftime("%m%d%y-%T") . '.log'
+		execute 'profile start ~/.cache/profile_' . strftime("%m%d%y-%H.%M.%S") . '.log'
 	endif
 	execute 'profile func *'
 	execute 'profile file *'
