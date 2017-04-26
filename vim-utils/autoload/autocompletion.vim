@@ -50,10 +50,10 @@ function! autocompletion#SetCompl() abort
 	elseif compl ==# 'nvim_compl_manager'
 		" Optional but useful python3 support
 		" pip3 install --user neovim jedi mistune psutil setproctitle
-		if has('win32')
-			call autocompletion#SetTab()
-			return -1
-		endif
+		" if has('win32')
+			" call autocompletion#SetTab()
+			" return -1
+		" endif
 
 		if has('vim')
 			Plug 'roxma/vim-hug-neovim-rpc'
@@ -67,7 +67,7 @@ function! autocompletion#SetCompl() abort
 		inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 		" if has('unix') " Automatic completion on unix
 		inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-		let g:cm_auto_popup = 1
+		" let g:cm_auto_popup = 1
 		" else " but not anywhere else
 			" let g:cm_auto_popup = 0
 			" imap <silent> <Tab> <Plug>(cm_force_refresh)
