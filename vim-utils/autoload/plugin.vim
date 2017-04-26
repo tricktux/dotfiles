@@ -290,18 +290,20 @@ function! plugin#Config() abort
 		let g:autoformat_remove_trailing_spaces = 0
 
 	" cpp
-	Plug 'Tagbar'
-		let g:tagbar_ctags_bin = 'ctags'
-		let g:tagbar_autofocus = 1
-		let g:tagbar_show_linenumbers = 2
-		let g:tagbar_map_togglesort = "r"
-		let g:tagbar_map_nexttag = "<c-j>"
-		let g:tagbar_map_prevtag = "<c-k>"
-		let g:tagbar_map_openallfolds = "<c-n>"
-		let g:tagbar_map_closeallfolds = "<c-c>"
-		let g:tagbar_map_togglefold = "<c-x>"
-		let g:tagbar_autoclose = 1
-		nnoremap <Leader>tt :TagbarToggle<CR>
+	if get(g:, 'tagbar_safe_to_use', 0)
+		Plug 'Tagbar'
+			let g:tagbar_ctags_bin = 'ctags'
+			let g:tagbar_autofocus = 1
+			let g:tagbar_show_linenumbers = 2
+			let g:tagbar_map_togglesort = "r"
+			let g:tagbar_map_nexttag = "<c-j>"
+			let g:tagbar_map_prevtag = "<c-k>"
+			let g:tagbar_map_openallfolds = "<c-n>"
+			let g:tagbar_map_closeallfolds = "<c-c>"
+			let g:tagbar_map_togglefold = "<c-x>"
+			let g:tagbar_autoclose = 1
+			nnoremap <Leader>tt :TagbarToggle<CR>
+	endif
 
 	" cpp/java
 	Plug 'mattn/vim-javafmt', { 'for' : 'java' }
@@ -402,7 +404,7 @@ function! plugin#Config() abort
 			let g:lightline.active = {
 								\   'left': [ 
 								\							[ 'mode', 'paste' ], 
-								\							[ 'readonly', 'absolutepath', 'modified', 'fugitive', 'svn', 'tagbar', 'neomake'] 
+								\							[ 'readonly', 'absolutepath', 'modified', 'fugitive', 'svn', 'neomake'] 
 								\						]
 								\		}
 		 let g:lightline.component = {
