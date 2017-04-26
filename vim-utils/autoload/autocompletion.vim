@@ -60,6 +60,8 @@ function! autocompletion#SetCompl() abort
 		endif
 
 		Plug 'roxma/nvim-completion-manager'
+		" nvim-completion-manager also added suppport for this
+		Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
 
 		inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 		inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
