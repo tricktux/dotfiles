@@ -4,7 +4,7 @@ allow_bold = true
 audible_bell = false
 clickable_url = true
 dynamic_title = true
-# font = Monospace 9
+font = FontAwesome 10
 browser = opera
 urgent_on_bell = true
 mouse_autohide = true
@@ -13,3 +13,8 @@ cursor_blink = off
 
 [colors]
 background = rgba(63, 63, 63, 1)
+# cursor = #dcdccc
+# cursor_foreground = #dcdccc
+
+
+
