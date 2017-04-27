@@ -404,6 +404,7 @@ interval = 10
 format = <label>
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #9fbc00
 exec = ~/.config/i3/scripts/weather.sh "NAM|US|FL|CLEARWATER"
 
 [module/music]
