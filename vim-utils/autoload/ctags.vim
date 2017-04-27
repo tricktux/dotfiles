@@ -114,12 +114,17 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 		for item in del_files
 			call delete(item)
 		endfor
+
 		let res_cs = systemlist('cscope -bqi cscope.files')
-		if v:shell_error && !empty(res_cs)
-			cexpr res_cs
+		if v:shell_error
+			if !empty(res_cs)
+				cexpr res_cs
+			endif
+			echomsg 'Cscope command failed'
 			execute "cd " . cwd_rg
 			return
 		endif
+
 		let cs_db = !filereadable('cscope.out') ? 'ncscope.out' : 'cscope.out'
 		if getfsize(cs_db) < 1 
 			echomsg string("Failed to create cscope database")
