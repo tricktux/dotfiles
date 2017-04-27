@@ -635,8 +635,8 @@
 
 		" Cscope and tag jumping mappings
 		nnoremap <Leader>tk :cs kill -1<CR>
-		nmap <silent> gt <C-]>
-		nmap gr <C-t>
+		nnoremap <silent> gt <C-]>
+		nnoremap gr <C-t>
 		nnoremap <Leader>tv :vs<CR>:exec("tag ".expand("<cword>"))<CR>
 		" ReLoad cscope database
 		nnoremap <Leader>tl :cs add cscope.out<CR>
@@ -690,7 +690,7 @@
 		let c_gnu = 1
 		let c_ansi_constants = 1
 		let c_ansi_typedefs = 1
-		" let c_minlines = 15
+		let c_minlines = 500
 		" Breaks too often
 		" let c_curly_error = 1
 
