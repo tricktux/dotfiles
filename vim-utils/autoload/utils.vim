@@ -310,6 +310,8 @@ function! utils#CommentDelete() abort
 	execute "normal Bf/D"
 endfunction
 
+" TODO.RM-Fri Apr 28 2017 15:02: These functions are very cpp specific move
+" them there  
 function! utils#CommentIndent() abort
 	execute "normal Bf/i\<Tab>\<Tab>\<Esc>"
 endfunction
@@ -356,28 +358,6 @@ function! utils#ListFiles(dir) abort
 	return map(split(l:directory,'\n'), "fnamemodify(v:val, ':t')")
 endfunction
 
-function! MarkdownLevel()
-	if getline(v:lnum) =~ '^# .*$'
-		return ">1"
-	endif
-	if getline(v:lnum) =~ '^## .*$'
-		return ">2"
-	endif
-	if getline(v:lnum) =~ '^### .*$'
-		return ">3"
-	endif
-	if getline(v:lnum) =~ '^#### .*$'
-		return ">4"
-	endif
-	if getline(v:lnum) =~ '^##### .*$'
-		return ">5"
-	endif
-	if getline(v:lnum) =~ '^###### .*$'
-		return ">6"
-	endif
-	return "="
-endfunction
-
 " Vim-Wiki {{{
 " Origin: Wang Shidong <wsdjeg@outlook.com>
 " vim-cheat
@@ -407,15 +387,6 @@ function! utils#WingsSymLink(sPath) abort
 	silent! execute "cd " . dir
 endfunction
 
-function! utils#UpdateBorlandMakefile() abort
-	" If compiler is not borland(set by SetupCompiler) fail.
-	if !exists('b:current_compiler')
-		echomsg "Error, not in WINGS folder"
-	else
-		execute "!bpr2mak -omakefile WINGS.bpr"
-	endif
-endfunction
-
 function! utils#OpenTerminal() abort
 	let sys = system('uname -o')
 	if sys =~ 'Android'
@@ -433,23 +404,6 @@ function! utils#Make()
 	elseif filet =~ 'python' && executable('flake8')
 		Neomake
 		return
-	elseif has('win32')
-		let l:path = expand('%:p')
-		" if l:path =~ 'UnrealProjects' && executable('clang-format') && exists(':Autoformat')
-			" Autoformat
-		" endif
-		if !exists('b:current_compiler')
-			" Notice inside the '' is a pat which is a regex. That is why \\
-			if l:path =~ 'OneWINGS\\Source'
-				compiler borland
-			elseif l:path =~ 'OneWINGS' || l:path =~ 'UnrealProjects'
-				compiler msbuild
-				silent set errorformat&
-			else " if outside wings folder set gcc compiler
-				compiler gcc
-				setlocal makeprg=mingw32-make
-			endif
-		endif
 	endif
 	Neomake! " Used to run make asynchronously
 endfunction
@@ -494,11 +448,12 @@ endfunction
 
 function! utils#EditPlugins() abort
 	let dir = getcwd()
-	execute "cd " .g:plugged_path
+	execute "cd " . g:plugged_path
 	execute "e " . input('e ' . expand(g:plugged_path), "", "file")
 	silent! execute "cd " . dir
 endfunction
 
+" TODO.RM-Fri Apr 28 2017 15:49: handle this function as well  
 function! utils#FormatFile() abort
 	let type = &ft
 	if type ==# 'cpp' || type ==# 'java' || type ==# 'c'
@@ -554,28 +509,8 @@ function! utils#SetWingsPath(sPath) abort
 	execute "nnoremap <Leader>ewu :Start! " . a:sPath . "OneWings/WINGS.exe 3 . %<CR>"
 	execute "nnoremap <Leader>ewc :Start! " . a:sPath . "OneWings/WINGS.exe 3 . "
 
-	" Time runtime of a specific program
-	nnoremap <Leader>mt :Dispatch powershell -command "& {&'Measure-Command' {.\sep_calc.exe seprc}}"<CR>
-	nnoremap <Leader>mu :call utils#UpdateBorlandMakefile()<CR>
 	call utils#GuiFont('+')
 endfunction
-
-" Source: http://vim.wikia.com/wiki/Easily_switch_between_source_and_header_file
-function! utils#SwitchHeaderSource()
-	if expand("%:e") == "cpp" || expand("%:e") == "c"
-		try " Replace cpp or c with hpp
-			find %:t:r.hpp
-		catch /:E345:/ " catch not found in path and try to find then *.h
-			find %:t:r.h
-		endtry
-	else
-		try
-			find %:t:r.cpp
-		catch /:E345:/
-			find %:t:r.c
-		endtry
-	endif
-endfun
 
 function! utils#NeomakeOpenWindow() abort
 	if g:neomake_hook_context.file_mode
@@ -595,6 +530,7 @@ function! utils#NeomakeOpenWindow() abort
 	endif
 endfunction
 
+" TODO.RM-Fri Apr 28 2017 16:14: Also move this to the ftplugin  
 " Use current 'grepprg' to search files for text
 "		filteype - Possible values: 1 - Search only files of type 'filetype'. Any
 "								other value search all types of values
