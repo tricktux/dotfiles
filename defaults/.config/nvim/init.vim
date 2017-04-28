@@ -42,7 +42,7 @@
 	if has('unix')
 		let g:autcompl_engine = 'nvim_compl_manager'		
 	else
-		let g:autcompl_engine = 'autocomplpop'		
+		let g:autcompl_engine = 'shuogo'		
 	endif
 	if exists('b:plugins_present') && plugin#Check() && plugin#Config()
 			let b:plugins_loaded = 1
@@ -383,40 +383,36 @@
 		nnoremap <Leader>ql :ccl<CR>
 					\:lcl<CR>
 
-	" Vim-Table-Mode <Leader>l?
-		" See plugin for the mappings set by this plugin
+	" FileType Specific mappings use <Leader>l
+		" Refer to ~/.dotfiles/vim-utils/after/ftplugin to find these
 		
 	" Miscelaneous Mappings <Leader>j?
 		" nnoremap <Leader>Ma :Man
 		" Most used misc get jk, jj, jl, j;
-		nnoremap <Leader>jk :call utils#Make()<CR>
+		" TODO.RM-Fri Apr 28 2017 14:25: Go through mappings and figure out the
+		" language specific ones so that you can move them into ftplugin  
+		" nnoremap <Leader>jk :call utils#Make()<CR>
 		nnoremap <Leader>jl :e $MYVIMRC<CR>
 		nnoremap <Leader>j; :NERDTree<CR>
-		" Alternate between header and source file
-		nnoremap <Leader>jq :call utils#SwitchHeaderSource()<CR>
-		" nnoremap <Leader>jq :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 		" Refactor word under the cursor
 		nnoremap <Leader>jr :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
 		vnoremap <Leader>jr "hy:%s/<C-r>h//gc<left><left><left>
 		" Indent whole file
 		nnoremap <Leader>ji mzgg=G`z
-		nnoremap <Leader>jhe :h <c-r>=expand("<cword>")<CR><cr>
 		" nnoremap <S-s> #<C-o> " Substituted for the AutoHighlightToggle function
 		nnoremap <Leader>u :call utils#AutoHighlightToggle()<CR>
 		nnoremap <Leader>jhs Helptags<CR>
 		" This mapping will load the journal from the most recent boot and highlight it for you
 		nnoremap <Leader>jJ :read !journalctl -b<CR><bar>:setf messages<CR>
+		" Give execute permissions to current file
+		nnoremap <Leader>jo :!chmod a+x %<CR>
+		" Save file with sudo permissions
+		nnoremap <Leader>ju :w !sudo tee %<CR>
 		" duplicate current char
 		nnoremap <Leader>jd ylp
 		vnoremap <Leader>jd ylp
-		" Save file with sudo permissions
-		nnoremap <Leader>ju :w !sudo tee %<CR>
-		" Markdown fix _ showing red
-		nnoremap <Leader>jm :%s/_/\\_/gc<CR>
 		" Reload syntax
 		nnoremap <Leader>js <Esc>:syntax sync fromstart<CR>
-		" Give execute permissions to current file
-		nnoremap <Leader>jo :!chmod a+x %<CR>
 		" Sessions
 		nnoremap <Leader>jes :call utils#SaveSession()<CR>
 		nnoremap <Leader>jel :call utils#LoadSession()<CR>
@@ -443,8 +439,6 @@
 		nnoremap <Leader>jZ :call utils#UnsetDiff()<CR>
 		nnoremap <Leader>jt :call utils#ToggleTerm()<CR>
 		nnoremap <Leader>j. :call utils#LastCommand()<CR>
-		" Encapsulate in markdown file from current line until end of file in ```
-		nnoremap <Leader>j` :normal i````cpp<Esc>Go```<Esc><CR>
 		nnoremap <Leader>j- :call utils#GuiFont("-")<CR>
 		nnoremap <Leader>j= :call utils#GuiFont("+")<CR>
 
@@ -471,8 +465,7 @@
 		"vnoremap <Leader>r :%s///gc<Left><Left><Left>
 		cnoremap <C-p> <c-r>0
 		cnoremap <C-j> <Down>
-		cnoremap <C-o> <Up>
-		cnoremap <C-k> <Down>
+		cnoremap <C-k> <Up>
 		cnoremap <C-j> <Left>
 		cnoremap <C-l> <Right>
 		" Switch back and forth between header file
@@ -579,8 +572,8 @@
 		vnoremap // y/<C-R>"<CR>
 
 	" Substitute for ESC
-		inoremap <C-j> <Esc>
-		vnoremap <C-j> <Esc>
+		inoremap jk <Esc>
+		vnoremap jk <Esc>
 
 	" Buffers Stuff <Leader>b?
 		if !exists("b:plugins_loaded")
@@ -669,14 +662,6 @@
 		nnoremap <Leader>ou :call utils#UpdateHeader()<CR>
 		nnoremap <Leader>os :grep --cpp TODO.RM<CR>
 
-	" Compiler
-		nnoremap <Leader>Cb :compiler borland<CR>
-		" msbuild errorformat looks horrible resetting here
-		nnoremap <Leader>Cv :compiler msbuild<CR>
-									\:set errorformat&<CR>
-		nnoremap <Leader>Cg :compiler gcc<CR>
-					\:setlocal makeprg=mingw32-make<CR>
-
 " SYNTAX_OPTIONS
 	" ft-java-syntax
 		let java_highlight_java_lang_ids=1
@@ -702,7 +687,7 @@
 		let python_highlight_all = 1
 
 	" Man
-		let g:no_plugin_maps = 1
+		let g:no_man_maps = 1
 
 	" Nerdtree (Dont move. They need to be here)
 		let NERDTreeShowBookmarks=1  " B key to toggle
