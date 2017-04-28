@@ -77,11 +77,13 @@ FuncUpdate()
 {
 	# Get rid of unused packages and optimize first
 	sudo pacman -Sc --noconfirm
-	sudo pacman-optimize --noconfirm
+	sudo pacman-optimize
 	# Update list of all installed packages
 	pacman -Qe > ~/.dotfiles/$machine-arch-packages
 	# Now update packages
-	pacaur -Syu --noconfirm
+	# When update fails to verify some <package> do:
+	# update --ignore <package1> <package2>
+	pacaur -Syu --noconfirm $@
 	# To install packages from list:
 	# pacaur -S - < <pgklist.txt>
 }
