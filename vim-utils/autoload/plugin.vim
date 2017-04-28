@@ -122,7 +122,7 @@ function! plugin#Config() abort
 
 		if executable('man')
 			Plug 'nhooyr/neoman.vim'
-				" let g:no_neoman_maps = 1
+				let g:no_neoman_maps = 1
 		endif
 
 		" if has('python3') && system('pip3 list | grep psutil') =~# 'psutil'
@@ -149,7 +149,6 @@ function! plugin#Config() abort
 	Plug 'justinmk/vim-syntax-extra'
 
 	" Plugins for All (nvim, linux, win32)
-
 	Plug 'neomake/neomake'
 		let g:neomake_warning_sign = {
 					\ 'text': '?',
@@ -160,8 +159,8 @@ function! plugin#Config() abort
 					\ 'text': 'X',
 					\ 'texthl': 'ErrorMsg',
 					\ }
-		let g:neomake_cpp_enabled_makers = ['clang', 'gcc']
-		let g:neomake_c_enabled_makers = ['clang', 'gcc']
+		let g:neomake_cpp_enabled_makers = ['gcc', 'clang']
+		let g:neomake_c_enabled_makers = ['gcc', 'clang']
 		let g:neomake_cpp_clang_maker = {
 					\ 'args': ['-fsyntax-only', '-std=c++14', '-Wall', '-Wextra'],
 					\ 'errorformat':
@@ -198,14 +197,15 @@ function! plugin#Config() abort
 		" let g:neomake_open_list = 2
 		" let g:neomake_ft_test_maker_buffer_output = 0
 
-	Plug 'dhruvasagar/vim-table-mode'
+	Plug 'dhruvasagar/vim-table-mode', { 'on' : 'TableModeToggle' }
 		" To start using the plugin in the on-the-fly mode use :TableModeToggle mapped to <Leader>tm by default
 		" Enter the first line, delimiting columns by the | symbol. In the second line (without leaving Insert mode), enter | twice
 		" For Markdown-compatible tables use
 		" let g:table_mode_corner="|"
 		let g:table_mode_corner = '+'
 		let g:table_mode_align_char = ':'
-		let g:table_mode_map_prefix = '<Leader>l'
+		let g:table_mode_map_prefix = '<Leader>t'
+		let g:table_mode_disable_mappings = 1
 		" nnoremap <Leader>lm :TableModeToggle<CR>
 		" <Leader>tr	Realigns table columns
 
@@ -386,6 +386,7 @@ function! plugin#Config() abort
 		let g:www_launch_cli_browser_command = "chrome {{URL}}"
 		nnoremap <Leader>Gu :Wcsearch google <C-R>=expand("<cword>")<CR><CR>
 		" Go to link under curson  
+		" TODO.RM-Fri Apr 28 2017 15:21: Get this mapping to work  
 		vnoremap <Leader>Gu :y<bar>Wcopen <c-r><c-p><CR>
 		nnoremap <Leader>Gs :Wcsearch google 
 
