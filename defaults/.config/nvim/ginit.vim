@@ -11,7 +11,7 @@
 	" call GuiMousehide(1)
 if has('win32')
 	if exists('g:GuiLoaded') " nvim-qt gui
-		Guifont! Consolas:h9
+		Guifont! Consolas:h8
 		call GuiWindowMaximized(1)
 	else
 		" No space is required here

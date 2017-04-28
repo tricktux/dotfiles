@@ -125,21 +125,21 @@ function! plugin#Config() abort
 				" let g:no_neoman_maps = 1
 		endif
 
-		if has('python3') && system('pip3 list | grep psutil') =~# 'psutil'
-			Plug 'c0r73x/neotags.nvim' " Depends on pip3 install --user psutil
-				set regexpengine=1 " This speed up the engine alot but still not enough
-				let g:neotags_enabled = 1
-				" let g:neotags_file = g:cache_path . 'ctags/neotags'
-				" let g:neotags_verbose = 1
-				let g:neotags_run_ctags = 0
-				" let g:neotags#cpp#order = 'cgstuedfpm'
-				let g:neotags#cpp#order = 'ced'
-				" let g:neotags#c#order = 'cgstuedfpm'
-				let g:neotags#c#order = 'ced'
-				" let g:neotags_events_highlight = [
-				" \   'BufEnter'
-				" \ ]
-		endif
+		" if has('python3') && system('pip3 list | grep psutil') =~# 'psutil'
+			" Plug 'c0r73x/neotags.nvim' " Depends on pip3 install --user psutil
+				" set regexpengine=1 " This speed up the engine alot but still not enough
+				" let g:neotags_enabled = 1
+				" " let g:neotags_file = g:cache_path . 'ctags/neotags'
+				" " let g:neotags_verbose = 1
+				" let g:neotags_run_ctags = 0
+				" " let g:neotags#cpp#order = 'cgstuedfpm'
+				" let g:neotags#cpp#order = 'ced'
+				" " let g:neotags#c#order = 'cgstuedfpm'
+				" let g:neotags#c#order = 'ced'
+				" " let g:neotags_events_highlight = [
+				" " \   'BufEnter'
+				" " \ ]
+		" endif
 	endif
 
 	Plug 'tpope/vim-dispatch' " Possible Replacement `asyncvim`
