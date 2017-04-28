@@ -6,12 +6,15 @@
 
 function! nvim#Config() abort
 	" terminal-emulator mappings
-	tnoremap <C-j> <C-\><C-n>
+	tnoremap jk <C-\><C-n>
 	tnoremap <A-h> <C-\><C-n><C-w>h
 	tnoremap <A-j> <C-\><C-n><C-w>j
 	tnoremap <A-k> <C-\><C-n><C-w>k
 	tnoremap <A-l> <C-\><C-n><C-w>l
-	tnoremap <C-o> <Up>
+
+	tnoremap <C-j> <Down>
+	tnoremap <C-k> <Up>
+	tnoremap <C-j> <Left>
 	tnoremap <C-l> <Right>
 	" set inccommand=split
 	" set clipboard+=unnamedplus
