@@ -572,8 +572,8 @@
 		vnoremap // y/<C-R>"<CR>
 
 	" Substitute for ESC
-		inoremap jk <Esc>
-		vnoremap jk <Esc>
+		inoremap <C-i> <Esc>
+		vnoremap <C-i> <Esc>
 
 	" Buffers Stuff <Leader>b?
 		if !exists("b:plugins_loaded")
