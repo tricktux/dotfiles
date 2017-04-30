@@ -23,6 +23,10 @@ function! plugin#Config() abort
 
 	" fzf only seems to work with nvim
 	if has('unix') && has('nvim')
+		Plug 'kassio/neoterm'
+		let g:neoterm_use_relative_path = 1
+		let g:neoterm_position = 'vertical'
+
 		Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 		Plug 'junegunn/fzf.vim'
 			nnoremap <C-p> :History<CR>
@@ -249,7 +253,12 @@ function! plugin#Config() abort
 
 	" misc
 	Plug 'chrisbra/vim-diff-enhanced', { 'on' : 'SetDiff' }
-	Plug 'scrooloose/nerdtree'
+	if has('unix')
+		Plug 'francoiscabrol/ranger.vim'
+		let g:ranger_map_keys = 0
+	else
+		Plug 'scrooloose/nerdtree'
+	endif
 	Plug 'scrooloose/nerdcommenter'
 		nmap - <plug>NERDCommenterToggle
 		nmap <Leader>ot <plug>NERDCommenterAltDelims
