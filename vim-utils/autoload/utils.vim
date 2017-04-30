@@ -716,5 +716,4 @@ function! utils#BufDetermine() abort
 	endif
 endfunction
 
-
  " vim:tw=78:ts=2:sts=2:sw=2:
