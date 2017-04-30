@@ -17,7 +17,6 @@ setlocal foldenable
 setlocal foldexpr=MarkdownLevel()
 setlocal foldmethod=expr
 setlocal spell spelllang=en_us
-inoremap <buffer> * **<Left>
 
 " TODO.RM-Fri Apr 28 2017 15:43: Fix these mappings  
 if has('unix')
@@ -29,6 +28,11 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	nnoremap <buffer> <unique> <Leader>l` :normal i````cpp<Esc>Go```<Esc><CR>
 	" Markdown fix _ showing red
 	nnoremap <buffer> <unique> <Leader>lf :%s/_/\\_/gc<CR>
+	nnoremap <buffer> <unique> <Leader>td :call utils#TodoCreate()<CR>
+	nnoremap <buffer> <unique> <Leader>tm :call utils#TodoMark()<CR>
+	nnoremap <buffer> <unique> <Leader>tM :call utils#TodoClearMark()<CR>
+	nnoremap <buffer> <unique> <Leader>ta :call utils#TodoAdd()<CR>
+	inoremap <buffer> * **<Left>
 endif
 
 function! MarkdownLevel()
