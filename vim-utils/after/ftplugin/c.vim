@@ -46,6 +46,21 @@ if !exists("no_plugin_maps") && !exists("no_c_maps")
 
 	" Alternate between header and source file
 	nnoremap <buffer> <unique> <Leader>lq :call <SID>SwitchHeaderSource()<CR>
+
+	" Cscope and tag jumping mappings
+	nnoremap <buffer> <unique> <Leader>tk :cs kill -1<CR>
+	nnoremap <buffer> <unique> <Leader>tv :vs<CR>:exec("tag ".expand("<cword>"))<CR>
+	" ReLoad cscope database
+	nnoremap <buffer> <unique> <Leader>tl :cs add cscope.out<CR>
+	" Find functions calling this function
+	nnoremap <buffer> <unique> <Leader>tc :cs find c <C-R>=expand("<cword>")<CR><CR>
+	" Find functions definition
+	nnoremap <buffer> <unique> <Leader>tg :cs find g <c-r>=expand("<cword>")<cr><cr>
+	" Find functions called by this function not being used
+	" nnoremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <buffer> <unique> <Leader>ts :cs show<CR>
+	nnoremap <buffer> <unique> <Leader>tu :call ctags#NvimSyncCtags(0)<CR>
+
 endif
 
 " TODO.RM-Fri Apr 28 2017 14:43: Move all the of the tagbar here  
