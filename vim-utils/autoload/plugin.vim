@@ -24,8 +24,13 @@ function! plugin#Config() abort
 	" fzf only seems to work with nvim
 	if has('unix') && has('nvim')
 		Plug 'kassio/neoterm'
-		let g:neoterm_use_relative_path = 1
-		let g:neoterm_position = 'vertical'
+			let g:neoterm_use_relative_path = 1
+			let g:neoterm_position = 'vertical'
+			let g:neoterm_keep_term_open = 0
+			nnoremap <Leader>To :call neoterm#open()<CR>
+			nnoremap <Leader>Tl :call neoterm#close()<CR>
+			nnoremap <Leader>TL :call neoterm#closeAll()<CR>
+			nnoremap <Leader>Tk :call neoterm#kill()<CR>
 
 		Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 		Plug 'junegunn/fzf.vim'
@@ -355,6 +360,22 @@ function! plugin#Config() abort
 		nnoremap <Leader>gl :silent Glog<CR>
 					\:copen 20<CR>
 
+	Plug 'mhinz/vim-signify'
+		" Mappings are ]c next differences
+		" Mappings are [c prev differences
+		let g:signify_disable_by_default = 1
+		let g:signify_vcs_list = [ 'git', 'svn' ]
+		nnoremap <Leader>jS :SignifyToggle<CR>
+
+	Plug 'juneedahamed/svnj.vim'
+		let g:svnj_allow_leader_mappings=0
+		let g:svnj_cache_dir = g:cache_path
+		let g:svnj_browse_cache_all = 1 
+		let g:svnj_custom_statusbar_ops_hide = 0
+		nnoremap <silent> <leader>vs :SVNStatus<CR>  
+		nnoremap <silent> <leader>vo :SVNLog .<CR>  
+
+
 	" colorschemes
 	Plug 'morhetz/gruvbox' " colorscheme gruvbox
 	Plug 'joshdick/onedark.vim'
@@ -398,14 +419,6 @@ function! plugin#Config() abort
 		" TODO.RM-Fri Apr 28 2017 15:21: Get this mapping to work  
 		vnoremap <Leader>Gu :y<bar>Wcopen <c-r><c-p><CR>
 		nnoremap <Leader>Gs :Wcsearch google 
-
-	Plug 'juneedahamed/svnj.vim'
-		let g:svnj_allow_leader_mappings=0
-		let g:svnj_cache_dir = g:cache_path
-		let g:svnj_browse_cache_all = 1 
-		let g:svnj_custom_statusbar_ops_hide = 0
-		nnoremap <silent> <leader>vs :SVNStatus<CR>  
-		nnoremap <silent> <leader>vo :SVNLog .<CR>  
 
 	Plug 'itchyny/lightline.vim'
 		" Inside of the functions here there can be no single quotes (') only
