@@ -16,6 +16,7 @@
 	" moved here otherwise conditional mappings get / instead ; as leader
 	let mapleader="\<Space>"
 	let maplocalleader="\<Space>"
+	let g:esc = '<C-j>'
 	set nocompatible
 	syntax on
 	filetype plugin indent on
@@ -301,17 +302,13 @@
 	augroup BuffTypes
 	autocmd!
 		" Arduino
-		autocmd BufNewFile,BufReadPost *.ino,*.pde setf arduino
-		" Automatic syntax for wings
-		autocmd BufNewFile,BufReadPost *.scp setf wings_syntax
-		autocmd BufNewFile,BufReadPost *.log setf unreal-log
-		autocmd BufNewFile,BufReadPost *.set,*.sum setf dosini
-		"Automatically go back to where you were last editing this file
-		autocmd BufReadPost *
-			\ if line("'\"") > 0 && line("'\"") <= line("$") |
-			\ exe "normal g`\"" |
-			\ endif
+		autocmd BufNewFile,BufReadPost * call utils#BufDetermine()
 	augroup END
+
+	" augroup Terminal
+		" autocmd!
+		" autocmd TermOpen * if &filetype !=# 'fzf' | setfiletype terminal | endif
+	" augroup END
 
 	" To improve syntax highlight speed. If something breaks with highlight
 	" increase these number below
@@ -393,7 +390,11 @@
 		" language specific ones so that you can move them into ftplugin  
 		" nnoremap <Leader>jk :call utils#Make()<CR>
 		nnoremap <Leader>jl :e $MYVIMRC<CR>
-		nnoremap <Leader>j; :NERDTree<CR>
+		if exists(':RangerCurrentDirectory')
+			nnoremap <Leader>j; :RangerCurrentDirectory<CR>
+		else
+			nnoremap <Leader>j; :NERDTree<CR>
+		endif
 		" Refactor word under the cursor
 		nnoremap <Leader>jr :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
 		vnoremap <Leader>jr "hy:%s/<C-r>h//gc<left><left><left>
@@ -572,8 +573,8 @@
 		vnoremap // y/<C-R>"<CR>
 
 	" Substitute for ESC
-		inoremap jk <Esc>
-		vnoremap jk <Esc>
+		execute "vnoremap " . g:esc . " <Esc>"
+		execute "inoremap " . g:esc . " <Esc>"
 
 	" Buffers Stuff <Leader>b?
 		if !exists("b:plugins_loaded")
@@ -621,26 +622,8 @@
 		" nnoremap <Leader>vi :!svn info<CR>
 
 	" Todo mappings <Leader>t?
-		nnoremap <Leader>td :call utils#TodoCreate()<CR>
-		nnoremap <Leader>tm :call utils#TodoMark()<CR>
-		nnoremap <Leader>tM :call utils#TodoClearMark()<CR>
-		nnoremap <Leader>ta :call utils#TodoAdd()<CR>
-
-		" Cscope and tag jumping mappings
-		nnoremap <Leader>tk :cs kill -1<CR>
 		nnoremap <silent> gt <C-]>
 		nnoremap gr <C-t>
-		nnoremap <Leader>tv :vs<CR>:exec("tag ".expand("<cword>"))<CR>
-		" ReLoad cscope database
-		nnoremap <Leader>tl :cs add cscope.out<CR>
-		" Find functions calling this function
-		nnoremap <Leader>tc :cs find c <C-R>=expand("<cword>")<CR><CR>
-		" Find functions definition
-		nnoremap <Leader>tg :cs find g <c-r>=expand("<cword>")<cr><cr>
-		" Find functions called by this function not being used
-		" nnoremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
-		nnoremap <Leader>ts :cs show<CR>
-		nnoremap <Leader>tu :call ctags#NvimSyncCtags(0)<CR>
 
 	" Wiki mappings <Leader>w?
 		" TODO.RM-Thu Dec 15 2016 16:00: Add support for wiki under SW-Testbed  

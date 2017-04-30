@@ -1,4 +1,3 @@
-
 " File:					utils.vim
 " Description:	Function Container
 " Author:				Reinaldo Molina <rmolin88@gmail.com>
@@ -695,5 +694,27 @@ function! utils#ProfilePerformance() abort
 	execute 'profile file *'
 endfunction
 " TODO.RM-Sat Nov 26 2016 00:04: Function that auto adds SCR # and description
- " vim:tw=78:ts=2:sts=2:sw=2:
 
+" TODO.RM-Sat Apr 29 2017 17:12: BIG ISSUES. <C-I> is also mapped to tab. So that is screwed
+" <C-h> is also backspace. There rethink your terminal mappings
+function! utils#BufDetermine() abort
+	let ext = expand('%:e')	
+	if ext ==# 'ino' || ext ==# 'pde'
+		setfiletype arduino
+	elseif ext ==# 'scp'
+		setfiletype wings_syntax
+	elseif ext ==# 'log'
+		setfiletype unreal-log
+	elseif ext ==# 'set' || ext ==# 'sum'
+		setfiletype dosini
+	elseif expand('%') =~# 'term://'
+		setfiletype terminal
+	endif
+
+	if line("'\"") > 0 && line("'\"") <= line("$") |
+		exe "normal g`\"" |
+	endif
+endfunction
+
+
+ " vim:tw=78:ts=2:sts=2:sw=2:
