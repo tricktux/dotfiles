@@ -9,7 +9,7 @@ function! plugin#Config() abort
 		nnoremap <Leader>Pi :so %<bar>call plugin#Config()<bar>PlugInstall<CR>
 		nnoremap <Leader>Pu :PlugUpdate<CR>
 					\:PlugUpgrade<CR>
-					" \:UpdateRemotePlugins<CR>
+					\:UpdateRemotePlugins<CR>
 		" installs plugins; append `!` to update or just :PluginUpdate
 		nnoremap <Leader>Ps :PlugSearch<CR>
 		" searches for foo; append `!` to refresh local cache
@@ -112,21 +112,7 @@ function! plugin#Config() abort
 		if executable('lldb')
 			" TODO.RM-Thu Apr 20 2017 22:18: Figure out what is going on here
 			Plug 'critiqjo/lldb.nvim', { 'on' : 'LLmode debug', 'do' : ':UpdateRemotePlugins' }
-			nmap <Leader>db <Plug>LLBreakSwitch
-			" vmap <F2> <Plug>LLStdInSelected
-			" nnoremap <F4> :LLstdin<CR>
-			" nnoremap <F5> :LLmode debug<CR>
-			" nnoremap <S-F5> :LLmode code<CR>
-			nnoremap <Leader>dc :LL continue<CR>
-			nnoremap <Leader>do :LL thread step-over<CR>
-			nnoremap <Leader>di :LL thread step-in<CR>
-			nnoremap <Leader>dt :LL thread step-out<CR>
-			nnoremap <Leader>dD :LLmode code<CR>
-			nnoremap <Leader>dd :LLmode debug<CR>
-			nnoremap <Leader>dp :LL print <C-R>=expand('<cword>')<CR>
-			" nnoremap <S-F8> :LL process interrupt<CR>
-			" nnoremap <F9> :LL print <C-R>=expand('<cword>')<CR>
-			" vnoremap <F9> :<C-U>LL print <C-R>=lldb#util#get_selection()<CR><CR>
+			" All mappings moved to c.vim
 		endif
 
 		if executable('man')
@@ -134,21 +120,21 @@ function! plugin#Config() abort
 				let g:no_neoman_maps = 1
 		endif
 
-		" if has('python3') && system('pip3 list | grep psutil') =~# 'psutil'
-			" Plug 'c0r73x/neotags.nvim' " Depends on pip3 install --user psutil
-				" set regexpengine=1 " This speed up the engine alot but still not enough
-				" let g:neotags_enabled = 1
-				" " let g:neotags_file = g:cache_path . 'ctags/neotags'
-				" " let g:neotags_verbose = 1
-				" let g:neotags_run_ctags = 0
-				" " let g:neotags#cpp#order = 'cgstuedfpm'
-				" let g:neotags#cpp#order = 'ced'
-				" " let g:neotags#c#order = 'cgstuedfpm'
-				" let g:neotags#c#order = 'ced'
-				" " let g:neotags_events_highlight = [
-				" " \   'BufEnter'
-				" " \ ]
-		" endif
+		if has('python3') && system('pip3 list | grep psutil') =~# 'psutil'
+			Plug 'c0r73x/neotags.nvim' " Depends on pip3 install --user psutil
+				set regexpengine=1 " This speed up the engine alot but still not enough
+				let g:neotags_enabled = 1
+				" let g:neotags_file = g:cache_path . 'ctags/neotags'
+				" let g:neotags_verbose = 1
+				let g:neotags_run_ctags = 0
+				" let g:neotags#cpp#order = 'cgstuedfpm'
+				let g:neotags#cpp#order = 'ced'
+				" let g:neotags#c#order = 'cgstuedfpm'
+				let g:neotags#c#order = 'ced'
+				" let g:neotags_events_highlight = [
+				" \   'BufEnter'
+				" \ ]
+		endif
 	endif
 
 	Plug 'tpope/vim-dispatch' " Possible Replacement `asyncvim`
@@ -168,7 +154,7 @@ function! plugin#Config() abort
 					\ 'text': 'X',
 					\ 'texthl': 'ErrorMsg',
 					\ }
-		let g:neomake_cpp_enabled_makers = ['gcc', 'clang']
+		let g:neomake_cpp_enabled_makers = ['cppcheck', 'clang']
 		let g:neomake_c_enabled_makers = ['gcc', 'clang']
 		let g:neomake_cpp_clang_maker = {
 					\ 'args': ['-fsyntax-only', '-std=c++14', '-Wall', '-Wextra'],
@@ -180,6 +166,26 @@ function! plugin#Config() abort
 					\ '%f:%l: %trror: %m,'.
 					\ '%f:%l: %tarning: %m,'.
 					\ '%f:%l: %m',
+					\ }
+
+
+		function! SetWarningType(entry)
+			if a:entry.type =~? '\m^[SPI]'
+				let a:entry.type = 'I'
+			endif
+		endfunction
+
+		let g:neomake_cpp_cppcheck_maker = {
+					\ 'args': ['%:p', '-q', '--enable=all'],
+					\ 'errorformat': '[%f:%l]: (%trror) %m,' .
+					\ '[%f:%l]: (%tarning) %m,' .
+					\ '[%f:%l]: (%ttyle) %m,' .
+					\ '[%f:%l]: (%terformance) %m,' .
+					\ '[%f:%l]: (%tortability) %m,' .
+					\ '[%f:%l]: (%tnformation) %m,' .
+					\ '[%f:%l]: (%tnconclusive) %m,' .
+					\ '%-G%.%#',
+					\ 'postprocess': function('SetWarningType')
 					\ }
 
 		" Python. Taken from http://vi.stackexchange.com/questions/7834/how-to-setup-neomake-with-python
@@ -219,8 +225,8 @@ function! plugin#Config() abort
 		" <Leader>tr	Realigns table columns
 
 	Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
-		nnoremap <Leader>so :SyntasticToggleMode<CR>
-		nnoremap <Leader>ss :SyntasticCheck<CR>
+		let g:syntastic_cpp_checkers = [ 'cppcheck', 'clang_tidy', 'clang_check' ]
+		let g:syntastic_aggregate_errors = 1
 		let g:syntastic_always_populate_loc_list = 1
 		let g:syntastic_auto_loc_list = 1
 		let g:syntastic_check_on_open = 0
@@ -264,7 +270,7 @@ function! plugin#Config() abort
 		nnoremap <Plug>FileBrowser :RangerCurrentDirectory<CR>
 	else
 		Plug 'scrooloose/nerdtree'
-		nnoremap <Plug>FileBrowser :NERDtree<CR>
+		nnoremap <Plug>FileBrowser :NERDTree<CR>
 	endif
 	Plug 'scrooloose/nerdcommenter'
 		nmap - <plug>NERDCommenterToggle
