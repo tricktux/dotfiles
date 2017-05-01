@@ -258,11 +258,13 @@ function! plugin#Config() abort
 
 	" misc
 	Plug 'chrisbra/vim-diff-enhanced', { 'on' : 'SetDiff' }
-	if has('unix')
+	if executable('ranger')
 		Plug 'francoiscabrol/ranger.vim'
 		let g:ranger_map_keys = 0
+		nnoremap <Plug>FileBrowser :RangerCurrentDirectory<CR>
 	else
 		Plug 'scrooloose/nerdtree'
+		nnoremap <Plug>FileBrowser :NERDtree<CR>
 	endif
 	Plug 'scrooloose/nerdcommenter'
 		nmap - <plug>NERDCommenterToggle
@@ -459,6 +461,8 @@ function! plugin#Config() abort
 
 	" Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
 	Plug 'matze/vim-ini-fold', { 'for': 'dosini' }
+
+	Plug 'rbgrouleff/bclose.vim'
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
