@@ -305,20 +305,6 @@ function! utils#TodoAdd() abort
 	execute "normal aTODO.RM-\<F5>: "
 endfunction
 
-function! utils#CommentDelete() abort
-	execute "normal Bf/D"
-endfunction
-
-" TODO.RM-Fri Apr 28 2017 15:02: These functions are very cpp specific move
-" them there  
-function! utils#CommentIndent() abort
-	execute "normal Bf/i\<Tab>\<Tab>\<Esc>"
-endfunction
-
-function! utils#CommentReduceIndent() abort
-	execute "normal Bf/hxhx"
-endfunction
-
 function! utils#CommentLine() abort
 	if exists("*NERDComment")
 		execute "normal mm:" . input("Comment Line:") . "\<CR>"
@@ -450,27 +436,6 @@ function! utils#EditPlugins() abort
 	execute "cd " . g:plugged_path
 	execute "e " . input('e ' . expand(g:plugged_path), "", "file")
 	silent! execute "cd " . dir
-endfunction
-
-" TODO.RM-Fri Apr 28 2017 15:49: handle this function as well  
-function! utils#FormatFile() abort
-	let type = &ft
-	if type ==# 'cpp' || type ==# 'java' || type ==# 'c'
-		" if executable("astyle") && exists(":Autoformat")
-		if executable('clang-format')
-			Autoformat
-		else
-			echomsg string("No clang-format present")
-		endif
-	"elseif &ft ==? 'java' " vim-javafmt its not working
-		"if exists(":JavaFmt")
-			"JavaFmt
-		"else
-			"echomsg string("No java-fmt present")
-		"endif
-	else
-		echomsg string("No formatter set for this filetype")
-	endif
 endfunction
 
 function! utils#UpdateHeader()
@@ -716,4 +681,13 @@ function! utils#BufDetermine() abort
 	endif
 endfunction
 
+function! utils#OpenQfWindow() abort
+	if !empty(getqflist())
+		execute 'normal :copen 20<CR><C-W>J'	
+	elseif !empty(getloclist(0))
+		lopen 20
+	else
+		echomsg 'Quickfix and Location Lists are empty'
+	endif
+endfunction
  " vim:tw=78:ts=2:sts=2:sw=2:
