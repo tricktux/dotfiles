@@ -43,7 +43,7 @@
 	if has('unix')
 		let g:autcompl_engine = 'nvim_compl_manager'		
 	else
-		let g:autcompl_engine = 'shuogo'		
+		let g:autcompl_engine = 'autocomplpop'		
 	endif
 	if exists('b:plugins_present') && plugin#Check() && plugin#Config()
 			let b:plugins_loaded = 1
@@ -219,7 +219,8 @@
 			set ttyfast " Had to addit to speed up scrolling
 		endif
 		set lazyredraw " Had to addit to speed up scrolling
-		set synmaxcol=140 " Will not highlight passed this column #
+		" Mon May 01 2017 11:21: This breaks split window highliting 
+		" set synmaxcol=140 " Will not highlight passed this column #
 
 	" CLI
 		if !has('gui_running') && !exists('g:GuiLoaded')
@@ -365,7 +366,7 @@
 		nnoremap <C-Left> :cpf<CR>
 		" nnoremap <Leader>qO :Copen!<CR>
 		nnoremap <Leader>qO :lopen 20<CR>
-		nnoremap <Leader>qo :copen 20<CR><C-W>J
+		nnoremap <Leader>qo :call utils#OpenQfWindow()<CR>
 		nnoremap <Leader>qc :.cc<CR>
 		nnoremap <Leader>qC :cc<CR>
 
@@ -429,7 +430,6 @@
 		nnoremap <Leader>jw :set filetype=wings_syntax<CR>
 		nnoremap <Leader>jn :silent !./%<CRutils#>
 		" Create file with name under the cursor
-		nnoremap <Leader>jf :call utils#FormatFile()<CR>
 		" Diff Sutff
 		command! SetDiff call utils#SetDiff()
 		nnoremap <Leader>jz :SetDiff<CR>
@@ -440,7 +440,6 @@
 
 		" Convert fileformat to dos
 		nnoremap <Leader>jD :e ++ff=dos<CR>
-
 
 		" j mappings taken <swypl;bqruihHdma248eEonf>
 		" nnoremap <Leader>Mc :call utils#ManFind()<CR>
@@ -574,11 +573,12 @@
 	" Buffers Stuff <Leader>b?
 		if !exists("b:plugins_loaded")
 			nnoremap <S-k> :buffers<CR>:buffer<Space>
+			nnoremap <Leader>bd :bp\|bw #\|bd #<CR>
 		else
 			nnoremap <Leader>bs :buffers<CR>:buffer<Space>
+			nnoremap <Leader>bd :Bclose<CR>
 		endif
 		nnoremap <S-j> :b#<CR>
-		nnoremap <Leader>bd :bp\|bw #\|bd #<CR>
 		" deletes all buffers
 		nnoremap <Leader>bl :%bd<CR>
 		nnoremap <Leader>bS :bufdo
@@ -617,6 +617,8 @@
 		" nnoremap <Leader>vi :!svn info<CR>
 
 	" Todo mappings <Leader>t?
+		nnoremap <Leader>ta :call utils#TodoAdd()<CR>
+
 		nnoremap <silent> gt <C-]>
 		nnoremap gr <C-t>
 
@@ -630,10 +632,6 @@
 		nnoremap <Leader>wu :W3m local /home/reinaldo/Downloads/reference/en/index.html<CR>
 
 	" Comments <Leader>o
-		nnoremap <Leader>od :call utils#CommentDelete()<CR>
-		" Comment Indent Increase/Reduce
-		nnoremap <Leader>oi :call utils#CommentIndent()<CR>
-		nnoremap <Leader>oI :call utils#CommentReduceIndent()<CR>
 		" mapping ol conflicts with mapping o to new line
 		nnoremap cl :call utils#CommentLine()<CR>
 		nnoremap <Leader>oe :call utils#EndOfIfComment()<CR>
