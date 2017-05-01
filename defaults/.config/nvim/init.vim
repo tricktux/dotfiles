@@ -390,11 +390,7 @@
 		" language specific ones so that you can move them into ftplugin  
 		" nnoremap <Leader>jk :call utils#Make()<CR>
 		nnoremap <Leader>jl :e $MYVIMRC<CR>
-		if exists(':RangerCurrentDirectory')
-			nnoremap <Leader>j; :RangerCurrentDirectory<CR>
-		else
-			nnoremap <Leader>j; :NERDTree<CR>
-		endif
+		nmap <Leader>j; <Plug>FileBrowser
 		" Refactor word under the cursor
 		nnoremap <Leader>jr :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
 		vnoremap <Leader>jr "hy:%s/<C-r>h//gc<left><left><left>
