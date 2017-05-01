@@ -61,10 +61,38 @@ if !exists("no_plugin_maps") && !exists("no_c_maps")
 	nnoremap <buffer> <unique> <Leader>ts :cs show<CR>
 	nnoremap <buffer> <unique> <Leader>tu :call ctags#NvimSyncCtags(0)<CR>
 
-endif
+	if exists(':SyntasticCheck')
+		nnoremap <buffer> <unique> <Leader>lo :SyntasticToggleMode<CR>
+		nnoremap <buffer> <unique> <Leader>ls :SyntasticCheck<CR>
+	endif
+	if exists(':Autoformat')
+		nnoremap <buffer> <unique> <Leader>lf :Autoformat<CR>
+	endif
 
-" TODO.RM-Fri Apr 28 2017 14:43: Move all the of the tagbar here  
-"TODO.RM-Fri Apr 28 2017 14:44: Take care also of the Autoformat function  
+	nnoremap <buffer> <unique> <Leader>od :call <SID>CommentDelete()<CR>
+	" Comment Indent Increase/Reduce
+	nnoremap <buffer> <unique> <Leader>oi :call <SID>CommentIndent()<CR>
+	nnoremap <buffer> <unique> <Leader>oI :call <SID>CommentReduceIndent()<CR>
+
+	if exists(':LLmode')
+		" TODO.RM-Mon May 01 2017 16:32: maybe figure out better mappings  
+		nmap <Leader>db <Plug>LLBreakSwitch
+		" vmap <F2> <Plug>LLStdInSelected
+		" nnoremap <F4> :LLstdin<CR>
+		" nnoremap <F5> :LLmode debug<CR>
+		" nnoremap <S-F5> :LLmode code<CR>
+		nnoremap <buffer> <unique> <Leader>dc :LL continue<CR>
+		nnoremap <buffer> <unique> <Leader>do :LL thread step-over<CR>
+		nnoremap <buffer> <unique> <Leader>di :LL thread step-in<CR>
+		nnoremap <buffer> <unique> <Leader>dt :LL thread step-out<CR>
+		nnoremap <buffer> <unique> <Leader>dD :LLmode code<CR>
+		nnoremap <buffer> <unique> <Leader>dd :LLmode debug<CR>
+		nnoremap <buffer> <unique> <Leader>dp :LL print <C-R>=expand('<cword>')<CR>
+		" nnoremap <S-F8> :LL process interrupt<CR>
+		" nnoremap <F9> :LL print <C-R>=expand('<cword>')<CR>
+		" vnoremap <F9> :<C-U>LL print <C-R>=lldb#util#get_selection()<CR><CR>
+	endif
+endif
 
 " Auto set the compiler
 if has('win32')
@@ -93,7 +121,7 @@ function! s:UpdateBorlandMakefile() abort
 endfunction
 
 " Source: http://vim.wikia.com/wiki/Easily_switch_between_source_and_header_file
-function! s:SwitchHeaderSource()
+function! s:SwitchHeaderSource() abort
 	" TODO.RM-Fri Apr 28 2017 16:16: You can use filetype here to determine the language of the header...Maybe  
 	if expand("%:e") == "cpp" || expand("%:e") == "c"
 		try " Replace cpp or c with hpp
@@ -108,6 +136,18 @@ function! s:SwitchHeaderSource()
 			find %:t:r.c
 		endtry
 	endif
-endfun
+endfunction
+
+function! s:CommentDelete() abort
+	execute "normal Bf/D"
+endfunction
+
+function! s:CommentIndent() abort
+	execute "normal Bf/i\<Tab>\<Tab>\<Esc>"
+endfunction
+
+function! s:CommentReduceIndent() abort
+	execute "normal Bf/hxhx"
+endfunction
 
 let b:undo_ftplugin += "setl omnifunc< ts< sw< sts< foldenable< | unlet b:match_words" 

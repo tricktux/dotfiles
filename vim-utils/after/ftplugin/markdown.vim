@@ -31,7 +31,6 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	nnoremap <buffer> <unique> <Leader>td :call utils#TodoCreate()<CR>
 	nnoremap <buffer> <unique> <Leader>tm :call utils#TodoMark()<CR>
 	nnoremap <buffer> <unique> <Leader>tM :call utils#TodoClearMark()<CR>
-	nnoremap <buffer> <unique> <Leader>ta :call utils#TodoAdd()<CR>
 	inoremap <buffer> * **<Left>
 endif
 
