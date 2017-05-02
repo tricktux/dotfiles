@@ -683,7 +683,7 @@ endfunction
 
 function! utils#OpenQfWindow() abort
 	if !empty(getqflist())
-		execute 'normal :copen 20<CR><C-W>J'	
+		execute "normal :copen 20\<CR>\<C-W>J"	
 	elseif !empty(getloclist(0))
 		lopen 20
 	else
