@@ -336,7 +336,7 @@ function! plugin#Config() abort
 
 	" cpp
 	if get(g:, 'tagbar_safe_to_use', 0)
-		Plug 'Tagbar'
+		Plug 'majutsushi/tagbar'
 			let g:tagbar_ctags_bin = 'ctags'
 			let g:tagbar_autofocus = 1
 			let g:tagbar_show_linenumbers = 2
@@ -355,7 +355,7 @@ function! plugin#Config() abort
 		" aggressive
 
 		" pip install isort --user
-		Plugin 'fisadev/vim-isort', { 'for' : 'python' }
+		Plug 'fisadev/vim-isort', { 'for' : 'python' }
 			let g:vim_isort_map = ''
 			let g:vim_isort_python_version = 'python3'
 
