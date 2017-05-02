@@ -96,6 +96,7 @@ endif
 
 " Auto set the compiler
 if has('win32')
+	let b:syntastic_checkers = [ 'cppcheck', 'clang_tidy', 'clang_check' ]
 	if !exists('b:current_compiler')
 		" Notice inside the '' is a pat which is a regex. That is why \\
 		if expand('%:p') =~ 'onewings\\source'
@@ -108,6 +109,8 @@ if has('win32')
 			setlocal makeprg=mingw32-make
 		endif
 	endif
+else " Unix
+	let b:syntastic_checkers = [ 'cppcheck', 'clang_tidy', 'clang_check', 'gcc' ]
 endif
 
 " TODO.RM-Fri Apr 28 2017 15:48: Move also <Leader>tu  
