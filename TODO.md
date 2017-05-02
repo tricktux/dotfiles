@@ -1,7 +1,17 @@
+### Tue May 02 2017 10:14 
+-  [X] Get familiar with `vifm`. Potential for substitute of `ranger`
+	- `vifm` is a piece of shit. At least for windows.
+	- Main thing is that it cannot follow `*.lnk` files
+-  [ ] Add `neovim` to `chocolatey`
+-  [ ] Get `msys2` on cmder
+-  [ ] Get `shell` to open `msys2`???
+-  [ ] Get `pacaur` to work on `msys2`
+
 ### Fri Apr 21 2017 09:25 
-- Profile command didnt work
-- Look into using Neosolarized
-- Cool cursor in nvim-qt on windows
+-  [ ] Profile command didnt work
+-  [ ] Look into using Neosolarized
+-  [X] Cool cursor in nvim-qt on windows
+
 ### Wed Apr 19 2017 09:17 
 -  [ ] On the svn.nvim plugin before switching to a branch make sure that the svn status command returns empty. Otherwise
   the switch is not going to go well.
@@ -13,7 +23,7 @@
 ### Tue Apr 04 2017 08:50 
 -  [X] Make a new `autoload\autocomplete.vim` file where you handle all the autocompletion logic
 -  [X] Look into neovim completion manager
--  [ ] cscope command its really not working
+-  [X] cscope command its really not working
 	- I am sure that it has to do with the rg command creating some weird paths. Take a look at `cscope.files`
 
 ### Mon Apr 03 2017 11:15

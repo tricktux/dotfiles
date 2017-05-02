@@ -24,6 +24,10 @@
 " PLUGINS_INIT
 	" ~/.dotfiles/vim-utils/autoload/plugin.vim
 	" Attempt to install vim-plug and all plugins in case of first use
+	if has('unix')
+		let g:tagbar_safe_to_use = 1
+	endif
+
 	let g:location_local_vim = "~/.dotfiles/vim-utils/autoload/plugin.vim"
 	let g:location_portable_vim = "../../.dotfiles/vim-utils/autoload/plugin.vim"
 	if !empty(glob(g:location_local_vim))
@@ -431,7 +435,6 @@
 		nnoremap <Leader>jn :silent !./%<CRutils#>
 		" Create file with name under the cursor
 		" Diff Sutff
-		command! SetDiff call utils#SetDiff()
 		nnoremap <Leader>jz :SetDiff<CR>
 		nnoremap <Leader>jZ :call utils#UnsetDiff()<CR>
 		nnoremap <Leader>j. :call utils#LastCommand()<CR>
@@ -537,9 +540,9 @@
 
 	" Spell Check <Leader>s?
 		" search forward
-		nnoremap <Leader>sn ]s
+		nnoremap <Leader>sj ]s
 		" search backwards
-		nnoremap <Leader>sp [s
+		nnoremap <Leader>sk [s
 		" suggestion
 		nnoremap <Leader>sc z=
 		" toggle spelling
@@ -671,10 +674,6 @@
 		let NERDTreeShowHidden=1 " i key to toggle
 		let NERDTreeQuitOnOpen=1 " AutoClose after openning file
 		let NERDTreeBookmarksFile=g:cache_path . '.NERDTreeBookmarks'
-		" Do not load netrw
-		let g:loaded_netrw       = 1
-		let g:loaded_netrwPlugin = 1
-	
 	" NerdCommenter
 		let NERDSpaceDelims=1  " space around comments
 		let NERDUsePlaceHolders=0 " avoid commenter doing weird stuff
@@ -732,5 +731,7 @@
 	" And use camel case. This way is easier to search
 	command! -nargs=+ -complete=command UtilsCaptureCmdOutput call utils#CaptureCmdOutput(<f-args>)
 	command! UtilsProfile call utils#ProfilePerformance()
+	command! UtilsDiffSet call utils#SetDiff()
+	command! UtilsDiffOff call utils#UnsetDiff()
 
 " vim:tw=78:ts=2:sts=2:sw=2:
