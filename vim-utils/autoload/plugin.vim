@@ -238,6 +238,8 @@ function! plugin#Config() abort
 		let g:syntastic_c_remove_include_errors = 1
 		let g:syntastic_c_compiler_options = '-std=c11 -pedantic -Wall'
 		" let g:syntastic_cpp_check_header = 1
+		
+		let g:syntastic_python_checkers=['flake8', 'pep8', 'pycodestyle', 'pyflakes', 'python']
 
 	Plug g:location_vim_utils
 		let g:svn_repo_url = 'svn://odroid@copter-server/' 
@@ -268,13 +270,23 @@ function! plugin#Config() abort
 
 	" misc
 	Plug 'chrisbra/vim-diff-enhanced', { 'on' : 'SetDiff' }
+
+	" FileBrowser
+	Plug 'vifm/vifm.vim' " Contains help and interesting stuff
 	if executable('ranger')
 		Plug 'francoiscabrol/ranger.vim'
 		let g:ranger_map_keys = 0
 		nnoremap <Plug>FileBrowser :RangerCurrentDirectory<CR>
+	elseif has('unix') && executable('vifm')
+		Plug 'vifm/neovim-vifm'
+		nnoremap <Plug>FileBrowser :Vifm .<CR>
 	else
 		Plug 'scrooloose/nerdtree'
 		nnoremap <Plug>FileBrowser :NERDTree<CR>
+		" Do not load netrw
+		let g:loaded_netrw       = 1
+		let g:loaded_netrwPlugin = 1
+	
 	endif
 	Plug 'scrooloose/nerdcommenter'
 		nmap - <plug>NERDCommenterToggle
@@ -315,6 +327,13 @@ function! plugin#Config() abort
 		let g:autoformat_retab = 0
 		let g:autoformat_remove_trailing_spaces = 0
 
+		" Note: Python-Windows hides pip files in C:\Users\<user>\AppData\Roaming\Python\Python36\Scripts
+		let g:formatters_c = ['clang-format']
+		let g:formatters_cpp = ['clang-format']
+
+		let g:formatters_python = ['yapf']
+		let g:formatter_yapf_style = 'google'
+
 	" cpp
 	if get(g:, 'tagbar_safe_to_use', 0)
 		Plug 'Tagbar'
@@ -331,7 +350,16 @@ function! plugin#Config() abort
 			nnoremap <Leader>tt :TagbarToggle<CR>
 	endif
 
-	" cpp/java
+	" python
+		" Plug 'python-mode/python-mode', { 'for' : 'python' } " Extremely
+		" aggressive
+
+		" pip install isort --user
+		Plugin 'fisadev/vim-isort', { 'for' : 'python' }
+			let g:vim_isort_map = ''
+			let g:vim_isort_python_version = 'python3'
+
+	" java
 	Plug 'mattn/vim-javafmt', { 'for' : 'java' }
 	Plug 'tfnico/vim-gradle', { 'for' : 'java' }
 	Plug 'artur-shaik/vim-javacomplete2', { 'branch' : 'master', 'for' : 'java' }

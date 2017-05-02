@@ -5,7 +5,7 @@
 # Last Modified: Fri Mar 17 2017 14:22
 # Created: Mar 15 2017 10:13
 #
-# Dependencies: 
+# Dependencies:
 #   - Relies on executing the script from the root folder of the code. Since it uses the folder name to create tag
 #   name
 #   - Neovim wont call this function if rg is not executable
@@ -22,6 +22,7 @@ import neovim
 
 @neovim.plugin
 class RemotePlugin(object):
+
     def __init__(self, nvim):
         self.nvim = nvim
         self.busy = 0
@@ -30,7 +31,8 @@ class RemotePlugin(object):
     @neovim.function('UpdateTagsRemote')
     def update_tags_remote(self, args):
         if self.busy != 0:
-            self.nvim.command(':echomsg "Function currenlty busy. Please try again later."')
+            self.nvim.command(
+                ':echomsg "Function currenlty busy. Please try again later."')
             return
         self.busy = 1
 
@@ -51,7 +53,9 @@ class RemotePlugin(object):
 
         lang_ctags = self.nvim_ft_to_ctags(lang_nvim)
         if not lang_ctags:
-            self.nvim.command(':echomsg "%s is not a supported language by ctags"' % lang_nvim)
+            self.nvim.command(
+                ':echomsg "%s is not a supported language by ctags"' %
+                lang_nvim)
             self.busy = 0
             return
 
@@ -69,9 +73,10 @@ class RemotePlugin(object):
         if self.deb:
             deb_file.write("new python_cwd = %s" % os.getcwd() + "\n")
 
-        CMD_CTAGS = ("ctags -L cscope.files -f %s --sort=no --c-kinds=+p --c++-kinds=+p --fields=+l"
-                " --extras=+q --language-force=%s" % (CTAGS_FILE_NAME, lang_ctags))
-                #  " --extras=+q" % CTAGS_FILE_NAME)
+        CMD_CTAGS = (
+            "ctags -L cscope.files -f %s --sort=no --c-kinds=+p --c++-kinds=+p --fields=+l"
+            " --extras=+q --language-force=%s" % (CTAGS_FILE_NAME, lang_ctags))
+        #  " --extras=+q" % CTAGS_FILE_NAME)
 
         if self.deb:
             deb_file.write("ctags_cmd = %s" % CMD_CTAGS + "\n")
@@ -84,21 +89,22 @@ class RemotePlugin(object):
             return
 
         #  TODO.RM-Fri Mar 17 2017 15:20: Make this CMD_RG a nvim g: variable so that its no so hardcoded to rg
-        #  TODO.RM-Fri Mar 17 2017 16:38: Replace all \ in DIR_NEOVIM_CWD with /  
+        #  TODO.RM-Fri Mar 17 2017 16:38: Replace all \ in DIR_NEOVIM_CWD with /
         for ch in DIR_NEOVIM_CWD:
             if ch == '\\':
                 ch = '/'
-        CMD_RG = ("rg -t %s --files %s > %s" % (lang_rg, DIR_NEOVIM_CWD, CSCOPE_FILES_NAME))
+        CMD_RG = ("rg -t %s --files %s > %s" % (lang_rg, DIR_NEOVIM_CWD,
+                                                CSCOPE_FILES_NAME))
 
         if self.deb:
             deb_file.write("rg_cmd = %s" % CMD_RG + "\n")
 
-        try:    # Populate list of source files
+        try:  # Populate list of source files
             os.system(CMD_RG)
         except:
             pass
 
-        try: # Check that cscope was created
+        try:  # Check that cscope was created
             file_size = os.path.getsize(CSCOPE_FILES_NAME)
         except:
             file_size = 0
@@ -108,7 +114,7 @@ class RemotePlugin(object):
             self.busy = 0
             return
 
-        try: # Silently create tags
+        try:  # Silently create tags
             os.system(CMD_CTAGS)
         except:
             pass
@@ -118,7 +124,7 @@ class RemotePlugin(object):
         if ctags_file_name not in tagfiles:
             self.nvim.command('set tags+=%s' % CTAGS_FILE_NAME)
 
-        if lang_nvim != 'cpp' and lang_nvim != 'c': # Only create cscope db for c/cpp files
+        if lang_nvim != 'cpp' and lang_nvim != 'c':  # Only create cscope db for c/cpp files
             self.busy = 0
             return
 
@@ -128,7 +134,7 @@ class RemotePlugin(object):
             deb_file.write("new python_cwd = %s" % os.getcwd() + "\n")
 
         FILES_DELETE = ('cscope.out', 'cscope.po.out', 'cscope.in.out')
-        for files in FILES_DELETE: #  Before creating new files delete old ones
+        for files in FILES_DELETE:  # Before creating new files delete old ones
             try:
                 os.remove(files)
             except:
@@ -185,4 +191,4 @@ class RemotePlugin(object):
             return
 
         #  curr_dir = "tags_" + curr_dir
-        return curr_dir[back_slash_index+1:]
+        return curr_dir[back_slash_index + 1:]
