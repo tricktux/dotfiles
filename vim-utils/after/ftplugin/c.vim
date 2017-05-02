@@ -20,6 +20,7 @@ let b:match_words = '\<if\>:\<else\>,'
 setlocal omnifunc=ClangComplete
 setlocal ts=4 sw=4 sts=4
 setlocal foldenable
+setlocal define=^\\(#\\s*define\\|[a-z]*\\s*const\\s*[a-z]*\\)
 
 " Add mappings, unless the user didn't want this.
 if !exists("no_plugin_maps") && !exists("no_c_maps")
@@ -75,8 +76,7 @@ if !exists("no_plugin_maps") && !exists("no_c_maps")
 	nnoremap <buffer> <unique> <Leader>oI :call <SID>CommentReduceIndent()<CR>
 
 	if exists(':LLmode')
-		" TODO.RM-Mon May 01 2017 16:32: maybe figure out better mappings  
-		nmap <Leader>db <Plug>LLBreakSwitch
+		nmap <buffer> <unique> <Leader>db <Plug>LLBreakSwitch
 		" vmap <F2> <Plug>LLStdInSelected
 		" nnoremap <F4> :LLstdin<CR>
 		" nnoremap <F5> :LLmode debug<CR>
@@ -113,7 +113,6 @@ else " Unix
 	let b:syntastic_checkers = [ 'cppcheck', 'clang_tidy', 'clang_check', 'gcc' ]
 endif
 
-" TODO.RM-Fri Apr 28 2017 15:48: Move also <Leader>tu  
 function! s:UpdateBorlandMakefile() abort
 	" If compiler is not borland(set by SetupCompiler) fail.
 	if !exists('b:current_compiler')
@@ -125,7 +124,6 @@ endfunction
 
 " Source: http://vim.wikia.com/wiki/Easily_switch_between_source_and_header_file
 function! s:SwitchHeaderSource() abort
-	" TODO.RM-Fri Apr 28 2017 16:16: You can use filetype here to determine the language of the header...Maybe  
 	if expand("%:e") == "cpp" || expand("%:e") == "c"
 		try " Replace cpp or c with hpp
 			find %:t:r.hpp
