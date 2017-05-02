@@ -82,8 +82,9 @@ FuncUpdate()
 	pacman -Qe > ~/.dotfiles/$machine-arch-packages
 	# Now update packages
 	# When update fails to verify some <package> do:
-	# update --ignore <package1> <package2>
-	pacaur -Syu --noconfirm $@
+	# update --ignore <package1>,<package2>
+	# Devel is required to update <package-git> stuff
+	pacaur -Syu --devel --noconfirm $@
 	# To install packages from list:
 	# pacaur -S - < <pgklist.txt>
 }
