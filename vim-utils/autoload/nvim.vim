@@ -13,10 +13,10 @@ function! nvim#Config() abort
 	tnoremap <A-l> <C-\><C-n><C-w>l
 
 	" TODO.RM-Sat Apr 29 2017 17:20: Need to rethink all of this mappings here  
-	" tnoremap <C-j> <Down>
-	" tnoremap <C-k> <Up>
-	" tnoremap <C-j> <Left>
-	" tnoremap <C-l> <Right>
+	tnoremap <A-s> <Down>
+	tnoremap <A-w> <Up>
+	tnoremap <A-a> <Left>
+	tnoremap <A-d> <Right>
 
 	" set inccommand=split
 	" set clipboard+=unnamedplus
