@@ -225,15 +225,19 @@ function! plugin#Config() abort
 		" <Leader>tr	Realigns table columns
 
 	Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
-		let g:syntastic_cpp_checkers = [ 'cppcheck', 'clang_tidy', 'clang_check' ]
 		let g:syntastic_aggregate_errors = 1
 		let g:syntastic_always_populate_loc_list = 1
-		let g:syntastic_auto_loc_list = 1
+		let g:syntastic_auto_loc_list = 0
 		let g:syntastic_check_on_open = 0
 		let g:syntastic_check_on_wq = 0
+		let g:syntastic_auto_jump = 0
 		let g:syntastic_cpp_compiler_options = '-std=c++17 -pedantic -Wall'
+		let g:syntastic_cpp_include_dirs = [ 'includes', 'headers', 'inc' ]
+		let g:syntastic_cpp_clang_check_args = '-extra-arg=-std=c++1z'
+
+		let g:syntastic_c_remove_include_errors = 1
 		let g:syntastic_c_compiler_options = '-std=c11 -pedantic -Wall'
-		let g:syntastic_auto_jump = 3
+		" let g:syntastic_cpp_check_header = 1
 
 	Plug g:location_vim_utils
 		let g:svn_repo_url = 'svn://odroid@copter-server/' 
