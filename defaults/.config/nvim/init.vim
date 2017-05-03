@@ -295,7 +295,6 @@
 		" Display help vertical window not split
 		autocmd FileType help wincmd L
 		" wrap syntastic messages
-		autocmd FileType qf setlocal wrap
 		autocmd FileType mail setlocal wrap
 		autocmd FileType mail setlocal spell spelllang=es,en
 		autocmd FileType mail setlocal omnifunc=muttaliases#CompleteMuttAliases
