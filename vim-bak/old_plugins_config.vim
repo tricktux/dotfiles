@@ -1732,3 +1732,15 @@ endif
 			" let ctags_output = system(substitute(a:ctags_cmd,"'", "","g"))
 		" All under here:
 			" function! s:ExecuteCtags(ctags_cmd) abort
+	" exec 'nnoremap <buffer> <unique> <Down> :call utils#ListsNavigation("next")<CR>'
+	" exec 'nnoremap <buffer> <unique> <Up> :call utils#ListsNavigation("previous")<CR>'
+	" exec 'nnoremap <buffer> <unique> <Right> :call utils#ListsNavigation("nfile")<CR>'
+	" exec 'nnoremap <buffer> <unique> <Left> :call utils#ListsNavigation("pfile")<CR>'
+
+		nnoremap <C-Down> :cn<CR>
+		nnoremap <C-Up> :cp<CR>
+		nnoremap <C-Right> :cnf<CR>
+		nnoremap <C-Left> :cpf<CR>
+		nnoremap <Leader>qc :.cc<CR>
+		nnoremap <Leader>qC :cc<CR>
+
