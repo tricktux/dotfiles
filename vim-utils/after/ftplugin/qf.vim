@@ -13,6 +13,8 @@ endif
 " Don't load another plugin for this buffer
 let b:did_qf_ftplugin = 1
 
+setlocal wrap
+
 " Taken from http://stackoverflow.com/questions/18522086/what-is-the-best-way-to-distinguish-the-current-buffer-is-location-list-or-quick
 function! s:DetectList() abort
 	exec 'redir @a | silent! ls | redir END'
@@ -38,3 +40,4 @@ if <SID>DetectList() == 1 && exists('b:list_type') && !exists("no_plugin_maps") 
 	exec 'nnoremap <buffer> q :' . b:list_type . 'cl<CR>'
 endif
 
+let b:undo_ftplugin += "setlocal wrap<" 
