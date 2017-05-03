@@ -364,24 +364,10 @@
 		" if both opened favors location window
 
 		" Quickfix only mappings
-		nnoremap <C-Down> :cn<CR>
-		nnoremap <C-Up> :cp<CR>
-		nnoremap <C-Right> :cnf<CR>
-		nnoremap <C-Left> :cpf<CR>
-		" nnoremap <Leader>qO :Copen!<CR>
 		nnoremap <Leader>qO :lopen 20<CR>
 		nnoremap <Leader>qo :call utils#OpenQfWindow()<CR>
-		nnoremap <Leader>qc :.cc<CR>
-		nnoremap <Leader>qC :cc<CR>
-
 		nnoremap <Leader>qn :call utils#ListsNavigation("next")<CR>
 		nnoremap <Leader>qp :call utils#ListsNavigation("previous")<CR>
-
-		nnoremap <Down> :call utils#ListsNavigation("next")<CR>
-		nnoremap <Up> :call utils#ListsNavigation("previous")<CR>
-		nnoremap <Right> :call utils#ListsNavigation("nfile")<CR>
-		nnoremap <Left> :call utils#ListsNavigation("pfile")<CR>
-
 		nnoremap <Leader>ql :ccl<CR>
 					\:lcl<CR>
 
@@ -403,7 +389,7 @@
 		nnoremap <Leader>ji mzgg=G`z
 		" nnoremap <S-s> #<C-o> " Substituted for the AutoHighlightToggle function
 		nnoremap <Leader>u :call utils#AutoHighlightToggle()<CR>
-		nnoremap <Leader>jhs Helptags<CR>
+		nnoremap <Leader>jh :Helptags<CR>
 		" This mapping will load the journal from the most recent boot and highlight it for you
 		nnoremap <Leader>jJ :read !journalctl -b<CR><bar>:setf messages<CR>
 		" Give execute permissions to current file

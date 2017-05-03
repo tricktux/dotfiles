@@ -204,9 +204,9 @@ endfunction
 
 function! utils#ListsNavigation(cmd) abort
 	try
-		let l:list = 0
+		let list = 0
 		if !empty(getloclist(0)) " if location list is not empty
-			let l:list = 1
+			let list = 1
 			execute "silent l" . a:cmd
 		elseif !empty(getqflist()) " if quickfix list is not empty
 			execute "silent c" . a:cmd
@@ -217,7 +217,7 @@ function! utils#ListsNavigation(cmd) abort
 			echohl None
 		endif
 	catch /:E553:/ " catch no more items error
-		if l:list == 1
+		if list == 1
 			silent .ll
 		else
 			silent .cc
