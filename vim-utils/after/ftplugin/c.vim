@@ -151,4 +151,4 @@ function! s:CommentReduceIndent() abort
 	execute "normal Bf/hxhx"
 endfunction
 
-let b:undo_ftplugin += "setl omnifunc< ts< sw< sts< foldenable< | unlet b:match_words" 
+let b:undo_ftplugin += "setlocal omnifunc< ts< sw< sts< foldenable< define<" 
