@@ -46,6 +46,5 @@ endif
 " TODO.RM-Tue May 02 2017 16:53: unlet b:plugin_options
 " Add support for `isort`
 " Also add better python highlight
-" Look into `AsyncRun` plugin. Keep in mind that this is `vim` plugin. May not
-" work properly in `nvim`
 
+let b:undo_ftplugin += "setlocal textwidth< commentstring< define<" 
