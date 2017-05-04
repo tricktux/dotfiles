@@ -364,9 +364,9 @@
 
 		" Quickfix only mappings
 		nnoremap <Leader>qO :lopen 20<CR>
-		nnoremap <Leader>qo :call utils#OpenQfWindow()<CR>
-		nnoremap <Leader>qn :call utils#ListsNavigation("next")<CR>
-		nnoremap <Leader>qp :call utils#ListsNavigation("previous")<CR>
+		nnoremap <Leader>qo :call quickfix#OpenQfWindow()<CR>
+		nnoremap <Leader>qn :call quickfix#ListsNavigation("next")<CR>
+		nnoremap <Leader>qp :call quickfix#ListsNavigation("previous")<CR>
 		nnoremap <Leader>ql :ccl<CR>
 					\:lcl<CR>
 
@@ -387,7 +387,6 @@
 		" Indent whole file
 		nnoremap <Leader>ji mzgg=G`z
 		" nnoremap <S-s> #<C-o> " Substituted for the AutoHighlightToggle function
-		nnoremap <Leader>u :call utils#AutoHighlightToggle()<CR>
 		nnoremap <Leader>jh :Helptags<CR>
 		" This mapping will load the journal from the most recent boot and highlight it for you
 		nnoremap <Leader>jJ :read !journalctl -b<CR><bar>:setf messages<CR>
@@ -652,6 +651,10 @@
 
 	" Man
 		let g:no_man_maps = 1
+
+	" Never load netrw
+		let g:loaded_netrw       = 1
+		let g:loaded_netrwPlugin = 1
 
 	" Nerdtree (Dont move. They need to be here)
 		let NERDTreeShowBookmarks=1  " B key to toggle
