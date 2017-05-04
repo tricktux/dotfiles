@@ -41,6 +41,7 @@ if !exists("no_plugin_maps") && !exists("no_c_maps")
 	nnoremap <buffer> <unique> <Leader>lg :compiler gcc<CR>
 				\:setlocal makeprg=mingw32-make<CR>
 
+	nnoremap <buffer> <Leader>lh :call utils#AutoHighlightToggle()<CR>
 	" Time runtime of a specific program
 	nnoremap <buffer> <unique> <Leader>lt :Dispatch powershell -command "& {&'Measure-Command' {.\sep_calc.exe seprc}}"<CR>
 	nnoremap <buffer> <unique> <Leader>lu :call <SID>UpdateBorlandMakefile()<CR>
@@ -60,7 +61,6 @@ if !exists("no_plugin_maps") && !exists("no_c_maps")
 	" Find functions called by this function not being used
 	" nnoremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
 	nnoremap <buffer> <unique> <Leader>ts :cs show<CR>
-	nnoremap <buffer> <unique> <Leader>tu :call ctags#NvimSyncCtags(0)<CR>
 
 	if exists(':SyntasticCheck')
 		nnoremap <buffer> <unique> <Leader>lo :SyntasticToggleMode<CR>
@@ -74,6 +74,7 @@ if !exists("no_plugin_maps") && !exists("no_c_maps")
 	" Comment Indent Increase/Reduce
 	nnoremap <buffer> <unique> <Leader>oi :call <SID>CommentIndent()<CR>
 	nnoremap <buffer> <unique> <Leader>oI :call <SID>CommentReduceIndent()<CR>
+	nnoremap <buffer> <Leader>lh :call utils#AutoHighlightToggle()<CR>
 
 	if exists(':LLmode')
 		nmap <buffer> <unique> <Leader>db <Plug>LLBreakSwitch
@@ -92,11 +93,23 @@ if !exists("no_plugin_maps") && !exists("no_c_maps")
 		" nnoremap <F9> :LL print <C-R>=expand('<cword>')<CR>
 		" vnoremap <F9> :<C-U>LL print <C-R>=lldb#util#get_selection()<CR><CR>
 	endif
+
+	" if exists('*quickfix#ToggleList')
+		nnoremap <silent> <buffer> <Leader>ll :call quickfix#ToggleList("Location List", 'l')<CR>
+		nnoremap <silent> <buffer> <Leader>;; :call quickfix#ToggleList("Quickfix List", 'c')<CR>
+		nnoremap <buffer> <Leader>ln :call quickfix#ListsNavigation("next")<CR>
+		nnoremap <buffer> <Leader>lp :call quickfix#ListsNavigation("previous")<CR>
+
+		nnoremap <buffer> <unique> <Leader>tu :call ctags#NvimSyncCtags(0)<CR>
+	" endif
+endif
+
+if exists('*utils#AutoHighlightToggle') && !exists('g:highlight')
+	silent call utils#AutoHighlightToggle()
 endif
 
 " Auto set the compiler
 if has('win32')
-	let b:syntastic_checkers = [ 'cppcheck', 'clang_tidy', 'clang_check' ]
 	if !exists('b:current_compiler')
 		" Notice inside the '' is a pat which is a regex. That is why \\
 		if expand('%:p') =~ 'onewings\\source'
@@ -109,9 +122,11 @@ if has('win32')
 			setlocal makeprg=mingw32-make
 		endif
 	endif
+	let b:syntastic_checkers = [ 'cppcheck', 'clang_tidy', 'clang_check' ]
 else " Unix
 	let b:syntastic_checkers = [ 'cppcheck', 'clang_tidy', 'clang_check', 'gcc' ]
 endif
+let b:syntastic_mode = 'passive'
 
 function! s:UpdateBorlandMakefile() abort
 	" If compiler is not borland(set by SetupCompiler) fail.
