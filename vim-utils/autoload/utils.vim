@@ -202,29 +202,6 @@ function! utils#DeleteLine() abort
 	execute "normal :" . input("Delete Line:") . "d\<CR>``"
 endfunction
 
-function! utils#ListsNavigation(cmd) abort
-	try
-		let list = 0
-		if !empty(getloclist(0)) " if location list is not empty
-			let list = 1
-			execute "silent l" . a:cmd
-		elseif !empty(getqflist()) " if quickfix list is not empty
-			execute "silent c" . a:cmd
-		else
-			echohl ErrorMsg
-			redraw " always use it to prevent msg from dissapearing
-			echomsg "ListsNavigation(): Lists quickfix and location are empty"
-			echohl None
-		endif
-	catch /:E553:/ " catch no more items error
-		if list == 1
-			silent .ll
-		else
-			silent .cc
-		endif
-	endtry
-endfunction
-
 function! utils#SetDiff() abort
 	" Make sure you run diffget and diffput from left window
 	nnoremap <C-j> ]c
@@ -587,6 +564,7 @@ function! utils#AutoHighlightToggle()
 		augroup! auto_highlight
 		setl updatetime=4000
 		echo 'Highlight current word: off'
+		unlet! g:highlight
 		return 0
 	else
 		augroup auto_highlight
@@ -596,6 +574,7 @@ function! utils#AutoHighlightToggle()
 		augroup end
 		setl updatetime=500
 		echo 'Highlight current word: ON'
+		let g:highlight = 1
 		return 1
 	endif
 endfunction
@@ -658,10 +637,7 @@ function! utils#ProfilePerformance() abort
 	execute 'profile func *'
 	execute 'profile file *'
 endfunction
-" TODO.RM-Sat Nov 26 2016 00:04: Function that auto adds SCR # and description
 
-" TODO.RM-Sat Apr 29 2017 17:12: BIG ISSUES. <C-I> is also mapped to tab. So that is screwed
-" <C-h> is also backspace. There rethink your terminal mappings
 function! utils#BufDetermine() abort
 	let ext = expand('%:e')	
 	if ext ==# 'ino' || ext ==# 'pde'
@@ -681,13 +657,6 @@ function! utils#BufDetermine() abort
 	endif
 endfunction
 
-function! utils#OpenQfWindow() abort
-	if !empty(getqflist())
-		execute "normal :copen 20\<CR>\<C-W>J"	
-	elseif !empty(getloclist(0))
-		lopen 20
-	else
-		echomsg 'Quickfix and Location Lists are empty'
-	endif
-endfunction
+" TODO.RM-Sat Nov 26 2016 00:04: Function that auto adds SCR # and description
+
  " vim:tw=78:ts=2:sts=2:sw=2:

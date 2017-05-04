@@ -41,7 +41,16 @@ if !exists("no_plugin_maps") && !exists("no_python_maps")
 	nnoremap <buffer> <unique> <Leader>ts :cs show<CR>
 	nnoremap <buffer> <unique> <Leader>tu :call ctags#NvimSyncCtags(0)<CR>
 
+	nnoremap <buffer> <Leader>lh :call utils#AutoHighlightToggle()<CR>
 endif
+
+if exists('*utils#AutoHighlightToggle') && !exists('g:highlight')
+	call utils#AutoHighlightToggle()
+endif
+
+
+let b:syntastic_checkers=['flake8', 'pep8', 'pycodestyle', 'pyflakes', 'python']
+let b:syntastic_mode = 'passive'
 
 " TODO.RM-Tue May 02 2017 16:53: unlet b:plugin_options
 " Add support for `isort`

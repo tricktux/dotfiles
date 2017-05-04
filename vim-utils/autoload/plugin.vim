@@ -224,13 +224,14 @@ function! plugin#Config() abort
 		" nnoremap <Leader>lm :TableModeToggle<CR>
 		" <Leader>tr	Realigns table columns
 
-	Plug 'scrooloose/syntastic', { 'on' : 'SyntasticCheck' }
+	Plug 'scrooloose/syntastic'
 		let g:syntastic_aggregate_errors = 1
 		let g:syntastic_always_populate_loc_list = 1
 		let g:syntastic_auto_loc_list = 0
 		let g:syntastic_check_on_open = 0
 		let g:syntastic_check_on_wq = 0
 		let g:syntastic_auto_jump = 0
+		" Note: Checkers and passive/active mode is handled at after/ftplugin files
 		let g:syntastic_cpp_compiler_options = '-std=c++17 -pedantic -Wall'
 		let g:syntastic_cpp_include_dirs = [ 'includes', 'headers', 'inc' ]
 		let g:syntastic_cpp_clang_check_args = '-extra-arg=-std=c++1z'
@@ -239,7 +240,6 @@ function! plugin#Config() abort
 		let g:syntastic_c_compiler_options = '-std=c11 -pedantic -Wall'
 		" let g:syntastic_cpp_check_header = 1
 		
-		let g:syntastic_python_checkers=['flake8', 'pep8', 'pycodestyle', 'pyflakes', 'python']
 
 	Plug g:location_vim_utils
 		let g:svn_repo_url = 'svn://odroid@copter-server/' 
@@ -272,22 +272,19 @@ function! plugin#Config() abort
 	Plug 'chrisbra/vim-diff-enhanced', { 'on' : 'SetDiff' }
 
 	" FileBrowser
-	Plug 'vifm/vifm.vim' " Contains help and interesting stuff
+	" Wed May 03 2017 11:31: Tried `vifm` doesnt work in windows. Doesnt
+	" follow `*.lnk` shortcuts. Not close to being Replacement for `ranger`.
+	" Main reason it looks appealing is that it has support for Windows. But its
+	" not very good
 	if executable('ranger')
 		Plug 'francoiscabrol/ranger.vim'
 		let g:ranger_map_keys = 0
 		nnoremap <Plug>FileBrowser :RangerCurrentDirectory<CR>
-	elseif has('unix') && executable('vifm')
-		Plug 'vifm/neovim-vifm'
-		nnoremap <Plug>FileBrowser :Vifm .<CR>
 	else
 		Plug 'scrooloose/nerdtree'
 		nnoremap <Plug>FileBrowser :NERDTree<CR>
-		" Do not load netrw
-		let g:loaded_netrw       = 1
-		let g:loaded_netrwPlugin = 1
-	
 	endif
+
 	Plug 'scrooloose/nerdcommenter'
 		nmap - <plug>NERDCommenterToggle
 		nmap <Leader>ot <plug>NERDCommenterAltDelims
