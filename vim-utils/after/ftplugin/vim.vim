@@ -2,7 +2,7 @@
 "	Description:	ftplugin for the vim filetype
 " Author:Reinaldo Molina <rmolin88@gmail.com>
 " Version:1.0.0
-" Last Modified: Mon May 01 2017 17:03
+" Last Modified: Thu May 04 2017 21:39
 " Created: Apr 28 2017 15:41
 
 " Only do this when not done yet for this buffer
