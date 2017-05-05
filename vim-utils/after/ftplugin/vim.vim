@@ -26,5 +26,5 @@ endif
 
 function! s:Evaluate() abort
 	" Yank selection to reg a then echo it cli
-	execute 'normal "ay:echomsg \<c-r>a'
+	execute "normal \"ay:echomsg \<c-r>a\<cr>"
 endfunction
