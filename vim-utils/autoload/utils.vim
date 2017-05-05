@@ -557,13 +557,13 @@ function! utils#ConvertWeeklyReport() abort
 	execute "cd " dir_buff
 endfunction
 
-function! utils#AutoHighlightToggle()
+function! utils#AutoHighlight(on)
 	let @/ = ''
 	if exists('#auto_highlight')
 		au! auto_highlight
 		augroup! auto_highlight
 		setl updatetime=4000
-		echo 'Highlight current word: off'
+		" echo 'Highlight current word: off'
 		unlet! g:highlight
 		return 0
 	else
@@ -573,7 +573,7 @@ function! utils#AutoHighlightToggle()
 			au CursorHold  *.py,*.c,*.cpp,*.h,*.hpp exe printf('silent! match IncSearch /\<%s\>/', expand('<cword>')) 
 		augroup end
 		setl updatetime=500
-		echo 'Highlight current word: ON'
+		" echo 'Highlight current word: ON'
 		let g:highlight = 1
 		return 1
 	endif
