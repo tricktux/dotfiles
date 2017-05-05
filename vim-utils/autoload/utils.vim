@@ -570,7 +570,7 @@ function! utils#AutoHighlightToggle()
 		augroup auto_highlight
 			au!
 			" au CursorHold  *.py,*.c,*.cpp,*.h,*.hpp let @/ = '\V\<'.escape(expand('<cword>'), '\').'\>'
-			au CursorHold  *.py,*.c,*.cpp,*.h,*.hpp exe printf('match IncSearch /\<%s\>/', expand('<cword>')) 
+			au CursorHold  *.py,*.c,*.cpp,*.h,*.hpp exe printf('silent! match IncSearch /\<%s\>/', expand('<cword>')) 
 		augroup end
 		setl updatetime=500
 		echo 'Highlight current word: ON'
