@@ -62,14 +62,6 @@ if !exists("no_plugin_maps") && !exists("no_c_maps")
 	" nnoremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
 	nnoremap <buffer> <unique> <Leader>ts :cs show<CR>
 
-	if exists(':SyntasticCheck')
-		nnoremap <buffer> <unique> <Leader>lo :SyntasticToggleMode<CR>
-		nnoremap <buffer> <unique> <Leader>ls :SyntasticCheck<CR>
-	endif
-	if exists(':Autoformat')
-		nnoremap <buffer> <unique> <Leader>lf :Autoformat<CR>
-	endif
-
 	nnoremap <buffer> <unique> <Leader>od :call <SID>CommentDelete()<CR>
 	" Comment Indent Increase/Reduce
 	nnoremap <buffer> <unique> <Leader>oi :call <SID>CommentIndent()<CR>
