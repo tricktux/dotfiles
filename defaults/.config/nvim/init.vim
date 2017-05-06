@@ -371,9 +371,9 @@
 					\:lcl<CR>
 
 		" General mappings for all languages
-		nnoremap <buffer> <unique> <Leader>lo :SyntasticToggleMode<CR>
-		nnoremap <buffer> <unique> <Leader>ls :SyntasticCheck<CR>
-		nnoremap <buffer> <unique> <Leader>lf :Autoformat<CR>
+		nnoremap <unique> <Leader>lo :SyntasticToggleMode<CR>
+		nnoremap <unique> <Leader>ls :SyntasticCheck<CR>
+		nnoremap <unique> <Leader>lf :Autoformat<CR>
 
 
 	" FileType Specific mappings use <Leader>l
