@@ -23,7 +23,7 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	" Encapsulate in markdown file from current line until end of file in ```
 	nnoremap <buffer> <unique> <Leader>l` :normal i````cpp<Esc>Go```<Esc><CR>
 	" Markdown fix _ showing red
-	nnoremap <buffer> <unique> <Leader>lf :%s/_/\\_/gc<CR>
+	nnoremap <buffer> <Leader>lf :%s/_/\\_/gc<CR>
 	nnoremap <buffer> <unique> <Leader>ld :call utils#TodoCreate()<CR>
 	nnoremap <buffer> <unique> <Leader>lm :call utils#TodoMark()<CR>
 	nnoremap <buffer> <unique> <Leader>lM :call utils#TodoClearMark()<CR>
@@ -32,7 +32,6 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	if has('unix')
 		nnoremap <buffer> <unique> <Leader>lr :!google-chrome-stable %<CR>
 	endif
-
 endif
 
 function! MarkdownLevel()

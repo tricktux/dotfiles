@@ -39,6 +39,7 @@ function! plugin#Config() abort
 			nnoremap <S-k> :Buffers<CR>
 			let g:fzf_history_dir = '~/.cache/fzf-history'
 			autocmd FileType fzf tnoremap <buffer> <C-j> <Down>
+			autocmd FileType fzf set relativenumber
 			nnoremap <leader><tab> <plug>(fzf-maps-n)
 			nnoremap <leader><tab> <plug>(fzf-maps-n)
 			let g:fzf_colors =
