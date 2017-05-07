@@ -11,21 +11,25 @@
 	" call GuiMousehide(1)
 if has('win32')
 	if exists('g:GuiLoaded') " nvim-qt gui
-		Guifont! Consolas:h8
+		let g:GuiFont ='Consolas:h8'
+		execute 'Guifont ' . g:GuiFont
 		call GuiWindowMaximized(1)
+		call GuiMousehide(1)
 	else
 		" No space is required here
 		set guifont=consolas:h8
 	endif
 else
 	if exists('g:GuiLoaded') " nvim-qt gui
-		Guifont! Consolas:h9
-		call GuiWindowMaximized(1)
+		let g:GuiFont ='Monospace:h12'
+		execute 'Guifont ' . g:GuiFont
+		call GuiMousehide(1)
 	else
 		" set guifont =Hack 8
 		set guifont =DejaVu\ Sans\ Mono\ 8
 	endif
 endif
+
 set guioptions-=T  " no toolbar
 set guioptions-=m  " no menu bar
 set guioptions-=r  " no right scroll bar
