@@ -180,7 +180,7 @@
 			" colorscheme onedark
 			" set background=light
 			let g:colorscheme_night_time = 20
-			let g:colorscheme_day_time = 8
+			let g:colorscheme_day_time = 7
 			let g:colorscheme_day = 'PaperColor'
 			let g:colorscheme_night = 'gruvbox'
 			execute "colorscheme " . g:colorscheme_day
