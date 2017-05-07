@@ -36,17 +36,6 @@ if [ -f /opt/context-minimals/setuptex ]; then
 	source /opt/context-minimals/setuptex
 fi
 
-if [[ -z "$TMUX" ]]; then
-	# Do not attach to the 
-	ID="`tmux ls | grep -vm1 attached | cut -d: -f1`"
-	# Do not attach to the cmus session. Let it run in the background
-	if [[ -z "$ID" || "$ID" = "cmus" ]]; then
-		tmux -2 new-session
-	else
-		tmux attach-session -t "$ID"
-	fi
-fi
-
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=8888
 HISTFILESIZE=8888
@@ -63,7 +52,7 @@ if [ `uname -o` != "Android" ]; then
 fi
 
 # Exports
-export XTERM=screen-256color
+export TERM=xterm-256color
 # Man settings
 export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:/usr/man
 export MANPAGER="nvim -c 'set ft=neoman' -"
@@ -73,6 +62,7 @@ export PATH=$HOME/.local/bin:$PATH
 export EMAIL="rmolin88@gmail.com"
 export EDITOR=vim
 export VISUAL=vim
+export BROWSER=google-chrome-stable
 
 # Pacaur environment variables. See man pacaur
 # Dangerous options
@@ -84,3 +74,17 @@ export RANGER_LOAD_DEFAULT_RC=FALSE
 
 # Fixes git weird issue
 export GIT_TERMINAL_PROMPT=1
+
+
+# This should always be the last thing so that all export are done properly
+if [[ -z "$TMUX" ]]; then
+	# Do not attach to the 
+	ID="`tmux ls | grep -vm1 attached | cut -d: -f1`"
+	# Do not attach to the cmus session. Let it run in the background
+	if [[ -z "$ID" || "$ID" = "cmus" ]]; then
+		tmux -2 new-session
+	else
+		tmux attach-session -t "$ID"
+	fi
+fi
+

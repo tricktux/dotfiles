@@ -325,10 +325,10 @@ function! plugin#Config() abort
 		let g:autoformat_retab = 0
 		let g:autoformat_remove_trailing_spaces = 0
 
-		" Note: Python-Windows hides pip files in C:\Users\<user>\AppData\Roaming\Python\Python36\Scripts
-		let g:formatters_c = ['clang-format']
-		let g:formatters_cpp = ['clang-format']
+		" let g:formatters_c = ['clang-format']
+		" let g:formatters_cpp = ['clang-format']
 
+		" Note: Python-Windows hides pip executables in C:\Users\<user>\AppData\Roaming\Python\Python36\Scripts
 		let g:formatters_python = ['yapf']
 		let g:formatter_yapf_style = 'google'
 
@@ -416,9 +416,10 @@ function! plugin#Config() abort
 
 	" colorschemes
 	Plug 'morhetz/gruvbox' " colorscheme gruvbox
-	Plug 'joshdick/onedark.vim'
-	" TODO.RM-Thu Apr 20 2017 22:37: Maybe give neosolarized a chance  
 	Plug 'NLKNguyen/papercolor-theme'
+	" TODO.RM-Thu Apr 20 2017 22:37: Maybe give neosolarized a chance  
+	" Sun May 07 2017 16:25 - Gave it a try and didnt like it 
+	" Plug 'icymind/NeoSolarized'
 
 	" Radical
 	Plug 'glts/vim-magnum' " required by radical
@@ -453,9 +454,8 @@ function! plugin#Config() abort
 		let g:www_launch_browser_command = "chrome {{URL}}"
 		let g:www_launch_cli_browser_command = "chrome {{URL}}"
 		nnoremap <Leader>Gu :Wcsearch google <C-R>=expand("<cword>")<CR><CR>
-		" Go to link under curson  
-		" TODO.RM-Fri Apr 28 2017 15:21: Get this mapping to work  
-		vnoremap <Leader>Gu :y<bar>Wcopen <c-r><c-p><CR>
+		" Go to link under cursor  
+		vnoremap <Leader>Gu :call utils#SearchHighlighted()<CR>
 		nnoremap <Leader>Gs :Wcsearch google 
 
 	Plug 'itchyny/lightline.vim'
@@ -465,18 +465,19 @@ function! plugin#Config() abort
 			let g:lightline.active = {
 								\   'left': [ 
 								\							[ 'mode', 'paste' ], 
-								\							[ 'readonly', 'absolutepath', 'modified', 'fugitive', 'svn', 'neomake'] 
+								\							[ 'readonly', 'absolutepath', 'modified', 'fugitive', 'svn'] 
 								\						]
 								\		}
 		 let g:lightline.component = {
 								\   'fugitive': '%{fugitive#statusline()}',
-								\   'neomake': '%{neomake#statusline#QflistStatus("qf:\ ")}', 
 								\   'svn': '%{svn#GetSvnBranchInfo()}', 
 								\   'tagbar': '%{tagbar#currenttag("%s\ ","")}' 
 								\		}
+			" Sun May 07 2017 12:36 Slowing down a little bit 
+			" \   'neomake': '%{neomake#statusline#QflistStatus("qf:\ ")}', 
+			" \   'neomake': '(!empty(neomake#statusline#QflistStatus("qf:\ ")))',
 			let g:lightline.component_visible_condition = {
 								\   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())',
-								\   'neomake': '(!empty(neomake#statusline#QflistStatus("qf:\ ")))',
 								\   'svn': '(!empty(svn#GetSvnBranchInfo()))',
 								\   'tagbar': '(!empty(tagbar#currenttag("%s\ ","")))'
 								\		}

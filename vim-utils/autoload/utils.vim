@@ -248,13 +248,16 @@ function! utils#LoadSession(...) abort
 	if a:0 < 1
 		execute "wall"
 		echo "Save Current Session before deleting all buffers: (y)es (any)no"
-		let l:iResponse = getchar()
-		if l:iResponse == 121 " y
+		let response = getchar()
+		if response == 121 " y
 			call utils#SaveSession()
 		endif
+		let dir = getcwd()
+		execute "cd ". g:cache_path ."sessions/"
 		let l:sSessionName = input("Enter load session name:", "", "file")
 		silent! execute "normal :%bdelete\<CR>"
 		silent execute "normal :so " . g:cache_path . "sessions/". l:sSessionName . "\<CR>"
+		silent! execute "cd " . dir
 	else
 		" echo "Reload previous session: (j|y)es (any)no"
 		" let response = getchar()
@@ -391,19 +394,13 @@ function! utils#ToggleTerm() abort
 endfunction
 
 function! utils#GuiFont(sOp) abort
-	let sub = has('win32') ? ':h\zs\d\+' : '\ \zs\d\+'
-	if has('nvim') && exists('g:GuiLoaded') && exists(':Guifont')
-		" Capture output of Guifont
-		redir => guifont_out
-		silent Guifont
-		redir END
+	if has('nvim') && exists('g:GuiLoaded') && exists('g:GuiFont')
 		" Substitute last number with a plus or minus value depending on input
-		if !empty(guifont_out)
-			let new_cmd = substitute(guifont_out, sub,'\=eval(submatch(0)'.a:sOp.'1)','')			
-			echomsg new_cmd
-			execute "GuiFont! " . new_cmd
-		endif
+		let new_cmd = substitute(g:GuiFont, ':h\zs\d\+','\=eval(submatch(0)'.a:sOp.'1)','')			
+		echomsg new_cmd
+    call GuiFont(new_cmd, 1)
 	else " gvim
+		let sub = has('win32') ? ':h\zs\d\+' : '\ \zs\d\+'
 		let &guifont = substitute(&guifont, sub,'\=eval(submatch(0)'.a:sOp.'1)','')
 	endif
 endfunction
@@ -657,6 +654,14 @@ function! utils#BufDetermine() abort
 	endif
 endfunction
 
+function! utils#SearchHighlighted() abort
+	if exists(':Wcopen')
+		" Yank selection to reg a then echo it cli
+		execute "normal \"ay:Wcopen \<c-r>a\<cr>"
+	else
+		echomsg string('Missing plugin: vim-www')
+	endif
+endfunction
 " TODO.RM-Sat Nov 26 2016 00:04: Function that auto adds SCR # and description
 
  " vim:tw=78:ts=2:sts=2:sw=2:
