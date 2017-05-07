@@ -13,22 +13,31 @@
 ;  [X] - Fix system tray icons
 
 [colors]
-;background = ${xrdb:color0:#222}
+transparent = #00000000
 background = #222
 background-alt = #444
-;foreground = ${xrdb:color7:#222}
 foreground = #dfdfdf
 foreground-alt = #555
 primary = #ffb52a
 secondary = #e60053
 alert = #bd2c40
 
+t1		= #332D35
+t2		= #7D6297
+t6		= #CAB8D1
+
+t3		= #AD9CC3
+t4  	= #B6A5C8
+t5		= #C0AECD
+t7		= #D3C1D6
+t8		= #DDCADB
+
 [bar/example]
 ;monitor = ${env:MONITOR:HDMI-1}
 width = 100%
 height = 27
-offset-x = 1%
-offset-y = 1%
+; offset-x = 1%
+; offset-y = 1%
 radius = 6.0
 fixed-center = false
 
@@ -42,10 +51,10 @@ border-size = 4
 border-color = #00000000
 
 padding-left = 0
-padding-right = 2
+padding-right = 0
 
 module-margin-left = 1
-module-margin-right = 2
+module-margin-right = 1
 
 ; font-0 = FontAwesome:size=10;0
 font-0 = FontAwesome:size=10;0
@@ -58,27 +67,29 @@ modules-center = xwindow music
 modules-right = volume weather memory cpu battery temperature date powermenu
 ; fixed-center = true
 
-tray-position = center
-; tray-padding = 2
-tray-detached = true
-tray-transparent = false
-tray-scale = 1.2
+; My new settings
+tray-detached = false
+tray-position = right
 tray-offset-x = 0
-tray-offset-y = 95%
-;tray-background = #0063ff
-
-;wm-restack = bspwm
-; wm-restack = i3
+tray-offset-y = 0
+tray-maxsize = 16
+tray-padding = 2
+tray-scale = 1
 
 ; override-redirect = true
+enable-ipc = true
 
-;scroll-up = bspwm-desknext
-;scroll-down = bspwm-deskprev
-
-;scroll-up = i3wm-wsnext
-;scroll-down = i3wm-wsprev
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
 
 [module/xwindow]
+format-prefix            = 
+format-prefix-background = ${colors.t5}
+format-prefix-foreground = ${colors.t5}
+format-suffix            = 
+format-suffix-background = ${colors.t5}
+format-suffix-foreground = ${colors.t5}
+
 type = internal/xwindow
 label = %title:0:30:...%
 
@@ -86,7 +97,7 @@ label = %title:0:30:...%
 type = internal/xkeyboard
 blacklist-0 = num lock
 
-format-prefix = " "
+format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 format-prefix-underline = ${colors.secondary}
 
@@ -414,5 +425,4 @@ interval = 2
 label = %output:0:45:...%
 exec = ~/.config/polybar/mpris.sh
 
-; vim:ft=dosini:relativenumber:
-
+; vim:ft=dosini:

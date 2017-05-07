@@ -557,7 +557,7 @@ function! utils#ConvertWeeklyReport() abort
 	execute "cd " dir_buff
 endfunction
 
-function! utils#AutoHighlight(on)
+function! utils#AutoHighlightToggle()
 	let @/ = ''
 	if exists('#auto_highlight')
 		au! auto_highlight
