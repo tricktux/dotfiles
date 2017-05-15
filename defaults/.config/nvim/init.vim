@@ -564,11 +564,10 @@
 	" Buffers Stuff <Leader>b?
 		if !exists("b:plugins_loaded")
 			nnoremap <S-k> :buffers<CR>:buffer<Space>
-			nnoremap <Leader>bd :bp\|bw #\|bd #<CR>
 		else
 			nnoremap <Leader>bs :buffers<CR>:buffer<Space>
-			nnoremap <Leader>bd :Bclose<CR>
 		endif
+		nnoremap <Leader>bd :bp\|bw #\|bd #<CR>
 		nnoremap <S-j> :b#<CR>
 		" deletes all buffers
 		nnoremap <Leader>bl :%bd<CR>
