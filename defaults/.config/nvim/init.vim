@@ -425,8 +425,6 @@
 		nnoremap <Leader>jn :silent !./%<CRutils#>
 		" Create file with name under the cursor
 		" Diff Sutff
-		nnoremap <Leader>jz :SetDiff<CR>
-		nnoremap <Leader>jZ :call utils#UnsetDiff()<CR>
 		nnoremap <Leader>j. :call utils#LastCommand()<CR>
 		nnoremap <Leader>j- :call utils#GuiFont("-")<CR>
 		nnoremap <Leader>j= :call utils#GuiFont("+")<CR>
