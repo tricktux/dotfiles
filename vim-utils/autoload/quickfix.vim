@@ -38,9 +38,12 @@ function! quickfix#ToggleList(bufname, pfx)
 	endif
 	let winnr = winnr()
 	exec(a:pfx.'open')
-	if winnr() != winnr
-		wincmd p
-	endif
+	" Move quickfix to bottom of screen
+	wincmd J
+	" Restore cursor to previous window
+	" if winnr() != winnr
+		" wincmd p
+	" endif
 endfunction
 
 function! quickfix#ListsNavigation(cmd) abort
