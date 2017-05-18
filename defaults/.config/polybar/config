@@ -41,8 +41,12 @@ height = 27
 radius = 6.0
 fixed-center = false
 
-background = ${colors.background}
-foreground = ${colors.foreground}
+; background = ${colors.background}
+; foreground = ${colors.foreground}
+foreground = ${colors.t1}
+background = #ECE0D7
+underline-color = #00f
+overline-color = #f00
 
 line-size = 3
 line-color = #f00
@@ -153,7 +157,8 @@ label-mode-background = ${colors.primary}
 
 ; focused = Active workspace on focused monitor
 label-focused = %icon%
-label-focused-background = ${module/bspwm.label-focused-background}
+; label-focused-background = ${module/bspwm.label-focused-background}
+label-focused-background = #ECE0D7
 label-focused-underline = ${module/bspwm.label-focused-underline}
 label-focused-padding = ${module/bspwm.label-focused-padding}
 
