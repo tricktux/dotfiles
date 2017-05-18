@@ -16,6 +16,7 @@ if ($arch -eq 64)
 {
 # Download neovim
 		$neovim_link = "https://ci.appveyor.com/api/projects/neovim/neovim/artifacts/build/Neovim.zip?branch=master&job=Configuration%3A%20MINGW_64"
+		# $neovim_link = "https://ci.appveyor.com/projects/neovim/neovim/build/13404"
 		$ctags = "https://ci.appveyor.com/api/buildjobs/tcojv7tm2gu2x91y/artifacts/ctags-7a2d6aeb-x64.zip"
 }
 else
