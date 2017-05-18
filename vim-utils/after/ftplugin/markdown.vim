@@ -30,6 +30,7 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	inoremap <buffer> * **<Left>
 
 	if has('unix')
+		" TODO.RM-Thu May 18 2017 12:17: This should be changed to opera  
 		nnoremap <buffer> <unique> <Leader>lr :!google-chrome-stable %<CR>
 	endif
 endif
