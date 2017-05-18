@@ -21,6 +21,9 @@ setlocal omnifunc=ClangComplete
 setlocal ts=4 sw=4 sts=4
 setlocal foldenable
 setlocal define=^\\(#\\s*define\\|[a-z]*\\s*const\\s*[a-z]*\\)
+setlocal nospell
+" So that you can jump from = to ; and viceversa
+setlocal matchpairs+==:;
 
 " Add mappings, unless the user didn't want this.
 if !exists("no_plugin_maps") && !exists("no_c_maps")
@@ -158,4 +161,4 @@ function! s:CommentReduceIndent() abort
 	execute "normal Bf/hxhx"
 endfunction
 
-let b:undo_ftplugin += "setlocal omnifunc< ts< sw< sts< foldenable< define<" 
+let b:undo_ftplugin += "setlocal omnifunc< ts< sw< sts< foldenable< define< spell< matchpairs<" 
