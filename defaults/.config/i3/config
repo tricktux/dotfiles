@@ -93,8 +93,8 @@ set $urgent-bg-color     #E53935
 # client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #00ff00
 #
 # Alternative colors
-#                       BORDER      BACKGROUND  TEXT        INDICATOR   CHILD_BORDER
-	client.focused          $black      $black      $darkwhite  $darkblack  $darkblack
+		#                       BORDER      BACKGROUND  TEXT        INDICATOR   CHILD_BORDER
+		client.focused          $black      $blue     $black  $darkblack			#ECE0D7
 		client.unfocused        $black      $black      $white      $darkblack  $darkblack
 		client.focused_inactive $black      $black      $white      $darkblack  $darkblack
 		client.urgent           $darkred    $darkred    $black      $darkred    $darkred
