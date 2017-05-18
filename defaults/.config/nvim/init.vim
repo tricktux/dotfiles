@@ -482,6 +482,8 @@
 
 		" decrease number
 		nnoremap <Leader>A <c-x>
+		vnoremap <Leader>A <c-x>
+
 		nnoremap yl :call utils#YankFrom()<CR>
 		nnoremap dl :call utils#DeleteLine()<CR>
 
