@@ -12,7 +12,7 @@
 if has('win32')
 	if exists('g:GuiLoaded') " nvim-qt gui
 		let g:GuiFont ='Consolas:h8'
-		execute 'Guifont ' . g:GuiFont
+		execute 'Guifont! ' . g:GuiFont
 		call GuiWindowMaximized(1)
 		call GuiMousehide(1)
 	else
@@ -22,7 +22,7 @@ if has('win32')
 else
 	if exists('g:GuiLoaded') " nvim-qt gui
 		let g:GuiFont ='Monospace:h12'
-		execute 'Guifont ' . g:GuiFont
+		execute 'Guifont! ' . g:GuiFont
 		call GuiMousehide(1)
 	else
 		" set guifont =Hack 8
