@@ -20,10 +20,13 @@ let b:match_words = '\<if\>:\<else\>,'
 setlocal omnifunc=ClangComplete
 setlocal ts=4 sw=4 sts=4
 setlocal foldenable
+setlocal foldnestmax=88
 setlocal define=^\\(#\\s*define\\|[a-z]*\\s*const\\s*[a-z]*\\)
 setlocal nospell
 " So that you can jump from = to ; and viceversa
 setlocal matchpairs+==:;
+" This is that delimate doesnt aut fill the newly added matchpairs
+let b:delimitMate_matchpairs = "(:),[:],{:},<:>"
 
 " Add mappings, unless the user didn't want this.
 if !exists("no_plugin_maps") && !exists("no_c_maps")
@@ -105,6 +108,11 @@ endif
 
 " Auto set the compiler
 if has('win32')
+	" Fri May 19 2017 11:38 Having a lot of hang ups with the function! s:Highlight_Matching_Pair()
+	" on the file C:\Program Files\nvim\Neovim\share\nvim\runtime\plugin\matchparen.vim
+	" This value is suppose to help with it. The default value is 300ms
+	" DoMatchParen, and NoMatchParen are commands that enable and disable the command
+	let b:matchparen_timeout = 100
 	if !exists('b:current_compiler')
 		" Notice inside the '' is a pat which is a regex. That is why \\
 		if expand('%:p') =~ 'onewings\\source'
@@ -119,6 +127,7 @@ if has('win32')
 	endif
 	let b:syntastic_checkers = [ 'cppcheck', 'clang_tidy', 'clang_check' ]
 else " Unix
+	setlocal foldmethod=syntax 
 	let b:syntastic_checkers = [ 'cppcheck', 'clang_tidy', 'clang_check', 'gcc' ]
 endif
 let b:syntastic_mode = 'passive'
@@ -161,4 +170,4 @@ function! s:CommentReduceIndent() abort
 	execute "normal Bf/hxhx"
 endfunction
 
-let b:undo_ftplugin += "setlocal omnifunc< ts< sw< sts< foldenable< define< spell< matchpairs<" 
+let b:undo_ftplugin = "setl omnifunc< ts< sw< sts< foldenable< define< spell< matchpairs< foldmethod< foldnestmax<" 
