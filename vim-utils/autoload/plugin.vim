@@ -240,7 +240,6 @@ function! plugin#Config() abort
 		let g:syntastic_c_remove_include_errors = 1
 		let g:syntastic_c_compiler_options = '-std=c11 -pedantic -Wall'
 		" let g:syntastic_cpp_check_header = 1
-		
 
 	Plug g:location_vim_utils
 		let g:svn_repo_url = 'svn://odroid@copter-server/' 
@@ -297,12 +296,17 @@ function! plugin#Config() abort
 		let g:colorizer_auto_filetype='css,html,xml'
 	Plug 'tpope/vim-repeat'
 	Plug 'tpope/vim-surround'
+
+	" Fold stuff
+	" Fri May 19 2017 12:50 I have tried many times to get 'fdm=syntax' to work
+	" on large files but its just not possible. Too slow.
 	Plug 'Konfekt/FastFold'
 		" Stop updating folds everytime I save a file
 		let g:fastfold_savehook = 0
 		" To update folds now you have to do it manually pressing 'zuz'
 		let g:fastfold_fold_command_suffixes =
 					\['x','X','a','A','o','O','c','C','r','R','m','M','i','n','N']
+
 	Plug 'airblade/vim-rooter'
 		let g:rooter_manual_only = 1
 		nnoremap <Leader>cr :Rooter<CR>
@@ -417,7 +421,6 @@ function! plugin#Config() abort
 	" colorschemes
 	Plug 'morhetz/gruvbox' " colorscheme gruvbox
 	Plug 'NLKNguyen/papercolor-theme'
-	" TODO.RM-Thu Apr 20 2017 22:37: Maybe give neosolarized a chance  
 	" Sun May 07 2017 16:25 - Gave it a try and didnt like it 
 	" Plug 'icymind/NeoSolarized'
 
