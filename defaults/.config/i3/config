@@ -260,8 +260,8 @@ bindsym $mod+Shift+0 move container to workspace $workspace10
 # Assign stuff
 assign [class="URxvt"] $workspace1
 assign [class="nvim-qt"] $workspace1
-assign [class="Google-chrome"] $workspace2
-assign [class="Opera"] $workspace2
+assign [class="Google-chrome"] $workspace1
+assign [class="Opera"] $workspace1
 assign [class="Pcmanfm"] $workspace4
 # All other new windows go to ws 3
 # Very confusing. Most of the time things open and you do not notice
@@ -451,7 +451,7 @@ exec --no-startup-id compton -f
 exec --no-startup-id xscreensaver -no-splash&
 exec --no-startup-id pcmanfm --daemon-mode
 
-exec --no-startup-id termite
+exec --no-startup-id nvim-qt
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id seafile-applet
