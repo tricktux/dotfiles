@@ -21,7 +21,9 @@ if has('win32')
 	endif
 else
 	if exists('g:GuiLoaded') " nvim-qt gui
-		let g:GuiFont ='Monospace:h12'
+		" TODO.RM-Sat May 20 2017 10:21: Probably will have to make this hostname
+		" depenednt
+		let g:GuiFont ='Monospace:h9'
 		execute 'Guifont! ' . g:GuiFont
 		call GuiMousehide(1)
 	else
