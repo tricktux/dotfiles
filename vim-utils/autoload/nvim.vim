@@ -15,6 +15,7 @@ function! nvim#Config() abort
 	" TODO.RM-Sat Apr 29 2017 17:20: Need to rethink all of this mappings here  
 	tnoremap <A-s> <Down>
 	tnoremap <A-w> <Up>
+	tnoremap <C-k> <Up>
 	tnoremap <A-a> <Left>
 	tnoremap <A-d> <Right>
 
