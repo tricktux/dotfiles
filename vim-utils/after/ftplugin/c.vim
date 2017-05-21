@@ -74,7 +74,7 @@ if !exists("no_plugin_maps") && !exists("no_c_maps")
 	nnoremap <buffer> <unique> <Leader>oI :call <SID>CommentReduceIndent()<CR>
 	nnoremap <buffer> <Leader>lh :call utils#AutoHighlightToggle()<CR>
 
-	if exists(':LLmode')
+	if executable('lldb')
 		nmap <buffer> <unique> <Leader>db <Plug>LLBreakSwitch
 		" vmap <F2> <Plug>LLStdInSelected
 		" nnoremap <F4> :LLstdin<CR>
