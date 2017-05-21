@@ -32,6 +32,8 @@ function! plugin#Config() abort
 			nnoremap <Leader>TL :call neoterm#closeAll()<CR>
 			nnoremap <Leader>Tk :call neoterm#kill()<CR>
 
+		Plug 'rliang/termedit.nvim'
+
 		Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 		Plug 'junegunn/fzf.vim'
 			nnoremap <C-p> :History<CR>

@@ -260,8 +260,9 @@ bindsym $mod+Shift+0 move container to workspace $workspace10
 # Assign stuff
 assign [class="URxvt"] $workspace1
 assign [class="nvim-qt"] $workspace1
-assign [class="Google-chrome"] $workspace1
-assign [class="Opera"] $workspace1
+# Keep it this way to make it consistent with Windows
+assign [class="Google-chrome"] $workspace2
+assign [class="Opera"] $workspace2
 assign [class="Pcmanfm"] $workspace4
 # All other new windows go to ws 3
 # Very confusing. Most of the time things open and you do not notice
