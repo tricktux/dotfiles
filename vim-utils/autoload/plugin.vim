@@ -23,6 +23,7 @@ function! plugin#Config() abort
 
 	" fzf only seems to work with nvim
 	if has('unix') && has('nvim')
+		" Terminal plugins
 		Plug 'kassio/neoterm'
 			let g:neoterm_use_relative_path = 1
 			let g:neoterm_position = 'vertical'
@@ -113,9 +114,11 @@ function! plugin#Config() abort
 		" nvim-qt on unix doesnt populate has('gui_running
 		Plug 'equalsraf/neovim-gui-shim'
 		if executable('lldb')
-			" TODO.RM-Thu Apr 20 2017 22:18: Figure out what is going on here
-			Plug 'critiqjo/lldb.nvim', { 'on' : 'LLmode debug', 'do' : ':UpdateRemotePlugins' }
+			Plug 'critiqjo/lldb.nvim'
 			" All mappings moved to c.vim
+			" Note: Remember to always :UpdateRemotePlugins
+			"TODO.RM-Sun May 21 2017 01:14: Create a ftplugin/lldb.vim to disable
+			"folding  
 		endif
 
 		if executable('man')
