@@ -726,5 +726,6 @@
 	command! UtilsProfile call utils#ProfilePerformance()
 	command! UtilsDiffSet call utils#SetDiff()
 	command! UtilsDiffOff call utils#UnsetDiff()
+	command! UtilsDiffReset call utils#UnsetDiff()<bar>call utils#SetDiff()
 
 " vim:tw=78:ts=2:sts=2:sw=2:
