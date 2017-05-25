@@ -11,6 +11,7 @@ bc 1.07.1-1
 binutils 2.28.0-2
 bison 3.0.4-2
 blueman 2.0.4-3
+bluez-firmware 1.2-8
 bluez-utils 5.45-1
 bzip2 1.0.6-6
 capitaine-cursors r2-2
@@ -84,7 +85,7 @@ man-pages 4.11-1
 mdadm 4.0-1
 mutt 1.8.2-2
 nano 2.8.2-1
-neovim-git 0.2.0.r191.g060ce0e0b-1
+neovim-git 0.2.0.r192.g3280765f2-1
 neovim-qt-git v0.2.4.r24.g3fd4646-1
 netctl 1.12-2
 network-manager-applet 1.8.0-1
@@ -102,6 +103,7 @@ pacman 5.0.1-5
 paper-icon-theme-git 729.579e9aab-1
 parted 3.2-5
 patch 2.7.5-1
+pavucontrol 3.0-4
 pciutils 3.5.4-1
 pcmanfm 1.2.5-1
 pcmciautils 018-7
@@ -115,6 +117,7 @@ procps-ng 3.3.12-1
 psmisc 22.21-3
 pulseaudio 10.0-3
 pulseaudio-alsa 2-3
+pulseaudio-bluetooth 10.0-3
 python-gobject 3.24.1-1
 python-keyring 10.3.2-1
 python2-dbus 1.2.4-2
@@ -157,7 +160,7 @@ ttf-font-awesome 4.7.0-2
 ttf-hack 2.020-2
 ttf-unifont 9.0.06-3
 udisks2 2.6.5-1
-universal-ctags-git 0.r4965.41254981-1
+universal-ctags-git 0.r4986.4915c54b-1
 unzip 6.0-12
 usbutils 008-1
 util-linux 2.29.2-2
