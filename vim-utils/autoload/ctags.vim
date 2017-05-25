@@ -2,10 +2,12 @@
 "	Description: All functions related to creation/deletion/update/loading of ctags and cscope
 " Author:Reinaldo Molina <rmolin88@gmail.com>
 " Version:1.0.0
-" Last Modified: Sat Apr 01 2017 17:04
+" Last Modified: Thu May 25 2017 08:39
+" Created: Sat Apr 01 2017 17:04
 
 " ft_spec - If 1 will create ctags only for the &ft language
 "					- If 0 then create tags for all the files in the dir
+"	Your current directory should be at the root of you code
 function! ctags#NvimSyncCtags(ft_spec) abort
 	if !executable('rg')
 		echomsg string("Ctags dependens on ripgrep. I know horrible")
@@ -22,37 +24,20 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 		return
 	endif
 
-	let nvim_ft = &ft
-	let rg_ft = ctags#NvimFt2Rg(nvim_ft)
-	let cwd_rg = getcwd()
-	" Get cscope files location
 	let files_loc = g:cache_path . "ctags/"
-	let files_name = files_loc . "cscope.files"
+	let cwd_rg = getcwd()
 	if has('win32')
 		let cwd_rg = substitute(cwd_rg, "\\", "/", "g") " Fix cwd for the rg command
-		let files_name = substitute(files_name, "\\", "/", "g") " Fix cwd for the rg command
+		let files_loc = substitute(files_loc, "\\", "/", "g") " Fix cwd for the rg command
 	endif
-	" Cscope db are not being created properly therefore making cscope.files filetype specific no matter what
-	" if a:ft_spec == 1
-	let files_cmd = 'rg -t ' . rg_ft . ' --files ' .  cwd_rg .  ' > ' . files_name
-	" else
-		" let files_cmd = 'rg --files ' .  cwd_rg .  ' > ' . files_name
-	" endif
-	" let files_cmd = substitute(files_cmd,"'", "","g")
-	call delete(files_name)	 " Delete old/previous cscope.files
-	" echomsg string(files_cmd) " Debugging
-	if has('nvim')
-		let res = systemlist(files_cmd)
-	else
-		silent! execute "!" . files_cmd
-	endif
-	if getfsize(files_name) < 1 
+
+	let nvim_ft = &filetype
+	if !ctags#CreateCscopeFiles(files_loc, cwd_rg, nvim_ft)
 		echomsg string("Failed to create cscope.files")
-		echomsg string(files_cmd)
-		" cexpr res
 		return
 	endif
-		
+
+	let ctags_lang = ''
 	if a:ft_spec == 1
 		let ctags_lang = ctags#NvimFt2Ctags(&filetype)
 		if empty(ctags_lang)
@@ -62,61 +47,30 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 	endif
 
 	" Create unique tag file name based on cwd_rg
-	let tags_name = ctags#GetPathFolderName(cwd_rg)
-	if empty(tags_name)
-		echomsg string("Failed to obtain tags_name")
+	let folder_name = ctags#GetPathFolderName(cwd_rg)
+	if empty(folder_name)
+		echomsg string("Failed to obtain folder_name")
 		return
 	endif
 
-	if a:ft_spec == 1
-		let ctags_cmd = "ctags -L cscope.files -f " . tags_name . " --sort=no --c-kinds=+p --c++-kinds=+p --fields=+l extras=+q --language-force=" . ctags_lang
-	else
-		" let ctags_cmd = "ctags -L cscope.files -f " . tags_name . " --sort=no --c-kinds=+p --c++-kinds=+p --fields=+l extras=+q"
-		" This made neovim extremely slow. Databases too big. It wasnt actually this. It was tagbar plugin not behaving in
-		" Windows
-		let ctags_cmd = "ctags -L cscope.files -f " . tags_name . " --sort=no --c-kinds=+pl --c++-kinds=+pl --fields=+iaSl extras=+q" 
-	endif
-
-	" echomsg string(ctags_cmd) " Debugging
-	execute "cd " . files_loc
-	let res = systemlist(ctags_cmd)
-
-	if v:shell_error || getfsize(tags_name) < 1 
-		if v:shell_error && !empty(res)
-			cexpr res
-		else
-			echomsg "Failed to create tags file: " . tags_name
-		endif
+	if !ctags#CreateTags(a:ft_spec, 'tags_' . folder_name, files_loc, ctags_lang, cwd_rg)
+		echomsg "Failed to create tags file: tags_" . folder_name
 		return
-	endif
-
-	" if !(tags_name in tagfiles()) 
-		" echo "New tagfile"
-	" else
-		" echo tags_name " already loaded"
-	" endif
-	" Add new tag file if not already on the list
-	let list_tags = tagfiles()
-	let tag_present = 0
-	for tag in list_tags
-		if tag =~# tags_name
-			let tag_present = 1
-		endif
-	endfor
-	if tag_present == 0
-		execute "set tags+=" . g:cache_path . tags_name
 	endif
 
 	if nvim_ft ==# 'cpp' || nvim_ft ==# 'c' || nvim_ft ==# 'java'
 		" Create cscope db as well
-		execute "silent! cs kill -1"
-		let del_files = ['ncscope.out', 'cscope.out', 'cscope.po.out', 'cscope.in.out']
-		for item in del_files
-			call delete(item)
-		endfor
+		" TODO.RM-Thu May 25 2017 08:27: Do not kill connection until you determine that you are updating an existing tag  
+		let cs_db = folder_name . '.out'
+		execute "cd " . files_loc
 
-		let res_cs = systemlist('cscope -bqi cscope.files')
-		if v:shell_error
+		if !empty(glob(cs_db)) " If we are updating an existing tag. Close only that connection
+			execute "silent! cs kill " . cs_db
+		endif
+
+		let cscope_cmd = 'cscope -f ' . cs_db . ' -bqi cscope.files'
+		let res_cs = systemlist(cscope_cmd)
+		if v:shell_error || getfsize(cs_db) < 1 
 			if !empty(res_cs)
 				cexpr res_cs
 			endif
@@ -125,16 +79,9 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 			return
 		endif
 
-		let cs_db = !filereadable('cscope.out') ? 'ncscope.out' : 'cscope.out'
-		if getfsize(cs_db) < 1 
-			echomsg string("Failed to create cscope database")
-			execute "cd " . cwd_rg
-			return
-		endif
 		execute "cs add " . cs_db
+		execute "cd " . cwd_rg
 	endif
-
-	execute "cd " . cwd_rg
 endfunction
 
 function! ctags#GetPathFolderName(curr_dir) abort
@@ -149,7 +96,7 @@ function! ctags#GetPathFolderName(curr_dir) abort
 		return
 	endif
 
-	return "tags_" . a:curr_dir[back_slash_index+1:]
+	return a:curr_dir[back_slash_index+1:]
 endfunction
 
 " TODO.RM-Fri Mar 24 2017 16:49: This function is suppose to be async version of ctags#NvimSyncCtags  
@@ -274,18 +221,117 @@ function! ctags#UpdateCscope() abort
 	" set tags+=.tags
 endfunction
 
-function! ctags#SetTags() abort
+function! ctags#ListCtagsFiles() abort
 	" Obtain full path list of all files in ctags folder
-	let potential_tags = map(utils#ListFiles(g:cache_path . 'ctags'), "g:cache_path . 'ctags/' . v:val")
+	let tags_loc = g:cache_path . "ctags/"
+	let potential_tags = map(utils#ListFiles(tags_loc), "tags_loc . v:val")
 	if len(potential_tags) == 0
+		echomsg tags_loc . " is empty"
 		return
 	endif
+
+	return potential_tags
+endfunction
+" Adds all the tags_* files present in '~\.cache\ctags\' to 'tags'
+" If the cscope database 'OneWings.out' is present loads it
+function! ctags#SetTags() abort
+	let potential_tags = ctags#ListCtagsFiles()
+
+	if empty(potential_tags)
+		return
+	endif
+
 	for item in potential_tags
 		if item =~# 'tags_'
 			execute "set tags +=" . item
-		elseif item =~# 'cscope.out'
+		elseif item =~# 'OneWings.out'
 			silent! execute "cs add " . item
 		endif
 	endfor
 endfunction
 
+" Creates cscope.files in ~\.cache\ctags\
+function! ctags#CreateCscopeFiles(files_loc, cwd_rg, nvim_ft) abort
+	let rg_ft = ctags#NvimFt2Rg(a:nvim_ft)
+	" Get cscope files location
+	let files_name = a:files_loc . "cscope.files"
+	if has('win32')
+		let files_name = substitute(files_name, "\\", "/", "g") " Fix cwd for the rg command
+	endif
+	" Cscope db are not being created properly therefore making cscope.files filetype specific no matter what
+	let files_cmd = 'rg -t ' . rg_ft . ' --files ' .  a:cwd_rg .  ' > ' . files_name
+	call delete(files_name)	 " Delete old/previous cscope.files
+	" echomsg string(files_cmd)
+	let res = ''
+	if has('nvim')
+		let res = systemlist(files_cmd)
+	else
+		silent! execute "!" . files_cmd
+	endif
+	if getfsize(files_name) < 1 
+		if !empty(res)
+			cexpr res
+		endif
+		return
+	endif
+	return 1
+endfunction
+
+function! ctags#CreateTags(ft_spec, tags_name, files_loc, ctags_lang, cwd_rg) abort
+	if a:ft_spec == 1
+		let ctags_cmd = "ctags -L cscope.files -f " . a:tags_name . " --sort=no --c-kinds=+p --c++-kinds=+p --fields=+l extras=+q --language-force=" . a:ctags_lang
+	else
+		" let ctags_cmd = "ctags -L cscope.files -f " . a:tags_name . " --sort=no --c-kinds=+p --c++-kinds=+p --fields=+l extras=+q"
+		" This made neovim extremely slow. Databases too big. It wasnt actually this. It was tagbar plugin not behaving in
+		" Windows
+		let ctags_cmd = "ctags -L cscope.files -f " . a:tags_name . " --sort=no --c-kinds=+pl --c++-kinds=+pl --fields=+iaSl extras=+q" 
+	endif
+
+	" echomsg string(ctags_cmd) " Debugging
+	execute "cd " . a:files_loc
+	let res = systemlist(ctags_cmd)
+
+	if v:shell_error || getfsize(a:tags_name) < 1 
+		if !empty(res)
+			cexpr res
+		endif
+		execute "cd " . a:cwd_rg
+		return
+	endif
+
+	" Add new tag file if not already on the list
+	let list_tags = tagfiles()
+	let tag_present = 0
+	for tag in list_tags
+		if tag =~# a:tags_name
+			let tag_present = 1
+		endif
+	endfor
+	if tag_present == 0
+		execute "set tags+=" . g:cache_path . a:tags_name
+	endif
+	execute "cd " . a:cwd_rg
+	return 1
+endfunction
+
+function! ctags#LoadCscopeDatabse() abort
+	let cs_db = ctags#GetPathFolderName(getcwd())	
+	if empty(cs_db)
+		echomsg "Failed to obtain current folder name"
+		return
+	endif
+
+	let cs_db = cs_db . '.out'
+	let cs_loc = g:cache_path . "ctags/" . cs_db
+
+	redir => output
+	execute "cs show"
+	redir END
+
+	" If connection already exists reset it. Otherwise load file
+	if output =~# cs_db
+		execute "cs reset"
+	elseif !empty(glob(cs_loc))
+		execute "silent! cs add " . cs_loc
+	endif
+endfunction
