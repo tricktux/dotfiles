@@ -36,6 +36,7 @@
 		let g:location_vim_utils = "~/.dotfiles/vim-utils"
 	elseif !empty(glob(g:location_portable_vim))
 		execute "source " . g:location_portable_vim
+		source "../../vimfiles/autoload/plug.vim"
 		let b:plugins_present = 1
 		let g:portable_vim = 1
 		let g:location_vim_utils = getcwd() . '/../../.dotfiles/vim-utils'
@@ -277,6 +278,7 @@
 	" Tags   
 		set tags=./.tags;,.tags;
 		if exists("b:plugins_loaded")
+			" Load all tags and OneWings cscope database
 			call ctags#SetTags()
 		endif
 
@@ -303,16 +305,12 @@
 		autocmd FileType help setlocal relativenumber
 	augroup END
 
-	augroup BuffTypes
-	autocmd!
-		" Arduino
-		autocmd BufNewFile,BufReadPost * call utils#BufDetermine()
-	augroup END
-
-	" augroup Terminal
-		" autocmd!
-		" autocmd TermOpen * if &filetype !=# 'fzf' | setfiletype terminal | endif
-	" augroup END
+	if exists('b:plugins_loaded')
+		augroup BuffTypes
+		autocmd!
+			autocmd BufNewFile,BufReadPost * call utils#BufDetermine()
+		augroup END
+	endif
 
 	" To improve syntax highlight speed. If something breaks with highlight
 	" increase these number below
