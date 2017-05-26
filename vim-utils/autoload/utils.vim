@@ -610,6 +610,7 @@ function! utils#Flux() abort
 			call lightline#init()
 			call lightline#colorscheme()
 			call lightline#update()
+			call highlight#Set('IncSearch',	{ 'bg': g:black })
 		endif
 	else
 		if exists('g:lightline.colorscheme') && g:lightline.colorscheme !=# g:colorscheme_day
@@ -619,6 +620,7 @@ function! utils#Flux() abort
 			call lightline#init()
 			call lightline#colorscheme()
 			call lightline#update()
+			call highlight#Set('IncSearch',	{ 'bg': g:white })
 		endif
 	endif
 endfunction
