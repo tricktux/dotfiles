@@ -1744,3 +1744,22 @@ endif
 		nnoremap <Leader>qc :.cc<CR>
 		nnoremap <Leader>qC :cc<CR>
 
+		function! SetWarningType(entry)
+			if a:entry.type =~? '\m^[SPI]'
+				let a:entry.type = 'I'
+			endif
+		endfunction
+
+		let g:neomake_cpp_cppcheck_maker = {
+					\ 'args': ['%:p', '-q', '--enable=all'],
+					\ 'errorformat': '[%f:%l]: (%trror) %m,' .
+					\ '[%f:%l]: (%tarning) %m,' .
+					\ '[%f:%l]: (%ttyle) %m,' .
+					\ '[%f:%l]: (%terformance) %m,' .
+					\ '[%f:%l]: (%tortability) %m,' .
+					\ '[%f:%l]: (%tnformation) %m,' .
+					\ '[%f:%l]: (%tnconclusive) %m,' .
+					\ '%-G%.%#',
+					\ 'postprocess': function('SetWarningType')
+					\ }
+
