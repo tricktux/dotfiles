@@ -32,12 +32,12 @@
 	let g:location_portable_vim = "../../.dotfiles/vim-utils/autoload/plugin.vim"
 	if !empty(glob(g:location_local_vim))
 		execute "source " . g:location_local_vim
-		let b:plugins_present = 1
+		let g:plugins_present = 1
 		let g:location_vim_utils = "~/.dotfiles/vim-utils"
 	elseif !empty(glob(g:location_portable_vim))
 		execute "source " . g:location_portable_vim
-		source "../../vimfiles/autoload/plug.vim"
-		let b:plugins_present = 1
+		execute "source ../../vimfiles/autoload/plug.vim"
+		let g:plugins_present = 1
 		let g:portable_vim = 1
 		let g:location_vim_utils = getcwd() . '/../../.dotfiles/vim-utils'
 	else
@@ -50,26 +50,26 @@
 	else
 		let g:autcompl_engine = 'autocomplpop'		
 	endif
-	if exists('b:plugins_present') && plugin#Check() && plugin#Config()
-			let b:plugins_loaded = 1
+	if exists('g:plugins_present') && plugin#Check() && plugin#Config()
+			let g:plugins_loaded = 1
 	else
 		echomsg "No plugins where loaded"
 	endif
 
 " NVIM SPECIFIC
 	" ~/.dotfiles/vim-utils/autoload/nvim.vim
-	if has('nvim') && exists("b:plugins_loaded")
+	if has('nvim') && exists("g:plugins_loaded")
 		call nvim#Config()
 	endif
 
 " WINDOWS_SETTINGS
 	" ~/.dotfiles/vim-utils/autoload/win32.vim
-	if has('win32') && exists("b:plugins_loaded")
+	if has('win32') && exists("g:plugins_loaded")
 		call win32#Config()
 
 " UNIX_SETTINGS
 	" ~/.dotfiles/vim-utils/autoload/unix.vim
-	elseif has('unix') && exists("b:plugins_loaded")
+	elseif has('unix') && exists("g:plugins_loaded")
 		call unix#Config()
 	endif
 
@@ -175,7 +175,7 @@
 		set omnifunc=syntaxcomplete#Complete
 
 	" Status Line and Colorscheme
-		if exists('b:plugins_loaded')
+		if exists('g:plugins_loaded')
 			" set background=dark    " Setting dark mode
 			" colorscheme gruvbox
 			" colorscheme onedark
@@ -196,7 +196,7 @@
 
 		" If this not and android device and we have no plugins setup "ugly"
 		" status line
-		if !exists("g:android") && !exists('b:plugins_loaded')
+		if !exists("g:android") && !exists('g:plugins_loaded')
 			set statusline =
 			set statusline+=\ [%n]                                  "buffernr
 			set statusline+=\ %<%F\ %m%r%w                         "File+path
@@ -264,7 +264,7 @@
 		endif
 		
 	" Grep
-		if exists("b:plugins_loaded")
+		if exists("g:plugins_loaded")
 			call utils#SetGrep()
 		endif
 
@@ -277,7 +277,7 @@
 
 	" Tags   
 		set tags=./.tags;,.tags;
-		if exists("b:plugins_loaded")
+		if exists("g:plugins_loaded")
 			" Load all tags and OneWings cscope database
 			call ctags#SetTags()
 		endif
@@ -305,13 +305,6 @@
 		autocmd FileType help setlocal relativenumber
 	augroup END
 
-	if exists('b:plugins_loaded')
-		augroup BuffTypes
-		autocmd!
-			autocmd BufNewFile,BufReadPost * call utils#BufDetermine()
-		augroup END
-	endif
-
 	" To improve syntax highlight speed. If something breaks with highlight
 	" increase these number below
 	" augroup vimrc
@@ -320,7 +313,7 @@
 	" augroup END
 
 
-	if exists("b:plugins_loaded")
+	if exists("g:plugins_loaded")
 		augroup VimType
 			autocmd!
 			" Sessions
@@ -329,6 +322,11 @@
 			autocmd VimLeave * call utils#SaveSession('default.vim')
 			" Keep splits normalize
 			autocmd VimResized * call utils#NormalizeWindowSize()
+		augroup END
+
+		augroup BuffTypes
+			autocmd!
+			autocmd BufNewFile,BufReadPost * call utils#BufDetermine()
 		augroup END
 	endif
 
@@ -562,7 +560,7 @@
 		execute "inoremap " . g:esc . " <Esc>"
 
 	" Buffers Stuff <Leader>b?
-		if !exists("b:plugins_loaded")
+		if !exists("g:plugins_loaded")
 			nnoremap <S-k> :buffers<CR>:buffer<Space>
 		else
 			nnoremap <Leader>bs :buffers<CR>:buffer<Space>
@@ -682,7 +680,7 @@
 
 " HIGHLITING
 " ~/.dotfiles/vim-utils/autoload/highlight.vim
-	if exists("b:plugins_loaded") && has('nvim')
+	if exists("g:plugins_loaded") && has('nvim')
 		" C
 		call highlight#Set('cTypeTag',                { 'fg': g:brown })
 		call highlight#Set('cPreProcTag',             { 'fg': g:cyan })

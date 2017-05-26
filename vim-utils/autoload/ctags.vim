@@ -24,6 +24,8 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 		return
 	endif
 
+	" TODO.RM-Fri May 26 2017 15:35: Add a warning here that you are creating
+	" tags and csscope for getcwd() folder  
 	let files_loc = g:cache_path . "ctags/"
 	let cwd_rg = getcwd()
 	if has('win32')

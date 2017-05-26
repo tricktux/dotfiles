@@ -150,64 +150,45 @@ function! plugin#Config() abort
 	Plug 'justinmk/vim-syntax-extra'
 
 	" Plugins for All (nvim, linux, win32)
-	Plug 'neomake/neomake'
-		let g:neomake_warning_sign = {
-					\ 'text': '?',
-					\ 'texthl': 'WarningMsg',
-					\ }
+	" Plug 'neomake/neomake'
+		" let g:neomake_warning_sign = {
+					" \ 'text': '?',
+					" \ 'texthl': 'WarningMsg',
+					" \ }
 
-		let g:neomake_error_sign = {
-					\ 'text': 'X',
-					\ 'texthl': 'ErrorMsg',
-					\ }
-		let g:neomake_cpp_enabled_makers = ['cppcheck', 'clang']
-		let g:neomake_c_enabled_makers = ['gcc', 'clang']
-		let g:neomake_cpp_clang_maker = {
-					\ 'args': ['-fsyntax-only', '-std=c++14', '-Wall', '-Wextra'],
-					\ 'errorformat':
-					\ '%-G%f:%s:,' .
-					\ '%f:%l:%c: %trror: %m,' .
-					\ '%f:%l:%c: %tarning: %m,' .
-					\ '%f:%l:%c: %m,'.
-					\ '%f:%l: %trror: %m,'.
-					\ '%f:%l: %tarning: %m,'.
-					\ '%f:%l: %m',
-					\ }
+		" let g:neomake_error_sign = {
+					" \ 'text': 'X',
+					" \ 'texthl': 'ErrorMsg',
+					" \ }
+		" let g:neomake_cpp_enabled_makers = ['gcc', 'clang']
+		" let g:neomake_c_enabled_makers = ['gcc', 'clang']
+		" let g:neomake_cpp_clang_maker = {
+					" \ 'args': ['-fsyntax-only', '-std=c++14', '-Wall', '-Wextra'],
+					" \ 'errorformat':
+					" \ '%-G%f:%s:,' .
+					" \ '%f:%l:%c: %trror: %m,' .
+					" \ '%f:%l:%c: %tarning: %m,' .
+					" \ '%f:%l:%c: %m,'.
+					" \ '%f:%l: %trror: %m,'.
+					" \ '%f:%l: %tarning: %m,'.
+					" \ '%f:%l: %m',
+					" \ }
 
 
-		function! SetWarningType(entry)
-			if a:entry.type =~? '\m^[SPI]'
-				let a:entry.type = 'I'
-			endif
-		endfunction
+		" " Python. Taken from http://vi.stackexchange.com/questions/7834/how-to-setup-neomake-with-python
+		" let g:neomake_python_flake8_maker = {
+					" \ 'args': '--format=default',
+					" \ 'auto_enabled' : 1,
+					" \ 'errorformat':
+					" \ '%E%f:%l: could not compile,%-Z%p^,' .
+					" \ '%A%f:%l:%c: %t%n %m,' .
+					" \ '%A%f:%l: %t%n %m,' .
+					" \ '%-G%.%#',
+					" \ }
+					" " \ 'args': ['--ignore=E221,E241,E272,E251,W702,E203,E201,E202',  '--format=default'],
 
-		let g:neomake_cpp_cppcheck_maker = {
-					\ 'args': ['%:p', '-q', '--enable=all'],
-					\ 'errorformat': '[%f:%l]: (%trror) %m,' .
-					\ '[%f:%l]: (%tarning) %m,' .
-					\ '[%f:%l]: (%ttyle) %m,' .
-					\ '[%f:%l]: (%terformance) %m,' .
-					\ '[%f:%l]: (%tortability) %m,' .
-					\ '[%f:%l]: (%tnformation) %m,' .
-					\ '[%f:%l]: (%tnconclusive) %m,' .
-					\ '%-G%.%#',
-					\ 'postprocess': function('SetWarningType')
-					\ }
-
-		" Python. Taken from http://vi.stackexchange.com/questions/7834/how-to-setup-neomake-with-python
-		let g:neomake_python_flake8_maker = {
-				  \ 'args': '--format=default',
-					\ 'auto_enabled' : 1,
-					\ 'errorformat':
-					\ '%E%f:%l: could not compile,%-Z%p^,' .
-					\ '%A%f:%l:%c: %t%n %m,' .
-					\ '%A%f:%l: %t%n %m,' .
-					\ '%-G%.%#',
-					\ }
-					" \ 'args': ['--ignore=E221,E241,E272,E251,W702,E203,E201,E202',  '--format=default'],
-
-		" Requires pip3 install --user flake8
-		let g:neomake_python_enabled_makers = ['flake8']
+		" " Requires pip3 install --user flake8
+		" let g:neomake_python_enabled_makers = ['flake8']
 
 		augroup custom_neomake
 			autocmd!
