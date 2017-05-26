@@ -2,7 +2,7 @@
 " Description:	After default ftplugin for c
 " Author:				Reinaldo Molina <rmolin88@gmail.com>
 " Version:			1.0.0
-" Last Modified: Fri Apr 28 2017 14:33
+" Last Modified: Fri May 26 2017 13:30
 " Created:			Nov 25 2016 23:16
 
 " Only do this when not done yet for this buffer
@@ -26,7 +26,7 @@ setlocal nospell
 " So that you can jump from = to ; and viceversa
 setlocal matchpairs+==:;
 " This is that delimate doesnt aut fill the newly added matchpairs
-let b:delimitMate_matchpairs = "(:),[:],{:},<:>"
+let b:delimitMate_matchpairs = "(:),[:],{:}"
 
 " Add mappings, unless the user didn't want this.
 if !exists("no_plugin_maps") && !exists("no_c_maps")
@@ -141,6 +141,7 @@ function! s:UpdateBorlandMakefile() abort
 	endif
 endfunction
 
+" TODO.RM-Fri May 26 2017 13:30: Figure why it complains that function already exists everytime I call it  
 " Source: http://vim.wikia.com/wiki/Easily_switch_between_source_and_header_file
 function! s:SwitchHeaderSource() abort
 	if expand("%:e") == "cpp" || expand("%:e") == "c"
