@@ -13,7 +13,7 @@ endif
 " Don't load another plugin for this buffer
 let b:did_cpp_ftplugin = 1
 
-let b:match_words = '\<if\>:\<else\>,'
+let b:match_words .= '\<if\>:\<else\>,'
 			\ . '\<while\>:\<continue\>:\<break\>,'
 			\ . '\<for\>:\<continue\>:\<break\>,'
 			\ . '\<try\>:\<catch\>'
