@@ -38,6 +38,8 @@ function! plugin#Config() abort
 		Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 		Plug 'junegunn/fzf.vim'
 			nnoremap <C-p> :History<CR>
+			nnoremap <A-;> :History:<CR>
+			nnoremap <A-/> :History/<CR>
 			nnoremap <A-p> :FZF<CR>
 			nnoremap <S-k> :Buffers<CR>
 			let g:fzf_history_dir = '~/.cache/fzf-history'
