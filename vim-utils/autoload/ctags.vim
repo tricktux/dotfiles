@@ -342,10 +342,8 @@ function! ctags#LoadCscopeDatabse() abort
 	execute "cs show"
 	redir END
 
-	" If connection already exists reset it. Otherwise load file
-	if output =~# cs_db
-		execute "cs reset"
-	elseif !empty(glob(cs_loc))
-		execute "silent! cs add " . cs_loc
+	" If connection doesnt exist and file exists
+	if output !~# cs_db && !empty(glob(cs_loc))
+		execute "cs add " . cs_loc
 	endif
 endfunction

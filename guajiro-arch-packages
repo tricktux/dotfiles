@@ -89,7 +89,7 @@ mdadm 4.0-1
 mono 5.0.0.100-1
 mutt 1.8.2-2
 nano 2.8.2-1
-neovim-git 0.2.0.r240.g967e892cb-1
+neovim-git 0.2.0.r255.g9cc185dc6-1
 neovim-qt-git v0.2.4.r24.g3fd4646-1
 netctl 1.12-2
 network-manager-applet 1.8.0-1
@@ -164,7 +164,7 @@ ttf-font-awesome 4.7.0-2
 ttf-hack 2.020-2
 ttf-unifont 9.0.06-3
 udisks2 2.6.5-1
-universal-ctags-git 0.r5033.dda51569-1
+universal-ctags-git 0.r5052.4b9aa923-1
 unzip 6.0-12
 usbutils 008-1
 util-linux 2.29.2-2
