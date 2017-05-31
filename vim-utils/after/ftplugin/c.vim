@@ -13,7 +13,7 @@ endif
 " Don't load another plugin for this buffer
 let b:did_cpp_ftplugin = 1
 
-let b:match_words = '\<if\>:\<else\>,'
+let b:match_words .= '\<if\>:\<else\>,'
 			\ . '\<while\>:\<continue\>:\<break\>,'
 			\ . '\<for\>:\<continue\>:\<break\>,'
 			\ . '\<try\>:\<catch\>'
@@ -59,7 +59,7 @@ if !exists("no_plugin_maps") && !exists("no_c_maps")
 	nnoremap <buffer> <unique> <Leader>tk :cs kill -1<CR>
 	nnoremap <buffer> <unique> <Leader>tv :vs<CR>:exec("tag ".expand("<cword>"))<CR>
 	" ReLoad cscope database
-	nnoremap <buffer> <unique> <Leader>tl :cs add cscope.out<CR>
+	nnoremap <buffer> <unique> <Leader>tl :call ctags#LoadCscopeDatabse()<CR>
 	" Find functions calling this function
 	nnoremap <buffer> <unique> <Leader>tc :cs find c <C-R>=expand("<cword>")<CR><CR>
 	" Find functions definition
