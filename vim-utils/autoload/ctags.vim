@@ -329,6 +329,12 @@ function! ctags#LoadCscopeDatabse() abort
 		return
 	endif
 
+	" Local cscope.out has priority
+	if !empty(glob('cscope.out'))
+		cs add cscope.out
+		return 1
+	endif
+
 	let cs_db = cs_db . '.out'
 	let cs_loc = g:cache_path . "ctags/" . cs_db
 
