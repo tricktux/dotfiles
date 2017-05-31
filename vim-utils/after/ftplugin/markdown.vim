@@ -16,7 +16,8 @@ let b:did_markdown_ftplugin = 1
 setlocal foldenable
 setlocal foldexpr=MarkdownLevel()
 setlocal foldmethod=expr
-setlocal spell spelllang=en_us
+setlocal spell
+setlocal spelllang=en_us
 
 " TODO.RM-Fri Apr 28 2017 15:43: Fix these mappings  
 if !exists("no_plugin_maps") && !exists("no_markdown_maps")
@@ -57,4 +58,4 @@ function! MarkdownLevel()
 	return "="
 endfunction
 
-let b:undo_ftplugin += "setl foldenable< foldexpr< foldmethod< spell< spelllang<" 
+let b:undo_ftplugin = "setl foldenable< foldexpr< foldmethod< spell<" 
