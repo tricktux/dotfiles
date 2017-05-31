@@ -1,7 +1,7 @@
 " Vim compiler file
 " Compiler:	Borland C and Pascal
 " Maintainer:	Thorsten Maerz <info@netztorte.de>
-" Last Change:	2001 Okt 03
+" Last Change:	2001 Oct 03
 " $Revision: 1.1 $
 
 " Hint: Borlands grep.exe has a non-standard output format, even with
@@ -16,7 +16,7 @@ if exists("current_compiler")
   finish
 endif
 let current_compiler = "borland"
-
+ 
 " uncomment to automatically save buffer before :make
 "setlocal autowrite
 
