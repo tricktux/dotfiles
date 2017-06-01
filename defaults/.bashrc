@@ -26,7 +26,7 @@ fi
 
 # fzf use ripgrep
 if [ -f /usr/bin/rg ]; then
-	export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+	export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git" --glob "!.svn"'
 fi
 
 # context for resume making

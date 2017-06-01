@@ -484,6 +484,10 @@
 		nnoremap dl :call utils#DeleteLine()<CR>
 
 		nnoremap <S-CR> O<Esc>
+		" Display highlighted numbers as ascii chars
+		" TODO.RM-Thu Jun 01 2017 12:04: Better mappings here  
+		" vnoremap ga :<c-u>s/\%V\x\x/\=nr2char(printf("%d", "0x".submatch(0)))/g<cr><c-l>`<
+		" vnoremap ; :<c-u>s/\%V./\=printf("%x",char2nr(submatch(0)))/g<cr><c-l>`<
 
 	" Insert Mode (Individual) mappings
 		inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
@@ -498,14 +502,15 @@
 		nnoremap <Leader>ev :e $VIMRUNTIME/
 
 	" CD <Leader>c?
-		nnoremap <Leader>cd :cd %:p:h<CR>
+		nnoremap <Leader>cd :tcd %:p:h<CR>
 					\:pwd<CR>
-		nnoremap <Leader>cu :cd ..<CR>
+		nnoremap <Leader>cu :tcd ..<CR>
 					\:pwd<CR>
 		" cd into dir. press <Tab> after ci to see folders
-		nnoremap <Leader>ci :cd 
+		nnoremap <Leader>ci :tcd 
 		nnoremap <Leader>cc :pwd<CR>
-		nnoremap <Leader>c1 :cd ~/.dotfiles
+		nnoremap <Leader>c1 :tcd ~/.dotfiles
+		" TODO.RM-Thu Jun 01 2017 10:10: Create mappings like c21 and c22  
 
 	" Folding
 		" Folding select text then S-f to fold or just S-f to toggle folding
