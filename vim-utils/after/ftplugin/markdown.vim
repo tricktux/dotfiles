@@ -30,6 +30,11 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	nnoremap <buffer> <unique> <Leader>lM :call utils#TodoClearMark()<CR>
 	inoremap <buffer> * **<Left>
 
+	if exists('g:loaded_bullets_vim')
+		inoremap <buffer> <expr> <cr> pumvisible() ? "\<c-y>" : "<C-o>:InsertNewBullet<cr>"
+		nnoremap <buffer> o :InsertNewBullet<cr>
+	endif
+
 	if has('unix')
 		" TODO.RM-Thu May 18 2017 12:17: This should be changed to opera  
 		nnoremap <buffer> <unique> <Leader>lr :!google-chrome-stable %<CR>
