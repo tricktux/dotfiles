@@ -63,13 +63,15 @@ function! plugin#Config() abort
 	else
 		Plug 'ctrlpvim/ctrlp.vim'
 		if executable('rg')
-			let g:ctrlp_user_command = 'rg %s --no-ignore --hidden --files -g "" '
+			let g:ctrlp_user_command = 'rg %s --files -g "!.git" -g "!.svn"'
 		elseif executable('ag')
-			let g:ctrlp_user_command = 'ag -Q -l --smart-case --nocolor --hidden -g "" %s'
+			let g:ctrlp_user_command = 'ag -Q -l --smart-case --nocolor --hidden -g "!.git/*" %s'
 		else
-			echomsg string("You should install silversearcher-ag. Now you have a slow ctrlp")
+			echomsg string("You should install ripgrep or silversearcher-ag. Now you have a slow ctrlp")
 		endif
 		nnoremap <S-k> :CtrlPBuffer<CR>
+		nnoremap <A-p> :CtrlPRoot<CR>
+		nnoremap <A-q> :CtrlPQuickfix<CR>
 		" let g:ctrlp_cmd = 'CtrlPMixed'
 		let g:ctrlp_cmd = 'CtrlPMRU'
 		" submit ? in CtrlP for more mapping help.
@@ -305,6 +307,7 @@ function! plugin#Config() abort
 		let g:delimitMate_jump_expansion = 1
 		" imap <expr> <CR> <Plug>delimitMateCR
 	Plug 'dkarter/bullets.vim', { 'for' : 'markdown' }
+		let g:bullets_set_mappings = 0
 
 	" Autoformat requires pip3 install --user autopep8
 	Plug 'Chiel92/vim-autoformat', { 'on' : 'Autoformat' }
