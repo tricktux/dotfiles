@@ -345,8 +345,6 @@
 
 " CUSTOM MAPPINGS
 	" List of super useful mappings
-	" ga " prints ascii of char under cursor
-	" gA " prints radix of number under cursor
 	" = fixes indentantion
 	" gq formats code
 	" Free keys: <Leader>fnzxkiy;h
@@ -367,9 +365,9 @@
 					\:lcl<CR>
 
 		" General mappings for all languages
-		nnoremap <unique> <Leader>lo :SyntasticToggleMode<CR>
-		nnoremap <unique> <Leader>ls :SyntasticCheck<CR>
-		nnoremap <unique> <Leader>lf :Autoformat<CR>
+		" Fri Jun 02 2017 12:10 Addressing this on a per language basis 
+		" nnoremap <unique> <Leader>lo :SyntasticToggleMode<CR>
+		" nnoremap <unique> <Leader>ls :SyntasticCheck<CR>
 
 
 	" FileType Specific mappings use <Leader>l
@@ -381,8 +379,13 @@
 		" TODO.RM-Fri Apr 28 2017 14:25: Go through mappings and figure out the
 		" language specific ones so that you can move them into ftplugin  
 		" nnoremap <Leader>jk :call utils#Make()<CR>
-		nnoremap <Leader>jl :e $MYVIMRC<CR>
-		nmap <Leader>j; <Plug>FileBrowser
+		" ga " prints ascii of char under cursor
+		" gA " prints radix of number under cursor
+		" Untouchable g mappings: g;, gt, gr, gf, gd, g, gg
+		nnoremap gl :e $MYVIMRC<CR>
+		nmap gj <Plug>FileBrowser
+		nmap gk <Plug>Make
+
 		" Refactor word under the cursor
 		nnoremap <Leader>jr :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
 		vnoremap <Leader>jr "hy:%s/<C-r>h//gc<left><left><left>
@@ -625,6 +628,12 @@
 		nnoremap <Leader>wu :W3m local /home/reinaldo/Downloads/reference/en/index.html<CR>
 
 	" Comments <Leader>o
+		nmap - <plug>NERDCommenterToggle
+		nmap <Leader>ot <plug>NERDCommenterAltDelims
+		vmap - <plug>NERDCommenterToggle
+		imap <C-c> <plug>NERDCommenterInsert
+		nmap <Leader>oa <plug>NERDCommenterAppend
+		vmap <Leader>os <plug>NERDCommenterSexy
 		" mapping ol conflicts with mapping o to new line
 		nnoremap cl :call utils#CommentLine()<CR>
 		nnoremap <Leader>oe :call utils#EndOfIfComment()<CR>
@@ -657,6 +666,7 @@
 
 	" Man
 		let g:no_man_maps = 1
+		let g:ft_man_folding_enable = 1
 
 	" Never load netrw
 		let g:loaded_netrw       = 1
