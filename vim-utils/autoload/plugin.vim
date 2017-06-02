@@ -2,7 +2,8 @@
 " Description:Plugin specific settings
 " Author:Reinaldo Molina <rmolin88@gmail.com>
 " Version:2.0.1
-" Last Modified: Thu Apr 20 2017 22:35
+" Last Modified: Fri Jun 02 2017 10:44
+" TODO.RM-Fri Jun 02 2017 10:44: Move all mappings away from here  
 
 function! plugin#Config() abort
 	" Vim-Plug
@@ -276,12 +277,6 @@ function! plugin#Config() abort
 	endif
 
 	Plug 'scrooloose/nerdcommenter'
-		nmap - <plug>NERDCommenterToggle
-		nmap <Leader>ot <plug>NERDCommenterAltDelims
-		vmap - <plug>NERDCommenterToggle
-		imap <C-c> <plug>NERDCommenterInsert
-		nmap <Leader>oa <plug>NERDCommenterAppend
-		vmap <Leader>os <plug>NERDCommenterSexy
 	Plug 'chrisbra/Colorizer', { 'for' : [ 'css','html','xml' ] }
 		let g:colorizer_auto_filetype='css,html,xml'
 	Plug 'tpope/vim-repeat'
@@ -493,7 +488,11 @@ function! plugin#Config() abort
 	" Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
 	Plug 'matze/vim-ini-fold', { 'for': 'dosini' }
 
+	" Not being used but kept for dependencies
 	Plug 'rbgrouleff/bclose.vim'
+
+	Plug 'godlygeek/tabular'
+		let g:no_default_tabular_maps = 1
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
