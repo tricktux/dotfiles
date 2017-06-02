@@ -389,12 +389,7 @@
 		" Refactor word under the cursor
 		nnoremap <Leader>jr :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
 		vnoremap <Leader>jr "hy:%s/<C-r>h//gc<left><left><left>
-		" Indent whole file
-		nnoremap <Leader>ji mzgg=G`z
 		" nnoremap <S-s> #<C-o> " Substituted for the AutoHighlightToggle function
-		nnoremap <Leader>jh :Helptags<CR>
-		" This mapping will load the journal from the most recent boot and highlight it for you
-		nnoremap <Leader>jJ :read !journalctl -b<CR><bar>:setf messages<CR>
 		" Give execute permissions to current file
 		nnoremap <Leader>jo :!chmod a+x %<CR>
 		" Save file with sudo permissions
@@ -711,7 +706,7 @@
 		call highlight#Set('cppEnumTag',              { 'link': 'cppEnum' })
 
 		" Search
-		call highlight#Set('Search',									{ 'bg': g:turquoise4 })
+		call highlight#Set('Search',									{ 'fg': g:turquoise4 })
 		call highlight#Set('IncSearch',								{ 'bg': g:white })
 
 		" Vim
@@ -738,5 +733,11 @@
 	command! UtilsDiffSet call utils#SetDiff()
 	command! UtilsDiffOff call utils#UnsetDiff()
 	command! UtilsDiffReset call utils#UnsetDiff()<bar>call utils#SetDiff()
+	command! UtilsWeeklyReportCreate call utils#ConvertWeeklyReport()
+	command! UtilsIndentWholeFile execute("normal mzgg=G`z")
+	" TODO.RM-Fri Jun 02 2017 16:10: Keep doing this. Until you Substitute
+	" all rarely used <Leader>j mappings for commands
+	" This mapping will load the journal from the most recent boot and highlight it for you
+	" nnoremap <Leader>jJ :read !journalctl -b<CR><bar>:setf messages<CR>
 
 " vim:tw=78:ts=2:sts=2:sw=2:

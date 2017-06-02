@@ -42,12 +42,12 @@ function! plugin#Config() abort
 			nnoremap <A-;> :History:<CR>
 			nnoremap <A-/> :History/<CR>
 			nnoremap <A-p> :FZF<CR>
+			nnoremap <A-e> :Helptags<CR>
 			nnoremap <S-k> :Buffers<CR>
+			nnoremap <A-m> <plug>(fzf-maps-n)
 			let g:fzf_history_dir = '~/.cache/fzf-history'
 			autocmd FileType fzf tnoremap <buffer> <C-j> <Down>
 			autocmd FileType fzf set relativenumber
-			nnoremap <leader><tab> <plug>(fzf-maps-n)
-			nnoremap <leader><tab> <plug>(fzf-maps-n)
 			let g:fzf_colors =
 						\ { 'fg':      ['fg', 'Normal'],
 						\ 'bg':      ['bg', 'Normal'],
@@ -61,6 +61,14 @@ function! plugin#Config() abort
 						\ 'marker':  ['fg', 'Keyword'],
 						\ 'spinner': ['fg', 'Label'],
 						\ 'header':  ['fg', 'Comment'] }
+	elseif has('nvim') || v:version >= 800
+		Plug 'Shougo/denite.nvim'
+			nnoremap <C-p> :Denite file_old<CR>
+			nnoremap <A-;> :Denite command<CR>
+			nnoremap <A-e> :Denite help<CR>
+			nnoremap <S-k> :Denite buffer<CR>
+			nnoremap <A-p> :Denite file_rec<CR>
+			let b:denite_loaded = 1
 	else
 		Plug 'ctrlpvim/ctrlp.vim'
 		if executable('rg')
@@ -502,6 +510,33 @@ function! plugin#Config() abort
 		call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
 		" c c++
 		call deoplete#custom#set('clang2', 'mark', '')
+	endif
+
+	if exists('b:denite_loaded')
+		" Change mappings.
+		call denite#custom#map(
+					\ 'insert',
+					\ '<C-j>',
+					\ '<denite:move_to_next_line>',
+					\ 'noremap'
+					\)
+		call denite#custom#map(
+					\ 'insert',
+					\ '<C-k>',
+					\ '<denite:move_to_previous_line>',
+					\ 'noremap'
+					\)
+		call denite#custom#map(
+					\ 'insert',
+					\ '<C-v>',
+					\ '<denite:do_action:vsplit>',
+					\ 'noremap'
+					\)
+		" call denite#custom#map('insert', '<F4>', 'hello!', 'noremap')
+		if executable('rg')
+			call denite#custom#var('file_rec', 'command',
+						\ ['rg', '--files', '--glob', '!.git', ''])
+		endif
 	endif
 
 	" Create cache folders
