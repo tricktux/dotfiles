@@ -345,8 +345,6 @@
 
 " CUSTOM MAPPINGS
 	" List of super useful mappings
-	" ga " prints ascii of char under cursor
-	" gA " prints radix of number under cursor
 	" = fixes indentantion
 	" gq formats code
 	" Free keys: <Leader>fnzxkiy;h
@@ -367,9 +365,9 @@
 					\:lcl<CR>
 
 		" General mappings for all languages
-		nnoremap <unique> <Leader>lo :SyntasticToggleMode<CR>
-		nnoremap <unique> <Leader>ls :SyntasticCheck<CR>
-		nnoremap <unique> <Leader>lf :Autoformat<CR>
+		" Fri Jun 02 2017 12:10 Addressing this on a per language basis 
+		" nnoremap <unique> <Leader>lo :SyntasticToggleMode<CR>
+		" nnoremap <unique> <Leader>ls :SyntasticCheck<CR>
 
 
 	" FileType Specific mappings use <Leader>l
@@ -381,17 +379,17 @@
 		" TODO.RM-Fri Apr 28 2017 14:25: Go through mappings and figure out the
 		" language specific ones so that you can move them into ftplugin  
 		" nnoremap <Leader>jk :call utils#Make()<CR>
-		nnoremap <Leader>jl :e $MYVIMRC<CR>
-		nmap <Leader>j; <Plug>FileBrowser
+		" ga " prints ascii of char under cursor
+		" gA " prints radix of number under cursor
+		" Untouchable g mappings: g;, gt, gr, gf, gd, g, gg
+		nnoremap gl :e $MYVIMRC<CR>
+		nmap gj <Plug>FileBrowser
+		nmap gk <Plug>Make
+
 		" Refactor word under the cursor
 		nnoremap <Leader>jr :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
 		vnoremap <Leader>jr "hy:%s/<C-r>h//gc<left><left><left>
-		" Indent whole file
-		nnoremap <Leader>ji mzgg=G`z
 		" nnoremap <S-s> #<C-o> " Substituted for the AutoHighlightToggle function
-		nnoremap <Leader>jh :Helptags<CR>
-		" This mapping will load the journal from the most recent boot and highlight it for you
-		nnoremap <Leader>jJ :read !journalctl -b<CR><bar>:setf messages<CR>
 		" Give execute permissions to current file
 		nnoremap <Leader>jo :!chmod a+x %<CR>
 		" Save file with sudo permissions
@@ -484,6 +482,10 @@
 		nnoremap dl :call utils#DeleteLine()<CR>
 
 		nnoremap <S-CR> O<Esc>
+		" Display highlighted numbers as ascii chars
+		" TODO.RM-Thu Jun 01 2017 12:04: Better mappings here  
+		" vnoremap ga :<c-u>s/\%V\x\x/\=nr2char(printf("%d", "0x".submatch(0)))/g<cr><c-l>`<
+		" vnoremap ; :<c-u>s/\%V./\=printf("%x",char2nr(submatch(0)))/g<cr><c-l>`<
 
 	" Insert Mode (Individual) mappings
 		inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
@@ -498,14 +500,15 @@
 		nnoremap <Leader>ev :e $VIMRUNTIME/
 
 	" CD <Leader>c?
-		nnoremap <Leader>cd :cd %:p:h<CR>
+		nnoremap <Leader>cd :tcd %:p:h<CR>
 					\:pwd<CR>
-		nnoremap <Leader>cu :cd ..<CR>
+		nnoremap <Leader>cu :tcd ..<CR>
 					\:pwd<CR>
 		" cd into dir. press <Tab> after ci to see folders
-		nnoremap <Leader>ci :cd 
+		nnoremap <Leader>ci :tcd 
 		nnoremap <Leader>cc :pwd<CR>
-		nnoremap <Leader>c1 :cd ~/.dotfiles
+		nnoremap <Leader>c1 :tcd ~/.dotfiles
+		" TODO.RM-Thu Jun 01 2017 10:10: Create mappings like c21 and c22  
 
 	" Folding
 		" Folding select text then S-f to fold or just S-f to toggle folding
@@ -620,6 +623,12 @@
 		nnoremap <Leader>wu :W3m local /home/reinaldo/Downloads/reference/en/index.html<CR>
 
 	" Comments <Leader>o
+		nmap - <plug>NERDCommenterToggle
+		nmap <Leader>ot <plug>NERDCommenterAltDelims
+		vmap - <plug>NERDCommenterToggle
+		imap <C-c> <plug>NERDCommenterInsert
+		nmap <Leader>oa <plug>NERDCommenterAppend
+		vmap <Leader>os <plug>NERDCommenterSexy
 		" mapping ol conflicts with mapping o to new line
 		nnoremap cl :call utils#CommentLine()<CR>
 		nnoremap <Leader>oe :call utils#EndOfIfComment()<CR>
@@ -652,6 +661,7 @@
 
 	" Man
 		let g:no_man_maps = 1
+		let g:ft_man_folding_enable = 1
 
 	" Never load netrw
 		let g:loaded_netrw       = 1
@@ -696,7 +706,7 @@
 		call highlight#Set('cppEnumTag',              { 'link': 'cppEnum' })
 
 		" Search
-		call highlight#Set('Search',									{ 'bg': g:turquoise4 })
+		call highlight#Set('Search',									{ 'fg': g:turquoise4 })
 		call highlight#Set('IncSearch',								{ 'bg': g:white })
 
 		" Vim
@@ -723,5 +733,11 @@
 	command! UtilsDiffSet call utils#SetDiff()
 	command! UtilsDiffOff call utils#UnsetDiff()
 	command! UtilsDiffReset call utils#UnsetDiff()<bar>call utils#SetDiff()
+	command! UtilsWeeklyReportCreate call utils#ConvertWeeklyReport()
+	command! UtilsIndentWholeFile execute("normal mzgg=G`z")
+	" TODO.RM-Fri Jun 02 2017 16:10: Keep doing this. Until you Substitute
+	" all rarely used <Leader>j mappings for commands
+	" This mapping will load the journal from the most recent boot and highlight it for you
+	" nnoremap <Leader>jJ :read !journalctl -b<CR><bar>:setf messages<CR>
 
 " vim:tw=78:ts=2:sts=2:sw=2:

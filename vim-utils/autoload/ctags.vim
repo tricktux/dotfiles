@@ -33,6 +33,12 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 		let files_loc = substitute(files_loc, "\\", "/", "g") " Fix cwd for the rg command
 	endif
 
+	execute "echo Create tags for '" . cwd_rg . "'?: (j|y)es (any)no"
+	let response = getchar()
+	if response != 121 || response != 106 " y|j
+		return
+	endif
+
 	let nvim_ft = &filetype
 	if !ctags#CreateCscopeFiles(files_loc, cwd_rg, nvim_ft)
 		echomsg string("Failed to create cscope.files")
@@ -323,6 +329,12 @@ function! ctags#LoadCscopeDatabse() abort
 		return
 	endif
 
+	" Local cscope.out has priority
+	if !empty(glob('cscope.out'))
+		cs add cscope.out
+		return 1
+	endif
+
 	let cs_db = cs_db . '.out'
 	let cs_loc = g:cache_path . "ctags/" . cs_db
 
@@ -330,10 +342,8 @@ function! ctags#LoadCscopeDatabse() abort
 	execute "cs show"
 	redir END
 
-	" If connection already exists reset it. Otherwise load file
-	if output =~# cs_db
-		execute "cs reset"
-	elseif !empty(glob(cs_loc))
-		execute "silent! cs add " . cs_loc
+	" If connection doesnt exist and file exists
+	if output !~# cs_db && !empty(glob(cs_loc))
+		execute "cs add " . cs_loc
 	endif
 endfunction
