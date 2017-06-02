@@ -14,16 +14,15 @@ endif
 let b:did_vim_ftplugin = 1
 
 " Add mappings, unless the user didn't want this.
-if !exists("no_plugin_maps") && !exists("no_c_maps")
+if !exists("no_plugin_maps") && !exists("no_vim_maps")
 	" Quote text by inserting "> "
-	if !hasmapto('<Plug>VimMake')
-		nmap <buffer> <Leader>jk <Plug>VimMake
-	endif
-	nnoremap <buffer> <unique> <Plug>VimMake :so %<CR>
+	nnoremap <buffer> <Plug>Make :so %<CR>
 	nnoremap <buffer> <unique> <Leader>lh :h <c-r>=expand("<cword>")<CR><cr>
-	vnoremap <buffer> <unique> <Leader>le :call <SID>Evaluate()<CR>
+	call ftplugin#Align('/"')
+	" vnoremap <buffer> <unique> <Leader>le :call <SID>Evaluate()<CR>
 endif
 
+" TODO.RM-Fri Jun 02 2017 11:32: Doesnt really work  
 function! s:Evaluate() abort
 	" Yank selection to reg a then echo it cli
 	execute "normal \"ay:echomsg \<c-r>a\<cr>"
