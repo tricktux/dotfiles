@@ -196,6 +196,8 @@
 				<line data="alias vc=svn commit -m $*"/>
 				<line data="alias vu=svn update $*"/>
 				<line data="set SVN_EDITOR=vim"/>
+				<line data="alias w=cd /d d:\wings-dev\OneWings"/>
+				<line data="alias ws=cd /d d:\wings-dev\OneWingsSupFiles"/>
 				<line data=" "/>
 			</value>
 			<value name="CTS.Intelligent" type="hex" data="01"/>

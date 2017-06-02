@@ -16,7 +16,8 @@ let b:did_markdown_ftplugin = 1
 setlocal foldenable
 setlocal foldexpr=MarkdownLevel()
 setlocal foldmethod=expr
-setlocal spell spelllang=en_us
+setlocal spell
+setlocal spelllang=en_us
 
 " TODO.RM-Fri Apr 28 2017 15:43: Fix these mappings  
 if !exists("no_plugin_maps") && !exists("no_markdown_maps")
@@ -28,6 +29,11 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	nnoremap <buffer> <unique> <Leader>lm :call utils#TodoMark()<CR>
 	nnoremap <buffer> <unique> <Leader>lM :call utils#TodoClearMark()<CR>
 	inoremap <buffer> * **<Left>
+
+	if exists('g:loaded_bullets_vim')
+		inoremap <buffer> <expr> <cr> pumvisible() ? "\<c-y>" : "<C-o>:InsertNewBullet<cr>"
+		nnoremap <buffer> o :InsertNewBullet<cr>
+	endif
 
 	if has('unix')
 		" TODO.RM-Thu May 18 2017 12:17: This should be changed to opera  
@@ -57,4 +63,4 @@ function! MarkdownLevel()
 	return "="
 endfunction
 
-let b:undo_ftplugin += "setl foldenable< foldexpr< foldmethod< spell< spelllang<" 
+let b:undo_ftplugin = "setl foldenable< foldexpr< foldmethod< spell<" 

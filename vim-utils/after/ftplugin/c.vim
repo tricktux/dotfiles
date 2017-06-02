@@ -13,12 +13,14 @@ endif
 " Don't load another plugin for this buffer
 let b:did_cpp_ftplugin = 1
 
-let b:match_words = '\<if\>:\<else\>,'
+let b:match_words .= '\<if\>:\<else\>,'
 			\ . '\<while\>:\<continue\>:\<break\>,'
 			\ . '\<for\>:\<continue\>:\<break\>,'
 			\ . '\<try\>:\<catch\>'
 setlocal omnifunc=ClangComplete
-setlocal ts=4 sw=4 sts=4
+setlocal ts=4
+setlocal sw=4
+setlocal sts=4
 setlocal foldenable
 setlocal foldnestmax=88
 setlocal define=^\\(#\\s*define\\|[a-z]*\\s*const\\s*[a-z]*\\)
@@ -31,13 +33,10 @@ let b:delimitMate_matchpairs = "(:),[:],{:}"
 " Add mappings, unless the user didn't want this.
 if !exists("no_plugin_maps") && !exists("no_c_maps")
 	" Quote text by inserting "> "
-	if !hasmapto('<Plug>CppMake')
-		nmap <buffer> <Leader>jk <Plug>CppMake
-	endif
 	if exists(':Neomake')
-		nnoremap <buffer> <unique> <Plug>CppMake :Neomake!<CR>
+		nnoremap <buffer> <Plug>Make :Neomake!<CR>
 	else
-		nnoremap <buffer> <unique> <Plug>CppMake :make<CR>
+		nnoremap <buffer> <Plug>Make :make!<CR>
 	endif
 	" Compiler
 	nnoremap <buffer> <unique> <Leader>lb :compiler borland<CR>
@@ -47,7 +46,6 @@ if !exists("no_plugin_maps") && !exists("no_c_maps")
 	nnoremap <buffer> <unique> <Leader>lg :compiler gcc<CR>
 				\:setlocal makeprg=mingw32-make<CR>
 
-	nnoremap <buffer> <Leader>lh :call utils#AutoHighlightToggle()<CR>
 	" Time runtime of a specific program
 	nnoremap <buffer> <unique> <Leader>lt :Dispatch powershell -command "& {&'Measure-Command' {.\sep_calc.exe seprc}}"<CR>
 	nnoremap <buffer> <unique> <Leader>lu :call <SID>UpdateBorlandMakefile()<CR>
@@ -55,25 +53,10 @@ if !exists("no_plugin_maps") && !exists("no_c_maps")
 	" Alternate between header and source file
 	nnoremap <buffer> <unique> <Leader>lq :call <SID>SwitchHeaderSource()<CR>
 
-	" Cscope and tag jumping mappings
-	nnoremap <buffer> <unique> <Leader>tk :cs kill -1<CR>
-	nnoremap <buffer> <unique> <Leader>tv :vs<CR>:exec("tag ".expand("<cword>"))<CR>
-	" ReLoad cscope database
-	nnoremap <buffer> <unique> <Leader>tl :cs add cscope.out<CR>
-	" Find functions calling this function
-	nnoremap <buffer> <unique> <Leader>tc :cs find c <C-R>=expand("<cword>")<CR><CR>
-	" Find functions definition
-	nnoremap <buffer> <unique> <Leader>tg :cs find g <c-r>=expand("<cword>")<cr><cr>
-	" Find functions called by this function not being used
-	" nnoremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
-	nnoremap <buffer> <unique> <Leader>ts :cs show<CR>
-
 	nnoremap <buffer> <unique> <Leader>od :call <SID>CommentDelete()<CR>
 	" Comment Indent Increase/Reduce
 	nnoremap <buffer> <unique> <Leader>oi :call <SID>CommentIndent()<CR>
 	nnoremap <buffer> <unique> <Leader>oI :call <SID>CommentReduceIndent()<CR>
-	nnoremap <buffer> <Leader>lh :call utils#AutoHighlightToggle()<CR>
-
 	if executable('lldb')
 		nmap <buffer> <unique> <Leader>db <Plug>LLBreakSwitch
 		" vmap <F2> <Plug>LLStdInSelected
@@ -91,20 +74,16 @@ if !exists("no_plugin_maps") && !exists("no_c_maps")
 		" nnoremap <F9> :LL print <C-R>=expand('<cword>')<CR>
 		" vnoremap <F9> :<C-U>LL print <C-R>=lldb#util#get_selection()<CR><CR>
 	endif
+	nnoremap <unique> <Leader>lf :Autoformat<CR>
 
-	" if exists('*quickfix#ToggleList')
-		nnoremap <silent> <buffer> <Leader>ll :call quickfix#ToggleList("Location List", 'l')<CR>
-		nnoremap <silent> <buffer> <Leader>;; :call quickfix#ToggleList("Quickfix List", 'c')<CR>
-		nnoremap <buffer> <Leader>ln :call quickfix#ListsNavigation("next")<CR>
-		nnoremap <buffer> <Leader>lp :call quickfix#ListsNavigation("previous")<CR>
-
-		nnoremap <buffer> <unique> <Leader>tu :call ctags#NvimSyncCtags(0)<CR>
-	" endif
+	call ftplugin#QuickFixMappings()
+	call ftplugin#TagMappings()
+	call ftplugin#Align('/\/\/')
+	call ftplugin#Syntastic('passive', [])
 endif
 
-if exists('*utils#AutoHighlightToggle') && !exists('g:highlight')
-	silent call utils#AutoHighlightToggle()
-endif
+" Setup AutoHighlight
+call ftplugin#AutoHighlight()
 
 " Auto set the compiler
 if has('win32')
@@ -113,6 +92,8 @@ if has('win32')
 	" This value is suppose to help with it. The default value is 300ms
 	" DoMatchParen, and NoMatchParen are commands that enable and disable the command
 	let b:matchparen_timeout = 100
+
+	" Set compiler now depending on folder and system
 	if !exists('b:current_compiler')
 		" Notice inside the '' is a pat which is a regex. That is why \\
 		if expand('%:p') =~ 'onewings\\source'
@@ -130,7 +111,6 @@ else " Unix
 	setlocal foldmethod=syntax 
 	let b:syntastic_checkers = [ 'cppcheck', 'clang_tidy', 'clang_check', 'gcc' ]
 endif
-let b:syntastic_mode = 'passive'
 
 function! s:UpdateBorlandMakefile() abort
 	" If compiler is not borland(set by SetupCompiler) fail.
