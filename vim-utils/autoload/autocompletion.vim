@@ -59,6 +59,9 @@ function! autocompletion#SetCompl() abort
 			Plug 'roxma/vim-hug-neovim-rpc'
 		endif
 
+		Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+			let g:LanguageClient_autoStart = 1
+
 		Plug 'roxma/nvim-completion-manager'
 		" nvim-completion-manager also added suppport for this
 		Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
