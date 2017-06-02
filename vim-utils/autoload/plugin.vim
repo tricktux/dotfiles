@@ -2,7 +2,8 @@
 " Description:Plugin specific settings
 " Author:Reinaldo Molina <rmolin88@gmail.com>
 " Version:2.0.1
-" Last Modified: Thu Apr 20 2017 22:35
+" Last Modified: Fri Jun 02 2017 10:44
+" TODO.RM-Fri Jun 02 2017 10:44: Move all mappings away from here  
 
 function! plugin#Config() abort
 	" Vim-Plug
@@ -38,13 +39,15 @@ function! plugin#Config() abort
 		Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 		Plug 'junegunn/fzf.vim'
 			nnoremap <C-p> :History<CR>
+			nnoremap <A-;> :History:<CR>
+			nnoremap <A-/> :History/<CR>
 			nnoremap <A-p> :FZF<CR>
+			nnoremap <A-e> :Helptags<CR>
 			nnoremap <S-k> :Buffers<CR>
+			nnoremap <A-m> <plug>(fzf-maps-n)
 			let g:fzf_history_dir = '~/.cache/fzf-history'
 			autocmd FileType fzf tnoremap <buffer> <C-j> <Down>
 			autocmd FileType fzf set relativenumber
-			nnoremap <leader><tab> <plug>(fzf-maps-n)
-			nnoremap <leader><tab> <plug>(fzf-maps-n)
 			let g:fzf_colors =
 						\ { 'fg':      ['fg', 'Normal'],
 						\ 'bg':      ['bg', 'Normal'],
@@ -58,16 +61,26 @@ function! plugin#Config() abort
 						\ 'marker':  ['fg', 'Keyword'],
 						\ 'spinner': ['fg', 'Label'],
 						\ 'header':  ['fg', 'Comment'] }
+	elseif has('nvim') || v:version >= 800
+		Plug 'Shougo/denite.nvim'
+			nnoremap <C-p> :Denite file_old<CR>
+			nnoremap <A-;> :Denite command<CR>
+			nnoremap <A-e> :Denite help<CR>
+			nnoremap <S-k> :Denite buffer<CR>
+			nnoremap <A-p> :Denite file_rec<CR>
+			let b:denite_loaded = 1
 	else
 		Plug 'ctrlpvim/ctrlp.vim'
 		if executable('rg')
-			let g:ctrlp_user_command = 'rg %s --no-ignore --hidden --files -g "" '
+			let g:ctrlp_user_command = 'rg %s --files -g "!.git" -g "!.svn"'
 		elseif executable('ag')
-			let g:ctrlp_user_command = 'ag -Q -l --smart-case --nocolor --hidden -g "" %s'
+			let g:ctrlp_user_command = 'ag -Q -l --smart-case --nocolor --hidden -g "!.git/*" %s'
 		else
-			echomsg string("You should install silversearcher-ag. Now you have a slow ctrlp")
+			echomsg string("You should install ripgrep or silversearcher-ag. Now you have a slow ctrlp")
 		endif
 		nnoremap <S-k> :CtrlPBuffer<CR>
+		nnoremap <A-p> :CtrlPRoot<CR>
+		nnoremap <A-q> :CtrlPQuickfix<CR>
 		" let g:ctrlp_cmd = 'CtrlPMixed'
 		let g:ctrlp_cmd = 'CtrlPMRU'
 		" submit ? in CtrlP for more mapping help.
@@ -272,12 +285,6 @@ function! plugin#Config() abort
 	endif
 
 	Plug 'scrooloose/nerdcommenter'
-		nmap - <plug>NERDCommenterToggle
-		nmap <Leader>ot <plug>NERDCommenterAltDelims
-		vmap - <plug>NERDCommenterToggle
-		imap <C-c> <plug>NERDCommenterInsert
-		nmap <Leader>oa <plug>NERDCommenterAppend
-		vmap <Leader>os <plug>NERDCommenterSexy
 	Plug 'chrisbra/Colorizer', { 'for' : [ 'css','html','xml' ] }
 		let g:colorizer_auto_filetype='css,html,xml'
 	Plug 'tpope/vim-repeat'
@@ -303,6 +310,7 @@ function! plugin#Config() abort
 		let g:delimitMate_jump_expansion = 1
 		" imap <expr> <CR> <Plug>delimitMateCR
 	Plug 'dkarter/bullets.vim', { 'for' : 'markdown' }
+		let g:bullets_set_mappings = 0
 
 	" Autoformat requires pip3 install --user autopep8
 	Plug 'Chiel92/vim-autoformat', { 'on' : 'Autoformat' }
@@ -488,7 +496,11 @@ function! plugin#Config() abort
 	" Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
 	Plug 'matze/vim-ini-fold', { 'for': 'dosini' }
 
+	" Not being used but kept for dependencies
 	Plug 'rbgrouleff/bclose.vim'
+
+	Plug 'godlygeek/tabular'
+		let g:no_default_tabular_maps = 1
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
@@ -498,6 +510,33 @@ function! plugin#Config() abort
 		call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
 		" c c++
 		call deoplete#custom#set('clang2', 'mark', '')
+	endif
+
+	if exists('b:denite_loaded')
+		" Change mappings.
+		call denite#custom#map(
+					\ 'insert',
+					\ '<C-j>',
+					\ '<denite:move_to_next_line>',
+					\ 'noremap'
+					\)
+		call denite#custom#map(
+					\ 'insert',
+					\ '<C-k>',
+					\ '<denite:move_to_previous_line>',
+					\ 'noremap'
+					\)
+		call denite#custom#map(
+					\ 'insert',
+					\ '<C-v>',
+					\ '<denite:do_action:vsplit>',
+					\ 'noremap'
+					\)
+		" call denite#custom#map('insert', '<F4>', 'hello!', 'noremap')
+		if executable('rg')
+			call denite#custom#var('file_rec', 'command',
+						\ ['rg', '--files', '--glob', '!.git', ''])
+		endif
 	endif
 
 	" Create cache folders
