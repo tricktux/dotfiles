@@ -38,18 +38,6 @@ if !exists("no_plugin_maps") && !exists("no_c_maps")
 	else
 		nnoremap <buffer> <Plug>Make :make!<CR>
 	endif
-	" Compiler
-	nnoremap <buffer> <unique> <Leader>lb :compiler borland<CR>
-	" msbuild errorformat looks horrible resetting here
-	nnoremap <buffer> <unique> <Leader>lv :compiler msbuild<CR>
-				\:set errorformat&<CR>
-	nnoremap <buffer> <unique> <Leader>lg :compiler gcc<CR>
-				\:setlocal makeprg=mingw32-make<CR>
-
-	" Time runtime of a specific program
-	nnoremap <buffer> <unique> <Leader>lt :Dispatch powershell -command "& {&'Measure-Command' {.\sep_calc.exe seprc}}"<CR>
-	nnoremap <buffer> <unique> <Leader>lu :call <SID>UpdateBorlandMakefile()<CR>
-
 	" Alternate between header and source file
 	nnoremap <buffer> <unique> <Leader>lq :call <SID>SwitchHeaderSource()<CR>
 
@@ -57,7 +45,7 @@ if !exists("no_plugin_maps") && !exists("no_c_maps")
 	" Comment Indent Increase/Reduce
 	nnoremap <buffer> <unique> <Leader>oi :call <SID>CommentIndent()<CR>
 	nnoremap <buffer> <unique> <Leader>oI :call <SID>CommentReduceIndent()<CR>
-	if executable('lldb')
+	if executable('lldb') && exists(':LLmode')
 		nmap <buffer> <unique> <Leader>db <Plug>LLBreakSwitch
 		" vmap <F2> <Plug>LLStdInSelected
 		" nnoremap <F4> :LLstdin<CR>
@@ -74,7 +62,7 @@ if !exists("no_plugin_maps") && !exists("no_c_maps")
 		" nnoremap <F9> :LL print <C-R>=expand('<cword>')<CR>
 		" vnoremap <F9> :<C-U>LL print <C-R>=lldb#util#get_selection()<CR><CR>
 	endif
-	nnoremap <unique> <Leader>lf :Autoformat<CR>
+	nnoremap <buffer> <Leader>lf :Autoformat<CR>
 
 	call ftplugin#QuickFixMappings()
 	call ftplugin#TagMappings()
@@ -85,18 +73,28 @@ endif
 " Setup AutoHighlight
 call ftplugin#AutoHighlight()
 
-" Auto set the compiler
+" Window specific settings
 if has('win32')
 	" Fri May 19 2017 11:38 Having a lot of hang ups with the function! s:Highlight_Matching_Pair()
 	" on the file C:\Program Files\nvim\Neovim\share\nvim\runtime\plugin\matchparen.vim
 	" This value is suppose to help with it. The default value is 300ms
 	" DoMatchParen, and NoMatchParen are commands that enable and disable the command
 	let b:matchparen_timeout = 100
+	" Commands for windows
+	command! -buffer UtilsCompilerGcc execute("compiler gcc<CR>:setlocal makeprg=mingw32-make<CR>")
+	command! -buffer UtilsCompilerBorland execute("compiler borland<CR>")
+	command! -buffer UtilsCompilerMsbuild execute("compiler msbuild<CR>:set errorformat&<CR>")
+	if exists(':Dispatch')
+		" Time runtime of a specific program. Pass as Argument executable with arguments. Pass as Argument executable with
+		" arguments. Example sep_calc.exe seprc.
+		command! -nargs=+ -buffer UtilsTimeExec execute('Dispatch powershell -command "& {&'Measure-Command' {.\<f-args>}}"<CR>')
+	endif
 
-	" Set compiler now depending on folder and system
+	" Set compiler now depending on folder and system. Auto set the compiler
 	if !exists('b:current_compiler')
 		" Notice inside the '' is a pat which is a regex. That is why \\
 		if expand('%:p') =~ 'onewings\\source'
+			command! -buffer UtilsUpdateBorlandMakefile call <SID>UpdateBorlandMakefile()
 			compiler borland
 		elseif expand('%:p') =~ 'Onewings' || expand('%:p') =~ 'unrealprojects'
 			compiler msbuild
