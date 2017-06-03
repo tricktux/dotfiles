@@ -16,14 +16,14 @@ function! quickfix#OpenQfWindow() abort
 	endif
 endfunction
 
-function! quickfix#GetBufferList()
+function! quickfix#GetBufferList() abort
 	redir =>buflist
 	silent! ls!
 	redir END
 	return buflist
 endfunction
 
-function! quickfix#ToggleList(bufname, pfx)
+function! quickfix#ToggleList(bufname, pfx) abort
 	let buflist = quickfix#GetBufferList()
 	for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
 		if bufwinnr(bufnum) != -1
