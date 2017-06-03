@@ -151,9 +151,9 @@
 			<value name="Cascaded" type="hex" data="01"/>
 			<value name="IntegralSize" type="hex" data="00"/>
 			<value name="WindowMode" type="dword" data="0000051f"/>
-			<value name="ConWnd X" type="long" data="454"/>
+			<value name="ConWnd X" type="long" data="464"/>
 			<value name="ConWnd Y" type="long" data="-3"/>
-			<value name="LastMonitor" type="string" data="0,0,1920,1032"/>
+			<value name="LastMonitor" type="string" data="62,0,1680,1050"/>
 			<value name="ConWnd Width" type="dword" data="00000063"/>
 			<value name="ConWnd Height" type="dword" data="0200005b"/>
 			<value name="16bit Height" type="ulong" data="0"/>
@@ -414,7 +414,7 @@
 			<value name="Update.DownloadPath" type="string" data="%TEMP%\ConEmu"/>
 			<value name="Update.LeavePackages" type="hex" data="00"/>
 			<value name="Update.PostUpdateCmd" type="string" data="echo Last successful update&gt;ConEmuUpdate.info &amp;&amp; date /t&gt;&gt;ConEmuUpdate.info &amp;&amp; time /t&gt;&gt;ConEmuUpdate.info"/>
-			<key name="HotKeys" modified="2017-05-31 07:41:15" build="161206">
+			<key name="HotKeys" modified="2017-05-29 09:12:57" build="161022">
 				<value name="KeyMacroVersion" type="hex" data="02"/>
 				<value name="Multi.Modifier" type="dword" data="00000011"/>
 				<value name="Multi.ArrowsModifier" type="dword" data="0000005b"/>
@@ -599,9 +599,9 @@
 				<value name="DndRKey" type="hex" data="a2"/>
 				<value name="WndDragKey" type="dword" data="00121101"/>
 			</key>
-			<key name="Tasks" modified="2017-05-31 07:41:15" build="161206">
+			<key name="Tasks" modified="2017-05-29 09:12:57" build="161022">
 				<value name="Count" type="long" data="8"/>
-				<key name="Task1" modified="2017-05-31 07:41:15" build="161206">
+				<key name="Task1" modified="2017-05-29 09:12:57" build="161022">
 					<value name="Name" type="string" data="{cmd::Cmder as Admin}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -610,7 +610,7 @@
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 				</key>
-				<key name="Task2" modified="2017-05-31 07:41:15" build="161206">
+				<key name="Task2" modified="2017-05-29 09:12:57" build="161022">
 					<value name="Name" type="string" data="{cmd::Cmder}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -619,7 +619,7 @@
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 				</key>
-				<key name="Task3" modified="2017-05-31 07:41:15" build="161206">
+				<key name="Task3" modified="2017-05-29 09:12:57" build="161022">
 					<value name="Name" type="string" data="{Powershell::PowerShell as Admin}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -628,7 +628,7 @@
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 				</key>
-				<key name="Task4" modified="2017-05-31 07:41:15" build="161206">
+				<key name="Task4" modified="2017-05-29 09:12:57" build="161022">
 					<value name="Name" type="string" data="{Powershell::Powershell}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -637,7 +637,7 @@
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 				</key>
-				<key name="Task5" modified="2017-05-31 07:41:15" build="161206">
+				<key name="Task5" modified="2017-05-29 09:12:57" build="161022">
 					<value name="Name" type="string" data="{bash::mintty as Admin}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -646,7 +646,7 @@
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 				</key>
-				<key name="Task6" modified="2017-05-31 07:41:15" build="161206">
+				<key name="Task6" modified="2017-05-29 09:12:57" build="161022">
 					<value name="Name" type="string" data="{bash::mintty}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -655,7 +655,7 @@
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 				</key>
-				<key name="Task7" modified="2017-05-31 07:41:15" build="161206">
+				<key name="Task7" modified="2017-05-29 09:12:57" build="161022">
 					<value name="Name" type="string" data="{bash::bash as Admin}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -664,7 +664,7 @@
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 				</key>
-				<key name="Task8" modified="2017-05-31 07:41:15" build="161206">
+				<key name="Task8" modified="2017-05-29 09:12:57" build="161022">
 					<value name="Name" type="string" data="{bash::bash}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -674,12 +674,12 @@
 					<value name="Count" type="long" data="1"/>
 				</key>
 			</key>
-			<key name="Apps" modified="2017-05-31 07:41:15" build="161206">
+			<key name="Apps" modified="2017-05-29 09:12:57" build="161022">
 				<value name="Count" type="long" data="0"/>
 			</key>
-			<key name="Colors" modified="2017-05-31 07:41:15" build="161206">
+			<key name="Colors" modified="2017-05-29 09:12:57" build="161022">
 				<value name="Count" type="long" data="1"/>
-				<key name="Palette1" modified="2017-05-31 07:41:15" build="161206">
+				<key name="Palette1" modified="2017-05-29 09:12:57" build="161022">
 					<value name="Name" type="string" data="Monokai"/>
 					<value name="ExtendColors" type="hex" data="00"/>
 					<value name="ExtendColorIdx" type="hex" data="0e"/>
