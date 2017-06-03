@@ -5,8 +5,6 @@
 " Last modified:Nov 29 2016 23:26
 
 function! unix#Config() abort
-	nnoremap <Leader>mr :silent !./%<CR>
-
 	" System paste
 	nnoremap <Leader>jp "+p=`]<C-o>
 	vnoremap <Leader>jp "+p=`]<C-o>
@@ -48,6 +46,14 @@ function! unix#Config() abort
 	else " Some default location
 		let g:wiki_path=  $HOME . '/Documents/Seafile/KnowledgeIsPower/wiki'
 	endif
+
+	" This mapping will load the journal from the most recent boot and highlight it for you
+	command! UtilsLinuxReadJournal execute("read !journalctl -b<CR><bar>:setf messages<CR>")
+	" Give execute permissions to current file
+	command! UtilsLinuxExecReadPermissions execute("!chmod a+x %")
+	" Save file with sudo permissions
+	command! UtilsLinuxSudoPermissions execute("!sudo tee %")
+	command! UtilsLinuxExecuteCurrFile execute("silent !./%")
 
 endfunction
 

@@ -8,7 +8,7 @@
 " Created:			Jun 02 2017 10:19
 
 function! ftplugin#AutoHighlight() abort
-	if exists('*utils#AutoHighlightToggle') && !exists('g:highlight')
+	if exists("*utils#AutoHighlightToggle") && !exists('g:highlight')
 		silent call utils#AutoHighlightToggle()
 		nnoremap <buffer> <Leader>lh :call utils#AutoHighlightToggle()<CR>
 	endif
@@ -31,7 +31,7 @@ function! ftplugin#TagMappings() abort
 endfunction
 
 function! ftplugin#QuickFixMappings() abort
-	if exists('*quickfix#ToggleList')
+	if exists("*quickfix#ToggleList")
 		nnoremap <silent> <buffer> <Leader>ll :call quickfix#ToggleList("Location List", 'l')<CR>
 		nnoremap <silent> <buffer> <Leader>;; :call quickfix#ToggleList("Quickfix List", 'c')<CR>
 		nnoremap <buffer> <Leader>ln :call quickfix#ListsNavigation("next")<CR>
@@ -43,13 +43,13 @@ endfunction
 " For vim use '/"'
 " For python use '/#'
 function! ftplugin#Align(comment) abort
-	if exists(':Tabularize')
+	if exists(":Tabularize")
 		execute "vnoremap <buffer> <Leader>oa :Tabularize " . a:comment . "<CR>"
 	endif
 endfunction
 
 function! ftplugin#Syntastic(mode, checkers) abort
-	if exists(':SyntasticCheck')
+	if exists(":SyntasticCheck")
 		nnoremap <buffer> <unique> <Leader>lo :SyntasticToggleMode<CR>
 		nnoremap <buffer> <unique> <Leader>ls :SyntasticCheck<CR>
 	endif
