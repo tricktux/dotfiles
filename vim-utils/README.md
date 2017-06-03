@@ -10,8 +10,27 @@ silent 5verbose let ctags_output = system(a:ctags_cmd)
 let ctags_output = system(a:ctags_cmd)
 	endif
 	```
+## Useful help tags
+	- `:h visual-operators`
+
+## Passing visual selected lines to a command
+	- Sat Jun 03 2017 18:29: I tried really hard to get a command to work visual
+	- selected text that is not lines and couldnt. This thing below shows how
+	- you can work with all text in highlighted lines. But that is not what I wanted.
+	- More info in this [link](https://stackoverflow.com/questions/2575545/vim-pipe-selected-text-to-shell-cmd-and-receive-output-on-vim-info-command-line)
+	- `command! -range=% UtilsAscii2Hex execute('echo join(getline(<line1>, <line2>), "\n")')`
+	- This is another example with calling a function and passing the lines
+	- `command! -range=% UtilsAscii2Hex :<line1>,<line2>call utils#Ascii2Hex()`
+
+```vim
+function! utils#Ascii2Hex() abort range
+	execute('s/' . join(getline(a:firstline, a:lastline), "\n") . '/\=nr2char(printf("%d", "0x".submatch(0)))/g<cr>')
+endfunction
+```
 
 ## List of commonly used functions
+	- `libcall({libname}, {funcname}, {argument})
+	Call function {funcname} in the run-time library {libname}`
 	- `systemlist` - Execute `system` get result in a `list`
 	- `strpart` - Like extract parts from string
 	- `stridx` - Similar to `strstr` and `strchr`
