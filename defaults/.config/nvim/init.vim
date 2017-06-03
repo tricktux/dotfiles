@@ -387,12 +387,11 @@
 		nmap gk <Plug>Make
 
 		" Refactor word under the cursor
-		nnoremap <Leader>jr :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
-		vnoremap <Leader>jr "hy:%s/<C-r>h//gc<left><left><left>
-		" nnoremap <S-s> #<C-o> " Substituted for the AutoHighlightToggle function
+		nnoremap <Leader>r :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
+		vnoremap <Leader>r "hy:%s/<C-r>h//gc<left><left><left>
 		" duplicate current char
-		nnoremap <Leader>jd ylp
-		vnoremap <Leader>jd ylp
+		nnoremap <Leader>d ylp
+		vnoremap <Leader>d ylp
 		" Reload syntax
 		nnoremap <Leader>js <Esc>:syntax sync fromstart<CR>
 		" Sessions
@@ -406,18 +405,15 @@
 		nnoremap <Leader>j4 :setlocal ts=4 sw=4 sts=4<CR>
 		nnoremap <Leader>j8 :setlocal ts=8 sw=8 sts=8<CR>
 		" not paste the deleted word
-		nnoremap <Leader>ja "0p
-		vnoremap <Leader>ja "0p
+		nnoremap <Leader>p "0p
+		vnoremap <Leader>p "0p
 		" Force wings_syntax on a file
 		nnoremap <Leader>jw :set filetype=wings_syntax<CR>
 		" Create file with name under the cursor
 		" Diff Sutff
 		nnoremap <Leader>j. :call utils#LastCommand()<CR>
-		nnoremap <Leader>j- :call utils#GuiFont("-")<CR>
-		nnoremap <Leader>j= :call utils#GuiFont("+")<CR>
-
-		" Convert fileformat to dos
-		nnoremap <Leader>jD :e ++ff=dos<CR>
+		nnoremap <Leader>- :call utils#GuiFont("-")<CR>
+		nnoremap <Leader>= :call utils#GuiFont("+")<CR>
 
 		" j mappings taken <swypl;bqruihHdma248eEonf>
 		" nnoremap <Leader>Mc :call utils#ManFind()<CR>
@@ -475,6 +471,10 @@
 		nnoremap dl :call utils#DeleteLine()<CR>
 
 		nnoremap <S-CR> O<Esc>
+		" Display highlighted numbers as ascii chars. Only works on highlighted text
+		vnoremap <Leader>ah :<c-u>s/<count>\x\x/\=nr2char(printf("%d", "0x".submatch(0)))/g<cr><c-l>`<
+		vnoremap <Leader>ha :<c-u>s/\%V./\=printf("%x",char2nr(submatch(0)))/g<cr><c-l>`<
+		" nnoremap <Leader>j<Space> :
 
 	" Insert Mode (Individual) mappings
 		inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
@@ -728,9 +728,7 @@
 	command! UtilsIndentWholeFile execute("normal! mzgg=G`z")
 	" Remove Trailing Spaces
 	command! UtilsRemoveTrailingSpaces execute('let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>')
-	" Display highlighted numbers as ascii chars. Only works on highlighted text
-	command! UtilsAscii2Hex execute('<c-u>s/\%V\x\x/\=nr2char(printf("%d", "0x".submatch(0)))/g<cr><c-l>`<')
-	command! UtilsHex2Ascii execute('<c-u>s/\%V./\=printf("%x",char2nr(submatch(0)))/g<cr><c-l>`<')
-	" nnoremap <Leader>j<Space> :
+	" Convert fileformat to dos
+	command! UtilsFileFormat2Dos :e ++ff=dos<CR>
 
 " vim:tw=78:ts=2:sts=2:sw=2:
