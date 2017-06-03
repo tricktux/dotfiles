@@ -139,7 +139,7 @@ function! plugin#Config() abort
 				let g:no_neoman_maps = 1
 		endif
 
-		if has('python3') && system('pip3 list | grep psutil') =~# 'psutil'
+		if has('python3') && system('pip3 list | ' . has('win32') ? 'grep' : 'find' . ' psutil') =~# 'psutil'
 			Plug 'c0r73x/neotags.nvim' " Depends on pip3 install --user psutil
 				set regexpengine=1 " This speed up the engine alot but still not enough
 				let g:neotags_enabled = 1
