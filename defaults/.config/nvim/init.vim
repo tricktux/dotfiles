@@ -81,7 +81,7 @@
 		" save marks
 
 		let &path .='.,,..,../..,./*,./*/*,../*,~/,~/**,/usr/include/*' " Useful for the find command
-		set shiftwidth=2 tabstop=2
+		set shiftwidth=4 tabstop=4
 		set viminfo='1000,f1,<800,%1024
 		set showtabline=1 " always show tabs in gvim, but not vim"
 		set backspace=indent,eol,start
