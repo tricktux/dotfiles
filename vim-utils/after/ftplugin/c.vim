@@ -39,7 +39,7 @@ if !exists("no_plugin_maps") && !exists("no_c_maps")
 		nnoremap <buffer> <Plug>Make :make!<CR>
 	endif
 	" Alternate between header and source file
-	nnoremap <buffer> <unique> <Leader>lq :call <SID>SwitchHeaderSource()<CR>
+	nnoremap <buffer> <unique> <Leader>lq :call utils#SwitchHeaderSource()<CR>
 
 	nnoremap <buffer> <unique> <Leader>od :call <SID>CommentDelete()<CR>
 	" Comment Indent Increase/Reduce
@@ -64,7 +64,6 @@ if !exists("no_plugin_maps") && !exists("no_c_maps")
 	endif
 	nnoremap <buffer> <Leader>lf :Autoformat<CR>
 
-	call ftplugin#QuickFixMappings()
 	call ftplugin#TagMappings()
 	call ftplugin#Align('/\/\/')
 	call ftplugin#Syntastic('passive', [])
@@ -119,24 +118,6 @@ function! s:UpdateBorlandMakefile() abort
 	endif
 endfunction
 
-" TODO.RM-Fri May 26 2017 13:30: Figure why it complains that function already exists everytime I call it  
-" Source: http://vim.wikia.com/wiki/Easily_switch_between_source_and_header_file
-function! s:SwitchHeaderSource() abort
-	if expand("%:e") == "cpp" || expand("%:e") == "c"
-		try " Replace cpp or c with hpp
-			find %:t:r.hpp
-		catch /:E345:/ " catch not found in path and try to find then *.h
-			find %:t:r.h
-		endtry
-	else
-		try
-			find %:t:r.cpp
-		catch /:E345:/
-			find %:t:r.c
-		endtry
-	endif
-endfunction
-
 function! s:CommentDelete() abort
 	execute "normal Bf/D"
 endfunction
@@ -149,4 +130,4 @@ function! s:CommentReduceIndent() abort
 	execute "normal Bf/hxhx"
 endfunction
 
-let b:undo_ftplugin = "setl omnifunc< ts< sw< sts< foldenable< define< spell< matchpairs< foldmethod< foldnestmax<" 
+let b:undo_ftplugin = "setl omnifunc< ts< sw< sts< foldenable< define< spell< matchpairs< foldmethod< foldnestmax<| unlet! b:delimitMate_matchpairs b:matchparen_timeout b:match_words" 

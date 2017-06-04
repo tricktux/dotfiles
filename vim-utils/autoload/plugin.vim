@@ -3,7 +3,6 @@
 " Author:Reinaldo Molina <rmolin88@gmail.com>
 " Version:2.0.1
 " Last Modified: Fri Jun 02 2017 10:44
-" TODO.RM-Fri Jun 02 2017 10:44: Move all mappings away from here  
 
 function! plugin#Config() abort
 	" Vim-Plug
@@ -39,6 +38,7 @@ function! plugin#Config() abort
 		Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 	elseif has('nvim') || v:version >= 800
 		Plug 'Shougo/denite.nvim'
+			let b:denite_loaded = 1
 			nnoremap <A-;> :Denite command<CR>
 			nnoremap <A-e> :Denite help<CR>
 			" nnoremap <S-k> :Denite buffer<CR>
@@ -219,7 +219,6 @@ function! plugin#Config() abort
 		" command! -nargs=0 DoxAuthor :call <SID>DoxygenAuthorFunc()
 		" command! -nargs=1 DoxUndoc :call <SID>DoxygenUndocumentFunc(<q-args>)
 		" command! -nargs=0 DoxBlock :call <SID>DoxygenBlockFunc()
-		let g:DoxygenToolkit_briefTag_pre = "Brief:			"
 		let g:DoxygenToolkit_paramTag_pre=	"	"
 		let g:DoxygenToolkit_returnTag=			"Returns:   "
 		let g:DoxygenToolkit_blockHeader=""
@@ -227,15 +226,16 @@ function! plugin#Config() abort
 		let g:DoxygenToolkit_authorName="Reinaldo Molina <rmolin88@gmail.com>"
 		let g:DoxygenToolkit_authorTag =	"Author:				"
 		let g:DoxygenToolkit_fileTag =		"File:					"
-		let g:DoxygenToolkit_briefTag_pre="		"
+		let g:DoxygenToolkit_briefTag_pre="Description:		"
 		let g:DoxygenToolkit_dateTag =		"Last Modified: "
 		let g:DoxygenToolkit_versionTag = "Version:				"
 		let g:DoxygenToolkit_commentType = "C++"
+		let g:DoxygenToolkit_versionString = "0.0.0"
 		" See :h doxygen.vim this vim related. Not plugin related
 		let g:load_doxygen_syntax=1
 
 	" misc
-	Plug 'chrisbra/vim-diff-enhanced', { 'on' : 'SetDiff' }
+	Plug 'chrisbra/vim-diff-enhanced', { 'on' : 'UtilsDiffSet' }
 
 	" FileBrowser
 	" Wed May 03 2017 11:31: Tried `vifm` doesnt work in windows. Doesnt
@@ -479,7 +479,7 @@ function! plugin#Config() abort
 		call deoplete#custom#set('clang2', 'mark', '')
 	endif
 
-	if exists('*denite#custom#map')
+	if exists('b:denite_loaded')
 		" Change mappings.
 		call denite#custom#map('insert','<C-j>','<denite:move_to_next_line>','noremap')
 		call denite#custom#map('insert','<C-k>','<denite:move_to_previous_line>','noremap')

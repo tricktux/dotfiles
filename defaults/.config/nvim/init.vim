@@ -353,23 +353,16 @@
 	" Taken keys: <Leader>qwertasdjcvgp<space>mbolu
 
 	" Quickfix and Location stuff
-		" Description:
-		" C-Arrow forces movement on quickfix window
-		" Arrow moves on whichever window open (qf || ll)
-		" if both opened favors location window
-
-		" Quickfix only mappings
 		nnoremap <Leader>qO :lopen 20<CR>
 		nnoremap <Leader>qo :call quickfix#OpenQfWindow()<CR>
+		" nnoremap <silent> <Leader>ll :call quickfix#ToggleList("Location List", 'l')<CR>
+		nnoremap <silent> U :call quickfix#ToggleList("Quickfix List", 'c')<CR>
+		nnoremap <Leader>ln :call quickfix#ListsNavigation("next")<CR>
+		nnoremap <Leader>lp :call quickfix#ListsNavigation("previous")<CR>
 		nnoremap <Leader>qn :call quickfix#ListsNavigation("next")<CR>
 		nnoremap <Leader>qp :call quickfix#ListsNavigation("previous")<CR>
 		nnoremap <Leader>ql :ccl<CR>
 					\:lcl<CR>
-
-		" General mappings for all languages
-		" Fri Jun 02 2017 12:10 Addressing this on a per language basis
-		" nnoremap <unique> <Leader>lo :SyntasticToggleMode<CR>
-		" nnoremap <unique> <Leader>ls :SyntasticCheck<CR>
 
 	" FileType Specific mappings use <Leader>l
 		" Refer to ~/.dotfiles/vim-utils/after/ftplugin to find these
