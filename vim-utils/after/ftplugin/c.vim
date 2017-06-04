@@ -2,7 +2,7 @@
 " Description:	After default ftplugin for c
 " Author:				Reinaldo Molina <rmolin88@gmail.com>
 " Version:			1.0.0
-" Last Modified: Fri May 26 2017 13:30
+" Last Modified: Sat Jun 03 2017 19:02
 " Created:			Nov 25 2016 23:16
 
 " Only do this when not done yet for this buffer
