@@ -23,7 +23,6 @@ compiler gradlew
 
 " Add mappings, unless the user didn't want this.
 if !exists("no_plugin_maps") && !exists("no_java_maps")
-	call ftplugin#QuickFixMappings()
 	call ftplugin#TagMappings()
 	call ftplugin#Align('/\/\/')
 	call ftplugin#Syntastic('passive', [])

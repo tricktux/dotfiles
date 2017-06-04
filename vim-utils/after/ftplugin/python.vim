@@ -22,7 +22,6 @@ if !exists("no_plugin_maps") && !exists("no_python_maps")
 		nnoremap <buffer> <unique> <Leader>lf :Autoformat<CR>Isort<CR>
 	endif
 
-	call ftplugin#QuickFixMappings()
 	call ftplugin#TagMappings()
 	call ftplugin#Align('/#')
 	call ftplugin#Syntastic('passive', ['flake8', 'pep8', 'pycodestyle', 'pyflakes', 'python'])
