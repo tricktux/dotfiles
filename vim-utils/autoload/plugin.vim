@@ -472,7 +472,7 @@ function! plugin#Config() abort
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
-	if exists('*deoplete#custom#set') " Cant call this inside of plug#begin()
+	if exists('b:deoplete_loaded') " Cant call this inside of plug#begin()
 		call deoplete#custom#set('javacomplete2', 'mark', '')
 		call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
 		" c c++
