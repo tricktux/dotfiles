@@ -297,6 +297,7 @@
 		autocmd FileType tex compiler tex
 		" Display help vertical window not split
 		autocmd FileType help wincmd L
+		autocmd FileType help :nnoremap <buffer> q ZZ
 		" wrap syntastic messages
 		autocmd FileType mail setlocal wrap
 		autocmd FileType mail setlocal spell spelllang=es,en
@@ -695,8 +696,10 @@
 		call highlight#Set('cppEnumTag',              { 'link': 'cppEnum' })
 
 		" Search
-		call highlight#Set('Search',									{ 'fg': g:turquoise4 })
-		call highlight#Set('IncSearch',								{ 'bg': g:white })
+		call highlight#Set('Search',									{ 'fg': g:turquoise4 }, 'bold')
+		call highlight#Set('IncSearch',								{ 'bg': g:white }, 'bold')
+		highlight IncSearch cterm=bold gui=bold
+		highlight Search cterm=bold gui=bold
 
 		" Vim
 		call highlight#Set('vimAutoGroupTag',					{ 'fg': g:brown })
