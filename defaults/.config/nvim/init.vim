@@ -490,14 +490,14 @@
 		nnoremap <Leader>ev :e $VIMRUNTIME/
 
 	" CD <Leader>c?
-		nnoremap <Leader>cd :tcd %:p:h<CR>
+		nnoremap <Leader>cd :lcd %:p:h<CR>
 					\:pwd<CR>
-		nnoremap <Leader>cu :tcd ..<CR>
+		nnoremap <Leader>cu :lcd ..<CR>
 					\:pwd<CR>
 		" cd into dir. press <Tab> after ci to see folders
-		nnoremap <Leader>ci :tcd
+		nnoremap <Leader>ci :lcd
 		nnoremap <Leader>cc :pwd<CR>
-		nnoremap <Leader>c1 :tcd ~/.dotfiles
+		nnoremap <Leader>c1 :lcd ~/.dotfiles
 		" TODO.RM-Thu Jun 01 2017 10:10: Create mappings like c21 and c22
 
 	" Folding
@@ -700,6 +700,7 @@
 		call highlight#Set('IncSearch',								{ 'bg': g:white }, 'bold')
 		highlight IncSearch cterm=bold gui=bold
 		highlight Search cterm=bold gui=bold
+		highlight Comment cterm=italic gui=italic
 
 		" Vim
 		call highlight#Set('vimAutoGroupTag',					{ 'fg': g:brown })

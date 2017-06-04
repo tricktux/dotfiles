@@ -1763,3 +1763,34 @@ endif
 					\ 'postprocess': function('SetWarningType')
 					\ }
 
+		Plug 'junegunn/fzf.vim'
+			nnoremap <C-p> :History<CR>
+			nnoremap <A-;> :History:<CR>
+			nnoremap <A-/> :History/<CR>
+			nnoremap <A-p> :FZF<CR>
+			nnoremap <A-e> :Helptags<CR>
+			nnoremap <S-k> :Buffers<CR>
+			nnoremap <A-m> <plug>(fzf-maps-n)
+			let g:fzf_history_dir = '~/.cache/fzf-history'
+			autocmd FileType fzf tnoremap <buffer> <C-j> <Down>
+			autocmd FileType fzf set relativenumber
+			let g:fzf_colors =
+						\ { 'fg':      ['fg', 'Normal'],
+						\ 'bg':      ['bg', 'Normal'],
+						\ 'hl':      ['fg', 'Comment'],
+						\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+						\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+						\ 'hl+':     ['fg', 'Statement'],
+						\ 'info':    ['fg', 'PreProc'],
+						\ 'prompt':  ['fg', 'Conditional'],
+						\ 'pointer': ['fg', 'Exception'],
+						\ 'marker':  ['fg', 'Keyword'],
+						\ 'spinner': ['fg', 'Label'],
+						\ 'header':  ['fg', 'Comment'] }
+		if executable('rg')
+			let g:ctrlp_user_command = 'rg %s --files -g "!.git" -g "!.svn"'
+		elseif executable('ag')
+			let g:ctrlp_user_command = 'ag -Q -l --smart-case --nocolor --hidden -g "!.git/*" %s'
+		else
+			echomsg string("You should install ripgrep or silversearcher-ag. Now you have a slow ctrlp")
+		endif
