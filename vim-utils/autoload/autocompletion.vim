@@ -191,7 +191,6 @@ function! autocompletion#SetShuogo() abort
 		endif
 	elseif has('nvim')
 		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-			" let b:deoplete_loaded = 1
 			" if it is nvim deoplete requires python3 to work
 			let g:deoplete#enable_at_startup = 1
 			" Autoclose preview window

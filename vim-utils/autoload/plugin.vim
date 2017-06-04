@@ -22,7 +22,7 @@ function! plugin#Config() abort
 		call plug#begin(g:plugged_path)
 	endif
 
-	" fzf only seems to work with nvim
+	" Set up fuzzy searcher
 	if has('unix') && has('nvim')
 		" Terminal plugins
 		Plug 'kassio/neoterm'
@@ -37,68 +37,35 @@ function! plugin#Config() abort
 		Plug 'rliang/termedit.nvim'
 
 		Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-		Plug 'junegunn/fzf.vim'
-			nnoremap <C-p> :History<CR>
-			nnoremap <A-;> :History:<CR>
-			nnoremap <A-/> :History/<CR>
-			nnoremap <A-p> :FZF<CR>
-			nnoremap <A-e> :Helptags<CR>
-			nnoremap <S-k> :Buffers<CR>
-			nnoremap <A-m> <plug>(fzf-maps-n)
-			let g:fzf_history_dir = '~/.cache/fzf-history'
-			autocmd FileType fzf tnoremap <buffer> <C-j> <Down>
-			autocmd FileType fzf set relativenumber
-			let g:fzf_colors =
-						\ { 'fg':      ['fg', 'Normal'],
-						\ 'bg':      ['bg', 'Normal'],
-						\ 'hl':      ['fg', 'Comment'],
-						\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-						\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-						\ 'hl+':     ['fg', 'Statement'],
-						\ 'info':    ['fg', 'PreProc'],
-						\ 'prompt':  ['fg', 'Conditional'],
-						\ 'pointer': ['fg', 'Exception'],
-						\ 'marker':  ['fg', 'Keyword'],
-						\ 'spinner': ['fg', 'Label'],
-						\ 'header':  ['fg', 'Comment'] }
 	elseif has('nvim') || v:version >= 800
 		Plug 'Shougo/denite.nvim'
-			nnoremap <C-p> :Denite file_old<CR>
 			nnoremap <A-;> :Denite command<CR>
 			nnoremap <A-e> :Denite help<CR>
-			nnoremap <S-k> :Denite buffer<CR>
+			" nnoremap <S-k> :Denite buffer<CR>
 			nnoremap <A-p> :Denite file_rec<CR>
-			let b:denite_loaded = 1
-	else
 		Plug 'ctrlpvim/ctrlp.vim'
-		if executable('rg')
-			let g:ctrlp_user_command = 'rg %s --files -g "!.git" -g "!.svn"'
-		elseif executable('ag')
-			let g:ctrlp_user_command = 'ag -Q -l --smart-case --nocolor --hidden -g "!.git/*" %s'
-		else
-			echomsg string("You should install ripgrep or silversearcher-ag. Now you have a slow ctrlp")
-		endif
-		nnoremap <S-k> :CtrlPBuffer<CR>
-		nnoremap <A-p> :CtrlPRoot<CR>
-		nnoremap <A-q> :CtrlPQuickfix<CR>
-		" let g:ctrlp_cmd = 'CtrlPMixed'
-		let g:ctrlp_cmd = 'CtrlPMRU'
-		" submit ? in CtrlP for more mapping help.
-		let g:ctrlp_lazy_update = 1
-		let g:ctrlp_show_hidden = 1
-		let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
-		let g:ctrlp_cache_dir = g:cache_path . 'ctrlp'
-		let g:ctrlp_working_path_mode = 'wra'
-		let g:ctrlp_max_history = &history
-		let g:ctrlp_clear_cache_on_exit = 0
-		let g:ctrlp_switch_buffer = 0
-		if has('win32')
-			set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
-			let g:ctrlp_custom_ignore = {
-						\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-						\ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
-						\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
-						\ }
+			nnoremap <S-k> :CtrlPBuffer<CR>
+			nnoremap <C-p> :CtrlPMRU<CR>
+			" nnoremap <A-p> :CtrlPRoot<CR>
+			nnoremap <A-q> :CtrlPQuickfix<CR>
+			" let g:ctrlp_cmd = 'CtrlPMixed'
+			let g:ctrlp_cmd = 'CtrlPMRU'
+			" submit ? in CtrlP for more mapping help.
+			let g:ctrlp_lazy_update = 1
+			let g:ctrlp_show_hidden = 1
+			let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
+			let g:ctrlp_cache_dir = g:cache_path . 'ctrlp'
+			let g:ctrlp_working_path_mode = 'wra'
+			let g:ctrlp_max_history = &history
+			let g:ctrlp_clear_cache_on_exit = 0
+			let g:ctrlp_switch_buffer = 0
+			if has('win32')
+				set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
+				let g:ctrlp_custom_ignore = {
+							\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+							\ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
+							\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+							\ }
 		else
 			set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
 			let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
@@ -505,14 +472,14 @@ function! plugin#Config() abort
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
-	if exists("b:deoplete_loaded") " Cant call this inside of plug#begin()
+	if exists('*deoplete#custom#set') " Cant call this inside of plug#begin()
 		call deoplete#custom#set('javacomplete2', 'mark', '')
 		call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
 		" c c++
 		call deoplete#custom#set('clang2', 'mark', '')
 	endif
 
-	if exists('b:denite_loaded')
+	if exists('*denite#custom#map')
 		" Change mappings.
 		call denite#custom#map('insert','<C-j>','<denite:move_to_next_line>','noremap')
 		call denite#custom#map('insert','<C-k>','<denite:move_to_previous_line>','noremap')
