@@ -4,7 +4,7 @@
 "								environments. Like c, python, java, .etc
 " Author:				Reinaldo Molina <rmolin88@gmail.com>
 " Version:				1.0.0
-" Last Modified: Jun 02 2017 10:19
+" Last Modified: Sun Jun 04 2017 15:59
 " Created:			Jun 02 2017 10:19
 
 function! ftplugin#AutoHighlight() abort
@@ -28,15 +28,6 @@ function! ftplugin#TagMappings() abort
 	" nnoremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
 	nnoremap <buffer> <Leader>ts :cs show<CR>
 	nnoremap <buffer> <Leader>tu :call ctags#NvimSyncCtags(0)<CR>
-endfunction
-
-function! ftplugin#QuickFixMappings() abort
-	if exists("*quickfix#ToggleList")
-		nnoremap <silent> <buffer> <Leader>ll :call quickfix#ToggleList("Location List", 'l')<CR>
-		nnoremap <silent> <buffer> <Leader>;; :call quickfix#ToggleList("Quickfix List", 'c')<CR>
-		nnoremap <buffer> <Leader>ln :call quickfix#ListsNavigation("next")<CR>
-		nnoremap <buffer> <Leader>lp :call quickfix#ListsNavigation("previous")<CR>
-	endif
 endfunction
 
 " For cpp use '/\/\/'
