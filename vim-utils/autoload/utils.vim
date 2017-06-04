@@ -666,4 +666,21 @@ function! utils#SearchHighlighted() abort
 endfunction
 " TODO.RM-Sat Nov 26 2016 00:04: Function that auto adds SCR # and description
 
+" Source: http://vim.wikia.com/wiki/Easily_switch_between_source_and_header_file
+function! utils#SwitchHeaderSource() abort
+	if expand("%:e") == "cpp" || expand("%:e") == "c"
+		try " Replace cpp or c with hpp
+			find %:t:r.hpp
+		catch /:E345:/ " catch not found in path and try to find then *.h
+			find %:t:r.h
+		endtry
+	else
+		try
+			find %:t:r.cpp
+		catch /:E345:/
+			find %:t:r.c
+		endtry
+	endif
+endfunction
+
  " vim:tw=78:ts=2:sts=2:sw=2:
