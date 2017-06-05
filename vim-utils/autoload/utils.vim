@@ -541,7 +541,7 @@ function! utils#ConvertWeeklyReport() abort
 
 	" Cd into current buffer file dir
 	let dir_buff = getcwd()
-	execute "cd " . expand('%:p:h')
+	execute "cd " . expand('%:h')
 
 	let out_name = "WeeklyReport_ReinaldoMolina_" . strftime("%b-%d-%Y") . ".docx"
 	if filereadable(out_name)
