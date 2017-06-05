@@ -174,6 +174,8 @@
 		set modelines=1
 		" Set omni for all filetypes
 		set omnifunc=syntaxcomplete#Complete
+		" Mon Jun 05 2017 11:59: Suppose to Fix cd to relative paths in windows
+		let &cdpath = ',' . substitute(substitute($CDPATH, '[, ]', '\\\0', 'g'), ':', ',', 'g')
 
 	" Status Line and Colorscheme
 		if exists('g:plugins_loaded')
@@ -458,8 +460,8 @@
 		nnoremap <Leader>ei :e
 
 		" decrease number
-		nnoremap <Leader>A <c-x>
-		vnoremap <Leader>A <c-x>
+		nnoremap <Leader>a <c-x>
+		vnoremap <Leader>a <c-x>
 
 		nnoremap yl :call utils#YankFrom()<CR>
 		nnoremap dl :call utils#DeleteLine()<CR>
@@ -468,7 +470,6 @@
 		" Display highlighted numbers as ascii chars. Only works on highlighted text
 		vnoremap <Leader>ah :<c-u>s/<count>\x\x/\=nr2char(printf("%d", "0x".submatch(0)))/g<cr><c-l>`<
 		vnoremap <Leader>ha :<c-u>s/\%V./\=printf("%x",char2nr(submatch(0)))/g<cr><c-l>`<
-		" nnoremap <Leader>j<Space> :
 
 	" Insert Mode (Individual) mappings
 		inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
@@ -483,7 +484,7 @@
 		nnoremap <Leader>ev :e $VIMRUNTIME/
 
 	" CD <Leader>c?
-		nnoremap <Leader>cd :lcd %:p:h<CR>
+		nnoremap <Leader>cd :lcd %:h<CR>
 					\:pwd<CR>
 		nnoremap <Leader>cu :lcd ..<CR>
 					\:pwd<CR>
