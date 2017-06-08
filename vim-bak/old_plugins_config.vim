@@ -1794,3 +1794,25 @@ endif
 		else
 			echomsg string("You should install ripgrep or silversearcher-ag. Now you have a slow ctrlp")
 		endif
+
+
+		" " Python. Taken from http://vi.stackexchange.com/questions/7834/how-to-setup-neomake-with-python
+		" let g:neomake_python_flake8_maker = {
+					" \ 'args': '--format=default',
+					" \ 'auto_enabled' : 1,
+					" \ 'errorformat':
+					" \ '%E%f:%l: could not compile,%-Z%p^,' .
+					" \ '%A%f:%l:%c: %t%n %m,' .
+					" \ '%A%f:%l: %t%n %m,' .
+					" \ '%-G%.%#',
+					" \ }
+					" " \ 'args': ['--ignore=E221,E241,E272,E251,W702,E203,E201,E202',  '--format=default'],
+
+		" " Requires pip3 install --user flake8
+		" let g:neomake_python_enabled_makers = ['flake8']
+
+
+		" let g:neomake_highlight_lines = 1 " Not cool option. Plus very slow
+		" let g:neomake_open_list = 2
+		" let g:neomake_ft_test_maker_buffer_output = 0
+
