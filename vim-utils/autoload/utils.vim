@@ -451,21 +451,22 @@ function! utils#SetWingsPath(sPath) abort
 endfunction
 
 function! utils#NeomakeOpenWindow() abort
-	if g:neomake_hook_context.file_mode
-		let loc_text = getloclist(0)
-		if len(loc_text) == 0
-			echo "Success"
-			return
-		endif
-		echon "(1 of " len(loc_text) "):" bufname(loc_text[0].bufnr) '|' loc_text[0].lnum '|: ' loc_text[0].text
-	else
-		let qf_text = getqflist()
-		if len(qf_text) == 0
-			echo "Success"
-			return
-		endif
-		echon "(1 of " len(qf_text) "):" bufname(qf_text[0].bufnr) '|' qf_text[0].lnum '|: ' qf_text[0].text
-	endif
+	echo "Neomake Done"
+	" if g:neomake_hook_context.file_mode
+		" let loc_text = getloclist(0)
+		" if len(loc_text) == 0
+			" echo "Success"
+			" return
+		" endif
+		" echon "(1 of " len(loc_text) "):" bufname(loc_text[0].bufnr) '|' loc_text[0].lnum '|: ' loc_text[0].text
+	" else
+		" let qf_text = getqflist()
+		" if len(qf_text) == 0
+			" echo "Success"
+			" return
+		" endif
+		" echon "(1 of " len(qf_text) "):" bufname(qf_text[0].bufnr) '|' qf_text[0].lnum '|: ' qf_text[0].text
+	" endif
 endfunction
 
 " TODO.RM-Fri Apr 28 2017 16:14: Also move this to the ftplugin  
