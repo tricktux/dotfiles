@@ -106,7 +106,8 @@ function! plugin#Config() abort
 				let g:no_neoman_maps = 1
 		endif
 
-		if has('python3') && system('pip3 list | ' . has('win32') ? 'grep' : 'find' . ' psutil') =~# 'psutil'
+		" TODO.RM-Wed Jun 07 2017 07:19: Implement auto check for psutil and warning in plugin  
+		if has('python3') && system('pip3 list | grep psutil') =~# 'psutil'
 			Plug 'c0r73x/neotags.nvim' " Depends on pip3 install --user psutil
 				set regexpengine=1 " This speed up the engine alot but still not enough
 				let g:neotags_enabled = 1
@@ -130,54 +131,33 @@ function! plugin#Config() abort
 	Plug 'justinmk/vim-syntax-extra'
 
 	" Plugins for All (nvim, linux, win32)
-	" Plug 'neomake/neomake'
-		" let g:neomake_warning_sign = {
-					" \ 'text': '?',
-					" \ 'texthl': 'WarningMsg',
-					" \ }
+	Plug 'neomake/neomake'
+		let g:neomake_warning_sign = {
+					\ 'text': '?',
+					\ 'texthl': 'WarningMsg',
+					\ }
 
-		" let g:neomake_error_sign = {
-					" \ 'text': 'X',
-					" \ 'texthl': 'ErrorMsg',
-					" \ }
-		" let g:neomake_cpp_enabled_makers = ['gcc', 'clang']
-		" let g:neomake_c_enabled_makers = ['gcc', 'clang']
-		" let g:neomake_cpp_clang_maker = {
-					" \ 'args': ['-fsyntax-only', '-std=c++14', '-Wall', '-Wextra'],
-					" \ 'errorformat':
-					" \ '%-G%f:%s:,' .
-					" \ '%f:%l:%c: %trror: %m,' .
-					" \ '%f:%l:%c: %tarning: %m,' .
-					" \ '%f:%l:%c: %m,'.
-					" \ '%f:%l: %trror: %m,'.
-					" \ '%f:%l: %tarning: %m,'.
-					" \ '%f:%l: %m',
-					" \ }
-
-
-		" " Python. Taken from http://vi.stackexchange.com/questions/7834/how-to-setup-neomake-with-python
-		" let g:neomake_python_flake8_maker = {
-					" \ 'args': '--format=default',
-					" \ 'auto_enabled' : 1,
-					" \ 'errorformat':
-					" \ '%E%f:%l: could not compile,%-Z%p^,' .
-					" \ '%A%f:%l:%c: %t%n %m,' .
-					" \ '%A%f:%l: %t%n %m,' .
-					" \ '%-G%.%#',
-					" \ }
-					" " \ 'args': ['--ignore=E221,E241,E272,E251,W702,E203,E201,E202',  '--format=default'],
-
-		" " Requires pip3 install --user flake8
-		" let g:neomake_python_enabled_makers = ['flake8']
-
+		let g:neomake_error_sign = {
+					\ 'text': 'X',
+					\ 'texthl': 'ErrorMsg',
+					\ }
+		let g:neomake_cpp_enabled_makers = ['gcc', 'clang']
+		let g:neomake_c_enabled_makers = ['gcc', 'clang']
+		let g:neomake_cpp_clang_maker = {
+					\ 'args': ['-fsyntax-only', '-std=c++14', '-Wall', '-Wextra'],
+					\ 'errorformat':
+					\ '%-G%f:%s:,' .
+					\ '%f:%l:%c: %trror: %m,' .
+					\ '%f:%l:%c: %tarning: %m,' .
+					\ '%f:%l:%c: %m,'.
+					\ '%f:%l: %trror: %m,'.
+					\ '%f:%l: %tarning: %m,'.
+					\ '%f:%l: %m',
+					\ }
 		augroup custom_neomake
 			autocmd!
-			autocmd User NeomakeFinished call utils#NeomakeOpenWindow()
+			autocmd User NeomakeFinished echo "Neomake Finished!"
 		augroup END
-
-		" let g:neomake_highlight_lines = 1 " Not cool option. Plus very slow
-		" let g:neomake_open_list = 2
-		" let g:neomake_ft_test_maker_buffer_output = 0
 
 	Plug 'dhruvasagar/vim-table-mode', { 'on' : 'TableModeToggle' }
 		" To start using the plugin in the on-the-fly mode use :TableModeToggle mapped to <Leader>tm by default
