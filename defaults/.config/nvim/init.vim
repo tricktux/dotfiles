@@ -637,7 +637,7 @@
 		" let c_curly_error = 1
 
 	" ft-markdown-syntax
-		let g:markdown_fenced_languages= [ 'cpp', 'vim' ]
+		let g:markdown_fenced_languages= [ 'cpp', 'vim', 'dosini', 'wings_syntax' ]
 
 	" ft-python-syntax
 		" This option also highlights erroneous whitespaces
