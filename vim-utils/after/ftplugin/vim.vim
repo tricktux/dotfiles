@@ -2,7 +2,7 @@
 "	Description:	ftplugin for the vim filetype
 " Author:Reinaldo Molina <rmolin88@gmail.com>
 " Version:1.0.0
-" Last Modified: Thu May 04 2017 21:39
+" Last Modified: Sat Jun 03 2017 19:11
 " Created: Apr 28 2017 15:41
 
 " Only do this when not done yet for this buffer
@@ -14,17 +14,13 @@ endif
 let b:did_vim_ftplugin = 1
 
 " Add mappings, unless the user didn't want this.
-if !exists("no_plugin_maps") && !exists("no_c_maps")
+if !exists("no_plugin_maps") && !exists("no_vim_maps")
 	" Quote text by inserting "> "
-	if !hasmapto('<Plug>VimMake')
-		nmap <buffer> <Leader>jk <Plug>VimMake
-	endif
-	nnoremap <buffer> <unique> <Plug>VimMake :so %<CR>
+	nnoremap <buffer> <Plug>Make :so %<CR>
 	nnoremap <buffer> <unique> <Leader>lh :h <c-r>=expand("<cword>")<CR><cr>
-	vnoremap <buffer> <unique> <Leader>le :call <SID>Evaluate()<CR>
+	call ftplugin#Align('/"')
+	" Evaluate highlighted text
+	vnoremap <buffer> <Leader>le y:echomsg <c-r>"<cr>
+	" Execute highlighted text
+	vnoremap <buffer> <Leader>lE y:<c-r>"<cr>
 endif
-
-function! s:Evaluate() abort
-	" Yank selection to reg a then echo it cli
-	execute "normal \"ay:echomsg \<c-r>a\<cr>"
-endfunction

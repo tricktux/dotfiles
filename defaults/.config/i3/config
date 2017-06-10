@@ -452,7 +452,7 @@ exec --no-startup-id compton -f
 exec --no-startup-id xscreensaver -no-splash&
 exec --no-startup-id pcmanfm --daemon-mode
 
-exec --no-startup-id nvim-qt
+exec --no-startup-id termite
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id seafile-applet

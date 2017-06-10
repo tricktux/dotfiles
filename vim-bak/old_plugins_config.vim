@@ -1744,3 +1744,75 @@ endif
 		nnoremap <Leader>qc :.cc<CR>
 		nnoremap <Leader>qC :cc<CR>
 
+		function! SetWarningType(entry)
+			if a:entry.type =~? '\m^[SPI]'
+				let a:entry.type = 'I'
+			endif
+		endfunction
+
+		let g:neomake_cpp_cppcheck_maker = {
+					\ 'args': ['%:p', '-q', '--enable=all'],
+					\ 'errorformat': '[%f:%l]: (%trror) %m,' .
+					\ '[%f:%l]: (%tarning) %m,' .
+					\ '[%f:%l]: (%ttyle) %m,' .
+					\ '[%f:%l]: (%terformance) %m,' .
+					\ '[%f:%l]: (%tortability) %m,' .
+					\ '[%f:%l]: (%tnformation) %m,' .
+					\ '[%f:%l]: (%tnconclusive) %m,' .
+					\ '%-G%.%#',
+					\ 'postprocess': function('SetWarningType')
+					\ }
+
+		Plug 'junegunn/fzf.vim'
+			nnoremap <C-p> :History<CR>
+			nnoremap <A-;> :History:<CR>
+			nnoremap <A-/> :History/<CR>
+			nnoremap <A-p> :FZF<CR>
+			nnoremap <A-e> :Helptags<CR>
+			nnoremap <S-k> :Buffers<CR>
+			nnoremap <A-m> <plug>(fzf-maps-n)
+			let g:fzf_history_dir = '~/.cache/fzf-history'
+			autocmd FileType fzf tnoremap <buffer> <C-j> <Down>
+			autocmd FileType fzf set relativenumber
+			let g:fzf_colors =
+						\ { 'fg':      ['fg', 'Normal'],
+						\ 'bg':      ['bg', 'Normal'],
+						\ 'hl':      ['fg', 'Comment'],
+						\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+						\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+						\ 'hl+':     ['fg', 'Statement'],
+						\ 'info':    ['fg', 'PreProc'],
+						\ 'prompt':  ['fg', 'Conditional'],
+						\ 'pointer': ['fg', 'Exception'],
+						\ 'marker':  ['fg', 'Keyword'],
+						\ 'spinner': ['fg', 'Label'],
+						\ 'header':  ['fg', 'Comment'] }
+		if executable('rg')
+			let g:ctrlp_user_command = 'rg %s --files -g "!.git" -g "!.svn"'
+		elseif executable('ag')
+			let g:ctrlp_user_command = 'ag -Q -l --smart-case --nocolor --hidden -g "!.git/*" %s'
+		else
+			echomsg string("You should install ripgrep or silversearcher-ag. Now you have a slow ctrlp")
+		endif
+
+
+		" " Python. Taken from http://vi.stackexchange.com/questions/7834/how-to-setup-neomake-with-python
+		" let g:neomake_python_flake8_maker = {
+					" \ 'args': '--format=default',
+					" \ 'auto_enabled' : 1,
+					" \ 'errorformat':
+					" \ '%E%f:%l: could not compile,%-Z%p^,' .
+					" \ '%A%f:%l:%c: %t%n %m,' .
+					" \ '%A%f:%l: %t%n %m,' .
+					" \ '%-G%.%#',
+					" \ }
+					" " \ 'args': ['--ignore=E221,E241,E272,E251,W702,E203,E201,E202',  '--format=default'],
+
+		" " Requires pip3 install --user flake8
+		" let g:neomake_python_enabled_makers = ['flake8']
+
+
+		" let g:neomake_highlight_lines = 1 " Not cool option. Plus very slow
+		" let g:neomake_open_list = 2
+		" let g:neomake_ft_test_maker_buffer_output = 0
+

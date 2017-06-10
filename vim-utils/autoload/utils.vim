@@ -451,21 +451,22 @@ function! utils#SetWingsPath(sPath) abort
 endfunction
 
 function! utils#NeomakeOpenWindow() abort
-	if g:neomake_hook_context.file_mode
-		let loc_text = getloclist(0)
-		if len(loc_text) == 0
-			echo "Success"
-			return
-		endif
-		echon "(1 of " len(loc_text) "):" bufname(loc_text[0].bufnr) '|' loc_text[0].lnum '|: ' loc_text[0].text
-	else
-		let qf_text = getqflist()
-		if len(qf_text) == 0
-			echo "Success"
-			return
-		endif
-		echon "(1 of " len(qf_text) "):" bufname(qf_text[0].bufnr) '|' qf_text[0].lnum '|: ' qf_text[0].text
-	endif
+	echo "Neomake Done"
+	" if g:neomake_hook_context.file_mode
+		" let loc_text = getloclist(0)
+		" if len(loc_text) == 0
+			" echo "Success"
+			" return
+		" endif
+		" echon "(1 of " len(loc_text) "):" bufname(loc_text[0].bufnr) '|' loc_text[0].lnum '|: ' loc_text[0].text
+	" else
+		" let qf_text = getqflist()
+		" if len(qf_text) == 0
+			" echo "Success"
+			" return
+		" endif
+		" echon "(1 of " len(qf_text) "):" bufname(qf_text[0].bufnr) '|' qf_text[0].lnum '|: ' qf_text[0].text
+	" endif
 endfunction
 
 " TODO.RM-Fri Apr 28 2017 16:14: Also move this to the ftplugin  
@@ -541,7 +542,7 @@ function! utils#ConvertWeeklyReport() abort
 
 	" Cd into current buffer file dir
 	let dir_buff = getcwd()
-	execute "cd " . expand('%:p:h')
+	execute "cd " . expand('%:h')
 
 	let out_name = "WeeklyReport_ReinaldoMolina_" . strftime("%b-%d-%Y") . ".docx"
 	if filereadable(out_name)
@@ -610,6 +611,7 @@ function! utils#Flux() abort
 			call lightline#init()
 			call lightline#colorscheme()
 			call lightline#update()
+			call highlight#Set('IncSearch',	{ 'bg': g:black })
 		endif
 	else
 		if exists('g:lightline.colorscheme') && g:lightline.colorscheme !=# g:colorscheme_day
@@ -619,6 +621,7 @@ function! utils#Flux() abort
 			call lightline#init()
 			call lightline#colorscheme()
 			call lightline#update()
+			call highlight#Set('IncSearch',	{ 'bg': g:white })
 		endif
 	endif
 endfunction
@@ -663,5 +666,22 @@ function! utils#SearchHighlighted() abort
 	endif
 endfunction
 " TODO.RM-Sat Nov 26 2016 00:04: Function that auto adds SCR # and description
+
+" Source: http://vim.wikia.com/wiki/Easily_switch_between_source_and_header_file
+function! utils#SwitchHeaderSource() abort
+	if expand("%:e") == "cpp" || expand("%:e") == "c"
+		try " Replace cpp or c with hpp
+			find %:t:r.hpp
+		catch /:E345:/ " catch not found in path and try to find then *.h
+			find %:t:r.h
+		endtry
+	else
+		try
+			find %:t:r.cpp
+		catch /:E345:/
+			find %:t:r.c
+		endtry
+	endif
+endfunction
 
  " vim:tw=78:ts=2:sts=2:sw=2:
