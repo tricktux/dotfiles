@@ -59,6 +59,9 @@ function! autocompletion#SetCompl() abort
 			Plug 'roxma/vim-hug-neovim-rpc'
 		endif
 
+		Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+			let g:LanguageClient_autoStart = 1
+
 		Plug 'roxma/nvim-completion-manager'
 		" nvim-completion-manager also added suppport for this
 		Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
@@ -120,6 +123,7 @@ endfunction
 
 function! autocompletion#SetShuogo() abort
 	" Vim exclusive plugins
+	
 	if !has('nvim') && has('lua') " Neocomplete
 		Plug 'Shougo/neocomplete'
 		" All new stuff
@@ -187,9 +191,9 @@ function! autocompletion#SetShuogo() abort
 			call autocompletion#SetClang()
 		endif
 	elseif has('nvim')
+		let b:deoplete_loaded = 1
 		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-			" let b:deoplete_loaded = 1
-			" if it is nvim deoplete requires python3 to work
+			" If it is nvim deoplete requires python3 to work
 			let g:deoplete#enable_at_startup = 1
 			" Autoclose preview window
 			autocmd CompleteDone * pclose!
