@@ -1,8 +1,8 @@
-# File:						nvim-win-update.ps1
+﻿# File:						nvim-win-update.ps1
 # Description:		Update/Install Neovim & Universal Ctags for Windows 32/64 from AppVeyor
 # Author:					Reinaldo Molina <rmolin88@gmail.com>
 # Version:				1.0.0
-# Last Modified:	Tue Apr 04 2017 14:24
+# Last Modified: Fri May 26 2017 06:23
 # Created:				Mar 14 2017 13:30
 # Arguments:
 #		- arch (default = 64) anything else it uses the 32 bit neovim stuff
@@ -16,6 +16,7 @@ if ($arch -eq 64)
 {
 # Download neovim
 		$neovim_link = "https://ci.appveyor.com/api/projects/neovim/neovim/artifacts/build/Neovim.zip?branch=master&job=Configuration%3A%20MINGW_64"
+		# $neovim_link = "https://github.com/neovim/neovim/releases/download/v0.2.0/nvim-win64.zip"
 		# $neovim_link = "https://ci.appveyor.com/projects/neovim/neovim/build/13404"
 		$ctags = "https://ci.appveyor.com/api/buildjobs/tcojv7tm2gu2x91y/artifacts/ctags-7a2d6aeb-x64.zip"
 }

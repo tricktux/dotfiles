@@ -2,7 +2,7 @@
 " Description:Plugin specific settings
 " Author:Reinaldo Molina <rmolin88@gmail.com>
 " Version:2.0.1
-" Last Modified: Thu Apr 20 2017 22:35
+" Last Modified: Fri Jun 02 2017 10:44
 
 function! plugin#Config() abort
 	" Vim-Plug
@@ -21,7 +21,7 @@ function! plugin#Config() abort
 		call plug#begin(g:plugged_path)
 	endif
 
-	" fzf only seems to work with nvim
+	" Set up fuzzy searcher
 	if has('unix') && has('nvim')
 		" Terminal plugins
 		Plug 'kassio/neoterm'
@@ -36,56 +36,36 @@ function! plugin#Config() abort
 		Plug 'rliang/termedit.nvim'
 
 		Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-		Plug 'junegunn/fzf.vim'
-			nnoremap <C-p> :History<CR>
-			nnoremap <A-p> :FZF<CR>
-			nnoremap <S-k> :Buffers<CR>
-			let g:fzf_history_dir = '~/.cache/fzf-history'
-			autocmd FileType fzf tnoremap <buffer> <C-j> <Down>
-			autocmd FileType fzf set relativenumber
-			nnoremap <leader><tab> <plug>(fzf-maps-n)
-			nnoremap <leader><tab> <plug>(fzf-maps-n)
-			let g:fzf_colors =
-						\ { 'fg':      ['fg', 'Normal'],
-						\ 'bg':      ['bg', 'Normal'],
-						\ 'hl':      ['fg', 'Comment'],
-						\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-						\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-						\ 'hl+':     ['fg', 'Statement'],
-						\ 'info':    ['fg', 'PreProc'],
-						\ 'prompt':  ['fg', 'Conditional'],
-						\ 'pointer': ['fg', 'Exception'],
-						\ 'marker':  ['fg', 'Keyword'],
-						\ 'spinner': ['fg', 'Label'],
-						\ 'header':  ['fg', 'Comment'] }
-	else
+	elseif has('nvim') || v:version >= 800
+		Plug 'Shougo/denite.nvim'
+			let b:denite_loaded = 1
+			nnoremap <A-;> :Denite command<CR>
+			nnoremap <A-e> :Denite help<CR>
+			" nnoremap <S-k> :Denite buffer<CR>
+			nnoremap <A-p> :Denite file_rec<CR>
 		Plug 'ctrlpvim/ctrlp.vim'
-		if executable('rg')
-			let g:ctrlp_user_command = 'rg %s --no-ignore --hidden --files -g "" '
-		elseif executable('ag')
-			let g:ctrlp_user_command = 'ag -Q -l --smart-case --nocolor --hidden -g "" %s'
-		else
-			echomsg string("You should install silversearcher-ag. Now you have a slow ctrlp")
-		endif
-		nnoremap <S-k> :CtrlPBuffer<CR>
-		" let g:ctrlp_cmd = 'CtrlPMixed'
-		let g:ctrlp_cmd = 'CtrlPMRU'
-		" submit ? in CtrlP for more mapping help.
-		let g:ctrlp_lazy_update = 1
-		let g:ctrlp_show_hidden = 1
-		let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
-		let g:ctrlp_cache_dir = g:cache_path . 'ctrlp'
-		let g:ctrlp_working_path_mode = 'wra'
-		let g:ctrlp_max_history = &history
-		let g:ctrlp_clear_cache_on_exit = 0
-		let g:ctrlp_switch_buffer = 0
-		if has('win32')
-			set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
-			let g:ctrlp_custom_ignore = {
-						\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-						\ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
-						\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
-						\ }
+			nnoremap <S-k> :CtrlPBuffer<CR>
+			nnoremap <C-p> :CtrlPMRU<CR>
+			" nnoremap <A-p> :CtrlPRoot<CR>
+			nnoremap <A-q> :CtrlPQuickfix<CR>
+			" let g:ctrlp_cmd = 'CtrlPMixed'
+			let g:ctrlp_cmd = 'CtrlPMRU'
+			" submit ? in CtrlP for more mapping help.
+			let g:ctrlp_lazy_update = 1
+			let g:ctrlp_show_hidden = 1
+			let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
+			let g:ctrlp_cache_dir = g:cache_path . 'ctrlp'
+			let g:ctrlp_working_path_mode = 'wra'
+			let g:ctrlp_max_history = &history
+			let g:ctrlp_clear_cache_on_exit = 0
+			let g:ctrlp_switch_buffer = 0
+			if has('win32')
+				set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
+				let g:ctrlp_custom_ignore = {
+							\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+							\ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
+							\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+							\ }
 		else
 			set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
 			let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
@@ -126,6 +106,7 @@ function! plugin#Config() abort
 				let g:no_neoman_maps = 1
 		endif
 
+		" TODO.RM-Wed Jun 07 2017 07:19: Implement auto check for psutil and warning in plugin  
 		if has('python3') && system('pip3 list | grep psutil') =~# 'psutil'
 			Plug 'c0r73x/neotags.nvim' " Depends on pip3 install --user psutil
 				set regexpengine=1 " This speed up the engine alot but still not enough
@@ -160,7 +141,7 @@ function! plugin#Config() abort
 					\ 'text': 'X',
 					\ 'texthl': 'ErrorMsg',
 					\ }
-		let g:neomake_cpp_enabled_makers = ['cppcheck', 'clang']
+		let g:neomake_cpp_enabled_makers = ['gcc', 'clang']
 		let g:neomake_c_enabled_makers = ['gcc', 'clang']
 		let g:neomake_cpp_clang_maker = {
 					\ 'args': ['-fsyntax-only', '-std=c++14', '-Wall', '-Wextra'],
@@ -173,50 +154,10 @@ function! plugin#Config() abort
 					\ '%f:%l: %tarning: %m,'.
 					\ '%f:%l: %m',
 					\ }
-
-
-		function! SetWarningType(entry)
-			if a:entry.type =~? '\m^[SPI]'
-				let a:entry.type = 'I'
-			endif
-		endfunction
-
-		let g:neomake_cpp_cppcheck_maker = {
-					\ 'args': ['%:p', '-q', '--enable=all'],
-					\ 'errorformat': '[%f:%l]: (%trror) %m,' .
-					\ '[%f:%l]: (%tarning) %m,' .
-					\ '[%f:%l]: (%ttyle) %m,' .
-					\ '[%f:%l]: (%terformance) %m,' .
-					\ '[%f:%l]: (%tortability) %m,' .
-					\ '[%f:%l]: (%tnformation) %m,' .
-					\ '[%f:%l]: (%tnconclusive) %m,' .
-					\ '%-G%.%#',
-					\ 'postprocess': function('SetWarningType')
-					\ }
-
-		" Python. Taken from http://vi.stackexchange.com/questions/7834/how-to-setup-neomake-with-python
-		let g:neomake_python_flake8_maker = {
-				  \ 'args': '--format=default',
-					\ 'auto_enabled' : 1,
-					\ 'errorformat':
-					\ '%E%f:%l: could not compile,%-Z%p^,' .
-					\ '%A%f:%l:%c: %t%n %m,' .
-					\ '%A%f:%l: %t%n %m,' .
-					\ '%-G%.%#',
-					\ }
-					" \ 'args': ['--ignore=E221,E241,E272,E251,W702,E203,E201,E202',  '--format=default'],
-
-		" Requires pip3 install --user flake8
-		let g:neomake_python_enabled_makers = ['flake8']
-
 		augroup custom_neomake
 			autocmd!
-			autocmd User NeomakeFinished call utils#NeomakeOpenWindow()
+			autocmd User NeomakeFinished echo "Neomake Finished!"
 		augroup END
-
-		" let g:neomake_highlight_lines = 1 " Not cool option. Plus very slow
-		" let g:neomake_open_list = 2
-		" let g:neomake_ft_test_maker_buffer_output = 0
 
 	Plug 'dhruvasagar/vim-table-mode', { 'on' : 'TableModeToggle' }
 		" To start using the plugin in the on-the-fly mode use :TableModeToggle mapped to <Leader>tm by default
@@ -258,7 +199,6 @@ function! plugin#Config() abort
 		" command! -nargs=0 DoxAuthor :call <SID>DoxygenAuthorFunc()
 		" command! -nargs=1 DoxUndoc :call <SID>DoxygenUndocumentFunc(<q-args>)
 		" command! -nargs=0 DoxBlock :call <SID>DoxygenBlockFunc()
-		let g:DoxygenToolkit_briefTag_pre = "Brief:			"
 		let g:DoxygenToolkit_paramTag_pre=	"	"
 		let g:DoxygenToolkit_returnTag=			"Returns:   "
 		let g:DoxygenToolkit_blockHeader=""
@@ -266,15 +206,16 @@ function! plugin#Config() abort
 		let g:DoxygenToolkit_authorName="Reinaldo Molina <rmolin88@gmail.com>"
 		let g:DoxygenToolkit_authorTag =	"Author:				"
 		let g:DoxygenToolkit_fileTag =		"File:					"
-		let g:DoxygenToolkit_briefTag_pre="		"
+		let g:DoxygenToolkit_briefTag_pre="Description:		"
 		let g:DoxygenToolkit_dateTag =		"Last Modified: "
 		let g:DoxygenToolkit_versionTag = "Version:				"
 		let g:DoxygenToolkit_commentType = "C++"
+		let g:DoxygenToolkit_versionString = "0.0.0"
 		" See :h doxygen.vim this vim related. Not plugin related
 		let g:load_doxygen_syntax=1
 
 	" misc
-	Plug 'chrisbra/vim-diff-enhanced', { 'on' : 'SetDiff' }
+	Plug 'chrisbra/vim-diff-enhanced', { 'on' : 'UtilsDiffSet' }
 
 	" FileBrowser
 	" Wed May 03 2017 11:31: Tried `vifm` doesnt work in windows. Doesnt
@@ -291,12 +232,6 @@ function! plugin#Config() abort
 	endif
 
 	Plug 'scrooloose/nerdcommenter'
-		nmap - <plug>NERDCommenterToggle
-		nmap <Leader>ot <plug>NERDCommenterAltDelims
-		vmap - <plug>NERDCommenterToggle
-		imap <C-c> <plug>NERDCommenterInsert
-		nmap <Leader>oa <plug>NERDCommenterAppend
-		vmap <Leader>os <plug>NERDCommenterSexy
 	Plug 'chrisbra/Colorizer', { 'for' : [ 'css','html','xml' ] }
 		let g:colorizer_auto_filetype='css,html,xml'
 	Plug 'tpope/vim-repeat'
@@ -322,6 +257,7 @@ function! plugin#Config() abort
 		let g:delimitMate_jump_expansion = 1
 		" imap <expr> <CR> <Plug>delimitMateCR
 	Plug 'dkarter/bullets.vim', { 'for' : 'markdown' }
+		let g:bullets_set_mappings = 0
 
 	" Autoformat requires pip3 install --user autopep8
 	Plug 'Chiel92/vim-autoformat', { 'on' : 'Autoformat' }
@@ -335,7 +271,7 @@ function! plugin#Config() abort
 		let g:autoformat_remove_trailing_spaces = 0
 
 		" let g:formatters_c = ['clang-format']
-		" let g:formatters_cpp = ['clang-format']
+		let g:formatters_cpp = ['clang-format']
 
 		" Note: Python-Windows hides pip executables in C:\Users\<user>\AppData\Roaming\Python\Python36\Scripts
 		let g:formatters_python = ['yapf']
@@ -507,16 +443,35 @@ function! plugin#Config() abort
 	" Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
 	Plug 'matze/vim-ini-fold', { 'for': 'dosini' }
 
+	" Not being used but kept for dependencies
 	Plug 'rbgrouleff/bclose.vim'
+
+	Plug 'godlygeek/tabular'
+		let g:no_default_tabular_maps = 1
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
-	if exists("b:deoplete_loaded") " Cant call this inside of plug#begin()
+	if exists('b:deoplete_loaded') " Cant call this inside of plug#begin()
 		call deoplete#custom#set('javacomplete2', 'mark', '')
 		call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
 		" c c++
 		call deoplete#custom#set('clang2', 'mark', '')
+	endif
+
+	if exists('b:denite_loaded')
+		" Change mappings.
+		call denite#custom#map('insert','<C-j>','<denite:move_to_next_line>','noremap')
+		call denite#custom#map('insert','<C-k>','<denite:move_to_previous_line>','noremap')
+		call denite#custom#map('insert','<C-v>','<denite:do_action:vsplit>','noremap')
+		" Change options
+		call denite#custom#option('default', 'winheight', 15)
+		call denite#custom#option('_', 'highlight_matched_char', 'Function')
+		call denite#custom#option('_', 'highlight_matched_range', 'Function')
+		if executable('rg')
+			call denite#custom#var('file_rec', 'command',
+						\ ['rg', '--files', '--glob', '!.git', ''])
+		endif
 	endif
 
 	" Create cache folders

@@ -18,42 +18,20 @@ setlocal commentstring=#%s
 setlocal define=^\s*\\(def\\\\|class\\)
 
 if !exists("no_plugin_maps") && !exists("no_python_maps")
-	if exists(':SyntasticCheck')
-		nnoremap <buffer> <unique> <Leader>lo :SyntasticToggleMode<CR>
-		nnoremap <buffer> <unique> <Leader>ls :SyntasticCheck<CR>
-	endif
-
 	if exists(':Autoformat') && exists(':Isort')
 		nnoremap <buffer> <unique> <Leader>lf :Autoformat<CR>Isort<CR>
 	endif
 
-	" Cscope and tag jumping mappings
-	nnoremap <buffer> <unique> <Leader>tk :cs kill -1<CR>
-	nnoremap <buffer> <unique> <Leader>tv :vs<CR>:exec("tag ".expand("<cword>"))<CR>
-	" ReLoad cscope database
-	nnoremap <buffer> <unique> <Leader>tl :cs add cscope.out<CR>
-	" Find functions calling this function
-	nnoremap <buffer> <unique> <Leader>tc :cs find c <C-R>=expand("<cword>")<CR><CR>
-	" Find functions definition
-	nnoremap <buffer> <unique> <Leader>tg :cs find g <c-r>=expand("<cword>")<cr><cr>
-	" Find functions called by this function not being used
-	" nnoremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
-	nnoremap <buffer> <unique> <Leader>ts :cs show<CR>
-	nnoremap <buffer> <unique> <Leader>tu :call ctags#NvimSyncCtags(0)<CR>
-
-	nnoremap <buffer> <Leader>lh :call utils#AutoHighlightToggle()<CR>
+	call ftplugin#TagMappings()
+	call ftplugin#Align('/#')
+	call ftplugin#Syntastic('passive', ['flake8', 'pep8', 'pycodestyle', 'pyflakes', 'python'])
 endif
 
-if exists('*utils#AutoHighlightToggle') && !exists('g:highlight')
-	call utils#AutoHighlightToggle()
-endif
+" Setup AutoHighlight
+call ftplugin#AutoHighlight()
 
-
-let b:syntastic_checkers=['flake8', 'pep8', 'pycodestyle', 'pyflakes', 'python']
-let b:syntastic_mode = 'passive'
-
-" TODO.RM-Tue May 02 2017 16:53: unlet b:plugin_options
+" TODO.RM-Tue May 02 2017 16:53: 
 " Add support for `isort`
 " Also add better python highlight
 
-let b:undo_ftplugin += "setlocal textwidth< commentstring< define<" 
+let b:undo_ftplugin = "setlocal textwidth< commentstring< define<" 
