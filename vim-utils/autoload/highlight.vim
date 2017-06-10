@@ -38,7 +38,7 @@ let g:darkergrey = { 'gui': '#121212', 'cterm': '233' }
 let g:darkgrey   = { 'gui': '#1c1c1c', 'cterm': '234' }
 " 1}}}
 " util {{{1
-function! highlight#Set(group, style)
+function! highlight#Set(group, style, ...)
 	if(has_key(a:style, 'link'))
 		exec 'highlight! link ' a:group a:style.link
 	else
@@ -50,6 +50,7 @@ function! highlight#Set(group, style)
 					\ 'ctermfg=' (has_key(a:style, 'fg')    ? a:style.fg.cterm : 'NONE')
 					\ 'ctermbg=' (has_key(a:style, 'bg')    ? a:style.bg.cterm : 'NONE')
 					\ 'cterm='   (has_key(a:style, 'deco')  ? a:style.deco     : 'NONE')
+
 	endif
 endfunction
 " 1}}}

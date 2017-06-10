@@ -1,10 +1,11 @@
 " File:					init.vim
 " Description:  Vim/Neovim configuration file
 " Author:				Reinaldo Molina
-" Version:			7.0.0
-"								Python functions
-"								files
-" Date:					Thu Mar 23 2017 15:13
+" Version:			8.0.0
+"								Dein plugin
+"								Python functions files
+" Date:					Sat Jun 03 2017 10:43
+" Created:			Oct 2015
 " Improvements:
 		" - [ ] Create a after/syntax/gitcommit.vim to redline ahead and greenline
 		"   up-to-date
@@ -32,11 +33,12 @@
 	let g:location_portable_vim = "../../.dotfiles/vim-utils/autoload/plugin.vim"
 	if !empty(glob(g:location_local_vim))
 		execute "source " . g:location_local_vim
-		let b:plugins_present = 1
+		let g:plugins_present = 1
 		let g:location_vim_utils = "~/.dotfiles/vim-utils"
 	elseif !empty(glob(g:location_portable_vim))
 		execute "source " . g:location_portable_vim
-		let b:plugins_present = 1
+		execute "source ../../vimfiles/autoload/plug.vim"
+		let g:plugins_present = 1
 		let g:portable_vim = 1
 		let g:location_vim_utils = getcwd() . '/../../.dotfiles/vim-utils'
 	else
@@ -45,30 +47,30 @@
 
 	" Choose a autcompl engine
 	if has('unix')
-		let g:autcompl_engine = 'nvim_compl_manager'		
+		let g:autcompl_engine = 'nvim_compl_manager'
 	else
-		let g:autcompl_engine = 'autocomplpop'		
+		let g:autcompl_engine = 'autocomplpop'
 	endif
-	if exists('b:plugins_present') && plugin#Check() && plugin#Config()
-			let b:plugins_loaded = 1
+	if exists('g:plugins_present') && plugin#Check() && plugin#Config()
+			let g:plugins_loaded = 1
 	else
 		echomsg "No plugins where loaded"
 	endif
 
 " NVIM SPECIFIC
 	" ~/.dotfiles/vim-utils/autoload/nvim.vim
-	if has('nvim') && exists("b:plugins_loaded")
+	if has('nvim') && exists("g:plugins_loaded")
 		call nvim#Config()
 	endif
 
 " WINDOWS_SETTINGS
 	" ~/.dotfiles/vim-utils/autoload/win32.vim
-	if has('win32') && exists("b:plugins_loaded")
+	if has('win32') && exists("g:plugins_loaded")
 		call win32#Config()
 
 " UNIX_SETTINGS
 	" ~/.dotfiles/vim-utils/autoload/unix.vim
-	elseif has('unix') && exists("b:plugins_loaded")
+	elseif has('unix') && exists("g:plugins_loaded")
 		call unix#Config()
 	endif
 
@@ -77,9 +79,9 @@
 		"set spell spelllang=en_us
 		"omnicomplete menu
 		" save marks
-		
+
 		let &path .='.,,..,../..,./*,./*/*,../*,~/,~/**,/usr/include/*' " Useful for the find command
-		set shiftwidth=2 tabstop=2
+		set shiftwidth=4 tabstop=4
 		set viminfo='1000,f1,<800,%1024
 		set showtabline=1 " always show tabs in gvim, but not vim"
 		set backspace=indent,eol,start
@@ -127,7 +129,7 @@
 		set nowrap        " wrap lines
 		set nowrapscan        " do not wrap search at EOF
 		" will look in current directory for tags
-		
+
 		if has('cscope')
 			set cscopetag cscopeverbose
 			if has('quickfix')
@@ -172,9 +174,11 @@
 		set modelines=1
 		" Set omni for all filetypes
 		set omnifunc=syntaxcomplete#Complete
+		" Mon Jun 05 2017 11:59: Suppose to Fix cd to relative paths in windows
+		let &cdpath = ',' . substitute(substitute($CDPATH, '[, ]', '\\\0', 'g'), ':', ',', 'g')
 
 	" Status Line and Colorscheme
-		if exists('b:plugins_loaded')
+		if exists('g:plugins_loaded')
 			" set background=dark    " Setting dark mode
 			" colorscheme gruvbox
 			" colorscheme onedark
@@ -195,7 +199,7 @@
 
 		" If this not and android device and we have no plugins setup "ugly"
 		" status line
-		if !exists("g:android") && !exists('b:plugins_loaded')
+		if !exists("g:android") && !exists('g:plugins_loaded')
 			set statusline =
 			set statusline+=\ [%n]                                  "buffernr
 			set statusline+=\ %<%F\ %m%r%w                         "File+path
@@ -212,7 +216,7 @@
 			" If you want to put color to status line needs to be after command
 			" colorscheme. Otherwise this commands clears it the color
 		endif
-		
+
 	" Performance Settings
 		" see :h slow-terminal
 		hi NonText cterm=NONE ctermfg=NONE
@@ -223,7 +227,7 @@
 			set ttyfast " Had to addit to speed up scrolling
 		endif
 		set lazyredraw " Had to addit to speed up scrolling
-		" Mon May 01 2017 11:21: This breaks split window highliting 
+		" Mon May 01 2017 11:21: This breaks split window highliting
 		" set synmaxcol=140 " Will not highlight passed this column #
 
 	" CLI
@@ -261,9 +265,9 @@
 				let &t_EI = "\<Esc>[1 q"
 			endif
 		endif
-		
+
 	" Grep
-		if exists("b:plugins_loaded")
+		if exists("g:plugins_loaded")
 			call utils#SetGrep()
 		endif
 
@@ -274,9 +278,10 @@
 			set undolevels=1000      " use many muchos levels of undo
 		endif
 
-	" Tags   
+	" Tags
 		set tags=./.tags;,.tags;
-		if exists("b:plugins_loaded")
+		if exists("g:plugins_loaded")
+			" Load all tags and OneWings cscope database
 			call ctags#SetTags()
 		endif
 
@@ -294,6 +299,7 @@
 		autocmd FileType tex compiler tex
 		" Display help vertical window not split
 		autocmd FileType help wincmd L
+		autocmd FileType help :nnoremap <buffer> q ZZ
 		" wrap syntastic messages
 		autocmd FileType mail setlocal wrap
 		autocmd FileType mail setlocal spell spelllang=es,en
@@ -303,17 +309,6 @@
 		autocmd FileType help setlocal relativenumber
 	augroup END
 
-	augroup BuffTypes
-	autocmd!
-		" Arduino
-		autocmd BufNewFile,BufReadPost * call utils#BufDetermine()
-	augroup END
-
-	" augroup Terminal
-		" autocmd!
-		" autocmd TermOpen * if &filetype !=# 'fzf' | setfiletype terminal | endif
-	" augroup END
-
 	" To improve syntax highlight speed. If something breaks with highlight
 	" increase these number below
 	" augroup vimrc
@@ -322,15 +317,20 @@
 	" augroup END
 
 
-	if exists("b:plugins_loaded")
+	if exists("g:plugins_loaded")
 		augroup VimType
 			autocmd!
 			" Sessions
-			" Note: Fri Mar 03 2017 14:13 - This never works. 
+			" Note: Fri Mar 03 2017 14:13 - This never works.
 			" autocmd VimEnter * call utils#LoadSession('default.vim')
 			autocmd VimLeave * call utils#SaveSession('default.vim')
 			" Keep splits normalize
 			autocmd VimResized * call utils#NormalizeWindowSize()
+		augroup END
+
+		augroup BuffTypes
+			autocmd!
+			autocmd BufNewFile,BufReadPost * call utils#BufDetermine()
 		augroup END
 	endif
 
@@ -349,60 +349,45 @@
 
 " CUSTOM MAPPINGS
 	" List of super useful mappings
-	" ga " prints ascii of char under cursor
-	" gA " prints radix of number under cursor
 	" = fixes indentantion
 	" gq formats code
 	" Free keys: <Leader>fnzxkiy;h
 	" Taken keys: <Leader>qwertasdjcvgp<space>mbolu
 
 	" Quickfix and Location stuff
-		" Description:
-		" C-Arrow forces movement on quickfix window
-		" Arrow moves on whichever window open (qf || ll)
-		" if both opened favors location window
-
-		" Quickfix only mappings
 		nnoremap <Leader>qO :lopen 20<CR>
 		nnoremap <Leader>qo :call quickfix#OpenQfWindow()<CR>
+		" nnoremap <silent> <Leader>ll :call quickfix#ToggleList("Location List", 'l')<CR>
+		nnoremap <silent> U :call quickfix#ToggleList("Quickfix List", 'c')<CR>
+		nnoremap <Leader>ln :call quickfix#ListsNavigation("next")<CR>
+		nnoremap <Leader>lp :call quickfix#ListsNavigation("previous")<CR>
 		nnoremap <Leader>qn :call quickfix#ListsNavigation("next")<CR>
 		nnoremap <Leader>qp :call quickfix#ListsNavigation("previous")<CR>
 		nnoremap <Leader>ql :ccl<CR>
 					\:lcl<CR>
 
-		" General mappings for all languages
-		nnoremap <unique> <Leader>lo :SyntasticToggleMode<CR>
-		nnoremap <unique> <Leader>ls :SyntasticCheck<CR>
-		nnoremap <unique> <Leader>lf :Autoformat<CR>
-
-
 	" FileType Specific mappings use <Leader>l
 		" Refer to ~/.dotfiles/vim-utils/after/ftplugin to find these
-		
+
 	" Miscelaneous Mappings <Leader>j?
 		" nnoremap <Leader>Ma :Man
 		" Most used misc get jk, jj, jl, j;
 		" TODO.RM-Fri Apr 28 2017 14:25: Go through mappings and figure out the
-		" language specific ones so that you can move them into ftplugin  
+		" language specific ones so that you can move them into ftplugin
 		" nnoremap <Leader>jk :call utils#Make()<CR>
-		nnoremap <Leader>jl :e $MYVIMRC<CR>
-		nmap <Leader>j; <Plug>FileBrowser
+		" ga " prints ascii of char under cursor
+		" gA " prints radix of number under cursor
+		" Untouchable g mappings: g;, gt, gr, gf, gd, g, gg, gs
+		nnoremap gl :e $MYVIMRC<CR>
+		nmap gj <Plug>FileBrowser
+		nmap gk <Plug>Make
+
 		" Refactor word under the cursor
-		nnoremap <Leader>jr :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
-		vnoremap <Leader>jr "hy:%s/<C-r>h//gc<left><left><left>
-		" Indent whole file
-		nnoremap <Leader>ji mzgg=G`z
-		" nnoremap <S-s> #<C-o> " Substituted for the AutoHighlightToggle function
-		nnoremap <Leader>jh :Helptags<CR>
-		" This mapping will load the journal from the most recent boot and highlight it for you
-		nnoremap <Leader>jJ :read !journalctl -b<CR><bar>:setf messages<CR>
-		" Give execute permissions to current file
-		nnoremap <Leader>jo :!chmod a+x %<CR>
-		" Save file with sudo permissions
-		nnoremap <Leader>ju :w !sudo tee %<CR>
+		nnoremap <Leader>r :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
+		vnoremap <Leader>r "hy:%s/<C-r>h//gc<left><left><left>
 		" duplicate current char
-		nnoremap <Leader>jd ylp
-		vnoremap <Leader>jd ylp
+		nnoremap <Leader>d ylp
+		vnoremap <Leader>d ylp
 		" Reload syntax
 		nnoremap <Leader>js <Esc>:syntax sync fromstart<CR>
 		" Sessions
@@ -411,26 +396,20 @@
 		nnoremap <Leader>jee :call utils#LoadSession('default.vim')<CR>
 		" Count occurrances of last search
 		nnoremap <Leader>jc :%s///gn<CR>
-		" Remove Trailing Spaces
-		nnoremap <Leader>j<Space> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 		" Indenting
 		nnoremap <Leader>j2 :setlocal ts=2 sw=2 sts=2<CR>
 		nnoremap <Leader>j4 :setlocal ts=4 sw=4 sts=4<CR>
 		nnoremap <Leader>j8 :setlocal ts=8 sw=8 sts=8<CR>
 		" not paste the deleted word
-		nnoremap <Leader>ja "0p
-		vnoremap <Leader>ja "0p
+		nnoremap <Leader>p "0p
+		vnoremap <Leader>p "0p
 		" Force wings_syntax on a file
 		nnoremap <Leader>jw :set filetype=wings_syntax<CR>
-		nnoremap <Leader>jn :silent !./%<CRutils#>
 		" Create file with name under the cursor
 		" Diff Sutff
 		nnoremap <Leader>j. :call utils#LastCommand()<CR>
-		nnoremap <Leader>j- :call utils#GuiFont("-")<CR>
-		nnoremap <Leader>j= :call utils#GuiFont("+")<CR>
-
-		" Convert fileformat to dos
-		nnoremap <Leader>jD :e ++ff=dos<CR>
+		nnoremap <Leader>- :call utils#GuiFont("-")<CR>
+		nnoremap <Leader>= :call utils#GuiFont("+")<CR>
 
 		" j mappings taken <swypl;bqruihHdma248eEonf>
 		" nnoremap <Leader>Mc :call utils#ManFind()<CR>
@@ -478,16 +457,19 @@
 		vnoremap > >gv
 		" Edit plugin
 		nnoremap <Leader>ep :call utils#EditPlugins()<CR>
-		nnoremap <Leader>ei :e 
+		nnoremap <Leader>ei :e
 
 		" decrease number
-		nnoremap <Leader>A <c-x>
-		vnoremap <Leader>A <c-x>
+		nnoremap <Leader>a <c-x>
+		vnoremap <Leader>a <c-x>
 
 		nnoremap yl :call utils#YankFrom()<CR>
 		nnoremap dl :call utils#DeleteLine()<CR>
 
 		nnoremap <S-CR> O<Esc>
+		" Display highlighted numbers as ascii chars. Only works on highlighted text
+		vnoremap <Leader>ah :<c-u>s/<count>\x\x/\=nr2char(printf("%d", "0x".submatch(0)))/g<cr><c-l>`<
+		vnoremap <Leader>ha :<c-u>s/\%V./\=printf("%x",char2nr(submatch(0)))/g<cr><c-l>`<
 
 	" Insert Mode (Individual) mappings
 		inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
@@ -502,14 +484,15 @@
 		nnoremap <Leader>ev :e $VIMRUNTIME/
 
 	" CD <Leader>c?
-		nnoremap <Leader>cd :cd %:p:h<CR>
+		nnoremap <Leader>cd :lcd %:h<CR>
 					\:pwd<CR>
-		nnoremap <Leader>cu :cd ..<CR>
+		nnoremap <Leader>cu :lcd ..<CR>
 					\:pwd<CR>
 		" cd into dir. press <Tab> after ci to see folders
-		nnoremap <Leader>ci :cd 
+		nnoremap <Leader>ci :lcd
 		nnoremap <Leader>cc :pwd<CR>
-		nnoremap <Leader>c1 :cd ~/.dotfiles
+		nnoremap <Leader>c1 :lcd ~/.dotfiles
+		" TODO.RM-Thu Jun 01 2017 10:10: Create mappings like c21 and c22
 
 	" Folding
 		" Folding select text then S-f to fold or just S-f to toggle folding
@@ -564,7 +547,7 @@
 		execute "inoremap " . g:esc . " <Esc>"
 
 	" Buffers Stuff <Leader>b?
-		if !exists("b:plugins_loaded")
+		if !exists("g:plugins_loaded")
 			nnoremap <S-k> :buffers<CR>:buffer<Space>
 		else
 			nnoremap <Leader>bs :buffers<CR>:buffer<Space>
@@ -591,12 +574,12 @@
 		" Add all files
 		nnoremap <Leader>vA :!svn add . --force<CR>
 		" Add specific files
-		nnoremap <Leader>va :!svn add --force 
+		nnoremap <Leader>va :!svn add --force
 		" Commit using typed message
 		nnoremap <Leader>vc :call utils#SvnCommit()<CR>
 		" Commit using File for commit content
 		nnoremap <Leader>vC :!svn commit --force-log -F %<CR>
-		nnoremap <Leader>vd :!svn rm --force 
+		nnoremap <Leader>vd :!svn rm --force
 		" revert previous commit
 		"nnoremap <Leader>vr :!svn revert -R .<CR>
 		nnoremap <Leader>vl :!svn cleanup .<CR>
@@ -615,7 +598,7 @@
 		nnoremap gr <C-t>
 
 	" Wiki mappings <Leader>w?
-		" TODO.RM-Thu Dec 15 2016 16:00: Add support for wiki under SW-Testbed  
+		" TODO.RM-Thu Dec 15 2016 16:00: Add support for wiki under SW-Testbed
 		nnoremap <Leader>wt :call utils#WikiOpen('TODO.md')<CR>
 		nnoremap <Leader>wo :call utils#WikiOpen()<CR>
 		nnoremap <Leader>ws :call utils#WikiSearch()<CR>
@@ -624,6 +607,12 @@
 		nnoremap <Leader>wu :W3m local /home/reinaldo/Downloads/reference/en/index.html<CR>
 
 	" Comments <Leader>o
+		nmap - <plug>NERDCommenterToggle
+		nmap <Leader>ot <plug>NERDCommenterAltDelims
+		vmap - <plug>NERDCommenterToggle
+		imap <C-c> <plug>NERDCommenterInsert
+		nmap <Leader>oa <plug>NERDCommenterAppend
+		vmap <Leader>os <plug>NERDCommenterSexy
 		" mapping ol conflicts with mapping o to new line
 		nnoremap cl :call utils#CommentLine()<CR>
 		nnoremap <Leader>oe :call utils#EndOfIfComment()<CR>
@@ -648,7 +637,7 @@
 		" let c_curly_error = 1
 
 	" ft-markdown-syntax
-		let g:markdown_fenced_languages= [ 'cpp', 'vim' ]
+		let g:markdown_fenced_languages= [ 'cpp', 'vim', 'dosini', 'wings_syntax' ]
 
 	" ft-python-syntax
 		" This option also highlights erroneous whitespaces
@@ -656,6 +645,7 @@
 
 	" Man
 		let g:no_man_maps = 1
+		let g:ft_man_folding_enable = 1
 
 	" Never load netrw
 		let g:loaded_netrw       = 1
@@ -684,7 +674,7 @@
 
 " HIGHLITING
 " ~/.dotfiles/vim-utils/autoload/highlight.vim
-	if exists("b:plugins_loaded") && has('nvim')
+	if exists("g:plugins_loaded") && has('nvim')
 		" C
 		call highlight#Set('cTypeTag',                { 'fg': g:brown })
 		call highlight#Set('cPreProcTag',             { 'fg': g:cyan })
@@ -700,8 +690,11 @@
 		call highlight#Set('cppEnumTag',              { 'link': 'cppEnum' })
 
 		" Search
-		call highlight#Set('Search',									{ 'bg': g:turquoise4 })
-		call highlight#Set('IncSearch',								{ 'bg': g:white })
+		call highlight#Set('Search',									{ 'fg': g:turquoise4 }, 'bold')
+		call highlight#Set('IncSearch',								{ 'bg': g:white }, 'bold')
+		highlight IncSearch cterm=bold gui=bold
+		highlight Search cterm=bold gui=bold
+		highlight Comment cterm=italic gui=italic
 
 		" Vim
 		call highlight#Set('vimAutoGroupTag',					{ 'fg': g:brown })
@@ -712,7 +705,7 @@
 		call highlight#Set('pythonClassTag',          { 'fg': g:brown })
 		call highlight#Set('pythonFunctionTag',       { 'fg': g:darkred })
 		call highlight#Set('pythonMethodTag',         { 'link': 'cMember' })
-	
+
 		" Java
 		call highlight#Set('javaClassTag',						{ 'fg': g:brown })
 		call highlight#Set('javaMethodTag',						{ 'fg': g:darkred })
@@ -720,11 +713,20 @@
 	endif
 
 " CUSTOM_COMMANDS
+	" TODO.RM-Fri Jun 02 2017 16:10: Keep doing this. Until you Substitute
+	" all rarely used <Leader>j mappings for commands
+
 	" Convention: All commands names need to start with the autoload file name.
 	" And use camel case. This way is easier to search
 	command! -nargs=+ -complete=command UtilsCaptureCmdOutput call utils#CaptureCmdOutput(<f-args>)
 	command! UtilsProfile call utils#ProfilePerformance()
 	command! UtilsDiffSet call utils#SetDiff()
 	command! UtilsDiffOff call utils#UnsetDiff()
+	command! UtilsDiffReset call utils#UnsetDiff()<bar>call utils#SetDiff()
+	command! UtilsIndentWholeFile execute("normal! mzgg=G`z")
+	" Remove Trailing Spaces
+	command! UtilsRemoveTrailingSpaces execute('let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>')
+	" Convert fileformat to dos
+	command! UtilsFileFormat2Dos :e ++ff=dos<CR>
 
 " vim:tw=78:ts=2:sts=2:sw=2:
