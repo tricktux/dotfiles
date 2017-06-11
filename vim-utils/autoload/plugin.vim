@@ -36,8 +36,10 @@ function! plugin#Config() abort
 		Plug 'rliang/termedit.nvim'
 
 		Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-	elseif has('nvim') || v:version >= 800
-		Plug 'Shougo/denite.nvim'
+	endif
+
+	if has('nvim') || v:version >= 800
+		Plug 'Shougo/denite.nvim', { 'do' : ':UpdateRemotePlugins' }
 			let b:denite_loaded = 1
 			nnoremap <A-;> :Denite command<CR>
 			nnoremap <A-e> :Denite help<CR>
