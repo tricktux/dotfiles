@@ -36,8 +36,10 @@ function! plugin#Config() abort
 		Plug 'rliang/termedit.nvim'
 
 		Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-	elseif has('nvim') || v:version >= 800
-		Plug 'Shougo/denite.nvim'
+	endif
+
+	if has('nvim') || v:version >= 800
+		Plug 'Shougo/denite.nvim', { 'do' : ':UpdateRemotePlugins' }
 			let b:denite_loaded = 1
 			nnoremap <A-;> :Denite command<CR>
 			nnoremap <A-e> :Denite help<CR>
@@ -553,7 +555,7 @@ function! plugin#Check() abort
 
 	if empty(glob(g:vimfile_path . 'autoload/plug.vim'))
 		if executable('curl')
-			execute "silent !curl -fLo " . g:vimfile_path . "autoload/plug.vim --create-dirs"
+			execute "silent !curl -kfLo " . g:vimfile_path . "autoload\plug.vim --create-dirs"
 						\" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 			autocmd VimEnter * PlugInstall | source $MYVIMRC
 			return 1
