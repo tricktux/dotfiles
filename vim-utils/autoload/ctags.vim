@@ -33,9 +33,12 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 		let files_loc = substitute(files_loc, "\\", "/", "g") " Fix cwd for the rg command
 	endif
 
-	execute "echo Create tags for '" . cwd_rg . "'?: (j|y)es (any)no"
+	echo "Create tags for '" . cwd_rg . "'?: (j|y)es (any)no"
 	let response = getchar()
-	if response != 121 || response != 106 " y|j
+	if response == 121 || response == 106 " y|j
+		echo "Loading..."
+	else
+		echo "Exiting"
 		return
 	endif
 
