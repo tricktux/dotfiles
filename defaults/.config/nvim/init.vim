@@ -97,17 +97,19 @@
 		set smartcase     " ignore case if search pattern is all lowercase,
 											"    case-sensitive otherwise
 		set ignorecase
+		set infercase
 		set hlsearch      " highlight search terms
 		set number
 		set relativenumber
 		set incsearch     " show search matches as you type
 		set history=1000         " remember more commands and search history
 		" ignore these files to for completion
-		set wildignore+=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn,.git
 		set completeopt=menuone,longest,preview,noselect,noinsert
 		" set complete+=kspell " currently not working
 		set wildmenu
-		set wildmode=list:longest
+		" set wildmode=list:longest
+		set wildmode=full
+		set wildignore+=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn,.git
 		set title                " change the terminal's title
 		set visualbell           " don't beep
 		set noerrorbells         " don't beep
@@ -228,7 +230,8 @@
 		endif
 		set lazyredraw " Had to addit to speed up scrolling
 		" Mon May 01 2017 11:21: This breaks split window highliting
-		" set synmaxcol=140 " Will not highlight passed this column #
+		" Tue Jun 13 2017 20:55: Giving it another try 
+		set synmaxcol=200 " Will not highlight passed this column #
 
 	" CLI
 		if !has('gui_running') && !exists('g:GuiLoaded')
@@ -347,6 +350,12 @@
 		au BufWritePost *.bin,*.hsr,*.pdf setlocal nomod | endif
 	augroup END
 
+	" Depends on autoread being set
+	augroup AutoRead
+		autocmd!
+		autocmd CursorHold * silent! checktime
+	augroup END
+
 " CUSTOM MAPPINGS
 	" List of super useful mappings
 	" = fixes indentantion
@@ -368,6 +377,12 @@
 
 	" FileType Specific mappings use <Leader>l
 		" Refer to ~/.dotfiles/vim-utils/after/ftplugin to find these
+
+	" j and k
+	" Display line movements unless preceded by a count and
+	" Save movements larger than 5 lines to the jumplist. Use Ctrl-o/Ctrl-i.
+		nnoremap <expr> j v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
+		nnoremap <expr> k v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
 
 	" Miscelaneous Mappings <Leader>j?
 		" nnoremap <Leader>Ma :Man
