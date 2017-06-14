@@ -1,3 +1,20 @@
+# File:                    cpp.snip
+# Description:         Shortcuts to most used cpp stuff
+# Author:              Reinaldo Molina <rmolin88@gmail.com>
+# Version:             0.0.0
+# Last Modified: Jun 13 2017 16:26
+# Created: Jun 13 2017 16:26
+
+snippet     str
+abbr        std::string
+options     head
+    std::string ${1:sName}; $1.reserve(${2:Size});
+
+snippet     vec
+abbr        std::vector
+options     head
+    std::vector<${1:Type}> ${2:vName}; $2.reserve(${2:Size});
+
 snippet log Unreal Log
 options head
   UE_LOG(Log${1:Category,Temp}, ${2:Fatal,Error,Warning,Display,Log,Verbose,VeryVerbose}, TEXT("${4:FormatStr}"), ${5:...})

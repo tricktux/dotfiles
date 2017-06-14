@@ -451,6 +451,8 @@ function! plugin#Config() abort
 	Plug 'godlygeek/tabular'
 		let g:no_default_tabular_maps = 1
 
+	Plug 'jeaye/color_coded'
+
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
