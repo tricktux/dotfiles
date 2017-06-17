@@ -21,7 +21,7 @@ clang 4.0.0-3
 cmus 2.7.1-8
 compton 0.1_beta2.5-5
 conky-nvidia 1.10.6-1
-context-minimals-git 2017.06.04-1
+context-minimals-git 2017.06.06-1
 coreutils 8.27-1
 cower 16-1
 cowsay 3.03-9
@@ -104,7 +104,7 @@ mupdf 1.11-1
 mutt 1.8.3-1
 nano 2.8.4-1
 neofetch 3.1.0-1
-neovim-git 0.2.0.r291.gcb0abce5b-1
+neovim-git 0.2.0.r327.g90f20bd7b-1
 neovim-qt-git v0.2.4.r24.g3fd4646-1
 netctl 1.12-2
 network-manager-applet 1.8.0-1
@@ -217,7 +217,7 @@ ttf-consolas-powerline 1.0.g3cd9d75-1
 ttf-font-awesome 4.7.0-2
 ttf-google-fonts-git 20170605-1
 ttf-hack 2.020-2
-universal-ctags-git 0.r5129.6117fa34-1
+universal-ctags-git 0.r5138.1bcb1fce-1
 unzip 6.0-12
 usbutils 008-1
 util-linux 2.29.2-2
