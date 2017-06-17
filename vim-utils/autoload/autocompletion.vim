@@ -59,12 +59,16 @@ function! autocompletion#SetCompl() abort
 			Plug 'roxma/vim-hug-neovim-rpc'
 		endif
 
-		Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-			let g:LanguageClient_autoStart = 1
+		if has('unix')
+			Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+				let g:LanguageClient_autoStart = 1
+		endif
 
 		Plug 'roxma/nvim-completion-manager'
 		" nvim-completion-manager also added suppport for this
 		Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
+		Plug 'Shougo/neco-syntax'
+		Plug 'Shougo/neoinclude.vim'
 
 		inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 		inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
