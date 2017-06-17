@@ -39,8 +39,9 @@ function! plugin#Config() abort
 
 		Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 	endif
+
 	if has('nvim') || v:version >= 800
-		Plug 'Shougo/denite.nvim'
+		Plug 'Shougo/denite.nvim', { 'do' : ':UpdateRemotePlugins' }
 			let b:denite_loaded = 1
 			nnoremap <A-;> :Denite command<CR>
 			nnoremap <A-e> :Denite help<CR>
@@ -451,6 +452,8 @@ function! plugin#Config() abort
 
 	Plug 'godlygeek/tabular'
 		let g:no_default_tabular_maps = 1
+
+	Plug 'jeaye/color_coded'
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
