@@ -24,6 +24,8 @@ function! plugin#Config() abort
 	" Set up fuzzy searcher
 	if has('unix') && has('nvim')
 		" Terminal plugins
+		" Sat Jun 10 2017 13:53 neovim having problems with the terminal 
+		set nolazyredraw
 		Plug 'kassio/neoterm'
 			let g:neoterm_use_relative_path = 1
 			let g:neoterm_position = 'vertical'
@@ -36,7 +38,8 @@ function! plugin#Config() abort
 		Plug 'rliang/termedit.nvim'
 
 		Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-	elseif has('nvim') || v:version >= 800
+	endif
+	if has('nvim') || v:version >= 800
 		Plug 'Shougo/denite.nvim'
 			let b:denite_loaded = 1
 			nnoremap <A-;> :Denite command<CR>
