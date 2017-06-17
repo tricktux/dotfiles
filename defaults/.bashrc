@@ -46,7 +46,7 @@ HISTCONTROL=ignoreboth
 # Adb, fastboot
 # Fixes vim-javacomplete2 issues
 # Remember to launch nvim at the code base
-if [ `uname -o` != "Android" && -d "$HOME/Downloads/packages/android-sdk-linux" ]; then
+if [[ `uname -o` != "Android" && -d "$HOME/Downloads/packages/android-sdk-linux" ]]; then
 	export ANDROID_HOME=$HOME/Downloads/packages/android-sdk-linux
 	export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 fi
