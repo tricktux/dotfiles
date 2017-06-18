@@ -47,9 +47,9 @@
 
 	" Choose a autcompl engine
 	" if has('unix')
-	let g:autcompl_engine = 'nvim_compl_manager'
+	" let g:autcompl_engine = 'nvim_compl_manager'
 	" else
-		" let g:autcompl_engine = 'autocomplpop'
+		let g:autcompl_engine = 'autocomplpop'
 	" endif
 	if exists('g:plugins_present') && plugin#Check() && plugin#Config()
 			let g:plugins_loaded = 1
