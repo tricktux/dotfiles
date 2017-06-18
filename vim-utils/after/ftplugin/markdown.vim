@@ -19,6 +19,9 @@ setlocal foldmethod=expr
 setlocal spell
 setlocal spelllang=en_us
 setlocal complete+=kspell
+setlocal ts=2
+setlocal sw=2
+setlocal sts=2
 
 if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	" Encapsulate in markdown file from current line until end of file in ```
@@ -63,4 +66,4 @@ function! MarkdownLevel()
 	return "="
 endfunction
 
-let b:undo_ftplugin = "setl foldenable< foldexpr< foldmethod< spell< complete<" 
+let b:undo_ftplugin = "setl foldenable< foldexpr< foldmethod< spell< complete< ts< sw< sts<" 
