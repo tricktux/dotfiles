@@ -1,19 +1,19 @@
 # File:                    cpp.snip
 # Description:         Shortcuts to most used cpp stuff
 # Author:              Reinaldo Molina <rmolin88@gmail.com>
-# Version:             0.0.0
-# Last Modified: Jun 13 2017 16:26
+# Version:             0.0.1
+# Last Modified: Wed Jun 14 2017 14:39
 # Created: Jun 13 2017 16:26
 
 snippet     str
 abbr        std::string
 options     head
-    std::string ${1:sName}; $1.reserve(${2:Size});
+    std::string ${1:sName};
 
 snippet     vec
 abbr        std::vector
 options     head
-    std::vector<${1:Type}> ${2:vName}; $2.reserve(${2:Size});
+    std::vector<${1:Type}> ${2:vName}; ${3: $2.reserve(1024);}
 
 snippet log Unreal Log
 options head
