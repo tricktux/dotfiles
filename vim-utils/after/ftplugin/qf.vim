@@ -38,7 +38,7 @@ if <SID>DetectList() == 1 && exists('b:list_type') && !exists("no_plugin_maps") 
 	exec 'nnoremap <buffer> <C-h> :' . b:list_type . 'pf<CR><c-w>j'
 
 	exec 'nnoremap <buffer> <cr> :.' . b:list_type . b:list_type . '<CR>'
-	exec 'nnoremap <buffer> q :' . b:list_type . 'cl<CR>'
+	exec 'nnoremap <buffer> q :' . b:list_type . 'cl<CR><C-w>p'
 endif
 
 let b:undo_ftplugin += "setlocal wrap< spell<" 
