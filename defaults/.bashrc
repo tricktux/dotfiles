@@ -46,7 +46,7 @@ HISTCONTROL=ignoreboth
 # Adb, fastboot
 # Fixes vim-javacomplete2 issues
 # Remember to launch nvim at the code base
-if [ `uname -o` != "Android" ]; then
+if [[ `uname -o` != "Android" && -d "$HOME/Downloads/packages/android-sdk-linux" ]]; then
 	export ANDROID_HOME=$HOME/Downloads/packages/android-sdk-linux
 	export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 fi
@@ -62,7 +62,7 @@ export PATH=$HOME/.local/bin:$PATH
 export EMAIL="rmolin88@gmail.com"
 export EDITOR=vim
 export VISUAL=vim
-export BROWSER=google-chrome-stable
+export BROWSER=opera
 
 # Pacaur environment variables. See man pacaur
 # Dangerous options
@@ -75,16 +75,19 @@ export RANGER_LOAD_DEFAULT_RC=FALSE
 # Fixes git weird issue
 export GIT_TERMINAL_PROMPT=1
 
-
 # This should always be the last thing so that all export are done properly
-if [[ -z "$TMUX" ]]; then
-	# Do not attach to the 
-	ID="`tmux ls | grep -vm1 attached | cut -d: -f1`"
-	# Do not attach to the cmus session. Let it run in the background
-	if [[ -z "$ID" || "$ID" = "cmus" ]]; then
-		tmux -2 new-session
-	else
-		tmux attach-session -t "$ID"
-	fi
-fi
+# Sat Jun 10 2017 13:38 
+# No need for tmux any more with nvim
+# if [ -f /usr/bin/tmux ]; then
+	# if [[ -z "$TMUX" ]]; then
+		# # Do not attach to the 
+		# ID="`tmux ls | grep -vm1 attached | cut -d: -f1`"
+		# # Do not attach to the cmus session. Let it run in the background
+		# if [[ -z "$ID" || "$ID" = "cmus" ]]; then
+			# tmux -2 new-session
+		# else
+			# tmux attach-session -t "$ID"
+		# fi
+	# fi
+# fi
 

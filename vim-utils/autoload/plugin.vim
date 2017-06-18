@@ -24,6 +24,8 @@ function! plugin#Config() abort
 	" Set up fuzzy searcher
 	if has('unix') && has('nvim')
 		" Terminal plugins
+		" Sat Jun 10 2017 13:53 neovim having problems with the terminal 
+		set nolazyredraw
 		Plug 'kassio/neoterm'
 			let g:neoterm_use_relative_path = 1
 			let g:neoterm_position = 'vertical'
