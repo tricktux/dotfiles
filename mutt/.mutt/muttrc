@@ -2,27 +2,20 @@
 # Description:			Mutt configuration
 # Author:				Reinaldo Molina <rmolin88@gmail.com>
 # Version:				0.0.1
-# Last Modified: Jun 25 2017 13:20
-# Created: Jun 25 2017 13:20
-
-set ssl_starttls=yes
-set ssl_force_tls=yes
-set imap_user = 'rmolin88'
-
-# Get password from encryption
-source "gpg -d ~/.config/mutt/password.gpg |"
-# Alternative to encryption. Just annoying to type complicated password
-# everytime
-# set imap_pass=`read -s -p 'mail-password : ' mailpass ; echo $mailpass`
+# Last Modified:		Sun Jun 25 2017 15:26
+# Created:				Jun 25 2017 13:20
 
 set realname='Reinaldo Molina'
-set from = "Reinaldo Molina <rmolin88@gmail.com>"
+set ssl_starttls=yes
+set ssl_force_tls=yes
 
-set folder = 'imaps://imap.gmail.com:993'
-set spoolfile = +INBOX
+# Add accounts
+folder-hook 'gmail.com' 'source ~/.config/mutt/account.gmail'
+# Not really working
+folder-hook 'broward.edu' 'source ~/.config/mutt/account.broward'
 
-# Specify where to save and/or look for postponed messages.
-set postponed="imaps://imap.gmail.com/[Gmail]/Drafts"
+# Default account to open
+source ~/.config/mutt/account.gmail
 
 # Store message headers locally to speed things up.
 # If hcache is a folder, Mutt will create sub cache folders for each account which may speeds things up even more.
@@ -37,7 +30,8 @@ set certificate_file = "~/.config/mutt/certificates"
 set move = no
 
 # Keep IMAP connection alive by polling intermittently (time in seconds).
-set imap_keepalive = 900
+# set imap_keepalive = 900
+set imap_keepalive = 60
 
 mailboxes       = +INBOX
 
@@ -57,26 +51,24 @@ set sort = reverse-date-received
 
 bind index o display-message
 bind generic gg first-entry		
-#minus sign takes me to the top of the list
 bind generic G last-entry		
-#equals sign takes me to the bottom of the list
-bind generic L bottom-page		
-#to the bottom,
-bind generic M middle-page		
-#       middle, and
-bind generic H top-page			
-#       	top of the screen
-# bind index [ previous-unread		
-#to the previous unread message in the list
-# bind index ] next-unread		
-#or the next unread message.
-#
+bind generic L bottom-page		#to the bottom,
+bind generic M middle-page		#middle, and
+bind generic H top-page			#top of the screen
+# bind index [ previous-unread		to the previous unread message in the list
+# bind index ] next-unread		or the next unread message.
+
 # Gmail-style keyboard shortcuts
 macro index,pager gi "<change-folder>=INBOX<enter>" "Go to inbox"
 macro index,pager ga "<change-folder>=[Gmail]/All Mail<enter>" "Go to all mail"
 macro index,pager gs "<change-folder>=[Gmail]/Starred<enter>" "Go to starred messages"
 macro index,pager gp "<change-folder>=[Gmail]/Important<enter>" "Go to priority inbox"
 macro index,pager gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
+
+# Go to broward email
+macro index,pager gb '<sync-mailbox><enter-command>source ~/.config/mutt/account.broward<enter><change-folder>!<enter>'
+# Go to uf email
+# macro index,pager gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
 
 # Option to Save contacts so that autocompletion is possible
 set display_filter='~/.config/mutt/mutt.save.contacts.sh' 
@@ -88,12 +80,6 @@ source $alias_file
 
 set editor="nvim"
 # set editor="vim -c 'set spell spelllang=es,en'"
-
-# Hopefully will fix emails not going out
-set smtp_url = "smtp://rmolin88@smtp.gmail.com:587/"
-# imap_pass was move to encrypted file as well
-
-set trash = '+[Gmail]/Trash'
 
 # From https://github.com/bubbl/bubb-confs/blob/master/mutt/.mutt/general
 # A lot of good configs in that link
