@@ -1,3 +1,10 @@
+# File:					muttrc
+# Description:			Mutt configuration
+# Author:				Reinaldo Molina <rmolin88@gmail.com>
+# Version:				0.0.1
+# Last Modified: Jun 25 2017 13:20
+# Created: Jun 25 2017 13:20
+
 set ssl_starttls=yes
 set ssl_force_tls=yes
 set imap_user = 'rmolin88'
@@ -112,7 +119,6 @@ set menu_scroll
 
 # If an opttion does not work search the manual. It may appear in different
 # types of options. You just need to put it in th correct one.
-#
 set beep_new
 
 # Pretty cool colors

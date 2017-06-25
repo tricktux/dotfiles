@@ -23,7 +23,8 @@ else
 	if exists('g:GuiLoaded') " nvim-qt gui
 		" TODO.RM-Sat May 20 2017 10:21: Probably will have to make this hostname
 		" depenednt
-		let g:GuiFont ='Monospace:h9'
+		" let g:GuiFont ='Monospace:h9'
+		let g:GuiFont ='FontAwesome:h9'
 		execute 'Guifont! ' . g:GuiFont
 		call GuiMousehide(1)
 	else
