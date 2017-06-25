@@ -1,0 +1,8 @@
+# File:					zathurarc
+# Description:			Configuration for Zathura
+# Author:				Reinaldo Molina <rmolin88@gmail.com>
+# Version:				0.0.0
+# Last Modified: Jun 25 2017 09:02
+# Created: Jun 25 2017 09:02
+
+set selection-clipboard clipboard
