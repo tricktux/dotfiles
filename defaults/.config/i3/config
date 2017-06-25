@@ -217,7 +217,6 @@ bindsym Control+Mod1+L exec playerctl next
 bindsym Control+Mod1+K exec amixer sset Master 5%+
 bindsym Control+Mod1+J exec amixer sset Master 5%-
 
-# Scrappa
 # }}}
 
 ############ Workspaces ###################{{{
