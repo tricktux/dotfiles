@@ -78,16 +78,16 @@ export GIT_TERMINAL_PROMPT=1
 # This should always be the last thing so that all export are done properly
 # Sat Jun 10 2017 13:38 
 # No need for tmux any more with nvim
-# if [ -f /usr/bin/tmux ]; then
-	# if [[ -z "$TMUX" ]]; then
-		# # Do not attach to the 
-		# ID="`tmux ls | grep -vm1 attached | cut -d: -f1`"
-		# # Do not attach to the cmus session. Let it run in the background
-		# if [[ -z "$ID" || "$ID" = "cmus" ]]; then
-			# tmux -2 new-session
-		# else
-			# tmux attach-session -t "$ID"
-		# fi
-	# fi
-# fi
+if [ -f /usr/bin/tmux ]; then
+	if [[ -z "$TMUX" ]]; then
+		# Do not attach to the 
+		ID="`tmux ls | grep -vm1 attached | cut -d: -f1`"
+		# Do not attach to the cmus session. Let it run in the background
+		if [[ -z "$ID" || "$ID" = "cmus" ]]; then
+			tmux -2 new-session
+		else
+			tmux attach-session -t "$ID"
+		fi
+	fi
+fi
 
