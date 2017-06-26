@@ -9,6 +9,8 @@ set from = "Reinaldo Molina <rmolin88@ufl.edu>"
 
 set folder = 'imaps://imap.ufl.edu:993'
 set spoolfile = +INBOX
+# set spoolfile = 'imaps://imap.ufl.edu:993/Inbox'
+mailboxes = +INBOX
 
 # Specify where to save and/or look for postponed messages.
 set postponed="imaps://imap.ufl.edu:993/Drafts"
