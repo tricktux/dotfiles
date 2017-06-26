@@ -14,8 +14,8 @@ folder-hook 'gmail.com' 'source ~/.config/mutt/gmail/account.gmail'
 folder-hook 'ufl.edu' 'source ~/.config/mutt/ufl/account.ufl'
 
 # Default account to open
-# source ~/.config/mutt/gmail/account.gmail
-source ~/.config/mutt/ufl/account.ufl
+source ~/.config/mutt/gmail/account.gmail
+# source ~/.config/mutt/ufl/account.ufl
 
 set move = no
 
