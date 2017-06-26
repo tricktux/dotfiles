@@ -1,0 +1,3373 @@
+Delivered-To: rmolin88@gmail.com
+Received: by 10.140.29.197 with SMTP id b63csp2136715qgb;
+        Wed, 29 Mar 2017 17:07:03 -0700 (PDT)
+X-Received: by 10.55.22.218 with SMTP id 87mr3337921qkw.87.1490832423702;
+        Wed, 29 Mar 2017 17:07:03 -0700 (PDT)
+Return-Path: <bounces@mail1.eventbrite.com>
+Received: from mail18.eventbrite.com (mail18.eventbrite.com. [104.130.82.107])
+        by mx.google.com with ESMTPS id n89si397283qte.325.2017.03.29.17.07.03
+        for <rmolin88@gmail.com>
+        (version=TLS1 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+        Wed, 29 Mar 2017 17:07:03 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bounces@mail1.eventbrite.com designates 104.130.82.107 as permitted sender) client-ip=104.130.82.107;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@eventbrite.com;
+       spf=pass (google.com: domain of bounces@mail1.eventbrite.com designates 104.130.82.107 as permitted sender) smtp.mailfrom=bounces@mail1.eventbrite.com
+Received: from prod-core-mta8.aws-us-east-1.evbops.com ([50.16.62.142])
+	by mail18.eventbrite.com (-); Wed, 29 Mar 2017 19:07:03 -0500
+X-VirtualServer: mail18, mail18.eventbrite.com, 172.18.102.107
+X-MailingID: 00000::00000::00000::00000::attendee-newsletter:news_base_variate:20608442302:61bea794e19ddd9c::1004262_0_0
+X-SMHeaderMap: mid="X-MailingID"
+X-Destination-ID: rmolin88@gmail.com
+X-SMFBL: cm1vbGluODhAZ21haWwuY29t
+X-VirtualServerGroup: mail18
+DKIM-Signature: v=1; a=rsa-sha1; c=simple; d=eventbrite.com;
+	s=eb9; i=@eventbrite.com; h=Received:Received:Content-Type:
+	MIME-Version:Subject:From:To:Date:Message-ID:X-Eventbrite:
+	List-Unsubscribe:Reply-To:X-EventbriteMailer; bh=II1NtjOgjN7KeYe
+	D4UAYxqKFaXg=; b=1lkVsKeNai3qrfsjnC29JDBpA0/jzQYpQleW4tSbTYhPh/P
+	mwgEO55G7BiegHKYMTH18KDOv9NgY+U2cRUGx5n5R/0Wl70PaNptT3jFgAd1wkSh
+	Ppl+c0OVgOHnStR5v8n5B0GsZOMRMjDcdDaRZz2e4oIj0OHGljoRokhnD+s4=
+Received: from prod-task-app8.aws-us-east-1.evbops.com (prod-task-app8.aws-us-east-1.evbops.com [172.21.211.108])
+	by prod-core-mta8.aws-us-east-1.evbops.com (Postfix) with ESMTPSA id 0E495A14FF
+	for <rmolin88@gmail.com>; Wed, 29 Mar 2017 17:07:03 -0700 (PDT)
+Received: from prod-task-app8.aws-us-east-1.evbops.com (localhost [127.0.0.1])
+	by prod-task-app8.aws-us-east-1.evbops.com (Postfix) with ESMTP id 0109E3F25C
+	for <rmolin88@gmail.com>; Wed, 29 Mar 2017 17:07:03 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="===============3289240166829890384=="
+MIME-Version: 1.0
+Subject: Reinaldo's Weekly Event Guide
+From: "Eventbrite Picks" <picks@eventbrite.com>
+To: rmolin88@gmail.com
+Date: Thu, 30 Mar 2017 00:07:03 -0000
+Message-ID: <20170330000703.24173.61219@prod-task-app8.aws-us-east-1.evbops.com>
+X-Eventbrite: attendee-newsletter:news_base_variate:20608442302:61bea794e19ddd9c
+List-Unsubscribe: http://www.eventbrite.com/unsubscribe?email=rmolin88%40gmail.com&list_id=3&sig=AGNbPwHjPNX0bwHm4UAreENaNFCX6CPccg
+Reply-To: noreply@eventbrite.com
+X-EventbriteMailer: django
+
+--===============3289240166829890384==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+
+Eventbrite
+ 
+
+
+
+
+Your Weekly Event Guide
+
+    
+----
+
+    
+Based on previously saved and ordered events <strong>25th Annual Downtown Dunedin Craft Festival</strong>, <strong>Markomusica en tampa</strong>, and <strong>Erika de la Vega en TAMPA &#34;Tu no sabes quién soy yo&#34; Stand-up Comedy</strong>, we found a few more events you might like.
+
+------------------------------------------------------------------------
+
+
+
+Events For You
+
+    
+----
+
+------------------------------------------------------------------------
+
+
+
+SOTB: Strolling of the Bulls 9
+    Fri, Apr 7
+    
+    University of South Florida, Tampa
+
+        
+
+        
+    15th Annual Downtown Sarasota Art &amp; Craft Festival
+    Sat, Apr 8
+    
+    Downtown Sarasota Art &amp; Craft Festival, Sarasota
+
+        
+
+        
+    Leila Presents: A Vision Experience (April 8th 2017)
+    Sat, Apr 8
+    
+    Aloft Tampa Downtown, Tampa
+
+        
+
+        
+    April 8th: Tampa Lock and Key Singles Party at Cheap, Ages: 21-45
+    Sat, Apr 8
+    
+    Cheap Restaurant &amp; Bar, Tampa
+
+        
+
+        
+    Speed Dating Event in Downtown Tampa, FL Ages 26-39 for Single Professionals
+    Tue, Apr 11
+    
+    CITY DOG CANTINA, Tampa
+
+        
+
+        
+    Utopia
+    Fri, Apr 14
+    
+    Celebrities Lounge, tampa
+
+
+    
+View More Events:
+https://www.eventbrite.com/d/?ref=eattnewsrecs&amp;utm_source=strongmail&amp;utm_medium=discovery&amp;utm_campaign=newsletter&amp;utm_content=EBrecommend
+
+------------------------------------------------------------------------
+
+
+
+
+
+Weekend guide
+
+    
+----
+
+------------------------------------------------------------------------
+
+
+    
+
+Friday <span style="
+        color: #999;
+    ">March 31</span>
+
+------------------------------------------------------------------------
+
+    
+
+United in Worship/Unidos en Adoracion
+    Fri, Mar 31
+    
+    La Roca Tampa, Tampa
+
+        
+
+        
+    Joseph and the Amazing Technicolor Dreamcoat
+    Fri, Mar 31
+    
+    Dreamhouse Theatre, Lutz
+
+------------------------------------------------------------------------
+
+    
+
+Saturday <span style="
+        color: #999;
+    ">April 1</span>
+
+------------------------------------------------------------------------
+
+    
+
+ON POINT Women Warriors Writing Workshop/Tampa Bay
+    Sat, Apr 1
+    
+    University of Tampa/Vaughn Center, Tampa
+
+        
+
+        
+    Florida Writers Association-New Tampa/Wesley Chapel meeting
+    Sat, Apr 1
+    
+    New Tampa Regional Library, Tampa
+
+        
+
+        
+    Do or Die Stroll-Off 2017
+    Sat, Apr 1
+    
+    USF - Marshall Student Center Oval Theater, Tampa
+
+------------------------------------------------------------------------
+
+    
+
+Sunday <span style="
+        color: #999;
+    ">April 2</span>
+
+------------------------------------------------------------------------
+
+    
+
+ESC Creative Arts Meeting
+    Sun, Apr 2
+    
+    ESC Youth Auditorium, Sarasota
+
+------------------------------------------------------------------------
+
+
+
+
+View full weekend guide:
+https://www.eventbrite.com/d/local/events--this-weekend/?ref=eattnewsweekend&amp;utm_source=strongmail&amp;utm_medium=discovery&amp;utm_campaign=newsletter&amp;utm_content=EBrecommend
+
+------------------------------------------------------------------------
+
+
+
+
+----
+
+------------------------------------------------------------------------
+
+
+
+<style>
+    @media all {
+        .title-heading {
+            background: linear-gradient(to right, #f4552f, #feb31e) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+        }
+        .header-divider {
+            background: -webkit-linear-gradient(left, #f4552f, #feb31e) !important;
+            background: linear-gradient(left, #f4552f, #feb31e) !important;
+        }
+    }
+
+    @media all and (max-width: 600px) {
+        .header-divider {
+            width: 100% !important;
+            min-width: 100% !important;
+        }
+
+        .header-divider-container {
+            width: 100% !important;
+            min-width: 100% !important;
+        }
+
+        /* List Event Cards */
+        .list-card__image-wrapper {
+            width: 150px !important;
+            height: 75px !important;
+        }
+
+        .list-card__image {
+            max-width: 150px !important;
+            height: 75px !important;
+            max-height: 75px !important;
+        }
+
+        .list-card__title {
+            margin-bottom: 0 !important;
+        }
+    }
+</style>
+
+
+
+
+
+
+
+Questions? Contact us anytime day or night.
+https://www.eventbrite.com/support/contact-us
+
+- The Eventbrite Team
+
+
+View our user agreement and privacy policy if you have further questions:
+http://www.eventbrite.com/tos
+http://www.eventbrite.com/tos#privacy
+
+If you would like to stop receiving these emails, please go to:
+http://www.eventbrite.com/unsubscribe?email=rmolin88%40gmail.com&amp;list_id=3&amp;sig=AGNbPwHjPNX0bwHm4UAreENaNFCX6CPccg
+
+Copyright 2017 Eventbrite. All rights reserved.
+Eventbrite is located at 155 5th St, San Francisco, CA 94103.
+
+
+--===============3289240166829890384==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+
+
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<!-- Turn off iOS phone number autodetect -->
+<meta name="format-detection" content="telephone=no">
+
+<style>
+ body, p {
+ font-family: "Benton Sans", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Helvetica, Tahoma, Arial, sans-serif;
+ -webkit-font-smoothing: antialiased;
+ -webkit-text-size-adjust: none;
+ }
+ table {
+ border-collapse: collapse;
+ border-spacing: 0;
+ border: 0;
+ padding: 0;
+ }
+ img {
+ margin: 0;
+ padding: 0;
+ }
+
+ .content {
+ width: 600px;
+ }
+
+ .no_text_resize {
+ -moz-text-size-adjust: none;
+ -webkit-text-size-adjust: none;
+ -ms-text-size-adjust: none;
+ text-size-adjust: none;
+ }
+
+ /* Media Queries */
+ @media all and (max-width: 600px) {
+
+ table[class="content"] {
+ width: 100% !important;
+ }
+
+ tr[class="grid-no-gutter"] td[class="grid__col"] {
+ padding-left: 0 !important;
+ padding-right: 0 !important;
+ }
+
+ td[class="grid__col"] {
+ padding-left: 15px !important;
+ padding-right: 15px !important;
+ }
+
+ tr[class="small_full_width"] td[class="grid__col"] {
+ padding-left: 0px !important;
+ padding-right: 0px !important;
+ }
+
+ table[class="small_full_width"] {
+ width: 100% !important;
+ padding-bottom: 10px;
+ }
+
+ a[class="header-link"] {
+ margin-right: 0 !important;
+ margin-left: 10px !important;
+ }
+
+ a[class="btn"] {
+ width: 100%;
+ border-left-width: 0px !important;
+ border-right-width: 0px !important;
+ }
+
+ table[class="col-layout"] {
+ width: 100% !important;
+ }
+
+ td[class="col-container"] {
+ display: block !important;
+ width: 100% !important;
+ padding-left: 0 !important;
+ padding-right: 0 !important;
+ }
+
+ td[class="col-nav-items"] {
+ display: inline-block !important;
+ padding-left: 0 !important;
+ padding-right: 10px !important;
+ background: none !important;
+ }
+
+ img[class="col-img"] {
+ height: auto !important;
+ max-width: 520px !important;
+ width: 100% !important;
+ }
+
+ td[class="col-center-sm"] {
+ text-align: center;
+ }
+
+ tr[class="footer-attendee-cta"] > td[class="grid__col"] {
+ padding: 24px 0 0 !important;
+ }
+
+ td[class="col-footer-cta"] {
+ padding-left: 0 !important;
+ padding-right: 0 !important;
+ }
+
+ td[class="footer-links"] {
+ text-align: left !important;
+ }
+
+ .hide-for-small {
+ display: none !important;
+ }
+
+ .ribbon-mobile {
+ line-height: 1.3 !important;
+ }
+
+ .small_full_width {
+ width: 100% !important;
+ padding-bottom: 10px;
+ }
+
+ .table__ridge {
+ height: 7px !important;
+ }
+
+ .table__ridge img {
+ display: none !important;
+ }
+
+ .table__ridge--top {
+ background-image: url(https://cdn.evbstatic.com/s3-s3/marketing/emails/modules/ridges_top_fullx2.jpg) !important;
+ background-size: 170% 7px;
+ }
+
+ .table__ridge--bottom {
+ background-image: url(https://cdn.evbstatic.com/s3-s3/marketing/emails/modules/ridges_bottom_fullx2.jpg) !important;
+ background-size: 170% 7px;
+ }
+
+ .summary-table__total {
+ padding-right: 10px !important;
+ }
+
+ .app-cta {
+ display: none !important;
+ }
+
+ .app-cta__mobile {
+ width: 100% !important;
+ height: auto !important;
+ max-height: none !important;
+ overflow: visible !important;
+ float: none !important;
+ display: block !important;
+ margin-top: 12px !important;
+ visibility: visible;
+ font-size: inherit !important;
+ }
+
+ /* List Event Cards */
+ .list-card__header {
+ width: 130px !important;
+ }
+ .list-card__label {
+ width: 130px !important;
+ }
+ .list-card__image-wrapper {
+ width: 130px !important;
+ height: 65px !important;
+ }
+ .list-card__image {
+ max-width: 130px !important;
+ max-height: 65px !important;
+ }
+
+ .list-card__body {
+ padding-left: 10px !important;
+ }
+
+ .list-card__title {
+ margin-bottom: 10px !important;
+ }
+
+ .list-card__date {
+ padding-top: 0 !important;
+ }
+ }
+
+ @media all and (device-width: 768px) and (device-height: 1024px) and (orientation:landscape) {
+ .ribbon-mobile {
+ line-height: 1.3 !important;
+ }
+
+ .ribbon-mobile__text {
+ padding: 0 !important;
+ }
+ }
+
+ @media all and (device-width: 768px) and (device-height: 1024px) and (orientation:portrait) {
+ .ribbon-mobile {
+ line-height: 1.3 !important;
+ }
+
+ .ribbon-mobile__text {
+ padding: 0 !important;
+ }
+ }
+
+ @media screen and (min-device-height:480px) and (max-device-height:568px), (min-device-width : 375px) and (max-device-width : 667px) and (-webkit-min-device-pixel-ratio : 2), (min-device-width : 414px) and (max-device-width : 736px) and (-webkit-min-device-pixel-ratio : 3) {
+
+ .hide_for_iphone {
+ display: none !important;
+ }
+
+ .passbook {
+ width: auto !important;
+ height: auto !important;
+ line-height: auto !important;
+ visibility: visible !important;
+ display: block !important;
+ max-height: none !important;
+ overflow: visible !important;
+ float: none !important;
+ text-indent: 0 !important;
+ font-size: inherit !important;
+ }
+ }
+</style>
+
+</head>
+
+<!-- Global container with background styles. Gmail converts BODY to DIV so we lose properties like BGCOLOR. -->
+<body border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" bgcolor="#F8F8FA" style="margin: 0;">
+
+
+ 
+
+ <div style="display: none !important;">Don&#39;t miss out on these great events</div>
+
+
+
+
+<table border="0" align="center" cellpadding="0" cellspacing="0" height="100%" width="100%" bgcolor="#F8F8FA">
+
+
+
+ <tr bgcolor="#F8F8FA">
+ <td align="center">
+
+ <table class="content" width="600" align="center" cellpadding="0" cellspacing="0" border="0" bgcolor="#F8F8FA" style="width: 600px; max-width: 600px;">
+ <tr class="small_full_width">
+ <td class="header-td" width="100%" valign="middle" style="text-align:left; padding:30px 0 20px 0px;">
+ <a href="https://www.eventbrite.com/?utm_source=eb_email&amp;utm_medium=email&utm_campaign=attendee_newsletter_email&utm_term=eb_logo">
+ <img src="https://cdn.evbstatic.com/s3-s3/marketing/emails/images/logos/eb-wordmarkx2.png" width="136" height="22" border="0" alt="Eventbrite" style="width:136px; height:22px;" />
+ </a>
+ </td>
+ <td width="66%" valign="middle" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; text-align: right; vertical-align: middle;">
+ 
+
+ </td>
+ </tr>
+ </table>
+
+ </td>
+ </tr>
+ <tr>
+ <td align="center">
+ <table class="content" width="600" align="center" cellpadding="0" cellspacing="0" border="0" style="width: 600px; max-width: 600px; font-size: 0px;">
+ 
+
+
+
+
+
+
+ <tr class="small_full_width">
+ <td class="grid__col" style="font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; padding: 0 0 0 0; " align="">
+ 
+ 
+
+<h2 style="color: #404040; font-weight: 300; margin: 0 0 12px 0; font-size: 17px; line-height: 24px; padding-top: 0; padding-bottom: 0; margin-top: 0; margin-bottom: 0; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; 
+ font-size: 25px;
+ padding-bottom: 12px;
+ line-height: 30px;
+ color: #f4552f;
+ padding-bottom: 0;
+ font-weight: 500;
+ margin-bottom: 15px; 
+ font-family: &#34;Benton Sans&#34;, -apple-system, BlinkMacSystemFont, Roboto, &#34;Helvetica Neue&#34;, Helvetica, Tahoma, Arial, sans-serif;
+ " class="title-heading">
+
+ Your Weekly Event Guide
+ 
+</h2>
+
+ 
+<table width=100% cellspacing="0" cellpadding="0" style="" class="">
+ <tr width="100%">
+ <td width="100%" style="" class="">
+ 
+ 
+<table cellspacing="0" cellpadding="0" width="600px" style="width: 600px; min-width: 600px;" class="header-divider-container">
+ <tr>
+ <td style="background-color: #dedede; width: 600px; min-width: 600px; font-size: 1px; height: 1px; line-height: 1px; 
+ height: 2px;
+ color: #f4552f;
+ background-color: #f4552f;
+ border: none;
+ " class="header-divider">&nbsp;
+ </td>
+ </tr>
+</table>
+
+ 
+ </td>
+ </tr>
+</table>
+
+ 
+<table width=100% cellspacing="0" cellpadding="0" style="" class="">
+ <tr width="100%">
+ <td width="100%" style="" class="">
+ 
+ 
+
+<p style="color: #666666; font-weight: 400; font-size: 15px; line-height: 21px; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; " class="">
+ 
+ Based on previously saved and ordered events <strong>25th Annual Downtown Dunedin Craft Festival</strong>, <strong>Markomusica en tampa</strong>, and <strong>Erika de la Vega en TAMPA &#34;Tu no sabes quién soy yo&#34; Stand-up Comedy</strong>, we found a few more events you might like.
+ 
+</p>
+
+ 
+ </td>
+ </tr>
+</table>
+
+
+ </td>
+ </tr>
+
+
+ <tr class="small_full_width">
+ <td class="grid__col" style="font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; padding: 0 0 0 0; " align="">
+ 
+ 
+
+<h2 style="color: #404040; font-weight: 300; margin: 0 0 12px 0; font-size: 24px; line-height: 30px; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; 
+ padding-top: 30px;
+ font-size: 25px;
+ line-height: 30px;
+ margin: 0 0 15px 0;
+ 
+ font-family: &#34;Benton Sans&#34;, -apple-system, BlinkMacSystemFont, Roboto, &#34;Helvetica Neue&#34;, Helvetica, Tahoma, Arial, sans-serif;
+ " class="">
+
+ Events For You
+ 
+</h2>
+
+ 
+<table width=100% cellspacing="0" cellpadding="0" style="margin: 0 0 10px 0;" class="">
+ <tr width="100%">
+ <td width="100%" style="" class="">
+ 
+ 
+<table cellspacing="0" cellpadding="0" width="100px" style="width: 100px; min-width: 100px;" class="">
+ <tr>
+ <td style="background-color: #dedede; width: 100px; min-width: 100px; font-size: 1px; height: 1px; line-height: 1px; 
+ width: 50px;
+ background-color: #d2d6df;
+ margin: 0 0 10px 0;
+ " class="">&nbsp;
+ </td>
+ </tr>
+</table>
+
+ 
+ </td>
+ </tr>
+</table>
+
+
+ </td>
+ </tr>
+
+
+ <tr class="small_full_width">
+ <td class="grid__col" style="font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; padding: 0 0 0 0; " align="">
+ 
+ 
+ 
+ 
+
+ 
+ 
+
+ 
+
+ 
+
+ 
+ 
+<table width=100% cellspacing="0" cellpadding="0" style="" class="">
+ <tr width="100%">
+ <td width="100%" style="padding: 5px 0;" class="">
+ 
+ </td>
+ </tr>
+</table>
+
+ 
+
+ <a style="text-decoration: none; color: #0f90ba; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; " href="https://www.eventbrite.com/e/sotb-strolling-of-the-bulls-9-tickets-31860697203?ref=eattnewsrecs&amp;utm_source=strongmail&amp;utm_medium=discovery&amp;utm_campaign=newsletter&amp;utm_content=EBrecommend&amp;utm_term=eventcard&amp;afu=20608442302&amp;rank=0&amp;aff=eattnewsrecs" class="">
+ 
+ 
+<table width=100% cellspacing="0" cellpadding="0" style="" class="">
+ <tr width="100%">
+ <td width="100%" style="
+ padding: 10px 10px 0 10px;
+ box-shadow: 0 2px 2px 0 rgba(40, 44, 52, 0.08), 0 4px 15px 0 rgba(40, 44, 52, 0.06);
+ background-color: #ffffff;
+ " class="">
+ 
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ width: 150px;
+ min-width: 150px;
+ line-height: 0;
+ ' align='' valign='top' class='list-card__header' colspan='1'>
+ 
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ width: 150px;
+ max-width: 150px;
+ height: 75px;
+ line-height: 0;
+ overflow: hidden;
+ background-color:#3d2f27' align='center' valign='middle' class='list-card__image-wrapper' colspan='1'>
+ 
+ <img class="list-card__image" src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F28083033%2F106690521153%2F1%2Foriginal.jpg?h=120&amp;w=240&amp;rect=0%2C25%2C960%2C480&amp;s=376ef62066aed3dfecd0d23eae9ff0c4" style="
+ overflow: hidden;
+ max-width: 150px;
+ height: 75px;
+ max-height: 75px;
+ " border="0" />
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+</td>
+
+ 
+<td width='*' height='' style='
+ padding-left: 15px;
+ min-width: 160px;
+ ' align='left' valign='top' class='list-card__body' colspan='1'>
+ 
+ <div class="list-card__date" style="
+ text-overflow: ellipsis;
+ overflow: hidden;
+ white-space: nowrap;
+ color: #343434;
+ font-size: 12px;
+ line-height: 15px;
+ text-transform: uppercase;
+ letter-spacing: 1px;
+ padding-top: 0px;
+ ">
+ Fri, Apr 7
+ </div>
+ <div class="list-card__title" style="
+ display: -webkit-box;
+ -webkit-line-clamp: 2;
+ -webkit-box-orient: vertical;
+ overflow: hidden;
+ height: 36px;
+ max-height: 36px;
+ color: #333333;
+ font-size: 15px;
+ font-weight: 700;
+ line-height: 18px;
+ letter-spacing: 0;
+ ">
+ SOTB: Strolling of the Bulls 9
+ </div>
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='width: 100%; table-layout: fixed;' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ font-size: 12px;
+ line-height: 10px;
+ height: 10px;
+ max-height: 10px;
+ color: #8c8c8c;
+ overflow: hidden;
+ white-space: nowrap;
+ text-overflow: ellipsis;
+ padding-top: 5px;
+ padding-bottom: 20px;
+ ' align='' valign='' class='' colspan='1'>
+ 
+ University of South Florida, Tampa
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+ </td>
+ </tr>
+</table>
+
+ 
+ </a>
+
+ 
+
+ 
+
+ 
+ 
+<table width=100% cellspacing="0" cellpadding="0" style="" class="">
+ <tr width="100%">
+ <td width="100%" style="padding: 5px 0;" class="">
+ 
+ </td>
+ </tr>
+</table>
+
+ 
+
+ <a style="text-decoration: none; color: #0f90ba; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; " href="https://www.eventbrite.com/e/15th-annual-downtown-sarasota-art-craft-festival-tickets-33080202777?ref=eattnewsrecs&amp;utm_source=strongmail&amp;utm_medium=discovery&amp;utm_campaign=newsletter&amp;utm_content=EBrecommend&amp;utm_term=eventcard&amp;afu=20608442302&amp;rank=1&amp;aff=eattnewsrecs" class="">
+ 
+ 
+<table width=100% cellspacing="0" cellpadding="0" style="" class="">
+ <tr width="100%">
+ <td width="100%" style="
+ padding: 10px 10px 0 10px;
+ box-shadow: 0 2px 2px 0 rgba(40, 44, 52, 0.08), 0 4px 15px 0 rgba(40, 44, 52, 0.06);
+ background-color: #ffffff;
+ " class="">
+ 
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ width: 150px;
+ min-width: 150px;
+ line-height: 0;
+ ' align='' valign='top' class='list-card__header' colspan='1'>
+ 
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ width: 150px;
+ max-width: 150px;
+ height: 75px;
+ line-height: 0;
+ overflow: hidden;
+ background-color:#032f3a' align='center' valign='middle' class='list-card__image-wrapper' colspan='1'>
+ 
+ <img class="list-card__image" src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F29595093%2F151219841627%2F1%2Foriginal.jpg?h=120&amp;w=240&amp;rect=0%2C13%2C1200%2C600&amp;s=d9a839d14491fe2c7aab11c2ba7654da" style="
+ overflow: hidden;
+ max-width: 150px;
+ height: 75px;
+ max-height: 75px;
+ " border="0" />
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+</td>
+
+ 
+<td width='*' height='' style='
+ padding-left: 15px;
+ min-width: 160px;
+ ' align='left' valign='top' class='list-card__body' colspan='1'>
+ 
+ <div class="list-card__date" style="
+ text-overflow: ellipsis;
+ overflow: hidden;
+ white-space: nowrap;
+ color: #343434;
+ font-size: 12px;
+ line-height: 15px;
+ text-transform: uppercase;
+ letter-spacing: 1px;
+ padding-top: 0px;
+ ">
+ Sat, Apr 8
+ </div>
+ <div class="list-card__title" style="
+ display: -webkit-box;
+ -webkit-line-clamp: 2;
+ -webkit-box-orient: vertical;
+ overflow: hidden;
+ height: 36px;
+ max-height: 36px;
+ color: #333333;
+ font-size: 15px;
+ font-weight: 700;
+ line-height: 18px;
+ letter-spacing: 0;
+ ">
+ 15th Annual Downtown Sarasota Art &amp; Craft Festival
+ </div>
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='width: 100%; table-layout: fixed;' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ font-size: 12px;
+ line-height: 10px;
+ height: 10px;
+ max-height: 10px;
+ color: #8c8c8c;
+ overflow: hidden;
+ white-space: nowrap;
+ text-overflow: ellipsis;
+ padding-top: 5px;
+ padding-bottom: 20px;
+ ' align='' valign='' class='' colspan='1'>
+ 
+ Downtown Sarasota Art &amp; Craft Festival, Sarasota
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+ </td>
+ </tr>
+</table>
+
+ 
+ </a>
+
+ 
+
+ 
+
+ 
+ 
+<table width=100% cellspacing="0" cellpadding="0" style="" class="">
+ <tr width="100%">
+ <td width="100%" style="padding: 5px 0;" class="">
+ 
+ </td>
+ </tr>
+</table>
+
+ 
+
+ <a style="text-decoration: none; color: #0f90ba; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; " href="https://www.eventbrite.com/e/leila-presents-a-vision-experience-april-8th-2017-tickets-32806691698?ref=eattnewsrecs&amp;utm_source=strongmail&amp;utm_medium=discovery&amp;utm_campaign=newsletter&amp;utm_content=EBrecommend&amp;utm_term=eventcard&amp;afu=20608442302&amp;rank=2&amp;aff=eattnewsrecs" class="">
+ 
+ 
+<table width=100% cellspacing="0" cellpadding="0" style="" class="">
+ <tr width="100%">
+ <td width="100%" style="
+ padding: 10px 10px 0 10px;
+ box-shadow: 0 2px 2px 0 rgba(40, 44, 52, 0.08), 0 4px 15px 0 rgba(40, 44, 52, 0.06);
+ background-color: #ffffff;
+ " class="">
+ 
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ width: 150px;
+ min-width: 150px;
+ line-height: 0;
+ ' align='' valign='top' class='list-card__header' colspan='1'>
+ 
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ width: 150px;
+ max-width: 150px;
+ height: 75px;
+ line-height: 0;
+ overflow: hidden;
+ background-color:#dedede' align='center' valign='middle' class='list-card__image-wrapper' colspan='1'>
+ 
+ <img class="list-card__image" src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F29235652%2F194754856343%2F1%2Foriginal.jpg?h=120&amp;w=240&amp;rect=270%2C0%2C1110%2C555&amp;s=f14c4fd2cb49f5d7e239e4e263e79b64" style="
+ overflow: hidden;
+ max-width: 150px;
+ height: 75px;
+ max-height: 75px;
+ " border="0" />
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+</td>
+
+ 
+<td width='*' height='' style='
+ padding-left: 15px;
+ min-width: 160px;
+ ' align='left' valign='top' class='list-card__body' colspan='1'>
+ 
+ <div class="list-card__date" style="
+ text-overflow: ellipsis;
+ overflow: hidden;
+ white-space: nowrap;
+ color: #343434;
+ font-size: 12px;
+ line-height: 15px;
+ text-transform: uppercase;
+ letter-spacing: 1px;
+ padding-top: 0px;
+ ">
+ Sat, Apr 8
+ </div>
+ <div class="list-card__title" style="
+ display: -webkit-box;
+ -webkit-line-clamp: 2;
+ -webkit-box-orient: vertical;
+ overflow: hidden;
+ height: 36px;
+ max-height: 36px;
+ color: #333333;
+ font-size: 15px;
+ font-weight: 700;
+ line-height: 18px;
+ letter-spacing: 0;
+ ">
+ Leila Presents: A Vision Experience (April 8th 2017)
+ </div>
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='width: 100%; table-layout: fixed;' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ font-size: 12px;
+ line-height: 10px;
+ height: 10px;
+ max-height: 10px;
+ color: #8c8c8c;
+ overflow: hidden;
+ white-space: nowrap;
+ text-overflow: ellipsis;
+ padding-top: 5px;
+ padding-bottom: 20px;
+ ' align='' valign='' class='' colspan='1'>
+ 
+ Aloft Tampa Downtown, Tampa
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+ </td>
+ </tr>
+</table>
+
+ 
+ </a>
+
+ 
+
+ 
+
+ 
+ 
+<table width=100% cellspacing="0" cellpadding="0" style="" class="">
+ <tr width="100%">
+ <td width="100%" style="padding: 5px 0;" class="">
+ 
+ </td>
+ </tr>
+</table>
+
+ 
+
+ <a style="text-decoration: none; color: #0f90ba; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; " href="https://www.eventbrite.com/e/april-8th-tampa-lock-and-key-singles-party-at-cheap-ages-21-45-tickets-32337026918?ref=eattnewsrecs&amp;utm_source=strongmail&amp;utm_medium=discovery&amp;utm_campaign=newsletter&amp;utm_content=EBrecommend&amp;utm_term=eventcard&amp;afu=20608442302&amp;rank=3&amp;aff=eattnewsrecs" class="">
+ 
+ 
+<table width=100% cellspacing="0" cellpadding="0" style="" class="">
+ <tr width="100%">
+ <td width="100%" style="
+ padding: 10px 10px 0 10px;
+ box-shadow: 0 2px 2px 0 rgba(40, 44, 52, 0.08), 0 4px 15px 0 rgba(40, 44, 52, 0.06);
+ background-color: #ffffff;
+ " class="">
+ 
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ width: 150px;
+ min-width: 150px;
+ line-height: 0;
+ ' align='' valign='top' class='list-card__header' colspan='1'>
+ 
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ width: 150px;
+ max-width: 150px;
+ height: 75px;
+ line-height: 0;
+ overflow: hidden;
+ background-color:#86664f' align='center' valign='middle' class='list-card__image-wrapper' colspan='1'>
+ 
+ <img class="list-card__image" src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F28659248%2F786343139%2F1%2Foriginal.jpg?h=120&amp;w=240&amp;rect=0%2C37%2C460%2C230&amp;s=fd8421db6e364be561efd3c25728c8b4" style="
+ overflow: hidden;
+ max-width: 150px;
+ height: 75px;
+ max-height: 75px;
+ " border="0" />
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+</td>
+
+ 
+<td width='*' height='' style='
+ padding-left: 15px;
+ min-width: 160px;
+ ' align='left' valign='top' class='list-card__body' colspan='1'>
+ 
+ <div class="list-card__date" style="
+ text-overflow: ellipsis;
+ overflow: hidden;
+ white-space: nowrap;
+ color: #343434;
+ font-size: 12px;
+ line-height: 15px;
+ text-transform: uppercase;
+ letter-spacing: 1px;
+ padding-top: 0px;
+ ">
+ Sat, Apr 8
+ </div>
+ <div class="list-card__title" style="
+ display: -webkit-box;
+ -webkit-line-clamp: 2;
+ -webkit-box-orient: vertical;
+ overflow: hidden;
+ height: 36px;
+ max-height: 36px;
+ color: #333333;
+ font-size: 15px;
+ font-weight: 700;
+ line-height: 18px;
+ letter-spacing: 0;
+ ">
+ April 8th: Tampa Lock and Key Singles Party at Cheap, Ages: 21-45
+ </div>
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='width: 100%; table-layout: fixed;' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ font-size: 12px;
+ line-height: 10px;
+ height: 10px;
+ max-height: 10px;
+ color: #8c8c8c;
+ overflow: hidden;
+ white-space: nowrap;
+ text-overflow: ellipsis;
+ padding-top: 5px;
+ padding-bottom: 20px;
+ ' align='' valign='' class='' colspan='1'>
+ 
+ Cheap Restaurant &amp; Bar, Tampa
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+ </td>
+ </tr>
+</table>
+
+ 
+ </a>
+
+ 
+
+ 
+
+ 
+ 
+<table width=100% cellspacing="0" cellpadding="0" style="" class="">
+ <tr width="100%">
+ <td width="100%" style="padding: 5px 0;" class="">
+ 
+ </td>
+ </tr>
+</table>
+
+ 
+
+ <a style="text-decoration: none; color: #0f90ba; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; " href="https://www.eventbrite.com/e/speed-dating-event-in-downtown-tampa-fl-ages-26-39-for-single-professionals-tickets-32196412336?ref=eattnewsrecs&amp;utm_source=strongmail&amp;utm_medium=discovery&amp;utm_campaign=newsletter&amp;utm_content=EBrecommend&amp;utm_term=eventcard&amp;afu=20608442302&amp;rank=4&amp;aff=eattnewsrecs" class="">
+ 
+ 
+<table width=100% cellspacing="0" cellpadding="0" style="" class="">
+ <tr width="100%">
+ <td width="100%" style="
+ padding: 10px 10px 0 10px;
+ box-shadow: 0 2px 2px 0 rgba(40, 44, 52, 0.08), 0 4px 15px 0 rgba(40, 44, 52, 0.06);
+ background-color: #ffffff;
+ " class="">
+ 
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ width: 150px;
+ min-width: 150px;
+ line-height: 0;
+ ' align='' valign='top' class='list-card__header' colspan='1'>
+ 
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ width: 150px;
+ max-width: 150px;
+ height: 75px;
+ line-height: 0;
+ overflow: hidden;
+ background-color:#b4b7a8' align='center' valign='middle' class='list-card__image-wrapper' colspan='1'>
+ 
+ <img class="list-card__image" src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F28467265%2F9550745485%2F1%2Foriginal.jpg?h=120&amp;w=240&amp;rect=0%2C1%2C594%2C297&amp;s=06cd85d8a54da2d4181eb9de2fdf841d" style="
+ overflow: hidden;
+ max-width: 150px;
+ height: 75px;
+ max-height: 75px;
+ " border="0" />
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+</td>
+
+ 
+<td width='*' height='' style='
+ padding-left: 15px;
+ min-width: 160px;
+ ' align='left' valign='top' class='list-card__body' colspan='1'>
+ 
+ <div class="list-card__date" style="
+ text-overflow: ellipsis;
+ overflow: hidden;
+ white-space: nowrap;
+ color: #343434;
+ font-size: 12px;
+ line-height: 15px;
+ text-transform: uppercase;
+ letter-spacing: 1px;
+ padding-top: 0px;
+ ">
+ Tue, Apr 11
+ </div>
+ <div class="list-card__title" style="
+ display: -webkit-box;
+ -webkit-line-clamp: 2;
+ -webkit-box-orient: vertical;
+ overflow: hidden;
+ height: 36px;
+ max-height: 36px;
+ color: #333333;
+ font-size: 15px;
+ font-weight: 700;
+ line-height: 18px;
+ letter-spacing: 0;
+ ">
+ Speed Dating Event in Downtown Tampa, FL Ages 26-39 for Single Professionals
+ </div>
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='width: 100%; table-layout: fixed;' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ font-size: 12px;
+ line-height: 10px;
+ height: 10px;
+ max-height: 10px;
+ color: #8c8c8c;
+ overflow: hidden;
+ white-space: nowrap;
+ text-overflow: ellipsis;
+ padding-top: 5px;
+ padding-bottom: 20px;
+ ' align='' valign='' class='' colspan='1'>
+ 
+ CITY DOG CANTINA, Tampa
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+ </td>
+ </tr>
+</table>
+
+ 
+ </a>
+
+ 
+
+ 
+
+ 
+ 
+<table width=100% cellspacing="0" cellpadding="0" style="" class="">
+ <tr width="100%">
+ <td width="100%" style="padding: 5px 0;" class="">
+ 
+ </td>
+ </tr>
+</table>
+
+ 
+
+ <a style="text-decoration: none; color: #0f90ba; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; " href="https://www.eventbrite.com/e/utopia-tickets-32992224632?ref=eattnewsrecs&amp;utm_source=strongmail&amp;utm_medium=discovery&amp;utm_campaign=newsletter&amp;utm_content=EBrecommend&amp;utm_term=eventcard&amp;afu=20608442302&amp;rank=5&amp;aff=eattnewsrecs" class="">
+ 
+ 
+<table width=100% cellspacing="0" cellpadding="0" style="" class="">
+ <tr width="100%">
+ <td width="100%" style="
+ padding: 10px 10px 0 10px;
+ box-shadow: 0 2px 2px 0 rgba(40, 44, 52, 0.08), 0 4px 15px 0 rgba(40, 44, 52, 0.06);
+ background-color: #ffffff;
+ " class="">
+ 
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ width: 150px;
+ min-width: 150px;
+ line-height: 0;
+ ' align='' valign='top' class='list-card__header' colspan='1'>
+ 
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ width: 150px;
+ max-width: 150px;
+ height: 75px;
+ line-height: 0;
+ overflow: hidden;
+ background-color:#7986a8' align='center' valign='middle' class='list-card__image-wrapper' colspan='1'>
+ 
+ <img class="list-card__image" src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F29481800%2F188750286533%2F1%2Foriginal.jpg?h=120&amp;w=240&amp;rect=0%2C800%2C1600%2C800&amp;s=30dae1111f8a7ff19822bc83710513c4" style="
+ overflow: hidden;
+ max-width: 150px;
+ height: 75px;
+ max-height: 75px;
+ " border="0" />
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+</td>
+
+ 
+<td width='*' height='' style='
+ padding-left: 15px;
+ min-width: 160px;
+ ' align='left' valign='top' class='list-card__body' colspan='1'>
+ 
+ <div class="list-card__date" style="
+ text-overflow: ellipsis;
+ overflow: hidden;
+ white-space: nowrap;
+ color: #343434;
+ font-size: 12px;
+ line-height: 15px;
+ text-transform: uppercase;
+ letter-spacing: 1px;
+ padding-top: 0px;
+ ">
+ Fri, Apr 14
+ </div>
+ <div class="list-card__title" style="
+ display: -webkit-box;
+ -webkit-line-clamp: 2;
+ -webkit-box-orient: vertical;
+ overflow: hidden;
+ height: 36px;
+ max-height: 36px;
+ color: #333333;
+ font-size: 15px;
+ font-weight: 700;
+ line-height: 18px;
+ letter-spacing: 0;
+ ">
+ Utopia
+ </div>
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='width: 100%; table-layout: fixed;' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ font-size: 12px;
+ line-height: 10px;
+ height: 10px;
+ max-height: 10px;
+ color: #8c8c8c;
+ overflow: hidden;
+ white-space: nowrap;
+ text-overflow: ellipsis;
+ padding-top: 5px;
+ padding-bottom: 20px;
+ ' align='' valign='' class='' colspan='1'>
+ 
+ Celebrities Lounge, tampa
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+ </td>
+ </tr>
+</table>
+
+ 
+ </a>
+
+
+ 
+<table width=100% cellspacing="0" cellpadding="0" style="" class="">
+ <tr width="100%">
+ <td width="100%" style="
+ text-align: center;
+ padding-top: 10px;
+ " class="">
+ 
+ 
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 12px; margin-bottom: 12px; margin-bottom: 0; margin-top: 15px;">
+ <tr>
+ <td>
+ <table border="0" cellspacing="0" cellpadding="0" width="100%">
+ <tr>
+ <td style="-webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px;" align="">
+ <a href="https://www.eventbrite.com/d/?ref=eattnewsrecs&amp;utm_source=strongmail&amp;utm_medium=discovery&amp;utm_campaign=newsletter&amp;utm_content=EBrecommend" target="_blank" style="
+ display:inline-block;
+ color: #fff;
+ font-weight: 400;
+ border-left: 15px solid;
+ border-right: 15px solid;
+ border-top: 12px solid;
+ border-bottom: 12px solid;
+ font-size: 17px;
+ text-decoration: none;
+ text-align: center;
+ -webkit-text-size-adjust: none;
+ -webkit-border-radius: 3px;
+ -moz-border-radius: 3px;
+ border-radius: 3px;
+ font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; background-color: #7ad108; border-color: #7ad108; 
+ display:inline-block;
+ color: #22b8ff;
+ height: 22px;
+ line-height: 22px;
+ margin-bottom: 3px;
+ font-family: &#34;Benton Sans&#34;, -apple-system, BlinkMacSystemFont, Roboto, &#34;Helvetica Neue&#34;, Helvetica, Tahoma, Arial, sans-serif;
+ font-weight: 400;
+ border: 0px;
+ text-transform: uppercase;
+ text-decoration: underline;
+ text-align: center;
+ font-size: 15px;
+ text-decoration: none;
+ text-align: center;
+ -webkit-text-size-adjust: none;
+ -webkit-border-radius: 3px;
+ -moz-border-radius: 3px;
+ border-radius: 3px;
+ background: none;
+ " class="btn">
+ <span style="padding-left: 5px; padding-right: 5px;">
+ View More Events
+ </span>
+ </a>
+ </td>
+ </tr>
+ </table>
+ </td>
+ </tr>
+</table>
+
+ 
+ </td>
+ </tr>
+</table>
+
+
+ </td>
+ </tr>
+
+
+
+
+ <tr class="small_full_width">
+ <td class="grid__col" style="font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; padding: 0 0 0 0; " align="">
+ 
+ 
+
+<h2 style="color: #404040; font-weight: 300; margin: 0 0 12px 0; font-size: 24px; line-height: 30px; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; 
+ padding-top: 30px;
+ font-size: 25px;
+ line-height: 30px;
+ margin: 0 0 15px 0;
+ 
+ font-family: &#34;Benton Sans&#34;, -apple-system, BlinkMacSystemFont, Roboto, &#34;Helvetica Neue&#34;, Helvetica, Tahoma, Arial, sans-serif;
+ " class="">
+
+ Weekend guide
+ 
+</h2>
+
+ 
+<table width=100% cellspacing="0" cellpadding="0" style="margin-bottom: 10px;" class="">
+ <tr width="100%">
+ <td width="100%" style="" class="">
+ 
+ 
+<table cellspacing="0" cellpadding="0" width="100px" style="width: 100px; min-width: 100px;" class="">
+ <tr>
+ <td style="background-color: #dedede; width: 100px; min-width: 100px; font-size: 1px; height: 1px; line-height: 1px; 
+ width: 50px;
+ background-color: #d2d6df;
+ margin: 0 0 10px 0;
+ " class="">&nbsp;
+ </td>
+ </tr>
+</table>
+
+ 
+ </td>
+ </tr>
+</table>
+
+
+ </td>
+ </tr>
+
+
+ 
+ <tr class="small_full_width">
+ <td class="grid__col" style="font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; padding: 0 0 0 0; " align="">
+ 
+ 
+
+ 
+
+<h2 style="color: #404040; font-weight: 300; margin: 0 0 12px 0; font-size: 24px; line-height: 30px; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; 
+ padding-top: 25px;
+ font-size: 20px;
+ line-height: 25px;
+ margin: 0 0 5px 0;
+ font-weight: 400;
+ 
+ font-family: &#34;Benton Sans&#34;, -apple-system, BlinkMacSystemFont, Roboto, &#34;Helvetica Neue&#34;, Helvetica, Tahoma, Arial, sans-serif;
+ " class="">
+
+ Friday <span style="
+ color: #999;
+ ">March 31</span>
+ 
+</h2>
+
+
+ 
+ </td>
+ </tr>
+
+ 
+ <tr class="small_full_width">
+ <td class="grid__col" style="font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; padding: 0 0 0 0; " align="">
+ 
+ 
+
+ 
+ 
+
+ 
+
+ 
+
+ 
+ 
+<table width=100% cellspacing="0" cellpadding="0" style="" class="">
+ <tr width="100%">
+ <td width="100%" style="padding: 5px 0;" class="">
+ 
+ </td>
+ </tr>
+</table>
+
+ 
+
+ <a style="text-decoration: none; color: #0f90ba; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; " href="https://www.eventbrite.com/e/united-in-worshipunidos-en-adoracion-tickets-32132874292?ref=eattnewsweekend&amp;utm_source=strongmail&amp;utm_medium=discovery&amp;utm_campaign=newsletter&amp;utm_content=EBrecommend&amp;utm_term=eventcard&amp;afu=20608442302&amp;rank=0&amp;aff=eattnewsweekend" class="">
+ 
+ 
+<table width=100% cellspacing="0" cellpadding="0" style="" class="">
+ <tr width="100%">
+ <td width="100%" style="
+ padding: 10px 10px 0 10px;
+ box-shadow: 0 2px 2px 0 rgba(40, 44, 52, 0.08), 0 4px 15px 0 rgba(40, 44, 52, 0.06);
+ background-color: #ffffff;
+ " class="">
+ 
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ width: 150px;
+ min-width: 150px;
+ line-height: 0;
+ ' align='' valign='top' class='list-card__header' colspan='1'>
+ 
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ width: 150px;
+ max-width: 150px;
+ height: 75px;
+ line-height: 0;
+ overflow: hidden;
+ background-color:#f1f1f1' align='center' valign='middle' class='list-card__image-wrapper' colspan='1'>
+ 
+ <img class="list-card__image" src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F28486150%2F129208612073%2F1%2Foriginal.jpg?h=120&amp;w=240&amp;rect=0%2C0%2C2160%2C1080&amp;s=64769882f6cd014f7e3af130ca45b14c" style="
+ overflow: hidden;
+ max-width: 150px;
+ height: 75px;
+ max-height: 75px;
+ " border="0" />
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+</td>
+
+ 
+<td width='*' height='' style='
+ padding-left: 15px;
+ min-width: 160px;
+ ' align='left' valign='top' class='list-card__body' colspan='1'>
+ 
+ <div class="list-card__date" style="
+ text-overflow: ellipsis;
+ overflow: hidden;
+ white-space: nowrap;
+ color: #343434;
+ font-size: 12px;
+ line-height: 15px;
+ text-transform: uppercase;
+ letter-spacing: 1px;
+ padding-top: 0px;
+ ">
+ Fri, Mar 31
+ </div>
+ <div class="list-card__title" style="
+ display: -webkit-box;
+ -webkit-line-clamp: 2;
+ -webkit-box-orient: vertical;
+ overflow: hidden;
+ height: 36px;
+ max-height: 36px;
+ color: #333333;
+ font-size: 15px;
+ font-weight: 700;
+ line-height: 18px;
+ letter-spacing: 0;
+ ">
+ United in Worship/Unidos en Adoracion
+ </div>
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='width: 100%; table-layout: fixed;' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ font-size: 12px;
+ line-height: 10px;
+ height: 10px;
+ max-height: 10px;
+ color: #8c8c8c;
+ overflow: hidden;
+ white-space: nowrap;
+ text-overflow: ellipsis;
+ padding-top: 5px;
+ padding-bottom: 20px;
+ ' align='' valign='' class='' colspan='1'>
+ 
+ La Roca Tampa, Tampa
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+ </td>
+ </tr>
+</table>
+
+ 
+ </a>
+
+ 
+
+ 
+
+ 
+ 
+<table width=100% cellspacing="0" cellpadding="0" style="" class="">
+ <tr width="100%">
+ <td width="100%" style="padding: 5px 0;" class="">
+ 
+ </td>
+ </tr>
+</table>
+
+ 
+
+ <a style="text-decoration: none; color: #0f90ba; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; " href="https://www.eventbrite.com/e/joseph-and-the-amazing-technicolor-dreamcoat-tickets-25722654151?ref=eattnewsweekend&amp;utm_source=strongmail&amp;utm_medium=discovery&amp;utm_campaign=newsletter&amp;utm_content=EBrecommend&amp;utm_term=eventcard&amp;afu=20608442302&amp;rank=1&amp;aff=eattnewsweekend" class="">
+ 
+ 
+<table width=100% cellspacing="0" cellpadding="0" style="" class="">
+ <tr width="100%">
+ <td width="100%" style="
+ padding: 10px 10px 0 10px;
+ box-shadow: 0 2px 2px 0 rgba(40, 44, 52, 0.08), 0 4px 15px 0 rgba(40, 44, 52, 0.06);
+ background-color: #ffffff;
+ " class="">
+ 
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ width: 150px;
+ min-width: 150px;
+ line-height: 0;
+ ' align='' valign='top' class='list-card__header' colspan='1'>
+ 
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ width: 150px;
+ max-width: 150px;
+ height: 75px;
+ line-height: 0;
+ overflow: hidden;
+ background-color:#dedede' align='center' valign='middle' class='list-card__image-wrapper' colspan='1'>
+ 
+ <img class="list-card__image" src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F21432687%2F107063419295%2F1%2Foriginal.jpg?h=120&amp;w=240&amp;rect=0%2C0%2C2160%2C1080&amp;s=54a6fdb42f021322ec6f51682c6430bb" style="
+ overflow: hidden;
+ max-width: 150px;
+ height: 75px;
+ max-height: 75px;
+ " border="0" />
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+</td>
+
+ 
+<td width='*' height='' style='
+ padding-left: 15px;
+ min-width: 160px;
+ ' align='left' valign='top' class='list-card__body' colspan='1'>
+ 
+ <div class="list-card__date" style="
+ text-overflow: ellipsis;
+ overflow: hidden;
+ white-space: nowrap;
+ color: #343434;
+ font-size: 12px;
+ line-height: 15px;
+ text-transform: uppercase;
+ letter-spacing: 1px;
+ padding-top: 0px;
+ ">
+ Fri, Mar 31
+ </div>
+ <div class="list-card__title" style="
+ display: -webkit-box;
+ -webkit-line-clamp: 2;
+ -webkit-box-orient: vertical;
+ overflow: hidden;
+ height: 36px;
+ max-height: 36px;
+ color: #333333;
+ font-size: 15px;
+ font-weight: 700;
+ line-height: 18px;
+ letter-spacing: 0;
+ ">
+ Joseph and the Amazing Technicolor Dreamcoat
+ </div>
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='width: 100%; table-layout: fixed;' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ font-size: 12px;
+ line-height: 10px;
+ height: 10px;
+ max-height: 10px;
+ color: #8c8c8c;
+ overflow: hidden;
+ white-space: nowrap;
+ text-overflow: ellipsis;
+ padding-top: 5px;
+ padding-bottom: 20px;
+ ' align='' valign='' class='' colspan='1'>
+ 
+ Dreamhouse Theatre, Lutz
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+ </td>
+ </tr>
+</table>
+
+ 
+ </a>
+
+
+ 
+ </td>
+ </tr>
+
+ 
+ <tr class="small_full_width">
+ <td class="grid__col" style="font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; padding: 0 0 0 0; " align="">
+ 
+ 
+
+ 
+
+<h2 style="color: #404040; font-weight: 300; margin: 0 0 12px 0; font-size: 24px; line-height: 30px; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; 
+ padding-top: 25px;
+ font-size: 20px;
+ line-height: 25px;
+ margin: 0 0 5px 0;
+ font-weight: 400;
+ 
+ font-family: &#34;Benton Sans&#34;, -apple-system, BlinkMacSystemFont, Roboto, &#34;Helvetica Neue&#34;, Helvetica, Tahoma, Arial, sans-serif;
+ " class="">
+
+ Saturday <span style="
+ color: #999;
+ ">April 1</span>
+ 
+</h2>
+
+
+ 
+ </td>
+ </tr>
+
+ 
+ <tr class="small_full_width">
+ <td class="grid__col" style="font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; padding: 0 0 0 0; " align="">
+ 
+ 
+
+ 
+ 
+
+ 
+
+ 
+
+ 
+ 
+<table width=100% cellspacing="0" cellpadding="0" style="" class="">
+ <tr width="100%">
+ <td width="100%" style="padding: 5px 0;" class="">
+ 
+ </td>
+ </tr>
+</table>
+
+ 
+
+ <a style="text-decoration: none; color: #0f90ba; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; " href="https://www.eventbrite.com/e/on-point-women-warriors-writing-workshoptampa-bay-tickets-31655429241?ref=eattnewsweekend&amp;utm_source=strongmail&amp;utm_medium=discovery&amp;utm_campaign=newsletter&amp;utm_content=EBrecommend&amp;utm_term=eventcard&amp;afu=20608442302&amp;rank=0&amp;aff=eattnewsweekend" class="">
+ 
+ 
+<table width=100% cellspacing="0" cellpadding="0" style="" class="">
+ <tr width="100%">
+ <td width="100%" style="
+ padding: 10px 10px 0 10px;
+ box-shadow: 0 2px 2px 0 rgba(40, 44, 52, 0.08), 0 4px 15px 0 rgba(40, 44, 52, 0.06);
+ background-color: #ffffff;
+ " class="">
+ 
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ width: 150px;
+ min-width: 150px;
+ line-height: 0;
+ ' align='' valign='top' class='list-card__header' colspan='1'>
+ 
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ width: 150px;
+ max-width: 150px;
+ height: 75px;
+ line-height: 0;
+ overflow: hidden;
+ background-color:#7e7869' align='center' valign='middle' class='list-card__image-wrapper' colspan='1'>
+ 
+ <img class="list-card__image" src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F27877230%2F160205854463%2F1%2Foriginal.jpg?h=120&amp;w=240&amp;rect=59%2C139%2C796%2C398&amp;s=a2f4652d18f6083489a56f7c68a16e9e" style="
+ overflow: hidden;
+ max-width: 150px;
+ height: 75px;
+ max-height: 75px;
+ " border="0" />
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+</td>
+
+ 
+<td width='*' height='' style='
+ padding-left: 15px;
+ min-width: 160px;
+ ' align='left' valign='top' class='list-card__body' colspan='1'>
+ 
+ <div class="list-card__date" style="
+ text-overflow: ellipsis;
+ overflow: hidden;
+ white-space: nowrap;
+ color: #343434;
+ font-size: 12px;
+ line-height: 15px;
+ text-transform: uppercase;
+ letter-spacing: 1px;
+ padding-top: 0px;
+ ">
+ Sat, Apr 1
+ </div>
+ <div class="list-card__title" style="
+ display: -webkit-box;
+ -webkit-line-clamp: 2;
+ -webkit-box-orient: vertical;
+ overflow: hidden;
+ height: 36px;
+ max-height: 36px;
+ color: #333333;
+ font-size: 15px;
+ font-weight: 700;
+ line-height: 18px;
+ letter-spacing: 0;
+ ">
+ ON POINT Women Warriors Writing Workshop/Tampa Bay
+ </div>
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='width: 100%; table-layout: fixed;' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ font-size: 12px;
+ line-height: 10px;
+ height: 10px;
+ max-height: 10px;
+ color: #8c8c8c;
+ overflow: hidden;
+ white-space: nowrap;
+ text-overflow: ellipsis;
+ padding-top: 5px;
+ padding-bottom: 20px;
+ ' align='' valign='' class='' colspan='1'>
+ 
+ University of Tampa/Vaughn Center, Tampa
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+ </td>
+ </tr>
+</table>
+
+ 
+ </a>
+
+ 
+
+ 
+
+ 
+ 
+<table width=100% cellspacing="0" cellpadding="0" style="" class="">
+ <tr width="100%">
+ <td width="100%" style="padding: 5px 0;" class="">
+ 
+ </td>
+ </tr>
+</table>
+
+ 
+
+ <a style="text-decoration: none; color: #0f90ba; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; " href="https://www.eventbrite.com/e/florida-writers-association-new-tampawesley-chapel-meeting-tickets-32738672250?ref=eattnewsweekend&amp;utm_source=strongmail&amp;utm_medium=discovery&amp;utm_campaign=newsletter&amp;utm_content=EBrecommend&amp;utm_term=eventcard&amp;afu=20608442302&amp;rank=1&amp;aff=eattnewsweekend" class="">
+ 
+ 
+<table width=100% cellspacing="0" cellpadding="0" style="" class="">
+ <tr width="100%">
+ <td width="100%" style="
+ padding: 10px 10px 0 10px;
+ box-shadow: 0 2px 2px 0 rgba(40, 44, 52, 0.08), 0 4px 15px 0 rgba(40, 44, 52, 0.06);
+ background-color: #ffffff;
+ " class="">
+ 
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ width: 150px;
+ min-width: 150px;
+ line-height: 0;
+ ' align='' valign='top' class='list-card__header' colspan='1'>
+ 
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ width: 150px;
+ max-width: 150px;
+ height: 75px;
+ line-height: 0;
+ overflow: hidden;
+ background-color:#61656b' align='center' valign='middle' class='list-card__image-wrapper' colspan='1'>
+ 
+ <img class="list-card__image" src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F29192421%2F60281741921%2F1%2Foriginal.jpg?h=120&amp;w=240&amp;rect=0%2C9%2C336%2C168&amp;s=a47931dfba97f9408198d2fa97890c87" style="
+ overflow: hidden;
+ max-width: 150px;
+ height: 75px;
+ max-height: 75px;
+ " border="0" />
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+</td>
+
+ 
+<td width='*' height='' style='
+ padding-left: 15px;
+ min-width: 160px;
+ ' align='left' valign='top' class='list-card__body' colspan='1'>
+ 
+ <div class="list-card__date" style="
+ text-overflow: ellipsis;
+ overflow: hidden;
+ white-space: nowrap;
+ color: #343434;
+ font-size: 12px;
+ line-height: 15px;
+ text-transform: uppercase;
+ letter-spacing: 1px;
+ padding-top: 0px;
+ ">
+ Sat, Apr 1
+ </div>
+ <div class="list-card__title" style="
+ display: -webkit-box;
+ -webkit-line-clamp: 2;
+ -webkit-box-orient: vertical;
+ overflow: hidden;
+ height: 36px;
+ max-height: 36px;
+ color: #333333;
+ font-size: 15px;
+ font-weight: 700;
+ line-height: 18px;
+ letter-spacing: 0;
+ ">
+ Florida Writers Association-New Tampa/Wesley Chapel meeting
+ </div>
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='width: 100%; table-layout: fixed;' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ font-size: 12px;
+ line-height: 10px;
+ height: 10px;
+ max-height: 10px;
+ color: #8c8c8c;
+ overflow: hidden;
+ white-space: nowrap;
+ text-overflow: ellipsis;
+ padding-top: 5px;
+ padding-bottom: 20px;
+ ' align='' valign='' class='' colspan='1'>
+ 
+ New Tampa Regional Library, Tampa
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+ </td>
+ </tr>
+</table>
+
+ 
+ </a>
+
+ 
+
+ 
+
+ 
+ 
+<table width=100% cellspacing="0" cellpadding="0" style="" class="">
+ <tr width="100%">
+ <td width="100%" style="padding: 5px 0;" class="">
+ 
+ </td>
+ </tr>
+</table>
+
+ 
+
+ <a style="text-decoration: none; color: #0f90ba; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; " href="https://www.eventbrite.com/e/do-or-die-stroll-off-2017-tickets-32050687469?ref=eattnewsweekend&amp;utm_source=strongmail&amp;utm_medium=discovery&amp;utm_campaign=newsletter&amp;utm_content=EBrecommend&amp;utm_term=eventcard&amp;afu=20608442302&amp;rank=2&amp;aff=eattnewsweekend" class="">
+ 
+ 
+<table width=100% cellspacing="0" cellpadding="0" style="" class="">
+ <tr width="100%">
+ <td width="100%" style="
+ padding: 10px 10px 0 10px;
+ box-shadow: 0 2px 2px 0 rgba(40, 44, 52, 0.08), 0 4px 15px 0 rgba(40, 44, 52, 0.06);
+ background-color: #ffffff;
+ " class="">
+ 
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ width: 150px;
+ min-width: 150px;
+ line-height: 0;
+ ' align='' valign='top' class='list-card__header' colspan='1'>
+ 
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ width: 150px;
+ max-width: 150px;
+ height: 75px;
+ line-height: 0;
+ overflow: hidden;
+ background-color:#112454' align='center' valign='middle' class='list-card__image-wrapper' colspan='1'>
+ 
+ <img class="list-card__image" src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F28285537%2F58856353561%2F1%2Foriginal.jpg?h=120&amp;w=240&amp;rect=55%2C1079%2C1160%2C580&amp;s=f398a5cb80e7af050c140aa8a429d841" style="
+ overflow: hidden;
+ max-width: 150px;
+ height: 75px;
+ max-height: 75px;
+ " border="0" />
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+</td>
+
+ 
+<td width='*' height='' style='
+ padding-left: 15px;
+ min-width: 160px;
+ ' align='left' valign='top' class='list-card__body' colspan='1'>
+ 
+ <div class="list-card__date" style="
+ text-overflow: ellipsis;
+ overflow: hidden;
+ white-space: nowrap;
+ color: #343434;
+ font-size: 12px;
+ line-height: 15px;
+ text-transform: uppercase;
+ letter-spacing: 1px;
+ padding-top: 0px;
+ ">
+ Sat, Apr 1
+ </div>
+ <div class="list-card__title" style="
+ display: -webkit-box;
+ -webkit-line-clamp: 2;
+ -webkit-box-orient: vertical;
+ overflow: hidden;
+ height: 36px;
+ max-height: 36px;
+ color: #333333;
+ font-size: 15px;
+ font-weight: 700;
+ line-height: 18px;
+ letter-spacing: 0;
+ ">
+ Do or Die Stroll-Off 2017
+ </div>
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='width: 100%; table-layout: fixed;' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ font-size: 12px;
+ line-height: 10px;
+ height: 10px;
+ max-height: 10px;
+ color: #8c8c8c;
+ overflow: hidden;
+ white-space: nowrap;
+ text-overflow: ellipsis;
+ padding-top: 5px;
+ padding-bottom: 20px;
+ ' align='' valign='' class='' colspan='1'>
+ 
+ USF - Marshall Student Center Oval Theater, Tampa
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+ </td>
+ </tr>
+</table>
+
+ 
+ </a>
+
+
+ 
+ </td>
+ </tr>
+
+ 
+ <tr class="small_full_width">
+ <td class="grid__col" style="font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; padding: 0 0 0 0; " align="">
+ 
+ 
+
+ 
+
+<h2 style="color: #404040; font-weight: 300; margin: 0 0 12px 0; font-size: 24px; line-height: 30px; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; 
+ padding-top: 25px;
+ font-size: 20px;
+ line-height: 25px;
+ margin: 0 0 5px 0;
+ font-weight: 400;
+ 
+ font-family: &#34;Benton Sans&#34;, -apple-system, BlinkMacSystemFont, Roboto, &#34;Helvetica Neue&#34;, Helvetica, Tahoma, Arial, sans-serif;
+ " class="">
+
+ Sunday <span style="
+ color: #999;
+ ">April 2</span>
+ 
+</h2>
+
+
+ 
+ </td>
+ </tr>
+
+ 
+ <tr class="small_full_width">
+ <td class="grid__col" style="font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; padding: 0 0 0 0; " align="">
+ 
+ 
+
+ 
+ 
+
+ 
+
+ 
+
+ 
+ 
+<table width=100% cellspacing="0" cellpadding="0" style="" class="">
+ <tr width="100%">
+ <td width="100%" style="padding: 5px 0;" class="">
+ 
+ </td>
+ </tr>
+</table>
+
+ 
+
+ <a style="text-decoration: none; color: #0f90ba; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; " href="https://www.eventbrite.com/e/esc-creative-arts-meeting-tickets-33057419632?ref=eattnewsweekend&amp;utm_source=strongmail&amp;utm_medium=discovery&amp;utm_campaign=newsletter&amp;utm_content=EBrecommend&amp;utm_term=eventcard&amp;afu=20608442302&amp;rank=0&amp;aff=eattnewsweekend" class="">
+ 
+ 
+<table width=100% cellspacing="0" cellpadding="0" style="" class="">
+ <tr width="100%">
+ <td width="100%" style="
+ padding: 10px 10px 0 10px;
+ box-shadow: 0 2px 2px 0 rgba(40, 44, 52, 0.08), 0 4px 15px 0 rgba(40, 44, 52, 0.06);
+ background-color: #ffffff;
+ " class="">
+ 
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ width: 150px;
+ min-width: 150px;
+ line-height: 0;
+ ' align='' valign='top' class='list-card__header' colspan='1'>
+ 
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ width: 150px;
+ max-width: 150px;
+ height: 75px;
+ line-height: 0;
+ overflow: hidden;
+ background-color:#0c0c09' align='center' valign='middle' class='list-card__image-wrapper' colspan='1'>
+ 
+ <img class="list-card__image" src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F29563673%2F186105153311%2F1%2Foriginal.jpg?h=120&amp;w=240&amp;rect=0%2C25%2C800%2C400&amp;s=56ba7e33f5a5f7342f227bd3e7b09847" style="
+ overflow: hidden;
+ max-width: 150px;
+ height: 75px;
+ max-height: 75px;
+ " border="0" />
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+</td>
+
+ 
+<td width='*' height='' style='
+ padding-left: 15px;
+ min-width: 160px;
+ ' align='left' valign='top' class='list-card__body' colspan='1'>
+ 
+ <div class="list-card__date" style="
+ text-overflow: ellipsis;
+ overflow: hidden;
+ white-space: nowrap;
+ color: #343434;
+ font-size: 12px;
+ line-height: 15px;
+ text-transform: uppercase;
+ letter-spacing: 1px;
+ padding-top: 0px;
+ ">
+ Sun, Apr 2
+ </div>
+ <div class="list-card__title" style="
+ display: -webkit-box;
+ -webkit-line-clamp: 2;
+ -webkit-box-orient: vertical;
+ overflow: hidden;
+ height: 36px;
+ max-height: 36px;
+ color: #333333;
+ font-size: 15px;
+ font-weight: 700;
+ line-height: 18px;
+ letter-spacing: 0;
+ ">
+ ESC Creative Arts Meeting
+ </div>
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='width: 100%; table-layout: fixed;' align='' class="">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='
+ font-size: 12px;
+ line-height: 10px;
+ height: 10px;
+ max-height: 10px;
+ color: #8c8c8c;
+ overflow: hidden;
+ white-space: nowrap;
+ text-overflow: ellipsis;
+ padding-top: 5px;
+ padding-bottom: 20px;
+ ' align='' valign='' class='' colspan='1'>
+ 
+ ESC Youth Auditorium, Sarasota
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+</td>
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+ </td>
+ </tr>
+</table>
+
+ 
+ </a>
+
+
+ 
+ </td>
+ </tr>
+
+
+
+ <tr class="small_full_width">
+ <td class="grid__col" style="font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; padding: 0 0 0 0; " align="">
+ 
+ 
+<table width=100% cellspacing="0" cellpadding="0" style="" class="">
+ <tr width="100%">
+ <td width="100%" style="
+ text-align: center;
+ padding-top: 10px;
+ " class="">
+ 
+ 
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 12px; margin-bottom: 12px; margin-bottom: 0;">
+ <tr>
+ <td>
+ <table border="0" cellspacing="0" cellpadding="0" width="100%">
+ <tr>
+ <td style="-webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px;" align="">
+ <a href="https://www.eventbrite.com/d/local/events--this-weekend/?ref=eattnewsweekend&amp;utm_source=strongmail&amp;utm_medium=discovery&amp;utm_campaign=newsletter&amp;utm_content=EBrecommend" target="_blank" style="
+ display:inline-block;
+ color: #fff;
+ font-weight: 400;
+ border-left: 15px solid;
+ border-right: 15px solid;
+ border-top: 12px solid;
+ border-bottom: 12px solid;
+ font-size: 17px;
+ text-decoration: none;
+ text-align: center;
+ -webkit-text-size-adjust: none;
+ -webkit-border-radius: 3px;
+ -moz-border-radius: 3px;
+ border-radius: 3px;
+ font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; background-color: #7ad108; border-color: #7ad108; 
+ display:inline-block;
+ color: #22b8ff;
+ height: 22px;
+ line-height: 22px;
+ margin-bottom: 3px;
+ font-family: &#34;Benton Sans&#34;, -apple-system, BlinkMacSystemFont, Roboto, &#34;Helvetica Neue&#34;, Helvetica, Tahoma, Arial, sans-serif;
+ font-weight: 400;
+ border: 0px;
+ text-transform: uppercase;
+ text-decoration: underline;
+ text-align: center;
+ font-size: 15px;
+ text-decoration: none;
+ text-align: center;
+ -webkit-text-size-adjust: none;
+ -webkit-border-radius: 3px;
+ -moz-border-radius: 3px;
+ border-radius: 3px;
+ background: none;
+ " class="btn">
+ <span style="padding-left: 5px; padding-right: 5px;">
+ View full weekend guide
+ </span>
+ </a>
+ </td>
+ </tr>
+ </table>
+ </td>
+ </tr>
+</table>
+
+ 
+ </td>
+ </tr>
+</table>
+
+
+ </td>
+ </tr>
+
+
+
+ <tr class="small_full_width">
+ <td class="grid__col" style="font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; padding: 0 0 0 0; " align="">
+ 
+ 
+<table width=100% cellspacing="0" cellpadding="0" style="margin-top: 20px;" class="">
+ <tr width="100%">
+ <td width="100%" style="" class="">
+ 
+ 
+<table cellspacing="0" cellpadding="0" width="100%" style="width: 100%; min-width: 100%;" class="">
+ <tr>
+ <td style="background-color: #dedede; width: 100%; min-width: 100%; font-size: 1px; height: 1px; line-height: 1px; " class="">&nbsp;
+ </td>
+ </tr>
+</table>
+
+ 
+ </td>
+ </tr>
+</table>
+
+
+ </td>
+ </tr>
+
+
+
+<style>
+ @media all {
+ .title-heading {
+ background: linear-gradient(to right, #f4552f, #feb31e) !important;
+ -webkit-background-clip: text !important;
+ -webkit-text-fill-color: transparent !important;
+ }
+ .header-divider {
+ background: -webkit-linear-gradient(left, #f4552f, #feb31e) !important;
+ background: linear-gradient(left, #f4552f, #feb31e) !important;
+ }
+ }
+
+ @media all and (max-width: 600px) {
+ .header-divider {
+ width: 100% !important;
+ min-width: 100% !important;
+ }
+
+ .header-divider-container {
+ width: 100% !important;
+ min-width: 100% !important;
+ }
+
+ /* List Event Cards */
+ .list-card__image-wrapper {
+ width: 150px !important;
+ height: 75px !important;
+ }
+
+ .list-card__image {
+ max-width: 150px !important;
+ height: 75px !important;
+ max-height: 75px !important;
+ }
+
+ .list-card__title {
+ margin-bottom: 0 !important;
+ }
+ }
+</style>
+
+
+
+ </table>
+
+
+ 
+
+
+
+
+
+
+
+<!--[if (gte mso 9)|(IE)]>
+<table width="600" align="center" cellpadding="0" cellspacing="0" border="0">
+ <tr>
+ <td>
+<![endif]-->
+<table class="content" align="center" cellpadding="0" cellspacing="0" border="0" style="width: 600px; max-width: 600px; font-family: Helvetica, Arial, sans-serif;">
+ <tr class="hide-for-small">
+ <td style="padding-top: 24px;">
+ 
+
+
+
+
+
+ 
+ <tr class="footer-attendee-cta">
+ <td class="grid__col" style="font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; padding: 12px 20px; " align="">
+ 
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='' align='' class="col-layout">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+ 
+ 
+<td width='50%' height='' style='' align='' valign='top' class='col-footer-cta' colspan='1'>
+ 
+ <table border="0" cellpadding="0" cellspacing="0" width="100%">
+ 
+ 
+ 
+ <tr class="">
+ <td class="grid__col" style="font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; padding: 0 28px 0 0; " align="">
+ 
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='' align='' class="col-layout">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+ 
+ 
+<td width='75%' height='' style='padding-right: 10px;' align='' valign='middle' class='col-container' colspan='1'>
+ 
+ <table border="0" cellpadding="0" cellspacing="0" width="100%">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='' align='' valign='' class='' colspan='1'>
+ 
+ 
+
+<h2 style="color: #404040; font-weight: 300; margin: 0 0 12px 0; font-size: 17px; line-height: 24px; padding-top: 0; padding-bottom: 0; margin-top: 0; margin-bottom: 0; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; " class="">
+
+ Create your own event
+ 
+</h2>
+
+ 
+
+<div style="color: #666666; font-weight: 400; font-size: 13px; line-height: 18px; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; padding-bottom: 6px;" class="">
+ 
+ Anyone can sell tickets or manage registration with Eventbrite.
+ 
+</div>
+
+ 
+
+<div style="color: #666666; font-weight: 400; font-size: 13px; line-height: 18px; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; " class="">
+ 
+ 
+
+
+ <a style="text-decoration: none; color: #0f90ba; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; " href="https://www.eventbrite.com/features/?utm_source=eb_email&amp;utm_medium=email&amp;utm_campaign=&amp;utm_term=footer_learn_more&amp;utm_content=&amp;ref=eemail" class="">Learn More</a>
+ 
+</div>
+
+ 
+</td>
+
+ 
+</tr>
+
+ 
+ </table>
+ 
+</td>
+
+
+ 
+ 
+<td width='25%' height='' style='' align='' valign='middle' class='col-container' colspan='1'>
+ 
+ <table border="0" cellpadding="0" cellspacing="0" width="100%">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='' align='' valign='' class='' colspan='1'>
+ 
+ 
+
+
+ <a style="text-decoration: none; color: #0f90ba; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; " href="https://www.eventbrite.com/features/?utm_source=eb_email&amp;utm_medium=email&amp;utm_campaign=&amp;utm_term=footer_learn_more_logo&amp;utm_content=&amp;ref=eemail" class="hide-for-small">
+ 
+ 
+<img src='https://cdn.evbstatic.com/s3-s3/marketing/emails/images/icons/tickets.png' title='' alt='' style='' border="0" width='60' height='60' class=""/>
+
+ 
+ </a>
+ 
+</td>
+
+ 
+</tr>
+
+ 
+ </table>
+ 
+</td>
+
+
+ 
+ 
+</tr>
+
+ 
+</table>
+
+ 
+ </td>
+ </tr>
+
+
+ 
+ </table>
+ 
+</td>
+
+
+ 
+
+ 
+<td width='1px' height='' style='height: 100%; background: #dedede;' align='' valign='' class='col_container' colspan='1'>
+ 
+ <table border="0" cellpadding="0" cellspacing="0" width="100%">
+ 
+
+ </table>
+ 
+</td>
+
+
+
+ 
+ 
+<td width='50%' height='' style='' align='' valign='top' class='col-footer-cta' colspan='1'>
+ 
+ <table border="0" cellpadding="0" cellspacing="0" width="100%">
+ 
+ 
+ 
+ <tr class="">
+ <td class="grid__col" style="font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; padding: 0 0 0 28px; " align="">
+ 
+ 
+<table cellspacing="0" cellpadding="0" width='100%' style='' align='' class="col-layout">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+ 
+ 
+<td width='75%' height='' style='padding-right: 10px;' align='' valign='middle' class='col-container' colspan='1'>
+ 
+ <table border="0" cellpadding="0" cellspacing="0" width="100%">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='' align='' valign='' class='' colspan='1'>
+ 
+ 
+
+<h2 style="color: #404040; font-weight: 300; margin: 0 0 12px 0; font-size: 17px; line-height: 24px; padding-top: 0; padding-bottom: 0; margin-top: 0; margin-bottom: 0; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; " class="">
+
+ Get the app
+ 
+</h2>
+
+ 
+
+<div style="color: #666666; font-weight: 400; font-size: 13px; line-height: 18px; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; padding-bottom: 6px;" class="">
+ 
+ Find events, buy tickets, and access them on your phone.
+ 
+</div>
+
+ 
+
+<div style="color: #666666; font-weight: 400; font-size: 13px; line-height: 18px; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; " class="">
+ 
+ 
+
+ <a style="text-decoration: none; color: #0f90ba; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; " href="https://www.eventbrite.com/eventbriteapp?app_cta_src=attendee_newsletter" class="">Download</a>
+ 
+</div>
+
+ 
+</td>
+
+ 
+</tr>
+
+ 
+ </table>
+ 
+</td>
+
+
+ 
+ 
+<td width='25%' height='' style='' align='' valign='middle' class='col-container' colspan='1'>
+ 
+ <table border="0" cellpadding="0" cellspacing="0" width="100%">
+ 
+ 
+<tr style='' class=''>
+ 
+ 
+<td width='' height='' style='' align='' valign='' class='' colspan='1'>
+ 
+ 
+
+
+ <a style="text-decoration: none; color: #0f90ba; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; " href="https://www.eventbrite.com/eventbriteapp/?utm_source=eb_email&amp;utm_medium=email&amp;utm_campaign=&amp;utm_term=footer_getapp_logo&amp;utm_content=&amp;ref=eemail" class="hide-for-small">
+ 
+ 
+<img src='https://cdn.evbstatic.com/s3-s3/marketing/emails/images/icons/screen-s.png' title='' alt='' style='' border="0" width='60' height='60' class=""/>
+
+ 
+ </a>
+ 
+</td>
+
+ 
+</tr>
+
+ 
+ </table>
+ 
+</td>
+
+
+ 
+ 
+</tr>
+
+ 
+</table>
+
+ 
+ </td>
+ </tr>
+
+
+ 
+ </table>
+ 
+</td>
+
+
+
+ 
+</tr>
+
+ 
+</table>
+
+ 
+ </td>
+ </tr>
+
+
+
+ </td>
+ </tr>
+
+ <tr>
+ <td style="padding-top: 24px;">
+ 
+<table cellspacing="0" cellpadding="0" width="100%" style="width: 100%; min-width: 100%;" class="">
+ <tr>
+ <td style="background-color: #dedede; width: 100%; min-width: 100%; font-size: 1px; height: 1px; line-height: 1px; " class="">&nbsp;
+ </td>
+ </tr>
+</table>
+
+ </td>
+ </tr>
+ 
+ <tr class="">
+ <td class="grid__col" style="font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; padding: 24px 0; text-align: center;" align="">
+ 
+ 
+ 
+
+<div style="color: #666666; font-weight: 400; font-size: 13px; line-height: 18px; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; font-weight: 300; padding-bottom: 6px;" class="">
+ 
+ 
+ 
+ 
+ 
+<span style='' class=''>
+ This email was sent to 
+
+ <a style="text-decoration: none; color: #0f90ba; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; " href="mailto:rmolin88@gmail.com" class="">rmolin88@gmail.com</a>
+ </span>
+
+
+ 
+ 
+</div>
+
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+
+<div style="color: #666666; font-weight: 400; font-size: 13px; line-height: 18px; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; font-weight: 300; padding-bottom: 6px;" class="">
+ 
+ 
+ To unsubscribe, go to your 
+
+ <a style="text-decoration: none; color: #0f90ba; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; " href="https://www.eventbrite.com/email-preferences/?ref=eemail&amp;utm_source=eb_email&amp;utm_medium=email&amp;utm_term=footer_email_preferences&amp;utm_campaign=attendee_newsletter_email&amp;uid=20608442302" class="">email preferences page</a> or just click 
+
+ <a style="text-decoration: none; color: #0f90ba; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; " href="https://www.eventbrite.com/unsubscribe?email=rmolin88%40gmail.com&amp;list_id=3&amp;sig=AGNbPwHjPNX0bwHm4UAreENaNFCX6CPccg" class="">here</a>
+ 
+ 
+</div>
+
+
+
+ 
+ 
+
+<div style="color: #666666; font-weight: 400; font-size: 13px; line-height: 18px; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; font-weight: 300; padding-bottom: 6px;" class="">
+ 
+ 
+ 
+
+ <a style="text-decoration: none; color: #0f90ba; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; " href="https://www.eventbrite.com" class="">Eventbrite</a> | 155 5th St, 7th Floor | San Francisco, CA 94103
+ 
+ 
+</div>
+
+
+ 
+ 
+
+<div style="color: #666666; font-weight: 400; font-size: 13px; line-height: 18px; font-family: 'Benton Sans', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica neue', Helvetica, Tahoma, Arial, sans-serif; font-weight: 300; " class="">
+ 
+ 
+ Copyright &copy; 2017 Eventbrite. All rights reserved.
+ 
+ 
+</div>
+
+
+ 
+ </td>
+ </tr>
+
+</table>
+<!--[if (gte mso 9)|(IE)]>
+ </td>
+ </tr>
+</table>
+<![endif]-->
+ <img src="https://www.eventbrite.com/emails/action/?recipient=rmolin88%40gmail.com&amp;type=open&amp;send_id=2017-03-29&amp;variation=news_base_variate&amp;list_id=3" alt="" width="1" height="1" border="0" style="border: 0;" />
+
+ </td>
+ </tr>
+</table>
+
+</body>
+</html>
+
+--===============3289240166829890384==--
+
