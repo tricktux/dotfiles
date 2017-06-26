@@ -9,6 +9,7 @@ set from = "Reinaldo Molina <rmolin88@gmail.com>"
 
 set folder = 'imaps://imap.gmail.com:993'
 set spoolfile = +INBOX
+mailboxes = +INBOX
 
 # Specify where to save and/or look for postponed messages.
 set postponed="imaps://imap.gmail.com/[Gmail]/Drafts"
