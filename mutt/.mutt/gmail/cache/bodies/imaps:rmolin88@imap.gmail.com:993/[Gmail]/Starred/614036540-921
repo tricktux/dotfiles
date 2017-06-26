@@ -1,0 +1,292 @@
+Delivered-To: rmolin88@gmail.com
+Received: by 10.182.19.233 with SMTP id i9csp1228171obe;
+        Fri, 28 Oct 2016 07:54:35 -0700 (PDT)
+X-Received: by 10.159.40.101 with SMTP id c92mr12282710uac.111.1477666475076;
+        Fri, 28 Oct 2016 07:54:35 -0700 (PDT)
+Return-Path: <info@change.jetblue.com>
+Received: from send-trans1.pasngr.com (send-trans1.pasngr.com. [209.235.250.209])
+        by mx.google.com with ESMTPS id a194si6287013vkf.140.2016.10.28.07.54.34
+        for <RMOLIN88@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 28 Oct 2016 07:54:35 -0700 (PDT)
+Received-SPF: pass (google.com: domain of info@change.jetblue.com designates 209.235.250.209 as permitted sender) client-ip=209.235.250.209;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@change.jetblue.com;
+       spf=pass (google.com: domain of info@change.jetblue.com designates 209.235.250.209 as permitted sender) smtp.mailfrom=info@change.jetblue.com
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; s=15below; d=change.jetblue.com;
+ h=MIME-Version:To:Subject:From:Date:Content-Type:Content-Transfer-Encoding:Message-ID; i=info@change.jetblue.com;
+ bh=v2BeNxClFKEnQ/oh9dvJRVTzVGA=;
+ b=si5nBzPmPxa4WyRViCv+Z+X04HZ5hGpfL0ro86CqtxrLhBB6sgm1YB2l8BXeEIYeRDX4Iham0ilY
+   4kLVNFMRQNtyl7a1pAkTgi+8lY8P0zJiFf1ANc4w9AGJx+wLp9hczod8sdhe8lpPIwm5HgH3m0UU
+   cRyX/bNrwmCce7caiAE=
+DomainKey-Signature: a=rsa-sha1; c=nofws; q=dns; s=15below; d=change.jetblue.com;
+ b=QZi7Unq/Ikg1kwkD/cdebQEcpTerD6LWjAGlQjn4bykJSWlC6SdNjWvM6QWVRDbiwAE0SWnDJrCB
+   iqyr5h8GPBVu72xKKJihvwYsE5kU4TM45RMqOwW5Aw1Zs373x2RdXDY+mKU5mm/tSX3RhMaPNyAC
+   O4JCqhSR+oVdaPuYnHY=;
+Received: by send-trans1.pasngr.com id h2djam173b0v for <RMOLIN88@GMAIL.COM>; Fri, 28 Oct 2016 15:49:34 +0100 (envelope-from <info@change.jetblue.com>)
+MIME-Version: 1.0
+X-Priority: 3 (Normal)
+To: RMOLIN88@GMAIL.COM
+Subject: Your Upcoming Flight to Cuba | Required Documentation and Travel
+ Information
+From: "JetBlue Info" <info@change.jetblue.com>
+Date: Fri, 28 Oct 2016 14:49:34 +0000
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-PASNGR-ID: 17882213
+X-RECIPIENT-ID: 16127453
+X-Campaign-Id: 1116444
+Message-ID: <FDA5EB7C19EC28CBA6DF7E01E3C98B3B4953AE79@15BELOW-RA105.15below.inetu>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.=
+w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns=3D"http://www.w3.org/1999/xhtml"><head>
+
+
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DISO-8859-=
+1">
+<style type=3D"text/css">
+a {
+	color:#4B90CD
+}
+ul {
+	margin:5px;
+	padding-left:20px
+}
+</style>
+<title>JetBlue Airways</title>
+</head><body>
+<div align=3D"center">
+      <table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"580"=
+>
+      <tbody><tr>
+        <td style=3D"background-color: rgb(192, 221, 255);" width=3D"580"><=
+!--sourced link -->
+           <a href=3D"">=20
+          <img src=3D"http://change.jetblue.com/Images/YourUpcomingFlight.j=
+pg" alt=3D"Your Upcoming Flight" border=3D"0" width=3D"600"></a></td>
+      </tr>
+             </tbody></table>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.=
+w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns=3D"http://www.w3.org/1999/xhtml"><head>
+
+
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DISO-8859-=
+1">
+<style type=3D"text/css">
+a {
+	color:#4B90CD
+}
+ul {
+	margin:5px;
+	padding-left:20px
+}
+</style>
+<title>JetBlue Airways</title>
+</head><body>
+<div align=3D"center">
+
+ =20
+    <table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"580">
+      <tbody>
+    =20
+     =20
+            <td style=3D"font-family: Arial; font-size: 12px;" align=3D"lef=
+t">
+           =20
+       <br>  <p align=3D"justify";  padding-left:12.5px"><SPAN style=3D"FON=
+T-SIZE: 9pt; FONT-FAMILY: Arial"><strong>Dear   =20
+                <!-- passenger name -->
+                Reinaldo Molina,
+                <!-- passenger name end --></strong></span></p><br>
+
+
+<p align=3D"justify">In preparation for your upcoming flight to Cuba, pleas=
+e carefully review the following unique travel requirements.</p><br>
+
+<p align=3D"justify"><b>U.S. Government License Requirements and Affidavit<=
+/b><br>=20
+The Department of Treasury's Office of Foreign Assets Control (OFAC) has is=
+sued =E2=80=9CGeneral Licenses=E2=80=9D in 12 categories of authorized trav=
+el, subject to appropriate conditions. Individuals who meet the regulatory =
+conditions of the respective general license they seek to travel under do n=
+ot need to apply for a =E2=80=9CSpecific License=E2=80=9D from OFAC to trav=
+el to Cuba. Any travel that does not fall into one of the 12 categories wil=
+l require a =E2=80=9CSpecific License.=E2=80=9D</p>
+<p align=3D"justify">All customers must indicate via affidavit the type of =
+license (General or Specific) on which they will travel. The following surv=
+ey, which will serve as your affidavit, must be completed prior to boarding=
+ a flight to Cuba: <a href=3D"https://jetbluevoc.co1.qualtrics.com/SE/?SID=
+=3DSV_0MWGw1VOUrtXE57&Q_Language=3DEN" title=3D"https://jetbluevoc.co1.qual=
+trics.com/SE/?SID=3DSV_0MWGw1VOUrtXE57&Q_Language=3DEN"><span style=3D"colo=
+r:#4B90CD">Take the survey</span></a> </p>
+Or copy and paste the URL below into your internet browser: <br>
+<p align=3D"center"> <a href=3D"https://jetbluevoc.co1.qualtrics.com/SE/?SI=
+D=3DSV_0MWGw1VOUrtXE57&Q_Language=3DEN" title=3D"https://jetbluevoc.co1.qua=
+ltrics.com/SE/?SID=3DSV_0MWGw1VOUrtXE57&Q_Language=3DEN">
+                        <span style=3D"color:#4B90CD">https://jetbluevoc.co=
+1.qualtrics.com/SE/?SID=3DSV_0MWGw1VOUrtXE57&Q_Language=3DEN</span></a> </p=
+><br>
+
+<p align=3D"justify"><b>Visa Information</b><br>The Cuban government requir=
+es all U.S. Citizens traveling to Cuba to obtain a Cuban visa prior to thei=
+r arrival into Cuba. Customers are encouraged to verify their eligibility f=
+or visa type with the Cuban Embassy in Washington. </p>
+<UL><li>Customers who qualify for a Cuban Tourist Visa may purchase this at=
+ =E2=80=9CGateway Airport=E2=80=9D (the final airport before departing the =
+U.S.) for a cost of $50. </li>
+<li>Customers who were born in Cuba, regardless of current residency, trave=
+l under separate requirements.</UL></li><br>
+Again, customers are encouraged to contact the Cuban Embassy to verify the =
+regulations that apply to their visit. Customers who lack the appropriate C=
+uban visa or permit will not be allowed to board their flight.<br><br>
+Embassy of the Republic of Cuba<br>    =20
+2630 16th street NW<br>
+Washington, DC 20009<br>
+Website:<a href=3D"http://www.cubadiplomatica.cu/eeuu/EN/Home.aspx " title=
+=3D"http://www.cubadiplomatica.cu/eeuu/EN/Home.aspx ">
+                        <span style=3D"color:#4B90CD">http://www.cubadiplom=
+atica.cu/eeuu/EN/Home.aspx </span></a><br>
+Email:<a href=3D"mailto:recepcion@usadc.embacuba.cu">reception@usadc.embacu=
+ba.cu</a><br>
+Phone: 202 797 8518-Ext. 600<br><br>
+<b>Passport Status</b><br>
+Please note that your passport must be active for the duration of your stay=
+ and must be in good, clean condition.<br><br>
+<b>Health Insurance</b><br>
+All customers must purchase Cuban health insurance in order to travel to Cu=
+ba. The cost of this insurance is $25 and is included in the price of your =
+ticket. Details regarding your policy:<br><br>
+Insurer: SEGUROS INTERNACIONALES DE CUBA, S.A. (ESICUBA)<br>
+24 Hour Assistance: ASISTUR, S.A.: Prado 208, Havana <br>
+Tel: (537) 8668920/8668339/8668527/<br>=20
+Email:<a href=3D"mailto:asisten@asistur.cu">asisten@asistur.cu</a><br><br>
+
+Terms and conditions of the travel insurance may be accessed/downloaded fro=
+m the ESICUBA website:<a href=3D"http://www.esicuba.cu/ProdPersonas.html" t=
+itle=3D"http://www.esicuba.cu/ProdPersonas.html">
+                        <span style=3D"color:#4B90CD">http://www.esicuba.cu=
+/ProdPersonas.html </span></a><br><br>
+Or at:<a href=3D"http://www.esicuba.cu/Documentos/ESI%2004051_05%20Ingles%2=
+0(01012013).pdf" title=3D"http://www.esicuba.cu/Documentos/ESI%2004051_05%2=
+0Ingles%20(01012013).pdf">
+                        <span style=3D"color:#4B90CD">http://www.esicuba.cu=
+/Documentos/ESI%2004051_05%20Ingles%20(01012013).pdf</span></a><br><br>
+
+(Valid for 30 days from arrival in Cuba)<br><br>
+<b>Baggage Information</b><br>
+<UL><li>Each customer may check a total of two (2) bags.</li>
+<li>The first 50 pounds, for each checked bag, to and from Cuba, is include=
+d. A second bag may be checked for $35</li>
+<li>Checked bags, that are 51-70 pounds, will be accepted for check-in; ove=
+rweight baggage fees <a href=3D"http://help.jetblue.com/SRVS/CGI-BIN/webcgi=
+=2Eexe?New,Kb=3DaskBlue,case=3Dobj(634)#s6">=20
+                        <span style=3D"color:#4B90CD">Checked Baggage Requi=
+rements</span></a> will be applied</li>
+<li>The maximum allowed weight, for each checked-bag, is 70 pounds (31.75 k=
+g).</li>
+<li>Checked bags that are 63-80 linear inches (Length + Width + Height) wil=
+l be accepted for check-in; oversize baggage fees -<a href=3D"http://help.j=
+etblue.com/SRVS/CGI-BIN/webcgi.exe?New,Kb=3DaskBlue,case=3Dobj(634)#s6"><sp=
+an style=3D"color:#4B90CD">Checked Baggage Requirements</span></a> will be =
+applied</li>
+<li>Please note that boxes and unsuitably packed items are not accepted for=
+ check-in.</li>
+<li>Bicycles are accepted on flights to/from Cuba if they are in a plastic,=
+ hard-sided, padded case designed for bicycles and no more than 70 pounds a=
+nd 80 linear inches (Length + Length + Height). A Bicycle Fee will be appli=
+ed if the bicycle and container are more than 50 lbs. and 62 linear inches =
+(Length + Width + Height). Bicycles that are unsuitably packed or packed in=
+ boxes are not acceptable for check-in. </UL><br><br>
+For more information, including frequently asked questions, <a href=3D"http=
+://www.jetblue.com/flights/cuba/?intcmp=3DH1_CubaOutForSale_07282016">
+                        <span style=3D"color:#4B90CD">click here</span></a>=
+<br><br>
+
+
+Thank you for choosing JetBlue. We look forward to welcoming you onboard so=
+on.<br><br>
+Sincerely,<br><br>
+<p align=3D"justify">Shauntel Lizzarazo<br>
+Director, Customer Support<br>
+JetBlue
+</p><br>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.=
+w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns=3D"http://www.w3.org/1999/xhtml"><head>
+
+
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DISO-8859-=
+1">
+<style type=3D"text/css">
+a {
+	color:#4B90CD
+}
+ul {
+	margin:5px;
+	padding-left:20px
+}
+</style>
+<title>JetBlue Airways</title>
+</head><body>
+<div align=3D"center">
+<table width=3D"580" align=3D"center" border=3D"0" cellspacing=3D"0" cellpa=
+dding=3D"0" style=3D"border-top: 1px solid #c0ddff;">
+    <tr>
+      <td>
+      	<table width=3D"580" border=3D"0" cellspacing=3D"0" cellpadding=3D"0=
+">
+ =20
+  <tr>
+     <td style=3D"font-family: Arial; font-size: 11px; line-height:1em; col=
+or: #666666;" valign=3D"middle" width=3D"500" align=3D"left"><a href=3D"htt=
+p://www.jetblue.com/help/?intcmp=3Dhd_help.html?source=3DEMBLUEPERIOD_111" =
+style=3D"color:#4B90CD">Help</a> &nbsp; <a href=3D"http://www.jetblue.com/t=
+rueblue/FF_Login.aspx?PleaseLogin=3Dtrue&source=3DEMBLUEPERIOD_112&REFPAGE=
+=3DFF_History.aspx" style=3D"color:#4B90CD">TrueBlue</a> &nbsp; <a href=3D"=
+http://www.jetblue.com/corporate/?intcmp=3Dft_corporate.html?source=3DEMBLU=
+EPERIOD_113" style=3D"color:#4B90CD">Corporate Travel</a> &nbsp; <a href=3D=
+"http://www.jetblue.com/legal/privacy/?intcmp=3Dft_privacy.html?source=3DEM=
+BLUEPERIOD_114" style=3D"color:#4B90CD">Privacy</a> &nbsp; <a href=3D"http:=
+//www.jetblue.com/about/?intcmp=3Dft_aboutus.html?source=3DEMBLUEPERIOD_115=
+" style=3D"color:#4B90CD">About&nbsp;JetBlue</a></td>
+    <td valign=3D"middle" align=3D"left" width=3D"16"><a href=3D"http://www=
+=2Efacebook.com/JetBlue"></a></td>
+    <td valign=3D"middle" align=3D"left" style=3D"font-family: Arial; font-=
+size: 11px; line-height:1em;">&nbsp;<a href=3D"http://www.facebook.com/JetB=
+lue" style=3D"color:#4B90CD">Facebook</a></td>
+    <td valign=3D"middle" align=3D"left" width=3D"16"><a href=3D"http://www=
+=2Etwitter.com/jetbluecheeps"></a></td>
+    <td valign=3D"middle" align=3D"left" style=3D"font-family: Arial; font-=
+size: 11px; line-height:1em;">&nbsp;<a href=3D"http://www.twitter.com/jetbl=
+uecheeps" style=3D"color:#4B90CD">Twitter</a></td>
+  </tr>
+  <tr>
+    <td colspan=3D"5" style=3D"font-family: Arial; font-size: 10px; color: =
+#666666; line-height:1em; text-align:left">
+     <br> We're sorry but email sent in reply to this message will not be a=
+nswered. If you have questions, please visit our website's=20
+                        <a href=3D"http://www.jetblue.com/help/" title=3D"h=
+ttp://www.jetblue.com/help">
+                        <span style=3D"color:#4B90CD">Help</span></a> secti=
+on for assistance. JetBlue, 6322 South 3000 East, Suite G10, Salt Lake City=
+, UT 84121.
+      </td>
+  </tr>
+</table>
+
+      </td>
+     </tr>
+     <tr>
+      <td style=3D"font-family: Arial; font-size: 10px; color: #666666; lin=
+e-height:1em; text-align:left">
+       =20
+        <br />
+        &copy;2016 JetBlue<br />
+      </td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>

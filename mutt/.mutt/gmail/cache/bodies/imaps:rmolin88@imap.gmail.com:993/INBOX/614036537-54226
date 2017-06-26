@@ -1,0 +1,92 @@
+Delivered-To: rmolin88@gmail.com
+Received: by 10.140.29.197 with SMTP id b63csp2292358qgb;
+        Thu, 30 Mar 2017 03:55:52 -0700 (PDT)
+X-Received: by 10.36.222.196 with SMTP id d187mr3289145itg.109.1490871352472;
+        Thu, 30 Mar 2017 03:55:52 -0700 (PDT)
+Return-Path: <bounces+1752395-40a6-rmolin88=gmail.com@fsapas.mail1.ed.gov>
+Received: from o8.fsapas.mail1.ed.gov (o8.fsapas.mail1.ed.gov. [167.89.42.128])
+        by mx.google.com with ESMTPS id a30si2324996ioj.68.2017.03.30.03.55.52
+        for <rmolin88@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 30 Mar 2017 03:55:52 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bounces+1752395-40a6-rmolin88=gmail.com@fsapas.mail1.ed.gov designates 167.89.42.128 as permitted sender) client-ip=167.89.42.128;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@fsapas.mail1.ed.gov;
+       dkim=pass header.i=@sendgrid.info;
+       spf=pass (google.com: domain of bounces+1752395-40a6-rmolin88=gmail.com@fsapas.mail1.ed.gov designates 167.89.42.128 as permitted sender) smtp.mailfrom=bounces+1752395-40a6-rmolin88=gmail.com@fsapas.mail1.ed.gov;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=ed.gov
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; 
+	d=fsapas.mail1.ed.gov; 
+	h=content-type:from:mime-version:reply-to:subject:to; s=smtpapi; 
+	bh=LFim3B+am6dL0jOfk4Gj6bQquLo=; b=Qe1Q9ibx02kDHp+z+lftIBrzJB2IT
+	j/lOpVCtpvU9A1ax28L5ummo3LXfvIsBTxYe6NOsWZEr6tYKJGur5n7Bb7x5DOzy
+	w5sFHp2VIYBxHpcRBkd9LRUaogAJ5I3fddYFZFBc4yEFtSciQ+U76SgtFpX+iNJp
+	Fkd6wUcduiFqhs=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=sendgrid.info; 
+	h=content-type:from:mime-version:reply-to:subject:to:x-feedback-id; 
+	s=smtpapi; bh=LFim3B+am6dL0jOfk4Gj6bQquLo=; b=JBww5rNZIUUh5ssrAn
+	kRT2AHkGPm9iHlRjA6UHDsNCtMfNwb2N1NJNuAzR1CiyNKiWVXRc4HtciB0kzfdu
+	MPxQ2LFTYe2sUSnerf39VrVfdl0Q5hzKyyVgMwwmw3fINJ3U0G3yqYDtGNDKY/ve
+	vZDfyQ13fTqISzMTXlXvUlmRg=
+Received: by filter0041p1las1.sendgrid.net with SMTP id filter0041p1las1-27358-58DCE437-20
+        2017-03-30 10:55:51.513384807 +0000 UTC
+Received: from MTc1MjM5NQ (unknown [165.224.209.1])
+	by ismtpd0003p1las1.sendgrid.net (SG) with HTTP id CouMpgVUTVOoP0IMas0BrQ
+	for <rmolin88@gmail.com>; Thu, 30 Mar 2017 10:55:51.614 +0000 (UTC)
+Content-Type: multipart/alternative; boundary=5037789107323aca258c1cc8c70ce307665f1000a1212e4db726475c8e20
+Date: Thu, 30 Mar 2017 10:55:51 +0000
+From: "FSA ID Information" <FSA-ID@ed.gov>
+Mime-Version: 1.0
+Reply-To: FSA-ID@ed.gov
+Subject: Important: Your FSA ID Password Was Changed
+To: rmolin88@gmail.com
+Message-ID: <CouMpgVUTVOoP0IMas0BrQ@ismtpd0003p1las1.sendgrid.net>
+X-SG-EID: Z/rt/z3yOD+67ce/0rMT466FyE1v11DNRKXpUojtWfzDkuTi3rp3U4ch04RIzQyzP5fsLzImgVsNSV
+ oLdRWSGVvnBYgJg6qU1+ceOCS41ImYgThZJOYxfESiB5IjyC1mga71S9gXS+/vKrIGqJ+MNIxxaS2a
+ C+qoL6TsB0W24KnIKRh1BwwaAXiVtyrFbI32T3AuV81mHth4wV8STYwn4AR3uiwHLzjzaGjXr3hBwR
+ I=
+X-Feedback-ID: 1752395:epukpyhOCy/M56JwY8KlYi1F+Ed+bOypPSqxkxRJef8=:epukpyhOCy/M56JwY8KlYi1F+Ed+bOypPSqxkxRJef8=:SG
+
+--5037789107323aca258c1cc8c70ce307665f1000a1212e4db726475c8e20
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Mime-Version: 1.0
+
+Dear Reinaldo,
+
+-Why We Are Contacting You-
+
+This e-mail is to alert you that your FSA ID password was recently changed.
+
+-What You Need To Do-
+
+If you made the change, you can ignore this e-mail. If you did not make the=
+ change, you need to contact customer support at 1-800-433-3243.
+
+If you have any questions or need help, visit https://fsaid.ed.gov and sele=
+ct Help for more details.
+
+Thank you,
+
+U.S. Department of Education
+
+Federal Student Aid
+
+This mailbox is unattended. Please do not reply to this message.=
+
+--5037789107323aca258c1cc8c70ce307665f1000a1212e4db726475c8e20
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=UTF-8
+Mime-Version: 1.0
+
+<html><p>Dear Reinaldo,</p><p>&mdash;Why We Are Contacting You&mdash;</p><p=
+>This e-mail is to alert you that your FSA ID password was recently changed=
+.</p><p>&mdash;What You Need To Do&mdash;</p><p>If you made the change, you=
+ can ignore this e-mail. If you did not make the change, you need to contac=
+t customer support at 1-800-433-3243.</p><p>If you have any questions or ne=
+ed help, visit <a href=3D"https://fsaid.ed.gov" target=3D"_blank">https://f=
+said.ed.gov</a> and select Help for more details.</p><p>Thank you,</p><p>U.=
+S. Department of Education</p><p>Federal Student Aid</p><p>This mailbox is =
+unattended. Please do not reply to this message.</p></html>=
+
+--5037789107323aca258c1cc8c70ce307665f1000a1212e4db726475c8e20--

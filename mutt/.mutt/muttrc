@@ -10,30 +10,17 @@ set ssl_starttls=yes
 set ssl_force_tls=yes
 
 # Add accounts
-folder-hook 'gmail.com' 'source ~/.config/mutt/account.gmail'
-# Not really working
-folder-hook 'broward.edu' 'source ~/.config/mutt/account.broward'
+folder-hook 'gmail.com' 'source ~/.config/mutt/gmail/account.gmail'
+folder-hook 'ufl.edu' 'source ~/.config/mutt/ufl/account.ufl'
 
 # Default account to open
-source ~/.config/mutt/account.gmail
+# source ~/.config/mutt/gmail/account.gmail
+source ~/.config/mutt/ufl/account.ufl
 
-# Store message headers locally to speed things up.
-# If hcache is a folder, Mutt will create sub cache folders for each account which may speeds things up even more.
-set header_cache = "~/.config/mutt/cache/headers"
-
-# Store messages locally to speed things up, like searching message bodies.
-# Can be the same folder as header_cache.
-# This will cost important disk usage according to your e-mail amount.
-set message_cachedir = "~/.config/mutt/cache/bodies"
-
-set certificate_file = "~/.config/mutt/certificates"
 set move = no
 
 # Keep IMAP connection alive by polling intermittently (time in seconds).
-# set imap_keepalive = 900
-set imap_keepalive = 60
-
-mailboxes       = +INBOX
+set imap_keepalive = 300
 
 # Allow Mutt to open new imap connection automatically.
 unset imap_passive
@@ -41,6 +28,9 @@ unset imap_passive
 # How often to check for new mail (time in seconds).
 set timeout = 30
 set mail_check = 30
+
+# Check for all subscribed IMAP folders (as if all were added with a mailboxes line):
+set imap_check_subscribed
 
 # To see both reply and recv in one thread
 # I dont like this option. Makes sent emails show in gmail app
@@ -58,17 +48,9 @@ bind generic H top-page			#top of the screen
 # bind index [ previous-unread		to the previous unread message in the list
 # bind index ] next-unread		or the next unread message.
 
-# Gmail-style keyboard shortcuts
-macro index,pager gi "<change-folder>=INBOX<enter>" "Go to inbox"
-macro index,pager ga "<change-folder>=[Gmail]/All Mail<enter>" "Go to all mail"
-macro index,pager gs "<change-folder>=[Gmail]/Starred<enter>" "Go to starred messages"
-macro index,pager gp "<change-folder>=[Gmail]/Important<enter>" "Go to priority inbox"
-macro index,pager gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
-
-# Go to broward email
-macro index,pager gb '<sync-mailbox><enter-command>source ~/.config/mutt/account.broward<enter><change-folder>!<enter>'
 # Go to uf email
-# macro index,pager gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
+macro index,pager gu '<sync-mailbox><enter-command>source ~/.config/mutt/account.ufl<enter><change-folder>!<enter>'
+macro index,pager gi '<sync-mailbox><enter-command>source ~/.config/mutt/account.gmail<enter><change-folder>!<enter>'
 
 # Option to Save contacts so that autocompletion is possible
 set display_filter='~/.config/mutt/mutt.save.contacts.sh' 
