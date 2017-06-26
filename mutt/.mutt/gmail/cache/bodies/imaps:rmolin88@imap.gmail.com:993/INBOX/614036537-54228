@@ -1,0 +1,211 @@
+Delivered-To: rmolin88@gmail.com
+Received: by 10.140.29.197 with SMTP id b63csp2378264qgb;
+        Thu, 30 Mar 2017 07:48:53 -0700 (PDT)
+X-Received: by 10.55.9.144 with SMTP id 138mr73717qkj.173.1490885333220;
+        Thu, 30 Mar 2017 07:48:53 -0700 (PDT)
+Return-Path: <APV20+sghTpiVEKr0urBuAQ==_1101275840978_vHQQkCPFEeSjRtSuUoQ0Tw==@in.constantcontact.com>
+Received: from ccm30.constantcontact.com (ccm30.constantcontact.com. [208.75.123.226])
+        by mx.google.com with ESMTPS id q19si1992684qtg.125.2017.03.30.07.48.53
+        for <rmolin88@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 30 Mar 2017 07:48:53 -0700 (PDT)
+Received-SPF: pass (google.com: domain of apv20+sghtpivekr0urbuaq==_1101275840978_vhqqkcpfeesjrtsuuoq0tw==@in.constantcontact.com designates 208.75.123.226 as permitted sender) client-ip=208.75.123.226;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@multirace.ccsend.com;
+       spf=pass (google.com: domain of apv20+sghtpivekr0urbuaq==_1101275840978_vhqqkcpfeesjrtsuuoq0tw==@in.constantcontact.com designates 208.75.123.226 as permitted sender) smtp.mailfrom=APV20+sghTpiVEKr0urBuAQ==_1101275840978_vHQQkCPFEeSjRtSuUoQ0Tw==@in.constantcontact.com
+Return-Path: <APV20+sghTpiVEKr0urBuAQ==_1101275840978_vHQQkCPFEeSjRtSuUoQ0Tw==@in.constantcontact.com>
+Received: from [10.252.0.108] ([10.252.0.108:44046] helo=p2-jbsvcs5198.ad.prodcc.net)
+	by 10.249.242.20 (envelope-from <APV20+sghTpiVEKr0urBuAQ==_1101275840978_vHQQkCPFEeSjRtSuUoQ0Tw==@in.constantcontact.com>)
+	(ecelerity 4.2.1.52273 r(Core:4.2.1.11)) with ESMTP
+	id F3/67-41133-5DA1DD85; Thu, 30 Mar 2017 10:48:53 -0400
+DKIM-Signature: v=1; q=dns/txt; a=rsa-sha256; c=relaxed/relaxed; s=208131; d=multirace.ccsend.com; h=date:mime-version:subject:X-Feedback-ID:message-id:from:reply-to:list-unsubscribe:list-unsubscribe-post:sender:to; bh=Ac4izhvzM00ggEjO2YZdMgGTqpHQaeSwOYwROs31Dek=; b=K8imGShmU7HXI1yenE4s9V1Q3vUbUZYEhlXhnJDvG4VC5olaB9T6ISXnAwX1dmQH1izqKAoseemym5YqfjCa84qinC4YOB/jmAqVWuL4C9jgtG3u7hkRfROCMjBLEe9hYqe7fIl2WnB/uworR/ASKwM99O8XxiGHjqfE1wz3eDM=
+Message-ID: <1127574614707.1101275840978.1941182640.0.71045JL.2002@scheduler.constantcontact.com>
+Date: Thu, 30 Mar 2017 10:48:53 -0400 (EDT)
+From: MultiRace <info@multirace.com>
+Reply-To: info@multirace.com
+Sender: MultiRace <info@multirace.ccsend.com>
+To: rmolin88@gmail.com
+Subject: Singer Island Sprint Tri | Hurry Register Now!
+MIME-Version: 1.0
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_49996721_1935193031.1490885333066"
+List-Unsubscribe: <https://visitor.constantcontact.com/do?p=un&m=001iorcPrtNVmqwK84pvngxCQ%3D%3D&se=0016R58ksWXytb5g97lQjiTCw%3D%3D&t=001EkZLEx15CcE%3D&llr=soqpsubab>
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+X-Campaign-Activity-ID: 3d5db4fa-c821-4e98-9510-aaf4bab06e01
+X-Channel-ID: bc741090-23c5-11e4-a346-d4ae5284344f
+X-Mailer: Roving Constant Contact 2012 (http://www.constantcontact.com)
+X-Return-Path-Hint: APV20+sghTpiVEKr0urBuAQ==_1101275840978_vHQQkCPFEeSjRtSuUoQ0Tw==@in.constantcontact.com
+X-Roving-Campaignid: 1127574614707
+X-Roving-Id: 1101275840978.1941182640
+X-Feedback-ID: bc741090-23c5-11e4-a346-d4ae5284344f:3d5db4fa-c821-4e98-9510-aaf4bab06e01:1101275840978:CTCT
+X-CTCT-ID: bc601360-23c5-11e4-a341-d4ae5284344f
+
+------=_Part_49996721_1935193031.1490885333066
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+Dear Reinaldo,
+
+Forward email
+http://ui.constantcontact.com/sa/fwtf.jsp?llr=soqpsubab&m=1101275840978&ea=brian%40mulitrace.com&a=1127574614707
+
+
+
+
+
+This email was sent to rmolin88@gmail.com by info@multirace.com.
+
+Update Profile/Email Address
+https://visitor.constantcontact.com/do?p=oo&m=001iorcPrtNVmqwK84pvngxCQ%3D%3D&ch=bc741090-23c5-11e4-a346-d4ae5284344f&ca=3d5db4fa-c821-4e98-9510-aaf4bab06e01
+
+
+Instant removal with SafeUnsubscribe(TM)
+https://visitor.constantcontact.com/do?p=un&m=001iorcPrtNVmqwK84pvngxCQ%3D%3D&ch=bc741090-23c5-11e4-a346-d4ae5284344f&ca=3d5db4fa-c821-4e98-9510-aaf4bab06e01
+
+
+Privacy Policy:
+http://www.constantcontact.com/legal/service-provider?cc=about-service-provider
+
+
+
+
+
+Online Marketing by
+Constant Contact(R)
+www.constantcontact.com
+
+
+
+MultiRace, LLC | 4081 SW 47th Ave | Ste 7 | Davie | FL | 33314
+
+
+
+
+
+
+
+
+
+------=_Part_49996721_1935193031.1490885333066
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<head >
+
+<title>Singer Island Sprint Tri</title>
+</head><body ><img alt=3D" " height=3D"1" src=3D"http://r20.rs6.net/on.jsp?=
+a=3D1101275840978&r=3D3&c=3Dbc601360-23c5-11e4-a341-d4ae5284344f&d=3D112757=
+4614707&ch=3Dbc741090-23c5-11e4-a346-d4ae5284344f&ca=3D3d5db4fa-c821-4e98-9=
+510-aaf4bab06e01&o=3Dhttps://imgssl.constantcontact.com/ui/images1/s.gif" w=
+idth=3D"1"/>
+<div align=3D"center">
+  <p><a alt=3D"http://www.multirace.com/events/121" href=3D"http://r20.rs6.=
+net/tn.jsp?f=3D001fkFb_BKtTAnLZpTFZdOzZTaDC7ziaHrORF6OV3pAX2C1f1NRp32nis9e-=
+R55hfwJF5gQNIdBhsCMCjz-vcRTHrS4Ecpg-CIrp5PEGvJWXLtj_NjwG6nvCqnsjIuIHIt3lloq=
+kiiRhHrZkHGiQUf0TnSCw9zVelWG9yFUadrkC_Xdmi4VtgzV40vVH5pEWQaf&c=3D7sG1mSWUVF=
+kLKGbTAGtyAz9FUGkEnYaD9A9VOuaAAfE76OyZz_PJpQ=3D=3D&ch=3DsiHm-MLHn58a9fF79Bo=
+EUxga5dum_1kmEVCgiPsXo-rG1wB3jH0pMA=3D=3D"><img src=3D"http://miamimantriat=
+hlon.com/andre/SIT-blast.jpg" alt=3D"Singer Island Tri" width=3D"612" heigh=
+t=3D"1112" /></a></p>
+  <p><a alt=3D"http://www.multirace.com/events/121" href=3D"http://r20.rs6.=
+net/tn.jsp?f=3D001fkFb_BKtTAnLZpTFZdOzZTaDC7ziaHrORF6OV3pAX2C1f1NRp32nis9e-=
+R55hfwJF5gQNIdBhsCMCjz-vcRTHrS4Ecpg-CIrp5PEGvJWXLtj_NjwG6nvCqnsjIuIHIt3lloq=
+kiiRhHrZkHGiQUf0TnSCw9zVelWG9yFUadrkC_Xdmi4VtgzV40vVH5pEWQaf&c=3D7sG1mSWUVF=
+kLKGbTAGtyAz9FUGkEnYaD9A9VOuaAAfE76OyZz_PJpQ=3D=3D&ch=3DsiHm-MLHn58a9fF79Bo=
+EUxga5dum_1kmEVCgiPsXo-rG1wB3jH0pMA=3D=3D">Singer Island Sprint Triathlon &=
+amp; Duathlon</a><br />
+    May 20 | Riviera Beach<br />
+    Singer Island Ocean Mall
+    <br />
+  Ocean Swim | Fast Bike | Flat Run<br />
+  <br />
+  <a alt=3D"http://www.multirace.com/events/121" href=3D"http://r20.rs6.net=
+/tn.jsp?f=3D001fkFb_BKtTAnLZpTFZdOzZTaDC7ziaHrORF6OV3pAX2C1f1NRp32nis9e-R55=
+hfwJF5gQNIdBhsCMCjz-vcRTHrS4Ecpg-CIrp5PEGvJWXLtj_NjwG6nvCqnsjIuIHIt3lloqkii=
+RhHrZkHGiQUf0TnSCw9zVelWG9yFUadrkC_Xdmi4VtgzV40vVH5pEWQaf&c=3D7sG1mSWUVFkLK=
+GbTAGtyAz9FUGkEnYaD9A9VOuaAAfE76OyZz_PJpQ=3D=3D&ch=3DsiHm-MLHn58a9fF79BoEUx=
+ga5dum_1kmEVCgiPsXo-rG1wB3jH0pMA=3D=3D">REGISTER NOW<br />
+  </a><br />
+  <strong><em><u>Field Limited to 500 Racers</u></em></strong></p>
+  <p><a alt=3D"http://mackcycleandfitness.com/tripackage.html" href=3D"http=
+://r20.rs6.net/tn.jsp?f=3D001fkFb_BKtTAnLZpTFZdOzZTaDC7ziaHrORF6OV3pAX2C1f1=
+NRp32nis9e-R55hfwJn29YwGSDFjCNvf9igjTzNFXijrt3bSE7ZecEfoJBmiKTSgO7P4ZlN-R9O=
+0aoVcvPmba7kTPFDyqF2J4Ed0N6K5U1sktClSAKo_69n1ueZIspnF6USSGX5Pi3RdSTZYE-vzPt=
+Q0nMhT0=3D&c=3D7sG1mSWUVFkLKGbTAGtyAz9FUGkEnYaD9A9VOuaAAfE76OyZz_PJpQ=3D=3D=
+&ch=3DsiHm-MLHn58a9fF79BoEUxga5dum_1kmEVCgiPsXo-rG1wB3jH0pMA=3D=3D"><img sr=
+c=3D"http://miamimantriathlon.com/andre/mack-ad.jpg" alt=3D"Mack Cycle Spec=
+ials" width=3D"612" height=3D"180" /></a></p>
+</div>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" id=3D"footerContain=
+er" style=3D"background-color:#ffffff" width=3D"100%" ><tr ><td class=3D"Hi=
+deInMobile" ><img border=3D"0" height=3D"5" hspace=3D"0" src=3D"https://img=
+ssl.constantcontact.com/letters/images/sys/S.gif" vspace=3D"0" width=3D"1" =
+/></td><td align=3D"center" style=3D"background-color:#FFFFFF;" valign=3D"t=
+op" width=3D"610" ><div align=3D"center" style=3D"max-width:610px;margin-le=
+ft:auto;margin-right:auto;" ><table border=3D"0" cellpadding=3D"0" cellspac=
+ing=3D"0" style=3D"margin-left:auto;margin-right:auto;" width=3D"100%" ><tr=
+ ><td align=3D"center" style=3D"padding: 15px 10px 15px 10px;" valign=3D"to=
+p" width=3D"100%" ><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" =
+style=3D"margin-left:auto;margin-right:auto;" width=3D"100%" ><tr ><td alig=
+n=3D"center" style=3D"padding-bottom: 15px;" valign=3D"top" width=3D"100%" =
+><div id=3D"LETTER.PHYSICALADDRESS" style=3D"font-family:Verdana,Geneva,san=
+s-serif; font-size:13px; color:#5d5d5d;" ><span class=3D"FooterColumn" >Mul=
+tiRace, LLC<span class=3D"HideInMobile" >,</span></span><span class=3D"Foot=
+erColumn" > 4081=C2=A0SW=C2=A047th=C2=A0Ave<span class=3D"HideInMobile" >,<=
+/span></span><span class=3D"FooterColumn" > Ste=C2=A07<span class=3D"HideIn=
+Mobile" >,</span></span><span class=3D"FooterColumn" >=C2=A0Davie<span clas=
+s=3D"HideInMobile" >,</span>=C2=A0FL=C2=A033314</span></div></td></tr><tr >=
+<td align=3D"center" valign=3D"top" width=3D"100%" ><table border=3D"0" cel=
+lpadding=3D"0" cellspacing=3D"0" width=3D"100%" ><tr ><td align=3D"center" =
+style=3D"padding-bottom:5px;" valign=3D"top" width=3D"100%" ><div class=3D"=
+FooterText" style=3D"font-family:Verdana,Geneva,sans-serif; font-size:12px;=
+ color:#5d5d5d; line-height:1.4;" ><a class=3D"hideInRplyFwd" href=3D"https=
+://visitor.constantcontact.com/do?p=3Dun&m=3D001iorcPrtNVmqwK84pvngxCQ%3D%3=
+D&ch=3Dbc741090-23c5-11e4-a346-d4ae5284344f&ca=3D3d5db4fa-c821-4e98-9510-aa=
+f4bab06e01" id=3D"unsubscribeLink" style=3D"color:#5d5d5d;" target=3D"_blan=
+k"><span id=3D"unsubscribeLinkText">SafeUnsubscribe&trade;</span> rmolin88@=
+gmail.com</a></div></td></tr></table><table border=3D"0" cellpadding=3D"0" =
+cellspacing=3D"0" width=3D"100%" ><tr ><td align=3D"center" valign=3D"top" =
+width=3D"100%" ><div class=3D"FooterText" style=3D"font-family:Verdana,Gene=
+va,sans-serif; font-size:12px; color:#5d5d5d; line-height:1.4;" ><span clas=
+s=3D"FooterColumn" ><a href=3D"http://ui.constantcontact.com/sa/fwtf.jsp?ll=
+r=3Dsoqpsubab&m=3D1101275840978&ea=3Dbrian%40mulitrace.com&a=3D112757461470=
+7" id=3D"fwtfLink" style=3D"color:#5d5d5d;" target=3D"_blank">Forward email=
+</a>=C2=A0<span class=3D"HideInMobile" >|=C2=A0</span></span><span class=3D=
+"FooterColumn" ><a class=3D"hideInRplyFwd" href=3D"https://visitor.constant=
+contact.com/do?p=3Doo&m=3D001iorcPrtNVmqwK84pvngxCQ%3D%3D&ch=3Dbc741090-23c=
+5-11e4-a346-d4ae5284344f&ca=3D3d5db4fa-c821-4e98-9510-aaf4bab06e01" id=3D"u=
+pdateProfileLink" style=3D"color:#5d5d5d;" target=3D"_blank">Update Profile=
+</a><span class=3D"HideInMobile hideInRplyFwd" >=C2=A0|=C2=A0</span></span>=
+<span class=3D"FooterColumn" ><a href=3D"http://www.constantcontact.com/leg=
+al/service-provider?cc=3Dabout-service-provider" id=3D"privacyLink" style=
+=3D"color:#5d5d5d;" target=3D"_blank">About our service provider</a></span>=
+</div></td></tr></table><table border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0" width=3D"100%" ><tr ><td align=3D"center" style=3D"padding-top:5px;"=
+ valign=3D"top" width=3D"100%" ><div class=3D"FooterText" style=3D"font-fam=
+ily:Verdana,Geneva,sans-serif; font-size:12px; color:#5d5d5d;" >Sent by <a =
+href=3D"mailto:info@multirace.com" id=3D"sentByEmailLink" style=3D"color:#5=
+d5d5d;">info@multirace.com</a> in collaboration with</div></td></tr></table=
+></td></tr><tr ><td align=3D"center" style=3D"padding-top:20px;padding-bott=
+om:20px;" valign=3D"top" width=3D"100%" ><table border=3D"0" cellpadding=3D=
+"0" cellspacing=3D"0" width=3D"100%" ><tr ><td align=3D"center" style=3D"pa=
+dding-bottom:5px;" valign=3D"top" width=3D"100%" ><div ><a href=3D"http://w=
+ww.constantcontact.com/index.jsp?cc=3Dcustom01" id=3D"footerLogoLink"><img =
+alt=3D"Constant Contact" border=3D"0" src=3D"https://imgssl.constantcontact=
+.com/ui/images1/ctct-logo.png" style=3D"display: block; height:auto !import=
+ant; max-width:100% !important;" width=3D"180"/></a></div></td></tr><tr ><t=
+d align=3D"center" valign=3D"top" width=3D"100%" ><table border=3D"0" cellp=
+adding=3D"0" cellspacing=3D"0" width=3D"128" ><tr ><td align=3D"left" valig=
+n=3D"top" width=3D"100%" ><div style=3D"font-family:Verdana,Geneva,sans-ser=
+if; font-size:11px; color:#184f8e;" ><a href=3D"http://www.constantcontact.=
+com/index.jsp?cc=3Dcustom01" id=3D"footerLogoTxtLink" style=3D"font-family:=
+Verdana,Geneva,sans-serif; font-size:11px; color:#184f8e; text-decoration:n=
+one;">Try it free today</a></div></td></tr></table></td></tr></table></td><=
+/tr></table></td></tr></table></div></td><td class=3D"HideInMobile" ><img b=
+order=3D"0" height=3D"5" hspace=3D"0" src=3D"https://imgssl.constantcontact=
+.com/letters/images/sys/S.gif" vspace=3D"0" width=3D"1" /></td></tr></table=
+></body>
+
+
+
+------=_Part_49996721_1935193031.1490885333066--

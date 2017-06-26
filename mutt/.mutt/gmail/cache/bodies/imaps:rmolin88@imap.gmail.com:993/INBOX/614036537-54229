@@ -1,0 +1,70 @@
+Delivered-To: rmolin88@gmail.com
+Received: by 10.140.29.197 with SMTP id b63csp2466049qgb;
+        Thu, 30 Mar 2017 11:45:04 -0700 (PDT)
+X-Received: by 10.107.133.86 with SMTP id h83mr2306463iod.230.1490899504226;
+        Thu, 30 Mar 2017 11:45:04 -0700 (PDT)
+Return-Path: <0100015b208909e1-2c859788-c2a2-4b06-a52a-a1a3fd7fd91c-000000@amazonses.com>
+Received: from a11-95.smtp-out.amazonses.com (a11-95.smtp-out.amazonses.com. [54.240.11.95])
+        by mx.google.com with ESMTPS id e124si3616714ith.100.2017.03.30.11.45.04
+        for <rmolin88@gmail.com>
+        (version=TLS1 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+        Thu, 30 Mar 2017 11:45:04 -0700 (PDT)
+Received-SPF: pass (google.com: domain of 0100015b208909e1-2c859788-c2a2-4b06-a52a-a1a3fd7fd91c-000000@amazonses.com designates 54.240.11.95 as permitted sender) client-ip=54.240.11.95;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@freecodecamp.com;
+       dkim=pass header.i=@amazonses.com;
+       spf=pass (google.com: domain of 0100015b208909e1-2c859788-c2a2-4b06-a52a-a1a3fd7fd91c-000000@amazonses.com designates 54.240.11.95 as permitted sender) smtp.mailfrom=0100015b208909e1-2c859788-c2a2-4b06-a52a-a1a3fd7fd91c-000000@amazonses.com
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=fujrm7fk2kx6oyhnl424mge2urvo3dca; d=freecodecamp.com;
+	t=1490899503;
+	h=From:To:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-ID:Date;
+	bh=tUC2/hv7FVslSHKwfQuQt/ysOqE1PIKZQZDDjJx/FRQ=;
+	b=RV3hQugrBpt5K36mp1iVtDu2SFYERx4TbCdTYyM9Yr6moCPHDbyXJSVrSA01aQph
+	jSVPGWuYLBOu5S27By7cxP6+D1IupSx0i0kXBHq/4GaV41heIEBSyEEkc5/A55sh0uM
+	yBEXYvgTQQMhvoq+YabwRI+D16SnDZAEU3lLQvH0=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=224i4yxa5dv7c2xz3womw6peuasteono; d=amazonses.com; t=1490899503;
+	h=From:To:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-ID:Date:Feedback-ID;
+	bh=tUC2/hv7FVslSHKwfQuQt/ysOqE1PIKZQZDDjJx/FRQ=;
+	b=IMsUeVGYx+3bPywUP19iLe9IzVzIsSJDNYuemT/6cDbI4hpr3d+CR4PJbGgWjHIk
+	aOWH4RQZUXznRpU86oaZYf+WxSF9y6WnhNUtWjmgo1w8NDYjYMQFaQ+M5eHFpLppyD0
+	aqr9dtK4NK52CIr6arb7gNz/h9U2d9wLtjyP8Q24=
+From: Quincy Larson <quincy@freecodecamp.com>
+To: rmolin88@gmail.com
+Subject: How scientists used software to reconnect a paralyzed man's hands
+ to his brain
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID: <0100015b208909e1-2c859788-c2a2-4b06-a52a-a1a3fd7fd91c-000000@email.amazonses.com>
+Date: Thu, 30 Mar 2017 18:45:03 +0000
+X-SES-Outgoing: 2017.03.30-54.240.11.95
+Feedback-ID: 1.us-east-1.41/tcizCMVGagr201XyDxUntKcp5mevBaYU74GEdLHg=:AmazonSES
+
+Here are this week's three links that are worth your time:
+
+1. How scientists used software to reconnect a paralyzed man's hands to his brain (4 minute read): http://bit.ly/2nBZfjK
+
+2. How to set up a VPN in 10 minutes for free, and why you urgently need one (10 minute read): http://bit.ly/2nOaNAP
+
+3. Recreating legendary 8-bit video game music using Tone.js and the web audio API (15 minute read): http://bit.ly/2nO2XYf
+
+Bonus: I'm currently listening to "Algorithms to Live By: The Computer Science of Human Decisions." This book is a fascinating mash-up of technology and psychology (12 hour listen): http://amzn.to/2nNQ5Bl
+
+
+If you got value out of this email, consider supporting our nonprofit: http://bit.ly/support-freecodecamp
+
+
+Happy coding!
+
+- Quincy Larson
+
+Teacher at https://www.freeCodeCamp.com
+
+
+
+
+
+If this email bothers you, you can manage your email settings here: https://www.freecodecamp.com/settings 
+
+Or you can one-click unsubscribe: https://www.freecodecamp.com/unsubscribe/rmolin88@gmail.com

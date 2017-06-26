@@ -1,0 +1,347 @@
+Delivered-To: rmolin88@gmail.com
+Received: by 10.140.29.197 with SMTP id b63csp3004013qgb;
+        Fri, 31 Mar 2017 18:37:46 -0700 (PDT)
+X-Received: by 10.36.92.20 with SMTP id q20mr793116itb.49.1491010666240;
+        Fri, 31 Mar 2017 18:37:46 -0700 (PDT)
+Return-Path: <68485156521428@vpobounces.discover.com>
+Received: from dsmtpg06.col.discoverfinancial.com (dsmtpg06.col.discoverfinancial.com. [12.41.53.22])
+        by mx.google.com with ESMTPS id i125si4497765ith.46.2017.03.31.18.37.45
+        for <rmolin88@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 31 Mar 2017 18:37:46 -0700 (PDT)
+Received-SPF: pass (google.com: domain of 68485156521428@vpobounces.discover.com designates 12.41.53.22 as permitted sender) client-ip=12.41.53.22;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@service.discover.com;
+       spf=pass (google.com: domain of 68485156521428@vpobounces.discover.com designates 12.41.53.22 as permitted sender) smtp.mailfrom=68485156521428@vpobounces.discover.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=service.discover.com
+Date: 31 Mar 2017 21:37:44 -0400
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1491010665;
+	s=default; d=service.discover.com; h=From:Sender:To:Subject;
+	z=From:Discover=20Card=20<discover@service.discover.com>|Sender:service.discover.com|To:rmolin88@gmail.com|Subject:Your=20purchase=20exceeds=20the=20amount=20you=20set;
+	l=18903; bh=qJKn+CCXx9afBnsWX7Oi42f1yvPAbn4WuWFsW1InjL8=;
+	b=FDaCYrh83vPeoURXUE2HblQ0svOZb2RjO33MqhTMFfbzJqSCTV7sgmWEP9hR73JQ
+	gHfW/nOMUklg2NeTqfDZvl8tLRhu0ROacG+qs7VUNbgUWx7Yn+wRt0BtrLZJr0Qcyce
+	5LUtA7+4NTq3yR1Rdu9Ssmu42avXpLJvee6tOk2kZn5McdwqtViwFisbCNiPa+owIRr
+	Mt1seqlkTraRDjRk/FYN6Ct4nPdT77vJu6cUsHgqivVFPO9p8TbCmJV/acniDoe2A9w
+	lZFGl6FgMmPYQWbAXuxHUCJm4EsGebEmuHCIohyYZBSOFzefs+u7T/CVB/GNujOmYRf
+	lU/L+iANMA==
+From: Discover Card <discover@service.discover.com>
+Sender: service.discover.com
+Reply-To: dontrply@service.discovercard.com
+To: rmolin88@gmail.com
+Message-ID: <-766438917.1956945.1491010665010.JavaMail.websph@nalp765.ihs.discoverfinancial.com>
+Subject: Your purchase exceeds the amount you set
+Errors-To: 68485156521428@vpobounces.discover.com
+MIME-Version: 1.0
+Content-Type: multipart/alternative; 
+	boundary="=_Part_1956944_1099723222.1491010665009"
+X-envelope-sender: 68485156521428
+
+--=_Part_1956944_1099723222.1491010665009
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: 7bit
+
+
+Discover
+https://www.discovercard.com
+			  
+Account ending in 6848
+------------------------------------------------------------
+
+REINALDO I MOLINA, your Discover card purchase 
+or cash advance exceeds the amount you have set
+
+------------------------------------------------------------
+
+Merchant: Wal-Mart Super Center
+
+Amount: $244.49
+
+Date: March 31, 2017
+
+Wasn't you? Call us immediately at 1-800-DISCOVER (1-800-347-2683)
+
+See Recent Activity
+https://www.discovercard.com/cardmembersvcs/loginlogout/app/ac_main?link=misc/redirect/activity_since_last_statement.htm
+
+Update Your Alert Settings
+https://www.discovercard.com/cardmembersvcs/loginlogout/app/ac_main?link=/cardmembersvcs/emailreminder/showEmailProfile
+
+----------------------------------------------------
+Add discover@service.discover.com to your address 
+book to ensure delivery of these e-mails.
+
+See ways to help identify authentic Discover e-mails 
+by visiting us at www.discover.com/emailsecurity.
+----------------------------------------------------
+
+IMPORTANT INFORMATION
+
+This e-mail was sent to rmolin88@gmail.com 
+for account number ending with 6848.
+
+You are receiving this e-mail because you are a Discover Cardmember.
+
+To update your e-mail address or view your account e-mail 
+preferences log in at:
+https://www.discovercard.com/cardmembersvcs/loginlogout/app/ac_main?link=misc/redirect/update_email.htm
+
+If you have any questions about your account, please log in 
+to contact us securely and we will be happy to assist you.
+https://www.discovercard.com/cardmembersvcs/loginlogout/app/ac_main?link=misc/redirect/redirect_contactus.htm
+
+Please do not reply to this e-mail as we are not able to 
+respond to messages sent to this address.
+
+DISCOVER, CASHBACK BONUS and other trademarks, logos and 
+service marks used in this e-mail are the trademarks of 
+Discover Financial Services or their respective third-party 
+owners.
+
+Discover Products Inc.
+P.O. Box 30666
+Salt Lake City, UT 84130
+
+
+(c)2017 Discover Bank, Member FDIC
+
+
+TRANTHR_A1_A1_A0
+--=_Part_1956944_1099723222.1491010665009
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns=3D"http://www.w3.org/1999/xhtml"><head><meta content=3D"text/ht=
+ml; charset=3DUTF-8" http-equiv=3D"Content-Type"/><meta content=3D"width=3D=
+device-width, initial-scale=3D1" name=3D"viewport"/><title>Discover Card</t=
+itle><style type=3D"text/css">
+table[class=3Dbutton] {height:auto !important;}
+td[class=3Dbutton-col] {padding: 0px;}
+=09=09=20
+=09=09 =09@media only screen and (max-width: 550px) {
+
+=09=09=09table[class=3Dbutton] {width:100% !important; height:auto !importa=
+nt;}
+=09=09=09td[class=3Dbutton-col] {padding: 0px;}
+
+
+=09=09=09}
+</style></head><body style=3D"margin:0;background-color:#E7E7E7;"><table wi=
+dth=3D"100%" cellspacing=3D"0" cellpadding=3D"0" border=3D"0" align=3D"cent=
+er"><tr><td align=3D"center" style=3D"background-color:#E7E7E7;padding:0 10=
+px;" valign=3D"top"><img border=3D"0" alt=3D"" height=3D"2" width=3D"2" src=
+=3D"https://smetrics.discover.com/b/ss/discoverglobalprod,discovercardemail=
+prod/5/5156521428?AQB=3D1&amp;events=3Devent69&amp;c57=3DDCReminderRTA_TRAN=
+THR_A1_A1_A0&c60=3Dgmail&c61=3D5156521428&c62=3D20170331_203745&c15=3D10381=
+44815&c58=3D000000000&amp;v59=3DService&amp;c75=3DHard-Coded&amp;v57=3DD%3D=
+c57&amp;v58=3DD%3Dc58&amp;v15=3DD%3Dc15&amp;AQE=3D1" style=3D"visibility: h=
+idden;"/><img border=3D"0" width=3D"1" height=3D"1" src=3D"https://d.xp1.ru=
+4.com/activity?_o=3D15755&amp;_t=3D8867550&amp;ssv_edskey=3D1038144815" sty=
+le=3D"visibility: hidden;"/><table style=3D"border-top-right-radius: 6px; b=
+order-top-left-radius: 6px; max-width:600px;" bgcolor=3D"#63686b" border=3D=
+"0" align=3D"center" width=3D"100%"><tr><td style=3D"padding:15px;" align=
+=3D"left"><img style=3D"margin-right: 5px;" alt=3D"Discover.com" border=3D"=
+0" height=3D"26" width=3D"153" src=3D"https://www.discover.com/dms/images/d=
+iscovercard/discover_rev.png"/></td><td style=3D"text-align: right; font-si=
+ze: 11px; font-family: arial, sans-serif; color: #ffffff; line-height: 12px=
+;padding:15px;"><img border=3D"0" height=3D"9" width=3D"8" src=3D"https://w=
+ww.discover.com/dms/images/discovercard/ac_lock_icon.png"/>&nbsp;<a style=
+=3D"text-decoration: none; color: #ffffff;" href=3D"https://www.discovercar=
+d.com/cardmembersvcs/loginlogout/app/ac_main?dmscmpgn=3DDCReminderRTA_TRANT=
+HR_A1_A1_A0&ekey=3D1038144815&dmsdate=3D20170331_203745&msgid=3D5156521428&=
+edm=3Dgmail&amp;emailstat=3Dclk&amp;section=3Dheader">My Account</a><br/>
+=09=09=09=09=09=09Last 4 #:&nbsp;6848</td></tr></table><table align=3D"cent=
+er" style=3D"max-width:600px;margin-bottom:0;" border=3D"0" cellspacing=3D"=
+0" cellpadding=3D"0" width=3D"100%"><tr><td style=3D"line-height: 4px;" bgc=
+olor=3D"#f37221" height=3D"4" align=3D"center">&nbsp;
+                    </td></tr></table><table style=3D"max-width: 600px; mar=
+gin-left: auto; margin-right: auto; margin-top:0;" border=3D"0" cellspacing=
+=3D"0" cellpadding=3D"0" align=3D"center" width=3D"100%"><tr><td align=3D"c=
+enter"><table style=3D"border-bottom-right-radius: 6px; border-bottom-left-=
+radius: 6px; border-left: solid 1px #dddddd; border-right: solid 1px #ddddd=
+d; border-bottom: solid 1px #dddddd; margin-left: auto; margin-right: auto;=
+" bgcolor=3D"#ffffff" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" widt=
+h=3D"100%"><tr><td align=3D"center"><table style=3D"margin-left: auto; marg=
+in-right: auto; max-width:380px;" border=3D"0" cellspacing=3D"0" cellpaddin=
+g=3D"10" width=3D"85%" align=3D"center"><tr><td style=3D"padding:5px;"><p s=
+tyle=3D"text-align: center; font-size: 24px; font-family: arial, sans-serif=
+; color: #ff6600; margin-bottom: 40px;">REINALDO I MOLINA, your Discover ca=
+rd purchase or cash advance exceeds the amount you have set</p></td></tr><t=
+r><td style=3D"padding:5px;"><table style=3D"margin-bottom: 20px;" border=
+=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%"><tr><td width=3D"=
+50%" style=3D"border-top:1px solid #c6cbce;border-bottom:1px dotted #c6cbce=
+;font-family: arial, sans-serif;font-size:16px;color:#676767;line-height:28=
+px;" align=3D"left">Merchant:</td><td width=3D"50%" style=3D"border-top:1px=
+ solid #c6cbce;border-bottom:1px dotted #c6cbce;font-family: arial, sans-se=
+rif;font-size:16px;color:#676767;line-height:28px;text-align:right;" align=
+=3D"right">Wal-Mart Super Center</td></tr><tr><td width=3D"50%" style=3D"bo=
+rder-bottom:1px dotted #c6cbce;font-family: arial, sans-serif;font-size:16p=
+x;color:#676767;line-height:28px;" align=3D"left">Amount:</td><td width=3D"=
+50%" style=3D"border-bottom:1px dotted #c6cbce;font-family: arial, sans-ser=
+if;font-size:16px;color:#676767;line-height:28px;text-align:right;" align=
+=3D"right">$244.49</td></tr><tr><td width=3D"50%" style=3D"border-bottom:1p=
+x dotted #c6cbce;font-family: arial, sans-serif;font-size:16px;color:#67676=
+7;line-height:28px;" align=3D"left">Date:</td><td width=3D"50%" style=3D"bo=
+rder-bottom:1px dotted #c6cbce;font-family: arial, sans-serif;font-size:16p=
+x;color:#676767;line-height:28px;text-align:right;" align=3D"right">March 3=
+1, 2017</td></tr></table></td></tr><tr><td><p style=3D"text-align: center; =
+font-size: 16px; font-family: arial, sans-serif; font-weight: normal; color=
+: #676767; line-height: 26px;">Wasn't you? Call us immediately at<br/><a st=
+yle=3D"text-decoration: none; color: #0b51a1;" href=3D"tel:1-800-347-2683">=
+1-800-DISCOVER</a><br/>(1-800-347-2683)</p></td></tr><tr><td style=3D"paddi=
+ng:5px;"><table style=3D"margin-left: auto; margin-right:auto; max-width:38=
+0px;" border=3D"0" cellspacing=3D"5" cellpadding=3D"5" width=3D"100%" align=
+=3D"center"><tr><td style=3D"border-radius: 3px; background-color: #ff6600;=
+ padding: 5px; font-family: arial, sans-serif; font-size: 16px; color: #fff=
+fff;" align=3D"center"><a style=3D"text-decoration: none; color: #ffffff;li=
+ne-height: 30px;" href=3D"https://www.discovercard.com/cardmembersvcs/login=
+logout/app/ac_main?link=3D/cardmembersvcs/statements/app/ctd&amp;dmscmpgn=
+=3DDCReminderRTA_TRANTHR_A1_A1_A0&ekey=3D1038144815&dmsdate=3D20170331_2037=
+45&msgid=3D5156521428&edm=3Dgmail&amp;emailstat=3Dclk&amp;section=3Dbody"><=
+span style=3D"width: 100%; display: block;">See Recent Activity</span></a><=
+/td></tr></table></td></tr><tr><td style=3D"padding:5px;"><table style=3D"m=
+argin-left: auto; margin-right:auto; max-width:380px;" border=3D"0" cellspa=
+cing=3D"5" cellpadding=3D"5" width=3D"100%" align=3D"center"><tr><td style=
+=3D"border-radius: 3px; background-color: #DBDBDB; padding: 5px; font-famil=
+y: arial, sans-serif; font-size: 16px; color: #ffffff;" align=3D"center"><a=
+ style=3D"text-decoration: none; color: #676767; line-height: 30px;" href=
+=3D" https://www.discovercard.com/cardmembersvcs/loginlogout/app/ac_main?li=
+nk=3D/cardmembersvcs/emailreminder/showEmailProfile&amp;dmscmpgn=3DDCRemind=
+erRTA_TRANTHR_A1_A1_A0&ekey=3D1038144815&dmsdate=3D20170331_203745&msgid=3D=
+5156521428&edm=3Dgmail&amp;emailstat=3Dclk&amp;section=3Dbody"><span style=
+=3D"width: 100%; display: block;">Update Your Alert Settings</span></a></td=
+></tr></table></td></tr><tr><td style=3D"padding:5px;text-align:center;"></=
+td></tr></table></td></tr></table></td></tr></table><table cellspacing=3D"0=
+" cellpadding=3D"0" border=3D"0" style=3D"width:100%;"><tr><td align=3D"cen=
+ter" style=3D"padding:0;margin:0;"><table style=3D"max-width:600px;padding-=
+bottom:20px;margin-bottom:29px;border-bottom:solid 1px #c6cbce;" cellspacin=
+g=3D"0" cellpadding=3D"0" width=3D"100%"><tr><td style=3D"text-align:center=
+;vertical-align:top;padding-top:15px;"><div style=3D"width:300px;display:in=
+line-block;vertical-align:top;"><table cellspacing=3D"0" cellpadding=3D"0" =
+border=3D"0" width=3D"100%"><tr><td align=3D"center" style=3D"padding:0px;m=
+argin:0px;"><table style=3D"width:94%;" cellspacing=3D"0" cellpadding=3D"0"=
+ border=3D"0"><tr><td><table style=3D"text-align:center; vertical-align:top=
+;font-family:arial,sans-serif;" width=3D"100%"><tr><td style=3D"text-align:=
+center;font-family:arial,sans-serif;font-size:16px;color:#63686b;padding-bo=
+ttom:15px;line-height:20px;vertical-align:text-top;"><strong>Discover App</=
+strong><br/>
+=09=09=09Manage your account anywhere
+=09=09</td></tr><tr><td style=3D"text-align:center;"><a href=3D"http://itun=
+es.apple.com/app/discovermobile/id338010821?mt=3D8&amp;icmpgn=3D1006_mobile=
+_app_iphone_btn&amp;dmscmpgn=3DDCReminderRTA_TRANTHR_A1_A1_A0&ekey=3D103814=
+4815&dmsdate=3D20170331_203745&msgid=3D5156521428&edm=3Dgmail&amp;emailstat=
+=3Dclk&amp;section=3Dfooter" style=3D"text-decoration: none; border: none;"=
+><img border=3D"0" src=3D"https://www.discover.com/dms/images/discovercard/=
+dms_appleapp_badge.png" alt=3D"Apple App Store" style=3D"margin: 2px; text-=
+align: center; text-decoration: none; display: inline-block;" height=3D"30"=
+ width=3D"128"/></a><a href=3D"https://play.google.com/store/apps/details?i=
+d=3Dcom.discoverfinancial.mobile&amp;hl=3Den&amp;dmscmpgn=3DDCReminderRTA_T=
+RANTHR_A1_A1_A0&ekey=3D1038144815&dmsdate=3D20170331_203745&msgid=3D5156521=
+428&edm=3Dgmail&amp;emailstat=3Dclk&amp;section=3Dfooter" style=3D"text-dec=
+oration: none; border: none;"><img width=3D"128" height=3D"30" border=3D"0"=
+ src=3D"https://www.discover.com/dms/images/discovercard/dms_googleplay_bad=
+ge.png" alt=3D"Google Play Store" style=3D"text-align: center; text-decorat=
+ion: none; display: inline-block; margin: 2px;"/></a></td></tr></table></td=
+></tr></table></td></tr></table></div><div style=3D"max-width:200px;display=
+:inline-block;vertical-align:top;"><table cellspacing=3D"0" cellpadding=3D"=
+0" border=3D"0" width=3D"100%"><tr><td align=3D"center" style=3D"padding:0p=
+x;margin:0px;"><table style=3D"width:94%;" cellspacing=3D"0" cellpadding=3D=
+"0" border=3D"0"><tr><td><table style=3D"text-align:center;vertical-align:t=
+op;font-family:arial,sans-serif;" width=3D"100%"><tr><td style=3D"text-alig=
+n:center;font-family:arial,sans-serif;font-size:16px;color:#63686b;padding-=
+bottom:15px;line-height:20px;vertical-align:text-top;"><br/><strong>Connect=
+ with us</strong></td></tr><tr><td align=3D"left" valign=3D"top" style=3D"m=
+in-width:185px;"><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" wi=
+dth=3D"100%"><tr><td align=3D"left" valign=3D"top" width=3D"16" style=3D"fo=
+nt-size:0px;mso-line-height-rule:exactly;line-height:0px;min-width:16px;">&=
+nbsp;</td><td align=3D"left" valign=3D"top" width=3D"33" style=3D"font-size=
+:0px;mso-line-height-rule:exactly;line-height:0px;min-width:33px;"><a href=
+=3D"https://www.facebook.com/discover?dmscmpgn=3DDCReminderRTA_TRANTHR_A1_A=
+1_A0&ekey=3D1038144815&dmsdate=3D20170331_203745&msgid=3D5156521428&edm=3Dg=
+mail&amp;emailstat=3Dclk&amp;section=3Dfooter" style=3D"text-decoration: no=
+ne; border: none;"><img style=3D"text-align: center; text-decoration: none;=
+ display: inline-block;" alt=3D"FACEBOOK" src=3D"https://www.discover.com/d=
+ms/images/discovercard/dms_facebook_icon.png" border=3D"0" height=3D"32" wi=
+dth=3D"33"/></a></td><td align=3D"left" valign=3D"top" width=3D"7" style=3D=
+"font-size:0px;mso-line-height-rule:exactly;line-height:0px;min-width:7px;"=
+>&nbsp;</td><td align=3D"left" valign=3D"top" width=3D"33" style=3D"font-si=
+ze:0px;mso-line-height-rule:exactly;line-height:0px;min-width:33px;"><a hre=
+f=3D"https://twitter.com/Discover?dmscmpgn=3DDCReminderRTA_TRANTHR_A1_A1_A0=
+&ekey=3D1038144815&dmsdate=3D20170331_203745&msgid=3D5156521428&edm=3Dgmail=
+&amp;emailstat=3Dclk&amp;section=3Dfooter" style=3D"text-decoration: none; =
+border: none;"><img style=3D"text-align: center; text-decoration: none; dis=
+play: inline-block;" alt=3D"TWITTER" src=3D"https://www.discover.com/dms/im=
+ages/discovercard/dms_twitter_icon.png" border=3D"0" height=3D"32" width=3D=
+"33"/></a></td><td align=3D"left" valign=3D"top" width=3D"7" style=3D"font-=
+size:0px;mso-line-height-rule:exactly;line-height:0px;min-width:7px;">&nbsp=
+;</td><td align=3D"left" valign=3D"top" width=3D"33" style=3D"font-size:0px=
+;mso-line-height-rule:exactly;line-height:0px;min-width:33px;"><a href=3D"h=
+ttps://plus.google.com/+Discover/posts?dmscmpgn=3DDCReminderRTA_TRANTHR_A1_=
+A1_A0&ekey=3D1038144815&dmsdate=3D20170331_203745&msgid=3D5156521428&edm=3D=
+gmail&amp;emailstat=3Dclk&amp;section=3Dfooter" style=3D"text-decoration: n=
+one; border: none;"><img style=3D"text-align: center; text-decoration: none=
+; display: inline-block;" alt=3D"GOOGLE+" src=3D"https://www.discover.com/d=
+ms/images/discovercard/dms_gplus_icon.png" border=3D"0" height=3D"32" width=
+=3D"33"/></a></td><td align=3D"left" valign=3D"top" width=3D"7" style=3D"fo=
+nt-size:0px;mso-line-height-rule:exactly;line-height:0px;min-width:7px;">&n=
+bsp;</td><td align=3D"left" valign=3D"top" width=3D"33" style=3D"font-size:=
+0px;mso-line-height-rule:exactly;line-height:0px;min-width:33px;"><a href=
+=3D"https://www.discover.com/credit-cards/exclusives/refer/index.html?dmscm=
+pgn=3DDCReminderRTA_TRANTHR_A1_A1_A0&ekey=3D1038144815&dmsdate=3D20170331_2=
+03745&msgid=3D5156521428&edm=3Dgmail&amp;emailstat=3Dclk&amp;section=3Dfoot=
+er" style=3D"text-decoration: none; border: none;"><img style=3D"text-align=
+:center; text-decoration: none; display: inline-block;" alt=3D"REFER A FRIE=
+ND" src=3D"https://www.discover.com/dms/images/discovercard/dms_raf_icon.pn=
+g" border=3D"0" height=3D"32" width=3D"33"/></a></td><td align=3D"left" val=
+ign=3D"top" width=3D"16" style=3D"font-size:0px;mso-line-height-rule:exactl=
+y;line-height:0px;min-width:16px;">&nbsp;</td></tr></table></td></tr></tabl=
+e></td></tr></table></td></tr></table></div></td></tr></table></td></tr></t=
+able><table style=3D"width:100%;max-width:600px;margin-bottom:10px;margin-l=
+eft:auto;margin-right:auto;color:#63686b;font-family:helvetica,arial,sans-s=
+erif;font-size:10px;text-align:justify;" cellspacing=3D"0" cellpadding=3D"1=
+0" border=3D"0" align=3D"center"><tr><td align=3D"left">
+=09=09=09Add <a style=3D"text-decoration: none; color: #63686b;" href=3D"ma=
+ilto:discover@service.discover.com">discover@service.discover.com</a> to yo=
+ur address book to ensure delivery of these e-mails. See ways to help ident=
+ify authentic Discover e-mails by visiting our <a style=3D"text-decoration:=
+ none; color: #0b51a1;" href=3D"https://www.discover.com/credit-cards/membe=
+r-benefits/security-center/keep-secure/email-safety.html?dmscmpgn=3DDCRemin=
+derRTA_TRANTHR_A1_A1_A0&ekey=3D1038144815&dmsdate=3D20170331_203745&msgid=
+=3D5156521428&edm=3Dgmail&amp;emailstat=3Dclk&amp;section=3Dfooter">e-mail =
+security</a> page.
+=09=09=09<br/><br/><strong>IMPORTANT INFORMATION</strong><br/><br/>
+=09=09=09This e-mail was sent to <a style=3D"text-decoration: none; color: =
+#63686b;" href=3D"mailto:rmolin88@gmail.com">rmolin88@gmail.com</a> for Dis=
+cover card account number ending with 6848.
+=09=09=09<br/><br/>
+=09=09=09You are receiving this e-mail because you are a Discover Cardmembe=
+r.
+=09=09=09<br/><br/><a style=3D"text-decoration: none; color: #0b51a1;" href=
+=3D"https://www.discovercard.com/cardmembersvcs/loginlogout/app/ac_main?lin=
+k=3Dmisc/redirect/update_email.htm&amp;dmscmpgn=3DDCReminderRTA_TRANTHR_A1_=
+A1_A0&ekey=3D1038144815&dmsdate=3D20170331_203745&msgid=3D5156521428&edm=3D=
+gmail&amp;emailstat=3Dclk&amp;section=3Dfooter">Log in</a> to update your e=
+-mail address or view your account e-mail preferences.
+=09=09=09<br/><br/>
+=09=09=09If you have any questions about your account, please <a style=3D"t=
+ext-decoration: none; color: #0b51a1;" href=3D"https://www.discovercard.com=
+/cardmembersvcs/loginlogout/app/ac_main?link=3Dmisc/redirect/redirect_conta=
+ctus.htm&amp;dmscmpgn=3DDCReminderRTA_TRANTHR_A1_A1_A0&ekey=3D1038144815&dm=
+sdate=3D20170331_203745&msgid=3D5156521428&edm=3Dgmail&amp;emailstat=3Dclk&=
+amp;section=3Dfooter">log in</a> to contact us securely and we will be happ=
+y to assist you.
+=09=09=09<br/><br/>
+=09=09=09Please do not reply to this e-mail as we are not able to respond t=
+o messages sent to this address.
+=09=09=09<br/><br/>
+=09=09=09DISCOVER and other trademarks, logos and service marks used in thi=
+s e-mail are the trademarks of Discover Financial Services or their respect=
+ive third-party owners.
+=09=09=09<br/><br/>
+=09=09=09Discover Products Inc.<br/>
+=09=09=09P.O. Box 30666<br/>
+=09=09=09Salt Lake City, UT 84130<br/>
+=09=09=09=A92017 Discover Bank, Member FDIC
+=09=09=09<p>TRANTHR_A1_A1_A0</p></td></tr></table></td></tr></table></body>=
+</html>
+--=_Part_1956944_1099723222.1491010665009--
