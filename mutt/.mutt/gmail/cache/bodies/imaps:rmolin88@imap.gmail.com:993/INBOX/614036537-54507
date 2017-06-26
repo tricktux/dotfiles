@@ -1,0 +1,51 @@
+Delivered-To: rmolin88@gmail.com
+Received: by 10.107.21.133 with SMTP id 127csp914439iov;
+        Sat, 29 Apr 2017 08:44:45 -0700 (PDT)
+X-Received: by 10.55.156.74 with SMTP id f71mr13963388qke.61.1493480685588;
+        Sat, 29 Apr 2017 08:44:45 -0700 (PDT)
+Return-Path: <gmolina@nauta.cu>
+Received: from relay13.etecsa.net (relay13.etecsa.net. [181.225.231.83])
+        by mx.google.com with ESMTP id y88si8791801qtd.290.2017.04.29.08.44.45
+        for <rmolin88@gmail.com>;
+        Sat, 29 Apr 2017 08:44:45 -0700 (PDT)
+Received-SPF: pass (google.com: domain of gmolina@nauta.cu designates 181.225.231.83 as permitted sender) client-ip=181.225.231.83;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@nauta.cu;
+       spf=pass (google.com: domain of gmolina@nauta.cu designates 181.225.231.83 as permitted sender) smtp.mailfrom=gmolina@nauta.cu
+Received: from smtp.nauta.cu (unknown [172.29.8.108])
+	by relay03.etecsa.net (Postfix) with ESMTP id B65A7E0087;
+	Sat, 29 Apr 2017 11:44:44 -0400 (CDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nauta.cu; s=nauta;
+	t=1493480684; bh=g6y4YBu+es0XiDlWkx0uZ9lmKviGbsDnXOXf2DxBWVg=;
+	h=Date:Subject:From:To;
+	b=kRgKF93zinqXR5BIg0GgLbT1EnrPdPw+tTaDW1WJJZbvO1IqlgYEHCFMnMPYEXn4N
+	 weUJfKNndInnCAIMOG/NLcXpUigfP2Tf2C7t6u1TBLuz3g733UhSSFcKUr8PBXniWg
+	 0VM+gsLma49cpyxOv1bvaPXtL8ZStPj+3rSWSL9U=
+Received: from [10.32.98.17] (unknown [152.207.240.213])
+	by smtp.nauta.cu (Postfix) with ESMTPA id 547EE9F738;
+	Sat, 29 Apr 2017 11:44:42 -0400 (CDT)
+Date: Sat, 29 Apr 2017 11:43:31 -0400
+Subject: Hola
+Message-ID: <djldx420dr649ml3vivi9c5v.1493480611761@email.android.com>
+From: Guillermo Molina <gmolina@nauta.cu>
+To: Reinaldo <rmolin88@gmail.com>, Melixa <melixamanso@gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/alternative; boundary="--_com.android.email_12520511915624711"
+
+----_com.android.email_12520511915624711
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
+
+Q29tbyBhbmRhbiBtaXMgaGlqaXRvcyA/PyBBcXXDrSBkaXNmcnV0YW5kbyBkZSBlc3RvcyBkw61h
+cyBmZXJpYWRvcz8/IFlhIHNhYmVuIHF1ZSBSb2JlcnRpY28gdmEgaGFjZXIgYWJ1ZWxvLi4/PyBB
+cXXDrSBiaWVuLiBCZXNvcyBsb3MgcXVpZXJvLgoKTW9saW5h
+----_com.android.email_12520511915624711
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: base64
+
+PHAgZGlyPSJsdHIiPkNvbW8gYW5kYW4gbWlzIGhpaml0b3MgPz8gQXF1JiMyMzc7IGRpc2ZydXRh
+bmRvIGRlIGVzdG9zIGQmIzIzNzthcyBmZXJpYWRvcz8/IFlhIHNhYmVuIHF1ZSBSb2JlcnRpY28g
+dmEgaGFjZXIgYWJ1ZWxvLi4/PyBBcXUmIzIzNzsgYmllbi4gQmVzb3MgbG9zIHF1aWVyby48L3A+
+CjxwIGRpcj0ibHRyIj5Nb2xpbmE8L3A+Cg==
+----_com.android.email_12520511915624711--
+

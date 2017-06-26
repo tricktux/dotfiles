@@ -1,0 +1,1190 @@
+Delivered-To: rmolin88@gmail.com
+Received: by 10.140.29.197 with SMTP id b63csp2104406qgb;
+        Wed, 29 Mar 2017 15:01:09 -0700 (PDT)
+X-Received: by 10.36.118.84 with SMTP id z81mr615272itb.99.1490824869890;
+        Wed, 29 Mar 2017 15:01:09 -0700 (PDT)
+Return-Path: <bounces+2090234-785d-rmolin88=gmail.com@tx.mint.com>
+Received: from o4.tx.mint.com (o4.tx.mint.com. [167.89.39.170])
+        by mx.google.com with ESMTPS id d140si620278iof.28.2017.03.29.15.01.09
+        for <rmolin88@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 29 Mar 2017 15:01:09 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bounces+2090234-785d-rmolin88=gmail.com@tx.mint.com designates 167.89.39.170 as permitted sender) client-ip=167.89.39.170;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@mint.com;
+       dkim=pass header.i=@sendgrid.info;
+       spf=pass (google.com: domain of bounces+2090234-785d-rmolin88=gmail.com@tx.mint.com designates 167.89.39.170 as permitted sender) smtp.mailfrom=bounces+2090234-785d-rmolin88=gmail.com@tx.mint.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=mint.com
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=mint.com; 
+	h=content-transfer-encoding:content-type:from:list-unsubscribe:mime-version:subject:to; 
+	s=s1; bh=ccrMlmynsRQTQMLTD4FkijGg8t8=; b=lEWWpls8F5NmMYsojZQy27Q
+	sJ2thxZ3bvRngWAReBNfQ9IM7me5wnE39vnXi8QovbdKBkiP87F/dhc15Z0zutFX
+	akHaQE8Ph4DB6vLgfU3uOQ/DvtO5O4X/o6WGYOJiB2BReER23BWe6U6eInpLLXoe
+	TA5AGxw2T0QBKIZZXluM=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=sendgrid.info; 
+	h=content-transfer-encoding:content-type:from:list-unsubscribe:mime-version:subject:to:x-feedback-id; 
+	s=smtpapi; bh=ccrMlmynsRQTQMLTD4FkijGg8t8=; b=bLKyS/4HVJ+NXcrGQi
+	GKhniIpfYafX1+LRlOGQGl2g0vK9B8t+0stBCOL1n9ekuNooyBDcA4s67iYCNZO9
+	eZMpvlAm9HbFZKNMVaWVvB3Wq83NUGHIIakwWQjVq3+rwathG/CTwLwcDsu53DP3
+	fBsm557csl03zonLlikKD4g9I=
+Received: by filter0155p1las1.sendgrid.net with SMTP id filter0155p1las1-9967-58DC2EA5-A
+        2017-03-29 22:01:09.070904328 +0000 UTC
+Received: from MjA5MDIzNA (unknown [67.221.33.10])
+	by ismtpd0004p1sjc2.sendgrid.net (SG) with HTTP id pdkxOit8RfeC8zV-F_ImLg
+	for <rmolin88@gmail.com>; Wed, 29 Mar 2017 22:01:09.033 +0000 (UTC)
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=UTF-8
+Date: Wed, 29 Mar 2017 22:01:09 +0000
+From: "Mint" <payments@mint.com>
+List-Unsubscribe: <https://bills.mint.com/unsubscribe/page.htm?uid=2686237284993226096>,<mailto:2686237284993226096-unsubscribe@bounce.bills.mint.com>
+Mime-Version: 1.0
+Subject: Your Citibank Credit Card bill is due soon, schedule your payment now
+To: rmolin88@gmail.com
+X-Accept-Language: en
+X-SenderName-ClientID: 2686237284993226096
+Message-ID: <pdkxOit8RfeC8zV-F_ImLg@ismtpd0004p1sjc2.sendgrid.net>
+X-SG-EID: Z/rt/z3yOD+67ce/0rMT466FyE1v11DNRKXpUojtWfxQR6BAmzyEZLi82xA0x3oQiCiivwk+lBW5mR
+ Aspn1v4LSV3NzlSKnazl/gsaJulC0nU3vD9uvbMS8b3NARPyagK6M9w7xrrI6IV6ZvigbiSrjkDWAQ
+ YwWXp/T9p7oCdFoVMfyjnE6lwCDXYQ2g8JCq+yMuHRLIMpXmjwEawbpNgw==
+X-SG-ID: p+ZBrOV5QccaCZ9QS1/Vc2yjGzAKcrYSL7nQM3B+2PhOrAJb5eFuA4VsA+/ScZ8RFowfqa73n5oEEV
+ Jo6xFsCtMX24n+8LGx3s9jtDPoCD1ftarU9vDXW61lpFqO2ye+
+X-Feedback-ID: 2090234:Zu2FEAHoQ57Q9i1arhCI7RACY+PEtvUzHDb9mG2R1dM=:3ppoSWbHw9B7CIEO7/LyONejHXEY7yJPZ/oPY3adD00=:SG
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.=
+w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns=3D"http://www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<meta name=3D"viewport" content=3D"width=3Ddevice-width, initial-scale=3D1,=
+ maximum-scale=3D1" />
+<style type=3D"text/css">
+
+.ExternalClass * {line-height: 100%;}
+
+@media screen and (max-width: 599px) {
+  .desktopSection110 {display: none !important;}
+  .logo {width: 305px !important; height: 45px !important;}
+  .greyline {width: 305px !important; height: 1px !important;}
+  .social {width: 28px !important; height: 28px !important;}
+  .animationb {width: 305px !important; height: 75px !important;}
+  table[class=3Demailwrapto100pct], img[class=3Demailwrapto100pct]
+  {
+    display:block !important;
+    width:100% !important;
+  }
+  .mobile_again {
+    display : block !important;
+    width : auto !important;
+    visibility:inherit !important;
+  }
+}
+
+@media not screen and (max-width: 599px) {
+  img.emailMobileHide {width:1px; height:1px;}
+  span.emailMobileHide {color:#ffffff;}
+}
+
+.emailwrapto100pct {width:0; overflow:hidden;float:left; display: none;}
+.ios-phone a {color: #333333 !important; text-decoration: none;}
+.ios-addr a {color: #999999 !important; text-decoration: none;}
+@media yahoo {
+  .desktopSection110 {display: inline !important;}
+}
+</style>
+<!--[if mso]>
+<style type=3D"text/css">
+span {font-family: Arial, Helvetica, sans-serif !important;}
+</style>
+<![endif]-->
+
+<!-- start padding for iOS -->
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20
+<!-- end padding for iOS -->
+</head>
+<body style=3D"padding:0; margin:0;-webkit-text-size-adjust:none;-ms-text-s=
+ize-adjust:100%; background-color:#FFFFFF;" bgcolor=3D"#FFFFFF">
+<!-- START DESKTOP -->
+<table class=3D"desktopSection110" width=3D"600" border=3D"0" cellspacing=
+=3D"0" cellpadding=3D"0" align=3D"center" bgcolor=3D"#FFFFFF">
+	<tr>
+		<td colspan=3D"3" style=3D"line-height:1px;"><img style=3D"min-width:600p=
+x; display:block;" src=3D"https://check.me/email/mint/spacer.gif" width=3D"=
+600" height=3D"1" alt=3D"" border=3D"0" /></td>
+	</tr>
+	<tr>
+		<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:block=
+;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"10" hei=
+ght=3D"1" border=3D"0" /></td>
+		<td valign=3D"top"><table width=3D"580" border=3D"0" cellspacing=3D"0" ce=
+llpadding=3D"0" bgcolor=3D"#ffffff">
+			<tr>
+				<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:blo=
+ck;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"580" =
+height=3D"1" border=3D"0" /></td>
+			</tr>
+			<tr>
+				<td valign=3D"top"><img style=3D"display:block;" src=3D"https://check.m=
+e/email/mint/spacer.gif" alt=3D"" width=3D"1" height=3D"25" border=3D"0" />=
+</td>
+			</tr>
+			<tr>
+				<td valign=3D"top" align=3D"center">
+					<!-- DESKTOP MINT ICON GOES HERE -->
+					<a name=3D"MintLogo" href=3D"https://links.mint.com/wf/click?upn=3DFrw=
+dNJz7BEaU-2FKPeA2ZCSRZma7C-2FN3yZPJYSgrUG2NA-3D_QDh0zqwi4RIW3LTHVIeu1adKd5i=
+yMPVLGGDzVBMKKZuceAQByayIyYdZw2-2FZKkSbjuhrNnxibKbzVjkAwuVkIoNlTRXZgICLpmfN=
+JGCssPIX4jDPFBFOKjxG1O2KTLODEtVrhBfIErJugKGZDi4gUGoChIuacFHDA-2Bx4MK57aBAPj=
+-2BMbYbSRtRH6pecQQWTY9Z0v6vmkLJ47bt3FSf7wcBQC1Z7AJvP3U2NPuk4JItTCLcsiXi-2BD=
+7uWaxU7Tt4DsUbCEsZjbyl9dPMu57k-2BknX6ZAczeKmoSiAK56A2qm7IVy-2BpAssVGmoi9itV=
+Y9nUU2EO2UFbqbyKFwOI7QBtl9Q-3D-3D" target=3D"_blank"><img style=3D"display:=
+block; font-size:16px; font-weight:bold; font-family:Avenir, Helvetica, san=
+s-serif; color:#333333; text-align:center; background-color:#09c675;" src=
+=3D"https://check.me/email/mint/logo/mint.gif" width=3D"121" height=3D"45" =
+alt=3D"intuit&reg; mint" border=3D"0" /></a>
+				</td>
+			</tr>
+		</table></td>
+		<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:block=
+;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"10" hei=
+ght=3D"1" border=3D"0" /></td>
+	</tr>
+	<tr>
+		<td colspan=3D"3" valign=3D"top"><img style=3D"display:block;" src=3D"htt=
+ps://check.me/email/mint/spacer.gif" alt=3D"" width=3D"1" height=3D"48" bor=
+der=3D"0" /></td>
+	</tr>
+	<tr>
+		<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:block=
+;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"10" hei=
+ght=3D"1" border=3D"0" /></td>
+		<td valign=3D"top"><table width=3D"580" border=3D"0" cellspacing=3D"0" ce=
+llpadding=3D"0" bgcolor=3D"#FFFFFF">
+			<tr>
+				<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:blo=
+ck;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"580" =
+height=3D"1" border=3D"0" /></td>
+			</tr>
+			<tr>
+				<td valign=3D"top" align=3D"center"><span style=3D"font-size:20px; line=
+-height:30px; font-family:Avenir, Arial, Helvetica, sans-serif; color:#0000=
+00;">
+                    <b>
+                        Your Citibank Credit Card bill is due on <br/>
+                        Monday, Apr 24</b></span></td>
+			</tr>
+		</table></td>
+		<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:block=
+;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"10" hei=
+ght=3D"1" border=3D"0" /></td>
+	</tr>
+	<tr>
+		<td colspan=3D"3" valign=3D"top"><img style=3D"display:block;" src=3D"htt=
+ps://check.me/email/mint/spacer.gif" alt=3D"" width=3D"1" height=3D"34" bor=
+der=3D"0" /></td>
+	</tr>
+	<!-- start animation -->
+	<tr>
+		<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:block=
+;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"10" hei=
+ght=3D"1" border=3D"0" /></td>
+		<td valign=3D"top"><table width=3D"580" border=3D"0" cellspacing=3D"0" ce=
+llpadding=3D"0" bgcolor=3D"#FFFFFF">
+			<tr>
+				<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:blo=
+ck;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"70" h=
+eight=3D"1" border=3D"0" /></td>
+				<td valign=3D"top" style=3D"line-height:1px;" bgcolor=3D"#ffffff"><img =
+style=3D"display:block; font-size:16px; font-weight:bold; font-family:Aveni=
+r, Helvetica, sans-serif; color:#333333; text-align:center;" src=3D"https:/=
+/check.me/email/mint/mobile/mobile_newbill_animation_2x.gif" alt=3D"NEW! BI=
+LL PAY IS NOW IN MINT." width=3D"440" height=3D"108" border=3D"0" /></td>
+				<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:blo=
+ck;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"70" h=
+eight=3D"1" border=3D"0" /></td>
+			</tr>
+		</table></td>
+		<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:block=
+;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"10" hei=
+ght=3D"1" border=3D"0" /></td>
+	</tr>
+	<!-- end animation -->
+	<tr>
+		<td colspan=3D"3" valign=3D"top"><img style=3D"display:block;" src=3D"htt=
+ps://check.me/email/mint/spacer.gif" alt=3D"" width=3D"1" height=3D"34" bor=
+der=3D"0" /></td>
+	</tr>
+	<tr>
+		<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:block=
+;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"10" hei=
+ght=3D"1" border=3D"0" /></td>
+		<td valign=3D"top"><table width=3D"580" border=3D"0" cellspacing=3D"0" ce=
+llpadding=3D"0" bgcolor=3D"#FFFFFF">
+			<tr>
+				<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:blo=
+ck;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"580" =
+height=3D"1" border=3D"0" /></td>
+			</tr>
+			<tr>
+				<td valign=3D"top" align=3D"center"><span style=3D"font-size:12px; line=
+-height:14px; font-family:Avenir, Arial, Helvetica, sans-serif; color:#6666=
+66;"><!-- START PAYMENT DUE LABEL --> MINIMUM DUE<!-- END PAYMENT DUE LABEL=
+ --></span></td>
+			</tr>
+			<tr>
+				<td valign=3D"top" style=3D"line-height:5px;"><img style=3D"display:blo=
+ck;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"1" he=
+ight=3D"5" border=3D"0" /></td>
+			</tr>
+			<tr>
+				<td valign=3D"top" align=3D"center"><span style=3D"font-size:60px; line=
+-height:62px; font-family:Avenir, Arial, Helvetica, sans-serif; color:#0000=
+00;"><!-- START PAYMENT DUE VALUE -->$25.00<!-- END PAYMENT DUE VALUE --></=
+span></td>
+			</tr>
+		</table></td>
+		<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:block=
+;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"10" hei=
+ght=3D"1" border=3D"0" /></td>
+	</tr>
+	<tr>
+		<td colspan=3D"3" valign=3D"top"><img style=3D"display:block;" src=3D"htt=
+ps://check.me/email/mint/spacer.gif" alt=3D"" width=3D"1" height=3D"25" bor=
+der=3D"0" /></td>
+	</tr>
+	<tr>
+		<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:block=
+;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"10" hei=
+ght=3D"1" border=3D"0" /></td>
+		<td valign=3D"top"><table width=3D"580" border=3D"0" cellspacing=3D"0" ce=
+llpadding=3D"0" bgcolor=3D"#FFFFFF">
+			<tr>
+				<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:blo=
+ck;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"580" =
+height=3D"1" border=3D"0" /></td>
+			</tr>
+			<tr>
+				<td align=3D"center"><!-- START BP CTA --><table border=3D"0" cellspaci=
+ng=3D"0" cellpadding=3D"0">
+			      	<tr>
+				        <td background=3D"https://check.me/email/mint/button_left.gif" =
+bgcolor=3D"#ffab40"><img src=3D"https://check.me/email/mint/spacer.gif" sty=
+le=3D"display:block;" width=3D"5" height=3D"38" alt=3D"" border=3D"0" /></t=
+d>
+				        <td bgcolor=3D"#ffab40" align=3D"center" valign=3D"middle"><a n=
+ame=3D"CTA" href=3D"https://links.mint.com/wf/click?upn=3DFrwdNJz7BEaU-2FKP=
+eA2ZCSULDcXpZsObkA7QvoO9KjAl8F2V43QQq1Uzou2sqL-2F6P4Ils-2F6A5td6w4lMEPy4ojO=
+8pqkLwl9hwKpI5Jm-2BA225zy451i4v6pkr5K2hlk-2BjBUW-2FClb46c9AIXFoaBj0YihF1N00=
+79VO3GekUNUozRdA8LMUHSo0twEsKtEZZX4uC_QDh0zqwi4RIW3LTHVIeu1adKd5iyMPVLGGDzV=
+BMKKZuceAQByayIyYdZw2-2FZKkSbjuhrNnxibKbzVjkAwuVkIoNlTRXZgICLpmfNJGCssPIX4j=
+DPFBFOKjxG1O2KTLODykwpwWVNmU3c14E-2B7EnpW1Ffke54mh3uzlDQ0esfNVoh-2FEz9SOy-2=
+BAWg3PvMIqan8sdNmmcly2SOwBQ2RzF63MvlJ8JhpGqVNIcGC069Nh5la3JKk9Bx4cE2h4tT1-2=
+F9XF3M3FadOA-2FReYl-2Bb-2FbahBBiXzT2aq5uJ-2FUm6kssBfD64gX9c3wBrP9NQeNkLmxOp=
+x6uuA7-2BxCQ8AzVRSMAjE2hg-3D-3D" style=3D"font-family:Avenir, Helvetica, sa=
+ns-serif; font-size:16px; color:#ffffff; text-decoration:none;" target=3D"_=
+blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- START CTA COPY -->SCHEDULE =
+PAYMENT<!-- END CTA COPY -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></td>
+				        <td background=3D"https://check.me/email/mint/button_right.gif"=
+ bgcolor=3D"#ffab40"><img src=3D"https://check.me/email/mint/spacer.gif" st=
+yle=3D"display:block;" width=3D"5" height=3D"38" alt=3D"" border=3D"0" /></=
+td>
+				    </tr>
+			    </table><!-- END BP CTA --></td>
+			</tr>
+=09=09=09
+			<tr>
+				<td align=3D"center"><!-- START See bill details --><table border=3D"0"=
+ cellspacing=3D"0" cellpadding=3D"0">
+			      	<tr>
+						<td colspan=3D"2"><img style=3D"display:block;" src=3D"https://check.=
+me/email/mint/spacer.gif" alt=3D"" width=3D"1" height=3D"20" border=3D"0" /=
+></td>
+					</tr><tr>
+				        <td><a name=3D"See_Bill_Details" href=3D"https://links.mint.com=
+/wf/click?upn=3DFrwdNJz7BEaU-2FKPeA2ZCSULDcXpZsObkA7QvoO9KjAl8F2V43QQq1Uzou=
+2sqL-2F6P4Ils-2F6A5td6w4lMEPy4ojO8pqkLwl9hwKpI5Jm-2BA225zy451i4v6pkr5K2hlk-=
+2BjBJQBPHEt69Fq2ohxREKbn4jlcLBTEt0qAyqWwdRKID-2BXwl-2FQEbF2etO3cKt5Lby1FyNz=
+pSpUqdSiyt7mwRmOv9g-3D-3D_QDh0zqwi4RIW3LTHVIeu1adKd5iyMPVLGGDzVBMKKZuceAQBy=
+ayIyYdZw2-2FZKkSbjuhrNnxibKbzVjkAwuVkIoNlTRXZgICLpmfNJGCssPIX4jDPFBFOKjxG1O=
+2KTLODynLaMc7OPJU-2F7RQA7o2Wm3A-2BLG4VKPy9LGX0ZKNydLYwgQcLZB8HDv6hPNiW2cX93=
+7q8Pnp9bMgF87mdinYCH-2BJ7RMWRGwLkcLIqkiijQaaC7gbgjfrt7R5o9646Td0-2FQCeFuWcp=
+Z3UrsUEFkFZBgHixhdLRgSv2gn3lDpUVmJGeCmEDETnes9iZJ6otOsA1EeJYHtKOnkhGlIDoBDK=
+p-2FA-3D-3D" target=3D"_blank"><img src=3D"https://check.me/email/mint/see_=
+bill_details_icon.gif" style=3D"display:block;" width=3D"25" height=3D"20" =
+alt=3D"" border=3D"0" /></a></td>
+				        <td align=3D"center" valign=3D"middle"><a name=3D"See_Bill_Deta=
+ils" href=3D"https://links.mint.com/wf/click?upn=3DFrwdNJz7BEaU-2FKPeA2ZCSU=
+LDcXpZsObkA7QvoO9KjAl8F2V43QQq1Uzou2sqL-2F6P4Ils-2F6A5td6w4lMEPy4ojO8pqkLwl=
+9hwKpI5Jm-2BA225zy451i4v6pkr5K2hlk-2BjBJQBPHEt69Fq2ohxREKbn4jlcLBTEt0qAyqWw=
+dRKID-2BXwl-2FQEbF2etO3cKt5Lby1FyNzpSpUqdSiyt7mwRmOv9g-3D-3D_QDh0zqwi4RIW3L=
+THVIeu1adKd5iyMPVLGGDzVBMKKZuceAQByayIyYdZw2-2FZKkSbjuhrNnxibKbzVjkAwuVkIoN=
+lTRXZgICLpmfNJGCssPIX4jDPFBFOKjxG1O2KTLODHHgjDUUeHggg8qCQodIRx7iMiPBllgsk4i=
+0gyAtm38Sh-2BaIb7gjEVdlDGHL81Pm1UzTtvzZmsYhgiD0jPh6bb29gLTg-2BY2Wyq5mlrSsFL=
+syEEXAK-2BcIsMaGGoQPZpNLQkH37UZGYOf9vuM6r4-2BNO4LFlM6drWiV661DXPO6Wi52fz79x=
+uMoEhAOUNxbJBpJLeycYWiK1VCA19FajvCvqjA-3D-3D" style=3D"font-family:Avenir, =
+Helvetica, sans-serif; font-size:14px; color:#45cae6; text-decoration:none;=
+" target=3D"_blank">See bill details</a></td>
+				    </tr>
+			    </table><!-- END See bill details --></td>
+			</tr>
+		</table></td>
+		<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:block=
+;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"10" hei=
+ght=3D"1" border=3D"0" /></td>
+	</tr>
+	<tr>
+		<td colspan=3D"3" valign=3D"top"><img style=3D"display:block;" src=3D"htt=
+ps://check.me/email/mint/spacer.gif" alt=3D"" width=3D"1" height=3D"34" bor=
+der=3D"0" /></td>
+	</tr>
+	<tr>
+		<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:block=
+;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"10" hei=
+ght=3D"1" border=3D"0" /></td>
+		<td valign=3D"top"><table width=3D"580" border=3D"0" cellspacing=3D"0" ce=
+llpadding=3D"0" bgcolor=3D"#FFFFFF">
+			<tr>
+				<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:blo=
+ck;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"70" h=
+eight=3D"1" border=3D"0" /></td>
+				<td valign=3D"top" style=3D"line-height:1px;" bgcolor=3D"#ededed"><img =
+style=3D"display:block;" src=3D"https://check.me/email/mint/spacer.gif" alt=
+=3D"" width=3D"440" height=3D"1" border=3D"0" /></td>
+				<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:blo=
+ck;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"70" h=
+eight=3D"1" border=3D"0" /></td>
+			</tr>
+		</table></td>
+		<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:block=
+;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"10" hei=
+ght=3D"1" border=3D"0" /></td>
+	</tr>
+	<tr>
+		<td colspan=3D"3" valign=3D"top"><img style=3D"display:block;" src=3D"htt=
+ps://check.me/email/mint/spacer.gif" alt=3D"" width=3D"1" height=3D"34" bor=
+der=3D"0" /></td>
+	</tr>
+	<tr>
+		<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:block=
+;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"10" hei=
+ght=3D"1" border=3D"0" /></td>
+		<td valign=3D"top"><table width=3D"580" border=3D"0" cellspacing=3D"0" ce=
+llpadding=3D"0" bgcolor=3D"#FFFFFF">
+			<tr>
+				<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:blo=
+ck;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"72" h=
+eight=3D"1" border=3D"0" /></td>
+				<td valign=3D"top"><table width=3D"290" border=3D"0" cellspacing=3D"0" =
+cellpadding=3D"0" bgcolor=3D"#FFFFFF">
+					<tr>
+						<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:b=
+lock;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"290=
+" height=3D"1" border=3D"0" /></td>
+					</tr>
+<!-- START ROW 1 -->
+					<tr>
+						<td valign=3D"top"><span style=3D"font-size:12px; line-height:14px; f=
+ont-family:Avenir, Arial, Helvetica, sans-serif; color:#666666;"><!-- START=
+ ROW 1 LABEL -->ISSUER<!-- END ROW 1 LABEL --></span></td>
+					</tr>
+					<tr>
+						<td valign=3D"top" style=3D"line-height:5px;"><img style=3D"display:b=
+lock;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"1" =
+height=3D"5" border=3D"0" /></td>
+					</tr>
+					<tr>
+						<td valign=3D"top"><span style=3D"font-size:18px; line-height:20px; f=
+ont-family:Avenir, Arial, Helvetica, sans-serif; color:#000000;"><!-- START=
+ ROW 1 VALUE -->Citibank Credit Card<!-- END ROW 1 VALUE --></span></td>
+					</tr>
+<!-- END ROW 1 -->
+				</table></td>
+				<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:blo=
+ck;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"20" h=
+eight=3D"1" border=3D"0" /></td>
+				<td valign=3D"top"><table width=3D"198" border=3D"0" cellspacing=3D"0" =
+cellpadding=3D"0" bgcolor=3D"#FFFFFF">
+					<tr>
+						<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:b=
+lock;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"198=
+" height=3D"1" border=3D"0" /></td>
+					</tr>
+<!-- START ROW 2 -->
+					<tr>
+						<td valign=3D"top"><span style=3D"font-size:12px; line-height:14px; f=
+ont-family:Avenir, Arial, Helvetica, sans-serif; color:#666666;"><!-- START=
+ ROW 2 LABEL -->STATEMENT BALANCE<!-- END ROW 2 LABEL --></span></td>
+					</tr>
+					<tr>
+						<td valign=3D"top" style=3D"line-height:5px;"><img style=3D"display:b=
+lock;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"1" =
+height=3D"5" border=3D"0" /></td>
+					</tr>
+					<tr>
+						<td valign=3D"top"><span style=3D"font-size:18px; line-height:20px; f=
+ont-family:Avenir, Arial, Helvetica, sans-serif; color:#000000;"><!-- START=
+ ROW 2 VALUE -->$77.36<!-- END ROW 2 VALUE --></span></td>
+					</tr>
+<!-- END ROW 2 -->
+				</table></td>
+			</tr>
+			<tr>
+				<td colspan=3D"4" valign=3D"top"><img style=3D"display:block;" src=3D"h=
+ttps://check.me/email/mint/spacer.gif" alt=3D"" width=3D"1" height=3D"32" b=
+order=3D"0" /></td>
+			</tr>
+			<tr>
+				<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:blo=
+ck;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"72" h=
+eight=3D"1" border=3D"0" /></td>
+				<td valign=3D"top"><table width=3D"290" border=3D"0" cellspacing=3D"0" =
+cellpadding=3D"0" bgcolor=3D"#FFFFFF">
+					<tr>
+						<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:b=
+lock;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"290=
+" height=3D"1" border=3D"0" /></td>
+					</tr>
+<!-- START ROW 3 -->
+					<tr>
+						<td valign=3D"top"><span style=3D"font-size:12px; line-height:14px; f=
+ont-family:Avenir, Arial, Helvetica, sans-serif; color:#666666;"><!-- START=
+ ROW 3 LABEL -->ACCOUNT<!-- END ROW 3 LABEL --></span></td>
+					</tr>
+					<tr>
+						<td valign=3D"top" style=3D"line-height:5px;"><img style=3D"display:b=
+lock;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"1" =
+height=3D"5" border=3D"0" /></td>
+					</tr>
+					<tr>
+						<td valign=3D"top"><span style=3D"font-size:18px; line-height:20px; f=
+ont-family:Avenir, Arial, Helvetica, sans-serif; color:#000000;"><!-- START=
+ ROW 3 VALUE -->  Citi Simplicity Card  <!-- END ROW 3 VALUE --></span></td>
+					</tr>
+<!-- END ROW 3 -->
+				</table></td>
+				<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:blo=
+ck;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"20" h=
+eight=3D"1" border=3D"0" /></td>
+				<td valign=3D"top"><table width=3D"198" border=3D"0" cellspacing=3D"0" =
+cellpadding=3D"0" bgcolor=3D"#FFFFFF">
+					<tr>
+						<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:b=
+lock;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"198=
+" height=3D"1" border=3D"0" /></td>
+					</tr>
+<!-- START ROW 4 -->
+					<tr>
+						<td valign=3D"top"><span style=3D"font-size:12px; line-height:14px; f=
+ont-family:Avenir, Arial, Helvetica, sans-serif; color:#666666;"><!-- START=
+ ROW 4 LABEL -->DUE DATE<!-- END ROW 4 LABEL --></span></td>
+					</tr>
+					<tr>
+						<td valign=3D"top" style=3D"line-height:5px;"><img style=3D"display:b=
+lock;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"1" =
+height=3D"5" border=3D"0" /></td>
+					</tr>
+					<tr>
+						<td valign=3D"top"><span style=3D"font-size:18px; line-height:20px; f=
+ont-family:Avenir, Arial, Helvetica, sans-serif; color:#000000;"><!-- START=
+ ROW 4 VALUE -->Apr 24, 2017<!-- END ROW 4 VALUE --></span></td>
+					</tr>
+<!-- END ROW 4  -->
+				</table></td>
+			</tr>
+		</table></td>
+		<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:block=
+;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"10" hei=
+ght=3D"1" border=3D"0" /></td>
+	</tr>
+	<tr>
+		<td colspan=3D"3" valign=3D"top"><img style=3D"display:block;" src=3D"htt=
+ps://check.me/email/mint/spacer.gif" alt=3D"" width=3D"1" height=3D"34" bor=
+der=3D"0" /></td>
+	</tr>
+	<tr>
+		<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:block=
+;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"10" hei=
+ght=3D"1" border=3D"0" /></td>
+		<td valign=3D"top"><table width=3D"580" border=3D"0" cellspacing=3D"0" ce=
+llpadding=3D"0" bgcolor=3D"#FFFFFF">
+			<tr>
+				<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:blo=
+ck;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"70" h=
+eight=3D"1" border=3D"0" /></td>
+				<td valign=3D"top" style=3D"line-height:1px;" bgcolor=3D"#ededed"><img =
+style=3D"display:block;" src=3D"https://check.me/email/mint/spacer.gif" alt=
+=3D"" width=3D"440" height=3D"1" border=3D"0" /></td>
+				<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:blo=
+ck;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"70" h=
+eight=3D"1" border=3D"0" /></td>
+			</tr>
+		</table></td>
+		<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:block=
+;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"10" hei=
+ght=3D"1" border=3D"0" /></td>
+	</tr>
+	<tr>
+		<td colspan=3D"3" valign=3D"top"><img style=3D"display:block;" src=3D"htt=
+ps://check.me/email/mint/spacer.gif" alt=3D"" width=3D"1" height=3D"34" bor=
+der=3D"0" /></td>
+	</tr>
+<!-- START DESKTOP SURVEY -->
+	<tr>
+		<td style=3D"line-height:1px;"><img style=3D"display:block;" src=3D"https=
+://check.me/email/mint/spacer.gif" alt=3D"" width=3D"10" height=3D"1" borde=
+r=3D"0" /></td>
+		<td valign=3D"top"><table width=3D"580" border=3D"0" cellspacing=3D"0" ce=
+llpadding=3D"0" bgcolor=3D"#ffffff">
+			<tr>
+				<td style=3D"line-height:1px;"><img style=3D"display:block;" src=3D"htt=
+ps://check.me/email/mint/spacer.gif" alt=3D"" width=3D"580" height=3D"1" bo=
+rder=3D"0" /></td>
+			</tr>
+			<tr>
+				<td valign=3D"top" align=3D"center"><span style=3D"font-size:14px; line=
+-height:17px; font-family:Avenir, Helvetica, sans-serif; color:#333333;"><b=
+>Did you find this email&nbsp;useful?</b></span></td>
+			</tr>
+			<tr>
+				<td style=3D"line-height:14px;"><img style=3D"display:block;" src=3D"ht=
+tps://check.me/email/mint/spacer.gif" alt=3D"" width=3D"1" height=3D"14" bo=
+rder=3D"0" /></td>
+			</tr>
+			<tr>
+				<td valign=3D"top" align=3D"center"><span style=3D"font-size:14px; line=
+-height:17px; font-family:Avenir, Helvetica, sans-serif; color:#CCCCCC;"><a=
+ href=3D"https://links.mint.com/wf/click?upn=3DFrwdNJz7BEaU-2FKPeA2ZCSVYCtN=
+wT0IEyZpGKlKvcJbuLGaiDHYNjT-2Fh29htgVfSNDYuGLVa0blOxhfHeLGj91w-3D-3D_QDh0zq=
+wi4RIW3LTHVIeu1adKd5iyMPVLGGDzVBMKKZuceAQByayIyYdZw2-2FZKkSbjuhrNnxibKbzVjk=
+AwuVkIoNlTRXZgICLpmfNJGCssPIX4jDPFBFOKjxG1O2KTLODsQljjFok0FTH-2BTPDOIjX-2BI=
+CVpBA92yEztCBJsPyPTpvzHzSM-2BRxJmhqsXgP44eoFmdS6bqBaq1T04UTPEMnRwYw0OmapCnt=
+rMH2WbLgE-2Bt2iBLTtwaLHMZh9gIrqID1qQ7TK5cMwanbLaUYJJ0OtOcSFtovNsmyLAbfa9A4k=
+aUe-2Bu0ZquLzheMLar4o6Gq5FrfVQH6ESe5UtSM850-2Fr0QQ-3D-3D" name=3D"Yes" styl=
+e=3D"color:#3cd2f0; text-decoration:none;" target=3D"_blank">YES</a> &nbsp;=
+|&nbsp; <a href=3D"https://links.mint.com/wf/click?upn=3DFrwdNJz7BEaU-2FKPe=
+A2ZCSVYCtNwT0IEyZpGKlKvcJbvrg389LCTq3-2FJr2Fflfxakd6wZnn2Y-2BphZtSXcAYIkqQ-=
+3D-3D_QDh0zqwi4RIW3LTHVIeu1adKd5iyMPVLGGDzVBMKKZuceAQByayIyYdZw2-2FZKkSbjuh=
+rNnxibKbzVjkAwuVkIoNlTRXZgICLpmfNJGCssPIX4jDPFBFOKjxG1O2KTLODVK5V9mVi-2BNdG=
+5jz-2BZfLyRt9Dm0xKCNCqE5Zt7ArhwKz0q-2Fl-2BrmtOtZ74DgGvSdoSE71Kr3JU9zBKXGsXt=
+-2FnBrRVub29Ilmx9h35Sil2hTIhdEksMiYTYEMWRAYjt6v43dE7h1Htub09ATLFRZbZ38EgpWv=
+-2BazwahZ7dBG4UwljC45aFJ7wr-2FiZ9DTHQBnf7w7LPvkEwr8KhCmSRFLZVU-2Fg-3D-3D" n=
+ame=3D"No" style=3D"color:#3cd2f0; text-decoration:none;" target=3D"_blank"=
+>NO</a></span></td>
+			</tr>
+		</table></td>
+		<td style=3D"line-height:1px;"><img style=3D"display:block;" src=3D"https=
+://check.me/email/mint/spacer.gif" alt=3D"" width=3D"10" height=3D"1" borde=
+r=3D"0" /></td>
+	</tr>
+<!-- END DESKTOP SURVEY -->
+	<tr>
+		<td colspan=3D"3" valign=3D"top"><img style=3D"display:block;" src=3D"htt=
+ps://check.me/email/mint/spacer.gif" alt=3D"" width=3D"1" height=3D"34" bor=
+der=3D"0" /></td>
+	</tr>
+	<tr>
+		<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:block=
+;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"10" hei=
+ght=3D"1" border=3D"0" /></td>
+		<td valign=3D"top" style=3D"line-height:1px;" bgcolor=3D"#ededed"><img st=
+yle=3D"display:block;" src=3D"https://check.me/email/mint/spacer.gif" alt=
+=3D"" width=3D"580" height=3D"1" border=3D"0" /></td>
+		<td valign=3D"top" style=3D"line-height:1px;"><img style=3D"display:block=
+;" src=3D"https://check.me/email/mint/spacer.gif" alt=3D"" width=3D"10" hei=
+ght=3D"1" border=3D"0" /></td>
+	</tr>
+	<tr>
+		<td colspan=3D"3" valign=3D"top"><img style=3D"display:block;" src=3D"htt=
+ps://check.me/email/mint/spacer.gif" alt=3D"" width=3D"1" height=3D"34" bor=
+der=3D"0" /></td>
+	</tr>
+	<tr>
+		<td style=3D"line-height:1px;"><img style=3D"display:block;" src=3D"https=
+://check.me/email/mint/spacer.gif" alt=3D"" width=3D"10" height=3D"1" borde=
+r=3D"0" /></td>
+		<td valign=3D"top"><table width=3D"580" border=3D"0" cellspacing=3D"0" ce=
+llpadding=3D"0">
+			<tr>
+				<td style=3D"line-height:1px;"><img style=3D"display:block;" src=3D"htt=
+ps://check.me/email/mint/spacer.gif" alt=3D"" width=3D"160" height=3D"1" bo=
+rder=3D"0" /></td>
+					<!-- DESKTOP SOCIAL TABLE GOES HERE -->
+									<td><a name=3D"Facebook" href=3D"https://links.mint.com/wf/click?u=
+pn=3D5Utd7G-2B5xhsaQZ2v9X3zjxKHnA5qv21A7d4Nw4jSc2PyVi3D3ASUuErJv7Pq6aJJ_QDh=
+0zqwi4RIW3LTHVIeu1adKd5iyMPVLGGDzVBMKKZuceAQByayIyYdZw2-2FZKkSbjuhrNnxibKbz=
+VjkAwuVkIoNlTRXZgICLpmfNJGCssPIX4jDPFBFOKjxG1O2KTLODP31WZaKYNS8JzWJDi8J4NNa=
+dBpzaXXHnc4Jv6MilvPze18LjpgScC9IMWh0U9JKm359tCrM3HkaZ-2FbJ0YTBZbfrL05LfGUFt=
+zj-2BzzWXl-2Fft95PwNPR9tZ-2FYabHmMQDdqggC10FODCQuJ6inGV-2BXps-2FMmY-2BKZYC7=
+5AlVK88T2wp-2BzAZHXcu6eSWC-2Bigdj9XQGwkGnGpRV0ubz2y6nQsyL6g-3D-3D" target=
+=3D"_blank"><img style=3D"display:block; font-size:9px; font-family:Avenir,=
+ Helvetica, sans-serif; background-color:#4dc5e2; color:#ffffff; text-align=
+:center;" src=3D"https://check.me/email/mint/social/facebook2.gif" width=3D=
+"28" height=3D"28" alt=3D"Facebook" border=3D"0" /></a></td>
+			    <td style=3D"line-height:1px;"><img style=3D"display:block;" src=3D"=
+https://check.me/email/mint/spacer.gif" width=3D"20" height=3D"1" alt=3D"" =
+border=3D"0" /></td>
+			    <td><a name=3D"Twitter" href=3D"https://links.mint.com/wf/click?upn=
+=3DbXe8WDV9jk16CMabiezs3Y4M8JEKUJZ5Mz79zx2-2FKXI-3D_QDh0zqwi4RIW3LTHVIeu1ad=
+Kd5iyMPVLGGDzVBMKKZuceAQByayIyYdZw2-2FZKkSbjuhrNnxibKbzVjkAwuVkIoNlTRXZgICL=
+pmfNJGCssPIX4jDPFBFOKjxG1O2KTLODsEYSZhRkvD7XGlZy31LzHI2GwpWhUa9GpVk-2FwqstH=
+BpFxq5kEnbrklGO0kUTiIhwfozcxZcbhOxCTxp4gOpUaL2sovd889KQBiisc-2BbA17KwJqunLh=
+ZTIEGU8kjGFXq1Gqy7e7wWbDCJjueKEAFwXe81DiIVHBP06dx9pL3Sn-2F-2BrZ58mPnOCiPNmG=
+3GyhSeMDlYAtiZL2uIM6mZaRXL7Hg-3D-3D" target=3D"_blank"><img style=3D"displa=
+y:block; font-size:9px; font-family:Avenir, Helvetica, sans-serif; backgrou=
+nd-color:#4dc5e2; color:#ffffff; text-align:center;" src=3D"https://check.m=
+e/email/mint/social/twitter2.gif" width=3D"28" height=3D"28" alt=3D"Twitter=
+" border=3D"0" /></a></td>
+			    <td style=3D"line-height:1px;"><img style=3D"display:block;" src=3D"=
+https://check.me/email/mint/spacer.gif" width=3D"20" height=3D"1" alt=3D"" =
+border=3D"0" /></td>
+                <td><a name=3D"Instagram" href=3D"https://links.mint.com/wf=
+/click?upn=3D5Utd7G-2B5xhsaQZ2v9X3zjy0wdo9CjV6t9JBePRJwuLHNziNHnYCOX1SR4Bwx=
+xGPO_QDh0zqwi4RIW3LTHVIeu1adKd5iyMPVLGGDzVBMKKZuceAQByayIyYdZw2-2FZKkSbjuhr=
+NnxibKbzVjkAwuVkIoNlTRXZgICLpmfNJGCssPIX4jDPFBFOKjxG1O2KTLODAsvqQGcOXnzONT8=
+qVsZ4uKhjhFba3n-2BmziAxb-2FDhzK-2BMXXDB55wBfnpXUbKhB6Kd4wpgmIIHf8QlEqYD3zP7=
+WemmDuN-2Fh7WVO9NO8yfs19t-2BEHodK-2F-2FnRX-2Bq5TA3bgf-2FbVyf-2BQ-2F-2BXpP-2=
+F8fvdmVHoZ3k8FAQMhjrj6wEmr5DMuir0-2FZkZZtxv4CCE-2BS414nlOiyt3ebJDXvCcBlkf0u=
+j5sg-3D-3D" target=3D"_blank"><img style=3D"display:block; font-size:9px; f=
+ont-family:Avenir, Helvetica, sans-serif; background-color:#4dc5e2; color:#=
+ffffff; text-align:center;" src=3D"https://check.me/email/mint/social/insta=
+gram2.gif" width=3D"28" height=3D"28" alt=3D"Instagram" border=3D"0" /></a>=
+</td>
+			    <td style=3D"line-height:1px;"><img style=3D"display:block;" src=3D"=
+https://check.me/email/mint/spacer.gif" width=3D"19" height=3D"1" alt=3D"" =
+border=3D"0" /></td>
+			    <td><a name=3D"Blog" href=3D"https://links.mint.com/wf/click?upn=3D5=
+Utd7G-2B5xhsaQZ2v9X3zj-2Bh2PKvS7D-2B5pyn8kSVJyQQ-3D_QDh0zqwi4RIW3LTHVIeu1ad=
+Kd5iyMPVLGGDzVBMKKZuceAQByayIyYdZw2-2FZKkSbjuhrNnxibKbzVjkAwuVkIoNlTRXZgICL=
+pmfNJGCssPIX4jDPFBFOKjxG1O2KTLODn0-2F-2BNx2zglrPir-2BB3wwIBoVpCDKwnUWXo8H-2=
+FSKVp52Y08aDwzHO9TIV8bXZMOq33eO0L9gtyxFnTI4Xl5zshqI1mINyq2Q6sTy3f5LfQwC4i6F=
+R95OPbeokavYj3u2uVRrp0XvJD7bOgf8C-2FOpIcCq12X0Eb-2Bv9AwGueDUZUH1hJGhl6-2FDF=
+L-2BLVXuOdWEKle1YHaLJ-2BmuERYcbDPwiGW5Q-3D-3D" target=3D"_blank"><img style=
+=3D"display:block; font-size:9px; font-family:Avenir, Helvetica, sans-serif=
+; background-color:#4dc5e2; color:#ffffff; text-align:center;" src=3D"https=
+://check.me/email/mint/social/blog2.gif" width=3D"28" height=3D"28" alt=3D"=
+Blog" border=3D"0" /></a></td>
+                 <td style=3D"line-height:1px;"><img style=3D"display:block=
+;" src=3D"https://check.me/email/mint/spacer.gif" width=3D"15" height=3D"1"=
+ alt=3D"" border=3D"0" /></td>
+                <td><a name=3D"Apple" href=3D"https://links.mint.com/wf/cli=
+ck?upn=3DFrwdNJz7BEaU-2FKPeA2ZCSQiRNKtlEXvwowsps10D0UoiQR7778UaTx-2FhLXgXDq=
+N-2BTY5BWE3JHVB-2B4RZXY10pz32sk6IAyaFpukEQnslN5P4-3D_QDh0zqwi4RIW3LTHVIeu1a=
+dKd5iyMPVLGGDzVBMKKZuceAQByayIyYdZw2-2FZKkSbjuhrNnxibKbzVjkAwuVkIoNlTRXZgIC=
+LpmfNJGCssPIX4jDPFBFOKjxG1O2KTLODcvD1mIafJmZytRPw7JIppuhYVZHNiOliTFZK7dCy0E=
+5baRDjt-2FjlSNjJ9kYQHcxs34rG25gE-2F8OZxgad5ihplJTOaVapbROoq7HPmtgkC9AXhifah=
+8PGQ02oAW-2FNmVp5tGRSQwGXB6dBjmCpaB2Uv29B10Czy-2FFaHYN-2BICaxv-2B1NP6ug-2FL=
+ClCayBw5u3ePlEipBJDyu28zOLx7nZZgdnZA-3D-3D" target=3D"_blank"><img style=3D=
+"display:block; font-size:9px; font-family:Avenir, Helvetica, sans-serif; b=
+ackground-color:#4dc5e2; color:#ffffff; text-align:center;" src=3D"https://=
+check.me/email/mint/social/mac2.gif" width=3D"28" height=3D"28" alt=3D"Appl=
+e" border=3D"0" /></a></td>
+			    <td style=3D"line-height:1px;"><img style=3D"display:block;" src=3D"=
+https://check.me/email/mint/spacer.gif" width=3D"18" height=3D"1" alt=3D"" =
+border=3D"0" /></td>
+                <td><a name=3D"Android" href=3D"https://links.mint.com/wf/c=
+lick?upn=3DFrwdNJz7BEaU-2FKPeA2ZCSb-2BAqMJ1OwWB6X3LsDkzm5sZ2jxzdAdSj4YGLEth=
+hw3R1w0FboLozen6gquwiYDCvQ-3D-3D_QDh0zqwi4RIW3LTHVIeu1adKd5iyMPVLGGDzVBMKKZ=
+uceAQByayIyYdZw2-2FZKkSbjuhrNnxibKbzVjkAwuVkIoNlTRXZgICLpmfNJGCssPIX4jDPFBF=
+OKjxG1O2KTLODGclV0COLaRakEnO9KoXxKGmnkjAfuDktwnZgB4MBI5Udk5TslPnE6R8TqUdbSP=
+lXv2-2FUddWEWcK6Py-2BMCkzomba3XUY23DGba5YogC-2BZW9OK33w-2FFFN0WS3FPtQYHKPBz=
+0FMzko32a7ta8Cys-2BZ0ttqy-2BiJ3jIakVpFpcfQaNh3cm3tymyyJy5mqOoLxxC49GEHadsQD=
+W7noSUVKssKgvQ-3D-3D" target=3D"_blank"><img style=3D"display:block; font-s=
+ize:9px; font-family:Avenir, Helvetica, sans-serif; background-color:#4dc5e=
+2; color:#ffffff; text-align:center;" src=3D"https://check.me/email/mint/so=
+cial/android2.gif" width=3D"28" height=3D"28" alt=3D"Android" border=3D"0" =
+/></a></td>
+
+				<td style=3D"line-height:1px;"><img style=3D"display:block;" src=3D"htt=
+ps://check.me/email/mint/spacer.gif" alt=3D"" width=3D"160" height=3D"1" bo=
+rder=3D"0" /></td>
+			</tr>
+		</table></td>
+		<td style=3D"line-height:1px;"><img style=3D"display:block;" src=3D"https=
+://check.me/email/mint/spacer.gif" alt=3D"" width=3D"10" height=3D"1" borde=
+r=3D"0" /></td>
+	</tr>
+	<tr>
+		<td colspan=3D"3" valign=3D"top"><img style=3D"display:block;" src=3D"htt=
+ps://check.me/email/mint/spacer.gif" alt=3D"" width=3D"1" height=3D"25" bor=
+der=3D"0" /></td>
+	</tr>
+	<tr>
+		<td style=3D"line-height:1px;"><img style=3D"display:block;" src=3D"https=
+://check.me/email/mint/spacer.gif" alt=3D"" width=3D"10" height=3D"1" borde=
+r=3D"0" /></td>
+		<td valign=3D"top"><table width=3D"580" border=3D"0" cellspacing=3D"0" ce=
+llpadding=3D"0">
+			<tr>
+				<td style=3D"line-height:1px;"><img style=3D"display:block;" src=3D"htt=
+ps://check.me/email/mint/spacer.gif" alt=3D"" width=3D"580" height=3D"1" bo=
+rder=3D"0" /></td>
+			</tr>
+			<tr>
+				<td valign=3D"top" align=3D"center">
+					<!-- DESKTOP LEGAL COPY GOES HERE -->
+					<span style=3D"font-size:11px; line-height:16px; font-family:Avenir, H=
+elvetica, sans-serif; color:#999999;">This message was sent to <a name=3D"E=
+mailAddress" href=3D"mailto:rmolin88@gmail.com" style=3D"color:#999999; tex=
+t-decoration:none;" target=3D"_blank">rmolin88@gmail.com</a>.<br />
+				If you would like to update your email address, please <a name=3D"Manag=
+ePreferences" href=3D"https://links.mint.com/wf/click?upn=3DFrwdNJz7BEaU-2F=
+KPeA2ZCSULDcXpZsObkA7QvoO9KjAl8F2V43QQq1Uzou2sqL-2F6P4Ils-2F6A5td6w4lMEPy4o=
+jO8pqkLwl9hwKpI5Jm-2BA225zy451i4v6pkr5K2hlk-2BjB4J-2F1MDAsfWGGzkqErt4j2FI5N=
+Bc8Ny9ECSQuuOflBbLQ0Re35BB1-2FgJ3pYN963EA_QDh0zqwi4RIW3LTHVIeu1adKd5iyMPVLG=
+GDzVBMKKZuceAQByayIyYdZw2-2FZKkSbjuhrNnxibKbzVjkAwuVkIoNlTRXZgICLpmfNJGCssP=
+IX4jDPFBFOKjxG1O2KTLODA4soutlEUJvIu9cfeK9PLob8j9bF6TbYb0ecDZ4xaCUwa7dTEb8Aa=
+QXI-2BHxkDaWeIFDPdzu495xcUssuFtWfJfF9-2FJCssx-2BX4peUA8x1si3SeFgLwaqygMvoni=
+OkyjwNpB83S-2BDg42pEK-2Bp5YqYBQLN0PRzerhcZ-2BPIlxVTVWm1zphRBvxE63RC9HjnZusQ=
+OygQr-2BstceIuTDuMN-2FLdK-2Bg-3D-3D" style=3D"color:#999999;" target=3D"_bl=
+ank">click&nbsp;here</a>.<br />
+				If you no longer wish to receive e-mails from Mint, <a name=3D"Unsubscr=
+ibe" href=3D"https://links.mint.com/wf/click?upn=3DFrwdNJz7BEaU-2FKPeA2ZCSU=
+LDcXpZsObkA7QvoO9KjAl8F2V43QQq1Uzou2sqL-2F6P4Ils-2F6A5td6w4lMEPy4ojO8pqkLwl=
+9hwKpI5Jm-2BA225zy451i4v6pkr5K2hlk-2BjBzW2T3JR-2BJJF9-2FE4tE7AMLPs9aihVNtmz=
+fobMSO4WJ1xkxiETBKXHYoPl7PiRnE3m_QDh0zqwi4RIW3LTHVIeu1adKd5iyMPVLGGDzVBMKKZ=
+uceAQByayIyYdZw2-2FZKkSbjuhrNnxibKbzVjkAwuVkIoNlTRXZgICLpmfNJGCssPIX4jDPFBF=
+OKjxG1O2KTLODA8-2FJbfIMEN4dwaMYWU4ko7UFpTQQQTa0FOQVTS4Qx0SMQvNN77pS3sXflhjt=
+cg9oTrZc6izWYhdZ9KSJeiZSzEdvynzFdK-2BiFSXjCLKWr4mG18VP4xXdqgcyowrCLS06dotGf=
+fPUDOqskXy6WxNv5lXLl5zzJ1eL0jFFSyIXSU9PCCrIinMfH5kGkGQNKyBAXTjsiRAtkYTd502H=
+IYfCFw-3D-3D" style=3D"color:#999999;" target=3D"_blank">click&nbsp;here</a=
+>.
+				<br />&nbsp;<br />
+				<span style=3D"font-size:10px; line-height:16px;">
+				<a name=3D"PrivacyPolicy" href=3D"https://links.mint.com/wf/click?upn=
+=3DFrwdNJz7BEaU-2FKPeA2ZCSUo0Bklb5MT0-2BiFaQ-2BQS7YQo-2Fvyt6A2bLgD1oNlLz7KM=
+Ch9pyJsdHW1-2B8EoS6eXqnF1nH2nzPe3Esfj-2BRJgxmrMFoVA4zJSU8XO1PesInLB8yNxHPfk=
+Q6JawuY-2FMoCkUQPp68O2Ki-2B3o6ID7EN4vbCP-2BweCUiqvn6-2BEOfh-2BkyaaZ_QDh0zqw=
+i4RIW3LTHVIeu1adKd5iyMPVLGGDzVBMKKZuceAQByayIyYdZw2-2FZKkSbjuhrNnxibKbzVjkA=
+wuVkIoNlTRXZgICLpmfNJGCssPIX4jDPFBFOKjxG1O2KTLODxfPX-2FDads-2BWXZgxxI2w2I76=
+HdPvW9XmFiho76AyFlK8HNjGBgCXkUW0Kd5Z-2F4diNAeqpa-2F3wsUVU01Yi-2F-2BuOVhz1LR=
+xSftdVG6qi5UMsFY4Vlhhoio5-2Be0h-2BNz6ezYevS2X9LmI1TvHQbISJSegF5V5KuMRnuL6BF=
+nknGZqHmhOC0TIhZldePgFPtxhKy4nng2yJbjkWluuwaNEAZ7ry5w-3D-3D" style=3D"color=
+:#999999;" target=3D"_blank">Privacy</a> &nbsp;|&nbsp; <a name=3D"TermsandC=
+onditions" href=3D"https://links.mint.com/wf/click?upn=3DFrwdNJz7BEaU-2FKPe=
+A2ZCSUo0Bklb5MT0-2BiFaQ-2BQS7YQo-2Fvyt6A2bLgD1oNlLz7KMCh9pyJsdHW1-2B8EoS6eX=
+qnF1nH2nzPe3Esfj-2BRJgxmrMFoVA4zJSU8XO1PesInLB8oMj5PR4KPMmcbpE7eGADIzkSh7Zc=
+gnWw8LXUeFXF5go-3D_QDh0zqwi4RIW3LTHVIeu1adKd5iyMPVLGGDzVBMKKZuceAQByayIyYdZ=
+w2-2FZKkSbjuhrNnxibKbzVjkAwuVkIoNlTRXZgICLpmfNJGCssPIX4jDPFBFOKjxG1O2KTLODG=
+lAYPOqy7W-2F4YTGqDUsjm-2BElXw-2FAE55chT7uMKAqFlXX5msCa6YQrRxWhpykDVMuqlB8Ep=
+ShuIB7W3CI2zRp3AbM1c41Vl35em8-2F01wHrtaHvkIjzAZ5hcWsJRLCK0zVs2UJNyxGTPeuMgV=
+YgZL-2BlKzW4-2FQBoXOEN0Bfo9EObFdrPljymezaVugY5ChIT9LIAgYXjiCJlz6bio3dBaKSFw=
+-3D-3D" style=3D"color:#999999;" target=3D"_blank">Terms&nbsp;and&nbsp;Cond=
+itions</a>
+				<br />&nbsp;<br />
+				Mint bill pay services provided by Intuit Payments Inc. under applicabl=
+e&nbsp;<a name=3D"Licenses" href=3D"https://links.mint.com/wf/click?upn=3DF=
+rwdNJz7BEaU-2FKPeA2ZCSUo0Bklb5MT0-2BiFaQ-2BQS7YQo-2Fvyt6A2bLgD1oNlLz7KMCh9p=
+yJsdHW1-2B8EoS6eXqnF1nH2nzPe3Esfj-2BRJgxmrMFoVA4zJSU8XO1PesInLB8TXjgsA9ZMUm=
+MAb-2BNwp75hVeP6W3-2B-2BD7-2B2rIRAf10ChUZZp1vbG6vB4C8iX6R0zkE_QDh0zqwi4RIW3=
+LTHVIeu1adKd5iyMPVLGGDzVBMKKZuceAQByayIyYdZw2-2FZKkSbjuhrNnxibKbzVjkAwuVkIo=
+NlTRXZgICLpmfNJGCssPIX4jDPFBFOKjxG1O2KTLODdJQc9BLmdi8esmuy3QXHf04z3jEmff3mH=
+fdghD1ZQ7BABZrXJmaJ5YP11dL3ZKQNQHVMpmAfaB0qWaViwHwDlE22BGzxdc2ZKmqcJu2E686N=
+duV3IYsPOM4VewIOr508wwlDiv7u-2FeyUL8lzfD0sCqaxKs9totWdoXMC6kd6a0QRvnTv25ze7=
+K39GOn03rfygpwUsyUeiYrpISu2grpqxQ-3D-3D" style=3D"color:#999999;" target=3D=
+"_blank">licenses</a>.<br />Intuit Payments Inc., <span class=3D"ios-addr">=
+2700 Coast Avenue, Mountain View, CA&nbsp;94043</span>
+				<br />&nbsp;<br />&nbsp;<br />&nbsp;</span></span>
+				</td>
+			</tr>
+		</table></td>
+		<td style=3D"line-height:1px;"><img style=3D"display:block;" src=3D"https=
+://check.me/email/mint/spacer.gif" alt=3D"" width=3D"10" height=3D"1" borde=
+r=3D"0" /></td>
+	</tr>
+</table>
+<div style=3D"display:none; white-space:nowrap; font:15px courier; color:#f=
+fffff;">
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+</div>
+<!-- END DESKTOP -->
+<!-- START MOBILE -->
+<!--[if !gte mso 9]><!-->
+<div style=3D"mso-hide:all">
+<div class=3D"mobile_again" style=3D"width:0; overflow:hidden; display:none=
+; visibility:hidden;">
+<table width=3D"305" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" align=
+=3D"center" bgcolor=3D"#FFFFFF">
+	<tr>
+		<td style=3D"padding-top:15px; padding-bottom:35px;">
+			<!-- MOBILE MINT ICON GOES HERE -->
+			<a name=3D"MintLogo_Mobile" href=3D"https://links.mint.com/wf/click?upn=
+=3DFrwdNJz7BEaU-2FKPeA2ZCSRZma7C-2FN3yZPJYSgrUG2NA-3D_QDh0zqwi4RIW3LTHVIeu1=
+adKd5iyMPVLGGDzVBMKKZuceAQByayIyYdZw2-2FZKkSbjuhrNnxibKbzVjkAwuVkIoNlTRXZgI=
+CLpmfNJGCssPIX4jDPFBFOKjxG1O2KTLODtGu9E8cRLp-2BMjkaDgtrLmFJoRUmrSGAL75APOP2=
+p70Smnhkm8GUUmebQz7zK6yDAJZuYmCR9oc0N6w61hSxyN3H5sMYY-2FDyo5uJmHlz1WgqY5eaR=
+I-2FEnDVxYE3rBrCGgoVntlYo7oBEBcPGtx49trCx9BpfM5q-2BpI9kPh8N2kBvCHh84iY9xG0u=
+TXzIo-2FgULBLtP80ot5FW4XzEYPj62oA-3D-3D" target=3D"_blank"><img style=3D"di=
+splay:block; font-size:18px; font-weight:bold; font-family:Avenir, Helvetic=
+a, sans-serif; color:#333333; text-align:center; background-color:#09c675;"=
+ src=3D"https://check.me/email/mint/mobile/logo/mobile_mint_2x.gif" width=
+=3D"305" height=3D"45" alt=3D"intuit&reg; mint" class=3D"emailwrapto100pct =
+logo" border=3D"0" /></a>
+			</td>
+	</tr>
+	<tr>
+		<td align=3D"center" style=3D"padding-left:10px; padding-right:10px; padd=
+ing-bottom:25px;" bgcolor=3D"#ffffff"><span style=3D"font-size:20px; line-h=
+eight:28px; font-family:Avenir, Arial, Helvetica, sans-serif; color:#000000=
+;">
+            <b>
+                 Your Citibank Credit Card bill is due on <br/>
+                        Monday, Apr 24</b></span></td>
+	</tr>
+    <!-- START MOBILE New Bill Animation -->
+	<tr>
+		<td><img style=3D"display:block; font-size:16px; font-weight:bold; font-f=
+amily:Avenir, Helvetica, sans-serif; color:#333333; text-align:center;" src=
+=3D"https://check.me/email/mint/mobile/mobile_newbill_animation_2x.gif" wid=
+th=3D"305" height=3D"75" alt=3D"NEW! BILL PAY IS NOW IN MINT." class=3D"ema=
+ilwrapto100pct animationb" border=3D"0" /></td>
+	</tr>
+    <!-- END MOBILE New Bill Animation -->
+	<tr>
+		<td align=3D"center" style=3D"padding-left:10px; padding-right:10px; padd=
+ing-top:25px; padding-bottom:10px;" bgcolor=3D"#ffffff"><span style=3D"font=
+-size:12px; line-height:14px; font-family:Avenir, Arial, Helvetica, sans-se=
+rif; color:#666666;"><!-- START PAYMENT DUE LABEL MOBILE --> MINIMUM DUE<!-=
+- END PAYMENT DUE LABEL MOBILE --></span></td>
+	</tr>
+	<tr>
+		<td align=3D"center" style=3D"padding-left:10px; padding-right:10px; padd=
+ing-top:0px; padding-bottom:20px;" bgcolor=3D"#ffffff"><span style=3D"font-=
+size:55px; line-height:57px; font-family:Avenir, Arial, Helvetica, sans-ser=
+if; color:#000000;"><!-- START PAYMENT DUE VALUE MOBILE -->$25.00<!-- END P=
+AYMENT DUE VALUE MOBILE --></span></td>
+	</tr>
+	<tr>
+		<td align=3D"center" style=3D"padding-top:0px;padding-bottom:20px;"><tabl=
+e width=3D"250" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" bgcolor=3D=
+"#ffab40">
+			<tr>
+				<td align=3D"center" bgcolor=3D"#ffab40" style=3D"padding-top:10px;padd=
+ing-bottom:10px;"><span style=3D"font-size:16px; line-height:22px; font-fam=
+ily:Avenir, Arial, Helvetica, sans-serif; color:#ffffff;"><a href=3D"https:=
+//links.mint.com/wf/click?upn=3DFrwdNJz7BEaU-2FKPeA2ZCSULDcXpZsObkA7QvoO9Kj=
+Al8F2V43QQq1Uzou2sqL-2F6P4Ils-2F6A5td6w4lMEPy4ojO8pqkLwl9hwKpI5Jm-2BA225zy4=
+51i4v6pkr5K2hlk-2BjBUW-2FClb46c9AIXFoaBj0YihF1N0079VO3GekUNUozRdA8LMUHSo0tw=
+EsKtEZZX4uC_QDh0zqwi4RIW3LTHVIeu1adKd5iyMPVLGGDzVBMKKZuceAQByayIyYdZw2-2FZK=
+kSbjuhrNnxibKbzVjkAwuVkIoNlTRXZgICLpmfNJGCssPIX4jDPFBFOKjxG1O2KTLODpmmmczI-=
+2Ft36a3J1mF2tDcsT4bi-2FXxJ2naK9xK-2BoecU6Wni4RuEvd3ol39I3LA3-2F-2BAynWxiCK6=
+qaxkLkRPIvYbjzxxkh0i-2FOFhkqJsXqrVnLB1N2U8jEQ42CdjwT2aWUSGHPvYHEtaIOhic3EXu=
+81Mjwy2EiEZuKB44Ij7zmBMkFOMsZoSZ-2Fez5DDoJDmy25fn50RIh5KsiYjUbtXHGglMg-3D-3=
+D" target=3D"_blank" style=3D"color:#ffffff;text-decoration:none;"><!-- STA=
+RT CTA COPY MOBILE -->SCHEDULE PAYMENT<!-- END CTA COPY MOBILE --></a></spa=
+n></td>
+			</tr>
+		</table></td>
+	</tr>
+	<tr>
+		<td align=3D"center" style=3D"padding-top:0px;padding-bottom:35px;"><!-- =
+START Mobile See bill details --><table border=3D"0" cellspacing=3D"0" cell=
+padding=3D"0">
+			<tr>
+		        <td><a name=3D"See_Bill_Details" href=3D"https://links.mint.com/w=
+f/click?upn=3DFrwdNJz7BEaU-2FKPeA2ZCSULDcXpZsObkA7QvoO9KjAl8F2V43QQq1Uzou2s=
+qL-2F6P4Ils-2F6A5td6w4lMEPy4ojO8pqkLwl9hwKpI5Jm-2BA225zy451i4v6pkr5K2hlk-2B=
+jBJQBPHEt69Fq2ohxREKbn4jlcLBTEt0qAyqWwdRKID-2BXwl-2FQEbF2etO3cKt5Lby1FyNzpS=
+pUqdSiyt7mwRmOv9g-3D-3D_QDh0zqwi4RIW3LTHVIeu1adKd5iyMPVLGGDzVBMKKZuceAQByay=
+IyYdZw2-2FZKkSbjuhrNnxibKbzVjkAwuVkIoNlTRXZgICLpmfNJGCssPIX4jDPFBFOKjxG1O2K=
+TLODxU-2BWhrk5ruWBOtThyzEWemwgYcfheqzzDxViAb-2FqfWe4PqPkMzXSBpzLsZkkFNwddJm=
+r1Z-2B-2BFnVBLrWL2f8mCNXfVsirr8vkheOv2t7bTVfv1mgHKsd7u7LbjWFXtKrwzrJ41nWbjN=
+rW0wi-2BjXzRAuf9jnrbp3dmheD6pnTRvE8vr867IqCWWEHyH8Z8pXOAIfu6ENxoi-2FGi0bp76=
+g5O3w-3D-3D" target=3D"_blank"><img src=3D"https://check.me/email/mint/see_=
+bill_details_icon.gif" style=3D"display:block;" width=3D"25" height=3D"20" =
+alt=3D"" border=3D"0" /></a></td>
+		        <td align=3D"center" valign=3D"middle"><a name=3D"See_Bill_Detail=
+s" href=3D"https://links.mint.com/wf/click?upn=3DFrwdNJz7BEaU-2FKPeA2ZCSULD=
+cXpZsObkA7QvoO9KjAl8F2V43QQq1Uzou2sqL-2F6P4Ils-2F6A5td6w4lMEPy4ojO8pqkLwl9h=
+wKpI5Jm-2BA225zy451i4v6pkr5K2hlk-2BjBJQBPHEt69Fq2ohxREKbn4jlcLBTEt0qAyqWwdR=
+KID-2BXwl-2FQEbF2etO3cKt5Lby1FyNzpSpUqdSiyt7mwRmOv9g-3D-3D_QDh0zqwi4RIW3LTH=
+VIeu1adKd5iyMPVLGGDzVBMKKZuceAQByayIyYdZw2-2FZKkSbjuhrNnxibKbzVjkAwuVkIoNlT=
+RXZgICLpmfNJGCssPIX4jDPFBFOKjxG1O2KTLODClR3PacIPLtKjhC4c0wIAGg2-2FznBO9YZOO=
+QuAHAdciALMeg8QXVInRdMVPWDtAlfj4zW-2By9q8Ec0Uf6U-2FhUmrOUohNIiYtA9dgdXKVLJX=
+LhU7iioPGEeIRbziR9LfSZfjfWF2ArC-2FfbkYekrvQ5zjKPNnpKVTnwCJBnIJ2ne62sO03YWl9=
+zL-2B7qF90VajEc19rAjhCb-2BotZbt-2F-2FeRjmw2A-3D-3D" style=3D"font-family:Av=
+enir, Helvetica, sans-serif; font-size:14px; color:#45cae6; text-decoration=
+:none;" target=3D"_blank">See bill details</a></td>
+		    </tr>
+	    </table><!-- END Mobile See bill details --></td>
+	</tr>
+	<tr>
+		<td valign=3D"top" style=3D"line-height:1px;" bgcolor=3D"#ededed"><img st=
+yle=3D"display:block;" src=3D"https://check.me/email/mint/mobile/mobile_gre=
+y_2x.gif" width=3D"305" height=3D"1" alt=3D"" class=3D"emailwrapto100pct gr=
+eyline" border=3D"0" /></td>
+	</tr>
+<!-- START ROW 1 MOBILE -->
+	<tr>
+		<td align=3D"center" style=3D"padding-left:10px; padding-right:10px; padd=
+ing-top:35px; padding-bottom:5px;" bgcolor=3D"#ffffff"><span style=3D"font-=
+size:12px; line-height:14px; font-family:Avenir, Arial, Helvetica, sans-ser=
+if; color:#666666;"><!-- START ROW 1 LABEL MOBILE -->ISSUER<!-- END ROW 1 L=
+ABEL MOBILE --></span></td>
+	</tr>
+	<tr>
+		<td align=3D"center" style=3D"padding-left:10px; padding-right:10px; padd=
+ing-top:0px; padding-bottom:30px;" bgcolor=3D"#ffffff"><span style=3D"font-=
+size:18px; line-height:20px; font-family:Avenir, Arial, Helvetica, sans-ser=
+if; color:#000000;"><!-- START ROW 1 VALUE MOBILE -->
+		Citibank Credit Card<!-- END ROW 1 VALUE MOBILE --></span></td>
+	</tr>
+<!-- END ROW 1 MOBILE -->
+<!-- START ROW 2 MOBILE -->
+	<tr>
+		<td align=3D"center" style=3D"padding-left:10px; padding-right:10px; padd=
+ing-top:0px; padding-bottom:5px;" bgcolor=3D"#ffffff"><span style=3D"font-s=
+ize:12px; line-height:14px; font-family:Avenir, Arial, Helvetica, sans-seri=
+f; color:#666666;"><!-- START ROW 2 LABEL MOBILE -->ACCOUNT<!-- END ROW 2 L=
+ABEL MOBILE--></span></td>
+	</tr>
+	<tr>
+		<td align=3D"center" style=3D"padding-left:10px; padding-right:10px; padd=
+ing-top:0px; padding-bottom:30px;" bgcolor=3D"#ffffff"><span style=3D"font-=
+size:18px; line-height:20px; font-family:Avenir, Arial, Helvetica, sans-ser=
+if; color:#000000;"><!-- START ROW 2 VALUE MOBILE -->
+		  Citi Simplicity Card  		<!-- END ROW 2 VALUE MOBILE --></span></td>
+	</tr>
+<!-- END ROW 2 MOBILE -->
+<!-- START ROW 3 MOBILE -->
+	<tr>
+		<td align=3D"center" style=3D"padding-left:10px; padding-right:10px; padd=
+ing-top:0px; padding-bottom:5px;" bgcolor=3D"#ffffff"><span style=3D"font-s=
+ize:12px; line-height:14px; font-family:Avenir, Arial, Helvetica, sans-seri=
+f; color:#666666;"><!-- START ROW 3 LABEL MOBILE -->STATEMENT BALANCE<!-- E=
+ND ROW 3 LABEL MOBILE --></span></td>
+	</tr>
+	<tr>
+		<td align=3D"center" style=3D"padding-left:10px; padding-right:10px; padd=
+ing-top:0px; padding-bottom:30px;" bgcolor=3D"#ffffff"><span style=3D"font-=
+size:18px; line-height:20px; font-family:Avenir, Arial, Helvetica, sans-ser=
+if; color:#000000;"><!-- START ROW 3 VALUE MOBILE -->$77.36<!-- END ROW 3 V=
+ALUE MOBILE --></span></td>
+	</tr>
+<!-- END ROW 3 MOBILE -->
+<!-- START ROW 4 MOBILE -->
+	<tr>
+		<td align=3D"center" style=3D"padding-left:10px; padding-right:10px; padd=
+ing-top:0px; padding-bottom:5px;" bgcolor=3D"#ffffff"><span style=3D"font-s=
+ize:12px; line-height:14px; font-family:Avenir, Arial, Helvetica, sans-seri=
+f; color:#666666;"><!-- START ROW 4 LABEL MOBILE -->DUE DATE<!-- END ROW 4 =
+LABEL MOBILE --></span></td>
+	</tr>
+	<tr>
+		<td align=3D"center" style=3D"padding-left:10px; padding-right:10px; padd=
+ing-top:0px; padding-bottom:35px;" bgcolor=3D"#ffffff"><span style=3D"font-=
+size:18px; line-height:20px; font-family:Avenir, Arial, Helvetica, sans-ser=
+if; color:#000000;"><!-- START ROW 4 VALUE MOBILE -->Apr 24, 2017<!-- END R=
+OW 4 VALUE MOBILE --></span></td>
+	</tr>
+<!-- END ROW 4 MOBILE -->
+	<tr>
+		<td valign=3D"top" style=3D"line-height:1px;" bgcolor=3D"#ededed"><img st=
+yle=3D"display:block;" src=3D"https://check.me/email/mint/mobile/mobile_gre=
+y_2x.gif" width=3D"305" height=3D"1" alt=3D"" class=3D"emailwrapto100pct gr=
+eyline" border=3D"0" /></td>
+	</tr>
+<!-- START MOBILE SURVEY -->
+	<tr>
+		<td align=3D"center" style=3D"padding-left:10px; padding-right:10px; padd=
+ing-top:30px; padding-bottom:14px;" bgcolor=3D"#ffffff"><span style=3D"font=
+-size:14px; line-height:17px; font-family:Avenir, Helvetica, sans-serif; co=
+lor:#333333;"><b>Did you find this email&nbsp;useful?</b></span></td>
+	</tr>
+	<tr>
+		<td align=3D"center" style=3D"padding-left:10px; padding-right:10px; padd=
+ing-top:0px; padding-bottom:30px;" bgcolor=3D"#ffffff"><span style=3D"font-=
+size:14px; line-height:17px; font-family:Avenir, Helvetica, sans-serif; col=
+or:#CCCCCC;"><a href=3D"https://links.mint.com/wf/click?upn=3DFrwdNJz7BEaU-=
+2FKPeA2ZCSVYCtNwT0IEyZpGKlKvcJbuLGaiDHYNjT-2Fh29htgVfSNDYuGLVa0blOxhfHeLGj9=
+1w-3D-3D_QDh0zqwi4RIW3LTHVIeu1adKd5iyMPVLGGDzVBMKKZuceAQByayIyYdZw2-2FZKkSb=
+juhrNnxibKbzVjkAwuVkIoNlTRXZgICLpmfNJGCssPIX4jDPFBFOKjxG1O2KTLODCGOR3altPM0=
+hv9AWql9S7zfUl81-2FYd73OmqAQR6Lc8Uhx8AgVdsa0AUXdVhQJGNKk6Yf-2B9VIkxBss1BNY6=
+dKkLlGvktukJEV84BGVEt-2BgsSnySvbFJr7MYg4kuMTjMmq19HFx2R63OYTxhGD-2BDjPglqoZ=
+LTcQ5MKmSVXquQhwMRj5ptHFvOdHne6Wzqn9mYiLwQkVSucakcHw3fEVee0RQ-3D-3D" name=
+=3D"Yes_Mobile" style=3D"color:#3cd2f0; text-decoration:none;" target=3D"_b=
+lank">YES</a> &nbsp;|&nbsp; <a href=3D"https://links.mint.com/wf/click?upn=
+=3DFrwdNJz7BEaU-2FKPeA2ZCSVYCtNwT0IEyZpGKlKvcJbvrg389LCTq3-2FJr2Fflfxakd6wZ=
+nn2Y-2BphZtSXcAYIkqQ-3D-3D_QDh0zqwi4RIW3LTHVIeu1adKd5iyMPVLGGDzVBMKKZuceAQB=
+yayIyYdZw2-2FZKkSbjuhrNnxibKbzVjkAwuVkIoNlTRXZgICLpmfNJGCssPIX4jDPFBFOKjxG1=
+O2KTLODNMxR0MSmWTD80lYuWqpJACjHblLDwmM3qDPtuSfZR7sE7FXFc8F-2Bmqu223Gs6O1gXx=
+eFaK3YmFR90fv6COybyNsffS0G7xaBkHizBWGalJYb8ylwTRVaOFd9NIGKk1w0WAVnpmhx9ED7T=
+oc6JbJ-2BQbTAqK124fzI2PGLZM6dBQNEGaUcYYip7c7CDyqKEcYUwW5a6q29Aw7PiqfF8T6a-2=
+BQ-3D-3D" name=3D"No_Mobile" style=3D"color:#3cd2f0; text-decoration:none;"=
+ target=3D"_blank">NO</a></span></td>
+	</tr>
+<!-- END MOBILE SURVEY -->
+	<tr>
+		<td valign=3D"top" style=3D"line-height:1px;" bgcolor=3D"#ededed"><img st=
+yle=3D"display:block;" src=3D"https://check.me/email/mint/mobile/mobile_gre=
+y_2x.gif" width=3D"305" height=3D"1" alt=3D"" class=3D"emailwrapto100pct gr=
+eyline" border=3D"0" /></td>
+	</tr>
+<!-- MOBILE SOCIAL TABLE GOES HERE -->
+    <tr>
+		<td align=3D"center" style=3D"padding-top:25px; padding-bottom:25px;"><ta=
+ble width=3D"226" border=3D"0" cellspacing=3D"0" cellpadding=3D"0">
+			<tr>
+            	<td style=3D"padding-right:12px;"><a name=3D"Facebook_Mobile" =
+href=3D"https://links.mint.com/wf/click?upn=3D5Utd7G-2B5xhsaQZ2v9X3zjxKHnA5=
+qv21A7d4Nw4jSc2PyVi3D3ASUuErJv7Pq6aJJ_QDh0zqwi4RIW3LTHVIeu1adKd5iyMPVLGGDzV=
+BMKKZuceAQByayIyYdZw2-2FZKkSbjuhrNnxibKbzVjkAwuVkIoNlTRXZgICLpmfNJGCssPIX4j=
+DPFBFOKjxG1O2KTLODDAKHdDWS6dHRNRB4E3QYn0hv4CbqRsTPSvVOr73gizbTzdd6Jcb-2BlqB=
+FU3raqDgtwyWyZ3xeVyveyqlXZhkYD7T60QEu35WhrVMeSY-2Be6r9xDDWy0lAzAcu5fA342oTN=
+BLSXNnOOgGXpYuY34zvoZF1-2B8AW1FbhNh97WHOLVxn4qgBlu26nmbc-2BmDsvLLEcQGNM1Tah=
+7sCNOAKYGKrmy-2Bg-3D-3D" target=3D"_blank"><img style=3D"display:block; fon=
+t-size:9px; font-family:Avenir, Helvetica, sans-serif; color:#4dc5e2; text-=
+align:center;" src=3D"https://check.me/email/mint/social/facebook2.gif" wid=
+th=3D"28" height=3D"28" alt=3D"Facebook" class=3D"emailwrapto100pct social"=
+ border=3D"0" /></a></td>
+			    <td style=3D"padding-right:12px;"><a name=3D"Twitter_Mobile" href=3D=
+"https://links.mint.com/wf/click?upn=3DbXe8WDV9jk16CMabiezs3Y4M8JEKUJZ5Mz79=
+zx2-2FKXI-3D_QDh0zqwi4RIW3LTHVIeu1adKd5iyMPVLGGDzVBMKKZuceAQByayIyYdZw2-2FZ=
+KkSbjuhrNnxibKbzVjkAwuVkIoNlTRXZgICLpmfNJGCssPIX4jDPFBFOKjxG1O2KTLODYgD7F2j=
+n4xUZPrE8jwFYp7Ha7JsHtF-2F7-2B-2BRuzWowvpVTjXSIg0qHCk-2BvCvsD1veBpL2Ssw5xMh=
+AXniPhbC8tdNay-2BHo-2Fy3PJGNLKz6qE3O9bwG4cIW-2FcnI95OD0afIT4BtXj0BEzn1gwZ-2=
+BcXuhcJtnoESrLe3ILHJo51bbTmlPU7cWFzVtyu-2B6I7GbxWaEAUMhPoCg4N8tPm3hoZ0r0LRQ=
+-3D-3D" target=3D"_blank"><img style=3D"display:block; font-size:9px; font-=
+family:Avenir, Helvetica, sans-serif; color:#4dc5e2; text-align:center;" sr=
+c=3D"https://check.me/email/mint/social/twitter2.gif" width=3D"28" height=
+=3D"28" alt=3D"Twitter" class=3D"emailwrapto100pct social" border=3D"0" /><=
+/a></td>
+                <td style=3D"padding-right:12px;"><a name=3D"Instagram_Mobi=
+le" href=3D"https://links.mint.com/wf/click?upn=3D5Utd7G-2B5xhsaQZ2v9X3zjy0=
+wdo9CjV6t9JBePRJwuLHNziNHnYCOX1SR4BwxxGPO_QDh0zqwi4RIW3LTHVIeu1adKd5iyMPVLG=
+GDzVBMKKZuceAQByayIyYdZw2-2FZKkSbjuhrNnxibKbzVjkAwuVkIoNlTRXZgICLpmfNJGCssP=
+IX4jDPFBFOKjxG1O2KTLODrc82Xy775jqFQVIq8CZmgudyzyqzMtDKAAHJsDTenOlmRavOXn30q=
+Y9akYfMsqsDoa3poDBdeGS0SW2ZKkr-2B1RBxHp4687TDJSj2QcrNRx4VDKJ33Ln47bC2-2B5NQ=
+0CqAatCoixw0C2C80C9GnE3xXDvM1HbJ-2B-2FCiEsAP7WEWjZlKc-2Ft4LUYXseMgzU69KWsJm=
+Ekuxt3EDbNx07Qu81dlYg-3D-3D" target=3D"_blank"><img style=3D"display:block;=
+ font-size:9px; font-family:Avenir, Helvetica, sans-serif; color:#4dc5e2; t=
+ext-align:center;" src=3D"https://check.me/email/mint/social/instagram2.gif=
+" width=3D"28" height=3D"28" alt=3D"Instagram" class=3D"emailwrapto100pct s=
+ocial" border=3D"0" /></a></td>
+			    <td style=3D"padding-right:10px;"><a name=3D"Blog_Mobile" href=3D"ht=
+tps://links.mint.com/wf/click?upn=3D5Utd7G-2B5xhsaQZ2v9X3zj-2Bh2PKvS7D-2B5p=
+yn8kSVJyQQ-3D_QDh0zqwi4RIW3LTHVIeu1adKd5iyMPVLGGDzVBMKKZuceAQByayIyYdZw2-2F=
+ZKkSbjuhrNnxibKbzVjkAwuVkIoNlTRXZgICLpmfNJGCssPIX4jDPFBFOKjxG1O2KTLODKYzjF4=
+MJgtuQx5mIC5JLjuUs5NNsLJ-2F9lxq0uMfPsBA-2FpLqqX78NNBx6arwUBBzfnwDjas6NQppJ7=
+nnvmds9fPuMChKTjaN-2Bo75Fo1EeqAqNXQGkooAoDATYsDd2argLWXxgknLjE8GBvwW9wKLkzB=
+8SHwjv6oACPSGUovsmQ-2BGPqtA-2BUeiXZvPrqQwM6bLSH1GL7koKwFSGl3VTuPGjnA-3D-3D"=
+ target=3D"_blank"><img style=3D"display:block; font-size:9px; font-family:=
+Avenir, Helvetica, sans-serif; color:#4dc5e2; text-align:center;" src=3D"ht=
+tps://check.me/email/mint/social/blog2.gif" width=3D"28" height=3D"28" alt=
+=3D"Blog" class=3D"emailwrapto100pct social" border=3D"0" /></a></td>
+                <td style=3D"padding-right:12px;"><a name=3D"Apple_Mobile" =
+href=3D"https://links.mint.com/wf/click?upn=3DFrwdNJz7BEaU-2FKPeA2ZCSQiRNKt=
+lEXvwowsps10D0UoiQR7778UaTx-2FhLXgXDqN-2BTY5BWE3JHVB-2B4RZXY10pz32sk6IAyaFp=
+ukEQnslN5P4-3D_QDh0zqwi4RIW3LTHVIeu1adKd5iyMPVLGGDzVBMKKZuceAQByayIyYdZw2-2=
+FZKkSbjuhrNnxibKbzVjkAwuVkIoNlTRXZgICLpmfNJGCssPIX4jDPFBFOKjxG1O2KTLODqt9t8=
+thwfQSf5oLjcO08xr3EuFjyNbNVsdsMQFVIUZ2RQbmwihfL5Ehx8wyJqq8JC7bysq2t2maF5nFb=
+8AigV7h3taxhzPUdf6YxUFv7xkZmdTXjTwi2scUM50hys4wJZpmiV5fwsupmg-2Bu3xAbwntDtp=
+xY2f1tHa4zrTP9PeutOwdrjb-2F3AOBzWF57h1mNr9-2Bdg6z9Gd-2FEuEeP1F8xtTA-3D-3D" =
+target=3D"_blank"><img style=3D"display:block; font-size:9px; font-family:A=
+venir, Helvetica, sans-serif; color:#4dc5e2; text-align:center;" src=3D"htt=
+ps://check.me/email/mint/social/mac2.gif" width=3D"28" height=3D"28" alt=3D=
+"Apple" class=3D"emailwrapto100pct social" border=3D"0" /></a></td>
+                <td><a name=3D"Android_Mobile" href=3D"https://links.mint.c=
+om/wf/click?upn=3DFrwdNJz7BEaU-2FKPeA2ZCSb-2BAqMJ1OwWB6X3LsDkzm5sZ2jxzdAdSj=
+4YGLEthhw3R1w0FboLozen6gquwiYDCvQ-3D-3D_QDh0zqwi4RIW3LTHVIeu1adKd5iyMPVLGGD=
+zVBMKKZuceAQByayIyYdZw2-2FZKkSbjuhrNnxibKbzVjkAwuVkIoNlTRXZgICLpmfNJGCssPIX=
+4jDPFBFOKjxG1O2KTLODAeckzQo3fp1zNaPd7LiYs8JyL-2BGjJrbUvT5A-2BjJsLNXSNo9qbk7=
+BjOWG0ccNhJ3iqykxZp6z-2B-2FpOM37gTJQaxpDqENQaBZPuXXrX-2F-2BL6ufDA1h4n4J70Fu=
+7w3gDyGa3XGIzWH6PEjSuJBLCRLeH2dLvny23V4twnjXT0CU03Ne9VFY599LhPiDDIoSGFBdsoi=
+gkR5-2FyfDlwGrz-2BoVWHW4g-3D-3D" target=3D"_blank"><img style=3D"display:bl=
+ock; font-size:9px; font-family:Avenir, Helvetica, sans-serif; color:#4dc5e=
+2; text-align:center;" src=3D"https://check.me/email/mint/social/android2.g=
+if" width=3D"28" height=3D"28" alt=3D"Android" class=3D"emailwrapto100pct s=
+ocial" border=3D"0" /></a></td>
+			</tr>
+    </table></td>
+	</tr>
+    <tr>
+		<td align=3D"center" style=3D"padding-left:20px; padding-right:20px; padd=
+ing-bottom:35px;">
+			<!-- MOBILE LEGAL COPY GOES HERE -->
+			<span style=3D"font-size:11px; line-height:16px; font-family:Avenir, Hel=
+vetica, sans-serif; color:#999999;">This message was sent to <a name=3D"Ema=
+ilAddress_Mobile" href=3D"rmolin88@gmail.com" style=3D"color:#999999; text-=
+decoration:none;" target=3D"_blank">rmolin88@gmail.com</a>.<br />
+		If you would like to update your email address, please <a name=3D"ManageP=
+references_Mobile" href=3D"https://links.mint.com/wf/click?upn=3DFrwdNJz7BE=
+aU-2FKPeA2ZCSULDcXpZsObkA7QvoO9KjAl8F2V43QQq1Uzou2sqL-2F6P4Ils-2F6A5td6w4lM=
+EPy4ojO8pqkLwl9hwKpI5Jm-2BA225zy451i4v6pkr5K2hlk-2BjB4J-2F1MDAsfWGGzkqErt4j=
+2FI5NBc8Ny9ECSQuuOflBbLQ0Re35BB1-2FgJ3pYN963EA_QDh0zqwi4RIW3LTHVIeu1adKd5iy=
+MPVLGGDzVBMKKZuceAQByayIyYdZw2-2FZKkSbjuhrNnxibKbzVjkAwuVkIoNlTRXZgICLpmfNJ=
+GCssPIX4jDPFBFOKjxG1O2KTLODIWSYC255pXt0oK9L2AYB0iELI58sLUGGLmwWZUD0dzlfrBqH=
+4QwYMf6-2BXXVg5-2F0YMKQ-2BiQ4b3tND68BXF-2Fep5CsHLUEJtyzWHq0OG-2BmPf9wIGh07F=
+neYKiItC3t8oroy4CbLdK2bjYFKiHASZrtcFGxZb4i1yRixPnQkds8mh6dFLIjySBPlrfp0YZH6=
+pG3RYWfDFw7yWhE6bA51LnxLwA-3D-3D" style=3D"color:#999999;" target=3D"_blank=
+">click&nbsp;here</a>.<br />
+		If you no longer wish to receive e-mails from Mint, <a name=3D"Unsubscrib=
+e_Mobile" href=3D"https://links.mint.com/wf/click?upn=3DFrwdNJz7BEaU-2FKPeA=
+2ZCSULDcXpZsObkA7QvoO9KjAl8F2V43QQq1Uzou2sqL-2F6P4Ils-2F6A5td6w4lMEPy4ojO8p=
+qkLwl9hwKpI5Jm-2BA225zy451i4v6pkr5K2hlk-2BjBzW2T3JR-2BJJF9-2FE4tE7AMLPs9aih=
+VNtmzfobMSO4WJ1xkxiETBKXHYoPl7PiRnE3m_QDh0zqwi4RIW3LTHVIeu1adKd5iyMPVLGGDzV=
+BMKKZuceAQByayIyYdZw2-2FZKkSbjuhrNnxibKbzVjkAwuVkIoNlTRXZgICLpmfNJGCssPIX4j=
+DPFBFOKjxG1O2KTLODuFodUSEBVrxBCBObOCRqY-2Bf6K1Piqy-2BqHD9VCqr2ZAhQQtUKRJcAm=
+cYQ68cmrp-2BXmKFUz3vz55watf8qO4ECAwerYPjMt5tve0iuqcYveZGcsc-2FMKHn6hXHIMYF6=
+PHbQFwV-2BCWhj9BF2Dbb-2BQrXoJjPr9XUHnGOCEjryVPMnQSoNcbOqbysR1qty21q-2BgzRKQ=
+SPqWpKx5TIbVEkX9XeQOQ-3D-3D" style=3D"color:#999999;" target=3D"_blank">cli=
+ck&nbsp;here</a>.
+		<br />&nbsp;<br />
+		<span style=3D"font-size:10px; line-height:16px;">
+		<a name=3D"PrivacyPolicy_Mobile" href=3D"https://links.mint.com/wf/click?=
+upn=3DFrwdNJz7BEaU-2FKPeA2ZCSUo0Bklb5MT0-2BiFaQ-2BQS7YQo-2Fvyt6A2bLgD1oNlLz=
+7KMCh9pyJsdHW1-2B8EoS6eXqnF1nH2nzPe3Esfj-2BRJgxmrMFoVA4zJSU8XO1PesInLB8yNxH=
+PfkQ6JawuY-2FMoCkUQPp68O2Ki-2B3o6ID7EN4vbCP-2BweCUiqvn6-2BEOfh-2BkyaaZ_QDh0=
+zqwi4RIW3LTHVIeu1adKd5iyMPVLGGDzVBMKKZuceAQByayIyYdZw2-2FZKkSbjuhrNnxibKbzV=
+jkAwuVkIoNlTRXZgICLpmfNJGCssPIX4jDPFBFOKjxG1O2KTLOD9LDQM1L-2BnkeUjzVNw5yFXW=
+OYSgasx1eqAXWzbBGxOQ2FnUCh0hGjFxZj6lTXmoRwPALEMiCVfF-2BDm1OM2k2KMGovAHaRq3v=
+N2MzMyjnJYSFkoUDRAJoaTqIBptd6POQFJOSTsA-2BItdKEL94CrIapbj3C8QBQWkv6xUi03wbW=
+8TRWY95yjLlRbH8a6AbxT8d592tXgGadjcXOZgEvAcMnZA-3D-3D" style=3D"color:#99999=
+9;" target=3D"_blank">Privacy</a> &nbsp;|&nbsp; <a name=3D"TermsandConditio=
+ns_Mobile" href=3D"https://links.mint.com/wf/click?upn=3DFrwdNJz7BEaU-2FKPe=
+A2ZCSUo0Bklb5MT0-2BiFaQ-2BQS7YQo-2Fvyt6A2bLgD1oNlLz7KMCh9pyJsdHW1-2B8EoS6eX=
+qnF1nH2nzPe3Esfj-2BRJgxmrMFoVA4zJSU8XO1PesInLB8oMj5PR4KPMmcbpE7eGADIzkSh7Zc=
+gnWw8LXUeFXF5go-3D_QDh0zqwi4RIW3LTHVIeu1adKd5iyMPVLGGDzVBMKKZuceAQByayIyYdZ=
+w2-2FZKkSbjuhrNnxibKbzVjkAwuVkIoNlTRXZgICLpmfNJGCssPIX4jDPFBFOKjxG1O2KTLODt=
+uZWeurDNPrOAXnTBiHI3q5HW5xINbhgxwlf4skXNnajqfDhQ1VuwNwotrfHqeFZk4KlKmFB0Pj8=
+T97GKXdI-2B1nqYLdE8ptMd00HSY7ioElIUR-2By5-2Fr-2BObqM0PA-2FRSzqHTUVJKtubP6XB=
+gOPZdTY2mW96FnKgzCWRIwmuVT9v4e8gTnCKCoP0tj0VICm59VMpk0NjwAc4b9OjCBwiC3DiA-3=
+D-3D" style=3D"color:#999999;" target=3D"_blank">Terms&nbsp;and&nbsp;Condit=
+ions</a>
+		<br />&nbsp;<br />
+		Mint bill pay services provided by Intuit Payments Inc. under applicable&=
+nbsp;<a name=3D"Licenses_Mobile" href=3D"https://links.mint.com/wf/click?up=
+n=3DFrwdNJz7BEaU-2FKPeA2ZCSUo0Bklb5MT0-2BiFaQ-2BQS7YQo-2Fvyt6A2bLgD1oNlLz7K=
+MCh9pyJsdHW1-2B8EoS6eXqnF1nH2nzPe3Esfj-2BRJgxmrMFoVA4zJSU8XO1PesInLB8TXjgsA=
+9ZMUmMAb-2BNwp75hVeP6W3-2B-2BD7-2B2rIRAf10ChUZZp1vbG6vB4C8iX6R0zkE_QDh0zqwi=
+4RIW3LTHVIeu1adKd5iyMPVLGGDzVBMKKZuceAQByayIyYdZw2-2FZKkSbjuhrNnxibKbzVjkAw=
+uVkIoNlTRXZgICLpmfNJGCssPIX4jDPFBFOKjxG1O2KTLODHsQtIbFJqh7OYQr5sfqkP2MJ-2BE=
+J31V9R02AySj8eC4wskkY3QNnf-2FrFAxlvGbV0fUu2Rn1qkrlf7jvpGeq2R-2BzdBxo2Pmg-2B=
+kXYom1JTyeQoYfDzG83xCOGKalIpDmSXoWczKCxhnFt-2FsAYlcb9Z-2BdaFzPmEijQHk8KmHNM=
+2FbkU15G8WVs-2FOwYMiLlhkOQBdWhkcOk4XIH-2BH6K6AUEtUww-3D-3D" style=3D"color:=
+#999999;" target=3D"_blank">licenses</a>.<br />Intuit Payments Inc., <span =
+class=3D"ios-addr">2700 Coast Avenue, Mountain View, CA&nbsp;94043</span><b=
+r />&nbsp;</span></span>
+		</td>
+	</tr>
+</table>
+</div>
+</div>
+<!--<![endif]-->
+<!-- END MOBILE -->
+
+<img src=3D"https://links.mint.com/wf/open?upn=3DQDh0zqwi4RIW3LTHVIeu1adKd5=
+iyMPVLGGDzVBMKKZuceAQByayIyYdZw2-2FZKkSbjuhrNnxibKbzVjkAwuVkIoNlTRXZgICLpmf=
+NJGCssPIX4jDPFBFOKjxG1O2KTLODBone25-2Fjd9stRcwwdNQNxaBKFhvLv1XgQv6u-2FG2d-2=
+FI9SoIggTOEy1SCW9XDrQ4WCYx0TSvgqV6Bc0HrZGwaG0aJewTLkO6riTRv43QUOOz-2BEuSxiy=
+mWJF0M-2FG3WNANoGXJChPZvtzl-2BP8H5v6P8w6gCQDTOqHUd0J2FkI6wr-2B1lu6aPMxTggiZ=
+MkFvc4jqQgTqZtc7oFtyd1-2BTMQNZrGJA-3D-3D" alt=3D"" width=3D"1" height=3D"1"=
+ border=3D"0" style=3D"height:1px !important;width:1px !important;border-wi=
+dth:0 !important;margin-top:0 !important;margin-bottom:0 !important;margin-=
+right:0 !important;margin-left:0 !important;padding-top:0 !important;paddin=
+g-bottom:0 !important;padding-right:0 !important;padding-left:0 !important;=
+"/>
+</body>
+</html>
+

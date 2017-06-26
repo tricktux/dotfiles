@@ -1,0 +1,82 @@
+Delivered-To: rmolin88@gmail.com
+Received: by 10.140.29.197 with SMTP id b63csp2993510qgb;
+        Fri, 31 Mar 2017 17:47:54 -0700 (PDT)
+X-Received: by 10.107.47.102 with SMTP id j99mr6639633ioo.52.1491007674775;
+        Fri, 31 Mar 2017 17:47:54 -0700 (PDT)
+Return-Path: <noreply@github.com>
+Received: from github-smtp2b-ext-cp1-prd.iad.github.net (github-smtp2-ext3.iad.github.net. [192.30.252.194])
+        by mx.google.com with ESMTPS id z133si8098785ioz.131.2017.03.31.17.47.54
+        for <rmolin88@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 31 Mar 2017 17:47:54 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 192.30.252.194 as permitted sender) client-ip=192.30.252.194;
+Authentication-Results: mx.google.com;
+       dkim=pass (test mode) header.i=@github.com;
+       spf=pass (google.com: domain of noreply@github.com designates 192.30.252.194 as permitted sender) smtp.mailfrom=noreply@github.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=github.com
+Date: Fri, 31 Mar 2017 17:47:54 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=github.com;
+	s=pf2014; t=1491007674;
+	bh=Og3xCi5xrOTD/7NhsOrua36OMpwk+LQWJ54P1D9+3xY=;
+	h=From:Reply-To:To:Cc:In-Reply-To:References:Subject:List-ID:
+	 List-Archive:List-Post:List-Unsubscribe:From;
+	b=ZY6sZ6gNrb8UZCbwFaB3gWzIpv5oxjirOTcZOIDzeaAzZYW76jpQ6RqZeMkdtZ6oW
+	 29G8xGn7eJdfZADJGQDyec8FsHU0//vTswREDUxXDsoAE+XTeFncdE51ARvIs769mM
+	 xICcsDSyj5nIYREc8kzsJFGwFZ6/gBVfmB6ePOl0=
+From: Shougo <notifications@github.com>
+Reply-To: "Shougo/deoplete.nvim" <reply+0052d4ff74d90cf1d81e7dd0698956ca701fdae134be609392cf0000000114f6baba92a169ce0c91d080@reply.github.com>
+To: "Shougo/deoplete.nvim" <deoplete.nvim@noreply.github.com>
+Cc: Reinaldo Molina <rmolin88@gmail.com>, 
+ Mention <mention@noreply.github.com>
+Message-ID: <Shougo/deoplete.nvim/issues/440/290880497@github.com>
+In-Reply-To: <Shougo/deoplete.nvim/issues/440@github.com>
+References: <Shougo/deoplete.nvim/issues/440@github.com>
+Subject: Re: [Shougo/deoplete.nvim] deoplete trigger competition automatically
+ (#440)
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_58def8ba543b2_26f93f9e50e2fc3824860";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Precedence: list
+X-GitHub-Sender: Shougo
+X-GitHub-Recipient: rmolin88
+X-GitHub-Reason: mention
+List-ID: Shougo/deoplete.nvim <deoplete.nvim.Shougo.github.com>
+List-Archive: https://github.com/Shougo/deoplete.nvim
+List-Post: <mailto:reply+0052d4ff74d90cf1d81e7dd0698956ca701fdae134be609392cf0000000114f6baba92a169ce0c91d080@reply.github.com>
+List-Unsubscribe: <mailto:unsub+0052d4ff74d90cf1d81e7dd0698956ca701fdae134be609392cf0000000114f6baba92a169ce0c91d080@reply.github.com>,
+ <https://github.com/notifications/unsubscribe/AFLU_w3eoh-0yW99aAISzAQVaE_EMZrdks5rrZ66gaJpZM4MOzoR>
+X-Auto-Response-Suppress: All
+X-GitHub-Recipient-Address: rmolin88@gmail.com
+
+
+----==_mimepart_58def8ba543b2_26f93f9e50e2fc3824860
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+Fixed.
+
+-- 
+You are receiving this because you were mentioned.
+Reply to this email directly or view it on GitHub:
+https://github.com/Shougo/deoplete.nvim/issues/440#issuecomment-290880497
+----==_mimepart_58def8ba543b2_26f93f9e50e2fc3824860
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p>Fixed.</p>
+
+<p style="font-size:small;-webkit-text-size-adjust:none;color:#666;">&mdash;<br />You are receiving this because you were mentioned.<br />Reply to this email directly, <a href="https://github.com/Shougo/deoplete.nvim/issues/440#issuecomment-290880497">view it on GitHub</a>, or <a href="https://github.com/notifications/unsubscribe-auth/AFLU_x9RWRCz2k8bDPeaNY0RDNj3mubcks5rrZ66gaJpZM4MOzoR">mute the thread</a>.<img alt="" height="1" src="https://github.com/notifications/beacon/AFLU_6DLfkwUXwr2J5CHoWpPcXEJG8sUks5rrZ66gaJpZM4MOzoR.gif" width="1" /></p>
+<div itemscope itemtype="http://schema.org/EmailMessage">
+<div itemprop="action" itemscope itemtype="http://schema.org/ViewAction">
+  <link itemprop="url" href="https://github.com/Shougo/deoplete.nvim/issues/440#issuecomment-290880497"></link>
+  <meta itemprop="name" content="View Issue"></meta>
+</div>
+<meta itemprop="description" content="View this Issue on GitHub"></meta>
+</div>
+
+<script type="application/json" data-scope="inboxmarkup">{"api_version":"1.0","publisher":{"api_key":"05dde50f1d1a384dd78767c55493e4bb","name":"GitHub"},"entity":{"external_key":"github/Shougo/deoplete.nvim","title":"Shougo/deoplete.nvim","subtitle":"GitHub repository","main_image_url":"https://cloud.githubusercontent.com/assets/143418/17495839/a5054eac-5d88-11e6-95fc-7290892c7bb5.png","avatar_image_url":"https://cloud.githubusercontent.com/assets/143418/15842166/7c72db34-2c0b-11e6-9aed-b52498112777.png","action":{"name":"Open in GitHub","url":"https://github.com/Shougo/deoplete.nvim"}},"updates":{"snippets":[{"icon":"PERSON","message":"@Shougo in #440: Fixed."}],"action":{"name":"View Issue","url":"https://github.com/Shougo/deoplete.nvim/issues/440#issuecomment-290880497"}}}</script>
+----==_mimepart_58def8ba543b2_26f93f9e50e2fc3824860--

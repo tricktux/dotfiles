@@ -1,0 +1,33 @@
+# File:account.gmail
+# Description: mutt setup for UF email
+# Author:Reinaldo Molina <rmolin88@gmail.com>
+# Version:1.0.0
+# Last Modified: Sun Jun 25 2017 20:45
+# Created: Jun 25 2017 15:47
+
+set from = "Reinaldo Molina <rmolin88@ufl.edu>"
+
+set folder = 'imaps://imap.ufl.edu:993'
+set spoolfile = +INBOX
+
+# Specify where to save and/or look for postponed messages.
+set postponed="imaps://imap.ufl.edu:993/Drafts"
+# Hopefully will fix emails not going out
+set smtp_url = "smtp://rmolin88@smtp.ufl.edu:587/"
+set trash = 'imaps://imap.ufl.edu:993/Trash'
+
+# mailboxes       = 'imaps://imap.ufl.edu:993/INBOX'
+# Store message headers locally to speed things up.
+# If hcache is a folder, Mutt will create sub cache folders for each account which may speeds things up even more.
+set header_cache = "~/.config/mutt/ufl/cache/headers"
+
+# Store messages locally to speed things up, like searching message bodies.
+# Can be the same folder as header_cache.
+# This will cost important disk usage according to your e-mail amount.
+set message_cachedir = "~/.config/mutt/ufl/cache/bodies"
+
+set certificate_file = "~/.config/mutt/ufl/certificates"
+# Get password from encryption
+source "gpg -d ~/.config/mutt/ufl/password.ufl.gpg |"
+
+# vim:ft=muttrc
