@@ -69,6 +69,29 @@ function! autocompletion#SetCompl() abort
 		Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
 		Plug 'Shougo/neco-syntax'
 		Plug 'Shougo/neoinclude.vim'
+		Plug 'roxma/ncm-github'
+
+		" ncm's filtering is based on word, so it's better to convert results of
+		" muttaliases#CompleteMuttAliases into snippet expension
+		func! g:MuttOmniWrap(findstart, base)
+			let ret = muttaliases#CompleteMuttAliases(a:findstart, a:base)
+			if type(ret) == type([])
+				let i=0
+				while i<len(ret)
+					let ret[i]['snippet'] = ret[i]['word']
+					let ret[i]['word'] = ret[i]['abbr']
+					let i+=1
+				endwhile
+			endif
+			return ret
+		endfunc
+
+		au User CmSetup call cm#register_source({'name' : 'mutt',
+					\ 'priority': 9, 
+					\ 'cm_refresh_length': -1,
+					\ 'cm_refresh_patterns': ['^\w+:\s+'],
+					\ 'cm_refresh': {'omnifunc': 'g:MuttOmniWrap'},
+					\ })
 
 		inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 		inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
