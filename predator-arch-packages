@@ -21,7 +21,7 @@ clang 4.0.1-1
 cmus 2.7.1-8
 compton 0.1_beta2.5-8
 conky-nvidia 1.10.6-1
-context-minimals-git 2017.06.27-1
+context-minimals-git 2017.06.29-1
 coreutils 8.27-1
 cower 16-1
 cowsay 3.03-9
@@ -82,7 +82,7 @@ lib32-nvidia-utils 381.22-1
 libreoffice-fresh 5.3.4-1
 libtool 2.4.6-8
 licenses 20140629-2
-linux 4.11.6-3
+linux 4.11.7-1
 liquidprompt 1.11-2
 lldb 4.0.1-1
 lm_sensors 3.4.0-2
@@ -97,11 +97,12 @@ man-pages 4.11-1
 mdadm 4.0-1
 mlocate 0.26-6
 mono 5.0.0.100-1
+mpg123 1.25.0-1
 mupdf 1.11-1
 nano 2.8.5-1
 neofetch 3.2.0-1
 neomutt 20170609-1
-neovim-git 0.2.0.r389.gf0dafa89c-1
+neovim-git 0.2.0.r390.g42d892913-1
 neovim-qt-git v0.2.4.r25.gf0cf71f-1
 netctl 1.12-2
 network-manager-applet 1.8.2-1
@@ -118,7 +119,7 @@ opera-ffmpeg-codecs 59.0.3071.86-1
 os-prober 1.75-1
 pacaur 4.7.9-1
 pacman 5.0.2-1
-pandoc 1.19.2.1-80
+pandoc 1.19.2.1-82
 paper-icon-theme 1.4.0-1
 parted 3.2-5
 patch 2.7.5-1
@@ -126,7 +127,7 @@ pavucontrol 3.0-4
 pciutils 3.5.4-1
 pcmanfm 1.2.5-2
 pcmciautils 018-7
-pepper-flash 26.0.0.131-1
+pepper-flash 26.0.0.131-2
 perl 5.26.0-1
 pkg-config 0.29.2-1
 playerctl 0.5.0-3
@@ -135,6 +136,7 @@ preload 0.6.4-6
 procps-ng 3.3.12-1
 psmisc 22.21-3
 pulseaudio 10.0-3
+pymodoro-git r111.7ecb782-1
 python-neovim 0.1.13-2
 python-pip 9.0.1-2
 python2-neovim 0.1.13-2
@@ -166,7 +168,7 @@ qt5-translations 5.9.0-1
 qt5-virtualkeyboard 5.9.0-1
 qt5-wayland 5.9.0-1
 qt5-webchannel 5.9.0-1
-qt5-webengine 5.9.0-1
+qt5-webengine 5.9.0-2
 qt5-webkit 5.212.0alpha2-2
 qt5-websockets 5.9.0-1
 qt5-webview 5.9.0-1
@@ -192,7 +194,7 @@ sysstat 11.4.3-1
 systemd-sysvcompat 232-8
 tar 1.29-2
 termite 12-2
-texinfo 6.3-2
+texinfo 6.4-1
 texlive-bibtexextra 2016.43765-1
 texlive-core 2016.43757-1
 texlive-fontsextra 2016.43763-1
@@ -209,11 +211,12 @@ texlive-pstricks 2016.43710-1
 texlive-publishers 2016.43764-1
 texlive-science 2016.43747-1
 tigervnc 1.8.0-2
-tmux 2.5-1
+tmux 2.5-3
 ttf-consolas-powerline 1.0.g3cd9d75-1
 ttf-font-awesome 4.7.0-2
 ttf-hack 2.020-2
-universal-ctags-git 0.r5317.db3d9a6c-1
+twmn-git 182.1d9c9cc-1
+universal-ctags-git 0.r5340.aeb73fb7-1
 unzip 6.0-12
 usbutils 008-1
 util-linux 2.29.2-2
