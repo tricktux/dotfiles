@@ -1,9 +1,10 @@
 #!/bin/sh
 # This command will break if you rename it to
 # something containing "cmus".
+# Adjust for your terminal name
 
 if ! pgrep cmus ; then
-	lxterminal -e cmus&
+	termite -e cmus&
 	cmus-remote -u
 else
   cmus-remote $1
