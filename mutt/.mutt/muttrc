@@ -41,24 +41,13 @@ set imap_check_subscribed
 set sort = reverse-date-received
 
 # Email list mappings
-bind index g noop
 bind index o display-message
-bind index gg first-entry		
 bind index G last-entry		
 bind index L bottom-page		#to the bottom,
 bind index M middle-page		#middle, and
 bind index H top-page			#top of the screen
 bind index N search-opposite
 bind index r sync-mailbox
-# Gmail-style keyboard shortcuts
-macro index gi "<change-folder>=INBOX<enter>" "Go to inbox"
-# macro index gt "<change-folder>=TO_DO<enter>"
-# Use autocompletion <tab> for folders with spaces
-macro index ga '<change-folder> =[Gmail]/All<tab><enter>' "Go to all mail"
-macro index gs "<change-folder> =[Gmail]/Starred<enter>" "Go to starred messages"
-# macro index gp "<change-folder>=[Gmail]/Important<enter>" "Go to priority inbox"
-macro index gp '<change-folder> =Important<tab><enter>' "Go to priority inbox"
-# macro index gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
 # Move the highlight to the previous mailbox
 bind index h sidebar-prev
 # Move the highlight to the next mailbox
@@ -67,9 +56,7 @@ bind index l sidebar-next
 bind index <return> sidebar-open
 # Unmark all deletes
 macro index u "U~A<enter>"
-
 # Inside emails mappings
-bind pager g noop # Fixes annoying warnings
 bind pager j next-line 
 bind pager k previous-line 
 bind pager h previous-page
@@ -78,23 +65,13 @@ bind pager u previous-page
 bind pager d next-page
 bind pager gr group-reply
 bind pager G bottom
-# bind pager h previous-thread
-# bind pager l next-thread
 
 # Mappings for both
-# In order for this to work first do :unmailboxes *
-macro index,pager gu ':unmailboxes *<enter><sync-mailbox><refresh><enter-command>source ~/.config/mutt/psu/account.psu<enter><change-folder>!<enter>'
-macro index,pager gm ':unmailboxes *<enter><sync-mailbox><refresh><enter-command>source ~/.config/mutt/gmail/account.gmail<enter><change-folder>!<enter>'
+# Mark message as Done
+macro index,pager md "<save-message>=INBOX<enter>"
 # Mario Holbe suggests:
 macro index b '<enter-command>toggle sidebar_visible<enter><refresh>'
 macro pager b '<enter-command>toggle sidebar_visible<enter><redraw-screen>'
-# Move message to the =[Gmail]/Starred list which is my TO_DO list
-bind index,pager m noop
-macro index,pager mt "<<copy-message> =[Gmail]/Starred<enter>"
-# TODO.RM-Fri Jun 30 2017 02:58: Not working  
-macro index,pager mp '<<save-message> =Important<tab><enter>'
-# Mark message as Done
-macro index,pager md "<save-message>=INBOX<enter>"
 
 # Option to Save contacts so that autocompletion is possible
 set display_filter='~/.config/mutt/mutt.save.contacts.sh' 

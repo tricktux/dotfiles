@@ -1,8 +1,8 @@
 # File:account.gmail
-# Description: mutt setup for UF email
+# Description: mutt setup for PSU email
 # Author:Reinaldo Molina <rmolin88@gmail.com>
 # Version:1.0.0
-# Last Modified: Sun Jun 25 2017 20:45
+# Last Modified: Fri Jun 30 2017 13:37
 # Created: Jun 25 2017 15:47
 
 set from = "Reinaldo Molina <rim18@psu.edu>"
@@ -11,6 +11,8 @@ set folder = 'imaps://email.psu.edu:993'
 set spoolfile = +INBOX
 # set spoolfile = 'imaps://email.psu.edu:993:1/Inbox'
 mailboxes = +INBOX
+# mailboxes = +TODO
+# mailboxes = +junk
 
 # Specify where to save and/or look for postponed messages.
 set postponed="imaps://email.psu.edu:993/Drafts"
@@ -30,5 +32,14 @@ set message_cachedir = "~/.config/mutt/psu/cache/bodies"
 set certificate_file = "~/.config/mutt/psu/certificates"
 # Get password from encryption
 source "gpg -d ~/.config/mutt/psu/password.psu.gpg |"
+
+bind index,pager m noop
+macro index,pager mt '<copy-message>=TODO<enter>'
+bind index,pager g noop
+macro index gi '<change-folder>=INBOX<enter>'
+bind index gg first-entry		
+macro index gs '<change-folder>=TODO<enter>' "Go to starred messages"
+
+macro index,pager gm ':unmailboxes *<enter><sync-mailbox><refresh><enter-command>source ~/.config/mutt/gmail/account.gmail<enter><change-folder>!<enter>'
 
 # vim:ft=muttrc
