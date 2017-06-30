@@ -46,7 +46,7 @@
 	endif
 
 	" Choose a autcompl engine
-	if has('unix')
+	if has('unix') && has('nvim')
 		let g:autcompl_engine = 'nvim_compl_manager'
 	else
 		let g:autcompl_engine = 'autocomplpop'
@@ -690,13 +690,42 @@
 
 " HIGHLITING
 " ~/.dotfiles/vim-utils/autoload/highlight.vim
-	if exists("g:plugins_loaded") && has('nvim')
+	" Wed Jun 28 2017 09:32: Why did I added nvim here. Not sure. Removing 
+	if exists("g:plugins_loaded")
 		" C
 		call highlight#Set('cTypeTag',                { 'fg': g:brown })
 		call highlight#Set('cPreProcTag',             { 'fg': g:cyan })
 		call highlight#Set('cFunctionTag',            { 'fg': g:darkred })
 		call highlight#Set('cMemberTag',              { 'link': 'cMember' })
 		call highlight#Set('cEnumTag',                { 'link': 'cEnum' })
+
+		" Color_Coded
+		" call highlight#Set('Variable',								{ 'link' : 'cTypeTag' })
+		" call highlight#Set('Namespace',								{ 'fg' : g:cyan })
+		" call highlight#Set('EnumConstant',						{ 'link' : 'cEnum' })
+		" call highlight#Set('Member',			 						{ 'link' : 'cMember' })
+		let s:grey_blue = '#8a9597'
+		let s:light_grey_blue = '#a0a8b0'
+		let s:dark_grey_blue = '#34383c'
+		let s:mid_grey_blue = '#64686c'
+		let s:beige = '#ceb67f'
+		let s:light_orange = '#ebc471'
+		let s:yellow = '#e3d796'
+		let s:violet = '#a982c8'
+		let s:magenta = '#a933ac'
+		let s:green = '#e0a96f'
+		let s:lightgreen = '#c2c98f'
+		let s:red = '#d08356'
+		let s:cyan = '#74dad9'
+		let s:darkgrey = '#1a1a1a'
+		let s:grey = '#303030'
+		let s:lightgrey = '#605958'
+		let s:white = '#fffedc'
+		let s:orange = '#d08356'
+		exe 'hi Member guifg='.s:cyan .' guibg='.s:darkgrey .' gui=italic'
+		exe 'hi Variable guifg='.s:light_grey_blue .' guibg='.s:darkgrey .' gui=none'
+		exe 'hi Namespace guifg='.s:red .' guibg='.s:darkgrey .' gui=none'
+		exe 'hi EnumConstant guifg='.s:lightgreen .' guibg='.s:darkgrey .' gui=none'
 
 		" Cpp
 		call highlight#Set('cppTypeTag',              { 'fg': g:brown })
