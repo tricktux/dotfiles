@@ -58,3 +58,9 @@ alias identity@psu.edu identity@psu.edu
 alias GEICO <policyholdersupport_r6@geicomail.com>
 alias UniversityLibraries@psu.edu UniversityLibraries@psu.edu
 alias do_not_reply@hondafinancialservices.com <do_not_reply@hondafinancialservices.com>
+alias course-learning Learning How to Learn: Powerful mental tools to help you master tough subjects Course Team
+alias north-gateway Gateway North <no-reply@callmax1.us>
+alias data-mail Mail System Internal Data <MAILER-DAEMON@tr26n18.aset.psu.edu>
+alias pedraza-hairo Hairo Pérez Pedraza <hppedraza@yahoo.com>
+alias molina-boyan boyan molina <boyanm@gmail.com>
+alias policyholdersupport_r6@geicomail.com policyholdersupport_r6@geicomail.com
