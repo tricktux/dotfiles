@@ -207,13 +207,16 @@ bindsym XF86AudioMute exec amixer sset Master toggle
 # bindsym XF86AudioMute exec amixer sset Master toggle
 
 # Depends on playerctl
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
+# bindsym XF86AudioPlay exec playerctl play-pause
+# bindsym XF86AudioNext exec playerctl next
+# bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioPlay exec ~/.local/bin/cplay -u
+bindsym XF86AudioNext exec ~/.local/bin/cplay -n
+bindsym XF86AudioPrev exec ~/.local/bin/cplay -p
 
 # Using now the control keys with vi like mappings just like windows
-bindsym Control+Mod1+H exec playerctl play-pause
-bindsym Control+Mod1+L exec playerctl next
+bindsym Control+Mod1+H exec ~/.local/bin/cplay -u
+bindsym Control+Mod1+L exec ~/.local/bin/cplay -n
 bindsym Control+Mod1+K exec amixer sset Master 5%+
 bindsym Control+Mod1+J exec amixer sset Master 5%-
 
