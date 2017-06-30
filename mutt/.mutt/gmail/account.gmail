@@ -15,14 +15,7 @@ mailboxes = +INBOX
 set postponed="imaps://imap.gmail.com/[Gmail]/Drafts"
 # Hopefully will fix emails not going out
 set smtp_url = "smtp://rmolin88@smtp.gmail.com:587/"
-set trash = '+[Gmail]/Trash'
-
-# Gmail-style keyboard shortcuts
-macro index,pager gi "<change-folder>=INBOX<enter>" "Go to inbox"
-macro index,pager ga "<change-folder>=[Gmail]/All Mail<enter>" "Go to all mail"
-macro index,pager gs "<change-folder>=[Gmail]/Starred<enter>" "Go to starred messages"
-macro index,pager gp "<change-folder>=[Gmail]/Important<enter>" "Go to priority inbox"
-macro index,pager gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
+set trash = '+[Gmail]/All Mail'
 
 # Store message headers locally to speed things up.
 # If hcache is a folder, Mutt will create sub cache folders for each account which may speeds things up even more.
@@ -32,8 +25,22 @@ set header_cache = "~/.config/mutt/gmail/cache/headers"
 # Can be the same folder as header_cache.
 # This will cost important disk usage according to your e-mail amount.
 set message_cachedir = "~/.config/mutt/gmail/cache/bodies"
-
 set certificate_file = "~/.config/mutt/gmail/certificates"
+
+# Move message to the =[Gmail]/Starred list which is my TO_DO list
+bind index,pager m noop
+macro index,pager mt '<copy-message>=[Gmail]/Starred<enter>'
+# TODO.RM-Fri Jun 30 2017 02:58: Not working  
+macro index,pager mp '<copy-message>=Important<tab><enter>'
+# Mark message as Done
+macro index,pager md "<save-message>=INBOX<enter>"
+
+bind index,pager g noop
+macro index gi "<change-folder>=INBOX<enter>"
+bind index gg first-entry		
+macro index,pager gu ':unmailboxes *<enter><sync-mailbox><refresh><enter-command>source ~/.config/mutt/psu/account.psu<enter><change-folder>!<enter>'
+macro index gs "<change-folder>=[Gmail]/Starred<enter>" "Go to starred messages"
+macro index gp "<change-folder>=[Gmail]/Important<tab><enter>" "Go to starred messages"
 
 # Get password from encryption
 source "gpg -d ~/.config/mutt/gmail/password.gmail.gpg |"
