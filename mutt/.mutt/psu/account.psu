@@ -11,8 +11,8 @@ set folder = 'imaps://email.psu.edu:993'
 set spoolfile = +INBOX
 # set spoolfile = 'imaps://email.psu.edu:993:1/Inbox'
 mailboxes = +INBOX
-# mailboxes = +TODO
-# mailboxes = +junk
+mailboxes = +TODO
+mailboxes = +Trash
 
 # Specify where to save and/or look for postponed messages.
 set postponed="imaps://email.psu.edu:993/Drafts"
@@ -35,11 +35,15 @@ source "gpg -d ~/.config/mutt/psu/password.psu.gpg |"
 
 bind index,pager m noop
 macro index,pager mt '<copy-message>=TODO<enter>'
-bind index,pager g noop
-macro index gi '<change-folder>=INBOX<enter>'
-bind index gg first-entry		
-macro index gs '<change-folder>=TODO<enter>' "Go to starred messages"
+# Mark message as Done
+macro index,pager md "<save-message>=INBOX<enter>"
 
+bind index,pager g noop
+bind index gg first-entry		
+bind pager gr group-reply
+
+macro index gi '<change-folder>=INBOX<enter>'
+macro index gs '<change-folder>=TODO<enter>' "Go to starred messages"
 macro index,pager gm ':unmailboxes *<enter><sync-mailbox><refresh><enter-command>source ~/.config/mutt/gmail/account.gmail<enter><change-folder>!<enter>'
 
 # vim:ft=muttrc
