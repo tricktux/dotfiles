@@ -2,7 +2,7 @@
 # Description:			Mutt configuration
 # Author:				Reinaldo Molina <rmolin88@gmail.com>
 # Version:				0.0.1
-# Last Modified:		Sun Jun 25 2017 15:26
+# Last Modified: Thu Jun 29 2017 21:41
 # Created:				Jun 25 2017 13:20
 
 set realname='Reinaldo Molina'
@@ -11,11 +11,11 @@ set ssl_force_tls=yes
 
 # Add accounts
 folder-hook 'gmail.com' 'source ~/.config/mutt/gmail/account.gmail'
-folder-hook 'ufl.edu' 'source ~/.config/mutt/ufl/account.ufl'
+folder-hook 'psu.edu' 'source ~/.config/mutt/psu/account.psu'
 
 # Default account to open
+# source ~/.config/mutt/psu/account.psu
 source ~/.config/mutt/gmail/account.gmail
-# source ~/.config/mutt/ufl/account.ufl
 
 set move = no
 
@@ -39,18 +39,46 @@ set imap_check_subscribed
 # Sort to show most recent first
 set sort = reverse-date-received
 
+# Email list mappings
+bind index g noop
 bind index o display-message
-bind generic gg first-entry		
-bind generic G last-entry		
-bind generic L bottom-page		#to the bottom,
-bind generic M middle-page		#middle, and
-bind generic H top-page			#top of the screen
-# bind index [ previous-unread		to the previous unread message in the list
-# bind index ] next-unread		or the next unread message.
+bind index gg first-entry		
+bind index G last-entry		
+bind index L bottom-page		#to the bottom,
+bind index M middle-page		#middle, and
+bind index H top-page			#top of the screen
+bind index N search-opposite
+bind index r sync-mailbox
+# Gmail-style keyboard shortcuts
+macro index gi "<change-folder>=INBOX<enter>" "Go to inbox"
+macro index ga "<change-folder>=[Gmail]/All Mail<enter>" "Go to all mail"
+macro index gs "<change-folder>=[Gmail]/Starred<enter>" "Go to starred messages"
+macro index gp "<change-folder>=[Gmail]/Important<enter>" "Go to priority inbox"
+macro index gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
+# Move the highlight to the previous mailbox
+bind index h sidebar-prev
+# Move the highlight to the next mailbox
+bind index l sidebar-next
+# Open the highlighted mailbox
+bind index <return> sidebar-open
+# macro index gu '<sync-mailbox><refresh><enter-command>source ~/.config/mutt/psu/account.psu<enter><change-folder>!<enter>'
+# macro index gm '<sync-mailbox><refresh><enter-command>source ~/.config/mutt/gmail/account.gmail<enter><change-folder>!<enter>'
 
-# Go to uf email
-macro index,pager gu '<sync-mailbox><enter-command>source ~/.config/mutt/account.ufl<enter><change-folder>!<enter>'
-macro index,pager gi '<sync-mailbox><enter-command>source ~/.config/mutt/account.gmail<enter><change-folder>!<enter>'
+# Inside emails mappings
+bind pager g noop # Fixes annoying warnings
+bind pager j next-line 
+bind pager k previous-line 
+bind pager h previous-page
+bind pager l next-page
+bind pager gr group-reply
+# bind pager h previous-thread
+# bind pager l next-thread
+
+# Mappings for both
+# In order for this to work first do :unmailboxes *
+# macro index,pager gu '<sync-mailbox><enter-command>source ~/.config/mutt/psu/account.psu<enter><change-folder>!<enter>'
+# macro index,pager gm '<sync-mailbox><enter-command>source ~/.config/mutt/gmail/account.gmail<enter><change-folder>!<enter>'
+bind index,pager T sidebar-toggle-visible
 
 # Option to Save contacts so that autocompletion is possible
 set display_filter='~/.config/mutt/mutt.save.contacts.sh' 
@@ -60,7 +88,7 @@ set sort_alias= alias
 set reverse_alias=yes
 source $alias_file
 
-set editor="nvim"
+set editor="vim"
 # set editor="vim -c 'set spell spelllang=es,en'"
 
 # From https://github.com/bubbl/bubb-confs/blob/master/mutt/.mutt/general
@@ -68,20 +96,9 @@ set editor="nvim"
 set edit_headers    = yes                # show headers when composing
 set fast_reply                           # skip to compose when replying
 
-bind pager gr group-reply
-
-bind generic N search-opposite
-
-bind index r sync-mailbox
 
 # Always include previous message when replying
 set include = yes
-
-# Scroll inside emails
-bind pager j next-line 
-bind pager k previous-line 
-# Go to next page with z
-# Come back up with gg
 
 set menu_scroll
 
@@ -96,5 +113,12 @@ source ~/.config/mutt/mutt-solarized-colors.muttrc
 # Use $ to synch
 set mark_old=no
 
+# Setup to view html. Remember to install w3m
 auto_view text/html
 alternative_order text/plain text/enriched text/html
+bind attach <return>    view-mailcap
+set mailcap_path=~/.config/mutt/mailcap
+
+# Side-bar
+#/usr/share/doc/mutt/samples/sample.muttrc-sidebar
+set sidebar_visible=yes
