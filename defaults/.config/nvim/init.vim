@@ -690,6 +690,7 @@
 
 " HIGHLITING
 " ~/.dotfiles/vim-utils/autoload/highlight.vim
+	" Wed Jun 28 2017 09:32: Why did I added nvim here. Not sure. Removing 
 	if exists("g:plugins_loaded")
 		" C
 		call highlight#Set('cTypeTag',                { 'fg': g:brown })
