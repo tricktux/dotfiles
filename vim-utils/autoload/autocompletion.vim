@@ -1,8 +1,7 @@
-
-" File:tsautocompletion.vim
-"	Description: Choose and setup autocompletion engine		
-" Author:autocompletionReinaldo Molina <rmolin88@gmail.com>
-" Version:gmail1.0.0
+" File:autocompletion.vim
+" Description: Choose and setup autocompletion engine		
+" Author:Reinaldo Molina <rmolin88@gmail.com>
+" Version:2.0.0
 " Last Modified: Apr 04 2017 23:58
 
 function! autocompletion#SetCompl() abort
