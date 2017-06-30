@@ -1,8 +1,8 @@
 # File:					muttrc
 # Description:			Mutt configuration
 # Author:				Reinaldo Molina <rmolin88@gmail.com>
-# Version:				0.0.1
-# Last Modified: Thu Jun 29 2017 21:41
+# Version:				1.0.0
+# Last Modified:		Fri Jun 30 2017 02:54
 # Created:				Jun 25 2017 13:20
 
 set realname='Reinaldo Molina'
@@ -17,6 +17,7 @@ folder-hook 'psu.edu' 'source ~/.config/mutt/psu/account.psu'
 # source ~/.config/mutt/psu/account.psu
 source ~/.config/mutt/gmail/account.gmail
 
+set copy=yes			# always save a copy of outgoing messages
 set move = no
 
 # Keep IMAP connection alive by polling intermittently (time in seconds).
@@ -51,18 +52,21 @@ bind index N search-opposite
 bind index r sync-mailbox
 # Gmail-style keyboard shortcuts
 macro index gi "<change-folder>=INBOX<enter>" "Go to inbox"
-macro index ga "<change-folder>=[Gmail]/All Mail<enter>" "Go to all mail"
-macro index gs "<change-folder>=[Gmail]/Starred<enter>" "Go to starred messages"
-macro index gp "<change-folder>=[Gmail]/Important<enter>" "Go to priority inbox"
-macro index gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
+# macro index gt "<change-folder>=TO_DO<enter>"
+# Use autocompletion <tab> for folders with spaces
+macro index ga '<change-folder> =[Gmail]/All<tab><enter>' "Go to all mail"
+macro index gs "<change-folder> =[Gmail]/Starred<enter>" "Go to starred messages"
+# macro index gp "<change-folder>=[Gmail]/Important<enter>" "Go to priority inbox"
+macro index gp '<change-folder> =Important<tab><enter>' "Go to priority inbox"
+# macro index gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
 # Move the highlight to the previous mailbox
 bind index h sidebar-prev
 # Move the highlight to the next mailbox
 bind index l sidebar-next
 # Open the highlighted mailbox
 bind index <return> sidebar-open
-# macro index gu '<sync-mailbox><refresh><enter-command>source ~/.config/mutt/psu/account.psu<enter><change-folder>!<enter>'
-# macro index gm '<sync-mailbox><refresh><enter-command>source ~/.config/mutt/gmail/account.gmail<enter><change-folder>!<enter>'
+# Unmark all deletes
+macro index u "U~A<enter>"
 
 # Inside emails mappings
 bind pager g noop # Fixes annoying warnings
@@ -70,15 +74,27 @@ bind pager j next-line
 bind pager k previous-line 
 bind pager h previous-page
 bind pager l next-page
+bind pager u previous-page
+bind pager d next-page
 bind pager gr group-reply
+bind pager G bottom
 # bind pager h previous-thread
 # bind pager l next-thread
 
 # Mappings for both
 # In order for this to work first do :unmailboxes *
-# macro index,pager gu '<sync-mailbox><enter-command>source ~/.config/mutt/psu/account.psu<enter><change-folder>!<enter>'
-# macro index,pager gm '<sync-mailbox><enter-command>source ~/.config/mutt/gmail/account.gmail<enter><change-folder>!<enter>'
-bind index,pager T sidebar-toggle-visible
+macro index,pager gu ':unmailboxes *<enter><sync-mailbox><refresh><enter-command>source ~/.config/mutt/psu/account.psu<enter><change-folder>!<enter>'
+macro index,pager gm ':unmailboxes *<enter><sync-mailbox><refresh><enter-command>source ~/.config/mutt/gmail/account.gmail<enter><change-folder>!<enter>'
+# Mario Holbe suggests:
+macro index b '<enter-command>toggle sidebar_visible<enter><refresh>'
+macro pager b '<enter-command>toggle sidebar_visible<enter><redraw-screen>'
+# Move message to the =[Gmail]/Starred list which is my TO_DO list
+bind index,pager m noop
+macro index,pager mt "<<copy-message> =[Gmail]/Starred<enter>"
+# TODO.RM-Fri Jun 30 2017 02:58: Not working  
+macro index,pager mp '<<save-message> =Important<tab><enter>'
+# Mark message as Done
+macro index,pager md "<save-message>=INBOX<enter>"
 
 # Option to Save contacts so that autocompletion is possible
 set display_filter='~/.config/mutt/mutt.save.contacts.sh' 
@@ -122,3 +138,13 @@ set mailcap_path=~/.config/mutt/mailcap
 # Side-bar
 #/usr/share/doc/mutt/samples/sample.muttrc-sidebar
 set sidebar_visible=yes
+# Signature
+set signature='~/.config/mutt/signature'
+
+# No annoying pop-up
+set confirmappend=no
+set delete=yes
+
+# Selecting multiple messages
+# You can also use t to tag or untag the highlighted message, to fine-tune the selection.
+# Then you can run tag-prefix (;) followed by save-message (s), and it will prompt you for a mailbox name
