@@ -10,3 +10,8 @@
 
 text/html; opera -newpage %s &; test=test -n "$DISPLAY"; needsterminal;
 text/html; w3m -I %{charset}; -T text/html; copiousoutput;
+(null)/pdf; /usr/bin/zathura %s; /usr/bin/zathura %s; test=test "$DISPLAY" != "";
+*/pdf; /usr/bin/zathura %s; /usr/bin/zathura %s; test=test "$DISPLAY" != "";
+application/pdf; /usr/bin/zathura %s; test=test "$DISPLAY" != ""; description=Portable Document Format; nametemplate=%s.pdf; print=/usr/bin/acroread %s
+image/pdf; /usr/bin/zathura %s; test=test "$DISPLAY" != ""; description=Portable Document Format; nametemplate=%s.pdf; print=/usr/bin/acroread %s
+image/*; feh %s
