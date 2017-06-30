@@ -460,7 +460,8 @@ exec --no-startup-id blueman-applet
 exec --no-startup-id seafile-applet
 exec --no-startup-id insync start
 # Notifications daemon. See twmnc for help
-exec --no-startup-id twmnd&
+# Fri Jun 30 2017 14:30: Not playing well with rambox 
+# exec --no-startup-id twmnd&
 
 # Start vnc server service
 # exec --no-startup-id x0vncserver -display :0 -passwordfile ~/.vnc/passwd&
