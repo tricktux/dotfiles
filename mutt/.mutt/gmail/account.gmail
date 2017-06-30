@@ -29,18 +29,20 @@ set certificate_file = "~/.config/mutt/gmail/certificates"
 
 # Move message to the =[Gmail]/Starred list which is my TO_DO list
 bind index,pager m noop
-macro index,pager mt '<copy-message>=[Gmail]/Starred<enter>'
+# Fri Jun 30 2017 14:47: Super awesome discovery:
+# - F toogles the message important flag
+# - With Gmail this flagged is linked to the Starred Documents
 # TODO.RM-Fri Jun 30 2017 02:58: Not working  
-macro index,pager mp '<copy-message>=Important<tab><enter>'
-# Mark message as Done
-macro index,pager md "<save-message>=INBOX<enter>"
+macro index,pager mp '<copy-message>=Important_Stuff<enter>'
 
 bind index,pager g noop
-macro index gi "<change-folder>=INBOX<enter>"
 bind index gg first-entry		
+bind pager gr group-reply
+
+macro index gi "<change-folder>=INBOX<enter>"
 macro index,pager gu ':unmailboxes *<enter><sync-mailbox><refresh><enter-command>source ~/.config/mutt/psu/account.psu<enter><change-folder>!<enter>'
 macro index gs "<change-folder>=[Gmail]/Starred<enter>" "Go to starred messages"
-macro index gp "<change-folder>=[Gmail]/Important<tab><enter>" "Go to starred messages"
+macro index gp "<change-folder>=Important_Stuff<enter>" "Go to starred messages"
 
 # Get password from encryption
 source "gpg -d ~/.config/mutt/gmail/password.gmail.gpg |"

@@ -64,3 +64,5 @@ alias data-mail Mail System Internal Data <MAILER-DAEMON@tr26n18.aset.psu.edu>
 alias pedraza-hairo Hairo Pérez Pedraza <hppedraza@yahoo.com>
 alias molina-boyan boyan molina <boyanm@gmail.com>
 alias policyholdersupport_r6@geicomail.com policyholdersupport_r6@geicomail.com
+alias pardo-sebastian Sebastian Pardo <notifications@github.com>
+alias y-scott Scott Cynthia Y <Cynthia.Y.Scott@questdiagnostics.com>
