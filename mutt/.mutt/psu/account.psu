@@ -1,34 +1,34 @@
 # File:account.gmail
-# Description: mutt setup for Gmail
+# Description: mutt setup for UF email
 # Author:Reinaldo Molina <rmolin88@gmail.com>
 # Version:1.0.0
-# Last Modified: Jun 25 2017 15:47
+# Last Modified: Sun Jun 25 2017 20:45
 # Created: Jun 25 2017 15:47
 
-set from = "Reinaldo Molina <rmolin88@gmail.com>"
+set from = "Reinaldo Molina <rim18@psu.edu>"
 
-set folder = 'imaps://imap.gmail.com:993'
+set folder = 'imaps://email.psu.edu:993'
 set spoolfile = +INBOX
+# set spoolfile = 'imaps://email.psu.edu:993:1/Inbox'
 mailboxes = +INBOX
 
 # Specify where to save and/or look for postponed messages.
-set postponed="imaps://imap.gmail.com/[Gmail]/Drafts"
+set postponed="imaps://email.psu.edu:993/Drafts"
 # Hopefully will fix emails not going out
-set smtp_url = "smtp://rmolin88@smtp.gmail.com:587/"
-set trash = '+[Gmail]/All Mail'
+set smtp_url = "smtp://rim18@authsmtp.psu.edu:587/"
+set trash = 'imaps://email.psu.edu:993/Trash'
 
 # Store message headers locally to speed things up.
 # If hcache is a folder, Mutt will create sub cache folders for each account which may speeds things up even more.
-set header_cache = "~/.config/mutt/gmail/cache/headers"
+set header_cache = "~/.config/mutt/psu/cache/headers"
 
 # Store messages locally to speed things up, like searching message bodies.
 # Can be the same folder as header_cache.
 # This will cost important disk usage according to your e-mail amount.
-set message_cachedir = "~/.config/mutt/gmail/cache/bodies"
+set message_cachedir = "~/.config/mutt/psu/cache/bodies"
 
-set certificate_file = "~/.config/mutt/gmail/certificates"
-
+set certificate_file = "~/.config/mutt/psu/certificates"
 # Get password from encryption
-source "gpg -d ~/.config/mutt/gmail/password.gmail.gpg |"
+source "gpg -d ~/.config/mutt/psu/password.psu.gpg |"
 
 # vim:ft=muttrc
