@@ -25,7 +25,7 @@
 " PLUGINS_INIT
 	" ~/.dotfiles/vim-utils/autoload/plugin.vim
 	" Attempt to install vim-plug and all plugins in case of first use
-	if has('unix')
+	if has('unix') || !has('nvim')
 		let g:tagbar_safe_to_use = 1
 	endif
 
