@@ -15,7 +15,7 @@ mailboxes = +INBOX
 set postponed="imaps://imap.gmail.com/[Gmail]/Drafts"
 # Hopefully will fix emails not going out
 set smtp_url = "smtp://rmolin88@smtp.gmail.com:587/"
-set trash = '+[Gmail]/Trash'
+set trash = '+[Gmail]/All Mail'
 
 # Store message headers locally to speed things up.
 # If hcache is a folder, Mutt will create sub cache folders for each account which may speeds things up even more.

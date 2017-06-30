@@ -1,32 +1,60 @@
 alias a-maria Maria A <maria.a@nauta.cu>
-
 alias molina-guillermo Guillermo Molina <gmolina@nauta.cu>
-alias perez-maria Maria del Carmen Perez <mcpglez@gmail.com>
-alias jimenez-hernan Hernan David Mateus Jimenez <hdmateusj@unal.edu.co>
-alias villamil-andrie Andrie Pérez Villamil <avillamil@uci.cu>
-alias molina-reinaldo Reinaldo Molina <rmolin88@gmail.com>
-alias freedom®-chase Chase Freedom® <chase@email.chase.com>
-alias program-costco Costco Auto Program <costcoauto@e.costcoauto.com>
-alias falcon-franklin Franklin Falcon <ffalcon46@gmail.com>
-alias Udacity <mentorship-support@udacity.com>
-alias MultiRace <info@multirace.com>
-alias america-bank Bank of America <onlinebanking@ealerts.bankofamerica.com>
-alias accounts-nvidia NVIDIA Accounts <noreply@account-nvidia.com>
-alias Rambox <noreply@rambox.pro>
-alias express-american American Express <americanexpress@member.americanexpress.com>
-alias hakulinen-ville Ville Hakulinen <notifications@github.com>
-alias express-american American Express <AmericanExpress@welcome.aexp.com>
-alias service@assistance.cuballama.com service@assistance.cuballama.com
-alias clearwater-advanced Advanced Dental Care of Clearwater <DentalScheduling-fl@dentalcarealliance.com>
-alias Mint <team@Mint.com>
-alias reply-td TD Ameritrade Client Services-do not reply <client@notifications.tdameritrade.com>
-alias support-udacity Udacity Support <support@udacity.com>
-alias machado-rafael Rafael Lopez Machado <misa@capiro.vcl.sld.cu>
+alias us-lenovo Lenovo US <Lenovo@enews.lenovo.com>
+alias Maru <newsletter@maruos.com>
+alias do_not_reply@hondafinancialservices.com do_not_reply@hondafinancialservices.com
 alias rdaniel01@nauta.cu <rdaniel01@nauta.cu>
-alias Michele <miboscol@gmail.com>
-alias fl-winter Winter Park Cycles - Orlando FL <info@winterparkcycles.com>
-alias c0r73x <notifications@github.com>
 alias Chase <no-reply@alertsp.chase.com>
-alias services-chase Chase Card Services <Chase@e.chase.com>
-alias keyes-justin Justin M. Keyes <notifications@github.com>
-alias kazuto-himura Himura Kazuto <notifications@github.com>
+alias DukeEnergyEbill@duke-energy.com DukeEnergyEbill@duke-energy.com
+alias Shougo <notifications@github.com>
+alias NHTS@westat.com NHTS@westat.com
+alias america-bank Bank of America <bankofamerica@emcom.bankofamerica.com>
+alias larson-quincy Quincy Larson <quincy@freecodecamp.com>
+alias MultiRace <info@multirace.com>
+alias z33ky <notifications@github.com>
+alias information-fsa FSA ID Information <FSA-ID@ed.gov>
+alias smart-synchrony Synchrony Bank for your PayPal Smart Connect
+alias card-citi Citi Simplicity Card <citicards@info.citibank.com>
+alias Twitter <verify@twitter.com>
+alias one-capital Capital One <capitalone@notification.capitalone.com>
+alias services-chase Chase Card Services <no-reply@alertsp.chase.com>
+alias AliExpress <aliexpress@notice.aliexpress.com>
+alias card-citi Citi Simplicity Card <citicards@info6.citi.com>
+alias Google <no-reply@accounts.google.com>
+alias express-american American Express <AmericanExpress@welcome.aexp.com>
+alias picks-eventbrite Eventbrite Picks <picks@eventbrite.com>
+alias Mint <payments@mint.com>
+alias card-discover Discover Card <discover@service.discover.com>
+alias card-discover Discover Card <discover@e.discover.com>
+alias store-google Google Store <googlestore-noreply@google.com>
+alias security-u.s.a U.S.A Homeland Security <USAhomelandsecurity.@orange.ocn.ne.jp>
+alias rox <notifications@github.com>
+alias molina-boyan Boyan Molina <boyanm@gmail.com>
+alias application-noreply-penn Penn State Graduate School Application-noreply <noreply@psu.edu>
+alias director-assistance Assistance Inspection Director <probst@ursei.ac.ru>
+alias gustafson-dianne DIANNE GUSTAFSON <dmg71@psu.edu>
+alias molina-reinaldo Reinaldo Molina <rmolin88@gmail.com>
+alias manso-melixa Melixa Manso <melixamanso@gmail.com>
+alias airlines@aa.com-american American Airlines@aa.com <notify@aa.globalnotifications.com>
+alias info-jetblue JetBlue Info <info@change.jetblue.com>
+alias service@assistance.cuballama.com service@assistance.cuballama.com
+alias osa-noreply@psu.edu osa-noreply@psu.edu
+alias raube-margo MARGO H RAUBE <mhr20@psu.edu>
+alias LionPATH-noreply@psu.edu LionPATH-noreply@psu.edu
+alias guides-google Google Local Guides <noreply-local-guides@google.com>
+alias larson-quincy Quincy Larson <quincy@freecodecamp.org>
+alias GEICO <geico@email1.geico.com>
+alias chocolatey-no NO REPLY - Chocolatey <noreply@chocolatey.org>
+alias claims-nae NAE NWAN Claims <claims@naenwan.com>
+alias arniella-jose Jose Arniella <jarniellao@gmail.com>
+alias headlines-penn Penn State Headlines <headlines@psu.edu>
+alias Udemy <udemy@email.udemy.com>
+alias penguin-little Little Penguin <little@eudyptula-challenge.org>
+alias molina-reinaldo Reinaldo Molina <rmolin88@ufl.edu>
+alias schwartz-eric Eric M. Schwartz <ems@mil.ufl.edu>
+alias molina-reinaldo Reinaldo Molina <rim18@psu.edu>
+alias gretherpp <gretherpp@uclv.cu>
+alias identity@psu.edu identity@psu.edu
+alias GEICO <policyholdersupport_r6@geicomail.com>
+alias UniversityLibraries@psu.edu UniversityLibraries@psu.edu
+alias do_not_reply@hondafinancialservices.com <do_not_reply@hondafinancialservices.com>
