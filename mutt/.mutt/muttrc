@@ -63,7 +63,6 @@ bind pager h previous-page
 bind pager l next-page
 bind pager u previous-page
 bind pager d next-page
-bind pager gr group-reply
 bind pager G bottom
 
 # Mappings for both
@@ -116,7 +115,8 @@ set mailcap_path=~/.config/mutt/mailcap
 #/usr/share/doc/mutt/samples/sample.muttrc-sidebar
 set sidebar_visible=yes
 # Signature
-set signature='~/.config/mutt/signature'
+# Fri Jun 30 2017 14:18: Doesnt work because it goes to the bottom of the reply chain 
+# set signature='~/.config/mutt/signature'
 
 # No annoying pop-up
 set confirmappend=no
