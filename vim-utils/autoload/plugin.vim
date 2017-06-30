@@ -453,6 +453,11 @@ function! plugin#Config() abort
 	Plug 'godlygeek/tabular'
 		let g:no_default_tabular_maps = 1
 
+	if has('unix') && !has('nvim')
+		" Plug 'jeaye/color_coded', { 'do': 'cmake . && make && make install', 'for': ['c', 'cpp'] }
+		Plug 'jeaye/color_coded', { 'do': 'cmake . && make && make install' }
+	endif
+
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
