@@ -1,1 +1,17 @@
+# File:					mailcap
+# Description:			Describes commands to mutt executes to open different types of attachments
+# Author:				Reinaldo Molina <rmolin88@gmail.com>
+# Version:				0.0.0
+# Last Modified: Jun 29 2017 22:30
+# Created: Jun 29 2017 22:30
+# The first element before the first ; describes the type of attachments
+# Excellent source for mailcaps
+#  https://github.com/raphaelfournier/Mutt/blob/master/mailcap#L5
+
+text/html; opera -newpage %s &; test=test -n "$DISPLAY"; needsterminal;
 text/html; w3m -I %{charset}; -T text/html; copiousoutput;
+(null)/pdf; /usr/bin/zathura %s; /usr/bin/zathura %s; test=test "$DISPLAY" != "";
+*/pdf; /usr/bin/zathura %s; /usr/bin/zathura %s; test=test "$DISPLAY" != "";
+application/pdf; /usr/bin/zathura %s; test=test "$DISPLAY" != ""; description=Portable Document Format; nametemplate=%s.pdf; print=/usr/bin/acroread %s
+image/pdf; /usr/bin/zathura %s; test=test "$DISPLAY" != ""; description=Portable Document Format; nametemplate=%s.pdf; print=/usr/bin/acroread %s
+image/*; feh %s
