@@ -428,4 +428,19 @@ interval = 2
 label = %output:0:45:...%
 exec = ~/.config/polybar/mpris.sh
 
+; Depends on pomodoro-git and mpg123
+; Fri Jun 30 2017 14:11: After wasting much of my time I realize this is crap since there is no sane way to get it to notify
+[module/pomodoro]
+type = custom/script
+; Use pomodoro glyphs in Nerd fonts
+exec = pymodoro --length 1 --interval 5 --pomodoro-suffix " " --pomodoro-prefix "" --break-suffix " " --break-prefix "" --pomodoro " " --break " " -sp "~/.config/polybar/rising_sun.mp3" -sb "~/.config/polybar/very_super_tone_ever.mp3" -sc "mpg123 %s &"
+label = %output%
+tail = true
+interval = 0
+; Start or reset the timer
+click-left = if [ -e ~/.pomodoro_session ]; then rm ~/.pomodoro_session; else echo "25 5" > ~/.pomodoro_session; fi
+; Increase pomodoro time
+click-right = echo "$((`cut .pomodoro_session -d ' ' -f 1`+5)) 5" > .pomodoro_session
+; Reduce pomodoro time
+click-middle = echo "$((`cut .pomodoro_session -d ' ' -f 1`-5)) 5" > .pomodoro_session
 ; vim:ft=dosini:
