@@ -16,7 +16,7 @@ alias search='pacaur -Ss'
 alias remove='pacaur -Rscn'
 alias remove-only='pacaur -Rdd'
 
-# Git
+# git
 alias ga='git add'
 alias gs='git status'
 alias gc='git commit -m'
@@ -29,6 +29,11 @@ alias vs='svn status'
 alias vc='svn commit -m'
 alias svn-checkout=FuncSvnCheckout
 alias svn-create=FuncSvnCreate
+
+# mutt
+alias mutt='mutt -F ~/.config/mutt/gmail/account.gmail'
+alias mutt-gmail='mutt -F ~/.config/mutt/gmail/account.gmail'
+alias mutt-psu='mutt -F ~/.config/mutt/psu/account.psu'
 
 # Folder
 # UnrealEngineCourse
