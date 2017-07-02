@@ -15,7 +15,7 @@ folder-hook 'psu.edu' 'source ~/.config/mutt/psu/account.psu'
 
 # Default account to open
 # source ~/.config/mutt/psu/account.psu
-source ~/.config/mutt/gmail/account.gmail
+# source ~/.config/mutt/gmail/account.gmail
 
 set copy=yes			# always save a copy of outgoing messages
 set move = no
@@ -56,6 +56,9 @@ bind index l sidebar-next
 bind index <return> sidebar-open
 # Unmark all deletes
 macro index u "U~A<enter>"
+# Bind to I key in index view:
+macro index I  "<search>~F\n"                     "Search for next important"
+
 # Inside emails mappings
 bind pager j next-line 
 bind pager k previous-line 
@@ -64,6 +67,8 @@ bind pager l next-page
 bind pager u previous-page
 bind pager d next-page
 bind pager G bottom
+# Bint to I key in pager:
+macro pager I  "<exit><search>~F\n<display-message>" "Jump to next important"
 
 # Mappings for both
 # Mark message as Done
@@ -80,7 +85,7 @@ set sort_alias= alias
 set reverse_alias=yes
 source $alias_file
 
-set editor="vim"
+set editor="nvim"
 # set editor="vim -c 'set spell spelllang=es,en'"
 
 # From https://github.com/bubbl/bubb-confs/blob/master/mutt/.mutt/general
@@ -108,7 +113,7 @@ set mark_old=no
 # Setup to view html. Remember to install w3m
 auto_view text/html
 alternative_order text/plain text/enriched text/html
-bind attach <return>    view-mailcap
+# bind attach <return>    view-mailcap
 set mailcap_path=~/.config/mutt/mailcap
 
 # Side-bar
@@ -118,7 +123,7 @@ set sidebar_visible=yes
 # Fri Jun 30 2017 14:18: Doesnt work because it goes to the bottom of the reply chain 
 # set signature='~/.config/mutt/signature'
 
-# No annoying pop-up
+# No annoying pop-ups
 set confirmappend=no
 set delete=yes
 
