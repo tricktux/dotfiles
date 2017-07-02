@@ -66,3 +66,7 @@ alias molina-boyan boyan molina <boyanm@gmail.com>
 alias policyholdersupport_r6@geicomail.com policyholdersupport_r6@geicomail.com
 alias pardo-sebastian Sebastian Pardo <notifications@github.com>
 alias y-scott Scott Cynthia Y <Cynthia.Y.Scott@questdiagnostics.com>
+alias reply-do Do Not Reply <apply@ippd.ufl.edu>
+alias hang-joanna Joanna Hang <joanna.hang@ni.com>
+alias leon-patricia Patricia De Leon <pattydl15@gmail.com>
+alias leon-carlos Carlos Tomas De Leon <carlydl1956@yahoo.com>

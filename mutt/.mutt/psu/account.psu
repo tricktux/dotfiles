@@ -46,4 +46,6 @@ macro index gi '<change-folder>=INBOX<enter>'
 macro index gs '<change-folder>=TODO<enter>' "Go to starred messages"
 macro index,pager gm ':unmailboxes *<enter><sync-mailbox><refresh><enter-command>source ~/.config/mutt/gmail/account.gmail<enter><change-folder>!<enter>'
 
+source "~/.config/mutt/muttrc"
+
 # vim:ft=muttrc
