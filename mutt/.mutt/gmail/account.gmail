@@ -47,4 +47,5 @@ macro index gp "<change-folder>=Important_Stuff<enter>" "Go to starred messages"
 # Get password from encryption
 source "gpg -d ~/.config/mutt/gmail/password.gmail.gpg |"
 
+source "~/.config/mutt/muttrc"
 # vim:ft=muttrc
