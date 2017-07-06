@@ -105,10 +105,10 @@ function! plugin#Config() abort
 			"folding  
 		endif
 
-		if executable('man')
-			Plug 'nhooyr/neoman.vim'
-				let g:no_neoman_maps = 1
-		endif
+		" if executable('man')
+			" Plug 'nhooyr/neoman.vim'
+				" let g:no_neoman_maps = 1
+		" endif
 
 		" TODO.RM-Wed Jun 07 2017 07:19: Implement auto check for psutil and warning in plugin  
 		if has('python3') && system('pip3 list | grep psutil') =~# 'psutil'
