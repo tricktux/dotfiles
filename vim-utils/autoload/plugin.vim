@@ -132,6 +132,9 @@ function! plugin#Config() abort
 	" Vim cpp syntax highlight
 	Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'c' , 'cpp' ] }
 		let g:cpp_class_scope_highlight = 1
+		let g:cpp_member_variable_highlight = 1
+		let g:cpp_class_decl_highlight = 1
+		let g:cpp_concepts_highlight = 1
 	Plug 'justinmk/vim-syntax-extra'
 
 	" Plugins for All (nvim, linux, win32)
@@ -410,12 +413,21 @@ function! plugin#Config() abort
 		" Inside of the functions here there can be no single quotes (') only
 		" double (")
 			let g:lightline = {}
-			let g:lightline.active = {
-								\   'left': [ 
-								\							[ 'mode', 'paste' ], 
-								\							[ 'readonly', 'absolutepath', 'modified', 'fugitive', 'svn', 'tagbar'] 
-								\						]
-								\		}
+			if get(g:, 'tagbar_safe_to_use', 0)
+				let g:lightline.active = {
+									\   'left': [ 
+									\							[ 'mode', 'paste' ], 
+									\							[ 'readonly', 'absolutepath', 'modified', 'fugitive', 'svn', 'tagbar'] 
+									\						]
+									\		}
+			else
+				let g:lightline.active = {
+							\   'left': [ 
+							\							[ 'mode', 'paste' ], 
+							\							[ 'readonly', 'absolutepath', 'modified', 'fugitive', 'svn' ] 
+							\						]
+							\		}
+			endif
 		 let g:lightline.component = {
 								\   'fugitive': '%{fugitive#statusline()}',
 								\   'svn': '%{svn#GetSvnBranchInfo()}', 
