@@ -26,10 +26,6 @@
 " PLUGINS_INIT
 	" ~/.dotfiles/vim-utils/autoload/plugin.vim
 	" Attempt to install vim-plug and all plugins in case of first use
-	if has('unix') || !has('nvim')
-		let g:tagbar_safe_to_use = 1
-	endif
-
 	let g:location_local_vim = "~/.dotfiles/vim-utils/autoload/plugin.vim"
 	let g:location_portable_vim = "../../.dotfiles/vim-utils/autoload/plugin.vim"
 	if !empty(glob(g:location_local_vim))
@@ -47,7 +43,9 @@
 	endif
 
 	" Choose a autcompl engine
-	if has('unix') && has('nvim')
+	" if has('unix') && has('nvim')
+	if has('unix') || !has('nvim')
+		let g:tagbar_safe_to_use = 1
 		let g:autcompl_engine = 'nvim_compl_manager'
 	else
 		let g:autcompl_engine = 'autocomplpop'
@@ -692,6 +690,7 @@
 " HIGHLITING
 " ~/.dotfiles/vim-utils/autoload/highlight.vim
 	" Wed Jun 28 2017 09:32: Why did I added nvim here. Not sure. Removing 
+	" TODO.RM-Tue Jul 11 2017 00:18: Fix this here  
 	if exists("g:plugins_loaded")
 		" C
 		call highlight#Set('cTypeTag',                { 'fg': g:brown })
