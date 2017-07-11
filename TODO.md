@@ -1,15 +1,25 @@
+### Mon Jul 10 2017 12:06 
+- [ ] Create Index for Wikis
+- [ ] Fix markdwon enter issue where its no breaking lines
+- [ ] Modularize `init.vim`. Example break it down into simpler files
+- [ ] Best `colorscheme` for cpp.
+- [ ] Why `ctrlp` having such a lame buffer thing
+
 ### Tue May 02 2017 10:14 
 -  [X] Get familiar with `vifm`. Potential for substitute of `ranger`
 	- `vifm` is a piece of shit. At least for windows.
 	- Main thing is that it cannot follow `*.lnk` files
--  [ ] Add `neovim` to `chocolatey`
+-  [X] Add `neovim` to `chocolatey`
+- Useless List not worthy
 -  [ ] Get `msys2` on cmder
 -  [ ] Get `shell` to open `msys2`???
 -  [ ] Get `pacaur` to work on `msys2`
 
 ### Fri Apr 21 2017 09:25 
--  [ ] Profile command didnt work
--  [ ] Look into using Neosolarized
+-  [X] Profile command didnt work
+-  [X] Look into using Neosolarized
+	- Mon Jul 10 2017 12:08 
+	- Didnt like it
 -  [X] Cool cursor in nvim-qt on windows
 
 ### Wed Apr 19 2017 09:17 
