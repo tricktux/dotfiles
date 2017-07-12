@@ -70,3 +70,53 @@ alias reply-do Do Not Reply <apply@ippd.ufl.edu>
 alias hang-joanna Joanna Hang <joanna.hang@ni.com>
 alias leon-patricia Patricia De Leon <pattydl15@gmail.com>
 alias leon-carlos Carlos Tomas De Leon <carlydl1956@yahoo.com>
+alias office-clery Clery Compliance Office <tib2@psu.edu>
+alias summary-insync Insync Forums ❤ summary <support-notification@insynchq.com>
+alias ModernesCpp <rainer@grimm-jaud.de>
+alias sheets)-franklin Franklin Falcon (via Google Sheets) <ffalcon46@gmail.com>
+alias zubero-george George Alvarez Zubero <adm@ingemat.vc.minaz.cu>
+alias santana-rafael Rafael Lopez Santana <rlsantana@uclv.edu.cu>
+alias santana-rafael Rafael Lopez Santana <rlsantana@uclv.edu.cu>
+alias help@walmart.com help@walmart.com
+alias perez-maria Maria del Carmen Perez <mcpglez@gmail.com>
+alias Facebook <notification+peizgei1@facebookmail.com>
+alias sas2000sas-ebay eBay Member: sas2000sas <member@ebay.com>
+alias sarduy-mariolys Mariolys Trinana Sarduy <mariolys@uclv.edu.cu>
+alias pozo-yadira Yadira Ramos Pozo <yadira.ramos@infotur.vcl.tur.cu>
+alias frank01037@ssp.jovenclub.cu frank01037@ssp.jovenclub.cu
+alias molina-reinaldo Reinaldo Molina <noticias@sonicomail.com>
+alias tellez-arisleidy Arisleidy Sánchez Tellez <astellez@uclv.edu.cu>
+alias blanco-ismaray Ismaray Blanco Marin
+alias alvarez-alicia Alicia Navarro Alvarez <anavarro@uclv.edu.cu>
+alias leon-claudia Claudia De Leon <claulg2701@gmail.com>
+alias Progressive <customerservice@e.progressive.com>
+alias express-american American Express <americanexpress@member.americanexpress.com>
+alias psuaidaward@psu.edu psuaidaward@psu.edu
+alias Mint <team@mint.com>
+alias union-achieva Achieva Credit Union <noreply@achievacu.com>
+alias fidowicz-monika MONIKA FIDOWICZ <MFIDOWICZ@achievacu.com>
+alias molina-reinaldo Reinaldo Molina [mailto:rmolin88@gmail.com]
+alias molina-reinaldo Reinaldo Molina [mailto:rmolin88@gmail.com<mailto:rmolin88@gmail.com>]
+alias vacations-bluegreen Bluegreen Vacations <bluegreenvacations-nsm@e-bluegreenvacations.com>
+alias x-knaus Knaus Alex X <alex.x.knaus@chase.com>
+alias Walmart <newsletters@walmart.com>
+alias daniels-susan Susan Daniels <jenna.manzella@baycare.org>
+alias car-alamo Alamo Rent A Car <AlamoRentACar@email.alamo.com>
+alias mercedes-maria Maria Mercedes <maria.a@nauta.cu>
+alias robotics-robotics: Robotics: Aerial Robotics <noreply@coursera.org>
+alias tampa-xtremepowersports XtremePowersports Tampa <xtremepowersportstampa@gmail.com>
+alias molina-caridad Caridad lilia Molina <cmolinahdez@gmail.com>
+alias Enos <enospr@yahoo.com>
+alias leon-patricia Patricia De Leon <pattydl15@me.com>
+alias service-gru GRU Customer Service <customerservice@gru.com>
+alias photographer-gradimages GradImages - Your Graduation Photographer <email@marketing.gradimages.com>
+alias please-do-not-reply@UFL.EDU please-do-not-reply@UFL.EDU
+alias trackingupdates@fedex.com trackingupdates@fedex.com
+alias crisalle-dr. Dr. Oscar D. Crisalle <crisalle@che.ufl.edu>
+alias service-citi Citi Customer Service <edelivery@edelivery.citi.com>
+alias modica-jodi Jodi Modica <jmodica@ECE.UFL.EDU>
+alias bosman-gijs Gijs Bosman <bosman@ece.ufl.edu>
+alias Dennis <info@allcomelectronics.com>
+alias weaver-joshua Joshua Weaver <epsilonorion@gmail.com>
+alias m-mayhewdeborah MayhewDeborah M <DMAYH@ENG.UFL.EDU>
+alias aid-federal Federal Student Aid <FederalStudentAidFAFSA@cpsemail.ed.gov>
