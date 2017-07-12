@@ -54,7 +54,6 @@ function! unix#Config() abort
 	" Save file with sudo permissions
 	command! UtilsLinuxSudoPermissions execute("!sudo tee %")
 	command! UtilsLinuxExecuteCurrFile execute("silent !./%")
-
 endfunction
 
 " vim:tw=78:ts=2:sts=2:sw=2:

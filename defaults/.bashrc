@@ -55,7 +55,7 @@ fi
 export TERM=xterm-256color
 # Man settings
 export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:/usr/man
-export MANPAGER="nvim -c 'set ft=neoman' -"
+export MANPAGER="nvim -c 'set ft=man' -"
 # Creating local bin folder
 # Keep in mind you bin preceeds /usr/bin
 export PATH=$HOME/.local/bin:$PATH
