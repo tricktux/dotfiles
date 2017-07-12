@@ -16,8 +16,6 @@ set ssl_force_tls=yes
 folder-hook 'gmail.com' 'source ~/.config/mutt/gmail/account.gmail'
 folder-hook 'psu.edu' 'source ~/.config/mutt/psu/account.psu'
 
-set folder = "~/.mail"
-
 # Default account to open
 # source ~/.config/mutt/psu/account.psu
 # source ~/.config/mutt/gmail/account.gmail
