@@ -1,11 +1,12 @@
 " File:					init.vim
 " Description:  Vim/Neovim configuration file
 " Author:				Reinaldo Molina
-" Version:			8.0.0
-"								Dein plugin
-"								Python functions files
+" Version:			9.0.0
+"								- Fully modularize config files
+"								- Dein plugin
+"								- Python functions files
 " Date:					Sat Jun 03 2017 10:43
-" Created:			Oct 2015
+" Created:			Aug 2015
 " Improvements:
 		" - [ ] Create a after/syntax/gitcommit.vim to redline ahead and greenline
 		"   up-to-date
@@ -658,7 +659,7 @@
 		let python_highlight_all = 1
 
 	" Man
-		let g:no_man_maps = 1
+		" let g:no_man_maps = 1
 		let g:ft_man_folding_enable = 1
 
 	" Never load netrw
