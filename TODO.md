@@ -1,3 +1,8 @@
+## Tue Jul 11 2017 13:27 
+- [ ] Put a terminal with a vim-instance in an i3-scratchpad, combine it with autosave-when-idle and you got the
+  perfect note keeping workflow
+
+
 ### Mon Jul 10 2017 12:06 
 - [ ] Create Index for Wikis
 - [ ] Fix markdwon enter issue where its no breaking lines
