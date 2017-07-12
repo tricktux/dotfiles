@@ -270,7 +270,7 @@ function! utils#LoadSession(...) abort
 endfunction
 
 function! utils#TodoCreate() abort
-	execute "normal Blli\<Space>[ ]\<Space>\<Esc>"
+	execute "normal Blli[ ]\<Space>\<Esc>"
 endfunction
 
 function! utils#TodoMark() abort
