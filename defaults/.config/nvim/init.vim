@@ -43,11 +43,11 @@
 	endif
 
 	" Choose a autcompl engine
-	" if has('unix') && has('nvim')
-	if has('unix') || !has('nvim')
-		let g:tagbar_safe_to_use = 1
+	let g:tagbar_safe_to_use = 1
+	if has('unix')
 		let g:autcompl_engine = 'nvim_compl_manager'
-	else
+	endif
+	if !has('nvim') && has('win32')
 		let g:autcompl_engine = 'autocomplpop'
 	endif
 
@@ -485,6 +485,10 @@
 		" Display highlighted numbers as ascii chars. Only works on highlighted text
 		vnoremap <Leader>ah :<c-u>s/<count>\x\x/\=nr2char(printf("%d", "0x".submatch(0)))/g<cr><c-l>`<
 		vnoremap <Leader>ha :<c-u>s/\%V./\=printf("%x",char2nr(submatch(0)))/g<cr><c-l>`<
+
+		" Search forward/backwards but return
+		nnoremap * *N
+		nnoremap # #N
 
 	" Insert Mode (Individual) mappings
 		inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
