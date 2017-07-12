@@ -2,8 +2,11 @@
 # Description:			Mutt configuration
 # Author:				Reinaldo Molina <rmolin88@gmail.com>
 # Version:				1.0.0
-# Last Modified:		Fri Jun 30 2017 02:54
+# Last Modified:		Tue Jul 11 2017 18:41
 # Created:				Jun 25 2017 13:20
+# FAQ:					
+# - /var/spool/mail/<USER> does not exist/is not a mailbox
+# - You skipped putting gnupg password. Close terminal and start again
 
 set realname='Reinaldo Molina'
 set ssl_starttls=yes
@@ -72,6 +75,7 @@ macro pager I  "<exit><search>~F\n<display-message>" "Jump to next important"
 
 # Mappings for both
 # Mark message as Done
+bind index,pager m noop
 macro index,pager md "<save-message>=INBOX<enter>"
 # Mario Holbe suggests:
 macro index b '<enter-command>toggle sidebar_visible<enter><refresh>'
