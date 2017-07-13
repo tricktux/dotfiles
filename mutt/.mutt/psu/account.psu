@@ -1,4 +1,4 @@
-# File:account.gmail
+# File:account.psu
 # Description: mutt setup for PSU email
 # Author:Reinaldo Molina <rmolin88@gmail.com>
 # Version:1.0.0
@@ -33,10 +33,10 @@ set certificate_file = "~/.config/mutt/psu/certificates"
 # Get password from encryption
 source "gpg -d ~/.config/mutt/psu/password.psu.gpg |"
 
-bind index,pager m noop
-macro index,pager mt '<copy-message>=TODO<enter>'
-# Mark message as Done
-macro index,pager md "<save-message>=INBOX<enter>"
+# bind index,pager m noop
+# macro index,pager mt '<copy-message>=TODO<enter>'
+# # Mark message as Done
+# macro index,pager md "<save-message>=INBOX<enter>"
 
 bind index,pager g noop
 bind index gg first-entry		
@@ -46,6 +46,8 @@ macro index gi '<change-folder>=INBOX<enter>'
 macro index gs '<change-folder>=TODO<enter>' "Go to starred messages"
 macro index,pager gm ':unmailboxes *<enter><sync-mailbox><refresh><enter-command>source ~/.config/mutt/gmail/account.gmail<enter><change-folder>!<enter>'
 
-source "~/.config/mutt/muttrc"
+# Get password from encryption
+source "gpg -d ~/.config/mutt/psu/password.psu.gpg |"
 
+source "~/.config/mutt/muttrc"
 # vim:ft=muttrc

@@ -52,7 +52,7 @@ if [[ `uname -o` != "Android" && -d "$HOME/Downloads/packages/android-sdk-linux"
 fi
 
 # Exports
-export TERM=xterm-256color
+export TERM=tmux-256color
 # Man settings
 export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:/usr/man
 export MANPAGER="nvim -c 'set ft=man' -"
