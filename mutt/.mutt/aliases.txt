@@ -120,3 +120,4 @@ alias Dennis <info@allcomelectronics.com>
 alias weaver-joshua Joshua Weaver <epsilonorion@gmail.com>
 alias m-mayhewdeborah MayhewDeborah M <DMAYH@ENG.UFL.EDU>
 alias aid-federal Federal Student Aid <FederalStudentAidFAFSA@cpsemail.ed.gov>
+alias LifeBenefits@securian.com LifeBenefits@securian.com
