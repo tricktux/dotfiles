@@ -7,6 +7,12 @@
 # FAQ:					
 # - /var/spool/mail/<USER> does not exist/is not a mailbox
 # - You skipped putting gnupg password. Close terminal and start again
+# - Selecting multiple messages
+# You can also use t to tag or untag the highlighted message, to fine-tune the selection.
+# Then you can run tag-prefix (;) followed by save-message (s), and it will prompt you for a mailbox name
+# Fri Jun 30 2017 14:47: Super awesome discovery:
+# - F toogles the message important flag
+# - With Gmail this flagged is linked to the Starred Documents
 
 set realname='Reinaldo Molina'
 set ssl_starttls=yes
@@ -61,6 +67,7 @@ bind index <return> sidebar-open
 macro index u "U~A<enter>"
 # Bind to I key in index view:
 macro index I  "<search>~F\n"                     "Search for next important"
+# bind index c compose
 
 # Inside emails mappings
 bind pager j next-line 
@@ -75,8 +82,8 @@ macro pager I  "<exit><search>~F\n<display-message>" "Jump to next important"
 
 # Mappings for both
 # Mark message as Done
-bind index,pager m noop
-macro index,pager md "<save-message>=INBOX<enter>"
+# bind index,pager m noop
+# macro index,pager md "<save-message>=INBOX<enter>"
 # Mario Holbe suggests:
 macro index b '<enter-command>toggle sidebar_visible<enter><refresh>'
 macro pager b '<enter-command>toggle sidebar_visible<enter><redraw-screen>'
@@ -131,6 +138,5 @@ set sidebar_visible=yes
 set confirmappend=no
 set delete=yes
 
-# Selecting multiple messages
-# You can also use t to tag or untag the highlighted message, to fine-tune the selection.
-# Then you can run tag-prefix (;) followed by save-message (s), and it will prompt you for a mailbox name
+# Stop asking annoying To: questions
+set fast_reply
