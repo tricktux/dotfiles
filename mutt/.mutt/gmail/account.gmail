@@ -28,12 +28,9 @@ set message_cachedir = "~/.config/mutt/gmail/cache/bodies"
 set certificate_file = "~/.config/mutt/gmail/certificates"
 
 # Move message to the =[Gmail]/Starred list which is my TO_DO list
-bind index,pager m noop
-# Fri Jun 30 2017 14:47: Super awesome discovery:
-# - F toogles the message important flag
-# - With Gmail this flagged is linked to the Starred Documents
-# TODO.RM-Fri Jun 30 2017 02:58: Not working  
-macro index,pager mp '<copy-message>=Important_Stuff<enter>'
+# bind index,pager m noop
+# TODO.RM-Fri Jun 30 2017 02:58: Figure out a new mapping
+# macro index,pager mp '<copy-message>=Important_Stuff<enter>'
 
 bind index,pager g noop
 bind index gg first-entry		
