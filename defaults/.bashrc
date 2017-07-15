@@ -60,8 +60,8 @@ export MANPAGER="nvim -c 'set ft=man' -"
 # Keep in mind you bin preceeds /usr/bin
 export PATH=$HOME/.local/bin:$PATH
 export EMAIL="rmolin88@gmail.com"
-export EDITOR=vim
-export VISUAL=vim
+# export EDITOR=vim
+# export VISUAL=vim
 export BROWSER=opera
 
 # Pacaur environment variables. See man pacaur
