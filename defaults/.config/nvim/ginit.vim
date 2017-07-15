@@ -24,7 +24,8 @@ else
 		" TODO.RM-Sat May 20 2017 10:21: Probably will have to make this hostname
 		" depenednt
 		" let g:GuiFont ='Monospace:h9'
-		let g:GuiFont ='FontAwesome:h9'
+		" let g:GuiFont ='FontAwesome:h10'
+		let g:GuiFont ='Incosolata:h10'
 		execute 'Guifont! ' . g:GuiFont
 		call GuiMousehide(1)
 	else
