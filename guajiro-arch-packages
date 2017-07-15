@@ -93,8 +93,8 @@ mdadm 4.0-1
 mono 5.0.0.100-1
 nano 2.8.5-1
 neomutt 20170609-1
-neovim-git 0.2.0.r398.g82907ab5f-1
-neovim-qt-git v0.2.4.r25.gf0cf71f-1
+neovim-git 0.2.0.r533.g5f8f46ba8-1
+neovim-qt-git v0.2.4.r27.gc58dab1-1
 netctl 1.12-2
 network-manager-applet 1.8.2-1
 networkmanager 1.8.2-1
@@ -104,7 +104,7 @@ numix-gtk-theme 2.6.6-1
 openssh 7.5p1-2
 openvpn 2.4.3-1
 opera 46.0.2597.39-1
-opera-ffmpeg-codecs 59.0.3071.86-1
+opera-ffmpeg-codecs 59.0.3071.115-1
 os-prober 1.75-1
 pacaur 4.7.10-1
 pacman 5.0.2-1
