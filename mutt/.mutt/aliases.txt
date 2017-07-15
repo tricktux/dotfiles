@@ -121,3 +121,5 @@ alias weaver-joshua Joshua Weaver <epsilonorion@gmail.com>
 alias m-mayhewdeborah MayhewDeborah M <DMAYH@ENG.UFL.EDU>
 alias aid-federal Federal Student Aid <FederalStudentAidFAFSA@cpsemail.ed.gov>
 alias LifeBenefits@securian.com LifeBenefits@securian.com
+alias Goodreads <no-reply@mail.goodreads.com>
+alias registration@outreach.psu.edu registration@outreach.psu.edu
