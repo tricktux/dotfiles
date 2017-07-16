@@ -123,3 +123,6 @@ alias aid-federal Federal Student Aid <FederalStudentAidFAFSA@cpsemail.ed.gov>
 alias LifeBenefits@securian.com LifeBenefits@securian.com
 alias Goodreads <no-reply@mail.goodreads.com>
 alias registration@outreach.psu.edu registration@outreach.psu.edu
+alias reinaldo-molina Molina Perez Reinaldo <Reinaldo.MolinaPerez@Honeywell.com>
+alias benefits-corp Corp Honeywell U.S. Benefits [mailto:CorpHoneywellUSBenefits@Honeywell.com]
+alias gradschoolapp@psu.edu gradschoolapp@psu.edu
