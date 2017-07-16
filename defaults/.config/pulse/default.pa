@@ -1,0 +1,11 @@
+# File:					default.pa
+# Description:			Configuration for the pulseaudio
+# Author:				Reinaldo Molina <rmolin88@gmail.com>
+# Version:				0.0.0
+# Last Modified: Jul 15 2017 18:39
+# Created: Jul 15 2017 18:39
+
+.include /etc/pulse/default.pa
+
+# automatically switch to newly-connected devices
+load-module module-switch-on-connect

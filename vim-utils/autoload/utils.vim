@@ -684,4 +684,13 @@ function! utils#SwitchHeaderSource() abort
 	endif
 endfunction
 
+function! utils#TmuxMove(direction)
+	let wnr = winnr()
+	silent! execute 'wincmd ' . a:direction
+	" If the winnr is still the same after we moved, it is the last pane
+	if wnr == winnr()
+		call system('tmux select-pane -' . tr(a:direction, 'phjkl', 'lLDUR'))
+	endif
+endfunction
+
  " vim:tw=78:ts=2:sts=2:sw=2:
