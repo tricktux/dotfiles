@@ -52,8 +52,9 @@ function! unix#Config() abort
 	" Give execute permissions to current file
 	command! UtilsLinuxExecReadPermissions execute("!chmod a+x %")
 	" Save file with sudo permissions
-	command! UtilsLinuxSudoPermissions execute("!sudo tee %")
+	command! UtilsLinuxSudoPermissions execute("w !sudo tee % > /dev/null")
 	command! UtilsLinuxExecuteCurrFile execute("silent !./%")
+
 endfunction
 
 " vim:tw=78:ts=2:sts=2:sw=2:
