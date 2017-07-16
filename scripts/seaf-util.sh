@@ -5,11 +5,17 @@
 # Author:Reinaldo Molina <rmolin88@gmail.com>
 # Version:1.0.0
 # Last modified: Jan 07 2017 16:00
+# Created: Jan 07 2017 16:00
 
 server_path=~/Documents/HQ/seafile-server-latest
 
 if [[ $# -lt 1 ]]; then
 	echo "Please provide at least one argument. Like start, stop, restart"
+	exit
+fi
+
+if [[ $1 != "start" && $1 != "stop" && $1 != "restart" ]]; then
+	echo "Accepted arguments are only: start, stop, restart"
 	exit
 fi
 
@@ -22,6 +28,9 @@ if [[ $1 = "start" && ! -d /mnt/hq-storage/1.Myn ]]; then
 		echo "Failed to Mount HDD"
 		exit
 	fi
+
+	echo "Starting svn-server"
+	svnserve -d -r /mnt/hq-storage/1.Myn/svn-server/
 fi
 
 cd $server_path
