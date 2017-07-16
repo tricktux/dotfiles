@@ -5,6 +5,7 @@
 # Last Modified:		Tue Jul 11 2017 18:41
 # Created:				Jun 25 2017 13:20
 # FAQ:					
+# - See `:Man muttrc` for help
 # - /var/spool/mail/<USER> does not exist/is not a mailbox
 # - You skipped putting gnupg password. Close terminal and start again
 # - Selecting multiple messages
@@ -129,7 +130,8 @@ set mailcap_path=~/.config/mutt/mailcap
 
 # Side-bar
 #/usr/share/doc/mutt/samples/sample.muttrc-sidebar
-set sidebar_visible=yes
+# Sat Jul 15 2017 20:06 Dont like the sidebar visible all the time 
+set sidebar_visible=no
 # Signature
 # Fri Jun 30 2017 14:18: Doesnt work because it goes to the bottom of the reply chain 
 # set signature='~/.config/mutt/signature'
@@ -139,4 +141,4 @@ set confirmappend=no
 set delete=yes
 
 # Stop asking annoying To: questions
-set fast_reply
+set autoedit

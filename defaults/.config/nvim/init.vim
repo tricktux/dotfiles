@@ -525,10 +525,17 @@
 
 	" Window movement
 		" move between windows
-		nnoremap <a-h> <C-w>h
-		nnoremap <a-j> <C-w>j
-		nnoremap <a-k> <C-w>k
-		nnoremap <a-l> <C-w>l
+		if has('unix')
+			nnoremap <silent> <A-h> :call utils#TmuxMove('h')<cr>
+			nnoremap <silent> <A-j> :call utils#TmuxMove('j')<cr>
+			nnoremap <silent> <A-k> :call utils#TmuxMove('k')<cr>
+			nnoremap <silent> <A-l> :call utils#TmuxMove('l')<cr>
+		else
+			nnoremap <silent> <A-h> <C-w>h
+			nnoremap <silent> <A-j> <C-w>j
+			nnoremap <silent> <A-k> <C-w>k
+			nnoremap <silent> <A-l> <C-w>l
+		endif
 
 	" Spell Check <Leader>s?
 		" search forward
