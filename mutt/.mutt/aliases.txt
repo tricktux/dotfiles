@@ -126,3 +126,7 @@ alias registration@outreach.psu.edu registration@outreach.psu.edu
 alias reinaldo-molina Molina Perez Reinaldo <Reinaldo.MolinaPerez@Honeywell.com>
 alias benefits-corp Corp Honeywell U.S. Benefits [mailto:CorpHoneywellUSBenefits@Honeywell.com]
 alias gradschoolapp@psu.edu gradschoolapp@psu.edu
+alias line-bahamas Bahamas Paradise Cruise Line <Bahamas_Paradise_Cruise_Line@mail.vresp.com>
+alias noreply@questdiagnostics.com noreply@questdiagnostics.com
+alias Udacity <support@udacity.com>
+alias !-cualert CuAlert - EMail Activation ! <cualerts@achievacu.com>
