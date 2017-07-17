@@ -106,8 +106,8 @@
 		" ignore these files to for completion
 		set completeopt=menuone,longest,preview,noselect,noinsert
 		" set complete+=kspell " currently not working
-		set wildmenu
-		" set wildmode=list:longest
+		" set wildmenu " Sun Jul 16 2017 20:24. Dont like this way. Its weird 
+		set wildmode=list:longest
 		set wildmode=full
 		set wildignore+=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn,.git
 		set title                " change the terminal's title
