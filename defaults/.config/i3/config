@@ -458,7 +458,8 @@ exec --no-startup-id termite
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id seafile-applet
-exec --no-startup-id insync start
+# Mon Jul 17 2017 06:55 Not the proper way to start insync 
+# exec --no-startup-id insync start
 # Notifications daemon. See twmnc for help
 # Fri Jun 30 2017 14:30: Not playing well with rambox 
 # exec --no-startup-id twmnd&
@@ -472,7 +473,6 @@ exec --no-startup-id insync start
 # Do not modify here. It can still be used by gnome
 # Not using because it sets up conky with not sure how to use right now
 # exec /home/reinaldo/.dotfiles/scripts/autostart-gnome.sh
-
 exec_always --no-startup-id ~/.fehbg
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 # }}}
