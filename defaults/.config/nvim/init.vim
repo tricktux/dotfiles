@@ -108,7 +108,6 @@
 		" set complete+=kspell " currently not working
 		" set wildmenu " Sun Jul 16 2017 20:24. Dont like this way. Its weird 
 		set wildmode=list:longest
-		set wildmode=full
 		set wildignore+=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn,.git
 		set title                " change the terminal's title
 		set visualbell           " don't beep
@@ -250,7 +249,6 @@
 				" This was Sub by set guicursor. But its default value its okay
 				" Fixes broken nmap <c-h> inside of tmux
 				nnoremap <BS> :noh<CR>
-				" set shada='1000,f1,<500
 			endif
 
 			if exists('$TMUX')
@@ -355,6 +353,13 @@
 		autocmd!
 		autocmd CursorHold * silent! checktime
 	augroup END
+
+	if has('nvim')
+		augroup Terminal
+			autocmd!
+			autocmd TermOpen * setlocal nonumber
+		augroup END
+	endif
 
 " CUSTOM MAPPINGS
 	" List of super useful mappings
@@ -617,9 +622,12 @@
 		" nnoremap <Leader>vo :!svn log .<CR>
 		" nnoremap <Leader>vi :!svn info<CR>
 
-	" Todo mappings <Leader>t?
-		nnoremap <Leader>ta :call utils#TodoAdd()<CR>
-
+	" Terminal mappings <Leader>t?
+	if has('nvim')
+		nnoremap <Leader>tc :term cmus<bar>keepalt file cmus<cr>
+	endif
+		
+	" Tags mappings <Leader>t?
 		nnoremap <silent> gt <C-]>
 		nnoremap gr <C-t>
 

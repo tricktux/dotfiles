@@ -45,7 +45,8 @@ alias mount-copter='sshfs odroid@copter-server:/ /home/$USER/.mnt/copter-server/
 alias mount-hq='sshfs reinaldo@HQ:/ /home/$USER/.mnt/HQ-server/'
 
 # Misc
-alias tmux='tmux -2 -f ~/.config/tmux/.tmux.conf'
+# Removing -2 from tmux in order to get truecolor
+alias tmux='tmux -f ~/.config/tmux/.tmux.conf'
 alias ll='ls -als'
 alias ls='ls --color=auto'
 # alias vim=FuncNvim
