@@ -97,7 +97,14 @@ set sort_alias= alias
 set reverse_alias=yes
 source $alias_file
 
-set editor="nvim"
+# set editor="nvr -c tabedit --remote-wait +'set bufhidden=wipe'"
+set editor=$VISUAL
+# if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
+# export VISUAL="nvr -cc tabedit --remote-wait +'set bufhidden=wipe'"
+# else
+# export VISUAL="nvim"
+# fi
+alias v="$VISUAL"
 # set editor="vim -c 'set spell spelllang=es,en'"
 
 # From https://github.com/bubbl/bubb-confs/blob/master/mutt/.mutt/general

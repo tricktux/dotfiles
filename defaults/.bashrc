@@ -52,42 +52,27 @@ if [[ `uname -o` != "Android" && -d "$HOME/Downloads/packages/android-sdk-linux"
 fi
 
 # Exports
-export TERM=tmux-256color
 # Man settings
 export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:/usr/man
 export MANPAGER="nvim -c 'set ft=man' -"
+
 # Creating local bin folder
-# Keep in mind you bin preceeds /usr/bin
+# Keep in mind your bin preceeds /usr/bin
 export PATH=$HOME/.local/bin:$PATH
 export EMAIL="rmolin88@gmail.com"
-# export EDITOR=vim
-# export VISUAL=vim
-export BROWSER=opera
 
-# Pacaur environment variables. See man pacaur
-# Dangerous options
-# export BUILDIR=/tmp
-# export PKGDEST=$HOME/.local/
+if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
+	export VISUAL="nvr -cc tabedit --remote-wait +'set bufhidden=wipe'"
+else
+	export VISUAL="nvim"
+fi
+alias nvim="$VISUAL"
+# export VISUAL=nvim
+export EDITOR=$VISUAL
+export BROWSER=opera
 
 # Ranger load only ~/.config/ranger/rc.conf
 export RANGER_LOAD_DEFAULT_RC=FALSE
 
 # Fixes git weird issue
 export GIT_TERMINAL_PROMPT=1
-
-# This should always be the last thing so that all export are done properly
-# Sat Jun 10 2017 13:38 
-# No need for tmux any more with nvim
-if [ -f /usr/bin/tmux ]; then
-	if [[ -z "$TMUX" ]]; then
-		# Do not attach to the 
-		ID="`tmux ls | grep -vm1 attached | cut -d: -f1`"
-		# Do not attach to the cmus session. Let it run in the background
-		if [[ -z "$ID" || "$ID" = "cmus" ]]; then
-			tmux -2 new-session
-		else
-			tmux attach-session -t "$ID"
-		fi
-	fi
-fi
-
