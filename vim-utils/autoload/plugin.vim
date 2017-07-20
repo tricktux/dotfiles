@@ -24,16 +24,14 @@ function! plugin#Config() abort
 	" Set up fuzzy searcher
 	if has('unix') && has('nvim')
 		" Terminal plugins
-		" Sat Jun 10 2017 13:53 neovim having problems with the terminal 
-		set nolazyredraw
 		Plug 'kassio/neoterm'
 			let g:neoterm_use_relative_path = 1
 			let g:neoterm_position = 'vertical'
 			let g:neoterm_keep_term_open = 0
-			nnoremap <Leader>To :call neoterm#open()<CR>
-			nnoremap <Leader>Tl :call neoterm#close()<CR>
-			nnoremap <Leader>TL :call neoterm#closeAll()<CR>
-			nnoremap <Leader>Tk :call neoterm#kill()<CR>
+			" nnoremap <Leader>To :call neoterm#open()<CR>
+			" nnoremap <Leader>Tl :call neoterm#close()<CR>
+			" nnoremap <Leader>TL :call neoterm#closeAll()<CR>
+			nnoremap <Leader>tk :call neoterm#kill()<CR>
 
 		Plug 'rliang/termedit.nvim'
 
@@ -63,6 +61,8 @@ function! plugin#Config() abort
 			let g:ctrlp_max_history = &history
 			let g:ctrlp_clear_cache_on_exit = 0
 			let g:ctrlp_switch_buffer = 0
+			let g:ctrlp_mruf_exclude = '/tmp/.*\|/temp/.*' " MacOSX/Linux
+			let g:ctrlp_mruf_max = 1000
 			if has('win32')
 				set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
 				let g:ctrlp_custom_ignore = {
@@ -173,6 +173,7 @@ function! plugin#Config() abort
 		" let g:table_mode_corner="|"
 		let g:table_mode_corner = '+'
 		let g:table_mode_align_char = ':'
+		" TODO.RM-Wed Jul 19 2017 21:10: Fix here these mappings are for terminal  
 		let g:table_mode_map_prefix = '<Leader>t'
 		let g:table_mode_disable_mappings = 1
 		" nnoremap <Leader>lm :TableModeToggle<CR>
@@ -297,7 +298,6 @@ function! plugin#Config() abort
 			let g:tagbar_map_closeallfolds = "<c-c>"
 			let g:tagbar_map_togglefold = "<c-x>"
 			let g:tagbar_autoclose = 1
-			nnoremap <Leader>tt :TagbarToggle<CR>
 	endif
 
 	" python
