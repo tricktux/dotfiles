@@ -132,3 +132,5 @@ alias Udacity <support@udacity.com>
 alias !-cualert CuAlert - EMail Activation ! <cualerts@achievacu.com>
 alias fl-winter Winter Park Cycles - Orlando FL <info@winterparkcycles.com>
 alias deals-expedia Expedia Travel Deals <usmail@expediamail.com>
+alias InsideLook@ExamOne.com InsideLook@ExamOne.com
+alias InsideLook@examone.com InsideLook@examone.com
