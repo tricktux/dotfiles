@@ -63,6 +63,7 @@ if !exists("no_plugin_maps") && !exists("no_c_maps")
 		" vnoremap <F9> :<C-U>LL print <C-R>=lldb#util#get_selection()<CR><CR>
 	endif
 	nnoremap <buffer> <Leader>lf :Autoformat<CR>
+	nnoremap <Leader>lt :TagbarToggle<CR>
 
 	call ftplugin#TagMappings()
 	call ftplugin#Align('/\/\/')
