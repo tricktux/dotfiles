@@ -130,3 +130,5 @@ alias line-bahamas Bahamas Paradise Cruise Line <Bahamas_Paradise_Cruise_Line@ma
 alias noreply@questdiagnostics.com noreply@questdiagnostics.com
 alias Udacity <support@udacity.com>
 alias !-cualert CuAlert - EMail Activation ! <cualerts@achievacu.com>
+alias fl-winter Winter Park Cycles - Orlando FL <info@winterparkcycles.com>
+alias deals-expedia Expedia Travel Deals <usmail@expediamail.com>
