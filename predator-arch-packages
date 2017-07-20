@@ -13,6 +13,7 @@ bluez-utils 5.45-1
 bzip2 1.0.6-6
 capitaine-cursors r2-2
 cmus 2.7.1-8
+compton 0.1_beta2.5-8
 coreutils 8.27-1
 cower 17-2
 cryptsetup 1.7.5-1
@@ -80,7 +81,8 @@ man-pages 4.11-1
 mdadm 4.0-1
 mutt 1.8.3-1
 nano 2.8.5-1
-neovim-git 0.2.0.r553.g72c38b5cd-1
+neofetch 3.2.0-1
+neovim-git 0.2.0.r566.ga76da96e8-1
 neovim-qt-git v0.2.4.r29.g6278f16-1
 netctl 1.12-2
 network-manager-applet 1.8.2-1
@@ -115,8 +117,10 @@ pulseaudio 10.0-3
 pulseaudio-alsa 2-3
 pulseaudio-bluetooth 10.0-3
 python-neovim 0.1.13-2
+python-pip 9.0.1-2
 python2-dbus 1.2.4-2
 python2-neovim 0.1.13-2
+python2-pip 9.0.1-2
 rambox 0.5.10-1
 ranger 1.8.1-1
 reiserfsprogs 3.6.25-1
