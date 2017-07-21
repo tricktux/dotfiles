@@ -67,7 +67,8 @@ function! autocompletion#SetCompl() abort
 		" nvim-completion-manager also added suppport for this
 		Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
 		Plug 'Shougo/neco-syntax'
-		Plug 'Shougo/neoinclude.vim'
+		" Thu Jul 20 2017 21:02: Causes nvim_compl_manager to freeze 
+		" Plug 'Shougo/neoinclude.vim'
 		Plug 'roxma/ncm-github'
 
 		" ncm's filtering is based on word, so it's better to convert results of
