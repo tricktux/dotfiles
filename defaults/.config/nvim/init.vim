@@ -44,6 +44,11 @@
 
 	" Choose a autcompl engine
 	let g:tagbar_safe_to_use = 1
+	" Possible values:
+	" - ycm
+	" - nvim_compl_manager
+	" - shuogo
+	" - autocomplpop
 	if has('unix')
 		let g:autcompl_engine = 'nvim_compl_manager'
 	endif
