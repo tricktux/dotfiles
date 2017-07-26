@@ -134,3 +134,5 @@ alias fl-winter Winter Park Cycles - Orlando FL <info@winterparkcycles.com>
 alias deals-expedia Expedia Travel Deals <usmail@expediamail.com>
 alias InsideLook@ExamOne.com InsideLook@ExamOne.com
 alias InsideLook@examone.com InsideLook@examone.com
+alias Amazon.com <amazon-student@amazon.com>
+alias Twitch <no-reply@twitch.tv>
