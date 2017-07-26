@@ -30,8 +30,12 @@ if !exists("no_plugin_maps") && !exists("no_java_maps")
 	" Comment Indent Increase/Reduce
 	nnoremap <buffer> <unique> <Leader>oi :call <SID>CommentIndent()<CR>
 	nnoremap <buffer> <unique> <Leader>oI :call <SID>CommentReduceIndent()<CR>
+
+	nnoremap <buffer> <Leader>lf :Autoformat<CR>
+	nnoremap <buffer> <Leader>lt :TagbarToggle<CR>
+	nnoremap <buffer> <Leader>la :call utils#TodoAdd()<CR>
 endif
 
 call ftplugin#AutoHighlight()
 
-let b:undo_ftplugin += "setl omnifunc< foldenable< | unlet b:match_words" 
+let b:undo_ftplugin += "setl omnifunc< foldenable< | unlet! b:match_words" 
