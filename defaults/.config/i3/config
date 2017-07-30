@@ -458,6 +458,7 @@ exec --no-startup-id termite
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id seafile-applet
+exec --no-startup-id dropbox
 # Mon Jul 17 2017 06:55 Not the proper way to start insync 
 # exec --no-startup-id insync start
 # Notifications daemon. See twmnc for help
