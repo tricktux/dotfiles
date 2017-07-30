@@ -2,7 +2,7 @@
 " Description:	After default ftplugin for markdown
 " Author:				Reinaldo Molina <rmolin88@gmail.com>
 " Version:			1.0.0
-" Last Modified: Sat Jun 03 2017 11:48
+" Last Modified: Sat Jul 29 2017 07:44
 " Created:					Wed Nov 30 2016 11:02
 
 " Only do this when not done yet for this buffer
