@@ -69,7 +69,7 @@ fi
 alias nvim="$VISUAL"
 # export VISUAL=nvim
 export EDITOR=$VISUAL
-export BROWSER=opera
+export BROWSER="opera -newpage %s&"
 
 # Ranger load only ~/.config/ranger/rc.conf
 export RANGER_LOAD_DEFAULT_RC=FALSE
