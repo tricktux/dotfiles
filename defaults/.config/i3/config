@@ -134,10 +134,13 @@ bindsym $mod+$down focus down
 bindsym $mod+$up focus up
 bindsym $mod+$right focus right
 
-bindsym --release Mod1+h exec --no-startup-id "i3-vim-nav h"
-bindsym --release Mod1+j exec --no-startup-id "i3-vim-nav j"
-bindsym --release Mod1+k exec --no-startup-id "i3-vim-nav k"
-bindsym --release Mod1+l exec --no-startup-id "i3-vim-nav l"
+# Sun Jul 30 2017 13:09 
+# Requires `install xdotool' and 'go get -u github.com/termhn/i3-vim-nav'
+# - The thing is that this down here doesnt work
+# bindsym $mod+h exec --no-startup-id "i3-vim-nav h"
+# bindsym $mod+j exec --no-startup-id "i3-vim-nav j"
+# bindsym $mod+k exec --no-startup-id "i3-vim-nav k"
+# bindsym $mod+l exec --no-startup-id "i3-vim-nav l"
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
