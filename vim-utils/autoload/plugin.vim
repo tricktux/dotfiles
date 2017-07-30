@@ -36,6 +36,8 @@ function! plugin#Config() abort
 		Plug 'rliang/termedit.nvim'
 
 		Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+
+		Plug 'termhn/i3-vim-nav', { 'do' : 'ln -s ' . g:plugged_path . 'i3-vim-nav/i3-vim-nav ~/.local/bin' }
 	endif
 
 	if has('nvim') || v:version >= 800
