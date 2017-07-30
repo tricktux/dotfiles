@@ -49,7 +49,7 @@
 	" - nvim_compl_manager
 	" - shuogo
 	" - autocomplpop
-	if has('unix')
+	if has('nvim')
 		let g:autcompl_engine = 'nvim_compl_manager'
 	endif
 	if !has('nvim') && has('win32')
@@ -213,9 +213,9 @@
 			set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}      "Encoding
 			set statusline+=\ %{(&bomb?\",BOM\":\"\")}\            "Encoding2
 			set statusline+=\ %{&ff}\                              "FileFormat (dos/unix..)
-			set statusline+=\ %{tagbar#currenttag('%s\ ','')}		 " Current function name
-			set statusline+=\ %{neomake#statusline#QflistStatus('qf:\ ')}
-			set statusline+=\ %{fugitive#statusline()}
+			" set statusline+=\ %{tagbar#currenttag('%s\ ','')}		 " Current function name
+			" set statusline+=\ %{neomake#statusline#QflistStatus('qf:\ ')}
+			" set statusline+=\ %{fugitive#statusline()}
 			set statusline+=\ %=\ row:%l/%L\ (%03p%%)\             "Rownumber/total (%)
 			set statusline+=\ col:%03c\                            "Colnr
 			set statusline+=\ \ %m%r%w\ %P\ \                      "Modified? Readonly? Top/bot.
@@ -394,6 +394,10 @@
 		nnoremap <expr> j v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
 		nnoremap <expr> k v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
 
+		nnoremap <Leader>la :call utils#TodoAdd()<CR>
+		nnoremap <Leader>lf :Autoformat<CR>
+		nnoremap <Leader>lt :TagbarToggle<CR>
+
 	" Miscelaneous Mappings <Leader>j?
 		" nnoremap <Leader>Ma :Man
 		" Most used misc get jk, jj, jl, j;
@@ -537,15 +541,15 @@
 		" move between windows
 		if exists('*Focus') && executable('i3-vim-nav')
 			" i3 integration
-			nnoremap <silent> <A-l> :call Focus('right', 'l')<CR>
-			nnoremap <silent> <A-h> :call Focus('left', 'h')<CR>
-			nnoremap <silent> <A-k> :call Focus('up', 'k')<CR>
-			nnoremap <silent> <A-j> :call Focus('down', 'j')<CR>
+			nnoremap <A-l> :call Focus('right', 'l')<CR>
+			nnoremap <A-h> :call Focus('left', 'h')<CR>
+			nnoremap <A-k> :call Focus('up', 'k')<CR>
+			nnoremap <A-j> :call Focus('down', 'j')<CR>
 		elseif has('unix') && executable('tmux') && exists('$TMUX')
-			nnoremap <silent> <A-h> :call utils#TmuxMove('h')<cr>
-			nnoremap <silent> <A-j> :call utils#TmuxMove('j')<cr>
-			nnoremap <silent> <A-k> :call utils#TmuxMove('k')<cr>
-			nnoremap <silent> <A-l> :call utils#TmuxMove('l')<cr>
+			nnoremap <A-h> :call utils#TmuxMove('h')<cr>
+			nnoremap <A-j> :call utils#TmuxMove('j')<cr>
+			nnoremap <A-k> :call utils#TmuxMove('k')<cr>
+			nnoremap <A-l> :call utils#TmuxMove('l')<cr>
 		else
 			nnoremap <silent> <A-l> <C-w>l
 			nnoremap <silent> <A-h> <C-w>h

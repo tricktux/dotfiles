@@ -270,15 +270,15 @@ function! utils#LoadSession(...) abort
 endfunction
 
 function! utils#TodoCreate() abort
-	execute "normal! Blli[ ]\<Space>\<Esc>"
+	execute "normal! ^lli[ ]\<Space>\<Esc>"
 endfunction
 
 function! utils#TodoMark() abort
-	execute "normal Bf[lrX\<Esc>"
+	execute "normal! ^f[lrX\<Esc>"
 endfunction
 
 function! utils#TodoClearMark() abort
-	execute "normal Bf[lr\<Space>\<Esc>"
+	execute "normal! ^f[lr\<Space>\<Esc>"
 endfunction
 
 function! utils#TodoAdd() abort
