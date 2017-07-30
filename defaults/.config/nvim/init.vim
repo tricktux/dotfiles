@@ -43,7 +43,7 @@
 	endif
 
 	" Choose a autcompl engine
-	let g:tagbar_safe_to_use = 1
+	let g:tagbar_safe_to_use = has('nvim') ? 0 : 1
 	" Possible values:
 	" - ycm
 	" - nvim_compl_manager
@@ -535,16 +535,22 @@
 
 	" Window movement
 		" move between windows
-		if has('unix')
+		if exists('*Focus') && executable('i3-vim-nav')
+			" i3 integration
+			nnoremap <silent> <A-l> :call Focus('right', 'l')<CR>
+			nnoremap <silent> <A-h> :call Focus('left', 'h')<CR>
+			nnoremap <silent> <A-k> :call Focus('up', 'k')<CR>
+			nnoremap <silent> <A-j> :call Focus('down', 'j')<CR>
+		elseif has('unix') && executable('tmux') && exists('$TMUX')
 			nnoremap <silent> <A-h> :call utils#TmuxMove('h')<cr>
 			nnoremap <silent> <A-j> :call utils#TmuxMove('j')<cr>
 			nnoremap <silent> <A-k> :call utils#TmuxMove('k')<cr>
 			nnoremap <silent> <A-l> :call utils#TmuxMove('l')<cr>
 		else
-			nnoremap <silent> <A-h> <C-w>h
-			nnoremap <silent> <A-j> <C-w>j
-			nnoremap <silent> <A-k> <C-w>k
 			nnoremap <silent> <A-l> <C-w>l
+			nnoremap <silent> <A-h> <C-w>h
+			nnoremap <silent> <A-k> <C-w>k
+			nnoremap <silent> <A-j> <C-w>j
 		endif
 
 	" Spell Check <Leader>s?
