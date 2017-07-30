@@ -2,7 +2,8 @@
 " Description:Plugin specific settings
 " Author:Reinaldo Molina <rmolin88@gmail.com>
 " Version:2.0.1
-" Last Modified: Fri Jun 02 2017 10:44
+" Last Modified: Sun Jul 30 2017 13:13
+" Created: Fri Jun 02 2017 10:44
 
 function! plugin#Config() abort
 	" Vim-Plug
@@ -37,11 +38,14 @@ function! plugin#Config() abort
 
 		Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
-		Plug 'termhn/i3-vim-nav', { 'do' : 'ln -s ' . g:plugged_path . 'i3-vim-nav/i3-vim-nav ~/.local/bin' }
+		" Sun Jul 30 2017 13:09 
+		" Requires `install xdotool' and 'go get -u github.com/termhn/i3-vim-nav'
+		" - The thing is that this down here doesnt work
+		" Plug 'termhn/i3-vim-nav', { 'do' : 'ln -s ' . g:plugged_path . 'i3-vim-nav/i3-vim-nav ~/.local/bin' }
 	endif
 
 	if has('nvim') || v:version >= 800
-		Plug 'Shougo/denite.nvim', { 'do' : ':UpdateRemotePlugins' }
+		Plug 'Shougo/denite.nvim'
 			let b:denite_loaded = 1
 			nnoremap <A-;> :Denite command<CR>
 			nnoremap <A-e> :Denite help<CR>
@@ -468,9 +472,12 @@ function! plugin#Config() abort
 		let g:no_default_tabular_maps = 1
 
 	if has('unix') && !has('nvim')
-		" Plug 'jeaye/color_coded', { 'do': 'cmake . && make && make install', 'for': ['c', 'cpp'] }
+		" TODO.RM-Sun Jul 30 2017 15:22: Testing this to make sure it works  
 		Plug 'jeaye/color_coded', { 'do': 'cmake . && make && make install' }
 	endif
+
+	Plug 'scrooloose/vim-slumlord', { 'for' : 'uml' }
+	Plug 'aklt/plantuml-syntax', { 'for' : 'uml' }
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required

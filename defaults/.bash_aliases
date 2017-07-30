@@ -49,7 +49,7 @@ alias mount-hq='sshfs reinaldo@HQ:/ /home/$USER/.mnt/HQ-server/'
 alias tmux='tmux -f ~/.config/tmux/.tmux.conf'
 alias ll='ls -als'
 alias ls='ls --color=auto'
-# alias vim=FuncNvim
+alias vim='stty -ixon && vim'
 # Reload rxvt and deamon
 # Search help
 alias help=FuncHelp
@@ -116,4 +116,3 @@ FuncSvnCreate()
 	ssh odroid@copter-server mkdir -p /mnt/hq-storage/1.Myn/svn-server$1
 	ssh odroid@copter-server svnadmin create /mnt/hq-storage/1.Myn/svn-server$1
 }
-
