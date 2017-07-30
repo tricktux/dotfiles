@@ -136,3 +136,6 @@ alias InsideLook@ExamOne.com InsideLook@ExamOne.com
 alias InsideLook@examone.com InsideLook@examone.com
 alias Amazon.com <amazon-student@amazon.com>
 alias Twitch <no-reply@twitch.tv>
+alias schaufler-mandy Mandy Schaufler <financialaid@outreach.psu.edu>
+alias molina-reinaldo Reinaldo Molina (rim18@psu.edu)
+alias molina-reinaldo Reinaldo Molina (rim18@psu.edu)
