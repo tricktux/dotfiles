@@ -117,7 +117,7 @@ bindsym $mod+r mode "resize"
 bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+q kill
 
 # start dmenu (a program launcher)
 # bindsym $mod+d exec dmenu_run
@@ -133,6 +133,11 @@ bindsym $mod+$left focus left
 bindsym $mod+$down focus down
 bindsym $mod+$up focus up
 bindsym $mod+$right focus right
+
+bindsym --release Mod1+h exec --no-startup-id "i3-vim-nav h"
+bindsym --release Mod1+j exec --no-startup-id "i3-vim-nav j"
+bindsym --release Mod1+k exec --no-startup-id "i3-vim-nav k"
+bindsym --release Mod1+l exec --no-startup-id "i3-vim-nav l"
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
