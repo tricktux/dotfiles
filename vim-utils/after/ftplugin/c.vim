@@ -62,10 +62,6 @@ if !exists("no_plugin_maps") && !exists("no_c_maps")
 		" nnoremap <F9> :LL print <C-R>=expand('<cword>')<CR>
 		" vnoremap <F9> :<C-U>LL print <C-R>=lldb#util#get_selection()<CR><CR>
 	endif
-	nnoremap <buffer> <Leader>lf :Autoformat<CR>
-	nnoremap <buffer> <Leader>lt :TagbarToggle<CR>
-	nnoremap <buffer> <Leader>la :call utils#TodoAdd()<CR>
-
 	call ftplugin#TagMappings()
 	call ftplugin#Align('/\/\/')
 	call ftplugin#Syntastic('passive', [])
