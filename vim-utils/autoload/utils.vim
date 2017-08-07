@@ -693,4 +693,14 @@ function! utils#TmuxMove(direction)
 	endif
 endfunction
 
+function! utils#DropboxOpen(wiki) abort
+	let db_path = get(g:, 'dropbox_path', "~/Dropbox/")
+	let db_path .= a:wiki
+	if empty(glob(db_path))
+		echomsg "File " . db_path . " does not exists"
+		return
+	endif
+	execute ":edit " . db_path
+endfunction
+
  " vim:tw=78:ts=2:sts=2:sw=2:
