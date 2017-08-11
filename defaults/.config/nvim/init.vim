@@ -27,25 +27,17 @@
 	" ~/.dotfiles/vim-utils/autoload/plugin.vim
 	" Attempt to install vim-plug and all plugins in case of first use
 	let g:location_local_vim = "~/.dotfiles/vim-utils/autoload/plugin.vim"
-	if has('nvim')
-		let g:location_portable_vim = "../../.dotfiles/vim-utils/autoload/plugin.vim"
-		let g:location_vim_plug = "../../vimfiles/autoload/plug.vim"
-		let g:location_vim_utils = "'/../../.dotfiles/vim-utils'"
-	else
-		let g:location_portable_vim = "../.dotfiles/vim-utils/autoload/plugin.vim"
-		let g:location_vim_plug = "../vimfiles/autoload/plug.vim"
-		let g:location_vim_utils = "/../.dotfiles/vim-utils"
-	endif
+	let g:location_portable_vim = "../../.dotfiles/vim-utils/autoload/plugin.vim"
 	if !empty(glob(g:location_local_vim))
 		execute "source " . g:location_local_vim
 		let g:plugins_present = 1
 		let g:location_vim_utils = "~/.dotfiles/vim-utils"
 	elseif !empty(glob(g:location_portable_vim))
 		execute "source " . g:location_portable_vim
-		execute "source " . g:location_vim_plug
+		execute "source ../../vimfiles/autoload/plug.vim"
 		let g:plugins_present = 1
 		let g:portable_vim = 1
-		let g:location_vim_utils = getcwd() . g:location_vim_utils
+		let g:location_vim_utils = getcwd() . '/../../.dotfiles/vim-utils'
 	else
 		echomsg "No plugins where loaded"
 	endif
@@ -69,8 +61,6 @@
 	else
 		echomsg "No plugins where loaded"
 	endif
-
-	let s:cache_path = exists("g:plugins_loaded") ? g:cache_path : '~/.cache/'
 
 " NVIM SPECIFIC
 	" ~/.dotfiles/vim-utils/autoload/nvim.vim
@@ -288,9 +278,11 @@
 		endif
 
 	" Undofiles
-		let &undodir= s:cache_path . 'undofiles'
-		set undofile
-		set undolevels=1000      " use many muchos levels of undo
+		if !empty(glob(g:cache_path . 'undofiles'))
+			let &undodir= g:cache_path . 'undofiles'
+			set undofile
+			set undolevels=1000      " use many muchos levels of undo
+		endif
 
 	" Tags
 		set tags=./.tags;,.tags;
@@ -714,7 +706,7 @@
 		let NERDTreeShowLineNumbers=1
 		let NERDTreeShowHidden=1 " i key to toggle
 		let NERDTreeQuitOnOpen=1 " AutoClose after openning file
-		let NERDTreeBookmarksFile=s:cache_path . '.NERDTreeBookmarks'
+		let NERDTreeBookmarksFile=g:cache_path . '.NERDTreeBookmarks'
 	" NerdCommenter
 		let NERDSpaceDelims=1  " space around comments
 		let NERDUsePlaceHolders=0 " avoid commenter doing weird stuff
