@@ -7,11 +7,6 @@
 function! autocompletion#SetCompl() abort
 	let compl = get(g:, 'autcompl_engine', '')
 
-	if !has('python3') || exists('g:android') || empty(compl)
-		call autocompletion#SetTab()
-		return -1
-	endif
-
 	if compl ==# 'ycm'
 			Plug 'Valloric/YouCompleteMe', { 'on' : 'YcmDebugInfo' }
 			"" turn on completion in comments
@@ -118,6 +113,7 @@ function! autocompletion#SetCompl() abort
 			call autocompletion#SetClang()
 		endif
 	else
+		echomsg 'Not a recognized value therefore setting SuperTab'
 		call autocompletion#SetTab()
 		return -1
 	endif
