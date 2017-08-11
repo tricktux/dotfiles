@@ -96,6 +96,8 @@ function! plugin#Config() abort
 	if !empty(glob(g:location_vim_utils . '/autoload/autocompletion.vim'))
 		execute 'source ' . g:location_vim_utils . '/autoload/autocompletion.vim'
 		call autocompletion#SetCompl()
+	else
+		echomsg 'Failed to find vim-utils therefore no autocompletion'
 	endif
 
 	" Neovim exclusive plugins
@@ -550,7 +552,11 @@ function! plugin#Check() abort
 				let g:vimfile_path=  $LOCALAPPDATA . '\nvim\'
 			endif
 		else
-			let g:vimfile_path=  $HOME . '\vimfiles\'
+			if exists('g:portable_vim')
+				let g:vimfile_path=  '../vimfiles/'
+			else
+				let g:vimfile_path=  $HOME . '\vimfiles\'
+			endif
 		endif
 	else
 		if has('nvim')
