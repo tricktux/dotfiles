@@ -112,6 +112,17 @@ function! autocompletion#SetCompl() abort
 			Plug 'Rip-Rip/clang_complete', { 'as': 'rip_clang_complete' }
 			call autocompletion#SetClang()
 		endif
+	elseif compl ==# 'completor'
+		if v:version < 800 || !has('python3')
+			echomsg 'Cannot set completor autcompl_engine. Setting SuperTab'
+			call autocompletion#SetTab
+			return
+		endif
+		Plug 'maralla/completor.vim'
+			inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+			inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+			inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+			let g:completor_clang_binary = 'c:/Program Files/LLVM/bin/clang.exe'
 	else
 		echomsg 'Not a recognized value therefore setting SuperTab'
 		call autocompletion#SetTab()
@@ -278,4 +289,16 @@ function! autocompletion#SetTab() abort
 		Plug 'Rip-Rip/clang_complete', { 'as': 'rip_clang_complete' }
 		call autocompletion#SetClang()
 	endif
+endfunction
+
+function! autocompletion#SetOmniCpp() abort
+	Plug 'vim-scripts/OmniCppComplete'
+	let OmniCpp_NamespaceSearch = 1
+	let OmniCpp_GlobalScopeSearch = 1
+	let OmniCpp_ShowAccess = 1
+	let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
+	let OmniCpp_MayCompleteDot = 1 " autocomplete after .
+	let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
+	let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
+	let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 endfunction
