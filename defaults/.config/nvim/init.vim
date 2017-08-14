@@ -27,17 +27,24 @@
 	" ~/.dotfiles/vim-utils/autoload/plugin.vim
 	" Attempt to install vim-plug and all plugins in case of first use
 	let g:location_local_vim = "~/.dotfiles/vim-utils/autoload/plugin.vim"
-	let g:location_portable_vim = "../../.dotfiles/vim-utils/autoload/plugin.vim"
+	if has('nvim')
+		let g:location_portable_vim = "../../.dotfiles/vim-utils/autoload/plugin.vim"
+		let g:location_vim_utils = getcwd() . '/../../.dotfiles/vim-utils'
+		let g:location_vim_plug = "../../vimfiles/autoload/plug.vim"
+	else
+		let g:location_portable_vim = "../.dotfiles/vim-utils/autoload/plugin.vim"
+		let g:location_vim_utils = getcwd() . '/../.dotfiles/vim-utils'
+		let g:location_vim_plug = "../vimfiles/autoload/plug.vim"
+	endif
 	if !empty(glob(g:location_local_vim))
 		execute "source " . g:location_local_vim
 		let g:plugins_present = 1
 		let g:location_vim_utils = "~/.dotfiles/vim-utils"
 	elseif !empty(glob(g:location_portable_vim))
 		execute "source " . g:location_portable_vim
-		execute "source ../../vimfiles/autoload/plug.vim"
+		execute "source " . g:location_vim_plug
 		let g:plugins_present = 1
 		let g:portable_vim = 1
-		let g:location_vim_utils = getcwd() . '/../../.dotfiles/vim-utils'
 	else
 		echomsg "No plugins where loaded"
 	endif
@@ -49,11 +56,11 @@
 	" - nvim_compl_manager
 	" - shuogo
 	" - autocomplpop
+	" - completor
 	if has('nvim')
 		let g:autcompl_engine = 'nvim_compl_manager'
-	endif
-	if !has('nvim') && has('win32')
-		let g:autcompl_engine = 'autocomplpop'
+	else
+		let g:autcompl_engine = 'completor'
 	endif
 
 	if exists('g:plugins_present') && plugin#Check() && plugin#Config()
