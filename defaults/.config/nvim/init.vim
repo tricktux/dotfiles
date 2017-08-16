@@ -57,10 +57,11 @@
 	" - shuogo
 	" - autocomplpop
 	" - completor
+	" - asyncomplete
 	if has('nvim')
 		let g:autcompl_engine = 'nvim_compl_manager'
 	else
-		let g:autcompl_engine = 'completor'
+		let g:autcompl_engine = 'asyncomplete'
 	endif
 
 	if exists('g:plugins_present') && plugin#Check() && plugin#Config()
