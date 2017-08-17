@@ -340,14 +340,22 @@ func! CheatCompletion(ArgLead, CmdLine, CursorPos)
 endfunction
 
 function! utils#WikiOpen(...) abort
+	if get(g:, 'wiki_path', 0) == 0 || empty(glob(g:wiki_path))
+		echomsg 'Variable g:wiki_path not set or path doesnt exist'
+	endif
+
 	if a:0 > 0
 		execute "vs " . g:wiki_path . '/'.  a:1
 	else
-		" TODO-[RM]-(Thu Aug 17 2017 17:09): finish this here
-		" if exists(':Denite')
-			" execute "Denite -default-action=yank file_rec"
-			" let session_name = getreg()
-		execute "vs " . fnameescape(g:wiki_path . '//' . input('Wiki Name: ', '', 'custom,CheatCompletion'))
+		if exists(':Denite')
+			let dir = getcwd()
+			execute "cd " . g:wiki_path
+			execute "Denite -default-action=yank file_rec"
+			execute 'vs ' . g:wiki_path . '/' . getreg()
+			silent! execute "cd " . dir
+		else
+			execute "vs " . fnameescape(g:wiki_path . '/' . input('Wiki Name: ', '', 'custom,CheatCompletion'))
+		endif
 	endif
 endfunction
 " }}}
