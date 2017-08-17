@@ -233,14 +233,14 @@ function! utils#SaveSession(...) abort
 		execute "wall"
 		let dir = getcwd()
 		execute "cd ". g:cache_path ."sessions/"
-		let l:sSessionName = input("Enter
+		let session_name = input("Enter
 					\ save session name:", "", "file")
 		silent! execute "cd " . dir
 	else
 		" Need to keep this option short and sweet
-		let l:sSessionName = a:1
+		let session_name = a:1
 	endif
-	silent! execute "normal :mksession! " . g:cache_path . "sessions/". l:sSessionName  . "\<CR>"
+	silent! execute "normal :mksession! " . g:cache_path . "sessions/". session_name  . "\<CR>"
 endfunction
 
 function! utils#LoadSession(...) abort
@@ -254,9 +254,14 @@ function! utils#LoadSession(...) abort
 		endif
 		let dir = getcwd()
 		execute "cd ". g:cache_path ."sessions/"
-		let l:sSessionName = input("Enter load session name:", "", "file")
+		if exists(':Denite')
+			execute "Denite -default-action=yank file_rec"
+			let session_name = getreg()
+		else
+			let session_name = input("Load session:", "", "file")
+		endif
 		silent! execute "normal :%bdelete\<CR>"
-		silent execute "normal :so " . g:cache_path . "sessions/". l:sSessionName . "\<CR>"
+		silent execute "normal :so " . g:cache_path . "sessions/". session_name . "\<CR>"
 		silent! execute "cd " . dir
 	else
 		" echo "Reload previous session: (j|y)es (any)no"
@@ -282,7 +287,7 @@ function! utils#TodoClearMark() abort
 endfunction
 
 function! utils#TodoAdd() abort
-	execute "normal aTODO.RM-\<F5>: "
+	execute "normal! aTODO-[RM]-(" . strftime("%a %b %d %Y %H:%M") . "): "
 endfunction
 
 function! utils#CommentLine() abort
@@ -338,6 +343,10 @@ function! utils#WikiOpen(...) abort
 	if a:0 > 0
 		execute "vs " . g:wiki_path . '/'.  a:1
 	else
+		" TODO-[RM]-(Thu Aug 17 2017 17:09): finish this here
+		" if exists(':Denite')
+			" execute "Denite -default-action=yank file_rec"
+			" let session_name = getreg()
 		execute "vs " . fnameescape(g:wiki_path . '//' . input('Wiki Name: ', '', 'custom,CheatCompletion'))
 	endif
 endfunction
