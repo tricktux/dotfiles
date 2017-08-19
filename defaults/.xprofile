@@ -4,6 +4,8 @@
 # Version:				0.0.0
 # Last Modified:		Aug 19 2017 13:31
 # Created:				Aug 19 2017 13:31
-# Location				~/.xprofile
+# Location:				~/.xprofile
+# Help:					See arch xprofile
+# Uses:					You can start applications from here
 
 xset -b off
