@@ -717,7 +717,7 @@ function! utils#DropboxOpen(wiki) abort
 		echomsg "File " . db_path . " does not exists"
 		return
 	endif
-	execute ":edit " . db_path
+	execute "edit " . db_path
 endfunction
 
  " vim:tw=78:ts=2:sts=2:sw=2:
