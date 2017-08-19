@@ -95,7 +95,7 @@ format-suffix-background = ${colors.t5}
 format-suffix-foreground = ${colors.t5}
 
 type = internal/xwindow
-label = %title:0:30:...%
+label = %title:0:30:%
 
 [module/xkeyboard]
 type = internal/xkeyboard
@@ -425,7 +425,7 @@ exec = ~/.config/i3/scripts/weather.sh "NAM|US|FL|CLEARWATER"
 type = custom/script
 interval = 2
 
-label = %output:0:45:...%
+label = %output:0:30:%
 exec = ~/.config/polybar/mpris.sh
 
 ; Depends on pomodoro-git and mpg123
