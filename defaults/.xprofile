@@ -1,1 +1,9 @@
-xset -b
+# File:					.xprofile
+# Description:			Its sole purpose is to silence the super annoying terminal beep
+# Author:				Reinaldo Molina <rmolin88@gmail.com>
+# Version:				0.0.0
+# Last Modified:		Aug 19 2017 13:31
+# Created:				Aug 19 2017 13:31
+# Location				~/.xprofile
+
+xset -b off
