@@ -340,8 +340,9 @@ func! CheatCompletion(ArgLead, CmdLine, CursorPos)
 endfunction
 
 function! utils#WikiOpen(...) abort
-	if get(g:, 'wiki_path', 0) == 0 || empty(glob(g:wiki_path))
+	if !exists('g:wiki_path') || empty(glob(g:wiki_path))
 		echomsg 'Variable g:wiki_path not set or path doesnt exist'
+		return
 	endif
 
 	if a:0 > 0
