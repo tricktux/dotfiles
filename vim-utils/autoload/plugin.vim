@@ -502,7 +502,7 @@ function! plugin#Config() abort
 		call denite#custom#option('_', 'highlight_matched_range', 'Function')
 		if executable('rg')
 			call denite#custom#var('file_rec', 'command',
-						\ ['rg', '--files', '--glob', '!.git', '!.svn', ''])
+						\ ['rg', '--files', '--glob', '!.git', '--glob', '!.svn', ''])
 		endif
 	endif
 
