@@ -92,13 +92,24 @@ function! plugin#Config() abort
 		let g:GPGUseAgent = 0
 	endif
 
-	" Completion is set by g:autcompl_engine in init.vim
-	if !empty(glob(g:location_vim_utils . '/autoload/autocompletion.vim'))
-		execute 'source ' . g:location_vim_utils . '/autoload/autocompletion.vim'
-		call autocompletion#SetCompl()
-	else
-		echomsg 'Failed to find vim-utils therefore no autocompletion'
-	endif
+		" Possible values:
+		" - ycm
+		" - nvim_compl_manager
+		" - shuogo
+		" - autocomplpop
+		" - completor
+		" - asyncomplete
+		call autocompletion#SetCompl(has('nvim') ? 'nvim_compl_manager' : 'autocomplpop')
+
+		" execute 'source ' . g:location_vim_utils . '/autoload/cpp_highlight.vim'
+		" execute 'source ' . g:location_vim_utils . '/autoload/highlight.vim'
+		" Possible values:
+		" - chromatica
+		" - easytags
+		" - neotags
+		" - color_coded
+		" - clighter8
+		call cpp_highlight#SetCppHighlight(has('nvim') ? 'neotags' : '')
 
 	" Neovim exclusive plugins
 	if has('nvim')
@@ -117,26 +128,6 @@ function! plugin#Config() abort
 			" Plug 'nhooyr/neoman.vim'
 				" let g:no_neoman_maps = 1
 		" endif
-
-		" TODO.RM-Wed Jun 07 2017 07:19: Implement auto check for psutil and warning in plugin  
-		if has('python3') && system('pip3 list | grep psutil') =~# 'psutil'
-			Plug 'c0r73x/neotags.nvim' " Depends on pip3 install --user psutil
-				set regexpengine=1 " This speed up the engine alot but still not enough
-				let g:neotags_enabled = 1
-				" let g:neotags_file = g:cache_path . 'ctags/neotags'
-				" let g:neotags_verbose = 1
-				let g:neotags_run_ctags = 0
-				" let g:neotags#cpp#order = 'cgstuedfpm'
-				let g:neotags#cpp#order = 'ced'
-				" let g:neotags#c#order = 'cgstuedfpm'
-				let g:neotags#c#order = 'ced'
-				" let g:neotags_events_highlight = [
-				" \   'BufEnter'
-				" \ ]
-		endif
-	else
-		" TODO-[RM]-(Sun Aug 20 2017 15:16): This needs to be tested
-		Plug 'bbchung/clighter8'
 	endif
 
 	Plug 'tpope/vim-dispatch' " Possible Replacement `asyncvim`
@@ -185,7 +176,7 @@ function! plugin#Config() abort
 		let g:table_mode_corner = '+'
 		let g:table_mode_align_char = ':'
 		" TODO.RM-Wed Jul 19 2017 21:10: Fix here these mappings are for terminal  
-		let g:table_mode_map_prefix = '<Leader>t'
+		let g:table_mode_map_prefix = '<Leader>l'
 		let g:table_mode_disable_mappings = 1
 		" nnoremap <Leader>lm :TableModeToggle<CR>
 		" <Leader>tr	Realigns table columns
@@ -207,6 +198,7 @@ function! plugin#Config() abort
 		" let g:syntastic_cpp_check_header = 1
 
 	Plug g:location_vim_utils
+		" Load the rest of the stuff and set the settings
 		let g:svn_repo_url = 'svn://odroid@copter-server/' 
 		let g:svn_repo_name = 'UnrealEngineCourse/BattleTanks_2/'
 		nnoremap <Leader>vw :call SVNSwitch<CR>
@@ -248,6 +240,28 @@ function! plugin#Config() abort
 	else
 		Plug 'scrooloose/nerdtree'
 		nnoremap <Plug>FileBrowser :NERDTree<CR>
+		" NerdCommenter
+		let g:NERDSpaceDelims=1  " space around comments
+		let g:NERDUsePlaceHolders=0 " avoid commenter doing weird stuff
+		let g:NERDCommentWholeLinesInVMode=2
+		let g:NERDCreateDefaultMappings=0 " Eliminate default mappings
+		let g:NERDRemoveAltComs=1 " Remove /* comments
+		let g:NERD_c_alt_style=0 " Do not use /* on C nor C++
+		let g:NERD_cpp_alt_style=0
+		let g:NERDMenuMode=0 " no menu
+		let g:NERDCustomDelimiters = {
+					\ 'vim': { 'left': '"', 'right': '', 'leftAlt': '#', 'rightAlt': ''},
+					\ 'markdown': { 'left': '//', 'right': '' },
+					\ 'dosini': { 'left': ';', 'leftAlt': '//', 'right': '', 'rightAlt': '', 'leftAlt1': ';', 'rightAlt1': '' },
+					\ 'wings_syntax': { 'left': '//', 'right': '' }}
+
+		" Nerdtree (Dont move. They need to be here)
+		let g:NERDTreeShowBookmarks=1  " B key to toggle
+		let g:NERDTreeShowLineNumbers=1
+		let g:NERDTreeShowHidden=1 " i key to toggle
+		let g:NERDTreeQuitOnOpen=1 " AutoClose after openning file
+		let g:NERDTreeBookmarksFile= g:cache_path . '.NERDTreeBookmarks'
+
 	endif
 
 	Plug 'scrooloose/nerdcommenter'
@@ -338,8 +352,6 @@ function! plugin#Config() abort
 					\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 		" Tell Neosnippet about the other snippets
 		let g:neosnippet#snippets_directory= [ g:plugged_path . '/vim-snippets/snippets', g:location_vim_utils . '/snippets/', ]
-								" \ g:plugged_path . '/vim-snippets/UltiSnips'] " Not
-								" compatible syntax
 		let g:neosnippet#data_directory = g:cache_path . 'neosnippets'
 		" Used by nvim-completion-mgr
 		let g:neosnippet#enable_completed_snippet=1
@@ -476,11 +488,6 @@ function! plugin#Config() abort
 	Plug 'godlygeek/tabular'
 		let g:no_default_tabular_maps = 1
 
-	if has('unix') && !has('nvim')
-		" TODO.RM-Sun Jul 30 2017 15:22: Testing this to make sure it works  
-		Plug 'jeaye/color_coded', { 'do': 'cmake . && make && make install' }
-	endif
-
 	Plug 'scrooloose/vim-slumlord', { 'for' : 'uml' }
 	Plug 'aklt/plantuml-syntax', { 'for' : 'uml' }
 
@@ -535,12 +542,12 @@ function! plugin#Config() abort
 	return 1
 endfunction
 
+" TODO-[RM]-(Mon Aug 21 2017 18:18): Get rid of this function and
 " Move this function to the os independent stuff.
 function! plugin#Check() abort
 	" Set paths for plugins
 	if has('win32')
 		" In windows wiki_path is set in the win32.vim file
-		if has('nvim')
 			" TODO.RM-Tue Apr 04 2017 08:48: For future support of clang on windows  
 			" Find clang. Not working in windows yet.
 			" if !empty(glob($ProgramFiles . '\LLVM\lib\libclang.lib'))
@@ -549,37 +556,25 @@ function! plugin#Check() abort
 			" if !empty(glob($ProgramFiles . '\LLVM\lib\clang'))
 				" let g:clangheader_path = '$ProgramFiles . '\LLVM\lib\clang''
 			" endif
-			if exists('g:portable_vim')
-				let g:vimfile_path=  '../../vimfiles/'
-			else
-				let g:vimfile_path=  $LOCALAPPDATA . '\nvim\'
-			endif
-		else
-			if exists('g:portable_vim')
-				let g:vimfile_path=  '../vimfiles/'
-			else
-				let g:vimfile_path=  $HOME . '\vimfiles\'
-			endif
+			if !exists('g:portable_vim')
+				let g:vimfile_path=  $LOCALAPPDATA . '\vim\'
 		endif
 	else
-		if has('nvim')
-			if exists("$XDG_CONFIG_HOME")
-				let g:vimfile_path=  $XDG_CONFIG_HOME . '/nvim/'
-			else
-				let g:vimfile_path=  $HOME . '/.config/nvim/'
-			endif
+		if !exists('g:portable_vim')
+			let g:vimfile_path=  $HOME . '/.config/vim/'
+		endif
+
 			" deoplete-clang settings
-			if !empty(glob('/usr/lib/libclang.so'))
-				let g:libclang_path = '/usr/lib/libclang.so'
-			endif
-			if !empty(glob('/usr/lib/clang'))
-				let g:clangheader_path = '/usr/lib/clang'
-			endif
-		else
-			let g:vimfile_path=  $HOME . '/.vim/'
+		if !empty(glob('/usr/lib/libclang.so'))
+			let g:libclang_path = '/usr/lib/libclang.so'
+		endif
+		if !empty(glob('/usr/lib/clang'))
+			let g:clangheader_path = '/usr/lib/clang'
 		endif
 	endif
 
+	" TODO-[RM]-(Mon Aug 21 2017 18:18): Figure out which are the cache files
+	" for each system
 	" Same cache dir for both
 	let g:cache_path= $HOME . '/.cache/'
 	let g:plugged_path=  g:vimfile_path . 'plugged/'
@@ -592,7 +587,7 @@ function! plugin#Check() abort
 
 	if empty(glob(g:vimfile_path . 'autoload/plug.vim'))
 		if executable('curl')
-			execute "silent !curl -kfLo " . g:vimfile_path . "autoload\plug.vim --create-dirs"
+			execute "silent !curl -kfLo " . g:vimfile_path . "autoload/plug.vim --create-dirs"
 						\" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 			autocmd VimEnter * PlugInstall | source $MYVIMRC
 			return 1
