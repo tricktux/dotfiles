@@ -134,6 +134,9 @@ function! plugin#Config() abort
 				" \   'BufEnter'
 				" \ ]
 		endif
+	else
+		" TODO-[RM]-(Sun Aug 20 2017 15:16): This needs to be tested
+		Plug 'bbchung/clighter8'
 	endif
 
 	Plug 'tpope/vim-dispatch' " Possible Replacement `asyncvim`
