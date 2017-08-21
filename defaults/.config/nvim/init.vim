@@ -5,7 +5,7 @@
 "								- Fully modularize config files
 "								- Dein plugin
 "								- Python functions files
-" Date:					Sat Jun 03 2017 10:43
+" Date:					Sun Aug 20 2017 05:13
 " Created:			Aug 2015
 " Improvements:
 		" - [ ] Create a after/syntax/gitcommit.vim to redline ahead and greenline
