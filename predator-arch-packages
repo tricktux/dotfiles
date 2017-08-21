@@ -54,6 +54,7 @@ gtkmm 2.24.5-2
 gvfs-gphoto2 1.32.1+5+gf0d758df-1
 gvfs-mtp 1.32.1+5+gf0d758df-1
 gzip 1.8-2
+htop 2.0.2-2
 i3-gaps 4.13-2
 i3blocks 1.4-6
 i3lock 2.9.1-1
@@ -91,8 +92,8 @@ mdadm 4.0-1
 mutt 1.8.3-1
 nano 2.8.6-1
 neofetch 3.2.0-1
-neovim-git 0.2.0.r699.gab72063a5-1
-neovim-qt-git v0.2.4.r35.gff83c6c-1
+neovim-git 0.2.0.r780.g5b32bce73-1
+neovim-qt-git v0.2.4.r36.gadb76de-1
 netctl 1.13-2
 network-manager-applet 1.8.2-1
 networkmanager 1.8.2-1
@@ -145,7 +146,7 @@ sshfs 3.2.0-1
 subversion 1.9.7-1
 sudo 1.8.20.p2-1
 sysfsutils 2.1.0-9
-systemd-sysvcompat 234.11-6
+systemd-sysvcompat 234.11-8
 tar 1.29-2
 termite 12-2
 texinfo 6.4-1
