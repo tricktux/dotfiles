@@ -1,7 +1,7 @@
 " File:					init.vim
 " Description:  Vim/Neovim configuration file
 " Author:				Reinaldo Molina
-" Version:			9.0.0
+" Version:			10.0.0
 "								- Fully modularize config files
 "								- Dein plugin
 "								- Python functions files
@@ -13,13 +13,6 @@
 		" - [ ] Delete duplicate music.
 		" - [ ] Construct unified music library
 		" - [ ] Markdown math formulas
-
-" Req for vim
-	set nocompatible
-	syntax on
-	filetype plugin indent on
-	let mapleader="\<Space>"
-	let maplocalleader="\<Space>"
 
 " You can a pass a list of files to the function and those will your vimrc files
 function s:find_vim_config_file(...) abort
@@ -58,20 +51,19 @@ function s:find_vim_config_file(...) abort
 	endfor
 	call init#vim()
 
-"	if !empty(glob(g:location_local_vim))
-"		execute "source " . g:location_local_vim
-"		let g:plugins_present = 1
-"		let g:location_vim_utils = "~/.dotfiles/vim-utils"
-"	elseif !empty(glob(g:location_portable_vim))
-"		execute "source " . g:location_portable_vim
-"		execute "source " . g:location_vim_plug
-"		let g:plugins_present = 1
-"	else
-"		echomsg "No vim-utils files where found"
-"	endif
+	"	if !empty(glob(g:location_local_vim))
+	"		execute "source " . g:location_local_vim
+	"		let g:plugins_present = 1
+	"		let g:location_vim_utils = "~/.dotfiles/vim-utils"
+	"	elseif !empty(glob(g:location_portable_vim))
+	"		execute "source " . g:location_portable_vim
+	"		execute "source " . g:location_vim_plug
+	"		let g:plugins_present = 1
+	"	else
+	"		echomsg "No vim-utils files where found"
+	"	endif
 endfunction
 
 call s:find_vim_config_file()
-
 
 " vim:tw=78:ts=2:sts=2:sw=2:

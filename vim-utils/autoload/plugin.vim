@@ -241,6 +241,28 @@ function! plugin#Config() abort
 	else
 		Plug 'scrooloose/nerdtree'
 		nnoremap <Plug>FileBrowser :NERDTree<CR>
+		" NerdCommenter
+		let g:NERDSpaceDelims=1  " space around comments
+		let g:NERDUsePlaceHolders=0 " avoid commenter doing weird stuff
+		let g:NERDCommentWholeLinesInVMode=2
+		let g:NERDCreateDefaultMappings=0 " Eliminate default mappings
+		let g:NERDRemoveAltComs=1 " Remove /* comments
+		let g:NERD_c_alt_style=0 " Do not use /* on C nor C++
+		let g:NERD_cpp_alt_style=0
+		let g:NERDMenuMode=0 " no menu
+		let g:NERDCustomDelimiters = {
+					\ 'vim': { 'left': '"', 'right': '', 'leftAlt': '#', 'rightAlt': ''},
+					\ 'markdown': { 'left': '//', 'right': '' },
+					\ 'dosini': { 'left': ';', 'leftAlt': '//', 'right': '', 'rightAlt': '', 'leftAlt1': ';', 'rightAlt1': '' },
+					\ 'wings_syntax': { 'left': '//', 'right': '' }}
+
+		" Nerdtree (Dont move. They need to be here)
+		let g:NERDTreeShowBookmarks=1  " B key to toggle
+		let g:NERDTreeShowLineNumbers=1
+		let g:NERDTreeShowHidden=1 " i key to toggle
+		let g:NERDTreeQuitOnOpen=1 " AutoClose after openning file
+		let g:NERDTreeBookmarksFile= g:cache_path . '.NERDTreeBookmarks'
+
 	endif
 
 	Plug 'scrooloose/nerdcommenter'
@@ -521,6 +543,7 @@ function! plugin#Config() abort
 	return 1
 endfunction
 
+" TODO-[RM]-(Mon Aug 21 2017 18:18): Get rid of this function and
 " Move this function to the os independent stuff.
 function! plugin#Check() abort
 	" Set paths for plugins
@@ -551,6 +574,8 @@ function! plugin#Check() abort
 		endif
 	endif
 
+	" TODO-[RM]-(Mon Aug 21 2017 18:18): Figure out which are the cache files
+	" for each system
 	" Same cache dir for both
 	let g:cache_path= $HOME . '/.cache/'
 	let g:plugged_path=  g:vimfile_path . 'plugged/'
