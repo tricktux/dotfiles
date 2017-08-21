@@ -4,10 +4,8 @@
 " Version:2.0.0
 " Last Modified: Apr 04 2017 23:58
 
-function! autocompletion#SetCompl() abort
-	let compl = get(g:, 'autcompl_engine', '')
-
-	if compl ==# 'ycm'
+function! autocompletion#SetCompl(compl) abort
+	if a:compl ==# 'ycm'
 			Plug 'Valloric/YouCompleteMe', { 'on' : 'YcmDebugInfo' }
 			"" turn on completion in comments
 			let g:ycm_complete_in_comments=0
@@ -41,7 +39,7 @@ function! autocompletion#SetCompl() abort
 			\ }
 			
 		Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
-	elseif compl ==# 'nvim_compl_manager'
+	elseif a:compl ==# 'nvim_compl_manager'
 		" Optional but useful python3 support
 		" pip3 install --user neovim jedi mistune psutil setproctitle
 		" if has('win32')
@@ -49,8 +47,9 @@ function! autocompletion#SetCompl() abort
 			" return -1
 		" endif
 
-		if has('vim')
-			Plug 'roxma/vim-hug-neovim-rpc'
+		if !has('nvim') || !has('python3')
+			echomsg 'nvim_compl_manager doesnt work with vim or you do not have python3'
+			return
 		endif
 
 		if has('unix')
@@ -81,13 +80,15 @@ function! autocompletion#SetCompl() abort
 			return ret
 		endfunc
 
-		au User CmSetup call cm#register_source({'name' : 'mutt',
+		augroup NCM
+		autocmd!
+		autocmd User CmSetup call cm#register_source({'name' : 'mutt',
 					\ 'priority': 9, 
 					\ 'cm_refresh_length': -1,
 					\ 'cm_refresh_patterns': ['^\w+:\s+'],
 					\ 'cm_refresh': {'omnifunc': 'g:MuttOmniWrap'},
 					\ })
-
+		augroup END
 		inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 		inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 		" if has('unix') " Automatic completion on unix
@@ -99,14 +100,14 @@ function! autocompletion#SetCompl() abort
 		" endif
 
 		call autocompletion#SetClang('roxma_clang_complete')
-	elseif compl ==# 'shuogo'
+	elseif a:compl ==# 'shuogo'
 		call autocompletion#SetShuogo()
-	elseif compl ==# 'autocomplpop'
+	elseif a:compl ==# 'autocomplpop'
 		Plug 'vim-scripts/AutoComplPop'
 		inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 		inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 		call autocompletion#SetClang('rip_clang_complete')
-	elseif compl ==# 'completor'
+	elseif a:compl ==# 'completor'
 		if v:version < 800 || !has('python3')
 			echomsg 'autocompletion#SetCompl(): Cannot set completor autcompl_engine. Setting SuperTab'
 			call autocompletion#SetTab
@@ -117,7 +118,7 @@ function! autocompletion#SetCompl() abort
 			inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 			inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
 			let g:completor_clang_binary = 'c:/Program Files/LLVM/bin/clang.exe'
-	elseif compl ==# 'asyncomplete'
+	elseif a:compl ==# 'asyncomplete'
 		if v:version < 800
 			echomsg 'autocompletion#SetCompl(): Cannot set AsynComplete autcompl_engine. Setting SuperTab'
 			call autocompletion#SetTab
