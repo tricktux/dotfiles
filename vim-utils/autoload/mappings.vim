@@ -160,7 +160,7 @@ function mappings#Set() abort
 	" cd into dir. press <Tab> after ci to see folders
 	nnoremap <Leader>ci :lcd
 	nnoremap <Leader>cc :pwd<CR>
-	nnoremap <Leader>c1 :lcd ~/.dotfiles
+	nnoremap <Leader>c1 :lcd ~/.dotfiles<CR>
 	" TODO.RM-Thu Jun 01 2017 10:10: Create mappings like c21 and c22
 
 	" Folding

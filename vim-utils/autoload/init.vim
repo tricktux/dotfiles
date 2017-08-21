@@ -6,11 +6,20 @@
 " Created: Aug 21 2017 16:15
 
 function init#vim() abort
+	" Req for vim
+	if !has('nvim')
+		set nocompatible
+		syntax on
+		filetype plugin indent on
+	endif
+
+	let g:mapleader="\<Space>"
+	let g:maplocalleader="\<Space>"
+
+	" TODO-[RM]-(Mon Aug 21 2017 18:08): Move this to after loading unix win32
+	" specific stuff
 	" PLUGINS_INIT
 	" ~/.dotfiles/vim-utils/autoload/plugin.vim
-	" Attempt to install vim-plug and all plugins in case of first use
-	" All of this is going to go into function InitVim
-	" moved here otherwise conditional mappings get / instead ; as leader
 	if plugin#Check() && plugin#Config()
 		let g:plugins_loaded = 1
 	else
