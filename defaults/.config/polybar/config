@@ -39,7 +39,7 @@ height = 27
 ; offset-x = 1%
 ; offset-y = 1%
 radius = 6.0
-fixed-center = false
+fixed-center = true
 
 ; background = ${colors.background}
 ; foreground = ${colors.foreground}
@@ -67,9 +67,8 @@ font-0 = FontAwesome:size=10;0
 font-1 = siji:pixelsize=10;1
 
 modules-left = i3
-modules-center = xwindow music
-modules-right = volume weather memory cpu battery temperature date powermenu
-; fixed-center = true
+modules-center = xwindow
+modules-right = music volume weather memory cpu battery temperature date powermenu
 
 ; My new settings
 tray-detached = false
@@ -95,7 +94,7 @@ format-suffix-background = ${colors.t5}
 format-suffix-foreground = ${colors.t5}
 
 type = internal/xwindow
-label = %title:0:30:%
+label = %title:0:45:%
 
 [module/xkeyboard]
 type = internal/xkeyboard
@@ -179,9 +178,9 @@ label-urgent-padding = ${module/bspwm.label-urgent-padding}
 
 ws-icon-0 = 1;
 ws-icon-1 = 2;
-ws-icon-2 = 3;
+ws-icon-2 = 3;
 ws-icon-3 = 4;
-ws-icon-default = 
+ws-icon-default = 
 
 strip-wsnumbers = true
 fuzzy-match = true
@@ -386,10 +385,10 @@ menu-0-1-exec = menu-open-2
 menu-1-0 = cancel
 menu-1-0-exec = menu-open-0
 menu-1-1 = reboot
-menu-1-1-exec = sudo reboot
+menu-1-1-exec = systemctl reboot
 
 menu-2-0 = power off
-menu-2-0-exec = sudo poweroff
+menu-2-0-exec = systemctl poweroff
 menu-2-1 = cancel
 menu-2-1-exec = menu-open-0
 

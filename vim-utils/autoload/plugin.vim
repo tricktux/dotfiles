@@ -92,8 +92,6 @@ function! plugin#Config() abort
 		let g:GPGUseAgent = 0
 	endif
 
-	" if !empty(glob(g:location_vim_utils . '/autoload/autocompletion.vim'))
-		" execute 'source ' . g:location_vim_utils . '/autoload/autocompletion.vim'
 		" Possible values:
 		" - ycm
 		" - nvim_compl_manager
@@ -102,11 +100,7 @@ function! plugin#Config() abort
 		" - completor
 		" - asyncomplete
 		call autocompletion#SetCompl(has('nvim') ? 'nvim_compl_manager' : 'autocomplpop')
-	" else
-		" echomsg 'Failed to find vim-utils therefore no autocompletion'
-	" endif
 
-	" if !empty(glob(g:location_vim_utils . '/autoload/cpp_highlight.vim'))
 		" execute 'source ' . g:location_vim_utils . '/autoload/cpp_highlight.vim'
 		" execute 'source ' . g:location_vim_utils . '/autoload/highlight.vim'
 		" Possible values:
@@ -115,10 +109,7 @@ function! plugin#Config() abort
 		" - neotags
 		" - color_coded
 		" - clighter8
-		call cpp_highlight#SetCppHighlight(has('nvim') ? 'neotags' : 'easytags')
-	" else
-		" echomsg 'Failed to find vim-utils therefore no cpp_highlight'
-	" endif
+		call cpp_highlight#SetCppHighlight(has('nvim') ? 'neotags' : '')
 
 	" Neovim exclusive plugins
 	if has('nvim')
@@ -500,7 +491,7 @@ function! plugin#Config() abort
 		call denite#custom#option('_', 'highlight_matched_range', 'Function')
 		if executable('rg')
 			call denite#custom#var('file_rec', 'command',
-						\ ['rg', '--files', '--glob', '!.git', '!.svn', ''])
+						\ ['rg', '--files', '--glob', '!.git', '--glob', '!.svn', ''])
 		endif
 	endif
 
@@ -572,7 +563,7 @@ function! plugin#Check() abort
 
 	if empty(glob(g:vimfile_path . 'autoload/plug.vim'))
 		if executable('curl')
-			execute "silent !curl -kfLo " . g:vimfile_path . "autoload\plug.vim --create-dirs"
+			execute "silent !curl -kfLo " . g:vimfile_path . "autoload/plug.vim --create-dirs"
 						\" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 			autocmd VimEnter * PlugInstall | source $MYVIMRC
 			return 1

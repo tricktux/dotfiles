@@ -340,8 +340,9 @@ func! CheatCompletion(ArgLead, CmdLine, CursorPos)
 endfunction
 
 function! utils#WikiOpen(...) abort
-	if get(g:, 'wiki_path', 0) == 0 || empty(glob(g:wiki_path))
+	if !exists('g:wiki_path') || empty(glob(g:wiki_path))
 		echomsg 'Variable g:wiki_path not set or path doesnt exist'
+		return
 	endif
 
 	if a:0 > 0
@@ -717,7 +718,7 @@ function! utils#DropboxOpen(wiki) abort
 		echomsg "File " . db_path . " does not exists"
 		return
 	endif
-	execute ":edit " . db_path
+	execute "edit " . db_path
 endfunction
 
  " vim:tw=78:ts=2:sts=2:sw=2:
