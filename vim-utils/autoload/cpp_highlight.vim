@@ -67,7 +67,7 @@ function! cpp_highlight#SetCppHighlight(type) abort
 		Plug 'c0r73x/neotags.nvim' " Depends on pip3 install --user psutil
 			set regexpengine=1 " This speed up the engine alot but still not enough
 			let g:neotags_enabled = 1
-			" let g:neotags_file = g:cache_path . 'ctags/neotags'
+			" let g:neotags_file = g:std_data_path . '/ctags/neotags'
 			" let g:neotags_verbose = 1
 			let g:neotags_run_ctags = 0
 			" let g:neotags#cpp#order = 'cgstuedfpm'
