@@ -45,7 +45,8 @@ function! plugin#Config() abort
 	endif
 
 	if has('nvim') || v:version >= 800
-		Plug 'Shougo/denite.nvim'
+		" Plugins that support both neovim and vim need separate folders
+		Plug 'Shougo/denite.nvim', { 'as' : has('nvim') ? 'nvim_denite' : 'vim_denite' }
 			let b:denite_loaded = 1
 			nnoremap <A-;> :Denite command<CR>
 			nnoremap <A-e> :Denite help<CR>
@@ -494,14 +495,14 @@ function! plugin#Config() abort
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
-	if exists('b:deoplete_loaded') " Cant call this inside of plug#begin()
+	if exists('b:deoplete_loaded') && exists('*deoplete#custom#set')
 		call deoplete#custom#set('javacomplete2', 'mark', '')
 		call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
 		" c c++
 		call deoplete#custom#set('clang2', 'mark', '')
 	endif
 
-	if exists('b:denite_loaded')
+	if exists('b:denite_loaded') && exists('*denite#custom#map')
 		" Change mappings.
 		call denite#custom#map('insert','<C-j>','<denite:move_to_next_line>','noremap')
 		call denite#custom#map('insert','<C-k>','<denite:move_to_previous_line>','noremap')
@@ -557,7 +558,7 @@ function! plugin#Check() abort
 		if executable('curl')
 			execute "silent !curl -kfLo " . plug_path . " --create-dirs"
 						\" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-			autocmd VimEnter * PlugInstall
+			autocmd VimEnter * PlugInstall | source $MYVIMRC
 			return 1
 		else
 			echomsg "Master I cant install plugins for you because you"
