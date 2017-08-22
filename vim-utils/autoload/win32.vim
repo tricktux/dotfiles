@@ -24,13 +24,6 @@ function win32#Config()
 	" let g:clangheader_path = '$ProgramFiles . '\LLVM\lib\clang''
 	" endif
 	
-	if !exists('g:portable_vim')
-		let g:vimfile_path=  $LOCALAPPDATA . '\vim\'
-	endif
-	let g:plugged_path=  g:vimfile_path . 'plugged/'
-	let g:cache_path= $LOCALAPPDATA . '/'
-
-
 	" Set wiki_path
 	if system('hostname') =~ 'predator' " homepc
 		let g:wiki_path =  'D:\Seafile\KnowledgeIsPower\wiki'

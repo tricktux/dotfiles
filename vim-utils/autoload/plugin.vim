@@ -17,9 +17,9 @@ function! plugin#Config() abort
 		nnoremap <Leader>Pl :PlugClean<CR>
 
 	if exists('g:portable_vim')
-		silent! call plug#begin(g:plugged_path)
+		silent! call plug#begin(g:vim_plugins_path)
 	else
-		call plug#begin(g:plugged_path)
+		call plug#begin(g:vim_plugins_path)
 	endif
 
 	" Set up fuzzy searcher
@@ -41,7 +41,7 @@ function! plugin#Config() abort
 		" Sun Jul 30 2017 13:09 
 		" Requires `install xdotool' and 'go get -u github.com/termhn/i3-vim-nav'
 		" - The thing is that this down here doesnt work
-		" Plug 'termhn/i3-vim-nav', { 'do' : 'ln -s ' . g:plugged_path . 'i3-vim-nav/i3-vim-nav ~/.local/bin' }
+		" Plug 'termhn/i3-vim-nav', { 'do' : 'ln -s ' . g:vim_plugins_path . 'i3-vim-nav/i3-vim-nav ~/.local/bin' }
 	endif
 
 	if has('nvim') || v:version >= 800
@@ -62,7 +62,7 @@ function! plugin#Config() abort
 			let g:ctrlp_lazy_update = 1
 			let g:ctrlp_show_hidden = 1
 			let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
-			let g:ctrlp_cache_dir = g:cache_path . 'ctrlp'
+			let g:ctrlp_cache_dir = g:std_cache_path . '/ctrlp'
 			let g:ctrlp_working_path_mode = 'wra'
 			let g:ctrlp_max_history = &history
 			let g:ctrlp_clear_cache_on_exit = 0
@@ -245,7 +245,7 @@ function! plugin#Config() abort
 		let g:NERDTreeShowLineNumbers=1
 		let g:NERDTreeShowHidden=1 " i key to toggle
 		let g:NERDTreeQuitOnOpen=1 " AutoClose after openning file
-		let g:NERDTreeBookmarksFile= g:cache_path . '.NERDTreeBookmarks'
+		let g:NERDTreeBookmarksFile= g:std_data_path . '/.NERDTreeBookmarks'
 
 	endif
 
@@ -351,8 +351,8 @@ function! plugin#Config() abort
 		smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 					\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 		" Tell Neosnippet about the other snippets
-		let g:neosnippet#snippets_directory= [ g:plugged_path . '/vim-snippets/snippets', g:location_vim_utils . '/snippets/', ]
-		let g:neosnippet#data_directory = g:cache_path . 'neosnippets'
+		let g:neosnippet#snippets_directory= [ g:vim_plugins_path . '/vim-snippets/snippets', g:location_vim_utils . '/snippets/', ]
+		let g:neosnippet#data_directory = g:std_data_path . '/neosnippets'
 		" Used by nvim-completion-mgr
 		let g:neosnippet#enable_completed_snippet=1
 
@@ -382,7 +382,7 @@ function! plugin#Config() abort
 
 	Plug 'juneedahamed/svnj.vim'
 		let g:svnj_allow_leader_mappings=0
-		let g:svnj_cache_dir = g:cache_path
+		let g:svnj_cache_dir = g:std_cache_path
 		let g:svnj_browse_cache_all = 1 
 		let g:svnj_custom_statusbar_ops_hide = 0
 		nnoremap <silent> <leader>vs :SVNStatus<CR>  
@@ -402,7 +402,7 @@ function! plugin#Config() abort
 	" W3M - to view cpp-reference help
 	if executable('w3m')
 		Plug 'yuratomo/w3m.vim'
-			let g:w3m#history#save_file = g:cache_path . '/.vim_w3m_hist'
+			let g:w3m#history#save_file = g:std_cache_path . '/.vim_w3m_hist'
 	endif
 
 	Plug 'justinmk/vim-sneak'
@@ -512,44 +512,52 @@ function! plugin#Config() abort
 		call denite#custom#option('_', 'highlight_matched_range', 'Function')
 		if executable('rg')
 			call denite#custom#var('file_rec', 'command',
-						\ ['rg', '--files', '--glob', '!.git', '--glob', '!.svn', ''])
+						\ ['rg', '--glob', '!.git', '--glob', '!.svn', '--files',  ''])
 		endif
 	endif
 
 	" Create cache folders
-	if utils#CheckDirwoPrompt(g:cache_path . "tmp")
-		let $TMP= g:cache_path . "tmp"
-	else
-		echomsg string("Failed to create tmp dir")
-	endif
+	"TODO-[RM]-(Tue Aug 22 2017 10:30): Determine if these are cache or data dirs
+	" if utils#CheckDirwoPrompt(g:cache_path . "tmp")
+		" let $TMP= g:cache_path . "tmp"
+	" else
+		" echomsg string("Failed to create tmp dir")
+	" endif
 
-	if !utils#CheckDirwoPrompt(g:cache_path . "sessions")
+	if !utils#CheckDirwoPrompt(g:std_data_path . "/sessions")
 		echoerr string("Failed to create sessions dir")
 	endif
 
-	if !utils#CheckDirwoPrompt(g:cache_path . "ctags")
+	if !utils#CheckDirwoPrompt(g:std_data_path . "/ctags")
 		echoerr string("Failed to create ctags dir")
 	endif
 
-	if !utils#CheckDirwoPrompt(g:cache_path . "java")
-		echoerr string("Failed to create java dir")
-	endif
+	" if !utils#CheckDirwoPrompt(g:std_data_path . "/java")
+		" echoerr string("Failed to create java dir")
+	" endif
 
-	if has('persistent_undo') && !utils#CheckDirwoPrompt(g:cache_path . 'undofiles')
-		echoerr string("Failed to create undofiles dir")
+	if has('persistent_undo') 
+		let g:undofiles_path = g:std_cache_path . '/undofiles'
+		if !utils#CheckDirwoPrompt(g:undofiles_path)
+			echoerr string("Failed to create undofiles dir")
+		endif
 	endif
 
 	return 1
 endfunction
 
 function! plugin#Check() abort
-	 "TODO-[RM]-(Mon Aug 21 2017 20:55): Fix this here. This path is not
-	" autloaded. See vim-plug
-	if empty(glob(g:vimfile_path . 'autoload/plug.vim'))
+	" Set default path for location of vim_plugins
+	if !exists('g:vim_plugins_path')
+		let g:vim_plugins_path = g:std_data_path . '/vim_plugins'
+	endif
+
+	let plug_path = g:vim_plugins_path . '/plug/plug.vim' 
+	if empty(glob(plug_path))
 		if executable('curl')
-			execute "silent !curl -kfLo " . g:vimfile_path . "autoload/plug.vim --create-dirs"
+			execute "silent !curl -kfLo " . plug_path . " --create-dirs"
 						\" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-			autocmd VimEnter * PlugInstall | source $MYVIMRC
+			autocmd VimEnter * PlugInstall
 			return 1
 		else
 			echomsg "Master I cant install plugins for you because you"
@@ -558,6 +566,7 @@ function! plugin#Check() abort
 			return 0
 		endif
 	else
+		execute "source " . plug_path
 		return 1
 	endif
 endfunction

@@ -65,8 +65,8 @@ python3 << EOF
 import os
 import neovim
 
-DIR_CTAGS_CACHE = (os.path.expanduser('~') + "/.cache/ctags/")
-# DIR_CTAGS_CACHE = (neovim.vars['cache_path'])
+# DIR_CTAGS_CACHE = (os.path.expanduser('~') + "/.cache/ctags/")
+DIR_CTAGS_CACHE = (neovim.vars['std_data_path'] + "/ctags/")
 for root, dirs, files in os.walk(DIR_CTAGS_CACHE):
 	for file in files:
 		if file.startswith("tags_"):
