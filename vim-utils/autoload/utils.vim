@@ -228,11 +228,12 @@ function! utils#FixPreviousWord() abort
 endfunction
 
 function! utils#SaveSession(...) abort
+	let session_path = g:std_data_path . '/sessions/'
 	" if session name is not provided as function argument ask for it
 	if a:0 < 1
 		execute "wall"
 		let dir = getcwd()
-		execute "cd ". g:cache_path ."sessions/"
+		execute "cd ". 
 		let session_name = input("Enter
 					\ save session name:", "", "file")
 		silent! execute "cd " . dir
@@ -240,10 +241,11 @@ function! utils#SaveSession(...) abort
 		" Need to keep this option short and sweet
 		let session_name = a:1
 	endif
-	silent! execute "normal :mksession! " . g:cache_path . "sessions/". session_name  . "\<CR>"
+	silent! execute "normal :mksession! " . session_path . session_name  . "\<CR>"
 endfunction
 
 function! utils#LoadSession(...) abort
+	let session_path = g:std_data_path . '/sessions/'
 	" Logic path when not called at startup
 	if a:0 < 1
 		execute "wall"
@@ -253,24 +255,27 @@ function! utils#LoadSession(...) abort
 			call utils#SaveSession()
 		endif
 		let dir = getcwd()
-		execute "cd ". g:cache_path ."sessions/"
+		execute "cd ". session_path
 		if exists(':Denite')
-			execute "Denite -default-action=yank file_rec"
+			execute "Denite -default-action=yank file"
 			let session_name = getreg()
+			if empty(session_name)
+				return
+			endif
 		else
 			let session_name = input("Load session:", "", "file")
 		endif
 		silent! execute "normal :%bdelete\<CR>"
-		silent execute "normal :so " . g:cache_path . "sessions/". session_name . "\<CR>"
+		silent execute "normal :so " . session_path . session_name . "\<CR>"
 		silent! execute "cd " . dir
 	else
 		" echo "Reload previous session: (j|y)es (any)no"
 		" let response = getchar()
 		" if response == 121 || response == 106 " y|j
-			 " silent! execute "normal :so " . g:cache_path . "sessions/". a:1 . "\<CR>"
+			 " silent! execute "normal :so " . session_path . a:1 . "\<CR>"
 		" endif
 		silent! execute "normal :%bdelete\<CR>"
-		silent! execute "normal :so " . g:cache_path . "sessions/". a:1 . "\<CR>"
+		silent! execute "normal :so " . session_path . a:1 . "\<CR>"
 	endif
 endfunction
 
@@ -349,13 +354,12 @@ function! utils#WikiOpen(...) abort
 		execute "vs " . g:wiki_path . '/'.  a:1
 	else
 		if exists(':Denite')
+			execute "Denite -path=" . g:wiki_path . '/' . " file"
+		else
 			let dir = getcwd()
 			execute "cd " . g:wiki_path
-			execute "Denite -default-action=yank file_rec"
-			execute 'vs ' . g:wiki_path . '/' . getreg()
-			silent! execute "cd " . dir
-		else
 			execute "vs " . fnameescape(g:wiki_path . '/' . input('Wiki Name: ', '', 'custom,CheatCompletion'))
+			silent! execute "cd " . dir
 		endif
 	endif
 endfunction
@@ -423,11 +427,20 @@ function! utils#GuiFont(sOp) abort
 	endif
 endfunction
 
-function! utils#EditPlugins() abort
-	let dir = getcwd()
-	execute "cd " . g:plugged_path
-	execute "e " . input('e ' . expand(g:plugged_path), "", "file")
-	silent! execute "cd " . dir
+function! utils#EditFileInPath(path) abort
+	if empty(glob(a:path))
+		echomsg 'Input is not a valid path: ' . a:path
+		return
+	endif
+
+	if exists(':Denite')
+		execute "Denite -path=". a:path . " file_rec"
+	else
+		let dir = getcwd()
+		execute "cd " . a:path
+		execute "e " . input('e ' . expand(a:path) . '/', "", "file")
+		silent! execute "cd " . dir
+	endif
 endfunction
 
 function! utils#UpdateHeader()
@@ -645,8 +658,8 @@ function! utils#Flux() abort
 endfunction
 
 function! utils#ProfilePerformance() abort
-	if exists('g:cache_path')	
-		execute 'profile start ' . g:cache_path . 'profile_' . strftime("%m%d%y-%H.%M.%S") . '.log'
+	if exists('g:std_cache_path')	
+		execute 'profile start ' . g:std_cache_path . '/profile_' . strftime("%m%d%y-%H.%M.%S") . '.log'
 	else
 		" TODO.RM-Mon Apr 24 2017 12:17: Check why this function is not working
 		" execute 'profile start ~/.cache/profile_' . strftime("%m%d%y-%T") . '.log'
