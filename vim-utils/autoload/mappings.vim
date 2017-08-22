@@ -156,7 +156,7 @@ function! mappings#Set() abort
 	" cd into current dir path and into dir above current path
 	nnoremap <Leader>e1 :call utils#EditFileInPath(g:location_vim_utils)<CR>
 	" Edit Vimruntime
-	nnoremap <Leader>ev :e $VIMRUNTIME/
+	nnoremap <Leader>ev :call utils#EditFileInPath($VIMRUNTIME, 1)<CR>
 
 	" CD <Leader>c?
 	nnoremap <Leader>cd :lcd %:h<CR>
