@@ -12,25 +12,8 @@ function init#vim() abort
 		syntax on
 		filetype plugin indent on
 	endif
-
 	let g:mapleader="\<Space>"
 	let g:maplocalleader="\<Space>"
-
-	" TODO-[RM]-(Mon Aug 21 2017 18:08): Move this to after loading unix win32
-	" specific stuff
-	" PLUGINS_INIT
-	" ~/.dotfiles/vim-utils/autoload/plugin.vim
-	if plugin#Check() && plugin#Config()
-		let g:plugins_loaded = 1
-	else
-		echomsg "No plugins where loaded"
-	endif
-
-	" NVIM SPECIFIC
-	" ~/.dotfiles/vim-utils/autoload/nvim.vim
-	if has('nvim')
-		call nvim#Config()
-	endif
 
 	" WINDOWS_SETTINGS
 	" ~/.dotfiles/vim-utils/autoload/win32.vim
@@ -42,9 +25,27 @@ function init#vim() abort
 		call unix#Config()
 	endif
 
+
+	" TODO-[RM]-(Mon Aug 21 2017 18:08): Move this to after loading unix win32
+	" specific stuff
+	" PLUGINS_INIT
+	" ~/.dotfiles/vim-utils/autoload/plugin.vim
+	if plugin#Check() && plugin#Config()
+		let g:plugins_loaded = 1
+	else
+		echomsg "No plugins where loaded"
+	endif
+
+	call mappings#Set()
+
+	" NVIM SPECIFIC
+	" ~/.dotfiles/vim-utils/autoload/nvim.vim
+	if has('nvim')
+		call nvim#Config()
+	endif
+
 	call options#Set()
 	call augroup#Set()
-	call mappings#Set()
 	call commands#Set()
 	call syntax#Set()
 
