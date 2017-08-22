@@ -254,20 +254,20 @@ function! utils#LoadSession(...) abort
 		if response == 121 " y
 			call utils#SaveSession()
 		endif
-		let dir = getcwd()
-		execute "cd ". session_path
 		if exists(':Denite')
-			execute "Denite -default-action=yank file"
-			let session_name = getreg()
-			if empty(session_name)
+			let res = denite#start([{ 'name' : 'file', 'args' : [ '-default-action=yank', '-path=' . session_path ] }]) 
+			if empty(res)
 				return
 			endif
+			let session_name = getreg()
 		else
+			let dir = getcwd()
+			execute "cd ". session_path
 			let session_name = input("Load session:", "", "file")
+			silent! execute "cd " . dir
 		endif
 		silent! execute "normal :%bdelete\<CR>"
-		silent execute "normal :so " . session_path . session_name . "\<CR>"
-		silent! execute "cd " . dir
+		silent execute "source " . session_path . session_name
 	else
 		" echo "Reload previous session: (j|y)es (any)no"
 		" let response = getchar()
@@ -427,13 +427,27 @@ function! utils#GuiFont(sOp) abort
 	endif
 endfunction
 
-function! utils#EditFileInPath(path) abort
+" Optional argument to specify if you want to ask for to use denite or not
+function! utils#EditFileInPath(path, ...) abort
 	if empty(glob(a:path))
 		echomsg 'Input is not a valid path: ' . a:path
 		return
 	endif
 
-	if exists(':Denite')
+	if exists(':Denite') && a:0 > 0 && a:1 > 0
+		" ask for denite
+		echo 'Use denite?'
+		let c = nr2char(getchar())
+		if c == "y" || c == "j"
+			let den = 1
+		else
+			let den = 0
+		endif
+	else
+		let den = 0
+	endif
+
+	if den > 0
 		execute "Denite -path=". a:path . " file_rec"
 	else
 		let dir = getcwd()

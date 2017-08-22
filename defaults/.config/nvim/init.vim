@@ -15,7 +15,7 @@
 		" - [ ] Markdown math formulas
 
 " You can a pass a list of files to the function and those will your vimrc files
-function s:find_vim_config_file(...) abort
+function! s:find_vim_config_file(...) abort
 	" If source files were provided source only those and exit
 	if a:0 > 0
 		for item in a:000
@@ -27,7 +27,7 @@ function s:find_vim_config_file(...) abort
 	" Otherwise try to find local or portable configuration files
 	call s:set_stdpaths()
 	let location_local_vim = g:std_config_path . '/dotfiles/vim-utils'
-	let location_portable_vim = getcwd() . has('nvim') ? '/../../../dotfiles/vim-utils' : '/../../dotfiles/vim-utils'
+	let location_portable_vim = has('nvim') ? getcwd() . '/../../../dotfiles/vim-utils' : getcwd() . '/../../dotfiles/vim-utils'
 
 	if !empty(glob(location_local_vim))
 		let g:location_vim_utils = location_local_vim
@@ -60,5 +60,13 @@ function! s:set_stdpaths() abort
 endfunction
 
 call s:find_vim_config_file()
+
+" call s:set_stdpaths()
+
+" let vim_plugins =  g:std_data_path . '/vim_plugins'
+" execute "source " . vim_plugins . '/plug/plug.vim'
+" call plug#begin(vim_plugins)
+" Plug 'Shougo/denite.nvim', { 'as' : has('nvim') ? 'nvim_denite' : 'vim_denite' }
+" call plug#end()
 
 " vim:tw=78:ts=2:sts=2:sw=2:
