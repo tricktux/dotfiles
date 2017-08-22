@@ -9,7 +9,7 @@
 function! cpp_highlight#SetCppHighlight(type) abort
 	if a:type ==# ''
 		return
-	if a:type ==# 'chromatica'
+	elseif a:type ==# 'chromatica'
 		if !has('nvim') || !has('python3') || !has('unix')
 			echomsg 'Chromatica compatible with nvim and python3 in unix'
 			return
