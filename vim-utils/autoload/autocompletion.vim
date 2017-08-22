@@ -220,7 +220,7 @@ function! autocompletion#SetShuogo() abort
 		let g:neocomplete#enable_auto_close_preview=1
 
 		let g:neocomplete#enable_smart_case = 1
-		let g:neocomplete#data_directory = g:cache_path . 'neocomplete'
+		let g:neocomplete#data_directory = g:std_data_path . '/neocomplete'
 		" Define keyword.
 		if !exists('g:neocomplete#keyword_patterns')
 			let g:neocomplete#keyword_patterns = {}
