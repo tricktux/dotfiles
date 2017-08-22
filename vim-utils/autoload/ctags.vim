@@ -26,7 +26,7 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 
 	" TODO.RM-Fri May 26 2017 15:35: Add a warning here that you are creating
 	" tags and csscope for getcwd() folder  
-	let files_loc = g:cache_path . "ctags/"
+	let files_loc = g:std_data_path . "/ctags/"
 	let cwd_rg = getcwd()
 	if has('win32')
 		let cwd_rg = substitute(cwd_rg, "\\", "/", "g") " Fix cwd for the rg command
@@ -127,7 +127,7 @@ function! ctags#NvimAsyncCtags() abort
 				\ 'on_stdout': function('s:JobHandler'),
 				\ 'on_stderr': function('s:JobHandler'),
 				\ 'on_exit': function('s:JobHandler'),
-				\ 'cwd': g:cache_path . 'ctags'
+				\ 'cwd': g:std_data_path . '/ctags'
 				\ }
 	if executable('rg')
 		let files_cmd = 'rg -t ' . ft . ' --files ' . "\"" . cwd_rg . "\"" . ' > cscope.files'
@@ -234,7 +234,7 @@ endfunction
 
 function! ctags#ListCtagsFiles() abort
 	" Obtain full path list of all files in ctags folder
-	let tags_loc = g:cache_path . "ctags/"
+	let tags_loc = g:std_data_path . "/ctags/"
 	let potential_tags = map(utils#ListFiles(tags_loc), "tags_loc . v:val")
 	if len(potential_tags) == 0
 		echomsg tags_loc . " is empty"
@@ -319,7 +319,7 @@ function! ctags#CreateTags(ft_spec, tags_name, files_loc, ctags_lang, cwd_rg) ab
 		endif
 	endfor
 	if tag_present == 0
-		execute "set tags+=" . g:cache_path . a:tags_name
+		execute "set tags+=" . g:std_data_path . '/ctags/' . a:tags_name
 	endif
 	execute "cd " . a:cwd_rg
 	return 1
@@ -339,7 +339,7 @@ function! ctags#LoadCscopeDatabse() abort
 	endif
 
 	let cs_db = cs_db . '.out'
-	let cs_loc = g:cache_path . "ctags/" . cs_db
+	let cs_loc = g:std_data_path . '/ctags/' . cs_db
 
 	redir => output
 	execute "cs show"

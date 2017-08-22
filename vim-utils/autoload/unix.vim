@@ -27,13 +27,6 @@ function! unix#Config() abort
 	nnoremap <Leader>et :silent e ~/.mnt/truck-server/
 	nnoremap <CR> o<ESC>
 
-	if !exists('g:portable_vim')
-		let g:vimfile_path=  $XDG_CONFIG_HOME . '/vim/'
-	endif
-
-	let g:cache_path= $XDG_CACHE_HOME . '/'
-	let g:plugged_path=  g:vimfile_path . 'plugged/'
-
 	" VIM_PATH includes
 	" With this you can use gf to go to the #include <avr/io.h>
 	" also this path below are what go into the .syntastic_avrgcc_config
