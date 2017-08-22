@@ -1,6 +1,12 @@
+" File:					mappings.vim
+" Description:	Function that sets all the mappings that are not related to plugins
+" Author:				Reinaldo Molina <rmolin88@gmail.com>
+" Version:				0.0.0
+" Last Modified: Aug 22 2017 12:33
+" Created: Aug 22 2017 12:33
 
 
-function mappings#Set() abort
+function! mappings#Set() abort
 	" CUSTOM MAPPINGS
 	" List of super useful mappings
 	" = fixes indentantion
@@ -121,8 +127,8 @@ function mappings#Set() abort
 	vnoremap < <gv
 	vnoremap > >gv
 	" Edit plugin
-	nnoremap <Leader>ep :call utils#EditPlugins()<CR>
-	nnoremap <Leader>ei :e
+	nnoremap <Leader>ep :call utils#EditFileInPath(g:vim_plugins_path)<CR>
+	nnoremap <Leader>ei :e 
 
 	" decrease number
 	nnoremap <Leader>a <c-x>
@@ -148,7 +154,7 @@ function mappings#Set() abort
 	" Edit local <Leader>e?
 	nnoremap <Leader>el :silent e ~/
 	" cd into current dir path and into dir above current path
-	nnoremap <Leader>e1 :e ~/.dotfiles/
+	nnoremap <Leader>e1 :call utils#EditFileInPath(g:location_vim_utils)<CR>
 	" Edit Vimruntime
 	nnoremap <Leader>ev :e $VIMRUNTIME/
 

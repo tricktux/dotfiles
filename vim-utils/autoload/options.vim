@@ -194,14 +194,16 @@ function options#Set() abort
 		endif
 	endif
 
+	" TODO-[RM]-(Tue Aug 22 2017 10:43): Move this function calls to init#vim or
+	" options.vim
 	" Grep
 	if exists("g:plugins_loaded")
 		call utils#SetGrep()
 	endif
 
 	" Undofiles
-	if exists("g:plugins_loaded") && !empty(glob(g:cache_path . 'undofiles'))
-		let &undodir= g:cache_path . 'undofiles'
+	if exists("g:plugins_loaded") && exists("g:undofiles_path") && !empty(glob(g:undofiles_path))
+		let &undodir= g:undofiles_path
 		set undofile
 		set undolevels=1000      " use many muchos levels of undo
 	endif

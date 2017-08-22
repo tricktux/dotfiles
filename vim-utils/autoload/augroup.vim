@@ -38,7 +38,8 @@ function augroup#Set() abort
 			" Sessions
 			" Note: Fri Mar 03 2017 14:13 - This never works.
 			" autocmd VimEnter * call utils#LoadSession('default.vim')
-			autocmd VimLeave * call utils#SaveSession('default.vim')
+			" Currently under testing
+			" autocmd VimLeave * call utils#SaveSession('default.vim')
 			" Keep splits normalize
 			autocmd VimResized * call utils#NormalizeWindowSize()
 		augroup END
