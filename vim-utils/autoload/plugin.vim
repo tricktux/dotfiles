@@ -240,21 +240,6 @@ function! plugin#Config() abort
 	else
 		Plug 'scrooloose/nerdtree'
 		nnoremap <Plug>FileBrowser :NERDTree<CR>
-		" NerdCommenter
-		let g:NERDSpaceDelims=1  " space around comments
-		let g:NERDUsePlaceHolders=0 " avoid commenter doing weird stuff
-		let g:NERDCommentWholeLinesInVMode=2
-		let g:NERDCreateDefaultMappings=0 " Eliminate default mappings
-		let g:NERDRemoveAltComs=1 " Remove /* comments
-		let g:NERD_c_alt_style=0 " Do not use /* on C nor C++
-		let g:NERD_cpp_alt_style=0
-		let g:NERDMenuMode=0 " no menu
-		let g:NERDCustomDelimiters = {
-					\ 'vim': { 'left': '"', 'right': '', 'leftAlt': '#', 'rightAlt': ''},
-					\ 'markdown': { 'left': '//', 'right': '' },
-					\ 'dosini': { 'left': ';', 'leftAlt': '//', 'right': '', 'rightAlt': '', 'leftAlt1': ';', 'rightAlt1': '' },
-					\ 'wings_syntax': { 'left': '//', 'right': '' }}
-
 		" Nerdtree (Dont move. They need to be here)
 		let g:NERDTreeShowBookmarks=1  " B key to toggle
 		let g:NERDTreeShowLineNumbers=1
@@ -265,6 +250,21 @@ function! plugin#Config() abort
 	endif
 
 	Plug 'scrooloose/nerdcommenter'
+	" NerdCommenter
+	let g:NERDSpaceDelims=1  " space around comments
+	let g:NERDUsePlaceHolders=0 " avoid commenter doing weird stuff
+	let g:NERDCommentWholeLinesInVMode=2
+	let g:NERDCreateDefaultMappings=0 " Eliminate default mappings
+	let g:NERDRemoveAltComs=1 " Remove /* comments
+	let g:NERD_c_alt_style=0 " Do not use /* on C nor C++
+	let g:NERD_cpp_alt_style=0
+	let g:NERDMenuMode=0 " no menu
+	let g:NERDCustomDelimiters = {
+				\ 'vim': { 'left': '"', 'right': '', 'leftAlt': '#', 'rightAlt': ''},
+				\ 'markdown': { 'left': '//', 'right': '' },
+				\ 'dosini': { 'left': ';', 'leftAlt': '//', 'right': '', 'rightAlt': '', 'leftAlt1': ';', 'rightAlt1': '' },
+				\ 'wings_syntax': { 'left': '//', 'right': '' }}
+
 	Plug 'chrisbra/Colorizer', { 'for' : [ 'css','html','xml' ] }
 		let g:colorizer_auto_filetype='css,html,xml'
 	Plug 'tpope/vim-repeat'
@@ -542,49 +542,9 @@ function! plugin#Config() abort
 	return 1
 endfunction
 
-" TODO-[RM]-(Mon Aug 21 2017 18:18): Get rid of this function and
-" Move this function to the os independent stuff.
 function! plugin#Check() abort
-	" Set paths for plugins
-	if has('win32')
-		" In windows wiki_path is set in the win32.vim file
-			" TODO.RM-Tue Apr 04 2017 08:48: For future support of clang on windows  
-			" Find clang. Not working in windows yet.
-			" if !empty(glob($ProgramFiles . '\LLVM\lib\libclang.lib'))
-				" let g:libclang_path = '$ProgramFiles . '\LLVM\lib\libclang.lib''
-			" endif
-			" if !empty(glob($ProgramFiles . '\LLVM\lib\clang'))
-				" let g:clangheader_path = '$ProgramFiles . '\LLVM\lib\clang''
-			" endif
-			if !exists('g:portable_vim')
-				let g:vimfile_path=  $LOCALAPPDATA . '\vim\'
-		endif
-	else
-		if !exists('g:portable_vim')
-			let g:vimfile_path=  $HOME . '/.config/vim/'
-		endif
-
-			" deoplete-clang settings
-		if !empty(glob('/usr/lib/libclang.so'))
-			let g:libclang_path = '/usr/lib/libclang.so'
-		endif
-		if !empty(glob('/usr/lib/clang'))
-			let g:clangheader_path = '/usr/lib/clang'
-		endif
-	endif
-
-	" TODO-[RM]-(Mon Aug 21 2017 18:18): Figure out which are the cache files
-	" for each system
-	" Same cache dir for both
-	let g:cache_path= $HOME . '/.cache/'
-	let g:plugged_path=  g:vimfile_path . 'plugged/'
-
-	let g:usr_path = '/usr'
-	if system('uname -o') =~ 'Android' " Termux stuff
-		let g:android = 1
-		let g:usr_path = $HOME . '/../usr'
-	endif
-
+	 "TODO-[RM]-(Mon Aug 21 2017 20:55): Fix this here. This path is not
+	" autloaded. See vim-plug
 	if empty(glob(g:vimfile_path . 'autoload/plug.vim'))
 		if executable('curl')
 			execute "silent !curl -kfLo " . g:vimfile_path . "autoload/plug.vim --create-dirs"
