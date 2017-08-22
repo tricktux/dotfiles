@@ -1,13 +1,13 @@
 
 
 function mappings#Set() abort
-	let g:esc = '<C-j>'
 	" CUSTOM MAPPINGS
 	" List of super useful mappings
 	" = fixes indentantion
 	" gq formats code
 	" Free keys: <Leader>fnzxkiy;h
 	" Taken keys: <Leader>qwertasdjcvgp<space>mbolu
+	let g:esc = '<C-j>'
 
 	" Quickfix and Location stuff
 	nnoremap <Leader>qO :lopen 20<CR>
