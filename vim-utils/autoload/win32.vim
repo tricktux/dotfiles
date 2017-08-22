@@ -15,6 +15,22 @@ function win32#Config()
 
 	nnoremap  o<Esc>
 
+	" TODO.RM-Tue Apr 04 2017 08:48: For future support of clang on windows  
+	" Find clang. Not working in windows yet.
+	" if !empty(glob($ProgramFiles . '\LLVM\lib\libclang.lib'))
+	" let g:libclang_path = '$ProgramFiles . '\LLVM\lib\libclang.lib''
+	" endif
+	" if !empty(glob($ProgramFiles . '\LLVM\lib\clang'))
+	" let g:clangheader_path = '$ProgramFiles . '\LLVM\lib\clang''
+	" endif
+	
+	if !exists('g:portable_vim')
+		let g:vimfile_path=  $LOCALAPPDATA . '\vim\'
+	endif
+	let g:plugged_path=  g:vimfile_path . 'plugged/'
+	let g:cache_path= $LOCALAPPDATA . '/'
+
+
 	" Set wiki_path
 	if system('hostname') =~ 'predator' " homepc
 		let g:wiki_path =  'D:\Seafile\KnowledgeIsPower\wiki'

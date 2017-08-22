@@ -26,7 +26,7 @@ function s:find_vim_config_file(...) abort
 		let g:location_portable_vim = "../.dotfiles/vim-utils/autoload/*.vim"
 		let g:location_vim_utils = getcwd() . '/../.dotfiles/vim-utils'
 		let g:location_vim_plug = "../vimfiles/autoload/plug.vim"
-		""let g:vimfile_path=  '../vimfiles/'
+		let g:vimfile_path=  '../vimfiles/'
 	endif
 
 	if a:0 > 0
@@ -50,18 +50,6 @@ function s:find_vim_config_file(...) abort
 		execute "source " . f
 	endfor
 	call init#vim()
-
-	"	if !empty(glob(g:location_local_vim))
-	"		execute "source " . g:location_local_vim
-	"		let g:plugins_present = 1
-	"		let g:location_vim_utils = "~/.dotfiles/vim-utils"
-	"	elseif !empty(glob(g:location_portable_vim))
-	"		execute "source " . g:location_portable_vim
-	"		execute "source " . g:location_vim_plug
-	"		let g:plugins_present = 1
-	"	else
-	"		echomsg "No vim-utils files where found"
-	"	endif
 endfunction
 
 call s:find_vim_config_file()
