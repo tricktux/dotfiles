@@ -517,25 +517,15 @@ function! plugin#Config() abort
 		endif
 	endif
 
-	" Create cache folders
-	"TODO-[RM]-(Tue Aug 22 2017 10:30): Determine if these are cache or data dirs
-	" if utils#CheckDirwoPrompt(g:cache_path . "tmp")
-		" let $TMP= g:cache_path . "tmp"
-	" else
-		" echomsg string("Failed to create tmp dir")
-	" endif
-
-	if !utils#CheckDirwoPrompt(g:std_data_path . "/sessions")
+	" TODO-[RM]-(Tue Aug 22 2017 20:39): This functions are not really working
+	" on linux. Figure it out
+	if !utils#CheckDirwoPrompt(g:std_data_path . '/sessions')
 		echoerr string("Failed to create sessions dir")
 	endif
 
-	if !utils#CheckDirwoPrompt(g:std_data_path . "/ctags")
+	if !utils#CheckDirwoPrompt(g:std_data_path . '/ctags')
 		echoerr string("Failed to create ctags dir")
 	endif
-
-	" if !utils#CheckDirwoPrompt(g:std_data_path . "/java")
-		" echoerr string("Failed to create java dir")
-	" endif
 
 	if has('persistent_undo') 
 		let g:undofiles_path = g:std_cache_path . '/undofiles'
