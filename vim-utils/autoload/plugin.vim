@@ -312,7 +312,7 @@ function! plugin#Config() abort
 		let g:formatter_yapf_style = 'google'
 
 	" cpp
-	if get(g:, 'tagbar_safe_to_use', 0)
+	if get(g:, 'tagbar_safe_to_use', 1)
 		Plug 'majutsushi/tagbar'
 			let g:tagbar_ctags_bin = 'ctags'
 			let g:tagbar_autofocus = 1
@@ -437,7 +437,7 @@ function! plugin#Config() abort
 		" Inside of the functions here there can be no single quotes (') only
 		" double (")
 			let g:lightline = {}
-			if get(g:, 'tagbar_safe_to_use', 0)
+			if get(g:, 'tagbar_safe_to_use', 1)
 				let g:lightline.active = {
 									\   'left': [ 
 									\							[ 'mode', 'paste' ], 
