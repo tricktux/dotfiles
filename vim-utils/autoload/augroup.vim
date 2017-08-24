@@ -1,5 +1,12 @@
+" File:					augroup.vim
+" Description:	All autogroup should be group here. Unless it makes more sense
+"								with some plugin
+" Author:				Reinaldo Molina <rmolin88@gmail.com>
+" Version:				0.0.0
+" Last Modified: Aug 24 2017 16:25
+" Created: Aug 24 2017 16:25
 
-function augroup#Set() abort
+function! augroup#Set() abort
 	" ALL_AUTOGROUP_STUFF
 	" All of these options contain performance drawbacks but the most important
 	" is foldmethod=syntax
@@ -38,8 +45,7 @@ function augroup#Set() abort
 			" Sessions
 			" Note: Fri Mar 03 2017 14:13 - This never works.
 			" autocmd VimEnter * call utils#LoadSession('default.vim')
-			" Currently under testing
-			" autocmd VimLeave * call utils#SaveSession('default.vim')
+			autocmd VimLeave * call utils#SaveSession('default.vim')
 			" Keep splits normalize
 			autocmd VimResized * call utils#NormalizeWindowSize()
 		augroup END
