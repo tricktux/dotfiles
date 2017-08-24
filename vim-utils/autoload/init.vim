@@ -15,13 +15,13 @@ function init#vim() abort
 	let g:mapleader="\<Space>"
 	let g:maplocalleader="\<Space>"
 
-	" WINDOWS_SETTINGS
-	" ~/.dotfiles/vim-utils/autoload/win32.vim
 	if has('win32')
+		" WINDOWS_SETTINGS
+		" ~/.dotfiles/vim-utils/autoload/win32.vim
 		call win32#Config()
+	elseif has('unix')
 		" UNIX_SETTINGS
 		" ~/.dotfiles/vim-utils/autoload/unix.vim
-	elseif has('unix')
 		call unix#Config()
 	endif
 
