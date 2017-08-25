@@ -47,7 +47,7 @@ function! plugin#Config() abort
 	if has('nvim') || v:version >= 800
 		" Plugins that support both neovim and vim need separate folders
 		Plug 'Shougo/denite.nvim', { 'as' : has('nvim') ? 'nvim_denite' : 'vim_denite' }
-			let b:denite_loaded = 1
+			let denite_loaded = 1
 			nnoremap <A-;> :Denite command<CR>
 			nnoremap <A-e> :Denite help<CR>
 			" nnoremap <S-k> :Denite buffer<CR>
@@ -77,10 +77,10 @@ function! plugin#Config() abort
 							\ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
 							\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
 							\ }
-		else
-			set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
-			let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-		endif
+			else
+				set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
+				let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+			endif
 	endif
 
 	if executable('mutt')
@@ -114,7 +114,6 @@ function! plugin#Config() abort
 
 	" Neovim exclusive plugins
 	if has('nvim')
-		Plug 'radenling/vim-dispatch-neovim'
 		" nvim-qt on unix doesnt populate has('gui_running
 		Plug 'equalsraf/neovim-gui-shim'
 		if executable('lldb')
@@ -124,11 +123,6 @@ function! plugin#Config() abort
 			"TODO.RM-Sun May 21 2017 01:14: Create a ftplugin/lldb.vim to disable
 			"folding  
 		endif
-
-		" if executable('man')
-			" Plug 'nhooyr/neoman.vim'
-				" let g:no_neoman_maps = 1
-		" endif
 	endif
 
 	Plug 'tpope/vim-dispatch' " Possible Replacement `asyncvim`
@@ -495,14 +489,14 @@ function! plugin#Config() abort
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
-	if exists('b:deoplete_loaded') && exists('*deoplete#custom#set')
+	if exists('*deoplete#custom#set')
 		call deoplete#custom#set('javacomplete2', 'mark', '')
 		call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
 		" c c++
 		call deoplete#custom#set('clang2', 'mark', '')
 	endif
 
-	if exists('b:denite_loaded') && exists('*denite#custom#map')
+	if exists('denite_loaded')
 		" Change mappings.
 		call denite#custom#map('insert','<C-j>','<denite:move_to_next_line>','noremap')
 		call denite#custom#map('insert','<C-k>','<denite:move_to_previous_line>','noremap')
@@ -519,11 +513,11 @@ function! plugin#Config() abort
 
 	" TODO-[RM]-(Tue Aug 22 2017 20:39): This functions are not really working
 	" on linux. Figure it out
-	if !utils#CheckDirwoPrompt(g:std_data_path . '/sessions')
+	if utils#CheckDirwoPrompt(g:std_data_path . '/sessions') != 1
 		echoerr string("Failed to create sessions dir")
 	endif
 
-	if !utils#CheckDirwoPrompt(g:std_data_path . '/ctags')
+	if utils#CheckDirwoPrompt(g:std_data_path . '/ctags') != 1
 		echoerr string("Failed to create ctags dir")
 	endif
 
