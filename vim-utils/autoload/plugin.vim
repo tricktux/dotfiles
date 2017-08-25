@@ -94,26 +94,18 @@ function! plugin#Config() abort
 	endif
 
 		" Possible values:
-		" - ycm
-		" - nvim_compl_manager
-		" - shuogo
-		" - autocomplpop
-		" - completor
-		" - asyncomplete
+		" - ycm nvim_compl_manager shuogo autocomplpop completor asyncomplete
 		call autocompletion#SetCompl(has('nvim') ? 'nvim_compl_manager' : 'autocomplpop')
 
-		" execute 'source ' . g:location_vim_utils . '/autoload/cpp_highlight.vim'
-		" execute 'source ' . g:location_vim_utils . '/autoload/highlight.vim'
 		" Possible values:
-		" - chromatica
-		" - easytags
-		" - neotags
-		" - color_coded
-		" - clighter8
+		" - chromatica easytags neotags color_coded clighter8
 		call cpp_highlight#SetCppHighlight(has('nvim') ? 'neotags' : '')
 
 	" Neovim exclusive plugins
 	if has('nvim')
+		" Note: Thu Aug 24 2017 21:03 This plugin is actually required for the git
+		" plugin to work in neovim
+		Plug 'radenling/vim-dispatch-neovim'
 		" nvim-qt on unix doesnt populate has('gui_running
 		Plug 'equalsraf/neovim-gui-shim'
 		if executable('lldb')
@@ -511,21 +503,14 @@ function! plugin#Config() abort
 		endif
 	endif
 
-	" TODO-[RM]-(Tue Aug 22 2017 20:39): This functions are not really working
-	" on linux. Figure it out
-	if utils#CheckDirwoPrompt(g:std_data_path . '/sessions') != 1
-		echoerr string("Failed to create sessions dir")
-	endif
-
-	if utils#CheckDirwoPrompt(g:std_data_path . '/ctags') != 1
-		echoerr string("Failed to create ctags dir")
-	endif
-
+	" Create required folders for storing usage data
+	" TODO-[RM]-(Thu Aug 24 2017 21:01): Actually this guys should be inside of
+	" the nvim data folder.
+	call utils#CheckDirwoPrompt(g:std_data_path . '/sessions')
+	call utils#CheckDirwoPrompt(g:std_data_path . '/ctags')
 	if has('persistent_undo') 
 		let g:undofiles_path = g:std_cache_path . '/undofiles'
-		if !utils#CheckDirwoPrompt(g:undofiles_path)
-			echoerr string("Failed to create undofiles dir")
-		endif
+		call utils#CheckDirwoPrompt(g:undofiles_path)
 	endif
 
 	return 1
