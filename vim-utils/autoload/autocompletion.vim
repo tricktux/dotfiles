@@ -275,7 +275,6 @@ function! autocompletion#SetShuogo() abort
 			call autocompletion#SetClang()
 		endif
 	elseif has('nvim')
-		let b:deoplete_loaded = 1
 		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 			" If it is nvim deoplete requires python3 to work
 			let g:deoplete#enable_at_startup = 1

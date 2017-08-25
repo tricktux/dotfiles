@@ -1790,3 +1790,7 @@ endif
 		" let g:neomake_open_list = 2
 		" let g:neomake_ft_test_maker_buffer_output = 0
 
+		" if executable('man')
+			" Plug 'nhooyr/neoman.vim'
+				" let g:no_neoman_maps = 1
+		" endif
