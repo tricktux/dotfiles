@@ -172,20 +172,18 @@ endfunction
 " exists in case it doesnt find it.
 " Compatible with both Linux and Windows
 function! utils#CheckDirwoPrompt(name) abort
-	if !has('file_in_path') || exists("*mkdir")
-		echo "CheckFileOrDir(): This vim install has no support for +find_in_path or cant create directories"
-		return -10
-	else
-		if !empty(finddir(a:name,",,"))
-			return 1
-		else
-			if has('win32') " on win prepare name by escaping '\'
-				call mkdir(escape(expand(a:name), '\'), "p")
-			else  " have to test check works fine on linux
-				call mkdir(expand(a:name), "p")
-			endif
-			return 1
-		endif
+	if !has('file_in_path') || !exists("*mkdir")
+		echomsg "CheckFileOrDir(): This vim install has no support for +find_in_path or cant create directories"
+	endif
+
+	if !empty(finddir(a:name,",,"))
+		return
+	endif
+
+	if has('win32') " on win prepare name by escaping '\'
+		call mkdir(escape(expand(a:name), '\'), "p")
+	else  " have to test check works fine on linux
+		call mkdir(expand(a:name), "p")
 	endif
 endfunction
 
