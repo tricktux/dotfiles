@@ -1,0 +1,10 @@
+alias Mint <team@mint.com>
+alias schneider-alyssa Alyssa Schneider <amh5583@psu.edu>
+alias america-bank Bank of America <onlinebanking@ealerts.bankofamerica.com>
+alias group-kathie Kathie Lea Realty Group <kathie.lea.realty.group+ssvlzzzw4dpwkczs@alerts3.cincghq.com>
+alias molina-guillermo Guillermo Molina <gmolina@nauta.cu>
+alias info@floridafreewheelers.com <info@floridafreewheelers.com>
+alias 3-orientation Orientation Group 3 <notifications@instructure.com>
+alias card-discover Discover Card <discover@service.discover.com>
+alias support-indiegogo Indiegogo Support <support@indiegogo.com>
+alias Indiegogo <noreply@indiegogo.com>
