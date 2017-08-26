@@ -34,7 +34,7 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	inoremap <buffer> [ [ ]<Space>
 
 	if exists(':InsertNewBullet')
-		inoremap <buffer> <expr> <cr> pumvisible() ? "\<c-y>" : "<C-o>:InsertNewBullet<cr>"
+		inoremap <buffer> <expr> <cr> pumvisible() ? "\<c-y>" : "<cr>"
 		nnoremap <buffer> o :InsertNewBullet<cr>
 	endif
 endif
