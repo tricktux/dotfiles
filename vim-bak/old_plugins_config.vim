@@ -1297,10 +1297,6 @@ endif
 				" let g:SuperTabDefaultCompletionType = "<c-n>"
 			" endif
 		" Highliting is too inconsistent
-		" Plug 'arakashic/chromatica.nvim', { 'do' : ':UpdateRemotePlugins' }
-			" let g:chromatica#enable_at_startup = 1
-			" let g:chromatica#libclang_path = '/usr/lib/libclang.so'
-			" let g:chromatica#highlight_feature_level = 1
 	" Dont believe this is having any effect at all
 	" Plug 'junegunn/rainbow_parentheses.vim', { 'on' : 'RainbowParentheses' }
 		" let g:rainbow#max_level = 16
@@ -1309,28 +1305,6 @@ endif
 " if exists(':RainbowParentheses')
 	" RainbowParentheses
 " endif
-	" Too slow for not async abilities
-	Plug 'xolox/vim-easytags', { 'on' : 'HighlightTags' }
-		Plug 'xolox/vim-misc' " dependency of vim-easytags
-		Plug 'xolox/vim-shell' " dependency of vim-easytags
-		set regexpengine=1 " This speed up the engine alot but still not enough
-		let g:easytags_file = '~/.cache/ctags'
-		let g:easytags_syntax_keyword = 'always'
-		let g:easytags_auto_update = 0
-		" let g:easytags_cmd = 'ctags'
-		" let g:easytags_on_cursorhold = 1
-		" let g:easytags_updatetime_min = 4000
-		" let g:easytags_auto_update = 1
-		" " let g:easytags_auto_highlight = 1
-		" let g:easytags_dynamic_files = 1
-		" let g:easytags_by_filetype = '~/.cache/easy-tags-filetype'
-		" " let g:easytags_events = ['BufReadPost' , 'BufWritePost']
-		" let g:easytags_events = ['BufReadPost']
-		" " let g:easytags_include_members = 1
-		" let g:easytags_async = 1
-		" let g:easytags_python_enabled = 1
-		" Cpp Neovim highlight
-		" Really shitty thing
 		" if has("python3") && system('pip3 list | grep psutil') =~ 'psutil'
 			" Plug 'c0r73x/neotags.nvim', { 'do' : ':UpdateRemotePlugins' }
 				" let g:neotags_enabled = 1
@@ -1816,3 +1790,7 @@ endif
 		" let g:neomake_open_list = 2
 		" let g:neomake_ft_test_maker_buffer_output = 0
 
+		" if executable('man')
+			" Plug 'nhooyr/neoman.vim'
+				" let g:no_neoman_maps = 1
+		" endif
