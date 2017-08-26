@@ -1,0 +1,25 @@
+" File          : cvimrc
+" Description   : Settings for cVim (Chrome Vim like mappings)
+" Author        : Reinaldo Molina <rmolin88@gmail.com>
+" Version       : 0.0.0
+" Last Modified : Aug 17 2017 08: 53
+" Created       : Aug 17 2017 08: 53
+
+set nohud
+set smoothscroll
+
+" The opposite of autofocus; this setting stops
+" sites from focusing on an input box when they load
+set autofocus 
+	          
+let completionengines = "google"
+
+" Update settings via a local file (and the `:source` command) rather
+" than the default options page in chrome
+" As long as localconfig is set in the .cvimrc file. cVim will continue to read
+" settings from there
+set localconfig 
+let configpath = "~/.dotfiles/cvimrc"
+let barposition = "top"
+                
+                
