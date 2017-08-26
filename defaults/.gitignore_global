@@ -25,6 +25,7 @@ cache
 plugged
 cppman
 .gitignore
+defaults/.config/pulse/cookie
 
 # Qt ignore
 # C++ objects and libs

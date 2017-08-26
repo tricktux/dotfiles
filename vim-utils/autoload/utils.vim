@@ -172,25 +172,18 @@ endfunction
 " exists in case it doesnt find it.
 " Compatible with both Linux and Windows
 function! utils#CheckDirwoPrompt(name) abort
-	if !has('file_in_path')  " sanity check
-		echo "CheckFileOrDir(): This vim install has no support for +find_in_path"
-		return -10
-	else
-		if !empty(finddir(a:name,",,"))
-			return 1
-		else
-			if exists("*mkdir")
-				if has('win32') " on win prepare name by escaping '\'
-					execute "call mkdir(\"". escape(a:name, '\') . "\", \"p\")"
-				else  " have to test check works fine on linux
-					execute "call mkdir(\"". a:name . "\", \"p\")"
-				endif
-				return 1
-			else
-				echomsg string("No +mkdir support. Can't create dir")
-				return -1
-			endif
-		endif
+	if !has('file_in_path') || !exists("*mkdir")
+		echomsg "CheckFileOrDir(): This vim install has no support for +find_in_path or cant create directories"
+	endif
+
+	if !empty(finddir(a:name,",,"))
+		return
+	endif
+
+	if has('win32') " on win prepare name by escaping '\'
+		call mkdir(escape(expand(a:name), '\'), "p")
+	else  " have to test check works fine on linux
+		call mkdir(expand(a:name), "p")
 	endif
 endfunction
 
@@ -228,22 +221,24 @@ function! utils#FixPreviousWord() abort
 endfunction
 
 function! utils#SaveSession(...) abort
+	let session_path = g:std_data_path . '/sessions/'
 	" if session name is not provided as function argument ask for it
 	if a:0 < 1
 		execute "wall"
 		let dir = getcwd()
-		execute "cd ". g:cache_path ."sessions/"
-		let l:sSessionName = input("Enter
+		execute "cd ". 
+		let session_name = input("Enter
 					\ save session name:", "", "file")
 		silent! execute "cd " . dir
 	else
 		" Need to keep this option short and sweet
-		let l:sSessionName = a:1
+		let session_name = a:1
 	endif
-	silent! execute "normal :mksession! " . g:cache_path . "sessions/". l:sSessionName  . "\<CR>"
+	silent! execute "normal :mksession! " . session_path . session_name  . "\<CR>"
 endfunction
 
 function! utils#LoadSession(...) abort
+	let session_path = g:std_data_path . '/sessions/'
 	" Logic path when not called at startup
 	if a:0 < 1
 		execute "wall"
@@ -252,20 +247,28 @@ function! utils#LoadSession(...) abort
 		if response == 121 " y
 			call utils#SaveSession()
 		endif
-		let dir = getcwd()
-		execute "cd ". g:cache_path ."sessions/"
-		let l:sSessionName = input("Enter load session name:", "", "file")
+		if exists(':Denite')
+			let res = denite#start([{ 'name' : 'file', 'args' : [ '-default-action=yank', '-path=' . session_path ] }]) 
+			if empty(res)
+				return
+			endif
+			let session_name = getreg()
+		else
+			let dir = getcwd()
+			execute "cd ". session_path
+			let session_name = input("Load session:", "", "file")
+			silent! execute "cd " . dir
+		endif
 		silent! execute "normal :%bdelete\<CR>"
-		silent execute "normal :so " . g:cache_path . "sessions/". l:sSessionName . "\<CR>"
-		silent! execute "cd " . dir
+		silent execute "source " . session_path . session_name
 	else
 		" echo "Reload previous session: (j|y)es (any)no"
 		" let response = getchar()
 		" if response == 121 || response == 106 " y|j
-			 " silent! execute "normal :so " . g:cache_path . "sessions/". a:1 . "\<CR>"
+			 " silent! execute "normal :so " . session_path . a:1 . "\<CR>"
 		" endif
 		silent! execute "normal :%bdelete\<CR>"
-		silent! execute "normal :so " . g:cache_path . "sessions/". a:1 . "\<CR>"
+		silent! execute "normal :so " . session_path . a:1 . "\<CR>"
 	endif
 endfunction
 
@@ -282,7 +285,7 @@ function! utils#TodoClearMark() abort
 endfunction
 
 function! utils#TodoAdd() abort
-	execute "normal aTODO.RM-\<F5>: "
+	execute "normal! aTODO-[RM]-(" . strftime("%a %b %d %Y %H:%M") . "): "
 endfunction
 
 function! utils#CommentLine() abort
@@ -335,10 +338,22 @@ func! CheatCompletion(ArgLead, CmdLine, CursorPos)
 endfunction
 
 function! utils#WikiOpen(...) abort
+	if !exists('g:wiki_path') || empty(glob(g:wiki_path))
+		echomsg 'Variable g:wiki_path not set or path doesnt exist'
+		return
+	endif
+
 	if a:0 > 0
 		execute "vs " . g:wiki_path . '/'.  a:1
 	else
-		execute "vs " . fnameescape(g:wiki_path . '//' . input('Wiki Name: ', '', 'custom,CheatCompletion'))
+		if exists(':Denite')
+			execute "Denite -path=" . g:wiki_path . '/' . " file"
+		else
+			let dir = getcwd()
+			execute "cd " . g:wiki_path
+			execute "vs " . fnameescape(g:wiki_path . '/' . input('Wiki Name: ', '', 'custom,CheatCompletion'))
+			silent! execute "cd " . dir
+		endif
 	endif
 endfunction
 " }}}
@@ -405,11 +420,34 @@ function! utils#GuiFont(sOp) abort
 	endif
 endfunction
 
-function! utils#EditPlugins() abort
-	let dir = getcwd()
-	execute "cd " . g:plugged_path
-	execute "e " . input('e ' . expand(g:plugged_path), "", "file")
-	silent! execute "cd " . dir
+" Optional argument to specify if you want to ask for to use denite or not
+function! utils#EditFileInPath(path, ...) abort
+	if empty(glob(a:path))
+		echomsg 'Input is not a valid path: ' . a:path
+		return
+	endif
+
+	if exists(':Denite') && a:0 > 0 && a:1 > 0
+		" ask for denite
+		echo 'Use denite?'
+		let c = nr2char(getchar())
+		if c == "y" || c == "j"
+			let den = 1
+		else
+			let den = 0
+		endif
+	else
+		let den = 0
+	endif
+
+	if den > 0
+		execute "Denite -path=". a:path . " file_rec"
+	else
+		let dir = getcwd()
+		execute "cd " . a:path
+		execute "e " . input('e ' . expand(a:path) . '/', "", "file")
+		silent! execute "cd " . dir
+	endif
 endfunction
 
 function! utils#UpdateHeader()
@@ -627,8 +665,8 @@ function! utils#Flux() abort
 endfunction
 
 function! utils#ProfilePerformance() abort
-	if exists('g:cache_path')	
-		execute 'profile start ' . g:cache_path . 'profile_' . strftime("%m%d%y-%H.%M.%S") . '.log'
+	if exists('g:std_cache_path')	
+		execute 'profile start ' . g:std_cache_path . '/profile_' . strftime("%m%d%y-%H.%M.%S") . '.log'
 	else
 		" TODO.RM-Mon Apr 24 2017 12:17: Check why this function is not working
 		" execute 'profile start ~/.cache/profile_' . strftime("%m%d%y-%T") . '.log'
@@ -691,6 +729,16 @@ function! utils#TmuxMove(direction)
 	if wnr == winnr()
 		call system('tmux select-pane -' . tr(a:direction, 'phjkl', 'lLDUR'))
 	endif
+endfunction
+
+function! utils#DropboxOpen(wiki) abort
+	let db_path = get(g:, 'dropbox_path', "~/Dropbox/")
+	let db_path .= a:wiki
+	if empty(glob(db_path))
+		echomsg "File " . db_path . " does not exists"
+		return
+	endif
+	execute "edit " . db_path
 endfunction
 
  " vim:tw=78:ts=2:sts=2:sw=2:
