@@ -17,9 +17,9 @@ function! plugin#Config() abort
 		nnoremap <Leader>Pl :PlugClean<CR>
 
 	if exists('g:portable_vim')
-		silent! call plug#begin(g:plugged_path)
+		silent! call plug#begin(g:vim_plugins_path)
 	else
-		call plug#begin(g:plugged_path)
+		call plug#begin(g:vim_plugins_path)
 	endif
 
 	" Set up fuzzy searcher
@@ -41,12 +41,13 @@ function! plugin#Config() abort
 		" Sun Jul 30 2017 13:09 
 		" Requires `install xdotool' and 'go get -u github.com/termhn/i3-vim-nav'
 		" - The thing is that this down here doesnt work
-		" Plug 'termhn/i3-vim-nav', { 'do' : 'ln -s ' . g:plugged_path . 'i3-vim-nav/i3-vim-nav ~/.local/bin' }
+		" Plug 'termhn/i3-vim-nav', { 'do' : 'ln -s ' . g:vim_plugins_path . 'i3-vim-nav/i3-vim-nav ~/.local/bin' }
 	endif
 
 	if has('nvim') || v:version >= 800
-		Plug 'Shougo/denite.nvim'
-			let b:denite_loaded = 1
+		" Plugins that support both neovim and vim need separate folders
+		Plug 'Shougo/denite.nvim', { 'as' : has('nvim') ? 'nvim_denite' : 'vim_denite' }
+			let denite_loaded = 1
 			nnoremap <A-;> :Denite command<CR>
 			nnoremap <A-e> :Denite help<CR>
 			" nnoremap <S-k> :Denite buffer<CR>
@@ -62,7 +63,7 @@ function! plugin#Config() abort
 			let g:ctrlp_lazy_update = 1
 			let g:ctrlp_show_hidden = 1
 			let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
-			let g:ctrlp_cache_dir = g:cache_path . 'ctrlp'
+			let g:ctrlp_cache_dir = g:std_cache_path . '/ctrlp'
 			let g:ctrlp_working_path_mode = 'wra'
 			let g:ctrlp_max_history = &history
 			let g:ctrlp_clear_cache_on_exit = 0
@@ -76,10 +77,10 @@ function! plugin#Config() abort
 							\ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
 							\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
 							\ }
-		else
-			set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
-			let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-		endif
+			else
+				set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
+				let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+			endif
 	endif
 
 	if executable('mutt')
@@ -92,14 +93,18 @@ function! plugin#Config() abort
 		let g:GPGUseAgent = 0
 	endif
 
-	" Completion is set by g:autcompl_engine in init.vim
-	if !empty(glob(g:location_vim_utils . '/autoload/autocompletion.vim'))
-		execute 'source ' . g:location_vim_utils . '/autoload/autocompletion.vim'
-		call autocompletion#SetCompl()
-	endif
+		" Possible values:
+		" - ycm nvim_compl_manager shuogo autocomplpop completor asyncomplete
+		call autocompletion#SetCompl(has('nvim') ? 'nvim_compl_manager' : 'autocomplpop')
+
+		" Possible values:
+		" - chromatica easytags neotags color_coded clighter8
+		call cpp_highlight#SetCppHighlight(has('nvim') ? 'neotags' : '')
 
 	" Neovim exclusive plugins
 	if has('nvim')
+		" Note: Thu Aug 24 2017 21:03 This plugin is actually required for the git
+		" plugin to work in neovim
 		Plug 'radenling/vim-dispatch-neovim'
 		" nvim-qt on unix doesnt populate has('gui_running
 		Plug 'equalsraf/neovim-gui-shim'
@@ -109,28 +114,6 @@ function! plugin#Config() abort
 			" Note: Remember to always :UpdateRemotePlugins
 			"TODO.RM-Sun May 21 2017 01:14: Create a ftplugin/lldb.vim to disable
 			"folding  
-		endif
-
-		" if executable('man')
-			" Plug 'nhooyr/neoman.vim'
-				" let g:no_neoman_maps = 1
-		" endif
-
-		" TODO.RM-Wed Jun 07 2017 07:19: Implement auto check for psutil and warning in plugin  
-		if has('python3') && system('pip3 list | grep psutil') =~# 'psutil'
-			Plug 'c0r73x/neotags.nvim' " Depends on pip3 install --user psutil
-				set regexpengine=1 " This speed up the engine alot but still not enough
-				let g:neotags_enabled = 1
-				" let g:neotags_file = g:cache_path . 'ctags/neotags'
-				" let g:neotags_verbose = 1
-				let g:neotags_run_ctags = 0
-				" let g:neotags#cpp#order = 'cgstuedfpm'
-				let g:neotags#cpp#order = 'ced'
-				" let g:neotags#c#order = 'cgstuedfpm'
-				let g:neotags#c#order = 'ced'
-				" let g:neotags_events_highlight = [
-				" \   'BufEnter'
-				" \ ]
 		endif
 	endif
 
@@ -180,7 +163,7 @@ function! plugin#Config() abort
 		let g:table_mode_corner = '+'
 		let g:table_mode_align_char = ':'
 		" TODO.RM-Wed Jul 19 2017 21:10: Fix here these mappings are for terminal  
-		let g:table_mode_map_prefix = '<Leader>t'
+		let g:table_mode_map_prefix = '<Leader>l'
 		let g:table_mode_disable_mappings = 1
 		" nnoremap <Leader>lm :TableModeToggle<CR>
 		" <Leader>tr	Realigns table columns
@@ -202,6 +185,7 @@ function! plugin#Config() abort
 		" let g:syntastic_cpp_check_header = 1
 
 	Plug g:location_vim_utils
+		" Load the rest of the stuff and set the settings
 		let g:svn_repo_url = 'svn://odroid@copter-server/' 
 		let g:svn_repo_name = 'UnrealEngineCourse/BattleTanks_2/'
 		nnoremap <Leader>vw :call SVNSwitch<CR>
@@ -243,9 +227,31 @@ function! plugin#Config() abort
 	else
 		Plug 'scrooloose/nerdtree'
 		nnoremap <Plug>FileBrowser :NERDTree<CR>
+		" Nerdtree (Dont move. They need to be here)
+		let g:NERDTreeShowBookmarks=1  " B key to toggle
+		let g:NERDTreeShowLineNumbers=1
+		let g:NERDTreeShowHidden=1 " i key to toggle
+		let g:NERDTreeQuitOnOpen=1 " AutoClose after openning file
+		let g:NERDTreeBookmarksFile= g:std_data_path . '/.NERDTreeBookmarks'
+
 	endif
 
 	Plug 'scrooloose/nerdcommenter'
+	" NerdCommenter
+	let g:NERDSpaceDelims=1  " space around comments
+	let g:NERDUsePlaceHolders=0 " avoid commenter doing weird stuff
+	let g:NERDCommentWholeLinesInVMode=2
+	let g:NERDCreateDefaultMappings=0 " Eliminate default mappings
+	let g:NERDRemoveAltComs=1 " Remove /* comments
+	let g:NERD_c_alt_style=0 " Do not use /* on C nor C++
+	let g:NERD_cpp_alt_style=0
+	let g:NERDMenuMode=0 " no menu
+	let g:NERDCustomDelimiters = {
+				\ 'vim': { 'left': '"', 'right': '', 'leftAlt': '#', 'rightAlt': ''},
+				\ 'markdown': { 'left': '//', 'right': '' },
+				\ 'dosini': { 'left': ';', 'leftAlt': '//', 'right': '', 'rightAlt': '', 'leftAlt1': ';', 'rightAlt1': '' },
+				\ 'wings_syntax': { 'left': '//', 'right': '' }}
+
 	Plug 'chrisbra/Colorizer', { 'for' : [ 'css','html','xml' ] }
 		let g:colorizer_auto_filetype='css,html,xml'
 	Plug 'tpope/vim-repeat'
@@ -292,7 +298,7 @@ function! plugin#Config() abort
 		let g:formatter_yapf_style = 'google'
 
 	" cpp
-	if get(g:, 'tagbar_safe_to_use', 0)
+	if get(g:, 'tagbar_safe_to_use', 1)
 		Plug 'majutsushi/tagbar'
 			let g:tagbar_ctags_bin = 'ctags'
 			let g:tagbar_autofocus = 1
@@ -332,10 +338,8 @@ function! plugin#Config() abort
 		smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 					\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 		" Tell Neosnippet about the other snippets
-		let g:neosnippet#snippets_directory= [ g:plugged_path . '/vim-snippets/snippets', g:location_vim_utils . '/snippets/', ]
-								" \ g:plugged_path . '/vim-snippets/UltiSnips'] " Not
-								" compatible syntax
-		let g:neosnippet#data_directory = g:cache_path . 'neosnippets'
+		let g:neosnippet#snippets_directory= [ g:vim_plugins_path . '/vim-snippets/snippets', g:location_vim_utils . '/snippets/', ]
+		let g:neosnippet#data_directory = g:std_data_path . '/neosnippets'
 		" Used by nvim-completion-mgr
 		let g:neosnippet#enable_completed_snippet=1
 
@@ -365,7 +369,7 @@ function! plugin#Config() abort
 
 	Plug 'juneedahamed/svnj.vim'
 		let g:svnj_allow_leader_mappings=0
-		let g:svnj_cache_dir = g:cache_path
+		let g:svnj_cache_dir = g:std_cache_path
 		let g:svnj_browse_cache_all = 1 
 		let g:svnj_custom_statusbar_ops_hide = 0
 		nnoremap <silent> <leader>vs :SVNStatus<CR>  
@@ -385,7 +389,7 @@ function! plugin#Config() abort
 	" W3M - to view cpp-reference help
 	if executable('w3m')
 		Plug 'yuratomo/w3m.vim'
-			let g:w3m#history#save_file = g:cache_path . '/.vim_w3m_hist'
+			let g:w3m#history#save_file = g:std_cache_path . '/.vim_w3m_hist'
 	endif
 
 	Plug 'justinmk/vim-sneak'
@@ -419,7 +423,7 @@ function! plugin#Config() abort
 		" Inside of the functions here there can be no single quotes (') only
 		" double (")
 			let g:lightline = {}
-			if get(g:, 'tagbar_safe_to_use', 0)
+			if get(g:, 'tagbar_safe_to_use', 1)
 				let g:lightline.active = {
 									\   'left': [ 
 									\							[ 'mode', 'paste' ], 
@@ -471,25 +475,20 @@ function! plugin#Config() abort
 	Plug 'godlygeek/tabular'
 		let g:no_default_tabular_maps = 1
 
-	if has('unix') && !has('nvim')
-		" TODO.RM-Sun Jul 30 2017 15:22: Testing this to make sure it works  
-		Plug 'jeaye/color_coded', { 'do': 'cmake . && make && make install' }
-	endif
-
 	Plug 'scrooloose/vim-slumlord', { 'for' : 'uml' }
 	Plug 'aklt/plantuml-syntax', { 'for' : 'uml' }
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
-	if exists('b:deoplete_loaded') " Cant call this inside of plug#begin()
+	if exists('*deoplete#custom#set')
 		call deoplete#custom#set('javacomplete2', 'mark', '')
 		call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
 		" c c++
 		call deoplete#custom#set('clang2', 'mark', '')
 	endif
 
-	if exists('b:denite_loaded')
+	if exists('denite_loaded')
 		" Change mappings.
 		call denite#custom#map('insert','<C-j>','<denite:move_to_next_line>','noremap')
 		call denite#custom#map('insert','<C-k>','<denite:move_to_previous_line>','noremap')
@@ -500,90 +499,33 @@ function! plugin#Config() abort
 		call denite#custom#option('_', 'highlight_matched_range', 'Function')
 		if executable('rg')
 			call denite#custom#var('file_rec', 'command',
-						\ ['rg', '--files', '--glob', '!.git', ''])
+						\ ['rg', '--glob', '!.git', '--glob', '!.svn', '--files',  ''])
 		endif
 	endif
 
-	" Create cache folders
-	if utils#CheckDirwoPrompt(g:cache_path . "tmp")
-		let $TMP= g:cache_path . "tmp"
-	else
-		echomsg string("Failed to create tmp dir")
-	endif
-
-	if !utils#CheckDirwoPrompt(g:cache_path . "sessions")
-		echoerr string("Failed to create sessions dir")
-	endif
-
-	if !utils#CheckDirwoPrompt(g:cache_path . "ctags")
-		echoerr string("Failed to create ctags dir")
-	endif
-
-	if !utils#CheckDirwoPrompt(g:cache_path . "java")
-		echoerr string("Failed to create java dir")
-	endif
-
-	if has('persistent_undo') && !utils#CheckDirwoPrompt(g:cache_path . 'undofiles')
-		echoerr string("Failed to create undofiles dir")
+	" Create required folders for storing usage data
+	" TODO-[RM]-(Thu Aug 24 2017 21:01): Actually this guys should be inside of
+	" the nvim data folder.
+	call utils#CheckDirwoPrompt(g:std_data_path . '/sessions')
+	call utils#CheckDirwoPrompt(g:std_data_path . '/ctags')
+	if has('persistent_undo') 
+		let g:undofiles_path = g:std_cache_path . '/undofiles'
+		call utils#CheckDirwoPrompt(g:undofiles_path)
 	endif
 
 	return 1
 endfunction
 
-" Move this function to the os independent stuff.
 function! plugin#Check() abort
-	" Set paths for plugins
-	if has('win32')
-		" In windows wiki_path is set in the win32.vim file
-		if has('nvim')
-			" TODO.RM-Tue Apr 04 2017 08:48: For future support of clang on windows  
-			" Find clang. Not working in windows yet.
-			" if !empty(glob($ProgramFiles . '\LLVM\lib\libclang.lib'))
-				" let g:libclang_path = '$ProgramFiles . '\LLVM\lib\libclang.lib''
-			" endif
-			" if !empty(glob($ProgramFiles . '\LLVM\lib\clang'))
-				" let g:clangheader_path = '$ProgramFiles . '\LLVM\lib\clang''
-			" endif
-			if exists('g:portable_vim')
-				let g:vimfile_path=  '../../vimfiles/'
-			else
-				let g:vimfile_path=  $LOCALAPPDATA . '\nvim\'
-			endif
-		else
-			let g:vimfile_path=  $HOME . '\vimfiles\'
-		endif
-	else
-		if has('nvim')
-			if exists("$XDG_CONFIG_HOME")
-				let g:vimfile_path=  $XDG_CONFIG_HOME . '/nvim/'
-			else
-				let g:vimfile_path=  $HOME . '/.config/nvim/'
-			endif
-			" deoplete-clang settings
-			if !empty(glob('/usr/lib/libclang.so'))
-				let g:libclang_path = '/usr/lib/libclang.so'
-			endif
-			if !empty(glob('/usr/lib/clang'))
-				let g:clangheader_path = '/usr/lib/clang'
-			endif
-		else
-			let g:vimfile_path=  $HOME . '/.vim/'
-		endif
+	" Set default path for location of vim_plugins
+	if !exists('g:vim_plugins_path')
+		let g:vim_plugins_path = g:std_data_path . '/vim_plugins'
 	endif
 
-	" Same cache dir for both
-	let g:cache_path= $HOME . '/.cache/'
-	let g:plugged_path=  g:vimfile_path . 'plugged/'
-
-	let g:usr_path = '/usr'
-	if system('uname -o') =~ 'Android' " Termux stuff
-		let g:android = 1
-		let g:usr_path = $HOME . '/../usr'
-	endif
-
-	if empty(glob(g:vimfile_path . 'autoload/plug.vim'))
+	let plug_path = g:vim_plugins_path . '/plug/plug.vim' 
+	if empty(glob(plug_path))
 		if executable('curl')
-			execute "silent !curl -kfLo " . g:vimfile_path . "autoload\plug.vim --create-dirs"
+			execute "silent !curl -kfLo " . plug_path . " --create-dirs"
 						\" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 			autocmd VimEnter * PlugInstall | source $MYVIMRC
 			return 1
@@ -594,6 +536,7 @@ function! plugin#Check() abort
 			return 0
 		endif
 	else
+		execute "source " . plug_path
 		return 1
 	endif
 endfunction
