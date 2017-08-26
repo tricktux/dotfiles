@@ -4,15 +4,8 @@
 " Version:2.0.0
 " Last Modified: Apr 04 2017 23:58
 
-function! autocompletion#SetCompl() abort
-	let compl = get(g:, 'autcompl_engine', '')
-
-	if !has('python3') || exists('g:android') || empty(compl)
-		call autocompletion#SetTab()
-		return -1
-	endif
-
-	if compl ==# 'ycm'
+function! autocompletion#SetCompl(compl) abort
+	if a:compl ==# 'ycm'
 			Plug 'Valloric/YouCompleteMe', { 'on' : 'YcmDebugInfo' }
 			"" turn on completion in comments
 			let g:ycm_complete_in_comments=0
@@ -46,7 +39,7 @@ function! autocompletion#SetCompl() abort
 			\ }
 			
 		Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
-	elseif compl ==# 'nvim_compl_manager'
+	elseif a:compl ==# 'nvim_compl_manager'
 		" Optional but useful python3 support
 		" pip3 install --user neovim jedi mistune psutil setproctitle
 		" if has('win32')
@@ -54,8 +47,9 @@ function! autocompletion#SetCompl() abort
 			" return -1
 		" endif
 
-		if has('vim')
-			Plug 'roxma/vim-hug-neovim-rpc'
+		if !has('nvim') || !has('python3')
+			echomsg 'nvim_compl_manager doesnt work with vim or you do not have python3'
+			return
 		endif
 
 		if has('unix')
@@ -86,13 +80,15 @@ function! autocompletion#SetCompl() abort
 			return ret
 		endfunc
 
-		au User CmSetup call cm#register_source({'name' : 'mutt',
+		augroup NCM
+		autocmd!
+		autocmd User CmSetup call cm#register_source({'name' : 'mutt',
 					\ 'priority': 9, 
 					\ 'cm_refresh_length': -1,
 					\ 'cm_refresh_patterns': ['^\w+:\s+'],
 					\ 'cm_refresh': {'omnifunc': 'g:MuttOmniWrap'},
 					\ })
-
+		augroup END
 		inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 		inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 		" if has('unix') " Automatic completion on unix
@@ -103,21 +99,65 @@ function! autocompletion#SetCompl() abort
 			" imap <silent> <Tab> <Plug>(cm_force_refresh)
 		" endif
 
-		if executable('clang')
-			Plug 'roxma/clang_complete', { 'as': 'roxma_clang_complete' }
-			call autocompletion#SetClang()
-		endif
-	elseif compl ==# 'shuogo'
+		call autocompletion#SetClang('roxma_clang_complete')
+	elseif a:compl ==# 'shuogo'
 		call autocompletion#SetShuogo()
-	elseif compl ==# 'autocomplpop'
+	elseif a:compl ==# 'autocomplpop'
 		Plug 'vim-scripts/AutoComplPop'
 		inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 		inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-		if executable('clang')
-			Plug 'Rip-Rip/clang_complete', { 'as': 'rip_clang_complete' }
-			call autocompletion#SetClang()
+		call autocompletion#SetClang('rip_clang_complete')
+	elseif a:compl ==# 'completor'
+		if v:version < 800 || !has('python3')
+			echomsg 'autocompletion#SetCompl(): Cannot set completor autcompl_engine. Setting SuperTab'
+			call autocompletion#SetTab
+			return
 		endif
+		Plug 'maralla/completor.vim'
+			inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+			inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+			inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+			let g:completor_clang_binary = 'c:/Program Files/LLVM/bin/clang.exe'
+	elseif a:compl ==# 'asyncomplete'
+		if v:version < 800
+			echomsg 'autocompletion#SetCompl(): Cannot set AsynComplete autcompl_engine. Setting SuperTab'
+			call autocompletion#SetTab
+			return
+		endif
+
+		Plug 'prabirshrestha/asyncomplete.vim'
+			" Tab Completion
+			function! s:check_back_space() abort
+				let col = col('.') - 1
+				return !col || getline('.')[col - 1]  =~ '\s'
+			endfunction
+
+			inoremap <silent><expr> <TAB>
+						\ pumvisible() ? "\<C-n>" :
+						\ <SID>check_back_space() ? "\<TAB>" :
+						\ asyncomplete#force_refresh()
+			inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+			inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+		" Buffer
+		Plug 'prabirshrestha/asyncomplete-buffer.vim'
+		" Syntax
+		Plug 'Shougo/neco-syntax'
+		Plug 'prabirshrestha/asyncomplete-necosyntax.vim'
+		" Vim
+		Plug 'Shougo/neco-vim'
+		Plug 'prabirshrestha/asyncomplete-necovim.vim'
+		Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
+		if has('python3')
+			Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
+		endif
+		call autocompletion#SetClang('rip_clang_complete')
+
+		augroup AsynComplete
+			autocmd!
+			autocmd User asyncomplete_setup call autocompletion#SetAsynCompl()
+		augroup END		
 	else
+		echomsg 'autocompletion#SetCompl(): Not a recognized value therefore setting SuperTab'
 		call autocompletion#SetTab()
 		return -1
 	endif
@@ -125,7 +165,20 @@ function! autocompletion#SetCompl() abort
 endfunction
 
 " Settings for Rip-Rip/clang_complete and friends
-function! autocompletion#SetClang() abort
+function! autocompletion#SetClang(type) abort
+	if !has('python3') || !executable('clang++')
+		echomsg 'autocompletion#SetClang(): Clang not installed or no python'
+		return
+	endif
+
+	if a:type ==# 'rip_clang_complete'
+		Plug 'Rip-Rip/clang_complete', { 'as': a:type }
+	elseif a:type ==# 'roxma_clang_complete'
+		Plug 'roxma/clang_complete', { 'as': a:type }
+	else
+		echomsg 'autocompletion#SetClang(): Not a recognized clang_complete type'
+	endif
+
 	" Why I switched to Rip-Rip because it works
 	" Steps to get plugin to work:
 	" 1. Make sure that you can compile a program with clang++ command
@@ -144,7 +197,11 @@ function! autocompletion#SetClang() abort
 		let g:clang_cpp_options = '-target x86_64-pc-windows-gnu -std=c++17 -pedantic -Wall'
 		let g:clang_c_options = '-target x86_64-pc-windows-gnu -std=gnu11 -pedantic -Wall'
 	else
-		let g:clang_library_path= g:usr_path . '/lib/libclang.so'
+		if exists('g:usr_path') && !empty(glob(g:usr_path . '/lib/libclang.so'))
+			let g:clang_library_path= g:usr_path . '/lib/libclang.so'
+		else
+			echomsg "autocompletion#SetClang(): g:usr_path not set or libclang not existent"
+		endif
 	endif
 endfunction
 
@@ -163,7 +220,7 @@ function! autocompletion#SetShuogo() abort
 		let g:neocomplete#enable_auto_close_preview=1
 
 		let g:neocomplete#enable_smart_case = 1
-		let g:neocomplete#data_directory = g:cache_path . 'neocomplete'
+		let g:neocomplete#data_directory = g:std_data_path . '/neocomplete'
 		" Define keyword.
 		if !exists('g:neocomplete#keyword_patterns')
 			let g:neocomplete#keyword_patterns = {}
@@ -218,7 +275,6 @@ function! autocompletion#SetShuogo() abort
 			call autocompletion#SetClang()
 		endif
 	elseif has('nvim')
-		let b:deoplete_loaded = 1
 		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 			" If it is nvim deoplete requires python3 to work
 			let g:deoplete#enable_at_startup = 1
@@ -281,5 +337,52 @@ function! autocompletion#SetTab() abort
 	if has('python') && executable('clang')
 		Plug 'Rip-Rip/clang_complete', { 'as': 'rip_clang_complete' }
 		call autocompletion#SetClang()
+	endif
+endfunction
+
+function! autocompletion#SetOmniCpp() abort
+	Plug 'vim-scripts/OmniCppComplete'
+	let OmniCpp_NamespaceSearch = 1
+	let OmniCpp_GlobalScopeSearch = 1
+	let OmniCpp_ShowAccess = 1
+	let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
+	let OmniCpp_MayCompleteDot = 1 " autocomplete after .
+	let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
+	let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
+	let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+endfunction
+
+function! autocompletion#SetAsynCompl() abort
+	if exists('*asyncomplete#register_source')
+		call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+					\ 'name': 'buffer',
+					\ 'whitelist': ['*'],
+					\ 'blacklist': ['go'],
+					\ 'completor': function('asyncomplete#sources#buffer#completor'),
+					\ }))
+		call asyncomplete#register_source(asyncomplete#sources#necosyntax#get_source_options({
+					\ 'name': 'necosyntax',
+					\ 'whitelist': ['*'],
+					\ 'completor': function('asyncomplete#sources#necosyntax#completor'),
+					\ }))
+		call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
+					\ 'name': 'necovim',
+					\ 'whitelist': ['vim'],
+					\ 'completor': function('asyncomplete#sources#necovim#completor'),
+					\ }))
+		call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
+					\ 'name': 'neosnippet',
+					\ 'whitelist': ['*'],
+					\ 'completor': function('asyncomplete#sources#neosnippet#completor'),
+					\ }))
+		if has('python3')
+			call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
+						\ 'name': 'ultisnips',
+						\ 'whitelist': ['*'],
+						\ 'completor': function('asyncomplete#sources#ultisnips#completor'),
+						\ }))
+		endif
+	else
+		echomsg "autocompletion#SetAsynCompl(): AsynComplete not installed yet"
 	endif
 endfunction
