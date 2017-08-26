@@ -200,7 +200,7 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 # bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 # Here we replace default nagbar with i3-exit
-bindsym Control+Mod1+Delete exec ~/Documents/i3blocks-contrib/shutdown_menu/shutdown_menu -c
+bindsym Control+Mod1+Delete exec ~/.config/i3/scripts/shutdown_menu -c
 
 ########### Custom Bindings ############################
 bindsym Print exec gnome-screenshot
