@@ -14,8 +14,6 @@ endif
 let b:did_markdown_ftplugin = 1
 
 setlocal foldenable
-setlocal foldexpr=MarkdownLevel()
-setlocal foldmethod=expr
 setlocal spell
 setlocal spelllang=en_us
 setlocal complete+=kspell
@@ -32,6 +30,7 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	nnoremap <buffer> <unique> <Leader>lM :call utils#TodoClearMark()<CR>
 	inoremap <buffer> * **<Left>
 	inoremap <buffer> [ [ ]<Space>
+	nmap <buffer> <Leader>lf <Plug>FocusModeToggle
 
 	if exists(':InsertNewBullet')
 		inoremap <buffer> <expr> <cr> pumvisible() ? "\<c-y>" : "<cr>"
@@ -42,9 +41,9 @@ endif
 command! -buffer UtilsWeeklyReportCreate call utils#ConvertWeeklyReport()
 command! -buffer UtilsFixUnderscore execute("%s/_/\\_/gc<CR>")
 " TODO.RM-Thu May 18 2017 12:17: This should be changed to opera  
-command! -buffer UtilsPreviewMarkdown execute("!google-chrome-stable %")
+command! -buffer UtilsPreviewMarkdown execute("!opera %")
 
-function! MarkdownLevel()
+function! s:markdownLevel()
 	if getline(v:lnum) =~ '^# .*$'
 		return ">1"
 	endif
@@ -66,4 +65,4 @@ function! MarkdownLevel()
 	return "="
 endfunction
 
-let b:undo_ftplugin = "setl foldenable< foldexpr< foldmethod< spell< complete< ts< sw< sts<" 
+let b:undo_ftplugin = "setl foldenable< spell< complete< ts< sw< sts<" 
