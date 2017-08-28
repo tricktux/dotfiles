@@ -156,14 +156,15 @@ function! plugin#Config() abort
 		augroup END
 
 	Plug 'dhruvasagar/vim-table-mode', { 'on' : 'TableModeToggle' }
-		" To start using the plugin in the on-the-fly mode use :TableModeToggle mapped to <Leader>tm by default
-		" Enter the first line, delimiting columns by the | symbol. In the second line (without leaving Insert mode), enter | twice
-		" For Markdown-compatible tables use
-		" let g:table_mode_corner="|"
-		let g:table_mode_corner = '+'
+		" To start using the plugin in the on-the-fly mode use :TableModeToggle
+		" mapped to <Leader>tm by default Enter the first line, delimiting columns
+		" by the | symbol. In the second line (without leaving Insert mode), enter
+		" | twice For Markdown-compatible tables use
+		let g:table_mode_corner='|'
+		" let g:table_mode_corner = '+'
 		let g:table_mode_align_char = ':'
 		" TODO.RM-Wed Jul 19 2017 21:10: Fix here these mappings are for terminal  
-		let g:table_mode_map_prefix = '<Leader>l'
+		let g:table_mode_map_prefix = '<Leader>lt'
 		let g:table_mode_disable_mappings = 1
 		" nnoremap <Leader>lm :TableModeToggle<CR>
 		" <Leader>tr	Realigns table columns
@@ -477,6 +478,9 @@ function! plugin#Config() abort
 
 	Plug 'scrooloose/vim-slumlord', { 'for' : 'uml' }
 	Plug 'aklt/plantuml-syntax', { 'for' : 'uml' }
+
+	Plug 'merlinrebrovic/focus.vim', { 'for' : 'markdown' }
+		let g:focus_use_default_mapping = 0
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
