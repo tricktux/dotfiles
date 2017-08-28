@@ -1,3 +1,10 @@
+" File:					syntax.vim
+" Description:			Customize vim's syntax highlights
+" Author:				Reinaldo Molina <rmolin88@gmail.com>
+" Version:				0.0.0
+" Last Modified: Aug 26 2017 17:58
+" Created: Aug 26 2017 17:58
+
 
 function! syntax#Set() abort
 	" SYNTAX_OPTIONS
@@ -19,6 +26,7 @@ function! syntax#Set() abort
 
 	" ft-markdown-syntax
 	let g:markdown_fenced_languages= [ 'cpp', 'vim', 'dosini', 'wings_syntax' ]
+	let g:markdown_folding= 1
 
 	" ft-python-syntax
 	" This option also highlights erroneous whitespaces
