@@ -36,6 +36,10 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 		inoremap <buffer> <expr> <cr> pumvisible() ? "\<c-y>" : "<cr>"
 		nnoremap <buffer> o :InsertNewBullet<cr>
 	endif
+
+	if exists(':Toc')
+		nnoremap <buffer> <Leader>lt :Toc<cr>
+	endif
 endif
 
 command! -buffer UtilsWeeklyReportCreate call utils#ConvertWeeklyReport()
