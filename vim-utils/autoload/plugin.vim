@@ -277,8 +277,6 @@ function! plugin#Config() abort
 		let g:delimitMate_expand_space = 1
 		let g:delimitMate_jump_expansion = 1
 		" imap <expr> <CR> <Plug>delimitMateCR
-	Plug 'dkarter/bullets.vim', { 'for' : 'markdown' }
-		let g:bullets_set_mappings = 0
 
 	" Autoformat requires pip3 install --user autopep8
 	Plug 'Chiel92/vim-autoformat', { 'on' : 'Autoformat' }
@@ -475,6 +473,17 @@ function! plugin#Config() abort
 
 	Plug 'godlygeek/tabular'
 		let g:no_default_tabular_maps = 1
+	
+	" This plugin depends on 'godlygeek/tabular'
+	Plug 'plasticboy/vim-markdown'
+		let g:vim_markdown_no_default_key_mappings = 1
+		let g:vim_markdown_toc_autofit = 1
+		let g:tex_conceal = ""
+		let g:vim_markdown_math = 1
+
+	" Not necessary anymore since plasticboy
+	" Plug 'dkarter/bullets.vim', { 'for' : 'markdown' }
+		" let g:bullets_set_mappings = 0
 
 	Plug 'scrooloose/vim-slumlord', { 'for' : 'uml' }
 	Plug 'aklt/plantuml-syntax', { 'for' : 'uml' }
