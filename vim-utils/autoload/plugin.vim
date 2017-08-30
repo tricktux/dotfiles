@@ -277,8 +277,6 @@ function! plugin#Config() abort
 		let g:delimitMate_expand_space = 1
 		let g:delimitMate_jump_expansion = 1
 		" imap <expr> <CR> <Plug>delimitMateCR
-	Plug 'dkarter/bullets.vim', { 'for' : 'markdown' }
-		let g:bullets_set_mappings = 0
 
 	" Autoformat requires pip3 install --user autopep8
 	Plug 'Chiel92/vim-autoformat', { 'on' : 'Autoformat' }
@@ -475,6 +473,40 @@ function! plugin#Config() abort
 
 	Plug 'godlygeek/tabular'
 		let g:no_default_tabular_maps = 1
+	
+	" This plugin depends on 'godlygeek/tabular'
+	Plug 'plasticboy/vim-markdown'
+		let g:vim_markdown_no_default_key_mappings = 1
+		let g:vim_markdown_toc_autofit = 1
+		let g:tex_conceal = ""
+		let g:vim_markdown_math = 1
+
+	Plug 'iamcco/mathjax-support-for-mkdp'
+	Plug 'iamcco/markdown-preview.vim'
+		" path to the chrome or the command to open chrome(or other modern browsers)
+		let g:mkdp_path_to_chrome = "C:\\Program Files\\Opera\\launcher.exe"
+		" let g:mkdp_path_to_chrome ="C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
+
+		" set to 1, the vim will open the preview window once enter the markdown
+		" buffer
+		let g:mkdp_auto_start = 0
+
+		" set to 1, the vim will auto open preview window when you edit the
+		" markdown file
+		let g:mkdp_auto_open = 0
+
+		" set to 1, the vim will auto close current preview window when change
+		" from markdown buffer to another buffer
+		let g:mkdp_auto_close = 1
+
+		" set to 1, the vim will just refresh markdown when save the buffer or
+		" leave from insert mode, default 0 is auto refresh markdown as you edit or
+		" move the cursor
+		let g:mkdp_refresh_slow = 0
+
+		" set to 1, the MarkdownPreview command can be use for all files,
+		" by default it just can be use in markdown file
+		let g:mkdp_command_for_global = 0
 
 	Plug 'scrooloose/vim-slumlord', { 'for' : 'uml' }
 	Plug 'aklt/plantuml-syntax', { 'for' : 'uml' }
