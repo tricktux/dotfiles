@@ -39,6 +39,8 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 
 	if exists(':Toc')
 		nnoremap <buffer> <Leader>lt :Toc<cr>
+		nmap <buffer> <C-j> <Plug>Markdown_MoveToNextHeader
+		nmap <buffer> <C-k> <Plug>Markdown_MoveToPreviousHeader
 	endif
 endif
 
