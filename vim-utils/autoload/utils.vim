@@ -277,7 +277,7 @@ function! utils#TodoCreate() abort
 endfunction
 
 function! utils#TodoMark() abort
-	execute "normal! ^f[lrX\<Esc>"
+	execute "normal! ^f[lrx\<Esc>"
 endfunction
 
 function! utils#TodoClearMark() abort
