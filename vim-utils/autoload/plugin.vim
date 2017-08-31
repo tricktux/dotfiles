@@ -480,7 +480,7 @@ function! plugin#Config() abort
 		let g:vim_markdown_toc_autofit = 1
 		let g:tex_conceal = ""
 		let g:vim_markdown_math = 1
-
+		let g:vim_markdown_folding_level = 2
 
 	Plug 'scrooloose/vim-slumlord', { 'for' : 'uml' }
 	Plug 'aklt/plantuml-syntax', { 'for' : 'uml' }
