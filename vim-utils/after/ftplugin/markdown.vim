@@ -39,15 +39,8 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 
 	if exists(':Toc')
 		nnoremap <buffer> <Leader>lt :Toc<cr>
-		nmap <buffer> <C-j> <Plug>Markdown_MoveToNextHeader
-		nmap <buffer> <C-k> <Plug>Markdown_MoveToPreviousHeader
 	endif
 endif
-
-command! -buffer UtilsWeeklyReportCreate call utils#ConvertWeeklyReport()
-command! -buffer UtilsFixUnderscore execute("%s/_/\\_/gc<CR>")
-" TODO.RM-Thu May 18 2017 12:17: This should be changed to opera  
-command! -buffer UtilsPreviewMarkdown execute("!opera %")
 
 function! s:markdownLevel()
 	if getline(v:lnum) =~ '^# .*$'
@@ -70,5 +63,22 @@ function! s:markdownLevel()
 	endif
 	return "="
 endfunction
+
+function! s:preview_markdown() abort
+	if has('win32') || has('win64')
+		if exists('Dispatch') && exists('g:browser_cmd') && executable(g:browser_cmd)
+			execute "Dispatch " . g:browser_cmd . " %"
+		else
+			echomsg 'vim-dispatch not available or browser_cmd not executable/found'
+		endif
+	else
+		execute $BROWSER . " %"
+	endif
+endfunction
+
+command! -buffer UtilsWeeklyReportCreate call utils#ConvertWeeklyReport()
+command! -buffer UtilsFixUnderscore execute("%s/_/\\_/gc<CR>")
+" TODO.RM-Thu May 18 2017 12:17: This should be changed to opera  
+command! -buffer UtilsPreviewMarkdown call s:preview_markdown()
 
 let b:undo_ftplugin = "setl foldenable< spell< complete< ts< sw< sts<" 
