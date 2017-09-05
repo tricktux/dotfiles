@@ -30,7 +30,10 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	nnoremap <buffer> <unique> <Leader>lM :call utils#TodoClearMark()<CR>
 	inoremap <buffer> * **<Left>
 	inoremap <buffer> [ [ ]<Space>
-	nmap <buffer> <Leader>lf <Plug>FocusModeToggle
+
+	if exists('FocusModeToggle')
+		nmap <buffer> <Leader>lf <Plug>FocusModeToggle
+	endif
 
 	if exists(':InsertNewBullet')
 		inoremap <buffer> <expr> <cr> pumvisible() ? "\<c-y>" : "<cr>"
@@ -39,6 +42,14 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 
 	if exists(':Toc')
 		nnoremap <buffer> <Leader>lt :Toc<cr>
+	endif
+
+	if exists(':NextWordy')
+		nnoremap <buffer> <Leader>ls :NextWordy<cr>
+	endif
+
+	if exists(':OnlineThesaurusCurrentWord')
+		nnoremap <buffer> <Leader>la :OnlineThesaurusCurrentWord<cr>
 	endif
 endif
 
