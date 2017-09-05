@@ -289,8 +289,8 @@ function! plugin#Config() abort
 		let g:autoformat_retab = 0
 		let g:autoformat_remove_trailing_spaces = 0
 
-		" let g:formatters_c = ['clang-format']
-		let g:formatters_cpp = ['clang-format']
+		let g:formatters_c = ['clangformat']
+		let g:formatters_cpp = ['clangformat']
 
 		" Note: Python-Windows hides pip executables in C:\Users\<user>\AppData\Roaming\Python\Python36\Scripts
 		let g:formatters_python = ['yapf']
