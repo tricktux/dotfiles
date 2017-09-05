@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=Awesome
-GenericName=Autostart Programs
-Comment=Programs That should auto start
-Exec=/home/reinaldo/.dotfiles/scripts/autostart-gnome.sh
-Terminal=false
-Type=Application
-X-GNOME-Autostart-enabled=true
