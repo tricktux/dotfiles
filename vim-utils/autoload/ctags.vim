@@ -237,7 +237,7 @@ function! ctags#ListCtagsFiles() abort
 	let tags_loc = g:std_data_path . "/ctags/"
 	let potential_tags = map(utils#ListFiles(tags_loc), "tags_loc . v:val")
 	if len(potential_tags) == 0
-		echomsg tags_loc . " is empty"
+		" echomsg tags_loc . " is empty"
 		return
 	endif
 
