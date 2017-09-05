@@ -690,6 +690,7 @@ function! utils#BufDetermine() abort
 		setfiletype terminal
 	endif
 
+	" Remember last cursor position
 	if line("'\"") > 0 && line("'\"") <= line("$") |
 		exe "normal g`\"" |
 	endif
