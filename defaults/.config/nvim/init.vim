@@ -1,18 +1,12 @@
 " File:					init.vim
 " Description:  Vim/Neovim configuration file
 " Author:				Reinaldo Molina
-" Version:			10.0.0
+" Version:			0.1.0
 "								- Fully modularize config files
 "								- Dein plugin
 "								- Python functions files
 " Date:					Sun Aug 20 2017 05:13
 " Created:			Aug 2015
-" Improvements:
-		" - [ ] Create a after/syntax/gitcommit.vim to redline ahead and greenline
-		"   up-to-date
-		" - [ ] Delete duplicate music.
-		" - [ ] Construct unified music library
-		" - [ ] Markdown math formulas
 
 " You can a pass a list of files to the function and those will your vimrc files
 function! s:find_vim_config_file(...) abort
@@ -49,13 +43,13 @@ endfunction
 
 function! s:set_stdpaths() abort
 	if has('win32')
-		let g:std_config_path = (exists('$APPDATA')) ? $APPDATA : "~\\AppData\\Roaming"
-		let g:std_data_path = (exists('$LOCALAPPDATA')) ? $LOCALAPPDATA : "~\\AppData\\Local"
-		let g:std_cache_path = (exists('$TEMP')) ? $TEMP : "~\\AppData\\Local\\Temp"
+		let g:std_config_path = (exists('$APPDATA')) ? $APPDATA : expand("~\\AppData\\Roaming")
+		let g:std_data_path = (exists('$LOCALAPPDATA')) ? $LOCALAPPDATA : expand("~\\AppData\\Local")
+		let g:std_cache_path = (exists('$TEMP')) ? $TEMP : expand("~\\AppData\\Local\\Temp")
 	else
-		let g:std_config_path = (exists('$XDG_CONFIG_HOME')) ? $XDG_CONFIG_HOME : "~/.config"
-		let g:std_data_path = (exists('$XDG_DATA_HOME')) ? $XDG_DATA_HOME : "~/.local/share"
-		let g:std_cache_path = (exists('$XDG_CACHE_HOME')) ? $XDG_CACHE_HOME : "~/.cache"
+		let g:std_config_path = (exists('$XDG_CONFIG_HOME')) ? $XDG_CONFIG_HOME : expand("~/.config")
+		let g:std_data_path = (exists('$XDG_DATA_HOME')) ? $XDG_DATA_HOME : expand("~/.local/share")
+		let g:std_cache_path = (exists('$XDG_CACHE_HOME')) ? $XDG_CACHE_HOME : expand("~/.cache")
 	endif
 endfunction
 
