@@ -1,14 +1,30 @@
+```
+- File:					TODO.md
+- Description:			Neo(vim) related Todo list
+- Author:				Reinaldo Molina <rmolin88@gmail.com>
+- Version:				0.0.0
+- Last Modified: Sep 05 2017 05:23
+- Created: Sep 05 2017 05:23
+```
+
+## Tue Sep 05 2017 05:21 
+Improvements:
+- [ ] Create a after/syntax/gitcommit.vim to redline ahead and greenline
+  up-to-date
+- [ ] Delete duplicate music.
+- [ ] Construct unified music library
+- [x] Markdown math formulas
+
 ## Tue Jul 11 2017 13:27 
 - [ ] Put a terminal with a vim-instance in an i3-scratchpad, combine it with autosave-when-idle and you got the
   perfect note keeping workflow
 
-
 ### Mon Jul 10 2017 12:06 
 - [ ] Create Index for Wikis
-- [ ] Fix markdwon enter issue where its no breaking lines
-- [ ] Modularize `init.vim`. Example break it down into simpler files
+- [x] Fix markdwon enter issue where its no breaking lines
+- [x] Modularize `init.vim`. Example break it down into simpler files
 - [ ] Best `colorscheme` for cpp.
-- [ ] Why `ctrlp` having such a lame buffer thing
+- [x] Why `ctrlp` having such a lame buffer thing
 
 ### Tue May 02 2017 10:14 
 -  [X] Get familiar with `vifm`. Potential for substitute of `ranger`
