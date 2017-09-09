@@ -1794,3 +1794,25 @@ endif
 			" Plug 'nhooyr/neoman.vim'
 				" let g:no_neoman_maps = 1
 		" endif
+function! s:markdownLevel()
+	if getline(v:lnum) =~ '^# .*$'
+		return ">1"
+	endif
+	if getline(v:lnum) =~ '^## .*$'
+		return ">2"
+	endif
+	if getline(v:lnum) =~ '^### .*$'
+		return ">3"
+	endif
+	if getline(v:lnum) =~ '^#### .*$'
+		return ">4"
+	endif
+	if getline(v:lnum) =~ '^##### .*$'
+		return ">5"
+	endif
+	if getline(v:lnum) =~ '^###### .*$'
+		return ">6"
+	endif
+	return "="
+endfunction
+
