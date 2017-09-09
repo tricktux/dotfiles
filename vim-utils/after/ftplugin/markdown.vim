@@ -53,28 +53,15 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	endif
 endif
 
-function! s:markdownLevel()
-	if getline(v:lnum) =~ '^# .*$'
-		return ">1"
-	endif
-	if getline(v:lnum) =~ '^## .*$'
-		return ">2"
-	endif
-	if getline(v:lnum) =~ '^### .*$'
-		return ">3"
-	endif
-	if getline(v:lnum) =~ '^#### .*$'
-		return ">4"
-	endif
-	if getline(v:lnum) =~ '^##### .*$'
-		return ">5"
-	endif
-	if getline(v:lnum) =~ '^###### .*$'
-		return ">6"
-	endif
-	return "="
-endfunction
+if exists('*Autocorrect')
+	call AutoCorrect()
+endif
 
+if exists(':DittoOn')
+	execute ":DittOn"
+endif
+
+" TODO-[RM]-(Wed Sep 06 2017 17:22): Keep improving this here
 function! s:preview_markdown() abort
 	if has('win32') || has('win64')
 		if exists('Dispatch') && exists('g:browser_cmd') && executable(g:browser_cmd)
