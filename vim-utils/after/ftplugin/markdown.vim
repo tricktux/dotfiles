@@ -31,7 +31,7 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	inoremap <buffer> * **<Left>
 	inoremap <buffer> [ [ ]<Space>
 
-	if exists('FocusModeToggle')
+	if exists(':FocusModeToggle')
 		nmap <buffer> <Leader>lf <Plug>FocusModeToggle
 	endif
 
