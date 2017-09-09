@@ -485,8 +485,32 @@ function! plugin#Config() abort
 	Plug 'scrooloose/vim-slumlord', { 'for' : 'uml' }
 	Plug 'aklt/plantuml-syntax', { 'for' : 'uml' }
 
-	Plug 'merlinrebrovic/focus.vim', { 'for' : 'markdown' }
-		let g:focus_use_default_mapping = 0
+	Plug 'merlinrebrovic/focus.vim', { 'on' : 'FocusModeToggle' }
+			let g:focus_use_default_mapping = 0
+
+	Plug 'dbmrq/vim-ditto'
+		let g:ditto_dir = g:std_data_path
+		let g:ditto_file = 'ditto-ignore.txt'
+
+	Plug 'reedes/vim-wordy'
+		let g:wordy#ring = [
+					\ 'weak',
+					\ ['being', 'passive-voice', ],
+					\ 'business-jargon',
+					\ 'weasel',
+					\ 'puffery',
+					\ ['problematic', 'redundant', ],
+					\ ['colloquial', 'idiomatic', 'similies', ],
+					\ 'art-jargon',
+					\ ['contractions', 'opinion', 'vague-time', 'said-synonyms', ],
+					\ 'adjectives',
+					\ 'adverbs',
+				\ ]
+
+	Plug 'beloglazov/vim-online-thesaurus'
+		let g:online_thesaurus_map_keys = 0
+
+	Plug 'panozzaj/vim-autocorrect'
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
