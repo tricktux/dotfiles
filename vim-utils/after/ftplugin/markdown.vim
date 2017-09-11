@@ -53,12 +53,12 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	endif
 endif
 
-if exists('*Autocorrect')
+if exists('*AutoCorrect')
 	call AutoCorrect()
 endif
 
 if exists(':DittoOn')
-	execute ":DittOn"
+	execute "DittoOn"
 endif
 
 " TODO-[RM]-(Wed Sep 06 2017 17:22): Keep improving this here
