@@ -482,6 +482,7 @@ function! plugin#Config() abort
 		let g:vim_markdown_math = 1
 		let g:vim_markdown_folding_level = 2
 
+	"Sun Sep 10 2017 20:44 Depends on plantuml being installed  
 	Plug 'scrooloose/vim-slumlord', { 'for' : 'uml' }
 	Plug 'aklt/plantuml-syntax', { 'for' : 'uml' }
 
@@ -492,6 +493,7 @@ function! plugin#Config() abort
 		let g:ditto_dir = g:std_data_path
 		let g:ditto_file = 'ditto-ignore.txt'
 
+	" TODO-[RM]-(Sun Sep 10 2017 20:27): Dont really like it
 	Plug 'reedes/vim-wordy'
 		let g:wordy#ring = [
 					\ 'weak',
@@ -507,10 +509,18 @@ function! plugin#Config() abort
 					\ 'adverbs',
 				\ ]
 
+	" TODO-[RM]-(Sun Sep 10 2017 20:26): So far only working on linux
 	Plug 'beloglazov/vim-online-thesaurus'
 		let g:online_thesaurus_map_keys = 0
 
+	" Autocorrect mispellings on the fly
 	Plug 'panozzaj/vim-autocorrect'
+
+
+	" Sun Sep 10 2017 20:44 Depends on languagetool being installed 
+	if !empty(glob())
+	Plug 'dpelle/vim-LanguageTool'
+		let g:languagetool_jar = 
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
