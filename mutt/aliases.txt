@@ -9,3 +9,5 @@ alias card-discover Discover Card <discover@service.discover.com>
 alias support-indiegogo Indiegogo Support <support@indiegogo.com>
 alias Indiegogo <noreply@indiegogo.com>
 alias wcstudentconcern <wcstudentconcern@psu.edu>
+alias USCIS-CaseStatus@dhs.gov USCIS-CaseStatus@dhs.gov
+alias block-h&r H&R Block <MyAccount@hrblock.com>
