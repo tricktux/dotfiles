@@ -40,9 +40,9 @@ alias mutt-psu='mutt -F ~/.config/mutt/psu/account.psu'
 alias svn-server='cd /home/reinaldo/.mnt/copter-server/mnt/hq-storage/1.Myn/svn-server'
 
 # Mounting remote servers
-alias mount-truck='sshfs odroid@truck-server:/ /home/$USER/.mnt/truck-server/'
-alias mount-copter='sshfs odroid@copter-server:/ /home/$USER/.mnt/copter-server/'
-alias mount-hq='sshfs reinaldo@HQ:/ /home/$USER/.mnt/HQ-server/'
+alias mount-truck='sshfs odroid@truck-server:/ /mnt/truck-server/'
+alias mount-copter='sshfs odroid@copter-server:/ /mnt/copter-server/'
+alias mount-hq='sshfs reinaldo@HQ:/ /mnt/HQ-server/'
 
 # Misc
 # Removing -2 from tmux in order to get truecolor
