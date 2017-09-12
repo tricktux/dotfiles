@@ -518,9 +518,9 @@ function! plugin#Config() abort
 
 
 	" Sun Sep 10 2017 20:44 Depends on languagetool being installed 
-	if !empty(glob())
-	Plug 'dpelle/vim-LanguageTool'
-		let g:languagetool_jar = 
+	if exists('g:languagetool_jar')
+		Plug 'dpelle/vim-LanguageTool', { 'for' : 'markdown' }
+	endif
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
