@@ -20,7 +20,6 @@ function! nvim#Config() abort
 	tnoremap <A-d> <Right>
 
 	" set inccommand=split
-	" set clipboard+=unnamedplus
-	set termguicolors
 endfunction
+
 " vim:tw=78:ts=2:sts=2:sw=2:
