@@ -8,3 +8,4 @@ alias 3-orientation Orientation Group 3 <notifications@instructure.com>
 alias card-discover Discover Card <discover@service.discover.com>
 alias support-indiegogo Indiegogo Support <support@indiegogo.com>
 alias Indiegogo <noreply@indiegogo.com>
+alias wcstudentconcern <wcstudentconcern@psu.edu>
