@@ -44,9 +44,7 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 		nnoremap <buffer> <Leader>lt :Toc<cr>
 	endif
 
-	if exists(':NextWordy')
-		nnoremap <buffer> <Leader>ls :NextWordy<cr>
-	endif
+	nnoremap <buffer> <Leader>ls :call s:check_spelling()<cr>
 
 	if exists(':OnlineThesaurusCurrentWord')
 		nnoremap <buffer> <Leader>la :OnlineThesaurusCurrentWord<cr>
@@ -57,9 +55,29 @@ if exists('*AutoCorrect')
 	call AutoCorrect()
 endif
 
-if exists(':DittoOn')
-	execute "DittoOn"
-endif
+" Advanced spelling checks for when writting documents and such
+" Other tools should be enabled and disabled here
+function! s:check_spelling() abort
+	if exists('b:spelling_toggle') || b:spelling_toggle == 0
+		if exists(':DittoOn')
+			execute "DittoOn"
+		endif
+
+		if exists(':LanguageToolCheck')
+			execute "LanguageToolCheck"
+		endif
+		let b:spelling_toggle = 1
+	else
+		if exists(':DittoOff')
+			execute "DittoOff"
+		endif
+
+		if exists(':LanguageToolClear')
+			execute "LanguageToolClear"
+		endif
+		let b:spelling_toggle = 0
+	endif
+endfunction
 
 " TODO-[RM]-(Wed Sep 06 2017 17:22): Keep improving this here
 function! s:preview_markdown() abort
