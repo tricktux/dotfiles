@@ -566,7 +566,7 @@ function! plugin#Check() abort
 		let g:vim_plugins_path = g:std_data_path . '/vim_plugins'
 	endif
 
-	let plug_path = g:vim_plugins_path . '/plug/plug.vim' 
+	let plug_path = g:std_data_path . '/vim-plug/plug.vim' 
 	if empty(glob(plug_path))
 		if executable('curl')
 			execute "silent !curl -kfLo " . plug_path . " --create-dirs"
