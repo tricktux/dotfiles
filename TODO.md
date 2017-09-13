@@ -7,6 +7,27 @@
 - Created: Sep 05 2017 05:23
 ```
 
+## Wed Sep 13 2017 10:57
+- [ ] vim terminal. How to hide it.
+- [ ] bash for windows. maybe even a different terminal instead of cmd.exe
+- [ ] ditto plugin interfering with snippets.
+	- This fix didnt really work. Revisit
+- [x] Set work related mappings only when working on a work folder.
+	- Improved detection of work pc
+- [x] Look into the yankhighlight plugin
+- [ ] Look into the vim-sessions plugin
+	- Dont like it. Prefer fix my own plugin
+- [x] Move sessions into the g:std_data folder
+	- Not only sessions. Created folder `vim-data` and moved all vim stuff in there.
+- [x] Maybe move plugins into the g:std_data folder
+- [x] Move vim-plug folder out of plugins folder
+- [ ] Denite not working when being used for sessions
+- [ ] Follow all cpp tips [here](http://vim.wikia.com/wiki/Category:C%2B%2B)
+- [ ] Search and fix all TODOs
+- [ ] Revisit the google plugin. To google stuff straight from anywhere.
+- [ ] vim terminal figure out how to scroll.
+- [ ] fuzzy search variables. Probably denite can do this.
+
 ## Tue Sep 05 2017 05:21 
 Improvements:
 - [ ] Create a after/syntax/gitcommit.vim to redline ahead and greenline
@@ -19,45 +40,48 @@ Improvements:
 - [ ] Put a terminal with a vim-instance in an i3-scratchpad, combine it with autosave-when-idle and you got the
   perfect note keeping workflow
 
-### Mon Jul 10 2017 12:06 
-- [ ] Create Index for Wikis
+## Mon Jul 10 2017 12:06 
+- [x] Create Index for Wikis
+	- Using denite for this purpose
 - [x] Fix markdwon enter issue where its no breaking lines
 - [x] Modularize `init.vim`. Example break it down into simpler files
-- [ ] Best `colorscheme` for cpp.
+- [x] Best `colorscheme` for cpp.
+	- Didnt yield anything.
 - [x] Why `ctrlp` having such a lame buffer thing
 
-### Tue May 02 2017 10:14 
+## Tue May 02 2017 10:14 
 -  [X] Get familiar with `vifm`. Potential for substitute of `ranger`
 	- `vifm` is a piece of shit. At least for windows.
 	- Main thing is that it cannot follow `*.lnk` files
 -  [X] Add `neovim` to `chocolatey`
 - Useless List not worthy
 -  [ ] Get `msys2` on cmder
+	- Abandoned
 -  [ ] Get `shell` to open `msys2`???
 -  [ ] Get `pacaur` to work on `msys2`
 
-### Fri Apr 21 2017 09:25 
+## Fri Apr 21 2017 09:25 
 -  [X] Profile command didnt work
 -  [X] Look into using Neosolarized
 	- Mon Jul 10 2017 12:08 
 	- Didnt like it
 -  [X] Cool cursor in nvim-qt on windows
 
-### Wed Apr 19 2017 09:17 
+## Wed Apr 19 2017 09:17 
 -  [ ] On the svn.nvim plugin before switching to a branch make sure that the svn status command returns empty. Otherwise
   the switch is not going to go well.
 
-### Mon Apr 10 2017 16:42 
+## Mon Apr 10 2017 16:42 
 - [  ] Fix svn.nvim plugin to obtain url from svn info instead of all of that twisted logic that you have.
 - [  ] Finish the svn.nvim plugin
 - 
-### Tue Apr 04 2017 08:50 
+## Tue Apr 04 2017 08:50 
 -  [X] Make a new `autoload\autocomplete.vim` file where you handle all the autocompletion logic
 -  [X] Look into neovim completion manager
 -  [X] cscope command its really not working
 	- I am sure that it has to do with the rg command creating some weird paths. Take a look at `cscope.files`
 
-### Mon Apr 03 2017 11:15
+## Mon Apr 03 2017 11:15
 -  [X] Fix nvim-install.ps1 to include copying of the spells from vim to nvim
 -  [X] Fix the snippet `header`
 -  [X] Create profile command.
@@ -75,21 +99,21 @@ noautocmd qall!
 - Created `~/.cache/profile_typing.log` for this purpose
 - [X] Fix snippets for cpp for if and all so that they dont have the bad brackets
 
-### Thu Mar 16 2017 09:20 
+## Thu Mar 16 2017 09:20 
 -  [X] Remap `<Shift+s>`
 -  [ ] Create svn.vim as remote pyhon plugin
 - Make it not dependant on the user providing the `repo_url` 
-### Mon Mar 13 2017 14:54 
+## Mon Mar 13 2017 14:54 
 -  [X] Think of a way to create your own update of tags and cscope
-### Fri Mar 10 2017 09:22
+## Fri Mar 10 2017 09:22
 -  [X] Clang complete
 -  [X] vim-gutentags
 -  [X] Real piece of shit
-### Fri Mar 03 2017 10:03
+## Fri Mar 03 2017 10:03
 -  [X] Implement function for when cd into rooter check if cscope is there then load it.
 -  [X] Give easytags another try
 - Not working in win32 neovim
-### Thu Mar 02 2017 10:41 
+## Thu Mar 02 2017 10:41 
 -  [X] Fix ctags for neovim `tagbar` doesnt like new ctags. Not happening really haard
 - This is because neovim doesnt support yet system() in windows
 - Issue I was creating on the repo:
