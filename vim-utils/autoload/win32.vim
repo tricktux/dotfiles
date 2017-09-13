@@ -30,11 +30,11 @@ function win32#Config()
 	endif
 	
 	" Set wiki_path
-	if system('hostname') =~ 'predator' " homepc
+	if system('hostname') =~? 'predator' " homepc
 		let g:wiki_path =  'D:\Seafile\KnowledgeIsPower\wiki'
 		nnoremap <Leader>eu :e D:/Reinaldo/Documents/UnrealProjects/
 		let l:pyt3 = $LOCALAPPDATA . "\\Programs\\Python\\Python36\\python.exe"
-	else " Assume work pc
+	elseif exists('$USERNAME') && $USERNAME =~? '^h' " Assume work pc
 		let l:pyt3 = "C:\\Python36\\python.exe"
 		let g:wiki_path =  'D:/wiki'
 		let g:wings_path =  'D:/wings-dev/'
