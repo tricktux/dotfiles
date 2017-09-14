@@ -11,6 +11,8 @@
 - [ ] Fix pressing `o` in markdown indenting. Its really annoying.
 - [ ] Figure out how to create beautiful latex docs. `choco install miktex -y`.
 - [ ] Move dropbox pictures to google photos.
+- [ ] android tui move files into a git repo.
+- [ ] android tui create more shortcuts for calling and for rebooting devices.
 
 ## Wed Sep 13 2017 10:57
 - [ ] vim terminal. How to hide it.
