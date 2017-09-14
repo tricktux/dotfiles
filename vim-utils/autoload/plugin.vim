@@ -63,14 +63,15 @@ function! plugin#Config() abort
 			let g:ctrlp_lazy_update = 1
 			let g:ctrlp_show_hidden = 1
 			let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
-			let g:ctrlp_cache_dir = g:std_cache_path . '/ctrlp'
+			" It says cache dir but dont want to keep loosing history everytime cache gets cleaned up
+			let g:ctrlp_cache_dir = g:std_data_path . '/ctrlp'
 			let g:ctrlp_working_path_mode = 'wra'
 			let g:ctrlp_max_history = &history
 			let g:ctrlp_clear_cache_on_exit = 0
 			let g:ctrlp_switch_buffer = 0
-			let g:ctrlp_mruf_exclude = '/tmp/.*\|/temp/.*' " MacOSX/Linux
-			let g:ctrlp_mruf_max = 1000
+			let g:ctrlp_mruf_max = 10000
 			if has('win32')
+				let g:ctrlp_mruf_exclude = '^C:\\dev\\tmp\\Temp\\.*'
 				set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
 				let g:ctrlp_custom_ignore = {
 							\ 'dir':  '\v[\/]\.(git|hg|svn)$',
@@ -78,6 +79,7 @@ function! plugin#Config() abort
 							\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
 							\ }
 			else
+				let g:ctrlp_mruf_exclude =  '/tmp/.*\|/temp/.*'
 				set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
 				let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 			endif
@@ -278,23 +280,15 @@ function! plugin#Config() abort
 		let g:delimitMate_jump_expansion = 1
 		" imap <expr> <CR> <Plug>delimitMateCR
 
-	" Autoformat requires pip3 install --user autopep8
-	Plug 'Chiel92/vim-autoformat', { 'on' : 'Autoformat' }
-		" Simply make sure that executable('clang-format') == true
-		" Grab .ros-clang-format rename to .clang-format put it in root
-		" To format only partial use: 
-		" // clang-format off
-		" // clang-format on
-		let g:autoformat_autoindent = 0
-		let g:autoformat_retab = 0
-		let g:autoformat_remove_trailing_spaces = 0
-
-		let g:formatters_c = ['clangformat']
-		let g:formatters_cpp = ['clangformat']
-
-		" Note: Python-Windows hides pip executables in C:\Users\<user>\AppData\Roaming\Python\Python36\Scripts
-		let g:formatters_python = ['yapf']
-		let g:formatter_yapf_style = 'google'
+	Plug 'sbdchd/neoformat', { 'on' : 'Neoformat' }
+		let g:neoformat_c_clangformat = {
+					\ 'exe': 'clang-format',
+					\ 'args': ['-style=file'],
+					\ }
+		let g:neoformat_cpp_clangformat = {
+					\ 'exe': 'clang-format',
+					\ 'args': ['-style=file'],
+					\ }
 
 	" cpp
 	if get(g:, 'tagbar_safe_to_use', 1)
