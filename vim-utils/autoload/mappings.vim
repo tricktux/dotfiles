@@ -36,8 +36,10 @@ function! mappings#Set() abort
 	nnoremap <expr> j v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
 	nnoremap <expr> k v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
 
+	" TODO-[RM]-(Thu Sep 14 2017 15:54): Put this into functions in order to
+	" check if the plugins exist.
 	nnoremap <Leader>la :call utils#TodoAdd()<CR>
-	nnoremap <Leader>lf :Autoformat<CR>
+	nnoremap <Leader>lf :Neoformat<CR>
 	nnoremap <Leader>lt :TagbarToggle<CR>
 
 	" Miscelaneous Mappings <Leader>j?

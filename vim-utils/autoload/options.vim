@@ -1,3 +1,9 @@
+" File:					options.vim
+" Description:	Most of set options are done here.
+" Author:				Reinaldo Molina <rmolin88@gmail.com>
+" Version:				0.0.0
+" Last Modified: Sep 14 2017 14:47
+" Created: Sep 14 2017 14:47
 
 
 function options#Set() abort
@@ -104,6 +110,9 @@ function options#Set() abort
 	set omnifunc=syntaxcomplete#Complete
 	" Mon Jun 05 2017 11:59: Suppose to Fix cd to relative paths in windows
 	let &cdpath = ',' . substitute(substitute($CDPATH, '[, ]', '\\\0', 'g'), ':', ',', 'g')
+	" Thu Sep 14 2017 14:45: Security concerns addressed by these options. 
+	set secure
+	set noexrc
 
 	" Status Line and Colorscheme
 	if exists('g:plugins_loaded')
