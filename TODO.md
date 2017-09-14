@@ -6,6 +6,11 @@
 - Last Modified: Sep 05 2017 05:23
 - Created: Sep 05 2017 05:23
 ```
+## Thu Sep 14 2017 05:14 
+- [ ] Get rid of the other colorscheme. At night time use only PaperCOlor but dark
+- [ ] Fix pressing `o` in markdown indenting. Its really annoying.
+- [ ] Figure out how to create beautiful latex docs. `choco install miktex -y`.
+- [ ] Move dropbox pictures to google photos.
 
 ## Wed Sep 13 2017 10:57
 - [ ] vim terminal. How to hide it.
@@ -27,6 +32,9 @@
 - [ ] Revisit the google plugin. To google stuff straight from anywhere.
 - [ ] vim terminal figure out how to scroll.
 - [ ] fuzzy search variables. Probably denite can do this.
+- [ ] Fix the `OnlineThesaurusCurrentWord` not working under windows. Find an alternative or
+	something
+- [ ] the `www` plugin for windows. In order to see the master's highlights right in vim.
 
 ## Tue Sep 05 2017 05:21 
 Improvements:
