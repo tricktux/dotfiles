@@ -65,6 +65,10 @@ if !exists("no_plugin_maps") && !exists("no_c_maps")
 	call ftplugin#TagMappings()
 	call ftplugin#Align('/\/\/')
 	call ftplugin#Syntastic('passive', [])
+
+	if exists('g:clang_format_py')
+		nnoremap <Leader>lf :execute('pyf ' . g:clang_format_py)<CR>
+	endif
 endif
 
 " Setup AutoHighlight
