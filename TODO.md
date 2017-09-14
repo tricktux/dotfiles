@@ -13,9 +13,19 @@
 - [ ] Move dropbox pictures to google photos.
 - [ ] android tui move files into a git repo.
 - [ ] android tui create more shortcuts for calling and for rebooting devices.
+- [ ] markdown focus mode not really working.
+- [ ] **Return surbook**.
+	- Decided to give it a try.
+- [ ] **update choco-neovim.**
+- [ ] look into a vim-gdb plugin.
+- [ ] make the clang-format.py work in visual mode. see c.vim
 
 ## Wed Sep 13 2017 10:57
-- [ ] vim terminal. How to hide it.
+- [-] vim terminal. How to hide it.
+	- you can press <c-\><c-n> to enter normal mode. However right now is not working. You can get
+		out but not back in.
+- [x] vim terminal figure out how to scroll.
+	- go into normal mode and scroll normally.
 - [ ] bash for windows. maybe even a different terminal instead of cmd.exe
 - [ ] ditto plugin interfering with snippets.
 	- This fix didnt really work. Revisit
@@ -28,11 +38,11 @@
 	- Not only sessions. Created folder `vim-data` and moved all vim stuff in there.
 - [x] Maybe move plugins into the g:std_data folder
 - [x] Move vim-plug folder out of plugins folder
-- [ ] Denite not working when being used for sessions
+- [ ] **Denite not working when being used for sessions**
+	- [ ] Also respond to the denite bug report you did
 - [ ] Follow all cpp tips [here](http://vim.wikia.com/wiki/Category:C%2B%2B)
 - [ ] Search and fix all TODOs
 - [ ] Revisit the google plugin. To google stuff straight from anywhere.
-- [ ] vim terminal figure out how to scroll.
 - [ ] fuzzy search variables. Probably denite can do this.
 - [ ] Fix the `OnlineThesaurusCurrentWord` not working under windows. Find an alternative or
 	something

@@ -1816,3 +1816,20 @@ function! s:markdownLevel()
 	return "="
 endfunction
 
+	" Autoformat requires pip3 install --user autopep8
+	Plug 'Chiel92/vim-autoformat', { 'on' : 'Autoformat' }
+		" Simply make sure that executable('clang-format') == true
+		" Grab .ros-clang-format rename to .clang-format put it in root
+		" To format only partial use: 
+		" // clang-format off
+		" // clang-format on
+		let g:autoformat_autoindent = 0
+		let g:autoformat_retab = 0
+		let g:autoformat_remove_trailing_spaces = 0
+
+		let g:formatters_c = ['clangformat']
+		let g:formatters_cpp = ['clangformat']
+
+		" Note: Python-Windows hides pip executables in C:\Users\<user>\AppData\Roaming\Python\Python36\Scripts
+		let g:formatters_python = ['yapf']
+		let g:formatter_yapf_style = 'google'
