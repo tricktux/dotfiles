@@ -1,11 +1,22 @@
-```
-- File:					TODO.md
-- Description:			Neo(vim) related Todo list
-- Author:				Reinaldo Molina <rmolin88@gmail.com>
-- Version:				0.0.0
-- Last Modified: Sep 05 2017 05:23
-- Created: Sep 05 2017 05:23
-```
+---
+title:					TODO.md
+subtitle:			Neo(vim) related Todo list
+author:				Reinaldo Molina <rmolin88@gmail.com>
+revision:				0.0.0
+date: Sep 05 2017 05:23
+fileext: md
+...
+
+\maketitle
+\tableofcontents
+\pagebreak
+
+## Fri Sep 15 2017 13:11 
+- [ ] Standard for coding todo lists.
+- [ ] Fix the rest of the <Alt> mappings in terminal vim.
+- [ ] Take a look at [this](https://github.com/Wandmalfarbe/pandoc-latex-template) repo. Looks
+	very promessing so that I can move text dev to pandoc.
+
 ## Thu Sep 14 2017 05:14 
 - [ ] Get rid of the other colorscheme. At night time use only PaperCOlor but dark
 - [ ] Fix pressing `o` in markdown indenting. Its really annoying.
@@ -39,14 +50,17 @@
 - [x] Maybe move plugins into the g:std_data folder
 - [x] Move vim-plug folder out of plugins folder
 - [ ] **Denite not working when being used for sessions**
-	- [ ] Also respond to the denite bug report you did
+	- [ ] Also respond to the denite bug report you did.
+	- Fri Sep 15 2017 13:53: Found out that if you `cd` into a folder and run the `file_rec`
+		denite command it does work. 
 - [ ] Follow all cpp tips [here](http://vim.wikia.com/wiki/Category:C%2B%2B)
 - [ ] Search and fix all TODOs
 - [ ] Revisit the google plugin. To google stuff straight from anywhere.
 - [ ] fuzzy search variables. Probably denite can do this.
 - [ ] Fix the `OnlineThesaurusCurrentWord` not working under windows. Find an alternative or
 	something
-- [ ] the `www` plugin for windows. In order to see the master's highlights right in vim.
+- [ ] the `w3m` plugin for windows. In order to see the master's highlights right in vim.
+	- You'll have to compile yourself in windows. Maybe doable can try it with clang. See what happens.
 
 ## Tue Sep 05 2017 05:21 
 Improvements:
@@ -70,10 +84,10 @@ Improvements:
 - [x] Why `ctrlp` having such a lame buffer thing
 
 ## Tue May 02 2017 10:14 
--  [X] Get familiar with `vifm`. Potential for substitute of `ranger`
+-  [x] Get familiar with `vifm`. Potential for substitute of `ranger`
 	- `vifm` is a piece of shit. At least for windows.
 	- Main thing is that it cannot follow `*.lnk` files
--  [X] Add `neovim` to `chocolatey`
+-  [x] Add `neovim` to `chocolatey`
 - Useless List not worthy
 -  [ ] Get `msys2` on cmder
 	- Abandoned
@@ -81,11 +95,11 @@ Improvements:
 -  [ ] Get `pacaur` to work on `msys2`
 
 ## Fri Apr 21 2017 09:25 
--  [X] Profile command didnt work
--  [X] Look into using Neosolarized
+-  [x] Profile command didnt work
+-  [x] Look into using Neosolarized
 	- Mon Jul 10 2017 12:08 
 	- Didnt like it
--  [X] Cool cursor in nvim-qt on windows
+-  [x] Cool cursor in nvim-qt on windows
 
 ## Wed Apr 19 2017 09:17 
 -  [ ] On the svn.nvim plugin before switching to a branch make sure that the svn status command returns empty. Otherwise
@@ -96,15 +110,15 @@ Improvements:
 - [  ] Finish the svn.nvim plugin
 - 
 ## Tue Apr 04 2017 08:50 
--  [X] Make a new `autoload\autocomplete.vim` file where you handle all the autocompletion logic
--  [X] Look into neovim completion manager
--  [X] cscope command its really not working
+-  [x] Make a new `autoload\autocomplete.vim` file where you handle all the autocompletion logic
+-  [x] Look into neovim completion manager
+-  [x] cscope command its really not working
 	- I am sure that it has to do with the rg command creating some weird paths. Take a look at `cscope.files`
 
 ## Mon Apr 03 2017 11:15
--  [X] Fix nvim-install.ps1 to include copying of the spells from vim to nvim
--  [X] Fix the snippet `header`
--  [X] Create profile command.
+-  [x] Fix nvim-install.ps1 to include copying of the spells from vim to nvim
+-  [x] Fix the snippet `header`
+-  [x] Create profile command.
 ```vim
 profile start profile.log
 profile func *
@@ -114,27 +128,27 @@ profile file *
 profile pause
 noautocmd qall!
 ```
--  [X] Improve PlugInstall to do `so % | call plugin#Config() | PlugInstall`
--  [X] Profile why typing is kinda slow and slugish
+-  [x] Improve PlugInstall to do `so % | call plugin#Config() | PlugInstall`
+-  [x] Profile why typing is kinda slow and slugish
 - Created `~/.cache/profile_typing.log` for this purpose
-- [X] Fix snippets for cpp for if and all so that they dont have the bad brackets
+- [x] Fix snippets for cpp for if and all so that they dont have the bad brackets
 
 ## Thu Mar 16 2017 09:20 
--  [X] Remap `<Shift+s>`
+-  [x] Remap `<Shift+s>`
 -  [ ] Create svn.vim as remote pyhon plugin
 - Make it not dependant on the user providing the `repo_url` 
 ## Mon Mar 13 2017 14:54 
--  [X] Think of a way to create your own update of tags and cscope
+-  [x] Think of a way to create your own update of tags and cscope
 ## Fri Mar 10 2017 09:22
--  [X] Clang complete
--  [X] vim-gutentags
--  [X] Real piece of shit
+-  [x] Clang complete
+-  [x] vim-gutentags
+-  [x] Real piece of shit
 ## Fri Mar 03 2017 10:03
--  [X] Implement function for when cd into rooter check if cscope is there then load it.
--  [X] Give easytags another try
+-  [x] Implement function for when cd into rooter check if cscope is there then load it.
+-  [x] Give easytags another try
 - Not working in win32 neovim
 ## Thu Mar 02 2017 10:41 
--  [X] Fix ctags for neovim `tagbar` doesnt like new ctags. Not happening really haard
+-  [x] Fix ctags for neovim `tagbar` doesnt like new ctags. Not happening really haard
 - This is because neovim doesnt support yet system() in windows
 - Issue I was creating on the repo:
 - Error message after running Tagbar:
@@ -147,18 +161,18 @@ Executed command: "ctags --version"
 Command output:
 '\"ctags --version\"' is not recognized as an internal or external command,
 	operable program or batch file.
-	```
-	- This is probably a neovim bug as well but please keep it mind for future support. Neovim full support for windows is very near.
-	- BTW
-	```vim
-	echo system('"ctags --version"')
-	```
-	```
-	Exuberant Ctags 5.8, Copyright (C) 1996-2009 Darren Hiebert
-	Compiled: Jul  9 2009, 17:05:35
-	Addresses: <dhiebert@users.sourceforge.net>, http://ctags.sourceforge.net
-	Optional compiled features: +win32, +regex, +internal-sort
-	```
-	-  [X] Fix all cd functions to substitute with `getcwd()`
-	-  [X] Fix tags to use `list` that get searched for and if not there created
-	-  [X] Merge OneWings with CC
+```
+- This is probably a neovim bug as well but please keep it mind for future support. Neovim full support for windows is very near.
+- BTW
+```vim
+echo system('"ctags --version"')
+```
+```
+Exuberant Ctags 5.8, Copyright (C) 1996-2009 Darren Hiebert
+Compiled: Jul  9 2009, 17:05:35
+Addresses: <dhiebert@users.sourceforge.net>, http://ctags.sourceforge.net
+Optional compiled features: +win32, +regex, +internal-sort
+```
+-  [x] Fix all cd functions to substitute with `getcwd()`
+-  [x] Fix tags to use `list` that get searched for and if not there created
+-  [x] Merge OneWings with CC
