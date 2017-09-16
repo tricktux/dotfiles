@@ -23,7 +23,7 @@ function win32#Config()
 	" if !empty(glob($ProgramFiles . '\LLVM\lib\clang'))
 	" let g:clangheader_path = '$ProgramFiles . '\LLVM\lib\clang''
 	" endif
-	if !empty(glob($ChocolateyInstal . 'lib\languagetool\'))
+	" if !empty(glob($ChocolateyInstal . 'lib\languagetool\'))
 	
 	" Set wiki_path
 	if system('hostname') =~ 'predator' " homepc
