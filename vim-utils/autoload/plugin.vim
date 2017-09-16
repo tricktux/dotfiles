@@ -566,7 +566,7 @@ function! plugin#Check() abort
 		if executable('curl')
 			execute "silent !curl -kfLo " . plug_path . " --create-dirs"
 						\" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-			autocmd VimEnter * PlugInstall | source $MYVIMRC
+			autocmd VimEnter * execute("source " . plug_path) | PlugInstall
 			return 1
 		else
 			echomsg "Master I cant install plugins for you because you"
