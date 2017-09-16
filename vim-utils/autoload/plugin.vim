@@ -381,19 +381,20 @@ function! plugin#Config() abort
 
 	" W3M - to view cpp-reference help
 	if executable('w3m')
+		" TODO-[RM]-(Thu Sep 14 2017 21:12): No chance to get this working on windows
 		Plug 'yuratomo/w3m.vim'
-			let g:w3m#history#save_file = g:std_cache_path . '/.vim_w3m_hist'
+			let g:w3m#history#save_file = g:std_cache_path . '/vim_w3m_hist'
 	endif
 
 	Plug 'justinmk/vim-sneak'
-		"replace 'f' with 1-char Sneak
+		" replace 'f' with 1-char Sneak
 		nmap f <Plug>Sneak_f
 		nmap F <Plug>Sneak_F
 		xmap f <Plug>Sneak_f
 		xmap F <Plug>Sneak_F
 		omap f <Plug>Sneak_f
 		omap F <Plug>Sneak_F
-		"replace 't' with 1-char Sneak
+		" replace 't' with 1-char Sneak
 		nmap t <Plug>Sneak_t
 		nmap T <Plug>Sneak_T
 		xmap t <Plug>Sneak_t
@@ -403,6 +404,7 @@ function! plugin#Config() abort
 		xnoremap s s
 
 	Plug 'waiting-for-dev/vim-www'
+		" TODO-[RM]-(Thu Sep 14 2017 21:02): Update this here
 		let g:www_default_search_engine = 'google'
 		let g:www_map_keys = 0
 		let g:www_launch_browser_command = "chrome {{URL}}"
@@ -413,8 +415,7 @@ function! plugin#Config() abort
 		nnoremap <Leader>Gs :Wcsearch google 
 
 	Plug 'itchyny/lightline.vim'
-		" Inside of the functions here there can be no single quotes (') only
-		" double (")
+			" Inside of the functions here there can be no single quotes (') only double (")
 			let g:lightline = {}
 			if get(g:, 'tagbar_safe_to_use', 1)
 				let g:lightline.active = {
