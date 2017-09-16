@@ -197,11 +197,23 @@ endfunction
 
 function! utils#SetDiff() abort
 	" Make sure you run diffget and diffput from left window
+	if !executable('diff')
+		echomsg 'diff is not executable. Please install it'
+		return
+	endif
+
+	try
+		windo diffthis
+	catch
+		echomsg 'diff command failed. Make sure it is installed correctly'
+		echomsg v:exception
+		diffoff!
+		return
+	endtry
 	nnoremap <C-j> ]c
 	nnoremap <C-k> [c
 	nnoremap <C-h> :diffget<CR>
 	nnoremap <C-l> :diffput<CR>
-	windo diffthis
 endfunction
 
 function! utils#UnsetDiff() abort
