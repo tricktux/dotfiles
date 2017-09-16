@@ -44,7 +44,7 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 		nnoremap <buffer> <Leader>lt :Toc<cr>
 	endif
 
-	nnoremap <buffer> <Leader>ls :call s:check_spelling()<cr>
+	nnoremap <buffer> <Leader>ls :call MdCheckSpelling()<cr>
 
 	if exists(':OnlineThesaurusCurrentWord')
 		nnoremap <buffer> <Leader>la :OnlineThesaurusCurrentWord<cr>
@@ -57,7 +57,7 @@ endif
 
 " Advanced spelling checks for when writting documents and such
 " Other tools should be enabled and disabled here
-function! s:check_spelling() abort
+function! MdCheckSpelling() abort
 	if exists('b:spelling_toggle') || b:spelling_toggle == 0
 		if exists(':DittoOn')
 			execute "DittoOn"
@@ -79,8 +79,29 @@ function! s:check_spelling() abort
 	endif
 endfunction
 
+function! MdInstallTemplate() abort
+	if has('win32')
+		if !exists('g:std_config_path')
+			echomsg 'MdInstallTemplate(): g:std_config_path doesnt exist'
+			return
+		else
+			let template_path = g:std_config_path . "\\pandoc\\templates\\eisvogel.latex"
+		endif
+	else
+		let template_path = '~/.pandoc/templates/eisvogel.latex'
+	endif
+
+	if executable('curl')
+		" TODO-[RM]-(Fri Sep 15 2017 16:51): Make function out of this
+		execute "silent !curl -kfLo " . template_path . " --create-dirs"
+				\"https://raw.githubusercontent.com/Wandmalfarbe/pandoc-latex-template/master/eisvogel.latex"
+	else
+		echomsg 'curl not available. Cannot download templates'
+	endif
+endfunction
+
 " TODO-[RM]-(Wed Sep 06 2017 17:22): Keep improving this here
-function! s:preview_markdown() abort
+function! MdPreview() abort
 	if has('win32') || has('win64')
 		if exists('Dispatch') && exists('g:browser_cmd') && executable(g:browser_cmd)
 			execute "Dispatch " . g:browser_cmd . " %"
@@ -95,6 +116,6 @@ endfunction
 command! -buffer UtilsWeeklyReportCreate call utils#ConvertWeeklyReport()
 command! -buffer UtilsFixUnderscore execute("%s/_/\\_/gc<CR>")
 " TODO.RM-Thu May 18 2017 12:17: This should be changed to opera  
-command! -buffer UtilsPreviewMarkdown call s:preview_markdown()
+command! -buffer UtilsPreviewMarkdown call MdPreview()
 
 let b:undo_ftplugin = "setl foldenable< spell< complete< ts< sw< sts<" 
