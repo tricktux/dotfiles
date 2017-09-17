@@ -26,8 +26,6 @@ function init#vim() abort
 	endif
 
 
-	" TODO-[RM]-(Mon Aug 21 2017 18:08): Move this to after loading unix win32
-	" specific stuff
 	" PLUGINS_INIT
 	" ~/.dotfiles/vim-utils/autoload/plugin.vim
 	if plugin#Check() && plugin#Config()
