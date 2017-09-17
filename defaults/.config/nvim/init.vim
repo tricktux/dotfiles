@@ -44,11 +44,11 @@ endfunction
 function! s:set_stdpaths() abort
 	if has('win32')
 		let g:std_config_path = (exists('$APPDATA')) ? $APPDATA : expand("~\\AppData\\Roaming")
-		let g:std_data_path = (exists('$LOCALAPPDATA')) ? $LOCALAPPDATA : expand("~\\AppData\\Local")
+		let g:std_data_path = (exists('$LOCALAPPDATA')) ? $LOCALAPPDATA . "\\vim-data" : expand("~\\AppData\\Local\\vim-data")
 		let g:std_cache_path = (exists('$TEMP')) ? $TEMP : expand("~\\AppData\\Local\\Temp")
 	else
 		let g:std_config_path = (exists('$XDG_CONFIG_HOME')) ? $XDG_CONFIG_HOME : expand("~/.config")
-		let g:std_data_path = (exists('$XDG_DATA_HOME')) ? $XDG_DATA_HOME : expand("~/.local/share")
+		let g:std_data_path = (exists('$XDG_DATA_HOME')) ? $XDG_DATA_HOME . '/vim-data' : expand("~/.local/share/vim-data")
 		let g:std_cache_path = (exists('$XDG_CACHE_HOME')) ? $XDG_CACHE_HOME : expand("~/.cache")
 	endif
 endfunction

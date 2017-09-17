@@ -65,11 +65,16 @@ if !exists("no_plugin_maps") && !exists("no_c_maps")
 	call ftplugin#TagMappings()
 	call ftplugin#Align('/\/\/')
 	call ftplugin#Syntastic('passive', [])
+
+	if exists('g:clang_format_py')
+		nnoremap <Leader>lf :execute('pyf ' . g:clang_format_py)<CR>
+	endif
 endif
 
 " Setup AutoHighlight
 call ftplugin#AutoHighlight()
 
+" TODO-[RM]-(Wed Sep 13 2017 12:56): Make this a function
 " Window specific settings
 if has('win32')
 	" Fri May 19 2017 11:38 Having a lot of hang ups with the function! s:Highlight_Matching_Pair()
@@ -127,5 +132,14 @@ endfunction
 function! s:CommentReduceIndent() abort
 	execute "normal Bf/hxhx"
 endfunction
+
+" Add highlighting for function definition in C++
+function! s:enhance_cpp_syntax()
+	syn match cppFuncDef "::\~\?\zs\h\w*\ze([^)]*\()\s*\(const\)\?\)\?$"
+	hi def link cppFuncDef Structure
+endfunction
+
+" This is really not working
+call s:enhance_cpp_syntax()
 
 let b:undo_ftplugin = "setl omnifunc< ts< sw< sts< foldenable< define< spell< matchpairs< foldmethod< foldnestmax<| unlet! b:delimitMate_matchpairs b:matchparen_timeout b:match_words" 
