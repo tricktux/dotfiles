@@ -23,15 +23,24 @@ function win32#Config()
 	" if !empty(glob($ProgramFiles . '\LLVM\lib\clang'))
 	" let g:clangheader_path = '$ProgramFiles . '\LLVM\lib\clang''
 	" endif
-	" if !empty(glob($ChocolateyInstal . 'lib\languagetool\'))
+
+	let languagetool_jar = findfile('languagetool-commandline.jar', $ChocolateyInstall . '\lib\languagetool\tools\**2')
+	if !empty('languagetool_jar')
+		let g:languagetool_jar = languagetool_jar
+	endif
+
+	if filereadable('C:\Program Files\LLVM\share\clang\clang-format.py') 
+				\ && has('python') && executable('clang-format')
+		let g:clang_format_py = 'C:\Program Files\LLVM\share\clang\clang-format.py'
+	endif
 	
 	" Set wiki_path
-	if system('hostname') =~ 'predator' " homepc
+	if system('hostname') =~? 'predator' " homepc
 		let g:wiki_path =  'D:\Seafile\KnowledgeIsPower\wiki'
 		nnoremap <Leader>eu :e D:/Reinaldo/Documents/UnrealProjects/
-		let l:pyt3 = $LOCALAPPDATA . "\\Programs\\Python\\Python36\\python.exe"
-	else " Assume work pc
-		let l:pyt3 = "C:\\Python36\\python.exe"
+		let pyt3 = $LOCALAPPDATA . "\\Programs\\Python\\Python36\\python.exe"
+	elseif exists('$USERNAME') && $USERNAME =~? '^h' " Assume work pc
+		let pyt3 = "C:\\Python36\\python.exe"
 		let g:wiki_path =  'D:/wiki'
 		let g:wings_path =  'D:/wings-dev/'
 		call utils#SetWingsPath(g:wings_path)
@@ -43,12 +52,12 @@ function win32#Config()
 	endif
 
 	if has('nvim')
-		let l:pyt2 = "C:\\Python27\\python.exe"
-		if filereadable(l:pyt3)
-			let g:python3_host_prog= l:pyt3
+		let pyt2 = "C:\\Python27\\python.exe"
+		if filereadable(pyt3)
+			let g:python3_host_prog= pyt3
 		endif
-		if filereadable(l:pyt2)
-			let g:python_host_prog= l:pyt2
+		if filereadable(pyt2)
+			let g:python_host_prog= pyt2
 		endif
 	endif
 endfunction
