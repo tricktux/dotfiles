@@ -63,14 +63,15 @@ function! plugin#Config() abort
 			let g:ctrlp_lazy_update = 1
 			let g:ctrlp_show_hidden = 1
 			let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
-			let g:ctrlp_cache_dir = g:std_cache_path . '/ctrlp'
+			" It says cache dir but dont want to keep loosing history everytime cache gets cleaned up
+			let g:ctrlp_cache_dir = g:std_data_path . '/ctrlp'
 			let g:ctrlp_working_path_mode = 'wra'
 			let g:ctrlp_max_history = &history
 			let g:ctrlp_clear_cache_on_exit = 0
 			let g:ctrlp_switch_buffer = 0
-			let g:ctrlp_mruf_exclude = '/tmp/.*\|/temp/.*' " MacOSX/Linux
-			let g:ctrlp_mruf_max = 1000
+			let g:ctrlp_mruf_max = 10000
 			if has('win32')
+				let g:ctrlp_mruf_exclude = '^C:\\dev\\tmp\\Temp\\.*'
 				set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
 				let g:ctrlp_custom_ignore = {
 							\ 'dir':  '\v[\/]\.(git|hg|svn)$',
@@ -78,6 +79,7 @@ function! plugin#Config() abort
 							\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
 							\ }
 			else
+				let g:ctrlp_mruf_exclude =  '/tmp/.*\|/temp/.*'
 				set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
 				let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 			endif
@@ -278,23 +280,15 @@ function! plugin#Config() abort
 		let g:delimitMate_jump_expansion = 1
 		" imap <expr> <CR> <Plug>delimitMateCR
 
-	" Autoformat requires pip3 install --user autopep8
-	Plug 'Chiel92/vim-autoformat', { 'on' : 'Autoformat' }
-		" Simply make sure that executable('clang-format') == true
-		" Grab .ros-clang-format rename to .clang-format put it in root
-		" To format only partial use: 
-		" // clang-format off
-		" // clang-format on
-		let g:autoformat_autoindent = 0
-		let g:autoformat_retab = 0
-		let g:autoformat_remove_trailing_spaces = 0
-
-		let g:formatters_c = ['clangformat']
-		let g:formatters_cpp = ['clangformat']
-
-		" Note: Python-Windows hides pip executables in C:\Users\<user>\AppData\Roaming\Python\Python36\Scripts
-		let g:formatters_python = ['yapf']
-		let g:formatter_yapf_style = 'google'
+	Plug 'sbdchd/neoformat', { 'on' : 'Neoformat' }
+		let g:neoformat_c_clangformat = {
+					\ 'exe': 'clang-format',
+					\ 'args': ['-style=file'],
+					\ }
+		let g:neoformat_cpp_clangformat = {
+					\ 'exe': 'clang-format',
+					\ 'args': ['-style=file'],
+					\ }
 
 	" cpp
 	if get(g:, 'tagbar_safe_to_use', 1)
@@ -387,19 +381,20 @@ function! plugin#Config() abort
 
 	" W3M - to view cpp-reference help
 	if executable('w3m')
+		" TODO-[RM]-(Thu Sep 14 2017 21:12): No chance to get this working on windows
 		Plug 'yuratomo/w3m.vim'
-			let g:w3m#history#save_file = g:std_cache_path . '/.vim_w3m_hist'
+			let g:w3m#history#save_file = g:std_cache_path . '/vim_w3m_hist'
 	endif
 
 	Plug 'justinmk/vim-sneak'
-		"replace 'f' with 1-char Sneak
+		" replace 'f' with 1-char Sneak
 		nmap f <Plug>Sneak_f
 		nmap F <Plug>Sneak_F
 		xmap f <Plug>Sneak_f
 		xmap F <Plug>Sneak_F
 		omap f <Plug>Sneak_f
 		omap F <Plug>Sneak_F
-		"replace 't' with 1-char Sneak
+		" replace 't' with 1-char Sneak
 		nmap t <Plug>Sneak_t
 		nmap T <Plug>Sneak_T
 		xmap t <Plug>Sneak_t
@@ -409,6 +404,7 @@ function! plugin#Config() abort
 		xnoremap s s
 
 	Plug 'waiting-for-dev/vim-www'
+		" TODO-[RM]-(Thu Sep 14 2017 21:02): Update this here
 		let g:www_default_search_engine = 'google'
 		let g:www_map_keys = 0
 		let g:www_launch_browser_command = "chrome {{URL}}"
@@ -419,8 +415,7 @@ function! plugin#Config() abort
 		nnoremap <Leader>Gs :Wcsearch google 
 
 	Plug 'itchyny/lightline.vim'
-		" Inside of the functions here there can be no single quotes (') only
-		" double (")
+			" Inside of the functions here there can be no single quotes (') only double (")
 			let g:lightline = {}
 			if get(g:, 'tagbar_safe_to_use', 1)
 				let g:lightline.active = {
@@ -518,9 +513,9 @@ function! plugin#Config() abort
 
 
 	" Sun Sep 10 2017 20:44 Depends on languagetool being installed 
-	" if !empty(glob())
-	Plug 'dpelle/vim-LanguageTool'
-		let g:languagetool_jar = ''
+	if exists('g:languagetool_jar')
+		Plug 'dpelle/vim-LanguageTool', { 'for' : 'markdown' }
+	endif
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
@@ -566,12 +561,12 @@ function! plugin#Check() abort
 		let g:vim_plugins_path = g:std_data_path . '/vim_plugins'
 	endif
 
-	let plug_path = g:vim_plugins_path . '/plug/plug.vim' 
+	let plug_path = g:std_data_path . '/vim-plug/plug.vim' 
 	if empty(glob(plug_path))
 		if executable('curl')
 			execute "silent !curl -kfLo " . plug_path . " --create-dirs"
 						\" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-			autocmd VimEnter * PlugInstall | source $MYVIMRC
+			autocmd VimEnter * execute("source " . plug_path) | PlugInstall
 			return 1
 		else
 			echomsg "Master I cant install plugins for you because you"

@@ -97,15 +97,9 @@ set sort_alias= alias
 set reverse_alias=yes
 source $alias_file
 
-# set editor="nvr -c tabedit --remote-wait +'set bufhidden=wipe'"
+# Tue Sep 12 2017 16:54: This in conjunction with the bashrc $VISUAL setting allows for using mutt
+# inside of nvim
 set editor=$VISUAL
-# if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
-# export VISUAL="nvr -cc tabedit --remote-wait +'set bufhidden=wipe'"
-# else
-# export VISUAL="nvim"
-# fi
-alias v="$VISUAL"
-# set editor="vim -c 'set spell spelllang=es,en'"
 
 # From https://github.com/bubbl/bubb-confs/blob/master/mutt/.mutt/general
 # A lot of good configs in that link
@@ -149,3 +143,6 @@ set delete=yes
 
 # Stop asking annoying To: questions
 set autoedit
+
+# Tue Sep 12 2017 16:51: Stop saving outgoing messages to ~/sent
+set record = "~/.cache/mutt-sent"
