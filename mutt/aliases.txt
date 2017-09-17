@@ -11,3 +11,6 @@ alias Indiegogo <noreply@indiegogo.com>
 alias wcstudentconcern <wcstudentconcern@psu.edu>
 alias USCIS-CaseStatus@dhs.gov USCIS-CaseStatus@dhs.gov
 alias block-h&r H&R Block <MyAccount@hrblock.com>
+alias TripAdvisor <TopTravelDeals@deals.tripadvisor.com>
+alias airlines@aa.com-american American Airlines@aa.com <notify@aa.globalnotifications.com>
+alias update-member Member Update <admin@ebizsend.com>
