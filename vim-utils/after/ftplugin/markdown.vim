@@ -88,6 +88,14 @@ function! MdInstallTemplate() abort
 			let template_path = g:std_config_path . "\\pandoc\\templates\\eisvogel.latex"
 		endif
 	else
+		" Sat Sep 16 2017 18:16: 
+		" Keyword: latex, pandoc, markdown, pdf, templates, arch, linux, texlive, packages
+		" Note: This is the list of packages that this specific pandoc template depends on. In arch
+		" there is no need to install the packages individually just `install texlive-most` and you
+		" are all set
+		" xecjk filehook unicode-math ucharcat pagecolor babel-german ly1 mweights sourcecodepro sourcesanspro
+		" In the super weird case that you are missing some packages install texlive-localmanager-git
+		" then you can do: `tllocalmgr install <pkg-name>
 		let template_path = '~/.pandoc/templates/eisvogel.latex'
 	endif
 
