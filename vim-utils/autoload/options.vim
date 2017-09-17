@@ -116,16 +116,11 @@ function options#Set() abort
 
 	" Status Line and Colorscheme
 	if exists('g:plugins_loaded')
-		" set background=dark    " Setting dark mode
-		" colorscheme gruvbox
-		" colorscheme onedark
-		" set background=light
 		let g:colorscheme_night_time = 20
 		let g:colorscheme_day_time = 7
 		let g:colorscheme_day = 'PaperColor'
 		let g:colorscheme_night = 'gruvbox'
-		execute "colorscheme " . g:colorscheme_day
-		set background=light
+		call utils#ChangeColors(g:colorscheme_day, 'light')
 		augroup FluxLike
 			autocmd!
 			autocmd VimEnter,BufEnter * call utils#Flux()
@@ -134,8 +129,7 @@ function options#Set() abort
 		colorscheme desert
 	endif
 
-	" If this not and android device and we have no plugins setup "ugly"
-	" status line
+	" If this not and android device and we have no plugins setup "ugly" status line
 	if !exists("g:android") && !exists('g:plugins_loaded')
 		set statusline =
 		set statusline+=\ [%n]                                  "buffernr

@@ -173,7 +173,7 @@ endfunction
 " Compatible with both Linux and Windows
 function! utils#CheckDirwoPrompt(name) abort
 	if !has('file_in_path') || !exists("*mkdir")
-		echomsg "CheckFileOrDir(): This vim install has no support for +find_in_path or cant create directories"
+		echoerr "CheckFileOrDir(): This vim install has no support for +find_in_path or cant create directories"
 	endif
 
 	if !empty(finddir(a:name,",,"))
@@ -198,15 +198,15 @@ endfunction
 function! utils#SetDiff() abort
 	" Make sure you run diffget and diffput from left window
 	if !executable('diff')
-		echomsg 'diff is not executable. Please install it'
+		echoerr 'diff is not executable. Please install it'
 		return
 	endif
 
 	try
 		windo diffthis
 	catch
-		echomsg 'diff command failed. Make sure it is installed correctly'
-		echomsg v:exception
+		echoerr 'diff command failed. Make sure it is installed correctly'
+		echoerr v:exception
 		diffoff!
 		return
 	endtry
@@ -351,7 +351,7 @@ endfunction
 
 function! utils#WikiOpen(...) abort
 	if !exists('g:wiki_path') || empty(glob(g:wiki_path))
-		echomsg 'Variable g:wiki_path not set or path doesnt exist'
+		echoerr 'Variable g:wiki_path not set or path doesnt exist'
 		return
 	endif
 
@@ -435,7 +435,7 @@ endfunction
 " Optional argument to specify if you want to ask for to use denite or not
 function! utils#EditFileInPath(path, ...) abort
 	if empty(glob(a:path))
-		echomsg 'Input is not a valid path: ' . a:path
+		echoerr 'Input is not a valid path: ' . a:path
 		return
 	endif
 
@@ -644,7 +644,7 @@ function! utils#CaptureCmdOutput(...)
 	execute cmd
 	redir END
 	if empty(output)
-		echomsg "No output from: " . cmd
+		echoerr "No output from: " . cmd
 	else
 		vnew
 		setlocal buftype=nofile bufhidden=wipe noswapfile nobuflisted
@@ -652,27 +652,37 @@ function! utils#CaptureCmdOutput(...)
 	endif
 endfunction
 
+
+" Change vim colorscheme depending on time of the day
 function! utils#Flux() abort
-	if strftime("%H") >= g:colorscheme_night_time || strftime("%H") < g:colorscheme_day_time
-		if exists('g:lightline.colorscheme') && g:lightline.colorscheme !=# g:colorscheme_night
-			execute "colorscheme " . g:colorscheme_night
-			set background=dark
-			let g:lightline.colorscheme = g:colorscheme_night
-			call lightline#init()
-			call lightline#colorscheme()
-			call lightline#update()
-			call highlight#Set('IncSearch',	{ 'bg': g:black })
-		endif
+	if strftime("%H") >= g:colorscheme_night_time || strftime("%H") < g:colorscheme_day_time 
+				\ && &background != 'dark'
+		call utils#ChangeColors(g:colorscheme_night, 'dark')
+	elseif &background != 'ark'
+		call utils#ChangeColors(g:colorscheme_day, 'light')
+	endif
+endfunction
+
+function! utils#ChangeColors(scheme, background) abort
+	if a:background ==# 'dark'
+		call highlight#Set('IncSearch',	{ 'bg': g:black })
+	elseif a:background ==# 'light'
+		call highlight#Set('IncSearch',	{ 'bg': g:white })
 	else
-		if exists('g:lightline.colorscheme') && g:lightline.colorscheme !=# g:colorscheme_day
-			execute "colorscheme " . g:colorscheme_day
-			set background=light
-			let g:lightline.colorscheme = g:colorscheme_day
-			call lightline#init()
-			call lightline#colorscheme()
-			call lightline#update()
-			call highlight#Set('IncSearch',	{ 'bg': g:white })
-		endif
+		echoerr 'Only possible backgrounds are dark and light'
+		return
+	endif
+
+	execute "colorscheme " . a:scheme
+	let &background=a:background
+
+	" If using the lightline plugin then update that as well
+	" this could cause trouble if lightline does not that colorscheme
+	if exists('g:lightline.colorscheme')
+		let g:lightline.colorscheme = a:scheme
+		call lightline#init()
+		call lightline#colorscheme()
+		call lightline#update()
 	endif
 endfunction
 
@@ -713,7 +723,7 @@ function! utils#SearchHighlighted() abort
 		" Yank selection to reg a then echo it cli
 		execute "normal \"ay:Wcopen \<c-r>a\<cr>"
 	else
-		echomsg string('Missing plugin: vim-www')
+		echoerr string('Missing plugin: vim-www')
 	endif
 endfunction
 " TODO.RM-Sat Nov 26 2016 00:04: Function that auto adds SCR # and description
@@ -748,7 +758,7 @@ function! utils#DropboxOpen(wiki) abort
 	let db_path = get(g:, 'dropbox_path', "~/Dropbox/")
 	let db_path .= a:wiki
 	if empty(glob(db_path))
-		echomsg "File " . db_path . " does not exists"
+		echoerr "File " . db_path . " does not exists"
 		return
 	endif
 	execute "edit " . db_path
