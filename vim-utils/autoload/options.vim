@@ -5,8 +5,7 @@
 " Last Modified: Sep 14 2017 14:47
 " Created: Sep 14 2017 14:47
 
-
-function options#Set() abort
+function! options#Set() abort
 	" SET_OPTIONS
 	" Regular stuff
 	"set spell spelllang=en_us
@@ -216,6 +215,13 @@ function options#Set() abort
 			let &t_AB="\e[48;5;%dm"
 			let &t_AF="\e[38;5;%dm"
 		endif
+
+		" Set a pretty title
+		augroup TermTitle
+			autocmd!
+			autocmd BufEnter * let &titlestring = expand("%:t") . " - " . v:progname
+		augroup END
+		auto 
 	endif
 
 	" TODO-[RM]-(Tue Aug 22 2017 10:43): Move this function calls to init#vim or
@@ -229,7 +235,7 @@ function options#Set() abort
 	if exists("g:plugins_loaded") && exists("g:undofiles_path") && !empty(glob(g:undofiles_path))
 		let &undodir= g:undofiles_path
 		set undofile
-		set undolevels=1000      " use many muchos levels of undo
+		set undolevels=10000      " use many muchos levels of undo
 	endif
 
 	" Tags
