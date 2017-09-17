@@ -1,3 +1,9 @@
+" File:					options.vim
+" Description:	Most of set options are done here.
+" Author:				Reinaldo Molina <rmolin88@gmail.com>
+" Version:				0.0.0
+" Last Modified: Sep 14 2017 14:47
+" Created: Sep 14 2017 14:47
 
 
 function options#Set() abort
@@ -104,6 +110,9 @@ function options#Set() abort
 	set omnifunc=syntaxcomplete#Complete
 	" Mon Jun 05 2017 11:59: Suppose to Fix cd to relative paths in windows
 	let &cdpath = ',' . substitute(substitute($CDPATH, '[, ]', '\\\0', 'g'), ':', ',', 'g')
+	" Thu Sep 14 2017 14:45: Security concerns addressed by these options. 
+	set secure
+	set noexrc
 
 	" Status Line and Colorscheme
 	if exists('g:plugins_loaded')
@@ -166,31 +175,52 @@ function options#Set() abort
 		else
 			set t_Co=256
 		endif
+
 		" fixes colorscheme not filling entire backgroud
 		set t_ut=
-		" Set blinking cursor shape everywhere
-		if has('nvim')
-			" let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
+		if !has('nvim')
+			" Trying to get termguicolors to work on vim
+			let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
+			let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
 			set termguicolors
-			" let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-			" This was Sub by set guicursor. But its default value its okay
-			" Fixes broken nmap <c-h> inside of tmux
-			nnoremap <BS> :noh<CR>
+
+			" Tue Sep 12 2017 18:18: These are in order to map Alt in vim terminal
+			" under linux. Obtained but going into insert mode, pressing <c-v> and
+			" then some alt+key combination 
+			nnoremap <silent> l <C-w>l
+			nnoremap <silent> h <C-w>h
+			nnoremap <silent> k <C-w>k
+			nnoremap <silent> j <C-w>j
+
+			if !has('clipboard') || !has('xterm_clipboard')
+				echomsg 'vim wasnt compiled with clipboard support. Remove vim and install gvim'
+			else
+				set clipboard=unnamedplus
+			endif
 		endif
 
+		" Set blinking cursor shape everywhere
 		if exists('$TMUX')
 			let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 			let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-		elseif has('win32')
+
+			" Fixes broken nmap <c-h> inside of tmux
+			nnoremap <BS> :noh<CR>
+		elseif has('unix') " Cursors settings for neo(vim) under linux 
+			" Start insert mode (bar cursor shape)
+			let &t_SI = "\<Esc>[5 q"
+			" End insert or replace mode (block cursor shape)
+			let &t_EI = "\<Esc>[1 q"
+		endif
+
+		" Settings for cmder
+		if has('win32')
 			if !has('nvim')
 				set term=xterm
 			endif
-			set t_Co=256
 			let &t_AB="\e[48;5;%dm"
 			let &t_AF="\e[38;5;%dm"
-		else
-			let &t_SI = "\<Esc>[5 q"
-			let &t_EI = "\<Esc>[1 q"
 		endif
 	endif
 
