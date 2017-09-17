@@ -708,8 +708,8 @@ function! utils#BufDetermine() abort
 		setfiletype unreal-log
 	elseif ext ==# 'set' || ext ==# 'sum'
 		setfiletype dosini
-	elseif expand('%') =~# 'term://'
-		setfiletype terminal
+	elseif ext ==# 'bin' || ext ==# 'pdf' || ext ==# 'hsr'
+		call utils#SetBinFileType()
 	endif
 
 	" Remember last cursor position
@@ -762,6 +762,14 @@ function! utils#DropboxOpen(wiki) abort
 		return
 	endif
 	execute "edit " . db_path
+endfunction
+
+function! utils#SetBinFileType() abort
+	let &l:bin=1
+	%!xxd
+	setlocal ft=xxd
+	%!xxd -r
+	setlocal nomodified
 endfunction
 
  " vim:tw=78:ts=2:sts=2:sw=2:
