@@ -1,7 +1,13 @@
 #!/bin/bash
 
-#
-# /etc/xdg/pacaur/config
+# File:					~/.config/pacaur/config
+# Description:			Configuration file for pacaur
+# Author:				Reinaldo Molina <rmolin88@gmail.com>
+# Version:				0.0.0
+# Last Modified: Sep 12 2017 19:43
+# Created: Sep 12 2017 19:43
+# Original from:
+#	/etc/xdg/pacaur/config
 #
 
 # The following options are commented out with their default values listed.
@@ -9,12 +15,11 @@
 # The Color and VerbosePkgLists options can be enabled in /etc/pacman.conf.
 # The clone directory can be changed through the $AURDEST environment variable.
 # The makepkg environment variables are also fully honored.
-# editor="${EDITOR:-vi}"                # build files editor
-editor="vim"                # build files editor
+editor="${EDITOR:-vi}"                # build files editor
 displaybuildfiles=none                # display build files (none|diff|full)
 #fallback=true                         # pacman fallback to the AUR
 #silent=false                          # silence output
-#sortby=popularity                     # sort method (name|votes|popularity)
+sortby=popularity                     # sort method (name|votes|popularity)
 #sortorder=descending                  # sort order (ascending|descending)
 sudoloop=true                         # prevent sudo timeout
 
