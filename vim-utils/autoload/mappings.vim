@@ -99,13 +99,14 @@ function! mappings#Set() abort
 	" insert visual selection search
 	cnoremap <C-u> <c-r>=expand("<cword>")<cr>
 	cnoremap <C-s> %s/
-	" refactor
-	"vnoremap <Leader>r :%s///gc<Left><Left><Left>
-	cnoremap <C-p> <c-r>0
-	cnoremap <C-j> <Down>
-	cnoremap <C-k> <Up>
-	cnoremap <C-j> <Left>
-	cnoremap <C-l> <Right>
+	cnoremap <C-j> <CR>
+	cnoremap <C-p> <Up>
+	cnoremap <C-A> <Home>
+	cnoremap <C-F> <Right>
+	cnoremap <C-B> <Left>
+	" Sun Sep 17 2017 14:21: this will not work in vim 
+	cnoremap <A-b> <S-Left>
+	cnoremap <A-f> <S-Right>
 	" Switch back and forth between header file
 	nnoremap <S-q> yyp
 	" move to the beggning of line
@@ -151,7 +152,11 @@ function! mappings#Set() abort
 	" Insert Mode (Individual) mappings
 	inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
 	inoremap <c-f> <del>
-	inoremap <c-l> <Right>
+	inoremap <C-F> <Right>
+	inoremap <C-B> <Left>
+	" Sun Sep 17 2017 14:21: this will not work in vim 
+	inoremap <A-b> <S-Left>
+	inoremap <A-f> <S-Right>
 
 	" Edit local <Leader>e?
 	nnoremap <Leader>el :silent e ~/
@@ -274,7 +279,7 @@ function! mappings#Set() abort
 	"nnoremap <Leader>vr :!svn revert -R .<CR>
 	nnoremap <Leader>vl :!svn cleanup .<CR>
 	" use this command line to delete unrevisioned or "?" svn files
-	"nnoremap <Leader>vL :!for /f "tokens=2*" %i in ('svn status ^| find "?"') do del %i<CR>
+	" nnoremap <Leader>vL :!for /f "tokens=2*" %i in ('svn status ^| find "?"') do del %i<CR>
 	" nnoremap <Leader>vs :!svn status .<CR>
 	nnoremap <Leader>vu :!svn update .<CR>
 	" Overwritten from plugin.vim

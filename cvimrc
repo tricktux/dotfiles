@@ -4,7 +4,21 @@
 " Version       : 0.0.0
 " Last Modified : Aug 17 2017 08: 53
 " Created       : Aug 17 2017 08: 53
+" Link: https://gist.github.com/rmolin88/cfea36e51dac46d76508485b00ba85d1
+" Sun Sep 17 2017 17:11: Moving to vimium
+" - cVim is no longer actively being developed
+" - vimium has a much larger users base
+" Vimium options:
+map e scrollPageUp
+" Custom search engines
+" More examples available [here](https://github.com/philc/vimium/wiki/Search-Engines)
+w: https://www.wikipedia.org/w/index.php?title=Special:Search&search=%s Wikipedia
+gh: https://github.com/search?q=%s GitHub
+y: https://www.youtube.com/results?search_query=%s Youtube
+gm: https://www.google.com/maps?q=%s Google maps
+az: https://www.amazon.com/s/?field-keywords=%s Amazon
 
+" cVim options
 set nohud
 set smoothscroll
 
@@ -12,14 +26,18 @@ set smoothscroll
 " sites from focusing on an input box when they load
 set autofocus 
 	          
-let completionengines = "google"
-
 " Update settings via a local file (and the `:source` command) rather
 " than the default options page in chrome
 " As long as localconfig is set in the .cvimrc file. cVim will continue to read
 " settings from there
-set localconfig 
-let configpath = "~/.dotfiles/cvimrc"
-let barposition = "top"
-                
-                
+ " set localconfig 
+ "
+" let configpath = "~/.cvimrc"
+
+set defaultengine="duckduckgo"
+imap <C-U> deleteToEnd
+imap <A-b> backwardWord
+imap <A-f> forwardWord
+imap <c-h> deleteChar
+let mapleader = "<Space>"
+map <Leader>s :source<CR>
