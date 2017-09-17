@@ -21,14 +21,14 @@ function! augroup#Set() abort
 		autocmd FileType tex compiler tex
 		" Display help vertical window not split
 		autocmd FileType help wincmd L
-		autocmd FileType help :nnoremap <buffer> q ZZ
+		autocmd FileType help nnoremap <buffer> q ZZ
+		autocmd FileType help setlocal relativenumber
 		" wrap syntastic messages
 		autocmd FileType mail setlocal wrap
 		autocmd FileType mail setlocal spell spelllang=es,en
 		autocmd FileType mail setlocal omnifunc=muttaliases#CompleteMuttAliases
 		" Python
 		" autocmd FileType python setlocal foldmethod=syntax
-		autocmd FileType help setlocal relativenumber
 	augroup END
 
 	" To improve syntax highlight speed. If something breaks with highlight
@@ -56,19 +56,6 @@ function! augroup#Set() abort
 		augroup END
 	endif
 
-	" vim -b : edit binary using xxd-format!
-	" using let &l:option_name is the same as setlocal
-	augroup Binary
-		au!
-		au BufReadPre  *.bin,*.hsr,*.pdf let &l:bin=1
-		au BufReadPost *.bin,*.hsr,*.pdf if &bin | %!xxd
-		au BufReadPost *.bin,*.hsr,*.pdf setlocal ft=xxd | endif
-		au BufWritePre *.bin,*.hsr,*.pdf if &bin | %!xxd -r
-		au BufWritePre *.bin,*.hsr,*.pdf endif
-		au BufWritePost *.bin,*.hsr,*.pdf if &bin | %!xxd
-		au BufWritePost *.bin,*.hsr,*.pdf setlocal nomod | endif
-	augroup END
-
 	" Depends on autoread being set
 	augroup AutoRead
 		autocmd!
@@ -78,7 +65,7 @@ function! augroup#Set() abort
 	if has('nvim')
 		augroup Terminal
 			autocmd!
-			autocmd TermOpen * setlocal nonumber
+			autocmd TermOpen * setlocal nonumber | setfiletype terminal
 		augroup END
 	endif
 endfunction
