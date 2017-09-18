@@ -1,10 +1,10 @@
 
 " File:highlight.vim
-"	Description: File to define function and colors for highlight
+" Description: File to define function and colors for highlight
 " Author:Reinaldo Molina <rmolin88@gmail.com>
 " Version:1.0.0
 " Last Modified: Mar 25 2017 14:27
-" Taken from: 
+" Taken from: neotags.nvim plugin
 "
 " colors {{{1
 " let g:bg         = { 'gui': '#0c0c0c', 'cterm': 'none' }
@@ -38,7 +38,8 @@ let g:darkergrey = { 'gui': '#121212', 'cterm': '233' }
 let g:darkgrey   = { 'gui': '#1c1c1c', 'cterm': '234' }
 " 1}}}
 " util {{{1
-function! highlight#Set(group, style, ...)
+" Keep in mind that none specified groups will be set to NONE
+function! highlight#SetAll(group, style, ...)
 	if(has_key(a:style, 'link'))
 		exec 'highlight! link ' a:group a:style.link
 	else
@@ -53,6 +54,24 @@ function! highlight#Set(group, style, ...)
 
 	endif
 endfunction
+
+" Keep in mind that none specified groups will keep its previous value
+function! highlight#Set(group, style, ...)
+	if(has_key(a:style, 'link'))
+		exec 'highlight! link ' a:group a:style.link
+	else
+		exec 'highlight' a:group . ' ' .
+					\ (has_key(a:style, 'fg')   ? 'guifg='  .a:style.fg.gui   : ' ') . ' ' .
+					\ (has_key(a:style, 'bg')   ? 'guibg='  .a:style.bg.gui   : ' ') . ' ' .
+					\ (has_key(a:style, 'sp')   ? 'guisp='  .a:style.sp.gui   : ' ') . ' ' .
+					\ (has_key(a:style, 'deco') ? 'gui='    .a:style.deco     : ' ') . ' ' .
+					\ (has_key(a:style, 'fg')   ? 'ctermfg='.a:style.fg.cterm : ' ') . ' ' .
+					\ (has_key(a:style, 'bg')   ? 'ctermbg='.a:style.bg.cterm : ' ') . ' ' .
+					\ (has_key(a:style, 'deco') ? 'cterm='  .a:style.deco     : ' ')
+
+	endif
+endfunction
+
 " 1}}}
 " All the colors{{{
 " hi x016_Grey0 ctermfg=16 guifg=#000000 "rgb=0,0,0

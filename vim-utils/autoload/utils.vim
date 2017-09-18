@@ -656,18 +656,18 @@ endfunction
 " Change vim colorscheme depending on time of the day
 function! utils#Flux() abort
 	if strftime("%H") >= g:colorscheme_night_time || strftime("%H") < g:colorscheme_day_time 
-				\ && &background != 'dark'
+				\ && &background !=# 'dark'
 		call utils#ChangeColors(g:colorscheme_night, 'dark')
-	elseif &background != 'ark'
+	elseif &background !=# 'light'
 		call utils#ChangeColors(g:colorscheme_day, 'light')
 	endif
 endfunction
 
 function! utils#ChangeColors(scheme, background) abort
 	if a:background ==# 'dark'
-		call highlight#Set('IncSearch',	{ 'bg': g:black })
+		let color = g:black
 	elseif a:background ==# 'light'
-		call highlight#Set('IncSearch',	{ 'bg': g:white })
+		let color = g:white
 	else
 		echoerr 'Only possible backgrounds are dark and light'
 		return
@@ -675,6 +675,10 @@ function! utils#ChangeColors(scheme, background) abort
 
 	execute "colorscheme " . a:scheme
 	let &background=a:background
+	" IncSearch needs to be set after colorscheme. Because some of them affect
+	" this setting.
+	call highlight#Set('Search', { 'bg' : color })
+	call highlight#SetAll('IncSearch',	{ 'bg': color })
 
 	" If using the lightline plugin then update that as well
 	" this could cause trouble if lightline does not that colorscheme
