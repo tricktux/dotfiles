@@ -119,11 +119,12 @@ function! options#Set() abort
 		let g:colorscheme_day_time = 7
 		let g:colorscheme_day = 'PaperColor'
 		let g:colorscheme_night = 'gruvbox'
+		" Set up a default colorscheme. It will be changed later by Flux
 		call utils#ChangeColors(g:colorscheme_day, 'light')
-		augroup FluxLike
-			autocmd!
-			autocmd VimEnter,BufEnter * call utils#Flux()
-		augroup END
+		" Set highliting for Search and Incsearch
+		" Auto Flux (changing themes) is set in the augroup.vim file
+		call highlight#Set('Search', { 'fg' : g:turquoise4, 'deco' : 'bold' })
+		call highlight#Set('Comment', { 'deco' : 'italic' })
 	else
 		colorscheme desert
 	endif
@@ -149,7 +150,6 @@ function! options#Set() abort
 
 	" Performance Settings
 	" see :h slow-terminal
-	hi NonText cterm=NONE ctermfg=NONE
 	set scrolljump=5
 	set sidescroll=15 " see help for sidescroll
 	if !has('nvim') " this options were deleted in nvim
@@ -163,6 +163,8 @@ function! options#Set() abort
 
 	" CLI
 	if !has('gui_running') && !exists('g:GuiLoaded')
+		" Comes from performance options.
+		hi NonText cterm=NONE ctermfg=NONE
 		if $TERM ==? 'linux'
 			set t_Co=8
 		else
