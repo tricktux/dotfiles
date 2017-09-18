@@ -60,6 +60,12 @@ function! unix#Config() abort
 		let g:clangheader_path = '/usr/lib/clang'
 	endif
 
+	" TODO-[RM]-(Mon Sep 18 2017 16:39): Take care of this super hard coded
+	" stuff here
+	" This mapping is special is to search the cpp-reference offline help with w3m
+	nnoremap <Leader>wc :W3m local /home/reinaldo/Downloads/reference/en/index.html<CR>
+	nnoremap <Leader>wu :W3m local /home/reinaldo/Downloads/reference/en/index.html<CR>
+
 	" This mapping will load the journal from the most recent boot and highlight it for you
 	command! UtilsLinuxReadJournal execute("read !journalctl -b<CR><bar>:setf messages<CR>")
 	" Give execute permissions to current file
