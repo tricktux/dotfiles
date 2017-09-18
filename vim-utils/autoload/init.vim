@@ -5,7 +5,7 @@
 " Last Modified: Aug 21 2017 16:15
 " Created: Aug 21 2017 16:15
 
-function init#vim() abort
+function! init#vim() abort
 	" Req for vim
 	if !has('nvim')
 		set nocompatible
@@ -47,16 +47,6 @@ function init#vim() abort
 	call commands#Set()
 	call syntax#Set()
 
-	" HIGHLITING
-	" ~/.dotfiles/vim-utils/autoload/highlight.vim
-		if exists("g:plugins_loaded")
-			" Search
-			call highlight#Set('Search',									{ 'fg': g:turquoise4 }, 'bold')
-			call highlight#Set('IncSearch',								{ 'bg': g:white }, 'bold')
-			highlight IncSearch cterm=bold gui=bold
-			highlight Search cterm=bold gui=bold
-			highlight Comment cterm=italic gui=italic
-		endif
 endfunction
 
 " vim:tw=78:ts=2:sts=2:sw=2:
