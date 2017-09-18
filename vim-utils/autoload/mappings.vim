@@ -130,7 +130,7 @@ function! mappings#Set() abort
 	vnoremap < <gv
 	vnoremap > >gv
 	" Edit plugin
-	nnoremap <Leader>ep :call utils#EditFileInPath(g:vim_plugins_path)<CR>
+	nnoremap <Leader>ep :call utils#DeniteRec(g:vim_plugins_path)<CR>
 	nnoremap <Leader>ei :e 
 
 	" decrease number
@@ -141,6 +141,8 @@ function! mappings#Set() abort
 	nnoremap dl :call utils#DeleteLine()<CR>
 
 	nnoremap <S-CR> O<Esc>
+	" TODO-[RM]-(Mon Sep 18 2017 16:58): This is too rarely used. Turn it into
+	" command
 	" Display highlighted numbers as ascii chars. Only works on highlighted text
 	vnoremap <Leader>ah :<c-u>s/<count>\x\x/\=nr2char(printf("%d", "0x".submatch(0)))/g<cr><c-l>`<
 	vnoremap <Leader>ha :<c-u>s/\%V./\=printf("%x",char2nr(submatch(0)))/g<cr><c-l>`<
@@ -161,9 +163,9 @@ function! mappings#Set() abort
 	" Edit local <Leader>e?
 	nnoremap <Leader>el :silent e ~/
 	" cd into current dir path and into dir above current path
-	nnoremap <Leader>e1 :call utils#EditFileInPath(g:location_vim_utils)<CR>
+	nnoremap <Leader>e1 :call utils#DeniteRec(g:std_config_path . '/dotfiles')<CR>
 	" Edit Vimruntime
-	nnoremap <Leader>ev :call utils#EditFileInPath($VIMRUNTIME, 1)<CR>
+	nnoremap <Leader>ev :call utils#DeniteRec($VIMRUNTIME)<CR>
 
 	" CD <Leader>c?
 	nnoremap <Leader>cd :lcd %:h<CR>
@@ -173,7 +175,6 @@ function! mappings#Set() abort
 	" cd into dir. press <Tab> after ci to see folders
 	nnoremap <Leader>ci :lcd
 	nnoremap <Leader>cc :pwd<CR>
-	nnoremap <Leader>c1 :lcd ~/.dotfiles<CR>
 	" TODO.RM-Thu Jun 01 2017 10:10: Create mappings like c21 and c22
 
 	" Folding
@@ -301,9 +302,6 @@ function! mappings#Set() abort
 	nnoremap <Leader>wo :call utils#WikiOpen()<CR>
 	nnoremap <Leader>ws :call utils#WikiSearch()<CR>
 	nnoremap <Leader>wm :call utils#MastersDropboxOpen('')<CR>
-	" This mapping is special is to search the cpp-reference offline help with w3m
-	nnoremap <Leader>wc :W3m local /home/reinaldo/Downloads/reference/en/index.html<CR>
-	nnoremap <Leader>wu :W3m local /home/reinaldo/Downloads/reference/en/index.html<CR>
 
 	" Comments <Leader>o
 	nmap - <plug>NERDCommenterToggle
