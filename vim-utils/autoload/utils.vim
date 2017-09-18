@@ -252,36 +252,39 @@ endfunction
 function! utils#LoadSession(...) abort
 	let session_path = g:std_data_path . '/sessions/'
 	" Logic path when not called at startup
-	if a:0 < 1
-		execute "wall"
-		echo "Save Current Session before deleting all buffers: (y)es (any)no"
-		let response = getchar()
-		if response == 121 " y
-			call utils#SaveSession()
-		endif
-		if exists(':Denite')
-			let res = denite#start([{ 'name' : 'file', 'args' : [ '-default-action=yank', '-path=' . session_path ] }]) 
-			if empty(res)
-				return
-			endif
-			let session_name = getreg()
-		else
-			let dir = getcwd()
-			execute "cd ". session_path
-			let session_name = input("Load session:", "", "file")
-			silent! execute "cd " . dir
-		endif
-		silent! execute "normal :%bdelete\<CR>"
-		silent execute "source " . session_path . session_name
-	else
+	if a:0 >= 1
 		" echo "Reload previous session: (j|y)es (any)no"
 		" let response = getchar()
 		" if response == 121 || response == 106 " y|j
-			 " silent! execute "normal :so " . session_path . a:1 . "\<CR>"
+		" silent! execute "normal :so " . session_path . a:1 . "\<CR>"
 		" endif
 		silent! execute "normal :%bdelete\<CR>"
 		silent! execute "normal :so " . session_path . a:1 . "\<CR>"
+		return
 	endif
+
+	execute "wall"
+	echo "Save Current Session before deleting all buffers: (y)es (any)no"
+	let response = nr2char(getchar())
+	if response == "y" || response == "j"
+		call utils#SaveSession()
+	endif
+
+	if exists(':Denite')
+		call setreg(v:register, "") " Clean up register
+		execute "Denite -default-action=yank -path=" . session_path . " file_rec"
+		let session_name = getreg()
+		if !filereadable(session_path . session_name)
+			return
+		endif
+	else
+		let dir = getcwd()
+		execute "cd ". session_path
+		let session_name = input("Load session:", "", "file")
+		silent! execute "cd " . dir
+	endif
+	silent! execute "normal :%bdelete\<CR>"
+	silent execute "source " . session_path . session_name
 endfunction
 
 function! utils#TodoCreate() abort
@@ -359,7 +362,7 @@ function! utils#WikiOpen(...) abort
 		execute "vs " . g:wiki_path . '/'.  a:1
 	else
 		if exists(':Denite')
-			execute "Denite -path=" . g:wiki_path . '/' . " file"
+			execute "Denite -path=" . g:wiki_path . '/' . " file_rec"
 		else
 			let dir = getcwd()
 			execute "cd " . g:wiki_path
