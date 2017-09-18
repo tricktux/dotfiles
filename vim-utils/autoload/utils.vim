@@ -362,7 +362,7 @@ function! utils#WikiOpen(...) abort
 		execute "vs " . g:wiki_path . '/'.  a:1
 	else
 		if exists(':Denite')
-			execute "Denite -path=" . g:wiki_path . '/' . " file_rec"
+			call utils#DeniteRec(g:wiki_path)
 		else
 			let dir = getcwd()
 			execute "cd " . g:wiki_path
@@ -435,6 +435,7 @@ function! utils#GuiFont(sOp) abort
 	endif
 endfunction
 
+" TODO-[RM]-(Mon Sep 18 2017 16:45): No idea whats going on here. Fix here.
 " Optional argument to specify if you want to ask for to use denite or not
 function! utils#EditFileInPath(path, ...) abort
 	if empty(glob(a:path))
@@ -486,8 +487,8 @@ endfun
 
 " Default Wings mappings are for laptop
 function! utils#SetWingsPath(sPath) abort
-	execute "nnoremap <Leader>e21 :silent e " . a:sPath . "OneWings/"
-	execute "nnoremap <Leader>e22 :silent e " . a:sPath . "OneWingsSupFiles/"
+	execute "nnoremap <Leader>e21 :call utils#DeniteRec(\"" . a:sPath . "OneWings/\")<CR>"
+	execute "nnoremap <Leader>e22 :call utils#DeniteRec(\"" . a:sPath . "OneWingsSupFiles/\")<CR>"
 	execute "nnoremap <Leader>ed :silent e ". a:sPath . "OneWings/default.ini<CR>"
 	execute "nnoremap <Leader>ewl :call utils#WingsSymLink('" . expand(a:sPath) . "OneWings')<CR>"
 
@@ -766,12 +767,7 @@ function! utils#MastersDropboxOpen(wiki) abort
 	let db_path .= a:wiki
 
 	if empty(a:wiki) " Use Denite
-		if !exists(':Denite')
-			echoerr 'Denite not available. Please specify a file'
-			return
-		else
-			execute "Denite -path=" . db_path . " file_rec"
-		endif
+		call utils#DeniteRec(db_path)
 	elseif !filereadable(db_path)
 		echoerr "File " . db_path . " does not exists"
 		return
@@ -785,6 +781,23 @@ function! utils#SetBinFileType() abort
 	setlocal ft=xxd
 	%!xxd -r
 	setlocal nomodified
+endfunction
+
+function! utils#DeniteRec(path) abort
+	if !exists(':Denite')
+		let dir = getcwd()
+		execute "cd " . a:path
+		execute "e " . input('e ' . expand(a:path) . '/', "", "file")
+		silent! execute "cd " . dir
+		return
+	endif
+
+	if empty(glob(a:path))
+		echoerr 'Folder ' . a:path . 'not found'
+		return
+	endif
+
+	execute "Denite -path=" . a:path . " file_rec"
 endfunction
 
  " vim:tw=78:ts=2:sts=2:sw=2:
