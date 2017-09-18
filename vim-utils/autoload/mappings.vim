@@ -300,7 +300,7 @@ function! mappings#Set() abort
 	nnoremap <Leader>wt :call utils#WikiOpen('TODO.md')<CR>
 	nnoremap <Leader>wo :call utils#WikiOpen()<CR>
 	nnoremap <Leader>ws :call utils#WikiSearch()<CR>
-	nnoremap <Leader>wm :call utils#DropboxOpen('masters/wiki_idx.md')<CR>
+	nnoremap <Leader>wm :call utils#MastersDropboxOpen('')<CR>
 	" This mapping is special is to search the cpp-reference offline help with w3m
 	nnoremap <Leader>wc :W3m local /home/reinaldo/Downloads/reference/en/index.html<CR>
 	nnoremap <Leader>wu :W3m local /home/reinaldo/Downloads/reference/en/index.html<CR>
