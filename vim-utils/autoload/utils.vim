@@ -761,10 +761,18 @@ function! utils#TmuxMove(direction)
 	endif
 endfunction
 
-function! utils#DropboxOpen(wiki) abort
-	let db_path = get(g:, 'dropbox_path', "~/Dropbox/")
+function! utils#MastersDropboxOpen(wiki) abort
+	let db_path = get(g:, 'dropbox_path', "~/Dropbox/masters")
 	let db_path .= a:wiki
-	if empty(glob(db_path))
+
+	if empty(a:wiki) " Use Denite
+		if !exists(':Denite')
+			echoerr 'Denite not available. Please specify a file'
+			return
+		else
+			execute "Denite -path=" . db_path . " file_rec"
+		endif
+	elseif !filereadable(db_path)
 		echoerr "File " . db_path . " does not exists"
 		return
 	endif
