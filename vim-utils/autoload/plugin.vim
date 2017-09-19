@@ -83,6 +83,11 @@ function! plugin#Config() abort
 				set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
 				let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 			endif
+			let g:ctrlp_prompt_mappings = { 
+						\ 'PrtBS()': ['<bs>', '<c-h>'], 
+						\ 'PrtCurLeft()': ['<left>', '<c-^>'], 
+						\ 'PrtCurRight()': ['<right>'],
+						\ }
 	endif
 
 	if executable('mutt')
