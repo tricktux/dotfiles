@@ -384,6 +384,7 @@ function! plugin#Config() abort
 		" TODO-[RM]-(Thu Sep 14 2017 21:12): No chance to get this working on windows
 		Plug 'yuratomo/w3m.vim'
 			let g:w3m#history#save_file = g:std_cache_path . '/vim_w3m_hist'
+			" Mon Sep 18 2017 22:37: To open html file do `:W3mLocal %'
 	endif
 
 	Plug 'justinmk/vim-sneak'
@@ -513,7 +514,7 @@ function! plugin#Config() abort
 
 
 	" Sun Sep 10 2017 20:44 Depends on languagetool being installed 
-	if exists('g:languagetool_jar')
+	if !empty('g:languagetool_jar')
 		Plug 'dpelle/vim-LanguageTool', { 'for' : 'markdown' }
 	endif
 
