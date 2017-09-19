@@ -800,4 +800,13 @@ function! utils#DeniteRec(path) abort
 	execute "Denite -path=" . a:path . " file_rec"
 endfunction
 
+function! utils#CurlDown(file_name, link) abort
+	if !executable('curl')
+		echoerr 'curl is not installed'
+		return
+	endif
+
+	execute "!curl -kfLo " . a:file_name . " --create-dirs " . a:link
+endfunction
+
  " vim:tw=78:ts=2:sts=2:sw=2:
