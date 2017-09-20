@@ -58,7 +58,7 @@ endif
 " Advanced spelling checks for when writting documents and such
 " Other tools should be enabled and disabled here
 function! MdCheckSpelling() abort
-	if exists('b:spelling_toggle') || b:spelling_toggle == 0
+	if exists('spelling_toggle') || spelling_toggle == 0
 		if exists(':DittoOn')
 			execute "DittoOn"
 		endif
@@ -66,7 +66,7 @@ function! MdCheckSpelling() abort
 		if exists(':LanguageToolCheck')
 			execute "LanguageToolCheck"
 		endif
-		let b:spelling_toggle = 1
+		let spelling_toggle = 1
 	else
 		if exists(':DittoOff')
 			execute "DittoOff"
@@ -75,7 +75,7 @@ function! MdCheckSpelling() abort
 		if exists(':LanguageToolClear')
 			execute "LanguageToolClear"
 		endif
-		let b:spelling_toggle = 0
+		let spelling_toggle = 0
 	endif
 endfunction
 
