@@ -102,7 +102,7 @@ function! plugin#Config() abort
 
 		" Possible values:
 		" - ycm nvim_compl_manager shuogo autocomplpop completor asyncomplete
-		call autocompletion#SetCompl(has('nvim') ? 'nvim_compl_manager' : 'autocomplpop')
+		call autocompletion#SetCompl(has('nvim') ? 'nvim_compl_manager' : 'shuogo')
 
 		" Possible values:
 		" - chromatica easytags neotags color_coded clighter8
