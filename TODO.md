@@ -49,8 +49,8 @@ fileext: md
 	- Not only sessions. Created folder `vim-data` and moved all vim stuff in there.
 - [x] Maybe move plugins into the g:std_data folder
 - [x] Move vim-plug folder out of plugins folder
-- [ ] **Denite not working when being used for sessions**
-	- [ ] Also respond to the denite bug report you did.
+- [x] **Denite not working when being used for sessions**
+	- [x] Also respond to the denite bug report you did.
 	- Fri Sep 15 2017 13:53: Found out that if you `cd` into a folder and run the `file_rec`
 		denite command it does work. 
 - [ ] Follow all cpp tips [here](http://vim.wikia.com/wiki/Category:C%2B%2B)
