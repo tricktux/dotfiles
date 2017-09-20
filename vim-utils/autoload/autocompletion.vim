@@ -271,8 +271,7 @@ function! autocompletion#SetShuogo() abort
 		let g:neocomplete#delimiter_patterns.vim = ['#']
 		let g:neocomplete#delimiter_patterns.cpp = ['::']
 		if executable('clang')
-			Plug 'Rip-Rip/clang_complete', { 'as': 'rip_clang_complete' }
-			call autocompletion#SetClang()
+			call autocompletion#SetClang('rip_clang_complete')
 		endif
 	elseif has('nvim')
 		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -335,8 +334,7 @@ function! autocompletion#SetTab() abort
 	Plug 'ervandew/supertab' " Activate Supertab
 	let g:SuperTabDefaultCompletionType = "context"
 	if has('python') && executable('clang')
-		Plug 'Rip-Rip/clang_complete', { 'as': 'rip_clang_complete' }
-		call autocompletion#SetClang()
+		call autocompletion#SetClang('rip_clang_complete')
 	endif
 endfunction
 
