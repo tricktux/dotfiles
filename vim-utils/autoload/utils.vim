@@ -669,7 +669,7 @@ endfunction
 
 function! utils#ChangeColors(scheme, background) abort
 	if a:background ==# 'dark'
-		let color = g:black
+		let color = g:turquoise4
 	elseif a:background ==# 'light'
 		let color = g:white
 	else
