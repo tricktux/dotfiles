@@ -482,6 +482,8 @@ function! plugin#Config() abort
 		let g:tex_conceal = ""
 		let g:vim_markdown_math = 1
 		let g:vim_markdown_folding_level = 2
+		let g:vim_markdown_frontmatter = 1
+		let g:vim_markdown_new_list_item_indent = 0
 
 	"Sun Sep 10 2017 20:44 Depends on plantuml being installed  
 	Plug 'scrooloose/vim-slumlord', { 'for' : 'uml' }
