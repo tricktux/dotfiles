@@ -6,3 +6,8 @@
 # Created: Jun 25 2017 09:02
 
 set selection-clipboard clipboard
+set smooth-scroll true
+
+# Mappings
+map d scroll half-down
+map e scroll half-up
