@@ -11,6 +11,10 @@ fileext: md
 \tableofcontents
 \pagebreak
 
+## Thu Sep 21 2017 21:05
+- [x] zathura mappings to scroll with `e` and `d`
+- [ ] `vim-pomodoro` install
+
 ## Fri Sep 15 2017 13:11 
 - [ ] Standard for coding todo lists.
 - [ ] Fix the rest of the <Alt> mappings in terminal vim.
