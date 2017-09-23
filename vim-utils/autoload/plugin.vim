@@ -245,20 +245,20 @@ function! plugin#Config() abort
 	endif
 
 	Plug 'scrooloose/nerdcommenter'
-	" NerdCommenter
-	let g:NERDSpaceDelims=1  " space around comments
-	let g:NERDUsePlaceHolders=0 " avoid commenter doing weird stuff
-	let g:NERDCommentWholeLinesInVMode=2
-	let g:NERDCreateDefaultMappings=0 " Eliminate default mappings
-	let g:NERDRemoveAltComs=1 " Remove /* comments
-	let g:NERD_c_alt_style=0 " Do not use /* on C nor C++
-	let g:NERD_cpp_alt_style=0
-	let g:NERDMenuMode=0 " no menu
-	let g:NERDCustomDelimiters = {
-				\ 'vim': { 'left': '"', 'right': '', 'leftAlt': '#', 'rightAlt': ''},
-				\ 'markdown': { 'left': '//', 'right': '' },
-				\ 'dosini': { 'left': ';', 'leftAlt': '//', 'right': '', 'rightAlt': '', 'leftAlt1': ';', 'rightAlt1': '' },
-				\ 'wings_syntax': { 'left': '//', 'right': '' }}
+		" NerdCommenter
+		let g:NERDSpaceDelims=1  " space around comments
+		let g:NERDUsePlaceHolders=0 " avoid commenter doing weird stuff
+		let g:NERDCommentWholeLinesInVMode=2
+		let g:NERDCreateDefaultMappings=0 " Eliminate default mappings
+		let g:NERDRemoveAltComs=1 " Remove /* comments
+		let g:NERD_c_alt_style=0 " Do not use /* on C nor C++
+		let g:NERD_cpp_alt_style=0
+		let g:NERDMenuMode=0 " no menu
+		let g:NERDCustomDelimiters = {
+					\ 'vim': { 'left': '"', 'right': '', 'leftAlt': '#', 'rightAlt': ''},
+					\ 'markdown': { 'left': '//', 'right': '' },
+					\ 'dosini': { 'left': ';', 'leftAlt': '//', 'right': '', 'rightAlt': '', 'leftAlt1': ';', 'rightAlt1': '' },
+					\ 'wings_syntax': { 'left': '//', 'right': '' }}
 
 	Plug 'chrisbra/Colorizer', { 'for' : [ 'css','html','xml' ] }
 		let g:colorizer_auto_filetype='css,html,xml'
@@ -524,6 +524,13 @@ function! plugin#Config() abort
 	if !empty('g:languagetool_jar')
 		Plug 'dpelle/vim-LanguageTool', { 'for' : 'markdown' }
 	endif
+
+	Plug 'pydave/AsyncCommand'
+	Plug 'mnick/vim-pomodoro'
+	let g:pomodoro_do_log = 1 
+	let g:pomodoro_log_file = g:std_data_path . "/pomodoro.log" 
+
+	" %#ErrorMsg#%{PomodoroStatus()}%#StatusLine# 
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
