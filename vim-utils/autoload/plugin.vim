@@ -524,10 +524,7 @@ function! plugin#Config() abort
 		Plug 'dpelle/vim-LanguageTool', { 'for' : 'markdown' }
 	endif
 
-	Plug 'pydave/AsyncCommand'
-	Plug 'mnick/vim-pomodoro'
-	let g:pomodoro_do_log = 1 
-	let g:pomodoro_log_file = g:std_data_path . "/pomodoro.log" 
+	Plug 'prabirshrestha/async.vim'
 
 	" %#ErrorMsg#%{PomodoroStatus()}%#StatusLine# 
 
