@@ -10,15 +10,20 @@ function! s:handler(job_id, data, event_type)
 	echomsg 'Pomodoro is done'
 endfunction
 
+function! s:err_handler(job_id, data, event_type)
+	echomsg 'data received ' . a:data
+endfunction
+
 let g:pomodoro_time_work = 10
 
 if has('win32') || has('win64')
-	let argv = ['cmd', '/c', 'dir c:\ /b']
+	let argv = ['cmd.exe', '/c', 'timeout /t ' . g:pomodoro_time_work]
 else
 	let argv = ['bash', '-c', 'sleep ' . g:pomodoro_time_work ]
 endif
 
 let jobid = async#job#start(argv, {
+			\ 'on_stderr': function('s:err_handler'),
 			\ 'on_exit': function('s:handler'),
 			\ })
 
