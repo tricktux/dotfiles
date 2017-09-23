@@ -348,6 +348,8 @@ ramp-volume-2 = 
 ; Only applies if <ramp-volume> is used
 ramp-headphones-0 = 
 ramp-headphones-1 = 
+
+headphone-id=19
 ; <bar-volume> settings
 ; TODO.RM-Sun Apr 02 2017 10:07: Find a muted icon  
 ; format-muted-prefix = " "
