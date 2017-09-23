@@ -319,7 +319,7 @@ type = internal/volume
 ;   <bar-volume>
 format-volume = <ramp-volume> <label-volume>
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #0b2938
+format-volume-underline = #0b2938
 
 ; Available tags:
 ;   <label-muted> (default)
@@ -330,7 +330,7 @@ format-underline = #0b2938
 ; Available tokens:
 ;   %percentage% (default)
 ;label-volume = %percentage%%
-label-volume-foreground = ${root.foreground}
+; label-volume-foreground = ${root.foreground}
 
 ; Available tokens:
 ;   %percentage% (default)
