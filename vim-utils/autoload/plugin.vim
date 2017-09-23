@@ -519,7 +519,6 @@ function! plugin#Config() abort
 	" Autocorrect mispellings on the fly
 	Plug 'panozzaj/vim-autocorrect'
 
-
 	" Sun Sep 10 2017 20:44 Depends on languagetool being installed 
 	if !empty('g:languagetool_jar')
 		Plug 'dpelle/vim-LanguageTool', { 'for' : 'markdown' }
