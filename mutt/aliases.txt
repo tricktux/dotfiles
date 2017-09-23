@@ -21,3 +21,7 @@ alias connect-paypal PayPal Smart Connect <cardholder@mail.synchronyfinancial.co
 alias TripAdvisor <TopTravelDeals@deals.tripadvisor.com>
 alias airlines@aa.com-american American Airlines@aa.com <notify@aa.globalnotifications.com>
 alias update-member Member Update <admin@ebizsend.com>
+alias crowdfunding@chuwi.com <crowdfunding@chuwi.com>
+alias molina-boyan Boyan Molina <boyanm@gmail.com>
+alias noresponse@dhs.gov noresponse@dhs.gov
+alias america-bank Bank of America <onlineapplication@newaccounts.bankofamerica.com>
