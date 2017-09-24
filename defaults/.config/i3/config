@@ -467,11 +467,13 @@ exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id seafile-applet
 exec --no-startup-id dropbox
-# Mon Jul 17 2017 06:55 Not the proper way to start insync 
+
+# Mon Jul 17 2017 06:55 Not the proper way to start insync. See arch insync
 # exec --no-startup-id insync start
+
 # Notifications daemon. See twmnc for help
 # Fri Jun 30 2017 14:30: Not playing well with rambox 
-# exec --no-startup-id twmnd&
+exec --no-startup-id twmnd&
 
 # Start vnc server service
 # exec --no-startup-id x0vncserver -display :0 -passwordfile ~/.vnc/passwd&
