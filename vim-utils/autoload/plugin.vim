@@ -421,36 +421,39 @@ function! plugin#Config() abort
 		nnoremap <Leader>Gs :Wcsearch google 
 
 	Plug 'itchyny/lightline.vim'
-			" Inside of the functions here there can be no single quotes (') only double (")
+		" Inside of the functions here there can be no single quotes (') only double (")
+		if !exists('g:lightline')
 			let g:lightline = {}
-			if get(g:, 'tagbar_safe_to_use', 1)
-				let g:lightline.active = {
-									\   'left': [ 
-									\							[ 'mode', 'paste' ], 
-									\							[ 'readonly', 'absolutepath', 'modified', 'fugitive', 'svn', 'tagbar'] 
-									\						]
-									\		}
-			else
-				let g:lightline.active = {
-							\   'left': [ 
-							\							[ 'mode', 'paste' ], 
-							\							[ 'readonly', 'absolutepath', 'modified', 'fugitive', 'svn' ] 
-							\						]
+		endif
+		let g:lightline.active = {
+						\   'left': [ 
+						\							[ 'mode', 'paste' ], 
+						\							[ 'readonly', 'absolutepath', 'modified' ] 
+						\						]
+						\		}
+		if executable('git')
+			let g:lightline.active.left[1] += [ 'fugitive' ]
+		endif
+		if executable('svn')
+			let g:lightline.active.left[1] += [ 'svn' ]
+		endif
+		let g:lightline.active.left[1] += [ 'tagbar' ]
+		let g:lightline.active.left[1] += [ 'pomodoro' ]
+
+		let g:lightline.component = {
+							\   'fugitive': '%{fugitive#statusline()}',
+							\   'svn': '%{svn#GetSvnBranchInfo()}', 
+							\   'tagbar': '%{tagbar#currenttag("%s\ ","")}',
+							\   'pomodoro': '%{pomo#status_bar()}' 
 							\		}
-			endif
-		 let g:lightline.component = {
-								\   'fugitive': '%{fugitive#statusline()}',
-								\   'svn': '%{svn#GetSvnBranchInfo()}', 
-								\   'tagbar': '%{tagbar#currenttag("%s\ ","")}' 
-								\		}
-			" Sun May 07 2017 12:36 Slowing down a little bit 
-			" \   'neomake': '%{neomake#statusline#QflistStatus("qf:\ ")}', 
-			" \   'neomake': '(!empty(neomake#statusline#QflistStatus("qf:\ ")))',
-			let g:lightline.component_visible_condition = {
-								\   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())',
-								\   'svn': '(!empty(svn#GetSvnBranchInfo()))',
-								\   'tagbar': '(!empty(tagbar#currenttag("%s\ ","")))'
-								\		}
+		" Sat Sep 23 2017 17:29: This is how you get a message to show on red 
+		" \   'pomodoro': '%#ErrorMsg#%{pomo#status()}%#StatusLine#' 
+		let g:lightline.component_visible_condition = {
+							\   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())',
+							\   'svn': '(!empty(svn#GetSvnBranchInfo()))',
+							\   'tagbar': '(!empty(tagbar#currenttag("%s\ ","")))',
+							\   'pomodoro': '(!empty(pomo#status()))'
+							\		}
 		" let g:lightline.colorscheme = 'onedark'
 		" let g:lightline.colorscheme = 'gruvbox'
 		let g:lightline.colorscheme = 'PaperColor'
@@ -524,7 +527,8 @@ function! plugin#Config() abort
 		Plug 'dpelle/vim-LanguageTool', { 'for' : 'markdown' }
 	endif
 
-	Plug 'prabirshrestha/async.vim'
+	Plug 'rmolin88/vim-pomodoro'
+		let g:pomodoro_show_time_remaining = 0 
 
 	" %#ErrorMsg#%{PomodoroStatus()}%#StatusLine# 
 
@@ -554,8 +558,6 @@ function! plugin#Config() abort
 	endif
 
 	" Create required folders for storing usage data
-	" TODO-[RM]-(Thu Aug 24 2017 21:01): Actually this guys should be inside of
-	" the nvim data folder.
 	call utils#CheckDirwoPrompt(g:std_data_path . '/sessions')
 	call utils#CheckDirwoPrompt(g:std_data_path . '/ctags')
 	if has('persistent_undo') 
