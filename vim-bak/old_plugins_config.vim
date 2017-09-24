@@ -1833,3 +1833,6 @@ endfunction
 		" Note: Python-Windows hides pip executables in C:\Users\<user>\AppData\Roaming\Python\Python36\Scripts
 		let g:formatters_python = ['yapf']
 		let g:formatter_yapf_style = 'google'
+		" Sun May 07 2017 12:36 Slowing down a little bit 
+		" \   'neomake': '%{neomake#statusline#QflistStatus("qf:\ ")}', 
+		" \   'neomake': '(!empty(neomake#statusline#QflistStatus("qf:\ ")))',
