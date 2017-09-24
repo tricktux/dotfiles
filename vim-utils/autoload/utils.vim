@@ -505,7 +505,7 @@ function! utils#SetWingsPath(sPath) abort
 endfunction
 
 function! utils#NeomakeOpenWindow() abort
-	echo "Neomake Done"
+	" echo "Neomake Done" " Debuggin
 	" if g:neomake_hook_context.file_mode
 		" let loc_text = getloclist(0)
 		" if len(loc_text) == 0
