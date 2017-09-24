@@ -529,6 +529,11 @@ function! plugin#Config() abort
 
 	Plug 'rmolin88/vim-pomodoro'
 		let g:pomodoro_show_time_remaining = 0 
+		let g:pomodoro_time_slack = 1 
+		let g:pomodoro_time_work = 1 
+		if executable('twmnc')
+			let g:pomodoro_notification_cmd = 'twmnc -t Vim -c "Pomodoro done"'
+		endif
 
 	" %#ErrorMsg#%{PomodoroStatus()}%#StatusLine# 
 
