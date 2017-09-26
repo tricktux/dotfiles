@@ -52,9 +52,8 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 		nnoremap <buffer> <Leader>la :OnlineThesaurusCurrentWord<cr>
 	endif
 
-	if exists(':Pandoc')
-		nnoremap <buffer> <Plug>Make :Pandoc #eisvogel<CR>
-	endif
+	nnoremap <buffer> <Plug>Make :!pandoc % -o %:r.pdf --from markdown --template eisvogel --listings<CR>
+	nnoremap <buffer> <Leader>lo :!zathura %:r.pdf<CR>
 endif
 
 if exists('*AutoCorrect')
