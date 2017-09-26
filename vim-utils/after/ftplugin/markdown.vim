@@ -42,12 +42,18 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 
 	if exists(':Toc')
 		nnoremap <buffer> <Leader>lt :Toc<cr>
+	elseif exists(':TOC')
+		nnoremap <buffer> <Leader>lt :TOC<cr>
 	endif
 
 	nnoremap <buffer> <Leader>ls :call MdCheckSpelling()<cr>
 
 	if exists(':OnlineThesaurusCurrentWord')
 		nnoremap <buffer> <Leader>la :OnlineThesaurusCurrentWord<cr>
+	endif
+
+	if exists(':Pandoc')
+		nnoremap <buffer> <Plug>Make :Pandoc #eisvogel<CR>
 	endif
 endif
 
