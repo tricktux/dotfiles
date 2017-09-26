@@ -468,6 +468,11 @@ function! plugin#Config() abort
 	Plug 'vim-pandoc/vim-pandoc-syntax', { 'on' : 'Pandoc' }
 		" You might be able to get away with xelatex in unix
 		let g:pandoc#command#latex_engine = "pdflatex"
+		let g:pandoc#folding#fdc=0
+		let g:pandoc#keyboard#use_default_mappings=0
+		" Pandoc pdf --template eisvogel --listings
+		" PandocTemplate save eisvogel
+		" Pandoc #eisvogel
 
 	" Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
 	Plug 'matze/vim-ini-fold', { 'for': 'dosini' }
@@ -527,7 +532,7 @@ function! plugin#Config() abort
 		Plug 'dpelle/vim-LanguageTool', { 'for' : 'markdown' }
 	endif
 
-	Plug 'rmolin88/vim-pomodoro'
+	Plug 'rmolin88/pomodoro.vim'
 		let g:pomodoro_show_time_remaining = 0 
 		" let g:pomodoro_time_slack = 1 
 		" let g:pomodoro_time_work = 1 
