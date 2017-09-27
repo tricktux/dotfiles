@@ -40,9 +40,9 @@ alias mutt-psu='mutt -F ~/.config/mutt/psu/account.psu'
 alias svn-server='cd /home/reinaldo/.mnt/copter-server/mnt/hq-storage/1.Myn/svn-server'
 
 # Mounting remote servers
-alias mount-truck='sshfs odroid@truck-server:/ /mnt/truck-server/'
-alias mount-copter='sshfs odroid@copter-server:/ /mnt/copter-server/'
-alias mount-hq='sshfs reinaldo@HQ:/ /mnt/HQ-server/'
+alias mount-truck='sshfs odroid@truck-server:/ ~/.mnt/truck-server/'
+alias mount-copter='sshfs odroid@copter-server:/ ~/.mnt/copter-server/'
+alias mount-hq='sshfs reinaldo@HQ:/ ~/.mnt/HQ-server/'
 
 # Misc
 # Removing -2 from tmux in order to get truecolor
@@ -85,12 +85,16 @@ FuncUpdate()
 	sudo pacman -Sc --noconfirm
 	sudo pacman-optimize
 	# Update list of all installed packages
-	pacman -Qe > ~/.dotfiles/$machine-arch-packages
+	pacman -Qe > ~/.config/dotfiles/$machine-arch-packages
+	# Tue Sep 26 2017 18:40 Update Mirror list. Depends on `reflector`
+	if hash reflector 2>/dev/null; then
+		sudo reflector --protocol https --latest 30 --number 5 --sort rate --save /etc/pacman.d/mirrorlist -c 'United States' --verbose
+	fi
 	# Now update packages
 	# When update fails to verify some <package> do:
 	# update --ignore <package1>,<package2>
 	# Devel is required to update <package-git> stuff
-	pacaur -Syu --devel --noconfirm $@
+	pacaur -Syyu --devel --noconfirm $@
 	# To install packages from list:
 	# pacaur -S - < <pgklist.txt>
 }
