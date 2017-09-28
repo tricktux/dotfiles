@@ -36,11 +36,11 @@ options     head
     ---
     title:	    ${1:`expand('%:t')`}
     subtitle:   ${2:Document Description}
-    author:		${3:Reinaldo Molina <rmolin88@gmail.com>}
+    author:		${3:Reinaldo Molina } `utils#ChooseEmailAcc()`
     revision:	${4:0.0.0}
     date:       `strftime("%a %b %d %Y %H:%M")`
     fileext:    md
-    ...
+    ---
 
     ${6:\\\maketitle}
     ${7:\\\tableofcontents}
