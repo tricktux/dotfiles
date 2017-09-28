@@ -29,6 +29,8 @@ function! augroup#Set() abort
 		autocmd FileType mail setlocal omnifunc=muttaliases#CompleteMuttAliases
 		" Python
 		" autocmd FileType python setlocal foldmethod=syntax
+		" Csv
+		autocmd FileType csv nnoremap <buffer> <Leader>lf ggVG<bar>:ArrangeColumn<cr>
 	augroup END
 
 	" To improve syntax highlight speed. If something breaks with highlight
