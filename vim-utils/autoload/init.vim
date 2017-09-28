@@ -9,8 +9,9 @@ function! init#vim() abort
 	" Req for vim
 	if !has('nvim')
 		set nocompatible
-		syntax on
+		" Thu Sep 28 2017 15:07: This order matters. 
 		filetype plugin indent on
+		syntax on
 	endif
 	let g:mapleader="\<Space>"
 	let g:maplocalleader="\<Space>"
