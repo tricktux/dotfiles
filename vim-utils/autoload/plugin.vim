@@ -257,8 +257,10 @@ function! plugin#Config() abort
 		let g:NERDCustomDelimiters = {
 					\ 'vim': { 'left': '"', 'right': '', 'leftAlt': '#', 'rightAlt': ''},
 					\ 'markdown': { 'left': '//', 'right': '' },
-					\ 'dosini': { 'left': ';', 'leftAlt': '//', 'right': '', 'rightAlt': '', 'leftAlt1': ';', 'rightAlt1': '' },
-					\ 'wings_syntax': { 'left': '//', 'right': '' }}
+					\ 'dosini': { 'left': ';', 'leftAlt': '//', 'right': '', 'rightAlt': '' },
+					\ 'csv': { 'left': '#', 'right': '' },
+					\ 'wings_syntax': { 'left': '//', 'right': '', 'leftAlt': '//', 'rightAlt': '' }
+					\ }
 
 	Plug 'chrisbra/Colorizer', { 'for' : [ 'css','html','xml' ] }
 		let g:colorizer_auto_filetype='css,html,xml'
@@ -543,6 +545,8 @@ function! plugin#Config() abort
 
 	Plug 'chrisbra/csv.vim', { 'for' : 'csv' }
 		let g:no_csv_maps = 1
+		let g:csv_autocmd_arrange      = 1
+		let g:csv_autocmd_arrange_size = 1024*1024
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
