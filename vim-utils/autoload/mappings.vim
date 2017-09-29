@@ -160,6 +160,17 @@ function! mappings#Set() abort
 	inoremap <A-b> <S-Left>
 	inoremap <A-f> <S-Right>
 
+	" Fri Sep 29 2017 14:20: Break up long text into smaller, better undo
+	" chunks. See :undojoin
+	" For normal text typing
+	inoremap . .<c-g>u 
+	inoremap , ,<c-g>u 
+	inoremap ? ?<c-g>u 
+	inoremap ! !<c-g>u 
+	" For cpp
+	inoremap ; ;<c-g>u 
+	inoremap = =<c-g>u 
+
 	" Edit local <Leader>e?
 	nnoremap <Leader>el :silent e ~/
 	" cd into current dir path and into dir above current path
