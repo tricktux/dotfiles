@@ -42,6 +42,8 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 
 	if exists(':Toc')
 		nnoremap <buffer> <Leader>lt :Toc<cr>
+	elseif exists(':TOC')
+		nnoremap <buffer> <Leader>lt :TOC<cr>
 	endif
 
 	nnoremap <buffer> <Leader>ls :call MdCheckSpelling()<cr>
@@ -49,6 +51,9 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	if exists(':OnlineThesaurusCurrentWord')
 		nnoremap <buffer> <Leader>la :OnlineThesaurusCurrentWord<cr>
 	endif
+
+	nnoremap <buffer> <Plug>Make :!pandoc % -o %:r.pdf --from markdown --template eisvogel --listings<CR>
+	nnoremap <buffer> <Leader>lo :!zathura %:r.pdf<CR>
 endif
 
 if exists('*AutoCorrect')
