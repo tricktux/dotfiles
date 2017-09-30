@@ -809,4 +809,19 @@ function! utils#CurlDown(file_name, link) abort
 	execute "!curl -kfLo " . a:file_name . " --create-dirs " . a:link
 endfunction
 
+function! utils#ChooseEmailAcc() abort
+	let choice = confirm("Please choose an email:", 
+				\ "&Gmail\n&Honeywell\n&PSU", 1)
+
+	if choice == 1
+		return 'rmolin88@gmail.com'
+	elseif choice == 2
+		return 'reinaldo.molinaperez@honeywell.com'
+	elseif choice == 3
+		return 'rim18@psu.edu'
+	endif
+
+	return ''
+endfunction
+
  " vim:tw=78:ts=2:sts=2:sw=2:
