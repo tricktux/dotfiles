@@ -17,7 +17,9 @@ let b:match_words .= '\<if\>:\<else\>,'
 			\ . '\<while\>:\<continue\>:\<break\>,'
 			\ . '\<for\>:\<continue\>:\<break\>,'
 			\ . '\<try\>:\<catch\>'
-setlocal omnifunc=ClangComplete
+if exists('g:omnifunc_clang')
+	let &l:omnifunc=g:omnifunc_clang
+endif
 setlocal ts=4
 setlocal sw=4
 setlocal sts=4
