@@ -54,6 +54,9 @@ alias vim='stty -ixon && vim'
 # Search help
 alias help=FuncHelp
 alias cpstat=FuncCheckCopy
+
+# alias ncmpcpp='ncmpcpp -c ~/.config/ncmpcpp'
+
 FuncHelp()
 {
   $1 --help 2>&1 | grep $2 
