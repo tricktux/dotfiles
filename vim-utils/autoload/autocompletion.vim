@@ -54,6 +54,9 @@ function! autocompletion#SetCompl(compl) abort
 
 		if has('unix')
 			Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+				let g:LanguageClient_serverCommands = {                                                                                                                            
+							\ 'cpp': ['clangd'],                                                                                                                                       
+							\ }  
 				let g:LanguageClient_autoStart = 1
 		endif
 
@@ -67,26 +70,13 @@ function! autocompletion#SetCompl(compl) abort
 
 		" ncm's filtering is based on word, so it's better to convert results of
 		" muttaliases#CompleteMuttAliases into snippet expension
-		func! g:MuttOmniWrap(findstart, base)
-			let ret = muttaliases#CompleteMuttAliases(a:findstart, a:base)
-			if type(ret) == type([])
-				let i=0
-				while i<len(ret)
-					let ret[i]['snippet'] = ret[i]['word']
-					let ret[i]['word'] = ret[i]['abbr']
-					let i+=1
-				endwhile
-			endif
-			return ret
-		endfunc
-
 		augroup NCM
 		autocmd!
 		autocmd User CmSetup call cm#register_source({'name' : 'mutt',
 					\ 'priority': 9, 
 					\ 'cm_refresh_length': -1,
 					\ 'cm_refresh_patterns': ['^\w+:\s+'],
-					\ 'cm_refresh': {'omnifunc': 'g:MuttOmniWrap'},
+					\ 'cm_refresh': {'omnifunc': function('autocompletion#MuttOmniWrap')},
 					\ })
 		augroup END
 		inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
@@ -99,9 +89,12 @@ function! autocompletion#SetCompl(compl) abort
 			" imap <silent> <Tab> <Plug>(cm_force_refresh)
 		" endif
 
-		call autocompletion#SetClang('roxma_clang_complete')
+		" call autocompletion#SetClang('roxma_clang_complete')
 	elseif a:compl ==# 'shuogo'
 		call autocompletion#SetShuogo()
+		if executable('clang')
+			call autocompletion#SetClang('rip_clang_complete')
+		endif
 	elseif a:compl ==# 'autocomplpop'
 		Plug 'vim-scripts/AutoComplPop'
 		inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -156,6 +149,10 @@ function! autocompletion#SetCompl(compl) abort
 			autocmd!
 			autocmd User asyncomplete_setup call autocompletion#SetAsynCompl()
 		augroup END		
+	elseif a:compl ==# 'neo_clangd'
+		let g:clangd#completions_enabled = 0
+		call autocompletion#SetShuogo()
+		call autocompletion#SetClangdLSP()
 	else
 		echomsg 'autocompletion#SetCompl(): Not a recognized value therefore setting SuperTab'
 		call autocompletion#SetTab()
@@ -179,6 +176,7 @@ function! autocompletion#SetClang(type) abort
 		echomsg 'autocompletion#SetClang(): Not a recognized clang_complete type'
 	endif
 
+	let g:omnifunc_clang ='ClangComplete'
 	" Why I switched to Rip-Rip because it works
 	" Steps to get plugin to work:
 	" 1. Make sure that you can compile a program with clang++ command
@@ -270,9 +268,6 @@ function! autocompletion#SetShuogo() abort
 		endif
 		let g:neocomplete#delimiter_patterns.vim = ['#']
 		let g:neocomplete#delimiter_patterns.cpp = ['::']
-		if executable('clang')
-			call autocompletion#SetClang('rip_clang_complete')
-		endif
 	elseif has('nvim')
 		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 			" If it is nvim deoplete requires python3 to work
@@ -384,3 +379,29 @@ function! autocompletion#SetAsynCompl() abort
 		echomsg "autocompletion#SetAsynCompl(): AsynComplete not installed yet"
 	endif
 endfunction
+
+" Fri Sep 29 2017 12:22: This plugin is still not ready 
+function! autocompletion#SetClangdLSP() abort
+	if !has('python3') || !executable('clangd')
+		echomsg 'autocompoletion#SetClangdLSP(): Clangd not installed or no python'
+		return
+	endif
+
+	Plug 'Chilledheart/vim-clangd'
+	let g:clangd#codecomplete_timeout = 500
+	let g:omnifunc_clang ='clangd#OmniCompleteAt'
+endfunction
+
+function! autocompletion#MuttOmniWrap(findstart, base) abort
+	let ret = muttaliases#CompleteMuttAliases(a:findstart, a:base)
+	if type(ret) == type([])
+		let i=0
+		while i<len(ret)
+			let ret[i]['snippet'] = ret[i]['word']
+			let ret[i]['word'] = ret[i]['abbr']
+			let i+=1
+		endwhile
+	endif
+	return ret
+endfunc
+
