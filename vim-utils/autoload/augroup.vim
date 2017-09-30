@@ -21,7 +21,7 @@ function! augroup#Set() abort
 		autocmd FileType tex compiler tex
 		" Display help vertical window not split
 		autocmd FileType help wincmd L
-		autocmd FileType help nnoremap <buffer> q ZZ
+		autocmd FileType help nnoremap <buffer> q :helpc<cr>
 		autocmd FileType help setlocal relativenumber
 		" wrap syntastic messages
 		autocmd FileType mail setlocal wrap
