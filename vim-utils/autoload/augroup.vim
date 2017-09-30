@@ -21,7 +21,7 @@ function! augroup#Set() abort
 		autocmd FileType tex compiler tex
 		" Display help vertical window not split
 		autocmd FileType help wincmd L
-		autocmd FileType help nnoremap <buffer> q ZZ
+		autocmd FileType help nnoremap <buffer> q :helpc<cr>
 		autocmd FileType help setlocal relativenumber
 		" wrap syntastic messages
 		autocmd FileType mail setlocal wrap
@@ -29,6 +29,8 @@ function! augroup#Set() abort
 		autocmd FileType mail setlocal omnifunc=muttaliases#CompleteMuttAliases
 		" Python
 		" autocmd FileType python setlocal foldmethod=syntax
+		" Csv
+		autocmd FileType csv nnoremap <buffer> <Leader>lf ggVG<bar>:ArrangeColumn<cr>
 	augroup END
 
 	" To improve syntax highlight speed. If something breaks with highlight
