@@ -13,7 +13,7 @@ options     head
     - ${2:Press <F5>}
 
 snippet     scr
-abbr        header
+abbr        Hon SCR Checklist
 options     head
   ## ${1:SCR Number}
     - `strftime("%d %b %Y")`
@@ -32,6 +32,7 @@ options     head
     -  [ ] Upload Code to Official Version Control
 
 snippet     author
+abbr        Markdown YAML header
 options     head
     ---
     title:	    ${1:`expand('%:t')`}
