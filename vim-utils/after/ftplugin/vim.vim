@@ -13,6 +13,11 @@ endif
 " Don't load another plugin for this buffer
 let b:did_vim_ftplugin = 1
 
+setlocal ts=2
+setlocal sw=2
+setlocal sts=2
+setlocal nospell
+
 " Add mappings, unless the user didn't want this.
 if !exists("no_plugin_maps") && !exists("no_vim_maps")
 	" Quote text by inserting "> "
@@ -24,3 +29,5 @@ if !exists("no_plugin_maps") && !exists("no_vim_maps")
 	" Execute highlighted text
 	vnoremap <buffer> <Leader>lE y:<c-r>"<cr>
 endif
+
+let b:undo_ftplugin = "setl spell< ts< sw< sts<" 
