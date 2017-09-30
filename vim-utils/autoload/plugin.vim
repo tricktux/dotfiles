@@ -101,7 +101,7 @@ function! plugin#Config() abort
 	endif
 
 		" Possible values:
-		" - ycm nvim_compl_manager shuogo autocomplpop completor asyncomplete
+		" - ycm nvim_compl_manager shuogo autocomplpop completor asyncomplete neo_clangd
 		call autocompletion#SetCompl(has('nvim') ? 'nvim_compl_manager' : 'shuogo')
 
 		" Possible values:
@@ -176,21 +176,23 @@ function! plugin#Config() abort
 		" nnoremap <Leader>lm :TableModeToggle<CR>
 		" <Leader>tr	Realigns table columns
 
-	Plug 'scrooloose/syntastic'
-		let g:syntastic_aggregate_errors = 1
-		let g:syntastic_always_populate_loc_list = 1
-		let g:syntastic_auto_loc_list = 0
-		let g:syntastic_check_on_open = 0
-		let g:syntastic_check_on_wq = 0
-		let g:syntastic_auto_jump = 0
-		" Note: Checkers and passive/active mode is handled at after/ftplugin files
-		let g:syntastic_cpp_compiler_options = '-std=c++17 -pedantic -Wall'
-		let g:syntastic_cpp_include_dirs = [ 'includes', 'headers', 'inc' ]
-		let g:syntastic_cpp_clang_check_args = '-extra-arg=-std=c++1z'
+	if has('unix')
+		Plug 'scrooloose/syntastic'
+			let g:syntastic_aggregate_errors = 1
+			let g:syntastic_always_populate_loc_list = 1
+			let g:syntastic_auto_loc_list = 0
+			let g:syntastic_check_on_open = 0
+			let g:syntastic_check_on_wq = 0
+			let g:syntastic_auto_jump = 0
+			" Note: Checkers and passive/active mode is handled at after/ftplugin files
+			let g:syntastic_cpp_compiler_options = '-std=c++17 -pedantic -Wall'
+			let g:syntastic_cpp_include_dirs = [ 'includes', 'headers', 'inc' ]
+			let g:syntastic_cpp_clang_check_args = '-extra-arg=-std=c++1z'
 
-		let g:syntastic_c_remove_include_errors = 1
-		let g:syntastic_c_compiler_options = '-std=c11 -pedantic -Wall'
-		" let g:syntastic_cpp_check_header = 1
+			let g:syntastic_c_remove_include_errors = 1
+			let g:syntastic_c_compiler_options = '-std=c11 -pedantic -Wall'
+			" let g:syntastic_cpp_check_header = 1
+	endif
 
 	Plug g:location_vim_utils
 		" Load the rest of the stuff and set the settings
@@ -257,8 +259,10 @@ function! plugin#Config() abort
 		let g:NERDCustomDelimiters = {
 					\ 'vim': { 'left': '"', 'right': '', 'leftAlt': '#', 'rightAlt': ''},
 					\ 'markdown': { 'left': '//', 'right': '' },
-					\ 'dosini': { 'left': ';', 'leftAlt': '//', 'right': '', 'rightAlt': '', 'leftAlt1': ';', 'rightAlt1': '' },
-					\ 'wings_syntax': { 'left': '//', 'right': '' }}
+					\ 'dosini': { 'left': ';', 'leftAlt': '//', 'right': '', 'rightAlt': '' },
+					\ 'csv': { 'left': '#', 'right': '' },
+					\ 'wings_syntax': { 'left': '//', 'right': '', 'leftAlt': '//', 'rightAlt': '' }
+					\ }
 
 	Plug 'chrisbra/Colorizer', { 'for' : [ 'css','html','xml' ] }
 		let g:colorizer_auto_filetype='css,html,xml'
@@ -461,13 +465,19 @@ function! plugin#Config() abort
 	Plug 'PotatoesMaster/i3-vim-syntax'
 
 	if has('win32')
-		Plug 'PProvost/vim-ps1'
+		" TODO-[RM]-(Fri Sep 29 2017 11:44): Test
+		Plug 'PProvost/vim-ps1', { 'for' : 'ps1' }
 	endif
 
 	Plug 'vim-pandoc/vim-pandoc', { 'on' : 'Pandoc' }
 	Plug 'vim-pandoc/vim-pandoc-syntax', { 'on' : 'Pandoc' }
 		" You might be able to get away with xelatex in unix
 		let g:pandoc#command#latex_engine = "pdflatex"
+		let g:pandoc#folding#fdc=0
+		let g:pandoc#keyboard#use_default_mappings=0
+		" Pandoc pdf --template eisvogel --listings
+		" PandocTemplate save eisvogel
+		" Pandoc #eisvogel
 
 	" Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
 	Plug 'matze/vim-ini-fold', { 'for': 'dosini' }
@@ -479,7 +489,7 @@ function! plugin#Config() abort
 		let g:no_default_tabular_maps = 1
 	
 	" This plugin depends on 'godlygeek/tabular'
-	Plug 'plasticboy/vim-markdown'
+	Plug 'plasticboy/vim-markdown', { 'for' : 'markdown' }
 		let g:vim_markdown_no_default_key_mappings = 1
 		let g:vim_markdown_toc_autofit = 1
 		let g:tex_conceal = ""
@@ -495,12 +505,12 @@ function! plugin#Config() abort
 	Plug 'merlinrebrovic/focus.vim', { 'on' : 'FocusModeToggle' }
 			let g:focus_use_default_mapping = 0
 
-	Plug 'dbmrq/vim-ditto'
+	Plug 'dbmrq/vim-ditto', { 'for' : 'markdown' }
 		let g:ditto_dir = g:std_data_path
 		let g:ditto_file = 'ditto-ignore.txt'
 
 	" TODO-[RM]-(Sun Sep 10 2017 20:27): Dont really like it
-	Plug 'reedes/vim-wordy'
+	Plug 'reedes/vim-wordy', { 'for' : 'markdown' }
 		let g:wordy#ring = [
 					\ 'weak',
 					\ ['being', 'passive-voice', ],
@@ -516,26 +526,35 @@ function! plugin#Config() abort
 				\ ]
 
 	" TODO-[RM]-(Sun Sep 10 2017 20:26): So far only working on linux
-	Plug 'beloglazov/vim-online-thesaurus'
+	Plug 'beloglazov/vim-online-thesaurus', { 'on' : 'OnlineThesaurusCurrentWord' }
 		let g:online_thesaurus_map_keys = 0
 
 	" Autocorrect mispellings on the fly
-	Plug 'panozzaj/vim-autocorrect'
+	Plug 'panozzaj/vim-autocorrect', { 'for' : 'markdown' }
 
 	" Sun Sep 10 2017 20:44 Depends on languagetool being installed 
 	if !empty('g:languagetool_jar')
 		Plug 'dpelle/vim-LanguageTool', { 'for' : 'markdown' }
 	endif
 
+
 	Plug 'rmolin88/vim-pomodoro'
-		let g:pomodoro_show_time_remaining = 0 
+		" let g:pomodoro_show_time_remaining = 0 
 		" let g:pomodoro_time_slack = 1 
 		" let g:pomodoro_time_work = 1 
 		if executable('twmnc')
 			let g:pomodoro_notification_cmd = 'twmnc -t Vim -c "Pomodoro done"'
 		endif
-
 	" %#ErrorMsg#%{PomodoroStatus()}%#StatusLine# 
+
+	Plug 'chrisbra/csv.vim', { 'for' : 'csv' }
+		let g:no_csv_maps = 1
+		augroup Csv_Arrange
+			autocmd!
+			autocmd BufWritePost *.csv call CsvArrangeColumns()
+		augroup END
+		" let g:csv_autocmd_arrange      = 1
+		" let g:csv_autocmd_arrange_size = 1024*1024
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
