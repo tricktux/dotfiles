@@ -59,6 +59,12 @@ variables. Just shorter and allows you to set default value
 - `curly-braces-names` interesting section. Where you can create variables names with actual variables
 - `getfsize({fname})`
 - `getcompletion({pat}, {type} [, {filtered}])` Return a list of command-line completion matches
+- Restoring cursor position
+```
+let save_cursor = getcurpos()
+" MoveTheCursorAround
+call setpos('.', save_cursor)
+```
 
 ## Plugin convention
 	- The plugin folder is only for the commands everything else (all the functions) go into autoload
