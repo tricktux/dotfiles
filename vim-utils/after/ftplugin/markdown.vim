@@ -53,7 +53,7 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	endif
 
 	nnoremap <buffer> <Plug>Make :!pandoc % -o %:r.pdf --from markdown --template eisvogel --listings<CR>
-	nnoremap <buffer> <Leader>lo :!zathura %:r.pdf<CR>
+	nnoremap <buffer> <Leader>lo :!zathura %:r.pdf&<CR>
 endif
 
 if exists('*AutoCorrect')
@@ -62,8 +62,9 @@ endif
 
 " Advanced spelling checks for when writting documents and such
 " Other tools should be enabled and disabled here
+let s:spelling_toggle = 0
 function! MdCheckSpelling() abort
-	if exists('spelling_toggle') || spelling_toggle == 0
+	if exists('spelling_toggle') && spelling_toggle == 0
 		if exists(':DittoOn')
 			execute "DittoOn"
 		endif
@@ -80,7 +81,7 @@ function! MdCheckSpelling() abort
 		if exists(':LanguageToolClear')
 			execute "LanguageToolClear"
 		endif
-		let spelling_toggle = 0
+		let s:spelling_toggle = 0
 	endif
 endfunction
 
