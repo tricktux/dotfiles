@@ -307,7 +307,8 @@ assign [class="Pcmanfm"] $workspace4
 #       to entire applications, including child windows. If this
 #       isn't want you want see the ROLE section, below.
 # Tip: To find out what these values might be run:
-#       xprop | grep -i 'class' second name
+#       xprop | grep -i 'class'
+#				The actual value is the second name
 		for_window [class="File-roller"] floating enable
 		for_window [class="Speedcrunch"] floating enable
 		for_window [class="Gloobus-preview"] floating enable
