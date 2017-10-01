@@ -1,16 +1,25 @@
+# File:					config
+# Description:			Configuration file for termite. See man termite.config(5)
+# Author:				Reinaldo Molina <rmolin88@gmail.com>
+# Version:				0.0.0
+# Last Modified: Oct 01 2017 08:11
+# Created: Oct 01 2017 08:11
+
+
 # Use <C-S-r> to reload configuration
 [options]
 allow_bold = true
 audible_bell = false
 clickable_url = true
 dynamic_title = true
-font = Monospace 9
-font = xos4 Terminus 12px
-font = Droid Sans Mono 8
-font=FontAwesome 10
-font=NotoSans 8
-font=Inconsolata 9
-browser = $BROWSER
+# font = Monospace 10
+# font = xos4 Terminus 12px
+# font = Droid Sans Mono 8
+# font=FontAwesome 11
+# font=NotoSans 8
+font=Inconsolata 10
+# This is the default value
+# browser = $BROWSER
 urgent_on_bell = true
 mouse_autohide = true
 # cursor_shape = underline
