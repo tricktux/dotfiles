@@ -26,3 +26,5 @@ alias molina-boyan Boyan Molina <boyanm@gmail.com>
 alias noresponse@dhs.gov noresponse@dhs.gov
 alias america-bank Bank of America <onlineapplication@newaccounts.bankofamerica.com>
 alias indiegogo-chuwi Chuwi SurBook: Affordable 2-in-1 Intel PC Tablet via Indiegogo <noreply@indiegogo.com>
+alias express-american American Express <AmericanExpress@welcome.aexp.com>
+alias DukeEnergyEbill@duke-energy.com DukeEnergyEbill@duke-energy.com
