@@ -511,7 +511,7 @@ exec = .config/polybar/pkg.sh
 exec-if = "ping -q -w 2 -c 1 176.34.135.167 > /dev/null"
 
 ; Sun Oct 01 2017 11:09 
-; pip install --upgrade google-api-python-client --user
+; pip3 install --upgrade google-api-python-client --user
 ; Font Awesome - for email badge
 ; canberra-gtk-play - for new email sound
 ; Setup
