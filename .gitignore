@@ -14,3 +14,4 @@ mutt/.mutt/ufl/certificates
 mutt/.mutt/psu/cache
 mutt/.mutt/psu/certificates
 mutt/.mutt/aliases.txt
+defaults/.config/polybar/gmail/credentials.json
