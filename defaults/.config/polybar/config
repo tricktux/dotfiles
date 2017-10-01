@@ -508,6 +508,7 @@ format = <label>
 format-underline = #ee75be
 label = "%output:0:30%"
 exec = .config/polybar/pkg.sh
+; Check if there is internet
 exec-if = "ping -q -w 2 -c 1 176.34.135.167 > /dev/null"
 
 ; Sun Oct 01 2017 11:09 
@@ -530,6 +531,8 @@ format-underline = #6e1fd4
 format-prefix-foreground = ${colors.foreground-alt}
 tail = true
 click-left = xdg-open https://mail.google.com
+; Check if there is internet
+exec-if = "ping -q -w 2 -c 1 176.34.135.167 > /dev/null"
 
 [module/cmus]
 type = custom/script
