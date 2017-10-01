@@ -242,12 +242,12 @@ bindsym Control+Mod1+J exec amixer sset Master 5%-
 		# bindsym Return mode "default"
 # }
 
-
-for_window [instance="cmus"] move to scratchpad
-# bindsym Mod1+i exec .local/bin/urxvtq scratchpad_urxvt_top 180x28, [instance="scratchpad_urxvt_left"] move to scratchpad, border 1pixel, [instance="scratchpad_urxvt_bottom"] move to scratchpad, border 1pixel, [instance="scratchpad_urxvt_top"] scratchpad show, move position 45px 0px
-bindsym $mod+c exec ps cax | grep cmus > /dev/null || termite -e cmu  s
-# bindsym $mod+m exec ~/.config/i3/scripts/scratchpad_switch.sh "mutt"
-# bindsym $mod+m [instance="mutt"] scratchpad show
+# This regex ^ start of subject and $ means end of subject
+for_window [title="^cmus$"] move to scratchpad
+for_window [title="^mutt$"] move to scratchpad
+bindsym $mod+c exec ps cax | grep cmus > /dev/null || termite -e cmus --title cmus, [title="cmus"] scratchpad show
+# Sun Oct 01 2017 00:07: You can toggle fullscreen mode with $mod+f 
+bindsym $mod+m exec ps cax | grep mutt > /dev/null || termite -e 'mutt -F ~/.config/mutt/gmail/account.gmail' --title mutt, [title="mutt"] scratchpad show
 
 # }}}
 
