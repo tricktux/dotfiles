@@ -99,7 +99,10 @@ source $alias_file
 
 # Tue Sep 12 2017 16:54: This in conjunction with the bashrc $VISUAL setting allows for using mutt
 # inside of nvim
-set editor=$VISUAL
+# set editor=$VISUAL
+# Sun Oct 01 2017 08:02: Since mutt has its own scratchpad there is no need for this setting
+# anymore. 
+set editor='nvim'
 
 # From https://github.com/bubbl/bubb-confs/blob/master/mutt/.mutt/general
 # A lot of good configs in that link
