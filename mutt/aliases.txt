@@ -29,3 +29,5 @@ alias indiegogo-chuwi Chuwi SurBook: Affordable 2-in-1 Intel PC Tablet via Indie
 alias express-american American Express <AmericanExpress@welcome.aexp.com>
 alias DukeEnergyEbill@duke-energy.com DukeEnergyEbill@duke-energy.com
 alias daniels-susan Susan Daniels <susan.daniels@baycare.org>
+alias devries-tj TJ DeVries <notifications@github.com>
+alias Chase <no-reply@alertsp.chase.com>
