@@ -15,11 +15,9 @@ endif
 let b:did_terminal_ftplugin = 1
 
 " If plugin neoterm was loaded and mappings accepted
-if !exists("no_plugin_maps") && !exists("no_c_maps") && exists('*neoterm#close()')
-	" hide/close terminal
-	nnoremap <buffer> <unique> <silent> <Leader>th :call neoterm#close()<cr>
-	" clear terminal
-	nnoremap <buffer> <unique> <silent> <Leader>tl :call neoterm#clear()<cr>
-	" kills the current job (send a <c-c>)
-	nnoremap <buffer> <unique> <silent> <Leader>tc :call neoterm#kill()<cr>
+if !exists("no_plugin_maps") && !exists("no_terminal_maps")
+	if exists('*neoterm#close()')
+		" hide/close terminal
+		nnoremap <buffer> <silent> <Leader>th :call neoterm#close()<cr>
+	endif
 endif
