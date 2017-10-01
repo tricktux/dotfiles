@@ -245,9 +245,12 @@ bindsym Control+Mod1+J exec amixer sset Master 5%-
 # This regex ^ start of subject and $ means end of subject
 for_window [title="^cmus$"] move to scratchpad
 for_window [title="^mutt$"] move to scratchpad
+for_window [title="^ranger$"] move to scratchpad
 bindsym $mod+c exec ps cax | grep cmus > /dev/null || termite -e cmus --title cmus, [title="cmus"] scratchpad show
 # Sun Oct 01 2017 00:07: You can toggle fullscreen mode with $mod+f 
 bindsym $mod+m exec ps cax | grep mutt > /dev/null || termite -e 'mutt -F ~/.config/mutt/gmail/account.gmail' --title mutt, [title="mutt"] scratchpad show
+# Sun Oct 01 2017 08:20: Mapped to n because r, and a are taken 
+bindsym $mod+n exec ps cax | grep ranger > /dev/null || termite -e ranger --title ranger, [title="ranger"] scratchpad show
 
 # }}}
 
@@ -496,6 +499,9 @@ exec --no-startup-id dropbox
 # Notifications daemon. See twmnc for help
 # Fri Jun 30 2017 14:30: Not playing well with rambox 
 exec --no-startup-id twmnd&
+
+# Sun Oct 01 2017 08:17: Mount or attempt to mount-copter 
+exec --no-startup-id sshfs odroid@copter-server:/ ~/.mnt/copter-server/
 
 # Start vnc server service
 # exec --no-startup-id x0vncserver -display :0 -passwordfile ~/.vnc/passwd&
