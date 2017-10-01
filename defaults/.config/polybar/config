@@ -69,7 +69,7 @@ font-1 = Roboto:size=10;0
 ; For more info look [here](https://github.com/jaagr/polybar/issues/313)
 font-2=WunconSiji:pixelsize=10;0
 
-modules-left = i3 volume weather music
+modules-left = i3 volume weather pkg gmail cmus
 modules-center = xwindow
 modules-right = memory cpu temperature battery date powermenu
 
@@ -498,3 +498,51 @@ click-right = echo "$((`cut .pomodoro_session -d ' ' -f 1`+5)) 5" > .pomodoro_se
 ; Reduce pomodoro time
 click-middle = echo "$((`cut .pomodoro_session -d ' ' -f 1`-5)) 5" > .pomodoro_session
 ; vim:ft=dosini:
+
+; Sun Oct 01 2017 11:03 
+; It prints left side : pacman updates, right side : aur updates 
+[module/pkg]
+type = custom/script
+interval = 1200
+format = <label>
+format-underline = #ee75be
+label = "%output:0:30%"
+exec = .config/polybar/pkg.sh
+exec-if = "ping -q -w 2 -c 1 176.34.135.167 > /dev/null"
+
+; Sun Oct 01 2017 11:09 
+; pip install --upgrade google-api-python-client --user
+; Font Awesome - for email badge
+; canberra-gtk-play - for new email sound
+; Setup
+; cd ~/.config/polybar
+; curl -LO https://github.com/vyachkonovalov/polybar-gmail/archive/master.tar.gz
+; tar zxf master.tar.gz && rm master.tar.gz
+; mv polybar-gmail-master gmail
+; Credentials
+; obtain/refresh credentials at
+; ~/.config/polybar/gmail/auth.py
+[module/gmail]
+type = custom/script
+exec = ~/.config/polybar/gmail/launch.py -p "" 
+format-prefix = "  "
+format-underline = #6e1fd4
+format-prefix-foreground = ${colors.foreground-alt}
+tail = true
+click-left = xdg-open https://mail.google.com
+
+[module/cmus]
+type = custom/script
+
+exec = sh ~/.config/polybar/cmus.sh
+exec-if = pgrep -x cmus
+interval = 1
+
+click-left = cmus-remote --pause
+click-right = cmus-remote --stop
+
+label = %output:0:30:%
+
+format-prefix = "  "
+format-underline = #9117a1
+format-prefix-foreground = ${colors.foreground-alt}
