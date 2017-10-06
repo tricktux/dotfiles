@@ -32,3 +32,8 @@ alias daniels-susan Susan Daniels <susan.daniels@baycare.org>
 alias devries-tj TJ DeVries <notifications@github.com>
 alias Chase <no-reply@alertsp.chase.com>
 alias imagine-pennsylvania Pennsylvania State Great Valley - Engineering - Microsoft Imagine Premium
+alias canvas-instructure Instructure Canvas <notifications@instructure.com>
+alias knolhoff-rose Rose Knolhoff <notifications@instructure.com>
+alias rdaniel01@nauta.cu <rdaniel01@nauta.cu>
+alias safko-gregory Gregory Safko <notifications@instructure.com>
+alias service-trustedid TrustedID Customer Service <no-reply@trustedid.com>
