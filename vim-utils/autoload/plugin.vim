@@ -2,7 +2,7 @@
 " Description:Plugin specific settings
 " Author:Reinaldo Molina <rmolin88@gmail.com>
 " Version:2.0.1
-" Last Modified: Sun Jul 30 2017 13:13
+" Last Modified: Thu Oct 05 2017 21:42
 " Created: Fri Jun 02 2017 10:44
 
 function! plugin#Config() abort
@@ -47,7 +47,6 @@ function! plugin#Config() abort
 	if has('nvim') || v:version >= 800
 		" Plugins that support both neovim and vim need separate folders
 		Plug 'Shougo/denite.nvim', { 'as' : has('nvim') ? 'nvim_denite' : 'vim_denite' }
-			let denite_loaded = 1
 			nnoremap <A-;> :Denite command<CR>
 			nnoremap <A-e> :Denite help<CR>
 			" nnoremap <S-k> :Denite buffer<CR>
@@ -88,6 +87,11 @@ function! plugin#Config() abort
 						\ 'PrtCurLeft()': ['<left>', '<c-^>'], 
 						\ 'PrtCurRight()': ['<right>'],
 						\ }
+			" Lightline settings
+			let g:ctrlp_status_func = {
+						\ 'main': 'utils#CtrlPStatusFunc_1',
+						\ 'prog': 'utils#CtrlPStatusFunc_2',
+						\ }
 	endif
 
 	if executable('mutt')
@@ -124,7 +128,8 @@ function! plugin#Config() abort
 		endif
 	endif
 
-	Plug 'tpope/vim-dispatch' " Possible Replacement `asyncvim`
+	" Possible Replacement `asyncvim`
+	Plug 'tpope/vim-dispatch', { 'on' : 'Dispatch' }
 	" Vim cpp syntax highlight
 	Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'c' , 'cpp' ] }
 		let g:cpp_class_scope_highlight = 1
@@ -134,7 +139,7 @@ function! plugin#Config() abort
 	Plug 'justinmk/vim-syntax-extra'
 
 	" Plugins for All (nvim, linux, win32)
-	Plug 'neomake/neomake'
+	Plug 'neomake/neomake', { 'on' : 'Neomake' }
 		let g:neomake_warning_sign = {
 					\ 'text': '?',
 					\ 'texthl': 'WarningMsg',
@@ -279,10 +284,11 @@ function! plugin#Config() abort
 		let g:fastfold_fold_command_suffixes =
 					\['x','X','a','A','o','O','c','C','r','R','m','M','i','n','N']
 
-	Plug 'airblade/vim-rooter'
+	Plug 'airblade/vim-rooter', { 'on' : 'Rooter' }
 		let g:rooter_manual_only = 1
 		nnoremap <Leader>cr :Rooter<CR>
 		" nnoremap <Leader>cr :call utils#RooterAutoloadCscope()<CR>
+	
 	Plug 'Raimondi/delimitMate'
 		let g:delimitMate_expand_cr = 1
 		let g:delimitMate_expand_space = 1
@@ -312,6 +318,9 @@ function! plugin#Config() abort
 			let g:tagbar_map_closeallfolds = "<c-c>"
 			let g:tagbar_map_togglefold = "<c-x>"
 			let g:tagbar_autoclose = 1
+
+			" Lightline settings
+			" let g:tagbar_status_func = 'utils#TagbarStatusFunc'
 	endif
 
 	" python
@@ -362,14 +371,13 @@ function! plugin#Config() abort
 		nnoremap <Leader>gl :silent Glog<CR>
 					\:copen 20<CR>
 
-	Plug 'mhinz/vim-signify'
+	Plug 'mhinz/vim-signify', { 'on' : 'SignifyToggle' }
 		" Mappings are ]c next differences
 		" Mappings are [c prev differences
 		let g:signify_disable_by_default = 1
 		let g:signify_vcs_list = [ 'git', 'svn' ]
-		nnoremap <Leader>jS :SignifyToggle<CR>
 
-	Plug 'juneedahamed/svnj.vim'
+	Plug 'juneedahamed/svnj.vim', { 'on' : 'SVNStatus' }
 		let g:svnj_allow_leader_mappings=0
 		let g:svnj_cache_dir = g:std_cache_path
 		let g:svnj_browse_cache_all = 1 
@@ -384,6 +392,7 @@ function! plugin#Config() abort
 	" Sun May 07 2017 16:25 - Gave it a try and didnt like it 
 	" Plug 'icymind/NeoSolarized'
 
+	" Fri Oct 06 2017 10:03: Make this plugin on demand as well 
 	" Radical
 	Plug 'glts/vim-magnum' " required by radical
 	Plug 'glts/vim-radical' " use with gA
@@ -425,39 +434,40 @@ function! plugin#Config() abort
 		nnoremap <Leader>Gs :Wcsearch google 
 
 	Plug 'itchyny/lightline.vim'
-		" Inside of the functions here there can be no single quotes (') only double (")
+		" Note: Inside of the functions here there can be no single quotes (') only double (")
 		if !exists('g:lightline')
 			let g:lightline = {}
 		endif
-		let g:lightline.active = {
-						\   'left': [ 
-						\							[ 'mode', 'paste' ], 
-						\							[ 'readonly', 'absolutepath', 'modified' ] 
-						\						]
-						\		}
-		if executable('git')
-			let g:lightline.active.left[1] += [ 'fugitive' ]
-		endif
-		if executable('svn')
-			let g:lightline.active.left[1] += [ 'svn' ]
-		endif
-		let g:lightline.active.left[1] += [ 'tagbar' ]
-		let g:lightline.active.left[1] += [ 'pomodoro' ]
+		" Basic options
+		let g:lightline = {
+					\ 'active' : {
+					\   'left': [ 
+					\							[ 'mode', 'paste' ], 
+					\							[ 'readonly', 'absolutepath', 'modified' ]
+					\						] },
+					\ 'component': {
+					\   'lineinfo': ' %3l:%-2v',
+					\ },
+					\ 'component_function': {
+					\   'readonly': 'utils#LightlineReadonly'
+					\ },
+					\ 'separator': { 'left': '', 'right': '' },
+					\ 'subseparator': { 'left': '', 'right': '' }
+					\ }
+		
+		" Addons
+		let g:lightline.active.left[1] += [ 'ver_control' ]
+		let g:lightline.component_function['ver_control'] = 'utils#LightlineFugitive'
 
-		let g:lightline.component = {
-							\   'fugitive': '%{fugitive#statusline()}',
-							\   'svn': '%{svn#GetSvnBranchInfo()}', 
-							\   'tagbar': '%{tagbar#currenttag("%s\ ","")}',
-							\   'pomodoro': '%{pomo#status_bar()}' 
-							\		}
-		" Sat Sep 23 2017 17:29: This is how you get a message to show on red 
-		" \   'pomodoro': '%#ErrorMsg#%{pomo#status()}%#StatusLine#' 
-		let g:lightline.component_visible_condition = {
-							\   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())',
-							\   'svn': '(!empty(svn#GetSvnBranchInfo()))',
-							\   'tagbar': '(!empty(tagbar#currenttag("%s\ ","")))',
-							\   'pomodoro': '(!empty(pomo#status()))'
-							\		}
+		let g:lightline.active.left[1] += [ 'ctrlpmark' ]
+		let g:lightline.component_function['ctrlpmark'] = 'utils#LightlineCtrlPMark'
+
+		let g:lightline.active.left[1] += [ 'tagbar' ]
+		let g:lightline.component_function['tagbar'] = 'utils#LightlineTagbar'
+
+		let g:lightline.active.left[1] += [ 'pomodoro' ]
+		let g:lightline.component_function['pomodoro'] = 'utils#LightlinePomo'
+
 		" let g:lightline.colorscheme = 'onedark'
 		" let g:lightline.colorscheme = 'gruvbox'
 		let g:lightline.colorscheme = 'PaperColor'
@@ -465,7 +475,6 @@ function! plugin#Config() abort
 	Plug 'PotatoesMaster/i3-vim-syntax'
 
 	if has('win32')
-		" TODO-[RM]-(Fri Sep 29 2017 11:44): Test
 		Plug 'PProvost/vim-ps1', { 'for' : 'ps1' }
 	endif
 
@@ -538,14 +547,15 @@ function! plugin#Config() abort
 	endif
 
 
-	Plug 'rmolin88/vim-pomodoro'
+	Plug 'rmolin88/pomodoro.vim'
 		" let g:pomodoro_show_time_remaining = 0 
 		" let g:pomodoro_time_slack = 1 
 		" let g:pomodoro_time_work = 1 
 		if executable('twmnc')
 			let g:pomodoro_notification_cmd = 'twmnc -t Vim -c "Pomodoro done"'
 		endif
-	" %#ErrorMsg#%{PomodoroStatus()}%#StatusLine# 
+		let g:pomodoro_log_file = g:std_cache_path . '/pomodoro_log'
+		" %#ErrorMsg#%{PomodoroStatus()}%#StatusLine# 
 
 	Plug 'chrisbra/csv.vim', { 'for' : 'csv' }
 		let g:no_csv_maps = 1
@@ -558,36 +568,6 @@ function! plugin#Config() abort
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
-
-	if exists('*deoplete#custom#set')
-		call deoplete#custom#set('javacomplete2', 'mark', '')
-		call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
-		" c c++
-		call deoplete#custom#set('clang2', 'mark', '')
-	endif
-
-	if exists('denite_loaded')
-		" Change mappings.
-		call denite#custom#map('insert','<C-j>','<denite:move_to_next_line>','noremap')
-		call denite#custom#map('insert','<C-k>','<denite:move_to_previous_line>','noremap')
-		call denite#custom#map('insert','<C-v>','<denite:do_action:vsplit>','noremap')
-		" Change options
-		call denite#custom#option('default', 'winheight', 15)
-		call denite#custom#option('_', 'highlight_matched_char', 'Function')
-		call denite#custom#option('_', 'highlight_matched_range', 'Function')
-		if executable('rg')
-			call denite#custom#var('file_rec', 'command',
-						\ ['rg', '--glob', '!.git', '--glob', '!.svn', '--files',  ''])
-		endif
-	endif
-
-	" Create required folders for storing usage data
-	call utils#CheckDirwoPrompt(g:std_data_path . '/sessions')
-	call utils#CheckDirwoPrompt(g:std_data_path . '/ctags')
-	if has('persistent_undo') 
-		let g:undofiles_path = g:std_cache_path . '/undofiles'
-		call utils#CheckDirwoPrompt(g:undofiles_path)
-	endif
 
 	return 1
 endfunction
@@ -603,18 +583,99 @@ function! plugin#Check() abort
 		if executable('curl')
 			execute "silent !curl -kfLo " . plug_path . " --create-dirs"
 						\" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-			autocmd VimEnter * execute("source " . plug_path) | PlugInstall
-			return 1
+			autocmd VimEnter * :PlugInstall
 		else
 			echomsg "Master I cant install plugins for you because you"
 						\" do not have curl. Please fix this. Plugins"
 						\" will not be loaded."
 			return 0
 		endif
-	else
-		execute "source " . plug_path
-		return 1
 	endif
+
+	execute "source " . plug_path
+	return 1
+endfunction
+
+function! plugin#AfterConfig() abort
+	if exists('g:loaded_deoplete')
+		call deoplete#custom#set('javacomplete2', 'mark', '')
+		call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
+		" c c++
+		call deoplete#custom#set('clang2', 'mark', '')
+	endif
+
+	" Plugin function names are never detected. Only plugin commands
+	if exists('g:loaded_denite')
+		" Change mappings.
+		call denite#custom#map('insert','<C-j>','<denite:move_to_next_line>','noremap')
+		call denite#custom#map('insert','<C-k>','<denite:move_to_previous_line>','noremap')
+		call denite#custom#map('insert','<C-v>','<denite:do_action:vsplit>','noremap')
+		" Change options
+		call denite#custom#option('default', 'winheight', 15)
+		call denite#custom#option('_', 'highlight_matched_char', 'Function')
+		call denite#custom#option('_', 'highlight_matched_range', 'Function')
+		if executable('rg')
+			call denite#custom#var('file_rec', 'command',
+						\ ['rg', '--glob', '!.git', '--glob', '!.svn', '--files',  ''])
+			" Ripgrep command on grep source
+			call denite#custom#var('grep', 'command', ['rg'])
+			call denite#custom#var('grep', 'default_opts',
+						\ ['--vimgrep', '--no-heading'])
+			call denite#custom#var('grep', 'recursive_opts', [])
+			call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
+			call denite#custom#var('grep', 'separator', ['--'])
+			call denite#custom#var('grep', 'final_opts', [])
+		endif
+		" Change ignore_globs
+		call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
+					\ [ '.git/', '.svn/', '.ropeproject/', '__pycache__/',
+					\   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
+	endif
+
+	" if exists('g:loaded_lightline')
+		" if !exists('g:lightline.component')
+			" let g:lightline.component = {}
+		" endif
+
+		" if !exists('g:lightline.component_visible_condition')
+			" let g:lightline.component_visible_condition = {}
+		" endif
+
+		" if exists('g:loaded_fugitive')
+			" let g:lightline.active.left[1] += [ 'fugitive' ]
+			" let g:lightline.component["fugtive"] = '%{fugitive#statusline()}'
+			" let g:lightline.component_visible_condition["fugitive"] = 
+					" \ '(exists("*fugitive#head") && ""!=fugitive#head())'
+		" endif
+
+		" if executable('svn')
+			" let g:lightline.active.left[1] += [ 'svn' ]
+			" let g:lightline.component["svn"] = '%{svn#GetSvnBranchInfo()}'
+			" let g:lightline.component_visible_condition["svn"] = 
+						" \ '(!empty(svn#GetSvnBranchInfo()))'
+		" endif
+
+		" if exists('g:loaded_tagbar')
+			" let g:lightline.active.left[1] += [ 'tagbar' ]
+			" let g:lightline.component["tagbar"] = '%{tagbar#currenttag("%s\ ","")}'
+			" let g:lightline.component_visible_condition["tagbar"] = 
+						" \ '(!empty(tagbar#currenttag("%s\ ","")))'
+		" endif
+
+		" if exists('g:loaded_pomodoro')
+			" let g:lightline.active.left[1] += [ 'pomodoro' ]
+			" " Sat Sep 23 2017 17:29: This is how you get a message to show on red 
+			" " '%#ErrorMsg#%{pomo#status()}%#StatusLine#' 
+			" let g:lightline.component["pomodoro"] = '%{pomo#status_bar()}'
+			" let g:lightline.component_visible_condition["pomodoro"] = 
+						" \ '(!empty(pomo#status()))'
+		" endif
+
+		" call lightline#init()
+		" call lightline#update()
+	" endif
+
+	return 1
 endfunction
 
 " vim:tw=78:ts=2:sts=2:sw=2:
