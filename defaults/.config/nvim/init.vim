@@ -8,7 +8,7 @@
 " Date:					Sun Aug 20 2017 05:13
 " Created:			Aug 2015
 
-" You can a pass a list of files to the function and those will your vimrc files
+" You can a pass a list of files to the function and those and only those files will be sourced
 function! s:find_vim_config_file(...) abort
 	" If source files were provided source only those and exit
 	if a:0 > 0
@@ -54,6 +54,7 @@ function! s:set_stdpaths() abort
 endfunction
 
 call s:find_vim_config_file()
+call plugin#AfterConfig()
 
 " call s:set_stdpaths()
 
