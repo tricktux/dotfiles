@@ -47,6 +47,8 @@ function! augroup#Set() abort
 			" Sessions
 			" Note: Fri Mar 03 2017 14:13 - This never works.
 			" autocmd VimEnter * call utils#LoadSession('default.vim')
+			" Thu Oct 05 2017 22:22: Special settings that are only detected after vim is loaded
+			autocmd VimEnter * call plugin#AfterConfig()
 			autocmd VimLeave * call utils#SaveSession('default.vim')
 			" Keep splits normalize
 			autocmd VimResized * call utils#NormalizeWindowSize()
