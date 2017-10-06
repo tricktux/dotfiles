@@ -238,7 +238,7 @@ function! utils#SaveSession(...) abort
 	if a:0 < 1
 		execute "wall"
 		let dir = getcwd()
-		execute "cd ". 
+		execute "cd ". session_path
 		let session_name = input("Enter
 					\ save session name:", "", "file")
 		silent! execute "cd " . dir
@@ -246,7 +246,7 @@ function! utils#SaveSession(...) abort
 		" Need to keep this option short and sweet
 		let session_name = a:1
 	endif
-	silent! execute "normal :mksession! " . session_path . session_name  . "\<CR>"
+	silent! execute "mksession! " . session_path . session_name  . "\<CR>"
 endfunction
 
 function! utils#LoadSession(...) abort
@@ -656,7 +656,6 @@ function! utils#CaptureCmdOutput(...)
 	endif
 endfunction
 
-
 " Change vim colorscheme depending on time of the day
 function! utils#Flux() abort
 	if strftime("%H") >= g:colorscheme_night_time || strftime("%H") < g:colorscheme_day_time 
@@ -734,8 +733,9 @@ function! utils#SearchHighlighted() abort
 		echoerr string('Missing plugin: vim-www')
 	endif
 endfunction
-" TODO.RM-Sat Nov 26 2016 00:04: Function that auto adds SCR # and description
 
+" TODO.RM-Sat Nov 26 2016 00:04: Function that auto adds SCR # and description
+"
 " Source: http://vim.wikia.com/wiki/Easily_switch_between_source_and_header_file
 function! utils#SwitchHeaderSource() abort
 	if expand("%:e") == "cpp" || expand("%:e") == "c"
@@ -822,6 +822,135 @@ function! utils#ChooseEmailAcc() abort
 	endif
 
 	return ''
+endfunction
+
+function! utils#LightlineReadonly()
+	return &readonly ? '' : ''
+endfunction
+
+function! utils#LightlineFugitive()
+	let mark = ''  " edit here for cool mark
+	try
+		if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler'
+			if exists('*fugitive#head')
+				let git = fugitive#head()
+				if git !=# ''
+					return mark . 'git:' . git
+				endif
+			endif
+			if executable('svn') && exists('*utils#UpdateSvnBranchInfo')
+				let svn = utils#UpdateSvnBranchInfo()
+				if svn !=# ''
+					return mark . 'svn:' . svn
+				endif
+			endif
+
+		endif
+		catch
+		endtry
+		return ''
+endfunction
+
+function! utils#LightlineCtrlPMark()
+	if expand('%:t') =~ 'ControlP' && has_key(g:lightline, 'ctrlp_item')
+		call lightline#link('iR'[g:lightline.ctrlp_regex])
+		return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
+					\ , g:lightline.ctrlp_next], 0)
+	else
+		return ''
+	endif
+endfunction
+
+function! utils#CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
+	let g:lightline.ctrlp_regex = a:regex
+	let g:lightline.ctrlp_prev = a:prev
+	let g:lightline.ctrlp_item = a:item
+	let g:lightline.ctrlp_next = a:next
+	return lightline#statusline(0)
+endfunction
+
+function! utils#CtrlPStatusFunc_2(str)
+	return lightline#statusline(0)
+endfunction
+
+function! utils#LightlineTagbar() abort
+	try
+		let ret = tagbar#currenttag('%s','')
+	catch
+		return ''
+	endtry
+	return ret
+endfunction
+
+function! utils#LightlinePomo() abort
+	if !exists('*pomo#status_bar')
+		return ''
+	endif
+
+	return pomo#status_bar()
+endfunction
+
+function! utils#TagbarStatusFunc(current, sort, fname, ...) abort
+	let g:lightline.fname = a:fname
+	return lightline#statusline(0)
+endfunction
+
+" TODO.RM-Thu Mar 16 2017 08:36: Update this function to make it async. Maybe the whole plugin be async  
+" This function gets called on BufEnter
+" Call the function from cli with any argument to obtain debugging output
+function! utils#UpdateSvnBranchInfo() abort
+	if !executable('svn')
+		return ''
+	endif
+
+	let srch_eng = has('win32') ? 'findstr' : 'grep'
+	let path = expand('%:h')
+	try
+		let info = systemlist("svn info " . path . " | " . srch_eng . " \"Relative URL\"")
+	catch
+		return ''
+	endtry
+	" The system function returns something like "Relative URL: ^/...."
+	" Strip from "^/" forward and put that in status line
+	"TODO.RM-Tue Mar 28 2017 15:05: Find a much better way to do this  
+	let info = get(info, 0, "")
+	let index = stridx(info, "^/")
+	echomsg string(info)
+	if index == -1
+		return ''
+	else
+		let pot_display = info[index+2:-1] " Again skip last char. Looks ugly
+	endif
+	" Debugging
+	echomsg string(pot_display)
+
+	if strlen(pot_display) > 16
+		return pot_display[0:16] . '...'
+	else
+		return pot_display
+	endif
+endfunction
+
+" str - Haystack on which to search for the forward slashes
+" start_idx - At what position of the Haystack to start searching
+function! utils#GetIdxTo2ndFSlash(str, start_idx)
+	" Strip string if there are more than 2 '/'
+	let index = a:start_idx
+	let num_of_slashes = 0
+	" Count the number of slashes
+	while 1
+		let index = stridx(a:str, '/', index)
+		if index == -1
+			break
+		else
+			let num_of_slashes += 1
+			if num_of_slashes == 2
+				return index
+			endif
+			let index += 1
+		endif
+	endwhile
+	return -1
 endfunction
 
  " vim:tw=78:ts=2:sts=2:sw=2:
