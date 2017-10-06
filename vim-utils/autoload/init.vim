@@ -35,6 +35,14 @@ function! init#vim() abort
 		echomsg "No plugins where loaded"
 	endif
 
+	" Create required folders for storing usage data
+	call utils#CheckDirwoPrompt(g:std_data_path . '/sessions')
+	call utils#CheckDirwoPrompt(g:std_data_path . '/ctags')
+	if has('persistent_undo') 
+		let g:undofiles_path = g:std_cache_path . '/undofiles'
+		call utils#CheckDirwoPrompt(g:undofiles_path)
+	endif
+
 	call mappings#Set()
 
 	" NVIM SPECIFIC
@@ -47,7 +55,6 @@ function! init#vim() abort
 	call augroup#Set()
 	call commands#Set()
 	call syntax#Set()
-
 endfunction
 
 " vim:tw=78:ts=2:sts=2:sw=2:
