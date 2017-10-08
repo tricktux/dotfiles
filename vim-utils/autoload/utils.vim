@@ -239,8 +239,7 @@ function! utils#SaveSession(...) abort
 		execute "wall"
 		let dir = getcwd()
 		execute "cd ". session_path
-		let session_name = input("Enter
-					\ save session name:", "", "file")
+		let session_name = input("Enter save session name:", "", "file")
 		silent! execute "cd " . dir
 	else
 		" Need to keep this option short and sweet
@@ -253,20 +252,19 @@ function! utils#LoadSession(...) abort
 	let session_path = g:std_data_path . '/sessions/'
 	" Logic path when not called at startup
 	if a:0 >= 1
-		" echo "Reload previous session: (j|y)es (any)no"
-		" let response = getchar()
-		" if response == 121 || response == 106 " y|j
-		" silent! execute "normal :so " . session_path . a:1 . "\<CR>"
-		" endif
+		let session_name = session_path . a:1
+		if !filereadable(session_name)
+			echoerr '[utils#LoadSession]: File ' . session_name . ' not readabale'
+			return
+		endif
 		silent! execute "normal :%bdelete\<CR>"
 		silent! execute "normal :so " . session_path . a:1 . "\<CR>"
 		return
 	endif
 
 	execute "wall"
-	echo "Save Current Session before deleting all buffers: (y)es (any)no"
-	let response = nr2char(getchar())
-	if response == "y" || response == "j"
+	let response = confirm("Save Current Session before deleting all buffers?", "&Yes\n&No(def.)")
+	if response == 1
 		call utils#SaveSession()
 	endif
 
@@ -404,10 +402,20 @@ function! utils#Make()
 endfunction
 
 function! utils#WikiSearch() abort
-	let dir = getcwd()
-	execute "cd " . g:wiki_path
-	execute "grep " . input("Enter wiki search string:")
-	silent! execute "cd " . dir
+	if !exists('g:wiki_path') || empty(glob(g:wiki_path))
+		echoerr 'Variable g:wiki_path not valid'
+		return
+	endif
+
+	if !exists(':Denite')
+		let dir = getcwd()
+		execute "cd " . g:wiki_path
+		execute "grep " . input("Enter wiki search string:")
+		silent! execute "cd " . dir
+		return
+	endif
+
+	execute "Denite grep -path=`g:wiki_path`"
 endfunction
 
 function! utils#ToggleTerm() abort
@@ -659,8 +667,9 @@ endfunction
 " Change vim colorscheme depending on time of the day
 function! utils#Flux() abort
 	if strftime("%H") >= g:colorscheme_night_time || strftime("%H") < g:colorscheme_day_time 
-				\ && &background !=# 'dark'
-		call utils#ChangeColors(g:colorscheme_night, 'dark')
+		 if	&background !=# 'dark'
+			call utils#ChangeColors(g:colorscheme_night, 'dark')
+		endif
 	elseif &background !=# 'light'
 		call utils#ChangeColors(g:colorscheme_day, 'light')
 	endif
@@ -668,7 +677,7 @@ endfunction
 
 function! utils#ChangeColors(scheme, background) abort
 	if a:background ==# 'dark'
-		let color = g:turquoise4
+		let color = g:black
 	elseif a:background ==# 'light'
 		let color = g:white
 	else
@@ -678,10 +687,10 @@ function! utils#ChangeColors(scheme, background) abort
 
 	execute "colorscheme " . a:scheme
 	let &background=a:background
-	" IncSearch needs to be set after colorscheme. Because some of them affect
-	" this setting.
-	call highlight#Set('Search', { 'bg' : color })
+	" Restoring these after colorscheme. Because some of them affect by the colorscheme
 	call highlight#SetAll('IncSearch',	{ 'bg': color })
+	call highlight#SetAll('Search', { 'fg' : g:yellow, 'deco' : 'bold', 'bg' : g:turquoise4 })
+	call highlight#Set('Comment', { 'deco' : 'italic' })
 
 	" If using the lightline plugin then update that as well
 	" this could cause trouble if lightline does not that colorscheme
@@ -728,7 +737,7 @@ endfunction
 function! utils#SearchHighlighted() abort
 	if exists(':Wcopen')
 		" Yank selection to reg a then echo it cli
-		execute "normal \"ay:Wcopen \<c-r>a\<cr>"
+		execute "normal \"ay:Wcsearch duckduckgo \<c-r>a\<cr>"
 	else
 		echoerr string('Missing plugin: vim-www')
 	endif
@@ -828,27 +837,28 @@ function! utils#LightlineReadonly()
 	return &readonly ? '' : ''
 endfunction
 
-function! utils#LightlineFugitive()
+function! utils#LightlineVerControl() abort
 	let mark = ''  " edit here for cool mark
-	try
-		if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler'
-			if exists('*fugitive#head')
-				let git = fugitive#head()
-				if git !=# ''
-					return mark . 'git:' . git
-				endif
-			endif
-			if executable('svn') && exists('*utils#UpdateSvnBranchInfo')
-				let svn = utils#UpdateSvnBranchInfo()
-				if svn !=# ''
-					return mark . 'svn:' . svn
-				endif
-			endif
-
-		endif
-		catch
-		endtry
+	if expand('%:t') =~? 'Tagbar\|Gundo\|NERD\|ControlP' || &ft =~? 'vimfiler\|gitcommit'
 		return ''
+	endif
+
+	try
+		if exists('*fugitive#head')
+			let git = fugitive#head()
+			if git !=# ''
+				return mark . 'git:' . git
+			endif
+		endif
+		if executable('svn') && exists('*utils#UpdateSvnBranchInfo')
+			let svn = utils#UpdateSvnBranchInfo()
+			if svn !=# ''
+				return mark . 'svn:' . svn
+			endif
+		endif
+	catch
+	endtry
+	return ''
 endfunction
 
 function! utils#LightlineCtrlPMark()
@@ -915,14 +925,14 @@ function! utils#UpdateSvnBranchInfo() abort
 	"TODO.RM-Tue Mar 28 2017 15:05: Find a much better way to do this  
 	let info = get(info, 0, "")
 	let index = stridx(info, "^/")
-	echomsg string(info)
+	" echomsg string(info)
 	if index == -1
 		return ''
 	else
 		let pot_display = info[index+2:-1] " Again skip last char. Looks ugly
 	endif
 	" Debugging
-	echomsg string(pot_display)
+	" echomsg string(pot_display)
 
 	if strlen(pot_display) > 16
 		return pot_display[0:16] . '...'
@@ -931,26 +941,27 @@ function! utils#UpdateSvnBranchInfo() abort
 	endif
 endfunction
 
-" str - Haystack on which to search for the forward slashes
-" start_idx - At what position of the Haystack to start searching
-function! utils#GetIdxTo2ndFSlash(str, start_idx)
-	" Strip string if there are more than 2 '/'
-	let index = a:start_idx
-	let num_of_slashes = 0
-	" Count the number of slashes
-	while 1
-		let index = stridx(a:str, '/', index)
-		if index == -1
-			break
-		else
-			let num_of_slashes += 1
-			if num_of_slashes == 2
-				return index
-			endif
-			let index += 1
-		endif
-	endwhile
-	return -1
+function! utils#LightlineAbsPath(count) abort
+	return expand('%')
 endfunction
 
- " vim:tw=78:ts=2:sts=2:sw=2:
+function! utils#Grep() abort
+	let c = confirm('Search inside ' . getcwd() . '?', "&Yes(def)\n&No", 1)
+	if c != 1
+		return
+	endif
+
+	if exists(':Denite')	
+		execute "Denite grep"
+		return
+	endif
+
+		" Search '&filetype' type of files, and word under the cursor
+		" nmap gsu :call utils#FileTypeSearch(1, 1)<CR>
+		" Search '&filetype' type of files, and prompt for search word
+		" nmap gsi :call utils#FileTypeSearch(1, 8)<CR>
+		" Search all type of files, and word under the cursor
+		" nmap gsa :call utils#FileTypeSearch(8, 1)<CR>
+		" Search all type of files, and prompt for search word
+	call utils#FileTypeSearch(8, 8)
+endfunction
