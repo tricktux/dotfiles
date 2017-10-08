@@ -42,8 +42,6 @@ function! options#Set() abort
 	set wildmode=list:longest
 	set wildignore+=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn,.git
 	set title                " change the terminal's title
-	set visualbell           " don't beep
-	set noerrorbells         " don't beep
 	set nobackup " no backup files
 	set noswapfile
 	"set autochdir " working directory is always the same as the file you are editing
@@ -70,7 +68,6 @@ function! options#Set() abort
 		endif
 	endif
 	" set matchpairs+=<:>
-	set autoread " autoload files written outside of vim
 	" Display tabs and trailing spaces visually
 	"set list listchars=tab:\ \ ,trail:?
 	set linebreak    "Wrap lines at convenient points
@@ -93,6 +90,7 @@ function! options#Set() abort
 		set noesckeys " No mappings that start with <esc>
 	else
 		set inccommand = "nosplit"
+		set scrollback=-1
 	endif
 
 	" no mouse enabled
@@ -123,14 +121,12 @@ function! options#Set() abort
 		call utils#ChangeColors(g:colorscheme_day, 'light')
 		" Set highliting for Search and Incsearch
 		" Auto Flux (changing themes) is set in the augroup.vim file
-		call highlight#Set('Search', { 'fg' : g:turquoise4, 'deco' : 'bold' })
-		call highlight#Set('Comment', { 'deco' : 'italic' })
 	else
 		colorscheme desert
 	endif
 
 	" If this not and android device and we have no plugins setup "ugly" status line
-	if !exists("g:android") && !exists('g:plugins_loaded')
+	if !exists('g:plugins_loaded')
 		set statusline =
 		set statusline+=\ [%n]                                  "buffernr
 		set statusline+=\ %<%F\ %m%r%w                         "File+path
@@ -138,9 +134,6 @@ function! options#Set() abort
 		set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}      "Encoding
 		set statusline+=\ %{(&bomb?\",BOM\":\"\")}\            "Encoding2
 		set statusline+=\ %{&ff}\                              "FileFormat (dos/unix..)
-		" set statusline+=\ %{tagbar#currenttag('%s\ ','')}		 " Current function name
-		" set statusline+=\ %{neomake#statusline#QflistStatus('qf:\ ')}
-		" set statusline+=\ %{fugitive#statusline()}
 		set statusline+=\ %=\ row:%l/%L\ (%03p%%)\             "Rownumber/total (%)
 		set statusline+=\ col:%03c\                            "Colnr
 		set statusline+=\ \ %m%r%w\ %P\ \                      "Modified? Readonly? Top/bot.
@@ -160,6 +153,8 @@ function! options#Set() abort
 	" Mon May 01 2017 11:21: This breaks split window highliting
 	" Tue Jun 13 2017 20:55: Giving it another try 
 	set synmaxcol=200 " Will not highlight passed this column #
+	" Sat Oct 07 2017 00:35: Addind support 
+	set showtabline=2
 
 	" CLI
 	if !has('gui_running') && !exists('g:GuiLoaded')
