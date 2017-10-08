@@ -114,16 +114,20 @@ function! MdInstallTemplate() abort
 	endif
 endfunction
 
-" TODO-[RM]-(Wed Sep 06 2017 17:22): Keep improving this here
 function! MdPreview() abort
-	if has('win32') || has('win64')
-		if exists('Dispatch') && exists('g:browser_cmd') && executable(g:browser_cmd)
+	if !executable(g:browser_cmd)
+		echoerr '[MdPreview]: Browser: ' . g:browser_cmd . ' not executable/found'
+		return -1
+	endif
+
+	if has('win32')
+		if exists('Dispatch') && exists('g:browser_cmd')
 			execute "Dispatch " . g:browser_cmd . " %"
 		else
-			echomsg 'vim-dispatch not available or browser_cmd not executable/found'
+			echomsg 'vim-dispatch not available'
 		endif
 	else
-		execute $BROWSER . " %"
+		execute "!" . g:browser_cmd . " %&"
 	endif
 endfunction
 
