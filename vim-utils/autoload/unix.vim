@@ -64,6 +64,7 @@ function! unix#Config() abort
 				\&& !empty(glob('/usr/share/java/languagetool/languagetool-commandline.jar'))
 		let g:languagetool_jar = '/usr/share/java/languagetool/languagetool-commandline.jar'
 	endif
+	let g:browser_cmd = '/usr/bin/opera'
 
 	" TODO-[RM]-(Mon Sep 18 2017 16:39): Take care of this super hard coded
 	" stuff here
