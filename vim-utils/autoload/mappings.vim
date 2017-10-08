@@ -238,14 +238,7 @@ function! mappings#Set() abort
 	" Search <Leader>S
 	" Tried ack.vim. Discovered that nothing is better than grep with ag.
 	" search all type of files
-	" Search '&filetype' type of files, and word under the cursor
-	nmap gsu :call utils#FileTypeSearch(1, 1)<CR>
-	" Search '&filetype' type of files, and prompt for search word
-	nmap gsi :call utils#FileTypeSearch(1, 8)<CR>
-	" Search all type of files, and word under the cursor
-	nmap gsa :call utils#FileTypeSearch(8, 1)<CR>
-	" Search all type of files, and prompt for search word
-	nmap gss :call utils#FileTypeSearch(8, 8)<CR>
+	nnoremap gs :call utils#Grep()<cr>
 	" Search visual selection text
 	vnoremap // y/<C-R>"<CR>
 
