@@ -28,11 +28,8 @@ function! plugin#Config() abort
 		Plug 'kassio/neoterm'
 			let g:neoterm_use_relative_path = 1
 			let g:neoterm_position = 'vertical'
-			let g:neoterm_keep_term_open = 0
-			" nnoremap <Leader>To :call neoterm#open()<CR>
-			" nnoremap <Leader>Tl :call neoterm#close()<CR>
-			" nnoremap <Leader>TL :call neoterm#closeAll()<CR>
-			nnoremap <Leader>tk :call neoterm#kill()<CR>
+			let g:neoterm_autoinsert=1
+			nnoremap <Leader>T :Ttoggle<CR>
 
 		Plug 'rliang/termedit.nvim'
 
@@ -424,14 +421,12 @@ function! plugin#Config() abort
 
 	Plug 'waiting-for-dev/vim-www'
 		" TODO-[RM]-(Thu Sep 14 2017 21:02): Update this here
-		let g:www_default_search_engine = 'google'
 		let g:www_map_keys = 0
-		let g:www_launch_browser_command = "chrome {{URL}}"
-		let g:www_launch_cli_browser_command = "chrome {{URL}}"
-		nnoremap <Leader>Gu :Wcsearch google <C-R>=expand("<cword>")<CR><CR>
+		let g:www_launch_browser_command = g:browser_cmd . " {{URL}}&"
+		nnoremap <Leader>Gu :Wsearch duckduckgo <C-R>=expand("<cword>")<CR><CR>
 		" Go to link under cursor  
 		vnoremap <Leader>Gu :call utils#SearchHighlighted()<CR>
-		nnoremap <Leader>Gs :Wcsearch google 
+		nnoremap <Leader>Gs :Wsearch duckduckgo 
 
 	Plug 'itchyny/lightline.vim'
 		" Note: Inside of the functions here there can be no single quotes (') only double (")
@@ -443,7 +438,8 @@ function! plugin#Config() abort
 					\ 'active' : {
 					\   'left': [ 
 					\							[ 'mode', 'paste' ], 
-					\							[ 'readonly', 'absolutepath', 'modified' ]
+					\							[ 'readonly', 'filename' ],
+					\							[  ]
 					\						] },
 					\ 'component': {
 					\   'lineinfo': ' %3l:%-2v',
@@ -455,17 +451,26 @@ function! plugin#Config() abort
 					\ 'subseparator': { 'left': '', 'right': '' }
 					\ }
 		
+		" let g:lightline.tab = {
+					" \ 'active': [ 'tabnum', 'absolutepath', 'modified' ],
+					" \ }
+		let g:lightline.tabline = {
+					\ 'left': [ ['tabs'] ],
+					\ 'right': [ [ 'bufnum' , 'close'] ] }
+		let g:lightline.tab_component_function = {
+					\ 'filename': 'utils#LightlineAbsPath'
+					\ }
 		" Addons
-		let g:lightline.active.left[1] += [ 'ver_control' ]
-		let g:lightline.component_function['ver_control'] = 'utils#LightlineFugitive'
+		let g:lightline.active.left[2] += [ 'ver_control' ]
+		let g:lightline.component_function['ver_control'] = 'utils#LightlineVerControl'
 
-		let g:lightline.active.left[1] += [ 'ctrlpmark' ]
+		let g:lightline.active.left[2] += [ 'ctrlpmark' ]
 		let g:lightline.component_function['ctrlpmark'] = 'utils#LightlineCtrlPMark'
 
-		let g:lightline.active.left[1] += [ 'tagbar' ]
+		let g:lightline.active.left[2] += [ 'tagbar' ]
 		let g:lightline.component_function['tagbar'] = 'utils#LightlineTagbar'
 
-		let g:lightline.active.left[1] += [ 'pomodoro' ]
+		let g:lightline.active.left[2] += [ 'pomodoro' ]
 		let g:lightline.component_function['pomodoro'] = 'utils#LightlinePomo'
 
 		" let g:lightline.colorscheme = 'onedark'
@@ -631,50 +636,6 @@ function! plugin#AfterConfig() abort
 					\ [ '.git/', '.svn/', '.ropeproject/', '__pycache__/',
 					\   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
 	endif
-
-	" if exists('g:loaded_lightline')
-		" if !exists('g:lightline.component')
-			" let g:lightline.component = {}
-		" endif
-
-		" if !exists('g:lightline.component_visible_condition')
-			" let g:lightline.component_visible_condition = {}
-		" endif
-
-		" if exists('g:loaded_fugitive')
-			" let g:lightline.active.left[1] += [ 'fugitive' ]
-			" let g:lightline.component["fugtive"] = '%{fugitive#statusline()}'
-			" let g:lightline.component_visible_condition["fugitive"] = 
-					" \ '(exists("*fugitive#head") && ""!=fugitive#head())'
-		" endif
-
-		" if executable('svn')
-			" let g:lightline.active.left[1] += [ 'svn' ]
-			" let g:lightline.component["svn"] = '%{svn#GetSvnBranchInfo()}'
-			" let g:lightline.component_visible_condition["svn"] = 
-						" \ '(!empty(svn#GetSvnBranchInfo()))'
-		" endif
-
-		" if exists('g:loaded_tagbar')
-			" let g:lightline.active.left[1] += [ 'tagbar' ]
-			" let g:lightline.component["tagbar"] = '%{tagbar#currenttag("%s\ ","")}'
-			" let g:lightline.component_visible_condition["tagbar"] = 
-						" \ '(!empty(tagbar#currenttag("%s\ ","")))'
-		" endif
-
-		" if exists('g:loaded_pomodoro')
-			" let g:lightline.active.left[1] += [ 'pomodoro' ]
-			" " Sat Sep 23 2017 17:29: This is how you get a message to show on red 
-			" " '%#ErrorMsg#%{pomo#status()}%#StatusLine#' 
-			" let g:lightline.component["pomodoro"] = '%{pomo#status_bar()}'
-			" let g:lightline.component_visible_condition["pomodoro"] = 
-						" \ '(!empty(pomo#status()))'
-		" endif
-
-		" call lightline#init()
-		" call lightline#update()
-	" endif
-
 	return 1
 endfunction
 
