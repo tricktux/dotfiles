@@ -61,15 +61,16 @@ export MANPAGER="nvim -c 'set ft=man' -"
 export PATH=$HOME/.local/bin:$PATH
 export EMAIL="rmolin88@gmail.com"
 
-if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
-	export VISUAL="nvr -cc tabedit --remote-wait +'set bufhidden=wipe'"
-else
-	export VISUAL="nvim"
-fi
-alias nvim="$VISUAL"
-# export VISUAL=nvim
+# Depends on nvr being installed
+# if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
+	# export VISUAL="nvr -cc tabedit --remote-wait +'set bufhidden=wipe'"
+# else
+	# export VISUAL="nvim"
+# fi
+# alias nvim="$VISUAL"
+export VISUAL=nvim
 export EDITOR=$VISUAL
-export BROWSER="opera -newpage %s&"
+export BROWSER="/usr/bin/opera -newpage %s&"
 
 # Ranger load only ~/.config/ranger/rc.conf
 export RANGER_LOAD_DEFAULT_RC=FALSE
