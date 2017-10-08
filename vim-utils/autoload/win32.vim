@@ -60,6 +60,8 @@ function win32#Config()
 			let g:python_host_prog= pyt2
 		endif
 	endif
+
+	let g:browser_cmd = 'opera'
 endfunction
 
 " vim:tw=78:ts=2:sts=2:sw=2:
