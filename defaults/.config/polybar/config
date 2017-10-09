@@ -523,6 +523,11 @@ exec-if = "ping -q -w 2 -c 1 176.34.135.167 > /dev/null"
 ; Credentials
 ; obtain/refresh credentials at
 ; ~/.config/polybar/gmail/auth.py
+; Also in the ~/.config/polybar/gmail/launch.py script change the if line to
+; do the like the described here
+; if not args.nosound and count_was < count and count > 0:
+; subprocess.run(['canberra-gtk-play', '-i', 'message', '-V', '60.0'])
+; subprocess.run(['twmnc -t gmail -c "New email"'])
 [module/gmail]
 type = custom/script
 exec = ~/.config/polybar/gmail/launch.py -p "" 
@@ -549,3 +554,6 @@ label = %output:0:30:%
 format-prefix = "  "
 format-underline = #9117a1
 format-prefix-foreground = ${colors.foreground-alt}
+
+
+; vim:tw=78:ts=2:sts=2:sw=2:filetype=dosini
