@@ -26,7 +26,6 @@ function! init#vim() abort
 		call unix#Config()
 	endif
 
-
 	" PLUGINS_INIT
 	" ~/.dotfiles/vim-utils/autoload/plugin.vim
 	if plugin#Check() && plugin#Config()
@@ -34,6 +33,7 @@ function! init#vim() abort
 	else
 		echomsg "No plugins where loaded"
 	endif
+
 
 	" Create required folders for storing usage data
 	call utils#CheckDirwoPrompt(g:std_data_path . '/sessions')
@@ -55,6 +55,7 @@ function! init#vim() abort
 	call augroup#Set()
 	call commands#Set()
 	call syntax#Set()
+
 endfunction
 
 " vim:tw=78:ts=2:sts=2:sw=2:
