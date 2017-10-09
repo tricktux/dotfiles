@@ -30,7 +30,7 @@ else
 		call GuiMousehide(1)
 	else
 		" set guifont =Hack 8
-		set guifont =DejaVu\ Sans\ Mono\ 8
+		set guifont =DejaVu\ Sans\ Mono\ 9
 	endif
 endif
 
