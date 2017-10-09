@@ -488,10 +488,10 @@ exec --no-startup-id xscreensaver -no-splash
 exec --no-startup-id pcmanfm --daemon-mode
 
 exec --no-startup-id termite
-# exec --no-startup-id nm-applet
-# exec --no-startup-id blueberry-tray
-# exec --no-startup-id seafile-applet
-# exec --no-startup-id dropbox
+exec --no-startup-id nm-applet
+exec --no-startup-id blueberry-tray
+exec --no-startup-id seafile-applet
+exec --no-startup-id dropbox
 
 # Mon Jul 17 2017 06:55 Not the proper way to start insync. See arch insync
 # exec --no-startup-id insync start
