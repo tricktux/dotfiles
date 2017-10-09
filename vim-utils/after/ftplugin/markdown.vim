@@ -31,9 +31,7 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	inoremap <buffer> * **<Left>
 	inoremap <buffer> [ [ ]<Space>
 
-	if exists(':FocusModeToggle')
-		nmap <buffer> <Leader>lf <Plug>FocusModeToggle
-	endif
+	nmap <buffer> <Leader>lf <Plug>FocusModeToggle
 
 	if exists(':InsertNewBullet')
 		inoremap <buffer> <expr> <cr> pumvisible() ? "\<c-y>" : "<cr>"

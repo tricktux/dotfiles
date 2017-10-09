@@ -24,6 +24,7 @@ urgent_on_bell = true
 mouse_autohide = true
 # cursor_shape = underline
 cursor_blink = off
+scrollback_lines=1000000
 
 [colors]
 background = rgba(63, 63, 63, 1)
