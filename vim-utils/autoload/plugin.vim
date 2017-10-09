@@ -516,7 +516,7 @@ function! plugin#Config() abort
 	Plug 'scrooloose/vim-slumlord', { 'for' : 'uml' }
 	Plug 'aklt/plantuml-syntax', { 'for' : 'uml' }
 
-	Plug 'merlinrebrovic/focus.vim', { 'on' : 'FocusModeToggle' }
+	Plug 'merlinrebrovic/focus.vim', { 'on' : '<Plug>FocusModeToggle' }
 			let g:focus_use_default_mapping = 0
 
 	Plug 'dbmrq/vim-ditto', { 'for' : 'markdown' }
