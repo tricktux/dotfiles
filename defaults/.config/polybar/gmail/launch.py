@@ -32,7 +32,7 @@ def update_count(count_was):
         print(args.prefix, flush=True)
     if not args.nosound and count_was < count and count > 0:
         subprocess.run(['canberra-gtk-play', '-i', 'message', '-V', '60.0'])
-        subprocess.run(['twmnc -t gmail -c "New email"'])
+        #  subprocess.run(['twmnc -t gmail -c "New email"'])
     return count
 
 while True:
