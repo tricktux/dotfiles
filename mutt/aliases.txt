@@ -37,3 +37,17 @@ alias knolhoff-rose Rose Knolhoff <notifications@instructure.com>
 alias rdaniel01@nauta.cu <rdaniel01@nauta.cu>
 alias safko-gregory Gregory Safko <notifications@instructure.com>
 alias service-trustedid TrustedID Customer Service <no-reply@trustedid.com>
+alias santana-rafael Rafael López Santana <rafelins88@gmail.com>
+alias cabrol-françois François Cabrol <notifications@github.com>
+alias gallery-steeve STEEVE ARTS AND GALLERY <steevwilliams2016@gmail.com>
+alias 2017)-fa FA I - SWENG 586 Section 001: Requirements Engineering (Fall 2017) <notifications@instructure.com>
+alias lewis-lochlain Lochlain Lewis <notifications@instructure.com>
+alias campus-penn Penn State World Campus <wc_community@outreach.psu.edu>
+alias today-penn Penn State Today <headlines@psu.edu>
+alias 1-group Group 1 <notifications@instructure.com>
+alias wong-christopher Christopher Wong <notifications@instructure.com>
+alias administrator-srte SRTE Administrator <noreply@psu.edu>
+alias francis-jacob Jacob Francis <notifications@instructure.com>
+alias center-ethics Ethics Research Center <ethicssurvey@ethics.org>
+alias president-office Office of the President <mass@psu.edu>
+alias affairs-student Student Affairs <studentaffairs@outreach.psu.edu>
