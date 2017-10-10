@@ -509,7 +509,7 @@ format-underline = #ee75be
 label = "%output:0:30%"
 exec = .config/polybar/pkg.sh
 ; Check if there is internet
-exec-if = "ping -q -w 2 -c 1 176.34.135.167 > /dev/null"
+exec-if = ":ping -q -w 2 -c 1 176.34.135.167 > /dev/null"
 
 ; Sun Oct 01 2017 11:09 
 ; pip3 install --upgrade google-api-python-client --user
