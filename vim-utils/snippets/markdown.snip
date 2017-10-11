@@ -16,7 +16,7 @@ snippet     scr
 abbr        Hon SCR Checklist
 options     head
   ## ${1:SCR Number}
-    - `strftime("%d %b %Y")`
+    - `strftime("%a %b %d %Y %H:%M")`
     - ${3:Wings Version}
     - ${4:SCR Description}
     -  [ ] Create SCR in CC
@@ -37,7 +37,7 @@ options     head
     ---
     title:	    ${1:`expand('%:t')`}
     subtitle:   ${2:Document Description}
-    author:		${3:Reinaldo Molina } `utils#ChooseEmailAcc()`
+    author:		${3:Reinaldo Molina } <`utils#ChooseEmailAcc()`>
     revision:	${4:0.0.0}
     date:       `strftime("%a %b %d %Y %H:%M")`
     fileext:    md
