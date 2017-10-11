@@ -54,3 +54,4 @@ alias affairs-student Student Affairs <studentaffairs@outreach.psu.edu>
 alias manso-melixa Melixa Manso <melixamanso@gmail.com>
 alias data-mail Mail System Internal Data <MAILER-DAEMON@tr27n18.aset.psu.edu>
 alias gallery-steeve STEEVE ARTS AND GALLERY <steevewilliams2016@gmail.com>
+alias calendar-google Google Calendar <calendar-notification@google.com>
