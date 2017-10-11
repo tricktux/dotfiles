@@ -320,6 +320,7 @@ assign [class="Pcmanfm"] $workspace4
 # My-own
 		for_window [class="Seafile Client"] floating enable
 		for_window [class="Gnome-system-monitor"] floating enable
+		for_window [class="Pinentry"] floating enable
 
 # Taken from https://github.com/Airblader/dotfiles-manjaro
 		for_window [class="Nitrogen"] floating enable
