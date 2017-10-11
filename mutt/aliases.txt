@@ -51,3 +51,6 @@ alias francis-jacob Jacob Francis <notifications@instructure.com>
 alias center-ethics Ethics Research Center <ethicssurvey@ethics.org>
 alias president-office Office of the President <mass@psu.edu>
 alias affairs-student Student Affairs <studentaffairs@outreach.psu.edu>
+alias manso-melixa Melixa Manso <melixamanso@gmail.com>
+alias data-mail Mail System Internal Data <MAILER-DAEMON@tr27n18.aset.psu.edu>
+alias gallery-steeve STEEVE ARTS AND GALLERY <steevewilliams2016@gmail.com>
