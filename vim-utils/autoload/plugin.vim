@@ -114,7 +114,7 @@ function! plugin#Config() abort
 		" Note: Thu Aug 24 2017 21:03 This plugin is actually required for the git
 		" plugin to work in neovim
 		Plug 'radenling/vim-dispatch-neovim'
-		" nvim-qt on unix doesnt populate has('gui_running
+		" nvim-qt on unix doesnt populate has('gui_running')
 		Plug 'equalsraf/neovim-gui-shim'
 		if executable('lldb')
 			Plug 'critiqjo/lldb.nvim'
