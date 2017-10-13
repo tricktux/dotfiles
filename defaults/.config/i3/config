@@ -494,12 +494,16 @@ exec --no-startup-id blueberry-tray
 exec --no-startup-id seafile-applet
 exec --no-startup-id dropbox
 
+# Wed Oct 11 2017 22:16: Application similar to xflux 
+exec --no-startup-id redshift -c ~/.config/redshift/config
+
+
 # Mon Jul 17 2017 06:55 Not the proper way to start insync. See arch insync
 # exec --no-startup-id insync start
 
 # Notifications daemon. See twmnc for help
 # Fri Jun 30 2017 14:30: Not playing well with rambox 
-exec --no-startup-id twmnd&
+exec --no-startup-id twmnd
 
 # Sun Oct 01 2017 08:17: Mount or attempt to mount-copter 
 # exec --no-startup-id sshfs odroid@copter-server:/ ~/.mnt/copter-server/
