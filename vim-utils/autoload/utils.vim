@@ -22,7 +22,7 @@ function! utils#SetGrep() abort
 		" ctrlp with ag
 		" see :Man ag for help
 		" to specify a type of file just do `--cpp`
-		set grepprg=ag\ --nogroup\ --nocolor\ --smart-case\ --vimgrep\ $*
+		set grepprg=ag\ --nogroup\ --nocolor\ --smart-case\ --vimgrep\ --glob\ !.git\ --glob\ !.svn\ $*
 		set grepformat=%f:%l:%c:%m
 	endif
 endfunction
