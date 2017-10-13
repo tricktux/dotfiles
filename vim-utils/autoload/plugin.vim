@@ -634,6 +634,17 @@ function! plugin#AfterConfig() abort
 			call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
 			call denite#custom#var('grep', 'separator', ['--'])
 			call denite#custom#var('grep', 'final_opts', [])
+		elseif executable('ag')
+			call denite#custom#var('file_rec', 'command',
+						\ ['ag', '--follow', '--nocolor', '--nogroup', '-g', '--hidden', ''])
+			call denite#custom#var('grep', 'command', ['ag'])
+			call denite#custom#var('grep', 'default_opts',
+						\ ['--vimgrep', '--no-heading', '--smart-case', '--follow', '--hidden',
+						\ '--glob', '!.git', '--glob', '!.svn'])
+			call denite#custom#var('grep', 'recursive_opts', [])
+			call denite#custom#var('grep', 'pattern_opt', [])
+			call denite#custom#var('grep', 'separator', ['--'])
+			call denite#custom#var('grep', 'final_opts', [])
 		endif
 		" Change ignore_globs
 		call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
