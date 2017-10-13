@@ -5,11 +5,38 @@ author:				Reinaldo Molina <rmolin88@gmail.com>
 revision:				0.0.0
 date: Sep 05 2017 05:23
 fileext: md
-...
+---
 
 \maketitle
 \tableofcontents
 \pagebreak
+
+## Thu Oct 12 2017 14:39 
+- msys2: copy the default `.bashr...` to the dotfiles and modify them
+
+## Wed Oct 11 2017 08:44 
+- [ ] vim: map `gl` to `Ttoggle`
+- [ ] vim: make the previous mapping work also in windows.
+- [ ] !vim: fix `lightline` stuff to make it more smart.
+- [ ] vim: `denite` mapping to scroll down faster.
+- [ ] pomodoro: make the `statusline` message configurable.
+- [ ] polybar: substitute the `launch.py`
+- [ ] vim: `markdown` fix the make command to make it call the makefile.
+- [ ] vim: `markdown` change the `textwidth`
+- [ ] feh: customize or learn its mappings to make it more useful.
+- [ ] vim: `clangd` not being installed in linux.
+- [ ] vim: in the `{unix,win32}.vim` files create `g:pc_name` variables.
+- [ ] mutt: substitute mapping `d` delete message to scrolling up and down.
+- [ ] mutt: figure out a mapping to delete and opened message.
+- [ ] mutt: look into the issue of nvim not highlighting messages when openning from mutt.
+- [ ] vim: download Spanish lenguage `spell` file.
+- [ ] vim: `powerline` fonts for windows.
+- [ ] vim: examine `vim-enhanced-diff`. its not being used properly
+- [ ] cygwin: install `ranger`
+- [ ] vim: change all the `confirm` function calls &Yes to &Jes
+- [ ] vim: configure windows `set shell=\"C:\tools\cygwin\bin\bash.exe\"`
+- [ ] cygwin: please for the love of god get a prettier `prompt`. Maybe `liquidprompt`
+- [ ] vim: `denite` find hidden files
 
 ## Thu Sep 21 2017 21:05
 - [x] zathura mappings to scroll with `e` and `d`
