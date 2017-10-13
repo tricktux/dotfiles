@@ -55,6 +55,10 @@ alias vim='stty -ixon && vim'
 alias help=FuncHelp
 alias cpstat=FuncCheckCopy
 
+# Default to human readable figures
+alias df='df -h'
+alias du='du -h'
+
 # alias ncmpcpp='ncmpcpp -c ~/.config/ncmpcpp'
 
 FuncHelp()
