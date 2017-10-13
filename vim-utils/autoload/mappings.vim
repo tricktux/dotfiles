@@ -211,6 +211,11 @@ function! mappings#Set() abort
 		nnoremap <A-j> :call utils#TmuxMove('j')<cr>
 		nnoremap <A-k> :call utils#TmuxMove('k')<cr>
 		nnoremap <A-l> :call utils#TmuxMove('l')<cr>
+	elseif !has('nvim') && has('terminal')
+		nnoremap <silent> <A-l> <C-\><C-n><C-w>l
+		nnoremap <silent> <A-h> <C-\><C-n><C-w>h
+		nnoremap <silent> <A-k> <C-\><C-n><C-w>k
+		nnoremap <silent> <A-j> <C-\><C-n><C-w>j
 	else
 		nnoremap <silent> <A-l> <C-w>l
 		nnoremap <silent> <A-h> <C-w>h
