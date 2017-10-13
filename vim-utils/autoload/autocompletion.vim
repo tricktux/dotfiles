@@ -195,7 +195,7 @@ function! autocompletion#SetClang(type) abort
 		let g:clang_cpp_options = '-target x86_64-pc-windows-gnu -std=c++17 -pedantic -Wall'
 		let g:clang_c_options = '-target x86_64-pc-windows-gnu -std=gnu11 -pedantic -Wall'
 	else
-		if exists('g:usr_path') && !empty(glob(g:usr_path . '/lib/libclang.so'))
+		if exists('g:libclang_path') && !empty(glob(g:libclang_path))
 			let g:clang_library_path= g:usr_path . '/lib/libclang.so'
 		else
 			echomsg "autocompletion#SetClang(): g:usr_path not set or libclang not existent"
