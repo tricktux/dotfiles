@@ -10,8 +10,9 @@ function! utils#SetGrep() abort
 	if executable('rg')
 		" use option --list-file-types if in doubt
 		" rg = ripgrep
-		"Use the -t option to search all text files; -a to search all files; and -u to search all, including hidden files.
-		set grepprg=rg\ --vimgrep
+		"Use the -t option to search all text files; -a to search all files; and -u to search all,
+		"including hidden files.
+		set grepprg=rg\ --vimgrep\ --smart-case\ --follow\ --hidden\ --glob\ !.git
 		set grepformat=%f:%l:%c:%m
 	elseif executable('ucg')
 		" Add the --type-set=markdown:ext:md option to ucg for it to recognize
