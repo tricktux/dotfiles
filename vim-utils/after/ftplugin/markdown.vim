@@ -23,7 +23,7 @@ setlocal sts=2
 
 if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	" Encapsulate in markdown file from current line until end of file in ```
-	nnoremap <buffer> <unique> <Leader>l` :normal o````cpp<CR>```<Esc>
+	nnoremap <buffer> <unique> <Leader>l` :normal! o````<CR>```<Esc>
 	" Markdown fix _ showing red
 	nnoremap <buffer> <unique> <Leader>ld :call utils#TodoCreate()<CR>
 	nnoremap <buffer> <unique> <Leader>lm :call utils#TodoMark()<CR>
