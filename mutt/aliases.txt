@@ -55,3 +55,7 @@ alias manso-melixa Melixa Manso <melixamanso@gmail.com>
 alias data-mail Mail System Internal Data <MAILER-DAEMON@tr27n18.aset.psu.edu>
 alias gallery-steeve STEEVE ARTS AND GALLERY <steevewilliams2016@gmail.com>
 alias calendar-google Google Calendar <calendar-notification@google.com>
+alias RunSignUp.com <info@runsignup.com>
+alias Honda <honda@emails.honda.com>
+alias falcon-franklin Franklin Falcon <ffalcon46@gmail.com>
+alias 2017)-2017 2017 Fall - SWENG 586 Section 001: Requirements Engineering (Fall 2017) <notifications@instructure.com>
