@@ -1,4 +1,3 @@
-
 " File:					terminal.vim
 "	Description:	Set mappings and settings proper of nvim-terminal
 " Author:				Reinaldo Molina <rmolin88@gmail.com>
@@ -18,6 +17,7 @@ let b:did_terminal_ftplugin = 1
 if !exists("no_plugin_maps") && !exists("no_terminal_maps")
 	if exists('*neoterm#close()')
 		" hide/close terminal
-		nnoremap <buffer> <silent> <Leader>th :call neoterm#close()<cr>
+		nnoremap <buffer> <silent> h :call neoterm#close()<cr>
+		nnoremap <buffer> <silent> q :Tclose!<cr>
 	endif
 endif
