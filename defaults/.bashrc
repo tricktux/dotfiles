@@ -46,9 +46,6 @@ export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
 # The '&' is a special pattern which suppresses duplicate entries.
 export HISTIGNORE=$'[ \t]*:&:[fb]g:exit'
 export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls' # Ignore the ls command as well
-#
-# Whenever displaying the prompt, write the previous line to disk
-export PROMPT_COMMAND="history -a"
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=8888
 HISTFILESIZE=8888
@@ -104,3 +101,6 @@ export GIT_TERMINAL_PROMPT=1
 # Uncomment to turn on programmable completion enhancements.
 # Any completions you add in ~/.bash_completion are sourced last.
 [[ -f /etc/bash_completion ]] && . /etc/bash_completion
+
+# Sat Oct 14 2017 11:12: This will set the i3-sensible-terminal to be used:
+export TERMINAL="termite"
