@@ -183,10 +183,19 @@ function! options#Set() abort
 			nnoremap <silent> k <C-w>k
 			nnoremap <silent> j <C-w>j
 
-			if !has('clipboard') || !has('xterm_clipboard')
-				echomsg 'vim wasnt compiled with clipboard support. Remove vim and install gvim'
+			if !has('clipboard') && !has('xterm_clipboard')
+				echomsg 'options#Set(): vim wasnt compiled with clipboard support. Remove vim and install gvim'
 			else
 				set clipboard=unnamedplus
+			endif
+
+			if exists('g:system_name') && g:system_name ==# 'cygwin'
+				set term=$TERM
+				" Fixes cursor shape in mintty/cygwin
+				let &t_ti.="\e[1 q"
+				let &t_SI.="\e[5 q"
+				let &t_EI.="\e[1 q"
+				let &t_te.="\e[0 q"
 			endif
 		endif
 
