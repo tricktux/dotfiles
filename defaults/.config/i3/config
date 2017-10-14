@@ -114,7 +114,8 @@ bindsym $mod+Shift+x exec i3lock --color 475263
 
 bindsym $mod+r mode "resize"
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+# This is set by the value of $TERMINAL. Which in turn is set inside of .bashrc
+bindsym $mod+Return exec i3-sensible-terminal -e fish
 
 # kill focused window
 bindsym $mod+q kill
@@ -488,7 +489,7 @@ exec --no-startup-id compton -f
 exec --no-startup-id xscreensaver -no-splash
 exec --no-startup-id pcmanfm --daemon-mode
 
-exec --no-startup-id termite
+exec --no-startup-id i3-sensible-terminal
 exec --no-startup-id nm-applet
 exec --no-startup-id blueberry-tray
 exec --no-startup-id seafile-applet
