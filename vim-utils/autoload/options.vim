@@ -158,6 +158,9 @@ function! options#Set() abort
 
 	" CLI
 	if !has('gui_running') && !exists('g:GuiLoaded')
+		if executable('fish')
+			set shell=/usr/bin/fish
+		endif
 		" Comes from performance options.
 		hi NonText cterm=NONE ctermfg=NONE
 		if $TERM ==? 'linux'
