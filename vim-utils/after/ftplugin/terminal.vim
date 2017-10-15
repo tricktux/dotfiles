@@ -21,3 +21,12 @@ if !exists("no_plugin_maps") && !exists("no_terminal_maps")
 		nnoremap <buffer> <silent> q :Tclose!<cr>
 	endif
 endif
+
+if exists('+winhighlight')
+	" Create a Terminal Highlight group
+	highlight Terminal ctermbg=0 guibg=0
+	" Overwrite ctermbg only for this window. Neovim exclusive option
+	setlocal winhighlight=Normal:Terminal
+endif
+
+
