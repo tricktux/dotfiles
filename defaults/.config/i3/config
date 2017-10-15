@@ -115,7 +115,7 @@ bindsym $mod+Shift+x exec i3lock --color 475263
 bindsym $mod+r mode "resize"
 # start a terminal
 # This is set by the value of $TERMINAL. Which in turn is set inside of .bashrc
-bindsym $mod+Return exec i3-sensible-terminal -e fish
+bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+q kill
