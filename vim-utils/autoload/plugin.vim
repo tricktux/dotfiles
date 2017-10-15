@@ -29,7 +29,7 @@ function! plugin#Config() abort
 			let g:neoterm_use_relative_path = 1
 			let g:neoterm_position = 'vertical'
 			let g:neoterm_autoinsert=1
-			nnoremap <Leader>T :Ttoggle<CR>
+			nnoremap gl :Ttoggle<CR>
 
 		Plug 'rliang/termedit.nvim'
 
