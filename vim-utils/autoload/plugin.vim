@@ -623,6 +623,8 @@ function! plugin#AfterConfig() abort
 		call denite#custom#map('insert','<C-j>','<denite:move_to_next_line>','noremap')
 		call denite#custom#map('insert','<C-k>','<denite:move_to_previous_line>','noremap')
 		call denite#custom#map('insert','<C-v>','<denite:do_action:vsplit>','noremap')
+		call denite#custom#map('insert','<C-d>','<denite:scroll_window_downwards>','noremap')
+		call denite#custom#map('insert','<C-u>','<denite:scroll_window_upwards>','noremap')
 		" Change options
 		call denite#custom#option('default', 'winheight', 15)
 		call denite#custom#option('_', 'highlight_matched_char', 'Function')
