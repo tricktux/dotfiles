@@ -12,7 +12,7 @@ fileext: md
 \pagebreak
 
 ## Thu Oct 12 2017 14:39 
-- msys2: copy the default `.bashr...` to the dotfiles and modify them
+- [ ] msys2: copy the default `.bashr...` to the dotfiles and modify them
 
 ## Wed Oct 11 2017 08:44 
 - [ ] vim: map `gl` to `Ttoggle`
@@ -32,31 +32,32 @@ fileext: md
 - [ ] vim: download Spanish lenguage `spell` file.
 - [ ] vim: `powerline` fonts for windows.
 - [ ] vim: examine `vim-enhanced-diff`. its not being used properly
-- [ ] cygwin: install `ranger`
-- [ ] vim: change all the `confirm` function calls &Yes to &Jes
+- [x] cygwin: install `ranger`
+- [x] vim: change all the `confirm` function calls &Yes to &Jes
 - [ ] vim: configure windows `set shell=\"C:\tools\cygwin\bin\bash.exe\"`
 - [ ] cygwin: please for the love of god get a prettier `prompt`. Maybe `liquidprompt`
-- [ ] vim: `denite` find hidden files
+- [x] vim: `denite` find hidden files
 
 ## Thu Sep 21 2017 21:05
 - [x] zathura mappings to scroll with `e` and `d`
-- [ ] `vim-pomodoro` install
+- [x] `vim-pomodoro` install
 
 ## Fri Sep 15 2017 13:11 
 - [ ] Standard for coding todo lists.
 - [ ] Fix the rest of the <Alt> mappings in terminal vim.
-- [ ] Take a look at [this](https://github.com/Wandmalfarbe/pandoc-latex-template) repo. Looks
+- [x] Take a look at [this](https://github.com/Wandmalfarbe/pandoc-latex-template) repo. Looks
 	very promessing so that I can move text dev to pandoc.
 
 ## Thu Sep 14 2017 05:14 
-- [ ] Get rid of the other colorscheme. At night time use only PaperCOlor but dark
-- [ ] Fix pressing `o` in markdown indenting. Its really annoying.
-- [ ] Figure out how to create beautiful latex docs. `choco install miktex -y`.
+- [x] Get rid of the other colorscheme. At night time use only PaperCOlor but dark
+- [x] Fix pressing `o` in markdown indenting. Its really annoying.
+- [x] Figure out how to create beautiful latex docs. `choco install miktex -y`.
+	- Sun Oct 15 2017 17:33: pandoc 
 - [ ] Move dropbox pictures to google photos.
 - [ ] android tui move files into a git repo.
 - [ ] android tui create more shortcuts for calling and for rebooting devices.
-- [ ] markdown focus mode not really working.
-- [ ] **Return surbook**.
+- [x] markdown focus mode not really working.
+- [x] **Return surbook**.
 	- Decided to give it a try.
 - [ ] **update choco-neovim.**
 - [ ] look into a vim-gdb plugin.
@@ -68,13 +69,14 @@ fileext: md
 		out but not back in.
 - [x] vim terminal figure out how to scroll.
 	- go into normal mode and scroll normally.
-- [ ] bash for windows. maybe even a different terminal instead of cmd.exe
-- [ ] ditto plugin interfering with snippets.
+- [x] bash for windows. maybe even a different terminal instead of cmd.exe
+	- Sun Oct 15 2017 17:31: Installed `cygwin` 
+- [x] ditto plugin interfering with snippets.
 	- This fix didnt really work. Revisit
 - [x] Set work related mappings only when working on a work folder.
 	- Improved detection of work pc
 - [x] Look into the yankhighlight plugin
-- [ ] Look into the vim-sessions plugin
+- [x] Look into the vim-sessions plugin
 	- Dont like it. Prefer fix my own plugin
 - [x] Move sessions into the g:std_data folder
 	- Not only sessions. Created folder `vim-data` and moved all vim stuff in there.
@@ -88,6 +90,7 @@ fileext: md
 - [ ] Search and fix all TODOs
 - [ ] Revisit the google plugin. To google stuff straight from anywhere.
 - [ ] fuzzy search variables. Probably denite can do this.
+	- Sun Oct 15 2017 17:29: Doesn't look possible with `denite` 
 - [ ] Fix the `OnlineThesaurusCurrentWord` not working under windows. Find an alternative or
 	something
 - [ ] the `w3m` plugin for windows. In order to see the master's highlights right in vim.
@@ -98,7 +101,7 @@ Improvements:
 - [ ] Create a after/syntax/gitcommit.vim to redline ahead and greenline
   up-to-date
 - [ ] Delete duplicate music.
-- [ ] Construct unified music library
+- [x] Construct unified music library
 - [x] Markdown math formulas
 
 ## Tue Jul 11 2017 13:27 
