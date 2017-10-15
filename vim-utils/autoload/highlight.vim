@@ -1,4 +1,5 @@
 
+
 " File:highlight.vim
 " Description: File to define function and colors for highlight
 " Author:Reinaldo Molina <rmolin88@gmail.com>
