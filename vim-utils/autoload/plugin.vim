@@ -387,7 +387,11 @@ function! plugin#Config() abort
 	Plug 'morhetz/gruvbox' " colorscheme gruvbox
 	Plug 'NLKNguyen/papercolor-theme'
 	" Sun May 07 2017 16:25 - Gave it a try and didnt like it 
-	" Plug 'icymind/NeoSolarized'
+	Plug 'icymind/NeoSolarized'
+	" Sat Oct 14 2017 15:50: Dont like this one either. 
+	Plug 'google/vim-colorscheme-primary'
+	" Sat Oct 14 2017 15:59: Horrible looking 
+	Plug 'joshdick/onedark.vim'
 
 	" Fri Oct 06 2017 10:03: Make this plugin on demand as well 
 	" Radical
@@ -572,6 +576,8 @@ function! plugin#Config() abort
 		augroup END
 		" let g:csv_autocmd_arrange      = 1
 		" let g:csv_autocmd_arrange_size = 1024*1024
+
+	Plug 'google/vim-searchindex'
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
