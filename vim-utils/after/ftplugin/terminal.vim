@@ -24,7 +24,7 @@ endif
 
 if exists('+winhighlight')
 	" Create a Terminal Highlight group
-	highlight Terminal ctermbg=235 guibg=235
+	highlight Terminal ctermbg=16 ctermfg=144
 	" Overwrite ctermbg only for this window. Neovim exclusive option
 	setlocal winhighlight=Normal:Terminal
 endif
