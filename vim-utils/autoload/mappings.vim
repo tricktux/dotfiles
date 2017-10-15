@@ -51,7 +51,6 @@ function! mappings#Set() abort
 	" ga " prints ascii of char under cursor
 	" gA " prints radix of number under cursor
 	" Untouchable g mappings: g;, gt, gr, gf, gd, g, gg, gs
-	nnoremap gl :e $MYVIMRC<CR>
 	nmap gj <Plug>FileBrowser
 	nmap gk <Plug>Make
 
