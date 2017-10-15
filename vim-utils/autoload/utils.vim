@@ -408,6 +408,7 @@ function! utils#WikiSearch() abort
 		return
 	endif
 
+	" TODO-[RM]-(Sun Oct 15 2017 15:53): fix this here not to use denite
 	if !exists(':Denite')
 		let dir = getcwd()
 		execute "cd " . g:wiki_path
