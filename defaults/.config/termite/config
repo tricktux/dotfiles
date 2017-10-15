@@ -4,6 +4,11 @@
 # Version:				0.0.0
 # Last Modified: Oct 01 2017 08:11
 # Created: Oct 01 2017 08:11
+# Note: There is a huge selection of color-themes at:
+# https://github.com/khamer/base16-termite
+# In order to use one you can:
+# You can copy one of the config files in themes/ or use curl:
+# curl https://raw.githubusercontent.com/khamer/base16-termite/master/themes/base16-default-dark.config >> ~/.config/termite
 
 
 # Use <C-S-r> to reload configuration
@@ -27,9 +32,50 @@ cursor_blink = off
 scrollback_lines=1000000
 
 [colors]
-background = rgba(63, 63, 63, 1)
-# cursor = #dcdccc
-# cursor_foreground = #dcdccc
+# Base16 Gruvbox dark, medium
+# Author: Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
 
+foreground      = #d5c4a1
+foreground_bold = #ebdbb2
+cursor          = #ebdbb2
+background      = #282828
 
+# 16 color space
 
+# Black, Gray, Silver, White
+color0  = #282828
+color8  = #665c54
+color7  = #d5c4a1
+color15 = #fbf1c7
+
+# Red
+color1  = #fb4934
+color9  = #fb4934
+
+# Green
+color2  = #b8bb26
+color10 = #b8bb26
+
+# Yellow
+color3  = #fabd2f
+color11 = #fabd2f
+
+# Blue
+color4  = #83a598
+color12 = #83a598
+
+# Purple
+color5  = #d3869b
+color13 = #d3869b
+
+# Teal
+color6  = #8ec07c
+color14 = #8ec07c
+
+# Extra colors
+color16 = #fe8019
+color17 = #d65d0e
+color18 = #3c3836
+color19 = #504945
+color20 = #bdae93
+color21 = #ebdbb2

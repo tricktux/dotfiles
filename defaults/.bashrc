@@ -104,3 +104,6 @@ export GIT_TERMINAL_PROMPT=1
 
 # Sat Oct 14 2017 11:12: This will set the i3-sensible-terminal to be used:
 export TERMINAL="termite"
+
+# Sat Oct 14 2017 22:27: fish being default terminal 
+[ -f /usr/bin/fish ] && exec fish
