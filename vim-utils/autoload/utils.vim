@@ -264,7 +264,7 @@ function! utils#LoadSession(...) abort
 	endif
 
 	execute "wall"
-	let response = confirm("Save Current Session before deleting all buffers?", "&Yes\n&No(def.)")
+	let response = confirm("Save Current Session before deleting all buffers?", "&Jes\n&No(def.)")
 	if response == 1
 		call utils#SaveSession()
 	endif
@@ -316,10 +316,10 @@ function! utils#ManFind() abort
 	" let l:command = printf
 	let list = systemlist("man -wK " . expand("<cword>"))
 	" if !empty(l:list)
-		" for item in l:list
-			" Strip name list them so they can be called with Man
-		" endfor
-		" cexpr l:list
+	" for item in l:list
+	" Strip name list them so they can be called with Man
+	" endfor
+	" cexpr l:list
 	" endif
 	" TODO Sample output below. Strip file name in the form 5 login.conf for
 	" example and pass it to Man
@@ -437,7 +437,7 @@ function! utils#GuiFont(sOp) abort
 		" Substitute last number with a plus or minus value depending on input
 		let new_cmd = substitute(g:GuiFont, ':h\zs\d\+','\=eval(submatch(0)'.a:sOp.'1)','')			
 		echomsg new_cmd
-    call GuiFont(new_cmd, 1)
+		call GuiFont(new_cmd, 1)
 	else " gvim
 		let sub = has('win32') ? ':h\zs\d\+' : '\ \zs\d\+'
 		let &guifont = substitute(&guifont, sub,'\=eval(submatch(0)'.a:sOp.'1)','')
@@ -477,14 +477,14 @@ endfunction
 
 function! utils#UpdateHeader()
 	exe "normal! mz"
-  if line("$") > 20
-    let l = 20
-  else
-    let l = line("$")
-  endif
+	if line("$") > 20
+		let l = 20
+	else
+		let l = line("$")
+	endif
 	" Last Modified
-  silent exe "1," . l . "g/Last Modified:/s/Last Modified:.*/Last Modified: " .
-  \ strftime("%a %b %d %Y %H:%M")
+	silent exe "1," . l . "g/Last Modified:/s/Last Modified:.*/Last Modified: " .
+				\ strftime("%a %b %d %Y %H:%M")
 	" Last Author
 	silent exe "1," . l . "g/Last Author:/s/Last Author:.*/Last Author: " .
 				\ " Reinaldo Molina"
@@ -516,19 +516,19 @@ endfunction
 function! utils#NeomakeOpenWindow() abort
 	" echo "Neomake Done" " Debuggin
 	" if g:neomake_hook_context.file_mode
-		" let loc_text = getloclist(0)
-		" if len(loc_text) == 0
-			" echo "Success"
-			" return
-		" endif
-		" echon "(1 of " len(loc_text) "):" bufname(loc_text[0].bufnr) '|' loc_text[0].lnum '|: ' loc_text[0].text
+	" let loc_text = getloclist(0)
+	" if len(loc_text) == 0
+	" echo "Success"
+	" return
+	" endif
+	" echon "(1 of " len(loc_text) "):" bufname(loc_text[0].bufnr) '|' loc_text[0].lnum '|: ' loc_text[0].text
 	" else
-		" let qf_text = getqflist()
-		" if len(qf_text) == 0
-			" echo "Success"
-			" return
-		" endif
-		" echon "(1 of " len(qf_text) "):" bufname(qf_text[0].bufnr) '|' qf_text[0].lnum '|: ' qf_text[0].text
+	" let qf_text = getqflist()
+	" if len(qf_text) == 0
+	" echo "Success"
+	" return
+	" endif
+	" echon "(1 of " len(qf_text) "):" bufname(qf_text[0].bufnr) '|' qf_text[0].lnum '|: ' qf_text[0].text
 	" endif
 endfunction
 
@@ -668,11 +668,15 @@ endfunction
 " Change vim colorscheme depending on time of the day
 function! utils#Flux() abort
 	if strftime("%H") >= g:colorscheme_night_time || strftime("%H") < g:colorscheme_day_time 
-		 if	&background !=# 'dark'
+		" Its night time
+		if	&background !=# 'dark' || g:colors_name !=# g:colorscheme_night
 			call utils#ChangeColors(g:colorscheme_night, 'dark')
 		endif
-	elseif &background !=# 'light'
-		call utils#ChangeColors(g:colorscheme_day, 'light')
+	else
+		" Its day time
+		if &background !=# 'light' || g:colors_name !=# g:colorscheme_day
+			call utils#ChangeColors(g:colorscheme_day, 'light')
+		endif
 	endif
 endfunction
 
@@ -947,22 +951,22 @@ function! utils#LightlineAbsPath(count) abort
 endfunction
 
 function! utils#Grep() abort
-	let c = confirm('Search inside ' . getcwd() . '?', "&Yes(def)\n&No", 1)
+	let c = confirm('Search inside ' . getcwd() . '?', "&Jes(def)\n&No", 1)
 	if c != 1
 		return
 	endif
 
-	if exists(':Denite')	
-		execute "Denite grep"
-		return
-	endif
+	" if exists(':Denite')	
+		" execute "Denite grep"
+		" return
+	" endif
 
-		" Search '&filetype' type of files, and word under the cursor
-		" nmap gsu :call utils#FileTypeSearch(1, 1)<CR>
-		" Search '&filetype' type of files, and prompt for search word
-		" nmap gsi :call utils#FileTypeSearch(1, 8)<CR>
-		" Search all type of files, and word under the cursor
-		" nmap gsa :call utils#FileTypeSearch(8, 1)<CR>
-		" Search all type of files, and prompt for search word
+	" Search '&filetype' type of files, and word under the cursor
+	" nmap gsu :call utils#FileTypeSearch(1, 1)<CR>
+	" Search '&filetype' type of files, and prompt for search word
+	" nmap gsi :call utils#FileTypeSearch(1, 8)<CR>
+	" Search all type of files, and word under the cursor
+	" nmap gsa :call utils#FileTypeSearch(8, 1)<CR>
+	" Search all type of files, and prompt for search word
 	call utils#FileTypeSearch(8, 8)
 endfunction
