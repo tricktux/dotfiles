@@ -570,6 +570,7 @@ function! plugin#Config() abort
 
 	Plug 'chrisbra/csv.vim', { 'for' : 'csv' }
 		let g:no_csv_maps = 1
+    let g:csv_strict_columns = 1
 		augroup Csv_Arrange
 			autocmd!
 			autocmd BufWritePost *.csv call CsvArrangeColumns()
