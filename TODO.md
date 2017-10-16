@@ -15,15 +15,15 @@ fileext: md
 - [ ] msys2: copy the default `.bashr...` to the dotfiles and modify them
 
 ## Wed Oct 11 2017 08:44 
-- [ ] vim: map `gl` to `Ttoggle`
+- [x] vim: map `gl` to `Ttoggle`
 - [ ] vim: make the previous mapping work also in windows.
 - [ ] !vim: fix `lightline` stuff to make it more smart.
-- [ ] vim: `denite` mapping to scroll down faster.
+- [x] vim: `denite` mapping to scroll down faster.
 - [ ] pomodoro: make the `statusline` message configurable.
 - [ ] polybar: substitute the `launch.py`
 - [ ] vim: `markdown` fix the make command to make it call the makefile.
 - [ ] vim: `markdown` change the `textwidth`
-- [ ] feh: customize or learn its mappings to make it more useful.
+- [x] feh: customize or learn its mappings to make it more useful.
 - [ ] vim: `clangd` not being installed in linux.
 - [ ] vim: in the `{unix,win32}.vim` files create `g:pc_name` variables.
 - [ ] mutt: substitute mapping `d` delete message to scrolling up and down.
