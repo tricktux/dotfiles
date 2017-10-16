@@ -66,4 +66,5 @@ curl -kLo ~/.cache/rmshit.py "https://raw.githubusercontent.com/lahwaacz/Scripts
 chmod +x ~/.cache/rmshit.py
 python cache/rmshit.py
 
-
+echo "Updating fish completions"
+fish_update_completions
