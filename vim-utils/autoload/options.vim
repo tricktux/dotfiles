@@ -155,6 +155,9 @@ function! options#Set() abort
 	set synmaxcol=200 " Will not highlight passed this column #
 	" Sat Oct 07 2017 00:35: Addind support 
 	set showtabline=2
+	" Mon Oct 16 2017 15:22: This speed ups a lot of plugin. Those that have to
+	" do with highliting.  
+	set regexpengine=1
 
 	" CLI
 	if !has('gui_running') && !exists('g:GuiLoaded')
