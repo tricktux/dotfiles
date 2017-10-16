@@ -11,6 +11,16 @@ fileext: md
 \tableofcontents
 \pagebreak
 
+## Mon Oct 16 2017 16:31 
+
+### Christmas 2017 projects.
+- [ ] 1.arch: backup entire `seafile` library
+- [ ] 2.arch: look into encryption for the making the following step `encrypted`
+- [ ] 3.arch: install arch in `copter-server`.
+- [ ] 4.arch: establish an `openvpn` in there.
+- [ ] 5.arch: reestablish `seafile` however make it accessible from the internet.
+- [ ] arch: figure out a password storage solution. `pass` its a possible candidate
+
 ## Thu Oct 12 2017 14:39 
 - [ ] msys2: copy the default `.bashr...` to the dotfiles and modify them
 
