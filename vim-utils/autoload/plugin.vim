@@ -565,7 +565,7 @@ function! plugin#Config() abort
 		if executable('twmnc')
 			let g:pomodoro_notification_cmd = 'twmnc -t Vim -c "Pomodoro done"'
 		endif
-		let g:pomodoro_log_file = g:std_cache_path . '/pomodoro_log'
+		let g:pomodoro_log_file = g:std_data_path . '/pomodoro_log'
 		" %#ErrorMsg#%{PomodoroStatus()}%#StatusLine# 
 
 	Plug 'chrisbra/csv.vim', { 'for' : 'csv' }
