@@ -58,6 +58,17 @@ function! autocompletion#SetCompl(compl) abort
 							\ 'cpp': ['clangd'],                                                                                                                                       
 							\ }  
 				let g:LanguageClient_autoStart = 1
+			" ncm's filtering is based on word, so it's better to convert results of
+			" muttaliases#CompleteMuttAliases into snippet expension
+			augroup NCM
+				autocmd!
+				autocmd User CmSetup call cm#register_source({'name' : 'mutt',
+							\ 'priority': 9, 
+							\ 'cm_refresh_length': -1,
+							\ 'cm_refresh_patterns': ['^\w+:\s+'],
+							\ 'cm_refresh': {'omnifunc': function('autocompletion#MuttOmniWrap')},
+							\ })
+			augroup END
 		endif
 
 		Plug 'roxma/nvim-completion-manager'
@@ -68,17 +79,6 @@ function! autocompletion#SetCompl(compl) abort
 		" Plug 'Shougo/neoinclude.vim'
 		Plug 'roxma/ncm-github'
 
-		" ncm's filtering is based on word, so it's better to convert results of
-		" muttaliases#CompleteMuttAliases into snippet expension
-		augroup NCM
-		autocmd!
-		autocmd User CmSetup call cm#register_source({'name' : 'mutt',
-					\ 'priority': 9, 
-					\ 'cm_refresh_length': -1,
-					\ 'cm_refresh_patterns': ['^\w+:\s+'],
-					\ 'cm_refresh': {'omnifunc': function('autocompletion#MuttOmniWrap')},
-					\ })
-		augroup END
 		inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 		inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 		" if has('unix') " Automatic completion on unix
