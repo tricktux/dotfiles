@@ -12,7 +12,7 @@ function! utils#SetGrep() abort
 		" rg = ripgrep
 		"Use the -t option to search all text files; -a to search all files; and -u to search all,
 		"including hidden files.
-		set grepprg=rg\ --vimgrep\ --smart-case\ --follow\ --hidden\ --glob\ !.git\ --glob\ !.svn
+		set grepprg=rg\ --vimgrep\ --smart-case\ --follow\ --hidden\ --glob\ !.git\ --glob\ !.svn\ $*
 		set grepformat=%f:%l:%c:%m
 	elseif executable('ucg')
 		" Add the --type-set=markdown:ext:md option to ucg for it to recognize
@@ -246,7 +246,7 @@ function! utils#SaveSession(...) abort
 		" Need to keep this option short and sweet
 		let session_name = a:1
 	endif
-	silent! execute "mksession! " . session_path . session_name  . "\<CR>"
+	silent! execute "mksession! " . session_path . session_name
 endfunction
 
 function! utils#LoadSession(...) abort
@@ -343,7 +343,7 @@ endfunction
 " Vim-Wiki {{{
 " Origin: Wang Shidong <wsdjeg@outlook.com>
 " vim-cheat
-func! CheatCompletion(ArgLead, CmdLine, CursorPos)
+function! CheatCompletion(ArgLead, CmdLine, CursorPos)
 	echom "arglead:[".a:ArgLead ."] cmdline:[" .a:CmdLine ."] cursorpos:[" .a:CursorPos ."]"
 	if a:ArgLead =~ '^-\w*'
 		echohl WarningMsg | echom a:ArgLead . " is not a valid wiki name" | echohl None
@@ -542,42 +542,37 @@ endfunction
 function! utils#FileTypeSearch(filetype, word) abort
 	let grep_engine = &grepprg
 
-	" In the case that rg or ag doesnt exist perform simple search
-	if grep_engine !~ 'rg' && grep_engine !~ 'ag'
-		let search = input("Please enter search word:")
-		exe ":grep " . search
-		echon '|Grep Engine:' &grepprg ' |FileType: All| CWD: ' getcwd()
-		return
-	endif
-
 	if a:word == 1
 		let search = expand("<cword>")
 	else
 		let search = input("Please enter search word:")
 	endif
-	if &grepprg =~ 'rg'
+
+	let file_type_search = &ft
+	if &grepprg =~# 'rg'
 		" rg filetype for vim files is called vimscript
-		let rg_ft = &ft
-		if rg_ft =~ 'vim'
-			let rg_ft = 'vimscript'
-		elseif rg_ft =~ 'python'
-			let rg_ft = 'py'
-		endif
-		if a:filetype == 1
-			exe ":grep -t " . rg_ft . ' ' . search
-			echon '|Grep Engine:' &grepprg ' |FileType: ' rg_ft '| CWD: ' getcwd()
+		if file_type_search =~# 'vim'
+			let file_type_search = '-t vimscript'
+		elseif file_type_search =~# 'python'
+			let file_type_search = '-t py'
 		else
-			exe ":grep " . search
-			echon '|Grep Engine:' &grepprg ' |FileType: All| CWD: ' getcwd()
+			let file_type_search = '-t ' . file_type_search
 		endif
-	elseif &grepprg =~ 'ag'
-		if a:filetype == 1
-			exe ":grep --" . &ft . ' ' . search
-			echon '|Grep Engine:' &grepprg ' |FileType: ' &ft '| CWD: ' getcwd()
-		else
-			exe ":grep " . search
-			echon '|Grep Engine:' &grepprg ' |FileType: All| CWD: ' getcwd()
-		endif
+	elseif &grepprg =~# 'ag'
+			let file_type_search = '--' . file_type_search
+	else
+		" If it is not a recognized engine do not do file type search
+		exe ":grep " . search
+		echomsg '|Grep Engine:' &grepprg ' |FileType: All| CWD: ' getcwd()
+		return
+	endif
+
+	if a:filetype == 1
+		exe ":grep " . file_type_search . ' ' . search
+		echon '|Grep Engine:' &grepprg ' |FileType: ' file_type_search '| CWD: ' getcwd()
+	else
+		exe ":grep " . search
+		echon '|Grep Engine:' &grepprg ' |FileType: All| CWD: ' getcwd()
 	endif
 endfunction
 
@@ -952,22 +947,21 @@ function! utils#LightlineAbsPath(count) abort
 endfunction
 
 function! utils#Grep() abort
-	let c = confirm('Search inside ' . getcwd() . '?', "&Jes(def)\n&No", 1)
-	if c != 1
-		return
+	let msg = 'Searching inside "' . getcwd() . '". Choose:'
+	let choice = "&J<cword>/". &ft . "\n&K<any>/". &ft . "\n&L<cword>/all_files\n&;<any>/all_files"
+	let c = confirm(msg, choice, 1)
+
+	if c == 1
+		" Search '&filetype' type of files, and word under the cursor
+		call utils#FileTypeSearch(1, 1)
+	elseif c == 2
+		" Search '&filetype' type of files, and prompt for search word
+		call utils#FileTypeSearch(1, 8)
+	elseif c == 3
+		" Search all type of files, and word under the cursor
+		call utils#FileTypeSearch(8, 1)
+	else
+		" Search all type of files, and prompt for search word
+		call utils#FileTypeSearch(8, 8)
 	endif
-
-	" if exists(':Denite')	
-		" execute "Denite grep"
-		" return
-	" endif
-
-	" Search '&filetype' type of files, and word under the cursor
-	" nmap gsu :call utils#FileTypeSearch(1, 1)<CR>
-	" Search '&filetype' type of files, and prompt for search word
-	" nmap gsi :call utils#FileTypeSearch(1, 8)<CR>
-	" Search all type of files, and word under the cursor
-	" nmap gsa :call utils#FileTypeSearch(8, 1)<CR>
-	" Search all type of files, and prompt for search word
-	call utils#FileTypeSearch(8, 8)
 endfunction
