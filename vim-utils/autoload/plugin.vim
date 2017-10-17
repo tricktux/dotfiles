@@ -519,8 +519,8 @@ function! plugin#Config() abort
 		let g:vim_markdown_new_list_item_indent = 0
 
 	"Sun Sep 10 2017 20:44 Depends on plantuml being installed  
-	Plug 'scrooloose/vim-slumlord', { 'for' : 'uml' }
-	Plug 'aklt/plantuml-syntax', { 'for' : 'uml' }
+	Plug 'scrooloose/vim-slumlord', { 'for' : 'plantuml' }
+	Plug 'aklt/plantuml-syntax', { 'for' : 'plantuml' }
 
 	Plug 'merlinrebrovic/focus.vim', { 'on' : '<Plug>FocusModeToggle' }
 			let g:focus_use_default_mapping = 0
