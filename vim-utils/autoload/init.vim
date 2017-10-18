@@ -14,7 +14,7 @@ function! init#vim() abort
 		syntax on
 	endif
 	let g:mapleader="\<Space>"
-	let g:maplocalleader="\<Space>"
+	let g:maplocalleader=";"
 
 	if has('win32')
 		" WINDOWS_SETTINGS
@@ -55,7 +55,6 @@ function! init#vim() abort
 	call augroup#Set()
 	call commands#Set()
 	call syntax#Set()
-
 endfunction
 
 " vim:tw=78:ts=2:sts=2:sw=2:
