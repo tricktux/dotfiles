@@ -36,12 +36,6 @@ function! mappings#Set() abort
 	nnoremap <expr> j v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
 	nnoremap <expr> k v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
 
-	" TODO-[RM]-(Thu Sep 14 2017 15:54): Put this into functions in order to
-	" check if the plugins exist.
-	nnoremap <Leader>la :call utils#TodoAdd()<CR>
-	nnoremap <Leader>lf :Neoformat<CR>
-	nnoremap <Leader>lt :TagbarToggle<CR>
-
 	" Miscelaneous Mappings <Leader>j?
 	" nnoremap <Leader>Ma :Man
 	" Most used misc get jk, jj, jl, j;
@@ -52,7 +46,14 @@ function! mappings#Set() abort
 	" gA " prints radix of number under cursor
 	" Untouchable g mappings: g;, gt, gr, gf, gd, g, gg, gs
 	nmap gj <Plug>FileBrowser
-	nmap gk <Plug>Make
+	nmap gl <Plug>ToggleTerminal
+	nmap <LocalLeader>m <Plug>Make
+	nmap <LocalLeader>p <Plug>Preview
+
+	" Global settings for all ftplugins
+	nnoremap <LocalLeader>f :Neoformat<CR>
+	nnoremap <LocalLeader>t :TagbarToggle<CR>
+
 
 	" Refactor word under the cursor
 	nnoremap <Leader>r :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
@@ -295,12 +296,7 @@ function! mappings#Set() abort
 	" nnoremap <Leader>vo :!svn log .<CR>
 	" nnoremap <Leader>vi :!svn info<CR>
 
-	" Terminal mappings <Leader>t?
-	if has('nvim')
-		nnoremap <Leader>tc :term cmus<bar>keepalt file cmus<cr>
-	endif
-
-	" Tags mappings <Leader>t?
+	" Tags mappings
 	nnoremap <silent> gt <C-]>
 	nnoremap gr <C-t>
 
@@ -313,16 +309,14 @@ function! mappings#Set() abort
 
 	" Comments <Leader>o
 	nmap - <plug>NERDCommenterToggle
-	nmap <Leader>ot <plug>NERDCommenterAltDelims
+	" nmap <Leader>ot <plug>NERDCommenterAltDelims
 	vmap - <plug>NERDCommenterToggle
 	imap <C-c> <plug>NERDCommenterInsert
-	nmap <Leader>oa <plug>NERDCommenterAppend
-	vmap <Leader>os <plug>NERDCommenterSexy
 	" mapping ol conflicts with mapping o to new line
 	nnoremap cl :call utils#CommentLine()<CR>
 	nnoremap <Leader>oe :call utils#EndOfIfComment()<CR>
 	nnoremap <Leader>ou :call utils#UpdateHeader()<CR>
-	nnoremap <Leader>os :grep --cpp TODO.RM<CR>
+	nnoremap <Leader>ot :call utils#TodoAdd()<CR>
 endfunction
 
 " vim:tw=78:ts=2:sts=2:sw=2:
