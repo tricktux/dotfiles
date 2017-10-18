@@ -20,7 +20,7 @@ setlocal cursorline
 if !exists("no_plugin_maps")
 	nnoremap <buffer> <c-j> f,	
 	nnoremap <buffer> <c-k> F,	
-	nnoremap <buffer> <Leader>lf ggVG<bar>:ArrangeColumn!<cr>
+	nnoremap <buffer> <LocalLeader>f ggVG<bar>:ArrangeColumn!<cr>
 endif
 
 function! CsvArrangeColumns() abort
