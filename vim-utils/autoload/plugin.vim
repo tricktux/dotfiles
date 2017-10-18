@@ -29,7 +29,7 @@ function! plugin#Config() abort
 			let g:neoterm_use_relative_path = 1
 			let g:neoterm_position = 'vertical'
 			let g:neoterm_autoinsert=1
-			nnoremap gl :Ttoggle<CR>
+			nnoremap <Plug>ToggleTerminal :Ttoggle<CR>
 
 		Plug 'rliang/termedit.nvim'
 
@@ -263,6 +263,7 @@ function! plugin#Config() abort
 					\ 'markdown': { 'left': '//', 'right': '' },
 					\ 'dosini': { 'left': ';', 'leftAlt': '//', 'right': '', 'rightAlt': '' },
 					\ 'csv': { 'left': '#', 'right': '' },
+					\ 'planuml': { 'left': "'", 'right': '', 'leftAlt': "/'", 'rightAlt': "'/"},
 					\ 'wings_syntax': { 'left': '//', 'right': '', 'leftAlt': '//', 'rightAlt': '' }
 					\ }
 
@@ -393,10 +394,9 @@ function! plugin#Config() abort
 	" Sat Oct 14 2017 15:59: Horrible looking 
 	Plug 'joshdick/onedark.vim'
 
-	" Fri Oct 06 2017 10:03: Make this plugin on demand as well 
-	" Radical
-	Plug 'glts/vim-magnum' " required by radical
-	Plug 'glts/vim-radical' " use with gA
+	" Magnum is required by vim-radical. use with gA
+	Plug 'glts/vim-magnum', { 'on' : '<Plug>RadicalView' }
+	Plug 'glts/vim-radical', { 'on' : '<Plug>RadicalView' }
 
 	" W3M - to view cpp-reference help
 	if executable('w3m')
