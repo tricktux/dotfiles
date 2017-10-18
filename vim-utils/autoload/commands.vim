@@ -1,6 +1,12 @@
+" File:					commands.vim
+" Description:	Universal commands
+" Author:				Reinaldo Molina <rmolin88@gmail.com>
+" Version:				0.0.0
+" Last Modified: Oct 18 2017 13:52
+" Created: Oct 18 2017 13:52
 
 
-function commands#Set() abort
+function! commands#Set() abort
 	" CUSTOM_COMMANDS
 	" TODO.RM-Fri Jun 02 2017 16:10: Keep doing this. Until you Substitute
 	" all rarely used <Leader>j mappings for commands
@@ -17,6 +23,7 @@ function commands#Set() abort
 	command! UtilsRemoveTrailingSpaces execute('let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>')
 	" Convert fileformat to dos
 	command! UtilsFileFormat2Dos :e ++ff=dos<CR>
+	command! UtilsNerdComAltDelims execute("normal \<Plug>NERDCommenterAltDelims")
 endfunction
 
 " vim:tw=78:ts=2:sts=2:sw=2:
