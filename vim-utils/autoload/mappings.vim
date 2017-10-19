@@ -16,16 +16,15 @@ function! mappings#Set() abort
 	let g:esc = '<C-j>'
 
 	" Quickfix and Location stuff
-	nnoremap <Leader>qO :lopen 20<CR>
-	nnoremap <Leader>qo :call quickfix#OpenQfWindow()<CR>
 	" nnoremap <silent> <Leader>ll :call quickfix#ToggleList("Location List", 'l')<CR>
 	nnoremap <silent> U :call quickfix#ToggleList("Quickfix List", 'c')<CR>
-	nnoremap <Leader>ln :call quickfix#ListsNavigation("next")<CR>
-	nnoremap <Leader>lp :call quickfix#ListsNavigation("previous")<CR>
-	nnoremap <Leader>qn :call quickfix#ListsNavigation("next")<CR>
-	nnoremap <Leader>qp :call quickfix#ListsNavigation("previous")<CR>
-	nnoremap <Leader>ql :ccl<CR>
-				\:lcl<CR>
+	nnoremap [l :lnext<CR>
+	nnoremap ]l :lprevious<CR>
+	nnoremap [L :call quickfix#ToggleList("Location List", 'l')<CR>
+	nnoremap [q :cnext<CR>
+	nnoremap ]q :cprevious<CR>
+	" nnoremap <Leader>ql :ccl<CR>
+				" \:lcl<CR>
 
 	" FileType Specific mappings use <Leader>l
 	" Refer to ~/.dotfiles/vim-utils/after/ftplugin to find these
@@ -35,12 +34,6 @@ function! mappings#Set() abort
 	" Save movements larger than 5 lines to the jumplist. Use Ctrl-o/Ctrl-i.
 	nnoremap <expr> j v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
 	nnoremap <expr> k v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
-
-	" TODO-[RM]-(Thu Sep 14 2017 15:54): Put this into functions in order to
-	" check if the plugins exist.
-	nnoremap <Leader>la :call utils#TodoAdd()<CR>
-	nnoremap <Leader>lf :Neoformat<CR>
-	nnoremap <Leader>lt :TagbarToggle<CR>
 
 	" Miscelaneous Mappings <Leader>j?
 	" nnoremap <Leader>Ma :Man
@@ -52,7 +45,13 @@ function! mappings#Set() abort
 	" gA " prints radix of number under cursor
 	" Untouchable g mappings: g;, gt, gr, gf, gd, g, gg, gs
 	nmap gj <Plug>FileBrowser
-	nmap gk <Plug>Make
+	nmap gl <Plug>ToggleTerminal
+	nmap <LocalLeader>m <Plug>Make
+	nmap <LocalLeader>p <Plug>Preview
+
+	" Global settings for all ftplugins
+	nnoremap <LocalLeader>f :Neoformat<CR>
+	nnoremap <LocalLeader>t :TagbarToggle<CR>
 
 	" Refactor word under the cursor
 	nnoremap <Leader>r :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
@@ -224,20 +223,19 @@ function! mappings#Set() abort
 
 	" Spell Check <Leader>s?
 	" search forward
-	nnoremap <Leader>sj ]s
+	" nnoremap <Leader>sj ]s
 	" search backwards
-	nnoremap <Leader>sk [s
+	" nnoremap <Leader>sk [s
 	" suggestion
-	nnoremap <Leader>sc z=
+	" nnoremap <Leader>sc z=
 	" toggle spelling
-	nnoremap <Leader>st :setlocal spell! spelllang=en_us<CR>
-	nnoremap <Leader>sf :call utils#FixPreviousWord()<CR>
+	nnoremap =os :setlocal spell! spelllang=en_us<CR>
+	inoremap <C-S> <c-r>=utils#FixPreviousWord()
 	" add to dictionary
-	nnoremap <Leader>sa zg
+	" nnoremap <Leader>sa zg
 	" mark wrong
-	nnoremap <Leader>sw zw
+	" nnoremap <Leader>sw zw
 	" repeat last spell correction
-	nnoremap <Leader>sr :spellr<CR>
 
 	" Search <Leader>S
 	" Tried ack.vim. Discovered that nothing is better than grep with ag.
@@ -260,18 +258,18 @@ function! mappings#Set() abort
 	nnoremap <S-j> :b#<CR>
 	" deletes all buffers
 	nnoremap <Leader>bl :%bd<CR>
-	nnoremap <Leader>bS :bufdo
-	" move tab to the left
-	nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
-	" move tab to the right
-	nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
-	nnoremap <Leader>be :enew<CR>
+	" nnoremap <Leader>bS :bufdo
+	" " move tab to the left
+	" nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
+	" " move tab to the right
+	" nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
+	" nnoremap <Leader>be :enew<CR>
 
 	" Tabs <Leader>a?
 	" open new to tab to explorer
-	nnoremap <S-Tab> gT
-	nnoremap <S-e> :tab split<CR>
-	nnoremap <S-x> :tabclose<CR>
+	" nnoremap <S-Tab> gT
+	" nnoremap <S-e> :tab split<CR>
+	" nnoremap <S-x> :tabclose<CR>
 
 	" Version Control <Leader>v?
 	" For all this commands you should be in the svn root folder
@@ -295,14 +293,9 @@ function! mappings#Set() abort
 	" nnoremap <Leader>vo :!svn log .<CR>
 	" nnoremap <Leader>vi :!svn info<CR>
 
-	" Terminal mappings <Leader>t?
-	if has('nvim')
-		nnoremap <Leader>tc :term cmus<bar>keepalt file cmus<cr>
-	endif
-
-	" Tags mappings <Leader>t?
-	nnoremap <silent> gt <C-]>
-	nnoremap gr <C-t>
+	" Tags mappings
+	" nnoremap <silent> gt <C-]>
+	" nnoremap gr <C-t>
 
 	" Wiki mappings <Leader>w?
 	" TODO.RM-Thu Dec 15 2016 16:00: Add support for wiki under SW-Testbed
@@ -313,16 +306,19 @@ function! mappings#Set() abort
 
 	" Comments <Leader>o
 	nmap - <plug>NERDCommenterToggle
-	nmap <Leader>ot <plug>NERDCommenterAltDelims
+	" nmap <Leader>ot <plug>NERDCommenterAltDelims
 	vmap - <plug>NERDCommenterToggle
 	imap <C-c> <plug>NERDCommenterInsert
-	nmap <Leader>oa <plug>NERDCommenterAppend
-	vmap <Leader>os <plug>NERDCommenterSexy
 	" mapping ol conflicts with mapping o to new line
 	nnoremap cl :call utils#CommentLine()<CR>
 	nnoremap <Leader>oe :call utils#EndOfIfComment()<CR>
 	nnoremap <Leader>ou :call utils#UpdateHeader()<CR>
-	nnoremap <Leader>os :grep --cpp TODO.RM<CR>
+	nnoremap <Leader>ot :call utils#TodoAdd()<CR>
+	nmap <Leader>oa <Plug>NERDCommenterAppend
+	nnoremap <Leader>od :call utils#CommentDelete()<CR>
+	" Comment Indent Increase/Reduce
+	nnoremap <Leader>oi :call utils#CommentIndent()<CR>
+	nnoremap <Leader>oI :call utils#CommentReduceIndent()<CR>
 endfunction
 
 " vim:tw=78:ts=2:sts=2:sw=2:
