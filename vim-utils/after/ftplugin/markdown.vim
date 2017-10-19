@@ -24,8 +24,8 @@ setlocal sts=2
 if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	" Encapsulate in markdown file from current line until end of file in ```
 	nnoremap <buffer> <unique> <LocalLeader>` :normal! o````<CR>```<Esc>
-	nnoremap <buffer> <unique> <LocalLeader>d :call utils#TodoMark()<CR>
-	nnoremap <buffer> <unique> <LocalLeader>D :call utils#TodoClearMark()<CR>
+	nnoremap <buffer> <unique> <LocalLeader>n :call utils#TodoMark()<CR>
+	nnoremap <buffer> <unique> <LocalLeader>N :call utils#TodoClearMark()<CR>
 	inoremap <buffer> * **<Left>
 	inoremap <buffer> [ [ ]<Space>
 
