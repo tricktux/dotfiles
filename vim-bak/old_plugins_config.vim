@@ -1836,3 +1836,19 @@ endfunction
 		" Sun May 07 2017 12:36 Slowing down a little bit 
 		" \   'neomake': '%{neomake#statusline#QflistStatus("qf:\ ")}', 
 		" \   'neomake': '(!empty(neomake#statusline#QflistStatus("qf:\ ")))',
+function! utils#ManFind() abort
+	" execute "cexp system('man -wK ". expand("<cword>") ."')"
+	" let l:command = printf
+	let list = systemlist("man -wK " . expand("<cword>"))
+	" if !empty(l:list)
+	" for item in l:list
+	" Strip name list them so they can be called with Man
+	" endfor
+	" cexpr l:list
+	" endif
+	" TODO Sample output below. Strip file name in the form 5 login.conf for
+	" example and pass it to Man
+	" || /usr/share/man/man5/logind.conf.5.gz
+	" || /usr/share/man/man7/systemd.directives.7.gz
+endfunction
+

@@ -231,6 +231,7 @@ endfunction
 
 function! utils#FixPreviousWord() abort
 	normal mm[s1z=`m
+	return ''
 endfunction
 
 function! utils#SaveSession(...) abort
@@ -299,7 +300,9 @@ function! utils#TodoClearMark() abort
 endfunction
 
 function! utils#TodoAdd() abort
-	execute "normal! aTODO-[RM]-(" . strftime("%a %b %d %Y %H:%M") . "): "
+	execute "normal! cc"
+	call NERDComment('i','insert')
+	execute "normal! ==a\<c-h> TODO-[RM]-(" . strftime("%a %b %d %Y %H:%M") . "): "
 endfunction
 
 function! utils#CommentLine() abort
@@ -309,22 +312,6 @@ function! utils#CommentLine() abort
 	else
 		echo "Please install NERDCommenter"
 	endif
-endfunction
-
-function! utils#ManFind() abort
-	" execute "cexp system('man -wK ". expand("<cword>") ."')"
-	" let l:command = printf
-	let list = systemlist("man -wK " . expand("<cword>"))
-	" if !empty(l:list)
-	" for item in l:list
-	" Strip name list them so they can be called with Man
-	" endfor
-	" cexpr l:list
-	" endif
-	" TODO Sample output below. Strip file name in the form 5 login.conf for
-	" example and pass it to Man
-	" || /usr/share/man/man5/logind.conf.5.gz
-	" || /usr/share/man/man7/systemd.directives.7.gz
 endfunction
 
 function! utils#LastCommand() abort
@@ -665,11 +652,17 @@ endfunction
 function! utils#Flux() abort
 	if strftime("%H") >= g:colorscheme_night_time || strftime("%H") < g:colorscheme_day_time 
 		" Its night time
+		if !exists('g:colors_name')
+			let g:colors_name = g:colorscheme_night
+		endif
 		if	&background !=# 'dark' || g:colors_name !=# g:colorscheme_night
 			call utils#ChangeColors(g:colorscheme_night, 'dark')
 		endif
 	else
 		" Its day time
+		if !exists('g:colors_name')
+			let g:colors_name = g:colorscheme_day
+		endif
 		if &background !=# 'light' || g:colors_name !=# g:colorscheme_day
 			call utils#ChangeColors(g:colorscheme_day, 'light')
 		endif
@@ -695,12 +688,29 @@ function! utils#ChangeColors(scheme, background) abort
 
 	" If using the lightline plugin then update that as well
 	" this could cause trouble if lightline does not that colorscheme
-	if exists('g:lightline.colorscheme')
-		let g:lightline.colorscheme = a:scheme
-		call lightline#init()
-		call lightline#colorscheme()
-		call lightline#update()
+	call utils#LightlineUpdateColorscheme()
+endfunction
+
+function! utils#LightlineUpdateColorscheme()
+	if !exists('g:loaded_lightline')
+		return
 	endif
+	try
+		if &background ==# 'dark'
+			let g:lightline.colorscheme = 'PaperColor_dark'
+		else
+			let g:lightline.colorscheme = 'PaperColor'
+		endif
+
+		" if g:colors_name =~# 'wombat\|solarized\|landscape\|jellybeans\|seoul256\|Tomorrow\|gruvbox\|PaperColor\|zenburn'
+			" let g:lightline.colorscheme =
+						" \ substitute(substitute(g:colors_name, '-', '_', 'g'), '256.*', '', '')
+			call lightline#init()
+			call lightline#colorscheme()
+			call lightline#update()
+		endif
+	catch
+	endtry
 endfunction
 
 function! utils#ProfilePerformance() abort
@@ -965,3 +975,16 @@ function! utils#Grep() abort
 		call utils#FileTypeSearch(8, 8)
 	endif
 endfunction
+
+function! utils#CommentDelete() abort
+	execute "normal! ^f/D"
+endfunction
+
+function! utils#CommentIndent() abort
+	execute "normal! ^f/i\<Tab>\<Tab>\<Esc>"
+endfunction
+
+function! utils#CommentReduceIndent() abort
+	execute "normal! ^f/hxhx"
+endfunction
+
