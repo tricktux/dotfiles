@@ -263,7 +263,7 @@ function! plugin#Config() abort
 					\ 'markdown': { 'left': '//', 'right': '' },
 					\ 'dosini': { 'left': ';', 'leftAlt': '//', 'right': '', 'rightAlt': '' },
 					\ 'csv': { 'left': '#', 'right': '' },
-					\ 'planuml': { 'left': "'", 'right': '', 'leftAlt': "/'", 'rightAlt': "'/"},
+					\ 'plantuml': { 'left': "'", 'right': '', 'leftAlt': "/'", 'rightAlt': "'/"},
 					\ 'wings_syntax': { 'left': '//', 'right': '', 'leftAlt': '//', 'rightAlt': '' }
 					\ }
 
@@ -393,6 +393,8 @@ function! plugin#Config() abort
 	Plug 'google/vim-colorscheme-primary'
 	" Sat Oct 14 2017 15:59: Horrible looking 
 	Plug 'joshdick/onedark.vim'
+	Plug 'altercation/vim-colors-solarized'
+	Plug 'jnurmine/Zenburn'
 
 	" Magnum is required by vim-radical. use with gA
 	Plug 'glts/vim-magnum', { 'on' : '<Plug>RadicalView' }
@@ -478,11 +480,6 @@ function! plugin#Config() abort
 
 		let g:lightline.active.left[2] += [ 'pomodoro' ]
 		let g:lightline.component_function['pomodoro'] = 'utils#LightlinePomo'
-
-		" let g:lightline.colorscheme = 'onedark'
-		" let g:lightline.colorscheme = 'gruvbox'
-		let g:lightline.colorscheme = 'PaperColor'
-
 	Plug 'PotatoesMaster/i3-vim-syntax'
 
 	if has('win32')
@@ -518,8 +515,12 @@ function! plugin#Config() abort
 		let g:vim_markdown_frontmatter = 1
 		let g:vim_markdown_new_list_item_indent = 0
 
-	"Sun Sep 10 2017 20:44 Depends on plantuml being installed  
-	Plug 'scrooloose/vim-slumlord', { 'for' : 'plantuml' }
+	" Sun Sep 10 2017 20:44 Depends on plantuml being installed  
+	" If you want dont want to image preview after loading the plugin put the
+	" comment: 
+	"		'no-preview
+	"	in your file
+	Plug 'scrooloose/vim-slumlord', { 'on' : 'UtilsUmlInFilePreview' }
 	Plug 'aklt/plantuml-syntax', { 'for' : 'plantuml' }
 
 	Plug 'merlinrebrovic/focus.vim', { 'on' : '<Plug>FocusModeToggle' }
