@@ -13,8 +13,10 @@ function! init#vim() abort
 		filetype plugin indent on
 		syntax on
 	endif
+	" Needs to be defined before the first <Leader>/<LocalLeader> is used
+	" otherwise it goes to "\"
 	let g:mapleader="\<Space>"
-	let g:maplocalleader="\<Space>"
+	let g:maplocalleader="g"
 
 	if has('win32')
 		" WINDOWS_SETTINGS
@@ -55,7 +57,6 @@ function! init#vim() abort
 	call augroup#Set()
 	call commands#Set()
 	call syntax#Set()
-
 endfunction
 
 " vim:tw=78:ts=2:sts=2:sw=2:
