@@ -110,6 +110,8 @@ function! options#Set() abort
 	" Thu Sep 14 2017 14:45: Security concerns addressed by these options. 
 	set secure
 	set noexrc
+	" Wed Oct 18 2017 09:19: Stop annoying bell sound
+	set belloff=all
 
 	" Status Line and Colorscheme
 	if exists('g:plugins_loaded')
