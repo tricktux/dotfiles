@@ -13,8 +13,10 @@ function! init#vim() abort
 		filetype plugin indent on
 		syntax on
 	endif
+	" Needs to be defined before the first <Leader>/<LocalLeader> is used
+	" otherwise it goes to "\"
 	let g:mapleader="\<Space>"
-	let g:maplocalleader=";"
+	let g:maplocalleader="g"
 
 	if has('win32')
 		" WINDOWS_SETTINGS
