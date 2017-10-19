@@ -651,11 +651,17 @@ endfunction
 function! utils#Flux() abort
 	if strftime("%H") >= g:colorscheme_night_time || strftime("%H") < g:colorscheme_day_time 
 		" Its night time
+		if !exists('g:colors_name')
+			let g:colors_name = g:colorscheme_night
+		endif
 		if	&background !=# 'dark' || g:colors_name !=# g:colorscheme_night
 			call utils#ChangeColors(g:colorscheme_night, 'dark')
 		endif
 	else
 		" Its day time
+		if !exists('g:colors_name')
+			let g:colors_name = g:colorscheme_day
+		endif
 		if &background !=# 'light' || g:colors_name !=# g:colorscheme_day
 			call utils#ChangeColors(g:colorscheme_day, 'light')
 		endif
@@ -681,12 +687,29 @@ function! utils#ChangeColors(scheme, background) abort
 
 	" If using the lightline plugin then update that as well
 	" this could cause trouble if lightline does not that colorscheme
-	if exists('g:lightline.colorscheme')
-		let g:lightline.colorscheme = a:scheme
-		call lightline#init()
-		call lightline#colorscheme()
-		call lightline#update()
+	call utils#LightlineUpdateColorscheme()
+endfunction
+
+function! utils#LightlineUpdateColorscheme()
+	if !exists('g:loaded_lightline')
+		return
 	endif
+	try
+		if &background ==# 'dark'
+			let g:lightline.colorscheme = 'PaperColor_dark'
+		else
+			let g:lightline.colorscheme = 'PaperColor'
+		endif
+
+		" if g:colors_name =~# 'wombat\|solarized\|landscape\|jellybeans\|seoul256\|Tomorrow\|gruvbox\|PaperColor\|zenburn'
+			" let g:lightline.colorscheme =
+						" \ substitute(substitute(g:colors_name, '-', '_', 'g'), '256.*', '', '')
+			call lightline#init()
+			call lightline#colorscheme()
+			call lightline#update()
+		endif
+	catch
+	endtry
 endfunction
 
 function! utils#ProfilePerformance() abort
