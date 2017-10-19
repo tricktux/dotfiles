@@ -11,6 +11,15 @@ fileext: md
 \tableofcontents
 \pagebreak
 
+## Thu Oct 19 2017 10:37
+- [ ] vim: study vim-unimpaired and copy from it the best
+- [ ] vim: also study and rethink all of your vim mappings and methods
+
+## Wed Oct 18 2017 12:53 
+- [ ] vim: had this super amazing realization. ';' its not used at all as a mapping. the idea is
+to make all the `ftplugin/*.vim` mappings use `localleader` instead of `leader` and map
+`localleader=;`. This would increase mappings efficiency by 1/3.
+
 ## Mon Oct 16 2017 16:31 
 
 ### Christmas 2017 projects.
