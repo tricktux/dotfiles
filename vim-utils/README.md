@@ -1,4 +1,31 @@
 # VIM NOTES
+````
+
+## ftplugin Convention:
+- You cannot use the following mappings:
+```vim
+" This one you should actually implement
+nmap <LocalLeader>m <Plug>Make
+nmap <LocalLeader>p <Plug>Preview
+
+" Global settings for all ftplugins
+" This ones you shouldnt overwrite. Unles it makes sense.
+nnoremap <LocalLeader>f :Neoformat<CR>
+nnoremap <LocalLeader>t :TagbarToggle<CR>
+```
+- Mappings you cannot overwrite:
+	- `gd, gD, g;, gq, gs, gl, gA, gt, gg, G, gG, gh`
+- All the mappings define inside of the `ftplugin/*.vim` files need to be use `localleader`
+- The only exception is the comments. Since they are really global
+- Moreover, if it is a filetype that can use `tags` then use
+	- `call ftplugin#TagMappings()`
+- If you want to auto highlight the word under the cursor call:
+	- `call ftplugin#AutoHighlight()`
+- If you want to the mapping to allign comments call:
+	- `call ftplugin#Align(comment)`
+- If you want to disable/enable `syntastic` call:
+	- `call ftplugin#Syntastic(mode, checkers)`
+
 ## Sample of vim debugging 
 - Fri Mar 10 2017 11:22 
 ```vim
