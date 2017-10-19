@@ -61,7 +61,8 @@ function win32#Config()
 		endif
 	endif
 
-	let g:browser_cmd = 'opera'
+	" Make sure that "C:\Program Files\Opera\launcher.exe" is in your path
+	let g:browser_cmd = 'launcher.exe'
 endfunction
 
 " vim:tw=78:ts=2:sts=2:sw=2:
