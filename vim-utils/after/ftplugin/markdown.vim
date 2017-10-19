@@ -23,15 +23,13 @@ setlocal sts=2
 
 if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	" Encapsulate in markdown file from current line until end of file in ```
-	nnoremap <buffer> <unique> <Leader>l` :normal! o````<CR>```<Esc>
-	" Markdown fix _ showing red
-	nnoremap <buffer> <unique> <Leader>ld :call utils#TodoCreate()<CR>
-	nnoremap <buffer> <unique> <Leader>lm :call utils#TodoMark()<CR>
-	nnoremap <buffer> <unique> <Leader>lM :call utils#TodoClearMark()<CR>
+	nnoremap <buffer> <unique> <LocalLeader>` :normal! o````<CR>```<Esc>
+	nnoremap <buffer> <unique> <LocalLeader>n :call utils#TodoMark()<CR>
+	nnoremap <buffer> <unique> <LocalLeader>N :call utils#TodoClearMark()<CR>
 	inoremap <buffer> * **<Left>
 	inoremap <buffer> [ [ ]<Space>
 
-	nmap <buffer> <Leader>lf <Plug>FocusModeToggle
+	nmap <buffer> <LocalLeader>lf <Plug>FocusModeToggle
 
 	if exists(':InsertNewBullet')
 		inoremap <buffer> <expr> <cr> pumvisible() ? "\<c-y>" : "<cr>"
@@ -39,19 +37,19 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	endif
 
 	if exists(':Toc')
-		nnoremap <buffer> <Leader>lt :Toc<cr>
+		nnoremap <buffer> <LocalLeader>t :Toc<cr>
 	elseif exists(':TOC')
-		nnoremap <buffer> <Leader>lt :TOC<cr>
+		nnoremap <buffer> <LocalLeader>t :TOC<cr>
 	endif
 
-	nnoremap <buffer> <Leader>ls :call MdCheckSpelling()<cr>
+	nnoremap <buffer> <LocalLeader>c :call MdCheckSpelling()<cr>
 
 	if exists(':OnlineThesaurusCurrentWord')
-		nnoremap <buffer> <Leader>la :OnlineThesaurusCurrentWord<cr>
+		nnoremap <buffer> <LocalLeader>a :OnlineThesaurusCurrentWord<cr>
 	endif
 
 	nnoremap <buffer> <Plug>Make :!pandoc % -o %:r.pdf --from markdown --template eisvogel --listings<CR>
-	nnoremap <buffer> <Leader>lo :!zathura %:r.pdf&<CR>
+	nnoremap <buffer> <Plug>Preview :!zathura %:r.pdf&<CR>
 endif
 
 if exists('*AutoCorrect')
@@ -112,9 +110,9 @@ function! MdInstallTemplate() abort
 	endif
 endfunction
 
-function! MdPreview() abort
+function! MdPreviewInBrowser() abort
 	if !executable(g:browser_cmd)
-		echoerr '[MdPreview]: Browser: ' . g:browser_cmd . ' not executable/found'
+		echoerr '[MdPreviewInBrowser]: Browser: ' . g:browser_cmd . ' not executable/found'
 		return -1
 	endif
 
@@ -130,8 +128,10 @@ function! MdPreview() abort
 endfunction
 
 command! -buffer UtilsWeeklyReportCreate call utils#ConvertWeeklyReport()
+" Markdown fix _ showing red
 command! -buffer UtilsFixUnderscore execute("%s/_/\\_/gc<CR>")
 " TODO.RM-Thu May 18 2017 12:17: This should be changed to opera  
-command! -buffer UtilsPreviewMarkdown call MdPreview()
+command! -buffer UtilsPreviewMarkdown call MdPreviewInBrowser()
+command! -buffer UtilsInstallMarkdownPreview call MdInstallTemplate()
 
 let b:undo_ftplugin = "setl foldenable< spell< complete< ts< sw< sts<" 

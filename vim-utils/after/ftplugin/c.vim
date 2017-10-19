@@ -41,25 +41,21 @@ if !exists("no_plugin_maps") && !exists("no_c_maps")
 		nnoremap <buffer> <Plug>Make :make!<CR>
 	endif
 	" Alternate between header and source file
-	nnoremap <buffer> <unique> <Leader>lq :call utils#SwitchHeaderSource()<CR>
+	nnoremap <buffer> <unique> <LocalLeader>a :call utils#SwitchHeaderSource()<CR>
 
-	nnoremap <buffer> <unique> <Leader>od :call <SID>CommentDelete()<CR>
-	" Comment Indent Increase/Reduce
-	nnoremap <buffer> <unique> <Leader>oi :call <SID>CommentIndent()<CR>
-	nnoremap <buffer> <unique> <Leader>oI :call <SID>CommentReduceIndent()<CR>
 	if executable('lldb') && exists(':LLmode')
-		nmap <buffer> <unique> <Leader>db <Plug>LLBreakSwitch
+		nmap <buffer> <unique> <LocalLeader>db <Plug>LLBreakSwitch
 		" vmap <F2> <Plug>LLStdInSelected
 		" nnoremap <F4> :LLstdin<CR>
 		" nnoremap <F5> :LLmode debug<CR>
 		" nnoremap <S-F5> :LLmode code<CR>
-		nnoremap <buffer> <unique> <Leader>dc :LL continue<CR>
-		nnoremap <buffer> <unique> <Leader>do :LL thread step-over<CR>
-		nnoremap <buffer> <unique> <Leader>di :LL thread step-in<CR>
-		nnoremap <buffer> <unique> <Leader>dt :LL thread step-out<CR>
-		nnoremap <buffer> <unique> <Leader>dD :LLmode code<CR>
-		nnoremap <buffer> <unique> <Leader>dd :LLmode debug<CR>
-		nnoremap <buffer> <unique> <Leader>dp :LL print <C-R>=expand('<cword>')<CR>
+		nnoremap <buffer> <unique> <LocalLeader>dc :LL continue<CR>
+		nnoremap <buffer> <unique> <LocalLeader>do :LL thread step-over<CR>
+		nnoremap <buffer> <unique> <LocalLeader>di :LL thread step-in<CR>
+		nnoremap <buffer> <unique> <LocalLeader>dt :LL thread step-out<CR>
+		nnoremap <buffer> <unique> <LocalLeader>dD :LLmode code<CR>
+		nnoremap <buffer> <unique> <LocalLeader>dd :LLmode debug<CR>
+		nnoremap <buffer> <unique> <LocalLeader>dp :LL print <C-R>=expand('<cword>')<CR>
 		" nnoremap <S-F8> :LL process interrupt<CR>
 		" nnoremap <F9> :LL print <C-R>=expand('<cword>')<CR>
 		" vnoremap <F9> :<C-U>LL print <C-R>=lldb#util#get_selection()<CR><CR>
@@ -69,7 +65,7 @@ if !exists("no_plugin_maps") && !exists("no_c_maps")
 	call ftplugin#Syntastic('passive', [])
 
 	if exists('g:clang_format_py')
-		nnoremap <Leader>lf :execute('pyf ' . g:clang_format_py)<CR>
+		nnoremap <buffer> <LocalLeader>f :execute('pyf ' . g:clang_format_py)<CR>
 	endif
 endif
 
@@ -123,25 +119,8 @@ function! s:UpdateBorlandMakefile() abort
 	endif
 endfunction
 
-function! s:CommentDelete() abort
-	execute "normal Bf/D"
-endfunction
-
-function! s:CommentIndent() abort
-	execute "normal Bf/i\<Tab>\<Tab>\<Esc>"
-endfunction
-
-function! s:CommentReduceIndent() abort
-	execute "normal Bf/hxhx"
-endfunction
-
 " Add highlighting for function definition in C++
-function! s:enhance_cpp_syntax()
-	syn match cppFuncDef "::\~\?\zs\h\w*\ze([^)]*\()\s*\(const\)\?\)\?$"
-	hi def link cppFuncDef Structure
-endfunction
-
-" This is really not working
-call s:enhance_cpp_syntax()
+syn match cppFuncDef "::\~\?\zs\h\w*\ze([^)]*\()\s*\(const\)\?\)\?$"
+hi def link cppFuncDef Structure
 
 let b:undo_ftplugin = "setl omnifunc< ts< sw< sts< foldenable< define< spell< matchpairs< foldmethod< foldnestmax<| unlet! b:delimitMate_matchpairs b:matchparen_timeout b:match_words" 
