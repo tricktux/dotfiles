@@ -231,6 +231,7 @@ endfunction
 
 function! utils#FixPreviousWord() abort
 	normal mm[s1z=`m
+	return ''
 endfunction
 
 function! utils#SaveSession(...) abort
@@ -974,3 +975,16 @@ function! utils#Grep() abort
 		call utils#FileTypeSearch(8, 8)
 	endif
 endfunction
+
+function! utils#CommentDelete() abort
+	execute "normal! ^f/D"
+endfunction
+
+function! utils#CommentIndent() abort
+	execute "normal! ^f/i\<Tab>\<Tab>\<Esc>"
+endfunction
+
+function! utils#CommentReduceIndent() abort
+	execute "normal! ^f/hxhx"
+endfunction
+
