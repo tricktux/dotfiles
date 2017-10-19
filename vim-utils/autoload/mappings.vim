@@ -16,16 +16,15 @@ function! mappings#Set() abort
 	let g:esc = '<C-j>'
 
 	" Quickfix and Location stuff
-	nnoremap <Leader>qO :lopen 20<CR>
-	nnoremap <Leader>qo :call quickfix#OpenQfWindow()<CR>
 	" nnoremap <silent> <Leader>ll :call quickfix#ToggleList("Location List", 'l')<CR>
 	nnoremap <silent> U :call quickfix#ToggleList("Quickfix List", 'c')<CR>
-	nnoremap <Leader>ln :call quickfix#ListsNavigation("next")<CR>
-	nnoremap <Leader>lp :call quickfix#ListsNavigation("previous")<CR>
-	nnoremap <Leader>qn :call quickfix#ListsNavigation("next")<CR>
-	nnoremap <Leader>qp :call quickfix#ListsNavigation("previous")<CR>
-	nnoremap <Leader>ql :ccl<CR>
-				\:lcl<CR>
+	nnoremap [l :lnext<CR>
+	nnoremap ]l :lprevious<CR>
+	nnoremap [L :call quickfix#ToggleList("Location List", 'l')<CR>
+	nnoremap [q :cnext<CR>
+	nnoremap ]q :cprevious<CR>
+	" nnoremap <Leader>ql :ccl<CR>
+				" \:lcl<CR>
 
 	" FileType Specific mappings use <Leader>l
 	" Refer to ~/.dotfiles/vim-utils/after/ftplugin to find these
@@ -53,7 +52,6 @@ function! mappings#Set() abort
 	" Global settings for all ftplugins
 	nnoremap <LocalLeader>f :Neoformat<CR>
 	nnoremap <LocalLeader>t :TagbarToggle<CR>
-
 
 	" Refactor word under the cursor
 	nnoremap <Leader>r :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
@@ -225,20 +223,19 @@ function! mappings#Set() abort
 
 	" Spell Check <Leader>s?
 	" search forward
-	nnoremap <Leader>sj ]s
+	" nnoremap <Leader>sj ]s
 	" search backwards
-	nnoremap <Leader>sk [s
+	" nnoremap <Leader>sk [s
 	" suggestion
-	nnoremap <Leader>sc z=
+	" nnoremap <Leader>sc z=
 	" toggle spelling
-	nnoremap <Leader>st :setlocal spell! spelllang=en_us<CR>
-	nnoremap <Leader>sf :call utils#FixPreviousWord()<CR>
+	nnoremap =os :setlocal spell! spelllang=en_us<CR>
+	inoremap <C-S> <c-r>=utils#FixPreviousWord()
 	" add to dictionary
-	nnoremap <Leader>sa zg
+	" nnoremap <Leader>sa zg
 	" mark wrong
-	nnoremap <Leader>sw zw
+	" nnoremap <Leader>sw zw
 	" repeat last spell correction
-	nnoremap <Leader>sr :spellr<CR>
 
 	" Search <Leader>S
 	" Tried ack.vim. Discovered that nothing is better than grep with ag.
@@ -261,18 +258,18 @@ function! mappings#Set() abort
 	nnoremap <S-j> :b#<CR>
 	" deletes all buffers
 	nnoremap <Leader>bl :%bd<CR>
-	nnoremap <Leader>bS :bufdo
-	" move tab to the left
-	nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
-	" move tab to the right
-	nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
-	nnoremap <Leader>be :enew<CR>
+	" nnoremap <Leader>bS :bufdo
+	" " move tab to the left
+	" nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
+	" " move tab to the right
+	" nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
+	" nnoremap <Leader>be :enew<CR>
 
 	" Tabs <Leader>a?
 	" open new to tab to explorer
-	nnoremap <S-Tab> gT
-	nnoremap <S-e> :tab split<CR>
-	nnoremap <S-x> :tabclose<CR>
+	" nnoremap <S-Tab> gT
+	" nnoremap <S-e> :tab split<CR>
+	" nnoremap <S-x> :tabclose<CR>
 
 	" Version Control <Leader>v?
 	" For all this commands you should be in the svn root folder
@@ -297,8 +294,8 @@ function! mappings#Set() abort
 	" nnoremap <Leader>vi :!svn info<CR>
 
 	" Tags mappings
-	nnoremap <silent> gt <C-]>
-	nnoremap gr <C-t>
+	" nnoremap <silent> gt <C-]>
+	" nnoremap gr <C-t>
 
 	" Wiki mappings <Leader>w?
 	" TODO.RM-Thu Dec 15 2016 16:00: Add support for wiki under SW-Testbed
@@ -317,6 +314,11 @@ function! mappings#Set() abort
 	nnoremap <Leader>oe :call utils#EndOfIfComment()<CR>
 	nnoremap <Leader>ou :call utils#UpdateHeader()<CR>
 	nnoremap <Leader>ot :call utils#TodoAdd()<CR>
+	nmap <Leader>oa <Plug>NERDCommenterAppend
+	nnoremap <Leader>od :call utils#CommentDelete()<CR>
+	" Comment Indent Increase/Reduce
+	nnoremap <Leader>oi :call utils#CommentIndent()<CR>
+	nnoremap <Leader>oI :call utils#CommentReduceIndent()<CR>
 endfunction
 
 " vim:tw=78:ts=2:sts=2:sw=2:
