@@ -438,6 +438,7 @@ function! plugin#Config() abort
 			let g:lightline = {}
 		endif
 		" Basic options
+		" otf-inconsolata-powerline-git
 		let g:lightline = {
 					\ 'active' : {
 					\   'left': [ 
