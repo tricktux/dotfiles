@@ -22,12 +22,12 @@ setlocal nospell
 if !exists("no_plugin_maps") && !exists("no_vim_maps")
 	" Quote text by inserting "> "
 	nnoremap <buffer> <Plug>Make :so %<CR>
-	nnoremap <buffer> <unique> <Leader>lh :h <c-r>=expand("<cword>")<CR><cr>
+	nnoremap <buffer> <unique> <LocalLeader>h :h <c-r>=expand("<cword>")<CR><cr>
 	call ftplugin#Align('/"')
 	" Evaluate highlighted text
-	vnoremap <buffer> <Leader>le y:echomsg <c-r>"<cr>
+	vnoremap <buffer> <LocalLeader>e y:echomsg <c-r>"<cr>
 	" Execute highlighted text
-	vnoremap <buffer> <Leader>lE y:<c-r>"<cr>
+	vnoremap <buffer> <LocalLeader>E y:<c-r>"<cr>
 endif
 
 let b:undo_ftplugin = "setl spell< ts< sw< sts<" 
