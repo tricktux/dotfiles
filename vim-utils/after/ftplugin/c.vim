@@ -41,12 +41,8 @@ if !exists("no_plugin_maps") && !exists("no_c_maps")
 		nnoremap <buffer> <Plug>Make :make!<CR>
 	endif
 	" Alternate between header and source file
-	nnoremap <buffer> <unique> <LocalLeader>q :call utils#SwitchHeaderSource()<CR>
+	nnoremap <buffer> <unique> <LocalLeader>a :call utils#SwitchHeaderSource()<CR>
 
-	nnoremap <buffer> <unique> <LocalLeader>od :call <SID>CommentDelete()<CR>
-	" Comment Indent Increase/Reduce
-	nnoremap <buffer> <unique> <LocalLeader>oi :call <SID>CommentIndent()<CR>
-	nnoremap <buffer> <unique> <LocalLeader>oI :call <SID>CommentReduceIndent()<CR>
 	if executable('lldb') && exists(':LLmode')
 		nmap <buffer> <unique> <LocalLeader>db <Plug>LLBreakSwitch
 		" vmap <F2> <Plug>LLStdInSelected
@@ -121,18 +117,6 @@ function! s:UpdateBorlandMakefile() abort
 	else
 		execute "!bpr2mak -omakefile WINGS.bpr"
 	endif
-endfunction
-
-function! s:CommentDelete() abort
-	execute "normal Bf/D"
-endfunction
-
-function! s:CommentIndent() abort
-	execute "normal Bf/i\<Tab>\<Tab>\<Esc>"
-endfunction
-
-function! s:CommentReduceIndent() abort
-	execute "normal Bf/hxhx"
 endfunction
 
 " Add highlighting for function definition in C++
