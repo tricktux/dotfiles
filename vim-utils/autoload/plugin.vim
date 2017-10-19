@@ -126,7 +126,7 @@ function! plugin#Config() abort
 	endif
 
 	" Possible Replacement `asyncvim`
-	Plug 'tpope/vim-dispatch', { 'on' : 'Dispatch' }
+	Plug 'tpope/vim-dispatch'
 	" Vim cpp syntax highlight
 	Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'c' , 'cpp' ] }
 		let g:cpp_class_scope_highlight = 1
@@ -267,6 +267,7 @@ function! plugin#Config() abort
 					\ 'wings_syntax': { 'left': '//', 'right': '', 'leftAlt': '//', 'rightAlt': '' }
 					\ }
 
+		let g:NERDTrimTrailingWhitespace = 1
 	Plug 'chrisbra/Colorizer', { 'for' : [ 'css','html','xml' ] }
 		let g:colorizer_auto_filetype='css,html,xml'
 	Plug 'tpope/vim-repeat'
@@ -275,7 +276,7 @@ function! plugin#Config() abort
 	" Fold stuff
 	" Fri May 19 2017 12:50 I have tried many times to get 'fdm=syntax' to work
 	" on large files but its just not possible. Too slow.
-	Plug 'Konfekt/FastFold'
+	Plug 'Konfekt/FastFold', { 'on' : 'FastFold' }
 		" Stop updating folds everytime I save a file
 		let g:fastfold_savehook = 0
 		" To update folds now you have to do it manually pressing 'zuz'
@@ -399,6 +400,7 @@ function! plugin#Config() abort
 	" Magnum is required by vim-radical. use with gA
 	Plug 'glts/vim-magnum', { 'on' : '<Plug>RadicalView' }
 	Plug 'glts/vim-radical', { 'on' : '<Plug>RadicalView' }
+		nnoremap gA <Plug>RadicalView
 
 	" W3M - to view cpp-reference help
 	if executable('w3m')
@@ -428,11 +430,9 @@ function! plugin#Config() abort
 	Plug 'waiting-for-dev/vim-www'
 		" TODO-[RM]-(Thu Sep 14 2017 21:02): Update this here
 		let g:www_map_keys = 0
-		let g:www_launch_browser_command = g:browser_cmd . " {{URL}}&"
-		nnoremap <Leader>Gu :Wsearch duckduckgo <C-R>=expand("<cword>")<CR><CR>
-		" Go to link under cursor  
-		vnoremap <Leader>Gu :call utils#SearchHighlighted()<CR>
-		nnoremap <Leader>Gs :Wsearch duckduckgo 
+		let g:www_launch_cli_browser_command = g:browser_cmd . " {{URL}}"
+		nnoremap gG :Wcsearch duckduckgo <C-R>=expand("<cword>")<CR><CR>
+		vnoremap gG "*y:call www#www#user_input_search(1, @*)<CR>
 
 	Plug 'itchyny/lightline.vim'
 		" Note: Inside of the functions here there can be no single quotes (') only double (")
@@ -580,6 +580,28 @@ function! plugin#Config() abort
 		" let g:csv_autocmd_arrange_size = 1024*1024
 
 	Plug 'google/vim-searchindex'
+	" Documentation plugins
+	Plug 'rhysd/devdocs.vim', { 'on' : '<Plug>(devdocs-under-cursor)' }
+		" Sample mapping in a ftplugin/*.vim
+		nmap ghd <Plug>(devdocs-under-cursor)
+
+
+	Plug 'KabbAmine/zeavim.vim', {'on': [
+				\	'Zeavim', 'Docset',
+				\	'<Plug>Zeavim',
+				\	'<Plug>ZVVisSelection',
+				\	'<Plug>ZVKeyDocset',
+				\	'<Plug>ZVMotion'
+				\ ]}
+		let g:zv_disable_mapping = 1
+		nmap ghz <Plug>Zeavim
+
+	" Only for arch
+	if executable('dasht')
+		Plug 'sunaku/vim-dasht', { 'on' : 'Dasht' }
+			" When in C++, also search C, Boost, and OpenGL:
+			let g:dasht_filetype_docsets['cpp'] = ['^c$', 'boost', 'OpenGL']
+	endif
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
