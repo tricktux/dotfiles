@@ -15,17 +15,6 @@ function! mappings#Set() abort
 	" Taken keys: <Leader>qwertasdjcvgp<space>mbolu
 	let g:esc = '<C-j>'
 
-	" Quickfix and Location stuff
-	" nnoremap <silent> <Leader>ll :call quickfix#ToggleList("Location List", 'l')<CR>
-	nnoremap <silent> U :call quickfix#ToggleList("Quickfix List", 'c')<CR>
-	nnoremap [l :lnext<CR>
-	nnoremap ]l :lprevious<CR>
-	nnoremap [L :call quickfix#ToggleList("Location List", 'l')<CR>
-	nnoremap [q :cnext<CR>
-	nnoremap ]q :cprevious<CR>
-	" nnoremap <Leader>ql :ccl<CR>
-				" \:lcl<CR>
-
 	" FileType Specific mappings use <Leader>l
 	" Refer to ~/.dotfiles/vim-utils/after/ftplugin to find these
 
@@ -79,9 +68,6 @@ function! mappings#Set() abort
 	" Create file with name under the cursor
 	" Diff Sutff
 	nnoremap <Leader>j. :call utils#LastCommand()<CR>
-	nnoremap <Leader>- :call utils#GuiFont("-")<CR>
-	nnoremap <Leader>= :call utils#GuiFont("+")<CR>
-
 	" j mappings taken <swypl;bqruihHdma248eEonf>
 	" nnoremap <Leader>Mc :call utils#ManFind()<CR>
 	nnoremap <C-s> :wa<CR>
@@ -105,8 +91,6 @@ function! mappings#Set() abort
 	" Sun Sep 17 2017 14:21: this will not work in vim 
 	cnoremap <A-b> <S-Left>
 	cnoremap <A-f> <S-Right>
-	" Switch back and forth between header file
-	nnoremap <S-q> yyp
 	" move to the beggning of line
 	" Don't make this nnoremap. Breaks stuff
 	noremap <S-w> $
@@ -132,10 +116,11 @@ function! mappings#Set() abort
 	nnoremap <Leader>ei :e 
 
 	" Vim-unimpaired similar mappings
+	" Do not overwrite [s
 	nnoremap [y :call utils#YankFrom('+')<CR>
 	nnoremap ]y :call utils#YankFrom('-')<CR>
 
-	nnoremap ]d :call utils#DeleteLine('+')<CR>
+	nnoremap [d :call utils#DeleteLine('+')<CR>
 	nnoremap ]d :call utils#DeleteLine('-')<CR>
 
 	nnoremap [o :call utils#CommentLine('+')<CR>
@@ -143,6 +128,21 @@ function! mappings#Set() abort
 
 	nnoremap [m :m +1<CR>
 	nnoremap ]m :m -2<CR>
+
+	nnoremap [f :call utils#GuiFont("+")<CR>
+	nnoremap ]f :call utils#GuiFont("-")<CR>
+
+	" Quickfix and Location stuff
+	" nnoremap <silent> <Leader>ll :call quickfix#ToggleList("Location List", 'l')<CR>
+	nnoremap <silent> <S-q> :call quickfix#ToggleList("Quickfix List", 'c')<CR>
+	nnoremap [q :cnext<CR>
+	nnoremap ]q :cprevious<CR>
+
+	nnoremap <S-u> :call quickfix#ToggleList("Location List", 'l')<CR>
+	nnoremap [l :lnext<CR>
+	nnoremap ]l :lprevious<CR>
+	" nnoremap <Leader>ql :ccl<CR>
+	" \:lcl<CR>
 
 	" decrease number
 	nnoremap <S-x> <c-x>
