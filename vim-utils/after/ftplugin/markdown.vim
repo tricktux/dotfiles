@@ -27,9 +27,10 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	nnoremap <buffer> <unique> <LocalLeader>n :call utils#TodoMark()<CR>
 	nnoremap <buffer> <unique> <LocalLeader>N :call utils#TodoClearMark()<CR>
 	inoremap <buffer> * **<Left>
-	inoremap <buffer> [ [ ]<Space>
+	" TODO-[RM]-(Fri Oct 20 2017 05:24): Fix this thing here
+	" inoremap <buffer> [ [ ]<Space>
 
-	nmap <buffer> <LocalLeader>lf <Plug>FocusModeToggle
+	nmap <buffer> <LocalLeader>F <Plug>FocusModeToggle
 
 	if exists(':InsertNewBullet')
 		inoremap <buffer> <expr> <cr> pumvisible() ? "\<c-y>" : "<cr>"
