@@ -47,7 +47,6 @@ function! mappings#Set() abort
 	vnoremap <Leader>r "hy:%s/<C-r>h//gc<left><left><left>
 	" duplicate current char
 	nnoremap <Leader>d ylp
-	vnoremap <Leader>d ylp
 	" Reload syntax
 	nnoremap <Leader>js <Esc>:syntax sync fromstart<CR>
 	" Sessions
@@ -73,10 +72,6 @@ function! mappings#Set() abort
 	nnoremap <C-s> :wa<CR>
 	nnoremap <C-h> :noh<CR>
 	nnoremap <C-Space> i<Space><Esc>
-	" move current line up
-	nnoremap <Leader>K ddkk""p
-	" move current line down
-	nnoremap <Leader>J dd""p
 	" These are only for command line
 	" insert in the middle of whole word search
 	cnoremap <C-w> \<\><Left><Left>
@@ -93,10 +88,11 @@ function! mappings#Set() abort
 	cnoremap <A-f> <S-Right>
 	" move to the beggning of line
 	" Don't make this nnoremap. Breaks stuff
-	noremap <S-w> $
+	nnoremap <S-w> $
 	vnoremap <S-w> $
 	" move to the end of line
 	nnoremap <S-b> ^
+	vnoremap <S-b> ^
 	" jump to corresponding item<Leader> ending {,(, etc..
 	nmap <S-t> %
 	vmap <S-t> %
@@ -107,7 +103,6 @@ function! mappings#Set() abort
 	inoremap <F5> <Space><ESC>"=strftime("%a %b %d %Y %H:%M")<CR>Pa
 	" Auto indent pasted text
 	nnoremap p p=`]<C-o>
-	nnoremap P P=`]<C-o>
 	" Visual shifting (does not exit Visual mode)
 	vnoremap < <gv
 	vnoremap > >gv
@@ -117,38 +112,36 @@ function! mappings#Set() abort
 
 	" Vim-unimpaired similar mappings
 	" Do not overwrite [s
-	nnoremap [y :call utils#YankFrom('+')<CR>
-	nnoremap ]y :call utils#YankFrom('-')<CR>
+	nnoremap ]y :call utils#YankFrom('+')<CR>
+	nnoremap [y :call utils#YankFrom('-')<CR>
 
-	nnoremap [d :call utils#DeleteLine('+')<CR>
-	nnoremap ]d :call utils#DeleteLine('-')<CR>
+	nnoremap ]d :call utils#DeleteLine('+')<CR>
+	nnoremap [d :call utils#DeleteLine('-')<CR>
 
-	nnoremap [o :call utils#CommentLine('+')<CR>
-	nnoremap ]o :call utils#CommentLine('-')<CR>
+	nnoremap ]o :call utils#CommentLine('+')<CR>
+	nnoremap [o :call utils#CommentLine('-')<CR>
 
-	nnoremap [m :m +1<CR>
-	nnoremap ]m :m -2<CR>
+	nnoremap ]m :m +1<CR>
+	nnoremap [m :m -2<CR>
 
-	nnoremap [f :call utils#GuiFont("+")<CR>
-	nnoremap ]f :call utils#GuiFont("-")<CR>
+	nnoremap ]f :call utils#GuiFont("+")<CR>
+	nnoremap [f :call utils#GuiFont("-")<CR>
 
 	" Quickfix and Location stuff
 	" nnoremap <silent> <Leader>ll :call quickfix#ToggleList("Location List", 'l')<CR>
 	nnoremap <silent> <S-q> :call quickfix#ToggleList("Quickfix List", 'c')<CR>
-	nnoremap [q :cnext<CR>
-	nnoremap ]q :cprevious<CR>
+	nnoremap ]q :cnext<CR>
+	nnoremap [q :cprevious<CR>
 
 	nnoremap <S-u> :call quickfix#ToggleList("Location List", 'l')<CR>
-	nnoremap [l :lnext<CR>
-	nnoremap ]l :lprevious<CR>
+	nnoremap ]l :lnext<CR>
+	nnoremap [l :lprevious<CR>
 	" nnoremap <Leader>ql :ccl<CR>
 	" \:lcl<CR>
 
 	" decrease number
 	nnoremap <S-x> <c-x>
 	vnoremap <S-x> <c-x>
-	nnoremap <S-x> g<c-x>
-	vnoremap <S-x> g<c-x>
 
 	nnoremap <S-CR> O<Esc>
 	" TODO-[RM]-(Mon Sep 18 2017 16:58): This is too rarely used. Turn it into
