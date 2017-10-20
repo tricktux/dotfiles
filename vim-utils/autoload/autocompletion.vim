@@ -186,6 +186,7 @@ function! autocompletion#SetClang(type) abort
 	" installed. Also I had to make sym link: ln -s libclang.so.1 libclang.so
 	let g:clang_user_options = '-std=c++14 -stdlib=libc++ -Wall -pedantic'
 	let g:clang_close_preview = 1
+	let g:clang_make_default_keymappings = 0
 	autocmd CompleteDone * pclose!
 	" let g:clang_complete_copen = 1
 	" let g:clang_periodic_quickfix = 1
