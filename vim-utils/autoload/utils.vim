@@ -189,11 +189,27 @@ function! utils#CheckDirwoPrompt(name) abort
 endfunction
 
 function! utils#YankFrom(sign) abort
-	execute "normal :" . a:sign . input("Yank From Line:") . "y\<CR>p"
+	let in = utils#ParseLineModificationInput('Yank',  a:sign)
+	execute "normal :" . in . "y\<CR>p"
+endfunction
+
+" msg - {Comment, Delete, Paste, Yank}
+" sing - {+,-}
+" Returns: Modified input
+function! utils#ParseLineModificationInput(msg, sign) abort
+	let in = input(a:msg . " Line:")
+	let in = a:sign . in
+	let comma = stridx(in, ',')
+	if comma > -1
+		return strcharpart(in, 0,comma+1) . a:sign . strcharpart(in, comma+1)
+	endif
+
+	return in
 endfunction
 
 function! utils#DeleteLine(sign) abort
-	execute "normal :" . a:sign . input("Delete Line:") . "d\<CR>``"
+	let in = utils#ParseLineModificationInput('Delete',  a:sign)
+	execute "normal :" . in . "d\<CR>``"
 endfunction
 
 function! utils#SetDiff() abort
@@ -311,7 +327,8 @@ function! utils#CommentLine(sign) abort
 		return
 	endif
 
-	execute "normal mm:" . a:sign . input("Comment Line:") . "\<CR>"
+	let in = utils#ParseLineModificationInput('Comment',  a:sign)
+	execute "normal mm:" . in . "\<CR>"
 	execute "normal :call NERDComment(\"n\", \"Toggle\")\<CR>`m"
 endfunction
 
