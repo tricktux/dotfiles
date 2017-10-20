@@ -370,9 +370,10 @@ function! plugin#Config() abort
 		nnoremap <Leader>gl :silent Glog<CR>
 					\:copen 20<CR>
 
-	Plug 'mhinz/vim-signify', { 'on' : 'SignifyToggle' }
+	Plug 'mhinz/vim-signify'
 		" Mappings are ]c next differences
 		" Mappings are [c prev differences
+		" Gets enabled when you call SignifyToggle
 		let g:signify_disable_by_default = 1
 		let g:signify_vcs_list = [ 'git', 'svn' ]
 
