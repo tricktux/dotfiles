@@ -63,6 +63,10 @@ function win32#Config()
 
 	" Make sure that "C:\Program Files\Opera\launcher.exe" is in your path
 	let g:browser_cmd = 'launcher.exe'
+	" On MS-Windows, this is mapped to cut Visual text
+	" |dos-standard-mappings|.  	
+	silent! vunmap <C-X>
+
 endfunction
 
 " vim:tw=78:ts=2:sts=2:sw=2:
