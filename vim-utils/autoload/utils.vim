@@ -188,12 +188,28 @@ function! utils#CheckDirwoPrompt(name) abort
 	endif
 endfunction
 
-function! utils#YankFrom() abort
-	execute "normal :" . input("Yank From Line:") . "y\<CR>"
+function! utils#YankFrom(sign) abort
+	let in = utils#ParseLineModificationInput('Yank',  a:sign)
+	execute "normal :" . in . "y\<CR>p"
 endfunction
 
-function! utils#DeleteLine() abort
-	execute "normal :" . input("Delete Line:") . "d\<CR>``"
+" msg - {Comment, Delete, Paste, Yank}
+" sing - {+,-}
+" Returns: Modified input
+function! utils#ParseLineModificationInput(msg, sign) abort
+	let in = input(a:msg . " Line:")
+	let in = a:sign . in
+	let comma = stridx(in, ',')
+	if comma > -1
+		return strcharpart(in, 0,comma+1) . a:sign . strcharpart(in, comma+1)
+	endif
+
+	return in
+endfunction
+
+function! utils#DeleteLine(sign) abort
+	let in = utils#ParseLineModificationInput('Delete',  a:sign)
+	execute "normal :" . in . "d\<CR>``"
 endfunction
 
 function! utils#SetDiff() abort
@@ -231,6 +247,7 @@ endfunction
 
 function! utils#FixPreviousWord() abort
 	normal mm[s1z=`m
+	return ''
 endfunction
 
 function! utils#SaveSession(...) abort
@@ -304,13 +321,15 @@ function! utils#TodoAdd() abort
 	execute "normal! ==a\<c-h> TODO-[RM]-(" . strftime("%a %b %d %Y %H:%M") . "): "
 endfunction
 
-function! utils#CommentLine() abort
-	if exists("*NERDComment")
-		execute "normal mm:" . input("Comment Line:") . "\<CR>"
-		execute "normal :call NERDComment(\"n\", \"Toggle\")\<CR>`m"
-	else
+function! utils#CommentLine(sign) abort
+	if !exists("*NERDComment")
 		echo "Please install NERDCommenter"
+		return
 	endif
+
+	let in = utils#ParseLineModificationInput('Comment',  a:sign)
+	execute "normal mm:" . in . "\<CR>"
+	execute "normal :call NERDComment(\"n\", \"Toggle\")\<CR>`m"
 endfunction
 
 function! utils#LastCommand() abort
@@ -974,3 +993,16 @@ function! utils#Grep() abort
 		call utils#FileTypeSearch(8, 8)
 	endif
 endfunction
+
+function! utils#CommentDelete() abort
+	execute "normal! ^f/D"
+endfunction
+
+function! utils#CommentIndent() abort
+	execute "normal! ^f/i\<Tab>\<Tab>\<Esc>"
+endfunction
+
+function! utils#CommentReduceIndent() abort
+	execute "normal! ^f/hxhx"
+endfunction
+
