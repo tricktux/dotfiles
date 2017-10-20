@@ -44,7 +44,7 @@ function! plugin#Config() abort
 	if has('nvim') || v:version >= 800
 		" Plugins that support both neovim and vim need separate folders
 		Plug 'Shougo/denite.nvim', { 'as' : has('nvim') ? 'nvim_denite' : 'vim_denite' }
-			nnoremap <A-;> :Denite command<CR>
+			nnoremap <A-;> :Denite command_history<CR>
 			nnoremap <A-e> :Denite help<CR>
 			" nnoremap <S-k> :Denite buffer<CR>
 			nnoremap <A-p> :Denite file_rec<CR>
