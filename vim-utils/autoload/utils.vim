@@ -306,7 +306,7 @@ function! utils#TodoAdd() abort
 endfunction
 
 function! utils#CommentLine(sign) abort
-	if exists("*NERDComment")
+	if !exists("*NERDComment")
 		echo "Please install NERDCommenter"
 		return
 	endif
