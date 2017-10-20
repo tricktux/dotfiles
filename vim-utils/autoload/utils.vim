@@ -188,12 +188,12 @@ function! utils#CheckDirwoPrompt(name) abort
 	endif
 endfunction
 
-function! utils#YankFrom() abort
-	execute "normal :" . input("Yank From Line:") . "y\<CR>"
+function! utils#YankFrom(sign) abort
+	execute "normal :" . a:sign . input("Yank From Line:") . "y\<CR>p"
 endfunction
 
-function! utils#DeleteLine() abort
-	execute "normal :" . input("Delete Line:") . "d\<CR>``"
+function! utils#DeleteLine(sign) abort
+	execute "normal :" . a:sign . input("Delete Line:") . "d\<CR>``"
 endfunction
 
 function! utils#SetDiff() abort
@@ -305,13 +305,14 @@ function! utils#TodoAdd() abort
 	execute "normal! ==a\<c-h> TODO-[RM]-(" . strftime("%a %b %d %Y %H:%M") . "): "
 endfunction
 
-function! utils#CommentLine() abort
+function! utils#CommentLine(sign) abort
 	if exists("*NERDComment")
-		execute "normal mm:" . input("Comment Line:") . "\<CR>"
-		execute "normal :call NERDComment(\"n\", \"Toggle\")\<CR>`m"
-	else
 		echo "Please install NERDCommenter"
+		return
 	endif
+
+	execute "normal mm:" . a:sign . input("Comment Line:") . "\<CR>"
+	execute "normal :call NERDComment(\"n\", \"Toggle\")\<CR>`m"
 endfunction
 
 function! utils#LastCommand() abort
