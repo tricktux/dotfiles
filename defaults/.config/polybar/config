@@ -69,7 +69,7 @@ font-1 = Roboto:size=10;0
 ; For more info look [here](https://github.com/jaagr/polybar/issues/313)
 font-2=WunconSiji:pixelsize=10;0
 
-modules-left = i3 volume weather pkg gmail cmus
+modules-left = i3 volume weather cmus
 modules-center = xwindow
 modules-right = memory cpu temperature battery date powermenu
 
