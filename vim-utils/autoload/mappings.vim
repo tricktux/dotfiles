@@ -68,12 +68,12 @@ function! mappings#Set() abort
 	" Count occurrances of last search
 	nnoremap <Leader>jc :%s///gn<CR>
 	" Indenting
-	nnoremap <Leader>j2 :setlocal ts=2 sw=2 sts=2<CR>
-	nnoremap <Leader>j4 :setlocal ts=4 sw=4 sts=4<CR>
-	nnoremap <Leader>j8 :setlocal ts=8 sw=8 sts=8<CR>
+	nnoremap <Leader>2 :setlocal ts=2 sw=2 sts=2<CR>
+	nnoremap <Leader>4 :setlocal ts=4 sw=4 sts=4<CR>
+	nnoremap <Leader>8 :setlocal ts=8 sw=8 sts=8<CR>
 	" not paste the deleted word
-	nnoremap <Leader>p "0p
-	vnoremap <Leader>p "0p
+	nnoremap P "0p
+	vnoremap P "0p
 	" Force wings_syntax on a file
 	nnoremap <Leader>jw :set filetype=wings_syntax<CR>
 	" Create file with name under the cursor
@@ -131,12 +131,24 @@ function! mappings#Set() abort
 	nnoremap <Leader>ep :call utils#DeniteRec(g:vim_plugins_path)<CR>
 	nnoremap <Leader>ei :e 
 
-	" decrease number
-	nnoremap <Leader>a <c-x>
-	vnoremap <Leader>a <c-x>
+	" Vim-unimpaired similar mappings
+	nnoremap [y :call utils#YankFrom('+')<CR>
+	nnoremap ]y :call utils#YankFrom('-')<CR>
 
-	nnoremap yl :call utils#YankFrom()<CR>
-	nnoremap dl :call utils#DeleteLine()<CR>
+	nnoremap ]d :call utils#DeleteLine('+')<CR>
+	nnoremap ]d :call utils#DeleteLine('-')<CR>
+
+	nnoremap [o :call utils#CommentLine('+')<CR>
+	nnoremap ]o :call utils#CommentLine('-')<CR>
+
+	nnoremap [m :m +1<CR>
+	nnoremap ]m :m -2<CR>
+
+	" decrease number
+	nnoremap <S-x> <c-x>
+	vnoremap <S-x> <c-x>
+	nnoremap <S-x> g<c-x>
+	vnoremap <S-x> g<c-x>
 
 	nnoremap <S-CR> O<Esc>
 	" TODO-[RM]-(Mon Sep 18 2017 16:58): This is too rarely used. Turn it into
@@ -310,7 +322,6 @@ function! mappings#Set() abort
 	vmap - <plug>NERDCommenterToggle
 	imap <C-c> <plug>NERDCommenterInsert
 	" mapping ol conflicts with mapping o to new line
-	nnoremap cl :call utils#CommentLine()<CR>
 	nnoremap <Leader>oe :call utils#EndOfIfComment()<CR>
 	nnoremap <Leader>ou :call utils#UpdateHeader()<CR>
 	nnoremap <Leader>ot :call utils#TodoAdd()<CR>
