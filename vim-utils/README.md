@@ -1,5 +1,4 @@
 # VIM NOTES
-````
 
 ## ftplugin Convention:
 - You cannot use the following mappings:
