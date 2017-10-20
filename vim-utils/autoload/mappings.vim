@@ -15,18 +15,6 @@ function! mappings#Set() abort
 	" Taken keys: <Leader>qwertasdjcvgp<space>mbolu
 	let g:esc = '<C-j>'
 
-	" Quickfix and Location stuff
-	nnoremap <Leader>qO :lopen 20<CR>
-	nnoremap <Leader>qo :call quickfix#OpenQfWindow()<CR>
-	" nnoremap <silent> <Leader>ll :call quickfix#ToggleList("Location List", 'l')<CR>
-	nnoremap <silent> U :call quickfix#ToggleList("Quickfix List", 'c')<CR>
-	nnoremap <Leader>ln :call quickfix#ListsNavigation("next")<CR>
-	nnoremap <Leader>lp :call quickfix#ListsNavigation("previous")<CR>
-	nnoremap <Leader>qn :call quickfix#ListsNavigation("next")<CR>
-	nnoremap <Leader>qp :call quickfix#ListsNavigation("previous")<CR>
-	nnoremap <Leader>ql :ccl<CR>
-				\:lcl<CR>
-
 	" FileType Specific mappings use <Leader>l
 	" Refer to ~/.dotfiles/vim-utils/after/ftplugin to find these
 
@@ -54,13 +42,11 @@ function! mappings#Set() abort
 	nnoremap <LocalLeader>f :Neoformat<CR>
 	nnoremap <LocalLeader>t :TagbarToggle<CR>
 
-
 	" Refactor word under the cursor
 	nnoremap <Leader>r :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
 	vnoremap <Leader>r "hy:%s/<C-r>h//gc<left><left><left>
 	" duplicate current char
 	nnoremap <Leader>d ylp
-	vnoremap <Leader>d ylp
 	" Reload syntax
 	nnoremap <Leader>js <Esc>:syntax sync fromstart<CR>
 	" Sessions
@@ -70,29 +56,22 @@ function! mappings#Set() abort
 	" Count occurrances of last search
 	nnoremap <Leader>jc :%s///gn<CR>
 	" Indenting
-	nnoremap <Leader>j2 :setlocal ts=2 sw=2 sts=2<CR>
-	nnoremap <Leader>j4 :setlocal ts=4 sw=4 sts=4<CR>
-	nnoremap <Leader>j8 :setlocal ts=8 sw=8 sts=8<CR>
+	nnoremap <Leader>2 :setlocal ts=2 sw=2 sts=2<CR>
+	nnoremap <Leader>4 :setlocal ts=4 sw=4 sts=4<CR>
+	nnoremap <Leader>8 :setlocal ts=8 sw=8 sts=8<CR>
 	" not paste the deleted word
-	nnoremap <Leader>p "0p
-	vnoremap <Leader>p "0p
+	nnoremap P "0p
+	vnoremap P "0p
 	" Force wings_syntax on a file
 	nnoremap <Leader>jw :set filetype=wings_syntax<CR>
 	" Create file with name under the cursor
 	" Diff Sutff
 	nnoremap <Leader>j. :call utils#LastCommand()<CR>
-	nnoremap <Leader>- :call utils#GuiFont("-")<CR>
-	nnoremap <Leader>= :call utils#GuiFont("+")<CR>
-
 	" j mappings taken <swypl;bqruihHdma248eEonf>
 	" nnoremap <Leader>Mc :call utils#ManFind()<CR>
 	nnoremap <C-s> :wa<CR>
 	nnoremap <C-h> :noh<CR>
 	nnoremap <C-Space> i<Space><Esc>
-	" move current line up
-	nnoremap <Leader>K ddkk""p
-	" move current line down
-	nnoremap <Leader>J dd""p
 	" These are only for command line
 	" insert in the middle of whole word search
 	cnoremap <C-w> \<\><Left><Left>
@@ -107,14 +86,13 @@ function! mappings#Set() abort
 	" Sun Sep 17 2017 14:21: this will not work in vim 
 	cnoremap <A-b> <S-Left>
 	cnoremap <A-f> <S-Right>
-	" Switch back and forth between header file
-	nnoremap <S-q> yyp
 	" move to the beggning of line
 	" Don't make this nnoremap. Breaks stuff
-	noremap <S-w> $
+	nnoremap <S-w> $
 	vnoremap <S-w> $
 	" move to the end of line
 	nnoremap <S-b> ^
+	vnoremap <S-b> ^
 	" jump to corresponding item<Leader> ending {,(, etc..
 	nmap <S-t> %
 	vmap <S-t> %
@@ -125,7 +103,6 @@ function! mappings#Set() abort
 	inoremap <F5> <Space><ESC>"=strftime("%a %b %d %Y %H:%M")<CR>Pa
 	" Auto indent pasted text
 	nnoremap p p=`]<C-o>
-	nnoremap P P=`]<C-o>
 	" Visual shifting (does not exit Visual mode)
 	vnoremap < <gv
 	vnoremap > >gv
@@ -133,12 +110,38 @@ function! mappings#Set() abort
 	nnoremap <Leader>ep :call utils#DeniteRec(g:vim_plugins_path)<CR>
 	nnoremap <Leader>ei :e 
 
-	" decrease number
-	nnoremap <Leader>a <c-x>
-	vnoremap <Leader>a <c-x>
+	" Vim-unimpaired similar mappings
+	" Do not overwrite [s
+	nnoremap ]y :call utils#YankFrom('+')<CR>
+	nnoremap [y :call utils#YankFrom('-')<CR>
 
-	nnoremap yl :call utils#YankFrom()<CR>
-	nnoremap dl :call utils#DeleteLine()<CR>
+	nnoremap ]d :call utils#DeleteLine('+')<CR>
+	nnoremap [d :call utils#DeleteLine('-')<CR>
+
+	nnoremap ]o :call utils#CommentLine('+')<CR>
+	nnoremap [o :call utils#CommentLine('-')<CR>
+
+	nnoremap ]m :m +1<CR>
+	nnoremap [m :m -2<CR>
+
+	nnoremap ]f :call utils#GuiFont("+")<CR>
+	nnoremap [f :call utils#GuiFont("-")<CR>
+
+	" Quickfix and Location stuff
+	" nnoremap <silent> <Leader>ll :call quickfix#ToggleList("Location List", 'l')<CR>
+	nnoremap <silent> <S-q> :call quickfix#ToggleList("Quickfix List", 'c')<CR>
+	nnoremap ]q :cnext<CR>
+	nnoremap [q :cprevious<CR>
+
+	nnoremap <S-u> :call quickfix#ToggleList("Location List", 'l')<CR>
+	nnoremap ]l :lnext<CR>
+	nnoremap [l :lprevious<CR>
+	" nnoremap <Leader>ql :ccl<CR>
+	" \:lcl<CR>
+
+	" decrease number
+	nnoremap <S-x> <c-x>
+	vnoremap <S-x> <c-x>
 
 	nnoremap <S-CR> O<Esc>
 	" TODO-[RM]-(Mon Sep 18 2017 16:58): This is too rarely used. Turn it into
@@ -225,20 +228,19 @@ function! mappings#Set() abort
 
 	" Spell Check <Leader>s?
 	" search forward
-	nnoremap <Leader>sj ]s
+	" nnoremap <Leader>sj ]s
 	" search backwards
-	nnoremap <Leader>sk [s
+	" nnoremap <Leader>sk [s
 	" suggestion
-	nnoremap <Leader>sc z=
+	" nnoremap <Leader>sc z=
 	" toggle spelling
-	nnoremap <Leader>st :setlocal spell! spelllang=en_us<CR>
-	nnoremap <Leader>sf :call utils#FixPreviousWord()<CR>
+	nnoremap =os :setlocal spell! spelllang=en_us<CR>
+	inoremap <C-S> <c-r>=utils#FixPreviousWord()
 	" add to dictionary
-	nnoremap <Leader>sa zg
+	" nnoremap <Leader>sa zg
 	" mark wrong
-	nnoremap <Leader>sw zw
+	" nnoremap <Leader>sw zw
 	" repeat last spell correction
-	nnoremap <Leader>sr :spellr<CR>
 
 	" Search <Leader>S
 	" Tried ack.vim. Discovered that nothing is better than grep with ag.
@@ -261,18 +263,18 @@ function! mappings#Set() abort
 	nnoremap <S-j> :b#<CR>
 	" deletes all buffers
 	nnoremap <Leader>bl :%bd<CR>
-	nnoremap <Leader>bS :bufdo
-	" move tab to the left
-	nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
-	" move tab to the right
-	nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
-	nnoremap <Leader>be :enew<CR>
+	" nnoremap <Leader>bS :bufdo
+	" " move tab to the left
+	" nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
+	" " move tab to the right
+	" nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
+	" nnoremap <Leader>be :enew<CR>
 
 	" Tabs <Leader>a?
 	" open new to tab to explorer
-	nnoremap <S-Tab> gT
-	nnoremap <S-e> :tab split<CR>
-	nnoremap <S-x> :tabclose<CR>
+	" nnoremap <S-Tab> gT
+	" nnoremap <S-e> :tab split<CR>
+	" nnoremap <S-x> :tabclose<CR>
 
 	" Version Control <Leader>v?
 	" For all this commands you should be in the svn root folder
@@ -297,8 +299,8 @@ function! mappings#Set() abort
 	" nnoremap <Leader>vi :!svn info<CR>
 
 	" Tags mappings
-	nnoremap <silent> gt <C-]>
-	nnoremap gr <C-t>
+	" nnoremap <silent> gt <C-]>
+	" nnoremap gr <C-t>
 
 	" Wiki mappings <Leader>w?
 	" TODO.RM-Thu Dec 15 2016 16:00: Add support for wiki under SW-Testbed
@@ -313,10 +315,14 @@ function! mappings#Set() abort
 	vmap - <plug>NERDCommenterToggle
 	imap <C-c> <plug>NERDCommenterInsert
 	" mapping ol conflicts with mapping o to new line
-	nnoremap cl :call utils#CommentLine()<CR>
 	nnoremap <Leader>oe :call utils#EndOfIfComment()<CR>
 	nnoremap <Leader>ou :call utils#UpdateHeader()<CR>
 	nnoremap <Leader>ot :call utils#TodoAdd()<CR>
+	nmap <Leader>oa <Plug>NERDCommenterAppend
+	nnoremap <Leader>od :call utils#CommentDelete()<CR>
+	" Comment Indent Increase/Reduce
+	nnoremap <Leader>oi :call utils#CommentIndent()<CR>
+	nnoremap <Leader>oI :call utils#CommentReduceIndent()<CR>
 endfunction
 
 " vim:tw=78:ts=2:sts=2:sw=2:
