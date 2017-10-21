@@ -715,9 +715,9 @@ function! utils#LightlineUpdateColorscheme()
 	endif
 	try
 		if &background ==# 'dark'
-			let g:lightline.colorscheme = 'PaperColor_dark'
+			let g:lightline.colorscheme = g:colorscheme_night . '_dark'
 		else
-			let g:lightline.colorscheme = 'PaperColor'
+			let g:lightline.colorscheme = g:colorscheme_day . '_light'
 		endif
 
 		" if g:colors_name =~# 'wombat\|solarized\|landscape\|jellybeans\|seoul256\|Tomorrow\|gruvbox\|PaperColor\|zenburn'
