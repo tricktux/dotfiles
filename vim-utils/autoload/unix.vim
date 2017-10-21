@@ -6,11 +6,11 @@
 
 function! unix#Config() abort
 	" System paste
-	nnoremap <Leader>jp "+p=`]<C-o>
-	vnoremap <Leader>jp "+p=`]<C-o>
+	nnoremap <Leader>p "+p=`]<C-o>
+	vnoremap <Leader>p "+p=`]<C-o>
 
-	nnoremap <Leader>jy "+yy
-	vnoremap <Leader>jy "+y
+	nnoremap <Leader>y "+yy
+	vnoremap <Leader>y "+y
 
 	" edit android
 	nnoremap <Leader>ea :silent e
