@@ -155,6 +155,8 @@ function! mappings#Set() abort
 	nnoremap # #N
 
 	" Insert Mode (Individual) mappings
+	" TODO-[RM]-(Sat Oct 21 2017 10:32): Change this here for fix previous word.
+	" This has never worked nor is ever used
 	inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
 	inoremap <c-f> <del>
 	inoremap <C-F> <Right>
