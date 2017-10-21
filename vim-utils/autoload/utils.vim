@@ -852,11 +852,11 @@ function! utils#ChooseEmailAcc() abort
 				\ "&Gmail\n&Honeywell\n&PSU", 1)
 
 	if choice == 1
-		return 'rmolin88@gmail.com'
+		return 'rmolin88 at gmail dot com'
 	elseif choice == 2
-		return 'reinaldo.molinaperez@honeywell.com'
+		return 'reinaldo.molinaperez at honeywell dot com'
 	elseif choice == 3
-		return 'rim18@psu.edu'
+		return 'rim18 at psu dot edu'
 	endif
 
 	return ''
