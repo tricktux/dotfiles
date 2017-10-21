@@ -213,7 +213,7 @@ function! plugin#Config() abort
 		let g:DoxygenToolkit_returnTag=			"Returns:   "
 		let g:DoxygenToolkit_blockHeader=""
 		let g:DoxygenToolkit_blockFooter=""
-		let g:DoxygenToolkit_authorName="Reinaldo Molina <rmolin88@gmail.com>"
+		let g:DoxygenToolkit_authorName="Reinaldo Molina <rmolin88 at gmail dot com>"
 		let g:DoxygenToolkit_authorTag =	"Author:				"
 		let g:DoxygenToolkit_fileTag =		"File:					"
 		let g:DoxygenToolkit_briefTag_pre="Description:		"
@@ -349,13 +349,17 @@ function! plugin#Config() abort
 					\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 		" Tell Neosnippet about the other snippets
 		let g:neosnippet#snippets_directory= [ g:vim_plugins_path . '/vim-snippets/snippets', g:location_vim_utils . '/snippets/', ]
-		let g:neosnippet#data_directory = g:std_data_path . '/neosnippets'
+		" Fri Oct 20 2017 21:47: Not really data but cache 
+		let g:neosnippet#data_directory = g:std_cache_path . '/neosnippets'
 		" Used by nvim-completion-mgr
 		let g:neosnippet#enable_completed_snippet=1
 
 	" Only contain snippets
 	Plug 'Shougo/neosnippet-snippets'
 	Plug 'honza/vim-snippets'
+		let g:snips_author = "Reinaldo Molina"
+		let g:snips_email = "rmolin88 at gmail dot com"
+		let g:snips_github = "rmolin88"
 
 	" Version control
 	Plug 'tpope/vim-fugitive'
