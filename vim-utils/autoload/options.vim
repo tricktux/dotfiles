@@ -160,6 +160,8 @@ function! options#Set() abort
 	" Mon Oct 16 2017 15:22: This speed ups a lot of plugin. Those that have to
 	" do with highliting.  
 	set regexpengine=1
+	" Diff options
+	let &diffopt='vertical'
 
 	" CLI
 	if !has('gui_running') && !exists('g:GuiLoaded')
