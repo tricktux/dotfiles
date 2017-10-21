@@ -66,7 +66,7 @@ export MANPAGER="nvim -c 'set ft=man' -"
 # Creating local bin folder
 # Keep in mind your bin preceeds /usr/bin
 export PATH=$HOME/.local/bin:$PATH
-export EMAIL="rmolin88@gmail.com"
+export EMAIL="rmolin88 at gmail dot com"
 
 # Depends on nvr being installed
 # if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
