@@ -7,11 +7,11 @@
 function win32#Config()
 	nnoremap <Leader>mr :Start! %<CR>
 	" Copy and paste into system wide clipboard
-	nnoremap <Leader>jp "*p=`]<C-o>
-	vnoremap <Leader>jp "*p=`]<C-o>
+	nnoremap <Leader>p "*p=`]<C-o>
+	vnoremap <Leader>p "*p=`]<C-o>
 
-	nnoremap <Leader>jy "*yy
-	vnoremap <Leader>jy "*y
+	nnoremap <Leader>y "*yy
+	vnoremap <Leader>y "*y
 
 	nnoremap  o<Esc>
 
