@@ -297,13 +297,13 @@ format-disconnected =
 type = internal/date
 interval = 5
 
-date =" %b %d %Y"
-date-alt = " %m/%d/%Y"
+; date =" %b %d %Y"
+date-alt = " %m/%d/%Y"
 
 time = " %I:%M %P"
 time-alt =  " %H:%M"
 
-format-prefix = 
+; format-prefix =
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #0a6cf5
 
