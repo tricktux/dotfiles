@@ -106,4 +106,4 @@ export GIT_TERMINAL_PROMPT=1
 export TERMINAL="termite"
 
 # Sat Oct 14 2017 22:27: fish being default terminal 
-[ -f /usr/bin/fish ] && exec fish
+# [ -f /usr/bin/fish ] && exec fish
