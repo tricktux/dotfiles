@@ -11,6 +11,12 @@ fileext: md
 \tableofcontents
 \pagebreak
 
+## Sun Oct 22 2017 09:09 
+- [ ] pomodoro: doc new feature
+- [ ] pomodoro: fix readme.md
+- [ ] vim: fix `wikisearch` to use normal grep instead of denite
+- [ ] arch-guajiro: remove mounting `copter-server`
+
 ## Fri Oct 20 2017 09:05 
 - [ ] vim: paste yanked text. not deleted text
 
