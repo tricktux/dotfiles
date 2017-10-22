@@ -107,7 +107,7 @@ function! plugin#Config() abort
 
 		" Possible values:
 		" - chromatica easytags neotags color_coded clighter8
-		call cpp_highlight#SetCppHighlight(has('nvim') ? 'neotags' : '')
+		call cpp_highlight#Set(has('nvim') ? 'neotags' : '')
 
 	" Neovim exclusive plugins
 	if has('nvim')
