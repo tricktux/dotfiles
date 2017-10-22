@@ -48,7 +48,7 @@ endfunction
 function! ftplugin#Syntastic(mode, checkers) abort
 	if exists(":SyntasticCheck")
 		" nnoremap <buffer> <unique> <Leader>lo :SyntasticToggleMode<CR>
-		nnoremap <buffer> <unique> <LocalLeader>s :SyntasticCheck<CR>
+		nnoremap <buffer> <LocalLeader>c :SyntasticCheck<CR>
 	endif
 	if !empty(a:checkers)
 		let b:syntastic_checkers=a:checkers
