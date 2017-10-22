@@ -6,7 +6,7 @@
 " Created: Aug 21 2017 10:29
 
 
-function! cpp_highlight#SetCppHighlight(type) abort
+function! cpp_highlight#Set(type) abort
 	if a:type ==# ''
 		return
 	elseif a:type ==# 'chromatica'
@@ -32,7 +32,7 @@ function! cpp_highlight#SetCppHighlight(type) abort
 		Plug 'xolox/vim-misc' " dependency of vim-easytags
 		Plug 'xolox/vim-shell' " dependency of vim-easytags
 		set regexpengine=1 " This speed up the engine alot but still not enough
-		let g:easytags_file = '~/.cache/ctags'
+		let g:easytags_file = g:std_cache_path . '/easytags_tags'
 		let g:easytags_syntax_keyword = 'always'
 		let g:easytags_auto_update = 0
 		" let g:easytags_cmd = 'ctags'
@@ -78,12 +78,7 @@ function! cpp_highlight#SetCppHighlight(type) abort
 			" \   'BufEnter'
 			" \ ]
 
-		if exists('*highlight#Set')
-			call cpp_highlight#SetNeotagsHighlight()
-		else
-			echomsg 'Neotags highlight not setup'
-		endif
-
+		call cpp_highlight#SetNeotagsHighlight()
 	elseif a:type ==# 'color_coded'
 		if !has('unix') || has('nvim')
 			echomsg 'Color_coded only works on unix and vim'
