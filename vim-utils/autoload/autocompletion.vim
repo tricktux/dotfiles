@@ -53,11 +53,11 @@ function! autocompletion#SetCompl(compl) abort
 		endif
 
 		if has('unix')
-			Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-				let g:LanguageClient_serverCommands = {                                                                                                                            
-							\ 'cpp': ['clangd'],                                                                                                                                       
-							\ }  
-				let g:LanguageClient_autoStart = 1
+			" Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+				" let g:LanguageClient_serverCommands = {
+							" \ 'cpp': ['clangd'],
+							" \ }
+				" let g:LanguageClient_autoStart = 1
 			" ncm's filtering is based on word, so it's better to convert results of
 			" muttaliases#CompleteMuttAliases into snippet expension
 			augroup NCM
@@ -78,6 +78,8 @@ function! autocompletion#SetCompl(compl) abort
 		" Thu Jul 20 2017 21:02: Causes nvim_compl_manager to freeze 
 		" Plug 'Shougo/neoinclude.vim'
 		Plug 'roxma/ncm-github'
+		Plug 'Shougo/echodoc.vim'
+		" Plug 'roxma/ncm-clang'
 
 		inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 		inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -89,7 +91,7 @@ function! autocompletion#SetCompl(compl) abort
 			" imap <silent> <Tab> <Plug>(cm_force_refresh)
 		" endif
 
-		" call autocompletion#SetClang('roxma_clang_complete')
+		call autocompletion#SetClang('roxma_clang_complete')
 	elseif a:compl ==# 'shuogo'
 		call autocompletion#SetShuogo()
 		if executable('clang')
