@@ -571,7 +571,6 @@ function! plugin#Config() abort
 		" let g:pomodoro_time_work = 1 
 		if executable('twmnc')
 			let g:pomodoro_notification_cmd = 'twmnc -t Vim -c "Pomodoro done"'
-			" asdf
 		endif
 		let g:pomodoro_log_file = g:std_data_path . '/pomodoro_log'
 		" %#ErrorMsg#%{PomodoroStatus()}%#StatusLine# 
