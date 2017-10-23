@@ -16,3 +16,4 @@ mutt/psu/certificates
 mutt/aliases.txt
 mutt/aliases.txt
 defaults/.config/polybar/gmail/credentials.json
+*.gpg
