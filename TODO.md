@@ -11,6 +11,9 @@ fileext: md
 \tableofcontents
 \pagebreak
 
+## Mon Oct 23 2017 10:04 
+- [ ] Remove gpg files from github. Along with their history
+
 ## Sun Oct 22 2017 09:09 
 - [ ] pomodoro: doc new feature
 - [ ] pomodoro: fix readme.md
