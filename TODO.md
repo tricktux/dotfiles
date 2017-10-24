@@ -11,6 +11,29 @@ fileext: md
 \tableofcontents
 \pagebreak
 
+## Mon Oct 16 2017 16:31 
+
+### Christmas 2017 projects.
+- [ ] 1.arch: backup entire `seafile` library
+- [ ] 2.arch: look into encryption for the making the following step `encrypted`
+- [ ] 3.arch: install arch in `copter-server`.
+- [ ] 4.arch: establish an `openvpn` in there.
+- [ ] 5.arch: reestablish `seafile` however make it accessible from the internet.
+- [ ] arch: figure out a password storage solution. `pass` its a possible candidate
+
+#### Tue Oct 24 2017 10:50
+- [ ] seafile: I have also realize that I am misusing it. Files that are rarely used. Should not
+be part of the library. Like picture old files, tutorials, They should be left out. Things that
+change on a regular basis like ImpDocs, wikis, masters, those files are really the ones that
+should be part of the library
+
+
+## Tue Oct 24 2017 10:47
+- [ ] vim: nnoremap gk K. Then set keywordprg accordingly in `ftplugin/*.vim`
+- [ ] vim: nnoremap gK <googling stuff>. Right now `gG`
+- [ ] vim: search through your plugins and map <Leader>t<x> to all the plugin that toggle
+something, like focus mode, systanstic, signify, most of them are toggable.
+
 ## Mon Oct 23 2017 10:04 
 - [x] Remove gpg files from github. Along with their history
 - [ ] vim: man files remove `K` mapping. Is really annoying plus regular go to tag works
@@ -33,16 +56,6 @@ fileext: md
 - [ ] vim: had this super amazing realization. ';' its not used at all as a mapping. the idea is
 to make all the `ftplugin/*.vim` mappings use `localleader` instead of `leader` and map
 `localleader=;`. This would increase mappings efficiency by 1/3.
-
-## Mon Oct 16 2017 16:31 
-
-### Christmas 2017 projects.
-- [ ] 1.arch: backup entire `seafile` library
-- [ ] 2.arch: look into encryption for the making the following step `encrypted`
-- [ ] 3.arch: install arch in `copter-server`.
-- [ ] 4.arch: establish an `openvpn` in there.
-- [ ] 5.arch: reestablish `seafile` however make it accessible from the internet.
-- [ ] arch: figure out a password storage solution. `pass` its a possible candidate
 
 ## Thu Oct 12 2017 14:39 
 - [ ] msys2: copy the default `.bashr...` to the dotfiles and modify them

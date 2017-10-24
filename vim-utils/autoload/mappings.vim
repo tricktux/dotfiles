@@ -124,8 +124,9 @@ function! mappings#Set() abort
 	nnoremap ]m :m +1<CR>
 	nnoremap [m :m -2<CR>
 
-	nnoremap ]f :call utils#GuiFont("+")<CR>
-	nnoremap [f :call utils#GuiFont("-")<CR>
+	" Capital F because [f is go to file and this is rarely used
+	nnoremap ]F :call utils#GuiFont("+")<CR>
+	nnoremap [F :call utils#GuiFont("-")<CR>
 
 	" Quickfix and Location stuff
 	" nnoremap <silent> <Leader>ll :call quickfix#ToggleList("Location List", 'l')<CR>

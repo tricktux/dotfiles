@@ -13,7 +13,7 @@ nnoremap <LocalLeader>f :Neoformat<CR>
 nnoremap <LocalLeader>t :TagbarToggle<CR>
 ```
 - Mappings you cannot overwrite:
-	- `gd, gD, g;, gq, gs, gl, gA, gt, gT, gg, G, gG, gh`
+	- `gd, gD, g;, gq, gs, gl, gA, gt, gT, gg, G, gG, gh, gv`
 - All the mappings define inside of the `ftplugin/*.vim` files need to be use `localleader`
 - The only exception is the comments. Since they are really global
 - Moreover, if it is a filetype that can use `tags` then use
