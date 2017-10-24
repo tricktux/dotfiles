@@ -687,7 +687,7 @@ function! plugin#AfterConfig() abort
 		" Change ignore_globs
 		call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
 					\ [ '.git/', '.svn/', '.ropeproject/', '__pycache__/',
-					\   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
+					\   'venv/', 'images/', '*.min.*', 'img/', 'fonts/', 'Obj/', '*.obj'])
 	endif
 	return 1
 endfunction
