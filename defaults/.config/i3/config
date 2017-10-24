@@ -249,7 +249,7 @@ for_window [title="^mutt$"] move to scratchpad
 for_window [title="^ranger$"] move to scratchpad
 bindsym $mod+c exec ps cax | grep cmus > /dev/null || termite -e cmus --title cmus, [title="cmus"] scratchpad show
 # Sun Oct 01 2017 00:07: You can toggle fullscreen mode with $mod+f 
-bindsym $mod+m exec ps cax | grep mutt > /dev/null || termite -e 'mutt -F ~/.config/mutt/gmail/account.gmail' --title mutt, [title="mutt"] scratchpad show
+bindsym $mod+m exec ps cax | grep mutt > /dev/null || termite -e 'mutt -F ~/.config/mutt/account.gmail' --title mutt, [title="mutt"] scratchpad show
 # Sun Oct 01 2017 08:20: Mapped to n because r, and a are taken 
 bindsym $mod+n exec ps cax | grep ranger > /dev/null || termite -e ranger --title ranger, [title="ranger"] scratchpad show
 

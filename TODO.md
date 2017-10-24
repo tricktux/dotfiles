@@ -12,7 +12,9 @@ fileext: md
 \pagebreak
 
 ## Mon Oct 23 2017 10:04 
-- [ ] Remove gpg files from github. Along with their history
+- [x] Remove gpg files from github. Along with their history
+- [ ] vim: man files remove `K` mapping. Is really annoying plus regular go to tag works
+- [ ] i3: mapping to copy email with a hotkey
 
 ## Sun Oct 22 2017 09:09 
 - [ ] pomodoro: doc new feature
