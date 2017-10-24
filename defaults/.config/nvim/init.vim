@@ -21,13 +21,19 @@ function! s:find_vim_config_file(...) abort
 	" Otherwise try to find local or portable configuration files
 	call s:set_stdpaths()
 	let location_local_vim = g:std_config_path . '/dotfiles/vim-utils'
-	let location_portable_vim = has('nvim') ? getcwd() . '/../../../dotfiles/vim-utils' : getcwd() . '/../../dotfiles/vim-utils'
+	let root_folder_portable_vim = has('nvim') ? getcwd() . '/../../../' : getcwd() . '/../../'
+	let location_portable_vim = root_folder_portable_vim . 'dotfiles/vim-utils'
 
+	" Below here defines the default location for where the plugins go and
+	" vim-plug as well
 	if !empty(glob(location_local_vim))
 		let g:location_vim_utils = location_local_vim
+		let g:vim_plugins_path = g:std_data_path . '/vim_plugins'
+		let g:plug_path = g:std_data_path . '/vim-plug/plug.vim' 
 	elseif !empty(glob(location_portable_vim))
-		let g:vim_plugins_path= has('nvim') ? '../../../vim_plugins/' : '../../vim_plugins/'
+		let g:vim_plugins_path= root_folder_portable_vim .'vim-data/vim_plugins/'
 		let g:location_vim_utils = location_portable_vim
+		let g:plug_path = root_folder_portable_vim . 'vim-data/vim-plug/plug.vim' 
 		let g:portable_vim = 1
 	else
 		echomsg "No vim configuration files where found"

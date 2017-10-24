@@ -33,6 +33,9 @@ should be part of the library
 - [ ] vim: nnoremap gK <googling stuff>. Right now `gG`
 - [ ] vim: search through your plugins and map <Leader>t<x> to all the plugin that toggle
 something, like focus mode, systanstic, signify, most of them are toggable.
+- [ ] vim: look into software caps lock plugin
+- [ ] bash: better raw folder navigation
+- [ ] zathura: there doesnt seem to be a TOC but try to find it.
 
 ## Mon Oct 23 2017 10:04 
 - [x] Remove gpg files from github. Along with their history
@@ -46,14 +49,14 @@ something, like focus mode, systanstic, signify, most of them are toggable.
 - [ ] arch-guajiro: remove mounting `copter-server`
 
 ## Fri Oct 20 2017 09:05 
-- [ ] vim: paste yanked text. not deleted text
+- [x] vim: paste yanked text. not deleted text
 
 ## Thu Oct 19 2017 10:37
-- [ ] vim: study vim-unimpaired and copy from it the best
-- [ ] vim: also study and rethink all of your vim mappings and methods
+- [x] vim: study vim-unimpaired and copy from it the best
+- [x] vim: also study and rethink all of your vim mappings and methods
 
 ## Wed Oct 18 2017 12:53 
-- [ ] vim: had this super amazing realization. ';' its not used at all as a mapping. the idea is
+- [x] vim: had this super amazing realization. ';' its not used at all as a mapping. the idea is
 to make all the `ftplugin/*.vim` mappings use `localleader` instead of `leader` and map
 `localleader=;`. This would increase mappings efficiency by 1/3.
 

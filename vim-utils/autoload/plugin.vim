@@ -616,15 +616,9 @@ function! plugin#Config() abort
 endfunction
 
 function! plugin#Check() abort
-	" Set default path for location of vim_plugins
-	if !exists('g:vim_plugins_path')
-		let g:vim_plugins_path = g:std_data_path . '/vim_plugins'
-	endif
-
-	let plug_path = g:std_data_path . '/vim-plug/plug.vim' 
-	if empty(glob(plug_path))
+	if empty(glob(g:plug_path))
 		if executable('curl')
-			execute "silent !curl -kfLo " . plug_path . " --create-dirs"
+			execute "silent !curl -kfLo " . g:plug_path . " --create-dirs"
 						\" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 			autocmd VimEnter * :PlugInstall
 		else
@@ -635,7 +629,7 @@ function! plugin#Check() abort
 		endif
 	endif
 
-	execute "source " . plug_path
+	execute "source " . g:plug_path
 	return 1
 endfunction
 
