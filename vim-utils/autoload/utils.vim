@@ -710,16 +710,19 @@ function! utils#ChangeColors(scheme, background) abort
 endfunction
 
 function! utils#LightlineUpdateColorscheme()
-	if !exists('g:loaded_lightline')
-		return
-	endif
-	try
+	" Update the name first. This is important. Otherwise no colorscheme is set during startup
+	if exists('g:lightline')
 		if &background ==# 'dark'
 			let g:lightline.colorscheme = g:colorscheme_night . '_dark'
 		else
 			let g:lightline.colorscheme = g:colorscheme_day . '_light'
 		endif
+	endif
 
+	if !exists('g:loaded_lightline')
+		return
+	endif
+	try
 		" if g:colors_name =~# 'wombat\|solarized\|landscape\|jellybeans\|seoul256\|Tomorrow\|gruvbox\|PaperColor\|zenburn'
 			" let g:lightline.colorscheme =
 						" \ substitute(substitute(g:colors_name, '-', '_', 'g'), '256.*', '', '')
