@@ -29,6 +29,10 @@ if [ -f /usr/bin/rg ]; then
 	export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git" --glob "!.svn"'
 fi
 
+# Issue neovim/neovim#4151 for neovim that causes fzf not working properly inside of neovim
+# terminal. Once resolved you can delete this.
+[ -n "$NVIM_LISTEN_ADDRESS" ] && export FZF_DEFAULT_OPTS='--no-height'
+
 # context for resume making
 # install context-minimals-git
 # mtxrun --generate
