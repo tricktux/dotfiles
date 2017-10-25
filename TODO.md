@@ -35,7 +35,9 @@ should be part of the library
 something, like focus mode, systanstic, signify, most of them are toggable.
 - [ ] vim: look into software caps lock plugin
 - [ ] bash: better raw folder navigation
-- [ ] zathura: there doesnt seem to be a TOC but try to find it.
+	- see fzf suggestions below
+- [x] zathura: there doesnt seem to be a TOC but try to find it.
+	- its done with `tab`. See man zathura(1)
 - [ ] fzf: study these suggestions [here](https://dmitryfrank.com/articles/shell_shortcuts)
 
 ## Mon Oct 23 2017 10:04 
