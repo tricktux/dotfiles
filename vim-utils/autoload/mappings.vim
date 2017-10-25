@@ -111,7 +111,7 @@ function! mappings#Set() abort
 	nnoremap <Leader>ei :e 
 
 	" Vim-unimpaired similar mappings
-	" Do not overwrite [s
+	" Do not overwrite [s, [c, [f
 	nnoremap ]y :call utils#YankFrom('+')<CR>
 	nnoremap [y :call utils#YankFrom('-')<CR>
 

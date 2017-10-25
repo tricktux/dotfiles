@@ -27,6 +27,8 @@ be part of the library. Like picture old files, tutorials, They should be left o
 change on a regular basis like ImpDocs, wikis, masters, those files are really the ones that
 should be part of the library
 
+## Wed Oct 25 2017 10:57 
+- [ ] rg: look at the readme to get bash completion.
 
 ## Tue Oct 24 2017 10:47
 - [ ] vim: nnoremap gk K. Then set keywordprg accordingly in `ftplugin/*.vim`

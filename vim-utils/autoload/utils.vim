@@ -316,9 +316,9 @@ function! utils#TodoClearMark() abort
 endfunction
 
 function! utils#TodoAdd() abort
-	execute "normal! cc"
-	call NERDComment('i','insert')
-	execute "normal! ==a\<c-h> TODO-[RM]-(" . strftime("%a %b %d %Y %H:%M") . "): "
+	execute "normal! O"
+	execute "normal :call NERDComment('i','insert')\<CR>"
+	execute "normal! ==a TODO-[RM]-(" . strftime("%a %b %d %Y %H:%M") . "): "
 endfunction
 
 function! utils#CommentLine(sign) abort
