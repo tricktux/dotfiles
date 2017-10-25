@@ -36,6 +36,7 @@ something, like focus mode, systanstic, signify, most of them are toggable.
 - [ ] vim: look into software caps lock plugin
 - [ ] bash: better raw folder navigation
 - [ ] zathura: there doesnt seem to be a TOC but try to find it.
+- [ ] fzf: study these suggestions [here](https://dmitryfrank.com/articles/shell_shortcuts)
 
 ## Mon Oct 23 2017 10:04 
 - [x] Remove gpg files from github. Along with their history

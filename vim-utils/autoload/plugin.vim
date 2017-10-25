@@ -655,13 +655,13 @@ function! plugin#AfterConfig() abort
 		call denite#custom#option('_', 'highlight_matched_range', 'Function')
 		if executable('rg')
 			call denite#custom#var('file_rec', 'command',
-						\ ['rg', '--glob', '!.git', '--glob', '!.svn', '--files',  
+						\ ['rg', '--glob', '!.{git,svn}', '--files', '--no-ignore',
 						\ '--smart-case', '--follow', '--hidden', ''])
 			" Ripgrep command on grep source
 			call denite#custom#var('grep', 'command', ['rg'])
 			call denite#custom#var('grep', 'default_opts',
 						\ ['--vimgrep', '--no-heading', '--smart-case', '--follow', '--hidden',
-						\ '--glob', '!.git', '--glob', '!.svn'])
+						\ '--glob', '!.{git,svn}'])
 			call denite#custom#var('grep', 'recursive_opts', [])
 			call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
 			call denite#custom#var('grep', 'separator', ['--'])
@@ -672,7 +672,7 @@ function! plugin#AfterConfig() abort
 			call denite#custom#var('grep', 'command', ['ag'])
 			call denite#custom#var('grep', 'default_opts',
 						\ ['--vimgrep', '--no-heading', '--smart-case', '--follow', '--hidden',
-						\ '--glob', '!.git', '--glob', '!.svn'])
+						\ '--glob', '!.{git,svn}'])
 			call denite#custom#var('grep', 'recursive_opts', [])
 			call denite#custom#var('grep', 'pattern_opt', [])
 			call denite#custom#var('grep', 'separator', ['--'])
