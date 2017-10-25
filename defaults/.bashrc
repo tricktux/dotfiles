@@ -5,8 +5,6 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
 # For more aliases use bash_aliases
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
@@ -24,14 +22,26 @@ else
 	PS1='[\u@\h \W]\$ '
 fi
 
-# fzf use ripgrep
-if [ -f /usr/bin/rg ]; then
-	export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --follow --no-ignore --glob "!.{git,svn}"'
-fi
+# fzf setup
+if [ -f ~/.fzf.bash ]; then
+   	source ~/.fzf.bash
+	# if we have rg. use it!
+	if [ -f /usr/bin/rg ]; then
+		export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.{git,svn}" 2> /dev/null'
+		# export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+	fi
 
-# Issue neovim/neovim#4151 for neovim that causes fzf not working properly inside of neovim
-# terminal. Once resolved you can delete this.
-[ -n "$NVIM_LISTEN_ADDRESS" ] && export FZF_DEFAULT_OPTS='--no-height'
+	# Depends on `install bfs`
+	export FZF_CTRL_T_COMMAND="cd ~/; bfs -type d -nohidden | sed s/^\./~/"  
+
+	# TODO-[RM]-(Wed Oct 25 2017 10:10): Download it
+	# https://github.com/urbainvaes/fzf-marks
+
+	# Issue neovim/neovim#4151 for neovim that causes fzf not working properly inside of neovim
+	# terminal. Once resolved you can delete this.
+	[ -n "$NVIM_LISTEN_ADDRESS" ] && export FZF_DEFAULT_OPTS='--no-height'
+
+fi
 
 # context for resume making
 # install context-minimals-git
