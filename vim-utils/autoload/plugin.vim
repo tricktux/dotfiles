@@ -161,7 +161,8 @@ function! plugin#Config() abort
 					\ }
 		augroup custom_neomake
 			autocmd!
-			autocmd User NeomakeFinished echo "Neomake Finished!"
+			autocmd User NeomakeJobFinished call utils#NeomakeJobFinished()
+			autocmd User NeomakeJobStarted call utils#NeomakeJobStartd()
 		augroup END
 
 	Plug 'dhruvasagar/vim-table-mode', { 'on' : 'TableModeToggle' }
@@ -486,6 +487,9 @@ function! plugin#Config() abort
 
 		let g:lightline.active.left[2] += [ 'pomodoro' ]
 		let g:lightline.component_function['pomodoro'] = 'utils#LightlinePomo'
+
+		let g:lightline.active.left[2] += [ 'neomake' ]
+		let g:lightline.component_function['neomake'] = 'utils#CheckNeomakeStatus'
 	Plug 'PotatoesMaster/i3-vim-syntax'
 
 	if has('win32')

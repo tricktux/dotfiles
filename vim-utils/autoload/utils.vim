@@ -519,23 +519,30 @@ function! utils#SetWingsPath(sPath) abort
 	call utils#GuiFont('+')
 endfunction
 
-function! utils#NeomakeOpenWindow() abort
-	" echo "Neomake Done" " Debuggin
-	" if g:neomake_hook_context.file_mode
-	" let loc_text = getloclist(0)
-	" if len(loc_text) == 0
-	" echo "Success"
-	" return
-	" endif
-	" echon "(1 of " len(loc_text) "):" bufname(loc_text[0].bufnr) '|' loc_text[0].lnum '|: ' loc_text[0].text
-	" else
-	" let qf_text = getqflist()
-	" if len(qf_text) == 0
-	" echo "Success"
-	" return
-	" endif
-	" echon "(1 of " len(qf_text) "):" bufname(qf_text[0].bufnr) '|' qf_text[0].lnum '|: ' qf_text[0].text
-	" endif
+function! utils#CheckNeomakeStatus() abort
+	return exists('g:neomake_lightline') ? g:neomake_lightline : ''
+endfunction
+
+function! utils#NeomakeJobStartd() abort
+	if exists('g:neomake_hook_context.jobinfo.maker.name')
+		let g:neomake_lightline = printf("%s working ...", g:neomake_hook_context.jobinfo.maker.name)
+	else
+		unlet! g:neomake_lightline
+	endif
+endfunction
+
+function! utils#NeomakeJobFinished() abort
+	if exists('g:neomake_hook_context.jobinfo.exit_code')
+		let g:neomake_lightline = printf("%s finished with code %s", g:neomake_hook_context.jobinfo.maker.name,
+					\ g:neomake_hook_context.jobinfo.exit_code)
+		call timer_start(60 * 1000, 'utils#NeomakeClearStatusLine')
+	else
+		unlet! g:neomake_lightline
+	endif
+endfunction
+
+function! utils#NeomakeClearStatusLine(timer) abort
+	unlet! g:neomake_lightline
 endfunction
 
 " TODO.RM-Fri Apr 28 2017 16:14: Also move this to the ftplugin  
