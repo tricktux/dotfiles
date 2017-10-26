@@ -27,6 +27,9 @@ be part of the library. Like picture old files, tutorials, They should be left o
 change on a regular basis like ImpDocs, wikis, masters, those files are really the ones that
 should be part of the library
 
+## Thu Oct 26 2017 08:33
+- [ ] vim: the lsp plugin now supports vim8
+
 ## Wed Oct 25 2017 10:57 
 - [ ] rg: look at the readme to get bash completion.
 

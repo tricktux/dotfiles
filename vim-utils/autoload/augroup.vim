@@ -72,7 +72,12 @@ function! augroup#Set() abort
 	if has('nvim')
 		augroup Terminal
 			autocmd!
-			autocmd TermOpen * setlocal nonumber | setfiletype terminal
+			autocmd TermOpen * setfiletype terminal
+		augroup END
+	else
+		augroup Terminal
+			autocmd!
+			autocmd BufWinEnter * if &buftype == 'terminal' | setfiletype terminal | endif
 		augroup END
 	endif
 endfunction

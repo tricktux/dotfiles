@@ -326,6 +326,17 @@ function! mappings#Set() abort
 	" Comment Indent Increase/Reduce
 	nnoremap <Leader>oi :call utils#CommentIndent()<CR>
 	nnoremap <Leader>oI :call utils#CommentReduceIndent()<CR>
+
+	" terminal-emulator mappings
+	if has('terminal') || has('nvim')
+		execute "tnoremap " . g:esc . " <C-\\><C-n>"
+		tnoremap <A-h> <C-\><C-n><C-w>h
+		tnoremap <A-j> <C-\><C-n><C-w>j
+		tnoremap <A-k> <C-\><C-n><C-w>k
+		tnoremap <A-l> <C-\><C-n><C-w>l
+
+		tnoremap <C-p> <Up>
+	endif
 endfunction
 
 " vim:tw=78:ts=2:sts=2:sw=2:
