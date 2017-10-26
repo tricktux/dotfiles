@@ -525,7 +525,7 @@ endfunction
 
 function! utils#NeomakeJobStartd() abort
 	if exists('g:neomake_hook_context.jobinfo.maker.name')
-		let g:neomake_lightline = printf("%s working ...", g:neomake_hook_context.jobinfo.maker.name)
+		let g:neomake_lightline = printf("%s started", g:neomake_hook_context.jobinfo.maker.name)
 	else
 		unlet! g:neomake_lightline
 	endif
@@ -533,7 +533,7 @@ endfunction
 
 function! utils#NeomakeJobFinished() abort
 	if exists('g:neomake_hook_context.jobinfo.exit_code')
-		let g:neomake_lightline = printf("%s finished with code %s", g:neomake_hook_context.jobinfo.maker.name,
+		let g:neomake_lightline = printf("%s finished: %s", g:neomake_hook_context.jobinfo.maker.name,
 					\ g:neomake_hook_context.jobinfo.exit_code)
 		call timer_start(60 * 1000, 'utils#NeomakeClearStatusLine')
 	else

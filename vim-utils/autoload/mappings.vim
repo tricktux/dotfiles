@@ -32,15 +32,20 @@ function! mappings#Set() abort
 	" nnoremap <Leader>jk :call utils#Make()<CR>
 	" ga " prints ascii of char under cursor
 	" gA " prints radix of number under cursor
-	" Untouchable g mappings: g;, gt, gr, gf, gd, g, gg, gs
-	nmap gj <Plug>FileBrowser
-	nmap gl <Plug>ToggleTerminal
+	" Untouchable g mappings:
+	" - gd, gD, g;, gq, gs, gl, gA, gT, gg, G, gG, gh, gv
+	" Toggle mappings: 
+	" - tj, te, ta, tt, tf, ts, to
+	nmap <Leader>tj <Plug>FileBrowser
+	nmap <Leader>te <Plug>ToggleTerminal
+	nnoremap <Leader>tt :TagbarToggle<CR>
+	nnoremap <Leader>ts :setlocal spell! spelllang=en_us<CR>
+
 	nmap <LocalLeader>m <Plug>Make
 	nmap <LocalLeader>p <Plug>Preview
 
 	" Global settings for all ftplugins
 	nnoremap <LocalLeader>f :Neoformat<CR>
-	nnoremap <LocalLeader>t :TagbarToggle<CR>
 
 	" Refactor word under the cursor
 	nnoremap <Leader>r :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
@@ -237,7 +242,6 @@ function! mappings#Set() abort
 	" suggestion
 	" nnoremap <Leader>sc z=
 	" toggle spelling
-	nnoremap =os :setlocal spell! spelllang=en_us<CR>
 	inoremap <C-S> <c-r>=utils#FixPreviousWord()
 	" add to dictionary
 	" nnoremap <Leader>sa zg
@@ -317,6 +321,8 @@ function! mappings#Set() abort
 	" nmap <Leader>ot <plug>NERDCommenterAltDelims
 	vmap - <plug>NERDCommenterToggle
 	imap <C-c> <plug>NERDCommenterInsert
+	nnoremap <Leader>oI :call utils#CommentReduceIndent()<CR>
+	nmap <Leader>to <plug>NERDCommenterAltDelims
 	" mapping ol conflicts with mapping o to new line
 	nnoremap <Leader>oe :call utils#EndOfIfComment()<CR>
 	nnoremap <Leader>ou :call utils#UpdateHeader()<CR>
@@ -325,7 +331,6 @@ function! mappings#Set() abort
 	nnoremap <Leader>od :call utils#CommentDelete()<CR>
 	" Comment Indent Increase/Reduce
 	nnoremap <Leader>oi :call utils#CommentIndent()<CR>
-	nnoremap <Leader>oI :call utils#CommentReduceIndent()<CR>
 
 	" terminal-emulator mappings
 	if has('terminal') || has('nvim')

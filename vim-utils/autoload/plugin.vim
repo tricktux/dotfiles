@@ -39,6 +39,8 @@ function! plugin#Config() abort
 		" Requires `install xdotool' and 'go get -u github.com/termhn/i3-vim-nav'
 		" - The thing is that this down here doesnt work
 		" Plug 'termhn/i3-vim-nav', { 'do' : 'ln -s ' . g:vim_plugins_path . 'i3-vim-nav/i3-vim-nav ~/.local/bin' }
+	else
+		nnoremap <Plug>ToggleTerminal :terminal<CR>
 	endif
 
 	if has('nvim') || v:version >= 800
@@ -176,7 +178,7 @@ function! plugin#Config() abort
 		" TODO.RM-Wed Jul 19 2017 21:10: Fix here these mappings are for terminal  
 		let g:table_mode_map_prefix = '<Leader>lt'
 		let g:table_mode_disable_mappings = 1
-		" nnoremap <Leader>lm :TableModeToggle<CR>
+		nnoremap <Leader>ta :TableModeToggle<CR>
 		" <Leader>tr	Realigns table columns
 
 	if has('unix')
@@ -535,6 +537,7 @@ function! plugin#Config() abort
 
 	Plug 'merlinrebrovic/focus.vim', { 'on' : '<Plug>FocusModeToggle' }
 			let g:focus_use_default_mapping = 0
+			nmap <Leader>tf <Plug>FocusModeToggle
 
 	Plug 'dbmrq/vim-ditto', { 'for' : 'markdown' }
 		let g:ditto_dir = g:std_data_path
