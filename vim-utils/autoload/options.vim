@@ -94,11 +94,10 @@ function! options#Set() abort
 	endif
 
 	" no mouse enabled
-	set mouse=""
+	set mouse=
 	set laststatus=2
-	set textwidth=98
-	" makes vim autocomplete - bullets
-	set comments+=b:-,b:*
+	" Thu Oct 26 2017 05:13: On small split screens text goes outside of range
+	set textwidth=88
 	set nolist " Do not display extra characters
 	set scroll=8
 	set modeline

@@ -37,7 +37,8 @@ options     head
     ---
     title:	    ${1:`expand('%:t')`}
     subtitle:   ${2:Document Description}
-    author:		Reinaldo Molina - `utils#ChooseEmailAcc()`
+    author:		Reinaldo Molina
+    email:      `utils#ChooseEmailAcc()`
     revision:	${4:0.0.0}
     date:       `strftime("%a %b %d %Y %H:%M")`
     fileext:    md
