@@ -8,6 +8,14 @@
 " Date:					Sun Aug 20 2017 05:13
 " Created:			Aug 2015
 
+if !has('nvim')
+	" Required settings for vim
+	set nocompatible
+	" Thu Sep 28 2017 15:07: This order matters. 
+	filetype plugin indent on
+	syntax on
+endif
+
 " You can a pass a list of files to the function and those and only those files will be sourced
 function! s:find_vim_config_file(...) abort
 	" If source files were provided source only those and exit
