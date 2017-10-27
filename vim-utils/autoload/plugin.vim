@@ -1,7 +1,7 @@
-" File:plugin.vim
+" File:				plugin.vim
 " Description:Plugin specific settings
-" Author:Reinaldo Molina <rmolin88@gmail.com>
-" Version:2.0.1
+" Author:			Reinaldo Molina <rmolin88@gmail.com>
+" Version:			2.0.1
 " Last Modified: Thu Oct 05 2017 21:42
 " Created: Fri Jun 02 2017 10:44
 
@@ -23,7 +23,7 @@ function! plugin#Config() abort
 	endif
 
 	" Set up fuzzy searcher
-	if has('unix') && has('nvim')
+	if has('nvim')
 		" Terminal plugins
 		Plug 'kassio/neoterm'
 			let g:neoterm_use_relative_path = 1
@@ -31,20 +31,21 @@ function! plugin#Config() abort
 			let g:neoterm_autoinsert=1
 			nnoremap <Plug>ToggleTerminal :Ttoggle<CR>
 
-		Plug 'rliang/termedit.nvim'
-
-		Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-
+		" TODO-[RM]-(Fri Oct 27 2017 15:00): Document in real-arch-wiki to
+		" installfzf manually not like this below. I dont like it. Take care of
+		" the repurcutions this could have in .bashrc
+		" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 		" Sun Jul 30 2017 13:09 
 		" Requires `install xdotool' and 'go get -u github.com/termhn/i3-vim-nav'
 		" - The thing is that this down here doesnt work
 		" Plug 'termhn/i3-vim-nav', { 'do' : 'ln -s ' . g:vim_plugins_path . 'i3-vim-nav/i3-vim-nav ~/.local/bin' }
 	else
-		nnoremap <Plug>ToggleTerminal :terminal<CR>
+		nmap <Plug>ToggleTerminal :terminal<CR><C-w>L
 	endif
 
 	if has('nvim') || v:version >= 800
 		" Plugins that support both neovim and vim need separate folders
+		" Fri Oct 27 2017 15:05: Not sure that is a true statement 
 		Plug 'Shougo/denite.nvim', { 'as' : has('nvim') ? 'nvim_denite' : 'vim_denite' }
 			nnoremap <A-;> :Denite command_history<CR>
 			nnoremap <A-e> :Denite help<CR>
@@ -138,7 +139,10 @@ function! plugin#Config() abort
 	Plug 'justinmk/vim-syntax-extra'
 
 	" Plugins for All (nvim, linux, win32)
-	Plug 'neomake/neomake', { 'on' : 'Neomake' }
+	Plug 'neomake/neomake'
+		" Fri Oct 27 2017 14:39: neomake defaults are actually pretty amazing. If
+		" you need to change it. Do it on a per buffer basis. Look on c.vim for
+		" example 
 		let g:neomake_warning_sign = {
 					\ 'text': '?',
 					\ 'texthl': 'WarningMsg',
@@ -148,21 +152,14 @@ function! plugin#Config() abort
 					\ 'text': 'X',
 					\ 'texthl': 'ErrorMsg',
 					\ }
-		let g:neomake_cpp_enabled_makers = ['gcc', 'clang']
-		let g:neomake_c_enabled_makers = ['gcc', 'clang']
-		let g:neomake_cpp_clang_maker = {
-					\ 'args': ['-fsyntax-only', '-std=c++14', '-Wall', '-Wextra'],
-					\ 'errorformat':
-					\ '%-G%f:%s:,' .
-					\ '%f:%l:%c: %trror: %m,' .
-					\ '%f:%l:%c: %tarning: %m,' .
-					\ '%f:%l:%c: %m,'.
-					\ '%f:%l: %trror: %m,'.
-					\ '%f:%l: %tarning: %m,'.
-					\ '%f:%l: %m',
-					\ }
+
 		augroup custom_neomake
 			autocmd!
+			if executable('vint')
+				" Note: to install vim checker do
+				" pip install vim-vint --user
+				autocmd BufWritePost *.vim Neomake
+			endif
 			autocmd User NeomakeJobFinished call utils#NeomakeJobFinished()
 			autocmd User NeomakeJobStarted call utils#NeomakeJobStartd()
 		augroup END
@@ -181,24 +178,6 @@ function! plugin#Config() abort
 		nnoremap <Leader>ta :TableModeToggle<CR>
 		" <Leader>tr	Realigns table columns
 
-	if has('unix')
-		Plug 'scrooloose/syntastic'
-			let g:syntastic_aggregate_errors = 1
-			let g:syntastic_always_populate_loc_list = 1
-			let g:syntastic_auto_loc_list = 0
-			let g:syntastic_check_on_open = 0
-			let g:syntastic_check_on_wq = 0
-			let g:syntastic_auto_jump = 0
-			" Note: Checkers and passive/active mode is handled at after/ftplugin files
-			let g:syntastic_cpp_compiler_options = '-std=c++17 -pedantic -Wall'
-			let g:syntastic_cpp_include_dirs = [ 'includes', 'headers', 'inc' ]
-			let g:syntastic_cpp_clang_check_args = '-extra-arg=-std=c++1z'
-
-			let g:syntastic_c_remove_include_errors = 1
-			let g:syntastic_c_compiler_options = '-std=c11 -pedantic -Wall'
-			" let g:syntastic_cpp_check_header = 1
-	endif
-
 	Plug g:location_vim_utils
 		" Load the rest of the stuff and set the settings
 		let g:svn_repo_url = 'svn://odroid@copter-server/' 
@@ -212,18 +191,18 @@ function! plugin#Config() abort
 		" command! -nargs=0 DoxAuthor :call <SID>DoxygenAuthorFunc()
 		" command! -nargs=1 DoxUndoc :call <SID>DoxygenUndocumentFunc(<q-args>)
 		" command! -nargs=0 DoxBlock :call <SID>DoxygenBlockFunc()
-		let g:DoxygenToolkit_paramTag_pre=	"	"
-		let g:DoxygenToolkit_returnTag=			"Returns:   "
-		let g:DoxygenToolkit_blockHeader=""
-		let g:DoxygenToolkit_blockFooter=""
-		let g:DoxygenToolkit_authorName="Reinaldo Molina <rmolin88 at gmail dot com>"
-		let g:DoxygenToolkit_authorTag =	"Author:				"
-		let g:DoxygenToolkit_fileTag =		"File:					"
-		let g:DoxygenToolkit_briefTag_pre="Description:		"
-		let g:DoxygenToolkit_dateTag =		"Last Modified: "
-		let g:DoxygenToolkit_versionTag = "Version:				"
-		let g:DoxygenToolkit_commentType = "C++"
-		let g:DoxygenToolkit_versionString = "0.0.0"
+		let g:DoxygenToolkit_paramTag_pre=	'	'
+		let g:DoxygenToolkit_returnTag=			'Returns:   '
+		let g:DoxygenToolkit_blockHeader=''
+		let g:DoxygenToolkit_blockFooter=''
+		let g:DoxygenToolkit_authorName='Reinaldo Molina <rmolin88 at gmail dot com>'
+		let g:DoxygenToolkit_authorTag =	'Author:				'
+		let g:DoxygenToolkit_fileTag =		'File:					'
+		let g:DoxygenToolkit_briefTag_pre='Description:		'
+		let g:DoxygenToolkit_dateTag =		'Last Modified: '
+		let g:DoxygenToolkit_versionTag = 'Version:				'
+		let g:DoxygenToolkit_commentType = 'C++'
+		let g:DoxygenToolkit_versionString = '0.0.0'
 		" See :h doxygen.vim this vim related. Not plugin related
 		let g:load_doxygen_syntax=1
 
@@ -313,12 +292,12 @@ function! plugin#Config() abort
 			let g:tagbar_ctags_bin = 'ctags'
 			let g:tagbar_autofocus = 1
 			let g:tagbar_show_linenumbers = 2
-			let g:tagbar_map_togglesort = "r"
-			let g:tagbar_map_nexttag = "<c-j>"
-			let g:tagbar_map_prevtag = "<c-k>"
-			let g:tagbar_map_openallfolds = "<c-n>"
-			let g:tagbar_map_closeallfolds = "<c-c>"
-			let g:tagbar_map_togglefold = "<c-x>"
+			let g:tagbar_map_togglesort = 'r'
+			let g:tagbar_map_nexttag = '<c-j>'
+			let g:tagbar_map_prevtag = '<c-k>'
+			let g:tagbar_map_openallfolds = '<c-n>'
+			let g:tagbar_map_closeallfolds = '<c-c>'
+			let g:tagbar_map_togglefold = '<c-x>'
 			let g:tagbar_autoclose = 1
 
 			" Lightline settings
@@ -360,9 +339,9 @@ function! plugin#Config() abort
 	" Only contain snippets
 	Plug 'Shougo/neosnippet-snippets'
 	Plug 'honza/vim-snippets'
-		let g:snips_author = "Reinaldo Molina"
-		let g:snips_email = "rmolin88 at gmail dot com"
-		let g:snips_github = "rmolin88"
+		let g:snips_author = 'Reinaldo Molina'
+		let g:snips_email = 'rmolin88 at gmail dot com'
+		let g:snips_github = 'rmolin88'
 
 	" Version control
 	Plug 'tpope/vim-fugitive'
@@ -438,7 +417,7 @@ function! plugin#Config() abort
 	Plug 'waiting-for-dev/vim-www'
 		" TODO-[RM]-(Thu Sep 14 2017 21:02): Update this here
 		let g:www_map_keys = 0
-		let g:www_launch_cli_browser_command = g:browser_cmd . " {{URL}}"
+		let g:www_launch_cli_browser_command = g:browser_cmd . ' {{URL}}'
 		nnoremap gG :Wcsearch duckduckgo <C-R>=expand("<cword>")<CR><CR>
 		vnoremap gG "*y:call www#www#user_input_search(1, @*)<CR>
 
@@ -501,7 +480,7 @@ function! plugin#Config() abort
 	Plug 'vim-pandoc/vim-pandoc', { 'on' : 'Pandoc' }
 	Plug 'vim-pandoc/vim-pandoc-syntax', { 'on' : 'Pandoc' }
 		" You might be able to get away with xelatex in unix
-		let g:pandoc#command#latex_engine = "pdflatex"
+		let g:pandoc#command#latex_engine = 'pdflatex'
 		let g:pandoc#folding#fdc=0
 		let g:pandoc#keyboard#use_default_mappings=0
 		" Pandoc pdf --template eisvogel --listings
@@ -521,7 +500,7 @@ function! plugin#Config() abort
 	Plug 'plasticboy/vim-markdown', { 'for' : 'markdown' }
 		let g:vim_markdown_no_default_key_mappings = 1
 		let g:vim_markdown_toc_autofit = 1
-		let g:tex_conceal = ""
+		let g:tex_conceal = ''
 		let g:vim_markdown_math = 1
 		let g:vim_markdown_folding_level = 2
 		let g:vim_markdown_frontmatter = 1
@@ -625,21 +604,25 @@ endfunction
 function! plugin#Check() abort
 	if empty(glob(g:plug_path))
 		if executable('curl')
-			execute "silent !curl -kfLo " . g:plug_path . " --create-dirs"
-						\" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-			autocmd VimEnter * :PlugInstall
+			execute 'silent !curl -kfLo ' . g:plug_path . ' --create-dirs'
+						\' https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+			augroup instal_plugin
+				autocmd!
+				autocmd VimEnter * :PlugInstall
+			augroup END
 		else
-			echomsg "Master I cant install plugins for you because you"
-						\" do not have curl. Please fix this. Plugins"
-						\" will not be loaded."
+			echomsg 'Master I cant install plugins for you because you'
+						\' do not have curl. Please fix this. Plugins'
+						\' will not be loaded.'
 			return 0
 		endif
 	endif
 
-	execute "source " . g:plug_path
+	execute 'source ' . g:plug_path
 	return 1
 endfunction
 
+" Called on augroup VimEnter search augroup.vim
 function! plugin#AfterConfig() abort
 	if exists('g:loaded_deoplete')
 		call deoplete#custom#set('javacomplete2', 'mark', '')
@@ -690,7 +673,10 @@ function! plugin#AfterConfig() abort
 					\ [ '.git/', '.svn/', '.ropeproject/', '__pycache__/',
 					\   'venv/', 'images/', '*.min.*', 'img/', 'fonts/', 'Obj/', '*.obj'])
 	endif
+
+	" On linux run neomake everytime you save a file
+	if has('unix') && exists(g:loaded_neomake)
+			call neomake#configure#automake('w')
+	endif
 	return 1
 endfunction
-
-" vim:tw=78:ts=2:sts=2:sw=2:

@@ -123,11 +123,8 @@ function! options#Set() abort
 		" Set highliting for Search and Incsearch
 		" Auto Flux (changing themes) is set in the augroup.vim file
 	else
+		" If this not and android device and we have no plugins setup "ugly" status line
 		colorscheme desert
-	endif
-
-	" If this not and android device and we have no plugins setup "ugly" status line
-	if !exists('g:plugins_loaded')
 		set statusline =
 		set statusline+=\ [%n]                                  "buffernr
 		set statusline+=\ %<%F\ %m%r%w                         "File+path
@@ -159,8 +156,12 @@ function! options#Set() abort
 	" Mon Oct 16 2017 15:22: This speed ups a lot of plugin. Those that have to
 	" do with highliting.  
 	set regexpengine=1
-	" Diff options
-	let &diffopt='vertical'
+	" Fri May 19 2017 11:38 Having a lot of hang ups with the function! s:Highlight_Matching_Pair()
+	" on the file C:\Program Files\nvim\Neovim\share\nvim\runtime\plugin\matchparen.vim
+	" This value is suppose to help with it. The default value is 300ms
+	" DoMatchParen, and NoMatchParen are commands that enable and disable the command
+	let g:matchparen_timeout = 100
+	let g:matchparen_insert_timeout = 100
 
 	" CLI
 	if !has('gui_running') && !exists('g:GuiLoaded')
@@ -256,6 +257,9 @@ function! options#Set() abort
 		" Load all tags and OneWings cscope database
 		call ctags#SetTags()
 	endif
+
+	" Diff options
+	let &diffopt='vertical'
 endfunction
 
 " vim:tw=78:ts=2:sts=2:sw=2:

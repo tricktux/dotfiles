@@ -316,8 +316,7 @@ function! utils#TodoClearMark() abort
 endfunction
 
 function! utils#TodoAdd() abort
-	execute "normal! O"
-	execute "normal :call NERDComment('i','insert')\<CR>"
+	execute "normal! O" . &commentstring[0] . " "
 	execute "normal! ==a TODO-[RM]-(" . strftime("%a %b %d %Y %H:%M") . "): "
 endfunction
 
@@ -535,6 +534,7 @@ function! utils#NeomakeJobFinished() abort
 	if exists('g:neomake_hook_context.jobinfo.exit_code')
 		let g:neomake_lightline = printf("%s finished: %s", g:neomake_hook_context.jobinfo.maker.name,
 					\ g:neomake_hook_context.jobinfo.exit_code)
+		echomsg g:neomake_lightline
 		call timer_start(60 * 1000, 'utils#NeomakeClearStatusLine')
 	else
 		unlet! g:neomake_lightline

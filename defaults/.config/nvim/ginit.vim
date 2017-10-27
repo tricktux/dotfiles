@@ -1,5 +1,11 @@
-" if exists('g:GuiLoaded') " nvim-qt gui
-	" Choose one
+" File:					ginit.vim
+" Description:	Settings applied before gui is loaded.
+" Author:				Reinaldo Molina <rmolin88 at gmail dot com>
+" Version:				0.0.0
+" Last Modified: Oct 27 2017 08:16
+" Created: Oct 27 2017 08:16
+
+	" Choose one font
 	" Guifont DejaVu Sans Mono:h10
 	" Guifont Hack:h8
 	" Guifont Monospace:h10
@@ -18,7 +24,6 @@ if has('win32')
 	else
 		" No space is required here
 		set guifont=consolas:h8
-		set guiheadroom=0
 	endif
 else
 	if exists('g:GuiLoaded') " nvim-qt gui
@@ -32,6 +37,7 @@ else
 	else
 		" set guifont =Hack 8
 		set guifont =DejaVu\ Sans\ Mono\ 9
+		" only for GTK and X11 gvim guis
 		set guiheadroom=0
 	endif
 endif

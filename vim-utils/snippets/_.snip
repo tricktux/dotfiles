@@ -1,0 +1,17 @@
+# File:                 _.snip
+# Description:          Global set of snippets
+# Author:              Reinaldo Molina <rmolin88 at gmail dot com>
+# Version:             0.0.0
+# Last Modified: Oct 27 2017 16:01
+# Created: Oct 27 2017 16:01
+
+snippet     author
+abbr        Sign file with your information
+options     head
+    `&commentstring[0]` File:           ${1:`expand('%:t')`}
+    `&commentstring[0]` Description:    ${2: Code Description}
+    `&commentstring[0]` Author:		    Reinaldo Molina
+    `&commentstring[0]` Email:          `utils#ChooseEmailAcc()`
+    `&commentstring[0]` Revision:	    ${4:0.0.0}
+    `&commentstring[0]` Created:        `strftime("%a %b %d %Y %H:%M")`
+    `&commentstring[0]` Last Modified:  `strftime("%a %b %d %Y %H:%M")`

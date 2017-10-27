@@ -27,8 +27,19 @@ be part of the library. Like picture old files, tutorials, They should be left o
 change on a regular basis like ImpDocs, wikis, masters, those files are really the ones that
 should be part of the library
 
+## Fri Oct 27 2017 08:20
+- [x] vim: port the `neosnippet` author to all files. Make it call netdcommenter for the comments insertion.
+- [ ] vim: `neomake` enable makers on `ftplugin/*.vim` files. see `b:neomake_<ft>_enabled_makers`
+- [ ] vim: `neomake` research `NeomakeProject`.
+- [ ] vim: `neomake` for `latex`.
+- [x] vim: `neomake` for `vint`.
+- [ ] vim: distribute functions in `utils.vim` to make them like a plugin. i.e: moving
+all lightline related functions to `lightline.vim` file.
+	- Also do this with all the functions defined in `ftplugin/*.vim`
+
 ## Thu Oct 26 2017 08:33
 - [ ] vim: the lsp plugin now supports vim8
+	- Fri Oct 27 2017 08:22: Doesnt make much sense. vim is only used in windows where the NCM plugin is not used. 
 
 ## Wed Oct 25 2017 10:57 
 - [ ] rg: look at the readme to get bash completion.

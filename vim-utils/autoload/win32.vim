@@ -44,11 +44,6 @@ function win32#Config()
 		let g:wiki_path =  'D:/wiki'
 		let g:wings_path =  'D:/wings-dev/'
 		call utils#SetWingsPath(g:wings_path)
-
-		" Load svnj branch, trunk, and tag settings
-		if filereadable(g:wings_path . 'OneWings/branches.vim')
-			exe 'source ' . g:wings_path . 'OneWings/branches.vim' 
-		endif
 	endif
 
 	if has('nvim')
@@ -68,5 +63,3 @@ function win32#Config()
 	silent! vunmap <C-X>
 
 endfunction
-
-" vim:tw=78:ts=2:sts=2:sw=2:

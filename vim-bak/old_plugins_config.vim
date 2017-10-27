@@ -1852,3 +1852,22 @@ function! utils#ManFind() abort
 	" || /usr/share/man/man7/systemd.directives.7.gz
 endfunction
 
+	if has('unix')
+		Plug 'scrooloose/syntastic'
+			nnoremap <Leader>tn :SyntasticToggleMode<cr>
+			let g:syntastic_aggregate_errors = 1
+			let g:syntastic_always_populate_loc_list = 1
+			let g:syntastic_auto_loc_list = 0
+			let g:syntastic_check_on_open = 0
+			let g:syntastic_check_on_wq = 0
+			let g:syntastic_auto_jump = 0
+			" Note: Checkers and passive/active mode is handled at after/ftplugin files
+			let g:syntastic_cpp_compiler_options = '-std=c++17 -pedantic -Wall'
+			let g:syntastic_cpp_include_dirs = [ 'includes', 'headers', 'inc' ]
+			let g:syntastic_cpp_clang_check_args = '-extra-arg=-std=c++1z'
+
+			let g:syntastic_c_remove_include_errors = 1
+			let g:syntastic_c_compiler_options = '-std=c11 -pedantic -Wall'
+			" let g:syntastic_cpp_check_header = 1
+	endif
+

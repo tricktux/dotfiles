@@ -35,7 +35,7 @@ function! mappings#Set() abort
 	" Untouchable g mappings:
 	" - gd, gD, g;, gq, gs, gl, gA, gT, gg, G, gG, gh, gv
 	" Toggle mappings: 
-	" - tj, te, ta, tt, tf, ts, to
+	" - tj, te, ta, tt, tf, ts, to, tn
 	nmap <Leader>tj <Plug>FileBrowser
 	nmap <Leader>te <Plug>ToggleTerminal
 	nnoremap <Leader>tt :TagbarToggle<CR>
