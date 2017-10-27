@@ -18,6 +18,7 @@ if has('win32')
 	else
 		" No space is required here
 		set guifont=consolas:h8
+		set guiheadroom=0
 	endif
 else
 	if exists('g:GuiLoaded') " nvim-qt gui
@@ -31,6 +32,7 @@ else
 	else
 		" set guifont =Hack 8
 		set guifont =DejaVu\ Sans\ Mono\ 9
+		set guiheadroom=0
 	endif
 endif
 
