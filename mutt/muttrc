@@ -92,7 +92,7 @@ macro pager b '<enter-command>toggle sidebar_visible<enter><redraw-screen>'
 # Option to Save contacts so that autocompletion is possible
 set display_filter='~/.config/mutt/mutt.save.contacts.sh' 
 # Options to load aliasses file
-set alias_file= ~/.config/mutt/aliases.txt
+set alias_file= ~/.local/share/mutt/aliases.txt
 set sort_alias= alias
 set reverse_alias=yes
 source $alias_file
@@ -149,17 +149,3 @@ set autoedit
 
 # Tue Sep 12 2017 16:51: Stop saving outgoing messages to ~/sent
 set record = "~/.cache/mutt/mutt-sent"
-
-# Mon Oct 23 2017 21:40: Moved this out of per account settings because they dont belong in the
-# muttrc configuration folder. They shuold be distributed accordingly 
-#
-# Store message headers locally to speed things up.
-# If hcache is a folder, Mutt will create sub cache folders for each account which may speeds things up even more.
-set header_cache = "~/.cache/mutt/headers"
-
-# Store messages locally to speed things up, like searching message bodies.
-# Can be the same folder as header_cache.
-# This will cost important disk usage according to your e-mail amount.
-set message_cachedir = "~/.cache/mutt/bodies"
-set certificate_file = "~/.local/share/mutt/certificates"
-

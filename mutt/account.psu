@@ -39,5 +39,19 @@ macro index,pager gm ':unmailboxes *<enter><sync-mailbox><refresh><enter-command
 # Get password from encryption
 source "gpg -d ~/.local/share/mutt/psu.gpg |"
 
+# Mon Oct 23 2017 21:40: Moved this out of per account settings because they dont belong in the
+# muttrc configuration folder. They shuold be distributed accordingly 
+#
+# Store message headers locally to speed things up.
+# If hcache is a folder, Mutt will create sub cache folders for each account which may speeds things up even more.
+set header_cache = "~/.cache/mutt/psu/headers"
+
+# Store messages locally to speed things up, like searching message bodies.
+# Can be the same folder as header_cache.
+# This will cost important disk usage according to your e-mail amount.
+set message_cachedir = "~/.cache/mutt/psu/bodies"
+set certificate_file = "~/.local/share/mutt/psu/certificates"
+
+
 source "~/.config/mutt/muttrc"
 # vim:ft=muttrc
