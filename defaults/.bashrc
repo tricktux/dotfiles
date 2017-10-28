@@ -5,12 +5,7 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-# For more aliases use bash_aliases
-[ -f ~/.bash_aliases ] && source ~/.bash_aliases
-
-function _update_ps1() {
-	PS1="$(~/.powerline/powerline-shell/powerline-shell.py $? 2> /dev/null)"
-}
+[[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
 
 # If its not linux or android shell and file $liquid exists source it
 if [[ "$TERM" != "linux" && `uname -o` != "Android" ]]; then
@@ -21,8 +16,8 @@ else
 fi
 
 # fzf setup
-if [ -f ~/.fzf.bash ]; then
-   	source ~/.fzf.bash
+if [[ -f /usr/bin/fzf ]]; then
+	source /usr/share/fzf/key-bindings.bash
 	# if we have rg. use it!
 	if [ -f /usr/bin/rg ]; then
 		export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.{git,svn}" 2> /dev/null'
@@ -44,7 +39,7 @@ fi
 # context for resume making
 # install context-minimals-git
 # mtxrun --generate
-[ -f /opt/context-minimals/setuptex ] && source /opt/context-minimals/setuptex
+[[ -f /opt/context-minimals/setuptex ]] && source /opt/context-minimals/setuptex
 
 # History Options
 #
@@ -87,7 +82,7 @@ export EMAIL="rmolin88 at gmail dot com"
 # alias nvim="$VISUAL"
 export VISUAL=nvim
 export EDITOR=$VISUAL
-export BROWSER="/usr/bin/opera -newpage %s&"
+[ -f /usr/bin/opera ] && export BROWSER="/usr/bin/opera -newpage %s&"
 
 # Ranger load only ~/.config/ranger/rc.conf
 export RANGER_LOAD_DEFAULT_RC=FALSE
@@ -113,7 +108,7 @@ export GIT_TERMINAL_PROMPT=1
 [[ -f /etc/bash_completion ]] && . /etc/bash_completion
 
 # Sat Oct 14 2017 11:12: This will set the i3-sensible-terminal to be used:
-export TERMINAL="termite"
+[[ -f /usr/bin/termite ]] && export TERMINAL="termite"
 
 # Sat Oct 14 2017 22:27: fish being default terminal 
 # Sat Oct 21 2017 16:14: very pretty but not very useful 
