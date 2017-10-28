@@ -17,3 +17,5 @@ mutt/aliases.txt
 mutt/aliases.txt
 defaults/.config/polybar/gmail/credentials.json
 *.gpg
+defaults/.config/qpdfview/pdf-plugin.conf
+defaults/.config/qpdfview/qpdfview.conf
