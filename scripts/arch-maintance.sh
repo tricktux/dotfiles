@@ -19,52 +19,30 @@ else
 fi
 
 echo "Removing unused orphan packages"
-pacman -Rns $(pacman -Qtdq)
+sudo pacman -Rns $(pacman -Qtdq)
 
 echo "Updating system"
 pacaur -Syuu --devel --noconfirm
-pacman -Qqet > ~/.config/dotfiles/$machine-arch-packages
+sudo pacman -Qqet > ~/.config/dotfiles/$machine-arch-packages
 
 echo "BleachBit runnning"
-# Make sure to run it the first time and set up the cleaners.
-# Then go to ~/.config/bleachbit and copy all the [tree] cleaners
-bleachbit -c \
-	google_chrome.cache \
-	google_chrome.cookies \
-	google_chrome.dom \
-	google_chrome.form_history \
-	google_chrome.history \
-	google_chrome.search_engines \
-	google_chrome.session \
-	google_chrome.vacuum \
-	libreoffice.cache \
-	libreoffice.history \
-	system.desktop_entry \
-	system.cache \
-	system.clipboard \
-	system.custom \
-	system.free_disk_space \
-	system.localizations \
-	system.memory \
-	system.recent_documents \
-	system.rotated_logs \
-	system.tmp \
-	system.trash \
-	thumbnails.cache \
-	transmission.blocklists \
-	transmission.history \
-	transmission.torrents \
-	x11.debug_logs \
-	deepscan \
-	deepscan.ds_store \
-	deepscan.backup \
-	deepscan.tmp \
-	deepscan.thumbs_db
 
-echo "Cleaning shitty files"
-curl -kLo ~/.cache/rmshit.py "https://raw.githubusercontent.com/lahwaacz/Scripts/master/rmshit.py"
-chmod +x ~/.cache/rmshit.py
-python cache/rmshit.py
+# This options will use what is set in the ~/.config/bleachbit/bleachbit.ini 
+# The options there come from what is set up in the gui.
+# PLEASE: open the gui and make sure that you have the right options there
+# Also consider adding this options
+# [whitelist/paths]
+# 0_type = folder
+# 0_path = /home/reinaldo/Seafile
+# 1_type = folder
+# 1_path = /home/reinaldo/Dropbox
 
-echo "Updating fish completions"
-fish_update_completions
+bleachbit --clean --preset
+
+# echo "Cleaning shitty files"
+# curl -kLo ~/.cache/rmshit.py "https://raw.githubusercontent.com/lahwaacz/Scripts/master/rmshit.py"
+# chmod +x ~/.cache/rmshit.py
+# python cache/rmshit.py
+
+# echo "Updating fish completions"
+# fish_update_completions
