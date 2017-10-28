@@ -7,6 +7,8 @@
 # Last Modified: Oct 15 2017 10:03
 # Created: Oct 15 2017 10:03
 
+machine=`hostname`
+
 echo "Optimizing pacman"
 sudo pacman -Sc --noconfirm
 sudo pacman-optimize
@@ -36,8 +38,10 @@ echo "BleachBit runnning"
 # 0_path = /home/reinaldo/Seafile
 # 1_type = folder
 # 1_path = /home/reinaldo/Dropbox
+# Also disable system.memory clean swap but requires sudo
 
 bleachbit --clean --preset
+sudo bleachbit --clean system.memory
 
 # echo "Cleaning shitty files"
 # curl -kLo ~/.cache/rmshit.py "https://raw.githubusercontent.com/lahwaacz/Scripts/master/rmshit.py"
