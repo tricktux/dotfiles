@@ -14,7 +14,7 @@ endif
 let b:did_man_ftplugin = 1
 
 if !exists("no_plugin_maps") && !exists("no_man_maps")
-	nnoremap <buffer> gt K
 	nnoremap <buffer> q :bp\|bw #\|bd #<CR>
+	nnoremap <S-k> :CtrlPBuffer<CR>
 endif
 

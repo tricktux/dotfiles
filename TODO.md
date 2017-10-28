@@ -11,21 +11,9 @@ fileext: md
 \tableofcontents
 \pagebreak
 
-## Mon Oct 16 2017 16:31 
-
-### Christmas 2017 projects.
-- [ ] 1.arch: backup entire `seafile` library
-- [ ] 2.arch: look into encryption for the making the following step `encrypted`
-- [ ] 3.arch: install arch in `copter-server`.
-- [ ] 4.arch: establish an `openvpn` in there.
-- [ ] 5.arch: reestablish `seafile` however make it accessible from the internet.
-- [ ] arch: figure out a password storage solution. `pass` its a possible candidate
-
-#### Tue Oct 24 2017 10:50
-- [ ] seafile: I have also realize that I am misusing it. Files that are rarely used. Should not
-be part of the library. Like picture old files, tutorials, They should be left out. Things that
-change on a regular basis like ImpDocs, wikis, masters, those files are really the ones that
-should be part of the library
+## Sat Oct 28 2017 13:48 
+- [ ] termite: empty black space at the bottom of the screen.
+- [ ] cmus: keymappings are gone!
 
 ## Fri Oct 27 2017 08:20
 - [x] vim: port the `neosnippet` author to all files. Make it call netdcommenter for the comments insertion.
@@ -78,6 +66,22 @@ something, like focus mode, systanstic, signify, most of them are toggable.
 - [x] vim: had this super amazing realization. ';' its not used at all as a mapping. the idea is
 to make all the `ftplugin/*.vim` mappings use `localleader` instead of `leader` and map
 `localleader=;`. This would increase mappings efficiency by 1/3.
+
+## Mon Oct 16 2017 16:31 
+
+### Christmas 2017 projects.
+- [ ] 1.arch: backup entire `seafile` library
+- [ ] 2.arch: look into encryption for the making the following step `encrypted`
+- [ ] 3.arch: install arch in `copter-server`.
+- [ ] 4.arch: establish an `openvpn` in there.
+- [ ] 5.arch: reestablish `seafile` however make it accessible from the internet.
+- [ ] arch: figure out a password storage solution. `pass` its a possible candidate
+
+### Tue Oct 24 2017 10:50
+- [ ] seafile: I have also realize that I am misusing it. Files that are rarely used. Should not
+be part of the library. Like picture old files, tutorials, They should be left out. Things that
+change on a regular basis like ImpDocs, wikis, masters, those files are really the ones that
+should be part of the library
 
 ## Thu Oct 12 2017 14:39 
 - [ ] msys2: copy the default `.bashr...` to the dotfiles and modify them

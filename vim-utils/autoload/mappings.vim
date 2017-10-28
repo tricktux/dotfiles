@@ -37,12 +37,23 @@ function! mappings#Set() abort
 	" Toggle mappings: 
 	" - tj, te, ta, tt, tf, ts, to, tn
 	nmap <Leader>tj <Plug>FileBrowser
-	nmap <Leader>te <Plug>ToggleTerminal
+	" terminal-emulator mappings
+	if has('terminal') || has('nvim')
+		nmap <Leader>te <Plug>ToggleTerminal
+		execute "tnoremap " . g:esc . " <C-\\><C-n>"
+		tnoremap <A-h> <C-\><C-n><C-w>h
+		tnoremap <A-j> <C-\><C-n><C-w>j
+		tnoremap <A-k> <C-\><C-n><C-w>k
+		tnoremap <A-l> <C-\><C-n><C-w>l
+
+		tnoremap <C-p> <Up>
+	endif
 	nnoremap <Leader>tt :TagbarToggle<CR>
 	nnoremap <Leader>ts :setlocal spell! spelllang=en_us<CR>
 
-	nmap <LocalLeader>m <Plug>Make
-	nmap <LocalLeader>p <Plug>Preview
+	nnoremap <LocalLeader>m <Plug>Make
+	nnoremap <LocalLeader>p <Plug>Preview
+	nnoremap <LocalLeader>s :call utils#Grep()<cr>
 
 	" Global settings for all ftplugins
 	nnoremap <LocalLeader>f :Neoformat<CR>
@@ -222,11 +233,6 @@ function! mappings#Set() abort
 		nnoremap <A-j> :call utils#TmuxMove('j')<cr>
 		nnoremap <A-k> :call utils#TmuxMove('k')<cr>
 		nnoremap <A-l> :call utils#TmuxMove('l')<cr>
-	elseif !has('nvim') && has('terminal')
-		nnoremap <silent> <A-l> <C-\><C-n><C-w>l
-		nnoremap <silent> <A-h> <C-\><C-n><C-w>h
-		nnoremap <silent> <A-k> <C-\><C-n><C-w>k
-		nnoremap <silent> <A-j> <C-\><C-n><C-w>j
 	else
 		nnoremap <silent> <A-l> <C-w>l
 		nnoremap <silent> <A-h> <C-w>h
@@ -234,25 +240,11 @@ function! mappings#Set() abort
 		nnoremap <silent> <A-j> <C-w>j
 	endif
 
-	" Spell Check <Leader>s?
-	" search forward
-	" nnoremap <Leader>sj ]s
-	" search backwards
-	" nnoremap <Leader>sk [s
-	" suggestion
-	" nnoremap <Leader>sc z=
-	" toggle spelling
-	inoremap <C-S> <c-r>=utils#FixPreviousWord()
-	" add to dictionary
-	" nnoremap <Leader>sa zg
-	" mark wrong
-	" nnoremap <Leader>sw zw
-	" repeat last spell correction
+	inoremap <C-S> <c-r>=utils#FixPreviousWord()<cr>
 
 	" Search <Leader>S
 	" Tried ack.vim. Discovered that nothing is better than grep with ag.
 	" search all type of files
-	nnoremap gs :call utils#Grep()<cr>
 	" Search visual selection text
 	vnoremap // y/<C-R>"<CR>
 
@@ -270,18 +262,6 @@ function! mappings#Set() abort
 	nnoremap <S-j> :b#<CR>
 	" deletes all buffers
 	nnoremap <Leader>bl :%bd<CR>
-	" nnoremap <Leader>bS :bufdo
-	" " move tab to the left
-	" nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
-	" " move tab to the right
-	" nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
-	" nnoremap <Leader>be :enew<CR>
-
-	" Tabs <Leader>a?
-	" open new to tab to explorer
-	" nnoremap <S-Tab> gT
-	" nnoremap <S-e> :tab split<CR>
-	" nnoremap <S-x> :tabclose<CR>
 
 	" Version Control <Leader>v?
 	" For all this commands you should be in the svn root folder
@@ -304,10 +284,6 @@ function! mappings#Set() abort
 	" Overwritten from plugin.vim
 	" nnoremap <Leader>vo :!svn log .<CR>
 	" nnoremap <Leader>vi :!svn info<CR>
-
-	" Tags mappings
-	" nnoremap <silent> gt <C-]>
-	" nnoremap gr <C-t>
 
 	" Wiki mappings <Leader>w?
 	" TODO.RM-Thu Dec 15 2016 16:00: Add support for wiki under SW-Testbed
@@ -332,16 +308,7 @@ function! mappings#Set() abort
 	" Comment Indent Increase/Reduce
 	nnoremap <Leader>oi :call utils#CommentIndent()<CR>
 
-	" terminal-emulator mappings
-	if has('terminal') || has('nvim')
-		execute "tnoremap " . g:esc . " <C-\\><C-n>"
-		tnoremap <A-h> <C-\><C-n><C-w>h
-		tnoremap <A-j> <C-\><C-n><C-w>j
-		tnoremap <A-k> <C-\><C-n><C-w>k
-		tnoremap <A-l> <C-\><C-n><C-w>l
-
-		tnoremap <C-p> <Up>
-	endif
+	" Version Control <Leader>e?
+	nnoremap <Leader>ed :call utils#DeniteRec(g:std_config_path . '/dotfiles')<cr>
+	nnoremap <Leader>et :execute('edit ' . g:std_config_path . '/dotfiles/TODO.md')<cr>
 endfunction
-
-" vim:tw=78:ts=2:sts=2:sw=2:
