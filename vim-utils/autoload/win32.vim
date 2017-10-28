@@ -5,7 +5,6 @@
 " Last modified:Nov 29 2016 23:21
 
 function win32#Config()
-	nnoremap <Leader>mr :Start! %<CR>
 	" Copy and paste into system wide clipboard
 	nnoremap <Leader>p "*p=`]<C-o>
 	vnoremap <Leader>p "*p=`]<C-o>
@@ -13,16 +12,11 @@ function win32#Config()
 	nnoremap <Leader>y "*yy
 	vnoremap <Leader>y "*y
 
-	nnoremap  o<Esc>
+	nnoremap <CR> o<ESC>
 
-	" TODO.RM-Tue Apr 04 2017 08:48: For future support of clang on windows  
-	" Find clang. Not working in windows yet.
-	" if !empty(glob($ProgramFiles . '\LLVM\lib\libclang.lib'))
-	" let g:libclang_path = '$ProgramFiles . '\LLVM\lib\libclang.lib''
-	" endif
-	" if !empty(glob($ProgramFiles . '\LLVM\lib\clang'))
-	" let g:clangheader_path = '$ProgramFiles . '\LLVM\lib\clang''
-	" endif
+	" On MS-Windows, this is mapped to cut Visual text
+	" |dos-standard-mappings|.  	
+	silent! vunmap <C-X>
 
 	let languagetool_jar = findfile('languagetool-commandline.jar', $ChocolateyInstall . '\lib\languagetool\tools\**2')
 	if !empty('languagetool_jar')
@@ -37,9 +31,9 @@ function win32#Config()
 	" Set wiki_path
 	if system('hostname') =~? 'predator' " homepc
 		let g:wiki_path =  'D:\Seafile\KnowledgeIsPower\wiki'
-		nnoremap <Leader>eu :e D:/Reinaldo/Documents/UnrealProjects/
 		let pyt3 = $LOCALAPPDATA . "\\Programs\\Python\\Python36\\python.exe"
-	elseif exists('$USERNAME') && $USERNAME =~? '^h' " Assume work pc
+	" elseif exists('$USERNAME') && $USERNAME =~? '^h' " Assume work pc
+	else " Assume work related pc
 		let pyt3 = "C:\\Python36\\python.exe"
 		let g:wiki_path =  'D:/wiki'
 		let g:wings_path =  'D:/wings-dev/'
@@ -58,8 +52,5 @@ function win32#Config()
 
 	" Make sure that "C:\Program Files\Opera\launcher.exe" is in your path
 	let g:browser_cmd = 'launcher.exe'
-	" On MS-Windows, this is mapped to cut Visual text
-	" |dos-standard-mappings|.  	
-	silent! vunmap <C-X>
 
 endfunction

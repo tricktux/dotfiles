@@ -1871,3 +1871,55 @@ endfunction
 			" let g:syntastic_cpp_check_header = 1
 	endif
 
+	" nnoremap <Leader>bS :bufdo
+	" " move tab to the left
+	" nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
+	" " move tab to the right
+	" nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
+	" nnoremap <Leader>be :enew<CR>
+
+	" Tabs <Leader>a?
+	" open new to tab to explorer
+	" nnoremap <S-Tab> gT
+	" nnoremap <S-e> :tab split<CR>
+	" nnoremap <S-x> :tabclose<CR>
+	" Spell Check <Leader>s?
+	" search forward
+	" nnoremap <Leader>sj ]s
+	" search backwards
+	" nnoremap <Leader>sk [s
+	" suggestion
+	" nnoremap <Leader>sc z=
+	" toggle spelling
+	" add to dictionary
+	" nnoremap <Leader>sa zg
+	" mark wrong
+	" nnoremap <Leader>sw zw
+	" repeat last spell correction
+	" Tags mappings
+	" nnoremap <silent> gt <C-]>
+	" nnoremap gr <C-t>
+
+	nnoremap <Leader>mr :Start! %<CR>
+	" edit android
+	nnoremap <Leader>ea :silent e
+				\ ~/Documents/seafile-client/Seafile/KnowledgeIsPower/udacity/android-projects/
+	" edit odroid
+	nnoremap <Leader>eo :silent e ~/.mnt/truck-server/Documents/NewBot_v3/
+	" edit bot
+	nnoremap <Leader>eb :silent e ~/Documents/NewBot_v3/
+	" Edit HQ
+	nnoremap <Leader>eh :silent e ~/.mnt/HQ-server/
+	" Edit Copter
+	nnoremap <Leader>ec :silent e ~/.mnt/copter-server/
+	" Edit Truck
+	nnoremap <Leader>et :silent e ~/.mnt/truck-server/
+	" TODO.RM-Tue Apr 04 2017 08:48: For future support of clang on windows  
+	" Find clang. Not working in windows yet.
+	" if !empty(glob($ProgramFiles . '\LLVM\lib\libclang.lib'))
+	" let g:libclang_path = '$ProgramFiles . '\LLVM\lib\libclang.lib''
+	" endif
+	" if !empty(glob($ProgramFiles . '\LLVM\lib\clang'))
+	" let g:clangheader_path = '$ProgramFiles . '\LLVM\lib\clang''
+	" endif
+

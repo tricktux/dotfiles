@@ -12,20 +12,8 @@ function! unix#Config() abort
 	nnoremap <Leader>y "+yy
 	vnoremap <Leader>y "+y
 
-	" edit android
-	nnoremap <Leader>ea :silent e
-				\ ~/Documents/seafile-client/Seafile/KnowledgeIsPower/udacity/android-projects/
-	" edit odroid
-	nnoremap <Leader>eo :silent e ~/.mnt/truck-server/Documents/NewBot_v3/
-	" edit bot
-	nnoremap <Leader>eb :silent e ~/Documents/NewBot_v3/
-	" Edit HQ
-	nnoremap <Leader>eh :silent e ~/.mnt/HQ-server/
-	" Edit Copter
-	nnoremap <Leader>ec :silent e ~/.mnt/copter-server/
-	" Edit Truck
-	nnoremap <Leader>et :silent e ~/.mnt/truck-server/
-	nnoremap <CR> o<ESC>
+	nnoremap <Leader>ec :call utils#DeniteRec(g:std_config_path)<CR>
+	nnoremap  o<Esc>
 
 	" VIM_PATH includes
 	" With this you can use gf to go to the #include <avr/io.h>
@@ -75,13 +63,6 @@ function! unix#Config() abort
 		let g:languagetool_jar = '/usr/share/java/languagetool/languagetool-commandline.jar'
 	endif
 	let g:browser_cmd = '/usr/bin/opera'
-
-	" TODO-[RM]-(Mon Sep 18 2017 16:39): Take care of this super hard coded
-	" stuff here
-	" This mapping is special is to search the cpp-reference offline help with w3m
-	nnoremap <Leader>wc :W3m local /home/reinaldo/Downloads/reference/en/index.html<CR>
-	nnoremap <Leader>wu :W3m local /home/reinaldo/Downloads/reference/en/index.html<CR>
-	nnoremap <Leader>ec :call utils#DeniteRec(g:std_config_path)<CR>
 
 	" This mapping will load the journal from the most recent boot and highlight it for you
 	command! UtilsLinuxReadJournal execute("read !journalctl -b<CR><bar>:setf messages<CR>")
