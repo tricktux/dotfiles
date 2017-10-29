@@ -13,7 +13,22 @@ fileext: md
 
 ## Sat Oct 28 2017 13:48 
 - [ ] termite: empty black space at the bottom of the screen.
+- [ ] vim: fix `LanguageToolCheck`. set the path to the executable.
+- [ ] vim: neomake add `pandoc` maker. see `vim-pandoc`
+- [ ] pandoc: move template and sample makefile to dotfiles.
+- [ ] vim: modify `ftplugin/markdown.vim` to use `Neomake!` for make.
+- [ ] vim: substitute function `bufdetect` with `ftdetect/*.vim`. see `plantuml-syntax`
+- [ ] vim: mapping `<Leader>ou` update not only `Last Modified` but also `date`
+plugin for an example.
+- [ ] vim: disable `neomake` automake functionality on a per buffer basis.
 - [ ] cmus: keymappings are gone!
+- [ ] arch: try to see if it you can make calls from the headphones.
+	- keyword: bluetooth, microphone, headphones, calls, audio.
+	- It works.
+	- You just have to go to `pavucontrols`.
+	- Go to the **Configuration** Tab.
+	- Select E7 and set it to `Headset Head Unit`.
+	- Audio quality is terrible but mircrophone works.
 
 ## Fri Oct 27 2017 08:20
 - [x] vim: port the `neosnippet` author to all files. Make it call netdcommenter for the comments insertion.

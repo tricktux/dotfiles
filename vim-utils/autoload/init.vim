@@ -23,7 +23,7 @@ function! init#vim() abort
 	if plugin#Check() && plugin#Config()
 		let g:plugins_loaded = 1
 	else
-		echomsg "No plugins where loaded"
+		echomsg 'No plugins where loaded'
 	endif
 
 	" Create required folders for storing usage data

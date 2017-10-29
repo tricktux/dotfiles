@@ -51,8 +51,8 @@ function! mappings#Set() abort
 	nnoremap <Leader>tt :TagbarToggle<CR>
 	nnoremap <Leader>ts :setlocal spell! spelllang=en_us<CR>
 
-	nnoremap <LocalLeader>m <Plug>Make
-	nnoremap <LocalLeader>p <Plug>Preview
+	nmap <LocalLeader>m <Plug>Make
+	nmap <LocalLeader>p <Plug>Preview
 	nnoremap <LocalLeader>s :call utils#Grep()<cr>
 
 	" Global settings for all ftplugins
@@ -310,5 +310,6 @@ function! mappings#Set() abort
 
 	" Version Control <Leader>e?
 	nnoremap <Leader>ed :call utils#DeniteRec(g:std_config_path . '/dotfiles')<cr>
+	nnoremap <Leader>em :call utils#DeniteRec('~/Dropbox/masters/')<cr>
 	nnoremap <Leader>et :execute('edit ' . g:std_config_path . '/dotfiles/TODO.md')<cr>
 endfunction

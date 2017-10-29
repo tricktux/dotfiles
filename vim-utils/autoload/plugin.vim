@@ -153,6 +153,12 @@ function! plugin#Config() abort
 					\ 'texthl': 'ErrorMsg',
 					\ }
 
+		let g:neomake_plantuml_plantuml_maker = {
+					\ 'exe': 'plantuml',
+					\ 'errorformat': '%f:%l:%c: %m',
+					\ }
+		let g:neomake_plantuml_enabled_makers = ['plantuml']
+
 		augroup custom_neomake
 			autocmd!
 			if executable('vint')
@@ -675,7 +681,7 @@ function! plugin#AfterConfig() abort
 	endif
 
 	" On linux run neomake everytime you save a file
-	if has('unix') && exists(g:loaded_neomake)
+	if has('unix') && exists('g:loaded_neomake')
 			call neomake#configure#automake('w')
 	endif
 	return 1
