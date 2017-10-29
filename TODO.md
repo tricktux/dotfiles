@@ -11,6 +11,9 @@ fileext: md
 \tableofcontents
 \pagebreak
 
+## Sun Oct 29 2017 08:20 
+- [ ] vim: set `commentstring` for plantuml so that snippet `author` works properly.
+
 ## Sat Oct 28 2017 13:48 
 - [ ] termite: empty black space at the bottom of the screen.
 - [ ] vim: fix `LanguageToolCheck`. set the path to the executable.
