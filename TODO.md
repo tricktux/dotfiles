@@ -11,20 +11,20 @@ fileext: md
 \tableofcontents
 \pagebreak
 
-<<<<<<< HEAD
+## Mon Oct 30 2017 08:38
+- [ ] pomodoro: replace the notification `system` call with a `job_start` or `terminal` type of thing
+- [ ] arch-predator: get rid or fix `vmware`
+
 ## Sun Oct 29 2017 17:53 
 - [ ] fzf: replace current `.fzf` with an installed fzf.
 - [ ] vim: map `<Leader>tc` to a toggle `concellevel`.
-=======
-## Sun Oct 29 2017 08:20 
 - [ ] vim: set `commentstring` for plantuml so that snippet `author` works properly.
->>>>>>> 287416ac186159687e5899479034c7f807e0abef
 
 ## Sat Oct 28 2017 13:48 
 - [ ] termite: empty black space at the bottom of the screen.
 - [ ] vim: fix `LanguageToolCheck`. set the path to the executable.
 - [ ] vim: neomake add `pandoc` maker. see `vim-pandoc`
-- [ ] pandoc: move template and sample makefile to dotfiles.
+- [x] pandoc: move template and sample makefile to dotfiles.
 - [ ] vim: modify `ftplugin/markdown.vim` to use `Neomake!` for make.
 - [ ] vim: substitute function `bufdetect` with `ftdetect/*.vim`. see `plantuml-syntax`
 - [ ] vim: mapping `<Leader>ou` update not only `Last Modified` but also `date`
@@ -150,19 +150,23 @@ should be part of the library
 - [x] Figure out how to create beautiful latex docs. `choco install miktex -y`.
 	- Sun Oct 15 2017 17:33: pandoc 
 - [ ] Move dropbox pictures to google photos.
-- [ ] android tui move files into a git repo.
-- [ ] android tui create more shortcuts for calling and for rebooting devices.
+- [ ] android tui: move files into a git repo.
+- [ ] android tui: create more shortcuts for calling and for rebooting devices.
+	- Mon Oct 30 2017 09:41: Most efficient way to do it is to connect a keyboard to the tablet with termux and go from there. 
 - [x] markdown focus mode not really working.
 - [x] **Return surbook**.
 	- Decided to give it a try.
 - [ ] **update choco-neovim.**
 - [ ] look into a vim-gdb plugin.
-- [ ] make the clang-format.py work in visual mode. see c.vim
+	- Mon Oct 30 2017 09:39: not used that often. 
+- [-] make the clang-format.py work in visual mode. see c.vim
+	- Mon Oct 30 2017 09:39: not used that often. 
 
 ## Wed Sep 13 2017 10:57
-- [-] vim terminal. How to hide it.
+- [x] vim terminal. How to hide it.
 	- you can press <c-\><c-n> to enter normal mode. However right now is not working. You can get
 		out but not back in.
+	- Mon Oct 30 2017 09:38: Still work in progress but it works now. 
 - [x] vim terminal figure out how to scroll.
 	- go into normal mode and scroll normally.
 - [x] bash for windows. maybe even a different terminal instead of cmd.exe
@@ -184,24 +188,29 @@ should be part of the library
 		denite command it does work. 
 - [ ] Follow all cpp tips [here](http://vim.wikia.com/wiki/Category:C%2B%2B)
 - [ ] Search and fix all TODOs
-- [ ] Revisit the google plugin. To google stuff straight from anywhere.
-- [ ] fuzzy search variables. Probably denite can do this.
+- [x] Revisit the google plugin. To google stuff straight from anywhere.
+- [x] fuzzy search variables. Probably denite can do this.
 	- Sun Oct 15 2017 17:29: Doesn't look possible with `denite` 
-- [ ] Fix the `OnlineThesaurusCurrentWord` not working under windows. Find an alternative or
+	- Mon Oct 30 2017 09:34: deprecating this one.
+- [x] Fix the `OnlineThesaurusCurrentWord` not working under windows. Find an alternative or
 	something
-- [ ] the `w3m` plugin for windows. In order to see the master's highlights right in vim.
+	- Mon Oct 30 2017 09:35: Would have to look in the code. To see how the call is made. Not worth it right now 
+- [x] the `w3m` plugin for windows. In order to see the master's highlights right in vim.
 	- You'll have to compile yourself in windows. Maybe doable can try it with clang. See what happens.
+	- Mon Oct 30 2017 09:35: Too much work. 
 
 ## Tue Sep 05 2017 05:21 
 Improvements:
-- [ ] Create a after/syntax/gitcommit.vim to redline ahead and greenline
+- [x] Create a after/syntax/gitcommit.vim to redline ahead and greenline
   up-to-date
-- [ ] Delete duplicate music.
+	- Mon Oct 30 2017 09:34: deprecating this one.
+- [x] Delete duplicate music.
+	- Mon Oct 30 2017 09:34: deprecating this one.
 - [x] Construct unified music library
 - [x] Markdown math formulas
 
 ## Tue Jul 11 2017 13:27 
-- [ ] Put a terminal with a vim-instance in an i3-scratchpad, combine it with autosave-when-idle and you got the
+- [x] Put a terminal with a vim-instance in an i3-scratchpad, combine it with autosave-when-idle and you got the
   perfect note keeping workflow
 
 ## Mon Jul 10 2017 12:06 

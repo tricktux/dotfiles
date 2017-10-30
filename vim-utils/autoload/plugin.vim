@@ -221,7 +221,10 @@ function! plugin#Config() abort
 		let g:load_doxygen_syntax=1
 
 	" misc
-	Plug 'chrisbra/vim-diff-enhanced', { 'on' : 'UtilsDiffSet' }
+	if executable('git')
+		Plug 'chrisbra/vim-diff-enhanced'
+			let &diffexpr='EnhancedDiff#Diff("git diff", "--diff-algorithm=patience")'
+	endif
 
 	" FileBrowser
 	" Wed May 03 2017 11:31: Tried `vifm` doesnt work in windows. Doesnt
