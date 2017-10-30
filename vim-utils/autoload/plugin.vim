@@ -143,21 +143,29 @@ function! plugin#Config() abort
 		" Fri Oct 27 2017 14:39: neomake defaults are actually pretty amazing. If
 		" you need to change it. Do it on a per buffer basis. Look on c.vim for
 		" example 
-		let g:neomake_warning_sign = {
-					\ 'text': '?',
-					\ 'texthl': 'WarningMsg',
-					\ }
+		if has('win32')
+			let g:neomake_warning_sign = {
+						\ 'text': '?',
+						\ 'texthl': 'WarningMsg',
+						\ }
 
-		let g:neomake_error_sign = {
-					\ 'text': 'X',
-					\ 'texthl': 'ErrorMsg',
-					\ }
+			let g:neomake_error_sign = {
+						\ 'text': 'X',
+						\ 'texthl': 'ErrorMsg',
+						\ }
+		endif
 
 		let g:neomake_plantuml_plantuml_maker = {
 					\ 'exe': 'plantuml',
-					\ 'errorformat': '%f:%l:%c: %m',
 					\ }
 		let g:neomake_plantuml_enabled_makers = ['plantuml']
+
+		let g:neomake_markdown_make_maker = {
+					\ 'exe' : 'make',
+					\ 'args' : 'pdf',
+					\ 'append_file' : 0,
+					\ }
+		let g:neomake_markdown_enabled_makers = ['make']
 
 		augroup custom_neomake
 			autocmd!
