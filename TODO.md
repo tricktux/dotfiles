@@ -3,13 +3,17 @@ title:					TODO.md
 subtitle:			Neo(vim) related Todo list
 author:				Reinaldo Molina <rmolin88@gmail.com>
 revision:				0.0.0
-date: Sep 05 2017 05:23
+date: Sun Oct 29 2017 17:58 
 fileext: md
 ---
 
 \maketitle
 \tableofcontents
 \pagebreak
+
+## Sun Oct 29 2017 17:53 
+- [ ] fzf: replace current `.fzf` with an installed fzf.
+- [ ] vim: map `<Leader>tc` to a toggle `concellevel`.
 
 ## Sat Oct 28 2017 13:48 
 - [ ] termite: empty black space at the bottom of the screen.

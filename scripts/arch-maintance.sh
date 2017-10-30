@@ -20,8 +20,11 @@ else
 	exit 8
 fi
 
+echo "Optimizing system memory now in order to do all sudo commands at once"
+sudo bleachbit --clean system.memory
+
 echo "Removing unused orphan packages"
-sudo pacman -Rns $(pacman -Qtdq)
+sudo pacman -Rns $(pacman -Qtdq) --noconfirm
 
 echo "Updating system"
 pacaur -Syuu --devel --noconfirm
@@ -41,7 +44,6 @@ echo "BleachBit runnning"
 # Also disable system.memory clean swap but requires sudo
 
 bleachbit --clean --preset
-sudo bleachbit --clean system.memory
 
 # echo "Cleaning shitty files"
 # curl -kLo ~/.cache/rmshit.py "https://raw.githubusercontent.com/lahwaacz/Scripts/master/rmshit.py"
