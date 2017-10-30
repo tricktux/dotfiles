@@ -11,9 +11,14 @@ fileext: md
 \tableofcontents
 \pagebreak
 
+<<<<<<< HEAD
 ## Sun Oct 29 2017 17:53 
 - [ ] fzf: replace current `.fzf` with an installed fzf.
 - [ ] vim: map `<Leader>tc` to a toggle `concellevel`.
+=======
+## Sun Oct 29 2017 08:20 
+- [ ] vim: set `commentstring` for plantuml so that snippet `author` works properly.
+>>>>>>> 287416ac186159687e5899479034c7f807e0abef
 
 ## Sat Oct 28 2017 13:48 
 - [ ] termite: empty black space at the bottom of the screen.
