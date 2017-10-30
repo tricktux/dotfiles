@@ -501,19 +501,9 @@ endfun
 
 " Default Wings mappings are for laptop
 function! utils#SetWingsPath(sPath) abort
-	execute "nnoremap <Leader>e21 :call utils#DeniteRec(\"" . a:sPath . "OneWings/\")<CR>"
-	execute "nnoremap <Leader>e22 :call utils#DeniteRec(\"" . a:sPath . "OneWingsSupFiles/\")<CR>"
-	execute "nnoremap <Leader>ed :silent e ". a:sPath . "OneWings/default.ini<CR>"
-	execute "nnoremap <Leader>ewl :call utils#WingsSymLink('" . expand(a:sPath) . "OneWings')<CR>"
-
-	" Mappings
-	execute "nnoremap <Leader>cs :cd ". g:wings_path . "OneWingsSupFiles<CR>"
-	execute "nnoremap <Leader>co :cd ". g:wings_path . "OneWings<CR>"
-
-	" Mappings to execute programs
-	execute "nnoremap <Leader>ewd :Start! " . a:sPath . "OneWings/WINGS.exe 3 . default.ini<CR>"
-	execute "nnoremap <Leader>ewu :Start! " . a:sPath . "OneWings/WINGS.exe 3 . %<CR>"
-	execute "nnoremap <Leader>ewc :Start! " . a:sPath . "OneWings/WINGS.exe 3 . "
+	execute "nnoremap <Leader>ew1 :call utils#DeniteRec(\"" . a:sPath . "OneWings/\")<CR>"
+	execute "nnoremap <Leader>ew2 :call utils#DeniteRec(\"" . a:sPath . "OneWingsSupFiles/\")<CR>"
+	execute "nnoremap <Leader>ewd :silent e ". a:sPath . "OneWings/default.ini<CR>"
 
 	call utils#GuiFont('+')
 endfunction
