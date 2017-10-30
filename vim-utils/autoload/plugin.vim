@@ -169,7 +169,7 @@ function! plugin#Config() abort
 
 		augroup custom_neomake
 			autocmd!
-			if executable('vint')
+			if has('win32') && executable('vint')
 				" Note: to install vim checker do
 				" pip install vim-vint --user
 				autocmd BufWritePost *.vim Neomake
@@ -451,17 +451,16 @@ function! plugin#Config() abort
 					\							[ 'mode', 'paste' ], 
 					\							[ 'readonly', 'filename' ],
 					\							[  ]
-					\						] }
+					\						] },
+					\ 'component': {
+					\   'lineinfo': ' %3l:%-2v',
+					\ },
+					\ 'component_function': {
+					\   'readonly': 'utils#LightlineReadonly'
+					\ },
+					\ 'separator': { 'left': '', 'right': '' },
+					\ 'subseparator': { 'left': '', 'right': '' }
 					\ }
-					"\ 'component': {
-					"\   'lineinfo': ' %3l:%-2v',
-					"\ },
-					"\ 'component_function': {
-					"\   'readonly': 'utils#LightlineReadonly'
-					"\ },
-					"\ 'separator': { 'left': '', 'right': '' },
-					"\ 'subseparator': { 'left': '', 'right': '' }
-					"\ }
 		
 		" let g:lightline.tab = {
 					" \ 'active': [ 'tabnum', 'absolutepath', 'modified' ],
@@ -473,9 +472,11 @@ function! plugin#Config() abort
 					\ 'filename': 'utils#LightlineAbsPath'
 					\ }
 		" Addons
-		"let g:lightline.active.left[2] += [ 'ver_control' ]
-		"let g:lightline.component_function['ver_control'] = 'utils#LightlineVerControl'
 		let g:lightline.component_function = {}
+		let g:lightline.active.left[2] += [ 'ver_control' ]
+		let g:lightline.component_function['ver_control'] = 'utils#LightlineVerControl'
+
+		let g:lightline.component_function['readonly'] = 'utils#LightlineReadonly'
 
 		let g:lightline.active.left[2] += [ 'ctrlpmark' ]
 		let g:lightline.component_function['ctrlpmark'] = 'utils#LightlineCtrlPMark'

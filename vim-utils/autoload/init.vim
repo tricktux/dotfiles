@@ -10,6 +10,9 @@ function! init#vim() abort
 	" otherwise it goes to "\"
 	let g:mapleader="\<Space>"
 	let g:maplocalleader="g"
+	" Mon Oct 30 2017 15:24: Patched fonts depend on this option. It also needs
+	" to be here. Otherwise Alt mappings stop working
+	set encoding=utf-8
 
 	if has('win32')
 		" WINDOWS_SETTINGS

@@ -732,7 +732,7 @@ function! utils#LightlineUpdateColorscheme()
 endfunction
 
 function! utils#ProfilePerformance() abort
-	if exists('g:std_cache_path')	
+	if exists('g:std_cache_path')
 		execute 'profile start ' . g:std_cache_path . '/profile_' . strftime("%m%d%y-%H.%M.%S") . '.log'
 	else
 		" TODO.RM-Mon Apr 24 2017 12:17: Check why this function is not working
@@ -879,13 +879,15 @@ function! utils#LightlineVerControl() abort
 				return mark . 'git:' . git
 			endif
 		endif
-		if executable('svn') && exists('*utils#UpdateSvnBranchInfo')
-			let svn = utils#UpdateSvnBranchInfo()
-			if svn !=# ''
-				return mark . 'svn:' . svn
-			endif
-		endif
+		" TODO-[RM]-(Mon Oct 30 2017 16:37): This here really doesnt work
+		" if executable('svn') && exists('*utils#UpdateSvnBranchInfo')
+			" let svn = utils#UpdateSvnBranchInfo()
+			" if !empty(svn)
+				" return mark . 'svn:' . svn
+			" endif
+		" endif
 	catch
+		return ''
 	endtry
 	return ''
 endfunction
@@ -945,7 +947,7 @@ function! utils#UpdateSvnBranchInfo() abort
 	let srch_eng = has('win32') ? 'findstr' : 'grep'
 	let path = expand('%:h')
 	try
-		let info = systemlist("svn info " . path . " | " . srch_eng . " \"Relative URL\"")
+		let info = systemlist('svn info ' . path . ' | grep "Relative URL"')
 	catch
 		return ''
 	endtry
