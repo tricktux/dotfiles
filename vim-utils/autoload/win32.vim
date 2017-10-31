@@ -20,7 +20,7 @@ function win32#Config()
 
 	let languagetool_jar = findfile('languagetool-commandline.jar', $ChocolateyInstall . '\lib\languagetool\tools\**2')
 	if !empty('languagetool_jar')
-		let g:languagetool_jar = languagetool_jar
+		let g:languagetool_jar = 'c:' . languagetool_jar
 	endif
 
 	if filereadable('C:\Program Files\LLVM\share\clang\clang-format.py') 

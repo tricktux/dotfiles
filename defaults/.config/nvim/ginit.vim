@@ -23,7 +23,8 @@ if has('win32')
 		call GuiMousehide(1)
 	else
 		" No space is required here
-		set guifont=consolas:h8
+		" set guifont=consolas:h8
+		set guifont=DejaVu_Sans_Mono_for_Powerline:h8
 	endif
 else
 	if exists('g:GuiLoaded') " nvim-qt gui
@@ -50,4 +51,3 @@ set guioptions-=L  " no side scroll bar
 set guioptions+=c  " no pop ups
 set showtabline=1		" do not show tabline
 
-" vim:tw=78:ts=2:sts=2:sw=2:

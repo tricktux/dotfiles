@@ -501,19 +501,9 @@ endfun
 
 " Default Wings mappings are for laptop
 function! utils#SetWingsPath(sPath) abort
-	execute "nnoremap <Leader>e21 :call utils#DeniteRec(\"" . a:sPath . "OneWings/\")<CR>"
-	execute "nnoremap <Leader>e22 :call utils#DeniteRec(\"" . a:sPath . "OneWingsSupFiles/\")<CR>"
-	execute "nnoremap <Leader>ed :silent e ". a:sPath . "OneWings/default.ini<CR>"
-	execute "nnoremap <Leader>ewl :call utils#WingsSymLink('" . expand(a:sPath) . "OneWings')<CR>"
-
-	" Mappings
-	execute "nnoremap <Leader>cs :cd ". g:wings_path . "OneWingsSupFiles<CR>"
-	execute "nnoremap <Leader>co :cd ". g:wings_path . "OneWings<CR>"
-
-	" Mappings to execute programs
-	execute "nnoremap <Leader>ewd :Start! " . a:sPath . "OneWings/WINGS.exe 3 . default.ini<CR>"
-	execute "nnoremap <Leader>ewu :Start! " . a:sPath . "OneWings/WINGS.exe 3 . %<CR>"
-	execute "nnoremap <Leader>ewc :Start! " . a:sPath . "OneWings/WINGS.exe 3 . "
+	execute "nnoremap <Leader>ew1 :call utils#DeniteRec(\"" . a:sPath . "OneWings/\")<CR>"
+	execute "nnoremap <Leader>ew2 :call utils#DeniteRec(\"" . a:sPath . "OneWingsSupFiles/\")<CR>"
+	execute "nnoremap <Leader>ewd :silent e ". a:sPath . "OneWings/default.ini<CR>"
 
 	call utils#GuiFont('+')
 endfunction
@@ -742,7 +732,7 @@ function! utils#LightlineUpdateColorscheme()
 endfunction
 
 function! utils#ProfilePerformance() abort
-	if exists('g:std_cache_path')	
+	if exists('g:std_cache_path')
 		execute 'profile start ' . g:std_cache_path . '/profile_' . strftime("%m%d%y-%H.%M.%S") . '.log'
 	else
 		" TODO.RM-Mon Apr 24 2017 12:17: Check why this function is not working
@@ -889,13 +879,15 @@ function! utils#LightlineVerControl() abort
 				return mark . 'git:' . git
 			endif
 		endif
-		if executable('svn') && exists('*utils#UpdateSvnBranchInfo')
-			let svn = utils#UpdateSvnBranchInfo()
-			if svn !=# ''
-				return mark . 'svn:' . svn
-			endif
-		endif
+		" TODO-[RM]-(Mon Oct 30 2017 16:37): This here really doesnt work
+		" if executable('svn') && exists('*utils#UpdateSvnBranchInfo')
+			" let svn = utils#UpdateSvnBranchInfo()
+			" if !empty(svn)
+				" return mark . 'svn:' . svn
+			" endif
+		" endif
 	catch
+		return ''
 	endtry
 	return ''
 endfunction
@@ -955,7 +947,7 @@ function! utils#UpdateSvnBranchInfo() abort
 	let srch_eng = has('win32') ? 'findstr' : 'grep'
 	let path = expand('%:h')
 	try
-		let info = systemlist("svn info " . path . " | " . srch_eng . " \"Relative URL\"")
+		let info = systemlist('svn info ' . path . ' | grep "Relative URL"')
 	catch
 		return ''
 	endtry
