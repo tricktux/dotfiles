@@ -105,7 +105,7 @@ function! autocompletion#SetCompl(compl) abort
 	elseif a:compl ==# 'completor'
 		if v:version < 800 || !has('python3')
 			echomsg 'autocompletion#SetCompl(): Cannot set completor autcompl_engine. Setting SuperTab'
-			call autocompletion#SetTab
+			call autocompletion#SetTab()
 			return
 		endif
 		Plug 'maralla/completor.vim'
@@ -116,7 +116,7 @@ function! autocompletion#SetCompl(compl) abort
 	elseif a:compl ==# 'asyncomplete'
 		if v:version < 800
 			echomsg 'autocompletion#SetCompl(): Cannot set AsynComplete autcompl_engine. Setting SuperTab'
-			call autocompletion#SetTab
+			call autocompletion#SetTab()
 			return
 		endif
 
@@ -189,7 +189,10 @@ function! autocompletion#SetClang(type) abort
 	let g:clang_user_options = '-std=c++14 -stdlib=libc++ -Wall -pedantic'
 	let g:clang_close_preview = 1
 	let g:clang_make_default_keymappings = 0
-	autocmd CompleteDone * pclose!
+	augroup close_complete
+		autocmd!
+		autocmd CompleteDone * pclose!
+	augroup END
 	" let g:clang_complete_copen = 1
 	" let g:clang_periodic_quickfix = 1
 	" let g:clang_complete_auto = 0
@@ -208,8 +211,53 @@ endfunction
 
 function! autocompletion#SetShuogo() abort
 	" Vim exclusive plugins
-	
-	if !has('nvim') && has('lua') " Neocomplete
+	if has('nvim')
+		Plug 'Shougo/deoplete.nvim'
+		if !has('nvim')
+			Plug 'roxma/nvim-yarp'
+			Plug 'roxma/vim-hug-neovim-rpc'
+		endif
+		" If it is nvim deoplete requires python3 to work
+		let g:deoplete#enable_at_startup = 1
+		" Note: If you get autocomplete autotriggering issues keep increasing this option below. 
+		" Next value to try is 150. See:https://github.com/Shougo/deoplete.nvim/issues/440
+		let g:deoplete#auto_complete_delay=15 " Fixes issue where Autocompletion triggers
+		" New settings
+		let g:deoplete#enable_ignore_case = 1
+		let g:deoplete#enable_smart_case = 1
+		let g:deoplete#enable_camel_case = 1
+		" Note: Changed this here to increase speed
+		let g:deoplete#enable_refresh_always = 0
+		let g:deoplete#max_list = 10
+		" let g:deoplete#max_abbr_width = 0
+		" let g:deoplete#max_menu_width = 0
+		let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
+		let g:deoplete#omni#input_patterns.java = [
+					\'[^. \t0-9]\.\w*',
+					\'[^. \t0-9]\->\w*',
+					\'[^. \t0-9]\::\w*',
+					\]
+		let g:deoplete#omni#input_patterns.jsp = ['[^. \t0-9]\.\w*']
+		let g:deoplete#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+		let g:deoplete#ignore_sources = {}
+		let g:deoplete#ignore_sources.java = ['omni']
+		let g:deoplete#ignore_sources.c = ['omni']
+		let g:deoplete#ignore_sources._ = ['around']
+		"call deoplete#custom#set('omni', 'min_pattern_length', 0)
+		inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
+		inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
+		" Regular settings
+		inoremap <silent><expr> <TAB>
+					\ pumvisible() ? "\<C-n>" :
+					\ <SID>check_back_space() ? "\<TAB>" :
+					\ deoplete#mappings#manual_complete()
+		function! s:check_back_space() abort
+			let col = col('.') - 1
+			return !col || getline('.')[col - 1]  =~ '\s'
+		endfunction
+		" and jedi for autocompletion, `pip install jedi --user`
+		Plug 'zchee/deoplete-jedi'
+	elseif !has('nvim') && has('lua') " Neocomplete
 		Plug 'Shougo/neocomplete'
 		" All new stuff
 		let g:neocomplete#enable_at_startup = 1
@@ -271,61 +319,19 @@ function! autocompletion#SetShuogo() abort
 		endif
 		let g:neocomplete#delimiter_patterns.vim = ['#']
 		let g:neocomplete#delimiter_patterns.cpp = ['::']
-	elseif has('nvim')
-		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-			" If it is nvim deoplete requires python3 to work
-			let g:deoplete#enable_at_startup = 1
-			" Autoclose preview window
-			autocmd CompleteDone * pclose!
-			" Note: If you get autocomplete autotriggering issues keep increasing this option below. 
-			" Next value to try is 150. See:https://github.com/Shougo/deoplete.nvim/issues/440
-			let g:deoplete#auto_complete_delay=15 " Fixes issue where Autocompletion triggers
-			" New settings
-			let g:deoplete#enable_ignore_case = 1
-			let g:deoplete#enable_smart_case = 1
-			let g:deoplete#enable_camel_case = 1
-			" Note: Changed this here to increase speed
-			let g:deoplete#enable_refresh_always = 0
-			let g:deoplete#max_list = 10
-			" let g:deoplete#max_abbr_width = 0
-			" let g:deoplete#max_menu_width = 0
-			let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
-			let g:deoplete#omni#input_patterns.java = [
-						\'[^. \t0-9]\.\w*',
-						\'[^. \t0-9]\->\w*',
-						\'[^. \t0-9]\::\w*',
-						\]
-			let g:deoplete#omni#input_patterns.jsp = ['[^. \t0-9]\.\w*']
-			let g:deoplete#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-			let g:deoplete#ignore_sources = {}
-			let g:deoplete#ignore_sources.java = ['omni']
-			let g:deoplete#ignore_sources.c = ['omni']
-			let g:deoplete#ignore_sources._ = ['around']
-			"call deoplete#custom#set('omni', 'min_pattern_length', 0)
-			inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
-			inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
-			" Regular settings
-			inoremap <silent><expr> <TAB>
-						\ pumvisible() ? "\<C-n>" :
-						\ <SID>check_back_space() ? "\<TAB>" :
-						\ deoplete#mappings#manual_complete()
-			function! s:check_back_space() abort
-				let col = col('.') - 1
-				return !col || getline('.')[col - 1]  =~ '\s'
-			endfunction
-			" ----------------------------------------------
-		"  deoplete-clang
-		if exists('g:libclang_path') && exists('g:clangheader_path')
-			Plug 'zchee/deoplete-clang'
-			let g:deoplete#sources#clang#libclang_path = g:libclang_path
-			let g:deoplete#sources#clang#clang_header = g:clangheader_path
-		endif
-
-		" and jedi for autocompletion, `pip install jedi --user`
-		Plug 'zchee/deoplete-jedi'
 	endif
 	Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
+	Plug 'Shougo/neco-syntax' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
+	" Plug 'Shougo/neoinclude' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
 	Plug 'Shougo/echodoc' " Pop for functions info
+
+	" Tue Oct 31 2017 08:54: Going to attempt to use the other clang 
+	"  deoplete-clang
+	" if exists('g:libclang_path') && exists('g:clangheader_path')
+		" Plug 'zchee/deoplete-clang'
+		" let g:deoplete#sources#clang#libclang_path = g:libclang_path
+		" let g:deoplete#sources#clang#clang_header = g:clangheader_path
+	" endif
 endfunction
 
 function! autocompletion#SetTab() abort
@@ -338,14 +344,14 @@ endfunction
 
 function! autocompletion#SetOmniCpp() abort
 	Plug 'vim-scripts/OmniCppComplete'
-	let OmniCpp_NamespaceSearch = 1
-	let OmniCpp_GlobalScopeSearch = 1
-	let OmniCpp_ShowAccess = 1
-	let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
-	let OmniCpp_MayCompleteDot = 1 " autocomplete after .
-	let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
-	let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
-	let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+	let g:OmniCpp_NamespaceSearch = 1
+	let g:OmniCpp_GlobalScopeSearch = 1
+	let g:OmniCpp_ShowAccess = 1
+	let g:OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
+	let g:OmniCpp_MayCompleteDot = 1 " autocomplete after .
+	let g:OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
+	let g:OmniCpp_MayCompleteScope = 1 " autocomplete after ::
+	let g:OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 endfunction
 
 function! autocompletion#SetAsynCompl() abort
