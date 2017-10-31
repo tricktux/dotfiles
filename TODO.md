@@ -11,6 +11,9 @@ fileext: md
 \tableofcontents
 \pagebreak
 
+## Tue Oct 31 2017 08:42
+- [ ] mutt: look into the `lbdb` address book software.
+
 ## Mon Oct 30 2017 08:38
 - [ ] pomodoro: replace the notification `system` call with a `job_start` or `terminal` type of thing
 - [ ] arch-predator: get rid or fix `vmware`
