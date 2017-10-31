@@ -641,6 +641,8 @@ function! plugin#Config() abort
 
 	" Tue Oct 31 2017 11:30: Needs to be loaded last 
 	Plug 'ryanoasis/vim-devicons'
+		let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+		let g:DevIconsEnableFoldersOpenClose = 1
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
