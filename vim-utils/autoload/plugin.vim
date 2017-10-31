@@ -478,7 +478,7 @@ function! plugin#Config() abort
 		let g:lightline.separator = {}
 		let g:lightline.subseparator = {}
 
-		" Ovals. As opposed to the triangles
+		" Ovals. As opposed to the triangles. They do not look quite good
 		" let g:lightline.separator['left'] = "\ue0b4"
 		" let g:lightline.separator['right'] = "\ue0b6"
 		" let g:lightline.subseparator['left'] = "\ue0b5"
