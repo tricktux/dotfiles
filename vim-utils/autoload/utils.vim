@@ -595,25 +595,23 @@ endfunction
 "TODO.RM-Mon Mar 06 2017 09:05: Try to get pandoc to print something useful  
 function! utils#ConvertWeeklyReport() abort
 	if !executable('pandoc')
-		echohl ErrorMsg
-		echomsg "Missing pandoc executable from path"
-		echohl None
+		echoerr 'Missing pandoc executable from path'
 		return -1
 	endif
 
 	" Cd into current buffer file dir
 	let dir_buff = getcwd()
-	execute "cd " . expand('%:h')
+	execute 'lcd ' . expand('%:h')
 
-	let out_name = "WeeklyReport_ReinaldoMolina_" . strftime("%b-%d-%Y") . ".docx"
+	let out_name = 'WeeklyReport_ReinaldoMolina_' . strftime('%b-%d-%Y') . '.docx'
 	if filereadable(out_name)
 		call delete(out_name)
 	endif
 
 	" Execute command
-	cexpr systemlist("pandoc WeeklyReport.md -s -o " . out_name)
+	cexpr systemlist('pandoc WeeklyReport.md -s -o ' . out_name . ' --from markdown')
 
-	execute "cd " dir_buff
+	execute 'ld ' dir_buff
 endfunction
 
 function! utils#AutoHighlightToggle()
