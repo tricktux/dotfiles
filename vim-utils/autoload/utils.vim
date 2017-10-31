@@ -514,7 +514,7 @@ endfunction
 
 function! utils#NeomakeJobStartd() abort
 	if exists('g:neomake_hook_context.jobinfo.maker.name')
-		let g:neomake_lightline = printf("%s started", g:neomake_hook_context.jobinfo.maker.name)
+		let g:neomake_lightline = "\uf188" . printf(" %s ", g:neomake_hook_context.jobinfo.maker.name) . "\uf0e4"
 	else
 		unlet! g:neomake_lightline
 	endif
@@ -522,7 +522,7 @@ endfunction
 
 function! utils#NeomakeJobFinished() abort
 	if exists('g:neomake_hook_context.jobinfo.exit_code')
-		let g:neomake_lightline = printf("%s finished: %s", g:neomake_hook_context.jobinfo.maker.name,
+		let g:neomake_lightline = "\uf188" . printf(" %s: %s", g:neomake_hook_context.jobinfo.maker.name,
 					\ g:neomake_hook_context.jobinfo.exit_code)
 		echomsg g:neomake_lightline
 		call timer_start(60 * 1000, 'utils#NeomakeClearStatusLine')
@@ -865,7 +865,8 @@ function! utils#LightlineReadonly()
 endfunction
 
 function! utils#LightlineVerControl() abort
-	let mark = ''  " edit here for cool mark
+	" let mark = ''  " edit here for cool mark
+	let mark = "\uf406"  " edit here for cool mark
 	if expand('%:t') =~? 'Tagbar\|Gundo\|NERD\|ControlP' || &ft =~? 'vimfiler\|gitcommit'
 		return ''
 	endif
@@ -874,14 +875,14 @@ function! utils#LightlineVerControl() abort
 		if exists('*fugitive#head')
 			let git = fugitive#head()
 			if git !=# ''
-				return mark . 'git:' . git
+				return mark . ' ' . git
 			endif
 		endif
 		" TODO-[RM]-(Mon Oct 30 2017 16:37): This here really doesnt work
 		" if executable('svn') && exists('*utils#UpdateSvnBranchInfo')
 			" let svn = utils#UpdateSvnBranchInfo()
 			" if !empty(svn)
-				" return mark . 'svn:' . svn
+				" return '' . ' ' . svn
 			" endif
 		" endif
 	catch
@@ -914,11 +915,11 @@ endfunction
 
 function! utils#LightlineTagbar() abort
 	try
-		let ret = tagbar#currenttag('%s','')
+		let ret =  tagbar#currenttag('%s','')
 	catch
 		return ''
 	endtry
-	return ret
+	return empty(ret) ? '' : "\uf02b" . ' ' . ret
 endfunction
 
 function! utils#LightlinePomo() abort
@@ -1006,3 +1007,18 @@ function! utils#CommentReduceIndent() abort
 	execute "normal! ^f/hxhx"
 endfunction
 
+function! utils#LightlineDeviconsFileType()
+	if !exists('*WebDevIconsGetFileTypeSymbol')
+		return &filetype
+	endif
+
+	return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+endfunction
+
+function! utils#LightlineDeviconsFileFormat()
+	if !exists('*WebDevIconsGetFileTypeSymbol')
+		return &fileformat
+	endif
+
+	return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+endfunction
