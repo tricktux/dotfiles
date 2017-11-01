@@ -36,8 +36,14 @@ let b:delimitMate_matchpairs = '(:),[:],{:}'
 if !exists('no_plugin_maps') && !exists('no_c_maps')
 	" Quote text by inserting "> "
 	if exists(':Neomake')
-		nnoremap <buffer> <Plug>Make :Neomake<cr>
-		nnoremap <buffer> <LocalLeader>c :Neomake cppmake clangtidy clangcheck<cr>
+		let b:neomake_file_mode = 0
+		" These are the 2 ways of calling neomake.
+		nnoremap <silent> <buffer> <Plug>Make :call neomake#Make(b:neomake_file_mode)<cr>
+		" This one below specifically is like calling :Neomake or :NeomakeFile. The one above is
+		" like calling :NeomakeProject or :Neomake!. The later uses makeprg.
+		" The first one uses {g,b}:neomake_<ft>_enabled_<maker> which uses the defaults if
+		" none have being set. 
+		nnoremap <silent> <buffer> <LocalLeader>c :call neomake#Make({ 'file_mode' : 1 })<cr>
 	else
 		nnoremap <buffer> <Plug>Make :make!<cr>
 	endif
@@ -90,21 +96,19 @@ if has('win32')
 	" Set compiler now depending on folder and system. Auto set the compiler
 	if !exists('b:current_compiler')
 		" Note: inside the '' is a pat which is a regex. That is why \\
-		if expand('%:p') =~# 'Onewings\\Source'
+		if expand('%:p') =~? 'Onewings\\Source'
 			command! -buffer UtilsUpdateBorlandMakefile call <SID>UpdateBorlandMakefile()
 			compiler borland
-			let b:neomake_cpp_enabled_makers = ['makeprg']
-			let b:neomake_c_enabled_makers = ['makeprg']
 		elseif expand('%:p') =~# 'OneWings' || expand('%:p') =~# 'UnrealProjects'
 			compiler msbuild
 			silent set errorformat&
-			let b:neomake_cpp_enabled_makers = ['makeprg']
-			let b:neomake_c_enabled_makers = ['makeprg']
 		else
+			let b:neomake_file_mode = 1
 			let b:neomake_clang_args = '-target x86_64-pc-windows-gnu -std=c++1z -stdlib=libc++ -Wall -pedantic'
 		endif
 	endif
 else " Unix
+	let b:neomake_file_mode = 1
 	setlocal foldmethod=syntax 
 endif
 
