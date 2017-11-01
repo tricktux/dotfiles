@@ -1,5 +1,8 @@
 android-sdk
 android-studio
+autoconf
+automake
+baobab
 bfs
 bison
 bleachbit
@@ -9,6 +12,7 @@ bluez-utils
 capitaine-cursors
 ccminer
 cgminer
+clang
 cmus
 compton
 cscope
@@ -18,11 +22,11 @@ etherwall
 ethminer-bin
 fakeroot
 flex
+fzf
 gksu
 google-chrome
 grub
 gtkmm
-gvim
 htop
 i3blocks
 insync
@@ -34,10 +38,12 @@ libcurl-gnutls
 libmikmod
 libreoffice-fresh
 licenses
+linux-headers
 liquidprompt
 logrotate
 lxappearance
 lxtask
+make
 man-db
 man-pages
 mlocate
@@ -46,6 +52,7 @@ mutt
 nano
 neofetch
 neovim-qt-git
+nerd-fonts-complete
 netctl
 network-manager-applet
 nvidia
@@ -54,8 +61,10 @@ otf-inconsolata-powerline-git
 pacaur
 paper-icon-theme-git
 pass
+patch
 pavucontrol
 pcmciautils
+pkg-config
 plantuml
 polybar-git
 preload
@@ -78,7 +87,6 @@ texlive-music
 texlive-pstricks
 texlive-publishers
 texlive-science
-tmux
 ttf-dejavu-sans-code
 ttf-font-awesome
 ttf-inconsolata

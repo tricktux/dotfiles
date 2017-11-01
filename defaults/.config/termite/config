@@ -22,7 +22,13 @@ dynamic_title = true
 # font = Droid Sans Mono 8
 # font=FontAwesome 11
 # font=NotoSans 8
-font=Inconsolata 10
+# Install with otf-inconsolata-powerline-git
+# - remember to restart terminal
+# font=Inconsolata 10
+# Install with nerd-fonts-complete
+# - remember to restart terminal
+font=Inconsolata Nerd Font 10
+# font=DejaVu Sans Mono Nerd Font 10
 # This is the default value
 # browser = $BROWSER
 urgent_on_bell = true

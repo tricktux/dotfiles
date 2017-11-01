@@ -143,17 +143,16 @@ function! plugin#Config() abort
 		" Fri Oct 27 2017 14:39: neomake defaults are actually pretty amazing. If
 		" you need to change it. Do it on a per buffer basis. Look on c.vim for
 		" example 
-		if has('win32')
-			let g:neomake_warning_sign = {
-						\ 'text': '?',
-						\ 'texthl': 'WarningMsg',
-						\ }
-
-			let g:neomake_error_sign = {
-						\ 'text': 'X',
-						\ 'texthl': 'ErrorMsg',
-						\ }
-		endif
+     let g:neomake_error_sign = {'text': "\uf057", 'texthl': 'ErrorMsg'}
+     let g:neomake_warning_sign = {
+         \   'text': "\uf071",
+         \   'texthl': 'WarningMsg',
+         \ }
+     let g:neomake_message_sign = {
+          \   'text': '➤',
+          \   'texthl': 'NeomakeMessageSign',
+          \ }
+     let g:neomake_info_sign = {'text': "\uf449", 'texthl': 'NeomakeInfoSign'}
 
 		let g:neomake_plantuml_plantuml_maker = {
 					\ 'exe': 'plantuml',
@@ -232,12 +231,16 @@ function! plugin#Config() abort
 	" Main reason it looks appealing is that it has support for Windows. But its
 	" not very good
 	if executable('ranger')
-		Plug 'francoiscabrol/ranger.vim'
-		let g:ranger_map_keys = 0
 		nnoremap <Plug>FileBrowser :RangerCurrentDirectory<CR>
 	else
-		Plug 'scrooloose/nerdtree'
 		nnoremap <Plug>FileBrowser :NERDTree<CR>
+	endif
+
+	Plug 'francoiscabrol/ranger.vim', { 'on' : 'RangerCurrentDirectory' }
+		let g:ranger_map_keys = 0
+
+	Plug 'scrooloose/nerdtree', { 'on' : 'NERDTree' }
+		Plug 'Xuyuanp/nerdtree-git-plugin', { 'on' : 'NERDTree' }
 		" Nerdtree (Dont move. They need to be here)
 		let g:NERDTreeShowBookmarks=1  " B key to toggle
 		let g:NERDTreeShowLineNumbers=1
@@ -245,7 +248,6 @@ function! plugin#Config() abort
 		let g:NERDTreeQuitOnOpen=1 " AutoClose after openning file
 		let g:NERDTreeBookmarksFile= g:std_data_path . '/.NERDTreeBookmarks'
 
-	endif
 
 	Plug 'scrooloose/nerdcommenter'
 		" NerdCommenter
@@ -452,15 +454,13 @@ function! plugin#Config() abort
 					\							[ 'readonly', 'filename' ],
 					\							[  ]
 					\						] },
-					\ 'component': {
-					\   'lineinfo': ' %3l:%-2v',
-					\ },
-					\ 'component_function': {
-					\   'readonly': 'utils#LightlineReadonly'
-					\ },
-					\ 'separator': { 'left': '', 'right': '' },
-					\ 'subseparator': { 'left': '', 'right': '' }
 					\ }
+					" \ 'component': {
+					" \   'lineinfo': ' %3l:%-2v',
+					" \ },
+					" \ 'separator': { 'left': '', 'right': '' },
+					" \ 'subseparator': { 'left': '', 'right': '' }
+					" \ }
 		
 		" let g:lightline.tab = {
 					" \ 'active': [ 'tabnum', 'absolutepath', 'modified' ],
@@ -472,15 +472,35 @@ function! plugin#Config() abort
 					\ 'filename': 'utils#LightlineAbsPath'
 					\ }
 		" Addons
+		let g:lightline.component = {}
+		let g:lightline.component['lineinfo'] = ' %3l:%-2v'
+
+		let g:lightline.separator = {}
+		let g:lightline.subseparator = {}
+
+		" Ovals. As opposed to the triangles. They do not look quite good
+		" let g:lightline.separator['left'] = "\ue0b4"
+		" let g:lightline.separator['right'] = "\ue0b6"
+		" let g:lightline.subseparator['left'] = "\ue0b5"
+		" let g:lightline.subseparator['right'] = "\ue0b7"
+
+		let g:lightline.separator['left'] = ''
+		let g:lightline.separator['right'] = ''
+		let g:lightline.subseparator['left'] = ''
+		let g:lightline.subseparator['right'] = ''
+
 		let g:lightline.component_function = {}
+		let g:lightline.component_function['filetype'] = 'utils#LightlineDeviconsFileType'
+		let g:lightline.component_function['fileformat'] = 'utils#LightlineDeviconsFileFormat'
+		let g:lightline.component_function['readonly'] = 'utils#LightlineReadonly'
+
 		let g:lightline.active.left[2] += [ 'ver_control' ]
 		let g:lightline.component_function['ver_control'] = 'utils#LightlineVerControl'
-
-		let g:lightline.component_function['readonly'] = 'utils#LightlineReadonly'
 
 		let g:lightline.active.left[2] += [ 'ctrlpmark' ]
 		let g:lightline.component_function['ctrlpmark'] = 'utils#LightlineCtrlPMark'
 
+		" These settings do not use patched fonts
 		let g:lightline.active.left[2] += [ 'tagbar' ]
 		let g:lightline.component_function['tagbar'] = 'utils#LightlineTagbar'
 
@@ -489,6 +509,7 @@ function! plugin#Config() abort
 
 		let g:lightline.active.left[2] += [ 'neomake' ]
 		let g:lightline.component_function['neomake'] = 'utils#CheckNeomakeStatus'
+
 	Plug 'PotatoesMaster/i3-vim-syntax'
 
 	if has('win32')
@@ -573,6 +594,7 @@ function! plugin#Config() abort
 		" let g:pomodoro_show_time_remaining = 0 
 		" let g:pomodoro_time_slack = 1 
 		" let g:pomodoro_time_work = 1 
+		let g:pomodoro_use_devicons = 1
 		if executable('twmnc')
 			let g:pomodoro_notification_cmd = 'twmnc -t Vim -c "Pomodoro done"'
 		endif
@@ -616,6 +638,11 @@ function! plugin#Config() abort
 	Plug 'itchyny/calendar.vim', { 'on' : 'Calendar' }
 		let g:calendar_google_calendar = 1
 		let g:calendar_cache_directory = g:std_cache_path . '/calendar.vim/'
+
+	" Tue Oct 31 2017 11:30: Needs to be loaded last 
+	Plug 'ryanoasis/vim-devicons'
+		let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+		let g:DevIconsEnableFoldersOpenClose = 1
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required

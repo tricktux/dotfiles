@@ -7,6 +7,14 @@ date: Sun Oct 29 2017 17:58
 fileext: md
 ---
 
+\maketitle
+\tableofcontents
+\pagebreak
+
+## Tue Oct 31 2017 08:42
+- [ ] mutt: look into the `lbdb` address book software.
+- [ ] vim: map `[S` to `autofix` previous error. Same thing with `]S`
+
 ## Mon Oct 30 2017 08:38
 - [ ] pomodoro: replace the notification `system` call with a `job_start` or `terminal` type of thing
 - [ ] arch-predator: get rid or fix `vmware`
