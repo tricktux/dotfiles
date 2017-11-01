@@ -19,3 +19,6 @@ defaults/.config/polybar/gmail/credentials.json
 *.gpg
 defaults/.config/qpdfview/pdf-plugin.conf
 defaults/.config/qpdfview/qpdfview.conf
+defaults/.config/ranger/__pycache__/
+defaults/.config/ranger/devicons.py
+defaults/.config/ranger/plugins/
