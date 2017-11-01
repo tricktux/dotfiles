@@ -7,10 +7,6 @@ date: Sun Oct 29 2017 17:58
 fileext: md
 ---
 
-\maketitle
-\tableofcontents
-\pagebreak
-
 ## Mon Oct 30 2017 08:38
 - [ ] pomodoro: replace the notification `system` call with a `job_start` or `terminal` type of thing
 - [ ] arch-predator: get rid or fix `vmware`
