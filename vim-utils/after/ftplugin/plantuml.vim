@@ -16,7 +16,7 @@ let b:did_uml_ftplugin = 1
 
 if !exists('no_plugin_maps') && !exists('no_uml_maps')
 	" Make and reload image preview
-	nnoremap <buffer> <Plug>Make :Neomake<CR>
+	nnoremap <silent> <buffer> <Plug>Make :call neomake#Make({ 'file_mode' : 0 })<cr>
 				\:silent! !killall -s SIGHUP mupdf<CR>
 	nnoremap <buffer> <Plug>Preview :!mupdf %:r.png&<CR>
 endif
