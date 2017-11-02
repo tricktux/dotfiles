@@ -157,12 +157,13 @@ function! plugin#Config() abort
 		let g:neomake_plantuml_plantuml_maker = {
 					\ 'exe': 'plantuml',
 					\ }
-		let g:neomake_plantuml_enabled_makers = ['plantuml']
-
 		let g:neomake_make_maker = {
 					\ 'exe' : 'make',
 					\ }
+
 		let g:neomake_markdown_enabled_makers = ['make']
+		let g:neomake_plantuml_enabled_makers = ['plantuml']
+
 
 
 		augroup custom_neomake

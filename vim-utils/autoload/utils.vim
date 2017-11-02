@@ -598,12 +598,18 @@ function! utils#ConvertWeeklyReport() abort
 		echoerr 'Missing pandoc executable from path'
 		return -1
 	endif
+	let loc_out = 'D:\2.Office\HPD\' . strftime('%Y')
+	" Create folder in case it doesnt exist
+	if empty(glob(loc_out))
+		if !exists('*mkdir')
+			echoerr 'utils#ConvertWeeklyReport(): Base folder doesnt exist and cannot create it'
+		else
+			call mkdir(loc_out, "p")
+		endif
+	endif
 
-	" Cd into current buffer file dir
-	let dir_buff = getcwd()
-	execute 'lcd ' . expand('%:h')
-
-	let out_name = 'WeeklyReport_ReinaldoMolina_' . strftime('%b-%d-%Y') . '.docx'
+	" Thu Nov 02 2017 17:07: keep working here 
+	let out_name = loc_out . '\WeeklyReport_ReinaldoMolina_' . strftime('%b-%d-%Y') . '.docx'
 	if filereadable(out_name)
 		call delete(out_name)
 	endif

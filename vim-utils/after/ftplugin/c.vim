@@ -100,7 +100,7 @@ if has('win32')
 			compiler msbuild
 			silent set errorformat&
 			let b:neomake_cpp_enabled_makers = ['make']
-			let b:neomake_cpp_make_append_file = 0
+			leet b:neomake_cpp_make_append_file = 0
 		else
 			let b:neomake_clang_args = '-target x86_64-pc-windows-gnu -std=c++1z -stdlib=libc++ -Wall -pedantic'
 		endif
