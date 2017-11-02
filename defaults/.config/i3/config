@@ -253,6 +253,9 @@ bindsym $mod+m exec ps cax | grep mutt > /dev/null || termite -e 'mutt -F ~/.con
 # Sun Oct 01 2017 08:20: Mapped to n because r, and a are taken 
 bindsym $mod+n exec ps cax | grep ranger > /dev/null || termite -e ranger --title ranger, [title="ranger"] scratchpad show
 
+# Comes from arch-wiki for i3. Many other goodies there
+bindsym $mod+x [urgent=latest] focus
+
 # }}}
 
 ############ Workspaces ###################{{{
