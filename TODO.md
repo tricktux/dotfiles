@@ -11,6 +11,10 @@ fileext: md
 \tableofcontents
 \pagebreak
 
+## Thu Nov 02 2017 06:25 
+- [ ] vim: create a `install/download` software plugin. the idea is to download files or
+gits and optionally run commands afterwards.
+
 ## Tue Oct 31 2017 08:42
 - [ ] mutt: look into the `lbdb` address book software.
 - [ ] vim: map `[S` to `autofix` previous error. Same thing with `]S`
