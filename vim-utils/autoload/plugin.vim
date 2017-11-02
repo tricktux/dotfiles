@@ -154,9 +154,18 @@ function! plugin#Config() abort
           \ }
      let g:neomake_info_sign = {'text': "\uf449", 'texthl': 'NeomakeInfoSign'}
 
-		 " TODO-[RM]-(Wed Nov 01 2017 15:29): Test getting rid of this value below and sub
-		 " with the neomake function to see how it goes.
-		 let g:neomake_markdown_enabled_makers = ['make']
+		let g:neomake_plantuml_plantuml_maker = {
+					\ 'exe': 'plantuml',
+					\ }
+		let g:neomake_plantuml_enabled_makers = ['plantuml']
+
+		let g:neomake_markdown_make_maker = {
+					\ 'exe' : 'make',
+					\ 'args' : 'pdf',
+					\ 'append_file' : 0,
+					\ }
+		let g:neomake_markdown_enabled_makers = ['make']
+
 
 		augroup custom_neomake
 			autocmd!
