@@ -59,6 +59,11 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 		nnoremap <buffer> <Plug>Preview :!zathura %:r.pdf&<CR>
 	endif
 
+	if exists(':Neomake')
+		let b:neomake_cpp_enabled_makers = ['make']
+		let b:neomake_cpp_make_append_file = 0
+		let b:neomake_cpp_make_args = ['pdf']
+	endif
 endif
 
 if exists('*AutoCorrect')

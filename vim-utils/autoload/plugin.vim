@@ -159,10 +159,8 @@ function! plugin#Config() abort
 					\ }
 		let g:neomake_plantuml_enabled_makers = ['plantuml']
 
-		let g:neomake_markdown_make_maker = {
+		let g:neomake_make_maker = {
 					\ 'exe' : 'make',
-					\ 'args' : 'pdf',
-					\ 'append_file' : 0,
 					\ }
 		let g:neomake_markdown_enabled_makers = ['make']
 
@@ -589,7 +587,6 @@ function! plugin#Config() abort
 	if !empty('g:languagetool_jar')
 		Plug 'dpelle/vim-LanguageTool', { 'for' : 'markdown' }
 	endif
-
 
 	Plug 'rmolin88/pomodoro.vim'
 		" let g:pomodoro_show_time_remaining = 0 

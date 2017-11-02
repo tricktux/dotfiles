@@ -37,13 +37,8 @@ if !exists('no_plugin_maps') && !exists('no_c_maps')
 	" Quote text by inserting "> "
 	if exists(':Neomake')
 		let b:neomake_file_mode = 0
-		" These are the 2 ways of calling neomake.
-		nnoremap <silent> <buffer> <Plug>Make :call neomake#Make(b:neomake_file_mode)<cr>
-		" This one below specifically is like calling :Neomake or :NeomakeFile. The one above is
-		" like calling :NeomakeProject or :Neomake!. The later uses makeprg.
-		" The first one uses {g,b}:neomake_<ft>_enabled_<maker> which uses the defaults if
-		" none have being set. 
-		nnoremap <silent> <buffer> <LocalLeader>c :call neomake#Make({ 'file_mode' : 1 })<cr>
+		nnoremap <silent> <buffer> <Plug>Make :Neomake<cr>
+		" nnoremap <silent> <buffer> <LocalLeader>c :Neomake<cr>
 	else
 		nnoremap <buffer> <Plug>Make :make!<cr>
 	endif
@@ -99,11 +94,14 @@ if has('win32')
 		if expand('%:p') =~? 'Onewings\\Source'
 			command! -buffer UtilsUpdateBorlandMakefile call <SID>UpdateBorlandMakefile()
 			compiler borland
+			let b:neomake_cpp_enabled_makers = ['make']
+			let b:neomake_cpp_make_append_file = 0
 		elseif expand('%:p') =~# 'OneWings' || expand('%:p') =~# 'UnrealProjects'
 			compiler msbuild
 			silent set errorformat&
+			let b:neomake_cpp_enabled_makers = ['make']
+			let b:neomake_cpp_make_append_file = 0
 		else
-			let b:neomake_file_mode = 1
 			let b:neomake_clang_args = '-target x86_64-pc-windows-gnu -std=c++1z -stdlib=libc++ -Wall -pedantic'
 		endif
 	endif
