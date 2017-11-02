@@ -33,8 +33,6 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	" TODO-[RM]-(Fri Oct 20 2017 05:24): Fix this thing here
 	" inoremap <buffer> [ [ ]<Space>
 
-	nmap <buffer> <LocalLeader>F <Plug>FocusModeToggle
-
 	if exists(':InsertNewBullet')
 		inoremap <buffer> <expr> <cr> pumvisible() ? "\<c-y>" : "<cr>"
 		nnoremap <buffer> o :InsertNewBullet<cr>
@@ -46,7 +44,9 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 		nnoremap <buffer> <Leader>tt :TOC<cr>
 	endif
 
-	nnoremap <buffer> <LocalLeader>c :call MdCheckSpelling()<cr>
+	if exists(':LanguageToolCheck')
+		nnoremap <buffer> <LocalLeader>c :LanguageToolCheck<cr>
+	endif
 
 	if exists(':OnlineThesaurusCurrentWord')
 		nnoremap <buffer> <LocalLeader>a :OnlineThesaurusCurrentWord<cr>
@@ -69,7 +69,7 @@ endif
 " Other tools should be enabled and disabled here
 let s:spelling_toggle = 0
 function! MdCheckSpelling() abort
-	if exists('spelling_toggle') && spelling_toggle == 0
+	if exists('spelling_toggle') && s:spelling_toggle == 0
 		if exists(':DittoOn')
 			execute "DittoOn"
 		endif
