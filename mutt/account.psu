@@ -8,17 +8,19 @@
 set from = "Reinaldo Molina <rim18@psu.edu>"
 
 set folder = 'imaps://email.psu.edu:993'
-set spoolfile = +INBOX
+set spoolfile = +inbox
 # set spoolfile = 'imaps://email.psu.edu:993:1/Inbox'
-mailboxes = +INBOX
-mailboxes = +TODO
-mailboxes = +Trash
+mailboxes = +inbox
+mailboxes = +trash
+mailboxes = +outbox
 
 # Specify where to save and/or look for postponed messages.
 set postponed="imaps://email.psu.edu:993/Drafts"
 # Hopefully will fix emails not going out
 set smtp_url = "smtp://rim18@authsmtp.psu.edu:587/"
-set trash = 'imaps://email.psu.edu:993/Trash'
+set smtp_pass = "$imap_pass"
+set trash = 'imaps://email.psu.edu:993/trash'
+set record = '+outbox'
 
 # Get password from encryption
 source "gpg -d ~/.config/mutt/psu/password.psu.gpg |"
@@ -32,8 +34,8 @@ bind index,pager g noop
 bind index gg first-entry		
 bind pager gr group-reply
 
-macro index gi '<change-folder>=INBOX<enter>'
-macro index gs '<change-folder>=TODO<enter>' "Go to starred messages"
+macro index gi '<change-folder>=inbox<enter>'
+macro index gs '<change-folder>=todo<enter>' "Go to starred messages"
 macro index,pager gm ':unmailboxes *<enter><sync-mailbox><refresh><enter-command>source ~/.config/mutt/account.gmail<enter><change-folder>!<enter>'
 
 # Get password from encryption

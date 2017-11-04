@@ -15,7 +15,12 @@ mailboxes = +INBOX
 set postponed="imaps://imap.gmail.com/[Gmail]/Drafts"
 # Hopefully will fix emails not going out
 set smtp_url = "smtp://rmolin88@smtp.gmail.com:587/"
+set smtp_pass = "$imap_pass"
 set trash = '+[Gmail]/All Mail'
+# Tue Sep 12 2017 16:51: Stop saving outgoing messages to ~/sent
+# Where they should really be saved is to the online storage
+set record = '+[Gmail]/Sent Mail'
+
 
 # Move message to the =[Gmail]/Starred list which is my TO_DO list
 # bind index,pager m noop

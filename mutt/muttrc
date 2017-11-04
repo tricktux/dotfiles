@@ -31,7 +31,7 @@ set copy=yes			# always save a copy of outgoing messages
 set move = no
 
 # Keep IMAP connection alive by polling intermittently (time in seconds).
-set imap_keepalive = 90
+set imap_keepalive = 30
 
 # Allow Mutt to open new imap connection automatically.
 unset imap_passive
@@ -147,5 +147,7 @@ set delete=yes
 # Stop asking annoying To: questions
 set autoedit
 
-# Tue Sep 12 2017 16:51: Stop saving outgoing messages to ~/sent
-set record = "~/.cache/mutt/mutt-sent"
+# Sat Nov 04 2017 12:54: Neomutt only feature 
+# set new_mail_command="notify-send --icon='/home/santiago/Pictures/neomutt.png' 'New Email' '%n new messages, %u unread.' &"
+set new_mail_command="twmnc -t 'New Email' -c '%n new messages, %u unread.' && mpg123 ~/.config/twmn/cool_notification0.mp3&"
+# let g:pomodoro_notification_cmd = 'twmnc -t Vim -c "Pomodoro done" && mpg123 ~/.config/polybar/cool_notification1.mp3'
