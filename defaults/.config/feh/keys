@@ -18,8 +18,8 @@ scroll_down
 # custom key mapping:
 zoom_in plus
 zoom_out minus
-scroll_up Up j
-scroll_down Down k
+scroll_up Up k
+scroll_down Down j
 scroll_left Left h
 scroll_right Right l
 # assigning new keys for showing next/previous image
