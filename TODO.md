@@ -11,6 +11,10 @@ fileext: md
 \tableofcontents
 \pagebreak
 
+## Sat Nov 04 2017 02:25 
+- [ ] git: delete ranger plugin files from repo.
+- [ ] ranger: look into the folder diff plugin.
+
 ## Thu Nov 02 2017 06:25 
 - [ ] vim: create a `install/download` software plugin. the idea is to download files or
 gits and optionally run commands afterwards.

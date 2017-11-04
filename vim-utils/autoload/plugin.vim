@@ -148,10 +148,6 @@ function! plugin#Config() abort
          \   'text': "\uf071",
          \   'texthl': 'WarningMsg',
          \ }
-     let g:neomake_message_sign = {
-          \   'text': '➤',
-          \   'texthl': 'NeomakeMessageSign',
-          \ }
      let g:neomake_info_sign = {'text': "\uf449", 'texthl': 'NeomakeInfoSign'}
 
 		let g:neomake_plantuml_plantuml_maker = {
@@ -161,18 +157,22 @@ function! plugin#Config() abort
 					\ 'exe' : 'make',
 					\ }
 
+		" Fri Nov 03 2017 19:05: Finally understood the concept of neomake and linting in
+		" general. NeomakeFile is suppose to run as it names says in only a single file.
+		" And that is what you should configure on a per buffer basis. Look at
+		" ftplugin/markdown.vim for a good example.
+		" To make entire projects use NeomakeProject. The later by default and the way it should
+		" be uses makeprg. Therefore configure that to build your entire project, do it
+		" through setting compiler and compiler plugins. Such as borland. But run
+		" Neomake automatically. Having said this still use `<LocalLeader>m` to make entire
+		" projects, meaning to run your project builder.
+		nnoremap <Plug>Make :NeomakeProject<cr>
 		let g:neomake_markdown_enabled_makers = ['make']
 		let g:neomake_plantuml_enabled_makers = ['plantuml']
-
-
+		
+		" Fri Nov 03 2017 19:20: For vim linting use: `pip install vim-vint --user`
 
 		augroup custom_neomake
-			autocmd!
-			if has('win32') && executable('vint')
-				" Note: to install vim checker do
-				" pip install vim-vint --user
-				autocmd BufWritePost *.vim Neomake
-			endif
 			autocmd User NeomakeJobFinished call utils#NeomakeJobFinished()
 			autocmd User NeomakeJobStarted call utils#NeomakeJobStartd()
 		augroup END
@@ -186,7 +186,7 @@ function! plugin#Config() abort
 		" let g:table_mode_corner = '+'
 		let g:table_mode_align_char = ':'
 		" TODO.RM-Wed Jul 19 2017 21:10: Fix here these mappings are for terminal  
-		let g:table_mode_map_prefix = '<Leader>lt'
+		let g:table_mode_map_prefix = '<LocalLeader>t'
 		let g:table_mode_disable_mappings = 1
 		nnoremap <Leader>ta :TableModeToggle<CR>
 		" <Leader>tr	Realigns table columns
@@ -595,7 +595,7 @@ function! plugin#Config() abort
 		" let g:pomodoro_time_work = 1 
 		let g:pomodoro_use_devicons = 1
 		if executable('twmnc')
-			let g:pomodoro_notification_cmd = 'twmnc -t Vim -c "Pomodoro done"'
+			let g:pomodoro_notification_cmd = 'twmnc -t Vim -c "Pomodoro done" && mpg123 ~/.config/twmn/cool_notification1.mp3'
 		endif
 		let g:pomodoro_log_file = g:std_data_path . '/pomodoro_log'
 		" %#ErrorMsg#%{PomodoroStatus()}%#StatusLine# 
@@ -723,7 +723,7 @@ function! plugin#AfterConfig() abort
 	endif
 
 	" On linux run neomake everytime you save a file
-	if has('unix') && exists('g:loaded_neomake')
+	if exists('g:loaded_neomake')
 			call neomake#configure#automake('w')
 	endif
 	return 1

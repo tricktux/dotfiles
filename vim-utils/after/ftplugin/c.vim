@@ -95,18 +95,18 @@ if has('win32')
 			command! -buffer UtilsUpdateBorlandMakefile call <SID>UpdateBorlandMakefile()
 			compiler borland
 			let b:neomake_cpp_enabled_makers = ['make']
-			let b:neomake_cpp_make_append_file = 0
+			let b:neomake_cpp_make_args = ['%:r.obj']
 		elseif expand('%:p') =~# 'OneWings' || expand('%:p') =~# 'UnrealProjects'
 			compiler msbuild
 			silent set errorformat&
+			" TODO-[RM]-(Sat Nov 04 2017 02:14): Not sure how to build only one file in VS 
 			let b:neomake_cpp_enabled_makers = ['make']
-			leet b:neomake_cpp_make_append_file = 0
+			let b:neomake_cpp_make_append_file = 0
 		else
 			let b:neomake_clang_args = '-target x86_64-pc-windows-gnu -std=c++1z -stdlib=libc++ -Wall -pedantic'
 		endif
 	endif
 else " Unix
-	let b:neomake_file_mode = 1
 	setlocal foldmethod=syntax 
 endif
 

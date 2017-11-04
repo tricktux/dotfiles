@@ -153,8 +153,7 @@ function! mappings#Set() abort
 	nnoremap <S-u> :call quickfix#ToggleList("Location List", 'l')<CR>
 	nnoremap ]l :lnext<CR>
 	nnoremap [l :lprevious<CR>
-	" nnoremap <Leader>ql :ccl<CR>
-	" \:lcl<CR>
+	nnoremap Y y$
 
 	" decrease number
 	nnoremap <S-x> <c-x>
