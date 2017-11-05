@@ -63,6 +63,7 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	if exists(':Neomake')
 		let b:neomake_markdown_enabled_makers = ['make']
 		let b:neomake_markdown_make_args = ['%:r.pdf']
+		let b:neomake_markdown_make_append_file = 0
 	endif
 endif
 
