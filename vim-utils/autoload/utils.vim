@@ -494,7 +494,7 @@ function! utils#UpdateHeader()
 	silent exe "1," . l . "g/Last Author:/s/Last Author:.*/Last Author: " .
 				\ " Reinaldo Molina"
 	" Date
-	silent exe "1," . l . "g/Date:/s/Date:.*/Date:					" .
+	silent exe "1," . l . "g/[Dd]ate:/s/[Dd]ate:.*/date:					" .
 				\ strftime("%a %b %d %Y %H:%M")
 	exe "normal! `z"
 endfun
@@ -614,10 +614,15 @@ function! utils#ConvertWeeklyReport() abort
 		call delete(out_name)
 	endif
 
-	" Execute command
-	cexpr systemlist('pandoc WeeklyReport.md -s -o ' . out_name . ' --from markdown')
+	let in_name = 'D:\wiki\WeeklyReport.md'
 
-	execute 'ld ' dir_buff
+	if !filereadable(in_name)
+		echoerr 'Source file ' . in_name . ' not found'
+		return
+	endif
+
+	" Execute command
+	cexpr systemlist('pandoc ' . in_name . ' -s -o ' . out_name . ' --from markdown')
 endfunction
 
 function! utils#AutoHighlightToggle()
