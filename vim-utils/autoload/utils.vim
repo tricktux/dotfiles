@@ -491,8 +491,8 @@ function! utils#UpdateHeader()
 	silent exe "1," . l . "g/Last Modified:/s/Last Modified:.*/Last Modified: " .
 				\ strftime("%a %b %d %Y %H:%M")
 	" Last Author
-	silent exe "1," . l . "g/Last Author:/s/Last Author:.*/Last Author: " .
-				\ " Reinaldo Molina"
+	" silent exe "1," . l . "g/Last Author:/s/Last Author:.*/Last Author: " .
+				" \ " Reinaldo Molina"
 	" Date
 	silent exe "1," . l . "g/[Dd]ate:/s/[Dd]ate:.*/date:					" .
 				\ strftime("%a %b %d %Y %H:%M")
@@ -533,6 +533,25 @@ endfunction
 
 function! utils#NeomakeClearStatusLine(timer) abort
 	unlet! g:neomake_lightline
+endfunction
+
+function! utils#NeomakeNativeStatusLine() abort
+	return neomake#statusline#get(bufnr("%"), {
+				\ 'format_running': "\uf188" .' {{running_job_names}} ' . "\uf0e4",
+				\ 'format_ok': "\uf188" .' ✓',
+				\ 'format_quickfix_ok': '',
+				\ 'format_quickfix_issues': "\uf188" .' %s ',
+				\ 'format_quickfix_type_E': ' {{type}}:{{count}} ',
+				\ 'format_quickfix_type_W': ' {{type}}:{{count}} ',
+				\ 'format_quickfix_type_I': ' {{type}}:{{count}} ',
+				\ 'format_loclist_ok': '',
+				\ 'format_loclist_issues': "\uf188" .' %s ',
+				\ 'format_loclist_type_E': ' {{type}}:{{count}} ',
+				\ 'format_loclist_type_W': ' {{type}}:{{count}} ',
+				\ 'format_loclist_type_I': ' {{type}}:{{count}} ',
+				\ 'format_loclist_unknown': '',
+				\ })
+	" return ret == '?' ? '' : ret
 endfunction
 
 " TODO.RM-Fri Apr 28 2017 16:14: Also move this to the ftplugin  

@@ -508,7 +508,7 @@ function! plugin#Config() abort
 		let g:lightline.component_function['pomodoro'] = 'utils#LightlinePomo'
 
 		let g:lightline.active.left[2] += [ 'neomake' ]
-		let g:lightline.component_function['neomake'] = 'utils#CheckNeomakeStatus'
+		let g:lightline.component_function['neomake'] = 'utils#NeomakeNativeStatusLine'
 
 	Plug 'PotatoesMaster/i3-vim-syntax'
 
