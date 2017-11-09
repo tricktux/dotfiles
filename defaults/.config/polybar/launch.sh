@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 
+machine=`hostname`
 # Terminate already running bar instances
 killall -q polybar
 
@@ -7,4 +8,9 @@ killall -q polybar
 while pgrep -x polybar >/dev/null; do sleep 1; done
 
 # Launch bar1 and bar2
-polybar example &
+
+if [ $machine = "surbook" ]; then
+	polybar surbar&
+else
+	polybar archbar&
+fi

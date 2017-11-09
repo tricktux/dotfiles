@@ -52,4 +52,9 @@ fi
 # exec $desktop
 #
 # [ -f /usr/bin/udiskie ] && udiskie&
-exec i3
+
+if [ `hostname` = "surbook" ]; then
+	exec i3 -c ~/.config/i3/config_surbook
+else
+	exec i3
+fi
