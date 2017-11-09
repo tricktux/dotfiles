@@ -525,14 +525,16 @@ function! utils#NeomakeJobFinished() abort
 		let g:neomake_lightline = "\uf188" . printf(" %s: %s", g:neomake_hook_context.jobinfo.maker.name,
 					\ g:neomake_hook_context.jobinfo.exit_code)
 		echomsg g:neomake_lightline
-		call timer_start(60 * 1000, 'utils#NeomakeClearStatusLine')
+		" Thu Nov 09 2017 10:11: When using the native status line function this is not
+		" needed. 
+		" keyword: example use of lambda in vim
+		" call timer_start(
+						" \ 60 * 1000,
+						" \ { timer -> execute("unlet! g:neomake_lightline") }
+					" \ )
 	else
 		unlet! g:neomake_lightline
 	endif
-endfunction
-
-function! utils#NeomakeClearStatusLine(timer) abort
-	unlet! g:neomake_lightline
 endfunction
 
 function! utils#NeomakeNativeStatusLine() abort

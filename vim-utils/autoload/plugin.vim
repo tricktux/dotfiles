@@ -166,15 +166,15 @@ function! plugin#Config() abort
 		" through setting compiler and compiler plugins. Such as borland. But run
 		" Neomake automatically. Having said this still use `<LocalLeader>m` to make entire
 		" projects, meaning to run your project builder.
+		" Fri Nov 03 2017 19:20: For vim linting use: `pip install vim-vint --user`
 		nnoremap <Plug>Make :NeomakeProject<cr>
 		let g:neomake_markdown_enabled_makers = ['make']
 		let g:neomake_plantuml_enabled_makers = ['plantuml']
 		
-		" Fri Nov 03 2017 19:20: For vim linting use: `pip install vim-vint --user`
-
 		augroup custom_neomake
 			autocmd User NeomakeJobFinished call utils#NeomakeJobFinished()
-			autocmd User NeomakeJobStarted call utils#NeomakeJobStartd()
+			" Thu Nov 09 2017 10:17: Not needed when using neomake native statusline function 
+			" autocmd User NeomakeJobStarted call utils#NeomakeJobStartd()
 		augroup END
 
 	Plug 'dhruvasagar/vim-table-mode', { 'on' : 'TableModeToggle' }
