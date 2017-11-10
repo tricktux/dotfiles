@@ -59,11 +59,6 @@ function! cpp_highlight#Set(type) abort
 			return
 		endif
 
-		if system('pip3 list | grep psutil') !~# 'psutil'
-			echomsg 'Neotags requires pip3 psutil'
-			return
-		endif
-			
 		Plug 'c0r73x/neotags.nvim' " Depends on pip3 install --user psutil
 			set regexpengine=1 " This speed up the engine alot but still not enough
 			let g:neotags_enabled = 1
