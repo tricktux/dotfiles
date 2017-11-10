@@ -36,9 +36,7 @@ let b:delimitMate_matchpairs = '(:),[:],{:}'
 if !exists('no_plugin_maps') && !exists('no_c_maps')
 	" Quote text by inserting "> "
 	if exists(':Neomake')
-		let b:neomake_file_mode = 0
-		nnoremap <silent> <buffer> <Plug>Make :Neomake<cr>
-		" nnoremap <silent> <buffer> <LocalLeader>c :Neomake<cr>
+		nnoremap <silent> <buffer> <LocalLeader>c :Neomake<cr>
 	else
 		nnoremap <buffer> <Plug>Make :make!<cr>
 	endif
