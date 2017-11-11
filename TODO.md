@@ -32,6 +32,7 @@ fileext: md
 - [ ] start your blog at rmolin88.github.com
 - [ ] as soon as the new release of choco-neovim is up update wiki.
 - [ ] polybar: add uptime to polybar
+- [ ] xscreensaver: set Appollonian as the only screen saver across all laptops
 
 ## Sat Nov 04 2017 02:25 
 - [ ] git: delete ranger plugin files from repo.
