@@ -11,6 +11,9 @@ fileext: md
 \tableofcontents
 \pagebreak
 
+## Sat Nov 11 2017 08:07 
+- arch: look at the arch environmental variables.
+
 ## Sat Nov 04 2017 02:25 
 - [ ] git: delete ranger plugin files from repo.
 - [ ] ranger: look into the folder diff plugin.
