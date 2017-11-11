@@ -22,3 +22,5 @@ defaults/.config/qpdfview/qpdfview.conf
 defaults/.config/ranger/__pycache__/
 defaults/.config/ranger/devicons.py
 defaults/.config/ranger/plugins/
+defaults/.config/pulse/client.conf
+defaults/.config/pulse/cookie

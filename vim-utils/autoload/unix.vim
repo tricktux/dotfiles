@@ -39,7 +39,7 @@ function! unix#Config() abort
 	elseif hostname =~ 'guajiro'
 		let g:wiki_path=  $HOME . '/Documents/Seafile/KnowledgeIsPower/wiki'
 	else " Some default location
-		let g:wiki_path=  $HOME . '/Documents/Seafile/KnowledgeIsPower/wiki'
+		let g:wiki_path=  $HOME . '/Seafile/KnowledgeIsPower/wiki'
 	endif
 
 	let &path .= g:usr_path . '/local/include,'
