@@ -82,7 +82,8 @@ export EMAIL="rmolin88 at gmail dot com"
 # alias nvim="$VISUAL"
 export VISUAL=nvim
 export EDITOR=$VISUAL
-[ -f /usr/bin/opera ] && export BROWSER="/usr/bin/opera -newpage %s&"
+# [ -f /usr/bin/opera ] && export BROWSER="/usr/bin/opera -newpage %s&"
+[ -f /usr/bin/opera ] && export BROWSER="/usr/bin/opera"
 
 # Ranger load only ~/.config/ranger/rc.conf
 export RANGER_LOAD_DEFAULT_RC=FALSE

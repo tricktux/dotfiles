@@ -95,7 +95,7 @@ FuncUpdate()
 	pacman -Qe > ~/.config/dotfiles/$machine-arch-packages
 	# Tue Sep 26 2017 18:40 Update Mirror list. Depends on `reflector`
 	if hash reflector 2>/dev/null; then
-		sudo reflector --protocol https --latest 30 --number 5 --sort rate --save /etc/pacman.d/mirrorlist -c 'United States' --verbose
+		sudo reflector --protocol https --latest 30 --number 20 --sort rate --save /etc/pacman.d/mirrorlist -c 'United States' --verbose
 	fi
 	# Now update packages
 	# When update fails to verify some <package> do:

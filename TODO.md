@@ -11,6 +11,29 @@ fileext: md
 \tableofcontents
 \pagebreak
 
+## Sat Nov 11 2017 08:07 
+- [ ] arch: look at the arch environmental variables.
+- [ ] download pacaur_isntall
+- [ ] download mirrorlist
+- [ ] surbook: powertop
+- [ ] surbook: sudo passwd
+- [ ] surbook: bluetooth
+- [ ] surbook: fix super ugly small font. maybe try the xorg.conf monitor file
+	- didn't work
+- [ ] surbook: sys tray super small icons
+- [ ] purchase cover
+- [ ] surbook: fix cmus
+- [ ] update readme.md to reflect stow commands
+- [ ] use plug to install custom scripts, such as ranger plugins, pandoc template.
+- [ ] create script to install all packages
+- [ ] fix wiki open in nvim. (g:wiki_path not being set)
+- [ ] change gnupg password. too hard to type in surbook
+- [ ] post in chuwi forums about your setup
+- [ ] start your blog at rmolin88.github.com
+- [ ] as soon as the new release of choco-neovim is up update wiki.
+- [ ] polybar: add uptime to polybar
+- [ ] xscreensaver: set Appollonian as the only screen saver across all laptops
+
 ## Sat Nov 04 2017 02:25 
 - [ ] git: delete ranger plugin files from repo.
 - [ ] ranger: look into the folder diff plugin.

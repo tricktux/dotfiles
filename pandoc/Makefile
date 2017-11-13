@@ -49,7 +49,7 @@ pdf:	clean $(PDF)
 	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block -w docx -s -S --filter pandoc-citeproc -o $@ $<
 
 %.pdf: %.md
-	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block -w latex -s -S --filter pandoc-citeproc --template eisvogel -o $@ $<
+	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -w latex -s --filter pandoc-citeproc --template eisvogel -o $@ $<
 
 # pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block -w latex -s -S --filter pandoc-citeproc --bibliography $(BIB) --template eisvogel -o $@ $<
 
