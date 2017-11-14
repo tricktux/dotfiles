@@ -14,27 +14,27 @@ desktop=startlxde
 # desktop=gnome-session
 
 # merge in defaults and keymaps
-# if [ -f $sysresources ]; then
-    # xrdb -merge $sysresources
-# fi
-
-# if [ -f $sysmodmap ]; then
-    # xmodmap $sysmodmap
-# fi
-
-# Load urxvt config file
-if [ -f "$userresources" ]; then
-    xrdb -merge "$userresources"
+if [ -f $sysresources ]; then
+	xrdb -merge $sysresources
 fi
 
-# if [ -f "$usermodmap" ]; then
-    # xmodmap "$usermodmap"
-# fi
+if [ -f $sysmodmap ]; then
+	xmodmap $sysmodmap
+fi
+
+# Load urxvt config file
+if [ -f $userresources ]; then
+    xrdb -merge $userresources
+fi
+
+if [ -f $usermodmap ]; then
+	xmodmap $usermodmap
+fi
 
 # start some nice programs
 if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
-  [ -x "$f" ] && . "$f"
+  [ -x $f ] && . $f
  done
  unset f
 fi
@@ -53,8 +53,4 @@ fi
 #
 # [ -f /usr/bin/udiskie ] && udiskie&
 
-if [ `hostname` = "surbook" ]; then
-	exec i3 -c ~/.config/i3/config_surbook
-else
-	exec i3
-fi
+exec i3

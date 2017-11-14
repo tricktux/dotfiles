@@ -635,7 +635,7 @@ function! utils#ConvertWeeklyReport() abort
 		call delete(out_name)
 	endif
 
-	let in_name = 'D:\wiki\WeeklyReport.md'
+	let in_name = 'D:\wiki_work\WeeklyReport.md'
 
 	if !filereadable(in_name)
 		echoerr 'Source file ' . in_name . ' not found'
