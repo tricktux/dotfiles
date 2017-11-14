@@ -29,7 +29,7 @@ function win32#Config()
 	endif
 	
 	" Set wiki_path
-	if system('hostname') =~? 'predator' " homepc
+	if $USERNAME ==? 'Reinaldo'
 		let g:wiki_path =  'D:\Seafile\KnowledgeIsPower\wiki'
 		let pyt3 = $LOCALAPPDATA . "\\Programs\\Python\\Python36\\python.exe"
 	" elseif exists('$USERNAME') && $USERNAME =~? '^h' " Assume work pc
