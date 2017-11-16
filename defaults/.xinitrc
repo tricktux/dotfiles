@@ -23,34 +23,24 @@ if [ -f $sysmodmap ]; then
 fi
 
 # Load urxvt config file
-if [ -f $userresources ]; then
-    xrdb -merge $userresources
+if [ -f "$userresources" ]; then
+    xrdb -merge "$userresources"
 fi
 
-if [ -f $usermodmap ]; then
-	xmodmap $usermodmap
+if [ -f "$usermodmap" ]; then
+    xmodmap "$usermodmap"
 fi
 
 # start some nice programs
-# if [ -d /etc/X11/xinit/xinitrc.d ] ; then
- # for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
-  # [ -x $f ] && . $f
- # done
- # unset f
-# fi
+if [ -d /etc/X11/xinit/xinitrc.d ] ; then
+ for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
+  [ -x $f ] && . $f
+ done
+ unset f
+fi
 
 # Make sure this is before the 'exec' command or it won't be sourced.
 [ -f ~/.xprofile ] && source ~/.xprofile
 
-# twm &
-# xclock -geometry 50x50-1+1 &
-# xterm -geometry 80x50+494+51 &
-# xterm -geometry 80x20+494-0 &
-# exec xterm -geometry 80x66+0+0 -name login
-
-# Start desktop manager
-# exec $desktop
-#
-# [ -f /usr/bin/udiskie ] && udiskie&
-
-exec i3
+# exec i3
+exec i3 -V >> ~/.cache/i3log-$(date +'%F-%k-%M-%S') 2>&1

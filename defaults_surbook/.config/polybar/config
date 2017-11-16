@@ -34,9 +34,9 @@ t8		= #DDCADB
 
 [bar/bottom]
 bottom = true
-;monitor = ${env:MONITOR:HDMI-1}
+; monitor = ${env:MONITOR:eDP1}
 width = 100%
-height = 3%
+height = 2%
 ; offset-x = 1%
 ; offset-y = 1%
 radius = 6.0
@@ -61,14 +61,14 @@ padding-right = 0
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = FontAwesome:size=10;0
-font-1 = Roboto:size=10;0
+font-0 = FontAwesome:size=16;0
+font-1 = Roboto:size=16;0
 ; font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 ; Fri Sep 15 2017 09:18: In order to get siji font to work use this command to get the exact name:
 ; echo "$(fc-list : family | grep Siji | tail -1):pixelsize=10"
 ; If that doesnt return anything try with grep siji instead of grep Siji
 ; For more info look [here](https://github.com/jaagr/polybar/issues/313)
-font-2=WunconSiji:pixelsize=10;0
+font-2=WunconSiji:pixelsize=16;0
 
 modules-left = weather cpuload memory
 modules-center = cmus
@@ -93,7 +93,7 @@ scroll-down = i3wm-wsprev
 [bar/archbar]
 ;monitor = ${env:MONITOR:HDMI-1}
 width = 100%
-height = 3%
+height = 2%
 ; offset-x = 1%
 ; offset-y = 1%
 radius = 6.0
@@ -118,14 +118,14 @@ padding-right = 0
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = FontAwesome:size=10;0
-font-1 = Roboto:size=10;0
+font-0 = FontAwesome:size=16;0
+font-1 = Roboto:size=16;0
 ; font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 ; Fri Sep 15 2017 09:18: In order to get siji font to work use this command to get the exact name:
 ; echo "$(fc-list : family | grep Siji | tail -1):pixelsize=10"
 ; If that doesnt return anything try with grep siji instead of grep Siji
 ; For more info look [here](https://github.com/jaagr/polybar/issues/313)
-font-2=WunconSiji:pixelsize=10;0
+font-2=WunconSiji:pixelsize=16;0
 
 modules-left = i3 redshift 
 modules-center = xwindow
