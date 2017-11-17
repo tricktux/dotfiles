@@ -237,6 +237,10 @@ function! mappings#Set() abort
 		nnoremap <silent> <A-h> <C-w>h
 		nnoremap <silent> <A-k> <C-w>k
 		nnoremap <silent> <A-j> <C-w>j
+		nnoremap <silent> <A-S-l> <C-w>>
+		nnoremap <silent> <A-S-h> <C-w><
+		nnoremap <silent> <A-S-k> <C-w>+
+		nnoremap <silent> <A-S-j> <C-w>-
 	endif
 
 	inoremap <C-S> <c-r>=utils#FixPreviousWord()<cr>
