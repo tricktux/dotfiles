@@ -493,7 +493,7 @@ mode "$mode_gaps_outer" {
 # }}}
 
 ######### STARTUP APPLICATIONS ################################{{{
-exec --no-startup-id compton -f
+exec --no-startup-id compton
 exec --no-startup-id xscreensaver -no-splash
 exec --no-startup-id pcmanfm --daemon-mode
 
