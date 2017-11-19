@@ -14,27 +14,27 @@ desktop=startlxde
 # desktop=gnome-session
 
 # merge in defaults and keymaps
-# if [ -f $sysresources ]; then
-    # xrdb -merge $sysresources
-# fi
+if [ -f $sysresources ]; then
+	xrdb -merge $sysresources
+fi
 
-# if [ -f $sysmodmap ]; then
-    # xmodmap $sysmodmap
-# fi
+if [ -f $sysmodmap ]; then
+	xmodmap $sysmodmap
+fi
 
 # Load urxvt config file
 if [ -f "$userresources" ]; then
     xrdb -merge "$userresources"
 fi
 
-# if [ -f "$usermodmap" ]; then
-    # xmodmap "$usermodmap"
-# fi
+if [ -f "$usermodmap" ]; then
+    xmodmap "$usermodmap"
+fi
 
 # start some nice programs
 if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
-  [ -x "$f" ] && . "$f"
+  [ -x $f ] && . $f
  done
  unset f
 fi
@@ -42,19 +42,6 @@ fi
 # Make sure this is before the 'exec' command or it won't be sourced.
 [ -f ~/.xprofile ] && source ~/.xprofile
 
-# twm &
-# xclock -geometry 50x50-1+1 &
-# xterm -geometry 80x50+494+51 &
-# xterm -geometry 80x20+494-0 &
-# exec xterm -geometry 80x66+0+0 -name login
-
-# Start desktop manager
-# exec $desktop
-#
-# [ -f /usr/bin/udiskie ] && udiskie&
-
-if [ `hostname` = "surbook" ]; then
-	exec i3 -c ~/.config/i3/config_surbook
-else
-	exec i3
-fi
+# exec i3
+exec i3 -V >> ~/.cache/i3log-$(date +'%F-%k-%M-%S') 2>&1
+# exec i3

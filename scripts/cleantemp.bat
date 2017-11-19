@@ -1,3 +1,4 @@
+@echo off
 rem File:					cleantemp.bat
 rem Description:			File that cleans temp on every boot
 rem Author:				Reinaldo Molina <rmolin88@gmail.com>
@@ -9,3 +10,8 @@ rem File Goes In:  %appdata%\microsoft\windows\start menu\programs\startup\clean
 
 rd %temp% /s /q
 md %temp%
+rd c:\TEMP /s /q
+md c:\TEMP
+REM  Fri Nov 17 2017 11:30 Make this work 
+rd C:\Windows\Temp /s /q
+md C:\Windows\Temp
