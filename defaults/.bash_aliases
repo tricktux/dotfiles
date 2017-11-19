@@ -31,9 +31,9 @@ alias svn-checkout=FuncSvnCheckout
 alias svn-create=FuncSvnCreate
 
 # mutt
-alias mutt='mutt -F ~/.config/mutt/gmail/account.gmail'
-alias mutt-gmail='mutt -F ~/.config/mutt/gmail/account.gmail'
-alias mutt-psu='mutt -F ~/.config/mutt/psu/account.psu'
+alias neomutt='neomutt -F ~/.config/mutt/account.gmail'
+alias neomutt-gmail='neomutt -F ~/.config/mutt/account.gmail'
+alias neomutt-psu='neomutt -F ~/.config/mutt/account.psu'
 
 # Folder
 # UnrealEngineCourse
