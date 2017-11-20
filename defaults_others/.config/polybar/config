@@ -690,7 +690,7 @@ interval = 30
 mount-0 = /
 mount-1 = /home
 
-label-mounted =  %mountpoint%: %free% free
+label-mounted =  %mountpoint%: %free%
 label-unmounted = 
 ; label-unmounted = %mountpoint%: not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
