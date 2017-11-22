@@ -10,7 +10,7 @@
 machine=`hostname`
 
 alias install='pacaur -S --noconfirm'
-alias update=FuncUpdate
+alias update='pacaur -Syyu --devel --noconfirm $@'
 alias version='pacaur -Si'
 alias search='pacaur -Ss'
 alias remove='pacaur -Rscn'
@@ -92,7 +92,8 @@ FuncUpdate()
 	sudo pacman -Sc --noconfirm
 	sudo pacman-optimize
 	# Update list of all installed packages
-	pacman -Qe > ~/.config/dotfiles/$machine-arch-packages
+sudo pacman -Qnq > ~/.config/dotfiles/$machine.native
+sudo pacman -Qmq > ~/.config/dotfiles/$machine.aur
 	# Tue Sep 26 2017 18:40 Update Mirror list. Depends on `reflector`
 	if hash reflector 2>/dev/null; then
 		sudo reflector --protocol https --latest 30 --number 20 --sort rate --save /etc/pacman.d/mirrorlist -c 'United States' --verbose

@@ -72,7 +72,7 @@ font-2=WunconSiji:pixelsize=10;0
 
 modules-left = battery temperature cpu cpuload memory
 modules-center = cmus
-modules-right = filesystem xkeyboard backlight-acpi wlan volume 
+modules-right = filesystem xkeyboard backlight-acpi wlan date volume 
 
 ; My new settings
 tray-detached = false
@@ -183,9 +183,9 @@ font-1 = Roboto:size=16;0
 ; For more info look [here](https://github.com/jaagr/polybar/issues/313)
 font-2=WunconSiji:pixelsize=16;0
 
-modules-left = i3 volume weather cpuload cmus
+modules-left = i3 redshift 
 modules-center = xwindow
-modules-right = cpu temperature battery date powermenu
+modules-right = weather time powermenu
 
 ; My new settings
 tray-detached = false
@@ -417,6 +417,16 @@ interval = 5
 date =" %b %d %Y"
 date-alt = " %m/%d/%Y"
 
+; format-prefix =
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #0a6cf5
+
+label = %date%
+
+[module/time]
+type = internal/date
+interval = 5
+
 time = " %I:%M %P"
 time-alt =  " %H:%M"
 
@@ -424,7 +434,7 @@ time-alt =  " %H:%M"
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #0a6cf5
 
-label = %date% %time%
+label = %time%
 
 [module/volume]
 type = internal/volume

@@ -652,8 +652,7 @@ endfunction
 function! plugin#Check() abort
 	if empty(glob(g:plug_path))
 		if executable('curl')
-			execute 'silent !curl -kfLo ' . g:plug_path . ' --create-dirs'
-						\' https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+			execute '!curl -kfLo ' . g:plug_path . ' --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 			augroup instal_plugin
 				autocmd!
 				autocmd VimEnter * :PlugInstall
