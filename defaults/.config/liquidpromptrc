@@ -115,7 +115,7 @@ LP_ENABLE_BZR=1
 # Show time of when the current prompt was displayed. (Must be enabled and
 # disabled in the config file and not after liquidprompt has already been
 # sourced.)
-LP_ENABLE_TIME=1
+LP_ENABLE_TIME=0
 
 # Show runtime of the previous command if over LP_RUNTIME_THRESHOLD
 # Recommended value is 0
