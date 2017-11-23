@@ -27,7 +27,7 @@ dynamic_title = true
 # font=Inconsolata 10
 # Install with nerd-fonts-complete
 # - remember to restart terminal
-font=Inconsolata Nerd Font 8
+font=Inconsolata Nerd Font 15
 # font=DejaVu Sans Mono Nerd Font 10
 # This is the default value
 # browser = $BROWSER
@@ -36,3 +36,6 @@ mouse_autohide = true
 # cursor_shape = underline
 cursor_blink = off
 scrollback_lines=1000000
+
+[colors]
+background = rgba(63, 63, 63, 0.8)

@@ -108,9 +108,6 @@ export GIT_TERMINAL_PROMPT=1
 # Any completions you add in ~/.bash_completion are sourced last.
 [[ -f /etc/bash_completion ]] && . /etc/bash_completion
 
-# Sat Oct 14 2017 11:12: This will set the i3-sensible-terminal to be used:
-[[ -f /usr/bin/termite ]] && export TERMINAL="termite"
-
 # Sat Oct 14 2017 22:27: fish being default terminal 
 # Sat Oct 21 2017 16:14: very pretty but not very useful 
 # [ -f /usr/bin/fish ] && exec fish

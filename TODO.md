@@ -161,7 +161,7 @@ should be part of the library
 - [ ] mutt: figure out a mapping to delete and opened message.
 - [ ] mutt: look into the issue of nvim not highlighting messages when openning from mutt.
 - [ ] vim: download Spanish lenguage `spell` file.
-- [ ] vim: `powerline` fonts for windows.
+- [x] vim: `powerline` fonts for windows.
 - [ ] vim: examine `vim-enhanced-diff`. its not being used properly
 - [x] cygwin: install `ranger`
 - [x] vim: change all the `confirm` function calls &Yes to &Jes
@@ -185,8 +185,8 @@ should be part of the library
 - [x] Figure out how to create beautiful latex docs. `choco install miktex -y`.
 	- Sun Oct 15 2017 17:33: pandoc 
 - [ ] Move dropbox pictures to google photos.
-- [ ] android tui: move files into a git repo.
-- [ ] android tui: create more shortcuts for calling and for rebooting devices.
+- [x] android tui: move files into a git repo.
+- [x] android tui: create more shortcuts for calling and for rebooting devices.
 	- Mon Oct 30 2017 09:41: Most efficient way to do it is to connect a keyboard to the tablet with termux and go from there. 
 - [x] markdown focus mode not really working.
 - [x] **Return surbook**.

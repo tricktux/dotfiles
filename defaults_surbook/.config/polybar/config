@@ -70,9 +70,9 @@ font-1 = Roboto:size=18;0
 ; For more info look [here](https://github.com/jaagr/polybar/issues/313)
 font-2=WunconSiji:pixelsize=18;0
 
-modules-left = weather cpuload memory
+modules-left = battery temperature cpu cpuload memory
 modules-center = cmus
-modules-right = filesystem xkeyboard date wlan
+modules-right = filesystem xkeyboard backlight-acpi wlan date volume 
 
 ; My new settings
 tray-detached = false
@@ -129,7 +129,7 @@ font-2=WunconSiji:pixelsize=16;0
 
 modules-left = i3 redshift 
 modules-center = xwindow
-modules-right = cpu temperature battery date volume powermenu
+modules-right = weather time powermenu
 
 ; My new settings
 ; tray-detached = false
@@ -183,9 +183,9 @@ font-1 = Roboto:size=18;0
 ; For more info look [here](https://github.com/jaagr/polybar/issues/313)
 font-2=WunconSiji:pixelsize=18;0
 
-modules-left = i3 redshift
+modules-left = i3 redshift 
 modules-center = xwindow
-modules-right = cpu temperature battery volume time powermenu
+modules-right = weather time powermenu
 
 ; My new settings
 tray-detached = false
@@ -310,7 +310,8 @@ label-song-ellipsis = true
 type = internal/xbacklight
 
 format = <label> <ramp>
-label = BL
+format-underline = #c0392b
+label = 
 ; Only applies if <ramp> is used
 ramp-0 = 🌕
 ramp-1 = 🌔
@@ -699,15 +700,15 @@ interval = 30
 mount-0 = /
 mount-1 = /home
 
-label-mounted =  %mountpoint%: %free% free
+label-mounted =  %mountpoint%: %free%
 label-unmounted = 
 ; label-unmounted = %mountpoint%: not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
+format-underline = #336699
 
 [module/redshift]
 type = custom/script
 interval = 5
 exec = ~/.config/polybar/redshift.sh
-
 
 ; vim:tw=78:ts=2:sts=2:sw=2:filetype=dosini

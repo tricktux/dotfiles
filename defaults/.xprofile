@@ -9,3 +9,8 @@
 # Uses:					You can start applications from here
 
 xset -b off
+
+# Sat Oct 14 2017 11:12: This will set the i3-sensible-terminal to be used:
+# Updated to use kitty
+[[ -f /usr/bin/termite ]] && export TERMINAL="termite"
+

@@ -27,8 +27,9 @@ echo "Removing unused orphan packages"
 sudo pacman -Rns $(pacman -Qtdq) --noconfirm
 
 echo "Updating system"
-pacaur -Syuu --devel --noconfirm
-sudo pacman -Qqet > ~/.config/dotfiles/$machine-arch-packages
+pacaur -Syyu --devel --noconfirm $@
+sudo pacman -Qnq > ~/.config/dotfiles/$machine.native
+sudo pacman -Qmq > ~/.config/dotfiles/$machine.aur
 
 echo "BleachBit runnning"
 
