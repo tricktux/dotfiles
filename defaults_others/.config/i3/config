@@ -504,7 +504,7 @@ exec --no-startup-id seafile-applet
 exec --no-startup-id dropbox
 
 # Wed Oct 11 2017 22:16: Application similar to xflux 
-exec --no-startup-id redshift -c ~/.config/redshift/config
+exec --no-startup-id redshift
 
 
 # Mon Jul 17 2017 06:55 Not the proper way to start insync. See arch insync
