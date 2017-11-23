@@ -72,7 +72,7 @@ font-2=WunconSiji:pixelsize=10;0
 
 modules-left = battery temperature cpu cpuload memory
 modules-center = cmus
-modules-right = filesystem xkeyboard volume backlight-acpi wlan redshift compton 
+modules-right = date xkeyboard volume filesystem backlight-acpi wlan redshift compton 
 
 ; My new settings
 tray-detached = false
@@ -710,6 +710,7 @@ format-underline = #336699
 type = custom/script
 interval = 5
 exec = ~/.config/polybar/redshift.sh
+click-left = ~/.config/polybar/redshift-toggle.sh
 
 [module/compton]
 type = custom/script
