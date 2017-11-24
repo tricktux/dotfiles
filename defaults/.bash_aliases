@@ -92,8 +92,8 @@ FuncUpdate()
 	sudo pacman -Sc --noconfirm
 	sudo pacman-optimize
 	# Update list of all installed packages
-sudo pacman -Qnq > ~/.config/dotfiles/$machine.native
-sudo pacman -Qmq > ~/.config/dotfiles/$machine.aur
+	sudo pacman -Qnq > ~/.config/dotfiles/$machine.native
+	sudo pacman -Qmq > ~/.config/dotfiles/$machine.aur
 	# Tue Sep 26 2017 18:40 Update Mirror list. Depends on `reflector`
 	if hash reflector 2>/dev/null; then
 		sudo reflector --protocol https --latest 30 --number 20 --sort rate --save /etc/pacman.d/mirrorlist -c 'United States' --verbose
@@ -120,11 +120,11 @@ FuncNvim()
 
 FuncSvnCheckout()
 {
-	svn co svn+ssh://odroid@copter-server/mnt/hq-storage/1.Myn/svn-server$1
+	svn co svn+ssh://odroid@copter-server/mnt/hq-storage/1.Myn/svn-server/$1 $2
 }
 
 FuncSvnCreate()
 {
-	ssh odroid@copter-server mkdir -p /mnt/hq-storage/1.Myn/svn-server$1
-	ssh odroid@copter-server svnadmin create /mnt/hq-storage/1.Myn/svn-server$1
+	ssh odroid@copter-server mkdir -p /mnt/hq-storage/1.Myn/svn-server/$1 $@
+	ssh odroid@copter-server svnadmin create /mnt/hq-storage/1.Myn/svn-server/$1 $@
 }
