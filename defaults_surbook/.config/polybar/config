@@ -188,13 +188,13 @@ modules-center = xwindow
 modules-right = weather time powermenu
 
 ; My new settings
-tray-detached = false
-tray-position = right
-tray-offset-x = 0
-tray-offset-y = 0
-tray-maxsize = 16
-tray-padding = 2
-tray-scale = 1
+; tray-detached = false
+; tray-position = right
+; tray-offset-x = 0
+; tray-offset-y = 0
+; tray-maxsize = 16
+; tray-padding = 2
+; tray-scale = 1
 
 ; override-redirect = true
 enable-ipc = true
