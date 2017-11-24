@@ -8,7 +8,7 @@
 # Excellent source for mailcaps
 #  https://github.com/raphaelfournier/Mutt/blob/master/mailcap#L5
 
-text/html; opera -newpage %s &; test=test -n "$DISPLAY"; needsterminal;
+text/html; firefox %s &; test=test -n "$DISPLAY"; needsterminal;
 text/html; w3m -I %{charset}; -T text/html; copiousoutput;
 (null)/pdf; /usr/bin/zathura %s; /usr/bin/zathura %s; test=test "$DISPLAY" != "";
 */pdf; /usr/bin/zathura %s; /usr/bin/zathura %s; test=test "$DISPLAY" != "";

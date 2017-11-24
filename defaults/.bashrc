@@ -71,7 +71,6 @@ export MANPAGER="nvim -c 'set ft=man' -"
 # Creating local bin folder
 # Keep in mind your bin preceeds /usr/bin
 export PATH=$HOME/.local/bin:$PATH
-export EMAIL="rmolin88 at gmail dot com"
 
 # Depends on nvr being installed
 # if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
@@ -82,8 +81,6 @@ export EMAIL="rmolin88 at gmail dot com"
 # alias nvim="$VISUAL"
 export VISUAL=nvim
 export EDITOR=$VISUAL
-# [ -f /usr/bin/opera ] && export BROWSER="/usr/bin/opera -newpage %s&"
-[ -f /usr/bin/opera ] && export BROWSER="/usr/bin/opera"
 
 # Ranger load only ~/.config/ranger/rc.conf
 export RANGER_LOAD_DEFAULT_RC=FALSE
@@ -111,4 +108,3 @@ export GIT_TERMINAL_PROMPT=1
 # Sat Oct 14 2017 22:27: fish being default terminal 
 # Sat Oct 21 2017 16:14: very pretty but not very useful 
 # [ -f /usr/bin/fish ] && exec fish
-
