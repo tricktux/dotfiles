@@ -12,5 +12,5 @@ xset -b off
 
 # Sat Oct 14 2017 11:12: This will set the i3-sensible-terminal to be used:
 [[ -f /usr/bin/termite ]] && export TERMINAL="termite"
-export EMAIL="rmolin88 at gmail dot com"
+export EMAIL="rmolin88@gmail.com"
 [ -f /usr/bin/firefox ] && export BROWSER="/usr/bin/firefox"
