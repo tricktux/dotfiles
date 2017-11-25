@@ -94,7 +94,7 @@ set $urgent-bg-color     #E53935
 #
 # Alternative colors
 		#                       BORDER      BACKGROUND  TEXT        INDICATOR   CHILD_BORDER
-		client.focused          $black      $blue     $black  $darkblack			#ECE0D7
+		client.focused          $black      $blue		$black		$darkblack	$darkcyan
 		client.unfocused        $black      $black      $white      $darkblack  $darkblack
 		client.focused_inactive $black      $black      $white      $darkblack  $darkblack
 		client.urgent           $darkred    $darkred    $black      $darkred    $darkred
