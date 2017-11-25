@@ -118,8 +118,8 @@ function! MdInstallTemplate() abort
 
 	if executable('curl')
 		" TODO-[RM]-(Fri Sep 15 2017 16:51): Make function out of this
-		execute "silent !curl -kfLo " . template_path . " --create-dirs"
-				\"https://raw.githubusercontent.com/Wandmalfarbe/pandoc-latex-template/master/eisvogel.latex"
+		execute "!curl -kfLo " . template_path . " --create-dirs
+				\ https://raw.githubusercontent.com/Wandmalfarbe/pandoc-latex-template/master/eisvogel.tex"
 	else
 		echomsg 'curl not available. Cannot download templates'
 	endif
