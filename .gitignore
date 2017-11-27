@@ -25,3 +25,5 @@ defaults/.config/ranger/plugins/
 defaults/.config/pulse/client.conf
 defaults/.config/pulse/cookie
 defaults/.config/pcmanfm/LXDE/
+defaults/.config/systemd/user/default.target.wants/wallpaper.service
+defaults/.config/systemd/user/timers.target.wants/wallpaper.timer
