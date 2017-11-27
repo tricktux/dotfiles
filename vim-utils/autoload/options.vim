@@ -114,8 +114,8 @@ function! options#Set() abort
 
 	" Status Line and Colorscheme
 	if exists('g:plugins_loaded')
-		let g:colorscheme_night_time = 20
-		let g:colorscheme_day_time = 7
+		let g:colorscheme_night_time = 18
+		let g:colorscheme_day_time = 8
 		let g:colorscheme_day = 'PaperColor'
 		let g:colorscheme_night = 'PaperColor'
 		" Set up a default colorscheme. It will be changed later by Flux
