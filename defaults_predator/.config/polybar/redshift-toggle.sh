@@ -4,5 +4,5 @@ if pgrep -x "redshift" > /dev/null
 then
 	killall redshift
 else
-	redshift&
+	redshift -c ~/.config/redshift.conf&
 fi
