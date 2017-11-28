@@ -72,7 +72,7 @@ font-2=WunconSiji:pixelsize=18;0
 
 modules-left = battery temperature cpu cpuload memory
 modules-center = cmus
-modules-right = date backlight-acpi eth wlan xkeyboard volume redshift compton 
+modules-right = date xbacklight xkeyboard eth wlan volume redshift compton 
 
 ; My new settings
 tray-detached = false
@@ -308,6 +308,7 @@ label-song-ellipsis = true
 
 [module/xbacklight]
 type = internal/xbacklight
+; output = DP-0
 
 format = <label> <ramp>
 ; format-underline = #c0392b
@@ -336,7 +337,6 @@ interval = 1
 inherit = module/xbacklight
 type = internal/backlight
 ; card = acpi_video0
-; output = DP-0
 
 [module/cpu]
 type = internal/cpu
