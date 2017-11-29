@@ -72,7 +72,7 @@ font-2=WunconSiji:pixelsize=18;0
 
 modules-left = battery temperature cpu cpuload memory
 modules-center = cmus
-modules-right = date xkeyboard volume filesystem backlight-acpi wlan redshift compton 
+modules-right = date xkeyboard volume backlight-acpi wlan redshift compton 
 
 ; My new settings
 tray-detached = false

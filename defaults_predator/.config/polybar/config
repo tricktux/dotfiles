@@ -72,7 +72,7 @@ font-2=WunconSiji:pixelsize=18;0
 
 modules-left = battery temperature cpu cpuload memory
 modules-center = cmus
-modules-right = date xbacklight xkeyboard eth wlan volume redshift compton 
+modules-right = date xkeyboard volume backlight-acpi wlan redshift compton 
 
 ; My new settings
 tray-detached = false
@@ -220,15 +220,15 @@ blacklist-0 = num lock
 
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
-; format-prefix-underline = ${colors.secondary}
+format-prefix-underline = ${colors.secondary}
 
 label-layout = %layout%
-; label-layout-underline = ${colors.secondary}
+label-layout-underline = ${colors.secondary}
 
 label-indicator-padding = 2
 label-indicator-margin = 1
 label-indicator-background = ${colors.secondary}
-; label-indicator-underline = ${colors.secondary}
+label-indicator-underline = ${colors.secondary}
 
 [module/bspwm]
 type = internal/bspwm
@@ -308,10 +308,9 @@ label-song-ellipsis = true
 
 [module/xbacklight]
 type = internal/xbacklight
-; output = DP-0
 
 format = <label> <ramp>
-; format-underline = #c0392b
+format-underline = #c0392b
 label = 
 ; Only applies if <ramp> is used
 ramp-0 = 🌕
@@ -336,7 +335,7 @@ interval = 1
 
 inherit = module/xbacklight
 type = internal/backlight
-; card = acpi_video0
+card = acpi_video0
 
 [module/cpu]
 type = internal/cpu
@@ -377,11 +376,11 @@ interface = wlp3s0
 interval = 3.0
 
 format-connected = <ramp-signal> <label-connected>
-; format-connected-underline = #9f78e1
+format-connected-underline = #9f78e1
 label-connected = %essid%
 
-label-disconnected =
-; label-disconnected-foreground = #66ffffff
+label-disconnected = not connected
+label-disconnected-foreground = #66ffffff
 ;format-disconnected = <label-disconnected>
 ;format-disconnected-underline = ${self.format-connected-underline}
 ;label-disconnected = %ifname% disconnected
@@ -448,7 +447,7 @@ type = internal/volume
 ;   <bar-volume>
 format-volume = <ramp-volume> <label-volume>
 format-prefix-foreground = ${colors.foreground-alt}
-; format-volume-underline = #0b2938
+format-volume-underline = #0b2938
 
 ; Available tags:
 ;   <label-muted> (default)
