@@ -94,7 +94,7 @@ set $urgent-bg-color     #E53935
 #
 # Alternative colors
 		#                       BORDER      BACKGROUND  TEXT        INDICATOR   CHILD_BORDER
-		client.focused          $black      $blue     $black  $darkblack			#ECE0D7
+		client.focused          $black      $blue				$black			$darkblack $darkyellow
 		client.unfocused        $black      $black      $white      $darkblack  $darkblack
 		client.focused_inactive $black      $black      $white      $darkblack  $darkblack
 		client.urgent           $darkred    $darkred    $black      $darkred    $darkred
@@ -110,7 +110,7 @@ set $right l
 
 # Bindigs{{{
 # use Mouse+$mod to drag floating windows to their wanted position
-bindsym $mod+Shift+x exec i3lock --color 475263
+bindsym $mod+Shift+x exec i3lock-fancy
 
 bindsym $mod+r mode "resize"
 # start a terminal
@@ -267,6 +267,14 @@ bindsym $mod+m scratchpad show
 
 # Comes from arch-wiki for i3. Many other goodies there
 bindsym $mod+x [urgent=latest] focus
+
+# Dep
+bindsym $mod+Shift+e exec --no-startup-id ~/.config/dotfiles/scripts/xdo_type_email.sh
+
+bindsym $mod+Ctrl+$left       resize shrink width 3 px or 3 ppt
+bindsym $mod+Ctrl+$up       resize grow height 3 px or 3 ppt
+bindsym $mod+Ctrl+$down         resize shrink height 3 px or 3 ppt
+bindsym $mod+Ctrl+$right      resize grow width 3 px or 3 ppt
 
 # }}}
 
@@ -540,4 +548,4 @@ exec_always --no-startup-id xrandr --output eDP1 --scale 1.2x1.2 --panning 3284x
 exec_always --no-startup-id ~/.fehbg
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 # }}}
-# vim:tw=78:ts=2:sts=2:sw=2:fdm=marker:set relativenumber:
+# vim:fdm=marker

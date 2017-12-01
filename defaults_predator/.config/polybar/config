@@ -72,7 +72,7 @@ font-2=WunconSiji:pixelsize=18;0
 
 modules-left = battery temperature cpu cpuload memory
 modules-center = cmus
-modules-right = date xkeyboard volume backlight-acpi wlan redshift compton 
+modules-right = date xkeyboard volume backlight-acpi eth wlan redshift compton 
 
 ; My new settings
 tray-detached = false
@@ -379,8 +379,8 @@ format-connected = <ramp-signal> <label-connected>
 format-connected-underline = #9f78e1
 label-connected = %essid%
 
-label-disconnected = not connected
-label-disconnected-foreground = #66ffffff
+; label-disconnected = not connected
+; label-disconnected-foreground = #66ffffff
 ;format-disconnected = <label-disconnected>
 ;format-disconnected-underline = ${self.format-connected-underline}
 ;label-disconnected = %ifname% disconnected

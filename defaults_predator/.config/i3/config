@@ -193,7 +193,6 @@ bindsym $mod+Shift+minus move scratchpad
 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
-bindsym $mod+minus scratchpad show
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -230,33 +229,41 @@ bindsym Control+Mod1+K exec amixer sset Master 5%+
 bindsym Control+Mod1+J exec amixer sset Master 5%-
 
 # Sat Sep 30 2017 18:59: 
-# Press $mod+o followed by either f, t, Escape or Return to launch firefox,
-# thunderbird or return to the default mode, respectively.
-# set $mode_launcher Launch: [f]irefox [t]hunderbird
-# bindsym $mod+o mode "$mode_launcher"
+set $mode_show Show: [c]mus, [g]mail, ps[u], [r]anger
+bindsym $mod+o mode "$mode_show"
 
-# mode "$mode_launcher" {
-	# bindsym f exec firefox
-		# bindsym t exec thunderbird
+mode "$mode_show" {
+		bindsym c [title="cmus"] move to scratchpad, scratchpad show; mode "default"
+		bindsym g [title="gmail-mutt"] move to scratchpad, scratchpad show; mode "default"
+		bindsym u [title="psu-mutt"] move to scratchpad, scratchpad show; mode "default"
+		bindsym r [title="ranger"] move to scratchpad, scratchpad show; mode "default"
 
-		# bindsym Escape mode "default"
-		# bindsym Return mode "default"
-# }
+		bindsym Escape mode "default"
+		bindsym Return mode "default"
+}
+
+# Thu Nov 30 2017 19:56:  
+set $mode_launch Launch: [c]mus, [g]mail, ps[u], [r]anger
+bindsym $mod+Shift+o mode "$mode_launch"
+
+mode "$mode_launch" {
+		bindsym c exec --no-startup-id termite --exec cmus --title cmus
+		bindsym g exec --no-startup-id termite --exec 'neomutt -F ~/.config/mutt/account.gmail' --title gmail-mutt; mode "default"
+		bindsym u exec --no-startup-id termite --exec 'neomutt -F ~/.config/mutt/account.psu' --title psu-mutt; mode "default"
+		bindsym r exec --no-startup-id termite --exec ranger --title ranger
+
+		bindsym Escape mode "default"
+		bindsym Return mode "default"
+}
 
 # This regex ^ start of subject and $ means end of subject
 for_window [title="^cmus$"] move to scratchpad
 for_window [title="^gmail-mutt$"] move to scratchpad
 for_window [title="^psu-mutt$"] move to scratchpad
 for_window [title="^ranger$"] move to scratchpad
-bindsym $mod+c exec ps cax | grep cmus > /dev/null || termite -e cmus --title cmus, [title="cmus"] scratchpad show
-# Sun Oct 01 2017 00:07: You can toggle fullscreen mode with $mod+f 
-bindsym $mod+m exec ps cax | grep neomutt > /dev/null || termite -e 'neomutt -F ~/.config/mutt/account.gmail' --title gmail-mutt, [title="gmail-mutt"] scratchpad show
-# TODO-[RM]-(Sat Nov 04 2017 13:09): This doesnt really work because the first
-# command cannot distinguish between the 2 instances. Therefore the first
-# instance launches but the second one never will.
-# bindsym $mod+shift+m exec ps cax | grep neomutt > /dev/null || termite -e 'neomutt -F ~/.config/mutt/account.psu' --title psu-mutt, [title="psu-mutt"] scratchpad show
-# Sun Oct 01 2017 08:20: Mapped to n because r, and a are taken 
-bindsym $mod+n exec ps cax | grep ranger > /dev/null || termite -e ranger --title ranger, [title="ranger"] scratchpad show
+
+bindsym $mod+n exec rofi -show window -config ~/.config/rofi/rofi-example.config -opacity "50"
+bindsym $mod+m scratchpad show
 
 # Comes from arch-wiki for i3. Many other goodies there
 bindsym $mod+x [urgent=latest] focus
