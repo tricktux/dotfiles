@@ -11,6 +11,12 @@ fileext: md
 \tableofcontents
 \pagebreak
 
+## Fri Dec 01 2017 06:15 
+- [ ] shutter: system level shortcuts.
+- [ ] dunst: configure and set up.
+- [ ] i3: clean up and remove all unused scripts.
+- [ ] twmn: remove from specif default configurations
+
 ## Sat Nov 11 2017 08:07 
 - [ ] arch: look at the arch environmental variables.
 - [ ] download pacaur_isntall
