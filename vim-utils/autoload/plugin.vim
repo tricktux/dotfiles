@@ -98,7 +98,7 @@ function! plugin#Config() abort
 		Plug 'guanqun/vim-mutt-aliases-plugin'
 	endif
 
-	if executable('gpg') && !exists('g:GuiLoaded') && !has('gui_running')
+	if executable('gpg')
 		" This plugin doesnt work with gvim. Use only from cli
 		Plug 'jamessan/vim-gnupg'
 		let g:GPGUseAgent = 0
