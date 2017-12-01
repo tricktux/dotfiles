@@ -24,6 +24,5 @@ function! commands#Set() abort
 	" Convert fileformat to dos
 	command! UtilsFileFormat2Dos :e ++ff=dos<CR>
 	command! UtilsNerdComAltDelims execute("normal \<Plug>NERDCommenterAltDelims")
+	command! UtilsPdfSearch call utils#SearchPdf()
 endfunction
-
-" vim:tw=78:ts=2:sts=2:sw=2:

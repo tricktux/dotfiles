@@ -1054,3 +1054,23 @@ function! utils#LightlineDeviconsFileFormat()
 
 	return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
 endfunction
+
+" TODO-[RM]-(Fri Dec 01 2017 05:36): This function could be heavily improved by adding
+" color and also making vim understand its output 
+" - Sample output without color
+" || ./applying-uml-and-patterns-3rd.pdf-59-"waterfall" process), iterative and evolutionary development is based on an attitude of embracing
+" || ./applying-uml-and-patterns-3rd.pdf:59:change and adaptation as unavoidable and indeed essential drivers.
+" || ./applying-uml-and-patterns-3rd.pdf-59-This is not to say that iterative development and the UP encourage an uncontrolled and reactive
+function! utils#SearchPdf() abort
+	if !executable('pdfgrep')
+		echoe 'Please install "pdfgrep"'
+		return
+	endif
+
+	let grep_buf = &grepprg
+
+	setlocal grepprg=pdfgrep\ --page-number\ --recursive\ --context\ 1
+	return utils#FileTypeSearch(8, 8)
+
+	let &l:grepprg = grep_buf
+endfunction
