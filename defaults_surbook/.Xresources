@@ -200,3 +200,5 @@ Xft.rgba:               rgb
 Xft.hinting:            true
 Xft.lcdfilter:          lcddefault
 Xft.hintstyle:          hintsfull
+rofi.font:              mono 22
+i3.font: pango:FontAwesome 8 

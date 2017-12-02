@@ -1,0 +1,3 @@
+rofi.modi: window,run,ssh,drun
+rofi.show-icons: true
+rofi.theme: /usr/share/rofi/themes//gruvbox-dark-soft.rasi
