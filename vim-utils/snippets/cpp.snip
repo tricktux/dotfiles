@@ -116,11 +116,11 @@ options     head
 abbr        try catch
     try 
     {
-        ${1:#:TARGET}
+        ${1:return 1;}
     } 
     catch (${2:...}) 
     {
-        ${3}
+        ${3:return -100;}
     }
 
 # snippet print "Unreal Print" b

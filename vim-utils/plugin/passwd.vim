@@ -28,4 +28,3 @@ endif
 if !exists('g:passwd_sec_on_clipboard')
 	let g:passwd_sec_on_clipboard = 45
 endif
-

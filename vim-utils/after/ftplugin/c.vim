@@ -36,7 +36,7 @@ let b:delimitMate_matchpairs = '(:),[:],{:}'
 if !exists('no_plugin_maps') && !exists('no_c_maps')
 	" Quote text by inserting "> "
 	if exists(':Neomake')
-		nnoremap <silent> <buffer> <LocalLeader>c :Neomake<cr>
+		nnoremap <silent> <buffer> <LocalLeader>c :Neomake clangtidy clangcheck cppcheck<cr>
 	else
 		nnoremap <buffer> <Plug>Make :make!<cr>
 	endif
@@ -89,12 +89,13 @@ if has('win32')
 	" Set compiler now depending on folder and system. Auto set the compiler
 	if !exists('b:current_compiler')
 		" Note: inside the '' is a pat which is a regex. That is why \\
-		let b:neomake_cpp_enabled_makers = executable('clang') ? ['clangtidy', 'clangcheck'] : ['']
-		let b:neomake_cpp_enabled_makers += executable('cppcheck') ? ['cppcheck'] : ['']
+		" let b:neomake_cpp_enabled_makers = executable('clang') ? ['clangtidy', 'clangcheck'] : ['']
+		" let b:neomake_cpp_enabled_makers += executable('cppcheck') ? ['cppcheck'] : ['']
 		if expand('%:p') =~? 'Onewings\\Source'
 			command! -buffer UtilsUpdateBorlandMakefile call <SID>UpdateBorlandMakefile()
 			compiler borland
-			let b:neomake_cpp_enabled_makers += ['make']
+			" For Borland use only make
+			let b:neomake_cpp_enabled_makers = ['make']
 			let b:neomake_cpp_make_args = ['%:r.obj']
 			let b:neomake_cpp_make_append_file = 0
 		elseif expand('%:p') =~# 'OneWings' || expand('%:p') =~# 'UnrealProjects'
