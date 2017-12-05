@@ -89,8 +89,8 @@ if has('win32')
 	" Set compiler now depending on folder and system. Auto set the compiler
 	if !exists('b:current_compiler')
 		" Note: inside the '' is a pat which is a regex. That is why \\
-		" let b:neomake_cpp_enabled_makers = executable('clang') ? ['clangtidy', 'clangcheck'] : ['']
-		" let b:neomake_cpp_enabled_makers += executable('cppcheck') ? ['cppcheck'] : ['']
+		let b:neomake_cpp_enabled_makers = executable('clang') ? ['clangtidy', 'clangcheck'] : ['']
+		let b:neomake_cpp_enabled_makers += executable('cppcheck') ? ['cppcheck'] : ['']
 		if expand('%:p') =~? 'Onewings\\Source'
 			command! -buffer UtilsUpdateBorlandMakefile call <SID>UpdateBorlandMakefile()
 			compiler borland
@@ -100,11 +100,10 @@ if has('win32')
 			let b:neomake_cpp_make_append_file = 0
 		elseif expand('%:p') =~# 'OneWings' || expand('%:p') =~# 'UnrealProjects'
 			compiler msbuild
-			silent set errorformat&
+			" silent set errorformat&
 			" TODO-[RM]-(Sat Nov 04 2017 02:14): Not sure how to build only one file in VS 
-			let b:neomake_cpp_enabled_makers += ['make']
-			let b:neomake_cpp_make_args = ['%:r.obj']
-			let b:neomake_cpp_make_append_file = 0
+			" - Mon Dec 04 2017 19:35: Tried for long time was not able to do it.
+			"   Just use clang makers and then do the normal build 
 		else
 			let b:neomake_clang_args = '-target x86_64-pc-windows-gnu -std=c++1z -stdlib=libc++ -Wall -pedantic'
 		endif
