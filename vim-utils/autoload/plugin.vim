@@ -643,6 +643,9 @@ function! plugin#Config() abort
 		let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 		let g:DevIconsEnableFoldersOpenClose = 1
 
+	Plug 'chaoren/vim-wordmotion'
+		let g:wordmotion_spaces = '_-.'
+
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
@@ -723,7 +726,16 @@ function! plugin#AfterConfig() abort
 
 	" On linux run neomake everytime you save a file
 	if exists('g:loaded_neomake')
-			call neomake#configure#automake('w')
+		call neomake#configure#automake('w')
+		let g:neomake_msbuild_maker = {
+					\ 'exe': 'msbuild',
+					\ 'args': ['/nologo', '/v:q', '/p:GenerateFullPaths=true', 
+					\ '/t:Rebuild', '/p:SelectedFiles=%', '/p:Configuration=Release' ],
+					\ 'errorformat': '%E%f(%l\,%c): error CS%n: %m [%.%#],'.
+					\                '%W%f(%l\,%c): warning CS%n: %m [%.%#]',
+					\ 'append_file' : 0,
+					\ }
+
 	endif
 	return 1
 endfunction
