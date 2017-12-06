@@ -230,11 +230,11 @@ bindsym Control+Mod1+J exec amixer sset Master 5%-
 
 # Sat Sep 30 2017 18:59: 
 set $mode_show Show: [c]mus, [g]mail, ps[u], [n]ranger
-bindsym $mod+o mode "$mode_show"
+bindsym $mod+n mode "$mode_show"
 
 mode "$mode_show" {
 		bindsym c [title="cmus"] move to scratchpad, scratchpad show; mode "default"
-		bindsym g [title="gmail-mutt"] move to scratchpad, scratchpad show; mode "default"
+		bindsym m [title="gmail-mutt"] move to scratchpad, scratchpad show; mode "default"
 		bindsym u [title="psu-mutt"] move to scratchpad, scratchpad show; mode "default"
 		bindsym n [title="ranger"] move to scratchpad, scratchpad show; mode "default"
 
@@ -244,7 +244,7 @@ mode "$mode_show" {
 
 # Thu Nov 30 2017 19:56:  
 set $mode_launch Launch: [c]mus, [g]mail, ps[u], [r]anger
-bindsym $mod+Shift+o mode "$mode_launch"
+bindsym $mod+Shift+n mode "$mode_launch"
 
 mode "$mode_launch" {
 		bindsym c exec --no-startup-id termite --exec cmus --title cmus
@@ -262,7 +262,7 @@ for_window [title="^gmail-mutt$"] move to scratchpad
 for_window [title="^psu-mutt$"] move to scratchpad
 for_window [title="^ranger$"] move to scratchpad
 
-bindsym $mod+n exec rofi -show window -opacity "50"
+# bindsym $mod+n exec rofi -show window -opacity "50"
 bindsym $mod+m scratchpad show
 
 # Comes from arch-wiki for i3. Many other goodies there
