@@ -1,0 +1,8 @@
+rofi.modi: window,run,drun
+rofi.show-icons: true
+rofi.theme: /usr/share/rofi/themes//gruvbox-dark-soft.rasi
+rofi.kb-remove-to-eol:               Control+u
+rofi.kb-remove-to-sol:               Control+shift+u
+rofi.kb-accept-entry:                Control+m,Return,KP_Enter
+rofi.kb-mode-next:                   Shift+Right,Control+k
+rofi.kb-mode-previous:               Shift+Left,Control+j
