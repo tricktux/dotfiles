@@ -11,6 +11,9 @@ fileext: md
 \tableofcontents
 \pagebreak
 
+## Sat Dec 02 2017 07:39 
+- [ ] gnupg: increase key time out.
+
 ## Fri Dec 01 2017 06:15 
 - [ ] shutter: system level shortcuts.
 - [ ] dunst: configure and set up.

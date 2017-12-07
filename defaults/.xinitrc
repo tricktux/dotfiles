@@ -12,6 +12,7 @@ sysmodmap=/etc/X11/xinit/.Xmodmap
 desktop=startlxde
 # desktop=startlxqt
 # desktop=gnome-session
+extra_resources=$userresources-`hostname` 
 
 # merge in defaults and keymaps
 if [ -f $sysresources ]; then
@@ -22,8 +23,11 @@ if [ -f $sysmodmap ]; then
 	xmodmap $sysmodmap
 fi
 
-# Load urxvt config file
-if [ -f "$userresources" ]; then
+# Give priority to a file like .Xresources-predator
+if [ -f "$extra_resources" ]; then
+	xrdb -merge "$extra_resources"
+# If that file not present then load regular .Xresources
+elif [ -f "$userresources" ]; then
     xrdb -merge "$userresources"
 fi
 
@@ -42,6 +46,4 @@ fi
 # Make sure this is before the 'exec' command or it won't be sourced.
 [ -f ~/.xprofile ] && source ~/.xprofile
 
-# exec i3
 exec i3 -V >> ~/.cache/i3log-$(date +'%F-%k-%M-%S') 2>&1
-# exec i3
