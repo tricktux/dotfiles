@@ -120,7 +120,8 @@ set menu_scroll
 set beep_new
 
 # Pretty cool colors
-source ~/.config/mutt/mutt-solarized-colors.muttrc
+# source ~/.config/mutt/mutt-solarized-colors.muttrc
+source ~/.config/mutt/mutt-colors-neonwolf-256.muttrc
 
 # Only new and read msgs
 # Use $ to synch
