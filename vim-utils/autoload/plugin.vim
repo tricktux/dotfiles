@@ -645,6 +645,15 @@ function! plugin#Config() abort
 
 	Plug 'chaoren/vim-wordmotion'
 		let g:wordmotion_spaces = '_-.'
+		let g:wordmotion_mappings = {
+					\ 'w' : '',
+					\ 'b' : '<c-b>',
+					\ 'e' : '<c-e>',
+					\ 'ge' : '',
+					\ 'aw' : '',
+					\ 'iw' : '',
+					\ '<C-R><C-W>' : ''
+					\ }
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
