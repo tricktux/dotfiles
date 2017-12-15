@@ -43,6 +43,7 @@ function! options#Set() abort
 	set wildignore+=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn,.git
 	set title                " change the terminal's title
 	set nobackup " no backup files
+	set nowritebackup
 	set noswapfile
 	"set autochdir " working directory is always the same as the file you are editing
 	" Took out options from here. Makes the session script too long and annoying
