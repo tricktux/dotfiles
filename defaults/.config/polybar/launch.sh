@@ -9,9 +9,9 @@ while pgrep -x polybar >/dev/null; do sleep 1; done
 
 # Launch bar1 and bar2
 if [[ $machine = "predator" || $machine = "predator" ]]; then
-	polybar --reload surbar&
+	polybar --reload top-$machine&
 else
-	polybar --reload archbar&
+	polybar --reload top-$machine&
 fi
 
 polybar --reload bottom-$machine&
