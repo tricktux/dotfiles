@@ -85,7 +85,10 @@ function! mappings#Set() abort
 	nnoremap <Leader>j. :call utils#LastCommand()<CR>
 	" j mappings taken <swypl;bqruihHdma248eEonf>
 	" nnoremap <Leader>Mc :call utils#ManFind()<CR>
-	nnoremap <C-s> :wa<CR>
+	" Tue Dec 19 2017 14:34: Removing the save all files. Not a good thing to do. 
+	" - Main reason is specially with Neomake running make an multiple files at the same
+	"   time 
+	nnoremap <C-s> :w<CR>
 	nnoremap <C-h> :noh<CR>
 	nnoremap <C-Space> i<Space><Esc>
 	" These are only for command line

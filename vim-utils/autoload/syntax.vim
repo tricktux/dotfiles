@@ -10,7 +10,7 @@ function! syntax#Set() abort
 	" SYNTAX_OPTIONS
 	" ft-java-syntax
 	let g:java_highlight_java_lang_ids=1
-	let g:java_highlight_functions="indent"
+	let g:java_highlight_functions='indent'
 	let g:java_highlight_debug=1
 	let g:java_space_errors=1
 	let g:java_comment_strings=1
@@ -40,4 +40,7 @@ function! syntax#Set() abort
 	" Never load netrw
 	let g:loaded_netrw       = 1
 	let g:loaded_netrwPlugin = 1
+
+	" Highlight empty spaces after line everywhere
+	match ErrorMsg '\s\+$'
 endfunction

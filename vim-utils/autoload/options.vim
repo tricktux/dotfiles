@@ -112,6 +112,11 @@ function! options#Set() abort
 	set noexrc
 	" Wed Oct 18 2017 09:19: Stop annoying bell sound
 	set belloff=all
+	" Thu Dec 21 2017 09:56: Properly format comment strings 
+	if v:version > 703 || v:version == 703 && has('patch541')
+		set formatoptions+=j
+	endif
+
 
 	" Status Line and Colorscheme
 	if exists('g:plugins_loaded')
