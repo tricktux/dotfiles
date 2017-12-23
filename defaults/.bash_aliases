@@ -40,8 +40,8 @@ alias neomutt-psu='neomutt -F ~/.config/mutt/account.psu'
 alias svn-server='cd /home/reinaldo/.mnt/copter-server/mnt/hq-storage/1.Myn/svn-server'
 
 # Mounting remote servers
-alias mount-truck='sshfs odroid@truck-server:/ ~/.mnt/truck-server/'
-alias mount-copter='sshfs odroid@copter-server:/ ~/.mnt/copter-server/'
+alias mount-truck='sshfs reinaldo@truck-server:/ ~/.mnt/truck-server/'
+alias mount-copter='sshfs reinaldo@192.168.1.8:/ ~/.mnt/copter-server/'
 alias mount-hq='sshfs reinaldo@HQ:/ ~/.mnt/HQ-server/'
 
 # Misc
@@ -120,11 +120,11 @@ FuncNvim()
 
 FuncSvnCheckout()
 {
-	svn co svn+ssh://odroid@copter-server/mnt/hq-storage/1.Myn/svn-server/$1 $2
+	svn co svn+ssh://reinaldo@192.168.1.8/mnt/hq-storage/1.Myn/svn-server/$1 $2
 }
 
 FuncSvnCreate()
 {
-	ssh odroid@copter-server mkdir -p /mnt/hq-storage/1.Myn/svn-server/$1 $@
-	ssh odroid@copter-server svnadmin create /mnt/hq-storage/1.Myn/svn-server/$1 $@
+	ssh reinaldo@192.168.1.8 mkdir -p /mnt/hq-storage/1.Myn/svn-server/$1 $@
+	ssh reinaldo@192.168.1.8 svnadmin create /mnt/hq-storage/1.Myn/svn-server/$1 $@
 }
