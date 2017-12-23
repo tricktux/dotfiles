@@ -695,6 +695,10 @@ endfunction
 
 " Change vim colorscheme depending on time of the day
 function! utils#Flux() abort
+	if get(g:, 'flux_enabled', 1) == 0
+		return
+	endif
+
 	if strftime("%H") >= g:colorscheme_night_time || strftime("%H") < g:colorscheme_day_time 
 		" Its night time
 		if !exists('g:colors_name')
