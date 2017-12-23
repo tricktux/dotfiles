@@ -128,6 +128,10 @@ function! mappings#Set() abort
 
 	" Vim-unimpaired similar mappings
 	" Do not overwrite [s, [c, [f
+	" Overwitting [c to make it more useful
+	nnoremap ]c ]czz
+	nnoremap [c [czz
+
 	nnoremap ]y :call utils#YankFrom('+')<CR>
 	nnoremap [y :call utils#YankFrom('-')<CR>
 
