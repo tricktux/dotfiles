@@ -946,7 +946,7 @@ exec = ~/.config/polybar/mail
 
 [module/weather]
 type = custom/script
-interval = 10
+interval = 1500
 format = <label>
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
