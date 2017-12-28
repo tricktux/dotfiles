@@ -69,6 +69,10 @@ endif
 
 if exists('*AutoCorrect')
 	call AutoCorrect()
+	" Tue Dec 26 2017 16:40: These abbreviations are really annoying when typing in
+	" spanish. Delete them. 
+	iuna si
+	iuna Si
 endif
 
 " Advanced spelling checks for when writting documents and such
