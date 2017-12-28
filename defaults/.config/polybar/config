@@ -6,7 +6,7 @@
 ;   The README contains alot of information
 ;
 ;=====================================================
-;TODO.RM-Sun Apr 02 2017 15:20: 
+;TODO.RM-Sun Apr 02 2017 15:20:
 ;  [X] - Symbols for ws
 ;  [X] - Add the missing scripts from i3 bar
 ;	 	 [ ]- Add color for the added script
@@ -72,7 +72,7 @@ font-2=WunconSiji:pixelsize=18;0
 
 modules-left = battery temperature cpu cpuload memory
 modules-center = cmus
-modules-right = date xkeyboard volume backlight-acpi eth-predator wlan-predator redshift compton 
+modules-right = time xkeyboard volume backlight-acpi eth-predator wlan-predator redshift compton
 
 ; My new settings
 tray-detached = false
@@ -129,7 +129,7 @@ font-2=WunconSiji:pixelsize=18;0
 
 modules-left = battery temperature cpu cpuload memory
 modules-center = cmus
-modules-right = date xkeyboard volume backlight-acpi eth wlan redshift compton 
+modules-right = time xkeyboard volume backlight-acpi eth wlan redshift compton
 
 ; My new settings
 tray-detached = false
@@ -187,7 +187,7 @@ font-2=WunconSiji:pixelsize=10;0
 
 modules-left = battery temperature cpu cpuload memory
 modules-center = cmus
-modules-right = date xkeyboard volume backlight-acpi eth-guajiro wlan-guajiro redshift compton
+modules-right = time xkeyboard volume backlight-acpi eth-guajiro wlan-guajiro redshift compton
 
 ; My new settings
 tray-detached = false
@@ -245,7 +245,7 @@ font-2=WunconSiji:pixelsize=10;0
 
 modules-left = battery temperature cpu cpuload memory
 modules-center = cmus
-modules-right = date xkeyboard volume backlight-acpi eth-beast wlan-beast redshift compton
+modules-right = time xkeyboard volume backlight-acpi eth-beast wlan-beast redshift compton
 
 ; My new settings
 tray-detached = false
@@ -300,9 +300,9 @@ font-1 = Roboto:size=18;0
 ; For more info look [here](https://github.com/jaagr/polybar/issues/313)
 font-2=WunconSiji:pixelsize=18;0
 
-modules-left = i3 
+modules-left = i3
 modules-center = xwindow
-modules-right = weather time powermenu
+modules-right = weather date powermenu
 
 ; My new settings
 ; tray-detached = false
@@ -356,9 +356,9 @@ font-1 = Roboto:size=10;0
 ; For more info look [here](https://github.com/jaagr/polybar/issues/313)
 font-2=WunconSiji:pixelsize=12;0
 
-modules-left = i3 
+modules-left = i3
 modules-center = xwindow
-modules-right = weather time powermenu
+modules-right = weather date powermenu
 
 ; My new settings
 ; tray-detached = false
@@ -412,9 +412,9 @@ font-1 = Roboto:size=10;0
 ; For more info look [here](https://github.com/jaagr/polybar/issues/313)
 font-2=WunconSiji:pixelsize=12;0
 
-modules-left = i3 
+modules-left = i3
 modules-center = xwindow
-modules-right = weather time powermenu
+modules-right = weather date powermenu
 
 ; My new settings
 ; tray-detached = false
@@ -470,7 +470,7 @@ font-2=WunconSiji:pixelsize=18;0
 
 modules-left = i3
 modules-center = xwindow
-modules-right = weather time powermenu
+modules-right = weather date powermenu
 
 ; My new settings
 ; tray-detached = false
@@ -881,7 +881,7 @@ ramp-headphones-1 = 
 
 headphone-id=19
 ; <bar-volume> settings
-; TODO.RM-Sun Apr 02 2017 10:07: Find a muted icon  
+; TODO.RM-Sun Apr 02 2017 10:07: Find a muted icon
 ; format-muted-prefix = " "
 ; format-muted-foreground = ${colors.foreground-alt}
 ; label-muted = sound muted
@@ -1033,8 +1033,8 @@ click-right = echo "$((`cut .pomodoro_session -d ' ' -f 1`+5)) 5" > .pomodoro_se
 click-middle = echo "$((`cut .pomodoro_session -d ' ' -f 1`-5)) 5" > .pomodoro_session
 ; vim:ft=dosini:
 
-; Sun Oct 01 2017 11:03 
-; It prints left side : pacman updates, right side : aur updates 
+; Sun Oct 01 2017 11:03
+; It prints left side : pacman updates, right side : aur updates
 [module/pkg]
 type = custom/script
 interval = 1200
@@ -1045,7 +1045,7 @@ exec = .config/polybar/pkg.sh
 ; Check if there is internet
 exec-if = ":ping -q -w 2 -c 1 176.34.135.167 > /dev/null"
 
-; Sun Oct 01 2017 11:09 
+; Sun Oct 01 2017 11:09
 ; pip3 install --upgrade google-api-python-client --user
 ; Font Awesome - for email badge
 ; canberra-gtk-play - for new email sound
@@ -1064,7 +1064,7 @@ exec-if = ":ping -q -w 2 -c 1 176.34.135.167 > /dev/null"
 ; subprocess.run(['twmnc -t gmail -c "New email"'])
 [module/gmail]
 type = custom/script
-exec = ~/.config/polybar/gmail/launch.py -p "" 
+exec = ~/.config/polybar/gmail/launch.py -p ""
 format-prefix = "  "
 format-underline = #6e1fd4
 format-prefix-foreground = ${colors.foreground-alt}
@@ -1104,7 +1104,7 @@ mount-0 = /
 mount-1 = /home
 
 label-mounted =  %mountpoint%: %free%
-label-unmounted = 
+label-unmounted =
 ; label-unmounted = %mountpoint%: not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
 format-underline = #336699

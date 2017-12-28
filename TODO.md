@@ -3,7 +3,7 @@ title:					TODO.md
 subtitle:			Neo(vim) related Todo list
 author:				Reinaldo Molina <rmolin88@gmail.com>
 revision:				0.0.0
-date: Sun Oct 29 2017 17:58 
+date: Sun Oct 29 2017 17:58
 fileext: md
 ---
 
@@ -11,16 +11,16 @@ fileext: md
 \tableofcontents
 \pagebreak
 
-## Sat Dec 02 2017 07:39 
+## Sat Dec 02 2017 07:39
 - [ ] gnupg: increase key time out.
 
-## Fri Dec 01 2017 06:15 
+## Fri Dec 01 2017 06:15
 - [ ] shutter: system level shortcuts.
 - [ ] dunst: configure and set up.
 - [ ] i3: clean up and remove all unused scripts.
 - [ ] twmn: remove from specif default configurations
 
-## Sat Nov 11 2017 08:07 
+## Sat Nov 11 2017 08:07
 - [ ] arch: look at the arch environmental variables.
 - [ ] download pacaur_isntall
 - [ ] download mirrorlist
@@ -43,11 +43,11 @@ fileext: md
 - [ ] polybar: add uptime to polybar
 - [ ] xscreensaver: set Appollonian as the only screen saver across all laptops
 
-## Sat Nov 04 2017 02:25 
+## Sat Nov 04 2017 02:25
 - [ ] git: delete ranger plugin files from repo.
 - [ ] ranger: look into the folder diff plugin.
 
-## Thu Nov 02 2017 06:25 
+## Thu Nov 02 2017 06:25
 - [ ] vim: create a `install/download` software plugin. the idea is to download files or
 gits and optionally run commands afterwards.
 
@@ -59,12 +59,12 @@ gits and optionally run commands afterwards.
 - [ ] pomodoro: replace the notification `system` call with a `job_start` or `terminal` type of thing
 - [ ] arch-predator: get rid or fix `vmware`
 
-## Sun Oct 29 2017 17:53 
+## Sun Oct 29 2017 17:53
 - [ ] fzf: replace current `.fzf` with an installed fzf.
 - [ ] vim: map `<Leader>tc` to a toggle `concellevel`.
 - [ ] vim: set `commentstring` for plantuml so that snippet `author` works properly.
 
-## Sat Oct 28 2017 13:48 
+## Sat Oct 28 2017 13:48
 - [ ] termite: empty black space at the bottom of the screen.
 - [ ] vim: fix `LanguageToolCheck`. set the path to the executable.
 - [ ] vim: neomake add `pandoc` maker. see `vim-pandoc`
@@ -95,9 +95,9 @@ all lightline related functions to `lightline.vim` file.
 
 ## Thu Oct 26 2017 08:33
 - [ ] vim: the lsp plugin now supports vim8
-	- Fri Oct 27 2017 08:22: Doesnt make much sense. vim is only used in windows where the NCM plugin is not used. 
+	- Fri Oct 27 2017 08:22: Doesnt make much sense. vim is only used in windows where the NCM plugin is not used.
 
-## Wed Oct 25 2017 10:57 
+## Wed Oct 25 2017 10:57
 - [ ] rg: look at the readme to get bash completion.
 
 ## Tue Oct 24 2017 10:47
@@ -112,30 +112,30 @@ something, like focus mode, systanstic, signify, most of them are toggable.
 	- its done with `tab`. See man zathura(1)
 - [ ] fzf: study these suggestions [here](https://dmitryfrank.com/articles/shell_shortcuts)
 
-## Mon Oct 23 2017 10:04 
+## Mon Oct 23 2017 10:04
 - [x] Remove gpg files from github. Along with their history
 - [ ] vim: man files remove `K` mapping. Is really annoying plus regular go to tag works
 - [ ] i3: mapping to copy email with a hotkey
 
-## Sun Oct 22 2017 09:09 
+## Sun Oct 22 2017 09:09
 - [ ] pomodoro: doc new feature
 - [ ] pomodoro: fix readme.md
 - [ ] vim: fix `wikisearch` to use normal grep instead of denite
 - [ ] arch-guajiro: remove mounting `copter-server`
 
-## Fri Oct 20 2017 09:05 
+## Fri Oct 20 2017 09:05
 - [x] vim: paste yanked text. not deleted text
 
 ## Thu Oct 19 2017 10:37
 - [x] vim: study vim-unimpaired and copy from it the best
 - [x] vim: also study and rethink all of your vim mappings and methods
 
-## Wed Oct 18 2017 12:53 
+## Wed Oct 18 2017 12:53
 - [x] vim: had this super amazing realization. ';' its not used at all as a mapping. the idea is
 to make all the `ftplugin/*.vim` mappings use `localleader` instead of `leader` and map
 `localleader=;`. This would increase mappings efficiency by 1/3.
 
-## Mon Oct 16 2017 16:31 
+## Mon Oct 16 2017 16:31
 
 ### Christmas 2017 projects.
 - [ ] 1.arch: backup entire `seafile` library
@@ -151,10 +151,10 @@ be part of the library. Like picture old files, tutorials, They should be left o
 change on a regular basis like ImpDocs, wikis, masters, those files are really the ones that
 should be part of the library
 
-## Thu Oct 12 2017 14:39 
+## Thu Oct 12 2017 14:39
 - [ ] msys2: copy the default `.bashr...` to the dotfiles and modify them
 
-## Wed Oct 11 2017 08:44 
+## Wed Oct 11 2017 08:44
 - [x] vim: map `gl` to `Ttoggle`
 - [ ] vim: make the previous mapping work also in windows.
 - [ ] !vim: fix `lightline` stuff to make it more smart.
@@ -182,39 +182,39 @@ should be part of the library
 - [x] zathura mappings to scroll with `e` and `d`
 - [x] `vim-pomodoro` install
 
-## Fri Sep 15 2017 13:11 
+## Fri Sep 15 2017 13:11
 - [ ] Standard for coding todo lists.
 - [ ] Fix the rest of the <Alt> mappings in terminal vim.
 - [x] Take a look at [this](https://github.com/Wandmalfarbe/pandoc-latex-template) repo. Looks
 	very promessing so that I can move text dev to pandoc.
 
-## Thu Sep 14 2017 05:14 
+## Thu Sep 14 2017 05:14
 - [x] Get rid of the other colorscheme. At night time use only PaperCOlor but dark
 - [x] Fix pressing `o` in markdown indenting. Its really annoying.
 - [x] Figure out how to create beautiful latex docs. `choco install miktex -y`.
-	- Sun Oct 15 2017 17:33: pandoc 
+	- Sun Oct 15 2017 17:33: pandoc
 - [ ] Move dropbox pictures to google photos.
 - [x] android tui: move files into a git repo.
 - [x] android tui: create more shortcuts for calling and for rebooting devices.
-	- Mon Oct 30 2017 09:41: Most efficient way to do it is to connect a keyboard to the tablet with termux and go from there. 
+	- Mon Oct 30 2017 09:41: Most efficient way to do it is to connect a keyboard to the tablet with termux and go from there.
 - [x] markdown focus mode not really working.
 - [x] **Return surbook**.
 	- Decided to give it a try.
 - [ ] **update choco-neovim.**
 - [ ] look into a vim-gdb plugin.
-	- Mon Oct 30 2017 09:39: not used that often. 
+	- Mon Oct 30 2017 09:39: not used that often.
 - [-] make the clang-format.py work in visual mode. see c.vim
-	- Mon Oct 30 2017 09:39: not used that often. 
+	- Mon Oct 30 2017 09:39: not used that often.
 
 ## Wed Sep 13 2017 10:57
 - [x] vim terminal. How to hide it.
 	- you can press <c-\><c-n> to enter normal mode. However right now is not working. You can get
 		out but not back in.
-	- Mon Oct 30 2017 09:38: Still work in progress but it works now. 
+	- Mon Oct 30 2017 09:38: Still work in progress but it works now.
 - [x] vim terminal figure out how to scroll.
 	- go into normal mode and scroll normally.
 - [x] bash for windows. maybe even a different terminal instead of cmd.exe
-	- Sun Oct 15 2017 17:31: Installed `cygwin` 
+	- Sun Oct 15 2017 17:31: Installed `cygwin`
 - [x] ditto plugin interfering with snippets.
 	- This fix didnt really work. Revisit
 - [x] Set work related mappings only when working on a work folder.
@@ -229,21 +229,21 @@ should be part of the library
 - [x] **Denite not working when being used for sessions**
 	- [x] Also respond to the denite bug report you did.
 	- Fri Sep 15 2017 13:53: Found out that if you `cd` into a folder and run the `file_rec`
-		denite command it does work. 
+		denite command it does work.
 - [ ] Follow all cpp tips [here](http://vim.wikia.com/wiki/Category:C%2B%2B)
 - [ ] Search and fix all TODOs
 - [x] Revisit the google plugin. To google stuff straight from anywhere.
 - [x] fuzzy search variables. Probably denite can do this.
-	- Sun Oct 15 2017 17:29: Doesn't look possible with `denite` 
+	- Sun Oct 15 2017 17:29: Doesn't look possible with `denite`
 	- Mon Oct 30 2017 09:34: deprecating this one.
 - [x] Fix the `OnlineThesaurusCurrentWord` not working under windows. Find an alternative or
 	something
-	- Mon Oct 30 2017 09:35: Would have to look in the code. To see how the call is made. Not worth it right now 
+	- Mon Oct 30 2017 09:35: Would have to look in the code. To see how the call is made. Not worth it right now
 - [x] the `w3m` plugin for windows. In order to see the master's highlights right in vim.
 	- You'll have to compile yourself in windows. Maybe doable can try it with clang. See what happens.
-	- Mon Oct 30 2017 09:35: Too much work. 
+	- Mon Oct 30 2017 09:35: Too much work.
 
-## Tue Sep 05 2017 05:21 
+## Tue Sep 05 2017 05:21
 Improvements:
 - [x] Create a after/syntax/gitcommit.vim to redline ahead and greenline
   up-to-date
@@ -253,11 +253,11 @@ Improvements:
 - [x] Construct unified music library
 - [x] Markdown math formulas
 
-## Tue Jul 11 2017 13:27 
+## Tue Jul 11 2017 13:27
 - [x] Put a terminal with a vim-instance in an i3-scratchpad, combine it with autosave-when-idle and you got the
   perfect note keeping workflow
 
-## Mon Jul 10 2017 12:06 
+## Mon Jul 10 2017 12:06
 - [x] Create Index for Wikis
 	- Using denite for this purpose
 - [x] Fix markdwon enter issue where its no breaking lines
@@ -266,7 +266,7 @@ Improvements:
 	- Didnt yield anything.
 - [x] Why `ctrlp` having such a lame buffer thing
 
-## Tue May 02 2017 10:14 
+## Tue May 02 2017 10:14
 -  [x] Get familiar with `vifm`. Potential for substitute of `ranger`
 	- `vifm` is a piece of shit. At least for windows.
 	- Main thing is that it cannot follow `*.lnk` files
@@ -277,22 +277,22 @@ Improvements:
 -  [ ] Get `shell` to open `msys2`???
 -  [ ] Get `pacaur` to work on `msys2`
 
-## Fri Apr 21 2017 09:25 
+## Fri Apr 21 2017 09:25
 -  [x] Profile command didnt work
 -  [x] Look into using Neosolarized
-	- Mon Jul 10 2017 12:08 
+	- Mon Jul 10 2017 12:08
 	- Didnt like it
 -  [x] Cool cursor in nvim-qt on windows
 
-## Wed Apr 19 2017 09:17 
+## Wed Apr 19 2017 09:17
 -  [ ] On the svn.nvim plugin before switching to a branch make sure that the svn status command returns empty. Otherwise
   the switch is not going to go well.
 
-## Mon Apr 10 2017 16:42 
+## Mon Apr 10 2017 16:42
 - [  ] Fix svn.nvim plugin to obtain url from svn info instead of all of that twisted logic that you have.
 - [  ] Finish the svn.nvim plugin
-- 
-## Tue Apr 04 2017 08:50 
+-
+## Tue Apr 04 2017 08:50
 -  [x] Make a new `autoload\autocomplete.vim` file where you handle all the autocompletion logic
 -  [x] Look into neovim completion manager
 -  [x] cscope command its really not working
@@ -316,11 +316,11 @@ noautocmd qall!
 - Created `~/.cache/profile_typing.log` for this purpose
 - [x] Fix snippets for cpp for if and all so that they dont have the bad brackets
 
-## Thu Mar 16 2017 09:20 
+## Thu Mar 16 2017 09:20
 -  [x] Remap `<Shift+s>`
 -  [ ] Create svn.vim as remote pyhon plugin
-- Make it not dependant on the user providing the `repo_url` 
-## Mon Mar 13 2017 14:54 
+- Make it not dependant on the user providing the `repo_url`
+## Mon Mar 13 2017 14:54
 -  [x] Think of a way to create your own update of tags and cscope
 ## Fri Mar 10 2017 09:22
 -  [x] Clang complete
@@ -330,7 +330,7 @@ noautocmd qall!
 -  [x] Implement function for when cd into rooter check if cscope is there then load it.
 -  [x] Give easytags another try
 - Not working in win32 neovim
-## Thu Mar 02 2017 10:41 
+## Thu Mar 02 2017 10:41
 -  [x] Fix ctags for neovim `tagbar` doesnt like new ctags. Not happening really haard
 - This is because neovim doesnt support yet system() in windows
 - Issue I was creating on the repo:
