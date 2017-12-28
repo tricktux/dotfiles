@@ -135,7 +135,7 @@ bindsym $mod+$down focus down
 bindsym $mod+$up focus up
 bindsym $mod+$right focus right
 
-# Sun Jul 30 2017 13:09 
+# Sun Jul 30 2017 13:09
 # Requires `install xdotool' and 'go get -u github.com/termhn/i3-vim-nav'
 # - The thing is that this down here doesnt work
 # bindsym $mod+h exec --no-startup-id "i3-vim-nav h"
@@ -207,7 +207,7 @@ bindsym Print exec gnome-screenshot
 bindsym XF86MonBrightnessUp exec xbacklight +10
 bindsym XF86MonBrightnessDown exec xbacklight -10
 # So that it agrees with the volume-pulseaudio control
-bindsym XF86AudioRaiseVolume exec amixer sset Master 5%+ 
+bindsym XF86AudioRaiseVolume exec amixer sset Master 5%+
 bindsym XF86AudioLowerVolume exec amixer sset Master 5%-
 bindsym XF86AudioMute exec amixer sset Master toggle
 # bindsym XF86AudioLowerVolume exec amixer sset Master 5%-
@@ -227,34 +227,6 @@ bindsym Control+Mod1+H exec cmus-remote -u
 bindsym Control+Mod1+L exec cmus-remote -n
 bindsym Control+Mod1+K exec amixer sset Master 5%+
 bindsym Control+Mod1+J exec amixer sset Master 5%-
-
-# Sat Sep 30 2017 18:59: 
-set $mode_show Show: [c]mus, [g]mail, ps[u], [n]ranger
-bindsym $mod+n mode "$mode_show"
-
-mode "$mode_show" {
-		bindsym c [title="cmus"] move to scratchpad, scratchpad show; mode "default"
-		bindsym m [title="gmail-mutt"] move to scratchpad, scratchpad show; mode "default"
-		bindsym u [title="psu-mutt"] move to scratchpad, scratchpad show; mode "default"
-		bindsym n [title="ranger"] move to scratchpad, scratchpad show; mode "default"
-
-		bindsym Escape mode "default"
-		bindsym Return mode "default"
-}
-
-# Thu Nov 30 2017 19:56:  
-set $mode_launch Launch: [c]mus, [g]mail, ps[u], [n]ranger
-bindsym $mod+Shift+n mode "$mode_launch"
-
-mode "$mode_launch" {
-		bindsym c exec --no-startup-id i3-sensible-terminal --exec cmus --title cmus
-		bindsym g exec --no-startup-id i3-sensible-terminal --exec 'neomutt -F ~/.config/mutt/account.gmail' --title gmail-mutt; mode "default"
-		bindsym u exec --no-startup-id i3-sensible-terminal --exec 'neomutt -F ~/.config/mutt/account.psu' --title psu-mutt; mode "default"
-		bindsym n exec --no-startup-id i3-sensible-terminal --exec ranger --title ranger
-
-		bindsym Escape mode "default"
-		bindsym Return mode "default"
-}
 
 # This regex ^ start of subject and $ means end of subject
 for_window [title="^cmus$"] move to scratchpad
@@ -291,28 +263,28 @@ set $workspace9 "9"
 set $workspace10 "10"
 
 # Switch to workspace
-bindsym $mod+1 workspace $workspace1 
-bindsym $mod+2 workspace $workspace2 
-bindsym $mod+3 workspace $workspace3 
-bindsym $mod+4 workspace $workspace4 
-bindsym $mod+5 workspace $workspace5 
-bindsym $mod+6 workspace $workspace6 
-bindsym $mod+7 workspace $workspace7 
-bindsym $mod+8 workspace $workspace8 
-bindsym $mod+9 workspace $workspace9 
+bindsym $mod+1 workspace $workspace1
+bindsym $mod+2 workspace $workspace2
+bindsym $mod+3 workspace $workspace3
+bindsym $mod+4 workspace $workspace4
+bindsym $mod+5 workspace $workspace5
+bindsym $mod+6 workspace $workspace6
+bindsym $mod+7 workspace $workspace7
+bindsym $mod+8 workspace $workspace8
+bindsym $mod+9 workspace $workspace9
 bindsym $mod+0 workspace $workspace10
 bindsym $mod+Tab workspace back_and_forth
 
 # Move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $workspace1 
-bindsym $mod+Shift+2 move container to workspace $workspace2 
-bindsym $mod+Shift+3 move container to workspace $workspace3 
-bindsym $mod+Shift+4 move container to workspace $workspace4 
-bindsym $mod+Shift+5 move container to workspace $workspace5 
-bindsym $mod+Shift+6 move container to workspace $workspace6 
-bindsym $mod+Shift+7 move container to workspace $workspace7 
-bindsym $mod+Shift+8 move container to workspace $workspace8 
-bindsym $mod+Shift+9 move container to workspace $workspace9 
+bindsym $mod+Shift+1 move container to workspace $workspace1
+bindsym $mod+Shift+2 move container to workspace $workspace2
+bindsym $mod+Shift+3 move container to workspace $workspace3
+bindsym $mod+Shift+4 move container to workspace $workspace4
+bindsym $mod+Shift+5 move container to workspace $workspace5
+bindsym $mod+Shift+6 move container to workspace $workspace6
+bindsym $mod+Shift+7 move container to workspace $workspace7
+bindsym $mod+Shift+8 move container to workspace $workspace8
+bindsym $mod+Shift+9 move container to workspace $workspace9
 bindsym $mod+Shift+0 move container to workspace $workspace10
 
 # Assign stuff
@@ -474,6 +446,38 @@ mode "$mode_gaps_outer" {
 }
 # }}}
 
+# Mode Show: {{{
+# Sat Sep 30 2017 18:59:
+set $mode_show Show: [c]mus, [m]gmail, ps[u], [n]ranger
+bindsym $mod+n mode "$mode_show"
+
+mode "$mode_show" {
+	bindsym c [title="cmus"] move to scratchpad, scratchpad show; mode "default"
+	bindsym m [title="gmail-mutt"] move to scratchpad, scratchpad show; mode "default"
+	bindsym u [title="psu-mutt"] move to scratchpad, scratchpad show; mode "default"
+	bindsym n [title="ranger"] move to scratchpad, scratchpad show; mode "default"
+
+	bindsym Escape mode "default"
+	bindsym Return mode "default"
+}
+# }}}
+
+# Mode Launch: {{{
+# Thu Nov 30 2017 19:56:
+set $mode_launch Launch: [c]mus, [m]gmail, ps[u], [n]ranger
+bindsym $mod+Shift+n mode "$mode_launch"
+
+mode "$mode_launch" {
+	bindsym c exec --no-startup-id i3-sensible-terminal --exec cmus --title cmus
+	bindsym g exec --no-startup-id i3-sensible-terminal --exec 'neomutt -F ~/.config/mutt/account.gmail' --title gmail-mutt; mode "default"
+	bindsym u exec --no-startup-id i3-sensible-terminal --exec 'neomutt -F ~/.config/mutt/account.psu' --title psu-mutt; mode "default"
+	bindsym n exec --no-startup-id i3-sensible-terminal --exec ranger --title ranger
+
+	bindsym Escape mode "default"
+	bindsym Return mode "default"
+}
+# }}}
+
 # Bar{{{
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -517,9 +521,10 @@ exec --no-startup-id i3-sensible-terminal
 exec --no-startup-id nm-applet
 exec --no-startup-id blueberry-tray
 exec --no-startup-id seafile-applet
-exec --no-startup-id dropbox
+# Thu Dec 28 2017 09:48: Seafile fully functional
+# exec --no-startup-id dropbox
 
-# Wed Oct 11 2017 22:16: Application similar to xflux 
+# Wed Oct 11 2017 22:16: Application similar to xflux
 exec --no-startup-id redshift -c ~/.config/redshift.conf
 
 
@@ -527,10 +532,11 @@ exec --no-startup-id redshift -c ~/.config/redshift.conf
 # exec --no-startup-id insync start
 
 # Notifications daemon. See twmnc for help
-# Fri Jun 30 2017 14:30: Not playing well with rambox 
-exec --no-startup-id twmnd
+# Fri Jun 30 2017 14:30: Not playing well with rambox
+# Thu Dec 28 2017 09:48: It was reused for a while now switching to dunst
+# exec --no-startup-id twmnd
 
-# Sun Oct 01 2017 08:17: Mount or attempt to mount-copter 
+# Sun Oct 01 2017 08:17: Mount or attempt to mount-copter
 # exec --no-startup-id sshfs odroid@copter-server:/ ~/.mnt/copter-server/
 
 # Start vnc server service
