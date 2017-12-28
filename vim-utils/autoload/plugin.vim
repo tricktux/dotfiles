@@ -35,7 +35,7 @@ function! plugin#Config() abort
 		" installfzf manually not like this below. I dont like it. Take care of
 		" the repurcutions this could have in .bashrc
 		" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-		" Sun Jul 30 2017 13:09 
+		" Sun Jul 30 2017 13:09
 		" Requires `install xdotool' and 'go get -u github.com/termhn/i3-vim-nav'
 		" - The thing is that this down here doesnt work
 		" Plug 'termhn/i3-vim-nav', { 'do' : 'ln -s ' . g:vim_plugins_path . 'i3-vim-nav/i3-vim-nav ~/.local/bin' }
@@ -45,7 +45,7 @@ function! plugin#Config() abort
 
 	if has('nvim') || v:version >= 800
 		" Plugins that support both neovim and vim need separate folders
-		" Fri Oct 27 2017 15:05: Not sure that is a true statement 
+		" Fri Oct 27 2017 15:05: Not sure that is a true statement
 		Plug 'Shougo/denite.nvim', { 'as' : has('nvim') ? 'nvim_denite' : 'vim_denite' }
 			nnoremap <A-;> :Denite command_history<CR>
 			nnoremap <A-e> :Denite help<CR>
@@ -82,9 +82,9 @@ function! plugin#Config() abort
 				set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
 				let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 			endif
-			let g:ctrlp_prompt_mappings = { 
-						\ 'PrtBS()': ['<bs>', '<c-h>'], 
-						\ 'PrtCurLeft()': ['<left>', '<c-^>'], 
+			let g:ctrlp_prompt_mappings = {
+						\ 'PrtBS()': ['<bs>', '<c-h>'],
+						\ 'PrtCurLeft()': ['<left>', '<c-^>'],
 						\ 'PrtCurRight()': ['<right>'],
 						\ }
 			" Lightline settings
@@ -124,7 +124,7 @@ function! plugin#Config() abort
 			" All mappings moved to c.vim
 			" Note: Remember to always :UpdateRemotePlugins
 			"TODO.RM-Sun May 21 2017 01:14: Create a ftplugin/lldb.vim to disable
-			"folding  
+			"folding
 		endif
 	endif
 
@@ -142,7 +142,7 @@ function! plugin#Config() abort
 	Plug 'neomake/neomake'
 		" Fri Oct 27 2017 14:39: neomake defaults are actually pretty amazing. If
 		" you need to change it. Do it on a per buffer basis. Look on c.vim for
-		" example 
+		" example
      let g:neomake_error_sign = {'text': "\uf057", 'texthl': 'ErrorMsg'}
      let g:neomake_warning_sign = {
          \   'text': "\uf071",
@@ -170,10 +170,10 @@ function! plugin#Config() abort
 		nnoremap <Plug>Make :NeomakeProject<cr>
 		let g:neomake_markdown_enabled_makers = ['make']
 		let g:neomake_plantuml_enabled_makers = ['plantuml']
-		
+
 		augroup custom_neomake
 			autocmd User NeomakeJobFinished call utils#NeomakeJobFinished()
-			" Thu Nov 09 2017 10:17: Not needed when using neomake native statusline function 
+			" Thu Nov 09 2017 10:17: Not needed when using neomake native statusline function
 			" autocmd User NeomakeJobStarted call utils#NeomakeJobStartd()
 		augroup END
 
@@ -185,7 +185,7 @@ function! plugin#Config() abort
 		let g:table_mode_corner='|'
 		" let g:table_mode_corner = '+'
 		let g:table_mode_align_char = ':'
-		" TODO.RM-Wed Jul 19 2017 21:10: Fix here these mappings are for terminal  
+		" TODO.RM-Wed Jul 19 2017 21:10: Fix here these mappings are for terminal
 		let g:table_mode_map_prefix = '<LocalLeader>t'
 		let g:table_mode_disable_mappings = 1
 		nnoremap <Leader>ta :TableModeToggle<CR>
@@ -193,7 +193,7 @@ function! plugin#Config() abort
 
 	Plug g:location_vim_utils
 		" Load the rest of the stuff and set the settings
-		let g:svn_repo_url = 'svn://odroid@copter-server/' 
+		let g:svn_repo_url = 'svn://odroid@copter-server/'
 		let g:svn_repo_name = 'UnrealEngineCourse/BattleTanks_2/'
 		nnoremap <Leader>vw :call SVNSwitch<CR>
 		nnoremap <Leader>vb :call SVNCopy<CR>
@@ -230,11 +230,12 @@ function! plugin#Config() abort
 	" follow `*.lnk` shortcuts. Not close to being Replacement for `ranger`.
 	" Main reason it looks appealing is that it has support for Windows. But its
 	" not very good
-	if executable('ranger')
-		nnoremap <Plug>FileBrowser :RangerCurrentDirectory<CR>
-	else
-		nnoremap <Plug>FileBrowser :NERDTree<CR>
-	endif
+	" Thu Dec 28 2017 10:07: Ranger stopped working on unix as well on some machines
+	" if executable('ranger')
+		" nnoremap <Plug>FileBrowser :RangerCurrentDirectory<CR>
+	" else
+	nnoremap <Plug>FileBrowser :NERDTree<CR>
+	" endif
 
 	Plug 'francoiscabrol/ranger.vim', { 'on' : 'RangerCurrentDirectory' }
 		let g:ranger_map_keys = 0
@@ -288,7 +289,7 @@ function! plugin#Config() abort
 		let g:rooter_manual_only = 1
 		nnoremap <Leader>cr :Rooter<CR>
 		" nnoremap <Leader>cr :call utils#RooterAutoloadCscope()<CR>
-	
+
 	Plug 'Raimondi/delimitMate'
 		let g:delimitMate_expand_cr = 1
 		let g:delimitMate_expand_space = 1
@@ -350,7 +351,7 @@ function! plugin#Config() abort
 					\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 		" Tell Neosnippet about the other snippets
 		let g:neosnippet#snippets_directory= [ g:vim_plugins_path . '/vim-snippets/snippets', g:location_vim_utils . '/snippets/', ]
-		" Fri Oct 20 2017 21:47: Not really data but cache 
+		" Fri Oct 20 2017 21:47: Not really data but cache
 		let g:neosnippet#data_directory = g:std_cache_path . '/neosnippets'
 		" Used by nvim-completion-mgr
 		let g:neosnippet#enable_completed_snippet=1
@@ -371,7 +372,7 @@ function! plugin#Config() abort
 		nmap <Leader>gs :Gstatus<CR><C-w>L<C-n>
 		nnoremap <Leader>gps :Gpush<CR>
 		nnoremap <Leader>gpl :Gpull<CR>
-		nnoremap <Leader>ga :!git add 
+		nnoremap <Leader>ga :!git add
 		nnoremap <Leader>gl :silent Glog<CR>
 					\:copen 20<CR>
 
@@ -385,20 +386,20 @@ function! plugin#Config() abort
 	Plug 'juneedahamed/svnj.vim', { 'on' : 'SVNStatus' }
 		let g:svnj_allow_leader_mappings=0
 		let g:svnj_cache_dir = g:std_cache_path
-		let g:svnj_browse_cache_all = 1 
+		let g:svnj_browse_cache_all = 1
 		let g:svnj_custom_statusbar_ops_hide = 0
-		nnoremap <silent> <leader>vs :SVNStatus<CR>  
-		nnoremap <silent> <leader>vo :SVNLog .<CR>  
+		nnoremap <silent> <leader>vs :SVNStatus<CR>
+		nnoremap <silent> <leader>vo :SVNLog .<CR>
 
 
 	" colorschemes
 	Plug 'morhetz/gruvbox' " colorscheme gruvbox
 	Plug 'NLKNguyen/papercolor-theme'
-	" Sun May 07 2017 16:25 - Gave it a try and didnt like it 
+	" Sun May 07 2017 16:25 - Gave it a try and didnt like it
 	Plug 'icymind/NeoSolarized'
-	" Sat Oct 14 2017 15:50: Dont like this one either. 
+	" Sat Oct 14 2017 15:50: Dont like this one either.
 	Plug 'google/vim-colorscheme-primary'
-	" Sat Oct 14 2017 15:59: Horrible looking 
+	" Sat Oct 14 2017 15:59: Horrible looking
 	Plug 'joshdick/onedark.vim'
 	Plug 'altercation/vim-colors-solarized'
 	Plug 'jnurmine/Zenburn'
@@ -449,8 +450,8 @@ function! plugin#Config() abort
 		" otf-inconsolata-powerline-git
 		let g:lightline = {
 					\ 'active' : {
-					\   'left': [ 
-					\							[ 'mode', 'paste' ], 
+					\   'left': [
+					\							[ 'mode', 'paste' ],
 					\							[ 'readonly', 'filename' ],
 					\							[  ]
 					\						] },
@@ -461,7 +462,7 @@ function! plugin#Config() abort
 					" \ 'separator': { 'left': '', 'right': '' },
 					" \ 'subseparator': { 'left': '', 'right': '' }
 					" \ }
-		
+
 		" let g:lightline.tab = {
 					" \ 'active': [ 'tabnum', 'absolutepath', 'modified' ],
 					" \ }
@@ -534,7 +535,7 @@ function! plugin#Config() abort
 
 	Plug 'godlygeek/tabular'
 		let g:no_default_tabular_maps = 1
-	
+
 	" This plugin depends on 'godlygeek/tabular'
 	Plug 'plasticboy/vim-markdown', { 'for' : 'markdown' }
 		let g:vim_markdown_no_default_key_mappings = 1
@@ -545,9 +546,9 @@ function! plugin#Config() abort
 		let g:vim_markdown_frontmatter = 1
 		let g:vim_markdown_new_list_item_indent = 0
 
-	" Sun Sep 10 2017 20:44 Depends on plantuml being installed  
+	" Sun Sep 10 2017 20:44 Depends on plantuml being installed
 	" If you want dont want to image preview after loading the plugin put the
-	" comment: 
+	" comment:
 	"		'no-preview
 	"	in your file
 	Plug 'scrooloose/vim-slumlord', { 'on' : 'UtilsUmlInFilePreview' }
@@ -583,22 +584,23 @@ function! plugin#Config() abort
 
 	" Autocorrect mispellings on the fly
 	Plug 'panozzaj/vim-autocorrect', { 'for' : 'markdown' }
+	" Disble this file by removing its function call from autload/markdown.vim
 
-	" Sun Sep 10 2017 20:44 Depends on languagetool being installed 
+	" Sun Sep 10 2017 20:44 Depends on languagetool being installed
 	if !empty('g:languagetool_jar')
 		Plug 'dpelle/vim-LanguageTool', { 'for' : 'markdown' }
 	endif
 
 	Plug 'rmolin88/pomodoro.vim'
-		" let g:pomodoro_show_time_remaining = 0 
-		" let g:pomodoro_time_slack = 1 
-		" let g:pomodoro_time_work = 1 
+		" let g:pomodoro_show_time_remaining = 0
+		" let g:pomodoro_time_slack = 1
+		" let g:pomodoro_time_work = 1
 		let g:pomodoro_use_devicons = 1
 		if executable('twmnc')
 			let g:pomodoro_notification_cmd = 'twmnc -t Vim -i nvim -c "Pomodoro done" && mpg123 ~/.config/twmn/cool_notification1.mp3'
 		endif
 		let g:pomodoro_log_file = g:std_data_path . '/pomodoro_log'
-		" %#ErrorMsg#%{PomodoroStatus()}%#StatusLine# 
+		" %#ErrorMsg#%{PomodoroStatus()}%#StatusLine#
 
 	Plug 'chrisbra/csv.vim', { 'for' : 'csv' }
 		let g:no_csv_maps = 1
@@ -638,7 +640,7 @@ function! plugin#Config() abort
 		let g:calendar_google_calendar = 1
 		let g:calendar_cache_directory = g:std_cache_path . '/calendar.vim/'
 
-	" Tue Oct 31 2017 11:30: Needs to be loaded last 
+	" Tue Oct 31 2017 11:30: Needs to be loaded last
 	Plug 'ryanoasis/vim-devicons'
 		let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 		let g:DevIconsEnableFoldersOpenClose = 1
@@ -738,7 +740,7 @@ function! plugin#AfterConfig() abort
 		call neomake#configure#automake('w')
 		let g:neomake_msbuild_maker = {
 					\ 'exe': 'msbuild',
-					\ 'args': ['/nologo', '/v:q', '/p:GenerateFullPaths=true', 
+					\ 'args': ['/nologo', '/v:q', '/p:GenerateFullPaths=true',
 					\ '/t:Rebuild', '/p:SelectedFiles=%', '/p:Configuration=Release' ],
 					\ 'errorformat': '%E%f(%l\,%c): error CS%n: %m [%.%#],'.
 					\                '%W%f(%l\,%c): warning CS%n: %m [%.%#]',
