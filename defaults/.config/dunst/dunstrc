@@ -1,5 +1,5 @@
 [global]
-font = Font Awesome 11
+font = Font Awesome 14
 
 # Allow a small subset of html markup:
 #   <b>bold</b>
@@ -70,7 +70,7 @@ hide_duplicates_count = yes
 # The width can be negative.  In this case the actual width is the
 # screen width minus the width defined in within the geometry option.
 #geometry = "250x50-40+40"
-geometry = "300x50-15+49"
+geometry = "500x50-15+49"
 
 # Shrink window if it's smaller than the width.  Will be ignored if
 # width is 0.
@@ -187,21 +187,21 @@ frame_color = "#3B7C87"
 foreground = "#3B7C87"
 background = "#191311"
 #background = "#2B313C"
-timeout = 4
+timeout = 20
 
 [urgency_normal]
 frame_color = "#5B8234"
 foreground = "#5B8234"
 background = "#191311"
 #background = "#2B313C"
-timeout = 6
+timeout = 20
 
 [urgency_critical]
 frame_color = "#B7472A"
 foreground = "#B7472A"
 background = "#191311"
 #background = "#2B313C"
-timeout = 8
+timeout = 20
 
 
 # Every section that isn't one of the above is interpreted as a rules to
