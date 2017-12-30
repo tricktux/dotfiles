@@ -129,7 +129,7 @@ font-2=WunconSiji:pixelsize=18;0
 
 modules-left = battery temperature cpu cpuload memory
 modules-center = cmus
-modules-right = time xkeyboard volume backlight-acpi eth wlan redshift compton
+modules-right = time xkeyboard volume backlight-acpi eth-surbook wlan-surbook redshift compton
 
 ; My new settings
 tray-detached = false
@@ -680,7 +680,7 @@ ramp-signal-5 = 😈
 ramp-signal-foreground = ${colors.foreground-alt}
 [module/wlan-surbook]
 type = internal/network
-interface = wlp3s0
+interface = wlp1s0
 interval = 3.0
 
 format-connected = <ramp-signal> <label-connected>
