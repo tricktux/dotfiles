@@ -561,7 +561,7 @@ exec --no-startup-id redshift -c ~/.config/redshift.conf
 # exec --no-startup-id sshfs odroid@copter-server:/ /home/reinaldo/.mnt/copter-server&
 
 # Thu Nov 16 2017 18:31 trying to get an a good configuration
-exec_always --no-startup-id xrandr --output eDP1 --scale 1.2x1.2 --panning 3284x2189
+# exec_always --no-startup-id xrandr --output eDP1 --scale 1.2x1.2 --panning 3284x2189
 
 # Do not modify here. It can still be used by gnome
 # Not using because it sets up conky with not sure how to use right now
