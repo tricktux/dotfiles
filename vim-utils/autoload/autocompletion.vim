@@ -211,9 +211,13 @@ endfunction
 
 function! autocompletion#SetShuogo() abort
 	" Vim exclusive plugins
-	if has('nvim')
+	if has('python3')
 		Plug 'Shougo/deoplete.nvim'
 		if !has('nvim')
+			" Requirements For Vim 8:
+			" - roxma/vim-hug-neovim-rpc
+			" - g:python3_host_prog pointed to your python3 executable, or echo exepath('python3') is not empty.
+			" - neovim python client (pip3 install neovim)
 			Plug 'roxma/nvim-yarp'
 			Plug 'roxma/vim-hug-neovim-rpc'
 		endif
@@ -257,7 +261,7 @@ function! autocompletion#SetShuogo() abort
 		endfunction
 		" and jedi for autocompletion, `pip install jedi --user`
 		Plug 'zchee/deoplete-jedi'
-	elseif !has('nvim') && has('lua') " Neocomplete
+	elseif has('lua') " Neocomplete
 		Plug 'Shougo/neocomplete'
 		" All new stuff
 		let g:neocomplete#enable_at_startup = 1

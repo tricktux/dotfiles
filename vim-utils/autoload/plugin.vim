@@ -62,8 +62,7 @@ function! plugin#Config() abort
 			let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
 			" It says cache dir but dont want to keep loosing history everytime cache gets cleaned up
 			" Fri Jan 05 2018 14:38: Now that denite's file_rec is working much better no need
-			" to keep this innacurrate list of files around. Rely on it less. Use more
-			" <Leader>e mappings. 
+			" to keep this innacurrate list of files around. Rely on it less. 
 			let g:ctrlp_cache_dir = g:std_cache_path . '/ctrlp'
 			let g:ctrlp_working_path_mode = 'wra'
 			let g:ctrlp_max_history = &history
@@ -107,7 +106,8 @@ function! plugin#Config() abort
 
 		" Possible values:
 		" - ycm nvim_compl_manager shuogo autocomplpop completor asyncomplete neo_clangd
-		call autocompletion#SetCompl(has('nvim') ? 'nvim_compl_manager' : 'shuogo')
+		" call autocompletion#SetCompl(has('nvim') ? 'nvim_compl_manager' : 'shuogo')
+		call autocompletion#SetCompl('shuogo')
 
 		" Possible values:
 		" - chromatica easytags neotags color_coded clighter8

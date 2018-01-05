@@ -15,7 +15,7 @@ function win32#Config()
 	nnoremap <CR> o<ESC>
 
 	" On MS-Windows, this is mapped to cut Visual text
-	" |dos-standard-mappings|.  	
+	" |dos-standard-mappings|.
 	silent! vunmap <C-X>
 
 	let languagetool_jar = findfile('languagetool-commandline.jar', $ChocolateyInstall . '\lib\languagetool\tools\**2')
@@ -23,11 +23,11 @@ function win32#Config()
 		let g:languagetool_jar = 'c:' . languagetool_jar
 	endif
 
-	if filereadable('C:\Program Files\LLVM\share\clang\clang-format.py') 
+	if filereadable('C:\Program Files\LLVM\share\clang\clang-format.py')
 				\ && has('python') && executable('clang-format')
 		let g:clang_format_py = 'C:\Program Files\LLVM\share\clang\clang-format.py'
 	endif
-	
+
 	" Set wiki_path
 	if $USERNAME ==? 'Reinaldo'
 		let g:wiki_path =  'D:\Seafile\KnowledgeIsPower\wiki'
@@ -40,18 +40,17 @@ function win32#Config()
 		call utils#SetWingsPath(g:wings_path)
 	endif
 
-	if has('nvim')
-		let pyt2 = "C:\\Python27\\python.exe"
-		if filereadable(pyt3)
-			let g:python3_host_prog= pyt3
-		endif
-		if filereadable(pyt2)
-			let g:python_host_prog= pyt2
-		endif
+	" Fri Jan 05 2018 16:40: Many plugins use this now. Making these variables available
+	" all the time.
+	let pyt2 = "C:\\Python27\\python.exe"
+	if filereadable(pyt3)
+		let g:python3_host_prog= pyt3
+	endif
+	if filereadable(pyt2)
+		let g:python_host_prog= pyt2
 	endif
 
 	" TODO-[RM]-(Sat Nov 25 2017 13:12): Change this here to Firefox
 	" Make sure that "C:\Program Files\Opera\launcher.exe" is in your path
 	let g:browser_cmd = 'launcher.exe'
-
 endfunction
