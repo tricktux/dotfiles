@@ -687,10 +687,10 @@ endfunction
 " Called on augroup VimEnter search augroup.vim
 function! plugin#AfterConfig() abort
 	if exists('g:loaded_deoplete')
-		call deoplete#custom#set('javacomplete2', 'mark', '')
-		call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
+		call deoplete#custom#source('javacomplete2', 'mark', '')
+		call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
 		" c c++
-		call deoplete#custom#set('clang2', 'mark', '')
+		call deoplete#custom#source('clang2', 'mark', '')
 	endif
 
 	" Plugin function names are never detected. Only plugin commands
