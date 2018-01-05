@@ -49,8 +49,6 @@ function! plugin#Config() abort
 		Plug 'Shougo/denite.nvim', { 'as' : has('nvim') ? 'nvim_denite' : 'vim_denite' }
 			nnoremap <A-;> :Denite command_history<CR>
 			nnoremap <A-e> :Denite help<CR>
-			" nnoremap <S-k> :Denite buffer<CR>
-			nnoremap <A-p> :Denite file_rec<CR>
 		Plug 'ctrlpvim/ctrlp.vim'
 			nnoremap <S-k> :CtrlPBuffer<CR>
 			nnoremap <C-p> :CtrlPMRU<CR>
@@ -63,7 +61,10 @@ function! plugin#Config() abort
 			let g:ctrlp_show_hidden = 1
 			let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
 			" It says cache dir but dont want to keep loosing history everytime cache gets cleaned up
-			let g:ctrlp_cache_dir = g:std_data_path . '/ctrlp'
+			" Fri Jan 05 2018 14:38: Now that denite's file_rec is working much better no need
+			" to keep this innacurrate list of files around. Rely on it less. Use more
+			" <Leader>e mappings. 
+			let g:ctrlp_cache_dir = g:std_cache_path . '/ctrlp'
 			let g:ctrlp_working_path_mode = 'wra'
 			let g:ctrlp_max_history = &history
 			let g:ctrlp_clear_cache_on_exit = 0
