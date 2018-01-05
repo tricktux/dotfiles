@@ -388,7 +388,7 @@ function! plugin#Config() abort
 		let g:svnj_cache_dir = g:std_cache_path
 		let g:svnj_browse_cache_all = 1
 		let g:svnj_custom_statusbar_ops_hide = 0
-		nnoremap <silent> <leader>vs :SVNStatus<CR>
+		nnoremap <silent> <leader>vs :SVNStatus q<CR>
 		nnoremap <silent> <leader>vo :SVNLog .<CR>
 
 
@@ -707,7 +707,7 @@ function! plugin#AfterConfig() abort
 		if executable('rg')
 			call denite#custom#var('file_rec', 'command',
 						\ ['rg', '--glob', '!.{git,svn}', '--files', '--no-ignore',
-						\ '--smart-case', '--follow', '--hidden', ''])
+						\ '--smart-case', '--follow', '--hidden'])
 			" Ripgrep command on grep source
 			call denite#custom#var('grep', 'command', ['rg'])
 			call denite#custom#var('grep', 'default_opts',
@@ -746,7 +746,6 @@ function! plugin#AfterConfig() abort
 					\                '%W%f(%l\,%c): warning CS%n: %m [%.%#]',
 					\ 'append_file' : 0,
 					\ }
-
 	endif
 	return 1
 endfunction
