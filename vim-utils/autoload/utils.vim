@@ -12,7 +12,7 @@ function! utils#SetGrep() abort
 		" rg = ripgrep
 		"Use the -t option to search all text files; -a to search all files; and -u to search all,
 		"including hidden files.
-		set grepprg=rg\ --vimgrep\ --smart-case\ --follow\ --hidden\ --glob\ !.git\ --glob\ !.svn\ $*
+		set grepprg=rg\ --vimgrep\ --smart-case\ --follow\ --hidden\ --glob\ !.{git,svn}\ $*
 		set grepformat=%f:%l:%c:%m
 	elseif executable('ucg')
 		" Add the --type-set=markdown:ext:md option to ucg for it to recognize
@@ -22,7 +22,7 @@ function! utils#SetGrep() abort
 		" ctrlp with ag
 		" see :Man ag for help
 		" to specify a type of file just do `--cpp`
-		set grepprg=ag\ --nogroup\ --nocolor\ --smart-case\ --vimgrep\ --glob\ !.git\ --glob\ !.svn\ $*
+		set grepprg=ag\ --nogroup\ --nocolor\ --smart-case\ --vimgrep\ --glob\ !.{git,svn}\ $*
 		set grepformat=%f:%l:%c:%m
 	endif
 endfunction
