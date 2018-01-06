@@ -58,6 +58,7 @@ compton
 confuse
 coreutils
 cracklib
+cronie
 cryptsetup
 cscope
 curl
@@ -111,6 +112,7 @@ fuse-common
 fuse2
 fuse3
 fzf
+galculator
 gamin
 gawk
 gc
@@ -300,6 +302,7 @@ htop
 hunspell
 hwids
 hyphen
+i3-gaps
 i3blocks
 i3lock
 iana-etc
@@ -311,6 +314,7 @@ inetutils
 iniparser
 inputproto
 intel-ucode
+intltool
 iproute2
 iptables
 iputils
@@ -412,7 +416,6 @@ lib32-libtasn1
 lib32-libthai
 lib32-libtiff
 lib32-libtirpc
-lib32-libtxc_dxtn
 lib32-libunwind
 lib32-libusb
 lib32-libva
@@ -620,7 +623,6 @@ libtiger
 libtirpc
 libtommath
 libtool
-libtxc_dxtn
 libunique
 libunistring
 libunwind
@@ -908,6 +910,7 @@ rest
 rhash
 ripgrep
 rofi
+rsync
 rtkit
 rtmpdump
 run-parts
@@ -923,7 +926,6 @@ sdl2
 sdl_image
 sed
 serf
-setserial
 shadow
 shared-mime-info
 smbclient
@@ -983,6 +985,7 @@ usbmuxd
 usbutils
 util-linux
 v4l-utils
+vala
 vi
 vid.stab
 videoproto

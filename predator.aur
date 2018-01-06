@@ -10,7 +10,8 @@ gnome-vfs-nosmb
 gnome-vfs-perl
 gnomecanvas-perl
 google-chrome
-i3-gaps
+grub2-theme-archlinux
+grub2-theme-archxion
 i3ipc-glib-git
 i3lock-fancy-git
 kitty
@@ -39,6 +40,7 @@ python2-twodict-git
 rofi-dmenu
 seafile
 seafile-client
+setserial
 shutter
 siji-git
 universal-ctags-git
