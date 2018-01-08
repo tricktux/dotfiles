@@ -226,7 +226,7 @@ function! autocompletion#SetShuogo() abort
 		" - They seem to be working. Specially the enable_yarp one.
 		let g:deoplete#auto_complete_start_length = 3
 		let g:deoplete#max_abbr_width = 18
-		let g:deoplete#max_menu_width = 18
+		" let g:deoplete#max_menu_width = 18
 		" Note: If you get autocomplete autotriggering issues keep increasing this option below. 
 		" Next value to try is 150. See:https://github.com/Shougo/deoplete.nvim/issues/440
 		" let g:deoplete#auto_complete_delay=15 " Fixes issue where Autocompletion triggers
