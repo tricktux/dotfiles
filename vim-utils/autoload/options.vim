@@ -14,7 +14,7 @@ function! options#Set() abort
 
 	let &path .='.,,..,../..,./*,./*/*,../*,~/,~/**,/usr/include/*' " Useful for the find command
 	set shiftwidth=4 tabstop=4
-	set viminfo='1000,f1,<800,%1024
+	set viminfo='1024,%
 	set showtabline=1 " always show tabs in gvim, but not vim"
 	set backspace=indent,eol,start
 	" allow backspacing over everything in insert mode
@@ -34,7 +34,7 @@ function! options#Set() abort
 	set number
 	set relativenumber
 	set incsearch     " show search matches as you type
-	set history=1000         " remember more commands and search history
+	set history=10000         " remember more commands and search history
 	" ignore these files to for completion
 	set completeopt=menuone,longest,preview,noselect,noinsert
 	" set complete+=kspell " currently not working
