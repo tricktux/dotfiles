@@ -47,51 +47,52 @@ function! plugin#Config() abort
 		" Plugins that support both neovim and vim need separate folders
 		" Fri Oct 27 2017 15:05: Not sure that is a true statement
 		Plug 'Shougo/denite.nvim', { 'as' : has('nvim') ? 'nvim_denite' : 'vim_denite' }
-			nnoremap <A-;> :Denite command_history<CR>
-			nnoremap <A-e> :Denite help<CR>
-		Plug 'ctrlpvim/ctrlp.vim'
-			nnoremap <S-k> :CtrlPBuffer<CR>
-			nnoremap <C-p> :CtrlPMRU<CR>
-			" nnoremap <A-p> :CtrlPRoot<CR>
-			nnoremap <A-q> :CtrlPQuickfix<CR>
-			" let g:ctrlp_cmd = 'CtrlPMixed'
-			let g:ctrlp_cmd = 'CtrlPMRU'
-			" submit ? in CtrlP for more mapping help.
-			let g:ctrlp_lazy_update = 1
-			let g:ctrlp_show_hidden = 1
-			let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
-			" It says cache dir but dont want to keep loosing history everytime cache gets cleaned up
-			" Fri Jan 05 2018 14:38: Now that denite's file_rec is working much better no need
-			" to keep this innacurrate list of files around. Rely on it less. 
-			let g:ctrlp_cache_dir = g:std_cache_path . '/ctrlp'
-			let g:ctrlp_working_path_mode = 'wra'
-			let g:ctrlp_max_history = &history
-			let g:ctrlp_clear_cache_on_exit = 0
-			let g:ctrlp_switch_buffer = 0
-			let g:ctrlp_mruf_max = 10000
-			if has('win32')
-				let g:ctrlp_mruf_exclude = '^C:\\dev\\tmp\\Temp\\.*'
-				set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
-				let g:ctrlp_custom_ignore = {
-							\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-							\ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
-							\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
-							\ }
-			else
-				let g:ctrlp_mruf_exclude =  '/tmp/.*\|/temp/.*'
-				set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
-				let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-			endif
-			let g:ctrlp_prompt_mappings = {
-						\ 'PrtBS()': ['<bs>', '<c-h>'],
-						\ 'PrtCurLeft()': ['<left>', '<c-^>'],
-						\ 'PrtCurRight()': ['<right>'],
-						\ }
-			" Lightline settings
-			let g:ctrlp_status_func = {
-						\ 'main': 'utils#CtrlPStatusFunc_1',
-						\ 'prog': 'utils#CtrlPStatusFunc_2',
-						\ }
+			nnoremap <C-S-;> :Denite command_history<CR>
+			nnoremap <C-S-h> :Denite help<CR>
+			nnoremap <C-p> :Denite file_old<CR>
+		" Plug 'ctrlpvim/ctrlp.vim'
+			" nnoremap <S-k> :CtrlPBuffer<CR>
+			" nnoremap <C-p> :CtrlPMRU<CR>
+			" " nnoremap <A-p> :CtrlPRoot<CR>
+			" nnoremap <A-q> :CtrlPQuickfix<CR>
+			" " let g:ctrlp_cmd = 'CtrlPMixed'
+			" let g:ctrlp_cmd = 'CtrlPMRU'
+			" " submit ? in CtrlP for more mapping help.
+			" let g:ctrlp_lazy_update = 1
+			" let g:ctrlp_show_hidden = 1
+			" let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
+			" " It says cache dir but dont want to keep loosing history everytime cache gets cleaned up
+			" " Fri Jan 05 2018 14:38: Now that denite's file_rec is working much better no need
+			" " to keep this innacurrate list of files around. Rely on it less.
+			" let g:ctrlp_cache_dir = g:std_cache_path . '/ctrlp'
+			" let g:ctrlp_working_path_mode = 'wra'
+			" let g:ctrlp_max_history = &history
+			" let g:ctrlp_clear_cache_on_exit = 0
+			" let g:ctrlp_switch_buffer = 0
+			" let g:ctrlp_mruf_max = 10000
+			" if has('win32')
+				" let g:ctrlp_mruf_exclude = '^C:\\dev\\tmp\\Temp\\.*'
+				" set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
+				" let g:ctrlp_custom_ignore = {
+							" \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+							" \ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
+							" \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+							" \ }
+			" else
+				" let g:ctrlp_mruf_exclude =  '/tmp/.*\|/temp/.*'
+				" set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
+				" let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+			" endif
+			" let g:ctrlp_prompt_mappings = {
+						" \ 'PrtBS()': ['<bs>', '<c-h>'],
+						" \ 'PrtCurLeft()': ['<left>', '<c-^>'],
+						" \ 'PrtCurRight()': ['<right>'],
+						" \ }
+			" " Lightline settings
+			" let g:ctrlp_status_func = {
+						" \ 'main': 'utils#CtrlPStatusFunc_1',
+						" \ 'prog': 'utils#CtrlPStatusFunc_2',
+						" \ }
 	endif
 
 	if executable('mutt')
@@ -392,18 +393,18 @@ function! plugin#Config() abort
 		nnoremap <silent> <leader>vs :SVNStatus q<CR>
 		nnoremap <silent> <leader>vo :SVNLog .<CR>
 
-
 	" colorschemes
 	Plug 'morhetz/gruvbox' " colorscheme gruvbox
 	Plug 'NLKNguyen/papercolor-theme'
+	" Mon Jan 08 2018 15:08: Do not load these schemes unless they are going to be used 
 	" Sun May 07 2017 16:25 - Gave it a try and didnt like it
-	Plug 'icymind/NeoSolarized'
+	" Plug 'icymind/NeoSolarized'
 	" Sat Oct 14 2017 15:50: Dont like this one either.
-	Plug 'google/vim-colorscheme-primary'
+	" Plug 'google/vim-colorscheme-primary'
 	" Sat Oct 14 2017 15:59: Horrible looking
-	Plug 'joshdick/onedark.vim'
-	Plug 'altercation/vim-colors-solarized'
-	Plug 'jnurmine/Zenburn'
+	" Plug 'joshdick/onedark.vim'
+	" Plug 'altercation/vim-colors-solarized'
+	" Plug 'jnurmine/Zenburn'
 
 	" Magnum is required by vim-radical. use with gA
 	Plug 'glts/vim-magnum', { 'on' : '<Plug>RadicalView' }
