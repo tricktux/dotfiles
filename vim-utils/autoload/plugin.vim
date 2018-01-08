@@ -50,6 +50,7 @@ function! plugin#Config() abort
 			nnoremap <C-S-;> :Denite command_history<CR>
 			nnoremap <C-S-h> :Denite help<CR>
 			nnoremap <C-p> :Denite file_old<CR>
+			nnoremap <S-k> :Denite buffer<CR>
 		" Plug 'ctrlpvim/ctrlp.vim'
 			" nnoremap <S-k> :CtrlPBuffer<CR>
 			" nnoremap <C-p> :CtrlPMRU<CR>
@@ -396,7 +397,7 @@ function! plugin#Config() abort
 	" colorschemes
 	Plug 'morhetz/gruvbox' " colorscheme gruvbox
 	Plug 'NLKNguyen/papercolor-theme'
-	" Mon Jan 08 2018 15:08: Do not load these schemes unless they are going to be used 
+	" Mon Jan 08 2018 15:08: Do not load these schemes unless they are going to be used
 	" Sun May 07 2017 16:25 - Gave it a try and didnt like it
 	" Plug 'icymind/NeoSolarized'
 	" Sat Oct 14 2017 15:50: Dont like this one either.
