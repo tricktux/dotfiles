@@ -220,19 +220,27 @@ function! autocompletion#SetShuogo() abort
 			" - neovim python client (pip3 install neovim)
 			Plug 'roxma/nvim-yarp'
 			Plug 'roxma/vim-hug-neovim-rpc'
+			let g:deoplete#enable_yarp = 1
 		endif
-		" If it is nvim deoplete requires python3 to work
-		let g:deoplete#enable_at_startup = 1
+		" Mon Jan 08 2018 14:49: New options:
+		" - They seem to be working. Specially the enable_yarp one.
+		let g:deoplete#auto_complete_start_length = 3
+		let g:deoplete#max_abbr_width = 18
+		let g:deoplete#max_menu_width = 18
 		" Note: If you get autocomplete autotriggering issues keep increasing this option below. 
 		" Next value to try is 150. See:https://github.com/Shougo/deoplete.nvim/issues/440
-		let g:deoplete#auto_complete_delay=15 " Fixes issue where Autocompletion triggers
+		" let g:deoplete#auto_complete_delay=15 " Fixes issue where Autocompletion triggers
+		let g:deoplete#auto_complete_delay=50 " Fixes issue where Autocompletion triggers
+
+		" If it is nvim deoplete requires python3 to work
+		let g:deoplete#enable_at_startup = 1
 		" New settings
 		let g:deoplete#enable_ignore_case = 1
 		let g:deoplete#enable_smart_case = 1
-		let g:deoplete#enable_camel_case = 1
+		" let g:deoplete#enable_camel_case = 1
 		" Note: Changed this here to increase speed
 		let g:deoplete#enable_refresh_always = 0
-		let g:deoplete#max_list = 10
+		let g:deoplete#max_list = 18
 		" let g:deoplete#max_abbr_width = 0
 		" let g:deoplete#max_menu_width = 0
 		let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
@@ -324,10 +332,19 @@ function! autocompletion#SetShuogo() abort
 		let g:neocomplete#delimiter_patterns.vim = ['#']
 		let g:neocomplete#delimiter_patterns.cpp = ['::']
 	endif
+
+	" List of sources Plugins
 	Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
 	Plug 'Shougo/neco-syntax' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
 	" Plug 'Shougo/neoinclude' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
 	Plug 'Shougo/echodoc' " Pop for functions info
+
+	" Mon Jan 08 2018 15:10: List of new sources
+	" neoinclude: "include" and "file/include" sources
+	Plug 'Shougo/neoinclude.vim' " Pop for functions info
+	Plug 'Shougo/vimshell.vim' " Pop for functions info
+	Plug 'SevereOverfl0w/deoplete-github' " Pop for functions info
+	Plug 'fszymanski/deoplete-emoji' " Pop for functions info
 
 	" Tue Oct 31 2017 08:54: Going to attempt to use the other clang 
 	"  deoplete-clang
