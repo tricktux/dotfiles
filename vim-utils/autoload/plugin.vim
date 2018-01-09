@@ -49,8 +49,13 @@ function! plugin#Config() abort
 		Plug 'Shougo/denite.nvim', { 'as' : has('nvim') ? 'nvim_denite' : 'vim_denite' }
 			nnoremap <C-S-;> :Denite command_history<CR>
 			nnoremap <C-S-h> :Denite help<CR>
-			nnoremap <C-p> :Denite file_old<CR>
+			nnoremap <C-p> :Denite file_mru<CR>
 			nnoremap <S-k> :Denite buffer<CR>
+
+			" It includes file_mru source for denite.nvim.
+			Plug 'Shougo/neomru.vim'
+				let g:neomru#do_validate = 0
+
 		" Plug 'ctrlpvim/ctrlp.vim'
 			" nnoremap <S-k> :CtrlPBuffer<CR>
 			" nnoremap <C-p> :CtrlPMRU<CR>
