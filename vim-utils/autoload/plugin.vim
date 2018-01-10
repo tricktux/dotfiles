@@ -62,7 +62,7 @@ function! plugin#Config() abort
 
 		Plug 'ctrlpvim/ctrlp.vim'
 			nnoremap <S-k> :CtrlPBuffer<CR>
-			" let g:ctrlp_cmd = 'CtrlPMixed'
+			let g:ctrlp_map = ''
 			let g:ctrlp_cmd = 'CtrlPMRU'
 			" submit ? in CtrlP for more mapping help.
 			let g:ctrlp_lazy_update = 1
