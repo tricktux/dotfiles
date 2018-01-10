@@ -47,58 +47,59 @@ function! plugin#Config() abort
 		" Plugins that support both neovim and vim need separate folders
 		" Fri Oct 27 2017 15:05: Not sure that is a true statement
 		Plug 'Shougo/denite.nvim', { 'as' : has('nvim') ? 'nvim_denite' : 'vim_denite' }
-			nnoremap <C-S-;> :Denite command_history<CR>
-			nnoremap <C-S-h> :Denite help<CR>
+			" TODO-[RM]-(Wed Jan 10 2018 15:46): Come up with new mappings for these commented
+			" out below
+			" nnoremap <C-S-;> :Denite command_history<CR>
+			" nnoremap <C-S-h> :Denite help<CR>
 			nnoremap <C-p> :Denite file_mru<CR>
-			nnoremap <S-k> :Denite buffer<CR>
+			" Wed Jan 10 2018 15:46: Have tried several times to use denite buffer but its
+			" just too awkard. Kinda slow and doesnt show full path.
+			" nnoremap <S-k> :Denite buffer<CR>
 
 			" It includes file_mru source for denite.nvim.
 			Plug 'Shougo/neomru.vim'
 				let g:neomru#do_validate = 0
 
-		" Plug 'ctrlpvim/ctrlp.vim'
-			" nnoremap <S-k> :CtrlPBuffer<CR>
-			" nnoremap <C-p> :CtrlPMRU<CR>
-			" " nnoremap <A-p> :CtrlPRoot<CR>
-			" nnoremap <A-q> :CtrlPQuickfix<CR>
-			" " let g:ctrlp_cmd = 'CtrlPMixed'
-			" let g:ctrlp_cmd = 'CtrlPMRU'
-			" " submit ? in CtrlP for more mapping help.
-			" let g:ctrlp_lazy_update = 1
-			" let g:ctrlp_show_hidden = 1
-			" let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
-			" " It says cache dir but dont want to keep loosing history everytime cache gets cleaned up
-			" " Fri Jan 05 2018 14:38: Now that denite's file_rec is working much better no need
-			" " to keep this innacurrate list of files around. Rely on it less.
-			" let g:ctrlp_cache_dir = g:std_cache_path . '/ctrlp'
-			" let g:ctrlp_working_path_mode = 'wra'
-			" let g:ctrlp_max_history = &history
-			" let g:ctrlp_clear_cache_on_exit = 0
-			" let g:ctrlp_switch_buffer = 0
-			" let g:ctrlp_mruf_max = 10000
-			" if has('win32')
-				" let g:ctrlp_mruf_exclude = '^C:\\dev\\tmp\\Temp\\.*'
-				" set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
-				" let g:ctrlp_custom_ignore = {
-							" \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-							" \ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
-							" \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
-							" \ }
-			" else
-				" let g:ctrlp_mruf_exclude =  '/tmp/.*\|/temp/.*'
-				" set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
-				" let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-			" endif
-			" let g:ctrlp_prompt_mappings = {
-						" \ 'PrtBS()': ['<bs>', '<c-h>'],
-						" \ 'PrtCurLeft()': ['<left>', '<c-^>'],
-						" \ 'PrtCurRight()': ['<right>'],
-						" \ }
-			" " Lightline settings
-			" let g:ctrlp_status_func = {
-						" \ 'main': 'utils#CtrlPStatusFunc_1',
-						" \ 'prog': 'utils#CtrlPStatusFunc_2',
-						" \ }
+		Plug 'ctrlpvim/ctrlp.vim'
+			nnoremap <S-k> :CtrlPBuffer<CR>
+			" let g:ctrlp_cmd = 'CtrlPMixed'
+			let g:ctrlp_cmd = 'CtrlPMRU'
+			" submit ? in CtrlP for more mapping help.
+			let g:ctrlp_lazy_update = 1
+			let g:ctrlp_show_hidden = 1
+			let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
+			" It says cache dir but dont want to keep loosing history everytime cache gets cleaned up
+			" Fri Jan 05 2018 14:38: Now that denite's file_rec is working much better no need
+			" to keep this innacurrate list of files around. Rely on it less.
+			let g:ctrlp_cache_dir = g:std_cache_path . '/ctrlp'
+			let g:ctrlp_working_path_mode = 'wra'
+			let g:ctrlp_max_history = &history
+			let g:ctrlp_clear_cache_on_exit = 0
+			let g:ctrlp_switch_buffer = 0
+			let g:ctrlp_mruf_max = 10000
+			if has('win32')
+				let g:ctrlp_mruf_exclude = '^C:\\dev\\tmp\\Temp\\.*'
+				set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
+				let g:ctrlp_custom_ignore = {
+							\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+							\ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
+							\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+							\ }
+			else
+				let g:ctrlp_mruf_exclude =  '/tmp/.*\|/temp/.*'
+				set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
+				let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+			endif
+			let g:ctrlp_prompt_mappings = {
+						\ 'PrtBS()': ['<bs>', '<c-h>'],
+						\ 'PrtCurLeft()': ['<left>', '<c-^>'],
+						\ 'PrtCurRight()': ['<right>'],
+						\ }
+			" Lightline settings
+			let g:ctrlp_status_func = {
+						\ 'main': 'utils#CtrlPStatusFunc_1',
+						\ 'prog': 'utils#CtrlPStatusFunc_2',
+						\ }
 	endif
 
 	if executable('mutt')
