@@ -1,5 +1,5 @@
 " File:autocompletion.vim
-" Description: Choose and setup autocompletion engine		
+" Description: Choose and setup autocompletion engine
 " Author:Reinaldo Molina <rmolin88@gmail.com>
 " Version:2.0.0
 " Last Modified: Apr 04 2017 23:58
@@ -37,7 +37,7 @@ function! autocompletion#SetCompl(compl) abort
 			\   'lua' : ['.', ':'],
 			\   'erlang' : [':'],
 			\ }
-			
+
 		Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 	elseif a:compl ==# 'nvim_compl_manager'
 		" Optional but useful python3 support
@@ -63,7 +63,7 @@ function! autocompletion#SetCompl(compl) abort
 			augroup NCM
 				autocmd!
 				autocmd User CmSetup call cm#register_source({'name' : 'mutt',
-							\ 'priority': 9, 
+							\ 'priority': 9,
 							\ 'cm_refresh_length': -1,
 							\ 'cm_refresh_patterns': ['^\w+:\s+'],
 							\ 'cm_refresh': {'omnifunc': function('autocompletion#MuttOmniWrap')},
@@ -75,7 +75,7 @@ function! autocompletion#SetCompl(compl) abort
 		" nvim-completion-manager also added suppport for this
 		Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
 		Plug 'Shougo/neco-syntax'
-		" Thu Jul 20 2017 21:02: Causes nvim_compl_manager to freeze 
+		" Thu Jul 20 2017 21:02: Causes nvim_compl_manager to freeze
 		" Plug 'Shougo/neoinclude.vim'
 		Plug 'roxma/ncm-github'
 		Plug 'Shougo/echodoc.vim'
@@ -150,7 +150,7 @@ function! autocompletion#SetCompl(compl) abort
 		augroup AsynComplete
 			autocmd!
 			autocmd User asyncomplete_setup call autocompletion#SetAsynCompl()
-		augroup END		
+		augroup END
 	elseif a:compl ==# 'neo_clangd'
 		let g:clangd#completions_enabled = 0
 		call autocompletion#SetShuogo()
@@ -227,7 +227,7 @@ function! autocompletion#SetShuogo() abort
 		let g:deoplete#auto_complete_start_length = 3
 		let g:deoplete#max_abbr_width = 18
 		" let g:deoplete#max_menu_width = 18
-		" Note: If you get autocomplete autotriggering issues keep increasing this option below. 
+		" Note: If you get autocomplete autotriggering issues keep increasing this option below.
 		" Next value to try is 150. See:https://github.com/Shougo/deoplete.nvim/issues/440
 		" let g:deoplete#auto_complete_delay=15 " Fixes issue where Autocompletion triggers
 		let g:deoplete#auto_complete_delay=50 " Fixes issue where Autocompletion triggers
@@ -336,17 +336,12 @@ function! autocompletion#SetShuogo() abort
 	" List of sources Plugins
 	Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
 	Plug 'Shougo/neco-syntax' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
-	" Plug 'Shougo/neoinclude' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
 	Plug 'Shougo/echodoc' " Pop for functions info
 
-	" Mon Jan 08 2018 15:10: List of new sources
-	" neoinclude: "include" and "file/include" sources
-	Plug 'Shougo/neoinclude.vim' " Pop for functions info
-	Plug 'Shougo/vimshell.vim' " Pop for functions info
 	Plug 'SevereOverfl0w/deoplete-github' " Pop for functions info
 	Plug 'fszymanski/deoplete-emoji' " Pop for functions info
 
-	" Tue Oct 31 2017 08:54: Going to attempt to use the other clang 
+	" Tue Oct 31 2017 08:54: Going to attempt to use the other clang
 	"  deoplete-clang
 	" if exists('g:libclang_path') && exists('g:clangheader_path')
 		" Plug 'zchee/deoplete-clang'
@@ -410,7 +405,7 @@ function! autocompletion#SetAsynCompl() abort
 	endif
 endfunction
 
-" Fri Sep 29 2017 12:22: This plugin is still not ready 
+" Fri Sep 29 2017 12:22: This plugin is still not ready
 function! autocompletion#SetClangdLSP() abort
 	if !has('python3') || !executable('clangd')
 		echomsg 'autocompoletion#SetClangdLSP(): Clangd not installed or no python'
