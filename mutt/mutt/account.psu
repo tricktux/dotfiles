@@ -39,7 +39,8 @@ macro index gs '<change-folder>=todo<enter>' "Go to starred messages"
 macro index,pager gm ':unmailboxes *<enter><sync-mailbox><refresh><enter-command>source ~/.config/mutt/account.gmail<enter><change-folder>!<enter>'
 
 # Get password from encryption
-source "gpg -d ~/.local/share/mutt/psu.gpg |"
+set imap_pass ="`pass school/pennstate/passwd`"
+set imap_user="rim18"
 
 # Mon Oct 23 2017 21:40: Moved this out of per account settings because they dont belong in the
 # muttrc configuration folder. They shuold be distributed accordingly 
