@@ -77,9 +77,9 @@ call ftplugin#AutoHighlight()
 " Window specific settings
 if has('win32')
 	" Commands for windows
-	command! -buffer UtilsCompilerGcc execute("compiler gcc<cr>:setlocal makeprg=mingw32-make<cr>")
-	command! -buffer UtilsCompilerBorland execute("compiler borland<cr>")
-	command! -buffer UtilsCompilerMsbuild execute("compiler msbuild<cr>:set errorformat&<cr>")
+	command! -buffer UtilsCompilerGcc execute("compiler gcc<bar>:setlocal makeprg=mingw32-make")
+	command! -buffer UtilsCompilerBorland execute("compiler borland")
+	command! -buffer UtilsCompilerMsbuild execute("compiler msbuild<bar>:set errorformat&")
 	if exists(':Dispatch')
 		" Time runtime of a specific program. Pass as Argument executable with arguments. Pass as Argument executable with
 		" arguments. Example sep_calc.exe seprc.
