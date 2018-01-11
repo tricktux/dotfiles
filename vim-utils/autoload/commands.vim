@@ -20,7 +20,7 @@ function! commands#Set() abort
 	command! UtilsDiffReset call utils#UnsetDiff()<bar>call utils#SetDiff()
 	command! UtilsIndentWholeFile execute("normal! mzgg=G`z")
 	" Remove Trailing Spaces
-	command! UtilsRemoveTrailingSpaces execute('let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>')
+	command! UtilsRemoveTrailingSpaces execute("let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl")
 	" Convert fileformat to dos
 	command! UtilsFileFormat2Dos :e ++ff=dos<CR>
 	command! UtilsNerdComAltDelims execute("normal \<Plug>NERDCommenterAltDelims")
