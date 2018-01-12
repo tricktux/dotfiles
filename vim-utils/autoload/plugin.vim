@@ -58,7 +58,6 @@ function! plugin#Config() abort
 
 			" It includes file_mru source for denite.nvim.
 			Plug 'Shougo/neomru.vim'
-				let g:neomru#do_validate = 0
 
 		Plug 'ctrlpvim/ctrlp.vim'
 			nnoremap <S-k> :CtrlPBuffer<CR>
