@@ -4,7 +4,7 @@
 # Version:				1.0.0
 # Last Modified: Sun Jul 16 2017 18:27
 # Created:				Jun 25 2017 13:20
-# FAQ:					
+# FAQ:
 # - See `:Man muttrc` for help
 # - /var/spool/mail/<USER> does not exist/is not a mailbox
 # - You skipped putting gnupg password. Close terminal and start again
@@ -52,7 +52,7 @@ set sort = reverse-date-received
 
 # Email list mappings
 bind index o display-message
-bind index G last-entry		
+bind index G last-entry
 bind index L bottom-page		#to the bottom,
 bind index M middle-page		#middle, and
 bind index H top-page			#top of the screen
@@ -71,8 +71,8 @@ macro index I  "<search>~F\n"                     "Search for next important"
 # bind index c compose
 
 # Inside emails mappings
-bind pager j next-line 
-bind pager k previous-line 
+bind pager j next-line
+bind pager k previous-line
 bind pager h previous-page
 bind pager l next-page
 bind pager u previous-page
@@ -90,7 +90,7 @@ macro index b '<enter-command>toggle sidebar_visible<enter><refresh>'
 macro pager b '<enter-command>toggle sidebar_visible<enter><redraw-screen>'
 
 # Option to Save contacts so that autocompletion is possible
-set display_filter='~/.config/mutt/mutt.save.contacts.sh' 
+set display_filter='~/.config/mutt/mutt.save.contacts.sh'
 # Options to load aliasses file
 set alias_file= ~/.local/share/mutt/aliases.txt
 set sort_alias= alias
@@ -101,7 +101,7 @@ source $alias_file
 # inside of nvim
 # set editor=$VISUAL
 # Sun Oct 01 2017 08:02: Since mutt has its own scratchpad there is no need for this setting
-# anymore. 
+# anymore.
 set editor='nvim'
 
 # From https://github.com/bubbl/bubb-confs/blob/master/mutt/.mutt/general
@@ -135,10 +135,10 @@ set mailcap_path=~/.config/mutt/mailcap
 
 # Side-bar
 #/usr/share/doc/mutt/samples/sample.muttrc-sidebar
-# Sat Jul 15 2017 20:06 Dont like the sidebar visible all the time 
+# Sat Jul 15 2017 20:06 Dont like the sidebar visible all the time
 set sidebar_visible=no
 # Signature
-# Fri Jun 30 2017 14:18: Doesnt work because it goes to the bottom of the reply chain 
+# Fri Jun 30 2017 14:18: Doesnt work because it goes to the bottom of the reply chain
 # set signature='~/.config/mutt/signature'
 
 # No annoying pop-ups
@@ -148,7 +148,6 @@ set delete=yes
 # Stop asking annoying To: questions
 set autoedit
 
-# Sat Nov 04 2017 12:54: Neomutt only feature 
-# set new_mail_command="notify-send --icon='/home/santiago/Pictures/neomutt.png' 'New Email' '%n new messages, %u unread.' &"
-set new_mail_command="twmnc -t 'New Email' -c '%n new messages, %u unread.' && mpg123 ~/.config/twmn/cool_notification0.mp3&"
-# let g:pomodoro_notification_cmd = 'twmnc -t Vim -c "Pomodoro done" && mpg123 ~/.config/polybar/cool_notification1.mp3'
+# Sat Nov 04 2017 12:54: Neomutt only feature
+set new_mail_command="notify-send 'New Email' '%n new messages, %u unread.' && mpg123 ~/.config/twmn/cool_notification0.mp3&"
+# set new_mail_command="twmnc -t 'New Email' -c '%n new messages, %u unread.' && mpg123 ~/.config/twmn/cool_notification0.mp3&"
