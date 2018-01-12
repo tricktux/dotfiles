@@ -28,19 +28,20 @@ set record = '+[Gmail]/Sent Mail'
 # macro index,pager mp '<copy-message>=Important_Stuff<enter>'
 
 bind index,pager g noop
-bind index gg first-entry		
+bind index gg first-entry
 bind pager gr group-reply
 
 macro index gi "<change-folder>=INBOX<enter>"
 macro index,pager gu ':unmailboxes *<enter><sync-mailbox><refresh><enter-command>source ~/.config/mutt/account.psu<enter><change-folder>!<enter>'
 macro index gs "<change-folder>=[Gmail]/Starred<enter>" "Go to starred messages"
-macro index gp "<change-folder>=Important_Stuff<enter>" "Go to starred messages"
+macro index gp "<change-folder>=Important_Stuff<enter>" "Go to Important messages"
 
 # Get password from encryption
-source "gpg -d ~/.local/share/mutt/gmail.gpg |"
+set imap_pass ="`pass keepass/eMail/Gmail\ Rei`"
+set imap_user="rmolin88"
 
 # Mon Oct 23 2017 21:40: Moved this out of per account settings because they dont belong in the
-# muttrc configuration folder. They shuold be distributed accordingly 
+# muttrc configuration folder. They shuold be distributed accordingly
 #
 # Store message headers locally to speed things up.
 # If hcache is a folder, Mutt will create sub cache folders for each account which may speeds things up even more.
