@@ -248,6 +248,8 @@ bindsym $mod+Ctrl+$up       resize grow height 3 px or 3 ppt
 bindsym $mod+Ctrl+$down         resize shrink height 3 px or 3 ppt
 bindsym $mod+Ctrl+$right      resize grow width 3 px or 3 ppt
 
+bindsym $mod+p exec --no-startup-id passmenu
+
 # }}}
 
 ############ Workspaces ###################{{{
