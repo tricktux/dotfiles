@@ -14,11 +14,15 @@ mailboxes = +inbox
 mailboxes = +trash
 mailboxes = +outbox
 
+# Get password from encryption
+set imap_pass ="`pass school/pennstate/passwd`"
+set imap_user="rim18"
+
 # Specify where to save and/or look for postponed messages.
 set postponed="imaps://email.psu.edu:993/Drafts"
 # Hopefully will fix emails not going out
 set smtp_url = "smtp://rim18@authsmtp.psu.edu:587/"
-set smtp_pass = "$imap_pass"
+set smtp_pass ="`pass school/pennstate/passwd`"
 set trash = 'imaps://email.psu.edu:993/trash'
 set record = '+outbox'
 
@@ -37,10 +41,6 @@ bind pager gr group-reply
 macro index gi '<change-folder>=inbox<enter>'
 macro index gs '<change-folder>=todo<enter>' "Go to starred messages"
 macro index,pager gm ':unmailboxes *<enter><sync-mailbox><refresh><enter-command>source ~/.config/mutt/account.gmail<enter><change-folder>!<enter>'
-
-# Get password from encryption
-set imap_pass ="`pass school/pennstate/passwd`"
-set imap_user="rim18"
 
 # Mon Oct 23 2017 21:40: Moved this out of per account settings because they dont belong in the
 # muttrc configuration folder. They shuold be distributed accordingly 

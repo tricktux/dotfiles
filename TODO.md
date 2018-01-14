@@ -12,7 +12,7 @@ fileext: md
 \pagebreak
 
 ## Sat Dec 02 2017 07:39
-- [ ] gnupg: increase key time out.
+- [x] gnupg: increase key time out.
 
 ## Fri Dec 01 2017 06:15
 - [ ] shutter: system level shortcuts.
@@ -44,7 +44,7 @@ fileext: md
 - [ ] xscreensaver: set Appollonian as the only screen saver across all laptops
 
 ## Sat Nov 04 2017 02:25
-- [ ] git: delete ranger plugin files from repo.
+- [x] git: delete ranger plugin files from repo.
 - [ ] ranger: look into the folder diff plugin.
 
 ## Thu Nov 02 2017 06:25
