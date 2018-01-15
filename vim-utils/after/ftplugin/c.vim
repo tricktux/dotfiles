@@ -101,15 +101,15 @@ if has('win32')
 		elseif expand('%:p') =~# 'OneWings' || expand('%:p') =~# 'UnrealProjects'
 			compiler msbuild
 			" silent set errorformat&
-			" TODO-[RM]-(Sat Nov 04 2017 02:14): Not sure how to build only one file in VS 
+			" TODO-[RM]-(Sat Nov 04 2017 02:14): Not sure how to build only one file in VS
 			" - Mon Dec 04 2017 19:35: Tried for long time was not able to do it.
-			"   Just use clang makers and then do the normal build 
+			"   Just use clang makers and then do the normal build
 		else
 			let b:neomake_clang_args = '-target x86_64-pc-windows-gnu -std=c++1z -stdlib=libc++ -Wall -pedantic'
 		endif
 	endif
 else " Unix
-	setlocal foldmethod=syntax 
+	setlocal foldmethod=syntax
 endif
 
 function! s:UpdateBorlandMakefile() abort

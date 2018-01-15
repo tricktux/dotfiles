@@ -22,3 +22,5 @@ setlocal formatoptions+=aw
 
 " if !exists('no_plugin_maps') && !exists('no_mail_maps')
 " endif
+"
+let b:undo_ftplugin = 'setl spell< spelllang< formatoptions< wrap<'
