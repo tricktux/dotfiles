@@ -5,7 +5,6 @@
 " Last Modified: Aug 22 2017 12:33
 " Created: Aug 22 2017 12:33
 
-
 function! mappings#Set() abort
 	" CUSTOM MAPPINGS
 	" List of super useful mappings
@@ -320,7 +319,7 @@ function! mappings#Set() abort
 
 	" Version Control <Leader>e?
 	nnoremap <Leader>ed :call utils#DeniteRec(g:std_config_path . '/dotfiles')<cr>
-	nnoremap <Leader>em :call utils#DeniteRec('~/Seafile/masters/')<cr>
+	nnoremap <Leader>em :call utils#DeniteRec('~/Dropbox/masters/')<cr>
 	nnoremap <Leader>ec :call utils#DeniteRec(getcwd())<cr>
 	nnoremap <Leader>el :call utils#DeniteRec(input('Folder to recurse: ', "", "file"))<cr>
 	nnoremap <Leader>et :execute('edit ' . g:std_config_path . '/dotfiles/TODO.md')<cr>

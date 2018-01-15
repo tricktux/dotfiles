@@ -23,10 +23,6 @@ function! augroup#Set() abort
 		autocmd FileType help wincmd L
 		autocmd FileType help nnoremap <buffer> q :helpc<cr>
 		autocmd FileType help setlocal relativenumber
-		" wrap syntastic messages
-		autocmd FileType mail setlocal wrap
-		autocmd FileType mail setlocal spell spelllang=es,en
-		autocmd FileType mail setlocal omnifunc=muttaliases#CompleteMuttAliases
 		" Python
 		" autocmd FileType python setlocal foldmethod=syntax
 	augroup END
