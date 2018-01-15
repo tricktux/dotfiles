@@ -151,3 +151,6 @@ set autoedit
 # Sat Nov 04 2017 12:54: Neomutt only feature
 set new_mail_command="notify-send 'New Email' '%n new messages, %u unread.' && mpg123 ~/.config/twmn/cool_notification0.mp3&"
 # set new_mail_command="twmnc -t 'New Email' -c '%n new messages, %u unread.' && mpg123 ~/.config/twmn/cool_notification0.mp3&"
+
+# Speed up folders switch
+set sleep_time = 0
