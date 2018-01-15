@@ -1,4 +1,3 @@
-arandr-indicator-git
 bfs
 capitaine-cursors
 ccnet
@@ -14,6 +13,7 @@ grub2-theme-archlinux
 grub2-theme-archxion
 i3ipc-glib-git
 i3lock-fancy-git
+jdk8
 kitty
 libbonobo
 libbonoboui
@@ -26,6 +26,7 @@ neofetch
 neovim-git
 neovim-qt
 nerd-fonts-complete
+networkmanager-dmenu-git
 orbit2
 otf-inconsolata-powerline-git
 pacaur
@@ -43,7 +44,9 @@ seafile-client
 setserial
 shutter
 siji-git
+ttf-font-awesome-4
 universal-ctags-git
 wine-gaming-nine
 xlogin-git
+xvkbd
 youtube-dl-gui-git
