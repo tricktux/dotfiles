@@ -121,4 +121,4 @@ function! s:UpdateBorlandMakefile() abort
 	endif
 endfunction
 
-let b:undo_ftplugin = 'setl omnifunc< ts< sw< sts< foldenable< define< spell< matchpairs< foldmethod< foldnestmax<| unlet! b:delimitMate_matchpairs b:match_words' 
+let b:undo_ftplugin = 'setl omnifunc< ts< sw< sts< foldenable< define< spell< matchpairs< foldmethod< foldnestmax<| unlet! b:delimitMate_matchpairs b:match_words'
