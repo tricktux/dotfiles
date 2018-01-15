@@ -338,9 +338,12 @@ function! autocompletion#SetShuogo() abort
 	Plug 'Shougo/neco-syntax' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
 	Plug 'Shougo/echodoc' " Pop for functions info
 
-	Plug 'SevereOverfl0w/deoplete-github' " Pop for functions info
+	" Mon Jan 15 2018 05:55: Not working very well 
+	" Plug 'SevereOverfl0w/deoplete-github' " Pop for functions info
 	Plug 'fszymanski/deoplete-emoji' " Pop for functions info
-
+	" Email Completion
+	Plug 'fszymanski/deoplete-abook'
+	Plug 'Shougo/context_filetype.vim'
 	" Tue Oct 31 2017 08:54: Going to attempt to use the other clang
 	"  deoplete-clang
 	" if exists('g:libclang_path') && exists('g:clangheader_path')
