@@ -16,11 +16,13 @@ endif
 let b:did_mail_ftplugin = 1
 
 setlocal wrap
-setlocal spell spelllang=es,en
+setlocal spell spelllang=en
 setlocal formatoptions+=aw
+" Many people recommend keeping e-mail messages 72 chars wide
+setlocal tw=72
 " setlocal omnifunc=muttaliases#CompleteMuttAliases
 
 " if !exists('no_plugin_maps') && !exists('no_mail_maps')
 " endif
 "
-let b:undo_ftplugin = 'setl spell< spelllang< formatoptions< wrap<'
+let b:undo_ftplugin = 'setl spell< spelllang< formatoptions< wrap< tw<'

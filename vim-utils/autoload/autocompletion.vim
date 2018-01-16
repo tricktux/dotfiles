@@ -341,8 +341,8 @@ function! autocompletion#SetShuogo() abort
 	" Mon Jan 15 2018 05:55: Not working very well 
 	" Plug 'SevereOverfl0w/deoplete-github' " Pop for functions info
 	Plug 'fszymanski/deoplete-emoji' " Pop for functions info
-	" Email Completion
-	Plug 'fszymanski/deoplete-abook'
+	" Email Completion, Has a bug that I need to report
+	" Plug 'fszymanski/deoplete-abook'
 	Plug 'Shougo/context_filetype.vim'
 	" Tue Oct 31 2017 08:54: Going to attempt to use the other clang
 	"  deoplete-clang
