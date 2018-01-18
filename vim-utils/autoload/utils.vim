@@ -1078,3 +1078,9 @@ function! utils#SearchPdf() abort
 
 	let &l:grepprg = grep_buf
 endfunction
+
+" Things to do after everything has being loaded
+function! utils#OnVimEnter() abort
+	call options#SetCli()
+	call plugin#AfterConfig()
+endfunction

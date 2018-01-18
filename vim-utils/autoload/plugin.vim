@@ -128,7 +128,7 @@ function! plugin#Config() abort
 		" nvim-qt on unix doesnt populate has('gui_running')
 		Plug 'equalsraf/neovim-gui-shim'
 		if executable('lldb')
-			Plug 'critiqjo/lldb.nvim'
+			" Plug 'critiqjo/lldb.nvim'
 			" All mappings moved to c.vim
 			" Note: Remember to always :UpdateRemotePlugins
 			"TODO.RM-Sun May 21 2017 01:14: Create a ftplugin/lldb.vim to disable
