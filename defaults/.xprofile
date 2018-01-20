@@ -12,3 +12,7 @@
 [[ -f /usr/bin/termite ]] && export TERMINAL="termite"
 export EMAIL="rmolin88@gmail.com"
 [ -f /usr/bin/firefox ] && export BROWSER="/usr/bin/firefox"
+
+export ORACLE_HOME=/home/reinaldo/app/reinaldo/product/12.2.0/client_1
+
+# vim:filetype=sh
