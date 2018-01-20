@@ -171,9 +171,7 @@ function! options#Set() abort
 	" TODO-[RM]-(Tue Aug 22 2017 10:43): Move this function calls to init#vim or
 	" options.vim
 	" Grep
-	if exists("g:plugins_loaded")
-		call utils#SetGrep()
-	endif
+	call s:set_grep()
 
 	" Undofiles
 	if exists("g:plugins_loaded") && exists("g:undofiles_path") && !empty(glob(g:undofiles_path))
@@ -195,9 +193,21 @@ endfunction
 
 " CLI
 function! options#SetCli() abort
-	if has('gui_running') || exists('g:GuiLoaded') || exists("g:gui_oni")
+	if has('gui_running')
+		echomsg 'Detected Gvim GUI. Nothing to do here'
+		return
+	elseif exists('g:GuiLoaded') && g:GuiLoaded == 1
+		echomsg 'Detected Neovim-qt GUI. Nothing to do here'
+		return
+	elseif exists("g:gui_oni") && g:gui_oni == 1
+		echomsg 'Detected Oni GUI. Nothing to do here'
+		return
+	elseif exists('g:eovim_running') && g:eovim_running == 1
+		echomsg 'Detected Eovim GUI. Nothing to do here'
 		return
 	endif
+
+	echomsg 'No GUI detected.'
 
 	" Comes from performance options.
 	hi NonText cterm=NONE ctermfg=NONE
@@ -270,5 +280,28 @@ function! options#SetCli() abort
 	augroup END
 	auto
 endfunction
+
+" Support here for rg, ucg, ag in that order
+function! s:set_grep() abort
+	if executable('rg')
+		" use option --list-file-types if in doubt
+		" rg = ripgrep
+		"Use the -t option to search all text files; -a to search all files; and -u to search all,
+		"including hidden files.
+		set grepprg=rg\ --vimgrep\ --smart-case\ --follow\ --hidden\ --iglob\ '!.{git,svn}'\ $*
+		set grepformat=%f:%l:%c:%m
+	elseif executable('ucg')
+		" Add the --type-set=markdown:ext:md option to ucg for it to recognize
+		" md files
+		set grepprg=ucg\ --nocolor\ --noenv
+	elseif executable('ag')
+		" ctrlp with ag
+		" see :Man ag for help
+		" to specify a type of file just do `--cpp`
+		set grepprg=ag\ --nogroup\ --nocolor\ --smart-case\ --vimgrep\ --glob\ !.{git,svn}\ $*
+		set grepformat=%f:%l:%c:%m
+	endif
+endfunction
+
 
 " vim:tw=78:ts=2:sts=2:sw=2:

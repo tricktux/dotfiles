@@ -5,28 +5,6 @@
 " Date:					Mon Mar 06 2017 09:22
 
 " FUNCTIONS
-" Support here for rg, ucg, ag in that order
-function! utils#SetGrep() abort
-	if executable('rg')
-		" use option --list-file-types if in doubt
-		" rg = ripgrep
-		"Use the -t option to search all text files; -a to search all files; and -u to search all,
-		"including hidden files.
-		set grepprg=rg\ --vimgrep\ --smart-case\ --follow\ --hidden\ --glob\ !.{git,svn}\ $*
-		set grepformat=%f:%l:%c:%m
-	elseif executable('ucg')
-		" Add the --type-set=markdown:ext:md option to ucg for it to recognize
-		" md files
-		set grepprg=ucg\ --nocolor\ --noenv
-	elseif executable('ag')
-		" ctrlp with ag
-		" see :Man ag for help
-		" to specify a type of file just do `--cpp`
-		set grepprg=ag\ --nogroup\ --nocolor\ --smart-case\ --vimgrep\ --glob\ !.{git,svn}\ $*
-		set grepformat=%f:%l:%c:%m
-	endif
-endfunction
-
 " Commits current buffer
 function! utils#GitCommit() abort
 	if utils#CheckFileOrDir(1, ".git") > 0
@@ -440,7 +418,7 @@ endfunction
 function! utils#GuiFont(sOp) abort
 	if has('nvim') && exists('g:GuiLoaded') && exists('g:GuiFont')
 		" Substitute last number with a plus or minus value depending on input
-		let new_cmd = substitute(g:GuiFont, ':h\zs\d\+','\=eval(submatch(0)'.a:sOp.'1)','')			
+		let new_cmd = substitute(g:GuiFont, ':h\zs\d\+','\=eval(submatch(0)'.a:sOp.'1)','')
 		echomsg new_cmd
 		call GuiFont(new_cmd, 1)
 	else " gvim
