@@ -8,7 +8,7 @@
 set from = "Reinaldo Molina <rmolin88@gmail.com>"
 
 # Get password from encryption
-set imap_pass ="`pass keepass/eMail/Gmail\ Rei`"
+set imap_pass ="`pass all_passwds_db/eMail/Gmail\ Rei`"
 set imap_user="rmolin88"
 
 set folder = 'imaps://imap.gmail.com:993'
