@@ -33,12 +33,12 @@ else
 		" depenednt
 		" let g:GuiFont ='Monospace:h9'
 		" let g:GuiFont ='FontAwesome:h10'
-		let g:GuiFont ='Incosolata:h10'
+		let g:GuiFont ='DejaVu Sans Mono:h10'
 		execute 'Guifont! ' . g:GuiFont
 		call GuiMousehide(1)
 	else
 		" set guifont =Hack 8
-		set guifont =DejaVu\ Sans\ Mono\ 9
+		set guifont =DejaVu\ Sans\ Mono\ 12
 		" only for GTK and X11 gvim guis
 		set guiheadroom=0
 	endif
