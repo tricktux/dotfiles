@@ -274,7 +274,8 @@ function! plugin#Config() abort
 					\ 'dosini': { 'left': ';', 'leftAlt': '//', 'right': '', 'rightAlt': '' },
 					\ 'csv': { 'left': '#', 'right': '' },
 					\ 'plantuml': { 'left': "'", 'right': '', 'leftAlt': "/'", 'rightAlt': "'/"},
-					\ 'wings_syntax': { 'left': '//', 'right': '', 'leftAlt': '//', 'rightAlt': '' }
+					\ 'wings_syntax': { 'left': '//', 'right': '', 'leftAlt': '//', 'rightAlt': '' },
+					\ 'sql': { 'left': '--', 'right': '', 'leftAlt': 'REM', 'rightAlt': '' }
 					\ }
 
 		let g:NERDTrimTrailingWhitespace = 1
