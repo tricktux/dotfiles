@@ -117,7 +117,6 @@ function! options#Set() abort
 		set formatoptions+=j
 	endif
 
-
 	" Status Line and Colorscheme
 	if exists('g:plugins_loaded')
 		let g:colorscheme_night_time = 18
@@ -169,80 +168,6 @@ function! options#Set() abort
 	let g:matchparen_timeout = 100
 	let g:matchparen_insert_timeout = 100
 
-	" CLI
-	if !has('gui_running') && !exists('g:GuiLoaded')
-		" Comes from performance options.
-		hi NonText cterm=NONE ctermfg=NONE
-		if $TERM ==? 'linux'
-			set t_Co=8
-		else
-			set t_Co=256
-		endif
-
-		" fixes colorscheme not filling entire backgroud
-		set t_ut=
-
-		if !has('nvim')
-			" Trying to get termguicolors to work on vim
-			let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
-			let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
-			set termguicolors
-
-			" Tue Sep 12 2017 18:18: These are in order to map Alt in vim terminal
-			" under linux. Obtained but going into insert mode, pressing <c-v> and
-			" then some alt+key combination 
-			nnoremap <silent> l <C-w>l
-			nnoremap <silent> h <C-w>h
-			nnoremap <silent> k <C-w>k
-			nnoremap <silent> j <C-w>j
-
-			if !has('clipboard') && !has('xterm_clipboard')
-				echomsg 'options#Set(): vim wasnt compiled with clipboard support. Remove vim and install gvim'
-			else
-				set clipboard=unnamedplus
-			endif
-
-			if exists('g:system_name') && g:system_name ==# 'cygwin'
-				set term=$TERM
-				" Fixes cursor shape in mintty/cygwin
-				let &t_ti.="\e[1 q"
-				let &t_SI.="\e[5 q"
-				let &t_EI.="\e[1 q"
-				let &t_te.="\e[0 q"
-			endif
-		endif
-
-		" Set blinking cursor shape everywhere
-		if exists('$TMUX')
-			let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-			let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-
-			" Fixes broken nmap <c-h> inside of tmux
-			nnoremap <BS> :noh<CR>
-		elseif has('unix') " Cursors settings for neo(vim) under linux 
-			" Start insert mode (bar cursor shape)
-			let &t_SI = "\<Esc>[5 q"
-			" End insert or replace mode (block cursor shape)
-			let &t_EI = "\<Esc>[1 q"
-		endif
-
-		" Settings for cmder
-		if has('win32')
-			if !has('nvim')
-				set term=xterm
-			endif
-			let &t_AB="\e[48;5;%dm"
-			let &t_AF="\e[38;5;%dm"
-		endif
-
-		" Set a pretty title
-		augroup TermTitle
-			autocmd!
-			autocmd BufEnter * let &titlestring = expand("%:t") . " - " . v:progname
-		augroup END
-		auto 
-	endif
-
 	" TODO-[RM]-(Tue Aug 22 2017 10:43): Move this function calls to init#vim or
 	" options.vim
 	" Grep
@@ -266,6 +191,84 @@ function! options#Set() abort
 
 	" Diff options
 	let &diffopt='vertical'
+endfunction
+
+" CLI
+function! options#SetCli() abort
+	if has('gui_running') || exists('g:GuiLoaded') || exists("g:gui_oni")
+		return
+	endif
+
+	" Comes from performance options.
+	hi NonText cterm=NONE ctermfg=NONE
+	if $TERM ==? 'linux'
+		set t_Co=8
+	else
+		set t_Co=256
+	endif
+
+	" fixes colorscheme not filling entire backgroud
+	set t_ut=
+
+	if !has('nvim')
+		" Trying to get termguicolors to work on vim
+		let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
+		let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
+		set termguicolors
+
+		" Tue Sep 12 2017 18:18: These are in order to map Alt in vim terminal
+		" under linux. Obtained but going into insert mode, pressing <c-v> and
+		" then some alt+key combination
+		nnoremap <silent> l <C-w>l
+		nnoremap <silent> h <C-w>h
+		nnoremap <silent> k <C-w>k
+		nnoremap <silent> j <C-w>j
+
+		if !has('clipboard') && !has('xterm_clipboard')
+			echomsg 'options#Set(): vim wasnt compiled with clipboard support. Remove vim and install gvim'
+		else
+			set clipboard=unnamedplus
+		endif
+
+		if exists('g:system_name') && g:system_name ==# 'cygwin'
+			set term=$TERM
+			" Fixes cursor shape in mintty/cygwin
+			let &t_ti.="\e[1 q"
+			let &t_SI.="\e[5 q"
+			let &t_EI.="\e[1 q"
+			let &t_te.="\e[0 q"
+		endif
+	endif
+
+	" Set blinking cursor shape everywhere
+	if exists('$TMUX')
+		let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+		let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+
+		" Fixes broken nmap <c-h> inside of tmux
+		nnoremap <BS> :noh<CR>
+	elseif has('unix') " Cursors settings for neo(vim) under linux
+		" Start insert mode (bar cursor shape)
+		let &t_SI = "\<Esc>[5 q"
+		" End insert or replace mode (block cursor shape)
+		let &t_EI = "\<Esc>[1 q"
+	endif
+
+	" Settings for cmder
+	if has('win32')
+		if !has('nvim')
+			set term=xterm
+		endif
+		let &t_AB="\e[48;5;%dm"
+		let &t_AF="\e[38;5;%dm"
+	endif
+
+	" Set a pretty title
+	augroup TermTitle
+		autocmd!
+		autocmd BufEnter * let &titlestring = expand("%:t") . " - " . v:progname
+	augroup END
+	auto
 endfunction
 
 " vim:tw=78:ts=2:sts=2:sw=2:
