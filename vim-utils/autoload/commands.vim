@@ -5,7 +5,6 @@
 " Last Modified: Oct 18 2017 13:52
 " Created: Oct 18 2017 13:52
 
-
 function! commands#Set() abort
 	" CUSTOM_COMMANDS
 	" TODO.RM-Fri Jun 02 2017 16:10: Keep doing this. Until you Substitute
