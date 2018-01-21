@@ -40,7 +40,4 @@ function! syntax#Set() abort
 	" Never load netrw
 	let g:loaded_netrw       = 1
 	let g:loaded_netrwPlugin = 1
-
-	" Highlight empty spaces after line everywhere
-	match ErrorMsg '\s\+$'
 endfunction

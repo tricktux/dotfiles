@@ -504,7 +504,7 @@ function! utils#NeomakeJobFinished() abort
 					\ g:neomake_hook_context.jobinfo.exit_code)
 		echomsg g:neomake_lightline
 		" Thu Nov 09 2017 10:11: When using the native status line function this is not
-		" needed. 
+		" needed.
 		" keyword: example use of lambda in vim
 		" call timer_start(
 						" \ 60 * 1000,
@@ -534,7 +534,7 @@ function! utils#NeomakeNativeStatusLine() abort
 	" return ret == '?' ? '' : ret
 endfunction
 
-" TODO.RM-Fri Apr 28 2017 16:14: Also move this to the ftplugin  
+" TODO.RM-Fri Apr 28 2017 16:14: Also move this to the ftplugin
 " Use current 'grepprg' to search files for text
 "		filteype - Possible values: 1 - Search only files of type 'filetype'. Any
 "								other value search all types of values
@@ -591,7 +591,7 @@ function! utils#RooterAutoloadCscope() abort
 endfunction
 
 " Excellent function but useless since pandoc prints shitty reports
-"TODO.RM-Mon Mar 06 2017 09:05: Try to get pandoc to print something useful  
+"TODO.RM-Mon Mar 06 2017 09:05: Try to get pandoc to print something useful
 function! utils#ConvertWeeklyReport() abort
 	if !executable('pandoc')
 		echoerr 'Missing pandoc executable from path'
@@ -607,7 +607,7 @@ function! utils#ConvertWeeklyReport() abort
 		endif
 	endif
 
-	" Thu Nov 02 2017 17:07: keep working here 
+	" Thu Nov 02 2017 17:07: keep working here
 	let out_name = loc_out . '\WeeklyReport_ReinaldoMolina_' . strftime('%b-%d-%Y') . '.docx'
 	if filereadable(out_name)
 		call delete(out_name)
@@ -637,7 +637,7 @@ function! utils#AutoHighlightToggle()
 		augroup auto_highlight
 			au!
 			" au CursorHold  *.py,*.c,*.cpp,*.h,*.hpp let @/ = '\V\<'.escape(expand('<cword>'), '\').'\>'
-			au CursorHold  *.py,*.c,*.cpp,*.h,*.hpp exe printf('silent! match IncSearch /\<%s\>/', expand('<cword>')) 
+			au CursorHold  *.py,*.c,*.cpp,*.h,*.hpp exe printf('silent! match IncSearch /\<%s\>/', expand('<cword>'))
 		augroup end
 		setl updatetime=500
 		" echo 'Highlight current word: ON'
@@ -677,7 +677,7 @@ function! utils#Flux() abort
 		return
 	endif
 
-	if strftime("%H") >= g:colorscheme_night_time || strftime("%H") < g:colorscheme_day_time 
+	if strftime("%H") >= g:colorscheme_night_time || strftime("%H") < g:colorscheme_day_time
 		" Its night time
 		if !exists('g:colors_name')
 			let g:colors_name = g:colorscheme_night
@@ -756,7 +756,7 @@ function! utils#ProfilePerformance() abort
 endfunction
 
 function! utils#BufDetermine() abort
-	let ext = expand('%:e')	
+	let ext = expand('%:e')
 	if ext ==# 'ino' || ext ==# 'pde'
 		setfiletype arduino
 	elseif ext ==# 'scp'
@@ -860,7 +860,7 @@ function! utils#CurlDown(file_name, link) abort
 endfunction
 
 function! utils#ChooseEmailAcc() abort
-	let choice = confirm("Please choose an email:", 
+	let choice = confirm("Please choose an email:",
 				\ "&Gmail\n&Honeywell\n&PSU", 1)
 
 	if choice == 1
@@ -949,7 +949,7 @@ function! utils#TagbarStatusFunc(current, sort, fname, ...) abort
 	return lightline#statusline(0)
 endfunction
 
-" TODO.RM-Thu Mar 16 2017 08:36: Update this function to make it async. Maybe the whole plugin be async  
+" TODO.RM-Thu Mar 16 2017 08:36: Update this function to make it async. Maybe the whole plugin be async
 " This function gets called on BufEnter
 " Call the function from cli with any argument to obtain debugging output
 function! utils#UpdateSvnBranchInfo() abort
@@ -966,7 +966,7 @@ function! utils#UpdateSvnBranchInfo() abort
 	endtry
 	" The system function returns something like "Relative URL: ^/...."
 	" Strip from "^/" forward and put that in status line
-	"TODO.RM-Tue Mar 28 2017 15:05: Find a much better way to do this  
+	"TODO.RM-Tue Mar 28 2017 15:05: Find a much better way to do this
 	let info = get(info, 0, "")
 	let index = stridx(info, "^/")
 	" echomsg string(info)
@@ -1038,7 +1038,7 @@ function! utils#LightlineDeviconsFileFormat()
 endfunction
 
 " TODO-[RM]-(Fri Dec 01 2017 05:36): This function could be heavily improved by adding
-" color and also making vim understand its output 
+" color and also making vim understand its output
 " - Sample output without color
 " || ./applying-uml-and-patterns-3rd.pdf-59-"waterfall" process), iterative and evolutionary development is based on an attitude of embracing
 " || ./applying-uml-and-patterns-3rd.pdf:59:change and adaptation as unavoidable and indeed essential drivers.
@@ -1061,4 +1061,9 @@ endfunction
 function! utils#OnVimEnter() abort
 	call options#SetCli()
 	call plugin#AfterConfig()
+endfunction
+
+function utils#TrimWhiteSpace()
+	%s/\s*$//
+	''
 endfunction
