@@ -228,12 +228,6 @@ bindsym Control+Mod1+L exec cmus-remote -n
 bindsym Control+Mod1+K exec amixer sset Master 5%+
 bindsym Control+Mod1+J exec amixer sset Master 5%-
 
-# This regex ^ start of subject and $ means end of subject
-for_window [title="^cmus$"] move to scratchpad
-for_window [title="^gmail-mutt$"] move to scratchpad
-for_window [title="^psu-mutt$"] move to scratchpad
-for_window [title="^ranger$"] move to scratchpad
-
 # bindsym $mod+n exec rofi -show window -opacity "50"
 bindsym $mod+m scratchpad show
 
@@ -290,13 +284,13 @@ bindsym $mod+Shift+9 move container to workspace $workspace9
 bindsym $mod+Shift+0 move container to workspace $workspace10
 
 # Assign stuff
-assign [class="URxvt"] $workspace1
-assign [class="nvim-qt"] $workspace1
+# assign [class="URxvt"] $workspace1
+# assign [class="nvim-qt"] $workspace1
 # Keep it this way to make it consistent with Windows
-assign [class="Google-chrome"] $workspace2
-assign [class="Opera"] $workspace2
-assign [class="Firefox"] $workspace2
-assign [class="Pcmanfm"] $workspace4
+# assign [class="Google-chrome"] $workspace2
+# assign [class="Opera"] $workspace2
+# assign [class="Firefox"] $workspace2
+# assign [class="Pcmanfm"] $workspace4
 # All other new windows go to ws 3
 # Very confusing. Most of the time things open and you do not notice
 # assign [class="^"] $workspace3
@@ -448,9 +442,16 @@ mode "$mode_gaps_outer" {
 }
 # }}}
 
-# Mode Show: {{{
+# Mode Show/Launch: {{{
 # Sat Sep 30 2017 18:59:
-set $mode_show Show: [c]mus, [m]gmail, ps[u], [n]ranger
+# This regex ^ start of subject and $ means end of subject
+for_window [title="^cmus$"] move to scratchpad
+for_window [title="^gmail-mutt$"] move to scratchpad
+for_window [title="^psu-mutt$"] move to scratchpad
+for_window [title="^ranger$"] move to scratchpad
+for_window [class="Spotify"] move to scratchpad
+
+set $mode_show Show: [c]mus, [m]gmail, ps[u], [n]ranger, [s]potify
 bindsym $mod+n mode "$mode_show"
 
 mode "$mode_show" {
@@ -458,15 +459,15 @@ mode "$mode_show" {
 	bindsym m [title="gmail-mutt"] move to scratchpad, scratchpad show; mode "default"
 	bindsym u [title="psu-mutt"] move to scratchpad, scratchpad show; mode "default"
 	bindsym n [title="ranger"] move to scratchpad, scratchpad show; mode "default"
+	bindsym s [class="Spotify"] move to scratchpad, scratchpad show; mode "default"
 
 	bindsym Escape mode "default"
 	bindsym Return mode "default"
 }
-# }}}
 
-# Mode Launch: {{{
+# Mode Launch:
 # Thu Nov 30 2017 19:56:
-set $mode_launch Launch: [c]mus, [m]gmail, ps[u], [n]ranger
+set $mode_launch Launch: [c]mus, [m]gmail, ps[u], [n]ranger, [s]potify
 bindsym $mod+Shift+n mode "$mode_launch"
 
 mode "$mode_launch" {
@@ -474,6 +475,7 @@ mode "$mode_launch" {
 	bindsym m exec --no-startup-id i3-sensible-terminal --exec 'neomutt -F ~/.config/mutt/account.gmail' --title gmail-mutt; mode "default"
 	bindsym u exec --no-startup-id i3-sensible-terminal --exec 'neomutt -F ~/.config/mutt/account.psu' --title psu-mutt; mode "default"
 	bindsym n exec --no-startup-id i3-sensible-terminal --exec ranger --title ranger
+	bindsym s exec --no-startup-id spotify
 
 	bindsym Escape mode "default"
 	bindsym Return mode "default"
