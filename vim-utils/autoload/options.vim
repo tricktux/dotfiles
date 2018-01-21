@@ -193,21 +193,20 @@ endfunction
 
 " CLI
 function! options#SetCli() abort
+	" Detect one of the many gui types
 	if has('gui_running')
-		echomsg 'Detected Gvim GUI. Nothing to do here'
+		" echomsg 'Detected Gvim GUI. Nothing to do here'
 		return
 	elseif exists('g:GuiLoaded') && g:GuiLoaded == 1
-		echomsg 'Detected Neovim-qt GUI. Nothing to do here'
+		" echomsg 'Detected Neovim-qt GUI. Nothing to do here'
 		return
 	elseif exists("g:gui_oni") && g:gui_oni == 1
-		echomsg 'Detected Oni GUI. Nothing to do here'
+		" echomsg 'Detected Oni GUI. Nothing to do here'
 		return
 	elseif exists('g:eovim_running') && g:eovim_running == 1
-		echomsg 'Detected Eovim GUI. Nothing to do here'
+		" echomsg 'Detected Eovim GUI. Nothing to do here'
 		return
 	endif
-
-	echomsg 'No GUI detected.'
 
 	" Comes from performance options.
 	hi NonText cterm=NONE ctermfg=NONE
