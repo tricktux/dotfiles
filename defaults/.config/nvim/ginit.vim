@@ -38,7 +38,7 @@ else
 		call GuiMousehide(1)
 	else
 		" set guifont =Hack 8
-		set guifont =DejaVu\ Sans\ Mono\ 12
+		set guifont =DejaVu\ Sans\ Mono\ 9
 		" only for GTK and X11 gvim guis
 		set guiheadroom=0
 	endif
