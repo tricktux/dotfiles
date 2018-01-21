@@ -22,6 +22,7 @@ setlocal sw=2
 setlocal sts=2
 " makes vim autocomplete - bullets
 setlocal comments+=b:-,b:*
+setlocal formatoptions+=aw
 
 if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	" TODO-[RM]-(Fri Oct 20 2017 08:50): Fix this code commented here below
@@ -153,4 +154,4 @@ command! -buffer UtilsFixUnderscore execute("%s/_/\\_/gc<CR>")
 command! -buffer UtilsPreviewMarkdown call MdPreviewInBrowser()
 command! -buffer UtilsInstallMarkdownPreview call MdInstallTemplate()
 
-let b:undo_ftplugin = "setl foldenable< spell< complete< ts< sw< sts< comments<" 
+let b:undo_ftplugin = "setl foldenable< spell< complete< ts< sw< sts< comments< formatoptions<" 
