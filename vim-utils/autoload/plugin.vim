@@ -666,6 +666,8 @@ function! plugin#Config() abort
 					\ '<C-R><C-W>' : ''
 					\ }
 
+	Plug 'tpope/vim-capslock'
+
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
