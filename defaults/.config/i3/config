@@ -309,6 +309,7 @@ bindsym $mod+Shift+0 move container to workspace $workspace10
 		for_window [class="Speedcrunch"] floating enable
 		for_window [class="Gloobus-preview"] floating enable
 		for_window [class="Pavucontrol"] floating enable
+		for_window [window_role="toolbox_window"] floating enable
 
 # My-own
 		for_window [class="Seafile Client"] floating enable
@@ -336,7 +337,7 @@ bindsym $mod+Shift+0 move container to workspace $workspace10
 #       such as instant messaging converstations, email composition
 #       windows, etc.
 # Tip: To find out what these values might be run:
-#       xprop | grep -i 'role'#
+#       xprop | grep -i 'role'
 		for_window [window_role="conversation"] floating enable
 		for_window [window_role="Msgcompose"] floating enable
 #################################################### }}}
