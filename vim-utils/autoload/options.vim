@@ -287,7 +287,11 @@ function! s:set_grep() abort
 		" rg = ripgrep
 		"Use the -t option to search all text files; -a to search all files; and -u to search all,
 		"including hidden files.
-		set grepprg=rg\ --vimgrep\ --smart-case\ --follow\ --hidden\ --iglob\ '!.{git,svn}'\ $*
+		if has('unix')
+			set grepprg=rg\ --vimgrep\ --smart-case\ --follow\ --hidden\ --iglob\ '!.{git,svn}'\ $*
+		else
+			set grepprg=rg\ --vimgrep\ --smart-case\ --follow\ --hidden\ --iglob\ !.{git,svn}\ $*
+		endif
 		set grepformat=%f:%l:%c:%m
 	elseif executable('ucg')
 		" Add the --type-set=markdown:ext:md option to ucg for it to recognize
