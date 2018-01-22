@@ -11,7 +11,7 @@
 # Sat Oct 14 2017 11:12: This will set the i3-sensible-terminal to be used:
 [[ -f /usr/bin/termite ]] && export TERMINAL="termite"
 export EMAIL="rmolin88@gmail.com"
-[ -f /usr/bin/firefox ] && export BROWSER="/usr/bin/firefox"
+[ -f /usr/bin/opera ] && export BROWSER="/usr/bin/opera"
 
 export ORACLE_HOME=/home/reinaldo/app/reinaldo/product/12.2.0/client_1
 
