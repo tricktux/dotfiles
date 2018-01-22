@@ -16,7 +16,7 @@ let b:did_sql_ftplugin = 1
 
 if !exists('no_plugin_maps') && !exists('no_sql_maps')
 	if exists(':TREPLSendLine') " if neoterm plugin available
-		nnoremap <buffer> gS :TREPLSetTerm<CR>
+		nnoremap <buffer> gS :TREPLSetTerm 
 		xnoremap <buffer> gl :TREPLSendSelection<CR>
 		nnoremap <buffer> gl :TREPLSendLine<CR>
 		nnoremap <buffer> gf :TREPLSendFile<CR>	
