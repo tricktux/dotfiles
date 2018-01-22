@@ -1051,7 +1051,7 @@ function! utils#SearchPdf() abort
 
 	let grep_buf = &grepprg
 
-	setlocal grepprg=pdfgrep\ --page-number\ --recursive\ --context\ 1
+	setlocal grepprg=pdfgrep\ --ignore-case\ --page-number\ --recursive\ --context\ 1
 	return utils#FileTypeSearch(8, 8)
 
 	let &l:grepprg = grep_buf
@@ -1063,7 +1063,7 @@ function! utils#OnVimEnter() abort
 	call plugin#AfterConfig()
 endfunction
 
-function utils#TrimWhiteSpace()
+function! utils#TrimWhiteSpace() abort
 	%s/\s*$//
 	''
 endfunction
