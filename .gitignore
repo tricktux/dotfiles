@@ -3,8 +3,6 @@ defaults/.config/nvim/plugged/
 defaults/.config/ranger/bookmarks
 defaults/.config/ranger/history
 defaults/.config/ranger/tagged
-vim-utils/rplugin/python3/__pycache__/ctags.cpython-35.pyc
-vim-utils/rplugin/python3/__pycache__/ctags.cpython-36.pyc
 defaults/.config/pcmanfm/LXDE/desktop-items-1.conf
 defaults/.config/i3/i3blocks-email/
 mutt/gmail/cache/
@@ -19,7 +17,6 @@ defaults/.config/polybar/gmail/credentials.json
 *.gpg
 defaults/.config/qpdfview/pdf-plugin.conf
 defaults/.config/qpdfview/qpdfview.conf
-defaults/.config/ranger/__pycache__/
 defaults/.config/ranger/devicons.py
 defaults/.config/ranger/plugins/
 defaults/.config/pulse/client.conf
@@ -27,3 +24,4 @@ defaults/.config/pulse/cookie
 defaults/.config/pcmanfm/LXDE/
 defaults/.config/systemd/user/default.target.wants/wallpaper.service
 defaults/.config/systemd/user/timers.target.wants/wallpaper.timer
+__pycache__
