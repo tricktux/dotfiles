@@ -110,6 +110,18 @@ if has('win32')
 	endif
 else " Unix
 	setlocal foldmethod=syntax
+
+	if exists('g:LanguageClient_serverCommands')
+		setlocal completefunc=LanguageClient#complete
+		setlocal formatexpr=LanguageClient_textDocument_rangeFormatting()
+
+		" TODO-[RM]-(Sat Jan 27 2018 11:23): Figure out these mappings 
+		" nnoremap <buffer> <silent> gh :call LanguageClient_textDocument_hover()<CR>
+		" nnoremap <buffer> <silent> gd :call LanguageClient_textDocument_definition()<CR>
+		" nnoremap <buffer> <silent> gr :call LanguageClient_textDocument_references()<CR>
+		" nnoremap <buffer> <silent> gs :call LanguageClient_textDocument_documentSymbol()<CR>
+		" nnoremap <buffer> <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+	endif
 endif
 
 function! s:UpdateBorlandMakefile() abort

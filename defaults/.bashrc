@@ -110,3 +110,5 @@ export GIT_TERMINAL_PROMPT=1
 # Sat Oct 14 2017 22:27: fish being default terminal 
 # Sat Oct 21 2017 16:14: very pretty but not very useful 
 # [ -f /usr/bin/fish ] && exec fish
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
