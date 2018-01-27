@@ -625,7 +625,9 @@ function! plugin#Config() abort
 		" let g:csv_autocmd_arrange      = 1
 		" let g:csv_autocmd_arrange_size = 1024*1024
 
-	Plug 'google/vim-searchindex'
+	" Thu Jan 25 2018 17:36: Not that useful. More useful is mapping N to center the screen as well
+	" Plug 'google/vim-searchindex'
+
 	" Documentation plugins
 	Plug 'rhysd/devdocs.vim', { 'on' : '<Plug>(devdocs-under-cursor)' }
 		" Sample mapping in a ftplugin/*.vim
@@ -670,7 +672,10 @@ function! plugin#Config() abort
 					\ '<C-R><C-W>' : ''
 					\ }
 
+	" Software caps lock. imap <c-l> ToggleSoftwareCaps
 	Plug 'tpope/vim-capslock'
+
+	Plug 'hari-rangarajan/CCTree'
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
