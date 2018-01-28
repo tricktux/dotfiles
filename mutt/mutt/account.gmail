@@ -20,7 +20,7 @@ set postponed="imaps://imap.gmail.com/[Gmail]/Drafts"
 # Hopefully will fix emails not going out
 set smtp_url = "smtps://rmolin88@gmail.com@smtp.gmail.com:465/"
 # set smtp_url = "smtp://rmolin88@smtp.gmail.com:587/"
-set smtp_pass = "`pass keepass/eMail/Gmail\ Rei`"
+set smtp_pass = "`pass all_passwds_db/eMail/Gmail\ Rei`"
 set trash = '+[Gmail]/All Mail'
 # Tue Sep 12 2017 16:51: Stop saving outgoing messages to ~/sent
 # Where they should really be saved is to the online storage
