@@ -95,7 +95,8 @@ function! autocompletion#SetCompl(compl) abort
 	elseif a:compl ==# 'shuogo'
 		call autocompletion#SetShuogo()
 		if autocompletion#SetCquery() < 1
-			call autocompletion#SetClang('rip_clang_complete')
+			call autocompletion#VimClang()
+			" call autocompletion#SetClang('rip_clang_complete')
 		endif
 	elseif a:compl ==# 'autocomplpop'
 		Plug 'vim-scripts/AutoComplPop'
@@ -458,4 +459,28 @@ function! autocompletion#SetCquery() abort
 	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 	Plug 'junegunn/fzf.vim'
 	return 1
+endfunction
+
+function! autocompletion#VimClang() abort
+	if !executable('clang++')
+		echomsg 'autocompletion#SetClang(): Clang not installed'
+		return
+	endif
+	Plug 'justmao945/vim-clang'
+	let g:clang_auto = 1
+	let g:clang_debug = 4
+	let g:clang_diagsopt = ''
+	let g:clang_c_completeopt = 'menuone,longest,preview,noselect,noinsert'
+	let g:clang_cpp_completeopt = 'menuone,longest,preview,noselect,noinsert'
+	if has('win32')
+		" clang using mscv for target instead of mingw64
+		let g:clang_cpp_options = '-target x86_64-pc-windows-gnu -std=c++17 -pedantic -Wall'
+		let g:clang_c_options = '-target x86_64-pc-windows-gnu -std=gnu11 -pedantic -Wall'
+	else
+		if exists('g:libclang_path') && !empty(glob(g:libclang_path))
+			let g:clang_library_path= g:usr_path . '/lib/libclang.so'
+		else
+			echomsg "autocompletion#SetClang(): g:usr_path not set or libclang not existent"
+		endif
+	endif
 endfunction
