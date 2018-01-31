@@ -30,15 +30,6 @@ function! plugin#Config() abort
 			let g:neoterm_position = 'vertical'
 			let g:neoterm_autoinsert=1
 			nnoremap <Plug>ToggleTerminal :Ttoggle<CR>
-
-		" TODO-[RM]-(Fri Oct 27 2017 15:00): Document in real-arch-wiki to
-		" installfzf manually not like this below. I dont like it. Take care of
-		" the repurcutions this could have in .bashrc
-		" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-		" Sun Jul 30 2017 13:09
-		" Requires `install xdotool' and 'go get -u github.com/termhn/i3-vim-nav'
-		" - The thing is that this down here doesnt work
-		" Plug 'termhn/i3-vim-nav', { 'do' : 'ln -s ' . g:vim_plugins_path . 'i3-vim-nav/i3-vim-nav ~/.local/bin' }
 	else
 		nmap <Plug>ToggleTerminal :terminal<CR><C-w>L
 	endif
