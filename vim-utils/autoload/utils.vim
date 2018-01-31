@@ -761,8 +761,8 @@ function! utils#BufDetermine() abort
 		setfiletype arduino
 	elseif ext ==# 'scp'
 		setfiletype wings_syntax
-	elseif ext ==# 'log'
-		setfiletype unreal-log
+	" elseif ext ==# 'log'
+		" setfiletype unreal-log
 	elseif ext ==# 'set' || ext ==# 'sum'
 		setfiletype dosini
 	elseif ext ==# 'bin' || ext ==# 'pdf' || ext ==# 'hsr'
