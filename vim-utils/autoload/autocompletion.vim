@@ -448,15 +448,21 @@ function! autocompletion#SetCquery() abort
 
 	let g:LanguageClient_autoStart = 1
 	let g:LanguageClient_serverCommands = {
-				\ 'cpp': ['cquery', '--language-server', '--log-file=/tmp/cq.log'],
+				\ 'cpp': 
+				\ [
+				\		'cquery', '--language-server', '--log-file=/tmp/cq.log',
+				\ ],
 				\ 'c': ['cquery', '--language-server', '--log-file=/tmp/cq.log'],
 				\ } 
+				" \		'--init={ "initializationOptions": { "cacheDirectory": "/tmp/cquery" }'
 
 	let g:LanguageClient_loadSettings = 1 " Use an absolute configuration path if you want system-wide settings 
-	let g:LanguageClient_settingsPath = g:std_config_path . '/dotfiles/vim-utils/settings.json'
+	let g:LanguageClient_settingsPath = '/home/reinaldo/.config/dotfiles/vim-utils/settings.json'
+
+	let g:LanguageClient_trace = 'verbose'
+	let g:LanguageClient_loggingLevel = 'DEBUG'
 
 	" Multi-entry selection UI. FZF
-	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 	Plug 'junegunn/fzf.vim'
 	return 1
 endfunction

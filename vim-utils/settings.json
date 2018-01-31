@@ -1,14 +1,6 @@
 {
-	"description" : "https://github.com/cquery-project/cquery/wiki/Neovim",
-	"initializationOptions": {
-		"cacheDirectory": "/tmp/cquery",
-		"cacheFormat": "msgpack",
-		"completion": {
-			"filterAndSort": true
-		},
-		"indexerCount": 0,
-		"index": {
-			"comments": 2,
-		},
+	"initializationOptions": 
+	{
+		"cacheDirectory": "/tmp/cquery"
 	}
 }
