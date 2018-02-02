@@ -62,7 +62,7 @@ function! unix#Config() abort
 				\&& !empty(glob('/usr/share/java/languagetool/languagetool-commandline.jar'))
 		let g:languagetool_jar = '/usr/share/java/languagetool/languagetool-commandline.jar'
 	endif
-	let g:browser_cmd = '/usr/bin/firefox'
+	let g:browser_cmd = '/usr/bin/google-chrome-stable'
 
 	" This mapping will load the journal from the most recent boot and highlight it for you
 	command! UtilsLinuxReadJournal execute("read !journalctl -b<CR><bar>:setf messages<CR>")

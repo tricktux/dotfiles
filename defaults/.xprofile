@@ -11,8 +11,9 @@
 # Sat Oct 14 2017 11:12: This will set the i3-sensible-terminal to be used:
 [[ -f /usr/bin/termite ]] && export TERMINAL="termite"
 export EMAIL="rmolin88@gmail.com"
-[ -f /usr/bin/opera ] && export BROWSER="/usr/bin/opera"
+[ -f /usr/bin/google-chrome-stable ] && export BROWSER="/usr/bin/google-chrome-stable"
 
+# Thu Feb 01 2018 05:21: For oracle database crap for school 
 export ORACLE_HOME=/home/reinaldo/app/reinaldo/product/12.2.0/client_1
 
 # vim:filetype=sh

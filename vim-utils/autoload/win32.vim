@@ -53,5 +53,5 @@ function win32#Config()
 	" TODO-[RM]-(Sat Nov 25 2017 13:12): Change this here to Firefox
 	" Make sure that "C:\Program Files\Opera\launcher.exe" is in your path
 	" let g:browser_cmd = 'launcher.exe'
-	let g:browser_cmd = 'firefox.exe'
+	let g:browser_cmd = 'chrome.exe'
 endfunction
