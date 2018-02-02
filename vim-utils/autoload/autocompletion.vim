@@ -474,7 +474,7 @@ function! autocompletion#VimClang() abort
 	endif
 	Plug 'justmao945/vim-clang'
 	let g:clang_auto = 1
-	let g:clang_debug = 4
+	" let g:clang_debug = 4
 	let g:clang_diagsopt = ''
 	let g:clang_c_completeopt = 'menuone,longest,preview,noselect,noinsert'
 	let g:clang_cpp_completeopt = 'menuone,longest,preview,noselect,noinsert'

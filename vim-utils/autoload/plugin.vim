@@ -502,8 +502,9 @@ function! plugin#Config() abort
 		let g:lightline.component_function['ctrlpmark'] = 'utils#LightlineCtrlPMark'
 
 		" These settings do not use patched fonts
-		let g:lightline.active.left[2] += [ 'tagbar' ]
-		let g:lightline.component_function['tagbar'] = 'utils#LightlineTagbar'
+		" Fri Feb 02 2018 15:38: Its number one thing slowing down vim right now. 
+		" let g:lightline.active.left[2] += [ 'tagbar' ]
+		" let g:lightline.component_function['tagbar'] = 'utils#LightlineTagbar'
 
 		let g:lightline.active.left[2] += [ 'pomodoro' ]
 		let g:lightline.component_function['pomodoro'] = 'utils#LightlinePomo'
