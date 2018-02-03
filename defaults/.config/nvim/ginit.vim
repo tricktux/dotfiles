@@ -17,7 +17,7 @@
 	" call GuiMousehide(1)
 if has('win32')
 	if exists('g:GuiLoaded') " nvim-qt gui
-		let g:GuiFont ='Consolas:h8'
+		let g:GuiFont ='DejaVuSansMonoForPowerline Nerd:h8'
 		execute 'Guifont! ' . g:GuiFont
 		call GuiWindowMaximized(1)
 		call GuiMousehide(1)
