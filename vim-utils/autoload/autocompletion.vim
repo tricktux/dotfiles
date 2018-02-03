@@ -6,45 +6,45 @@
 
 function! autocompletion#SetCompl(compl) abort
 	if a:compl ==# 'ycm'
-			Plug 'Valloric/YouCompleteMe', { 'on' : 'YcmDebugInfo' }
-			"" turn on completion in comments
-			let g:ycm_complete_in_comments=0
-			"" load ycm conf by default
-			let g:ycm_confirm_extra_conf=0
-			"" turn on tag completion
-			let g:ycm_collect_identifiers_from_tags_files=1
-			"" only show completion as a list instead of a sub-window
-			" set completeopt-=preview
-			"" start completion from the first character
-			let g:ycm_min_num_of_chars_for_completion=2
-			"" don't cache completion items
-			let g:ycm_cache_omnifunc=0
-			"" complete syntax keywords
-			let g:ycm_seed_identifiers_with_syntax=1
-			" let g:ycm_global_ycm_extra_conf = '~/.dotfiles/vim-utils/.ycm_extra_conf.py'
-			let g:ycm_autoclose_preview_window_after_completion = 1
-			let g:ycm_semantic_triggers =  {
-			\   'c' : ['->', '.'],
-			\   'objc' : ['->', '.'],
-			\   'ocaml' : ['.', '#'],
-			\   'cpp,objcpp' : ['->', '.', '::'],
-			\   'perl' : ['->'],
-			\   'php' : ['->', '::'],
-			\   'cs,javascript,d,python,perl6,scala,vb,elixir,go' : ['.'],
-			\   'java,jsp' : ['.'],
-			\   'vim' : ['re![_a-zA-Z]+[_\w]*\.'],
-			\   'ruby' : ['.', '::'],
-			\   'lua' : ['.', ':'],
-			\   'erlang' : [':'],
-			\ }
+		Plug 'Valloric/YouCompleteMe', { 'on' : 'YcmDebugInfo' }
+		"" turn on completion in comments
+		let g:ycm_complete_in_comments=0
+		"" load ycm conf by default
+		let g:ycm_confirm_extra_conf=0
+		"" turn on tag completion
+		let g:ycm_collect_identifiers_from_tags_files=1
+		"" only show completion as a list instead of a sub-window
+		" set completeopt-=preview
+		"" start completion from the first character
+		let g:ycm_min_num_of_chars_for_completion=2
+		"" don't cache completion items
+		let g:ycm_cache_omnifunc=0
+		"" complete syntax keywords
+		let g:ycm_seed_identifiers_with_syntax=1
+		" let g:ycm_global_ycm_extra_conf = '~/.dotfiles/vim-utils/.ycm_extra_conf.py'
+		let g:ycm_autoclose_preview_window_after_completion = 1
+		let g:ycm_semantic_triggers =  {
+					\   'c' : ['->', '.'],
+					\   'objc' : ['->', '.'],
+					\   'ocaml' : ['.', '#'],
+					\   'cpp,objcpp' : ['->', '.', '::'],
+					\   'perl' : ['->'],
+					\   'php' : ['->', '::'],
+					\   'cs,javascript,d,python,perl6,scala,vb,elixir,go' : ['.'],
+					\   'java,jsp' : ['.'],
+					\   'vim' : ['re![_a-zA-Z]+[_\w]*\.'],
+					\   'ruby' : ['.', '::'],
+					\   'lua' : ['.', ':'],
+					\   'erlang' : [':'],
+					\ }
 
 		Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 	elseif a:compl ==# 'nvim_compl_manager'
 		" Optional but useful python3 support
 		" pip3 install --user neovim jedi mistune psutil setproctitle
 		" if has('win32')
-			" call autocompletion#SetTab()
-			" return -1
+		" call autocompletion#SetTab()
+		" return -1
 		" endif
 
 		if !has('nvim') || !has('python3')
@@ -54,10 +54,10 @@ function! autocompletion#SetCompl(compl) abort
 
 		if has('unix')
 			" Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-				" let g:LanguageClient_serverCommands = {
-							" \ 'cpp': ['clangd'],
-							" \ }
-				" let g:LanguageClient_autoStart = 1
+			" let g:LanguageClient_serverCommands = {
+			" \ 'cpp': ['clangd'],
+			" \ }
+			" let g:LanguageClient_autoStart = 1
 			" ncm's filtering is based on word, so it's better to convert results of
 			" muttaliases#CompleteMuttAliases into snippet expension
 			augroup NCM
@@ -87,15 +87,16 @@ function! autocompletion#SetCompl(compl) abort
 		inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 		" let g:cm_auto_popup = 1
 		" else " but not anywhere else
-			" let g:cm_auto_popup = 0
-			" imap <silent> <Tab> <Plug>(cm_force_refresh)
+		" let g:cm_auto_popup = 0
+		" imap <silent> <Tab> <Plug>(cm_force_refresh)
 		" endif
 
 		call autocompletion#SetClang('roxma_clang_complete')
 	elseif a:compl ==# 'shuogo'
 		call autocompletion#SetShuogo()
-		if executable('clang')
-			call autocompletion#SetClang('rip_clang_complete')
+		if autocompletion#SetCquery() < 1
+			call autocompletion#VimClang()
+			" call autocompletion#SetClang('rip_clang_complete')
 		endif
 	elseif a:compl ==# 'autocomplpop'
 		Plug 'vim-scripts/AutoComplPop'
@@ -109,10 +110,10 @@ function! autocompletion#SetCompl(compl) abort
 			return
 		endif
 		Plug 'maralla/completor.vim'
-			inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-			inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-			inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
-			let g:completor_clang_binary = 'c:/Program Files/LLVM/bin/clang.exe'
+		inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+		inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+		inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+		let g:completor_clang_binary = 'c:/Program Files/LLVM/bin/clang.exe'
 	elseif a:compl ==# 'asyncomplete'
 		if v:version < 800
 			echomsg 'autocompletion#SetCompl(): Cannot set AsynComplete autcompl_engine. Setting SuperTab'
@@ -121,18 +122,18 @@ function! autocompletion#SetCompl(compl) abort
 		endif
 
 		Plug 'prabirshrestha/asyncomplete.vim'
-			" Tab Completion
-			function! s:check_back_space() abort
-				let col = col('.') - 1
-				return !col || getline('.')[col - 1]  =~ '\s'
-			endfunction
+		" Tab Completion
+		function! s:check_back_space() abort
+			let col = col('.') - 1
+			return !col || getline('.')[col - 1]  =~ '\s'
+		endfunction
 
-			inoremap <silent><expr> <TAB>
-						\ pumvisible() ? "\<C-n>" :
-						\ <SID>check_back_space() ? "\<TAB>" :
-						\ asyncomplete#force_refresh()
-			inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-			inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+		inoremap <silent><expr> <TAB>
+					\ pumvisible() ? "\<C-n>" :
+					\ <SID>check_back_space() ? "\<TAB>" :
+					\ asyncomplete#force_refresh()
+		inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+		inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 		" Buffer
 		Plug 'prabirshrestha/asyncomplete-buffer.vim'
 		" Syntax
@@ -347,9 +348,9 @@ function! autocompletion#SetShuogo() abort
 	" Tue Oct 31 2017 08:54: Going to attempt to use the other clang
 	"  deoplete-clang
 	" if exists('g:libclang_path') && exists('g:clangheader_path')
-		" Plug 'zchee/deoplete-clang'
-		" let g:deoplete#sources#clang#libclang_path = g:libclang_path
-		" let g:deoplete#sources#clang#clang_header = g:clangheader_path
+	" Plug 'zchee/deoplete-clang'
+	" let g:deoplete#sources#clang#libclang_path = g:libclang_path
+	" let g:deoplete#sources#clang#clang_header = g:clangheader_path
 	" endif
 endfunction
 
@@ -431,5 +432,61 @@ function! autocompletion#MuttOmniWrap(findstart, base) abort
 		endwhile
 	endif
 	return ret
-endfunc
+endfunction
 
+function! autocompletion#SetCquery() abort
+	if !has('unix') || !has('python3') || !executable('cquery')
+		return -1
+	endif
+
+	" Sat Jan 27 2018 11:11: Settings coming from:
+	" https://github.com/cquery-project/cquery/wiki/Neovim
+	Plug 'autozimu/LanguageClient-neovim', {
+				\ 'branch': 'next',
+				\ 'do': 'bash install.sh',
+				\ }
+
+	let g:LanguageClient_autoStart = 1
+	let g:LanguageClient_serverCommands = {
+				\ 'cpp': 
+				\ [
+				\		'cquery', '--language-server', '--log-file=/tmp/cq.log',
+				\ ],
+				\ 'c': ['cquery', '--language-server', '--log-file=/tmp/cq.log'],
+				\ } 
+				" \		'--init={ "initializationOptions": { "cacheDirectory": "/tmp/cquery" }'
+
+	let g:LanguageClient_loadSettings = 1 " Use an absolute configuration path if you want system-wide settings 
+	let g:LanguageClient_settingsPath = '/home/reinaldo/.config/dotfiles/vim-utils/settings.json'
+
+	let g:LanguageClient_trace = 'verbose'
+	let g:LanguageClient_loggingLevel = 'DEBUG'
+
+	" Multi-entry selection UI. FZF
+	Plug 'junegunn/fzf.vim'
+	return 1
+endfunction
+
+function! autocompletion#VimClang() abort
+	if !executable('clang++')
+		echomsg 'autocompletion#SetClang(): Clang not installed'
+		return
+	endif
+	Plug 'justmao945/vim-clang'
+	let g:clang_auto = 1
+	" let g:clang_debug = 4
+	let g:clang_diagsopt = ''
+	let g:clang_c_completeopt = 'menuone,longest,preview,noselect,noinsert'
+	let g:clang_cpp_completeopt = 'menuone,longest,preview,noselect,noinsert'
+	if has('win32')
+		" clang using mscv for target instead of mingw64
+		let g:clang_cpp_options = '-target x86_64-pc-windows-gnu -std=c++17 -pedantic -Wall'
+		let g:clang_c_options = '-target x86_64-pc-windows-gnu -std=gnu11 -pedantic -Wall'
+	else
+		if exists('g:libclang_path') && !empty(glob(g:libclang_path))
+			let g:clang_library_path= g:usr_path . '/lib/libclang.so'
+		else
+			echomsg "autocompletion#SetClang(): g:usr_path not set or libclang not existent"
+		endif
+	endif
+endfunction

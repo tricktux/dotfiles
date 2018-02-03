@@ -69,19 +69,8 @@ endfunction
 
 call s:find_vim_config_file()
 
+" call s:set_stdpaths()
 " execute "source " . g:std_data_path . '/vim-plug/plug.vim'
-" call plug#begin(g:vim_plugins_path)
-"  Plug 'Shougo/neosnippet'
-"  	imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-"  	smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-"  	xmap <C-k>     <Plug>(neosnippet_expand_target)
-"  	smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-"  				\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-"  	" Tell Neosnippet about the other snippets
-"  	let g:neosnippet#snippets_directory= [ g:vim_plugins_path . '/vim-snippets/snippets', g:location_vim_utils . '/snippets/', ]
-"  	let g:neosnippet#data_directory = g:std_data_path . '/neosnippets'
-"  	" Used by nvim-completion-mgr
-"  	let g:neosnippet#enable_completed_snippet=1
+" call plug#begin(g:std_data_path . '/vim_plugins')
+" 	Plug 'hari-rangarajan/CCTree'
 " call plug#end()
-
-" vim:tw=78:ts=2:sts=2:sw=2:

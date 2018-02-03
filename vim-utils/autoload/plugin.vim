@@ -30,15 +30,6 @@ function! plugin#Config() abort
 			let g:neoterm_position = 'vertical'
 			let g:neoterm_autoinsert=1
 			nnoremap <Plug>ToggleTerminal :Ttoggle<CR>
-
-		" TODO-[RM]-(Fri Oct 27 2017 15:00): Document in real-arch-wiki to
-		" installfzf manually not like this below. I dont like it. Take care of
-		" the repurcutions this could have in .bashrc
-		" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-		" Sun Jul 30 2017 13:09
-		" Requires `install xdotool' and 'go get -u github.com/termhn/i3-vim-nav'
-		" - The thing is that this down here doesnt work
-		" Plug 'termhn/i3-vim-nav', { 'do' : 'ln -s ' . g:vim_plugins_path . 'i3-vim-nav/i3-vim-nav ~/.local/bin' }
 	else
 		nmap <Plug>ToggleTerminal :terminal<CR><C-w>L
 	endif
@@ -511,8 +502,9 @@ function! plugin#Config() abort
 		let g:lightline.component_function['ctrlpmark'] = 'utils#LightlineCtrlPMark'
 
 		" These settings do not use patched fonts
-		let g:lightline.active.left[2] += [ 'tagbar' ]
-		let g:lightline.component_function['tagbar'] = 'utils#LightlineTagbar'
+		" Fri Feb 02 2018 15:38: Its number one thing slowing down vim right now. 
+		" let g:lightline.active.left[2] += [ 'tagbar' ]
+		" let g:lightline.component_function['tagbar'] = 'utils#LightlineTagbar'
 
 		let g:lightline.active.left[2] += [ 'pomodoro' ]
 		let g:lightline.component_function['pomodoro'] = 'utils#LightlinePomo'
@@ -625,7 +617,9 @@ function! plugin#Config() abort
 		" let g:csv_autocmd_arrange      = 1
 		" let g:csv_autocmd_arrange_size = 1024*1024
 
-	Plug 'google/vim-searchindex'
+	" Thu Jan 25 2018 17:36: Not that useful. More useful is mapping N to center the screen as well
+	" Plug 'google/vim-searchindex'
+
 	" Documentation plugins
 	Plug 'rhysd/devdocs.vim', { 'on' : '<Plug>(devdocs-under-cursor)' }
 		" Sample mapping in a ftplugin/*.vim
@@ -670,7 +664,10 @@ function! plugin#Config() abort
 					\ '<C-R><C-W>' : ''
 					\ }
 
+	" Software caps lock. imap <c-l> ToggleSoftwareCaps
 	Plug 'tpope/vim-capslock'
+
+	Plug 'hari-rangarajan/CCTree'
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required

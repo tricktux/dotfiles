@@ -173,8 +173,8 @@ function! mappings#Set() abort
 	vnoremap <Leader>ha :<c-u>s/\%V./\=printf("%x",char2nr(submatch(0)))/g<cr><c-l>`<
 
 	" Search forward/backwards but return
-	nnoremap * *N
-	nnoremap # #N
+	nnoremap * *zz
+	nnoremap # #zz
 
 	" Insert Mode (Individual) mappings
 	" TODO-[RM]-(Sat Oct 21 2017 10:32): Change this here for fix previous word.
