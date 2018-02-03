@@ -29,13 +29,14 @@ function win32#Config()
 	endif
 
 	" Set wiki_path
-	if $USERNAME ==? 'Reinaldo'
-		let g:wiki_path =  'D:\Seafile\KnowledgeIsPower\wiki'
-		let pyt3 = $LOCALAPPDATA . "\\Programs\\Python\\Python36\\python.exe"
-	" elseif exists('$USERNAME') && $USERNAME =~? '^h' " Assume work pc
-	else " Assume work related pc
-		let pyt3 = "C:\\Python36\\python.exe"
-		let g:wiki_path =  'D:/wiki'
+	let wikis = ['D:\Seafile\KnowledgeIsPower\wiki', 'D:/wiki']
+	for wiki in wikis
+		if !empty(glob(wiki))
+			let g:wiki_path =  wiki
+		endif
+	endfor
+
+	if !empty(glob('D:/wings-dev/'))
 		let g:wings_path =  'D:/wings-dev/'
 		call utils#SetWingsPath(g:wings_path)
 	endif
@@ -43,15 +44,25 @@ function win32#Config()
 	" Fri Jan 05 2018 16:40: Many plugins use this now. Making these variables available
 	" all the time.
 	let pyt2 = "C:\\Python27\\python.exe"
-	if filereadable(pyt3)
-		let g:python3_host_prog= pyt3
-	endif
+	let pyt3 = [$LOCALAPPDATA . "\\Programs\\Python\\Python36\\python.exe", "C:\\Python36\\python.exe"]
+
 	if filereadable(pyt2)
 		let g:python_host_prog= pyt2
 	endif
 
-	" TODO-[RM]-(Sat Nov 25 2017 13:12): Change this here to Firefox
-	" Make sure that "C:\Program Files\Opera\launcher.exe" is in your path
-	" let g:browser_cmd = 'launcher.exe'
-	let g:browser_cmd = 'firefox.exe'
+	for loc in pyt3
+		if filereadable(loc)
+			let g:python3_host_prog= loc
+			break
+		endif
+	endfor
+
+	let browsers = [ 'chrome.exe', 'launcher.exe', 'firefox.exe' ]
+	let g:browser_cmd = ''
+	for brow in browsers
+		if executable(brow)
+			let g:browser_cmd = brow
+			break
+		endif
+	endfor
 endfunction
