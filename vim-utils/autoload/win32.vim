@@ -4,7 +4,7 @@
 " Version:1.0.0
 " Last modified:Nov 29 2016 23:21
 
-function win32#Config()
+function! win32#Config()
 	" Copy and paste into system wide clipboard
 	nnoremap <Leader>p "*p=`]<C-o>
 	vnoremap <Leader>p "*p=`]<C-o>
@@ -20,7 +20,7 @@ function win32#Config()
 
 	let languagetool_jar = findfile('languagetool-commandline.jar', $ChocolateyInstall . '\lib\languagetool\tools\**2')
 	if !empty('languagetool_jar')
-		let g:languagetool_jar = 'c:' . languagetool_jar
+		let g:languagetool_jar = languagetool_jar
 	endif
 
 	if filereadable('C:\Program Files\LLVM\share\clang\clang-format.py')
