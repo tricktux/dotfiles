@@ -10,7 +10,7 @@
 machine=`hostname`
 
 echo "Optimizing pacman"
-sudo pacman -Sc --noconfirm
+# sudo pacman -Sc --noconfirm
 sudo pacman-optimize
 # Tue Sep 26 2017 18:40 Update Mirror list. Depends on `reflector`
 if hash reflector 2>/dev/null; then
@@ -27,7 +27,7 @@ echo "Removing unused orphan packages"
 sudo pacman -Rns $(pacman -Qtdq) --noconfirm
 
 echo "Updating system"
-pacaur -Syyu --devel --noconfirm $@
+pacaur -Syyu --devel --noconfirm
 sudo pacman -Qnq > ~/.config/dotfiles/$machine.native
 sudo pacman -Qmq > ~/.config/dotfiles/$machine.aur
 
