@@ -25,8 +25,6 @@ function! augroup#Set() abort
 		autocmd FileType help setlocal relativenumber
 		" Python
 		" autocmd FileType python setlocal foldmethod=syntax
-		" Remove Whitespaces
-		autocmd FileType <buffer> c,cpp,java,php,sql,vim match ErrorMsg '\s\+$'
 	augroup END
 
 	" To improve syntax highlight speed. If something breaks with highlight
