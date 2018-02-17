@@ -76,6 +76,10 @@ if exists('*AutoCorrect')
 	iuna Si
 endif
 
+if exists('g:loaded_surround')
+	let b:surround_95 = "_\r_"
+endif
+
 " Advanced spelling checks for when writting documents and such
 " Other tools should be enabled and disabled here
 let s:spelling_toggle = 0
