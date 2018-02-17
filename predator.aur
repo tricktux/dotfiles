@@ -3,7 +3,10 @@ capitaine-cursors
 ccnet
 ccnet-server
 cower
+cquery-git
+devdocs-desktop
 dropbox
+eovim-git
 gnome-perl
 gnome-vfs-nosmb
 gnome-vfs-perl
@@ -22,6 +25,7 @@ libgnome-data
 libgnomeui
 libsearpc
 liquidprompt
+mpris-ctl
 neofetch
 neovim-git
 neovim-qt
@@ -44,6 +48,7 @@ seafile-client
 setserial
 shutter
 siji-git
+spotify
 ttf-font-awesome-4
 universal-ctags-git
 wine-gaming-nine

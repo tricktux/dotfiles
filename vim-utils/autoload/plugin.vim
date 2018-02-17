@@ -669,6 +669,9 @@ function! plugin#Config() abort
 
 	Plug 'hari-rangarajan/CCTree'
 
+	Plug 'bronson/vim-trailing-whitespace'
+		let g:extra_whitespace_ignored_filetypes = []
+
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
@@ -679,7 +682,7 @@ function! plugin#Check() abort
 	if empty(glob(g:plug_path))
 		if executable('curl')
 			execute '!curl -kfLo ' . g:plug_path . ' --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-			augroup instal_plugin
+			augroup install_plugin
 				autocmd!
 				autocmd VimEnter * :PlugInstall
 			augroup END

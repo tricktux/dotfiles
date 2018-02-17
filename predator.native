@@ -10,6 +10,7 @@ alsa-plugins
 alsa-utils
 android-tools
 android-udev
+apache-ant
 apr
 apr-util
 arandr
@@ -38,7 +39,9 @@ bluez-tools
 bluez-utils
 boost-libs
 btrfs-progs
+bullet
 bzip2
+c-ares
 ca-certificates
 ca-certificates-cacert
 ca-certificates-mozilla
@@ -78,6 +81,7 @@ dconf
 desktop-file-utils
 device-mapper
 dhcpcd
+dia
 dialog
 diffutils
 dmraid
@@ -93,6 +97,7 @@ dunst
 e2fsprogs
 efibootmgr
 efivar
+efl
 enca
 enchant
 expac
@@ -131,6 +136,7 @@ gcr
 gd
 gdbm
 gdk-pixbuf2
+gdome2
 geoclue2
 gettext
 ghc
@@ -308,6 +314,7 @@ hicolor-icon-theme
 hplip
 hspell
 htop
+http-parser
 hunspell
 hunspell-en
 hunspell-en_GB
@@ -321,6 +328,7 @@ i3lock
 iana-etc
 icu
 ijs
+ilmbase
 imagemagick
 imlib2
 inetutils
@@ -499,6 +507,7 @@ libatomic_ops
 libavc1394
 libblockdev
 libbluray
+libbs2b
 libbsd
 libbytesize
 libcaca
@@ -515,6 +524,7 @@ libconfig
 libcroco
 libcue
 libcups
+libcurl-compat
 libdaemon
 libdatrie
 libdbusmenu-glib
@@ -533,6 +543,7 @@ libebml
 libedit
 libelf
 libepoxy
+libepubgen
 libetonyek
 libev
 libevdev
@@ -618,7 +629,9 @@ libpng
 libproxy
 libpsl
 libpulse
+libqxp
 libraqm
+libraw
 libraw1394
 libreoffice-fresh
 librevenge
@@ -635,6 +648,7 @@ libsndfile
 libsodium
 libsoup
 libsoxr
+libspectre
 libsrtp
 libssh
 libssh2
@@ -720,6 +734,7 @@ linux
 linux-api-headers
 linux-firmware
 lirc
+llvm
 llvm-libs
 lm_sensors
 logrotate
@@ -770,7 +785,9 @@ networkmanager
 networkmanager-openconnect
 nm-connection-editor
 nmap
+nodejs
 notmuch-runtime
+npm
 npth
 nspr
 nss
@@ -782,6 +799,7 @@ ocl-icd
 openal
 openconnect
 opencore-amr
+openexr
 openjpeg
 openjpeg2
 openresolv
@@ -825,6 +843,8 @@ perl-common-sense
 perl-dbi
 perl-encode-locale
 perl-error
+perl-extutils-depends
+perl-extutils-pkgconfig
 perl-file-basedir
 perl-file-copy-recursive
 perl-file-listing
@@ -898,6 +918,7 @@ python-appdirs
 python-beaker
 python-dbus
 python-dbus-common
+python-defusedxml
 python-docutils
 python-gobject
 python-greenlet
@@ -974,6 +995,7 @@ sdl
 sdl2
 sdl_image
 sed
+semver
 serf
 shadow
 shared-mime-info
@@ -1036,6 +1058,7 @@ usbmuxd
 usbutils
 util-linux
 v4l-utils
+vala
 vi
 vid.stab
 videoproto
@@ -1056,9 +1079,11 @@ wget
 which
 wildmidi
 wireless_tools
+workrave
 wpa_supplicant
 wxgtk-common
 wxgtk2
+wxgtk3
 wxpython
 x265
 xapian-core
@@ -1119,6 +1144,7 @@ xorg-server-devel
 xorg-server-xdmx
 xorg-server-xephyr
 xorg-server-xnest
+xorg-server-xvfb
 xorg-server-xwayland
 xorg-sessreg
 xorg-setxkbmap
