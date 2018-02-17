@@ -27,7 +27,7 @@ echo "Removing unused orphan packages"
 sudo pacman -Rns $(pacman -Qtdq) --noconfirm
 
 echo "Updating system"
-pacaur -Syyu --devel --noconfirm
+trizen -Syyu --devel --noconfirm
 sudo pacman -Qnq > ~/.config/dotfiles/$machine.native
 sudo pacman -Qmq > ~/.config/dotfiles/$machine.aur
 
