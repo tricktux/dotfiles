@@ -7,7 +7,7 @@
 " Last Modified: Sun Jun 04 2017 15:59
 " Created:			Jun 02 2017 10:19
 " Wed Oct 18 2017 13:52: Decided to change many of these from mappings to commands. Most of these mappings
-" are rarely used. It makes more sense to free up these mappings and make them mappings. 
+" are rarely used. It makes more sense to free up these mappings and make them mappings.
 
 function! ftplugin#AutoHighlight() abort
 	if exists("*utils#AutoHighlightToggle") && !exists('g:highlight')
@@ -68,7 +68,7 @@ function! ftplugin#SetCompilersAndOther() abort
 			setlocal completefunc=LanguageClient#complete
 			setlocal formatexpr=LanguageClient_textDocument_rangeFormatting()
 
-			" TODO-[RM]-(Sat Jan 27 2018 11:23): Figure out these mappings 
+			" TODO-[RM]-(Sat Jan 27 2018 11:23): Figure out these mappings
 			" nnoremap <buffer> <silent> gh :call LanguageClient_textDocument_hover()<CR>
 			" nnoremap <buffer> <silent> gd :call LanguageClient_textDocument_definition()<CR>
 			" nnoremap <buffer> <silent> gr :call LanguageClient_textDocument_references()<CR>

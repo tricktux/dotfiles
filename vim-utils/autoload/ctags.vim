@@ -25,7 +25,7 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 	endif
 
 	" TODO.RM-Fri May 26 2017 15:35: Add a warning here that you are creating
-	" tags and csscope for getcwd() folder  
+	" tags and csscope for getcwd() folder
 	let files_loc = g:std_data_path . "/ctags/"
 	let cwd_rg = getcwd()
 	if has('win32')
@@ -71,7 +71,7 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 
 	if nvim_ft ==# 'cpp' || nvim_ft ==# 'c' || nvim_ft ==# 'java'
 		" Create cscope db as well
-		" TODO.RM-Thu May 25 2017 08:27: Do not kill connection until you determine that you are updating an existing tag  
+		" TODO.RM-Thu May 25 2017 08:27: Do not kill connection until you determine that you are updating an existing tag
 		let cs_db = folder_name . '.out'
 		execute "cd " . files_loc
 
@@ -81,7 +81,7 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 
 		let cscope_cmd = 'cscope -f ' . cs_db . ' -bqi cscope.files'
 		let res_cs = systemlist(cscope_cmd)
-		if v:shell_error || getfsize(cs_db) < 1 
+		if v:shell_error || getfsize(cs_db) < 1
 			if !empty(res_cs)
 				cexpr res_cs
 			endif
@@ -110,7 +110,7 @@ function! ctags#GetPathFolderName(curr_dir) abort
 	return a:curr_dir[back_slash_index+1:]
 endfunction
 
-" TODO.RM-Fri Mar 24 2017 16:49: This function is suppose to be async version of ctags#NvimSyncCtags  
+" TODO.RM-Fri Mar 24 2017 16:49: This function is suppose to be async version of ctags#NvimSyncCtags
 " Right now there is no support jobstart() in windows so its kinda difficult to make
 function! ctags#NvimAsyncCtags() abort
 	" if has('unix')
@@ -205,7 +205,7 @@ function! ctags#UpdateCscope() abort
 
 	if executable('rg') && has('nvim') && has('python3') " Use asynch nvim call instead
 		" call UpdateTagsRemote()
-		" return	
+		" return
 		" elseif has('python3')			" If python3 is available use it
 		" if has('python3')			" If python3 is available use it
 		call python#UpdateCtags()
@@ -279,7 +279,7 @@ function! ctags#CreateCscopeFiles(files_loc, cwd_rg, nvim_ft) abort
 	else
 		silent! execute "!" . files_cmd
 	endif
-	if getfsize(files_name) < 1 
+	if getfsize(files_name) < 1
 		if !empty(res)
 			cexpr res
 		endif
@@ -295,14 +295,14 @@ function! ctags#CreateTags(ft_spec, tags_name, files_loc, ctags_lang, cwd_rg) ab
 		" let ctags_cmd = "ctags -L cscope.files -f " . a:tags_name . " --sort=no --c-kinds=+p --c++-kinds=+p --fields=+l extras=+q"
 		" This made neovim extremely slow. Databases too big. It wasnt actually this. It was tagbar plugin not behaving in
 		" Windows
-		let ctags_cmd = "ctags -L cscope.files -f " . a:tags_name . " --sort=no --c-kinds=+pl --c++-kinds=+pl --fields=+iaSl extras=+q" 
+		let ctags_cmd = "ctags -L cscope.files -f " . a:tags_name . " --sort=no --c-kinds=+pl --c++-kinds=+pl --fields=+iaSl extras=+q"
 	endif
 
 	" echomsg string(ctags_cmd) " Debugging
 	execute "cd " . a:files_loc
 	let res = systemlist(ctags_cmd)
 
-	if v:shell_error || getfsize(a:tags_name) < 1 
+	if v:shell_error || getfsize(a:tags_name) < 1
 		if !empty(res)
 			cexpr res
 		endif
@@ -326,7 +326,7 @@ function! ctags#CreateTags(ft_spec, tags_name, files_loc, ctags_lang, cwd_rg) ab
 endfunction
 
 function! ctags#LoadCscopeDatabse() abort
-	let cs_db = ctags#GetPathFolderName(getcwd())	
+	let cs_db = ctags#GetPathFolderName(getcwd())
 	if empty(cs_db)
 		echomsg "Failed to obtain current folder name"
 		return
