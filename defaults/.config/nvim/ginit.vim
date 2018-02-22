@@ -23,9 +23,7 @@ if has('win32')
 		call GuiMousehide(1)
 	else
 		" No space is required here
-		" set guifont=consolas:h8
-		" set guifont=DejaVu_Sans_Mono_for_Powerline:h8
-		set guifont=DejaVuSansMonoForPowerline_NF:h7
+		set guifont=DejaVuSansMono_Nerd_Font_Mono:h7:cANSI:qDRAFT
 	endif
 else
 	if exists('g:GuiLoaded') " nvim-qt gui
