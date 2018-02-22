@@ -357,6 +357,13 @@ function! plugin#Config()
 	Plug 'bronson/vim-trailing-whitespace'
 		let g:extra_whitespace_ignored_filetypes = []
 
+	Plug 'jsfaint/gen_tags.vim' " Not being suppoprted anymore
+		let g:gen_tags#ctags_auto_gen = 1
+		let g:gen_tags#gtags_auto_gen = 1
+		let g:gen_tags#use_cache_dir = 1
+		let g:gen_tags#ctags_prune = 1
+		let g:gen_tags#ctags_opts = '--sort=no --append -B'
+
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
@@ -710,7 +717,7 @@ function! s:configure_lightline(linter) abort
 	let g:lightline.component_function['ctrlpmark'] = 'utils#LightlineCtrlPMark'
 
 	" These settings do not use patched fonts
-	" Fri Feb 02 2018 15:38: Its number one thing slowing down vim right now. 
+	" Fri Feb 02 2018 15:38: Its number one thing slowing down vim right now.
 	" let g:lightline.active.left[2] += [ 'tagbar' ]
 	" let g:lightline.component_function['tagbar'] = 'utils#LightlineTagbar'
 
@@ -762,10 +769,10 @@ function! s:configure_pomodoro() abort
 	" let g:pomodoro_time_work = 1
 	let g:pomodoro_use_devicons = 1
 	if executable('twmnc')
-		let g:pomodoro_notification_cmd = 'twmnc -t Vim -i nvim -c "Pomodoro done" 
+		let g:pomodoro_notification_cmd = 'twmnc -t Vim -i nvim -c "Pomodoro done"
 					\ && mpg123 ~/.config/dotfiles/notification_sounds/cool_notification1.mp3 2>/dev/null&'
 	elseif executable('dunst')
-		let g:pomodoro_notification_cmd = "notify-send 'Pomodoro' 'Session ended' 
+		let g:pomodoro_notification_cmd = "notify-send 'Pomodoro' 'Session ended'
 					\ && mpg123 ~/.config/dotfiles/notification_sounds/cool_notification1.mp3 2>/dev/null&"
 	endif
 	let g:pomodoro_log_file = g:std_data_path . '/pomodoro_log'
@@ -784,7 +791,7 @@ function! s:configure_file_browser(choice) abort
 	if executable('ranger')
 		Plug 'francoiscabrol/ranger.vim', { 'on' : 'RangerCurrentDirectory' }
 			let g:ranger_map_keys = 0
-	endif	
+	endif
 
 	if a:choice ==# 'nerdtree'
 		nnoremap <Plug>FileBrowser :NERDTree<CR>

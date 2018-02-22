@@ -182,10 +182,10 @@ function! options#Set() abort
 
 	" Tags
 	set tags=./.tags;,.tags;
-	if exists("g:plugins_loaded")
+	" if exists("g:plugins_loaded")
 		" Load all tags and OneWings cscope database
-		call ctags#SetTags()
-	endif
+		" call ctags#SetTags()
+	" endif
 
 	" Diff options
 	let &diffopt='vertical'
