@@ -5,7 +5,8 @@
 " Last Modified: Thu Oct 05 2017 21:42
 " Created: Fri Jun 02 2017 10:44
 
-function! plugin#Config() abort
+" This function should not abort on error. Let continue configuring stuff
+function! plugin#Config()
 	" Vim-Plug
 		nnoremap <Leader>Pi :so %<bar>call plugin#Config()<bar>PlugInstall<CR>
 		nnoremap <Leader>Pu :PlugUpdate<CR>
@@ -22,75 +23,9 @@ function! plugin#Config() abort
 		call plug#begin(g:vim_plugins_path)
 	endif
 
-	" Set up fuzzy searcher
-	if has('nvim')
-		" Terminal plugins
-		Plug 'kassio/neoterm'
-			let g:neoterm_use_relative_path = 1
-			let g:neoterm_position = 'vertical'
-			let g:neoterm_autoinsert=1
-			nnoremap <Plug>ToggleTerminal :Ttoggle<CR>
-	else
-		nmap <Plug>ToggleTerminal :terminal<CR><C-w>L
-	endif
+	call s:configure_async_plugins()
 
-	if has('nvim') || v:version >= 800
-		" Plugins that support both neovim and vim need separate folders
-		" Fri Oct 27 2017 15:05: Not sure that is a true statement
-		Plug 'Shougo/denite.nvim', { 'as' : has('nvim') ? 'nvim_denite' : 'vim_denite' }
-			" TODO-[RM]-(Wed Jan 10 2018 15:46): Come up with new mappings for these commented
-			" out below
-			" nnoremap <C-S-;> :Denite command_history<CR>
-			" nnoremap <C-S-h> :Denite help<CR>
-			nnoremap <C-p> :Denite file_mru<CR>
-			" Wed Jan 10 2018 15:46: Have tried several times to use denite buffer but its
-			" just too awkard. Kinda slow and doesnt show full path.
-			" nnoremap <S-k> :Denite buffer<CR>
-
-			" It includes file_mru source for denite.nvim.
-			Plug 'Shougo/neomru.vim'
-
-		Plug 'ctrlpvim/ctrlp.vim'
-			nnoremap <S-k> :CtrlPBuffer<CR>
-			let g:ctrlp_map = ''
-			let g:ctrlp_cmd = 'CtrlPMRU'
-			" submit ? in CtrlP for more mapping help.
-			let g:ctrlp_lazy_update = 1
-			let g:ctrlp_show_hidden = 1
-			let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
-			" It says cache dir but dont want to keep loosing history everytime cache gets cleaned up
-			" Fri Jan 05 2018 14:38: Now that denite's file_rec is working much better no need
-			" to keep this innacurrate list of files around. Rely on it less.
-			let g:ctrlp_cache_dir = g:std_cache_path . '/ctrlp'
-			let g:ctrlp_working_path_mode = 'wra'
-			let g:ctrlp_max_history = &history
-			let g:ctrlp_clear_cache_on_exit = 0
-			let g:ctrlp_switch_buffer = 0
-			let g:ctrlp_mruf_max = 10000
-			if has('win32')
-				let g:ctrlp_mruf_exclude = '^C:\\dev\\tmp\\Temp\\.*'
-				set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
-				let g:ctrlp_custom_ignore = {
-							\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-							\ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
-							\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
-							\ }
-			else
-				let g:ctrlp_mruf_exclude =  '/tmp/.*\|/temp/.*'
-				set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
-				let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-			endif
-			let g:ctrlp_prompt_mappings = {
-						\ 'PrtBS()': ['<bs>', '<c-h>'],
-						\ 'PrtCurLeft()': ['<left>', '<c-^>'],
-						\ 'PrtCurRight()': ['<right>'],
-						\ }
-			" Lightline settings
-			let g:ctrlp_status_func = {
-						\ 'main': 'utils#CtrlPStatusFunc_1',
-						\ 'prog': 'utils#CtrlPStatusFunc_2',
-						\ }
-	endif
+	call s:configure_ctrlp()
 
 	if executable('mutt')
 		Plug 'guanqun/vim-mutt-aliases-plugin'
@@ -102,14 +37,19 @@ function! plugin#Config() abort
 		let g:GPGUseAgent = 0
 	endif
 
-		" Possible values:
-		" - ycm nvim_compl_manager shuogo autocomplpop completor asyncomplete neo_clangd
-		" call autocompletion#SetCompl(has('nvim') ? 'nvim_compl_manager' : 'shuogo')
-		call autocompletion#SetCompl('shuogo')
+	" Possible values:
+	" - ycm nvim_compl_manager shuogo autocomplpop completor asyncomplete neo_clangd
+	" call autocompletion#SetCompl(has('nvim') ? 'nvim_compl_manager' : 'shuogo')
+	call autocompletion#SetCompl('shuogo')
 
-		" Possible values:
-		" - chromatica easytags neotags color_coded clighter8
-		call cpp_highlight#Set(has('nvim') ? 'neotags' : '')
+	" Possible values:
+	" - chromatica easytags neotags color_coded clighter8
+	call cpp_highlight#Set(has('nvim') ? 'neotags' : '')
+
+	" Possible values:
+	" - neomake ale
+	let linter = 'neomake'
+	call linting#Set(linter)
 
 	" Neovim exclusive plugins
 	if has('nvim')
@@ -137,86 +77,9 @@ function! plugin#Config() abort
 		let g:cpp_concepts_highlight = 1
 	Plug 'justinmk/vim-syntax-extra'
 
-	" Plugins for All (nvim, linux, win32)
-	Plug 'neomake/neomake'
-		" Fri Oct 27 2017 14:39: neomake defaults are actually pretty amazing. If
-		" you need to change it. Do it on a per buffer basis. Look on c.vim for
-		" example
-     let g:neomake_error_sign = {'text': "\uf057", 'texthl': 'ErrorMsg'}
-     let g:neomake_warning_sign = {
-         \   'text': "\uf071",
-         \   'texthl': 'WarningMsg',
-         \ }
-     let g:neomake_info_sign = {'text': "\uf449", 'texthl': 'NeomakeInfoSign'}
+	call s:configure_vim_table_mode()
 
-		let g:neomake_plantuml_plantuml_maker = {
-					\ 'exe': 'plantuml',
-					\ }
-		let g:neomake_make_maker = {
-					\ 'exe' : 'make',
-					\ }
-
-		" Fri Nov 03 2017 19:05: Finally understood the concept of neomake and linting in
-		" general. NeomakeFile is suppose to run as it names says in only a single file.
-		" And that is what you should configure on a per buffer basis. Look at
-		" ftplugin/markdown.vim for a good example.
-		" To make entire projects use NeomakeProject. The later by default and the way it should
-		" be uses makeprg. Therefore configure that to build your entire project, do it
-		" through setting compiler and compiler plugins. Such as borland. But run
-		" Neomake automatically. Having said this still use `<LocalLeader>m` to make entire
-		" projects, meaning to run your project builder.
-		" Fri Nov 03 2017 19:20: For vim linting use: `pip install vim-vint --user`
-		nnoremap <Plug>Make :NeomakeProject<cr>
-		let g:neomake_markdown_enabled_makers = ['make']
-		let g:neomake_plantuml_enabled_makers = ['plantuml']
-
-		augroup custom_neomake
-			autocmd User NeomakeJobFinished call utils#NeomakeJobFinished()
-			" Thu Nov 09 2017 10:17: Not needed when using neomake native statusline function
-			" autocmd User NeomakeJobStarted call utils#NeomakeJobStartd()
-		augroup END
-
-	Plug 'dhruvasagar/vim-table-mode', { 'on' : 'TableModeToggle' }
-		" To start using the plugin in the on-the-fly mode use :TableModeToggle
-		" mapped to <Leader>tm by default Enter the first line, delimiting columns
-		" by the | symbol. In the second line (without leaving Insert mode), enter
-		" | twice For Markdown-compatible tables use
-		let g:table_mode_corner='|'
-		" let g:table_mode_corner = '+'
-		let g:table_mode_align_char = ':'
-		" TODO.RM-Wed Jul 19 2017 21:10: Fix here these mappings are for terminal
-		let g:table_mode_map_prefix = '<LocalLeader>t'
-		let g:table_mode_disable_mappings = 1
-		nnoremap <Leader>ta :TableModeToggle<CR>
-		" <Leader>tr	Realigns table columns
-
-	Plug g:location_vim_utils
-		" Load the rest of the stuff and set the settings
-		let g:svn_repo_url = 'svn://odroid@copter-server/'
-		let g:svn_repo_name = 'UnrealEngineCourse/BattleTanks_2/'
-		nnoremap <Leader>vw :call SVNSwitch<CR>
-		nnoremap <Leader>vb :call SVNCopy<CR>
-
-		nnoremap <Leader>of :Dox<CR>
-		" Other commands
-		" command! -nargs=0 DoxLic :call <SID>DoxygenLicenseFunc()
-		" command! -nargs=0 DoxAuthor :call <SID>DoxygenAuthorFunc()
-		" command! -nargs=1 DoxUndoc :call <SID>DoxygenUndocumentFunc(<q-args>)
-		" command! -nargs=0 DoxBlock :call <SID>DoxygenBlockFunc()
-		let g:DoxygenToolkit_paramTag_pre=	'	'
-		let g:DoxygenToolkit_returnTag=			'Returns:   '
-		let g:DoxygenToolkit_blockHeader=''
-		let g:DoxygenToolkit_blockFooter=''
-		let g:DoxygenToolkit_authorName='Reinaldo Molina <rmolin88 at gmail dot com>'
-		let g:DoxygenToolkit_authorTag =	'Author:				'
-		let g:DoxygenToolkit_fileTag =		'File:					'
-		let g:DoxygenToolkit_briefTag_pre='Description:		'
-		let g:DoxygenToolkit_dateTag =		'Last Modified: '
-		let g:DoxygenToolkit_versionTag = 'Version:				'
-		let g:DoxygenToolkit_commentType = 'C++'
-		let g:DoxygenToolkit_versionString = '0.0.0'
-		" See :h doxygen.vim this vim related. Not plugin related
-		let g:load_doxygen_syntax=1
+	call s:configure_vim_utils()
 
 	" misc
 	if executable('git')
@@ -224,52 +87,11 @@ function! plugin#Config() abort
 			let &diffexpr='EnhancedDiff#Diff("git diff", "--diff-algorithm=patience")'
 	endif
 
-	" FileBrowser
-	" Wed May 03 2017 11:31: Tried `vifm` doesnt work in windows. Doesnt
-	" follow `*.lnk` shortcuts. Not close to being Replacement for `ranger`.
-	" Main reason it looks appealing is that it has support for Windows. But its
-	" not very good
-	" Thu Dec 28 2017 10:07: Ranger stopped working on unix as well on some machines
-	" if executable('ranger')
-		" nnoremap <Plug>FileBrowser :RangerCurrentDirectory<CR>
-	" else
-	nnoremap <Plug>FileBrowser :NERDTree<CR>
-	" endif
+	" Options: netranger, nerdtree
+	call s:configure_file_browser((has('unix') ? 'netranger' : 'nerdtree'))
 
-	Plug 'francoiscabrol/ranger.vim', { 'on' : 'RangerCurrentDirectory' }
-		let g:ranger_map_keys = 0
+	call s:configure_nerdcommenter()
 
-	Plug 'scrooloose/nerdtree', { 'on' : 'NERDTree' }
-		Plug 'Xuyuanp/nerdtree-git-plugin', { 'on' : 'NERDTree' }
-		" Nerdtree (Dont move. They need to be here)
-		let g:NERDTreeShowBookmarks=1  " B key to toggle
-		let g:NERDTreeShowLineNumbers=1
-		let g:NERDTreeShowHidden=1 " i key to toggle
-		let g:NERDTreeQuitOnOpen=1 " AutoClose after openning file
-		let g:NERDTreeBookmarksFile= g:std_data_path . '/.NERDTreeBookmarks'
-
-
-	Plug 'scrooloose/nerdcommenter'
-		" NerdCommenter
-		let g:NERDSpaceDelims=1  " space around comments
-		let g:NERDUsePlaceHolders=0 " avoid commenter doing weird stuff
-		let g:NERDCommentWholeLinesInVMode=2
-		let g:NERDCreateDefaultMappings=0 " Eliminate default mappings
-		let g:NERDRemoveAltComs=1 " Remove /* comments
-		let g:NERD_c_alt_style=0 " Do not use /* on C nor C++
-		let g:NERD_cpp_alt_style=0
-		let g:NERDMenuMode=0 " no menu
-		let g:NERDCustomDelimiters = {
-					\ 'vim': { 'left': '"', 'right': '', 'leftAlt': '#', 'rightAlt': ''},
-					\ 'markdown': { 'left': '//', 'right': '' },
-					\ 'dosini': { 'left': ';', 'leftAlt': '//', 'right': '', 'rightAlt': '' },
-					\ 'csv': { 'left': '#', 'right': '' },
-					\ 'plantuml': { 'left': "'", 'right': '', 'leftAlt': "/'", 'rightAlt': "'/"},
-					\ 'wings_syntax': { 'left': '//', 'right': '', 'leftAlt': '//', 'rightAlt': '' },
-					\ 'sql': { 'left': '--', 'right': '', 'leftAlt': 'REM', 'rightAlt': '' }
-					\ }
-
-		let g:NERDTrimTrailingWhitespace = 1
 	Plug 'chrisbra/Colorizer', { 'for' : [ 'css','html','xml' ] }
 		let g:colorizer_auto_filetype='css,html,xml'
 	Plug 'tpope/vim-repeat'
@@ -308,30 +130,17 @@ function! plugin#Config() abort
 
 	" cpp
 	if get(g:, 'tagbar_safe_to_use', 1)
-		Plug 'majutsushi/tagbar'
-			let g:tagbar_ctags_bin = 'ctags'
-			let g:tagbar_autofocus = 1
-			let g:tagbar_show_linenumbers = 2
-			let g:tagbar_map_togglesort = 'r'
-			let g:tagbar_map_nexttag = '<c-j>'
-			let g:tagbar_map_prevtag = '<c-k>'
-			let g:tagbar_map_openallfolds = '<c-n>'
-			let g:tagbar_map_closeallfolds = '<c-c>'
-			let g:tagbar_map_togglefold = '<c-x>'
-			let g:tagbar_autoclose = 1
-
-			" Lightline settings
-			" let g:tagbar_status_func = 'utils#TagbarStatusFunc'
+		call s:configure_tagbar()
 	endif
 
 	" python
 		" Plug 'python-mode/python-mode', { 'for' : 'python' } " Extremely
 		" aggressive
 
-		" pip install isort --user
-		Plug 'fisadev/vim-isort', { 'for' : 'python' }
-			let g:vim_isort_map = ''
-			let g:vim_isort_python_version = 'python3'
+	" pip install isort --user
+	Plug 'fisadev/vim-isort', { 'for' : 'python' }
+		let g:vim_isort_map = ''
+		let g:vim_isort_python_version = 'python3'
 
 	" java
 	Plug 'mattn/vim-javafmt', { 'for' : 'java' }
@@ -343,30 +152,11 @@ function! plugin#Config() abort
 		let g:JavaComplete_ImportOrder = ['android.', 'com.', 'junit.', 'net.', 'org.', 'java.', 'javax.']
 
 	" Autocomplete
-	Plug 'Shougo/neosnippet'
-		imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-		smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-		xmap <C-k>     <Plug>(neosnippet_expand_target)
-		smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-					\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-		" Tell Neosnippet about the other snippets
-		let g:neosnippet#snippets_directory= [ g:vim_plugins_path . '/vim-snippets/snippets', g:location_vim_utils . '/snippets/', ]
-		" Fri Oct 20 2017 21:47: Not really data but cache
-		let g:neosnippet#data_directory = g:std_cache_path . '/neosnippets'
-		" Used by nvim-completion-mgr
-		let g:neosnippet#enable_completed_snippet=1
-
-	" Only contain snippets
-	Plug 'Shougo/neosnippet-snippets'
-	Plug 'honza/vim-snippets'
-		let g:snips_author = 'Reinaldo Molina'
-		let g:snips_email = 'rmolin88 at gmail dot com'
-		let g:snips_github = 'rmolin88'
+	call s:configure_snippets()
 
 	" Version control
 	Plug 'tpope/vim-fugitive'
 		" Fugitive <Leader>g?
-		" use g? to show help
 		" nmap here is needed for the <C-n> to work. Otherwise it doesnt know what
 		" it means
 		nmap <Leader>gs :Gstatus<CR><C-w>L<C-n>
@@ -417,22 +207,7 @@ function! plugin#Config() abort
 			" Mon Sep 18 2017 22:37: To open html file do `:W3mLocal %'
 	endif
 
-	Plug 'justinmk/vim-sneak'
-		" replace 'f' with 1-char Sneak
-		nmap f <Plug>Sneak_f
-		nmap F <Plug>Sneak_F
-		xmap f <Plug>Sneak_f
-		xmap F <Plug>Sneak_F
-		omap f <Plug>Sneak_f
-		omap F <Plug>Sneak_F
-		" replace 't' with 1-char Sneak
-		nmap t <Plug>Sneak_t
-		nmap T <Plug>Sneak_T
-		xmap t <Plug>Sneak_t
-		xmap T <Plug>Sneak_T
-		omap t <Plug>Sneak_t
-		omap T <Plug>Sneak_T
-		xnoremap s s
+	call s:configure_vim_sneak()
 
 	Plug 'waiting-for-dev/vim-www'
 		" TODO-[RM]-(Thu Sep 14 2017 21:02): Update this here
@@ -441,76 +216,7 @@ function! plugin#Config() abort
 		nnoremap gG :Wcsearch duckduckgo <C-R>=expand("<cword>")<CR><CR>
 		vnoremap gG "*y:call www#www#user_input_search(1, @*)<CR>
 
-	Plug 'itchyny/lightline.vim'
-		" Note: Inside of the functions here there can be no single quotes (') only double (")
-		if !exists('g:lightline')
-			let g:lightline = {}
-		endif
-		" Basic options
-		" otf-inconsolata-powerline-git
-		let g:lightline = {
-					\ 'active' : {
-					\   'left': [
-					\							[ 'mode', 'paste' ],
-					\							[ 'readonly', 'filename' ],
-					\							[  ]
-					\						] },
-					\ }
-					" \ 'component': {
-					" \   'lineinfo': ' %3l:%-2v',
-					" \ },
-					" \ 'separator': { 'left': '', 'right': '' },
-					" \ 'subseparator': { 'left': '', 'right': '' }
-					" \ }
-
-		" let g:lightline.tab = {
-					" \ 'active': [ 'tabnum', 'absolutepath', 'modified' ],
-					" \ }
-		let g:lightline.tabline = {
-					\ 'left': [ ['tabs'] ],
-					\ 'right': [ [ 'bufnum' , 'close'] ] }
-		let g:lightline.tab_component_function = {
-					\ 'filename': 'utils#LightlineAbsPath'
-					\ }
-		" Addons
-		let g:lightline.component = {}
-		let g:lightline.component['lineinfo'] = ' %3l:%-2v'
-
-		let g:lightline.separator = {}
-		let g:lightline.subseparator = {}
-
-		" Ovals. As opposed to the triangles. They do not look quite good
-		" let g:lightline.separator['left'] = "\ue0b4"
-		" let g:lightline.separator['right'] = "\ue0b6"
-		" let g:lightline.subseparator['left'] = "\ue0b5"
-		" let g:lightline.subseparator['right'] = "\ue0b7"
-
-		let g:lightline.separator['left'] = ''
-		let g:lightline.separator['right'] = ''
-		let g:lightline.subseparator['left'] = ''
-		let g:lightline.subseparator['right'] = ''
-
-		let g:lightline.component_function = {}
-		let g:lightline.component_function['filetype'] = 'utils#LightlineDeviconsFileType'
-		let g:lightline.component_function['fileformat'] = 'utils#LightlineDeviconsFileFormat'
-		let g:lightline.component_function['readonly'] = 'utils#LightlineReadonly'
-
-		let g:lightline.active.left[2] += [ 'ver_control' ]
-		let g:lightline.component_function['ver_control'] = 'utils#LightlineVerControl'
-
-		let g:lightline.active.left[2] += [ 'ctrlpmark' ]
-		let g:lightline.component_function['ctrlpmark'] = 'utils#LightlineCtrlPMark'
-
-		" These settings do not use patched fonts
-		" Fri Feb 02 2018 15:38: Its number one thing slowing down vim right now. 
-		" let g:lightline.active.left[2] += [ 'tagbar' ]
-		" let g:lightline.component_function['tagbar'] = 'utils#LightlineTagbar'
-
-		let g:lightline.active.left[2] += [ 'pomodoro' ]
-		let g:lightline.component_function['pomodoro'] = 'utils#LightlinePomo'
-
-		let g:lightline.active.left[2] += [ 'neomake' ]
-		let g:lightline.component_function['neomake'] = 'utils#NeomakeNativeStatusLine'
+	call s:configure_lightline(linter)
 
 	Plug 'PotatoesMaster/i3-vim-syntax'
 
@@ -564,20 +270,7 @@ function! plugin#Config() abort
 		let g:ditto_file = 'ditto-ignore.txt'
 
 	" TODO-[RM]-(Sun Sep 10 2017 20:27): Dont really like it
-	Plug 'reedes/vim-wordy', { 'for' : 'markdown' }
-		let g:wordy#ring = [
-					\ 'weak',
-					\ ['being', 'passive-voice', ],
-					\ 'business-jargon',
-					\ 'weasel',
-					\ 'puffery',
-					\ ['problematic', 'redundant', ],
-					\ ['colloquial', 'idiomatic', 'similies', ],
-					\ 'art-jargon',
-					\ ['contractions', 'opinion', 'vague-time', 'said-synonyms', ],
-					\ 'adjectives',
-					\ 'adverbs',
-				\ ]
+	call s:configure_vim_wordy()
 
 	" TODO-[RM]-(Sun Sep 10 2017 20:26): So far only working on linux
 	Plug 'beloglazov/vim-online-thesaurus', { 'on' : 'OnlineThesaurusCurrentWord' }
@@ -592,20 +285,7 @@ function! plugin#Config() abort
 		Plug 'dpelle/vim-LanguageTool', { 'for' : 'markdown' }
 	endif
 
-	Plug 'rmolin88/pomodoro.vim'
-		" let g:pomodoro_show_time_remaining = 0
-		" let g:pomodoro_time_slack = 1
-		" let g:pomodoro_time_work = 1
-		let g:pomodoro_use_devicons = 1
-		if executable('twmnc')
-			let g:pomodoro_notification_cmd = 'twmnc -t Vim -i nvim -c "Pomodoro done" 
-						\ && mpg123 ~/.config/dotfiles/notification_sounds/cool_notification1.mp3 2>/dev/null&'
-		elseif executable('dunst')
-			let g:pomodoro_notification_cmd = "notify-send 'Pomodoro' 'Session ended' 
-						\ && mpg123 ~/.config/dotfiles/notification_sounds/cool_notification1.mp3 2>/dev/null&"
-		endif
-		let g:pomodoro_log_file = g:std_data_path . '/pomodoro_log'
-		" %#ErrorMsg#%{PomodoroStatus()}%#StatusLine#
+	call s:configure_pomodoro()
 
 	Plug 'chrisbra/csv.vim', { 'for' : 'csv' }
 		let g:no_csv_maps = 1
@@ -760,4 +440,359 @@ function! plugin#AfterConfig() abort
 					\ }
 	endif
 	return 1
+endfunction
+
+
+function! s:configure_ctrlp() abort
+	Plug 'ctrlpvim/ctrlp.vim'
+		nnoremap <S-k> :CtrlPBuffer<CR>
+		let g:ctrlp_map = ''
+		let g:ctrlp_cmd = 'CtrlPMRU'
+		" submit ? in CtrlP for more mapping help.
+		let g:ctrlp_lazy_update = 1
+		let g:ctrlp_show_hidden = 1
+		let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
+		" It says cache dir but dont want to keep loosing history everytime cache gets cleaned up
+		" Fri Jan 05 2018 14:38: Now that denite's file_rec is working much better no need
+		" to keep this innacurrate list of files around. Rely on it less.
+		let g:ctrlp_cache_dir = g:std_cache_path . '/ctrlp'
+		let g:ctrlp_working_path_mode = 'wra'
+		let g:ctrlp_max_history = &history
+		let g:ctrlp_clear_cache_on_exit = 0
+		let g:ctrlp_switch_buffer = 0
+		let g:ctrlp_mruf_max = 10000
+		if has('win32')
+			let g:ctrlp_mruf_exclude = '^C:\\dev\\tmp\\Temp\\.*'
+			set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
+			let g:ctrlp_custom_ignore = {
+						\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+						\ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
+						\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+						\ }
+		else
+			let g:ctrlp_mruf_exclude =  '/tmp/.*\|/temp/.*'
+			set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
+			let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+		endif
+		let g:ctrlp_prompt_mappings = {
+					\ 'PrtBS()': ['<bs>', '<c-h>'],
+					\ 'PrtCurLeft()': ['<left>', '<c-^>'],
+					\ 'PrtCurRight()': ['<right>'],
+					\ }
+		" Lightline settings
+		let g:ctrlp_status_func = {
+					\ 'main': 'utils#CtrlPStatusFunc_1',
+					\ 'prog': 'utils#CtrlPStatusFunc_2',
+					\ }
+endfunction
+
+function! s:configure_async_plugins() abort
+	if !has('nvim') && v:version < 800
+		echoerr 'These plugins require async support'
+		return -1
+	endif
+
+		Plug 'kassio/neoterm'
+		let g:neoterm_use_relative_path = 1
+		let g:neoterm_position = 'vertical'
+		let g:neoterm_autoinsert=1
+		nnoremap <Plug>ToggleTerminal :Ttoggle<CR>
+		Plug 'Shougo/denite.nvim', { 'do' : has('nvim') ? ':UpdateRemotePlugins' : '' }
+		" TODO-[RM]-(Wed Jan 10 2018 15:46): Come up with new mappings for these commented
+		" out below
+		" nnoremap <C-S-;> :Denite command_history<CR>
+		" nnoremap <C-S-h> :Denite help<CR>
+		nnoremap <C-p> :Denite file_mru<CR>
+		" Wed Jan 10 2018 15:46: Have tried several times to use denite buffer but its
+		" just too awkard. Kinda slow and doesnt show full path.
+		" nnoremap <S-k> :Denite buffer<CR>
+
+		" It includes file_mru source for denite.nvim.
+		Plug 'Shougo/neomru.vim'
+endfunction
+
+function! s:configure_vim_table_mode() abort
+	Plug 'dhruvasagar/vim-table-mode', { 'on' : 'TableModeToggle' }
+	" To start using the plugin in the on-the-fly mode use :TableModeToggle
+	" mapped to <Leader>tm by default Enter the first line, delimiting columns
+	" by the | symbol. In the second line (without leaving Insert mode), enter
+	" | twice For Markdown-compatible tables use
+	let g:table_mode_corner='|'
+	" let g:table_mode_corner = '+'
+	let g:table_mode_align_char = ':'
+	" TODO.RM-Wed Jul 19 2017 21:10: Fix here these mappings are for terminal
+	let g:table_mode_map_prefix = '<LocalLeader>t'
+	let g:table_mode_disable_mappings = 1
+	nnoremap <Leader>ta :TableModeToggle<CR>
+	" <Leader>tr	Realigns table columns
+endfunction
+
+function! s:configure_vim_utils() abort
+	Plug g:location_vim_utils
+	" Load the rest of the stuff and set the settings
+	let g:svn_repo_url = 'svn://odroid@copter-server/'
+	let g:svn_repo_name = 'UnrealEngineCourse/BattleTanks_2/'
+	nnoremap <Leader>vw :call SVNSwitch<CR>
+	nnoremap <Leader>vb :call SVNCopy<CR>
+
+	nnoremap <Leader>of :Dox<CR>
+	" Other commands
+	" command! -nargs=0 DoxLic :call <SID>DoxygenLicenseFunc()
+	" command! -nargs=0 DoxAuthor :call <SID>DoxygenAuthorFunc()
+	" command! -nargs=1 DoxUndoc :call <SID>DoxygenUndocumentFunc(<q-args>)
+	" command! -nargs=0 DoxBlock :call <SID>DoxygenBlockFunc()
+	let g:DoxygenToolkit_paramTag_pre=	'	'
+	let g:DoxygenToolkit_returnTag=			'Returns:   '
+	let g:DoxygenToolkit_blockHeader=''
+	let g:DoxygenToolkit_blockFooter=''
+	let g:DoxygenToolkit_authorName='Reinaldo Molina <rmolin88 at gmail dot com>'
+	let g:DoxygenToolkit_authorTag =	'Author:				'
+	let g:DoxygenToolkit_fileTag =		'File:					'
+	let g:DoxygenToolkit_briefTag_pre='Description:		'
+	let g:DoxygenToolkit_dateTag =		'Last Modified: '
+	let g:DoxygenToolkit_versionTag = 'Version:				'
+	let g:DoxygenToolkit_commentType = 'C++'
+	let g:DoxygenToolkit_versionString = '0.0.0'
+	" See :h doxygen.vim this vim related. Not plugin related
+	let g:load_doxygen_syntax=1
+endfunction
+
+function! s:configure_nerdcommenter() abort
+	Plug 'scrooloose/nerdcommenter'
+	" NerdCommenter
+	let g:NERDSpaceDelims=1  " space around comments
+	let g:NERDUsePlaceHolders=0 " avoid commenter doing weird stuff
+	let g:NERDCommentWholeLinesInVMode=2
+	let g:NERDCreateDefaultMappings=0 " Eliminate default mappings
+	let g:NERDRemoveAltComs=1 " Remove /* comments
+	let g:NERD_c_alt_style=0 " Do not use /* on C nor C++
+	let g:NERD_cpp_alt_style=0
+	let g:NERDMenuMode=0 " no menu
+	let g:NERDCustomDelimiters = {
+				\ 'vim': { 'left': '"', 'right': '', 'leftAlt': '#', 'rightAlt': ''},
+				\ 'markdown': { 'left': '//', 'right': '' },
+				\ 'dosini': { 'left': ';', 'leftAlt': '//', 'right': '', 'rightAlt': '' },
+				\ 'csv': { 'left': '#', 'right': '' },
+				\ 'plantuml': { 'left': "'", 'right': '', 'leftAlt': "/'", 'rightAlt': "'/"},
+				\ 'wings_syntax': { 'left': '//', 'right': '', 'leftAlt': '//', 'rightAlt': '' },
+				\ 'sql': { 'left': '--', 'right': '', 'leftAlt': 'REM', 'rightAlt': '' }
+				\ }
+
+	let g:NERDTrimTrailingWhitespace = 1
+endfunction
+
+function! s:configure_tagbar() abort
+	Plug 'majutsushi/tagbar'
+	let g:tagbar_ctags_bin = 'ctags'
+	let g:tagbar_autofocus = 1
+	let g:tagbar_show_linenumbers = 2
+	let g:tagbar_map_togglesort = 'r'
+	let g:tagbar_map_nexttag = '<c-j>'
+	let g:tagbar_map_prevtag = '<c-k>'
+	let g:tagbar_map_openallfolds = '<c-n>'
+	let g:tagbar_map_closeallfolds = '<c-c>'
+	let g:tagbar_map_togglefold = '<c-x>'
+	let g:tagbar_autoclose = 1
+endfunction
+
+function! s:configure_snippets() abort
+	Plug 'Shougo/neosnippet'
+	imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+	smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+	xmap <C-k>     <Plug>(neosnippet_expand_target)
+	smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+				\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+	" Tell Neosnippet about the other snippets
+	let g:neosnippet#snippets_directory= [ g:vim_plugins_path . '/vim-snippets/snippets', g:location_vim_utils . '/snippets/', ]
+	" Fri Oct 20 2017 21:47: Not really data but cache
+	let g:neosnippet#data_directory = g:std_cache_path . '/neosnippets'
+	" Used by nvim-completion-mgr
+	let g:neosnippet#enable_completed_snippet=1
+
+	" Only contain snippets
+	Plug 'Shougo/neosnippet-snippets'
+	Plug 'honza/vim-snippets'
+	let g:snips_author = 'Reinaldo Molina'
+	let g:snips_email = 'rmolin88 at gmail dot com'
+	let g:snips_github = 'rmolin88'
+endfunction
+
+function! s:configure_vim_sneak() abort
+	Plug 'justinmk/vim-sneak'
+	" replace 'f' with 1-char Sneak
+	nmap f <Plug>Sneak_f
+	nmap F <Plug>Sneak_F
+	xmap f <Plug>Sneak_f
+	xmap F <Plug>Sneak_F
+	omap f <Plug>Sneak_f
+	omap F <Plug>Sneak_F
+	" replace 't' with 1-char Sneak
+	nmap t <Plug>Sneak_t
+	nmap T <Plug>Sneak_T
+	xmap t <Plug>Sneak_t
+	xmap T <Plug>Sneak_T
+	omap t <Plug>Sneak_t
+	omap T <Plug>Sneak_T
+	xnoremap s s
+endfunction
+
+" linter - String specifing if it should set neomake or ale in the status line
+function! s:configure_lightline(linter) abort
+	Plug 'itchyny/lightline.vim'
+	" Note: Inside of the functions here there can be no single quotes (') only double (")
+	if !exists('g:lightline')
+		let g:lightline = {}
+	endif
+	" Basic options
+	" otf-inconsolata-powerline-git
+	let g:lightline = {
+				\ 'active' : {
+				\   'left': [
+				\							[ 'mode', 'paste' ],
+				\							[ 'readonly', 'filename' ],
+				\							[  ]
+				\						],
+				\ 'right': [ [ 'lineinfo' ],
+				\            [ 'percent' ],
+				\            [ 'fileformat', 'fileencoding', 'filetype' ] ] }
+				\ }
+	" \ 'component': {
+	" \   'lineinfo': ' %3l:%-2v',
+	" \ },
+	" \ 'separator': { 'left': '', 'right': '' },
+	" \ 'subseparator': { 'left': '', 'right': '' }
+	" \ }
+
+	" let g:lightline.tab = {
+	" \ 'active': [ 'tabnum', 'absolutepath', 'modified' ],
+	" \ }
+	let g:lightline.tabline = {
+				\ 'left': [ ['tabs'] ],
+				\ 'right': [ [ 'bufnum' , 'close'] ] }
+	let g:lightline.tab_component_function = {
+				\ 'filename': 'utils#LightlineAbsPath'
+				\ }
+	" Addons
+	let g:lightline.component = {}
+	let g:lightline.component['lineinfo'] = ' %3l:%-2v'
+
+	let g:lightline.separator = {}
+	let g:lightline.subseparator = {}
+
+	" Ovals. As opposed to the triangles. They do not look quite good
+	" let g:lightline.separator['left'] = "\ue0b4"
+	" let g:lightline.separator['right'] = "\ue0b6"
+	" let g:lightline.subseparator['left'] = "\ue0b5"
+	" let g:lightline.subseparator['right'] = "\ue0b7"
+
+	let g:lightline.separator['left'] = ''
+	let g:lightline.separator['right'] = ''
+	let g:lightline.subseparator['left'] = ''
+	let g:lightline.subseparator['right'] = ''
+
+	let g:lightline.component_function = {}
+	let g:lightline.component_function['filetype'] = 'utils#LightlineDeviconsFileType'
+	let g:lightline.component_function['fileformat'] = 'utils#LightlineDeviconsFileFormat'
+	let g:lightline.component_function['readonly'] = 'utils#LightlineReadonly'
+
+	let g:lightline.active.left[2] += [ 'ver_control' ]
+	let g:lightline.component_function['ver_control'] = 'utils#LightlineVerControl'
+
+	let g:lightline.active.left[2] += [ 'ctrlpmark' ]
+	let g:lightline.component_function['ctrlpmark'] = 'utils#LightlineCtrlPMark'
+
+	" These settings do not use patched fonts
+	" Fri Feb 02 2018 15:38: Its number one thing slowing down vim right now. 
+	" let g:lightline.active.left[2] += [ 'tagbar' ]
+	" let g:lightline.component_function['tagbar'] = 'utils#LightlineTagbar'
+
+	let g:lightline.active.left[2] += [ 'pomodoro' ]
+	let g:lightline.component_function['pomodoro'] = 'utils#LightlinePomo'
+
+	if a:linter ==# 'neomake'
+		let g:lightline.active.left[2] += [ 'neomake' ]
+		let g:lightline.component_function['neomake'] = 'utils#NeomakeNativeStatusLine'
+	elseif a:linter ==# 'ale'
+		let g:lightline.component_expand = {
+					\  'linter_warnings': 'lightline#ale#warnings',
+					\  'linter_errors': 'lightline#ale#errors',
+					\  'linter_ok': 'lightline#ale#ok',
+					\ }
+		let g:lightline.component_type = {
+					\     'linter_warnings': 'warning',
+					\     'linter_errors': 'error',
+					\     'linter_ok': 'left',
+					\ }
+		call insert(g:lightline.active.right[0], 'linter_errors')
+		call insert(g:lightline.active.right[0], 'linter_warnings')
+		call insert(g:lightline.active.right[0], 'linter_ok' )
+	endif
+
+endfunction
+
+function! s:configure_vim_wordy() abort
+	Plug 'reedes/vim-wordy', { 'for' : 'markdown' }
+	let g:wordy#ring = [
+				\ 'weak',
+				\ ['being', 'passive-voice', ],
+				\ 'business-jargon',
+				\ 'weasel',
+				\ 'puffery',
+				\ ['problematic', 'redundant', ],
+				\ ['colloquial', 'idiomatic', 'similies', ],
+				\ 'art-jargon',
+				\ ['contractions', 'opinion', 'vague-time', 'said-synonyms', ],
+				\ 'adjectives',
+				\ 'adverbs',
+				\ ]
+endfunction
+
+function! s:configure_pomodoro() abort
+	Plug 'rmolin88/pomodoro.vim'
+	" let g:pomodoro_show_time_remaining = 0
+	" let g:pomodoro_time_slack = 1
+	" let g:pomodoro_time_work = 1
+	let g:pomodoro_use_devicons = 1
+	if executable('twmnc')
+		let g:pomodoro_notification_cmd = 'twmnc -t Vim -i nvim -c "Pomodoro done" 
+					\ && mpg123 ~/.config/dotfiles/notification_sounds/cool_notification1.mp3 2>/dev/null&'
+	elseif executable('dunst')
+		let g:pomodoro_notification_cmd = "notify-send 'Pomodoro' 'Session ended' 
+					\ && mpg123 ~/.config/dotfiles/notification_sounds/cool_notification1.mp3 2>/dev/null&"
+	endif
+	let g:pomodoro_log_file = g:std_data_path . '/pomodoro_log'
+	" %#ErrorMsg#%{PomodoroStatus()}%#StatusLine#
+endfunction
+
+" choice - One of 'netranger' or 'nerdtree'
+function! s:configure_file_browser(choice) abort
+	" FileBrowser
+	" Wed May 03 2017 11:31: Tried `vifm` doesnt work in windows. Doesnt
+	" follow `*.lnk` shortcuts. Not close to being Replacement for `ranger`.
+	" Main reason it looks appealing is that it has support for Windows. But its
+	" not very good
+
+	" Have ranger always available if possible
+	if executable('ranger')
+		Plug 'francoiscabrol/ranger.vim', { 'on' : 'RangerCurrentDirectory' }
+			let g:ranger_map_keys = 0
+	endif	
+
+	if a:choice ==# 'nerdtree'
+		nnoremap <Plug>FileBrowser :NERDTree<CR>
+
+		Plug 'scrooloose/nerdtree', { 'on' : 'NERDTree' }
+		Plug 'Xuyuanp/nerdtree-git-plugin', { 'on' : 'NERDTree' }
+		" Nerdtree (Dont move. They need to be here)
+		let g:NERDTreeShowBookmarks=1  " B key to toggle
+		let g:NERDTreeShowLineNumbers=1
+		let g:NERDTreeShowHidden=1 " i key to toggle
+		let g:NERDTreeQuitOnOpen=1 " AutoClose after openning file
+		let g:NERDTreeBookmarksFile= g:std_data_path . '/.NERDTreeBookmarks'
+	elseif a:choice ==# 'netranger'
+		Plug 'ipod825/vim-netranger'
+		nnoremap <Plug>FileBrowser :NERDTree<CR>
+		let g:NETRRootDir = g:std_data_path . '/netranger/'
+		let g:NETRIgnore = [ '.git', '.svn' ]
+	endif
 endfunction
