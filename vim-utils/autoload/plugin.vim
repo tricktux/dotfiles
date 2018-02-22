@@ -230,16 +230,13 @@ function! plugin#Config() abort
 	" Main reason it looks appealing is that it has support for Windows. But its
 	" not very good
 	" Thu Dec 28 2017 10:07: Ranger stopped working on unix as well on some machines
-	" if executable('ranger')
-		" nnoremap <Plug>FileBrowser :RangerCurrentDirectory<CR>
-	" else
-	nnoremap <Plug>FileBrowser :NERDTree<CR>
-	" endif
-
-	Plug 'francoiscabrol/ranger.vim', { 'on' : 'RangerCurrentDirectory' }
+	if executable('ranger')
+		nnoremap <Plug>FileBrowser :RangerCurrentDirectory<CR>
+		Plug 'francoiscabrol/ranger.vim'
 		let g:ranger_map_keys = 0
-
-	Plug 'scrooloose/nerdtree', { 'on' : 'NERDTree' }
+	else
+		nnoremap <Plug>FileBrowser :NERDTree<CR>
+		Plug 'scrooloose/nerdtree', { 'on' : 'NERDTree' }
 		Plug 'Xuyuanp/nerdtree-git-plugin', { 'on' : 'NERDTree' }
 		" Nerdtree (Dont move. They need to be here)
 		let g:NERDTreeShowBookmarks=1  " B key to toggle
@@ -247,7 +244,7 @@ function! plugin#Config() abort
 		let g:NERDTreeShowHidden=1 " i key to toggle
 		let g:NERDTreeQuitOnOpen=1 " AutoClose after openning file
 		let g:NERDTreeBookmarksFile= g:std_data_path . '/.NERDTreeBookmarks'
-
+	endif
 
 	Plug 'scrooloose/nerdcommenter'
 		" NerdCommenter
