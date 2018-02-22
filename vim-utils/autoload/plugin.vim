@@ -2,8 +2,13 @@
 " Description:Plugin specific settings
 " Author:			Reinaldo Molina <rmolin88@gmail.com>
 " Version:			2.0.1
-" Last Modified: Thu Oct 05 2017 21:42
+" Last Modified: Thu Feb 22 2018 10:36
 " Created: Fri Jun 02 2017 10:44
+
+" List of pip requirements for your plugins:
+" - pip(3) install --user neovim psutil vim-vint
+" - These are mostly for python stuff
+" - jedi mistune setproctitle jedi flake8 autopep8
 
 " This function should not abort on error. Let continue configuring stuff
 function! plugin#Config()
