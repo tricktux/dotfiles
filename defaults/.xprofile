@@ -11,9 +11,12 @@
 # Sat Oct 14 2017 11:12: This will set the i3-sensible-terminal to be used:
 [[ -f /usr/bin/termite ]] && export TERMINAL="termite"
 export EMAIL="rmolin88@gmail.com"
-[ -f /usr/bin/google-chrome-stable ] && export BROWSER="/usr/bin/google-chrome-stable"
+[ -f /usr/bin/opera ] && export BROWSER="/usr/bin/opera"
 
-# Thu Feb 01 2018 05:21: For oracle database crap for school 
+# Thu Feb 01 2018 05:21: For oracle database crap for school
 export ORACLE_HOME=/home/reinaldo/app/reinaldo/product/12.2.0/client_1
+
+# Thu Feb 22 2018 08:59: Can't figure out how to set locale properly on arch. Result:
+export LANG=en_US.UTF-8
 
 # vim:filetype=sh
