@@ -362,7 +362,7 @@ function! plugin#Config()
 		let g:gen_tags#gtags_auto_gen = 1
 		let g:gen_tags#use_cache_dir = 1
 		let g:gen_tags#ctags_prune = 1
-		let g:gen_tags#ctags_opts = '--sort=no --append -B'
+		let g:gen_tags#ctags_opts = '--sort=no --append'
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
