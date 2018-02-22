@@ -259,9 +259,9 @@ function! utils#LoadSession(...) abort
 	endif
 
 	execute "wall"
-	let response = confirm("Save Current Session before deleting all buffers?", "&Jes\n&No(def.)")
-	if response == 1
-		call utils#SaveSession()
+	let response = confirm("Are you sure? This will unload all buffers?", "&Jes\n&No(def.)")
+	if response != 1
+		return -1
 	endif
 
 	if exists(':Denite')
