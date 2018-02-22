@@ -111,16 +111,16 @@ function! cpp_highlight#Set(type) abort
 		exe 'hi EnumConstant guifg='.s:lightgreen .' guibg='.s:darkgrey .' gui=none'
 
 	elseif a:type ==# 'clighter8'
-		if has('nvim') || !has('python3') || !has('unix')
+		if has('nvim') || !has('python3') " || !has('unix')
 			echomsg 'Clighter8 compatible with vim and python3 and unix only'
 			return
 		endif
 
 		Plug 'bbchung/clighter8'
 			let g:clighter8_syntax_groups = ['clighter8NamespaceRef', 'clighter8FunctionDecl']
-			let g:clighter8_libclang_path = ''
-			let g:clighter8_global_compile_args = ['-I/usr/local/include']
-			let g:clighter8_logfile = ''
+			let g:clighter8_libclang_path = 'C:\Program Files\LLVM\bin\libclang.dll'
+			" let g:clighter8_global_compile_args = ['-I/usr/local/include']
+			let g:clighter8_logfile = g:std_cache_path . '/clighter8.log'
 		call cpp_highlight#SetClight8Highlight()
 	else
 		echomsg 'Not a recognized highlight type: ' . a:type

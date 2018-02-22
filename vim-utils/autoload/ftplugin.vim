@@ -55,3 +55,69 @@ function! ftplugin#Syntastic(mode, checkers) abort
 	endif
 	let b:syntastic_mode =a:mode
 endfunction
+
+function! ftplugin#SetCompilersAndOther() abort
+	" TODO-[RM]-(Wed Sep 13 2017 12:56): Make this a function
+	" Note: When outside of a wings folder or in unix use default Neomake default maker
+	" options which is pretty great
+	" Window specific settings
+	if has('unix')
+		setlocal foldmethod=syntax
+
+		if exists('g:LanguageClient_serverCommands')
+			setlocal completefunc=LanguageClient#complete
+			setlocal formatexpr=LanguageClient_textDocument_rangeFormatting()
+
+			" TODO-[RM]-(Sat Jan 27 2018 11:23): Figure out these mappings 
+			" nnoremap <buffer> <silent> gh :call LanguageClient_textDocument_hover()<CR>
+			" nnoremap <buffer> <silent> gd :call LanguageClient_textDocument_definition()<CR>
+			" nnoremap <buffer> <silent> gr :call LanguageClient_textDocument_references()<CR>
+			" nnoremap <buffer> <silent> gs :call LanguageClient_textDocument_documentSymbol()<CR>
+			" nnoremap <buffer> <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+		endif
+	else
+		" Commands for windows
+		command! -buffer UtilsCompilerGcc execute("compiler gcc<bar>:setlocal makeprg=mingw32-make")
+		command! -buffer UtilsCompilerBorland execute("compiler borland")
+		command! -buffer UtilsCompilerMsbuild execute("compiler msbuild<bar>:set errorformat&")
+		if exists(':Dispatch')
+			" Time runtime of a specific program. Pass as Argument executable with arguments. Pass as Argument executable with
+			" arguments. Example sep_calc.exe seprc.
+			command! -nargs=+ -buffer UtilsTimeExec execute('Dispatch powershell -command "& {&'Measure-Command' {.\<f-args>}}"<cr>')
+		endif
+
+		" Set compiler now depending on folder and system. Auto set the compiler
+		if !exists('b:current_compiler')
+			" Note: inside the '' is a pat which is a regex. That is why \\
+			let b:neomake_cpp_enabled_makers = executable('clang') ? ['clangtidy', 'clangcheck'] : ['']
+			let b:neomake_cpp_enabled_makers += executable('cppcheck') ? ['cppcheck'] : ['']
+			if expand('%:p') =~? 'Onewings\\Source'
+				command! -buffer UtilsUpdateBorlandMakefile call <SID>update_borland_makefile()
+				compiler borland
+				" For Borland use only make
+				let b:neomake_cpp_enabled_makers = ['make']
+				let b:neomake_cpp_make_args = ['%:r.obj']
+				let b:neomake_cpp_make_append_file = 0
+			elseif expand('%:p') =~# 'OneWings' || expand('%:p') =~# 'UnrealProjects'
+				compiler msbuild
+				" silent set errorformat&
+				" TODO-[RM]-(Sat Nov 04 2017 02:14): Not sure how to build only one file in VS
+				" - Mon Dec 04 2017 19:35: Tried for long time was not able to do it.
+				"   Just use clang makers and then do the normal build
+			else
+				let b:neomake_clang_args = '-target x86_64-pc-windows-gnu -std=c++1z -stdlib=libc++ -Wall -pedantic'
+			endif
+		endif
+	endif
+endfunction
+
+function! s:update_borland_makefile() abort
+	" If compiler is not borland(set by SetupCompiler) fail.
+	if !exists('b:current_compiler')
+		echomsg 'Error, not in WINGS folder'
+	else
+		execute '!bpr2mak -omakefile WINGS.bpr'
+	endif
+endfunction
+
+
