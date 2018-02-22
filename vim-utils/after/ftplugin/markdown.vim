@@ -53,10 +53,10 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 		nnoremap <buffer> <LocalLeader>a :OnlineThesaurusCurrentWord<cr>
 	endif
 
-	" if executable('pandoc')
-		" nnoremap <buffer> <Plug>Make :NeomakeProject<CR>
-		" nnoremap <buffer> <Plug>Make :!pandoc % -o %:r.pdf --from markdown --template eisvogel --listings<CR>
-	" endif
+	if executable('pandoc') && !has('unix')
+		nnoremap <buffer> <Plug>Make :!pandoc % -o %:r.pdf --from markdown --template eisvogel --listings<CR>
+	endif
+
 	if executable('zathura')
 		nnoremap <buffer> <Plug>Preview :!zathura %:r.pdf&<CR>
 	endif
