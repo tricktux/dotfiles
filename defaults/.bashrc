@@ -26,7 +26,7 @@ if [[ -f /usr/bin/fzf ]]; then
 	fi
 
 	# Depends on `install bfs`
-	export FZF_ALT_C_COMMAND="cd ~/; bfs -type d -nohidden | sed s/^\./~/"  
+	export FZF_ALT_C_COMMAND="cd ~/; bfs -type d -nohidden | sed s/^\./~/"
 
 	# TODO-[RM]-(Wed Oct 25 2017 10:10): Download it
 	# https://github.com/urbainvaes/fzf-marks
@@ -107,6 +107,6 @@ export GIT_TERMINAL_PROMPT=1
 # Any completions you add in ~/.bash_completion are sourced last.
 [[ -f /etc/bash_completion ]] && . /etc/bash_completion
 
-# Sat Oct 14 2017 22:27: fish being default terminal 
-# Sat Oct 21 2017 16:14: very pretty but not very useful 
+# Sat Oct 14 2017 22:27: fish being default terminal
+# Sat Oct 21 2017 16:14: very pretty but not very useful
 # [ -f /usr/bin/fish ] && exec fish

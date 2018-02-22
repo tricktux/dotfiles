@@ -19,14 +19,14 @@
 ; silence some strange warning
 [push]
 	default = simple
-;[diff]  
+;[diff]
     ;tool = gvim
-;[difftool "gvim"]  
+;[difftool "gvim"]
     ;cmd = "<PATH/TO/VIM> -d \"$LOCAL\" \"$REMOTE\""
 	;prompt = false
-;[merge]  
+;[merge]
     ;tool = gvim
-;[mergetool "gvim"]  
+;[mergetool "gvim"]
     ;cmd = "<PATH/TO/VIM> -d \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\""
 	;prompt = false
 [color]
