@@ -38,7 +38,7 @@ function! options#Set() abort
 	" ignore these files to for completion
 	set completeopt=menuone,longest,preview,noselect,noinsert
 	" set complete+=kspell " currently not working
-	" set wildmenu " Sun Jul 16 2017 20:24. Dont like this way. Its weird 
+	" set wildmenu " Sun Jul 16 2017 20:24. Dont like this way. Its weird
 	set wildmode=list:longest
 	set wildignore+=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn,.git
 	set title                " change the terminal's title
@@ -107,12 +107,12 @@ function! options#Set() abort
 	set omnifunc=syntaxcomplete#Complete
 	" Mon Jun 05 2017 11:59: Suppose to Fix cd to relative paths in windows
 	let &cdpath = ',' . substitute(substitute($CDPATH, '[, ]', '\\\0', 'g'), ':', ',', 'g')
-	" Thu Sep 14 2017 14:45: Security concerns addressed by these options. 
+	" Thu Sep 14 2017 14:45: Security concerns addressed by these options.
 	set secure
 	set noexrc
 	" Wed Oct 18 2017 09:19: Stop annoying bell sound
 	set belloff=all
-	" Thu Dec 21 2017 09:56: Properly format comment strings 
+	" Thu Dec 21 2017 09:56: Properly format comment strings
 	if v:version > 703 || v:version == 703 && has('patch541')
 		set formatoptions+=j
 	endif
@@ -154,12 +154,12 @@ function! options#Set() abort
 	endif
 	set lazyredraw " Had to addit to speed up scrolling
 	" Mon May 01 2017 11:21: This breaks split window highliting
-	" Tue Jun 13 2017 20:55: Giving it another try 
+	" Tue Jun 13 2017 20:55: Giving it another try
 	set synmaxcol=200 " Will not highlight passed this column #
-	" Sat Oct 07 2017 00:35: Addind support 
+	" Sat Oct 07 2017 00:35: Addind support
 	set showtabline=2
 	" Mon Oct 16 2017 15:22: This speed ups a lot of plugin. Those that have to
-	" do with highliting.  
+	" do with highliting.
 	set regexpengine=1
 	" Fri May 19 2017 11:38 Having a lot of hang ups with the function! s:Highlight_Matching_Pair()
 	" on the file C:\Program Files\nvim\Neovim\share\nvim\runtime\plugin\matchparen.vim

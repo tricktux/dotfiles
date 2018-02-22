@@ -33,7 +33,7 @@ function! mappings#Set() abort
 	" gA " prints radix of number under cursor
 	" Untouchable g mappings:
 	" - gd, gD, g;, gq, gs, gl, gA, gT, gg, G, gG, gh, gv
-	" Toggle mappings: 
+	" Toggle mappings:
 	" - tj, te, ta, tt, tf, ts, to, tn
 	nmap <Leader>tj <Plug>FileBrowser
 	" terminal-emulator mappings
@@ -84,11 +84,12 @@ function! mappings#Set() abort
 	nnoremap <Leader>j. :call utils#LastCommand()<CR>
 	" j mappings taken <swypl;bqruihHdma248eEonf>
 	" nnoremap <Leader>Mc :call utils#ManFind()<CR>
-	" Tue Dec 19 2017 14:34: Removing the save all files. Not a good thing to do. 
+	" Tue Dec 19 2017 14:34: Removing the save all files. Not a good thing to do.
 	" - Main reason is specially with Neomake running make an multiple files at the same
-	"   time 
+	"   time
 	nnoremap <C-s> :w<CR>
-	nnoremap <C-h> :noh<CR>
+	" Thu Feb 22 2018 07:42: Mind buggling super good mapping from vim-galore
+	nnoremap <c-h> :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
 	nnoremap <C-Space> i<Space><Esc>
 	" These are only for command line
 	" insert in the middle of whole word search
@@ -101,9 +102,11 @@ function! mappings#Set() abort
 	cnoremap <C-A> <Home>
 	cnoremap <C-F> <Right>
 	cnoremap <C-B> <Left>
-	" Sun Sep 17 2017 14:21: this will not work in vim 
+	" Sun Sep 17 2017 14:21: this will not work in vim
 	cnoremap <A-b> <S-Left>
 	cnoremap <A-f> <S-Right>
+
+	cnoremap <silent> <expr> <enter> utils#CenterSearch()
 	" move to the beggning of line
 	" Don't make this nnoremap. Breaks stuff
 	nnoremap <S-w> $
@@ -126,7 +129,7 @@ function! mappings#Set() abort
 	vnoremap > >gv
 	" Edit plugin
 	nnoremap <Leader>ep :call utils#DeniteRec(g:vim_plugins_path)<CR>
-	nnoremap <Leader>ei :e 
+	nnoremap <Leader>ei :e
 
 	" Vim-unimpaired similar mappings
 	" Do not overwrite [s, [c, [f
@@ -172,6 +175,9 @@ function! mappings#Set() abort
 	vnoremap <Leader>ah :<c-u>s/<count>\x\x/\=nr2char(printf("%d", "0x".submatch(0)))/g<cr><c-l>`<
 	vnoremap <Leader>ha :<c-u>s/\%V./\=printf("%x",char2nr(submatch(0)))/g<cr><c-l>`<
 
+	nnoremap <expr> n 'Nnzz'[v:searchforward]
+	nnoremap <expr> N 'nNzz'[v:searchforward]
+
 	" Search forward/backwards but return
 	nnoremap * *zz
 	nnoremap # #zz
@@ -183,7 +189,7 @@ function! mappings#Set() abort
 	inoremap <c-f> <del>
 	inoremap <C-F> <Right>
 	inoremap <C-B> <Left>
-	" Sun Sep 17 2017 14:21: this will not work in vim 
+	" Sun Sep 17 2017 14:21: this will not work in vim
 	inoremap <A-b> <S-Left>
 	inoremap <A-f> <S-Right>
 

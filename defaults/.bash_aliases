@@ -9,12 +9,12 @@
 
 machine=`hostname`
 
-alias install='pacaur -S --noconfirm'
-alias update='pacaur -Syyu --devel --noconfirm $@'
-alias version='pacaur -Si'
-alias search='pacaur -Ss'
-alias remove='pacaur -Rscn'
-alias remove-only='pacaur -Rdd'
+alias install='trizen -S --noconfirm'
+alias update='trizen -Syyu --devel --noconfirm $@'
+alias version='trizen -Si'
+alias search='trizen -Ss'
+alias remove='trizen -Rscn'
+alias remove-only='trizen -Rdd'
 
 # git
 alias ga='git add'
@@ -102,9 +102,9 @@ FuncUpdate()
 	# When update fails to verify some <package> do:
 	# update --ignore <package1>,<package2>
 	# Devel is required to update <package-git> stuff
-	pacaur -Syyu --devel --noconfirm $@
+	trizen -Syyu --devel --noconfirm $@
 	# To install packages from list:
-	# pacaur -S - < <pgklist.txt>
+	# trizen -S - < <pgklist.txt>
 }
 
 FuncNvim()

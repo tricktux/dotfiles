@@ -1067,3 +1067,11 @@ function! utils#TrimWhiteSpace() abort
 	%s/\s*$//
 	''
 endfunction
+
+function! utils#CenterSearch()
+	let cmdtype = getcmdtype()
+	if cmdtype == '/' || cmdtype == '?'
+		return "\<enter>zz"
+	endif
+	return "\<enter>"
+endfunction
