@@ -309,6 +309,7 @@ bindsym $mod+Shift+0 move container to workspace $workspace10
 		for_window [class="Speedcrunch"] floating enable
 		for_window [class="Gloobus-preview"] floating enable
 		for_window [class="Pavucontrol"] floating enable
+		for_window [class="Blueberry.py"] floating enable
 		for_window [window_role="toolbox_window"] floating enable
 
 # My-own
