@@ -6,7 +6,10 @@
 " Created: Fri Jun 02 2017 10:44
 
 " List of pip requirements for your plugins:
-" - pip(3) install --user neovim psutil vim-vint
+" - pip3 install --user neovim psutil vim-vint
+"   - on arch: python-vint python-neovin python-psutil
+"   - However, pip is the preferred method. Not so sure becuase then you have to updated
+"   manually.
 " - These are mostly for python stuff
 " - jedi mistune setproctitle jedi flake8 autopep8
 
@@ -93,7 +96,7 @@ function! plugin#Config()
 	endif
 
 	" Options: netranger, nerdtree
-	call s:configure_file_browser((has('unix') ? 'netranger' : 'nerdtree'))
+	call s:configure_file_browser((executable('ranger') ? 'ranger' : 'nerdtree'))
 
 	call s:configure_nerdcommenter()
 
@@ -457,7 +460,6 @@ function! plugin#AfterConfig() abort
 	return 1
 endfunction
 
-
 function! s:configure_ctrlp() abort
 	Plug 'ctrlpvim/ctrlp.vim'
 		nnoremap <S-k> :CtrlPBuffer<CR>
@@ -742,7 +744,6 @@ function! s:configure_lightline(linter) abort
 		call insert(g:lightline.active.right[0], 'linter_warnings')
 		call insert(g:lightline.active.right[0], 'linter_ok' )
 	endif
-
 endfunction
 
 function! s:configure_vim_wordy() abort
@@ -779,19 +780,16 @@ function! s:configure_pomodoro() abort
 	" %#ErrorMsg#%{PomodoroStatus()}%#StatusLine#
 endfunction
 
-" choice - One of 'netranger' or 'nerdtree'
+" choice - One of netranger, nerdtree, or ranger
 function! s:configure_file_browser(choice) abort
 	" FileBrowser
 	" Wed May 03 2017 11:31: Tried `vifm` doesnt work in windows. Doesnt
 	" follow `*.lnk` shortcuts. Not close to being Replacement for `ranger`.
 	" Main reason it looks appealing is that it has support for Windows. But its
 	" not very good
+	" Fri Feb 23 2018 05:16: Also tried netranger. Not that great either. Plus only
+	" supports *nix.
 
-	" Have ranger always available if possible
-	if executable('ranger')
-		Plug 'francoiscabrol/ranger.vim', { 'on' : 'RangerCurrentDirectory' }
-			let g:ranger_map_keys = 0
-	endif
 
 	if a:choice ==# 'nerdtree'
 		nnoremap <Plug>FileBrowser :NERDTree<CR>
@@ -809,5 +807,8 @@ function! s:configure_file_browser(choice) abort
 		nnoremap <Plug>FileBrowser :NERDTree<CR>
 		let g:NETRRootDir = g:std_data_path . '/netranger/'
 		let g:NETRIgnore = [ '.git', '.svn' ]
+	elseif a:choice ==# 'ranger'
+		Plug 'francoiscabrol/ranger.vim', { 'on' : 'RangerCurrentDirectory' }
+			let g:ranger_map_keys = 0
 	endif
 endfunction
