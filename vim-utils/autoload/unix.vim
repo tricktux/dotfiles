@@ -58,11 +58,11 @@ function! unix#Config() abort
 		let g:clangheader_path = '/usr/lib/clang'
 	endif
 
-	if executable('languagetool') 
+	if executable('languagetool')
 				\&& !empty(glob('/usr/share/java/languagetool/languagetool-commandline.jar'))
 		let g:languagetool_jar = '/usr/share/java/languagetool/languagetool-commandline.jar'
 	endif
-	let g:browser_cmd = '/usr/bin/google-chrome-stable'
+	let g:browser_cmd = '/usr/bin/opera'
 
 	" This mapping will load the journal from the most recent boot and highlight it for you
 	command! UtilsLinuxReadJournal execute("read !journalctl -b<CR><bar>:setf messages<CR>")
