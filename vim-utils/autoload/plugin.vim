@@ -804,10 +804,10 @@ function! s:configure_file_browser(choice) abort
 		let g:NERDTreeBookmarksFile= g:std_data_path . '/.NERDTreeBookmarks'
 	elseif a:choice ==# 'netranger'
 		Plug 'ipod825/vim-netranger'
-		nnoremap <Plug>FileBrowser :NERDTree<CR>
 		let g:NETRRootDir = g:std_data_path . '/netranger/'
 		let g:NETRIgnore = [ '.git', '.svn' ]
 	elseif a:choice ==# 'ranger'
+		nnoremap <Plug>FileBrowser :RangerCurrentDirectory<CR>
 		Plug 'francoiscabrol/ranger.vim', { 'on' : 'RangerCurrentDirectory' }
 			let g:ranger_map_keys = 0
 	endif
