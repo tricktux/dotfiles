@@ -127,6 +127,10 @@ function! options#Set() abort
 		call utils#ChangeColors(g:colorscheme_day, 'light')
 		" Set highliting for Search and Incsearch
 		" Auto Flux (changing themes) is set in the augroup.vim file
+		augroup FluxLike
+			autocmd!
+			autocmd VimEnter,BufEnter * call utils#Flux()
+		augroup END
 	else
 		" If this not and android device and we have no plugins setup "ugly" status line
 		colorscheme desert
@@ -201,6 +205,8 @@ function! options#SetCli() abort
 		" echomsg 'Detected Neovim-qt GUI. Nothing to do here'
 		return
 	elseif exists("g:gui_oni") && g:gui_oni == 1
+		" In addition disable status bar
+		set laststatus = 0
 		" echomsg 'Detected Oni GUI. Nothing to do here'
 		return
 	elseif exists('g:eovim_running') && g:eovim_running == 1
