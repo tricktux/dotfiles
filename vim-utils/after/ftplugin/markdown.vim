@@ -54,7 +54,8 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	endif
 
 	if executable('pandoc') && !has('unix')
-		nnoremap <buffer> <Plug>Make :!pandoc % -o %:r.pdf --from markdown --template eisvogel --listings<CR>
+		" nnoremap <buffer> <Plug>Make :!pandoc % -o %:r.pdf --from markdown --template eisvogel --listings<CR>
+		nnoremap <buffer> <Plug>Make :!pandoc % -o %:r.docx -r markdown+simple_tables+table_captions+yaml_metadata_block -S -s <CR>
 	endif
 
 	if executable('zathura')
@@ -71,7 +72,7 @@ endif
 if exists('*AutoCorrect')
 	call AutoCorrect()
 	" Tue Dec 26 2017 16:40: These abbreviations are really annoying when typing in
-	" spanish. Delete them. 
+	" spanish. Delete them.
 	iuna si
 	iuna Si
 endif
@@ -114,7 +115,7 @@ function! MdInstallTemplate() abort
 			let template_path = g:std_config_path . "\\pandoc\\templates\\eisvogel.latex"
 		endif
 	else
-		" Sat Sep 16 2017 18:16: 
+		" Sat Sep 16 2017 18:16:
 		" Keyword: latex, pandoc, markdown, pdf, templates, arch, linux, texlive, packages
 		" Note: This is the list of packages that this specific pandoc template depends on. In arch
 		" there is no need to install the packages individually just `install texlive-most` and you
@@ -154,8 +155,8 @@ endfunction
 command! -buffer UtilsWeeklyReportCreate call utils#ConvertWeeklyReport()
 " Markdown fix _ showing red
 command! -buffer UtilsFixUnderscore execute("%s/_/\\_/gc<CR>")
-" TODO.RM-Thu May 18 2017 12:17: This should be changed to opera  
+" TODO.RM-Thu May 18 2017 12:17: This should be changed to opera
 command! -buffer UtilsPreviewMarkdown call MdPreviewInBrowser()
 command! -buffer UtilsInstallMarkdownPreview call MdInstallTemplate()
 
-let b:undo_ftplugin = "setl foldenable< spell< complete< ts< sw< sts< comments< formatoptions<" 
+let b:undo_ftplugin = "setl foldenable< spell< complete< ts< sw< sts< comments< formatoptions<"

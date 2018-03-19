@@ -23,11 +23,11 @@ function! init#vim() abort
 	endif
 
 	" PLUGINS_INIT
-	if plugin#Check() && plugin#Config()
-		let g:plugins_loaded = 1
-	else
-		echomsg 'No plugins where loaded'
-	endif
+	 if plugin#Check() && plugin#Config()
+	  let g:plugins_loaded = 1
+	 else
+	  echomsg 'No plugins where loaded'
+	 endif
 
 	" Create required folders for storing usage data
 	call utils#CheckDirwoPrompt(g:std_data_path . '/sessions')
@@ -37,11 +37,11 @@ function! init#vim() abort
 		call utils#CheckDirwoPrompt(g:undofiles_path)
 	endif
 
-	call mappings#Set()
-	call options#Set()
-	call augroup#Set()
-	call commands#Set()
-	call syntax#Set()
+ call mappings#Set()
+ call options#Set()
+ call augroup#Set()
+ call commands#Set()
+ call syntax#Set()
 endfunction
 
 " vim:tw=78:ts=2:sts=2:sw=2:

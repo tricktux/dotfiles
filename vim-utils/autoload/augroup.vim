@@ -53,10 +53,6 @@ function! augroup#Set() abort
 			autocmd BufNewFile,BufReadPost * call utils#BufDetermine()
 		augroup END
 
-		augroup FluxLike
-			autocmd!
-			autocmd VimEnter,BufEnter * call utils#Flux()
-		augroup END
 	endif
 
 	" Depends on autoread being set

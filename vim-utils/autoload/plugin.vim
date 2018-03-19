@@ -343,9 +343,9 @@ function! plugin#Config()
 	Plug 'chaoren/vim-wordmotion'
 		let g:wordmotion_spaces = '_-.'
 		let g:wordmotion_mappings = {
-					\ 'w' : '',
+					\ 'w' : '<c-f>',
 					\ 'b' : '<c-b>',
-					\ 'e' : '<c-e>',
+					\ 'e' : '',
 					\ 'ge' : '',
 					\ 'aw' : '',
 					\ 'iw' : '',
