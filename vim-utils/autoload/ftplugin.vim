@@ -102,7 +102,7 @@ function! ftplugin#SetCompilersAndOther() abort
 		command! -buffer UtilsUpdateBorlandMakefile call <SID>update_borland_makefile()
 		augroup Borland
 			autocmd! * <buffer>
-			autocmd BufWinEnter <buffer=abuf> call <SID>update_borland_makefile()
+			autocmd BufWritePre <buffer=abuf> call <SID>update_borland_makefile()
 		augroup end
 
 		compiler borland
