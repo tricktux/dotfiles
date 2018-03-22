@@ -298,10 +298,10 @@ function! plugin#Config()
 	Plug 'chrisbra/csv.vim', { 'for' : 'csv' }
 		let g:no_csv_maps = 1
     let g:csv_strict_columns = 1
-		augroup Csv_Arrange
-			autocmd!
-			autocmd BufWritePost *.csv call CsvArrangeColumns()
-		augroup END
+		" augroup Csv_Arrange
+			" autocmd!
+			" autocmd BufWritePost *.csv call CsvArrangeColumns()
+		" augroup END
 		" let g:csv_autocmd_arrange      = 1
 		" let g:csv_autocmd_arrange_size = 1024*1024
 
@@ -804,10 +804,10 @@ function! s:configure_file_browser(choice) abort
 		let g:NERDTreeBookmarksFile= g:std_data_path . '/.NERDTreeBookmarks'
 	elseif a:choice ==# 'netranger'
 		Plug 'ipod825/vim-netranger'
-		nnoremap <Plug>FileBrowser :NERDTree<CR>
 		let g:NETRRootDir = g:std_data_path . '/netranger/'
 		let g:NETRIgnore = [ '.git', '.svn' ]
 	elseif a:choice ==# 'ranger'
+		nnoremap <Plug>FileBrowser :RangerCurrentDirectory<CR>
 		Plug 'francoiscabrol/ranger.vim', { 'on' : 'RangerCurrentDirectory' }
 			let g:ranger_map_keys = 0
 	endif
