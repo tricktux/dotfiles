@@ -169,8 +169,8 @@ function! options#Set() abort
 	" on the file C:\Program Files\nvim\Neovim\share\nvim\runtime\plugin\matchparen.vim
 	" This value is suppose to help with it. The default value is 300ms
 	" DoMatchParen, and NoMatchParen are commands that enable and disable the command
-	let g:matchparen_timeout = 100
-	let g:matchparen_insert_timeout = 100
+	let g:matchparen_timeout = 80
+	let g:matchparen_insert_timeout = 30
 
 	" TODO-[RM]-(Tue Aug 22 2017 10:43): Move this function calls to init#vim or
 	" options.vim
