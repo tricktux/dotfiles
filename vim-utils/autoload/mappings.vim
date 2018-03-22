@@ -127,9 +127,6 @@ function! mappings#Set() abort
 	" Visual shifting (does not exit Visual mode)
 	vnoremap < <gv
 	vnoremap > >gv
-	" Edit plugin
-	nnoremap <Leader>ep :call utils#DeniteRec(g:vim_plugins_path)<CR>
-	nnoremap <Leader>ei :e
 
 	" Vim-unimpaired similar mappings
 	" Do not overwrite [s, [c, [f
@@ -204,12 +201,6 @@ function! mappings#Set() abort
 	inoremap ; ;<c-g>u
 	inoremap = =<c-g>u
 
-	" Edit local <Leader>e?
-	nnoremap <Leader>el :silent e ~/
-	" cd into current dir path and into dir above current path
-	nnoremap <Leader>e1 :call utils#DeniteRec(g:std_config_path . '/dotfiles')<CR>
-	" Edit Vimruntime
-	nnoremap <Leader>ev :call utils#DeniteRec($VIMRUNTIME)<CR>
 
 	" CD <Leader>c?
 	nnoremap <Leader>cd :lcd %:h<CR>
@@ -323,10 +314,15 @@ function! mappings#Set() abort
 	" Comment Indent Increase/Reduce
 	nnoremap <Leader>oi :call utils#CommentIndent()<CR>
 
-	" Version Control <Leader>e?
+	" Edit file at location <Leader>e?
 	nnoremap <Leader>ed :call utils#DeniteRec(g:std_config_path . '/dotfiles')<cr>
 	nnoremap <Leader>em :call utils#DeniteRec('~/Seafile/masters/')<cr>
 	nnoremap <Leader>ec :call utils#DeniteRec(getcwd())<cr>
 	nnoremap <Leader>el :call utils#DeniteRec(input('Folder to recurse: ', "", "file"))<cr>
 	nnoremap <Leader>et :execute('edit ' . g:std_config_path . '/dotfiles/TODO.md')<cr>
+	" Edit plugin
+	nnoremap <Leader>ep :call utils#DeniteRec(g:vim_plugins_path)<CR>
+	nnoremap <Leader>ei :e
+	" Edit Vimruntime
+	nnoremap <Leader>ev :call utils#DeniteRec($VIMRUNTIME)<CR>
 endfunction
