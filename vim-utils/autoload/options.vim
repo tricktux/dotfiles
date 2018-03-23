@@ -175,7 +175,8 @@ function! options#Set() abort
 	" TODO-[RM]-(Tue Aug 22 2017 10:43): Move this function calls to init#vim or
 	" options.vim
 	" Grep
-	call s:set_grep()
+	" Fri Mar 23 2018 18:10: Substituted by vim-gprepper plugin
+	" call s:set_grep()
 
 	" Undofiles
 	if exists("g:plugins_loaded") && exists("g:undofiles_path") && !empty(glob(g:undofiles_path))
@@ -294,9 +295,9 @@ function! s:set_grep() abort
 		"Use the -t option to search all text files; -a to search all files; and -u to search all,
 		"including hidden files.
 		if has('unix')
-			set grepprg=rg\ --vimgrep\ --smart-case\ --follow\ --hidden\ --iglob\ '!.{git,svn}'\ $*
+			set grepprg=rg\ $*\ --vimgrep\ --smart-case\ --follow\ --fixed-strings\ --hidden\ --iglob\ '!.{git,svn}'
 		else
-			set grepprg=rg\ --vimgrep\ --smart-case\ --follow\ --hidden\ --iglob\ !.{git,svn}\ $*
+			set grepprg=rg\ $*\ --vimgrep\ --smart-case\ --follow\ --fixed-strings\ --hidden\ --iglob\ !.{git,svn}
 		endif
 		set grepformat=%f:%l:%c:%m
 	elseif executable('ucg')

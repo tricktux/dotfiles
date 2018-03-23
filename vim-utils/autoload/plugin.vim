@@ -367,6 +367,10 @@ function! plugin#Config()
 		let g:gen_tags#ctags_prune = 1
 		let g:gen_tags#ctags_opts = '--sort=no --append'
 
+	Plug 'mhinz/vim-grepper'
+		nnoremap <LocalLeader>s :GrepperRg 
+		xmap gs  <plug>(GrepperOperator)
+
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
@@ -457,7 +461,14 @@ function! plugin#AfterConfig() abort
 					\ 'append_file' : 0,
 					\ }
 	endif
-	return 1
+
+	if exists(':Grepper')
+		if has('unix')
+			let g:grepper.rg.grepprg .= " --smart-case --follow --fixed-strings --hidden --iglob '!.{git,svn}'"
+		else
+			let g:grepper.rg.grepprg .= ' --smart-case --follow --fixed-strings --hidden --iglob !.{git,svn}'
+		endif
+	endif
 endfunction
 
 function! s:configure_ctrlp() abort

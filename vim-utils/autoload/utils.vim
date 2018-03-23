@@ -550,7 +550,7 @@ function! utils#FileTypeSearch(filetype, word) abort
 	endif
 
 	let file_type_search = &ft
-	if &grepprg =~# 'rg'
+	if grep_engine =~# 'rg'
 		" rg filetype for vim files is called vimscript
 		if file_type_search =~# 'vim'
 			let file_type_search = '-t vimscript'
@@ -559,21 +559,21 @@ function! utils#FileTypeSearch(filetype, word) abort
 		else
 			let file_type_search = '-t ' . file_type_search
 		endif
-	elseif &grepprg =~# 'ag'
+	elseif grep_engine =~# 'ag'
 			let file_type_search = '--' . file_type_search
 	else
 		" If it is not a recognized engine do not do file type search
 		exe ":grep " . search
-		echomsg '|Grep Engine:' &grepprg ' |FileType: All| CWD: ' getcwd()
+		echomsg '|Grep Engine:' grep_engine ' |FileType: All| CWD: ' getcwd()
 		return
 	endif
 
 	if a:filetype == 1
 		exe ":grep " . file_type_search . ' ' . search
-		echon '|Grep Engine:' &grepprg ' |FileType: ' file_type_search '| CWD: ' getcwd()
+		echon '|Grep Engine:' grep_engine ' |FileType: ' file_type_search '| CWD: ' getcwd()
 	else
 		exe ":grep " . search
-		echon '|Grep Engine:' &grepprg ' |FileType: All| CWD: ' getcwd()
+		echon '|Grep Engine:' grep_engine ' |FileType: All| CWD: ' getcwd()
 	endif
 endfunction
 

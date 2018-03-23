@@ -52,7 +52,6 @@ function! mappings#Set() abort
 
 	nmap <LocalLeader>m <Plug>Make
 	nmap <LocalLeader>p <Plug>Preview
-	nnoremap <LocalLeader>s :call utils#Grep()<cr>
 
 	" Global settings for all ftplugins
 	nnoremap <LocalLeader>f :Neoformat<CR>
