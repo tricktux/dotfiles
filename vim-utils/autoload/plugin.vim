@@ -520,12 +520,13 @@ function! s:configure_async_plugins() abort
 		return -1
 	endif
 
-		Plug 'kassio/neoterm'
+	Plug 'kassio/neoterm'
 		let g:neoterm_use_relative_path = 1
-		let g:neoterm_position = 'vertical'
+		let g:neoterm_default_mod = 'vertical'
 		let g:neoterm_autoinsert=1
 		nnoremap <Plug>ToggleTerminal :Ttoggle<CR>
-		Plug 'Shougo/denite.nvim', { 'do' : has('nvim') ? ':UpdateRemotePlugins' : '' }
+
+	Plug 'Shougo/denite.nvim', { 'do' : has('nvim') ? ':UpdateRemotePlugins' : '' }
 		" TODO-[RM]-(Wed Jan 10 2018 15:46): Come up with new mappings for these commented
 		" out below
 		" nnoremap <C-S-;> :Denite command_history<CR>
