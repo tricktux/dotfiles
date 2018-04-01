@@ -47,8 +47,8 @@ alias mount-hq='sshfs reinaldo@HQ:/ ~/.mnt/HQ-server/'
 # Misc
 # Removing -2 from tmux in order to get truecolor
 alias tmux='tmux -f ~/.config/tmux/.tmux.conf'
-alias ll='exa -als'
-alias ls='exa --color=auto'
+alias ll='exa -bghHliSa'
+alias ls='exa -la'
 alias vim='stty -ixon && vim'
 # Reload rxvt and deamon
 # Search help
