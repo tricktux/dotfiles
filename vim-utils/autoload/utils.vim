@@ -1075,3 +1075,19 @@ function! utils#CenterSearch()
 	endif
 	return "\<enter>"
 endfunction
+
+function! utils#GetPathFolderName(curr_dir) abort
+	" Strip path to get only root folder name
+	let back_slash_index = strridx(a:curr_dir, '/')
+	if back_slash_index == -1
+		let back_slash_index = strridx(a:curr_dir, '\')
+	endif
+
+	if back_slash_index == -1
+		echomsg string("utils#GetPathFolderName(): No back_slash_index found")
+		return
+	endif
+
+	return a:curr_dir[back_slash_index+1:]
+endfunction
+

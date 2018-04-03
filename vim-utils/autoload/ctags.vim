@@ -58,7 +58,7 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 	endif
 
 	" Create unique tag file name based on cwd_rg
-	let folder_name = ctags#GetPathFolderName(cwd_rg)
+	let folder_name = utils#GetPathFolderName(cwd_rg)
 	if empty(folder_name)
 		echomsg string("Failed to obtain folder_name")
 		return
@@ -93,21 +93,6 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 		execute "cs add " . cs_db
 		execute "cd " . cwd_rg
 	endif
-endfunction
-
-function! ctags#GetPathFolderName(curr_dir) abort
- " Strip path to get only root folder name
-	let back_slash_index = strridx(a:curr_dir, '/')
-	if back_slash_index == -1
-		let back_slash_index = strridx(a:curr_dir, '\')
-	endif
-
-	if back_slash_index == -1
-		echomsg string("No back_slash_index found")
-		return
-	endif
-
-	return a:curr_dir[back_slash_index+1:]
 endfunction
 
 " TODO.RM-Fri Mar 24 2017 16:49: This function is suppose to be async version of ctags#NvimSyncCtags
@@ -326,7 +311,7 @@ function! ctags#CreateTags(ft_spec, tags_name, files_loc, ctags_lang, cwd_rg) ab
 endfunction
 
 function! ctags#LoadCscopeDatabse() abort
-	let cs_db = ctags#GetPathFolderName(getcwd())
+	let cs_db = utils#GetPathFolderName(getcwd())
 	if empty(cs_db)
 		echomsg "Failed to obtain current folder name"
 		return
