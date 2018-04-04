@@ -224,7 +224,7 @@ function! plugin#Config()
 		nnoremap gG :Wcsearch duckduckgo <C-R>=expand("<cword>")<CR><CR>
 		vnoremap gG "*y:call www#www#user_input_search(1, @*)<CR>
 
-	call s:configure_lightline(linter)
+	call s:configure_lightline(linter, '')
 
 	Plug 'PotatoesMaster/i3-vim-syntax'
 
@@ -359,13 +359,6 @@ function! plugin#Config()
 
 	Plug 'bronson/vim-trailing-whitespace'
 		let g:extra_whitespace_ignored_filetypes = []
-
-	Plug 'jsfaint/gen_tags.vim' " Not being suppoprted anymore
-		let g:gen_tags#ctags_auto_gen = 1
-		let g:gen_tags#gtags_auto_gen = 1
-		let g:gen_tags#use_cache_dir = 1
-		let g:gen_tags#ctags_prune = 1
-		let g:gen_tags#ctags_opts = '--sort=no --append'
 
 	Plug 'mhinz/vim-grepper'
 		nnoremap <LocalLeader>s :GrepperRg 
@@ -666,7 +659,7 @@ function! s:configure_vim_sneak() abort
 endfunction
 
 " linter - String specifing if it should set neomake or ale in the status line
-function! s:configure_lightline(linter) abort
+function! s:configure_lightline(linter, tags) abort
 	Plug 'itchyny/lightline.vim'
 	" Note: Inside of the functions here there can be no single quotes (') only double (")
 	if !exists('g:lightline')
@@ -737,6 +730,17 @@ function! s:configure_lightline(linter) abort
 
 	let g:lightline.active.left[2] += [ 'pomodoro' ]
 	let g:lightline.component_function['pomodoro'] = 'utils#LightlinePomo'
+
+	if a:tags ==# 'gutentags'
+		let g:lightline.active.left[2] += [ 'tags' ]
+		let g:lightline.component_function['tags'] = 'gutentags#statusline'
+
+		augroup MyGutentagsStatusLineRefresher
+			autocmd!
+			autocmd User GutentagsUpdating call lightline#update()
+			autocmd User GutentagsUpdated call lightline#update()
+		augroup END
+	endif
 
 	if a:linter ==# 'neomake'
 		let g:lightline.active.left[2] += [ 'neomake' ]
@@ -822,5 +826,45 @@ function! s:configure_file_browser(choice) abort
 		nnoremap <Plug>FileBrowser :RangerCurrentDirectory<CR>
 		Plug 'francoiscabrol/ranger.vim', { 'on' : 'RangerCurrentDirectory' }
 			let g:ranger_map_keys = 0
+	endif
+endfunction
+
+" Wed Apr 04 2018 10:51: Neither of them seemed to work. Tags file handling is a
+" difficult thing. Specially to support in multi OS environments.
+" choice - One of ['gen_tags', 'gutentags']
+function! s:configure_tag_handler(choice) abort
+	if a:choice ==? 'gen_tags'
+		Plug 'jsfaint/gen_tags.vim' " Not being suppoprted anymore
+			let g:gen_tags#ctags_auto_gen = 1
+			let g:gen_tags#gtags_auto_gen = 1
+			let g:gen_tags#use_cache_dir = 1
+			let g:gen_tags#ctags_prune = 1
+			let g:gen_tags#ctags_opts = '--sort=no --append'
+	elseif a:choice ==? 'gutentags'
+		Plug 'ludovicchabant/vim-gutentags'
+			let g:gutentags_modules = []
+			if executable('ctags')
+				let g:gutentags_modules += ['ctags']
+			endif
+			if executable('cscope')
+				let g:gutentags_modules += ['cscope']
+			endif
+			" if executable('gtags')
+				" let g:gutentags_modules += ['gtags']
+			" endif
+
+			let g:gutentags_project_root = ['.svn']
+			let g:gutentags_add_default_project_roots = 1
+
+			let g:gutentags_cache_dir = g:std_data_path . '/ctags'
+
+			" if executable('rg')
+				" let g:gutentags_file_list_command = 'rg --files'
+			" endif
+
+			" Debugging
+			let g:gutentags_trace = 1
+			" let g:gutentags_fake = 1
+			" let g:gutentags_ctags_extra_args = ['--sort=no', '--append']
 	endif
 endfunction
