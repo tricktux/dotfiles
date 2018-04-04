@@ -143,7 +143,8 @@ endfunction
 
 function! s:compiler_msbuild(curr_folder) abort
 	compiler msbuild
-	setlocal errorformat&
+	let &l:errorformat='%f(%l): %t%*[^ ] C%n: %m'
+
 
 	" Compose VS project name base on the root folder of the current file
 	let proj_name = utils#GetPathFolderName(a:curr_folder)

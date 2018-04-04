@@ -36,6 +36,7 @@ function! s:set_neomake() abort
 
 	let g:neomake_plantuml_plantuml_maker = {
 				\ 'exe': 'plantuml',
+				\ 'errorformat': '%EError line %l in file: %f,%Z%m',
 				\ }
 	let g:neomake_make_maker = {
 				\ 'exe' : 'make',
