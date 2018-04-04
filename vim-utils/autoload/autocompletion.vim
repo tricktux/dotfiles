@@ -2,7 +2,8 @@
 " Description: Choose and setup autocompletion engine
 " Author:Reinaldo Molina <rmolin88@gmail.com>
 " Version:2.0.0
-" Last Modified: Apr 04 2017 23:58
+" Last Modified:		Wed Apr 04 2018 16:01
+" Original Modified: Apr 04 2017 23:58
 
 function! autocompletion#SetCompl(compl) abort
 	if a:compl ==# 'ycm'
@@ -43,7 +44,7 @@ function! autocompletion#SetCompl(compl) abort
 		" Optional but useful python3 support
 		" pip3 install --user neovim jedi mistune psutil setproctitle
 		" if has('win32')
-		" call autocompletion#SetTab()
+		" call s:set_tab()
 		" return -1
 		" endif
 
@@ -66,7 +67,7 @@ function! autocompletion#SetCompl(compl) abort
 							\ 'priority': 9,
 							\ 'cm_refresh_length': -1,
 							\ 'cm_refresh_patterns': ['^\w+:\s+'],
-							\ 'cm_refresh': {'omnifunc': function('autocompletion#MuttOmniWrap')},
+							\ 'cm_refresh': {'omnifunc': function('s:set_mutt_omni_wrap')},
 							\ })
 			augroup END
 		endif
@@ -91,22 +92,22 @@ function! autocompletion#SetCompl(compl) abort
 		" imap <silent> <Tab> <Plug>(cm_force_refresh)
 		" endif
 
-		call autocompletion#SetClang('roxma_clang_complete')
+		call s:set_clang_compl('roxma_clang_complete')
 	elseif a:compl ==# 'shuogo'
-		call autocompletion#SetShuogo()
-		if autocompletion#SetCquery() < 1
-			call autocompletion#VimClang()
-			" call autocompletion#SetClang('rip_clang_complete')
-		endif
+		call s:set_shuogo()
+		" call s:set_vim_clang()
+		" Wed Apr 04 2018 16:33: Without a compile_commands.json lsp is useless for clangd
+		call s:set_language_client()
+		" call s:set_clang_compl('rip_clang_complete')
 	elseif a:compl ==# 'autocomplpop'
 		Plug 'vim-scripts/AutoComplPop'
 		inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 		inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-		call autocompletion#SetClang('rip_clang_complete')
+		call s:set_clang_compl('rip_clang_complete')
 	elseif a:compl ==# 'completor'
 		if v:version < 800 || !has('python3')
 			echomsg 'autocompletion#SetCompl(): Cannot set completor autcompl_engine. Setting SuperTab'
-			call autocompletion#SetTab()
+			call s:set_tab()
 			return
 		endif
 		Plug 'maralla/completor.vim'
@@ -117,7 +118,7 @@ function! autocompletion#SetCompl(compl) abort
 	elseif a:compl ==# 'asyncomplete'
 		if v:version < 800
 			echomsg 'autocompletion#SetCompl(): Cannot set AsynComplete autcompl_engine. Setting SuperTab'
-			call autocompletion#SetTab()
+			call s:set_tab()
 			return
 		endif
 
@@ -146,28 +147,28 @@ function! autocompletion#SetCompl(compl) abort
 		if has('python3')
 			Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
 		endif
-		call autocompletion#SetClang('rip_clang_complete')
+		call s:set_clang_compl('rip_clang_complete')
 
 		augroup AsynComplete
 			autocmd!
-			autocmd User asyncomplete_setup call autocompletion#SetAsynCompl()
+			autocmd User asyncomplete_setup call s:set_async_compl()
 		augroup END
 	elseif a:compl ==# 'neo_clangd'
 		let g:clangd#completions_enabled = 0
-		call autocompletion#SetShuogo()
-		call autocompletion#SetClangdLSP()
+		call s:set_shuogo()
+		call s:set_clangd_lsp()
 	else
 		echomsg 'autocompletion#SetCompl(): Not a recognized value therefore setting SuperTab'
-		call autocompletion#SetTab()
+		call s:set_tab()
 		return -1
 	endif
 	return 1
 endfunction
 
 " Settings for Rip-Rip/clang_complete and friends
-function! autocompletion#SetClang(type) abort
+function! s:set_clang_compl(type) abort
 	if !has('python3') || !executable('clang++')
-		echomsg 'autocompletion#SetClang(): Clang not installed or no python'
+		echomsg 's:set_clang_compl(): Clang not installed or no python'
 		return
 	endif
 
@@ -176,7 +177,7 @@ function! autocompletion#SetClang(type) abort
 	elseif a:type ==# 'roxma_clang_complete'
 		Plug 'roxma/clang_complete', { 'as': a:type }
 	else
-		echomsg 'autocompletion#SetClang(): Not a recognized clang_complete type'
+		echomsg 's:set_clang_compl(): Not a recognized clang_complete type'
 	endif
 
 	let g:omnifunc_clang ='ClangComplete'
@@ -205,12 +206,12 @@ function! autocompletion#SetClang(type) abort
 		if exists('g:libclang_path') && !empty(glob(g:libclang_path))
 			let g:clang_library_path= g:usr_path . '/lib/libclang.so'
 		else
-			echomsg "autocompletion#SetClang(): g:usr_path not set or libclang not existent"
+			echomsg "s:set_clang_compl(): g:usr_path not set or libclang not existent"
 		endif
 	endif
 endfunction
 
-function! autocompletion#SetShuogo() abort
+function! s:set_shuogo() abort
 	" Vim exclusive plugins
 	if has('python3')
 		Plug 'Shougo/deoplete.nvim'
@@ -339,7 +340,7 @@ function! autocompletion#SetShuogo() abort
 	Plug 'Shougo/neco-syntax' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
 	Plug 'Shougo/echodoc' " Pop for functions info
 
-	" Mon Jan 15 2018 05:55: Not working very well 
+	" Mon Jan 15 2018 05:55: Not working very well
 	" Plug 'SevereOverfl0w/deoplete-github' " Pop for functions info
 	Plug 'fszymanski/deoplete-emoji' " Pop for functions info
 	" Email Completion, Has a bug that I need to report
@@ -354,15 +355,15 @@ function! autocompletion#SetShuogo() abort
 	" endif
 endfunction
 
-function! autocompletion#SetTab() abort
+function! s:set_tab() abort
 	Plug 'ervandew/supertab' " Activate Supertab
 	let g:SuperTabDefaultCompletionType = "context"
 	if has('python') && executable('clang')
-		call autocompletion#SetClang('rip_clang_complete')
+		call s:set_clang_compl('rip_clang_complete')
 	endif
 endfunction
 
-function! autocompletion#SetOmniCpp() abort
+function! s:set_omni_cpp() abort
 	Plug 'vim-scripts/OmniCppComplete'
 	let g:OmniCpp_NamespaceSearch = 1
 	let g:OmniCpp_GlobalScopeSearch = 1
@@ -374,7 +375,7 @@ function! autocompletion#SetOmniCpp() abort
 	let g:OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 endfunction
 
-function! autocompletion#SetAsynCompl() abort
+function! s:set_async_compl() abort
 	if exists('*asyncomplete#register_source')
 		call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
 					\ 'name': 'buffer',
@@ -405,12 +406,12 @@ function! autocompletion#SetAsynCompl() abort
 						\ }))
 		endif
 	else
-		echomsg "autocompletion#SetAsynCompl(): AsynComplete not installed yet"
+		echomsg "s:set_async_compl(): AsynComplete not installed yet"
 	endif
 endfunction
 
 " Fri Sep 29 2017 12:22: This plugin is still not ready
-function! autocompletion#SetClangdLSP() abort
+function! s:set_clangd_lsp() abort
 	if !has('python3') || !executable('clangd')
 		echomsg 'autocompoletion#SetClangdLSP(): Clangd not installed or no python'
 		return
@@ -421,7 +422,7 @@ function! autocompletion#SetClangdLSP() abort
 	let g:omnifunc_clang ='clangd#OmniCompleteAt'
 endfunction
 
-function! autocompletion#MuttOmniWrap(findstart, base) abort
+function! s:set_mutt_omni_wrap(findstart, base) abort
 	let ret = muttaliases#CompleteMuttAliases(a:findstart, a:base)
 	if type(ret) == type([])
 		let i=0
@@ -434,42 +435,46 @@ function! autocompletion#MuttOmniWrap(findstart, base) abort
 	return ret
 endfunction
 
-function! autocompletion#SetCquery() abort
-	if !has('unix') || !has('python3') || !executable('cquery')
+function! s:set_language_client() abort
+	if !has('python3') || !executable('clangd')
 		return -1
 	endif
 
-	" Sat Jan 27 2018 11:11: Settings coming from:
-	" https://github.com/cquery-project/cquery/wiki/Neovim
 	Plug 'autozimu/LanguageClient-neovim', {
 				\ 'branch': 'next',
-				\ 'do': 'bash install.sh',
+				\ 'do': has('unix') ? 'bash install.sh' : 'powershell -executionpolicy bypass -File install.ps1',
 				\ }
 
+	" Wed Apr 04 2018 17:02: the cquery project has an excellent page on generating
+	" compile_commands.json on its wiki
+	" Wed Apr 04 2018 16:25: clangd depends on a compile_commands.json databse.
+	" If you can't generate that. Then its no use.
 	let g:LanguageClient_autoStart = 1
 	let g:LanguageClient_serverCommands = {
-				\ 'cpp': 
-				\ [
-				\		'cquery', '--language-server', '--log-file=/tmp/cq.log',
-				\ ],
-				\ 'c': ['cquery', '--language-server', '--log-file=/tmp/cq.log'],
-				\ } 
-				" \		'--init={ "initializationOptions": { "cacheDirectory": "/tmp/cquery" }'
+				\ 'cpp': ['clangd'],
+				\ }
 
-	let g:LanguageClient_loadSettings = 1 " Use an absolute configuration path if you want system-wide settings 
-	let g:LanguageClient_settingsPath = '/home/reinaldo/.config/dotfiles/vim-utils/settings.json'
+	" Wed Apr 04 2018 16:21 All these settings are for cquery
+	" Sat Jan 27 2018 11:11: Settings coming from:
+	" https://github.com/cquery-project/cquery/wiki/Neovim
+	" let g:LanguageClient_serverCommands = {
+				" \ 'cpp': [ 'cquery', '--language-server', '--log-file=/tmp/cq.log' ],
+				" \ 'c': ['cquery', '--language-server', '--log-file=/tmp/cq.log'],
+				" \ }
+	" let g:LanguageClient_loadSettings = 1 " Use an absolute configuration path if you want system-wide settings
+	" let g:LanguageClient_settingsPath = g:std_config_path . '/dotfiles/vim-utils/settings.json'
 
 	let g:LanguageClient_trace = 'verbose'
 	let g:LanguageClient_loggingLevel = 'DEBUG'
 
 	" Multi-entry selection UI. FZF
-	Plug 'junegunn/fzf.vim'
+	" Plug 'junegunn/fzf.vim'
 	return 1
 endfunction
 
-function! autocompletion#VimClang() abort
+function! s:set_vim_clang() abort
 	if !executable('clang++')
-		echomsg 'autocompletion#SetClang(): Clang not installed'
+		echomsg 's:set_clang_compl(): Clang not installed'
 		return
 	endif
 	Plug 'justmao945/vim-clang'
@@ -486,7 +491,7 @@ function! autocompletion#VimClang() abort
 		if exists('g:libclang_path') && !empty(glob(g:libclang_path))
 			let g:clang_library_path= g:usr_path . '/lib/libclang.so'
 		else
-			echomsg "autocompletion#SetClang(): g:usr_path not set or libclang not existent"
+			echomsg "s:set_clang_compl(): g:usr_path not set or libclang not existent"
 		endif
 	endif
 endfunction
