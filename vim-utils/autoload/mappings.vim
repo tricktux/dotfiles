@@ -47,11 +47,12 @@ function! mappings#Set() abort
 
 		tnoremap <C-p> <Up>
 	endif
+	nmap <LocalLeader>m <Plug>MakeProject
+	nmap <LocalLeader>M <Plug>MakeFile
+	nmap <LocalLeader>p <Plug>Preview
+
 	nnoremap <Leader>tt :TagbarToggle<CR>
 	nnoremap <Leader>ts :setlocal spell! spelllang=en_us<CR>
-
-	nmap <LocalLeader>m <Plug>Make
-	nmap <LocalLeader>p <Plug>Preview
 
 	" Global settings for all ftplugins
 	nnoremap <LocalLeader>f :Neoformat<CR>

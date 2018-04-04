@@ -14,7 +14,8 @@ function! linting#Set(choice) abort
 	endif
 
 	if a:choice ==# 'neomake'
-		nnoremap <Plug>Make :NeomakeProject<cr>
+		nnoremap <Plug>MakeProject :NeomakeProject<cr>
+		nnoremap <Plug>MakeFile :Neomake<cr>
 		call s:set_neomake()
 	elseif a:choice ==# 'ale'
 		call s:set_ale()
@@ -38,12 +39,15 @@ function! s:set_neomake() abort
 				\ 'exe': 'plantuml',
 				\ 'errorformat': '%EError line %l in file: %f,%Z%m',
 				\ }
-	let g:neomake_make_maker = {
+	let g:neomake_makeborland_maker = {
 				\ 'exe' : 'make',
+				\ 'args' : ['%:r.obj'],
+				\ 'append_file' : 0,
 				\ }
 
 	let g:neomake_cpp_msbuild_maker = {
 				\ 'exe' : 'msbuild',
+				\ 'append_file' : 0,
 				\ }
 
 	" Fri Nov 03 2017 19:05: Finally understood the concept of neomake and linting in
@@ -67,6 +71,7 @@ function! s:set_neomake() abort
 endfunction
 
 function! s:set_ale() abort
+	" Main with ale is that is a "as you type" linter
 	Plug 'maximbaz/lightline-ale'
 		let g:lightline#ale#indicator_warnings = "\uf071"
 		let g:lightline#ale#indicator_errors = "\uf05e"

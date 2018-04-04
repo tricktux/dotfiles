@@ -115,7 +115,9 @@ function! plugin#Config()
 		let g:fastfold_fold_command_suffixes =
 					\['x','X','a','A','o','O','c','C','r','R','m','M','i','n','N']
 
-	Plug 'airblade/vim-rooter', { 'on' : 'Rooter' }
+	" Wed Apr 04 2018 12:55: Rooter used to be on demand but I took it.
+	" - In order to make use of its FindRootDirectory() function
+	Plug 'airblade/vim-rooter'
 		let g:rooter_manual_only = 1
 		nnoremap <Leader>cr :Rooter<CR>
 		" nnoremap <Leader>cr :call utils#RooterAutoloadCscope()<CR>
@@ -170,7 +172,6 @@ function! plugin#Config()
 		nmap <Leader>gs :Gstatus<CR><C-w>L<C-n>
 		nnoremap <Leader>gps :Gpush<CR>
 		nnoremap <Leader>gpl :Gpull<CR>
-		nnoremap <Leader>ga :!git add
 		nnoremap <Leader>gl :silent Glog<CR>
 					\:copen 20<CR>
 
@@ -445,14 +446,6 @@ function! plugin#AfterConfig() abort
 	" On linux run neomake everytime you save a file
 	if exists('g:loaded_neomake')
 		call neomake#configure#automake('w')
-		let g:neomake_msbuild_maker = {
-					\ 'exe': 'msbuild',
-					\ 'args': ['/nologo', '/v:q', '/p:GenerateFullPaths=true',
-					\ '/t:Rebuild', '/p:SelectedFiles=%', '/p:Configuration=Release' ],
-					\ 'errorformat': '%E%f(%l\,%c): error CS%n: %m [%.%#],'.
-					\                '%W%f(%l\,%c): warning CS%n: %m [%.%#]',
-					\ 'append_file' : 0,
-					\ }
 	endif
 
 	if exists(':Grepper')

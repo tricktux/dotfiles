@@ -43,14 +43,14 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 	endif
 
 	let nvim_ft = &filetype
-	if !ctags#CreateCscopeFiles(files_loc, cwd_rg, nvim_ft)
+	if !s:create_cscope_files(files_loc, cwd_rg, nvim_ft)
 		echomsg string("Failed to create cscope.files")
 		return
 	endif
 
 	let ctags_lang = ''
 	if a:ft_spec == 1
-		let ctags_lang = ctags#NvimFt2Ctags(&filetype)
+		let ctags_lang = s:nvim_ft_to_ctags_ft(&filetype)
 		if empty(ctags_lang)
 			echomsg string("Failed to obtain ctags lang")
 			return
@@ -64,7 +64,7 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 		return
 	endif
 
-	if !ctags#CreateTags(a:ft_spec, 'tags_' . folder_name, files_loc, ctags_lang, cwd_rg)
+	if !s:create_tags(a:ft_spec, 'tags_' . folder_name, files_loc, ctags_lang, cwd_rg)
 		echomsg "Failed to create tags file: tags_" . folder_name
 		return
 	endif
@@ -139,7 +139,7 @@ function! ctags#NvimAsyncCtags() abort
 	" set tags+=.tags
 endfunction
 
-function! ctags#NvimFt2Rg(ft) abort
+function! s:nvim_ft_to_rg_ft(ft) abort
 	let rg_ft = a:ft
 	if a:ft =~ 'vim'
 		let rg_ft = 'vimscript'
@@ -163,7 +163,7 @@ endfunction
 	" cexpr printf('%s: %s',a:event,string(a:data))
 " endfunction
 
-function! ctags#NvimFt2Ctags(ft) abort
+function! s:nvim_ft_to_ctags_ft(ft) abort
 	if a:ft == 'cpp'
 		let lang = 'C++'
 	elseif a:ft == 'vim'
@@ -182,7 +182,7 @@ function! ctags#NvimFt2Ctags(ft) abort
 endfunction
 
 " Original Version
-function! ctags#UpdateCscope() abort
+function! s:update_ctags() abort
 	if !executable('cscope') || !executable('ctags')
 		echoerr "Please install cscope and/or ctags before using this application"
 		return
@@ -217,7 +217,7 @@ function! ctags#UpdateCscope() abort
 	" set tags+=.tags
 endfunction
 
-function! ctags#ListCtagsFiles() abort
+function! s:list_tags_files() abort
 	" Obtain full path list of all files in ctags folder
 	let tags_loc = g:std_data_path . "/ctags/"
 	let potential_tags = map(utils#ListFiles(tags_loc), "tags_loc . v:val")
@@ -228,27 +228,10 @@ function! ctags#ListCtagsFiles() abort
 
 	return potential_tags
 endfunction
-" Adds all the tags_* files present in '~\.cache\ctags\' to 'tags'
-" If the cscope database 'OneWings.out' is present loads it
-function! ctags#SetTags() abort
-	let potential_tags = ctags#ListCtagsFiles()
-
-	if empty(potential_tags)
-		return
-	endif
-
-	for item in potential_tags
-		if item =~# 'tags_'
-			execute "set tags +=" . item
-		elseif item =~# 'OneWings.out'
-			silent! execute "cs add " . item
-		endif
-	endfor
-endfunction
 
 " Creates cscope.files in ~\.cache\ctags\
-function! ctags#CreateCscopeFiles(files_loc, cwd_rg, nvim_ft) abort
-	let rg_ft = ctags#NvimFt2Rg(a:nvim_ft)
+function! s:create_cscope_files(files_loc, cwd_rg, nvim_ft) abort
+	let rg_ft = s:nvim_ft_to_rg_ft(a:nvim_ft)
 	" Get cscope files location
 	let files_name = a:files_loc . "cscope.files"
 	if has('win32')
@@ -273,7 +256,7 @@ function! ctags#CreateCscopeFiles(files_loc, cwd_rg, nvim_ft) abort
 	return 1
 endfunction
 
-function! ctags#CreateTags(ft_spec, tags_name, files_loc, ctags_lang, cwd_rg) abort
+function! s:create_tags(ft_spec, tags_name, files_loc, ctags_lang, cwd_rg) abort
 	if a:ft_spec == 1
 		let ctags_cmd = "ctags -L cscope.files -f " . a:tags_name . " --sort=no --c-kinds=+p --c++-kinds=+p --fields=+l extras=+q --language-force=" . a:ctags_lang
 	else
@@ -295,43 +278,63 @@ function! ctags#CreateTags(ft_spec, tags_name, files_loc, ctags_lang, cwd_rg) ab
 		return
 	endif
 
-	" Add new tag file if not already on the list
-	let list_tags = tagfiles()
-	let tag_present = 0
-	for tag in list_tags
-		if tag =~# a:tags_name
-			let tag_present = 1
-		endif
-	endfor
-	if tag_present == 0
-		execute "set tags+=" . g:std_data_path . '/ctags/' . a:tags_name
-	endif
+	call s:add_tags(a:tags_name)
 	execute "cd " . a:cwd_rg
 	return 1
 endfunction
 
 function! ctags#LoadCscopeDatabse() abort
-	let cs_db = utils#GetPathFolderName(getcwd())
-	if empty(cs_db)
-		echomsg "Failed to obtain current folder name"
-		return
-	endif
-
 	" Local cscope.out has priority
 	if !empty(glob('cscope.out'))
 		cs add cscope.out
 		return 1
 	endif
 
+	let root_dir = ''
+	if exists('*FindRootDirectory')
+		let curr_dir = getcwd()
+		let root_dir = FindRootDirectory()
+		" Restore cwd since rooter changes it
+		execute 'silent lcd ' . curr_dir
+	endif
+
+	if empty(root_dir)
+		let root_dir = getcwd()
+	endif
+
+	let cs_db = utils#GetPathFolderName(root_dir)
+	if empty(cs_db)
+		echomsg "Failed to obtain current folder name"
+		return
+	endif
+
+	" Load tags as well
+	call s:add_tags('tags_' . cs_db)
+
 	let cs_db = cs_db . '.out'
 	let cs_loc = g:std_data_path . '/ctags/' . cs_db
 
 	redir => output
-	execute "cs show"
+	execute 'cs show'
 	redir END
 
 	" If connection doesnt exist and file exists
 	if output !~# cs_db && !empty(glob(cs_loc))
-		execute "cs add " . cs_loc
+		execute 'silent cs add ' . cs_loc
+	endif
+endfunction
+
+function! s:add_tags(tags_name) abort
+	" Add new tag file if not already on the list
+	let list_tags = tagfiles()
+	let tag_present = 0
+	for tag in list_tags
+		if tag =~# a:tags_name
+			let tag_present = 1
+			break
+		endif
+	endfor
+	if tag_present == 0
+		execute "set tags+=" . g:std_data_path . '/ctags/' . a:tags_name
 	endif
 endfunction

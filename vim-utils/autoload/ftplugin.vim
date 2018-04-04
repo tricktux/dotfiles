@@ -17,23 +17,11 @@ function! ftplugin#AutoHighlight() abort
 endfunction
 
 function! ftplugin#TagMappings() abort
-	" Cscope and tag jumping mappings
-	" nnoremap <buffer> <Leader>tk :cs kill -1<CR>
-	command! UtilsTagKill :cs kill -1<CR>
-	" nnoremap <buffer> <Leader>tv :vs<CR>:exec("tag ".expand("<cword>"))<CR>
 	" ReLoad cscope database
-	" nnoremap <buffer> <Leader>tl :call ctags#LoadCscopeDatabse()<CR>
 	command! UtilsTagLoadCurrFolder call ctags#LoadCscopeDatabse()
-	" Find functions calling this function
-	" nnoremap <buffer> <Leader>tc :cs find c <C-R>=expand("<cword>")<CR><CR>
-	" Find functions definition
-	" nnoremap <buffer> <Leader>tg :cs find g <c-r>=expand("<cword>")<cr><cr>
-	" Find functions called by this function not being used
-	" nnoremap <Leader>td :cs find d <C-R>=expand("<cword>")<CR><CR>
-	" nnoremap <buffer> <Leader>ts :cs show<CR>
-	command! UtilsTagShow :cs show<CR>
-	" nnoremap <buffer> <Leader>tu :call ctags#NvimSyncCtags(0)<CR>
+	nnoremap <silent> <buffer> <LocalLeader>tt :call ctags#LoadCscopeDatabse()<cr>
 	command! UtilsTagUpdateCurrFolder call ctags#NvimSyncCtags(0)
+	nnoremap <silent> <buffer> <LocalLeader>tu :call ctags#LoadCscopeDatabse()<cr>
 endfunction
 
 " For cpp use '/\/\/'
@@ -93,10 +81,14 @@ function! ftplugin#SetCompilersAndOther() abort
 	" Set compiler now depending on folder and system. Auto set the compiler
 	let folder_name = expand('%:p:h')
 
-	" Note: inside the '' is a pat which is a regex. That is why \\
-	if folder_name =~? 'Onewings\\Source'
-		call <SID>compiler_borland()
-	elseif folder_name =~# 'OneWings' || folder_name =~# 'UnrealProjects'
+	if folder_name =~# 'OneWings'
+		" Load cscope database
+		call ctags#LoadCscopeDatabse()
+		" Note: inside the '' is a pat which is a regex. That is why \\
+		if folder_name =~? 'Onewings\\Source'
+			call <SID>compiler_borland()
+			return
+		endif
 		call <SID>compiler_msbuild(folder_name)
 	endif
 endfunction
@@ -136,15 +128,16 @@ function! s:compiler_borland() abort
 
 	compiler borland
 	" For Borland use only make
-	let b:neomake_cpp_enabled_makers = ['make']
-	let b:neomake_cpp_make_args = ['%:r.obj']
-	let b:neomake_cpp_make_append_file = 0
+	let b:neomake_cpp_enabled_makers = ['makeborland']
 endfunction
 
 function! s:compiler_msbuild(curr_folder) abort
 	compiler msbuild
-	let &l:errorformat='%f(%l): %t%*[^ ] C%n: %m'
+	let &l:errorformat='%f(%l): %t%*[^ ] C%n: %m [%.%#]'
 
+	" Wed Apr 04 2018 11:10: Alternative errorformat found somewhere:
+	" \ 'errorformat': '%E%f(%l\,%c): error CS%n: %m [%.%#],'.
+	" \                '%W%f(%l\,%c): warning CS%n: %m [%.%#]',
 
 	" Compose VS project name base on the root folder of the current file
 	let proj_name = utils#GetPathFolderName(a:curr_folder)
@@ -164,5 +157,4 @@ function! s:compiler_msbuild(curr_folder) abort
 				\ '/verbosity:quiet',
 				\ '/property:GenerateFullPaths=true',
 				\ '/property:SelectedFiles=%' ]
-	let b:neomake_cpp_msbuild_append_file = 0
 endfunction
