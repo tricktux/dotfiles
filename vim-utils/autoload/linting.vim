@@ -41,6 +41,10 @@ function! s:set_neomake() abort
 				\ 'exe' : 'make',
 				\ }
 
+	let g:neomake_cpp_msbuild_maker = {
+				\ 'exe' : 'msbuild',
+				\ }
+
 	" Fri Nov 03 2017 19:05: Finally understood the concept of neomake and linting in
 	" general. NeomakeFile is suppose to run as it names says in only a single file.
 	" And that is what you should configure on a per buffer basis. Look at

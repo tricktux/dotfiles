@@ -57,10 +57,10 @@ function! ftplugin#Syntastic(mode, checkers) abort
 endfunction
 
 function! ftplugin#SetCompilersAndOther() abort
-	" TODO-[RM]-(Wed Sep 13 2017 12:56): Make this a function
-	" Note: When outside of a wings folder or in unix use default Neomake default maker
-	" options which is pretty great
-	" Window specific settings
+	if exists('b:current_compiler')
+		return
+	endif
+
 	if has('unix')
 		setlocal foldmethod=syntax
 
@@ -80,8 +80,10 @@ function! ftplugin#SetCompilersAndOther() abort
 
 	" Commands for windows
 	command! -buffer UtilsCompilerGcc execute("compiler gcc<bar>:setlocal makeprg=mingw32-make")
-	command! -buffer UtilsCompilerBorland execute("compiler borland")
-	command! -buffer UtilsCompilerMsbuild execute("compiler msbuild<bar>:set errorformat&")
+	command! -buffer UtilsCompilerBorland call <SID>compiler_borland()
+	command! -buffer UtilsCompilerMsbuild call <SID>compiler_msbuild(expand('%:p:h'))
+	command! -buffer UtilsCompilerClangNeomake call <SID>compiler_clang()
+
 	if exists(':Dispatch')
 		" Time runtime of a specific program. Pass as Argument executable with arguments. Pass as Argument executable with
 		" arguments. Example sep_calc.exe seprc.
@@ -89,48 +91,77 @@ function! ftplugin#SetCompilersAndOther() abort
 	endif
 
 	" Set compiler now depending on folder and system. Auto set the compiler
-	if exists('b:current_compiler')
-		return
-	endif
+	let folder_name = expand('%:p:h')
 
 	" Note: inside the '' is a pat which is a regex. That is why \\
-	let b:neomake_cpp_enabled_makers = executable('clang') ? ['clangtidy', 'clangcheck'] : ['']
-	let b:neomake_cpp_enabled_makers += executable('cppcheck') ? ['cppcheck'] : ['']
-	let b:neomake_clang_args = '-target x86_64-pc-windows-gnu -std=c++1z -stdlib=libc++ -Wall -pedantic'
-
-	if expand('%:p') =~? 'Onewings\\Source'
-		command! -buffer UtilsUpdateBorlandMakefile call <SID>update_borland_makefile()
-		augroup Borland
-			autocmd! * <buffer>
-			autocmd BufWritePre <buffer=abuf> call <SID>update_borland_makefile()
-		augroup end
-
-		compiler borland
-		" For Borland use only make
-		let b:neomake_cpp_enabled_makers = ['make']
-		let b:neomake_cpp_make_args = ['%:r.obj']
-		let b:neomake_cpp_make_append_file = 0
-	elseif expand('%:p') =~# 'OneWings' || expand('%:p') =~# 'UnrealProjects'
-		compiler msbuild
-		" silent set errorformat&
-		" TODO-[RM]-(Sat Nov 04 2017 02:14): Not sure how to build only one file in VS
-		" - Mon Dec 04 2017 19:35: Tried for long time was not able to do it.
-		"   Just use clang makers and then do the normal build
+	if folder_name =~? 'Onewings\\Source'
+		call <SID>compiler_borland()
+	elseif folder_name =~# 'OneWings' || folder_name =~# 'UnrealProjects'
+		call <SID>compiler_msbuild(folder_name)
 	endif
 endfunction
 
 function! s:update_borland_makefile() abort
 	" If compiler is not borland(set by SetupCompiler) fail.
 	if !exists('b:current_compiler') || b:current_compiler !=# 'borland'
-		echo 'Error, not in WINGS folder'
+		echomsg 'Error, not in WINGS folder'
 		return -1
 	endif
 
 	if empty(glob('WINGS.bpr')) " We may be in a different folder
+		echomsg 'Failed to locate WINGS.bpr'
 		return -2
 	endif
 
-	call job_start(['bpr2mak', '-omakefile', 'WINGS.bpr'], { 'out_io': 'null' })
+	if !executable('bpr2mak')
+		echomsg 'bpr2mak	is not executable'
+		return -3
+	endif
+
+	call job_start(['bpr2mak', '-omakefile', 'WINGS.bpr'])
 endfunction
 
+function! s:compiler_clang() abort
+	let b:neomake_cpp_enabled_makers = executable('clang') ? ['clangtidy', 'clangcheck'] : ['']
+	let b:neomake_cpp_enabled_makers += executable('cppcheck') ? ['cppcheck'] : ['']
+	let b:neomake_clang_args = '-target x86_64-pc-windows-gnu -std=c++1z -stdlib=libc++ -Wall -pedantic'
+endfunction
 
+function! s:compiler_borland() abort
+	command! -buffer UtilsUpdateBorlandMakefile call <SID>update_borland_makefile()
+	augroup Borland
+		autocmd! * <buffer>
+		autocmd BufWritePre <buffer=abuf> call <SID>update_borland_makefile()
+	augroup end
+
+	compiler borland
+	" For Borland use only make
+	let b:neomake_cpp_enabled_makers = ['make']
+	let b:neomake_cpp_make_args = ['%:r.obj']
+	let b:neomake_cpp_make_append_file = 0
+endfunction
+
+function! s:compiler_msbuild(curr_folder) abort
+	compiler msbuild
+	setlocal errorformat&
+
+	" Compose VS project name base on the root folder of the current file
+	let proj_name = utils#GetPathFolderName(a:curr_folder)
+	if empty(proj_name)
+		return
+	endif
+
+	" Compose solution name
+	let proj_name .= filereadable(proj_name . '.sln') ? '.sln' : '.vcxproj'
+	" Fix make_program
+	let &l:makeprg='msbuild ' . proj_name . ' /nologo /v:q /property:GenerateFullPaths=true'
+
+	let b:neomake_cpp_enabled_makers = ['msbuild']
+	let b:neomake_cpp_msbuild_args = [
+				\ proj_name,
+				\ '/nologo',
+				\ '/verbosity:quiet',
+				\ '/property:GenerateFullPaths=true',
+				\ '/property:SelectedFiles=%' ]
+	let b:neomake_cpp_msbuild_append_file = 0
+endfunction
