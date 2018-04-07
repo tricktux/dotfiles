@@ -28,8 +28,8 @@ sudo bleachbit --clean system.memory
 
 echo "Updating system"
 trizen -Syyu --devel --noconfirm
-sudo pacman -Qnq > ~/.config/dotfiles/$machine.native
-sudo pacman -Qmq > ~/.config/dotfiles/$machine.aur
+sudo pacman -Qnq > ~/.config/dotfiles/pkg/$machine/native
+sudo pacman -Qmq > ~/.config/dotfiles/pkg/$machine/aur
 
 echo "BleachBit runnning"
 
