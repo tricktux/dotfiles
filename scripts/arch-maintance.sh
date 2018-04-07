@@ -23,8 +23,8 @@ fi
 echo "Optimizing system memory now in order to do all sudo commands at once"
 sudo bleachbit --clean system.memory
 
-echo "Removing unused orphan packages"
-sudo pacman -Rns $(pacman -Qtdq) --noconfirm
+# echo "Removing unused orphan packages"
+# sudo pacman -Rns $(pacman -Qtdq) --noconfirm
 
 echo "Updating system"
 trizen -Syyu --devel --noconfirm
