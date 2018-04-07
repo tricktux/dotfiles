@@ -11,7 +11,6 @@
 	editor = nvim
 	excludesfile = ~/.gitignore_global
 
-; testing
 [credential]
 	helper = cache --timeout=7200
 
