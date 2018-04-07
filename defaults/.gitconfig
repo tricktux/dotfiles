@@ -12,7 +12,7 @@
 	excludesfile = ~/.gitignore_global
 
 [credential]
-  helper = cache --timeout 30000
+	helper = 'cache --timeout=7200'
 
 ; silence some strange warning
 [push]
