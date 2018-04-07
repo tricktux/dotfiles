@@ -1,0 +1,31 @@
+[user]
+	email = rmolin88@gmail.com
+	name = Reinaldo Molina
+[alias]
+	st = status
+	co = checkout
+	br = branch
+	up = rebase
+	ci = commit
+[core]
+	editor = vim
+	excludesfile = $USERPROFILE/.gitignore_global
+
+[credential]
+	helper = wincred
+
+; silence some strange warning
+[push]
+	default = simple
+[diff]
+	tool = gvim
+[difftool "gvim"]
+	cmd = "$ProgramFiles\Vim\vim80\gvim.exe -d \"$LOCAL\" \"$REMOTE\""
+	prompt = false
+[merge]
+	tool = gvim
+[mergetool "gvim"]
+	cmd = "$ProgramFiles\Vim\vim80\gvim.exe -d \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\""
+	prompt = false
+[color]
+	ui = auto
