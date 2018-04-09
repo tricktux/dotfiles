@@ -93,6 +93,38 @@ function! ftplugin#SetCompilersAndOther() abort
 	endif
 endfunction
 
+function! ftplugin#QpdfviewPreview(ext) abort
+	let s:ext = a:ext
+	execute 'nnoremap <buffer> <Plug>Preview :silent !qpdfview --unique --quiet %:r' . a:ext
+	let s:i3_mark = 'nvim'
+	" Set an i3 mark on this current window so that we can regain focus later
+	execute ':silent !i3-msg mark ' . s:i3_mark
+
+	augroup update_pdf
+		autocmd!
+		autocmd User NeomakeJobFinished call s:preview_qpdfview()
+	augroup end
+endfunction
+
+function! s:preview_qpdfview() abort
+	if !exists('s:ext') || !exists('s:i3_mark')
+		return -1
+	endif
+
+	let file = expand('%:t:r') . s:ext
+	if !filereadable(file)
+		" echomsg 'File doesn exist: ' . file
+		return -2
+	endif
+
+	" Such awesome unix hacking!
+	" Update the just updated file view in qpdfview
+	execute ':silent !qpdfview --unique --quiet ' . file
+	" However this will focus the qpdfview window. Annoying.
+	" Therefore restore focust to the marked nvim instance
+	execute ":silent !i3-msg '[con_mark=\"" . s:i3_mark . "\"]' focus"
+endfunction
+
 function! s:update_borland_makefile() abort
 	" If compiler is not borland(set by SetupCompiler) fail.
 	if !exists('b:current_compiler') || b:current_compiler !=# 'borland'

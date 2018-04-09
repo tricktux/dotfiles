@@ -53,20 +53,17 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 		nnoremap <buffer> <LocalLeader>a :OnlineThesaurusCurrentWord<cr>
 	endif
 
+	" Need to test but I think not needed anymore
 	if executable('pandoc') && !has('unix')
 		" nnoremap <buffer> <Plug>Make :!pandoc % -o %:r.pdf --from markdown --template eisvogel --listings<CR>
-		nnoremap <buffer> <Plug>Make :!pandoc % -o %:r.docx -r markdown+simple_tables+table_captions+yaml_metadata_block -S -s <CR>
+		" nnoremap <buffer> <Plug>Make :!pandoc % -o %:r.docx -r markdown+simple_tables+table_captions+yaml_metadata_block -S -s <CR>
+		let b:neomake_makepandoc_make_args = ['%:t:r.docx']
 	endif
 
-	if executable('zathura')
-		nnoremap <buffer> <Plug>Preview :!zathura %:r.pdf&<CR>
+	if executable('qpdfview') && exists('g:loaded_neomake') && executable('i3-msg')
+		call ftplugin#QpdfviewPreview('.pdf')
 	endif
 
-	if exists(':Neomake')
-		let b:neomake_markdown_enabled_makers = ['make']
-		let b:neomake_markdown_make_args = ['%:t:r.pdf']
-		let b:neomake_markdown_make_append_file = 0
-	endif
 endif
 
 if exists('*AutoCorrect')
@@ -106,10 +103,10 @@ function! MdCheckSpelling() abort
 	endif
 endfunction
 
-function! MdInstallTemplate() abort
+function! s:install_template() abort
 	if has('win32')
 		if !exists('g:std_config_path')
-			echomsg 'MdInstallTemplate(): g:std_config_path doesnt exist'
+			echomsg 's:install_template(): g:std_config_path doesnt exist'
 			return
 		else
 			let template_path = g:std_config_path . "\\pandoc\\templates\\eisvogel.latex"
@@ -135,9 +132,9 @@ function! MdInstallTemplate() abort
 	endif
 endfunction
 
-function! MdPreviewInBrowser() abort
+function! s:preview_browser() abort
 	if !executable(g:browser_cmd)
-		echoerr '[MdPreviewInBrowser]: Browser: ' . g:browser_cmd . ' not executable/found'
+		echoerr '[s:preview_browser]: Browser: ' . g:browser_cmd . ' not executable/found'
 		return -1
 	endif
 
@@ -156,7 +153,7 @@ command! -buffer UtilsWeeklyReportCreate call utils#ConvertWeeklyReport()
 " Markdown fix _ showing red
 command! -buffer UtilsFixUnderscore execute("%s/_/\\_/gc<CR>")
 " TODO.RM-Thu May 18 2017 12:17: This should be changed to opera
-command! -buffer UtilsPreviewMarkdown call MdPreviewInBrowser()
-command! -buffer UtilsInstallMarkdownPreview call MdInstallTemplate()
+command! -buffer UtilsPreviewMarkdown call s:preview_browser()
+command! -buffer UtilsInstallMarkdownPreview call s:install_template()
 
 let b:undo_ftplugin = "setl foldenable< spell< complete< ts< sw< sts< comments< formatoptions<"

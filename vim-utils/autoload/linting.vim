@@ -35,13 +35,19 @@ function! s:set_neomake() abort
 				\ }
 	let g:neomake_info_sign = {'text': "\uf449", 'texthl': 'NeomakeInfoSign'}
 
-	let g:neomake_plantuml_plantuml_maker = {
+	let g:neomake_plantuml_maker = {
 				\ 'exe': 'plantuml',
 				\ 'errorformat': '%EError line %l in file: %f,%Z%m',
 				\ }
 	let g:neomake_makeborland_maker = {
 				\ 'exe' : 'make',
 				\ 'args' : ['%:r.obj'],
+				\ 'append_file' : 0,
+				\ }
+
+	let g:neomake_makepandoc_maker = {
+				\ 'exe' : 'make',
+				\ 'args' : ['%:r.pdf'],
 				\ 'append_file' : 0,
 				\ }
 
@@ -60,7 +66,7 @@ function! s:set_neomake() abort
 	" Neomake automatically. Having said this still use `<LocalLeader>m` to make entire
 	" projects, meaning to run your project builder.
 	" Fri Nov 03 2017 19:20: For vim linting use: `pip install vim-vint --user`
-	let g:neomake_markdown_enabled_makers = ['make']
+	let g:neomake_markdown_enabled_makers = ['makepandoc']
 	let g:neomake_plantuml_enabled_makers = ['plantuml']
 
 	augroup custom_neomake
