@@ -102,7 +102,7 @@ function! ftplugin#QpdfviewPreview(ext) abort
 
 	augroup update_pdf
 		autocmd!
-		autocmd User NeomakeJobFinished call s:preview_qpdfview()
+		autocmd BufWritePost <buffer> call s:preview_qpdfview()
 	augroup end
 endfunction
 
@@ -111,12 +111,14 @@ function! s:preview_qpdfview() abort
 		return -1
 	endif
 
-	let file = expand('%:t:r') . s:ext
+	let file = expand('%:r') . s:ext
 	if !filereadable(file)
 		" echomsg 'File doesn exist: ' . file
 		return -2
 	endif
 
+	" Give time for things to finish (1 sec)
+	execute ':sleep'
 	" Such awesome unix hacking!
 	" Update the just updated file view in qpdfview
 	execute ':silent !qpdfview --unique --quiet ' . file
