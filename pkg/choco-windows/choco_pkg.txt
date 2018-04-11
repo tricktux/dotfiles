@@ -1,0 +1,66 @@
+Chocolatey v0.10.9
+7zip.install 18.1
+7zip.portable 18.1
+adb 1.0.39.20171026
+autohotkey.portable 1.1.28.00
+bleachbit 2.0
+bleachbit.install 2.0
+checksum 0.2.0
+chocolatey 0.10.9
+chocolatey-core.extension 1.3.3
+chocolatey-uninstall.extension 1.2.0
+chocolatey-windowsupdate.extension 1.0.2
+chocolateygui 0.16.0
+cmder 1.3.5
+cppcheck 1.82.0
+curl 7.59.0
+Cygwin 2.10.0
+doxygen.install
+Ghostscript.app 9.23
+git.install 2.16.3
+gpg4win-vanilla 2.3.4.20170919
+graphviz 2.38.0.20171119
+llvm
+javaruntime 8.0.151
+jre8 8.0.161
+KB2919355 1.0.20160915
+KB2919442 1.0.20160915
+KB2999226 1.0.20170509
+KB3033929 1.0.3
+KB3035131 1.0.1
+languagetool 4.1
+Listary 5.00.2843
+lua53 5.3.3
+make 3.81.4
+miktex 2.9.6643
+miktex.install 2.9.6615
+msys2 20161025.0.0
+pandoc
+plantuml 1.2018.2
+PowerShell 5.1.14409.20180105
+python2 2.7.14
+python3 3.6.5
+ripgrep 0.8.1
+SQLite 3.22.0
+sqlite.shell 3.10.1
+StarUML 5.0
+sumatrapdf 3.1.2
+sumatrapdf.commandline 3.1.2
+tortoisesvn 1.9.7.27907
+treesizefree 4.1.2.3
+vcredist140 14.12.25810
+vcredist2010 10.0.40219.2
+vcredist2015 14.0.24215.20170201
+vim-tux 8.0.1638
+vim-tux.install 8.0.1638
+wget 1.19.4
+workrave 1.10.1.6
+zeal 0.5.0.20180104
+zeal.install 0.5.0.20180104
+55 packages installed.
+
+Other manuals:
+- xmeter
+- opera
+- vim nerd fonts:
+	- Download from this link: https://github.com/ryanoasis/nerd-fonts/releases/download/v1.2.0/DejaVuSansMono.zip
