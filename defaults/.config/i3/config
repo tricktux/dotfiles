@@ -486,13 +486,16 @@ mode "$mode_launch" {
 
 # Mode Screenshot: {{{
 # Sat Dec 30 2017 22:56:
+# bindsym f exec --no-startup-id gnome-screenshot -f ~/.cache/`date '+%y-%m-%d_%T'`.png;mode "default"
+# bindsym s exec --no-startup-id gnome-screenshot -a -f ~/.cache/`date '+%y-%m-%d_%T'`.png;mode "default"
+# bindsym w exec --no-startup-id gnome-screenshot -w -f ~/.cache/`date '+%y-%m-%d_%T'`.png;mode "default"
 set $mode_screenshot screenshot: [f]ull_screen, [s]election, [w]indow
 	bindsym $mod+Shift+s mode "$mode_screenshot"
 
 	mode "$mode_screenshot" {
-		bindsym f exec --no-startup-id gnome-screenshot -f ~/.cache/`date '+%y-%m-%d_%T'`.png;mode "default"
-		bindsym s exec --no-startup-id gnome-screenshot -a -f ~/.cache/`date '+%y-%m-%d_%T'`.png;mode "default"
-		bindsym w exec --no-startup-id gnome-screenshot -w -f ~/.cache/`date '+%y-%m-%d_%T'`.png;mode "default"
+		bindsym f exec --no-startup-id sleep 0.2 && scrot '%Y-%m-%d_%T_scrot.png' -e 'mv $f ~/.cache/';mode "default" 
+		bindsym s exec --no-startup-id sleep 0.2 && scrot -s '%Y-%m-%d_%T_scrot.png' -e 'mv $f ~/.cache/';mode "default"
+		bindsym w exec --no-startup-id sleep 0.2 && scrot -u '%Y-%m-%d_%T_scrot.png' -e 'mv $f ~/.cache/';mode "default"
 
 		bindsym Escape mode "default"
 		bindsym Return mode "default"
