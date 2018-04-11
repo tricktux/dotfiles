@@ -17,15 +17,15 @@
 ; silence some strange warning
 [push]
 	default = simple
-[diff]
-	tool = gvim
-[difftool "gvim"]
-	cmd = "$ProgramFiles\Vim\vim80\gvim.exe -d \"$LOCAL\" \"$REMOTE\""
-	prompt = false
-[merge]
-	tool = gvim
-[mergetool "gvim"]
-	cmd = "$ProgramFiles\Vim\vim80\gvim.exe -d \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\""
-	prompt = false
+;[diff]
+	;tool = gvim
+;[difftool "gvim"]
+	;cmd = "$ProgramFiles\Vim\vim80\gvim.exe -d \"$LOCAL\" \"$REMOTE\""
+	;prompt = false
+;[merge]
+	;tool = gvim
+;[mergetool "gvim"]
+	;cmd = "$ProgramFiles\Vim\vim80\gvim.exe -d \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\""
+	;prompt = false
 [color]
 	ui = auto
