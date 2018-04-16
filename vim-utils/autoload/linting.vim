@@ -68,10 +68,7 @@ function! s:set_neomake() abort
 	" Fri Nov 03 2017 19:20: For vim linting use: `pip install vim-vint --user`
 	let g:neomake_plantuml_enabled_makers = ['plantuml']
 
-	Plug 'mkalinski/vim-lightline_neomake'
-		let g:lightline_neomake#format = '%s: %d'
-		let g:lightline_neomake#sep = ' '
-
+	let g:neomake_logfile = g:std_cache_path . '/neomake.log'
 	let s:msg = ''
 	augroup custom_neomake
 		autocmd!
