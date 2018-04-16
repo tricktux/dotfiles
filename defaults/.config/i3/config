@@ -493,7 +493,7 @@ set $mode_screenshot screenshot: [f]ull_screen, [s]election, [w]indow
 	bindsym $mod+Shift+s mode "$mode_screenshot"
 
 	mode "$mode_screenshot" {
-		bindsym f exec --no-startup-id sleep 0.2 && scrot '%Y-%m-%d_%T_scrot.png' -e 'mv $f ~/.cache/';mode "default" 
+		bindsym f exec --no-startup-id sleep 0.2 && scrot '%Y-%m-%d_%T_scrot.png' -e 'mv $f ~/.cache/';mode "default"
 		bindsym s exec --no-startup-id sleep 0.2 && scrot -s '%Y-%m-%d_%T_scrot.png' -e 'mv $f ~/.cache/';mode "default"
 		bindsym w exec --no-startup-id sleep 0.2 && scrot -u '%Y-%m-%d_%T_scrot.png' -e 'mv $f ~/.cache/';mode "default"
 
@@ -552,7 +552,7 @@ exec --no-startup-id seafile-applet
 exec --no-startup-id redshift -c ~/.config/redshift.conf
 
 # Mon Jan 15 2018 18:43: New cool app
-exec --no-startup-id workrave
+# exec --no-startup-id workrave
 
 # Mon Jul 17 2017 06:55 Not the proper way to start insync. See arch insync
 # exec --no-startup-id insync start
