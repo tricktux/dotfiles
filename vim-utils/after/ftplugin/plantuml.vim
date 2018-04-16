@@ -19,8 +19,5 @@ if !exists('no_plugin_maps') && !exists('no_uml_maps')
 	" nnoremap <silent> <buffer> <Plug>Make :call neomake#Make({ 'file_mode' : 0 })<cr>
 				" \:silent! !killall -s SIGHUP mupdf<CR>
 	" nnoremap <buffer> <Plug>Preview :!mupdf %:r.png&<CR>
-	if executable('qpdfview') && exists('g:loaded_neomake') && executable('i3-msg')
-		call ftplugin#QpdfviewPreview('.png')
-	endif
 endif
 

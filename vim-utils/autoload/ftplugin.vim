@@ -93,32 +93,40 @@ function! ftplugin#SetCompilersAndOther() abort
 	endif
 endfunction
 
-function! ftplugin#QpdfviewPreview(ext) abort
+function! ftplugin#QpdfviewPreview(ext, maker) abort
 	let s:ext = a:ext
+	let s:maker = a:maker
 	execute 'nnoremap <buffer> <Plug>Preview :silent !qpdfview --unique --quiet %:r' . a:ext
 	let s:i3_mark = 'nvim'
 	" Set an i3 mark on this current window so that we can regain focus later
 	execute ':silent !i3-msg mark ' . s:i3_mark
 
-	augroup update_pdf
-		autocmd!
-		autocmd BufWritePost <buffer> call s:preview_qpdfview()
-	augroup end
+	" augroup update_pdf
+		" autocmd!
+		" autocmd User NeomakeJobFinished call s:preview_qpdfview()
+	" augroup end
 endfunction
 
 function! s:preview_qpdfview() abort
-	if !exists('s:ext') || !exists('s:i3_mark')
+	if !exists('s:ext') || !exists('s:i3_mark') || !exists('s:maker')
 		return -1
+	endif
+
+	let context = g:neomake_hook_context
+	if context.jobinfo.exit_code != 0
+		return -2
+	endif
+
+	if context.jobinfo.maker.name != s:maker
+		return -3
 	endif
 
 	let file = expand('%:r') . s:ext
 	if !filereadable(file)
 		" echomsg 'File doesn exist: ' . file
-		return -2
+		return -4
 	endif
 
-	" Give time for things to finish (1 sec)
-	execute ':sleep'
 	" Such awesome unix hacking!
 	" Update the just updated file view in qpdfview
 	execute ':silent !qpdfview --unique --quiet ' . file
@@ -150,7 +158,9 @@ endfunction
 function! s:compiler_clang() abort
 	let b:neomake_cpp_enabled_makers = executable('clang') ? ['clangtidy', 'clangcheck'] : ['']
 	let b:neomake_cpp_enabled_makers += executable('cppcheck') ? ['cppcheck'] : ['']
-	let b:neomake_clang_args = '-target x86_64-pc-windows-gnu -std=c++1z -stdlib=libc++ -Wall -pedantic'
+	if !has('unix')
+		let b:neomake_clang_args = '-target x86_64-pc-windows-gnu -std=c++1z -stdlib=libc++ -Wall -pedantic'
+	endif
 endfunction
 
 function! s:compiler_borland() abort
@@ -162,7 +172,9 @@ function! s:compiler_borland() abort
 
 	compiler borland
 	" For Borland use only make
-	let b:neomake_cpp_enabled_makers = ['makeborland']
+	let b:neomake_cpp_enabled_makers = ['make']
+	let b:neomake_make_args = '%:r.obj'
+	let b:neomake_make_append_file = 0
 endfunction
 
 function! s:compiler_msbuild(curr_folder) abort

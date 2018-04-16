@@ -52,30 +52,22 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	if exists(':OnlineThesaurusCurrentWord')
 		nnoremap <buffer> <LocalLeader>a :OnlineThesaurusCurrentWord<cr>
 	endif
-
-	" Need to test but I think not needed anymore
-	if executable('pandoc') && !has('unix')
-		" nnoremap <buffer> <Plug>Make :!pandoc % -o %:r.pdf --from markdown --template eisvogel --listings<CR>
-		" nnoremap <buffer> <Plug>Make :!pandoc % -o %:r.docx -r markdown+simple_tables+table_captions+yaml_metadata_block -S -s <CR>
-		let b:neomake_makepandoc_make_args = ['%:t:r.docx']
-	endif
-
-	if executable('qpdfview') && exists('g:loaded_neomake') && executable('i3-msg')
-		call ftplugin#QpdfviewPreview('.pdf')
-	endif
-
 endif
 
 if exists('*AutoCorrect')
 	call AutoCorrect()
-	" Tue Dec 26 2017 16:40: These abbreviations are really annoying when typing in
-	" spanish. Delete them.
 	iuna si
 	iuna Si
 endif
 
 if exists('g:loaded_surround')
 	let b:surround_95 = "_\r_"
+endif
+
+if executable('pandoc')
+	let b:neomake_markdown_enabled_makers = ['make']
+	let b:neomake_make_args = has('unix') ? '%:r.pdf' : '%:r.docx'
+	let b:neomake_make_append_file = 0
 endif
 
 " Advanced spelling checks for when writting documents and such
