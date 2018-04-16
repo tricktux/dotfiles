@@ -486,54 +486,6 @@ function! utils#SetWingsPath(sPath) abort
 	call utils#GuiFont('+')
 endfunction
 
-function! utils#CheckNeomakeStatus() abort
-	return exists('g:neomake_lightline') ? g:neomake_lightline : ''
-endfunction
-
-function! utils#NeomakeJobStartd() abort
-	if exists('g:neomake_hook_context.jobinfo.maker.name')
-		let g:neomake_lightline = "\uf188" . printf(" %s ", g:neomake_hook_context.jobinfo.maker.name) . "\uf0e4"
-	else
-		unlet! g:neomake_lightline
-	endif
-endfunction
-
-function! utils#NeomakeJobFinished() abort
-	if exists('g:neomake_hook_context.jobinfo.exit_code')
-		let g:neomake_lightline = "\uf188" . printf(" %s: %s", g:neomake_hook_context.jobinfo.maker.name,
-					\ g:neomake_hook_context.jobinfo.exit_code)
-		echomsg g:neomake_lightline
-		" Thu Nov 09 2017 10:11: When using the native status line function this is not
-		" needed.
-		" keyword: example use of lambda in vim
-		" call timer_start(
-						" \ 60 * 1000,
-						" \ { timer -> execute("unlet! g:neomake_lightline") }
-					" \ )
-	else
-		unlet! g:neomake_lightline
-	endif
-endfunction
-
-function! utils#NeomakeNativeStatusLine() abort
-	return neomake#statusline#get(bufnr("%"), {
-				\ 'format_running': "\uf188" .' {{running_job_names}} ' . "\uf0e4",
-				\ 'format_ok': "\uf188" .' ✓',
-				\ 'format_quickfix_ok': '',
-				\ 'format_quickfix_issues': "\uf188" .' %s ',
-				\ 'format_quickfix_type_E': ' {{type}}:{{count}} ',
-				\ 'format_quickfix_type_W': ' {{type}}:{{count}} ',
-				\ 'format_quickfix_type_I': ' {{type}}:{{count}} ',
-				\ 'format_loclist_ok': '',
-				\ 'format_loclist_issues': "\uf188" .' %s ',
-				\ 'format_loclist_type_E': ' {{type}}:{{count}} ',
-				\ 'format_loclist_type_W': ' {{type}}:{{count}} ',
-				\ 'format_loclist_type_I': ' {{type}}:{{count}} ',
-				\ 'format_loclist_unknown': '',
-				\ })
-	" return ret == '?' ? '' : ret
-endfunction
-
 " TODO.RM-Fri Apr 28 2017 16:14: Also move this to the ftplugin
 " Use current 'grepprg' to search files for text
 "		filteype - Possible values: 1 - Search only files of type 'filetype'. Any

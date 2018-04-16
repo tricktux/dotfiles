@@ -52,33 +52,22 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	if exists(':OnlineThesaurusCurrentWord')
 		nnoremap <buffer> <LocalLeader>a :OnlineThesaurusCurrentWord<cr>
 	endif
-
-	if executable('pandoc') && !has('unix')
-		" nnoremap <buffer> <Plug>Make :!pandoc % -o %:r.pdf --from markdown --template eisvogel --listings<CR>
-		nnoremap <buffer> <Plug>Make :!pandoc % -o %:r.docx -r markdown+simple_tables+table_captions+yaml_metadata_block -S -s <CR>
-	endif
-
-	if executable('zathura')
-		nnoremap <buffer> <Plug>Preview :!zathura %:r.pdf&<CR>
-	endif
-
-	if exists(':Neomake')
-		let b:neomake_markdown_enabled_makers = ['make']
-		let b:neomake_markdown_make_args = ['%:t:r.pdf']
-		let b:neomake_markdown_make_append_file = 0
-	endif
 endif
 
 if exists('*AutoCorrect')
 	call AutoCorrect()
-	" Tue Dec 26 2017 16:40: These abbreviations are really annoying when typing in
-	" spanish. Delete them.
 	iuna si
 	iuna Si
 endif
 
 if exists('g:loaded_surround')
 	let b:surround_95 = "_\r_"
+endif
+
+if executable('pandoc')
+	let b:neomake_markdown_enabled_makers = ['make']
+	let b:neomake_make_args = has('unix') ? '%:r.pdf' : '%:r.docx'
+	let b:neomake_make_append_file = 0
 endif
 
 " Advanced spelling checks for when writting documents and such
@@ -106,10 +95,10 @@ function! MdCheckSpelling() abort
 	endif
 endfunction
 
-function! MdInstallTemplate() abort
+function! s:install_template() abort
 	if has('win32')
 		if !exists('g:std_config_path')
-			echomsg 'MdInstallTemplate(): g:std_config_path doesnt exist'
+			echomsg 's:install_template(): g:std_config_path doesnt exist'
 			return
 		else
 			let template_path = g:std_config_path . "\\pandoc\\templates\\eisvogel.latex"
@@ -135,9 +124,9 @@ function! MdInstallTemplate() abort
 	endif
 endfunction
 
-function! MdPreviewInBrowser() abort
+function! s:preview_browser() abort
 	if !executable(g:browser_cmd)
-		echoerr '[MdPreviewInBrowser]: Browser: ' . g:browser_cmd . ' not executable/found'
+		echoerr '[s:preview_browser]: Browser: ' . g:browser_cmd . ' not executable/found'
 		return -1
 	endif
 
@@ -156,7 +145,7 @@ command! -buffer UtilsWeeklyReportCreate call utils#ConvertWeeklyReport()
 " Markdown fix _ showing red
 command! -buffer UtilsFixUnderscore execute("%s/_/\\_/gc<CR>")
 " TODO.RM-Thu May 18 2017 12:17: This should be changed to opera
-command! -buffer UtilsPreviewMarkdown call MdPreviewInBrowser()
-command! -buffer UtilsInstallMarkdownPreview call MdInstallTemplate()
+command! -buffer UtilsPreviewMarkdown call s:preview_browser()
+command! -buffer UtilsInstallMarkdownPreview call s:install_template()
 
 let b:undo_ftplugin = "setl foldenable< spell< complete< ts< sw< sts< comments< formatoptions<"
