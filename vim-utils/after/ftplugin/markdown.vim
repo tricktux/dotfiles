@@ -23,6 +23,7 @@ setlocal sts=2
 " makes vim autocomplete - bullets
 setlocal comments+=b:-,b:*
 setlocal formatoptions+=aw
+setlocal conceallevel=0
 
 if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	" TODO-[RM]-(Fri Oct 20 2017 08:50): Fix this code commented here below
@@ -66,7 +67,7 @@ endif
 
 if executable('pandoc')
 	let b:neomake_markdown_enabled_makers = ['make']
-	let b:neomake_make_args = has('unix') ? '%:r.pdf' : '%:r.docx'
+	let b:neomake_make_args = has('unix') ? ['%:r.pdf'] : ['%:r.docx']
 	let b:neomake_make_append_file = 0
 endif
 
@@ -148,4 +149,4 @@ command! -buffer UtilsFixUnderscore execute("%s/_/\\_/gc<CR>")
 command! -buffer UtilsPreviewMarkdown call s:preview_browser()
 command! -buffer UtilsInstallMarkdownPreview call s:install_template()
 
-let b:undo_ftplugin = "setl foldenable< spell< complete< ts< sw< sts< comments< formatoptions<"
+let b:undo_ftplugin = "setl foldenable< spell< complete< ts< sw< sts< comments< formatoptions< conceallevel<"
