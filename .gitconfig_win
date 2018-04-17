@@ -17,6 +17,7 @@
 ; silence some strange warning
 [push]
 	default = simple
+
 ;[diff]
 	;tool = gvim
 ;[difftool "gvim"]

@@ -737,7 +737,9 @@ function! s:configure_lightline(linter, tags) abort
 
 	if a:linter ==# 'neomake'
 		let g:lightline.active.left[2] += [ 'neomake' ]
-		let g:lightline.component_function['neomake'] = 'utils#NeomakeNativeStatusLine'
+		let g:lightline.component_function['neomake'] = 'linting#NeomakeNativeStatusLine'
+		" let g:lightline.component_function['neomake'] = 'lightline_neomake#component'
+		" let g:lightline.component_type['neomake'] = 'error'
 	elseif a:linter ==# 'ale'
 		let g:lightline.component_expand = {
 					\  'linter_warnings': 'lightline#ale#warnings',

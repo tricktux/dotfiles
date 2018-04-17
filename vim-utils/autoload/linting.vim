@@ -35,18 +35,24 @@ function! s:set_neomake() abort
 				\ }
 	let g:neomake_info_sign = {'text': "\uf449", 'texthl': 'NeomakeInfoSign'}
 
-	let g:neomake_plantuml_plantuml_maker = {
+	let g:neomake_plantuml_maker = {
 				\ 'exe': 'plantuml',
 				\ 'errorformat': '%EError line %l in file: %f,%Z%m',
 				\ }
-	let g:neomake_makeborland_maker = {
-				\ 'exe' : 'make',
-				\ 'args' : ['%:r.obj'],
+
+	let g:neomake_make_maker = {
+				\ 'exe': 'make',
+				\ 'args': ['--build'],
+				\ 'errorformat': '%f:%l:%c: %m',
+				\ }
+
+	let g:neomake_msbuild_maker = {
+				\ 'exe' : 'msbuild',
 				\ 'append_file' : 0,
 				\ }
 
-	let g:neomake_cpp_msbuild_maker = {
-				\ 'exe' : 'msbuild',
+	let g:neomake_qpdfview_maker = {
+				\ 'exe' : 'qpdfview',
 				\ 'append_file' : 0,
 				\ }
 
@@ -60,15 +66,55 @@ function! s:set_neomake() abort
 	" Neomake automatically. Having said this still use `<LocalLeader>m` to make entire
 	" projects, meaning to run your project builder.
 	" Fri Nov 03 2017 19:20: For vim linting use: `pip install vim-vint --user`
-	let g:neomake_markdown_enabled_makers = ['make']
 	let g:neomake_plantuml_enabled_makers = ['plantuml']
 
+	let g:neomake_logfile = g:std_cache_path . '/neomake.log'
+	let s:msg = ''
 	augroup custom_neomake
-		autocmd User NeomakeJobFinished call utils#NeomakeJobFinished()
+		autocmd!
+		autocmd User NeomakeFinished call s:neomake_finished()
+		autocmd User NeomakeJobFinished call s:neomake_job_finished()
 		" Thu Nov 09 2017 10:17: Not needed when using neomake native statusline function
 		" autocmd User NeomakeJobStarted call utils#NeomakeJobStartd()
 	augroup END
 endfunction
+
+function! s:neomake_finished() abort
+	echomsg s:msg
+	let s:msg = ''
+endfunction
+
+function! s:neomake_job_finished() abort
+	if !exists('g:neomake_hook_context.jobinfo')
+		return -1
+	endif
+
+	let m = g:neomake_hook_context.jobinfo
+	let s:msg .= printf("%s: %d ", m.maker.name, m.exit_code)
+endfunction
+
+function! linting#NeomakeNativeStatusLine() abort
+	return neomake#statusline#get(bufnr("%"), {
+				\ 'format_running': "\uf188" .' {{running_job_names}} ' . "\uf0e4",
+				\ 'format_quickfix_issues': "\uf188" .' qf:%s',
+				\ 'format_quickfix_type_E': ' {{type}}:{{count}}',
+				\ 'format_quickfix_type_W': ' {{type}}:{{count}}',
+				\ 'format_quickfix_type_I': ' {{type}}:{{count}}',
+				\ 'format_loclist_issues': "\uf188" .' loc:%s',
+				\ 'format_loclist_type_E': ' {{type}}:{{count}}',
+				\ 'format_loclist_type_W': ' {{type}}:{{count}}',
+				\ 'format_loclist_type_I': ' {{type}}:{{count}}',
+				\ 'format_loclist_ok': "\uf188" .' loc: ✓',
+				\ 'format_quickfix_ok': '',
+				\ 'format_loclist_unknown': '',
+				\ })
+
+endfunction
+
+function! linting#CheckNeomakeStatus() abort
+	return exists('g:neomake_lightline') ? g:neomake_lightline : ''
+endfunction
+
 
 function! s:set_ale() abort
 	" Main with ale is that is a "as you type" linter
@@ -85,3 +131,4 @@ function! s:set_ale() abort
 		" let linter = {  }
 		" call ale#linter#Define('cpp', linter)
 endfunction
+
