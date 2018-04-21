@@ -15,6 +15,10 @@
 
 " This function should not abort on error. Let continue configuring stuff
 function! plugin#Config()
+	if s:plugin_check() != 1
+		return -1
+	endif
+
 	" Vim-Plug
 		nnoremap <Leader>Pi :so %<bar>call plugin#Config()<bar>PlugInstall<CR>
 		nnoremap <Leader>Pu :PlugUpdate<CR>
@@ -371,23 +375,31 @@ function! plugin#Config()
 	return 1
 endfunction
 
-function! plugin#Check() abort
-	if empty(glob(g:plug_path))
-		if executable('curl')
-			execute '!curl -kfLo ' . g:plug_path . ' --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-			augroup install_plugin
-				autocmd!
-				autocmd VimEnter * :PlugInstall
-			augroup END
-		else
-			echomsg 'Master I cant install plugins for you because you'
-						\' do not have curl. Please fix this. Plugins'
-						\' will not be loaded.'
-			return 0
-		endif
+function! s:plugin_check() abort
+	" If already loaded files cool
+	if exists('*plug#begin')
+		return 1
 	endif
 
+	if !empty(glob(g:plug_path))
+		" vim-plug exists already
+		execute 'source ' . g:plug_path
+		return 1
+	endif
+
+	let link = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+	if utils#DownloadFile(g:plug_path, link) != 1
+		return -1
+	endif
+
+	augroup install_plugin
+		autocmd!
+		autocmd VimEnter * :PlugInstall
+	augroup END
+
+	" Source the newly downloaded file
 	execute 'source ' . g:plug_path
+	" Return 1 so that Plugs get loaded and install later
 	return 1
 endfunction
 
