@@ -42,7 +42,7 @@ function! augroup#Set() abort
 			" Note: Fri Mar 03 2017 14:13 - This never works.
 			" autocmd VimEnter * call utils#LoadSession('default.vim')
 			" Thu Oct 05 2017 22:22: Special settings that are only detected after vim is loaded
-			autocmd VimEnter * call utils#OnVimEnter()
+			autocmd VimEnter * call s:on_vim_enter()
 			autocmd VimLeave * call utils#SaveSession('default.vim')
 			" Keep splits normalize
 			autocmd VimResized * call utils#NormalizeWindowSize()
@@ -50,7 +50,7 @@ function! augroup#Set() abort
 
 		augroup BuffTypes
 			autocmd!
-			autocmd BufNewFile,BufReadPost * call utils#BufDetermine()
+			autocmd BufNewFile,BufReadPost * call s:determine_buf_type()
 		augroup END
 
 	endif
@@ -74,4 +74,37 @@ function! augroup#Set() abort
 	endif
 endfunction
 
-" vim:tw=78:ts=2:sts=2:sw=2:
+" Things to do after everything has being loaded
+function! s:on_vim_enter() abort
+	call options#SetCli()
+	call plugin#AfterConfig()
+endfunction
+
+function! s:determine_buf_type() abort
+	let ext = expand('%:e')
+	if ext ==# 'ino' || ext ==# 'pde'
+		setfiletype arduino
+	elseif ext ==# 'scp'
+		setfiletype wings_syntax
+		" elseif ext ==# 'log'
+		" setfiletype unreal-log
+	elseif ext ==# 'set' || ext ==# 'sum'
+		setfiletype dosini
+	elseif ext ==# 'bin' || ext ==# 'pdf' || ext ==# 'hsr'
+		call s:set_bin_file_type()
+	endif
+
+	" Remember last cursor position
+	if line("'\"") > 0 && line("'\"") <= line("$") |
+		exe "normal g`\"" |
+	endif
+endfunction
+
+function! s:set_bin_file_type() abort
+	let &l:bin=1
+	%!xxd
+	setlocal ft=xxd
+	%!xxd -r
+	setlocal nomodified
+endfunction
+

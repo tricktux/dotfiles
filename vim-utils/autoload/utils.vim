@@ -707,26 +707,6 @@ function! utils#ProfilePerformance() abort
 	execute 'profile file *'
 endfunction
 
-function! utils#BufDetermine() abort
-	let ext = expand('%:e')
-	if ext ==# 'ino' || ext ==# 'pde'
-		setfiletype arduino
-	elseif ext ==# 'scp'
-		setfiletype wings_syntax
-	" elseif ext ==# 'log'
-		" setfiletype unreal-log
-	elseif ext ==# 'set' || ext ==# 'sum'
-		setfiletype dosini
-	elseif ext ==# 'bin' || ext ==# 'pdf' || ext ==# 'hsr'
-		call utils#SetBinFileType()
-	endif
-
-	" Remember last cursor position
-	if line("'\"") > 0 && line("'\"") <= line("$") |
-		exe "normal g`\"" |
-	endif
-endfunction
-
 function! utils#SearchHighlighted() abort
 	if exists(':Wcopen')
 		" Yank selection to reg a then echo it cli
@@ -775,14 +755,6 @@ function! utils#MastersDropboxOpen(wiki) abort
 		return
 	endif
 	execute "edit " . db_path
-endfunction
-
-function! utils#SetBinFileType() abort
-	let &l:bin=1
-	%!xxd
-	setlocal ft=xxd
-	%!xxd -r
-	setlocal nomodified
 endfunction
 
 function! utils#DeniteRec(path) abort
@@ -1009,12 +981,6 @@ function! utils#SearchPdf() abort
 	let &l:grepprg = grep_buf
 endfunction
 
-" Things to do after everything has being loaded
-function! utils#OnVimEnter() abort
-	call options#SetCli()
-	call plugin#AfterConfig()
-endfunction
-
 function! utils#TrimWhiteSpace() abort
 	%s/\s*$//
 	''
@@ -1043,3 +1009,19 @@ function! utils#GetPathFolderName(curr_dir) abort
 	return a:curr_dir[back_slash_index+1:]
 endfunction
 
+function! utils#DownloadFile(path, link) abort
+	" Need curl to download the file
+	if !executable('curl')
+		echomsg 'Master I cant download file for you because you'
+					\' do not have curl.'
+		return 0
+	endif
+
+	if empty(a:path) || empty(a:link)
+		echomsg '[utils#DownloadFile]: Please specify a path and link to download'
+		return -1
+	endif
+
+	execute '!curl -kfLo ' . a:path . ' --create-dirs ' . a:link
+	return 1
+endfunction
