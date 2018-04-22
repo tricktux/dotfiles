@@ -123,8 +123,6 @@ function! options#Set() abort
 		let g:colorscheme_day_time = 8
 		let g:colorscheme_day = 'PaperColor'
 		let g:colorscheme_night = 'PaperColor'
-		" Set up a default colorscheme. It will be changed later by Flux
-		call utils#ChangeColors(g:colorscheme_day, 'light')
 		" Set highliting for Search and Incsearch
 		" Auto Flux (changing themes) is set in the augroup.vim file
 		augroup FluxLike

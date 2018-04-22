@@ -460,12 +460,12 @@ function! plugin#AfterConfig() abort
 					\   'venv/', 'images/', '*.min.*', 'img/', 'fonts/', 'Obj/', '*.obj'])
 	endif
 
-	" On linux run neomake everytime you save a file
+	" Run neomake everytime you save a file
 	if exists('g:loaded_neomake')
 		call neomake#configure#automake('w')
 	endif
 
-	if exists(':Grepper')
+	if exists('g:loaded_grepper')
 		if has('unix')
 			let g:grepper.rg.grepprg .= " --smart-case --follow --fixed-strings --hidden --iglob '!.{git,svn}'"
 		else
@@ -477,6 +477,11 @@ function! plugin#AfterConfig() abort
 						\ 'grepprg':    'pdfgrep --ignore-case --page-number --recursive --context 1',
 						\ }
 		endif
+	endif
+
+	if exists('g:loaded_lightline')
+		" Set up a default colorscheme. It will be changed later by Flux
+		call utils#ChangeColors(g:colorscheme_day, 'light')
 	endif
 endfunction
 
