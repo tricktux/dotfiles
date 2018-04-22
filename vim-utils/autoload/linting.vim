@@ -77,6 +77,13 @@ function! s:set_neomake() abort
 		" Thu Nov 09 2017 10:17: Not needed when using neomake native statusline function
 		" autocmd User NeomakeJobStarted call utils#NeomakeJobStartd()
 	augroup END
+
+	if exists('g:lightline')
+		let g:lightline.active.left[2] += [ 'neomake' ]
+		let g:lightline.component_function['neomake'] = 'linting#NeomakeNativeStatusLine'
+		" let g:lightline.component_function['neomake'] = 'lightline_neomake#component'
+		" let g:lightline.component_type['neomake'] = 'error'
+	endif
 endfunction
 
 function! s:neomake_finished() abort
@@ -108,13 +115,11 @@ function! linting#NeomakeNativeStatusLine() abort
 				\ 'format_quickfix_ok': '',
 				\ 'format_loclist_unknown': '',
 				\ })
-
 endfunction
 
 function! linting#CheckNeomakeStatus() abort
 	return exists('g:neomake_lightline') ? g:neomake_lightline : ''
 endfunction
-
 
 function! s:set_ale() abort
 	" Main with ale is that is a "as you type" linter
@@ -127,6 +132,19 @@ function! s:set_ale() abort
 		let g:ale_lint_on_enter = 0
 		let g:ale_lint_on_filetype_changed = 0
 
+		let g:lightline.component_expand = {
+					\  'linter_warnings': 'lightline#ale#warnings',
+					\  'linter_errors': 'lightline#ale#errors',
+					\  'linter_ok': 'lightline#ale#ok',
+					\ }
+		let g:lightline.component_type = {
+					\     'linter_warnings': 'warning',
+					\     'linter_errors': 'error',
+					\     'linter_ok': 'left',
+					\ }
+		call insert(g:lightline.active.right[0], 'linter_errors')
+		call insert(g:lightline.active.right[0], 'linter_warnings')
+		call insert(g:lightline.active.right[0], 'linter_ok' )
 		" call ale#linter#Define(filetype, linter)
 		" let linter = {  }
 		" call ale#linter#Define('cpp', linter)

@@ -35,10 +35,14 @@ function! plugin#Config()
 		call plug#begin(g:vim_plugins_path)
 	endif
 
+	call plugin_lightline#config()
+
 	call s:configure_async_plugins()
 
 	call s:configure_ctrlp()
 
+	" Lightline should be one of the very first ones so that plugins can later on add to
+	" it
 	if executable('mutt')
 		Plug 'guanqun/vim-mutt-aliases-plugin'
 	endif
@@ -60,8 +64,7 @@ function! plugin#Config()
 
 	" Possible values:
 	" - neomake ale
-	let linter = 'neomake'
-	call linting#Set(linter)
+	call linting#Set('neomake')
 
 	" Neovim exclusive plugins
 	if has('nvim')
@@ -229,8 +232,6 @@ function! plugin#Config()
 		nnoremap gG :Wcsearch duckduckgo <C-R>=expand("<cword>")<CR><CR>
 		vnoremap gG "*y:call www#www#user_input_search(1, @*)<CR>
 
-	call s:configure_lightline(linter, '')
-
 	Plug 'PotatoesMaster/i3-vim-syntax'
 
 	if has('win32')
@@ -366,8 +367,12 @@ function! plugin#Config()
 		let g:extra_whitespace_ignored_filetypes = []
 
 	Plug 'mhinz/vim-grepper'
-		nnoremap <LocalLeader>s :GrepperRg 
+		nnoremap <LocalLeader>s :Grepper -tool rg<cr>
 		xmap gs  <plug>(GrepperOperator)
+		if exists('g:lightline')
+			let g:lightline.active.left[2] += [ 'grepper' ]
+			let g:lightline.component_function['grepper'] = 'grepper#statusline'
+		endif
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
@@ -466,6 +471,12 @@ function! plugin#AfterConfig() abort
 		else
 			let g:grepper.rg.grepprg .= ' --smart-case --follow --fixed-strings --hidden --iglob !.{git,svn}'
 		endif
+		if executable('pdfgrep')
+			let g:grepper.tools += ['pdfgrep']
+			let g:grepper.pdfgrep = {
+						\ 'grepprg':    'pdfgrep --ignore-case --page-number --recursive --context 1',
+						\ }
+		endif
 	endif
 endfunction
 
@@ -506,10 +517,15 @@ function! s:configure_ctrlp() abort
 					\ 'PrtCurRight()': ['<right>'],
 					\ }
 		" Lightline settings
-		let g:ctrlp_status_func = {
-					\ 'main': 'utils#CtrlPStatusFunc_1',
-					\ 'prog': 'utils#CtrlPStatusFunc_2',
-					\ }
+		if exists('g:lightline')
+			let g:lightline.active.left[2] += [ 'ctrlpmark' ]
+			let g:lightline.component_function['ctrlpmark'] = 'plugin_lightline#CtrlPMark'
+
+			let g:ctrlp_status_func = {
+						\ 'main': 'plugin_lightline#CtrlPStatusFunc_1',
+						\ 'prog': 'plugin_lightline#CtrlPStatusFunc_2',
+						\ }
+		endif
 endfunction
 
 function! s:configure_async_plugins() abort
@@ -610,16 +626,16 @@ endfunction
 
 function! s:configure_tagbar() abort
 	Plug 'majutsushi/tagbar'
-	let g:tagbar_ctags_bin = 'ctags'
-	let g:tagbar_autofocus = 1
-	let g:tagbar_show_linenumbers = 2
-	let g:tagbar_map_togglesort = 'r'
-	let g:tagbar_map_nexttag = '<c-j>'
-	let g:tagbar_map_prevtag = '<c-k>'
-	let g:tagbar_map_openallfolds = '<c-n>'
-	let g:tagbar_map_closeallfolds = '<c-c>'
-	let g:tagbar_map_togglefold = '<c-x>'
-	let g:tagbar_autoclose = 1
+		let g:tagbar_ctags_bin = 'ctags'
+		let g:tagbar_autofocus = 1
+		let g:tagbar_show_linenumbers = 2
+		let g:tagbar_map_togglesort = 'r'
+		let g:tagbar_map_nexttag = '<c-j>'
+		let g:tagbar_map_prevtag = '<c-k>'
+		let g:tagbar_map_openallfolds = '<c-n>'
+		let g:tagbar_map_closeallfolds = '<c-c>'
+		let g:tagbar_map_togglefold = '<c-x>'
+		let g:tagbar_autoclose = 1
 endfunction
 
 function! s:configure_snippets() abort
@@ -663,112 +679,6 @@ function! s:configure_vim_sneak() abort
 	xnoremap s s
 endfunction
 
-" linter - String specifing if it should set neomake or ale in the status line
-function! s:configure_lightline(linter, tags) abort
-	Plug 'itchyny/lightline.vim'
-	" Note: Inside of the functions here there can be no single quotes (') only double (")
-	if !exists('g:lightline')
-		let g:lightline = {}
-	endif
-	" Basic options
-	" otf-inconsolata-powerline-git
-	let g:lightline = {
-				\ 'active' : {
-				\   'left': [
-				\							[ 'mode', 'paste' ],
-				\							[ 'readonly', 'filename' ],
-				\							[  ]
-				\						],
-				\ 'right': [ [ 'lineinfo' ],
-				\            [ 'percent' ],
-				\            [ 'fileformat', 'fileencoding', 'filetype' ] ] }
-				\ }
-	" \ 'component': {
-	" \   'lineinfo': ' %3l:%-2v',
-	" \ },
-	" \ 'separator': { 'left': '', 'right': '' },
-	" \ 'subseparator': { 'left': '', 'right': '' }
-	" \ }
-
-	" let g:lightline.tab = {
-	" \ 'active': [ 'tabnum', 'absolutepath', 'modified' ],
-	" \ }
-	let g:lightline.tabline = {
-				\ 'left': [ ['tabs'] ],
-				\ 'right': [ [ 'bufnum' , 'close'] ] }
-	let g:lightline.tab_component_function = {
-				\ 'filename': 'utils#LightlineAbsPath'
-				\ }
-	" Addons
-	let g:lightline.component = {}
-	let g:lightline.component['lineinfo'] = ' %3l:%-2v'
-
-	let g:lightline.separator = {}
-	let g:lightline.subseparator = {}
-
-	" Ovals. As opposed to the triangles. They do not look quite good
-	" let g:lightline.separator['left'] = "\ue0b4"
-	" let g:lightline.separator['right'] = "\ue0b6"
-	" let g:lightline.subseparator['left'] = "\ue0b5"
-	" let g:lightline.subseparator['right'] = "\ue0b7"
-
-	let g:lightline.separator['left'] = ''
-	let g:lightline.separator['right'] = ''
-	let g:lightline.subseparator['left'] = ''
-	let g:lightline.subseparator['right'] = ''
-
-	let g:lightline.component_function = {}
-	let g:lightline.component_function['filetype'] = 'utils#LightlineDeviconsFileType'
-	let g:lightline.component_function['fileformat'] = 'utils#LightlineDeviconsFileFormat'
-	let g:lightline.component_function['readonly'] = 'utils#LightlineReadonly'
-
-	let g:lightline.active.left[2] += [ 'ver_control' ]
-	let g:lightline.component_function['ver_control'] = 'utils#LightlineVerControl'
-
-	let g:lightline.active.left[2] += [ 'ctrlpmark' ]
-	let g:lightline.component_function['ctrlpmark'] = 'utils#LightlineCtrlPMark'
-
-	" These settings do not use patched fonts
-	" Fri Feb 02 2018 15:38: Its number one thing slowing down vim right now.
-	" let g:lightline.active.left[2] += [ 'tagbar' ]
-	" let g:lightline.component_function['tagbar'] = 'utils#LightlineTagbar'
-
-	let g:lightline.active.left[2] += [ 'pomodoro' ]
-	let g:lightline.component_function['pomodoro'] = 'utils#LightlinePomo'
-
-	if a:tags ==# 'gutentags'
-		let g:lightline.active.left[2] += [ 'tags' ]
-		let g:lightline.component_function['tags'] = 'gutentags#statusline'
-
-		augroup MyGutentagsStatusLineRefresher
-			autocmd!
-			autocmd User GutentagsUpdating call lightline#update()
-			autocmd User GutentagsUpdated call lightline#update()
-		augroup END
-	endif
-
-	if a:linter ==# 'neomake'
-		let g:lightline.active.left[2] += [ 'neomake' ]
-		let g:lightline.component_function['neomake'] = 'linting#NeomakeNativeStatusLine'
-		" let g:lightline.component_function['neomake'] = 'lightline_neomake#component'
-		" let g:lightline.component_type['neomake'] = 'error'
-	elseif a:linter ==# 'ale'
-		let g:lightline.component_expand = {
-					\  'linter_warnings': 'lightline#ale#warnings',
-					\  'linter_errors': 'lightline#ale#errors',
-					\  'linter_ok': 'lightline#ale#ok',
-					\ }
-		let g:lightline.component_type = {
-					\     'linter_warnings': 'warning',
-					\     'linter_errors': 'error',
-					\     'linter_ok': 'left',
-					\ }
-		call insert(g:lightline.active.right[0], 'linter_errors')
-		call insert(g:lightline.active.right[0], 'linter_warnings')
-		call insert(g:lightline.active.right[0], 'linter_ok' )
-	endif
-endfunction
-
 function! s:configure_vim_wordy() abort
 	Plug 'reedes/vim-wordy', { 'for' : 'markdown' }
 	let g:wordy#ring = [
@@ -800,7 +710,11 @@ function! s:configure_pomodoro() abort
 					\ && mpg123 ~/.config/dotfiles/notification_sounds/cool_notification1.mp3 2>/dev/null&"
 	endif
 	let g:pomodoro_log_file = g:std_data_path . '/pomodoro_log'
-	" %#ErrorMsg#%{PomodoroStatus()}%#StatusLine#
+
+	if exists('g:lightline')
+		let g:lightline.active.left[2] += [ 'pomodoro' ]
+		let g:lightline.component_function['pomodoro'] = 'pomo#status_bar'
+	endif
 endfunction
 
 " choice - One of netranger, nerdtree, or ranger
@@ -873,5 +787,14 @@ function! s:configure_tag_handler(choice) abort
 			let g:gutentags_trace = 1
 			" let g:gutentags_fake = 1
 			" let g:gutentags_ctags_extra_args = ['--sort=no', '--append']
+			let g:lightline.active.left[2] += [ 'tags' ]
+			let g:lightline.component_function['tags'] = 'gutentags#statusline'
+
+			augroup MyGutentagsStatusLineRefresher
+				autocmd!
+				autocmd User GutentagsUpdating call lightline#update()
+				autocmd User GutentagsUpdated call lightline#update()
+			augroup END
+
 	endif
 endfunction
