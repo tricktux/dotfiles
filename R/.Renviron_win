@@ -1,0 +1,6 @@
+R_HOME_USER = ${HOME}/Documents/R
+R_PROFILE_USER = ${HOME}/.Rprofile
+R_LIBS_USER = ${HOME}/R/win-library/3.5
+R_HISTFILE = ${HOME}/.cache/.Rhistory
+R_DEFAULT_PACKAGES = 'datasets,utils,grDevices,graphics,stats,methods,colorout,nvimcom'
+# MYSQL_HOME = /var/lib/mysql
