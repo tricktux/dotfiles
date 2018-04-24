@@ -23,7 +23,7 @@ function! init#vim() abort
 	endif
 
 	" PLUGINS_INIT
-	 if plugin#Check() && plugin#Config()
+	 if plugin#Config()
 	  let g:plugins_loaded = 1
 	 else
 	  echomsg 'No plugins where loaded'

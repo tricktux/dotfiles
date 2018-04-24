@@ -515,7 +515,7 @@ function! utils#FileTypeSearch(filetype, word) abort
 			let file_type_search = '--' . file_type_search
 	else
 		" If it is not a recognized engine do not do file type search
-		exe ":grep " . search
+		exe ":grep! " . search
 		echomsg '|Grep Engine:' grep_engine ' |FileType: All| CWD: ' getcwd()
 		return
 	endif
@@ -667,32 +667,7 @@ function! utils#ChangeColors(scheme, background) abort
 
 	" If using the lightline plugin then update that as well
 	" this could cause trouble if lightline does not that colorscheme
-	call utils#LightlineUpdateColorscheme()
-endfunction
-
-function! utils#LightlineUpdateColorscheme()
-	" Update the name first. This is important. Otherwise no colorscheme is set during startup
-	if exists('g:lightline')
-		if &background ==# 'dark'
-			let g:lightline.colorscheme = g:colorscheme_night . '_dark'
-		else
-			let g:lightline.colorscheme = g:colorscheme_day . '_light'
-		endif
-	endif
-
-	if !exists('g:loaded_lightline')
-		return
-	endif
-	try
-		" if g:colors_name =~# 'wombat\|solarized\|landscape\|jellybeans\|seoul256\|Tomorrow\|gruvbox\|PaperColor\|zenburn'
-			" let g:lightline.colorscheme =
-						" \ substitute(substitute(g:colors_name, '-', '_', 'g'), '256.*', '', '')
-			call lightline#init()
-			call lightline#colorscheme()
-			call lightline#update()
-		endif
-	catch
-	endtry
+	call plugin_lightline#UpdateColorscheme()
 endfunction
 
 function! utils#ProfilePerformance() abort
@@ -705,26 +680,6 @@ function! utils#ProfilePerformance() abort
 	endif
 	execute 'profile func *'
 	execute 'profile file *'
-endfunction
-
-function! utils#BufDetermine() abort
-	let ext = expand('%:e')
-	if ext ==# 'ino' || ext ==# 'pde'
-		setfiletype arduino
-	elseif ext ==# 'scp'
-		setfiletype wings_syntax
-	" elseif ext ==# 'log'
-		" setfiletype unreal-log
-	elseif ext ==# 'set' || ext ==# 'sum'
-		setfiletype dosini
-	elseif ext ==# 'bin' || ext ==# 'pdf' || ext ==# 'hsr'
-		call utils#SetBinFileType()
-	endif
-
-	" Remember last cursor position
-	if line("'\"") > 0 && line("'\"") <= line("$") |
-		exe "normal g`\"" |
-	endif
 endfunction
 
 function! utils#SearchHighlighted() abort
@@ -777,14 +732,6 @@ function! utils#MastersDropboxOpen(wiki) abort
 	execute "edit " . db_path
 endfunction
 
-function! utils#SetBinFileType() abort
-	let &l:bin=1
-	%!xxd
-	setlocal ft=xxd
-	%!xxd -r
-	setlocal nomodified
-endfunction
-
 function! utils#DeniteRec(path) abort
 	if !exists(':Denite')
 		let dir = getcwd()
@@ -826,81 +773,6 @@ function! utils#ChooseEmailAcc() abort
 	return ''
 endfunction
 
-function! utils#LightlineReadonly()
-	return &readonly ? '' : ''
-endfunction
-
-function! utils#LightlineVerControl() abort
-	" let mark = ''  " edit here for cool mark
-	let mark = "\uf406"  " edit here for cool mark
-	if expand('%:t') =~? 'Tagbar\|Gundo\|NERD\|ControlP' || &ft =~? 'vimfiler\|gitcommit'
-		return ''
-	endif
-
-	try
-		if exists('*fugitive#head')
-			let git = fugitive#head()
-			if git !=# ''
-				return mark . ' ' . git
-			endif
-		endif
-		" TODO-[RM]-(Mon Oct 30 2017 16:37): This here really doesnt work
-		" if executable('svn') && exists('*utils#UpdateSvnBranchInfo')
-			" let svn = utils#UpdateSvnBranchInfo()
-			" if !empty(svn)
-				" return '' . ' ' . svn
-			" endif
-		" endif
-	catch
-		return ''
-	endtry
-	return ''
-endfunction
-
-function! utils#LightlineCtrlPMark()
-	if expand('%:t') =~ 'ControlP' && has_key(g:lightline, 'ctrlp_item')
-		call lightline#link('iR'[g:lightline.ctrlp_regex])
-		return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
-					\ , g:lightline.ctrlp_next], 0)
-	else
-		return ''
-	endif
-endfunction
-
-function! utils#CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
-	let g:lightline.ctrlp_regex = a:regex
-	let g:lightline.ctrlp_prev = a:prev
-	let g:lightline.ctrlp_item = a:item
-	let g:lightline.ctrlp_next = a:next
-	return lightline#statusline(0)
-endfunction
-
-function! utils#CtrlPStatusFunc_2(str)
-	return lightline#statusline(0)
-endfunction
-
-function! utils#LightlineTagbar() abort
-	try
-		let ret =  tagbar#currenttag('%s','')
-	catch
-		return ''
-	endtry
-	return empty(ret) ? '' : "\uf02b" . ' ' . ret
-endfunction
-
-function! utils#LightlinePomo() abort
-	if !exists('*pomo#status_bar')
-		return ''
-	endif
-
-	return pomo#status_bar()
-endfunction
-
-function! utils#TagbarStatusFunc(current, sort, fname, ...) abort
-	let g:lightline.fname = a:fname
-	return lightline#statusline(0)
-endfunction
-
 " TODO.RM-Thu Mar 16 2017 08:36: Update this function to make it async. Maybe the whole plugin be async
 " This function gets called on BufEnter
 " Call the function from cli with any argument to obtain debugging output
@@ -937,9 +809,6 @@ function! utils#UpdateSvnBranchInfo() abort
 	endif
 endfunction
 
-function! utils#LightlineAbsPath(count) abort
-	return expand('%')
-endfunction
 
 function! utils#Grep() abort
 	let msg = 'Searching inside "' . getcwd() . '". Choose:'
@@ -973,22 +842,6 @@ function! utils#CommentReduceIndent() abort
 	execute "normal! ^f/hxhx"
 endfunction
 
-function! utils#LightlineDeviconsFileType()
-	if !exists('*WebDevIconsGetFileTypeSymbol')
-		return &filetype
-	endif
-
-	return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
-endfunction
-
-function! utils#LightlineDeviconsFileFormat()
-	if !exists('*WebDevIconsGetFileTypeSymbol')
-		return &fileformat
-	endif
-
-	return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
-endfunction
-
 " TODO-[RM]-(Fri Dec 01 2017 05:36): This function could be heavily improved by adding
 " color and also making vim understand its output
 " - Sample output without color
@@ -1001,18 +854,17 @@ function! utils#SearchPdf() abort
 		return
 	endif
 
+	if exists(':Grepper')
+		execute ':Grepper -tool pdfgrep'
+		return
+	endif
+
 	let grep_buf = &grepprg
 
 	setlocal grepprg=pdfgrep\ --ignore-case\ --page-number\ --recursive\ --context\ 1
 	return utils#FileTypeSearch(8, 8)
 
 	let &l:grepprg = grep_buf
-endfunction
-
-" Things to do after everything has being loaded
-function! utils#OnVimEnter() abort
-	call options#SetCli()
-	call plugin#AfterConfig()
 endfunction
 
 function! utils#TrimWhiteSpace() abort
@@ -1043,3 +895,19 @@ function! utils#GetPathFolderName(curr_dir) abort
 	return a:curr_dir[back_slash_index+1:]
 endfunction
 
+function! utils#DownloadFile(path, link) abort
+	" Need curl to download the file
+	if !executable('curl')
+		echomsg 'Master I cant download file for you because you'
+					\' do not have curl.'
+		return 0
+	endif
+
+	if empty(a:path) || empty(a:link)
+		echomsg '[utils#DownloadFile]: Please specify a path and link to download'
+		return -1
+	endif
+
+	execute '!curl -kfLo ' . a:path . ' --create-dirs ' . a:link
+	return 1
+endfunction
