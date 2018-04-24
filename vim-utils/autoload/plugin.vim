@@ -382,6 +382,8 @@ function! plugin#Config()
 		imap <LocalLeader>r <Plug>RStart
 		vmap <LocalLeader>r <Plug>RStart
 
+	Plug 'jalvesaq/Nvim-R'
+
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
