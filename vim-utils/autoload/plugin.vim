@@ -375,6 +375,9 @@ function! plugin#Config()
 		endif
 
 	Plug 'jalvesaq/Nvim-R'
+		" Installing manually:
+		" R CMD build /path/to/Nvim-R/R/nvimcom
+		" R CMD INSTALL nvimcom_0.9-39.tar.gz
 		nmap <LocalLeader>r <Plug>RStart
 		imap <LocalLeader>r <Plug>RStart
 		vmap <LocalLeader>r <Plug>RStart
