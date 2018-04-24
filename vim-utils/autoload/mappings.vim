@@ -89,7 +89,10 @@ function! mappings#Set() abort
 	"   time
 	nnoremap <C-s> :w<CR>
 	" Thu Feb 22 2018 07:42: Mind buggling super good mapping from vim-galore
-	nnoremap <c-h> :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
+	" Tue Apr 24 2018 14:06: For some reason in large .cpp files syntax sync takes away
+	" highlight
+	" nnoremap <c-h> :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
+	nnoremap <c-h> :nohlsearch<cr>:diffupdate<cr><c-l>
 	nnoremap <C-Space> i<Space><Esc>
 	" These are only for command line
 	" insert in the middle of whole word search
