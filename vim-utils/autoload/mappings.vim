@@ -38,7 +38,8 @@ function! mappings#Set() abort
 	nmap <Leader>tj <Plug>FileBrowser
 	" terminal-emulator mappings
 	if has('terminal') || has('nvim')
-		nmap <Leader>te <Plug>ToggleTerminal
+		nmap <Leader>te <Plug>terminal_toggle
+		vmap <LocalLeader>s <Plug>terminal_selection_send
 		execute "tnoremap " . g:esc . " <C-\\><C-n>"
 		tnoremap <A-h> <C-\><C-n><C-w>h
 		tnoremap <A-j> <C-\><C-n><C-w>j

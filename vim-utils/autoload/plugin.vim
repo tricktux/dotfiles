@@ -367,22 +367,23 @@ function! plugin#Config()
 		let g:extra_whitespace_ignored_filetypes = []
 
 	Plug 'mhinz/vim-grepper'
-		nnoremap <LocalLeader>s :Grepper -tool rg<cr>
-		xmap gs  <plug>(GrepperOperator)
+		nmap <LocalLeader>s <plug>(GrepperOperator)
+		xmap <LocalLeader>s <plug>(GrepperOperator)
 		if exists('g:lightline')
 			let g:lightline.active.left[2] += [ 'grepper' ]
 			let g:lightline.component_function['grepper'] = 'grepper#statusline'
 		endif
 
-	Plug 'jalvesaq/Nvim-R'
+	" Plug 'jalvesaq/Nvim-R'
+		" Tue Apr 24 2018 14:40: Too agressive with mappings. Very hard to get it to work.
+		" not seeing the huge gains at the moment. Better of just using neoterm at the
+		" moment.
 		" Installing manually:
 		" R CMD build /path/to/Nvim-R/R/nvimcom
 		" R CMD INSTALL nvimcom_0.9-39.tar.gz
-		nmap <LocalLeader>r <Plug>RStart
-		imap <LocalLeader>r <Plug>RStart
-		vmap <LocalLeader>r <Plug>RStart
-
-	Plug 'jalvesaq/Nvim-R'
+		" nmap <LocalLeader>r <Plug>RStart
+		" imap <LocalLeader>r <Plug>RStart
+		" vmap <LocalLeader>r <Plug>RStart
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
@@ -476,10 +477,13 @@ function! plugin#AfterConfig() abort
 	endif
 
 	if exists('g:loaded_grepper')
-		if has('unix')
-			let g:grepper.rg.grepprg .= " --smart-case --follow --fixed-strings --hidden --iglob '!.{git,svn}'"
-		else
-			let g:grepper.rg.grepprg .= ' --smart-case --follow --fixed-strings --hidden --iglob !.{git,svn}'
+		if executable('rg')
+			nnoremap <LocalLeader>s :Grepper -tool rg<cr>
+			if has('unix')
+				let g:grepper.rg.grepprg .= " --smart-case --follow --fixed-strings --hidden --iglob '!.{git,svn}'"
+			else
+				let g:grepper.rg.grepprg .= ' --smart-case --follow --fixed-strings --hidden --iglob !.{git,svn}'
+			endif
 		endif
 		if executable('pdfgrep')
 			let g:grepper.tools += ['pdfgrep']
@@ -545,7 +549,7 @@ endfunction
 
 function! s:configure_async_plugins() abort
 	if !has('nvim') && v:version < 800
-		echoerr 'These plugins require async support'
+		echomsg 'No async support in this version. No neoterm, no denite.'
 		return -1
 	endif
 
@@ -553,7 +557,8 @@ function! s:configure_async_plugins() abort
 		let g:neoterm_use_relative_path = 1
 		let g:neoterm_default_mod = 'vertical'
 		let g:neoterm_autoinsert=1
-		nnoremap <Plug>ToggleTerminal :Ttoggle<CR>
+		nnoremap <Plug>terminal_toggle :Ttoggle<CR>
+		vmap <Plug>terminal_selection_send :TREPLSendSelection<CR>
 
 	Plug 'Shougo/denite.nvim', { 'do' : has('nvim') ? ':UpdateRemotePlugins' : '' }
 		" TODO-[RM]-(Wed Jan 10 2018 15:46): Come up with new mappings for these commented
