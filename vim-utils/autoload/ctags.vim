@@ -311,11 +311,11 @@ function! ctags#LoadCscopeDatabse() abort
 	" Load tags as well
 	call s:add_tags('tags_' . cs_db)
 
-	let cs_db = cs_db . '.out'
+	let cs_db .= '.out'
 	let cs_loc = g:std_data_path . '/ctags/' . cs_db
 
 	redir => output
-	execute 'cs show'
+	execute 'silent cs show'
 	redir END
 
 	" If connection doesnt exist and file exists

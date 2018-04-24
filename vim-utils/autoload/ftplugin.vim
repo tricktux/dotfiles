@@ -173,7 +173,7 @@ function! s:compiler_borland() abort
 	compiler borland
 	" For Borland use only make
 	let b:neomake_cpp_enabled_makers = ['make']
-	let b:neomake_make_args = '%:r.obj'
+	let b:neomake_make_args = ['%:r.obj']
 	let b:neomake_make_append_file = 0
 endfunction
 

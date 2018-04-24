@@ -365,6 +365,8 @@ function! plugin#Config()
 		nnoremap <LocalLeader>s :GrepperRg 
 		xmap gs  <plug>(GrepperOperator)
 
+	Plug 'jalvesaq/Nvim-R'
+
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
