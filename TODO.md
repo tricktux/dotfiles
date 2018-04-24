@@ -11,6 +11,14 @@ fileext: md
 \tableofcontents
 \pagebreak
 
+## Tue Apr 17 2018 20:21
+- surbook
+	- seafile
+	- notifications size
+	- inotify check
+	- user groups
+	- sudo timeout
+
 ## Sat Dec 02 2017 07:39
 - [x] gnupg: increase key time out.
 

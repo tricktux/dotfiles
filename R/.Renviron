@@ -1,0 +1,6 @@
+R_HOME_USER = ${HOME}/R
+R_PROFILE_USER = ${HOME}/.config/r/Rprofile.r
+R_LIBS_USER = ${HOME}/R/x86_64-pc-linux-gnu-library/3.5
+R_HISTFILE = ${HOME}/.cache/.Rhistory
+R_DEFAULT_PACKAGES = 'datasets,utils,grDevices,graphics,stats,methods,colorout,nvimcom'
+MYSQL_HOME = /var/lib/mysql                  

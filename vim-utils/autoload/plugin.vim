@@ -374,6 +374,11 @@ function! plugin#Config()
 			let g:lightline.component_function['grepper'] = 'grepper#statusline'
 		endif
 
+	Plug 'jalvesaq/Nvim-R'
+		nmap <LocalLeader>r <Plug>RStart
+		imap <LocalLeader>r <Plug>RStart
+		vmap <LocalLeader>r <Plug>RStart
+
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
