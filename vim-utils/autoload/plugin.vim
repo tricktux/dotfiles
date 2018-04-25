@@ -484,6 +484,8 @@ function! plugin#AfterConfig() abort
 			else
 				let g:grepper.rg.grepprg .= ' --smart-case --follow --fixed-strings --hidden --iglob !.{git,svn}'
 			endif
+		else
+			nnoremap <LocalLeader>s :Grepper<cr>
 		endif
 		if executable('pdfgrep')
 			let g:grepper.tools += ['pdfgrep']
@@ -491,11 +493,6 @@ function! plugin#AfterConfig() abort
 						\ 'grepprg':    'pdfgrep --ignore-case --page-number --recursive --context 1',
 						\ }
 		endif
-	endif
-
-	if exists('g:loaded_lightline')
-		" Set up a default colorscheme. It will be changed later by Flux
-		call utils#ChangeColors(g:colorscheme_day, 'light')
 	endif
 endfunction
 
@@ -731,7 +728,7 @@ function! s:configure_pomodoro() abort
 	elseif executable('powershell')
 		let notif = $APPDATA . '/dotfiles/scripts/win_vim_notification.ps1'
 		if filereadable(notif)
-			let g:pomodoro_notification_cmd = 'powershell \.' . notif
+			let g:pomodoro_notification_cmd = 'powershell ' . notif
 		endif
 	endif
 	let g:pomodoro_log_file = g:std_data_path . '/pomodoro_log'

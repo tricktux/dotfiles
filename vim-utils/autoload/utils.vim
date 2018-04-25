@@ -631,10 +631,9 @@ function! utils#Flux() abort
 
 	if strftime("%H") >= g:colorscheme_night_time || strftime("%H") < g:colorscheme_day_time
 		" Its night time
-		if !exists('g:colors_name')
-			let g:colors_name = g:colorscheme_night
-		endif
-		if	&background !=# 'dark' || g:colors_name !=# g:colorscheme_night
+		if	&background !=# 'dark' ||
+				\ !exists('g:colors_name') ||
+				\ g:colors_name !=# g:colorscheme_night
 			call utils#ChangeColors(g:colorscheme_night, 'dark')
 		endif
 	else
@@ -642,7 +641,9 @@ function! utils#Flux() abort
 		if !exists('g:colors_name')
 			let g:colors_name = g:colorscheme_day
 		endif
-		if &background !=# 'light' || g:colors_name !=# g:colorscheme_day
+		if &background !=# 'light' ||
+					\ !exists('g:colors_name') ||
+					\ g:colors_name !=# g:colorscheme_day
 			call utils#ChangeColors(g:colorscheme_day, 'light')
 		endif
 	endif
