@@ -728,6 +728,11 @@ function! s:configure_pomodoro() abort
 	elseif executable('dunst')
 		let g:pomodoro_notification_cmd = "notify-send 'Pomodoro' 'Session ended'
 					\ && mpg123 ~/.config/dotfiles/notification_sounds/cool_notification1.mp3 2>/dev/null&"
+	elseif executable('powershell')
+		let notif = $APPDATA . '/dotfiles/scripts/win_vim_notification.ps1'
+		if filereadable(notif)
+			let g:pomodoro_notification_cmd = 'powershell \.' . notif
+		endif
 	endif
 	let g:pomodoro_log_file = g:std_data_path . '/pomodoro_log'
 
