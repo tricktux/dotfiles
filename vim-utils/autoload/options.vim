@@ -120,7 +120,7 @@ function! options#Set() abort
 	" Status Line and Colorscheme
 	" Set a default bogus colorscheme. If Plugins loaded it will be changed
 	colorscheme desert
-	if exists('g:plugins_loaded')
+	if exists('g:loaded_plugins')
 		let g:colorscheme_night_time = 18
 		let g:colorscheme_day_time = 8
 		let g:colorscheme_day = 'PaperColor'
@@ -178,7 +178,7 @@ function! options#Set() abort
 	" call s:set_grep()
 
 	" Undofiles
-	if exists("g:plugins_loaded") && exists("g:undofiles_path") && !empty(glob(g:undofiles_path))
+	if exists("g:loaded_plugins") && exists("g:undofiles_path") && !empty(glob(g:undofiles_path))
 		let &undodir= g:undofiles_path
 		set undofile
 		set undolevels=10000      " use many muchos levels of undo
@@ -186,10 +186,6 @@ function! options#Set() abort
 
 	" Tags
 	set tags=./.tags;,.tags;
-	" if exists("g:plugins_loaded")
-		" Load all tags and OneWings cscope database
-		" call ctags#SetTags()
-	" endif
 
 	" Diff options
 	let &diffopt='vertical'

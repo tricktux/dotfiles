@@ -35,7 +35,7 @@ function! augroup#Set() abort
 	" augroup END
 
 
-	if exists("g:plugins_loaded")
+	if exists("g:loaded_plugins")
 		augroup VimType
 			autocmd!
 			" Sessions

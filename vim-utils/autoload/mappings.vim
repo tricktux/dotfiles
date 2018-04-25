@@ -266,7 +266,7 @@ function! mappings#Set() abort
 	execute "inoremap " . g:esc . " <Esc>"
 
 	" Buffers Stuff <Leader>b?
-	if !exists("g:plugins_loaded")
+	if !exists("g:loaded_plugins")
 		nnoremap <S-k> :buffers<CR>:buffer<Space>
 	else
 		nnoremap <Leader>bs :buffers<CR>:buffer<Space>

@@ -5,10 +5,14 @@
 " Last Modified: Oct 18 2017 13:52
 " Created: Oct 18 2017 13:52
 
+" CUSTOM_COMMANDS
 function! commands#Set() abort
-	" CUSTOM_COMMANDS
-	" TODO.RM-Fri Jun 02 2017 16:10: Keep doing this. Until you Substitute
-	" all rarely used <Leader>j mappings for commands
+	command! UtilsIndentWholeFile execute("normal! mzgg=G`z")
+	command! UtilsFileFormat2Dos :e ++ff=dos<CR>
+
+	if !exists('g:loaded_plugins')
+		return
+	endif
 
 	" Convention: All commands names need to start with the autoload file name.
 	" And use camel case. This way is easier to search
@@ -17,11 +21,9 @@ function! commands#Set() abort
 	command! UtilsDiffSet call utils#SetDiff()
 	command! UtilsDiffOff call utils#UnsetDiff()
 	command! UtilsDiffReset call utils#UnsetDiff()<bar>call utils#SetDiff()
-	command! UtilsIndentWholeFile execute("normal! mzgg=G`z")
 	" Remove Trailing Spaces
 	command! UtilsRemoveTrailingSpaces call utils#TrimWhiteSpace()
 	" Convert fileformat to dos
-	command! UtilsFileFormat2Dos :e ++ff=dos<CR>
 	command! UtilsNerdComAltDelims execute("normal \<Plug>NERDCommenterAltDelims")
 	command! UtilsPdfSearch call utils#SearchPdf()
 	command! UtilsTagLoadCurrFolder call ctags#LoadCscopeDatabse()
