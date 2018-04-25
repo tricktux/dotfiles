@@ -38,27 +38,27 @@ function! s:copy_passwd_to_clipboard(passwd_file) abort
 		return -5
 	endif
 
-	echomsg 'Copied password: ' . a:passwd_file . " to clipboard."
+	echomsg 'Copied password: ' . a:passwd_file . ' to clipboard.'
 				\ 'It will be cleared in ' . g:passwd_sec_on_clipboard . ' seconds'
 	return timer_start(g:passwd_sec_on_clipboard*1000, funcref('s:clear_system_clipboard'))
 endfunction
 
 function! passwd#SelectPasswdFile() abort
-	if exists(':Denite')
-		call setreg(v:register, "") " Clean up register
-		execute "Denite -default-action=yank -path=" . g:passwd_store_dir . " file_rec"
-		let passwd_file = getreg()
-		if empty(passwd_file)
-			return
-		endif
-		" TODO-[RM]-(Fri Dec 01 2017 11:54): This down here could be a problem. Need to
-		" detect if the '/' was provided in the name. If user provides it could be
-		" duplicated here
-		return s:copy_passwd_to_clipboard(g:passwd_store_dir . '/' . passwd_file)
-	else
+	if !exists(':Denite')
 		echoerr 'Denite not accessible. Dont know any other way to this'
+		return
 	endif
 
+	call setreg(v:register, "") " Clean up register
+	execute "Denite -default-action=yank -path=" . g:passwd_store_dir . " file_rec"
+	let passwd_file = getreg()
+	if empty(passwd_file)
+		return
+	endif
+	" TODO-[RM]-(Fri Dec 01 2017 11:54): This down here could be a problem. Need to
+	" detect if the '/' was provided in the name. If user provides it could be
+	" duplicated here
+	return s:copy_passwd_to_clipboard(g:passwd_store_dir . '/' . passwd_file)
 	" TODO-[RM]-(Fri Dec 01 2017 11:48): Provide alternative to Denite
 endfunction
 
