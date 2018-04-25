@@ -50,7 +50,8 @@ function! augroup#Set() abort
 
 		augroup BuffTypes
 			autocmd!
-			autocmd BufNewFile,BufReadPost * call s:determine_buf_type()
+			autocmd BufNewFile * call s:determine_buf_type()
+			autocmd BufReadPost * call ctags#LoadCscopeDatabse()
 		augroup END
 
 	endif

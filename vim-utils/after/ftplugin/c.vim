@@ -60,7 +60,6 @@ if !exists('no_plugin_maps') && !exists('no_c_maps')
 		" nnoremap <F9> :LL print <C-R>=expand('<cword>')<cr>
 		" vnoremap <F9> :<C-U>LL print <C-R>=lldb#util#get_selection()<cr><cr>
 	endif
-	call ftplugin#TagMappings()
 	call ftplugin#Align('/\/\/')
 
 	if exists('g:clang_format_py')

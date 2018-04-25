@@ -52,6 +52,9 @@ function! mappings#Set() abort
 	nmap <LocalLeader>M <Plug>MakeFile
 	nmap <LocalLeader>p <Plug>Preview
 
+	" UtilsTagUpdateCurrFolder
+	nnoremap <silent> <LocalLeader>t :call ctags#NvimSyncCtags(0)<cr>
+
 	nnoremap <Leader>tt :TagbarToggle<CR>
 	nnoremap <Leader>ts :setlocal spell! spelllang=en_us<CR>
 

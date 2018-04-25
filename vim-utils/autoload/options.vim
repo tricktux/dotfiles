@@ -118,6 +118,8 @@ function! options#Set() abort
 	endif
 
 	" Status Line and Colorscheme
+	" Set a default bogus colorscheme. If Plugins loaded it will be changed
+	colorscheme desert
 	if exists('g:plugins_loaded')
 		let g:colorscheme_night_time = 18
 		let g:colorscheme_day_time = 8
@@ -131,7 +133,6 @@ function! options#Set() abort
 		augroup END
 	else
 		" If this not and android device and we have no plugins setup "ugly" status line
-		colorscheme desert
 		set statusline =
 		set statusline+=\ [%n]                                  "buffernr
 		set statusline+=\ %<%F\ %m%r%w                         "File+path

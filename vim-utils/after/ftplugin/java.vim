@@ -2,7 +2,7 @@
 " Description:	After default ftplugin for java
 " Author:				Reinaldo Molina <rmolin88@gmail.com>
 " Version:			1.0.0
-" Last Modified: Fri Jun 02 2017 10:14
+" Last Modified: Wed Apr 25 2018 15:26
 " Created:			Wed Nov 30 2016 09:21
 
 " Only do this when not done yet for this buffer
@@ -17,25 +17,18 @@ let b:match_words .= '\<if\>:\<else\>,'
 			\ . '\<while\>:\<continue\>:\<break\>,'
 			\ . '\<for\>:\<continue\>:\<break\>,'
 			\ . '\<try\>:\<catch\>'
-setlocal omnifunc=javacomplete#Complete
+if exists('*javacomplete#Complete')
+	setlocal omnifunc=javacomplete#Complete
+endif
 setlocal foldenable
 compiler gradlew
 
 " Add mappings, unless the user didn't want this.
 if !exists("no_plugin_maps") && !exists("no_java_maps")
-	call ftplugin#TagMappings()
 	call ftplugin#Align('/\/\/')
 	call ftplugin#Syntastic('passive', [])
-	nnoremap <buffer> <unique> <Leader>od :call <SID>CommentDelete()<CR>
-	" Comment Indent Increase/Reduce
-	nnoremap <buffer> <unique> <Leader>oi :call <SID>CommentIndent()<CR>
-	nnoremap <buffer> <unique> <Leader>oI :call <SID>CommentReduceIndent()<CR>
-
-	nnoremap <buffer> <Leader>lf :Autoformat<CR>
-	nnoremap <buffer> <Leader>lt :TagbarToggle<CR>
-	nnoremap <buffer> <Leader>la :call utils#TodoAdd()<CR>
 endif
 
 call ftplugin#AutoHighlight()
 
-let b:undo_ftplugin += "setl omnifunc< foldenable< | unlet! b:match_words" 
+let b:undo_ftplugin += "setl omnifunc< foldenable< | unlet! b:match_words"

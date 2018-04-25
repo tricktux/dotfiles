@@ -16,14 +16,6 @@ function! ftplugin#AutoHighlight() abort
 	endif
 endfunction
 
-function! ftplugin#TagMappings() abort
-	" ReLoad cscope database
-	command! UtilsTagLoadCurrFolder call ctags#LoadCscopeDatabse()
-	nnoremap <silent> <buffer> <LocalLeader>tt :call ctags#LoadCscopeDatabse()<cr>
-	command! UtilsTagUpdateCurrFolder call ctags#NvimSyncCtags(0)
-	nnoremap <silent> <buffer> <LocalLeader>tu :call ctags#LoadCscopeDatabse()<cr>
-endfunction
-
 " For cpp use '/\/\/'
 " For vim use '/"'
 " For python use '/#'
@@ -38,6 +30,7 @@ function! ftplugin#Syntastic(mode, checkers) abort
 		" nnoremap <buffer> <unique> <Leader>lo :SyntasticToggleMode<CR>
 		nnoremap <buffer> <LocalLeader>c :SyntasticCheck<CR>
 	endif
+
 	if !empty(a:checkers)
 		let b:syntastic_checkers=a:checkers
 	endif
@@ -83,7 +76,6 @@ function! ftplugin#SetCompilersAndOther() abort
 
 	if folder_name =~# 'OneWings'
 		" Load cscope database
-		call ctags#LoadCscopeDatabse()
 		" Note: inside the '' is a pat which is a regex. That is why \\
 		if folder_name =~? 'Onewings\\Source'
 			call <SID>compiler_borland()
