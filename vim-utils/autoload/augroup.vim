@@ -51,7 +51,9 @@ function! augroup#Set() abort
 		augroup BuffTypes
 			autocmd!
 			autocmd BufNewFile * call s:determine_buf_type()
-			autocmd BufWinEnter * call utils#UpdateRootDir()
+			autocmd BufNewFile * call s:restore_cursor_pos()
+
+			autocmd BufWinEnter * call s:update_root_dir()
 			autocmd BufWinEnter * call ctags#LoadCscopeDatabse()
 			autocmd BufWinEnter * call plugin_lightline#SetVerControl()
 		augroup END
@@ -80,6 +82,7 @@ endfunction
 function! s:on_vim_enter() abort
 	call options#SetCli()
 	call plugin#AfterConfig()
+	" call s:restore_last_file()
 endfunction
 
 function! s:determine_buf_type() abort
@@ -95,8 +98,10 @@ function! s:determine_buf_type() abort
 	elseif ext ==# 'bin' || ext ==# 'pdf' || ext ==# 'hsr'
 		call s:set_bin_file_type()
 	endif
+endfunction
 
-	" Remember last cursor position
+" Remember last cursor position
+function! s:restore_cursor_pos() abort
 	if line("'\"") > 0 && line("'\"") <= line("$") |
 		exe "normal g`\"" |
 	endif
@@ -114,3 +119,22 @@ function! s:normalize_window_size() abort
 	execute "normal \<c-w>="
 endfunction
 
+" Thu Apr 26 2018 18:08: Never have being able to get this to work 
+function! s:restore_last_file() abort
+	while !v:vim_did_enter
+		execute ':sleep 50m'
+	endwhile
+
+	execute "normal \<c-o>\<c-o>"
+endfunction
+
+function! s:update_root_dir() abort
+	if !exists('*FindRootDirectory')
+		return -1
+	endif
+
+	let curr_dir = getcwd()
+	let g:root_dir = FindRootDirectory()
+	" Restore cwd since rooter changes it
+	execute 'silent lcd ' . curr_dir
+endfunction

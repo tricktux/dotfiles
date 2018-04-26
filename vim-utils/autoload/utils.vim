@@ -784,31 +784,46 @@ function! utils#UpdateSvnBranchInfo() abort
 
 	let cmd = 'svn info ' . g:root_dir .  ' | ' .
 				\ (executable('grep') ? 'grep': 'findstr') . ' "Relative URL"'
+
 	" echomsg 'g:root_dir = ' . g:root_dir
 	" echomsg 'cmd = ' . cmd
-	try
-		let info = systemlist(cmd)
-	catch
+
+	let info = systemlist(cmd)
+	if v:shell_error
+		" echomsg 'v:shell_error = 1'
 		return ''
-	endtry
+	endif
+
+	" echomsg 'here'
 	" The system function returns something like "Relative URL: ^/...."
 	" Strip from "^/" forward and put that in status line
-	"TODO.RM-Tue Mar 28 2017 15:05: Find a much better way to do this
-	let info = get(info, 0, '')
-	let index = stridx(info, "^/")
-	" echomsg 'info = ' . info
+	for line in info
+		let index = stridx(line, "^/")
+
+		" echomsg 'line = ' . line
+		if index >= 0
+			let url = line
+			break
+		endif
+	endfor
+
+	" echomsg 'here 1'
+
 	if index == -1
+		" echomsg 'index == -1'
 		return ''
-	else
-		let pot_display = info[index+2:-1] " Again skip last char. Looks ugly
 	endif
+
+	let pot_display = url[index+2:-1] " Again skip last char. Looks ugly
 	" echomsg 'pot_display = ' . pot_display
+
+	" echomsg 'here 2'
 
 	if strlen(pot_display) > 20
 		return pot_display[0:20] . '...'
-	else
-		return pot_display
 	endif
+
+	return pot_display
 endfunction
 
 
@@ -912,15 +927,4 @@ function! utils#DownloadFile(path, link) abort
 
 	execute '!curl -kfLo ' . a:path . ' --create-dirs ' . a:link
 	return 1
-endfunction
-
-function! utils#UpdateRootDir() abort
-	if !exists('*FindRootDirectory')
-		return -1
-	endif
-
-	let curr_dir = getcwd()
-	let g:root_dir = FindRootDirectory()
-	" Restore cwd since rooter changes it
-	execute 'silent lcd ' . curr_dir
 endfunction
