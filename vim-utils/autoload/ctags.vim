@@ -284,21 +284,15 @@ function! ctags#LoadCscopeDatabse() abort
 		return 1
 	endif
 
-	let root_dir = ''
-	if exists('*FindRootDirectory')
-		let curr_dir = getcwd()
-		let root_dir = FindRootDirectory()
-		" Restore cwd since rooter changes it
-		execute 'silent lcd ' . curr_dir
+	if !exists('g:root_dir') || empty(g:root_dir)
+		let dir = expand('%:h')
+	else
+		let dir = g:root_dir
 	endif
 
-	if empty(root_dir)
-		let root_dir = expand('%:p:h')
-	endif
-
-	let cs_db = utils#GetPathFolderName(root_dir)
+	let cs_db = utils#GetPathFolderName(dir)
 	if empty(cs_db)
-		echomsg "Failed to obtain current folder name"
+		" echomsg "Failed to obtain current folder name"
 		return
 	endif
 

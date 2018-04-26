@@ -219,10 +219,6 @@ function! utils#UnsetDiff() abort
 	diffoff!
 endfunction
 
-function! utils#NormalizeWindowSize() abort
-	execute "normal \<c-w>="
-endfunction
-
 function! utils#FixPreviousWord() abort
 	normal mm[s1z=`m
 	return ''
@@ -782,29 +778,34 @@ function! utils#UpdateSvnBranchInfo() abort
 		return ''
 	endif
 
-	let srch_eng = has('win32') ? 'findstr' : 'grep'
-	let path = expand('%:h')
+	if !exists('g:root_dir') || empty(g:root_dir) || empty(finddir(g:root_dir . '/.svn'))
+		return ''
+	endif
+
+	let cmd = 'svn info ' . g:root_dir .  ' | ' .
+				\ (executable('grep') ? 'grep': 'findstr') . ' "Relative URL"'
+	" echomsg 'g:root_dir = ' . g:root_dir
+	" echomsg 'cmd = ' . cmd
 	try
-		let info = systemlist('svn info ' . path . ' | grep "Relative URL"')
+		let info = systemlist(cmd)
 	catch
 		return ''
 	endtry
 	" The system function returns something like "Relative URL: ^/...."
 	" Strip from "^/" forward and put that in status line
 	"TODO.RM-Tue Mar 28 2017 15:05: Find a much better way to do this
-	let info = get(info, 0, "")
+	let info = get(info, 0, '')
 	let index = stridx(info, "^/")
-	" echomsg string(info)
+	" echomsg 'info = ' . info
 	if index == -1
 		return ''
 	else
 		let pot_display = info[index+2:-1] " Again skip last char. Looks ugly
 	endif
-	" Debugging
-	" echomsg string(pot_display)
+	" echomsg 'pot_display = ' . pot_display
 
-	if strlen(pot_display) > 16
-		return pot_display[0:16] . '...'
+	if strlen(pot_display) > 20
+		return pot_display[0:20] . '...'
 	else
 		return pot_display
 	endif
@@ -889,7 +890,7 @@ function! utils#GetPathFolderName(curr_dir) abort
 	endif
 
 	if back_slash_index == -1
-		echomsg string("utils#GetPathFolderName(): No back_slash_index found")
+		" echomsg string("utils#GetPathFolderName(): No back_slash_index found")
 		return
 	endif
 
@@ -911,4 +912,15 @@ function! utils#DownloadFile(path, link) abort
 
 	execute '!curl -kfLo ' . a:path . ' --create-dirs ' . a:link
 	return 1
+endfunction
+
+function! utils#UpdateRootDir() abort
+	if !exists('*FindRootDirectory')
+		return -1
+	endif
+
+	let curr_dir = getcwd()
+	let g:root_dir = FindRootDirectory()
+	" Restore cwd since rooter changes it
+	execute 'silent lcd ' . curr_dir
 endfunction

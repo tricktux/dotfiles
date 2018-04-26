@@ -66,7 +66,7 @@ function! plugin_lightline#config() abort
 	let g:lightline.component_function['readonly'] = 'plugin_lightline#Readonly'
 
 	let g:lightline.active.left[2] += [ 'ver_control' ]
-	let g:lightline.component_function['ver_control'] = 'plugin_lightline#VerControl'
+	let g:lightline.component_function['ver_control'] = 'plugin_lightline#GetVerControl'
 
 	" These settings do not use patched fonts
 	" Fri Feb 02 2018 15:38: Its number one thing slowing down vim right now.
@@ -86,29 +86,41 @@ function! plugin_lightline#DeviconsFileType() abort
 	return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
 endfunction
 
-function! plugin_lightline#VerControl() abort
-	" let mark = ''  " edit here for cool mark
-	let mark = "\uf406"  " edit here for cool mark
-	if expand('%:t') =~? 'Tagbar\|Gundo\|NERD\|ControlP' || &ft =~? 'vimfiler\|gitcommit'
-		return ''
+function! plugin_lightline#GetVerControl() abort
+	return exists('s:ver_ctrl') ? s:ver_ctrl : ''
+endfunction
+
+function! plugin_lightline#SetVerControl() abort
+	if &modifiable == 0 || &ft =~? 'vimfiler\|gitcommit\|no ft'
+		unlet! s:ver_ctrl
 	endif
 
+	" let mark = ''  " edit here for cool mark
+	let mark = "\uf406"  " edit here for cool mark
 	try
 		if exists('*fugitive#head')
 			let git = fugitive#head()
-			return empty(git) ? '' : mark . ' ' . git
+			" echomsg 'git = ' . git
+			if !empty(git)
+				let s:ver_ctrl = mark . ' ' . git
+				" echomsg s:ver_ctrl
+				return
+			endif
 		endif
 		" TODO-[RM]-(Mon Oct 30 2017 16:37): This here really doesnt work
-		" if executable('svn') && exists('*utils#UpdateSvnBranchInfo')
-		" let svn = utils#UpdateSvnBranchInfo()
-		" if !empty(svn)
-		" return '' . ' ' . svn
-		" endif
-		" endif
+		if exists('*utils#UpdateSvnBranchInfo')
+			let svn = utils#UpdateSvnBranchInfo()
+			" echomsg 'svn = ' . svn
+			if !empty(svn)
+				let s:ver_ctrl = '' . ' ' . svn
+				" echomsg s:ver_ctrl
+				return
+			endif
+		endif
 	catch
-		return ''
+		unlet! s:ver_ctrl
 	endtry
-	return ''
+	unlet! s:ver_ctrl
 endfunction
 
 function! plugin_lightline#DeviconsFileFormat() abort

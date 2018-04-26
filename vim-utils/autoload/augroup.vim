@@ -45,15 +45,16 @@ function! augroup#Set() abort
 			autocmd VimEnter * call s:on_vim_enter()
 			autocmd VimLeave * call utils#SaveSession('default.vim')
 			" Keep splits normalize
-			autocmd VimResized * call utils#NormalizeWindowSize()
+			autocmd VimResized * call s:normalize_window_size()
 		augroup END
 
 		augroup BuffTypes
 			autocmd!
 			autocmd BufNewFile * call s:determine_buf_type()
-			autocmd BufReadPost * call ctags#LoadCscopeDatabse()
+			autocmd BufWinEnter * call utils#UpdateRootDir()
+			autocmd BufWinEnter * call ctags#LoadCscopeDatabse()
+			autocmd BufWinEnter * call plugin_lightline#SetVerControl()
 		augroup END
-
 	endif
 
 	" Depends on autoread being set
@@ -107,5 +108,9 @@ function! s:set_bin_file_type() abort
 	setlocal ft=xxd
 	%!xxd -r
 	setlocal nomodified
+endfunction
+
+function! s:normalize_window_size() abort
+	execute "normal \<c-w>="
 endfunction
 
