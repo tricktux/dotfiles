@@ -133,8 +133,5 @@ function! s:update_root_dir() abort
 		return -1
 	endif
 
-	let curr_dir = getcwd()
 	let g:root_dir = FindRootDirectory()
-	" Restore cwd since rooter changes it
-	execute 'silent lcd ' . curr_dir
 endfunction
