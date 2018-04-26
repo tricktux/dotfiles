@@ -27,5 +27,5 @@ function! commands#Set() abort
 	command! UtilsNerdComAltDelims execute("normal \<Plug>NERDCommenterAltDelims")
 	command! UtilsPdfSearch call utils#SearchPdf()
 	command! UtilsTagLoadCurrFolder call ctags#LoadCscopeDatabse()
-	command! UtilsTagUpdateCurrFolder call ctags#NvimSyncCtags(0)
+	command! UtilsTagUpdateCurrFolder call ctags#NvimSyncCtags()
 endfunction

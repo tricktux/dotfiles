@@ -5,10 +5,8 @@
 " Last Modified: Thu May 25 2017 08:39
 " Created: Sat Apr 01 2017 17:04
 
-" ft_spec - If 1 will create ctags only for the &ft language
-"					- If 0 then create tags for all the files in the dir
 "	Your current directory should be at the root of you code
-function! ctags#NvimSyncCtags(ft_spec) abort
+function! ctags#NvimSyncCtags() abort
 	if !executable('rg')
 		echomsg string("Ctags dependens on ripgrep. I know horrible")
 		return
@@ -38,8 +36,8 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 	if response == 121 || response == 106 " y|j
 		echo "Loading..."
 	else
-		echo "Exiting"
 		return
+
 	endif
 
 	let nvim_ft = &filetype
@@ -48,14 +46,7 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 		return
 	endif
 
-	let ctags_lang = ''
-	if a:ft_spec == 1
-		let ctags_lang = s:nvim_ft_to_ctags_ft(&filetype)
-		if empty(ctags_lang)
-			echomsg string("Failed to obtain ctags lang")
-			return
-		endif
-	endif
+	let ctags_lang = s:nvim_ft_to_ctags_ft(&filetype)
 
 	" Create unique tag file name based on cwd_rg
 	let folder_name = utils#GetPathFolderName(cwd_rg)
@@ -64,7 +55,7 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 		return
 	endif
 
-	if !s:create_tags(a:ft_spec, 'tags_' . folder_name, files_loc, ctags_lang, cwd_rg)
+	if !s:create_tags('tags_' . folder_name, files_loc, ctags_lang, cwd_rg)
 		echomsg "Failed to create tags file: tags_" . folder_name
 		return
 	endif
@@ -73,7 +64,7 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 		" Create cscope db as well
 		" TODO.RM-Thu May 25 2017 08:27: Do not kill connection until you determine that you are updating an existing tag
 		let cs_db = folder_name . '.out'
-		execute "cd " . files_loc
+		execute "lcd " . files_loc
 
 		if !empty(glob(cs_db)) " If we are updating an existing tag. Close only that connection
 			execute "silent! cs kill " . cs_db
@@ -86,12 +77,12 @@ function! ctags#NvimSyncCtags(ft_spec) abort
 				cexpr res_cs
 			endif
 			echomsg 'Cscope command failed'
-			execute "cd " . cwd_rg
+			execute "lcd " . cwd_rg
 			return
 		endif
 
 		execute "cs add " . cs_db
-		execute "cd " . cwd_rg
+		execute "lcd " . cwd_rg
 	endif
 endfunction
 
@@ -175,7 +166,7 @@ function! s:nvim_ft_to_ctags_ft(ft) abort
 	elseif a:ft == 'c'
 		let lang = 'C'
 	else
-		return
+		return ''
 	endif
 
 	return lang
@@ -256,34 +247,37 @@ function! s:create_cscope_files(files_loc, cwd_rg, nvim_ft) abort
 	return 1
 endfunction
 
-function! s:create_tags(ft_spec, tags_name, files_loc, ctags_lang, cwd_rg) abort
-	if a:ft_spec == 1
-		let ctags_cmd = "ctags -L cscope.files -f " . a:tags_name . " --sort=no --c-kinds=+p --c++-kinds=+p --fields=+l extras=+q --language-force=" . a:ctags_lang
+function! s:create_tags(tags_name, files_loc, ctags_lang, cwd_rg) abort
+	if a:ctags_lang ==# 'C++'
+		let ctags_cmd = "ctags -L cscope.files -f " . a:tags_name . " --sort=no
+					\ --recurse=yes --c-kinds=+pl --c++-kinds=+pl --fields=+iaSl extras=+q"
 	else
-		" let ctags_cmd = "ctags -L cscope.files -f " . a:tags_name . " --sort=no --c-kinds=+p --c++-kinds=+p --fields=+l extras=+q"
-		" This made neovim extremely slow. Databases too big. It wasnt actually this. It was tagbar plugin not behaving in
-		" Windows
-		let ctags_cmd = "ctags -L cscope.files -f " . a:tags_name . " --sort=no --c-kinds=+pl --c++-kinds=+pl --fields=+iaSl extras=+q"
+		let ctags_cmd = "ctags -L cscope.files -f " . a:tags_name . " --sort=no 
+					\ --recurse=yes"
 	endif
 
 	" echomsg string(ctags_cmd) " Debugging
-	execute "cd " . a:files_loc
+	execute "lcd " . a:files_loc
 	let res = systemlist(ctags_cmd)
 
 	if v:shell_error || getfsize(a:tags_name) < 1
 		if !empty(res)
 			cexpr res
 		endif
-		execute "cd " . a:cwd_rg
+		execute "lcd " . a:cwd_rg
 		return
 	endif
 
 	call s:add_tags(a:tags_name)
-	execute "cd " . a:cwd_rg
+	execute "lcd " . a:cwd_rg
 	return 1
 endfunction
 
 function! ctags#LoadCscopeDatabse() abort
+	if &modifiable == 0
+		return
+	endif
+
 	" Local cscope.out has priority
 	if !empty(glob('cscope.out'))
 		cs add cscope.out
@@ -299,7 +293,7 @@ function! ctags#LoadCscopeDatabse() abort
 	endif
 
 	if empty(root_dir)
-		let root_dir = getcwd()
+		let root_dir = expand('%:p:h')
 	endif
 
 	let cs_db = utils#GetPathFolderName(root_dir)
