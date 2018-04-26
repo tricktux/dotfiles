@@ -35,6 +35,8 @@ function! plugin#Config()
 		call plug#begin(g:vim_plugins_path)
 	endif
 
+	" This call must remain atop since sets the g:lightline variable to which other
+	" plugins add to
 	call plugin_lightline#config()
 
 	call s:configure_async_plugins()
@@ -126,7 +128,9 @@ function! plugin#Config()
 	" - In order to make use of its FindRootDirectory() function
 	Plug 'airblade/vim-rooter'
 		let g:rooter_manual_only = 1
-		nnoremap <Leader>cr :Rooter<CR>
+		nmap <plug>cd_root :Rooter<CR>
+		let g:rooter_use_lcd = 1
+		let g:rooter_patterns = ['.git/', '.svn/', 'Source/']
 		" nnoremap <Leader>cr :call utils#RooterAutoloadCscope()<CR>
 
 	Plug 'Raimondi/delimitMate'
