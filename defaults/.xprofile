@@ -17,6 +17,7 @@ export EMAIL="rmolin88@gmail.com"
 export ORACLE_HOME=/home/reinaldo/app/reinaldo/product/12.2.0/client_1
 
 # Thu Feb 22 2018 08:59: Can't figure out how to set locale properly on arch. Result:
-export LANG=en_US.UTF-8
+# Wed May 02 2018 04:57: Not needed anymore
+# export LANG=en_US.UTF-8
 
 # vim:filetype=sh
