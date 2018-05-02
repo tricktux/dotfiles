@@ -566,7 +566,7 @@ function! s:configure_async_plugins() abort
 		" out below
 		" nnoremap <C-S-;> :Denite command_history<CR>
 		" nnoremap <C-S-h> :Denite help<CR>
-		nnoremap <C-p> :Denite file_mru<CR>
+		nnoremap <C-p> :Denite file/old<CR>
 		" Wed Jan 10 2018 15:46: Have tried several times to use denite buffer but its
 		" just too awkard. Kinda slow and doesnt show full path.
 		" nnoremap <S-k> :Denite buffer<CR>
