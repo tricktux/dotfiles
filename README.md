@@ -26,8 +26,8 @@
 `<target>` updated to this location.
 - Full installation example:
 - `stow -t /home/reinaldo -S defaults` 
-- Then adjust the `.Xresources` in order to properly reflect Dots Per Inch (dpi) of the
-system. 
+- If this is a new system, not `predator or surbook` and has hdpi screen (UHD) you may
+need to create a `.Xresourses-hostname` file.
 - `stow -t /home/reinaldo -S defaults_<system>`
 - Other is generic. If any of these options need to be changed is better to create a
 whole `defaults_<X>` system and update there.
