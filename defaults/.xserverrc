@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# File:           .xserverrc
+# Description:    Xorg Server configuration
+# Author:		    Reinaldo Molina
+# Email:          rmolin88 at gmail dot com
+# Revision:	    0.0.0
+# Created:        Wed May 02 2018 05:30
+# Last Modified:  Wed May 02 2018 05:30
+# Obtained from here https://wiki.archlinux.org/index.php/Xinit
+
+exec /usr/bin/Xorg -nolisten tcp "$@" vt$XDG_VTNR
