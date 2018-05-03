@@ -64,6 +64,7 @@ function! cpp_highlight#Set(type) abort
 			let g:neotags_enabled = 1
 			" let g:neotags_file = g:std_data_path . '/ctags/neotags'
 			" let g:neotags_verbose = 1
+			let g:neotags_find_tool = executable('rg') ? 'rg --files' : ''
 			let g:neotags_run_ctags = 0
 			" let g:neotags#cpp#order = 'cgstuedfpm'
 			let g:neotags#cpp#order = 'ced'
@@ -72,6 +73,23 @@ function! cpp_highlight#Set(type) abort
 			" let g:neotags_events_highlight = [
 			" \   'BufEnter'
 			" \ ]
+			let g:neotags_ft_conv = {
+						\ 'C': 'c',
+						\ 'C++': 'cpp',
+						\ 'C#': 'cs',
+						\ 'JavaScript': 'flow',
+						\ 'Vim': 'vim',
+						\ 'Python': 'python',
+						\ }
+
+			let g:neotags_ignore = [
+						\ 'text',
+						\ 'nofile',
+						\ 'mail',
+						\ 'qf',
+						\ 'neoterm',
+						\ ]
+			let g:neotags_ctags_bin = ''
 
 		call s:set_neotags()
 	elseif a:type ==# 'color_coded'
@@ -145,6 +163,8 @@ function! s:set_neotags() abort
 	call highlight#Set('vimAutoGroupTag',					{ 'fg': g:brown })
 	call highlight#Set('vimCommandTag',						{ 'fg': g:cyan })
 	call highlight#Set('vimFuncNameTag',					{ 'fg': g:darkred })
+	call highlight#Set('vimVariableTag',          { 'link': 'cppEnum' })
+	call highlight#Set('vimScriptFuncNameTag',    { 'link': 'cppMember' })
 
 	" Python
 	call highlight#Set('pythonClassTag',          { 'fg': g:brown })
