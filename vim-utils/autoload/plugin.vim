@@ -513,6 +513,8 @@ function! s:configure_ctrlp() abort
 		" It says cache dir but dont want to keep loosing history everytime cache gets cleaned up
 		" Fri Jan 05 2018 14:38: Now that denite's file_rec is working much better no need
 		" to keep this innacurrate list of files around. Rely on it less.
+		" Thu May 03 2018 05:55: Giving ctrlp another chance. There is like a 1 sec delay
+		" with Denite file_mru and file/old doesnt really work.
 		let g:ctrlp_cache_dir = g:std_data_path . '/ctrlp'
 		let g:ctrlp_working_path_mode = 'wra'
 		let g:ctrlp_max_history = &history
@@ -756,7 +758,7 @@ function! s:configure_file_browser(choice) abort
 
 
 	if a:choice ==# 'nerdtree'
-		nnoremap <Plug>file_browser :NERDTree<CR>
+		nnoremap <plug>file_browser :NERDTree<CR>
 
 		Plug 'scrooloose/nerdtree', { 'on' : 'NERDTree' }
 		Plug 'Xuyuanp/nerdtree-git-plugin', { 'on' : 'NERDTree' }
@@ -771,7 +773,7 @@ function! s:configure_file_browser(choice) abort
 		let g:NETRRootDir = g:std_data_path . '/netranger/'
 		let g:NETRIgnore = [ '.git', '.svn' ]
 	elseif a:choice ==# 'ranger'
-		nnoremap <Plug>file_browser :RangerCurrentDirectory<CR>
+		nmap <plug>file_browser :RangerCurrentDirectory<CR>
 		Plug 'francoiscabrol/ranger.vim', { 'on' : 'RangerCurrentDirectory' }
 			let g:ranger_map_keys = 0
 	endif

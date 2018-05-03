@@ -72,6 +72,7 @@ call s:find_vim_config_file()
 " call s:set_stdpaths()
 " execute "source " . g:std_data_path . '/vim-plug/plug.vim'
 " call plug#begin(g:std_data_path . '/vim_plugins')
-" 	Plug 'francoiscabrol/ranger.vim'
-" 	Plug 'c0r73x/neotags.nvim' " Depends on pip3 install --user psutil
+" Plug 'francoiscabrol/ranger.vim'
+" Plug 'c0r73x/neotags.nvim' " Depends on pip3 install --user psutil
+" let g:neotags_enabled = 1
 " call plug#end()
