@@ -502,7 +502,8 @@ endfunction
 
 function! s:configure_ctrlp() abort
 	Plug 'ctrlpvim/ctrlp.vim'
-		nnoremap <S-k> :CtrlPBuffer<CR>
+		nmap <plug>buffer_browser :CtrlPBuffer<CR>
+		nmap <plug>mru_browser :CtrlPMRU<CR>
 		let g:ctrlp_map = ''
 		let g:ctrlp_cmd = 'CtrlPMRU'
 		" submit ? in CtrlP for more mapping help.
@@ -512,7 +513,7 @@ function! s:configure_ctrlp() abort
 		" It says cache dir but dont want to keep loosing history everytime cache gets cleaned up
 		" Fri Jan 05 2018 14:38: Now that denite's file_rec is working much better no need
 		" to keep this innacurrate list of files around. Rely on it less.
-		let g:ctrlp_cache_dir = g:std_cache_path . '/ctrlp'
+		let g:ctrlp_cache_dir = g:std_data_path . '/ctrlp'
 		let g:ctrlp_working_path_mode = 'wra'
 		let g:ctrlp_max_history = &history
 		let g:ctrlp_clear_cache_on_exit = 0
@@ -566,7 +567,7 @@ function! s:configure_async_plugins() abort
 		" out below
 		" nnoremap <C-S-;> :Denite command_history<CR>
 		" nnoremap <C-S-h> :Denite help<CR>
-		nnoremap <C-p> :Denite file_mru<CR>
+		" nmap <plug>mru_browser :Denite file_mru<CR>
 		" Wed Jan 10 2018 15:46: Have tried several times to use denite buffer but its
 		" just too awkard. Kinda slow and doesnt show full path.
 		" nnoremap <S-k> :Denite buffer<CR>
@@ -745,7 +746,7 @@ endfunction
 
 " choice - One of netranger, nerdtree, or ranger
 function! s:configure_file_browser(choice) abort
-	" FileBrowser
+	" file_browser
 	" Wed May 03 2017 11:31: Tried `vifm` doesnt work in windows. Doesnt
 	" follow `*.lnk` shortcuts. Not close to being Replacement for `ranger`.
 	" Main reason it looks appealing is that it has support for Windows. But its
@@ -755,7 +756,7 @@ function! s:configure_file_browser(choice) abort
 
 
 	if a:choice ==# 'nerdtree'
-		nnoremap <Plug>FileBrowser :NERDTree<CR>
+		nnoremap <Plug>file_browser :NERDTree<CR>
 
 		Plug 'scrooloose/nerdtree', { 'on' : 'NERDTree' }
 		Plug 'Xuyuanp/nerdtree-git-plugin', { 'on' : 'NERDTree' }
@@ -770,7 +771,7 @@ function! s:configure_file_browser(choice) abort
 		let g:NETRRootDir = g:std_data_path . '/netranger/'
 		let g:NETRIgnore = [ '.git', '.svn' ]
 	elseif a:choice ==# 'ranger'
-		nnoremap <Plug>FileBrowser :RangerCurrentDirectory<CR>
+		nnoremap <Plug>file_browser :RangerCurrentDirectory<CR>
 		Plug 'francoiscabrol/ranger.vim', { 'on' : 'RangerCurrentDirectory' }
 			let g:ranger_map_keys = 0
 	endif

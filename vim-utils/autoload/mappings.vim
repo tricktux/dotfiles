@@ -35,7 +35,9 @@ function! mappings#Set() abort
 	" - gd, gD, g;, gq, gs, gl, gA, gT, gg, G, gG, gh, gv
 	" Toggle mappings:
 	" - tj, te, ta, tt, tf, ts, to, tn
-	nmap <Leader>tj <Plug>FileBrowser
+	nmap <Leader>tj <Plug>file_browser
+	nmap <s-k> <plug>buffer_browser
+	nmap <c-p> <plug>mru_browser
 	" terminal-emulator mappings
 	if has('terminal') || has('nvim')
 		nmap <Leader>te <Plug>terminal_toggle
