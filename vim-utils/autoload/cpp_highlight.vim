@@ -73,7 +73,7 @@ function! cpp_highlight#Set(type) abort
 			" \   'BufEnter'
 			" \ ]
 
-		call cpp_highlight#SetNeotagsHighlight()
+		call s:set_neotags()
 	elseif a:type ==# 'color_coded'
 		if !has('unix') || has('nvim')
 			echomsg 'Color_coded only works on unix and vim'
@@ -121,13 +121,13 @@ function! cpp_highlight#Set(type) abort
 			let g:clighter8_libclang_path = 'C:\Program Files\LLVM\bin\libclang.dll'
 			" let g:clighter8_global_compile_args = ['-I/usr/local/include']
 			let g:clighter8_logfile = g:std_cache_path . '/clighter8.log'
-		call cpp_highlight#SetClight8Highlight()
+		call s:set_clighter8()
 	else
 		echomsg 'Not a recognized highlight type: ' . a:type
 	endif
 endfunction
 
-function! cpp_highlight#SetNeotagsHighlight() abort
+function! s:set_neotags() abort
 	" C
 	call highlight#Set('cTypeTag',                { 'fg': g:brown })
 	call highlight#Set('cPreProcTag',             { 'fg': g:cyan })
@@ -157,7 +157,7 @@ function! cpp_highlight#SetNeotagsHighlight() abort
 	call highlight#Set('javaInterfaceTag',        { 'link': 'cMember' })
 endfunction
 
-function! cpp_highlight#SetClight8Highlight() abort
+function! s:set_clighter8() abort
 	hi default link clighter8Decl Identifier
 	hi default link clighter8Ref Type
 	hi default link clighter8Prepro PreProc
