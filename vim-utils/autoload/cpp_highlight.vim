@@ -59,13 +59,13 @@ function! cpp_highlight#Set(type) abort
 			return
 		endif
 
-		Plug 'c0r73x/neotags.nvim' " Depends on pip3 install --user psutil
+		" Depends on pip3 install --user psutil
+		Plug 'c0r73x/neotags.nvim',  { 'do' : 'make' }
 			set regexpengine=1 " This speed up the engine alot but still not enough
-			let g:neotags_enabled = 1
-			" let g:neotags_file = g:std_data_path . '/ctags/neotags'
-			" let g:neotags_verbose = 1
+			let g:neotags_verbose = 1
 			let g:neotags_find_tool = executable('rg') ? 'rg --files' : ''
 			let g:neotags_run_ctags = 0
+			let g:neotags_directory = g:std_data_path . '/ctags/neotags/'
 			" let g:neotags#cpp#order = 'cgstuedfpm'
 			let g:neotags#cpp#order = 'ced'
 			" let g:neotags#c#order = 'cgstuedfpm'
