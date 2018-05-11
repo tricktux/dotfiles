@@ -19,29 +19,18 @@ function! plugin_lightline#config() abort
 				\ 'active' : {
 				\   'left': [
 				\							[ 'mode', 'paste' ],
-				\							[ 'readonly', 'relativepath' ],
+				\							[ 'readonly', 'cwd', 'relativepath' ],
 				\							[  ]
 				\						],
 				\ 'right': [ [ 'lineinfo' ],
 				\            [ 'percent' ],
 				\            [ 'fileformat', 'fileencoding', 'filetype' ] ] }
 				\ }
-	" \ 'component': {
-	" \   'lineinfo': ' %3l:%-2v',
-	" \ },
-	" \ 'separator': { 'left': '', 'right': '' },
-	" \ 'subseparator': { 'left': '', 'right': '' }
-	" \ }
 
-	" let g:lightline.tab = {
-	" \ 'active': [ 'tabnum', 'absolutepath', 'modified' ],
-	" \ }
 	let g:lightline.tabline = {
 				\ 'left': [ ['tabs'] ],
 				\ 'right': [ [ 'bufnum' , 'close'] ] }
-	let g:lightline.tab_component_function = {
-				\ 'filename': 'plugin_lightline#cwd'
-				\ }
+
 	" Addons
 	let g:lightline.component = {}
 	let g:lightline.component['lineinfo'] = ' %3l:%-2v'
@@ -50,23 +39,24 @@ function! plugin_lightline#config() abort
 	let g:lightline.subseparator = {}
 
 	" Ovals. As opposed to the triangles. They do not look quite good
-	" let g:lightline.separator['left'] = "\ue0b4"
-	" let g:lightline.separator['right'] = "\ue0b6"
-	" let g:lightline.subseparator['left'] = "\ue0b5"
+	" let g:lightline.separator['left']     = "\ue0b4"
+	" let g:lightline.separator['right']    = "\ue0b6"
+	" let g:lightline.subseparator['left']  = "\ue0b5"
 	" let g:lightline.subseparator['right'] = "\ue0b7"
 
-	let g:lightline.separator['left'] = ''
-	let g:lightline.separator['right'] = ''
-	let g:lightline.subseparator['left'] = ''
+	let g:lightline.separator['left']     = ''
+	let g:lightline.separator['right']    = ''
+	let g:lightline.subseparator['left']  = ''
 	let g:lightline.subseparator['right'] = ''
 
 	let g:lightline.component_function = {}
-	let g:lightline.component_function['filetype'] = 'plugin_lightline#DeviconsFileType'
-	let g:lightline.component_function['fileformat'] = 'plugin_lightline#DeviconsFileFormat'
-	let g:lightline.component_function['readonly'] = 'plugin_lightline#Readonly'
+	let g:lightline.component_function['filetype']   = string(function('s:devicons_filetype'))
+	let g:lightline.component_function['fileformat'] = string(function('s:devicons_fileformat'))
+	let g:lightline.component_function['readonly']   = string(function('s:readonly'))
+	let g:lightline.component_function['cwd']        = string(function('s:set_path'))
 
 	let g:lightline.active.left[2] += [ 'ver_control' ]
-	let g:lightline.component_function['ver_control'] = 'plugin_lightline#GetVerControl'
+	let g:lightline.component_function['ver_control'] = string(function('s:get_version_control'))
 
 	" These settings do not use patched fonts
 	" Fri Feb 02 2018 15:38: Its number one thing slowing down vim right now.
@@ -74,11 +64,15 @@ function! plugin_lightline#config() abort
 	" let g:lightline.component_function['tagbar'] = 'utils#LightlineTagbar'
 endfunction
 
-function! plugin_lightline#cwd(count) abort
+function! s:set_path() abort
+	return "\uf015" . ' ' . getcwd()
+endfunction
+
+function! s:get_cwd(count) abort
 	return getcwd()
 endfunction
 
-function! plugin_lightline#DeviconsFileType() abort
+function! s:devicons_filetype() abort
 	if !exists('*WebDevIconsGetFileTypeSymbol')
 		return &filetype
 	endif
@@ -86,7 +80,7 @@ function! plugin_lightline#DeviconsFileType() abort
 	return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
 endfunction
 
-function! plugin_lightline#GetVerControl() abort
+function! s:get_version_control() abort
 	return exists('s:ver_ctrl') ? s:ver_ctrl : ''
 endfunction
 
@@ -123,7 +117,7 @@ function! plugin_lightline#SetVerControl() abort
 	unlet! s:ver_ctrl
 endfunction
 
-function! plugin_lightline#DeviconsFileFormat() abort
+function! s:devicons_fileformat() abort
 	if !exists('*WebDevIconsGetFileTypeSymbol')
 		return &fileformat
 	endif
@@ -131,7 +125,7 @@ function! plugin_lightline#DeviconsFileFormat() abort
 	return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
 endfunction
 
-function! plugin_lightline#Readonly() abort
+function! s:readonly() abort
 	return &readonly ? '' : ''
 endfunction
 
