@@ -34,6 +34,7 @@ function! plugin_lightline#config() abort
 	" Addons
 	let g:lightline.component = {}
 	let g:lightline.component['lineinfo'] = ' %3l:%-2v'
+	let g:lightline.component['relativepath'] = "\uf02d %f"
 
 	let g:lightline.separator = {}
 	let g:lightline.subseparator = {}
@@ -127,28 +128,6 @@ endfunction
 
 function! s:readonly() abort
 	return &readonly ? '' : ''
-endfunction
-
-function! plugin_lightline#CtrlPMark() abort
-	if expand('%:t') !~# 'ControlP' || !has_key(g:lightline, 'ctrlp_item')
-		return ''
-	endif
-
-	call lightline#link('iR'[g:lightline.ctrlp_regex])
-	return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
-				\ , g:lightline.ctrlp_next], 0)
-endfunction
-
-function! plugin_lightline#CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked) abort
-	let g:lightline.ctrlp_regex = a:regex
-	let g:lightline.ctrlp_prev = a:prev
-	let g:lightline.ctrlp_item = a:item
-	let g:lightline.ctrlp_next = a:next
-	return lightline#statusline(0)
-endfunction
-
-function! plugin_lightline#CtrlPStatusFunc_2(str) abort
-	return lightline#statusline(0)
 endfunction
 
 function! plugin_lightline#Tagbar() abort

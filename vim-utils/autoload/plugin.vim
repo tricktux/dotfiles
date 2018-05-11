@@ -561,14 +561,37 @@ function! s:configure_ctrlp() abort
 		" Lightline settings
 		if exists('g:lightline')
 			let g:lightline.active.left[2] += [ 'ctrlpmark' ]
-			let g:lightline.component_function['ctrlpmark'] = 'plugin_lightline#CtrlPMark'
+			let g:lightline.component_function['ctrlpmark'] = string(function('s:ctrlp_lightline_mark'))
 
 			let g:ctrlp_status_func = {
-						\ 'main': 'plugin_lightline#CtrlPStatusFunc_1',
-						\ 'prog': 'plugin_lightline#CtrlPStatusFunc_2',
+						\ 'main': string(function('s:ctrlp_lightline_func1')),
+						\ 'prog': string(function('s:ctrlp_lightline_func2')),
 						\ }
 		endif
 endfunction
+
+function! s:ctrlp_lightline_mark() abort
+	if expand('%:t') !~# 'ControlP' || !has_key(g:lightline, 'ctrlp_item')
+		return ''
+	endif
+
+	call lightline#link('iR'[g:lightline.ctrlp_regex])
+	return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
+				\ , g:lightline.ctrlp_next], 0)
+endfunction
+
+function! s:ctrlp_lightline_func1(focus, byfname, regex, prev, item, next, marked) abort
+	let g:lightline.ctrlp_regex = a:regex
+	let g:lightline.ctrlp_prev = a:prev
+	let g:lightline.ctrlp_item = a:item
+	let g:lightline.ctrlp_next = a:next
+	return lightline#statusline(0)
+endfunction
+
+function! s:ctrlp_lightline_func2(str) abort
+	return lightline#statusline(0)
+endfunction
+
 
 function! s:configure_async_plugins() abort
 	if !has('nvim') && v:version < 800
@@ -679,6 +702,25 @@ function! s:configure_tagbar() abort
 		let g:tagbar_map_closeallfolds = '<c-c>'
 		let g:tagbar_map_togglefold = '<c-x>'
 		let g:tagbar_autoclose = 1
+
+	" These settings do not use patched fonts
+	" Fri Feb 02 2018 15:38: Its number one thing slowing down vim right now.
+	let g:lightline.active.left[2] += [ 'tagbar' ]
+	let g:lightline.component_function['tagbar'] = string(function('s:tagbar_lightline'))
+endfunction
+
+function! s:tagbar_lightline() abort
+	try
+		let ret =  tagbar#currenttag('%s','')
+	catch
+		return ''
+	endtry
+	return empty(ret) ? '' : "\uf02b" . ' ' . ret
+endfunction
+
+function! s:tagbar_statusline_func(current, sort, fname, ...) abort
+	let g:lightline.fname = a:fname
+	return lightline#statusline(0)
 endfunction
 
 function! s:configure_snippets() abort
