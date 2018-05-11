@@ -204,6 +204,21 @@ function! plugin#Config()
 	" colorschemes
 	Plug 'morhetz/gruvbox' " colorscheme gruvbox
 	Plug 'NLKNguyen/papercolor-theme'
+
+		let g:PaperColor_Theme_Options =
+					\ {
+					\		'language':
+					\		{
+					\			'python': { 'highlight_builtins': 1 },
+					\			'c': { 'highlight_builtins': 1 },
+					\			'cpp': { 'highlight_standard_library': 1 },
+					\		},
+					\		'theme':
+					\		{
+					\		 	'default': { 'transparent_background': 0 }
+					\		}
+					\ }
+	
 	" Mon Jan 08 2018 15:08: Do not load these schemes unless they are going to be used
 	" Sun May 07 2017 16:25 - Gave it a try and didnt like it
 	" Plug 'icymind/NeoSolarized'
@@ -388,6 +403,10 @@ function! plugin#Config()
 		" nmap <LocalLeader>r <Plug>RStart
 		" imap <LocalLeader>r <Plug>RStart
 		" vmap <LocalLeader>r <Plug>RStart
+
+	Plug 'fourjay/vim-flexagon'
+
+	Plug 'chriskempson/tomorrow-theme'
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
