@@ -150,19 +150,25 @@ endfunction
 " This function silently attemps to create the directory its checking if it
 " exists in case it doesnt find it.
 " Compatible with both Linux and Windows
-function! utils#CheckDirwoPrompt(name) abort
-	if !has('file_in_path') || !exists("*mkdir")
-		echoerr "CheckFileOrDir(): This vim install has no support for +find_in_path or cant create directories"
+function! utils#CheckDirWoPrompt(name) abort
+	if !has('file_in_path')
+		echomsg "utils#CheckDirWoPrompt(): This vim install has no support for +find_in_path"
+		return
 	endif
 
 	if !empty(finddir(a:name,",,"))
 		return
 	endif
 
-	if has('win32') " on win prepare name by escaping '\'
-		call mkdir(escape(expand(a:name), '\'), "p")
-	else  " have to test check works fine on linux
-		call mkdir(expand(a:name), "p")
+	if !exists("*mkdir")
+		echomsg "CheckDirwoPrompt(): This vim install has no support creating directories"
+		return
+	endif
+
+	if has('unix')    " have to test check works fine on linux
+		call mkdir(expand(a:name), 'p')
+	else              " on win prepare name by escaping '\'
+		call mkdir(escape(expand(a:name), '\'), 'p')
 	endif
 endfunction
 
@@ -472,15 +478,6 @@ function! utils#UpdateHeader()
 				\ strftime("%a %b %d %Y %H:%M")
 	exe "normal! `z"
 endfun
-
-" Default Wings mappings are for laptop
-function! utils#SetWingsPath(sPath) abort
-	execute "nnoremap <Leader>ew1 :call utils#DeniteRec(\"" . a:sPath . "OneWings/\")<CR>"
-	execute "nnoremap <Leader>ew2 :call utils#DeniteRec(\"" . a:sPath . "OneWingsSupFiles/\")<CR>"
-	execute "nnoremap <Leader>ewd :silent e ". a:sPath . "OneWings/default.ini<CR>"
-
-	call utils#GuiFont('+')
-endfunction
 
 " TODO.RM-Fri Apr 28 2017 16:14: Also move this to the ftplugin
 " Use current 'grepprg' to search files for text

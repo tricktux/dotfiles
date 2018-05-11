@@ -29,11 +29,11 @@ function! init#vim() abort
 	endif
 
 	" Create required folders for storing usage data
-	call utils#CheckDirwoPrompt(g:std_data_path . '/sessions')
-	call utils#CheckDirwoPrompt(g:std_data_path . '/ctags')
+	call utils#CheckDirWoPrompt(g:std_data_path . '/sessions')
+	call utils#CheckDirWoPrompt(g:std_data_path . '/ctags')
 	if has('persistent_undo')
 		let g:undofiles_path = g:std_cache_path . '/undofiles'
-		call utils#CheckDirwoPrompt(g:undofiles_path)
+		call utils#CheckDirWoPrompt(g:undofiles_path)
 	endif
 
 	call mappings#Set()
