@@ -59,10 +59,6 @@ function! plugin_lightline#config() abort
 	let g:lightline.active.left[2] += [ 'ver_control' ]
 	let g:lightline.component_function['ver_control'] = string(function('s:get_version_control'))
 
-	" These settings do not use patched fonts
-	" Fri Feb 02 2018 15:38: Its number one thing slowing down vim right now.
-	" let g:lightline.active.left[2] += [ 'tagbar' ]
-	" let g:lightline.component_function['tagbar'] = 'utils#LightlineTagbar'
 endfunction
 
 function! s:set_path() abort
@@ -128,20 +124,6 @@ endfunction
 
 function! s:readonly() abort
 	return &readonly ? '' : ''
-endfunction
-
-function! plugin_lightline#Tagbar() abort
-	try
-		let ret =  tagbar#currenttag('%s','')
-	catch
-		return ''
-	endtry
-	return empty(ret) ? '' : "\uf02b" . ' ' . ret
-endfunction
-
-function! plugin_lightline#TagbarStatusFunc(current, sort, fname, ...) abort
-	let g:lightline.fname = a:fname
-	return lightline#statusline(0)
 endfunction
 
 function! plugin_lightline#UpdateColorscheme() abort
