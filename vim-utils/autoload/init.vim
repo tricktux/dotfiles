@@ -15,11 +15,7 @@ function! init#vim() abort
 	set encoding=utf-8
 
 	" OS_SETTINGS
-	if  has('unix')
-		call unix#Config()
-	else
-		call win32#Config()
-	endif
+	execute 'call ' . (has('unix') ? 'unix#Config()' : 'win32#Config()')
 
 	" PLUGINS_INIT
 	if plugin#Config()
@@ -42,5 +38,3 @@ function! init#vim() abort
 	call commands#Set()
 	call syntax#Set()
 endfunction
-
-" vim:tw=78:ts=2:sts=2:sw=2:
