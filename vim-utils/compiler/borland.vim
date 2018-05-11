@@ -20,7 +20,7 @@ let current_compiler = "borland"
 " uncomment to automatically save buffer before :make
 "setlocal autowrite
 
-let &l:makeprg="C:\\Program Files (x86)\\Borland\\CBuilder6\\Bin\\make.exe"
+let &l:makeprg='make'
 " setlocal errorformat=%*[^0-9]\ %t%n\ %f\ %l:\ %m,%*\\r%f(%l)\ %m,%f(%l\\,%c)\ %m,%A%f(%l):\ %*[^\ ]\ %n:\ %m,%-Z%p^,%+C%.%#,%*[^\ ]\ %f\ %l:\ %m
 
 " turbo c 2.0 (tcc), borland c 3.1 (bcc), 5.2 (bcc, bcc32)
