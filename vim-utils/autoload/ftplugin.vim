@@ -171,6 +171,14 @@ endfunction
 
 function! s:compiler_msbuild(curr_folder) abort
 	compiler msbuild
+	" let ms = escape(expand('$ProgramFiles(x86)') . '\Microsoft Visual Studio\2017\Professional\MSBuild\15.0\Bin\MSBuild.exe', '\')
+	" let ms = expand('$ProgramFiles(x86)') . '\Microsoft Visual Studio\2017\Professional\MSBuild\15.0\Bin\MSBuild.exe'
+	" let ms .= '"'
+	" let ms = '"' . ms
+	" let ms = "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Professional\\MSBuild\\15.0\\Bin\\MSBuild.exe\""
+	" let ms =C:\\Program\ Files\ (x86)\\Microsoft\ Visual\ Studio\\2017\\Professional\\MSBuild\\15.0\\Bin\\MSBuild.exe
+	let ms = 'msbuild'
+	let &l:makeprg= ms . ' /nologo /v:q /property:GenerateFullPaths=true'
 	let &l:errorformat='%f(%l): %t%*[^ ] C%n: %m [%.%#]'
 
 	" Wed Apr 04 2018 11:10: Alternative errorformat found somewhere:
@@ -186,9 +194,10 @@ function! s:compiler_msbuild(curr_folder) abort
 	" Compose solution name
 	let proj_name .= filereadable(proj_name . '.sln') ? '.sln' : '.vcxproj'
 	" Fix make_program
-	let &l:makeprg='msbuild ' . proj_name . ' /nologo /v:q /property:GenerateFullPaths=true'
+	let &l:makeprg= ms . ' ' . proj_name . ' /nologo /v:q /property:GenerateFullPaths=true'
 
 	let b:neomake_cpp_enabled_makers = ['msbuild']
+	let b:neomake_cpp_msbuild_exe = ms
 	let b:neomake_cpp_msbuild_args = [
 				\ proj_name,
 				\ '/nologo',
