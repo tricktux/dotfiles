@@ -5,10 +5,10 @@
 " $Revision: 1.1 $
 
 " Hint: Borlands grep.exe has a non-standard output format, even with
-" unix-compatibility flag set. I have not yet found a global 'grepformat'. 
-" I propose renaming Borlands copy and use grep.exe from the cygwin 
+" unix-compatibility flag set. I have not yet found a global 'grepformat'.
+" I propose renaming Borlands copy and use grep.exe from the cygwin
 " distribution instead, which works with Vims default settings.
-" Hint: Watch the order of the errorformat parts (between ,), to prevent 
+" Hint: Watch the order of the errorformat parts (between ,), to prevent
 " misinterpretations. This current order seems to work :
 " - cbuilder, delphi/kylix, fpk, tp7, borland c
 
@@ -16,11 +16,11 @@ if exists("current_compiler")
   finish
 endif
 let current_compiler = "borland"
- 
+
 " uncomment to automatically save buffer before :make
 "setlocal autowrite
 
-setlocal makeprg=make 
+let &l:makeprg="C:\\Program Files (x86)\\Borland\\CBuilder6\\Bin\\make.exe"
 " setlocal errorformat=%*[^0-9]\ %t%n\ %f\ %l:\ %m,%*\\r%f(%l)\ %m,%f(%l\\,%c)\ %m,%A%f(%l):\ %*[^\ ]\ %n:\ %m,%-Z%p^,%+C%.%#,%*[^\ ]\ %f\ %l:\ %m
 
 " turbo c 2.0 (tcc), borland c 3.1 (bcc), 5.2 (bcc, bcc32)
