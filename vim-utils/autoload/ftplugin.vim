@@ -171,12 +171,6 @@ endfunction
 
 function! s:compiler_msbuild(curr_folder) abort
 	compiler msbuild
-	" let ms = escape(expand('$ProgramFiles(x86)') . '\Microsoft Visual Studio\2017\Professional\MSBuild\15.0\Bin\MSBuild.exe', '\')
-	" let ms = expand('$ProgramFiles(x86)') . '\Microsoft Visual Studio\2017\Professional\MSBuild\15.0\Bin\MSBuild.exe'
-	" let ms .= '"'
-	" let ms = '"' . ms
-	" let ms = "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Professional\\MSBuild\\15.0\\Bin\\MSBuild.exe\""
-	" let ms =C:\\Program\ Files\ (x86)\\Microsoft\ Visual\ Studio\\2017\\Professional\\MSBuild\\15.0\\Bin\\MSBuild.exe
 	let ms = 'msbuild'
 	let &l:makeprg= ms . ' /nologo /v:q /property:GenerateFullPaths=true'
 	let &l:errorformat='%f(%l): %t%*[^ ] C%n: %m [%.%#]'
