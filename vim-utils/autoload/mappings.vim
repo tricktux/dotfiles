@@ -58,9 +58,6 @@ function! mappings#Set() abort
 
 	" UtilsTagUpdateCurrFolder
 	nnoremap <silent> <LocalLeader>t :call ctags#NvimSyncCtags()<cr>
-	" Split window and jump to tag
-	nnoremap <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
-
 
 	nnoremap <Leader>tt :TagbarToggle<CR>
 	nnoremap <Leader>ts :setlocal spell! spelllang=en_us<CR>
@@ -174,6 +171,11 @@ function! mappings#Set() abort
 	nnoremap ]l :lnext<CR>
 	nnoremap [l :lprevious<CR>
 	nnoremap Y y$
+
+	nnoremap ]t <c-]>
+	nnoremap [t <c-t>
+	" Split window and jump to tag
+	nnoremap ]T :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 	" decrease number
 	nnoremap <S-x> <c-x>

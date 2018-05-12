@@ -162,15 +162,25 @@ function! s:compiler_borland() abort
 		autocmd BufWritePre <buffer=abuf> call <SID>update_borland_makefile()
 	augroup end
 
-	compiler borland
+	" Settings for NeoamkeProject
+	let b:current_compiler = "borland"
+	" let prog = C:\Program Files (x86)\Borland\CBuilder6\Bin\make.exe
+	let prog ='make'
+	let &l:makeprg=prog
+	setlocal errorformat=%*[^0-9]\ %t%n\ %f\ %l:\ %m
+
 	" For Borland use only make
 	let b:neomake_cpp_enabled_makers = ['make']
+	let b:neomake_make_exe = prog
 	let b:neomake_make_args = ['%:r.obj']
 	let b:neomake_make_append_file = 0
+	let b:neomake_make_errorformat = &errorformat
 endfunction
 
 function! s:compiler_msbuild(curr_folder) abort
 	compiler msbuild
+	let ms = 'msbuild'
+	let &l:makeprg= ms . ' /nologo /v:q /property:GenerateFullPaths=true'
 	let &l:errorformat='%f(%l): %t%*[^ ] C%n: %m [%.%#]'
 
 	" Wed Apr 04 2018 11:10: Alternative errorformat found somewhere:
@@ -186,9 +196,10 @@ function! s:compiler_msbuild(curr_folder) abort
 	" Compose solution name
 	let proj_name .= filereadable(proj_name . '.sln') ? '.sln' : '.vcxproj'
 	" Fix make_program
-	let &l:makeprg='msbuild ' . proj_name . ' /nologo /v:q /property:GenerateFullPaths=true'
+	let &l:makeprg= ms . ' ' . proj_name . ' /nologo /v:q /property:GenerateFullPaths=true'
 
 	let b:neomake_cpp_enabled_makers = ['msbuild']
+	let b:neomake_cpp_msbuild_exe = ms
 	let b:neomake_cpp_msbuild_args = [
 				\ proj_name,
 				\ '/nologo',

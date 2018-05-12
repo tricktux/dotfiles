@@ -14,34 +14,27 @@ function! init#vim() abort
 	" to be here. Otherwise Alt mappings stop working
 	set encoding=utf-8
 
-	if has('win32')
-		" WINDOWS_SETTINGS
-		call win32#Config()
-	elseif has('unix')
-		" UNIX_SETTINGS
-		call unix#Config()
-	endif
+	" OS_SETTINGS
+	execute 'call ' . (has('unix') ? 'unix#Config()' : 'win32#Config()')
 
 	" PLUGINS_INIT
-	 if plugin#Config()
-	  let g:loaded_plugins = 1
-	 else
-	  echomsg 'No plugins where loaded'
-	 endif
-
-	" Create required folders for storing usage data
-	call utils#CheckDirwoPrompt(g:std_data_path . '/sessions')
-	call utils#CheckDirwoPrompt(g:std_data_path . '/ctags')
-	if has('persistent_undo')
-		let g:undofiles_path = g:std_cache_path . '/undofiles'
-		call utils#CheckDirwoPrompt(g:undofiles_path)
+	if plugin#Config()
+		let g:loaded_plugins = 1
+	else
+		echomsg 'No plugins were loaded'
 	endif
 
- call mappings#Set()
- call options#Set()
- call augroup#Set()
- call commands#Set()
- call syntax#Set()
-endfunction
+	" Create required folders for storing usage data
+	call utils#CheckDirWoPrompt(g:std_data_path . '/sessions')
+	call utils#CheckDirWoPrompt(g:std_data_path . '/ctags')
+	if has('persistent_undo')
+		let g:undofiles_path = g:std_cache_path . '/undofiles'
+		call utils#CheckDirWoPrompt(g:undofiles_path)
+	endif
 
-" vim:tw=78:ts=2:sts=2:sw=2:
+	call mappings#Set()
+	call options#Set()
+	call augroup#Set()
+	call commands#Set()
+	call syntax#Set()
+endfunction

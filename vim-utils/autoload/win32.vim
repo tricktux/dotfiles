@@ -37,8 +37,7 @@ function! win32#Config()
 	endfor
 
 	if !empty(glob('D:/wings-dev/'))
-		let g:wings_path =  'D:/wings-dev/'
-		call utils#SetWingsPath(g:wings_path)
+		call s:set_wings_path('D:/wings-dev/')
 	endif
 
 	" Fri Jan 05 2018 16:40: Many plugins use this now. Making these variables available
@@ -66,3 +65,10 @@ function! win32#Config()
 		endif
 	endfor
 endfunction
+
+function! s:set_wings_path(path) abort
+	execute "nnoremap <Leader>ew1 :call utils#DeniteRec(\"" . a:path . "OneWings/\")<CR>"
+	execute "nnoremap <Leader>ew2 :call utils#DeniteRec(\"" . a:path . "OneWINGSII/\")<CR>"
+	execute "nnoremap <Leader>ews :call utils#DeniteRec(\"" . a:path . "OneWingsSupFiles/\")<CR>"
+endfunction
+

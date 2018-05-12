@@ -439,7 +439,7 @@ function! s:set_mutt_omni_wrap(findstart, base) abort
 endfunction
 
 function! s:set_language_client() abort
-	if !has('python3') || !executable('clangd')
+	if !executable('clangd')
 		return -1
 	endif
 
@@ -448,8 +448,6 @@ function! s:set_language_client() abort
 				\ 'do': has('unix') ? 'bash install.sh' : 'powershell -executionpolicy bypass -File install.ps1',
 				\ }
 
-	" Wed Apr 04 2018 17:02: the cquery project has an excellent page on generating
-	" compile_commands.json on its wiki
 	" Wed Apr 04 2018 16:25: clangd depends on a compile_commands.json databse.
 	" If you can't generate that. Then its no use.
 	let g:LanguageClient_autoStart = 1
@@ -457,8 +455,15 @@ function! s:set_language_client() abort
 				\ 'cpp': ['clangd'],
 				\ }
 
+	" Multi-entry selection UI. FZF
+	Plug 'junegunn/fzf.vim'
+
+	let g:LanguageClient_diagnosticsList = "Location"
+
 	" Wed Apr 04 2018 16:21 All these settings are for cquery
+	" Wed Apr 04 2018 17:02: the cquery project has an excellent page on generating
 	" Sat Jan 27 2018 11:11: Settings coming from:
+	" compile_commands.json on its wiki
 	" https://github.com/cquery-project/cquery/wiki/Neovim
 	" let g:LanguageClient_serverCommands = {
 				" \ 'cpp': [ 'cquery', '--language-server', '--log-file=/tmp/cq.log' ],
@@ -467,11 +472,9 @@ function! s:set_language_client() abort
 	" let g:LanguageClient_loadSettings = 1 " Use an absolute configuration path if you want system-wide settings
 	" let g:LanguageClient_settingsPath = g:std_config_path . '/dotfiles/vim-utils/settings.json'
 
-	let g:LanguageClient_trace = 'verbose'
-	let g:LanguageClient_loggingLevel = 'DEBUG'
+	" let g:LanguageClient_trace = 'verbose'
+	" let g:LanguageClient_loggingLevel = 'DEBUG'
 
-	" Multi-entry selection UI. FZF
-	" Plug 'junegunn/fzf.vim'
 	return 1
 endfunction
 

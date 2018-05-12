@@ -25,13 +25,6 @@ function! unix#Config() abort
 	if sys_name =~# 'Android'
 		let g:android = 1
 		let g:usr_path = $HOME . '/../usr'
-	elseif sys_name =~# 'Cygwin'
-		let g:system_name = 'cygwin'
-		if exists('$USERNAME') && $USERNAME =~? '^h' " Assume work pc
-			let g:wiki_path =  '/cygdrive/d/wiki'
-			let g:wings_path =  '/cygdrive/d/wings-dev/'
-			call utils#SetWingsPath(g:wings_path)
-		endif
 	elseif hostname =~ 'beast'
 		let g:wiki_path=  $HOME . '/Seafile/OnServer/KnowledgeIsPower/wiki'
 	elseif hostname =~ 'predator'
@@ -72,5 +65,3 @@ function! unix#Config() abort
 	command! UtilsLinuxSudoPermissions execute("w !sudo tee % > /dev/null")
 	command! UtilsLinuxExecuteCurrFile execute("silent !./%")
 endfunction
-
-" vim:tw=78:ts=2:sts=2:sw=2:
