@@ -69,12 +69,14 @@ macro index u "U~A<enter>"
 # Bind to I key in index view:
 macro index I  "<search>~F\n"                     "Search for next important"
 # bind index c compose
+bind index d next-page
+bind index e previous-page
 
 # Inside emails mappings
 bind pager j next-line
 bind pager k previous-line
 bind pager h previous-page
-bind pager l next-page
+bind pager e next-page
 bind pager u previous-page
 bind pager d next-page
 bind pager G bottom
