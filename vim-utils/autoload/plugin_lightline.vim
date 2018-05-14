@@ -19,7 +19,7 @@ function! plugin_lightline#config() abort
 				\ 'active' : {
 				\   'left': [
 				\							[ 'mode', 'paste' ],
-				\							[ 'readonly', 'cwd', 'relativepath' ],
+				\							[ 'readonly', 'relativepath' ],
 				\							[  ]
 				\						],
 				\ 'right': [ [ 'lineinfo' ],
@@ -58,7 +58,6 @@ function! plugin_lightline#config() abort
 
 	let g:lightline.active.left[2] += [ 'ver_control' ]
 	let g:lightline.component_function['ver_control'] = string(function('s:get_version_control'))
-
 endfunction
 
 function! s:set_path() abort

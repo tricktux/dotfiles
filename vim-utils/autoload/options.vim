@@ -42,6 +42,13 @@ function! options#Set() abort
 	set wildmode=list:longest
 	set wildignore+=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn,.git
 	set title                " change the terminal's title
+
+	" Set a pretty title
+	augroup TermTitle
+		autocmd!
+		autocmd DirChanged * let &titlestring = getcwd() . " - " . v:progname
+	augroup END
+
 	set nobackup " no backup files
 	set nowritebackup
 	set noswapfile
@@ -274,12 +281,6 @@ function! options#SetCli() abort
 		let &t_AF="\e[38;5;%dm"
 	endif
 
-	" Set a pretty title
-	augroup TermTitle
-		autocmd!
-		autocmd BufEnter * let &titlestring = expand("%:t") . " - " . v:progname
-	augroup END
-	auto
 endfunction
 
 " Support here for rg, ucg, ag in that order
