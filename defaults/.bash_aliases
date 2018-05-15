@@ -59,7 +59,7 @@ alias cpstat=FuncCheckCopy
 alias df='df -h'
 alias du='du -h'
 
-# alias ncmpcpp='ncmpcpp -c ~/.config/ncmpcpp'
+alias mkcdir=mkcdir
 
 FuncHelp()
 {
@@ -127,4 +127,10 @@ FuncSvnCreate()
 {
 	ssh reinaldo@192.168.1.8 mkdir -p /mnt/hq-storage/1.Myn/svn-server/$1 $@
 	ssh reinaldo@192.168.1.8 svnadmin create /mnt/hq-storage/1.Myn/svn-server/$1 $@
+}
+
+mkcdir ()
+{
+    mkdir -p -- "$1" &&
+      cd -P -- "$1"
 }
