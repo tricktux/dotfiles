@@ -28,7 +28,7 @@ function! mappings#Set() abort
 	" Most used misc get jk, jj, jl, j;
 	" TODO.RM-Fri Apr 28 2017 14:25: Go through mappings and figure out the
 	" language specific ones so that you can move them into ftplugin
-	" nnoremap <Leader>jk :call utils#Make()<CR>
+	" nnoremap <Leader>jk :call utils#Make()<cr>
 	" ga " prints ascii of char under cursor
 	" gA " prints radix of number under cursor
 	" Untouchable g mappings:
@@ -59,11 +59,11 @@ function! mappings#Set() abort
 	" UtilsTagUpdateCurrFolder
 	nnoremap <silent> <LocalLeader>t :call ctags#NvimSyncCtags()<cr>
 
-	nnoremap <Leader>tt :TagbarToggle<CR>
-	nnoremap <Leader>ts :setlocal spell! spelllang=en_us<CR>
+	nnoremap <Leader>tt :TagbarToggle<cr>
+	nnoremap <Leader>ts :setlocal spell! spelllang=en_us<cr>
 
 	" Global settings for all ftplugins
-	nnoremap <LocalLeader>f :Neoformat<CR>
+	nnoremap <LocalLeader>f :Neoformat<cr>
 
 	" Refactor word under the cursor
 	nnoremap <Leader>r :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
@@ -71,31 +71,31 @@ function! mappings#Set() abort
 	" duplicate current char
 	nnoremap <Leader>d ylp
 	" Reload syntax
-	nnoremap <Leader>js <Esc>:syntax sync fromstart<CR>
+	nnoremap <Leader>js <Esc>:syntax sync fromstart<cr>
 	" Sessions
-	nnoremap <Leader>jes :call utils#SaveSession()<CR>
-	nnoremap <Leader>jel :call utils#LoadSession()<CR>
-	nnoremap <Leader>jee :call utils#LoadSession('default.vim')<CR>
+	nnoremap <Leader>jes :call utils#SaveSession()<cr>
+	nnoremap <Leader>jel :call utils#LoadSession()<cr>
+	nnoremap <Leader>jee :call utils#LoadSession('default.vim')<cr>
 	" Count occurrances of last search
-	nnoremap <Leader>jc :%s///gn<CR>
+	nnoremap <Leader>jc :%s///gn<cr>
 	" Indenting
-	nnoremap <Leader>2 :setlocal ts=2 sw=2 sts=2<CR>
-	nnoremap <Leader>4 :setlocal ts=4 sw=4 sts=4<CR>
-	nnoremap <Leader>8 :setlocal ts=8 sw=8 sts=8<CR>
+	nnoremap <Leader>2 :setlocal ts=2 sw=2 sts=2<cr>
+	nnoremap <Leader>4 :setlocal ts=4 sw=4 sts=4<cr>
+	nnoremap <Leader>8 :setlocal ts=8 sw=8 sts=8<cr>
 	" not paste the deleted word
 	nnoremap P "0p
 	vnoremap P "0p
 	" Force wings_syntax on a file
-	nnoremap <Leader>jw :set filetype=wings_syntax<CR>
+	nnoremap <Leader>jw :set filetype=wings_syntax<cr>
 	" Create file with name under the cursor
 	" Diff Sutff
-	nnoremap <Leader>j. :call utils#LastCommand()<CR>
+	nnoremap <Leader>j. :call utils#LastCommand()<cr>
 	" j mappings taken <swypl;bqruihHdma248eEonf>
-	" nnoremap <Leader>Mc :call utils#ManFind()<CR>
+	" nnoremap <Leader>Mc :call utils#ManFind()<cr>
 	" Tue Dec 19 2017 14:34: Removing the save all files. Not a good thing to do.
 	" - Main reason is specially with Neomake running make an multiple files at the same
 	"   time
-	nnoremap <C-s> :w<CR>
+	nnoremap <C-s> :w<cr>
 	" Thu Feb 22 2018 07:42: Mind buggling super good mapping from vim-galore
 	" Tue Apr 24 2018 14:06: For some reason in large .cpp files syntax sync takes away
 	" highlight
@@ -108,7 +108,7 @@ function! mappings#Set() abort
 	" insert visual selection search
 	cnoremap <C-u> <c-r>=expand("<cword>")<cr>
 	cnoremap <C-s> %s/
-	cnoremap <C-j> <CR>
+	cnoremap <C-j> <cr>
 	cnoremap <C-p> <Up>
 	cnoremap <C-A> <Home>
 	cnoremap <C-F> <Right>
@@ -129,10 +129,10 @@ function! mappings#Set() abort
 	nmap <S-t> %
 	vmap <S-t> %
 	" Automatically insert date
-	nnoremap <F5> i<Space><ESC>"=strftime("%a %b %d %Y %H:%M")<CR>P
+	nnoremap <F5> i<Space><ESC>"=strftime("%a %b %d %Y %H:%M")<cr>P
 	" Designed this way to be used with snippet md header
-	vnoremap <F5> s<Space><ESC>"=strftime("%a %b %d %Y %H:%M")<CR>Pa
-	inoremap <F5> <Space><ESC>"=strftime("%a %b %d %Y %H:%M")<CR>Pa
+	vnoremap <F5> s<Space><ESC>"=strftime("%a %b %d %Y %H:%M")<cr>Pa
+	inoremap <F5> <Space><ESC>"=strftime("%a %b %d %Y %H:%M")<cr>Pa
 	" Auto indent pasted text
 	nnoremap p p=`]<C-o>
 	" Visual shifting (does not exit Visual mode)
@@ -145,37 +145,42 @@ function! mappings#Set() abort
 	nnoremap ]c ]czz
 	nnoremap [c [czz
 
-	nnoremap ]y :call utils#YankFrom('+')<CR>
-	nnoremap [y :call utils#YankFrom('-')<CR>
+	nnoremap ]y :call utils#YankFrom('+')<cr>
+	nnoremap [y :call utils#YankFrom('-')<cr>
 
-	nnoremap ]d :call utils#DeleteLine('+')<CR>
-	nnoremap [d :call utils#DeleteLine('-')<CR>
+	nnoremap ]d :call utils#DeleteLine('+')<cr>
+	nnoremap [d :call utils#DeleteLine('-')<cr>
 
-	nnoremap ]o :call utils#CommentLine('+')<CR>
-	nnoremap [o :call utils#CommentLine('-')<CR>
+	nnoremap ]o :call utils#CommentLine('+')<cr>
+	nnoremap [o :call utils#CommentLine('-')<cr>
 
-	nnoremap ]m :m +1<CR>
-	nnoremap [m :m -2<CR>
+	nnoremap ]m :m +1<cr>
+	nnoremap [m :m -2<cr>
 
 	" Capital F because [f is go to file and this is rarely used
-	nnoremap ]F :call utils#GuiFont("+")<CR>
-	nnoremap [F :call utils#GuiFont("-")<CR>
+	nnoremap ]F :call utils#GuiFont("+")<cr>
+	nnoremap [F :call utils#GuiFont("-")<cr>
 
 	" Quickfix and Location stuff
-	" nnoremap <silent> <Leader>ll :call quickfix#ToggleList("Location List", 'l')<CR>
-	nnoremap <silent> <S-q> :call quickfix#ToggleList("Quickfix List", 'c')<CR>
-	nnoremap ]q :cnext<CR>
-	nnoremap [q :cprevious<CR>
+	nnoremap <silent> <s-q> :call quickfix#ToggleList("Quickfix List", 'c')<cr>
+	nnoremap ]q :cnext<cr>
+	nnoremap [q :cprevious<cr>
 
-	nnoremap <S-u> :call quickfix#ToggleList("Location List", 'l')<CR>
-	nnoremap ]l :lnext<CR>
-	nnoremap [l :lprevious<CR>
+	nnoremap <s-u> :call quickfix#ToggleList("Location List", 'l')<cr>
+	nnoremap ]l :lnext<cr>
+	nnoremap [l :lprevious<cr>
 	nnoremap Y y$
 
 	nnoremap ]t <c-]>
 	nnoremap [t <c-t>
 	" Split window and jump to tag
-	nnoremap ]T :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+	" nnoremap ]T :exec 'ptag ' . expand('<cword>')<cr><c-w>R
+	nnoremap ]T :let word=expand('<cword>')<cr><c-w>l:exec 'tag ' . word<cr>
+	nnoremap [T :let word=expand('<cword>')<cr><c-w>h:exec 'tag ' . word<cr>
+
+	" Improving on ]f
+	nnoremap ]f :exec 'pedit ' . expand('<cfile>')<cr><c-w>R
+	nnoremap [f :exec 'pedit ' . expand('<cfile>')<cr><c-w>L
 
 	" decrease number
 	nnoremap <S-x> <c-x>
@@ -198,7 +203,7 @@ function! mappings#Set() abort
 	" Insert Mode (Individual) mappings
 	" TODO-[RM]-(Sat Oct 21 2017 10:32): Change this here for fix previous word.
 	" This has never worked nor is ever used
-	inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
+	inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<cr>
 	inoremap <c-f> <del>
 	inoremap <C-F> <Right>
 	inoremap <C-B> <Left>
@@ -219,13 +224,13 @@ function! mappings#Set() abort
 
 
 	" CD <Leader>c?
-	nnoremap <Leader>cd :lcd %:h<CR>
-				\:pwd<CR>
-	nnoremap <Leader>cu :lcd ..<CR>
-				\:pwd<CR>
+	nnoremap <Leader>cd :lcd %:h<cr>
+				\:pwd<cr>
+	nnoremap <Leader>cu :lcd ..<cr>
+				\:pwd<cr>
 	" cd into dir. press <Tab> after ci to see folders
 	nnoremap <Leader>ci :lcd
-	nnoremap <Leader>cc :pwd<CR>
+	nnoremap <Leader>cc :pwd<cr>
 	" TODO.RM-Thu Jun 01 2017 10:10: Create mappings like c21 and c22
 
 	" Folding
@@ -242,10 +247,10 @@ function! mappings#Set() abort
 	" move between windows
 	if exists('*Focus') && executable('i3-vim-nav')
 		" i3 integration
-		nnoremap <A-l> :call Focus('right', 'l')<CR>
-		nnoremap <A-h> :call Focus('left', 'h')<CR>
-		nnoremap <A-k> :call Focus('up', 'k')<CR>
-		nnoremap <A-j> :call Focus('down', 'j')<CR>
+		nnoremap <A-l> :call Focus('right', 'l')<cr>
+		nnoremap <A-h> :call Focus('left', 'h')<cr>
+		nnoremap <A-k> :call Focus('up', 'k')<cr>
+		nnoremap <A-j> :call Focus('down', 'j')<cr>
 	elseif has('unix') && executable('tmux') && exists('$TMUX')
 		nnoremap <A-h> :call utils#TmuxMove('h')<cr>
 		nnoremap <A-j> :call utils#TmuxMove('j')<cr>
@@ -268,7 +273,7 @@ function! mappings#Set() abort
 	" Tried ack.vim. Discovered that nothing is better than grep with ag.
 	" search all type of files
 	" Search visual selection text
-	vnoremap // y/<C-R>"<CR>
+	vnoremap // y/<C-R>"<cr>
 
 	" Substitute for ESC
 	execute "vnoremap " . g:esc . " <Esc>"
@@ -276,59 +281,59 @@ function! mappings#Set() abort
 
 	" Buffers Stuff <Leader>b?
 	if !exists("g:loaded_plugins")
-		nnoremap <S-k> :buffers<CR>:buffer<Space>
+		nnoremap <S-k> :buffers<cr>:buffer<Space>
 	else
-		nnoremap <Leader>bs :buffers<CR>:buffer<Space>
+		nnoremap <Leader>bs :buffers<cr>:buffer<Space>
 	endif
-	nnoremap <Leader>bd :bp\|bw #\|bd #<CR>
-	nnoremap <S-j> :b#<CR>
+	nnoremap <Leader>bd :bp\|bw #\|bd #<cr>
+	nnoremap <S-j> :b#<cr>
 	" deletes all buffers
-	nnoremap <Leader>bl :%bd<CR>
+	nnoremap <Leader>bl :%bd<cr>
 
 	" Version Control <Leader>v?
 	" For all this commands you should be in the svn root folder
 	" Add all files
-	nnoremap <Leader>vA :!svn add . --force<CR>
+	nnoremap <Leader>vA :!svn add . --force<cr>
 	" Add specific files
 	nnoremap <Leader>va :!svn add --force
 	" Commit using typed message
-	nnoremap <Leader>vc :call utils#SvnCommit()<CR>
+	nnoremap <Leader>vc :call utils#SvnCommit()<cr>
 	" Commit using File for commit content
-	nnoremap <Leader>vC :!svn commit --force-log -F %<CR>
+	nnoremap <Leader>vC :!svn commit --force-log -F %<cr>
 	nnoremap <Leader>vd :!svn rm --force
 	" revert previous commit
-	"nnoremap <Leader>vr :!svn revert -R .<CR>
-	nnoremap <Leader>vl :!svn cleanup .<CR>
+	"nnoremap <Leader>vr :!svn revert -R .<cr>
+	nnoremap <Leader>vl :!svn cleanup .<cr>
 	" use this command line to delete unrevisioned or "?" svn files
-	" nnoremap <Leader>vL :!for /f "tokens=2*" %i in ('svn status ^| find "?"') do del %i<CR>
-	" nnoremap <Leader>vs :!svn status .<CR>
-	nnoremap <Leader>vu :!svn update .<CR>
+	" nnoremap <Leader>vL :!for /f "tokens=2*" %i in ('svn status ^| find "?"') do del %i<cr>
+	" nnoremap <Leader>vs :!svn status .<cr>
+	nnoremap <Leader>vu :!svn update .<cr>
 	" Overwritten from plugin.vim
-	" nnoremap <Leader>vo :!svn log .<CR>
-	" nnoremap <Leader>vi :!svn info<CR>
+	" nnoremap <Leader>vo :!svn log .<cr>
+	" nnoremap <Leader>vi :!svn info<cr>
 
 	" Wiki mappings <Leader>w?
 	" TODO.RM-Thu Dec 15 2016 16:00: Add support for wiki under SW-Testbed
-	nnoremap <Leader>wt :call utils#WikiOpen('TODO.md')<CR>
-	nnoremap <Leader>wo :call utils#WikiOpen()<CR>
-	nnoremap <Leader>ws :call utils#WikiSearch()<CR>
-	nnoremap <Leader>wm :call utils#MastersDropboxOpen('')<CR>
+	nnoremap <Leader>wt :call utils#WikiOpen('TODO.md')<cr>
+	nnoremap <Leader>wo :call utils#WikiOpen()<cr>
+	nnoremap <Leader>ws :call utils#WikiSearch()<cr>
+	nnoremap <Leader>wm :call utils#MastersDropboxOpen('')<cr>
 
 	" Comments <Leader>o
 	nmap - <plug>NERDCommenterToggle
 	" nmap <Leader>ot <plug>NERDCommenterAltDelims
 	vmap - <plug>NERDCommenterToggle
 	imap <C-c> <plug>NERDCommenterInsert
-	nnoremap <Leader>oI :call utils#CommentReduceIndent()<CR>
+	nnoremap <Leader>oI :call utils#CommentReduceIndent()<cr>
 	nmap <Leader>to <plug>NERDCommenterAltDelims
 	" mapping ol conflicts with mapping o to new line
-	nnoremap <Leader>oe :call utils#EndOfIfComment()<CR>
-	nnoremap <Leader>ou :call utils#UpdateHeader()<CR>
-	nnoremap <Leader>ot :call utils#TodoAdd()<CR>
+	nnoremap <Leader>oe :call utils#EndOfIfComment()<cr>
+	nnoremap <Leader>ou :call utils#UpdateHeader()<cr>
+	nnoremap <Leader>ot :call utils#TodoAdd()<cr>
 	nmap <Leader>oa <Plug>NERDCommenterAppend
-	nnoremap <Leader>od :call utils#CommentDelete()<CR>
+	nnoremap <Leader>od :call utils#CommentDelete()<cr>
 	" Comment Indent Increase/Reduce
-	nnoremap <Leader>oi :call utils#CommentIndent()<CR>
+	nnoremap <Leader>oi :call utils#CommentIndent()<cr>
 
 	" Edit file at location <Leader>e?
 	nnoremap <Leader>ed :call utils#DeniteRec(g:std_config_path . '/dotfiles')<cr>
@@ -337,8 +342,8 @@ function! mappings#Set() abort
 	nnoremap <Leader>el :call utils#DeniteRec(input('Folder to recurse: ', "", "file"))<cr>
 	nnoremap <Leader>et :execute('edit ' . g:std_config_path . '/dotfiles/TODO.md')<cr>
 	" Edit plugin
-	nnoremap <Leader>ep :call utils#DeniteRec(g:vim_plugins_path)<CR>
+	nnoremap <Leader>ep :call utils#DeniteRec(g:vim_plugins_path)<cr>
 	nnoremap <Leader>ei :e
 	" Edit Vimruntime
-	nnoremap <Leader>ev :call utils#DeniteRec($VIMRUNTIME)<CR>
+	nnoremap <Leader>ev :call utils#DeniteRec($VIMRUNTIME)<cr>
 endfunction
