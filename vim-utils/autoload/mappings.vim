@@ -73,9 +73,9 @@ function! mappings#Set() abort
 	" Reload syntax
 	nnoremap <Leader>js <Esc>:syntax sync fromstart<cr>
 	" Sessions
-	nnoremap <Leader>jes :call utils#SaveSession()<cr>
-	nnoremap <Leader>jel :call utils#LoadSession()<cr>
-	nnoremap <Leader>jee :call utils#LoadSession('default.vim')<cr>
+	nnoremap <Leader>jes :call s:save_session()<cr>
+	nnoremap <Leader>jel :call s:load_session()<cr>
+	nnoremap <Leader>jee :call s:load_session('default.vim')<cr>
 	" Count occurrances of last search
 	nnoremap <Leader>jc :%s///gn<cr>
 	" Indenting
@@ -117,7 +117,7 @@ function! mappings#Set() abort
 	cnoremap <A-b> <S-Left>
 	cnoremap <A-f> <S-Right>
 
-	cnoremap <silent> <expr> <enter> utils#CenterSearch()
+	cnoremap <silent> <expr> <cr> s:center_search()
 	" move to the beggning of line
 	" Don't make this nnoremap. Breaks stuff
 	nnoremap <S-w> $
@@ -145,21 +145,17 @@ function! mappings#Set() abort
 	nnoremap ]c ]czz
 	nnoremap [c [czz
 
-	nnoremap ]y :call utils#YankFrom('+')<cr>
-	nnoremap [y :call utils#YankFrom('-')<cr>
+	nnoremap ]y :call s:yank_from('+')<cr>
+	nnoremap [y :call s:yank_from('-')<cr>
 
-	nnoremap ]d :call utils#DeleteLine('+')<cr>
-	nnoremap [d :call utils#DeleteLine('-')<cr>
+	nnoremap ]d :call s:delete_line('+')<cr>
+	nnoremap [d :call s:delete_line('-')<cr>
 
-	nnoremap ]o :call utils#CommentLine('+')<cr>
-	nnoremap [o :call utils#CommentLine('-')<cr>
+	nnoremap ]o :call s:comment_line('+')<cr>
+	nnoremap [o :call s:comment_line('-')<cr>
 
 	nnoremap ]m :m +1<cr>
 	nnoremap [m :m -2<cr>
-
-	" Capital F because [f is go to file and this is rarely used
-	nnoremap ]F :call utils#GuiFont("+")<cr>
-	nnoremap [F :call utils#GuiFont("-")<cr>
 
 	" Quickfix and Location stuff
 	nnoremap <silent> <s-q> :call quickfix#ToggleList("Quickfix List", 'c')<cr>
@@ -178,9 +174,12 @@ function! mappings#Set() abort
 	nnoremap ]T :let word=expand('<cword>')<cr><c-w>l:exec 'tag ' . word<cr>
 	nnoremap [T :let word=expand('<cword>')<cr><c-w>h:exec 'tag ' . word<cr>
 
-	" Improving on ]f
-	nnoremap ]f :exec 'pedit ' . expand('<cfile>')<cr><c-w>R
-	nnoremap [f :exec 'pedit ' . expand('<cfile>')<cr><c-w>L
+	" Capital F because [f is go to file and this is rarely used
+	" ]f native go into file.
+	" [f return from file
+	nnoremap [f <c-o>
+	nnoremap ]F :let file=expand('<cfile>')<cr><c-w>l:exec 'edit ' . file<cr>
+	nnoremap [F :let file=expand('<cfile>')<cr><c-w>h:exec 'edit ' . file<cr>
 
 	" decrease number
 	nnoremap <S-x> <c-x>
@@ -347,3 +346,105 @@ function! mappings#Set() abort
 	" Edit Vimruntime
 	nnoremap <Leader>ev :call utils#DeniteRec($VIMRUNTIME)<cr>
 endfunction
+
+
+function! s:save_session(...) abort
+	let session_path = g:std_data_path . '/sessions/'
+	" if session name is not provided as function argument ask for it
+	if a:0 < 1
+		execute "wall"
+		let dir = getcwd()
+		execute "cd ". session_path
+		let session_name = input("Enter save session name:", "", "file")
+		silent! execute "cd " . dir
+	else
+		" Need to keep this option short and sweet
+		let session_name = a:1
+	endif
+	silent! execute "mksession! " . session_path . session_name
+endfunction
+
+function! s:load_session(...) abort
+	let session_path = g:std_data_path . '/sessions/'
+	" Logic path when not called at startup
+	if a:0 >= 1
+		let session_name = session_path . a:1
+		if !filereadable(session_name)
+			echoerr '[s:load_session]: File ' . session_name . ' not readabale'
+			return
+		endif
+		silent! execute "normal :%bdelete\<CR>"
+		silent! execute "normal :so " . session_path . a:1 . "\<CR>"
+		return
+	endif
+
+	execute "wall"
+	let response = confirm("Are you sure? This will unload all buffers?", "&Jes\n&No(def.)")
+	if response != 1
+		return -1
+	endif
+
+	if exists(':Denite')
+		call setreg(v:register, "") " Clean up register
+		execute "Denite -default-action=yank -path=" . session_path . " file_rec"
+		let session_name = getreg()
+		if !filereadable(session_path . session_name)
+			return
+		endif
+	else
+		let dir = getcwd()
+		execute "cd ". session_path
+		let session_name = input("Load session:", "", "file")
+		silent! execute "cd " . dir
+	endif
+	silent! execute "normal :%bdelete\<CR>"
+	silent execute "source " . session_path . session_name
+endfunction
+
+function! s:center_search() abort
+	let cmdtype = getcmdtype()
+	if cmdtype ==# '/' || cmdtype ==# '?'
+		return '\<cr>zz'
+	endif
+	return "\<cr>"
+endfunction
+
+function! s:yank_from(sign) abort
+	let in = s:parse_line_mod_input('Yank',  a:sign)
+	execute "normal :" . in . "y\<CR>p"
+endfunction
+
+" msg - {Comment, Delete, Paste, Yank}
+" sing - {+,-}
+" Returns: Modified input
+function! s:parse_line_mod_input(msg, sign) abort
+	let in = input(a:msg . " Line:")
+	let in = a:sign . in
+	let comma = stridx(in, ',')
+	if comma > -1
+		return strcharpart(in, 0,comma+1) . a:sign . strcharpart(in, comma+1)
+	endif
+
+	return in
+endfunction
+
+function! s:delete_line(sign) abort
+	let in = s:parse_line_mod_input('Delete',  a:sign)
+	execute "normal :" . in . "d\<CR>``"
+endfunction
+
+function! s:comment_line(sign) abort
+	if !exists("*NERDComment")
+		echo "Please install NERDCommenter"
+		return
+	endif
+
+	let in = utils#ParseLineModificationInput('Comment',  a:sign)
+	execute "normal mm:" . in . "\<CR>"
+	execute "normal :call NERDComment(\"n\", \"Toggle\")\<CR>`m"
+endfunction
+
+function! utils#LastCommand() abort
+	execute "normal :\<Up>\<CR>"
+endfunction
+

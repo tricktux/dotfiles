@@ -28,4 +28,9 @@ function! commands#Set() abort
 	command! UtilsPdfSearch call utils#SearchPdf()
 	command! UtilsTagLoadCurrFolder call ctags#LoadCscopeDatabse()
 	command! UtilsTagUpdateCurrFolder call ctags#NvimSyncCtags()
+
+	" These used to be ]F [F mappings but they are not so popular so moving them to
+	" commands
+	command! UtilsFontZoomIn call utils#GuiFont('+')
+	command! UtilsFontZoomOut call utils#GuiFont('-')
 endfunction

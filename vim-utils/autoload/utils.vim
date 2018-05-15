@@ -172,30 +172,6 @@ function! utils#CheckDirWoPrompt(name) abort
 	endif
 endfunction
 
-function! utils#YankFrom(sign) abort
-	let in = utils#ParseLineModificationInput('Yank',  a:sign)
-	execute "normal :" . in . "y\<CR>p"
-endfunction
-
-" msg - {Comment, Delete, Paste, Yank}
-" sing - {+,-}
-" Returns: Modified input
-function! utils#ParseLineModificationInput(msg, sign) abort
-	let in = input(a:msg . " Line:")
-	let in = a:sign . in
-	let comma = stridx(in, ',')
-	if comma > -1
-		return strcharpart(in, 0,comma+1) . a:sign . strcharpart(in, comma+1)
-	endif
-
-	return in
-endfunction
-
-function! utils#DeleteLine(sign) abort
-	let in = utils#ParseLineModificationInput('Delete',  a:sign)
-	execute "normal :" . in . "d\<CR>``"
-endfunction
-
 function! utils#SetDiff() abort
 	" Make sure you run diffget and diffput from left window
 	if !executable('diff')
@@ -230,59 +206,6 @@ function! utils#FixPreviousWord() abort
 	return ''
 endfunction
 
-function! utils#SaveSession(...) abort
-	let session_path = g:std_data_path . '/sessions/'
-	" if session name is not provided as function argument ask for it
-	if a:0 < 1
-		execute "wall"
-		let dir = getcwd()
-		execute "cd ". session_path
-		let session_name = input("Enter save session name:", "", "file")
-		silent! execute "cd " . dir
-	else
-		" Need to keep this option short and sweet
-		let session_name = a:1
-	endif
-	silent! execute "mksession! " . session_path . session_name
-endfunction
-
-function! utils#LoadSession(...) abort
-	let session_path = g:std_data_path . '/sessions/'
-	" Logic path when not called at startup
-	if a:0 >= 1
-		let session_name = session_path . a:1
-		if !filereadable(session_name)
-			echoerr '[utils#LoadSession]: File ' . session_name . ' not readabale'
-			return
-		endif
-		silent! execute "normal :%bdelete\<CR>"
-		silent! execute "normal :so " . session_path . a:1 . "\<CR>"
-		return
-	endif
-
-	execute "wall"
-	let response = confirm("Are you sure? This will unload all buffers?", "&Jes\n&No(def.)")
-	if response != 1
-		return -1
-	endif
-
-	if exists(':Denite')
-		call setreg(v:register, "") " Clean up register
-		execute "Denite -default-action=yank -path=" . session_path . " file_rec"
-		let session_name = getreg()
-		if !filereadable(session_path . session_name)
-			return
-		endif
-	else
-		let dir = getcwd()
-		execute "cd ". session_path
-		let session_name = input("Load session:", "", "file")
-		silent! execute "cd " . dir
-	endif
-	silent! execute "normal :%bdelete\<CR>"
-	silent execute "source " . session_path . session_name
-endfunction
-
 function! utils#TodoCreate() abort
 	execute "normal! ^lli[ ]\<Space>\<Esc>"
 endfunction
@@ -298,21 +221,6 @@ endfunction
 function! utils#TodoAdd() abort
 	execute "normal! O" . &commentstring[0] . " "
 	execute "normal! ==a TODO-[RM]-(" . strftime("%a %b %d %Y %H:%M") . "): "
-endfunction
-
-function! utils#CommentLine(sign) abort
-	if !exists("*NERDComment")
-		echo "Please install NERDCommenter"
-		return
-	endif
-
-	let in = utils#ParseLineModificationInput('Comment',  a:sign)
-	execute "normal mm:" . in . "\<CR>"
-	execute "normal :call NERDComment(\"n\", \"Toggle\")\<CR>`m"
-endfunction
-
-function! utils#LastCommand() abort
-	execute "normal :\<Up>\<CR>"
 endfunction
 
 function! utils#ListFiles(dir) abort
@@ -884,14 +792,6 @@ endfunction
 function! utils#TrimWhiteSpace() abort
 	%s/\s*$//
 	''
-endfunction
-
-function! utils#CenterSearch()
-	let cmdtype = getcmdtype()
-	if cmdtype == '/' || cmdtype == '?'
-		return "\<enter>zz"
-	endif
-	return "\<enter>"
 endfunction
 
 function! utils#GetPathFolderName(curr_dir) abort
