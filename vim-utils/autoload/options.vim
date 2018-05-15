@@ -194,6 +194,9 @@ function! options#Set() abort
 	" Tags
 	set tags=./.tags;,.tags;
 
+	set splitright
+	set splitbelow
+
 	" Diff options
 	let &diffopt='vertical'
 endfunction

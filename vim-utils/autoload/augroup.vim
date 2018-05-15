@@ -50,8 +50,8 @@ function! augroup#Set() abort
 
 		augroup BuffTypes
 			autocmd!
-			autocmd BufNewFile * call s:determine_buf_type()
-			autocmd BufNewFile * call s:restore_cursor_pos()
+			autocmd BufRead,BufNewFile * call s:determine_buf_type()
+			autocmd BufRead,BufNewFile * call s:restore_cursor_pos()
 
 			autocmd BufWinEnter * call s:update_root_dir()
 			autocmd BufWinEnter * call ctags#LoadCscopeDatabse()
@@ -88,13 +88,13 @@ endfunction
 function! s:determine_buf_type() abort
 	let ext = expand('%:e')
 	if ext ==# 'ino' || ext ==# 'pde'
-		setfiletype arduino
+		set filetype=arduino
 	elseif ext ==# 'scp'
-		setfiletype wings_syntax
+		set filetype=wings_syntax
 		" elseif ext ==# 'log'
 		" setfiletype unreal-log
 	elseif ext ==# 'set' || ext ==# 'sum'
-		setfiletype dosini
+		set filetype=dosini
 	elseif ext ==# 'bin' || ext ==# 'pdf' || ext ==# 'hsr'
 		call s:set_bin_file_type()
 	endif
