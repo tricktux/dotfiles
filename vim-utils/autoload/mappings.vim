@@ -273,10 +273,10 @@ function! mappings#Set() abort
 		nnoremap <A-k> :call Focus('up', 'k')<cr>
 		nnoremap <A-j> :call Focus('down', 'j')<cr>
 	elseif has('unix') && executable('tmux') && exists('$TMUX')
-		nnoremap <A-h> :call utils#TmuxMove('h')<cr>
-		nnoremap <A-j> :call utils#TmuxMove('j')<cr>
-		nnoremap <A-k> :call utils#TmuxMove('k')<cr>
-		nnoremap <A-l> :call utils#TmuxMove('l')<cr>
+		nnoremap <A-h> :call <SID>tmux_move('h')<cr>
+		nnoremap <A-j> :call <SID>tmux_move('j')<cr>
+		nnoremap <A-k> :call <SID>tmux_move('k')<cr>
+		nnoremap <A-l> :call <SID>tmux_move('l')<cr>
 	else
 		nnoremap <silent> <A-l> <C-w>l
 		nnoremap <silent> <A-h> <C-w>h
@@ -288,7 +288,7 @@ function! mappings#Set() abort
 		nnoremap <silent> <A-S-j> <C-w>-
 	endif
 
-	inoremap <C-S> <c-r>=utils#FixPreviousWord()<cr>
+	inoremap <C-S> <c-r>=<SID>fix_previous_word()<cr>
 
 	" Search <Leader>S
 	" Tried ack.vim. Discovered that nothing is better than grep with ag.
@@ -318,7 +318,7 @@ function! mappings#Set() abort
 	" Add specific files
 	nnoremap <Leader>va :!svn add --force
 	" Commit using typed message
-	nnoremap <Leader>vc :call utils#SvnCommit()<cr>
+	nnoremap <Leader>vc :call <SID>svn_commit()<cr>
 	" Commit using File for commit content
 	nnoremap <Leader>vC :!svn commit --force-log -F %<cr>
 	nnoremap <Leader>vd :!svn rm --force
@@ -335,8 +335,8 @@ function! mappings#Set() abort
 
 	" Wiki mappings <Leader>w?
 	" TODO.RM-Thu Dec 15 2016 16:00: Add support for wiki under SW-Testbed
-	nnoremap <Leader>wt :call utils#WikiOpen('TODO.md')<cr>
-	nnoremap <Leader>wo :call utils#WikiOpen()<cr>
+	nnoremap <Leader>wt :call <SID>wiki_open('TODO.md')<cr>
+	nnoremap <Leader>wo :call <SID>wiki_open()<cr>
 	nnoremap <Leader>ws :call utils#WikiSearch()<cr>
 	nnoremap <Leader>wm :call utils#MastersDropboxOpen('')<cr>
 
@@ -502,4 +502,43 @@ function! s:goto_file_on_next_win(direction) abort
 		close
 	endif
 	exec 'normal! gf'
+endfunction
+
+function! s:tmux_move(direction)
+	let wnr = winnr()
+	silent! execute 'wincmd ' . a:direction
+	" If the winnr is still the same after we moved, it is the last pane
+	if wnr == winnr()
+		call system('tmux select-pane -' . tr(a:direction, 'phjkl', 'lLDUR'))
+	endif
+endfunction
+
+function! s:fix_previous_word() abort
+	normal mm[s1z=`m
+	return ''
+endfunction
+
+" Should be performed on root .svn folder
+function! s:svn_commit() abort
+	execute "!svn commit -m \"" . input("Commit comment:") . "\""
+endfunction
+
+function! s:wiki_open(...) abort
+	if !exists('g:wiki_path') || empty(glob(g:wiki_path))
+		echoerr 'Variable g:wiki_path not set or path doesnt exist'
+		return
+	endif
+
+	if a:0 > 0
+		execute "vs " . g:wiki_path . '/'.  a:1
+	else
+		if exists(':Denite')
+			call utils#DeniteRec(g:wiki_path)
+		else
+			let dir = getcwd()
+			execute "cd " . g:wiki_path
+			execute "vs " . fnameescape(g:wiki_path . '/' . input('Wiki Name: ', '', 'custom,CheatCompletion'))
+			silent! execute "cd " . dir
+		endif
+	endif
 endfunction

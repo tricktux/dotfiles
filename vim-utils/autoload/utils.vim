@@ -16,11 +16,6 @@ function! utils#GitCommit() abort
 	endif
 endfunction
 
-" Should be performed on root .svn folder
-function! utils#SvnCommit() abort
-	execute "!svn commit -m \"" . input("Commit comment:") . "\""
-endfunction
-
 " Special comment function {{{
 function! utils#FindIf() abort
 	while 1
@@ -172,40 +167,6 @@ function! utils#CheckDirWoPrompt(name) abort
 	endif
 endfunction
 
-function! utils#SetDiff() abort
-	" Make sure you run diffget and diffput from left window
-	if !executable('diff')
-		echoerr 'diff is not executable. Please install it'
-		return
-	endif
-
-	try
-		windo diffthis
-	catch
-		echoerr 'diff command failed. Make sure it is installed correctly'
-		echoerr v:exception
-		diffoff!
-		return
-	endtry
-	nnoremap <C-j> ]c
-	nnoremap <C-k> [c
-	nnoremap <C-h> :diffget<CR>
-	nnoremap <C-l> :diffput<CR>
-endfunction
-
-function! utils#UnsetDiff() abort
-	nnoremap <C-j> zj
-	nnoremap <C-k> zk
-	nnoremap <C-h> :noh<CR>
-	nunmap <C-l>
-	diffoff!
-endfunction
-
-function! utils#FixPreviousWord() abort
-	normal mm[s1z=`m
-	return ''
-endfunction
-
 function! utils#TodoCreate() abort
 	execute "normal! ^lli[ ]\<Space>\<Esc>"
 endfunction
@@ -241,26 +202,6 @@ function! CheatCompletion(ArgLead, CmdLine, CursorPos)
 		echohl WarningMsg | echom a:ArgLead . " is not a valid wiki name" | echohl None
 	endif
 	return join(utils#ListFiles(g:wiki_path . '//'),"\n")
-endfunction
-
-function! utils#WikiOpen(...) abort
-	if !exists('g:wiki_path') || empty(glob(g:wiki_path))
-		echoerr 'Variable g:wiki_path not set or path doesnt exist'
-		return
-	endif
-
-	if a:0 > 0
-		execute "vs " . g:wiki_path . '/'.  a:1
-	else
-		if exists(':Denite')
-			call utils#DeniteRec(g:wiki_path)
-		else
-			let dir = getcwd()
-			execute "cd " . g:wiki_path
-			execute "vs " . fnameescape(g:wiki_path . '/' . input('Wiki Name: ', '', 'custom,CheatCompletion'))
-			silent! execute "cd " . dir
-		endif
-	endif
 endfunction
 " }}}
 
@@ -322,18 +263,6 @@ function! utils#ToggleTerm() abort
 		endif
 	else
 		echoerr "<term> only available on nvim"
-	endif
-endfunction
-
-function! utils#GuiFont(sOp) abort
-	if has('nvim') && exists('g:GuiLoaded') && exists('g:GuiFont')
-		" Substitute last number with a plus or minus value depending on input
-		let new_cmd = substitute(g:GuiFont, ':h\zs\d\+','\=eval(submatch(0)'.a:sOp.'1)','')
-		echomsg new_cmd
-		call GuiFont(new_cmd, 1)
-	else " gvim
-		let sub = has('win32') ? ':h\zs\d\+' : '\ \zs\d\+'
-		let &guifont = substitute(&guifont, sub,'\=eval(submatch(0)'.a:sOp.'1)','')
 	endif
 endfunction
 
@@ -500,30 +429,6 @@ function! utils#AutoHighlightToggle()
 endfunction
 
 " Custom command
-function! utils#CaptureCmdOutput(...)
-	" this function output the result of the Ex command into a split scratch buffer
-	if a:0 == 0
-		return
-	endif
-	let cmd = join(a:000, ' ')
-	if cmd[0] == '!'
-		vnew
-		setlocal buftype=nofile bufhidden=wipe noswapfile nobuflisted
-		execute "read " . cmd
-		return
-	endif
-	redir => output
-	execute cmd
-	redir END
-	if empty(output)
-		echoerr "No output from: " . cmd
-	else
-		vnew
-		setlocal buftype=nofile bufhidden=wipe noswapfile nobuflisted
-		put! =output
-	endif
-endfunction
-
 " Change vim colorscheme depending on time of the day
 function! utils#Flux() abort
 	if get(g:, 'flux_enabled', 1) == 0
@@ -572,18 +477,6 @@ function! utils#ChangeColors(scheme, background) abort
 	call plugin_lightline#UpdateColorscheme()
 endfunction
 
-function! utils#ProfilePerformance() abort
-	if exists('g:std_cache_path')
-		execute 'profile start ' . g:std_cache_path . '/profile_' . strftime("%m%d%y-%H.%M.%S") . '.log'
-	else
-		" TODO.RM-Mon Apr 24 2017 12:17: Check why this function is not working
-		" execute 'profile start ~/.cache/profile_' . strftime("%m%d%y-%T") . '.log'
-		execute 'profile start ~/.cache/profile_' . strftime("%m%d%y-%H.%M.%S") . '.log'
-	endif
-	execute 'profile func *'
-	execute 'profile file *'
-endfunction
-
 function! utils#SearchHighlighted() abort
 	if exists(':Wcopen')
 		" Yank selection to reg a then echo it cli
@@ -609,15 +502,6 @@ function! utils#SwitchHeaderSource() abort
 		catch /:E345:/
 			find %:t:r.c
 		endtry
-	endif
-endfunction
-
-function! utils#TmuxMove(direction)
-	let wnr = winnr()
-	silent! execute 'wincmd ' . a:direction
-	" If the winnr is still the same after we moved, it is the last pane
-	if wnr == winnr()
-		call system('tmux select-pane -' . tr(a:direction, 'phjkl', 'lLDUR'))
 	endif
 endfunction
 
@@ -770,25 +654,6 @@ endfunction
 " || ./applying-uml-and-patterns-3rd.pdf-59-"waterfall" process), iterative and evolutionary development is based on an attitude of embracing
 " || ./applying-uml-and-patterns-3rd.pdf:59:change and adaptation as unavoidable and indeed essential drivers.
 " || ./applying-uml-and-patterns-3rd.pdf-59-This is not to say that iterative development and the UP encourage an uncontrolled and reactive
-function! utils#SearchPdf() abort
-	if !executable('pdfgrep')
-		echoe 'Please install "pdfgrep"'
-		return
-	endif
-
-	if exists(':Grepper')
-		execute ':Grepper -tool pdfgrep'
-		return
-	endif
-
-	let grep_buf = &grepprg
-
-	setlocal grepprg=pdfgrep\ --ignore-case\ --page-number\ --recursive\ --context\ 1
-	return utils#FileTypeSearch(8, 8)
-
-	let &l:grepprg = grep_buf
-endfunction
-
 function! utils#TrimWhiteSpace() abort
 	%s/\s*$//
 	''
