@@ -10,6 +10,16 @@ function! commands#Set() abort
 	command! UtilsIndentWholeFile execute("normal! mzgg=G`z")
 	command! UtilsFileFormat2Dos :e ++ff=dos<CR>
 
+	if has('unix')
+		" This mapping will load the journal from the most recent boot and highlight it for you
+		command! UtilsLinuxReadJournal execute("read !journalctl -b<CR><bar>:setf messages<CR>")
+		" Give execute permissions to current file
+		command! UtilsLinuxExecReadPermissions execute("!chmod a+x %")
+		" Save file with sudo permissions
+		command! UtilsLinuxSudoPermissions execute("w !sudo tee % > /dev/null")
+		command! UtilsLinuxExecuteCurrFile execute("silent !./%")
+	endif
+
 	if !exists('g:loaded_plugins')
 		return
 	endif

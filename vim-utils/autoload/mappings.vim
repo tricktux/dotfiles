@@ -7,6 +7,30 @@
 
 function! mappings#Set() abort
 	" CUSTOM MAPPINGS
+	if has('unix')
+		" System paste
+		nnoremap <Leader>p "+p=`]<C-o>
+		vnoremap <Leader>p "+p=`]<C-o>
+
+		nnoremap <Leader>y "+yy
+		vnoremap <Leader>y "+y
+
+		nnoremap  o<Esc>
+	else
+		" Copy and paste into system wide clipboard
+		nnoremap <Leader>p "*p=`]<C-o>
+		vnoremap <Leader>p "*p=`]<C-o>
+
+		nnoremap <Leader>y "*yy
+		vnoremap <Leader>y "*y
+
+		nnoremap <CR> o<ESC>
+
+		" On MS-Windows, this is mapped to cut Visual text
+		" |dos-standard-mappings|.
+		silent! vunmap <C-X>
+	endif
+
 	" List of super useful mappings
 	" = fixes indentantion
 	" gq formats code

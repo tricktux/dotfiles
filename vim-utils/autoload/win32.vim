@@ -5,22 +5,11 @@
 " Last modified:Nov 29 2016 23:21
 
 function! win32#Config()
-	" Copy and paste into system wide clipboard
-	nnoremap <Leader>p "*p=`]<C-o>
-	vnoremap <Leader>p "*p=`]<C-o>
-
-	nnoremap <Leader>y "*yy
-	vnoremap <Leader>y "*y
-
-	nnoremap <CR> o<ESC>
-
-	" On MS-Windows, this is mapped to cut Visual text
-	" |dos-standard-mappings|.
-	silent! vunmap <C-X>
-
-	let languagetool_jar = findfile('languagetool-commandline.jar', $ChocolateyInstall . '\lib\languagetool\tools\**2')
-	if !empty('languagetool_jar')
-		let g:languagetool_jar = languagetool_jar
+	if exists('$ChocolateyInstall')
+		let languagetool_jar = findfile('languagetool-commandline.jar', $ChocolateyInstall . '\lib\languagetool\tools\**2')
+		if !empty('languagetool_jar')
+			let g:languagetool_jar = languagetool_jar
+		endif
 	endif
 
 	if filereadable('C:\Program Files\LLVM\share\clang\clang-format.py')
@@ -33,6 +22,7 @@ function! win32#Config()
 	for wiki in wikis
 		if !empty(glob(wiki))
 			let g:wiki_path =  wiki
+			break
 		endif
 	endfor
 
