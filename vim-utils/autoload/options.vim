@@ -195,7 +195,7 @@ function! options#Set() abort
 	set tags=./.tags;,.tags;
 
 	set splitright
-	set splitbelow
+	set cursorline
 
 	" Diff options
 	let &diffopt='vertical'
