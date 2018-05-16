@@ -87,7 +87,6 @@ function! plugin#Config()
 	" Possible Replacement `asyncvim`
 	Plug 'tpope/vim-dispatch'
 	" Vim cpp syntax highlight
-	Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'c' , 'cpp' ] }
 		let g:cpp_class_scope_highlight = 1
 		let g:cpp_member_variable_highlight = 1
 		let g:cpp_class_decl_highlight = 1
@@ -251,8 +250,6 @@ function! plugin#Config()
 		nnoremap gG :Wcsearch duckduckgo <C-R>=expand("<cword>")<CR><CR>
 		vnoremap gG "*y:call www#www#user_input_search(1, @*)<CR>
 
-	Plug 'PotatoesMaster/i3-vim-syntax'
-
 	if has('win32')
 		Plug 'PProvost/vim-ps1', { 'for' : 'ps1' }
 	endif
@@ -292,7 +289,6 @@ function! plugin#Config()
 	"		'no-preview
 	"	in your file
 	Plug 'scrooloose/vim-slumlord', { 'on' : 'UtilsUmlInFilePreview' }
-	Plug 'aklt/plantuml-syntax', { 'for' : 'plantuml' }
 
 	Plug 'merlinrebrovic/focus.vim', { 'on' : '<Plug>FocusModeToggle' }
 			let g:focus_use_default_mapping = 0
@@ -406,7 +402,18 @@ function! plugin#Config()
 
 	Plug 'fourjay/vim-flexagon'
 
-	Plug 'chriskempson/tomorrow-theme'
+	" Abstract a region to its own buffer for editting. Then save and it will back
+	Plug 'chrisbra/NrrwRgn', { 'on' : 'NR' }
+
+	" Tue May 15 2018 17:44: All of these replaced by a single plugin
+	" - Not so fast cowboy. This plugin is updated ever so ofen. Plus you dont get
+	"   options. Pretty much only the defaults. Its a good source to find syntax plugins
+	"   but that's all.
+	" Plug 'sheerun/vim-polyglot'
+	Plug 'PotatoesMaster/i3-vim-syntax'
+	Plug 'elzr/vim-json', { 'for' : 'json' }
+	Plug 'aklt/plantuml-syntax', { 'for' : 'plantuml' }
+	Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'c' , 'cpp' ] }
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
