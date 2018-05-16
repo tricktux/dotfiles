@@ -43,7 +43,7 @@ function! augroup#Set() abort
 			" autocmd VimEnter * call utils#LoadSession('default.vim')
 			" Thu Oct 05 2017 22:22: Special settings that are only detected after vim is loaded
 			autocmd VimEnter * call s:on_vim_enter()
-			autocmd VimLeave * call utils#SaveSession('default.vim')
+			autocmd VimLeave * call mappings#SaveSession('default.vim')
 			" Keep splits normalize
 			autocmd VimResized * call s:normalize_window_size()
 		augroup END
