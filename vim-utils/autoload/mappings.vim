@@ -73,9 +73,9 @@ function! mappings#Set() abort
 	" Reload syntax
 	nnoremap <Leader>js <Esc>:syntax sync fromstart<cr>
 	" Sessions
-	nnoremap <Leader>jes :call s:save_session()<cr>
-	nnoremap <Leader>jel :call s:load_session()<cr>
-	nnoremap <Leader>jee :call s:load_session('default.vim')<cr>
+	nnoremap <Leader>jes :call mappings#SaveSession()<cr>
+	nnoremap <Leader>jel :call <SID>load_session()<cr>
+	nnoremap <Leader>jee :call <SID>load_session('default.vim')<cr>
 	" Count occurrances of last search
 	nnoremap <Leader>jc :%s///gn<cr>
 	" Indenting
@@ -87,9 +87,7 @@ function! mappings#Set() abort
 	vnoremap P "0p
 	" Force wings_syntax on a file
 	nnoremap <Leader>jw :set filetype=wings_syntax<cr>
-	" Create file with name under the cursor
-	" Diff Sutff
-	nnoremap <Leader>j. :call utils#LastCommand()<cr>
+	nnoremap <Leader>j. :call <SID>exec_last_command()<cr>
 	" j mappings taken <swypl;bqruihHdma248eEonf>
 	" nnoremap <Leader>Mc :call utils#ManFind()<cr>
 	" Tue Dec 19 2017 14:34: Removing the save all files. Not a good thing to do.
@@ -117,7 +115,7 @@ function! mappings#Set() abort
 	cnoremap <A-b> <S-Left>
 	cnoremap <A-f> <S-Right>
 
-	cnoremap <silent> <expr> <cr> s:center_search()
+	cnoremap <silent> <expr> <cr> <SID>center_search()
 	" move to the beggning of line
 	" Don't make this nnoremap. Breaks stuff
 	nnoremap <S-w> $
@@ -145,14 +143,14 @@ function! mappings#Set() abort
 	nnoremap ]c ]czz
 	nnoremap [c [czz
 
-	nnoremap ]y :call s:yank_from('+')<cr>
-	nnoremap [y :call s:yank_from('-')<cr>
+	nnoremap ]y :call <SID>yank_from('+')<cr>
+	nnoremap [y :call <SID>yank_from('-')<cr>
 
-	nnoremap ]d :call s:delete_line('+')<cr>
-	nnoremap [d :call s:delete_line('-')<cr>
+	nnoremap ]d :call <SID>delete_line('+')<cr>
+	nnoremap [d :call <SID>delete_line('-')<cr>
 
-	nnoremap ]o :call s:comment_line('+')<cr>
-	nnoremap [o :call s:comment_line('-')<cr>
+	nnoremap ]o :call <SID>comment_line('+')<cr>
+	nnoremap [o :call <SID>comment_line('-')<cr>
 
 	nnoremap ]m :m +1<cr>
 	nnoremap [m :m -2<cr>
@@ -171,15 +169,15 @@ function! mappings#Set() abort
 	nnoremap [t <c-t>
 	" Split window and jump to tag
 	" nnoremap ]T :exec 'ptag ' . expand('<cword>')<cr><c-w>R
-	nnoremap ]T :let word=expand('<cword>')<cr><c-w>l:exec 'tag ' . word<cr>
-	nnoremap [T :let word=expand('<cword>')<cr><c-w>h:exec 'tag ' . word<cr>
+	nnoremap ]T :call <SID>goto_tag_on_next_win('l')<cr>
+	nnoremap [T :call <SID>goto_tag_on_next_win('h')<cr>
 
 	" Capital F because [f is go to file and this is rarely used
 	" ]f native go into file.
 	" [f return from file
 	nnoremap [f <c-o>
-	nnoremap ]F :let file=expand('<cfile>')<cr><c-w>l:exec 'edit ' . file<cr>
-	nnoremap [F :let file=expand('<cfile>')<cr><c-w>h:exec 'edit ' . file<cr>
+	nnoremap ]F :call <SID>goto_file_on_next_win('l')<cr>
+	nnoremap [F :call <SID>goto_file_on_next_win('h')<cr>
 
 	" decrease number
 	nnoremap <S-x> <c-x>
@@ -192,8 +190,8 @@ function! mappings#Set() abort
 	vnoremap <Leader>ah :<c-u>s/<count>\x\x/\=nr2char(printf("%d", "0x".submatch(0)))/g<cr><c-l>`<
 	vnoremap <Leader>ha :<c-u>s/\%V./\=printf("%x",char2nr(submatch(0)))/g<cr><c-l>`<
 
-	nnoremap <expr> n 'Nnzz'[v:searchforward]
-	nnoremap <expr> N 'nNzz'[v:searchforward]
+	nnoremap <expr> n 'Nn'[v:searchforward]
+	nnoremap <expr> N 'nN'[v:searchforward]
 
 	" Search forward/backwards but return
 	nnoremap * *zz
@@ -347,8 +345,7 @@ function! mappings#Set() abort
 	nnoremap <Leader>ev :call utils#DeniteRec($VIMRUNTIME)<cr>
 endfunction
 
-
-function! s:save_session(...) abort
+function! mappings#SaveSession(...) abort
 	let session_path = g:std_data_path . '/sessions/'
 	" if session name is not provided as function argument ask for it
 	if a:0 < 1
@@ -401,10 +398,11 @@ function! s:load_session(...) abort
 	silent execute "source " . session_path . session_name
 endfunction
 
+" Tue May 15 2018 09:07: Forced to make it global. <expr> would not work with s: function
 function! s:center_search() abort
 	let cmdtype = getcmdtype()
 	if cmdtype ==# '/' || cmdtype ==# '?'
-		return '\<cr>zz'
+		return "\<cr>zz"
 	endif
 	return "\<cr>"
 endfunction
@@ -415,11 +413,10 @@ function! s:yank_from(sign) abort
 endfunction
 
 " msg - {Comment, Delete, Paste, Yank}
-" sing - {+,-}
+" sign - {+,-}
 " Returns: Modified input
 function! s:parse_line_mod_input(msg, sign) abort
-	let in = input(a:msg . " Line:")
-	let in = a:sign . in
+	let in = a:sign . input(a:msg . " Line:")
 	let comma = stridx(in, ',')
 	if comma > -1
 		return strcharpart(in, 0,comma+1) . a:sign . strcharpart(in, comma+1)
@@ -439,12 +436,46 @@ function! s:comment_line(sign) abort
 		return
 	endif
 
-	let in = utils#ParseLineModificationInput('Comment',  a:sign)
+	let in = s:parse_line_mod_input('Comment',  a:sign)
 	execute "normal mm:" . in . "\<CR>"
 	execute "normal :call NERDComment(\"n\", \"Toggle\")\<CR>`m"
 endfunction
 
-function! utils#LastCommand() abort
+function! s:exec_last_command() abort
 	execute "normal :\<Up>\<CR>"
 endfunction
 
+function! s:next_match_and_center() abort
+	execute 'nN' . v:searchforward
+	execute 'normal! zz'
+endfunction
+
+" Opens the tag on new split in the direction specified
+" direction - {h,l}
+function! s:goto_tag_on_next_win(direction) abort
+	let target = expand('<cword>')
+	let wnr = winnr()
+	exec 'wincmd ' . a:direction
+	" If the winnr is still the same after we moved, it is the last pane
+	if wnr == winnr()
+		exec 'stselect ' . target
+		return
+	endif
+	exec 'tag ' . target
+endfunction
+
+" Opens the file on new split in the direction specified
+" direction - {h,l}
+function! s:goto_file_on_next_win(direction) abort
+	exec 'vsplit'
+	if a:direction ==# 'h'
+		exec 'wincmd ' . a:direction
+	endif
+	let wnr = winnr()
+	exec 'wincmd ' . a:direction
+	" If the winnr is still the same after we moved, it is the last pane
+	if wnr != winnr()
+		close
+	endif
+	exec 'normal! gf'
+endfunction
