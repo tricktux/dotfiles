@@ -74,7 +74,7 @@ function! ftplugin#SetCompilersAndOther() abort
 	" Set compiler now depending on folder and system. Auto set the compiler
 	let folder_name = expand('%:p:h')
 
-	if folder_name =~# 'OneWings'
+	if folder_name =~? 'onewings'
 		" Load cscope database
 		" Note: inside the '' is a pat which is a regex. That is why \\
 		if folder_name =~? 'Onewings\\Source'
