@@ -669,8 +669,12 @@ function! s:configure_vim_utils() abort
 	let g:DoxygenToolkit_versionTag = 'Version:				'
 	let g:DoxygenToolkit_commentType = 'C++'
 	let g:DoxygenToolkit_versionString = '0.0.0'
-	" See :h doxygen.vim this vim related. Not plugin related
-	let g:load_doxygen_syntax=1
+
+	let g:ctags_create_spell=1
+	let g:ctags_spell_script= g:location_vim_utils . '/tagstospl.py'
+	" Cscope databases and spell files will only be created for the following filetypes
+	let g:ctags_use_spell_for = ['c', 'cpp']
+	let g:ctags_use_cscope_for = ['c', 'cpp', 'java']
 endfunction
 
 function! s:configure_nerdcommenter() abort
