@@ -490,6 +490,7 @@ endfunction
 
 " Opens the file on new split in the direction specified
 " direction - {h,l}
+" Note: This function depends on the 'splitright' option.
 function! s:goto_file_on_next_win(direction) abort
 	exec 'vsplit'
 	if a:direction ==# 'h'
