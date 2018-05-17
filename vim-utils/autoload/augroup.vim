@@ -80,6 +80,8 @@ endfunction
 
 " Things to do after everything has being loaded
 function! s:on_vim_enter() abort
+	" This function needs to be here since most of the variables it checks are not
+	" populated until vim init is done
 	call options#SetCli()
 	call plugin#AfterConfig()
 	" call s:restore_last_file()
