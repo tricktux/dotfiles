@@ -84,7 +84,7 @@ function! mappings#Set() abort
 	nnoremap <silent> <LocalLeader>t :call ctags#NvimSyncCtags()<cr>
 
 	nnoremap <Leader>tt :TagbarToggle<cr>
-	nnoremap <Leader>ts :setlocal spell! spelllang=en_us<cr>
+	nnoremap <Leader>ts :setlocal spell!<cr>
 
 	" Global settings for all ftplugins
 	nnoremap <LocalLeader>f :Neoformat<cr>
@@ -482,7 +482,8 @@ function! s:goto_tag_on_next_win(direction) abort
 	exec 'wincmd ' . a:direction
 	" If the winnr is still the same after we moved, it is the last pane
 	if wnr == winnr()
-		exec 'stselect ' . target
+		exec 'stjump ' . target
+		exec 'wincmd ' . toupper(a:direction)
 		return
 	endif
 	exec 'tag ' . target
