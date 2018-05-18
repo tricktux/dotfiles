@@ -726,7 +726,9 @@ function! s:tagbar_lightline() abort
 	catch
 		return ''
 	endtry
-	return empty(ret) ? '' : "\uf02b" . ' ' . ret
+	return empty(ret) ? '' :
+				\ (exists('g:valid_device') ? "\uf02b" : '')
+				\ . ' ' . ret
 endfunction
 
 function! s:tagbar_statusline_func(current, sort, fname, ...) abort

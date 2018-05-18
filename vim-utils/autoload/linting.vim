@@ -28,12 +28,17 @@ function! s:set_neomake() abort
 	" Fri Oct 27 2017 14:39: neomake defaults are actually pretty amazing. If
 	" you need to change it. Do it on a per buffer basis. Look on c.vim for
 	" example
-	let g:neomake_error_sign = {'text': "\uf057", 'texthl': 'ErrorMsg'}
+	let g:neomake_error_sign = {'text':
+				\ (exists('g:valid_device') ? "\uf057" : 'X'),
+				\ 'texthl': 'ErrorMsg'}
 	let g:neomake_warning_sign = {
-				\   'text': "\uf071",
+				\   'text':
+				\ (exists('g:valid_device') ? "\uf071" : 'W'),
 				\   'texthl': 'WarningMsg',
 				\ }
-	let g:neomake_info_sign = {'text': "\uf449", 'texthl': 'NeomakeInfoSign'}
+	let g:neomake_info_sign = {'text':
+				\ (exists('g:valid_device') ? "\uf449" : 'I'),
+				\ 'texthl': 'NeomakeInfoSign'}
 
 	let g:neomake_plantuml_maker = {
 				\ 'exe': 'plantuml',
@@ -102,16 +107,24 @@ endfunction
 
 function! linting#NeomakeNativeStatusLine() abort
 	return neomake#statusline#get(bufnr("%"), {
-				\ 'format_running': "\uf188" .' {{running_job_names}} ' . "\uf0e4",
-				\ 'format_quickfix_issues': "\uf188" .' qf:%s',
+				\ 'format_running':
+				\ (exists('g:valid_device') ? "\uf188" : '')
+				\ .' {{running_job_names}} ' .
+				\ (exists('g:valid_device') ? "\uf0e4" : ''),
+				\ 'format_quickfix_issues':
+				\ (exists('g:valid_device') ? "\uf188" : '') .' qf:%s',
 				\ 'format_quickfix_type_E': ' {{type}}:{{count}}',
 				\ 'format_quickfix_type_W': ' {{type}}:{{count}}',
 				\ 'format_quickfix_type_I': ' {{type}}:{{count}}',
-				\ 'format_loclist_issues': "\uf188" .' loc:%s',
+				\ 'format_loclist_issues':
+				\ (exists('g:valid_device') ? "\uf188" : '')
+				\ .' loc:%s',
 				\ 'format_loclist_type_E': ' {{type}}:{{count}}',
 				\ 'format_loclist_type_W': ' {{type}}:{{count}}',
 				\ 'format_loclist_type_I': ' {{type}}:{{count}}',
-				\ 'format_loclist_ok': "\uf188" .' loc: ✓',
+				\ 'format_loclist_ok':
+				\ (exists('g:valid_device') ? "\uf188" : '')
+				\ .' loc: ✓',
 				\ 'format_quickfix_ok': '',
 				\ 'format_loclist_unknown': '',
 				\ })
@@ -149,4 +162,3 @@ function! s:set_ale() abort
 		" let linter = {  }
 		" call ale#linter#Define('cpp', linter)
 endfunction
-

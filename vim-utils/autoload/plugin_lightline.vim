@@ -38,13 +38,14 @@ function! plugin_lightline#config() abort
 		" let g:lightline.subseparator['left']  = "\ue0b5"
 		" let g:lightline.subseparator['right'] = "\ue0b7"
 
-		let g:lightline.separator = {}
-		let g:lightline.separator['left']     = ''
-		let g:lightline.separator['right']    = ''
+		" Fri May 18 2018 14:09: Also a little tired of these. Taking a break
+		" let g:lightline.separator = {}
+		" let g:lightline.separator['left']     = ''
+		" let g:lightline.separator['right']    = ''
 
-		let g:lightline.subseparator = {}
-		let g:lightline.subseparator['left']  = ''
-		let g:lightline.subseparator['right'] = ''
+		" let g:lightline.subseparator = {}
+		" let g:lightline.subseparator['left']  = ''
+		" let g:lightline.subseparator['right'] = ''
 
 		let g:lightline.component = {}
 		let g:lightline.component['lineinfo'] = ' %3l:%-2v'
