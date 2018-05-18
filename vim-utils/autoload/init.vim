@@ -5,6 +5,11 @@
 " Last Modified: Aug 21 2017 16:15
 " Created: Aug 21 2017 16:15
 
+" Global variables used by configuration
+" - g:loaded_plugins: Used to validate that we have found dotfiles and loaeded plugins
+" - g:valid_device: Used to mark that is a device were we develop a lot and has fonts
+"   for lightline to be pretty
+
 function! init#vim() abort
 	" Needs to be defined before the first <Leader>/<LocalLeader> is used
 	" otherwise it goes to "\"
@@ -52,6 +57,7 @@ function! s:config_win()
 	for wiki in wikis
 		if !empty(glob(wiki))
 			let g:wiki_path =  wiki
+			let g:valid_device = 1
 			break
 		endif
 	endfor
@@ -106,6 +112,7 @@ function! s:config_unix() abort
 	for wiki in wikis
 		if !empty(glob(wiki))
 			let g:wiki_path =  wiki
+			let g:valid_device = 1
 			break
 		endif
 	endfor

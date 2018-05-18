@@ -31,24 +31,25 @@ function! plugin_lightline#config() abort
 				\ 'left': [ ['tabs'] ],
 				\ 'right': [ [ 'bufnum' , 'close'] ] }
 
-	" Addons
-	let g:lightline.component = {}
-	let g:lightline.component['lineinfo'] = ' %3l:%-2v'
-	let g:lightline.component['relativepath'] = "\uf02d %f"
+	if exists('g:valid_device')
+		" Ovals. As opposed to the triangles. They do not look quite good
+		" let g:lightline.separator['left']     = "\ue0b4"
+		" let g:lightline.separator['right']    = "\ue0b6"
+		" let g:lightline.subseparator['left']  = "\ue0b5"
+		" let g:lightline.subseparator['right'] = "\ue0b7"
 
-	let g:lightline.separator = {}
-	let g:lightline.subseparator = {}
+		let g:lightline.separator = {}
+		let g:lightline.separator['left']     = ''
+		let g:lightline.separator['right']    = ''
 
-	" Ovals. As opposed to the triangles. They do not look quite good
-	" let g:lightline.separator['left']     = "\ue0b4"
-	" let g:lightline.separator['right']    = "\ue0b6"
-	" let g:lightline.subseparator['left']  = "\ue0b5"
-	" let g:lightline.subseparator['right'] = "\ue0b7"
+		let g:lightline.subseparator = {}
+		let g:lightline.subseparator['left']  = ''
+		let g:lightline.subseparator['right'] = ''
 
-	let g:lightline.separator['left']     = ''
-	let g:lightline.separator['right']    = ''
-	let g:lightline.subseparator['left']  = ''
-	let g:lightline.subseparator['right'] = ''
+		let g:lightline.component = {}
+		let g:lightline.component['lineinfo'] = ' %3l:%-2v'
+		let g:lightline.component['relativepath'] = "\uf02d %f"
+	endif
 
 	let g:lightline.component_function = {}
 	let g:lightline.component_function['filetype']   = string(function('s:devicons_filetype'))
@@ -69,7 +70,7 @@ function! s:get_cwd(count) abort
 endfunction
 
 function! s:devicons_filetype() abort
-	if !exists('*WebDevIconsGetFileTypeSymbol')
+	if !exists('*WebDevIconsGetFileTypeSymbol') || !exists('g:valid_device')
 		return &filetype
 	endif
 
@@ -85,14 +86,15 @@ function! plugin_lightline#SetVerControl() abort
 		unlet! s:ver_ctrl
 	endif
 
-	" let mark = ''  " edit here for cool mark
-	let mark = "\uf406"  " edit here for cool mark
+	let svn_mark = exists('g:valid_device') ? '' : ''
+	let git_mark = exists('g:valid_device') ? "\uf406" : ''
+
 	try
 		if exists('*fugitive#head')
 			let git = fugitive#head()
 			" echomsg 'git = ' . git
 			if !empty(git)
-				let s:ver_ctrl = mark . ' ' . git
+				let s:ver_ctrl = git_mark . ' ' . git
 				" echomsg s:ver_ctrl
 				return
 			endif
@@ -102,7 +104,7 @@ function! plugin_lightline#SetVerControl() abort
 			let svn = utils#UpdateSvnBranchInfo()
 			" echomsg 'svn = ' . svn
 			if !empty(svn)
-				let s:ver_ctrl = '' . ' ' . svn
+				let s:ver_ctrl = svn_mark . ' ' . svn
 				" echomsg s:ver_ctrl
 				return
 			endif
@@ -114,7 +116,7 @@ function! plugin_lightline#SetVerControl() abort
 endfunction
 
 function! s:devicons_fileformat() abort
-	if !exists('*WebDevIconsGetFileTypeSymbol')
+	if !exists('*WebDevIconsGetFileTypeSymbol') || !exists('g:valid_device')
 		return &fileformat
 	endif
 
@@ -122,7 +124,9 @@ function! s:devicons_fileformat() abort
 endfunction
 
 function! s:readonly() abort
-	return &readonly ? '' : ''
+	return &readonly ?
+				\ (exists('g:valid_device') ? '' : 'R')
+				\  : ''
 endfunction
 
 function! plugin_lightline#UpdateColorscheme() abort
