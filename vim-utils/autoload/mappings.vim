@@ -82,7 +82,7 @@ function! mappings#Set() abort
 	nmap <LocalLeader>M <Plug>MakeFile
 	nmap <LocalLeader>p <Plug>Preview
 
-	nmap <c-;> <plug>fuzzy_command_history
+	nmap <a-;> <plug>fuzzy_command_history
 	nmap <Leader>cr <plug>cd_root
 
 	" UtilsTagUpdateCurrFolder
