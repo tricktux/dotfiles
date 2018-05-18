@@ -23,6 +23,8 @@ function! augroup#Set() abort
 		autocmd FileType help wincmd L
 		autocmd FileType help nnoremap <buffer> q :helpc<cr>
 		autocmd FileType help setlocal relativenumber
+
+		autocmd FileType markdown setlocal nocursorline
 		" Python
 		" autocmd FileType python setlocal foldmethod=syntax
 	augroup END
