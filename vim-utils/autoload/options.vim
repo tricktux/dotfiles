@@ -185,8 +185,9 @@ function! options#Set() abort
 	" call s:set_grep()
 
 	" Undofiles
-	if exists("g:loaded_plugins") && exists("g:undofiles_path") && !empty(glob(g:undofiles_path))
-		let &undodir= g:undofiles_path
+	let undofiles_path = g:std_cache_path . '/undofiles'
+	if has('persistent_undo') && utils#CheckDirWoPrompt(undofiles_path) > 0
+		let &undodir= undofiles_path
 		set undofile
 		set undolevels=10000      " use many muchos levels of undo
 	endif

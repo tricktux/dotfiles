@@ -146,18 +146,18 @@ endfunction
 " exists in case it doesnt find it.
 " Compatible with both Linux and Windows
 function! utils#CheckDirWoPrompt(name) abort
-	if !has('file_in_path')
+	if !has('file_in_path') && &verbose > 0
 		echomsg "utils#CheckDirWoPrompt(): This vim install has no support for +find_in_path"
-		return
+		return -1
 	endif
 
 	if !empty(finddir(a:name,",,"))
-		return
+		return 1
 	endif
 
-	if !exists("*mkdir")
+	if !exists("*mkdir") && &verbose > 0
 		echomsg "CheckDirwoPrompt(): This vim install has no support creating directories"
-		return
+		return -2
 	endif
 
 	if has('unix')    " have to test check works fine on linux
@@ -165,6 +165,8 @@ function! utils#CheckDirWoPrompt(name) abort
 	else              " on win prepare name by escaping '\'
 		call mkdir(escape(expand(a:name), '\'), 'p')
 	endif
+
+	return 1
 endfunction
 
 function! utils#TodoCreate() abort
