@@ -16,7 +16,7 @@ function! SetGui() abort
 	if has('win32')
 		if exists('g:GuiLoaded') " nvim-qt gui
 
-			if exists('g:valid_device')
+			if !exists('g:valid_device')
 				Guifont! Consolas:h9
 				return
 			endif
@@ -26,7 +26,7 @@ function! SetGui() abort
 			call GuiWindowMaximized(1)
 			call GuiMousehide(1)
 		else
-			if exists('g:valid_device')
+			if !exists('g:valid_device')
 				set guifont=consolas:h8
 				return
 			endif
@@ -38,7 +38,7 @@ function! SetGui() abort
 	endif
 
 	if exists('g:GuiLoaded') " nvim-qt gui
-		if exists('g:valid_device')
+		if !exists('g:valid_device')
 			let g:GuiFont ='Monospace:h9'
 			return
 		endif
@@ -48,7 +48,7 @@ function! SetGui() abort
 		call GuiMousehide(1)
 
 	else
-		if exists('g:valid_device')
+		if !exists('g:valid_device')
 			set guifont=Consolas:h8
 			return
 		endif

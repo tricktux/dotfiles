@@ -566,7 +566,7 @@ function! s:configure_ctrlp() abort
 					\ 'PrtCurRight()': ['<right>'],
 					\ }
 		" Lightline settings
-		if exists('g:lightline')
+		if exists('g:lightline') && exists('g:valid_device')
 			let g:lightline.active.left[2] += [ 'ctrlpmark' ]
 			let g:lightline.component_function['ctrlpmark'] = string(function('s:ctrlp_lightline_mark'))
 
@@ -835,7 +835,9 @@ function! s:configure_file_browser(choice) abort
 		nnoremap <plug>file_browser :NERDTree<CR>
 
 		Plug 'scrooloose/nerdtree', { 'on' : 'NERDTree' }
-		Plug 'Xuyuanp/nerdtree-git-plugin', { 'on' : 'NERDTree' }
+		if exists('g:valid_device')
+			Plug 'Xuyuanp/nerdtree-git-plugin', { 'on' : 'NERDTree' }
+		endif
 		" Nerdtree (Dont move. They need to be here)
 		let g:NERDTreeShowBookmarks=1  " B key to toggle
 		let g:NERDTreeShowLineNumbers=1
