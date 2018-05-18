@@ -14,6 +14,9 @@ if !exists('g:ctags_use_cscope_for')
 endif
 
 "	Your current directory should be at the root of you code
+" TODO-[RM]-(Fri May 18 2018 09:16):  
+" - Get rid of lcd
+" -   
 function! ctags#NvimSyncCtags() abort
 	if !executable('rg')
 		echomsg string("Ctags dependens on ripgrep. I know horrible")
@@ -30,8 +33,6 @@ function! ctags#NvimSyncCtags() abort
 		return
 	endif
 
-	" TODO.RM-Fri May 26 2017 15:35: Add a warning here that you are creating
-	" tags and csscope for getcwd() folder
 	let files_loc = g:std_data_path . "/ctags/"
 	let cwd_rg = getcwd()
 	if has('win32')
