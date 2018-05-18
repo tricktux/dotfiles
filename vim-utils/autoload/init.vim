@@ -62,6 +62,10 @@ function! s:config_win()
 		endif
 	endfor
 
+	if executable('cmder') && has('terminal')
+		" let &shell=fnameescape('cmd.exe /k c:\tools\cmder\vendor\init.bat')
+	endif
+
 	if !empty(glob('D:/wings-dev/'))
 		call s:set_wings_path('D:/wings-dev/')
 	endif

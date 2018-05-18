@@ -65,7 +65,11 @@ function! mappings#Set() abort
 	" terminal-emulator mappings
 	if has('terminal') || has('nvim')
 		nmap <Leader>te <Plug>terminal_toggle
-		vmap <LocalLeader>s <Plug>terminal_selection_send
+		" See plugin.vim - neoterm
+		nmap <LocalLeader>x <plug>terminal_send
+		xmap <LocalLeader>x <plug>terminal_send
+		nmap <LocalLeader>X <plug>terminal_send_line
+
 		execute "tnoremap " . g:esc . " <C-\\><C-n>"
 		tnoremap <A-h> <C-\><C-n><C-w>h
 		tnoremap <A-j> <C-\><C-n><C-w>j
@@ -78,6 +82,7 @@ function! mappings#Set() abort
 	nmap <LocalLeader>M <Plug>MakeFile
 	nmap <LocalLeader>p <Plug>Preview
 
+	nmap <c-;> <plug>fuzzy_command_history
 	nmap <Leader>cr <plug>cd_root
 
 	" UtilsTagUpdateCurrFolder
@@ -157,9 +162,6 @@ function! mappings#Set() abort
 	inoremap <F5> <Space><ESC>"=strftime("%a %b %d %Y %H:%M")<cr>Pa
 	" Auto indent pasted text
 	nnoremap p p=`]<C-o>
-	" Visual shifting (does not exit Visual mode)
-	vnoremap < <gv
-	vnoremap > >gv
 
 	" Vim-unimpaired similar mappings
 	" Do not overwrite [s, [c, [f
@@ -366,7 +368,7 @@ function! mappings#Set() abort
 	nnoremap <Leader>ep :call utils#DeniteRec(g:vim_plugins_path)<cr>
 	nnoremap <Leader>ei :e
 	" Edit Vimruntime
-	nnoremap <Leader>ev :call utils#DeniteRec($VIMRUNTIME)<cr>
+	nnoremap <Leader>ev :call utils#DeniteRec(fnameescape($VIMRUNTIME))<cr>
 endfunction
 
 function! mappings#SaveSession(...) abort

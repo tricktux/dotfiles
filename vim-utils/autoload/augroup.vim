@@ -79,7 +79,7 @@ function! augroup#Set() abort
 	else
 		augroup Terminal
 			autocmd!
-			autocmd BufWinEnter * if &buftype == 'terminal' | setfiletype terminal | endif
+			autocmd BufWinEnter * if &buftype == 'terminal' | setlocal bufhidden=hide | endif
 		augroup END
 	endif
 endfunction
@@ -105,6 +105,11 @@ function! s:determine_buf_type() abort
 		set filetype=dosini
 	elseif ext ==# 'bin' || ext ==# 'pdf' || ext ==# 'hsr'
 		call s:set_bin_file_type()
+	endif
+
+	let buf_type = &buftype
+	if buf_type ==# 'terminal'
+		setfiletype terminal
 	endif
 endfunction
 

@@ -613,12 +613,16 @@ function! s:configure_async_plugins() abort
 		let g:neoterm_default_mod = 'vertical'
 		let g:neoterm_autoinsert=1
 		nnoremap <Plug>terminal_toggle :Ttoggle<CR>
-		vmap <Plug>terminal_selection_send :TREPLSendSelection<CR>
+		" Use gx{text-object} in normal mode
+		nmap <plug>terminal_send <Plug>(neoterm-repl-send)
+		" Send selected contents in visual mode.
+		xmap <plug>terminal_send <Plug>(neoterm-repl-send)
+		nmap <plug>terminal_send_line <Plug>(neoterm-repl-send-line)
 
 	Plug 'Shougo/denite.nvim', { 'do' : has('nvim') ? ':UpdateRemotePlugins' : '' }
 		" TODO-[RM]-(Wed Jan 10 2018 15:46): Come up with new mappings for these commented
 		" out below
-		" nnoremap <C-S-;> :Denite command_history<CR>
+		nmap <plug>fuzzy_command_history :Denite command_history<CR>
 		" nnoremap <C-S-h> :Denite help<CR>
 		" nmap <plug>mru_browser :Denite file_mru<CR>
 		" Wed Jan 10 2018 15:46: Have tried several times to use denite buffer but its
