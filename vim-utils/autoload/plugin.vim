@@ -357,9 +357,11 @@ function! plugin#Config()
 		let g:calendar_cache_directory = g:std_cache_path . '/calendar.vim/'
 
 	" Tue Oct 31 2017 11:30: Needs to be loaded last
-	Plug 'ryanoasis/vim-devicons'
-		let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-		let g:DevIconsEnableFoldersOpenClose = 1
+	if exists('g:valid_device')
+		Plug 'ryanoasis/vim-devicons'
+			let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+			let g:DevIconsEnableFoldersOpenClose = 1
+	endif
 
 	Plug 'chaoren/vim-wordmotion'
 		let g:wordmotion_spaces = '_-.'
@@ -566,7 +568,7 @@ function! s:configure_ctrlp() abort
 					\ 'PrtCurRight()': ['<right>'],
 					\ }
 		" Lightline settings
-		if exists('g:lightline') && exists('g:valid_device')
+		if exists('g:lightline')
 			let g:lightline.active.left[2] += [ 'ctrlpmark' ]
 			let g:lightline.component_function['ctrlpmark'] = string(function('s:ctrlp_lightline_mark'))
 
@@ -799,7 +801,7 @@ function! s:configure_pomodoro() abort
 	" let g:pomodoro_show_time_remaining = 0
 	" let g:pomodoro_time_slack = 1
 	" let g:pomodoro_time_work = 1
-	let g:pomodoro_use_devicons = 1
+	let g:pomodoro_use_devicons = exists('g:valid_device') ? 1 : 0
 	if executable('twmnc')
 		let g:pomodoro_notification_cmd = 'twmnc -t Vim -i nvim -c "Pomodoro done"
 					\ && mpg123 ~/.config/dotfiles/notification_sounds/cool_notification1.mp3 2>/dev/null&'
@@ -835,9 +837,7 @@ function! s:configure_file_browser(choice) abort
 		nnoremap <plug>file_browser :NERDTree<CR>
 
 		Plug 'scrooloose/nerdtree', { 'on' : 'NERDTree' }
-		if exists('g:valid_device')
-			Plug 'Xuyuanp/nerdtree-git-plugin', { 'on' : 'NERDTree' }
-		endif
+		Plug 'Xuyuanp/nerdtree-git-plugin', { 'on' : 'NERDTree' }
 		" Nerdtree (Dont move. They need to be here)
 		let g:NERDTreeShowBookmarks=1  " B key to toggle
 		let g:NERDTreeShowLineNumbers=1
