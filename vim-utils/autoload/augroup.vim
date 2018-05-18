@@ -53,7 +53,11 @@ function! augroup#Set() abort
 		augroup BuffTypes
 			autocmd!
 			autocmd BufRead,BufNewFile * call s:determine_buf_type()
-			autocmd BufRead,BufNewFile * call s:restore_cursor_pos()
+
+			autocmd BufReadPost *
+				\ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+				\ |   exe "normal! g`\""
+				\ | endif
 
 			autocmd BufWinEnter * call s:update_root_dir()
 			autocmd BufWinEnter * call ctags#LoadCscopeDatabse()
@@ -101,13 +105,6 @@ function! s:determine_buf_type() abort
 		set filetype=dosini
 	elseif ext ==# 'bin' || ext ==# 'pdf' || ext ==# 'hsr'
 		call s:set_bin_file_type()
-	endif
-endfunction
-
-" Remember last cursor position
-function! s:restore_cursor_pos() abort
-	if line("'\"") > 0 && line("'\"") <= line("$") |
-		exe "normal g`\"" |
 	endif
 endfunction
 
