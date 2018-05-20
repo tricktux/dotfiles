@@ -417,6 +417,20 @@ function! plugin#Config()
 	Plug 'aklt/plantuml-syntax', { 'for' : 'plantuml' }
 	Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'c' , 'cpp' ] }
 
+	" Gdb debugging
+	if has('unix')
+		if has('nvim')
+			" Need one for nvim
+			" This one below not so good
+			" Plug 'huawenyu/neogdb.vim'
+		else
+			" Vim's built in gdb debugger
+			packadd termdebug
+			" Another option
+			" Plug 'cpiger/NeoDebug'
+		endif
+	endif
+
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
