@@ -53,7 +53,7 @@ function! SetGui() abort
 			return
 		endif
 
-		set guifont =DejaVu\ Sans\ Mono\ 9
+		set guifont =DejaVu\ Sans\ Mono\ 14
 		" only for GTK and X11 gvim guis
 		set guiheadroom=0
 	endif
