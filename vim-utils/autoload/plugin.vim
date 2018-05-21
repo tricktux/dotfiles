@@ -381,7 +381,7 @@ function! plugin#Config()
 	Plug 'hari-rangarajan/CCTree'
 
 	Plug 'bronson/vim-trailing-whitespace'
-		let g:extra_whitespace_ignored_filetypes = []
+		let g:extra_whitespace_ignored_filetypes = ['markdown']
 
 	Plug 'mhinz/vim-grepper'
 		nmap <LocalLeader>s <plug>(GrepperOperator)
