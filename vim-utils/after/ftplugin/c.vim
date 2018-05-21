@@ -27,6 +27,7 @@ setlocal foldenable
 setlocal foldnestmax=88
 setlocal define=^\\(#\\s*define\\|[a-z]*\\s*const\\s*[a-z]*\\)
 setlocal nospell
+setlocal cursorline
 " So that you can jump from = to ; and viceversa
 setlocal matchpairs+==:;
 " This is that delimate doesnt aut fill the newly added matchpairs
@@ -73,4 +74,4 @@ call ftplugin#AutoHighlight()
 " Setup Compiler and some specific stuff
 call ftplugin#SetCompilersAndOther()
 
-let b:undo_ftplugin = 'setl omnifunc< ts< sw< sts< foldenable< define< spell< matchpairs< foldmethod< foldnestmax<| unlet! b:delimitMate_matchpairs b:match_words'
+let b:undo_ftplugin = 'setl cursorline< omnifunc< ts< sw< sts< foldenable< define< spell< matchpairs< foldmethod< foldnestmax<| unlet! b:delimitMate_matchpairs b:match_words'

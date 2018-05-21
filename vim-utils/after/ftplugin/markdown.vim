@@ -55,7 +55,7 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	endif
 
 	if executable('qpdfview')
-		nnoremap <buffer> <Plug>Preview :silent !qpdfview --unique --quiet %:r.pdf<cr>
+		nnoremap <buffer> <Plug>preview :silent !qpdfview --unique --quiet %:r.pdf&<cr>
 	endif
 endif
 
