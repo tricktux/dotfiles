@@ -78,9 +78,9 @@ function! mappings#Set() abort
 
 		tnoremap <C-p> <Up>
 	endif
-	nmap <LocalLeader>m <Plug>MakeProject
-	nmap <LocalLeader>M <Plug>MakeFile
-	nmap <LocalLeader>p <Plug>Preview
+	nmap <LocalLeader>m <plug>make_project
+	nmap <LocalLeader>M <plug>make_file
+	nmap <LocalLeader>p <plug>preview
 
 	nmap <a-;> <plug>fuzzy_command_history
 	nmap <Leader>cr <plug>cd_root

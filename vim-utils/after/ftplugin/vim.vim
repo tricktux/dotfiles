@@ -17,11 +17,13 @@ setlocal tabstop=2
 setlocal shiftwidth=2
 setlocal softtabstop=2
 setlocal nospell
+setlocal cursorline
 
 " Add mappings, unless the user didn't want this.
 if !exists('no_plugin_maps') && !exists('no_vim_maps')
 	" Quote text by inserting "> "
-	nnoremap <buffer> <Plug>Make :so %<cr>
+	nnoremap <buffer> <Plug>make_file :so %<cr>
+	nnoremap <buffer> <Plug>make_project :so %<cr>
 	nnoremap <buffer> <unique> <LocalLeader>h :h <c-r>=expand("<cword>")<CR><cr>
 	call ftplugin#Align('/"')
 	" Echo highlighted text
@@ -30,4 +32,4 @@ if !exists('no_plugin_maps') && !exists('no_vim_maps')
 	vnoremap <buffer> <LocalLeader>E y:<c-r>"<cr>
 endif
 
-let b:undo_ftplugin = 'setl spell< ts< sw< sts<' 
+let b:undo_ftplugin = 'setl spell< ts< sw< sts< cursorline<'
