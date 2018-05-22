@@ -43,10 +43,19 @@ function! options#Set() abort
 	set wildignore+=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn,.git
 	set title                " change the terminal's title
 
+	let title = (exists('g:valid_device') ? "\uf015" : '') .
+				\ getcwd() . " -> " .
+				\ (exists('g:valid_device') ? "\uf02d" : '') .
+				\ '%f' .
+				\ ' - ' . v:progname
+
 	" Set a pretty title
 	augroup TermTitle
 		autocmd!
-		autocmd DirChanged * let &titlestring = getcwd() . " - " . v:progname
+		autocmd BufEnter,DirChanged * let &titlestring = (exists('g:valid_device') && has('unix') ? "\uf015" : '') .
+														\ ' ' . getcwd() . " -> " .
+														\ (exists('g:valid_device') && has('unix') ? "\uf02d" : '') .
+														\ ' %f - ' . v:progname
 	augroup END
 
 	set nobackup " no backup files

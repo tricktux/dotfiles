@@ -19,7 +19,7 @@ function! plugin_lightline#config() abort
 				\ 'active' : {
 				\   'left': [
 				\							[ 'mode', 'paste' ],
-				\							[ 'readonly', 'relativepath' ],
+				\							[ 'readonly', 'filename' ],
 				\							[  ]
 				\						],
 				\ 'right': [ [ 'lineinfo' ],
@@ -49,7 +49,7 @@ function! plugin_lightline#config() abort
 
 		let g:lightline.component = {}
 		let g:lightline.component['lineinfo'] = ' %3l:%-2v'
-		let g:lightline.component['relativepath'] = "\uf02d %f"
+		let g:lightline.component['filename'] = "\uf02d %t"
 	endif
 
 	let g:lightline.component_function = {}
