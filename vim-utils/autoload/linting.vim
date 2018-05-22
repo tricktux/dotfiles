@@ -85,7 +85,7 @@ function! s:set_neomake() abort
 
 	if exists('g:lightline')
 		let g:lightline.active.left[2] += [ 'neomake' ]
-		let g:lightline.component_function['neomake'] = 'linting#NeomakeNativeStatusLine'
+		let g:lightline.component_function['neomake'] = string(function('s:neomake_native_status_line'))
 		" let g:lightline.component_function['neomake'] = 'lightline_neomake#component'
 		" let g:lightline.component_type['neomake'] = 'error'
 	endif
@@ -105,7 +105,7 @@ function! s:neomake_job_finished() abort
 	let s:msg .= printf("%s: %d ", m.maker.name, m.exit_code)
 endfunction
 
-function! linting#NeomakeNativeStatusLine() abort
+function! s:neomake_native_status_line() abort
 	return neomake#statusline#get(bufnr("%"), {
 				\ 'format_running':
 				\ (exists('g:valid_device') ? "\uf188" : '')
