@@ -238,11 +238,74 @@ function! linting#SetNeomakePandocMaker(type) abort
 	if &verbose > 0
 		echomsg '[linting#SetNeomakePandocMaker]: argu = ' . argu
 	endif
-	let b:neomake_pandoc_{a:type}_args = argu
+
+	let maker = 'pandoc_' . a:type
+	let b:neomake_{maker}_args = argu
 
 	if exists('b:neomake_markdown_enabled_makers')
-		let b:neomake_markdown_enabled_makers += [a:type]
+		let b:neomake_markdown_enabled_makers += [maker]
 	else
-		let b:neomake_markdown_enabled_makers = [a:type]
+		let b:neomake_markdown_enabled_makers = [maker]
 	endif
+endfunction
+
+function! linting#SetNeomakeClangMaker() abort
+	let b:neomake_cpp_enabled_makers = executable('clang') ? ['clangtidy', 'clangcheck'] : ['']
+	let b:neomake_cpp_enabled_makers += executable('cppcheck') ? ['cppcheck'] : ['']
+	if !has('unix')
+		let b:neomake_clang_args = '-target x86_64-pc-windows-gnu -std=c++1z -stdlib=libc++ -Wall -pedantic'
+	endif
+endfunction
+
+function! linting#SetNeomakeBorlandMaker() abort
+	command! -buffer UtilsUpdateBorlandMakefile call utils#UpdateBorlandMakefile()
+	augroup Borland
+		autocmd! * <buffer>
+		autocmd BufWritePre <buffer=abuf> call utils#UpdateBorlandMakefile()
+	augroup end
+
+	" Settings for NeoamkeProject
+	let b:current_compiler = "borland"
+	" let prog = C:\Program Files (x86)\Borland\CBuilder6\Bin\make.exe
+	let prog ='make'
+	let &l:makeprg=prog
+	setlocal errorformat=%*[^0-9]\ %t%n\ %f\ %l:\ %m
+
+	" For Borland use only make
+	let b:neomake_cpp_enabled_makers = ['make']
+	let b:neomake_make_exe = prog
+	let b:neomake_make_args = ['%:r.obj']
+	let b:neomake_make_append_file = 0
+	let b:neomake_make_errorformat = &errorformat
+endfunction
+
+function! linting#SetNeomakeMsBuildMaker(curr_folder) abort
+	compiler msbuild
+	let ms = 'msbuild'
+	let &l:makeprg= ms . ' /nologo /v:q /property:GenerateFullPaths=true'
+	let &l:errorformat='%f(%l): %t%*[^ ] C%n: %m [%.%#]'
+
+	" Wed Apr 04 2018 11:10: Alternative errorformat found somewhere:
+	" \ 'errorformat': '%E%f(%l\,%c): error CS%n: %m [%.%#],'.
+	" \                '%W%f(%l\,%c): warning CS%n: %m [%.%#]',
+
+	" Compose VS project name base on the root folder of the current file
+	let proj_name = utils#GetPathFolderName(a:curr_folder)
+	if empty(proj_name)
+		return
+	endif
+
+	" Compose solution name
+	let proj_name .= filereadable(proj_name . '.sln') ? '.sln' : '.vcxproj'
+	" Fix make_program
+	let &l:makeprg= ms . ' ' . proj_name . ' /nologo /v:q /property:GenerateFullPaths=true'
+
+	let b:neomake_cpp_enabled_makers = ['msbuild']
+	let b:neomake_cpp_msbuild_exe = ms
+	let b:neomake_cpp_msbuild_args = [
+				\ proj_name,
+				\ '/nologo',
+				\ '/verbosity:quiet',
+				\ '/property:GenerateFullPaths=true',
+				\ '/property:SelectedFiles=%' ]
 endfunction
