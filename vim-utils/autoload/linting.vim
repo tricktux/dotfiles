@@ -61,6 +61,16 @@ function! s:set_neomake() abort
 				\ 'append_file' : 0,
 				\ }
 
+	let g:neomake_pandoc_pdf_maker = {
+				\ 'exe' : 'pandoc',
+				\ 'append_file' : 0,
+				\ }
+
+	let g:neomake_pandoc_docx_maker = {
+				\ 'exe' : 'pandoc',
+				\ 'append_file' : 0,
+				\ }
+
 	" Fri Nov 03 2017 19:05: Finally understood the concept of neomake and linting in
 	" general. NeomakeFile is suppose to run as it names says in only a single file.
 	" And that is what you should configure on a per buffer basis. Look at
@@ -161,4 +171,78 @@ function! s:set_ale() abort
 		" call ale#linter#Define(filetype, linter)
 		" let linter = {  }
 		" call ale#linter#Define('cpp', linter)
+endfunction
+
+" type - {pdf, docx}
+" If you want to change the template use b:neomake_pandoc_template for that
+" I.e: `let b:neomake_pandoc_template = 'eisvogel'`
+" That above is the default
+" If you want to pass extra args use:
+" `let b:neomake_pandoc_extra_args = ['--number-sections']`
+" Or:
+" `let b:neomake_pandoc_extra_args = ['--listings']`
+" Or:
+" `let b:neomake_pandoc_extra_args = ['--number-sections', '--toc']`
+" And then call the function again
+function! linting#SetNeomakePandocMaker(type) abort
+	if !executable('pandoc')
+		if &verbose > 0
+			echomsg '[linting#SetNeomakePandocMaker]: Pandoc is not executable'
+		endif
+		return -1
+	endif
+
+	" By default, pandoc produces a document fragment. To produce a standalone document (e.g. a valid
+	" HTML file including <head> and <body>), use the -s or --standalone flag:
+	let argu = ['-r',
+				\ 'markdown+simple_tables+table_captions+yaml_metadata_block+smart',
+				\ '--standalone']
+
+	if executable('pandoc-citeproc')
+		" Obtain list of bib files
+		let bibl = glob('*.bib', 1, 1)
+		if !empty(bibl)
+			let argu += ['--filter',
+						\ 'pandoc-citproc',
+						\	'--bibliography'] + bibl
+		endif
+	endif
+
+	if a:type ==# 'pdf'
+		let wrte = 'latex'
+		let out = '%:r.pdf'
+		" Set template
+		let argu += ['--template',
+					\ (!exists('b:neomake_pandoc_template') ? 'eisvogel' : b:neomake_pandoc_template)
+					\ ]
+	elseif a:type ==# 'docx'
+		let wrte = 'docx'
+		let out = '%:r.docx'
+	else
+		if &verbose > 0
+			echomsg '[linting#SetNeomakePandocMaker]: Not a recognized a:type variable'
+		endif
+		return -2
+	endif
+
+	let argu += ['--write', wrte, '-o', out]
+
+	if exists('b:neomake_pandoc_extra_args') && !empty(b:neomake_pandoc_extra_args)
+		let argu += b:neomake_pandoc_extra_args
+	endif
+
+	" Add final input file
+	let argu += ['%']
+
+	" Setup neomake variables
+	if &verbose > 0
+		echomsg '[linting#SetNeomakePandocMaker]: argu = ' . argu
+	endif
+	let b:neomake_pandoc_{a:type}_args = argu
+
+	if exists('b:neomake_markdown_enabled_makers')
+		let b:neomake_markdown_enabled_makers += [a:type]
+	else
+		let b:neomake_markdown_enabled_makers = [a:type]
+	endif
 endfunction

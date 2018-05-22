@@ -70,9 +70,9 @@ if exists('g:loaded_surround')
 endif
 
 if executable('pandoc')
-	let b:neomake_markdown_enabled_makers = ['make']
-	let b:neomake_make_args = has('unix') ? ['%:r.pdf'] : ['%:r.docx']
-	let b:neomake_make_append_file = 0
+	call linting#SetNeomakePandocMaker(has('unix') ? 'pdf' : 'docx')
+	command! -buffer UtilsMarkdownSetPandocPdfMaker call call linting#SetNeomakePandocMaker('pdf')
+	command! -buffer UtilsMarkdownSetPandocDocxMaker call call linting#SetNeomakePandocMaker('docx')
 endif
 
 " Advanced spelling checks for when writting documents and such
@@ -150,7 +150,7 @@ command! -buffer UtilsWeeklyReportCreate call utils#ConvertWeeklyReport()
 " Markdown fix _ showing red
 command! -buffer UtilsFixUnderscore execute("%s/_/\\_/gc<CR>")
 " TODO.RM-Thu May 18 2017 12:17: This should be changed to opera
-command! -buffer UtilsPreviewMarkdown call s:preview_browser()
-command! -buffer UtilsInstallMarkdownPreview call s:install_template()
+command! -buffer UtilsMarkdownPreviewInBrowser call s:preview_browser()
+command! -buffer UtilsMarkdownInstallPreview call s:install_template()
 
 let b:undo_ftplugin = "setl foldenable< spell< complete< ts< sw< sts< comments< formatoptions< conceallevel<"
