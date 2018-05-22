@@ -217,7 +217,7 @@ function! plugin#Config()
 					\		 	'default': { 'transparent_background': 0 }
 					\		}
 					\ }
-	
+
 	" Mon Jan 08 2018 15:08: Do not load these schemes unless they are going to be used
 	" Sun May 07 2017 16:25 - Gave it a try and didnt like it
 	" Plug 'icymind/NeoSolarized'
@@ -231,7 +231,7 @@ function! plugin#Config()
 	" Magnum is required by vim-radical. use with gA
 	Plug 'glts/vim-magnum', { 'on' : '<Plug>RadicalView' }
 	Plug 'glts/vim-radical', { 'on' : '<Plug>RadicalView' }
-		nnoremap gA <Plug>RadicalView
+		nmap gA <Plug>RadicalView
 
 	" W3M - to view cpp-reference help
 	if executable('w3m')
@@ -656,7 +656,7 @@ function! s:configure_vim_table_mode() abort
 	" let g:table_mode_corner = '+'
 	let g:table_mode_align_char = ':'
 	" TODO.RM-Wed Jul 19 2017 21:10: Fix here these mappings are for terminal
-	let g:table_mode_map_prefix = '<LocalLeader>t'
+	let g:table_mode_map_prefix = '<Leader>T'
 	let g:table_mode_disable_mappings = 1
 	nnoremap <Leader>ta :TableModeToggle<CR>
 	" <Leader>tr	Realigns table columns
