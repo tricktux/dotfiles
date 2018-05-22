@@ -39,7 +39,13 @@ options     head
     subtitle:   ${2:Document Description}
     author:		Reinaldo Molina
     email:      `utils#ChooseEmailAcc()`
-    revision:	${4:0.0.0}
     date:       `strftime("%a %b %d %Y %H:%M")`
-    fileext:    md
+    ${4:titlepage: true}
+    ${5:titlepage-color: 06386e}
+    ${6:titlepage-text-color: ffffff}
+    ${7:titlepage-rule-color: ffffff}
+    ${8:titlepage-rule-height: 1}
     ---
+
+    ${10:\\\tableofcontents}
+    ${11:\\\pagebreak}
