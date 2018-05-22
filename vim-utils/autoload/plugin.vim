@@ -270,8 +270,7 @@ function! plugin#Config()
 	" Not being used but kept for dependencies
 	Plug 'rbgrouleff/bclose.vim'
 
-	Plug 'godlygeek/tabular'
-		let g:no_default_tabular_maps = 1
+	call s:configure_tabular()
 
 	" This plugin depends on 'godlygeek/tabular'
 	Plug 'plasticboy/vim-markdown', { 'for' : 'markdown' }
@@ -286,8 +285,8 @@ function! plugin#Config()
 	" Sun Sep 10 2017 20:44 Depends on plantuml being installed
 	" If you want dont want to image preview after loading the plugin put the
 	" comment:
-	"		'no-preview
-	"	in your file
+	" 'no-preview
+	" in your file
 	Plug 'scrooloose/vim-slumlord', { 'on' : 'UtilsUmlInFilePreview' }
 
 	Plug 'merlinrebrovic/focus.vim', { 'on' : '<Plug>FocusModeToggle' }
@@ -920,4 +919,24 @@ function! s:configure_tag_handler(choice) abort
 			augroup END
 
 	endif
+endfunction
+
+function! s:configure_tabular() abort
+	Plug 'godlygeek/tabular'
+	let g:no_default_tabular_maps = 1
+
+	augroup tabularize
+		autocmd!
+		autocmd FileType * call <SID>tabular_align()
+	augroup end
+
+endfunction
+
+function! s:tabular_align() abort
+	let comment = &commentstring[0]
+	if comment ==# '/'
+		let comment = '\/\/'
+	endif
+
+	execute 'vnoremap <buffer> <Leader>oa :Tabularize /' . comment . '<cr>'
 endfunction

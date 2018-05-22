@@ -18,16 +18,11 @@ setlocal commentstring=#%s
 setlocal define=^\s*\\(def\\\\|class\\)
 
 if !exists("no_plugin_maps") && !exists("no_python_maps")
-	if exists(':Autoformat') && exists(':Isort')
-		nnoremap <buffer> <unique> <Leader>lf :Autoformat<CR>Isort<CR>
-	endif
-
-	call ftplugin#Align('/#')
-	call ftplugin#Syntastic('passive', ['flake8', 'pep8', 'pycodestyle', 'pyflakes', 'python'])
+	" Special mappings go here
 endif
 
 " Setup AutoHighlight
-call ftplugin#AutoHighlight()
+call utils#AutoHighlight()
 
 " TODO.RM-Tue May 02 2017 16:53: 
 " Add support for `isort`

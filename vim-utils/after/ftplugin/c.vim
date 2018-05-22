@@ -27,7 +27,7 @@ setlocal foldenable
 setlocal foldnestmax=88
 setlocal define=^\\(#\\s*define\\|[a-z]*\\s*const\\s*[a-z]*\\)
 setlocal nospell
-setlocal cursorline
+" setlocal cursorline
 " So that you can jump from = to ; and viceversa
 setlocal matchpairs+==:;
 " This is that delimate doesnt aut fill the newly added matchpairs
@@ -61,7 +61,6 @@ if !exists('no_plugin_maps') && !exists('no_c_maps')
 		" nnoremap <F9> :LL print <C-R>=expand('<cword>')<cr>
 		" vnoremap <F9> :<C-U>LL print <C-R>=lldb#util#get_selection()<cr><cr>
 	endif
-	call ftplugin#Align('/\/\/')
 
 	if exists('g:clang_format_py')
 		nnoremap <buffer> <LocalLeader>f :execute('pyf ' . g:clang_format_py)<cr>
@@ -69,9 +68,57 @@ if !exists('no_plugin_maps') && !exists('no_c_maps')
 endif
 
 " Setup AutoHighlight
-call ftplugin#AutoHighlight()
+call utils#AutoHighlight()
+
+function! s:set_compiler_and_others() abort
+	if exists('b:current_compiler')
+		return
+	endif
+
+	if has('unix')
+		setlocal foldmethod=syntax
+
+		if exists('g:LanguageClient_serverCommands')
+			setlocal completefunc=LanguageClient#complete
+			setlocal formatexpr=LanguageClient_textDocument_rangeFormatting()
+
+			" TODO-[RM]-(Sat Jan 27 2018 11:23): Figure out these mappings
+			" nnoremap <buffer> <silent> gh :call LanguageClient_textDocument_hover()<CR>
+			" nnoremap <buffer> <silent> gd :call LanguageClient_textDocument_definition()<CR>
+			" nnoremap <buffer> <silent> gr :call LanguageClient_textDocument_references()<CR>
+			" nnoremap <buffer> <silent> gs :call LanguageClient_textDocument_documentSymbol()<CR>
+			" nnoremap <buffer> <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+		endif
+		return 1
+	endif
+
+	" Commands for windows
+	command! -buffer UtilsCompilerGcc execute("compiler gcc<bar>:setlocal makeprg=mingw32-make")
+	command! -buffer UtilsCompilerBorland call linting#SetNeomakeBorlandMaker()
+	command! -buffer UtilsCompilerMsbuild call linting#SetNeomakeMsBuildMaker(expand('%:p:h'))
+	command! -buffer UtilsCompilerClangNeomake call linting#SetNeomakeClangMaker()
+
+	if exists(':Dispatch')
+		" Time runtime of a specific program. Pass as Argument executable with arguments. Pass as Argument executable with
+		" arguments. Example sep_calc.exe seprc.
+		command! -nargs=+ -buffer UtilsTimeExec execute('Dispatch powershell -command "& {&'Measure-Command' {.\<f-args>}}"<cr>')
+	endif
+
+	" Set compiler now depending on folder and system. Auto set the compiler
+	let folder_name = expand('%:p:h')
+
+	if folder_name =~? 'onewings'
+		" Load cscope database
+		" Note: inside the '' is a pat which is a regex. That is why \\
+		if folder_name =~? 'Onewings\\Source'
+			call linting#SetNeomakeBorlandMaker()
+			return
+		endif
+		call linting#SetNeomakeMsBuildMaker(folder_name)
+	endif
+endfunction
 
 " Setup Compiler and some specific stuff
-call ftplugin#SetCompilersAndOther()
+call <SID>set_compiler_and_others()
 
 let b:undo_ftplugin = 'setl cursorline< omnifunc< ts< sw< sts< foldenable< define< spell< matchpairs< foldmethod< foldnestmax<| unlet! b:delimitMate_matchpairs b:match_words'

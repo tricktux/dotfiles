@@ -57,6 +57,10 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	if executable('qpdfview')
 		nnoremap <buffer> <Plug>preview :silent !qpdfview --unique --quiet %:r.pdf&<cr>
 	endif
+
+	if executable('SumatraPDF')
+		nnoremap <buffer> <Plug>preview :silent !SumatraPDF %:r.pdf<cr>
+	endif
 endif
 
 if exists('*AutoCorrect')
@@ -67,12 +71,6 @@ endif
 
 if exists('g:loaded_surround')
 	let b:surround_95 = "_\r_"
-endif
-
-if executable('pandoc')
-	call linting#SetNeomakePandocMaker(has('unix') ? 'pdf' : 'docx')
-	command! -buffer UtilsMarkdownSetPandocPdfMaker call call linting#SetNeomakePandocMaker('pdf')
-	command! -buffer UtilsMarkdownSetPandocDocxMaker call call linting#SetNeomakePandocMaker('docx')
 endif
 
 " Advanced spelling checks for when writting documents and such
@@ -152,5 +150,7 @@ command! -buffer UtilsFixUnderscore execute("%s/_/\\_/gc<CR>")
 " TODO.RM-Thu May 18 2017 12:17: This should be changed to opera
 command! -buffer UtilsMarkdownPreviewInBrowser call s:preview_browser()
 command! -buffer UtilsMarkdownInstallPreview call s:install_template()
+command! -buffer UtilsMarkdownSetPandocPdfMaker call linting#SetNeomakePandocMaker('pdf')
+command! -buffer UtilsMarkdownSetPandocDocxMaker call linting#SetNeomakePandocMaker('docx')
 
 let b:undo_ftplugin = "setl foldenable< spell< complete< ts< sw< sts< comments< formatoptions< conceallevel<"

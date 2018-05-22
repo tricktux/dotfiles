@@ -25,10 +25,9 @@ compiler gradlew
 
 " Add mappings, unless the user didn't want this.
 if !exists("no_plugin_maps") && !exists("no_java_maps")
-	call ftplugin#Align('/\/\/')
-	call ftplugin#Syntastic('passive', [])
+	" Special mappings go here
 endif
 
-call ftplugin#AutoHighlight()
+call utils#AutoHighlight()
 
 let b:undo_ftplugin += "setl omnifunc< foldenable< | unlet! b:match_words"
