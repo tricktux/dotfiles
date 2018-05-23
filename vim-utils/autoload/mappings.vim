@@ -56,7 +56,7 @@ function! mappings#Set() abort
 	" ga " prints ascii of char under cursor
 	" gA " prints radix of number under cursor
 	" Untouchable g mappings:
-	" - gd, gD, g;, gq, gs, gl, gA, gT, gg, G, gG, gh, gv
+	" - gd, gD, g;, gq, gs, gl, gA, gT, gg, G, gG, gh, gv, gn, gm, gx, gt
 	" Toggle mappings:
 	" - tj, te, ta, tt, tf, ts, to, tn
 	nmap <Leader>tj <Plug>file_browser
@@ -78,21 +78,38 @@ function! mappings#Set() abort
 
 		tnoremap <C-p> <Up>
 	endif
-	nmap <LocalLeader>m <plug>make_project
-	nmap <LocalLeader>M <plug>make_file
+
+	nmap <LocalLeader>s <plug>search_grep
+	xmap <LocalLeader>s <plug>search_grep
+
+	nmap <LocalLeader>k <plug>make_project
+	nmap <LocalLeader>j <plug>make_file
+	nmap <LocalLeader>c <plug>make_check
 	nmap <LocalLeader>p <plug>preview
 
-	nmap <a-;> <plug>fuzzy_command_history
-	nmap <Leader>cr <plug>cd_root
+	nmap <LocalLeader>a <plug>switch_header_source
+
+	nmap <LocalLeader>G <plug>search_internet
+	xmap <LocalLeader>G <plug>search_internet
+
+	nmap <LocalLeader>A <plug>num_representation
+	xmap <LocalLeader>A <plug>num_representation
 
 	" UtilsTagUpdateCurrFolder
-	nnoremap <silent> <LocalLeader>t :call ctags#NvimSyncCtags()<cr>
+	nmap <silent> <LocalLeader>t <plug>generate_tags
+	nmap <silent> <plug>generate_tags :call ctags#NvimSyncCtags()<cr>
+
+	nmap <LocalLeader>f <plug>format_code
+	xmap <LocalLeader>f <plug>format_code
 
 	nnoremap <Leader>tt :TagbarToggle<cr>
 	nnoremap <Leader>ts :setlocal spell!<cr>
+	nmap <a-;> <plug>fuzzy_command_history
+	nmap <a-e> <plug>fuzzy_vim_help
+	nmap <Leader>cr <plug>cd_root
+
 
 	" Global settings for all ftplugins
-	nnoremap <LocalLeader>f :Neoformat<cr>
 
 	" Refactor word under the cursor
 	nnoremap <Leader>r :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>

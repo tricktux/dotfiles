@@ -147,6 +147,7 @@ function! plugin#Config()
 					\ 'exe': 'clang-format',
 					\ 'args': ['-style=file'],
 					\ }
+		nmap <plug>format_code :Neoformat<cr>
 
 	" cpp
 	if get(g:, 'tagbar_safe_to_use', 1)
@@ -231,7 +232,8 @@ function! plugin#Config()
 	" Magnum is required by vim-radical. use with gA
 	Plug 'glts/vim-magnum', { 'on' : '<Plug>RadicalView' }
 	Plug 'glts/vim-radical', { 'on' : '<Plug>RadicalView' }
-		nmap gA <Plug>RadicalView
+		nmap <plug>num_representation <Plug>RadicalView
+		nmap <plug>num_representation <Plug>RadicalView
 
 	" W3M - to view cpp-reference help
 	if executable('w3m')
@@ -247,8 +249,8 @@ function! plugin#Config()
 		" TODO-[RM]-(Thu Sep 14 2017 21:02): Update this here
 		let g:www_map_keys = 0
 		let g:www_launch_cli_browser_command = g:browser_cmd . ' {{URL}}'
-		nnoremap gG :Wcsearch duckduckgo <C-R>=expand("<cword>")<CR><CR>
-		vnoremap gG "*y:call www#www#user_input_search(1, @*)<CR>
+		nmap <plug>search_internet :Wcsearch duckduckgo <C-R>=expand("<cword>")<CR><CR>
+		xmap <plug>search_internet "*y:call www#www#user_input_search(1, @*)<CR>
 
 	if has('win32')
 		Plug 'PProvost/vim-ps1', { 'for' : 'ps1' }
@@ -383,8 +385,6 @@ function! plugin#Config()
 		let g:extra_whitespace_ignored_filetypes = ['markdown']
 
 	Plug 'mhinz/vim-grepper'
-		nmap <LocalLeader>s <plug>(GrepperOperator)
-		xmap <LocalLeader>s <plug>(GrepperOperator)
 		if exists('g:lightline')
 			let g:lightline.active.left[2] += [ 'grepper' ]
 			let g:lightline.component_function['grepper'] = 'grepper#statusline'
@@ -523,14 +523,16 @@ function! plugin#AfterConfig() abort
 
 	if exists('g:loaded_grepper')
 		if executable('rg')
-			nnoremap <LocalLeader>s :Grepper -tool rg<cr>
+			nmap <plug>search_grep :Grepper -tool rg<cr>
+			xmap <plug>search_grep :Grepper -tool rg<cr>
 			if has('unix')
 				let g:grepper.rg.grepprg .= " --smart-case --follow --fixed-strings --hidden --iglob '!.{git,svn}'"
 			else
 				let g:grepper.rg.grepprg .= ' --smart-case --follow --fixed-strings --hidden --iglob !.{git,svn}'
 			endif
 		else
-			nnoremap <LocalLeader>s :Grepper<cr>
+			nmap <plug>search_grep <plug>(GrepperOperator)
+			xmap <plug>search_grep <plug>(GrepperOperator)
 		endif
 		if executable('pdfgrep')
 			let g:grepper.tools += ['pdfgrep']
@@ -617,7 +619,9 @@ endfunction
 
 function! s:configure_async_plugins() abort
 	if !has('nvim') && v:version < 800
-		echomsg 'No async support in this version. No neoterm, no denite.'
+		if &verbose > 0
+			echomsg 'No async support in this version. No neoterm, no denite.'
+		endif
 		return -1
 	endif
 
@@ -633,9 +637,8 @@ function! s:configure_async_plugins() abort
 		nmap <plug>terminal_send_line <Plug>(neoterm-repl-send-line)
 
 	Plug 'Shougo/denite.nvim', { 'do' : has('nvim') ? ':UpdateRemotePlugins' : '' }
-		" TODO-[RM]-(Wed Jan 10 2018 15:46): Come up with new mappings for these commented
-		" out below
 		nmap <plug>fuzzy_command_history :Denite command_history<CR>
+		nmap <plug>fuzzy_vim_help :Denite help<CR>
 		" nnoremap <C-S-h> :Denite help<CR>
 		" nmap <plug>mru_browser :Denite file_mru<CR>
 		" Wed Jan 10 2018 15:46: Have tried several times to use denite buffer but its

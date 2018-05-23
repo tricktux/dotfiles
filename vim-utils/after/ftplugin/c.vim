@@ -37,38 +37,37 @@ let b:delimitMate_matchpairs = '(:),[:],{:}'
 if !exists('no_plugin_maps') && !exists('no_c_maps')
 	" Quote text by inserting "> "
 	if exists(':Neomake')
-		nnoremap <silent> <buffer> <LocalLeader>c :Neomake clangtidy clangcheck cppcheck<cr>
+		nmap <silent> <buffer> <plug>make_check :Neomake clangtidy clangcheck cppcheck<cr>
 	else
-		nnoremap <buffer> <Plug>Make :make!<cr>
+		nmap <buffer> <Plug>make_project :make!<cr>
+		nmap <buffer> <Plug>make_file :make!<cr>
 	endif
 	" Alternate between header and source file
-	nnoremap <buffer> <unique> <LocalLeader>a :call utils#SwitchHeaderSource()<cr>
+	nmap <buffer> <unique> <plug>switch_header_source :call utils#SwitchHeaderSource()<cr>
 
 	if executable('lldb') && exists(':LLmode')
-		nmap <buffer> <unique> <LocalLeader>db <Plug>LLBreakSwitch
+		" TODO-[RM]-(Wed May 23 2018 11:06): Make all of these guys <FX> mappings
+		" nmap <buffer> <unique> <LocalLeader>db <Plug>LLBreakSwitch
 		" vmap <F2> <Plug>LLStdInSelected
 		" nnoremap <F4> :LLstdin<cr>
 		" nnoremap <F5> :LLmode debug<cr>
 		" nnoremap <S-F5> :LLmode code<cr>
-		nnoremap <buffer> <unique> <LocalLeader>dc :LL continue<cr>
-		nnoremap <buffer> <unique> <LocalLeader>do :LL thread step-over<cr>
-		nnoremap <buffer> <unique> <LocalLeader>di :LL thread step-in<cr>
-		nnoremap <buffer> <unique> <LocalLeader>dt :LL thread step-out<cr>
-		nnoremap <buffer> <unique> <LocalLeader>dD :LLmode code<cr>
-		nnoremap <buffer> <unique> <LocalLeader>dd :LLmode debug<cr>
-		nnoremap <buffer> <unique> <LocalLeader>dp :LL print <C-R>=expand('<cword>')<cr>
+		" nnoremap <buffer> <unique> <LocalLeader>dc :LL continue<cr>
+		" nnoremap <buffer> <unique> <LocalLeader>do :LL thread step-over<cr>
+		" nnoremap <buffer> <unique> <LocalLeader>di :LL thread step-in<cr>
+		" nnoremap <buffer> <unique> <LocalLeader>dt :LL thread step-out<cr>
+		" nnoremap <buffer> <unique> <LocalLeader>dD :LLmode code<cr>
+		" nnoremap <buffer> <unique> <LocalLeader>dd :LLmode debug<cr>
+		" nnoremap <buffer> <unique> <LocalLeader>dp :LL print <C-R>=expand('<cword>')<cr>
 		" nnoremap <S-F8> :LL process interrupt<cr>
 		" nnoremap <F9> :LL print <C-R>=expand('<cword>')<cr>
 		" vnoremap <F9> :<C-U>LL print <C-R>=lldb#util#get_selection()<cr><cr>
 	endif
 
 	if exists('g:clang_format_py')
-		nnoremap <buffer> <LocalLeader>f :execute('pyf ' . g:clang_format_py)<cr>
+		nmap <buffer> <plug>format_code :execute('pyf ' . g:clang_format_py)<cr>
 	endif
 endif
-
-" Setup AutoHighlight
-call utils#AutoHighlight()
 
 function! s:set_compiler_and_others() abort
 	if exists('b:current_compiler')
@@ -120,5 +119,8 @@ endfunction
 
 " Setup Compiler and some specific stuff
 call <SID>set_compiler_and_others()
+
+" Setup AutoHighlight
+call utils#AutoHighlight()
 
 let b:undo_ftplugin = 'setl cursorline< omnifunc< ts< sw< sts< foldenable< define< spell< matchpairs< foldmethod< foldnestmax<| unlet! b:delimitMate_matchpairs b:match_words'
