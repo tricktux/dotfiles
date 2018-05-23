@@ -86,7 +86,8 @@ function! s:set_compiler_and_others() abort
 			" nnoremap <buffer> <silent> gd :call LanguageClient_textDocument_definition()<CR>
 			" nnoremap <buffer> <silent> gr :call LanguageClient_textDocument_references()<CR>
 			" nnoremap <buffer> <silent> gs :call LanguageClient_textDocument_documentSymbol()<CR>
-			" nnoremap <buffer> <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+			nmap <buffer> <silent> <plug>refactor_code :call LanguageClient_textDocument_rename()<CR>
+			xmap <buffer> <silent> <plug>refactor_code :call LanguageClient_textDocument_rename()<CR>
 		endif
 		return 1
 	endif

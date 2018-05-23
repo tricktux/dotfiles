@@ -56,7 +56,7 @@ function! mappings#Set() abort
 	" ga " prints ascii of char under cursor
 	" gA " prints radix of number under cursor
 	" Untouchable g mappings:
-	" - gd, gD, g;, gq, gs, gl, gA, gT, gg, G, gG, gh, gv, gn, gm, gx, gt
+	" - gd, gD, g;, gq, gs, gl, gA, gT, gg, G, gG, gh, gv, gn, gm, gx, gt, gr
 	" Toggle mappings:
 	" - tj, te, ta, tt, tf, ts, to, tn
 	nmap <Leader>tj <Plug>file_browser
@@ -102,18 +102,21 @@ function! mappings#Set() abort
 	nmap <LocalLeader>f <plug>format_code
 	xmap <LocalLeader>f <plug>format_code
 
-	nnoremap <Leader>tt :TagbarToggle<cr>
-	nnoremap <Leader>ts :setlocal spell!<cr>
 	nmap <a-;> <plug>fuzzy_command_history
 	nmap <a-e> <plug>fuzzy_vim_help
-	nmap <Leader>cr <plug>cd_root
-
-
-	" Global settings for all ftplugins
 
 	" Refactor word under the cursor
-	nnoremap <Leader>r :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
-	vnoremap <Leader>r "hy:%s/<C-r>h//gc<left><left><left>
+	nmap <LocalLeader>r <plug>refactor_code
+	xmap <LocalLeader>r <plug>refactor_code
+
+	nmap <plug>refactor_code :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
+	xmap <plug>refactor_code "hy:%s/<C-r>h//gc<left><left><left>
+
+	" Global settings for all ftplugins
+	nmap <Leader>cr <plug>cd_root
+
+	nnoremap <Leader>tt :TagbarToggle<cr>
+	nnoremap <Leader>ts :setlocal spell!<cr>
 	" duplicate current char
 	nnoremap <Leader>d ylp
 	" Reload syntax

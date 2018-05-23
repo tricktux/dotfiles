@@ -15,6 +15,7 @@ function! options#Set() abort
 	let &path .='.,,..,../..,./*,./*/*,../*,~/,~/**,/usr/include/*' " Useful for the find command
 	set shiftwidth=4 tabstop=4
 	set viminfo='1024,%
+	let &viminfofile= g:std_data_path . (has('nvim') ? '/nviminfo' : '/viminfo')
 	set showtabline=1 " always show tabs in gvim, but not vim"
 	set backspace=indent,eol,start
 	" allow backspacing over everything in insert mode
