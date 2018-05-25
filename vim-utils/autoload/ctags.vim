@@ -14,9 +14,9 @@ if !exists('g:ctags_use_cscope_for')
 endif
 
 "	Your current directory should be at the root of you code
-" TODO-[RM]-(Fri May 18 2018 09:16):  
+" TODO-[RM]-(Fri May 18 2018 09:16):
 " - Get rid of lcd
-" -   
+" -
 function! ctags#NvimSyncCtags() abort
 	if !executable('rg')
 		echomsg string("Ctags dependens on ripgrep. I know horrible")
@@ -41,57 +41,67 @@ function! ctags#NvimSyncCtags() abort
 	endif
 
 	echo "Create tags for '" . cwd_rg . "'?: (j|y)es (any)no"
-	let response = getchar()
-	if response != 121 && response != 106 " y|j
+	let response = nr2char(getchar())
+	if response !=# 'y' && response !=# 'j'
+		echo 'Canceled'
 		return
 	endif
 
-	execute "lcd " . files_loc
-
 	let nvim_ft = &filetype
-	if !s:create_cscope_files(files_loc, cwd_rg, nvim_ft)
+	if !s:create_cscope_files(cwd_rg, nvim_ft)
 		echomsg "Failed to create cscope.files"
-		execute "lcd " . cwd_rg
 		return
 	endif
 
 	let ctags_lang = s:nvim_ft_to_ctags_ft(&filetype)
 
 	" Create unique tag file name based on cwd_rg
-	let folder_name = utils#GetPathFolderName(cwd_rg)
-	if empty(folder_name)
-		echomsg "Failed to obtain folder_name"
-		execute "lcd " . cwd_rg
-		return
-	endif
+	let tag_name = substitute(cwd_rg, "\\", '_', 'g')
+	let tag_name = substitute(tag_name, ':', '_', 'g')
+	let tag_name = substitute(tag_name, "/", '_', 'g')
 
-	if !s:create_tags(folder_name, ctags_lang)
-		echomsg "Failed to create tags file: " . folder_name
-		execute "lcd " . cwd_rg
+	if !s:create_tags(tag_name, ctags_lang)
+		echomsg "Failed to create tags file: " . tag_name
 		return
 	endif
 
 
-	call s:add_tags(folder_name)
-	call s:create_spell_from_tags(folder_name, nvim_ft)
+	call s:add_tags(tag_name)
 
-	if get(g:ctags_use_cscope_for, string(nvim_ft)) == 0
-		if &verbose > 0
-			echomsg 'nvim_ft = ' . nvim_ft
+	let valid = 0
+	for type in g:ctags_use_cscope_for
+		if type ==# nvim_ft
+			let valid = 1
+			break
 		endif
-		execute "lcd " . cwd_rg
+	endfor
+
+	if valid == 0
+		if &verbose > 0
+			echomsg 'nvim_ft = ' . nvim_ft . ' not found'
+		endif
 		return
 	endif
 
 	" Create cscope db as well
-	let cs_db = folder_name . '.out'
-	execute "lcd " . files_loc
+	let cs_db = g:std_data_path . '/ctags/' . tag_name
 
+	" Create spelllang as well
+	call s:create_spell_from_tags(cs_db, nvim_ft)
+
+	let files_name = fnameescape(expand($TEMP) .
+				\ (has('unix') ? '/' : "\\")
+				\ . 'cscope.files')
+
+	let cs_db .= '.out'
 	if !empty(glob(cs_db)) " If we are updating an existing tag. Close only that connection
 		execute "silent! cs kill " . cs_db
 	endif
 
-	let cscope_cmd = 'cscope -f ' . cs_db . ' -bqi cscope.files'
+	let cscope_cmd = 'cscope -f ' . cs_db . ' -bqi ' . files_name
+	if &verbose > 0
+		echomsg 'cscope_cmd = ' . cscope_cmd
+	endif
 	echo 'Creating cscope database...'
 	let res_cs = systemlist(cscope_cmd)
 	if v:shell_error || getfsize(cs_db) < 1
@@ -99,12 +109,10 @@ function! ctags#NvimSyncCtags() abort
 			cexpr res_cs
 		endif
 		echomsg 'Cscope command failed'
-		execute "lcd " . cwd_rg
 		return
 	endif
 
 	execute "cs add " . cs_db
-	execute "lcd " . cwd_rg
 endfunction
 
 " TODO.RM-Fri Mar 24 2017 16:49: This function is suppose to be async version of ctags#NvimSyncCtags
@@ -242,17 +250,19 @@ function! s:list_tags_files() abort
 endfunction
 
 " Creates cscope.files in ~\.cache\ctags\
-function! s:create_cscope_files(files_loc, cwd_rg, nvim_ft) abort
+function! s:create_cscope_files(cwd_rg, nvim_ft) abort
 	let rg_ft = s:nvim_ft_to_rg_ft(a:nvim_ft)
 	" Get cscope files location
-	let files_name = a:files_loc . "cscope.files"
-	if has('win32')
-		let files_name = substitute(files_name, "\\", "/", "g") " Fix cwd for the rg command
-	endif
+	let files_name = fnameescape(expand($TEMP) .
+				\ (has('unix') ? '/' : "\\")
+				\ . 'cscope.files')
+
 	" Cscope db are not being created properly therefore making cscope.files filetype specific no matter what
-	let files_cmd = 'rg -t ' . rg_ft . ' --files ' .  a:cwd_rg .  ' > ' . files_name
-	call delete(files_name)	 " Delete old/previous cscope.files
-	" echomsg string(files_cmd)
+	let files_cmd = 'rg -t ' . rg_ft . ' --files . > ' . files_name
+
+	if &verbose > 0
+		echomsg string(files_cmd)
+	endif
 	let res = ''
 	if has('nvim')
 		let res = systemlist(files_cmd)
@@ -269,19 +279,32 @@ function! s:create_cscope_files(files_loc, cwd_rg, nvim_ft) abort
 endfunction
 
 function! s:create_tags(tags_name, ctags_lang) abort
+	let tags_loc = g:std_data_path . '/ctags/' . a:tags_name
+	let files_name = fnameescape(expand($TEMP) .
+				\ (has('unix') ? '/' : "\\")
+				\ . 'cscope.files')
+
 	if a:ctags_lang ==# 'C++'
-		let ctags_cmd = "ctags -L cscope.files -f " . a:tags_name . " --sort=no
-					\ --recurse=yes --c-kinds=+pl --c++-kinds=+pl --fields=+iaSl extras=+q
-					\ --language-force=C++"
+		let ctags_cmd = 'ctags -L ' . files_name . ' -f ' . tags_loc .
+					\ ' --sort=no --recurse=yes --c-kinds=+pl' .
+					\ ' --c++-kinds=+pl --fields=+iaSl extras=+q' .
+					\ ' --language-force=C++'
 	else
-		let ctags_cmd = "ctags -L cscope.files -f " . a:tags_name . " --sort=no 
-					\ --recurse=yes"
+		let ctags_cmd = 'ctags -L ' . files_name . ' -f ' . tags_loc .
+					\  ' --sort=no --recurse=yes'
 	endif
 
 	echo 'Creating tags ...'
-	let res = systemlist(ctags_cmd)
+	if &verbose > 0
+		echomsg 'ctags_cmd = ' . ctags_cmd
+	endif
 
-	if v:shell_error || getfsize(a:tags_name) < 1
+	let res = systemlist(ctags_cmd)
+	if v:shell_error || getfsize(tags_loc) < 1
+		if &verbose > 0
+			echomsg 'cmd failed'
+		endif
+
 		if !empty(res)
 			cexpr res
 		endif
@@ -349,8 +372,7 @@ endfunction
 " Depends on the being in the same folder as the tags_name
 function! s:create_spell_from_tags(tags_name, vim_ft) abort
 	if !get(g:, 'ctags_create_spell', 0) || !has('python') || !exists('g:ctags_spell_script') ||
-				\ empty(glob(g:ctags_spell_script)) || get(g:ctags_use_spell_for, a:vim_ft) == 0 ||
-				\ empty(glob(a:tags_name))
+				\ empty(glob(g:ctags_spell_script)) || empty(glob(a:tags_name))
 		if &verbose > 0
 			echomsg 'vim_ft = ' . a:vim_ft
 		endif
