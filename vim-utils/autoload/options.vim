@@ -15,7 +15,9 @@ function! options#Set() abort
 	let &path .='.,,..,../..,./*,./*/*,../*,~/,~/**,/usr/include/*' " Useful for the find command
 	set shiftwidth=4 tabstop=4
 	set viminfo='1024,%
-	let &viminfofile= g:std_data_path . (has('nvim') ? '/nviminfo' : '/viminfo')
+	if !has('nvim')
+		let &viminfofile= g:std_data_path .  '/viminfo'
+	endif
 	set showtabline=1 " always show tabs in gvim, but not vim"
 	set backspace=indent,eol,start
 	" allow backspacing over everything in insert mode
@@ -43,12 +45,6 @@ function! options#Set() abort
 	set wildmode=list:longest
 	set wildignore+=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn,.git
 	set title                " change the terminal's title
-
-	let title = (exists('g:valid_device') ? "\uf015" : '') .
-				\ getcwd() . " -> " .
-				\ (exists('g:valid_device') ? "\uf02d" : '') .
-				\ '%f' .
-				\ ' - ' . v:progname
 
 	" Set a pretty title
 	augroup TermTitle
