@@ -89,7 +89,7 @@ function! ctags#NvimSyncCtags() abort
 	" Create spelllang as well
 	call s:create_spell_from_tags(cs_db, nvim_ft)
 
-	let files_name = fnameescape(expand($TEMP) .
+	let files_name = fnameescape(g:std_cache_path .
 				\ (has('unix') ? '/' : "\\")
 				\ . 'cscope.files')
 
@@ -253,12 +253,12 @@ endfunction
 function! s:create_cscope_files(cwd_rg, nvim_ft) abort
 	let rg_ft = s:nvim_ft_to_rg_ft(a:nvim_ft)
 	" Get cscope files location
-	let files_name = fnameescape(expand($TEMP) .
+	let files_name = fnameescape(g:std_cache_path .
 				\ (has('unix') ? '/' : "\\")
 				\ . 'cscope.files')
 
 	" Cscope db are not being created properly therefore making cscope.files filetype specific no matter what
-	let files_cmd = 'rg -t ' . rg_ft . ' --files . > ' . files_name
+	let files_cmd = 'rg -t ' . rg_ft . ' --files ' . a:cwd_rg .' > ' . files_name
 
 	if &verbose > 0
 		echomsg string(files_cmd)
@@ -280,7 +280,7 @@ endfunction
 
 function! s:create_tags(tags_name, ctags_lang) abort
 	let tags_loc = g:std_data_path . '/ctags/' . a:tags_name
-	let files_name = fnameescape(expand($TEMP) .
+	let files_name = fnameescape(g:std_cache_path .
 				\ (has('unix') ? '/' : "\\")
 				\ . 'cscope.files')
 
@@ -379,8 +379,8 @@ function! s:create_spell_from_tags(tags_name, vim_ft) abort
 		return
 	endif
 
-	let spell_cmd = 'py "' . shellescape(expand(g:ctags_spell_script)) . '"'
-				\ . ' -t ' . a:tags_name . ' ' . a:tags_name
+	let spell_cmd = 'python ' . shellescape(expand(g:ctags_spell_script)) .
+				\ ' -t ' . a:tags_name . ' ' . a:tags_name
 
 	if &verbose > 0
 		echomsg string(getcwd())
