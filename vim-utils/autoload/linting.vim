@@ -279,7 +279,7 @@ function! linting#SetNeomakeBorlandMaker() abort
 	let b:neomake_make_errorformat = &errorformat
 endfunction
 
-function! linting#SetNeomakeMsBuildMaker(curr_folder) abort
+function! linting#SetNeomakeMsBuildMaker() abort
 	compiler msbuild
 	let ms = 'msbuild'
 	let &l:makeprg= ms . ' /nologo /v:q /property:GenerateFullPaths=true'
@@ -290,13 +290,14 @@ function! linting#SetNeomakeMsBuildMaker(curr_folder) abort
 	" \                '%W%f(%l\,%c): warning CS%n: %m [%.%#]',
 
 	" Compose VS project name base on the root folder of the current file
-	let proj_name = utils#GetPathFolderName(a:curr_folder)
+	let proj_name = glob(expand('%:p:h') . '/*.vcxproj')
 	if empty(proj_name)
 		return
 	endif
 
-	" Compose solution name
-	let proj_name .= filereadable(proj_name . '.sln') ? '.sln' : '.vcxproj'
+	" MSbuild does this automagically
+	" let response_file = glob(expand('%:p:h') . '/*.rsp')
+
 	" Fix make_program
 	let &l:makeprg= ms . ' ' . proj_name . ' /nologo /v:q /property:GenerateFullPaths=true'
 
@@ -304,8 +305,9 @@ function! linting#SetNeomakeMsBuildMaker(curr_folder) abort
 	let b:neomake_cpp_msbuild_exe = ms
 	let b:neomake_cpp_msbuild_args = [
 				\ proj_name,
+				\ '/target:ClCompile',
 				\ '/nologo',
 				\ '/verbosity:quiet',
 				\ '/property:GenerateFullPaths=true',
-				\ '/property:SelectedFiles=%' ]
+				\ '/property:SelectedFiles=%']
 endfunction

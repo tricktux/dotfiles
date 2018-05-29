@@ -95,7 +95,7 @@ function! s:set_compiler_and_others() abort
 	" Commands for windows
 	command! -buffer UtilsCompilerGcc execute("compiler gcc<bar>:setlocal makeprg=mingw32-make")
 	command! -buffer UtilsCompilerBorland call linting#SetNeomakeBorlandMaker()
-	command! -buffer UtilsCompilerMsbuild call linting#SetNeomakeMsBuildMaker(expand('%:p:h'))
+	command! -buffer UtilsCompilerMsbuild call linting#SetNeomakeMsBuildMaker()
 	command! -buffer UtilsCompilerClangNeomake call linting#SetNeomakeClangMaker()
 
 	if exists(':Dispatch')
@@ -114,7 +114,7 @@ function! s:set_compiler_and_others() abort
 			call linting#SetNeomakeBorlandMaker()
 			return
 		endif
-		call linting#SetNeomakeMsBuildMaker(folder_name)
+		call linting#SetNeomakeMsBuildMaker()
 	endif
 endfunction
 
