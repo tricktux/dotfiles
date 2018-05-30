@@ -283,8 +283,10 @@ function! options#SetCli() abort
 		let &t_EI = "\<Esc>[1 q"
 	endif
 
-	" Settings for cmder
-	if has('win32')
+	if has('unix')
+		" exec 'colorscheme PaperColor'
+	else
+		" Settings for cmder
 		if !has('nvim')
 			set term=xterm
 		endif

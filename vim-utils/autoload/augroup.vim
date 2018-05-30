@@ -90,7 +90,6 @@ function! s:on_vim_enter() abort
 	" populated until vim init is done
 	call options#SetCli()
 	call plugin#AfterConfig()
-	" call s:restore_last_file()
 endfunction
 
 function! s:determine_buf_type() abort
