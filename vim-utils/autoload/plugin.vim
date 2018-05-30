@@ -694,6 +694,7 @@ function! s:configure_vim_utils() abort
 
 	let g:ctags_create_spell=1
 	let g:ctags_spell_script= g:location_vim_utils . '/tagstospl.py'
+	let g:ctags_output_dir = g:std_data_path . '/ctags/'
 	" Cscope databases and spell files will only be created for the following filetypes
 	let g:ctags_use_spell_for = ['c', 'cpp']
 	let g:ctags_use_cscope_for = ['c', 'cpp', 'java']
