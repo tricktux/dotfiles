@@ -16,7 +16,7 @@ function! options#Set() abort
 	set shiftwidth=4 tabstop=4
 	set viminfo='1024,%
 	if !has('nvim')
-		let viminfofile= g:std_data_path . '/viminfo'
+		let &viminfofile = g:std_data_path . '/viminfo'
 	endif
 	set showtabline=1 " always show tabs in gvim, but not vim"
 	set backspace=indent,eol,start
