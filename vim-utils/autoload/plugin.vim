@@ -471,6 +471,9 @@ function! plugin#AfterConfig() abort
 		call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
 		" c c++
 		call deoplete#custom#source('clang2', 'mark', '')
+		call deoplete#custom#source('LanguageClient',
+					\ 'min_pattern_length',
+					\ 2)
 	endif
 
 	" Plugin function names are never detected. Only plugin commands

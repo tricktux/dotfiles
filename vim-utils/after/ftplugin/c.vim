@@ -77,17 +77,9 @@ function! s:set_compiler_and_others() abort
 	if has('unix')
 		setlocal foldmethod=syntax
 
+		call linting#SetNeomakeClangMaker()
 		if exists('g:LanguageClient_serverCommands')
-			setlocal completefunc=LanguageClient#complete
-			setlocal formatexpr=LanguageClient_textDocument_rangeFormatting()
-
-			" TODO-[RM]-(Sat Jan 27 2018 11:23): Figure out these mappings
-			" nnoremap <buffer> <silent> gh :call LanguageClient_textDocument_hover()<CR>
-			" nnoremap <buffer> <silent> gd :call LanguageClient_textDocument_definition()<CR>
-			" nnoremap <buffer> <silent> gr :call LanguageClient_textDocument_references()<CR>
-			" nnoremap <buffer> <silent> gs :call LanguageClient_textDocument_documentSymbol()<CR>
-			nmap <buffer> <silent> <plug>refactor_code :call LanguageClient_textDocument_rename()<CR>
-			xmap <buffer> <silent> <plug>refactor_code :call LanguageClient_textDocument_rename()<CR>
+			call autocompletion#AdditionalLspSettingsCpp()
 		endif
 		return 1
 	endif
