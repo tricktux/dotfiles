@@ -451,14 +451,24 @@ function! s:set_language_client() abort
 	" Wed Apr 04 2018 16:25: clangd depends on a compile_commands.json databse.
 	" If you can't generate that. Then its no use.
 	let g:LanguageClient_autoStart = 1
-	let g:LanguageClient_serverCommands = {
-				\ 'cpp': ['clangd'],
-				\ }
+
+	if executable('pyls')
+		let g:LanguageClient_serverCommands = {
+					\ 'cpp': ['clangd'],
+					\ 'python3': ['pyls'],
+					\ 'python':  ['pyls'],
+					\ }
+	else
+		let g:LanguageClient_serverCommands = {
+					\ 'cpp': ['clangd'],
+					\ }
+
+	endif
 
 	" Multi-entry selection UI. FZF
 	Plug 'junegunn/fzf.vim'
 
-	let g:LanguageClient_diagnosticsList = "Location"
+	let g:LanguageClient_diagnosticsList = 'Location'
 
 	" Wed Apr 04 2018 16:21 All these settings are for cquery
 	" Wed Apr 04 2018 17:02: the cquery project has an excellent page on generating
