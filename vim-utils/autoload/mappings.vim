@@ -247,8 +247,7 @@ function! mappings#Set() abort
 	" TODO-[RM]-(Sat Oct 21 2017 10:32): Change this here for fix previous word.
 	" This has never worked nor is ever used
 	inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<cr>
-	inoremap <c-f> <del>
-	inoremap <C-F> <Right>
+	inoremap <C-f> <Right>
 	inoremap <C-B> <Left>
 	" Sun Sep 17 2017 14:21: this will not work in vim
 	inoremap <A-b> <S-Left>
@@ -264,7 +263,7 @@ function! mappings#Set() abort
 	" For cpp
 	inoremap ; ;<c-g>u
 	inoremap = =<c-g>u
-
+	inoremap <c-d> <del>
 
 	" CD <Leader>c?
 	nnoremap <Leader>cd :lcd %:h<cr>
