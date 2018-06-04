@@ -115,7 +115,7 @@ bindsym $mod+Shift+x exec i3lock-fancy
 bindsym $mod+r mode "resize"
 # start a terminal
 # This is set by the value of $TERMINAL. Which in turn is set inside of .bashrc
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+q kill
@@ -471,11 +471,13 @@ mode "$mode_show" {
 set $mode_launch Launch: [c]mus, [m]gmail, ps[u], [n]ranger, [s]potify
 bindsym $mod+Shift+n mode "$mode_launch"
 
+# Sun Jun 03 2018 23:48: Transitioning to kitty. To return to termite search gitlog for
+# kitty
 mode "$mode_launch" {
-	bindsym c exec --no-startup-id i3-sensible-terminal --exec cmus --title cmus
-	bindsym m exec --no-startup-id i3-sensible-terminal --exec 'neomutt -F ~/.config/mutt/account.gmail' --title gmail-mutt; mode "default"
-	bindsym u exec --no-startup-id i3-sensible-terminal --exec 'neomutt -F ~/.config/mutt/account.psu' --title psu-mutt; mode "default"
-	bindsym n exec --no-startup-id i3-sensible-terminal --exec ranger --title ranger
+	bindsym c exec --no-startup-id i3-sensible-terminal --title=cmus cmus
+	bindsym m exec --no-startup-id i3-sensible-terminal --title=gmail-mutt neomutt -F ~/.config/mutt/account.gmail; mode "default"
+	bindsym u exec --no-startup-id i3-sensible-terminal --title=psu-mutt neomutt -F ~/.config/mutt/account.psu; mode "default"
+	bindsym n exec --no-startup-id i3-sensible-terminal --title=ranger ranger
 	bindsym s exec --no-startup-id spotify
 
 	bindsym Escape mode "default"

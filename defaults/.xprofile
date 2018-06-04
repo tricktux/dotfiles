@@ -9,7 +9,8 @@
 # Uses:					You can start applications from here
 
 # Sat Oct 14 2017 11:12: This will set the i3-sensible-terminal to be used:
-[[ -f /usr/bin/termite ]] && export TERMINAL="termite"
+# [[ -f /usr/bin/termite ]] && export TERMINAL="termite"
+[[ -f /usr/bin/kitty ]] && export TERMINAL="kitty"
 export EMAIL="rmolin88@gmail.com"
 [ -f /usr/bin/opera ] && export BROWSER="/usr/bin/opera"
 
