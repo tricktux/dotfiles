@@ -542,7 +542,7 @@ exec --no-startup-id compton -f
 exec --no-startup-id xscreensaver -no-splash
 exec --no-startup-id pcmanfm --daemon-mode
 
-exec --no-startup-id i3-sensible-terminal
+# exec --no-startup-id i3-sensible-terminal
 exec --no-startup-id nm-applet
 exec --no-startup-id blueberry-tray
 exec --no-startup-id seafile-applet
