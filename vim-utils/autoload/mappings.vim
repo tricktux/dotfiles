@@ -189,24 +189,24 @@ function! mappings#Set() abort
 	nnoremap ]c ]czz
 	nnoremap [c [czz
 
-	nnoremap ]y :call <SID>yank_from('+')<cr>
-	nnoremap [y :call <SID>yank_from('-')<cr>
+	nnoremap ]y :silent call <SID>yank_from('+')<cr>
+	nnoremap [y :silent call <SID>yank_from('-')<cr>
 
-	nnoremap ]d :call <SID>delete_line('+')<cr>
-	nnoremap [d :call <SID>delete_line('-')<cr>
+	nnoremap ]d :silent call <SID>delete_line('+')<cr>
+	nnoremap [d :silent call <SID>delete_line('-')<cr>
 
-	nnoremap ]o :call <SID>comment_line('+')<cr>
-	nnoremap [o :call <SID>comment_line('-')<cr>
+	nnoremap ]o :silent call <SID>comment_line('+')<cr>
+	nnoremap [o :silent call <SID>comment_line('-')<cr>
 
 	nnoremap ]m :m +1<cr>
 	nnoremap [m :m -2<cr>
 
 	" Quickfix and Location stuff
-	nnoremap <silent> <s-q> :call quickfix#ToggleList("Quickfix List", 'c')<cr>
+	nnoremap <silent> <s-q> :silent call quickfix#ToggleList("Quickfix List", 'c')<cr>
 	nnoremap ]q :cnext<cr>
 	nnoremap [q :cprevious<cr>
 
-	nnoremap <s-u> :call quickfix#ToggleList("Location List", 'l')<cr>
+	nnoremap <s-u> :silent call quickfix#ToggleList("Location List", 'l')<cr>
 	nnoremap ]l :lnext<cr>
 	nnoremap [l :lprevious<cr>
 	nnoremap Y y$
@@ -215,15 +215,18 @@ function! mappings#Set() abort
 	nnoremap [t <c-t>
 	" Split window and jump to tag
 	" nnoremap ]T :exec 'ptag ' . expand('<cword>')<cr><c-w>R
-	nnoremap ]T :call <SID>goto_tag_on_next_win('l')<cr>
-	nnoremap [T :call <SID>goto_tag_on_next_win('h')<cr>
+	nnoremap ]T :silent call <SID>goto_tag_on_next_win('l')<cr>
+	nnoremap [T :silent call <SID>goto_tag_on_next_win('h')<cr>
 
 	" Capital F because [f is go to file and this is rarely used
 	" ]f native go into file.
 	" [f return from file
 	nnoremap [f <c-o>
-	nnoremap ]F :call <SID>goto_file_on_next_win('l')<cr>
-	nnoremap [F :call <SID>goto_file_on_next_win('h')<cr>
+	nnoremap ]F :silent call <SID>goto_file_on_next_win('l')<cr>
+	nnoremap [F :silent call <SID>goto_file_on_next_win('h')<cr>
+
+	nnoremap ]S :normal mm]s1z=`m<cr>
+	nnoremap [S :normal mm[s1z=`m<cr>
 
 	" decrease number
 	nnoremap <S-x> <c-x>
