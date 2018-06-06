@@ -11,6 +11,9 @@ fileext: md
 \tableofcontents
 \pagebreak
 
+## Wed Jun 06 2018 04:24 
+- [ ] liquidprompt: reduce size of pwd when on different folder.
+
 ## Tue Apr 17 2018 20:21
 - surbook
 	- seafile
