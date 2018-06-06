@@ -194,9 +194,10 @@ function! linting#SetNeomakePandocMaker(type) abort
 
 	" By default, pandoc produces a document fragment. To produce a standalone document (e.g. a valid
 	" HTML file including <head> and <body>), use the -s or --standalone flag:
+	" Listing is used to produce code snippets
 	let argu = ['-r',
 				\ 'markdown+simple_tables+table_captions+yaml_metadata_block+smart',
-				\ '--standalone']
+				\ '--standalone', '-V', 'geometry:margin=.5in']
 
 	if executable('pandoc-citeproc')
 		" Obtain list of bib files
@@ -213,8 +214,8 @@ function! linting#SetNeomakePandocMaker(type) abort
 		let out = '%:r.pdf'
 		" Set template
 		let argu += ['--template',
-					\ (!exists('b:neomake_pandoc_template') ? 'eisvogel' : b:neomake_pandoc_template)
-					\ ]
+					\ (!exists('b:neomake_pandoc_template') ? 'eisvogel' : b:neomake_pandoc_template),
+					\ '--listings']
 	elseif a:type ==# 'docx'
 		let wrte = 'docx'
 		let out = '%:r.docx'
