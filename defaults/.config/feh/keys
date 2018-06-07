@@ -17,7 +17,7 @@ scroll_left
 scroll_up
 scroll_down
 # custom key mapping:
-zoom_in plus
+zoom_in equal
 zoom_out minus
 scroll_up Up k
 scroll_down Down j
