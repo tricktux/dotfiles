@@ -226,8 +226,8 @@ function! mappings#Set() abort
 	nnoremap <silent> [F :call <SID>goto_file_on_next_win('h')<cr>
 
 	" Create an undo break point. Mark current possition. Go to word. Fix and come back.
-	nnoremap ]S :normal! i<c-g>u<c-]>mm]s1z=`m<cr>
-	nnoremap [S :normal! i<c-g>u<c-]>mm[s1z=`m<cr>
+	nnoremap ]S :normal! i<c-g>u<esc>mm]s1z=`m<cr>
+	nnoremap [S :normal! i<c-g>u<esc>mm[s1z=`m<cr>
 
 	" decrease number
 	nnoremap <S-x> <c-x>
