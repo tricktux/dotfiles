@@ -222,11 +222,12 @@ function! mappings#Set() abort
 	" ]f native go into file.
 	" [f return from file
 	nnoremap [f <c-o>
-	nnoremap ]F :silent call <SID>goto_file_on_next_win('l')<cr>
-	nnoremap [F :silent call <SID>goto_file_on_next_win('h')<cr>
+	nnoremap <silent> ]F :call <SID>goto_file_on_next_win('l')<cr>
+	nnoremap <silent> [F :call <SID>goto_file_on_next_win('h')<cr>
 
-	nnoremap ]S :normal mm]s1z=`m<cr>
-	nnoremap [S :normal mm[s1z=`m<cr>
+	" Create an undo break point. Mark current possition. Go to word. Fix and come back.
+	nnoremap ]S :normal! i<c-g>u<c-]>mm]s1z=`m<cr>
+	nnoremap [S :normal! i<c-g>u<c-]>mm[s1z=`m<cr>
 
 	" decrease number
 	nnoremap <S-x> <c-x>
@@ -247,14 +248,19 @@ function! mappings#Set() abort
 	nnoremap # #zz
 
 	" Insert Mode (Individual) mappings
-	" TODO-[RM]-(Sat Oct 21 2017 10:32): Change this here for fix previous word.
-	" This has never worked nor is ever used
-	inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<cr>
-	inoremap <C-f> <Right>
-	inoremap <C-B> <Left>
+	inoremap <c-f> <Right>
+	inoremap <c-b> <Left>
 	" Sun Sep 17 2017 14:21: this will not work in vim
-	inoremap <A-b> <S-Left>
-	inoremap <A-f> <S-Right>
+	inoremap <a-b> <S-Left>
+	inoremap <a-f> <S-Right>
+	" inoremap <c-u> delete from beginning of line until cursor
+	" inoremap <a-d> delete from cursor untils end of line
+	" inoremap <c-t> shift entire line a shiftwidth
+	inoremap <c-d> <c-g>u<del>
+	inoremap <a-t> <c-d>
+	inoremap <c-v> <c-o>:normal! "+p<cr>
+	" inoremap <c-w> delete word up to the cursor
+	inoremap <c-k> <c-o>:normal! D<cr>
 
 	" Fri Sep 29 2017 14:20: Break up long text into smaller, better undo
 	" chunks. See :undojoin
@@ -263,10 +269,11 @@ function! mappings#Set() abort
 	inoremap , ,<c-g>u
 	inoremap ? ?<c-g>u
 	inoremap ! !<c-g>u
+	inoremap <C-H> <C-G>u<C-H>
+	inoremap <CR> <C-]><C-G>u<CR>
 	" For cpp
 	inoremap ; ;<c-g>u
 	inoremap = =<c-g>u
-	inoremap <c-d> <del>
 
 	" CD <Leader>c?
 	nnoremap <Leader>cd :lcd %:h<cr>
