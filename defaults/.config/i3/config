@@ -474,11 +474,11 @@ bindsym $mod+Shift+n mode "$mode_launch"
 # Sun Jun 03 2018 23:48: Transitioning to kitty. To return to termite search gitlog for
 # kitty
 mode "$mode_launch" {
-	bindsym c exec --no-startup-id i3-sensible-terminal --title=cmus cmus
-	bindsym m exec --no-startup-id i3-sensible-terminal --title=gmail-mutt neomutt -F ~/.config/mutt/account.gmail; mode "default"
-	bindsym u exec --no-startup-id i3-sensible-terminal --title=psu-mutt neomutt -F ~/.config/mutt/account.psu; mode "default"
-	bindsym n exec --no-startup-id i3-sensible-terminal --title=ranger ranger
-	bindsym s exec --no-startup-id spotify
+	bindsym c exec --no-startup-id i3-sensible-terminal --title=cmus --exec cmus
+	bindsym m exec --no-startup-id i3-sensible-terminal --title=gmail-mutt --exec 'neomutt -F ~/.config/mutt/account.gmail'; mode "default"
+	bindsym u exec --no-startup-id i3-sensible-terminal --title=psu-mutt --exec 'neomutt -F ~/.config/mutt/account.psu'; mode "default"
+	bindsym n exec --no-startup-id i3-sensible-terminal --title=ranger --exec ranger
+	bindsym s exec --no-startup-id --exec spotify
 
 	bindsym Escape mode "default"
 	bindsym Return mode "default"
@@ -542,7 +542,7 @@ exec --no-startup-id compton -f
 exec --no-startup-id xscreensaver -no-splash
 exec --no-startup-id pcmanfm --daemon-mode
 
-# exec --no-startup-id i3-sensible-terminal
+exec --no-startup-id i3-sensible-terminal
 exec --no-startup-id nm-applet
 exec --no-startup-id blueberry-tray
 exec --no-startup-id seafile-applet
