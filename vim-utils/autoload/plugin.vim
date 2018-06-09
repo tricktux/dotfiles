@@ -430,6 +430,8 @@ function! plugin#Config()
 		endif
 	endif
 
+	Plug 'alepez/vim-gtest', { 'for' : ['c', 'cpp'] }
+
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 

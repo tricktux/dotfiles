@@ -189,24 +189,24 @@ function! mappings#Set() abort
 	nnoremap ]c ]czz
 	nnoremap [c [czz
 
-	nnoremap ]y :call <SID>yank_from('+')<cr>
-	nnoremap [y :call <SID>yank_from('-')<cr>
+	nnoremap ]y :silent call <SID>yank_from('+')<cr>
+	nnoremap [y :silent call <SID>yank_from('-')<cr>
 
-	nnoremap ]d :call <SID>delete_line('+')<cr>
-	nnoremap [d :call <SID>delete_line('-')<cr>
+	nnoremap ]d :silent call <SID>delete_line('+')<cr>
+	nnoremap [d :silent call <SID>delete_line('-')<cr>
 
-	nnoremap ]o :call <SID>comment_line('+')<cr>
-	nnoremap [o :call <SID>comment_line('-')<cr>
+	nnoremap ]o :silent call <SID>comment_line('+')<cr>
+	nnoremap [o :silent call <SID>comment_line('-')<cr>
 
 	nnoremap ]m :m +1<cr>
 	nnoremap [m :m -2<cr>
 
 	" Quickfix and Location stuff
-	nnoremap <silent> <s-q> :call quickfix#ToggleList("Quickfix List", 'c')<cr>
+	nnoremap <silent> <s-q> :silent call quickfix#ToggleList("Quickfix List", 'c')<cr>
 	nnoremap ]q :cnext<cr>
 	nnoremap [q :cprevious<cr>
 
-	nnoremap <s-u> :call quickfix#ToggleList("Location List", 'l')<cr>
+	nnoremap <s-u> :silent call quickfix#ToggleList("Location List", 'l')<cr>
 	nnoremap ]l :lnext<cr>
 	nnoremap [l :lprevious<cr>
 	nnoremap Y y$
@@ -215,15 +215,19 @@ function! mappings#Set() abort
 	nnoremap [t <c-t>
 	" Split window and jump to tag
 	" nnoremap ]T :exec 'ptag ' . expand('<cword>')<cr><c-w>R
-	nnoremap ]T :call <SID>goto_tag_on_next_win('l')<cr>
-	nnoremap [T :call <SID>goto_tag_on_next_win('h')<cr>
+	nnoremap ]T :silent call <SID>goto_tag_on_next_win('l')<cr>
+	nnoremap [T :silent call <SID>goto_tag_on_next_win('h')<cr>
 
 	" Capital F because [f is go to file and this is rarely used
 	" ]f native go into file.
 	" [f return from file
 	nnoremap [f <c-o>
-	nnoremap ]F :call <SID>goto_file_on_next_win('l')<cr>
-	nnoremap [F :call <SID>goto_file_on_next_win('h')<cr>
+	nnoremap <silent> ]F :call <SID>goto_file_on_next_win('l')<cr>
+	nnoremap <silent> [F :call <SID>goto_file_on_next_win('h')<cr>
+
+	" Create an undo break point. Mark current possition. Go to word. Fix and come back.
+	nnoremap ]S :normal! i<c-g>u<esc>mm]s1z=`m<cr>
+	nnoremap [S :normal! i<c-g>u<esc>mm[s1z=`m<cr>
 
 	" decrease number
 	nnoremap <S-x> <c-x>
@@ -244,15 +248,19 @@ function! mappings#Set() abort
 	nnoremap # #zz
 
 	" Insert Mode (Individual) mappings
-	" TODO-[RM]-(Sat Oct 21 2017 10:32): Change this here for fix previous word.
-	" This has never worked nor is ever used
-	inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<cr>
-	inoremap <c-f> <del>
-	inoremap <C-F> <Right>
-	inoremap <C-B> <Left>
+	inoremap <c-f> <Right>
+	inoremap <c-b> <Left>
 	" Sun Sep 17 2017 14:21: this will not work in vim
-	inoremap <A-b> <S-Left>
-	inoremap <A-f> <S-Right>
+	inoremap <a-b> <S-Left>
+	inoremap <a-f> <S-Right>
+	" inoremap <c-u> delete from beginning of line until cursor
+	" inoremap <a-d> delete from cursor untils end of line
+	" inoremap <c-t> shift entire line a shiftwidth
+	inoremap <c-d> <c-g>u<del>
+	inoremap <a-t> <c-d>
+	inoremap <c-v> <c-o>:normal! "+p<cr>
+	" inoremap <c-w> delete word up to the cursor
+	inoremap <c-k> <c-o>:normal! D<cr>
 
 	" Fri Sep 29 2017 14:20: Break up long text into smaller, better undo
 	" chunks. See :undojoin
@@ -261,10 +269,11 @@ function! mappings#Set() abort
 	inoremap , ,<c-g>u
 	inoremap ? ?<c-g>u
 	inoremap ! !<c-g>u
+	inoremap <C-H> <C-G>u<C-H>
+	inoremap <CR> <C-]><C-G>u<CR>
 	" For cpp
 	inoremap ; ;<c-g>u
 	inoremap = =<c-g>u
-
 
 	" CD <Leader>c?
 	nnoremap <Leader>cd :lcd %:h<cr>
