@@ -30,10 +30,6 @@ if [[ -f /usr/bin/fzf ]]; then
 
 	# TODO-[RM]-(Wed Oct 25 2017 10:10): Download it
 	# https://github.com/urbainvaes/fzf-marks
-
-	# Issue neovim/neovim#4151 for neovim that causes fzf not working properly inside of neovim
-	# terminal. Once resolved you can delete this.
-	[ -n "$NVIM_LISTEN_ADDRESS" ] && export FZF_DEFAULT_OPTS='--no-height'
 fi
 
 # context for resume making
