@@ -15,6 +15,9 @@ fileext: md
 - [ ] i3: fix the `mode gapps` so that you do not have to choose between inner or outter
 gaps. You can change both at the same time.
 - [ ] vim: substitute the `futigive` lightline module with that of `vim-gitgutter`.
+- [ ] arch: change i3-desktop to i3 with log files in the `sddm` autlogin settings.
+- [ ] i3: fix the `Pavucontrol` floating. Its huge. Investigate on the border property
+to see if you can restrict its size and center it.
 
 ## Sat Jun 09 2018 14:04:
 - [ ] arch: install `gitea`
