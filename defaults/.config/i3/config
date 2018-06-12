@@ -540,7 +540,7 @@ set $mode_screenshot screenshot: [f]ull_screen, [s]election, [w]indow
 # }}}
 
 ######### STARTUP APPLICATIONS ################################{{{
-exec --no-startup-id compton -f
+exec --no-startup-id compton --fading --daemon
 exec --no-startup-id xscreensaver -no-splash
 exec --no-startup-id pcmanfm --daemon-mode
 
