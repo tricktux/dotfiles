@@ -61,7 +61,7 @@ function! augroup#Set() abort
 
 			autocmd BufWinEnter * call s:update_root_dir()
 			autocmd BufWinEnter * call ctags#LoadCscopeDatabse()
-			autocmd BufWinEnter * call plugin_lightline#SetVerControl()
+			autocmd BufWinEnter * call status_line#SetVerControl()
 		augroup END
 	endif
 

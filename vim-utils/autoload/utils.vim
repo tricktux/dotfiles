@@ -476,7 +476,7 @@ function! utils#ChangeColors(scheme, background) abort
 
 	" If using the lightline plugin then update that as well
 	" this could cause trouble if lightline does not that colorscheme
-	call plugin_lightline#UpdateColorscheme()
+	call status_line#UpdateColorscheme()
 endfunction
 
 function! utils#SearchHighlighted() abort

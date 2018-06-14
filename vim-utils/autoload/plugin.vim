@@ -37,7 +37,8 @@ function! plugin#Config()
 
 	" This call must remain atop since sets the g:lightline variable to which other
 	" plugins add to
-	call plugin_lightline#config()
+	" selection - {lightline, airline}
+	call status_line#config('airline')
 
 	call s:configure_async_plugins()
 
@@ -432,6 +433,13 @@ function! plugin#Config()
 
 	Plug 'alepez/vim-gtest', { 'for' : ['c', 'cpp'] }
 
+	Plug 'mhinz/vim-signify'
+		let g:signify_vcs_list = [ 'git', 'svn' ]
+		let g:signify_cursorhold_insert     = 1
+		let g:signify_cursorhold_normal     = 1
+		let g:signify_update_on_bufenter    = 0
+		let g:signify_update_on_focusgained = 1
+
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
@@ -744,8 +752,10 @@ function! s:configure_tagbar() abort
 
 	" These settings do not use patched fonts
 	" Fri Feb 02 2018 15:38: Its number one thing slowing down vim right now.
-	let g:lightline.active.left[2] += [ 'tagbar' ]
-	let g:lightline.component_function['tagbar'] = string(function('s:tagbar_lightline'))
+	if exists('g:lightline')
+		let g:lightline.active.left[2] += [ 'tagbar' ]
+		let g:lightline.component_function['tagbar'] = string(function('s:tagbar_lightline'))
+	endif
 endfunction
 
 function! s:tagbar_lightline() abort
