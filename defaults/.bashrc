@@ -21,19 +21,15 @@ if [[ -f /usr/bin/fzf ]]; then
 	# if we have rg. use it!
 	if [ -f /usr/bin/rg ]; then
 		export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.{git,svn}" 2> /dev/null'
-		# TODO-[RM]-(Wed Oct 25 2017 11:10): This is experimental. Need to test it out.
 		export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+		export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
 	fi
 
 	# Depends on `install bfs`
-	export FZF_ALT_C_COMMAND="cd ~/; bfs -type d -nohidden | sed s/^\./~/"
+	export FZF_ALT_C_COMMAND="fd -t d . $HOME"
 
 	# TODO-[RM]-(Wed Oct 25 2017 10:10): Download it
 	# https://github.com/urbainvaes/fzf-marks
-
-	# Issue neovim/neovim#4151 for neovim that causes fzf not working properly inside of neovim
-	# terminal. Once resolved you can delete this.
-	[ -n "$NVIM_LISTEN_ADDRESS" ] && export FZF_DEFAULT_OPTS='--no-height'
 fi
 
 # context for resume making

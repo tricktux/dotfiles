@@ -75,8 +75,6 @@ function! s:set_compiler_and_others() abort
 	endif
 
 	if has('unix')
-		setlocal foldmethod=syntax
-
 		call linting#SetNeomakeClangMaker()
 		if exists('g:LanguageClient_serverCommands')
 			call autocompletion#AdditionalLspSettingsCpp()
@@ -116,4 +114,4 @@ call <SID>set_compiler_and_others()
 " Setup AutoHighlight
 call utils#AutoHighlight()
 
-let b:undo_ftplugin = 'setl cursorline< omnifunc< ts< sw< sts< foldenable< define< spell< matchpairs< foldmethod< foldnestmax<| unlet! b:delimitMate_matchpairs b:match_words'
+let b:undo_ftplugin = 'setl cursorline< omnifunc< ts< sw< sts< foldenable< define< spell< matchpairs< foldnestmax<| unlet! b:delimitMate_matchpairs b:match_words'

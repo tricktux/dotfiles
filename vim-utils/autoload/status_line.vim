@@ -1,4 +1,4 @@
-" File:           plugin_lightline.vim
+" File:           status_line.vim
 " Description:    lightline plugin configuration and helper functions
 " Author:		    Reinaldo Molina
 " Email:          rmolin88 at gmail dot com
@@ -6,8 +6,48 @@
 " Created:        Sat Apr 21 2018 23:11
 " Last Modified:  Sat Apr 21 2018 23:11
 
+" selection - {lightline, airline}
+function! status_line#config(selection) abort
+	if a:selection ==# 'lightline'
+		return s:lightline_config()
+	elseif a:selection ==# 'airline'
+		return s:airline_config()
+	endif
 
-function! plugin_lightline#config() abort
+	echomsg '[status_line#config]: No valid status line selected'
+endfunction
+
+function! s:airline_config() abort
+	Plug 'vim-airline/vim-airline-themes'
+	Plug 'vim-airline/vim-airline'
+		if exists('g:valid_device')
+			let g:airline_powerline_fonts = 1
+		endif
+
+		if !has('unix')
+			let g:airline#extensions#whitespace#enabled = 0
+		endif
+
+		let g:airline_theme='papercolor'
+
+		let g:airline_section_c = "\uf02d %t"
+
+		let g:airline#extensions#ctrlp#show_adjacent_modes = 1
+
+		let g:airline#extensions#neomake#enabled = 1
+		let g:airline#extensions#neomake#error_symbol = 'E:'
+		let g:airline#extensions#neomake#warning_symbol = 'W:'
+
+		let g:airline#extensions#nrrwrgn#enabled = 0
+
+		let g:airline#extensions#capslock#enabled = 1
+
+		let g:airline#extensions#hunks#enabled = 1
+		let g:airline#extensions#hunks#non_zero_only = 0
+		let g:airline#extensions#hunks#hunk_symbols = ['+', '~', '-']
+endfunction
+
+function! s:lightline_config() abort
 	Plug 'itchyny/lightline.vim'
 	" Note: Inside of the functions here there can be no single quotes (') only double (")
 	if !exists('g:lightline')
@@ -82,7 +122,7 @@ function! s:get_version_control() abort
 	return exists('s:ver_ctrl') ? s:ver_ctrl : ''
 endfunction
 
-function! plugin_lightline#SetVerControl() abort
+function! status_line#SetVerControl() abort
 	if &modifiable == 0 || &ft =~? 'vimfiler\|gitcommit\|no ft'
 		unlet! s:ver_ctrl
 	endif
@@ -130,7 +170,7 @@ function! s:readonly() abort
 				\  : ''
 endfunction
 
-function! plugin_lightline#UpdateColorscheme() abort
+function! status_line#UpdateColorscheme() abort
 	if !exists('g:loaded_lightline')
 		return
 	endif

@@ -20,14 +20,14 @@ function! plugin#Config()
 	endif
 
 	" Vim-Plug
-		nnoremap <Leader>Pi :so %<bar>call plugin#Config()<bar>PlugInstall<CR>
-		nnoremap <Leader>Pu :PlugUpdate<CR>
-					\:PlugUpgrade<CR>
-					\:UpdateRemotePlugins<CR>
-		" installs plugins; append `!` to update or just :PluginUpdate
-		nnoremap <Leader>Ps :PlugSearch<CR>
-		" searches for foo; append `!` to refresh local cache
-		nnoremap <Leader>Pl :PlugClean<CR>
+	nnoremap <Leader>Pi :so %<bar>call plugin#Config()<bar>PlugInstall<CR>
+	nnoremap <Leader>Pu :PlugUpdate<CR>
+				\:PlugUpgrade<CR>
+				\:UpdateRemotePlugins<CR>
+	" installs plugins; append `!` to update or just :PluginUpdate
+	nnoremap <Leader>Ps :PlugSearch<CR>
+	" searches for foo; append `!` to refresh local cache
+	nnoremap <Leader>Pl :PlugClean<CR>
 
 	if exists('g:portable_vim')
 		silent! call plug#begin(g:vim_plugins_path)
@@ -37,7 +37,8 @@ function! plugin#Config()
 
 	" This call must remain atop since sets the g:lightline variable to which other
 	" plugins add to
-	call plugin_lightline#config()
+	" selection - {lightline, airline}
+	call status_line#config('airline')
 
 	call s:configure_async_plugins()
 
@@ -87,10 +88,10 @@ function! plugin#Config()
 	" Possible Replacement `asyncvim`
 	Plug 'tpope/vim-dispatch'
 	" Vim cpp syntax highlight
-		let g:cpp_class_scope_highlight = 1
-		let g:cpp_member_variable_highlight = 1
-		let g:cpp_class_decl_highlight = 1
-		let g:cpp_concepts_highlight = 1
+	let g:cpp_class_scope_highlight = 1
+	let g:cpp_member_variable_highlight = 1
+	let g:cpp_class_decl_highlight = 1
+	let g:cpp_concepts_highlight = 1
 	Plug 'justinmk/vim-syntax-extra'
 
 	call s:configure_vim_table_mode()
@@ -100,7 +101,7 @@ function! plugin#Config()
 	" misc
 	if executable('git')
 		Plug 'chrisbra/vim-diff-enhanced'
-			let &diffexpr='EnhancedDiff#Diff("git diff", "--diff-algorithm=patience")'
+		let &diffexpr='EnhancedDiff#Diff("git diff", "--diff-algorithm=patience")'
 	endif
 
 	" Options: netranger, nerdtree
@@ -109,7 +110,7 @@ function! plugin#Config()
 	call s:configure_nerdcommenter()
 
 	Plug 'chrisbra/Colorizer', { 'for' : [ 'css','html','xml' ] }
-		let g:colorizer_auto_filetype='css,html,xml'
+	let g:colorizer_auto_filetype='css,html,xml'
 	Plug 'tpope/vim-repeat'
 	Plug 'tpope/vim-surround'
 
@@ -117,37 +118,37 @@ function! plugin#Config()
 	" Fri May 19 2017 12:50 I have tried many times to get 'fdm=syntax' to work
 	" on large files but its just not possible. Too slow.
 	Plug 'Konfekt/FastFold', { 'on' : 'FastFold' }
-		" Stop updating folds everytime I save a file
-		let g:fastfold_savehook = 0
-		" To update folds now you have to do it manually pressing 'zuz'
-		let g:fastfold_fold_command_suffixes =
-					\['x','X','a','A','o','O','c','C','r','R','m','M','i','n','N']
+	" Stop updating folds everytime I save a file
+	let g:fastfold_savehook = 0
+	" To update folds now you have to do it manually pressing 'zuz'
+	let g:fastfold_fold_command_suffixes =
+				\['x','X','a','A','o','O','c','C','r','R','m','M','i','n','N']
 
 	" Wed Apr 04 2018 12:55: Rooter used to be on demand but I took it.
 	" - In order to make use of its FindRootDirectory() function
 	Plug 'airblade/vim-rooter'
-		let g:rooter_manual_only = 1
-		nmap <plug>cd_root :Rooter<CR>
-		let g:rooter_use_lcd = 1
-		let g:rooter_patterns = ['.git/', '.svn/', 'Source/']
-		" nnoremap <Leader>cr :call utils#RooterAutoloadCscope()<CR>
+	let g:rooter_manual_only = 1
+	nmap <plug>cd_root :Rooter<CR>
+	let g:rooter_use_lcd = 1
+	let g:rooter_patterns = ['.git/', '.svn/', 'Source/']
+	" nnoremap <Leader>cr :call utils#RooterAutoloadCscope()<CR>
 
 	Plug 'Raimondi/delimitMate'
-		let g:delimitMate_expand_cr = 1
-		let g:delimitMate_expand_space = 1
-		let g:delimitMate_jump_expansion = 1
-		" imap <expr> <CR> <Plug>delimitMateCR
+	let g:delimitMate_expand_cr = 1
+	let g:delimitMate_expand_space = 1
+	let g:delimitMate_jump_expansion = 1
+	" imap <expr> <CR> <Plug>delimitMateCR
 
 	Plug 'sbdchd/neoformat', { 'on' : 'Neoformat' }
-		let g:neoformat_c_clangformat = {
-					\ 'exe': 'clang-format',
-					\ 'args': ['-style=file'],
-					\ }
-		let g:neoformat_cpp_clangformat = {
-					\ 'exe': 'clang-format',
-					\ 'args': ['-style=file'],
-					\ }
-		nmap <plug>format_code :Neoformat<cr>
+	let g:neoformat_c_clangformat = {
+				\ 'exe': 'clang-format',
+				\ 'args': ['-style=file'],
+				\ }
+	let g:neoformat_cpp_clangformat = {
+				\ 'exe': 'clang-format',
+				\ 'args': ['-style=file'],
+				\ }
+	nmap <plug>format_code :Neoformat<cr>
 
 	" cpp
 	if get(g:, 'tagbar_safe_to_use', 1)
@@ -155,69 +156,69 @@ function! plugin#Config()
 	endif
 
 	" python
-		" Plug 'python-mode/python-mode', { 'for' : 'python' } " Extremely
-		" aggressive
+	" Plug 'python-mode/python-mode', { 'for' : 'python' } " Extremely
+	" aggressive
 
 	" pip install isort --user
 	Plug 'fisadev/vim-isort', { 'for' : 'python' }
-		let g:vim_isort_map = ''
-		let g:vim_isort_python_version = 'python3'
+	let g:vim_isort_map = ''
+	let g:vim_isort_python_version = 'python3'
 
 	" java
 	Plug 'mattn/vim-javafmt', { 'for' : 'java' }
 	Plug 'tfnico/vim-gradle', { 'for' : 'java' }
 	Plug 'artur-shaik/vim-javacomplete2', { 'branch' : 'master', 'for' : 'java' }
-		let g:JavaComplete_ClosingBrace = 1
-		let g:JavaComplete_EnableDefaultMappings = 0
-		let g:JavaComplete_ImportSortType = 'packageName'
-		let g:JavaComplete_ImportOrder = ['android.', 'com.', 'junit.', 'net.', 'org.', 'java.', 'javax.']
+	let g:JavaComplete_ClosingBrace = 1
+	let g:JavaComplete_EnableDefaultMappings = 0
+	let g:JavaComplete_ImportSortType = 'packageName'
+	let g:JavaComplete_ImportOrder = ['android.', 'com.', 'junit.', 'net.', 'org.', 'java.', 'javax.']
 
 	" Autocomplete
 	call s:configure_snippets()
 
 	" Version control
 	Plug 'tpope/vim-fugitive'
-		" Fugitive <Leader>g?
-		" nmap here is needed for the <C-n> to work. Otherwise it doesnt know what
-		" it means
-		nmap <Leader>gs :Gstatus<CR><C-w>L<C-n>
-		nnoremap <Leader>gps :Gpush<CR>
-		nnoremap <Leader>gpl :Gpull<CR>
-		nnoremap <Leader>gl :silent Glog<CR>
-					\:copen 20<CR>
+	" Fugitive <Leader>g?
+	" nmap here is needed for the <C-n> to work. Otherwise it doesnt know what
+	" it means
+	nmap <Leader>gs :Gstatus<CR><C-w>L<C-n>
+	nnoremap <Leader>gps :Gpush<CR>
+	nnoremap <Leader>gpl :Gpull<CR>
+	nnoremap <Leader>gl :silent Glog<CR>
+				\:copen 20<CR>
 
 	Plug 'mhinz/vim-signify'
-		" Mappings are ]c next differences
-		" Mappings are [c prev differences
-		" Gets enabled when you call SignifyToggle
-		let g:signify_disable_by_default = 1
-		let g:signify_vcs_list = [ 'git', 'svn' ]
+	" Mappings are ]c next differences
+	" Mappings are [c prev differences
+	" Gets enabled when you call SignifyToggle
+	let g:signify_disable_by_default = 1
+	let g:signify_vcs_list = [ 'git', 'svn' ]
 
 	Plug 'juneedahamed/svnj.vim', { 'on' : 'SVNStatus' }
-		let g:svnj_allow_leader_mappings=0
-		let g:svnj_cache_dir = g:std_cache_path
-		let g:svnj_browse_cache_all = 1
-		let g:svnj_custom_statusbar_ops_hide = 0
-		nnoremap <silent> <leader>vs :SVNStatus q<CR>
-		nnoremap <silent> <leader>vo :SVNLog .<CR>
+	let g:svnj_allow_leader_mappings=0
+	let g:svnj_cache_dir = g:std_cache_path
+	let g:svnj_browse_cache_all = 1
+	let g:svnj_custom_statusbar_ops_hide = 0
+	nnoremap <silent> <leader>vs :SVNStatus q<CR>
+	nnoremap <silent> <leader>vo :SVNLog .<CR>
 
 	" colorschemes
 	Plug 'morhetz/gruvbox' " colorscheme gruvbox
 	Plug 'NLKNguyen/papercolor-theme'
 
-		let g:PaperColor_Theme_Options =
-					\ {
-					\		'language':
-					\		{
-					\			'python': { 'highlight_builtins': 1 },
-					\			'c': { 'highlight_builtins': 1 },
-					\			'cpp': { 'highlight_standard_library': 1 },
-					\		},
-					\		'theme':
-					\		{
-					\		 	'default': { 'transparent_background': 0 }
-					\		}
-					\ }
+	let g:PaperColor_Theme_Options =
+				\ {
+				\		'language':
+				\		{
+				\			'python': { 'highlight_builtins': 1 },
+				\			'c': { 'highlight_builtins': 1 },
+				\			'cpp': { 'highlight_standard_library': 1 },
+				\		},
+				\		'theme':
+				\		{
+				\		 	'default': { 'transparent_background': 0 }
+				\		}
+				\ }
 
 	" Mon Jan 08 2018 15:08: Do not load these schemes unless they are going to be used
 	" Sun May 07 2017 16:25 - Gave it a try and didnt like it
@@ -232,25 +233,25 @@ function! plugin#Config()
 	" Magnum is required by vim-radical. use with gA
 	Plug 'glts/vim-magnum', { 'on' : '<Plug>RadicalView' }
 	Plug 'glts/vim-radical', { 'on' : '<Plug>RadicalView' }
-		nmap <plug>num_representation <Plug>RadicalView
-		nmap <plug>num_representation <Plug>RadicalView
+	nmap <plug>num_representation <Plug>RadicalView
+	nmap <plug>num_representation <Plug>RadicalView
 
 	" W3M - to view cpp-reference help
 	if executable('w3m')
 		" TODO-[RM]-(Thu Sep 14 2017 21:12): No chance to get this working on windows
 		Plug 'yuratomo/w3m.vim'
-			let g:w3m#history#save_file = g:std_cache_path . '/vim_w3m_hist'
-			" Mon Sep 18 2017 22:37: To open html file do `:W3mLocal %'
+		let g:w3m#history#save_file = g:std_cache_path . '/vim_w3m_hist'
+		" Mon Sep 18 2017 22:37: To open html file do `:W3mLocal %'
 	endif
 
 	call s:configure_vim_sneak()
 
 	Plug 'waiting-for-dev/vim-www'
-		" TODO-[RM]-(Thu Sep 14 2017 21:02): Update this here
-		let g:www_map_keys = 0
-		let g:www_launch_cli_browser_command = g:browser_cmd . ' {{URL}}'
-		nmap <plug>search_internet :Wcsearch duckduckgo <C-R>=expand("<cword>")<CR><CR>
-		xmap <plug>search_internet "*y:call www#www#user_input_search(1, @*)<CR>
+	" TODO-[RM]-(Thu Sep 14 2017 21:02): Update this here
+	let g:www_map_keys = 0
+	let g:www_launch_cli_browser_command = g:browser_cmd . ' {{URL}}'
+	nmap <plug>search_internet :Wcsearch duckduckgo <C-R>=expand("<cword>")<CR><CR>
+	xmap <plug>search_internet "*y:call www#www#user_input_search(1, @*)<CR>
 
 	if has('win32')
 		Plug 'PProvost/vim-ps1', { 'for' : 'ps1' }
@@ -258,13 +259,13 @@ function! plugin#Config()
 
 	Plug 'vim-pandoc/vim-pandoc', { 'on' : 'Pandoc' }
 	Plug 'vim-pandoc/vim-pandoc-syntax', { 'on' : 'Pandoc' }
-		" You might be able to get away with xelatex in unix
-		let g:pandoc#command#latex_engine = 'pdflatex'
-		let g:pandoc#folding#fdc=0
-		let g:pandoc#keyboard#use_default_mappings=0
-		" Pandoc pdf --template eisvogel --listings
-		" PandocTemplate save eisvogel
-		" Pandoc #eisvogel
+	" You might be able to get away with xelatex in unix
+	let g:pandoc#command#latex_engine = 'pdflatex'
+	let g:pandoc#folding#fdc=0
+	let g:pandoc#keyboard#use_default_mappings=0
+	" Pandoc pdf --template eisvogel --listings
+	" PandocTemplate save eisvogel
+	" Pandoc #eisvogel
 
 	" Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
 	Plug 'matze/vim-ini-fold', { 'for': 'dosini' }
@@ -276,13 +277,13 @@ function! plugin#Config()
 
 	" This plugin depends on 'godlygeek/tabular'
 	Plug 'plasticboy/vim-markdown', { 'for' : 'markdown' }
-		let g:vim_markdown_no_default_key_mappings = 1
-		let g:vim_markdown_toc_autofit = 1
-		let g:tex_conceal = ''
-		let g:vim_markdown_math = 1
-		let g:vim_markdown_folding_level = 2
-		let g:vim_markdown_frontmatter = 1
-		let g:vim_markdown_new_list_item_indent = 0
+	let g:vim_markdown_no_default_key_mappings = 1
+	let g:vim_markdown_toc_autofit = 1
+	let g:tex_conceal = ''
+	let g:vim_markdown_math = 1
+	let g:vim_markdown_folding_level = 2
+	let g:vim_markdown_frontmatter = 1
+	let g:vim_markdown_new_list_item_indent = 0
 
 	" Sun Sep 10 2017 20:44 Depends on plantuml being installed
 	" If you want dont want to image preview after loading the plugin put the
@@ -292,19 +293,19 @@ function! plugin#Config()
 	Plug 'scrooloose/vim-slumlord', { 'on' : 'UtilsUmlInFilePreview' }
 
 	Plug 'merlinrebrovic/focus.vim', { 'on' : '<Plug>FocusModeToggle' }
-			let g:focus_use_default_mapping = 0
-			nmap <Leader>tf <Plug>FocusModeToggle
+	let g:focus_use_default_mapping = 0
+	nmap <Leader>tf <Plug>FocusModeToggle
 
 	Plug 'dbmrq/vim-ditto', { 'for' : 'markdown' }
-		let g:ditto_dir = g:std_data_path
-		let g:ditto_file = 'ditto-ignore.txt'
+	let g:ditto_dir = g:std_data_path
+	let g:ditto_file = 'ditto-ignore.txt'
 
 	" TODO-[RM]-(Sun Sep 10 2017 20:27): Dont really like it
 	call s:configure_vim_wordy()
 
 	" TODO-[RM]-(Sun Sep 10 2017 20:26): So far only working on linux
 	Plug 'beloglazov/vim-online-thesaurus', { 'on' : 'OnlineThesaurusCurrentWord' }
-		let g:online_thesaurus_map_keys = 0
+	let g:online_thesaurus_map_keys = 0
 
 	" Autocorrect mispellings on the fly
 	Plug 'panozzaj/vim-autocorrect', { 'for' : 'markdown' }
@@ -318,22 +319,22 @@ function! plugin#Config()
 	call s:configure_pomodoro()
 
 	Plug 'chrisbra/csv.vim', { 'for' : 'csv' }
-		let g:no_csv_maps = 1
-    let g:csv_strict_columns = 1
-		" augroup Csv_Arrange
-			" autocmd!
-			" autocmd BufWritePost *.csv call CsvArrangeColumns()
-		" augroup END
-		" let g:csv_autocmd_arrange      = 1
-		" let g:csv_autocmd_arrange_size = 1024*1024
+	let g:no_csv_maps = 1
+	let g:csv_strict_columns = 1
+	" augroup Csv_Arrange
+	" autocmd!
+	" autocmd BufWritePost *.csv call CsvArrangeColumns()
+	" augroup END
+	" let g:csv_autocmd_arrange      = 1
+	" let g:csv_autocmd_arrange_size = 1024*1024
 
 	" Thu Jan 25 2018 17:36: Not that useful. More useful is mapping N to center the screen as well
 	" Plug 'google/vim-searchindex'
 
 	" Documentation plugins
 	Plug 'rhysd/devdocs.vim', { 'on' : '<Plug>(devdocs-under-cursor)' }
-		" Sample mapping in a ftplugin/*.vim
-		nmap ghd <Plug>(devdocs-under-cursor)
+	" Sample mapping in a ftplugin/*.vim
+	nmap ghd <Plug>(devdocs-under-cursor)
 
 
 	Plug 'KabbAmine/zeavim.vim', {'on': [
@@ -343,38 +344,38 @@ function! plugin#Config()
 				\	'<Plug>ZVKeyDocset',
 				\	'<Plug>ZVMotion'
 				\ ]}
-		let g:zv_disable_mapping = 1
-		nmap ghz <Plug>Zeavim
+	let g:zv_disable_mapping = 1
+	nmap ghz <Plug>Zeavim
 
 	" Only for arch
 	if executable('dasht')
 		Plug 'sunaku/vim-dasht', { 'on' : 'Dasht' }
-			" When in C++, also search C, Boost, and OpenGL:
-			let g:dasht_filetype_docsets['cpp'] = ['^c$', 'boost', 'OpenGL']
+		" When in C++, also search C, Boost, and OpenGL:
+		let g:dasht_filetype_docsets['cpp'] = ['^c$', 'boost', 'OpenGL']
 	endif
 
 	Plug 'itchyny/calendar.vim', { 'on' : 'Calendar' }
-		let g:calendar_google_calendar = 1
-		let g:calendar_cache_directory = g:std_cache_path . '/calendar.vim/'
+	let g:calendar_google_calendar = 1
+	let g:calendar_cache_directory = g:std_cache_path . '/calendar.vim/'
 
 	" Tue Oct 31 2017 11:30: Needs to be loaded last
 	if exists('g:valid_device')
 		Plug 'ryanoasis/vim-devicons'
-			let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-			let g:DevIconsEnableFoldersOpenClose = 1
+		let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+		let g:DevIconsEnableFoldersOpenClose = 1
 	endif
 
 	Plug 'chaoren/vim-wordmotion'
-		let g:wordmotion_spaces = '_-.'
-		let g:wordmotion_mappings = {
-					\ 'w' : '<c-f>',
-					\ 'b' : '<c-b>',
-					\ 'e' : '',
-					\ 'ge' : '',
-					\ 'aw' : '',
-					\ 'iw' : '',
-					\ '<C-R><C-W>' : ''
-					\ }
+	let g:wordmotion_spaces = '_-.'
+	let g:wordmotion_mappings = {
+				\ 'w' : '<c-f>',
+				\ 'b' : '<c-b>',
+				\ 'e' : '',
+				\ 'ge' : '',
+				\ 'aw' : '',
+				\ 'iw' : '',
+				\ '<C-R><C-W>' : ''
+				\ }
 
 	" Software caps lock. imap <c-l> ToggleSoftwareCaps
 	Plug 'tpope/vim-capslock'
@@ -382,24 +383,24 @@ function! plugin#Config()
 	Plug 'hari-rangarajan/CCTree'
 
 	Plug 'bronson/vim-trailing-whitespace'
-		let g:extra_whitespace_ignored_filetypes = ['markdown']
+	let g:extra_whitespace_ignored_filetypes = ['markdown']
 
 	Plug 'mhinz/vim-grepper'
-		if exists('g:lightline')
-			let g:lightline.active.left[2] += [ 'grepper' ]
-			let g:lightline.component_function['grepper'] = 'grepper#statusline'
-		endif
+	if exists('g:lightline')
+		let g:lightline.active.left[2] += [ 'grepper' ]
+		let g:lightline.component_function['grepper'] = 'grepper#statusline'
+	endif
 
 	" Plug 'jalvesaq/Nvim-R'
-		" Tue Apr 24 2018 14:40: Too agressive with mappings. Very hard to get it to work.
-		" not seeing the huge gains at the moment. Better of just using neoterm at the
-		" moment.
-		" Installing manually:
-		" R CMD build /path/to/Nvim-R/R/nvimcom
-		" R CMD INSTALL nvimcom_0.9-39.tar.gz
-		" nmap <LocalLeader>r <Plug>RStart
-		" imap <LocalLeader>r <Plug>RStart
-		" vmap <LocalLeader>r <Plug>RStart
+	" Tue Apr 24 2018 14:40: Too agressive with mappings. Very hard to get it to work.
+	" not seeing the huge gains at the moment. Better of just using neoterm at the
+	" moment.
+	" Installing manually:
+	" R CMD build /path/to/Nvim-R/R/nvimcom
+	" R CMD INSTALL nvimcom_0.9-39.tar.gz
+	" nmap <LocalLeader>r <Plug>RStart
+	" imap <LocalLeader>r <Plug>RStart
+	" vmap <LocalLeader>r <Plug>RStart
 
 	Plug 'fourjay/vim-flexagon'
 
@@ -431,6 +432,13 @@ function! plugin#Config()
 	endif
 
 	Plug 'alepez/vim-gtest', { 'for' : ['c', 'cpp'] }
+
+	Plug 'mhinz/vim-signify'
+	let g:signify_vcs_list = [ 'git', 'svn' ]
+	let g:signify_cursorhold_insert     = 1
+	let g:signify_cursorhold_normal     = 1
+	let g:signify_update_on_bufenter    = 0
+	let g:signify_update_on_focusgained = 1
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
@@ -550,53 +558,53 @@ endfunction
 
 function! s:configure_ctrlp() abort
 	Plug 'ctrlpvim/ctrlp.vim'
-		nmap <plug>buffer_browser :CtrlPBuffer<CR>
-		nmap <plug>mru_browser :CtrlPMRU<CR>
-		let g:ctrlp_map = ''
-		let g:ctrlp_cmd = 'CtrlPMRU'
-		" submit ? in CtrlP for more mapping help.
-		let g:ctrlp_lazy_update = 1
-		let g:ctrlp_show_hidden = 1
-		let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
-		" It says cache dir but dont want to keep loosing history everytime cache gets cleaned up
-		" Fri Jan 05 2018 14:38: Now that denite's file_rec is working much better no need
-		" to keep this innacurrate list of files around. Rely on it less.
-		" Thu May 03 2018 05:55: Giving ctrlp another chance. There is like a 1 sec delay
-		" with Denite file_mru and file/old doesnt really work.
-		let g:ctrlp_cache_dir = g:std_data_path . '/ctrlp'
-		let g:ctrlp_working_path_mode = 'wra'
-		let g:ctrlp_max_history = &history
-		let g:ctrlp_clear_cache_on_exit = 0
-		let g:ctrlp_switch_buffer = 0
-		let g:ctrlp_mruf_max = 10000
-		if has('win32')
-			let g:ctrlp_mruf_exclude = '^C:\\dev\\tmp\\Temp\\.*'
-			set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
-			let g:ctrlp_custom_ignore = {
-						\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-						\ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
-						\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
-						\ }
-		else
-			let g:ctrlp_mruf_exclude =  '/tmp/.*\|/temp/.*'
-			set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
-			let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-		endif
-		let g:ctrlp_prompt_mappings = {
-					\ 'PrtBS()': ['<bs>', '<c-h>'],
-					\ 'PrtCurLeft()': ['<left>', '<c-^>'],
-					\ 'PrtCurRight()': ['<right>'],
+	nmap <plug>buffer_browser :CtrlPBuffer<CR>
+	nmap <plug>mru_browser :CtrlPMRU<CR>
+	let g:ctrlp_map = ''
+	let g:ctrlp_cmd = 'CtrlPMRU'
+	" submit ? in CtrlP for more mapping help.
+	let g:ctrlp_lazy_update = 1
+	let g:ctrlp_show_hidden = 1
+	let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
+	" It says cache dir but dont want to keep loosing history everytime cache gets cleaned up
+	" Fri Jan 05 2018 14:38: Now that denite's file_rec is working much better no need
+	" to keep this innacurrate list of files around. Rely on it less.
+	" Thu May 03 2018 05:55: Giving ctrlp another chance. There is like a 1 sec delay
+	" with Denite file_mru and file/old doesnt really work.
+	let g:ctrlp_cache_dir = g:std_data_path . '/ctrlp'
+	let g:ctrlp_working_path_mode = 'wra'
+	let g:ctrlp_max_history = &history
+	let g:ctrlp_clear_cache_on_exit = 0
+	let g:ctrlp_switch_buffer = 0
+	let g:ctrlp_mruf_max = 10000
+	if has('win32')
+		let g:ctrlp_mruf_exclude = '^C:\\dev\\tmp\\Temp\\.*'
+		set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
+		let g:ctrlp_custom_ignore = {
+					\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+					\ 'file': '\v\.(tlog|log|db|obj|o|exe|so|dll|dfm)$',
+					\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
 					\ }
-		" Lightline settings
-		if exists('g:lightline')
-			let g:lightline.active.left[2] += [ 'ctrlpmark' ]
-			let g:lightline.component_function['ctrlpmark'] = string(function('s:ctrlp_lightline_mark'))
+	else
+		let g:ctrlp_mruf_exclude =  '/tmp/.*\|/temp/.*'
+		set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
+		let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+	endif
+	let g:ctrlp_prompt_mappings = {
+				\ 'PrtBS()': ['<bs>', '<c-h>'],
+				\ 'PrtCurLeft()': ['<left>', '<c-^>'],
+				\ 'PrtCurRight()': ['<right>'],
+				\ }
+	" Lightline settings
+	if exists('g:lightline')
+		let g:lightline.active.left[2] += [ 'ctrlpmark' ]
+		let g:lightline.component_function['ctrlpmark'] = string(function('s:ctrlp_lightline_mark'))
 
-			let g:ctrlp_status_func = {
-						\ 'main': string(function('s:ctrlp_lightline_func1')),
-						\ 'prog': string(function('s:ctrlp_lightline_func2')),
-						\ }
-		endif
+		let g:ctrlp_status_func = {
+					\ 'main': string(function('s:ctrlp_lightline_func1')),
+					\ 'prog': string(function('s:ctrlp_lightline_func2')),
+					\ }
+	endif
 endfunction
 
 function! s:ctrlp_lightline_mark() abort
@@ -631,27 +639,27 @@ function! s:configure_async_plugins() abort
 	endif
 
 	Plug 'kassio/neoterm'
-		let g:neoterm_use_relative_path = 1
-		let g:neoterm_default_mod = 'vertical'
-		let g:neoterm_autoinsert=1
-		nnoremap <Plug>terminal_toggle :Ttoggle<CR>
-		" Use gx{text-object} in normal mode
-		nmap <plug>terminal_send <Plug>(neoterm-repl-send)
-		" Send selected contents in visual mode.
-		xmap <plug>terminal_send <Plug>(neoterm-repl-send)
-		nmap <plug>terminal_send_line <Plug>(neoterm-repl-send-line)
+	let g:neoterm_use_relative_path = 1
+	let g:neoterm_default_mod = 'vertical'
+	let g:neoterm_autoinsert=1
+	nnoremap <Plug>terminal_toggle :Ttoggle<CR>
+	" Use gx{text-object} in normal mode
+	nmap <plug>terminal_send <Plug>(neoterm-repl-send)
+	" Send selected contents in visual mode.
+	xmap <plug>terminal_send <Plug>(neoterm-repl-send)
+	nmap <plug>terminal_send_line <Plug>(neoterm-repl-send-line)
 
 	Plug 'Shougo/denite.nvim', { 'do' : has('nvim') ? ':UpdateRemotePlugins' : '' }
-		nmap <plug>fuzzy_command_history :Denite command_history<CR>
-		nmap <plug>fuzzy_vim_help :Denite help<CR>
-		" nnoremap <C-S-h> :Denite help<CR>
-		" nmap <plug>mru_browser :Denite file_mru<CR>
-		" Wed Jan 10 2018 15:46: Have tried several times to use denite buffer but its
-		" just too awkard. Kinda slow and doesnt show full path.
-		" nnoremap <S-k> :Denite buffer<CR>
+	nmap <plug>fuzzy_command_history :Denite command_history<CR>
+	nmap <plug>fuzzy_vim_help :Denite help<CR>
+	" nnoremap <C-S-h> :Denite help<CR>
+	" nmap <plug>mru_browser :Denite file_mru<CR>
+	" Wed Jan 10 2018 15:46: Have tried several times to use denite buffer but its
+	" just too awkard. Kinda slow and doesnt show full path.
+	" nnoremap <S-k> :Denite buffer<CR>
 
-		" It includes file_mru source for denite.nvim.
-		Plug 'Shougo/neomru.vim'
+	" It includes file_mru source for denite.nvim.
+	Plug 'Shougo/neomru.vim'
 endfunction
 
 function! s:configure_vim_table_mode() abort
@@ -731,21 +739,23 @@ endfunction
 
 function! s:configure_tagbar() abort
 	Plug 'majutsushi/tagbar'
-		let g:tagbar_ctags_bin = 'ctags'
-		let g:tagbar_autofocus = 1
-		let g:tagbar_show_linenumbers = 2
-		let g:tagbar_map_togglesort = 'r'
-		let g:tagbar_map_nexttag = '<c-j>'
-		let g:tagbar_map_prevtag = '<c-k>'
-		let g:tagbar_map_openallfolds = '<c-n>'
-		let g:tagbar_map_closeallfolds = '<c-c>'
-		let g:tagbar_map_togglefold = '<c-x>'
-		let g:tagbar_autoclose = 1
+	let g:tagbar_ctags_bin = 'ctags'
+	let g:tagbar_autofocus = 1
+	let g:tagbar_show_linenumbers = 2
+	let g:tagbar_map_togglesort = 'r'
+	let g:tagbar_map_nexttag = '<c-j>'
+	let g:tagbar_map_prevtag = '<c-k>'
+	let g:tagbar_map_openallfolds = '<c-n>'
+	let g:tagbar_map_closeallfolds = '<c-c>'
+	let g:tagbar_map_togglefold = '<c-x>'
+	let g:tagbar_autoclose = 1
 
 	" These settings do not use patched fonts
 	" Fri Feb 02 2018 15:38: Its number one thing slowing down vim right now.
-	let g:lightline.active.left[2] += [ 'tagbar' ]
-	let g:lightline.component_function['tagbar'] = string(function('s:tagbar_lightline'))
+	if exists('g:lightline')
+		let g:lightline.active.left[2] += [ 'tagbar' ]
+		let g:lightline.component_function['tagbar'] = string(function('s:tagbar_lightline'))
+	endif
 endfunction
 
 function! s:tagbar_lightline() abort
@@ -877,7 +887,7 @@ function! s:configure_file_browser(choice) abort
 	elseif a:choice ==# 'ranger'
 		nmap <plug>file_browser :RangerCurrentDirectory<CR>
 		Plug 'francoiscabrol/ranger.vim', { 'on' : 'RangerCurrentDirectory' }
-			let g:ranger_map_keys = 0
+		let g:ranger_map_keys = 0
 	endif
 endfunction
 
@@ -887,45 +897,45 @@ endfunction
 function! s:configure_tag_handler(choice) abort
 	if a:choice ==? 'gen_tags'
 		Plug 'jsfaint/gen_tags.vim' " Not being suppoprted anymore
-			let g:gen_tags#ctags_auto_gen = 1
-			let g:gen_tags#gtags_auto_gen = 1
-			let g:gen_tags#use_cache_dir = 1
-			let g:gen_tags#ctags_prune = 1
-			let g:gen_tags#ctags_opts = '--sort=no --append'
+		let g:gen_tags#ctags_auto_gen = 1
+		let g:gen_tags#gtags_auto_gen = 1
+		let g:gen_tags#use_cache_dir = 1
+		let g:gen_tags#ctags_prune = 1
+		let g:gen_tags#ctags_opts = '--sort=no --append'
 	elseif a:choice ==? 'gutentags'
 		Plug 'ludovicchabant/vim-gutentags'
-			let g:gutentags_modules = []
-			if executable('ctags')
-				let g:gutentags_modules += ['ctags']
-			endif
-			if executable('cscope')
-				let g:gutentags_modules += ['cscope']
-			endif
-			" if executable('gtags')
-				" let g:gutentags_modules += ['gtags']
-			" endif
+		let g:gutentags_modules = []
+		if executable('ctags')
+			let g:gutentags_modules += ['ctags']
+		endif
+		if executable('cscope')
+			let g:gutentags_modules += ['cscope']
+		endif
+		" if executable('gtags')
+		" let g:gutentags_modules += ['gtags']
+		" endif
 
-			let g:gutentags_project_root = ['.svn']
-			let g:gutentags_add_default_project_roots = 1
+		let g:gutentags_project_root = ['.svn']
+		let g:gutentags_add_default_project_roots = 1
 
-			let g:gutentags_cache_dir = g:std_data_path . '/ctags'
+		let g:gutentags_cache_dir = g:std_data_path . '/ctags'
 
-			" if executable('rg')
-				" let g:gutentags_file_list_command = 'rg --files'
-			" endif
+		" if executable('rg')
+		" let g:gutentags_file_list_command = 'rg --files'
+		" endif
 
-			" Debugging
-			let g:gutentags_trace = 1
-			" let g:gutentags_fake = 1
-			" let g:gutentags_ctags_extra_args = ['--sort=no', '--append']
-			let g:lightline.active.left[2] += [ 'tags' ]
-			let g:lightline.component_function['tags'] = 'gutentags#statusline'
+		" Debugging
+		let g:gutentags_trace = 1
+		" let g:gutentags_fake = 1
+		" let g:gutentags_ctags_extra_args = ['--sort=no', '--append']
+		let g:lightline.active.left[2] += [ 'tags' ]
+		let g:lightline.component_function['tags'] = 'gutentags#statusline'
 
-			augroup MyGutentagsStatusLineRefresher
-				autocmd!
-				autocmd User GutentagsUpdating call lightline#update()
-				autocmd User GutentagsUpdated call lightline#update()
-			augroup END
+		augroup MyGutentagsStatusLineRefresher
+			autocmd!
+			autocmd User GutentagsUpdating call lightline#update()
+			autocmd User GutentagsUpdated call lightline#update()
+		augroup END
 
 	endif
 endfunction
