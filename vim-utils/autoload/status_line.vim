@@ -18,16 +18,25 @@ function! status_line#config(selection) abort
 endfunction
 
 function! s:airline_config() abort
+	Plug 'vim-airline/vim-airline-themes'
 	Plug 'vim-airline/vim-airline'
 		if exists('g:valid_device')
 			let g:airline_powerline_fonts = 1
 		endif
 
+		if !has('unix')
+			let g:airline#extensions#whitespace#enabled = 0
+		endif
+
+		let g:airline_theme='papercolor'
+
+		let g:airline_section_c = "\uf02d %t"
+
 		let g:airline#extensions#ctrlp#show_adjacent_modes = 1
 
 		let g:airline#extensions#neomake#enabled = 1
-		let airline#extensions#neomake#error_symbol = 'E:'
-		let airline#extensions#neomake#warning_symbol = 'W:'
+		let g:airline#extensions#neomake#error_symbol = 'E:'
+		let g:airline#extensions#neomake#warning_symbol = 'W:'
 
 		let g:airline#extensions#nrrwrgn#enabled = 0
 
