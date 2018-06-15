@@ -19,5 +19,12 @@ if !exists('no_plugin_maps') && !exists('no_uml_maps')
 	" nnoremap <silent> <buffer> <Plug>Make :call neomake#Make({ 'file_mode' : 0 })<cr>
 				" \:silent! !killall -s SIGHUP mupdf<CR>
 	" nnoremap <buffer> <Plug>Preview :!mupdf %:r.png&<CR>
+	if executable('qpdfview')
+		nnoremap <buffer> <Plug>preview :silent !qpdfview --unique --quiet %:r.png&<cr>
+	endif
+
+	if executable('SumatraPDF')
+		nnoremap <buffer> <Plug>preview :silent !SumatraPDF %:r.png<cr>
+	endif
 endif
 
