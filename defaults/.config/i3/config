@@ -446,39 +446,47 @@ mode "$mode_gaps_outer" {
 # Mode Show/Launch: {{{
 # Sat Sep 30 2017 18:59:
 # This regex ^ start of subject and $ means end of subject
-for_window [title="^cmus$"] move to scratchpad
-for_window [title="^gmail-mutt$"] move to scratchpad
-for_window [title="^psu-mutt$"] move to scratchpad
+for_window [title="^cmus$"] move to workspace 8
+for_window [title="^gmail-mutt$"] move to workspace 8
+for_window [title="^psu-mutt$"] move to workspace 8
 for_window [title="^ranger$"] move to scratchpad
-for_window [class="Spotify"] move to scratchpad
+for_window [class="Spotify"] move to workspace 8
 
-set $mode_show Show: [c]mus, [m]gmail, ps[u], [n]ranger, [s]potify
-bindsym $mod+n mode "$mode_show"
+# set $mode_show Show: [c]mus, [m]gmail, ps[u], [n]ranger, [s]potify
+# bindsym $mod+n mode "$mode_show"
 
-mode "$mode_show" {
-	bindsym c [title="^cmus$"] move to scratchpad, scratchpad show; mode "default"
-	bindsym m [title="^gmail-mutt$"] move to scratchpad, scratchpad show; mode "default"
-	bindsym u [title="^psu-mutt$"] move to scratchpad, scratchpad show; mode "default"
-	bindsym n [title="^ranger$"] move to scratchpad, scratchpad show; mode "default"
-	bindsym s [class="^Spotify$"] move to scratchpad, scratchpad show; mode "default"
+# mode "$mode_show" {
+	# bindsym c [title="^cmus$"] move to scratchpad, scratchpad show; mode "default"
+	# bindsym m [title="^gmail-mutt$"] move to scratchpad, scratchpad show; mode "default"
+	# bindsym u [title="^psu-mutt$"] move to scratchpad, scratchpad show; mode "default"
+	# bindsym n [title="^ranger$"] move to scratchpad, scratchpad show; mode "default"
+	# bindsym s [class="^Spotify$"] move to scratchpad, scratchpad show; mode "default"
 
-	bindsym Escape mode "default"
-	bindsym Return mode "default"
-}
+	# bindsym Escape mode "default"
+	# bindsym Return mode "default"
+# }
 
 # Mode Launch:
 # Thu Nov 30 2017 19:56:
 set $mode_launch Launch: [c]mus, [m]gmail, ps[u], [n]ranger, [s]potify
-bindsym $mod+Shift+n mode "$mode_launch"
+bindsym $mod+n mode "$mode_launch"
 
 # Sun Jun 03 2018 23:48: Transitioning to kitty. To return to termite search gitlog for
 # kitty
 mode "$mode_launch" {
 	bindsym c exec --no-startup-id i3-sensible-terminal --title=cmus --exec cmus
-	bindsym m exec --no-startup-id i3-sensible-terminal --title=gmail-mutt --exec 'neomutt -F ~/.config/mutt/account.gmail'; mode "default"
-	bindsym u exec --no-startup-id i3-sensible-terminal --title=psu-mutt --exec 'neomutt -F ~/.config/mutt/account.psu'; mode "default"
+
+	bindsym m exec --no-startup-id i3-sensible-terminal \
+		--title=gmail-mutt --exec 'neomutt -F ~/.config/mutt/account.gmail'; \
+		mode "default"
+
+	bindsym u exec --no-startup-id i3-sensible-terminal \
+		--title=psu-mutt --exec 'neomutt -F ~/.config/mutt/account.psu'; \
+		mode "default"
+
 	bindsym n exec --no-startup-id i3-sensible-terminal --title=ranger --exec ranger
-	bindsym s exec --no-startup-id --exec spotify
+
+	bindsym s exec --no-startup-id spotify
 
 	bindsym Escape mode "default"
 	bindsym Return mode "default"
@@ -494,9 +502,12 @@ set $mode_screenshot screenshot: [f]ull_screen, [s]election, [w]indow
 	bindsym $mod+Shift+s mode "$mode_screenshot"
 
 	mode "$mode_screenshot" {
-		bindsym f exec --no-startup-id sleep 0.2 && scrot '%Y-%m-%d_%T_scrot.png' -e 'mv $f ~/.cache/';mode "default"
-		bindsym s exec --no-startup-id sleep 0.2 && scrot -s '%Y-%m-%d_%T_scrot.png' -e 'mv $f ~/.cache/';mode "default"
-		bindsym w exec --no-startup-id sleep 0.2 && scrot -u '%Y-%m-%d_%T_scrot.png' -e 'mv $f ~/.cache/';mode "default"
+		bindsym f exec --no-startup-id sleep 0.2 && scrot '%Y-%m-%d_%T_scrot.png' \
+			-e 'mv $f ~/.cache/';mode "default"
+		bindsym s exec --no-startup-id sleep 0.2 && scrot -s '%Y-%m-%d_%T_scrot.png' \
+			-e 'mv $f ~/.cache/';mode "default"
+		bindsym w exec --no-startup-id sleep 0.2 && scrot -u '%Y-%m-%d_%T_scrot.png' \
+			-e 'mv $f ~/.cache/';mode "default"
 
 		bindsym Escape mode "default"
 		bindsym Return mode "default"
