@@ -18,6 +18,11 @@ gaps. You can change both at the same time.
 - [ ] arch: change i3-desktop to i3 with log files in the `sddm` autlogin settings.
 - [ ] i3: fix the `Pavucontrol` floating. Its huge. Investigate on the border property
 to see if you can restrict its size and center it.
+- [ ] i3: move all windows in the scratchpad to desktop 8. 
+	- The idea is that only ranger is left in the scratchpad. 
+	- This way you can toggle `ranger` with `c-m` the others are
+less used can go to the less used desktop. 
+	- Also make it be there already at startup.
 
 ## Sat Jun 09 2018 14:04:
 - [ ] arch: install `gitea`
