@@ -38,7 +38,7 @@ function! plugin#Config()
 	" This call must remain atop since sets the g:lightline variable to which other
 	" plugins add to
 	" selection - {lightline, airline}
-	call status_line#config('airline')
+	call status_line#config('lightline')
 
 	call s:configure_async_plugins()
 
@@ -377,8 +377,7 @@ function! plugin#Config()
 				\ '<C-R><C-W>' : ''
 				\ }
 
-	" Software caps lock. imap <c-l> ToggleSoftwareCaps
-	Plug 'tpope/vim-capslock'
+	call s:configure_caps()
 
 	Plug 'hari-rangarajan/CCTree'
 
@@ -959,3 +958,27 @@ function! s:tabular_align() abort
 
 	execute 'vnoremap <buffer> <Leader>oa :Tabularize /' . comment . '<cr>'
 endfunction
+
+function! s:configure_caps() abort
+	
+	" Software caps lock. imap <c-l> ToggleSoftwareCaps
+	Plug 'tpope/vim-capslock'
+
+
+	if exists('g:lightline')
+		let g:lightline.active.left[2] += [ 'caps' ]
+		let g:lightline.component_function['caps'] = string(function('s:get_caps'))
+		let g:lightline.component_type = {
+	      \   'caps': 'error',
+	      \ }
+	endif
+endfunction
+
+function! s:get_caps() abort
+	if !exists('*CapsLockStatusline')
+		return ''
+	endif
+
+	return CapsLockStatusline() ==? '[caps]' ? 'CAPS' : ''
+endfunction
+

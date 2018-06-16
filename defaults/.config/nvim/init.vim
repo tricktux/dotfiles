@@ -48,6 +48,7 @@ function! s:find_vim_config_file(...) abort
 		return
 	endif
 
+	" let &runtimepath .= ',' . g:location_vim_utils . '/after'
 	let src_files = glob(g:location_vim_utils . '/autoload/*.vim', 0, 1)
 	for f in src_files
 		execute "source " . f

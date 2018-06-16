@@ -47,7 +47,7 @@ function! options#Set() abort
 	set title                " change the terminal's title
 
 	" Set a pretty title
-	augroup TermTitle
+	augroup TitleString
 		autocmd!
 		autocmd BufEnter,DirChanged * let &titlestring = (exists('g:valid_device') && has('unix') ? "\uf015" : '') .
 														\ ' ' . getcwd() . " -> " .
@@ -71,7 +71,8 @@ function! options#Set() abort
 	" removing it see what happens
 	" set timeoutlen=1000
 	" set ttimeoutlen=0
-	set nowrap        " wrap lines
+	set listchars+=precedes:<,extends:> " show indication that line continues
+	set wrapmargin=2
 	set nowrapscan        " do not wrap search at EOF
 	" will look in current directory for tags
 
@@ -110,8 +111,13 @@ function! options#Set() abort
 	" no mouse enabled
 	set mouse=
 	set laststatus=2
+
 	" Thu Oct 26 2017 05:13: On small split screens text goes outside of range
+	" Fri Jun 15 2018 14:00: These options are better set on case by case basis 
+	" Fri Jun 15 2018 15:37: Not really 
+	" set nowrap        " wrap lines
 	set textwidth=88
+
 	set nolist " Do not display extra characters
 	set scroll=8
 	set modeline

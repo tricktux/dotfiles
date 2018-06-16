@@ -26,7 +26,22 @@ function! s:airline_config() abort
 
 		if !has('unix')
 			let g:airline#extensions#whitespace#enabled = 0
+
+			" Fancy separator doesnt look well in windows
+			" let g:airline_left_sep = '|'
+			" let g:airline_left_alt_sep = '|'
+			" let g:airline_right_sep = '|'
+			" let g:airline_right_alt_sep = '|'
 		endif
+
+		let g:airline_detect_spelllang=0
+
+		let g:airline#extensions#default#layout = [
+					\ [ 'error', 'warning', 'a', 'b', 'c' ],
+					\ [ 'x', 'y', 'z' ]
+					\ ]
+
+		" let g:airline#extensions#default#section_truncate_width = { 'z': 25 }
 
 		let g:airline_theme='papercolor'
 
@@ -58,14 +73,15 @@ function! s:lightline_config() abort
 	let g:lightline = {
 				\ 'active' : {
 				\   'left': [
-				\							[ 'mode', 'paste' ],
+				\							[ 'mode', 'spell' ],
 				\							[ 'readonly', 'filename' ],
 				\							[  ]
 				\						],
 				\ 'right': [ [ 'lineinfo' ],
-				\            [ 'percent' ],
-				\            [ 'fileformat', 'fileencoding', 'filetype' ] ] }
+				\            [ 'filetype' ],
+				\            [ '' ] ] }
 				\ }
+				" \            [ 'fileformat', 'fileencoding', 'filetype' ] ] }
 
 	let g:lightline.tabline = {
 				\ 'left': [ ['tabs'] ],
@@ -88,22 +104,26 @@ function! s:lightline_config() abort
 		" let g:lightline.subseparator['right'] = ''
 
 		let g:lightline.component = {}
-		let g:lightline.component['lineinfo'] = ' %3l:%-2v'
+		let g:lightline.component['lineinfo'] = ' %p%%:%-2v'
 		let g:lightline.component['filename'] = "\uf02d %t"
+	else
+		let g:lightline.component = {}
+		let g:lightline.component['lineinfo'] = '%p%%:%-2v'
+		let g:lightline.component['filename'] = "%t"
 	endif
 
 	let g:lightline.component_function = {}
 	let g:lightline.component_function['filetype']   = string(function('s:devicons_filetype'))
 	let g:lightline.component_function['fileformat'] = string(function('s:devicons_fileformat'))
 	let g:lightline.component_function['readonly']   = string(function('s:readonly'))
-	let g:lightline.component_function['cwd']        = string(function('s:set_path'))
+	let g:lightline.component_function['spell']        = string(function('s:get_spell'))
 
 	let g:lightline.active.left[2] += [ 'ver_control' ]
 	let g:lightline.component_function['ver_control'] = string(function('s:get_version_control'))
 endfunction
 
-function! s:set_path() abort
-	return "\uf015" . ' ' . getcwd()
+function! s:get_spell() abort
+	return &spell ? 'SPELL' : ''
 endfunction
 
 function! s:get_cwd(count) abort

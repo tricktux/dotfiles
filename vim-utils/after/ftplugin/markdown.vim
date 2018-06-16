@@ -22,7 +22,7 @@ setlocal sw=2
 setlocal sts=2
 " makes vim autocomplete - bullets
 setlocal comments+=b:-,b:*
-setlocal formatoptions+=aw
+setlocal wrap
 setlocal conceallevel=0
 
 if !exists("no_plugin_maps") && !exists("no_markdown_maps")
@@ -153,4 +153,4 @@ command! -buffer UtilsMarkdownInstallPreview call s:install_template()
 command! -buffer UtilsMarkdownSetPandocPdfMaker call linting#SetNeomakePandocMaker('pdf')
 command! -buffer UtilsMarkdownSetPandocDocxMaker call linting#SetNeomakePandocMaker('docx')
 
-let b:undo_ftplugin = "setl foldenable< spell< complete< ts< sw< sts< comments< formatoptions< conceallevel<"
+let b:undo_ftplugin = "setl foldenable< spell< complete< ts< sw< sts< comments< wrap< conceallevel<"

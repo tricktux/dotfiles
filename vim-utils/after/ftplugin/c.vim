@@ -24,9 +24,9 @@ setlocal tabstop=4
 setlocal shiftwidth=4
 setlocal softtabstop=4
 setlocal foldenable
+setlocal nowrap
 setlocal foldnestmax=88
 setlocal define=^\\(#\\s*define\\|[a-z]*\\s*const\\s*[a-z]*\\)
-setlocal nospell
 " setlocal cursorline
 " So that you can jump from = to ; and viceversa
 setlocal matchpairs+==:;
@@ -114,4 +114,4 @@ call <SID>set_compiler_and_others()
 " Setup AutoHighlight
 call utils#AutoHighlight()
 
-let b:undo_ftplugin = 'setl cursorline< omnifunc< ts< sw< sts< foldenable< define< spell< matchpairs< foldnestmax<| unlet! b:delimitMate_matchpairs b:match_words'
+let b:undo_ftplugin = 'setl nowrap< cursorline< omnifunc< ts< sw< sts< foldenable< define< spell< matchpairs< foldnestmax<| unlet! b:delimitMate_matchpairs b:match_words'
