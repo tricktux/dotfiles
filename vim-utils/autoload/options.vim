@@ -113,9 +113,9 @@ function! options#Set() abort
 	set laststatus=2
 
 	" Thu Oct 26 2017 05:13: On small split screens text goes outside of range
-	" Fri Jun 15 2018 14:00: These options are better set on case by case basis 
-	" Fri Jun 15 2018 15:37: Not really 
-	" set nowrap        " wrap lines
+	" Fri Jun 15 2018 14:00: These options are better set on case by case basis
+	" Fri Jun 15 2018 15:37: Not really
+	set nowrap        " wrap lines
 	set textwidth=88
 
 	set nolist " Do not display extra characters
