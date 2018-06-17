@@ -28,6 +28,8 @@ function! augroup#Set() abort
 					\ foldenable  complete+=kspell ts=2 sw=2 sts=2
 					\ comments+=b:-,b:* spelllang=en_us
 
+		autocmd FileType vim setlocal tabstop=2 shiftwidth=2 softtabstop=2 nospell
+
 		autocmd FileType c,cpp setlocal nowrap ts=4 sw=4 sts=4 fen
 					\ fdn=88 define=^\\(#\\s*define\\|[a-z]*\\s*const\\s*[a-z]*\\)
 		" Python
