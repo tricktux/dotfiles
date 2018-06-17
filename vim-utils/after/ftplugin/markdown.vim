@@ -13,18 +13,6 @@ endif
 " Don't load another plugin for this buffer
 let b:did_markdown_ftplugin = 1
 
-setlocal foldenable
-setlocal spell
-setlocal spelllang=en_us
-setlocal complete+=kspell
-setlocal ts=2
-setlocal sw=2
-setlocal sts=2
-" makes vim autocomplete - bullets
-setlocal comments+=b:-,b:*
-setlocal wrap
-setlocal conceallevel=0
-
 if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	" TODO-[RM]-(Fri Oct 20 2017 08:50): Fix this code commented here below
 	" Encapsulate in markdown file from current line until end of file in ```
@@ -152,5 +140,3 @@ command! -buffer UtilsMarkdownPreviewInBrowser call s:preview_browser()
 command! -buffer UtilsMarkdownInstallPreview call s:install_template()
 command! -buffer UtilsMarkdownSetPandocPdfMaker call linting#SetNeomakePandocMaker('pdf')
 command! -buffer UtilsMarkdownSetPandocDocxMaker call linting#SetNeomakePandocMaker('docx')
-
-let b:undo_ftplugin = "setl foldenable< spell< complete< ts< sw< sts< comments< wrap< conceallevel<"

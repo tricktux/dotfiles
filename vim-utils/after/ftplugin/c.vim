@@ -20,16 +20,6 @@ let b:match_words .= '\<if\>:\<else\>,'
 if exists('g:omnifunc_clang')
 	let &l:omnifunc=g:omnifunc_clang
 endif
-setlocal tabstop=4
-setlocal shiftwidth=4
-setlocal softtabstop=4
-setlocal foldenable
-setlocal nowrap
-setlocal foldnestmax=88
-setlocal define=^\\(#\\s*define\\|[a-z]*\\s*const\\s*[a-z]*\\)
-" setlocal cursorline
-" So that you can jump from = to ; and viceversa
-setlocal matchpairs+==:;
 " This is that delimate doesnt aut fill the newly added matchpairs
 let b:delimitMate_matchpairs = '(:),[:],{:}'
 
@@ -113,5 +103,3 @@ call <SID>set_compiler_and_others()
 
 " Setup AutoHighlight
 call utils#AutoHighlight()
-
-let b:undo_ftplugin = 'setl nowrap< cursorline< omnifunc< ts< sw< sts< foldenable< define< spell< matchpairs< foldnestmax<| unlet! b:delimitMate_matchpairs b:match_words'

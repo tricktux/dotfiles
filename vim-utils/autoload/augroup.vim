@@ -24,7 +24,12 @@ function! augroup#Set() abort
 		autocmd FileType help nnoremap <buffer> q :helpc<cr>
 		autocmd FileType help setlocal relativenumber
 
-		autocmd FileType markdown setlocal nocursorline conceallevel=0
+		autocmd FileType markdown setlocal conceallevel=0 wrap spell
+					\ foldenable  complete+=kspell ts=2 sw=2 sts=2
+					\ comments+=b:-,b:* spelllang=en_us
+
+		autocmd FileType c,cpp setlocal nowrap ts=4 sw=4 sts=4 fen
+					\ fdn=88 define=^\\(#\\s*define\\|[a-z]*\\s*const\\s*[a-z]*\\)
 		" Python
 		" autocmd FileType python setlocal foldmethod=syntax
 	augroup END
