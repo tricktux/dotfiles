@@ -58,7 +58,7 @@ function! s:capture_cmd_out(...) abort
 		execute "read " . cmd
 		return
 	endif
-	redir => output
+	redir => l:output
 	execute cmd
 	redir END
 	if empty(output)
