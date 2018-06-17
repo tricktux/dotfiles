@@ -109,6 +109,8 @@ function! mappings#Set() abort
 	nmap <LocalLeader>r <plug>refactor_code
 	xmap <LocalLeader>r <plug>refactor_code
 
+	nmap <localleader>h <plug>help_under_cursor
+
 	nmap <plug>refactor_code :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
 	xmap <plug>refactor_code "hy:%s/<C-r>h//gc<left><left><left>
 
