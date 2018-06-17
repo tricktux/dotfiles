@@ -35,6 +35,8 @@ function! plugin#Config()
 		call plug#begin(g:vim_plugins_path)
 	endif
 
+	call s:configure_vim_utils()
+
 	" This call must remain atop since sets the g:lightline variable to which other
 	" plugins add to
 	" selection - {lightline, airline}
@@ -95,8 +97,6 @@ function! plugin#Config()
 	Plug 'justinmk/vim-syntax-extra'
 
 	call s:configure_vim_table_mode()
-
-	call s:configure_vim_utils()
 
 	" misc
 	if executable('git')
@@ -334,18 +334,7 @@ function! plugin#Config()
 	" Documentation plugins
 	Plug 'rhysd/devdocs.vim', { 'on' : '<Plug>(devdocs-under-cursor)' }
 	" Sample mapping in a ftplugin/*.vim
-	nmap ghd <Plug>(devdocs-under-cursor)
-
-
-	Plug 'KabbAmine/zeavim.vim', {'on': [
-				\	'Zeavim', 'Docset',
-				\	'<Plug>Zeavim',
-				\	'<Plug>ZVVisSelection',
-				\	'<Plug>ZVKeyDocset',
-				\	'<Plug>ZVMotion'
-				\ ]}
-	let g:zv_disable_mapping = 1
-	nmap ghz <Plug>Zeavim
+	nnoremap <plug>help_under_cursor <Plug>(devdocs-under-cursor)
 
 	" Only for arch
 	if executable('dasht')
@@ -677,40 +666,6 @@ function! s:configure_vim_table_mode() abort
 	" <Leader>tr	Realigns table columns
 endfunction
 
-function! s:configure_vim_utils() abort
-	Plug g:location_vim_utils
-	" Load the rest of the stuff and set the settings
-	let g:svn_repo_url = 'svn://odroid@copter-server/'
-	let g:svn_repo_name = 'UnrealEngineCourse/BattleTanks_2/'
-	nnoremap <Leader>vw :call SVNSwitch<CR>
-	nnoremap <Leader>vb :call SVNCopy<CR>
-
-	nnoremap <Leader>of :Dox<CR>
-	" Other commands
-	" command! -nargs=0 DoxLic :call <SID>DoxygenLicenseFunc()
-	" command! -nargs=0 DoxAuthor :call <SID>DoxygenAuthorFunc()
-	" command! -nargs=1 DoxUndoc :call <SID>DoxygenUndocumentFunc(<q-args>)
-	" command! -nargs=0 DoxBlock :call <SID>DoxygenBlockFunc()
-	let g:DoxygenToolkit_paramTag_pre=	'	'
-	let g:DoxygenToolkit_returnTag=			'Returns:   '
-	let g:DoxygenToolkit_blockHeader=''
-	let g:DoxygenToolkit_blockFooter=''
-	let g:DoxygenToolkit_authorName='Reinaldo Molina <rmolin88 at gmail dot com>'
-	let g:DoxygenToolkit_authorTag =	'Author:				'
-	let g:DoxygenToolkit_fileTag =		'File:					'
-	let g:DoxygenToolkit_briefTag_pre='Description:		'
-	let g:DoxygenToolkit_dateTag =		'Last Modified: '
-	let g:DoxygenToolkit_versionTag = 'Version:				'
-	let g:DoxygenToolkit_commentType = 'C++'
-	let g:DoxygenToolkit_versionString = '0.0.0'
-
-	let g:ctags_create_spell=1
-	let g:ctags_spell_script= g:location_vim_utils . '/tagstospl.py'
-	let g:ctags_output_dir = g:std_data_path . '/ctags/'
-	" Cscope databases and spell files will only be created for the following filetypes
-	let g:ctags_use_spell_for = ['c', 'cpp']
-	let g:ctags_use_cscope_for = ['c', 'cpp', 'java']
-endfunction
 
 function! s:configure_nerdcommenter() abort
 	Plug 'scrooloose/nerdcommenter'
@@ -982,3 +937,39 @@ function! s:get_caps() abort
 	return CapsLockStatusline() ==? '[caps]' ? 'CAPS' : ''
 endfunction
 
+function! s:configure_vim_utils() abort
+	Plug g:location_vim_utils
+	" let &runtimepath .= ',' . g:location_vim_utils .
+				" \ ',' . g:location_vim_utils . '/after'
+	" Load the rest of the stuff and set the settings
+	let g:svn_repo_url = 'svn://odroid@copter-server/'
+	let g:svn_repo_name = 'UnrealEngineCourse/BattleTanks_2/'
+	nnoremap <Leader>vw :call SVNSwitch<CR>
+	nnoremap <Leader>vb :call SVNCopy<CR>
+
+	nnoremap <Leader>of :Dox<CR>
+	" Other commands
+	" command! -nargs=0 DoxLic :call <SID>DoxygenLicenseFunc()
+	" command! -nargs=0 DoxAuthor :call <SID>DoxygenAuthorFunc()
+	" command! -nargs=1 DoxUndoc :call <SID>DoxygenUndocumentFunc(<q-args>)
+	" command! -nargs=0 DoxBlock :call <SID>DoxygenBlockFunc()
+	let g:DoxygenToolkit_paramTag_pre=	'	'
+	let g:DoxygenToolkit_returnTag=			'Returns:   '
+	let g:DoxygenToolkit_blockHeader=''
+	let g:DoxygenToolkit_blockFooter=''
+	let g:DoxygenToolkit_authorName='Reinaldo Molina <rmolin88 at gmail dot com>'
+	let g:DoxygenToolkit_authorTag =	'Author:				'
+	let g:DoxygenToolkit_fileTag =		'File:					'
+	let g:DoxygenToolkit_briefTag_pre='Description:		'
+	let g:DoxygenToolkit_dateTag =		'Last Modified: '
+	let g:DoxygenToolkit_versionTag = 'Version:				'
+	let g:DoxygenToolkit_commentType = 'C++'
+	let g:DoxygenToolkit_versionString = '0.0.0'
+
+	let g:ctags_create_spell=1
+	let g:ctags_spell_script= g:location_vim_utils . '/tagstospl.py'
+	let g:ctags_output_dir = g:std_data_path . '/ctags/'
+	" Cscope databases and spell files will only be created for the following filetypes
+	let g:ctags_use_spell_for = ['c', 'cpp']
+	let g:ctags_use_cscope_for = ['c', 'cpp', 'java']
+endfunction
