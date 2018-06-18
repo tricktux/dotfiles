@@ -94,7 +94,7 @@ function! s:set_neomake() abort
 	augroup END
 
 	if exists('g:lightline')
-		let g:lightline.active.left[2] += [ 'neomake' ]
+		let g:lightline.active.right[2] += [ 'neomake' ]
 		let g:lightline.component_function['neomake'] = string(function('s:neomake_native_status_line'))
 		" let g:lightline.component_function['neomake'] = 'lightline_neomake#component'
 		" let g:lightline.component_type['neomake'] = 'error'
