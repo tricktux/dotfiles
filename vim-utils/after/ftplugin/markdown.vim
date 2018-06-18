@@ -17,8 +17,9 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	" TODO-[RM]-(Fri Oct 20 2017 08:50): Fix this code commented here below
 	" Encapsulate in markdown file from current line until end of file in ```
 	" nnoremap <buffer> <unique> <LocalLeader>` :normal! o````<CR>```<Esc>
-	nnoremap <buffer> <unique> <LocalLeader>n :call utils#TodoMark()<CR>
-	nnoremap <buffer> <unique> <LocalLeader>N :call utils#TodoClearMark()<CR>
+	nnoremap <buffer> <unique> <LocalLeader>n :call <SID>todo_mark()<CR>
+	nnoremap <buffer> <unique> <LocalLeader>N :call <SID>todo_clear_mark()<CR>
+	nmap <buffer> <localleader>f <plug>focus_toggle
 	inoremap <buffer> * **<Left>
 	" TODO-[RM]-(Fri Oct 20 2017 05:24): Fix this thing here
 	" inoremap <buffer> [ [ ]<Space>
@@ -130,6 +131,14 @@ function! s:preview_browser() abort
 	else
 		execute "!" . g:browser_cmd . " %&"
 	endif
+endfunction
+
+function! s:todo_mark() abort
+	execute "normal! ^f[lrx\<Esc>"
+endfunction
+
+function! s:todo_clear_mark() abort
+	execute "normal! ^f[lr\<Space>\<Esc>"
 endfunction
 
 command! -buffer UtilsWeeklyReportCreate call utils#ConvertWeeklyReport()
