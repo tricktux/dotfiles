@@ -66,7 +66,7 @@ function! s:lightline_config() abort
 	Plug 'itchyny/lightline.vim'
 
 	Plug 'ChesleyTan/wordCount.vim'
-	" Note: Inside of the functions here there can be no single quotes (') only double (")
+
 	if !exists('g:lightline')
 		let g:lightline = {}
 	endif
@@ -83,7 +83,11 @@ function! s:lightline_config() abort
 				\            [ 'filetype' ],
 				\            [ 'word_count' ] ] }
 				\ }
-				" \            [ 'fileformat', 'fileencoding', 'filetype' ] ] }
+
+	let g:lightline.inactive = {
+			\ 'left': [ [ 'filename' ] ],
+			\ 'right': [ [ 'lineinfo' ],
+			\            [ '' ] ] }
 
 	let g:lightline.tabline = {
 				\ 'left': [ ['tabs'] ],
