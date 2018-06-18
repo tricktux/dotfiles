@@ -304,8 +304,9 @@ function! plugin#Config()
 	call s:configure_vim_wordy()
 
 	" TODO-[RM]-(Sun Sep 10 2017 20:26): So far only working on linux
-	Plug 'beloglazov/vim-online-thesaurus', { 'on' : 'OnlineThesaurusCurrentWord' }
-	let g:online_thesaurus_map_keys = 0
+	Plug 'Ron89/thesaurus_query.vim', { 'on' : 'ThesaurusQueryReplaceCurrentWord' }
+	" Very weird and confusing
+		let g:tq_map_keys = 1
 
 	" Autocorrect mispellings on the fly
 	Plug 'panozzaj/vim-autocorrect', { 'for' : 'markdown' }

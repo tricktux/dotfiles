@@ -38,8 +38,8 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 		nnoremap <buffer> <LocalLeader>c :LanguageToolCheck<cr>
 	endif
 
-	if exists(':OnlineThesaurusCurrentWord')
-		nnoremap <buffer> <LocalLeader>a :OnlineThesaurusCurrentWord<cr>
+	if exists(':ThesaurusQueryReplaceCurrentWord')
+		nnoremap <buffer> <LocalLeader>a :ThesaurusQueryReplaceCurrentWord<cr>
 	endif
 
 	if executable('qpdfview')
