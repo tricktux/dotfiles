@@ -60,6 +60,8 @@ function! mappings#Set() abort
 	" Toggle mappings:
 	" - tj, te, ta, tt, tf, ts, to, tn
 	nmap <Leader>tj <Plug>file_browser
+	nmap <leader>tf <plug>focus_toggle
+
 	nmap <s-k> <plug>buffer_browser
 	nmap <c-p> <plug>mru_browser
 	" terminal-emulator mappings
