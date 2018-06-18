@@ -368,8 +368,8 @@ smart_borders on
 #smart_borders no_gaps
 
 # Global gaps settings
-gaps inner 3
-gaps outer 3
+gaps inner 5
+gaps outer 5
 
 # }}}
 
