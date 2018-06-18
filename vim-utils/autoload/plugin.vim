@@ -292,9 +292,8 @@ function! plugin#Config()
 	" in your file
 	Plug 'scrooloose/vim-slumlord', { 'on' : 'UtilsUmlInFilePreview' }
 
-	Plug 'merlinrebrovic/focus.vim', { 'on' : '<Plug>FocusModeToggle' }
-	let g:focus_use_default_mapping = 0
-	nmap <Leader>tf <Plug>FocusModeToggle
+	Plug 'junegunn/goyo.vim', { 'on' : 'Goyo' }
+	nnoremap <plug>focus_toggle :Goyo<cr>
 
 	Plug 'dbmrq/vim-ditto', { 'for' : 'markdown' }
 	let g:ditto_dir = g:std_data_path
@@ -708,7 +707,7 @@ function! s:configure_tagbar() abort
 	" These settings do not use patched fonts
 	" Fri Feb 02 2018 15:38: Its number one thing slowing down vim right now.
 	if exists('g:lightline')
-		let g:lightline.active.left[2] += [ 'tagbar' ]
+		let g:lightline.active.right[2] += [ 'tagbar' ]
 		let g:lightline.component_function['tagbar'] = string(function('s:tagbar_lightline'))
 	endif
 endfunction
@@ -916,13 +915,12 @@ function! s:tabular_align() abort
 endfunction
 
 function! s:configure_caps() abort
-	
 	" Software caps lock. imap <c-l> ToggleSoftwareCaps
 	Plug 'tpope/vim-capslock'
 
 
 	if exists('g:lightline')
-		let g:lightline.active.left[2] += [ 'caps' ]
+		let g:lightline.active.right[2] += [ 'caps' ]
 		let g:lightline.component_function['caps'] = string(function('s:get_caps'))
 		let g:lightline.component_type = {
 	      \   'caps': 'error',
