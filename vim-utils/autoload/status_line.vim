@@ -64,6 +64,8 @@ endfunction
 
 function! s:lightline_config() abort
 	Plug 'itchyny/lightline.vim'
+
+	Plug 'ChesleyTan/wordCount.vim'
 	" Note: Inside of the functions here there can be no single quotes (') only double (")
 	if !exists('g:lightline')
 		let g:lightline = {}
@@ -79,7 +81,7 @@ function! s:lightline_config() abort
 				\						],
 				\ 'right': [ [ 'lineinfo' ],
 				\            [ 'filetype' ],
-				\            [ '' ] ] }
+				\            [ 'word_count' ] ] }
 				\ }
 				" \            [ 'fileformat', 'fileencoding', 'filetype' ] ] }
 
@@ -117,6 +119,8 @@ function! s:lightline_config() abort
 	let g:lightline.component_function['fileformat'] = string(function('s:devicons_fileformat'))
 	let g:lightline.component_function['readonly']   = string(function('s:readonly'))
 	let g:lightline.component_function['spell']        = string(function('s:get_spell'))
+
+	let g:lightline.component_function['word_count'] = string(function('s:get_word_count'))
 
 	let g:lightline.active.left[2] += [ 'ver_control' ]
 	let g:lightline.component_function['ver_control'] = string(function('s:get_version_control'))
@@ -213,4 +217,12 @@ function! status_line#UpdateColorscheme() abort
 		call lightline#update()
 	catch
 	endtry
+endfunction
+
+function! s:get_word_count() abort
+	if !exists('*wordCount#WordCount') || &filetype !=# 'markdown'
+		return ''
+	endif
+
+	return wordCount#WordCount() . ' words'
 endfunction
