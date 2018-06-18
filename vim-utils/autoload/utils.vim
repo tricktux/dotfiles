@@ -169,18 +169,6 @@ function! utils#CheckDirWoPrompt(name) abort
 	return 1
 endfunction
 
-function! utils#TodoCreate() abort
-	execute "normal! ^lli[ ]\<Space>\<Esc>"
-endfunction
-
-function! utils#TodoMark() abort
-	execute "normal! ^f[lrx\<Esc>"
-endfunction
-
-function! utils#TodoClearMark() abort
-	execute "normal! ^f[lr\<Space>\<Esc>"
-endfunction
-
 function! utils#TodoAdd() abort
 	execute "normal! O" . &commentstring[0] . " "
 	execute "normal! ==a TODO-[RM]-(" . strftime("%a %b %d %Y %H:%M") . "): "
@@ -225,7 +213,7 @@ function! utils#OpenTerminal() abort
 	endif
 endfunction
 
-function! utils#Make()
+function! utils#Make() abort
 	let filet = &filetype
 	if filet =~ 'vim'
 		so %
