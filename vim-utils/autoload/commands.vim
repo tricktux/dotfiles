@@ -27,6 +27,8 @@ function! commands#Set() abort
 	command! UtilsFontZoomOut call s:adjust_gui_font('-')
 
 	command! UtilsFileSize call s:get_file_info()
+	command! UtilsEditTmpFile call s:edit_tmp_doc()
+
 	if has('unix')
 		" This mapping will load the journal from the most recent boot and highlight it for you
 		command! UtilsLinuxReadJournal execute("read !journalctl -b<CR><bar>:setf messages<CR>")
@@ -163,7 +165,12 @@ function! s:get_file_info() abort
 	endif
 
 	let mb = bytes * 0.000001
-	let ret = printf('Size of file "%s" = %fMB - %d Bytes', file, mb, bytes)
+	let ret = printf('Size of file "%s" = %f MBytes - %d Bytes', file, mb, bytes)
 	echomsg ret
 	return
+endfunction
+
+function! s:edit_tmp_doc() abort
+	execute 'edit ' . tempname()
+	setlocal filetype=markdown
 endfunction
