@@ -605,7 +605,6 @@ function! utils#UpdateSvnBranchInfo() abort
 	return pot_display
 endfunction
 
-
 function! utils#Grep() abort
 	let msg = 'Searching inside "' . getcwd() . '". Choose:'
 	let choice = "&J<cword>/". &ft . "\n&K<any>/". &ft . "\n&L<cword>/all_files\n&;<any>/all_files"
