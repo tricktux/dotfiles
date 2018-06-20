@@ -115,7 +115,7 @@ function! s:config_unix() abort
 	let wikis = ['~/Seafile/KnowledgeIsPower/wiki', '~/Documents/Seafile/KnowledgeIsPower/wiki']
 	for wiki in wikis
 		if !empty(glob(wiki))
-			let g:wiki_path =  wiki
+			let g:wiki_path =  expand(wiki)
 			let g:valid_device = 1
 			break
 		endif
