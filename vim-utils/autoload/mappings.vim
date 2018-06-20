@@ -375,6 +375,7 @@ function! mappings#Set() abort
 	" TODO.RM-Thu Dec 15 2016 16:00: Add support for wiki under SW-Testbed
 	nnoremap <Leader>wt :call <SID>wiki_open('TODO.md')<cr>
 	nnoremap <Leader>wo :call <SID>wiki_open()<cr>
+	nnoremap <Leader>wa :call <SID>wiki_add()<cr>
 	nnoremap <Leader>ws :call utils#WikiSearch()<cr>
 	nnoremap <Leader>wm :call utils#MastersDropboxOpen('')<cr>
 
@@ -581,4 +582,47 @@ function! s:wiki_open(...) abort
 			silent! execute "cd " . dir
 		endif
 	endif
+endfunction
+
+function! s:wiki_add() abort
+	if !exists('g:wiki_path') || empty(glob(g:wiki_path))
+		echoerr 'Variable g:wiki_path not set or path doesnt exist'
+		return
+	endif
+
+	let cwd = getcwd()
+	execute 'lcd ' . g:wiki_path
+	let new_wiki = input('Please enter name for new wiki:', '', 'file')
+
+	if empty(new_wiki)
+		return
+	endif
+
+	let splitter = has('unix') ? '/' : '\'
+
+	if new_wiki[0] !=# splitter
+		let new_wiki = splitter . new_wiki
+	endif
+
+	let new_wiki = g:wiki_path . new_wiki
+	if &verbose > 0
+		echomsg printf('[wiki_add]: new_wiki = "%s"', new_wiki)
+	endif
+
+	" Find passed dir
+	let last_folder = strridx(new_wiki, splitter)
+	let new_folder = new_wiki[0:last_folder-1]
+	if &verbose > 0
+		echomsg printf('[wiki_add]: new_folder = "%s"', new_folder)
+	endif
+
+	if !isdirectory(new_folder)
+		if &verbose > 0
+			echomsg printf('[wiki_add]: Created new folder = "%s"', new_folder)
+		endif
+		call mkdir(new_folder, 'p')
+	endif
+
+	execute 'lcd ' . cwd
+	execute 'edit ' . new_wiki
 endfunction
