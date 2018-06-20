@@ -198,7 +198,7 @@ function! s:create_cscope_files(type_specific) abort
 	" Cscope db are not being created properly therefore making cscope.files filetype specific no matter what
 	let files_cmd = 'rg ' . (!has('unix') ? '--path-separator /' : '') .
 				\ (a:type_specific == 1 ? ' -t ' . rg_ft : '') .
-				\ ' --files ' . getcwd() .' > ' . s:files_list
+				\ ' --files "' . getcwd() .'" > ' . s:files_list
 
 	if &verbose > 0
 		echomsg string(files_cmd)
@@ -408,6 +408,7 @@ function! s:get_folder_tag_name(folder) abort
 	" Create unique tag file name based on cwd
 	let tag_name = substitute(a:folder, "\\", '_', 'g')
 	let tag_name = substitute(tag_name, ':', '_', 'g')
+	let tag_name = substitute(tag_name, ' ', '_', 'g')
 	return substitute(tag_name, "/", '_', 'g')
 endfunction
 
