@@ -193,24 +193,24 @@ function! mappings#Set() abort
 	nnoremap ]c ]czz
 	nnoremap [c [czz
 
-	nnoremap ]y :silent call <SID>yank_from('+')<cr>
-	nnoremap [y :silent call <SID>yank_from('-')<cr>
+	nnoremap <silent> ]y :call <SID>yank_from('+')<cr>
+	nnoremap <silent> [y :call <SID>yank_from('-')<cr>
 
-	nnoremap ]d :silent call <SID>delete_line('+')<cr>
-	nnoremap [d :silent call <SID>delete_line('-')<cr>
+	nnoremap <silent> ]d :call <SID>delete_line('+')<cr>
+	nnoremap <silent> [d :call <SID>delete_line('-')<cr>
 
-	nnoremap ]o :silent call <SID>comment_line('+')<cr>
-	nnoremap [o :silent call <SID>comment_line('-')<cr>
+	nnoremap <silent> ]o :call <SID>comment_line('+')<cr>
+	nnoremap <silent> [o :call <SID>comment_line('-')<cr>
 
-	nnoremap ]m :m +1<cr>
-	nnoremap [m :m -2<cr>
+	nnoremap <silent> ]m :m +1<cr>
+	nnoremap <silent> [m :m -2<cr>
 
 	" Quickfix and Location stuff
-	nnoremap <silent> <s-q> :silent call quickfix#ToggleList("Quickfix List", 'c')<cr>
+	nnoremap <silent> <s-q> :call quickfix#ToggleList("Quickfix List", 'c')<cr>
 	nnoremap ]q :cnext<cr>
 	nnoremap [q :cprevious<cr>
 
-	nnoremap <s-u> :silent call quickfix#ToggleList("Location List", 'l')<cr>
+	nnoremap <silent> <s-u> :call quickfix#ToggleList("Location List", 'l')<cr>
 	nnoremap ]l :lnext<cr>
 	nnoremap [l :lprevious<cr>
 	nnoremap Y y$
@@ -219,8 +219,8 @@ function! mappings#Set() abort
 	nnoremap [t <c-t>
 	" Split window and jump to tag
 	" nnoremap ]T :exec 'ptag ' . expand('<cword>')<cr><c-w>R
-	nnoremap ]T :silent call <SID>goto_tag_on_next_win('l')<cr>
-	nnoremap [T :silent call <SID>goto_tag_on_next_win('h')<cr>
+	nnoremap <silent> ]T :call <SID>goto_tag_on_next_win('l')<cr>
+	nnoremap <silent> [T :call <SID>goto_tag_on_next_win('h')<cr>
 
 	" Capital F because [f is go to file and this is rarely used
 	" ]f native go into file.
@@ -230,8 +230,8 @@ function! mappings#Set() abort
 	nnoremap <silent> [F :call <SID>goto_file_on_next_win('h')<cr>
 
 	" Create an undo break point. Mark current possition. Go to word. Fix and come back.
-	nnoremap ]S :normal! i<c-g>u<esc>mm]s1z=`m<cr>
-	nnoremap [S :normal! i<c-g>u<esc>mm[s1z=`m<cr>
+	nnoremap <silent> ]S :normal! i<c-g>u<esc>mm]s1z=`m<cr>
+	nnoremap <silent> [S :normal! i<c-g>u<esc>mm[s1z=`m<cr>
 
 	" decrease number
 	nnoremap <S-x> <c-x>

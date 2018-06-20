@@ -598,13 +598,12 @@ function! utils#UpdateSvnBranchInfo() abort
 
 	" echomsg 'here 2'
 
-	if strlen(pot_display) > 20
-		return pot_display[0:20] . '...'
+	if strlen(pot_display) > 15
+		return '...' . pot_display[-15:-2]
 	endif
 
 	return pot_display
 endfunction
-
 
 function! utils#Grep() abort
 	let msg = 'Searching inside "' . getcwd() . '". Choose:'

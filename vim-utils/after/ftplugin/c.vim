@@ -102,4 +102,4 @@ endfunction
 call <SID>set_compiler_and_others()
 
 " Setup AutoHighlight
-call utils#AutoHighlight()
+" call utils#AutoHighlight()

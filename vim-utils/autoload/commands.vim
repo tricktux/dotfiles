@@ -12,6 +12,22 @@ function! commands#Set() abort
 	command! UtilsFileFormat2Unix call s:convert_line_ending_to_unix()
 	command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
 				\ | wincmd p | diffthis
+	command! -nargs=+ -complete=command UtilsCaptureCmdOutput call s:capture_cmd_out(<f-args>)
+	command! UtilsProfile call s:profile_performance()
+	command! UtilsDiffSet call s:set_diff()
+	command! UtilsDiffOff call s:unset_diff()
+	command! UtilsDiffReset call s:unset_diff()<bar>call s:set_diff()
+	" Convert fileformat to dos
+	command! UtilsNerdComAltDelims execute("normal \<Plug>NERDCommenterAltDelims")
+	command! UtilsPdfSearch call s:search_pdf()
+
+	" These used to be ]F [F mappings but they are not so popular so moving them to
+	" commands
+	command! UtilsFontZoomIn call s:adjust_gui_font('+')
+	command! UtilsFontZoomOut call s:adjust_gui_font('-')
+
+	command! UtilsFileSize call s:get_file_info()
+	command! UtilsEditTmpFile call s:edit_tmp_doc()
 
 	if has('unix')
 		" This mapping will load the journal from the most recent boot and highlight it for you
@@ -29,21 +45,9 @@ function! commands#Set() abort
 
 	" Convention: All commands names need to start with the autoload file name.
 	" And use camel case. This way is easier to search
-	command! -nargs=+ -complete=command UtilsCaptureCmdOutput call s:capture_cmd_out(<f-args>)
-	command! UtilsProfile call s:profile_performance()
-	command! UtilsDiffSet call s:set_diff()
-	command! UtilsDiffOff call s:unset_diff()
-	command! UtilsDiffReset call s:unset_diff()<bar>call s:set_diff()
-	" Convert fileformat to dos
-	command! UtilsNerdComAltDelims execute("normal \<Plug>NERDCommenterAltDelims")
-	command! UtilsPdfSearch call s:search_pdf()
 	command! UtilsTagLoadCurrFolder call ctags#LoadCscopeDatabse()
 	command! UtilsTagUpdateCurrFolder call ctags#NvimSyncCtags()
 
-	" These used to be ]F [F mappings but they are not so popular so moving them to
-	" commands
-	command! UtilsFontZoomIn call s:adjust_gui_font('+')
-	command! UtilsFontZoomOut call s:adjust_gui_font('-')
 endfunction
 
 function! s:capture_cmd_out(...) abort
@@ -146,4 +150,27 @@ function! s:convert_line_ending_to_unix() abort
 	edit ++ff=dos
 	setlocal fileformat=unix
 	write
+endfunction
+
+function! s:get_file_info() abort
+	let file = expand('%')
+	let bytes = getfsize(file)
+
+	if bytes < 0
+		echomsg 'Error getting size of file: ' . file
+		return bytes
+	elseif bytes == 0
+		echomsg 'Size of file: ' . file . 'is zero.'
+		return
+	endif
+
+	let mb = bytes * 0.000001
+	let ret = printf('Size of file "%s" = %f MBytes - %d Bytes', file, mb, bytes)
+	echomsg ret
+	return
+endfunction
+
+function! s:edit_tmp_doc() abort
+	execute 'edit ' . tempname()
+	setlocal filetype=markdown
 endfunction

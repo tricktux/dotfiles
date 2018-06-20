@@ -110,11 +110,11 @@ function! s:lightline_config() abort
 		" let g:lightline.subseparator['right'] = ''
 
 		let g:lightline.component = {}
-		let g:lightline.component['lineinfo'] = ' %p%%:%-2v'
+		let g:lightline.component['lineinfo'] = ' %p%%/%L:%-2v'
 		let g:lightline.component['filename'] = "\uf02d %t"
 	else
 		let g:lightline.component = {}
-		let g:lightline.component['lineinfo'] = '%p%%:%-2v'
+		let g:lightline.component['lineinfo'] = '%p%%/%L:%-2v'
 		let g:lightline.component['filename'] = "%t"
 	endif
 
@@ -122,12 +122,14 @@ function! s:lightline_config() abort
 	let g:lightline.component_function['filetype']   = string(function('s:devicons_filetype'))
 	let g:lightline.component_function['fileformat'] = string(function('s:devicons_fileformat'))
 	let g:lightline.component_function['readonly']   = string(function('s:readonly'))
-	let g:lightline.component_function['spell']        = string(function('s:get_spell'))
+	let g:lightline.component_function['spell']      = string(function('s:get_spell'))
 
 	let g:lightline.component_function['word_count'] = string(function('s:get_word_count'))
 
 	let g:lightline.active.left[2] += [ 'ver_control' ]
 	let g:lightline.component_function['ver_control'] = string(function('s:get_version_control'))
+
+	" 0.000001*bytes = mb
 endfunction
 
 function! s:get_spell() abort
