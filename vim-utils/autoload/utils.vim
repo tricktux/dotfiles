@@ -697,7 +697,7 @@ function! utils#UpdateBorlandMakefile() abort
 		return -3
 	endif
 
-	call job_start(['bpr2mak', '-omakefile', 'WINGS.bpr'])
+	execute "call " . (has('nvim') ? 'jobstart' : 'job_start') . "(['bpr2mak', '-omakefile', 'WINGS.bpr'])"
 endfunction
 
 function! utils#AutoHighlight() abort
