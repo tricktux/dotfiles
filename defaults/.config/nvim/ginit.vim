@@ -12,59 +12,79 @@
 " Guifont Incosolata for Powerline:h10
 " Guifont! Consolas:h9
 " Guifont! FontAwesome:h9
+function! s:win_nvim_ugly_font() abort
+	Guifont! Consolas:h9
+	call GuiWindowMaximized(1)
+endfunction
+
+function! s:win_nvim_nice_font() abort
+	" let g:GuiFont ='DejaVuSansMonoForPowerline Nerd:h9'
+	" let g:GuiFont ='SauceCodePro Nerd Font Mono:h9'
+	let g:GuiFont ='UbuntuMono NF:h10'
+	" let g:GuiFont ='DejaVuSansMono NF:h9'
+	" let g:GuiFont ='FuraCode NF:h8'
+	execute 'Guifont! ' . g:GuiFont
+endfunction
+
+function! s:win_gvim_ugly_font() abort
+	set guifont=consolas:h8
+	call s:set_gvim_guioptions()
+endfunction
+
+function! s:win_gvim_nice_font() abort
+	set guifont=consolas:h8
+	call s:set_gvim_guioptions()
+endfunction
+
+function! s:unix_nvim_ugly_font() abort
+	let g:GuiFont ='Monospace:h9'
+	execute 'Guifont! ' . g:GuiFont
+	call GuiWindowMaximized(1)
+endfunction
+
+function! s:unix_nvim_nice_font() abort
+	let g:GuiFont ='DejaVu Sans Mono:h10'
+	execute 'Guifont! ' . g:GuiFont
+endfunction
+
+function! s:unix_gvim_ugly_font() abort
+	set guifont=Consolas:h8
+	call s:set_gvim_guioptions()
+endfunction
+
+function! s:unix_gvim_nice_font() abort
+	set guifont =DejaVu\ Sans\ Mono\ 14
+	call s:set_gvim_guioptions()
+endfunction
+
+function! s:set_gvim_guioptions() abort
+	set guioptions-=T  " no toolbar
+	set guioptions-=m  " no menu bar
+	set guioptions-=r  " no right scroll bar
+	set guioptions-=l  " no left scroll bar
+	set guioptions-=L  " no side scroll bar
+	set guioptions+=c  " no pop ups
+	set showtabline=1		" do not show tabline
+endfunction
+
 function! SetGui() abort
-	if has('win32')
-		if exists('g:GuiLoaded') " nvim-qt gui
-
-			if !exists('g:valid_device')
-				Guifont! Consolas:h9
-				return
-			endif
-
-			let g:GuiFont ='DejaVuSansMonoForPowerline Nerd:h8'
-			execute 'Guifont! ' . g:GuiFont
-			call GuiWindowMaximized(1)
-			call GuiMousehide(1)
-		else
-			if !exists('g:valid_device')
-				set guifont=consolas:h8
-				return
-			endif
-
-			" No space is required here
-			set guifont=DejaVuSansMonoForPowerline_Nerd:h8:cANSI:qDRAFT
-		endif
-		return
-	endif
-
-	if exists('g:GuiLoaded') " nvim-qt gui
-		if !exists('g:valid_device')
-			let g:GuiFont ='Monospace:h9'
-			return
-		endif
-
-		let g:GuiFont ='DejaVu Sans Mono:h10'
-		execute 'Guifont! ' . g:GuiFont
-		call GuiMousehide(1)
-
-	else
-		if !exists('g:valid_device')
-			set guifont=Consolas:h8
-			return
-		endif
-
-		set guifont =DejaVu\ Sans\ Mono\ 14
-		" only for GTK and X11 gvim guis
-		set guiheadroom=0
+	if has('unix') && exists('g:GuiLoaded') && !exists('g:valid_device')
+		return s:unix_nvim_ugly_font()
+	elseif has('unix') && exists('g:GuiLoaded') && exists('g:valid_device')
+		return s:unix_nvim_nice_font()
+	elseif has('unix') && !exists('g:GuiLoaded') && !exists('g:valid_device')
+		return s:unix_gvim_ugly_font()
+	elseif has('unix') && !exists('g:GuiLoaded') && exists('g:valid_device')
+		return s:unix_gvim_nice_font()
+	elseif has('win32') && exists('g:GuiLoaded') && !exists('g:valid_device')
+		return s:win_nvim_ugly_font()
+	elseif has('win32') && exists('g:GuiLoaded') && exists('g:valid_device')
+		return s:win_nvim_nice_font()
+	elseif has('win32') && !exists('g:GuiLoaded') && !exists('g:valid_device')
+		return s:win_gvim_ugly_font()
+	elseif has('win32') && !exists('g:GuiLoaded') && exists('g:valid_device')
+		return s:win_gvim_nice_font()
 	endif
 endfunction
 
-set guioptions-=T  " no toolbar
-set guioptions-=m  " no menu bar
-set guioptions-=r  " no right scroll bar
-set guioptions-=l  " no left scroll bar
-set guioptions-=L  " no side scroll bar
-set guioptions+=c  " no pop ups
-set showtabline=1		" do not show tabline
 call SetGui()
-
