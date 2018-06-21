@@ -65,7 +65,7 @@ function! plugin#Config()
 
 	" Possible values:
 	" - chromatica easytags neotags color_coded clighter8
-	call cpp_highlight#Set(has('nvim') ? 'neotags' : '')
+	call cpp_highlight#Set(has('nvim') && has('unix') ? 'neotags' : '')
 
 	" Possible values:
 	" - neomake ale
