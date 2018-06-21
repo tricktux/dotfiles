@@ -719,7 +719,7 @@ function! s:tagbar_lightline() abort
 		return ''
 	endtry
 	return empty(ret) ? '' :
-				\ (exists('g:valid_device') ? "\uf02b" : '')
+				\ (exists('g:valid_device') ? "\uf02c" : '')
 				\ . ' ' . ret
 endfunction
 
