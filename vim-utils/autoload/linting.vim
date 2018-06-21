@@ -117,25 +117,19 @@ endfunction
 
 function! s:neomake_native_status_line() abort
 	return neomake#statusline#get(bufnr("%"), {
-				\ 'format_running':
-				\ (exists('g:valid_device') ? "\uf188" : '')
-				\ .' {{running_job_names}} ' .
-				\ (exists('g:valid_device') ? "\uf0e4" : ''),
-				\ 'format_quickfix_issues':
-				\ (exists('g:valid_device') ? "\uf188" : '') .' qf:%s',
-				\ 'format_quickfix_type_E': ' {{type}}:{{count}}',
-				\ 'format_quickfix_type_W': ' {{type}}:{{count}}',
-				\ 'format_quickfix_type_I': ' {{type}}:{{count}}',
-				\ 'format_loclist_issues':
-				\ (exists('g:valid_device') ? "\uf188" : '')
-				\ .' loc:%s',
-				\ 'format_loclist_type_E': ' {{type}}:{{count}}',
-				\ 'format_loclist_type_W': ' {{type}}:{{count}}',
-				\ 'format_loclist_type_I': ' {{type}}:{{count}}',
-				\ 'format_loclist_ok':
-				\ (exists('g:valid_device') ? "\uf188" : '')
-				\ .' loc: ✓',
+				\ 'format_running': (exists('g:valid_device') ? "\uf188" : '') .
+				\ ' {{running_job_names}} ' . (exists('g:valid_device') ? "\uf0e4" : ''),
+				\ 'format_quickfix_issues': (exists('g:valid_device') ? "\uf188" : '') . ' qf:%s',
 				\ 'format_quickfix_ok': '',
+				\ 'format_quickfix_type_E': (exists('g:valid_device') ? " \uf057" : '{{type}}') . ':{{count}}',
+				\ 'format_quickfix_type_W': (exists('g:valid_device') ? " \uf071" : '{{type}}') . ':{{count}}',
+				\ 'format_quickfix_type_I': (exists('g:valid_device') ? " \uf449" : '{{type}}') . ':{{count}}',
+				\ 'format_loclist_issues': (exists('g:valid_device') ? "\uf188" : ''). ' loc:%s',
+				\ 'format_loclist_type_E': (exists('g:valid_device') ? " \uf188" : '{{type}}') . ':{{count}}',
+				\ 'format_loclist_type_W': (exists('g:valid_device') ? " \uf071" : '{{type}}') . ':{{count}}',
+				\ 'format_loclist_type_I': (exists('g:valid_device') ? " \uf449" : '{{type}}') . ':{{count}}',
+				\ 'format_loclist_ok': (exists('g:valid_device') ? "\uf188" : '').
+				\ ' loc: ' . (exists('g:valid_device') ? "\uf058" : 'ok'),
 				\ 'format_loclist_unknown': '',
 				\ })
 endfunction
