@@ -26,7 +26,7 @@ function! augroup#Set() abort
 
 		autocmd FileType markdown setlocal conceallevel=0 wrap spell
 					\ foldenable  complete+=kspell ts=2 sw=2 sts=2
-					\ comments+=b:-,b:* spelllang=en_us tw=0
+					\ comments+=b:-,b:* spelllang=en_us tw=0 formatoptions+=aw
 
 		autocmd FileType vim setlocal tabstop=2 shiftwidth=2 softtabstop=2 nospell
 
