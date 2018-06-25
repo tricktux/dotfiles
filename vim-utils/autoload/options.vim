@@ -194,7 +194,8 @@ function! options#Set() abort
 	" options.vim
 	" Grep
 	" Fri Mar 23 2018 18:10: Substituted by vim-gprepper plugin
-	" call s:set_grep()
+	" Mon Jun 25 2018 14:08: vim-gprepper not working well on windows with neovim-qt 
+	call s:set_grep()
 
 	" Undofiles
 	let undofiles_path = g:std_cache_path . '/undofiles'

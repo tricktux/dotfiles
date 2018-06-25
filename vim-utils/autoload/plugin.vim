@@ -373,11 +373,12 @@ function! plugin#Config()
 	Plug 'bronson/vim-trailing-whitespace'
 	let g:extra_whitespace_ignored_filetypes = ['markdown']
 
-	Plug 'mhinz/vim-grepper'
-	if exists('g:lightline')
-		let g:lightline.active.left[2] += [ 'grepper' ]
-		let g:lightline.component_function['grepper'] = 'grepper#statusline'
-	endif
+	" Mon Jun 25 2018 14:19: Depricating this in favor of custom made 
+	" Plug 'mhinz/vim-grepper'
+	" if exists('g:lightline')
+		" let g:lightline.active.left[2] += [ 'grepper' ]
+		" let g:lightline.component_function['grepper'] = 'grepper#statusline'
+	" endif
 
 	" Plug 'jalvesaq/Nvim-R'
 	" Tue Apr 24 2018 14:40: Too agressive with mappings. Very hard to get it to work.
