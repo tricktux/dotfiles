@@ -43,7 +43,6 @@ function! augroup#Set() abort
 	" autocmd BufWinEnter,Syntax * syn sync minlines=80 maxlines=80
 	" augroup END
 
-
 	if exists("g:loaded_plugins")
 		augroup VimType
 			autocmd!
