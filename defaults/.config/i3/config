@@ -319,6 +319,7 @@ bindsym $mod+Shift+0 move container to workspace $workspace10
 		for_window [class="Pavucontrol"] floating enable
 		for_window [class="Blueberry.py"] floating enable
 		for_window [window_role="toolbox_window"] floating enable
+		for_window [class="Variety"] floating enable
 
 # My-own
 		for_window [class="Seafile Client"] floating enable
