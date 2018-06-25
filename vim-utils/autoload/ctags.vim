@@ -49,7 +49,7 @@ function! ctags#NvimSyncCtags() abort
 	endif
 
 	" Create spelllang as well
-	call s:create_spell_from_tags(tag_name)
+	" call s:create_spell_from_tags(tag_name)
 
 	call s:create_cscope(tag_name)
 endfunction
@@ -98,11 +98,11 @@ function! ctags#NvimAsyncCtags() abort
 	" set tags+=.tags
 endfunction
 
-function! s:vim_ft_to_rg_ft(ft) abort
-	let rg_ft = a:ft
-	if a:ft ==? 'vim'
+function! ctags#VimFt2RgFt() abort
+	let rg_ft = &filetype
+	if rg_ft ==? 'vim'
 		let rg_ft = 'vimscript'
-	elseif a:ft ==? 'python'
+	elseif rg_ft ==? 'python'
 		let rg_ft = 'py'
 	endif
 	return rg_ft
@@ -194,7 +194,7 @@ function! s:create_cscope_files(type_specific) abort
 		return
 	endif
 
-	let rg_ft = s:vim_ft_to_rg_ft(&filetype)
+	let rg_ft = ctags#VimFt2RgFt()
 	" Cscope db are not being created properly therefore making cscope.files filetype specific no matter what
 	let files_cmd = 'rg ' . (!has('unix') ? '--path-separator /' : '') .
 				\ (a:type_specific == 1 ? ' -t ' . rg_ft : '') .
@@ -290,7 +290,7 @@ function! ctags#LoadCscopeDatabse() abort
 
 	call s:load_cscope_db(tag_name . '.out')
 
-	call s:load_tag_spelllang(tag_name)
+	" call s:load_tag_spelllang(tag_name)
 endfunction
 
 function! s:add_tags(tags_name) abort
