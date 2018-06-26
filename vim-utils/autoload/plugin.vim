@@ -258,7 +258,6 @@ function! plugin#Config()
 	endif
 
 	Plug 'vim-pandoc/vim-pandoc', { 'on' : 'Pandoc' }
-	Plug 'vim-pandoc/vim-pandoc-syntax', { 'on' : 'Pandoc' }
 	" You might be able to get away with xelatex in unix
 	let g:pandoc#command#latex_engine = 'pdflatex'
 	let g:pandoc#folding#fdc=0
@@ -266,6 +265,13 @@ function! plugin#Config()
 	" Pandoc pdf --template eisvogel --listings
 	" PandocTemplate save eisvogel
 	" Pandoc #eisvogel
+
+	Plug 'vim-pandoc/vim-pandoc-syntax', { 'for' : 'markdown' }
+	let g:pandoc#syntax#conceal#use = 0
+	let g:pandoc#syntax#codeblocks#embeds#langs = [ "latex=tex" ]
+	augroup pandoc_syntax
+		au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+	augroup END
 
 	" Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
 	Plug 'matze/vim-ini-fold', { 'for': 'dosini' }
