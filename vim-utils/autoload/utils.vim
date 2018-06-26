@@ -418,7 +418,10 @@ function! utils#ChangeColors(scheme, background) abort
 	" Restoring these after colorscheme. Because some of them affect by the colorscheme
 	call highlight#SetAll('IncSearch',	{ 'bg': color })
 	call highlight#SetAll('Search', { 'fg' : g:yellow, 'deco' : 'bold', 'bg' : g:turquoise4 })
-	call highlight#Set('Comment', { 'deco' : 'italic' })
+	" Tue Jun 26 2018 14:00: Italics fonts on neovim-qt on windows look bad
+	if has('unix') || has('gui_running')
+		call highlight#Set('Comment', { 'deco' : 'italic' })
+	endif
 
 	" If using the lightline plugin then update that as well
 	" this could cause trouble if lightline does not that colorscheme
