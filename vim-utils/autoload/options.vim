@@ -366,5 +366,15 @@ function! s:set_syntax() abort
 	" Never load netrw
 	let g:loaded_netrw       = 1
 	let g:loaded_netrwPlugin = 1
+
+	" VIM
+	let g:vimsyn_embed = 'lPr'  " support embedded lua, python and ruby
+	let g:vimsyn_folding = 'afp' "fold augroups functions and python script
+
+	" Latex
+	let g:tex_fold_enabled=1
+	let g:tex_comment_nospell= 1
+	let g:tex_verbspell= 0
+	let g:tex_conceal=''
 endfunction
 
