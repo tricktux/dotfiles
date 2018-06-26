@@ -20,9 +20,9 @@ endfunction
 function! s:win_nvim_nice_font() abort
 	" let g:GuiFont ='DejaVuSansMonoForPowerline Nerd:h9'
 	" let g:GuiFont ='SauceCodePro Nerd Font Mono:h9'
-	let g:GuiFont ='UbuntuMono NF:h11'
+	" let g:GuiFont ='UbuntuMono NF:h11'
 	" let g:GuiFont ='DejaVuSansMono NF:h9'
-	" let g:GuiFont ='FuraCode NF:h8'
+	let g:GuiFont ='FuraCode Nerd Font Mono:h10'
 	execute 'Guifont! ' . g:GuiFont
 endfunction
 
