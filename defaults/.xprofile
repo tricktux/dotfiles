@@ -17,6 +17,8 @@ export EMAIL="rmolin88@gmail.com"
 # Thu Feb 01 2018 05:21: For oracle database crap for school
 export ORACLE_HOME=/home/reinaldo/app/reinaldo/product/12.2.0/client_1
 
+export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
+
 # Thu Feb 22 2018 08:59: Can't figure out how to set locale properly on arch. Result:
 # Wed May 02 2018 04:57: Not needed anymore
 # export LANG=en_US.UTF-8
