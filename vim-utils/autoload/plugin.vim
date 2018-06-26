@@ -282,14 +282,14 @@ function! plugin#Config()
 	call s:configure_tabular()
 
 	" This plugin depends on 'godlygeek/tabular'
-	Plug 'plasticboy/vim-markdown', { 'for' : 'markdown' }
-	let g:vim_markdown_no_default_key_mappings = 1
-	let g:vim_markdown_toc_autofit = 1
-	let g:tex_conceal = ''
-	let g:vim_markdown_math = 1
-	let g:vim_markdown_folding_level = 2
-	let g:vim_markdown_frontmatter = 1
-	let g:vim_markdown_new_list_item_indent = 0
+	" Plug 'plasticboy/vim-markdown', { 'for' : 'markdown' }
+	" let g:vim_markdown_no_default_key_mappings = 1
+	" let g:vim_markdown_toc_autofit = 1
+	" let g:tex_conceal = ''
+	" let g:vim_markdown_math = 1
+	" let g:vim_markdown_folding_level = 2
+	" let g:vim_markdown_frontmatter = 1
+	" let g:vim_markdown_new_list_item_indent = 0
 
 	" Sun Sep 10 2017 20:44 Depends on plantuml being installed
 	" If you want dont want to image preview after loading the plugin put the
