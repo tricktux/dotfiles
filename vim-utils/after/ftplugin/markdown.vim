@@ -17,8 +17,8 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	" TODO-[RM]-(Fri Oct 20 2017 08:50): Fix this code commented here below
 	" Encapsulate in markdown file from current line until end of file in ```
 	" nnoremap <buffer> <unique> <LocalLeader>` :normal! o````<CR>```<Esc>
-	nnoremap <buffer> <unique> <LocalLeader>n :call <SID>todo_mark()<CR>
-	nnoremap <buffer> <unique> <LocalLeader>N :call <SID>todo_clear_mark()<CR>
+	nnoremap <silent> <buffer> <unique> <LocalLeader>n :call <SID>todo_mark()<CR>
+	nnoremap <silent> <buffer> <unique> <LocalLeader>N :call <SID>todo_clear_mark()<CR>
 	nmap <buffer> <localleader>f <plug>focus_toggle
 	inoremap <buffer> * **<Left>
 	" TODO-[RM]-(Fri Oct 20 2017 05:24): Fix this thing here
@@ -44,11 +44,11 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	endif
 
 	if executable('qpdfview')
-		nnoremap <buffer> <Plug>preview :silent !qpdfview --unique --quiet %:r.pdf&<cr>
+		nnoremap <silent> <buffer> <Plug>preview :!qpdfview --unique --quiet %:r.pdf&<cr>
 	endif
 
 	if executable('SumatraPDF')
-		nnoremap <buffer> <Plug>preview :silent !SumatraPDF %:r.pdf<cr>
+		nnoremap <silent> <buffer> <Plug>preview :!SumatraPDF %:r.pdf<cr>
 	endif
 endif
 
