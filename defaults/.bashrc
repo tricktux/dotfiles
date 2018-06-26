@@ -64,21 +64,28 @@ fi
 # Exports
 # Man settings
 export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:/usr/man
-export MANPAGER="nvim -c 'set ft=man' -"
+# export MANPAGER="nvim -c 'set ft=man' -"
 
 # Creating local bin folder
 # Keep in mind your bin preceeds /usr/bin
 export PATH=$HOME/.local/bin:$PATH
 
 # Depends on nvr being installed
-# if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
-	# export VISUAL="nvr -cc tabedit --remote-wait +'set bufhidden=wipe'"
-# else
-	# export VISUAL="nvim"
-# fi
+# Mon Jun 25 2018 21:51: Basically what this does is to ensure a unique global instance
+# of neovim. No matter from where you call nvim. If there is one open it will open files
+# there. the original option looked like this:
+# export VISUAL="nvr -cc tabedit --remote-wait +'set bufhidden=wipe'"
+# However, that wipe will delete the buffer if you exit it. I dont like that.
+if [[ -n "$NVIM_LISTEN_ADDRESS" && -f "$HOME/.local/bin/nvr" ]]; then
+	export VISUAL="nvr -s $@"
+else
+	export VISUAL="nvim"
+fi
+# Allow me to have multiple instances
 # alias nvim="$VISUAL"
-export VISUAL=nvim
+# export VISUAL=nvim
 export EDITOR=$VISUAL
+
 
 # Ranger load only ~/.config/ranger/rc.conf
 export RANGER_LOAD_DEFAULT_RC=FALSE

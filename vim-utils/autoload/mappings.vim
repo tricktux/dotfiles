@@ -84,6 +84,9 @@ function! mappings#Set() abort
 	nmap <LocalLeader>s <plug>search_grep
 	xmap <LocalLeader>s <plug>search_grep
 
+	nnoremap <silent> <plug>search_grep :call <SID>grep()<cr>
+	xnoremap <silent> <plug>search_grep :call <SID>grep()<cr>
+
 	nmap <LocalLeader>k <plug>make_project
 	nmap <LocalLeader>j <plug>make_file
 	nmap <LocalLeader>c <plug>make_check
@@ -626,3 +629,72 @@ function! s:wiki_add() abort
 	execute 'lcd ' . cwd
 	execute 'edit ' . new_wiki
 endfunction
+
+" Use current 'grepprg' to search files for text
+"		filteype - Possible values: 1 - Search only files of type 'filetype'. Any
+"								other value search all types of values
+"		word - Possible values: 1 - Search word under the cursor. Otherwise prompt
+"		for search word
+function! s:filetype_search(filetype, word) abort
+	let grep_engine = &grepprg
+
+	if a:word == 1
+		let search = expand("<cword>")
+	else
+		let search = input("Please enter search word:")
+	endif
+
+	if grep_engine =~# 'rg'
+		let file_type_search = '-t ' . ctags#VimFt2RgFt()
+	elseif grep_engine =~# 'ag'
+		let file_type_search = '--' . &filetype
+	else
+		" If it is not a recognized engine do not do file type search
+		exe ":grep! " . search
+		if &verbose > 0
+			echomsg printf("grepprg = %s", grep_engine)
+			echomsg printf("filetype search = %d", a:filetype)
+			echomsg printf("file_type_search = %s", file_type_search)
+			echomsg printf("search word = %s", search)
+			echomsg printf("cwd = %s", getcwd())
+		endif
+		copen 20
+		return
+	endif
+
+	if a:filetype == 1
+		exe ":silent grep! " . file_type_search . ' ' . search
+	else
+		exe ":silent grep! " . search
+	endif
+
+	copen 20
+	if &verbose > 0
+		echomsg printf("grepprg = %s", grep_engine)
+		echomsg printf("filetype search = %d", a:filetype)
+		echomsg printf("file_type_search = %s", file_type_search)
+		echomsg printf("search word = %s", search)
+		echomsg printf("cwd = %s", getcwd())
+	endif
+endfunction
+
+function! s:grep() abort
+	let msg = 'Searching inside "' . getcwd() . '". Choose:'
+	let choice = "&J<cword>/". &ft . "\n&K<any>/". &ft . "\n&L<cword>/all_files\n&;<any>/all_files"
+	let c = confirm(msg, choice, 1)
+
+	if c == 1
+		" Search '&filetype' type of files, and word under the cursor
+		call s:filetype_search(1, 1)
+	elseif c == 2
+		" Search '&filetype' type of files, and prompt for search word
+		call s:filetype_search(1, 8)
+	elseif c == 3
+		" Search all type of files, and word under the cursor
+		call s:filetype_search(8, 1)
+	else
+		" Search all type of files, and prompt for search word
+		call s:filetype_search(8, 8)
+	endif
+endfunction
+
