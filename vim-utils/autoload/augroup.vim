@@ -16,17 +16,17 @@ function! augroup#Set() abort
 		autocmd FileType nerdtree setlocal relativenumber
 		" Set omnifunc for all others 									" not showing
 		autocmd FileType cs compiler msbuild
-		" Latex
-		autocmd FileType tex setlocal spell spelllang=en_us
-		autocmd FileType tex compiler tex
+
 		" Display help vertical window not split
 		autocmd FileType help wincmd L
 		autocmd FileType help nnoremap <buffer> q :helpc<cr>
 		autocmd FileType help setlocal relativenumber
 
-		autocmd FileType markdown setlocal conceallevel=0 wrap spell
+		autocmd FileType tex,markdown setlocal conceallevel=0 wrap spell
 					\ foldenable  complete+=kspell ts=2 sw=2 sts=2
 					\ comments+=b:-,b:* spelllang=en_us tw=0
+
+		" autocmd FileType tex setlocal fdm=syntax
 
 		autocmd FileType vim setlocal tabstop=2 shiftwidth=2 softtabstop=2 nospell
 
