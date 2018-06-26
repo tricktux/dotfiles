@@ -194,7 +194,8 @@ function! options#Set() abort
 	" options.vim
 	" Grep
 	" Fri Mar 23 2018 18:10: Substituted by vim-gprepper plugin
-	" call s:set_grep()
+	" Mon Jun 25 2018 14:08: vim-gprepper not working well on windows with neovim-qt 
+	call s:set_grep()
 
 	" Undofiles
 	let undofiles_path = g:std_cache_path . '/undofiles'
@@ -213,6 +214,9 @@ function! options#Set() abort
 	let &diffopt='vertical'
 
 	call s:set_syntax()
+
+	" Silly always set cool colors
+	set termguicolors
 endfunction
 
 " CLI
@@ -249,7 +253,6 @@ function! options#SetCli() abort
 		" Trying to get termguicolors to work on vim
 		let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
 		let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
-		set termguicolors
 
 		" Tue Sep 12 2017 18:18: These are in order to map Alt in vim terminal
 		" under linux. Obtained but going into insert mode, pressing <c-v> and

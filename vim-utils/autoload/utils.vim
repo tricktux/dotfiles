@@ -306,48 +306,6 @@ function! utils#UpdateHeader()
 	exe "normal! `z"
 endfun
 
-" TODO.RM-Fri Apr 28 2017 16:14: Also move this to the ftplugin
-" Use current 'grepprg' to search files for text
-"		filteype - Possible values: 1 - Search only files of type 'filetype'. Any
-"								other value search all types of values
-"		word - Possible values: 1 - Search word under the cursor. Otherwise prompt
-"		for search word
-function! utils#FileTypeSearch(filetype, word) abort
-	let grep_engine = &grepprg
-
-	if a:word == 1
-		let search = expand("<cword>")
-	else
-		let search = input("Please enter search word:")
-	endif
-
-	let file_type_search = &ft
-	if grep_engine =~# 'rg'
-		" rg filetype for vim files is called vimscript
-		if file_type_search =~# 'vim'
-			let file_type_search = '-t vimscript'
-		elseif file_type_search =~# 'python'
-			let file_type_search = '-t py'
-		else
-			let file_type_search = '-t ' . file_type_search
-		endif
-	elseif grep_engine =~# 'ag'
-			let file_type_search = '--' . file_type_search
-	else
-		" If it is not a recognized engine do not do file type search
-		exe ":grep! " . search
-		echomsg '|Grep Engine:' grep_engine ' |FileType: All| CWD: ' getcwd()
-		return
-	endif
-
-	if a:filetype == 1
-		exe ":grep " . file_type_search . ' ' . search
-		echon '|Grep Engine:' grep_engine ' |FileType: ' file_type_search '| CWD: ' getcwd()
-	else
-		exe ":grep " . search
-		echon '|Grep Engine:' grep_engine ' |FileType: All| CWD: ' getcwd()
-	endif
-endfunction
 
 " Kinda deprecated function because cscope databases are no longer created at
 " repo root
@@ -603,26 +561,6 @@ function! utils#UpdateSvnBranchInfo() abort
 	endif
 
 	return pot_display
-endfunction
-
-function! utils#Grep() abort
-	let msg = 'Searching inside "' . getcwd() . '". Choose:'
-	let choice = "&J<cword>/". &ft . "\n&K<any>/". &ft . "\n&L<cword>/all_files\n&;<any>/all_files"
-	let c = confirm(msg, choice, 1)
-
-	if c == 1
-		" Search '&filetype' type of files, and word under the cursor
-		call utils#FileTypeSearch(1, 1)
-	elseif c == 2
-		" Search '&filetype' type of files, and prompt for search word
-		call utils#FileTypeSearch(1, 8)
-	elseif c == 3
-		" Search all type of files, and word under the cursor
-		call utils#FileTypeSearch(8, 1)
-	else
-		" Search all type of files, and prompt for search word
-		call utils#FileTypeSearch(8, 8)
-	endif
 endfunction
 
 function! utils#CommentDelete() abort
