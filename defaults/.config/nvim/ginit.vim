@@ -43,7 +43,7 @@ function! s:unix_nvim_ugly_font() abort
 endfunction
 
 function! s:unix_nvim_nice_font() abort
-	let g:GuiFont ='DejaVu Sans Mono:h10'
+	let g:GuiFont ='Fira Code:h10'
 	execute 'Guifont! ' . g:GuiFont
 endfunction
 
