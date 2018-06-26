@@ -1,0 +1,156 @@
+%
+% Copyright (c) 2011
+% 
+% 	Dennis Mack
+% 	Michael Müller, http://micha.elmueller.net
+% 
+% Permission to use, copy, modify, and distribute this software for any
+% purpose with or without fee is hereby granted, provided that the above
+% copyright notice and this permission notice appear in all copies.
+% 
+% THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL 
+% WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED 
+% WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE 
+% AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL 
+% DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, 
+% DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR 
+% OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION 
+% WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+% 
+
+\documentclass[version=last,fontsize=8pt,pagestyle=plain]{scrartcl}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[landscape]{geometry}
+\usepackage{ltxtable}
+\usepackage{longtable}
+\usepackage{filecontents}
+\usepackage{booktabs}
+\usepackage{geometry}
+
+\geometry{a4paper,left=1cm,right=1cm,top=1cm,bottom=1cm}
+
+% formatting for the headline, etc
+\newcommand{\hl}{\textbf}
+\newcommand*{\ind}{\hspace*{0.5cm}}
+
+%===================================
+\begin{document}
+
+\begin{center}
+\huge \hl{Some Program \qquad \today \qquad ETS Team}
+\end{center}
+
+\begin{filecontents}{table.tab}
+\begin{longtable}{ l c c c c l p{10cm} }
+
+\hline
+\hl{Name} & \hl{\% Completed} & \hl{Duration} & \hl{Start} & \hl{Finish} & \hl{Responsible} & \hl{Comment/Status} \\
+\hline 
+
+ Test Equipment Software& 0 & 344 days & 5/2/2018 & 8/26/2019 & NA & NA \\
+
+	Pre-Development Activities& 0 &104 days&5/2/2018&9/24/2018& - & - \\
+	Project Setup \& Tracking&100\%&3 days&5/2/2018&5/4/2018& Gerald & [5-10-18] - Completed \\
+	Review Prior Lessons Learned,100\%,0.25 days,5/7/2018,5/7/2018,Gerald,[5-10-18] - Completed; Reviewed lessons learned from ATACMS project.
+	% Open SCRs (4),100%,1 day,5/7/2018,5/8/2018,Reinaldo,[5-23-18] - Done
+	% SW Requirements Gathering & Mentoring,,21 days,8/27/2018,9/24/2018,,"[6-21-18] - Note that SRR reflects need dates for FDB Doc (6/15/18) and FDB x 5 (7/16/18), NIU SW Docs (8/29/18), and NIU SW (10/15/18)."
+	% Middleware SW,0%,7 days,8/27/2018,9/4/2018,Leonid,"Planning to be a DLL, incorporated into WINGS II."
+	% WINGS II SW,40%,7 days,9/5/2018,9/13/2018,"Reinaldo
+	% x C has reviewed legacy FETT SRS and mapped to WINGS II.  His spreadsheet shows which reqts are already met by WINGS II and shows the gaps.
+	% Mission,0%,7 days,9/14/2018,9/24/2018,"Alex
+	% what testing is currently being done for Production Testing, using CDATS.  What exactly is being ported from legacy?"
+	% CSC,0%,,,,,
+	% Project Documentation Activities,,56 days,9/25/2018,12/11/2018,,
+	% TDP & Test PDI,50%,10 days,9/25/2018,10/8/2018,Alex,"[6-20-18] - Submitted on 6/4/18.  Gerald & Reinaldo needs to review.
+	% Alex reviewed real-time. "
+	% Initial Test EPG Review (WRS),0%,1 day,10/9/2018,10/9/2018,Alex,[5-10-18] - Open WRS for project.
+	% iddleware Tasks Charge #:  7025171494-0002
+	% "Create SED for Middleware (Section 3, 4 & 5)",,,10/10/2018,10/30/2018,,"[5-23-18] - These hours ( 15 days) will be moved to development, since this will not be a separate CSCI, but will be incorporated into OneWINGS II CSCI."
+	% Reqts (Section 3),,0,10/10/2018,10/16/2018,,
+	% Design/Architect (Section 4),,0,10/17/2018,10/23/2018,,
+	% Test Plan (Section 5),,0,10/24/2018,10/30/2018,,
+	% Mission ATP SW,,15 days,10/31/2018,11/20/2018,Alex,Mission Tasks Charge #: 7025171498-0002
+	% "Create SED for Missions ATP (Section 3, 4, & 5)",,15 days,10/31/2018,11/20/2018,Alex,
+	% Reqts (Section 3),0%,4 days,10/31/2018,11/6/2018,Alex,
+	% Reqts Peer Reviews,0%,1 day,11/27/2018,11/27/2018,Team,
+	% Design/Architect (Section 4),0%,4 days,11/7/2018,11/13/2018,Alex,
+	% Design/Architect Peer Review,0%,1 day,11/27/2018,11/27/2018,Team,
+	% Test Plan (Section 5),0%,4 days,11/14/2018,11/20/2018,Alex,
+	% Test Plan Peer Review,0%,1 day,11/27/2018,11/27/2018,Team,
+	% CSC SW (Pending BCR approval),,1.5 days,12/31/2018,1/1/2019,,
+	% Engineering Release documentation.,0%,1 day,11/27/2018,11/27/2018,Team,
+	% WINGS SW,,15 days,11/21/2018,12/11/2018,,WINGS Tasks Charge #: 7025171496-0002
+	% Update WINGS SED Section 3/Update SRS Rqts.,0%,4 days,11/21/2018,11/26/2018,Alex,[6-20-18] - FC documentation in OneWINGS need to be transferred into WINGS II documentation.
+	% SRS Peer Reviews,0%,1 day,11/27/2018,11/27/2018,Team,
+	% Develop SED Section 4/Architecture & Design,0%,4 days,11/28/2018,12/3/2018,Alex,[6-20-18] - FC documentation in OneWINGS need to be transferred into WINGS II documentation.
+	% Architechture & Design Peer Reviews,0%,1 day,12/4/2018,12/4/2018,Team,
+	% Develop SED Section 5 or update STP - Verification,0%,4 days,12/5/2018,12/10/2018,Alex,[6-20-18] - FC documentation in OneWINGS need to be transferred into WINGS II documentation.
+	% Verification Peer Review,0%,1 day,12/11/2018,12/11/2018,Team,
+	% SW Development Activities,,221 days,10/22/2018,8/26/2019,,
+	% FC Driver Middleware SW,,21 days,10/22/2018,11/7/2018,,"[5-23-18] - Borrowed days from doc section, which will not be used."
+	% DIO Functionality Coding,,,10/22/2018,11/2/2018,Reinaldo,
+	% ,1 days,,,Reinaldo,
+	% v FC Capability,0%,17 days,,,Reinaldo,
+	% FCDM Peer Review,0%,3 days,11/5/2018,11/7/2018,Team,
+	% FCDM Coding Unit Testing,0%,3 days,3/21/2019,3/25/2019,Reinaldo,
+	% FCDM Coding Re-work,0%,10 days,3/26/2019,4/8/2019,Team,
+	% WINGS SW,,13 days,12/12/2018,12/19/2018,Leonid,"[5-23-18] - Borrowed days from doc section, which will not be used."
+	% WINGS FC Driver & Hooks Coding,100%,,12/12/2018,12/18/2018,Leonid,
+	% ord Supt,60%,6 days,,,Leonid,
+	% Window,100%,7 days,,,Leonid,
+	% & Hooks Code Peer Review,0%,1 day,,,Leonid,
+	% WINGS FC Driver Hooks Unit Test,30%,20 days,4/9/2019,5/6/2019,Leonid,
+	% WINGS SW FC D & H Test Peer Review,0%,1 day,12/19/2018,12/19/2018,Team,
+	% Mission ATP SW,,7 days,12/20/2018,12/28/2018,,Mission test will remain as loop-back test.
+	% "Dependency:  Unit, Production Station (Existing), Cables",0%,1 day,12/20/2018,12/20/2018,,Equipment Dependency
+	% Create Configuration Files - Coding,0%,3 days,12/21/2018,12/27/2018,Alex,
+	% Mission ATP SW Code Peer Review,0%,1 day,12/28/2018,12/28/2018,Team,
+	% ssion Scripts,0%,2 day,,,"Reinaldo
+	% arge number if Carlos support this task.
+	% Mission SW Unit Test,0%,10 days,5/21/2019,6/3/2019,"Reinaldo
+
+	% Mission ATP SW Test Peer Review,0%,1 day,12/28/2018,12/28/2018,Team,
+	% Core ATP SW,,1.5 days,12/31/2018,1/1/2019,Alex,
+	% PTS File Coding,0%,1 day,12/31/2018,12/31/2018,Alex,
+	% PTS File Unit Test,0%,1 days,5/7/2019,,Alex,
+	% PTS File Code & Test Peer Review,0%,0.5 days,1/1/2019,1/1/2019,Team,
+	% CSC SW (Pending BCR approval),,1.5 days,12/31/2018,1/1/2019,,
+	% CSC Coding,0%,1 day,12/31/2018,12/31/2018,Reinaldo,
+	% CSC Unit Test,0%,1 days,5/7/2019,,Reinaldo,
+	% CSC Code & Test Peer Review,0%,0.5 days,1/1/2019,1/1/2019,,
+	% Pre-FQT Activities,,53 days,3/21/2019,6/3/2019,,
+	% HUE Activities (User Experience & Re-work),0%,15 days,6/4/2019,6/24/2019,,
+	% Create & Close STD&Rs/SCRs,0%,5 days,6/25/2019,7/1/2019,,
+	% FQT Preparation & Execution Activities,,28 days,7/2/2019,8/8/2019,,
+	% Freeze Source Code,0%,1 day,7/2/2019,7/2/2019,,
+	% Build Executable with SCM ( 4 components),0%,3 days,7/3/2019,7/5/2019,,
+	% Dry Runs FQT,,11 days,7/8/2019,7/22/2019,,
+	% Middleware SW,0%,3 days,7/8/2019,7/10/2019,,
+	% Mission ATP,0%,3 days,7/11/2019,7/15/2019,,
+	% WINGS,0%,5 days,7/16/2019,7/22/2019,,
+	% Mission ATP,0%,3 days,7/11/2019,7/15/2019,,
+
+	% Test Readiness Review,0%,2 days,7/23/2019,7/24/2019,,
+	% Final FQT,,11 days,7/25/2019,8/8/2019,,
+	% Middleware SW,0%,3 days,7/25/2019,7/29/2019,,
+	% WINGS,0%,5 days,8/2/2019,8/8/2019,,
+	% Mission ATP,0%,3 days,7/30/2019,8/1/2019,,
+
+	% SW Release Activities,,12 days,8/9/2019,8/26/2019,,
+	% Write STR,,3 days,8/9/2019,8/13/2019,,
+	% Middleware SW,0%,1 day,8/9/2019,8/9/2019,,
+	% WINGS,0%,1 day,8/13/2019,8/13/2019,,
+	% Mission,0%,1 day,8/12/2019,8/12/2019,,
+
+	% PDQA Peer Review & Rework,0%,3 days,8/14/2019,8/16/2019,,
+	% ECO Release SW & Documentation,0%,5 days,8/19/2019,8/23/2019,,
+	% Final EPG Review (SW Project Closure),0%,1 day,8/26/2019,8/26/2019,,
+\hline
+
+\end{longtable}
+\end{filecontents}{table.tab}
+
+\LTXtable{\linewidth}{table.tab}
+\end{document}
