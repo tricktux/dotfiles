@@ -100,6 +100,7 @@ function! s:set_wings_path(path) abort
 	execute "nnoremap <Leader>ew1 :call utils#DeniteRec(\"" . a:path . "OneWings/\")<CR>"
 	execute "nnoremap <Leader>ew2 :call utils#DeniteRec(\"" . a:path . "OneWINGSII/\")<CR>"
 	execute "nnoremap <Leader>ews :call utils#DeniteRec(\"" . a:path . "OneWingsSupFiles/\")<CR>"
+	nnoremap <silent> <plug>edit_todo :execute('edit ' . g:wiki_path . '/work/TODO.md')<cr>
 endfunction
 
 function! s:config_unix() abort
