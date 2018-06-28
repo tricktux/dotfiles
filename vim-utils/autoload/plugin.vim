@@ -266,12 +266,24 @@ function! plugin#Config()
 	" PandocTemplate save eisvogel
 	" Pandoc #eisvogel
 
-	Plug 'vim-pandoc/vim-pandoc-syntax', { 'for' : 'markdown' }
+	Plug 'vim-pandoc/vim-pandoc-syntax'
 	let g:pandoc#syntax#conceal#use = 0
-	let g:pandoc#syntax#codeblocks#embeds#langs = [ "latex=tex" ]
+	" You can find pandoc_lang_name by `pandoc --list-highlight-languages`
+	" pandoc_lang_name = vim_lang_name
+	let g:pandoc#syntax#codeblocks#embeds#langs = [ "latex=tex", 'cpp=cpp' ]
 	augroup pandoc_syntax
-		au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+		au! FileType markdown set filetype=markdown.pandoc
 	augroup END
+	
+	" This plugin depends on 'godlygeek/tabular'
+	Plug 'plasticboy/vim-markdown'
+	let g:vim_markdown_no_default_key_mappings = 1
+	let g:vim_markdown_toc_autofit = 1
+	let g:vim_markdown_math = 1
+	let g:vim_markdown_folding_level = 2
+	let g:vim_markdown_frontmatter = 1
+	let g:vim_markdown_new_list_item_indent = 0
+
 
 	" Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
 	Plug 'matze/vim-ini-fold', { 'for': 'dosini' }
@@ -280,16 +292,6 @@ function! plugin#Config()
 	Plug 'rbgrouleff/bclose.vim'
 
 	call s:configure_tabular()
-
-	" This plugin depends on 'godlygeek/tabular'
-	" Plug 'plasticboy/vim-markdown', { 'for' : 'markdown' }
-	" let g:vim_markdown_no_default_key_mappings = 1
-	" let g:vim_markdown_toc_autofit = 1
-	" let g:tex_conceal = ''
-	" let g:vim_markdown_math = 1
-	" let g:vim_markdown_folding_level = 2
-	" let g:vim_markdown_frontmatter = 1
-	" let g:vim_markdown_new_list_item_indent = 0
 
 	" Sun Sep 10 2017 20:44 Depends on plantuml being installed
 	" If you want dont want to image preview after loading the plugin put the
