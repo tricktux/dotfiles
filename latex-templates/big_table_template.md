@@ -26,7 +26,9 @@ caption-justification: centering
 \hline
 
 Test Equipment Software& 0 & 344 days & 5/2/2018 & 8/26/2019 & - & - \\
+
 \ind Pre-Development Activities& \cellcolor{red} 0 &104 days&5/2/2018&9/24/2018& - & - \\
+
 \rowcolor{green}\ind\ind Project Setup \& Tracking & 100 & 3 days & 5/2/2018 & 5/4/2018 & Gerald &
 	[5-10-18]: Completed some really really long example.\newline
 	Tue Jun 26 2018 15:49: Another update \\
