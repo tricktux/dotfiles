@@ -403,7 +403,12 @@ function! mappings#Set() abort
 	nnoremap <Leader>em :call utils#DeniteRec('~/Seafile/masters/')<cr>
 	nnoremap <Leader>ec :call utils#DeniteRec(getcwd())<cr>
 	nnoremap <Leader>el :call utils#DeniteRec(input('Folder to recurse: ', "", "file"))<cr>
-	nnoremap <Leader>et :execute('edit ' . g:std_config_path . '/dotfiles/TODO.md')<cr>
+
+	nmap <leader>et <plug>edit_todo
+	if !hasmapto('<plug>edit_todo')
+		nnoremap <silent> <plug>edit_todo :execute('edit ' . g:std_config_path . '/dotfiles/TODO.md')<cr>
+	endif
+
 	" Edit plugin
 	nnoremap <Leader>ep :call utils#DeniteRec(g:vim_plugins_path)<cr>
 	nnoremap <Leader>ei :e
