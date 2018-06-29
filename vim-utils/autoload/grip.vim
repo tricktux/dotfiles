@@ -6,6 +6,11 @@
 " Created:        Thu Jun 28 2018 14:22
 " Last Modified:  Thu Jun 28 2018 14:22
 
+" TODO:
+" - Status Line
+" - Async Search  
+" - More default greppers  
+
 " filetype_map - grepper_ft : vim_ft
 "							 - Ex: 'cpp' : '+'
 "	filetype_option - Ex: '-t' for rg
@@ -17,6 +22,8 @@
 			" \ 'filetype_support' : 0,
 			" \ 'filetype_map' : {  },
 			" \ 'filetype_option' : '',
+			" \ 'grepformat' : '',
+			" \ 'async' : '',
 			" \ }
 
 let g:loaded_grip = 1
@@ -54,10 +61,14 @@ let g:grip_rg = {
 			\ 'filetype_option' : '-t',
 			\ }
 
+let g:grip_tools = [ g:grip_rg, g:grip_pdfgrep ]
+" Must set verbose to 1 as well for this to work
+" let g:grip_debug_file = <your file>
+
 let s:grip = {
-			\ 'grips' : [ g:grip_rg, g:grip_pdfgrep ], 
-			\ 'debug_file' : (tempname() . '_grip'),
-			\ 'copen' : 20,
+			\ 'grips' : get(g:, 'grip_tools', ['']),
+			\ 'debug_file' : get(g:, 'grip_debug_file', (tempname() . '_grip')),
+			\ 'copen' : get(g:, 'grip_copen', 20),
 			\ }
 
 function! s:grip.main() abort
@@ -110,7 +121,7 @@ function! s:grip.put_debug_info(func_name, msg) abort
 	" endif
 
 	let l:ret = '[' . a:func_name . '-' . strftime("%a_%b_%d_%Y_%H_%M") . ']: ' . a:msg
-	call writefile([ l:ret ], self.debug_file)
+	call writefile([ l:ret ], self.debug_file, 'a')
 endfunction
 
 let s:USER_CHOICE = {
@@ -146,10 +157,10 @@ function! s:grip.display_grip_ui(grepper) abort
 	let l:ft_sup = has_key(a:grepper, 'filetype_support') ? a:grepper.filetype_support : 0
 	if l:ft_sup > 0
 		"								1:ft_choice -				2:ft_choice
-		let l:choice = "&J<cword>/". &ft . "\n&K<any>/". &ft . "\n&L<cword>/all_files\n&;<any>/all_files\n&Next"
+		let l:choice = "&J<cword>/". &ft . "\n&K<any>/". &ft . "\n&L<cword>/all_files\n&;<any>/all_files\n&Next Grip"
 		let l:next = 5
 	else
-		let l:choice = "&J<cword>\n&K<any>\n&Next"
+		let l:choice = "&J<cword>\n&K<any>\n&Next Grip"
 		let l:next = 3
 	endif
 
@@ -242,6 +253,7 @@ function! s:grip.execute_grip(grepper, user_choice) abort
 					\ printf('cmd = %s %s', &grepprg, l:search))
 	endif
 
+	" TODO-[RM]-(Fri Jun 29 2018 13:14): Mode this to its own dictionary
 	execute ':silent grep! ' . l:search
 
 	" Open quickfix
