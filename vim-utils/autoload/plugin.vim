@@ -378,8 +378,7 @@ function! plugin#Config()
 
 	Plug 'hari-rangarajan/CCTree'
 
-	Plug 'bronson/vim-trailing-whitespace'
-	let g:extra_whitespace_ignored_filetypes = ['markdown']
+	Plug 'bronson/vim-trailing-whitespace', { 'on' : 'UtilsDetectWhitespace' }
 
 	" Mon Jun 25 2018 14:19: Depricating this in favor of custom made 
 	" Plug 'mhinz/vim-grepper'
