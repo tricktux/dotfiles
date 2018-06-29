@@ -84,8 +84,8 @@ function! mappings#Set() abort
 	nmap <LocalLeader>s <plug>search_grep
 	xmap <LocalLeader>s <plug>search_grep
 
-	nnoremap <silent> <plug>search_grep :call <SID>grep()<cr>
-	xnoremap <silent> <plug>search_grep :call <SID>grep()<cr>
+	nnoremap <silent> <plug>search_grep :Grip<cr>
+	" xnoremap <silent> <plug>search_grep :call <SID>grep()<cr>
 
 	nmap <LocalLeader>k <plug>make_project
 	nmap <LocalLeader>j <plug>make_file
@@ -231,6 +231,12 @@ function! mappings#Set() abort
 	nnoremap [f <c-o>
 	nnoremap <silent> ]F :call <SID>goto_file_on_next_win('l')<cr>
 	nnoremap <silent> [F :call <SID>goto_file_on_next_win('h')<cr>
+
+	" TODO-[RM]-(Fri Jun 29 2018 10:10): Make this work
+	" xnoremap <silent> ]F :call <SID>goto_file_on_next_win('l')<cr>
+	" xnoremap <silent> [F :call <SID>goto_file_on_next_win('h')<cr>
+	nnoremap <a-]> gt
+	nnoremap <a-[> gT
 
 	" Create an undo break point. Mark current possition. Go to word. Fix and come back.
 	nnoremap <silent> ]S :normal! i<c-g>u<esc>mm]s1z=`m<cr>
