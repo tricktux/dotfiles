@@ -470,20 +470,36 @@ function! utils#MastersDropboxOpen(wiki) abort
 endfunction
 
 function! utils#DeniteRec(path) abort
+	if empty(a:path)
+		return
+	endif
+
+	let cp_path = a:path
+
 	if !exists(':Denite')
 		let dir = getcwd()
-		execute "cd " . a:path
-		execute "e " . input('e ' . expand(a:path) . '/', "", "file")
+		execute "cd " . cp_path
+		execute "e " . input('e ' . expand(cp_path) . '/', "", "file")
 		silent! execute "cd " . dir
 		return
 	endif
 
-	if empty(glob(a:path))
-		echoerr 'Folder ' . a:path . 'not found'
+	if empty(glob(cp_path))
+		echoerr 'Folder ' . cp_path . 'not found'
 		return
 	endif
 
-	execute "Denite -path=" . a:path . " file_rec"
+	" Strip ending slaches. They work well with denite
+	let idx = strlen(cp_path)-1
+	if cp_path[idx] == '\' || cp_path[idx] == '/'
+		let cp_path = cp_path[0:idx-1]
+	endif
+
+	if &verbose > 0
+		echomsg printf('[utils#DeniteRec()]: cp_path = %s', cp_path)
+	endif
+
+	execute "Denite -path=" . cp_path . " file_rec"
 endfunction
 
 function! utils#CurlDown(file_name, link) abort
