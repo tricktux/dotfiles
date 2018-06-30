@@ -19,6 +19,8 @@ LP_BATTERY_THRESHOLD=75
 # Recommended value is 60
 LP_LOAD_THRESHOLD=60
 
+LP_PS1_POSTFIX="\n"
+
 # Display the temperature when the temperate is above this threshold (in
 # degrees Celsius).
 # Recommended value is 60
@@ -32,19 +34,19 @@ LP_ENABLE_SHORTEN_PATH=1
 # The maximum percentage of the screen width used to display the path before
 # removing the center portion of the path and replacing with '...'.
 # Recommended value is 35
-LP_PATH_LENGTH=35
+LP_PATH_LENGTH=65
 
 # The number of directories (including '/') to keep at the beginning of a
 # shortened path.
 # Recommended value is 2
-LP_PATH_KEEP=2
+LP_PATH_KEEP=4
 
 # Determine if the hostname should always be displayed, even if not connecting
 # through network.
 # Defaults to 0 (do not display hostname when locally connected)
 # set to 1 if you want to always see the hostname
 # set to -1 if you want to never see the hostname
-LP_HOSTNAME_ALWAYS=0
+LP_HOSTNAME_ALWAYS=1
 
 # Use the fully qualified domain name (FQDN) instead of the short hostname when
 # the hostname is displayed
@@ -115,15 +117,15 @@ LP_ENABLE_BZR=1
 # Show time of when the current prompt was displayed. (Must be enabled and
 # disabled in the config file and not after liquidprompt has already been
 # sourced.)
-LP_ENABLE_TIME=0
+LP_ENABLE_TIME=1
 
 # Show runtime of the previous command if over LP_RUNTIME_THRESHOLD
 # Recommended value is 0
-LP_ENABLE_RUNTIME=0
+LP_ENABLE_RUNTIME=1
 
 # Minimal runtime (in seconds) before the runtime will be displayed
 # Recommended value is 2
-LP_RUNTIME_THRESHOLD=2
+LP_RUNTIME_THRESHOLD=30
 
 # Display the virtualenv that is currently activated, if any
 # Recommended value is 1
@@ -155,7 +157,7 @@ LP_ENABLE_TITLE=0
 LP_ENABLE_SCREEN_TITLE=0
 
 # Use different colors for the different hosts you SSH to
-LP_ENABLE_SSH_COLORS=0
+LP_ENABLE_SSH_COLORS=1
 
 # Specify a list of complete and colon (":") separated paths in which, all vcs
 # will be disabled
