@@ -207,12 +207,17 @@ function! linting#SetNeomakePandocMaker(type) abort
 		let wrte = 'latex'
 		let out = '%:r.pdf'
 		" Set template
-		let argu += ['--template',
+		let argu += [
+					\ '--template',
 					\ (!exists('b:neomake_pandoc_template') ? 'eisvogel' : b:neomake_pandoc_template),
-					\ '--listings']
+					\ '--listings'
+					\ ]
 	elseif a:type ==# 'docx'
 		let wrte = 'docx'
 		let out = '%:r.docx'
+	elseif a:type ==# 'html'
+		let wrte = 'html'
+		let out = '%:r.html'
 	else
 		if &verbose > 0
 			echomsg '[linting#SetNeomakePandocMaker]: Not a recognized a:type variable'
@@ -235,7 +240,10 @@ function! linting#SetNeomakePandocMaker(type) abort
 	endif
 
 	let maker = 'pandoc_' . a:type
-	let b:neomake_{maker}_args = argu
+	let g:neomake_{maker}_maker = {
+				\ 'exe': 'pandoc',
+				\ 'args': argu
+				\ }
 
 	if exists('b:neomake_markdown_enabled_makers')
 		let b:neomake_markdown_enabled_makers += [maker]

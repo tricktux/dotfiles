@@ -257,23 +257,23 @@ function! plugin#Config()
 		Plug 'PProvost/vim-ps1', { 'for' : 'ps1' }
 	endif
 
-	Plug 'vim-pandoc/vim-pandoc', { 'on' : 'Pandoc' }
-	" You might be able to get away with xelatex in unix
-	let g:pandoc#command#latex_engine = 'pdflatex'
-	let g:pandoc#folding#fdc=0
-	let g:pandoc#keyboard#use_default_mappings=0
+	" Plug 'vim-pandoc/vim-pandoc', { 'on' : 'Pandoc' }
+	" " You might be able to get away with xelatex in unix
+	" let g:pandoc#command#latex_engine = 'pdflatex'
+	" let g:pandoc#folding#fdc=0
+	" let g:pandoc#keyboard#use_default_mappings=0
 	" Pandoc pdf --template eisvogel --listings
 	" PandocTemplate save eisvogel
 	" Pandoc #eisvogel
 
-	Plug 'vim-pandoc/vim-pandoc-syntax'
-	let g:pandoc#syntax#conceal#use = 0
-	" You can find pandoc_lang_name by `pandoc --list-highlight-languages`
-	" pandoc_lang_name = vim_lang_name
-	let g:pandoc#syntax#codeblocks#embeds#langs = [ "latex=tex", 'cpp=cpp' ]
-	augroup pandoc_syntax
-		au! FileType markdown set filetype=markdown.pandoc
-	augroup END
+	" Plug 'vim-pandoc/vim-pandoc-syntax'
+	" let g:pandoc#syntax#conceal#use = 0
+	" " You can find pandoc_lang_name by `pandoc --list-highlight-languages`
+	" " pandoc_lang_name = vim_lang_name
+	" let g:pandoc#syntax#codeblocks#embeds#langs = [ "latex=tex", 'cpp=cpp' ]
+	" augroup pandoc_syntax
+		" au! FileType markdown set filetype=markdown.pandoc
+	" augroup END
 	
 	" This plugin depends on 'godlygeek/tabular'
 	Plug 'plasticboy/vim-markdown'
