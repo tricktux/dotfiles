@@ -51,7 +51,7 @@ let g:grip_rg = {
 			\		'--fixed-strings',
 			\		'--hidden',
 			\		'--iglob',
-			\		'!.{git,svn}'
+			\		(has('unix') ? "'!.{git,svn}'" : '!.{git,svn}')
 			\ ],
 			\ 'filetype_support' : 1,
 			\ 'filetype_map' : {
