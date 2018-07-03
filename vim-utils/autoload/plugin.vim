@@ -721,6 +721,11 @@ function! s:configure_tagbar() abort
 endfunction
 
 function! s:tagbar_lightline() abort
+	" If file is too big dont try it
+	if getfsize(expand('%s')) > 150000
+		return ''
+	endif
+
 	try
 		let ret =  tagbar#currenttag('%s','')
 	catch
