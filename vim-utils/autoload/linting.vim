@@ -83,6 +83,8 @@ function! s:set_neomake() abort
 	" Fri Nov 03 2017 19:20: For vim linting use: `pip install vim-vint --user`
 	let g:neomake_plantuml_enabled_makers = ['plantuml']
 
+	call linting#SetNeomakePandocMaker('pdf')
+
 	let g:neomake_logfile = g:std_cache_path . '/neomake.log'
 	let s:msg = ''
 	augroup custom_neomake
@@ -210,7 +212,7 @@ function! linting#SetNeomakePandocMaker(type) abort
 		let argu += [
 					\ '--template',
 					\ (!exists('b:neomake_pandoc_template') ? 'eisvogel' : b:neomake_pandoc_template),
-					\ '--listings'
+					\ '--number-sections'
 					\ ]
 	elseif a:type ==# 'docx'
 		let wrte = 'docx'
@@ -225,14 +227,11 @@ function! linting#SetNeomakePandocMaker(type) abort
 		return -2
 	endif
 
-	let argu += ['--write', wrte, '-o', out]
-
 	if exists('b:neomake_pandoc_extra_args') && !empty(b:neomake_pandoc_extra_args)
 		let argu += b:neomake_pandoc_extra_args
 	endif
 
-	" Add final input file
-	let argu += ['%']
+	let argu += ['--write', wrte, '-o', out, '%']
 
 	" Setup neomake variables
 	if &verbose > 0
@@ -242,14 +241,22 @@ function! linting#SetNeomakePandocMaker(type) abort
 	let maker = 'pandoc_' . a:type
 	let g:neomake_{maker}_maker = {
 				\ 'exe': 'pandoc',
-				\ 'args': argu
+				\ 'args': argu,
+				\ 'append_file' : 0,
 				\ }
 
-	if exists('b:neomake_markdown_enabled_makers')
-		let b:neomake_markdown_enabled_makers += [maker]
-	else
-		let b:neomake_markdown_enabled_makers = [maker]
+	if !exists('b:neomake_markdown_enabled_makers')
+		let g:neomake_markdown_enabled_makers = [maker]
+		return
 	endif
+
+	for l:ma in b:neomake_markdown_enabled_makers
+		if l:ma ==# maker
+			return
+		endif
+	endfor
+
+	let g:neomake_markdown_enabled_makers += [maker]
 endfunction
 
 function! linting#SetNeomakeClangMaker() abort
