@@ -11,6 +11,9 @@
 # BEHAVIOUR #
 #############
 
+# Gets rid of the $ at the end of the prompt
+LP_MARK_DEFAULT=" "
+
 # Display the battery level when the level is below this threshold.
 # Recommended value is 75
 LP_BATTERY_THRESHOLD=75
