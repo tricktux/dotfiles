@@ -35,6 +35,10 @@ if !exists('no_plugin_maps') && !exists('no_c_maps')
 	" Alternate between header and source file
 	nmap <buffer> <unique> <plug>switch_header_source :call utils#SwitchHeaderSource()<cr>
 
+	if has('unix') && has('nvim')
+		nnoremap <plug>help_under_cursor :call <SID>man_under_cursor()<cr>
+	endif
+
 	if executable('lldb') && exists(':LLmode')
 		" TODO-[RM]-(Wed May 23 2018 11:06): Make all of these guys <FX> mappings
 		" nmap <buffer> <unique> <LocalLeader>db <Plug>LLBreakSwitch
@@ -96,6 +100,15 @@ function! s:set_compiler_and_others() abort
 		endif
 		call linting#SetNeomakeMsBuildMaker()
 	endif
+endfunction
+
+function! s:man_under_cursor() abort
+	if !exists(':Man')
+		echoerr 'Man plugin not present'
+		return -1
+	endif
+
+	execute ':vertical Man ' . expand('<cword>')
 endfunction
 
 " Setup Compiler and some specific stuff
