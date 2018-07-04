@@ -65,8 +65,6 @@ endfunction
 function! s:lightline_config() abort
 	Plug 'itchyny/lightline.vim'
 
-	Plug 'ChesleyTan/wordCount.vim'
-
 	if !exists('g:lightline')
 		let g:lightline = {}
 	endif
@@ -226,9 +224,19 @@ function! status_line#UpdateColorscheme() abort
 endfunction
 
 function! s:get_word_count() abort
-	if !exists('*wordCount#WordCount') || &filetype !=# 'markdown'
+	if &filetype !=# 'markdown' || !exists('*wordcount')
 		return ''
 	endif
 
-	return wordCount#WordCount() . ' words'
+	let l:words = wordcount()
+
+	if has_key(l:words, 'visual_words')
+		let l:ret = l:words.visual_words
+	elseif has_key(l:words, 'words')
+		let l:ret = l:words.words
+	else
+		return ''
+	endif
+
+	return l:ret . ' words'
 endfunction
