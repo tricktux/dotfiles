@@ -10,11 +10,16 @@ if exists("b:did_man_ftplugin")
 	finish
 endif
 
+setlocal wrap
+
 " Don't load another plugin for this buffer
 let b:did_man_ftplugin = 1
 
 if !exists("no_plugin_maps") && !exists("no_man_maps")
 	nnoremap <buffer> q :bp\|bw #\|bd #<CR>
-	nnoremap <S-k> :CtrlPBuffer<CR>
+	nnoremap <buffer> <S-k> :CtrlPBuffer<CR>
+	nnoremap <buffer> ]t K
+	nnoremap <buffer> [t <C-T>
 endif
 
+let b:undo_ftplugin = "setlocal wrap<"
