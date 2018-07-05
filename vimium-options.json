@@ -4,7 +4,7 @@
   "filterLinkHints": false,
   "waitForEnterForFilteredHints": true,
   "hideHud": false,
-  "keyMappings": "# Insert your preferred key mappings here.\nmap e scrollPageUp",
+  "keyMappings": "# Insert your preferred key mappings here.\nmap e scrollPageUp\nmap h scrollPageUp\nmap l scrollPageDown",
   "linkHintCharacters": "sadfjklewcmpgh",
   "linkHintNumbers": "0123456789",
   "newTabUrl": "about:newtab",
