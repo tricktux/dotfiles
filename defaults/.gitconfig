@@ -21,13 +21,16 @@
 [diff]
 	tool = neovim
 [difftool "neovim"]
-	cmd = nvim -d $LOCAL $REMOTE
+	cmd = nvr -s -d $LOCAL $REMOTE
 	prompt = false
 [merge]
 	tool = neovim
 	conflictstyle = diff3
 [mergetool "neovim"]
-	cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+	cmd = nvr -s -d $BASE $LOCAL $REMOTE $MERGED -c 'wincmd J | wincmd ='
 
 [color]
 	ui = auto
+[filter "ignoreline"]
+	clean ="sed '/#ignoreline$/'d"
+	smudge = cat
