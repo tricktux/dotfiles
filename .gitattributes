@@ -1,0 +1,10 @@
+# File:           .gitattributes
+# Description:    Add ignore lines to specific files
+# Author:		    Reinaldo Molina
+# Email:          rmolin88 at gmail dot com
+# Revision:	    0.0.0
+# Created:        Thu May 03 2018 20:58
+# Last Modified:  Thu May 03 2018 20:58
+
+.Xresources filter=ignoreline
+config filter=ignoreline
