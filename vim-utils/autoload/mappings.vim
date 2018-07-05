@@ -233,11 +233,26 @@ function! mappings#Set() abort
 	nnoremap <silent> ]F :call <SID>goto_file_on_next_win('l')<cr>
 	nnoremap <silent> [F :call <SID>goto_file_on_next_win('h')<cr>
 
+	" Scroll to the sides z{l,h} and up and down
+	nnoremap ]z 10zl
+	nnoremap ]Z 10<c-e>
+	nnoremap [z 10zh
+	nnoremap [Z 10<c-y>
+
 	" TODO-[RM]-(Fri Jun 29 2018 10:10): Make this work
 	" xnoremap <silent> ]F :call <SID>goto_file_on_next_win('l')<cr>
 	" xnoremap <silent> [F :call <SID>goto_file_on_next_win('h')<cr>
 	nnoremap <a-]> gt
 	nnoremap <a-[> gT
+	nnoremap <a-1> 1gt
+	nnoremap <a-2> 2gt
+	nnoremap <a-3> 3gt
+	nnoremap <a-4> 4gt
+	nnoremap <a-5> 5gt
+	nnoremap <a-6> 6gt
+	nnoremap <a-7> 7gt
+	nnoremap <a-8> 8gt
+	nnoremap <a-9> 9gt
 
 	" Create an undo break point. Mark current possition. Go to word. Fix and come back.
 	nnoremap <silent> ]S :normal! i<c-g>u<esc>mm]s1z=`m<cr>
@@ -306,7 +321,7 @@ function! mappings#Set() abort
 	" Folding select text then S-f to fold or just S-f to toggle folding
 	nnoremap <C-j> zj
 	nnoremap <C-k> zk
-	nnoremap <C-z> zz
+	nnoremap <C-z> zzze
 	nnoremap <C-c> zM
 	nnoremap <C-n> zR
 	nnoremap <C-x> za
