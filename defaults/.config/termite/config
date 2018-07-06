@@ -9,6 +9,8 @@
 # In order to use one you can:
 # You can copy one of the config files in themes/ or use curl:
 # curl https://raw.githubusercontent.com/khamer/base16-termite/master/themes/base16-default-dark.config >> ~/.config/termite
+# system config:
+# /etc/xdg/termite/config
 
 
 # Use <C-S-r> to reload configuration
@@ -27,7 +29,7 @@ dynamic_title = true
 # font=Inconsolata 10
 # Install with nerd-fonts-complete
 # - remember to restart terminal
-font=Inconsolata Nerd Font 10
+font=Inconsolata Nerd Font 18
 # font=DejaVu Sans Mono Nerd Font 10
 # This is the default value
 # browser = $BROWSER
