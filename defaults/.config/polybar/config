@@ -74,7 +74,7 @@ font-2=WunconSiji:pixelsize=18;0
 
 modules-left = battery temperature cpu cpuload memory
 modules-center = cmus
-modules-right = time xkeyboard volume backlight-acpi eth-predator wlan-predator redshift compton
+modules-right = xkeyboard volume backlight-acpi eth-predator wlan-predator redshift compton
 
 ; My new settings
 tray-detached = false
@@ -304,7 +304,7 @@ font-2=WunconSiji:pixelsize=18;0
 
 modules-left = i3
 modules-center = xwindow
-modules-right = weather date powermenu
+modules-right = weather date time powermenu
 
 ; My new settings
 ; tray-detached = false
