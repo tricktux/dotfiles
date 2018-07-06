@@ -43,6 +43,7 @@ function! s:set_neomake() abort
 	let g:neomake_plantuml_maker = {
 				\ 'exe': 'plantuml',
 				\ 'errorformat': '%EError line %l in file: %f,%Z%m',
+				\ 'cwd': '%:p:h'
 				\ }
 
 	let g:neomake_make_maker = {
@@ -58,16 +59,6 @@ function! s:set_neomake() abort
 
 	let g:neomake_qpdfview_maker = {
 				\ 'exe' : 'qpdfview',
-				\ 'append_file' : 0,
-				\ }
-
-	let g:neomake_pandoc_pdf_maker = {
-				\ 'exe' : 'pandoc',
-				\ 'append_file' : 0,
-				\ }
-
-	let g:neomake_pandoc_docx_maker = {
-				\ 'exe' : 'pandoc',
 				\ 'append_file' : 0,
 				\ }
 
@@ -243,6 +234,7 @@ function! linting#SetNeomakePandocMaker(type) abort
 				\ 'exe': 'pandoc',
 				\ 'args': argu,
 				\ 'append_file' : 0,
+				\ 'cwd': '%:p:h'
 				\ }
 
 	if !exists('b:neomake_markdown_enabled_makers')
@@ -271,7 +263,7 @@ function! linting#SetNeomakeBorlandMaker() abort
 	command! -buffer UtilsUpdateBorlandMakefile call utils#UpdateBorlandMakefile()
 	augroup Borland
 		autocmd! * <buffer>
-		autocmd BufWritePre <buffer=abuf> call utils#UpdateBorlandMakefile()
+		autocmd BufWritePre <buffer> call utils#UpdateBorlandMakefile()
 	augroup end
 
 	" Settings for NeoamkeProject
