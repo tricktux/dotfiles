@@ -26,9 +26,10 @@ function! augroup#Set() abort
 					\ foldenable complete+=kspell ts=2 sw=2 sts=2
 					\ comments+=b:-,b:* spelllang=en_us tw=0
 
+		" formatoptions do not autowrap text
 		autocmd FileType tex setlocal conceallevel=0 nowrap spell
 					\ foldenable complete+=kspell ts=2 sw=2 sts=2
-					\ spelllang=en_us tw=0
+					\ spelllang=en_us tw=0 formatoptions-=tc colorcolumn=+1
 
 		autocmd FileType vim setlocal tabstop=2 shiftwidth=2 softtabstop=2 nospell
 
