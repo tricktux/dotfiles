@@ -21,9 +21,6 @@ if !exists("no_plugin_maps") && !exists("no_python_maps")
 	" Special mappings go here
 endif
 
-" Setup AutoHighlight
-" call utils#AutoHighlight()
-
 " TODO.RM-Tue May 02 2017 16:53: 
 " Add support for `isort`
 " Also add better python highlight
