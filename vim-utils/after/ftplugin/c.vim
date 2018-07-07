@@ -36,7 +36,7 @@ if !exists('no_plugin_maps') && !exists('no_c_maps')
 	nmap <buffer> <unique> <plug>switch_header_source :call utils#SwitchHeaderSource()<cr>
 
 	if has('unix') && has('nvim')
-		nnoremap <plug>help_under_cursor :call <SID>man_under_cursor()<cr>
+		nnoremap <buffer> <plug>help_under_cursor :call <SID>man_under_cursor()<cr>
 	endif
 
 	if executable('lldb') && exists(':LLmode')
