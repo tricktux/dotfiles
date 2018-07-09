@@ -37,7 +37,7 @@ LP_ENABLE_SHORTEN_PATH=1
 # The maximum percentage of the screen width used to display the path before
 # removing the center portion of the path and replacing with '...'.
 # Recommended value is 35
-LP_PATH_LENGTH=35
+LP_PATH_LENGTH=25
 
 # The number of directories (including '/') to keep at the beginning of a
 # shortened path.
