@@ -60,13 +60,13 @@ function! plugin#Config()
 
 	" Possible values:
 	" - ycm nvim_compl_manager shuogo autocomplpop completor asyncomplete neo_clangd
-	" call autocompletion#SetCompl(has('nvim') ? 'nvim_compl_manager' : 'shuogo')
+	" call autocompletion#SetCompl(has('unix') ? 'nvim_compl_manager' : 'shuogo')
 	call autocompletion#SetCompl('shuogo')
 
 	" Possible values:
 	" - chromatica easytags neotags color_coded clighter8
 	" Wed Jul 04 2018 13:02: No decent code highlighter at the moment 
-	" call cpp_highlight#Set(has('nvim') && has('unix') ? 'neotags' : '')
+	call cpp_highlight#Set('')
 
 	" Possible values:
 	" - neomake ale
@@ -90,12 +90,6 @@ function! plugin#Config()
 
 	" Possible Replacement `asyncvim`
 	Plug 'tpope/vim-dispatch'
-	" Vim cpp syntax highlight
-	let g:cpp_class_scope_highlight = 1
-	let g:cpp_member_variable_highlight = 1
-	let g:cpp_class_decl_highlight = 1
-	let g:cpp_concepts_highlight = 1
-	Plug 'justinmk/vim-syntax-extra'
 
 	call s:configure_vim_table_mode()
 
@@ -175,8 +169,6 @@ function! plugin#Config()
 	let g:JavaComplete_ImportOrder = ['android.', 'com.', 'junit.', 'net.', 'org.', 'java.', 'javax.']
 
 	" Autocomplete
-	call s:configure_snippets()
-
 	" Version control
 	Plug 'tpope/vim-fugitive'
 	" Fugitive <Leader>g?
@@ -412,7 +404,6 @@ function! plugin#Config()
 	Plug 'PotatoesMaster/i3-vim-syntax'
 	Plug 'elzr/vim-json', { 'for' : 'json' }
 	Plug 'aklt/plantuml-syntax', { 'for' : 'plantuml' }
-	Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'c' , 'cpp' ] }
 
 	" Gdb debugging
 	if has('unix')
@@ -436,6 +427,8 @@ function! plugin#Config()
 	let g:signify_cursorhold_normal     = 1
 	let g:signify_update_on_bufenter    = 0
 	let g:signify_update_on_focusgained = 1
+
+	Plug 'Peaches491/vim-glog-syntax'
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
@@ -740,28 +733,6 @@ endfunction
 function! s:tagbar_statusline_func(current, sort, fname, ...) abort
 	let g:lightline.fname = a:fname
 	return lightline#statusline(0)
-endfunction
-
-function! s:configure_snippets() abort
-	Plug 'Shougo/neosnippet'
-	imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-	smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-	xmap <C-k>     <Plug>(neosnippet_expand_target)
-	smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-				\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-	" Tell Neosnippet about the other snippets
-	let g:neosnippet#snippets_directory= [ g:vim_plugins_path . '/vim-snippets/snippets', g:location_vim_utils . '/snippets/', ]
-	" Fri Oct 20 2017 21:47: Not really data but cache
-	let g:neosnippet#data_directory = g:std_cache_path . '/neosnippets'
-	" Used by nvim-completion-mgr
-	let g:neosnippet#enable_completed_snippet=1
-
-	" Only contain snippets
-	Plug 'Shougo/neosnippet-snippets'
-	Plug 'honza/vim-snippets'
-	let g:snips_author = 'Reinaldo Molina'
-	let g:snips_email = 'rmolin88 at gmail dot com'
-	let g:snips_github = 'rmolin88'
 endfunction
 
 function! s:configure_vim_sneak() abort

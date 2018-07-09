@@ -39,7 +39,8 @@ function! options#Set() abort
 	set incsearch     " show search matches as you type
 	set history=10000         " remember more commands and search history
 	" ignore these files to for completion
-	set completeopt=menuone,longest,preview,noselect,noinsert
+	" set completeopt=menuone,longest,preview,noselect,noinsert
+	set completeopt=menuone,preview,noselect,noinsert
 	" set complete+=kspell " currently not working
 	" set wildmenu " Sun Jul 16 2017 20:24. Dont like this way. Its weird
 	set wildmode=list:longest
