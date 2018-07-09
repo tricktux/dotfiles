@@ -78,6 +78,13 @@ function! mappings#Set() abort
 		tnoremap <A-k> <C-\><C-n><C-w>k
 		tnoremap <A-l> <C-\><C-n><C-w>l
 
+		tnoremap <a-]> <C-\><C-n>gt
+		tnoremap <a-[> <C-\><C-n>gT
+		for l:idx in [1,2,3,4,5,6,7,8,9]
+			execute 'tnoremap <silent> <a-' . l:idx .
+						\ '> <C-\><C-n>' . l:idx. 'gt'
+		endfor
+
 		tnoremap <C-p> <Up>
 	endif
 
@@ -121,6 +128,8 @@ function! mappings#Set() abort
 
 	" Global settings for all ftplugins
 	nmap <Leader>cr <plug>cd_root
+
+	imap <c-k> <plug>snip_expand
 
 	nnoremap <Leader>tt :TagbarToggle<cr>
 	nnoremap <Leader>ts :setlocal spell!<cr>
@@ -244,15 +253,9 @@ function! mappings#Set() abort
 	" xnoremap <silent> [F :call <SID>goto_file_on_next_win('h')<cr>
 	nnoremap <a-]> gt
 	nnoremap <a-[> gT
-	nnoremap <a-1> 1gt
-	nnoremap <a-2> 2gt
-	nnoremap <a-3> 3gt
-	nnoremap <a-4> 4gt
-	nnoremap <a-5> 5gt
-	nnoremap <a-6> 6gt
-	nnoremap <a-7> 7gt
-	nnoremap <a-8> 8gt
-	nnoremap <a-9> 9gt
+	for l:idx in [1,2,3,4,5,6,7,8,9]
+		execute 'nnoremap <silent> <a-' . l:idx . '> :call <SID>switch_or_set_tab(' . l:idx. ')<cr>'
+	endfor
 
 	" Create an undo break point. Mark current possition. Go to word. Fix and come back.
 	nnoremap <silent> ]S :normal! i<c-g>u<esc>mm]s1z=`m<cr>
@@ -469,11 +472,6 @@ function! s:load_session(...) abort
 	endif
 
 	execute "wall"
-	let response = confirm("Are you sure? This will unload all buffers?", "&Jes\n&No(def.)")
-	if response != 1
-		return -1
-	endif
-
 	if exists(':Denite')
 		call setreg(v:register, "") " Clean up register
 		execute "Denite -default-action=yank -path=" . session_path . " file_rec"
@@ -487,6 +485,11 @@ function! s:load_session(...) abort
 		let session_name = input("Load session:", "", "file")
 		silent! execute "cd " . dir
 	endif
+	let response = confirm("Are you sure? This will unload all buffers?", "&Jes\n&No(def.)")
+	if response != 1
+		return -1
+	endif
+
 	silent! execute "normal :%bdelete\<CR>"
 	silent execute "source " . session_path . session_name
 endfunction
@@ -725,3 +728,17 @@ function! s:grep() abort
 	endif
 endfunction
 
+function! s:switch_or_set_tab(tab_num) abort
+	let l:tabs_num = len(gettabinfo())
+
+	if &verbose > 0
+		echomsg string(l:tabs_num)
+	endif
+
+	if l:tabs_num < a:tab_num
+		execute 'tabnew'
+		return
+	endif
+
+	execute 'normal! ' . a:tab_num . 'gt'
+endfunction
