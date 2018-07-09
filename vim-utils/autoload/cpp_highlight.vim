@@ -7,145 +7,26 @@
 
 
 function! cpp_highlight#Set(type) abort
-	if a:type ==# ''
+	if empty(a:type)
+		call s:regular_highlight()
 		return
 	elseif a:type ==# 'chromatica'
-		if !has('nvim') || !has('python3') || !has('unix')
-			echomsg 'Chromatica compatible with nvim and python3 in unix'
-			return
-		endif
-
-		Plug 'arakashic/chromatica.nvim', { 'do' : ':UpdateRemotePlugins' }
-			let g:chromatica#enable_at_startup = 1
-			let g:chromatica#libclang_path = '/usr/lib/libclang.so'
-			let g:chromatica#highlight_feature_level = 1
-
+		call s:set_chromatica()
 	elseif a:type ==# 'easytags'
-		if has('nvim') || !has('python3')
-			echomsg 'Vim-Easytags compatible with vim and python3 only'
-			return
-		endif
-
-		" Too slow for not async abilities
-		" Plug 'xolox/vim-easytags', { 'on' : 'HighlightTags' }
-		Plug 'xolox/vim-easytags'
-		Plug 'xolox/vim-misc' " dependency of vim-easytags
-		Plug 'xolox/vim-shell' " dependency of vim-easytags
-		set regexpengine=1 " This speed up the engine alot but still not enough
-		let g:easytags_file = g:std_cache_path . '/easytags_tags'
-		let g:easytags_syntax_keyword = 'always'
-		let g:easytags_auto_update = 0
-		" let g:easytags_cmd = 'ctags'
-		" let g:easytags_on_cursorhold = 1
-		" let g:easytags_updatetime_min = 4000
-		" let g:easytags_auto_update = 1
-		" " let g:easytags_auto_highlight = 1
-		" let g:easytags_dynamic_files = 1
-		" let g:easytags_by_filetype = '~/.cache/easy-tags-filetype'
-		" " let g:easytags_events = ['BufReadPost' , 'BufWritePost']
-		" let g:easytags_events = ['BufReadPost']
-		" " let g:easytags_include_members = 1
-		" let g:easytags_async = 1
-		" let g:easytags_python_enabled = 1
-
+		call s:set_easytags()
 	elseif a:type ==# 'neotags'
-		if !has('python3')
-			echomsg 'Neotags requires python3'
-			return
-		endif
-
-		if !has('nvim')
-			echomsg 'Neotags requires neovim'
-			return
-		endif
-
-		" Depends on pip3 install --user psutil
-		Plug 'c0r73x/neotags.nvim',  { 'do' : 'make', 'for' : ['c', 'cpp'] }
-			set regexpengine=1 " This speed up the engine alot but still not enough
-			" let g:neotags_verbose = 1
-			let g:neotags_find_tool = executable('rg') ? 'rg --files' : ''
-			let g:neotags_run_ctags = 0
-			let g:neotags_directory = g:std_data_path . '/ctags/neotags'
-			" let g:neotags#cpp#order = 'cgstuedfpm'
-			let g:neotags#cpp#order = 'ced'
-			" let g:neotags#c#order = 'cgstuedfpm'
-			let g:neotags#c#order = 'ced'
-			" let g:neotags_events_highlight = [
-			" \   'BufEnter'
-			" \ ]
-			let g:neotags_ft_conv = {
-						\ 'C': 'c',
-						\ 'C++': 'cpp',
-						\ 'C#': 'cs',
-						\ 'JavaScript': 'flow',
-						\ 'Vim': 'vim',
-						\ 'Python': 'python',
-						\ }
-
-			let g:neotags_ignore = [
-						\ 'text',
-						\ 'nofile',
-						\ 'mail',
-						\ 'qf',
-						\ 'neoterm',
-						\ ]
-			let g:neotags_bin = '~/.vim_tags/bin/neotags'
-
-		call s:set_neotags()
+		call s:set_neo_neotags()
 	elseif a:type ==# 'color_coded'
-		if !has('unix') || has('nvim')
-			echomsg 'Color_coded only works on unix and vim'
-			return
-		endif
-
-		Plug 'jeaye/color_coded', { 'do': 'cmake . && make && make install' }
-
-		" Color_Coded
-		" call highlight#Set('Variable',								{ 'link' : 'cTypeTag' })
-		" call highlight#Set('Namespace',								{ 'fg' : g:cyan })
-		" call highlight#Set('EnumConstant',						{ 'link' : 'cEnum' })
-		" call highlight#Set('Member',			 						{ 'link' : 'cMember' })
-		let s:grey_blue = '#8a9597'
-		let s:light_grey_blue = '#a0a8b0'
-		let s:dark_grey_blue = '#34383c'
-		let s:mid_grey_blue = '#64686c'
-		let s:beige = '#ceb67f'
-		let s:light_orange = '#ebc471'
-		let s:yellow = '#e3d796'
-		let s:violet = '#a982c8'
-		let s:magenta = '#a933ac'
-		let s:green = '#e0a96f'
-		let s:lightgreen = '#c2c98f'
-		let s:red = '#d08356'
-		let s:cyan = '#74dad9'
-		let s:darkgrey = '#1a1a1a'
-		let s:grey = '#303030'
-		let s:lightgrey = '#605958'
-		let s:white = '#fffedc'
-		let s:orange = '#d08356'
-		exe 'hi Member guifg='.s:cyan .' guibg='.s:darkgrey .' gui=italic'
-		exe 'hi Variable guifg='.s:light_grey_blue .' guibg='.s:darkgrey .' gui=none'
-		exe 'hi Namespace guifg='.s:red .' guibg='.s:darkgrey .' gui=none'
-		exe 'hi EnumConstant guifg='.s:lightgreen .' guibg='.s:darkgrey .' gui=none'
-
+		call s:set_color_coded()
 	elseif a:type ==# 'clighter8'
-		if has('nvim') || !has('python3') " || !has('unix')
-			echomsg 'Clighter8 compatible with vim and python3 and unix only'
-			return
-		endif
-
-		Plug 'bbchung/clighter8'
-			let g:clighter8_syntax_groups = ['clighter8NamespaceRef', 'clighter8FunctionDecl']
-			let g:clighter8_libclang_path = 'C:\Program Files\LLVM\bin\libclang.dll'
-			" let g:clighter8_global_compile_args = ['-I/usr/local/include']
-			let g:clighter8_logfile = g:std_cache_path . '/clighter8.log'
 		call s:set_clighter8()
 	else
-		echomsg 'Not a recognized highlight type: ' . a:type
+		echomsg 'Not a recognized highlight type: ' . a:type . '. Using only regular highlight'
+		call s:regular_highlight()
 	endif
 endfunction
 
-function! s:set_neotags() abort
+function! s:set_neotags_highlights() abort
 	" C
 	call highlight#Set('cTypeTag',                { 'fg': g:brown })
 	call highlight#Set('cPreProcTag',             { 'fg': g:cyan })
@@ -177,7 +58,7 @@ function! s:set_neotags() abort
 	call highlight#Set('javaInterfaceTag',        { 'link': 'cMember' })
 endfunction
 
-function! s:set_clighter8() abort
+function! s:set_clighter8_highlight() abort
 	hi default link clighter8Decl Identifier
 	hi default link clighter8Ref Type
 	hi default link clighter8Prepro PreProc
@@ -209,4 +90,160 @@ function! s:set_clighter8() abort
 	hi default link clighter8MemberRefExpr Type
 	hi default link clighter8MacroInstantiation Constant
 	hi default link clighter8InclusionDirective cIncluded
+endfunction
+
+function! s:regular_highlight() abort
+	" Vim cpp syntax highlight
+	let g:cpp_class_scope_highlight = 1
+	let g:cpp_member_variable_highlight = 1
+	let g:cpp_class_decl_highlight = 1
+	let g:cpp_concepts_highlight = 1
+	Plug 'justinmk/vim-syntax-extra'
+	Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'c' , 'cpp' ] }
+endfunction
+
+function! s:set_neotags() abort
+	if !has('python3')
+		echomsg 'Neotags requires python3'
+		return
+	endif
+
+	if !has('nvim')
+		echomsg 'Neotags requires neovim'
+		return
+	endif
+
+	" Depends on pip3 install --user psutil
+	Plug 'c0r73x/neotags.nvim',  { 'do' : 'make' }
+	set regexpengine=1 " This speed up the engine alot but still not enough
+	" let g:neotags_verbose = 1
+	let g:neotags_find_tool = executable('rg') ? 'rg --files' : ''
+	let g:neotags_run_ctags = 0
+	" let g:neotags_directory = g:std_data_path . '/ctags/neotags'
+	" let g:neotags#cpp#order = 'cgstuedfpm'
+	let g:neotags#cpp#order = 'ced'
+	" let g:neotags#c#order = 'cgstuedfpm'
+	let g:neotags#c#order = 'ced'
+	" let g:neotags_events_highlight = [
+	" \   'BufEnter'
+	" \ ]
+	let g:neotags_ft_conv = {
+				\ 'C': 'c',
+				\ 'C++': 'cpp',
+				\ 'C#': 'cs',
+				\ 'JavaScript': 'flow',
+				\ 'Vim': 'vim',
+				\ 'Python': 'python',
+				\ }
+
+	let g:neotags_ignore = [
+				\ 'text',
+				\ 'nofile',
+				\ 'mail',
+				\ 'qf',
+				\ 'neoterm',
+				\ ]
+	" let g:neotags_bin = '~/.vim_tags/bin/neotags'
+
+	call s:set_neotags_highlights()
+endfunction
+
+function! s:set_easytags() abort
+	if has('nvim') || !has('python3')
+		echomsg 'Vim-Easytags compatible with vim and python3 only'
+		return
+	endif
+
+	" Too slow for not async abilities
+	" Plug 'xolox/vim-easytags', { 'on' : 'HighlightTags' }
+	Plug 'xolox/vim-easytags'
+	Plug 'xolox/vim-misc' " dependency of vim-easytags
+	Plug 'xolox/vim-shell' " dependency of vim-easytags
+	set regexpengine=1 " This speed up the engine alot but still not enough
+	let g:easytags_file = g:std_cache_path . '/easytags_tags'
+	let g:easytags_syntax_keyword = 'always'
+	let g:easytags_auto_update = 0
+	" let g:easytags_cmd = 'ctags'
+	" let g:easytags_on_cursorhold = 1
+	" let g:easytags_updatetime_min = 4000
+	" let g:easytags_auto_update = 1
+	" " let g:easytags_auto_highlight = 1
+	" let g:easytags_dynamic_files = 1
+	" let g:easytags_by_filetype = '~/.cache/easy-tags-filetype'
+	" " let g:easytags_events = ['BufReadPost' , 'BufWritePost']
+	" let g:easytags_events = ['BufReadPost']
+	" " let g:easytags_include_members = 1
+	" let g:easytags_async = 1
+	" let g:easytags_python_enabled = 1
+endfunction
+
+function! s:set_clighter8() abort
+	if has('nvim') || !has('python3') " || !has('unix')
+		echomsg 'Clighter8 compatible with vim and python3 and unix only'
+		return
+	endif
+
+	Plug 'bbchung/clighter8'
+	let g:clighter8_syntax_groups = ['clighter8NamespaceRef', 'clighter8FunctionDecl']
+	let g:clighter8_libclang_path = 'C:\Program Files\LLVM\bin\libclang.dll'
+	" let g:clighter8_global_compile_args = ['-I/usr/local/include']
+	let g:clighter8_logfile = g:std_cache_path . '/clighter8.log'
+	call s:set_clighter8_highlight()
+endfunction
+
+function! s:set_chromatica() abort
+	if !has('nvim') || !has('python3')
+		echomsg 'Chromatica compatible with nvim and python3 in unix'
+		return
+	endif
+
+	Plug 'arakashic/chromatica.nvim', { 'do' : ':UpdateRemotePlugins' }
+	let g:chromatica#enable_at_startup = 1
+	let g:chromatica#libclang_path = '/usr/lib/libclang.so'
+	let g:chromatica#highlight_feature_level = 1
+
+endfunction
+
+function! s:set_color_coded() abort
+	if !has('unix') || has('nvim')
+		echomsg 'Color_coded only works on unix and vim'
+		return
+	endif
+
+	Plug 'jeaye/color_coded', { 'do':
+				\ 'cmake . && make && make install && make clean && make clean_clang' }
+
+	" Color_Coded
+	" call highlight#Set('Variable',								{ 'link' : 'cTypeTag' })
+	" call highlight#Set('Namespace',								{ 'fg' : g:cyan })
+	" call highlight#Set('EnumConstant',						{ 'link' : 'cEnum' })
+	" call highlight#Set('Member',			 						{ 'link' : 'cMember' })
+	let l:grey_blue = '#8a9597'
+	let l:light_grey_blue = '#a0a8b0'
+	let l:dark_grey_blue = '#34383c'
+	let l:mid_grey_blue = '#64686c'
+	let l:beige = '#ceb67f'
+	let l:light_orange = '#ebc471'
+	let l:yellow = '#e3d796'
+	let l:violet = '#a982c8'
+	let l:magenta = '#a933ac'
+	let l:green = '#e0a96f'
+	let l:lightgreen = '#c2c98f'
+	let l:red = '#d08356'
+	let l:cyan = '#74dad9'
+	let l:darkgrey = '#1a1a1a'
+	let l:grey = '#303030'
+	let l:lightgrey = '#605958'
+	let l:white = '#fffedc'
+	let l:orange = '#d08356'
+	exe 'hi Member guifg='.l:cyan .' guibg='.l:darkgrey .' gui=italic'
+	exe 'hi Variable guifg='.l:light_grey_blue .' guibg='.l:darkgrey .' gui=none'
+	exe 'hi Namespace guifg='.l:red .' guibg='.l:darkgrey .' gui=none'
+	exe 'hi EnumConstant guifg='.l:lightgreen .' guibg='.l:darkgrey .' gui=none'
+endfunction
+
+function! s:set_neo_neotags() abort
+	let g:neotags_enabled = 1
+	" let g:neotags_bin = ''
+	" call s:set_neotags()
 endfunction
