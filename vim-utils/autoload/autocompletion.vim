@@ -41,60 +41,17 @@ function! autocompletion#SetCompl(compl) abort
 
 		Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 	elseif a:compl ==# 'nvim_compl_manager'
-		" Optional but useful python3 support
-		" pip3 install --user neovim jedi mistune psutil setproctitle
-		" if has('win32')
-		" call s:set_tab()
-		" return -1
-		" endif
-
-		if !has('nvim') || !has('python3')
-			echomsg 'nvim_compl_manager doesnt work with vim or you do not have python3'
-			return
-		endif
-
+		" call s:set_ncm()
+		call s:set_ncm2()
+		call s:set_ulti_snips()
 		if has('unix')
-			" Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-			" let g:LanguageClient_serverCommands = {
-			" \ 'cpp': ['clangd'],
-			" \ }
-			" let g:LanguageClient_autoStart = 1
-			" ncm's filtering is based on word, so it's better to convert results of
-			" muttaliases#CompleteMuttAliases into snippet expension
-			augroup NCM
-				autocmd!
-				autocmd User CmSetup call cm#register_source({'name' : 'mutt',
-							\ 'priority': 9,
-							\ 'cm_refresh_length': -1,
-							\ 'cm_refresh_patterns': ['^\w+:\s+'],
-							\ 'cm_refresh': {'omnifunc': function('s:set_mutt_omni_wrap')},
-							\ })
-			augroup END
+			call s:set_language_client()
+		else
+			call s:set_clang_compl('roxma_clang_complete')
 		endif
-
-		Plug 'roxma/nvim-completion-manager'
-		" nvim-completion-manager also added suppport for this
-		Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
-		Plug 'Shougo/neco-syntax'
-		" Thu Jul 20 2017 21:02: Causes nvim_compl_manager to freeze
-		" Plug 'Shougo/neoinclude.vim'
-		Plug 'roxma/ncm-github'
-		Plug 'Shougo/echodoc.vim'
-		" Plug 'roxma/ncm-clang'
-
-		inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
-		inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-		" if has('unix') " Automatic completion on unix
-		inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-		" let g:cm_auto_popup = 1
-		" else " but not anywhere else
-		" let g:cm_auto_popup = 0
-		" imap <silent> <Tab> <Plug>(cm_force_refresh)
-		" endif
-
-		call s:set_clang_compl('roxma_clang_complete')
 	elseif a:compl ==# 'shuogo'
 		call s:set_shuogo()
+		call s:set_neosnipppets()
 		" call s:set_vim_clang()
 		" Wed Apr 04 2018 16:33: Without a compile_commands.json lsp is useless for clangd
 		if has('unix')
@@ -176,9 +133,9 @@ function! s:set_clang_compl(type) abort
 	endif
 
 	if a:type ==# 'rip_clang_complete'
-		Plug 'Rip-Rip/clang_complete', { 'as': a:type }
+		Plug 'Rip-Rip/clang_complete'
 	elseif a:type ==# 'roxma_clang_complete'
-		Plug 'roxma/clang_complete', { 'as': a:type }
+		Plug 'roxma/clang_complete'
 	else
 		echomsg 's:set_clang_compl(): Not a recognized clang_complete type'
 	endif
@@ -439,10 +396,6 @@ function! s:set_mutt_omni_wrap(findstart, base) abort
 endfunction
 
 function! s:set_language_client() abort
-	if !executable('clangd')
-		return -1
-	endif
-
 	Plug 'autozimu/LanguageClient-neovim', {
 				\ 'branch': 'next',
 				\ 'do': has('unix') ? 'bash install.sh' : 'powershell -executionpolicy bypass -File install.ps1',
@@ -451,18 +404,21 @@ function! s:set_language_client() abort
 	" Wed Apr 04 2018 16:25: clangd depends on a compile_commands.json databse.
 	" If you can't generate that. Then its no use.
 	let g:LanguageClient_autoStart = 1
+	let g:LanguageClient_serverCommands = {}
+
+	let l:py = {
+				\ 'python3': ['pyls'],
+				\ 'python':  ['pyls'],
+				\ }
+	let l:cpp = { 'cpp' : ['clangd'] }
+
+
+	if executable('clangd')
+		call extend(g:LanguageClient_serverCommands, l:cpp)
+	endif
 
 	if executable('pyls')
-		let g:LanguageClient_serverCommands = {
-					\ 'cpp': ['clangd'],
-					\ 'python3': ['pyls'],
-					\ 'python':  ['pyls'],
-					\ }
-	else
-		let g:LanguageClient_serverCommands = {
-					\ 'cpp': ['clangd'],
-					\ }
-
+		call extend(g:LanguageClient_serverCommands, l:py)
 	endif
 
 	" Multi-entry selection UI. FZF
@@ -523,4 +479,149 @@ function! s:set_vim_clang() abort
 			echomsg "s:set_clang_compl(): g:usr_path not set or libclang not existent"
 		endif
 	endif
+endfunction
+
+function! s:set_neosnipppets() abort
+	Plug 'Shougo/neosnippet'
+	imap <plug>snip_expand     <Plug>(neosnippet_expand_or_jump)
+	smap <plug>snip_expand     <Plug>(neosnippet_expand_or_jump)
+	xmap <plug>snip_expand     <Plug>(neosnippet_expand_target)
+	smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+				\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+	" Tell Neosnippet about the other snippets
+	let g:neosnippet#snippets_directory= [
+				\ g:vim_plugins_path . '/vim-snippets/snippets',
+				\ g:location_vim_utils . '/snippets/',
+				\ ]
+	" Fri Oct 20 2017 21:47: Not really data but cache
+	let g:neosnippet#data_directory = g:std_cache_path . '/neosnippets'
+	" Used by nvim-completion-mgr
+	let g:neosnippet#enable_completed_snippet=1
+
+	" Only contain snippets
+	Plug 'Shougo/neosnippet-snippets'
+	Plug 'honza/vim-snippets'
+	let g:snips_author = 'Reinaldo Molina'
+	let g:snips_email = 'rmolin88 at gmail dot com'
+	let g:snips_github = 'rmolin88'
+endfunction
+
+function! s:set_ncm() abort
+	" Optional but useful python3 support
+	" pip3 install --user neovim jedi mistune psutil setproctitle
+	" if has('win32')
+	" call s:set_tab()
+	" return -1
+	" endif
+
+	if !has('nvim') || !has('python3')
+		echomsg 'nvim_compl_manager doesnt work with vim or you do not have python3'
+		return
+	endif
+
+	if has('unix')
+		" Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+		" let g:LanguageClient_serverCommands = {
+		" \ 'cpp': ['clangd'],
+		" \ }
+		" let g:LanguageClient_autoStart = 1
+		" ncm's filtering is based on word, so it's better to convert results of
+		" muttaliases#CompleteMuttAliases into snippet expension
+		augroup NCM
+			autocmd!
+			autocmd User CmSetup call cm#register_source({'name' : 'mutt',
+						\ 'priority': 9,
+						\ 'cm_refresh_length': -1,
+						\ 'cm_refresh_patterns': ['^\w+:\s+'],
+						\ 'cm_refresh': {'omnifunc': function('s:set_mutt_omni_wrap')},
+						\ })
+		augroup END
+	endif
+
+	Plug 'roxma/nvim-completion-manager'
+	" nvim-completion-manager also added suppport for this
+	Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
+	Plug 'Shougo/neco-syntax'
+	" Thu Jul 20 2017 21:02: Causes nvim_compl_manager to freeze
+	" Plug 'Shougo/neoinclude.vim'
+	Plug 'roxma/ncm-github'
+	Plug 'Shougo/echodoc.vim'
+	" Plug 'roxma/ncm-clang'
+
+	inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+	inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+	" if has('unix') " Automatic completion on unix
+	inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+	" let g:cm_auto_popup = 1
+	" else " but not anywhere else
+	" let g:cm_auto_popup = 0
+	" imap <silent> <Tab> <Plug>(cm_force_refresh)
+	" endif
+
+	call s:set_clang_compl('roxma_clang_complete')
+endfunction
+
+function! s:set_ncm2() abort
+	Plug 'ncm2/ncm2'
+	" ncm2 requires nvim-yarp
+	Plug 'roxma/nvim-yarp'
+
+	" wrap existing omnifunc
+	" Note that omnifunc does not run in background and may probably block the
+	" editor. If you don't want to be blocked by omnifunc too often, you could
+	" add 180ms delay before the omni wrapper:
+	"  'on_complete': ['ncm2#on_complete#delay', 180,
+	"               \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
+	let l:omni = {
+				\ 'name' : 'css',
+				\ 'priority': 9, 
+				\ 'subscope_enable': 1,
+				\ 'scope': ['css','scss'],
+				\ 'mark': 'css',
+				\ 'word_pattern': '[\w\-]+',
+				\ 'complete_pattern': ':\s*',
+				\ 'on_complete': ['ncm2#on_complete#delay', 180,
+	      \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
+				\ }
+
+	augroup ncm_buff
+		autocmd!
+		autocmd BufEnter * call ncm2#enable_for_buffer()
+		autocmd TextChangedI * call ncm2#auto_trigger()
+		autocmd User Ncm2Plugin call ncm2#register_source(l:omni)
+	augroup END
+	" note that must keep noinsert in completeopt, the others is optional
+	" set completeopt=noinsert,menuone,noselect
+	"" supress the annoying 'match x of y', 'The only match' and 'Pattern not
+	" found' messages
+	" set shortmess+=c
+	
+	" CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
+	inoremap <c-c> <ESC>
+
+	inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+	inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+	inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+	Plug 'ncm2/ncm2-path'
+	Plug 'ncm2/ncm2-bufword'
+	Plug 'ncm2/ncm2-ultisnips'
+endfunction
+
+function! s:set_ulti_snips() abort
+	Plug 'SirVer/ultisnips'
+	Plug 'honza/vim-snippets'
+
+	inoremap <silent> <expr> <cr> ncm2_ultisnips#expand_or("\<cr>", 'n')
+	let g:UltiSnipsSnippetDirectories= [
+				\ g:vim_plugins_path . '/vim-snippets/snippets',
+				\ g:location_vim_utils . '/snippets/',
+				\ ]
+
+	" c-j c-k for moving in snippet
+	inoremap <plug>snip_expand <Plug>(ultisnips_expand)
+	let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
+	let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
+	let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
+	let g:UltiSnipsRemoveSelectModeMappings = 0
 endfunction
