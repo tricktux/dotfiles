@@ -576,6 +576,7 @@ exec --no-startup-id seafile-applet
 # Wed Oct 11 2017 22:16: Application similar to xflux
 exec --no-startup-id redshift -c ~/.config/redshift.conf
 
+exec --no-startup-id i3-sensible-terminal --title=ranger --exec ranger
 # Sat Jul 07 2018 09:07: A little buggy
 # exec --no-startup-id variety
 
