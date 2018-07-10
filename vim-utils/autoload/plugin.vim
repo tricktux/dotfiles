@@ -123,9 +123,9 @@ function! plugin#Config()
 	" - In order to make use of its FindRootDirectory() function
 	Plug 'airblade/vim-rooter'
 	" let g:rooter_manual_only = 1
-	nmap <plug>cd_root :Rooter<CR>
+	nnoremap <plug>cd_root :Rooter<CR>
 	let g:rooter_use_lcd = 1
-	let g:rooter_patterns = ['.git/', '.svn/', 'Source/']
+	let g:rooter_patterns = ['.git/', '.svn/', 'Source/', 'wiki/']
 	" nnoremap <Leader>cr :call utils#RooterAutoloadCscope()<CR>
 
 	Plug 'Raimondi/delimitMate'
