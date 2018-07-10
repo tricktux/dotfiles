@@ -717,3 +717,12 @@ function! s:preview_qpdfview() abort
 	" Therefore restore focust to the marked nvim instance
 	execute ":silent !i3-msg '[con_mark=\"" . s:i3_mark . "\"]' focus"
 endfunction
+
+function! utils#GetFullPathAsName(folder) abort
+	" Create unique tag file name based on cwd
+	let ret = substitute(a:folder, "\\", '_', 'g')
+	let ret = substitute(ret, ':', '_', 'g')
+	let ret = substitute(ret, ' ', '_', 'g')
+	return substitute(ret, "/", '_', 'g')
+endfunction
+
