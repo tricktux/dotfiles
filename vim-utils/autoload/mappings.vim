@@ -494,12 +494,6 @@ function! s:load_session(...) abort
 		let session_name = input("Load session:", "", "file")
 		silent! execute "cd " . dir
 	endif
-	let response = confirm("Are you sure? This will unload all buffers?", "&Jes\n&No(def.)")
-	if response != 1
-		return -1
-	endif
-
-	silent! execute "normal :%bdelete\<CR>"
 	silent execute "source " . session_path . session_name
 endfunction
 
