@@ -41,7 +41,7 @@ function! ctags#NvimSyncCtags() abort
 		return
 	endif
 
-	let tag_name = s:get_folder_tag_name(getcwd())
+	let tag_name = utils#GetFullPathAsName(getcwd())
 
 	if !s:create_tags(tag_name)
 		echomsg "Failed to create tags file: " . tag_name
@@ -284,7 +284,7 @@ function! ctags#LoadCscopeDatabse() abort
 		let dir = g:root_dir
 	endif
 
-	let tag_name = s:get_folder_tag_name(dir)
+	let tag_name = utils#GetFullPathAsName(dir)
 
 	call s:add_tags(tag_name)
 
@@ -402,14 +402,6 @@ function! s:get_cwd() abort
 	endif
 
 	return cwd_rg
-endfunction
-
-function! s:get_folder_tag_name(folder) abort
-	" Create unique tag file name based on cwd
-	let tag_name = substitute(a:folder, "\\", '_', 'g')
-	let tag_name = substitute(tag_name, ':', '_', 'g')
-	let tag_name = substitute(tag_name, ' ', '_', 'g')
-	return substitute(tag_name, "/", '_', 'g')
 endfunction
 
 function! s:create_cscope(tag_name) abort
