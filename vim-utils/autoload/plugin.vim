@@ -122,7 +122,7 @@ function! plugin#Config()
 	" Wed Apr 04 2018 12:55: Rooter used to be on demand but I took it.
 	" - In order to make use of its FindRootDirectory() function
 	Plug 'airblade/vim-rooter'
-	let g:rooter_manual_only = 1
+	" let g:rooter_manual_only = 1
 	nmap <plug>cd_root :Rooter<CR>
 	let g:rooter_use_lcd = 1
 	let g:rooter_patterns = ['.git/', '.svn/', 'Source/']

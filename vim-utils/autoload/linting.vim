@@ -48,13 +48,17 @@ function! s:set_neomake() abort
 
 	let g:neomake_make_maker = {
 				\ 'exe': 'make',
+				\ 'cwd': '%:p:h',
 				\ 'args': ['--build'],
+				\ 'append_file' : 0,
 				\ 'errorformat': '%f:%l:%c: %m',
 				\ }
 
 	let g:neomake_msbuild_maker = {
 				\ 'exe' : 'msbuild',
+				\ 'cwd': '%:p:h',
 				\ 'append_file' : 0,
+				\ 'errorformat': '%f(%l): %t%*[^ ] C%n: %m [%.%#]',
 				\ }
 
 	let g:neomake_qpdfview_maker = {
@@ -256,6 +260,7 @@ function! linting#SetNeomakeClangMaker() abort
 	let b:neomake_cpp_enabled_makers += executable('cppcheck') ? ['cppcheck'] : ['']
 	if !has('unix')
 		let b:neomake_clang_args = '-target x86_64-pc-windows-gnu -std=c++1z -stdlib=libc++ -Wall -pedantic'
+		let b:neomake_clang_cwd = '%:p:h'
 	endif
 endfunction
 
@@ -275,9 +280,7 @@ function! linting#SetNeomakeBorlandMaker() abort
 
 	" For Borland use only make
 	let b:neomake_cpp_enabled_makers = ['make']
-	let b:neomake_make_exe = prog
 	let b:neomake_make_args = ['%:r.obj']
-	let b:neomake_make_append_file = 0
 	let b:neomake_make_errorformat = &errorformat
 endfunction
 
@@ -304,7 +307,6 @@ function! linting#SetNeomakeMsBuildMaker() abort
 	let &l:makeprg= ms . ' ' . proj_name . ' /nologo /v:q /property:GenerateFullPaths=true'
 
 	let b:neomake_cpp_enabled_makers = ['msbuild']
-	let b:neomake_cpp_msbuild_exe = ms
 	let b:neomake_cpp_msbuild_args = [
 				\ proj_name,
 				\ '/target:ClCompile',
