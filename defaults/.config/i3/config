@@ -566,7 +566,7 @@ exec --no-startup-id compton --fading --daemon
 exec --no-startup-id xscreensaver -no-splash
 exec --no-startup-id pcmanfm --daemon-mode
 
-exec --no-startup-id i3-sensible-terminal
+# exec --no-startup-id i3-sensible-terminal
 exec --no-startup-id nm-applet
 exec --no-startup-id blueberry-tray
 exec --no-startup-id seafile-applet
@@ -577,6 +577,7 @@ exec --no-startup-id seafile-applet
 exec --no-startup-id redshift -c ~/.config/redshift.conf
 
 exec --no-startup-id i3-sensible-terminal --title=ranger --exec ranger
+exec --no-startup-id i3-sensible-terminal --title=cmus --exec cmus
 # Sat Jul 07 2018 09:07: A little buggy
 # exec --no-startup-id variety
 
