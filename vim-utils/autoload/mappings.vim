@@ -445,13 +445,22 @@ function! mappings#SaveSession(...) abort
 	let session_path = g:std_data_path . '/sessions/'
 	" if session name is not provided as function argument ask for it
 	if a:0 < 1
-		execute "wall"
+		silent execute "wall"
 		let dir = getcwd()
-		execute "cd ". session_path
+		silent execute "lcd ". session_path
 		let session_name = input("Enter save session name:", "", "file")
-		silent! execute "cd " . dir
+		if match(session_name, '.vim', -4) < 0
+			" Append extention if was not provided
+			let session_name .= '.vim'
+		endif
+		silent! execute "lcd " . dir
+		" Ensure session_name ends in .vim
 	else
-		" Need to keep this option short and sweet
+		" Get current folder as a name
+		let session_name = utils#GetFullPathAsName(getcwd()) . '.vim'
+		" Save a session with the name of the current folder
+		silent! execute "mksession! " . session_path . session_name
+		" Then save another session with the name default name
 		let session_name = a:1
 	endif
 	silent! execute "mksession! " . session_path . session_name
