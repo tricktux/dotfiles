@@ -278,13 +278,7 @@ function! ctags#LoadCscopeDatabse() abort
 		return 1
 	endif
 
-	if !exists('g:root_dir') || empty(g:root_dir)
-		let dir = expand('%:h')
-	else
-		let dir = g:root_dir
-	endif
-
-	let tag_name = utils#GetFullPathAsName(dir)
+	let tag_name = utils#GetFullPathAsName(getcwd())
 
 	call s:add_tags(tag_name)
 

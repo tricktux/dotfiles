@@ -534,15 +534,13 @@ function! utils#UpdateSvnBranchInfo() abort
 		return ''
 	endif
 
-	if !exists('g:root_dir') || empty(g:root_dir) || empty(finddir(g:root_dir . '/.svn'))
+	let l:svn_dir = getcwd() . '/.svn'
+	if empty(finddir(l:svn_dir))
 		return ''
 	endif
 
-	let cmd = 'svn info ' . g:root_dir .  ' | ' .
+	let cmd = 'svn info  | ' .
 				\ (executable('grep') ? 'grep': 'findstr') . ' "Relative URL"'
-
-	" echomsg 'g:root_dir = ' . g:root_dir
-	" echomsg 'cmd = ' . cmd
 
 	let info = systemlist(cmd)
 	if v:shell_error
