@@ -406,19 +406,20 @@ function! s:set_language_client() abort
 	let g:LanguageClient_autoStart = 1
 	let g:LanguageClient_serverCommands = {}
 
-	let l:py = {
-				\ 'python3': ['pyls'],
-				\ 'python':  ['pyls'],
-				\ }
-	let l:cpp = { 'cpp' : ['clangd'] }
-
-
 	if executable('clangd')
-		call extend(g:LanguageClient_serverCommands, l:cpp)
+		call extend(g:LanguageClient_serverCommands, { 'cpp' : ['clangd'] })
 	endif
 
 	if executable('pyls')
-		call extend(g:LanguageClient_serverCommands, l:py)
+		call extend(g:LanguageClient_serverCommands, {
+				\ 'python3': ['pyls'],
+				\ 'python':  ['pyls'],
+				\ })
+	endif
+
+	if executable('jdtls')
+		" arch: install jdtls
+		call extend(g:LanguageClient_serverCommands, {'java': ['jdtls']} )
 	endif
 
 	" Multi-entry selection UI. FZF
@@ -431,15 +432,12 @@ function! s:set_language_client() abort
 	" Sat Jan 27 2018 11:11: Settings coming from:
 	" compile_commands.json on its wiki
 	" https://github.com/cquery-project/cquery/wiki/Neovim
-	" let g:LanguageClient_serverCommands = {
+	" let l:cquery = {
 				" \ 'cpp': [ 'cquery', '--language-server', '--log-file=/tmp/cq.log' ],
 				" \ 'c': ['cquery', '--language-server', '--log-file=/tmp/cq.log'],
 				" \ }
 	" let g:LanguageClient_loadSettings = 1 " Use an absolute configuration path if you want system-wide settings
 	" let g:LanguageClient_settingsPath = g:std_config_path . '/dotfiles/vim-utils/settings.json'
-
-	" let g:LanguageClient_trace = 'verbose'
-	" let g:LanguageClient_loggingLevel = 'DEBUG'
 
 	return 1
 endfunction

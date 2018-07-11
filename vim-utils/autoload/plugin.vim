@@ -160,13 +160,14 @@ function! plugin#Config()
 	let g:vim_isort_python_version = 'python3'
 
 	" java
-	Plug 'mattn/vim-javafmt', { 'for' : 'java' }
-	Plug 'tfnico/vim-gradle', { 'for' : 'java' }
-	Plug 'artur-shaik/vim-javacomplete2', { 'branch' : 'master', 'for' : 'java' }
-	let g:JavaComplete_ClosingBrace = 1
-	let g:JavaComplete_EnableDefaultMappings = 0
-	let g:JavaComplete_ImportSortType = 'packageName'
-	let g:JavaComplete_ImportOrder = ['android.', 'com.', 'junit.', 'net.', 'org.', 'java.', 'javax.']
+	" Wed Jul 11 2018 06:06: Replaced by the java-lsp: jdtls
+	" Plug 'mattn/vim-javafmt', { 'for' : 'java' }
+	" Plug 'tfnico/vim-gradle', { 'for' : 'java' }
+	" Plug 'artur-shaik/vim-javacomplete2', { 'branch' : 'master', 'for' : 'java' }
+	" let g:JavaComplete_ClosingBrace = 1
+	" let g:JavaComplete_EnableDefaultMappings = 0
+	" let g:JavaComplete_ImportSortType = 'packageName'
+	" let g:JavaComplete_ImportOrder = ['android.', 'com.', 'junit.', 'net.', 'org.', 'java.', 'javax.']
 
 	" Autocomplete
 	" Version control
@@ -467,8 +468,8 @@ endfunction
 " Called on augroup VimEnter search augroup.vim
 function! plugin#AfterConfig() abort
 	if exists('g:loaded_deoplete')
-		call deoplete#custom#source('javacomplete2', 'mark', '')
-		call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
+		" call deoplete#custom#source('javacomplete2', 'mark', '')
+		" call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
 		" c c++
 		call deoplete#custom#source('clang2', 'mark', '')
 		call deoplete#custom#source('LanguageClient',
