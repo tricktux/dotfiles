@@ -534,15 +534,13 @@ function! utils#UpdateSvnBranchInfo() abort
 		return ''
 	endif
 
-	if !exists('g:root_dir') || empty(g:root_dir) || empty(finddir(g:root_dir . '/.svn'))
+	let l:svn_dir = getcwd() . '/.svn'
+	if empty(finddir(l:svn_dir))
 		return ''
 	endif
 
-	let cmd = 'svn info ' . g:root_dir .  ' | ' .
+	let cmd = 'svn info  | ' .
 				\ (executable('grep') ? 'grep': 'findstr') . ' "Relative URL"'
-
-	" echomsg 'g:root_dir = ' . g:root_dir
-	" echomsg 'cmd = ' . cmd
 
 	let info = systemlist(cmd)
 	if v:shell_error
@@ -717,3 +715,12 @@ function! s:preview_qpdfview() abort
 	" Therefore restore focust to the marked nvim instance
 	execute ":silent !i3-msg '[con_mark=\"" . s:i3_mark . "\"]' focus"
 endfunction
+
+function! utils#GetFullPathAsName(folder) abort
+	" Create unique tag file name based on cwd
+	let ret = substitute(a:folder, "\\", '_', 'g')
+	let ret = substitute(ret, ':', '_', 'g')
+	let ret = substitute(ret, ' ', '_', 'g')
+	return substitute(ret, "/", '_', 'g')
+endfunction
+

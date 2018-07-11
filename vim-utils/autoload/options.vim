@@ -61,7 +61,7 @@ function! options#Set() abort
 	set noswapfile
 	"set autochdir " working directory is always the same as the file you are editing
 	" Took out options from here. Makes the session script too long and annoying
-	set sessionoptions=buffers,curdir,folds,tabpages
+	set sessionoptions=buffers,curdir,tabpages
 	set hidden
 	" see :h timeout this was done to make use of ' faster and keep the other
 	" timeout the same
