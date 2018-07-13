@@ -186,35 +186,43 @@ function! linting#SetNeomakePandocMaker(type) abort
 	" By default, pandoc produces a document fragment. To produce a standalone document (e.g. a valid
 	" HTML file including <head> and <body>), use the -s or --standalone flag:
 	" Listing is used to produce code snippets
-	let argu = ['-r',
+	let l:argu = ['-r',
 				\ 'markdown+simple_tables+table_captions+yaml_metadata_block+smart',
 				\ '--standalone', '-V', 'geometry:margin=.5in']
 
 	if executable('pandoc-citeproc')
 		" Obtain list of bib files
-		let bibl = glob('*.bib', 1, 1)
-		if !empty(bibl)
-			let argu += ['--filter',
+		let l:bibl = glob('*.bib', 1, 1)
+		if !empty(l:bibl)
+			let l:argu += ['--filter',
 						\ 'pandoc-citproc',
-						\	'--bibliography'] + bibl
+						\	'--bibliography'] + l:bibl
 		endif
 	endif
 
 	if a:type ==# 'pdf'
-		let wrte = 'latex'
-		let out = '%:r.pdf'
 		" Set template
-		let argu += [
+		let l:argu += [
 					\ '--template',
 					\ (!exists('b:neomake_pandoc_template') ? 'eisvogel' : b:neomake_pandoc_template),
-					\ '--number-sections'
+					\ '--number-sections --listings', '--write', 'latex', '-o', '%:r.pdf', '%'
 					\ ]
 	elseif a:type ==# 'docx'
-		let wrte = 'docx'
-		let out = '%:r.docx'
+		" let l:wrte = 'docx'
+		" let l:out = '%:r.docx'
+		let l:argu += ['--write', 'docx', '-o', '%:r.docx', '%']
 	elseif a:type ==# 'html'
-		let wrte = 'html'
-		let out = '%:r.html'
+		" let l:wrte = 'html'
+		" let l:out = '%:r.html'
+		let l:argu += ['--write', 'html', '-o', '%:r.html', '%']
+	elseif a:type ==# 'pdf_slides'
+		" let l:wrte = 'pdf'
+		" let l:out = '%:r.pdf'
+		let l:argu = [ '-t', 'beamer', '-o', '%:r.pdf', '%']
+	elseif a:type ==# 'pptx_slides'
+		" let l:wrte = 'pptx'
+		" let l:out = '%:r.pptx'
+		let l:argu = [ '-o', '%:r.pdf', '%']
 	else
 		if &verbose > 0
 			echomsg '[linting#SetNeomakePandocMaker]: Not a recognized a:type variable'
@@ -223,36 +231,35 @@ function! linting#SetNeomakePandocMaker(type) abort
 	endif
 
 	if exists('b:neomake_pandoc_extra_args') && !empty(b:neomake_pandoc_extra_args)
-		let argu += b:neomake_pandoc_extra_args
+		let l:argu += b:neomake_pandoc_extra_args
 	endif
-
-	let argu += ['--write', wrte, '-o', out, '%']
 
 	" Setup neomake variables
 	if &verbose > 0
-		echomsg '[linting#SetNeomakePandocMaker]: argu = ' . argu
+		echomsg '[linting#SetNeomakePandocMaker]: l:argu = ' . l:argu
 	endif
 
-	let maker = 'pandoc_' . a:type
-	let g:neomake_{maker}_maker = {
+	let l:maker = 'pandoc_' . a:type
+	let g:neomake_{l:maker}_maker = {
 				\ 'exe': 'pandoc',
-				\ 'args': argu,
+				\ 'args': l:argu,
 				\ 'append_file' : 0,
 				\ 'cwd': '%:p:h'
 				\ }
 
 	if !exists('b:neomake_markdown_enabled_makers')
-		let g:neomake_markdown_enabled_makers = [maker]
+		let g:neomake_markdown_enabled_makers = [l:maker]
 		return
 	endif
 
 	for l:ma in b:neomake_markdown_enabled_makers
-		if l:ma ==# maker
+		if l:ma ==# l:maker
+			let l:ma = l:maker
 			return
 		endif
 	endfor
 
-	let g:neomake_markdown_enabled_makers += [maker]
+	let g:neomake_markdown_enabled_makers += [l:maker]
 endfunction
 
 function! linting#SetNeomakeClangMaker() abort
