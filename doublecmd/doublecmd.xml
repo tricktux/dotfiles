@@ -1,0 +1,1699 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doublecmd DCVersion="0.8.3 beta" ConfigVersion="10">
+  <Toolbars>
+    <MainToolbar>
+      <Row>
+        <Command>
+          <ID>{4FD7CECB-1876-44E7-8140-17C5E8D03513}</ID>
+          <Icon>cm_refresh</Icon>
+          <Command>cm_Refresh</Command>
+        </Command>
+        <Command>
+          <ID>{1025648F-9624-43DF-902E-73AB5AF74C8A}</ID>
+          <Icon>cm_runterm</Icon>
+          <Command>cm_RunTerm</Command>
+        </Command>
+        <Command>
+          <ID>{8FD6CB70-82FB-465A-A73A-77684D7DCEE8}</ID>
+          <Icon>cm_options</Icon>
+          <Command>cm_Options</Command>
+        </Command>
+        <Separator/>
+        <Command>
+          <ID>{496F9220-14D7-4CFA-8321-438789FE0A47}</ID>
+          <Icon>cm_briefview</Icon>
+          <Command>cm_BriefView</Command>
+        </Command>
+        <Command>
+          <ID>{C888E529-E275-44C9-9A0E-1E7296EB7BEE}</ID>
+          <Icon>cm_columnsview</Icon>
+          <Command>cm_ColumnsView</Command>
+        </Command>
+        <Command>
+          <ID>{1BAA13C4-7214-417C-AF70-5EEE7E8BC97B}</ID>
+          <Icon>cm_thumbnailsview</Icon>
+          <Command>cm_ThumbnailsView</Command>
+        </Command>
+        <Separator/>
+        <Command>
+          <ID>{503AD321-E8DC-43DD-9BA3-2C388C73AB5E}</ID>
+          <Icon>cm_flatview</Icon>
+          <Command>cm_FlatView</Command>
+        </Command>
+        <Separator/>
+        <Command>
+          <ID>{F91D633E-1DED-40E5-A2B2-8C1CB56409F1}</ID>
+          <Icon>cm_viewhistoryprev</Icon>
+          <Command>cm_ViewHistoryPrev</Command>
+        </Command>
+        <Command>
+          <ID>{C7E737A5-F734-45B7-8EEA-7AEFA09D2E90}</ID>
+          <Icon>cm_viewhistorynext</Icon>
+          <Command>cm_ViewHistoryNext</Command>
+        </Command>
+        <Separator/>
+        <Command>
+          <ID>{A2B7870E-CD89-4780-A917-19210D5E92D9}</ID>
+          <Icon>cm_markplus</Icon>
+          <Command>cm_MarkPlus</Command>
+        </Command>
+        <Command>
+          <ID>{7BA1F433-D7A5-45E1-9C0B-34EAE3652DDE}</ID>
+          <Icon>cm_markminus</Icon>
+          <Command>cm_MarkMinus</Command>
+        </Command>
+        <Command>
+          <ID>{E92FE9E1-0A6B-4BAC-BE42-E95D799762CC}</ID>
+          <Icon>cm_markinvert</Icon>
+          <Command>cm_MarkInvert</Command>
+        </Command>
+        <Separator/>
+        <Command>
+          <ID>{FCEDE620-58F2-4069-AB72-1F4592A41012}</ID>
+          <Icon>cm_packfiles</Icon>
+          <Command>cm_PackFiles</Command>
+        </Command>
+        <Command>
+          <ID>{5CF51B30-E113-4D44-908D-5EC57119C48F}</ID>
+          <Icon>cm_extractfiles</Icon>
+          <Command>cm_ExtractFiles</Command>
+        </Command>
+        <Separator/>
+        <Command>
+          <ID>{8A30DB0D-6AF3-4570-806B-E0D0D91D502C}</ID>
+          <Icon>cm_search</Icon>
+          <Command>cm_Search</Command>
+        </Command>
+        <Command>
+          <ID>{1052149C-D5EA-4352-B976-D41BEA36FCFE}</ID>
+          <Icon>cm_multirename</Icon>
+          <Command>cm_MultiRename</Command>
+        </Command>
+        <Command>
+          <ID>{41B83EC4-87A8-4556-8769-DA4885AE2E00}</ID>
+          <Icon>cm_syncdirs</Icon>
+          <Command>cm_SyncDirs</Command>
+        </Command>
+        <Command>
+          <ID>{C5C2B786-4EEA-45FD-9192-28F64F582904}</ID>
+          <Icon>cm_copyfullnamestoclip</Icon>
+          <Command>cm_CopyFullNamesToClip</Command>
+        </Command>
+      </Row>
+    </MainToolbar>
+  </Toolbars>
+  <MainWindow>
+    <Position>
+      <Maximized>True</Maximized>
+      <Splitter>50</Splitter>
+      <Left>-7</Left>
+      <Top>0</Top>
+      <Width>958</Width>
+      <Height>1008</Height>
+      <PixelsPerInch>96</PixelsPerInch>
+    </Position>
+  </MainWindow>
+  <Configuration Save="True" SortOrder="0">
+    <UseConfigInProgramDir>False</UseConfigInProgramDir>
+  </Configuration>
+  <Language>
+    <POFileName>doublecmd.en.po</POFileName>
+  </Language>
+  <Behaviours>
+    <GoToRoot>False</GoToRoot>
+    <RunInTerminalStayOpenCmd>cmd.exe</RunInTerminalStayOpenCmd>
+    <RunInTerminalStayOpenParams>/K {command}</RunInTerminalStayOpenParams>
+    <RunInTerminalCloseCmd>cmd.exe</RunInTerminalCloseCmd>
+    <RunInTerminalCloseParams>/C {command}</RunInTerminalCloseParams>
+    <JustRunTerminal>cmd.exe</JustRunTerminal>
+    <JustRunTermParams/>
+    <OnlyOneAppInstance>False</OnlyOneAppInstance>
+    <LynxLike>True</LynxLike>
+    <FileSizeFormat>0</FileSizeFormat>
+    <FileSizeDigits>1</FileSizeDigits>
+    <MinimizeToTray>False</MinimizeToTray>
+    <AlwaysShowTrayIcon>False</AlwaysShowTrayIcon>
+    <Mouse>
+      <Selection Enabled="True">
+        <Button>0</Button>
+      </Selection>
+      <SingleClickStart>0</SingleClickStart>
+      <ScrollMode>1</ScrollMode>
+      <WheelScrollLines>3</WheelScrollLines>
+    </Mouse>
+    <AutoFillColumns>False</AutoFillColumns>
+    <AutoSizeColumn>1</AutoSizeColumn>
+    <CustomColumnsChangeAllColumns>False</CustomColumnsChangeAllColumns>
+    <BriefViewFileExtAligned>False</BriefViewFileExtAligned>
+    <DateTimeFormat>M/d/yyyy hh:nn:ss</DateTimeFormat>
+    <CutTextToColumnWidth>True</CutTextToColumnWidth>
+    <ExtendCellWidth>False</ExtendCellWidth>
+    <ShowSystemFiles>True</ShowSystemFiles>
+    <ListFilesInThread>True</ListFilesInThread>
+    <LoadIconsSeparately>True</LoadIconsSeparately>
+    <DelayLoadingTabs>True</DelayLoadingTabs>
+    <HighlightUpdatedFiles>True</HighlightUpdatedFiles>
+    <DriveBlackList/>
+    <DriveBlackListUnmounted>False</DriveBlackListUnmounted>
+  </Behaviours>
+  <Tools>
+    <Viewer Enabled="False">
+      <Path/>
+      <Parameters/>
+      <RunInTerminal>False</RunInTerminal>
+      <KeepTerminalOpen>False</KeepTerminalOpen>
+    </Viewer>
+    <Editor Enabled="False">
+      <Path/>
+      <Parameters/>
+      <RunInTerminal>False</RunInTerminal>
+      <KeepTerminalOpen>False</KeepTerminalOpen>
+    </Editor>
+    <Differ Enabled="True">
+      <Path/>
+      <Parameters/>
+      <RunInTerminal>False</RunInTerminal>
+      <KeepTerminalOpen>False</KeepTerminalOpen>
+      <FramePosAfterComp>0</FramePosAfterComp>
+    </Differ>
+  </Tools>
+  <Fonts>
+    <Main>
+      <Name>default</Name>
+      <Size>10</Size>
+      <Style>1</Style>
+      <Quality>0</Quality>
+    </Main>
+    <Editor>
+      <Name>Courier New</Name>
+      <Size>14</Size>
+      <Style>0</Style>
+      <Quality>0</Quality>
+    </Editor>
+    <Viewer>
+      <Name>Courier New</Name>
+      <Size>14</Size>
+      <Style>0</Style>
+      <Quality>0</Quality>
+    </Viewer>
+    <OptionsTree>
+      <Name>default</Name>
+      <Size>10</Size>
+      <Style>0</Style>
+      <Quality>0</Quality>
+    </OptionsTree>
+    <OptionsMain>
+      <Name>default</Name>
+      <Size>10</Size>
+      <Style>0</Style>
+      <Quality>0</Quality>
+    </OptionsMain>
+    <SearchResults>
+      <Name>default</Name>
+      <Size>14</Size>
+      <Style>0</Style>
+      <Quality>0</Quality>
+    </SearchResults>
+    <PathEdit>
+      <Name>default</Name>
+      <Size>8</Size>
+      <Style>0</Style>
+      <Quality>0</Quality>
+    </PathEdit>
+    <FunctionButtons>
+      <Name>default</Name>
+      <Size>8</Size>
+      <Style>0</Style>
+      <Quality>0</Quality>
+    </FunctionButtons>
+    <Log>
+      <Name>Courier New</Name>
+      <Size>12</Size>
+      <Style>0</Style>
+      <Quality>0</Quality>
+    </Log>
+    <ViewerBook>
+      <Name>default</Name>
+      <Size>16</Size>
+      <Style>1</Style>
+      <Quality>0</Quality>
+    </ViewerBook>
+    <Console>
+      <Name>Courier New</Name>
+      <Size>12</Size>
+      <Style>0</Style>
+      <Quality>0</Quality>
+    </Console>
+  </Fonts>
+  <Colors>
+    <UseCursorBorder>False</UseCursorBorder>
+    <CursorBorderColor>-2147483635</CursorBorderColor>
+    <UseFrameCursor>False</UseFrameCursor>
+    <Foreground>-2147483640</Foreground>
+    <Background>-2147483643</Background>
+    <Background2>-2147483643</Background2>
+    <Cursor>-2147483635</Cursor>
+    <CursorText>-2147483634</CursorText>
+    <Mark>255</Mark>
+    <InactiveCursor>-2147483645</InactiveCursor>
+    <InactiveMark>128</InactiveMark>
+    <UseInvertedSelection>False</UseInvertedSelection>
+    <UseInactiveSelColor>False</UseInactiveSelColor>
+    <AllowOverColor>True</AllowOverColor>
+    <gBorderFrameWidth>1</gBorderFrameWidth>
+    <InactivePanelBrightness>100</InactivePanelBrightness>
+    <FreeSpaceIndicator>
+      <UseGradient>True</UseGradient>
+      <ForeColor>0</ForeColor>
+      <BackColor>16777215</BackColor>
+    </FreeSpaceIndicator>
+    <FileFilters/>
+  </Colors>
+  <ToolTips>
+    <ShowToolTipMode>True</ShowToolTipMode>
+    <CustomFields/>
+  </ToolTips>
+  <Layout>
+    <MainMenu>True</MainMenu>
+    <ButtonBar Enabled="False">
+      <FlatIcons>True</FlatIcons>
+      <ButtonHeight>24</ButtonHeight>
+      <IconSize>16</IconSize>
+      <ReportErrorWithCommands>False</ReportErrorWithCommands>
+    </ButtonBar>
+    <DriveBar1>False</DriveBar1>
+    <DriveBar2>True</DriveBar2>
+    <DriveBarFlat>True</DriveBarFlat>
+    <DrivesListButton Enabled="False">
+      <ShowLabel>True</ShowLabel>
+      <ShowFileSystem>True</ShowFileSystem>
+      <ShowFreeSpace>True</ShowFreeSpace>
+    </DrivesListButton>
+    <SeparateTree>False</SeparateTree>
+    <DirectoryTabs>True</DirectoryTabs>
+    <CurrentDirectory>True</CurrentDirectory>
+    <TabHeader>True</TabHeader>
+    <StatusBar>True</StatusBar>
+    <CmdLine>False</CmdLine>
+    <LogWindow>False</LogWindow>
+    <TermWindow>False</TermWindow>
+    <KeyButtons>True</KeyButtons>
+    <InterfaceFlat>True</InterfaceFlat>
+    <DriveFreeSpace>True</DriveFreeSpace>
+    <DriveIndicator>False</DriveIndicator>
+    <ProgressInMenuBar>False</ProgressInMenuBar>
+    <PanelOfOperationsInBackground>True</PanelOfOperationsInBackground>
+    <HorizontalFilePanels>False</HorizontalFilePanels>
+    <ShortFormatDriveInfo>True</ShortFormatDriveInfo>
+  </Layout>
+  <FilesViews>
+    <Sorting>
+      <CaseSensitivity>0</CaseSensitivity>
+      <NaturalSorting>False</NaturalSorting>
+      <SortFolderMode>0</SortFolderMode>
+      <NewFilesPosition>2</NewFilesPosition>
+      <UpdatedFilesPosition>2</UpdatedFilesPosition>
+    </Sorting>
+    <ColumnsView>
+      <AutoSaveWidth>True</AutoSaveWidth>
+      <TitleStyle>2</TitleStyle>
+    </ColumnsView>
+    <BriefView>
+      <FileExtAligned>False</FileExtAligned>
+      <Columns>
+        <FixedWidth>100</FixedWidth>
+        <FixedCount>2</FixedCount>
+        <AutoSize>2</AutoSize>
+      </Columns>
+    </BriefView>
+    <ExtraLineSpan>2</ExtraLineSpan>
+  </FilesViews>
+  <Keyboard>
+    <Typing>
+      <Actions>
+        <NoModifier>2</NoModifier>
+        <Alt>0</Alt>
+        <CtrlAlt>3</CtrlAlt>
+      </Actions>
+    </Typing>
+  </Keyboard>
+  <FileOperations>
+    <BufferSize>524288</BufferSize>
+    <HashBufferSize>8388608</HashBufferSize>
+    <UseMmapInSearch>False</UseMmapInSearch>
+    <PartialNameSearch>True</PartialNameSearch>
+    <InitiallyClearFileMask>True</InitiallyClearFileMask>
+    <NewSearchClearFiltersAction>0</NewSearchClearFiltersAction>
+    <ShowMenuBarInFindFiles>True</ShowMenuBarInFindFiles>
+    <WipePassNumber>1</WipePassNumber>
+    <DropReadOnlyFlag>False</DropReadOnlyFlag>
+    <ProcessComments>False</ProcessComments>
+    <RenameSelOnlyName>False</RenameSelOnlyName>
+    <ShowCopyTabSelectPanel>False</ShowCopyTabSelectPanel>
+    <UseTrash>True</UseTrash>
+    <SkipFileOpError>False</SkipFileOpError>
+    <TypeOfDuplicatedRename>0</TypeOfDuplicatedRename>
+    <ShowDialogOnDragDrop>False</ShowDialogOnDragDrop>
+    <DragAndDropTextRichtextDesireLevel>0</DragAndDropTextRichtextDesireLevel>
+    <DragAndDropTextHtmlDesireLevel>1</DragAndDropTextHtmlDesireLevel>
+    <DragAndDropTextUnicodeDesireLevel>2</DragAndDropTextUnicodeDesireLevel>
+    <DragAndDropTextSimpletextDesireLevel>3</DragAndDropTextSimpletextDesireLevel>
+    <DragAndDropAskFormatEachTime>False</DragAndDropAskFormatEachTime>
+    <DragAndDropTextAutoFilename>False</DragAndDropTextAutoFilename>
+    <DragAndDropSaveUnicodeTextInUFT8>True</DragAndDropSaveUnicodeTextInUFT8>
+    <NtfsHourTimeDelay>False</NtfsHourTimeDelay>
+    <AutoExtractOpenMask/>
+    <SearchDefaultTemplate/>
+    <ProgressKind>0</ProgressKind>
+    <Confirmations>15</Confirmations>
+    <Options>
+      <Symlink>0</Symlink>
+      <CorrectLinks>False</CorrectLinks>
+      <FileExists>0</FileExists>
+      <DirectoryExists>0</DirectoryExists>
+      <SetPropertyError>0</SetPropertyError>
+      <ReserveSpace>False</ReserveSpace>
+      <CheckFreeSpace>True</CheckFreeSpace>
+      <CopyAttributes>True</CopyAttributes>
+      <Verify>False</Verify>
+      <CopyTime>True</CopyTime>
+      <CopyOwnership>False</CopyOwnership>
+      <CopyPermissions>False</CopyPermissions>
+      <ExcludeEmptyTemplateDirectories>True</ExcludeEmptyTemplateDirectories>
+    </Options>
+  </FileOperations>
+  <Tabs>
+    <Options>49937</Options>
+    <CharacterLimit>32</CharacterLimit>
+    <Position>0</Position>
+    <ActionOnDoubleClick>2</ActionOnDoubleClick>
+    <OpenedTabs>
+      <Left>
+        <ActiveTab>5</ActiveTab>
+        <Tab>
+          <FileView Type="columns">
+            <Sortings>
+              <Sorting>
+                <Direction>2</Direction>
+                <Function>7</Function>
+              </Sorting>
+            </Sortings>
+            <History>
+              <Entry Active="True">
+                <FileSource Type="FileSystem"/>
+                <Paths>
+                  <Path Filename="hpd">D:\wiki\work\</Path>
+                  <Path Filename="2018">D:\wiki\work\hpd\</Path>
+                  <Path Filename="WeeklyReport_ReinaldoMolina_07-09-19.pdf">D:\wiki\work\hpd\2018\</Path>
+                  <Path Filename="7-EGI-60">D:\1.WINGS\</Path>
+                  <Path Filename="docs">D:\1.WINGS\7-EGI-60\</Path>
+                  <Path Filename="program">D:\1.WINGS\7-EGI-60\docs\</Path>
+                  <Path Filename="quotes">D:\1.WINGS\7-EGI-60\docs\program\</Path>
+                  <Path Filename="GN17-010 F-16 Block 61 UAE">D:\1.WINGS\7-EGI-60\docs\program\quotes\</Path>
+                  <Path Filename="GN17-010 (F-16 Block 61 UAE) BOE  WBS 4_2_2.docx">D:\1.WINGS\7-EGI-60\docs\program\quotes\GN17-010 F-16 Block 61 UAE\</Path>
+                  <Path Filename="GN17-010 F-16 Block 61 UAE">D:\1.WINGS\7-EGI-60\docs\program\quotes\</Path>
+                  <Path Filename="GN17-010 (F-16 Block 61 UAE) BOE  WBS 4_2_2.docx">D:\1.WINGS\7-EGI-60\docs\program\quotes\GN17-010 F-16 Block 61 UAE\</Path>
+                  <Path Filename="OneWings">D:\wings-dev\</Path>
+                  <Path Filename="TestStand">D:\wings-dev\OneWings\</Path>
+                  <Path Filename="IPC">D:\wings-dev\OneWings\TestStand\</Path>
+                  <Path Filename="TsCommServer">D:\wings-dev\OneWings\TestStand\IPC\</Path>
+                  <Path Filename="..">D:\wings-dev\OneWings\TestStand\IPC\TsCommServer\</Path>
+                  <Path Filename="$RECYCLE.BIN">e:\</Path>
+                  <Path Filename="OneWings">D:\wings-dev\</Path>
+                  <Path Filename="TestStand">D:\wings-dev\OneWings\</Path>
+                  <Path Filename="IPC">D:\wings-dev\OneWings\TestStand\</Path>
+                  <Path Filename="TestStand">D:\wings-dev\OneWings\</Path>
+                  <Path Filename="TestStand">D:\wings-dev\</Path>
+                  <Path Filename="TS_WINGS_Libraries.sln">D:\wings-dev\TestStand\</Path>
+                  <Path Filename="7-EGI-60">D:\1.WINGS\</Path>
+                  <Path Filename="docs">D:\1.WINGS\7-EGI-60\</Path>
+                  <Path Filename="program">D:\1.WINGS\7-EGI-60\docs\</Path>
+                  <Path Filename="schedule">D:\1.WINGS\7-EGI-60\docs\program\</Path>
+                  <Path Filename="F-16 Block 60 UAE EGI Upgrade IMS (7-11-2018).csv">D:\1.WINGS\7-EGI-60\docs\program\schedule\</Path>
+                  <Path Filename="schedule">D:\1.WINGS\7-EGI-60\docs\program\</Path>
+                  <Path Filename="F-16 Block 60 UAE EGI Upgrade IMS (7-11-2018).mpp">D:\1.WINGS\7-EGI-60\docs\program\schedule\</Path>
+                  <Path Filename="schedule">D:\1.WINGS\7-EGI-60\docs\program\</Path>
+                  <Path Filename="program">D:\1.WINGS\7-EGI-60\docs\</Path>
+                  <Path Filename="docs">D:\1.WINGS\7-EGI-60\</Path>
+                  <Path Filename="2-F35">D:\1.WINGS\</Path>
+                  <Path Filename="..">D:\1.WINGS\2-F35\</Path>
+                  <Path Filename="2-F35">D:\1.WINGS\</Path>
+                  <Path Filename="_UnfortunateF35Release">D:\1.WINGS\2-F35\</Path>
+                  <Path Filename="74205015-002">D:\1.WINGS\2-F35\_UnfortunateF35Release\</Path>
+                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
+                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
+                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
+                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
+                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
+                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
+                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
+                  <Path Filename="74205015-002">D:\1.WINGS\2-F35\_UnfortunateF35Release\</Path>
+                  <Path Filename="Customers_SCRs">D:\1.WINGS\2-F35\</Path>
+                  <Path Filename="..">D:\1.WINGS\2-F35\Customers_SCRs\</Path>
+                  <Path Filename="Customers_SCRs">D:\1.WINGS\2-F35\</Path>
+                  <Path Filename="2-F35">D:\1.WINGS\</Path>
+                </Paths>
+              </Entry>
+            </History>
+            <ColumnsView>
+              <ColumnsSet>Default</ColumnsSet>
+            </ColumnsView>
+          </FileView>
+        </Tab>
+        <Tab>
+          <FileView Type="columns">
+            <Sortings>
+              <Sorting>
+                <Direction>2</Direction>
+                <Function>7</Function>
+              </Sorting>
+            </Sortings>
+            <History>
+              <Entry Active="True">
+                <FileSource Type="FileSystem"/>
+                <Paths>
+                  <Path Filename="OneWings">D:\wings-dev\</Path>
+                  <Path Filename="TestStand">D:\wings-dev\OneWings\</Path>
+                  <Path Filename="IPC">D:\wings-dev\OneWings\TestStand\</Path>
+                  <Path Filename="TestStand">D:\wings-dev\OneWings\</Path>
+                  <Path Filename="TestStand">D:\wings-dev\</Path>
+                  <Path Filename="TS_WINGS_Libraries.sln">D:\wings-dev\TestStand\</Path>
+                  <Path Filename="7-EGI-60">D:\1.WINGS\</Path>
+                  <Path Filename="docs">D:\1.WINGS\7-EGI-60\</Path>
+                  <Path Filename="program">D:\1.WINGS\7-EGI-60\docs\</Path>
+                  <Path Filename="schedule">D:\1.WINGS\7-EGI-60\docs\program\</Path>
+                  <Path Filename="F-16 Block 60 UAE EGI Upgrade IMS (7-11-2018).csv">D:\1.WINGS\7-EGI-60\docs\program\schedule\</Path>
+                  <Path Filename="schedule">D:\1.WINGS\7-EGI-60\docs\program\</Path>
+                  <Path Filename="F-16 Block 60 UAE EGI Upgrade IMS (7-11-2018).mpp">D:\1.WINGS\7-EGI-60\docs\program\schedule\</Path>
+                  <Path Filename="schedule">D:\1.WINGS\7-EGI-60\docs\program\</Path>
+                  <Path Filename="program">D:\1.WINGS\7-EGI-60\docs\</Path>
+                  <Path Filename="docs">D:\1.WINGS\7-EGI-60\</Path>
+                  <Path Filename="2-F35">D:\1.WINGS\</Path>
+                  <Path Filename="..">D:\1.WINGS\2-F35\</Path>
+                  <Path Filename="2-F35">D:\1.WINGS\</Path>
+                  <Path Filename="_UnfortunateF35Release">D:\1.WINGS\2-F35\</Path>
+                  <Path Filename="74205015-002">D:\1.WINGS\2-F35\_UnfortunateF35Release\</Path>
+                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
+                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
+                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
+                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
+                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
+                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
+                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
+                  <Path Filename="74205015-002">D:\1.WINGS\2-F35\_UnfortunateF35Release\</Path>
+                  <Path Filename="Customers_SCRs">D:\1.WINGS\2-F35\</Path>
+                  <Path Filename="..">D:\1.WINGS\2-F35\Customers_SCRs\</Path>
+                  <Path Filename="Customers_SCRs">D:\1.WINGS\2-F35\</Path>
+                  <Path Filename="2-F35">D:\1.WINGS\</Path>
+                  <Path Filename="2.Office">D:\</Path>
+                  <Path Filename="masters">D:\2.Office\</Path>
+                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
+                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="..">D:\2.Office\masters\summer_2018\architecture\</Path>
+                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="ReinaldoMolina_ArchitectureTuition.pdf">D:\2.Office\masters\summer_2018\architecture\</Path>
+                  <Path Filename="integration">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="..">D:\2.Office\masters\summer_2018\integration\</Path>
+                  <Path Filename="..">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
+                  <Path Filename="masters">D:\2.Office\</Path>
+                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
+                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="ReinaldoMolina_ArchitectureTuition.pdf">D:\2.Office\masters\summer_2018\architecture\</Path>
+                  <Path Filename="integration">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="ReinaldoMolina_IntegrationTuition.pdf">D:\2.Office\masters\summer_2018\integration\</Path>
+                </Paths>
+              </Entry>
+            </History>
+            <ColumnsView>
+              <ColumnsSet>Default</ColumnsSet>
+            </ColumnsView>
+          </FileView>
+        </Tab>
+        <Tab>
+          <FileView Type="columns">
+            <Sortings>
+              <Sorting>
+                <Direction>2</Direction>
+                <Function>7</Function>
+              </Sorting>
+            </Sortings>
+            <History>
+              <Entry Active="True">
+                <FileSource Type="FileSystem"/>
+                <Paths>
+                  <Path Filename="TS_WINGS_Libraries.sln">D:\wings-dev\TestStand\</Path>
+                  <Path Filename="7-EGI-60">D:\1.WINGS\</Path>
+                  <Path Filename="docs">D:\1.WINGS\7-EGI-60\</Path>
+                  <Path Filename="program">D:\1.WINGS\7-EGI-60\docs\</Path>
+                  <Path Filename="schedule">D:\1.WINGS\7-EGI-60\docs\program\</Path>
+                  <Path Filename="F-16 Block 60 UAE EGI Upgrade IMS (7-11-2018).csv">D:\1.WINGS\7-EGI-60\docs\program\schedule\</Path>
+                  <Path Filename="schedule">D:\1.WINGS\7-EGI-60\docs\program\</Path>
+                  <Path Filename="F-16 Block 60 UAE EGI Upgrade IMS (7-11-2018).mpp">D:\1.WINGS\7-EGI-60\docs\program\schedule\</Path>
+                  <Path Filename="schedule">D:\1.WINGS\7-EGI-60\docs\program\</Path>
+                  <Path Filename="program">D:\1.WINGS\7-EGI-60\docs\</Path>
+                  <Path Filename="docs">D:\1.WINGS\7-EGI-60\</Path>
+                  <Path Filename="2-F35">D:\1.WINGS\</Path>
+                  <Path Filename="..">D:\1.WINGS\2-F35\</Path>
+                  <Path Filename="2-F35">D:\1.WINGS\</Path>
+                  <Path Filename="_UnfortunateF35Release">D:\1.WINGS\2-F35\</Path>
+                  <Path Filename="74205015-002">D:\1.WINGS\2-F35\_UnfortunateF35Release\</Path>
+                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
+                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
+                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
+                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
+                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
+                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
+                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
+                  <Path Filename="74205015-002">D:\1.WINGS\2-F35\_UnfortunateF35Release\</Path>
+                  <Path Filename="Customers_SCRs">D:\1.WINGS\2-F35\</Path>
+                  <Path Filename="..">D:\1.WINGS\2-F35\Customers_SCRs\</Path>
+                  <Path Filename="Customers_SCRs">D:\1.WINGS\2-F35\</Path>
+                  <Path Filename="2-F35">D:\1.WINGS\</Path>
+                  <Path Filename="2.Office">D:\</Path>
+                  <Path Filename="masters">D:\2.Office\</Path>
+                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
+                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="..">D:\2.Office\masters\summer_2018\architecture\</Path>
+                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="ReinaldoMolina_ArchitectureTuition.pdf">D:\2.Office\masters\summer_2018\architecture\</Path>
+                  <Path Filename="integration">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="..">D:\2.Office\masters\summer_2018\integration\</Path>
+                  <Path Filename="..">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
+                  <Path Filename="masters">D:\2.Office\</Path>
+                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
+                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="ReinaldoMolina_ArchitectureTuition.pdf">D:\2.Office\masters\summer_2018\architecture\</Path>
+                  <Path Filename="integration">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="ReinaldoMolina_IntegrationTuition.pdf">D:\2.Office\masters\summer_2018\integration\</Path>
+                  <Path Filename="wiki">D:\</Path>
+                  <Path Filename="work">D:\wiki\</Path>
+                  <Path Filename="wings">D:\wiki\work\</Path>
+                  <Path Filename="f16-block60">D:\wiki\work\wings\</Path>
+                  <Path Filename="pdr.pptx">D:\wiki\work\wings\f16-block60\</Path>
+                </Paths>
+              </Entry>
+            </History>
+            <ColumnsView>
+              <ColumnsSet>Default</ColumnsSet>
+            </ColumnsView>
+          </FileView>
+        </Tab>
+        <Tab>
+          <FileView Type="columns">
+            <Sortings>
+              <Sorting>
+                <Direction>2</Direction>
+                <Function>7</Function>
+              </Sorting>
+            </Sortings>
+            <History>
+              <Entry Active="True">
+                <FileSource Type="FileSystem"/>
+                <Paths>
+                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
+                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
+                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
+                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
+                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
+                  <Path Filename="74205015-002">D:\1.WINGS\2-F35\_UnfortunateF35Release\</Path>
+                  <Path Filename="Customers_SCRs">D:\1.WINGS\2-F35\</Path>
+                  <Path Filename="..">D:\1.WINGS\2-F35\Customers_SCRs\</Path>
+                  <Path Filename="Customers_SCRs">D:\1.WINGS\2-F35\</Path>
+                  <Path Filename="2-F35">D:\1.WINGS\</Path>
+                  <Path Filename="2.Office">D:\</Path>
+                  <Path Filename="masters">D:\2.Office\</Path>
+                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
+                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="..">D:\2.Office\masters\summer_2018\architecture\</Path>
+                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="ReinaldoMolina_ArchitectureTuition.pdf">D:\2.Office\masters\summer_2018\architecture\</Path>
+                  <Path Filename="integration">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="..">D:\2.Office\masters\summer_2018\integration\</Path>
+                  <Path Filename="..">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
+                  <Path Filename="masters">D:\2.Office\</Path>
+                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
+                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="ReinaldoMolina_ArchitectureTuition.pdf">D:\2.Office\masters\summer_2018\architecture\</Path>
+                  <Path Filename="integration">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="ReinaldoMolina_IntegrationTuition.pdf">D:\2.Office\masters\summer_2018\integration\</Path>
+                  <Path Filename="wiki">D:\</Path>
+                  <Path Filename="work">D:\wiki\</Path>
+                  <Path Filename="wings">D:\wiki\work\</Path>
+                  <Path Filename="f16-block60">D:\wiki\work\wings\</Path>
+                  <Path Filename="pdr.pdf">D:\wiki\work\wings\f16-block60\</Path>
+                  <Path Filename="..">C:\Users\H129522\Documents\</Path>
+                  <Path Filename="Music">C:\Users\H129522\</Path>
+                  <Path Filename="drum.bass">C:\Users\H129522\Music\</Path>
+                  <Path Filename="_Ethereal_Dreams_Pt_2_Chill_Mix_CBR_192k.mp3">C:\Users\H129522\Music\drum.bass\</Path>
+                  <Path Filename="random">C:\Users\H129522\Music\</Path>
+                  <Path Filename="..">C:\Users\H129522\Music\random\</Path>
+                  <Path Filename="Spotify">C:\Users\H129522\Music\</Path>
+                  <Path Filename="..">C:\Users\H129522\Music\Spotify\</Path>
+                  <Path Filename="random">C:\Users\H129522\Music\</Path>
+                  <Path Filename="..">C:\Users\H129522\Music\random\</Path>
+                  <Path Filename="Playlists">C:\Users\H129522\Music\</Path>
+                  <Path Filename="..">C:\Users\H129522\Music\Playlists\</Path>
+                  <Path Filename="latin">C:\Users\H129522\Music\</Path>
+                  <Path Filename="..">C:\Users\H129522\Music\latin\</Path>
+                  <Path Filename="iPod">C:\Users\H129522\Music\</Path>
+                  <Path Filename="..">C:\Users\H129522\Music\iPod\</Path>
+                  <Path Filename="google.play">C:\Users\H129522\Music\</Path>
+                  <Path Filename="..">C:\Users\H129522\Music\google.play\</Path>
+                </Paths>
+              </Entry>
+            </History>
+            <ColumnsView>
+              <ColumnsSet>Default</ColumnsSet>
+            </ColumnsView>
+          </FileView>
+        </Tab>
+        <Tab>
+          <FileView Type="columns">
+            <Sortings>
+              <Sorting>
+                <Direction>2</Direction>
+                <Function>7</Function>
+              </Sorting>
+            </Sortings>
+            <History>
+              <Entry Active="True">
+                <FileSource Type="FileSystem"/>
+                <Paths>
+                  <Path Filename="schedule">D:\1.WINGS\7-EGI-60\docs\program\</Path>
+                  <Path Filename="F-16 Block 60 UAE EGI Upgrade IMS (7-11-2018).mpp">D:\1.WINGS\7-EGI-60\docs\program\schedule\</Path>
+                  <Path Filename="schedule">D:\1.WINGS\7-EGI-60\docs\program\</Path>
+                  <Path Filename="program">D:\1.WINGS\7-EGI-60\docs\</Path>
+                  <Path Filename="docs">D:\1.WINGS\7-EGI-60\</Path>
+                  <Path Filename="2-F35">D:\1.WINGS\</Path>
+                  <Path Filename="..">D:\1.WINGS\2-F35\</Path>
+                  <Path Filename="2-F35">D:\1.WINGS\</Path>
+                  <Path Filename="_UnfortunateF35Release">D:\1.WINGS\2-F35\</Path>
+                  <Path Filename="74205015-002">D:\1.WINGS\2-F35\_UnfortunateF35Release\</Path>
+                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
+                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
+                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
+                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
+                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
+                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
+                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
+                  <Path Filename="74205015-002">D:\1.WINGS\2-F35\_UnfortunateF35Release\</Path>
+                  <Path Filename="Customers_SCRs">D:\1.WINGS\2-F35\</Path>
+                  <Path Filename="..">D:\1.WINGS\2-F35\Customers_SCRs\</Path>
+                  <Path Filename="Customers_SCRs">D:\1.WINGS\2-F35\</Path>
+                  <Path Filename="2-F35">D:\1.WINGS\</Path>
+                  <Path Filename="2.Office">D:\</Path>
+                  <Path Filename="masters">D:\2.Office\</Path>
+                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
+                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="..">D:\2.Office\masters\summer_2018\architecture\</Path>
+                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="ReinaldoMolina_ArchitectureTuition.pdf">D:\2.Office\masters\summer_2018\architecture\</Path>
+                  <Path Filename="integration">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="..">D:\2.Office\masters\summer_2018\integration\</Path>
+                  <Path Filename="..">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
+                  <Path Filename="masters">D:\2.Office\</Path>
+                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
+                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="ReinaldoMolina_ArchitectureTuition.pdf">D:\2.Office\masters\summer_2018\architecture\</Path>
+                  <Path Filename="integration">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="ReinaldoMolina_IntegrationTuition.pdf">D:\2.Office\masters\summer_2018\integration\</Path>
+                  <Path Filename="wiki">D:\</Path>
+                  <Path Filename="work">D:\wiki\</Path>
+                  <Path Filename="wings">D:\wiki\work\</Path>
+                  <Path Filename="f16-block60">D:\wiki\work\wings\</Path>
+                  <Path Filename="pdr.pdf">D:\wiki\work\wings\f16-block60\</Path>
+                  <Path Filename="..">C:\Users\H129522\Documents\</Path>
+                  <Path Filename="Music">C:\Users\H129522\</Path>
+                  <Path Filename="drum.bass">C:\Users\H129522\Music\</Path>
+                  <Path Filename="_Ethereal_Dreams_Pt_2_Chill_Mix_CBR_192k.mp3">C:\Users\H129522\Music\drum.bass\</Path>
+                  <Path Filename="nvim67MFuH">C:\Users\H129522\AppData\Local\Temp\</Path>
+                  <Path Filename="..">C:\Users\H129522\AppData\Local\Temp\nvim67MFuH\</Path>
+                </Paths>
+              </Entry>
+            </History>
+            <ColumnsView>
+              <ColumnsSet>Default</ColumnsSet>
+            </ColumnsView>
+          </FileView>
+        </Tab>
+        <Tab>
+          <FileView Type="columns">
+            <Sortings>
+              <Sorting>
+                <Direction>2</Direction>
+                <Function>7</Function>
+              </Sorting>
+            </Sortings>
+            <History>
+              <Entry>
+                <FileSource Type="FileSystem"/>
+                <Paths>
+                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
+                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
+                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
+                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
+                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
+                  <Path Filename="74205015-002">D:\1.WINGS\2-F35\_UnfortunateF35Release\</Path>
+                  <Path Filename="Customers_SCRs">D:\1.WINGS\2-F35\</Path>
+                  <Path Filename="..">D:\1.WINGS\2-F35\Customers_SCRs\</Path>
+                  <Path Filename="Customers_SCRs">D:\1.WINGS\2-F35\</Path>
+                  <Path Filename="2-F35">D:\1.WINGS\</Path>
+                  <Path Filename="2.Office">D:\</Path>
+                  <Path Filename="masters">D:\2.Office\</Path>
+                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
+                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="..">D:\2.Office\masters\summer_2018\architecture\</Path>
+                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="ReinaldoMolina_ArchitectureTuition.pdf">D:\2.Office\masters\summer_2018\architecture\</Path>
+                  <Path Filename="integration">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="..">D:\2.Office\masters\summer_2018\integration\</Path>
+                  <Path Filename="..">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
+                  <Path Filename="masters">D:\2.Office\</Path>
+                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
+                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="ReinaldoMolina_ArchitectureTuition.pdf">D:\2.Office\masters\summer_2018\architecture\</Path>
+                  <Path Filename="integration">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="ReinaldoMolina_IntegrationTuition.pdf">D:\2.Office\masters\summer_2018\integration\</Path>
+                  <Path Filename="wiki">D:\</Path>
+                  <Path Filename="work">D:\wiki\</Path>
+                  <Path Filename="wings">D:\wiki\work\</Path>
+                  <Path Filename="f16-block60">D:\wiki\work\wings\</Path>
+                  <Path Filename="pdr.pdf">D:\wiki\work\wings\f16-block60\</Path>
+                  <Path Filename="..">C:\Users\H129522\Documents\</Path>
+                  <Path Filename="Music">C:\Users\H129522\</Path>
+                  <Path Filename="drum.bass">C:\Users\H129522\Music\</Path>
+                  <Path Filename="_Ethereal_Dreams_Pt_2_Chill_Mix_CBR_192k.mp3">C:\Users\H129522\Music\drum.bass\</Path>
+                  <Path Filename="random">C:\Users\H129522\Music\</Path>
+                  <Path Filename="..">C:\Users\H129522\Music\random\</Path>
+                  <Path Filename="Spotify">C:\Users\H129522\Music\</Path>
+                  <Path Filename="..">C:\Users\H129522\Music\Spotify\</Path>
+                  <Path Filename="random">C:\Users\H129522\Music\</Path>
+                  <Path Filename="..">C:\Users\H129522\Music\random\</Path>
+                  <Path Filename="Playlists">C:\Users\H129522\Music\</Path>
+                  <Path Filename="..">C:\Users\H129522\Music\Playlists\</Path>
+                  <Path Filename="latin">C:\Users\H129522\Music\</Path>
+                  <Path Filename="..">C:\Users\H129522\Music\latin\</Path>
+                  <Path Filename="iPod">C:\Users\H129522\Music\</Path>
+                  <Path Filename="..">C:\Users\H129522\Music\iPod\</Path>
+                  <Path Filename="google.play">C:\Users\H129522\Music\</Path>
+                  <Path Filename="">C:\Users\H129522\Music\google.play\</Path>
+                </Paths>
+              </Entry>
+            </History>
+            <ColumnsView>
+              <ColumnsSet>Default</ColumnsSet>
+            </ColumnsView>
+          </FileView>
+        </Tab>
+      </Left>
+      <Right>
+        <ActiveTab>4</ActiveTab>
+        <Tab>
+          <FileView Type="columns">
+            <Sortings>
+              <Sorting>
+                <Direction>1</Direction>
+                <Function>1</Function>
+              </Sorting>
+            </Sortings>
+            <History>
+              <Entry Active="True">
+                <FileSource Type="FileSystem"/>
+                <Paths>
+                  <Path Filename="34211800-0008_(IMP3)_1508">e:\Temp\</Path>
+                  <Path Filename="..">e:\Temp\34211800-0008_(IMP3)_1508\</Path>
+                  <Path Filename="34211800-0008_(IMP3)_1509">e:\Temp\</Path>
+                  <Path Filename="..">e:\Temp\34211800-0008_(IMP3)_1509\</Path>
+                  <Path Filename="34211800-0008_(IMP3)_1508">e:\Temp\</Path>
+                  <Path Filename="34211800-0008_(IMP3)_1508_2018Jun21_085710_F35 INS Thermal Cycle">e:\Temp\34211800-0008_(IMP3)_1508\</Path>
+                  <Path Filename="34211800-0008_(IMP3)_1508_2018Jun21_085710_F35 INS Thermal Cycle_Therm4B_Run8_Errorlog.rtf">e:\Temp\34211800-0008_(IMP3)_1508\34211800-0008_(IMP3)_1508_2018Jun21_085710_F35 INS Thermal Cycle\</Path>
+                  <Path Filename="34211800-0008_(IMP3)_1508_2018Jun21_085710_F35 INS Thermal Cycle">e:\Temp\34211800-0008_(IMP3)_1508\</Path>
+                  <Path Filename="34212053-0006_2548">e:\Temp\</Path>
+                  <Path Filename="..">e:\Temp\34212053-0006_2548\</Path>
+                  <Path Filename="34212053-0006_2548">e:\Temp\</Path>
+                  <Path Filename="7-EGI-60">D:\1.WINGS\</Path>
+                  <Path Filename="docs">D:\1.WINGS\7-EGI-60\</Path>
+                  <Path Filename="program">D:\1.WINGS\7-EGI-60\docs\</Path>
+                  <Path Filename="quotes">D:\1.WINGS\7-EGI-60\docs\program\</Path>
+                  <Path Filename="..">D:\1.WINGS\7-EGI-60\docs\program\quotes\</Path>
+                  <Path Filename="wiki">D:\</Path>
+                  <Path Filename="work">D:\wiki\</Path>
+                  <Path Filename="wings">D:\wiki\work\</Path>
+                  <Path Filename="f16-block60">D:\wiki\work\wings\</Path>
+                  <Path Filename="F16 Schedule.pdf">D:\wiki\work\wings\f16-block60\</Path>
+                  <Path Filename="..">C:\Users\H129522\AppData\Roaming\dotfiles\</Path>
+                  <Path Filename="dotfiles">C:\Users\H129522\AppData\Roaming\</Path>
+                  <Path Filename="Roaming">C:\Users\H129522\AppData\</Path>
+                  <Path Filename="Documents">C:\Users\H129522\</Path>
+                  <Path Filename="apps">C:\Users\H129522\Documents\</Path>
+                  <Path Filename="googletest-master">C:\Users\H129522\Documents\apps\</Path>
+                  <Path Filename="googletest">C:\Users\H129522\Documents\apps\googletest-master\</Path>
+                  <Path Filename="msvc">C:\Users\H129522\Documents\apps\googletest-master\googletest\</Path>
+                  <Path Filename="2010">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\</Path>
+                  <Path Filename="gtest">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\</Path>
+                  <Path Filename="..">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\</Path>
+                  <Path Filename="gtest">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\</Path>
+                  <Path Filename="Win32-Release">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\</Path>
+                  <Path Filename="..">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\Win32-Release\</Path>
+                  <Path Filename="Win32-Debug">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\</Path>
+                  <Path Filename="..">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\Win32-Debug\</Path>
+                  <Path Filename="Win32-Release">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\</Path>
+                  <Path Filename="wings">D:\wiki\work\</Path>
+                  <Path Filename="estimates">D:\wiki\work\wings\</Path>
+                  <Path Filename="jsf_ins_fc_removal">D:\wiki\work\wings\estimates\</Path>
+                  <Path Filename="f16-block60">D:\wiki\work\wings\</Path>
+                  <Path Filename="F16 Schedule.pdf">D:\wiki\work\wings\f16-block60\</Path>
+                  <Path Filename="estimates">D:\wiki\work\wings\</Path>
+                  <Path Filename="jsf_ins_fc_removal.pdf">D:\wiki\work\wings\estimates\</Path>
+                  <Path Filename="2.Office">D:\</Path>
+                  <Path Filename="masters">D:\2.Office\</Path>
+                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
+                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="..">D:\2.Office\masters\summer_2018\architecture\</Path>
+                </Paths>
+              </Entry>
+            </History>
+            <ColumnsView>
+              <ColumnsSet>Default</ColumnsSet>
+            </ColumnsView>
+          </FileView>
+        </Tab>
+        <Tab>
+          <FileView Type="columns">
+            <Sortings>
+              <Sorting>
+                <Direction>1</Direction>
+                <Function>1</Function>
+              </Sorting>
+            </Sortings>
+            <History>
+              <Entry Active="True">
+                <FileSource Type="FileSystem"/>
+                <Paths>
+                  <Path Filename="2010">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\</Path>
+                  <Path Filename="gtest">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\</Path>
+                  <Path Filename="..">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\</Path>
+                  <Path Filename="gtest">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\</Path>
+                  <Path Filename="Win32-Release">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\</Path>
+                  <Path Filename="..">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\Win32-Release\</Path>
+                  <Path Filename="Win32-Debug">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\</Path>
+                  <Path Filename="..">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\Win32-Debug\</Path>
+                  <Path Filename="Win32-Release">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\</Path>
+                  <Path Filename="wings">D:\wiki\work\</Path>
+                  <Path Filename="estimates">D:\wiki\work\wings\</Path>
+                  <Path Filename="jsf_ins_fc_removal">D:\wiki\work\wings\estimates\</Path>
+                  <Path Filename="f16-block60">D:\wiki\work\wings\</Path>
+                  <Path Filename="F16 Schedule.pdf">D:\wiki\work\wings\f16-block60\</Path>
+                  <Path Filename="estimates">D:\wiki\work\wings\</Path>
+                  <Path Filename="jsf_ins_fc_removal.pdf">D:\wiki\work\wings\estimates\</Path>
+                  <Path Filename="2.Office">D:\</Path>
+                  <Path Filename="masters">D:\2.Office\</Path>
+                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
+                  <Path Filename="..">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="..">e:\Temp\</Path>
+                  <Path Filename="INS">e:\</Path>
+                  <Path Filename="74205015-001">e:\INS\</Path>
+                  <Path Filename="..">e:\INS\74205015-001\</Path>
+                  <Path Filename="pts">e:\INS\</Path>
+                  <Path Filename="74371550-007">e:\INS\pts\</Path>
+                  <Path Filename="74371550.007">e:\INS\pts\74371550-007\</Path>
+                  <Path Filename="INS ATP">e:\INS\pts\74371550-007\74371550.007\</Path>
+                  <Path Filename="For F35 Quad CATE Station">e:\INS\pts\74371550-007\74371550.007\INS ATP\</Path>
+                  <Path Filename="..">e:\INS\pts\74371550-007\74371550.007\INS ATP\For F35 Quad CATE Station\</Path>
+                  <Path Filename="For F35 Quad CATE Station">e:\INS\pts\74371550-007\74371550.007\INS ATP\</Path>
+                  <Path Filename="INS ATP">e:\INS\pts\74371550-007\74371550.007\</Path>
+                  <Path Filename="74371550.007">e:\INS\pts\74371550-007\</Path>
+                  <Path Filename="74371550-007">e:\INS\pts\</Path>
+                  <Path Filename="ins_sw">e:\INS\</Path>
+                  <Path Filename="..">e:\INS\ins_sw\</Path>
+                  <Path Filename="ins_sw">e:\INS\</Path>
+                  <Path Filename="WINGS_007_Setup">e:\</Path>
+                  <Path Filename="setup.exe">e:\WINGS_007_Setup\</Path>
+                  <Path Filename="StationBackups">e:\</Path>
+                  <Path Filename="..">e:\StationBackups\</Path>
+                  <Path Filename="INS">e:\</Path>
+                  <Path Filename="..">e:\INS\</Path>
+                  <Path Filename="IEU">e:\</Path>
+                  <Path Filename="..">e:\IEU\</Path>
+                  <Path Filename="INS">e:\</Path>
+                  <Path Filename="74205015.002">e:\INS\</Path>
+                  <Path Filename="..">e:\INS\74205015.002\</Path>
+                  <Path Filename="74205015.002">e:\INS\</Path>
+                  <Path Filename="..">D:\1.WINGS\</Path>
+                </Paths>
+              </Entry>
+            </History>
+            <ColumnsView>
+              <ColumnsSet>Default</ColumnsSet>
+            </ColumnsView>
+          </FileView>
+        </Tab>
+        <Tab>
+          <FileView Type="columns">
+            <Sortings>
+              <Sorting>
+                <Direction>1</Direction>
+                <Function>12</Function>
+              </Sorting>
+            </Sortings>
+            <History>
+              <Entry Active="True">
+                <FileSource Type="FileSystem"/>
+                <Paths>
+                  <Path Filename="2.Office">D:\</Path>
+                  <Path Filename="masters">D:\2.Office\</Path>
+                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
+                  <Path Filename="..">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="..">e:\Temp\</Path>
+                  <Path Filename="INS">e:\</Path>
+                  <Path Filename="74205015-001">e:\INS\</Path>
+                  <Path Filename="..">e:\INS\74205015-001\</Path>
+                  <Path Filename="pts">e:\INS\</Path>
+                  <Path Filename="74371550-007">e:\INS\pts\</Path>
+                  <Path Filename="74371550.007">e:\INS\pts\74371550-007\</Path>
+                  <Path Filename="INS ATP">e:\INS\pts\74371550-007\74371550.007\</Path>
+                  <Path Filename="For F35 Quad CATE Station">e:\INS\pts\74371550-007\74371550.007\INS ATP\</Path>
+                  <Path Filename="..">e:\INS\pts\74371550-007\74371550.007\INS ATP\For F35 Quad CATE Station\</Path>
+                  <Path Filename="For F35 Quad CATE Station">e:\INS\pts\74371550-007\74371550.007\INS ATP\</Path>
+                  <Path Filename="INS ATP">e:\INS\pts\74371550-007\74371550.007\</Path>
+                  <Path Filename="74371550.007">e:\INS\pts\74371550-007\</Path>
+                  <Path Filename="74371550-007">e:\INS\pts\</Path>
+                  <Path Filename="ins_sw">e:\INS\</Path>
+                  <Path Filename="..">e:\INS\ins_sw\</Path>
+                  <Path Filename="ins_sw">e:\INS\</Path>
+                  <Path Filename="WINGS_007_Setup">e:\</Path>
+                  <Path Filename="setup.exe">e:\WINGS_007_Setup\</Path>
+                  <Path Filename="StationBackups">e:\</Path>
+                  <Path Filename="..">e:\StationBackups\</Path>
+                  <Path Filename="INS">e:\</Path>
+                  <Path Filename="..">e:\INS\</Path>
+                  <Path Filename="IEU">e:\</Path>
+                  <Path Filename="..">e:\IEU\</Path>
+                  <Path Filename="INS">e:\</Path>
+                  <Path Filename="74205015.002">e:\INS\</Path>
+                  <Path Filename="..">e:\INS\74205015.002\</Path>
+                  <Path Filename="74205015.002">e:\INS\</Path>
+                  <Path Filename="..">D:\1.WINGS\</Path>
+                  <Path Filename="16PR15598-1.0.doc">D:\1.WINGS\7-EGI-60\media\NHS-218_LM_NIU_Drivers_Disc2\AMC0003 PMC Software\</Path>
+                  <Path Filename="AMC0003 PMC Software">D:\1.WINGS\7-EGI-60\media\NHS-218_LM_NIU_Drivers_Disc2\</Path>
+                  <Path Filename="NHS-218_LM_NIU_Drivers_Disc2">D:\1.WINGS\7-EGI-60\media\</Path>
+                  <Path Filename="media">D:\1.WINGS\7-EGI-60\</Path>
+                  <Path Filename="quotes">D:\1.WINGS\7-EGI-60\docs\program\</Path>
+                  <Path Filename="GN17-010 F-16 Block 61 UAE">D:\1.WINGS\7-EGI-60\docs\program\quotes\</Path>
+                  <Path Filename="Kickoff Package">D:\1.WINGS\7-EGI-60\docs\program\quotes\GN17-010 F-16 Block 61 UAE\</Path>
+                  <Path Filename="..">D:\1.WINGS\7-EGI-60\docs\program\quotes\GN17-010 F-16 Block 61 UAE\Kickoff Package\</Path>
+                  <Path Filename="OneWings">D:\wings-dev\</Path>
+                  <Path Filename="Source">D:\wings-dev\OneWings\</Path>
+                  <Path Filename="utmisc.h">D:\wings-dev\OneWings\Source\</Path>
+                  <Path Filename="Source">D:\wings-dev\OneWings\</Path>
+                  <Path Filename="OneWINGSII">D:\wings-dev\</Path>
+                  <Path Filename="..">D:\wings-dev\OneWINGSII\</Path>
+                  <Path Filename="OneWingsII_FcDev">D:\wings-dev\</Path>
+                  <Path Filename="IoFc_Interface.cpp">D:\wings-dev\OneWingsII_FcDev\</Path>
+                </Paths>
+              </Entry>
+            </History>
+            <ColumnsView>
+              <ColumnsSet>Default</ColumnsSet>
+            </ColumnsView>
+          </FileView>
+        </Tab>
+        <Tab>
+          <FileView Type="columns">
+            <Sortings>
+              <Sorting>
+                <Direction>1</Direction>
+                <Function>1</Function>
+              </Sorting>
+            </Sortings>
+            <History>
+              <Entry Active="True">
+                <FileSource Type="FileSystem"/>
+                <Paths>
+                  <Path Filename="Roaming">C:\Users\H129522\AppData\</Path>
+                  <Path Filename="Documents">C:\Users\H129522\</Path>
+                  <Path Filename="apps">C:\Users\H129522\Documents\</Path>
+                  <Path Filename="googletest-master">C:\Users\H129522\Documents\apps\</Path>
+                  <Path Filename="googletest">C:\Users\H129522\Documents\apps\googletest-master\</Path>
+                  <Path Filename="msvc">C:\Users\H129522\Documents\apps\googletest-master\googletest\</Path>
+                  <Path Filename="2010">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\</Path>
+                  <Path Filename="gtest">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\</Path>
+                  <Path Filename="..">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\</Path>
+                  <Path Filename="gtest">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\</Path>
+                  <Path Filename="Win32-Release">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\</Path>
+                  <Path Filename="..">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\Win32-Release\</Path>
+                  <Path Filename="Win32-Debug">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\</Path>
+                  <Path Filename="..">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\Win32-Debug\</Path>
+                  <Path Filename="Win32-Release">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\</Path>
+                  <Path Filename="wings">D:\wiki\work\</Path>
+                  <Path Filename="estimates">D:\wiki\work\wings\</Path>
+                  <Path Filename="jsf_ins_fc_removal">D:\wiki\work\wings\estimates\</Path>
+                  <Path Filename="f16-block60">D:\wiki\work\wings\</Path>
+                  <Path Filename="F16 Schedule.pdf">D:\wiki\work\wings\f16-block60\</Path>
+                  <Path Filename="estimates">D:\wiki\work\wings\</Path>
+                  <Path Filename="jsf_ins_fc_removal.pdf">D:\wiki\work\wings\estimates\</Path>
+                  <Path Filename="2.Office">D:\</Path>
+                  <Path Filename="masters">D:\2.Office\</Path>
+                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
+                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
+                  <Path Filename="..">D:\2.Office\masters\summer_2018\architecture\</Path>
+                  <Path Filename="7-EGI-60">D:\1.WINGS\</Path>
+                  <Path Filename="media">D:\1.WINGS\7-EGI-60\</Path>
+                  <Path Filename="WINGS">D:\1.WINGS\7-EGI-60\media\</Path>
+                  <Path Filename="..">D:\1.WINGS\7-EGI-60\media\WINGS\</Path>
+                  <Path Filename="MISSION">D:\1.WINGS\7-EGI-60\media\</Path>
+                  <Path Filename="Vibe-Thermal">D:\1.WINGS\7-EGI-60\media\MISSION\</Path>
+                  <Path Filename="Thermal">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\</Path>
+                  <Path Filename="74372527-008">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\Thermal\</Path>
+                  <Path Filename="74205008.004">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\Thermal\74372527-008\</Path>
+                  <Path Filename="EGI Retrofit Thermal.msi">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\Thermal\74372527-008\74205008.004\</Path>
+                  <Path Filename="74205008.004">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\Thermal\74372527-008\</Path>
+                  <Path Filename="74372527-008">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\Thermal\</Path>
+                  <Path Filename="Vibe">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\</Path>
+                  <Path Filename="74205025-006">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\Vibe\</Path>
+                  <Path Filename="74205025.006">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\Vibe\74205025-006\</Path>
+                  <Path Filename="EGI ATS.msi">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\Vibe\74205025-006\74205025.006\</Path>
+                  <Path Filename="WINGS">D:\</Path>
+                  <Path Filename="F35_INS">D:\WINGS\</Path>
+                  <Path Filename="..">D:\WINGS\F35_INS\</Path>
+                  <Path Filename="EGI_ATS">D:\WINGS\</Path>
+                  <Path Filename="ATS_Seq2010">D:\WINGS\EGI_ATS\</Path>
+                  <Path Filename="..">D:\WINGS\EGI_ATS\ATS_Seq2010\</Path>
+                  <Path Filename="ATS_Seq2010">D:\WINGS\EGI_ATS\</Path>
+                </Paths>
+              </Entry>
+            </History>
+            <ColumnsView>
+              <ColumnsSet>Default</ColumnsSet>
+            </ColumnsView>
+          </FileView>
+        </Tab>
+        <Tab>
+          <FileView Type="columns">
+            <Sortings>
+              <Sorting>
+                <Direction>1</Direction>
+                <Function>1</Function>
+              </Sorting>
+            </Sortings>
+            <History>
+              <Entry Active="True">
+                <FileSource Type="FileSystem"/>
+                <Paths>
+                  <Path Filename="WINGS_007_Setup">e:\</Path>
+                  <Path Filename="setup.exe">e:\WINGS_007_Setup\</Path>
+                  <Path Filename="StationBackups">e:\</Path>
+                  <Path Filename="..">e:\StationBackups\</Path>
+                  <Path Filename="INS">e:\</Path>
+                  <Path Filename="..">e:\INS\</Path>
+                  <Path Filename="IEU">e:\</Path>
+                  <Path Filename="..">e:\IEU\</Path>
+                  <Path Filename="INS">e:\</Path>
+                  <Path Filename="74205015.002">e:\INS\</Path>
+                  <Path Filename="..">e:\INS\74205015.002\</Path>
+                  <Path Filename="74205015.002">e:\INS\</Path>
+                  <Path Filename="7-EGI-60">D:\1.WINGS\</Path>
+                  <Path Filename="media">D:\1.WINGS\7-EGI-60\</Path>
+                  <Path Filename="MISSION">D:\1.WINGS\7-EGI-60\media\</Path>
+                  <Path Filename="Vibe-Thermal">D:\1.WINGS\7-EGI-60\media\MISSION\</Path>
+                  <Path Filename="..">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\</Path>
+                  <Path Filename="Vibe-Thermal">D:\1.WINGS\7-EGI-60\media\MISSION\</Path>
+                  <Path Filename="..">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\</Path>
+                  <Path Filename="Vibe-Thermal">D:\1.WINGS\7-EGI-60\media\MISSION\</Path>
+                  <Path Filename="MISSION">D:\1.WINGS\7-EGI-60\media\</Path>
+                  <Path Filename="Vibe-Thermal">D:\1.WINGS\7-EGI-60\media\MISSION\</Path>
+                  <Path Filename="EGI-PTS">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\</Path>
+                  <Path Filename="74372527-008">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\EGI-PTS\</Path>
+                  <Path Filename="74372527.008">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\EGI-PTS\74372527-008\</Path>
+                  <Path Filename="EGI_PartNumbers">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\EGI-PTS\74372527-008\74372527.008\</Path>
+                  <Path Filename="..">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\EGI-PTS\74372527-008\74372527.008\EGI_PartNumbers\</Path>
+                  <Path Filename="EGI_PartNumbers">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\EGI-PTS\74372527-008\74372527.008\</Path>
+                  <Path Filename="74372527.008">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\EGI-PTS\74372527-008\</Path>
+                  <Path Filename="74372527-008">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\EGI-PTS\</Path>
+                  <Path Filename="DryRun">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\</Path>
+                  <Path Filename="34210898-007_-v1">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\DryRun\</Path>
+                  <Path Filename="..">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\DryRun\34210898-007_-v1\</Path>
+                  <Path Filename="34210898-007_-v1">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\DryRun\</Path>
+                  <Path Filename="34210898.007">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\DryRun\34210898-007_-v1\</Path>
+                  <Path Filename="install.bat">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\DryRun\34210898-007_-v1\34210898.007\</Path>
+                  <Path Filename="34210898.007">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\DryRun\34210898-007_-v1\</Path>
+                  <Path Filename="34210898-007_-v1">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\DryRun\</Path>
+                  <Path Filename="Thermal">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\</Path>
+                  <Path Filename="..">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\Thermal\</Path>
+                  <Path Filename="Vibe">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\</Path>
+                  <Path Filename="..">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\Vibe\</Path>
+                  <Path Filename="EGI-PTS">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\</Path>
+                  <Path Filename="74372527-008">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\EGI-PTS\</Path>
+                  <Path Filename="74372527.008">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\EGI-PTS\74372527-008\</Path>
+                  <Path Filename="EGI_PartNumbers">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\EGI-PTS\74372527-008\74372527.008\</Path>
+                  <Path Filename="Test_Param_File">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\EGI-PTS\74372527-008\74372527.008\EGI_PartNumbers\</Path>
+                  <Path Filename="..">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\EGI-PTS\74372527-008\74372527.008\EGI_PartNumbers\Test_Param_File\</Path>
+                  <Path Filename="34209200-5M63().ini">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\EGI-PTS\74372527-008\74372527.008\EGI_PartNumbers\</Path>
+                  <Path Filename="TPF_3A5E57B0.INI">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\EGI-PTS\74372527-008\74372527.008\EGI_PartNumbers\Test_Param_File\</Path>
+                </Paths>
+              </Entry>
+            </History>
+            <ColumnsView>
+              <ColumnsSet>Default</ColumnsSet>
+            </ColumnsView>
+          </FileView>
+        </Tab>
+      </Right>
+    </OpenedTabs>
+  </Tabs>
+  <Log Enabled="False" LogFileWithDateInName="False">
+    <FileName>%DC_CONFIG_PATH%\doublecmd.log</FileName>
+    <Options>1023</Options>
+  </Log>
+  <History>
+    <SearchReplaceHistory Save="True"/>
+    <DirHistory Save="True"/>
+    <CmdLineHistory Save="True"/>
+    <FileMaskHistory Save="True"/>
+  </History>
+  <QuickSearch>
+    <MatchBeginning>True</MatchBeginning>
+    <MatchEnding>True</MatchEnding>
+    <Case>1</Case>
+    <Items>2</Items>
+  </QuickSearch>
+  <QuickFilter>
+    <AutoHide>True</AutoHide>
+    <SaveSessionModifications>False</SaveSessionModifications>
+  </QuickFilter>
+  <Miscellaneous>
+    <GridVertLine>False</GridVertLine>
+    <GridHorzLine>False</GridHorzLine>
+    <ShowWarningMessages>True</ShowWarningMessages>
+    <SpaceMovesDown>True</SpaceMovesDown>
+    <DirBrackets>True</DirBrackets>
+    <InplaceRename>False</InplaceRename>
+    <DblClickToParent>False</DblClickToParent>
+    <HotDirAddTargetOrNot>False</HotDirAddTargetOrNot>
+    <HotDirFullExpandOrNot>False</HotDirFullExpandOrNot>
+    <ShowPathInPopup>False</ShowPathInPopup>
+    <ShowOnlyValidEnv>True</ShowOnlyValidEnv>
+    <WhereToAddNewHotDir>2</WhereToAddNewHotDir>
+  </Miscellaneous>
+  <Thumbnails Save="True">
+    <Width>128</Width>
+    <Height>128</Height>
+  </Thumbnails>
+  <Description>
+    <CreateNewUnicode>True</CreateNewUnicode>
+    <DefaultEncoding>2</DefaultEncoding>
+    <CreateNewEncoding>3</CreateNewEncoding>
+  </Description>
+  <AutoRefresh>
+    <Options>3</Options>
+    <ExcludeDirs/>
+    <Mode>1</Mode>
+  </AutoRefresh>
+  <Icons>
+    <Theme>dctheme</Theme>
+    <ShowMode>3</ShowMode>
+    <ShowOverlays>False</ShowOverlays>
+    <Size>16</Size>
+    <DiskSize>16</DiskSize>
+    <DiskAlpha>50</DiskAlpha>
+    <Exclude>False</Exclude>
+    <ExcludeDirs/>
+    <CustomIcons>0</CustomIcons>
+    <PixelsPerInch>96</PixelsPerInch>
+    <ShowInMenus Enabled="False">
+      <Size>16</Size>
+    </ShowInMenus>
+    <ShowButtonGlyphs>0</ShowButtonGlyphs>
+  </Icons>
+  <IgnoreList Enabled="False">
+    <IgnoreListFile>%DC_CONFIG_PATH%\ignorelist.txt</IgnoreListFile>
+  </IgnoreList>
+  <DirectoryHotList>
+    <HotDir Name="1.WINGS" Path="d:\1.WINGS"/>
+    <HotDir Name="Temp" Path="C:\Users\H129522\AppData\Local\Temp"/>
+    <HotDir Name="dotfiles" Path="C:\Users\H129522\AppData\Roaming\dotfiles"/>
+    <HotDir Name="Documents" Path="C:\Users\H129522\Documents"/>
+    <HotDir Name="AeroSvn" Path="d:\AeroSvn"/>
+    <HotDir Name="work" Path="D:\wiki\work"/>
+    <HotDir Name="wings-dev" Path="d:\wings-dev"/>
+  </DirectoryHotList>
+  <Viewer>
+    <PreviewVisible>False</PreviewVisible>
+    <ImageStretch>False</ImageStretch>
+    <ImageExifRotate>True</ImageExifRotate>
+    <ImageStretchLargeOnly>False</ImageStretchLargeOnly>
+    <ImageCenter>True</ImageCenter>
+    <CopyMovePath1/>
+    <CopyMovePath2/>
+    <CopyMovePath3/>
+    <CopyMovePath4/>
+    <CopyMovePath5/>
+    <PaintMode>Pen</PaintMode>
+    <PaintWidth>5</PaintWidth>
+    <NumberOfColumns>1</NumberOfColumns>
+    <ViewerMode>1</ViewerMode>
+    <PaintColor>255</PaintColor>
+    <BackgroundColor>0</BackgroundColor>
+    <FontColor>16777215</FontColor>
+    <TextPosition>0</TextPosition>
+  </Viewer>
+  <Editor>
+    <EditWaitTime>2000</EditWaitTime>
+    <SynEditOptions>856075</SynEditOptions>
+  </Editor>
+  <SyncDirs>
+    <Subdirs>False</Subdirs>
+    <ByContent>False</ByContent>
+    <IgnoreDate>False</IgnoreDate>
+    <FilterCopyRight>True</FilterCopyRight>
+    <FilterEqual>True</FilterEqual>
+    <FilterNotEqual>True</FilterNotEqual>
+    <FilterCopyLeft>True</FilterCopyLeft>
+    <FilterDuplicates>True</FilterDuplicates>
+    <FilterSingles>True</FilterSingles>
+    <FileMask>*</FileMask>
+  </SyncDirs>
+  <InternalAssociations>
+    <OfferToAddNewFileType>False</OfferToAddNewFileType>
+    <LastCustomAction>Custom action</LastCustomAction>
+    <ExpandedContextMenu>False</ExpandedContextMenu>
+    <ExecuteViaShell>False</ExecuteViaShell>
+    <OpenSystemWithTerminalClose>False</OpenSystemWithTerminalClose>
+    <OpenSystemWithTerminalStayOpen>False</OpenSystemWithTerminalStayOpen>
+    <IncludeFileAssociation>False</IncludeFileAssociation>
+  </InternalAssociations>
+  <TreeViewMenu>
+    <UseTVMDirectoryHotlistFMC>False</UseTVMDirectoryHotlistFMC>
+    <UseTVMDirectoryHotlistFDC>False</UseTVMDirectoryHotlistFDC>
+    <UseTVMFavoriteTabsFMC>False</UseTVMFavoriteTabsFMC>
+    <UseTVMFavoriteTabsFDC>False</UseTVMFavoriteTabsFDC>
+    <UseTVMDirHistory>False</UseTVMDirHistory>
+    <UseTVMViewHistory>False</UseTVMViewHistory>
+    <UseTVMCommandLineHistory>False</UseTVMCommandLineHistory>
+    <TreeViewMenuShortcutExit>True</TreeViewMenuShortcutExit>
+    <TreeViewMenuSingleClickExit>True</TreeViewMenuSingleClickExit>
+    <TreeViewMenuDoubleClickExit>True</TreeViewMenuDoubleClickExit>
+    <Context00>
+      <CaseSensitive>False</CaseSensitive>
+      <IgnoreAccents>True</IgnoreAccents>
+      <ShowWholeBranchIfMatch>False</ShowWholeBranchIfMatch>
+    </Context00>
+    <Context01>
+      <CaseSensitive>False</CaseSensitive>
+      <IgnoreAccents>True</IgnoreAccents>
+      <ShowWholeBranchIfMatch>False</ShowWholeBranchIfMatch>
+    </Context01>
+    <Context02>
+      <CaseSensitive>False</CaseSensitive>
+      <IgnoreAccents>True</IgnoreAccents>
+      <ShowWholeBranchIfMatch>False</ShowWholeBranchIfMatch>
+    </Context02>
+    <Context03>
+      <CaseSensitive>False</CaseSensitive>
+      <IgnoreAccents>True</IgnoreAccents>
+      <ShowWholeBranchIfMatch>False</ShowWholeBranchIfMatch>
+    </Context03>
+    <Context04>
+      <CaseSensitive>False</CaseSensitive>
+      <IgnoreAccents>True</IgnoreAccents>
+      <ShowWholeBranchIfMatch>False</ShowWholeBranchIfMatch>
+    </Context04>
+    <Context05>
+      <CaseSensitive>False</CaseSensitive>
+      <IgnoreAccents>True</IgnoreAccents>
+      <ShowWholeBranchIfMatch>False</ShowWholeBranchIfMatch>
+    </Context05>
+    <Context06>
+      <CaseSensitive>False</CaseSensitive>
+      <IgnoreAccents>True</IgnoreAccents>
+      <ShowWholeBranchIfMatch>False</ShowWholeBranchIfMatch>
+    </Context06>
+    <TreeViewMenuUseKeyboardShortcut>True</TreeViewMenuUseKeyboardShortcut>
+    <BackgroundColor>-2147483617</BackgroundColor>
+    <ShortcutColor>255</ShortcutColor>
+    <NormalTextColor>-2147483640</NormalTextColor>
+    <SecondaryTextColor>-2147483642</SecondaryTextColor>
+    <FoundTextColor>-2147483635</FoundTextColor>
+    <UnselectableTextColor>-2147483631</UnselectableTextColor>
+    <CursorColor>-2147483635</CursorColor>
+    <ShortcutUnderCursor>-2147483634</ShortcutUnderCursor>
+    <NormalTextUnderCursor>-2147483634</NormalTextUnderCursor>
+    <SecondaryTextUnderCursor>-2147483628</SecondaryTextUnderCursor>
+    <FoundTextUnderCursor>65535</FoundTextUnderCursor>
+    <UnselectableUnderCursor>-2147483631</UnselectableUnderCursor>
+  </TreeViewMenu>
+  <FavoriteTabsOptions>
+    <FavoriteTabsUseRestoreExtraOptions>False</FavoriteTabsUseRestoreExtraOptions>
+    <WhereToAdd>1</WhereToAdd>
+    <Expand>True</Expand>
+    <GotoConfigAftSav>False</GotoConfigAftSav>
+    <GotoConfigAftReSav>False</GotoConfigAftReSav>
+    <DfltLeftGoTo>0</DfltLeftGoTo>
+    <DfltRightGoTo>1</DfltRightGoTo>
+    <DfltKeep>5</DfltKeep>
+    <DfltSaveDirHistory>False</DfltSaveDirHistory>
+    <FavTabsLastUniqueID>{11CA863B-6DAD-4FE6-86C7-E935F70FCCB1}</FavTabsLastUniqueID>
+  </FavoriteTabsOptions>
+  <Lua>
+    <PathToLibrary>lua5.1.dll</PathToLibrary>
+  </Lua>
+  <NameShortcutFile>shortcuts.scf</NameShortcutFile>
+  <HotKeySortOrder>0</HotKeySortOrder>
+  <UseEnterToCloseHotKeyEditor>True</UseEnterToCloseHotKeyEditor>
+  <LastUsedPacker>zip</LastUsedPacker>
+  <UseShellForFileOperations>True</UseShellForFileOperations>
+  <LastDoAnyCommand>cm_Refresh</LastDoAnyCommand>
+  <MarkMaskCaseSensitive>False</MarkMaskCaseSensitive>
+  <MarkMaskIgnoreAccents>False</MarkMaskIgnoreAccents>
+  <MarkMaskFilterWindows>False</MarkMaskFilterWindows>
+  <MarkShowWantedAttribute>False</MarkShowWantedAttribute>
+  <MarkDefaultWantedAttribute/>
+  <MarkLastWantedAttribute/>
+  <SearchTemplates/>
+  <ColumnsSets DefaultTitleHash="540805403">
+    <ColumnsSet UseFrameCursor="False">
+      <Name>Default</Name>
+      <CustomView>False</CustomView>
+      <PixelsPerInch>96</PixelsPerInch>
+      <CursorBorder Enabled="False">
+        <Color>-2147483635</Color>
+      </CursorBorder>
+      <Columns>
+        <Column>
+          <Title>Name</Title>
+          <FuncString>[DC().GETFILENAMENOEXT{}]</FuncString>
+          <Width>619</Width>
+          <Align>0</Align>
+          <Font>
+            <Name>default</Name>
+            <Size>10</Size>
+            <Style>1</Style>
+            <Quality>0</Quality>
+          </Font>
+          <TextColor>-2147483640</TextColor>
+          <Background>-2147483643</Background>
+          <Background2>-2147483643</Background2>
+          <MarkColor>255</MarkColor>
+          <CursorColor>-2147483635</CursorColor>
+          <CursorText>-2147483634</CursorText>
+          <InactiveCursorColor>-2147483645</InactiveCursorColor>
+          <InactiveMarkColor>255</InactiveMarkColor>
+          <UseInvertedSelection>False</UseInvertedSelection>
+          <UseInactiveSelColor>False</UseInactiveSelColor>
+          <Overcolor>True</Overcolor>
+        </Column>
+        <Column>
+          <Title>Ext</Title>
+          <FuncString>[DC().GETFILEEXT{}]</FuncString>
+          <Width>50</Width>
+          <Align>0</Align>
+          <Font>
+            <Name>default</Name>
+            <Size>10</Size>
+            <Style>1</Style>
+            <Quality>0</Quality>
+          </Font>
+          <TextColor>-2147483640</TextColor>
+          <Background>-2147483643</Background>
+          <Background2>-2147483643</Background2>
+          <MarkColor>255</MarkColor>
+          <CursorColor>-2147483635</CursorColor>
+          <CursorText>-2147483634</CursorText>
+          <InactiveCursorColor>-2147483645</InactiveCursorColor>
+          <InactiveMarkColor>255</InactiveMarkColor>
+          <UseInvertedSelection>False</UseInvertedSelection>
+          <UseInactiveSelColor>False</UseInactiveSelColor>
+          <Overcolor>True</Overcolor>
+        </Column>
+        <Column>
+          <Title>Size</Title>
+          <FuncString>[DC().GETFILESIZE{}]</FuncString>
+          <Width>70</Width>
+          <Align>1</Align>
+          <Font>
+            <Name>default</Name>
+            <Size>10</Size>
+            <Style>1</Style>
+            <Quality>0</Quality>
+          </Font>
+          <TextColor>-2147483640</TextColor>
+          <Background>-2147483643</Background>
+          <Background2>-2147483643</Background2>
+          <MarkColor>255</MarkColor>
+          <CursorColor>-2147483635</CursorColor>
+          <CursorText>-2147483634</CursorText>
+          <InactiveCursorColor>-2147483645</InactiveCursorColor>
+          <InactiveMarkColor>255</InactiveMarkColor>
+          <UseInvertedSelection>False</UseInvertedSelection>
+          <UseInactiveSelColor>False</UseInactiveSelColor>
+          <Overcolor>True</Overcolor>
+        </Column>
+        <Column>
+          <Title>Date</Title>
+          <FuncString>[DC().GETFILETIME{}]</FuncString>
+          <Width>140</Width>
+          <Align>1</Align>
+          <Font>
+            <Name>default</Name>
+            <Size>10</Size>
+            <Style>1</Style>
+            <Quality>0</Quality>
+          </Font>
+          <TextColor>-2147483640</TextColor>
+          <Background>-2147483643</Background>
+          <Background2>-2147483643</Background2>
+          <MarkColor>255</MarkColor>
+          <CursorColor>-2147483635</CursorColor>
+          <CursorText>-2147483634</CursorText>
+          <InactiveCursorColor>-2147483645</InactiveCursorColor>
+          <InactiveMarkColor>255</InactiveMarkColor>
+          <UseInvertedSelection>False</UseInvertedSelection>
+          <UseInactiveSelColor>False</UseInactiveSelColor>
+          <Overcolor>True</Overcolor>
+        </Column>
+        <Column>
+          <Title>Attr</Title>
+          <FuncString>[DC().GETFILEATTR{}]</FuncString>
+          <Width>100</Width>
+          <Align>0</Align>
+          <Font>
+            <Name>default</Name>
+            <Size>10</Size>
+            <Style>1</Style>
+            <Quality>0</Quality>
+          </Font>
+          <TextColor>-2147483640</TextColor>
+          <Background>-2147483643</Background>
+          <Background2>-2147483643</Background2>
+          <MarkColor>255</MarkColor>
+          <CursorColor>-2147483635</CursorColor>
+          <CursorText>-2147483634</CursorText>
+          <InactiveCursorColor>-2147483645</InactiveCursorColor>
+          <InactiveMarkColor>255</InactiveMarkColor>
+          <UseInvertedSelection>False</UseInvertedSelection>
+          <UseInactiveSelColor>False</UseInactiveSelColor>
+          <Overcolor>True</Overcolor>
+        </Column>
+      </Columns>
+    </ColumnsSet>
+  </ColumnsSets>
+  <Plugins>
+    <DsxPlugins/>
+    <WcxPlugins>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>zip</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\zip\zip.wcx</Path>
+        <Flags>735</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>jar</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\zip\zip.wcx</Path>
+        <Flags>990</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>7z</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\sevenzip\sevenzip.wcx</Path>
+        <Flags>607</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>tar</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\zip\zip.wcx</Path>
+        <Flags>223</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>bz2</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\zip\zip.wcx</Path>
+        <Flags>91</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>tbz</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\zip\zip.wcx</Path>
+        <Flags>95</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>gz</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\zip\zip.wcx</Path>
+        <Flags>91</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>tgz</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\zip\zip.wcx</Path>
+        <Flags>95</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>lzma</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\zip\zip.wcx</Path>
+        <Flags>1</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>tlz</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\zip\zip.wcx</Path>
+        <Flags>95</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>xz</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\zip\zip.wcx</Path>
+        <Flags>91</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>txz</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\zip\zip.wcx</Path>
+        <Flags>95</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>zipx</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\zip\zip.wcx</Path>
+        <Flags>223</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>cpio</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\sevenzip\sevenzip.wcx</Path>
+        <Flags>4</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>arj</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\sevenzip\sevenzip.wcx</Path>
+        <Flags>4</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>cab</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\sevenzip\sevenzip.wcx</Path>
+        <Flags>4</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>cramfs</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\sevenzip\sevenzip.wcx</Path>
+        <Flags>4</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>dmg</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\sevenzip\sevenzip.wcx</Path>
+        <Flags>4</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>fat</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\sevenzip\sevenzip.wcx</Path>
+        <Flags>4</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>hfs</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\sevenzip\sevenzip.wcx</Path>
+        <Flags>4</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>iso</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\sevenzip\sevenzip.wcx</Path>
+        <Flags>4</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>lha</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\sevenzip\sevenzip.wcx</Path>
+        <Flags>4</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>lzh</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\sevenzip\sevenzip.wcx</Path>
+        <Flags>4</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>ntfs</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\sevenzip\sevenzip.wcx</Path>
+        <Flags>4</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>squashfs</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\sevenzip\sevenzip.wcx</Path>
+        <Flags>4</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>taz</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\sevenzip\sevenzip.wcx</Path>
+        <Flags>4</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>vhd</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\sevenzip\sevenzip.wcx</Path>
+        <Flags>4</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>wim</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\sevenzip\sevenzip.wcx</Path>
+        <Flags>85</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>xar</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\sevenzip\sevenzip.wcx</Path>
+        <Flags>4</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>z</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\sevenzip\sevenzip.wcx</Path>
+        <Flags>4</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>deb</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\deb\deb.wcx</Path>
+        <Flags>4</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>rpm</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\rpm\rpm.wcx</Path>
+        <Flags>4</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>rar</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\unrar\unrar.wcx</Path>
+        <Flags>607</Flags>
+      </WcxPlugin>
+    </WcxPlugins>
+    <WdxPlugins>
+      <WdxPlugin>
+        <Name>deb_wdx</Name>
+        <Path>%COMMANDER_PATH%\plugins\wdx\deb_wdx\deb_wdx.wdx</Path>
+        <DetectString>EXT="DEB"</DetectString>
+      </WdxPlugin>
+      <WdxPlugin>
+        <Name>rpm_wdx</Name>
+        <Path>%COMMANDER_PATH%\plugins\wdx\rpm_wdx\rpm_wdx.wdx</Path>
+        <DetectString>EXT="RPM"</DetectString>
+      </WdxPlugin>
+      <WdxPlugin>
+        <Name>audioinfo</Name>
+        <Path>%COMMANDER_PATH%\plugins\wdx\audioinfo\audioinfo.wdx</Path>
+        <DetectString>(EXT="MP3") | (EXT="MP2") | (EXT="MP1") | (EXT="OGG") | (EXT="WMA") | (EXT="WAV") | (EXT="VQF") | (EXT="AAC") | (EXT="APE") | (EXT="MPC") | (EXT="FLAC") | (EXT="CDA") | (EXT="TTA") | (EXT="AC3") | (EXT="DTS") | (EXT="WV") | (EXT="WVC") | (EXT="OFR") | (EXT="OFS") | (EXT="M4A") | (EXT="MP4")</DetectString>
+      </WdxPlugin>
+    </WdxPlugins>
+    <WfxPlugins>
+      <WfxPlugin Enabled="True">
+        <Name>FTP</Name>
+        <Path>%commander_path%\plugins\wfx\ftp\ftp.wfx</Path>
+      </WfxPlugin>
+    </WfxPlugins>
+    <WlxPlugins/>
+  </Plugins>
+</doublecmd>
