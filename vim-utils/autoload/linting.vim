@@ -205,7 +205,7 @@ function! linting#SetNeomakePandocMaker(type) abort
 		let l:argu += [
 					\ '--template',
 					\ (!exists('b:neomake_pandoc_template') ? 'eisvogel' : b:neomake_pandoc_template),
-					\ '--number-sections --listings', '--write', 'latex', '-o', '%:r.pdf', '%'
+					\ '--number-sections', '--listings', '--write', 'latex', '-o', '%:r.pdf', '%'
 					\ ]
 	elseif a:type ==# 'docx'
 		" let l:wrte = 'docx'
@@ -222,7 +222,7 @@ function! linting#SetNeomakePandocMaker(type) abort
 	elseif a:type ==# 'pptx_slides'
 		" let l:wrte = 'pptx'
 		" let l:out = '%:r.pptx'
-		let l:argu = [ '-o', '%:r.pdf', '%']
+		let l:argu = [ '-o', '%:r.pptx', '%']
 	else
 		if &verbose > 0
 			echomsg '[linting#SetNeomakePandocMaker]: Not a recognized a:type variable'
