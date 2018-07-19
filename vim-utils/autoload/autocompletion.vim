@@ -44,11 +44,6 @@ function! autocompletion#SetCompl(compl) abort
 		" call s:set_ncm()
 		call s:set_ncm2()
 		call s:set_ulti_snips()
-		if has('unix')
-			call s:set_language_client()
-		else
-			call s:set_clang_compl('roxma_clang_complete')
-		endif
 	elseif a:compl ==# 'shuogo'
 		call s:set_shuogo()
 		call s:set_neosnipppets()
@@ -563,6 +558,11 @@ function! s:set_ncm2() abort
 	Plug 'ncm2/ncm2'
 	" ncm2 requires nvim-yarp
 	Plug 'roxma/nvim-yarp'
+	if has('unix')
+		call s:set_language_client()
+	else
+		Plug 'ncm2/ncm2-pyclang'
+	endif
 
 	" wrap existing omnifunc
 	" Note that omnifunc does not run in background and may probably block the
@@ -588,22 +588,25 @@ function! s:set_ncm2() abort
 		autocmd TextChangedI * call ncm2#auto_trigger()
 		autocmd User Ncm2Plugin call ncm2#register_source(l:omni)
 	augroup END
-	" note that must keep noinsert in completeopt, the others is optional
-	" set completeopt=noinsert,menuone,noselect
-	"" supress the annoying 'match x of y', 'The only match' and 'Pattern not
-	" found' messages
-	" set shortmess+=c
 	
-	" CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
-	inoremap <c-c> <ESC>
+	set completeopt+=noinsert
 
 	inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 	inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 	inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-	Plug 'ncm2/ncm2-path'
 	Plug 'ncm2/ncm2-bufword'
-	Plug 'ncm2/ncm2-ultisnips'
+	Plug 'ncm2/ncm2-path'
+	Plug 'ncm2/ncm2-jedi'
+	Plug 'ncm2/ncm2-vim'
+	Plug 'ncm2/ncm2-syntax'
+	Plug 'ncm2/ncm2-neoinclude'
+	if executable('look')
+		" Complete english words
+		Plug 'filipekiss/ncm2-look.vim'
+	endif
+	" Fenced code block detection in markdown files for ncm2
+	Plug 'ncm2/ncm2-markdown-subscope'
 endfunction
 
 function! s:set_ulti_snips() abort
@@ -617,8 +620,9 @@ function! s:set_ulti_snips() abort
 				\ ]
 
 	" c-j c-k for moving in snippet
-	inoremap <plug>snip_expand <Plug>(ultisnips_expand)
-	let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
+	imap <plug>snip_expand :call ncm2_ultisnips#completed_is_snippet()<cr>
+	
+	let g:UltiSnipsExpandTrigger		= "<Plug>(snip_expand)"
 	let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
 	let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
 	let g:UltiSnipsRemoveSelectModeMappings = 0
