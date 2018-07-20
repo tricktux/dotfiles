@@ -126,6 +126,8 @@ function! plugin#Config()
 	nnoremap <plug>cd_root :Rooter<CR>
 	let g:rooter_use_lcd = 1
 	let g:rooter_patterns = ['.git/', '.svn/', 'Source/', 'wiki/']
+	let g:rooter_silent_chdir = 1
+	let g:rooter_resolve_links = 1
 	" nnoremap <Leader>cr :call utils#RooterAutoloadCscope()<CR>
 
 	Plug 'Raimondi/delimitMate'
