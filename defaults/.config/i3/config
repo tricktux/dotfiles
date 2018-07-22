@@ -254,6 +254,13 @@ bindsym $mod+bracketright move container to output right
 
 bindsym $mod+Mod1+$left focus output left
 bindsym $mod+Mod1+$right focus output right
+
+bindsym $mod+i exec --no-startup-id \
+	~/Documents/polybar-scripts/polybar-scripts/pulseaudio-rofi/pulseaudio-rofi.sh --input
+
+bindsym $mod+o exec --no-startup-id \
+	~/Documents/polybar-scripts/polybar-scripts/pulseaudio-rofi/pulseaudio-rofi.sh --output
+
 # }}}
 
 ############ Workspaces ###################{{{
