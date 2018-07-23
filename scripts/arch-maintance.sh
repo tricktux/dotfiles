@@ -10,8 +10,17 @@
 machine=`hostname`
 
 echo "Optimizing pacman"
+# This is very dangerous
 # sudo pacman -Sc --noconfirm
-sudo pacman-optimize
+# Better way paccache will remove everything except the latest THREE versions of a package
+sudo paccache -r
+# And remove remove all cached versions of uninstalled packages
+sudo paccache -ruk0
+# Rolling Back to an Older Version of a Package
+# sudo pacman -U /var/cache/pacman/pkg/name-version.pkg.tar.gz
+
+# sudo pacman-optimize
+
 # Tue Sep 26 2017 18:40 Update Mirror list. Depends on `reflector`
 if hash reflector 2>/dev/null; then
 	sudo reflector --protocol https --latest 30 --number 5 --sort rate --save /etc/pacman.d/mirrorlist -c 'United States' --verbose
@@ -23,15 +32,18 @@ fi
 echo "Optimizing system memory now in order to do all sudo commands at once"
 sudo bleachbit --clean system.memory
 
-# echo "Removing unused orphan packages"
-# sudo pacman -Rns $(pacman -Qtdq) --noconfirm
+echo "Removing unused orphan packages"
+sudo pacman -Rns $(pacman -Qtdq)
 
 echo "Updating system"
-trizen -Syyu --devel --noconfirm
+trizen -Syu
 sudo pacman -Qnq > ~/.config/dotfiles/pkg/$machine/native
 sudo pacman -Qmq > ~/.config/dotfiles/pkg/$machine/aur
 
-echo "BleachBit runnning"
+echo "Emptying trash"
+gio trash --empty
+
+# echo "BleachBit runnning"
 
 # This options will use what is set in the ~/.config/bleachbit/bleachbit.ini
 # The options there come from what is set up in the gui.
@@ -44,7 +56,7 @@ echo "BleachBit runnning"
 # 1_path = /home/reinaldo/Dropbox
 # Also disable system.memory clean swap but requires sudo
 
-bleachbit --clean --preset
+# bleachbit --clean --preset
 # Alternative
 # bleachbit --list | grep -E "[a-z0-9_\-]+\.[a-z0-9_\-]+" | grep -v system.free_disk_space | xargs bleachbit --clean
 
