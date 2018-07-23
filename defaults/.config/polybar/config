@@ -220,7 +220,7 @@ fixed-center = true
 ; background = ${colors.background}
 ; foreground = ${colors.foreground}
 foreground = ${colors.t1}
-background = ${colors.background_dark}
+background = ${colors.background_light}
 underline-color = #00f
 overline-color = #f00
 
@@ -236,7 +236,7 @@ padding-right = 0
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = FontAwesome:size=10;0
+font-0 = FontAwesome:size=12;0
 font-1 = Roboto:size=10;0
 ; font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 ; Fri Sep 15 2017 09:18: In order to get siji font to work use this command to get the exact name:
@@ -245,9 +245,9 @@ font-1 = Roboto:size=10;0
 ; For more info look [here](https://github.com/jaagr/polybar/issues/313)
 font-2=WunconSiji:pixelsize=10;0
 
-modules-left = battery temperature cpu cpuload memory
+modules-left = battery temperature cpu cpuload system-uptime-pretty memory 
 modules-center = cmus
-modules-right = time xkeyboard volume backlight-acpi eth-beast wlan-beast redshift compton
+modules-right = xkeyboard volume updates-arch-combined redshift compton
 
 ; My new settings
 tray-detached = false
@@ -405,7 +405,7 @@ padding-right = 0
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = FontAwesome:size=10;0
+font-0 = FontAwesome:size=12;0
 font-1 = Roboto:size=10;0
 ; font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 ; Fri Sep 15 2017 09:18: In order to get siji font to work use this command to get the exact name:
@@ -416,7 +416,7 @@ font-2=WunconSiji:pixelsize=12;0
 
 modules-left = i3
 modules-center = xwindow
-modules-right = weather date powermenu
+modules-right = weather date time powermenu
 
 ; My new settings
 ; tray-detached = false
@@ -870,8 +870,9 @@ format-volume-underline = #0b2938
 
 ; Available tokens:
 ;   %percentage% (default)
-label-muted =  muted
+label-muted = 
 label-muted-foreground = #66
+label-muted-underline = #0b2938
 
 ; Only applies if <ramp-volume> is used
 ramp-volume-0 = 
@@ -1139,5 +1140,50 @@ type = custom/script
 format-prefix = " "
 exec = ~/Documents/polybar-scripts/polybar-scripts/updates-arch-combined/updates-arch-combined.sh
 interval = 600
+
+[module/pulseaudio-tail]
+type = custom/script
+exec = ~/Documents/polybar-scripts/polybar-scripts/pulseaudio-tail/pulseaudio-tail.sh
+tail = true
+click-right = exec pavucontrol &
+click-left = ~/polybar-scripts/pulseaudio-tail.sh --mute
+scroll-up = ~/polybar-scripts/pulseaudio-tail.sh --up
+scroll-down = ~/polybar-scripts/pulseaudio-tail.sh --down
+
+[module/news-archlinux]
+type = custom/script
+exec = ~/Documents/polybar-scripts/polybar-scripts/news-archlinux/news-archlinux.py
+interval = 600
+
+[module/system-uptime-pretty]
+type = custom/script
+exec = ~/Documents/polybar-scripts/polybar-scripts/system-uptime-pretty/system-uptime-pretty.sh
+interval = 30
+; format-prefix = " "
+format-underline = #0a6cf5
+
+[module/info-kernel]
+type = custom/script
+exec = uname -r
+interval = 1024
+format-underline = #0a6cf5
+
+[module/pulseaudio-rofi-input]
+type = custom/script
+exec = ~/Documents/polybar-scripts/polybar-scripts/pulseaudio-rofi/pulseaudio-rofi.sh --input_volume_listener&
+tail = true
+click-right = ~/polybar-scripts/pulseaudio-rofi.sh --input
+click-left = ~/polybar-scripts/pulseaudio-rofi.sh --mute_source
+scroll-up =  ~/polybar-scripts/pulseaudio-rofi.sh --volume_source_up
+scroll-down = ~/polybar-scripts/pulseaudio-rofi.sh --volume_source_down
+
+[module/pulseaudio-rofi-output]
+type = custom/script
+exec = ~/Documents/polybar-scripts/polybar-scripts/pulseaudio-rofi/pulseaudio-rofi.sh --output_volume_listener&
+tail = true
+click-right = ~/polybar-scripts/pulseaudio-rofi.sh --output
+click-left = ~/polybar-scripts/pulseaudio-rofi.sh --mute
+scroll-up =  ~/polybar-scripts/pulseaudio-rofi.sh --volume_up
+scroll-down = ~/polybar-scripts/pulseaudio-rofi.sh --volume_down
 
 ; vim:filetype=dosini

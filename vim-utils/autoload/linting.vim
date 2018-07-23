@@ -177,9 +177,7 @@ endfunction
 " And then call the function again
 function! linting#SetNeomakePandocMaker(type) abort
 	if !executable('pandoc')
-		if &verbose > 0
-			echomsg '[linting#SetNeomakePandocMaker]: Pandoc is not executable'
-		endif
+		echomsg '[linting#SetNeomakePandocMaker]: Pandoc is not executable'
 		return -1
 	endif
 

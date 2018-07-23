@@ -65,7 +65,7 @@ endif
 " Advanced spelling checks for when writting documents and such
 " Other tools should be enabled and disabled here
 let s:spelling_toggle = 0
-function! MdCheckSpelling() abort
+function! s:mdcheckspelling() abort
 	if exists('spelling_toggle') && s:spelling_toggle == 0
 		if exists(':DittoOn')
 			execute "DittoOn"
@@ -140,6 +140,8 @@ endfunction
 function! s:todo_clear_mark() abort
 	execute "normal! ^f[lr\<Space>\<Esc>"
 endfunction
+
+call linting#SetNeomakePandocMaker('pdf')
 
 command! -buffer UtilsWeeklyReportCreate call utils#ConvertWeeklyReport()
 " Markdown fix _ showing red
