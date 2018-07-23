@@ -11,6 +11,24 @@
 # BEHAVIOUR #
 #############
 
+# LP_MARK_BATTERY=
+
+LP_MARK_BRACKET_OPEN=
+LP_MARK_BRACKET_CLOSE=
+LP_MARK_PERM=
+LP_PS1_PREFIX=
+LP_PS1_POSTFIX="\n"
+
+
+LP_MARK_TEMP=
+
+LP_MARK_GIT=
+
+LP_MARK_LOAD=
+
+# Detect if the directory is writeable
+LP_ENABLE_PERM=1
+
 # Gets rid of the $ at the end of the prompt
 LP_MARK_DEFAULT=" "
 
@@ -21,8 +39,6 @@ LP_BATTERY_THRESHOLD=75
 # Display the load average when the load is above this threshold.
 # Recommended value is 60
 LP_LOAD_THRESHOLD=60
-
-LP_PS1_POSTFIX="\n"
 
 # Display the temperature when the temperate is above this threshold (in
 # degrees Celsius).
@@ -124,11 +140,11 @@ LP_ENABLE_TIME=1
 
 # Show runtime of the previous command if over LP_RUNTIME_THRESHOLD
 # Recommended value is 0
-LP_ENABLE_RUNTIME=1
+LP_ENABLE_RUNTIME=0
 
 # Minimal runtime (in seconds) before the runtime will be displayed
 # Recommended value is 2
-LP_RUNTIME_THRESHOLD=30
+LP_RUNTIME_THRESHOLD=2
 
 # Display the virtualenv that is currently activated, if any
 # Recommended value is 1
