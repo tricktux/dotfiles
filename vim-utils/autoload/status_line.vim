@@ -83,7 +83,7 @@ function! s:lightline_config() abort
 				\ }
 
 	let g:lightline.inactive = {
-			\ 'left': [ [ 'filename' ] ],
+			\ 'left': [ [ 'absolutepath' ] ],
 			\ 'right': [ [ 'lineinfo' ],
 			\            [ '' ] ] }
 
