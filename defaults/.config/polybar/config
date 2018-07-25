@@ -47,7 +47,7 @@ fixed-center = true
 ; background = ${colors.background}
 ; foreground = ${colors.foreground}
 foreground = ${colors.t1}
-background = ${colors.background_dark}
+background = ${colors.background_light}
 underline-color = #00f
 overline-color = #f00
 
@@ -72,9 +72,9 @@ font-1 = Roboto:size=18;0
 ; For more info look [here](https://github.com/jaagr/polybar/issues/313)
 font-2=WunconSiji:pixelsize=18;0
 
-modules-left = battery temperature cpu system-nvidia-smi cpuload memory 
+modules-left = battery temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory 
 modules-center = cmus
-modules-right = xkeyboard volume backlight-acpi eth-predator wlan-predator redshift compton updates-arch-combined
+modules-right = xkeyboard volume updates-arch-combined redshift compton
 
 ; My new settings
 tray-detached = false
@@ -1133,6 +1133,7 @@ interval = 5
 type = custom/script
 exec = ~/Documents/polybar-scripts/polybar-scripts/system-nvidia-smi/system-nvidia-smi.sh
 interval = 10
+format-underline = #f90000
 
 [module/updates-arch-combined]
 ; Depends on pacman-contrib
