@@ -626,41 +626,7 @@ function! s:wiki_add() abort
 		return
 	endif
 
-	let cwd = getcwd()
-	execute 'lcd ' . g:wiki_path
-	let new_wiki = input('Please enter name for new wiki:', '', 'file')
-
-	if empty(new_wiki)
-		return
-	endif
-
-	let splitter = has('unix') ? '/' : '\'
-
-	if new_wiki[0] !=# splitter
-		let new_wiki = splitter . new_wiki
-	endif
-
-	let new_wiki = g:wiki_path . new_wiki
-	if &verbose > 0
-		echomsg printf('[wiki_add]: new_wiki = "%s"', new_wiki)
-	endif
-
-	" Find passed dir
-	let last_folder = strridx(new_wiki, splitter)
-	let new_folder = new_wiki[0:last_folder-1]
-	if &verbose > 0
-		echomsg printf('[wiki_add]: new_folder = "%s"', new_folder)
-	endif
-
-	if !isdirectory(new_folder)
-		if &verbose > 0
-			echomsg printf('[wiki_add]: Created new folder = "%s"', new_folder)
-		endif
-		call mkdir(new_folder, 'p')
-	endif
-
-	execute 'lcd ' . cwd
-	execute 'edit ' . new_wiki
+	return s:add_file(g:wiki_path)
 endfunction
 
 " Use current 'grepprg' to search files for text
@@ -744,4 +710,47 @@ function! s:switch_or_set_tab(tab_num) abort
 	endif
 
 	execute 'normal! ' . a:tab_num . 'gt'
+endfunction
+
+function! s:add_file(path) abort
+	if empty(a:path) || empty(glob(a:path))
+		echoerr 'Input path doesnt exist'
+		return
+	endif
+
+	let l:cwd = getcwd()
+	execute 'lcd ' . a:path
+	let l:new_file = input('Please enter name for new wiki:', '', 'file')
+
+	if empty(l:new_file)
+		return
+	endif
+
+	let l:splitter = has('unix') ? '/' : '\'
+
+	if l:new_file[0] !=# l:splitter
+		let l:new_file = l:splitter . l:new_file
+	endif
+
+	let l:new_file = a:path . l:new_file
+	if &verbose > 0
+		echomsg printf('[add_file]: l:new_file = "%s"', l:new_file)
+	endif
+
+	" Find passed dir
+	let l:last_folder = strridx(l:new_file, l:splitter)
+	let l:new_folder = l:new_file[0:l:last_folder-1]
+	if &verbose > 0
+		echomsg printf('[wiki_add]: l:new_folder = "%s"', l:new_folder)
+	endif
+
+	if !isdirectory(l:new_folder)
+		if &verbose > 0
+			echomsg printf('[wiki_add]: Created new folder = "%s"', l:new_folder)
+		endif
+		call mkdir(l:new_folder, 'p')
+	endif
+
+	execute 'lcd ' . l:cwd
+	execute 'edit ' . l:new_file
 endfunction
