@@ -57,7 +57,9 @@ function! s:config_win()
 	for wiki in wikis
 		if !empty(glob(wiki))
 			let g:wiki_path =  wiki
-			let g:valid_device = 1
+			" Fri Jul 27 2018 16:01: Gvim is the only one that sets this. Dont use cute
+			" symbols. No cute font support. 
+			" let g:valid_device = 1
 			break
 		endif
 	endfor

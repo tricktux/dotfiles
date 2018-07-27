@@ -13,7 +13,7 @@
 " Guifont! Consolas:h9
 " Guifont! FontAwesome:h9
 function! s:win_nvim_ugly_font() abort
-	Guifont! Consolas:h9
+	Guifont! Consolas:h10
 	call GuiWindowMaximized(1)
 endfunction
 
@@ -27,12 +27,12 @@ function! s:win_nvim_nice_font() abort
 endfunction
 
 function! s:win_gvim_ugly_font() abort
-	set guifont=consolas:h8
+	set guifont=consolas:h10
 	call s:set_gvim_guioptions()
 endfunction
 
 function! s:win_gvim_nice_font() abort
-	set guifont=consolas:h8
+	set guifont=consolas:h10
 	call s:set_gvim_guioptions()
 endfunction
 
