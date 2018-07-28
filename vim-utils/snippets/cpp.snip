@@ -14,7 +14,7 @@ abbr        std::vector
 options     head
     std::vector<${1:Type}> ${2:vName}; ${3: $2.reserve(1024);}
 
-snippet log Unreal Log
+snippet logue
 options head
   UE_LOG(Log${1:Category,Temp}, ${2:Fatal,Error,Warning,Display,Log,Verbose,VeryVerbose}, TEXT("${4:FormatStr}"), ${5:...})
 
@@ -22,6 +22,11 @@ snippet     upd
 abbr        UpdateStatusAreaEx
 options     head
   UpdateStatusAreaEx("${1:Msg Here}", ${2:COLOR_ERROR, COLOR_WARNING, COLOR_SUCCESS});
+
+snippet log
+abbr Google Glog
+options head
+    LOG(${1:INFO,WARNING,ERROR,FATAL}) << "${2:Message}";
 
 ##
 ## Control Statements
