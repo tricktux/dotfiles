@@ -47,7 +47,7 @@ function! commands#Set() abort
 	" And use camel case. This way is easier to search
 	command! UtilsTagLoadCurrFolder call ctags#LoadCscopeDatabse()
 	command! UtilsTagUpdateCurrFolder call ctags#NvimSyncCtags()
-
+	command! UtilsTagLoadCCTree call ctags#LoadCctreeDb()
 endfunction
 
 function! s:capture_cmd_out(...) abort
