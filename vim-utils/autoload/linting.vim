@@ -200,9 +200,15 @@ function! linting#SetNeomakePandocMaker(type) abort
 
 	if a:type ==# 'pdf'
 		" Set template
+		if !has('unix')
+			let l:cc = substitute(g:std_cache_path, "[\\/]", '\\\\', 'g') . '\\\\'
+			let l:argu += [
+						\ '--pdf-engine-opt', '-aux-directory=' . l:cc
+						\ ]
+		endif
+
 		let l:argu += [
-					\ '--template',
-					\ (!exists('b:neomake_pandoc_template') ? 'eisvogel' : b:neomake_pandoc_template),
+					\ '--template', (!exists('b:neomake_pandoc_template') ? 'eisvogel' : b:neomake_pandoc_template),
 					\ '--number-sections', '--listings', '--write', 'latex', '-o', '%:r.pdf', '%'
 					\ ]
 	elseif a:type ==# 'docx'
