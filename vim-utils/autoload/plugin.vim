@@ -433,6 +433,8 @@ function! plugin#Config()
 
 	Plug 'Peaches491/vim-glog-syntax'
 
+	call s:configure_vim_bookmark()
+
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
@@ -974,8 +976,8 @@ function! s:configure_vim_bookmark() abort
 		" let g:bookmark_show_warning = 0
 		" let g:bookmark_show_toggle_warning = 0
 
-		nnoremap <Plug>BookmarkLoad :call <SID>bookmark_save()
-		nnoremap <Plug>BookmarkSave :call <SID>bookmark_save()
+		nnoremap <Plug>BookmarkLoad :call <SID>bookmark_load()<cr>
+		nnoremap <Plug>BookmarkSave :call <SID>bookmark_save()<cr>
 endfunction
 
 function! s:bookmark_save() abort
