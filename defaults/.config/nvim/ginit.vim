@@ -24,6 +24,7 @@ function! s:win_nvim_nice_font() abort
 	" let g:GuiFont ='DejaVuSansMono NF:h9'
 	let g:GuiFont ='FuraCode Nerd Font Mono:h10'
 	execute 'Guifont! ' . g:GuiFont
+	call GuiWindowMaximized(1)
 endfunction
 
 function! s:win_gvim_ugly_font() abort
@@ -45,6 +46,7 @@ endfunction
 function! s:unix_nvim_nice_font() abort
 	let g:GuiFont ='FuraCode Nerd Font:h10'
 	execute 'Guifont! ' . g:GuiFont
+	call GuiWindowMaximized(1)
 endfunction
 
 function! s:unix_gvim_ugly_font() abort
