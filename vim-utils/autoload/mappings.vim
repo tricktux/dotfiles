@@ -377,6 +377,18 @@ function! mappings#Set() abort
 	" deletes all buffers
 	nnoremap <Leader>bl :%bd<cr>
 
+	nmap <Leader>bt <Plug>BookmarkToggle
+	nmap <Leader>bi <Plug>BookmarkAnnotate
+	nmap <Leader>ba <Plug>BookmarkShowAll
+	nmap <Leader>bn <Plug>BookmarkNext
+	nmap <Leader>bp <Plug>BookmarkPrev
+	nmap <Leader>bc <Plug>BookmarkClear
+	nmap <Leader>bx <Plug>BookmarkClearAll
+	nmap <Leader>bk <Plug>BookmarkMoveUp
+	nmap <Leader>bj <Plug>BookmarkMoveDown
+	nmap <Leader>bo <Plug>BookmarkLoad
+	nmap <Leader>bs <Plug>BookmarkSave
+
 	" Version Control <Leader>v?
 	" For all this commands you should be in the svn root folder
 	" Add all files
@@ -482,17 +494,15 @@ function! s:load_session(...) abort
 
 	execute "wall"
 	if exists(':Denite')
-		call setreg(v:register, "") " Clean up register
-		execute "Denite -default-action=yank -path=" . session_path . " file_rec"
-		let session_name = getreg()
+		let session_name = utils#DeniteYank(session_path)
 		if !filereadable(session_path . session_name)
 			return
 		endif
 	else
 		let dir = getcwd()
-		execute "cd ". session_path
+		execute "lcd ". session_path
 		let session_name = input("Load session:", "", "file")
-		silent! execute "cd " . dir
+		silent! execute "lcd " . dir
 	endif
 	silent execute "source " . session_path . session_name
 endfunction

@@ -434,7 +434,12 @@ function! s:create_cscope(tag_name) abort
 		return
 	endif
 
-	let cscope_cmd = 'cscope -f ' . cs_db . ' -bqi ' . s:files_list
+	" -b            Build the cross-reference only.
+	" -c            Use only ASCII characters in the cross-ref file (don't compress).
+	" -q            Build an inverted index for quick symbol searching.
+	" -f reffile    Use reffile as cross-ref file name instead of cscope.out.
+	" -i namefile   Browse through files listed in namefile, instead of cscope.files
+	let cscope_cmd = 'cscope -bcq -f ' . cs_db . ' -i ' . s:files_list
 	if &verbose > 0
 		echomsg 'cscope_cmd = ' . cscope_cmd
 	endif
@@ -462,6 +467,33 @@ function! s:load_cscope_db(tag_name) abort
 
 	try
 		execute 'silent cs add ' . cs_db
+	catch /^Vim(cscope):/
+		return
+	endtry
+endfunction
+
+function! ctags#LoadCctreeDb() abort
+	if !exists(':CCTreeLoadDB')
+		echoerr '[ctags#LoadCctreeDb]: CCTree not loaded'
+		return
+	endif
+
+	let l:tag_name = utils#GetFullPathAsName(getcwd()) . '.out'
+
+	return s:load_cctree_cscope_db(l:tag_name)
+endfunction
+
+function! s:load_cctree_cscope_db(tag_name) abort
+	let cs_db = g:ctags_output_dir . a:tag_name
+	if empty(glob(cs_db))
+		if &verbose > 0
+			echomsg 'No cscope database ' . cs_db
+		endif
+		return
+	endif
+
+	try
+		execute 'CCTreeLoadDB ' . cs_db
 	catch /^Vim(cscope):/
 		return
 	endtry
