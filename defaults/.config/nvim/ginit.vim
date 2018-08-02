@@ -43,7 +43,7 @@ function! s:unix_nvim_ugly_font() abort
 endfunction
 
 function! s:unix_nvim_nice_font() abort
-	let g:GuiFont ='FuraCode Nerd Font:h10'
+	let g:GuiFont ='FuraCode Nerd Font:h9'
 	execute 'Guifont! ' . g:GuiFont
 endfunction
 
