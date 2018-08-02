@@ -960,3 +960,68 @@ function! s:configure_vim_utils() abort
 	let g:ctags_use_spell_for = ['c', 'cpp']
 	let g:ctags_use_cscope_for = ['c', 'cpp', 'java']
 endfunction
+
+function! s:configure_vim_bookmark() abort
+	Plug 'MattesGroeger/vim-bookmarks'
+		let g:bookmark_no_default_key_mappings = 1
+		" let g:bookmark_sign = '>>'
+		" let g:bookmark_annotation_sign = '##'
+		let g:bookmark_manage_per_buffer = 0
+		let g:bookmark_save_per_working_dir = 0
+		let g:bookmark_dir = g:std_data_path . '/bookmarks'
+		let g:bookmark_auto_save_file = g:bookmark_dir . '/bookmarks'
+		let g:bookmark_highlight_lines = 1
+		" let g:bookmark_show_warning = 0
+		" let g:bookmark_show_toggle_warning = 0
+
+		nnoremap <Plug>BookmarkLoad :call <SID>bookmark_save()
+		nnoremap <Plug>BookmarkSave :call <SID>bookmark_save()
+endfunction
+
+function! s:bookmark_save() abort
+	if !exists('*BookmarkSave()')
+		echoerr 'Please install the vim-bookmark plugin'
+		return
+	endif
+
+	let l:folder = utils#GetFullPathAsName(getcwd())
+
+	let l:path = g:bookmark_dir . '/' . l:folder
+
+	if empty(finddir(l:folder, g:bookmark_dir . '/**1'))
+		call mkdir(l:path, 'p')
+	endif
+
+	let l:msg = 'Enter name for bookmark at "' . l:folder . '": '
+	let l:book = input(l:msg)
+	if empty(l:book)
+		return
+	endif
+
+	let l:book = l:path . '/' . l:book
+
+	return BookmarkSave(l:book, 0)
+endfunction
+
+function! s:bookmark_load() abort
+	if !exists('*BookmarkLoad()')
+		echoerr 'Please install the vim-bookmark plugin'
+		return
+	endif
+
+	let l:folder = utils#GetFullPathAsName(getcwd())
+
+	let l:path = g:bookmark_dir . '/' . l:folder
+
+	if empty(finddir(l:folder, g:bookmark_dir . '/**1'))
+		echomsg 'There are no bookmarks for current directory'
+		return
+	endif
+
+	let l:book = utils#DeniteYank(l:path)
+	if empty(l:book)
+		return
+	endif
+
+	return BookmarkLoad(l:book, 0, 0)
+endfunction

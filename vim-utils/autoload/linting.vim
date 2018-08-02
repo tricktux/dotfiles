@@ -54,6 +54,17 @@ function! s:set_neomake() abort
 				\ 'errorformat': '%f:%l:%c: %m',
 				\ }
 
+	"  Very usefull for when using CMake
+	"  ----
+	" -C build - means build inside build directory
+	"  and build only the name of the current file (%:t:r)
+	let g:neomake_make_unix_maker = {
+				\ 'exe': 'make',
+				\ 'args': ['-C', 'build', '%:t:r'],
+				\ 'append_file' : 0,
+				\ 'errorformat': '%f:%l:%c: %m',
+				\ }
+
 	let g:neomake_msbuild_maker = {
 				\ 'exe' : 'msbuild',
 				\ 'cwd': '%:p:h',
@@ -96,6 +107,7 @@ function! s:set_neomake() abort
 		" let g:lightline.component_function['neomake'] = 'lightline_neomake#component'
 		" let g:lightline.component_type['neomake'] = 'error'
 	endif
+
 endfunction
 
 function! s:neomake_finished() abort
@@ -200,9 +212,15 @@ function! linting#SetNeomakePandocMaker(type) abort
 
 	if a:type ==# 'pdf'
 		" Set template
+		if !has('unix')
+			let l:cc = substitute(g:std_cache_path, "[\\/]", '\\\\', 'g') . '\\\\'
+			let l:argu += [
+						\ '--pdf-engine-opt', '-aux-directory=' . l:cc
+						\ ]
+		endif
+
 		let l:argu += [
-					\ '--template',
-					\ (!exists('b:neomake_pandoc_template') ? 'eisvogel' : b:neomake_pandoc_template),
+					\ '--template', (!exists('b:neomake_pandoc_template') ? 'eisvogel' : b:neomake_pandoc_template),
 					\ '--number-sections', '--listings', '--write', 'latex', '-o', '%:r.pdf', '%'
 					\ ]
 	elseif a:type ==# 'docx'
@@ -260,8 +278,21 @@ function! linting#SetNeomakePandocMaker(type) abort
 	let g:neomake_markdown_enabled_makers += [l:maker]
 endfunction
 
+function! linting#SetNeomakeMakeMaker() abort
+	if !exists('b:neomake_cpp_enabled_makers')
+		let b:neomake_cpp_enabled_makers = []
+	endif
+
+	let &l:makeprg='make -C build'
+	let b:neomake_cpp_enabled_makers += ['make_unix']
+endfunction
+
 function! linting#SetNeomakeClangMaker() abort
-	let b:neomake_cpp_enabled_makers = executable('clang') ? ['clangtidy', 'clangcheck'] : ['']
+	if !exists('b:neomake_cpp_enabled_makers')
+		let b:neomake_cpp_enabled_makers = []
+	endif
+
+	let b:neomake_cpp_enabled_makers += executable('clang') ? ['clangtidy', 'clangcheck'] : ['']
 	let b:neomake_cpp_enabled_makers += executable('cppcheck') ? ['cppcheck'] : ['']
 	if !has('unix')
 		let b:neomake_clang_args = '-target x86_64-pc-windows-gnu -std=c++1z -stdlib=libc++ -Wall -pedantic'

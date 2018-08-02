@@ -234,9 +234,9 @@ function! utils#WikiSearch() abort
 	" TODO-[RM]-(Sun Oct 15 2017 15:53): fix this here not to use denite
 	if !exists(':Denite')
 		let dir = getcwd()
-		execute "cd " . g:wiki_path
+		execute "l:cd " . g:wiki_path
 		execute "grep " . input("Enter wiki search string:")
-		silent! execute "cd " . dir
+		silent! execute "l:cd " . dir
 		return
 	endif
 
@@ -474,32 +474,27 @@ function! utils#DeniteRec(path) abort
 		return
 	endif
 
-	let cp_path = a:path
-
 	if !exists(':Denite')
-		let dir = getcwd()
-		execute "cd " . cp_path
-		execute "e " . input('e ' . expand(cp_path) . '/', "", "file")
-		silent! execute "cd " . dir
+		let l:dir = getcwd()
+		execute 'lcd ' . a:path
+		execute 'e ' . input('e ' . expand(a:path) . '/', '', 'file')
+		silent! execute 'lcd ' . l:dir
 		return
 	endif
 
-	if empty(glob(cp_path))
-		echoerr 'Folder ' . cp_path . 'not found'
+	if empty(glob(a:path))
+		echoerr 'Folder ' . a:path . 'not found'
 		return
 	endif
 
-	" Strip ending slaches. They work well with denite
-	let idx = strlen(cp_path)-1
-	if cp_path[idx] == '\' || cp_path[idx] == '/'
-		let cp_path = cp_path[0:idx-1]
-	endif
+	" Make a copy so that I can modify it
+	let l:cp_path = s:fix_denite_path(a:path)
 
 	if &verbose > 0
-		echomsg printf('[utils#DeniteRec()]: cp_path = %s', cp_path)
+		echomsg printf('[utils#DeniteRec()]: l:cp_path = %s', l:cp_path)
 	endif
 
-	execute "Denite -path=" . cp_path . " file_rec"
+	execute 'Denite -path=' . l:cp_path . ' file_rec'
 endfunction
 
 function! utils#CurlDown(file_name, link) abort
@@ -718,9 +713,37 @@ endfunction
 
 function! utils#GetFullPathAsName(folder) abort
 	" Create unique tag file name based on cwd
-	let ret = substitute(a:folder, "\\", '_', 'g')
-	let ret = substitute(ret, ':', '_', 'g')
-	let ret = substitute(ret, ' ', '_', 'g')
-	return substitute(ret, "/", '_', 'g')
+	let l:ret = substitute(a:folder, "\\", '_', 'g')
+	let l:ret = substitute(l:ret, ':', '_', 'g')
+	let l:ret = substitute(l:ret, ' ', '_', 'g')
+	return substitute(l:ret, "/", '_', 'g')
 endfunction
 
+function! utils#DeniteYank(path) abort
+	if !exists(':Denite')
+		echoerr '[utils#DeniteYank]: Please install denite plugin'
+		return ''
+	endif
+
+	if empty(glob(a:path))
+		echoerr '[utils#DeniteYank]: Please provide a valid path'
+		return ''
+	endif
+	
+	let l:path = s:fix_denite_path(a:path)
+	call setreg(v:register, '') " Clean up register
+	execute 'Denite -default-action=yank -path=' . l:path . ' file_rec'
+	return getreg()
+endfunction
+
+function! s:fix_denite_path(path) abort
+	let l:cp_path = a:path
+	
+	" Strip ending slaches. They dont work well with denite
+	let l:idx = strlen(l:cp_path)-1
+	if l:cp_path[l:idx] ==? '\' || l:cp_path[l:idx] ==? '/'
+		let l:cp_path = l:cp_path[0:l:idx-1]
+	endif
+
+	return substitute(l:cp_path, "[\\/]", '\\\\', 'g')
+endfunction
