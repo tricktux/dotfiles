@@ -297,7 +297,8 @@ function! plugin#Config()
 	Plug 'scrooloose/vim-slumlord', { 'on' : 'UtilsUmlInFilePreview' }
 
 	Plug 'junegunn/goyo.vim', { 'on' : 'Goyo' }
-	nnoremap <plug>focus_toggle :Goyo<cr>
+		let g:goyo_width = 120
+		nnoremap <plug>focus_toggle :Goyo<cr>
 
 	Plug 'dbmrq/vim-ditto', { 'for' : 'markdown' }
 	let g:ditto_dir = g:std_data_path
@@ -645,7 +646,7 @@ function! s:configure_async_plugins() abort
 	nmap <plug>terminal_send_line <Plug>(neoterm-repl-send-line)
 
 	Plug 'Shougo/denite.nvim', { 'do' : has('nvim') ? ':UpdateRemotePlugins' : '' }
-	nmap <plug>fuzzy_command_history :Denite command_history<CR>
+	nmap <plug>fuzzy_command_history :Denite command<CR>
 	nmap <plug>fuzzy_vim_help :Denite help<CR>
 	" nnoremap <C-S-h> :Denite help<CR>
 	" nmap <plug>mru_browser :Denite file_mru<CR>
@@ -971,6 +972,7 @@ function! s:configure_vim_bookmark() abort
 		let g:bookmark_manage_per_buffer = 0
 		let g:bookmark_save_per_working_dir = 0
 		let g:bookmark_dir = g:std_data_path . '/bookmarks'
+		let g:bookmark_auto_save = 0
 		let g:bookmark_auto_save_file = g:bookmark_dir . '/bookmarks'
 		let g:bookmark_highlight_lines = 1
 		" let g:bookmark_show_warning = 0
@@ -994,8 +996,11 @@ function! s:bookmark_save() abort
 		call mkdir(l:path, 'p')
 	endif
 
+	let l:cd = getcwd()
+	execute 'silent lcd ' . l:path
 	let l:msg = 'Enter name for bookmark at "' . l:folder . '": '
-	let l:book = input(l:msg)
+	let l:book = input(l:msg, '', 'file')
+	execute 'silent lcd ' . l:cd
 	if empty(l:book)
 		return
 	endif
@@ -1020,9 +1025,13 @@ function! s:bookmark_load() abort
 		return
 	endif
 
-	let l:book = utils#DeniteYank(l:path)
+	let l:book = l:path . '/' . utils#DeniteYank(l:path)
 	if empty(l:book)
 		return
+	endif
+
+	if &verbose > 0
+		echomsg '[bookmark_load]: l:book = ' . l:book
 	endif
 
 	return BookmarkLoad(l:book, 0, 0)
