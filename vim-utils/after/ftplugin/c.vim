@@ -70,6 +70,7 @@ function! s:set_compiler_and_others() abort
 
 	if has('unix')
 		call linting#SetNeomakeClangMaker()
+		call linting#SetNeomakeMakeMaker()
 		if exists('g:LanguageClient_serverCommands')
 			call autocompletion#AdditionalLspSettingsCpp()
 		endif
