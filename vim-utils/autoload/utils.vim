@@ -745,5 +745,5 @@ function! s:fix_denite_path(path) abort
 		let l:cp_path = l:cp_path[0:l:idx-1]
 	endif
 
-	return substitute(l:cp_path, "[\\/]", '\\\\', 'g')
+	return (has('unix') ? l:cp_path : substitute(l:cp_path, "[\\/]", '\\\\', 'g'))
 endfunction
