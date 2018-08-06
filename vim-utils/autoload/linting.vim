@@ -292,8 +292,12 @@ function! linting#SetNeomakeClangMaker() abort
 		let b:neomake_cpp_enabled_makers = []
 	endif
 
-	let b:neomake_cpp_enabled_makers += executable('clang') ? ['clangtidy', 'clangcheck'] : ['']
-	let b:neomake_cpp_enabled_makers += executable('cppcheck') ? ['cppcheck'] : ['']
+	let b:neomake_cpp_enabled_makers += executable('clang') ? ['clangtidy', 'clangcheck'] : []
+	let b:neomake_cpp_enabled_makers += executable('cppcheck') ? ['cppcheck'] : []
+	let b:neomake_cpp_enabled_makers += executable('cpplint') ? ['cpplint'] : []
+	let b:neomake_cppcheck_args = '--quiet --language=c++ --enable=all'
+	let b:neomake_clangtidy_args = ["-checks='*'", '%:p']
+	let b:neomake_clangcheck_args = ['-analyze', '%:p']
 	if !has('unix')
 		let b:neomake_clang_args = '-target x86_64-pc-windows-gnu -std=c++1z -stdlib=libc++ -Wall -pedantic'
 		let b:neomake_clang_cwd = '%:p:h'
