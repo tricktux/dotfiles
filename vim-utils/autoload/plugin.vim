@@ -646,7 +646,7 @@ function! s:configure_async_plugins() abort
 	nmap <plug>terminal_send_line <Plug>(neoterm-repl-send-line)
 
 	Plug 'Shougo/denite.nvim', { 'do' : has('nvim') ? ':UpdateRemotePlugins' : '' }
-	nmap <plug>fuzzy_command_history :Denite command<CR>
+	nmap <plug>fuzzy_command_history :Denite command_history<CR>
 	nmap <plug>fuzzy_vim_help :Denite help<CR>
 	" nnoremap <C-S-h> :Denite help<CR>
 	" nmap <plug>mru_browser :Denite file_mru<CR>
