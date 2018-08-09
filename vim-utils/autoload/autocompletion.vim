@@ -49,11 +49,9 @@ function! autocompletion#SetCompl(compl) abort
 		call s:set_neosnipppets()
 		" call s:set_vim_clang()
 		" Wed Apr 04 2018 16:33: Without a compile_commands.json lsp is useless for clangd
-		if has('unix')
-			call s:set_language_client()
-		else
-			call s:set_clang_compl('rip_clang_complete')
-		endif
+		" Do not setup clangd on windows
+		call s:set_language_client(has('unix'))
+		call s:set_clang_compl('rip_clang_complete')
 	elseif a:compl ==# 'autocomplpop'
 		Plug 'vim-scripts/AutoComplPop'
 		inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -224,8 +222,6 @@ function! s:set_shuogo() abort
 			let col = col('.') - 1
 			return !col || getline('.')[col - 1]  =~ '\s'
 		endfunction
-		" and jedi for autocompletion, `pip install jedi --user`
-		Plug 'zchee/deoplete-jedi'
 	elseif has('lua') " Neocomplete
 		Plug 'Shougo/neocomplete'
 		" All new stuff
@@ -291,6 +287,10 @@ function! s:set_shuogo() abort
 	endif
 
 	" List of sources Plugins
+	" and jedi for autocompletion, `pip install jedi --user`
+	if !executable('pyls')
+		Plug 'zchee/deoplete-jedi'
+	endif
 	Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
 	Plug 'Shougo/neco-syntax' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
 	Plug 'Shougo/echodoc' " Pop for functions info
@@ -378,66 +378,102 @@ function! s:set_clangd_lsp() abort
 endfunction
 
 function! s:set_mutt_omni_wrap(findstart, base) abort
-	let ret = muttaliases#CompleteMuttAliases(a:findstart, a:base)
-	if type(ret) == type([])
+	let l:ret = muttaliases#CompleteMuttAliases(a:findstart, a:base)
+	if type(l:ret) == type([])
 		let i=0
-		while i<len(ret)
-			let ret[i]['snippet'] = ret[i]['word']
-			let ret[i]['word'] = ret[i]['abbr']
+		while i<len(l:ret)
+			let l:ret[i]['snippet'] = l:ret[i]['word']
+			let l:ret[i]['word'] = l:ret[i]['abbr']
 			let i+=1
 		endwhile
 	endif
-	return ret
+	return l:ret
 endfunction
 
-function! s:set_language_client() abort
+function! s:set_language_client(has_unix) abort
 	Plug 'autozimu/LanguageClient-neovim', {
-				\ 'branch': 'next',
-				\ 'do': has('unix') ? 'bash install.sh' : 'powershell -executionpolicy bypass -File install.ps1',
-				\ }
+			\ 'branch': 'next',
+			\ 'do': has('unix') ? 'bash install.sh' : 'powershell -executionpolicy bypass -File install.ps1',
+			\ }
 
 	" Wed Apr 04 2018 16:25: clangd depends on a compile_commands.json databse.
 	" If you can't generate that. Then its no use.
 	let g:LanguageClient_autoStart = 1
 	let g:LanguageClient_serverCommands = {}
+	let g:LanguageClient_diagnosticsList = 'Location'
+	" Multi-entry selection UI. FZF
+	if has('unix') | Plug 'junegunn/fzf.vim' | endif
 
-	if executable('clangd')
-		call extend(g:LanguageClient_serverCommands, { 'cpp' : ['clangd'] })
-	endif
-
-	if executable('pyls')
-		call extend(g:LanguageClient_serverCommands, {
+	" Setup servers
+	" Java server
+	" arch: install jdtls
+	let l:jdtls = {'java': ['jdtls']}
+	let l:chosen_java_server = l:jdtls
+	
+	" Python server
+	let l:pyls = {
 				\ 'python3': ['pyls'],
 				\ 'python':  ['pyls'],
-				\ })
-	endif
+				\ }
+	let l:chosen_python_server = l:pyls
 
-	if executable('jdtls')
-		" arch: install jdtls
-		call extend(g:LanguageClient_serverCommands, {'java': ['jdtls']} )
-	endif
-
-	" Multi-entry selection UI. FZF
-	Plug 'junegunn/fzf.vim'
-
-	let g:LanguageClient_diagnosticsList = 'Location'
-
+	" C++ server
+	" Sat Jan 27 2018 11:11: Settings coming from:
 	" Wed Apr 04 2018 16:21 All these settings are for cquery
 	" Wed Apr 04 2018 17:02: the cquery project has an excellent page on generating
-	" Sat Jan 27 2018 11:11: Settings coming from:
 	" compile_commands.json on its wiki
 	" https://github.com/cquery-project/cquery/wiki/Neovim
-	" let l:cquery = {
-				" \ 'cpp': [ 'cquery', '--language-server', '--log-file=/tmp/cq.log' ],
-				" \ 'c': ['cquery', '--language-server', '--log-file=/tmp/cq.log'],
-				" \ }
 	" let g:LanguageClient_loadSettings = 1 " Use an absolute configuration path if you want system-wide settings
 	" let g:LanguageClient_settingsPath = g:std_config_path . '/dotfiles/vim-utils/settings.json'
+	let l:cquery = {
+			\ 'cpp': [ 'cquery', '--language-server', '--log-file=/tmp/cq.log' ],
+			\ 'c': ['cquery', '--language-server', '--log-file=/tmp/cq.log'],
+			\ }
+	let l:clangd = {
+				\ 'cpp': [ 'clangd' ],
+				\ 'c': [ 'clangd' ],
+				\ }
+	let l:chosen_cpp_server = l:clangd
+
+	" Tue Aug 07 2018 16:41: There is a new cpp player in town. `ccls`. Based of `cquery` 
+	if executable(l:chosen_cpp_server.cpp[0]) && a:has_unix
+		call extend(g:LanguageClient_serverCommands, l:chosen_cpp_server)
+	endif
+
+	if executable(l:chosen_python_server.python3[0])
+		call extend(g:LanguageClient_serverCommands, l:chosen_python_server)
+	endif
+
+	if executable(l:chosen_java_server.java[0])
+		call extend(g:LanguageClient_serverCommands, l:chosen_java_server)
+	endif
 
 	return 1
 endfunction
 
-function! autocompletion#AdditionalLspSettingsCpp() abort
+function! autocompletion#AdditionalLspSettings() abort
+	if !exists('g:LanguageClient_serverCommands')
+		if &verbose > 0
+			echoerr 'LanguageClient plugin not installed'
+		endif
+		return
+	endif
+
+	let l:key = get(g:LanguageClient_serverCommands, &filetype, '')
+	if empty(l:key)
+		if &verbose > 0
+			echoerr 'LanguageClient server for ' . &filetype . ' not defined'
+		endif
+		return
+	endif
+
+	if !executable(get(l:key, 0, ''))
+		if &verbose > 0
+			echoerr 'LanguageClient server for ' . &filetype . ': ' .get(l:key, 0, ''). ' not executable'
+		endif
+		return
+	endif
+
 	setlocal completefunc=LanguageClient#complete
 	setlocal formatexpr=LanguageClient_textDocument_rangeFormatting()
 
@@ -446,6 +482,8 @@ function! autocompletion#AdditionalLspSettingsCpp() abort
 	" nnoremap <buffer> <silent> gd :call LanguageClient_textDocument_definition()<CR>
 	" nnoremap <buffer> <silent> gr :call LanguageClient_textDocument_references()<CR>
 	" nnoremap <buffer> <silent> gs :call LanguageClient_textDocument_documentSymbol()<CR>
+
+	" TODO-[RM]-(Wed Aug 08 2018 09:12): Not really working these things down here
 	nmap <buffer> <silent> <plug>refactor_code :call LanguageClient_textDocument_rename()<CR>
 	xmap <buffer> <silent> <plug>refactor_code :call LanguageClient_textDocument_rename()<CR>
 endfunction

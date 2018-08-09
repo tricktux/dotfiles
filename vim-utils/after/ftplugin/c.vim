@@ -72,7 +72,7 @@ function! s:set_compiler_and_others() abort
 		call linting#SetNeomakeClangMaker()
 		call linting#SetNeomakeMakeMaker()
 		if exists('g:LanguageClient_serverCommands')
-			call autocompletion#AdditionalLspSettingsCpp()
+			call autocompletion#AdditionalLspSettings()
 		endif
 		return 1
 	endif
@@ -93,7 +93,6 @@ function! s:set_compiler_and_others() abort
 	let folder_name = expand('%:p:h')
 
 	if folder_name =~? 'onewings'
-		" Load cscope database
 		" Note: inside the '' is a pat which is a regex. That is why \\
 		if folder_name =~? 'Onewings\\Source'
 			call linting#SetNeomakeBorlandMaker()
