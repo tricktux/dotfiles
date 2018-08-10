@@ -436,6 +436,20 @@ function! plugin#Config()
 
 	call s:configure_vim_bookmark()
 
+	Plug 'reedes/vim-pencil'
+		let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
+		let g:pencil#conceallevel = 0
+		if exists('g:lightline')
+			let g:lightline.active.right[2] += [ 'pencil' ]
+			let g:lightline.component_function['pencil'] = 'PencilMode'
+		endif
+
+		augroup pencil
+			autocmd!
+			autocmd FileType markdown,mkd call pencil#init()
+			autocmd FileType text         call pencil#init()
+		augroup END
+
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
