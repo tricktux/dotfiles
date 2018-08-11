@@ -630,11 +630,20 @@ card = acpi_video0
 
 [module/cpu]
 type = internal/cpu
-interval = 2
+interval = 1
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #f90000
 label = %percentage%%
+format = <label> <ramp-coreload>
+ramp-coreload-0 = ▁
+ramp-coreload-1 = ▂
+ramp-coreload-2 = ▃
+ramp-coreload-3 = ▄
+ramp-coreload-4 = ▅
+ramp-coreload-5 = ▆
+ramp-coreload-6 = ▇
+ramp-coreload-7 = █
 
 [module/memory]
 type = internal/memory
@@ -649,16 +658,26 @@ format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #4bffdc
 ; label = %gb_used%
 label = %gb_used%/%gb_total%
+; format = <label> <ramp-free>
+; Only applies if <ramp-used> is used
+ramp-free-0 = ▁
+ramp-free-1 = ▂
+ramp-free-2 = ▃
+ramp-free-3 = ▄
+ramp-free-4 = ▅
+ramp-free-5 = ▆
+ramp-free-6 = ▇
+ramp-free-7 = █
 
 ; Only applies if <bar-used> is used in format
-bar-used-indicator = |
+bar-used-indicator = 
 bar-used-width = 50
 bar-used-foreground-0 = #55aa55
 bar-used-foreground-1 = #557755
 bar-used-foreground-2 = #f5a70a
 bar-used-foreground-3 = #ff5555
-bar-used-fill = ─
-bar-used-empty = ─
+bar-used-fill = ▐
+bar-used-empty = ▐
 bar-used-empty-foreground = #444444
 
 [module/wlan-predator]
