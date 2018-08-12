@@ -203,8 +203,7 @@ function! linting#SetNeomakePandocMaker(type) abort
 	" HTML file including <head> and <body>), use the -s or --standalone flag:
 	" Listing is used to produce code snippets
 	let l:argu = [
-				\ '--read',
-				\ 'markdown+simple_tables+table_captions+yaml_metadata_block+smart',
+				\ '--from', 'markdown+simple_tables+table_captions+yaml_metadata_block+smart+citations',
 				\ '--standalone' 
 				\ ]
   " No need for this setting. '-V', 'geometry:margin=.5in'
@@ -212,12 +211,13 @@ function! linting#SetNeomakePandocMaker(type) abort
 
 	if executable('pandoc-citeproc')
 		" Obtain list of bib files
-		let l:bibl = glob('*.bib', 1, 1)
-		if !empty(l:bibl)
+		" Read pandoc manual about citations. Can be added to yaml header.
+		" let l:bibl = glob(expand('%:p:h') . '/*.bib', 0, 1)
+		" if !empty(l:bibl)
 			let l:argu += ['--filter',
-						\ 'pandoc-citproc',
-						\	'--bibliography'] + l:bibl
-		endif
+						\ 'pandoc-citeproc',
+						\	]
+		" endif
 	endif
 
 	if a:type ==# 'pdf'
@@ -231,24 +231,24 @@ function! linting#SetNeomakePandocMaker(type) abort
 		" '--number-sections', '--listings',
 		let l:argu += [
 					\ '--template', (!exists('b:neomake_pandoc_template') ? 'eisvogel' : b:neomake_pandoc_template),
-					\ '--write', 'latex', '-o', '%:r.pdf', '%'
+					\ '--write', 'latex', '--output', '%:t:r.pdf', '%:t'
 					\ ]
 	elseif a:type ==# 'docx'
 		" let l:wrte = 'docx'
 		" let l:out = '%:r.docx'
-		let l:argu += ['--write', 'docx', '-o', '%:r.docx', '%']
+		let l:argu += ['--write', 'docx', '--output', '%:t:r.docx', '%:t']
 	elseif a:type ==# 'html'
 		" let l:wrte = 'html'
 		" let l:out = '%:r.html'
-		let l:argu += ['--write', 'html', '-o', '%:r.html', '%']
+		let l:argu += ['--write', 'html', '--output', '%:t:r.html', '%:t']
 	elseif a:type ==# 'pdf_slides'
 		" let l:wrte = 'pdf'
 		" let l:out = '%:r.pdf'
-		let l:argu = [ '-t', 'beamer', '-o', '%:r.pdf', '%']
+		let l:argu = [ '--write', 'beamer', '--output', '%:t:r.pdf', '%:t']
 	elseif a:type ==# 'pptx_slides'
 		" let l:wrte = 'pptx'
 		" let l:out = '%:r.pptx'
-		let l:argu = [ '-o', '%:r.pptx', '%']
+		let l:argu = [ '--write', 'pptx', '--output', '%:t:r.pptx', '%:t']
 	else
 		if &verbose > 0
 			echomsg '[linting#SetNeomakePandocMaker]: Not a recognized a:type variable'
