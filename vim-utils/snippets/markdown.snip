@@ -40,18 +40,22 @@ options     head
     subtitle:   ${2:Document Description}
     author:		Reinaldo Molina
     email:      `utils#ChooseEmailAcc()`
-    date:       `strftime("%a %b %d %Y %H:%M")`
+    date:       \today{}
+    geometry: margin=0.5in
+    toc: false
+    lot: false
+    lof: false
+    linestretch: 1
+    fontsize: 12pt
     caption-justification: centering
-    ${4:titlepage: true}
-    ${5:titlepage-color: 06386e}
-    ${6:titlepage-text-color: ffffff}
-    ${7:titlepage-rule-color: ffffff}
-    ${8:titlepage-rule-height: 1}
+    titlepage: false
+    titlepage-color: 06386e
+    titlepage-text-color: ffffff
+    titlepage-rule-color: ffffff
+    titlepage-rule-height: 1
+    bibliography: book.bib
     ---
 
-    ${10:\\\tableofcontents}
-    ${11:\\\listoftables}
-    ${12:\\\listoffigures}
     ${13:\\\pagebreak}
 
 snippet     t

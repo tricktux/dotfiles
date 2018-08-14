@@ -193,21 +193,33 @@ function! linting#SetNeomakePandocMaker(type) abort
 		return -1
 	endif
 
+  " A Makefile present in the current file folder takes precedence over all
+	if !empty(glob(expand('%:p:h') . '/Makefile'))
+		let b:neomake_markdown_enabled_makers = ['make']
+		return
+	endif
+
 	" By default, pandoc produces a document fragment. To produce a standalone document (e.g. a valid
 	" HTML file including <head> and <body>), use the -s or --standalone flag:
 	" Listing is used to produce code snippets
-	let l:argu = ['-r',
-				\ 'markdown+simple_tables+table_captions+yaml_metadata_block+smart',
-				\ '--standalone', '-V', 'geometry:margin=.5in']
+	let l:argu = [
+				\ '--from', 'markdown+simple_tables+table_captions+yaml_metadata_block+smart+citations',
+				\ '--standalone',
+				\ '--number-sections',
+				\ '--listings',
+				\ ]
+  " No need for this setting. '-V', 'geometry:margin=.5in'
+	" It can be added as part of the YAML header
 
 	if executable('pandoc-citeproc')
 		" Obtain list of bib files
-		let l:bibl = glob('*.bib', 1, 1)
-		if !empty(l:bibl)
+		" Read pandoc manual about citations. Can be added to yaml header.
+		" let l:bibl = glob(expand('%:p:h') . '/*.bib', 0, 1)
+		" if !empty(l:bibl)
 			let l:argu += ['--filter',
-						\ 'pandoc-citproc',
-						\	'--bibliography'] + l:bibl
-		endif
+						\ 'pandoc-citeproc',
+						\	]
+		" endif
 	endif
 
 	if a:type ==# 'pdf'
@@ -218,27 +230,27 @@ function! linting#SetNeomakePandocMaker(type) abort
 						\ '--pdf-engine-opt', '-aux-directory=' . l:cc
 						\ ]
 		endif
-
+		" '--number-sections', '--listings',
 		let l:argu += [
 					\ '--template', (!exists('b:neomake_pandoc_template') ? 'eisvogel' : b:neomake_pandoc_template),
-					\ '--number-sections', '--listings', '--write', 'latex', '-o', '%:r.pdf', '%'
+					\ '--write', 'latex', '--output', '%:t:r.pdf', '%:t'
 					\ ]
 	elseif a:type ==# 'docx'
 		" let l:wrte = 'docx'
 		" let l:out = '%:r.docx'
-		let l:argu += ['--write', 'docx', '-o', '%:r.docx', '%']
+		let l:argu += ['--write', 'docx', '--output', '%:t:r.docx', '%:t']
 	elseif a:type ==# 'html'
 		" let l:wrte = 'html'
 		" let l:out = '%:r.html'
-		let l:argu += ['--write', 'html', '-o', '%:r.html', '%']
+		let l:argu += ['--write', 'html', '--output', '%:t:r.html', '%:t']
 	elseif a:type ==# 'pdf_slides'
 		" let l:wrte = 'pdf'
 		" let l:out = '%:r.pdf'
-		let l:argu = [ '-t', 'beamer', '-o', '%:r.pdf', '%']
+		let l:argu = [ '--write', 'beamer', '--output', '%:t:r.pdf', '%:t']
 	elseif a:type ==# 'pptx_slides'
 		" let l:wrte = 'pptx'
 		" let l:out = '%:r.pptx'
-		let l:argu = [ '-o', '%:r.pptx', '%']
+		let l:argu = [ '--write', 'pptx', '--output', '%:t:r.pptx', '%:t']
 	else
 		if &verbose > 0
 			echomsg '[linting#SetNeomakePandocMaker]: Not a recognized a:type variable'
