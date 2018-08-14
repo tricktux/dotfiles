@@ -204,7 +204,9 @@ function! linting#SetNeomakePandocMaker(type) abort
 	" Listing is used to produce code snippets
 	let l:argu = [
 				\ '--from', 'markdown+simple_tables+table_captions+yaml_metadata_block+smart+citations',
-				\ '--standalone' 
+				\ '--standalone',
+				\ '--number-sections',
+				\ '--listings',
 				\ ]
   " No need for this setting. '-V', 'geometry:margin=.5in'
 	" It can be added as part of the YAML header
