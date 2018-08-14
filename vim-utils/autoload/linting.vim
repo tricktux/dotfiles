@@ -326,8 +326,8 @@ endfunction
 
 function! linting#SetNeomakeMsBuildMaker() abort
 	compiler msbuild
-	let ms = 'msbuild'
-	let &l:makeprg= ms . ' /nologo /v:q /property:GenerateFullPaths=true'
+	let l:ms = 'msbuild'
+	let &l:makeprg= l:ms . ' /nologo /v:q /property:GenerateFullPaths=true'
 	let &l:errorformat='%f(%l): %t%*[^ ] C%n: %m [%.%#]'
 
 	" Wed Apr 04 2018 11:10: Alternative errorformat found somewhere:
@@ -335,8 +335,8 @@ function! linting#SetNeomakeMsBuildMaker() abort
 	" \                '%W%f(%l\,%c): warning CS%n: %m [%.%#]',
 
 	" Compose VS project name base on the root folder of the current file
-	let proj_name = glob(expand('%:p:h') . '/*.vcxproj')
-	if empty(proj_name)
+	let l:proj_name = glob(expand('%:p:h') . '/*.vcxproj')
+	if empty(l:proj_name)
 		return
 	endif
 
@@ -344,11 +344,11 @@ function! linting#SetNeomakeMsBuildMaker() abort
 	" let response_file = glob(expand('%:p:h') . '/*.rsp')
 
 	" Fix make_program
-	let &l:makeprg= ms . ' ' . proj_name . ' /nologo /v:q /property:GenerateFullPaths=true'
+	let &l:makeprg= l:ms . ' ' . l:proj_name . ' /nologo /v:q /property:GenerateFullPaths=true'
 
 	let b:neomake_cpp_enabled_makers = ['msbuild']
 	let b:neomake_cpp_msbuild_args = [
-				\ proj_name,
+				\ l:proj_name,
 				\ '/target:ClCompile',
 				\ '/nologo',
 				\ '/verbosity:quiet',
