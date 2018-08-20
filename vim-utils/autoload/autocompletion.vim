@@ -51,7 +51,7 @@ function! autocompletion#SetCompl(compl) abort
 		" Wed Apr 04 2018 16:33: Without a compile_commands.json lsp is useless for clangd
 		" Do not setup clangd on windows
 		call s:set_language_client(has('unix'))
-		call s:set_clang_compl('rip_clang_complete')
+		if !has('unix') | call s:set_clang_compl('rip_clang_complete') | endif
 	elseif a:compl ==# 'autocomplpop'
 		Plug 'vim-scripts/AutoComplPop'
 		inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
