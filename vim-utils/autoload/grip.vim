@@ -104,18 +104,18 @@ function! s:grip.main(...) abort
 		call self.put_debug_info('grip.main', string(self))
 	endif
 
+	if a:0 > 0
+		return self.run_specific_grip(a:1)
+	endif
+
 	" TODO-[RM]-(Tue Aug 14 2018 06:40): Here call try_grepper with input 
 	while 1
-
 		for l:grepper in self.grips
 			let l:rc = self.try_grepper(l:grepper)
-
 			if l:rc != 0
 				return l:rc
 			endif
-
 		endfor
-
 	endwhile
 endfunction
 
@@ -349,7 +349,50 @@ function! s:grip.try_grepper(grepper) abort
 	return l:rc
 endfunction
 
-command! Grip call s:grip.main() 
+" Returns list of names of all greppers
+" Inputs are required but not used
+function! CompleteGripNames(A, L, P) abort
+	let l:names = []
+
+	for l:grepper in s:grip.grips
+		let l:name = has_key(l:grepper, 'name') ? l:grepper.name : l:grepper.executable
+
+		let l:names += [l:name]
+	endfor
+
+	return l:names
+endfunction
+
+" Returns grepper prvided the name or executable.
+function! s:grip.find_grip_by_name(name) abort
+	if empty(a:name)
+		return {}
+	endif
+
+	for l:grepper in self.grips
+		let l:name = has_key(l:grepper, 'name') ? l:grepper.name : l:grepper.executable
+		if a:name ==# l:name
+			return l:grepper 
+		endif
+	endfor
+	
+	return {}
+endfunction
+
+function! s:grip.run_specific_grip(name) abort
+	if empty(a:name)
+		return -1
+	endif
+	
+	let l:grepper = self.find_grip_by_name(a:name)
+	if empty(l:grepper)
+		return -2
+	endif
+
+	return self.try_grepper(l:grepper)
+endfunction
+
+command! -nargs=? -complete=customlist,CompleteGripNames Grip call s:grip.main(<f-args>)
 " TODO-[RM]-(Tue Aug 14 2018 06:41):
 " - Create more commands with the names of the greppers
 " - Like Grip rg

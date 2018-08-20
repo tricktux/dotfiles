@@ -234,7 +234,7 @@ function! utils#WikiSearch() abort
 	let l:dir = getcwd()
 	if exists(':Grip')
 		execute 'lcd ' . g:wiki_path
-		execute 'Grip'
+		execute 'Grip rg_md'
 		silent! execute 'lcd ' . l:dir
 	elseif exists(':Denite')
 		execute 'Denite grep -path=`g:wiki_path`'
