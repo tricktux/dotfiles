@@ -231,16 +231,18 @@ function! utils#WikiSearch() abort
 		return
 	endif
 
-	" TODO-[RM]-(Sun Oct 15 2017 15:53): fix this here not to use denite
-	if !exists(':Denite')
-		let dir = getcwd()
-		execute "l:cd " . g:wiki_path
-		execute "grep " . input("Enter wiki search string:")
-		silent! execute "l:cd " . dir
-		return
+	let l:dir = getcwd()
+	if exists(':Grip')
+		execute 'lcd ' . g:wiki_path
+		execute 'Grip'
+		silent! execute 'lcd ' . l:dir
+	elseif exists(':Denite')
+		execute 'Denite grep -path=`g:wiki_path`'
+	else
+		execute 'lcd ' . g:wiki_path
+		execute 'grep ' . input('Enter wiki search string:')
+		silent! execute 'lcd ' . l:dir
 	endif
-
-	execute "Denite grep -path=`g:wiki_path`"
 endfunction
 
 function! utils#ToggleTerm() abort
