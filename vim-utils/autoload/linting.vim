@@ -264,7 +264,7 @@ function! linting#SetNeomakePandocMaker(type) abort
 
 	" Setup neomake variables
 	if &verbose > 0
-		echomsg '[linting#SetNeomakePandocMaker]: l:argu = ' . l:argu
+		echomsg '[linting#SetNeomakePandocMaker]: l:argu = ' . string(l:argu)
 	endif
 
 	let l:maker = 'pandoc_' . a:type
