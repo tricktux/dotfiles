@@ -18,7 +18,7 @@
 " Default template
 " let grips = {
 			" \ 'executable' : '',
-			" \ 'args' : [''],
+			" \ 'args' : ['$*'],
 			" \ 'filetype_support' : 0,
 			" \ 'filetype_map' : {  },
 			" \ 'filetype_option' : '',
@@ -27,9 +27,17 @@
 			" \ }
 
 let g:loaded_grip = 1
+
+let s:rg_to_vim_filetypes = {
+			\ 'vim' : 'vimscript',
+			\ 'python' : 'py',
+			\ 'markdown' : 'md',
+			\ }
+
 let g:grip_pdfgrep = {
 			\ 'executable' : 'pdfgrep',
 			\ 'args' : [
+			\		'$*',
 			\		'--ignore-case',
 			\		'--page-number',
 			\		'--recursive',
@@ -45,6 +53,7 @@ let g:grip_pdfgrep = {
 let g:grip_rg = {
 			\ 'executable' : 'rg',
 			\ 'args' : [
+			\		'$*',
 			\   '--vimgrep',
 			\   '--smart-case',
 			\		'--follow',
@@ -54,24 +63,38 @@ let g:grip_rg = {
 			\		(has('unix') ? "'!.{git,svn}'" : '!.{git,svn}')
 			\ ],
 			\ 'filetype_support' : 1,
-			\ 'filetype_map' : {
-			\		'vim' : 'vimscript',
-			\		'python' : 'py',
-			\ },
-			\ 'filetype_option' : '-t',
+			\ 'filetype_map' : s:rg_to_vim_filetypes,
+			\ 'filetype_option' : '--type',
 			\ }
 
-let g:grip_tools = [ g:grip_rg, g:grip_pdfgrep ]
+let g:grip_rg_md = {
+			\ 'name' : 'rg_md',
+			\ 'executable' : 'rg',
+			\ 'args' : [
+			\		'$*',
+			\   '--vimgrep',
+			\   '--smart-case',
+			\		'--follow',
+			\		'--fixed-strings',
+			\		'--hidden',
+			\		'--type',
+			\		'md',
+			\		'--iglob',
+			\		(has('unix') ? "'!.{git,svn}'" : '!.{git,svn}'),
+			\		],
+			\ }
+
+let g:grip_tools = [ g:grip_rg, g:grip_pdfgrep, g:grip_rg_md ]
 " Must set verbose to 1 as well for this to work
 " let g:grip_debug_file = <your file>
 
 let s:grip = {
-			\ 'grips' : get(g:, 'grip_tools', ['']),
+			\ 'grips' : get(g:, 'grip_tools', []),
 			\ 'debug_file' : get(g:, 'grip_debug_file', (tempname() . '_grip')),
 			\ 'copen' : get(g:, 'grip_copen', 20),
 			\ }
 
-function! s:grip.main() abort
+function! s:grip.main(...) abort
 	if empty(self) || !has_key(self, 'grips') || len(self.grips) < 1
 		echoerr 'Grip: No grips defined'
 		return -1
@@ -81,22 +104,16 @@ function! s:grip.main() abort
 		call self.put_debug_info('grip.main', string(self))
 	endif
 
+	" TODO-[RM]-(Tue Aug 14 2018 06:40): Here call try_grepper with input 
 	while 1
 
 		for l:grepper in self.grips
-			let l:rc = self.display_grip_ui(l:grepper)
+			let l:rc = self.try_grepper(l:grepper)
 
-			if l:rc < 0
-				" There was an error. Return
-				return -1
+			if l:rc != 0
+				return l:rc
 			endif
 
-			if l:rc > 0
-				" This is the one. Run it
-				return self.execute_grip(l:grepper, l:rc)
-			endif
-
-			" if l:rc.USER_CHOICE == l:rc.NEXT_GRIP. User wants another grepper
 		endfor
 
 	endwhile
@@ -139,21 +156,31 @@ function! s:grip.display_grip_ui(grepper) abort
 		return -2
 	endif
 
-	let l:args = has_key(a:grepper, 'args') ? a:grepper.args : ['']
+	if !executable(a:grepper.executable)
+		if &verbose > 0
+			echoerr '[grip.display_grip_ui]: This grepper is not executable. So im not going to even show it'
+		endif
+		" Skip it
+		return 0
+	endif
+
+	let l:args = has_key(a:grepper, 'args') ? a:grepper.args : []
+	let l:name = has_key(a:grepper, 'name') ? a:grepper.name : a:grepper.executable
 
 	if &verbose > 0
 		call self.put_debug_info('grip.display_grip_ui', string(a:grepper))
 	endif
 
 	let l:grepprg = a:grepper.executable
-	for arg in a:grepper.args
+	for arg in l:args
 		let l:grepprg .= ' ' . arg
 	endfor
 
-	let l:msg = printf("Search in folder: \"%s\"\n".
+	let l:msg = printf("Grip: \"%s\"\n".
+				\ "Search in folder: \"%s\"\n".
 				\ "Using grepprg: \"%s\"\n".
 				\ "Please choose one of the following options:",
-				\ getcwd(), l:grepprg)
+				\ l:name, getcwd(), l:grepprg)
 	let l:ft_sup = has_key(a:grepper, 'filetype_support') ? a:grepper.filetype_support : 0
 	if l:ft_sup > 0
 		"								1:ft_choice -				2:ft_choice
@@ -198,7 +225,7 @@ function! s:grip.execute_grip(grepper, user_choice) abort
 		call self.put_debug_info('grip.execute_grip', string(s:USER_CHOICE))
 	endif
 
-	let l:ft_args = ['']
+	let l:ft_args = []
 	if s:USER_CHOICE.USE_FT_SEARCH == 1
 		let l:ft_args = self.get_ft_args(a:grepper)
 
@@ -254,6 +281,7 @@ function! s:grip.execute_grip(grepper, user_choice) abort
 	endif
 
 	" TODO-[RM]-(Fri Jun 29 2018 13:14): Mode this to its own dictionary
+	" The bang tells it not to jump to the first 
 	execute ':silent grep! ' . l:search
 
 	" Open quickfix
@@ -303,7 +331,6 @@ function! s:grip.get_ft_args(grepper) abort
 		return ['']
 	endif
 
-
 	return [
 				\ (has_key(a:grepper, 'filetype_option') ? a:grepper.filetype_option : ''),
 				\ (has_key(a:grepper, 'filetype_map') && has_key(a:grepper.filetype_map, &ft) ?
@@ -311,4 +338,18 @@ function! s:grip.get_ft_args(grepper) abort
 				\ ]
 endfunction
 
+function! s:grip.try_grepper(grepper) abort
+	let l:rc = self.display_grip_ui(a:grepper)
+
+	if l:rc > 0
+		" This is the one. Run it
+		return self.execute_grip(a:grepper, l:rc)
+	endif
+
+	return l:rc
+endfunction
+
 command! Grip call s:grip.main() 
+" TODO-[RM]-(Tue Aug 14 2018 06:41):
+" - Create more commands with the names of the greppers
+" - Like Grip rg
