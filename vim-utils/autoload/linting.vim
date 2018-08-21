@@ -295,6 +295,7 @@ function! linting#SetNeomakeMakeMaker() abort
 		let b:neomake_cpp_enabled_makers = []
 	endif
 
+	" Run make inside the build folder
 	let &l:makeprg='make -C build'
 	let b:neomake_cpp_enabled_makers += ['make_unix']
 endfunction
@@ -310,8 +311,13 @@ function! linting#SetNeomakeClangMaker() abort
 	let b:neomake_cppcheck_args = '--quiet --language=c++ --enable=all'
 	let b:neomake_clangtidy_args = ["-checks='*'", '%:p']
 	let b:neomake_clangcheck_args = ['-analyze', '%:p']
-	if !has('unix')
-		let b:neomake_clang_args = '-target x86_64-pc-windows-gnu -std=c++1z -stdlib=libc++ -Wall -pedantic'
+	if !has('unix') && executable('clang')
+		" Tue Aug 21 2018 15:12 
+		" clang-cl is the frontend that uses MSVC cl-like arguments
+		" https://clang.llvm.org/docs/UsersManual.html#clang-cl
+		let b:neomake_cpp_enabled_makers += ['clang']
+		let b:neomake_clang_args = '-Wall -Wextra /std:c++17'
+		let b:neomake_clang_exe = 'clang-cl'
 		let b:neomake_clang_cwd = '%:p:h'
 	endif
 endfunction

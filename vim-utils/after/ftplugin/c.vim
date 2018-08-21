@@ -99,6 +99,8 @@ function! s:set_compiler_and_others() abort
 			return
 		endif
 		call linting#SetNeomakeMsBuildMaker()
+	else
+		call linting#SetNeomakeClangMaker()
 	endif
 endfunction
 
