@@ -63,6 +63,23 @@ if !exists('no_plugin_maps') && !exists('no_c_maps')
 	endif
 endif
 
+function! s:time_exe_win(...) abort
+	if !exists(':Dispatch')
+		echoerr 'Please install vim-dispatch'
+		return
+	endif
+
+	let l:cmd = "Dispatch powershell -command \"& {&'Measure-Command' {.\\"
+
+	for s in a:000
+	  let l:cmd .= s . ' '
+	endfor
+
+	let l:cmd .= "}}\""
+
+	exe l:cmd
+endfunction
+
 function! s:set_compiler_and_others() abort
 	if exists('b:current_compiler')
 		return
@@ -83,11 +100,9 @@ function! s:set_compiler_and_others() abort
 	command! -buffer UtilsCompilerMsbuild call linting#SetNeomakeMsBuildMaker()
 	command! -buffer UtilsCompilerClangNeomake call linting#SetNeomakeClangMaker()
 
-	if exists(':Dispatch')
-		" Time runtime of a specific program. Pass as Argument executable with arguments. Pass as Argument executable with
-		" arguments. Example sep_calc.exe seprc.
-		command! -nargs=+ -buffer UtilsTimeExec execute('Dispatch powershell -command "& {&'Measure-Command' {.\<f-args>}}"<cr>')
-	endif
+	" Time runtime of a specific program. Pass as Argument executable with arguments. Pass as Argument executable with
+	" arguments. Example sep_calc.exe seprc.
+	command! -nargs=+ -buffer UtilsTimeExec call s:time_exe_win(<f-args>)
 
 	" Set compiler now depending on folder and system. Auto set the compiler
 	let folder_name = expand('%:p:h')
