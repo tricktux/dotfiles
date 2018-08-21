@@ -315,8 +315,9 @@ function! linting#SetNeomakeClangMaker() abort
 		" Tue Aug 21 2018 15:12 
 		" clang-cl is the frontend that uses MSVC cl-like arguments
 		" https://clang.llvm.org/docs/UsersManual.html#clang-cl
+		" /GX Enable exceptions
 		let b:neomake_cpp_enabled_makers += ['clang']
-		let b:neomake_clang_args = '-Wall -Wextra /std:c++17'
+		let b:neomake_clang_args = '-Wall -Wextra /std:c++17 /GX'
 		let b:neomake_clang_exe = 'clang-cl'
 		let b:neomake_clang_cwd = '%:p:h'
 	endif
