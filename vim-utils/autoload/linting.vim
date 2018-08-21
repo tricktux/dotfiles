@@ -345,7 +345,7 @@ endfunction
 function! linting#SetNeomakeMsBuildMaker() abort
 	compiler msbuild
 	let l:ms = 'msbuild'
-	let &l:makeprg= l:ms . ' /nologo /v:q /property:GenerateFullPaths=true'
+	let &l:makeprg= l:ms . ' /nologo /v:q /maxcpucount /property:GenerateFullPaths=true'
 	let &l:errorformat='%f(%l): %t%*[^ ] C%n: %m [%.%#]'
 
 	" Wed Apr 04 2018 11:10: Alternative errorformat found somewhere:
@@ -362,7 +362,8 @@ function! linting#SetNeomakeMsBuildMaker() abort
 	" let response_file = glob(expand('%:p:h') . '/*.rsp')
 
 	" Fix make_program
-	let &l:makeprg= l:ms . ' ' . l:proj_name . ' /nologo /v:q /property:GenerateFullPaths=true'
+	" /m uses all available cores for build
+	let &l:makeprg= l:ms . ' ' . l:proj_name . ' /nologo /v:q /maxcpucount /property:GenerateFullPaths=true'
 
 	let b:neomake_cpp_enabled_makers = ['msbuild']
 	let b:neomake_cpp_msbuild_args = [
