@@ -50,10 +50,11 @@ function! options#Set() abort
 	" Set a pretty title
 	augroup TitleString
 		autocmd!
-		autocmd BufEnter,DirChanged * let &titlestring = (exists('g:valid_device') && has('unix') ? "\uf015" : '') .
-														\ ' ' . getcwd() . " -> " .
-														\ (exists('g:valid_device') && has('unix') ? "\uf02d" : '') .
-														\ ' %f - ' . v:progname
+		autocmd BufWinLeave,BufWinEnter,CursorHold,DirChanged,TabEnter *
+					\ let &titlestring = (exists('g:valid_device') && has('unix') ? "\uf015" : '') .
+					\ ' ' . getcwd() . " -> " .
+					\ (exists('g:valid_device') && has('unix') ? "\uf02d" : '') .
+					\ ' %f - ' . v:progname
 	augroup END
 
 	set nobackup " no backup files
