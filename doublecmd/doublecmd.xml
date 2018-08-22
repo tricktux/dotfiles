@@ -126,7 +126,7 @@
     <RunInTerminalCloseCmd>cmd.exe</RunInTerminalCloseCmd>
     <RunInTerminalCloseParams>/C {command}</RunInTerminalCloseParams>
     <JustRunTerminal>cmd.exe</JustRunTerminal>
-    <JustRunTermParams/>
+    <JustRunTermParams>/K "C:\tools\cmder\vendor\init.bat"</JustRunTermParams>
     <OnlyOneAppInstance>False</OnlyOneAppInstance>
     <LynxLike>True</LynxLike>
     <FileSizeFormat>0</FileSizeFormat>
@@ -389,7 +389,7 @@
     <ActionOnDoubleClick>2</ActionOnDoubleClick>
     <OpenedTabs>
       <Left>
-        <ActiveTab>5</ActiveTab>
+        <ActiveTab>2</ActiveTab>
         <Tab>
           <FileView Type="columns">
             <Sortings>
@@ -402,56 +402,6 @@
               <Entry Active="True">
                 <FileSource Type="FileSystem"/>
                 <Paths>
-                  <Path Filename="hpd">D:\wiki\work\</Path>
-                  <Path Filename="2018">D:\wiki\work\hpd\</Path>
-                  <Path Filename="WeeklyReport_ReinaldoMolina_07-09-19.pdf">D:\wiki\work\hpd\2018\</Path>
-                  <Path Filename="7-EGI-60">D:\1.WINGS\</Path>
-                  <Path Filename="docs">D:\1.WINGS\7-EGI-60\</Path>
-                  <Path Filename="program">D:\1.WINGS\7-EGI-60\docs\</Path>
-                  <Path Filename="quotes">D:\1.WINGS\7-EGI-60\docs\program\</Path>
-                  <Path Filename="GN17-010 F-16 Block 61 UAE">D:\1.WINGS\7-EGI-60\docs\program\quotes\</Path>
-                  <Path Filename="GN17-010 (F-16 Block 61 UAE) BOE  WBS 4_2_2.docx">D:\1.WINGS\7-EGI-60\docs\program\quotes\GN17-010 F-16 Block 61 UAE\</Path>
-                  <Path Filename="GN17-010 F-16 Block 61 UAE">D:\1.WINGS\7-EGI-60\docs\program\quotes\</Path>
-                  <Path Filename="GN17-010 (F-16 Block 61 UAE) BOE  WBS 4_2_2.docx">D:\1.WINGS\7-EGI-60\docs\program\quotes\GN17-010 F-16 Block 61 UAE\</Path>
-                  <Path Filename="OneWings">D:\wings-dev\</Path>
-                  <Path Filename="TestStand">D:\wings-dev\OneWings\</Path>
-                  <Path Filename="IPC">D:\wings-dev\OneWings\TestStand\</Path>
-                  <Path Filename="TsCommServer">D:\wings-dev\OneWings\TestStand\IPC\</Path>
-                  <Path Filename="..">D:\wings-dev\OneWings\TestStand\IPC\TsCommServer\</Path>
-                  <Path Filename="$RECYCLE.BIN">e:\</Path>
-                  <Path Filename="OneWings">D:\wings-dev\</Path>
-                  <Path Filename="TestStand">D:\wings-dev\OneWings\</Path>
-                  <Path Filename="IPC">D:\wings-dev\OneWings\TestStand\</Path>
-                  <Path Filename="TestStand">D:\wings-dev\OneWings\</Path>
-                  <Path Filename="TestStand">D:\wings-dev\</Path>
-                  <Path Filename="TS_WINGS_Libraries.sln">D:\wings-dev\TestStand\</Path>
-                  <Path Filename="7-EGI-60">D:\1.WINGS\</Path>
-                  <Path Filename="docs">D:\1.WINGS\7-EGI-60\</Path>
-                  <Path Filename="program">D:\1.WINGS\7-EGI-60\docs\</Path>
-                  <Path Filename="schedule">D:\1.WINGS\7-EGI-60\docs\program\</Path>
-                  <Path Filename="F-16 Block 60 UAE EGI Upgrade IMS (7-11-2018).csv">D:\1.WINGS\7-EGI-60\docs\program\schedule\</Path>
-                  <Path Filename="schedule">D:\1.WINGS\7-EGI-60\docs\program\</Path>
-                  <Path Filename="F-16 Block 60 UAE EGI Upgrade IMS (7-11-2018).mpp">D:\1.WINGS\7-EGI-60\docs\program\schedule\</Path>
-                  <Path Filename="schedule">D:\1.WINGS\7-EGI-60\docs\program\</Path>
-                  <Path Filename="program">D:\1.WINGS\7-EGI-60\docs\</Path>
-                  <Path Filename="docs">D:\1.WINGS\7-EGI-60\</Path>
-                  <Path Filename="2-F35">D:\1.WINGS\</Path>
-                  <Path Filename="..">D:\1.WINGS\2-F35\</Path>
-                  <Path Filename="2-F35">D:\1.WINGS\</Path>
-                  <Path Filename="_UnfortunateF35Release">D:\1.WINGS\2-F35\</Path>
-                  <Path Filename="74205015-002">D:\1.WINGS\2-F35\_UnfortunateF35Release\</Path>
-                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
-                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
-                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
-                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
-                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
-                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
-                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
-                  <Path Filename="74205015-002">D:\1.WINGS\2-F35\_UnfortunateF35Release\</Path>
-                  <Path Filename="Customers_SCRs">D:\1.WINGS\2-F35\</Path>
-                  <Path Filename="..">D:\1.WINGS\2-F35\Customers_SCRs\</Path>
-                  <Path Filename="Customers_SCRs">D:\1.WINGS\2-F35\</Path>
-                  <Path Filename="2-F35">D:\1.WINGS\</Path>
                 </Paths>
               </Entry>
             </History>
@@ -472,56 +422,6 @@
               <Entry Active="True">
                 <FileSource Type="FileSystem"/>
                 <Paths>
-                  <Path Filename="OneWings">D:\wings-dev\</Path>
-                  <Path Filename="TestStand">D:\wings-dev\OneWings\</Path>
-                  <Path Filename="IPC">D:\wings-dev\OneWings\TestStand\</Path>
-                  <Path Filename="TestStand">D:\wings-dev\OneWings\</Path>
-                  <Path Filename="TestStand">D:\wings-dev\</Path>
-                  <Path Filename="TS_WINGS_Libraries.sln">D:\wings-dev\TestStand\</Path>
-                  <Path Filename="7-EGI-60">D:\1.WINGS\</Path>
-                  <Path Filename="docs">D:\1.WINGS\7-EGI-60\</Path>
-                  <Path Filename="program">D:\1.WINGS\7-EGI-60\docs\</Path>
-                  <Path Filename="schedule">D:\1.WINGS\7-EGI-60\docs\program\</Path>
-                  <Path Filename="F-16 Block 60 UAE EGI Upgrade IMS (7-11-2018).csv">D:\1.WINGS\7-EGI-60\docs\program\schedule\</Path>
-                  <Path Filename="schedule">D:\1.WINGS\7-EGI-60\docs\program\</Path>
-                  <Path Filename="F-16 Block 60 UAE EGI Upgrade IMS (7-11-2018).mpp">D:\1.WINGS\7-EGI-60\docs\program\schedule\</Path>
-                  <Path Filename="schedule">D:\1.WINGS\7-EGI-60\docs\program\</Path>
-                  <Path Filename="program">D:\1.WINGS\7-EGI-60\docs\</Path>
-                  <Path Filename="docs">D:\1.WINGS\7-EGI-60\</Path>
-                  <Path Filename="2-F35">D:\1.WINGS\</Path>
-                  <Path Filename="..">D:\1.WINGS\2-F35\</Path>
-                  <Path Filename="2-F35">D:\1.WINGS\</Path>
-                  <Path Filename="_UnfortunateF35Release">D:\1.WINGS\2-F35\</Path>
-                  <Path Filename="74205015-002">D:\1.WINGS\2-F35\_UnfortunateF35Release\</Path>
-                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
-                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
-                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
-                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
-                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
-                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
-                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
-                  <Path Filename="74205015-002">D:\1.WINGS\2-F35\_UnfortunateF35Release\</Path>
-                  <Path Filename="Customers_SCRs">D:\1.WINGS\2-F35\</Path>
-                  <Path Filename="..">D:\1.WINGS\2-F35\Customers_SCRs\</Path>
-                  <Path Filename="Customers_SCRs">D:\1.WINGS\2-F35\</Path>
-                  <Path Filename="2-F35">D:\1.WINGS\</Path>
-                  <Path Filename="2.Office">D:\</Path>
-                  <Path Filename="masters">D:\2.Office\</Path>
-                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
-                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="..">D:\2.Office\masters\summer_2018\architecture\</Path>
-                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="ReinaldoMolina_ArchitectureTuition.pdf">D:\2.Office\masters\summer_2018\architecture\</Path>
-                  <Path Filename="integration">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="..">D:\2.Office\masters\summer_2018\integration\</Path>
-                  <Path Filename="..">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
-                  <Path Filename="masters">D:\2.Office\</Path>
-                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
-                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="ReinaldoMolina_ArchitectureTuition.pdf">D:\2.Office\masters\summer_2018\architecture\</Path>
-                  <Path Filename="integration">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="ReinaldoMolina_IntegrationTuition.pdf">D:\2.Office\masters\summer_2018\integration\</Path>
                 </Paths>
               </Entry>
             </History>
@@ -542,56 +442,29 @@
               <Entry Active="True">
                 <FileSource Type="FileSystem"/>
                 <Paths>
-                  <Path Filename="TS_WINGS_Libraries.sln">D:\wings-dev\TestStand\</Path>
-                  <Path Filename="7-EGI-60">D:\1.WINGS\</Path>
-                  <Path Filename="docs">D:\1.WINGS\7-EGI-60\</Path>
-                  <Path Filename="program">D:\1.WINGS\7-EGI-60\docs\</Path>
-                  <Path Filename="schedule">D:\1.WINGS\7-EGI-60\docs\program\</Path>
-                  <Path Filename="F-16 Block 60 UAE EGI Upgrade IMS (7-11-2018).csv">D:\1.WINGS\7-EGI-60\docs\program\schedule\</Path>
-                  <Path Filename="schedule">D:\1.WINGS\7-EGI-60\docs\program\</Path>
-                  <Path Filename="F-16 Block 60 UAE EGI Upgrade IMS (7-11-2018).mpp">D:\1.WINGS\7-EGI-60\docs\program\schedule\</Path>
-                  <Path Filename="schedule">D:\1.WINGS\7-EGI-60\docs\program\</Path>
-                  <Path Filename="program">D:\1.WINGS\7-EGI-60\docs\</Path>
-                  <Path Filename="docs">D:\1.WINGS\7-EGI-60\</Path>
-                  <Path Filename="2-F35">D:\1.WINGS\</Path>
-                  <Path Filename="..">D:\1.WINGS\2-F35\</Path>
-                  <Path Filename="2-F35">D:\1.WINGS\</Path>
-                  <Path Filename="_UnfortunateF35Release">D:\1.WINGS\2-F35\</Path>
-                  <Path Filename="74205015-002">D:\1.WINGS\2-F35\_UnfortunateF35Release\</Path>
-                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
-                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
-                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
-                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
-                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
-                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
-                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
-                  <Path Filename="74205015-002">D:\1.WINGS\2-F35\_UnfortunateF35Release\</Path>
-                  <Path Filename="Customers_SCRs">D:\1.WINGS\2-F35\</Path>
-                  <Path Filename="..">D:\1.WINGS\2-F35\Customers_SCRs\</Path>
-                  <Path Filename="Customers_SCRs">D:\1.WINGS\2-F35\</Path>
-                  <Path Filename="2-F35">D:\1.WINGS\</Path>
-                  <Path Filename="2.Office">D:\</Path>
-                  <Path Filename="masters">D:\2.Office\</Path>
-                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
-                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="..">D:\2.Office\masters\summer_2018\architecture\</Path>
-                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="ReinaldoMolina_ArchitectureTuition.pdf">D:\2.Office\masters\summer_2018\architecture\</Path>
-                  <Path Filename="integration">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="..">D:\2.Office\masters\summer_2018\integration\</Path>
-                  <Path Filename="..">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
-                  <Path Filename="masters">D:\2.Office\</Path>
-                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
-                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="ReinaldoMolina_ArchitectureTuition.pdf">D:\2.Office\masters\summer_2018\architecture\</Path>
-                  <Path Filename="integration">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="ReinaldoMolina_IntegrationTuition.pdf">D:\2.Office\masters\summer_2018\integration\</Path>
-                  <Path Filename="wiki">D:\</Path>
-                  <Path Filename="work">D:\wiki\</Path>
-                  <Path Filename="wings">D:\wiki\work\</Path>
-                  <Path Filename="f16-block60">D:\wiki\work\wings\</Path>
-                  <Path Filename="pdr.pptx">D:\wiki\work\wings\f16-block60\</Path>
+                </Paths>
+              </Entry>
+            </History>
+            <ColumnsView>
+              <ColumnsSet>Default</ColumnsSet>
+            </ColumnsView>
+          </FileView>
+        </Tab>
+      </Left>
+      <Right>
+        <ActiveTab>0</ActiveTab>
+        <Tab>
+          <FileView Type="columns">
+            <Sortings>
+              <Sorting>
+                <Direction>2</Direction>
+                <Function>7</Function>
+              </Sorting>
+            </Sortings>
+            <History>
+              <Entry Active="True">
+                <FileSource Type="FileSystem"/>
+                <Paths>
                 </Paths>
               </Entry>
             </History>
@@ -612,126 +485,7 @@
               <Entry Active="True">
                 <FileSource Type="FileSystem"/>
                 <Paths>
-                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
-                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
-                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
-                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
-                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
-                  <Path Filename="74205015-002">D:\1.WINGS\2-F35\_UnfortunateF35Release\</Path>
-                  <Path Filename="Customers_SCRs">D:\1.WINGS\2-F35\</Path>
-                  <Path Filename="..">D:\1.WINGS\2-F35\Customers_SCRs\</Path>
-                  <Path Filename="Customers_SCRs">D:\1.WINGS\2-F35\</Path>
-                  <Path Filename="2-F35">D:\1.WINGS\</Path>
-                  <Path Filename="2.Office">D:\</Path>
-                  <Path Filename="masters">D:\2.Office\</Path>
-                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
-                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="..">D:\2.Office\masters\summer_2018\architecture\</Path>
-                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="ReinaldoMolina_ArchitectureTuition.pdf">D:\2.Office\masters\summer_2018\architecture\</Path>
-                  <Path Filename="integration">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="..">D:\2.Office\masters\summer_2018\integration\</Path>
-                  <Path Filename="..">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
-                  <Path Filename="masters">D:\2.Office\</Path>
-                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
-                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="ReinaldoMolina_ArchitectureTuition.pdf">D:\2.Office\masters\summer_2018\architecture\</Path>
-                  <Path Filename="integration">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="ReinaldoMolina_IntegrationTuition.pdf">D:\2.Office\masters\summer_2018\integration\</Path>
-                  <Path Filename="wiki">D:\</Path>
-                  <Path Filename="work">D:\wiki\</Path>
-                  <Path Filename="wings">D:\wiki\work\</Path>
-                  <Path Filename="f16-block60">D:\wiki\work\wings\</Path>
-                  <Path Filename="pdr.pdf">D:\wiki\work\wings\f16-block60\</Path>
-                  <Path Filename="..">C:\Users\H129522\Documents\</Path>
-                  <Path Filename="Music">C:\Users\H129522\</Path>
-                  <Path Filename="drum.bass">C:\Users\H129522\Music\</Path>
-                  <Path Filename="_Ethereal_Dreams_Pt_2_Chill_Mix_CBR_192k.mp3">C:\Users\H129522\Music\drum.bass\</Path>
-                  <Path Filename="random">C:\Users\H129522\Music\</Path>
-                  <Path Filename="..">C:\Users\H129522\Music\random\</Path>
-                  <Path Filename="Spotify">C:\Users\H129522\Music\</Path>
-                  <Path Filename="..">C:\Users\H129522\Music\Spotify\</Path>
-                  <Path Filename="random">C:\Users\H129522\Music\</Path>
-                  <Path Filename="..">C:\Users\H129522\Music\random\</Path>
-                  <Path Filename="Playlists">C:\Users\H129522\Music\</Path>
-                  <Path Filename="..">C:\Users\H129522\Music\Playlists\</Path>
-                  <Path Filename="latin">C:\Users\H129522\Music\</Path>
-                  <Path Filename="..">C:\Users\H129522\Music\latin\</Path>
-                  <Path Filename="iPod">C:\Users\H129522\Music\</Path>
-                  <Path Filename="..">C:\Users\H129522\Music\iPod\</Path>
-                  <Path Filename="google.play">C:\Users\H129522\Music\</Path>
-                  <Path Filename="..">C:\Users\H129522\Music\google.play\</Path>
-                </Paths>
-              </Entry>
-            </History>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>2</Direction>
-                <Function>7</Function>
-              </Sorting>
-            </Sortings>
-            <History>
-              <Entry Active="True">
-                <FileSource Type="FileSystem"/>
-                <Paths>
-                  <Path Filename="schedule">D:\1.WINGS\7-EGI-60\docs\program\</Path>
-                  <Path Filename="F-16 Block 60 UAE EGI Upgrade IMS (7-11-2018).mpp">D:\1.WINGS\7-EGI-60\docs\program\schedule\</Path>
-                  <Path Filename="schedule">D:\1.WINGS\7-EGI-60\docs\program\</Path>
-                  <Path Filename="program">D:\1.WINGS\7-EGI-60\docs\</Path>
-                  <Path Filename="docs">D:\1.WINGS\7-EGI-60\</Path>
-                  <Path Filename="2-F35">D:\1.WINGS\</Path>
-                  <Path Filename="..">D:\1.WINGS\2-F35\</Path>
-                  <Path Filename="2-F35">D:\1.WINGS\</Path>
-                  <Path Filename="_UnfortunateF35Release">D:\1.WINGS\2-F35\</Path>
-                  <Path Filename="74205015-002">D:\1.WINGS\2-F35\_UnfortunateF35Release\</Path>
-                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
-                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
-                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
-                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
-                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
-                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
-                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
-                  <Path Filename="74205015-002">D:\1.WINGS\2-F35\_UnfortunateF35Release\</Path>
-                  <Path Filename="Customers_SCRs">D:\1.WINGS\2-F35\</Path>
-                  <Path Filename="..">D:\1.WINGS\2-F35\Customers_SCRs\</Path>
-                  <Path Filename="Customers_SCRs">D:\1.WINGS\2-F35\</Path>
-                  <Path Filename="2-F35">D:\1.WINGS\</Path>
-                  <Path Filename="2.Office">D:\</Path>
-                  <Path Filename="masters">D:\2.Office\</Path>
-                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
-                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="..">D:\2.Office\masters\summer_2018\architecture\</Path>
-                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="ReinaldoMolina_ArchitectureTuition.pdf">D:\2.Office\masters\summer_2018\architecture\</Path>
-                  <Path Filename="integration">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="..">D:\2.Office\masters\summer_2018\integration\</Path>
-                  <Path Filename="..">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
-                  <Path Filename="masters">D:\2.Office\</Path>
-                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
-                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="ReinaldoMolina_ArchitectureTuition.pdf">D:\2.Office\masters\summer_2018\architecture\</Path>
-                  <Path Filename="integration">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="ReinaldoMolina_IntegrationTuition.pdf">D:\2.Office\masters\summer_2018\integration\</Path>
-                  <Path Filename="wiki">D:\</Path>
-                  <Path Filename="work">D:\wiki\</Path>
-                  <Path Filename="wings">D:\wiki\work\</Path>
-                  <Path Filename="f16-block60">D:\wiki\work\wings\</Path>
-                  <Path Filename="pdr.pdf">D:\wiki\work\wings\f16-block60\</Path>
-                  <Path Filename="..">C:\Users\H129522\Documents\</Path>
-                  <Path Filename="Music">C:\Users\H129522\</Path>
-                  <Path Filename="drum.bass">C:\Users\H129522\Music\</Path>
-                  <Path Filename="_Ethereal_Dreams_Pt_2_Chill_Mix_CBR_192k.mp3">C:\Users\H129522\Music\drum.bass\</Path>
-                  <Path Filename="nvim67MFuH">C:\Users\H129522\AppData\Local\Temp\</Path>
-                  <Path Filename="..">C:\Users\H129522\AppData\Local\Temp\nvim67MFuH\</Path>
+
                 </Paths>
               </Entry>
             </History>
@@ -752,56 +506,7 @@
               <Entry>
                 <FileSource Type="FileSystem"/>
                 <Paths>
-                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
-                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
-                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
-                  <Path Filename="..">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\74205015.002\</Path>
-                  <Path Filename="74205015.002">D:\1.WINGS\2-F35\_UnfortunateF35Release\74205015-002\</Path>
-                  <Path Filename="74205015-002">D:\1.WINGS\2-F35\_UnfortunateF35Release\</Path>
-                  <Path Filename="Customers_SCRs">D:\1.WINGS\2-F35\</Path>
-                  <Path Filename="..">D:\1.WINGS\2-F35\Customers_SCRs\</Path>
-                  <Path Filename="Customers_SCRs">D:\1.WINGS\2-F35\</Path>
-                  <Path Filename="2-F35">D:\1.WINGS\</Path>
-                  <Path Filename="2.Office">D:\</Path>
-                  <Path Filename="masters">D:\2.Office\</Path>
-                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
-                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="..">D:\2.Office\masters\summer_2018\architecture\</Path>
-                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="ReinaldoMolina_ArchitectureTuition.pdf">D:\2.Office\masters\summer_2018\architecture\</Path>
-                  <Path Filename="integration">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="..">D:\2.Office\masters\summer_2018\integration\</Path>
-                  <Path Filename="..">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
-                  <Path Filename="masters">D:\2.Office\</Path>
-                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
-                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="ReinaldoMolina_ArchitectureTuition.pdf">D:\2.Office\masters\summer_2018\architecture\</Path>
-                  <Path Filename="integration">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="ReinaldoMolina_IntegrationTuition.pdf">D:\2.Office\masters\summer_2018\integration\</Path>
-                  <Path Filename="wiki">D:\</Path>
-                  <Path Filename="work">D:\wiki\</Path>
-                  <Path Filename="wings">D:\wiki\work\</Path>
-                  <Path Filename="f16-block60">D:\wiki\work\wings\</Path>
-                  <Path Filename="pdr.pdf">D:\wiki\work\wings\f16-block60\</Path>
-                  <Path Filename="..">C:\Users\H129522\Documents\</Path>
-                  <Path Filename="Music">C:\Users\H129522\</Path>
-                  <Path Filename="drum.bass">C:\Users\H129522\Music\</Path>
-                  <Path Filename="_Ethereal_Dreams_Pt_2_Chill_Mix_CBR_192k.mp3">C:\Users\H129522\Music\drum.bass\</Path>
-                  <Path Filename="random">C:\Users\H129522\Music\</Path>
-                  <Path Filename="..">C:\Users\H129522\Music\random\</Path>
-                  <Path Filename="Spotify">C:\Users\H129522\Music\</Path>
-                  <Path Filename="..">C:\Users\H129522\Music\Spotify\</Path>
-                  <Path Filename="random">C:\Users\H129522\Music\</Path>
-                  <Path Filename="..">C:\Users\H129522\Music\random\</Path>
-                  <Path Filename="Playlists">C:\Users\H129522\Music\</Path>
-                  <Path Filename="..">C:\Users\H129522\Music\Playlists\</Path>
-                  <Path Filename="latin">C:\Users\H129522\Music\</Path>
-                  <Path Filename="..">C:\Users\H129522\Music\latin\</Path>
-                  <Path Filename="iPod">C:\Users\H129522\Music\</Path>
-                  <Path Filename="..">C:\Users\H129522\Music\iPod\</Path>
-                  <Path Filename="google.play">C:\Users\H129522\Music\</Path>
-                  <Path Filename="">C:\Users\H129522\Music\google.play\</Path>
+
                 </Paths>
               </Entry>
             </History>
@@ -825,56 +530,7 @@
               <Entry Active="True">
                 <FileSource Type="FileSystem"/>
                 <Paths>
-                  <Path Filename="34211800-0008_(IMP3)_1508">e:\Temp\</Path>
-                  <Path Filename="..">e:\Temp\34211800-0008_(IMP3)_1508\</Path>
-                  <Path Filename="34211800-0008_(IMP3)_1509">e:\Temp\</Path>
-                  <Path Filename="..">e:\Temp\34211800-0008_(IMP3)_1509\</Path>
-                  <Path Filename="34211800-0008_(IMP3)_1508">e:\Temp\</Path>
-                  <Path Filename="34211800-0008_(IMP3)_1508_2018Jun21_085710_F35 INS Thermal Cycle">e:\Temp\34211800-0008_(IMP3)_1508\</Path>
-                  <Path Filename="34211800-0008_(IMP3)_1508_2018Jun21_085710_F35 INS Thermal Cycle_Therm4B_Run8_Errorlog.rtf">e:\Temp\34211800-0008_(IMP3)_1508\34211800-0008_(IMP3)_1508_2018Jun21_085710_F35 INS Thermal Cycle\</Path>
-                  <Path Filename="34211800-0008_(IMP3)_1508_2018Jun21_085710_F35 INS Thermal Cycle">e:\Temp\34211800-0008_(IMP3)_1508\</Path>
-                  <Path Filename="34212053-0006_2548">e:\Temp\</Path>
-                  <Path Filename="..">e:\Temp\34212053-0006_2548\</Path>
-                  <Path Filename="34212053-0006_2548">e:\Temp\</Path>
-                  <Path Filename="7-EGI-60">D:\1.WINGS\</Path>
-                  <Path Filename="docs">D:\1.WINGS\7-EGI-60\</Path>
-                  <Path Filename="program">D:\1.WINGS\7-EGI-60\docs\</Path>
-                  <Path Filename="quotes">D:\1.WINGS\7-EGI-60\docs\program\</Path>
-                  <Path Filename="..">D:\1.WINGS\7-EGI-60\docs\program\quotes\</Path>
-                  <Path Filename="wiki">D:\</Path>
-                  <Path Filename="work">D:\wiki\</Path>
-                  <Path Filename="wings">D:\wiki\work\</Path>
-                  <Path Filename="f16-block60">D:\wiki\work\wings\</Path>
-                  <Path Filename="F16 Schedule.pdf">D:\wiki\work\wings\f16-block60\</Path>
-                  <Path Filename="..">C:\Users\H129522\AppData\Roaming\dotfiles\</Path>
-                  <Path Filename="dotfiles">C:\Users\H129522\AppData\Roaming\</Path>
-                  <Path Filename="Roaming">C:\Users\H129522\AppData\</Path>
-                  <Path Filename="Documents">C:\Users\H129522\</Path>
-                  <Path Filename="apps">C:\Users\H129522\Documents\</Path>
-                  <Path Filename="googletest-master">C:\Users\H129522\Documents\apps\</Path>
-                  <Path Filename="googletest">C:\Users\H129522\Documents\apps\googletest-master\</Path>
-                  <Path Filename="msvc">C:\Users\H129522\Documents\apps\googletest-master\googletest\</Path>
-                  <Path Filename="2010">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\</Path>
-                  <Path Filename="gtest">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\</Path>
-                  <Path Filename="..">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\</Path>
-                  <Path Filename="gtest">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\</Path>
-                  <Path Filename="Win32-Release">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\</Path>
-                  <Path Filename="..">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\Win32-Release\</Path>
-                  <Path Filename="Win32-Debug">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\</Path>
-                  <Path Filename="..">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\Win32-Debug\</Path>
-                  <Path Filename="Win32-Release">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\</Path>
-                  <Path Filename="wings">D:\wiki\work\</Path>
-                  <Path Filename="estimates">D:\wiki\work\wings\</Path>
-                  <Path Filename="jsf_ins_fc_removal">D:\wiki\work\wings\estimates\</Path>
-                  <Path Filename="f16-block60">D:\wiki\work\wings\</Path>
-                  <Path Filename="F16 Schedule.pdf">D:\wiki\work\wings\f16-block60\</Path>
-                  <Path Filename="estimates">D:\wiki\work\wings\</Path>
-                  <Path Filename="jsf_ins_fc_removal.pdf">D:\wiki\work\wings\estimates\</Path>
-                  <Path Filename="2.Office">D:\</Path>
-                  <Path Filename="masters">D:\2.Office\</Path>
-                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
-                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="..">D:\2.Office\masters\summer_2018\architecture\</Path>
+
                 </Paths>
               </Entry>
             </History>
@@ -895,56 +551,7 @@
               <Entry Active="True">
                 <FileSource Type="FileSystem"/>
                 <Paths>
-                  <Path Filename="2010">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\</Path>
-                  <Path Filename="gtest">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\</Path>
-                  <Path Filename="..">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\</Path>
-                  <Path Filename="gtest">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\</Path>
-                  <Path Filename="Win32-Release">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\</Path>
-                  <Path Filename="..">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\Win32-Release\</Path>
-                  <Path Filename="Win32-Debug">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\</Path>
-                  <Path Filename="..">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\Win32-Debug\</Path>
-                  <Path Filename="Win32-Release">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\</Path>
-                  <Path Filename="wings">D:\wiki\work\</Path>
-                  <Path Filename="estimates">D:\wiki\work\wings\</Path>
-                  <Path Filename="jsf_ins_fc_removal">D:\wiki\work\wings\estimates\</Path>
-                  <Path Filename="f16-block60">D:\wiki\work\wings\</Path>
-                  <Path Filename="F16 Schedule.pdf">D:\wiki\work\wings\f16-block60\</Path>
-                  <Path Filename="estimates">D:\wiki\work\wings\</Path>
-                  <Path Filename="jsf_ins_fc_removal.pdf">D:\wiki\work\wings\estimates\</Path>
-                  <Path Filename="2.Office">D:\</Path>
-                  <Path Filename="masters">D:\2.Office\</Path>
-                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
-                  <Path Filename="..">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="..">e:\Temp\</Path>
-                  <Path Filename="INS">e:\</Path>
-                  <Path Filename="74205015-001">e:\INS\</Path>
-                  <Path Filename="..">e:\INS\74205015-001\</Path>
-                  <Path Filename="pts">e:\INS\</Path>
-                  <Path Filename="74371550-007">e:\INS\pts\</Path>
-                  <Path Filename="74371550.007">e:\INS\pts\74371550-007\</Path>
-                  <Path Filename="INS ATP">e:\INS\pts\74371550-007\74371550.007\</Path>
-                  <Path Filename="For F35 Quad CATE Station">e:\INS\pts\74371550-007\74371550.007\INS ATP\</Path>
-                  <Path Filename="..">e:\INS\pts\74371550-007\74371550.007\INS ATP\For F35 Quad CATE Station\</Path>
-                  <Path Filename="For F35 Quad CATE Station">e:\INS\pts\74371550-007\74371550.007\INS ATP\</Path>
-                  <Path Filename="INS ATP">e:\INS\pts\74371550-007\74371550.007\</Path>
-                  <Path Filename="74371550.007">e:\INS\pts\74371550-007\</Path>
-                  <Path Filename="74371550-007">e:\INS\pts\</Path>
-                  <Path Filename="ins_sw">e:\INS\</Path>
-                  <Path Filename="..">e:\INS\ins_sw\</Path>
-                  <Path Filename="ins_sw">e:\INS\</Path>
-                  <Path Filename="WINGS_007_Setup">e:\</Path>
-                  <Path Filename="setup.exe">e:\WINGS_007_Setup\</Path>
-                  <Path Filename="StationBackups">e:\</Path>
-                  <Path Filename="..">e:\StationBackups\</Path>
-                  <Path Filename="INS">e:\</Path>
-                  <Path Filename="..">e:\INS\</Path>
-                  <Path Filename="IEU">e:\</Path>
-                  <Path Filename="..">e:\IEU\</Path>
-                  <Path Filename="INS">e:\</Path>
-                  <Path Filename="74205015.002">e:\INS\</Path>
-                  <Path Filename="..">e:\INS\74205015.002\</Path>
-                  <Path Filename="74205015.002">e:\INS\</Path>
-                  <Path Filename="..">D:\1.WINGS\</Path>
+
                 </Paths>
               </Entry>
             </History>
@@ -965,56 +572,7 @@
               <Entry Active="True">
                 <FileSource Type="FileSystem"/>
                 <Paths>
-                  <Path Filename="2.Office">D:\</Path>
-                  <Path Filename="masters">D:\2.Office\</Path>
-                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
-                  <Path Filename="..">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="..">e:\Temp\</Path>
-                  <Path Filename="INS">e:\</Path>
-                  <Path Filename="74205015-001">e:\INS\</Path>
-                  <Path Filename="..">e:\INS\74205015-001\</Path>
-                  <Path Filename="pts">e:\INS\</Path>
-                  <Path Filename="74371550-007">e:\INS\pts\</Path>
-                  <Path Filename="74371550.007">e:\INS\pts\74371550-007\</Path>
-                  <Path Filename="INS ATP">e:\INS\pts\74371550-007\74371550.007\</Path>
-                  <Path Filename="For F35 Quad CATE Station">e:\INS\pts\74371550-007\74371550.007\INS ATP\</Path>
-                  <Path Filename="..">e:\INS\pts\74371550-007\74371550.007\INS ATP\For F35 Quad CATE Station\</Path>
-                  <Path Filename="For F35 Quad CATE Station">e:\INS\pts\74371550-007\74371550.007\INS ATP\</Path>
-                  <Path Filename="INS ATP">e:\INS\pts\74371550-007\74371550.007\</Path>
-                  <Path Filename="74371550.007">e:\INS\pts\74371550-007\</Path>
-                  <Path Filename="74371550-007">e:\INS\pts\</Path>
-                  <Path Filename="ins_sw">e:\INS\</Path>
-                  <Path Filename="..">e:\INS\ins_sw\</Path>
-                  <Path Filename="ins_sw">e:\INS\</Path>
-                  <Path Filename="WINGS_007_Setup">e:\</Path>
-                  <Path Filename="setup.exe">e:\WINGS_007_Setup\</Path>
-                  <Path Filename="StationBackups">e:\</Path>
-                  <Path Filename="..">e:\StationBackups\</Path>
-                  <Path Filename="INS">e:\</Path>
-                  <Path Filename="..">e:\INS\</Path>
-                  <Path Filename="IEU">e:\</Path>
-                  <Path Filename="..">e:\IEU\</Path>
-                  <Path Filename="INS">e:\</Path>
-                  <Path Filename="74205015.002">e:\INS\</Path>
-                  <Path Filename="..">e:\INS\74205015.002\</Path>
-                  <Path Filename="74205015.002">e:\INS\</Path>
-                  <Path Filename="..">D:\1.WINGS\</Path>
-                  <Path Filename="16PR15598-1.0.doc">D:\1.WINGS\7-EGI-60\media\NHS-218_LM_NIU_Drivers_Disc2\AMC0003 PMC Software\</Path>
-                  <Path Filename="AMC0003 PMC Software">D:\1.WINGS\7-EGI-60\media\NHS-218_LM_NIU_Drivers_Disc2\</Path>
-                  <Path Filename="NHS-218_LM_NIU_Drivers_Disc2">D:\1.WINGS\7-EGI-60\media\</Path>
-                  <Path Filename="media">D:\1.WINGS\7-EGI-60\</Path>
-                  <Path Filename="quotes">D:\1.WINGS\7-EGI-60\docs\program\</Path>
-                  <Path Filename="GN17-010 F-16 Block 61 UAE">D:\1.WINGS\7-EGI-60\docs\program\quotes\</Path>
-                  <Path Filename="Kickoff Package">D:\1.WINGS\7-EGI-60\docs\program\quotes\GN17-010 F-16 Block 61 UAE\</Path>
-                  <Path Filename="..">D:\1.WINGS\7-EGI-60\docs\program\quotes\GN17-010 F-16 Block 61 UAE\Kickoff Package\</Path>
-                  <Path Filename="OneWings">D:\wings-dev\</Path>
-                  <Path Filename="Source">D:\wings-dev\OneWings\</Path>
-                  <Path Filename="utmisc.h">D:\wings-dev\OneWings\Source\</Path>
-                  <Path Filename="Source">D:\wings-dev\OneWings\</Path>
-                  <Path Filename="OneWINGSII">D:\wings-dev\</Path>
-                  <Path Filename="..">D:\wings-dev\OneWINGSII\</Path>
-                  <Path Filename="OneWingsII_FcDev">D:\wings-dev\</Path>
-                  <Path Filename="IoFc_Interface.cpp">D:\wings-dev\OneWingsII_FcDev\</Path>
+
                 </Paths>
               </Entry>
             </History>
@@ -1035,56 +593,7 @@
               <Entry Active="True">
                 <FileSource Type="FileSystem"/>
                 <Paths>
-                  <Path Filename="Roaming">C:\Users\H129522\AppData\</Path>
-                  <Path Filename="Documents">C:\Users\H129522\</Path>
-                  <Path Filename="apps">C:\Users\H129522\Documents\</Path>
-                  <Path Filename="googletest-master">C:\Users\H129522\Documents\apps\</Path>
-                  <Path Filename="googletest">C:\Users\H129522\Documents\apps\googletest-master\</Path>
-                  <Path Filename="msvc">C:\Users\H129522\Documents\apps\googletest-master\googletest\</Path>
-                  <Path Filename="2010">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\</Path>
-                  <Path Filename="gtest">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\</Path>
-                  <Path Filename="..">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\</Path>
-                  <Path Filename="gtest">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\</Path>
-                  <Path Filename="Win32-Release">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\</Path>
-                  <Path Filename="..">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\Win32-Release\</Path>
-                  <Path Filename="Win32-Debug">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\</Path>
-                  <Path Filename="..">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\Win32-Debug\</Path>
-                  <Path Filename="Win32-Release">C:\Users\H129522\Documents\apps\googletest-master\googletest\msvc\2010\gtest\</Path>
-                  <Path Filename="wings">D:\wiki\work\</Path>
-                  <Path Filename="estimates">D:\wiki\work\wings\</Path>
-                  <Path Filename="jsf_ins_fc_removal">D:\wiki\work\wings\estimates\</Path>
-                  <Path Filename="f16-block60">D:\wiki\work\wings\</Path>
-                  <Path Filename="F16 Schedule.pdf">D:\wiki\work\wings\f16-block60\</Path>
-                  <Path Filename="estimates">D:\wiki\work\wings\</Path>
-                  <Path Filename="jsf_ins_fc_removal.pdf">D:\wiki\work\wings\estimates\</Path>
-                  <Path Filename="2.Office">D:\</Path>
-                  <Path Filename="masters">D:\2.Office\</Path>
-                  <Path Filename="summer_2018">D:\2.Office\masters\</Path>
-                  <Path Filename="architecture">D:\2.Office\masters\summer_2018\</Path>
-                  <Path Filename="..">D:\2.Office\masters\summer_2018\architecture\</Path>
-                  <Path Filename="7-EGI-60">D:\1.WINGS\</Path>
-                  <Path Filename="media">D:\1.WINGS\7-EGI-60\</Path>
-                  <Path Filename="WINGS">D:\1.WINGS\7-EGI-60\media\</Path>
-                  <Path Filename="..">D:\1.WINGS\7-EGI-60\media\WINGS\</Path>
-                  <Path Filename="MISSION">D:\1.WINGS\7-EGI-60\media\</Path>
-                  <Path Filename="Vibe-Thermal">D:\1.WINGS\7-EGI-60\media\MISSION\</Path>
-                  <Path Filename="Thermal">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\</Path>
-                  <Path Filename="74372527-008">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\Thermal\</Path>
-                  <Path Filename="74205008.004">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\Thermal\74372527-008\</Path>
-                  <Path Filename="EGI Retrofit Thermal.msi">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\Thermal\74372527-008\74205008.004\</Path>
-                  <Path Filename="74205008.004">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\Thermal\74372527-008\</Path>
-                  <Path Filename="74372527-008">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\Thermal\</Path>
-                  <Path Filename="Vibe">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\</Path>
-                  <Path Filename="74205025-006">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\Vibe\</Path>
-                  <Path Filename="74205025.006">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\Vibe\74205025-006\</Path>
-                  <Path Filename="EGI ATS.msi">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\Vibe\74205025-006\74205025.006\</Path>
-                  <Path Filename="WINGS">D:\</Path>
-                  <Path Filename="F35_INS">D:\WINGS\</Path>
-                  <Path Filename="..">D:\WINGS\F35_INS\</Path>
-                  <Path Filename="EGI_ATS">D:\WINGS\</Path>
-                  <Path Filename="ATS_Seq2010">D:\WINGS\EGI_ATS\</Path>
-                  <Path Filename="..">D:\WINGS\EGI_ATS\ATS_Seq2010\</Path>
-                  <Path Filename="ATS_Seq2010">D:\WINGS\EGI_ATS\</Path>
+
                 </Paths>
               </Entry>
             </History>
@@ -1105,56 +614,7 @@
               <Entry Active="True">
                 <FileSource Type="FileSystem"/>
                 <Paths>
-                  <Path Filename="WINGS_007_Setup">e:\</Path>
-                  <Path Filename="setup.exe">e:\WINGS_007_Setup\</Path>
-                  <Path Filename="StationBackups">e:\</Path>
-                  <Path Filename="..">e:\StationBackups\</Path>
-                  <Path Filename="INS">e:\</Path>
-                  <Path Filename="..">e:\INS\</Path>
-                  <Path Filename="IEU">e:\</Path>
-                  <Path Filename="..">e:\IEU\</Path>
-                  <Path Filename="INS">e:\</Path>
-                  <Path Filename="74205015.002">e:\INS\</Path>
-                  <Path Filename="..">e:\INS\74205015.002\</Path>
-                  <Path Filename="74205015.002">e:\INS\</Path>
-                  <Path Filename="7-EGI-60">D:\1.WINGS\</Path>
-                  <Path Filename="media">D:\1.WINGS\7-EGI-60\</Path>
-                  <Path Filename="MISSION">D:\1.WINGS\7-EGI-60\media\</Path>
-                  <Path Filename="Vibe-Thermal">D:\1.WINGS\7-EGI-60\media\MISSION\</Path>
-                  <Path Filename="..">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\</Path>
-                  <Path Filename="Vibe-Thermal">D:\1.WINGS\7-EGI-60\media\MISSION\</Path>
-                  <Path Filename="..">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\</Path>
-                  <Path Filename="Vibe-Thermal">D:\1.WINGS\7-EGI-60\media\MISSION\</Path>
-                  <Path Filename="MISSION">D:\1.WINGS\7-EGI-60\media\</Path>
-                  <Path Filename="Vibe-Thermal">D:\1.WINGS\7-EGI-60\media\MISSION\</Path>
-                  <Path Filename="EGI-PTS">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\</Path>
-                  <Path Filename="74372527-008">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\EGI-PTS\</Path>
-                  <Path Filename="74372527.008">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\EGI-PTS\74372527-008\</Path>
-                  <Path Filename="EGI_PartNumbers">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\EGI-PTS\74372527-008\74372527.008\</Path>
-                  <Path Filename="..">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\EGI-PTS\74372527-008\74372527.008\EGI_PartNumbers\</Path>
-                  <Path Filename="EGI_PartNumbers">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\EGI-PTS\74372527-008\74372527.008\</Path>
-                  <Path Filename="74372527.008">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\EGI-PTS\74372527-008\</Path>
-                  <Path Filename="74372527-008">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\EGI-PTS\</Path>
-                  <Path Filename="DryRun">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\</Path>
-                  <Path Filename="34210898-007_-v1">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\DryRun\</Path>
-                  <Path Filename="..">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\DryRun\34210898-007_-v1\</Path>
-                  <Path Filename="34210898-007_-v1">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\DryRun\</Path>
-                  <Path Filename="34210898.007">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\DryRun\34210898-007_-v1\</Path>
-                  <Path Filename="install.bat">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\DryRun\34210898-007_-v1\34210898.007\</Path>
-                  <Path Filename="34210898.007">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\DryRun\34210898-007_-v1\</Path>
-                  <Path Filename="34210898-007_-v1">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\DryRun\</Path>
-                  <Path Filename="Thermal">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\</Path>
-                  <Path Filename="..">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\Thermal\</Path>
-                  <Path Filename="Vibe">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\</Path>
-                  <Path Filename="..">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\Vibe\</Path>
-                  <Path Filename="EGI-PTS">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\</Path>
-                  <Path Filename="74372527-008">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\EGI-PTS\</Path>
-                  <Path Filename="74372527.008">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\EGI-PTS\74372527-008\</Path>
-                  <Path Filename="EGI_PartNumbers">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\EGI-PTS\74372527-008\74372527.008\</Path>
-                  <Path Filename="Test_Param_File">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\EGI-PTS\74372527-008\74372527.008\EGI_PartNumbers\</Path>
-                  <Path Filename="..">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\EGI-PTS\74372527-008\74372527.008\EGI_PartNumbers\Test_Param_File\</Path>
-                  <Path Filename="34209200-5M63().ini">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\EGI-PTS\74372527-008\74372527.008\EGI_PartNumbers\</Path>
-                  <Path Filename="TPF_3A5E57B0.INI">D:\1.WINGS\7-EGI-60\media\MISSION\Vibe-Thermal\EGI-PTS\74372527-008\74372527.008\EGI_PartNumbers\Test_Param_File\</Path>
+
                 </Paths>
               </Entry>
             </History>
@@ -1234,13 +694,6 @@
     <IgnoreListFile>%DC_CONFIG_PATH%\ignorelist.txt</IgnoreListFile>
   </IgnoreList>
   <DirectoryHotList>
-    <HotDir Name="1.WINGS" Path="d:\1.WINGS"/>
-    <HotDir Name="Temp" Path="C:\Users\H129522\AppData\Local\Temp"/>
-    <HotDir Name="dotfiles" Path="C:\Users\H129522\AppData\Roaming\dotfiles"/>
-    <HotDir Name="Documents" Path="C:\Users\H129522\Documents"/>
-    <HotDir Name="AeroSvn" Path="d:\AeroSvn"/>
-    <HotDir Name="work" Path="D:\wiki\work"/>
-    <HotDir Name="wings-dev" Path="d:\wings-dev"/>
   </DirectoryHotList>
   <Viewer>
     <PreviewVisible>False</PreviewVisible>
@@ -1387,7 +840,7 @@
         <Column>
           <Title>Name</Title>
           <FuncString>[DC().GETFILENAMENOEXT{}]</FuncString>
-          <Width>619</Width>
+          <Width>591</Width>
           <Align>0</Align>
           <Font>
             <Name>default</Name>
@@ -1410,7 +863,7 @@
         <Column>
           <Title>Ext</Title>
           <FuncString>[DC().GETFILEEXT{}]</FuncString>
-          <Width>50</Width>
+          <Width>64</Width>
           <Align>0</Align>
           <Font>
             <Name>default</Name>
