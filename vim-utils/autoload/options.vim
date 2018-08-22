@@ -379,4 +379,3 @@ function! s:set_syntax() abort
 	let g:tex_verbspell= 0
 	let g:tex_conceal=''
 endfunction
-
