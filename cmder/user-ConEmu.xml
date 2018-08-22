@@ -185,19 +185,6 @@
 			<value name="ComSpec.Path" type="string" data=""/>
 			<value name="EnvironmentSet" type="multi">
 				<line data="set PATH=%ConEmuBaseDir%\Scripts;%PATH%"/>
-				<line data="alias ga=git add $*"/>
-				<line data="alias gs=git status $*"/>
-				<line data="alias gc=git commit -m $*"/>
-				<line data="alias gps=git push origin master"/>
-				<line data="alias gpl=git pull origin master"/>
-				<line data="alias ll=ls -alsF --color $*"/>
-				<line data="alias va=svn add --force $*"/>
-				<line data="alias vs=svn status $*"/>
-				<line data="alias vc=svn commit -m $*"/>
-				<line data="alias vu=svn update $*"/>
-				<line data="set SVN_EDITOR=vim"/>
-				<line data="alias w=cd /d d:\wings-dev\OneWings"/>
-				<line data="alias ws=cd /d d:\wings-dev\OneWingsSupFiles"/>
 				<line data=" "/>
 			</value>
 			<value name="CTS.Intelligent" type="hex" data="01"/>
