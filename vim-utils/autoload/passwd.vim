@@ -39,6 +39,9 @@ function! s:copy_passwd_to_clipboard(passwd_file) abort
 
 	echomsg 'Copied password: ' . a:passwd_file . ' to clipboard.'
 				\ 'It will be cleared in ' . g:passwd_sec_on_clipboard . ' seconds'
+	" TODO-[RM]-(Mon Aug 27 2018 16:35): Keep track of this timer.
+	" If it is still active kill it and start a new one.
+	" That way you fix the bug of multiple timers at the same time. 
 	return timer_start(g:passwd_sec_on_clipboard*1000, funcref('s:clear_system_clipboard'))
 endfunction
 
