@@ -93,6 +93,8 @@ function! mappings#Set() abort
 
 	nnoremap <silent> <plug>search_grep :Grip<cr>
 	" xnoremap <silent> <plug>search_grep :call <SID>grep()<cr>
+	nmap <localleader>P <plug>get_passwd
+	nnoremap <plug>get_passwd :silent call passwd#SelectPasswdFile()<cr>
 
 	nmap <LocalLeader>k <plug>make_project
 	nmap <LocalLeader>j <plug>make_file
@@ -109,7 +111,7 @@ function! mappings#Set() abort
 
 	" UtilsTagUpdateCurrFolder
 	nmap <silent> <LocalLeader>t <plug>generate_tags
-	nmap <silent> <plug>generate_tags :call ctags#NvimSyncCtags()<cr>
+	nnoremap <silent> <plug>generate_tags :call ctags#NvimSyncCtags()<cr>
 
 	nmap <LocalLeader>f <plug>format_code
 	xmap <LocalLeader>f <plug>format_code
@@ -123,8 +125,8 @@ function! mappings#Set() abort
 
 	nmap <localleader>h <plug>help_under_cursor
 
-	nmap <plug>refactor_code :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
-	xmap <plug>refactor_code "hy:%s/<C-r>h//gc<left><left><left>
+	nnoremap <plug>refactor_code :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
+	xnoremap <plug>refactor_code "hy:%s/<C-r>h//gc<left><left><left>
 
 	" Global settings for all ftplugins
 	nmap <Leader>cr <plug>cd_root
