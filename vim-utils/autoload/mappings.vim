@@ -93,6 +93,7 @@ function! mappings#Set() abort
 
 	nnoremap <silent> <plug>search_grep :Grip<cr>
 	" xnoremap <silent> <plug>search_grep :call <SID>grep()<cr>
+
 	nmap <localleader>P <plug>get_passwd
 	nnoremap <plug>get_passwd :silent call passwd#SelectPasswdFile()<cr>
 
