@@ -970,6 +970,8 @@ function! s:configure_vim_utils() abort
 	" let g:DoxygenToolkit_versionTag = '@version	'
 	" let g:DoxygenToolkit_commentType = 'C++'
 	let g:DoxygenToolkit_versionString = ' 0.0.0'
+	" let g:DoxygenToolkit_compactOneLineDoc = "yes"
+	" let g:DoxygenToolkit_compactDoc = "yes"
 
 	let g:ctags_create_spell=1
 	let g:ctags_spell_script= g:location_vim_utils . '/tagstospl.py'
