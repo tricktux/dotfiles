@@ -46,7 +46,7 @@ function! autocompletion#SetCompl(compl) abort
 		call s:set_ulti_snips()
 	elseif a:compl ==# 'shuogo'
 		call s:set_shuogo()
-		call s:set_neosnipppets()
+		call s:set_neosnippets()
 		" call s:set_vim_clang()
 		" Wed Apr 04 2018 16:33: Without a compile_commands.json lsp is useless for clangd
 		" Do not setup clangd on windows
@@ -144,6 +144,9 @@ function! s:set_clang_compl(type) abort
 	let g:clang_user_options = '-std=c++14 -stdlib=libc++ -Wall -pedantic'
 	let g:clang_close_preview = 1
 	let g:clang_make_default_keymappings = 0
+	let g:clang_snippets = 1
+	let g:clang_snippets = 'clang_complete'
+
 	augroup close_complete
 		autocmd!
 		autocmd CompleteDone * pclose!
@@ -512,11 +515,11 @@ function! s:set_vim_clang() abort
 	endif
 endfunction
 
-function! s:set_neosnipppets() abort
+function! s:set_neosnippets() abort
 	Plug 'Shougo/neosnippet'
-	imap <plug>snip_expand     <Plug>(neosnippet_expand_or_jump)
-	smap <plug>snip_expand     <Plug>(neosnippet_expand_or_jump)
-	xmap <plug>snip_expand     <Plug>(neosnippet_expand_target)
+	imap <plug>snip_expand <Plug>(neosnippet_expand_or_jump)
+	smap <plug>snip_expand <Plug>(neosnippet_expand_or_jump)
+	xmap <plug>snip_expand <Plug>(neosnippet_expand_target)
 	smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 				\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 	" Tell Neosnippet about the other snippets

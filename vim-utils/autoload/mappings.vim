@@ -133,6 +133,8 @@ function! mappings#Set() abort
 	nmap <Leader>cr <plug>cd_root
 
 	imap <c-k> <plug>snip_expand
+	smap <c-k> <plug>snip_expand
+	xmap <c-k> <plug>snip_expand
 
 	nnoremap <Leader>tt :TagbarToggle<cr>
 	nnoremap <Leader>ts :setlocal spell!<cr>
