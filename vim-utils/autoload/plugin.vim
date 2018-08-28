@@ -958,16 +958,16 @@ function! s:configure_vim_utils() abort
 	" command! -nargs=0 DoxAuthor :call <SID>DoxygenAuthorFunc()
 	" command! -nargs=1 DoxUndoc :call <SID>DoxygenUndocumentFunc(<q-args>)
 	" command! -nargs=0 DoxBlock :call <SID>DoxygenBlockFunc()
-	let g:DoxygenToolkit_paramTag_pre= '@param '
-	let g:DoxygenToolkit_returnTag=	'@returns '
+	" let g:DoxygenToolkit_paramTag_pre= '@param '
+	" let g:DoxygenToolkit_returnTag=	'@returns '
 	let g:DoxygenToolkit_blockHeader=''
 	let g:DoxygenToolkit_blockFooter=''
 	let g:DoxygenToolkit_authorName='Reinaldo Molina'
-	let g:DoxygenToolkit_authorTag =	'@author '
-	let g:DoxygenToolkit_fileTag =		'@file '
-	let g:DoxygenToolkit_briefTag_pre= '@brief '
-	let g:DoxygenToolkit_dateTag = '@date '
-	let g:DoxygenToolkit_versionTag = '@version	'
+	" let g:DoxygenToolkit_authorTag =	'@author '
+	" let g:DoxygenToolkit_fileTag =		'@file '
+	" let g:DoxygenToolkit_briefTag_pre= '@brief '
+	" let g:DoxygenToolkit_dateTag = '@date '
+	" let g:DoxygenToolkit_versionTag = '@version	'
 	" let g:DoxygenToolkit_commentType = 'C++'
 	let g:DoxygenToolkit_versionString = ' 0.0.0'
 
