@@ -351,6 +351,7 @@ function! s:set_syntax() abort
 	" let c_curly_error = 1
 	" Automatically highlight doxygen when doing c, c++
 	let g:load_doxygen_syntax=1
+	let g:doxygen_enhanced_colour=1
 
 	" ft-markdown-syntax
 	let g:markdown_fenced_languages= [ 'cpp', 'vim', 'dosini', 'wings_syntax' ]
