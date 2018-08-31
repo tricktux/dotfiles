@@ -209,6 +209,9 @@ function! options#Set() abort
 
 	" Tags
 	set tags=./.tags;,.tags;
+	set tagbsearch
+	set tagrelative
+	set tagcase=smart
 
 	set splitright
 
