@@ -126,6 +126,9 @@ function! mappings#Set() abort
 
 	nmap <localleader>h <plug>help_under_cursor
 
+	nmap <localleader>e <plug>go_to_alternative_file
+	nnoremap <plug>go_to_alternative_file :A<cr>
+
 	nnoremap <plug>refactor_code :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
 	xnoremap <plug>refactor_code "hy:%s/<C-r>h//gc<left><left><left>
 
@@ -233,7 +236,7 @@ function! mappings#Set() abort
 	nnoremap [l :lprevious<cr>
 	nnoremap Y y$
 
-	nnoremap ]t <c-]>
+	nnoremap ]t :exec 'tjump ' . expand('<cword>')<cr>
 	nnoremap [t <c-t>
 	" Split window and jump to tag
 	" nnoremap ]T :exec 'ptag ' . expand('<cword>')<cr><c-w>R
@@ -576,7 +579,7 @@ function! s:goto_tag_on_next_win(direction) abort
 		exec 'wincmd ' . toupper(a:direction)
 		return
 	endif
-	exec 'tag ' . target
+	exec 'tjump ' . target
 endfunction
 
 " Opens the file on new split in the direction specified
