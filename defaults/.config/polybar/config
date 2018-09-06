@@ -74,14 +74,14 @@ font-2=WunconSiji:pixelsize=18;0
 
 modules-left = battery temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory 
 modules-center = cmus
-modules-right = xkeyboard volume updates-arch-combined redshift compton
+modules-right = xkeyboard updates-arch-combined redshift compton
 
 ; My new settings
 tray-detached = false
 tray-position = right
 tray-offset-x = 0
 tray-offset-y = 0
-tray-maxsize = 30
+tray-maxsize = 40
 tray-padding = 2
 tray-scale = 1
 
@@ -490,13 +490,14 @@ scroll-up = i3wm-wsnext
 scroll-down = i3wm-wsprev
 
 [module/xwindow]
-; format-prefix            = 
-format-prefix-background = ${colors.t5}
-format-prefix-foreground = ${colors.t5}
-; format-suffix            = 
-format-suffix-background = ${colors.t5}
-format-suffix-foreground = ${colors.t5}
+; format-prefix            = <
+; format-prefix-background = ${colors.t5}
+; format-prefix-foreground = ${colors.t5}
+; format-suffix            = >
+; format-suffix-background = ${colors.t5}
+; format-suffix-foreground = ${colors.t5}
 
+; format-background = ${colors.t6}
 type = internal/xwindow
 ; label = %title:0:45:%
 label = %title%
@@ -552,7 +553,7 @@ label-mode-background = ${colors.primary}
 ; focused = Active workspace on focused monitor
 label-focused = %icon%
 ; label-focused-background = ${module/bspwm.label-focused-background}
-label-focused-background = ${colors.background_dark}
+label-focused-background = ${colors.background_light}
 label-focused-underline = ${module/bspwm.label-focused-underline}
 label-focused-padding = ${module/bspwm.label-focused-padding}
 
