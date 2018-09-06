@@ -200,16 +200,16 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 # bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 # Here we replace default nagbar with i3-exit
-bindsym Control+Mod1+Delete exec ~/.config/i3/scripts/shutdown_menu -c
+bindsym Control+Mod1+Delete exec --no-startup-id ~/.config/i3/scripts/shutdown_menu -c
 
 ########### Custom Bindings ############################
-bindsym Print exec gnome-screenshot
-bindsym XF86MonBrightnessUp exec xbacklight +10
-bindsym XF86MonBrightnessDown exec xbacklight -10
+bindsym Print exec --no-startup-id gnome-screenshot
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight +10
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -10
 # So that it agrees with the volume-pulseaudio control
-bindsym XF86AudioRaiseVolume exec amixer sset Master 5%+
-bindsym XF86AudioLowerVolume exec amixer sset Master 5%-
-bindsym XF86AudioMute exec amixer sset Master toggle
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer sset Master 5%+
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer sset Master 5%-
+bindsym XF86AudioMute exec --no-startup-id amixer sset Master toggle
 # bindsym XF86AudioLowerVolume exec amixer sset Master 5%-
 # bindsym XF86AudioRaiseVolume exec amixer sset Master 5%+
 # bindsym XF86AudioMute exec amixer sset Master toggle
@@ -218,16 +218,16 @@ bindsym XF86AudioMute exec amixer sset Master toggle
 # bindsym XF86AudioPlay exec playerctl play-pause
 # bindsym XF86AudioNext exec playerctl next
 # bindsym XF86AudioPrev exec playerctl previous
-bindsym XF86AudioPlay exec cmus-remote -u
-bindsym XF86AudioNext exec cmus-remote -n
-bindsym XF86AudioPrev exec cmus-remote -r
+bindsym XF86AudioPlay exec --no-startup-id cmus-remote -u
+bindsym XF86AudioNext exec --no-startup-id cmus-remote -n
+bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 
 # Using now the control keys with vi like mappings just like windows
-bindsym Control+Mod1+H exec cmus-remote -u
-bindsym Control+Mod1+L exec cmus-remote -n
-bindsym Control+Mod1+K exec amixer sset Master 5%+
-bindsym Control+Mod1+J exec amixer sset Master 5%-
-bindsym Control+Mod1+M exec amixer sset Master toggle
+bindsym Control+Mod1+H exec --no-startup-id cmus-remote -u
+bindsym Control+Mod1+L exec --no-startup-id cmus-remote -n
+bindsym Control+Mod1+K exec --no-startup-id amixer sset Master 5%+
+bindsym Control+Mod1+J exec --no-startup-id amixer sset Master 5%-
+bindsym Control+Mod1+M exec --no-startup-id amixer sset Master toggle
 bindsym Control+Mod1+V exec --no-startup-id vim-anywhere vim termite
 
 # bindsym $mod+n exec rofi -show window -opacity "50"
@@ -254,6 +254,13 @@ bindsym $mod+bracketright move container to output right
 
 bindsym $mod+Mod1+$left focus output left
 bindsym $mod+Mod1+$right focus output right
+
+bindsym $mod+i exec --no-startup-id \
+	~/Documents/polybar-scripts/polybar-scripts/pulseaudio-rofi/pulseaudio-rofi.sh --input
+
+bindsym $mod+o exec --no-startup-id \
+	~/Documents/polybar-scripts/polybar-scripts/pulseaudio-rofi/pulseaudio-rofi.sh --output
+
 # }}}
 
 ############ Workspaces ###################{{{
@@ -561,12 +568,12 @@ set $mode_screenshot screenshot: [f]ull_screen, [s]election, [w]indow
 # }
 # }}}
 
-######### STARTUP APPLICATIONS ################################{{{
+# STARTUP APPLICATIONS  {{{
 exec --no-startup-id compton --fading --daemon
 exec --no-startup-id xscreensaver -no-splash
 exec --no-startup-id pcmanfm --daemon-mode
 
-exec --no-startup-id i3-sensible-terminal
+# exec --no-startup-id i3-sensible-terminal
 exec --no-startup-id nm-applet
 exec --no-startup-id blueberry-tray
 exec --no-startup-id seafile-applet
@@ -575,7 +582,11 @@ exec --no-startup-id seafile-applet
 
 # Wed Oct 11 2017 22:16: Application similar to xflux
 exec --no-startup-id redshift -c ~/.config/redshift.conf
-exec --no-startup-id variety
+
+exec --no-startup-id i3-sensible-terminal --title=ranger --exec ranger
+exec --no-startup-id i3-sensible-terminal --title=cmus --exec cmus
+# Sat Jul 07 2018 09:07: A little buggy
+# exec --no-startup-id variety
 
 # Mon Jan 15 2018 18:43: New cool app
 # exec --no-startup-id workrave
@@ -603,7 +614,7 @@ exec --no-startup-id variety
 # Do not modify here. It can still be used by gnome
 # Not using because it sets up conky with not sure how to use right now
 # exec /home/reinaldo/.dotfiles/scripts/autostart-gnome.sh
-# exec_always --no-startup-id ~/.fehbg
+exec_always --no-startup-id ~/.fehbg
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 # }}}
 # vim:fdm=marker
