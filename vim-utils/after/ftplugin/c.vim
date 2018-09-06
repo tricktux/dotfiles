@@ -107,7 +107,7 @@ function! s:set_compiler_and_others() abort
 	" Set compiler now depending on folder and system. Auto set the compiler
 	let folder_name = expand('%:p:h')
 
-	if folder_name =~? 'onewings'
+	if folder_name =~? 'wings-dev'
 		" Note: inside the '' is a pat which is a regex. That is why \\
 		if folder_name =~? 'Onewings\\Source'
 			call linting#SetNeomakeBorlandMaker()
