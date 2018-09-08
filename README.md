@@ -21,7 +21,7 @@
 - Use `stow`
 - I.e: cd to the dotfiles repository, and from the root of the repo do:
 - `$stow -t <target location> -S <directory>`
-- I.e: `$stow -t /home/reinaldo/.config -S mutt`
+- I.e: `stow -t /home/reinaldo/.config -S mutt`
 - Directories must be in the format `mutt/mutt/<files>`
 - Otherwise the folder `/home/reinaldo/.config/mutt` has to be created manually and the
 `<target>` updated to this location.
