@@ -236,8 +236,9 @@ function! s:create_tags(tags_name) abort
 	" Fri Aug 31 2018 16:31: 
 	" - See 'tagbsearch' for the enabled sort option 
 	" - Also added relative to match vim's 'tagrelative'
+	" - NOTE: Keep in mind to leav a space at end of each chunk
 	let ctags_cmd = 'ctags -L ' . s:files_list . ' -f ' . tags_loc .
-				\  ' --sort=yes --recurse=yes --tag-relative=yes'
+				\  ' --sort=yes --recurse=yes --tag-relative=yes '
 
 	if ctags_lang ==# 'C++'
 		let ctags_cmd .= '--c-kinds=+pl --c++-kinds=+pl --fields=+iaSl --extras=+q '

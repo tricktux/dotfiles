@@ -96,12 +96,21 @@ function! s:config_win()
 			break
 		endif
 	endfor
+
+	" Add utils folder to PATH
+	if exists('g:portable_vim') && g:portable_vim
+		let l:extra_path = glob($VIMRUNTIME . '\utils\*', 1, 1)
+		for l:path in l:extra_path
+			let $PATH .= ';' . l:path
+		endfor	
+	endif
 endfunction
 
 function! s:set_wings_path(path) abort
 	execute "nnoremap <Leader>ew1 :call utils#DeniteRec(\"" . a:path . "OneWings/\")<cr>"
 	execute "nnoremap <Leader>ew2 :call utils#DeniteRec(\"" . a:path . "OneWINGSII/\")<cr>"
 	execute "nnoremap <Leader>ews :call utils#DeniteRec(\"" . a:path . "OneWingsSupFiles/\")<cr>"
+	execute "nnoremap <Leader>ewa :call utils#DeniteRec(\"" . a:path . "\")<cr>"
 	execute "nnoremap <silent> <plug>edit_todo :edit " . g:wiki_path . "/work/TODO.md<cr>"
 endfunction
 
