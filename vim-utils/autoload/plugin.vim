@@ -451,6 +451,8 @@ function! plugin#Config()
 			autocmd FileType text         call pencil#init()
 		augroup END
 
+	Plug 'tenfyzhong/vim-gencode-cpp'
+
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 

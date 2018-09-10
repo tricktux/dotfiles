@@ -9,8 +9,8 @@
 
 machine=`hostname`
 
-alias install='trizen -Syy && trizen -S'
-alias update='trizen -Syyu --devel $@'
+alias install='trizen -S'
+alias update='trizen -Syyu'
 alias version='trizen -Si'
 alias search='trizen -Ss'
 alias remove='trizen -Rscn'

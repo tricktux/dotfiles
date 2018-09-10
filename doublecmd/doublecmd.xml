@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<doublecmd DCVersion="0.8.3 beta" ConfigVersion="10">
+<doublecmd DCVersion="0.8.4 beta" ConfigVersion="10">
   <Toolbars>
     <MainToolbar>
       <Row>
@@ -126,8 +126,8 @@
     <RunInTerminalCloseCmd>cmd.exe</RunInTerminalCloseCmd>
     <RunInTerminalCloseParams>/C {command}</RunInTerminalCloseParams>
     <JustRunTerminal>cmd.exe</JustRunTerminal>
-    <JustRunTermParams>/K "C:\tools\cmder\vendor\init.bat"</JustRunTermParams>
-    <OnlyOneAppInstance>False</OnlyOneAppInstance>
+    <JustRunTermParams>/K C:\tools\cmder\vendor\init.bat</JustRunTermParams>
+    <OnlyOneAppInstance>True</OnlyOneAppInstance>
     <LynxLike>True</LynxLike>
     <FileSizeFormat>0</FileSizeFormat>
     <FileSizeDigits>1</FileSizeDigits>
@@ -163,15 +163,15 @@
       <RunInTerminal>False</RunInTerminal>
       <KeepTerminalOpen>False</KeepTerminalOpen>
     </Viewer>
-    <Editor Enabled="False">
-      <Path/>
-      <Parameters/>
+    <Editor Enabled="True">
+      <Path>"C:\Program Files\Vim\vim81\gvim.exe"</Path>
+      <Parameters>--remote-silent %p</Parameters>
       <RunInTerminal>False</RunInTerminal>
       <KeepTerminalOpen>False</KeepTerminalOpen>
     </Editor>
     <Differ Enabled="True">
-      <Path/>
-      <Parameters/>
+      <Path>C:\Program Files (x86)\Beyond Compare 3\BCompare.exe</Path>
+      <Parameters>%pl %pr</Parameters>
       <RunInTerminal>False</RunInTerminal>
       <KeepTerminalOpen>False</KeepTerminalOpen>
       <FramePosAfterComp>0</FramePosAfterComp>
@@ -504,114 +504,6 @@
             </Sortings>
             <History>
               <Entry>
-                <FileSource Type="FileSystem"/>
-                <Paths>
-
-                </Paths>
-              </Entry>
-            </History>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-      </Left>
-      <Right>
-        <ActiveTab>4</ActiveTab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>1</Direction>
-                <Function>1</Function>
-              </Sorting>
-            </Sortings>
-            <History>
-              <Entry Active="True">
-                <FileSource Type="FileSystem"/>
-                <Paths>
-
-                </Paths>
-              </Entry>
-            </History>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>1</Direction>
-                <Function>1</Function>
-              </Sorting>
-            </Sortings>
-            <History>
-              <Entry Active="True">
-                <FileSource Type="FileSystem"/>
-                <Paths>
-
-                </Paths>
-              </Entry>
-            </History>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>1</Direction>
-                <Function>12</Function>
-              </Sorting>
-            </Sortings>
-            <History>
-              <Entry Active="True">
-                <FileSource Type="FileSystem"/>
-                <Paths>
-
-                </Paths>
-              </Entry>
-            </History>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>1</Direction>
-                <Function>1</Function>
-              </Sorting>
-            </Sortings>
-            <History>
-              <Entry Active="True">
-                <FileSource Type="FileSystem"/>
-                <Paths>
-
-                </Paths>
-              </Entry>
-            </History>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>1</Direction>
-                <Function>1</Function>
-              </Sorting>
-            </Sortings>
-            <History>
-              <Entry Active="True">
                 <FileSource Type="FileSystem"/>
                 <Paths>
 
@@ -1110,7 +1002,7 @@
       </WcxPlugin>
       <WcxPlugin Enabled="True">
         <ArchiveExt>deb</ArchiveExt>
-        <Path>%commander_path%\plugins\wcx\deb\deb.wcx</Path>
+        <Path>%commander_path%\plugins\wcx\sevenzip\sevenzip.wcx</Path>
         <Flags>4</Flags>
       </WcxPlugin>
       <WcxPlugin Enabled="True">

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<doublecmd DCVersion="0.8.3 beta">
+<doublecmd DCVersion="0.8.4 beta">
   <Hotkeys Version="42">
     <Form Name="Main">
       <Hotkey>
@@ -86,10 +86,6 @@
       <Hotkey>
         <Shortcut>Ctrl+O</Shortcut>
         <Command>cm_ToggleFullscreenConsole</Command>
-      </Hotkey>
-      <Hotkey>
-        <Shortcut>Ctrl+P</Shortcut>
-        <Command>cm_AddPathToCmdLine</Command>
       </Hotkey>
       <Hotkey>
         <Shortcut>Ctrl+Q</Shortcut>
@@ -298,6 +294,18 @@
       <Hotkey>
         <Shortcut>/</Shortcut>
         <Command>cm_Search</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Ctrl+P</Shortcut>
+        <Command>cm_EditPath</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Ctrl+I</Shortcut>
+        <Command>cm_CompareContents</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Ctrl+Shift+I</Shortcut>
+        <Command>cm_CompareDirectories</Command>
       </Hotkey>
       <Hotkey>
         <Shortcut>Del</Shortcut>
