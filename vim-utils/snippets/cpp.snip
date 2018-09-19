@@ -5,6 +5,43 @@
 # Last Modified: Wed Jun 14 2017 14:39
 # Created: Jun 13 2017 16:26
 
+snippet singleton
+abbr    cpp singleton class
+    class ${1:name}
+    {
+        public:
+            static $1& GetInstance()
+            {
+                static $1 instance; // Guaranteed to be destroyed.
+                                      // Instantiated on first use.
+                return instance;
+            }
+        private:
+            $1() {}                    // Constructor? (the {} brackets) are needed here.
+
+            // C++ 03
+            // ========
+            // Don't forget to declare these two. You want to make sure they
+            // are unacceptable otherwise you may accidentally get copies of
+            // your singleton appearing.
+            $1($1 const&);              // Don't Implement
+            void operator=($1 const&);  // Don't implement
+
+            // C++ 11
+            // =======
+            // We can use the better technique of deleting the methods
+            // we don't want.
+        public:
+            $1($1 const&)               = delete;
+            void operator=($1 const&)  = delete;
+
+            // Note: Scott Meyers mentions in his Effective Modern
+            //       C++ book, that deleted functions should generally
+            //       be public as it results in better error messages
+            //       due to the compilers behavior to check accessibility
+            //       before deleted status
+    };
+
 snippet     str
 abbr        std::string
     std::string ${1:sName};
