@@ -2,10 +2,23 @@
 # Python: https://www.python.org/downloads/windows/
 # Python Pip: curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 #	- python.exe get-pip.py --user
+#	- This didnt really work
+#	-_______-
+#	- New approach: Download it form website
+#	https://github.com/neovim/python-client/archive/0.2.6.tar.gz
+#	- Too complex because most likely you also need to download the neovim pip dependencies
+#	- Just get Lua and use neocomplete. Its still maintained.
 # Universal-Ctags: https://github.com/universal-ctags/ctags-win32/releases
 # RipGrep: https://github.com/BurntSushi/ripgrep/releases
 # Lua: You dont really need it. But if you insist.
 #	http://luarocks.github.io/luarocks/releases/
+#	Wed Sep 19 2018 11:10: 
+#	It turns out you do need it. deoplete requires neovim pip neovim.
+#	Therefore, to enable 
+#	This is actually a good link:
+#	http://sourceforge.net/projects/luabinaries/files/5.3.3/Tools%20Executables/lua-5.3.3_Win64_bin.zip/download
+#	http://sourceforge.net/projects/luabinaries/files/5.3.3/Tools%20Executables/lua-5.3.3_Win32_bin.zip/download
+# 
 # Cscope: https://www.softpedia.com/get/Programming/Other-Programming-Files/Cscope-for-Windows.shtml
 # VS2015C++ Runtime Engine: https://www.microsoft.com/en-us/download/details.aspx?id=48145
 # doublecmd: https://sourceforge.net/p/doublecmd/wiki/Download/
