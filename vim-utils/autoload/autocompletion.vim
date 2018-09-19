@@ -7,51 +7,24 @@
 
 function! autocompletion#SetCompl(compl) abort
 	if a:compl ==# 'ycm'
-		Plug 'Valloric/YouCompleteMe', { 'on' : 'YcmDebugInfo' }
-		"" turn on completion in comments
-		let g:ycm_complete_in_comments=0
-		"" load ycm conf by default
-		let g:ycm_confirm_extra_conf=0
-		"" turn on tag completion
-		let g:ycm_collect_identifiers_from_tags_files=1
-		"" only show completion as a list instead of a sub-window
-		" set completeopt-=preview
-		"" start completion from the first character
-		let g:ycm_min_num_of_chars_for_completion=2
-		"" don't cache completion items
-		let g:ycm_cache_omnifunc=0
-		"" complete syntax keywords
-		let g:ycm_seed_identifiers_with_syntax=1
-		" let g:ycm_global_ycm_extra_conf = '~/.dotfiles/vim-utils/.ycm_extra_conf.py'
-		let g:ycm_autoclose_preview_window_after_completion = 1
-		let g:ycm_semantic_triggers =  {
-					\   'c' : ['->', '.'],
-					\   'objc' : ['->', '.'],
-					\   'ocaml' : ['.', '#'],
-					\   'cpp,objcpp' : ['->', '.', '::'],
-					\   'perl' : ['->'],
-					\   'php' : ['->', '::'],
-					\   'cs,javascript,d,python,perl6,scala,vb,elixir,go' : ['.'],
-					\   'java,jsp' : ['.'],
-					\   'vim' : ['re![_a-zA-Z]+[_\w]*\.'],
-					\   'ruby' : ['.', '::'],
-					\   'lua' : ['.', ':'],
-					\   'erlang' : [':'],
-					\ }
-
-		Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+		call s:set_ycm()
 	elseif a:compl ==# 'nvim_compl_manager'
 		" call s:set_ncm()
 		call s:set_ncm2()
 		call s:set_ulti_snips()
-	elseif a:compl ==# 'shuogo'
-		call s:set_shuogo()
+	elseif a:compl =~# 'shuogo'
+		if a:compl ==# 'shuogo_deo'
+			call s:set_shuogo_deo()
+			call s:set_language_client(has('unix'))
+		else
+			call s:set_shuogo_neo()
+		endif
+		call s:set_shuogo_sources()
 		call s:set_neosnippets()
 		" call s:set_vim_clang()
 		" Wed Apr 04 2018 16:33: Without a compile_commands.json lsp is useless for clangd
 		" Do not setup clangd on windows
-		call s:set_language_client(has('unix'))
-		if !has('unix') | call s:set_clang_compl('rip_clang_complete') | endif
+		" if !has('unix') | call s:set_clang_compl('rip_clang_complete') | endif
 	elseif a:compl ==# 'autocomplpop'
 		Plug 'vim-scripts/AutoComplPop'
 		inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -69,43 +42,7 @@ function! autocompletion#SetCompl(compl) abort
 		inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
 		let g:completor_clang_binary = 'c:/Program Files/LLVM/bin/clang.exe'
 	elseif a:compl ==# 'asyncomplete'
-		if v:version < 800
-			echomsg 'autocompletion#SetCompl(): Cannot set AsynComplete autcompl_engine. Setting SuperTab'
-			call s:set_tab()
-			return
-		endif
-
-		Plug 'prabirshrestha/asyncomplete.vim'
-		" Tab Completion
-		function! s:check_back_space() abort
-			let col = col('.') - 1
-			return !col || getline('.')[col - 1]  =~ '\s'
-		endfunction
-
-		inoremap <silent><expr> <TAB>
-					\ pumvisible() ? "\<C-n>" :
-					\ <SID>check_back_space() ? "\<TAB>" :
-					\ asyncomplete#force_refresh()
-		inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-		inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
-		" Buffer
-		Plug 'prabirshrestha/asyncomplete-buffer.vim'
-		" Syntax
-		Plug 'Shougo/neco-syntax'
-		Plug 'prabirshrestha/asyncomplete-necosyntax.vim'
-		" Vim
-		Plug 'Shougo/neco-vim'
-		Plug 'prabirshrestha/asyncomplete-necovim.vim'
-		Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
-		if has('python3')
-			Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
-		endif
-		call s:set_clang_compl('rip_clang_complete')
-
-		augroup AsynComplete
-			autocmd!
-			autocmd User asyncomplete_setup call s:set_async_compl()
-		augroup END
+		call s:set_async()
 	elseif a:compl ==# 'neo_clangd'
 		let g:clangd#completions_enabled = 0
 		call s:set_shuogo()
@@ -167,150 +104,76 @@ function! s:set_clang_compl(type) abort
 	endif
 endfunction
 
-function! s:set_shuogo() abort
+function! s:set_shuogo_neo() abort
 	" Vim exclusive plugins
-	if has('python3')
-		Plug 'Shougo/deoplete.nvim'
-		if !has('nvim')
-			" Requirements For Vim 8:
-			" - roxma/vim-hug-neovim-rpc
-			" - g:python3_host_prog pointed to your python3 executable, or echo exepath('python3') is not empty.
-			" - neovim python client (pip3 install neovim)
-			Plug 'roxma/nvim-yarp'
-			Plug 'roxma/vim-hug-neovim-rpc'
-			let g:deoplete#enable_yarp = 1
-		endif
-		" Mon Jan 08 2018 14:49: New options:
-		" - They seem to be working. Specially the enable_yarp one.
-		let g:deoplete#auto_complete_start_length = 3
-		let g:deoplete#max_abbr_width = 18
-		" let g:deoplete#max_menu_width = 18
-		" Note: If you get autocomplete autotriggering issues keep increasing this option below.
-		" Next value to try is 150. See:https://github.com/Shougo/deoplete.nvim/issues/440
-		" let g:deoplete#auto_complete_delay=15 " Fixes issue where Autocompletion triggers
-		let g:deoplete#auto_complete_delay=50 " Fixes issue where Autocompletion triggers
-
-		" If it is nvim deoplete requires python3 to work
-		let g:deoplete#enable_at_startup = 1
-		" New settings
-		let g:deoplete#enable_ignore_case = 1
-		let g:deoplete#enable_smart_case = 1
-		" let g:deoplete#enable_camel_case = 1
-		" Note: Changed this here to increase speed
-		let g:deoplete#enable_refresh_always = 0
-		let g:deoplete#max_list = 18
-		" let g:deoplete#max_abbr_width = 0
-		" let g:deoplete#max_menu_width = 0
-		let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
-		let g:deoplete#omni#input_patterns.java = [
-					\'[^. \t0-9]\.\w*',
-					\'[^. \t0-9]\->\w*',
-					\'[^. \t0-9]\::\w*',
-					\]
-		let g:deoplete#omni#input_patterns.jsp = ['[^. \t0-9]\.\w*']
-		let g:deoplete#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-		let g:deoplete#ignore_sources = {}
-		let g:deoplete#ignore_sources.java = ['omni']
-		let g:deoplete#ignore_sources.c = ['omni']
-		let g:deoplete#ignore_sources._ = ['around']
-		"call deoplete#custom#set('omni', 'min_pattern_length', 0)
-		inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
-		inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
-		" Regular settings
-		inoremap <silent><expr> <TAB>
-					\ pumvisible() ? "\<C-n>" :
-					\ <SID>check_back_space() ? "\<TAB>" :
-					\ deoplete#mappings#manual_complete()
-		function! s:check_back_space() abort
-			let col = col('.') - 1
-			return !col || getline('.')[col - 1]  =~ '\s'
-		endfunction
-	elseif has('lua') " Neocomplete
-		Plug 'Shougo/neocomplete'
-		" All new stuff
-		let g:neocomplete#enable_at_startup = 1
-		let g:neocomplete#enable_cursor_hold_i=1
-		let g:neocomplete#skip_auto_completion_time="1"
-		let g:neocomplete#sources#buffer#cache_limit_size=5000000000
-		let g:neocomplete#max_list=8
-		let g:neocomplete#auto_completion_start_length=2
-		let g:neocomplete#enable_auto_close_preview=1
-
-		let g:neocomplete#enable_smart_case = 1
-		let g:neocomplete#data_directory = g:std_cache_path . '/neocomplete'
-		" Define keyword.
-		if !exists('g:neocomplete#keyword_patterns')
-			let g:neocomplete#keyword_patterns = {}
-		endif
-		let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-		" Recommended key-mappings.
-		" <CR>: close popup and save indent.
-		inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-		function! s:my_cr_function()
-			return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-		endfunction
-		" <TAB>: completion.
-		inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-		" <C-h>, <BS>: close popup and delete backword char.
-		inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-		" Enable heavy omni completion.
-		if !exists('g:neocomplete#sources#omni#input_patterns')
-			let g:neocomplete#sources#omni#input_patterns = {}
-		endif
-		let g:neocomplete#sources#omni#input_patterns.tex =
-					\ '\v\\%('
-					\ . '\a*cite\a*%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
-					\ . '|\a*ref%(\s*\{[^}]*|range\s*\{[^,}]*%(}\{)?)'
-					\ . '|includegraphics\*?%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
-					\ . '|%(include%(only)?|input)\s*\{[^}]*'
-					\ . ')'
-		let g:neocomplete#sources#omni#input_patterns.php =
-					\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-		let g:neocomplete#sources#omni#input_patterns.perl =
-					\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-		let g:neocomplete#sources#omni#input_patterns.java = '\h\w*\.\w*'
-
-		if !exists('g:neocomplete#force_omni_input_patterns')
-			let g:neocomplete#force_omni_input_patterns = {}
-		endif
-		let g:neocomplete#force_omni_input_patterns.c =
-					\ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
-		let g:neocomplete#force_omni_input_patterns.cpp =
-					\ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-		let g:neocomplete#force_omni_input_patterns.objc =
-					\ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
-		let g:neocomplete#force_omni_input_patterns.objcpp =
-					\ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
-		" all new stuff
-		if !exists('g:neocomplete#delimiter_patterns')
-			let g:neocomplete#delimiter_patterns= {}
-		endif
-		let g:neocomplete#delimiter_patterns.vim = ['#']
-		let g:neocomplete#delimiter_patterns.cpp = ['::']
+	" Wed Sep 19 2018 11:13: I dont normally install lua on my pcs. Therefore, this
+	" wouldnt be recognized 
+	if !has('lua') " Neocomplete
+		echomsg 's:set_shuogo_neo(): Lua53 not installed'
+		return
 	endif
 
-	" List of sources Plugins
-	" and jedi for autocompletion, `pip install jedi --user`
-	if !executable('pyls')
-		Plug 'zchee/deoplete-jedi'
-	endif
-	Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
-	Plug 'Shougo/neco-syntax' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
-	Plug 'Shougo/echodoc' " Pop for functions info
+	Plug 'Shougo/neocomplete'
+	" All new stuff
+	let g:neocomplete#enable_at_startup = 1
+	let g:neocomplete#enable_cursor_hold_i=1
+	let g:neocomplete#skip_auto_completion_time="1"
+	let g:neocomplete#sources#buffer#cache_limit_size=5000000000
+	let g:neocomplete#max_list=8
+	let g:neocomplete#auto_completion_start_length=2
+	let g:neocomplete#enable_auto_close_preview=1
 
-	" Mon Jan 15 2018 05:55: Not working very well
-	" Plug 'SevereOverfl0w/deoplete-github' " Pop for functions info
-	Plug 'fszymanski/deoplete-emoji' " Pop for functions info
-	" Email Completion, Has a bug that I need to report
-	" Plug 'fszymanski/deoplete-abook'
-	Plug 'Shougo/context_filetype.vim'
-	" Tue Oct 31 2017 08:54: Going to attempt to use the other clang
-	"  deoplete-clang
-	" if exists('g:libclang_path') && exists('g:clangheader_path')
-	" Plug 'zchee/deoplete-clang'
-	" let g:deoplete#sources#clang#libclang_path = g:libclang_path
-	" let g:deoplete#sources#clang#clang_header = g:clangheader_path
-	" endif
+	let g:neocomplete#enable_smart_case = 1
+	let g:neocomplete#data_directory = g:std_cache_path . '/neocomplete'
+	" Define keyword.
+	if !exists('g:neocomplete#keyword_patterns')
+		let g:neocomplete#keyword_patterns = {}
+	endif
+	let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+	" Recommended key-mappings.
+	" <CR>: close popup and save indent.
+	inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+	function! s:my_cr_function()
+		return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+	endfunction
+	" <TAB>: completion.
+	inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+	" <C-h>, <BS>: close popup and delete backword char.
+	inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+	" Enable heavy omni completion.
+	if !exists('g:neocomplete#sources#omni#input_patterns')
+		let g:neocomplete#sources#omni#input_patterns = {}
+	endif
+	let g:neocomplete#sources#omni#input_patterns.tex =
+				\ '\v\\%('
+				\ . '\a*cite\a*%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+				\ . '|\a*ref%(\s*\{[^}]*|range\s*\{[^,}]*%(}\{)?)'
+				\ . '|includegraphics\*?%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+				\ . '|%(include%(only)?|input)\s*\{[^}]*'
+				\ . ')'
+	let g:neocomplete#sources#omni#input_patterns.php =
+				\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+	let g:neocomplete#sources#omni#input_patterns.perl =
+				\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+	let g:neocomplete#sources#omni#input_patterns.java = '\h\w*\.\w*'
+
+	if !exists('g:neocomplete#force_omni_input_patterns')
+		let g:neocomplete#force_omni_input_patterns = {}
+	endif
+	let g:neocomplete#force_omni_input_patterns.c =
+				\ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
+	let g:neocomplete#force_omni_input_patterns.cpp =
+				\ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+	let g:neocomplete#force_omni_input_patterns.objc =
+				\ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
+	let g:neocomplete#force_omni_input_patterns.objcpp =
+				\ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
+	" all new stuff
+	if !exists('g:neocomplete#delimiter_patterns')
+		let g:neocomplete#delimiter_patterns= {}
+	endif
+	let g:neocomplete#delimiter_patterns.vim = ['#']
+	let g:neocomplete#delimiter_patterns.cpp = ['::']
 endfunction
 
 function! s:set_tab() abort
@@ -667,4 +530,169 @@ function! s:set_ulti_snips() abort
 	let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
 	let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
 	let g:UltiSnipsRemoveSelectModeMappings = 0
+endfunction
+
+function! s:set_ycm() abort
+	Plug 'Valloric/YouCompleteMe', { 'on' : 'YcmDebugInfo' }
+	"" turn on completion in comments
+	let g:ycm_complete_in_comments=0
+	"" load ycm conf by default
+	let g:ycm_confirm_extra_conf=0
+	"" turn on tag completion
+	let g:ycm_collect_identifiers_from_tags_files=1
+	"" only show completion as a list instead of a sub-window
+	" set completeopt-=preview
+	"" start completion from the first character
+	let g:ycm_min_num_of_chars_for_completion=2
+	"" don't cache completion items
+	let g:ycm_cache_omnifunc=0
+	"" complete syntax keywords
+	let g:ycm_seed_identifiers_with_syntax=1
+	" let g:ycm_global_ycm_extra_conf = '~/.dotfiles/vim-utils/.ycm_extra_conf.py'
+	let g:ycm_autoclose_preview_window_after_completion = 1
+	let g:ycm_semantic_triggers =  {
+				\   'c' : ['->', '.'],
+				\   'objc' : ['->', '.'],
+				\   'ocaml' : ['.', '#'],
+				\   'cpp,objcpp' : ['->', '.', '::'],
+				\   'perl' : ['->'],
+				\   'php' : ['->', '::'],
+				\   'cs,javascript,d,python,perl6,scala,vb,elixir,go' : ['.'],
+				\   'java,jsp' : ['.'],
+				\   'vim' : ['re![_a-zA-Z]+[_\w]*\.'],
+				\   'ruby' : ['.', '::'],
+				\   'lua' : ['.', ':'],
+				\   'erlang' : [':'],
+				\ }
+
+	Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+endfunction
+
+" Used by async
+function! s:check_back_space() abort
+	let col = col('.') - 1
+	return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+function! s:set_async() abort
+	if v:version < 800
+		echomsg 'autocompletion#SetCompl(): Cannot set AsynComplete autcompl_engine. Setting SuperTab'
+		call s:set_tab()
+		return
+	endif
+
+	Plug 'prabirshrestha/asyncomplete.vim'
+	" Tab Completion
+	inoremap <silent><expr> <TAB>
+				\ pumvisible() ? "\<C-n>" :
+				\ <SID>check_back_space() ? "\<TAB>" :
+				\ asyncomplete#force_refresh()
+	inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+	inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+	" Buffer
+	Plug 'prabirshrestha/asyncomplete-buffer.vim'
+	" Syntax
+	Plug 'Shougo/neco-syntax'
+	Plug 'prabirshrestha/asyncomplete-necosyntax.vim'
+	" Vim
+	Plug 'Shougo/neco-vim'
+	Plug 'prabirshrestha/asyncomplete-necovim.vim'
+	Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
+	if has('python3')
+		Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
+	endif
+	call s:set_clang_compl('rip_clang_complete')
+
+	augroup AsynComplete
+		autocmd!
+		autocmd User asyncomplete_setup call s:set_async_compl()
+	augroup END
+endfunction
+
+function! s:set_shuogo_sources() abort
+	" List of sources Plugins
+	" and jedi for autocompletion, `pip install jedi --user`
+	if !executable('pyls')
+		Plug 'zchee/deoplete-jedi'
+	endif
+	Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
+	Plug 'Shougo/neco-syntax' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
+	Plug 'Shougo/echodoc' " Pop for functions info
+
+	" Mon Jan 15 2018 05:55: Not working very well
+	" Plug 'SevereOverfl0w/deoplete-github' " Pop for functions info
+	Plug 'fszymanski/deoplete-emoji' " Pop for functions info
+	" Email Completion, Has a bug that I need to report
+	" Plug 'fszymanski/deoplete-abook'
+	Plug 'Shougo/context_filetype.vim'
+	" Tue Oct 31 2017 08:54: Going to attempt to use the other clang
+	"  deoplete-clang
+	" if exists('g:libclang_path') && exists('g:clangheader_path')
+	" Plug 'zchee/deoplete-clang'
+	" let g:deoplete#sources#clang#libclang_path = g:libclang_path
+	" let g:deoplete#sources#clang#clang_header = g:clangheader_path
+	" endif
+endfunction
+
+function! s:set_shuogo_deo() abort
+	if !has('python3')
+		echomsg 's:set_shuogo_deo(): Python3 not installed'
+		return
+	endif
+
+	Plug 'Shougo/deoplete.nvim'
+	if !has('nvim')
+		" Requirements For Vim 8:
+		" - roxma/vim-hug-neovim-rpc
+		" - g:python3_host_prog pointed to your python3 executable, or echo exepath('python3') is not empty.
+		" - neovim python client (pip3 install neovim)
+		Plug 'roxma/nvim-yarp'
+		Plug 'roxma/vim-hug-neovim-rpc'
+		let g:deoplete#enable_yarp = 1
+	endif
+	" Mon Jan 08 2018 14:49: New options:
+	" - They seem to be working. Specially the enable_yarp one.
+	let g:deoplete#auto_complete_start_length = 3
+	let g:deoplete#max_abbr_width = 18
+	" let g:deoplete#max_menu_width = 18
+	" Note: If you get autocomplete autotriggering issues keep increasing this option below.
+	" Next value to try is 150. See:https://github.com/Shougo/deoplete.nvim/issues/440
+	" let g:deoplete#auto_complete_delay=15 " Fixes issue where Autocompletion triggers
+	let g:deoplete#auto_complete_delay=50 " Fixes issue where Autocompletion triggers
+
+	" If it is nvim deoplete requires python3 to work
+	let g:deoplete#enable_at_startup = 1
+	" New settings
+	let g:deoplete#enable_ignore_case = 1
+	let g:deoplete#enable_smart_case = 1
+	" let g:deoplete#enable_camel_case = 1
+	" Note: Changed this here to increase speed
+	let g:deoplete#enable_refresh_always = 0
+	let g:deoplete#max_list = 18
+	" let g:deoplete#max_abbr_width = 0
+	" let g:deoplete#max_menu_width = 0
+	let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
+	let g:deoplete#omni#input_patterns.java = [
+				\'[^. \t0-9]\.\w*',
+				\'[^. \t0-9]\->\w*',
+				\'[^. \t0-9]\::\w*',
+				\]
+	let g:deoplete#omni#input_patterns.jsp = ['[^. \t0-9]\.\w*']
+	let g:deoplete#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+	let g:deoplete#ignore_sources = {}
+	let g:deoplete#ignore_sources.java = ['omni']
+	let g:deoplete#ignore_sources.c = ['omni']
+	let g:deoplete#ignore_sources._ = ['around']
+	"call deoplete#custom#set('omni', 'min_pattern_length', 0)
+	inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
+	inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
+	" Regular settings
+	inoremap <silent><expr> <TAB>
+				\ pumvisible() ? "\<C-n>" :
+				\ <SID>check_back_space() ? "\<TAB>" :
+				\ deoplete#mappings#manual_complete()
+	function! s:check_back_space() abort
+		let col = col('.') - 1
+		return !col || getline('.')[col - 1]  =~ '\s'
+	endfunction
 endfunction

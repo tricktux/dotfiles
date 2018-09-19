@@ -29,7 +29,7 @@ function! plugin#Config()
 	" searches for foo; append `!` to refresh local cache
 	nnoremap <Leader>Pl :PlugClean<CR>
 
-	if exists('g:portable_vim')
+	if exists('g:portable_vim') && g:portable_vim == 1
 		silent! call plug#begin(g:vim_plugins_path)
 	else
 		call plug#begin(g:vim_plugins_path)
@@ -61,7 +61,7 @@ function! plugin#Config()
 	" Possible values:
 	" - ycm nvim_compl_manager shuogo autocomplpop completor asyncomplete neo_clangd
 	" call autocompletion#SetCompl(has('unix') ? 'nvim_compl_manager' : 'shuogo')
-	call autocompletion#SetCompl('shuogo')
+	call autocompletion#SetCompl(exists('g:portable_vim') && g:portable_vim == 1 ? 'shuogo_neo' : 'shuogo_deo')
 
 	" Possible values:
 	" - chromatica easytags neotags color_coded clighter8
@@ -970,10 +970,10 @@ function! s:configure_vim_utils() abort
 	" let g:DoxygenToolkit_briefTag_pre= '@brief '
 	" let g:DoxygenToolkit_dateTag = '@date '
 	" let g:DoxygenToolkit_versionTag = '@version	'
-	" let g:DoxygenToolkit_commentType = 'C++'
+	let g:DoxygenToolkit_commentType = 'C++'
 	let g:DoxygenToolkit_versionString = ' 0.0.0'
-	" let g:DoxygenToolkit_compactOneLineDoc = "yes"
-	" let g:DoxygenToolkit_compactDoc = "yes"
+	let g:DoxygenToolkit_compactOneLineDoc = "yes"
+	let g:DoxygenToolkit_compactDoc = "yes"
 
 	let g:ctags_create_spell=1
 	let g:ctags_spell_script= g:location_vim_utils . '/tagstospl.py'
