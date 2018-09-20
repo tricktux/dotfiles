@@ -189,7 +189,9 @@ endfunction
 " And then call the function again
 function! linting#SetNeomakePandocMaker(type) abort
 	if !executable('pandoc')
-		echomsg '[linting#SetNeomakePandocMaker]: Pandoc is not executable'
+		if !exists('g:portable_vim')
+			echomsg '[linting#SetNeomakePandocMaker]: Pandoc is not executable'
+		endif
 		return -1
 	endif
 
