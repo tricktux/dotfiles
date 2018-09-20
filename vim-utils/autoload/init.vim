@@ -105,7 +105,7 @@ function! s:config_win() abort
 		let $PATH .= ';' . l:path
 	endfor	
 
-	" Look for MSBuild.exe
+	" Look for MSBuild.exe. Pretty hard coded I know. But findfile didnt work.
 	if filereadable("c:\\Program Files (x86)\\MSBuild\\14.0\\Bin\\MSBuild.exe")
 		let $PATH .= ';' . "c:\\Program Files (x86)\\MSBuild\\14.0\\Bin\\"
 	endif
@@ -116,7 +116,9 @@ function! s:set_wings_path(path) abort
 	execute "nnoremap <Leader>ew2 :call utils#DeniteRec(\"" . a:path . "OneWINGSII/\")<cr>"
 	execute "nnoremap <Leader>ews :call utils#DeniteRec(\"" . a:path . "OneWingsSupFiles/\")<cr>"
 	execute "nnoremap <Leader>ewa :call utils#DeniteRec(\"" . a:path . "\")<cr>"
-	execute "nnoremap <silent> <plug>edit_todo :edit " . g:wiki_path . "/work/TODO.md<cr>"
+	execute "nnoremap <silent> <plug>edit_todo :edit " . 
+				\ (exists('g:wiki_path') ? g:wiki_path : '') .
+				\ "/work/TODO.md<cr>"
 endfunction
 
 function! s:config_unix() abort
