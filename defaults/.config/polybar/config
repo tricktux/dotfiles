@@ -247,7 +247,7 @@ font-2=WunconSiji:pixelsize=10;0
 
 modules-left = battery temperature cpu cpuload system-uptime-pretty memory 
 modules-center = cmus
-modules-right = xkeyboard volume updates-arch-combined redshift compton
+modules-right = xkeyboard updates-arch-combined redshift compton
 
 ; My new settings
 tray-detached = false
@@ -472,7 +472,7 @@ font-2=WunconSiji:pixelsize=18;0
 
 modules-left = i3
 modules-center = xwindow
-modules-right = weather date powermenu
+modules-right = weather date time powermenu
 
 ; My new settings
 ; tray-detached = false

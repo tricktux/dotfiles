@@ -9,7 +9,6 @@
 function! cpp_highlight#Set(type) abort
 	if empty(a:type)
 		call s:regular_highlight()
-		return
 	elseif a:type ==# 'chromatica'
 		call s:set_chromatica()
 	elseif a:type ==# 'easytags'
@@ -20,6 +19,8 @@ function! cpp_highlight#Set(type) abort
 		call s:set_color_coded()
 	elseif a:type ==# 'clighter8'
 		call s:set_clighter8()
+	elseif a:type ==# 'tag-highlight' && has('nvim')
+		call s:set_c_highlight()
 	else
 		echomsg 'Not a recognized highlight type: ' . a:type . '. Using only regular highlight'
 		call s:regular_highlight()
@@ -246,4 +247,8 @@ function! s:set_neo_neotags() abort
 	let g:neotags_enabled = 1
 	" let g:neotags_bin = ''
 	" call s:set_neotags()
+endfunction
+
+function! s:set_c_highlight() abort
+	Plug 'roflcopter4/tag-highlight.nvim', { 'do' : 'cmake . && make' }
 endfunction

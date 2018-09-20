@@ -493,18 +493,33 @@ bindsym $mod+n mode "$mode_launch"
 
 # Sun Jun 03 2018 23:48: Transitioning to kitty. To return to termite search gitlog for
 # kitty
+# Thu Sep 20 2018 05:48: Very stubborn. Here I go with kitty again 
+# bindsym c exec --no-startup-id i3-sensible-terminal --title=cmus cmus
+# bindsym m exec --no-startup-id i3-sensible-terminal --title=gmail-mutt neomutt -F ~/.config/mutt/account.gmail; mode "default"
+# bindsym u exec --no-startup-id i3-sensible-terminal --title=psu-mutt neomutt -F ~/.config/mutt/account.psu; mode "default"
+# bindsym n exec --no-startup-id i3-sensible-terminal --title=ranger ranger
+# These are the values for termite
+# bindsym c exec --no-startup-id i3-sensible-terminal --title=cmus --exec cmus
+
+# bindsym m exec --no-startup-id i3-sensible-terminal \
+# --title=gmail-mutt --exec 'neomutt -F ~/.config/mutt/account.gmail'; \
+# mode "default"
+
+# bindsym u exec --no-startup-id i3-sensible-terminal \
+# --title=psu-mutt --exec 'neomutt -F ~/.config/mutt/account.psu'; \
+# mode "default"
+
+# bindsym n exec --no-startup-id i3-sensible-terminal --title=ranger --exec ranger
 mode "$mode_launch" {
-	bindsym c exec --no-startup-id i3-sensible-terminal --title=cmus --exec cmus
 
+	bindsym c exec --no-startup-id i3-sensible-terminal \
+		--title=cmus cmus
 	bindsym m exec --no-startup-id i3-sensible-terminal \
-		--title=gmail-mutt --exec 'neomutt -F ~/.config/mutt/account.gmail'; \
-		mode "default"
-
+		--title=gmail-mutt neomutt -F ~/.config/mutt/account.gmail; mode "default"
 	bindsym u exec --no-startup-id i3-sensible-terminal \
-		--title=psu-mutt --exec 'neomutt -F ~/.config/mutt/account.psu'; \
-		mode "default"
-
-	bindsym n exec --no-startup-id i3-sensible-terminal --title=ranger --exec ranger
+		--title=psu-mutt neomutt -F ~/.config/mutt/account.psu; mode "default"
+	bindsym n exec --no-startup-id i3-sensible-terminal \
+		--title=ranger ranger
 
 	bindsym s exec --no-startup-id spotify
 
@@ -583,8 +598,13 @@ exec --no-startup-id seafile-applet
 # Wed Oct 11 2017 22:16: Application similar to xflux
 exec --no-startup-id redshift -c ~/.config/redshift.conf
 
-exec --no-startup-id i3-sensible-terminal --title=ranger --exec ranger
-exec --no-startup-id i3-sensible-terminal --title=cmus --exec cmus
+# Termite launchers
+# exec --no-startup-id i3-sensible-terminal --title=ranger --exec ranger
+# exec --no-startup-id i3-sensible-terminal --title=cmus --exec cmus
+
+# Kitty Launchers
+exec --no-startup-id i3-sensible-terminal --title=cmus cmus
+exec --no-startup-id i3-sensible-terminal --title=ranger ranger
 
 # Thu Sep 06 2018 04:19: Cool new audio system tray icon 
 exec --no-startup-id pasystray
@@ -613,7 +633,7 @@ exec --no-startup-id pasystray
 
 # Thu Nov 16 2017 18:31 trying to get an a good configuration
 # Sat Jul 28 2018 13:28: New settings 
-exec_always --no-startup-id xrandr --dpi 192
+# exec_always --no-startup-id xrandr --dpi 192
 
 # Do not modify here. It can still be used by gnome
 # Not using because it sets up conky with not sure how to use right now

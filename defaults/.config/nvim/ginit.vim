@@ -55,7 +55,7 @@ function! s:unix_gvim_ugly_font() abort
 endfunction
 
 function! s:unix_gvim_nice_font() abort
-	set guifont =DejaVu\ Sans\ Mono\ 14
+	set guifont =DejaVu\ Sans\ Mono\ 10
 	call s:set_gvim_guioptions()
 endfunction
 
