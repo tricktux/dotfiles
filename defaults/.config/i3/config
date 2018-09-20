@@ -603,8 +603,8 @@ exec --no-startup-id redshift -c ~/.config/redshift.conf
 # exec --no-startup-id i3-sensible-terminal --title=cmus --exec cmus
 
 # Kitty Launchers
-bindsym c exec --no-startup-id i3-sensible-terminal --title=cmus cmus
-bindsym c exec --no-startup-id i3-sensible-terminal --title=ranger ranger
+exec --no-startup-id i3-sensible-terminal --title=cmus cmus
+exec --no-startup-id i3-sensible-terminal --title=ranger ranger
 
 # Thu Sep 06 2018 04:19: Cool new audio system tray icon 
 exec --no-startup-id pasystray
