@@ -20,7 +20,7 @@ function! init#vim() abort
 	set encoding=utf-8
 
 	" OS_SETTINGS
-	execute 'call ' . (has('unix') ? 's:config_unix()' : 's:config_win()')
+	if has('unix') | call s:config_unix() | else | call s:config_win() | endif
 
 	" PLUGINS_INIT
 	if plugin#Config()
@@ -39,24 +39,24 @@ function! init#vim() abort
 	call commands#Set()
 endfunction
 
-function! s:config_win()
+function! s:config_win() abort
 	if exists('$ChocolateyInstall')
-		let languagetool_jar = findfile('languagetool-commandline.jar', $ChocolateyInstall . '\lib\languagetool\tools\**2')
-		if !empty('languagetool_jar')
-			let g:languagetool_jar = languagetool_jar
+		let l:languagetool_jar = findfile('languagetool-commandline.jar', expand('$ChocolateyInstall') . '\lib\languagetool\tools\**2')
+		if !empty(l:languagetool_jar)
+			let g:languagetool_jar = l:languagetool_jar
 		endif
 	endif
 
-	if filereadable('C:\Program Files\LLVM\share\clang\clang-format.py')
+	if filereadable(expand('$ProgramFiles') . '\LLVM\share\clang\clang-format.py')
 				\ && has('python') && executable('clang-format')
-		let g:clang_format_py = 'C:\Program Files\LLVM\share\clang\clang-format.py'
+		let g:clang_format_py = expand('$ProgramFiles') . '\LLVM\share\clang\clang-format.py'
 	endif
 
 	" Set wiki_path
-	let wikis = ['D:\Seafile\KnowledgeIsPower\wiki', 'D:/wiki']
-	for wiki in wikis
-		if !empty(glob(wiki))
-			let g:wiki_path =  wiki
+	let l:wikis = ['D:\Seafile\KnowledgeIsPower\wiki', 'D:/wiki']
+	for l:wiki in l:wikis
+		if !empty(glob(l:wiki))
+			let g:wiki_path =  l:wiki
 			" Fri Jul 27 2018 16:01: Gvim is the only one that sets this. Dont use cute
 			" symbols. No cute font support. 
 			" let g:valid_device = 1
@@ -74,35 +74,40 @@ function! s:config_win()
 
 	" Fri Jan 05 2018 16:40: Many plugins use this now. Making these variables available
 	" all the time.
-	let pyt2 = "C:\\Python27\\python.exe"
-	let pyt3 = [$LOCALAPPDATA . "\\Programs\\Python\\Python36\\python.exe", "C:\\Python36\\python.exe"]
+	let l:pyt2 = "C:\\Python27\\python.exe"
+	let l:pyt3 = [$LOCALAPPDATA . "\\Programs\\Python\\Python36\\python.exe", "C:\\Python36\\python.exe"]
 
-	if filereadable(pyt2)
-		let g:python_host_prog= pyt2
+	if filereadable(l:pyt2)
+		let g:python_host_prog= l:pyt2
 	endif
 
-	for loc in pyt3
-		if filereadable(loc)
-			let g:python3_host_prog= loc
+	for l:loc in l:pyt3
+		if filereadable(l:loc)
+			let g:python3_host_prog= l:loc
 			break
 		endif
 	endfor
 
-	let browsers = [ 'chrome.exe', 'launcher.exe', 'firefox.exe' ]
+	let l:browsers = [ 'chrome.exe', 'launcher.exe', 'firefox.exe' ]
 	let g:browser_cmd = ''
-	for brow in browsers
-		if executable(brow)
-			let g:browser_cmd = brow
+	for l:brow in l:browsers
+		if executable(l:brow)
+			let g:browser_cmd = l:brow
 			break
 		endif
 	endfor
 
-	" Add utils folder to PATH
-	if exists('g:portable_vim') && g:portable_vim
-		let l:extra_path = glob($VIMRUNTIME . '\utils\*', 1, 1)
-		for l:path in l:extra_path
-			let $PATH .= ';' . l:path
-		endfor	
+	" Thu Sep 20 2018 13:35:
+	"		Sometimes I like to put extra executables inside this folder below.
+	"		Check it for any easter eggs 
+	let l:extra_path = glob($VIMRUNTIME . '\utils\*', 1, 1)
+	for l:path in l:extra_path
+		let $PATH .= ';' . l:path
+	endfor	
+
+	" Look for MSBuild.exe
+	if filereadable("c:\\Program Files (x86)\\MSBuild\\14.0\\Bin\\MSBuild.exe")
+		let $PATH .= ';' . "c:\\Program Files (x86)\\MSBuild\\14.0\\Bin\\"
 	endif
 endfunction
 
