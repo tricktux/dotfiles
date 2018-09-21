@@ -22,7 +22,8 @@ dynamic_title = true
 ; font = Monospace 9
 # font = xos4 Terminus 12px
 # font = Droid Sans Mono 8
-font = Fura Mono Nerd Font 18
+; font = Fura Mono Nerd Font 18
+font = Sauce Code Pro Nerd Font 18
 # font=NotoSans 8
 # Install with otf-inconsolata-powerline-git
 # - remember to restart terminal
