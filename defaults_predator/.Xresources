@@ -35,14 +35,14 @@ URxvt.lineSpace: -1
 
 ! Command to search the help:
 ! rxvt --help 2&>1 | grep scroll
-URxvt.scrollBar: false
+URxvt.scrollBar: false 
 
 ! Clickable URLs
 URxvt.perl-ext-common: default,matcher
 URxvt.url-launcher: /usr/bin/xdg-open
 URxvt.matcher.button: 1
 
-! Press key to open
+! Press key to open 
 URxvt.keysym.C-Delete: perl:matcher:last
 URxvt.keysym.M-Delete: perl:matcher:list
 
@@ -193,7 +193,7 @@ URxvt*urgentOnBell: true
 !-----------------------------------------------------------------------
 
 ! Use xdpyinfo | grep dots to find out this number
-Xft.dpi:                268    #ignoreline
+! Xft.dpi:                192
 Xft.autohint:           0
 Xft.antialias:          true
 Xft.rgba:               rgb

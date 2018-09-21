@@ -93,12 +93,12 @@ set $urgent-bg-color     #E53935
 # client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #00ff00
 #
 # Alternative colors
-		#                       BORDER      BACKGROUND  TEXT        INDICATOR   CHILD_BORDER
-		client.focused          $black      $blue				$black			$darkblack $darkyellow
-		client.unfocused        $black      $black      $white      $darkblack  $darkblack
-		client.focused_inactive $black      $black      $white      $darkblack  $darkblack
-		client.urgent           $darkred    $darkred    $black      $darkred    $darkred
-		client.background       $black
+#                       BORDER      BACKGROUND  TEXT        INDICATOR   CHILD_BORDER
+client.focused          $black      $blue		$black		$darkblack $darkyellow
+client.unfocused        $black      $black      $white      $darkblack  $darkblack
+client.focused_inactive $black      $black      $white      $darkblack  $darkblack
+client.urgent           $darkred    $darkred    $black      $darkred    $darkred
+client.background       $black
 # }}}
 
 # Movement keys{{{
@@ -261,6 +261,7 @@ bindsym $mod+i exec --no-startup-id \
 bindsym $mod+o exec --no-startup-id \
 	~/Documents/polybar-scripts/polybar-scripts/pulseaudio-rofi/pulseaudio-rofi.sh --output
 
+bindsym Mod1+Tab exec --no-startup-id rofi -show window -opacity "50"
 # }}}
 
 ############ Workspaces ###################{{{
@@ -585,6 +586,9 @@ exec --no-startup-id redshift -c ~/.config/redshift.conf
 
 exec --no-startup-id i3-sensible-terminal --title=ranger --exec ranger
 exec --no-startup-id i3-sensible-terminal --title=cmus --exec cmus
+
+# Thu Sep 06 2018 04:19: Cool new audio system tray icon 
+exec --no-startup-id pasystray
 # Sat Jul 07 2018 09:07: A little buggy
 # exec --no-startup-id variety
 
@@ -609,7 +613,9 @@ exec --no-startup-id i3-sensible-terminal --title=cmus --exec cmus
 # exec --no-startup-id sshfs odroid@copter-server:/ /home/reinaldo/.mnt/copter-server&
 
 # Thu Nov 16 2017 18:31 trying to get an a good configuration
-# exec_always --no-startup-id xrandr --output eDP1 --scale 1.2x1.2 --panning 3284x2189
+# Sat Jul 28 2018 13:28: New settings 
+exec_always --no-startup-id xrandr --dpi 192 --output DP-0 --auto --output HDMI-0 \
+							--scale 1.25x1.25 --right-of DP-0
 
 # Do not modify here. It can still be used by gnome
 # Not using because it sets up conky with not sure how to use right now
