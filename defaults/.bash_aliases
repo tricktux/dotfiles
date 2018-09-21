@@ -23,12 +23,27 @@ alias gc='git commit -m'
 alias gps='git push origin master'
 alias gpl='git pull origin master'
 
+# shred
+alias shred_n_del='shred -n 12 -u'
+alias shred_dir=ShredDir
+
 # svn
 alias va='svn add --force'
 alias vs='svn status'
 alias vc='svn commit -m'
 alias svn-checkout=FuncSvnCheckout
 alias svn-create=FuncSvnCreate
+
+# fonts
+alias fonts_list_mono='fc-list : family spacing | grep spacing=100'
+
+# ffmpeg
+alias ffmpeg_concat_files_in_inputs_txt='ffmpeg -f concat -i inputs.txt -c copy output.mp4'
+
+# cd
+alias .='cd ..'
+alias ..='cd ../..'
+alias ...='cd ../../..'
 
 # mutt
 alias neomutt='neomutt -F ~/.config/mutt/account.gmail'
@@ -131,6 +146,10 @@ FuncSvnCreate()
 
 mkcdir ()
 {
-    mkdir -p -- "$1" &&
-      cd -P -- "$1"
+	mkdir -p -- "$1" && cd -P -- "$1"
+}
+
+ShredDir()
+{
+	find $1 -depth -type f -exec shred -v -n 1 -z -u {} \;
 }
