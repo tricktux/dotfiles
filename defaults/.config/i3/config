@@ -596,7 +596,9 @@ exec --no-startup-id seafile-applet
 # exec --no-startup-id dropbox
 
 # Wed Oct 11 2017 22:16: Application similar to xflux
-exec --no-startup-id redshift -c ~/.config/redshift.conf
+# Thu Sep 27 2018 22:34: Switching to the gtk gets an auto indicator 
+# exec --no-startup-id redshift -c ~/.config/redshift.conf
+exec --no-startup-id redshift-gtk
 
 # Termite launchers
 # exec --no-startup-id i3-sensible-terminal --title=ranger --exec ranger
