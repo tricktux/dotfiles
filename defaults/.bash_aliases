@@ -10,7 +10,7 @@
 machine=`hostname`
 
 alias install='trizen -S'
-alias update='trizen -Syyu'
+alias update=FuncUpdate
 alias version='trizen -Si'
 alias search='trizen -Ss'
 alias remove='trizen -Rscn'
@@ -22,6 +22,11 @@ alias gs='git status'
 alias gc='git commit -m'
 alias gps='git push origin master'
 alias gpl='git pull origin master'
+
+# cd
+alias .='cd ..'
+alias ..='cd ../..'
+alias ...='cd ../../..'
 
 # svn
 alias va='svn add --force'
@@ -144,4 +149,12 @@ mkcdir ()
 FuncPdfJoin()
 {
 	gs -q -sPAPERSIZE=a4 -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$1 $@
+}
+
+FuncUpdate()
+{
+	trizen -Syu
+	sshfs -p 8888 reinaldo@192.168.1.8:/ ~/.mnt/copter-server/
+	nvim +PlugUpdate +UpdateRemotePlugins +qa
+	cd ~/.config/dotfiles/ && gpl && cd ~/.password-store/ && gpl && cd ~/Documents/ML_SC2/Arrancar0/ && gpl && cd
 }
