@@ -148,7 +148,7 @@ mkcdir ()
 # gs = ghostscript (dependency)
 FuncPdfJoin()
 {
-	gs -q -sPAPERSIZE=a4 -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$1 $@
+	/usr/bin/gs -q -sPAPERSIZE=a4 -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$1 $@
 }
 
 FuncUpdate()
