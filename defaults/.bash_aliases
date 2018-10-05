@@ -37,6 +37,7 @@ alias svn-create=FuncSvnCreate
 
 # pdf
 alias pdf_join=FuncPdfJoin
+alias pdf_convert_jpg_pdf=FuncPdfConvert
 
 # mutt
 alias neomutt='neomutt -F ~/.config/mutt/account.gmail'
@@ -148,7 +149,14 @@ mkcdir ()
 # gs = ghostscript (dependency)
 FuncPdfJoin()
 {
-	gs -q -sPAPERSIZE=a4 -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$1 $@
+	/usr/bin/gs -q -sPAPERSIZE=a4 -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$1 $@
+}
+
+# $@ list of *.jpg first arguments then finally name of output pdf file
+# Depends on imagemagic
+FuncPdfConvert()
+{
+	convert $@
 }
 
 FuncUpdate()
