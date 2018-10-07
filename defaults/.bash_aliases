@@ -37,6 +37,7 @@ alias svn-create=FuncSvnCreate
 
 # pdf
 alias pdf_join=FuncPdfJoin
+alias pdf_convert_jpg_pdf=FuncPdfConvert
 
 # mutt
 alias neomutt='neomutt -F ~/.config/mutt/account.gmail'
@@ -151,10 +152,17 @@ FuncPdfJoin()
 	/usr/bin/gs -q -sPAPERSIZE=a4 -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$1 $@
 }
 
+# $@ list of *.jpg first arguments then finally name of output pdf file
+# Depends on imagemagic
+FuncPdfConvert()
+{
+	convert $@
+}
+
 FuncUpdate()
 {
-	trizen -Syu
 	sshfs -p 8888 reinaldo@192.168.1.8:/ ~/.mnt/copter-server/
 	nvim +PlugUpdate +UpdateRemotePlugins +qa
 	cd ~/.config/dotfiles/ && gpl && cd ~/.password-store/ && gpl && cd ~/Documents/ML_SC2/Arrancar0/ && gpl && cd
+	trizen -Syu
 }
