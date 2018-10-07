@@ -23,6 +23,9 @@ alias gc='git commit -m'
 alias gps='git push origin master'
 alias gpl='git pull origin master'
 
+# ffmpeg
+alias ffmpeg_concat=FuncFfmpegConcat
+
 # cd
 alias .='cd ..'
 alias ..='cd ../..'
@@ -165,4 +168,12 @@ FuncUpdate()
 	nvim +PlugUpdate +UpdateRemotePlugins +qa
 	cd ~/.config/dotfiles/ && gpl && cd ~/.password-store/ && gpl && cd ~/Documents/ML_SC2/Arrancar0/ && gpl && cd
 	trizen -Syu
+}
+
+# mylist.txt looks like this:
+# file '<relative/full file name.mp4>'
+# file '<relative/full file name.mp4>'
+FuncFfmpegConcat()
+{
+	ffmpeg -f concat -safe 0 -i mylist.txt -c copy output.mp4
 }
