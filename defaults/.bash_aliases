@@ -165,7 +165,7 @@ FuncPdfConvert()
 FuncUpdate()
 {
 	sshfs -p 8888 reinaldo@192.168.1.8:/ ~/.mnt/copter-server/
-	nvim +PlugUpdate +UpdateRemotePlugins +qa
+	nvim +PlugUpgrade +PlugUpdate +UpdateRemotePlugins +qa
 	cd ~/.config/dotfiles/ && gpl && cd ~/.password-store/ && gpl && cd ~/Documents/ML_SC2/Arrancar0/ && gpl && cd
 	trizen -Syu
 }
