@@ -20,6 +20,7 @@ function! commands#Set() abort
 	" Convert fileformat to dos
 	command! UtilsNerdComAltDelims execute("normal \<Plug>NERDCommenterAltDelims")
 	command! UtilsPdfSearch call s:search_pdf()
+	command! UtilsFindBraceInComment call s:find_brace_in_comment()
 
 	" These used to be ]F [F mappings but they are not so popular so moving them to
 	" commands
@@ -177,4 +178,22 @@ endfunction
 function! s:edit_tmp_doc() abort
 	execute 'edit ' . tempname()
 	setlocal filetype=markdown
+endfunction
+
+function! s:find_brace_in_comment() abort
+	let l:lines = getline(0, line('$'))
+
+	for l:line in l:lines
+		let l:idx = stridx(l:line, '//')
+		if l:idx < 0
+			continue
+		endif
+
+		let l:brace_idx = stridx(l:line, '{', l:idx)
+		let l:brace2_idx = stridx(l:line, '}', l:idx)
+
+		if l:brace_idx >= 0 || l:brace2_idx >= 0
+			echomsg string(l:line)
+		endif
+	endfor
 endfunction
