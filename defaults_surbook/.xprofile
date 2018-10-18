@@ -17,8 +17,8 @@ export EMAIL="rmolin88@gmail.com"
 # Thu Feb 01 2018 05:21: For oracle database crap for school
 export ORACLE_HOME=/home/reinaldo/app/reinaldo/product/12.2.0/client_1
 
-export QT_AUTO_SCREEN_SCALE_FACTOR=0
-export QT_SCALE_FACTOR=2
+# export QT_AUTO_SCREEN_SCALE_FACTOR=0
+# export QT_SCALE_FACTOR=1.5
 
 export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
 
