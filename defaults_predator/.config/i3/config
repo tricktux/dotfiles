@@ -336,6 +336,8 @@ bindsym $mod+Shift+0 move container to workspace $workspace10
 		for_window [class="Seafile Client"] floating enable
 		for_window [class="Gnome-system-monitor"] floating enable
 		for_window [class="Pinentry"] floating enable
+		for_window [class="Youtube-dl-gui"] floating enable
+		for_window [class="Nm-connection-editor"] floating enable
 
 # Taken from https://github.com/Airblader/dotfiles-manjaro
 		for_window [class="Nitrogen"] floating enable
@@ -614,8 +616,8 @@ exec --no-startup-id pasystray
 
 # Thu Nov 16 2017 18:31 trying to get an a good configuration
 # Sat Jul 28 2018 13:28: New settings 
-exec_always --no-startup-id xrandr --dpi 192 --output DP-0 --auto --output HDMI-0 \
-							--scale 1.25x1.25 --right-of DP-0
+exec_always --no-startup-id xrandr --dpi 192 --output DP-0 --panning 3840x2160 \
+							--output HDMI-0 --scale 1.25x1.25 --right-of DP-0
 
 # Do not modify here. It can still be used by gnome
 # Not using because it sets up conky with not sure how to use right now
