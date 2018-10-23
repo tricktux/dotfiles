@@ -13,21 +13,21 @@ endif
 " Don't load another plugin for this buffer
 let b:did_java_ftplugin = 1
 
-let b:match_words .= '\<if\>:\<else\>,'
-			\ . '\<while\>:\<continue\>:\<break\>,'
-			\ . '\<for\>:\<continue\>:\<break\>,'
-			\ . '\<try\>:\<catch\>'
+" let b:match_words .= '\<if\>:\<else\>,'
+			" \ . '\<while\>:\<continue\>:\<break\>,'
+			" \ . '\<for\>:\<continue\>:\<break\>,'
+			" \ . '\<try\>:\<catch\>'
 if exists('*javacomplete#Complete')
 	setlocal omnifunc=javacomplete#Complete
 endif
 setlocal foldenable
-compiler gradlew
+" compiler gradlew
 
 " Add mappings, unless the user didn't want this.
 if !exists("no_plugin_maps") && !exists("no_java_maps")
 	" Special mappings go here
 endif
 
-call utils#AutoHighlight()
+" call utils#AutoHighlight()
 
 let b:undo_ftplugin += "setl omnifunc< foldenable< | unlet! b:match_words"
