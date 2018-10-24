@@ -33,7 +33,11 @@ if !exists('no_plugin_maps') && !exists('no_c_maps')
 		nmap <buffer> <Plug>make_file :make!<cr>
 	endif
 	" Alternate between header and source file
-	nmap <buffer> <unique> <plug>switch_header_source :call utils#SwitchHeaderSource()<cr>
+	if exists(':A')
+		nmap <buffer> <unique> <plug>switch_header_source :A<cr>
+	else
+		nmap <buffer> <unique> <plug>switch_header_source :call utils#SwitchHeaderSource()<cr>
+	endif
 
 	if has('unix') && has('nvim')
 		nnoremap <buffer> <plug>help_under_cursor :call <SID>man_under_cursor()<cr>
