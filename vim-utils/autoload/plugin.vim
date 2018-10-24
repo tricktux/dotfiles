@@ -454,6 +454,10 @@ function! plugin#Config()
 
 	Plug 'tenfyzhong/vim-gencode-cpp'
 
+	call s:configure_vim_startify()
+
+	Plug 'vim-scripts/a.vim'
+
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
@@ -1055,4 +1059,21 @@ function! s:bookmark_load() abort
 	endif
 
 	return BookmarkLoad(l:book, 0, 0)
+endfunction
+
+function! s:configure_vim_startify() abort
+	Plug 'mhinz/vim-startify'
+
+  " Session options
+	if exists('g:std_data_path')
+		let g:startify_session_dir = g:std_data_path . '/sessions/'
+	endif
+
+	let g:startify_lists = [
+				\ { 'type': 'sessions',  'header': ['   Sessions']       },
+				\ { 'type': 'files',     'header': ['   MRU']            },
+				\ ]
+	let g:startify_change_to_dir = 0
+	let g:startify_session_sort = 1
+	let g:startify_session_number = 10
 endfunction
