@@ -26,6 +26,11 @@ setlocal foldenable
 " Add mappings, unless the user didn't want this.
 if !exists("no_plugin_maps") && !exists("no_java_maps")
 	" Special mappings go here
+
+	if exists("g:loaded_sortimport")
+		nnoremap <buffer> <plug>imports_insert <Plug>JavaInsertImport
+		nnoremap <buffer> <plug>imports_sort <Plug>JavaSortImport
+	endif
 endif
 
 " call utils#AutoHighlight()

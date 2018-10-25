@@ -458,6 +458,8 @@ function! plugin#Config()
 
 	Plug 'vim-scripts/a.vim'
 
+	Plug 'jvenant/vim-java-imports', { 'for' : 'java' }
+
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
