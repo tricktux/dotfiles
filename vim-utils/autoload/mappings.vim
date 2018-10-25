@@ -126,6 +126,9 @@ function! mappings#Set() abort
 
 	nmap <localleader>h <plug>help_under_cursor
 
+	nmap <localleader>ii <plug>imports_insert
+	nmap <localleader>is <plug>imports_sort
+
 	nnoremap <plug>refactor_code :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
 	xnoremap <plug>refactor_code "hy:%s/<C-r>h//gc<left><left><left>
 
