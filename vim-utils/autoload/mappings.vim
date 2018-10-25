@@ -88,8 +88,8 @@ function! mappings#Set() abort
 		tnoremap <C-p> <Up>
 	endif
 
-	nmap <LocalLeader>s <plug>search_grep
-	xmap <LocalLeader>s <plug>search_grep
+	nmap <localleader>s <plug>search_grep
+	xmap <localleader>s <plug>search_grep
 
 	nnoremap <silent> <plug>search_grep :Grip<cr>
 	" xnoremap <silent> <plug>search_grep :call <SID>grep()<cr>
@@ -97,37 +97,34 @@ function! mappings#Set() abort
 	nmap <localleader>P <plug>get_passwd
 	nnoremap <plug>get_passwd :silent call passwd#SelectPasswdFile()<cr>
 
-	nmap <LocalLeader>k <plug>make_project
-	nmap <LocalLeader>j <plug>make_file
-	nmap <LocalLeader>c <plug>make_check
-	nmap <LocalLeader>p <plug>preview
+	nmap <localleader>k <plug>make_project
+	nmap <localleader>j <plug>make_file
+	nmap <localleader>c <plug>make_check
+	nmap <localleader>p <plug>preview
 
-	nmap <LocalLeader>a <plug>switch_header_source
+	nmap <localleader>a <plug>switch_header_source
 
-	nmap <LocalLeader>G <plug>search_internet
-	xmap <LocalLeader>G <plug>search_internet
+	nmap <localleader>G <plug>search_internet
+	xmap <localleader>G <plug>search_internet
 
-	nmap <LocalLeader>A <plug>num_representation
-	xmap <LocalLeader>A <plug>num_representation
+	nmap <localleader>A <plug>num_representation
+	xmap <localleader>A <plug>num_representation
 
 	" UtilsTagUpdateCurrFolder
-	nmap <silent> <LocalLeader>t <plug>generate_tags
+	nmap <silent> <localleader>t <plug>generate_tags
 	nnoremap <silent> <plug>generate_tags :call ctags#NvimSyncCtags()<cr>
 
-	nmap <LocalLeader>f <plug>format_code
-	xmap <LocalLeader>f <plug>format_code
+	nmap <localleader>f <plug>format_code
+	xmap <localleader>f <plug>format_code
 
 	nmap <a-;> <plug>fuzzy_command_history
 	nmap <a-e> <plug>fuzzy_vim_help
 
 	" Refactor word under the cursor
-	nmap <LocalLeader>r <plug>refactor_code
-	xmap <LocalLeader>r <plug>refactor_code
+	nmap <localleader>r <plug>refactor_code
+	xmap <localleader>r <plug>refactor_code
 
 	nmap <localleader>h <plug>help_under_cursor
-
-	nmap <localleader>e <plug>go_to_alternative_file
-	nnoremap <plug>go_to_alternative_file :A<cr>
 
 	nnoremap <plug>refactor_code :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
 	xnoremap <plug>refactor_code "hy:%s/<C-r>h//gc<left><left><left>
