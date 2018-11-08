@@ -13,10 +13,6 @@ endif
 " Don't load another plugin for this buffer
 let b:did_java_ftplugin = 1
 
-" let b:match_words .= '\<if\>:\<else\>,'
-			" \ . '\<while\>:\<continue\>:\<break\>,'
-			" \ . '\<for\>:\<continue\>:\<break\>,'
-			" \ . '\<try\>:\<catch\>'
 if exists('*javacomplete#Complete')
 	setlocal omnifunc=javacomplete#Complete
 endif
@@ -33,6 +29,10 @@ if !exists("no_plugin_maps") && !exists("no_java_maps")
 	endif
 endif
 
-" call utils#AutoHighlight()
+if !exists('b:neomake_cpp_enabled_makers')
+	let b:neomake_java_enabled_makers = []
+endif
 
-let b:undo_ftplugin += "setl omnifunc< foldenable< | unlet! b:match_words"
+let b:neomake_java_enabled_makers += executable('mvn') ? ['mvn'] : []
+
+let b:undo_ftplugin += "setl omnifunc< foldenable<"
