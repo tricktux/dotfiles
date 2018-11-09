@@ -460,6 +460,8 @@ function! plugin#Config()
 
 	Plug 'jvenant/vim-java-imports', { 'for' : 'java' }
 
+	call s:configure_vim_which_key()
+
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
@@ -1078,4 +1080,27 @@ function! s:configure_vim_startify() abort
 	let g:startify_change_to_dir = 0
 	let g:startify_session_sort = 1
 	let g:startify_session_number = 10
+endfunction
+
+" Additional settings at:
+" 'options.vim' as well
+" s:which_key_format also 
+function! s:configure_vim_which_key() abort
+	" Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+	let g:exists_vim_which_key = 1
+
+	Plug 'liuchengxu/vim-which-key'
+	nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+	" nnoremap <silent> <localleader> :WhichKey 'g'<CR>
+	"
+	let g:WhichKeyFormatFunc = function('s:which_key_format')
+endfunction
+
+function! s:which_key_format(mapping) abort
+	let l:ret = a:mapping
+	let l:ret = substitute(l:ret, '\c<cr>$', '', '')
+	let l:ret = substitute(l:ret, '^:', '', '')
+	let l:ret = substitute(l:ret, '^\c<c-u>', '', '')
+	let l:ret = substitute(l:ret, '^<[Pp]lug>', '', '')
+	return l:ret
 endfunction

@@ -31,6 +31,9 @@ function! mappings#Set() abort
 		silent! vunmap <C-X>
 	endif
 
+	if exists('g:exists_vim_which_key')
+		call s:set_which_key_map()
+	endif
 	" List of super useful mappings
 	" = fixes indentantion
 	" gq formats code
@@ -133,8 +136,6 @@ function! mappings#Set() abort
 	xnoremap <plug>refactor_code "hy:%s/<C-r>h//gc<left><left><left>
 
 	" Global settings for all ftplugins
-	nmap <Leader>cr <plug>cd_root
-
 	imap <c-k> <plug>snip_expand
 	smap <c-k> <plug>snip_expand
 	xmap <c-k> <plug>snip_expand
@@ -319,12 +320,13 @@ function! mappings#Set() abort
 	inoremap = =<c-g>u
 
 	" CD <Leader>c?
+	nmap <Leader>cr <plug>cd_root
+
 	nnoremap <Leader>cd :lcd %:h<cr>
 				\:pwd<cr>
 	nnoremap <Leader>cu :lcd ..<cr>
 				\:pwd<cr>
 	" cd into dir. press <Tab> after ci to see folders
-	nnoremap <Leader>ci :lcd
 	nnoremap <Leader>cc :pwd<cr>
 	" TODO.RM-Thu Jun 01 2017 10:10: Create mappings like c21 and c22
 
@@ -771,4 +773,31 @@ function! s:add_file(path) abort
 
 	execute 'lcd ' . l:cwd
 	execute 'edit ' . l:new_file
+endfunction
+
+function! s:set_which_key_map() abort
+	
+	" Define prefix dictionary
+	let g:which_key_leader_map =  {}
+
+	let g:which_key_leader_map.t = {
+				\ 'name' : '+toggle',
+				\ 'j' : 'file_browser',
+				\ 'f' : 'focus_plugin',
+				\ 'e' : 'terminal',
+				\ 't' : 'tagbar',
+				\ 's' : 'spelling',
+				\ 'o' : 'alternative_commenter',
+				\ }
+
+	let g:which_key_leader_map.c = {
+				\ 'name' : '+cd',
+				\ 'r' : 'root',
+				\ 'd' : 'current_file',
+				\ 'u' : 'one_folder_up',
+				\ 'c' : 'display_curr_work_dir',
+				\ }
+
+	" TODO-[RM]-(Thu Nov 08 2018 09:43): Create another global mapping for localleader 
+	call which_key#register(g:mapleader, "g:which_key_leader_map")
 endfunction
