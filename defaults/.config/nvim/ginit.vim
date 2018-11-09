@@ -38,7 +38,7 @@ function! s:win_gvim_nice_font() abort
 endfunction
 
 function! s:unix_nvim_ugly_font() abort
-	let g:GuiFont ='Monospace:h9'
+	let g:GuiFont ='FuraCode Nerd Font:h9'
 	execute 'Guifont! ' . g:GuiFont
 	call GuiWindowMaximized(1)
 endfunction
