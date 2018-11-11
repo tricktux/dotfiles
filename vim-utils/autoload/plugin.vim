@@ -295,7 +295,8 @@ function! plugin#Config()
 	" comment:
 	" 'no-preview
 	" in your file
-	Plug 'scrooloose/vim-slumlord', { 'on' : 'UtilsUmlInFilePreview' }
+	" Sun Nov 11 2018 07:30 Doesn't look well and breaks my author header 
+	" Plug 'scrooloose/vim-slumlord', { 'on' : 'UtilsUmlInFilePreview' }
 
 	Plug 'junegunn/goyo.vim', { 'on' : 'Goyo' }
 		let g:goyo_width = 120
