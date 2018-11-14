@@ -196,9 +196,6 @@ function! plugin#Config()
 	let g:svnj_cache_dir = g:std_cache_path
 	let g:svnj_browse_cache_all = 1
 	let g:svnj_custom_statusbar_ops_hide = 0
-	nnoremap <silent> <leader>vs :SVNStatus q<CR>
-	nnoremap <silent> <leader>vo :SVNLog .<CR>
-
 	" colorschemes
 	Plug 'morhetz/gruvbox' " colorscheme gruvbox
 	Plug 'NLKNguyen/papercolor-theme'
@@ -1092,8 +1089,11 @@ function! s:configure_vim_which_key() abort
 
 	Plug 'liuchengxu/vim-which-key'
 	nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+	vnoremap <silent> <leader> :WhichKeyVisual '<Space>'<CR>
 	" nnoremap <silent> <localleader> :WhichKey 'g'<CR>
 
+
+	let g:which_key_vertical = 1
 	let g:WhichKeyFormatFunc = function('s:which_key_format')
 endfunction
 

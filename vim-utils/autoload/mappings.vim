@@ -110,9 +110,6 @@ function! mappings#Set() abort
 	nmap <localleader>G <plug>search_internet
 	xmap <localleader>G <plug>search_internet
 
-	nmap <localleader>A <plug>num_representation
-	xmap <localleader>A <plug>num_representation
-
 	" UtilsTagUpdateCurrFolder
 	nmap <silent> <localleader>t <plug>generate_tags
 	nnoremap <silent> <plug>generate_tags :call ctags#NvimSyncCtags()<cr>
@@ -275,11 +272,15 @@ function! mappings#Set() abort
 	vnoremap <S-x> <c-x>
 
 	nnoremap <S-CR> O<Esc>
-	" TODO-[RM]-(Mon Sep 18 2017 16:58): This is too rarely used. Turn it into
-	" command
+
+	" <Leader>n
 	" Display highlighted numbers as ascii chars. Only works on highlighted text
-	vnoremap <Leader>ah :<c-u>s/<count>\x\x/\=nr2char(printf("%d", "0x".submatch(0)))/g<cr><c-l>`<
-	vnoremap <Leader>ha :<c-u>s/\%V./\=printf("%x",char2nr(submatch(0)))/g<cr><c-l>`<
+	" Rarely works
+	" vnoremap <Leader>ah :<c-u>s/<count>\x\x/\=nr2char(printf("%d", "0x".submatch(0)))/g<cr><c-l>`<
+	vnoremap <Leader>nh :<c-u>s/\%V./\=printf("%x",char2nr(submatch(0)))/g<cr><c-l>`<
+	nmap <leader>nr <plug>num_representation
+	xmap <leader>nr <plug>num_representation
+
 
 	nnoremap <expr> n 'Nn'[v:searchforward]
 	nnoremap <expr> N 'nN'[v:searchforward]
@@ -402,21 +403,24 @@ function! mappings#Set() abort
 	" Version Control <Leader>v?
 	" For all this commands you should be in the svn root folder
 	" Add all files
-	nnoremap <Leader>vA :!svn add . --force<cr>
+	nnoremap <silent> <leader>vs :call version_control_command('status')<CR>
+	nnoremap <silent> <leader>vl :call version_control_command('log')<CR>
+
+	" nnoremap <Leader>vA :!svn add . --force<cr>
 	" Add specific files
-	nnoremap <Leader>va :!svn add --force
+	" nnoremap <Leader>va :!svn add --force
 	" Commit using typed message
-	nnoremap <Leader>vc :call <SID>svn_commit()<cr>
+	" nnoremap <Leader>vc :call <SID>svn_commit()<cr>
 	" Commit using File for commit content
-	nnoremap <Leader>vC :!svn commit --force-log -F %<cr>
-	nnoremap <Leader>vd :!svn rm --force
+	" nnoremap <Leader>vC :!svn commit --force-log -F %<cr>
+	" nnoremap <Leader>vd :!svn rm --force
 	" revert previous commit
 	"nnoremap <Leader>vr :!svn revert -R .<cr>
-	nnoremap <Leader>vl :!svn cleanup .<cr>
+	" nnoremap <Leader>vl :!svn cleanup .<cr>
 	" use this command line to delete unrevisioned or "?" svn files
 	" nnoremap <Leader>vL :!for /f "tokens=2*" %i in ('svn status ^| find "?"') do del %i<cr>
 	" nnoremap <Leader>vs :!svn status .<cr>
-	nnoremap <Leader>vu :!svn update .<cr>
+	" nnoremap <Leader>vu :!svn update .<cr>
 	" Overwritten from plugin.vim
 	" nnoremap <Leader>vo :!svn log .<cr>
 	" nnoremap <Leader>vi :!svn info<cr>
@@ -798,11 +802,17 @@ function! s:set_which_key_map() abort
 				\ }
 
 	let l:wings = {
-				\ 'name' : 'wings',
+				\ 'name' : '+wings',
 				\ '1' : 'OneWins1',
 				\ '2' : 'OneWins2',
 				\ 'a' : 'wings-dev',
 				\ 's' : 'SupportFiles',
+				\ }
+	let l:sessions = {
+				\ 'name' : '+sessions',
+				\ 's' : 'save',
+				\ 'l' : 'load',
+				\ 'e' : 'load_default',
 				\ }
 	let g:which_key_leader_map.e = {
 				\ 'name' : '+edit',
@@ -813,10 +823,11 @@ function! s:set_which_key_map() abort
 				\ 'p' : 'plugins_path',
 				\ 'v' : 'vimruntime',
 				\ 'w' : l:wings,
+				\ 'e' : l:sessions,
 				\ }
 
 	let g:which_key_leader_map.j = {
-				\ 'name' : 'misc',
+				\ 'name' : '+misc',
 				\ '2' : '2_char_indent',
 				\ '4' : '4_char_indent',
 				\ '8' : '8_char_indent',
@@ -825,6 +836,65 @@ function! s:set_which_key_map() abort
 				\ 's' : 'sync_from_start',
 				\ }
 
+	let g:which_key_leader_map.b = {
+				\ 'name' : '+buffers',
+				\ 'd' : 'delete_current',
+				\ 'l' : 'delete_all',
+				\ }
+
+	let g:which_key_leader_map.n = {
+				\ 'name' : '+num_representation',
+				\ 'h' : 'ascii_to_hex',
+				\ 'r' : 'radix_viewer',
+				\ }
+
+	let g:which_key_leader_map.v = {
+				\ 'name' : '+version_control',
+				\ 's' : 'status',
+				\ 'a' : 'add',
+				\ 'c' : 'commit',
+				\ 'p' : 'push',
+				\ 'u' : 'pull/update',
+				\ 'l' : 'log',
+				\ }
+
+  " TODO mappings Gtest
+	" TODO mappings for debuggers
+	" TODO mappings for lsp
+	" TODO mappings Utils commands. Specially the Markdown ones
+	" TODO mappings Utils commands. Specially the Markdown ones
+
 	" TODO-[RM]-(Thu Nov 08 2018 09:43): Create another global mapping for localleader 
+	" TODO-[RM]-(Thu Nov 08 2018 09:43): Also do it for ] and [
 	call which_key#register(g:mapleader, "g:which_key_leader_map")
+endfunction
+
+function! s:version_control_command(cmd) abort
+	if empty(a:cmd)
+		echoerr '[version_control_command]: Please provide a command'
+		return
+	endif
+
+	if a:cmd ==? 'status'
+		if exists(':Gstatus')
+			execute ':Gstatus'
+		elseif exists(':SVNStatus')
+			execute ':SVNStatus q'
+		else
+			echoerr '[version_control_command]: Please provide a command for status'
+			return
+		endif
+	elseif a:cmd ==? 'log'
+			if exists(':Glog')
+				execute ':Glog'
+			elseif exists(':SVNLog')
+				execute ':SVNLog .'
+			else
+				echoerr '[version_control_command]: Please provide a command for status'
+				return
+			endif
+		else
+			echoerr '[version_control_command]: Please provide support this command'
+			return
+	endif
 endfunction
