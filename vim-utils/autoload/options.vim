@@ -222,9 +222,14 @@ function! options#Set() abort
 
 	call s:set_syntax()
 
-	" Silly always set cool colors
+	" Silly, always set cool colors
 	set termguicolors
+
+	" Tue Nov 13 2018 22:39: Needed by Shuogo/echodoc.vim 
+	set noshowmode
 endfunction
+
+
 
 " CLI
 function! options#SetCli() abort
