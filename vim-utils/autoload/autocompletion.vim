@@ -617,7 +617,9 @@ function! s:set_shuogo_sources() abort
 	endif
 	Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
 	Plug 'Shougo/neco-syntax' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
-	Plug 'Shougo/echodoc' " Pop for functions info
+	Plug 'Shougo/echodoc.vim' " Pop for functions info
+		let g:echodoc#enable_at_startup = 1
+		let g:echodoc#type = 'echo'
 
 	" Mon Jan 15 2018 05:55: Not working very well
 	" Plug 'SevereOverfl0w/deoplete-github' " Pop for functions info
