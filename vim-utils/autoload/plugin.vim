@@ -1093,7 +1093,7 @@ function! s:configure_vim_which_key() abort
 	Plug 'liuchengxu/vim-which-key'
 	nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 	" nnoremap <silent> <localleader> :WhichKey 'g'<CR>
-	"
+
 	let g:WhichKeyFormatFunc = function('s:which_key_format')
 endfunction
 

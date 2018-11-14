@@ -153,9 +153,9 @@ function! mappings#Set() abort
 	" Count occurrances of last search
 	nnoremap <Leader>jc :%s///gn<cr>
 	" Indenting
-	nnoremap <Leader>2 :setlocal ts=2 sw=2 sts=2<cr>
-	nnoremap <Leader>4 :setlocal ts=4 sw=4 sts=4<cr>
-	nnoremap <Leader>8 :setlocal ts=8 sw=8 sts=8<cr>
+	nnoremap <Leader>j2 :setlocal ts=2 sw=2 sts=2<cr>
+	nnoremap <Leader>j4 :setlocal ts=4 sw=4 sts=4<cr>
+	nnoremap <Leader>j8 :setlocal ts=8 sw=8 sts=8<cr>
 	" not paste the deleted word
 	nnoremap P "0p
 	vnoremap P "0p
@@ -447,7 +447,6 @@ function! mappings#Set() abort
 
 	" Edit file at location <Leader>e?
 	nnoremap <Leader>ed :call utils#DeniteRec(g:std_config_path . '/dotfiles')<cr>
-	nnoremap <Leader>em :call utils#DeniteRec('~/Seafile/masters/')<cr>
 	nnoremap <Leader>ec :call utils#DeniteRec(getcwd())<cr>
 	nnoremap <Leader>el :call utils#DeniteRec(input('Folder to recurse: ', "", "file"))<cr>
 
@@ -796,6 +795,34 @@ function! s:set_which_key_map() abort
 				\ 'd' : 'current_file',
 				\ 'u' : 'one_folder_up',
 				\ 'c' : 'display_curr_work_dir',
+				\ }
+
+	let l:wings = {
+				\ 'name' : 'wings',
+				\ '1' : 'OneWins1',
+				\ '2' : 'OneWins2',
+				\ 'a' : 'wings-dev',
+				\ 's' : 'SupportFiles',
+				\ }
+	let g:which_key_leader_map.e = {
+				\ 'name' : '+edit',
+				\ 'd' : 'dotfiles',
+				\ 'c' : 'current_dir',
+				\ 'l' : 'specific_location',
+				\ 't' : 'todo',
+				\ 'p' : 'plugins_path',
+				\ 'v' : 'vimruntime',
+				\ 'w' : l:wings,
+				\ }
+
+	let g:which_key_leader_map.j = {
+				\ 'name' : 'misc',
+				\ '2' : '2_char_indent',
+				\ '4' : '4_char_indent',
+				\ '8' : '8_char_indent',
+				\ 'w' : 'wings_syntax',
+				\ '.' : 'repeat_last_command',
+				\ 's' : 'sync_from_start',
 				\ }
 
 	" TODO-[RM]-(Thu Nov 08 2018 09:43): Create another global mapping for localleader 
