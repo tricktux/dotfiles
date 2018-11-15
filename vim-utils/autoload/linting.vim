@@ -277,19 +277,9 @@ function! linting#SetNeomakePandocMaker(type) abort
 				\ 'cwd': '%:p:h'
 				\ }
 
-	if !exists('b:neomake_markdown_enabled_makers')
-		let g:neomake_markdown_enabled_makers = [l:maker]
-		return
-	endif
-
-	for l:ma in b:neomake_markdown_enabled_makers
-		if l:ma ==# l:maker
-			let l:ma = l:maker
-			return
-		endif
-	endfor
-
-	let g:neomake_markdown_enabled_makers += [l:maker]
+  " Too fancy to enable multiple markdown makers. Just enable this one and call it the
+	" day. If you want others just call on them
+	let g:neomake_markdown_enabled_makers = [l:maker]
 endfunction
 
 function! linting#SetNeomakeMakeMaker() abort
