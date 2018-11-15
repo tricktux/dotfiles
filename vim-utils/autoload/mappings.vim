@@ -906,7 +906,7 @@ function! s:set_which_key_map() abort
 	let g:which_key_localleader_map.g = 'which_key_ignore'
 	let g:which_key_localleader_map.d = 'which_key_ignore'
 	let g:which_key_localleader_map.D = 'which_key_ignore'
-	let g:which_key_localleader_map.; = 'which_key_ignore'
+	" let g:which_key_localleader_map.; = 'which_key_ignore'
 	let g:which_key_localleader_map.q = 'which_key_ignore'
 
   " TODO mappings Gtest

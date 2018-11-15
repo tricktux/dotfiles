@@ -80,6 +80,7 @@ function! plugin#Config()
 
 	" Possible Replacement `asyncvim`
 	Plug 'tpope/vim-dispatch'
+		let g:dispatch_no_maps = 1
 
 	call s:configure_vim_table_mode()
 
@@ -1062,6 +1063,7 @@ function! s:configure_vim_which_key() abort
 	nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 	vnoremap <silent> <leader> :WhichKeyVisual '<Space>'<CR>
 	nnoremap <silent> <localleader> :WhichKey 'g'<CR>
+	nnoremap <silent> <localleader> :WhichKeyVisual 'g'<CR>
 
 
 	let g:which_key_flatten = 0
