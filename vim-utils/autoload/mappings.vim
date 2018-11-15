@@ -5,7 +5,7 @@
 " Last Modified: Aug 22 2017 12:33
 " Created: Aug 22 2017 12:33
 
-function! mappings#Set() abort
+function! mappings#Set()
 	" CUSTOM MAPPINGS
 	if has('unix')
 		" System paste
@@ -91,15 +91,6 @@ function! mappings#Set() abort
 		tnoremap <C-p> <Up>
 	endif
 
-	nmap <localleader>s <plug>search_grep
-	xmap <localleader>s <plug>search_grep
-
-	nnoremap <silent> <plug>search_grep :Grip<cr>
-	" xnoremap <silent> <plug>search_grep :call <SID>grep()<cr>
-
-	nmap <localleader>P <plug>get_passwd
-	nnoremap <plug>get_passwd :silent call passwd#SelectPasswdFile()<cr>
-
 	nmap <localleader>k <plug>make_project
 	nmap <localleader>j <plug>make_file
 	nmap <localleader>c <plug>make_check
@@ -107,8 +98,6 @@ function! mappings#Set() abort
 
 	nmap <localleader>a <plug>switch_header_source
 
-	nmap <localleader>G <plug>search_internet
-	xmap <localleader>G <plug>search_internet
 
 	" UtilsTagUpdateCurrFolder
 	nmap <silent> <localleader>t <plug>generate_tags
@@ -136,6 +125,18 @@ function! mappings#Set() abort
 	imap <c-k> <plug>snip_expand
 	smap <c-k> <plug>snip_expand
 	xmap <c-k> <plug>snip_expand
+
+	nmap <leader>s <plug>search_grep
+	xmap <leader>s <plug>search_grep
+
+	nnoremap <silent> <plug>search_grep :Grip<cr>
+	" xnoremap <silent> <plug>search_grep :call <SID>grep()<cr>
+
+	nmap <leader>W <plug>get_passwd
+	nnoremap <plug>get_passwd :silent call passwd#SelectPasswdFile()<cr>
+
+	nmap <leader>G <plug>search_internet
+	xmap <leader>G <plug>search_internet
 
 	nnoremap <Leader>tt :TagbarToggle<cr>
 	nnoremap <Leader>ts :setlocal spell!<cr>
@@ -779,8 +780,7 @@ function! s:add_file(path) abort
 	execute 'edit ' . l:new_file
 endfunction
 
-function! Set_which_key_map() abort
-	
+function! s:set_which_key_map() abort
 	" Define prefix dictionary
 	let g:which_key_leader_map =  {}
 
@@ -840,7 +840,7 @@ function! Set_which_key_map() abort
 				\ }
 
 	let g:which_key_leader_map.b = {
-				\ 'name' : '+buffers',
+				\ 'name' : '+buffers/Bookmarks',
 				\ 'd' : 'delete_current',
 				\ 'l' : 'delete_all',
 				\ }
@@ -894,7 +894,20 @@ function! Set_which_key_map() abort
 	let g:which_key_leader_map.d = 'duplicate_char'
 	let g:which_key_leader_map.p = 'paste_from_system'
 	let g:which_key_leader_map.y = 'yank_to_system'
+	let g:which_key_leader_map.C = ['Calendar', 'calendar']
 
+	" This mappings are needed so that you can use it
+	nnoremap gg gg
+	nnoremap gd gd
+	nnoremap gD gD
+	nnoremap g; g;
+	nnoremap gq gq
+	let g:which_key_localleader_map = {}
+	let g:which_key_localleader_map.g = 'which_key_ignore'
+	let g:which_key_localleader_map.d = 'which_key_ignore'
+	let g:which_key_localleader_map.D = 'which_key_ignore'
+	let g:which_key_localleader_map.; = 'which_key_ignore'
+	let g:which_key_localleader_map.q = 'which_key_ignore'
 
   " TODO mappings Gtest
 	" TODO mappings for debuggers lldb
@@ -908,6 +921,7 @@ function! Set_which_key_map() abort
 	" TODO-[RM]-(Thu Nov 08 2018 09:43): Create another global mapping for localleader 
 	" TODO-[RM]-(Thu Nov 08 2018 09:43): Also do it for ] and [
 	call which_key#register(g:mapleader, "g:which_key_leader_map")
+	call which_key#register(g:maplocalleader, "g:which_key_localleader_map")
 endfunction
 
 function! s:version_control_command(cmd) abort

@@ -1061,7 +1061,7 @@ function! s:configure_vim_which_key() abort
 	Plug 'liuchengxu/vim-which-key'
 	nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 	vnoremap <silent> <leader> :WhichKeyVisual '<Space>'<CR>
-	" nnoremap <silent> <localleader> :WhichKey 'g'<CR>
+	nnoremap <silent> <localleader> :WhichKey 'g'<CR>
 
 
 	let g:which_key_flatten = 0
