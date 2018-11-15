@@ -68,12 +68,13 @@ function! options#Set() abort
 	" timeout the same
 	if !exists('g:exists_vim_which_key')
 		set notimeout
+	else
+		set timeoutlen=200
 	endif
 	set nottimeout
 	" cant remember why I had a timeout len I think it was
 	" in order to use <c-j> in cli vim for esc
 	" removing it see what happens
-	set timeoutlen=500
 	" set ttimeoutlen=0
 	set listchars+=precedes:<,extends:> " show indication that line continues
 	set wrapmargin=2
