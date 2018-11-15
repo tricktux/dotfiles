@@ -62,6 +62,12 @@ if !exists('no_plugin_maps') && !exists('no_c_maps')
 	if exists('g:clang_format_py')
 		nmap <buffer> <plug>format_code :execute('pyf ' . g:clang_format_py)<cr>
 	endif
+
+	if exists(':GTestRun')
+		" Attempt to guess executable test
+		let g:gtest#gtest_command = (has('unix') ? '.' : '') .
+					\ expand('%:p:r') . (has('unix') ? '' : '.exe')
+	endif
 endif
 
 function! s:time_exe_win(...) abort
