@@ -73,7 +73,7 @@ function! options#Set() abort
 	" cant remember why I had a timeout len I think it was
 	" in order to use <c-j> in cli vim for esc
 	" removing it see what happens
-	" set timeoutlen=1000
+	set timeoutlen=500
 	" set ttimeoutlen=0
 	set listchars+=precedes:<,extends:> " show indication that line continues
 	set wrapmargin=2
@@ -228,8 +228,6 @@ function! options#Set() abort
 	" Tue Nov 13 2018 22:39: Needed by Shuogo/echodoc.vim 
 	set noshowmode
 endfunction
-
-
 
 " CLI
 function! options#SetCli() abort
