@@ -432,6 +432,11 @@ function! plugin#Config()
 
 	call s:configure_vim_which_key()
 
+	" Plug  'tpope/vim-abolish'
+	" Want to turn fooBar into foo_bar? Press crs (coerce to snake_case).
+	" MixedCase (crm), camelCase (crc), snake_case (crs), UPPER_CASE (cru), dash-case (cr-),
+	" dot.case (cr.), space case (cr<space>), and Title Case (crt) are all just 3 keystrokes away.
+
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
@@ -1063,8 +1068,12 @@ function! s:configure_vim_which_key() abort
 	nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 	vnoremap <silent> <leader> :WhichKeyVisual '<Space>'<CR>
 	nnoremap <silent> <localleader> :WhichKey 'g'<CR>
-	nnoremap <silent> <localleader> :WhichKeyVisual 'g'<CR>
+	vnoremap <silent> <localleader> :WhichKeyVisual 'g'<CR>
 
+	nnoremap <silent> ] :WhichKey ']'<CR>
+	vnoremap <silent> ] :WhichKeyVisual ']'<CR>
+	nnoremap <silent> [ :WhichKey '['<CR>
+	vnoremap <silent> [ :WhichKeyVisual '['<CR>
 
 	let g:which_key_flatten = 0
 	let g:which_key_hspace = 80

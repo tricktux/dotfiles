@@ -91,17 +91,15 @@ function! mappings#Set()
 		tnoremap <C-p> <Up>
 	endif
 
-	nmap <localleader>k <plug>make_project
+	nnoremap <localleader>k <plug>make_project
 	nmap <localleader>j <plug>make_file
 	nmap <localleader>c <plug>make_check
-	nmap <localleader>p <plug>preview
 
-	nmap <localleader>a <plug>switch_header_source
-
-
-	" UtilsTagUpdateCurrFolder
-	nmap <silent> <localleader>t <plug>generate_tags
-	nnoremap <silent> <plug>generate_tags :call ctags#NvimSyncCtags()<cr>
+	" Doesnt make sense in all file types
+	" nmap <localleader>p <plug>preview
+	" nmap <localleader>a <plug>switch_header_source
+	" nmap <localleader>ii <plug>imports_insert
+	" nmap <localleader>is <plug>imports_sort
 
 	nmap <localleader>f <plug>format_code
 	xmap <localleader>f <plug>format_code
@@ -112,11 +110,6 @@ function! mappings#Set()
 	" Refactor word under the cursor
 	nmap <localleader>r <plug>refactor_code
 	xmap <localleader>r <plug>refactor_code
-
-	nmap <localleader>h <plug>help_under_cursor
-
-	nmap <localleader>ii <plug>imports_insert
-	nmap <localleader>is <plug>imports_sort
 
 	nnoremap <plug>refactor_code :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
 	xnoremap <plug>refactor_code "hy:%s/<C-r>h//gc<left><left><left>
@@ -135,8 +128,13 @@ function! mappings#Set()
 	nmap <leader>W <plug>get_passwd
 	nnoremap <plug>get_passwd :silent call passwd#SelectPasswdFile()<cr>
 
+	" TODO-[RM]-(Thu Nov 15 2018 16:58): These two could be combined 
+	nmap <localleader>h <plug>help_under_cursor
 	nmap <leader>G <plug>search_internet
 	xmap <leader>G <plug>search_internet
+
+	nmap <leader>T <plug>generate_tags
+	nnoremap <silent> <plug>generate_tags :call ctags#NvimSyncCtags()<cr>
 
 	nnoremap <Leader>tt :TagbarToggle<cr>
 	nnoremap <Leader>ts :setlocal spell!<cr>
@@ -206,6 +204,7 @@ function! mappings#Set()
 	inoremap <F5> <Space><ESC>"=strftime("%a %b %d %Y %H:%M")<cr>Pa
 	" Auto indent pasted text
 	nnoremap p p=`]<C-o>
+	nnoremap Y y$
 
 	" Vim-unimpaired similar mappings
 	" Do not overwrite [s, [c, [f
@@ -233,14 +232,13 @@ function! mappings#Set()
 	nnoremap <silent> <s-u> :call quickfix#ToggleList("Location List", 'l')<cr>
 	nnoremap ]l :lnext<cr>
 	nnoremap [l :lprevious<cr>
-	nnoremap Y y$
 
 	nnoremap ]t :exec 'tjump ' . expand('<cword>')<cr>
 	nnoremap [t <c-t>
 	" Split window and jump to tag
 	" nnoremap ]T :exec 'ptag ' . expand('<cword>')<cr><c-w>R
-	nnoremap <silent> ]T :call <SID>goto_tag_on_next_win('l')<cr>
-	nnoremap <silent> [T :call <SID>goto_tag_on_next_win('h')<cr>
+	nnoremap ]T :call <SID>goto_tag_on_next_win('l')<cr>
+	nnoremap [T :call <SID>goto_tag_on_next_win('h')<cr>
 
 	" Capital F because [f is go to file and this is rarely used
 	" ]f native go into file.
@@ -265,8 +263,8 @@ function! mappings#Set()
 	endfor
 
 	" Create an undo break point. Mark current possition. Go to word. Fix and come back.
-	nnoremap <silent> ]S :normal! i<c-g>u<esc>mm]s1z=`m<cr>
-	nnoremap <silent> [S :normal! i<c-g>u<esc>mm[s1z=`m<cr>
+	nnoremap ]S :normal! i<c-g>u<esc>mm]s1z=`m<cr>
+	nnoremap [S :normal! i<c-g>u<esc>mm[s1z=`m<cr>
 
 	" decrease number
 	nnoremap <S-x> <c-x>
@@ -577,6 +575,7 @@ endfunction
 " Opens the tag on new split in the direction specified
 " direction - {h,l}
 function! s:goto_tag_on_next_win(direction) abort
+	echomsg '[goto_tag_on_next_win]: Got called!'
 	let target = expand('<cword>')
 	let wnr = winnr()
 	exec 'wincmd ' . a:direction
@@ -902,26 +901,71 @@ function! s:set_which_key_map() abort
 	nnoremap gD gD
 	nnoremap g; g;
 	nnoremap gq gq
+	nnoremap gv gv
 	let g:which_key_localleader_map = {}
 	let g:which_key_localleader_map.g = 'which_key_ignore'
 	let g:which_key_localleader_map.d = 'which_key_ignore'
 	let g:which_key_localleader_map.D = 'which_key_ignore'
-	" let g:which_key_localleader_map.; = 'which_key_ignore'
+	let g:which_key_localleader_map[';'] = 'which_key_ignore'
 	let g:which_key_localleader_map.q = 'which_key_ignore'
+	let g:which_key_localleader_map['%'] = 'which_key_ignore'
+	let g:which_key_localleader_map.C = 'which_key_ignore'
+
+	" Note: Do not add global mappings here
+	" As they will show up for all buffers.
+	
+	let g:which_key_right_bracket_map = {}
+	let g:which_key_right_bracket_map.c = 'next_diff'
+	let g:which_key_right_bracket_map.y = 'yank_from_next_lines'
+	let g:which_key_right_bracket_map.d = 'delete_next_lines'
+	let g:which_key_right_bracket_map.o = 'comment_next_lines'
+	let g:which_key_right_bracket_map.m = 'move_line_below'
+	let g:which_key_right_bracket_map.q = 'next_quickfix_item'
+	let g:which_key_right_bracket_map.l = 'next_location_list_item'
+	let g:which_key_right_bracket_map.t = 'goto_tag_under_cursor'
+	let g:which_key_right_bracket_map.T = 'goto_tag_under_cursor_on_right_win'
+	let g:which_key_right_bracket_map.f = 'goto_file_under_cursor'
+	let g:which_key_right_bracket_map.F = 'goto_file_under_cursor_on_right_win'
+	let g:which_key_right_bracket_map.z = 'scroll_right'
+	let g:which_key_right_bracket_map.Z = 'scroll_up'
+	let g:which_key_right_bracket_map.s = 'goto_next_spell_error'
+	let g:which_key_right_bracket_map.S = 'fix_next_spell_error'
+	let g:which_key_right_bracket_map[']'] = 'which_key_ignore'
+	let g:which_key_right_bracket_map['['] = 'which_key_ignore'
+	let g:which_key_right_bracket_map['"'] = 'which_key_ignore'
+	let g:which_key_right_bracket_map['%'] = 'which_key_ignore'
+
+	let g:which_key_left_bracket_map = {}
+	let g:which_key_left_bracket_map.c = 'prev_diff'
+	let g:which_key_left_bracket_map.y = 'yank_from_prev_lines'
+	let g:which_key_left_bracket_map.d = 'delete_prev_lines'
+	let g:which_key_left_bracket_map.o = 'comment_prev_lines'
+	let g:which_key_left_bracket_map.m = 'move_line_up'
+	let g:which_key_left_bracket_map.q = 'prev_quickfix_item'
+	let g:which_key_left_bracket_map.l = 'prev_location_list_item'
+	let g:which_key_left_bracket_map.t = 'pop_tag_stack'
+	let g:which_key_left_bracket_map.T = 'goto_tag_under_cursor_on_left_win'
+	let g:which_key_left_bracket_map.f = 'go_back_one_file'
+	let g:which_key_left_bracket_map.F = 'goto_file_under_cursor_on_left_win'
+	let g:which_key_left_bracket_map.z = 'scroll_left'
+	let g:which_key_left_bracket_map.Z = 'scroll_down'
+	let g:which_key_left_bracket_map.s = 'goto_prev_spell_error'
+	let g:which_key_left_bracket_map.S = 'fix_prev_spell_error'
+	let g:which_key_left_bracket_map[']'] = 'which_key_ignore'
+	let g:which_key_left_bracket_map['['] = 'which_key_ignore'
+	let g:which_key_left_bracket_map['"'] = 'which_key_ignore'
+	let g:which_key_left_bracket_map['%'] = 'which_key_ignore'
 
   " TODO mappings Gtest
 	" TODO mappings for debuggers lldb
 	" TODO mappings for lsp
-	" TODO mappings Utils commands. Specially the Markdown ones
 	" TODO mappings for searching files
 	" TODO mappings for spells
-	" TODO mappings for [ and ] mappings
-	" TODO mappings for fix localleader
 
-	" TODO-[RM]-(Thu Nov 08 2018 09:43): Create another global mapping for localleader 
-	" TODO-[RM]-(Thu Nov 08 2018 09:43): Also do it for ] and [
 	call which_key#register(g:mapleader, "g:which_key_leader_map")
 	call which_key#register(g:maplocalleader, "g:which_key_localleader_map")
+	call which_key#register(']', "g:which_key_right_bracket_map")
+	call which_key#register('[', "g:which_key_left_bracket_map")
 endfunction
 
 function! s:version_control_command(cmd) abort
