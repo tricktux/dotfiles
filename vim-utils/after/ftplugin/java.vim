@@ -24,8 +24,8 @@ if !exists("no_plugin_maps") && !exists("no_java_maps")
 	" Special mappings go here
 
 	if exists("g:loaded_sortimport")
-		nnoremap <buffer> <plug>imports_insert <Plug>JavaInsertImport
-		nnoremap <buffer> <plug>imports_sort <Plug>JavaSortImport
+		nmap <buffer> <localleader>ii <Plug>JavaInsertImport
+		nmap <buffer> <localleader>is <Plug>JavaSortImport
 	endif
 endif
 
