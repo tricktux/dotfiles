@@ -19,16 +19,6 @@ function! plugin#Config()
 		return -1
 	endif
 
-	" Vim-Plug
-	nnoremap <Leader>Pi :so %<bar>call plugin#Config()<bar>PlugInstall<CR>
-	nnoremap <Leader>Pu :PlugUpdate<CR>
-				\:PlugUpgrade<CR>
-				\:UpdateRemotePlugins<CR>
-	" installs plugins; append `!` to update or just :PluginUpdate
-	nnoremap <Leader>Ps :PlugSearch<CR>
-	" searches for foo; append `!` to refresh local cache
-	nnoremap <Leader>Pl :PlugClean<CR>
-
 	if exists('g:portable_vim') && g:portable_vim == 1
 		silent! call plug#begin(g:vim_plugins_path)
 	else
@@ -162,32 +152,19 @@ function! plugin#Config()
 	let g:vim_isort_map = ''
 	let g:vim_isort_python_version = 'python3'
 
-	" java
-	" Wed Jul 11 2018 06:06: Replaced by the java-lsp: jdtls
-	" Plug 'mattn/vim-javafmt', { 'for' : 'java' }
-	" Plug 'tfnico/vim-gradle', { 'for' : 'java' }
-	" Plug 'artur-shaik/vim-javacomplete2', { 'branch' : 'master', 'for' : 'java' }
-	" let g:JavaComplete_ClosingBrace = 1
-	" let g:JavaComplete_EnableDefaultMappings = 0
-	" let g:JavaComplete_ImportSortType = 'packageName'
-	" let g:JavaComplete_ImportOrder = ['android.', 'com.', 'junit.', 'net.', 'org.', 'java.', 'javax.']
-
 	" Autocomplete
 	" Version control
 	Plug 'tpope/vim-fugitive'
-	" Fugitive <Leader>g?
-	" nmap here is needed for the <C-n> to work. Otherwise it doesnt know what
-	" it means
-	nmap <Leader>gs :Gstatus<CR><C-w>L<C-n>
-	nnoremap <Leader>gps :Gpush<CR>
-	nnoremap <Leader>gpl :Gpull<CR>
-	nnoremap <Leader>gl :silent Glog<CR>
-				\:copen 20<CR>
 
-	Plug 'mhinz/vim-signify'
+	Plug 'mhinz/vim-signify', { 'on' : ['SignifyToggle', 'SignifyDiff'] }
 	" Mappings are ]c next differences
 	" Mappings are [c prev differences
 	" Gets enabled when you call SignifyToggle
+	let g:signify_vcs_list = [ 'git', 'svn' ]
+	let g:signify_cursorhold_insert     = 1
+	let g:signify_cursorhold_normal     = 1
+	let g:signify_update_on_bufenter    = 0
+	let g:signify_update_on_focusgained = 1
 	let g:signify_disable_by_default = 1
 	let g:signify_vcs_list = [ 'git', 'svn' ]
 
@@ -425,12 +402,6 @@ function! plugin#Config()
 
 	Plug 'alepez/vim-gtest', { 'for' : ['c', 'cpp'] }
 
-	Plug 'mhinz/vim-signify'
-	let g:signify_vcs_list = [ 'git', 'svn' ]
-	let g:signify_cursorhold_insert     = 1
-	let g:signify_cursorhold_normal     = 1
-	let g:signify_update_on_bufenter    = 0
-	let g:signify_update_on_focusgained = 1
 
 	Plug 'Peaches491/vim-glog-syntax'
 
@@ -1093,7 +1064,8 @@ function! s:configure_vim_which_key() abort
 	" nnoremap <silent> <localleader> :WhichKey 'g'<CR>
 
 
-	let g:which_key_vertical = 1
+	let g:which_key_flatten = 0
+	let g:which_key_hspace = 80
 	let g:WhichKeyFormatFunc = function('s:which_key_format')
 endfunction
 

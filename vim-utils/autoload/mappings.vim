@@ -62,7 +62,7 @@ function! mappings#Set() abort
 	" - gd, gD, g;, gq, gs, gl, gA, gT, gg, G, gG, gh, gv, gn, gm, gx, gt, gr
 	" Toggle mappings:
 	" - tj, te, ta, tt, tf, ts, to, tn
-	nmap <Leader>tj <Plug>file_browser
+	nmap <Leader>f <Plug>file_browser
 	nmap <leader>tf <plug>focus_toggle
 
 	nmap <s-k> <plug>buffer_browser
@@ -403,8 +403,11 @@ function! mappings#Set() abort
 	" Version Control <Leader>v?
 	" For all this commands you should be in the svn root folder
 	" Add all files
-	nnoremap <silent> <leader>vs :call version_control_command('status')<CR>
-	nnoremap <silent> <leader>vl :call version_control_command('log')<CR>
+	nnoremap <silent> <leader>vs :call <SID>version_control_command('status')<CR>
+	nnoremap <silent> <leader>vl :call <SID>version_control_command('log')<CR>
+	nnoremap <silent> <leader>vc :call <SID>version_control_command('commit')<CR>
+	nnoremap <silent> <leader>vp :call <SID>version_control_command('push')<CR>
+	nnoremap <silent> <leader>vu :call <SID>version_control_command('pull')<CR>
 
 	" nnoremap <Leader>vA :!svn add . --force<cr>
 	" Add specific files
@@ -427,11 +430,9 @@ function! mappings#Set() abort
 
 	" Wiki mappings <Leader>w?
 	" TODO.RM-Thu Dec 15 2016 16:00: Add support for wiki under SW-Testbed
-	nnoremap <Leader>wt :call <SID>wiki_open('TODO.md')<cr>
 	nnoremap <Leader>wo :call <SID>wiki_open()<cr>
 	nnoremap <Leader>wa :call <SID>wiki_add()<cr>
 	nnoremap <Leader>ws :call utils#WikiSearch()<cr>
-	nnoremap <Leader>wm :call utils#MastersDropboxOpen('')<cr>
 
 	" Comments <Leader>o
 	nmap - <plug>NERDCommenterToggle
@@ -778,7 +779,7 @@ function! s:add_file(path) abort
 	execute 'edit ' . l:new_file
 endfunction
 
-function! s:set_which_key_map() abort
+function! Set_which_key_map() abort
 	
 	" Define prefix dictionary
 	let g:which_key_leader_map =  {}
@@ -808,12 +809,7 @@ function! s:set_which_key_map() abort
 				\ 'a' : 'wings-dev',
 				\ 's' : 'SupportFiles',
 				\ }
-	let l:sessions = {
-				\ 'name' : '+sessions',
-				\ 's' : 'save',
-				\ 'l' : 'load',
-				\ 'e' : 'load_default',
-				\ }
+
 	let g:which_key_leader_map.e = {
 				\ 'name' : '+edit',
 				\ 'd' : 'dotfiles',
@@ -823,9 +819,14 @@ function! s:set_which_key_map() abort
 				\ 'p' : 'plugins_path',
 				\ 'v' : 'vimruntime',
 				\ 'w' : l:wings,
-				\ 'e' : l:sessions,
 				\ }
 
+	let l:sessions = {
+				\ 'name' : '+sessions',
+				\ 's' : 'save',
+				\ 'l' : 'load',
+				\ 'e' : 'load_default',
+				\ }
 	let g:which_key_leader_map.j = {
 				\ 'name' : '+misc',
 				\ '2' : '2_char_indent',
@@ -834,6 +835,8 @@ function! s:set_which_key_map() abort
 				\ 'w' : 'wings_syntax',
 				\ '.' : 'repeat_last_command',
 				\ 's' : 'sync_from_start',
+				\ 'c' : 'count_last_search',
+				\ 'e' : l:sessions,
 				\ }
 
 	let g:which_key_leader_map.b = {
@@ -856,13 +859,51 @@ function! s:set_which_key_map() abort
 				\ 'p' : 'push',
 				\ 'u' : 'pull/update',
 				\ 'l' : 'log',
+				\ 'S' : ['SignifyToggle' ,'signify_toggle'],
+				\ 'd' : ['SignifyDiff' ,'signify_diff'],
 				\ }
 
+	let g:which_key_leader_map.w = {
+				\ 'name' : '+wiki',
+				\ 'o' : 'open',
+				\ 'a' : 'add',
+				\ 's' : 'search',
+				\ }
+
+	let g:which_key_leader_map.o = {
+				\ 'name' : '+comments',
+				\ 'I' : 'reduce_indent',
+				\ 'i' : 'increase_indent',
+				\ 'a' : 'append',
+				\ 'u' : 'update_header_date',
+				\ 'e' : 'end_of_if_comment',
+				\ 't' : 'add_todo',
+				\ 'd' : 'delete',
+				\ }
+
+	let g:which_key_leader_map.P = {
+				\ 'name' : '+plugins',
+				\ 'i' : ['so %<bar>call plugin#Config()<bar>PlugInstall<CR>', 'install'],
+				\ 'u' : ['PlugUpdate', 'update'],
+				\ 'r' : ['UpdateRemotePlugins', 'update_remote_plugins'],
+				\ 'g' : ['PlugUpgrade', 'upgrade_vim_plug'],
+				\ 's' : ['PlugSearch', 'search'],
+				\ 'l' : ['PlugClean', 'clean'],
+				\ }
+
+	let g:which_key_leader_map.d = 'duplicate_char'
+	let g:which_key_leader_map.p = 'paste_from_system'
+	let g:which_key_leader_map.y = 'yank_to_system'
+
+
   " TODO mappings Gtest
-	" TODO mappings for debuggers
+	" TODO mappings for debuggers lldb
 	" TODO mappings for lsp
 	" TODO mappings Utils commands. Specially the Markdown ones
-	" TODO mappings Utils commands. Specially the Markdown ones
+	" TODO mappings for searching files
+	" TODO mappings for spells
+	" TODO mappings for [ and ] mappings
+	" TODO mappings for fix localleader
 
 	" TODO-[RM]-(Thu Nov 08 2018 09:43): Create another global mapping for localleader 
 	" TODO-[RM]-(Thu Nov 08 2018 09:43): Also do it for ] and [
@@ -877,6 +918,9 @@ function! s:version_control_command(cmd) abort
 
 	if a:cmd ==? 'status'
 		if exists(':Gstatus')
+			" nmap here is needed for the <C-n> to work. Otherwise it doesnt know what
+			" it means. This below is if you want it horizontal
+			" nmap <Leader>gs :Gstatus<CR><C-w>L<C-n>
 			execute ':Gstatus'
 		elseif exists(':SVNStatus')
 			execute ':SVNStatus q'
@@ -890,7 +934,32 @@ function! s:version_control_command(cmd) abort
 			elseif exists(':SVNLog')
 				execute ':SVNLog .'
 			else
-				echoerr '[version_control_command]: Please provide a command for status'
+				echoerr '[version_control_command]: Please provide a command for log'
+				return
+			endif
+		elseif a:cmd ==? 'commit'
+			if exists(':Gcommit')
+				execute ':Gcommit'
+			elseif exists(':SVNCommit')
+				execute ':SVNCommit .'
+			else
+				echoerr '[version_control_command]: Please provide a command for commit'
+				return
+			endif
+		elseif a:cmd ==? 'push'
+			if exists(':Gpush')
+				execute ':Gpush'
+			else
+				echoerr '[version_control_command]: Please provide a command for commit'
+				return
+			endif
+		elseif a:cmd ==? 'pull'
+			if exists(':Gpull')
+				execute ':Gpull'
+			elseif exists(':SVNUpdate')
+				execute ':SVNUpdate .'
+			else
+				echoerr '[version_control_command]: Please provide a command for pull'
 				return
 			endif
 		else
