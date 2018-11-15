@@ -100,6 +100,10 @@ function! s:set_compiler_and_others() abort
 	command! -buffer UtilsCompilerBorland call linting#SetNeomakeBorlandMaker()
 	command! -buffer UtilsCompilerMsbuild call linting#SetNeomakeMsBuildMaker()
 	command! -buffer UtilsCompilerClangNeomake call linting#SetNeomakeClangMaker()
+	nnoremap <buffer> <localleader>mg :UtilsCompilerGcc<cr>
+	nnoremap <buffer> <localleader>mb :UtilsCompilerBorland<cr>
+	nnoremap <buffer> <localleader>mm :UtilsCompilerMsbuild<cr>
+	nnoremap <buffer> <localleader>mc :UtilsCompilerClangNeomake<cr>
 
 	" Time runtime of a specific program. Pass as Argument executable with arguments. Pass as Argument executable with
 	" arguments. Example sep_calc.exe seprc.
