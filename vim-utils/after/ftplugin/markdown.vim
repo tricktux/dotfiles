@@ -44,12 +44,18 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	endif
 
 	if executable('qpdfview')
-		nnoremap <silent> <buffer> <Plug>preview :!qpdfview --unique --quiet %:r.pdf&<cr>
+		nnoremap <silent> <buffer> <localleader>p :!qpdfview --unique --quiet %:r.pdf&<cr>
 	endif
 
 	if executable('SumatraPDF')
-		nnoremap <silent> <buffer> <Plug>preview :!SumatraPDF %:r.pdf<cr>
+		nnoremap <silent> <buffer> <localleader>p :!SumatraPDF %:r.pdf<cr>
 	endif
+
+	nnoremap <buffer> <localleader>mp :UtilsMarkdownPandocPdfMaker<cr>
+	nnoremap <buffer> <localleader>md :UtilsMarkdownPandocDocxMaker<cr>
+	nnoremap <buffer> <localleader>mh :UtilsMarkdownPandocHtmlMaker<cr>
+	nnoremap <buffer> <localleader>ms :UtilsMarkdownPandocPdfSlidesMaker<cr>
+	nnoremap <buffer> <localleader>mx :UtilsMarkdownPandocPptxSlidesMaker<cr>
 endif
 
 if exists('*AutoCorrect')
