@@ -314,6 +314,10 @@ function! s:set_language_client(has_unix) abort
 		call extend(g:LanguageClient_serverCommands, l:chosen_java_server)
 	endif
 
+	if exists('g:lightline')
+		let g:lightline.active.left[2] += [ 'lsp' ]
+		let g:lightline.component_function['lsp'] = 'LanguageClient#statusLine'
+	endif
 	return 1
 endfunction
 
