@@ -129,7 +129,7 @@ function! mappings#Set()
 	nnoremap <plug>get_passwd :silent call passwd#SelectPasswdFile()<cr>
 
 	" TODO-[RM]-(Thu Nov 15 2018 16:58): These two could be combined 
-	nmap <localleader>h <plug>help_under_cursor
+	" nmap <localleader>h <plug>help_under_cursor
 	nmap <leader>G <plug>search_internet
 	xmap <leader>G <plug>search_internet
 
@@ -835,6 +835,8 @@ function! s:set_which_key_map() abort
 				\ '.' : 'repeat_last_command',
 				\ 's' : 'sync_from_start',
 				\ 'c' : 'count_last_search',
+				\ '-' : ['UtilsFontZoomOut', 'font_decrease'],
+				\ '=' : ['UtilsFontZoomIn', 'font_increase'],
 				\ 'e' : l:sessions,
 				\ }
 
@@ -958,9 +960,9 @@ function! s:set_which_key_map() abort
 	let g:which_key_left_bracket_map['%'] = 'which_key_ignore'
 
 	" TODO mappings for debuggers lldb
-	" TODO mappings for lsp
 	" TODO mappings for searching files
 	" TODO mappings for spells
+	" TODO mappings for CCTree
 
 	call which_key#register(g:mapleader, "g:which_key_leader_map")
 	call which_key#register(g:maplocalleader, "g:which_key_localleader_map")
@@ -1014,8 +1016,6 @@ function! s:version_control_command(cmd) abort
 		elseif a:cmd ==? 'pull'
 			if exists(':Gpull')
 				execute ':Gpull'
-			elseif exists(':SVNUpdate')
-				execute ':SVNUpdate .'
 			else
 				echoerr '[version_control_command]: Please provide a command for pull'
 				return
