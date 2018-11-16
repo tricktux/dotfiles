@@ -67,6 +67,9 @@ if !exists('no_plugin_maps') && !exists('no_c_maps')
 		" Attempt to guess executable test
 		let g:gtest#gtest_command = (has('unix') ? '.' : '') .
 					\ expand('%:p:r') . (has('unix') ? '' : '.exe')
+		nnoremap <buffer> <localleader>tr :GTestRun<cr>
+		nnoremap <buffer> <localleader>tt :GTestToggleEnable<cr>
+		nnoremap <buffer> <localleader>tu :GTestRunUnderCursor<cr>
 	endif
 endif
 
