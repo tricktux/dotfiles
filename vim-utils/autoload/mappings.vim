@@ -71,9 +71,9 @@ function! mappings#Set()
 	if has('terminal') || has('nvim')
 		nmap <Leader>te <Plug>terminal_toggle
 		" See plugin.vim - neoterm
-		nmap <LocalLeader>x <plug>terminal_send
-		xmap <LocalLeader>x <plug>terminal_send
-		nmap <LocalLeader>X <plug>terminal_send_line
+		nmap <leader>x <plug>terminal_send
+		xmap <leader>x <plug>terminal_send
+		nmap <leader>X <plug>terminal_send_line
 
 		execute "tnoremap " . g:esc . " <C-\\><C-n>"
 		tnoremap <A-h> <C-\><C-n><C-w>h
@@ -910,6 +910,7 @@ function! s:set_which_key_map() abort
 	let g:which_key_localleader_map.q = 'which_key_ignore'
 	let g:which_key_localleader_map['%'] = 'which_key_ignore'
 	let g:which_key_localleader_map.C = 'which_key_ignore'
+	let g:which_key_localleader_map.v = 'which_key_ignore'
 
 	" Note: Do not add global mappings here
 	" As they will show up for all buffers.
@@ -956,7 +957,6 @@ function! s:set_which_key_map() abort
 	let g:which_key_left_bracket_map['"'] = 'which_key_ignore'
 	let g:which_key_left_bracket_map['%'] = 'which_key_ignore'
 
-  " TODO mappings Gtest
 	" TODO mappings for debuggers lldb
 	" TODO mappings for lsp
 	" TODO mappings for searching files
