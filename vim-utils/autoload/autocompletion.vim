@@ -343,15 +343,12 @@ function! autocompletion#AdditionalLspSettings() abort
 	setlocal completefunc=LanguageClient#complete
 	setlocal formatexpr=LanguageClient_textDocument_rangeFormatting()
 
-	" TODO-[RM]-(Sat Jan 27 2018 11:23): Figure out these mappings
-	" nnoremap <buffer> <silent> gh :call LanguageClient_textDocument_hover()<CR>
-	" nnoremap <buffer> <silent> gd :call LanguageClient_textDocument_definition()<CR>
-	" nnoremap <buffer> <silent> gr :call LanguageClient_textDocument_references()<CR>
-	" nnoremap <buffer> <silent> gs :call LanguageClient_textDocument_documentSymbol()<CR>
-
-	" TODO-[RM]-(Wed Aug 08 2018 09:12): Not really working these things down here
-	nmap <buffer> <silent> <plug>refactor_code :call LanguageClient_textDocument_rename()<CR>
-	xmap <buffer> <silent> <plug>refactor_code :call LanguageClient_textDocument_rename()<CR>
+	nnoremap <buffer> <localleader>lh :call LanguageClient#textDocument_hover()<CR>
+	nnoremap <buffer> <localleader>f m'gg=G''
+	nnoremap <buffer> <localleader>d :call LanguageClient#textDocument_definition()<CR>
+	nnoremap <buffer> <localleader>lR :call LanguageClient#textDocument_references()<CR>
+	nnoremap <buffer> <localleader>ls :call LanguageClient#textDocument_documentSymbol()<CR>
+	nnoremap <buffer> <localleader>lr :call LanguageClient#textDocument_rename()<CR>
 endfunction
 
 function! s:set_vim_clang() abort
