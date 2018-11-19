@@ -299,7 +299,8 @@ function! mappings#Set()
 	" inoremap <c-t> shift entire line a shiftwidth
 	inoremap <c-d> <c-g>u<del>
 	inoremap <a-t> <c-d>
-	inoremap <c-v> <c-o>:normal! "+p<cr>
+	" Mon Nov 19 2018 13:33: Sometimes needed. This rarely used 
+	" inoremap <c-v> <c-o>:normal! "+p<cr>
 	" inoremap <c-w> delete word up to the cursor
 	" inoremap <c-k> used by neosnippet to expand snippet
 	" inoremap <c-l> used by software caps to toggle caps
@@ -815,6 +816,7 @@ function! s:set_which_key_map() abort
 				\ 'c' : 'current_dir',
 				\ 'l' : 'specific_location',
 				\ 't' : 'todo',
+				\ 'T' : ['UtilsEditTmpFile', 'temp'],
 				\ 'p' : 'plugins_path',
 				\ 'v' : 'vimruntime',
 				\ 'w' : l:wings,
@@ -904,6 +906,11 @@ function! s:set_which_key_map() abort
 	nnoremap g; g;
 	nnoremap gq gq
 	nnoremap gv gv
+
+	" {Dec,Inc}rease list of number
+	vnoremap gA g<c-a>
+	vnoremap gX g<c-x>
+
 	let g:which_key_localleader_map = {}
 	let g:which_key_localleader_map.g = 'which_key_ignore'
 	let g:which_key_localleader_map.d = 'which_key_ignore'
@@ -914,8 +921,8 @@ function! s:set_which_key_map() abort
 	let g:which_key_localleader_map.C = 'which_key_ignore'
 	let g:which_key_localleader_map.v = 'which_key_ignore'
 
-	" Note: Do not add global mappings here
-	" As they will show up for all buffers.
+	" Note: Do not add localleader mappings to the which_key_localleader_map
+	" As they will show up for all buffers. Unless they are global of course
 	
 	let g:which_key_right_bracket_map = {}
 	let g:which_key_right_bracket_map.c = 'next_diff'
