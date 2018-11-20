@@ -69,7 +69,7 @@ function! options#Set() abort
 	if !exists('g:exists_vim_which_key')
 		set notimeout
 	else
-		set timeoutlen=200
+		set timeoutlen=400
 	endif
 	set nottimeout
 	" cant remember why I had a timeout len I think it was
