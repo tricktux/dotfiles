@@ -163,7 +163,7 @@ function! mappings#Set()
 	" Tue Dec 19 2017 14:34: Removing the save all files. Not a good thing to do.
 	" - Main reason is specially with Neomake running make an multiple files at the same
 	"   time
-	nnoremap <c-s> :w<cr>
+	nnoremap <c-s> :update<cr>
 	nnoremap <c-t> :tabnew<cr>
 	" Thu Feb 22 2018 07:42: Mind buggling super good mapping from vim-galore
 	" Tue Apr 24 2018 14:06: For some reason in large .cpp files syntax sync takes away
