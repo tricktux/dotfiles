@@ -10,7 +10,7 @@
 machine=`hostname`
 
 alias install='trizen -S'
-alias update='trizen -Syyu'
+alias update=FuncUpdate
 alias version='trizen -Si'
 alias search='trizen -Ss'
 alias remove='trizen -Rscn'
@@ -23,6 +23,14 @@ alias gc='git commit -m'
 alias gps='git push origin master'
 alias gpl='git pull origin master'
 
+# ffmpeg
+alias ffmpeg_concat=FuncFfmpegConcat
+
+# cd
+alias .='cd ..'
+alias ..='cd ../..'
+alias ...='cd ../../..'
+
 # svn
 alias va='svn add --force'
 alias vs='svn status'
@@ -32,6 +40,7 @@ alias svn-create=FuncSvnCreate
 
 # pdf
 alias pdf_join=FuncPdfJoin
+alias pdf_convert_jpg_pdf=FuncPdfConvert
 
 # mutt
 alias neomutt='neomutt -F ~/.config/mutt/account.gmail'
@@ -143,5 +152,30 @@ mkcdir ()
 # gs = ghostscript (dependency)
 FuncPdfJoin()
 {
-	gs -q -sPAPERSIZE=a4 -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$1 $@
+	/usr/bin/gs -q -sPAPERSIZE=a4 -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$1 $@
+}
+
+# $@ list of *.jpg first arguments then finally name of output pdf file
+# Depends on imagemagic
+FuncPdfConvert()
+{
+	convert $@
+}
+
+FuncUpdate()
+{
+	sshfs -p 8888 reinaldo@192.168.1.8:/ ~/.mnt/copter-server/
+	# Tue Oct 16 2018 20:10: You really dont want to update your plugins everday. Things
+	# break. Very frequently.
+	# nvim +PlugUpgrade +PlugUpdate +UpdateRemotePlugins
+	cd ~/.config/dotfiles/ && gpl && cd ~/.password-store/ && gpl && cd ~/Documents/ML_SC2/Arrancar0/ && gpl && cd
+	trizen -Syu
+}
+
+# mylist.txt looks like this:
+# file '<relative/full file name.mp4>'
+# file '<relative/full file name.mp4>'
+FuncFfmpegConcat()
+{
+	ffmpeg -f concat -safe 0 -i mylist.txt -c copy output.mp4
 }

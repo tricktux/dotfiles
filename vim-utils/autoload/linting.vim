@@ -277,19 +277,9 @@ function! linting#SetNeomakePandocMaker(type) abort
 				\ 'cwd': '%:p:h'
 				\ }
 
-	if !exists('b:neomake_markdown_enabled_makers')
-		let g:neomake_markdown_enabled_makers = [l:maker]
-		return
-	endif
-
-	for l:ma in b:neomake_markdown_enabled_makers
-		if l:ma ==# l:maker
-			let l:ma = l:maker
-			return
-		endif
-	endfor
-
-	let g:neomake_markdown_enabled_makers += [l:maker]
+  " Too fancy to enable multiple markdown makers. Just enable this one and call it the
+	" day. If you want others just call on them
+	let g:neomake_markdown_enabled_makers = [l:maker]
 endfunction
 
 function! linting#SetNeomakeMakeMaker() abort
@@ -348,7 +338,8 @@ endfunction
 function! linting#SetNeomakeMsBuildMaker() abort
 	compiler msbuild
 	let l:ms = 'msbuild'
-	let &l:makeprg= l:ms . ' /nologo /v:q /maxcpucount /property:GenerateFullPaths=true'
+	let l:ms_switches = '/nologo /v:q /maxcpucount /property:GenerateFullPaths=true /target:Build'
+	let &l:makeprg= l:ms . ' ' . l:ms_switches
 	let &l:errorformat='%f(%l): %t%*[^ ] C%n: %m [%.%#]'
 
 	" Wed Apr 04 2018 11:10: Alternative errorformat found somewhere:
@@ -366,7 +357,7 @@ function! linting#SetNeomakeMsBuildMaker() abort
 
 	" Fix make_program
 	" /m uses all available cores for build
-	let &l:makeprg= l:ms . ' ' . l:proj_name . ' /nologo /v:q /maxcpucount /property:GenerateFullPaths=true'
+	let &l:makeprg= l:ms . ' ' . l:proj_name . ' ' . l:ms_switches
 
 	let b:neomake_cpp_enabled_makers = ['msbuild']
 	let b:neomake_cpp_msbuild_args = [

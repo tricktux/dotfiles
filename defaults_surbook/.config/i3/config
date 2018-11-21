@@ -11,7 +11,7 @@
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:FontAwesome 9
+font pango:FontAwesome 16
 # font pango:Terminus 8
 # set $ft -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
 
@@ -335,6 +335,8 @@ bindsym $mod+Shift+0 move container to workspace $workspace10
 		for_window [class="Seafile Client"] floating enable
 		for_window [class="Gnome-system-monitor"] floating enable
 		for_window [class="Pinentry"] floating enable
+		for_window [class="Youtube-dl-gui"] floating enable
+		for_window [class="Nm-connection-editor"] floating enable
 
 # Taken from https://github.com/Airblader/dotfiles-manjaro
 		for_window [class="Nitrogen"] floating enable
@@ -588,6 +590,8 @@ exec --no-startup-id i3-sensible-terminal --title=cmus --exec cmus
 # Sat Jul 07 2018 09:07: A little buggy
 # exec --no-startup-id variety
 
+exec --no-startup-id pasystray
+
 # Mon Jan 15 2018 18:43: New cool app
 # exec --no-startup-id workrave
 
@@ -609,7 +613,7 @@ exec --no-startup-id i3-sensible-terminal --title=cmus --exec cmus
 # exec --no-startup-id sshfs odroid@copter-server:/ /home/reinaldo/.mnt/copter-server&
 
 # Thu Nov 16 2017 18:31 trying to get an a good configuration
-# exec_always --no-startup-id xrandr --output eDP1 --scale 1.2x1.2 --panning 3284x2189
+exec_always --no-startup-id xrandr --dpi 192
 
 # Do not modify here. It can still be used by gnome
 # Not using because it sets up conky with not sure how to use right now

@@ -19,16 +19,6 @@ function! plugin#Config()
 		return -1
 	endif
 
-	" Vim-Plug
-	nnoremap <Leader>Pi :so %<bar>call plugin#Config()<bar>PlugInstall<CR>
-	nnoremap <Leader>Pu :PlugUpdate<CR>
-				\:PlugUpgrade<CR>
-				\:UpdateRemotePlugins<CR>
-	" installs plugins; append `!` to update or just :PluginUpdate
-	nnoremap <Leader>Ps :PlugSearch<CR>
-	" searches for foo; append `!` to refresh local cache
-	nnoremap <Leader>Pl :PlugClean<CR>
-
 	if exists('g:portable_vim') && g:portable_vim == 1
 		silent! call plug#begin(g:vim_plugins_path)
 	else
@@ -90,6 +80,7 @@ function! plugin#Config()
 
 	" Possible Replacement `asyncvim`
 	Plug 'tpope/vim-dispatch'
+		let g:dispatch_no_maps = 1
 
 	call s:configure_vim_table_mode()
 
@@ -162,32 +153,19 @@ function! plugin#Config()
 	let g:vim_isort_map = ''
 	let g:vim_isort_python_version = 'python3'
 
-	" java
-	" Wed Jul 11 2018 06:06: Replaced by the java-lsp: jdtls
-	" Plug 'mattn/vim-javafmt', { 'for' : 'java' }
-	" Plug 'tfnico/vim-gradle', { 'for' : 'java' }
-	" Plug 'artur-shaik/vim-javacomplete2', { 'branch' : 'master', 'for' : 'java' }
-	" let g:JavaComplete_ClosingBrace = 1
-	" let g:JavaComplete_EnableDefaultMappings = 0
-	" let g:JavaComplete_ImportSortType = 'packageName'
-	" let g:JavaComplete_ImportOrder = ['android.', 'com.', 'junit.', 'net.', 'org.', 'java.', 'javax.']
-
 	" Autocomplete
 	" Version control
 	Plug 'tpope/vim-fugitive'
-	" Fugitive <Leader>g?
-	" nmap here is needed for the <C-n> to work. Otherwise it doesnt know what
-	" it means
-	nmap <Leader>gs :Gstatus<CR><C-w>L<C-n>
-	nnoremap <Leader>gps :Gpush<CR>
-	nnoremap <Leader>gpl :Gpull<CR>
-	nnoremap <Leader>gl :silent Glog<CR>
-				\:copen 20<CR>
 
-	Plug 'mhinz/vim-signify'
+	Plug 'mhinz/vim-signify', { 'on' : ['SignifyToggle', 'SignifyDiff'] }
 	" Mappings are ]c next differences
 	" Mappings are [c prev differences
 	" Gets enabled when you call SignifyToggle
+	let g:signify_vcs_list = [ 'git', 'svn' ]
+	let g:signify_cursorhold_insert     = 1
+	let g:signify_cursorhold_normal     = 1
+	let g:signify_update_on_bufenter    = 0
+	let g:signify_update_on_focusgained = 1
 	let g:signify_disable_by_default = 1
 	let g:signify_vcs_list = [ 'git', 'svn' ]
 
@@ -196,9 +174,6 @@ function! plugin#Config()
 	let g:svnj_cache_dir = g:std_cache_path
 	let g:svnj_browse_cache_all = 1
 	let g:svnj_custom_statusbar_ops_hide = 0
-	nnoremap <silent> <leader>vs :SVNStatus q<CR>
-	nnoremap <silent> <leader>vo :SVNLog .<CR>
-
 	" colorschemes
 	Plug 'morhetz/gruvbox' " colorscheme gruvbox
 	Plug 'NLKNguyen/papercolor-theme'
@@ -295,7 +270,8 @@ function! plugin#Config()
 	" comment:
 	" 'no-preview
 	" in your file
-	Plug 'scrooloose/vim-slumlord', { 'on' : 'UtilsUmlInFilePreview' }
+	" Sun Nov 11 2018 07:30 Doesn't look well and breaks my author header 
+	" Plug 'scrooloose/vim-slumlord', { 'on' : 'UtilsUmlInFilePreview' }
 
 	Plug 'junegunn/goyo.vim', { 'on' : 'Goyo' }
 		let g:goyo_width = 120
@@ -396,6 +372,7 @@ function! plugin#Config()
 	" imap <LocalLeader>r <Plug>RStart
 	" vmap <LocalLeader>r <Plug>RStart
 
+  " Good for folding markdown and others
 	Plug 'fourjay/vim-flexagon'
 
 	" Abstract a region to its own buffer for editting. Then save and it will back
@@ -426,12 +403,6 @@ function! plugin#Config()
 
 	Plug 'alepez/vim-gtest', { 'for' : ['c', 'cpp'] }
 
-	Plug 'mhinz/vim-signify'
-	let g:signify_vcs_list = [ 'git', 'svn' ]
-	let g:signify_cursorhold_insert     = 1
-	let g:signify_cursorhold_normal     = 1
-	let g:signify_update_on_bufenter    = 0
-	let g:signify_update_on_focusgained = 1
 
 	Plug 'Peaches491/vim-glog-syntax'
 
@@ -452,6 +423,19 @@ function! plugin#Config()
 		augroup END
 
 	Plug 'tenfyzhong/vim-gencode-cpp'
+
+	call s:configure_vim_startify()
+
+	Plug 'vim-scripts/a.vim'
+
+	Plug 'jvenant/vim-java-imports', { 'for' : 'java' }
+
+	call s:configure_vim_which_key()
+
+	" Plug  'tpope/vim-abolish'
+	" Want to turn fooBar into foo_bar? Press crs (coerce to snake_case).
+	" MixedCase (crm), camelCase (crc), snake_case (crs), UPPER_CASE (cru), dash-case (cr-),
+	" dot.case (cr.), space case (cr<space>), and Title Case (crt) are all just 3 keystrokes away.
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
@@ -1054,4 +1038,53 @@ function! s:bookmark_load() abort
 	endif
 
 	return BookmarkLoad(l:book, 0, 0)
+endfunction
+
+function! s:configure_vim_startify() abort
+	Plug 'mhinz/vim-startify'
+
+  " Session options
+	if exists('g:std_data_path')
+		let g:startify_session_dir = g:std_data_path . '/sessions/'
+	endif
+
+	let g:startify_lists = [
+				\ { 'type': 'sessions',  'header': ['   Sessions']       },
+				\ { 'type': 'files',     'header': ['   MRU']            },
+				\ ]
+	let g:startify_change_to_dir = 0
+	let g:startify_session_sort = 1
+	let g:startify_session_number = 10
+endfunction
+
+" Additional settings at:
+" 'options.vim' as well
+" s:which_key_format also 
+function! s:configure_vim_which_key() abort
+	" Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+	let g:exists_vim_which_key = 1
+
+	Plug 'liuchengxu/vim-which-key'
+	nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+	vnoremap <silent> <leader> :WhichKeyVisual '<Space>'<CR>
+	nnoremap <silent> <localleader> :WhichKey 'g'<CR>
+	vnoremap <silent> <localleader> :WhichKeyVisual 'g'<CR>
+
+	nnoremap <silent> ] :WhichKey ']'<CR>
+	vnoremap <silent> ] :WhichKeyVisual ']'<CR>
+	nnoremap <silent> [ :WhichKey '['<CR>
+	vnoremap <silent> [ :WhichKeyVisual '['<CR>
+
+	let g:which_key_flatten = 0
+	let g:which_key_hspace = 80
+	let g:WhichKeyFormatFunc = function('s:which_key_format')
+endfunction
+
+function! s:which_key_format(mapping) abort
+	let l:ret = a:mapping
+	let l:ret = substitute(l:ret, '\c<cr>$', '', '')
+	let l:ret = substitute(l:ret, '^:', '', '')
+	let l:ret = substitute(l:ret, '^\c<c-u>', '', '')
+	let l:ret = substitute(l:ret, '^<[Pp]lug>', '', '')
+	return l:ret
 endfunction

@@ -23,7 +23,7 @@ if !exists("no_plugin_maps")
 	nnoremap <buffer> <LocalLeader>f ggVG<bar>:ArrangeColumn!<cr>
 endif
 
-function! CsvArrangeColumns() abort
+function! s:csv_arrange_columns() abort
 	if !exists(':ArrangeColumn')
 		echomsg 'CsvArrangeColumns(): csv.vim plugin not available'
 		return

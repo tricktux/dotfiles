@@ -66,12 +66,15 @@ function! options#Set() abort
 	set hidden
 	" see :h timeout this was done to make use of ' faster and keep the other
 	" timeout the same
-	set notimeout
+	if !exists('g:exists_vim_which_key')
+		set notimeout
+	else
+		set timeoutlen=200
+	endif
 	set nottimeout
 	" cant remember why I had a timeout len I think it was
 	" in order to use <c-j> in cli vim for esc
 	" removing it see what happens
-	" set timeoutlen=1000
 	" set ttimeoutlen=0
 	set listchars+=precedes:<,extends:> " show indication that line continues
 	set wrapmargin=2
@@ -220,8 +223,11 @@ function! options#Set() abort
 
 	call s:set_syntax()
 
-	" Silly always set cool colors
+	" Silly, always set cool colors
 	set termguicolors
+
+	" Tue Nov 13 2018 22:39: Needed by Shuogo/echodoc.vim 
+	set noshowmode
 endfunction
 
 " CLI

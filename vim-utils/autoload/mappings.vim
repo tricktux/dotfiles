@@ -5,7 +5,7 @@
 " Last Modified: Aug 22 2017 12:33
 " Created: Aug 22 2017 12:33
 
-function! mappings#Set() abort
+function! mappings#Set()
 	" CUSTOM MAPPINGS
 	if has('unix')
 		" System paste
@@ -31,6 +31,9 @@ function! mappings#Set() abort
 		silent! vunmap <C-X>
 	endif
 
+	if exists('g:exists_vim_which_key')
+		call s:set_which_key_map()
+	endif
 	" List of super useful mappings
 	" = fixes indentantion
 	" gq formats code
@@ -59,7 +62,7 @@ function! mappings#Set() abort
 	" - gd, gD, g;, gq, gs, gl, gA, gT, gg, G, gG, gh, gv, gn, gm, gx, gt, gr
 	" Toggle mappings:
 	" - tj, te, ta, tt, tf, ts, to, tn
-	nmap <Leader>tj <Plug>file_browser
+	nmap <Leader>f <Plug>file_browser
 	nmap <leader>tf <plug>focus_toggle
 
 	nmap <s-k> <plug>buffer_browser
@@ -68,9 +71,9 @@ function! mappings#Set() abort
 	if has('terminal') || has('nvim')
 		nmap <Leader>te <Plug>terminal_toggle
 		" See plugin.vim - neoterm
-		nmap <LocalLeader>x <plug>terminal_send
-		xmap <LocalLeader>x <plug>terminal_send
-		nmap <LocalLeader>X <plug>terminal_send_line
+		nmap <leader>x <plug>terminal_send
+		xmap <leader>x <plug>terminal_send
+		nmap <leader>X <plug>terminal_send_line
 
 		execute "tnoremap " . g:esc . " <C-\\><C-n>"
 		tnoremap <A-h> <C-\><C-n><C-w>h
@@ -88,56 +91,50 @@ function! mappings#Set() abort
 		tnoremap <C-p> <Up>
 	endif
 
-	nmap <LocalLeader>s <plug>search_grep
-	xmap <LocalLeader>s <plug>search_grep
+	nnoremap <localleader>k <plug>make_project
+	nmap <localleader>j <plug>make_file
+	nmap <localleader>c <plug>make_check
 
-	nnoremap <silent> <plug>search_grep :Grip<cr>
-	" xnoremap <silent> <plug>search_grep :call <SID>grep()<cr>
+	" Doesnt make sense in all file types
+	" nmap <localleader>p <plug>preview
+	" nmap <localleader>a <plug>switch_header_source
+	" nmap <localleader>ii <plug>imports_insert
+	" nmap <localleader>is <plug>imports_sort
 
-	nmap <localleader>P <plug>get_passwd
-	nnoremap <plug>get_passwd :silent call passwd#SelectPasswdFile()<cr>
-
-	nmap <LocalLeader>k <plug>make_project
-	nmap <LocalLeader>j <plug>make_file
-	nmap <LocalLeader>c <plug>make_check
-	nmap <LocalLeader>p <plug>preview
-
-	nmap <LocalLeader>a <plug>switch_header_source
-
-	nmap <LocalLeader>G <plug>search_internet
-	xmap <LocalLeader>G <plug>search_internet
-
-	nmap <LocalLeader>A <plug>num_representation
-	xmap <LocalLeader>A <plug>num_representation
-
-	" UtilsTagUpdateCurrFolder
-	nmap <silent> <LocalLeader>t <plug>generate_tags
-	nnoremap <silent> <plug>generate_tags :call ctags#NvimSyncCtags()<cr>
-
-	nmap <LocalLeader>f <plug>format_code
-	xmap <LocalLeader>f <plug>format_code
+	nmap <localleader>f <plug>format_code
+	xmap <localleader>f <plug>format_code
 
 	nmap <a-;> <plug>fuzzy_command_history
 	nmap <a-e> <plug>fuzzy_vim_help
 
 	" Refactor word under the cursor
-	nmap <LocalLeader>r <plug>refactor_code
-	xmap <LocalLeader>r <plug>refactor_code
-
-	nmap <localleader>h <plug>help_under_cursor
-
-	nmap <localleader>e <plug>go_to_alternative_file
-	nnoremap <plug>go_to_alternative_file :A<cr>
+	nmap <localleader>r <plug>refactor_code
+	xmap <localleader>r <plug>refactor_code
 
 	nnoremap <plug>refactor_code :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
 	xnoremap <plug>refactor_code "hy:%s/<C-r>h//gc<left><left><left>
 
 	" Global settings for all ftplugins
-	nmap <Leader>cr <plug>cd_root
-
 	imap <c-k> <plug>snip_expand
 	smap <c-k> <plug>snip_expand
 	xmap <c-k> <plug>snip_expand
+
+	nmap <leader>s <plug>search_grep
+	xmap <leader>s <plug>search_grep
+
+	nnoremap <silent> <plug>search_grep :Grip<cr>
+	" xnoremap <silent> <plug>search_grep :call <SID>grep()<cr>
+
+	nmap <leader>W <plug>get_passwd
+	nnoremap <plug>get_passwd :silent call passwd#SelectPasswdFile()<cr>
+
+	" TODO-[RM]-(Thu Nov 15 2018 16:58): These two could be combined 
+	nmap <localleader>h <plug>help_under_cursor
+	nmap <leader>G <plug>search_internet
+	xmap <leader>G <plug>search_internet
+
+	nmap <leader>T <plug>generate_tags
+	nnoremap <silent> <plug>generate_tags :call ctags#NvimSyncCtags()<cr>
 
 	nnoremap <Leader>tt :TagbarToggle<cr>
 	nnoremap <Leader>ts :setlocal spell!<cr>
@@ -152,9 +149,9 @@ function! mappings#Set() abort
 	" Count occurrances of last search
 	nnoremap <Leader>jc :%s///gn<cr>
 	" Indenting
-	nnoremap <Leader>2 :setlocal ts=2 sw=2 sts=2<cr>
-	nnoremap <Leader>4 :setlocal ts=4 sw=4 sts=4<cr>
-	nnoremap <Leader>8 :setlocal ts=8 sw=8 sts=8<cr>
+	nnoremap <Leader>j2 :setlocal ts=2 sw=2 sts=2<cr>
+	nnoremap <Leader>j4 :setlocal ts=4 sw=4 sts=4<cr>
+	nnoremap <Leader>j8 :setlocal ts=8 sw=8 sts=8<cr>
 	" not paste the deleted word
 	nnoremap P "0p
 	vnoremap P "0p
@@ -207,6 +204,7 @@ function! mappings#Set() abort
 	inoremap <F5> <Space><ESC>"=strftime("%a %b %d %Y %H:%M")<cr>Pa
 	" Auto indent pasted text
 	nnoremap p p=`]<C-o>
+	nnoremap Y y$
 
 	" Vim-unimpaired similar mappings
 	" Do not overwrite [s, [c, [f
@@ -234,14 +232,13 @@ function! mappings#Set() abort
 	nnoremap <silent> <s-u> :call quickfix#ToggleList("Location List", 'l')<cr>
 	nnoremap ]l :lnext<cr>
 	nnoremap [l :lprevious<cr>
-	nnoremap Y y$
 
 	nnoremap ]t :exec 'tjump ' . expand('<cword>')<cr>
 	nnoremap [t <c-t>
 	" Split window and jump to tag
 	" nnoremap ]T :exec 'ptag ' . expand('<cword>')<cr><c-w>R
-	nnoremap <silent> ]T :call <SID>goto_tag_on_next_win('l')<cr>
-	nnoremap <silent> [T :call <SID>goto_tag_on_next_win('h')<cr>
+	nnoremap ]T :call <SID>goto_tag_on_next_win('l')<cr>
+	nnoremap [T :call <SID>goto_tag_on_next_win('h')<cr>
 
 	" Capital F because [f is go to file and this is rarely used
 	" ]f native go into file.
@@ -266,19 +263,23 @@ function! mappings#Set() abort
 	endfor
 
 	" Create an undo break point. Mark current possition. Go to word. Fix and come back.
-	nnoremap <silent> ]S :normal! i<c-g>u<esc>mm]s1z=`m<cr>
-	nnoremap <silent> [S :normal! i<c-g>u<esc>mm[s1z=`m<cr>
+	nnoremap ]S :normal! i<c-g>u<esc>mm]s1z=`m<cr>
+	nnoremap [S :normal! i<c-g>u<esc>mm[s1z=`m<cr>
 
 	" decrease number
 	nnoremap <S-x> <c-x>
 	vnoremap <S-x> <c-x>
 
 	nnoremap <S-CR> O<Esc>
-	" TODO-[RM]-(Mon Sep 18 2017 16:58): This is too rarely used. Turn it into
-	" command
+
+	" <Leader>n
 	" Display highlighted numbers as ascii chars. Only works on highlighted text
-	vnoremap <Leader>ah :<c-u>s/<count>\x\x/\=nr2char(printf("%d", "0x".submatch(0)))/g<cr><c-l>`<
-	vnoremap <Leader>ha :<c-u>s/\%V./\=printf("%x",char2nr(submatch(0)))/g<cr><c-l>`<
+	" Rarely works
+	" vnoremap <Leader>ah :<c-u>s/<count>\x\x/\=nr2char(printf("%d", "0x".submatch(0)))/g<cr><c-l>`<
+	vnoremap <Leader>nh :<c-u>s/\%V./\=printf("%x",char2nr(submatch(0)))/g<cr><c-l>`<
+	nmap <leader>nr <plug>num_representation
+	xmap <leader>nr <plug>num_representation
+
 
 	nnoremap <expr> n 'Nn'[v:searchforward]
 	nnoremap <expr> N 'nN'[v:searchforward]
@@ -319,12 +320,13 @@ function! mappings#Set() abort
 	inoremap = =<c-g>u
 
 	" CD <Leader>c?
+	nmap <Leader>cr <plug>cd_root
+
 	nnoremap <Leader>cd :lcd %:h<cr>
 				\:pwd<cr>
 	nnoremap <Leader>cu :lcd ..<cr>
 				\:pwd<cr>
 	" cd into dir. press <Tab> after ci to see folders
-	nnoremap <Leader>ci :lcd
 	nnoremap <Leader>cc :pwd<cr>
 	" TODO.RM-Thu Jun 01 2017 10:10: Create mappings like c21 and c22
 
@@ -400,32 +402,36 @@ function! mappings#Set() abort
 	" Version Control <Leader>v?
 	" For all this commands you should be in the svn root folder
 	" Add all files
-	nnoremap <Leader>vA :!svn add . --force<cr>
+	nnoremap <silent> <leader>vs :call <SID>version_control_command('status')<CR>
+	nnoremap <silent> <leader>vl :call <SID>version_control_command('log')<CR>
+	nnoremap <silent> <leader>vc :call <SID>version_control_command('commit')<CR>
+	nnoremap <silent> <leader>vp :call <SID>version_control_command('push')<CR>
+	nnoremap <silent> <leader>vu :call <SID>version_control_command('pull')<CR>
+
+	" nnoremap <Leader>vA :!svn add . --force<cr>
 	" Add specific files
-	nnoremap <Leader>va :!svn add --force
+	" nnoremap <Leader>va :!svn add --force
 	" Commit using typed message
-	nnoremap <Leader>vc :call <SID>svn_commit()<cr>
+	" nnoremap <Leader>vc :call <SID>svn_commit()<cr>
 	" Commit using File for commit content
-	nnoremap <Leader>vC :!svn commit --force-log -F %<cr>
-	nnoremap <Leader>vd :!svn rm --force
+	" nnoremap <Leader>vC :!svn commit --force-log -F %<cr>
+	" nnoremap <Leader>vd :!svn rm --force
 	" revert previous commit
 	"nnoremap <Leader>vr :!svn revert -R .<cr>
-	nnoremap <Leader>vl :!svn cleanup .<cr>
+	" nnoremap <Leader>vl :!svn cleanup .<cr>
 	" use this command line to delete unrevisioned or "?" svn files
 	" nnoremap <Leader>vL :!for /f "tokens=2*" %i in ('svn status ^| find "?"') do del %i<cr>
 	" nnoremap <Leader>vs :!svn status .<cr>
-	nnoremap <Leader>vu :!svn update .<cr>
+	" nnoremap <Leader>vu :!svn update .<cr>
 	" Overwritten from plugin.vim
 	" nnoremap <Leader>vo :!svn log .<cr>
 	" nnoremap <Leader>vi :!svn info<cr>
 
 	" Wiki mappings <Leader>w?
 	" TODO.RM-Thu Dec 15 2016 16:00: Add support for wiki under SW-Testbed
-	nnoremap <Leader>wt :call <SID>wiki_open('TODO.md')<cr>
 	nnoremap <Leader>wo :call <SID>wiki_open()<cr>
 	nnoremap <Leader>wa :call <SID>wiki_add()<cr>
 	nnoremap <Leader>ws :call utils#WikiSearch()<cr>
-	nnoremap <Leader>wm :call utils#MastersDropboxOpen('')<cr>
 
 	" Comments <Leader>o
 	nmap - <plug>NERDCommenterToggle
@@ -445,7 +451,6 @@ function! mappings#Set() abort
 
 	" Edit file at location <Leader>e?
 	nnoremap <Leader>ed :call utils#DeniteRec(g:std_config_path . '/dotfiles')<cr>
-	nnoremap <Leader>em :call utils#DeniteRec('~/Seafile/masters/')<cr>
 	nnoremap <Leader>ec :call utils#DeniteRec(getcwd())<cr>
 	nnoremap <Leader>el :call utils#DeniteRec(input('Folder to recurse: ', "", "file"))<cr>
 
@@ -570,6 +575,7 @@ endfunction
 " Opens the tag on new split in the direction specified
 " direction - {h,l}
 function! s:goto_tag_on_next_win(direction) abort
+	echomsg '[goto_tag_on_next_win]: Got called!'
 	let target = expand('<cword>')
 	let wnr = winnr()
 	exec 'wincmd ' . a:direction
@@ -771,4 +777,251 @@ function! s:add_file(path) abort
 
 	execute 'lcd ' . l:cwd
 	execute 'edit ' . l:new_file
+endfunction
+
+function! s:set_which_key_map() abort
+	" Define prefix dictionary
+	let g:which_key_leader_map =  {}
+
+	let g:which_key_leader_map.t = {
+				\ 'name' : '+toggle',
+				\ 'j' : 'file_browser',
+				\ 'f' : 'focus_plugin',
+				\ 'e' : 'terminal',
+				\ 't' : 'tagbar',
+				\ 's' : 'spelling',
+				\ 'o' : 'alternative_commenter',
+				\ }
+
+	let g:which_key_leader_map.c = {
+				\ 'name' : '+cd',
+				\ 'r' : 'root',
+				\ 'd' : 'current_file',
+				\ 'u' : 'one_folder_up',
+				\ 'c' : 'display_curr_work_dir',
+				\ }
+
+	let l:wings = {
+				\ 'name' : '+wings',
+				\ '1' : 'OneWins1',
+				\ '2' : 'OneWins2',
+				\ 'a' : 'wings-dev',
+				\ 's' : 'SupportFiles',
+				\ }
+
+	let g:which_key_leader_map.e = {
+				\ 'name' : '+edit',
+				\ 'd' : 'dotfiles',
+				\ 'c' : 'current_dir',
+				\ 'l' : 'specific_location',
+				\ 't' : 'todo',
+				\ 'p' : 'plugins_path',
+				\ 'v' : 'vimruntime',
+				\ 'w' : l:wings,
+				\ }
+
+	let l:sessions = {
+				\ 'name' : '+sessions',
+				\ 's' : 'save',
+				\ 'l' : 'load',
+				\ 'e' : 'load_default',
+				\ }
+	let g:which_key_leader_map.j = {
+				\ 'name' : '+misc',
+				\ '2' : '2_char_indent',
+				\ '4' : '4_char_indent',
+				\ '8' : '8_char_indent',
+				\ 'w' : 'wings_syntax',
+				\ '.' : 'repeat_last_command',
+				\ 's' : 'sync_from_start',
+				\ 'c' : 'count_last_search',
+				\ 'e' : l:sessions,
+				\ }
+
+	let g:which_key_leader_map.b = {
+				\ 'name' : '+buffers/Bookmarks',
+				\ 'd' : 'delete_current',
+				\ 'l' : 'delete_all',
+				\ }
+
+	let g:which_key_leader_map.n = {
+				\ 'name' : '+num_representation',
+				\ 'h' : 'ascii_to_hex',
+				\ 'r' : 'radix_viewer',
+				\ }
+
+	let g:which_key_leader_map.v = {
+				\ 'name' : '+version_control',
+				\ 's' : 'status',
+				\ 'a' : 'add',
+				\ 'c' : 'commit',
+				\ 'p' : 'push',
+				\ 'u' : 'pull/update',
+				\ 'l' : 'log',
+				\ 'S' : ['SignifyToggle' ,'signify_toggle'],
+				\ 'd' : ['SignifyDiff' ,'signify_diff'],
+				\ }
+
+	let g:which_key_leader_map.w = {
+				\ 'name' : '+wiki',
+				\ 'o' : 'open',
+				\ 'a' : 'add',
+				\ 's' : 'search',
+				\ }
+
+	let g:which_key_leader_map.o = {
+				\ 'name' : '+comments',
+				\ 'I' : 'reduce_indent',
+				\ 'i' : 'increase_indent',
+				\ 'a' : 'append',
+				\ 'u' : 'update_header_date',
+				\ 'e' : 'end_of_if_comment',
+				\ 't' : 'add_todo',
+				\ 'd' : 'delete',
+				\ }
+
+	let g:which_key_leader_map.P = {
+				\ 'name' : '+plugins',
+				\ 'i' : ['so %<bar>call plugin#Config()<bar>PlugInstall<CR>', 'install'],
+				\ 'u' : ['PlugUpdate', 'update'],
+				\ 'r' : ['UpdateRemotePlugins', 'update_remote_plugins'],
+				\ 'g' : ['PlugUpgrade', 'upgrade_vim_plug'],
+				\ 's' : ['PlugSearch', 'search'],
+				\ 'l' : ['PlugClean', 'clean'],
+				\ }
+
+	let g:which_key_leader_map.d = 'duplicate_char'
+	let g:which_key_leader_map.p = 'paste_from_system'
+	let g:which_key_leader_map.y = 'yank_to_system'
+	let g:which_key_leader_map.C = ['Calendar', 'calendar']
+
+	" This mappings are needed so that you can use it
+	nnoremap gg gg
+	nnoremap gd gd
+	nnoremap gD gD
+	nnoremap g; g;
+	nnoremap gq gq
+	nnoremap gv gv
+	let g:which_key_localleader_map = {}
+	let g:which_key_localleader_map.g = 'which_key_ignore'
+	let g:which_key_localleader_map.d = 'which_key_ignore'
+	let g:which_key_localleader_map.D = 'which_key_ignore'
+	let g:which_key_localleader_map[';'] = 'which_key_ignore'
+	let g:which_key_localleader_map.q = 'which_key_ignore'
+	let g:which_key_localleader_map['%'] = 'which_key_ignore'
+	let g:which_key_localleader_map.C = 'which_key_ignore'
+	let g:which_key_localleader_map.v = 'which_key_ignore'
+
+	" Note: Do not add global mappings here
+	" As they will show up for all buffers.
+	
+	let g:which_key_right_bracket_map = {}
+	let g:which_key_right_bracket_map.c = 'next_diff'
+	let g:which_key_right_bracket_map.y = 'yank_from_next_lines'
+	let g:which_key_right_bracket_map.d = 'delete_next_lines'
+	let g:which_key_right_bracket_map.o = 'comment_next_lines'
+	let g:which_key_right_bracket_map.m = 'move_line_below'
+	let g:which_key_right_bracket_map.q = 'next_quickfix_item'
+	let g:which_key_right_bracket_map.l = 'next_location_list_item'
+	let g:which_key_right_bracket_map.t = 'goto_tag_under_cursor'
+	let g:which_key_right_bracket_map.T = 'goto_tag_under_cursor_on_right_win'
+	let g:which_key_right_bracket_map.f = 'goto_file_under_cursor'
+	let g:which_key_right_bracket_map.F = 'goto_file_under_cursor_on_right_win'
+	let g:which_key_right_bracket_map.z = 'scroll_right'
+	let g:which_key_right_bracket_map.Z = 'scroll_up'
+	let g:which_key_right_bracket_map.s = 'goto_next_spell_error'
+	let g:which_key_right_bracket_map.S = 'fix_next_spell_error'
+	let g:which_key_right_bracket_map[']'] = 'which_key_ignore'
+	let g:which_key_right_bracket_map['['] = 'which_key_ignore'
+	let g:which_key_right_bracket_map['"'] = 'which_key_ignore'
+	let g:which_key_right_bracket_map['%'] = 'which_key_ignore'
+
+	let g:which_key_left_bracket_map = {}
+	let g:which_key_left_bracket_map.c = 'prev_diff'
+	let g:which_key_left_bracket_map.y = 'yank_from_prev_lines'
+	let g:which_key_left_bracket_map.d = 'delete_prev_lines'
+	let g:which_key_left_bracket_map.o = 'comment_prev_lines'
+	let g:which_key_left_bracket_map.m = 'move_line_up'
+	let g:which_key_left_bracket_map.q = 'prev_quickfix_item'
+	let g:which_key_left_bracket_map.l = 'prev_location_list_item'
+	let g:which_key_left_bracket_map.t = 'pop_tag_stack'
+	let g:which_key_left_bracket_map.T = 'goto_tag_under_cursor_on_left_win'
+	let g:which_key_left_bracket_map.f = 'go_back_one_file'
+	let g:which_key_left_bracket_map.F = 'goto_file_under_cursor_on_left_win'
+	let g:which_key_left_bracket_map.z = 'scroll_left'
+	let g:which_key_left_bracket_map.Z = 'scroll_down'
+	let g:which_key_left_bracket_map.s = 'goto_prev_spell_error'
+	let g:which_key_left_bracket_map.S = 'fix_prev_spell_error'
+	let g:which_key_left_bracket_map[']'] = 'which_key_ignore'
+	let g:which_key_left_bracket_map['['] = 'which_key_ignore'
+	let g:which_key_left_bracket_map['"'] = 'which_key_ignore'
+	let g:which_key_left_bracket_map['%'] = 'which_key_ignore'
+
+	" TODO mappings for debuggers lldb
+	" TODO mappings for lsp
+	" TODO mappings for searching files
+	" TODO mappings for spells
+
+	call which_key#register(g:mapleader, "g:which_key_leader_map")
+	call which_key#register(g:maplocalleader, "g:which_key_localleader_map")
+	call which_key#register(']', "g:which_key_right_bracket_map")
+	call which_key#register('[', "g:which_key_left_bracket_map")
+endfunction
+
+function! s:version_control_command(cmd) abort
+	if empty(a:cmd)
+		echoerr '[version_control_command]: Please provide a command'
+		return
+	endif
+
+	if a:cmd ==? 'status'
+		if exists(':Gstatus')
+			" nmap here is needed for the <C-n> to work. Otherwise it doesnt know what
+			" it means. This below is if you want it horizontal
+			" nmap <Leader>gs :Gstatus<CR><C-w>L<C-n>
+			execute ':Gstatus'
+		elseif exists(':SVNStatus')
+			execute ':SVNStatus q'
+		else
+			echoerr '[version_control_command]: Please provide a command for status'
+			return
+		endif
+	elseif a:cmd ==? 'log'
+			if exists(':Glog')
+				execute ':Glog'
+			elseif exists(':SVNLog')
+				execute ':SVNLog .'
+			else
+				echoerr '[version_control_command]: Please provide a command for log'
+				return
+			endif
+		elseif a:cmd ==? 'commit'
+			if exists(':Gcommit')
+				execute ':Gcommit'
+			elseif exists(':SVNCommit')
+				execute ':SVNCommit .'
+			else
+				echoerr '[version_control_command]: Please provide a command for commit'
+				return
+			endif
+		elseif a:cmd ==? 'push'
+			if exists(':Gpush')
+				execute ':Gpush'
+			else
+				echoerr '[version_control_command]: Please provide a command for commit'
+				return
+			endif
+		elseif a:cmd ==? 'pull'
+			if exists(':Gpull')
+				execute ':Gpull'
+			elseif exists(':SVNUpdate')
+				execute ':SVNUpdate .'
+			else
+				echoerr '[version_control_command]: Please provide a command for pull'
+				return
+			endif
+		else
+			echoerr '[version_control_command]: Please provide support this command'
+			return
+	endif
 endfunction

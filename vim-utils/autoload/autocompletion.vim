@@ -314,6 +314,10 @@ function! s:set_language_client(has_unix) abort
 		call extend(g:LanguageClient_serverCommands, l:chosen_java_server)
 	endif
 
+	if exists('g:lightline')
+		let g:lightline.active.left[2] += [ 'lsp' ]
+		let g:lightline.component_function['lsp'] = 'LanguageClient#statusLine'
+	endif
 	return 1
 endfunction
 
@@ -343,15 +347,12 @@ function! autocompletion#AdditionalLspSettings() abort
 	setlocal completefunc=LanguageClient#complete
 	setlocal formatexpr=LanguageClient_textDocument_rangeFormatting()
 
-	" TODO-[RM]-(Sat Jan 27 2018 11:23): Figure out these mappings
-	" nnoremap <buffer> <silent> gh :call LanguageClient_textDocument_hover()<CR>
-	" nnoremap <buffer> <silent> gd :call LanguageClient_textDocument_definition()<CR>
-	" nnoremap <buffer> <silent> gr :call LanguageClient_textDocument_references()<CR>
-	" nnoremap <buffer> <silent> gs :call LanguageClient_textDocument_documentSymbol()<CR>
-
-	" TODO-[RM]-(Wed Aug 08 2018 09:12): Not really working these things down here
-	nmap <buffer> <silent> <plug>refactor_code :call LanguageClient_textDocument_rename()<CR>
-	xmap <buffer> <silent> <plug>refactor_code :call LanguageClient_textDocument_rename()<CR>
+	nnoremap <buffer> <localleader>lh :call LanguageClient#textDocument_hover()<CR>
+	nnoremap <buffer> <localleader>f m'gg=G''
+	nnoremap <buffer> <localleader>d :call LanguageClient#textDocument_definition()<CR>
+	nnoremap <buffer> <localleader>lR :call LanguageClient#textDocument_references()<CR>
+	nnoremap <buffer> <localleader>ls :call LanguageClient#textDocument_documentSymbol()<CR>
+	nnoremap <buffer> <localleader>lr :call LanguageClient#textDocument_rename()<CR>
 endfunction
 
 function! s:set_vim_clang() abort
@@ -617,7 +618,9 @@ function! s:set_shuogo_sources() abort
 	endif
 	Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
 	Plug 'Shougo/neco-syntax' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
-	Plug 'Shougo/echodoc' " Pop for functions info
+	Plug 'Shougo/echodoc.vim' " Pop for functions info
+		let g:echodoc#enable_at_startup = 1
+		let g:echodoc#type = 'echo'
 
 	" Mon Jan 15 2018 05:55: Not working very well
 	" Plug 'SevereOverfl0w/deoplete-github' " Pop for functions info

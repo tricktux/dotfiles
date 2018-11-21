@@ -13,13 +13,10 @@ endif
 " Don't load another plugin for this buffer
 let b:did_cpp_ftplugin = 1
 
-let b:match_words .= '\<if\>:\<else\>,'
-			\ . '\<while\>:\<continue\>:\<break\>,'
-			\ . '\<for\>:\<continue\>:\<break\>,'
-			\ . '\<try\>:\<catch\>'
 if exists('g:omnifunc_clang')
 	let &l:omnifunc=g:omnifunc_clang
 endif
+
 " This is that delimate doesnt aut fill the newly added matchpairs
 let b:delimitMate_matchpairs = '(:),[:],{:}'
 
@@ -33,7 +30,11 @@ if !exists('no_plugin_maps') && !exists('no_c_maps')
 		nmap <buffer> <Plug>make_file :make!<cr>
 	endif
 	" Alternate between header and source file
-	nmap <buffer> <unique> <plug>switch_header_source :call utils#SwitchHeaderSource()<cr>
+	if exists(':A')
+		nnoremap <buffer> <unique> <localleader>a :A<cr>
+	else
+		nnoremap <buffer> <unique> <localleader>a :call utils#SwitchHeaderSource()<cr>
+	endif
 
 	if has('unix') && has('nvim')
 		nnoremap <buffer> <plug>help_under_cursor :call <SID>man_under_cursor()<cr>
@@ -60,6 +61,15 @@ if !exists('no_plugin_maps') && !exists('no_c_maps')
 
 	if exists('g:clang_format_py')
 		nmap <buffer> <plug>format_code :execute('pyf ' . g:clang_format_py)<cr>
+	endif
+
+	if exists(':GTestRun')
+		" Attempt to guess executable test
+		let g:gtest#gtest_command = (has('unix') ? '.' : '') .
+					\ expand('%:p:r') . (has('unix') ? '' : '.exe')
+		nnoremap <buffer> <localleader>tr :GTestRun<cr>
+		nnoremap <buffer> <localleader>tt :GTestToggleEnable<cr>
+		nnoremap <buffer> <localleader>tu :GTestRunUnderCursor<cr>
 	endif
 endif
 
@@ -99,6 +109,10 @@ function! s:set_compiler_and_others() abort
 	command! -buffer UtilsCompilerBorland call linting#SetNeomakeBorlandMaker()
 	command! -buffer UtilsCompilerMsbuild call linting#SetNeomakeMsBuildMaker()
 	command! -buffer UtilsCompilerClangNeomake call linting#SetNeomakeClangMaker()
+	nnoremap <buffer> <localleader>mg :UtilsCompilerGcc<cr>
+	nnoremap <buffer> <localleader>mb :UtilsCompilerBorland<cr>
+	nnoremap <buffer> <localleader>mm :UtilsCompilerMsbuild<cr>
+	nnoremap <buffer> <localleader>mc :UtilsCompilerClangNeomake<cr>
 
 	" Time runtime of a specific program. Pass as Argument executable with arguments. Pass as Argument executable with
 	" arguments. Example sep_calc.exe seprc.

@@ -104,7 +104,7 @@ fixed-center = true
 ; background = ${colors.background}
 ; foreground = ${colors.foreground}
 foreground = ${colors.t1}
-background = ${colors.background_dark}
+background = ${colors.background_light}
 underline-color = #00f
 overline-color = #f00
 
@@ -131,7 +131,7 @@ font-2=WunconSiji:pixelsize=18;0
 
 modules-left = battery temperature cpu cpuload memory
 modules-center = cmus
-modules-right = time xkeyboard volume backlight-acpi eth-surbook wlan-surbook redshift compton
+modules-right = xkeyboard redshift compton
 
 ; My new settings
 tray-detached = false
