@@ -29,7 +29,11 @@ endif
 
 if !exists('g:ctags_output_dir')
 	let g:ctags_output_dir =
-				\ (has('unix') ? '~/.cache/ctags/' : expand($TMP) . '/ctags/' )
+				\ (has('unix') ? '~/.cache/ctags/' : expand($TMP) . '\ctags\' )
+endif
+
+if !exists('g:ctags_rg_use_ft')
+	let g:ctags_rg_use_ft = 1
 endif
 
 let s:files_list = tempname()
@@ -188,17 +192,22 @@ function! s:list_tags_files() abort
 endfunction
 
 " Creates cscope.files in ~\.cache\ctags\
-function! s:create_cscope_files(type_specific) abort
+function! s:create_cscope_files(quote_files) abort
 	if !executable('rg')
 		echomsg string("Ctags dependens on ripgrep. I know horrible")
 		return
 	endif
 
+	let l:sed = ' | sed -e '
+	let l:sed .= shellescape("s/\\(.*\\)/\"\\1\"/g", 1) . ' '
 	let rg_ft = ctags#VimFt2RgFt()
 	" Cscope db are not being created properly therefore making cscope.files filetype specific no matter what
-	let files_cmd = 'rg ' . (!has('unix') ? '--path-separator /' : '') .
-				\ (a:type_specific == 1 ? ' -t ' . rg_ft : '') .
-				\ ' --files "' . getcwd() .'" > ' . s:files_list
+				" \ (!has('unix') ? '--path-separator \\\\' : '') .
+	let files_cmd = 'rg ' .
+				\ (g:ctags_rg_use_ft == 1 ? ' -t ' . rg_ft : '') .
+				\ ' --files "' . getcwd() .'"' .
+				\ (executable('sed') && a:quote_files == 1 ? l:sed : ' ') .
+				\ '> ' .	s:files_list
 
 	if &verbose > 0
 		echomsg string(files_cmd)
@@ -207,14 +216,16 @@ function! s:create_cscope_files(type_specific) abort
 	if has('nvim')
 		let res = systemlist(files_cmd)
 	else
-		silent! execute "!" . files_cmd
+		silent execute "!" . files_cmd
 	endif
+
 	if getfsize(s:files_list) < 1
 		if !empty(res)
 			cexpr res
 		endif
 		return
 	endif
+
 	return 1
 endfunction
 
@@ -224,6 +235,7 @@ function! s:create_tags(tags_name) abort
 		return
 	endif
 
+	" Do not quote file names
 	if !s:create_cscope_files(0)
 		return
 	endif
@@ -289,6 +301,8 @@ function! ctags#LoadCscopeDatabse() abort
 	call s:load_cscope_db(tag_name . '.out')
 
 	" call s:load_tag_spelllang(tag_name)
+	
+	call s:load_cctree_cscope_db(tag_name . '.xref')
 endfunction
 
 function! s:add_tags(tags_name) abort
@@ -434,6 +448,7 @@ function! s:create_cscope(tag_name) abort
 		endtry
 	endif
 
+	" Recreate files and now quote them
 	if !s:create_cscope_files(1)
 		return
 	endif
@@ -443,11 +458,12 @@ function! s:create_cscope(tag_name) abort
 	" -q            Build an inverted index for quick symbol searching.
 	" -f reffile    Use reffile as cross-ref file name instead of cscope.out.
 	" -i namefile   Browse through files listed in namefile, instead of cscope.files
-	let cscope_cmd = 'cscope -bcq -f ' . cs_db . ' -i ' . s:files_list
+	let cscope_cmd = 'cscope -Rbcq -f "' . cs_db . '" -i ' . '"' . s:files_list . '"'
 	if &verbose > 0
 		echomsg 'cscope_cmd = ' . cscope_cmd
 	endif
 	echo 'Creating cscope database...'
+	" execute '!' . cscope_cmd
 	let res_cs = systemlist(cscope_cmd)
 	if v:shell_error || getfsize(cs_db) < 1
 		if !empty(res_cs)
@@ -461,6 +477,13 @@ function! s:create_cscope(tag_name) abort
 endfunction
 
 function! s:load_cscope_db(tag_name) abort
+	if !exists('g:ctags_output_dir') || empty('g:ctags_output_dir')
+		if &verbose > 0
+			echoerr '[load_cscope_db]: Failed to get g:ctags_output_dir path'
+		endif
+		return
+	endif
+
 	let cs_db = g:ctags_output_dir . a:tag_name
 	if empty(glob(cs_db))
 		if &verbose > 0
@@ -488,16 +511,30 @@ function! ctags#LoadCctreeDb() abort
 endfunction
 
 function! s:load_cctree_cscope_db(tag_name) abort
+	if !exists('g:ctags_output_dir') || empty('g:ctags_output_dir')
+		if &verbose > 0
+			echoerr '[load_cctree_cscope_db]: Failed to get g:ctags_output_dir path'
+		endif
+		return
+	endif
+
+	if !exists(':CCTreeLoadDB')
+		if &verbose > 0
+			echoerr '[load_cctree_cscope_db]: CCTree not loaded'
+		endif
+		return
+	endif
+
 	let cs_db = g:ctags_output_dir . a:tag_name
 	if empty(glob(cs_db))
 		if &verbose > 0
-			echomsg 'No cscope database ' . cs_db
+			echomsg 'No cctree database ' . cs_db
 		endif
 		return
 	endif
 
 	try
-		execute 'CCTreeLoadDB ' . cs_db
+		execute 'CCTreeLoadXRefDB ' . cs_db
 	catch /^Vim(cscope):/
 		return
 	endtry
