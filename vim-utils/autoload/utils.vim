@@ -749,3 +749,24 @@ function! s:fix_denite_path(path) abort
 
 	return (has('unix') ? l:cp_path : substitute(l:cp_path, "[\\/]", '\\\\', 'g'))
 endfunction
+
+" Executes cmds on files
+function! utils#ExecCmdOnFile(files, cmds) abort
+	if empty(a:files) || empty(a:cmds)
+		echoerr '[utils#ExecCmdOnFile]: Invalid input argumetns'
+		return
+	endif
+
+	for l:file in a:files
+		execute 'argadd ' . l:file
+	endfor
+
+	for l:cmd in a:cmds
+		execute 'argdo! ' . l:cmd
+	endfor
+
+  " Clean up the list
+	" for l:file in a:files
+		" execute 'argdelete ' . l:file
+	" endfor
+endfunction
