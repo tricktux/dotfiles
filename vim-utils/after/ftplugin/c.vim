@@ -71,6 +71,14 @@ if !exists('no_plugin_maps') && !exists('no_c_maps')
 		nnoremap <buffer> <localleader>tt :GTestToggleEnable<cr>
 		nnoremap <buffer> <localleader>tu :GTestRunUnderCursor<cr>
 	endif
+
+	if exists(':CCTreeLoadDB')
+		nnoremap <buffer> <localleader>el :call <SID>cctree_load_db()<cr>
+		nnoremap <buffer> <localleader>es :call <SID>cctree_save_xrefdb()<cr>
+		nnoremap <buffer> <localleader>ef :exec 'CCTreeTraceForward ' . expand('<cword>')<cr>
+		nnoremap <buffer> <localleader>er :exec 'CCTreeTraceReverse ' . expand('<cword>')<cr>
+		nnoremap <buffer> <localleader>et :CCTreeWindowToggle<cr>
+	endif
 endif
 
 function! s:time_exe_win(...) abort
@@ -144,6 +152,49 @@ endfunction
 
 " Setup Compiler and some specific stuff
 call <SID>set_compiler_and_others()
+
+function! s:cctree_load_db() abort
+	if !exists('g:ctags_output_dir') || empty('g:ctags_output_dir')
+		echoerr '[cctree_load_db]: Failed to get g:ctags_output_dir path'
+		return
+	endif
+
+	let l:db = g:ctags_output_dir . utils#GetFullPathAsName(getcwd())
+	if !empty(glob(l:db . '.xref'))
+		execute ':CCTreeLoadXRefDB ' . l:db . '.xref'
+		return
+	endif
+
+	if !empty(glob(l:db . '.out'))
+		execute ':CCTreeLoadDB ' . l:db . '.out'
+		return
+	else
+		echoerr 'No cscope database for current path'
+		return
+	endif
+
+	if !exists(':Denite')
+		let l:db = input('Please enter full path to cscope.out like file: ')
+	else
+		let l:db = utils#DeniteYank(g:ctags_output_dir)
+		if empty(l:db)
+			echoerr '[cctree_load_db]: Failed to get Denite path'
+			return
+		endif
+	endif
+	
+	execute ':CCTreeLoadDB ' . l:db
+endfunction
+
+function! s:cctree_save_xrefdb() abort
+	if !exists('g:ctags_output_dir') || empty('g:ctags_output_dir')
+		echoerr '[cctree_save_xrefdb]: Failed to get g:ctags_output_dir path'
+		return
+	endif
+
+	let l:db = g:ctags_output_dir . utils#GetFullPathAsName(getcwd()) . '.xref'
+	execute ':CCTreeSaveXRefDB ' . l:db
+endfunction
 
 " Setup AutoHighlight
 " call utils#AutoHighlight()
