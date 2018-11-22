@@ -12,6 +12,7 @@ function! autocompletion#SetCompl(compl) abort
 		" call s:set_ncm()
 		call s:set_ncm2()
 		call s:set_ulti_snips()
+		call s:set_language_client(has('unix'))
 	elseif a:compl =~# 'shuogo'
 		if a:compl ==# 'shuogo_deo'
 			call s:set_shuogo_deo()
@@ -463,35 +464,10 @@ function! s:set_ncm2() abort
 	Plug 'ncm2/ncm2'
 	" ncm2 requires nvim-yarp
 	Plug 'roxma/nvim-yarp'
-	if has('unix')
-		call s:set_language_client()
-	else
-		Plug 'ncm2/ncm2-pyclang'
-	endif
-
-	" wrap existing omnifunc
-	" Note that omnifunc does not run in background and may probably block the
-	" editor. If you don't want to be blocked by omnifunc too often, you could
-	" add 180ms delay before the omni wrapper:
-	"  'on_complete': ['ncm2#on_complete#delay', 180,
-	"               \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
-	let l:omni = {
-				\ 'name' : 'css',
-				\ 'priority': 9, 
-				\ 'subscope_enable': 1,
-				\ 'scope': ['css','scss'],
-				\ 'mark': 'css',
-				\ 'word_pattern': '[\w\-]+',
-				\ 'complete_pattern': ':\s*',
-				\ 'on_complete': ['ncm2#on_complete#delay', 180,
-	      \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
-				\ }
 
 	augroup ncm_buff
 		autocmd!
 		autocmd BufEnter * call ncm2#enable_for_buffer()
-		autocmd TextChangedI * call ncm2#auto_trigger()
-		autocmd User Ncm2Plugin call ncm2#register_source(l:omni)
 	augroup END
 	
 	set completeopt+=noinsert
@@ -502,30 +478,44 @@ function! s:set_ncm2() abort
 
 	Plug 'ncm2/ncm2-bufword'
 	Plug 'ncm2/ncm2-path'
+	Plug 'ncm2/ncm2-github'
 	Plug 'ncm2/ncm2-jedi'
 	Plug 'ncm2/ncm2-vim'
 	Plug 'ncm2/ncm2-syntax'
-	Plug 'ncm2/ncm2-neoinclude'
+	" Plug 'ncm2/ncm2-neoinclude'
+	Plug 'ncm2/ncm2-tagprefix'
 	if executable('look')
 		" Complete english words
 		Plug 'filipekiss/ncm2-look.vim'
 	endif
 	" Fenced code block detection in markdown files for ncm2
 	Plug 'ncm2/ncm2-markdown-subscope'
+	if !has('unix')
+		" For C++
+		Plug 'ncm2/ncm2-pyclang'
+	endif
+	Plug 'ncm2/ncm2-match-highlight'
 endfunction
 
 function! s:set_ulti_snips() abort
+	Plug 'ncm2/ncm2-ultisnips'
 	Plug 'SirVer/ultisnips'
 	Plug 'honza/vim-snippets'
 
-	inoremap <silent> <expr> <cr> ncm2_ultisnips#expand_or("\<cr>", 'n')
+	inoremap <silent> <expr> <CR> (
+				\ (pumvisible() && empty(v:completed_item)) ?  
+				\ "\<c-y>\<cr>" : 
+				\ (!empty(v:completed_item) ? ncm2_ultisnips#expand_or("", 'n') : "\<CR>" )
+				\ )
 	let g:UltiSnipsSnippetDirectories= [
 				\ g:vim_plugins_path . '/vim-snippets/snippets',
 				\ g:location_vim_utils . '/snippets/',
 				\ ]
 
 	" c-j c-k for moving in snippet
-	imap <plug>snip_expand :call ncm2_ultisnips#completed_is_snippet()<cr>
+	" imap <plug>snip_expand :call ncm2_ultisnips#completed_is_snippet()<cr>
+	imap <expr> <plug>snip_expand ncm2_ultisnips#expand_or("\<Plug>(ultisnips_expand)", 'm')
+	smap <plug>snip_expand <Plug>(ultisnips_expand)
 	
 	let g:UltiSnipsExpandTrigger		= "<Plug>(snip_expand)"
 	let g:UltiSnipsJumpForwardTrigger	= "<c-j>"

@@ -51,7 +51,10 @@ function! plugin#Config()
 	" Possible values:
 	" - ycm nvim_compl_manager shuogo autocomplpop completor asyncomplete neo_clangd
 	" call autocompletion#SetCompl(has('unix') ? 'nvim_compl_manager' : 'shuogo')
-	call autocompletion#SetCompl(exists('g:portable_vim') && g:portable_vim == 1 ? 'shuogo_neo' : 'shuogo_deo')
+	call autocompletion#SetCompl(
+				\ has('unix') ? 'shuogo_deo' :
+				\ (exists('g:portable_vim') && g:portable_vim == 1 ? 'shuogo_neo' : 'shuogo_deo')
+				\ )
 
 	" Possible values:
 	" - chromatica easytags neotags color_coded clighter8
@@ -961,7 +964,7 @@ function! s:configure_vim_utils() abort
 
 	let g:ctags_create_spell=1
 	let g:ctags_spell_script= g:location_vim_utils . '/tagstospl.py'
-	let g:ctags_output_dir = g:std_data_path . '/ctags/'
+	let g:ctags_output_dir = g:std_data_path . (has('unix') ? '/ctags/' : '\ctags\')
 	" Cscope databases and spell files will only be created for the following filetypes
 	let g:ctags_use_spell_for = ['c', 'cpp']
 	let g:ctags_use_cscope_for = ['c', 'cpp', 'java']

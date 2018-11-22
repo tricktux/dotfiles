@@ -129,7 +129,7 @@ function! mappings#Set()
 	nnoremap <plug>get_passwd :silent call passwd#SelectPasswdFile()<cr>
 
 	" TODO-[RM]-(Thu Nov 15 2018 16:58): These two could be combined 
-	nmap <localleader>h <plug>help_under_cursor
+	" nmap <localleader>h <plug>help_under_cursor
 	nmap <leader>G <plug>search_internet
 	xmap <leader>G <plug>search_internet
 
@@ -163,7 +163,7 @@ function! mappings#Set()
 	" Tue Dec 19 2017 14:34: Removing the save all files. Not a good thing to do.
 	" - Main reason is specially with Neomake running make an multiple files at the same
 	"   time
-	nnoremap <c-s> :w<cr>
+	nnoremap <c-s> :update<cr>
 	nnoremap <c-t> :tabnew<cr>
 	" Thu Feb 22 2018 07:42: Mind buggling super good mapping from vim-galore
 	" Tue Apr 24 2018 14:06: For some reason in large .cpp files syntax sync takes away
@@ -299,7 +299,8 @@ function! mappings#Set()
 	" inoremap <c-t> shift entire line a shiftwidth
 	inoremap <c-d> <c-g>u<del>
 	inoremap <a-t> <c-d>
-	inoremap <c-v> <c-o>:normal! "+p<cr>
+	" Mon Nov 19 2018 13:33: Sometimes needed. This rarely used 
+	" inoremap <c-v> <c-o>:normal! "+p<cr>
 	" inoremap <c-w> delete word up to the cursor
 	" inoremap <c-k> used by neosnippet to expand snippet
 	" inoremap <c-l> used by software caps to toggle caps
@@ -815,6 +816,7 @@ function! s:set_which_key_map() abort
 				\ 'c' : 'current_dir',
 				\ 'l' : 'specific_location',
 				\ 't' : 'todo',
+				\ 'T' : ['UtilsEditTmpFile', 'temp'],
 				\ 'p' : 'plugins_path',
 				\ 'v' : 'vimruntime',
 				\ 'w' : l:wings,
@@ -835,6 +837,8 @@ function! s:set_which_key_map() abort
 				\ '.' : 'repeat_last_command',
 				\ 's' : 'sync_from_start',
 				\ 'c' : 'count_last_search',
+				\ '-' : ['UtilsFontZoomOut', 'font_decrease'],
+				\ '=' : ['UtilsFontZoomIn', 'font_increase'],
 				\ 'e' : l:sessions,
 				\ }
 
@@ -902,6 +906,11 @@ function! s:set_which_key_map() abort
 	nnoremap g; g;
 	nnoremap gq gq
 	nnoremap gv gv
+
+	" {Dec,Inc}rease list of number
+	vnoremap gA g<c-a>
+	vnoremap gX g<c-x>
+
 	let g:which_key_localleader_map = {}
 	let g:which_key_localleader_map.g = 'which_key_ignore'
 	let g:which_key_localleader_map.d = 'which_key_ignore'
@@ -912,8 +921,8 @@ function! s:set_which_key_map() abort
 	let g:which_key_localleader_map.C = 'which_key_ignore'
 	let g:which_key_localleader_map.v = 'which_key_ignore'
 
-	" Note: Do not add global mappings here
-	" As they will show up for all buffers.
+	" Note: Do not add localleader mappings to the which_key_localleader_map
+	" As they will show up for all buffers. Unless they are global of course
 	
 	let g:which_key_right_bracket_map = {}
 	let g:which_key_right_bracket_map.c = 'next_diff'
@@ -958,9 +967,9 @@ function! s:set_which_key_map() abort
 	let g:which_key_left_bracket_map['%'] = 'which_key_ignore'
 
 	" TODO mappings for debuggers lldb
-	" TODO mappings for lsp
 	" TODO mappings for searching files
 	" TODO mappings for spells
+	" TODO mappings for CCTree
 
 	call which_key#register(g:mapleader, "g:which_key_leader_map")
 	call which_key#register(g:maplocalleader, "g:which_key_localleader_map")
@@ -1014,8 +1023,6 @@ function! s:version_control_command(cmd) abort
 		elseif a:cmd ==? 'pull'
 			if exists(':Gpull')
 				execute ':Gpull'
-			elseif exists(':SVNUpdate')
-				execute ':SVNUpdate .'
 			else
 				echoerr '[version_control_command]: Please provide a command for pull'
 				return

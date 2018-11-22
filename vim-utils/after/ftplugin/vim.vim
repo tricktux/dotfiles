@@ -16,11 +16,11 @@ let b:did_vim_ftplugin = 1
 " Add mappings, unless the user didn't want this.
 if !exists('no_plugin_maps') && !exists('no_vim_maps')
 	" Quote text by inserting "> "
-	nnoremap <buffer> <Plug>make_file :so %<cr>
-	nnoremap <buffer> <Plug>make_project :so %<cr>
-	nnoremap <buffer> <plug>help_under_cursor :h <c-r>=expand("<cword>")<CR><cr>
+	nnoremap <buffer> <plug>make_file :so %<cr>
+	nnoremap <buffer> <plug>make_project :so %<cr>
+	nnoremap <buffer> <localleader>h :h <c-r>=expand("<cword>")<CR><cr>
 	" Echo highlighted text
-	vnoremap <buffer> <LocalLeader>e y:echomsg <c-r>"<cr>
+	vnoremap <buffer> <localleader>e y:echomsg <c-r>"<cr>
 	" Evaluate highlighted text
-	vnoremap <buffer> <LocalLeader>E y:<c-r>"<cr>
+	vnoremap <buffer> <localleader>E y:<c-r>"<cr>
 endif

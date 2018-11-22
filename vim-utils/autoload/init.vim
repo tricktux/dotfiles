@@ -101,14 +101,17 @@ function! s:config_win() abort
 	"		Sometimes I like to put extra executables inside this folder below.
 	"		Check it for any easter eggs 
 	let l:extra_path = glob($VIMRUNTIME . '\utils\*', 1, 1)
+	" Look for MSBuild.exe. Pretty hard coded I know. But findfile didnt work.
+	if filereadable("c:\\Program Files (x86)\\MSBuild\\14.0\\Bin\\MSBuild.exe")
+		call add(l:extra_path, "c:\\Program Files (x86)\\MSBuild\\14.0\\Bin\\")
+	endif
+	if !empty(glob("C:\\Program Files\\Git\\usr\\bin"))
+		call add(l:extra_path, "C:\\Program Files\\Git\\usr\\bin")
+	endif
+
 	for l:path in l:extra_path
 		let $PATH .= ';' . l:path
 	endfor	
-
-	" Look for MSBuild.exe. Pretty hard coded I know. But findfile didnt work.
-	if filereadable("c:\\Program Files (x86)\\MSBuild\\14.0\\Bin\\MSBuild.exe")
-		let $PATH .= ';' . "c:\\Program Files (x86)\\MSBuild\\14.0\\Bin\\"
-	endif
 endfunction
 
 function! s:set_wings_path(path) abort
