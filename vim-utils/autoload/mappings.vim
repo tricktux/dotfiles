@@ -906,6 +906,10 @@ function! s:set_which_key_map() abort
 	nnoremap g; g;
 	nnoremap gq gq
 	nnoremap gv gv
+	nnoremap g8 g8
+	nnoremap g< g<
+	nnoremap g? g?
+	vnoremap g? g?
 
 	" {Dec,Inc}rease list of number
 	vnoremap gA g<c-a>
@@ -920,10 +924,25 @@ function! s:set_which_key_map() abort
 	let g:which_key_localleader_map['%'] = 'which_key_ignore'
 	let g:which_key_localleader_map.C = 'which_key_ignore'
 	let g:which_key_localleader_map.v = 'which_key_ignore'
+	let g:which_key_localleader_map['8'] = 'print_hex'
+	let g:which_key_localleader_map['<'] = 'print_prev_command_output'
+	let g:which_key_localleader_map['?'] = 'rot13_encode_motion'
+	let g:which_key_localleader_map['q'] = 'format_motion'
+	let g:which_key_localleader_map['~'] = 'swap_case_motion'
 
 	" Note: Do not add localleader mappings to the which_key_localleader_map
 	" As they will show up for all buffers. Unless they are global of course
 	
+	nnoremap ]] ]]
+	nnoremap ]) ])
+	nnoremap ]} ]}
+	nnoremap [[ [[
+	nnoremap [( [(
+	nnoremap [{ [{
+	nnoremap [/ [/
+	nnoremap ]/ ]/
+	nnoremap ]# ]#
+	nnoremap [# [#
 	let g:which_key_right_bracket_map = {}
 	let g:which_key_right_bracket_map.c = 'next_diff'
 	let g:which_key_right_bracket_map.y = 'yank_from_next_lines'
@@ -940,9 +959,13 @@ function! s:set_which_key_map() abort
 	let g:which_key_right_bracket_map.Z = 'scroll_up'
 	let g:which_key_right_bracket_map.s = 'goto_next_spell_error'
 	let g:which_key_right_bracket_map.S = 'fix_next_spell_error'
-	let g:which_key_right_bracket_map[']'] = 'which_key_ignore'
-	let g:which_key_right_bracket_map['['] = 'which_key_ignore'
+	let g:which_key_right_bracket_map[']'] = 'goto_next_function'
+	let g:which_key_right_bracket_map[')'] = 'goto_next_unmatched_parenthesis'
+	let g:which_key_right_bracket_map['}'] = 'goto_next_unmatched_brace'
+	let g:which_key_right_bracket_map['/'] = 'goto_next_comment'
+	let g:which_key_right_bracket_map['#'] = 'goto_next_unmatched_defined_if'
 	let g:which_key_right_bracket_map['"'] = 'which_key_ignore'
+	let g:which_key_right_bracket_map['['] = 'which_key_ignore'
 	let g:which_key_right_bracket_map['%'] = 'which_key_ignore'
 
 	let g:which_key_left_bracket_map = {}
@@ -961,15 +984,20 @@ function! s:set_which_key_map() abort
 	let g:which_key_left_bracket_map.Z = 'scroll_down'
 	let g:which_key_left_bracket_map.s = 'goto_prev_spell_error'
 	let g:which_key_left_bracket_map.S = 'fix_prev_spell_error'
-	let g:which_key_left_bracket_map[']'] = 'which_key_ignore'
-	let g:which_key_left_bracket_map['['] = 'which_key_ignore'
+	let g:which_key_left_bracket_map['['] = 'goto_prev_function'
+	let g:which_key_left_bracket_map['('] = 'goto_prev_unmatched_parenthesis'
+	let g:which_key_left_bracket_map['{'] = 'goto_prev_unmatched_brace'
+	let g:which_key_left_bracket_map['#'] = 'goto_prev_unmatched_defined_if'
+	let g:which_key_left_bracket_map['/'] = 'goto_prev_comment'
 	let g:which_key_left_bracket_map['"'] = 'which_key_ignore'
+	let g:which_key_left_bracket_map[']'] = 'which_key_ignore'
 	let g:which_key_left_bracket_map['%'] = 'which_key_ignore'
 
 	" TODO mappings for debuggers lldb
 	" TODO mappings for searching files
 	" TODO mappings for spells
 	" TODO mappings for CCTree
+	" TODO mappings for surround (d,y,c)
 
 	call which_key#register(g:mapleader, "g:which_key_leader_map")
 	call which_key#register(g:maplocalleader, "g:which_key_localleader_map")
