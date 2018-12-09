@@ -21,6 +21,7 @@ function! augroup#Set() abort
 		autocmd FileType help wincmd L
 		autocmd FileType help nnoremap <buffer> q :helpc<cr>
 		autocmd FileType help setlocal relativenumber
+		autocmd FileType help nnoremap <buffer> g0 g0
 
 		autocmd FileType markdown setlocal conceallevel=0 wrap spell
 					\ foldenable complete+=kspell ts=2 sw=2 sts=2
