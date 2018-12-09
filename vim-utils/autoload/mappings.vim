@@ -31,6 +31,14 @@ function! mappings#Set()
 		silent! vunmap <C-X>
 	endif
 
+	" Sun Dec 09 2018 17:15: 
+	" This extends p in visual mode (note the noremap), so that if you paste from the
+	" unnamed (ie. default) register, that register content is not replaced by the visual
+	" selection you just pasted over–which is the default behavior. This enables the user to
+	" yank some text and paste it over several places in a row, without using a named
+	" Obtained from: https://vimways.org/2018/for-mappings-and-a-tutorial/
+	xnoremap <silent> p p:if v:register == '"'<Bar>let @@=@0<Bar>endif<cr>
+
 	if exists('g:exists_vim_which_key')
 		call s:set_which_key_map()
 	endif
