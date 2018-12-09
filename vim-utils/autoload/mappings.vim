@@ -576,7 +576,7 @@ endfunction
 " Opens the tag on new split in the direction specified
 " direction - {h,l}
 function! s:goto_tag_on_next_win(direction) abort
-	echomsg '[goto_tag_on_next_win]: Got called!'
+	" echomsg '[goto_tag_on_next_win]: Got called!'
 	let target = expand('<cword>')
 	let wnr = winnr()
 	exec 'wincmd ' . a:direction
