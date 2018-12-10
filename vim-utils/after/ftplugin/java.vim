@@ -17,7 +17,6 @@ if exists('*javacomplete#Complete')
 	setlocal omnifunc=javacomplete#Complete
 endif
 setlocal foldenable
-" compiler gradlew
 
 " Add mappings, unless the user didn't want this.
 if !exists("no_plugin_maps") && !exists("no_java_maps")
@@ -29,10 +28,9 @@ if !exists("no_plugin_maps") && !exists("no_java_maps")
 	endif
 endif
 
-if !exists('b:neomake_cpp_enabled_makers')
-	let b:neomake_java_enabled_makers = []
-endif
-
-let b:neomake_java_enabled_makers += executable('mvn') ? ['mvn'] : []
+" if !exists('b:neomake_java_enabled_makers')
+	" let b:neomake_java_enabled_makers = []
+	" " let b:neomake_java_enabled_makers += executable('mvn') ? [''] : []
+" endif
 
 let b:undo_ftplugin += "setl omnifunc< foldenable<"
