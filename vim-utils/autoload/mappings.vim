@@ -168,10 +168,14 @@ function! mappings#Set()
 	nnoremap <Leader>j. :call <SID>exec_last_command()<cr>
 	" j mappings taken <swypl;bqruihHdma248eEonf>
 	" nnoremap <Leader>Mc :call utils#ManFind()<cr>
-	" Tue Dec 19 2017 14:34: Removing the save all files. Not a good thing to do.
-	" - Main reason is specially with Neomake running make an multiple files at the same
+	" Tue Dec 19 2017 14:34:
+	"	- Removing the save all files. Not a good thing to do.
+	"		- Main reason is specially with Neomake running make an multiple files at the same
 	"   time
-	nnoremap <c-s> :update<cr>
+	" Wed Dec 12 2018 17:23:
+	"	- Reenabling, because why not!
+	"		- Tired of typing :wa<cr>
+	nnoremap <c-s> :wall<cr>
 	nnoremap <c-t> :tabnew<cr>
 	" Thu Feb 22 2018 07:42: Mind buggling super good mapping from vim-galore
 	" Tue Apr 24 2018 14:06: For some reason in large .cpp files syntax sync takes away
