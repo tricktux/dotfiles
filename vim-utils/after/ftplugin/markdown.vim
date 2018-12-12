@@ -147,7 +147,12 @@ function! s:todo_clear_mark() abort
 	execute "normal! ^f[lr\<Space>\<Esc>"
 endfunction
 
-call linting#SetNeomakePandocMaker('pdf')
+" Wed Dec 12 2018 17:13:
+" By default the pdf maker is enabled.
+" This is not optimal since sometimes you dont want a pdf
+" From now on since we have easier mappings, just enable whatever maker you need
+" You can do this by calling one of the commands.
+" call linting#SetNeomakePandocMaker('pdf')
 
 command! -buffer UtilsWeeklyReportCreate call utils#ConvertWeeklyReport()
 " Markdown fix _ showing red
