@@ -578,9 +578,13 @@ exec --no-startup-id pcmanfm --daemon-mode
 # exec --no-startup-id i3-sensible-terminal
 exec --no-startup-id nm-applet
 exec --no-startup-id blueberry-tray
-exec --no-startup-id seafile-applet
+
 # Thu Dec 28 2017 09:48: Seafile fully functional
 # exec --no-startup-id dropbox
+# Sun Dec 16 2018 14:12:
+# Your demise has begun!
+exec --no-startup-id seafile-applet
+exec --no-startup-id owncloud-client
 
 # Wed Oct 11 2017 22:16: Application similar to xflux
 exec --no-startup-id redshift -c ~/.config/redshift.conf
