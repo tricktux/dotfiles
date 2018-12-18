@@ -955,6 +955,14 @@ function! s:set_which_key_map() abort
 	nnoremap ]/ ]/
 	nnoremap ]# ]#
 	nnoremap [# [#
+	nnoremap ]i [<c-i>
+	nnoremap [i [<c-i>
+	nnoremap ]I <c-w>i<c-w>L
+	nnoremap [I <c-w>i<c-w>H
+	nnoremap ]e [<c-d>
+	nnoremap [e [<c-d>
+	nnoremap ]E <c-w>d<c-w>L
+	nnoremap [E <c-w>d<c-w>H
 	let g:which_key_right_bracket_map = {}
 	let g:which_key_right_bracket_map.c = 'next_diff'
 	let g:which_key_right_bracket_map.y = 'yank_from_next_lines'
@@ -967,6 +975,10 @@ function! s:set_which_key_map() abort
 	let g:which_key_right_bracket_map.T = 'goto_tag_under_cursor_on_right_win'
 	let g:which_key_right_bracket_map.f = 'goto_file_under_cursor'
 	let g:which_key_right_bracket_map.F = 'goto_file_under_cursor_on_right_win'
+	let g:which_key_right_bracket_map.i = 'goto_include_under_cursor'
+	let g:which_key_right_bracket_map.I = 'goto_include_under_cursor_on_right_win'
+	let g:which_key_right_bracket_map.e = 'goto_define_under_cursor'
+	let g:which_key_right_bracket_map.E = 'goto_define_under_cursor_on_right_win'
 	let g:which_key_right_bracket_map.z = 'scroll_right'
 	let g:which_key_right_bracket_map.Z = 'scroll_up'
 	let g:which_key_right_bracket_map.s = 'goto_next_spell_error'
@@ -992,6 +1004,10 @@ function! s:set_which_key_map() abort
 	let g:which_key_left_bracket_map.T = 'goto_tag_under_cursor_on_left_win'
 	let g:which_key_left_bracket_map.f = 'go_back_one_file'
 	let g:which_key_left_bracket_map.F = 'goto_file_under_cursor_on_left_win'
+	let g:which_key_left_bracket_map.i = 'goto_include_under_cursor'
+	let g:which_key_left_bracket_map.I = 'goto_include_under_cursor_on_left_win'
+	let g:which_key_left_bracket_map.e = 'goto_define_under_cursor'
+	let g:which_key_left_bracket_map.E = 'goto_define_under_cursor_on_left_win'
 	let g:which_key_left_bracket_map.z = 'scroll_left'
 	let g:which_key_left_bracket_map.Z = 'scroll_down'
 	let g:which_key_left_bracket_map.s = 'goto_prev_spell_error'
@@ -1009,6 +1025,7 @@ function! s:set_which_key_map() abort
 	" TODO mappings for searching files
 	" TODO mappings for spells
 	" TODO mappings for CCTree
+	" TODO mappings for cscope
 	" TODO mappings for surround (d,y,c)
 
 	call which_key#register(g:mapleader, "g:which_key_leader_map")
