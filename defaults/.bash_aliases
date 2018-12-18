@@ -8,6 +8,7 @@
 # alias update='sudo apt update'
 
 machine=`hostname`
+server_ip=192.168.128.128
 
 alias install='trizen -S'
 alias update=FuncUpdate
@@ -53,7 +54,7 @@ alias svn-server='cd /home/reinaldo/.mnt/copter-server/mnt/hq-storage/1.Myn/svn-
 
 # Mounting remote servers
 alias mount-truck='sshfs reinaldo@truck-server:/ ~/.mnt/truck-server/'
-alias mount-copter='sshfs reinaldo@192.168.1.8:/ ~/.mnt/copter-server/'
+alias mount-copter='sshfs reinaldo@${server_ip}:/ ~/.mnt/copter-server/'
 alias mount-hq='sshfs reinaldo@HQ:/ ~/.mnt/HQ-server/'
 
 # Misc
@@ -132,13 +133,13 @@ FuncNvim()
 
 FuncSvnCheckout()
 {
-	svn co svn+ssh://reinaldo@192.168.1.8/mnt/hq-storage/1.Myn/svn-server/$1 $2
+	svn co svn+ssh://reinaldo@$server_ip/mnt/hq-storage/1.Myn/svn-server/$1 $2
 }
 
 FuncSvnCreate()
 {
-	ssh reinaldo@192.168.1.8 mkdir -p /mnt/hq-storage/1.Myn/svn-server/$1 $@
-	ssh reinaldo@192.168.1.8 svnadmin create /mnt/hq-storage/1.Myn/svn-server/$1 $@
+	ssh reinaldo@$server_ip mkdir -p /mnt/hq-storage/1.Myn/svn-server/$1 $@
+	ssh reinaldo@$server_ip svnadmin create /mnt/hq-storage/1.Myn/svn-server/$1 $@
 }
 
 mkcdir ()
@@ -164,7 +165,7 @@ FuncPdfConvert()
 
 FuncUpdate()
 {
-	sshfs -p 8888 reinaldo@192.168.1.8:/ ~/.mnt/copter-server/
+	sshfs -p 8888 reinaldo@$server_ip:/ ~/.mnt/copter-server/
 	# Tue Oct 16 2018 20:10: You really dont want to update your plugins everday. Things
 	# break. Very frequently.
 	# nvim +PlugUpgrade +PlugUpdate +UpdateRemotePlugins
