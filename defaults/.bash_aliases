@@ -24,6 +24,10 @@ alias gc='git commit -m'
 alias gps='git push origin master'
 alias gpl='git pull origin master'
 
+# network
+# Check opern ports
+alias ports='netstat -tulanp'
+
 # ffmpeg
 alias ffmpeg_concat=FuncFfmpegConcat
 
