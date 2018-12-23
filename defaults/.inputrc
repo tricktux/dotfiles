@@ -1,10 +1,12 @@
 $include /etc/inputr
 set convert-meta on
-set editing-mode vi
+# Sun Dec 23 2018 15:02
+# Breaks C-r for fzf. Do not enable
+# set editing-mode vi
 set bell-style none
 
-"\C-x\C-r": re-read-init-file
-"\C-p": history-search-backward 
+# "\C-x\C-r": re-read-init-file
+"\C-p": history-search-backward
 "\C-n": history-search-forward
 "\e[C": forward-char
 "\e[D": backward-char
