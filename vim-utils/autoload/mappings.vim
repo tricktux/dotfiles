@@ -96,7 +96,9 @@ function! mappings#Set()
 						\ '> <C-\><C-n>' . l:idx. 'gt'
 		endfor
 
-		tnoremap <C-p> <Up>
+		" Sun Dec 23 2018 11:34 
+		" Can confuse things since I set it up in inputrc as well
+		" tnoremap <C-p> <Up>
 	endif
 
 	nnoremap <localleader>k <plug>make_project
@@ -955,6 +957,7 @@ function! s:set_which_key_map() abort
 	nnoremap ]/ ]/
 	nnoremap ]# ]#
 	nnoremap [# [#
+	nnoremap ]f ]f
 	nnoremap ]i [<c-i>
 	nnoremap [i [<c-i>
 	nnoremap ]I <c-w>i<c-w>L
