@@ -89,8 +89,6 @@ function! s:set_neomake() abort
 	" Fri Nov 03 2017 19:20: For vim linting use: `pip install vim-vint --user`
 	let g:neomake_plantuml_enabled_makers = ['plantuml']
 
-	call linting#SetNeomakePandocMaker('pdf')
-
 	" java setup
 	" install maven checkstyle uncrustify
 	let g:neomake_java_checkstyle_xml =

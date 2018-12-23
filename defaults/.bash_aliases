@@ -8,7 +8,7 @@
 # alias update='sudo apt update'
 
 machine=`hostname`
-server_ip=192.168.128.128
+server_ip='192.168.128.128'
 
 alias install='trizen -S'
 alias update=FuncUpdate
@@ -23,6 +23,10 @@ alias gs='git status'
 alias gc='git commit -m'
 alias gps='git push origin master'
 alias gpl='git pull origin master'
+
+# network
+# Check opern ports
+alias ports='netstat -tulanp'
 
 # ffmpeg
 alias ffmpeg_concat=FuncFfmpegConcat
@@ -60,13 +64,25 @@ alias mount-hq='sshfs reinaldo@HQ:/ ~/.mnt/HQ-server/'
 # Misc
 # Removing -2 from tmux in order to get truecolor
 alias tmux='tmux -f ~/.config/tmux/.tmux.conf'
-alias ll='exa -bghHliSa'
-alias ls='exa -la'
 alias vim='stty -ixon && vim'
 # Reload rxvt and deamon
 # Search help
 alias help=FuncHelp
 alias cpstat=FuncCheckCopy
+
+# ls
+if [[ -f /usr/bin/fzf ]]; then
+	alias ll='exa -bghHliSa'
+	alias ls='exa -la'
+else
+	## Colorize the ls output ##
+	alias ls='ls --color=auto'
+	## Use a long listing format ##
+	alias ll='ls -la'
+	## Show hidden files ##
+	alias l.='ls -d .* --color=auto'
+fi
+
 
 # Default to human readable figures
 alias df='df -h'

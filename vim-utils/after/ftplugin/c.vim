@@ -19,6 +19,7 @@ endif
 
 " This is that delimate doesnt aut fill the newly added matchpairs
 let b:delimitMate_matchpairs = '(:),[:],{:}'
+let &l:define='^\(#\s*define\|[a-z]*\s*const\s*[a-z]*\)'
 
 " Add mappings, unless the user didn't want this.
 if !exists('no_plugin_maps') && !exists('no_c_maps')
