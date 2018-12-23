@@ -1,7 +1,10 @@
 $include /etc/inputr
 set convert-meta on
-"\e[A": history-search-backward 
-"\e[B": history-search-forward
+set editing-mode vi
+set bell-style none
+
+"\C-x\C-r": re-read-init-file
+"\C-p": history-search-backward 
+"\C-n": history-search-forward
 "\e[C": forward-char
 "\e[D": backward-char
-set bell-style none
