@@ -1,12 +1,31 @@
 " File:					init.vim
 " Description:  Vim/Neovim configuration file
 " Author:				Reinaldo Molina
-" Version:			0.1.0
+" Version:			0.2.0
+"								- Properly distribute files so they are autoloaded
 "								- Fully modularize config files
 "								- Dein plugin
 "								- Python functions files
 " Date:					Sun Aug 20 2017 05:13
 " Created:			Aug 2015
+" Vimfiles:
+" Make symbolic link from dotfiles/defaults/.config/nvim to:
+" - unix (vim)  : ~/.vim
+" - unix (nvim) : ~/.config/nvim
+" - win (vim)  : ~/vimfiles
+" - win (nvim) : ~/AppData/Local/nvim
+"		vim:
+"			unix: ~/.vim
+"			unix: ~/.vim/vimrc
+"			win: ~/vimfiles
+"			win: ~/vimfiles/vimrc
+"		nvim:
+"			unix: ~/.config/nvim
+"			unix: ~/.config/nvim/init.vim
+"			unix (data): ~/.local/share/nvim
+"
+"			win: ~/AppData/Local/nvim
+"			win (data): ~/AppData/Local/nvim-data
 
 if !has('nvim')
 	" Required settings for vim
@@ -21,51 +40,71 @@ function! s:find_vim_config_file(...) abort
 	" If source files were provided source only those and exit
 	if a:0 > 0
 		for item in a:000
-			execute "source " . item
+			let l:files = glob(item, 0, 1)
+			if empty(l:files)
+				continue
+			endif
+			for fil in l:files
+				execute "source " . fil
+			endfor
 		endfor
 		return
 	endif
 
-	" Otherwise try to find local or portable configuration files
 	call s:set_stdpaths()
-	let location_local_vim = g:std_config_path . '/dotfiles/vim-utils'
-	let root_folder_portable_vim = getcwd() . (has('nvim') ?  '/../../../' : '/../../')
-	let location_portable_vim = root_folder_portable_vim . 'dotfiles/vim-utils'
 
-	" Below here defines the default location for where the plugins go and
-	" vim-plug as well
-	if !empty(glob(location_local_vim))
-		let g:location_vim_utils = location_local_vim
-		let g:vim_plugins_path = g:std_data_path . '/vim_plugins'
-		let g:plug_path = g:std_data_path . '/vim-plug/plug.vim'
-	elseif !empty(glob(location_portable_vim))
-		let g:vim_plugins_path= root_folder_portable_vim .'vim-data/vim_plugins/'
-		let g:location_vim_utils = location_portable_vim
-		let g:plug_path = root_folder_portable_vim . 'vim-data/vim-plug/plug.vim'
+	let l:root_folder_portable_vim = getcwd() . (has('nvim') ?  '/../../../' : '/../../')
+
+	if !empty(glob(l:root_folder_portable_vim . 'nvim'))
+		" If found portable vim. Redifine std_path
+		" You need 3 folders in root
+		" nvim: copy dotfiles/defaults/.config/nvim
+		" nvim-data: copy nvim-data (win) or .local/share/nvim (unix) from some computer
+		" tmp: create empty folder
+		echoerr 'Found erroneous portable vim'
+		let g:std_config_path = l:root_folder_portable_vim
+		let g:std_data_path = l:root_folder_portable_vim . 'nvim-data'
+		let g:std_cache_path = l:root_folder_portable_vim . 'tmp'
 		let g:portable_vim = 1
-	else
-		echomsg 'No vim configuration files where found'
-		return
+
+		" Add them to the path so that they can be found
+		let &rtp .= ',' . g:std_config_path . 'nvim'
+		set rtp +=g:std_data_path
 	endif
 
-	" let &runtimepath .= ',' . g:location_vim_utils . '/after'
-	let src_files = glob(g:location_vim_utils . '/autoload/*.vim', 0, 1)
-	for f in src_files
-		execute "source " . f
-	endfor
+	" Define plugins locations
+	let g:plug_path = g:std_data_path . '/autoload/plug.vim'
+	let g:vim_plugins_path = g:std_data_path . '/vim_plugins'
+
+	" Configure
 	call init#vim()
 endfunction
 
 function! s:set_stdpaths() abort
+	if has('nvim')
+		return s:set_nvim_stdpaths()
+	endif
+
+	" Fix here. These should be vim std paths. Like vimfiles
 	if has('win32')
-		let g:std_config_path = (exists('$APPDATA')) ? $APPDATA : expand("~\\AppData\\Roaming")
-		let g:std_data_path = (exists('$LOCALAPPDATA')) ? $LOCALAPPDATA . "\\vim-data" : expand("~\\AppData\\Local\\vim-data")
+		let g:std_config_path = (exists('$APPDATA')) ? $APPDATA : expand("~\\AppData\\Local\\nvim")
+		let g:std_data_path = (exists('$LOCALAPPDATA')) ? $LOCALAPPDATA . "\\nvim-data" : expand("~\\AppData\\Local\\nvim-data")
 		let g:std_cache_path = (exists('$TEMP')) ? $TEMP : expand("~\\AppData\\Local\\Temp")
 	else
-		let g:std_config_path = (exists('$XDG_CONFIG_HOME')) ? $XDG_CONFIG_HOME : expand("~/.config")
-		let g:std_data_path = (exists('$XDG_DATA_HOME')) ? $XDG_DATA_HOME . '/vim-data' : expand("~/.local/share/vim-data")
+		let g:std_config_path = (exists('$XDG_CONFIG_HOME')) ? $XDG_CONFIG_HOME : expand("~/.config/nvim")
+		let g:std_data_path = (exists('$XDG_DATA_HOME')) ? $XDG_DATA_HOME . '/nvim/site' : expand("~/.local/share/nvim/site")
 		let g:std_cache_path = (exists('$XDG_CACHE_HOME')) ? $XDG_CACHE_HOME : expand("~/.cache")
 	endif
+
+	" Tue Dec 25 2018 20:49 
+	" vim doesnt have a std_data_path therefore just add it to its rtp
+	set rtp +=g:std_data_path
+endfunction
+
+function! s:set_nvim_stdpaths()
+	let g:std_config_path = stdpath('config')
+	let g:std_data_path = stdpath('data')
+	let g:std_cache_path = stdpath('cache')
 endfunction
 
 call s:find_vim_config_file()

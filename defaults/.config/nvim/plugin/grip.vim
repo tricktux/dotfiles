@@ -11,6 +11,12 @@
 " - Async Search  
 " - More default greppers  
 
+if exists('g:loaded_grip')
+	finish
+endif
+
+let g:loaded_grip = 1
+
 " filetype_map - grepper_ft : vim_ft
 "							 - Ex: 'cpp' : '+'
 "	filetype_option - Ex: '-t' for rg
