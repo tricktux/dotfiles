@@ -99,7 +99,7 @@ function! s:install_template() abort
 			echomsg 's:install_template(): g:std_config_path doesnt exist'
 			return
 		else
-			let template_path = g:std_config_path . "\\pandoc\\templates\\eisvogel.latex"
+			let template_path = g:std_config_path . "\\..\\pandoc\\templates\\eisvogel.latex"
 		endif
 	else
 		" Sat Sep 16 2017 18:16:
@@ -113,12 +113,9 @@ function! s:install_template() abort
 		let template_path = '~/.pandoc/templates/eisvogel.latex'
 	endif
 
-	if executable('curl')
-		" TODO-[RM]-(Fri Sep 15 2017 16:51): Make function out of this
-		execute "!curl -kfLo " . template_path . " --create-dirs
-				\ https://raw.githubusercontent.com/Wandmalfarbe/pandoc-latex-template/master/eisvogel.tex"
-	else
-		echomsg 'curl not available. Cannot download templates'
+	let l:link = 'ttps://raw.githubusercontent.com/Wandmalfarbe/pandoc-latex-template/master/eisvogel.tex'
+	if utils#DownloadFile(template_path, l:link) != 1
+		echomsg 'Failed to download templates'
 	endif
 endfunction
 

@@ -291,7 +291,7 @@ function! s:set_language_client(has_unix) abort
 	" compile_commands.json on its wiki
 	" https://github.com/cquery-project/cquery/wiki/Neovim
 	" let g:LanguageClient_loadSettings = 1 " Use an absolute configuration path if you want system-wide settings
-	" let g:LanguageClient_settingsPath = g:std_config_path . '/dotfiles/vim-utils/settings.json'
+	" let g:LanguageClient_settingsPath = g:std_config_path . '/settings.json'
 	let l:cquery = {
 			\ 'cpp': [ 'cquery', '--language-server', '--log-file=/tmp/cq.log' ],
 			\ 'c': ['cquery', '--language-server', '--log-file=/tmp/cq.log'],
@@ -390,7 +390,7 @@ function! s:set_neosnippets() abort
 	" Tell Neosnippet about the other snippets
 	let g:neosnippet#snippets_directory= [
 				\ g:vim_plugins_path . '/vim-snippets/snippets',
-				\ g:location_vim_utils . '/snippets/',
+				\ g:std_config_path . '/snippets/',
 				\ ]
 	" Fri Oct 20 2017 21:47: Not really data but cache
 	let g:neosnippet#data_directory = g:std_cache_path . '/neosnippets'
@@ -509,7 +509,7 @@ function! s:set_ulti_snips() abort
 				\ )
 	let g:UltiSnipsSnippetDirectories= [
 				\ g:vim_plugins_path . '/vim-snippets/snippets',
-				\ g:location_vim_utils . '/snippets/',
+				\ g:std_config_path . '/snippets/',
 				\ ]
 
 	" c-j c-k for moving in snippet

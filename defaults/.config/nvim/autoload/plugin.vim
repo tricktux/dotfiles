@@ -939,8 +939,6 @@ function! s:configure_vim_utils() abort
 	" Tue Dec 25 2018 17:43
 	" This has been moved to the auto 'rtp'
 	" Plug g:location_vim_utils
-	" let &runtimepath .= ',' . g:location_vim_utils .
-				" \ ',' . g:location_vim_utils . '/after'
 	" Load the rest of the stuff and set the settings
 	let g:svn_repo_url = 'svn://odroid@copter-server/'
 	let g:svn_repo_name = 'UnrealEngineCourse/BattleTanks_2/'
@@ -969,7 +967,7 @@ function! s:configure_vim_utils() abort
 	let g:DoxygenToolkit_compactDoc = "yes"
 
 	let g:ctags_create_spell=1
-	let g:ctags_spell_script= g:location_vim_utils . '/tagstospl.py'
+	let g:ctags_spell_script= g:std_config_path . '/tagstospl.py'
 	let g:ctags_output_dir = g:std_data_path . (has('unix') ? '/ctags/' : '\ctags\')
 	" Cscope databases and spell files will only be created for the following filetypes
 	let g:ctags_use_spell_for = ['c', 'cpp']

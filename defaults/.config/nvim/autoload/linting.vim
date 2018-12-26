@@ -92,7 +92,7 @@ function! s:set_neomake() abort
 	" java setup
 	" install maven checkstyle uncrustify
 	let g:neomake_java_checkstyle_xml =
-				\ g:std_config_path . '/dotfiles/vim-utils/java_checkstyle_SWENG861.xml'
+				\ g:std_config_path . '/java_checkstyle_SWENG861.xml'
 	" Sun Dec 09 2018 19:18:
 	" Not necessary. neomake picks it up automatically
 	" let g:neomake_java_checkstyle_executable = 'checkstyle'

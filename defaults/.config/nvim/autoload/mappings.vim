@@ -465,13 +465,13 @@ function! mappings#Set()
 	nnoremap <Leader>oi :call utils#CommentIndent()<cr>
 
 	" Edit file at location <Leader>e?
-	nnoremap <Leader>ed :call utils#DeniteRec(g:std_config_path . '/dotfiles')<cr>
+	nnoremap <Leader>ed :call utils#DeniteRec(g:dotfiles)<cr>
 	nnoremap <Leader>ec :call utils#DeniteRec(getcwd())<cr>
 	nnoremap <Leader>el :call utils#DeniteRec(input('Folder to recurse: ', "", "file"))<cr>
 
 	nmap <leader>et <plug>edit_todo
 	if !hasmapto('<plug>edit_todo')
-		nnoremap <silent> <plug>edit_todo :execute('edit ' . g:std_config_path . '/dotfiles/TODO.md')<cr>
+		nnoremap <silent> <plug>edit_todo :execute('edit ' . g:dotfiles . '/TODO.md')<cr>
 	endif
 
 	" Edit plugin

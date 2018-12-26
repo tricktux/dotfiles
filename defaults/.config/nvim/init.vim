@@ -54,6 +54,7 @@ function! s:find_vim_config_file(...) abort
 	call s:set_stdpaths()
 
 	let l:root_folder_portable_vim = getcwd() . (has('nvim') ?  '/../../../' : '/../../')
+	let g:dotfiles = has('win32') ? $LOCALAPPDATA . "\\dotfiles" : expand('~/.config/dotfiles')
 
 	if !empty(glob(l:root_folder_portable_vim . 'nvim'))
 		" If found portable vim. Redifine std_path
@@ -61,19 +62,19 @@ function! s:find_vim_config_file(...) abort
 		" nvim: copy dotfiles/defaults/.config/nvim
 		" nvim-data: copy nvim-data (win) or .local/share/nvim (unix) from some computer
 		" tmp: create empty folder
-		echoerr 'Found erroneous portable vim'
-		let g:std_config_path = l:root_folder_portable_vim
+		let g:std_config_path = l:root_folder_portable_vim . 'nvim'
 		let g:std_data_path = l:root_folder_portable_vim . 'nvim-data'
 		let g:std_cache_path = l:root_folder_portable_vim . 'tmp'
 		let g:portable_vim = 1
+		let g:dotfiles = ''
 
 		" Add them to the path so that they can be found
-		let &rtp .= ',' . g:std_config_path . 'nvim'
-		set rtp +=g:std_data_path
+		set rtp +=g:std_config_path
+		let &rtp .= ',' . g:std_data_path . '/site'
 	endif
 
 	" Define plugins locations
-	let g:plug_path = g:std_data_path . '/autoload/plug.vim'
+	let g:plug_path = g:std_data_path . '/site/autoload/plug.vim'
 	let g:vim_plugins_path = g:std_data_path . '/vim_plugins'
 
 	" Configure
@@ -87,18 +88,19 @@ function! s:set_stdpaths() abort
 
 	" Fix here. These should be vim std paths. Like vimfiles
 	if has('win32')
-		let g:std_config_path = (exists('$APPDATA')) ? $APPDATA : expand("~\\AppData\\Local\\nvim")
+		let g:std_config_path = expand("~\\vimfiles")
 		let g:std_data_path = (exists('$LOCALAPPDATA')) ? $LOCALAPPDATA . "\\nvim-data" : expand("~\\AppData\\Local\\nvim-data")
 		let g:std_cache_path = (exists('$TEMP')) ? $TEMP : expand("~\\AppData\\Local\\Temp")
 	else
-		let g:std_config_path = (exists('$XDG_CONFIG_HOME')) ? $XDG_CONFIG_HOME : expand("~/.config/nvim")
-		let g:std_data_path = (exists('$XDG_DATA_HOME')) ? $XDG_DATA_HOME . '/nvim/site' : expand("~/.local/share/nvim/site")
-		let g:std_cache_path = (exists('$XDG_CACHE_HOME')) ? $XDG_CACHE_HOME : expand("~/.cache")
+		let g:std_config_path = expand("~/.vim")
+		let g:std_data_path = (exists('$XDG_DATA_HOME')) ? $XDG_DATA_HOME . '/nvim' : expand("~/.local/share/nvim")
+		let g:std_cache_path = (exists('$XDG_CACHE_HOME')) ? $XDG_CACHE_HOME . '/nvim' : expand("~/.cache/nvim")
 	endif
 
 	" Tue Dec 25 2018 20:49 
 	" vim doesnt have a std_data_path therefore just add it to its rtp
-	set rtp +=g:std_data_path
+	" so that plug.vim can be loaded properly
+	let &rtp .= ',' . g:std_data_path . '/site'
 endfunction
 
 function! s:set_nvim_stdpaths()
