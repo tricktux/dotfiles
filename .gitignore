@@ -1,5 +1,3 @@
-defaults/.config/nvim/autoload/
-defaults/.config/nvim/plugged/
 defaults/.config/ranger/bookmarks
 defaults/.config/ranger/history
 defaults/.config/ranger/tagged
