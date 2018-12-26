@@ -85,12 +85,13 @@ function! s:set_stdpaths() abort
 		return s:set_nvim_stdpaths()
 	endif
 
+	" Fix here. These should be vim std paths. Like vimfiles
 	if has('win32')
-		let g:std_config_path = (exists('$APPDATA')) ? $APPDATA : expand("~\\AppData\\Local")
+		let g:std_config_path = (exists('$APPDATA')) ? $APPDATA : expand("~\\AppData\\Local\\nvim")
 		let g:std_data_path = (exists('$LOCALAPPDATA')) ? $LOCALAPPDATA . "\\nvim-data" : expand("~\\AppData\\Local\\nvim-data")
 		let g:std_cache_path = (exists('$TEMP')) ? $TEMP : expand("~\\AppData\\Local\\Temp")
 	else
-		let g:std_config_path = (exists('$XDG_CONFIG_HOME')) ? $XDG_CONFIG_HOME : expand("~/.config")
+		let g:std_config_path = (exists('$XDG_CONFIG_HOME')) ? $XDG_CONFIG_HOME : expand("~/.config/nvim")
 		let g:std_data_path = (exists('$XDG_DATA_HOME')) ? $XDG_DATA_HOME . '/nvim/site' : expand("~/.local/share/nvim/site")
 		let g:std_cache_path = (exists('$XDG_CACHE_HOME')) ? $XDG_CACHE_HOME : expand("~/.cache")
 	endif
