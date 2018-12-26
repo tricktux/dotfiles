@@ -14,8 +14,10 @@ function! options#Set() abort
 
 	let &path .='.,,..,../..,./*,./*/*,../*,~/,~/**,/usr/include/*' " Useful for the find command
 	set shiftwidth=4 tabstop=4
-	set viminfo='1024,%
-	if !has('nvim')
+	if has('nvim')
+		set shada='1024,%,s10000,r/tmp,rE:,rF:
+	else
+		set viminfo='1024,%,s10000,r/tmp,rE:,rF:
 		let &viminfofile= g:std_data_path .  '/viminfo'
 	endif
 	set showtabline=1 " always show tabs in gvim, but not vim"
