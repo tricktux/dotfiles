@@ -8,7 +8,7 @@
 # alias update='sudo apt update'
 
 machine=`hostname`
-server_ip='192.168.128.128'
+server_ip='hq'
 
 alias install='trizen -S'
 alias update=FuncUpdate
