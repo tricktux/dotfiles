@@ -36,6 +36,26 @@ alias .='cd ..'
 alias ..='cd ../..'
 alias ...='cd ../../..'
 
+# cp and mv
+if [[ -f /usr/bin/advcp ]]; then
+	alias cp='advcp -gi'
+	alias mv='advmv -gi'
+else
+	alias mv='mv -i'
+	alias cp='cp -i'
+fi
+
+# cool
+alias mkdir='mkdir -pv'
+# Do not wait interval 1 second, go fast #
+alias ping='ping -c 100 -s.2'
+# do not delete / or prompt if deleting more than 3 files at a time #
+alias rm='rm -I --preserve-root' # confirmation #
+alias ln='ln -i' # Parenting changing perms on / #
+alias chown='chown --preserve-root'
+alias chmod='chmod --preserve-root'
+alias chgrp='chgrp --preserve-root'
+
 # svn
 alias va='svn add --force'
 alias vs='svn status'
@@ -160,8 +180,8 @@ FuncSvnCreate()
 
 mkcdir ()
 {
-    mkdir -p -- "$1" &&
-      cd -P -- "$1"
+	mkdir -p -- "$1" &&
+		cd -P -- "$1"
 }
 
 # $1 - Name of output file
