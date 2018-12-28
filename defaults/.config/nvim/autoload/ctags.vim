@@ -290,7 +290,12 @@ function! ctags#LoadCscopeDatabse() abort
 
 	" Local cscope.out has priority
 	if !empty(glob('cscope.out'))
-		cs add cscope.out
+		try
+			cs kill -1
+			cs add cscope.out
+		catch 
+			return -1
+		endtry
 		return 1
 	endif
 
