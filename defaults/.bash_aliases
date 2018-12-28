@@ -8,7 +8,7 @@
 # alias update='sudo apt update'
 
 machine=`hostname`
-server_ip='hq'
+server_ip='192.168.128.128'
 
 alias install='trizen -S'
 alias update=FuncUpdate
@@ -181,7 +181,9 @@ FuncPdfConvert()
 
 FuncUpdate()
 {
-	sshfs -p 8888 reinaldo@$server_ip:/ ~/.mnt/copter-server/
+	# Thu Dec 27 2018 23:45
+	# Not needed since samba :D
+	# sshfs -p 8888 reinaldo@$server_ip:/ ~/.mnt/copter-server/
 	# Tue Oct 16 2018 20:10: You really dont want to update your plugins everday. Things
 	# break. Very frequently.
 	# nvim +PlugUpgrade +PlugUpdate +UpdateRemotePlugins
