@@ -71,7 +71,7 @@ alias help=FuncHelp
 alias cpstat=FuncCheckCopy
 
 # ls
-if [[ -f /usr/bin/fzf ]]; then
+if [[ -f /usr/bin/exa ]]; then
 	alias ll='exa -bghHliSa'
 	alias ls='exa -la'
 else
