@@ -103,7 +103,6 @@ else
 	alias l.='ls -d .* --color=auto'
 fi
 
-
 # Default to human readable figures
 alias df='df -h'
 alias du='du -h'
