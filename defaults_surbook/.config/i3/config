@@ -583,8 +583,8 @@ exec --no-startup-id blueberry-tray
 # exec --no-startup-id dropbox
 # Sun Dec 16 2018 14:12:
 # Your demise has begun!
-exec --no-startup-id seafile-applet
-exec --no-startup-id owncloud-client
+# exec --no-startup-id seafile-applet
+# exec --no-startup-id owncloud-client
 
 # Wed Oct 11 2017 22:16: Application similar to xflux
 exec --no-startup-id redshift -c ~/.config/redshift.conf
