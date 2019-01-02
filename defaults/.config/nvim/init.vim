@@ -107,6 +107,7 @@ function! s:set_nvim_stdpaths()
 	let g:std_config_path = stdpath('config')
 	let g:std_data_path = stdpath('data')
 	let g:std_cache_path = stdpath('cache')
+	let &rtp .= ',' . g:std_data_path . '/site'
 endfunction
 
 call s:find_vim_config_file()
