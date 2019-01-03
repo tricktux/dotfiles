@@ -12,7 +12,7 @@
 # [[ -f /usr/bin/termite ]] && export TERMINAL="termite"
 [[ -f /usr/bin/kitty ]] && export TERMINAL="kitty"
 export EMAIL="rmolin88@gmail.com"
-[ -f /usr/bin/opera ] && export BROWSER="/usr/bin/opera"
+[ -f /usr/bin/firefox ] && export BROWSER="/usr/bin/firefox"
 
 # Thu Feb 01 2018 05:21: For oracle database crap for school
 export ORACLE_HOME=/home/reinaldo/app/reinaldo/product/12.2.0/client_1
