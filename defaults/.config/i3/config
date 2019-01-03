@@ -109,10 +109,54 @@ set $right l
 #}}}
 
 # Bindigs{{{
-# use Mouse+$mod to drag floating windows to their wanted position
-bindsym $mod+Shift+x exec i3lock-fancy
+# Note: Use Mouse+$mod to drag floating windows to their wanted position
 
-bindsym $mod+r mode "resize"
+bindsym $mod+r [title="^ranger$"] move to scratchpad, scratchpad show
+bindsym $mod+o [title="^journal$"] move to scratchpad, scratchpad show
+
+# Using now the control keys with vi like mappings just like windows
+bindsym control+mod1+h exec --no-startup-id cmus-remote -u
+bindsym control+mod1+l exec --no-startup-id cmus-remote -n
+bindsym control+mod1+k exec --no-startup-id amixer sset Master 5%+
+bindsym control+mod1+j exec --no-startup-id amixer sset Master 5%-
+bindsym control+mod1+m exec --no-startup-id amixer sset Master toggle
+bindsym control+mod1+p exec --no-startup-id pavucontrol
+bindsym control+mod1+b exec --no-startup-id blueberry
+bindsym control+mod1+i exec --no-startup-id \
+	~/Documents/polybar-scripts/polybar-scripts/pulseaudio-rofi/pulseaudio-rofi.sh --input
+bindsym control+mod1+o exec --no-startup-id \
+	~/Documents/polybar-scripts/polybar-scripts/pulseaudio-rofi/pulseaudio-rofi.sh --output
+
+# bindsym $mod+n exec rofi -show window -opacity "50"
+bindsym $mod+m scratchpad show
+
+# Comes from arch-wiki for i3. Many other goodies there
+bindsym $mod+x [urgent=latest] focus
+
+bindsym $mod+Ctrl+$left       resize shrink width 3 px or 3 ppt
+bindsym $mod+Ctrl+$up       resize grow height 3 px or 3 ppt
+bindsym $mod+Ctrl+$down         resize shrink height 3 px or 3 ppt
+bindsym $mod+Ctrl+$right      resize grow width 3 px or 3 ppt
+
+bindsym $mod+p exec --no-startup-id passmenu
+
+bindsym $mod+shift+e exec --no-startup-id echo $EMAIL | xclip -selection "clipboard"
+
+# Move focused workspace to monitor
+bindsym $mod+shift+bracketleft move workspace to output left
+bindsym $mod+shift+bracketright move workspace to output right
+
+bindsym $mod+bracketleft move container to output left
+bindsym $mod+bracketright move container to output right
+
+bindsym $mod+Mod1+$left focus output left
+bindsym $mod+Mod1+$right focus output right
+
+bindsym $mod+shift+x exec i3lock-fancy
+
+# Wed Jan 02 2019 23:11 
+# Reused to show ranger
+bindsym $mod+mod1+r mode "resize"
 # start a terminal
 # This is set by the value of $TERMINAL. Which in turn is set inside of .bashrc
 bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
@@ -221,45 +265,6 @@ bindsym XF86AudioMute exec --no-startup-id amixer sset Master toggle
 bindsym XF86AudioPlay exec --no-startup-id cmus-remote -u
 bindsym XF86AudioNext exec --no-startup-id cmus-remote -n
 bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
-
-# Using now the control keys with vi like mappings just like windows
-bindsym Control+Mod1+H exec --no-startup-id cmus-remote -u
-bindsym Control+Mod1+L exec --no-startup-id cmus-remote -n
-bindsym Control+Mod1+K exec --no-startup-id amixer sset Master 5%+
-bindsym Control+Mod1+J exec --no-startup-id amixer sset Master 5%-
-bindsym Control+Mod1+M exec --no-startup-id amixer sset Master toggle
-bindsym Control+Mod1+V exec --no-startup-id vim-anywhere vim termite
-
-# bindsym $mod+n exec rofi -show window -opacity "50"
-bindsym $mod+m scratchpad show
-
-# Comes from arch-wiki for i3. Many other goodies there
-bindsym $mod+x [urgent=latest] focus
-
-bindsym $mod+Ctrl+$left       resize shrink width 3 px or 3 ppt
-bindsym $mod+Ctrl+$up       resize grow height 3 px or 3 ppt
-bindsym $mod+Ctrl+$down         resize shrink height 3 px or 3 ppt
-bindsym $mod+Ctrl+$right      resize grow width 3 px or 3 ppt
-
-bindsym $mod+p exec --no-startup-id passmenu
-
-bindsym $mod+shift+e exec --no-startup-id echo $EMAIL | xclip -selection "clipboard"
-
-# Move focused workspace to monitor
-bindsym $mod+shift+bracketleft move workspace to output left
-bindsym $mod+shift+bracketright move workspace to output right
-
-bindsym $mod+bracketleft move container to output left
-bindsym $mod+bracketright move container to output right
-
-bindsym $mod+Mod1+$left focus output left
-bindsym $mod+Mod1+$right focus output right
-
-bindsym $mod+i exec --no-startup-id \
-	~/Documents/polybar-scripts/polybar-scripts/pulseaudio-rofi/pulseaudio-rofi.sh --input
-
-bindsym $mod+o exec --no-startup-id \
-	~/Documents/polybar-scripts/polybar-scripts/pulseaudio-rofi/pulseaudio-rofi.sh --output
 
 # }}}
 
@@ -466,30 +471,30 @@ mode "$mode_gaps_outer" {
 # Mode Show/Launch: {{{
 # Sat Sep 30 2017 18:59:
 # This regex ^ start of subject and $ means end of subject
-for_window [title="^cmus$"] move to workspace 8
-for_window [title="^gmail-mutt$"] move to workspace 8
-for_window [title="^psu-mutt$"] move to workspace 8
+for_window [title="^cmus$"] move to scratchpad
+for_window [title="^gmail-mutt$"] move to scratchpad
+for_window [title="^psu-mutt$"] move to scratchpad
 for_window [title="^ranger$"] move to scratchpad
-for_window [class="Spotify"] move to workspace 8
+for_window [title="^journal$"] move to scratchpad
+for_window [class="Spotify"] move to scratchpad
 
-# set $mode_show Show: [c]mus, [m]gmail, ps[u], [n]ranger, [s]potify
-# bindsym $mod+n mode "$mode_show"
+set $mode_show Show: [c]mus, [o]journal, [n]ranger, [s]potify
+bindsym $mod+n mode "$mode_show"
 
-# mode "$mode_show" {
-	# bindsym c [title="^cmus$"] move to scratchpad, scratchpad show; mode "default"
-	# bindsym m [title="^gmail-mutt$"] move to scratchpad, scratchpad show; mode "default"
-	# bindsym u [title="^psu-mutt$"] move to scratchpad, scratchpad show; mode "default"
-	# bindsym n [title="^ranger$"] move to scratchpad, scratchpad show; mode "default"
-	# bindsym s [class="^Spotify$"] move to scratchpad, scratchpad show; mode "default"
+mode "$mode_show" {
+	bindsym c [title="^cmus$"] move to scratchpad, scratchpad show; mode "default"
+	bindsym o [title="^journal$"] move to scratchpad, scratchpad show; mode "default"
+	bindsym n [title="^ranger$"] move to scratchpad, scratchpad show; mode "default"
+	bindsym s [class="^Spotify$"] move to scratchpad, scratchpad show; mode "default"
 
-	# bindsym Escape mode "default"
-	# bindsym Return mode "default"
-# }
+	bindsym Escape mode "default"
+	bindsym Return mode "default"
+}
 
 # Mode Launch:
 # Thu Nov 30 2017 19:56:
-set $mode_launch Launch: [c]mus, [m]gmail, ps[u], [n]ranger, [s]potify
-bindsym $mod+n mode "$mode_launch"
+set $mode_launch Launch: [c]mus, [o]journal, [n]ranger, [s]potify
+bindsym $mod+shift+n mode "$mode_launch"
 
 # Sun Jun 03 2018 23:48: Transitioning to kitty. To return to termite search gitlog for
 # kitty
@@ -513,15 +518,13 @@ bindsym $mod+n mode "$mode_launch"
 mode "$mode_launch" {
 
 	bindsym c exec --no-startup-id i3-sensible-terminal \
-		--title=cmus cmus
-	bindsym m exec --no-startup-id i3-sensible-terminal \
-		--title=gmail-mutt neomutt -F ~/.config/mutt/account.gmail; mode "default"
-	bindsym u exec --no-startup-id i3-sensible-terminal \
-		--title=psu-mutt neomutt -F ~/.config/mutt/account.psu; mode "default"
+		--title=cmus --exec cmus; mode "default"
 	bindsym n exec --no-startup-id i3-sensible-terminal \
-		--title=ranger ranger
+		--title=ranger --exec ranger; mode "default"
 
-	bindsym s exec --no-startup-id spotify
+	bindsym s exec --no-startup-id --exec spotify; mode "default"
+	bindsym o exec --no-startup-id i3-sensible-terminal --title=journal \
+		--exec 'nvim /home/reinaldo/Documents/resilio/wiki/journal.md +Goyo'; mode "default"
 
 	bindsym Escape mode "default"
 	bindsym Return mode "default"
@@ -596,8 +599,8 @@ exec --no-startup-id blueberry-tray
 # exec --no-startup-id dropbox
 # Sun Dec 16 2018 14:12:
 # Your demise has begun!
-exec --no-startup-id seafile-applet
-exec --no-startup-id owncloud-client
+# exec --no-startup-id seafile-applet
+# exec --no-startup-id owncloud-client
 
 # Wed Oct 11 2017 22:16: Application similar to xflux
 # Thu Sep 27 2018 22:34: Switching to the gtk gets an auto indicator 
@@ -605,12 +608,15 @@ exec --no-startup-id owncloud-client
 exec --no-startup-id redshift-gtk
 
 # Termite launchers
-# exec --no-startup-id i3-sensible-terminal --title=ranger --exec ranger
-# exec --no-startup-id i3-sensible-terminal --title=cmus --exec cmus
+exec --no-startup-id i3-sensible-terminal --title=ranger --exec ranger
+exec --no-startup-id i3-sensible-terminal --title=cmus --exec cmus
+exec --no-startup-id i3-sensible-terminal --title=journal \
+	--exec 'nvim /home/reinaldo/Documents/resilio/wiki/journal.md +Goyo'
+
 
 # Kitty Launchers
-exec --no-startup-id i3-sensible-terminal --title=cmus cmus
-exec --no-startup-id i3-sensible-terminal --title=ranger ranger
+# exec --no-startup-id i3-sensible-terminal --title=cmus cmus
+# exec --no-startup-id i3-sensible-terminal --title=ranger ranger
 
 # Thu Sep 06 2018 04:19: Cool new audio system tray icon 
 exec --no-startup-id pasystray
