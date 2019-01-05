@@ -30,12 +30,14 @@ function! plugin#Config()
 		call plug#begin(g:vim_plugins_path)
 	endif
 
-	call s:configure_vim_utils()
-
 	" This call must remain atop since sets the g:lightline variable to which other
 	" plugins add to
 	" selection - {lightline, airline}
 	call status_line#config('lightline')
+
+	Plug 'lambdalisue/suda.vim'
+
+	call s:configure_vim_utils()
 
 	call s:configure_async_plugins()
 
