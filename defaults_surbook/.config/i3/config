@@ -526,7 +526,7 @@ mode "$mode_launch" {
 
 	bindsym s exec --no-startup-id --exec spotify; mode "default"
 	bindsym o exec --no-startup-id i3-sensible-terminal --title=journal \
-		--exec 'nvim /home/reinaldo/Documents/resilio/wiki/journal.md +Goyo'; mode "default"
+		--exec 'nvim --listen /tmp/nada +UtilsEditJournal +Goyo'; mode "default"
 
 	bindsym Escape mode "default"
 	bindsym Return mode "default"
@@ -610,7 +610,7 @@ exec --no-startup-id redshift -c ~/.config/redshift.conf
 exec --no-startup-id i3-sensible-terminal --title=ranger --exec ranger
 exec --no-startup-id i3-sensible-terminal --title=cmus --exec cmus
 exec --no-startup-id i3-sensible-terminal --title=journal \
-	--exec 'nvim /home/reinaldo/Documents/resilio/wiki/journal.md +Goyo'
+	--exec 'nvim --listen /tmp/nada +UtilsEditJournal +Goyo'
 # Sat Jul 07 2018 09:07: A little buggy
 # exec --no-startup-id variety
 
