@@ -72,6 +72,7 @@ function! mappings#Set()
 	" - tj, te, ta, tt, tf, ts, to, tn
 	nmap <Leader>f <Plug>file_browser
 	nmap <leader>tf <plug>focus_toggle
+	nnoremap <leader>tc :call <sid>toggle_conceal<cr>
 
 	nmap <s-k> <plug>buffer_browser
 	nmap <c-p> <plug>mru_browser
@@ -1089,5 +1090,15 @@ function! s:version_control_command(cmd) abort
 		else
 			echoerr '[version_control_command]: Please provide support this command'
 			return
+	endif
+endfunction
+
+function! s:toggle_conceal() abort
+	let l:cc = &conceallevel
+
+	if l:cc == 0
+		set conceallevel=2
+	else
+		set conceallevel=0
 	endif
 endfunction
