@@ -222,6 +222,11 @@ function! options#Set() abort
 
 	" Diff options
 	let &diffopt='vertical'
+	try
+		set diffopt+=internal,filler,algorithm:patience
+	catch
+		let g:no_cool_diffopt_available = 1
+	endtry
 
 	call s:set_syntax()
 

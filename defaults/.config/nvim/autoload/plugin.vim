@@ -93,7 +93,7 @@ function! plugin#Config()
 	call s:configure_vim_table_mode()
 
 	" misc
-	if executable('git')
+	if exists('g:no_cool_diffopt_available')
 		Plug 'chrisbra/vim-diff-enhanced'
 		let &diffexpr='EnhancedDiff#Diff("git diff", "--diff-algorithm=patience")'
 	endif
