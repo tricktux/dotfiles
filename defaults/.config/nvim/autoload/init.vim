@@ -134,10 +134,10 @@ function! s:config_unix() abort
 		let g:usr_path = $HOME . '/../usr'
 	endif
 
-	let wikis = ['~/Seafile/KnowledgeIsPower/wiki', '~/Documents/Seafile/KnowledgeIsPower/wiki']
-	for wiki in wikis
-		if !empty(glob(wiki))
-			let g:wiki_path =  expand(wiki)
+	let l:wikis = ['~/Documents/resilio/wiki', '~/External/reinaldo/resilio/wiki']
+	for l:wiki in l:wikis
+		if !empty(glob(l:wiki))
+			let g:wiki_path =  expand(l:wiki)
 			let g:valid_device = 1
 			break
 		endif
