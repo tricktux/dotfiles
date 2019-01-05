@@ -7,6 +7,7 @@
 
 " CUSTOM_COMMANDS
 function! commands#Set() abort
+	command! UtilsEditJournal :execute('edit ' . g:wiki_path . '/journal.md')
 	command! UtilsIndentWholeFile execute("normal! mzgg=G`z")
 	command! UtilsFileFormat2Dos :e ++ff=dos<cr>
 	command! UtilsFileFormat2Unix call s:convert_line_ending_to_unix()
