@@ -123,9 +123,9 @@ bindsym control+mod1+m exec --no-startup-id amixer sset Master toggle
 bindsym control+mod1+p exec --no-startup-id pavucontrol
 bindsym control+mod1+b exec --no-startup-id blueberry
 bindsym control+mod1+i exec --no-startup-id \
-	~/Documents/polybar-scripts/polybar-scripts/pulseaudio-rofi/pulseaudio-rofi.sh --input
+	~/.config/i3/scripts/pulseaudio-rofi.sh --input
 bindsym control+mod1+o exec --no-startup-id \
-	~/Documents/polybar-scripts/polybar-scripts/pulseaudio-rofi/pulseaudio-rofi.sh --output
+	~/.config/i3/scripts/pulseaudio-rofi.sh --output
 
 # bindsym $mod+n exec rofi -show window -opacity "50"
 bindsym $mod+m scratchpad show
