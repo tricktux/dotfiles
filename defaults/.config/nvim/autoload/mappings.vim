@@ -443,7 +443,6 @@ function! mappings#Set()
 	" nnoremap <Leader>vi :!svn info<cr>
 
 	" Wiki mappings <Leader>w?
-	" TODO.RM-Thu Dec 15 2016 16:00: Add support for wiki under SW-Testbed
 	nnoremap <Leader>wo :call <SID>wiki_open()<cr>
 	nnoremap <Leader>wa :call <SID>wiki_add()<cr>
 	nnoremap <Leader>ws :call utils#WikiSearch()<cr>
