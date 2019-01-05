@@ -11,6 +11,8 @@
 ;  [X] - Add the missing scripts from i3 bar
 ;	 	 [ ]- Add color for the added script
 ;  [X] - Fix system tray icons
+; Most of scripts obtained from:
+; - https://github.com/x70b1/polybar-scripts.git
 
 [colors]
 transparent = #00000000
@@ -1038,7 +1040,7 @@ format = <label>
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #9fbc00
-exec = ~/.config/i3/scripts/weather.sh "NAM|US|FL|CLEARWATER"
+exec = ~/.config/polybar/scripts/weather.sh "NAM|US|FL|CLEARWATER"
 
 [module/music]
 type = custom/script
@@ -1107,7 +1109,7 @@ exec-if = "ping -q -w 2 -c 1 176.34.135.167 > /dev/null"
 [module/cmus]
 type = custom/script
 
-exec = sh ~/.config/polybar/cmus.sh
+exec = sh ~/.config/polybar/scripts/cmus.sh
 exec-if = pgrep -x cmus
 interval = 1
 
@@ -1126,7 +1128,7 @@ type = custom/script
 interval = 5
 format-prefix = "  "
 format-underline = #0a6cf5
-exec = ~/.config/polybar/cpuload.sh
+exec = ~/.config/polybar/scripts/cpuload.sh
 
 [module/filesystem]
 type = internal/fs
@@ -1143,19 +1145,19 @@ format-underline = #336699
 [module/redshift]
 type = custom/script
 interval = 5
-exec = ~/.config/polybar/redshift.sh
-click-left = ~/.config/polybar/redshift-toggle.sh
+exec = ~/.config/polybar/scripts/redshift.sh
+click-left = ~/.config/polybar/scripts/redshift-toggle.sh
 
 [module/compton]
 type = custom/script
 
-exec = ~/.config/polybar/compton.sh
-click-left = ~/.config/polybar/compton-toggle.sh
+exec = ~/.config/polybar/scripts/compton.sh
+click-left = ~/.config/polybar/scripts/compton-toggle.sh
 interval = 5
 
 [module/system-nvidia-smi]
 type = custom/script
-exec = ~/Documents/polybar-scripts/polybar-scripts/system-nvidia-smi/system-nvidia-smi.sh
+exec = ~/.config/polybar/scripts/system-nvidia-smi.sh
 interval = 10
 format-underline = #f90000
 
@@ -1163,12 +1165,12 @@ format-underline = #f90000
 ; Depends on pacman-contrib
 type = custom/script
 format-prefix = " "
-exec = ~/Documents/polybar-scripts/polybar-scripts/updates-arch-combined/updates-arch-combined.sh
+exec = ~/.config/polybar/scripts/updates-arch-combined.sh
 interval = 600
 
 [module/pulseaudio-tail]
 type = custom/script
-exec = ~/Documents/polybar-scripts/polybar-scripts/pulseaudio-tail/pulseaudio-tail.sh
+exec = ~/.config/polybar/scripts/pulseaudio-tail.sh
 tail = true
 click-right = exec pavucontrol &
 click-left = ~/polybar-scripts/pulseaudio-tail.sh --mute
@@ -1177,12 +1179,12 @@ scroll-down = ~/polybar-scripts/pulseaudio-tail.sh --down
 
 [module/news-archlinux]
 type = custom/script
-exec = ~/Documents/polybar-scripts/polybar-scripts/news-archlinux/news-archlinux.py
+exec = ~/.config/polybar/scripts/news-archlinux.py
 interval = 600
 
 [module/system-uptime-pretty]
 type = custom/script
-exec = ~/Documents/polybar-scripts/polybar-scripts/system-uptime-pretty/system-uptime-pretty.sh
+exec = ~/.config/polybar/scripts/system-uptime-pretty.sh
 interval = 30
 ; format-prefix = " "
 format-underline = #0a6cf5
@@ -1195,7 +1197,7 @@ format-underline = #0a6cf5
 
 [module/pulseaudio-rofi-input]
 type = custom/script
-exec = ~/Documents/polybar-scripts/polybar-scripts/pulseaudio-rofi/pulseaudio-rofi.sh --input_volume_listener&
+exec = ~/.config/polybar/scripts/pulseaudio-rofi.sh --input_volume_listener&
 tail = true
 click-right = ~/polybar-scripts/pulseaudio-rofi.sh --input
 click-left = ~/polybar-scripts/pulseaudio-rofi.sh --mute_source
@@ -1204,7 +1206,7 @@ scroll-down = ~/polybar-scripts/pulseaudio-rofi.sh --volume_source_down
 
 [module/pulseaudio-rofi-output]
 type = custom/script
-exec = ~/Documents/polybar-scripts/polybar-scripts/pulseaudio-rofi/pulseaudio-rofi.sh --output_volume_listener&
+exec = ~/.config/polybar/scripts/pulseaudio-rofi.sh --output_volume_listener&
 tail = true
 click-right = ~/polybar-scripts/pulseaudio-rofi.sh --output
 click-left = ~/polybar-scripts/pulseaudio-rofi.sh --mute
