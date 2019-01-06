@@ -107,7 +107,7 @@ fi
 alias df='df -h'
 alias du='du -h'
 
-alias mkcdir=mkcdir
+alias mkcdir=FuncMkcdir
 
 FuncHelp()
 {
@@ -177,7 +177,7 @@ FuncSvnCreate()
 	ssh reinaldo@$server_ip svnadmin create /mnt/hq-storage/1.Myn/svn-server/$1 $@
 }
 
-mkcdir ()
+FuncMkcdir()
 {
 	mkdir -p -- "$1" &&
 		cd -P -- "$1"
