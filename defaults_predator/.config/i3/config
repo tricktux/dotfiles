@@ -648,6 +648,6 @@ exec_always --no-startup-id xrandr --dpi 192 --output DP-0 --panning 3840x2160 \
 # Not using because it sets up conky with not sure how to use right now
 # exec /home/reinaldo/.dotfiles/scripts/autostart-gnome.sh
 exec_always --no-startup-id ~/.fehbg
-exec_always --no-startup-id ~/.config/polybar/launch.sh
+exec_always --no-startup-id ~/.config/polybar/scripts/launch.sh
 # }}}
 # vim:fdm=marker
