@@ -1,11 +1,8 @@
 #
-# ~/.zprofile
+# ~/.bash_profile
 #
 
 # Global exports
-
-# Prevent double entries in $PATH
-typeset -U path
 
 # Creating local bin folder
 # If user ID is greater than or equal to 1000 & if ~/.local/bin exists and is a
@@ -32,7 +29,7 @@ export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
 
 # fzf setup
 if [[ -f /usr/bin/fzf ]]; then
-	source /usr/share/fzf/key-bindings.zsh
+	source /usr/share/fzf/key-bindings.bash
 	# if we have rg. use it!
 	if [ -f /usr/bin/rg ]; then
 		export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.{git,svn}" 2> /dev/null'
@@ -60,6 +57,10 @@ export GIT_TERMINAL_PROMPT=1
 # install context-minimals-git
 # mtxrun --generate
 [[ -f /opt/context-minimals/setuptex ]] && source /opt/context-minimals/setuptex
+
+# Thu Feb 22 2018 08:59: Can't figure out how to set locale properly on arch. Result:
+# Wed May 02 2018 04:57: Not needed anymore
+# export LANG=en_US.UTF-8
 
 # Exports
 # Man settings
@@ -91,9 +92,7 @@ fi
 # export VISUAL=nvim
 export EDITOR=$VISUAL
 
-# Thu Feb 22 2018 08:59: Can't figure out how to set locale properly on arch. Result:
-# Wed May 02 2018 04:57: Not needed anymore
-# export LANG=en_US.UTF-8
+[[ -f ~/.bashrc ]] && . ~/.bashrc
 
 if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
 	exec startx
