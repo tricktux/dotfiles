@@ -35,11 +35,33 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 # Path to your oh-my-zsh installation.
 ZSH=/usr/share/oh-my-zsh/
 
+BULLETTRAIN_TIME_12HR="true"
+BULLETTRAIN_CONTEXT_DEFAULT_USER="reinaldo"
+BULLETTRAIN_IS_SSH_CLIENT="true"
+BULLETTRAIN_PROMPT_ORDER=(
+    time
+    status
+    custom
+    context
+    dir
+    screen
+    perl
+    ruby
+    virtualenv
+    # nvm
+    aws
+    go
+    rust
+    elixir
+    git
+    hg
+    cmd_exec_time
+  )
 # Theme
 ZSH_THEME="bullet-train"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="false"
 
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"
