@@ -67,8 +67,13 @@ export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:/usr/man
 # export MANPAGER="nvim -c 'set ft=man' -"
 
 # Creating local bin folder
-# Keep in mind your bin preceeds /usr/bin
-export PATH=$HOME/.local/bin:$PATH
+# If user ID is greater than or equal to 1000 & if ~/.local/bin exists and is a
+# directory & if ~/.local/bin is not already in your $PATH
+# then export ~/.local/bin to your $PATH.
+if [[ $UID -ge 1000 && -d $HOME/.local/bin && -z $(echo $PATH | grep -o $HOME/.local/bin) ]]
+then
+	export PATH="${PATH}:$HOME/.local/bin"
+fi
 
 # Depends on nvr being installed
 # Mon Jun 25 2018 21:51: Basically what this does is to ensure a unique global instance
