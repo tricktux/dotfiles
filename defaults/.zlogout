@@ -1,0 +1,7 @@
+#
+# ~/.zlogout
+#
+#
+
+clear
+reset
