@@ -506,7 +506,7 @@ function! utils#DeniteRec(path) abort
 	endif
 
 	if empty(glob(a:path))
-		echoerr 'Folder ' . a:path . 'not found'
+		echoerr 'Folder "' . a:path . '" not found'
 		return
 	endif
 
