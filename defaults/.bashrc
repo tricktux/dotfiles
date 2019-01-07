@@ -48,6 +48,27 @@ HISTFILESIZE=8888
 # Any completions you add in ~/.bash_completion are sourced last.
 [[ -f /etc/bash_completion ]] && . /etc/bash_completion
 
+# fzf setup
+if [[ -f /usr/bin/fzf ]]; then
+	source /usr/share/fzf/key-bindings.bash
+	# if we have rg. use it!
+	if [ -f /usr/bin/rg ]; then
+		export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.{git,svn}" 2> /dev/null'
+		export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+		export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
+	fi
+
+	# Depends on `install bfs`
+	export FZF_ALT_C_COMMAND="fd -t d . $HOME"
+
+	# TODO-[RM]-(Wed Oct 25 2017 10:10): Download it
+	# https://github.com/urbainvaes/fzf-marks
+fi
+
+# context for resume making
+# install context-minimals-git
+# mtxrun --generate
+[[ -f /opt/context-minimals/setuptex ]] && source /opt/context-minimals/setuptex
 # Sat Oct 14 2017 22:27: fish being default terminal
 # Sat Oct 21 2017 16:14: very pretty but not very useful
 # [ -f /usr/bin/fish ] && exec fish

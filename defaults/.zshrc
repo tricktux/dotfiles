@@ -1,5 +1,8 @@
 # The following lines were added by compinstall
 
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
 zstyle ':completion:*' max-errors 2
 # Autocompletion for sudo
@@ -18,9 +21,6 @@ setopt appendhistory autocd extendedglob nomatch notify
 unsetopt beep
 # End of lines configured by zsh-newuser-install
 
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
-
 # This will set the default prompt to the walters theme
 # prompt walters
 
@@ -35,9 +35,9 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 # Path to your oh-my-zsh installation.
 ZSH=/usr/share/oh-my-zsh/
 
-BULLETTRAIN_TIME_12HR="true"
-BULLETTRAIN_CONTEXT_DEFAULT_USER="reinaldo"
-BULLETTRAIN_IS_SSH_CLIENT="true"
+BULLETTRAIN_TIME_12HR=true
+BULLETTRAIN_CONTEXT_DEFAULT_USER=reinaldo
+BULLETTRAIN_IS_SSH_CLIENT=true
 BULLETTRAIN_PROMPT_ORDER=(
     time
     status
@@ -48,7 +48,7 @@ BULLETTRAIN_PROMPT_ORDER=(
     perl
     ruby
     virtualenv
-    # nvm
+	# nvm
     aws
     go
     rust
@@ -78,7 +78,14 @@ plugins=(
 	git
 	docker
 	dotenv
+	history-substring-search
+	sudo # ESC twice to insert sudo
+	command-not-found # Doesnt work with pacman :(
 )
+
+# Key bindings for the history substring search
+bindkey '' history-substring-search-up
+bindkey '' history-substring-search-down
 
 ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
 if [[ ! -d $ZSH_CACHE_DIR ]]; then
@@ -88,4 +95,26 @@ fi
 source $ZSH/oh-my-zsh.sh
 
 [[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
+
+# fzf setup
+if [[ -f /usr/bin/fzf ]]; then
+	source /usr/share/fzf/key-bindings.zsh
+	# if we have rg. use it!
+	if [ -f /usr/bin/rg ]; then
+		export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.{git,svn}" 2> /dev/null'
+		export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+		export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
+	fi
+
+	# Depends on `install bfs`
+	export FZF_ALT_C_COMMAND="fd -t d . $HOME"
+
+	# TODO-[RM]-(Wed Oct 25 2017 10:10): Download it
+	# https://github.com/urbainvaes/fzf-marks
+fi
+
+# context for resume making
+# install context-minimals-git
+# mtxrun --generate
+[[ -f /opt/context-minimals/setuptex ]] && source /opt/context-minimals/setuptex
 

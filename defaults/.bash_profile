@@ -27,23 +27,6 @@ export ORACLE_HOME=/home/reinaldo/app/reinaldo/product/12.2.0/client_1
 
 export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
 
-# fzf setup
-if [[ -f /usr/bin/fzf ]]; then
-	source /usr/share/fzf/key-bindings.bash
-	# if we have rg. use it!
-	if [ -f /usr/bin/rg ]; then
-		export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.{git,svn}" 2> /dev/null'
-		export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-		export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
-	fi
-
-	# Depends on `install bfs`
-	export FZF_ALT_C_COMMAND="fd -t d . $HOME"
-
-	# TODO-[RM]-(Wed Oct 25 2017 10:10): Download it
-	# https://github.com/urbainvaes/fzf-marks
-fi
-
 # Ranger load only ~/.config/ranger/rc.conf
 export RANGER_LOAD_DEFAULT_RC=FALSE
 
@@ -52,11 +35,6 @@ export GIT_TERMINAL_PROMPT=1
 
 # export GDK_SCALE=1.5
 # export QT_AUTO_SCREEN_SCALE_FACTOR=1
-
-# context for resume making
-# install context-minimals-git
-# mtxrun --generate
-[[ -f /opt/context-minimals/setuptex ]] && source /opt/context-minimals/setuptex
 
 # Thu Feb 22 2018 08:59: Can't figure out how to set locale properly on arch. Result:
 # Wed May 02 2018 04:57: Not needed anymore
