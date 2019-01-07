@@ -75,7 +75,12 @@ function! s:config_win() abort
 	" Fri Jan 05 2018 16:40: Many plugins use this now. Making these variables available
 	" all the time.
 	let l:pyt2 = "C:\\Python27\\python.exe"
-	let l:pyt3 = [$LOCALAPPDATA . "\\Programs\\Python\\Python36\\python.exe", "C:\\Python36\\python.exe"]
+	let l:pyt3 = [
+				\ $LOCALAPPDATA . "\\Programs\\Python\\Python37\\python.exe",
+				\ "C:\\Python37\\python.exe",
+				\ $LOCALAPPDATA . "\\Programs\\Python\\Python36\\python.exe",
+				\ "C:\\Python36\\python.exe",
+				\ ]
 
 	if filereadable(l:pyt2)
 		let g:python_host_prog= l:pyt2
