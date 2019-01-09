@@ -618,6 +618,7 @@ function! s:set_shuogo_sources() abort
 	" Email Completion, Has a bug that I need to report
 	" Plug 'fszymanski/deoplete-abook'
 	Plug 'Shougo/context_filetype.vim'
+	Plug 'zchee/deoplete-zsh', { 'for' : 'zsh' }
 	" Tue Oct 31 2017 08:54: Going to attempt to use the other clang
 	"  deoplete-clang
 	" if exists('g:libclang_path') && exists('g:clangheader_path')
