@@ -134,7 +134,10 @@ FuncCheckCopy()
 	done
 }
 
-FuncUpdate()
+# TODO-[RM]-(Wed Jan 09 2019 20:59):  
+# Take care of this
+# Not used as anything else other than reference
+FuncSomethingElseUpdate()
 {
 	# Get rid of unused packages and optimize first
 	sudo pacman -Sc --noconfirm
@@ -202,7 +205,9 @@ FuncUpdate()
 {
 	# Thu Dec 27 2018 23:45
 	# Not needed since samba :D
-	# sshfs -p 8888 reinaldo@$server_ip:/ ~/.mnt/copter-server/
+	# Wed Jan 09 2019 21:01 
+	# Not so fast cowboy. samba didnt work for streaming files
+	sshfs reinaldo@$server_ip:/mnt/hq-storage/1.Myn/ ~/.mnt/copter-server/
 	# Tue Oct 16 2018 20:10: You really dont want to update your plugins everday. Things
 	# break. Very frequently.
 	# nvim +PlugUpgrade +PlugUpdate +UpdateRemotePlugins
