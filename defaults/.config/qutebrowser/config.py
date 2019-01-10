@@ -53,6 +53,21 @@ c.editor.command = ["nvr", "--remote-tab-silent", "+set bufhidden=delete",
                     "+normal {line}G{column0}l", "--servername", "/tmp/nada",
                     "{file}"]
 
+#  hidpi
+#  c.qt.highdpi = True
+#  c.zoom.default ="125%"
+c.fonts.completion.category = "8pt monospace"
+c.fonts.completion.entry = "8pt monospace"
+c.fonts.debug_console = "8pt monospace"
+c.fonts.downloads = "8pt monospace"
+c.fonts.hints = "8pt monospace"
+c.fonts.keyhint = "8pt monospace"
+c.fonts.messages.error = "8pt monospace"
+c.fonts.messages.info = "8pt monospace"
+c.fonts.messages.warning = "8pt monospace"
+c.fonts.statusbar = "8pt monospace"
+c.fonts.tabs = "8pt monospace"
+
 c.downloads.location.directory = '/home/reinaldo/Downloads'
 
 c.url.searchengines['a'] = 'https://wiki.archlinux.org/?search={}'
