@@ -9,6 +9,15 @@
 #  Ergo not even that light weight
 #  Must protect firefox
 
+# pylint: disable=C0111
+from qutebrowser.config.configfiles import ConfigAPI  # noqa: F401
+from qutebrowser.config.config import ConfigContainer  # noqa: F401
+config = config  # type: ConfigAPI # noqa: F821 pylint: disable=E0602,C0103
+c = c  # type: ConfigContainer # noqa: F821 pylint: disable=E0602,C0103
+
+import platform
+import socket
+
 # Uncomment this to still load settings configured via autoconfig.yml
 # config.load_autoconfig()
 
@@ -53,20 +62,23 @@ c.editor.command = ["nvr", "--remote-tab-silent", "+set bufhidden=delete",
                     "+normal {line}G{column0}l", "--servername", "/tmp/nada",
                     "{file}"]
 
-#  hidpi
-#  c.qt.highdpi = True
-#  c.zoom.default ="125%"
-c.fonts.completion.category = "8pt monospace"
-c.fonts.completion.entry = "8pt monospace"
-c.fonts.debug_console = "8pt monospace"
-c.fonts.downloads = "8pt monospace"
-c.fonts.hints = "8pt monospace"
-c.fonts.keyhint = "8pt monospace"
-c.fonts.messages.error = "8pt monospace"
-c.fonts.messages.info = "8pt monospace"
-c.fonts.messages.warning = "8pt monospace"
-c.fonts.statusbar = "8pt monospace"
-c.fonts.tabs = "8pt monospace"
+hostname = socket.gethostname()
+if (platform.system() != 'Windows' and (hostname == 'predator'
+        or hostname == 'surbook')):
+    #  hidpi
+    #  c.qt.highdpi = True
+    #  c.zoom.default ="125%"
+    c.fonts.completion.category = "8pt monospace"
+    c.fonts.completion.entry = "8pt monospace"
+    c.fonts.debug_console = "8pt monospace"
+    c.fonts.downloads = "8pt monospace"
+    c.fonts.hints = "8pt monospace"
+    c.fonts.keyhint = "8pt monospace"
+    c.fonts.messages.error = "8pt monospace"
+    c.fonts.messages.info = "8pt monospace"
+    c.fonts.messages.warning = "8pt monospace"
+    c.fonts.statusbar = "8pt monospace"
+    c.fonts.tabs = "8pt monospace"
 
 c.downloads.location.directory = '/home/reinaldo/Downloads'
 
