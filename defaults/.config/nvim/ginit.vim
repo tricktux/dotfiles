@@ -14,7 +14,9 @@
 " Guifont! FontAwesome:h9
 function! s:win_nvim_ugly_font() abort
 	Guifont! Consolas:h10
-	call GuiWindowMaximized(1)
+	" Fri Jan 11 2019 11:22 
+	" Dont auto maximize
+	" call GuiWindowMaximized(1)
 endfunction
 
 function! s:win_nvim_nice_font() abort
@@ -24,7 +26,6 @@ function! s:win_nvim_nice_font() abort
 	" let g:GuiFont ='DejaVuSansMono NF:h9'
 	let g:GuiFont ='FuraCode Nerd Font Mono:h10'
 	execute 'Guifont! ' . g:GuiFont
-	call GuiWindowMaximized(1)
 endfunction
 
 function! s:win_gvim_ugly_font() abort
@@ -40,13 +41,11 @@ endfunction
 function! s:unix_nvim_ugly_font() abort
 	let g:GuiFont ='FuraCode Nerd Font:h9'
 	execute 'Guifont! ' . g:GuiFont
-	call GuiWindowMaximized(1)
 endfunction
 
 function! s:unix_nvim_nice_font() abort
 	let g:GuiFont ='FuraCode Nerd Font:h9'
 	execute 'Guifont! ' . g:GuiFont
-	call GuiWindowMaximized(1)
 endfunction
 
 function! s:unix_gvim_ugly_font() abort
@@ -66,7 +65,6 @@ function! s:set_gvim_guioptions() abort
 	set guioptions-=l  " no left scroll bar
 	set guioptions-=L  " no side scroll bar
 	set guioptions+=c  " no pop ups
-	set showtabline=1		" do not show tabline
 endfunction
 
 function! SetGui() abort
