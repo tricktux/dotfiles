@@ -12,6 +12,8 @@ function! options#Set() abort
 	"omnicomplete menu
 	" save marks
 
+	set guitablabel=%N\ %f
+
 	let &path .='.,,..,../..,./*,./*/*,../*,~/,~/**,/usr/include/*' " Useful for the find command
 	set shiftwidth=4 tabstop=4
 	if has('nvim')
@@ -64,7 +66,11 @@ function! options#Set() abort
 	set noswapfile
 	"set autochdir " working directory is always the same as the file you are editing
 	" Took out options from here. Makes the session script too long and annoying
-	set sessionoptions=buffers,curdir,tabpages
+	try
+		set sessionoptions=buffers,curdir,tabpages,folds,resize,winpos,terminal,help
+	catch 
+		set sessionoptions=buffers,curdir,tabpages,folds,resize,winpos,help
+	endtry
 	set hidden
 	" see :h timeout this was done to make use of ' faster and keep the other
 	" timeout the same
@@ -185,8 +191,6 @@ function! options#Set() abort
 	" Mon May 01 2017 11:21: This breaks split window highliting
 	" Tue Jun 13 2017 20:55: Giving it another try
 	set synmaxcol=200 " Will not highlight passed this column #
-	" Sat Oct 07 2017 00:35: Addind support
-	set showtabline=2
 	" Mon Oct 16 2017 15:22: This speed ups a lot of plugin. Those that have to
 	" do with highliting.
 	set regexpengine=1

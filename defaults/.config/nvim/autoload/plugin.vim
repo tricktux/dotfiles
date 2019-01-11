@@ -413,7 +413,6 @@ function! plugin#Config()
 
 	Plug 'alepez/vim-gtest', { 'for' : ['c', 'cpp'] }
 
-
 	Plug 'Peaches491/vim-glog-syntax'
 
 	call s:configure_vim_bookmark()
@@ -434,7 +433,7 @@ function! plugin#Config()
 
 	Plug 'tenfyzhong/vim-gencode-cpp'
 
-	call s:configure_vim_startify()
+	" call s:configure_vim_startify()
 
 	" This already exists on config files
 	" Plug 'vim-scripts/a.vim'
@@ -648,6 +647,9 @@ function! s:configure_async_plugins() abort
 	let g:neoterm_use_relative_path = 1
 	let g:neoterm_default_mod = 'vertical'
 	let g:neoterm_autoinsert=1
+	" Potential substitue
+	" https://github.com/Shougo/deol.nvim/blob/master/doc/deol.txt
+	" there is also vimshell
 	nnoremap <Plug>terminal_toggle :Ttoggle<CR>
 	" Use gx{text-object} in normal mode
 	nmap <plug>terminal_send <Plug>(neoterm-repl-send)

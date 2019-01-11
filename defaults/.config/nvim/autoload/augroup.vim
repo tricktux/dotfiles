@@ -55,7 +55,7 @@ function! augroup#Set() abort
 			" autocmd VimEnter * call utils#LoadSession('default.vim')
 			" Thu Oct 05 2017 22:22: Special settings that are only detected after vim is loaded
 			autocmd VimEnter * call s:on_vim_enter()
-			autocmd VimLeave * call mappings#SaveSession('default.vim')
+			autocmd VimLeave * call mappings#SaveSession(has('nvim') ? 'default_nvim.vim' : 'default_vim.vim')
 			" Keep splits normalize
 			autocmd VimResized * call s:normalize_window_size()
 		augroup END
@@ -99,6 +99,9 @@ function! s:on_vim_enter() abort
 	" populated until vim init is done
 	call options#SetCli()
 	call plugin#AfterConfig()
+	if (argc() == 0) " If no arguments are passed load default session
+		call mappings#LoadSession(has('nvim') ? 'default_nvim.vim' : 'default_vim.vim')
+	endif
 endfunction
 
 function! s:determine_buf_type() abort
@@ -136,7 +139,7 @@ endfunction
 " Thu Apr 26 2018 18:08: Never have being able to get this to work 
 function! s:restore_last_file() abort
 	while !v:vim_did_enter
-		execute ':sleep 50m'
+		execute ':sleep 1m'
 	endwhile
 
 	execute "normal \<c-o>\<c-o>"

@@ -155,8 +155,8 @@ function! mappings#Set()
 	nnoremap <Leader>js <Esc>:syntax sync fromstart<cr>
 	" Sessions
 	nnoremap <Leader>jes :call mappings#SaveSession()<cr>
-	nnoremap <Leader>jel :call <SID>load_session()<cr>
-	nnoremap <Leader>jee :call <SID>load_session('default.vim')<cr>
+	nnoremap <Leader>jel :call mappings#LoadSession()<cr>
+	nnoremap <Leader>jee :call mappings#LoadSession('default.vim')<cr>
 	" Count occurrances of last search
 	nnoremap <Leader>jc :%s///gn<cr>
 	" Indenting
@@ -184,7 +184,9 @@ function! mappings#Set()
 	" Tue Apr 24 2018 14:06: For some reason in large .cpp files syntax sync takes away
 	" highlight
 	" nnoremap <c-h> :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
-	nnoremap <c-h> :nohlsearch<cr>:diffupdate<cr><c-l>
+	" Fri Jan 11 2019 11:13
+	" Moving this mapping to <c-l>
+	nnoremap <c-l> :nohlsearch<cr>:diffupdate<cr>:e<cr><c-l>
 	nnoremap <C-Space> i<Space><Esc>
 	" These are only for command line
 	" insert in the middle of whole word search
@@ -506,33 +508,34 @@ function! mappings#SaveSession(...) abort
 	silent! execute "mksession! " . session_path . session_name
 endfunction
 
-function! s:load_session(...) abort
-	let session_path = g:std_data_path . '/sessions/'
+function! mappings#LoadSession(...) abort
+	let l:session_path = g:std_data_path . '/sessions/'
 	" Logic path when not called at startup
 	if a:0 >= 1
-		let session_name = session_path . a:1
-		if !filereadable(session_name)
-			echoerr '[s:load_session]: File ' . session_name . ' not readabale'
+		let l:session_name = l:session_path . a:1
+		if !filereadable(l:session_name)
+			if &verbose > 1
+				echoerr '[mappings#LoadSession]: File ' . l:session_name . ' not readabale'
+			endif
 			return
 		endif
-		silent! execute "normal :%bdelete\<CR>"
-		silent! execute "normal :so " . session_path . a:1 . "\<CR>"
+		" silent! execute '%bdelete'
+		silent! execute 'source ' . l:session_path . a:1
 		return
 	endif
 
-	execute "wall"
 	if exists(':Denite')
-		let session_name = utils#DeniteYank(session_path)
-		if !filereadable(session_path . session_name)
+		let l:session_name = utils#DeniteYank(l:session_path)
+		if !filereadable(l:session_path . l:session_name)
 			return
 		endif
 	else
-		let dir = getcwd()
-		execute "lcd ". session_path
-		let session_name = input("Load session:", "", "file")
-		silent! execute "lcd " . dir
+		let l:dir = getcwd()
+		execute 'lcd '. l:session_path
+		let l:session_name = input('Load session:', "", 'file')
+		silent! execute 'lcd ' . l:dir
 	endif
-	silent execute "source " . session_path . session_name
+	silent execute 'source ' . l:session_path . l:session_name
 endfunction
 
 " Tue May 15 2018 09:07: Forced to make it global. <expr> would not work with s: function
