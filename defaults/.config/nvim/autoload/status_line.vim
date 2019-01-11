@@ -91,6 +91,7 @@ function! s:lightline_config() abort
 				\ 'left': [ ['tabs'] ],
 				\ 'right': [ [ 'bufnum' , 'close'] ] }
 
+	let g:lightline.component = {}
 	if exists('g:valid_device')
 		" Ovals. As opposed to the triangles. They do not look quite good
 		" let g:lightline.separator['left']     = "\ue0b4"
@@ -107,19 +108,18 @@ function! s:lightline_config() abort
 		" let g:lightline.subseparator['left']  = ''
 		" let g:lightline.subseparator['right'] = ''
 
-		let g:lightline.component = {}
 		let g:lightline.component['lineinfo'] = ' %p%%/%L:%-2v'
-		let g:lightline.component['filename'] = "\uf02d %t"
+		" let g:lightline.component['filename'] = "\uf02d %t"
 	else
-		let g:lightline.component = {}
 		let g:lightline.component['lineinfo'] = '%p%%/%L:%-2v'
-		let g:lightline.component['filename'] = "%t"
+		" let g:lightline.component['filename'] = "%t"
 	endif
 
 	let g:lightline.component_function = {}
+	let g:lightline.component_function['filename']   = string(function('s:get_filename'))
 	let g:lightline.component_function['filetype']   = string(function('s:devicons_filetype'))
 	let g:lightline.component_function['fileformat'] = string(function('s:devicons_fileformat'))
-	let g:lightline.component_function['readonly']   = string(function('s:readonly'))
+	let g:lightline.component_function['readonly']   = string(function('s:get_readonly'))
 	let g:lightline.component_function['spell']      = string(function('s:get_spell'))
 
 	let g:lightline.component_function['word_count'] = string(function('s:get_word_count'))
@@ -128,6 +128,24 @@ function! s:lightline_config() abort
 	let g:lightline.component_function['ver_control'] = string(function('s:get_version_control'))
 
 	" 0.000001*bytes = mb
+endfunction
+
+function! s:get_filename() abort
+	let l:fname = expand('%:t')
+	let l:rc = l:fname ==# 'ControlP' && has_key(g:lightline, 'ctrlp_item') ? g:lightline.ctrlp_item :
+				\ l:fname ==# '__Tagbar__' ? g:lightline.fname :
+				\ l:fname =~# '__Gundo\|NERD_tree' ? '' :
+				\ &filetype ==# 'vimfiler' ? vimfiler#get_status_string() :
+				\ &filetype ==# 'unite' ? unite#get_status_string() :
+				\ &filetype ==# 'vimshell' ? vimshell#get_status_string() :
+				\ ('' !=# s:get_readonly() ? s:get_readonly() . ' ' : '') .
+				\ ('' !=# l:fname ? l:fname : '[No Name]') .
+				\ ('' !=# s:get_modifiable() ? ' ' . s:get_modifiable() : '')
+	return exists('g:valid_device') ? "\uf02d " . l:rc : l:rc
+endfunction
+
+function! s:get_modifiable() abort
+	return &filetype =~# 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
 endfunction
 
 function! s:get_spell() abort
@@ -192,7 +210,7 @@ function! s:devicons_fileformat() abort
 	return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
 endfunction
 
-function! s:readonly() abort
+function! s:get_readonly() abort
 	return &readonly ?
 				\ (exists('g:valid_device') ? '' : 'R')
 				\  : ''
