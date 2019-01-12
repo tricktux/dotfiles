@@ -207,7 +207,7 @@ FuncUpdate()
 	# Not needed since samba :D
 	# Wed Jan 09 2019 21:01 
 	# Not so fast cowboy. samba didnt work for streaming files
-	sshfs reinaldo@$server_ip:/mnt/hq-storage/1.Myn/ ~/.mnt/copter-server/
+	sshfs reinaldo@$server_ip:/mnt/hq-storage/1.Myn/samba ~/.mnt/copter-server/
 	# Tue Oct 16 2018 20:10: You really dont want to update your plugins everday. Things
 	# break. Very frequently.
 	# nvim +PlugUpgrade +PlugUpdate +UpdateRemotePlugins
