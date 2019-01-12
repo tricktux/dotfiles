@@ -66,10 +66,12 @@ function! options#Set() abort
 	set noswapfile
 	"set autochdir " working directory is always the same as the file you are editing
 	" Took out options from here. Makes the session script too long and annoying
+	" Fri Jan 11 2019 21:39 
+	" Dont add resize, and winpos. It causes problems in linux
 	try
-		set sessionoptions=buffers,curdir,tabpages,folds,resize,winpos,terminal,help
+		set sessionoptions=buffers,curdir,tabpages,folds,terminal,help
 	catch 
-		set sessionoptions=buffers,curdir,tabpages,folds,resize,winpos,help
+		set sessionoptions=buffers,curdir,tabpages,folds,help
 	endtry
 	set hidden
 	" see :h timeout this was done to make use of ' faster and keep the other
