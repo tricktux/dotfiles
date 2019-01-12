@@ -186,6 +186,7 @@ function! mappings#Set()
 	" nnoremap <c-h> :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
 	" Fri Jan 11 2019 11:13
 	" Moving this mapping to <c-l>
+	nnoremap <c-h> :nohlsearch<cr>:diffupdate<cr><c-l>
 	nnoremap <c-l> :nohlsearch<cr>:diffupdate<cr>:e<cr><c-l>
 	nnoremap <C-Space> i<Space><Esc>
 	" These are only for command line
