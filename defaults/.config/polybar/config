@@ -75,7 +75,7 @@ font-1 = Roboto:size=18;0
 font-2=WunconSiji:pixelsize=18;0
 
 modules-left = battery temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory 
-modules-center = cmus
+modules-center = player-cmus
 modules-right = xkeyboard updates-arch-combined redshift compton
 
 ; My new settings
@@ -132,7 +132,7 @@ font-1 = Roboto:size=18;0
 font-2=WunconSiji:pixelsize=18;0
 
 modules-left = battery temperature cpu cpuload memory
-modules-center = cmus
+modules-center = player-cmus
 modules-right = xkeyboard redshift compton
 
 ; My new settings
@@ -192,7 +192,7 @@ font-3 = Roboto:size=10;0
 font-4=WunconSiji:pixelsize=10;0
 
 modules-left = battery temperature cpu cpuload system-uptime-pretty memory
-modules-center = cmus
+modules-center = player-cmus
 modules-right = xkeyboard backlight-acpi updates-arch-combined redshift compton
 
 ; My new settings
@@ -250,7 +250,7 @@ font-1 = Roboto:size=10;0
 font-2=WunconSiji:pixelsize=10;0
 
 modules-left = battery temperature cpu cpuload system-uptime-pretty memory 
-modules-center = cmus
+modules-center = player-cmus
 modules-right = xkeyboard updates-arch-combined compton
 
 ; My new settings
@@ -1212,5 +1212,13 @@ click-right = ~/polybar-scripts/pulseaudio-rofi.sh --output
 click-left = ~/polybar-scripts/pulseaudio-rofi.sh --mute
 scroll-up =  ~/polybar-scripts/pulseaudio-rofi.sh --volume_up
 scroll-down = ~/polybar-scripts/pulseaudio-rofi.sh --volume_down
+
+[module/player-cmus]
+type = custom/script
+exec = ~/.config/polybar/scripts/player-cmus.sh
+interval = 1
+click-left = cmus-remote -n
+click-right = cmus-remote -r
+click-middle = cmus-remote -u
 
 ; vim:filetype=dosini
