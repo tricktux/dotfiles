@@ -207,7 +207,12 @@ FuncUpdate()
 	# Not needed since samba :D
 	# Wed Jan 09 2019 21:01 
 	# Not so fast cowboy. samba didnt work for streaming files
-	sshfs reinaldo@$server_ip:/mnt/hq-storage/1.Myn/samba ~/.mnt/copter-server/
+	# Wed Jan 16 2019 20:08
+	# Going back to samba since hq odroid died
+	# However, this is samba on router
+	sudo mount -t cifs //Linksys05238/samba /mnt/samba -o \
+		credentials=/etc/samba/credentials/share,uid=1000,gid=100,vers=1.0
+	# sshfs reinaldo@$server_ip:/mnt/hq-storage/1.Myn/samba ~/.mnt/copter-server/
 	# Tue Oct 16 2018 20:10: You really dont want to update your plugins everday. Things
 	# break. Very frequently.
 	# nvim +PlugUpgrade +PlugUpdate +UpdateRemotePlugins
