@@ -123,9 +123,9 @@ bindsym control+mod1+m exec --no-startup-id amixer sset Master toggle
 bindsym control+mod1+p exec --no-startup-id pavucontrol
 bindsym control+mod1+b exec --no-startup-id blueberry
 bindsym control+mod1+i exec --no-startup-id \
-	~/.config/i3/scripts/pulseaudio-rofi.sh --input
+	~/.config/polybar/scripts/pulseaudio-rofi.sh --input
 bindsym control+mod1+o exec --no-startup-id \
-	~/.config/i3/scripts/pulseaudio-rofi.sh --output
+	~/.config/polybar/scripts/pulseaudio-rofi.sh --output
 
 # bindsym $mod+n exec rofi -show window -opacity "50"
 bindsym $mod+m scratchpad show
@@ -244,7 +244,7 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 # bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 # Here we replace default nagbar with i3-exit
-bindsym Control+Mod1+Delete exec --no-startup-id ~/.config/i3/scripts/shutdown_menu -c
+bindsym Control+Mod1+Delete exec --no-startup-id ~/.config/polybar/scripts/shutdown_menu -c
 
 ########### Custom Bindings ############################
 bindsym Print exec --no-startup-id gnome-screenshot
