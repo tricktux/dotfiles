@@ -440,6 +440,17 @@ function! plugin#Config()
 
 	Plug 'jvenant/vim-java-imports', { 'for' : 'java' }
 
+	" Fri Jan 18 2019 17:20
+	" They are not as good as my handmade version
+	" Relays openning vim in the same folder as your project
+	" Plug 'tpope/vim-obsession'
+	" Plug 'dhruvasagar/vim-prosession'
+		" let g:prosession_dir = g:std_data_path . '/sessions/'
+		" let g:prosession_on_startup = 1
+		" let g:prosession_default_session = 1
+
+		" let g:prosession_last_session_dir = g:std_data_path . '/sessions/defaults'
+
 	call s:configure_vim_which_key()
 
 	" Plug  'tpope/vim-abolish'
@@ -559,6 +570,10 @@ function! plugin#AfterConfig() abort
 						\ 'grepprg':    'pdfgrep --ignore-case --page-number --recursive --context 1',
 						\ }
 		endif
+	endif
+
+	if exists('g:loaded_prosession')
+		call denite#custom#var('prosession', 'format', 'split')
 	endif
 endfunction
 

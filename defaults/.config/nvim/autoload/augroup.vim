@@ -54,7 +54,7 @@ function! augroup#Set() abort
 			" Note: Fri Mar 03 2017 14:13 - This never works.
 			" autocmd VimEnter * call utils#LoadSession('default.vim')
 			" Thu Oct 05 2017 22:22: Special settings that are only detected after vim is loaded
-			autocmd VimEnter * call s:on_vim_enter()
+			autocmd VimEnter * nested call s:on_vim_enter()
 			autocmd VimLeave * call mappings#SaveSession(has('nvim') ? 'default_nvim.vim' : 'default_vim.vim')
 			" Keep splits normalize
 			autocmd VimResized * call s:normalize_window_size()
@@ -69,6 +69,8 @@ function! augroup#Set() abort
 				\ |   exe "normal! g`\""
 				\ | endif
 
+
+			autocmd BufEnter * call mappings#SaveSession(has('nvim') ? 'default_nvim.vim' : 'default_vim.vim')
 			autocmd BufWinEnter * call ctags#LoadCscopeDatabse()
 			autocmd BufWinEnter * call status_line#SetVerControl()
 		augroup END
