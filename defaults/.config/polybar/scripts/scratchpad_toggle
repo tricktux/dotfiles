@@ -1,47 +1,21 @@
 #!/bin/bash
 
-# NAME:         focus_or_launch
-# VERSION:      0.4
-# AUTHOR:       (c) 2014 Glutanimate <https://github.com/Glutanimate/>
-#
-# DESCRIPTION:  Focus existing app window or launch application if no
-#               window found
-#
-#               Simplified version of a script by Henning Bekel
-#               (https://bbs.archlinux.org/viewtopic.php?pid=625009#p625009)
-#
-# DEPENDENCIES: xdotool
-#
-# LICENSE:      GNU GPLv3 (http://www.gnu.de/documents/gpl-3.0.en.html)
-#
-# NOTICE:       THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW. 
-#               EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES 
-#               PROVIDE THE PROGRAM “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR 
-#               IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY 
-#               AND FITNESS FOR A PARTICULAR PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND 
-#               PERFORMANCE OF THE PROGRAM IS WITH YOU. SHOULD THE PROGRAM PROVE DEFECTIVE,
-#               YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
-#
-#               IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING WILL ANY 
-#               COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MODIFIES AND/OR CONVEYS THE PROGRAM AS 
-#               PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES, INCLUDING ANY GENERAL, SPECIAL, 
-#               INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE 
-#               THE PROGRAM (INCLUDING BUT NOT LIMITED TO LOSS OF DATA OR DATA BEING RENDERED 
-#               INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD PARTIES OR A FAILURE OF THE 
-#               PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS), EVEN IF SUCH HOLDER OR OTHER 
-#               PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-#
-# USAGE:        focus_or_launch <command>
-# EXAMPLE:      focus_or_launch google-chrome
-
+# File:           scratchpad_toggle
+# Description:    Script to toggle scratchpad windows
+# Author:		    Reinaldo Molina
+# Email:          rmolin88 at gmail dot com
+# Revision:	    0.0.0
+# Created:        Fri Jan 18 2019 12:20
+# Last Modified:  Fri Jan 18 2019 12:20
 
 ############# GLOBVAR/PREP ###############
 
-Executable="$1"
-ExecutableBase="$(basename "$Executable")"
+name="$1"
 Usage="\
-Usage: $(basename $0) command
-E.g.:  $(basename $0) google-chrome\
+Usage: $(basename $0) <name> <command>
+<name>    : name the window has
+<command> : command used to launch window in case doesnt exist
+E.g.:  $(basename $0) journal .~/.config/polybar/scripts/journal.sh\
 "
 
 ############## USGCHECKS #################
@@ -53,12 +27,26 @@ fi
 
 ################ MAIN ####################
 
-MostRecentWID="$(xdotool search --onlyvisible --name "$Executable" | tail -1 2> /dev/null)"
+visible_wid="$(xdotool search --onlyvisible --name "$name" | tail -1 2> /dev/null)"
+wid="$(xdotool search --name "$name" | tail -1 2> /dev/null)"
 
-if [[ -z "$MostRecentWID" ]]; then
-  echo "$Executable not found. Showing window."
-  i3-msg [title="^$Executable$"] move to scratchpad, scratchpad show
-else
-  echo "Focusing instance of $Executable."
-  i3-msg scratchpad show
+if [[ -z "$visible_wid" ]]; then # If the scratchpad window is not visible
+  if [[ -z "$wid" ]]; then       # If the scratchpad window does not exist
+	  if [[ $# -lt 2 ]]; then    # If a command to launch it was not provided
+		  echo "$name not found. A command was not provided to launch it."
+		  exit 2
+	  fi
+
+	  echo "$name not found. Using provided command to launch it."
+	  i3-msg "$2"
+	  exit $?
+  fi
+
+  echo "$name found. Showing scratchpad."
+  i3-msg [title="^$name$"] move to scratchpad, scratchpad show
+  exit $?
 fi
+
+echo "Hiding instance of $name."
+i3-msg scratchpad show
+exit $?
