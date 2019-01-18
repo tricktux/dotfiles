@@ -36,11 +36,11 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 ZSH=/usr/share/oh-my-zsh/
 
 if [[ "$TERM" != "linux" && `uname -o` != "Android" ]]; then
-	BULLETTRAIN_TIME_12HR=true
-	BULLETTRAIN_CONTEXT_DEFAULT_USER=reinaldo
-	BULLETTRAIN_IS_SSH_CLIENT=true
+	# Theme
+	ZSH_THEME="bullet-train"
+
 	BULLETTRAIN_PROMPT_ORDER=(
-		time
+		# time
 		status
 		custom
 		context
@@ -58,8 +58,9 @@ if [[ "$TERM" != "linux" && `uname -o` != "Android" ]]; then
 		hg
 		cmd_exec_time
 	  )
-	# Theme
-	ZSH_THEME="bullet-train"
+	BULLETTRAIN_TIME_12HR=true
+	BULLETTRAIN_CONTEXT_DEFAULT_USER="reinaldo"
+	# BULLETTRAIN_IS_SSH_CLIENT=true
 fi
 # Uncomment the following line to disable bi-weekly auto-update checks.
 DISABLE_AUTO_UPDATE="false"
