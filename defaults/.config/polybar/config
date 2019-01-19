@@ -131,7 +131,7 @@ font-1 = Roboto:size=18;0
 ; For more info look [here](https://github.com/jaagr/polybar/issues/313)
 font-2=WunconSiji:pixelsize=18;0
 
-modules-left = battery temperature cpu cpuload memory
+modules-left = battery temperature cpu cpuload system-uptime-pretty memory
 modules-center = player-cmus
 modules-right = xkeyboard redshift compton
 
