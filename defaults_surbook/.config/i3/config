@@ -123,7 +123,7 @@ bindsym $mod+6 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle 
 	--exec cmus"
 bindsym $mod+o exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
 	terminal "exec --no-startup-id i3-sensible-terminal \
-	--title=terminal"
+	--title=terminal --exec tmux"
 
 bindsym mod1+Tab exec --no-startup-id i3flip next
 
