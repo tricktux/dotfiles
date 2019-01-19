@@ -111,8 +111,11 @@ set $right l
 # Bindigs{{{
 # Note: Use Mouse+$mod to drag floating windows to their wanted position
 
-bindsym $mod+r [title="^ranger$"] move to scratchpad, scratchpad show
-bindsym $mod+o [title="^journal$"] move to scratchpad, scratchpad show
+bindsym $mod+r exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle ranger
+bindsym $mod+o exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle journal
+bindsym $mod+t exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle terminal
+
+bindsym mod1+Tab exec --no-startup-id i3flip next
 
 # Using now the control keys with vi like mappings just like windows
 bindsym control+mod1+h exec --no-startup-id cmus-remote -u
@@ -343,6 +346,16 @@ bindsym $mod+Shift+0 move container to workspace $workspace10
 		for_window [class="Youtube-dl-gui"] floating enable
 		for_window [class="Nm-connection-editor"] floating enable
 
+# Scratchpad
+
+		for_window [title="^cmus$"] move to scratchpad
+		for_window [title="^gmail-mutt$"] move to scratchpad
+		for_window [title="^psu-mutt$"] move to scratchpad
+		for_window [title="^ranger$"] move to scratchpad
+		for_window [title="^journal$"] move to scratchpad
+		for_window [title="^terminal$"] move to scratchpad
+		for_window [class="Spotify"] move to scratchpad
+
 # Taken from https://github.com/Airblader/dotfiles-manjaro
 		for_window [class="Nitrogen"] floating enable
 		for_window [class="ARandR"] floating enable
@@ -473,30 +486,23 @@ mode "$mode_gaps_outer" {
 # Mode Show/Launch: {{{
 # Sat Sep 30 2017 18:59:
 # This regex ^ start of subject and $ means end of subject
-for_window [title="^cmus$"] move to scratchpad
-for_window [title="^gmail-mutt$"] move to scratchpad
-for_window [title="^psu-mutt$"] move to scratchpad
-for_window [title="^ranger$"] move to scratchpad
-for_window [title="^journal$"] move to scratchpad
-for_window [class="Spotify"] move to scratchpad
+# set $mode_show Show: [c]mus, [o]journal, [n]ranger, [s]potify
+# bindsym $mod+n mode "$mode_show"
 
-set $mode_show Show: [c]mus, [o]journal, [n]ranger, [s]potify
-bindsym $mod+n mode "$mode_show"
+# mode "$mode_show" {
+	# bindsym c [title="^cmus$"] move to scratchpad, scratchpad show; mode "default"
+	# bindsym o [title="^journal$"] move to scratchpad, scratchpad show; mode "default"
+	# bindsym n [title="^ranger$"] move to scratchpad, scratchpad show; mode "default"
+	# bindsym s [class="^Spotify$"] move to scratchpad, scratchpad show; mode "default"
 
-mode "$mode_show" {
-	bindsym c [title="^cmus$"] move to scratchpad, scratchpad show; mode "default"
-	bindsym o [title="^journal$"] move to scratchpad, scratchpad show; mode "default"
-	bindsym n [title="^ranger$"] move to scratchpad, scratchpad show; mode "default"
-	bindsym s [class="^Spotify$"] move to scratchpad, scratchpad show; mode "default"
-
-	bindsym Escape mode "default"
-	bindsym Return mode "default"
-}
+	# bindsym Escape mode "default"
+	# bindsym Return mode "default"
+# }
 
 # Mode Launch:
 # Thu Nov 30 2017 19:56:
-set $mode_launch Launch: [c]mus, [o]journal, [n]ranger, [s]potify
-bindsym $mod+shift+n mode "$mode_launch"
+set $mode_launch Launch: [c]mus, [o]journal, [n]ranger, [s]potify, [t]erminal
+bindsym $mod+n mode "$mode_launch"
 
 # Sun Jun 03 2018 23:48: Transitioning to kitty. To return to termite search gitlog for
 # kitty
@@ -527,6 +533,8 @@ mode "$mode_launch" {
 	bindsym s exec --no-startup-id --exec spotify; mode "default"
 	bindsym o exec --no-startup-id i3-sensible-terminal --title=journal \
 		--exec ~/.config/polybar/scripts/journal.sh; mode "default"
+
+	bindsym t exec --no-startup-id i3-sensible-terminal --title=terminal; mode "default"
 
 	bindsym Escape mode "default"
 	bindsym Return mode "default"
@@ -601,24 +609,19 @@ exec --no-startup-id blueberry-tray
 # exec --no-startup-id dropbox
 # Sun Dec 16 2018 14:12:
 # Your demise has begun!
+# Sun Dec 30 2018 17:41
+# Indeed! It was replaced by rslsync/sync/resilio
 # exec --no-startup-id seafile-applet
 # exec --no-startup-id owncloud-client
 
 # Wed Oct 11 2017 22:16: Application similar to xflux
-# Thu Sep 27 2018 22:34: Switching to the gtk gets an auto indicator 
-# exec --no-startup-id redshift -c ~/.config/redshift.conf
-exec --no-startup-id redshift-gtk
+exec --no-startup-id redshift -c ~/.config/redshift.conf
 
-# Termite launchers
 exec --no-startup-id i3-sensible-terminal --title=ranger --exec ranger
 exec --no-startup-id i3-sensible-terminal --title=cmus --exec cmus
 exec --no-startup-id i3-sensible-terminal --title=journal \
 	--exec ~/.config/polybar/scripts/journal.sh
-
-
-# Kitty Launchers
-# exec --no-startup-id i3-sensible-terminal --title=cmus cmus
-# exec --no-startup-id i3-sensible-terminal --title=ranger ranger
+exec --no-startup-id i3-sensible-terminal --title=terminal
 
 # Thu Sep 06 2018 04:19: Cool new audio system tray icon 
 exec --no-startup-id pasystray
