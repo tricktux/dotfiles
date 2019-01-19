@@ -111,9 +111,19 @@ set $right l
 # Bindigs{{{
 # Note: Use Mouse+$mod to drag floating windows to their wanted position
 
-bindsym $mod+r exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle ranger
-bindsym $mod+o exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle journal
-bindsym $mod+t exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle terminal
+# Launch toggle scratchpads
+bindsym $mod+r exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
+	ranger "exec --no-startup-id i3-sensible-terminal \
+	--title=ranger --exec ranger"
+bindsym $mod+8 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
+	journal "exec --no-startup-id i3-sensible-terminal --title=journal \
+	--exec ~/.config/polybar/scripts/journal.sh"
+bindsym $mod+6 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
+	cmus "exec --no-startup-id i3-sensible-terminal --title=cmus \
+	--exec cmus"
+bindsym $mod+o exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
+	terminal "exec --no-startup-id i3-sensible-terminal \
+	--title=terminal --exec 'tmux -f /home/reinaldo/.config/tmux/.tmux.conf'"
 
 bindsym mod1+Tab exec --no-startup-id i3flip next
 
@@ -277,11 +287,11 @@ set $workspace2 "2"
 set $workspace3 "3"
 set $workspace4 "4"
 set $workspace5 "5"
-set $workspace6 "6"
-set $workspace7 "7"
-set $workspace8 "8"
-set $workspace9 "9"
-set $workspace10 "10"
+# set $workspace6 "6"
+# set $workspace7 "7"
+# set $workspace8 "8"
+# set $workspace9 "9"
+# set $workspace10 "10"
 
 # Switch to workspace
 bindsym $mod+1 workspace $workspace1
@@ -289,11 +299,11 @@ bindsym $mod+2 workspace $workspace2
 bindsym $mod+3 workspace $workspace3
 bindsym $mod+4 workspace $workspace4
 bindsym $mod+5 workspace $workspace5
-bindsym $mod+6 workspace $workspace6
-bindsym $mod+7 workspace $workspace7
-bindsym $mod+8 workspace $workspace8
-bindsym $mod+9 workspace $workspace9
-bindsym $mod+0 workspace $workspace10
+# bindsym $mod+6 workspace $workspace6
+# bindsym $mod+7 workspace $workspace7
+# bindsym $mod+8 workspace $workspace8
+# bindsym $mod+9 workspace $workspace9
+# bindsym $mod+0 workspace $workspace10
 bindsym $mod+Tab workspace back_and_forth
 
 # Move focused container to workspace
@@ -302,11 +312,11 @@ bindsym $mod+Shift+2 move container to workspace $workspace2
 bindsym $mod+Shift+3 move container to workspace $workspace3
 bindsym $mod+Shift+4 move container to workspace $workspace4
 bindsym $mod+Shift+5 move container to workspace $workspace5
-bindsym $mod+Shift+6 move container to workspace $workspace6
-bindsym $mod+Shift+7 move container to workspace $workspace7
-bindsym $mod+Shift+8 move container to workspace $workspace8
-bindsym $mod+Shift+9 move container to workspace $workspace9
-bindsym $mod+Shift+0 move container to workspace $workspace10
+# bindsym $mod+Shift+6 move container to workspace $workspace6
+# bindsym $mod+Shift+7 move container to workspace $workspace7
+# bindsym $mod+Shift+8 move container to workspace $workspace8
+# bindsym $mod+Shift+9 move container to workspace $workspace9
+# bindsym $mod+Shift+0 move container to workspace $workspace10
 
 # Assign stuff
 # assign [class="URxvt"] $workspace1
@@ -501,8 +511,8 @@ mode "$mode_gaps_outer" {
 
 # Mode Launch:
 # Thu Nov 30 2017 19:56:
-set $mode_launch Launch: [c]mus, [o]journal, [n]ranger, [s]potify, [t]erminal
-bindsym $mod+n mode "$mode_launch"
+# set $mode_launch Launch: [c]mus, [o]journal, [n]ranger, [s]potify, [t]erminal
+# bindsym $mod+n mode "$mode_launch"
 
 # Sun Jun 03 2018 23:48: Transitioning to kitty. To return to termite search gitlog for
 # kitty
@@ -523,22 +533,22 @@ bindsym $mod+n mode "$mode_launch"
 # mode "default"
 
 # bindsym n exec --no-startup-id i3-sensible-terminal --title=ranger --exec ranger
-mode "$mode_launch" {
+# mode "$mode_launch" {
 
-	bindsym c exec --no-startup-id i3-sensible-terminal \
-		--title=cmus --exec cmus; mode "default"
-	bindsym n exec --no-startup-id i3-sensible-terminal \
-		--title=ranger --exec ranger; mode "default"
+	# bindsym c exec --no-startup-id i3-sensible-terminal \
+		# --title=cmus --exec cmus; mode "default"
+	# bindsym n exec --no-startup-id i3-sensible-terminal \
+		# --title=ranger --exec ranger; mode "default"
 
-	bindsym s exec --no-startup-id --exec spotify; mode "default"
-	bindsym o exec --no-startup-id i3-sensible-terminal --title=journal \
-		--exec ~/.config/polybar/scripts/journal.sh; mode "default"
+	# bindsym s exec --no-startup-id --exec spotify; mode "default"
+	# bindsym o exec --no-startup-id i3-sensible-terminal --title=journal \
+		# --exec ~/.config/polybar/scripts/journal.sh; mode "default"
 
-	bindsym t exec --no-startup-id i3-sensible-terminal --title=terminal; mode "default"
+	# bindsym t exec --no-startup-id i3-sensible-terminal --title=terminal; mode "default"
 
-	bindsym Escape mode "default"
-	bindsym Return mode "default"
-}
+	# bindsym Escape mode "default"
+	# bindsym Return mode "default"
+# }
 # }}}
 
 # Mode Screenshot: {{{
@@ -616,12 +626,6 @@ exec --no-startup-id blueberry-tray
 
 # Wed Oct 11 2017 22:16: Application similar to xflux
 exec --no-startup-id redshift -c ~/.config/redshift.conf
-
-exec --no-startup-id i3-sensible-terminal --title=ranger --exec ranger
-exec --no-startup-id i3-sensible-terminal --title=cmus --exec cmus
-exec --no-startup-id i3-sensible-terminal --title=journal \
-	--exec ~/.config/polybar/scripts/journal.sh
-exec --no-startup-id i3-sensible-terminal --title=terminal
 
 # Thu Sep 06 2018 04:19: Cool new audio system tray icon 
 exec --no-startup-id pasystray
