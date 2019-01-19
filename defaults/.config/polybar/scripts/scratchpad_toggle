@@ -27,8 +27,8 @@ fi
 
 ################ MAIN ####################
 
-visible_wid="$(xdotool search --onlyvisible --name "$name" | tail -1 2> /dev/null)"
-wid="$(xdotool search --name "$name" | tail -1 2> /dev/null)"
+visible_wid="$(xdotool search --onlyvisible --name "^$name$" | tail -1 2> /dev/null)"
+wid="$(xdotool search --name "^$name$" | tail -1 2> /dev/null)"
 
 if [[ -z "$visible_wid" ]]; then # If the scratchpad window is not visible
   if [[ -z "$wid" ]]; then       # If the scratchpad window does not exist
