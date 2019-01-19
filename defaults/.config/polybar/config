@@ -1146,13 +1146,13 @@ format-underline = #336699
 type = custom/script
 interval = 5
 exec = ~/.config/polybar/scripts/redshift.sh
-click-left = ~/.config/polybar/scripts/redshift-toggle.sh
+double-click-left = ~/.config/polybar/scripts/redshift-toggle.sh
 
 [module/compton]
 type = custom/script
 
 exec = ~/.config/polybar/scripts/compton.sh
-click-left = ~/.config/polybar/scripts/compton-toggle.sh
+double-click-left = ~/.config/polybar/scripts/compton-toggle.sh
 interval = 5
 
 [module/system-nvidia-smi]
