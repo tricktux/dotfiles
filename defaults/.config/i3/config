@@ -625,7 +625,8 @@ exec --no-startup-id blueberry-tray
 # exec --no-startup-id owncloud-client
 
 # Wed Oct 11 2017 22:16: Application similar to xflux
-exec --no-startup-id redshift -c ~/.config/redshift.conf
+# Rarely use it anymore. Just enable it when you want it
+# exec --no-startup-id redshift -c ~/.config/redshift.conf
 
 # Thu Sep 06 2018 04:19: Cool new audio system tray icon 
 exec --no-startup-id pasystray
