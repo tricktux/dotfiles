@@ -15,12 +15,12 @@ Usage="\
 Usage: $(basename $0) <name> <command>
 <name>    : name the window has
 <command> : command used to launch window in case doesnt exist
-E.g.:  $(basename $0) journal .~/.config/polybar/scripts/journal.sh\
+E.g.:  $(basename $0) terminal \"exec --no-startup-id i3-sensible-terminal --title=ter minal\"
 "
 
 ############## USGCHECKS #################
 
-if [[ $# -ne 1 || "$1" =~ ^(-h|--help)$ ]]; then
+if [[ $# -lt 1 || "$1" =~ ^(-h|--help)$ ]]; then
   echo "$Usage"
   exit 1
 fi
@@ -38,15 +38,16 @@ if [[ -z "$visible_wid" ]]; then # If the scratchpad window is not visible
 	  fi
 
 	  echo "$name not found. Using provided command to launch it."
-	  i3-msg "$2"
+	  i3-msg "$2" && sleep 1 &&
+		  i3-msg "[title="^$name$"] move to scratchpad, scratchpad show"
 	  exit $?
   fi
 
   echo "$name found. Showing scratchpad."
-  i3-msg [title="^$name$"] move to scratchpad, scratchpad show
+  i3-msg "[title="^$name$"] move to scratchpad, scratchpad show"
   exit $?
 fi
 
 echo "Hiding instance of $name."
-i3-msg scratchpad show
+i3-msg "scratchpad show"
 exit $?
