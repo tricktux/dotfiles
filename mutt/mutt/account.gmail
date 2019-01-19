@@ -8,7 +8,7 @@
 set from = "Reinaldo Molina <rmolin88@gmail.com>"
 
 # Get password from encryption
-set imap_pass ="`pass all_passwds_db/eMail/Gmail\ Rei`"
+set imap_pass ="`pass all_passwds_db/eMail/gmail_rei`"
 set imap_user="rmolin88"
 
 set folder = 'imaps://imap.gmail.com:993'
@@ -20,7 +20,7 @@ set postponed="imaps://imap.gmail.com/[Gmail]/Drafts"
 # Hopefully will fix emails not going out
 set smtp_url = "smtps://rmolin88@gmail.com@smtp.gmail.com:465/"
 # set smtp_url = "smtp://rmolin88@smtp.gmail.com:587/"
-set smtp_pass = "`pass all_passwds_db/eMail/Gmail\ Rei`"
+set smtp_pass = "`pass all_passwds_db/eMail/gmail_rei`"
 set trash = '+[Gmail]/All Mail'
 # Tue Sep 12 2017 16:51: Stop saving outgoing messages to ~/sent
 # Where they should really be saved is to the online storage
@@ -32,8 +32,6 @@ set record = '+[Gmail]/Sent Mail'
 # macro index,pager mp '<copy-message>=Important_Stuff<enter>'
 
 bind index,pager g noop
-bind index gg first-entry
-bind pager gr group-reply
 
 macro index gi "<change-folder>=INBOX<enter>"
 macro index,pager gu ':unmailboxes *<enter><sync-mailbox><refresh><enter-command>source ~/.config/mutt/account.psu<enter><change-folder>!<enter>'
