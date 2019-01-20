@@ -9,7 +9,6 @@
 	ci = commit
 [core]
 	editor = nvim
-	excludesfile = ~/.gitignore_global
 
 [credential]
 	helper = cache --timeout=7200
