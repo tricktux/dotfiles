@@ -112,7 +112,7 @@ set $right l
 # Note: Use Mouse+$mod to drag floating windows to their wanted position
 
 # Launch toggle scratchpads
-bindsym $mod+r exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
+bindsym $mod+n exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
 	ranger "exec --no-startup-id i3-sensible-terminal \
 	--title=ranger --exec ranger"
 bindsym $mod+6 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
