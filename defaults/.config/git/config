@@ -10,8 +10,10 @@
 [core]
 	editor = nvim
 
-[credential]
-	helper = cache --timeout=7200
+; This goes under the .git/config of the repo
+; Not here in the globals
+; [credential]
+	; helper = cache --timeout=7200
 
 ; silence some strange warning
 [push]
