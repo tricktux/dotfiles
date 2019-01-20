@@ -1,10 +1,10 @@
 {
-  "settingsVersion": "1.63.3",
+  "settingsVersion": "1.64.3",
   "exclusionRules": [],
   "filterLinkHints": false,
   "waitForEnterForFilteredHints": true,
   "hideHud": false,
-  "keyMappings": "# Insert your preferred key mappings here.\nmap e scrollPageUp\nmap h scrollPageUp\nmap l scrollPageDown\nmap <a-]> nextTab\nmap <a-[> previousTab\nmap ' Marks.activateGotoMode",
+  "keyMappings": "# Insert your preferred key mappings here.\nmap e scrollPageUp\nmap h scrollPageUp\nmap l scrollPageDown\nmap <a-]> nextTab\nmap <a-[> previousTab\nmap ' Marks.activateGotoMode\nmap q removeTab\nmap Q restoreTab",
   "linkHintCharacters": "sadfjklewcmpgh",
   "linkHintNumbers": "0123456789",
   "newTabUrl": "about:newtab",
