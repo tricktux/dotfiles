@@ -22,13 +22,13 @@
 [diff]
 	tool = neovim
 [difftool "neovim"]
-	cmd = nvr -s -d $LOCAL $REMOTE
+	cmd = nvim -s -d $LOCAL $REMOTE
 	prompt = false
 [merge]
 	tool = neovim
 	conflictstyle = diff3
 [mergetool "neovim"]
-	cmd = nvr -s -d $BASE $LOCAL $REMOTE $MERGED -c 'wincmd J | wincmd ='
+	cmd = nvim -s -d $BASE $LOCAL $REMOTE $MERGED -c 'wincmd J | wincmd ='
 
 [color]
 	ui = auto
