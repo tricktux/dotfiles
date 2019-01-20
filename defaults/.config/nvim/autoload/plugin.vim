@@ -451,6 +451,8 @@ function! plugin#Config()
 
 		" let g:prosession_last_session_dir = g:std_data_path . '/sessions/defaults'
 
+	Plug 'neomutt/neomutt.vim', { 'for' : [ 'muttrc', 'mail' ] }
+
 	call s:configure_vim_which_key()
 
 	" Plug  'tpope/vim-abolish'
