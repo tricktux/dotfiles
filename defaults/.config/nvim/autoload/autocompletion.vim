@@ -626,6 +626,12 @@ function! s:set_shuogo_sources() abort
 	" let g:deoplete#sources#clang#libclang_path = g:libclang_path
 	" let g:deoplete#sources#clang#clang_header = g:clangheader_path
 	" endif
+
+  " This source didnt really work
+	" if (filereadable(expand('~/.abook/adressbook')))
+		" Plug 'fszymanski/deoplete-abook', { 'for' : 'mail' }
+			" let g:deoplete#sources#abook#datafile = expand('~/.abook/adressbook')
+	" endif
 endfunction
 
 function! s:set_shuogo_deo() abort
