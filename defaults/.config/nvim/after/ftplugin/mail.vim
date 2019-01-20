@@ -24,16 +24,16 @@ setlocal tw=72
 let mail_alias_program="Abook"
 
 if !exists("no_plugin_maps") && !exists("no_mail_maps")
-	nnoremap <buffer> <unique> <localleader>a :edit ~/.local/share/mutt/aliases.txt
+	nnoremap <buffer> <unique> <localleader>a :edit ~/.local/share/mutt/aliases.txt<cr>
 	" nmap <buffer> <unique> <LocalLeader>al  <Plug>MailAliasList
 	" nmap <buffer> <unique> <LocalLeader>aq  <Plug>MailAliasQuery
 
-	nnoremap <buffer> <unique> <script> <Plug>MailAliasList <SID>AliasList
-	nnoremap <buffer> <SID>AliasList A<c-r>=<SID>AliasList{mail_alias_program}()<cr><c-o>:set nopaste<cr><c-o>:redraw!<cr><c-o>:echo b:AliasListMsg<cr><esc>
+	" nnoremap <buffer> <unique> <script> <Plug>MailAliasList <SID>AliasList
+	" nnoremap <buffer> <SID>AliasList A<c-r>=<SID>AliasList{mail_alias_program}()<cr><c-o>:set nopaste<cr><c-o>:redraw!<cr><c-o>:echo b:AliasListMsg<cr><esc>
 
 
-	nnoremap <buffer> <unique> <script> <Plug>MailAliasQuery <SID>AliasQuery
-	nnoremap <buffer> <SID>AliasQuery      :call <SID>AliasQuery{mail_alias_program}()<cr>:echo b:AliasQueryMsg<cr>
+	" nnoremap <buffer> <unique> <script> <Plug>MailAliasQuery <SID>AliasQuery
+	" nnoremap <buffer> <SID>AliasQuery      :call <SID>AliasQuery{mail_alias_program}()<cr>:echo b:AliasQueryMsg<cr>
 endif
 "
 
