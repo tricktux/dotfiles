@@ -114,7 +114,6 @@ set editor='nvim'
 set edit_headers    = yes                # show headers when composing
 set fast_reply                           # skip to compose when replying
 
-
 # Always include previous message when replying
 set include = yes
 
