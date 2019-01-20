@@ -115,12 +115,15 @@ set $right l
 bindsym $mod+r exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
 	ranger "exec --no-startup-id i3-sensible-terminal \
 	--title=ranger --exec ranger"
-bindsym $mod+8 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
-	journal "exec --no-startup-id i3-sensible-terminal --title=journal \
-	--exec ~/.config/polybar/scripts/journal.sh"
 bindsym $mod+6 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
 	cmus "exec --no-startup-id i3-sensible-terminal --title=cmus \
 	--exec cmus"
+bindsym $mod+8 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
+	journal "exec --no-startup-id i3-sensible-terminal --title=journal \
+	--exec ~/.config/polybar/scripts/journal.sh"
+bindsym $mod+9 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
+	gmail-mutt "exec --no-startup-id i3-sensible-terminal --title=gmail-mutt \
+	--exec 'neomutt -F ~/.config/mutt/account.gmail'"
 bindsym $mod+o exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
 	terminal "exec --no-startup-id i3-sensible-terminal \
 	--title=terminal --exec 'tmux -f /home/reinaldo/.config/tmux/.tmux.conf'"
