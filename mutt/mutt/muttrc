@@ -158,3 +158,18 @@ set new_mail_command="notify-send 'New Email' '%n new messages, %u unread.' && m
 
 # Speed up folders switch
 set sleep_time = 0
+
+# Nice time formats
+set date_format="%m-%d-%y %T"
+set index_format="%2C | %Z [%d] %-30.30F (%-4.4c) %s"
+
+# Display the index above the pager view
+set pager_index_lines=10
+
+set send_charset="utf-8"
+
+# Stop at the end instead of displaying next mail:
+set pager_stop=yes
+
+# Show context lines when going to next page:
+set pager_context=3
