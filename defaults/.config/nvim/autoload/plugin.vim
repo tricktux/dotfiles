@@ -453,6 +453,8 @@ function! plugin#Config()
 
 	Plug 'neomutt/neomutt.vim', { 'for' : [ 'muttrc', 'mail' ] }
 
+	call s:configure_incsearch()
+
 	call s:configure_vim_which_key()
 
 	" Plug  'tpope/vim-abolish'
@@ -1115,4 +1117,39 @@ function! s:which_key_format(mapping) abort
 	let l:ret = substitute(l:ret, '^\c<c-u>', '', '')
 	let l:ret = substitute(l:ret, '^<[Pp]lug>', '', '')
 	return l:ret
+endfunction
+
+function! s:configure_incsearch() abort
+	" Mon Jan 21 2019 17:26
+	" Can't believe just discovered this plugin
+	" After almost 4 years of using vim
+	Plug 'haya14busa/incsearch.vim'
+	let g:incsearch#auto_nohlsearch = 1
+	let g:incsearch#separate_highlight = 1
+	let g:incsearch#consistent_n_direction = 1
+	let g:incsearch#do_not_save_error_message_history = 1
+
+	let g:incsearch#highlight = {
+				\   'match' : {
+				\     'group' : 'IncSearchUnderline',
+				\     'priority' : '10'
+				\   },
+				\   'on_cursor' : {
+				\     'priority' : '100'
+				\   },
+				\   'cursor' : {
+				\     'group' : 'ErrorMsg',
+				\     'priority' : '1000'
+				\   }
+				\ }
+
+	nmap /  <Plug>(incsearch-forward)
+	nmap ?  <Plug>(incsearch-backward)
+	nmap g/ <Plug>(incsearch-stay)
+	nmap n  <Plug>(incsearch-nohl-n)
+	nmap N  <Plug>(incsearch-nohl-N)
+	nmap *  <Plug>(incsearch-nohl-*)
+	nmap #  <Plug>(incsearch-nohl-#)
+	nmap g* <Plug>(incsearch-nohl-g*)
+	nmap g# <Plug>(incsearch-nohl-g#)
 endfunction

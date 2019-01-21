@@ -439,8 +439,9 @@ function! utils#ChangeColors(scheme, background) abort
 
 	let &background=a:background
 	" Restoring these after colorscheme. Because some of them affect by the colorscheme
-	call highlight#SetAll('IncSearch',	{ 'bg': color })
-	call highlight#SetAll('Search', { 'fg' : g:yellow, 'deco' : 'bold', 'bg' : g:turquoise4 })
+	" call highlight#SetAll('IncSearch',	{ 'bg': color })
+	" call highlight#SetAll('IncSearch',	{ 'fg': 0, 'bg' : 9,  })
+	" call highlight#SetAll('Search', { 'fg' : g:yellow, 'deco' : 'bold', 'bg' : g:turquoise4 })
 	" Tue Jun 26 2018 14:00: Italics fonts on neovim-qt on windows look bad
 	if has('unix') || has('gui_running')
 		call highlight#Set('Comment', { 'deco' : 'italic' })
