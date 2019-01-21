@@ -301,13 +301,14 @@ function! mappings#Set()
 	nmap <leader>nr <plug>num_representation
 	xmap <leader>nr <plug>num_representation
 
-
-	nnoremap <expr> n 'Nn'[v:searchforward]
-	nnoremap <expr> N 'nN'[v:searchforward]
-
+	" Consistent n N direction seraching
+	" Mon Jan 21 2019 17:05
+	" Not needed since incsearch.vim plugin
+	" nnoremap <expr> n 'Nn'[v:searchforward]
+	" nnoremap <expr> N 'nN'[v:searchforward]
 	" Search forward/backwards but return
-	nnoremap * *zz
-	nnoremap # #zz
+	" nnoremap * *zz
+	" nnoremap # #zz
 
 	" Insert Mode (Individual) mappings
 	inoremap <c-f> <Right>
