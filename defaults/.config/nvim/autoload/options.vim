@@ -13,6 +13,10 @@ function! options#Set() abort
 	" save marks
 
 	set guitablabel=%N\ %f
+	" Silly, always set cool colors
+	set termguicolors
+	" Tue Nov 13 2018 22:39: Needed by Shuogo/echodoc.vim 
+	set noshowmode
 
 	let &path .='.,,..,../..,./*,./*/*,../*,~/,~/**,/usr/include/*' " Useful for the find command
 	set shiftwidth=4 tabstop=4
@@ -235,12 +239,6 @@ function! options#Set() abort
 	endtry
 
 	call s:set_syntax()
-
-	" Silly, always set cool colors
-	set termguicolors
-
-	" Tue Nov 13 2018 22:39: Needed by Shuogo/echodoc.vim 
-	set noshowmode
 endfunction
 
 " CLI
