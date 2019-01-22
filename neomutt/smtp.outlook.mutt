@@ -12,9 +12,9 @@ set imap_pass=$my_password
 
 set folder="imaps://outlook.office365.com/"
 set spoolfile= +INBOX
-set postponed= "+Drafts"
-set record = "+Sent Items"
-set trash = "+Deleted Items"
+set postponed= +$my_drafts_noquote
+set record = +$my_sent_noquote
+set trash = +$my_trash_noquote
 mailboxes
 
 # SMTP config

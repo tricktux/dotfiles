@@ -6,6 +6,14 @@
 # Created:        Tue Jan 22 2019 16:58
 # Last Modified:  Tue Jan 22 2019 16:58
 
+# IMAP folders
+set my_drafts="Drafts"
+set my_drafts_noquote="Drafts"
+set my_sent="Sent<quote-char><space>Items"
+set my_sent_noquote="Sent Items"
+set my_trash="Deleted<quote-char><space>Items"
+set my_trash_noquote="Deleted Items"
+
 set my_username="rim18"
 set my_domain="psu.edu"
 set my_password="`pass school/psu.edu/rim18`"
@@ -19,7 +27,7 @@ source "~/.config/neomutt/smtp.outlook.mutt"
 source "~/.config/neomutt/ui.mutt"
 source "~/.config/neomutt/mappings.mutt"
 
-macro   index   gi "<change-folder>=INBOX<enter>"
-macro   index   gs "<change-folder>="Sent<quote-char><space>Items"<enter>"
-macro   index   gd "<change-folder>="Drafts"<enter>"
-macro   index   gt "<change-folder>="Deleted<quote-char><space>Items"<enter>"
+macro   index   gi "<change-folder>=INBOX<enter>"       "Go to Inbox"
+macro   index   gs "<change-folder>=$my_sent<enter>"    "Go to Sent"
+macro   index   gd "<change-folder>=$my_drafts<enter>"  "Go to Drafts"
+macro   index   gt "<change-folder>=$my_trash<enter>"   "Go to Trash"
