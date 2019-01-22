@@ -20,15 +20,15 @@ set ssl_starttls=yes
 set ssl_force_tls=yes
 
 # Add accounts
-folder-hook 'gmail.com' 'source ~/.config/mutt/account.gmail'
-folder-hook 'psu.edu' 'source ~/.config/mutt/account.psu'
+# folder-hook 'gmail.com' 'source ~/.config/mutt/account.gmail'
+# folder-hook 'psu.edu' 'source ~/.config/mutt/account.psu'
 
 # Default account to open
 # source ~/.config/mutt/psu/account.psu
 # source ~/.config/mutt/gmail/account.gmail
 
 set copy=yes			# always save a copy of outgoing messages
-set move = no
+set move = no # Do not move read emails
 
 # Keep IMAP connection alive by polling intermittently (time in seconds).
 set imap_keepalive = 30
