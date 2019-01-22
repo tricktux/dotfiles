@@ -1,33 +1,41 @@
 # File:account.psu
 # Description: mutt setup for PSU email
 # Author:Reinaldo Molina <rmolin88@gmail.com>
-# Version:1.0.0
-# Last Modified: Sun Jan 14 2018 08:16
+# Version:2.0.0
+# Last Modified: Mon Jan 21 2019 23:43
 # Created: Jun 25 2017 15:47
+# Reference:
+# https://github.com/ork/mutt-office365
 
-set from = "Reinaldo Molina <rim18@psu.edu>"
+# IMAP folders
+set my_drafts="Drafts"
+set my_drafts_noquote="Drafts"
+set my_sent="Sent<quote-char><space>Items"
+set my_sent_noquote="Sent Items"
+set my_trash="Deleted<quote-char><space>Items"
+set my_trash_noquote="Deleted Items"
+set my_password="`pass school/psu.edu/rim18`"
 
-set folder = 'imaps://email.psu.edu:993'
-set spoolfile = +inbox
-# set spoolfile = 'imaps://email.psu.edu:993:1/Inbox'
-mailboxes = +inbox
-mailboxes = +trash
-mailboxes = +outbox
+set from = "rim18@psu.edu"
+
+set folder="imaps://outlook.office365.com/"
+set spoolfile = +INBOX
+set postponed= +$my_drafts_noquote
+set record = +$my_sent_noquote
+set trash = +$my_trash_noquote
+
+# set ssl_use_sslv3=yes
+set smtp_authenticators = "login"
+set hostname = "psu.edu"
+# set imap_idle
 
 # Get password from encryption
-set imap_pass ="`pass school/pennstate/passwd`"
+set imap_pass=$my_password
 set imap_user="rim18"
 
-# Specify where to save and/or look for postponed messages.
-set postponed="imaps://email.psu.edu:993/Drafts"
 # Hopefully will fix emails not going out
-set smtp_url = "smtp://rim18@authsmtp.psu.edu:587/"
-set smtp_pass ="`pass school/pennstate/passwd`"
-set trash = 'imaps://email.psu.edu:993/trash'
-set record = '+outbox'
-
-# Get password from encryption
-source "gpg -d ~/.config/mutt/psu/password.psu.gpg |"
+set smtp_url = "smtp://rim18@psu.edu@outlook.office365.com:587/"
+set smtp_pass ="$my_password
 
 # bind index,pager m noop
 # macro index,pager mt '<copy-message>=TODO<enter>'
