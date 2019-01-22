@@ -36,14 +36,6 @@ set imap_keepalive = 30
 # Allow Mutt to open new imap connection automatically.
 unset imap_passive
 
-# How often to check for new mail (time in seconds).
-set timeout = 30
-set mail_check = 30
-
-# Check for all subscribed IMAP folders (as if all were added with a mailboxes line):
-set imap_check_subscribed="yes"
-set imap_list_subscribed="yes"
-
 # To see both reply and recv in one thread
 # I dont like this option. Makes sent emails show in gmail app
 # fcc-hook .* =inbox
