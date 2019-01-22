@@ -41,7 +41,8 @@ set timeout = 30
 set mail_check = 30
 
 # Check for all subscribed IMAP folders (as if all were added with a mailboxes line):
-set imap_check_subscribed
+set imap_check_subscribed="yes"
+set imap_list_subscribed="yes"
 
 # To see both reply and recv in one thread
 # I dont like this option. Makes sent emails show in gmail app
@@ -153,7 +154,7 @@ set delete=yes
 set autoedit
 
 # Sat Nov 04 2017 12:54: Neomutt only feature
-set new_mail_command="notify-send 'New Email' '%n new messages, %u unread.' && mpg123 ~/.config/dotfiles/notification_sounds/cool_notification0.mp3 2>/dev/null&"
+set new_mail_command="notify-send 'New Email in %f' '%n new messages, %u unread.' && mpg123 ~/.config/dotfiles/notification_sounds/cool_notification0.mp3 2>/dev/null&"
 # set new_mail_command="twmnc -t 'New Email' -c '%n new messages, %u unread.' && mpg123 ~/.config/twmn/cool_notification0.mp3&"
 
 # Speed up folders switch
@@ -167,6 +168,8 @@ set index_format="%2C | %Z [%d] %-30.30F (%-4.4c) %s"
 set pager_index_lines=10
 
 set send_charset="utf-8"
+set charset="utf-8"
+set assumed_charset="utf-8"
 
 # Stop at the end instead of displaying next mail:
 set pager_stop=yes
