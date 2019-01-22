@@ -1,0 +1,53 @@
+# File:           mappings.mutt
+# Description:    General Bindings
+# Author:		    Reinaldo Molina
+# Email:          rmolin88 at gmail dot com
+# Revision:	    0.0.0
+# Created:        Tue Jan 22 2019 16:03
+# Last Modified:  Tue Jan 22 2019 16:03
+
+bind index,pager g noop
+# Email list mappings
+bind index gg first-entry
+bind index o display-message
+bind index G last-entry
+bind index L bottom-page		#to the bottom,
+bind index M middle-page		#middle, and
+bind index H top-page			#top of the screen
+bind index r sync-mailbox
+# Move the highlight to the previous mailbox
+bind index h sidebar-prev
+# Move the highlight to the next mailbox
+bind index l sidebar-next
+# Open the highlighted mailbox
+bind index <return> sidebar-open
+# Unmark all deletes
+macro index u "U~A<enter>"
+# Bind to I key in index view:
+macro index I  "<search>~F\n"                     "Search for next important"
+bind index J next-unread
+bind index K previous-unread
+# bind index c compose
+
+bind index,pager N search-opposite
+bind index,pager d next-page
+bind index,pager e previous-page
+bind index,pager D delete-message
+
+# Inside emails mappings
+bind pager j next-line
+bind pager k previous-line
+bind pager G bottom
+bind pager gg top
+bind pager gr group-reply
+# Bint to I key in pager:
+macro pager I  "<exit><search>~F\n<display-message>" "Jump to next important"
+
+# Mappings for both
+# Mark message as Done
+# bind index,pager m noop
+# macro index,pager md "<save-message>=INBOX<enter>"
+# Mario Holbe suggests:
+macro index b '<enter-command>toggle sidebar_visible<enter><refresh>'
+macro pager b '<enter-command>toggle sidebar_visible<enter><redraw-screen>'
+

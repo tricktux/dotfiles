@@ -1,0 +1,18 @@
+# File:           imap.gen.mutt
+# Description:    IMAP settings that apply to all accounts
+# Author:		    Reinaldo Molina
+# Email:          rmolin88 at gmail dot com
+# Revision:			0.0.0
+# Created:        Tue Jan 22 2019 15:58
+# Last Modified:  Tue Jan 22 2019 15:58
+
+# Keep IMAP connection alive by polling intermittently (time in seconds).
+set imap_keepalive = 30
+
+# Allow Mutt to open new imap connection automatically.
+unset imap_passive
+
+# Check for all subscribed IMAP folders (as if all were added with a mailboxes line):
+set imap_check_subscribed
+
+# vim:ft=neomuttrc
