@@ -1,0 +1,25 @@
+# File:           user.psu
+# Description:    Penn State email information
+# Author:		    Reinaldo Molina
+# Email:          rmolin88 at gmail dot com
+# Revision:	    0.0.0
+# Created:        Tue Jan 22 2019 16:58
+# Last Modified:  Tue Jan 22 2019 16:58
+
+set my_username="rim18"
+set my_domain="psu.edu"
+set my_password="`pass school/psu.edu/rim18`"
+
+source "~/.config/neomutt/imap.gen.mutt"
+
+# Specific to account
+# Overwrite settings if you need to here
+source "~/.config/neomutt/smtp.outlook.mutt"
+
+source "~/.config/neomutt/ui.mutt"
+source "~/.config/neomutt/mappings.mutt"
+
+macro   index   gi "<change-folder>=INBOX<enter>"
+macro   index   gs "<change-folder>="Sent<quote-char><space>Items"<enter>"
+macro   index   gd "<change-folder>="Drafts"<enter>"
+macro   index   gt "<change-folder>="Deleted<quote-char><space>Items"<enter>"
