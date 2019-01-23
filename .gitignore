@@ -1,3 +1,4 @@
+neomutt/data/*
 defaults/.config/nvim/spell
 defaults/.config/ranger/bookmarks
 defaults/.config/ranger/history
