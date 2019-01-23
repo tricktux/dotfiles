@@ -68,9 +68,8 @@ alias pdf_join=FuncPdfJoin
 alias pdf_convert_jpg_pdf=FuncPdfConvert
 
 # mutt
-alias neomutt='neomutt -F ~/.config/mutt/account.gmail'
-alias neomutt-gmail='neomutt -F ~/.config/mutt/account.gmail'
-alias neomutt-psu='neomutt -F ~/.config/mutt/account.psu'
+# alias neomutt-gmail='neomutt -F ~/.config/mutt/account.gmail'
+alias neomutt-psu='neomutt -F ~/.config/neomutt/user.psu'
 
 # Folder
 # UnrealEngineCourse
