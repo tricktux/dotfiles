@@ -113,7 +113,7 @@ function! s:install_template() abort
 		let template_path = '~/.pandoc/templates/eisvogel.latex'
 	endif
 
-	let l:link = 'ttps://raw.githubusercontent.com/Wandmalfarbe/pandoc-latex-template/master/eisvogel.tex'
+	let l:link = 'https://raw.githubusercontent.com/Wandmalfarbe/pandoc-latex-template/master/eisvogel.tex'
 	if utils#DownloadFile(template_path, l:link) != 1
 		echomsg 'Failed to download templates'
 	endif
