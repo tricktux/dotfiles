@@ -21,8 +21,6 @@ fi
 # Termite has priority over kitty
 [ -f /usr/bin/termite ] && export TERMINAL="termite"
 
-export EMAIL="rmolin88@gmail.com"
-
 [ -f /usr/bin/firefox ] && export BROWSER="/usr/bin/firefox"
 
 # Thu Feb 01 2018 05:21: For oracle database crap for school
@@ -73,6 +71,6 @@ export EDITOR=$VISUAL
 # Wed May 02 2018 04:57: Not needed anymore
 # export LANG=en_US.UTF-8
 
-if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
-	exec startx
-fi
+# if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
+	# exec startx
+# fi
