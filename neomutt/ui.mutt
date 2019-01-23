@@ -19,12 +19,17 @@ set move = no # Do not move read emails
 set sort = reverse-date-received
 
 # Option to Save contacts so that autocompletion is possible
-set display_filter='~/.config/neomutt/mutt.save.contacts.sh'
+# set display_filter='~/.config/neomutt/mutt.save.contacts.sh'
 # Options to load aliasses file
-set alias_file= ~/.config/neomutt/data/aliases.txt
-set sort_alias= alias
-set reverse_alias=yes
-source $alias_file
+# set alias_file= ~/.config/neomutt/data/aliases.txt
+# set sort_alias= alias
+# set reverse_alias=yes
+# source $alias_file
+
+## Abook
+# Is mutually exclusive with the email settings above
+set query_command= "abook --datafile ~/.config/neomutt/data/addressbook --mutt-query '%s'"
+macro index,pager  a "<pipe-message>abook --datafile ~/.config/neomutt/data/addressbook --add-email-quiet<return>"
 
 set editor='nvim'
 
