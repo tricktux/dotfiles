@@ -628,10 +628,15 @@ function! s:set_shuogo_sources() abort
 	" endif
 
   " This source didnt really work
-	" if (filereadable(expand('~/.abook/adressbook')))
-		" Plug 'fszymanski/deoplete-abook', { 'for' : 'mail' }
-			" let g:deoplete#sources#abook#datafile = expand('~/.abook/adressbook')
-	" endif
+	let l:address_book_loc = '~/.config/neomutt/data/addressbook'
+	if (filereadable(expand(l:address_book_loc)))
+    " This plugin expects abook format abook
+		" Sample command:
+		" abook --convert --informat mutt --infile ~/.config/neomutt/data/aliases.txt \
+		"		--outformat abook --outfile ~/.abook/addressbook
+		Plug 'fszymanski/deoplete-abook', { 'for' : 'mail' }
+			let g:deoplete#sources#abook#datafile = expand(l:address_book_loc)
+	endif
 endfunction
 
 function! s:set_shuogo_deo() abort
