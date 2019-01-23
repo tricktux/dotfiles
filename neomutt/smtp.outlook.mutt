@@ -23,3 +23,5 @@ set smtp_pass = $my_password
 set hostname = $my_domain
 set smtp_url = "smtp://$my_username@$my_domain@outlook.office365.com:587/"
 set smtp_authenticators = "login"
+
+# vim: ft=neomuttrc

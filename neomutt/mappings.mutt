@@ -51,3 +51,4 @@ macro pager I  "<exit><search>~F\n<display-message>" "Jump to next important"
 macro index b '<enter-command>toggle sidebar_visible<enter><refresh>'
 macro pager b '<enter-command>toggle sidebar_visible<enter><redraw-screen>'
 
+# vim: ft=neomuttrc
