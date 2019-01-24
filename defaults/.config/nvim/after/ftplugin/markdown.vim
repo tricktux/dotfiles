@@ -13,7 +13,7 @@ endif
 " Don't load another plugin for this buffer
 let b:did_markdown_ftplugin = 1
 
-if !exists("no_plugin_maps") && !exists("no_markdown_maps")
+if !exists('no_plugin_maps') && !exists('no_markdown_maps')
 	" TODO-[RM]-(Fri Oct 20 2017 08:50): Fix this code commented here below
 	" Encapsulate in markdown file from current line until end of file in ```
 	" nnoremap <buffer> <unique> <LocalLeader>` :normal! o````<CR>```<Esc>
@@ -80,20 +80,20 @@ let s:spelling_toggle = 0
 function! s:mdcheckspelling() abort
 	if exists('spelling_toggle') && s:spelling_toggle == 0
 		if exists(':DittoOn')
-			execute "DittoOn"
+			execute 'DittoOn'
 		endif
 
 		if exists(':LanguageToolCheck')
-			execute "LanguageToolCheck"
+			execute 'LanguageToolCheck'
 		endif
 		let spelling_toggle = 1
 	else
 		if exists(':DittoOff')
-			execute "DittoOff"
+			execute 'DittoOff'
 		endif
 
 		if exists(':LanguageToolClear')
-			execute "LanguageToolClear"
+			execute 'LanguageToolClear'
 		endif
 		let s:spelling_toggle = 0
 	endif
@@ -143,7 +143,9 @@ function! s:preview_browser() abort
 endfunction
 
 function! s:todo_mark(mark) abort
+	let save_cursor = getcurpos()
 	execute "normal! ^f[lr" . a:mark . "\<Esc>"
+	return setpos('.', save_cursor)
 endfunction
 
 " function! s:todo_clear_mark() abort
