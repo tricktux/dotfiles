@@ -56,6 +56,12 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	nnoremap <buffer> <localleader>mh :UtilsMarkdownPandocHtmlMaker<cr>
 	nnoremap <buffer> <localleader>ms :UtilsMarkdownPandocPdfSlidesMaker<cr>
 	nnoremap <buffer> <localleader>mx :UtilsMarkdownPandocPptxSlidesMaker<cr>
+
+	inoremap <buffer> [ [ ]
+	nnoremap <buffer> <localleader>ti :call <sid>todo_mark('o')<cr>
+	nnoremap <buffer> <localleader>tb :call <sid>todo_mark('x')<cr>
+	nnoremap <buffer> <localleader>tc :call <sid>todo_mark('+')<cr>
+	nnoremap <buffer> <localleader>tw :call <sid>todo_mark('-')<cr>
 endif
 
 if exists('*AutoCorrect')
@@ -136,13 +142,13 @@ function! s:preview_browser() abort
 	endif
 endfunction
 
-function! s:todo_mark() abort
-	execute "normal! ^f[lrx\<Esc>"
+function! s:todo_mark(mark) abort
+	execute "normal! ^f[lr" . a:mark . "\<Esc>"
 endfunction
 
-function! s:todo_clear_mark() abort
-	execute "normal! ^f[lr\<Space>\<Esc>"
-endfunction
+" function! s:todo_clear_mark() abort
+	" execute "normal! ^f[lr\<Space>\<Esc>"
+" endfunction
 
 " Wed Dec 12 2018 17:13:
 " By default the pdf maker is enabled.
