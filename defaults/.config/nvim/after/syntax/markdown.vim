@@ -1,10 +1,10 @@
 " fork: TODO-list stuff
 
-syn region itemTodo       start=".. \[ ] "  end="$" keepend contains=itemCause
-syn region itemInProgress start=".. \[o] "  end="$" keepend contains=itemCause
-syn region itemBlocked    start=".. \[x] "  end="$" keepend contains=itemCause
-syn region itemComplete   start=".. \[+] "  end="$" keepend contains=itemCause
-syn region itemWontDo     start=".. \[-] "  end="$" keepend contains=itemCause
+syn region itemTodo       start="^.*\[ ] "  end="$" keepend contains=itemCause
+syn region itemInProgress start="^.*\[o] "  end="$" keepend contains=itemCause
+syn region itemBlocked    start="^.*\[x] "  end="$" keepend contains=itemCause
+syn region itemComplete   start="^.*\[+] "  end="$" keepend contains=itemCause
+syn region itemWontDo     start="^.*\[-] "  end="$" keepend contains=itemCause
 syn region itemCause      start=" > "     end="$"
 syn region itemShell      start=" \$ "    end="$"
 
