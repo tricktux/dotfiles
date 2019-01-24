@@ -17,8 +17,6 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	" TODO-[RM]-(Fri Oct 20 2017 08:50): Fix this code commented here below
 	" Encapsulate in markdown file from current line until end of file in ```
 	" nnoremap <buffer> <unique> <LocalLeader>` :normal! o````<CR>```<Esc>
-	nnoremap <silent> <buffer> <unique> <LocalLeader>n :call <SID>todo_mark()<CR>
-	nnoremap <silent> <buffer> <unique> <LocalLeader>N :call <SID>todo_clear_mark()<CR>
 	nmap <buffer> <localleader>f <plug>focus_toggle
 	inoremap <buffer> * **<Left>
 	" TODO-[RM]-(Fri Oct 20 2017 05:24): Fix this thing here
@@ -57,11 +55,13 @@ if !exists("no_plugin_maps") && !exists("no_markdown_maps")
 	nnoremap <buffer> <localleader>ms :UtilsMarkdownPandocPdfSlidesMaker<cr>
 	nnoremap <buffer> <localleader>mx :UtilsMarkdownPandocPptxSlidesMaker<cr>
 
+	" Super cool
 	inoremap <buffer> [ [ ]
 	nnoremap <buffer> <localleader>ti :call <sid>todo_mark('o')<cr>
 	nnoremap <buffer> <localleader>tb :call <sid>todo_mark('x')<cr>
 	nnoremap <buffer> <localleader>tc :call <sid>todo_mark('+')<cr>
 	nnoremap <buffer> <localleader>tw :call <sid>todo_mark('-')<cr>
+	nnoremap <buffer> <localleader>td :call <sid>todo_mark(' ')<cr>
 endif
 
 if exists('*AutoCorrect')
