@@ -17,7 +17,7 @@ setlocal wrap
 setlocal nospell
 
 " Taken from http://stackoverflow.com/questions/18522086/what-is-the-best-way-to-distinguish-the-current-buffer-is-location-list-or-quick
-function! s:DetectList() abort
+function! s:detect_list() abort
 	exec 'redir @a | silent! ls | redir END'
 	if match(@a,'%a   "\[Location List\]"') >= 0
 		let b:list_type = 'l' " loc
@@ -31,14 +31,19 @@ function! s:DetectList() abort
 endfunction
 
 " Add mappings, unless the user didn't want this.
-if <SID>DetectList() == 1 && exists('b:list_type') && !exists("no_plugin_maps") && !exists("no_qf_maps")
-	exec 'nnoremap <buffer> <C-j> :' . b:list_type . 'next<CR><c-w>j'
-	exec 'nnoremap <buffer> <C-k> :' . b:list_type . 'previous<CR><c-w>j'
-	exec 'nnoremap <buffer> <C-l> :' . b:list_type . 'nf<CR><c-w>j'
-	exec 'nnoremap <buffer> <C-h> :' . b:list_type . 'pf<CR><c-w>j'
+if !exists("no_plugin_maps") && !exists("no_qf_maps")
+	if <sid>detect_list() == 1 && exists('b:list_type')
+		exec 'nnoremap <buffer> <c-j> :' . b:list_type . 'next<cr><c-w>j'
+		exec 'nnoremap <buffer> <c-k> :' . b:list_type . 'previous<cr><c-w>j'
+		exec 'nnoremap <buffer> <c-l> :' . b:list_type . 'nf<cr><c-w>j'
+		exec 'nnoremap <buffer> <c-h> :' . b:list_type . 'pf<cr><c-w>j'
 
-	exec 'nnoremap <buffer> <cr> :.' . b:list_type . b:list_type . '<CR>'
-	exec 'nnoremap <buffer> q :' . b:list_type . 'cl<CR><C-w>p'
+		exec 'nnoremap <buffer> <cr> :.' . b:list_type . b:list_type . '<CR>'
+		exec 'nnoremap <buffer> q :' . b:list_type . 'cl<cr><c-w>p'
+		exec 'nnoremap <silent> <buffer> c :call ' .
+					\ (b:list_type ==# 'c' ? 'setqflist([])' : 'setloclist(0, [])') .
+					\ '<cr>'
+	endif
 endif
 
 let b:undo_ftplugin += "setlocal wrap< spell<" 
