@@ -120,10 +120,10 @@ bindsym $mod+6 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle 
 	--exec cmus"
 bindsym $mod+8 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
 	gmail-mutt "exec --no-startup-id i3-sensible-terminal --title=gmail-mutt \
-	--exec 'neomutt-gmail'"
+	--exec 'neomutt -F ~/.config/neomutt/user.gmail'"
 bindsym $mod+9 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
 	psu-mutt "exec --no-startup-id i3-sensible-terminal --title=psu-mutt \
-	--exec 'neomutt-psu'"
+	--exec 'neomutt -F ~/.config/neomutt/user.psu'"
 bindsym $mod+i exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
 	journal "exec --no-startup-id i3-sensible-terminal --title=journal \
 	--exec ~/.config/polybar/scripts/journal.sh"
