@@ -250,7 +250,7 @@ function! options#SetCli() abort
 	elseif exists('g:GuiLoaded') && g:GuiLoaded == 1
 		" echomsg 'Detected Neovim-qt GUI. Nothing to do here'
 		return
-	elseif exists("g:gui_oni") && g:gui_oni == 1
+	elseif exists('g:gui_oni') && g:gui_oni == 1
 		" In addition disable status bar
 		set laststatus = 0
 		" echomsg 'Detected Oni GUI. Nothing to do here'
