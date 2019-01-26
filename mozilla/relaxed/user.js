@@ -1,8 +1,51 @@
 //
+//
+// File:           user.js
+// Description:    Firefox more usable settings
+// Author:		    Reinaldo Molina
+// Email:          rmolin88 at gmail dot com
+// Revision:	    0.0.0
+// Created:        Sat Jan 26 2019 01:46
+// Last Modified:  Sat Jan 26 2019 01:46
+// Obtained from:
 /******************************************************************************
  * user.js                                                                    *
  * https://github.com/pyllyukko/user.js                                       *
  ******************************************************************************/
+
+/******************************************************************************
+ * My section                                                *
+ ******************************************************************************/
+// Mouse stuff
+user_pref("general.smoothScroll.lines.durationMaxMS", 125);
+user_pref("general.smoothScroll.lines.durationMinMS", 125);
+user_pref("general.smoothScroll.mouseWheel.durationMaxMS", 200);
+user_pref("general.smoothScroll.mouseWheel.durationMinMS", 100);
+user_pref("general.smoothScroll.msdPhysics.enabled", true);
+user_pref("general.smoothScroll.other.durationMaxMS", 125);
+user_pref("general.smoothScroll.other.durationMinMS", 125);
+user_pref("general.smoothScroll.pages.durationMaxMS", 125);
+user_pref("general.smoothScroll.pages.durationMinMS", 125);
+user_pref("mousewheel.min_line_scroll_amount", 30);
+user_pref("mousewheel.system_scroll_override_on_root_content.enabled", true);
+user_pref("mousewheel.system_scroll_override_on_root_content.horizontal.factor", 175);
+user_pref("mousewheel.system_scroll_override_on_root_content.vertical.factor", 175);
+user_pref("toolkit.scrollbox.horizontalScrollDistance", 6);
+user_pref("toolkit.scrollbox.verticalScrollDistance", 2);
+
+// Performance
+user_perf('browser.cache.disk.enable', false);
+user_perf('browser.cache.memory.enable', true);
+user_perf('browser.cache.memory.max_entry_size',2000000);
+user_perf('browser.sessionstore.interval', 600000);
+
+// New tab:
+user_pref("browser.newtabpage.activity-stream.asrouter.userprefs.cfr";false);
+user_pref("browser.newtabpage.activity-stream.feeds.section.highlights";false);
+user_pref("browser.newtabpage.activity-stream.feeds.section.topstories";false);
+user_pref("browser.newtabpage.activity-stream.feeds.snippets";false);
+user_pref("browser.newtabpage.activity-stream.feeds.topsites";false);
+user_pref("browser.newtabpage.activity-stream.prerender";false);
 
 /******************************************************************************
  * SECTION: HTML5 / APIs / DOM                                                *
@@ -713,12 +756,14 @@ user_pref("privacy.firstparty.isolate",				true);
 // https://developer.mozilla.org/en-US/docs/Cookies_Preferences_in_Mozilla#network.cookie.thirdparty.sessionOnly
 user_pref("network.cookie.thirdparty.sessionOnly",		true);
 
+// Sat Jan 26 2019 02:43.RM 
+// Uncommented it
 // PREF: Spoof User-agent (disabled)
-//user_pref("general.useragent.override",				"Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0");
-//user_pref("general.appname.override",				"Netscape");
-//user_pref("general.appversion.override",			"5.0 (Windows)");
-//user_pref("general.platform.override",				"Win32");
-//user_pref("general.oscpu.override",				"Windows NT 6.1");
+user_pref("general.useragent.override",				"Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0");
+user_pref("general.appname.override",				"Netscape");
+user_pref("general.appversion.override",			"5.0 (Windows)");
+user_pref("general.platform.override",				"Win32");
+user_pref("general.oscpu.override",				"Windows NT 6.1");
 
 /*******************************************************************************
  * SECTION: Caching                                                            *
