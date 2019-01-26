@@ -31,7 +31,9 @@ set sort = reverse-date-received
 set query_command= "abook --datafile ~/.config/neomutt/data/addressbook --mutt-query '%s'"
 macro index,pager  a "<pipe-message>abook --datafile ~/.config/neomutt/data/addressbook --add-email-quiet<return>"
 
-set editor='nvim'
+# Fri Jan 25 2019 20:09 
+# nvim crashes when lunching `which-key-plugin` on scratchpad
+set editor='stty -ixon && vim'
 
 # From https://github.com/bubbl/bubb-confs/blob/master/mutt/.mutt/general
 # A lot of good configs in that link
