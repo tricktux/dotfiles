@@ -20,7 +20,7 @@ mailboxes
 # SMTP config
 set from = "$my_username@$my_domain"
 set smtp_pass = $my_password
-# set hostname = $my_domain
+set hostname = $my_domain
 set smtp_url = "smtps://$my_username@smtp.gmail.com:465/"
 
 # vim: ft=neomuttrc
