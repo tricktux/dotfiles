@@ -650,7 +650,7 @@ function! s:set_shuogo_deo() abort
 		" Requirements For Vim 8:
 		" - roxma/vim-hug-neovim-rpc
 		" - g:python3_host_prog pointed to your python3 executable, or echo exepath('python3') is not empty.
-		" - neovim python client (pip3 install neovim)
+		" - neovim python client (pip3 install pynvim)
 		Plug 'roxma/nvim-yarp'
 		Plug 'roxma/vim-hug-neovim-rpc'
 		let g:deoplete#enable_yarp = 1
