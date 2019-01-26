@@ -7,12 +7,12 @@
 # Last Modified:  Tue Jan 22 2019 16:58
 
 # IMAP folders
-set my_drafts="Drafts"
-set my_drafts_noquote="Drafts"
-set my_sent="Sent<quote-char><space>Mail"
-set my_sent_noquote="Sent Mail"
-set my_trash="All<quote-char><space>Mail"
-set my_trash_noquote="All Mail"
+set my_drafts="[Gmail]/Drafts"
+set my_drafts_noquote="[Gmail]/Drafts"
+set my_sent="[Gmail]/Sent<quote-char><space>Mail"
+set my_sent_noquote="[Gmail]/Sent Mail"
+set my_trash="[Gmail]/All<quote-char><space>Mail"
+set my_trash_noquote="[Gmail]/All Mail"
 
 set my_username="rmolin88"
 set my_domain="gmail.com"
