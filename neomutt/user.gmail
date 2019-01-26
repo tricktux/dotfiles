@@ -19,7 +19,7 @@ set my_imp_msgs="Important_Stuff"
 
 set my_username="rmolin88"
 set my_domain="gmail.com"
-set my_password="`pass all_passwds_db/eMail/gmail_rei`"
+set my_password="`pass linux/guajiro/neomutt/gmail`"
 
 source "~/.config/neomutt/imap.gen.mutt"
 
