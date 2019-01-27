@@ -361,6 +361,7 @@ bindsym $mod+Shift+5 move container to workspace $workspace5
 		for_window [class="Pinentry"] floating enable
 		for_window [class="Youtube-dl-gui"] floating enable
 		for_window [class="Nm-connection-editor"] floating enable
+		for_window [class="Anki"] floating enable
 
 # Scratchpad
 
