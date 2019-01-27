@@ -20,10 +20,14 @@ modules[5]="isort"
 modules[6]="jedi"
 modules[7]="pynvim"
 modules[8]="python-language-server"
+modules[9]="pip"
+
+modules_2[0]=${modules[7]}
+modules_2[1]=${modules[9]}
 
 # mkdir -p $venv_loc
 # python -m venv $venv_loc/$venv_name
 # source $venv_name/bin/activate
-pip install --user ${modules[*]}
-pip2 install --user ${modules[7]}
+pip install --upgrade --user ${modules[*]}
+pip2 install --upgrade --user ${modules_2[*]}
 # deactivate
