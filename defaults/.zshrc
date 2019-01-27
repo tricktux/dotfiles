@@ -22,22 +22,88 @@ unsetopt beep
 # End of lines configured by zsh-newuser-install
 
 # This will set the default prompt to the walters theme
-# prompt walters
 
 # Autocompletion for aliases
 setopt COMPLETE_ALIASES
 
-# Syntax highlight
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# Module for async
+zmodload zsh/zpty
 
-# oh-my-zsh
+# vi mode
+bindkey -v
+# reduce timeout
+export KEYTIMEOUT=1
+
+# zplug
+ZPLUG_INIT=/usr/share/zsh/scripts/zplug/init.zsh
+if [[ -f $ZPLUG_INIT ]]; then
+	source $ZPLUG_INIT
+
+	zplug "zsh-users/zsh-syntax-highlighting", defer:2
+
+	# Load theme file
+	zplug 'dracula/zsh', as:theme
+
+	zplug 'zsh-users/zsh-autosuggestions'
+	# <c-space> accept sugguestion
+	bindkey '^ ' autosuggest-accept
+
+	# Make sure to use double quotes
+	zplug "zsh-users/zsh-history-substring-search"
+	# Key bindings for the history substring search
+	bindkey '' history-substring-search-up
+	bindkey '' history-substring-search-down
+else
+	# Syntax highlight
+	HIGHLIGHT=/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+	if [[ -f $HIGHLIGHT ]]; then
+		source $HIGHLIGHT
+	fi
+fi
 
 # Path to your oh-my-zsh installation.
 ZSH=/usr/share/oh-my-zsh/
+if [[ -f $ZSH/oh-my-zsh.sh ]]; then
+	source $ZSH/oh-my-zsh.sh
 
-if [[ "$TERM" != "linux" && `uname -o` != "Android" ]]; then
+	if [[ -f $ZPLUG_INIT ]]; then
+		zplug "plugins/git",   from:oh-my-zsh
+		zplug "plugins/docker",   from:oh-my-zsh
+		zplug "plugins/dotenv",   from:oh-my-zsh
+		zplug "plugins/sudo",   from:oh-my-zsh
+		zplug "plugins/command-not-found",   from:oh-my-zsh
+		zplug "plugins/vi-mode",   from:oh-my-zsh
+	else
+		plugins=(
+			git
+			docker
+			dotenv
+			history-substring-search
+			sudo # ESC twice to insert sudo
+			command-not-found # Doesnt work with pacman :(
+		)
+		# Key bindings for the history substring search
+		bindkey '' history-substring-search-up
+		bindkey '' history-substring-search-down
+
+	fi
+
+	ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
+	if [[ ! -d $ZSH_CACHE_DIR ]]; then
+		mkdir $ZSH_CACHE_DIR
+	fi
+fi
+
+if [[ "$TERM" != "linux" && `uname -o` != "Android" && -f $ZSH/oh-my-zsh.sh ]]; then
+
 	# Theme
-	ZSH_THEME="bullet-train"
+	if [[ -f $ZPLUG_INIT ]]; then
+		setopt prompt_subst # Make sure prompt is able to be generated properly.
+		 # defer until other plugins like oh-my-zsh is loaded
+		zplug "caiogondim/bullet-train.zsh", use:bullet-train.zsh-theme, defer:3
+	else
+		ZSH_THEME="bullet-train"
+	fi
 
 	BULLETTRAIN_PROMPT_ORDER=(
 		# time
@@ -61,7 +127,10 @@ if [[ "$TERM" != "linux" && `uname -o` != "Android" ]]; then
 	BULLETTRAIN_TIME_12HR=true
 	BULLETTRAIN_CONTEXT_DEFAULT_USER="reinaldo"
 	# BULLETTRAIN_IS_SSH_CLIENT=true
+else
+	prompt walters
 fi
+
 # Uncomment the following line to disable bi-weekly auto-update checks.
 DISABLE_AUTO_UPDATE="false"
 
@@ -75,26 +144,6 @@ COMPLETION_WAITING_DOTS="true"
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
 DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-plugins=(
-	git
-	docker
-	dotenv
-	history-substring-search
-	sudo # ESC twice to insert sudo
-	command-not-found # Doesnt work with pacman :(
-)
-
-# Key bindings for the history substring search
-bindkey '' history-substring-search-up
-bindkey '' history-substring-search-down
-
-ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
-if [[ ! -d $ZSH_CACHE_DIR ]]; then
-	mkdir $ZSH_CACHE_DIR
-fi
-
-source $ZSH/oh-my-zsh.sh
 
 [[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
 
@@ -120,3 +169,17 @@ fi
 # mtxrun --generate
 [[ -f /opt/context-minimals/setuptex ]] && source /opt/context-minimals/setuptex
 
+# init zplug
+if [[ -f $ZPLUG_INIT ]]; then
+	# Install plugins if there are plugins that have not been installed
+	if ! zplug check --verbose; then
+		printf "Install? [y/N]: "
+		if read -q; then
+			echo; zplug install
+		fi
+	fi
+
+	# Then, source plugins and add commands to $PATH
+	# For errors use --verbose
+	zplug load
+fi
