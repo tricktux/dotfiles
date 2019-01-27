@@ -103,4 +103,15 @@ set header_cache = "~/.config/neomutt/data"
 set message_cachedir = "~/.config/neomutt/data"
 set certificate_file = "~/.config/neomutt/data/certificates"
 
+# Ask if the user wishes to abort sending if $abort_noattach_regex is found in the
+# body, but no attachments have been added
+# It can be set to:
+#    "yes"     : always abort
+#    "ask-yes" : ask whether to abort
+#    "no"      : send the mail
+set abort_noattach = ask-yes
+# Search for the following regular expression in the body of the email
+# English: attach, attached, attachment, attachments
+set abort_noattach_regex = "\\<attach(|ed|ments?)\\>"
+
 # vim: ft=neomuttrc
