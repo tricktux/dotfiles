@@ -18,7 +18,9 @@ setlocal commentstring=#%s
 setlocal define=^\s*\\(def\\\\|class\\)
 
 if !exists("no_plugin_maps") && !exists("no_python_maps")
-	" Special mappings go here
+	if (exists(':Neoformat'))
+		nnoremap <localleader>f :Neoformat<cr>
+	endif
 endif
 
 call autocompletion#AdditionalLspSettings()
