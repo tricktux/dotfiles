@@ -21,6 +21,9 @@ modules[6]="jedi"
 modules[7]="pynvim"
 modules[8]="python-language-server"
 modules[9]="pip"
+modules[10]="frosted"
+modules[11]="pep8"
+modules[12]="pylint"
 
 modules_2[0]=${modules[7]}
 modules_2[1]=${modules[9]}
