@@ -348,9 +348,9 @@ function! autocompletion#AdditionalLspSettings() abort
 	setlocal completefunc=LanguageClient#complete
 	setlocal formatexpr=LanguageClient_textDocument_rangeFormatting()
 
-	nnoremap <buffer> <localleader>lh :call LanguageClient#textDocument_hover()<CR>
-	nnoremap <buffer> <localleader>f m'gg=G''
 	nnoremap <buffer> <localleader>d :call LanguageClient#textDocument_definition()<CR>
+	nnoremap <buffer> <localleader>lh :call LanguageClient#textDocument_hover()<CR>
+	nnoremap <buffer> <localleader>lf :call LanguageClient#textDocument_formatting()<cr>
 	nnoremap <buffer> <localleader>lR :call LanguageClient#textDocument_references()<CR>
 	nnoremap <buffer> <localleader>ls :call LanguageClient#textDocument_documentSymbol()<CR>
 	nnoremap <buffer> <localleader>lr :call LanguageClient#textDocument_rename()<CR>
