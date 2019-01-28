@@ -995,6 +995,65 @@ function! s:configure_vim_utils() abort
 	" Cscope databases and spell files will only be created for the following filetypes
 	let g:ctags_use_spell_for = ['c', 'cpp']
 	let g:ctags_use_cscope_for = ['c', 'cpp', 'java']
+
+
+	let g:grip_pdfgrep = {
+				\ 'executable' : 'pdfgrep',
+				\ 'args' : [
+				\		'$*',
+				\		'--ignore-case',
+				\		'--page-number',
+				\		'--recursive',
+				\		'--context',
+				\		'1',
+				\ ],
+				\ 'filetype_support' : 0,
+				\ 'filetype_map' : {  },
+				\ 'filetype_option' : '',
+				\ 'grepformat' : &grepformat,
+				\ }
+
+	let l:rg_to_vim_filetypes = {
+				\ 'vim' : 'vimscript',
+				\ 'python' : 'py',
+				\ 'markdown' : 'md',
+				\ }
+
+	let g:grip_rg = {
+				\ 'executable' : 'rg',
+				\ 'args' : [
+				\		'$*',
+				\   '--vimgrep',
+				\   '--smart-case',
+				\		'--follow',
+				\		'--fixed-strings',
+				\		'--hidden',
+				\		'--iglob',
+				\		(has('unix') ? "'!.{git,svn,sync}'" : '!.{git,svn}')
+				\ ],
+				\ 'filetype_support' : 1,
+				\ 'filetype_map' : l:rg_to_vim_filetypes,
+				\ 'filetype_option' : '--type',
+				\ }
+
+	let g:grip_rg_md = {
+				\ 'name' : 'rg_md',
+				\ 'executable' : 'rg',
+				\ 'args' : [
+				\		'$*',
+				\   '--vimgrep',
+				\   '--smart-case',
+				\		'--follow',
+				\		'--fixed-strings',
+				\		'--hidden',
+				\		'--type',
+				\		'md',
+				\		'--iglob',
+				\		(has('unix') ? "'!.{git,svn,sync}'" : '!.{git,svn}'),
+				\		],
+				\ }
+
+	let g:grip_tools = [ g:grip_rg, g:grip_pdfgrep, g:grip_rg_md ]
 endfunction
 
 function! s:configure_vim_bookmark() abort
