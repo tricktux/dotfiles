@@ -58,13 +58,14 @@ c.spellcheck.languages = ["en-US"]
 
 #  Editor shows under journal scratchpad
 #  Cant use nvr need nvim use it with <c-e>
-c.editor.command = ["nvr", "--remote-tab-silent", "+set bufhidden=delete",
-                    "+normal {line}G{column0}l", "--servername", "/tmp/nada",
-                    "{file}"]
+c.editor.command = [
+    "nvr", "--remote-tab-silent", "+set bufhidden=delete",
+    "+normal {line}G{column0}l", "--servername", "/tmp/nada", "{file}"
+]
 
 hostname = socket.gethostname()
-if (platform.system() != 'Windows' and (hostname == 'predator'
-        or hostname == 'surbook')):
+if (platform.system() != 'Windows'
+        and (hostname == 'predator' or hostname == 'surbook')):
     #  hidpi
     #  c.qt.highdpi = True
     #  c.zoom.default ="125%"
@@ -84,19 +85,22 @@ c.downloads.location.directory = '/home/reinaldo/Downloads'
 
 c.url.searchengines['a'] = 'https://wiki.archlinux.org/?search={}'
 c.url.searchengines['y'] = 'https://www.youtube.com/results?search_query={}'
-c.url.searchengines['w'] = 'https://secure.wikimedia.org/wikipedia/en/w/index.php?title=Special%%3ASearch&search={}'
+c.url.searchengines[
+    'w'] = 'https://secure.wikimedia.org/wikipedia/en/w/index.php?title=Special%%3ASearch&search={}'
 c.url.searchengines['g'] = 'https://github.com/search?q={}&type=Code'
 
 #  Privacy settings
 #  Not available while using webengine backend
-#  c.content.notifications = False
-#  c.content.geolocation = False
-#  c.content.canvas_reading = False
-#  c.content.headers.custom = {"accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"}
-#  c.content.webgl = False
-#  c.content.javascript.enabled = False
-#  c.content.cookies.accept = "never"
-#  c.content.cookies.store = False
+c.content.notifications = False
+c.content.geolocation = False
+c.content.canvas_reading = False
+c.content.headers.custom = {
+    "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+}
+c.content.webgl = False
+c.content.javascript.enabled = False
+c.content.cookies.accept = "never"
+c.content.cookies.store = False
 
 #  https://developer.chrome.com/apps/match_patterns
 #  config.set('content.javascript.enabled', True, 'https://*.twitch.tv/*')
