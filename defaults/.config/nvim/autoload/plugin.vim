@@ -521,13 +521,13 @@ function! plugin#AfterConfig() abort
 		call denite#custom#option('_', 'highlight_matched_range', 'Function')
 		if executable('rg')
 			call denite#custom#var('file_rec', 'command',
-						\ ['rg', '--glob', '!.{git,svn}', '--files', '--no-ignore',
+						\ ['rg', '--glob', '!.{git,svn,sync}', '--files', '--no-ignore',
 						\ '--smart-case', '--follow', '--hidden'])
 			" Ripgrep command on grep source
 			call denite#custom#var('grep', 'command', ['rg'])
 			call denite#custom#var('grep', 'default_opts',
 						\ ['--vimgrep', '--no-heading', '--smart-case', '--follow', '--hidden',
-						\ '--glob', '!.{git,svn}'])
+						\ '--glob', '!.{git,svn,sync}'])
 			call denite#custom#var('grep', 'recursive_opts', [])
 			call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
 			call denite#custom#var('grep', 'separator', ['--'])
@@ -538,7 +538,7 @@ function! plugin#AfterConfig() abort
 			call denite#custom#var('grep', 'command', ['ag'])
 			call denite#custom#var('grep', 'default_opts',
 						\ ['--vimgrep', '--no-heading', '--smart-case', '--follow', '--hidden',
-						\ '--glob', '!.{git,svn}'])
+						\ '--glob', '!.{git,svn,sync}'])
 			call denite#custom#var('grep', 'recursive_opts', [])
 			call denite#custom#var('grep', 'pattern_opt', [])
 			call denite#custom#var('grep', 'separator', ['--'])
@@ -546,7 +546,7 @@ function! plugin#AfterConfig() abort
 		endif
 		" Change ignore_globs
 		call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
-					\ [ '.git/', '.svn/', '.ropeproject/', '__pycache__/',
+					\ [ '.git/', '.sync/', '.svn/', '.ropeproject/', '__pycache__/',
 					\   'venv/', 'images/', '*.min.*', 'img/', 'fonts/', 'Obj/', '*.obj'])
 	endif
 
@@ -560,9 +560,9 @@ function! plugin#AfterConfig() abort
 			nmap <plug>search_grep :Grepper -tool rg<cr>
 			xmap <plug>search_grep :Grepper -tool rg<cr>
 			if has('unix')
-				let g:grepper.rg.grepprg .= " --smart-case --follow --fixed-strings --hidden --iglob '!.{git,svn}'"
+				let g:grepper.rg.grepprg .= " --smart-case --follow --fixed-strings --hidden --iglob '!.{git,svn,sync}'"
 			else
-				let g:grepper.rg.grepprg .= ' --smart-case --follow --fixed-strings --hidden --iglob !.{git,svn}'
+				let g:grepper.rg.grepprg .= ' --smart-case --follow --fixed-strings --hidden --iglob !.{git,svn,sync}'
 			endif
 		else
 			nmap <plug>search_grep <plug>(GrepperOperator)
@@ -612,8 +612,8 @@ function! s:configure_ctrlp() abort
 					\ }
 	else
 		let g:ctrlp_mruf_exclude =  '/tmp/.*\|/temp/.*'
-		set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
-		let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+		set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.sync/*
+		let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|sync)$'
 	endif
 	let g:ctrlp_prompt_mappings = {
 				\ 'PrtBS()': ['<bs>', '<c-h>'],
@@ -859,7 +859,7 @@ function! s:configure_file_browser(choice) abort
 	elseif a:choice ==# 'netranger'
 		Plug 'ipod825/vim-netranger'
 		let g:NETRRootDir = g:std_data_path . '/netranger/'
-		let g:NETRIgnore = [ '.git', '.svn' ]
+		let g:NETRIgnore = [ '.git', '.svn', '.sync' ]
 	elseif a:choice ==# 'ranger'
 		nmap <plug>file_browser :RangerCurrentDirectory<CR>
 		Plug 'francoiscabrol/ranger.vim', { 'on' : 'RangerCurrentDirectory' }
