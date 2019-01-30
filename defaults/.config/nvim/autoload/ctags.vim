@@ -38,6 +38,32 @@ endif
 
 let s:files_list = tempname()
 
+let s:ctags = {
+			\ 'files_list' : '',
+			\ 'cwd' : '',
+			\ 'cwd_as_name' : '',
+			\ }
+
+function! s:ctags.update_vars() abort
+	let self.files_list = tempname()
+	let self.cwd = getcwd()
+	let self.cwd_as_name = utils#GetFullPathAsName(self.cwd)
+endfunction
+
+function! s:ctags.confirm() abort
+	let msg = 'Create tags for folder:\n' .
+				\ "\"" . self.cwd . "\""
+	return confirm(msg, "&JYes\n&LNo", 2)
+endfunction
+
+function! s:ctags.create() abort
+	if (self.confirm() != 1)
+		return
+	endif
+
+	call self.update_vars()
+endfunction
+
 "	Your current directory should be at the root of you code
 function! ctags#NvimSyncCtags() abort
 	let response = confirm('Create tags for current folder?', "&Jes\n&Lo", 2)
@@ -104,10 +130,8 @@ endfunction
 
 function! ctags#VimFt2RgFt() abort
 	let rg_ft = &filetype
-	if rg_ft ==? 'vim'
-		let rg_ft = 'vimscript'
-	elseif rg_ft ==? 'python'
-		let rg_ft = 'py'
+	if rg_ft ==? 'python'
+		return 'py'
 	endif
 	return rg_ft
 endfunction
@@ -198,16 +222,23 @@ function! s:create_cscope_files(quote_files) abort
 		return
 	endif
 
-	let l:sed = ' | sed -e '
-	let l:sed .= shellescape("s/\\(.*\\)/\"\\1\"/g", 1) . ' '
+	let l:sed = ' | sed -e ' .
+				\ shellescape("s/\\(.*\\)/\"\\1\"/g", 1) .
+				\ ' '
+				" \ ' -e ' . shellescape("s/\\\\\\\\/\\\\\\\\\\\\\\\\/g", 1) .
 	let rg_ft = ctags#VimFt2RgFt()
 	" Cscope db are not being created properly therefore making cscope.files filetype specific no matter what
 				" \ (!has('unix') ? '--path-separator \\\\' : '') .
-	let files_cmd = 'rg ' .
+	" let files_cmd = 'rg ' .
+				" \ (g:ctags_rg_use_ft == 1 ? '-t ' . rg_ft : '') .
+				" \ ' --files "' . getcwd() .'"' .
+				" \ ' > ' .	s:files_list
+	let files_cmd = 'rg' .
 				\ (g:ctags_rg_use_ft == 1 ? ' -t ' . rg_ft : '') .
 				\ ' --files "' . getcwd() .'"' .
-				\ (executable('sed') && a:quote_files == 1 ? l:sed : ' ') .
 				\ '> ' .	s:files_list
+				" \ (!has('unix') ? ' --path-separator /' : '') .
+				" \ (executable('sed') && a:quote_files == 1 ? l:sed : ' ') .
 
 	if &verbose > 0
 		echomsg string(files_cmd)
@@ -236,7 +267,7 @@ function! s:create_tags(tags_name) abort
 	endif
 
 	" Do not quote file names
-	if !s:create_cscope_files(0)
+	if !s:create_cscope_files(1)
 		return
 	endif
 
@@ -249,8 +280,10 @@ function! s:create_tags(tags_name) abort
 	" - See 'tagbsearch' for the enabled sort option 
 	" - Also added relative to match vim's 'tagrelative'
 	" - NOTE: Keep in mind to leav a space at end of each chunk
+	" Tue Jan 29 2019 15:31:
+	" - Relative thing doesnt make much sense
 	let ctags_cmd = 'ctags -L ' . s:files_list . ' -f ' . tags_loc .
-				\  ' --sort=yes --recurse=yes --tag-relative=yes '
+				\  ' --sort=yes --recurse=yes --tag-relative=never '
 
 	if ctags_lang ==# 'C++'
 		let ctags_cmd .= '--c-kinds=+pl --c++-kinds=+pl --fields=+iaSl --extras=+q '
@@ -454,9 +487,10 @@ function! s:create_cscope(tag_name) abort
 	endif
 
 	" Recreate files and now quote them
-	if !s:create_cscope_files(1)
-		return
-	endif
+	" Redundant
+	" if !s:create_cscope_files(1)
+		" return
+	" endif
 
 	" -b            Build the cross-reference only.
 	" -c            Use only ASCII characters in the cross-ref file (don't compress).

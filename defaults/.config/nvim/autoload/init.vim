@@ -32,6 +32,10 @@ function! init#vim() abort
 	" Create required folders for storing usage data
 	call utils#CheckDirWoPrompt(g:std_data_path . '/sessions')
 	call utils#CheckDirWoPrompt(g:std_data_path . '/ctags')
+	" Backups
+	call utils#CheckDirWoPrompt(g:std_cache_path . '/backup')
+	call utils#CheckDirWoPrompt(g:std_cache_path . '/swap')
+	call utils#CheckDirWoPrompt(g:std_cache_path . '/undofiles')
 
 	call mappings#Set()
 	call options#Set()
