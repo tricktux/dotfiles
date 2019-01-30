@@ -94,42 +94,42 @@ if [[ -f $ZSH/oh-my-zsh.sh ]]; then
 	fi
 fi
 
-if [[ "$TERM" != "linux" && `uname -o` != "Android" && -f $ZSH/oh-my-zsh.sh ]]; then
+# if [[ "$TERM" != "linux" && `uname -o` != "Android" && -f $ZSH/oh-my-zsh.sh ]]; then
 
-	# Theme
-	if [[ -f $ZPLUG_INIT ]]; then
-		setopt prompt_subst # Make sure prompt is able to be generated properly.
-		 # defer until other plugins like oh-my-zsh is loaded
-		zplug "caiogondim/bullet-train.zsh", use:bullet-train.zsh-theme, defer:3
-	else
-		ZSH_THEME="bullet-train"
-	fi
+	# # Theme
+	# if [[ -f $ZPLUG_INIT ]]; then
+		# setopt prompt_subst # Make sure prompt is able to be generated properly.
+		 # # defer until other plugins like oh-my-zsh is loaded
+		# zplug "caiogondim/bullet-train.zsh", use:bullet-train.zsh-theme, defer:3
+	# else
+		# ZSH_THEME="bullet-train"
+	# fi
 
-	BULLETTRAIN_PROMPT_ORDER=(
-		# time
-		status
-		custom
-		context
-		dir
-		screen
-		perl
-		ruby
-		virtualenv
-		# nvm
-		aws
-		go
-		rust
-		elixir
-		git
-		hg
-		cmd_exec_time
-	  )
-	BULLETTRAIN_TIME_12HR=true
-	BULLETTRAIN_CONTEXT_DEFAULT_USER="reinaldo"
-	# BULLETTRAIN_IS_SSH_CLIENT=true
-else
-	prompt walters
-fi
+	# BULLETTRAIN_PROMPT_ORDER=(
+		# # time
+		# status
+		# custom
+		# context
+		# dir
+		# screen
+		# perl
+		# ruby
+		# virtualenv
+		# # nvm
+		# aws
+		# go
+		# rust
+		# elixir
+		# git
+		# hg
+		# cmd_exec_time
+	  # )
+	# BULLETTRAIN_TIME_12HR=true
+	# BULLETTRAIN_CONTEXT_DEFAULT_USER="reinaldo"
+	# # BULLETTRAIN_IS_SSH_CLIENT=true
+# else
+prompt walters
+# fi
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 DISABLE_AUTO_UPDATE="false"
