@@ -84,9 +84,9 @@ function! options#Set() abort
 	" Fri Jan 11 2019 21:39 
 	" Dont add resize, and winpos. It causes problems in linux
 	set sessionoptions=buffers,curdir,tabpages,folds,help,tabpages
-	if (exists(':tnoremap'))
-		set sessionoptions+=terminal
-	endif
+	" if (exists(':tnoremap'))
+		" set sessionoptions+=terminal
+	" endif
 	set hidden
 	" see :h timeout this was done to make use of ' faster and keep the other
 	" timeout the same
