@@ -65,18 +65,28 @@ function! options#Set() abort
 					\ ' %f - ' . v:progname
 	augroup END
 
-	set nobackup " no backup files
-	set nowritebackup
-	set noswapfile
+	" All backups!
+	set backup " backup overwritten files
+	set writebackup
+	" Do not skip a single backup
+	set backupskip=
+	let &backupdir= g:std_cache_path . '/backup'
+	set swapfile
+	let &directory = g:std_cache_path . '/swap//'
+
+	" Undofiles
+	let &undodir= g:std_cache_path . '/undofiles'
+	set undofile
+	set undolevels=10000      " use many muchos levels of undo
+
 	"set autochdir " working directory is always the same as the file you are editing
 	" Took out options from here. Makes the session script too long and annoying
 	" Fri Jan 11 2019 21:39 
 	" Dont add resize, and winpos. It causes problems in linux
-	try
-		set sessionoptions=buffers,curdir,tabpages,folds,terminal,help
-	catch 
-		set sessionoptions=buffers,curdir,tabpages,folds,help
-	endtry
+	set sessionoptions=buffers,curdir,tabpages,folds,help,tabpages
+	" if (exists(':tnoremap'))
+		" set sessionoptions+=terminal
+	" endif
 	set hidden
 	" see :h timeout this was done to make use of ' faster and keep the other
 	" timeout the same
@@ -213,14 +223,6 @@ function! options#Set() abort
 	" Fri Mar 23 2018 18:10: Substituted by vim-gprepper plugin
 	" Mon Jun 25 2018 14:08: vim-gprepper not working well on windows with neovim-qt 
 	call s:set_grep()
-
-	" Undofiles
-	let undofiles_path = g:std_cache_path . '/undofiles'
-	if has('persistent_undo') && utils#CheckDirWoPrompt(undofiles_path) > 0
-		let &undodir= undofiles_path
-		set undofile
-		set undolevels=10000      " use many muchos levels of undo
-	endif
 
 	" Tags
 	set tags=./.tags;,.tags;
