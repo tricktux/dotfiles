@@ -118,13 +118,13 @@ bindsym $mod+n exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle 
 bindsym $mod+6 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
 	cmus "exec --no-startup-id i3-sensible-terminal --title=cmus \
 	--exec cmus"
-bindsym $mod+7 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
+bindsym $mod+9 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
 	gmail-mutt "exec --no-startup-id i3-sensible-terminal --title=gmail-mutt \
 	--exec 'neomutt -F ~/.config/neomutt/user.gmail'"
 bindsym $mod+8 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
 	proton-mutt "exec --no-startup-id i3-sensible-terminal --title=proton-mutt \
 	--exec 'neomutt -F ~/.config/neomutt/user.pm'"
-bindsym $mod+9 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
+bindsym $mod+7 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
 	psu-mutt "exec --no-startup-id i3-sensible-terminal --title=psu-mutt \
 	--exec 'neomutt -F ~/.config/neomutt/user.psu'"
 bindsym $mod+i exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
