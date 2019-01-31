@@ -58,10 +58,11 @@ function! plugin#Config()
 	" Possible values:
 	" - ycm nvim_compl_manager shuogo autocomplpop completor asyncomplete neo_clangd
 	" call autocompletion#SetCompl(has('unix') ? 'nvim_compl_manager' : 'shuogo')
-	call autocompletion#SetCompl(
-				\ has('unix') ? 'shuogo_deo' :
-				\ (exists('g:portable_vim') && g:portable_vim == 1 ? 'shuogo_neo' : 'shuogo_deo')
-				\ )
+	call autocompletion#SetCompl('shuogo_deo')
+	" call autocompletion#SetCompl(
+				" \ has('unix') ? 'shuogo_deo' :
+				" \ (exists('g:portable_vim') && g:portable_vim == 1 ? 'shuogo_neo' : 'shuogo_deo')
+				" \ )
 
 	" Possible values:
 	" - chromatica easytags neotags color_coded clighter8
@@ -451,7 +452,7 @@ function! plugin#Config()
 
 		" let g:prosession_last_session_dir = g:std_data_path . '/sessions/defaults'
 
-	Plug 'neomutt/neomutt.vim', { 'for' : [ 'muttrc', 'mail' ] }
+	Plug 'neomutt/neomutt.vim', { 'for' : [ 'muttrc' ] }
 
 	call s:configure_incsearch()
 
