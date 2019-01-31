@@ -49,12 +49,33 @@ if !exists('g:ctags_language_specific_extra_options')
 				\ }
 endif
 
+let l:rg_to_vim_filetypes = {
+			\ 'vim' : 'vimscript',
+			\ 'python' : 'py',
+			\ 'markdown' : 'md',
+			\ }
+
+let l:ctags_to_vim_filetypes = {
+			\ 'cpp' : 'C++',
+			\ 'vim' : 'Vim',
+			\ 'python' : 'Python',
+			\ 'java' : 'Java',
+			\ 'c' : 'C',
+			\ }
+
 let s:grep = {
-			\ 'filetype_name' : ctags#VimFt2RgFt(),
 			\ 'executable' : 'rg',
 			\ 'is_executable' : executable('rg'),
-			\ 'use_type_option' : g:ctags_use_ft,
-			\ 'cmd' : '',
+			\ 'args' : [
+			\   '--vimgrep',
+			\		'--follow',
+			\		'--hidden',
+			\		'--iglob',
+			\		(has('unix') ? "'!.{git,svn,sync}'" : '!.{git,svn}')
+			\ ],
+			\ 'filetype_support' : 1,
+			\ 'filetype_map' : l:rg_to_vim_filetypes,
+			\ 'filetype_option' : '--type',
 			\ }
 
 let s:ctags = {
@@ -66,8 +87,9 @@ let s:ctags = {
 			\ 'filetype_name' : '',
 			\ 'executable' : 'ctags',
 			\ 'is_executable' : executable('ctags'),
-			\ 'use_type_option' : g:ctags_use_ft,
-			\ 'cmd' : '',
+			\ 'filetype_support' : 1,
+			\ 'filetype_map' : l:ctags_to_vim_filetypes,
+			\ 'filetype_option' : '--language-force',
 			\ }
 
 function! s:grep.init() abort
