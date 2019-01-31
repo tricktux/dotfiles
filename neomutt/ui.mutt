@@ -114,4 +114,9 @@ set abort_noattach = ask-yes
 # English: attach, attached, attachment, attachments
 set abort_noattach_regex = "\\<attach(|ed|ments?)\\>"
 
+# Thu Jan 31 2019 07:36
+# Trying threads
+set sort=threads
+set sort_aux=reverse-threads
+
 # vim: ft=neomuttrc

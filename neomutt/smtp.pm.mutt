@@ -1,0 +1,26 @@
+# File:           smtp.pm.mutt
+# Description:     SMPT/IMAP/Folder settings for pm
+# Author:		    Reinaldo Molina
+# Email:          rmolin88 at gmail dot com
+# Revision:	    0.0.0
+# Last Modified: Wed Jan 30 2019 09:07
+
+# IMAP config
+set imap_user="$my_username@$my_domain"
+set imap_pass=$my_password
+
+set folder = 'imap://127.0.0.1:1143'
+set spoolfile= +INBOX
+set postponed= +$my_drafts_noquote
+set record = +$my_sent_noquote
+set trash = +$my_trash_noquote
+mailboxes
+
+# SMTP config
+set from = "neomo@pm.me"
+set smtp_pass = $my_password
+set hostname = $my_domain
+set smtp_url = "smtp://$my_username@$my_domain@127.0.0.1:1025"
+set smtp_authenticators = "login"
+
+# vim: ft=neomuttrc

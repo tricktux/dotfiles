@@ -32,6 +32,9 @@ function! augroup#Set() abort
 					\ foldenable complete+=kspell ts=2 sw=2 sts=2
 					\ spelllang=en_us tw=0 formatoptions-=tc colorcolumn=+1
 
+		autocmd FileType mail setlocal spell spelllang=en,es wrap
+					\ textwidth=72
+
 		autocmd FileType vim setlocal tabstop=2 shiftwidth=2 softtabstop=2 nospell
 
 		autocmd FileType c,cpp setlocal nowrap ts=4 sw=4 sts=4 fen
@@ -47,7 +50,7 @@ function! augroup#Set() abort
 	" autocmd BufWinEnter,Syntax * syn sync minlines=80 maxlines=80
 	" augroup END
 
-	if exists("g:loaded_plugins")
+	if exists('g:loaded_plugins')
 		augroup VimType
 			autocmd!
 			" Sessions

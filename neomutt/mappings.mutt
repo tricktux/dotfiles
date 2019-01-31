@@ -6,6 +6,8 @@
 # Created:        Tue Jan 22 2019 16:03
 # Last Modified:  Tue Jan 22 2019 16:03
 
+bind generic,alias,attach,browser,editor,index,compose,pager,pgp,postpone ':' noop
+
 bind index,pager g noop
 # Email list mappings
 bind index gg first-entry
@@ -42,7 +44,11 @@ bind pager gg top
 bind pager gr group-reply
 # Bint to I key in pager:
 macro pager I  "<exit><search>~F\n<display-message>" "Jump to next important"
+macro attach 'V' "<pipe-entry>cat >/tmp/mail.html && $BROWSER /tmp/mail.html && rm /tmp/mail.html<enter>"
 
+# Use ctrl-b
+macro index,pager \cb "<pipe-message> urlscan<Enter>" "call urlscan to extract URLs out of a message"
+macro attach,compose \cb "<pipe-entry> urlscan<Enter>" "call urlscan to extract URLs out of a message"
 # Mappings for both
 # Mark message as Done
 # bind index,pager m noop
