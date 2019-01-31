@@ -15,13 +15,11 @@ endif
 " Don't load another plugin for this buffer
 let b:did_mail_ftplugin = 1
 
-setlocal wrap
-setlocal spell spelllang=en
-" Many people recommend keeping e-mail messages 72 chars wide
-setlocal tw=72
-" setlocal omnifunc=muttaliases#CompleteMuttAliases
+if !exists("no_plugin_maps") && !exists("no_mail_maps")
+	nnoremap <buffer> <localleader>s :call <sid>insert_signature()<cr>
+endif
 
-" if !exists("no_plugin_maps") && !exists("no_mail_maps")
-" endif
-
-let b:undo_ftplugin = 'setl spell< spelllang< wrap< tw<'
+function! s:insert_signature() abort
+	let signature = "Thanks,\nReinaldo Molina"
+	execute "normal! i" . signature . "\<esc>"
+endfunction
