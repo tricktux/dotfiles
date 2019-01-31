@@ -118,9 +118,12 @@ bindsym $mod+n exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle 
 bindsym $mod+6 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
 	cmus "exec --no-startup-id i3-sensible-terminal --title=cmus \
 	--exec cmus"
-bindsym $mod+8 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
+bindsym $mod+7 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
 	gmail-mutt "exec --no-startup-id i3-sensible-terminal --title=gmail-mutt \
 	--exec 'neomutt -F ~/.config/neomutt/user.gmail'"
+bindsym $mod+8 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
+	proton-mutt "exec --no-startup-id i3-sensible-terminal --title=proton-mutt \
+	--exec 'neomutt -F ~/.config/neomutt/user.pm'"
 bindsym $mod+9 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
 	psu-mutt "exec --no-startup-id i3-sensible-terminal --title=psu-mutt \
 	--exec 'neomutt -F ~/.config/neomutt/user.psu'"
@@ -364,8 +367,8 @@ bindsym $mod+Shift+5 move container to workspace $workspace5
 		for_window [class="Anki"] floating enable
 
 # Scratchpad
-
 		for_window [title="^cmus$"] move to scratchpad
+		for_window [title="^proton-mutt$"] move to scratchpad
 		for_window [title="^gmail-mutt$"] move to scratchpad
 		for_window [title="^psu-mutt$"] move to scratchpad
 		for_window [title="^ranger$"] move to scratchpad
@@ -622,6 +625,7 @@ exec --no-startup-id pcmanfm --daemon-mode
 exec --no-startup-id nm-applet
 exec --no-startup-id blueberry-tray
 
+exec --no-startup-id Desktop-Bridge --cli
 # Thu Dec 28 2017 09:48: Seafile fully functional
 # exec --no-startup-id dropbox
 # Sun Dec 16 2018 14:12:
