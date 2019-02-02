@@ -49,13 +49,13 @@ if !exists('g:ctags_language_specific_extra_options')
 				\ }
 endif
 
-let l:rg_to_vim_filetypes = {
+let s:rg_to_vim_filetypes = {
 			\ 'vim' : 'vimscript',
 			\ 'python' : 'py',
 			\ 'markdown' : 'md',
 			\ }
 
-let l:ctags_to_vim_filetypes = {
+let s:ctags_to_vim_filetypes = {
 			\ 'cpp' : 'C++',
 			\ 'vim' : 'Vim',
 			\ 'python' : 'Python',
@@ -74,7 +74,7 @@ let s:grep = {
 			\		(has('unix') ? "'!.{git,svn,sync}'" : '!.{git,svn}')
 			\ ],
 			\ 'filetype_support' : 1,
-			\ 'filetype_map' : l:rg_to_vim_filetypes,
+			\ 'filetype_map' : s:rg_to_vim_filetypes,
 			\ 'filetype_option' : '--type',
 			\ }
 
@@ -88,7 +88,7 @@ let s:ctags = {
 			\ 'executable' : 'ctags',
 			\ 'is_executable' : executable('ctags'),
 			\ 'filetype_support' : 1,
-			\ 'filetype_map' : l:ctags_to_vim_filetypes,
+			\ 'filetype_map' : s:ctags_to_vim_filetypes,
 			\ 'filetype_option' : '--language-force',
 			\ }
 
