@@ -142,10 +142,12 @@ function! plugin#Config()
 	Plug 'sbdchd/neoformat', { 'on' : 'Neoformat' }
 	let g:neoformat_c_clangformat = {
 				\ 'exe': 'clang-format',
+				\ 'stdin': '1',
 				\ 'args': ['-style=file'],
 				\ }
 	let g:neoformat_cpp_clangformat = {
 				\ 'exe': 'clang-format',
+				\ 'stdin': '1',
 				\ 'args': ['-style=file'],
 				\ }
 	nmap <plug>format_code :Neoformat<cr>
