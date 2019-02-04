@@ -8,10 +8,10 @@ syn region itemWontDo     start="^.*\[-] "  end="$" keepend contains=itemCause
 syn region itemCause      start=" > "     end="$"
 syn region itemShell      start=" \$ "    end="$"
 
-highlight def link itemTodo       htmlTagName
-highlight def link itemInProgress Type
-highlight def link itemBlocked    htmlH1
+highlight def link itemTodo       Type
+highlight def link itemInProgress htmlTagName
+highlight def link itemBlocked    Label
 highlight def link itemCause      htmlLink
-highlight def link itemComplete   Label
+highlight def link itemComplete   htmlH1
 highlight def link itemWontDo     Delimiter
 highlight def link itemShell String
