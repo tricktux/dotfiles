@@ -143,13 +143,11 @@ function! plugin#Config()
 	let g:neoformat_enabled_cpp = ['clangformat']
 	let g:neoformat_c_clangformat = {
 				\ 'exe': 'clang-format',
-				\ 'stdin': '1',
 				\ 'args': ['-style=file'],
 				\ 'stdin': 1,
 				\ }
 	let g:neoformat_cpp_clangformat = {
 				\ 'exe': 'clang-format',
-				\ 'stdin': '1',
 				\ 'args': ['-style=file'],
 				\ 'stdin': 1,
 				\ }
