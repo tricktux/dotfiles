@@ -140,13 +140,16 @@ function! plugin#Config()
 	" imap <expr> <CR> <Plug>delimitMateCR
 
 	Plug 'sbdchd/neoformat', { 'on' : 'Neoformat' }
+	let g:neoformat_enabled_cpp = ['clangformat']
 	let g:neoformat_c_clangformat = {
 				\ 'exe': 'clang-format',
 				\ 'args': ['-style=file'],
+				\ 'stdin': 1,
 				\ }
 	let g:neoformat_cpp_clangformat = {
 				\ 'exe': 'clang-format',
 				\ 'args': ['-style=file'],
+				\ 'stdin': 1,
 				\ }
 	nmap <plug>format_code :Neoformat<cr>
 
