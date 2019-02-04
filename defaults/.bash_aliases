@@ -106,7 +106,8 @@ alias shred_dir=FuncShredDir
 
 FuncShredDir()
 {
-	for f in $(find $1); do shred -n 12 -u $f; done
+	find $@ -type f -exec shred -n 12 -u {} \;
+	rm -r $@
 }
 
 # Default to human readable figures
