@@ -102,6 +102,13 @@ else
 	alias l.='ls -d .* --color=auto'
 fi
 
+alias shred_dir=FuncShredDir
+
+FuncShredDir()
+{
+	for f in $(find $1); do shred -n 12 -u $f; done
+}
+
 # Default to human readable figures
 alias df='df -h'
 alias du='du -h'
