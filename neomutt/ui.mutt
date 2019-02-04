@@ -116,7 +116,8 @@ set abort_noattach_regex = "\\<attach(|ed|ments?)\\>"
 
 # Thu Jan 31 2019 07:36
 # Trying threads
-set sort=threads
-set sort_aux=reverse-threads
+# Do not like it. When a new messages arrives that is part of a thread stays down there
+# set sort=threads
+# set sort_aux=reverse-threads
 
 # vim: ft=neomuttrc
