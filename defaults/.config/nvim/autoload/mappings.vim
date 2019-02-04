@@ -284,8 +284,8 @@ function! mappings#Set()
 	endfor
 
 	" Create an undo break point. Mark current possition. Go to word. Fix and come back.
-	nnoremap ]S :normal! i<c-g>u<esc>mm]s1z=`m<cr>
-	nnoremap [S :normal! i<c-g>u<esc>mm[s1z=`m<cr>
+	nnoremap ]S :call <sid>fix_next_word()<cr>
+	nnoremap [S :call <sid>fix_previous_word()<cr>
 
 	" decrease number
 	nnoremap <S-x> <c-x>
@@ -387,7 +387,7 @@ function! mappings#Set()
 		nnoremap <silent> <A-S-j> <C-w>-
 	endif
 
-	inoremap <C-S> <c-r>=<SID>fix_previous_word()<cr>
+	inoremap <c-s> <c-r>=<SID>fix_previous_word()<cr>
 
 	" Search <Leader>S
 	" Tried ack.vim. Discovered that nothing is better than grep with ag.
@@ -628,7 +628,7 @@ function! s:goto_file_on_next_win(direction) abort
 	exec 'normal! gf'
 endfunction
 
-function! s:tmux_move(direction)
+function! s:tmux_move(direction) abort
 	let wnr = winnr()
 	silent! execute 'wincmd ' . a:direction
 	" If the winnr is still the same after we moved, it is the last pane
@@ -638,7 +638,16 @@ function! s:tmux_move(direction)
 endfunction
 
 function! s:fix_previous_word() abort
-	normal mm[s1z=`m
+	let save_cursor = getcurpos()
+	normal! [s1z=
+	call setpos('.', save_cursor)
+	return ''
+endfunction
+
+function! s:fix_next_word() abort
+	let save_cursor = getcurpos()
+	normal! ]s1z=
+	call setpos('.', save_cursor)
 	return ''
 endfunction
 
@@ -974,6 +983,8 @@ function! s:set_which_key_map() abort
 	nnoremap [e [<c-d>
 	nnoremap ]E <c-w>d<c-w>L
 	nnoremap [E <c-w>d<c-w>H
+	nnoremap ]s ]s
+	nnoremap [s [s
 	let g:which_key_right_bracket_map = {}
 	let g:which_key_right_bracket_map.c = 'next_diff'
 	let g:which_key_right_bracket_map.y = 'yank_from_next_lines'
