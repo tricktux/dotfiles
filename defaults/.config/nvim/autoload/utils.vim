@@ -20,21 +20,21 @@ endfunction
 function! utils#FindIf() abort
 	while 1
 		" jump to matching {
-		normal %
+		normal! %
 		" check to see if there is another else
 		if match(getline(line(".")-1, line(".")), "else") > -1
 			" search curr and previous 2 lines for }
 			if match(getline(line(".")-2, line(".")), "}") > -1
 				" jump to it
-				execute "normal ?}\<CR>"
+				execute "normal! ?}\<CR>"
 				" if there is no } could be no braces else if
 			else
 				" go up to lines and see what happens
-				normal kk
+				normal! kk
 			endif
 		else
 			" if original if was found copy it to @7 and jump back to origin
-			execute "normal k^\"7y$`m"
+			execute "normal! k^\"7y$`m"
 			break
 		endif
 	endwhile
@@ -64,10 +64,10 @@ function! utils#EndOfIfComment() abort
 	if  l:ref_col > -1 " if it exists
 		" Determine what kind of statement is this i.e: for, while, if, else if
 		" jump to matchin {, mark it with m, copy previous line to @8, and jump back down to original }
-		"execute "normal mm" . l:ref_col . "|%k^\"8y$j%"
-		execute "normal mm" . l:ref_col . "|%"
+		"execute "normal! mm" . l:ref_col . "|%k^\"8y$j%"
+		execute "normal! mm" . l:ref_col . "|%"
 		let l:upper_line = line(".")
-		execute "normal k^\"8y$j%"
+		execute "normal! k^\"8y$j%"
 		" if original closing brace it is and else if || else
 		if match(getline(line(".")-1, line(".")), "else") > -1
 			let g:testa = 1
@@ -79,10 +79,10 @@ function! utils#EndOfIfComment() abort
 				let @7 = utils#TruncComment(@7)
 				" append // "initial if..." : "
 				let l:end = "  // \""
-				execute "normal a" . l:end . @7 . "\" : \"\<Esc>"
+				execute "normal! a" . l:end . @7 . "\" : \"\<Esc>"
 			else
 				let l:end = "  // \""
-				execute "normal a" . l:end . "\<Esc>"
+				execute "normal! a" . l:end . "\<Esc>"
 			endif
 			" search openning brace for else
 		elseif match(getline(l:upper_line-1,l:upper_line), "else") > -1
@@ -93,16 +93,16 @@ function! utils#EndOfIfComment() abort
 			let @7 = utils#TruncComment(@7)
 			" append // "initial if..." : "
 			let l:end = "  // End of \""
-			execute "normal a" . l:end . @7 . "\" : \"\<Esc>"
+			execute "normal! a" . l:end . @7 . "\" : \"\<Esc>"
 			" if not very easy
 		else
 			" Append // End of "..."
 			let l:end = "  // End of \""
-			execute "normal a" . l:end . "\<Esc>"
+			execute "normal! a" . l:end . "\<Esc>"
 		endif
 		" truncate comment line in case too long
 		let @8 = utils#TruncComment(@8)
-		execute "normal a" . @8 . "\""
+		execute "normal! a" . @8 . "\""
 	else
 		echo "EndOfIfComment(): Closing brace } needs to be present at the line"
 	endif
@@ -114,7 +114,7 @@ function! utils#CheckDirwPrompt(name) abort
 		echo "CheckFileOrDir(): This vim install has no support for +find_in_path"
 		return -10
 	endif
-	if a:type == 0  " use 0 for file, 1 for dir
+	if a:name ==# 0  " use 0 for file, 1 for dir
 		let l:func = findfile(a:name,",,")  " see :h cd for ,,
 	else
 		let l:func = finddir(a:name,",,")
@@ -125,7 +125,7 @@ function! utils#CheckDirwPrompt(name) abort
 		execute "echo \"Folder " . escape(a:name, '\') . "does not exists.\n\""
 		execute "echo \"Do you want to create it (y)es or (n)o\""
 		let l:decision = nr2char(getchar())
-		if l:decision == "y"
+		if l:decision ==# "y"
 			if exists("*mkdir")
 				if has('win32') " on win prepare name by escaping '\'
 					let l:esc_name = escape(a:name, '\')
@@ -186,9 +186,9 @@ endfunction
 " Vim-Wiki {{{
 " Origin: Wang Shidong <wsdjeg@outlook.com>
 " vim-cheat
-function! CheatCompletion(ArgLead, CmdLine, CursorPos)
+function! CheatCompletion(ArgLead, CmdLine, CursorPos) abort
 	echom "arglead:[".a:ArgLead ."] cmdline:[" .a:CmdLine ."] cursorpos:[" .a:CursorPos ."]"
-	if a:ArgLead =~ '^-\w*'
+	if a:ArgLead =~# '^-\w*'
 		echohl WarningMsg | echom a:ArgLead . " is not a valid wiki name" | echohl None
 	endif
 	return join(utils#ListFiles(g:wiki_path . '//'),"\n")
@@ -206,7 +206,7 @@ endfunction
 
 function! utils#OpenTerminal() abort
 	let sys = system('uname -o')
-	if sys =~ 'Android'
+	if sys =~# 'Android'
 		execute "normal :vs\<CR>\<c-w>l:e term:\/\/bash\<CR>"
 	else
 		execute "normal :vs\<CR>\<c-w>l:terminal\<CR>"
@@ -215,10 +215,10 @@ endfunction
 
 function! utils#Make() abort
 	let filet = &filetype
-	if filet =~ 'vim'
+	if filet =~# 'vim'
 		so %
 		return
-	elseif filet =~ 'python' && executable('flake8')
+	elseif filet =~# 'python' && executable('flake8')
 		Neomake
 		return
 	endif
@@ -233,9 +233,7 @@ function! utils#WikiSearch() abort
 
 	let l:dir = getcwd()
 	if exists(':Grip')
-		execute 'lcd ' . g:wiki_path
-		execute 'Grip rg_md'
-		silent! execute 'lcd ' . l:dir
+		execute 'Grip wiki'
 	elseif exists(':Denite')
 		execute 'Denite grep -path=`g:wiki_path`'
 	else
@@ -270,7 +268,7 @@ function! utils#EditFileInPath(path, ...) abort
 		" ask for denite
 		echo 'Use denite?'
 		let c = nr2char(getchar())
-		if c == "y" || c == "j"
+		if c ==# "y" || c ==# "j"
 			let den = 1
 		else
 			let den = 0
@@ -289,7 +287,7 @@ function! utils#EditFileInPath(path, ...) abort
 	endif
 endfunction
 
-function! utils#UpdateHeader()
+function! utils#UpdateHeader() abort
 	exe "normal! mz"
 	if line("$") > 20
 		let l = 20
@@ -356,7 +354,7 @@ function! utils#ConvertWeeklyReport() abort
 	cexpr systemlist('pandoc ' . in_name . ' -s -o ' . out_name . ' --from markdown')
 endfunction
 
-function! utils#AutoHighlightToggle()
+function! utils#AutoHighlightToggle() abort
 	let @/ = ''
 	if exists('#auto_highlight')
 		au! auto_highlight
@@ -465,7 +463,7 @@ endfunction
 "
 " Source: http://vim.wikia.com/wiki/Easily_switch_between_source_and_header_file
 function! utils#SwitchHeaderSource() abort
-	if expand("%:e") == "cpp" || expand("%:e") == "c"
+	if expand("%:e") ==# "cpp" || expand("%:e") ==# "c"
 		try " Replace cpp or c with hpp
 			find %:t:r.hpp
 		catch /:E345:/ " catch not found in path and try to find then *.h
@@ -618,8 +616,8 @@ endfunction
 " || ./applying-uml-and-patterns-3rd.pdf:59:change and adaptation as unavoidable and indeed essential drivers.
 " || ./applying-uml-and-patterns-3rd.pdf-59-This is not to say that iterative development and the UP encourage an uncontrolled and reactive
 function! utils#TrimWhiteSpace() abort
-	%s/\s*$//
-	''
+	execute 'normal! :%s/\s*$//'
+	normal! ''
 endfunction
 
 function! utils#GetPathFolderName(curr_dir) abort
