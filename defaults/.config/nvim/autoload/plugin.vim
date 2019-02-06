@@ -1000,7 +1000,6 @@ function! s:configure_vim_utils() abort
 	let g:ctags_use_spell_for = ['c', 'cpp']
 	let g:ctags_use_cscope_for = ['c', 'cpp', 'java']
 
-
 	let g:grip_pdfgrep = {
 				\ 'executable' : 'pdfgrep',
 				\ 'args' : [
@@ -1011,13 +1010,10 @@ function! s:configure_vim_utils() abort
 				\		'--context',
 				\		'1',
 				\ ],
-				\ 'filetype_support' : 0,
-				\ 'filetype_map' : {  },
-				\ 'filetype_option' : '',
 				\ 'grepformat' : &grepformat,
 				\ }
 
-	let l:rg_to_vim_filetypes = {
+	let s:rg_to_vim_filetypes = {
 				\ 'vim' : 'vimscript',
 				\ 'python' : 'py',
 				\ 'markdown' : 'md',
@@ -1026,38 +1022,56 @@ function! s:configure_vim_utils() abort
 	let g:grip_rg = {
 				\ 'executable' : 'rg',
 				\ 'args' : [
-				\		'$*',
 				\   '--vimgrep',
 				\   '--smart-case',
 				\		'--follow',
 				\		'--fixed-strings',
 				\		'--hidden',
 				\		'--iglob',
-				\		(has('unix') ? "'!.{git,svn,sync}'" : '!.{git,svn}')
+				\		(has('unix') ? "'!.{git,svn,sync}'" : '!.{git,svn}'),
 				\ ],
 				\ 'filetype_support' : 1,
-				\ 'filetype_map' : l:rg_to_vim_filetypes,
+				\ 'filetype_map' : s:rg_to_vim_filetypes,
 				\ 'filetype_option' : '--type',
 				\ }
 
-	let g:grip_rg_md = {
-				\ 'name' : 'rg_md',
+	let g:grip_rg_list = {
+				\ 'name' : 'list_files',
 				\ 'executable' : 'rg',
+				\ 'search_argument' : 0,
+				\ 'prompt' : 0,
+				\ 'grepformat' : '%f',
 				\ 'args' : [
-				\		'$*',
 				\   '--vimgrep',
 				\   '--smart-case',
 				\		'--follow',
 				\		'--fixed-strings',
 				\		'--hidden',
-				\		'--type',
-				\		'md',
 				\		'--iglob',
 				\		(has('unix') ? "'!.{git,svn,sync}'" : '!.{git,svn}'),
+				\		'--files',
+				\ ],
+				\ }
+
+
+	let g:grip_wiki = {
+				\ 'name' : 'wiki',
+				\ 'prompt' : 1,
+				\ 'executable' : 'rg',
+				\ 'args' : [
+				\   '--vimgrep',
+				\   '--smart-case',
+				\		'--follow',
+				\		'--fixed-strings',
+				\		'--hidden',
+				\		'--iglob',
+				\		(has('unix') ? "'!.{git,svn,sync}'" : '!.{git,svn}'),
+				\		'$*',
+				\		g:wiki_path,
 				\		],
 				\ }
 
-	let g:grip_tools = [ g:grip_rg, g:grip_pdfgrep, g:grip_rg_md ]
+	let g:grip_tools = [ g:grip_rg, g:grip_pdfgrep, g:grip_wiki, g:grip_rg_list ]
 endfunction
 
 function! s:configure_vim_bookmark() abort
