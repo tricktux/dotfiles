@@ -277,7 +277,7 @@ function! linting#SetNeomakePandocMaker(type) abort
 	endif
 
 	let l:maker = 'pandoc_' . a:type
-	let g:neomake_{l:maker}_maker = {
+	let b:neomake_{l:maker}_maker = {
 				\ 'exe': 'pandoc',
 				\ 'args': l:argu,
 				\ 'append_file' : 0,
@@ -286,7 +286,7 @@ function! linting#SetNeomakePandocMaker(type) abort
 
   " Too fancy to enable multiple markdown makers. Just enable this one and call it the
 	" day. If you want others just call on them
-	let g:neomake_markdown_enabled_makers = [l:maker]
+	let b:neomake_markdown_enabled_makers = [l:maker]
 endfunction
 
 function! linting#SetNeomakeMakeMaker() abort
