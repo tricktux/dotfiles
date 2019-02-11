@@ -472,9 +472,9 @@ function! mappings#Set()
 	nnoremap <Leader>oi :call utils#CommentIndent()<cr>
 
 	" Edit file at location <Leader>e?
-	nnoremap <Leader>ed :call utils#DeniteRec(g:dotfiles)<cr>
-	nnoremap <Leader>ec :call utils#DeniteRec(getcwd())<cr>
-	nnoremap <Leader>el :call utils#DeniteRec(input('Folder to recurse: ', "", "file"))<cr>
+	nnoremap <Leader>ed :call utils#PathFileFuzzer(g:dotfiles)<cr>
+	nnoremap <Leader>ec :call utils#PathFileFuzzer(getcwd())<cr>
+	nnoremap <Leader>el :call utils#PathFileFuzzer(input('Folder to recurse: ', "", "file"))<cr>
 
 	nmap <leader>et <plug>edit_todo
 	if !hasmapto('<plug>edit_todo')
@@ -482,10 +482,10 @@ function! mappings#Set()
 	endif
 
 	" Edit plugin
-	nnoremap <Leader>ep :call utils#DeniteRec(g:vim_plugins_path)<cr>
+	nnoremap <Leader>ep :call utils#PathFileFuzzer(g:vim_plugins_path)<cr>
 	nnoremap <Leader>ei :e
 	" Edit Vimruntime
-	nnoremap <Leader>ev :call utils#DeniteRec(fnameescape($VIMRUNTIME))<cr>
+	nnoremap <Leader>ev :call utils#PathFileFuzzer(fnameescape($VIMRUNTIME))<cr>
 endfunction
 
 function! mappings#SaveSession(...) abort
@@ -666,7 +666,7 @@ function! s:wiki_open(...) abort
 		execute "vs " . g:wiki_path . '/'.  a:1
 	else
 		if exists(':Denite')
-			call utils#DeniteRec(g:wiki_path)
+			call utils#PathFileFuzzer(g:wiki_path)
 		else
 			let dir = getcwd()
 			execute "cd " . g:wiki_path

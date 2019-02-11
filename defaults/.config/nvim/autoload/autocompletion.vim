@@ -269,8 +269,6 @@ function! s:set_language_client(has_unix) abort
 	let g:LanguageClient_serverCommands = {}
 	let g:LanguageClient_diagnosticsList = 'Location'
 	" Multi-entry selection UI. FZF
-	if has('unix') | Plug 'junegunn/fzf.vim' | endif
-
 	" Setup servers
 	" Java server
 	" arch: install jdtls

@@ -483,7 +483,7 @@ function! utils#MastersDropboxOpen(wiki) abort
 	let db_path .= a:wiki
 
 	if empty(a:wiki) " Use Denite
-		call utils#DeniteRec(db_path)
+		call utils#PathFileFuzzer(db_path)
 	elseif !filereadable(db_path)
 		echoerr "File " . db_path . " does not exists"
 		return
@@ -491,8 +491,13 @@ function! utils#MastersDropboxOpen(wiki) abort
 	execute "edit " . db_path
 endfunction
 
-function! utils#DeniteRec(path) abort
+function! utils#PathFileFuzzer(path) abort
 	if empty(a:path)
+		return
+	endif
+
+	if exists(':FZF')
+		execute 'Files ' . a:path
 		return
 	endif
 
@@ -513,7 +518,7 @@ function! utils#DeniteRec(path) abort
 	let l:cp_path = s:fix_denite_path(a:path)
 
 	if &verbose > 0
-		echomsg printf('[utils#DeniteRec()]: l:cp_path = %s', l:cp_path)
+		echomsg printf('[utils#PathFileFuzzer()]: l:cp_path = %s', l:cp_path)
 	endif
 
 	execute 'Denite -path=' . l:cp_path . ' file_rec'
