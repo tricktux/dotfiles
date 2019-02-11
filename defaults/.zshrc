@@ -47,12 +47,6 @@ if [[ -f $ZPLUG_INIT ]]; then
 	zplug 'zsh-users/zsh-autosuggestions'
 	# <c-space> accept sugguestion
 	bindkey '^ ' autosuggest-accept
-
-	# Make sure to use double quotes
-	zplug "zsh-users/zsh-history-substring-search"
-	# Key bindings for the history substring search
-	bindkey '' history-substring-search-up
-	bindkey '' history-substring-search-down
 else
 	# Syntax highlight
 	HIGHLIGHT=/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -71,8 +65,10 @@ if [[ -f $ZSH/oh-my-zsh.sh ]]; then
 		zplug "plugins/docker",   from:oh-my-zsh
 		zplug "plugins/dotenv",   from:oh-my-zsh
 		zplug "plugins/sudo",   from:oh-my-zsh
-		zplug "plugins/command-not-found",   from:oh-my-zsh
-		zplug "plugins/vi-mode",   from:oh-my-zsh
+		zplug "plugins/history-substring-search",   from:oh-my-zsh
+		# zplug "plugins/command-not-found",   from:oh-my-zsh
+		# Breaks fzf mappings
+		# zplug "plugins/vi-mode",   from:oh-my-zsh
 	else
 		plugins=(
 			git
@@ -82,11 +78,10 @@ if [[ -f $ZSH/oh-my-zsh.sh ]]; then
 			sudo # ESC twice to insert sudo
 			command-not-found # Doesnt work with pacman :(
 		)
-		# Key bindings for the history substring search
-		bindkey '' history-substring-search-up
-		bindkey '' history-substring-search-down
-
 	fi
+	# Key bindings for the history substring search
+	bindkey '' history-substring-search-up
+	bindkey '' history-substring-search-down
 
 	ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
 	if [[ ! -d $ZSH_CACHE_DIR ]]; then
