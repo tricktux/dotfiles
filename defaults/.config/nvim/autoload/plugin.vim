@@ -41,8 +41,6 @@ function! plugin#Config()
 
 	call s:configure_async_plugins()
 
-	call s:configure_ctrlp()
-
 	" Lightline should be one of the very first ones so that plugins can later on add to
 	" it
 	if executable('mutt')
@@ -680,17 +678,7 @@ function! s:configure_async_plugins() abort
 	xmap <plug>terminal_send <Plug>(neoterm-repl-send)
 	nmap <plug>terminal_send_line <Plug>(neoterm-repl-send-line)
 
-	Plug 'Shougo/denite.nvim', { 'do' : has('nvim') ? ':UpdateRemotePlugins' : '' }
-	nmap <plug>fuzzy_command_history :Denite command_history<CR>
-	nmap <plug>fuzzy_vim_help :Denite help<CR>
-	" nnoremap <C-S-h> :Denite help<CR>
-	" nmap <plug>mru_browser :Denite file_mru<CR>
-	" Wed Jan 10 2018 15:46: Have tried several times to use denite buffer but its
-	" just too awkard. Kinda slow and doesnt show full path.
-	" nnoremap <S-k> :Denite buffer<CR>
-
-	" It includes file_mru source for denite.nvim.
-	Plug 'Shougo/neomru.vim'
+	call s:configure_fuzzers()
 endfunction
 
 function! s:configure_vim_table_mode() abort
@@ -1229,4 +1217,58 @@ function! s:configure_incsearch() abort
 	nmap #  <Plug>(incsearch-nohl-#)
 	nmap g* <Plug>(incsearch-nohl-g*)
 	nmap g# <Plug>(incsearch-nohl-g#)
+endfunction
+
+function! s:configure_fuzzers() abort
+	if executable('fzf')
+		Plug 'junegunn/fzf.vim'
+
+		nmap <plug>fuzzy_command_history :History:<CR>
+		nmap <plug>fuzzy_vim_help :Helptags<CR>
+		nmap <plug>buffer_browser :Buffers<CR>
+		nmap <plug>mru_browser :History<CR>
+
+		let g:fzf_layout = { 'down': '~40%' }
+		let g:fzf_colors =
+					\ { 'fg':      ['fg', 'Normal'],
+					\ 'bg':      ['bg', 'Normal'],
+					\ 'hl':      ['fg', 'Comment'],
+					\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+					\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+					\ 'hl+':     ['fg', 'Statement'],
+					\ 'info':    ['fg', 'PreProc'],
+					\ 'border':  ['fg', 'Ignore'],
+					\ 'prompt':  ['fg', 'Conditional'],
+					\ 'pointer': ['fg', 'Exception'],
+					\ 'marker':  ['fg', 'Keyword'],
+					\ 'spinner': ['fg', 'Label'],
+					\ 'header':  ['fg', 'Comment'] }
+
+		let g:fzf_history_dir = g:std_data_path .  '/fzf-history'
+		let g:fzf_buffers_jump = 1
+
+		autocmd! User FzfStatusLine call <SID>fzf_statusline()
+	else
+		call s:configure_ctrlp()
+
+		Plug 'Shougo/denite.nvim', { 'do' : has('nvim') ? ':UpdateRemotePlugins' : '' }
+		nmap <plug>fuzzy_command_history :Denite command_history<CR>
+		nmap <plug>fuzzy_vim_help :Denite help<CR>
+		" nnoremap <C-S-h> :Denite help<CR>
+		" nmap <plug>mru_browser :Denite file_mru<CR>
+		" Wed Jan 10 2018 15:46: Have tried several times to use denite buffer but its
+		" just too awkard. Kinda slow and doesnt show full path.
+		" nnoremap <S-k> :Denite buffer<CR>
+
+		" It includes file_mru source for denite.nvim.
+		Plug 'Shougo/neomru.vim'
+	endif
+endfunction
+
+function! s:fzf_statusline() abort
+	" Override statusline as you like
+	highlight fzf1 ctermfg=161 ctermbg=251
+	highlight fzf2 ctermfg=23 ctermbg=251
+	highlight fzf3 ctermfg=237 ctermbg=251
+	setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
 endfunction
