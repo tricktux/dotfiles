@@ -45,8 +45,6 @@ if [[ -f $ZPLUG_INIT ]]; then
 	zplug 'dracula/zsh', as:theme
 
 	zplug 'zsh-users/zsh-autosuggestions'
-	# <c-space> accept sugguestion
-	bindkey '^ ' autosuggest-accept
 else
 	# Syntax highlight
 	HIGHLIGHT=/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -82,6 +80,8 @@ if [[ -f $ZSH/oh-my-zsh.sh ]]; then
 	# Key bindings for the history substring search
 	bindkey '' history-substring-search-up
 	bindkey '' history-substring-search-down
+	# <c-space> accept sugguestion
+	bindkey '^ ' autosuggest-accept
 
 	ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
 	if [[ ! -d $ZSH_CACHE_DIR ]]; then
@@ -147,9 +147,9 @@ if [[ -f /usr/bin/fzf ]]; then
 	source /usr/share/fzf/key-bindings.zsh
 	# if we have rg. use it!
 	if [ -f /usr/bin/rg ]; then
-		export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.{git,svn}" 2> /dev/null'
+		export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.{sync,git,svn}" 2> /dev/null'
 		export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-		export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
+		export FZF_CTRL_T_OPTS="--preview --no-height '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
 	fi
 
 	# Depends on `install bfs`
