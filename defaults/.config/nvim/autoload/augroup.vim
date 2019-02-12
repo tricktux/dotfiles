@@ -39,8 +39,12 @@ function! augroup#Set() abort
 
 		autocmd FileType c,cpp setlocal nowrap ts=4 sw=4 sts=4 fen
 					\ fdn=88 define=^\\(#\\s*define\\|[a-z]*\\s*const\\s*[a-z]*\\)
+
 		" Python
 		" autocmd FileType python setlocal foldmethod=syntax
+
+		autocmd FileType fzf inoremap <buffer> <c-j> <down>
+		autocmd FileType fzf inoremap <buffer> <c-n> <down>
 	augroup END
 
 	" To improve syntax highlight speed. If something breaks with highlight
