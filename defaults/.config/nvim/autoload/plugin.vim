@@ -1220,6 +1220,9 @@ function! s:configure_incsearch() abort
 endfunction
 
 function! s:configure_fuzzers() abort
+	" Can't beat ctrlps buffers and most recent stuff
+	call s:configure_ctrlp()
+
 	if executable('fzf')
 		Plug 'junegunn/fzf.vim'
 
@@ -1229,8 +1232,6 @@ function! s:configure_fuzzers() abort
 
 		nmap <plug>fuzzy_command_history :History:<CR>
 		nmap <plug>fuzzy_vim_help :Helptags<CR>
-		nmap <plug>buffer_browser :Buffers<CR>
-		nmap <plug>mru_browser :History<CR>
 
 		let g:fzf_layout = { 'down': '~40%' }
 		let g:fzf_colors =
@@ -1256,21 +1257,20 @@ function! s:configure_fuzzers() abort
 		endif
 
 		autocmd! User FzfStatusLine call <SID>fzf_statusline()
-	else
-		call s:configure_ctrlp()
-
-		Plug 'Shougo/denite.nvim', { 'do' : has('nvim') ? ':UpdateRemotePlugins' : '' }
-		nmap <plug>fuzzy_command_history :Denite command_history<CR>
-		nmap <plug>fuzzy_vim_help :Denite help<CR>
-		" nnoremap <C-S-h> :Denite help<CR>
-		" nmap <plug>mru_browser :Denite file_mru<CR>
-		" Wed Jan 10 2018 15:46: Have tried several times to use denite buffer but its
-		" just too awkard. Kinda slow and doesnt show full path.
-		" nnoremap <S-k> :Denite buffer<CR>
-
-		" It includes file_mru source for denite.nvim.
-		Plug 'Shougo/neomru.vim'
+		return
 	endif
+
+	Plug 'Shougo/denite.nvim', { 'do' : has('nvim') ? ':UpdateRemotePlugins' : '' }
+	nmap <plug>fuzzy_command_history :Denite command_history<CR>
+	nmap <plug>fuzzy_vim_help :Denite help<CR>
+	" nnoremap <C-S-h> :Denite help<CR>
+	" nmap <plug>mru_browser :Denite file_mru<CR>
+	" Wed Jan 10 2018 15:46: Have tried several times to use denite buffer but its
+	" just too awkard. Kinda slow and doesnt show full path.
+	" nnoremap <S-k> :Denite buffer<CR>
+
+	" It includes file_mru source for denite.nvim.
+	Plug 'Shougo/neomru.vim'
 endfunction
 
 function! s:fzf_statusline() abort
