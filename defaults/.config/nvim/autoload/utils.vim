@@ -453,7 +453,7 @@ endfunction
 function! utils#SearchHighlighted() abort
 	if exists(':Wcopen')
 		" Yank selection to reg a then echo it cli
-		execute "normal \"ay:Wcsearch duckduckgo \<c-r>a\<cr>"
+		normal! "ay:Wcsearch duckduckgo <c-r>a<cr>
 	else
 		echoerr string('Missing plugin: vim-www')
 	endif
@@ -497,7 +497,7 @@ function! utils#PathFileFuzzer(path) abort
 	endif
 
 	if exists(':FZF')
-		execute 'Files ' . a:path
+		execute 'Files ' . fnameescape(expand(a:path))
 		return
 	endif
 

@@ -664,16 +664,23 @@ function! s:wiki_open(...) abort
 
 	if a:0 > 0
 		execute "vs " . g:wiki_path . '/'.  a:1
-	else
-		if exists(':Denite')
-			call utils#PathFileFuzzer(g:wiki_path)
-		else
-			let dir = getcwd()
-			execute "cd " . g:wiki_path
-			execute "vs " . fnameescape(g:wiki_path . '/' . input('Wiki Name: ', '', 'custom,CheatCompletion'))
-			silent! execute "cd " . dir
-		endif
+		return
 	endif
+
+	if (exists(':FZF'))
+		execute 'Files ' . g:wiki_path
+		return
+	endif
+
+	if exists(':Denite')
+		call utils#PathFileFuzzer(g:wiki_path)
+		return
+	endif
+
+	let dir = getcwd()
+	execute "cd " . g:wiki_path
+	execute "vs " . fnameescape(g:wiki_path . '/' . input('Wiki Name: ', '', 'custom,CheatCompletion'))
+	silent! execute "cd " . dir
 endfunction
 
 function! s:wiki_add() abort
