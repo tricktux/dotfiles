@@ -70,7 +70,7 @@ function! mappings#Set()
 	" - gd, gD, g;, gq, gs, gl, gA, gT, gg, G, gG, gh, gv, gn, gm, gx, gt, gr
 	" Toggle mappings:
 	" - tj, te, ta, tt, tf, ts, to, tn
-	nmap <Leader>f <Plug>file_browser
+	nmap <leader>F <Plug>file_browser
 	nmap <leader>tf <plug>focus_toggle
 	nnoremap <leader>tc :call <sid>toggle_conceal<cr>
 
@@ -115,8 +115,10 @@ function! mappings#Set()
 	nmap <localleader>f <plug>format_code
 	xmap <localleader>f <plug>format_code
 
-	nmap <a-;> <plug>fuzzy_command_history
-	nmap <a-e> <plug>fuzzy_vim_help
+	" Tue Feb 12 2019 17:50
+	" Substituted by fzf and which key mappings 
+	" nmap <a-;> <plug>fuzzy_command_history
+	" nmap <a-e> <plug>fuzzy_vim_help
 
 	" Refactor word under the cursor
 	nmap <localleader>r <plug>refactor_code
@@ -130,8 +132,8 @@ function! mappings#Set()
 	smap <c-k> <plug>snip_expand
 	xmap <c-k> <plug>snip_expand
 
-	nmap <leader>s <plug>search_grep
-	xmap <leader>s <plug>search_grep
+	nmap <leader>/ <plug>search_grep
+	xmap <leader>/ <plug>search_grep
 
 	nnoremap <silent> <plug>search_grep :Grip<cr>
 	" xnoremap <silent> <plug>search_grep :call <SID>grep()<cr>
