@@ -1223,6 +1223,10 @@ function! s:configure_fuzzers() abort
 	if executable('fzf')
 		Plug 'junegunn/fzf.vim'
 
+		if (!has('unix') && executable('rg'))
+			let $FZF_DEFAULT_COMMAND='rg --files --hidden --follow --vimgrep --no-ignore-vcs --glob "!.{sync,git,svn}"'
+		endif
+
 		nmap <plug>fuzzy_command_history :History:<CR>
 		nmap <plug>fuzzy_vim_help :Helptags<CR>
 		nmap <plug>buffer_browser :Buffers<CR>
@@ -1246,6 +1250,10 @@ function! s:configure_fuzzers() abort
 
 		let g:fzf_history_dir = g:std_data_path .  '/fzf-history'
 		let g:fzf_buffers_jump = 1
+
+		if has('nvim')
+			let g:fzf_layout = { 'window': 'enew' }
+		endif
 
 		autocmd! User FzfStatusLine call <SID>fzf_statusline()
 	else
