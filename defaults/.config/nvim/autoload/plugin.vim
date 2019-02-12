@@ -1257,18 +1257,40 @@ function! s:configure_fzf() abort
 		return -1
 	endif
 
+	if (s:fzf_download_windows() < 1)
+		return -2
+	endif
+
 	Plug 'junegunn/fzf.vim'
 
 	if (!has('unix') && executable('rg'))
 		let $FZF_DEFAULT_COMMAND='rg --files --hidden --follow --vimgrep --no-ignore-vcs --glob "!.{sync,git,svn}"'
 	endif
 
-	if (s:fzf_download_windows() < 1)
-		return -2
-	endif
-
-	nmap <plug>fuzzy_command_history :History:<CR>
-	nmap <plug>fuzzy_vim_help :Helptags<CR>
+	" Mappings with which-key plugin
+	let g:which_key_leader_map.f = {
+				\ 'name' : '+fuzzers',
+				\ 'b' : ['Buffers', 'buffers'],
+				\ 'f' : ['Files', 'files'],
+				\ 'g' : ['GFiles?', 'git_files_status'],
+				\ 'G' : ['GFiles', 'git_files'],
+				\ 'c' : ['Colors', 'colorschemes'],
+				\ 'l' : ['Lines', 'lines_all_buffers'],
+				\ 'L' : ['BLines', 'lines_current_buffer'],
+				\ 't' : ['BLines', 'tags_current_buffer'],
+				\ 'T' : ['Lines', 'tags_all_buffers'],
+				\ ';' : ['History:', 'command_history'],
+				\ '/' : ['History/', 'search_history'],
+				\ 'F' : ['History', 'files_history'],
+				\ 's' : ['Snippets', 'ultisnippets'],
+				\ 'h' : ['Helptags', 'helptags'],
+				\ 'y' : ['Filetypes', 'filetypes'],
+				\ 'm' : ['Maps', 'maps'],
+				\ 'c' : ['Commands', 'commands'],
+				\ 'p' : ['BCommits', 'git_commits_current_buffer'],
+				\ 'P' : ['Commits', 'git_commits'],
+				\ 'W' : ['Windows', 'windows'],
+				\ }
 
 	let g:fzf_layout = { 'down': '~40%' }
 	let g:fzf_colors =
@@ -1294,6 +1316,10 @@ function! s:configure_fzf() abort
 	endif
 
 	autocmd! User FzfStatusLine call <SID>fzf_statusline()
+
+	" Likewise, Files command with preview window
+	command! -bang -nargs=? -complete=dir Files
+				\ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 	return 1
 endfunction
 
