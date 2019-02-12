@@ -1223,43 +1223,81 @@ function! s:configure_fuzzers() abort
 	" Can't beat ctrlps buffers and most recent stuff
 	call s:configure_ctrlp()
 
-	if executable('fzf')
-		Plug 'junegunn/fzf.vim'
+	if (s:configure_fzf() < 1)
+		call s:configure_denite()
+	endif
+endfunction
 
-		if (!has('unix') && executable('rg'))
-			let $FZF_DEFAULT_COMMAND='rg --files --hidden --follow --vimgrep --no-ignore-vcs --glob "!.{sync,git,svn}"'
-		endif
+function! s:fzf_statusline() abort
+	" Override statusline as you like
+	highlight fzf1 ctermfg=161 ctermbg=251
+	highlight fzf2 ctermfg=23 ctermbg=251
+	highlight fzf3 ctermfg=237 ctermbg=251
+	setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+endfunction
 
-		nmap <plug>fuzzy_command_history :History:<CR>
-		nmap <plug>fuzzy_vim_help :Helptags<CR>
+function! s:fzf_download_windows() abort
+	let l:fzf_path = g:std_data_path . '/site/plugin/fzf.vim'
 
-		let g:fzf_layout = { 'down': '~40%' }
-		let g:fzf_colors =
-					\ { 'fg':      ['fg', 'Normal'],
-					\ 'bg':      ['bg', 'Normal'],
-					\ 'hl':      ['fg', 'Comment'],
-					\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-					\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-					\ 'hl+':     ['fg', 'Statement'],
-					\ 'info':    ['fg', 'PreProc'],
-					\ 'border':  ['fg', 'Ignore'],
-					\ 'prompt':  ['fg', 'Conditional'],
-					\ 'pointer': ['fg', 'Exception'],
-					\ 'marker':  ['fg', 'Keyword'],
-					\ 'spinner': ['fg', 'Label'],
-					\ 'header':  ['fg', 'Comment'] }
-
-		let g:fzf_history_dir = g:std_data_path .  '/fzf-history'
-		let g:fzf_buffers_jump = 1
-
-		if has('nvim')
-			let g:fzf_layout = { 'window': 'enew' }
-		endif
-
-		autocmd! User FzfStatusLine call <SID>fzf_statusline()
-		return
+	" If already loaded files cool
+	if !empty(glob(l:fzf_path))
+		return 1
+	endif
+	
+	let l:link = 'https://raw.githubusercontent.com/junegunn/fzf/master/plugin/fzf.vim'
+	if utils#DownloadFile(l:fzf_path, l:link) != 1
+		return -1
 	endif
 
+	return 1
+endfunction
+
+function! s:configure_fzf() abort
+	if (!executable('fzf'))
+		return -1
+	endif
+
+	Plug 'junegunn/fzf.vim'
+
+	if (!has('unix') && executable('rg'))
+		let $FZF_DEFAULT_COMMAND='rg --files --hidden --follow --vimgrep --no-ignore-vcs --glob "!.{sync,git,svn}"'
+	endif
+
+	if (s:fzf_download_windows() < 1)
+		return -2
+	endif
+
+	nmap <plug>fuzzy_command_history :History:<CR>
+	nmap <plug>fuzzy_vim_help :Helptags<CR>
+
+	let g:fzf_layout = { 'down': '~40%' }
+	let g:fzf_colors =
+				\ { 'fg':      ['fg', 'Normal'],
+				\ 'bg':      ['bg', 'Normal'],
+				\ 'hl':      ['fg', 'Comment'],
+				\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+				\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+				\ 'hl+':     ['fg', 'Statement'],
+				\ 'info':    ['fg', 'PreProc'],
+				\ 'border':  ['fg', 'Ignore'],
+				\ 'prompt':  ['fg', 'Conditional'],
+				\ 'pointer': ['fg', 'Exception'],
+				\ 'marker':  ['fg', 'Keyword'],
+				\ 'spinner': ['fg', 'Label'],
+				\ 'header':  ['fg', 'Comment'] }
+
+	let g:fzf_history_dir = g:std_data_path .  '/fzf-history'
+	let g:fzf_buffers_jump = 1
+
+	if has('nvim')
+		let g:fzf_layout = { 'window': 'enew' }
+	endif
+
+	autocmd! User FzfStatusLine call <SID>fzf_statusline()
+	return 1
+endfunction
+
+function! s:configure_denite() abort
 	Plug 'Shougo/denite.nvim', { 'do' : has('nvim') ? ':UpdateRemotePlugins' : '' }
 	nmap <plug>fuzzy_command_history :Denite command_history<CR>
 	nmap <plug>fuzzy_vim_help :Denite help<CR>
@@ -1271,12 +1309,4 @@ function! s:configure_fuzzers() abort
 
 	" It includes file_mru source for denite.nvim.
 	Plug 'Shougo/neomru.vim'
-endfunction
-
-function! s:fzf_statusline() abort
-	" Override statusline as you like
-	highlight fzf1 ctermfg=161 ctermbg=251
-	highlight fzf2 ctermfg=23 ctermbg=251
-	highlight fzf3 ctermfg=237 ctermbg=251
-	setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
 endfunction
