@@ -934,6 +934,34 @@ function! s:set_which_key_map() abort
 				\ 'l' : ['PlugClean', 'clean'],
 				\ }
 
+	" These funky command names do not work when mapped directly in dictionary
+	nnoremap <leader>f; :History:<cr>
+	nnoremap <leader>f/ :History/<cr>
+	nnoremap <leader>fg :GFiles?<cr>
+	let g:which_key_leader_map.f = {
+				\ 'name' : '+fuzzers',
+				\ 'b' : ['Buffers', 'buffers'],
+				\ 'f' : ['Files', 'files'],
+				\ 'g' : 'git_files_status',
+				\ 'G' : ['GFiles', 'git_files'],
+				\ 'o' : ['Colors', 'colorschemes'],
+				\ 'l' : ['Lines', 'lines_all_buffers'],
+				\ 'L' : ['BLines', 'lines_current_buffer'],
+				\ 't' : ['BTags', 'tags_current_buffer'],
+				\ 'T' : ['Tags', 'tags_all_buffers'],
+				\ ';' : 'command_history',
+				\ '/' : 'search_history',
+				\ 'F' : ['History', 'files_history'],
+				\ 's' : ['Snippets', 'ultisnippets'],
+				\ 'h' : ['Helptags', 'helptags'],
+				\ 'y' : ['Filetypes', 'filetypes'],
+				\ 'm' : ['Maps', 'maps'],
+				\ 'c' : ['Commands', 'commands'],
+				\ 'p' : ['BCommits', 'git_commits_current_buffer'],
+				\ 'P' : ['Commits', 'git_commits'],
+				\ 'W' : ['Windows', 'windows'],
+				\ }
+
 	let g:which_key_leader_map.d = 'duplicate_char'
 	let g:which_key_leader_map.p = 'paste_from_system'
 	let g:which_key_leader_map.y = 'yank_to_system'
