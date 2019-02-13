@@ -217,7 +217,7 @@ endfunction
 
 " Creates cscope.files in ~\.cache\ctags\
 function! s:create_cscope_files(quote_files) abort
-	if !executable('rg')
+	if !executable('fd')
 		echomsg string("Ctags dependens on ripgrep. I know horrible")
 		return
 	endif
@@ -233,9 +233,11 @@ function! s:create_cscope_files(quote_files) abort
 				" \ (g:ctags_rg_use_ft == 1 ? '-t ' . rg_ft : '') .
 				" \ ' --files "' . getcwd() .'"' .
 				" \ ' > ' .	s:files_list
-	let files_cmd = 'rg' .
-				\ (g:ctags_rg_use_ft == 1 ? ' -t ' . rg_ft : '') .
-				\ ' --files "' . getcwd() .'"' .
+	let files_cmd = 'fd' . ' ' .
+				\ '--type file' . ' ' .
+				\ '--follow --hidden --absolute-path' . ' ' .
+				\ '--exclude ".{sync,git,svn}"' . ' ' .
+				\ (g:ctags_rg_use_ft == 1 ?  s:get_filetype_extentions() : '') . ' ' .
 				\ '> ' .	s:files_list
 				" \ (!has('unix') ? ' --path-separator /' : '') .
 				" \ (executable('sed') && a:quote_files == 1 ? l:sed : ' ') .
@@ -283,7 +285,7 @@ function! s:create_tags(tags_name) abort
 	" Tue Jan 29 2019 15:31:
 	" - Relative thing doesnt make much sense
 	let ctags_cmd = 'ctags -L ' . s:files_list . ' -f ' . tags_loc .
-				\  ' --sort=yes --recurse=yes --tag-relative=never '
+				\  ' --sort=yes --recurse=yes --tag-relative=never --output-format=e-ctags '
 
 	if ctags_lang ==# 'C++'
 		let ctags_cmd .= '--c-kinds=+pl --c++-kinds=+pl --fields=+iaSl --extras=+q '
@@ -590,4 +592,18 @@ function! s:load_tag_spelllang(tags_name) abort
 
 	let &l:spell=1
 	let &l:spelllang .= ',' . a:tags_name
+endfunction
+
+function! s:get_filetype_extentions() abort
+	let l:ft = &filetype
+
+	if l:ft ==# 'cpp'
+		return "\"\.(c|cpp|c++|cc|h|hpp)$\""
+	elseif l:ft ==# 'vim'
+		return "\"\.(vim)$\""
+	elseif l:ft ==# 'python'
+		return "\"\.(py)$\""
+	elseif l:ft ==# 'java'
+		return "\"\.(java)$\""
+	endif
 endfunction
