@@ -147,13 +147,15 @@ if [[ -f /usr/bin/fzf ]]; then
 	source /usr/share/fzf/key-bindings.zsh
 	# if we have rg. use it!
 	if [ -f /usr/bin/rg ]; then
-		export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.{sync,git,svn}" 2> /dev/null'
+		export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore-vcs --glob "!.{sync,git,svn}" 2> /dev/null'
 		export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-		export FZF_CTRL_T_OPTS="--preview --no-height '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
+		export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
 	fi
 
-	# Depends on `install bfs`
-	export FZF_ALT_C_COMMAND="fd -t d . $HOME"
+	# Depends on `install fd`
+	if [ -f /usr/bin/fd ]; then
+		export FZF_ALT_C_COMMAND="fd -t d . $PWD"
+	fi
 
 	# TODO-[RM]-(Wed Oct 25 2017 10:10): Download it
 	# https://github.com/urbainvaes/fzf-marks
