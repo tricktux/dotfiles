@@ -1264,7 +1264,7 @@ function! s:configure_fzf() abort
 	Plug 'junegunn/fzf.vim'
 
 	if (!has('unix') && executable('rg'))
-		let $FZF_DEFAULT_COMMAND='rg --files --hidden --follow --vimgrep --no-ignore-vcs --glob "!.{sync,git,svn}"'
+		let $FZF_DEFAULT_COMMAND='fd --type file --hidden --follow --no-ignore --exclude ".{sync,git,svn}"'
 	else " Doesnt work on windows
 		" Likewise, Files command with preview window
 		command! -bang -nargs=? -complete=dir Files
