@@ -491,6 +491,15 @@ function! utils#MastersDropboxOpen(wiki) abort
 	execute "edit " . db_path
 endfunction
 
+function! utils#FzfCopyFileNameApi() abort
+	if (!exists('*fzf#run'))
+		echoerr '[utils#FzfCopyFileNameApi]: Fzf not intalled'
+		return -1
+	endif
+
+
+endfunction
+
 function! utils#PathFileFuzzer(path) abort
 	if empty(a:path)
 		return
