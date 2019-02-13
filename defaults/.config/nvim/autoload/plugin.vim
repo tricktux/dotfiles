@@ -1256,7 +1256,7 @@ function! s:configure_fzf() abort
 		return -1
 	endif
 
-	if (s:fzf_download_windows() < 1)
+	if ((!has('unix')) && (s:fzf_download_windows() < 1))
 		return -2
 	endif
 
