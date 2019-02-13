@@ -475,7 +475,12 @@ function! mappings#Set()
 
 	" Edit file at location <Leader>e?
 	nnoremap <Leader>ed :call utils#PathFileFuzzer(g:dotfiles)<cr>
-	nnoremap <Leader>ec :call utils#PathFileFuzzer(getcwd())<cr>
+	nnoremap <Leader>eh :call utils#PathFileFuzzer($HOME)<cr>
+	if (!has('unix'))
+		nnoremap <Leader>ec :call utils#PathFileFuzzer('C:\')<cr>
+		nnoremap <Leader>eD :call utils#PathFileFuzzer('D:\')<cr>
+	endif
+	nnoremap <Leader>e. :call utils#PathFileFuzzer(getcwd())<cr>
 	nnoremap <Leader>el :call utils#PathFileFuzzer(input('Folder to recurse: ', "", "file"))<cr>
 
 	nmap <leader>et <plug>edit_todo
@@ -485,7 +490,6 @@ function! mappings#Set()
 
 	" Edit plugin
 	nnoremap <Leader>ep :call utils#PathFileFuzzer(g:vim_plugins_path)<cr>
-	nnoremap <Leader>ei :e
 	" Edit Vimruntime
 	nnoremap <Leader>ev :call utils#PathFileFuzzer(fnameescape($VIMRUNTIME))<cr>
 endfunction
