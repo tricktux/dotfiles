@@ -521,10 +521,12 @@ function! plugin#AfterConfig() abort
 		call denite#custom#option('default', 'winheight', 15)
 		call denite#custom#option('_', 'highlight_matched_char', 'Function')
 		call denite#custom#option('_', 'highlight_matched_range', 'Function')
-		if executable('rg')
+		if executable('fd')
 			call denite#custom#var('file_rec', 'command',
-						\ ['rg', '--glob', '!.{git,svn,sync}', '--files', '--no-ignore',
-						\ '--smart-case', '--follow', '--hidden'])
+						\ ['fd', '--exclude', '.{git,svn,sync}', '--no-ignore',
+						\ '--follow', '--hidden'])
+		endif
+		if executable('rg')
 			" Ripgrep command on grep source
 			call denite#custom#var('grep', 'command', ['rg'])
 			call denite#custom#var('grep', 'default_opts',
@@ -1025,19 +1027,16 @@ function! s:configure_vim_utils() abort
 
 	let g:grip_rg_list = {
 				\ 'name' : 'list_files',
-				\ 'executable' : 'rg',
+				\ 'executable' : 'fd',
 				\ 'search_argument' : 0,
 				\ 'prompt' : 0,
 				\ 'grepformat' : '%f',
 				\ 'args' : [
-				\   '--vimgrep',
-				\   '--smart-case',
 				\		'--follow',
 				\		'--fixed-strings',
 				\		'--hidden',
-				\		'--iglob',
-				\		(has('unix') ? "'!.{git,svn,sync}'" : '!.{git,svn}'),
-				\		'--files',
+				\		'--exclude',
+				\		(has('unix') ? "'.{git,svn,sync}'" : '.{git,svn}'),
 				\ ],
 				\ }
 
@@ -1263,7 +1262,7 @@ function! s:configure_fzf() abort
 
 	Plug 'junegunn/fzf.vim'
 
-	if (!has('unix') && executable('rg'))
+	if (!has('unix') && executable('fd'))
 		let $FZF_DEFAULT_COMMAND='fd --type file --hidden --follow --no-ignore --exclude ".{sync,git,svn}"'
 	else " Doesnt work on windows
 		" Likewise, Files command with preview window
