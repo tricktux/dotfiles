@@ -14,8 +14,8 @@ function! linting#Set(choice) abort
 	endif
 
 	if a:choice ==# 'neomake'
-		nnoremap <Plug>make_project :NeomakeProject<cr>
-		nnoremap <Plug>make_file :Neomake<cr>
+		nnoremap <plug>make_project :NeomakeProject<cr>
+		nnoremap <plug>make_file :Neomake<cr>
 		call s:set_neomake()
 	elseif a:choice ==# 'ale'
 		call s:set_ale()
