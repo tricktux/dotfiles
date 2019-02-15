@@ -27,8 +27,8 @@ if !exists('no_plugin_maps') && !exists('no_c_maps')
 	if exists(':Neomake')
 		nmap <silent> <buffer> <plug>make_check :Neomake clangtidy clangcheck cppcheck<cr>
 	else
-		nmap <buffer> <Plug>make_project :make!<cr>
-		nmap <buffer> <Plug>make_file :make!<cr>
+		nmap <buffer> <plug>make_project :make!<cr>
+		nmap <buffer> <plug>make_file :make!<cr>
 	endif
 	" Alternate between header and source file
 	if exists(':A')
