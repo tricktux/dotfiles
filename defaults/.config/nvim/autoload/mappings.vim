@@ -456,6 +456,9 @@ function! mappings#Set()
 	nnoremap <Leader>wo :call <SID>wiki_open()<cr>
 	nnoremap <Leader>wa :call <SID>wiki_add()<cr>
 	nnoremap <Leader>ws :call utils#WikiSearch()<cr>
+	nnoremap <Leader>wi :call <sid>wiki_open('index.md')<cr>
+	nnoremap <Leader>wr :call <sid>wiki_open('random.md')<cr>
+	nnoremap <Leader>ww :call <sid>wiki_open('weekly_log_' . strftime('%Y') . '.md')<cr>
 
 	" Comments <Leader>o
 	nmap - <plug>NERDCommenterToggle
@@ -669,7 +672,7 @@ function! s:wiki_open(...) abort
 	endif
 
 	if a:0 > 0
-		execute "vs " . g:wiki_path . '/'.  a:1
+		execute "e " . g:wiki_path . '/'.  a:1
 		return
 	endif
 
