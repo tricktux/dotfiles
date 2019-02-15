@@ -60,9 +60,9 @@ if !exists('no_plugin_maps') && !exists('no_c_maps')
 		" vnoremap <F9> :<C-U>LL print <C-R>=lldb#util#get_selection()<cr><cr>
 	endif
 
-	if exists('g:clang_format_py')
-		nmap <buffer> <plug>format_code :execute('pyf ' . g:clang_format_py)<cr>
-	endif
+	" if exists('g:clang_format_py')
+		" nmap <buffer> <plug>format_code :execute('pyf ' . g:clang_format_py)<cr>
+	" endif
 
 	if exists(':GTestRun')
 		" Attempt to guess executable test
