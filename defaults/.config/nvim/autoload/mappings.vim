@@ -930,7 +930,7 @@ function! s:set_which_key_map() abort
 
 	let g:which_key_leader_map.P = {
 				\ 'name' : '+plugins',
-				\ 'i' : ['so %<bar>call plugin#Config()<bar>PlugInstall<CR>', 'install'],
+				\ 'i' : ['PlugInstall', 'install'],
 				\ 'u' : ['PlugUpdate', 'update'],
 				\ 'r' : ['UpdateRemotePlugins', 'update_remote_plugins'],
 				\ 'g' : ['PlugUpgrade', 'upgrade_vim_plug'],
