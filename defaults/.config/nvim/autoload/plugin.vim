@@ -464,6 +464,16 @@ function! plugin#Config()
 	" MixedCase (crm), camelCase (crc), snake_case (crs), UPPER_CASE (cru), dash-case (cr-),
 	" dot.case (cr.), space case (cr<space>), and Title Case (crt) are all just 3 keystrokes away.
 
+	" Neovim hacking:
+	Plug 'dbakker/vim-lint'
+
+	Plug 'neovim/nvimdev.nvim'
+		let g:nvimdev_auto_cscope=1
+
+	Plug 'tbastos/vim-lua'
+
+	Plug 'editorconfig/editorconfig-vim'
+
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
