@@ -135,7 +135,7 @@ function! mappings#Set()
 	nmap <leader>/ <plug>search_grep
 	xmap <leader>/ <plug>search_grep
 
-	nnoremap <silent> <plug>search_grep :Grip<cr>
+	nnoremap <silent> <plug>search_grep :Grip rg<cr>
 	" xnoremap <silent> <plug>search_grep :call <SID>grep()<cr>
 
 	nmap <leader>W <plug>get_passwd
