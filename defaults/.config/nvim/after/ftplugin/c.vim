@@ -73,13 +73,7 @@ if !exists('no_plugin_maps') && !exists('no_c_maps')
 		nnoremap <buffer> <localleader>tu :GTestRunUnderCursor<cr>
 	endif
 
-	if exists(':CCTreeLoadDB')
-		nnoremap <buffer> <localleader>el :call <SID>cctree_load_db()<cr>
-		nnoremap <buffer> <localleader>es :call <SID>cctree_save_xrefdb()<cr>
-		nnoremap <buffer> <localleader>ef :exec 'CCTreeTraceForward ' . expand('<cword>')<cr>
-		nnoremap <buffer> <localleader>er :exec 'CCTreeTraceReverse ' . expand('<cword>')<cr>
-		nnoremap <buffer> <localleader>et :CCTreeWindowToggle<cr>
-	endif
+	call mappings#SetCscope()
 endif
 
 function! s:time_exe_win(...) abort
