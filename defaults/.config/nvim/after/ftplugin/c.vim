@@ -99,7 +99,7 @@ function! s:time_exe_win(...) abort
 	exe l:cmd
 endfunction
 
-function! s:set_compiler_and_others() abort
+function! s:set_compiler_and_friends() abort
 	if exists('b:current_compiler')
 		return
 	endif
@@ -152,7 +152,7 @@ function! s:man_under_cursor() abort
 endfunction
 
 " Setup Compiler and some specific stuff
-call <SID>set_compiler_and_others()
+call <SID>set_compiler_and_friends()
 
 function! s:cctree_load_db() abort
 	if !exists('g:ctags_output_dir') || empty('g:ctags_output_dir')
