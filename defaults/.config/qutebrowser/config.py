@@ -9,14 +9,16 @@
 #  Ergo not even that light weight
 #  Must protect firefox
 
+import platform
+import socket
+
+from qutebrowser.config.config import ConfigContainer  # noqa: F401
 # pylint: disable=C0111
 from qutebrowser.config.configfiles import ConfigAPI  # noqa: F401
-from qutebrowser.config.config import ConfigContainer  # noqa: F401
+
 config = config  # type: ConfigAPI # noqa: F821 pylint: disable=E0602,C0103
 c = c  # type: ConfigContainer # noqa: F821 pylint: disable=E0602,C0103
 
-import platform
-import socket
 
 # Uncomment this to still load settings configured via autoconfig.yml
 # config.load_autoconfig()
@@ -91,16 +93,16 @@ c.url.searchengines['g'] = 'https://github.com/search?q={}&type=Code'
 
 #  Privacy settings
 #  Not available while using webengine backend
-c.content.notifications = False
-c.content.geolocation = False
-c.content.canvas_reading = False
-c.content.headers.custom = {
-    "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
-}
-c.content.webgl = False
-c.content.javascript.enabled = False
-c.content.cookies.accept = "never"
-c.content.cookies.store = False
+#  c.content.notifications = False
+#  c.content.geolocation = False
+#  c.content.canvas_reading = False
+#  c.content.headers.custom = {
+    #  "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+#  }
+#  c.content.webgl = False
+#  c.content.javascript.enabled = False
+#  c.content.cookies.accept = "never"
+#  c.content.cookies.store = False
 
 #  https://developer.chrome.com/apps/match_patterns
 #  config.set('content.javascript.enabled', True, 'https://*.twitch.tv/*')
