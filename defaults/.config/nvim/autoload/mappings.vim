@@ -459,6 +459,7 @@ function! mappings#Set()
 	nnoremap <Leader>wi :call <sid>wiki_open('index.md')<cr>
 	nnoremap <Leader>wr :call <sid>wiki_open('random.md')<cr>
 	nnoremap <Leader>ww :call <sid>wiki_open('weekly_log_' . strftime('%Y') . '.md')<cr>
+	nnoremap <Leader>wm :call <sid>wiki_open('monthly_log_' . strftime('%Y') . '.md')<cr>
 
 	" Comments <Leader>o
 	nmap - <plug>NERDCommenterToggle

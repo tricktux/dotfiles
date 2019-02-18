@@ -23,6 +23,7 @@ if !exists("no_plugin_maps") && !exists("no_terminal_maps")
 		nnoremap <buffer> <silent> h :call neoterm#close()<cr>
 		nnoremap <buffer> <silent> q :Tclose!<cr>
 	endif
+	" nunmap <buffer> <c-space>
 endif
 
 if exists('+winhighlight')
