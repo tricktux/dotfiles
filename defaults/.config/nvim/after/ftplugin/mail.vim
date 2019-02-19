@@ -15,9 +15,12 @@ endif
 " Don't load another plugin for this buffer
 let b:did_mail_ftplugin = 1
 
-if !exists("no_plugin_maps") && !exists("no_mail_maps")
+if !exists("no_plugin_maps") && !exists("no_after_mail_maps")
 	nnoremap <buffer> <localleader>s :call <sid>insert_signature('en')<cr>
 	nnoremap <buffer> <localleader>S :call <sid>insert_signature('es')<cr>
+
+	vnoremap <buffer> <localleader>Q :s/^/> /<CR>:noh<CR>``
+	nnoremap <buffer> <localleader>Q :.,$s/^/> /<CR>:noh<CR>``
 endif
 
 function! s:insert_signature(lang) abort

@@ -37,7 +37,9 @@ function! mappings#Set()
 	" selection you just pasted over–which is the default behavior. This enables the user to
 	" yank some text and paste it over several places in a row, without using a named
 	" Obtained from: https://vimways.org/2018/for-mappings-and-a-tutorial/
-	xnoremap <silent> p p:if v:register == '"'<Bar>let @@=@0<Bar>endif<cr>
+	xnoremap <silent> p p:if v:register == '"'<bar>let @@=@0<bar>endif<cr>
+
+	call s:disable_ftplugin_mappings()
 
 	if exists('g:exists_vim_which_key')
 		call s:set_which_key_map()
@@ -1205,4 +1207,9 @@ function! mappings#SetCscope() abort
 	nnoremap <buffer> <localleader>ef :exec 'CCTreeTraceForward ' . expand('<cword>')<cr>
 	nnoremap <buffer> <localleader>er :exec 'CCTreeTraceReverse ' . expand('<cword>')<cr>
 	nnoremap <buffer> <localleader>et :CCTreeWindowToggle<cr>
+endfunction
+
+function! s:disable_ftplugin_mappings() abort
+	" There is only one mapping to quote strings that was copied and repurposed
+	let g:no_mail_maps = 1
 endfunction
