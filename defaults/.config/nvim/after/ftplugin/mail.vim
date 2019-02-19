@@ -16,10 +16,18 @@ endif
 let b:did_mail_ftplugin = 1
 
 if !exists("no_plugin_maps") && !exists("no_mail_maps")
-	nnoremap <buffer> <localleader>s :call <sid>insert_signature()<cr>
+	nnoremap <buffer> <localleader>s :call <sid>insert_signature('en')<cr>
+	nnoremap <buffer> <localleader>S :call <sid>insert_signature('es')<cr>
 endif
 
-function! s:insert_signature() abort
-	let signature = "Thanks,\nReinaldo Molina"
+function! s:insert_signature(lang) abort
+	if a:lang ==# 'en'
+		let signature = "Thanks,\nReinaldo Molina"
+	elseif a:lang ==# 'es'
+		let signature = "Besos,\nReini"
+	else
+		echoerr 'No signature language defined'
+		return
+	endif
 	execute "normal! i" . signature . "\<esc>"
 endfunction
