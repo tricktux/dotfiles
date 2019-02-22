@@ -33,6 +33,8 @@ if !exists('no_plugin_maps') && !exists('no_c_maps')
 	" Alternate between header and source file
 	if exists(':A')
 		nnoremap <buffer> <unique> <localleader>a :A<cr>
+		" Open in alternate in a vertical window
+		nnoremap <buffer> <unique> <localleader>A :AV<cr>
 	else
 		nnoremap <buffer> <unique> <localleader>a :call utils#SwitchHeaderSource()<cr>
 	endif
