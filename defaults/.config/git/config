@@ -1,5 +1,7 @@
 [user]
-	email = rmolin88@gmail.com
+	; Thu Feb 21 2019 22:19
+	; Github settings. In order to keep your email address private
+	email = 5428479+tricktux@users.noreply.github.com
 	name = Reinaldo Molina
 [alias]
 	st = status
