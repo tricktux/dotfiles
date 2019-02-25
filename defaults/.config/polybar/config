@@ -505,8 +505,8 @@ scroll-down = i3wm-wsprev
 
 ; format-background = ${colors.t6}
 type = internal/xwindow
-; label = %title:0:45:%
-label = %title%
+label = %title:0:85:%
+; label = %title%
 
 [module/xkeyboard]
 type = internal/xkeyboard
