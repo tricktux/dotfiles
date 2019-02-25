@@ -78,12 +78,17 @@ function! plugin#Config()
 		Plug 'radenling/vim-dispatch-neovim'
 		" nvim-qt on unix doesnt populate has('gui_running')
 		Plug 'equalsraf/neovim-gui-shim'
-		if executable('lldb') && has('unix')
+	endif
+
+	if executable('lldb') && has('unix')
+		if has('nvim')
 			Plug 'critiqjo/lldb.nvim'
 			" All mappings moved to c.vim
 			" Note: Remember to always :UpdateRemotePlugins
 			"TODO.RM-Sun May 21 2017 01:14: Create a ftplugin/lldb.vim to disable
 			"folding
+		else
+			Plug 'gilligan/vim-lldb'
 		endif
 	endif
 
@@ -1050,25 +1055,28 @@ function! s:configure_vim_utils() abort
 				\ ],
 				\ }
 
+	let g:grip_tools = [ g:grip_rg, g:grip_pdfgrep, g:grip_rg_list ]
+	if (exists('g:wiki_path'))
+		let g:grip_wiki = {
+					\ 'name' : 'wiki',
+					\ 'prompt' : 1,
+					\ 'executable' : 'rg',
+					\ 'args' : [
+					\   '--vimgrep',
+					\   '--smart-case',
+					\		'--follow',
+					\		'--fixed-strings',
+					\		'--hidden',
+					\		'--iglob',
+					\		(has('unix') ? "'!.{git,svn,sync}'" : '!.{git,svn}'),
+					\		'$*',
+					\		g:wiki_path,
+					\		],
+					\ }
 
-	let g:grip_wiki = {
-				\ 'name' : 'wiki',
-				\ 'prompt' : 1,
-				\ 'executable' : 'rg',
-				\ 'args' : [
-				\   '--vimgrep',
-				\   '--smart-case',
-				\		'--follow',
-				\		'--fixed-strings',
-				\		'--hidden',
-				\		'--iglob',
-				\		(has('unix') ? "'!.{git,svn,sync}'" : '!.{git,svn}'),
-				\		'$*',
-				\		g:wiki_path,
-				\		],
-				\ }
+		call add(g:grip_tools, g:grip_wiki)
+	endif
 
-	let g:grip_tools = [ g:grip_rg, g:grip_pdfgrep, g:grip_wiki, g:grip_rg_list ]
 endfunction
 
 function! s:configure_vim_bookmark() abort
