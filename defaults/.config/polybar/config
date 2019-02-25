@@ -1166,7 +1166,7 @@ format-underline = #f90000
 type = custom/script
 format-prefix = " "
 exec = ~/.config/polybar/scripts/updates-arch-combined.sh
-interval = 600
+interval = 60
 
 [module/pulseaudio-tail]
 type = custom/script
