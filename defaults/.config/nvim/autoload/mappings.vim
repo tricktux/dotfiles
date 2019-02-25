@@ -488,6 +488,7 @@ function! mappings#Set()
 	endif
 	nnoremap <Leader>e. :call utils#PathFileFuzzer(getcwd())<cr>
 	nnoremap <Leader>el :call utils#PathFileFuzzer(input('Folder to recurse: ', "", "file"))<cr>
+	nnoremap <Leader>ei :e 
 
 	nmap <leader>et <plug>edit_todo
 	if !hasmapto('<plug>edit_todo')
