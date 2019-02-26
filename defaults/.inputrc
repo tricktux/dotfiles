@@ -3,7 +3,10 @@ set convert-meta on
 # Sun Dec 23 2018 15:02
 # Breaks C-r for fzf. Do not enable
 # set editing-mode vi
-set bell-style none
+# Tue Feb 26 2019 08:43
+# pc speaker disabled in /etc/modprobe.d/nobeep.conf
+# let it bell to get notified
+# set bell-style none
 
 # "\C-x\C-r": re-read-init-file
 "\C-p": history-search-backward
