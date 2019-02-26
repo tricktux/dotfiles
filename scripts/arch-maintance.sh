@@ -9,7 +9,7 @@
 
 machine=`hostname`
 
-echo "Optimizing pacman"
+echo "Cleaning pacman"
 # This is very dangerous
 # sudo pacman -Sc --noconfirm
 # Better way paccache will remove everything except the latest THREE versions of a package
@@ -18,30 +18,33 @@ sudo paccache -r
 sudo paccache -ruk0
 # Rolling Back to an Older Version of a Package
 # sudo pacman -U /var/cache/pacman/pkg/name-version.pkg.tar.gz
-
 # sudo pacman-optimize
+
+echo "Emptying trash"
+gio trash --empty
+
+echo "Emptying cache"
+rm -r ~/.cache
 
 # Tue Sep 26 2017 18:40 Update Mirror list. Depends on `reflector`
 if hash reflector 2>/dev/null; then
 	sudo reflector --protocol https --latest 30 --number 5 --sort rate --save /etc/pacman.d/mirrorlist -c 'United States' --verbose
 else
-	echo "Please install reflector"
-	exit 8
+	echo "reflector is not installed"
 fi
 
-echo "Optimizing system memory now in order to do all sudo commands at once"
-sudo bleachbit --clean system.memory
+# echo "Optimizing system memory now in order to do all sudo commands at once"
+# sudo bleachbit --clean system.memory
 
-echo "Removing unused orphan packages"
-sudo pacman -Rns $(pacman -Qtdq)
-
-echo "Updating system"
-trizen -Syu
+# echo "Updating system"
+# trizen -Syu
 sudo pacman -Qnq > ~/.config/dotfiles/pkg/$machine/native
 sudo pacman -Qmq > ~/.config/dotfiles/pkg/$machine/aur
 
-echo "Emptying trash"
-gio trash --empty
+# This is also dangerous do it manually
+echo "Removing unused orphan packages. Look through the list and exit if you see
+something unusual"
+sudo pacman -Rns $(pacman -Qtdq)
 
 # echo "BleachBit runnning"
 
