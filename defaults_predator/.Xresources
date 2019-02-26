@@ -1,11 +1,19 @@
-/ File:           .Xresources
-/ Description:    Settings for urxvt and a Xorg applications
-/ Author:		    Reinaldo Molina
-/ Email:          rmolin88 at gmail dot com
-/ Revision:	    0.0.0
-/ Created:        Tue Feb 26 2019 07:47
-/ Last Modified:  Tue Feb 26 2019 07:47
+! File:           .Xresources
+! Description:    Settings for urxvt and a Xorg applications
+! Author:		    Reinaldo Molina
+! Email:          rmolin88 at gmail dot com
+! Revision:	    0.0.0
+! Created:        Tue Feb 26 2019 07:47
+! Last Modified:  Tue Feb 26 2019 07:47
 ! VERY IMPORTANT: Reload config with xrdb ~/.Xresources
+! - [ ] cannot set terminal window name
+!	- Tried setting DISABLE_AUTO_TITLE="true" in .zshrc 
+! - [ ] no 256 color
+!	- Try installing urxvt term info
+!	- Try setting $COLORTERM=rxvt-unicode
+! - Install resize-font perl extension
+! - Fix the cursor
+! - Fix prompt git symbols
 
 ! Disable printing the terminal contents when pressing PrintScreen.
 URxvt.print-pipe: "cat > /dev/null"
@@ -26,7 +34,7 @@ urxvt*shading: 30
 ! To install prettier shell prompt see `banga/powerline-shell`
 ! Trying to get powerline to display correctly
 ! URxvt.font: xft:monospace:size=10
-URxvt.font: xft:SauceCodePro Nerd Font Mono:size=10
+URxvt.font: xft:SauceCodePro Nerd Font Mono:size=10:antialias=false
 ! URxvt.font: xft:FontAwesome:size=10\xft:monospace:size=10\xft:Hack:size=8
 ! URxvt*font: xft:FontAwesome:size=10
 ! urxvt*font: xft:Terminus:pixelsize=12,xft:Droid\ Sans\ Mono\ for \Powerline:pixelsize=12
