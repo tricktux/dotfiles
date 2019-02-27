@@ -114,25 +114,25 @@ set $right l
 # Launch toggle scratchpads
 bindsym $mod+n exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
 	ranger "exec --no-startup-id i3-sensible-terminal \
-	--title=ranger --exec ranger"
+	-T ranger -e ranger"
 bindsym $mod+6 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
-	cmus "exec --no-startup-id i3-sensible-terminal --title=cmus \
-	--exec cmus"
+	cmus "exec --no-startup-id i3-sensible-terminal -T cmus \
+	-e cmus"
 bindsym $mod+9 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
-	gmail-mutt "exec --no-startup-id i3-sensible-terminal --title=gmail-mutt \
-	--exec 'neomutt -F ~/.config/neomutt/user.gmail'"
+	gmail-mutt "exec --no-startup-id i3-sensible-terminal -T gmail-mutt \
+	-e neomutt -F ~/.config/neomutt/user.gmail"
 bindsym $mod+8 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
-	proton-mutt "exec --no-startup-id i3-sensible-terminal --title=proton-mutt \
-	--exec 'neomutt -F ~/.config/neomutt/user.pm'"
+	proton-mutt "exec --no-startup-id i3-sensible-terminal -T proton-mutt \
+	-e neomutt -F ~/.config/neomutt/user.pm"
 bindsym $mod+7 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
-	psu-mutt "exec --no-startup-id i3-sensible-terminal --title=psu-mutt \
-	--exec 'neomutt -F ~/.config/neomutt/user.psu'"
+	psu-mutt "exec --no-startup-id i3-sensible-terminal -T psu-mutt \
+	-e neomutt -F ~/.config/neomutt/user.psu"
 bindsym $mod+i exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
-	journal "exec --no-startup-id i3-sensible-terminal --title=journal \
-	--exec ~/.config/polybar/scripts/journal.sh"
+	journal "exec --no-startup-id i3-sensible-terminal -T journal \
+	-e ~/.config/polybar/scripts/journal.sh"
 bindsym $mod+o exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
 	terminal "exec --no-startup-id i3-sensible-terminal \
-	--title=terminal --exec 'tmux -f /home/reinaldo/.config/tmux/conf'"
+	-T terminal -e tmux -f /home/reinaldo/.config/tmux/conf"
 
 bindsym mod1+Tab exec --no-startup-id i3flip next
 
