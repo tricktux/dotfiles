@@ -345,16 +345,15 @@ function! plugin#Config()
 	endif
 
 	Plug 'chaoren/vim-wordmotion'
-	let g:wordmotion_spaces = '_-.'
-	let g:wordmotion_mappings = {
-				\ 'w' : '<c-f>',
-				\ 'b' : '<c-b>',
-				\ 'e' : '',
-				\ 'ge' : '',
-				\ 'aw' : '',
-				\ 'iw' : '',
-				\ '<C-R><C-W>' : ''
-				\ }
+		let g:wordmotion_mappings = {
+					\ 'w' : '<M-w>',
+					\ 'b' : '<M-b>',
+					\ 'e' : '',
+					\ 'ge' : '',
+					\ 'aw' : '',
+					\ 'iw' : '',
+					\ '<C-R><C-W>' : ''
+					\ }
 
 	call s:configure_caps()
 
