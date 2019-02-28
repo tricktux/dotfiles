@@ -1335,11 +1335,13 @@ function! s:configure_vim_signify() abort
 	let g:signify_cursorhold_normal     = 1
 	let g:signify_update_on_bufenter    = 0
 	let g:signify_update_on_focusgained = 1
-	let g:signify_disable_by_default = 1
-
 endfunction
 
-function! s:sy_stats_wrapper() abort
+function! plugin#SyStatsWrapper() abort
+	if (!exists('*sy#repo#get_stats'))
+		return 1
+	endif
+
 	let symbols = ['+', '-', '~']
 	let [added, modified, removed] = sy#repo#get_stats()
 	let stats = [added, removed, modified]  " reorder

@@ -152,7 +152,6 @@ function! s:get_filename() abort
 				\ &filetype ==# 'vimfiler' ? vimfiler#get_status_string() :
 				\ &filetype ==# 'unite' ? unite#get_status_string() :
 				\ &filetype ==# 'vimshell' ? vimshell#get_status_string() :
-				\ ('' !=# s:get_readonly() ? s:get_readonly() . ' ' : '') .
 				\ ('' !=# l:fname ? l:fname : '[No Name]') .
 				\ ('' !=# s:get_modifiable() ? ' ' . s:get_modifiable() : '')
 	return exists('g:valid_device') ? "\uf02d " . l:rc : l:rc
@@ -187,15 +186,20 @@ function! status_line#SetVerControl() abort
 		unlet! s:ver_ctrl
 	endif
 
-	let svn_mark = exists('g:valid_device') ? '' : ''
-	let git_mark = exists('g:valid_device') ? "\uf406" : ''
+	let svn_mark = exists('g:valid_device') ? '' . ':' : 'svn:'
+	let git_mark = exists('g:valid_device') ? "\uf406" . ':' : 'git:'
+
+	let l:signify_stats = ''
+	if (exists('*plugin#SyStatsWrapper'))
+		let l:signify_stats = plugin#SyStatsWrapper()
+	endif
 
 	try
 		if exists('*fugitive#head')
 			let git = fugitive#head()
 			" echomsg 'git = ' . git
 			if !empty(git)
-				let s:ver_ctrl = git_mark . ' ' . git
+				let s:ver_ctrl = git_mark . git . l:signify_stats
 				" echomsg s:ver_ctrl
 				return
 			endif
@@ -205,7 +209,7 @@ function! status_line#SetVerControl() abort
 			let svn = utils#UpdateSvnBranchInfo()
 			" echomsg 'svn = ' . svn
 			if !empty(svn)
-				let s:ver_ctrl = svn_mark . ' ' . svn
+				let s:ver_ctrl = svn_mark . svn . l:signify_stats
 				" echomsg s:ver_ctrl
 				return
 			endif
