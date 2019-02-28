@@ -147,7 +147,7 @@ function! s:config_unix() abort
 	for l:wiki in l:wikis
 		if !empty(glob(l:wiki))
 			let g:wiki_path =  expand(l:wiki)
-			let g:valid_device = 1
+			" let g:valid_device = 1
 			break
 		endif
 	endfor
