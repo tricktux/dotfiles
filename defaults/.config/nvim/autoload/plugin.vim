@@ -1335,6 +1335,9 @@ function! s:configure_vim_signify() abort
 	let g:signify_cursorhold_normal     = 1
 	let g:signify_update_on_bufenter    = 0
 	let g:signify_update_on_focusgained = 1
+
+	nmap ]g <plug>(signify-next-hunk)
+	nmap [g <plug>(signify-prev-hunk)
 endfunction
 
 function! plugin#SyStatsWrapper() abort
