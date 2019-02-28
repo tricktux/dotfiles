@@ -14,3 +14,5 @@ policies:
         enabled: false
     ProhibitUnnecessaryDoubleQuote:
         enabled: false
+    ProhibitMissingScriptEncoding:
+        enabled: false
