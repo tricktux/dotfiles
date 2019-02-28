@@ -106,6 +106,8 @@ function! mappings#Set()
 
 	nnoremap <localleader>mp <plug>make_project
 	nmap <localleader>j <plug>make_file
+	nmap <buffer> <plug>make_project :make!<cr>
+	nmap <buffer> <plug>make_file :make!<cr>
 
 	" Doesnt make sense in all file types
 	" nmap <localleader>p <plug>preview
