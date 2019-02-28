@@ -470,6 +470,10 @@ function! plugin#Config()
 	Plug 'editorconfig/editorconfig-vim'
 
 	Plug 'nicwest/vim-camelsnek'
+		nmap <plug>to_snake_case :Snek<cr>
+		nmap <plug>to_camel_case :Camel<cr>
+		nmap <plug>to_camel_back_case :CamelB<cr>
+		nmap <plug>to_kebak_case :Kebak<cr>
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
@@ -506,6 +510,13 @@ endfunction
 
 " Called on augroup VimEnter search augroup.vim
 function! plugin#AfterConfig() abort
+	if exists('g:loaded_repeat')
+		silent! call repeat#set("\<plug>to_snake_case",v:count)
+		silent! call repeat#set("\<plug>to_camel_case",v:count)
+		silent! call repeat#set("\<plug>to_camel_back_case",v:count)
+		silent! call repeat#set("\<plug>to_kebak_case",v:count)
+	endif
+
 	if exists('g:loaded_deoplete')
 		" call deoplete#custom#source('javacomplete2', 'mark', '')
 		" call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
