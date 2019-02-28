@@ -45,6 +45,8 @@ function! augroup#Set() abort
 
 		autocmd FileType fzf inoremap <buffer> <c-j> <down>
 		autocmd FileType fzf inoremap <buffer> <c-n> <down>
+
+		autocmd FileType gitcommit setlocal spell spelllang=en
 	augroup END
 
 	" To improve syntax highlight speed. If something breaks with highlight
