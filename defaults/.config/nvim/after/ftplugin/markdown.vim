@@ -63,10 +63,13 @@ if !exists('no_plugin_maps') && !exists('no_markdown_maps')
 	nnoremap <buffer> <localleader>tw :call <sid>todo_mark('-')<cr>
 	nnoremap <buffer> <localleader>td :call <sid>todo_mark(' ')<cr>
 
-	nmap <localleader>b <plug>bold_visual_word
-	nnoremap <buffer> <plug>bold_visual_word :call <sid>bold_current_word()<bar>
-				\ silent! call repeat#set("\<lt>Plug>bold_visual_word")<cr>
-	vnoremap <buffer> <localleader>b :call <sid>bold_word()<cr>
+	nmap <localleader>b <plug>bold_current_word_si
+	nnoremap <buffer> <plug>bold_current_word_si :call <sid>bold_current_word()<bar>
+				\ silent! call repeat#set("\<lt>Plug>bold_current_word_si")<cr>
+
+	vmap <localleader>b <plug>bold_visual_word
+	vnoremap <buffer> <plug>bold_visual_word :call <sid>bold_word()<bar>
+				\ silent! call repeat#set("\<lt>Plug>bold_visual_word", v:count)<cr>
 endif
 
 function! s:bold_current_word() abort
