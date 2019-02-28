@@ -39,8 +39,6 @@ function! mappings#Set()
 	" Obtained from: https://vimways.org/2018/for-mappings-and-a-tutorial/
 	xnoremap <silent> p p:if v:register == '"'<bar>let @@=@0<bar>endif<cr>
 
-	call s:disable_ftplugin_mappings()
-
 	" List of super useful mappings
 	" = fixes indentantion
 	" gq formats code
@@ -1203,9 +1201,4 @@ function! mappings#SetCscope() abort
 	nnoremap <buffer> <localleader>ef :exec 'CCTreeTraceForward ' . expand('<cword>')<cr>
 	nnoremap <buffer> <localleader>er :exec 'CCTreeTraceReverse ' . expand('<cword>')<cr>
 	nnoremap <buffer> <localleader>et :CCTreeWindowToggle<cr>
-endfunction
-
-function! s:disable_ftplugin_mappings() abort
-	" There is only one mapping to quote strings that was copied and repurposed
-	let g:no_mail_maps = 1
 endfunction
