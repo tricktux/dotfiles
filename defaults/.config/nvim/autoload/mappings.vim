@@ -41,9 +41,6 @@ function! mappings#Set()
 
 	call s:disable_ftplugin_mappings()
 
-	if exists('g:exists_vim_which_key')
-		call s:set_which_key_map()
-	endif
 	" List of super useful mappings
 	" = fixes indentantion
 	" gq formats code
@@ -109,10 +106,14 @@ function! mappings#Set()
 	nmap <buffer> <plug>make_project :make!<cr>
 	nmap <buffer> <plug>make_file :make!<cr>
 
-	nnoremap <localleader>cs <plug>to_snake_case
-	nnoremap <localleader>cc <plug>to_camel_case
-	nnoremap <localleader>cb <plug>to_camel_back_case
-	nnoremap <localleader>ck <plug>to_kebak_case
+	nmap <localleader>cs <plug>to_snake_case
+	nmap <localleader>cc <plug>to_camel_case
+	nmap <localleader>cb <plug>to_camel_back_case
+	nmap <localleader>ck <plug>to_kebak_case
+	vmap <localleader>cs <plug>to_snake_case
+	vmap <localleader>cc <plug>to_camel_case
+	vmap <localleader>cb <plug>to_camel_back_case
+	vmap <localleader>ck <plug>to_kebak_case
 
 	nmap <localleader>f <plug>format_code
 	xmap <localleader>f <plug>format_code
@@ -833,7 +834,7 @@ function! s:add_file(path) abort
 	execute 'edit ' . l:new_file
 endfunction
 
-function! s:set_which_key_map() abort
+function! mappings#SetWhichKeyMap() abort
 	" Define prefix dictionary
 	let g:which_key_leader_map =  {}
 
@@ -1096,11 +1097,6 @@ function! s:set_which_key_map() abort
 	" TODO mappings for debuggers lldb
 	" TODO mappings for CCTree
 	" TODO mappings for surround (d,y,c)
-
-	call which_key#register(g:mapleader, "g:which_key_leader_map")
-	call which_key#register(g:maplocalleader, "g:which_key_localleader_map")
-	call which_key#register(']', "g:which_key_right_bracket_map")
-	call which_key#register('[', "g:which_key_left_bracket_map")
 endfunction
 
 function! s:version_control_command(cmd) abort
