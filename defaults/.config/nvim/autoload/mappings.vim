@@ -104,9 +104,8 @@ function! mappings#Set()
 		" tnoremap <C-p> <Up>
 	endif
 
-	nnoremap <localleader>k <plug>make_project
+	nnoremap <localleader>mp <plug>make_project
 	nmap <localleader>j <plug>make_file
-	nmap <localleader>c <plug>make_check
 
 	" Doesnt make sense in all file types
 	" nmap <localleader>p <plug>preview

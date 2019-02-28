@@ -24,9 +24,7 @@ let &l:define='^\(#\s*define\|[a-z]*\s*const\s*[a-z]*\)'
 " Add mappings, unless the user didn't want this.
 if !exists('no_plugin_maps') && !exists('no_c_maps')
 	" Quote text by inserting "> "
-	if exists(':Neomake')
-		nmap <silent> <buffer> <plug>make_check :Neomake clangtidy clangcheck cppcheck<cr>
-	else
+	if !exists(':Neomake')
 		nmap <buffer> <plug>make_project :make!<cr>
 		nmap <buffer> <plug>make_file :make!<cr>
 	endif
