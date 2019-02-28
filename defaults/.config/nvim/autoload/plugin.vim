@@ -112,6 +112,7 @@ function! plugin#Config()
 	Plug 'chrisbra/Colorizer', { 'for' : [ 'css','html','xml' ] }
 	let g:colorizer_auto_filetype='css,html,xml'
 	Plug 'tpope/vim-repeat'
+		nmap . <Plug>(RepeatDot)
 	Plug 'tpope/vim-surround'
 
 	" Fold stuff
@@ -470,10 +471,18 @@ function! plugin#Config()
 	Plug 'editorconfig/editorconfig-vim'
 
 	Plug 'nicwest/vim-camelsnek'
-		nmap <plug>to_snake_case :Snek<cr>
-		nmap <plug>to_camel_case :Camel<cr>
-		nmap <plug>to_camel_back_case :CamelB<cr>
-		nmap <plug>to_kebak_case :Kebak<cr>
+		nnoremap <plug>to_snake_case :Snek<bar>
+			\   silent! call repeat#set("\<lt>Plug>to_snake_case")<CR>
+		nnoremap <plug>to_camel_case :Camel<bar>
+			\   silent! call repeat#set("\<lt>Plug>to_camel_case")<CR>
+		nnoremap <plug>to_camel_back_case :CamelB<bar>
+			\   silent! call repeat#set("\<lt>Plug>to_camel_back_case")<CR>
+		nnoremap <plug>to_kebak_case :Kebak<bar>
+			\   silent! call repeat#set("\<lt>Plug>to_kebak_case")<CR>
+		vnoremap <plug>to_snake_case :Snek<cr>
+		vnoremap <plug>to_camel_case :Camel<cr>
+		vnoremap <plug>to_camel_back_case :CamelB<cr>
+		vnoremap <plug>to_kebak_case :Kebak<cr>
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
@@ -510,11 +519,13 @@ endfunction
 
 " Called on augroup VimEnter search augroup.vim
 function! plugin#AfterConfig() abort
-	if exists('g:loaded_repeat')
-		silent! call repeat#set("\<plug>to_snake_case",v:count)
-		silent! call repeat#set("\<plug>to_camel_case",v:count)
-		silent! call repeat#set("\<plug>to_camel_back_case",v:count)
-		silent! call repeat#set("\<plug>to_kebak_case",v:count)
+	if exists('g:loaded_vim_which_key')
+		call which_key#register(g:mapleader, "g:which_key_leader_map")
+		call which_key#register(g:maplocalleader, "g:which_key_localleader_map")
+		call which_key#register(']', "g:which_key_right_bracket_map")
+		call which_key#register('[', "g:which_key_left_bracket_map")
+		set timeout
+		set timeoutlen=400
 	endif
 
 	if exists('g:loaded_deoplete')
@@ -1179,9 +1190,6 @@ endfunction
 " 'options.vim' as well
 " s:which_key_format also 
 function! s:configure_vim_which_key() abort
-	" Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
-	let g:exists_vim_which_key = 1
-
 	Plug 'liuchengxu/vim-which-key'
 	nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 	vnoremap <silent> <leader> :WhichKeyVisual '<Space>'<CR>
@@ -1195,7 +1203,10 @@ function! s:configure_vim_which_key() abort
 
 	let g:which_key_flatten = 0
 	let g:which_key_hspace = 80
+
 	let g:WhichKeyFormatFunc = function('s:which_key_format')
+	
+	call mappings#SetWhichKeyMap()
 endfunction
 
 function! s:which_key_format(mapping) abort
