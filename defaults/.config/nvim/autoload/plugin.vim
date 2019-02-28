@@ -1342,7 +1342,7 @@ endfunction
 
 function! plugin#SyStatsWrapper() abort
 	if (!exists('*sy#repo#get_stats'))
-		return 1
+		return ''
 	endif
 
 	let symbols = ['+', '-', '~']
