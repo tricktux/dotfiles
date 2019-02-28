@@ -174,17 +174,7 @@ function! plugin#Config()
 	" Version control
 	Plug 'tpope/vim-fugitive'
 
-	Plug 'mhinz/vim-signify', { 'on' : ['SignifyToggle', 'SignifyDiff'] }
-	" Mappings are ]c next differences
-	" Mappings are [c prev differences
-	" Gets enabled when you call SignifyToggle
-	let g:signify_vcs_list = [ 'git', 'svn' ]
-	let g:signify_cursorhold_insert     = 1
-	let g:signify_cursorhold_normal     = 1
-	let g:signify_update_on_bufenter    = 0
-	let g:signify_update_on_focusgained = 1
-	let g:signify_disable_by_default = 1
-	let g:signify_vcs_list = [ 'git', 'svn' ]
+	call s:configure_vim_signify()
 
 	Plug 'juneedahamed/svnj.vim', { 'on' : 'SVNStatus' }
 	let g:svnj_allow_leader_mappings=0
@@ -781,7 +771,7 @@ function! s:tagbar_lightline() abort
 				\ . ' ' . ret
 endfunction
 
-function! TagbarStatuslineFunc(current, sort, fname, ...) abort
+function! plugin#tagbar#statusline_func(current, sort, fname, ...) abort
 	let g:lightline.fname = a:fname
 	return lightline#statusline(0)
 endfunction
@@ -1333,4 +1323,37 @@ function! s:configure_denite() abort
 
 	" It includes file_mru source for denite.nvim.
 	Plug 'Shougo/neomru.vim'
+endfunction
+
+function! s:configure_vim_signify() abort
+	Plug 'mhinz/vim-signify'
+	" Mappings are ]c next differences
+	" Mappings are [c prev differences
+	" Gets enabled when you call SignifyToggle
+	let g:signify_vcs_list = [ 'git', 'svn' ]
+	let g:signify_cursorhold_insert     = 1
+	let g:signify_cursorhold_normal     = 1
+	let g:signify_update_on_bufenter    = 0
+	let g:signify_update_on_focusgained = 1
+	let g:signify_disable_by_default = 1
+
+endfunction
+
+function! s:sy_stats_wrapper() abort
+	let symbols = ['+', '-', '~']
+	let [added, modified, removed] = sy#repo#get_stats()
+	let stats = [added, removed, modified]  " reorder
+	let hunkline = ''
+
+	for i in range(3)
+		if stats[i] > 0
+			let hunkline .= printf('%s%s ', symbols[i], stats[i])
+		endif
+	endfor
+
+	if !empty(hunkline)
+		let hunkline = printf('[%s]', hunkline[:-2])
+	endif
+
+	return hunkline
 endfunction
