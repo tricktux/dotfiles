@@ -109,11 +109,10 @@ function! mappings#Set()
 	nmap <buffer> <plug>make_project :make!<cr>
 	nmap <buffer> <plug>make_file :make!<cr>
 
-	" Doesnt make sense in all file types
-	" nmap <localleader>p <plug>preview
-	" nmap <localleader>a <plug>switch_header_source
-	" nmap <localleader>ii <plug>imports_insert
-	" nmap <localleader>is <plug>imports_sort
+	nnoremap <localleader>cs <plug>to_snake_case
+	nnoremap <localleader>cc <plug>to_camel_case
+	nnoremap <localleader>cb <plug>to_camel_back_case
+	nnoremap <localleader>ck <plug>to_kebak_case
 
 	nmap <localleader>f <plug>format_code
 	xmap <localleader>f <plug>format_code
@@ -1011,13 +1010,6 @@ function! s:set_which_key_map() abort
 	let g:which_key_localleader_map['?'] = 'rot13_encode_motion'
 	let g:which_key_localleader_map['q'] = 'format_motion'
 	let g:which_key_localleader_map['~'] = 'swap_case_motion'
-	let g:which_key_localleader_map.c = {
-				\ 'name' : '+variable_case_to',
-				\ 's' : [ 'Snek' , 'snake' ],
-				\ 'c' : [ 'Camel' , 'camel' ],
-				\ 'b' : [ 'CamelB' , 'camel_back' ],
-				\ 'k' : [ 'Kebak' , 'kebak' ],
-				\ }
 
 	" Note: Do not add localleader mappings to the which_key_localleader_map
 	" As they will show up for all buffers. Unless they are global of course
