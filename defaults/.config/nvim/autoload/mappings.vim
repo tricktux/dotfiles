@@ -532,13 +532,15 @@ function! mappings#LoadSession(...) abort
 	if a:0 >= 1
 		let l:session_name = l:session_path . a:1
 		if !filereadable(l:session_name)
-			if &verbose > 1
+			if &verbose > 0
 				echoerr '[mappings#LoadSession]: File ' . l:session_name . ' not readabale'
 			endif
-			return
+			return -1
 		endif
-		" silent! execute '%bdelete'
-		silent! execute 'source ' . l:session_path . a:1
+		if &verbose > 0
+			echomsg '[mappings#LoadSession]: Loading session: ' . l:session_name . '...'
+		endif
+		silent! execute 'source ' . l:session_name
 		return
 	endif
 

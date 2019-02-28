@@ -121,6 +121,7 @@ function! s:lightline_config() abort
 	let g:lightline.component_function['fileformat'] = string(function('s:devicons_fileformat'))
 	let g:lightline.component_function['readonly']   = string(function('s:get_readonly'))
 	let g:lightline.component_function['spell']      = string(function('s:get_spell'))
+	let g:lightline.component_function['mode']       = string(function('s:get_mode'))
 
 	let g:lightline.component_function['word_count'] = string(function('s:get_word_count'))
 
@@ -128,6 +129,19 @@ function! s:lightline_config() abort
 	let g:lightline.component_function['ver_control'] = string(function('s:get_version_control'))
 
 	" 0.000001*bytes = mb
+endfunction
+
+function! s:get_mode() abort
+	let fname = expand('%:t')
+	return fname ==# '__Tagbar__' ? 'Tagbar' :
+				\ fname ==# 'ControlP' ? 'CtrlP' :
+				\ fname ==# '__Gundo__' ? 'Gundo' :
+				\ fname ==# '__Gundo_Preview__' ? 'Gundo Preview' :
+				\ fname =~# 'NERD_tree' ? 'NERDTree' :
+				\ &filetype ==# 'unite' ? 'Unite' :
+				\ &filetype ==# 'vimfiler' ? 'VimFiler' :
+				\ &filetype ==# 'vimshell' ? 'VimShell' :
+				\ winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
 function! s:get_filename() abort

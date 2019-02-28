@@ -479,6 +479,8 @@ function! plugin#Config()
 
 	Plug 'editorconfig/editorconfig-vim'
 
+	Plug 'nicwest/vim-camelsnek'
+
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
 
@@ -642,11 +644,12 @@ function! s:configure_ctrlp() abort
 	" Lightline settings
 	if exists('g:lightline')
 		let g:lightline.active.left[2] += [ 'ctrlpmark' ]
-		let g:lightline.component_function['ctrlpmark'] = string(function('s:ctrlp_lightline_mark'))
+		let g:lightline.component_function[ 'ctrlpmark' ] = string(function('s:ctrlp_lightline_mark'))
 
+		" These functions are called from ctrlp
 		let g:ctrlp_status_func = {
-					\ 'main': string(function('s:ctrlp_lightline_func1')),
-					\ 'prog': string(function('s:ctrlp_lightline_func2')),
+					\ 'main': 'CtrlpLightlineFunc1',
+					\ 'prog': 'CtrlpLightlineFunc2',
 					\ }
 	endif
 endfunction
@@ -661,7 +664,7 @@ function! s:ctrlp_lightline_mark() abort
 				\ , g:lightline.ctrlp_next], 0)
 endfunction
 
-function! s:ctrlp_lightline_func1(focus, byfname, regex, prev, item, next, marked) abort
+function! CtrlpLightlineFunc1(focus, byfname, regex, prev, item, next, marked) abort
 	let g:lightline.ctrlp_regex = a:regex
 	let g:lightline.ctrlp_prev = a:prev
 	let g:lightline.ctrlp_item = a:item
@@ -669,7 +672,7 @@ function! s:ctrlp_lightline_func1(focus, byfname, regex, prev, item, next, marke
 	return lightline#statusline(0)
 endfunction
 
-function! s:ctrlp_lightline_func2(str) abort
+function! CtrlpLightlineFunc2(str) abort
 	return lightline#statusline(0)
 endfunction
 
@@ -756,7 +759,9 @@ function! s:configure_tagbar() abort
 	" Fri Feb 02 2018 15:38: Its number one thing slowing down vim right now.
 	if exists('g:lightline')
 		let g:lightline.active.right[2] += [ 'tagbar' ]
-		let g:lightline.component_function['tagbar'] = string(function('s:tagbar_lightline'))
+		" let g:lightline.component_function['tagbar'] = string(function('s:tagbar_lightline'))
+
+		let g:tagbar_status_func = 'TagbarStatuslineFunc'
 	endif
 endfunction
 
@@ -776,7 +781,7 @@ function! s:tagbar_lightline() abort
 				\ . ' ' . ret
 endfunction
 
-function! s:tagbar_statusline_func(current, sort, fname, ...) abort
+function! TagbarStatuslineFunc(current, sort, fname, ...) abort
 	let g:lightline.fname = a:fname
 	return lightline#statusline(0)
 endfunction
