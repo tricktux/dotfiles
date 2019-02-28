@@ -638,8 +638,8 @@ function! s:configure_ctrlp() abort
 
 		" These functions are called from ctrlp
 		let g:ctrlp_status_func = {
-					\ 'main': 'plugin#ctrlp#lightline#func#1',
-					\ 'prog': 'plugin#ctrlp#lightline#func#2',
+					\ 'main': 'plugin#CtrlpLightlineFunc1',
+					\ 'prog': 'plugin#CtrlpLightlineFunc2',
 					\ }
 	endif
 endfunction
@@ -654,7 +654,7 @@ function! s:ctrlp_lightline_mark() abort
 				\ , g:lightline.ctrlp_next], 0)
 endfunction
 
-function! plugin#ctrlp#lightline#func#1(focus, byfname, regex, prev, item, next, marked) abort
+function! plugin#CtrlpLightlineFunc1(focus, byfname, regex, prev, item, next, marked) abort
 	let g:lightline.ctrlp_regex = a:regex
 	let g:lightline.ctrlp_prev = a:prev
 	let g:lightline.ctrlp_item = a:item
@@ -662,7 +662,7 @@ function! plugin#ctrlp#lightline#func#1(focus, byfname, regex, prev, item, next,
 	return lightline#statusline(0)
 endfunction
 
-function! plugin#ctrlp#lightline#func#2(str) abort
+function! plugin#CtrlpLightlineFunc2(str) abort
 	return lightline#statusline(0)
 endfunction
 
@@ -751,7 +751,7 @@ function! s:configure_tagbar() abort
 		let g:lightline.active.right[2] += [ 'tagbar' ]
 		" let g:lightline.component_function['tagbar'] = string(function('s:tagbar_lightline'))
 
-		let g:tagbar_status_func = 'plugin#tagbar#statusline#func'
+		let g:tagbar_status_func = 'plugin#TagbarStatuslineFunc'
 	endif
 endfunction
 
@@ -771,7 +771,7 @@ function! s:tagbar_lightline() abort
 				\ . ' ' . ret
 endfunction
 
-function! plugin#tagbar#statusline#func(current, sort, fname, ...) abort
+function! plugin#TagbarStatuslineFunc(current, sort, fname, ...) abort
 	let g:lightline.fname = a:fname
 	return lightline#statusline(0)
 endfunction
