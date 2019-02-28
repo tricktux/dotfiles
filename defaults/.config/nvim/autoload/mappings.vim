@@ -1011,6 +1011,13 @@ function! s:set_which_key_map() abort
 	let g:which_key_localleader_map['?'] = 'rot13_encode_motion'
 	let g:which_key_localleader_map['q'] = 'format_motion'
 	let g:which_key_localleader_map['~'] = 'swap_case_motion'
+	let g:which_key_localleader_map.c = {
+				\ 'name' : '+variable_case_to',
+				\ 's' : [ 'Snek' , 'snake' ],
+				\ 'c' : [ 'Camel' , 'camel' ],
+				\ 'b' : [ 'CamelB' , 'camel_back' ],
+				\ 'k' : [ 'Kebak' , 'kebak' ],
+				\ }
 
 	" Note: Do not add localleader mappings to the which_key_localleader_map
 	" As they will show up for all buffers. Unless they are global of course
@@ -1095,10 +1102,7 @@ function! s:set_which_key_map() abort
 	let g:which_key_left_bracket_map['%'] = 'which_key_ignore'
 
 	" TODO mappings for debuggers lldb
-	" TODO mappings for searching files
-	" TODO mappings for spells
 	" TODO mappings for CCTree
-	" TODO mappings for cscope
 	" TODO mappings for surround (d,y,c)
 
 	call which_key#register(g:mapleader, "g:which_key_leader_map")
