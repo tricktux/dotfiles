@@ -101,10 +101,10 @@ function! mappings#Set()
 		" tnoremap <C-p> <Up>
 	endif
 
-	nnoremap <localleader>mp <plug>make_project
+	nmap <localleader>mp <plug>make_project
 	nmap <localleader>j <plug>make_file
-	nmap <buffer> <plug>make_project :make!<cr>
-	nmap <buffer> <plug>make_file :make!<cr>
+	nnoremap <plug>make_project :make!<cr>
+	nnoremap <plug>make_file :make!<cr>
 
 	nmap <localleader>cs <plug>to_snake_case
 	nmap <localleader>cc <plug>to_camel_case
