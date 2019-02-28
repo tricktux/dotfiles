@@ -17,9 +17,10 @@ then
 fi
 
 # Sat Oct 14 2017 11:12: This will set the i3-sensible-terminal to be used:
-[ -f /usr/bin/kitty ] && export TERMINAL="kitty"
 # Termite has priority over kitty
 [ -f /usr/bin/termite ] && export TERMINAL="termite"
+[ -f /usr/bin/urxvtc ] && export TERMINAL="urxvtc"
+[ -f /usr/bin/kitty ] && export TERMINAL="kitty"
 
 [ -f /usr/bin/firefox ] && export BROWSER="/usr/bin/firefox"
 
@@ -35,7 +36,7 @@ export RANGER_LOAD_DEFAULT_RC=FALSE
 export GIT_TERMINAL_PROMPT=1
 
 # urxvtd
-export RXVT_SOCKET=/tmp
+export RXVT_SOCKET="/tmp/rxvt_socket"
 
 # export GDK_SCALE=1.5
 # export QT_AUTO_SCREEN_SCALE_FACTOR=1
