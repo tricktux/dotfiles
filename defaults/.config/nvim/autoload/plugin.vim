@@ -112,7 +112,6 @@ function! plugin#Config()
 	Plug 'chrisbra/Colorizer', { 'for' : [ 'css','html','xml' ] }
 	let g:colorizer_auto_filetype='css,html,xml'
 	Plug 'tpope/vim-repeat'
-		nmap . <Plug>(RepeatDot)
 	Plug 'tpope/vim-surround'
 
 	" Fold stuff
