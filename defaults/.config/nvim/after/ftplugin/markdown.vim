@@ -57,13 +57,24 @@ if !exists('no_plugin_maps') && !exists('no_markdown_maps')
 
 	" Super cool
 	inoremap <buffer> [ [ ]
-	nnoremap <buffer> <localleader>ti :call <sid>todo_mark('o')<cr>
-	nnoremap <buffer> <localleader>tb :call <sid>todo_mark('x')<cr>
-	nnoremap <buffer> <localleader>tc :call <sid>todo_mark('+')<cr>
-	nnoremap <buffer> <localleader>tw :call <sid>todo_mark('-')<cr>
-	nnoremap <buffer> <localleader>td :call <sid>todo_mark(' ')<cr>
+	nmap <localleader>ti <plug>todo_insert
+	nmap <localleader>tb <plug>todo_block
+	nmap <localleader>tc <plug>todo_completed
+	nmap <localleader>tw <plug>todo_wont_do
+	nmap <localleader>td <plug>todo_delete_mark
 
-	nmap <localleader>b <plug>bold_current_word_si
+	nnoremap <buffer> <plug>todo_insert      :call <sid>todo_mark('o')<bar>
+				\ silent! call repeat#set("\<lt>Plug>todo_insert")<cr>
+	nnoremap <buffer> <plug>todo_block       :call <sid>todo_mark('x')<bar>
+				\ silent! call repeat#set("\<lt>Plug>todo_block")<cr>
+	nnoremap <buffer> <plug>todo_completed   :call <sid>todo_mark('+')<bar>
+				\ silent! call repeat#set("\<lt>Plug>todo_completed")<cr>
+	nnoremap <buffer> <plug>todo_wont_do     :call <sid>todo_mark('-')<bar>
+				\ silent! call repeat#set("\<lt>Plug>todo_wont_do")<cr>
+	nnoremap <buffer> <plug>todo_delete_mark :call <sid>todo_mark(' ')<bar>
+				\ silent! call repeat#set("\<lt>Plug>todo_delete_mark")<cr>
+
+	nmap <localleader>b <plug>todo_block
 	nnoremap <buffer> <plug>bold_current_word_si :call <sid>bold_current_word()<bar>
 				\ silent! call repeat#set("\<lt>Plug>bold_current_word_si")<cr>
 
