@@ -75,6 +75,6 @@ export EDITOR=$VISUAL
 # Wed May 02 2018 04:57: Not needed anymore
 # export LANG=en_US.UTF-8
 
-# if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
-	# exec startx
-# fi
+if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
+	exec startx
+fi
