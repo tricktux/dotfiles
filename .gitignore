@@ -1,4 +1,6 @@
 neomutt/data/*
+defaults/.ssh/id*
+defaults/.ssh/known_hosts
 defaults/.config/ranger/bookmarks
 defaults/.config/ranger/history
 defaults/.config/ranger/tagged
