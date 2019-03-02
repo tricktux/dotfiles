@@ -150,6 +150,64 @@ enable-ipc = true
 scroll-up = i3wm-wsnext
 scroll-down = i3wm-wsprev
 
+[bar/bottom-helios]
+bottom = true
+; monitor = ${env:MONITOR:eDP1}
+width = 100%
+height = 2%
+; offset-x = 1%
+; offset-y = 1%
+radius = 6.0
+fixed-center = true
+
+; background = ${colors.background}
+; foreground = ${colors.foreground}
+foreground = ${colors.t1}
+background = ${colors.background_light}
+underline-color = #00f
+overline-color = #f00
+
+line-size = 3
+line-color = #f00
+
+border-size = 4
+border-color = #00000000
+
+padding-left = 0
+padding-right = 0
+
+module-margin-left = 1
+module-margin-right = 1
+
+font-0 = "Font Awesome 5 Free:style=Regular:pixelsize=10;1"
+font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=10;1"
+font-2 = "Font Awesome 5 Brands:pixelsize=10;1"
+font-3 = Roboto:size=10;0
+; font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
+; Fri Sep 15 2017 09:18: In order to get siji font to work use this command to get the exact name:
+; echo "$(fc-list : family | grep Siji | tail -1):pixelsize=10"
+; If that doesnt return anything try with grep siji instead of grep Siji
+; For more info look [here](https://github.com/jaagr/polybar/issues/313)
+font-4=WunconSiji:pixelsize=10;0
+
+modules-left = battery temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory
+modules-center = player-cmus
+modules-right = xkeyboard backlight-acpi updates-arch-combined redshift compton
+
+; My new settings
+tray-detached = false
+tray-position = right
+tray-offset-x = 0
+tray-offset-y = 0
+tray-maxsize = 20
+tray-padding = 2
+tray-scale = 1
+
+; override-redirect = true
+enable-ipc = true
+
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
 
 [bar/bottom-guajiro]
 bottom = true
@@ -305,6 +363,64 @@ font-1 = Roboto:size=18;0
 ; If that doesnt return anything try with grep siji instead of grep Siji
 ; For more info look [here](https://github.com/jaagr/polybar/issues/313)
 font-2=WunconSiji:pixelsize=18;0
+
+modules-left = i3
+modules-center = xwindow
+modules-right = weather date time powermenu
+
+; My new settings
+; tray-detached = false
+; tray-position = right
+; tray-offset-x = 0
+; tray-offset-y = 0
+; tray-maxsize = 16
+; tray-padding = 2
+; tray-scale = 1
+
+; override-redirect = true
+enable-ipc = true
+
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
+
+[bar/top-helios]
+;monitor = ${env:MONITOR:HDMI-1}
+width = 100%
+height = 2%
+; offset-x = 1%
+; offset-y = 1%
+radius = 6.0
+fixed-center = true
+
+; background = ${colors.background}
+; foreground = ${colors.foreground}
+foreground = ${colors.t1}
+background = ${colors.background_light}
+underline-color = #00f
+overline-color = #f00
+
+line-size = 3
+line-color = #f00
+
+border-size = 4
+border-color = #00000000
+
+padding-left = 0
+padding-right = 0
+
+module-margin-left = 1
+module-margin-right = 1
+
+font-0 = "Font Awesome 5 Free:style=Regular:pixelsize=10;1"
+font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=10;1"
+font-2 = "Font Awesome 5 Brands:pixelsize=10;1"
+font-3 = Roboto:size=10;0
+; font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
+; Fri Sep 15 2017 09:18: In order to get siji font to work use this command to get the exact name:
+; echo "$(fc-list : family | grep Siji | tail -1):pixelsize=10"
+; If that doesnt return anything try with grep siji instead of grep Siji
+; For more info look [here](https://github.com/jaagr/polybar/issues/313)
+font-4=WunconSiji:pixelsize=10;0
 
 modules-left = i3
 modules-center = xwindow
@@ -849,7 +965,7 @@ label-connected = %local_ip%
 type = internal/date
 interval = 5
 
-date =" %b %d %Y"
+date =" %a, %b %d, %Y"
 date-alt = " %m/%d/%Y"
 
 ; format-prefix =
