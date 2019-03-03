@@ -52,7 +52,6 @@ alias ping='ping -c 100 -s.2'
 # do not delete / or prompt if deleting more than 3 files at a time #
 alias rm='rm -I --preserve-root' # confirmation #
 alias ln='ln -i' # Parenting changing perms on / #
-alias chown='chown --preserve-root'
 alias chmod='chmod --preserve-root'
 alias chgrp='chgrp --preserve-root'
 alias diff='diff --color=auto'
@@ -157,7 +156,9 @@ FuncSomethingElseUpdate()
 	sudo pacman -Qmq > ~/.config/dotfiles/$machine.aur
 	# Tue Sep 26 2017 18:40 Update Mirror list. Depends on `reflector`
 	if hash reflector 2>/dev/null; then
-		sudo reflector --protocol https --latest 30 --number 20 --sort rate --save /etc/pacman.d/mirrorlist -c 'United States' --verbose
+		sudo reflector --protocol https --latest 30 --number 20 \
+			--sort rate --save /etc/pacman.d/mirrorlist \
+			-c 'United States' --verbose
 	fi
 	# Now update packages
 	# When update fails to verify some <package> do:
@@ -222,7 +223,7 @@ FuncUpdate()
 	# However, this is samba on router
 	if [[ ! -d /mnt/samba/docs ]]; then
 		sudo mount -t cifs //Linksys05238/samba /mnt/samba -o \
-			credentials=/etc/samba/credentials/share,uid=1000,gid=100,vers=1.0
+			credentials=/etc/samba/credentials/share,uid=1000,gid=985,vers=1.0
 	fi
 	# sshfs reinaldo@$server_ip:/mnt/hq-storage/1.Myn/samba ~/.mnt/copter-server/
 	# Tue Oct 16 2018 20:10: You really dont want to update your plugins everday. Things
