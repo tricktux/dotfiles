@@ -190,7 +190,7 @@ font-3 = Roboto:size=10;0
 ; For more info look [here](https://github.com/jaagr/polybar/issues/313)
 font-4=WunconSiji:pixelsize=10;0
 
-modules-left = battery temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory
+modules-left = battery_helios temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory
 modules-center = player-cmus
 modules-right = xkeyboard backlight-acpi updates-arch-combined redshift compton
 
@@ -1058,6 +1058,12 @@ type = internal/battery
 battery = BAT0
 adapter = ADP1
 full-at = 97
+
+[module/battery_helios]
+type = internal/battery
+battery = BAT1
+adapter = ACAD
+full-at = 100
 
 format-charging = <animation-charging> <label-charging>
 format-charging-underline = #ffb52a
