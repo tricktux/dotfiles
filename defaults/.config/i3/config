@@ -139,8 +139,8 @@ bindsym mod1+Tab exec --no-startup-id i3flip next
 # Using now the control keys with vi like mappings just like windows
 bindsym control+mod1+h exec --no-startup-id cmus-remote -u
 bindsym control+mod1+l exec --no-startup-id cmus-remote -n
-bindsym control+mod1+k exec --no-startup-id pamixer --decrease 10
-bindsym control+mod1+j exec --no-startup-id pamixer --increase 10
+bindsym control+mod1+k exec --no-startup-id pamixer --increase 10
+bindsym control+mod1+j exec --no-startup-id pamixer --decrease 10
 bindsym control+mod1+m exec --no-startup-id pamixer --toggle-mute
 bindsym control+mod1+p exec --no-startup-id pavucontrol
 bindsym control+mod1+b exec --no-startup-id blueberry
@@ -270,11 +270,11 @@ bindsym Control+Mod1+Delete exec --no-startup-id ~/.config/polybar/scripts/shutd
 
 ########### Custom Bindings ############################
 bindsym Print exec --no-startup-id gnome-screenshot
-bindsym XF86MonBrightnessUp exec --no-startup-id brillo -A 10
-bindsym XF86MonBrightnessDown exec --no-startup-id brillo -U 10
+bindsym XF86MonBrightnessUp exec --no-startup-id pkexec brillo -A 10
+bindsym XF86MonBrightnessDown exec --no-startup-id pkexec brillo -U 10
 # So that it agrees with the volume-pulseaudio control
-bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer --decrease 10
-bindsym XF86AudioLowerVolume exec --no-startup-id pamixer --increase 10
+bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer --increase 10
+bindsym XF86AudioLowerVolume exec --no-startup-id pamixer --decrease 10
 bindsym XF86AudioMute exec --no-startup-id pamixer --toggle-mute
 # bindsym XF86AudioLowerVolume exec amixer sset Master 5%-
 # bindsym XF86AudioRaiseVolume exec amixer sset Master 5%+
