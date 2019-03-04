@@ -26,7 +26,7 @@ dynamic_title = true
 # font=NotoSans 8
 # Install with otf-inconsolata-powerline-git
 # - remember to restart terminal
-font=Inconsolata 12
+font=Inconsolata 13
 
 # Install with nerd-fonts-complete
 # - remember to restart terminal

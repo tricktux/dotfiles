@@ -113,23 +113,23 @@ set $right l
 
 # Launch toggle scratchpads
 bindsym $mod+n exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
-	ranger "exec --no-startup-id i3-sensible-terminal -t ranger -e ranger"
+	ranger "$TERMINAL -t ranger -e ranger"
 bindsym $mod+6 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
-	cmus "exec --no-startup-id i3-sensible-terminal -t cmus -e cmus
+	cmus "$TERMINAL -t cmus -e cmus
 bindsym $mod+9 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
-	gmail-mutt "exec --no-startup-id i3-sensible-terminal -t gmail-mutt \
+	gmail-mutt "$TERMINAL -t gmail-mutt \
 	-e 'neomutt -F ~/.config/neomutt/user.gmail'"
 bindsym $mod+8 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
-	proton-mutt "exec --no-startup-id i3-sensible-terminal -t proton-mutt \
+	proton-mutt "$TERMINAL -t proton-mutt \
 	-e 'neomutt -F ~/.config/neomutt/user.pm'"
 bindsym $mod+7 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
-	psu-mutt "exec --no-startup-id i3-sensible-terminal -t psu-mutt \
+	psu-mutt "$TERMINAL -t psu-mutt \
 	-e 'neomutt -F ~/.config/neomutt/user.psu'"
 bindsym $mod+i exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
-	journal "exec --no-startup-id i3-sensible-terminal -t journal \
+	journal "$TERMINAL -t journal \
 	-e ~/.config/polybar/scripts/journal.sh"
 bindsym $mod+o exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
-	terminal "exec --no-startup-id i3-sensible-terminal \
+	terminal "$TERMINAL \
 	-t terminal -e 'tmux -f /home/reinaldo/.config/tmux/conf'"
 
 bindsym mod1+Tab exec --no-startup-id i3flip next
@@ -270,8 +270,8 @@ bindsym Control+Mod1+Delete exec --no-startup-id ~/.config/polybar/scripts/shutd
 bindsym Print exec --no-startup-id gnome-screenshot
 bindsym XF86MonBrightnessUp exec --no-startup-id pkexec brillo -A 10
 bindsym XF86MonBrightnessDown exec --no-startup-id pkexec brillo -U 10
-bindsym $mod+Shift+Right exec --no-startup-id sudo brillo -A 25
-bindsym $mod+Shift+Left exec --no-startup-id sudo brillo -U 25
+bindsym $mod+Shift+Right exec --no-startup-id sudo brillo -A 15
+bindsym $mod+Shift+Left exec --no-startup-id sudo brillo -U 15
 # So that it agrees with the volume-pulseaudio control
 bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer --increase 10
 bindsym XF86AudioLowerVolume exec --no-startup-id pamixer --decrease 10
