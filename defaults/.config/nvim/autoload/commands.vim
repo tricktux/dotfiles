@@ -7,6 +7,8 @@
 
 " CUSTOM_COMMANDS
 function! commands#Set() abort
+	command! UtilsWeekGetNumber :echo strftime('%v')<cr>
+
 	command! UtilsEditJournal :execute('edit ' . g:wiki_path . '/journal.md')
 	command! UtilsIndentWholeFile execute("normal! mzgg=G`z")
 	command! UtilsFileFormat2Dos :e ++ff=dos<cr>
