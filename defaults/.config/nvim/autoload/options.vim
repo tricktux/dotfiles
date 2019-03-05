@@ -18,8 +18,8 @@ function! options#Set() abort
 	set termguicolors
 	" Tue Nov 13 2018 22:39: Needed by Shuogo/echodoc.vim 
 	set noshowmode
-
-	let &path .='.,,..,../..,./*,./*/*,../*,~/,~/**,/usr/include/*' " Useful for the find command
+	" Useful for the find command
+	let &path .='.,,..,../..,./*,./*/*,../*,~/,~/**,/usr/include/*'
 	set shiftwidth=4 tabstop=4
 	if has('nvim')
 		set shada='1024,%,s10000,r/tmp,rE:,rF:
@@ -60,7 +60,8 @@ function! options#Set() abort
 	augroup TitleString
 		autocmd!
 		autocmd BufWinLeave,BufWinEnter,CursorHold,DirChanged,TabEnter *
-					\ let &titlestring = (exists('g:valid_device') && has('unix') ? "\uf015" : '') .
+					\ let &titlestring = (exists('g:valid_device') && has('unix') ?
+					\ "\uf015" : '') .
 					\ ' ' . getcwd() . " -> " .
 					\ (exists('g:valid_device') && has('unix') ? "\uf02d" : '') .
 					\ ' %f - ' . v:progname
@@ -80,10 +81,11 @@ function! options#Set() abort
 	set undofile
 	set undolevels=10000      " use many muchos levels of undo
 
-	"set autochdir " working directory is always the same as the file you are editing
+	"set autochdir " working directory is always the same as the file you are 
+	"editing
 	" Took out options from here. Makes the session script too long and annoying
-	" Fri Jan 11 2019 21:39 
-	" Dont add resize, and winpos. It causes problems in linux
+	" Fri Jan 11 2019 21:39 Dont add resize, and winpos. It causes problems in 
+	" linux
 	set sessionoptions=buffers,curdir,tabpages,folds,help,tabpages
 	" if (exists(':tnoremap'))
 		" set sessionoptions+=terminal
@@ -151,7 +153,8 @@ function! options#Set() abort
 	" Set omni for all filetypes
 	set omnifunc=syntaxcomplete#Complete
 	" Mon Jun 05 2017 11:59: Suppose to Fix cd to relative paths in windows
-	let &cdpath = ',' . substitute(substitute($CDPATH, '[, ]', '\\\0', 'g'), ':', ',', 'g')
+	let &cdpath = ',' . substitute(substitute($CDPATH,
+				\ '[, ]', '\\\0', 'g'), ':', ',', 'g')
 	" Thu Sep 14 2017 14:45: Security concerns addressed by these options.
 	set secure
 	set noexrc
@@ -159,7 +162,7 @@ function! options#Set() abort
 	set belloff=all
 	" Thu Dec 21 2017 09:56: Properly format comment strings
 	if v:version > 703 || v:version == 703 && has('patch541')
-		set formatoptions+=j
+		set formatoptions+=jw
 	endif
 
 	" Status Line and Colorscheme
@@ -177,17 +180,19 @@ function! options#Set() abort
 			autocmd VimEnter,BufEnter * call utils#Flux()
 		augroup END
 	else
-		" If this not and android device and we have no plugins setup "ugly" status line
+		" If this not and android device and we have no plugins setup "ugly" status 
+		" line
 		set statusline =
-		set statusline+=\ [%n]                                  "buffernr
-		set statusline+=\ %<%F\ %m%r%w                         "File+path
-		set statusline+=\ %y\                                  "FileType
-		set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}      "Encoding
-		set statusline+=\ %{(&bomb?\",BOM\":\"\")}\            "Encoding2
-		set statusline+=\ %{&ff}\                              "FileFormat (dos/unix..)
-		set statusline+=\ %=\ row:%l/%L\ (%03p%%)\             "Rownumber/total (%)
-		set statusline+=\ col:%03c\                            "Colnr
-		set statusline+=\ \ %m%r%w\ %P\ \                      "Modified? Readonly? Top/bot.
+		set statusline+=\ [%n]                            " buffernr
+		set statusline+=\ %<%F\ %m%r%w                    " File+path
+		set statusline+=\ %y\                             " FileType
+		set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''} " Encoding
+		" ,BOM\ " :\ " \ " )}\ " Encoding2
+		set statusline+=\ %{(&bomb?\                     
+		set statusline+=\ %{&ff}\                         " FileFormat (dos/unix..)
+		set statusline+=\ %=\ row:%l/%L\ (%03p%%)\        " Rownumber/total (%)
+		set statusline+=\ col:%03c\                       " Colnr
+		set statusline+=\ \ %m%r%w\ %P\ \            " Modified? Readonly? Top/bot.
 		" If you want to put color to status line needs to be after command
 		" colorscheme. Otherwise this commands clears it the color
 	endif
@@ -207,10 +212,13 @@ function! options#Set() abort
 	" Mon Oct 16 2017 15:22: This speed ups a lot of plugin. Those that have to
 	" do with highliting.
 	set regexpengine=1
-	" Fri May 19 2017 11:38 Having a lot of hang ups with the function! s:Highlight_Matching_Pair()
-	" on the file C:\Program Files\nvim\Neovim\share\nvim\runtime\plugin\matchparen.vim
+	" Fri May 19 2017 11:38 Having a lot of hang ups with the function! 
+	" s:Highlight_Matching_Pair()
+	" on the file C:\Program 
+	" Files\nvim\Neovim\share\nvim\runtime\plugin\matchparen.vim
 	" This value is suppose to help with it. The default value is 300ms
-	" DoMatchParen, and NoMatchParen are commands that enable and disable the command
+	" DoMatchParen, and NoMatchParen are commands that enable and disable the 
+	" command
 	let g:matchparen_timeout = 80
 	let g:matchparen_insert_timeout = 30
 
@@ -218,7 +226,8 @@ function! options#Set() abort
 	" options.vim
 	" Grep
 	" Fri Mar 23 2018 18:10: Substituted by vim-gprepper plugin
-	" Mon Jun 25 2018 14:08: vim-gprepper not working well on windows with neovim-qt 
+	" Mon Jun 25 2018 14:08: vim-gprepper not working well on windows with 
+	" neovim-qt 
 	call s:set_grep()
 
 	" Tags
@@ -283,8 +292,9 @@ function! options#SetCli() abort
 		nnoremap <silent> k <C-w>k
 		nnoremap <silent> j <C-w>j
 
-		if !has('clipboard') && !has('xterm_clipboard')
-			echomsg 'options#Set(): vim wasnt compiled with clipboard support. Remove vim and install gvim'
+		if !has('clipboard') || !has('xterm_clipboard')
+			echomsg 'options#Set(): vim wasnt compiled with clipboard support.'
+			echomsg 'Remove vim and install gvim'
 		else
 			set clipboard=unnamedplus
 		endif
@@ -330,13 +340,14 @@ function! s:set_grep() abort
 	if executable('rg')
 		" use option --list-file-types if in doubt
 		" rg = ripgrep
-		"Use the -t option to search all text files; -a to search all files; and -u to search all,
-		"including hidden files.
-		if has('unix')
-			set grepprg=rg\ $*\ --vimgrep\ --smart-case\ --follow\ --fixed-strings\ --hidden\ --iglob\ '!.{git,svn}'
-		else
-			set grepprg=rg\ $*\ --vimgrep\ --smart-case\ --follow\ --fixed-strings\ --hidden\ --iglob\ !.{git,svn}
-		endif
+		" Use the -t option to search all text files; -a to search all files; and -u 
+		" to search all,
+		" including hidden files.
+		let rg_flags = "rg $* --vimgrep --smart-case " .
+					\ "--follow --fixed-strings --hidden --iglob "
+		let rg_unix_iglob = "'!.{git,svn}'"
+		let rg_win_iglob = "!.{git,svn}"
+		let &grepprg= rg_flags . (has('unix') ? rg_unix_iglob : rg_win_iglob)
 		set grepformat=%f:%l:%c:%m
 	elseif executable('ucg')
 		" Add the --type-set=markdown:ext:md option to ucg for it to recognize
@@ -346,7 +357,9 @@ function! s:set_grep() abort
 		" ctrlp with ag
 		" see :Man ag for help
 		" to specify a type of file just do `--cpp`
-		set grepprg=ag\ --nogroup\ --nocolor\ --smart-case\ --vimgrep\ --glob\ !.{git,svn}\ $*
+		let ag_flags = "ag --nogroup --nocolor --smart-case --vimgrep " .
+					\ "--glob !.{git,svn} $*"
+		let &grepprg= ag_flags
 		set grepformat=%f:%l:%c:%m
 	endif
 endfunction
