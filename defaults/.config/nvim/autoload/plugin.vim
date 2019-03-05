@@ -152,6 +152,7 @@ function! plugin#Config()
 	let g:neoformat_cpp_clangformat = {
 				\ 'exe': 'clang-format',
 				\ 'args': ['-style=file'],
+				\ 'args': ['-fallback-style="LLVM"'],
 				\ 'stdin': 1,
 				\ }
 	nmap <plug>format_code :Neoformat<cr>
