@@ -16,7 +16,9 @@ let b:did_qf_ftplugin = 1
 setlocal wrap
 setlocal nospell
 
-" Taken from http://stackoverflow.com/questions/18522086/what-is-the-best-way-to-distinguish-the-current-buffer-is-location-list-or-quick
+" Taken from 
+" "http://stackoverflow.com/questions/18522086/what-is-the-best-way-to-
+" distinguish-the-current-buffer-is-location-list-or-quick"
 function! s:detect_list() abort
 	exec 'redir @a | silent! ls | redir END'
 	if match(@a,'%a   "\[Location List\]"') >= 0
