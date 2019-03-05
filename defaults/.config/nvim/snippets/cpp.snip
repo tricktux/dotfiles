@@ -5,6 +5,15 @@
 # Last Modified: Wed Jun 14 2017 14:39
 # Created: Jun 13 2017 16:26
 
+snippet     author
+abbr        Doxygen header
+options     head
+    /// @file `expand('%:t')`
+    /// @brief ${1: Brief Description}
+    /// @author Reinaldo Molina
+    /// @version  0.0
+    /// @date `strftime("%b %d %Y")`
+
 snippet singleton
 abbr    cpp singleton class
     class ${1:name}
