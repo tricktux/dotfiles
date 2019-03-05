@@ -844,10 +844,10 @@ function! s:configure_pomodoro() abort
 	let g:pomodoro_use_devicons = exists('g:valid_device') ? 1 : 0
 	if executable('twmnc')
 		let g:pomodoro_notification_cmd = 'twmnc -t Vim -i nvim -c "Pomodoro done"
-					\ && mpg123 ~/.config/dotfiles/notification_sounds/cool_notification1.mp3 2>/dev/null&'
+					\ && mpv ~/.config/dotfiles/notification_sounds/cool_notification1.mp3 2>/dev/null&'
 	elseif executable('dunst')
 		let g:pomodoro_notification_cmd = "notify-send 'Pomodoro' 'Session ended'
-					\ && mpg123 ~/.config/dotfiles/notification_sounds/cool_notification1.mp3 2>/dev/null&"
+					\ && mpv ~/.config/dotfiles/notification_sounds/cool_notification1.mp3 2>/dev/null&"
 	elseif executable('powershell')
 		let notif = $APPDATA . '/dotfiles/scripts/win_vim_notification.ps1'
 		if filereadable(notif)
