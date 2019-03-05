@@ -340,7 +340,9 @@ function! mappings#Set()
 	inoremap ? ?<c-g>u
 	inoremap ! !<c-g>u
 	inoremap <C-H> <C-G>u<C-H>
-	inoremap <CR> <C-]><C-G>u<CR>
+	" Tue Mar 05 2019 14:07: For years this mapping messed up with delimate 
+	" inoremap <CR> <C-]><C-G>u<CR>
+	
 	" For cpp
 	inoremap ; ;<c-g>u
 	inoremap = =<c-g>u
