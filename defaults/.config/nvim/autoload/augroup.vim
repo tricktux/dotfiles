@@ -12,6 +12,7 @@ function! augroup#Set() abort
 	" is foldmethod=syntax
 	augroup Filetypes
 		autocmd!
+		autocmd Filetype qf setlocal colorcolumn=""
 		" Nerdtree Fix
 		autocmd FileType nerdtree setlocal relativenumber
 		" Set omnifunc for all others 									" not showing
@@ -62,9 +63,11 @@ function! augroup#Set() abort
 			" Sessions
 			" Note: Fri Mar 03 2017 14:13 - This never works.
 			" autocmd VimEnter * call utils#LoadSession('default.vim')
-			" Thu Oct 05 2017 22:22: Special settings that are only detected after vim is loaded
+			" Thu Oct 05 2017 22:22: Special settings that are only detected after vim 
+			" is loaded
 			autocmd VimEnter * nested call s:on_vim_enter()
-			autocmd VimLeave,BufEnter * call mappings#SaveSession(has('nvim') ? 'default_nvim.vim' : 'default_vim.vim')
+			autocmd VimLeave,BufEnter * call mappings#SaveSession(has('nvim') ?
+				\ 'default_nvim.vim' : 'default_vim.vim')
 			" Keep splits normalize
 			autocmd VimResized * call s:normalize_window_size()
 		augroup END
@@ -97,7 +100,10 @@ function! augroup#Set() abort
 	else
 		augroup Terminal
 			autocmd!
-			autocmd BufWinEnter * if &buftype == 'terminal' | setlocal bufhidden=hide | endif
+			autocmd BufWinEnter *
+						\ if &buftype == 'terminal' |
+						\ setlocal bufhidden=hide |
+						\ endif
 		augroup END
 	endif
 endfunction
@@ -109,7 +115,8 @@ function! s:on_vim_enter() abort
 	call options#SetCli()
 	call plugin#AfterConfig()
 	if (argc() == 0) " If no arguments are passed load default session
-		call mappings#LoadSession(has('nvim') ? 'default_nvim.vim' : 'default_vim.vim')
+		call mappings#LoadSession(has('nvim') ?
+					\ 'default_nvim.vim' : 'default_vim.vim')
 	endif
 endfunction
 
