@@ -15,27 +15,33 @@ function! commands#Set() abort
 	command! UtilsFileFormat2Unix call s:convert_line_ending_to_unix()
 	command! UtilsDiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
 				\ | wincmd p | diffthis
-	command! -nargs=+ -complete=command UtilsCaptureCmdOutput call s:capture_cmd_out(<f-args>)
+	command! -nargs=+ -complete=command UtilsCaptureCmdOutput
+				\ call s:capture_cmd_out(<f-args>)
 	command! UtilsProfile call s:profile_performance()
 	command! UtilsDiffSet call s:set_diff()
 	command! UtilsDiffOff call s:unset_diff()
 	command! UtilsDiffReset call s:unset_diff()<bar>call s:set_diff()
 	" Convert fileformat to dos
-	command! UtilsNerdComAltDelims execute("normal \<Plug>NERDCommenterAltDelims")
+	command! UtilsNerdComAltDelims
+				\ execute("normal \<Plug>NERDCommenterAltDelims")
 	command! UtilsPdfSearch call s:search_pdf()
 	command! UtilsFindBraceInComment call s:find_brace_in_comment()
 
-	" These used to be ]F [F mappings but they are not so popular so moving them to
-	" commands
+	" These used to be ]F [F mappings but they are not so popular so moving them
+	" to commands
 	command! UtilsFontZoomIn call s:adjust_gui_font('+')
 	command! UtilsFontZoomOut call s:adjust_gui_font('-')
 
 	command! UtilsFileSize call s:get_file_info()
 	command! UtilsEditTmpFile call s:edit_tmp_doc()
 
+	let msvc = 
+\ "\"C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VC\\vcvarsall.bat\""
 	if has('unix')
-		" This mapping will load the journal from the most recent boot and highlight it for you
-		command! UtilsLinuxReadJournal execute("read !journalctl -b<CR><bar>:setf messages<CR>")
+		" This mapping will load the journal from the most recent boot and highlight
+		" it for you
+		command! UtilsLinuxReadJournal
+					\ execute("read !journalctl -b<CR><bar>:setf messages<CR>")
 		" Give execute permissions to current file
 		command! UtilsLinuxExecReadPermissions execute("!chmod a+x %")
 		" Save file with sudo permissions
@@ -43,8 +49,8 @@ function! commands#Set() abort
 		command! UtilsLinuxExecuteCurrFile execute("silent !./%")
 	else
 		command! UtilsTermOpen :term cmd.exe /k c:\tools\cmder\vendor\init.bat<cr>
-		command! UtilsTermVisualStudioOpen :term
-					\ cmd.exe /k "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VC\\vcvarsall.bat"<cr>
+		execute "command! UtilsTermVisualStudioOpen :term " .
+					\ "cmd.exe /k " . msvc . "<cr>"
 	endif
 
 	if !exists('g:loaded_plugins')
@@ -59,7 +65,8 @@ function! commands#Set() abort
 endfunction
 
 function! s:capture_cmd_out(...) abort
-	" this function output the result of the Ex command into a split scratch buffer
+	" this function output the result of the Ex command into a split scratch
+	" buffer
 	if a:0 == 0
 		return
 	endif
@@ -84,11 +91,13 @@ endfunction
 
 function! s:profile_performance() abort
 	if exists('g:std_cache_path')
-		execute 'profile start ' . g:std_cache_path . '/profile_' . strftime("%m%d%y-%H.%M.%S") . '.log'
+		execute 'profile start ' . g:std_cache_path . '/profile_' .
+					\ strftime("%m%d%y-%H.%M.%S") . '.log'
 	else
 		" TODO.RM-Mon Apr 24 2017 12:17: Check why this function is not working
 		" execute 'profile start ~/.cache/profile_' . strftime("%m%d%y-%T") . '.log'
-		execute 'profile start ~/.cache/profile_' . strftime("%m%d%y-%H.%M.%S") . '.log'
+		execute 'profile start ~/.cache/profile_' .
+					\ strftime("%m%d%y-%H.%M.%S") . '.log'
 	endif
 	execute 'profile func *'
 	execute 'profile file *'
@@ -136,7 +145,7 @@ function! s:search_pdf() abort
 
 	let grep_buf = &grepprg
 
-	setlocal grepprg=pdfgrep\ --ignore-case\ --page-number\ --recursive\ --context\ 1
+	let &l:grepprg="pdfgrep --ignore-case --page-number --recursive --context 1"
 	return utils#FileTypeSearch(8, 8)
 
 	let &l:grepprg = grep_buf
@@ -146,12 +155,14 @@ function! s:adjust_gui_font(zoom) abort
 	" lkkajsdflkkajsdflkj
 	if has('nvim') && exists('g:GuiLoaded') && exists('g:GuiFont')
 		" Substitute last number with a plus or minus value depending on input
-		let new_cmd = substitute(g:GuiFont, ':h\zs\d\+','\=eval(submatch(0)'.a:zoom.'1)','')
+		let new_cmd = substitute(g:GuiFont,
+					\ ':h\zs\d\+','\=eval(submatch(0)'.a:zoom.'1)','')
 		echomsg new_cmd
 		call GuiFont(new_cmd, 1)
 	else " gvim
 		let sub = has('win32') ? ':h\zs\d\+' : '\ \zs\d\+'
-		let &guifont = substitute(&guifont, sub,'\=eval(submatch(0)'.a:zoom.'1)','')
+		let &guifont = substitute(&guifont, sub,
+					\ '\=eval(submatch(0)'.a:zoom.'1)','')
 	endif
 endfunction
 
