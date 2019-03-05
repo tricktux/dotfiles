@@ -557,7 +557,8 @@ function! mappings#LoadSession(...) abort
 	silent execute 'source ' . l:session_path . l:session_name
 endfunction
 
-" Tue May 15 2018 09:07: Forced to make it global. <expr> would not work with s: function
+" Tue May 15 2018 09:07: Forced to make it global. <expr> would not work with s: 
+" function
 function! s:center_search() abort
 	let cmdtype = getcmdtype()
 	if cmdtype ==# '/' || cmdtype ==# '?'
