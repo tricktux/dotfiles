@@ -12,6 +12,7 @@ function! options#Set() abort
 	"omnicomplete menu
 	" save marks
 
+	set colorcolumn=+1 " Highlight first column after textwidth
 	set guitablabel=%N\ %f
 	" Silly, always set cool colors
 	set termguicolors
