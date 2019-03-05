@@ -141,7 +141,7 @@ function! options#Set() abort
 	" Fri Jun 15 2018 14:00: These options are better set on case by case basis
 	" Fri Jun 15 2018 15:37: Not really
 	set nowrap        " wrap lines
-	set textwidth=88
+	set textwidth=80
 
 	set nolist " Do not display extra characters
 	set scroll=8
