@@ -154,7 +154,7 @@ function! plugin#Config()
 				\ 'args': ['-style=file', '-fallback-style="LLVM"'],
 				\ 'stdin': 1,
 				\ }
-	nmap <plug>format_code :Neoformat<cr>
+	nnoremap <plug>format_code :Neoformat<cr>
 
 	" cpp
 	if get(g:, 'tagbar_safe_to_use', 1)
