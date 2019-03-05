@@ -115,7 +115,7 @@ set $right l
 bindsym $mod+n exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
 	ranger "$TERMINAL -t ranger -e ranger"
 bindsym $mod+6 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
-	cmus "$TERMINAL -t cmus -e cmus
+	cmus "$TERMINAL -t cmus -e cmus"
 bindsym $mod+9 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
 	gmail-mutt "$TERMINAL -t gmail-mutt \
 	-e 'neomutt -F ~/.config/neomutt/user.gmail'"
