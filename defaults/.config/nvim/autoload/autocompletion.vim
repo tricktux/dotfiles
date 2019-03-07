@@ -11,8 +11,8 @@ function! autocompletion#SetCompl(compl) abort
 	elseif a:compl ==# 'nvim_compl_manager'
 		" call s:set_ncm()
 		call s:set_ncm2()
-		call s:set_ulti_snips()
-		call s:set_language_client(has('unix'))
+		" call s:set_ulti_snips()
+		" call s:set_language_client(has('unix'))
 	elseif a:compl =~# 'shuogo'
 		if a:compl ==# 'shuogo_deo'
 			call s:set_shuogo_deo()
@@ -463,6 +463,10 @@ function! s:set_ncm2() abort
 	" ncm2 requires nvim-yarp
 	Plug 'roxma/nvim-yarp'
 
+	if !has('nvim')
+		Plug 'roxma/vim-hug-neovim-rpc'
+	endif
+
 	augroup ncm_buff
 		autocmd!
 		autocmd BufEnter * call ncm2#enable_for_buffer()
@@ -474,25 +478,34 @@ function! s:set_ncm2() abort
 	inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 	inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+	inoremap <expr> 
+
 	Plug 'ncm2/ncm2-bufword'
 	Plug 'ncm2/ncm2-path'
 	Plug 'ncm2/ncm2-github'
 	Plug 'ncm2/ncm2-jedi'
 	Plug 'ncm2/ncm2-vim'
+		Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
 	Plug 'ncm2/ncm2-syntax'
+		Plug 'Shougo/neco-syntax' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
 	" Plug 'ncm2/ncm2-neoinclude'
+	Plug 'ncm2/ncm2-match-highlight'
+		let g:ncm2#match_highlight = 'bold'
+	" Fenced code block detection in markdown files for ncm2
+	Plug 'ncm2/ncm2-markdown-subscope'
 	Plug 'ncm2/ncm2-tagprefix'
+	if executable('tmux')
+		Plug 'ncm2/ncm2-tmux'
+	endif
 	if executable('look')
 		" Complete english words
 		Plug 'filipekiss/ncm2-look.vim'
 	endif
-	" Fenced code block detection in markdown files for ncm2
-	Plug 'ncm2/ncm2-markdown-subscope'
 	if !has('unix')
 		" For C++
 		Plug 'ncm2/ncm2-pyclang'
+		let g:ncm2_pyclang#library_path = "C:\\Program Files\\LLVM\\bin\\libclang.dll"
 	endif
-	Plug 'ncm2/ncm2-match-highlight'
 endfunction
 
 function! s:set_ulti_snips() abort
