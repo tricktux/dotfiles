@@ -489,8 +489,11 @@ function! s:set_ncm2() abort
 	Plug 'ncm2/ncm2-syntax'
 		Plug 'Shougo/neco-syntax' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
 	" Plug 'ncm2/ncm2-neoinclude'
-	Plug 'ncm2/ncm2-match-highlight'
-		let g:ncm2#match_highlight = 'bold'
+
+	if !has('nvim') || has('unix')
+		Plug 'ncm2/ncm2-match-highlight'
+			let g:ncm2#match_highlight = 'bold'
+	endif
 	" Fenced code block detection in markdown files for ncm2
 	Plug 'ncm2/ncm2-markdown-subscope'
 	Plug 'ncm2/ncm2-tagprefix'
