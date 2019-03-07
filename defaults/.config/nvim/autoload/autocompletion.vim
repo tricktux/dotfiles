@@ -13,6 +13,8 @@ function! autocompletion#SetCompl(compl) abort
 		call s:set_ncm2()
 		" call s:set_ulti_snips()
 		" call s:set_language_client(has('unix'))
+		call s:set_neosnippets()
+		Plug 'ncm2/ncm2-neosnippet'
 	elseif a:compl =~# 'shuogo'
 		if a:compl ==# 'shuogo_deo'
 			call s:set_shuogo_deo()
@@ -478,8 +480,6 @@ function! s:set_ncm2() abort
 	inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 	inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-	inoremap <expr> 
-
 	Plug 'ncm2/ncm2-bufword'
 	Plug 'ncm2/ncm2-path'
 	Plug 'ncm2/ncm2-github'
@@ -504,7 +504,8 @@ function! s:set_ncm2() abort
 	if !has('unix')
 		" For C++
 		Plug 'ncm2/ncm2-pyclang'
-		let g:ncm2_pyclang#library_path = "C:\\Program Files\\LLVM\\bin\\libclang.dll"
+		" let g:ncm2_pyclang#library_path = "\"C:\\Program Files\\LLVM\\bin\\libclang.dll\""
+		let g:ncm2_pyclang#library_path = 'C:\Program Files\LLVM\bin\libclang.dll'
 	endif
 endfunction
 
