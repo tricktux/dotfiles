@@ -448,7 +448,8 @@ function! mappings#Set()
 	"nnoremap <Leader>vr :!svn revert -R .<cr>
 	" nnoremap <Leader>vl :!svn cleanup .<cr>
 	" use this command line to delete unrevisioned or "?" svn files
-	" nnoremap <Leader>vL :!for /f "tokens=2*" %i in ('svn status ^| find "?"') do del %i<cr>
+	" nnoremap <Leader>vL :!for /f "tokens=2*" %i in ('svn status ^| find "?"') do 
+	" del %i<cr>
 	" nnoremap <Leader>vs :!svn status .<cr>
 	" nnoremap <Leader>vu :!svn update .<cr>
 	" Overwritten from plugin.vim
@@ -461,8 +462,10 @@ function! mappings#Set()
 	nnoremap <Leader>ws :call utils#WikiSearch()<cr>
 	nnoremap <Leader>wi :call <sid>wiki_open('index.md')<cr>
 	nnoremap <Leader>wr :call <sid>wiki_open('random.md')<cr>
-	nnoremap <Leader>ww :call <sid>wiki_open('weekly_log_' . strftime('%Y') . '.md')<cr>
-	nnoremap <Leader>wm :call <sid>wiki_open('monthly_log_' . strftime('%Y') . '.md')<cr>
+	nnoremap <Leader>ww :call <sid>wiki_open('weekly_log_' .
+				\ strftime('%Y') . '.md')<cr>
+	nnoremap <Leader>wm :call <sid>wiki_open('monthly_log_' .
+				\ strftime('%Y') . '.md')<cr>
 
 	" Comments <Leader>o
 	nmap - <plug>NERDCommenterToggle
