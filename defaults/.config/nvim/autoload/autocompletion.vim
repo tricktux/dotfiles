@@ -504,11 +504,15 @@ function! s:set_ncm2() abort
 		" Complete english words
 		Plug 'filipekiss/ncm2-look.vim'
 	endif
-	if !has('unix')
+	if executable('clang')
 		" For C++
 		Plug 'ncm2/ncm2-pyclang'
 		" let g:ncm2_pyclang#library_path = "\"C:\\Program Files\\LLVM\\bin\\libclang.dll\""
-		let g:ncm2_pyclang#library_path = 'C:\Program Files\LLVM\bin\libclang.dll'
+		if has('unix')
+			let g:ncm2_pyclang#library_path = '/usr/lib/libclang.so'
+		else
+			let g:ncm2_pyclang#library_path = 'C:\Program Files\LLVM\bin\libclang.dll'
+		endif
 	endif
 endfunction
 
