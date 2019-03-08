@@ -114,10 +114,10 @@ function! s:on_vim_enter() abort
 	" populated until vim init is done
 	call options#SetCli()
 	call plugin#AfterConfig()
-	if (argc() == 0) " If no arguments are passed load default session
-		call mappings#LoadSession(has('nvim') ?
-					\ 'default_nvim.vim' : 'default_vim.vim')
-	endif
+	" if (argc() == 0) " If no arguments are passed load default session
+		" call mappings#LoadSession(has('nvim') ?
+					" \ 'default_nvim.vim' : 'default_vim.vim')
+	" endif
 endfunction
 
 function! s:determine_buf_type() abort
