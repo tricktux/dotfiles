@@ -12,8 +12,9 @@ fi
 
 updates=$(("$updates_arch" + "$updates_aur"))
 
-if [ "$updates" -gt 0 ]; then
-    echo "# $updates"
+# Show me only when there are at least 30 packages to upgrade
+if [ "$updates" -gt 30 ]; then
+    echo "$updates"
 else
     echo ""
 fi

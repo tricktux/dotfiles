@@ -75,7 +75,8 @@ alias neomutt-psu='neomutt -F ~/.config/neomutt/user.psu'
 
 # Folder
 # UnrealEngineCourse
-alias svn-server='cd /home/reinaldo/.mnt/copter-server/mnt/hq-storage/1.Myn/svn-server'
+alias svn-server=\
+	'cd /home/reinaldo/.mnt/copter-server/mnt/hq-storage/1.Myn/svn-server'
 
 # Mounting remote servers
 alias mount-truck='sshfs reinaldo@truck-server:/ ~/.mnt/truck-server/'
@@ -188,7 +189,8 @@ FuncSvnCheckout()
 FuncSvnCreate()
 {
 	ssh reinaldo@$server_ip mkdir -p /mnt/hq-storage/1.Myn/svn-server/$1 $@
-	ssh reinaldo@$server_ip svnadmin create /mnt/hq-storage/1.Myn/svn-server/$1 $@
+	ssh reinaldo@$server_ip svnadmin create \
+		/mnt/hq-storage/1.Myn/svn-server/$1 $@
 }
 
 FuncMkcdir()
@@ -202,7 +204,8 @@ FuncMkcdir()
 # gs = ghostscript (dependency)
 FuncPdfJoin()
 {
-	/usr/bin/gs -q -sPAPERSIZE=a4 -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$1 $@
+	/usr/bin/gs -q -sPAPERSIZE=a4 -dNOPAUSE -dBATCH \
+		-sDEVICE=pdfwrite -sOutputFile=$1 $@
 }
 
 # $@ list of *.jpg first arguments then finally name of output pdf file
@@ -225,12 +228,16 @@ FuncUpdate()
 		sudo mount -t cifs //Linksys05238/samba /mnt/samba -o \
 			credentials=/etc/samba/credentials/share,uid=1000,gid=985,vers=1.0
 	fi
-	# sshfs reinaldo@$server_ip:/mnt/hq-storage/1.Myn/samba ~/.mnt/copter-server/
-	# Tue Oct 16 2018 20:10: You really dont want to update your plugins everday. Things
-	# break. Very frequently.
+	# sshfs reinaldo@$server_ip:/mnt/hq-storage/1.Myn/samba \
+	#	~/.mnt/copter-server/
+	# Tue Oct 16 2018 20:10: You really dont want to update your plugins 
+	# everday. Things break. Very frequently.
 	# nvim +PlugUpgrade +PlugUpdate +UpdateRemotePlugins
-	cd ~/.config/dotfiles/ && gpl && cd ~/.password-store/ && gpl && cd ~/Documents/ML_SC2/Arrancar0/ && gpl && cd
-	trizen -Syu
+	cd ~/.config/dotfiles/ && gpl && cd ~/.password-store/ && gpl && \
+		cd ~/Documents/ML_SC2/Arrancar0/ && gpl && cd
+	# Sat Mar 09 2019 20:24
+	# When there are 30+ updates to be made
+	# trizen -Syu
 }
 
 # mylist.txt looks like this:
