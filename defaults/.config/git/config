@@ -10,7 +10,7 @@
 	up = rebase
 	ci = commit
 [core]
-	editor = nvim
+	editor = 'nvr --remote-tab-wait +"setlocal bufhidden=delete"'
 
 ; silence some strange warning
 [push]
