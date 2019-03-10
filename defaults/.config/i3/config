@@ -44,7 +44,9 @@ font pango:FontAwesome 9
 # - [ ]  Urxvt transparency
 # Close stuff with mod+shift+q
 # It turns out that you can make 2 monitors use the same workspace with this:
-# Got from here: https://faq.i3wm.org/question/1659/force-one-i3-instanceworkspace-across-multiple-monitors.1.html
+# Got from here: 
+# https://faq.i3wm.org/question/1659/
+# force-one-i3-instanceworkspace-across-multiple-monitors.1.html
 # fake-outputs 3840x1200+0+0
 
 # (I have two 1920x1200 screens.)
@@ -86,19 +88,12 @@ set $urgent-bg-color     #E53935
 #############################################}}}
 
 # Window colors{{{
-#                       border              background         text                 indicator
-# client.focused          $bg-color           $bg-color          $text-color          #00ff00
-# client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-color #00ff00
-# client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color #00ff00
-# client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #00ff00
-#
-# Alternative colors
-		#                       BORDER      BACKGROUND  TEXT        INDICATOR   CHILD_BORDER
-		client.focused          $black      $blue				$black			$darkblack $darkyellow
-		client.unfocused        $black      $black      $white      $darkblack  $darkblack
-		client.focused_inactive $black      $black      $white      $darkblack  $darkblack
-		client.urgent           $darkred    $darkred    $black      $darkred    $darkred
-		client.background       $black
+#                       BORDER    BACKGROUND  TEXT     INDICATOR   CHILD_BORDER
+client.focused          $black    $blue		  $black	$darkblack $darkyellow
+client.unfocused        $black    $black      $white    $darkblack  $darkblack
+client.focused_inactive $black    $black      $white    $darkblack  $darkblack
+client.urgent           $darkred  $darkred    $black    $darkred    $darkred
+client.background       $black
 # }}}
 
 # Movement keys{{{
@@ -112,23 +107,30 @@ set $right l
 # Note: Use Mouse+$mod to drag floating windows to their wanted position
 
 # Launch toggle scratchpads
-bindsym $mod+n exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
+bindsym $mod+n exec \
+	--no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
 	ranger "$TERMINAL -t ranger -e ranger"
-bindsym $mod+6 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
+bindsym $mod+6 exec \
+	--no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
 	cmus "$TERMINAL -t cmus -e cmus"
-bindsym $mod+9 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
+bindsym $mod+9 exec \
+	--no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
 	gmail-mutt "$TERMINAL -t gmail-mutt \
 	-e 'neomutt -F ~/.config/neomutt/user.gmail'"
-bindsym $mod+8 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
+bindsym $mod+8 exec \
+	--no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
 	proton-mutt "$TERMINAL -t proton-mutt \
 	-e 'neomutt -F ~/.config/neomutt/user.pm'"
-bindsym $mod+7 exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
+bindsym $mod+7 exec \
+	--no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
 	psu-mutt "$TERMINAL -t psu-mutt \
 	-e 'neomutt -F ~/.config/neomutt/user.psu'"
-bindsym $mod+i exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
+bindsym $mod+i exec \
+	--no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
 	journal "$TERMINAL -t journal \
 	-e ~/.config/polybar/scripts/journal.sh"
-bindsym $mod+o exec --no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
+bindsym $mod+o exec \
+	--no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
 	terminal "$TERMINAL \
 	-t terminal -e 'tmux -f /home/reinaldo/.config/tmux/conf'"
 
@@ -160,7 +162,8 @@ bindsym $mod+Ctrl+$right      resize grow width 3 px or 3 ppt
 
 bindsym $mod+p exec --no-startup-id passmenu
 
-bindsym $mod+shift+e exec --no-startup-id echo $EMAIL | xclip -selection "clipboard"
+bindsym $mod+shift+e exec --no-startup-id echo $EMAIL | \
+	xclip -selection "clipboard"
 
 # Move focused workspace to monitor
 bindsym $mod+shift+bracketleft move workspace to output left
@@ -186,7 +189,9 @@ bindsym $mod+q kill
 
 # start dmenu (a program launcher)
 # bindsym $mod+d exec dmenu_run
-# bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 800 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd"
+# bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 \
+#	-padding 800 -opacity "85" -bw 0 -bc "$bg-color" \
+#	-bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd"
 bindsym $mod+d exec rofi -show drun -opacity "50"
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -262,9 +267,12 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit 
+# shortcut. Do you really want to exit i3? This will end your X session.' -b 
+# 'Yes, exit i3' 'i3-msg exit'"
 # Here we replace default nagbar with i3-exit
-bindsym Control+Mod1+Delete exec --no-startup-id ~/.config/polybar/scripts/shutdown_menu -c
+bindsym Control+Mod1+Delete exec --no-startup-id \
+	~/.config/polybar/scripts/shutdown_menu -c
 
 ########### Custom Bindings ############################
 bindsym Print exec --no-startup-id gnome-screenshot
@@ -341,7 +349,10 @@ bindsym $mod+Shift+5 move container to workspace $workspace5
 # }}}
 
 #### RULES FOR WORKSPACES AND SPECIFIC APPLICATIONS ####{{{
-# Taken from here: http://www.linuxlusers.com/2012/12/24/i3-window-manager-tip-making-specific-applications-and-child-windows-open-in-floating-mode-or-with-other-custom-settings/
+# Taken from here: 
+# http://www.linuxlusers.com/2012/12/24/i3-window-manager-tip-making-specific
+# -applications-and-child-windows-open-in-
+# floating-mode-or-with-other-custom-settings/
 # by APPLICATION (WM_CLASS)
 # Note: class is typically useful for applying custom settings to
 #       to entire applications, including child windows. If this
@@ -455,13 +466,17 @@ mode "resize" {
 # set $mode_power power
 # bindsym $mod+Control+l mode "$mode_power"
 # mode "$mode_power" {
-		# bindsym l mode "default", exec --no-startup-id $HOME/.i3/i3exit lock
-		# bindsym e mode "default", exec --no-startup-id $HOME/.config/i3/i3exit logout
-		# bindsym r mode "default", exec --no-startup-id $HOME/.config/i3/i3exit reboot
-		# bindsym p mode "default", exec --no-startup-id $HOME/.config/i3/i3exit shutdown
+	# bindsym l mode "default", \
+	#	exec --no-startup-id $HOME/.i3/i3exit lock
+	# bindsym e mode "default", \
+	#	exec --no-startup-id $HOME/.config/i3/i3exit logout
+	# bindsym r mode "default", \
+	#	exec --no-startup-id $HOME/.config/i3/i3exit reboot
+	# bindsym p mode "default", \
+	#	exec --no-startup-id $HOME/.config/i3/i3exit shutdown
 
-		# bindsym Return mode "default"
-		# bindsym Escape mode "default"
+	# bindsym Return mode "default"
+	# bindsym Escape mode "default"
 # }
 # }}}
 
@@ -511,10 +526,14 @@ mode "$mode_gaps_outer" {
 # bindsym $mod+n mode "$mode_show"
 
 # mode "$mode_show" {
-	# bindsym c [title="^cmus$"] move to scratchpad, scratchpad show; mode "default"
-	# bindsym o [title="^journal$"] move to scratchpad, scratchpad show; mode "default"
-	# bindsym n [title="^ranger$"] move to scratchpad, scratchpad show; mode "default"
-	# bindsym s [class="^Spotify$"] move to scratchpad, scratchpad show; mode "default"
+	# bindsym c [title="^cmus$"] move to scratchpad, scratchpad show; \
+	#	mode "default"
+	# bindsym o [title="^journal$"] move to scratchpad, scratchpad show; \
+	#	mode "default"
+	# bindsym n [title="^ranger$"] move to scratchpad, scratchpad show; \
+	#	mode "default"
+	# bindsym s [class="^Spotify$"] move to scratchpad, scratchpad show; \
+	#	mode "default"
 
 	# bindsym Escape mode "default"
 	# bindsym Return mode "default"
@@ -529,8 +548,10 @@ mode "$mode_gaps_outer" {
 # kitty
 # Thu Sep 20 2018 05:48: Very stubborn. Here I go with kitty again 
 # bindsym c exec --no-startup-id i3-sensible-terminal --title=cmus cmus
-# bindsym m exec --no-startup-id i3-sensible-terminal --title=gmail-mutt neomutt -F ~/.config/mutt/account.gmail; mode "default"
-# bindsym u exec --no-startup-id i3-sensible-terminal --title=psu-mutt neomutt -F ~/.config/mutt/account.psu; mode "default"
+# bindsym m exec --no-startup-id i3-sensible-terminal --title=gmail-mutt \
+#	neomutt -F ~/.config/mutt/account.gmail; mode "default"
+# bindsym u exec --no-startup-id i3-sensible-terminal --title=psu-mutt neomutt \
+#	-F ~/.config/mutt/account.psu; mode "default"
 # bindsym n exec --no-startup-id i3-sensible-terminal --title=ranger ranger
 # These are the values for termite
 # bindsym c exec --no-startup-id i3-sensible-terminal --title=cmus --exec cmus
@@ -543,7 +564,8 @@ mode "$mode_gaps_outer" {
 # --title=psu-mutt --exec 'neomutt -F ~/.config/mutt/account.psu'; \
 # mode "default"
 
-# bindsym n exec --no-startup-id i3-sensible-terminal --title=ranger --exec ranger
+# bindsym n exec --no-startup-id i3-sensible-terminal --title=ranger --exec \
+#	ranger
 # mode "$mode_launch" {
 
 	# bindsym c exec --no-startup-id i3-sensible-terminal \
@@ -555,7 +577,8 @@ mode "$mode_gaps_outer" {
 	# bindsym o exec --no-startup-id i3-sensible-terminal --title=journal \
 		# --exec ~/.config/polybar/scripts/journal.sh; mode "default"
 
-	# bindsym t exec --no-startup-id i3-sensible-terminal --title=terminal; mode "default"
+	# bindsym t exec --no-startup-id i3-sensible-terminal --title=terminal; \
+		#mode "default"
 
 	# bindsym Escape mode "default"
 	# bindsym Return mode "default"
@@ -564,56 +587,61 @@ mode "$mode_gaps_outer" {
 
 # Mode Screenshot: {{{
 # Sat Dec 30 2017 22:56:
-# bindsym f exec --no-startup-id gnome-screenshot -f ~/.cache/`date '+%y-%m-%d_%T'`.png;mode "default"
-# bindsym s exec --no-startup-id gnome-screenshot -a -f ~/.cache/`date '+%y-%m-%d_%T'`.png;mode "default"
-# bindsym w exec --no-startup-id gnome-screenshot -w -f ~/.cache/`date '+%y-%m-%d_%T'`.png;mode "default"
+# bindsym f exec --no-startup-id gnome-screenshot -f \
+	# ~/.cache/`date '+%y-%m-%d_%T'`.png;mode "default"
+# bindsym s exec --no-startup-id gnome-screenshot -a -f \
+	# ~/.cache/`date '+%y-%m-%d_%T'`.png;mode "default"
+# bindsym w exec --no-startup-id gnome-screenshot -w -f \
+	# ~/.cache/`date '+%y-%m-%d_%T'`.png;mode "default"
 set $mode_screenshot screenshot: [f]ull_screen, [s]election, [w]indow
 	bindsym $mod+Shift+s mode "$mode_screenshot"
 
-	mode "$mode_screenshot" {
-		bindsym f exec --no-startup-id sleep 0.2 && scrot '%Y-%m-%d_%T_scrot.png' \
-			-e 'mv $f ~/.cache/';mode "default"
-		bindsym s exec --no-startup-id sleep 0.2 && scrot -s '%Y-%m-%d_%T_scrot.png' \
-			-e 'mv $f ~/.cache/';mode "default"
-		bindsym w exec --no-startup-id sleep 0.2 && scrot -u '%Y-%m-%d_%T_scrot.png' \
-			-e 'mv $f ~/.cache/';mode "default"
+mode "$mode_screenshot" {
+	bindsym f exec --no-startup-id sleep 0.2 && scrot '%Y-%m-%d_%T_scrot.png' \
+		-e 'mv $f ~/.cache/';mode "default"
+	bindsym s exec --no-startup-id sleep 0.2 && scrot -s \
+		'%Y-%m-%d_%T_scrot.png' \
+		-e 'mv $f ~/.cache/';mode "default"
+	bindsym w exec --no-startup-id sleep 0.2 && scrot -u \
+		'%Y-%m-%d_%T_scrot.png' \
+		-e 'mv $f ~/.cache/';mode "default"
 
-		bindsym Escape mode "default"
-		bindsym Return mode "default"
-	}
+	bindsym Escape mode "default"
+	bindsym Return mode "default"
+}
 # }}}
 
 # Bar{{{
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 # bar {
-				# # status_command i3blocks -c ~/.config/i3/i3blocks.conf
-				# # i3bar_command ~/.config/i3/lemonbar/i3_lemonbar.sh
-				# # status_command i3blocks -c ~/.config/i3/.i3blocks.conf
-				# status_command polybar example
-				# # i3bar_command i3bar -t
-				# # position top
-				# # font pango:Hack, FontAwesome 10
-				# # strip_workspace_numbers yes
-				# # separator_symbol "■"
-				# # bindsym button4 nop
-				# # bindsym button5 nop
-				# # tray_output eDP1
-				# # tray_output LVDS-0
-				# tray_padding 0
-				# height 30
-				# colors {
-						# statusline         $white
-						# background         $transparent
-						# separator          $transparent
+# # status_command i3blocks -c ~/.config/i3/i3blocks.conf
+# # i3bar_command ~/.config/i3/lemonbar/i3_lemonbar.sh
+# # status_command i3blocks -c ~/.config/i3/.i3blocks.conf
+# status_command polybar example
+# # i3bar_command i3bar -t
+# # position top
+# # font pango:Hack, FontAwesome 10
+# # strip_workspace_numbers yes
+# # separator_symbol "■"
+# # bindsym button4 nop
+# # bindsym button5 nop
+# # tray_output eDP1
+# # tray_output LVDS-0
+# tray_padding 0
+# height 30
+# colors {
+	# statusline         $white
+	# background         $transparent
+	# separator          $transparent
 
-															# #BORDER       BACKGROUND   TEXT
-						# focused_workspace  $transparent $transparent $darkwhite
-						# inactive_workspace $transparent $transparent $white
-						# active_workspace   $transparent $transparent $white
-						# urgent_workspace   $darkred     $darkred     $transparent
-						# binding_mode       $darkred     $darkred     $transparent
-				# }
+										# #BORDER       BACKGROUND   TEXT
+	# focused_workspace  $transparent $transparent $darkwhite
+	# inactive_workspace $transparent $transparent $white
+	# active_workspace   $transparent $transparent $white
+	# urgent_workspace   $darkred     $darkred     $transparent
+	# binding_mode       $darkred     $darkred     $transparent
+# }
 # }
 # }}}
 
@@ -665,8 +693,10 @@ exec --no-startup-id pasystray
 # Start vnc server service
 # exec --no-startup-id x0vncserver -display :0 -passwordfile ~/.vnc/passwd&
 # Start cmus in "daemon" mode
-# exec --no-startup-id tmux new-session -s cmus -d -n cmus -d "/usr/bin/cmus $@"&
-# exec --no-startup-id sshfs odroid@copter-server:/ /home/reinaldo/.mnt/copter-server&
+# exec --no-startup-id tmux new-session -s cmus -d -n cmus -d \
+#	"/usr/bin/cmus $@"&
+# exec --no-startup-id sshfs odroid@copter-server:/ \
+#	/home/reinaldo/.mnt/copter-server&
 
 # Thu Nov 16 2017 18:31 trying to get an a good configuration
 # Sat Jul 28 2018 13:28: New settings 
@@ -675,7 +705,8 @@ exec --no-startup-id pasystray
 # Do not modify here. It can still be used by gnome
 # Not using because it sets up conky with not sure how to use right now
 # exec /home/reinaldo/.dotfiles/scripts/autostart-gnome.sh
-exec_always --no-startup-id ~/.fehbg
+exec_always --no-startup-id feh --randomize --no-fehgb --bg-fill \
+	~/Pictures/wallpaper/*
 exec_always --no-startup-id ~/.config/polybar/scripts/launch.sh
 # }}}
 # vim:fdm=marker
