@@ -29,14 +29,15 @@ if !exists('no_plugin_maps') && !exists('no_c_maps')
 		" Open in alternate in a vertical window
 		nnoremap <buffer> <unique> <localleader>A :AV<cr>
 	else
-		nnoremap <buffer> <unique> <localleader>a :call utils#SwitchHeaderSource()<cr>
+		nnoremap <buffer> <unique> <localleader>a :call
+					\ utils#SwitchHeaderSource()<cr>
 	endif
 
 	if has('unix') && has('nvim')
 		nnoremap <buffer> <plug>help_under_cursor :call <SID>man_under_cursor()<cr>
 	endif
 
-	if executable('lldb') && exists(':LLmode')
+	" if executable('lldb') && exists(':LLmode')
 		" TODO-[RM]-(Wed May 23 2018 11:06): Make all of these guys <FX> mappings
 		" nmap <buffer> <unique> <LocalLeader>db <Plug>LLBreakSwitch
 		" vmap <F2> <Plug>LLStdInSelected
@@ -49,11 +50,12 @@ if !exists('no_plugin_maps') && !exists('no_c_maps')
 		" nnoremap <buffer> <unique> <LocalLeader>dt :LL thread step-out<cr>
 		" nnoremap <buffer> <unique> <LocalLeader>dD :LLmode code<cr>
 		" nnoremap <buffer> <unique> <LocalLeader>dd :LLmode debug<cr>
-		" nnoremap <buffer> <unique> <LocalLeader>dp :LL print <C-R>=expand('<cword>')<cr>
+		" nnoremap <buffer> <unique> <LocalLeader>dp :LL
+		" \ print <C-R>=expand('<cword>')<cr>
 		" nnoremap <S-F8> :LL process interrupt<cr>
 		" nnoremap <F9> :LL print <C-R>=expand('<cword>')<cr>
 		" vnoremap <F9> :<C-U>LL print <C-R>=lldb#util#get_selection()<cr><cr>
-	endif
+	" endif
 
 	" if exists('g:clang_format_py')
 		" nmap <buffer> <plug>format_code :execute('pyf ' . g:clang_format_py)<cr>
@@ -103,7 +105,8 @@ function! s:set_compiler_and_friends() abort
 	endif
 
 	" Commands for windows
-	command! -buffer UtilsCompilerGcc execute("compiler gcc<bar>:setlocal makeprg=mingw32-make")
+	command! -buffer UtilsCompilerGcc
+				\ execute("compiler gcc<bar>:setlocal makeprg=mingw32-make")
 	command! -buffer UtilsCompilerBorland call linting#SetNeomakeBorlandMaker()
 	command! -buffer UtilsCompilerMsbuild call linting#SetNeomakeMsBuildMaker()
 	command! -buffer UtilsCompilerClangNeomake call linting#SetNeomakeClangMaker()
@@ -112,8 +115,9 @@ function! s:set_compiler_and_friends() abort
 	nnoremap <buffer> <localleader>mm :UtilsCompilerMsbuild<cr>
 	nnoremap <buffer> <localleader>mc :UtilsCompilerClangNeomake<cr>
 
-	" Time runtime of a specific program. Pass as Argument executable with arguments. Pass as Argument executable with
-	" arguments. Example sep_calc.exe seprc.
+	" Time runtime of a specific program. Pass as Argument executable with 
+	" arguments. Pass as Argument executable with arguments. Example sep_calc.exe 
+	" seprc.
 	command! -nargs=+ -buffer UtilsTimeExec call s:time_exe_win(<f-args>)
 
 	" Set compiler now depending on folder and system. Auto set the compiler
