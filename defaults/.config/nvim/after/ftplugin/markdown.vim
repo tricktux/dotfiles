@@ -195,7 +195,7 @@ command! -buffer UtilsWeeklyReportCreate call utils#ConvertWeeklyReport()
 command! -buffer UtilsFixUnderscore execute("%s/_/\\_/gc<CR>")
 " TODO.RM-Thu May 18 2017 12:17: This should be changed to opera
 command! -buffer UtilsMarkdownPreviewInBrowser call s:preview_browser()
-command! -buffer UtilsMarkdownInstallPreview call s:install_template()
+command! -buffer UtilsMarkdownInstallTemplate call s:install_template()
 command! -buffer UtilsMarkdownPandocPdfMaker call linting#SetNeomakePandocMaker('pdf')
 command! -buffer UtilsMarkdownPandocDocxMaker call linting#SetNeomakePandocMaker('docx')
 command! -buffer UtilsMarkdownPandocHtmlMaker call linting#SetNeomakePandocMaker('html')
