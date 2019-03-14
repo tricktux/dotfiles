@@ -159,7 +159,8 @@ function! mappings#Set()
 	" Sessions
 	nnoremap <Leader>jes :call mappings#SaveSession()<cr>
 	nnoremap <Leader>jel :call mappings#LoadSession()<cr>
-	nnoremap <Leader>jee :call mappings#LoadSession('default.vim')<cr>
+	nnoremap <Leader>jee :call mappings#LoadSession(has('nvim') ?
+				\ 'default_nvim.vim' : 'default_vim.vim')<cr>
 	" Count occurrances of last search
 	nnoremap <Leader>jc :%s///gn<cr>
 	" Indenting
