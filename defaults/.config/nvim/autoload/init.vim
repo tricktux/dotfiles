@@ -6,8 +6,10 @@
 " Created: Aug 21 2017 16:15
 
 " Global variables used by configuration
-" - g:loaded_plugins: Used to validate that we have found dotfiles and loaeded plugins
-" - g:valid_device: Used to mark that is a device were we develop a lot and has fonts
+" - g:loaded_plugins: Used to validate that we have found dotfiles and loaeded 
+"   plugins
+" - g:valid_device: Used to mark that is a device were we develop a lot and has 
+"   fonts
 "   for lightline to be pretty
 
 function! init#vim() abort
@@ -45,7 +47,8 @@ endfunction
 
 function! s:config_win() abort
 	if exists('$ChocolateyInstall')
-		let l:languagetool_jar = findfile('languagetool-commandline.jar', expand('$ChocolateyInstall') . '\lib\languagetool\tools\**2')
+		let l:languagetool_jar = findfile('languagetool-commandline.jar',
+					\ expand('$ChocolateyInstall') . '\lib\languagetool\tools\**2')
 		if !empty(l:languagetool_jar)
 			let g:languagetool_jar = l:languagetool_jar
 		endif
@@ -53,7 +56,8 @@ function! s:config_win() abort
 
 	if filereadable(expand('$ProgramFiles') . '\LLVM\share\clang\clang-format.py')
 				\ && has('python') && executable('clang-format')
-		let g:clang_format_py = expand('$ProgramFiles') . '\LLVM\share\clang\clang-format.py'
+		let g:clang_format_py = expand('$ProgramFiles') .
+					\ '\LLVM\share\clang\clang-format.py'
 	endif
 
 	" Set wiki_path
@@ -61,8 +65,8 @@ function! s:config_win() abort
 	for l:wiki in l:wikis
 		if !empty(glob(l:wiki))
 			let g:wiki_path =  l:wiki
-			" Fri Jul 27 2018 16:01: Gvim is the only one that sets this. Dont use cute
-			" symbols. No cute font support. 
+			" Fri Jul 27 2018 16:01: Gvim is the only one that sets this. Dont use 
+			" cute symbols. No cute font support. 
 			" let g:valid_device = 1
 			break
 		endif
@@ -76,14 +80,19 @@ function! s:config_win() abort
 		call s:set_wings_path('D:/wings-dev/')
 	endif
 
-	" Fri Jan 05 2018 16:40: Many plugins use this now. Making these variables available
-	" all the time.
+	" Fri Jan 05 2018 16:40: Many plugins use this now. Making these variables 
+	" available all the time.
+	" Wed Mar 13 2019 10:54: Adding remote python 
+	"D:\wings-dev\vim\vim64\vim81\utils\python-3.7.0-embed-amd64
+	let l:python3_ver = '3.7.0'
 	let l:pyt2 = "C:\\Python27\\python.exe"
 	let l:pyt3 = [
 				\ $LOCALAPPDATA . "\\Programs\\Python\\Python37\\python.exe",
 				\ "C:\\Python37\\python.exe",
 				\ $LOCALAPPDATA . "\\Programs\\Python\\Python36\\python.exe",
 				\ "C:\\Python36\\python.exe",
+				\ $VIMRUNTIME . '\utils\python-' .
+				\ l:python3_ver . '-embed-amd64\python.exe',
 				\ ]
 
 	if filereadable(l:pyt2)
@@ -124,10 +133,14 @@ function! s:config_win() abort
 endfunction
 
 function! s:set_wings_path(path) abort
-	execute "nnoremap <Leader>ew1 :call utils#PathFileFuzzer(\"" . a:path . "src/\OneWings/\")<cr>"
-	execute "nnoremap <Leader>ew2 :call utils#PathFileFuzzer(\"" . a:path . "src/\OneWINGS2/\")<cr>"
-	execute "nnoremap <Leader>ews :call utils#PathFileFuzzer(\"" . a:path . "config/\OneWingsSupFiles/\")<cr>"
-	execute "nnoremap <Leader>ewa :call utils#PathFileFuzzer(\"" . a:path . "src\")<cr>"
+	execute "nnoremap <Leader>ew1 :call utils#PathFileFuzzer(\"" . 
+				\ a:path . "src/\OneWings/\")<cr>"
+	execute "nnoremap <Leader>ew2 :call utils#PathFileFuzzer(\"" . 
+				\ a:path . "src/\OneWINGS2/\")<cr>"
+	execute "nnoremap <Leader>ews :call utils#PathFileFuzzer(\"" . 
+				\ a:path . "config/\OneWingsSupFiles/\")<cr>"
+	execute "nnoremap <Leader>ewa :call utils#PathFileFuzzer(\"" . 
+				\ a:path . "src\")<cr>"
 	execute "nnoremap <silent> <plug>edit_todo :edit " . 
 				\ (exists('g:wiki_path') ? g:wiki_path : '') .
 				\ "/work/TODO.md<cr>"
@@ -170,9 +183,10 @@ function! s:config_unix() abort
 		endif
 	endfor
 
-	if executable('languagetool')
-				\&& !empty(glob('/usr/share/java/languagetool/languagetool-commandline.jar'))
-		let g:languagetool_jar = '/usr/share/java/languagetool/languagetool-commandline.jar'
+	if executable('languagetool') && 
+		\ !empty(glob('/usr/share/java/languagetool/languagetool-commandline.jar'))
+		let g:languagetool_jar = 
+					\ '/usr/share/java/languagetool/languagetool-commandline.jar'
 	endif
 	let g:browser_cmd = '/usr/bin/opera'
 endfunction
