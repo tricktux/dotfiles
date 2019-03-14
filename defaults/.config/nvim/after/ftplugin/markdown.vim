@@ -22,6 +22,10 @@ if !exists('no_plugin_maps') && !exists('no_markdown_maps')
 	" TODO-[RM]-(Fri Oct 20 2017 05:24): Fix this thing here
 	" inoremap <buffer> [ [ ]<Space>
 
+	if (exists(':Neomake'))
+		nnoremap <buffer> <plug>make_file :Neomake<cr>
+	endif
+
 	if exists(':InsertNewBullet')
 		inoremap <buffer> <expr> <cr> pumvisible() ? "\<c-y>" : "<cr>"
 		nnoremap <buffer> o :InsertNewBullet<cr>
