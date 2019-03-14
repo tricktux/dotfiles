@@ -22,6 +22,10 @@ if !exists('no_plugin_maps') && !exists('no_markdown_maps')
 	" TODO-[RM]-(Fri Oct 20 2017 05:24): Fix this thing here
 	" inoremap <buffer> [ [ ]<Space>
 
+	if (exists(':Neomake'))
+		nnoremap <buffer> <plug>make_file :Neomake<cr>
+	endif
+
 	if exists(':InsertNewBullet')
 		inoremap <buffer> <expr> <cr> pumvisible() ? "\<c-y>" : "<cr>"
 		nnoremap <buffer> o :InsertNewBullet<cr>
@@ -195,7 +199,7 @@ command! -buffer UtilsWeeklyReportCreate call utils#ConvertWeeklyReport()
 command! -buffer UtilsFixUnderscore execute("%s/_/\\_/gc<CR>")
 " TODO.RM-Thu May 18 2017 12:17: This should be changed to opera
 command! -buffer UtilsMarkdownPreviewInBrowser call s:preview_browser()
-command! -buffer UtilsMarkdownInstallPreview call s:install_template()
+command! -buffer UtilsMarkdownInstallTemplate call s:install_template()
 command! -buffer UtilsMarkdownPandocPdfMaker call linting#SetNeomakePandocMaker('pdf')
 command! -buffer UtilsMarkdownPandocDocxMaker call linting#SetNeomakePandocMaker('docx')
 command! -buffer UtilsMarkdownPandocHtmlMaker call linting#SetNeomakePandocMaker('html')

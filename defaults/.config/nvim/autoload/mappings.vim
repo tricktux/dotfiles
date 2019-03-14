@@ -1,5 +1,6 @@
 " File:					mappings.vim
-" Description:	Function that sets all the mappings that are not related to plugins
+" Description:	Function that sets all the mappings that are not related to 
+"								plugins
 " Author:				Reinaldo Molina <rmolin88@gmail.com>
 " Version:				0.0.0
 " Last Modified: Aug 22 2017 12:33
@@ -32,10 +33,11 @@ function! mappings#Set()
 	endif
 
 	" Sun Dec 09 2018 17:15: 
-	" This extends p in visual mode (note the noremap), so that if you paste from the
-	" unnamed (ie. default) register, that register content is not replaced by the visual
-	" selection you just pasted over–which is the default behavior. This enables the user to
-	" yank some text and paste it over several places in a row, without using a named
+	" This extends p in visual mode (note the noremap), so that if you paste from 
+	" the unnamed (ie. default) register, that register content is not replaced by 
+	" the visual selection you just pasted over–which is the default behavior. 
+	" This enables the user to yank some text and paste it over several places in 
+	" a row, without using a named
 	" Obtained from: https://vimways.org/2018/for-mappings-and-a-tutorial/
 	xnoremap <silent> p p:if v:register == '"'<bar>let @@=@0<bar>endif<cr>
 
@@ -125,7 +127,8 @@ function! mappings#Set()
 	nmap <localleader>r <plug>refactor_code
 	xmap <localleader>r <plug>refactor_code
 
-	nnoremap <plug>refactor_code :%s/\<<c-r>=expand("<cword>")<cr>\>//gc<Left><Left><Left>
+	nnoremap <plug>refactor_code :%s/\<<c-r>=
+				\ expand("<cword>")<cr>\>//gc<Left><Left><Left>
 	xnoremap <plug>refactor_code "hy:%s/<C-r>h//gc<left><left><left>
 
 	" Global settings for all ftplugins
@@ -177,16 +180,16 @@ function! mappings#Set()
 	" nnoremap <Leader>Mc :call utils#ManFind()<cr>
 	" Tue Dec 19 2017 14:34:
 	"	- Removing the save all files. Not a good thing to do.
-	"		- Main reason is specially with Neomake running make an multiple files at the same
-	"   time
+	"		- Main reason is specially with Neomake running make an multiple files at 
+	"		the same time
 	" Wed Dec 12 2018 17:23:
 	"	- Reenabling, because why not!
 	"		- Tired of typing :wa<cr>
 	nnoremap <c-s> :wall<cr>
 	nnoremap <c-t> :tabnew<cr>
 	" Thu Feb 22 2018 07:42: Mind buggling super good mapping from vim-galore
-	" Tue Apr 24 2018 14:06: For some reason in large .cpp files syntax sync takes away
-	" highlight
+	" Tue Apr 24 2018 14:06: For some reason in large .cpp files syntax sync takes 
+	" away highlight
 	" nnoremap <c-h> :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
 	" Fri Jan 11 2019 11:13
 	" Moving this mapping to <c-l>
@@ -300,8 +303,10 @@ function! mappings#Set()
 	" <Leader>n
 	" Display highlighted numbers as ascii chars. Only works on highlighted text
 	" Rarely works
-	" vnoremap <Leader>ah :<c-u>s/<count>\x\x/\=nr2char(printf("%d", "0x".submatch(0)))/g<cr><c-l>`<
-	vnoremap <Leader>nh :<c-u>s/\%V./\=printf("%x",char2nr(submatch(0)))/g<cr><c-l>`<
+	" vnoremap <Leader>ah :<c-u>s/<count>\x\x/\=nr2char(printf("%d", 
+	" "0x".submatch(0)))/g<cr><c-l>`<
+	vnoremap <Leader>nh :<c-u>s/\%V./\=
+				\ printf("%x",char2nr(submatch(0)))/g<cr><c-l>`<
 	nmap <leader>nr <plug>num_representation
 	xmap <leader>nr <plug>num_representation
 
@@ -492,12 +497,14 @@ function! mappings#Set()
 		nnoremap <Leader>eD :call utils#PathFileFuzzer('D:\')<cr>
 	endif
 	nnoremap <Leader>e. :call utils#PathFileFuzzer(getcwd())<cr>
-	nnoremap <Leader>el :call utils#PathFileFuzzer(input('Folder to recurse: ', "", "file"))<cr>
+	nnoremap <Leader>el :call utils#PathFileFuzzer(input
+				\ ('Folder to recurse: ', "", "file"))<cr>
 	nnoremap <Leader>ei :e 
 
 	nmap <leader>et <plug>edit_todo
 	if !hasmapto('<plug>edit_todo')
-		nnoremap <silent> <plug>edit_todo :execute('edit ' . g:dotfiles . '/TODO.md')<cr>
+		nnoremap <silent> <plug>edit_todo :execute
+					\ ('edit ' . g:dotfiles . '/TODO.md')<cr>
 	endif
 
 	" Edit plugin
@@ -538,12 +545,14 @@ function! mappings#LoadSession(...) abort
 		let l:session_name = l:session_path . a:1
 		if !filereadable(l:session_name)
 			if &verbose > 0
-				echoerr '[mappings#LoadSession]: File ' . l:session_name . ' not readabale'
+				echoerr '[mappings#LoadSession]: File ' . 
+							\ l:session_name . ' not readabale'
 			endif
 			return -1
 		endif
 		if &verbose > 0
-			echomsg '[mappings#LoadSession]: Loading session: ' . l:session_name . '...'
+			echomsg '[mappings#LoadSession]: Loading session: ' . 
+						\ l:session_name . '...'
 		endif
 		silent! execute 'source ' . l:session_name
 		return
@@ -700,7 +709,8 @@ function! s:wiki_open(...) abort
 
 	let dir = getcwd()
 	execute "cd " . g:wiki_path
-	execute "vs " . fnameescape(g:wiki_path . '/' . input('Wiki Name: ', '', 'custom,CheatCompletion'))
+	execute "vs " . fnameescape(g:wiki_path . '/' . 
+				\ input('Wiki Name: ', '', 'custom,CheatCompletion'))
 	silent! execute "cd " . dir
 endfunction
 
@@ -763,7 +773,8 @@ endfunction
 
 function! s:grep() abort
 	let msg = 'Searching inside "' . getcwd() . '". Choose:'
-	let choice = "&J<cword>/". &ft . "\n&K<any>/". &ft . "\n&L<cword>/all_files\n&;<any>/all_files"
+	let choice = "&J<cword>/". &ft . "\n&K<any>/". &ft . 
+				\ "\n&L<cword>/all_files\n&;<any>/all_files"
 	let c = confirm(msg, choice, 1)
 
 	if c == 1
@@ -1181,23 +1192,32 @@ function! mappings#SetCscope() abort
 	nnoremap <buffer> <localleader>sr :cscope reset<cr>
 	nnoremap <buffer> <localleader>sh :cscope show<cr>
 	" 0 or s: Find this C symbol
-	nnoremap <buffer> <localleader>ss :exec 'cscope find s ' . expand('<cword>')<cr>
+	nnoremap <buffer> <localleader>ss :exec 'cscope find s ' . 
+				\ expand('<cword>')<cr>
 	" 1 or g: Find this definition
-	nnoremap <buffer> <localleader>sg :exec 'cscope find g ' . expand('<cword>')<cr>
+	nnoremap <buffer> <localleader>sg :exec 'cscope find g ' . 
+				\ expand('<cword>')<cr>
 	" 2 or d: Find functions called by this function
-	nnoremap <buffer> <localleader>sd :exec 'cscope find d ' . expand('<cword>')<cr>
+	nnoremap <buffer> <localleader>sd :exec 'cscope find d ' . 
+				\ expand('<cword>')<cr>
 	" 3 or c: Find functions calling this function
-	nnoremap <buffer> <localleader>sc :exec 'cscope find c ' . expand('<cword>')<cr>
+	nnoremap <buffer> <localleader>sc :exec 'cscope find c ' . 
+				\ expand('<cword>')<cr>
 	" 4 or t: Find this text string
-	nnoremap <buffer> <localleader>st :exec 'cscope find t ' . expand('<cword>')<cr>
+	nnoremap <buffer> <localleader>st :exec 'cscope find t ' . 
+				\ expand('<cword>')<cr>
 	" 6 or e: Find this egrep pattern
-	nnoremap <buffer> <localleader>se :exec 'cscope find e ' . expand('<cword>')<cr>
+	nnoremap <buffer> <localleader>se :exec 'cscope find e ' . 
+				\ expand('<cword>')<cr>
 	" 7 or f: Find this file
-	nnoremap <buffer> <localleader>sf :exec 'cscope find f ' . expand('<cword>')<cr>
+	nnoremap <buffer> <localleader>sf :exec 'cscope find f ' . 
+				\ expand('<cword>')<cr>
 	" 8 or i: Find files #including this file
-	nnoremap <buffer> <localleader>si :exec 'cscope find i ' . expand('<cword>')<cr>
+	nnoremap <buffer> <localleader>si :exec 'cscope find i ' . 
+				\ expand('<cword>')<cr>
 	" 9 or a: Find places where this symbol is assigned a value
-	nnoremap <buffer> <localleader>sa :exec 'cscope find a ' . expand('<cword>')<cr>
+	nnoremap <buffer> <localleader>sa :exec 'cscope find a ' . 
+				\ expand('<cword>')<cr>
 
 	if !exists(':CCTreeLoadDB')
 		return
@@ -1205,7 +1225,9 @@ function! mappings#SetCscope() abort
 
 	nnoremap <buffer> <localleader>el :call <SID>cctree_load_db()<cr>
 	nnoremap <buffer> <localleader>es :call <SID>cctree_save_xrefdb()<cr>
-	nnoremap <buffer> <localleader>ef :exec 'CCTreeTraceForward ' . expand('<cword>')<cr>
-	nnoremap <buffer> <localleader>er :exec 'CCTreeTraceReverse ' . expand('<cword>')<cr>
+	nnoremap <buffer> <localleader>ef :exec 'CCTreeTraceForward ' . 
+				\ expand('<cword>')<cr>
+	nnoremap <buffer> <localleader>er :exec 'CCTreeTraceReverse ' . 
+				\ expand('<cword>')<cr>
 	nnoremap <buffer> <localleader>et :CCTreeWindowToggle<cr>
 endfunction
