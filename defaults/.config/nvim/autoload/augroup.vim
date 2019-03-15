@@ -74,7 +74,7 @@ function! augroup#Set() abort
 
 		augroup BuffTypes
 			autocmd!
-			autocmd BufRead,BufNewFile * call s:determine_buf_type()
+			autocmd BufWinEnter,BufRead,BufNewFile * call s:determine_buf_type()
 
 			autocmd BufReadPost *
 				\ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit' |
@@ -121,21 +121,27 @@ function! s:on_vim_enter() abort
 endfunction
 
 function! s:determine_buf_type() abort
-	let ext = expand('%:e')
-	if ext ==# 'ino' || ext ==# 'pde'
+	let l:ext = expand('%:e')
+	if &verbose > 0
+		echomsg 'Detecting buf type: ' l:ext
+	endif
+	if l:ext ==? 'ino' || l:ext ==? 'pde'
 		set filetype=arduino
-	elseif ext ==# 'scp'
+	elseif l:ext ==? 'scp'
 		set filetype=wings_syntax
-		" elseif ext ==# 'log'
+		" elseif ext ==? 'log'
 		" setfiletype unreal-log
-	elseif ext ==# 'set' || ext ==# 'sum'
+	elseif l:ext ==? 'set' || l:ext ==? 'sum'
 		set filetype=dosini
-	elseif ext ==# 'bin' || ext ==# 'pdf' || ext ==# 'hsr'
+	elseif l:ext ==? 'bin' || l:ext ==? 'pdf' || l:ext ==? 'hsr'
+		if &verbose > 0
+			echomsg 'Binary file detected'
+		endif
 		call s:set_bin_file_type()
 	endif
 
 	let buf_type = &buftype
-	if buf_type ==# 'terminal'
+	if buf_type ==? 'terminal'
 		setfiletype terminal
 	endif
 endfunction
