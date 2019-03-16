@@ -59,6 +59,9 @@ set $mod Mod4
 #}}}
 
 ############# Colors #########################{{{
+# TODO-[RM]-(Sat Mar 16 2019 18:54):  
+# - Bring this colors here from .Xresources
+# - If you make chance there it breaks things here
 set_from_resource $darkred     color1  #000000
 set_from_resource $red         color9  #000000
 set_from_resource $darkgreen   color2  #000000
