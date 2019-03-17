@@ -302,7 +302,8 @@ function! s:set_language_client(has_unix) abort
 				\ }
 	let l:chosen_cpp_server = l:clangd
 
-	" Tue Aug 07 2018 16:41: There is a new cpp player in town. `ccls`. Based of `cquery` 
+	" Tue Aug 07 2018 16:41: There is a new cpp player in town. `ccls`. Based of 
+	" `cquery` 
 	if executable(l:chosen_cpp_server.cpp[0]) && a:has_unix
 		call extend(g:LanguageClient_serverCommands, l:chosen_cpp_server)
 	endif
