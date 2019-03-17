@@ -74,9 +74,9 @@ font-1 = Roboto:size=18;0
 ; For more info look [here](https://github.com/jaagr/polybar/issues/313)
 font-2=WunconSiji:pixelsize=18;0
 
-modules-left = battery temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory 
+modules-left = battery temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory wlan-down-predator  wlan-up-predator
 modules-center = player-cmus
-modules-right = xkeyboard updates-arch-combined redshift compton wlan-down-predator  wlan-up-predator
+modules-right = xkeyboard updates-arch-combined redshift compton
 
 ; My new settings
 tray-detached = false
@@ -190,9 +190,9 @@ font-3 = Roboto:size=10;0
 ; For more info look [here](https://github.com/jaagr/polybar/issues/313)
 font-4=WunconSiji:pixelsize=10;0
 
-modules-left = battery_helios temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory
+modules-left = battery_helios temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory wlan-down-helios wlan-up-helios
 modules-center = player-cmus
-modules-right = xkeyboard backlight-acpi updates-arch-combined redshift compton wlan-down-helios wlan-up-helios
+modules-right = xkeyboard backlight-acpi updates-arch-combined redshift compton 
 
 ; My new settings
 tray-detached = false
