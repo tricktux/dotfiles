@@ -12,7 +12,7 @@ function! autocompletion#SetCompl(compl) abort
 		" call s:set_ncm()
 		call s:set_ncm2()
 		" call s:set_ulti_snips()
-		" call s:set_language_client(has('unix'))
+		call s:set_language_client(has('unix'))
 		call s:set_neosnippets()
 		Plug 'ncm2/ncm2-neosnippet'
 	elseif a:compl =~# 'shuogo'
@@ -286,10 +286,10 @@ function! s:set_language_client(has_unix) abort
 
 	" C++ server
 	" Sat Jan 27 2018 11:11: Settings coming from:
+	" https://github.com/cquery-project/cquery/wiki/Neovim
 	" Wed Apr 04 2018 16:21 All these settings are for cquery
 	" Wed Apr 04 2018 17:02: the cquery project has an excellent page on generating
 	" compile_commands.json on its wiki
-	" https://github.com/cquery-project/cquery/wiki/Neovim
 	" let g:LanguageClient_loadSettings = 1 " Use an absolute configuration path if you want system-wide settings
 	" let g:LanguageClient_settingsPath = g:std_config_path . '/settings.json'
 	let l:cquery = {
@@ -302,7 +302,8 @@ function! s:set_language_client(has_unix) abort
 				\ }
 	let l:chosen_cpp_server = l:clangd
 
-	" Tue Aug 07 2018 16:41: There is a new cpp player in town. `ccls`. Based of `cquery` 
+	" Tue Aug 07 2018 16:41: There is a new cpp player in town. `ccls`. Based of 
+	" `cquery` 
 	if executable(l:chosen_cpp_server.cpp[0]) && a:has_unix
 		call extend(g:LanguageClient_serverCommands, l:chosen_cpp_server)
 	endif
