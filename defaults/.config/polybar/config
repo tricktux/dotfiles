@@ -74,7 +74,7 @@ font-1 = Roboto:size=18;0
 ; For more info look [here](https://github.com/jaagr/polybar/issues/313)
 font-2=WunconSiji:pixelsize=18;0
 
-modules-left = battery temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory 
+modules-left = battery temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory wlan-down-predator  wlan-up-predator
 modules-center = player-cmus
 modules-right = xkeyboard updates-arch-combined redshift compton
 
@@ -190,9 +190,9 @@ font-3 = Roboto:size=10;0
 ; For more info look [here](https://github.com/jaagr/polybar/issues/313)
 font-4=WunconSiji:pixelsize=10;0
 
-modules-left = battery_helios temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory
+modules-left = battery_helios temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory wlan-down-helios wlan-up-helios
 modules-center = player-cmus
-modules-right = xkeyboard backlight-acpi updates-arch-combined redshift compton
+modules-right = xkeyboard backlight-acpi updates-arch-combined redshift compton 
 
 ; My new settings
 tray-detached = false
@@ -630,15 +630,15 @@ blacklist-0 = num lock
 
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
-format-prefix-underline = ${colors.secondary}
+; format-prefix-underline = ${colors.secondary}
 
 label-layout = %layout%
-label-layout-underline = ${colors.secondary}
+; label-layout-underline = ${colors.secondary}
 
 label-indicator-padding = 2
 label-indicator-margin = 1
 label-indicator-background = ${colors.secondary}
-label-indicator-underline = ${colors.secondary}
+; label-indicator-underline = ${colors.secondary}
 
 [module/bspwm]
 type = internal/bspwm
@@ -802,6 +802,34 @@ bar-used-foreground-3 = #ff5555
 bar-used-fill = ▐
 bar-used-empty = ▐
 bar-used-empty-foreground = #444444
+
+[module/wlan-up-predator]
+type = internal/network
+interface = wlp3s0
+interval = 1.0
+label-connected = %upspeed:7%
+format-connected = <label-connected>
+
+[module/wlan-down-predator]
+type = internal/network
+interface = wlp3s0
+interval = 1.0
+label-connected = %downspeed:7%
+format-connected = <label-connected>
+
+[module/wlan-up-helios]
+type = internal/network
+interface = wlp0s20f3
+interval = 1.0
+label-connected = %upspeed:7%
+format-connected = <label-connected>
+
+[module/wlan-down-helios]
+type = internal/network
+interface = wlp0s20f3
+interval = 1.0
+label-connected = %downspeed:7%
+format-connected = <label-connected>
 
 [module/wlan-predator]
 type = internal/network
