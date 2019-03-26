@@ -380,6 +380,7 @@ bindsym $mod+Shift+5 move container to workspace $workspace5
 		for_window [class="Nm-connection-editor"] floating enable
 		for_window [class="Anki"] floating enable
 		for_window [class="Qt4-ssh-askpass"] floating enable
+		for_window [class="lxqt-openssh-askpass"] floating enable
 
 # Scratchpad
 		for_window [title="^cmus$"] move to scratchpad
