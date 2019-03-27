@@ -1266,7 +1266,7 @@ function! s:fzf_statusline() abort
 	setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
 endfunction
 
-function! s:fzf_download_windows() abort
+function! s:fzf_download() abort
 	let l:fzf_path = g:std_data_path . '/site/plugin/fzf.vim'
 
 	" If already loaded files cool
@@ -1287,7 +1287,7 @@ function! s:configure_fzf() abort
 		return -1
 	endif
 
-	if ((!has('unix')) && (s:fzf_download_windows() < 1))
+	if (s:fzf_download() < 1)
 		return -2
 	endif
 
