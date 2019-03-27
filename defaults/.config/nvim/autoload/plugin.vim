@@ -124,17 +124,7 @@ function! plugin#Config()
 	let g:fastfold_fold_command_suffixes =
 				\['x','X','a','A','o','O','c','C','r','R','m','M','i','n','N']
 
-	" Wed Apr 04 2018 12:55: Rooter used to be on demand but I took it.
-	" - In order to make use of its FindRootDirectory() function
-	Plug 'airblade/vim-rooter'
-	" let g:rooter_manual_only = 1
-	nnoremap <plug>cd_root :Rooter<CR>
-	let g:rooter_use_lcd = 1
-	let g:rooter_patterns = ['.git/', '.svn/', 'Source/']
-	let g:rooter_silent_chdir = 1
-	let g:rooter_resolve_links = 1
-	let g:rooter_change_directory_for_non_project_files = 'current'
-	" nnoremap <Leader>cr :call utils#RooterAutoloadCscope()<CR>
+	call s:configure_vim_rooter()
 
 	Plug 'Raimondi/delimitMate'
 	let g:delimitMate_expand_cr = 2
@@ -1389,4 +1379,46 @@ function! plugin#SyStatsWrapper() abort
 	endif
 
 	return hunkline
+endfunction
+
+function! s:configure_vim_rooter() abort
+	" Wed Apr 04 2018 12:55: Rooter used to be on demand but I took it.
+	" - In order to make use of its FindRootDirectory() function
+	Plug 'airblade/vim-rooter'
+	" let g:rooter_manual_only = 1
+	nnoremap <plug>cd_root :Rooter<CR>
+	let g:rooter_use_lcd = 1
+	let g:rooter_patterns = ['.git/', '.svn/', 'Source/']
+	let g:rooter_silent_chdir = 1
+	let g:rooter_resolve_links = 1
+	let g:rooter_change_directory_for_non_project_files = 'current'
+	" nnoremap <Leader>cr :call utils#RooterAutoloadCscope()<CR>
+	
+	augroup Rooter
+		autocmd!
+		autocmd User RooterChDir call s:per_project_settings()
+	augroup END
+endfunction
+
+function! s:per_project_settings() abort
+	" Detect type of project based root files
+	if has('unix')
+		return
+	endif
+
+	if !empty(glob('OneWINGSII.sln'))
+		if &verbose > 0
+			echomsg 'Detected OWII type of folder'
+		endif
+		call linting#SetNeomakeMsBuildMaker()
+	elseif !empty(glob('BuildAll.bpg'))
+		if &verbose > 0
+			echomsg 'Detected OW type of folder'
+		endif
+		call linting#SetNeomakeBorlandMaker()
+	endif
+
+	if &verbose > 0
+		echomsg 'No OW type of folder detected '
+	endif
 endfunction

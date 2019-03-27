@@ -119,20 +119,6 @@ function! s:set_compiler_and_friends() abort
 	" arguments. Pass as Argument executable with arguments. Example sep_calc.exe 
 	" seprc.
 	command! -nargs=+ -buffer UtilsTimeExec call s:time_exe_win(<f-args>)
-
-	" Set compiler now depending on folder and system. Auto set the compiler
-	let folder_name = expand('%:p:h')
-
-	if folder_name =~? 'wings-dev'
-		" Note: inside the '' is a pat which is a regex. That is why \\
-		if folder_name =~? 'Onewings\\Source'
-			call linting#SetNeomakeBorlandMaker()
-			return
-		endif
-		call linting#SetNeomakeMsBuildMaker()
-	else
-		call linting#SetNeomakeClangMaker()
-	endif
 endfunction
 
 function! s:man_under_cursor() abort
