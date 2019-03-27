@@ -47,4 +47,7 @@ fi
 [ -f /etc/xprofile ] && source /etc/xprofile
 [ -f ~/.xprofile ] && source ~/.xprofile
 
+# Activate numlock
+[ -f /usr/bin/numlockx ] && numlockx &
+
 exec i3 -V >> ~/.cache/i3log-$(date +'%F-%k-%M-%S') 2>&1
