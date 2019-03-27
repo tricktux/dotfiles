@@ -12,7 +12,8 @@ machine=`hostname`
 echo "Cleaning pacman"
 # This is very dangerous
 # sudo pacman -Sc --noconfirm
-# Better way paccache will remove everything except the latest THREE versions of a package
+# Better way paccache will remove everything except the latest THREE versions of 
+# a package
 sudo paccache -r
 # And remove remove all cached versions of uninstalled packages
 sudo paccache -ruk0
@@ -28,7 +29,8 @@ rm -r ~/.cache
 
 # Tue Sep 26 2017 18:40 Update Mirror list. Depends on `reflector`
 if hash reflector 2>/dev/null; then
-	sudo reflector --protocol https --latest 30 --number 5 --sort rate --save /etc/pacman.d/mirrorlist -c 'United States' --verbose
+	sudo reflector --protocol https --latest 30 --number 5 --sort \
+		rate --save /etc/pacman.d/mirrorlist -c 'United States' --verbose
 else
 	echo "reflector is not installed"
 fi
@@ -61,10 +63,12 @@ sudo pacman -Rns $(pacman -Qtdq)
 
 # bleachbit --clean --preset
 # Alternative
-# bleachbit --list | grep -E "[a-z0-9_\-]+\.[a-z0-9_\-]+" | grep -v system.free_disk_space | xargs bleachbit --clean
+# bleachbit --list | grep -E "[a-z0-9_\-]+\.[a-z0-9_\-]+" | grep -v 
+# system.free_disk_space | xargs bleachbit --clean
 
 # echo "Cleaning shitty files"
-# curl -kLo ~/.cache/rmshit.py "https://raw.githubusercontent.com/lahwaacz/Scripts/master/rmshit.py"
+# curl -kLo ~/.cache/rmshit.py 
+# "https://raw.githubusercontent.com/lahwaacz/Scripts/master/rmshit.py"
 # chmod +x ~/.cache/rmshit.py
 # python cache/rmshit.py
 
