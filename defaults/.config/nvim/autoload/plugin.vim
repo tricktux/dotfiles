@@ -1197,8 +1197,9 @@ function! s:configure_vim_which_key() abort
 	nnoremap <silent> [ :WhichKey '['<CR>
 	vnoremap <silent> [ :WhichKeyVisual '['<CR>
 
-	let g:which_key_flatten = 0
-	let g:which_key_hspace = 80
+	" Wed Mar 27 2019 09:49: Makes neovim crash 
+	" let g:which_key_flatten = 0
+	" let g:which_key_hspace = 80
 
 	let g:WhichKeyFormatFunc = function('s:which_key_format')
 	
