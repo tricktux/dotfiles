@@ -1314,7 +1314,7 @@ format-underline = #f90000
 [module/updates-arch-combined]
 ; Depends on pacman-contrib
 type = custom/script
-format-prefix = " "
+format-prefix = "\uf49e "
 exec = ~/.config/polybar/scripts/updates-arch-combined.sh
 interval = 60
 
@@ -1336,7 +1336,7 @@ interval = 600
 type = custom/script
 exec = ~/.config/polybar/scripts/system-uptime-pretty.sh
 interval = 30
-; format-prefix = " "
+format-prefix = " "
 format-underline = #0a6cf5
 
 [module/info-kernel]
