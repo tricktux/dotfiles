@@ -65,14 +65,15 @@ padding-right = 0
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = FontAwesome:size=18;0
-font-1 = Roboto:size=18;0
+font-0 = "Font Awesome 5 Free:style=Regular:pixelsize=18;1"
+font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=18;1"
+font-2 = "Font Awesome 5 Brands:pixelsize=18;1"
+font-3 = Roboto:size=10;0
 ; font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 ; Fri Sep 15 2017 09:18: In order to get siji font to work use this command to get the exact name:
 ; echo "$(fc-list : family | grep Siji | tail -1):pixelsize=10"
 ; If that doesnt return anything try with grep siji instead of grep Siji
 ; For more info look [here](https://github.com/jaagr/polybar/issues/313)
-font-2=WunconSiji:pixelsize=18;0
 
 modules-left = battery temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory wlan-down-predator  wlan-up-predator
 modules-center = player-cmus
@@ -355,14 +356,10 @@ padding-right = 0
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = FontAwesome:size=18;0
-font-1 = Roboto:size=18;0
-; font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-; Fri Sep 15 2017 09:18: In order to get siji font to work use this command to get the exact name:
-; echo "$(fc-list : family | grep Siji | tail -1):pixelsize=10"
-; If that doesnt return anything try with grep siji instead of grep Siji
-; For more info look [here](https://github.com/jaagr/polybar/issues/313)
-font-2=WunconSiji:pixelsize=18;0
+font-0 = "Font Awesome 5 Free:style=Regular:pixelsize=18;1"
+font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=18;1"
+font-2 = "Font Awesome 5 Brands:pixelsize=18;1"
+font-3 = Roboto:size=10;0
 
 modules-left = i3
 modules-center = xwindow
