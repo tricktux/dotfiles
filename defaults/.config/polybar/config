@@ -805,6 +805,7 @@ bar-used-empty-foreground = #444444
 type = internal/network
 interface = wlp3s0
 interval = 1.0
+format-prefix = " "
 label-connected = %upspeed:7%
 format-connected = <label-connected>
 
@@ -812,6 +813,7 @@ format-connected = <label-connected>
 type = internal/network
 interface = wlp3s0
 interval = 1.0
+format-prefix = " "
 label-connected = %downspeed:7%
 format-connected = <label-connected>
 
@@ -1126,8 +1128,8 @@ format-underline = #f50a4d
 format-warn = <ramp> <label-warn>
 format-warn-underline = ${self.format-underline}
 
-label = %temperature%
-label-warn = %temperature%
+label = %temperature-c%
+label-warn = %temperature-c%
 label-warn-foreground = ${colors.secondary}
 
 ramp-0 = 
