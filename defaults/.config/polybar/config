@@ -14,31 +14,55 @@
 ; Most of scripts obtained from:
 ; - https://github.com/x70b1/polybar-scripts.git
 
-[colors]
-transparent = #00000000
-background = #222
-background-alt = #444
-background_light = #ECE0D7
-background_dark = #8c8c8c
-foreground = #dfdfdf
-foreground-alt = #555
-primary = #ffb52a
-secondary = #e60053
-alert = #bd2c40
+include-file = ~/.config/polybar/colors.ini
+include-file = ~/.config/polybar/modules.ini
+include-file = ~/.config/polybar/legacy-bars.ini
 
-t1		= #332D35
-t2		= #7D6297
-t6		= #CAB8D1
+[global/wm]
+margin-top = 0
+margin-bottom = 0
 
-t3		= #AD9CC3
-t4  	= #B6A5C8
-t5		= #C0AECD
-t7		= #D3C1D6
-t8		= #DDCADB
+[settings]
+; The throttle settings lets the eventloop swallow up til X events
+; if they happen within Y millisecond after first event was received.
+; This is done to prevent flood of update event.
+;
+; For example if 5 modules emit an update event at the same time, we really
+; just care about the last one. But if we wait too long for events to swallow
+; the bar would appear sluggish so we continue if timeout
+; expires or limit is reached.
+throttle-output = 5
+throttle-output-for = 10
 
-[bar/bottom-predator]
-bottom = true
-monitor = DP-0
+; Time in milliseconds that the input handler will wait between processing events
+throttle-input-for = 30
+
+; Reload upon receiving XCB_RANDR_SCREEN_CHANGE_NOTIFY events
+screenchange-reload = false
+
+; Compositing operators
+; @see: https://www.cairographics.org/manual/cairo-cairo-t.html#cairo-operator-t
+compositing-background = source
+compositing-foreground = over
+compositing-overline = over
+compositing-underline = over
+compositing-border = over
+
+; Define fallback values used by all module formats
+format-foreground = 
+format-background = 
+format-underline =
+format-overline =
+format-spacing =
+format-padding =
+format-margin =
+format-offset =
+
+; Enables pseudo-transparency for the bar
+; If set to true the bar can be transparent without a compositor.
+pseudo-transparency = false
+
+[bar/main]
 width = 100%
 height = 2%
 ; offset-x = 1%
@@ -46,10 +70,10 @@ height = 2%
 radius = 6.0
 fixed-center = true
 
-; background = ${colors.background}
-; foreground = ${colors.foreground}
-foreground = ${colors.t1}
-background = ${colors.background_light}
+background = ${colors.background}
+foreground = ${colors.foreground}
+; foreground = ${colors.t1}
+; background = ${colors.background_light}
 underline-color = #00f
 overline-color = #f00
 
@@ -65,6 +89,64 @@ padding-right = 0
 module-margin-left = 1
 module-margin-right = 1
 
+; override-redirect = true
+enable-ipc = true
+
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
+
+
+[bar/main-top]
+inherit = bar/main
+modules-left = i3
+modules-center = xwindow
+modules-right = weather date time powermenu
+
+[bar/main-bottom]
+bottom = true
+width = 100%
+height = 2%
+; offset-x = 1%
+; offset-y = 1%
+radius = 6.0
+fixed-center = true
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+; background = ${color.bground}
+; foreground = ${color.fground}
+underline-color = #00f
+overline-color = #f00
+
+line-size = 3
+line-color = #f00
+
+border-size = 4
+border-color = #00000000
+
+padding-left = 0
+padding-right = 0
+
+module-margin-left = 1
+module-margin-right = 1
+; override-redirect = true
+enable-ipc = true
+
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
+
+; My new settings
+tray-detached = false
+tray-position = right
+tray-offset-x = 0
+tray-offset-y = 0
+
+tray-padding = 2
+tray-scale = 1
+
+[bar/bottom-predator]
+inherit = bar/main-bottom
+monitor = DP-0
 font-0 = "Font Awesome 5 Free:style=Regular:pixelsize=18;1"
 font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=18;1"
 font-2 = "Font Awesome 5 Brands:pixelsize=18;1"
@@ -79,107 +161,10 @@ modules-left = player-cmus
 modules-center = cpu system-nvidia-smi cpuload system-uptime-pretty memory wlan-predator
 modules-right = battery temperature xkeyboard github updates-arch-combined redshift compton volume
 
-; My new settings
-tray-detached = false
-tray-position = right
-tray-offset-x = 0
-tray-offset-y = 0
 tray-maxsize = 40
-tray-padding = 2
-tray-scale = 1
-
-; override-redirect = true
-enable-ipc = true
-
-scroll-up = i3wm-wsnext
-scroll-down = i3wm-wsprev
-
-[bar/bottom-surbook]
-bottom = true
-; monitor = ${env:MONITOR:eDP1}
-width = 100%
-height = 2%
-; offset-x = 1%
-; offset-y = 1%
-radius = 6.0
-fixed-center = true
-
-; background = ${colors.background}
-; foreground = ${colors.foreground}
-foreground = ${colors.t1}
-background = ${colors.background_light}
-underline-color = #00f
-overline-color = #f00
-
-line-size = 3
-line-color = #f00
-
-border-size = 4
-border-color = #00000000
-
-padding-left = 0
-padding-right = 0
-
-module-margin-left = 1
-module-margin-right = 1
-
-font-0 = FontAwesome:size=18;0
-font-1 = Roboto:size=18;0
-; font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-; Fri Sep 15 2017 09:18: In order to get siji font to work use this command to get the exact name:
-; echo "$(fc-list : family | grep Siji | tail -1):pixelsize=10"
-; If that doesnt return anything try with grep siji instead of grep Siji
-; For more info look [here](https://github.com/jaagr/polybar/issues/313)
-font-2=WunconSiji:pixelsize=18;0
-
-modules-left = battery temperature cpu cpuload system-uptime-pretty memory
-modules-center = player-cmus
-modules-right = xkeyboard redshift compton
-
-; My new settings
-tray-detached = false
-tray-position = right
-tray-offset-x = 0
-tray-offset-y = 0
-tray-maxsize = 30
-tray-padding = 2
-tray-scale = 1
-
-; override-redirect = true
-enable-ipc = true
-
-scroll-up = i3wm-wsnext
-scroll-down = i3wm-wsprev
 
 [bar/bottom-helios]
-bottom = true
-; monitor = ${env:MONITOR:eDP1}
-width = 100%
-height = 2%
-; offset-x = 1%
-; offset-y = 1%
-radius = 6.0
-fixed-center = true
-
-; background = ${colors.background}
-; foreground = ${colors.foreground}
-foreground = ${colors.t1}
-background = ${colors.background_light}
-underline-color = #00f
-overline-color = #f00
-
-line-size = 3
-line-color = #f00
-
-border-size = 4
-border-color = #00000000
-
-padding-left = 0
-padding-right = 0
-
-module-margin-left = 1
-module-margin-right = 1
-
+inherit = bar/main-bottom
 font-0 = "Font Awesome 5 Free:style=Regular:pixelsize=10;1"
 font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=10;1"
 font-2 = "Font Awesome 5 Brands:pixelsize=10;1"
@@ -195,219 +180,17 @@ modules-left = battery_helios temperature cpu system-nvidia-smi cpuload system-u
 modules-center = player-cmus
 modules-right = xkeyboard backlight-acpi updates-arch-combined redshift compton 
 
-; My new settings
-tray-detached = false
-tray-position = right
-tray-offset-x = 0
-tray-offset-y = 0
 tray-maxsize = 20
-tray-padding = 2
-tray-scale = 1
-
-; override-redirect = true
-enable-ipc = true
-
-scroll-up = i3wm-wsnext
-scroll-down = i3wm-wsprev
-
-[bar/bottom-guajiro]
-bottom = true
-; monitor = ${env:MONITOR:eDP1}
-width = 100%
-height = 3%
-; offset-x = 1%
-; offset-y = 1%
-radius = 6.0
-fixed-center = true
-
-; background = ${colors.background}
-; foreground = ${colors.foreground}
-foreground = ${colors.t1}
-background = ${colors.background_light}
-underline-color = #00f
-overline-color = #f00
-
-line-size = 3
-line-color = #f00
-
-border-size = 4
-border-color = #00000000
-
-padding-left = 0
-padding-right = 0
-
-module-margin-left = 1
-module-margin-right = 1
-
-font-0 = "Font Awesome 5 Free:style=Regular:pixelsize=10;1"
-font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=10;1"
-font-2 = "Font Awesome 5 Brands:pixelsize=10;1"
-font-3 = Roboto:size=10;0
-; font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-; Fri Sep 15 2017 09:18: In order to get siji font to work use this command to get the exact name:
-; echo "$(fc-list : family | grep Siji | tail -1):pixelsize=10"
-; If that doesnt return anything try with grep siji instead of grep Siji
-; For more info look [here](https://github.com/jaagr/polybar/issues/313)
-font-4=WunconSiji:pixelsize=10;0
-
-modules-left = battery temperature cpu cpuload system-uptime-pretty memory
-modules-center = player-cmus
-modules-right = xkeyboard backlight-acpi updates-arch-combined redshift compton
-
-; My new settings
-tray-detached = false
-tray-position = right
-tray-offset-x = 0
-tray-offset-y = 0
-tray-maxsize = 20
-tray-padding = 2
-tray-scale = 1
-
-; override-redirect = true
-enable-ipc = true
-
-scroll-up = i3wm-wsnext
-scroll-down = i3wm-wsprev
-
-
-[bar/bottom-beast]
-bottom = true
-; monitor = ${env:MONITOR:eDP1}
-width = 100%
-height = 2%
-; offset-x = 1%
-; offset-y = 1%
-radius = 6.0
-fixed-center = true
-
-; background = ${colors.background}
-; foreground = ${colors.foreground}
-foreground = ${colors.t1}
-background = ${colors.background_light}
-underline-color = #00f
-overline-color = #f00
-
-line-size = 3
-line-color = #f00
-
-border-size = 4
-border-color = #00000000
-
-padding-left = 0
-padding-right = 0
-
-module-margin-left = 1
-module-margin-right = 1
-
-font-0 = FontAwesome:size=12;0
-font-1 = Roboto:size=10;0
-; font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-; Fri Sep 15 2017 09:18: In order to get siji font to work use this command to get the exact name:
-; echo "$(fc-list : family | grep Siji | tail -1):pixelsize=10"
-; If that doesnt return anything try with grep siji instead of grep Siji
-; For more info look [here](https://github.com/jaagr/polybar/issues/313)
-font-2=WunconSiji:pixelsize=10;0
-
-modules-left = battery temperature cpu cpuload system-uptime-pretty memory 
-modules-center = player-cmus
-modules-right = xkeyboard updates-arch-combined compton
-
-; My new settings
-tray-detached = false
-tray-position = right
-tray-offset-x = 0
-tray-offset-y = 0
-tray-maxsize = 16
-tray-padding = 2
-tray-scale = 1
-
-; override-redirect = true
-enable-ipc = true
-
-scroll-up = i3wm-wsnext
-scroll-down = i3wm-wsprev
-
 
 [bar/top-predator]
+inherit = bar/main-top
 monitor = DP-0
-width = 100%
-height = 2%
-; offset-x = 1%
-; offset-y = 1%
-radius = 6.0
-fixed-center = true
-
-; background = ${colors.background}
-; foreground = ${colors.foreground}
-foreground = ${colors.t1}
-background = ${colors.background_light}
-underline-color = #00f
-overline-color = #f00
-
-line-size = 3
-line-color = #f00
-
-border-size = 4
-border-color = #00000000
-
-padding-left = 0
-padding-right = 0
-
-module-margin-left = 1
-module-margin-right = 1
-
 font-0 = "Font Awesome 5 Free:style=Regular:pixelsize=18;1"
 font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=18;1"
 font-2 = "Font Awesome 5 Brands:pixelsize=18;1"
 font-3 = Roboto:size=18;0
 
-modules-left = i3
-modules-center = xwindow
-modules-right = weather date time powermenu
-
-; My new settings
-; tray-detached = false
-; tray-position = right
-; tray-offset-x = 0
-; tray-offset-y = 0
-; tray-maxsize = 16
-; tray-padding = 2
-; tray-scale = 1
-
-; override-redirect = true
-enable-ipc = true
-
-scroll-up = i3wm-wsnext
-scroll-down = i3wm-wsprev
-
 [bar/top-helios]
-;monitor = ${env:MONITOR:HDMI-1}
-width = 100%
-height = 2%
-; offset-x = 1%
-; offset-y = 1%
-radius = 6.0
-fixed-center = true
-
-; background = ${colors.background}
-; foreground = ${colors.foreground}
-foreground = ${colors.t1}
-background = ${colors.background_light}
-underline-color = #00f
-overline-color = #f00
-
-line-size = 3
-line-color = #f00
-
-border-size = 4
-border-color = #00000000
-
-padding-left = 0
-padding-right = 0
-
-module-margin-left = 1
-module-margin-right = 1
-
 font-0 = "Font Awesome 5 Free:style=Regular:pixelsize=10;1"
 font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=10;1"
 font-2 = "Font Awesome 5 Brands:pixelsize=10;1"
@@ -419,954 +202,3 @@ font-3 = Roboto:size=10;0
 ; For more info look [here](https://github.com/jaagr/polybar/issues/313)
 font-4=WunconSiji:pixelsize=10;0
 
-modules-left = i3
-modules-center = xwindow
-modules-right = weather date time powermenu
-
-; My new settings
-; tray-detached = false
-; tray-position = right
-; tray-offset-x = 0
-; tray-offset-y = 0
-; tray-maxsize = 16
-; tray-padding = 2
-; tray-scale = 1
-
-; override-redirect = true
-enable-ipc = true
-
-scroll-up = i3wm-wsnext
-scroll-down = i3wm-wsprev
-
-[bar/top-guajiro]
-;monitor = ${env:MONITOR:HDMI-1}
-width = 100%
-height = 3%
-; offset-x = 1%
-; offset-y = 1%
-radius = 6.0
-fixed-center = true
-
-; background = ${colors.background}
-; foreground = ${colors.foreground}
-foreground = ${colors.t1}
-background = ${colors.background_light}
-underline-color = #00f
-overline-color = #f00
-
-line-size = 3
-line-color = #f00
-
-border-size = 4
-border-color = #00000000
-
-padding-left = 0
-padding-right = 0
-
-module-margin-left = 1
-module-margin-right = 1
-
-font-0 = "Font Awesome 5 Free:style=Regular:pixelsize=10;1"
-font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=10;1"
-font-2 = "Font Awesome 5 Brands:pixelsize=10;1"
-font-3 = Roboto:size=10;0
-; font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-; Fri Sep 15 2017 09:18: In order to get siji font to work use this command to get the exact name:
-; echo "$(fc-list : family | grep Siji | tail -1):pixelsize=10"
-; If that doesnt return anything try with grep siji instead of grep Siji
-; For more info look [here](https://github.com/jaagr/polybar/issues/313)
-font-4=WunconSiji:pixelsize=10;0
-
-modules-left = i3
-modules-center = xwindow
-modules-right = weather date time powermenu
-
-; My new settings
-; tray-detached = false
-; tray-position = right
-; tray-offset-x = 0
-; tray-offset-y = 0
-; tray-maxsize = 16
-; tray-padding = 2
-; tray-scale = 1
-
-; override-redirect = true
-enable-ipc = true
-
-scroll-up = i3wm-wsnext
-scroll-down = i3wm-wsprev
-
-[bar/top-beast]
-;monitor = ${env:MONITOR:HDMI-1}
-width = 100%
-height = 2%
-; offset-x = 1%
-; offset-y = 1%
-radius = 6.0
-fixed-center = true
-
-; background = ${colors.background}
-; foreground = ${colors.foreground}
-foreground = ${colors.t1}
-background = ${colors.background_light}
-underline-color = #00f
-overline-color = #f00
-
-line-size = 3
-line-color = #f00
-
-border-size = 4
-border-color = #00000000
-
-padding-left = 0
-padding-right = 0
-
-module-margin-left = 1
-module-margin-right = 1
-
-font-0 = FontAwesome:size=12;0
-font-1 = Roboto:size=10;0
-; font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-; Fri Sep 15 2017 09:18: In order to get siji font to work use this command to get the exact name:
-; echo "$(fc-list : family | grep Siji | tail -1):pixelsize=10"
-; If that doesnt return anything try with grep siji instead of grep Siji
-; For more info look [here](https://github.com/jaagr/polybar/issues/313)
-font-2=WunconSiji:pixelsize=12;0
-
-modules-left = i3
-modules-center = xwindow
-modules-right = weather date time powermenu
-
-; My new settings
-; tray-detached = false
-; tray-position = right
-; tray-offset-x = 0
-; tray-offset-y = 0
-; tray-maxsize = 16
-; tray-padding = 2
-; tray-scale = 1
-
-; override-redirect = true
-enable-ipc = true
-
-scroll-up = i3wm-wsnext
-scroll-down = i3wm-wsprev
-
-[bar/top-surbook]
-;monitor = ${env:MONITOR:HDMI-1}
-width = 100%
-height = 2%
-; offset-x = 1%
-; offset-y = 1%
-radius = 6.0
-fixed-center = true
-
-; background = ${colors.background}
-; foreground = ${colors.foreground}
-foreground = ${colors.t1}
-background = ${colors.background_light}
-underline-color = #00f
-overline-color = #f00
-
-line-size = 6
-line-color = #f00
-
-border-size = 8
-border-color = #00000000
-
-padding-left = 0
-padding-right = 0
-
-module-margin-left = 3
-module-margin-right = 3
-
-font-0 = FontAwesome:size=18;0
-font-1 = Roboto:size=18;0
-; font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-; Fri Sep 15 2017 09:18: In order to get siji font to work use this command to get the exact name:
-; echo "$(fc-list : family | grep Siji | tail -1):pixelsize=10"
-; If that doesnt return anything try with grep siji instead of grep Siji
-; For more info look [here](https://github.com/jaagr/polybar/issues/313)
-font-2=WunconSiji:pixelsize=18;0
-
-modules-left = i3
-modules-center = xwindow
-modules-right = weather date time powermenu
-
-; My new settings
-; tray-detached = false
-; tray-position = right
-; tray-offset-x = 0
-; tray-offset-y = 0
-; tray-maxsize = 16
-; tray-padding = 2
-; tray-scale = 1
-
-; override-redirect = true
-enable-ipc = true
-
-scroll-up = i3wm-wsnext
-scroll-down = i3wm-wsprev
-
-[module/xwindow]
-format-prefix            = " "
-; format-prefix-background = ${colors.t5}
-; format-prefix-foreground = ${colors.t5}
-; format-suffix            = >
-; format-suffix-background = ${colors.t5}
-; format-suffix-foreground = ${colors.t5}
-
-; format-background = ${colors.t6}
-type = internal/xwindow
-label = %title:0:85:%
-; label = %title%
-
-[module/xkeyboard]
-type = internal/xkeyboard
-blacklist-0 = num lock
-
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-; format-prefix-underline = ${colors.secondary}
-
-label-layout = %layout%
-; label-layout-underline = ${colors.secondary}
-
-label-indicator-padding = 2
-label-indicator-margin = 1
-label-indicator-background = ${colors.secondary}
-; label-indicator-underline = ${colors.secondary}
-
-[module/bspwm]
-type = internal/bspwm
-
-label-focused = %index%
-label-focused-background = ${colors.background-alt}
-label-focused-underline= ${colors.primary}
-label-focused-padding = 2
-
-label-occupied = %index%
-label-occupied-padding = 2
-
-label-urgent = %index%!
-label-urgent-background = ${colors.alert}
-label-urgent-padding = 2
-
-label-empty = %index%
-label-empty-foreground = ${colors.foreground-alt}
-label-empty-padding = 2
-
-[module/i3]
-type = internal/i3
-format = <label-state> <label-mode>
-index-sort = true
-wrapping-scroll = false
-
-; Only show workspaces on the same output as the bar
-;pin-workspaces = true
-
-label-mode-padding = 2
-label-mode-foreground = #000
-label-mode-background = ${colors.primary}
-
-; focused = Active workspace on focused monitor
-label-focused = %icon%
-; label-focused-background = ${module/bspwm.label-focused-background}
-label-focused-background = ${colors.background_light}
-label-focused-underline = ${module/bspwm.label-focused-underline}
-label-focused-padding = ${module/bspwm.label-focused-padding}
-
-; unfocused = Inactive workspace on any monitor
-label-unfocused = %icon%
-label-unfocused-padding = ${module/bspwm.label-occupied-padding}
-
-; visible = Active workspace on unfocused monitor
-label-visible = %icon%
-label-visible-background = ${self.label-focused-background}
-label-visible-underline = ${self.label-focused-underline}
-label-visible-padding = ${self.label-focused-padding}
-
-; urgent = Workspace with urgency hint set
-label-urgent = %icon%
-label-urgent-background = ${module/bspwm.label-urgent-background}
-label-urgent-padding = ${module/bspwm.label-urgent-padding}
-
-ws-icon-0 = 1;
-ws-icon-1 = 2;
-ws-icon-2 = 3;
-ws-icon-3 = 4;
-ws-icon-4 = 5;
-ws-icon-5 = 6;
-ws-icon-6 = 7;
-ws-icon-7 = 8;
-ws-icon-default = 
-
-strip-wsnumbers = true
-fuzzy-match = true
-
-[module/mpd]
-type = internal/mpd
-format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
-
-icon-prev = 
-icon-stop = 
-icon-play = 
-icon-pause = 
-icon-next = 
-
-label-song-maxlen = 25
-label-song-ellipsis = true
-
-[module/xbacklight]
-type = internal/xbacklight
-
-format = <label> <ramp>
-format-underline = #c0392b
-label = 
-; Only applies if <ramp> is used
-ramp-0 = 🌕
-ramp-1 = 🌔
-ramp-2 = 🌓
-ramp-3 = 🌒
-ramp-4 = 🌑
-
-bar-width = 10
-bar-indicator = |
-bar-indicator-foreground = #ff
-bar-indicator-font = 2
-bar-fill = ─
-bar-fill-font = 2
-bar-fill-foreground = #9f78e1
-bar-empty = ─
-bar-empty-font = 2
-bar-empty-foreground = ${colors.foreground-alt}
-
-[module/backlight-acpi]
-interval = 1
-
-inherit = module/xbacklight
-type = internal/backlight
-card = acpi_video0
-
-[module/cpu]
-type = internal/cpu
-interval = 1
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #f90000
-label = %percentage%%
-format = <label> <ramp-coreload>
-ramp-coreload-0 = ▁
-ramp-coreload-1 = ▂
-ramp-coreload-2 = ▃
-ramp-coreload-3 = ▄
-ramp-coreload-4 = ▅
-ramp-coreload-5 = ▆
-ramp-coreload-6 = ▇
-ramp-coreload-7 = █
-
-[module/memory]
-type = internal/memory
-interval = 2
-; Available tags:
-;   <label> (default)
-;   <bar-used>
-;   <bar-free>
-format = <label> <ramp-free>
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #4bffdc
-; label = %gb_used%
-label = %gb_used%
-; format = <label> <ramp-free>
-; Only applies if <ramp-used> is used
-ramp-free-7 = ▁
-ramp-free-6 = ▂
-ramp-free-5 = ▃
-ramp-free-4 = ▄
-ramp-free-3 = ▅
-ramp-free-2 = ▆
-ramp-free-1 = ▇
-ramp-free-0 = █
-
-; Only applies if <bar-used> is used in format
-bar-used-indicator = 
-bar-used-width = 50
-bar-used-foreground-0 = #55aa55
-bar-used-foreground-1 = #557755
-bar-used-foreground-2 = #f5a70a
-bar-used-foreground-3 = #ff5555
-bar-used-fill = ▐
-bar-used-empty = ▐
-bar-used-empty-foreground = #444444
-
-[module/wlan-predator]
-type = internal/network
-interface = wlp3s0
-interval = 1.0
-label-connected = " %essid%  %upspeed%  %downspeed%"
-format-connected = <label-connected> <ramp-signal> 
-label-disconnected = not connected
-label-disconnected-foreground = #66ffffff
-format-underline = #9fbc00
-ramp-signal-0 = 😱
-ramp-signal-1 = 😠
-ramp-signal-2 = 😒
-ramp-signal-3 = 😊
-ramp-signal-4 = 😃
-ramp-signal-5 = 😈
-
-[module/wlan-up-helios]
-type = internal/network
-interface = wlp0s20f3
-interval = 1.0
-label-connected = "%essid%  %upspeed%  %downspeed%"
-format-connected = <ramp-signal> <label-connected>
-label-disconnected = not connected
-label-disconnected-foreground = #66ffffff
-format-underline = #9fbc00
-ramp-signal-0 = 😱
-ramp-signal-1 = 😠
-ramp-signal-2 = 😒
-ramp-signal-3 = 😊
-ramp-signal-4 = 😃
-ramp-signal-5 = 😈
-
-[module/github]
-type = internal/github
-
-; Accessing an access token stored in file
-token = ${file:/home/reinaldo/.config/polybar/scripts/github}
-
-; Whether empty notifications should be displayed or not
-empty-notifications = false
-
-label = %notifications%
-
-; Number of seconds in between requests
-format-prefix = " "
-interval = 10
-
-[module/wlan-surbook]
-type = internal/network
-interface = wlp1s0
-interval = 3.0
-
-format-connected = <ramp-signal> <label-connected>
-format-connected-underline = #9f78e1
-label-connected = %essid%
-
-; label-disconnected = not connected
-; label-disconnected-foreground = #66ffffff
-;format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${colors.foreground-alt}
-
-ramp-signal-0 = 😱
-ramp-signal-1 = 😠
-ramp-signal-2 = 😒
-ramp-signal-3 = 😊
-ramp-signal-4 = 😃
-ramp-signal-5 = 😈
-ramp-signal-foreground = ${colors.foreground-alt}
-[module/wlan-beast]
-type = internal/network
-interface = wlp3s0
-interval = 3.0
-
-format-connected = <ramp-signal> <label-connected>
-format-connected-underline = #9f78e1
-label-connected = %essid%
-
-; label-disconnected = not connected
-; label-disconnected-foreground = #66ffffff
-;format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${colors.foreground-alt}
-
-ramp-signal-0 = 😱
-ramp-signal-1 = 😠
-ramp-signal-2 = 😒
-ramp-signal-3 = 😊
-ramp-signal-4 = 😃
-ramp-signal-5 = 😈
-ramp-signal-foreground = ${colors.foreground-alt}
-[module/wlan-guajiro]
-type = internal/network
-interface = wlp8s0
-interval = 3.0
-
-format-connected = <ramp-signal> <label-connected>
-format-connected-underline = #9f78e1
-label-connected = %essid%
-
-; label-disconnected = not connected
-; label-disconnected-foreground = #66ffffff
-;format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${colors.foreground-alt}
-
-ramp-signal-0 = 😱
-ramp-signal-1 = 😠
-ramp-signal-2 = 😒
-ramp-signal-3 = 😊
-ramp-signal-4 = 😃
-ramp-signal-5 = 😈
-ramp-signal-foreground = ${colors.foreground-alt}
-
-[module/eth-predator]
-type = internal/network
-interface = enp2s0
-interval = 3.0
-
-format-connected = <label-connected>
-; format-connected-underline = #55aa55
-format-connected-prefix = " "
-format-connected-prefix-foreground = ${colors.foreground-alt}
-label-connected = %local_ip%
-
-; format-disconnected = not connected
-; format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-; label-disconnected = not connected
-;label-disconnected-foreground = ${colors.foreground-alt}
-[module/eth-surbook]
-type = internal/network
-interface = enp2s0
-interval = 3.0
-
-format-connected = <label-connected>
-; format-connected-underline = #55aa55
-format-connected-prefix = " "
-format-connected-prefix-foreground = ${colors.foreground-alt}
-label-connected = %local_ip%
-
-; format-disconnected = not connected
-; format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-; label-disconnected = not connected
-;label-disconnected-foreground = ${colors.foreground-alt}
-[module/eth-beast]
-type = internal/network
-interface = enp2s0
-interval = 3.0
-
-format-connected = <label-connected>
-; format-connected-underline = #55aa55
-format-connected-prefix = " "
-format-connected-prefix-foreground = ${colors.foreground-alt}
-label-connected = %local_ip%
-
-; format-disconnected = not connected
-; format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-; label-disconnected = not connected
-;label-disconnected-foreground = ${colors.foreground-alt}
-[module/eth-guajiro]
-type = internal/network
-interface = enp2s0
-interval = 3.0
-
-format-connected = <label-connected>
-; format-connected-underline = #55aa55
-format-connected-prefix = " "
-format-connected-prefix-foreground = ${colors.foreground-alt}
-label-connected = %local_ip%
-
-; format-disconnected = not connected
-; format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-; label-disconnected = not connected
-;label-disconnected-foreground = ${colors.foreground-alt}
-
-[module/date]
-type = internal/date
-interval = 5
-
-date =" %a, %b %d, %Y"
-date-alt = " %m/%d/%Y"
-
-; format-prefix =
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #0a6cf5
-
-label = %date%
-
-[module/time]
-type = internal/date
-interval = 5
-
-time = " %I:%M %P"
-time-alt =  " %H:%M"
-
-; format-prefix =
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #0a6cf5
-
-label = %time%
-
-[module/volume]
-type = internal/volume
-
-; Settings for detecting type source of volume
-; Available tags:
-;   <label-volume> (default)
-;   <ramp-volume>
-;   <bar-volume>
-format-volume = <ramp-volume> <label-volume>
-format-prefix-foreground = ${colors.foreground-alt}
-format-volume-underline = #0b2938
-
-; Available tags:
-;   <label-muted> (default)
-;   <ramp-volume>
-;   <bar-volume>
-;format-muted = <label-muted>
-
-; Available tokens:
-;   %percentage% (default)
-;label-volume = %percentage%%
-; label-volume-foreground = ${root.foreground}
-
-; Available tokens:
-;   %percentage% (default)
-label-muted = " mute"
-label-muted-foreground = #66
-label-muted-underline = #0b2938
-
-; Only applies if <ramp-volume> is used
-ramp-volume-0 = 
-ramp-volume-1 = 
-ramp-volume-2 = 
-
-; If defined, it will replace <ramp-volume> when
-; headphones are plugged in to `headphone_control_numid`
-; If undefined, <ramp-volume> will be used for both
-; Only applies if <ramp-volume> is used
-ramp-headphones-0 = 
-ramp-headphones-1 = 
-
-headphone-id=19
-; <bar-volume> settings
-; TODO.RM-Sun Apr 02 2017 10:07: Find a muted icon
-; format-muted-prefix = " "
-; format-muted-foreground = ${colors.foreground-alt}
-; label-muted = sound muted
-
-; Settings for when using <bar-volume> in format-volume
-bar-volume-width = 10
-bar-volume-foreground-0 = #55aa55
-bar-volume-foreground-1 = #55aa55
-bar-volume-foreground-2 = #55aa55
-bar-volume-foreground-3 = #55aa55
-bar-volume-foreground-4 = #55aa55
-bar-volume-foreground-5 = #f5a70a
-bar-volume-foreground-6 = #ff5555
-bar-volume-gradient = false
-bar-volume-indicator = |
-bar-volume-indicator-font = 2
-bar-volume-fill = ─
-bar-volume-fill-font = 2
-bar-volume-empty = ─
-bar-volume-empty-font = 2
-bar-volume-empty-foreground = ${colors.foreground-alt}
-
-[module/battery]
-type = internal/battery
-battery = BAT0
-adapter = ADP1
-full-at = 97
-
-[module/battery_helios]
-type = internal/battery
-battery = BAT1
-adapter = ACAD
-full-at = 100
-
-format-charging = <animation-charging> <label-charging>
-format-charging-underline = #ffb52a
-
-format-discharging = <ramp-capacity> <label-discharging>
-format-discharging-underline = ${self.format-charging-underline}
-
-format-full-prefix = " "
-format-full-prefix-foreground = ${colors.foreground-alt}
-format-full-underline = ${self.format-charging-underline}
-
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
-ramp-capacity-3 = 
-ramp-capacity-4 = 
-ramp-capacity-foreground = ${colors.foreground-alt}
-
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
-animation-charging-3 = 
-animation-charging-4 = 
-animation-charging-foreground = ${colors.foreground-alt}
-animation-charging-framerate = 750
-
-[module/temperature]
-type = internal/temperature
-thermal-zone = 0
-warn-temperature = 60
-
-format = <ramp> <label>
-format-underline = #f50a4d
-format-warn = <ramp> <label-warn>
-format-warn-underline = ${self.format-underline}
-
-label = %temperature-c%
-label-warn = %temperature-c%
-label-warn-foreground = ${colors.secondary}
-
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
-ramp-foreground = ${colors.foreground-alt}
-
-[module/powermenu]
-type = custom/menu
-
-format-spacing = 1
-
-label-open = 
-label-open-foreground = ${colors.secondary}
-label-close =  cancel
-label-close-foreground = ${colors.secondary}
-label-separator = |
-label-separator-foreground = ${colors.foreground-alt}
-
-menu-0-0 = reboot
-menu-0-0-exec = menu-open-1
-menu-0-1 = power off
-menu-0-1-exec = menu-open-2
-
-menu-1-0 = cancel
-menu-1-0-exec = menu-open-0
-menu-1-1 = reboot
-menu-1-1-exec = systemctl reboot
-
-menu-2-0 = power off
-menu-2-0-exec = systemctl poweroff
-menu-2-1 = cancel
-menu-2-1-exec = menu-open-0
-
-[settings]
-screenchange-reload = true
-;compositing-background = xor
-;compositing-background = screen
-;compositing-foreground = source
-;compositing-border = over
-
-[global/wm]
-margin-top = 5
-margin-bottom = 5
-
-[module/mail]
-type = custom/script
-interval = 10
-format = <label>
-format-prefix = "  "
-format-prefix-foreground = ${colors.foreground-alt}
-exec = ~/.config/polybar/mail
-
-[module/weather]
-type = custom/script
-interval = 1500
-format = <label>
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #9fbc00
-exec = ~/.config/polybar/scripts/weather.sh "NAM|US|FL|CLEARWATER"
-
-[module/music]
-type = custom/script
-interval = 2
-
-label = %output:0:30:%
-exec = ~/.config/polybar/mpris.sh
-
-; Depends on pomodoro-git and mpg123
-; Fri Jun 30 2017 14:11: After wasting much of my time I realize this is crap since there is no sane way to get it to notify
-[module/pomodoro]
-type = custom/script
-; Use pomodoro glyphs in Nerd fonts
-exec = pymodoro --length 1 --interval 5 --pomodoro-suffix " " --pomodoro-prefix "" --break-suffix " " --break-prefix "" --pomodoro " " --break " " -sp "~/.config/polybar/rising_sun.mp3" -sb "~/.config/polybar/very_super_tone_ever.mp3" -sc "mpg123 %s &"
-label = %output%
-tail = true
-interval = 0
-; Start or reset the timer
-click-left = if [ -e ~/.pomodoro_session ]; then rm ~/.pomodoro_session; else echo "25 5" > ~/.pomodoro_session; fi
-; Increase pomodoro time
-click-right = echo "$((`cut .pomodoro_session -d ' ' -f 1`+5)) 5" > .pomodoro_session
-; Reduce pomodoro time
-click-middle = echo "$((`cut .pomodoro_session -d ' ' -f 1`-5)) 5" > .pomodoro_session
-; vim:ft=dosini:
-
-; Sun Oct 01 2017 11:03
-; It prints left side : pacman updates, right side : aur updates
-[module/pkg]
-type = custom/script
-interval = 1200
-format = <label>
-format-underline = #ee75be
-label = "%output:0:30%"
-exec = .config/polybar/pkg.sh
-; Check if there is internet
-exec-if = ":ping -q -w 2 -c 1 176.34.135.167 > /dev/null"
-
-; Sun Oct 01 2017 11:09
-; pip3 install --upgrade google-api-python-client --user
-; Font Awesome - for email badge
-; canberra-gtk-play - for new email sound
-; Setup
-; cd ~/.config/polybar
-; curl -LO https://github.com/vyachkonovalov/polybar-gmail/archive/master.tar.gz
-; tar zxf master.tar.gz && rm master.tar.gz
-; mv polybar-gmail-master gmail
-; Credentials
-; obtain/refresh credentials at
-; ~/.config/polybar/gmail/auth.py
-; Also in the ~/.config/polybar/gmail/launch.py script change the if line to
-; do the like the described here
-; if not args.nosound and count_was < count and count > 0:
-; subprocess.run(['canberra-gtk-play', '-i', 'message', '-V', '60.0'])
-; subprocess.run(['twmnc -t gmail -c "New email"'])
-[module/gmail]
-type = custom/script
-exec = ~/.config/polybar/gmail/launch.py -p ""
-format-prefix = "  "
-format-underline = #6e1fd4
-format-prefix-foreground = ${colors.foreground-alt}
-tail = true
-click-left = xdg-open https://mail.google.com
-; Check if there is internet
-exec-if = "ping -q -w 2 -c 1 176.34.135.167 > /dev/null"
-
-[module/cmus]
-type = custom/script
-
-exec = sh ~/.config/polybar/scripts/cmus.sh
-exec-if = pgrep -x cmus
-interval = 1
-
-click-left = cmus-remote --pause
-click-right = cmus-remote --stop
-
-; label = %output:0:30:%
-label = %output%
-
-format-prefix = " "
-format-underline = #9117a1
-format-prefix-foreground = ${colors.foreground-alt}
-
-[module/cpuload]
-type = custom/script
-interval = 5
-format-prefix = "  "
-format-underline = #0a6cf5
-exec = ~/.config/polybar/scripts/cpuload.sh
-
-[module/filesystem]
-type = internal/fs
-interval = 30
-mount-0 = /
-mount-1 = /home
-
-label-mounted =  %mountpoint%: %free%
-label-unmounted =
-; label-unmounted = %mountpoint%: not mounted
-label-unmounted-foreground = ${colors.foreground-alt}
-format-underline = #336699
-
-[module/redshift]
-type = custom/script
-interval = 5
-exec = ~/.config/polybar/scripts/redshift.sh
-double-click-left = ~/.config/polybar/scripts/redshift-toggle.sh
-
-[module/compton]
-type = custom/script
-
-exec = ~/.config/polybar/scripts/compton.sh
-double-click-left = ~/.config/polybar/scripts/compton-toggle.sh
-interval = 5
-
-[module/system-nvidia-smi]
-type = custom/script
-exec = ~/.config/polybar/scripts/system-nvidia-smi.sh
-interval = 10
-format-prefix = " "
-format-underline = #f90000
-
-[module/updates-arch-combined]
-; Depends on pacman-contrib
-type = custom/script
-format-prefix = " "
-exec = ~/.config/polybar/scripts/updates-arch-combined.sh
-interval = 60
-
-[module/pulseaudio-tail]
-type = custom/script
-exec = ~/.config/polybar/scripts/pulseaudio-tail.sh
-tail = true
-click-right = exec pavucontrol &
-click-left = ~/polybar-scripts/pulseaudio-tail.sh --mute
-scroll-up = ~/polybar-scripts/pulseaudio-tail.sh --up
-scroll-down = ~/polybar-scripts/pulseaudio-tail.sh --down
-
-[module/news-archlinux]
-type = custom/script
-exec = ~/.config/polybar/scripts/news-archlinux.py
-interval = 600
-
-[module/system-uptime-pretty]
-type = custom/script
-exec = ~/.config/polybar/scripts/system-uptime-pretty.sh
-interval = 30
-format-prefix = " "
-format-underline = #0a6cf5
-
-[module/info-kernel]
-type = custom/script
-exec = uname -r
-interval = 1024
-format-underline = #0a6cf5
-
-[module/pulseaudio-rofi-input]
-type = custom/script
-exec = ~/.config/polybar/scripts/pulseaudio-rofi.sh --input_volume_listener&
-tail = true
-click-right = ~/polybar-scripts/pulseaudio-rofi.sh --input
-click-left = ~/polybar-scripts/pulseaudio-rofi.sh --mute_source
-scroll-up =  ~/polybar-scripts/pulseaudio-rofi.sh --volume_source_up
-scroll-down = ~/polybar-scripts/pulseaudio-rofi.sh --volume_source_down
-
-[module/pulseaudio-rofi-output]
-type = custom/script
-exec = ~/.config/polybar/scripts/pulseaudio-rofi.sh --output_volume_listener&
-tail = true
-click-right = ~/polybar-scripts/pulseaudio-rofi.sh --output
-click-left = ~/polybar-scripts/pulseaudio-rofi.sh --mute
-scroll-up =  ~/polybar-scripts/pulseaudio-rofi.sh --volume_up
-scroll-down = ~/polybar-scripts/pulseaudio-rofi.sh --volume_down
-
-[module/player-cmus]
-type = custom/script
-exec = ~/.config/polybar/scripts/player-cmus.sh
-interval = 1
-click-left = cmus-remote -n
-click-right = cmus-remote -r
-click-middle = cmus-remote -u
-
-format-suffix = " "
-format-underline = #9117a1
-format-prefix-foreground = ${colors.foreground-alt}
-
-; vim:filetype=dosini
