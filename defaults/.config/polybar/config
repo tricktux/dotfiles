@@ -77,7 +77,7 @@ font-3 = Roboto:size=18;0
 
 modules-left = player-cmus
 modules-center = cpu system-nvidia-smi cpuload system-uptime-pretty memory wlan-predator
-modules-right = battery temperature xkeyboard github updates-arch-combined redshift compton
+modules-right = battery temperature xkeyboard github updates-arch-combined redshift compton volume
 
 ; My new settings
 tray-detached = false
@@ -805,20 +805,32 @@ type = internal/network
 interface = wlp3s0
 interval = 1.0
 label-connected = " %essid%  %upspeed%  %downspeed%"
-format-connected = <label-connected>
+format-connected = <label-connected> <ramp-signal> 
 label-disconnected = not connected
 label-disconnected-foreground = #66ffffff
 format-underline = #9fbc00
+ramp-signal-0 = 😱
+ramp-signal-1 = 😠
+ramp-signal-2 = 😒
+ramp-signal-3 = 😊
+ramp-signal-4 = 😃
+ramp-signal-5 = 😈
 
 [module/wlan-up-helios]
 type = internal/network
 interface = wlp0s20f3
 interval = 1.0
-label-connected = " %essid%  %upspeed%  %downspeed%"
-format-connected = <label-connected>
+label-connected = "%essid%  %upspeed%  %downspeed%"
+format-connected = <ramp-signal> <label-connected>
 label-disconnected = not connected
 label-disconnected-foreground = #66ffffff
 format-underline = #9fbc00
+ramp-signal-0 = 😱
+ramp-signal-1 = 😠
+ramp-signal-2 = 😒
+ramp-signal-3 = 😊
+ramp-signal-4 = 😃
+ramp-signal-5 = 😈
 
 [module/github]
 type = internal/github
@@ -1021,7 +1033,7 @@ format-volume-underline = #0b2938
 
 ; Available tokens:
 ;   %percentage% (default)
-label-muted = 
+label-muted = " mute"
 label-muted-foreground = #66
 label-muted-underline = #0b2938
 
