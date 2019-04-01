@@ -610,7 +610,7 @@ scroll-up = i3wm-wsnext
 scroll-down = i3wm-wsprev
 
 [module/xwindow]
-; format-prefix            = <
+format-prefix            = " "
 ; format-prefix-background = ${colors.t5}
 ; format-prefix-foreground = ${colors.t5}
 ; format-suffix            = >
