@@ -76,7 +76,7 @@ font-3 = Roboto:size=18;0
 ; For more info look [here](https://github.com/jaagr/polybar/issues/313)
 
 modules-left = player-cmus
-modules-center = cpu system-nvidia-smi cpuload system-uptime-pretty memory wlan-down-predator wlan-up-predator
+modules-center = cpu system-nvidia-smi cpuload system-uptime-pretty memory wlan-predator
 modules-right = battery temperature xkeyboard github updates-arch-combined redshift compton
 
 ; My new settings
@@ -800,31 +800,25 @@ bar-used-fill = ▐
 bar-used-empty = ▐
 bar-used-empty-foreground = #444444
 
-[module/wlan-up-predator]
+[module/wlan-predator]
 type = internal/network
 interface = wlp3s0
 interval = 1.0
-format-prefix = " "
-label-connected = %upspeed:7%
+label-connected = " %essid%  %upspeed%  %downspeed%"
 format-connected = <label-connected>
-format-underline = #9fbc00
-
-[module/wlan-down-predator]
-type = internal/network
-interface = wlp3s0
-interval = 1.0
-format-prefix = " "
-label-connected = %downspeed:7%
-format-connected = <label-connected>
+label-disconnected = not connected
+label-disconnected-foreground = #66ffffff
 format-underline = #9fbc00
 
 [module/wlan-up-helios]
 type = internal/network
 interface = wlp0s20f3
 interval = 1.0
-label-connected = %upspeed:7%
-format-prefix = " "
+label-connected = " %essid%  %upspeed%  %downspeed%"
 format-connected = <label-connected>
+label-disconnected = not connected
+label-disconnected-foreground = #66ffffff
+format-underline = #9fbc00
 
 [module/github]
 type = internal/github
@@ -841,37 +835,6 @@ label = %notifications%
 format-prefix = " "
 interval = 10
 
-[module/wlan-down-helios]
-type = internal/network
-interface = wlp0s20f3
-interval = 1.0
-format-prefix = " "
-label-connected = %downspeed:7%
-format-connected = <label-connected>
-
-[module/wlan-predator]
-type = internal/network
-interface = wlp3s0
-interval = 3.0
-
-format-connected = <ramp-signal> <label-connected>
-format-connected-underline = #9f78e1
-label-connected = %essid%
-
-; label-disconnected = not connected
-; label-disconnected-foreground = #66ffffff
-;format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${colors.foreground-alt}
-
-ramp-signal-0 = 😱
-ramp-signal-1 = 😠
-ramp-signal-2 = 😒
-ramp-signal-3 = 😊
-ramp-signal-4 = 😃
-ramp-signal-5 = 😈
-ramp-signal-foreground = ${colors.foreground-alt}
 [module/wlan-surbook]
 type = internal/network
 interface = wlp1s0
