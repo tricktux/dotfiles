@@ -75,9 +75,10 @@ font-3 = Roboto:size=18;0
 ; If that doesnt return anything try with grep siji instead of grep Siji
 ; For more info look [here](https://github.com/jaagr/polybar/issues/313)
 
-modules-left = battery temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory wlan-down-predator  wlan-up-predator
-modules-center = player-cmus
-modules-right = xkeyboard updates-arch-combined redshift compton
+modules-left = player-cmus
+modules-center = cpu system-nvidia-smi cpuload system-uptime-pretty memory wlan-down-predator wlan-up-predator
+; modules-center = player-cmus
+modules-right = battery temperature xkeyboard updates-arch-combined redshift compton
 
 ; My new settings
 tray-detached = false
@@ -772,22 +773,22 @@ interval = 2
 ;   <label> (default)
 ;   <bar-used>
 ;   <bar-free>
-; format = <label> <bar-used>
-format-prefix = " "
+format = <label> <ramp-free>
+format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #4bffdc
 ; label = %gb_used%
-label = %gb_used%/%gb_total%
+label = %gb_used%
 ; format = <label> <ramp-free>
 ; Only applies if <ramp-used> is used
-ramp-free-0 = ▁
-ramp-free-1 = ▂
-ramp-free-2 = ▃
-ramp-free-3 = ▄
-ramp-free-4 = ▅
-ramp-free-5 = ▆
-ramp-free-6 = ▇
-ramp-free-7 = █
+ramp-free-7 = ▁
+ramp-free-6 = ▂
+ramp-free-5 = ▃
+ramp-free-4 = ▄
+ramp-free-3 = ▅
+ramp-free-2 = ▆
+ramp-free-1 = ▇
+ramp-free-0 = █
 
 ; Only applies if <bar-used> is used in format
 bar-used-indicator = 
