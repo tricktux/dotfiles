@@ -77,8 +77,7 @@ font-3 = Roboto:size=18;0
 
 modules-left = player-cmus
 modules-center = cpu system-nvidia-smi cpuload system-uptime-pretty memory wlan-down-predator wlan-up-predator
-; modules-center = player-cmus
-modules-right = battery temperature xkeyboard updates-arch-combined redshift compton
+modules-right = battery temperature xkeyboard github updates-arch-combined redshift compton
 
 ; My new settings
 tray-detached = false
@@ -805,9 +804,10 @@ bar-used-empty-foreground = #444444
 type = internal/network
 interface = wlp3s0
 interval = 1.0
-format-prefix = " "
+format-prefix = " "
 label-connected = %upspeed:7%
 format-connected = <label-connected>
+format-underline = #9fbc00
 
 [module/wlan-down-predator]
 type = internal/network
@@ -816,18 +816,36 @@ interval = 1.0
 format-prefix = " "
 label-connected = %downspeed:7%
 format-connected = <label-connected>
+format-underline = #9fbc00
 
 [module/wlan-up-helios]
 type = internal/network
 interface = wlp0s20f3
 interval = 1.0
 label-connected = %upspeed:7%
+format-prefix = " "
 format-connected = <label-connected>
+
+[module/github]
+type = internal/github
+
+; Accessing an access token stored in file
+token = ${file:/home/reinaldo/.config/polybar/scripts/github}
+
+; Whether empty notifications should be displayed or not
+empty-notifications = false
+
+label = %notifications%
+
+; Number of seconds in between requests
+format-prefix = " "
+interval = 10
 
 [module/wlan-down-helios]
 type = internal/network
 interface = wlp0s20f3
 interval = 1.0
+format-prefix = " "
 label-connected = %downspeed:7%
 format-connected = <label-connected>
 
@@ -1309,6 +1327,7 @@ interval = 5
 type = custom/script
 exec = ~/.config/polybar/scripts/system-nvidia-smi.sh
 interval = 10
+format-prefix = " "
 format-underline = #f90000
 
 [module/updates-arch-combined]
@@ -1371,7 +1390,7 @@ click-left = cmus-remote -n
 click-right = cmus-remote -r
 click-middle = cmus-remote -u
 
-format-prefix = " "
+format-suffix = " "
 format-underline = #9117a1
 format-prefix-foreground = ${colors.foreground-alt}
 
