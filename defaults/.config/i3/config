@@ -676,7 +676,9 @@ exec --no-startup-id protonmail-bridge --cli
 # exec --no-startup-id redshift -c ~/.config/redshift.conf
 
 # Thu Sep 06 2018 04:19: Cool new audio system tray icon 
-exec --no-startup-id pasystray
+# Tue Apr 02 2019 15:05: Its not so cool.
+#  - barely see what the volume is. going out. polybar volume in
+# exec --no-startup-id pasystray
 # Sat Jul 07 2018 09:07: A little buggy
 # exec --no-startup-id variety
 
