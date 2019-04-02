@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #The icon that would change color
-icon=""
+icon="  "
 
 if pgrep -x "compton" > /dev/null
 then
