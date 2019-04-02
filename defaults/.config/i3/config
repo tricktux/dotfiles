@@ -111,29 +111,29 @@ set $right l
 
 # Launch toggle scratchpads
 bindsym $mod+n exec \
-	--no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
+	--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
 	ranger "$TERMINAL -t ranger -e ranger"
 bindsym $mod+6 exec \
-	--no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
+	--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
 	cmus "$TERMINAL -t cmus -e cmus"
 bindsym $mod+9 exec \
-	--no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
+	--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
 	gmail-mutt "$TERMINAL -t gmail-mutt \
 	-e 'neomutt -F ~/.config/neomutt/user.gmail'"
 bindsym $mod+8 exec \
-	--no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
+	--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
 	proton-mutt "$TERMINAL -t proton-mutt \
 	-e 'neomutt -F ~/.config/neomutt/user.pm'"
 bindsym $mod+7 exec \
-	--no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
+	--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
 	psu-mutt "$TERMINAL -t psu-mutt \
 	-e 'neomutt -F ~/.config/neomutt/user.psu'"
 bindsym $mod+i exec \
-	--no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
+	--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
 	journal "$TERMINAL -t journal \
-	-e ~/.config/polybar/scripts/journal.sh"
+	-e ~/.config/i3/scripts/journal.sh"
 bindsym $mod+o exec \
-	--no-startup-id ~/.config/polybar/scripts/scratchpad_toggle \
+	--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
 	terminal "$TERMINAL \
 	-t terminal -e 'tmux -f /home/reinaldo/.config/tmux/conf'"
 
@@ -148,9 +148,9 @@ bindsym control+mod1+m exec --no-startup-id pamixer --toggle-mute
 bindsym control+mod1+p exec --no-startup-id pavucontrol
 bindsym control+mod1+b exec --no-startup-id blueberry
 bindsym control+mod1+i exec --no-startup-id \
-	~/.config/polybar/scripts/pulseaudio-rofi.sh --input
+	~/.config/i3/scripts/pulseaudio-rofi.sh --input
 bindsym control+mod1+o exec --no-startup-id \
-	~/.config/polybar/scripts/pulseaudio-rofi.sh --output
+	~/.config/i3/scripts/pulseaudio-rofi.sh --output
 
 # bindsym $mod+n exec rofi -show window -opacity "50"
 bindsym $mod+m scratchpad show
@@ -275,7 +275,7 @@ bindsym $mod+Shift+r restart
 # 'Yes, exit i3' 'i3-msg exit'"
 # Here we replace default nagbar with i3-exit
 bindsym Control+Mod1+Delete exec --no-startup-id \
-	~/.config/polybar/scripts/shutdown_menu -c
+	~/.config/i3/scripts/shutdown_menu -c
 
 ########### Custom Bindings ############################
 bindsym Print exec --no-startup-id gnome-screenshot
