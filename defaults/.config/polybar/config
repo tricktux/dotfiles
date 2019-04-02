@@ -189,11 +189,11 @@ font-3 = Roboto:size=10;0
 ; echo "$(fc-list : family | grep Siji | tail -1):pixelsize=10"
 ; If that doesnt return anything try with grep siji instead of grep Siji
 ; For more info look [here](https://github.com/jaagr/polybar/issues/313)
-font-4=WunconSiji:pixelsize=10;0
+font-4 = Iosevka Nerd Font:style=Medium:size=14;3
 
 modules-left = player-cmus
-modules-center = cpu system-nvidia-smi cpuload system-uptime-pretty memory wlan-helios
-modules-right = battery_helios temperature xbacklight volume xkeyboard updates-arch-combined redshift compton
+modules-center = temperature right-end-bottom cpu system-nvidia-smi cpuload system-uptime-pretty memory wlan-helios
+modules-right = battery_helios xbacklight volume xkeyboard updates-arch-combined redshift compton
 
 tray-maxsize = 20
 
