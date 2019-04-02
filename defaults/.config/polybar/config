@@ -191,8 +191,8 @@ font-3 = Roboto:size=10;0
 ; For more info look [here](https://github.com/jaagr/polybar/issues/313)
 font-4 = Iosevka Nerd Font:style=Medium:size=14;3
 
-modules-left = 
-modules-center = left-end-top temperature cpu system-nvidia-smi right-end-bottom space left-end-top cpuload system-uptime-pretty memory wlan-helios right-end-top
+modules-left = temperature cpu system-nvidia-smi right-end-bottom space left-end-top memory right-end-bottom 
+modules-center =  left-end-top cpuload system-uptime-pretty wlan-helios right-end-top
 modules-right = battery_helios xbacklight volume xkeyboard updates-arch-combined redshift compton
 
 tray-maxsize = 20
