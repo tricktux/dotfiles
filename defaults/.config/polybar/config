@@ -193,7 +193,7 @@ font-4=WunconSiji:pixelsize=10;0
 
 modules-left = player-cmus
 modules-center = cpu system-nvidia-smi cpuload system-uptime-pretty memory wlan-helios
-modules-right = battery_helios temperature volume xkeyboard updates-arch-combined redshift compton 
+modules-right = battery_helios temperature xbacklight volume xkeyboard updates-arch-combined redshift compton
 
 tray-maxsize = 20
 
