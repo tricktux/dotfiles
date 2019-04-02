@@ -51,11 +51,11 @@ compositing-border = over
 
 ; Define fallback values used by all module formats
 format-foreground = 
-format-background = 
+format-background = ${color.mb}
 format-underline =
 format-overline =
-format-spacing =
-format-padding =
+format-spacing = 1
+format-padding = 1
 format-margin =
 format-offset =
 
@@ -94,8 +94,8 @@ border-color = #00000000
 padding-left = 0
 padding-right = 0
 
-module-margin-left = 1
-module-margin-right = 1
+module-margin-left = 0
+module-margin-right = 0
 
 ; override-redirect = true
 enable-ipc = true
@@ -142,8 +142,8 @@ border-color = #00000000
 padding-left = 0
 padding-right = 0
 
-module-margin-left = 1
-module-margin-right = 1
+module-margin-left = 0
+module-margin-right = 0
 ; override-redirect = true
 enable-ipc = true
 
@@ -192,7 +192,7 @@ font-3 = Roboto:size=10;0
 font-4 = Iosevka Nerd Font:style=Medium:size=14;3
 
 modules-left = player-cmus
-modules-center = temperature right-end-bottom cpu system-nvidia-smi cpuload system-uptime-pretty memory wlan-helios
+modules-center = left-end-top temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory wlan-helios right-end-top
 modules-right = battery_helios xbacklight volume xkeyboard updates-arch-combined redshift compton
 
 tray-maxsize = 20
@@ -347,3 +347,4 @@ cursor-scroll =
 
 ;; Application Settings
 
+; vim: ft=dosini
