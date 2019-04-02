@@ -51,11 +51,11 @@ compositing-border = over
 
 ; Define fallback values used by all module formats
 format-foreground = 
-format-background = ${color.mb}
+format-background =
 format-underline =
 format-overline =
-format-spacing = 1
-format-padding = 1
+format-spacing = 
+format-padding = 
 format-margin =
 format-offset =
 
@@ -191,8 +191,8 @@ font-3 = Roboto:size=10;0
 ; For more info look [here](https://github.com/jaagr/polybar/issues/313)
 font-4 = Iosevka Nerd Font:style=Medium:size=14;3
 
-modules-left = player-cmus
-modules-center = left-end-top temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory wlan-helios right-end-top
+modules-left = 
+modules-center = left-end-top temperature cpu system-nvidia-smi right-end-bottom space left-end-top cpuload system-uptime-pretty memory wlan-helios right-end-top
 modules-right = battery_helios xbacklight volume xkeyboard updates-arch-combined redshift compton
 
 tray-maxsize = 20
