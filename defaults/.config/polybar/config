@@ -166,15 +166,11 @@ font-0 = "Font Awesome 5 Free:style=Regular:pixelsize=18;1"
 font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=18;1"
 font-2 = "Font Awesome 5 Brands:pixelsize=18;1"
 font-3 = Roboto:size=18;0
-; font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-; Fri Sep 15 2017 09:18: In order to get siji font to work use this command to get the exact name:
-; echo "$(fc-list : family | grep Siji | tail -1):pixelsize=10"
-; If that doesnt return anything try with grep siji instead of grep Siji
-; For more info look [here](https://github.com/jaagr/polybar/issues/313)
+font-4 = Iosevka Nerd Font:style=Medium:size=22;3
 
-modules-left = player-cmus
-modules-center = cpu system-nvidia-smi cpuload system-uptime-pretty memory wlan-predator
-modules-right = temperature xkeyboard updates-arch-combined redshift compton volume
+modules-left = wlan-predator right-end-bottom space left-end-top memory right-end-bottom 
+modules-center =  left-end-top temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory right-end-top
+modules-right = left-end-bottom battery_helios right-end-top space left-end-bottom xbacklight volume xkeyboard updates-arch-combined redshift compton
 
 tray-maxsize = 40
 
@@ -184,11 +180,6 @@ font-0 = "Font Awesome 5 Free:style=Regular:pixelsize=10;1"
 font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=10;1"
 font-2 = "Font Awesome 5 Brands:pixelsize=10;1"
 font-3 = Roboto:size=10;0
-; font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-; Fri Sep 15 2017 09:18: In order to get siji font to work use this command to get the exact name:
-; echo "$(fc-list : family | grep Siji | tail -1):pixelsize=10"
-; If that doesnt return anything try with grep siji instead of grep Siji
-; For more info look [here](https://github.com/jaagr/polybar/issues/313)
 font-4 = Iosevka Nerd Font:style=Medium:size=14;3
 
 modules-left = wlan-helios right-end-bottom space left-end-top memory right-end-bottom 
