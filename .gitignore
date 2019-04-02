@@ -6,6 +6,7 @@ defaults/.config/ranger/tagged
 defaults/.config/pcmanfm/LXDE/desktop-items-1.conf
 defaults/.config/i3/i3blocks-email/
 defaults/.config/qutebrowser/quickmarks
+defaults/.config/polybar/scripts/github
 mutt/gmail/cache/
 mutt/gmail/certificates
 mutt/ufl/cache
