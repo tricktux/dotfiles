@@ -174,7 +174,7 @@ font-3 = Roboto:size=18;0
 
 modules-left = player-cmus
 modules-center = cpu system-nvidia-smi cpuload system-uptime-pretty memory wlan-predator
-modules-right = battery temperature xkeyboard updates-arch-combined redshift compton volume
+modules-right = temperature xkeyboard updates-arch-combined redshift compton volume
 
 tray-maxsize = 40
 
@@ -191,9 +191,9 @@ font-3 = Roboto:size=10;0
 ; For more info look [here](https://github.com/jaagr/polybar/issues/313)
 font-4=WunconSiji:pixelsize=10;0
 
-modules-left = battery_helios temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory wlan-down-helios wlan-up-helios
-modules-center = player-cmus
-modules-right = xkeyboard backlight-acpi updates-arch-combined redshift compton 
+modules-left = player-cmus
+modules-center = cpu system-nvidia-smi cpuload system-uptime-pretty memory wlan-helios
+modules-right = battery_helios temperature xkeyboard updates-arch-combined redshift compton volume
 
 tray-maxsize = 20
 
