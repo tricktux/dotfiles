@@ -180,7 +180,7 @@ font-2 = "Font Awesome 5 Brands:pixelsize=10;1"
 font-3 = Roboto:size=10;0
 font-4 = Iosevka Nerd Font:style=Medium:size=14;3
 
-modules-left = wlan-helios right-end-bottom space left-end-top memory right-end-bottom 
+modules-left = wlan-helios right-end-bottom space left-end-top info-pingrtt right-end-bottom 
 modules-center =  left-end-top temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory right-end-top
 modules-right = left-end-bottom battery_helios right-end-top space left-end-bottom xbacklight volume xkeyboard updates-arch-combined redshift compton
 
@@ -203,3 +203,4 @@ font-2 = "Font Awesome 5 Brands:pixelsize=10;1"
 font-3 = Roboto:size=10;0
 font-4 = Iosevka Nerd Font:style=Medium:size=14;3
 
+; vim: ft=dosini
