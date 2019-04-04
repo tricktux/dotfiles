@@ -1002,6 +1002,7 @@ function! mappings#SetWhichKeyMap() abort
 	nnoremap gd gd
 	nnoremap gD gD
 	nnoremap g; g;
+	nnoremap g, g,
 	nnoremap gq gq
 	nnoremap gv gv
 	nnoremap g8 g8
