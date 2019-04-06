@@ -1,0 +1,130 @@
+#!/usr/bin/env python
+
+import stravalib
+from stravalib import unithelper
+import logging
+from logging.handlers import RotatingFileHandler
+import datetime
+import argparse
+import configparser
+from pathlib import Path
+import sys
+import os
+
+DEBUG = 0
+LOG = 'get_activities'
+
+
+class Config():
+    def __init__(self, filename):
+        self.config = configparser.ConfigParser()
+
+        my_file = Path(filename)
+        logger = logging.getLogger(LOG)
+        if DEBUG > 0:
+            logger.debug('[Config::init]: filename = %s', filename)
+        if not my_file.is_file():
+            if DEBUG > 0:
+                logger.critical('[Config::init]: filename not found')
+            print(-1)
+            sys.exit(1)
+        self.config.read(filenames=filename)
+
+    def get_str(self, section, option, default):
+        """Get string option"""
+        logger = logging.getLogger(LOG)
+        try:
+            return self.config[section].get(option, default)
+        except:
+            if DEBUG > 0:
+                logger.critical(
+                    '[Config::get_str]: Failed to get option: "%s", section: "%s"',
+                    option,
+                    section,
+                    exc_info=True)
+            return default
+
+
+class Parser():
+    def __init__(self):
+        self.parser = argparse.ArgumentParser(description='Get strava info')
+        self.parser.add_argument(
+            'config',
+            default='config.ini',
+            help='path to the configuration file')
+        self.parser.add_argument(
+            '--debug', '-d', type=int, default=0, help='create debug file')
+        self.args = self.parser.parse_args()
+
+
+class Strava(object):
+    def __init__(self, token, year):
+        logger = logging.getLogger(LOG)
+        if DEBUG > 0:
+            logger.debug('token: "%s", year: "%s"', token, year)
+        self.current_year = datetime.date.today().year
+        if not year or year == 'current':
+            year = self.current_year
+        try:
+            self.client = stravalib.client.Client(access_token=token)
+            self.activities = self.client.get_activities(
+                after='{}-01-01T00:00:00Z'.format(str(year)),
+                before='{}-01-01T00:00:00Z'.format(str(year + 1)),
+                limit=500)
+        except:
+            if DEBUG > 0:
+                logger.critical('failed to get activities', exc_info=True)
+            print(-3)
+            sys.exit(3)
+
+    def get_num_activities(self):
+        return str(len(list(self.activities)))
+
+    def get_total_time(self):
+        """Get time for all activities"""
+        elapse_time = 0
+        for activity in self.activities:
+            elapse_time += activity.elapsed_time.seconds
+        return str(datetime.timedelta(seconds=elapse_time))
+
+    def get_total_distance(self):
+        """Get total distance in miles for all activities"""
+        d = 0.0
+        for activity in self.activities:
+            d += float(activity.distance)
+
+        return str(round(d*0.0006213712, 1))
+
+
+def set_logger():
+    """Setups the logger"""
+    directory = os.path.dirname(os.path.realpath(__file__))
+
+    logger = logging.getLogger(LOG)
+    handler = RotatingFileHandler(
+        '{}/'.format(directory) + LOG + '.log',
+        maxBytes=10**6,
+        backupCount=5)
+    formatter = logging.Formatter(
+        '%(asctime)s_%(levelname)s: %(message)s')
+
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    logger.setLevel(logging.DEBUG)
+
+
+if __name__ == '__main__':
+    parser = Parser()
+    DEBUG = int(parser.args.debug)
+    set_logger()
+    config = Config(parser.args.config)
+    token = config.get_str('Token', 'access_token', "")
+    if not token:
+        print(-2)
+        sys.exit(2)
+    year = config.get_str('Workout', 'year', "")
+    strava = Strava(token, year)
+    num_workouts = strava.get_num_activities()
+    num_hours = strava.get_total_time()
+    num_miles = strava.get_total_distance()
+    print(num_workouts + ' ' + num_hours + ' ' + num_miles + 'm')
