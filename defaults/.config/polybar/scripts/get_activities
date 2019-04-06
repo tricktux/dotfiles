@@ -1,15 +1,16 @@
 #!/usr/bin/env python
 
-import stravalib
-from stravalib import unithelper
-import logging
-from logging.handlers import RotatingFileHandler
-import datetime
 import argparse
 import configparser
-from pathlib import Path
-import sys
+import datetime
+import logging
 import os
+import sys
+from logging.handlers import RotatingFileHandler
+from pathlib import Path
+
+from stravalib import unithelper
+from stravalib.client import Client
 
 DEBUG = 0
 LOG = 'get_activities'
@@ -19,16 +20,16 @@ class Config():
     def __init__(self, filename):
         self.config = configparser.ConfigParser()
 
-        my_file = Path(filename)
+        self.my_file = Path(filename)
         logger = logging.getLogger(LOG)
         if DEBUG > 0:
             logger.debug('[Config::init]: filename = %s', filename)
-        if not my_file.is_file():
+        if not self.my_file.is_file():
             if DEBUG > 0:
                 logger.critical('[Config::init]: filename not found')
             print(-1)
             sys.exit(1)
-        self.config.read(filenames=filename)
+        self.config.read(filenames=self.my_file)
 
     def get_str(self, section, option, default):
         """Get string option"""
@@ -44,6 +45,22 @@ class Config():
                     exc_info=True)
             return default
 
+    def set_str(self, section, option, value):
+        """Set value of section"""
+        logger = logging.getLogger(LOG)
+        try:
+            self.config[section][option] = value
+            with open(self.my_file, 'w') as configfile:
+                self.config.write(configfile)
+        except:
+            if DEBUG > 0:
+                logger.critical(
+                    '[Config::set_str]: Failed to set option: "%s", section: "%s"',
+                    option,
+                    section,
+                    exc_info=True)
+            return
+
 
 class Parser():
     def __init__(self):
@@ -57,25 +74,47 @@ class Parser():
         self.args = self.parser.parse_args()
 
 
-class Strava(object):
-    def __init__(self, token, year):
+class Strava():
+    def __init__(self, token, client_id, client_secret, year, config):
         logger = logging.getLogger(LOG)
         if DEBUG > 0:
             logger.debug('token: "%s", year: "%s"', token, year)
         self.current_year = datetime.date.today().year
+        self.config = config
         if not year or year == 'current':
             year = self.current_year
         try:
-            self.client = stravalib.client.Client(access_token=token)
-            self.activities = self.client.get_activities(
+            client = Client()
+            # Exchange refresh token for a "new" access token.
+            # If access_token has not expired (it expires every 6 hours)
+            # You will get the same old token. Otherwise, you will get a new
+            # token. which you have to save (update_token_information)
+            # Read here: https://developers.strava.com/docs/authentication/
+            # Specifically the "Refresh expired access tokens part"
+            access_token = client.refresh_access_token(client_id,
+                                                       client_secret, token)
+            client.access_token = access_token["access_token"]
+            self.activities = client.get_activities(
                 after='{}-01-01T00:00:00Z'.format(str(year)),
                 before='{}-01-01T00:00:00Z'.format(str(year + 1)),
                 limit=500)
+            if token != access_token["refresh_token"]:
+                if DEBUG > 0:
+                    logger.debug('There is a new token in town!!!')
+                    logger.debug('old token: "%s". new token: "%s"', token,
+                                 access_token["refresh_token"])
+                self.update_token_information(access_token)
         except:
             if DEBUG > 0:
                 logger.critical('failed to get activities', exc_info=True)
             print(-3)
             sys.exit(3)
+
+    def update_token_information(self, token):
+        """Write the newly recently obtained information"""
+        self.config.set_str('Token', 'access_token', token['access_token'])
+        self.config.set_str('Token', 'refresh_token', token['refresh_token'])
+        self.config.set_str('Token', 'expires_at', str(token['expires_at']))
 
     def get_num_activities(self):
         return str(len(list(self.activities)))
@@ -85,7 +124,8 @@ class Strava(object):
         elapse_time = 0
         for activity in self.activities:
             elapse_time += activity.elapsed_time.seconds
-        return str(datetime.timedelta(seconds=elapse_time))
+        t = str(datetime.timedelta(seconds=elapse_time))
+        return t[:-3]
 
     def get_total_distance(self):
         """Get total distance in miles for all activities"""
@@ -93,7 +133,25 @@ class Strava(object):
         for activity in self.activities:
             d += float(activity.distance)
 
-        return str(round(d*0.0006213712, 1))
+        return str(round(d * 0.0006213712, 1))
+
+    def sortby(self, item):
+        return item.start_date
+
+    def get_last_bike_avg_speed(self):
+        """Get the avg speed in miles per hour of the last bike ride"""
+        """Types seem to be 'Run', 'Swim', 'Ride'"""
+        logger = logging.getLogger(LOG)
+        avg = 0.0
+        for activity in sorted(self.activities, key=self.sortby, reverse=True):
+            if DEBUG > 0:
+                logger.debug('[get_last_bike_avg_speed]: type = "%s"',
+                             str(activity.type))
+            if activity.type == 'Ride':
+                avg = unithelper.miles_per_hour(activity.average_speed)
+                break
+
+        return str(avg)
 
 
 def set_logger():
@@ -102,11 +160,8 @@ def set_logger():
 
     logger = logging.getLogger(LOG)
     handler = RotatingFileHandler(
-        '{}/'.format(directory) + LOG + '.log',
-        maxBytes=10**6,
-        backupCount=5)
-    formatter = logging.Formatter(
-        '%(asctime)s_%(levelname)s: %(message)s')
+        '{}/'.format(directory) + LOG + '.log', maxBytes=10**6, backupCount=5)
+    formatter = logging.Formatter('%(asctime)s_%(levelname)s: %(message)s')
 
     handler.setFormatter(formatter)
     logger.addHandler(handler)
@@ -117,14 +172,23 @@ if __name__ == '__main__':
     parser = Parser()
     DEBUG = int(parser.args.debug)
     set_logger()
+    logger = logging.getLogger(LOG)
     config = Config(parser.args.config)
-    token = config.get_str('Token', 'access_token', "")
-    if not token:
+    token = config.get_str('Token', 'refresh_token', "")
+    client_id = config.get_str('ApiInfo', 'client_id', "")
+    client_secret = config.get_str('ApiInfo', 'client_secret', "")
+    if not token or not client_id or not client_secret:
+        if DEBUG > 0:
+            logger.critical(
+                'failed to get tokens. token: "%s", client_id: "%s", client_secret: "%s"',
+                token, client_id, client_secret)
         print(-2)
         sys.exit(2)
     year = config.get_str('Workout', 'year', "")
-    strava = Strava(token, year)
+    strava = Strava(token, client_id, client_secret, year, config)
     num_workouts = strava.get_num_activities()
     num_hours = strava.get_total_time()
     num_miles = strava.get_total_distance()
-    print(num_workouts + ' ' + num_hours + ' ' + num_miles + 'm')
+    avg_bike_speed = strava.get_last_bike_avg_speed()[:-7]
+    print(num_workouts + ' ' + num_hours + ' ' + num_miles + 'm ' +
+          avg_bike_speed + ' m/h')
