@@ -109,6 +109,11 @@ set $right l
 # Bindigs{{{
 # Note: Use Mouse+$mod to drag floating windows to their wanted position
 
+
+# Now if I want to write a bunch of stuff I can do that with dvorak
+bindsym control+mod1+d exec --no-startup-id \
+		~/.config/i3/scripts/switch_dvorak.sh
+
 # Launch toggle scratchpads
 bindsym $mod+n exec \
 	--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
