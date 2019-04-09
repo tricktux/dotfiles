@@ -10,8 +10,8 @@ function! mappings#Set()
 	" CUSTOM MAPPINGS
 	if has('unix')
 		" System paste
-		nnoremap <Leader>p "+p=`]<C-o>
-		vnoremap <Leader>p "+p=`]<C-o>
+		nnoremap <Leader>p "+p=`]
+		vnoremap <Leader>p "+p=`]
 
 		nnoremap <Leader>y "+yy
 		vnoremap <Leader>y "+y
@@ -19,8 +19,8 @@ function! mappings#Set()
 		nnoremap  o<Esc>
 	else
 		" Copy and paste into system wide clipboard
-		nnoremap <Leader>p "*p=`]<C-o>
-		vnoremap <Leader>p "*p=`]<C-o>
+		nnoremap <Leader>p "*p=`]
+		vnoremap <Leader>p "*p=`]
 
 		nnoremap <Leader>y "*yy
 		vnoremap <Leader>y "*y
@@ -171,8 +171,8 @@ function! mappings#Set()
 	nnoremap <Leader>j4 :setlocal ts=4 sw=4 sts=4<cr>
 	nnoremap <Leader>j8 :setlocal ts=8 sw=8 sts=8<cr>
 	" not paste the deleted word
-	nnoremap P "0p
-	vnoremap P "0p
+	nnoremap P :normal! "0p<cr>
+	vnoremap P :normal! "0p<cr>
 	" Force wings_syntax on a file
 	nnoremap <Leader>jw :set filetype=wings_syntax<cr>
 	nnoremap <Leader>j. :call <SID>exec_last_command()<cr>
@@ -231,7 +231,7 @@ function! mappings#Set()
 	vnoremap <F5> s<Space><ESC>"=strftime("%a %b %d %Y %H:%M")<cr>Pa
 	inoremap <F5> <Space><ESC>"=strftime("%a %b %d %Y %H:%M")<cr>Pa
 	" Auto indent pasted text
-	nnoremap p p=`]<C-o>
+	nnoremap p :normal! p=`]<cr>
 	nnoremap Y y$
 
 	" Vim-unimpaired similar mappings
