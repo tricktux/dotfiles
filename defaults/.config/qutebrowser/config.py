@@ -89,7 +89,7 @@ c.url.searchengines['a'] = 'https://wiki.archlinux.org/?search={}'
 c.url.searchengines['y'] = 'https://www.youtube.com/results?search_query={}'
 c.url.searchengines[
     'w'] = 'https://secure.wikimedia.org/wikipedia/en/w/index.php?title=Special%%3ASearch&search={}'
-c.url.searchengines['g'] = 'https://github.com/search?q={}&type=Code'
+c.url.searchengines['g'] = 'https://github.com/search?q={}&type=Repositories'
 
 #  Privacy settings
 #  Not available while using webengine backend
@@ -97,7 +97,7 @@ c.url.searchengines['g'] = 'https://github.com/search?q={}&type=Code'
 #  c.content.geolocation = False
 #  c.content.canvas_reading = False
 #  c.content.headers.custom = {
-    #  "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+#  "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
 #  }
 #  c.content.webgl = False
 #  c.content.javascript.enabled = False
