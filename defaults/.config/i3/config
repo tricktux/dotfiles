@@ -469,23 +469,21 @@ mode "resize" {
 }
 # }}}
 
-# Mode Power{{{
-# This wasnt really working so scratching this
-# set $mode_power power
-# bindsym $mod+Control+l mode "$mode_power"
-# mode "$mode_power" {
-	# bindsym l mode "default", \
-	#	exec --no-startup-id $HOME/.i3/i3exit lock
-	# bindsym e mode "default", \
-	#	exec --no-startup-id $HOME/.config/i3/i3exit logout
-	# bindsym r mode "default", \
-	#	exec --no-startup-id $HOME/.config/i3/i3exit reboot
-	# bindsym p mode "default", \
-	#	exec --no-startup-id $HOME/.config/i3/i3exit shutdown
+# Mode Password{{{
+# 
+set $mode_password pass: press (w)root, (f)githug, (d)git
+bindsym mod1+control+w mode "$mode_password"
+mode "$mode_password" {
+	bindsym w mode "default", \
+		exec --no-startup-id pass --clip linux/`hostname`/user_root
+	bindsym f mode "default", exec --no-startup-id \
+		pass --clip linux/`hostname`/ssh_key/id_ed25519_github
+	bindsym d mode "default", exec --no-startup-id \
+		pass --clip linux/`hostname`/ssh_key/id_ed25519_git_server
 
-	# bindsym Return mode "default"
-	# bindsym Escape mode "default"
-# }
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
 # }}}
 
 # Mode gaps{{{
