@@ -48,6 +48,8 @@ function! augroup#Set() abort
 		autocmd FileType fzf inoremap <buffer> <c-n> <down>
 
 		autocmd FileType gitcommit setlocal spell spelllang=en
+
+		autocmd FileType terminal setlocal nonumber norelativenumber bufhidden=hide
 	augroup END
 
 	" To improve syntax highlight speed. If something breaks with highlight
@@ -95,7 +97,7 @@ function! augroup#Set() abort
 	if has('nvim')
 		augroup Terminal
 			autocmd!
-			autocmd TermOpen * setfiletype terminal
+			autocmd TermOpen * set filetype=terminal
 		augroup END
 	else
 		augroup Terminal
@@ -144,10 +146,6 @@ function! s:determine_buf_type() abort
 		call s:set_bin_file_type()
 	endif
 
-	let buf_type = &buftype
-	if buf_type ==? 'terminal'
-		setfiletype terminal
-	endif
 endfunction
 
 function! s:set_bin_file_type() abort
