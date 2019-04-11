@@ -13,15 +13,13 @@ endif
 " Don't load another plugin for this buffer
 let b:did_terminal_ftplugin = 1
 
-setlocal bufhidden=hide
-setlocal nonumber
-
 " If plugin neoterm was loaded and mappings accepted
 if !exists("no_plugin_maps") && !exists("no_terminal_maps")
 	if exists('*neoterm#close()')
 		" hide/close terminal
-		nnoremap <buffer> <silent> h :call neoterm#close()<cr>
-		nnoremap <buffer> <silent> q :Tclose!<cr>
+		" Thu Apr 11 2019 11:25: Doesnt work. Plugin broken 
+		nnoremap <buffer> <silent> q ZZ
+		nnoremap <buffer> <silent> Q :Tclose!<cr>
 	endif
 	" nunmap <buffer> <c-space>
 endif
@@ -32,5 +30,3 @@ if exists('+winhighlight')
 	" Overwrite ctermbg only for this window. Neovim exclusive option
 	setlocal winhighlight=Normal:Terminal
 endif
-
-let b:undo_ftplugin = "setlocal bufhidden< number<"
