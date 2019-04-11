@@ -515,6 +515,11 @@ function! s:set_ncm2() abort
 		" let g:ncm2_pyclang#library_path = "\"C:\\Program Files\\LLVM\\bin\\libclang.dll\""
 		if has('unix')
 			let g:ncm2_pyclang#library_path = '/usr/lib/libclang.so'
+			let g:ncm2_pyclang#database_path = [
+						\ 'compile_commands.json',
+						\ 'build/compile_commands.json',
+						\ 'builddir/compile_commands.json'
+						\ ]
 		else
 			let g:ncm2_pyclang#library_path = 'C:\Program Files\LLVM\bin\libclang.dll'
 		endif
