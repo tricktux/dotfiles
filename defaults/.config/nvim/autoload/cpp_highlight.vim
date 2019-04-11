@@ -8,6 +8,7 @@
 
 
 function! cpp_highlight#Set(type) abort
+	call s:set_vim_syntax_options()
 	if empty(a:type)
 		call s:regular_highlight()
 	elseif a:type ==# 'chromatica'
@@ -15,13 +16,15 @@ function! cpp_highlight#Set(type) abort
 	elseif a:type ==# 'easytags'
 		call s:set_easytags()
 	elseif a:type ==# 'neotags'
-		call s:set_neo_neotags()
+		call s:set_neotags()
 	elseif a:type ==# 'color_coded'
 		call s:set_color_coded()
 	elseif a:type ==# 'clighter8'
 		call s:set_clighter8()
 	elseif a:type ==# 'tag-highlight' && has('nvim')
 		call s:set_c_highlight()
+	elseif a:type ==# 'semantic'
+		call s:set_semantic_highlight()
 	else
 		echomsg 'Not a recognized highlight type: ' . a:type .
 				\ '. Using only regular highlight'
@@ -29,7 +32,7 @@ function! cpp_highlight#Set(type) abort
 	endif
 endfunction
 
-function! s:set_neotags_highlights() abort
+function! cpp_highlight#SetNeotagsHighlight() abort
 	" C
 	call highlight#Set('cTypeTag',                { 'fg': g:brown })
 	call highlight#Set('cPreProcTag',             { 'fg': g:cyan })
@@ -95,12 +98,17 @@ function! s:set_clighter8_highlight() abort
 	hi default link clighter8InclusionDirective cIncluded
 endfunction
 
-function! s:regular_highlight() abort
+function! s:set_vim_syntax_options() abort
 	" Vim cpp syntax highlight
 	let g:cpp_class_scope_highlight = 1
 	let g:cpp_member_variable_highlight = 1
 	let g:cpp_class_decl_highlight = 1
 	let g:cpp_concepts_highlight = 1
+
+	let g:cpp_experimental_simple_template_highlight = 1
+endfunction
+
+function! s:regular_highlight() abort
 	Plug 'justinmk/vim-syntax-extra'
 	Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'c' , 'cpp' ] }
 endfunction
@@ -117,10 +125,12 @@ function! s:set_neotags() abort
 	endif
 
 	" Depends on pip3 install --user psutil
-	Plug 'c0r73x/neotags.nvim',  { 'do' : 'make' }
+	Plug 'c0r73x/neotags.nvim',  { 'build' : 'make' }
 	set regexpengine=1 " This speed up the engine alot but still not enough
 	" let g:neotags_verbose = 1
-	let g:neotags_find_tool = executable('rg') ? 'rg --files' : ''
+	let g:neotags_find_tool = executable('fd') ?
+				\ 'fd --type file --hidden --no-ignore --follow --exclude ".{sync,git,svn}" 2> /dev/null'
+				\ : ''
 	let g:neotags_run_ctags = 0
 	" let g:neotags_directory = g:std_data_path . '/ctags/neotags'
 	" let g:neotags#cpp#order = 'cgstuedfpm'
@@ -148,7 +158,6 @@ function! s:set_neotags() abort
 				\ ]
 	" let g:neotags_bin = '~/.vim_tags/bin/neotags'
 
-	call s:set_neotags_highlights()
 endfunction
 
 function! s:set_easytags() abort
@@ -201,10 +210,18 @@ function! s:set_chromatica() abort
 		return
 	endif
 
-	Plug 'arakashic/chromatica.nvim', { 'do' : ':UpdateRemotePlugins' }
+	Plug 'arakashic/chromatica.nvim', { 'do' : ':UpdateRemotePlugins',
+				\ 'for' : [ 'cpp', 'c' ] }
 	let g:chromatica#enable_at_startup = 1
 	let g:chromatica#libclang_path = '/usr/lib/libclang.so'
-	let g:chromatica#highlight_feature_level = 1
+	let g:chromatica#responsive_mode = 1
+	" let g:chromatica#debug_log = 1
+	let g:chromatica#debug_profiling = 1
+	let l:inc = finddir('bits', '/usr/include/c++/**2')
+	if (!empty(l:inc))
+		let l:inc = '-I' . l:inc[:-5]
+		let g:chromatica#compile_args = [ l:inc ]
+	endif
 
 endfunction
 
@@ -247,11 +264,15 @@ function! s:set_color_coded() abort
 endfunction
 
 function! s:set_neo_neotags() abort
-	let g:neotags_enabled = 1
+	" let g:neotags_enabled = 1
 	" let g:neotags_bin = ''
 	" call s:set_neotags()
 endfunction
 
 function! s:set_c_highlight() abort
 	Plug 'roflcopter4/tag-highlight.nvim', { 'do' : 'cmake . && make' }
+endfunction
+
+function! s:set_semantic_highlight() abort
+	Plug 'jaxbot/semantic-highlight.vim'
 endfunction

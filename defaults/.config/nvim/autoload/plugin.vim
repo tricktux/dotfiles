@@ -63,8 +63,9 @@ function! plugin#Config()
 				" \ )
 
 	" Possible values:
-	" - chromatica easytags neotags color_coded clighter8
+	" - chromatica easytags neotags color_coded clighter8 semantic
 	" Wed Jul 04 2018 13:02: No decent code highlighter at the moment 
+	" Thu Apr 11 2019 12:49: That is still the case 
 	call cpp_highlight#Set('')
 
 	" Possible values:
@@ -515,6 +516,10 @@ endfunction
 
 " Called on augroup VimEnter search augroup.vim
 function! plugin#AfterConfig() abort
+	if (exists('g:neotags_ignore'))
+		call cpp_highlight#SetNeotagsHighlight()
+	endif
+
 	if exists('g:loaded_vim_which_key')
 		call which_key#register(g:mapleader, "g:which_key_leader_map")
 		call which_key#register(g:maplocalleader, "g:which_key_localleader_map")
