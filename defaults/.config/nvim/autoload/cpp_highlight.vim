@@ -1,5 +1,6 @@
 " File:cpp_highlight.vim
-" Description: Choose one of the many forms of c++ highlight that there are for (neo)vim
+" Description: Choose one of the many forms of c++ highlight that there are for 
+" (neo)vim
 " Author:Reinaldo Molina <rmolin88@gmail.com>
 " Version:0.0.0
 " Last Modified: Aug 21 2017 10:29
@@ -22,7 +23,8 @@ function! cpp_highlight#Set(type) abort
 	elseif a:type ==# 'tag-highlight' && has('nvim')
 		call s:set_c_highlight()
 	else
-		echomsg 'Not a recognized highlight type: ' . a:type . '. Using only regular highlight'
+		echomsg 'Not a recognized highlight type: ' . a:type .
+				\ '. Using only regular highlight'
 		call s:regular_highlight()
 	endif
 endfunction
@@ -185,7 +187,8 @@ function! s:set_clighter8() abort
 	endif
 
 	Plug 'bbchung/clighter8'
-	let g:clighter8_syntax_groups = ['clighter8NamespaceRef', 'clighter8FunctionDecl']
+	let g:clighter8_syntax_groups = ['clighter8NamespaceRef',
+																\ 'clighter8FunctionDecl']
 	let g:clighter8_libclang_path = 'C:\Program Files\LLVM\bin\libclang.dll'
 	" let g:clighter8_global_compile_args = ['-I/usr/local/include']
 	let g:clighter8_logfile = g:std_cache_path . '/clighter8.log'
