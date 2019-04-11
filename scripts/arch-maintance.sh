@@ -9,7 +9,14 @@
 
 machine=`hostname`
 
-echo "Cleaning pacman"
+echo "Cleaning files ..."
+gio trash --empty
+rm -rf ~/.cache/*
+rm -rf ~/.local/share/qutebrowser/*
+rm -rf ~/.local/Trash/files/*
+rm -rf ~/.local/Trash/info/*
+
+echo "Cleaning pacman ..."
 # This is very dangerous
 # sudo pacman -Sc --noconfirm
 # Better way paccache will remove everything except the latest THREE versions of 
@@ -21,13 +28,14 @@ sudo paccache -ruk0
 # sudo pacman -U /var/cache/pacman/pkg/name-version.pkg.tar.gz
 # sudo pacman-optimize
 
-echo "Emptying trash"
-gio trash --empty
-
-echo "Emptying cache"
-rm -r ~/.cache
+# This is also dangerous do it manually
+echo "Removing unused orphan packages. Look through the list and exit if you see
+something unusual"
+read -n1 -r -p "Press any key to continue..." key
+sudo pacman -Rns $(pacman -Qtdq)
 
 # Tue Sep 26 2017 18:40 Update Mirror list. Depends on `reflector`
+echo "Updating pacman mirrors ..."
 if hash reflector 2>/dev/null; then
 	sudo reflector --protocol https --latest 30 --number 5 --sort \
 		rate --save /etc/pacman.d/mirrorlist -c 'United States' --verbose
@@ -42,11 +50,6 @@ fi
 # trizen -Syu
 sudo pacman -Qnq > ~/.config/dotfiles/pkg/$machine/native
 sudo pacman -Qmq > ~/.config/dotfiles/pkg/$machine/aur
-
-# This is also dangerous do it manually
-echo "Removing unused orphan packages. Look through the list and exit if you see
-something unusual"
-sudo pacman -Rns $(pacman -Qtdq)
 
 # echo "BleachBit runnning"
 
@@ -74,3 +77,4 @@ sudo pacman -Rns $(pacman -Qtdq)
 
 # echo "Updating fish completions"
 # fish_update_completions
+read -n1 -r -p "Done. Press any key to continue..." key
