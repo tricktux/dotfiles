@@ -26,7 +26,9 @@ fi
 [ -f /usr/bin/firefox ] && export BROWSER="/usr/bin/firefox"
 
 # Thu Feb 01 2018 05:21: For oracle database crap for school
-export ORACLE_HOME=/home/reinaldo/app/reinaldo/product/12.2.0/client_1
+if [[ -d  "/home/reinaldo/app" ]]; then
+	export ORACLE_HOME=/home/reinaldo/app/reinaldo/product/12.2.0/client_1
+fi
 
 export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
 
