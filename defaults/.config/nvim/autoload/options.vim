@@ -20,7 +20,11 @@ function! options#Set() abort
 	set noshowmode
 	" Useful for the find command
 	let &path .='.,,..,../..,./*,./*/*,../*,~/,~/**,/usr/include/*'
-	set shiftwidth=4 tabstop=4
+	if has('unix')
+		set shiftwidth=2 tabstop=2
+	else
+		set shiftwidth=4 tabstop=4
+	endif
 	if has('nvim')
 		set shada='1024,%,s10000,r/tmp,rE:,rF:
 	else
