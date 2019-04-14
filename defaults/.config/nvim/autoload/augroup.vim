@@ -38,7 +38,12 @@ function! augroup#Set() abort
 
 		autocmd FileType vim setlocal tabstop=2 shiftwidth=2 softtabstop=2 nospell
 
-		autocmd FileType c,cpp setlocal nowrap ts=4 sw=4 sts=4 fen
+		if has('unix')
+			autocmd FileType c,cpp setlocal nowrap ts=2 sw=2 sts=2
+		else
+			autocmd FileType c,cpp setlocal nowrap ts=4 sw=4 sts=4
+		endif
+		autocmd FileType c,cpp setlocal nowrap fen
 					\ fdn=88 define=^\\(#\\s*define\\|[a-z]*\\s*const\\s*[a-z]*\\)
 
 		" Python
