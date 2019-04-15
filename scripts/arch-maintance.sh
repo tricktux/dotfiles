@@ -13,8 +13,8 @@ echo "Cleaning files ..."
 gio trash --empty
 rm -rf ~/.cache/*
 rm -rf ~/.local/share/qutebrowser/*
-rm -rf ~/.local/Trash/files/*
-rm -rf ~/.local/Trash/info/*
+rm -rf ~/.local/share/Trash/files/*
+rm -rf ~/.local/share/Trash/info/*
 
 echo "Cleaning pacman ..."
 # This is very dangerous
