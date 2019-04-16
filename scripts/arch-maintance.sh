@@ -43,6 +43,9 @@ else
 	echo "reflector is not installed"
 fi
 
+echo "Updating python ..."
+source ~/.config/dotfiles/scripts/python_neovim_virtualenv.sh
+
 # echo "Optimizing system memory now in order to do all sudo commands at once"
 # sudo bleachbit --clean system.memory
 
