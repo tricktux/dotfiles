@@ -501,11 +501,13 @@ function! mappings#Set()
 				\ ('Folder to recurse: ', "", "file"))<cr>
 	nnoremap <Leader>ei :e 
 
-	nmap <leader>et <plug>edit_todo
-	if !hasmapto('<plug>edit_todo')
-		nnoremap <silent> <plug>edit_todo :execute
-					\ ('edit ' . g:dotfiles . '/TODO.md')<cr>
-	endif
+  " mnemonic space bar
+	vnoremap <leader>b y:call writefile([@"], '/tmp/todo.txt')<cr>
+	" nmap <leader>et <plug>edit_todo
+	" if !hasmapto('<plug>edit_todo')
+		" nnoremap <silent> <plug>edit_todo :execute
+					" \ ('edit ' . g:dotfiles . '/TODO.md')<cr>
+	" endif
 
 	" Edit plugin
 	nnoremap <Leader>ep :call utils#PathFileFuzzer(g:vim_plugins_path)<cr>
