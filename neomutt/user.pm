@@ -16,7 +16,7 @@ set my_trash_noquote="Archive"
 
 set my_username="molinamanso"
 set my_domain="protonmail.com"
-set my_password="`pass linux/guajiro/proton`"
+set my_password="`pass linux/\`hostname\`/proton`"
 
 source "~/.config/neomutt/imap.gen.mutt"
 
