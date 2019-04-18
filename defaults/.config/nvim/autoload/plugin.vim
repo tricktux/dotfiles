@@ -1426,15 +1426,13 @@ function! s:configure_vim_zoom() abort
 
 	if exists('g:lightline')
 		let g:lightline.active.left[2] += [ 'zoom' ]
-		let g:lightline.component_function['zoom'] = 'zoom#statusline()'
+		let g:lightline.component_function['zoom'] = 'zoom#statusline'
 	endif
 endfunction
 
 function! s:configure_neoterm() abort
-	if has('terminal') || has('nvim')
-		if &verbose > 0
-			echomsg 'No terminal support in this version'
-		endif
+	if !has('terminal') && !has('nvim')
+		echoerr 'No terminal support'
 		return -1
 	endif
 
