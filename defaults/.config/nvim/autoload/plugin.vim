@@ -1421,7 +1421,7 @@ endfunction
 
 function! s:configure_vim_zoom() abort
 	Plug 'dhruvasagar/vim-zoom'
-	" nmap <My-Mapping> <Plug>(zoom-toggle)
+	nnoremap <plug>windows_toogle_zoom <Plug>(zoom-toggle)
 
 
 	if exists('g:lightline')
@@ -1451,5 +1451,4 @@ function! s:configure_neoterm() abort
 	" Send selected contents in visual mode.
 	xmap <plug>terminal_send <Plug>(neoterm-repl-send)
 	nmap <plug>terminal_send_line <Plug>(neoterm-repl-send-line)
-
 endfunction
