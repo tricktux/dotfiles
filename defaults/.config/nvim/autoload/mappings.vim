@@ -77,9 +77,8 @@ function! mappings#Set()
 	nmap <c-p> <plug>mru_browser
 	" terminal-emulator mappings
 	if has('terminal') || has('nvim')
-		nmap <Leader>te <Plug>terminal_toggle
-		nmap <Leader>tE <Plug>toogle_zoom_terminal
-		nnoremap <Plug>toogle_zoom_terminal :call <SID>toogle_zoom_terminal()<CR>
+		nmap <Leader>te <plug>terminal_toggle
+		nmap <Leader>tE <plug>terminal_new
 		" See plugin.vim - neoterm
 		nmap <leader>x <plug>terminal_send
 		xmap <leader>x <plug>terminal_send
@@ -108,7 +107,7 @@ function! mappings#Set()
 	nnoremap <plug>make_project :make!<cr>
 	nnoremap <plug>make_file :make!<cr>
 
-	nmap <leader>tz <plug>windows_toogle_zoom
+	nmap <leader>tz <plug>windows_toggle_zoom
 
 	nmap <localleader>cs <plug>to_snake_case
 	nmap <localleader>cc <plug>to_camel_case
@@ -278,6 +277,12 @@ function! mappings#Set()
 	nnoremap [f <c-o>
 	nnoremap <silent> ]F :call <SID>goto_file_on_next_win('l')<cr>
 	nnoremap <silent> [F :call <SID>goto_file_on_next_win('h')<cr>
+
+	" Terminal
+	nnoremap <silent> ]r :call <SID>goto_terminal_on_next_win('l', 'Ttoggle')<cr>
+	nnoremap <silent> [r :call <SID>goto_terminal_on_next_win('h', 'Ttoggle')<cr>
+	nnoremap <silent> ]R :call <SID>goto_terminal_on_next_win('l', 'Tnew')<cr>
+	nnoremap <silent> [R :call <SID>goto_terminal_on_next_win('h', 'Tnew')<cr>
 
 	" Scroll to the sides z{l,h} and up and down
 	nnoremap ]z 10zl
@@ -665,7 +670,7 @@ function! s:edge_window(direction) abort
 	return (num_curr_win == num_wins_in_dir ? 1 : 0)
 endfunction
 
-" Split window if:
+" Split window in direction if:
 " - There is only one window
 " - Current window is on the edge
 " Otherwise just move in direction
@@ -1265,7 +1270,8 @@ function! mappings#SetCscope() abort
 	nnoremap <buffer> <localleader>et :CCTreeWindowToggle<cr>
 endfunction
 
-function! s:toogle_zoom_terminal() abort
+" Creates a terminal and toggles it zoom
+function! s:toggle_zoom_terminal() abort
 	if (!exists('g:loaded_zoom'))
 		echoerr 'Please the dhruvasagar/vim-zoom plugin'
 		return -1
@@ -1285,4 +1291,25 @@ function! s:toogle_zoom_terminal() abort
 
 	execute 'Ttoggle'
 	call zoom#toggle()
+endfunction
+
+" Always splits in the direction of the 'splitright' option
+" Depends on:
+" - let g:neoterm_default_mod = ''
+" Smart toggle:
+" If this is the edge window:
+" - Override it terminal
+" If this is not the edge window:
+" - Override window to the right with terminal
+" If the only window
+" - Simply toggle
+function! s:goto_terminal_on_next_win(direction, cmd) abort
+	if (!exists(':' . a:cmd))
+		echoerr 'Please the kassio/neoterm plugin'
+		return -1
+	endif
+
+	call s:create_win_maybe(a:direction)
+	
+	execute ':' . a:cmd
 endfunction
