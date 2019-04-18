@@ -37,6 +37,8 @@ function! plugin#Config()
 
 	Plug 'lambdalisue/suda.vim'
 
+	call s:configure_vim_zoom()
+
 	call s:configure_vim_utils()
 
 	call s:configure_async_plugins()
@@ -697,19 +699,7 @@ function! s:configure_async_plugins() abort
 		return -1
 	endif
 
-	Plug 'kassio/neoterm'
-	let g:neoterm_use_relative_path = 1
-	let g:neoterm_default_mod = 'vertical'
-	let g:neoterm_autoinsert=1
-	" Potential substitue
-	" https://github.com/Shougo/deol.nvim/blob/master/doc/deol.txt
-	" there is also vimshell
-	nnoremap <Plug>terminal_toggle :Ttoggle<CR>
-	" Use gx{text-object} in normal mode
-	nmap <plug>terminal_send <Plug>(neoterm-repl-send)
-	" Send selected contents in visual mode.
-	xmap <plug>terminal_send <Plug>(neoterm-repl-send)
-	nmap <plug>terminal_send_line <Plug>(neoterm-repl-send-line)
+	call s:configure_neoterm()
 
 	call s:configure_fuzzers()
 endfunction
@@ -1427,4 +1417,39 @@ function! s:per_project_settings() abort
 	if &verbose > 0
 		echomsg 'No OW type of folder detected '
 	endif
+endfunction
+
+function! s:configure_vim_zoom() abort
+	Plug 'dhruvasagar/vim-zoom'
+	" nmap <My-Mapping> <Plug>(zoom-toggle)
+
+
+	if exists('g:lightline')
+		let g:lightline.active.left[2] += [ 'zoom' ]
+		let g:lightline.component_function['zoom'] = 'zoom#statusline()'
+	endif
+endfunction
+
+function! s:configure_neoterm() abort
+	if has('terminal') || has('nvim')
+		if &verbose > 0
+			echomsg 'No terminal support in this version'
+		endif
+		return -1
+	endif
+
+	Plug 'kassio/neoterm'
+	let g:neoterm_use_relative_path = 1
+	let g:neoterm_default_mod = 'vertical'
+	let g:neoterm_autoinsert=1
+	" Potential substitue
+	" https://github.com/Shougo/deol.nvim/blob/master/doc/deol.txt
+	" there is also vimshell
+	nnoremap <Plug>terminal_toggle :Ttoggle<CR>
+	" Use gx{text-object} in normal mode
+	nmap <plug>terminal_send <Plug>(neoterm-repl-send)
+	" Send selected contents in visual mode.
+	xmap <plug>terminal_send <Plug>(neoterm-repl-send)
+	nmap <plug>terminal_send_line <Plug>(neoterm-repl-send-line)
+
 endfunction
