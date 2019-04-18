@@ -79,7 +79,7 @@ function! mappings#Set()
 	if has('terminal') || has('nvim')
 		nmap <Leader>te <Plug>terminal_toggle
 		nmap <Leader>tE <Plug>toogle_zoom_terminal
-		nnoremap <Plug>toogle_zoom_terminal :call s:toogle_zoom_terminal()<CR>
+		nnoremap <Plug>toogle_zoom_terminal :call <SID>toogle_zoom_terminal()<CR>
 		" See plugin.vim - neoterm
 		nmap <leader>x <plug>terminal_send
 		xmap <leader>x <plug>terminal_send
@@ -108,7 +108,7 @@ function! mappings#Set()
 	nnoremap <plug>make_project :make!<cr>
 	nnoremap <plug>make_file :make!<cr>
 
-	nmap <localleader>tz <plug>windows_toogle_zoom
+	nmap <leader>tz <plug>windows_toogle_zoom
 
 	nmap <localleader>cs <plug>to_snake_case
 	nmap <localleader>cc <plug>to_camel_case
@@ -636,32 +636,58 @@ endfunction
 function! s:goto_tag_on_next_win(direction) abort
 	" echomsg '[goto_tag_on_next_win]: Got called!'
 	let target = expand('<cword>')
-	let wnr = winnr()
-	exec 'wincmd ' . a:direction
-	" If the winnr is still the same after we moved, it is the last pane
-	if wnr == winnr()
-		exec 'stjump ' . target
-		exec 'wincmd ' . toupper(a:direction)
-		return
-	endif
+	call s:create_win_maybe(a:direction)
+
 	exec 'tjump ' . target
+endfunction
+
+" Detect if this is the edge window in the direction specified
+" direction: {h,j,k,l}
+" Returns: -1 if this is the only window
+"						0 True
+"						1 False
+function! s:edge_window(direction) abort
+	" If there is only one window
+	let num_wins = winnr('$')
+	if (num_wins == 1)
+		return -1
+	endif
+
+	let num_curr_win = winnr()
+	let dir = '80' . a:direction
+	try
+		let num_wins_in_dir = winnr(dir)
+	catch 
+		echoerr 'Invalid direction'
+		return -2
+	endtry
+
+	return (num_curr_win == num_wins_in_dir ? 1 : 0)
+endfunction
+
+" Split window if:
+" - There is only one window
+" - Current window is on the edge
+" Otherwise just move in direction
+function! s:create_win_maybe(direction) abort
+	let l:split = s:edge_window(a:direction)
+
+	if ((l:split == -1) || (l:split == 1))
+		exec 'vsplit'
+		" Move the window to the proper direction
+		exec 'wincmd ' . toupper(a:direction)
+	else
+		exec 'wincmd ' . a:direction
+	endif
 endfunction
 
 " Opens the file on new split in the direction specified
 " direction - {h,l}
 " Note: This function depends on the 'splitright' option.
 function! s:goto_file_on_next_win(direction) abort
-	exec 'vsplit'
-	if a:direction ==# 'h'
-		exec 'wincmd ' . a:direction
-	endif
-	let wnr = winnr()
-	exec 'wincmd ' . a:direction
-	" If the winnr is still the same after we moved, it is the last pane
-	if wnr != winnr()
-		close
-	endif
-	exec 'normal! gf'
+	call s:create_win_maybe(a:direction)
+
+	normal! gf
 endfunction
 
 function! s:tmux_move(direction) abort
@@ -1250,7 +1276,7 @@ function! s:toogle_zoom_terminal() abort
 		return -2
 	endif
 
-	if (!empty('zoom#statusline()'))
+	if (!empty(zoom#statusline()))
 		" We are in zoom mode
 		call zoom#toggle()
 		normal! ZZ
