@@ -10,11 +10,7 @@
 machine=`hostname`
 
 echo "Cleaning files ..."
-gio trash --empty
-rm -rf ~/.cache/*
-rm -rf ~/.local/share/qutebrowser/*
-rm -rf ~/.local/share/Trash/files/*
-rm -rf ~/.local/share/Trash/info/*
+source ~/.config/dotfiles/scripts/rm_junk
 
 echo "Cleaning pacman ..."
 # This is very dangerous
@@ -35,17 +31,6 @@ read -n1 -r -p "Press any key to continue..." key
 sudo pacman -Rns $(pacman -Qtdq)
 
 # Tue Sep 26 2017 18:40 Update Mirror list. Depends on `reflector`
-echo "Updating pacman mirrors ..."
-if hash reflector 2>/dev/null; then
-	sudo reflector --protocol https --latest 30 --number 5 --sort \
-		rate --save /etc/pacman.d/mirrorlist -c 'United States' --verbose
-else
-	echo "reflector is not installed"
-fi
-
-echo "Updating python ..."
-source ~/.config/dotfiles/scripts/python_neovim_virtualenv.sh
-
 # echo "Optimizing system memory now in order to do all sudo commands at once"
 # sudo bleachbit --clean system.memory
 
