@@ -18,8 +18,8 @@ if !exists("no_plugin_maps") && !exists("no_terminal_maps")
 	if exists('*neoterm#close()')
 		" hide/close terminal
 		" Thu Apr 11 2019 11:25: Doesnt work. Plugin broken 
-		nnoremap <buffer> <silent> q call s:check_zoom()
-		nnoremap <buffer> <silent> Q :Tclose!<cr>
+		nnoremap <buffer> <silent> q :call <sid>check_zoom()<cr>
+		nnoremap <buffer> <silent> Q :Tclose<cr>
 	endif
 	" nunmap <buffer> <c-space>
 endif
@@ -32,7 +32,7 @@ if exists('+winhighlight')
 endif
 
 function! s:check_zoom() abort
-	if ((exists('g:loaded_zoom')) && (!empty('zoom#statusline()')))
+	if ((exists('g:loaded_zoom')) && (!empty(zoom#statusline())))
 		call zoom#toggle()
 	endif
 
