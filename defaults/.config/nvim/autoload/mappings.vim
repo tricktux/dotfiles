@@ -78,6 +78,8 @@ function! mappings#Set()
 	" terminal-emulator mappings
 	if has('terminal') || has('nvim')
 		nmap <Leader>te <Plug>terminal_toggle
+		nmap <Leader>tE <Plug>toogle_zoom_terminal
+		nnoremap <Plug>toogle_zoom_terminal :call s:toogle_zoom_terminal()<CR>
 		" See plugin.vim - neoterm
 		nmap <leader>x <plug>terminal_send
 		xmap <leader>x <plug>terminal_send
@@ -105,6 +107,8 @@ function! mappings#Set()
 	nmap <localleader>j <plug>make_file
 	nnoremap <plug>make_project :make!<cr>
 	nnoremap <plug>make_file :make!<cr>
+
+	nmap <localleader>tz <plug>windows_toogle_zoom
 
 	nmap <localleader>cs <plug>to_snake_case
 	nmap <localleader>cc <plug>to_camel_case
@@ -1233,4 +1237,26 @@ function! mappings#SetCscope() abort
 	nnoremap <buffer> <localleader>er :exec 'CCTreeTraceReverse ' . 
 				\ expand('<cword>')<cr>
 	nnoremap <buffer> <localleader>et :CCTreeWindowToggle<cr>
+endfunction
+
+function! s:toogle_zoom_terminal() abort
+	if (!exists('g:loaded_zoom'))
+		echoerr 'Please the dhruvasagar/vim-zoom plugin'
+		return -1
+	endif
+
+	if (!exists(':Ttoggle'))
+		echoerr 'Please the kassio/neoterm plugin'
+		return -2
+	endif
+
+	if (!empty('zoom#statusline()'))
+		" We are in zoom mode
+		call zoom#toggle()
+		normal! ZZ
+		return
+	endif
+
+	execute 'Ttoggle'
+	call zoom#toggle()
 endfunction
