@@ -1421,7 +1421,7 @@ endfunction
 
 function! s:configure_vim_zoom() abort
 	Plug 'dhruvasagar/vim-zoom'
-	nnoremap <plug>windows_toogle_zoom <Plug>(zoom-toggle)
+	nnoremap <plug>windows_toogle_zoom :call zoom#toggle()<cr>
 
 
 	if exists('g:lightline')
