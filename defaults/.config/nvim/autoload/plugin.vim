@@ -1421,7 +1421,7 @@ endfunction
 
 function! s:configure_vim_zoom() abort
 	Plug 'dhruvasagar/vim-zoom'
-	nnoremap <plug>windows_toogle_zoom :call zoom#toggle()<cr>
+	nnoremap <plug>windows_toggle_zoom :call zoom#toggle()<cr>
 
 
 	if exists('g:lightline')
@@ -1438,12 +1438,13 @@ function! s:configure_neoterm() abort
 
 	Plug 'kassio/neoterm'
 	let g:neoterm_use_relative_path = 1
-	let g:neoterm_default_mod = 'vertical'
+	let g:neoterm_default_mod = ''
 	let g:neoterm_autoinsert=1
 	" Potential substitue
 	" https://github.com/Shougo/deol.nvim/blob/master/doc/deol.txt
 	" there is also vimshell
-	nnoremap <Plug>terminal_toggle :Ttoggle<CR>
+	nnoremap <plug>terminal_toggle :Ttoggle<CR>
+	nnoremap <plug>terminal_new :Tnew<CR>
 	" Use gx{text-object} in normal mode
 	nmap <plug>terminal_send <Plug>(neoterm-repl-send)
 	" Send selected contents in visual mode.
