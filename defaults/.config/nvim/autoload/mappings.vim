@@ -77,12 +77,15 @@ function! mappings#Set()
 	nmap <c-p> <plug>mru_browser
 	" terminal-emulator mappings
 	if has('terminal') || has('nvim')
+		" See plugin.vim - neoterm
+		" There are more mappins in the [,] section
 		nmap <Leader>te <plug>terminal_toggle
 		nmap <Leader>tE <plug>terminal_new
-		" See plugin.vim - neoterm
 		nmap <leader>x <plug>terminal_send
 		xmap <leader>x <plug>terminal_send
 		nmap <leader>X <plug>terminal_send_line
+		nnoremap <leader>r :call <sid>toggle_zoom_terminal('Ttoggle')<cr>
+		nnoremap <leader>R :call <sid>toggle_zoom_terminal('Tnew')<cr>
 
 		execute "tnoremap " . g:esc . " <C-\\><C-n>"
 		tnoremap <A-h> <C-\><C-n><C-w>h
@@ -293,6 +296,7 @@ function! mappings#Set()
 	" TODO-[RM]-(Fri Jun 29 2018 10:10): Make this work
 	" xnoremap <silent> ]F :call <SID>goto_file_on_next_win('l')<cr>
 	" xnoremap <silent> [F :call <SID>goto_file_on_next_win('h')<cr>
+	nnoremap <a-s> :vs<cr>
 	nnoremap <a-]> gt
 	nnoremap <a-[> gT
 	for l:idx in [1,2,3,4,5,6,7,8,9]
@@ -681,9 +685,10 @@ function! s:create_win_maybe(direction) abort
 		exec 'vsplit'
 		" Move the window to the proper direction
 		exec 'wincmd ' . toupper(a:direction)
-	else
-		exec 'wincmd ' . a:direction
+		return
 	endif
+
+	exec 'wincmd ' . a:direction
 endfunction
 
 " Opens the file on new split in the direction specified
@@ -1271,13 +1276,13 @@ function! mappings#SetCscope() abort
 endfunction
 
 " Creates a terminal and toggles it zoom
-function! s:toggle_zoom_terminal() abort
+function! s:toggle_zoom_terminal(cmd) abort
 	if (!exists('g:loaded_zoom'))
 		echoerr 'Please the dhruvasagar/vim-zoom plugin'
 		return -1
 	endif
 
-	if (!exists(':Ttoggle'))
+	if (!exists(':' . a:cmd))
 		echoerr 'Please the kassio/neoterm plugin'
 		return -2
 	endif
@@ -1289,27 +1294,29 @@ function! s:toggle_zoom_terminal() abort
 		return
 	endif
 
-	execute 'Ttoggle'
+	execute ':' . a:cmd
 	call zoom#toggle()
 endfunction
 
 " Always splits in the direction of the 'splitright' option
 " Depends on:
 " - let g:neoterm_default_mod = ''
-" Smart toggle:
-" If this is the edge window:
-" - Override it terminal
-" If this is not the edge window:
-" - Override window to the right with terminal
-" If the only window
-" - Simply toggle
 function! s:goto_terminal_on_next_win(direction, cmd) abort
 	if (!exists(':' . a:cmd))
 		echoerr 'Please the kassio/neoterm plugin'
 		return -1
 	endif
 
-	call s:create_win_maybe(a:direction)
+	" couldnt use create new window maybe
+	" using <mods> instead
+	let l:split = s:edge_window(a:direction)
+
+	let new_cmd = a:cmd
+	if ((l:split == -1) || (l:split == 1))
+		let new_cmd = 'vert ' . new_cmd
+	else
+		exec 'wincmd ' . a:direction
+	endif
 	
-	execute ':' . a:cmd
+	execute ':' . new_cmd
 endfunction
