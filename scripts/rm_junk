@@ -11,6 +11,7 @@ shittyfiles = [
         '~/.local/share/Trash/info/',
         '~/.python_history',
         '~/.zplug/',
+        '~/.yEd/',
         '~/.zcompdump*',
         '~/.local/share/xorg/'
         '~/.adobe',              # Flash crap
