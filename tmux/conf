@@ -11,6 +11,7 @@
 # Thu Apr 18 2019 08:23: From here:
 # https://github.com/tony/tmux-config/blob/master/.tmux.conf
 # Allows for faster key repetition
+# NOTE: Use this command below to truly kill tmux server. Exiting command line wont do it!!
 set -s escape-time 0
 # Start numbering at 1
 set -g base-index 1
@@ -89,11 +90,10 @@ bind-key R respawn-window
 #splitw -v -p 85 -t 0 ls
 #selectw -t 1 
 #selectp -t 0
-# Use this command below to truly kill tmux server. Exiting command line wont do it!!
 # killall tmux 
 # close pane x
 # Reload pane
-bind r source-file ~/.config/tmux/.tmux.conf
+bind r source-file ~/.config/tmux/conf
 unbind C-b
 set -g prefix C-a
 bind C-a send-prefix
@@ -120,19 +120,20 @@ set-option -g status-right-length 90
 set -g xterm-keys on
 # Prefix then [ then you can use your normal navigation keys to scroll around (eg. Up Arrow or PgDn). Press q to quit scroll mode.
 
-# doesnt work when remote terminals are in use
-# vim-tmux-navigator
-# Smart pane switching with awareness of vim splits
-# See: https://github.com/christoomey/vim-tmux-navigator
-#is_vim='echo "#{pane_current_command}" | grep -iqE "(^|\/)g?(view|n?vim?x?)(diff)?$"'
-#bind -n space-h if-shell "$is_vim" "send-keys space-h" "select-pane -L"
-#bind -n space-j if-shell "$is_vim" "send-keys space-j" "select-pane -D"
-#bind -n space-k if-shell "$is_vim" "send-keys space-k" "select-pane -U"
-#bind -n space-l if-shell "$is_vim" "send-keys space-l" "select-pane -R"
-#bind -n space-. if-shell "$is_vim" "send-keys space-." "select-pane -l"
-
 bind Left swap-window -t -1
 bind Right swap-window -t +1
+
+bind-key -n M-t new-window
+bind-key -n M-1 if "[ $(tmux display -p '#{pane_current_command}') = nvim ]" "send-keys M-1" "select-window -t 1"
+bind-key -n M-2 if "[ $(tmux display -p '#{pane_current_command}') = nvim ]" "send-keys M-2" "select-window -t 2"
+bind-key -n M-3 if "[ $(tmux display -p '#{pane_current_command}') = nvim ]" "send-keys M-3" "select-window -t 3"
+bind-key -n M-4 if "[ $(tmux display -p '#{pane_current_command}') = nvim ]" "send-keys M-4" "select-window -t 4"
+bind-key -n M-5 if "[ $(tmux display -p '#{pane_current_command}') = nvim ]" "send-keys M-5" "select-window -t 5"
+bind-key -n M-6 if "[ $(tmux display -p '#{pane_current_command}') = nvim ]" "send-keys M-6" "select-window -t 6"
+bind-key -n M-7 if "[ $(tmux display -p '#{pane_current_command}') = nvim ]" "send-keys M-7" "select-window -t 7"
+bind-key -n M-8 if "[ $(tmux display -p '#{pane_current_command}') = nvim ]" "send-keys M-8" "select-window -t 8"
+bind-key -n M-[ if "[ $(tmux display -p '#{pane_current_command}') = nvim ]" "send-keys M-[" "select-window -t -1"
+bind-key -n M-] if "[ $(tmux display -p '#{pane_current_command}') = nvim ]" "send-keys M-]" "select-window -t +1"
 
 # Fixes changing cursor in terminal
 set -g -a terminal-overrides ',*:Ss=\E[%p1%d q:Se=\E[2 q'
