@@ -662,7 +662,8 @@ exec --no-startup-id blueberry-tray
 
 exec --no-startup-id cbatticon -c "notify-send 'Battery' 'Critically Low %5'"
 
-exec --no-startup-id protonmail-bridge --cli
+# Fri Apr 19 2019 08:51: On demand from now on 
+# exec --no-startup-id protonmail-bridge --cli
 
 # Thu Dec 28 2017 09:48: Seafile fully functional
 # exec --no-startup-id dropbox
