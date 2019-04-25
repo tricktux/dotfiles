@@ -148,7 +148,6 @@ endfunction
 
 function! s:config_unix() abort
 	" VIM_PATH includes
-	let hostname = system('hostname')
 	let sys_name = system('uname -o') " Termux stuff
 
 	if sys_name =~# 'Android'
