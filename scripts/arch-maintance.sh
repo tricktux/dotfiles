@@ -10,7 +10,7 @@
 machine=`hostname`
 
 echo "Cleaning files ..."
-source ~/.config/dotfiles/scripts/rm_junk
+python ~/.config/dotfiles/scripts/rm_junk.py
 
 echo "Cleaning pacman ..."
 # This is very dangerous
