@@ -127,7 +127,7 @@ bindsym $mod+9 exec \
 bindsym $mod+8 exec \
 	--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
 	proton-mutt "$TERMINAL -t proton-mutt \
-	-e ~/.config/dotfiles/scripts/tmux_proton_mail.sh"
+	-e 'neomutt -F ~/.config/neomutt/user.pm'"
 bindsym $mod+7 exec \
 	--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
 	psu-mutt "$TERMINAL -t psu-mutt \
