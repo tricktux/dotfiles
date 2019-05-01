@@ -511,6 +511,7 @@ function! s:set_ncm2() abort
 		" Complete english words
 		Plug 'filipekiss/ncm2-look.vim'
 	endif
+
 	" Sun Apr 21 2019 23:03: When the LanguageClient is available we dont really 
 	" need this
 	if executable('clang') && !has('unix')

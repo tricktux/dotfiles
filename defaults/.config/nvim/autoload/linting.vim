@@ -77,15 +77,16 @@ function! s:set_neomake() abort
 				\ 'append_file' : 0,
 				\ }
 
-	" Fri Nov 03 2017 19:05: Finally understood the concept of neomake and linting in
-	" general. NeomakeFile is suppose to run as it names says in only a single file.
-	" And that is what you should configure on a per buffer basis. Look at
+	" Fri Nov 03 2017 19:05: Finally understood the concept of neomake and linting 
+	" in general. NeomakeFile is suppose to run as it names says in only a single 
+	" file.  And that is what you should configure on a per buffer basis. Look at 
 	" ftplugin/markdown.vim for a good example.
-	" To make entire projects use NeomakeProject. The later by default and the way it should
-	" be uses makeprg. Therefore configure that to build your entire project, do it
-	" through setting compiler and compiler plugins. Such as borland. But run
-	" Neomake automatically. Having said this still use `<LocalLeader>m` to make entire
-	" projects, meaning to run your project builder.
+	" To make entire projects use NeomakeProject. The later by default and the way 
+	" it should be uses makeprg. Therefore configure that to build your entire 
+	" project, do it through setting compiler and compiler plugins. Such as 
+	" borland. But run Neomake automatically. Having said this still use 
+	" `<LocalLeader>m` to make entire projects, meaning to run your project 
+	" builder.
 	" Fri Nov 03 2017 19:20: For vim linting use: `pip install vim-vint --user`
 	let g:neomake_plantuml_enabled_makers = ['plantuml']
 
@@ -104,14 +105,17 @@ function! s:set_neomake() abort
 		autocmd!
 		autocmd User NeomakeFinished call s:neomake_finished()
 		autocmd User NeomakeJobFinished call s:neomake_job_finished()
-		" Thu Nov 09 2017 10:17: Not needed when using neomake native statusline function
+		" Thu Nov 09 2017 10:17: Not needed when using neomake native statusline 
+		" function
 		" autocmd User NeomakeJobStarted call utils#NeomakeJobStartd()
 	augroup END
 
 	if exists('g:lightline')
 		let g:lightline.active.right[2] += [ 'neomake' ]
-		let g:lightline.component_function['neomake'] = string(function('s:neomake_native_status_line'))
-		" let g:lightline.component_function['neomake'] = 'lightline_neomake#component'
+		let g:lightline.component_function['neomake'] =
+					\ string(function('s:neomake_native_status_line'))
+		" let g:lightline.component_function['neomake'] = 
+		" 'lightline_neomake#component'
 		" let g:lightline.component_type['neomake'] = 'error'
 	endif
 
@@ -134,17 +138,27 @@ endfunction
 function! s:neomake_native_status_line() abort
 	return neomake#statusline#get(bufnr("%"), {
 				\ 'format_running': (exists('g:valid_device') ? "\uf188" : '') .
-				\ ' {{running_job_names}} ' . (exists('g:valid_device') ? "\uf0e4" : ''),
-				\ 'format_quickfix_issues': (exists('g:valid_device') ? "\uf188" : '') . ' qf:%s',
+				\ ' {{running_job_names}} ' .
+				\ (exists('g:valid_device') ? "\uf0e4" : ''),
+				\ 'format_quickfix_issues':
+				\ (exists('g:valid_device') ? "\uf188" : '') . ' qf:%s',
 				\ 'format_quickfix_ok': '',
-				\ 'format_quickfix_type_E': (exists('g:valid_device') ? " \uf057" : '{{type}}') . ':{{count}}',
-				\ 'format_quickfix_type_W': (exists('g:valid_device') ? " \uf071" : '{{type}}') . ':{{count}}',
-				\ 'format_quickfix_type_I': (exists('g:valid_device') ? " \uf449" : '{{type}}') . ':{{count}}',
-				\ 'format_loclist_issues': (exists('g:valid_device') ? "\uf188" : ''). ' loc:%s',
-				\ 'format_loclist_type_E': (exists('g:valid_device') ? " \uf188" : '{{type}}') . ':{{count}}',
-				\ 'format_loclist_type_W': (exists('g:valid_device') ? " \uf071" : '{{type}}') . ':{{count}}',
-				\ 'format_loclist_type_I': (exists('g:valid_device') ? " \uf449" : '{{type}}') . ':{{count}}',
-				\ 'format_loclist_ok': (exists('g:valid_device') ? "\uf188" : '').
+				\ 'format_quickfix_type_E':
+				\ (exists('g:valid_device') ? " \uf057" : '{{type}}') . ':{{count}}',
+				\ 'format_quickfix_type_W':
+				\ (exists('g:valid_device') ? " \uf071" : '{{type}}') . ':{{count}}',
+				\ 'format_quickfix_type_I':
+				\ (exists('g:valid_device') ? " \uf449" : '{{type}}') . ':{{count}}',
+				\ 'format_loclist_issues':
+				\ (exists('g:valid_device') ? "\uf188" : ''). ' loc:%s',
+				\ 'format_loclist_type_E':
+				\ (exists('g:valid_device') ? " \uf188" : '{{type}}') . ':{{count}}',
+				\ 'format_loclist_type_W':
+				\ (exists('g:valid_device') ? " \uf071" : '{{type}}') . ':{{count}}',
+				\ 'format_loclist_type_I':
+				\ (exists('g:valid_device') ? " \uf449" : '{{type}}') . ':{{count}}',
+				\ 'format_loclist_ok':
+				\ (exists('g:valid_device') ? "\uf188" : '').
 				\ ' loc: ' . (exists('g:valid_device') ? "\uf058" : 'ok'),
 				\ 'format_loclist_unknown': '',
 				\ })
@@ -304,7 +318,8 @@ function! linting#SetNeomakeClangMaker() abort
 		let b:neomake_cpp_enabled_makers = []
 	endif
 
-	let b:neomake_cpp_enabled_makers += executable('clang') ? ['clangtidy', 'clangcheck'] : []
+	let b:neomake_cpp_enabled_makers +=
+				\ executable('clang') ? ['clangtidy', 'clangcheck'] : []
 	let b:neomake_cpp_enabled_makers += executable('cppcheck') ? ['cppcheck'] : []
 	let b:neomake_cpp_enabled_makers += executable('cpplint') ? ['cpplint'] : []
 	let b:neomake_cppcheck_args = '--quiet --language=c++ --enable=all'
