@@ -1,31 +1,31 @@
 #!/usr/bin/env python
 
-import subprocess
-import shlex
-import json
-
-cmd = shlex.split(
-    'curl -vs http://192.168.128.199/admin/api.php\?summaryRaw | json_pp')
-result = subprocess.run(
-        cmd,
-        stdout=subprocess.PIPE,
-        stdin=subprocess.PIPE,
-        stderr=subprocess.PIPE)
-data = json.dumps(result.stdout.decode('utf-8'))
-#  print(data)
-#  print(json.dumps(data))
-jdata = json.loads(data)
-idx = jdata.find('ads_blocked_today')
-print(idx)
+import requests
 
 
-#  print(jdata[0])
-#  print(jdata[0].get('ads_blocked_today'))
-#  print(type(jdata))
-#  if 'ads_blocked_today' in jdata:
-    #  print(jdata["ads_blocked_today"])
-    #  print(jdata['ads_blocked_today'])
+class PiHole(object):
+    """
+    Gets pihole data, using the 'summary' API request.
+    """
 
-#  r = requests.get('http://192.168.128.199/admin/api.php\?summaryRaw')
-#  print(r.text)
-#  print(r.json())
+    def __init__(self, ip_add):
+        """
+        Gets pihole data, using the 'summary' API request.
+        """
+
+        if not ip_add:
+            return
+
+        url = 'http://' + ip_add + '/admin/api.php?summary'
+
+        try:
+            resp = requests.get(url)
+        except Exception:
+            print('Invalid Host')
+            return
+
+        self.data = resp.json()
+
+
+if __name__ == '__main__':
+    pass
