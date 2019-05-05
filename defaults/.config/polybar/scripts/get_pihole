@@ -3,9 +3,6 @@
 import sys
 import requests
 
-WEBPASSWORD = '5607a9aaed8e24d0b29a50cdb4b2d6647cc7b55405e1ffcbc60637683d57b370'
-
-
 class PiHole():
     """
     Gets pihole data, using the 'summary' API request.
@@ -19,7 +16,7 @@ class PiHole():
         if not self.data:
             return False
 
-        if self.data.get('status') == 'disabled':
+        if 'status' not in self.data:
             return False
 
         if self.data.get('status') == 'enabled':
