@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import requests
+import sys
 
 
 class PiHole(object):
@@ -13,19 +14,39 @@ class PiHole(object):
         Gets pihole data, using the 'summary' API request.
         """
 
+        self.data = dict()
+        self.url = ''
         if not ip_add:
             return
 
-        url = 'http://' + ip_add + '/admin/api.php?summary'
+        self.url = 'http://' + ip_add + '/admin/api.php?summary'
 
+    def get_raw_data(self):
+        """
+        Returns dict with pihole data, using the 'summary' API request.
+        """
+        if not self.url:
+            return list()
         try:
-            resp = requests.get(url)
+            resp = requests.get(self.url)
         except Exception:
             print('Invalid Host')
-            return
+            return list()
 
-        self.data = resp.json()
+        try:
+            data = resp.json()
+        except Exception:
+            print('Invalid response')
+            return list()
+
+        print(type(data))
+        return data
 
 
 if __name__ == '__main__':
-    pass
+    # TODO get args ip address
+    hole = PiHole('192.168.128.199')
+    dhole = hole.get_raw_data()
+    if not dhole:
+        sys.exit(1)
+    print(dhole)
