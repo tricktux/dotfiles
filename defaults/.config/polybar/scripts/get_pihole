@@ -1,7 +1,31 @@
 #!/usr/bin/env python
 
-import requests
+import subprocess
+import shlex
+import json
 
-r = requests.get('http://192.168.128.199/admin/api.php\?summaryRaw')
-print(r.text)
+cmd = shlex.split(
+    'curl -vs http://192.168.128.199/admin/api.php\?summaryRaw | json_pp')
+result = subprocess.run(
+        cmd,
+        stdout=subprocess.PIPE,
+        stdin=subprocess.PIPE,
+        stderr=subprocess.PIPE)
+data = json.dumps(result.stdout.decode('utf-8'))
+#  print(data)
+#  print(json.dumps(data))
+jdata = json.loads(data)
+idx = jdata.find('ads_blocked_today')
+print(idx)
+
+
+#  print(jdata[0])
+#  print(jdata[0].get('ads_blocked_today'))
+#  print(type(jdata))
+#  if 'ads_blocked_today' in jdata:
+    #  print(jdata["ads_blocked_today"])
+    #  print(jdata['ads_blocked_today'])
+
+#  r = requests.get('http://192.168.128.199/admin/api.php\?summaryRaw')
+#  print(r.text)
 #  print(r.json())
