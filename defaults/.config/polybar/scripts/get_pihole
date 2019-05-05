@@ -3,6 +3,7 @@
 import sys
 import requests
 
+
 class PiHole():
     """
     Gets pihole data, using the 'summary' API request.
@@ -48,14 +49,12 @@ class PiHole():
         try:
             resp = requests.get(url)
         except Exception:
-            print('Invalid Host')
-            return dict()
+            sys.exit('Bad Host')
 
         try:
             data = resp.json()
         except Exception:
-            print('Invalid response')
-            return dict()
+            sys.exit('Bad response')
 
         return data
 
@@ -68,23 +67,28 @@ class PiHole():
         """
 
         if not key:
-            return ''
+            return []
 
         if not self.get_status():
-            return 'disabled'
+            print('disabled')
+            return []
 
-        ret = ''
+        ret = []
         for k in key:
             if k not in self.data:
                 continue
-            ret += k + ':' + self.data.get(k) + ' '
+            ret += self.data.get(k)
         return ret
 
 
 if __name__ == '__main__':
     # TODO get args ip address
     hole = PiHole('192.168.128.199')
-    dhole = hole.get(['ads_percentage_today', 'ads_blocked_today'])
+    dhole = hole.get(['ads_blocked_today', 'ads_percentage_today'])
     if not dhole:
         sys.exit(1)
     print(dhole)
+    #  d = float(self.data.get(k).replace(',', ''))
+    #  if d > 100:
+        #  d /= 1000
+    #  ret += [str(round(d, 1) )]
