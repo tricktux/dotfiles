@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import sys
+
 import requests
 
 
@@ -66,9 +67,6 @@ class PiHole():
         Returns negative value if failed to obtain such key
         """
 
-        if not key:
-            return []
-
         if not self.get_status():
             print('disabled')
             return []
@@ -77,18 +75,46 @@ class PiHole():
         for k in key:
             if k not in self.data:
                 continue
-            ret += self.data.get(k)
+            ret += [self.data.get(k)]
         return ret
+
+    def enable(self):
+        """Enable pi hole if disabled"""
+        if self.get_status():
+            return
+
+        req = ''
+        resp = ''
+
+
+def print_data(data):
+    """Print list provided in `data`"""
+
+    if not data:
+        sys.exit('Bad data')
+
+    if len(data) < 2:
+        sys.exit('Not enough data')
+
+    queries = float(data[0].replace(',', ''))
+    if queries > 999:
+        queries /= 1000
+        str_q = str(round(queries, 1)) + 'k'
+    else:
+        str_q = data[0]
+
+    blocked = float(data[1].replace(',', ''))
+    if blocked > 999:
+        blocked /= 1000
+        str_b = str(round(blocked, 1)) + 'k'
+    else:
+        str_b = data[1]
+
+    print("%s %s" % (str_q, str_b))
 
 
 if __name__ == '__main__':
     # TODO get args ip address
     hole = PiHole('192.168.128.199')
-    dhole = hole.get(['ads_blocked_today', 'ads_percentage_today'])
-    if not dhole:
-        sys.exit(1)
-    print(dhole)
-    #  d = float(self.data.get(k).replace(',', ''))
-    #  if d > 100:
-        #  d /= 1000
-    #  ret += [str(round(d, 1) )]
+    dhole = hole.get(['dns_queries_today', 'ads_blocked_today'])
+    print_data(dhole)
