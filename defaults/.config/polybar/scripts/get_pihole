@@ -28,13 +28,15 @@ class PiHole():
 
         return False
 
-    def __init__(self, ip_add):
+    def __init__(self, cfg):
         """
         Gets pihole data, using the 'summary' API request.
         """
 
         self.url = ''
         self.data = dict()
+        ip_add = cfg.get_opt('ip', '')
+        self.webpass = cfg.get_opt('webpassword', '')
         if not ip_add:
             return
 
@@ -80,13 +82,27 @@ class PiHole():
             ret += [self.data.get(k)]
         return ret
 
-    def enable(self):
-        """Enable pi hole if disabled"""
-        if self.get_status():
-            return
+    def enable(self, really):
+        """Disable/Enable pi hole if needed"""
+        stat = self.get_status()
+        if really and stat:
+            return True
 
-        req = ''
-        resp = ''
+        if not really and not stat:
+            return True
+
+        if not self.webpass:
+            sys.exit('Bad webpass')
+            return False
+
+        url = 'enable' if really else 'disable'
+        response = self.get_raw_data(url + '&auth=' + self.webpass)
+        if 'status' not in response:
+            return False
+
+        if response.get('status') != url:
+            return False
+        return True
 
 
 def print_data(data):
@@ -121,15 +137,23 @@ def main():
     args = parse.Parser()
     args.add_description('PiHole Api Interface')
     args.parser.add_argument(
-        'config', default='pihole.ini', help='Path to the configuration file')
+        'config',
+        default='pihole.ini',
+        required=True,
+        help='Path to the configuration file')
+    args.parser.add_argument(
+        '-e', '--enable', const=True, default=False, help='Enable pihole')
+    args.parser.add_argument(
+        '-d', '--disable', const=True, default=False, help='Disable pihole')
     args.parse()
     cfg_file = args.get_arg('config', '')
     if not cfg_file:
         sys.exit('Bad config')
 
-    hole = PiHole('192.168.128.199')
+    # Parse config
+    cfg = config.ConfigParser(cfg_file)
+    hole = PiHole(cfg)
     dhole = hole.get(['dns_queries_today', 'ads_blocked_today'])
-    cfg = config.ConfigParser('some_file.ini')
     print_data(dhole)
 
 
