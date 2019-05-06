@@ -137,14 +137,25 @@ def main():
     args = parse.Parser()
     args.add_description('PiHole Api Interface')
     args.parser.add_argument(
-        'config',
+        '--config',
+        '-c',
+        nargs='1',
         default='pihole.ini',
-        required=True,
         help='Path to the configuration file')
     args.parser.add_argument(
-        '-e', '--enable', const=True, default=False, help='Enable pihole')
+        '-e',
+        '--enable',
+        nargs='?',
+        const=True,
+        default=False,
+        help='Enable pihole')
     args.parser.add_argument(
-        '-d', '--disable', const=True, default=False, help='Disable pihole')
+        '-d',
+        '--disable',
+        nargs='?',
+        const=True,
+        default=False,
+        help='Disable pihole')
     args.parse()
     cfg_file = args.get_arg('config', '')
     if not cfg_file:
@@ -153,6 +164,12 @@ def main():
     # Parse config
     cfg = config.ConfigParser(cfg_file)
     hole = PiHole(cfg)
+    if args.get_arg('enable', False):
+        hole.enable(True)
+        return
+    if args.get_arg('disable', False):
+        hole.enable(False)
+        return
     dhole = hole.get(['dns_queries_today', 'ads_blocked_today'])
     print_data(dhole)
 
