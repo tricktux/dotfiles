@@ -83,28 +83,14 @@ class PiHole():
             ret += [self.data.get(k)]
         return ret
 
-    def enable(self, really):
+    def toggle(self):
         """Toggle pihole enable"""
-        stat = self.get_status()
-        # TODO (RM) Fix here
-        if stat:
-            return True
-
-        if not really and not stat:
-            return True
-
         if not self.webpass:
-            sys.exit('Bad webpass')
-            return False
+            return 'Bad webpass'
 
-        url = 'enable' if really else 'disable'
+        url = 'enable' if not self.get_status() else 'disable'
         response = self.get_raw_data(url + '&auth=' + self.webpass)
-        if 'status' not in response:
-            return False
-
-        if response.get('status') != url:
-            return False
-        return True
+        return response.get('status', 'Toggle Failed')
 
 
 def print_data(data):
@@ -157,8 +143,10 @@ def main():
     # Parse config
     cfg = config.ConfigParser(cfg_file)
     hole = PiHole(cfg)
-    if args.get('toggle', False):
-        print(hole.)
+    if args.get_arg('toggle', False):
+        print(hole.toggle())
+        return
+
     dhole = hole.get(['dns_queries_today', 'ads_blocked_today'])
     if not dhole:
         return
