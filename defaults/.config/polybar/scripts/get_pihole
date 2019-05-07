@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import sys
+import argparse
 import config
 import parse
 
@@ -35,12 +36,15 @@ class PiHole():
 
         self.url = ''
         self.data = dict()
-        ip_add = cfg.get_opt('ip', '')
-        self.webpass = cfg.get_opt('webpassword', '')
+        ip_add = cfg.get_opt('PiHole', 'ip', '')
+        print(ip_add)
+        self.webpass = cfg.get_opt('PiHole', 'webpassword', '')
+        print(self.webpass)
         if not ip_add:
             return
 
         self.url = 'http://' + ip_add + '/admin/api.php?'
+        print(self.url)
 
     def get_raw_data(self, query):
         """
@@ -137,40 +141,26 @@ def main():
     args = parse.Parser()
     args.add_description('PiHole Api Interface')
     args.parser.add_argument(
-        '--config',
         '-c',
-        nargs='1',
+        type=argparse.FileType('r'),
+        required=True,
         default='pihole.ini',
         help='Path to the configuration file')
     args.parser.add_argument(
-        '-e',
-        '--enable',
-        nargs='?',
-        const=True,
+        '-t',
         default=False,
-        help='Enable pihole')
-    args.parser.add_argument(
-        '-d',
-        '--disable',
-        nargs='?',
-        const=True,
-        default=False,
-        help='Disable pihole')
+        help='Toggle pihole enable')
     args.parse()
-    cfg_file = args.get_arg('config', '')
+    cfg_file = args.get_arg('c', '')
     if not cfg_file:
         sys.exit('Bad config')
 
     # Parse config
     cfg = config.ConfigParser(cfg_file)
     hole = PiHole(cfg)
-    if args.get_arg('enable', False):
-        hole.enable(True)
-        return
-    if args.get_arg('disable', False):
-        hole.enable(False)
-        return
     dhole = hole.get(['dns_queries_today', 'ads_blocked_today'])
+    if not dhole:
+        return
     print_data(dhole)
 
 
