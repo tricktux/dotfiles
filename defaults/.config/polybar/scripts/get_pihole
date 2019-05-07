@@ -36,15 +36,12 @@ class PiHole():
 
         self.url = ''
         self.data = dict()
-        ip_add = cfg.get_opt('PiHole', 'ip', '')
-        print(ip_add)
-        self.webpass = cfg.get_opt('PiHole', 'webpassword', '')
-        print(self.webpass)
+        ip_add = cfg.get_opt('Pihole', 'ip', '')
+        self.webpass = cfg.get_opt('Pihole', 'webpassword', '')
         if not ip_add:
             return
 
         self.url = 'http://' + ip_add + '/admin/api.php?'
-        print(self.url)
 
     def get_raw_data(self, query):
         """
@@ -87,9 +84,10 @@ class PiHole():
         return ret
 
     def enable(self, really):
-        """Disable/Enable pi hole if needed"""
+        """Toggle pihole enable"""
         stat = self.get_status()
-        if really and stat:
+        # TODO (RM) Fix here
+        if stat:
             return True
 
         if not really and not stat:
@@ -142,12 +140,13 @@ def main():
     args.add_description('PiHole Api Interface')
     args.parser.add_argument(
         '-c',
-        type=argparse.FileType('r'),
         required=True,
         default='pihole.ini',
         help='Path to the configuration file')
     args.parser.add_argument(
-        '-t',
+        '--toggle',
+        nargs='?',
+        const=True,
         default=False,
         help='Toggle pihole enable')
     args.parse()
@@ -158,6 +157,8 @@ def main():
     # Parse config
     cfg = config.ConfigParser(cfg_file)
     hole = PiHole(cfg)
+    if args.get('toggle', False):
+        print(hole.)
     dhole = hole.get(['dns_queries_today', 'ads_blocked_today'])
     if not dhole:
         return
