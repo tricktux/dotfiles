@@ -486,9 +486,11 @@ function! s:set_ncm2() abort
 	Plug 'ncm2/ncm2-github'
 	Plug 'ncm2/ncm2-jedi'
 	Plug 'ncm2/ncm2-vim'
-		Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
+		Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to
+		" autocomplete vim variables and functions
 	Plug 'ncm2/ncm2-syntax'
-		Plug 'Shougo/neco-syntax' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
+		Plug 'Shougo/neco-syntax' " Sources for deoplete/neocomplete to
+		" autocomplete vim variables and functions
 	" Plug 'ncm2/ncm2-neoinclude'
 	
 	if ((has('nvim')) && (has('unix')))
@@ -509,10 +511,14 @@ function! s:set_ncm2() abort
 		" Complete english words
 		Plug 'filipekiss/ncm2-look.vim'
 	endif
-	if executable('clang')
+
+	" Sun Apr 21 2019 23:03: When the LanguageClient is available we dont really 
+	" need this
+	if executable('clang') && !has('unix')
 		" For C++
 		Plug 'ncm2/ncm2-pyclang'
-		" let g:ncm2_pyclang#library_path = "\"C:\\Program Files\\LLVM\\bin\\libclang.dll\""
+		" let g:ncm2_pyclang#library_path = "\"C:\\Program 
+		" Files\\LLVM\\bin\\libclang.dll\""
 		if has('unix')
 			let g:ncm2_pyclang#library_path = '/usr/lib/libclang.so'
 			let g:ncm2_pyclang#database_path = [
@@ -534,7 +540,8 @@ function! s:set_ulti_snips() abort
 	inoremap <silent> <expr> <CR> (
 				\ (pumvisible() && empty(v:completed_item)) ?  
 				\ "\<c-y>\<cr>" : 
-				\ (!empty(v:completed_item) ? ncm2_ultisnips#expand_or("", 'n') : "\<CR>" )
+				\ (!empty(v:completed_item) ?
+				\ ncm2_ultisnips#expand_or("", 'n') : "\<CR>" )
 				\ )
 	let g:UltiSnipsSnippetDirectories= [
 				\ g:vim_plugins_path . '/vim-snippets/snippets',
@@ -543,7 +550,8 @@ function! s:set_ulti_snips() abort
 
 	" c-j c-k for moving in snippet
 	" imap <plug>snip_expand :call ncm2_ultisnips#completed_is_snippet()<cr>
-	imap <expr> <plug>snip_expand ncm2_ultisnips#expand_or("\<Plug>(ultisnips_expand)", 'm')
+	imap <expr> <plug>snip_expand
+				\ ncm2_ultisnips#expand_or("\<Plug>(ultisnips_expand)", 'm')
 	smap <plug>snip_expand <Plug>(ultisnips_expand)
 	
 	let g:UltiSnipsExpandTrigger		= "<Plug>(snip_expand)"
@@ -596,7 +604,8 @@ endfunction
 
 function! s:set_async() abort
 	if v:version < 800
-		echomsg 'autocompletion#SetCompl(): Cannot set AsynComplete autcompl_engine. Setting SuperTab'
+		echomsg
+					\ 'autocompletion#SetCompl(): Cannot set AsynComplete autcompl_engine. Setting SuperTab'
 		call s:set_tab()
 		return
 	endif
