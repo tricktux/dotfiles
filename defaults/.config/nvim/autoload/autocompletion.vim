@@ -491,7 +491,7 @@ function! s:set_ncm2() abort
 		Plug 'Shougo/neco-syntax' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
 	" Plug 'ncm2/ncm2-neoinclude'
 	
-	if (has('nvim'))
+	if ((has('nvim')) && (has('unix')))
 		Plug 'ncm2/float-preview.nvim'
 	endif
 
