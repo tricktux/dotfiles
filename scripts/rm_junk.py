@@ -1,5 +1,3 @@
-#! /usr/bin/env python3
-
 import os
 import shutil
 import glob
@@ -80,24 +78,24 @@ def yesno(question, default="n"):
 def rmshit():
     print("Found shittyfiles:")
     found = []
-    for f in shittyfiles:
-        absf = os.path.expanduser(f)
+    for file in shittyfiles:
+        absf = os.path.expanduser(file)
         for filename in glob.iglob(absf, recursive=True):
             if os.path.exists(filename):
                 found.append(filename)
                 print("    %s" % filename)
 
-    if len(found) == 0:
+    if not found:
         print("No shitty files found :)")
-    return
+        return
 
     if yesno("Remove all?", default="n"):
-        for f in found:
-            if os.path.isfile(f):
-                os.remove(f)
+        for file in found:
+            if os.path.isfile(file):
+                os.remove(file)
             else:
-                shutil.rmtree(f)
-                print("All cleaned")
+                shutil.rmtree(file)
+        print("All cleaned")
     else:
         print("No file removed")
 

@@ -1046,6 +1046,7 @@ function! mappings#SetWhichKeyMap() abort
 	nnoremap g; g;
 	nnoremap g, g,
 	nnoremap gq gq
+	vnoremap gq gq
 	nnoremap gv gv
 	nnoremap g8 g8
 	nnoremap g< g<
