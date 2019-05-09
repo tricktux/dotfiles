@@ -107,7 +107,7 @@ function! augroup#Set() abort
 	else
 		augroup Terminal
 			autocmd!
-			autocmd BufWinEnter *
+			autocmd TerminalOpen *
 						\ if &buftype == 'terminal' |
 						\ setlocal bufhidden=hide |
 						\ endif
