@@ -18,37 +18,34 @@ snippet singleton
 abbr    cpp singleton class
     class ${1:name}
     {
-        public:
-            static $1& GetInstance()
-            {
-                static $1 instance; // Guaranteed to be destroyed.
-                                      // Instantiated on first use.
-                return instance;
-            }
-        private:
-            $1() {}                    // Constructor? (the {} brackets) are needed here.
+        $1() {}                    // Constructor? (the {} brackets) are needed here.
 
-            // C++ 03
-            // ========
-            // Don't forget to declare these two. You want to make sure they
-            // are unacceptable otherwise you may accidentally get copies of
-            // your singleton appearing.
-            $1($1 const&);              // Don't Implement
-            void operator=($1 const&);  // Don't implement
+        // C++ 03
+        // ========
+        // Don't forget to declare these two. You want to make sure they
+        // are unacceptable otherwise you may accidentally get copies of
+        // your singleton appearing.
+        $1($1 const&);              // Don't Implement
+        void operator=($1 const&);  // Don't implement
 
-            // C++ 11
-            // =======
-            // We can use the better technique of deleting the methods
-            // we don't want.
-        public:
-            $1($1 const&)               = delete;
-            void operator=($1 const&)  = delete;
-
-            // Note: Scott Meyers mentions in his Effective Modern
-            //       C++ book, that deleted functions should generally
-            //       be public as it results in better error messages
-            //       due to the compilers behavior to check accessibility
-            //       before deleted status
+    public:
+        static $1& GetInstance()
+        {
+            static $1 instance; // Guaranteed to be destroyed.
+                                  // Instantiated on first use.
+            return instance;
+        }
+        // C++ 11
+        // =======
+        // We can use the better technique of deleting the methods
+        // we don't want.
+        // Note: Scott Meyers mentions in his Effective Modern
+        //       C++ book, that deleted functions should generally
+        //       be public as it results in better error messages
+        //       due to the compilers behavior to check accessibility
+        //       before deleted status
+        $1($1 const&)               = delete;
+        void operator=($1 const&)  = delete;
     };
 
 snippet     str
@@ -72,7 +69,7 @@ options     head
 snippet log
 abbr Google Glog
 options head
-    LOG(${1:INFO,WARNING,ERROR,FATAL}) << "${2:Message}";
+    LOG(${1:INFO,WARNING,ERROR,FATAL}) << "[" << __FUNCTION__ << "]: ${2:Message}";
 
 ##
 ## Control Statements
