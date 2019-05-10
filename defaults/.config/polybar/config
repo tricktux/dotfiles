@@ -167,7 +167,7 @@ font-3 = Roboto:size=18;0
 font-4 = Iosevka Nerd Font:style=Medium:size=22;3
 
 ; When copying remove xbacklight battery and set specific wlan
-modules-left = menu wlan-predator info-pingrtt right-end-bottom space todo
+modules-left = menu wlan-predator info-pingrtt right-end-bottom space todo space pihole
 modules-center =  left-end-top temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory right-end-top
 modules-right = left-end-bottom volume xkeyboard github info-trash updates-arch-combined redshift compton
 
@@ -181,7 +181,7 @@ font-2 = "Font Awesome 5 Brands:pixelsize=10;1"
 font-3 = Roboto:size=10;0
 font-4 = Iosevka Nerd Font:style=Medium:size=14;3
 
-modules-left = menu wlan-helios info-pingrtt right-end-bottom space todo
+modules-left = menu wlan-helios info-pingrtt right-end-bottom space todo space pihole
 modules-center =  left-end-top temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory right-end-top
 modules-right = left-end-bottom battery_helios right-end-top space left-end-bottom xbacklight volume xkeyboard github info-trash updates-arch-combined redshift compton
 
