@@ -142,7 +142,7 @@ padding-right = 0
 module-margin-left = 0
 module-margin-right = 0
 ; override-redirect = true
-wm-restack = i3
+; wm-restack = i3
 enable-ipc = false
 
 scroll-up = i3wm-wsnext
@@ -195,6 +195,7 @@ font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=18;1"
 font-2 = "Font Awesome 5 Brands:pixelsize=18;1"
 font-3 = Roboto:size=18;0
 font-4 = Iosevka Nerd Font:style=Medium:size=32;3
+font-5 = Weather Icons:size=12;1
 
 [bar/top-helios]
 inherit = bar/main-top
@@ -203,5 +204,6 @@ font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=10;1"
 font-2 = "Font Awesome 5 Brands:pixelsize=10;1"
 font-3 = Roboto:size=10;0
 font-4 = Iosevka Nerd Font:style=Medium:size=14;3
+font-5 = Weather Icons:size=12;1
 
 ; vim: ft=dosini
