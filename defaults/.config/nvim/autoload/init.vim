@@ -183,9 +183,9 @@ function! s:config_unix() abort
 	endfor
 
 	if executable('languagetool') && 
-		\ !empty(glob('/usr/share/java/languagetool/languagetool-commandline.jar'))
+		\ !empty(glob('/usr/bin/languagetool'))
 		let g:languagetool_jar = 
-					\ '/usr/share/java/languagetool/languagetool-commandline.jar'
+					\ '/usr/bin/languagetool'
 	endif
-	let g:browser_cmd = '/usr/bin/opera'
+	let g:browser_cmd = '/usr/bin/firefox'
 endfunction

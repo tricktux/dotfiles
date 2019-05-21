@@ -27,7 +27,7 @@ class Config():
         if not self.my_file.is_file():
             if DEBUG > 0:
                 logger.critical('[Config::init]: filename not found')
-            print(-1)
+            #  print(-1)
             sys.exit(1)
         self.config.read(filenames=self.my_file)
 
@@ -107,7 +107,7 @@ class Strava():
         except:
             if DEBUG > 0:
                 logger.critical('failed to get activities', exc_info=True)
-            print(-3)
+            #  print(-3)
             sys.exit(3)
 
     def update_token_information(self, token):
@@ -180,7 +180,7 @@ if __name__ == '__main__':
             logger.critical(
                 'failed to get tokens. token: "%s", client_id: "%s", client_secret: "%s"',
                 token, client_id, client_secret)
-        print(-2)
+        #  print(-2)
         sys.exit(2)
     year = config.get_str('Workout', 'year', "")
     strava = Strava(token, client_id, client_secret, year, config)

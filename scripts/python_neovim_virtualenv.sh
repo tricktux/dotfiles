@@ -8,9 +8,6 @@
 # Created:        Fri Jan 25 2019 23:09
 # Last Modified:  Fri Jan 25 2019 23:09
 
-venv_loc="~/.local/share/python"
-venv_name="neovim"
-
 modules[0]="vim-vint"
 modules[1]="thesaurus"
 modules[2]="neovim-remote"
@@ -24,6 +21,7 @@ modules[9]="pip"
 modules[10]="frosted"
 modules[11]="pep8"
 modules[12]="pylint"
+modules[13]="requests"
 
 modules_2[0]=${modules[7]}
 modules_2[1]=${modules[9]}
@@ -31,6 +29,6 @@ modules_2[1]=${modules[9]}
 # mkdir -p $venv_loc
 # python -m venv $venv_loc/$venv_name
 # source $venv_name/bin/activate
-pip install --upgrade --user ${modules[*]}
+pip3 install --upgrade --user ${modules[*]}
 pip2 install --upgrade --user ${modules_2[*]}
 # deactivate
