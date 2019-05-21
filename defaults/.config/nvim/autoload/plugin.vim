@@ -304,10 +304,6 @@ function! plugin#Config()
 	" Disble this file by removing its function call from autload/markdown.vim
 
 	" Sun Sep 10 2017 20:44 Depends on languagetool being installed
-	if !empty('g:languagetool_jar')
-		Plug 'dpelle/vim-LanguageTool', { 'for' : 'markdown' }
-	endif
-
 	call s:configure_pomodoro()
 
 	Plug 'chrisbra/csv.vim', { 'for' : 'csv' }
@@ -484,6 +480,16 @@ function! plugin#Config()
 		vnoremap <plug>to_camel_case :Camel<cr>
 		vnoremap <plug>to_camel_back_case :CamelB<cr>
 		vnoremap <plug>to_kebak_case :Kebak<cr>
+
+	if !empty('g:languagetool_jar')
+		Plug 'rhysd/vim-grammarous'
+			let g:grammarous#languagetool_cmd = g:languagetool_jar
+			let g:grammarous#default_comments_only_filetypes = {
+						\ '*' : 1, 'help' : 0, 'markdown' : 0,
+						\ }
+		" Plug 'dpelle/vim-LanguageTool', { 'for' : 'markdown' }
+	endif
+
 
 	" All of your Plugins must be added before the following line
 	call plug#end()            " required
