@@ -471,7 +471,7 @@ mode "resize" {
 
 # Mode Password{{{
 # 
-set $mode_password pass: press (w)root, (f)githug, (d)git
+set $mode_password pass: press (w)root, (f)githug, (d)git, (s)gitlab
 bindsym mod1+control+w mode "$mode_password"
 mode "$mode_password" {
 	bindsym w mode "default", \
@@ -480,6 +480,8 @@ mode "$mode_password" {
 		pass --clip linux/`hostname`/ssh_key/id_ed25519_github
 	bindsym d mode "default", exec --no-startup-id \
 		pass --clip linux/`hostname`/ssh_key/id_ed25519_git_server
+	bindsym s mode "default", exec --no-startup-id \
+		pass --clip linux/`hostname`/ssh_key/id_ed25519_git_gitlab
 
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
