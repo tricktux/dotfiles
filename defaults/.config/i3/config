@@ -481,7 +481,7 @@ mode "$mode_password" {
 	bindsym d mode "default", exec --no-startup-id \
 		pass --clip linux/`hostname`/ssh_key/id_ed25519_git_server
 	bindsym s mode "default", exec --no-startup-id \
-		pass --clip linux/`hostname`/ssh_key/id_ed25519_git_gitlab
+		pass --clip linux/`hostname`/ssh_key/id_ed25519_gitlab
 
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
