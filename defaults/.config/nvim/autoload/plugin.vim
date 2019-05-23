@@ -481,7 +481,7 @@ function! plugin#Config()
 		vnoremap <plug>to_camel_back_case :CamelB<cr>
 		vnoremap <plug>to_kebak_case :Kebak<cr>
 
-	if !empty('g:languagetool_jar')
+	if exists('g:languagetool_jar') && !empty('g:languagetool_jar')
 		Plug 'rhysd/vim-grammarous'
 			let g:grammarous#languagetool_cmd = g:languagetool_jar
 			let g:grammarous#default_comments_only_filetypes = {
