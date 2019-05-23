@@ -651,10 +651,10 @@ function! s:goto_tag_on_next_win(direction) abort
 endfunction
 
 " Detect if this is the edge window in the direction specified
-" direction: {h,j,k,l}
+" direction: {h,l}
 " Returns: -1 if this is the only window
-"						0 True
-"						1 False
+"						1 True
+"						0 False
 function! s:edge_window(direction) abort
 	" If there is only one window
 	let num_wins = winnr('$')
@@ -663,15 +663,23 @@ function! s:edge_window(direction) abort
 	endif
 
 	let num_curr_win = winnr()
-	let dir = '80' . a:direction
-	try
-		let num_wins_in_dir = winnr(dir)
-	catch 
-		echoerr 'Invalid direction'
-		return -2
-	endtry
 
-	return (num_curr_win == num_wins_in_dir ? 1 : 0)
+	if (a:direction ==? 'h')
+		if (num_curr_win == 1)
+			return 1
+		endif
+		return 0
+	endif
+
+	if (a:direction ==? 'l')
+		if (num_curr_win == num_wins)
+			return 1
+		endif
+		return 0
+	endif
+
+	echoerr 'Invalid direction provided'
+	return -2
 endfunction
 
 " Split window in direction if:
