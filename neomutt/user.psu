@@ -16,7 +16,7 @@ set my_trash_noquote="Deleted Items"
 
 set my_username="rim18"
 set my_domain="psu.edu"
-set my_password="`pass school/psu.edu/rim18`"
+set my_password="`pass school/pennstate/psu.edu/rim18`"
 
 source "~/.config/neomutt/imap.gen.mutt"
 
