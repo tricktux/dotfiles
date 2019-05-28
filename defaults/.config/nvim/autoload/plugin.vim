@@ -35,7 +35,9 @@ function! plugin#Config()
 	" selection - {lightline, airline}
 	call status_line#config('lightline')
 
-	Plug 'lambdalisue/suda.vim'
+	if (has('unix'))
+		Plug 'lambdalisue/suda.vim'
+	endif
 
 	Plug 'dbeniamine/todo.txt-vim'
 
