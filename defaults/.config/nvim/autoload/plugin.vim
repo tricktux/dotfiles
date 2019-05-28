@@ -39,8 +39,6 @@ function! plugin#Config()
 		Plug 'lambdalisue/suda.vim'
 	endif
 
-	Plug 'dbeniamine/todo.txt-vim'
-
 	call s:configure_vim_zoom()
 
 	call s:configure_vim_utils()
