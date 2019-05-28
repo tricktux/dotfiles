@@ -515,7 +515,9 @@ function! mappings#Set()
 	nnoremap <Leader>ei :e 
 
   " mnemonic space bar
-	vnoremap <leader>b y:call writefile([@"], '/tmp/todo.txt')<cr>
+	vnoremap <leader>l y:call writefile([@"], '/tmp/todo.txt')<cr>
+	nnoremap <leader>la :call <sid>todo_add()<cr>
+	nnoremap <leader>ld :call <sid>todo_remove()<cr>
 	" nmap <leader>et <plug>edit_todo
 	" if !hasmapto('<plug>edit_todo')
 		" nnoremap <silent> <plug>edit_todo :execute
@@ -1328,4 +1330,17 @@ function! s:goto_terminal_on_next_win(direction, cmd) abort
 	endif
 	
 	execute ':' . new_cmd
+endfunction
+
+function! s:todo_add() abort
+	let todo = input('Please enter new item: ')
+	if empty(todo)
+		return
+	endif
+
+	call writefile(todo, '/tmp/todo.txt')
+endfunction
+
+function! s:todo_remove() abort
+	delete('/tmp/todo.txt')
 endfunction
