@@ -6,13 +6,22 @@
 " Created:        Wed May 29 2019 17:47
 " Last Modified:  Wed May 29 2019 17:47
 " From: https://github.com/VsVim/VsVim/wiki/VsVim-Nonstandard-Behavior
+" List of all commands:
+" https://github.com/aburok/mysettings/blob/master/VisualStudio/vscommands.txt
 
 set autoindent
 
+nnoremap Q :vsc View.ErrorList<cr>
+nnoremap - :vsc Edit.CommentSelection<cr>
+nnoremap 0 :vsc Edit.UncommentSelection<cr>
 nnoremap <s-b> ^
 nnoremap <s-w> $
 nnoremap <s-t> %
+
 inoremap <c-j> <c-[>
+inoremap <c-f> <right>
+inoremap <c-b> <left>
+inoremap <c-d> <del>
 
 nnoremap <C-O> :vsc View.NavigateBackward<CR>
 nnoremap <C-I> :vsc View.NavigateForward<CR>
