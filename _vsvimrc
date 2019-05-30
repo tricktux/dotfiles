@@ -1,0 +1,42 @@
+" File:           _vsvimrc
+" Description:    Config for Visual Studio's VsVim extention
+" Author:		    Reinaldo Molina
+" Email:          rmolin88 at gmail dot com
+" Revision:	    0.0.0
+" Created:        Wed May 29 2019 17:47
+" Last Modified:  Wed May 29 2019 17:47
+" From: https://github.com/VsVim/VsVim/wiki/VsVim-Nonstandard-Behavior
+
+set autoindent
+
+nmap <s-b> ^
+nmap <s-w> $
+nmap <s-t> %
+imap <c-j> <c-[>
+
+nmap <C-O> :vsc View.NavigateBackward<CR>
+nmap <C-I> :vsc View.NavigateForward<CR>
+
+nmap ]l :vsc View.NextError<CR>
+nmap [l :vsc View.PreviousError<CR>
+
+nmap ]t :vsc Edit.GoToDefinition<CR>
+nmap [t :vsc View.NavigateBackward<CR>
+
+" Conflicts with help menu
+nmap <a-h> <c-w>h
+nmap <a-l> <c-w>l
+
+nmap zz <c-z>
+
+" set 'selection', 'selectmode', 'mousemodel' and 'keymodel' for MS-Windows
+behave mswin
+"
+" " backspace and cursor keys wrap to previous/next line
+set backspace=indent,eol,start whichwrap+=<,>,[,]
+"
+" " backspace in Visual mode deletes selection
+vnoremap <BS> d
+"
+" " Use CTRL-S for saving, also in Insert mode
+noremap <C-S>		:update<CR>
