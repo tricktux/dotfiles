@@ -6,6 +6,7 @@
 " Original Modified: Apr 04 2017 23:58
 
 function! autocompletion#SetCompl(compl) abort
+	let s:completion_choice = a:compl
 	if a:compl ==# 'ycm'
 		call s:set_ycm()
 	elseif a:compl ==# 'nvim_compl_manager'
@@ -50,6 +51,8 @@ function! autocompletion#SetCompl(compl) abort
 		let g:clangd#completions_enabled = 0
 		call s:set_shuogo()
 		call s:set_clangd_lsp()
+	elseif a:compl ==# 'coc'
+		call s:set_coc_nvim()
 	else
 		echomsg 'autocompletion#SetCompl(): Not a recognized value therefore setting SuperTab'
 		call s:set_tab()
@@ -324,6 +327,22 @@ function! s:set_language_client(has_unix) abort
 endfunction
 
 function! autocompletion#AdditionalLspSettings() abort
+	if (!exists('s:completion_choice') && !empty(s:completion_choice))
+		if &verbose > 0
+			echoerr 'Missing s:completion_choice variable'
+		endif
+		return
+	endif
+
+	if a:compl ==# 'nvim_compl_manager'
+		return <sid>set_language_client_mappings()
+	endif
+	if a:compl ==# 'coc'
+		return <sid>set_language_client_mappings()
+	endif
+endfunction
+
+function! s:set_language_client_mappings() abort
 	if !exists('g:LanguageClient_serverCommands')
 		if &verbose > 0
 			echoerr 'LanguageClient plugin not installed'
@@ -349,12 +368,18 @@ function! autocompletion#AdditionalLspSettings() abort
 	setlocal completefunc=LanguageClient#complete
 	setlocal formatexpr=LanguageClient_textDocument_rangeFormatting()
 
-	nnoremap <buffer> <localleader>d :call LanguageClient#textDocument_definition()<CR>
-	nnoremap <buffer> <localleader>lh :call LanguageClient#textDocument_hover()<CR>
-	nnoremap <buffer> <localleader>lf :call LanguageClient#textDocument_formatting()<cr>
-	nnoremap <buffer> <localleader>lR :call LanguageClient#textDocument_references()<CR>
-	nnoremap <buffer> <localleader>ls :call LanguageClient#textDocument_documentSymbol()<CR>
-	nnoremap <buffer> <localleader>lr :call LanguageClient#textDocument_rename()<CR>
+	nnoremap <buffer> <localleader>d
+				\ :call LanguageClient#textDocument_definition()<CR>
+	nnoremap <buffer> <localleader>lh
+				\ :call LanguageClient#textDocument_hover()<CR>
+	nnoremap <buffer> <localleader>lf
+				\ :call LanguageClient#textDocument_formatting()<cr>
+	nnoremap <buffer> <localleader>lR
+				\ :call LanguageClient#textDocument_references()<CR>
+	nnoremap <buffer> <localleader>ls
+				\ :call LanguageClient#textDocument_documentSymbol()<CR>
+	nnoremap <buffer> <localleader>lr
+				\ :call LanguageClient#textDocument_rename()<CR>
 endfunction
 
 function! s:set_vim_clang() abort
@@ -599,7 +624,7 @@ endfunction
 " Used by async
 function! s:check_back_space() abort
 	let col = col('.') - 1
-	return !col || getline('.')[col - 1]  =~ '\s'
+	return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 function! s:set_async() abort
@@ -738,4 +763,91 @@ function! s:set_shuogo_deo() abort
 		let col = col('.') - 1
 		return !col || getline('.')[col - 1]  =~ '\s'
 	endfunction
+endfunction
+
+function! s:set_coc_nvim() abort
+	" Use tab for trigger completion with characters ahead and navigate.
+	" Use command ':verbose imap <tab>' to make sure tab is not mapped by 
+	" other plugin.
+	if (!has('unix'))
+		echoerr 'Wrong autocompletion engine selected!!!'
+		return
+	endif
+
+	Plug 'neoclide/coc-json'
+	Plug 'iamcco/coc-vimlsp'
+	Plug 'neoclide/coc-highlight'
+	Plug 'neoclide/coc-python'
+	Plug 'neoclide/coc-java'
+	Plug 'zidhuss/coc-lbdbq'
+	Plug 'Shougo/neco-vim'
+	Plug 'neoclide/coc-neco'
+	Plug 'neoclide/coc-sources'
+	Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+
+	inoremap <silent><expr> <TAB>
+				\ pumvisible() ? "\<C-n>" :
+				\ <SID>check_back_space() ? "\<TAB>" :
+				\ coc#refresh()
+	inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+	" Use <c-space> to trigger completion.
+	inoremap <silent><expr> <c-space> coc#refresh()
+
+	if exists('g:lightline')
+		let g:lightline.active.left[2] += [ 'cocstatus' ]
+		let g:lightline.component_function['cocstatus'] = 'coc#statu
+	endif
+endfunction
+
+function! s:set_coc_snippets() abort
+	
+	" TODO add custom snippets folder. see: set_neosnippets
+	Plug 'neoclide/coc-snippets'
+	Plug 'Shougo/neosnippet-snippets'
+	Plug 'honza/vim-snippets'
+
+	imap <plug>snip_expand <plug>(coc-snippets-expand-jump)
+	vmap <plug>snip_expand <plug>(coc-snippets-select)
+	" xmap <plug>snip_expand <plug>(neosnippet_expand_target)
+	" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+	let g:coc_snippet_next = '<c-k>'
+
+	" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+	let g:coc_snippet_prev = '<c-j>'
+	inoremap <silent><expr> <TAB>
+				\ pumvisible() ? coc#_select_confirm() :
+				\ coc#expandableOrJumpable() ?
+				\ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+				\ <sid>check_back_space() ? "\<TAB>" :
+				\ coc#refresh()
+	let g:snips_author = 'Reinaldo Molina'
+	let g:snips_email = 'rmolin88 at gmail dot com'
+	let g:snips_github = 'rmolin88'
+endfunction
+
+function! s:set_coc_nvim_mappings() abort
+	
+	nmap <buffer> <localleader>d <Plug>(coc-definition)
+	nmap <buffer> <localleader>lh 
+				\ :call <sid>coc_show_documentation()<cr>
+	nmap <buffer> <localleader>lR <plug>(coc-references)
+	nmap <buffer> <localleader>lr <plug>(coc-rename)
+	nmap <buffer> <localleader>lf <plug>(coc-format-selected)
+	xmap <buffer> <localleader>lf <plug>(coc-format-selected)
+	" nmap <buffer> <localleader>ls
+				" \ :call LanguageClient#textDocument_documentSymbol()<CR>
+	
+	augroup CocHighlight
+		" this one is which you're most likely to use?
+		autocmd CursorHold * silent call CocActionAsync('highlight')
+	augroup end
+endfunction
+
+function! s:coc_show_documentation()
+	if (index(['vim','help'], &filetype) >= 0)
+		execute 'h '.expand('<cword>')
+	else
+		call CocAction('doHover')
+	endif
 endfunction

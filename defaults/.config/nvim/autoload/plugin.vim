@@ -58,9 +58,10 @@ function! plugin#Config()
 	endif
 
 	" Possible values:
-	" - ycm nvim_compl_manager shuogo autocomplpop completor asyncomplete neo_clangd
-	" call autocompletion#SetCompl(has('unix') ? 'nvim_compl_manager' : 'shuogo')
-	call autocompletion#SetCompl('nvim_compl_manager')
+	" - ycm nvim_compl_manager shuogo autocomplpop completor asyncomplete
+	"   neo_clangd coc
+	call autocompletion#SetCompl(!has('unix') ? 'nvim_compl_manager' : 'coc')
+	" call autocompletion#SetCompl('nvim_compl_manager')
 	" call autocompletion#SetCompl(
 				" \ has('unix') ? 'shuogo_deo' :
 				" \ (exists('g:portable_vim') && g:portable_vim == 1 ? 'shuogo_neo' : 'shuogo_deo')
