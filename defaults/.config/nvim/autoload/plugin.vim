@@ -391,6 +391,10 @@ function! plugin#Config()
 	Plug 'PotatoesMaster/i3-vim-syntax'
 	Plug 'elzr/vim-json', { 'for' : 'json' }
 	Plug 'aklt/plantuml-syntax', { 'for' : 'plantuml' }
+	Plug 'Peaches491/vim-glog-syntax'
+	Plug 'hdima/python-syntax'
+		" let g:python_highlight_all=1
+
 
 	" Gdb debugging
 	if has('unix')
@@ -407,8 +411,6 @@ function! plugin#Config()
 	endif
 
 	Plug 'alepez/vim-gtest', { 'for' : ['c', 'cpp'] }
-
-	Plug 'Peaches491/vim-glog-syntax'
 
 	call s:configure_vim_bookmark()
 
