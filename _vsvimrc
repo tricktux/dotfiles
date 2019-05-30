@@ -9,25 +9,27 @@
 
 set autoindent
 
-nmap <s-b> ^
-nmap <s-w> $
-nmap <s-t> %
-imap <c-j> <c-[>
+nnoremap <s-b> ^
+nnoremap <s-w> $
+nnoremap <s-t> %
+inoremap <c-j> <c-[>
 
-nmap <C-O> :vsc View.NavigateBackward<CR>
-nmap <C-I> :vsc View.NavigateForward<CR>
+nnoremap <C-O> :vsc View.NavigateBackward<CR>
+nnoremap <C-I> :vsc View.NavigateForward<CR>
 
-nmap ]l :vsc View.NextError<CR>
-nmap [l :vsc View.PreviousError<CR>
+nnoremap ]l :vsc View.NextError<CR>
+nnoremap [l :vsc View.PreviousError<CR>
 
-nmap ]t :vsc Edit.GoToDefinition<CR>
-nmap [t :vsc View.NavigateBackward<CR>
+nnoremap ]t :vsc Edit.GoToDefinition<CR>
+nnoremap [t :vsc View.NavigateBackward<CR>
 
 " Conflicts with help menu
-nmap <a-h> <c-w>h
-nmap <a-l> <c-w>l
+nnoremap <a-h> <c-w>h
+nnoremap <a-l> <c-w>l
 
-nmap zz <c-z>
+nnoremap <cr> o<esc>
+" Breaks zz
+" nnoremap zz <c-z>
 
 " set 'selection', 'selectmode', 'mousemodel' and 'keymodel' for MS-Windows
 behave mswin
