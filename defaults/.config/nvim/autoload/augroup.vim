@@ -55,6 +55,7 @@ function! augroup#Set() abort
 		autocmd FileType gitcommit setlocal spell spelllang=en
 
 		autocmd FileType terminal setlocal nonumber norelativenumber bufhidden=hide
+		autocmd FileType json syntax match Comment +\/\/.\+$+
 	augroup END
 
 	" To improve syntax highlight speed. If something breaks with highlight
