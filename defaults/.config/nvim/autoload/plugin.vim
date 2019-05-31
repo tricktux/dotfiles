@@ -58,8 +58,12 @@ function! plugin#Config()
 	endif
 
 	" Possible values:
-	" - ycm nvim_compl_manager shuogo autocomplpop completor asyncomplete neo_clangd
-	" call autocompletion#SetCompl(has('unix') ? 'nvim_compl_manager' : 'shuogo')
+	" - ycm nvim_compl_manager shuogo autocomplpop completor asyncomplete
+	"   neo_clangd coc
+	" call autocompletion#SetCompl(!has('unix') ? 'nvim_compl_manager' : 'coc')
+	" Fri May 31 2019 08:15 tried coc but it for it to work I need to install 
+	" nodejs. Also is kind of slow. For extensions to work you need to install 
+	" manually. Like: CocInstall coc-<x> 
 	call autocompletion#SetCompl('nvim_compl_manager')
 	" call autocompletion#SetCompl(
 				" \ has('unix') ? 'shuogo_deo' :
@@ -391,6 +395,10 @@ function! plugin#Config()
 	Plug 'PotatoesMaster/i3-vim-syntax'
 	Plug 'elzr/vim-json', { 'for' : 'json' }
 	Plug 'aklt/plantuml-syntax', { 'for' : 'plantuml' }
+	Plug 'Peaches491/vim-glog-syntax'
+	Plug 'hdima/python-syntax'
+		" let g:python_highlight_all=1
+
 
 	" Gdb debugging
 	if has('unix')
@@ -407,8 +415,6 @@ function! plugin#Config()
 	endif
 
 	Plug 'alepez/vim-gtest', { 'for' : ['c', 'cpp'] }
-
-	Plug 'Peaches491/vim-glog-syntax'
 
 	call s:configure_vim_bookmark()
 
