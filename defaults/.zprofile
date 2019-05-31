@@ -55,6 +55,7 @@ export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:/usr/man
 # Adb, fastboot
 # Fixes vim-javacomplete2 issues
 # Remember to launch nvim at the code base
+export JAVA_HOME=/usr/lib/jvm/default
 if [[ -d "$HOME/Downloads/packages/android-sdk-linux" ]]; then
 	export ANDROID_HOME=$HOME/Downloads/packages/android-sdk-linux
 	export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
