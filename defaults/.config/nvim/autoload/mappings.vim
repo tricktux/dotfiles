@@ -1338,9 +1338,9 @@ function! s:todo_add() abort
 		return
 	endif
 
-	call writefile(todo, '/tmp/todo.txt')
+	call writefile([todo], '/tmp/todo.txt')
 endfunction
 
 function! s:todo_remove() abort
-	delete('/tmp/todo.txt')
+	return delete('/tmp/todo.txt')
 endfunction
