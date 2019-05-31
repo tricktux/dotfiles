@@ -1,6 +1,5 @@
 advcp
 arandr-indicator-git
-archlinux-java-run
 atlas-cpp
 bfs
 bullet-train-oh-my-zsh-theme-git
@@ -11,9 +10,6 @@ devdocs-desktop
 downgrade
 etcher-bin
 fbxkb
-gamin
-gcc7
-gcc7-libs
 global
 google-chrome
 grub2-theme-archlinux
@@ -24,6 +20,7 @@ i3ipc-glib-git
 i3lock-fancy-git
 jdk8
 jdtls
+keepassx2
 key-mon
 libcurlpp
 libjson
