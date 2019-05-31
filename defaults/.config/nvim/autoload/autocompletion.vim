@@ -338,7 +338,7 @@ function! autocompletion#AdditionalLspSettings() abort
 		return <sid>set_language_client_mappings()
 	endif
 	if a:compl ==# 'coc'
-		return <sid>set_language_client_mappings()
+		return <sid>set_coc_nvim_mappings()
 	endif
 endfunction
 
@@ -774,11 +774,15 @@ function! s:set_coc_nvim() abort
 		return
 	endif
 
+	" Extensions that need to be installed
+	" NOTE: coc-snippets is another
 	Plug 'neoclide/coc-json'
 	Plug 'iamcco/coc-vimlsp'
 	Plug 'neoclide/coc-highlight'
 	Plug 'neoclide/coc-python'
 	Plug 'neoclide/coc-java'
+	
+	" Sources
 	Plug 'zidhuss/coc-lbdbq'
 	Plug 'Shougo/neco-vim'
 	Plug 'neoclide/coc-neco'
@@ -796,7 +800,7 @@ function! s:set_coc_nvim() abort
 
 	if exists('g:lightline')
 		let g:lightline.active.left[2] += [ 'cocstatus' ]
-		let g:lightline.component_function['cocstatus'] = 'coc#statu
+		let g:lightline.component_function['cocstatus'] = 'coc#status'
 	endif
 endfunction
 
