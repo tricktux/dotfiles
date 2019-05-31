@@ -60,8 +60,11 @@ function! plugin#Config()
 	" Possible values:
 	" - ycm nvim_compl_manager shuogo autocomplpop completor asyncomplete
 	"   neo_clangd coc
-	call autocompletion#SetCompl(!has('unix') ? 'nvim_compl_manager' : 'coc')
-	" call autocompletion#SetCompl('nvim_compl_manager')
+	" call autocompletion#SetCompl(!has('unix') ? 'nvim_compl_manager' : 'coc')
+	" Fri May 31 2019 08:15 tried coc but it for it to work I need to install 
+	" nodejs. Also is kind of slow. For extensions to work you need to install 
+	" manually. Like: CocInstall coc-<x> 
+	call autocompletion#SetCompl('nvim_compl_manager')
 	" call autocompletion#SetCompl(
 				" \ has('unix') ? 'shuogo_deo' :
 				" \ (exists('g:portable_vim') && g:portable_vim == 1 ? 'shuogo_neo' : 'shuogo_deo')
