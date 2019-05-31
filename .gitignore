@@ -8,6 +8,7 @@ defaults/.config/i3/i3blocks-email/
 defaults/.config/qutebrowser/quickmarks
 defaults/.config/polybar/scripts/github
 defaults/.config/polybar/scripts/config.ini
+defaults/.config/polybar/scripts/pihole.ini
 mutt/gmail/cache/
 mutt/gmail/certificates
 mutt/ufl/cache
