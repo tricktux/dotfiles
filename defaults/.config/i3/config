@@ -132,14 +132,14 @@ bindsym $mod+7 exec \
 	--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
 	psu-mutt "$TERMINAL -t psu-mutt \
 	-e 'neomutt -F ~/.config/neomutt/user.psu'"
-bindsym $mod+i exec \
+bindsym $mod+o exec \
 	--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
 	journal "$TERMINAL -t journal \
 	-e ~/.config/i3/scripts/journal.sh"
-bindsym $mod+o exec \
-	--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
-	terminal "$TERMINAL \
-	-t terminal -e 'tmux -f /home/reinaldo/.config/tmux/conf'"
+#bindsym $mod+o exec \
+	# --no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
+	# terminal "$TERMINAL \
+	# -t terminal -e 'tmux -f /home/reinaldo/.config/tmux/conf'"
 
 bindsym mod1+Tab exec --no-startup-id i3flip next
 
