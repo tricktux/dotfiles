@@ -17,6 +17,7 @@ function connect_to(device)
 		print('\tFailed to power on')
 		return false
 	end
+
 	print('==> Connecting to ' .. device)
 	for i = 0, 10 do
 		local rc = os.execute("bluetoothctl -- connect " .. device)
@@ -29,14 +30,10 @@ function connect_to(device)
 	return false
 end
 
-function disconnect_from(device)
-	if device == nil then
-		return false
-	end
-
-	print('==> Disconnecting from ' .. device)
+function disconnect()
+	print('==> Disconnecting')
 	for i = 0, 10 do
-		local rc = os.execute("bluetoothctl -- disconnect " .. device)
+		local rc = os.execute("bluetoothctl -- disconnect")
 		if rc == true then
 			break
 		end
@@ -59,12 +56,12 @@ function main()
 	end
 
 	local input = arg[1]
+	local device = arg[2]
 
-	print(input)
-	if input == "w" then
-		connect_to("04:5D:4B:EA:9C:B2")
-	elseif input == "W" then
-		disconnect_from("04:5D:4B:EA:9C:B2")
+	if input == "connect" then
+		connect_to(device)
+	elseif input == "disconnect" then
+		disconnect()
 	else
 		print('Unrecognized command')
 	end
