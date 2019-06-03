@@ -471,13 +471,13 @@ mode "resize" {
 
 # Mode bluetooth {{{
 # 
-set $mode_bluetooth bluetooth to: (w)wh-1000xm2(W)
+set $mode_bluetooth bluetooth to: (w)wh-1000xm2 (d)isconnect
 bindsym mod1+control+b mode "$mode_bluetooth"
 mode "$mode_bluetooth" {
 	bindsym w mode "default", exec --no-startup-id \
-		~/.config/i3/scripts/bluetooth.lua "w"
-	bindsym shift+w mode "default", exec --no-startup-id \
-		~/.config/i3/scripts/bluetooth.lua "W"
+		~/.config/i3/scripts/bluetooth.lua "connect" "04:5D:4B:EA:9C:B2"
+	bindsym d mode "default", exec --no-startup-id \
+		~/.config/i3/scripts/bluetooth.lua "disconnect"
 
 		bindsym Return mode "default"
 		bindsym Escape mode "default"
