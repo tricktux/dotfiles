@@ -471,13 +471,15 @@ mode "resize" {
 
 # Mode bluetooth {{{
 # 
-set $mode_bluetooth connect to: (wW)wh-1000xm2
+set $mode_bluetooth bluetooth to: (w)wh-1000xm2(W)
 bindsym mod1+control+b mode "$mode_bluetooth"
 mode "$mode_bluetooth" {
 	bindsym w mode "default", \
-		exec --no-startup-id echo -e "connect 04:5D:4B:EA:9C:B2\n" | bluetoothctl
+		exec --no-startup-id \
+		bluetoothctl -- power on; bluetoothctl -- connect 04:5D:4B:EA:9C:B2
 	bindsym shift+w mode "default", \
-		exec --no-startup-id echo -e "disconnect 04:5D:4B:EA:9C:B2\n" | bluetoothctl
+		exec --no-startup-id \
+		bluetoothctl -- disconnect 04:5D:4B:EA:9C:B2 && bluetoothctl -- power off
 
 		bindsym Return mode "default"
 		bindsym Escape mode "default"
