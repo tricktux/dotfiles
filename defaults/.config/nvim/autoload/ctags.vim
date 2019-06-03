@@ -462,6 +462,13 @@ function! s:create_cscope(tag_name) abort
 		return
 	endif
 
+	if !has('unix')
+		let choice = confirm('Run cscope?', "&Jes\&Ko", 2)
+		if (choice == 0) || (choice == 2)
+			return
+		endif
+	endif
+
 	let valid = 0
 	for type in g:ctags_use_cscope_for
 		if type ==# &filetype
