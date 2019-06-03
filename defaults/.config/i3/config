@@ -150,7 +150,7 @@ bindsym control+mod1+k exec --no-startup-id pamixer --increase 5
 bindsym control+mod1+j exec --no-startup-id pamixer --decrease 5
 bindsym control+mod1+m exec --no-startup-id pamixer --toggle-mute
 bindsym control+mod1+p exec --no-startup-id pavucontrol
-bindsym control+mod1+b exec --no-startup-id blueberry
+# bindsym control+mod1+b exec --no-startup-id blueberry
 bindsym control+mod1+i exec --no-startup-id \
 	~/.config/i3/scripts/pulseaudio-rofi.sh --input
 bindsym control+mod1+o exec --no-startup-id \
@@ -464,6 +464,21 @@ mode "resize" {
 		bindsym Right       resize grow width 10 px or 10 ppt
 
 # back to normal: Enter or Escape
+		bindsym Return mode "default"
+		bindsym Escape mode "default"
+}
+# }}}
+
+# Mode bluetooth {{{
+# 
+set $mode_bluetooth connect to: (wW)wh-1000xm2
+bindsym mod1+control+b mode "$mode_bluetooth"
+mode "$mode_bluetooth" {
+	bindsym w mode "default", \
+		exec --no-startup-id echo -e "connect 04:5D:4B:EA:9C:B2\n" | bluetoothctl
+	bindsym shift+w mode "default", \
+		exec --no-startup-id echo -e "disconnect 04:5D:4B:EA:9C:B2\n" | bluetoothctl
+
 		bindsym Return mode "default"
 		bindsym Escape mode "default"
 }
