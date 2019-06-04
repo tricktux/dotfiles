@@ -91,7 +91,8 @@ function! s:set_neomake() abort
 	let g:neomake_plantuml_enabled_makers = ['plantuml']
 
 	" java setup
-	" install maven checkstyle uncrustify
+	" install maven checkstyle uncrustify gradle
+	" for gradle make sure that the `gradlew` script in your project is executable
 	let g:neomake_java_checkstyle_xml =
 				\ g:std_config_path . '/java_checkstyle_SWENG861.xml'
 	" Sun Dec 09 2018 19:18:
