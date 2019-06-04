@@ -11,6 +11,8 @@
 
 set autoindent
 
+nnoremap <space>/k :vsc Edit.FindAllReferences<cr>
+nnoremap get :vsc EditorContextMenus.CodeWindow.ViewCallHierarchy<cr>
 nnoremap Q :vsc View.ErrorList<cr>
 nnoremap - :vsc Edit.CommentSelection<cr>
 nnoremap 0 :vsc Edit.UncommentSelection<cr>
