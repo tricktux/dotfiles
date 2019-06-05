@@ -8,6 +8,7 @@
 " From: https://github.com/VsVim/VsVim/wiki/VsVim-Nonstandard-Behavior
 " List of all commands:
 " https://github.com/aburok/mysettings/blob/master/VisualStudio/vscommands.txt
+" Toggle vsvim enable: <c-s-f12>
 
 set autoindent
 
