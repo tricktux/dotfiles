@@ -64,9 +64,7 @@ function! options#Set() abort
 	augroup TitleString
 		autocmd!
 		autocmd BufWinLeave,BufWinEnter,CursorHold,DirChanged,TabEnter *
-					\ let &titlestring = (exists('g:valid_device') && has('unix') ?
-					\ "\uf015" : '') .
-					\ ' ' . getcwd() . " -> " .
+					\ let &titlestring =
 					\ (exists('g:valid_device') && has('unix') ? "\uf02d" : '') .
 					\ ' %f - ' . v:progname
 	augroup END
