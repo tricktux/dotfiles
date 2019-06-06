@@ -139,15 +139,18 @@ class Strava():
         return item.start_date
 
     def get_last_bike_avg_speed(self):
-        """Get the avg speed in miles per hour of the last bike ride"""
-        """Types seem to be 'Run', 'Swim', 'Ride'"""
+        """
+        Get the avg speed in miles per hour of the last bike ride.
+        That was not on a trainer.
+        Types seem to be 'Run', 'Swim', 'Ride'
+        """
         logger = logging.getLogger(LOG)
         avg = 0.0
         for activity in sorted(self.activities, key=self.sortby, reverse=True):
             if DEBUG > 0:
                 logger.debug('[get_last_bike_avg_speed]: type = "%s"',
                              str(activity.type))
-            if activity.type == 'Ride':
+            if activity.type == 'Ride' and not activity.trainer:
                 avg = unithelper.miles_per_hour(activity.average_speed)
                 break
 
