@@ -688,6 +688,8 @@ endfunction
 " - There is only one window
 " - Current window is on the edge
 " Otherwise just move in direction
+" Returns: 1 if new window was created
+"					 0 otherwise
 function! s:create_win_maybe(direction) abort
 	let l:split = s:edge_window(a:direction)
 
@@ -695,7 +697,7 @@ function! s:create_win_maybe(direction) abort
 		exec 'vsplit'
 		" Move the window to the proper direction
 		exec 'wincmd ' . toupper(a:direction)
-		return
+		return 1
 	endif
 
 	exec 'wincmd ' . a:direction
@@ -705,7 +707,15 @@ endfunction
 " direction - {h,l}
 " Note: This function depends on the 'splitright' option.
 function! s:goto_file_on_next_win(direction) abort
-	call s:create_win_maybe(a:direction)
+	let new_win = s:create_win_maybe(a:direction)
+
+	" If new window was not created
+	if (new_win == 0)
+		" We are currently in the wrong window
+		normal! ZZ
+		exec 'vsplit'
+		exec 'wincmd ' . a:direction
+	endif
 
 	normal! gf
 endfunction
