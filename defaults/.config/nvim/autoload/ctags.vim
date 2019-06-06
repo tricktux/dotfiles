@@ -471,7 +471,7 @@ function! s:create_cscope(tag_name) abort
 
 	let valid = 0
 	for type in g:ctags_use_cscope_for
-		if type ==# &filetype
+		if type ==? &filetype
 			let valid = 1
 			break
 		endif
