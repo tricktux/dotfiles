@@ -75,6 +75,11 @@ class Parser():
 
 
 class Strava():
+    """
+    Find activities attributes here:
+        https://github.com/hozn/stravalib/blob/master/stravalib/model.py
+    """
+
     def __init__(self, token, client_id, client_secret, year, config):
         logger = logging.getLogger(LOG)
         if DEBUG > 0:
