@@ -141,23 +141,7 @@ function! plugin#Config()
 	let g:delimitMate_jump_expansion = 1
 	" imap <expr> <CR> <Plug>delimitMateCR
 
-	Plug 'sbdchd/neoformat', { 'on' : 'Neoformat' }
-	" Enable trimmming of trailing whitespace globally
-	let g:neoformat_basic_format_trim = 1
-	" Enable alignment globally
-	let g:neoformat_basic_format_align = 1
-	let g:neoformat_enabled_cpp = ['clangformat']
-	let g:neoformat_c_clangformat = {
-				\ 'exe': 'clang-format',
-				\ 'args': ['-style=file', '-fallback-style="LLVM"'],
-				\ 'stdin': 1,
-				\ }
-	let g:neoformat_cpp_clangformat = {
-				\ 'exe': 'clang-format',
-				\ 'args': ['-style=file', '-fallback-style="LLVM"'],
-				\ 'stdin': 1,
-				\ }
-	nnoremap <plug>format_code :Neoformat<cr>
+	call s:configure_neoformat()
 
 	" cpp
 	if get(g:, 'tagbar_safe_to_use', 1)
@@ -235,9 +219,7 @@ function! plugin#Config()
 	nmap <plug>search_internet :Wcsearch duckduckgo <C-R>=expand("<cword>")<CR><CR>
 	xmap <plug>search_internet "*y:call www#www#user_input_search(1, @*)<CR>
 
-	if has('win32')
-		Plug 'PProvost/vim-ps1', { 'for' : 'ps1' }
-	endif
+	Plug 'PProvost/vim-ps1', { 'for' : 'ps1' }
 
 	" Plug 'vim-pandoc/vim-pandoc', { 'on' : 'Pandoc' }
 	" " You might be able to get away with xelatex in unix
@@ -1475,4 +1457,32 @@ function! s:configure_neoterm() abort
 	" Send selected contents in visual mode.
 	xmap <plug>terminal_send <Plug>(neoterm-repl-send)
 	nmap <plug>terminal_send_line <Plug>(neoterm-repl-send-line)
+endfunction
+
+function! s:configure_neoformat() abort
+	
+	Plug 'sbdchd/neoformat', { 'on' : 'Neoformat' }
+	" Enable trimmming of trailing whitespace globally
+	let g:neoformat_basic_format_trim = 1
+	" Enable alignment globally
+	let g:neoformat_basic_format_align = 1
+	let g:neoformat_enabled_cpp = ['clangformat']
+	let g:neoformat_c_clangformat = {
+				\ 'exe': 'clang-format',
+				\ 'args': ['-style=file', '-fallback-style="LLVM"'],
+				\ 'stdin': 1,
+				\ }
+	let g:neoformat_cpp_clangformat = {
+				\ 'exe': 'clang-format',
+				\ 'args': ['-style=file', '-fallback-style="LLVM"'],
+				\ 'stdin': 1,
+				\ }
+	 
+	let g:neoformat_java_astyle = {
+				\ 'exe': 'astyle',
+				\ 'args': ['--indent=spaces=2', '--style=java'],
+				\ 'stdin': 1,
+				\ }
+	nnoremap <plug>format_code :Neoformat<cr>
+
 endfunction
