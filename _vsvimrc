@@ -8,9 +8,12 @@
 " From: https://github.com/VsVim/VsVim/wiki/VsVim-Nonstandard-Behavior
 " List of all commands:
 " https://github.com/aburok/mysettings/blob/master/VisualStudio/vscommands.txt
+" Toggle vsvim enable: <c-s-f12>
 
 set autoindent
 
+nnoremap <space>/k :vsc Edit.FindAllReferences<cr>
+nnoremap get :vsc EditorContextMenus.CodeWindow.ViewCallHierarchy<cr>
 nnoremap Q :vsc View.ErrorList<cr>
 nnoremap - :vsc Edit.CommentSelection<cr>
 nnoremap 0 :vsc Edit.UncommentSelection<cr>
