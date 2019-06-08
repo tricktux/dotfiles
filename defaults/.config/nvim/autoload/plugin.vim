@@ -1277,7 +1277,8 @@ function! s:fzf_download() abort
 		return 1
 	endif
 	
-	let l:link = 'https://raw.githubusercontent.com/junegunn/fzf/master/plugin/fzf.vim'
+	let l:link =
+				\ 'https://raw.githubusercontent.com/junegunn/fzf/master/plugin/fzf.vim'
 	if utils#DownloadFile(l:fzf_path, l:link) != 1
 		return -1
 	endif
@@ -1297,12 +1298,15 @@ function! s:configure_fzf() abort
 	Plug 'junegunn/fzf.vim'
 
 	if (!has('unix') && executable('fd'))
-		let $FZF_DEFAULT_COMMAND='fd --type file --hidden --follow --no-ignore --exclude ".{sync,git,svn}"'
-	else " Doesnt work on windows
-		" Likewise, Files command with preview window
-		command! -bang -nargs=? -complete=dir Files
-					\ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+		let $FZF_DEFAULT_COMMAND=
+					\ 'fd --type file --hidden --follow' .
+					\ ' --no-ignore --exclude ".{sync,git,svn}"'
 	endif
+
+	" Likewise, Files command with preview window
+	" Thu Jun 06 2019 08:42: Doesnt look good on linux 
+	" command! -bang -nargs=? -complete=dir Files
+				" \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
 	let g:fzf_layout = { 'down': '~40%' }
 	let g:fzf_colors =
