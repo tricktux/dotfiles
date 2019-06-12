@@ -334,10 +334,10 @@ function! autocompletion#AdditionalLspSettings() abort
 		return
 	endif
 
-	if a:compl ==# 'nvim_compl_manager'
+	if s:completion_choice ==# 'nvim_compl_manager'
 		return <sid>set_language_client_mappings()
 	endif
-	if a:compl ==# 'coc'
+	if s:completion_choice ==# 'coc'
 		return <sid>set_coc_nvim_mappings()
 	endif
 endfunction
@@ -518,7 +518,7 @@ function! s:set_ncm2() abort
 		" autocomplete vim variables and functions
 	" Plug 'ncm2/ncm2-neoinclude'
 	
-	if ((has('nvim')) && (has('unix')))
+	if exists('#CompleteChanged')
 		Plug 'ncm2/float-preview.nvim'
 	endif
 
