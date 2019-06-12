@@ -616,7 +616,7 @@ mode "$mode_gaps_outer" {
 	# ~/.cache/`date '+%y-%m-%d_%T'`.png;mode "default"
 # bindsym w exec --no-startup-id gnome-screenshot -w -f \
 	# ~/.cache/`date '+%y-%m-%d_%T'`.png;mode "default"
-set $mode_screenshot screenshot: [f]ull_screen, [s]election, [w]indow
+set $mode_screenshot screenshot: [f]ull_screen, [s]election, [w]indow, [g]flameshot_gui
 	bindsym $mod+Shift+s mode "$mode_screenshot"
 
 mode "$mode_screenshot" {
@@ -628,6 +628,7 @@ mode "$mode_screenshot" {
 	bindsym w exec --no-startup-id sleep 0.2 && scrot -u \
 		'%Y-%m-%d_%T_scrot.png' \
 		-e 'mv $f ~/.cache/';mode "default"
+	bindsym g exec --no-startup-id flameshot gui; mode "default"
 
 	bindsym Escape mode "default"
 	bindsym Return mode "default"
