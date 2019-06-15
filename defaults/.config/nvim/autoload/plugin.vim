@@ -422,6 +422,7 @@ function! plugin#Config()
 	" Plug 'vim-scripts/a.vim'
 
 	Plug 'jvenant/vim-java-imports', { 'for' : 'java' }
+	call s:configure_java_setter_getter()
 
 	" Fri Jan 18 2019 17:20
 	" They are not as good as my handmade version
@@ -1008,7 +1009,9 @@ function! s:configure_vim_utils() abort
 	" let g:DoxygenToolkit_briefTag_pre= '@brief '
 	" let g:DoxygenToolkit_dateTag = '@date '
 	" let g:DoxygenToolkit_versionTag = '@version	'
-	let g:DoxygenToolkit_commentType = 'C++'
+	" Sat Jun 15 2019 09:35
+	" In the spirit of being compatible with java comments
+	" let g:DoxygenToolkit_commentType = 'C++'
 	let g:DoxygenToolkit_versionString = ' 0.0.0'
 	let g:DoxygenToolkit_compactOneLineDoc = "yes"
 	let g:DoxygenToolkit_compactDoc = "yes"
@@ -1489,4 +1492,75 @@ function! s:configure_neoformat() abort
 				\ }
 	nnoremap <plug>format_code :Neoformat<cr>
 
+endfunction
+
+function! s:configure_java_setter_getter() abort
+	
+	Plug 'wsdjeg/java_getset.vim', { 'for' : 'java' }
+		let g:java_getset_disable_map = 1
+
+	let g:javagetset_getterTemplate = 
+					\ '\n' .
+					\ "/**\n" .
+					\ " * Get %varname%.\n" .
+					\ " *\n" .
+					\ " * @return %varname% as %type%.\n" .
+					\ " */\n" .
+					\ "%modifiers% %type% %funcname%() {\n" .
+					\ "    return %varname%;\n" .
+					\ "}"
+
+	let g:javagetset_getterArrayTemplate =
+					\ '\n' .
+					\ "/**\n" .
+					\ " * Get %varname%.\n" .
+					\ " *\n" .
+					\ " * @return %varname% as %type%[].\n" .
+					\ " */\n" .
+					\ "%modifiers% %type%[] %funcname%() {\n" .
+					\ "    return %varname%;\n" .
+					\ "}\n" .
+					\ "\n" .
+					\ "/**\n" .
+					\ " * Get %varname% element at specified index.\n" .
+					\ " *\n" .
+					\ " * @param index the index.\n" .
+					\ " * @return %varname% at index as %type%.\n" .
+					\ " */\n" .
+					\ "%modifiers% %type% %funcname%(int index) {\n" .
+					\ "    return %varname%[index];\n" .
+					\ "}"
+
+	" Setter Templates (non-array and array-based)
+	let g:javagetset_setterTemplate = 
+					\ '\n' .
+					\ "/**\n" .
+					\ " * Set %varname%.\n" .
+					\ " *\n" .
+					\ " * @param %varname% the value to set.\n" . 
+					\ " */\n" .
+					\ "%modifiers% void %funcname%(%type% %varname%) {\n" .
+					\ "    this.%varname% = %varname%;\n" .
+					\ "}"
+
+	let g:javagetset_setterArrayTemplate =
+					\ '\n' .
+					\ "/**\n" .
+					\ " * Set %varname%.\n" .
+					\ " *\n" .
+					\ " * @param %varname% the value to set.\n" . 
+					\ " */\n" .
+					\ "%modifiers% void %funcname%(%type%[] %varname%) {\n" .
+					\ "    this.%varname% = %varname%;\n" .
+					\ '}\n' .
+					\ '\n' .
+					\ "/**\n" .
+					\ " * Set %varname% at the specified index.\n" .
+					\ " *\n" .
+					\ " * @param %varname% the value to set.\n" . 
+					\ " * @param index the index.\n" . 
+					\ " */\n" .
+					\ "%modifiers% void %funcname%(%type% %varname%, int index) {\n" .
+					\ "    this.%varname%[index] = %varname%;\n" .
+					\ "}"
 endfunction
