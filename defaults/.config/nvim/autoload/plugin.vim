@@ -1500,7 +1500,7 @@ function! s:configure_java_setter_getter() abort
 		let g:java_getset_disable_map = 1
 
 	let g:javagetset_getterTemplate = 
-					\ '\n' .
+					\ "\n" .
 					\ "/**\n" .
 					\ " * Get %varname%.\n" .
 					\ " *\n" .
@@ -1511,7 +1511,7 @@ function! s:configure_java_setter_getter() abort
 					\ "}"
 
 	let g:javagetset_getterArrayTemplate =
-					\ '\n' .
+					\ "\n" .
 					\ "/**\n" .
 					\ " * Get %varname%.\n" .
 					\ " *\n" .
@@ -1533,7 +1533,7 @@ function! s:configure_java_setter_getter() abort
 
 	" Setter Templates (non-array and array-based)
 	let g:javagetset_setterTemplate = 
-					\ '\n' .
+					\ "\n" .
 					\ "/**\n" .
 					\ " * Set %varname%.\n" .
 					\ " *\n" .
@@ -1544,7 +1544,7 @@ function! s:configure_java_setter_getter() abort
 					\ "}"
 
 	let g:javagetset_setterArrayTemplate =
-					\ '\n' .
+					\ "\n" .
 					\ "/**\n" .
 					\ " * Set %varname%.\n" .
 					\ " *\n" .
@@ -1552,8 +1552,8 @@ function! s:configure_java_setter_getter() abort
 					\ " */\n" .
 					\ "%modifiers% void %funcname%(%type%[] %varname%) {\n" .
 					\ "    this.%varname% = %varname%;\n" .
-					\ '}\n' .
-					\ '\n' .
+					\ "}\n" .
+					\ "\n" .
 					\ "/**\n" .
 					\ " * Set %varname% at the specified index.\n" .
 					\ " *\n" .
