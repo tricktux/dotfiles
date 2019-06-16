@@ -25,6 +25,7 @@ if !exists("no_plugin_maps") && !exists("no_java_maps")
 	if exists("g:loaded_sortimport")
 		nmap <buffer> <localleader>ii <Plug>JavaInsertImport
 		nmap <buffer> <localleader>is <Plug>JavaSortImport
+		nmap <buffer> <localleader>ig :InsertGetterSetter<cr>
 	endif
 endif
 
