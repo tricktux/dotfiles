@@ -506,10 +506,11 @@ function! mappings#Set()
 	nnoremap <Leader>ed :call utils#PathFileFuzzer(g:dotfiles)<cr>
 	nnoremap <Leader>eh :call utils#PathFileFuzzer($HOME)<cr>
 	if (!has('unix'))
-		nnoremap <Leader>ec :call utils#PathFileFuzzer('C:\')<cr>
-		nnoremap <Leader>eD :call utils#PathFileFuzzer('D:\')<cr>
+		nnoremap <leader>eC :call utils#PathFileFuzzer('C:\')<cr>
+		nnoremap <leader>eD :call utils#PathFileFuzzer('D:\')<cr>
+		nnoremap <leader>eP :e +<cr>
 	endif
-	nnoremap <Leader>e. :call utils#PathFileFuzzer(getcwd())<cr>
+	nnoremap <Leader>ec :call utils#PathFileFuzzer(getcwd())<cr>
 	nnoremap <Leader>el :call utils#PathFileFuzzer(input
 				\ ('Folder to recurse: ', "", "file"))<cr>
 	nnoremap <Leader>ei :e 
