@@ -59,6 +59,12 @@ function! augroup#Set() abort
 		autocmd FileType json syntax match Comment +\/\/.\+$+
 	augroup END
 
+	augroup CmdWin
+		autocmd!
+		autocmd CmdWinEnter * nnoremap <buffer> q i" <cr>
+		autocmd CmdWinEnter * nnoremap <buffer> <cr> i<cr>
+	augroup END
+
 	" To improve syntax highlight speed. If something breaks with highlight
 	" increase these number below
 	" augroup vimrc
