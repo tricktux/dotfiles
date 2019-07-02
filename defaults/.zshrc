@@ -45,6 +45,11 @@ bindkey -v
 # reduce timeout
 export KEYTIMEOUT=1
 
+# Depends on `pkgfile`
+if [[ -f /usr/bin/pkgfile ]]; then
+	source /usr/share/doc/pkgfile/command-not-found.zsh
+fi
+
 # zplug
 ZPLUG_INIT=/usr/share/zsh/scripts/zplug/init.zsh
 if [[ -f $ZPLUG_INIT ]]; then
@@ -75,11 +80,16 @@ if [[ -f $ZSH/oh-my-zsh.sh ]]; then
 		zplug "plugins/dotenv",   from:oh-my-zsh
 		zplug "plugins/sudo",   from:oh-my-zsh
 		zplug "plugins/history-substring-search",   from:oh-my-zsh
+		# TODO update prompt
+		zplug "plugins/nice-exit-code",   from:oh-my-zsh
+		zplug "plugins/oh-my-git",   from:oh-my-zsh
 		# zplug "plugins/command-not-found",   from:oh-my-zsh
 		# Breaks fzf mappings
 		# zplug "plugins/vi-mode",   from:oh-my-zsh
 	else
 		plugins=(
+			nice-exit-code
+			oh-my-git
 			git
 			docker
 			dotenv
