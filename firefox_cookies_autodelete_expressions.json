@@ -1,0 +1,396 @@
+{
+  "default": [
+    {
+      "expression": "*.amazon.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "DXWcq1Qv-"
+    },
+    {
+      "expression": "*.archlinux.org",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "39lDfwrl1"
+    },
+    {
+      "expression": "*.bank.discover.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "0lPON0GUm"
+    },
+    {
+      "expression": "*.chase.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "U31uPTrnI"
+    },
+    {
+      "expression": "*.cricketwireless.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "4b3jyW2lU"
+    },
+    {
+      "expression": "*.directaccess.ps.honeywell.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "-nnaJwgPP"
+    },
+    {
+      "expression": "*.discover.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "SKMz7MbR7"
+    },
+    {
+      "expression": "*.draw.io",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "scpgojDqfK"
+    },
+    {
+      "expression": "*.ed.gov",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "H_twFbXk-"
+    },
+    {
+      "expression": "*.fafsa.ed.gov",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "aF0Fu_MuG"
+    },
+    {
+      "expression": "*.getpocket.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "QYg83uBrzc"
+    },
+    {
+      "expression": "*.github.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "OUQz9BNIM7"
+    },
+    {
+      "expression": "*.gitlab.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "-e8lHP9eB"
+    },
+    {
+      "expression": "*.gitter.im",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "WhdmcVGI_"
+    },
+    {
+      "expression": "*.google.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "8t41HTH8s"
+    },
+    {
+      "expression": "*.honeywell.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "j1Xlu_sc4"
+    },
+    {
+      "expression": "*.instructure.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "dW9m_890H"
+    },
+    {
+      "expression": "*.localhost",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "WFyOYS7K8T"
+    },
+    {
+      "expression": "*.lynda.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "NHwE6ctl7"
+    },
+    {
+      "expression": "*.myclearwater.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "SFgk6Qbpw"
+    },
+    {
+      "expression": "*.paypal.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "BNkudNciyd"
+    },
+    {
+      "expression": "*.protonmail.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "LDbSKTskLW"
+    },
+    {
+      "expression": "*.psu.edu",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "eAAWcnp5v"
+    },
+    {
+      "expression": "*.psu.instructure.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "en1aBFEsZJ"
+    },
+    {
+      "expression": "*.reddit.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "iLIkrkeGi"
+    },
+    {
+      "expression": "*.strava.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "Rsp4P8RTr"
+    },
+    {
+      "expression": "*.surbook",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "nxq4SFdmcL"
+    },
+    {
+      "expression": "*.twitch.tv",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "FoIH6-d26"
+    },
+    {
+      "expression": "*.udemy.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "BVYEGhPlF"
+    },
+    {
+      "expression": "*.web.whatsapp.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "t54OKJmHn"
+    },
+    {
+      "expression": "*.webtrac.myclearwater.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "AeXMEpxlX"
+    },
+    {
+      "expression": "*.whatsapp.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "ZraPoudVb"
+    },
+    {
+      "expression": "192.168.128.1",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "-7eCFiwPV"
+    },
+    {
+      "expression": "accounts.google.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "ETnSJxwlv"
+    },
+    {
+      "expression": "amazon.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "4WQoZEkxZ"
+    },
+    {
+      "expression": "bank.discover.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "4ziqI5API"
+    },
+    {
+      "expression": "chase.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "t6mInoGA6"
+    },
+    {
+      "expression": "cricketwireless.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "9c1iVEttY"
+    },
+    {
+      "expression": "directaccess.ps.honeywell.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "dxsD9_0lf"
+    },
+    {
+      "expression": "draw.io",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "7K7oeobR7"
+    },
+    {
+      "expression": "fafsa.ed.gov",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "ZM8hvUk2jV"
+    },
+    {
+      "expression": "getpocket.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "UH0BQl9__"
+    },
+    {
+      "expression": "github.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "TBmLyFuG8"
+    },
+    {
+      "expression": "gitlab.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "ppVidICoq"
+    },
+    {
+      "expression": "localhost",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "yqmtKWMzd"
+    },
+    {
+      "expression": "lynda.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "_xYqbafO1"
+    },
+    {
+      "expression": "paypal.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "tN-dfwbDB"
+    },
+    {
+      "expression": "protonmail.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "7ilt5OM5r"
+    },
+    {
+      "expression": "psu.instructure.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "7tqW6loZm"
+    },
+    {
+      "expression": "reddit.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "-PhqNeTm_"
+    },
+    {
+      "expression": "strava.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "8e9R04-G_"
+    },
+    {
+      "expression": "surbook",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "81B5Qf1QI"
+    },
+    {
+      "expression": "twitch.tv",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "KRMkQ_KEF"
+    },
+    {
+      "expression": "udemy.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "i8141ttDV"
+    },
+    {
+      "expression": "web.whatsapp.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "U8nJLwj_V"
+    },
+    {
+      "expression": "webtrac.myclearwater.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cookieNames": [],
+      "id": "9q-tew2H_"
+    }
+  ]
+}
