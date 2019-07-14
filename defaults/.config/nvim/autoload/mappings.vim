@@ -506,10 +506,11 @@ function! mappings#Set()
 	nnoremap <Leader>ed :call utils#PathFileFuzzer(g:dotfiles)<cr>
 	nnoremap <Leader>eh :call utils#PathFileFuzzer($HOME)<cr>
 	if (!has('unix'))
-		nnoremap <Leader>ec :call utils#PathFileFuzzer('C:\')<cr>
-		nnoremap <Leader>eD :call utils#PathFileFuzzer('D:\')<cr>
+		nnoremap <leader>eC :call utils#PathFileFuzzer('C:\')<cr>
+		nnoremap <leader>eD :call utils#PathFileFuzzer('D:\')<cr>
+		nnoremap <leader>eP :e +<cr>
 	endif
-	nnoremap <Leader>e. :call utils#PathFileFuzzer(getcwd())<cr>
+	nnoremap <Leader>ec :call utils#PathFileFuzzer(getcwd())<cr>
 	nnoremap <Leader>el :call utils#PathFileFuzzer(input
 				\ ('Folder to recurse: ', "", "file"))<cr>
 	nnoremap <Leader>ei :e 
@@ -707,13 +708,20 @@ endfunction
 " direction - {h,l}
 " Note: This function depends on the 'splitright' option.
 function! s:goto_file_on_next_win(direction) abort
+	let curr_win_id = win_getid()
 	let new_win = s:create_win_maybe(a:direction)
 
 	" If new window was not created
 	if (new_win == 0)
-		" We are currently in the wrong window
+		if &verbose > 1
+			echomsg 'No new window was created. Closing current window'
+		endif
+		" We are currently in the window we want to replace. Close it
 		normal! ZZ
+		" Go to the window we came from
+		call win_gotoid(curr_win_id)
 		exec 'vsplit'
+		call win_gotoid(curr_win_id)
 		exec 'wincmd ' . a:direction
 	endif
 
