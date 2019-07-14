@@ -129,8 +129,7 @@ class Strava():
         elapse_time = 0
         for activity in self.activities:
             elapse_time += activity.elapsed_time.seconds
-        t = str(datetime.timedelta(seconds=elapse_time))
-        return t[:-3]
+        return datetime.timedelta(seconds=elapse_time).total_seconds()
 
     def get_total_distance(self):
         """Get total distance in miles for all activities"""
@@ -174,6 +173,13 @@ def set_logger():
     logger.setLevel(logging.DEBUG)
 
 
+def seconds_to_hours(seconds):
+    """Converts seconds to hours"""
+    m, s = divmod(seconds, 60)
+    h, m = divmod(m, 60)
+    return "%d:%02d" % (h, m)
+
+
 if __name__ == '__main__':
     parser = Parser()
     DEBUG = int(parser.args.debug)
@@ -193,7 +199,8 @@ if __name__ == '__main__':
     year = config.get_str('Workout', 'year', "")
     strava = Strava(token, client_id, client_secret, year, config)
     num_workouts = strava.get_num_activities()
-    num_hours = strava.get_total_time()
+    td = strava.get_total_time()
+    num_hours = seconds_to_hours(td)
     num_miles = strava.get_total_distance()
     avg_bike_speed = strava.get_last_bike_avg_speed()[:-7]
     print(num_workouts + ' ' + num_hours + ' ' + num_miles + 'm ' +
