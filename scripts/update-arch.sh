@@ -17,7 +17,9 @@ echo "Updating system ..."
 trizen -Syu
 
 echo "Updating neovim ..."
-trizen -S neovim-git
+# Sun Jul 14 2019 12:54
+#  Stick to stable neovim
+# trizen -S neovim-git
 nvim +PlugUpgrade +PlugUpdate +UpdateRemotePlugins
 
 # Wed Apr 17 2019 22:46
