@@ -33,7 +33,9 @@ nvim +PlugUpgrade +PlugUpdate +UpdateRemotePlugins
 echo "Updating pandoc binaries..."
 cd /tmp
 git clone --recursive https://github.com/ashwinvis/aur.git
-cd aur
+cd aur/pandoc-citeproc-bin
+makepkg -si
+cd ../pandoc-crossref-bin
 makepkg -si
 
 read -n1 -r -p "Done. Press any key to continue..." key
