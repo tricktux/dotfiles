@@ -12,6 +12,8 @@ function! augroup#Set() abort
 	" is foldmethod=syntax
 	augroup Filetypes
 		autocmd!
+		autocmd Filetype fugitive nnoremap <buffer> <s-j> :b#<cr>
+
 		autocmd Filetype wings_syntax set suffixesadd=.scp
 		autocmd Filetype qf setlocal colorcolumn=""
 		" Nerdtree Fix
