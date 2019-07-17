@@ -59,14 +59,23 @@ function! options#Set() abort
 	set wildmode=list:longest
 	set wildignore+=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn,.git
 	set title                " change the terminal's title
+	set titlelen=0
+	let &titleold="Closing " . v:progname . "..."
 
 	" Set a pretty title
 	augroup TitleString
 		autocmd!
-		autocmd BufWinLeave,BufWinEnter,CursorHold,DirChanged,TabEnter *
-					\ let &titlestring =
-					\ (exists('g:valid_device') && has('unix') ? "\uf02d" : '') .
-					\ ' %f - ' . v:progname
+		if (exists('#DirChanged'))
+			autocmd BufWinLeave,BufWinEnter,CursorHold,DirChanged,TabEnter *
+						\ let &titlestring =
+						\ (exists('g:valid_device') && has('unix') ? "\uf02d" : '') .
+						\ getcwd() . '->%f%m%r'
+		else
+			autocmd BufWinLeave,BufWinEnter,CursorHold,TabEnter *
+						\ let &titlestring =
+						\ (exists('g:valid_device') && has('unix') ? "\uf02d" : '') .
+						\ getcwd() . '->%f%m%r'
+		endif
 	augroup END
 
 	" All backups!
