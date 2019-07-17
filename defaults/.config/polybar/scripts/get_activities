@@ -174,7 +174,7 @@ def set_logger():
 
 
 def seconds_to_hours(seconds):
-    """Converts seconds to hours"""
+    """Converts seconds to hours and mintues string"""
     m, s = divmod(seconds, 60)
     h, m = divmod(m, 60)
     return "%d:%02d" % (h, m)
