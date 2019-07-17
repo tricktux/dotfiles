@@ -463,8 +463,8 @@ function! s:create_cscope(tag_name) abort
 	endif
 
 	if !has('unix')
-		let choice = confirm('Run cscope?', "&Jes\&Ko", 2)
-		if (choice == 0) || (choice == 2)
+		let choice = confirm('Run cscope?', "&Jes\n&Ko", 2)
+		if (choice != 1)
 			return
 		endif
 	endif
