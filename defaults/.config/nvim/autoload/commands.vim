@@ -94,8 +94,6 @@ function! s:profile_performance() abort
 		execute 'profile start ' . g:std_cache_path . '/profile_' .
 					\ strftime("%m%d%y-%H.%M.%S") . '.log'
 	else
-		" TODO.RM-Mon Apr 24 2017 12:17: Check why this function is not working
-		" execute 'profile start ~/.cache/profile_' . strftime("%m%d%y-%T") . '.log'
 		execute 'profile start ~/.cache/profile_' .
 					\ strftime("%m%d%y-%H.%M.%S") . '.log'
 	endif
