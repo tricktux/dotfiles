@@ -61,20 +61,19 @@ function! options#Set() abort
 	set title                " change the terminal's title
 	set titlelen=0
 	let &titleold="Closing " . v:progname . "..."
+	let g:titlestring =
+					\ (exists('g:valid_device') && has('unix') ? "\uf02d" : '') .
+					\ getcwd() . '->%f%m%r'
 
 	" Set a pretty title
 	augroup TitleString
 		autocmd!
 		if (exists('#DirChanged'))
 			autocmd BufWinLeave,BufWinEnter,CursorHold,DirChanged,TabEnter *
-						\ let &titlestring =
-						\ (exists('g:valid_device') && has('unix') ? "\uf02d" : '') .
-						\ getcwd() . '->%f%m%r'
+						\ let &titlestring = g:titlestring
 		else
 			autocmd BufWinLeave,BufWinEnter,CursorHold,TabEnter *
-						\ let &titlestring =
-						\ (exists('g:valid_device') && has('unix') ? "\uf02d" : '') .
-						\ getcwd() . '->%f%m%r'
+						\ let &titlestring = g:titlestring
 		endif
 	augroup END
 
