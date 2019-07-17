@@ -137,10 +137,6 @@ function! s:on_vim_enter() abort
 	" endif
 endfunction
 
-" TODO-[RM]-(Fri Mar 15 2019 09:45):  
-" - Move this fucntion to ftdetect 
-" - No need, is really the same as it been here, more condensed.
-" - There is no evidence that would be any faster
 function! s:determine_buf_type() abort
 	let l:ext = expand('%:e')
 	if &verbose > 0
