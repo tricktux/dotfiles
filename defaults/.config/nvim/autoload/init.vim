@@ -95,6 +95,10 @@ function! s:config_win() abort
 				\ l:python3_ver . '-embed-amd64\python.exe',
 				\ ]
 
+	if !has('nvim')
+		set pyxversion=3
+	endif
+
 	if filereadable(l:pyt2)
 		let g:python_host_prog= l:pyt2
 	endif
