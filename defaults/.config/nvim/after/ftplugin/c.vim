@@ -33,6 +33,11 @@ if !exists('no_plugin_maps') && !exists('no_c_maps')
 					\ utils#SwitchHeaderSource()<cr>
 	endif
 
+	if (exists(':Neomake'))
+		nnoremap <buffer> <plug>make_file :Neomake<cr>
+		nnoremap <buffer> <plug>make_project :Neomake!<cr>
+	endif
+
 	if has('unix') && has('nvim')
 		nnoremap <buffer> <plug>help_under_cursor :call <SID>man_under_cursor()<cr>
 	endif
