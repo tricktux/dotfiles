@@ -61,19 +61,16 @@ function! options#Set() abort
 	set title                " change the terminal's title
 	set titlelen=0
 	let &titleold="Closing " . v:progname . "..."
-	let g:titlestring =
-					\ (exists('g:valid_device') && has('unix') ? "\uf02d" : '') .
-					\ getcwd() . '->%f%m%r'
 
 	" Set a pretty title
 	augroup TitleString
 		autocmd!
 		if (exists('#DirChanged'))
 			autocmd BufWinLeave,BufWinEnter,CursorHold,DirChanged,TabEnter *
-						\ let &titlestring = g:titlestring
+						\ let &titlestring = <sid>get_titlestring()
 		else
 			autocmd BufWinLeave,BufWinEnter,CursorHold,TabEnter *
-						\ let &titlestring = g:titlestring
+						\ let &titlestring = <sid>get_titlestring()
 		endif
 	augroup END
 
@@ -387,12 +384,18 @@ function! s:set_syntax() abort
 	hi javaParen ctermfg=blue guifg=#0000ff
 
 	" ft-c-syntax
-	let g:c_gnu = 1
-	let g:c_ansi_constants = 1
-	let g:c_ansi_typedefs = 1
+	let g:c_space_errors = 1
 	let g:c_minlines = 500
-	" Breaks too often
-	" let c_curly_error = 1
+	if !has('unix')
+		let g:c_no_if0 = 1
+		" let g:c_no_c99 = 1
+		" let g:c_no_c11 = 1
+		let g:c_no_bsd = 1
+	else
+		let g:c_gnu = 1
+		let g:c_curly_error = 1
+	endif
+
 	" Automatically highlight doxygen when doing c, c++
 	let g:load_doxygen_syntax=1
 	let g:doxygen_enhanced_colour=1
@@ -423,4 +426,9 @@ function! s:set_syntax() abort
 	let g:tex_comment_nospell= 1
 	let g:tex_verbspell= 0
 	let g:tex_conceal=''
+endfunction
+
+function! s:get_titlestring() abort
+	return (exists('g:valid_device') && has('unix') ? "\uf02d" : '') .
+				\ getcwd() . '->%f%m%r'
 endfunction
