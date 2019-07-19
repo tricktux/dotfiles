@@ -384,14 +384,14 @@ function! s:set_syntax() abort
 	hi javaParen ctermfg=blue guifg=#0000ff
 
 	" ft-c-syntax
-	let g:c_space_errors = 1
-	let g:c_minlines = 500
+	let g:c_minlines = 800
 	if !has('unix')
 		let g:c_no_if0 = 1
 		" let g:c_no_c99 = 1
 		" let g:c_no_c11 = 1
 		let g:c_no_bsd = 1
 	else
+		let g:c_space_errors = 1
 		let g:c_gnu = 1
 		let g:c_curly_error = 1
 	endif
