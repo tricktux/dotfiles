@@ -5,6 +5,14 @@
 # Last Modified: Wed Jun 14 2017 14:39
 # Created: Jun 13 2017 16:26
 
+snippet     ostream
+abbr        operator<< osteam function
+options     head
+    friend std::ostream& operator<<(std::ostream& os, const ${1:class}& ${2:object}) {
+        os << "${3:member}: " << $2.$3 << std::endl;
+        return os;
+    }
+
 snippet     author
 abbr        Doxygen header
 options     head
