@@ -486,7 +486,7 @@ mode "$mode_bluetooth" {
 
 # Mode Password{{{
 # 
-set $mode_password pass: press (w)root, (f)githug, (d)git, (s)gitlab
+set $mode_password pass: press (w)root, (f)githug, (d)git, (s)gitlab, (r)esilio
 bindsym mod1+control+w mode "$mode_password"
 mode "$mode_password" {
 	bindsym w mode "default", \
@@ -497,6 +497,8 @@ mode "$mode_password" {
 		pass --clip linux/`hostname`/ssh_key/id_ed25519_git_server
 	bindsym s mode "default", exec --no-startup-id \
 		pass --clip linux/`hostname`/ssh_key/id_ed25519_gitlab
+	bindsym r mode "default", exec --no-startup-id \
+		pass --clip linux/`hostname`/resilio/admin
 
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
