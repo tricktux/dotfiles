@@ -137,27 +137,28 @@ function! s:neomake_job_finished() abort
 endfunction
 
 function! s:neomake_native_status_line() abort
-	return neomake#statusline#get(bufnr("%"), {
-				\ 'format_running': (exists('g:valid_device') ? "\uf188" : '') .
+	return neomake#statusline#get(
+				\ exists('g:actual_curbuf') ? g:actual_curbuf : bufnr("%"),
+				\ {'format_running': (exists('g:valid_device') ? "\uf188" : '') .
 				\ ' {{running_job_names}} ' .
 				\ (exists('g:valid_device') ? "\uf0e4" : ''),
 				\ 'format_quickfix_issues':
 				\ (exists('g:valid_device') ? "\uf188" : '') . ' qf:%s',
 				\ 'format_quickfix_ok': '',
 				\ 'format_quickfix_type_E':
-				\ (exists('g:valid_device') ? " \uf057" : '{{type}}') . ':{{count}}',
+				\ (exists('g:valid_device') ? " \uf057" : '{{type}}') . ':{{count}} ',
 				\ 'format_quickfix_type_W':
-				\ (exists('g:valid_device') ? " \uf071" : '{{type}}') . ':{{count}}',
+				\ (exists('g:valid_device') ? " \uf071" : '{{type}}') . ':{{count}} ',
 				\ 'format_quickfix_type_I':
-				\ (exists('g:valid_device') ? " \uf449" : '{{type}}') . ':{{count}}',
+				\ (exists('g:valid_device') ? " \uf449" : '{{type}}') . ':{{count}} ',
 				\ 'format_loclist_issues':
 				\ (exists('g:valid_device') ? "\uf188" : ''). ' loc:%s',
 				\ 'format_loclist_type_E':
-				\ (exists('g:valid_device') ? " \uf188" : '{{type}}') . ':{{count}}',
+				\ (exists('g:valid_device') ? " \uf188" : '{{type}}') . ':{{count}} ',
 				\ 'format_loclist_type_W':
-				\ (exists('g:valid_device') ? " \uf071" : '{{type}}') . ':{{count}}',
+				\ (exists('g:valid_device') ? " \uf071" : '{{type}}') . ':{{count}} ',
 				\ 'format_loclist_type_I':
-				\ (exists('g:valid_device') ? " \uf449" : '{{type}}') . ':{{count}}',
+				\ (exists('g:valid_device') ? " \uf449" : '{{type}}') . ':{{count}} ',
 				\ 'format_loclist_ok':
 				\ (exists('g:valid_device') ? "\uf188" : '').
 				\ ' loc: ' . (exists('g:valid_device') ? "\uf058" : 'ok'),
@@ -361,7 +362,7 @@ endfunction
 function! linting#SetNeomakeMsBuildMaker() abort
 	compiler msbuild
 	let l:ms = 'msbuild'
-	let l:ms_switches = '/nologo /v:q /maxcpucount /property:GenerateFullPaths=true /target:Build'
+	let l:ms_switches = '/nologo /v:q /maxcpucount /target:Build'
 	let &l:makeprg= l:ms . ' ' . l:ms_switches
 	let &l:errorformat='%f(%l): %t%*[^ ] C%n: %m [%.%#]'
 
@@ -383,11 +384,12 @@ function! linting#SetNeomakeMsBuildMaker() abort
 	let &l:makeprg= l:ms . ' ' . l:proj_name . ' ' . l:ms_switches
 
 	let b:neomake_cpp_enabled_makers = ['msbuild']
+
+			" \ '/property:GenerateFullPaths=true',
 	let b:neomake_cpp_msbuild_args = [
 				\ l:proj_name,
 				\ '/target:ClCompile',
 				\ '/nologo',
 				\ '/verbosity:quiet',
-				\ '/property:GenerateFullPaths=true',
 				\ '/property:SelectedFiles=%']
 endfunction
