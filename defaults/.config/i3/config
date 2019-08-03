@@ -471,11 +471,13 @@ mode "resize" {
 
 # Mode bluetooth {{{
 # 
-set $mode_bluetooth bluetooth to: (w)wh-1000xm2 (d)isconnect
+set $mode_bluetooth bluetooth to: (w)wh-1000xm2, (b)ose (d)isconnect
 bindsym mod1+control+b mode "$mode_bluetooth"
 mode "$mode_bluetooth" {
 	bindsym w mode "default", exec --no-startup-id \
 		~/.config/i3/scripts/bluetooth.lua "connect" "04:5D:4B:EA:9C:B2"
+	bindsym b mode "default", exec --no-startup-id \
+		~/.config/i3/scripts/bluetooth.lua "connect" "2C:41:A1:25:F5:C1"
 	bindsym d mode "default", exec --no-startup-id \
 		~/.config/i3/scripts/bluetooth.lua "disconnect"
 
@@ -486,18 +488,18 @@ mode "$mode_bluetooth" {
 
 # Mode Password{{{
 # 
-set $mode_password pass: press (w)root, (f)githug, (d)git, (s)gitlab, (r)esilio
+set $mode_password pass: press (r)root, (h)github, (g)git, (l)gitlab, (e)esilio
 bindsym mod1+control+w mode "$mode_password"
 mode "$mode_password" {
-	bindsym w mode "default", \
+	bindsym r mode "default", \
 		exec --no-startup-id pass --clip linux/`hostname`/user/root
-	bindsym f mode "default", exec --no-startup-id \
+	bindsym h mode "default", exec --no-startup-id \
 		pass --clip linux/`hostname`/ssh_key/id_ed25519_github
-	bindsym d mode "default", exec --no-startup-id \
+	bindsym g mode "default", exec --no-startup-id \
 		pass --clip linux/`hostname`/ssh_key/id_ed25519_git_server
-	bindsym s mode "default", exec --no-startup-id \
+	bindsym l mode "default", exec --no-startup-id \
 		pass --clip linux/`hostname`/ssh_key/id_ed25519_gitlab
-	bindsym r mode "default", exec --no-startup-id \
+	bindsym e mode "default", exec --no-startup-id \
 		pass --clip linux/`hostname`/resilio/admin
 
 	bindsym Return mode "default"
