@@ -42,7 +42,6 @@ bat
 bc
 binutils
 bison
-blackarch-keyring
 blas
 bleachbit
 blueberry
@@ -55,7 +54,6 @@ boost-libs
 bridge-utils
 brotli
 btrfs-progs
-burpsuite
 bzip2
 c-ares
 ca-certificates
@@ -86,7 +84,6 @@ confuse
 containerd
 coreutils
 corrade
-cower
 cppcheck
 cracklib
 cronie
@@ -119,6 +116,7 @@ doxygen
 dunst
 e2fsprogs
 eclipse-common
+eclipse-ecj
 eclipse-java
 editorconfig-core-c
 efibootmgr
@@ -145,6 +143,7 @@ filesystem
 findutils
 firefox
 flac
+flameshot
 flex
 fluidsynth
 fontconfig
@@ -161,6 +160,8 @@ gc
 gcc
 gcc-fortran
 gcc-libs
+gcc8
+gcc8-libs
 gconf
 gcr
 gd
@@ -187,9 +188,8 @@ glib2
 glibc
 glibmm
 glm
-glslang
 glu
-gmime
+gmime3
 gmp
 gnome-bluetooth
 gnome-icon-theme
@@ -203,6 +203,7 @@ gperftools
 gpgme
 gpm
 gptfdisk
+gradle
 graphene
 graphite
 graphviz
@@ -227,6 +228,7 @@ gtk2
 gtk2fontsel
 gtk3
 gtkmm3
+gtksourceview3
 gts
 guile
 guile2.0
@@ -245,6 +247,7 @@ hicolor-icon-theme
 highlight
 hplip
 hspell
+http-parser
 hub
 hunspell
 hunspell-en_US
@@ -272,7 +275,9 @@ iso-codes
 jack
 jansson
 jasper
+java-commons-daemon
 java-environment-common
+java-jsvc
 java-runtime-common
 jbig2dec
 jdk-openjdk
@@ -280,6 +285,7 @@ jdk10-openjdk
 jdk8-openjdk
 jemalloc
 jfsutils
+jq
 jre-openjdk
 jre-openjdk-headless
 jre10-openjdk
@@ -288,7 +294,7 @@ jre7-openjdk
 jre7-openjdk-headless
 jre8-openjdk
 jre8-openjdk-headless
-js52
+js60
 json-c
 json-glib
 jsoncpp
@@ -565,7 +571,6 @@ libpcap
 libpciaccess
 libpgm
 libpipeline
-libplacebo
 libplist
 libpng
 libproxy
@@ -673,10 +678,10 @@ libzen
 libzip
 libzmf
 licenses
+linux
 linux-api-headers
 linux-firmware
-linux-lts
-linux-lts-headers
+linux-headers
 lirc
 llvm-libs
 lm_sensors
@@ -705,10 +710,13 @@ mailcap
 make
 man-db
 man-pages
+mariadb
+mariadb-clients
 mariadb-libs
 mdadm
 media-player-info
 mediainfo
+meld
 menu-cache
 mesa
 metis
@@ -732,11 +740,11 @@ mypaint-brushes
 nano
 nccl
 ncurses
-ncurses5-compat-libs
 ndctl
 neofetch
 neomutt
 neon
+neovim
 net-snmp
 netctl
 nettle
@@ -746,7 +754,6 @@ networkmanager-openconnect
 ninja
 nm-connection-editor
 nmap
-nodejs
 notmuch-runtime
 npth
 nspr
@@ -755,11 +762,12 @@ nss-mdns
 ntfs-3g
 ntp
 numlockx
-nvidia-lts
+nvidia
 nvidia-settings
 nvidia-utils
 ocl-icd
 odt2txt
+oniguruma
 openal
 opencl-headers
 opencl-nvidia
@@ -771,9 +779,7 @@ openjpeg2
 openresolv
 openssh
 openssl
-openssl-1.0
 openvpn
-opera-ffmpeg-codecs
 opus
 orc
 os-prober
@@ -853,6 +859,7 @@ phonon-qt5
 phonon-qt5-gstreamer
 pinentry
 pinta
+pipewire
 pixman
 pkcs11-helper
 pkgconf
@@ -910,13 +917,11 @@ python-grpcio
 python-h5py
 python-html5lib
 python-idna
-python-jinja
 python-jsonschema
 python-keras-applications
 python-keras-preprocessing
 python-lockfile
 python-markdown
-python-markupsafe
 python-msgpack
 python-numpy
 python-packaging
@@ -934,9 +939,9 @@ python-pycparser
 python-pygments
 python-pynacl
 python-pyparsing
-python-pypeg2
 python-pyqt5
 python-pyqtwebengine
+python-pyrsistent
 python-pytoml
 python-requests
 python-retrying
@@ -957,6 +962,7 @@ python-webencodings
 python-websocket-client
 python-werkzeug
 python-wheel
+python-wrapt
 python-yaml
 python2
 python2-appdirs
@@ -993,7 +999,6 @@ python2-pytoml
 python2-requests
 python2-retrying
 python2-setuptools
-python2-simplejson
 python2-six
 python2-soupsieve
 python2-urllib3
@@ -1003,10 +1008,8 @@ python2-xdg
 python2-xlib
 qpdf
 qpdfview
-qt4
 qt5-3d
 qt5-base
-qt5-canvas3d
 qt5-charts
 qt5-connectivity
 qt5-datavis3d
@@ -1040,7 +1043,6 @@ qt5-websockets
 qt5-webview
 qt5-x11extras
 qt5-xmlpatterns
-qutebrowser
 r
 ranger
 rapidjson
@@ -1077,7 +1079,6 @@ sdl_image
 sed
 serf
 sfml
-shaderc
 shadow
 shared-mime-info
 simplescreenrecorder
@@ -1094,12 +1095,12 @@ spandsp
 speex
 speexdsp
 spice
-spirv-tools
 sqlite
 srt
 sshfs
 startup-notification
 steam
+stoken
 stow
 subversion
 sudo
@@ -1140,6 +1141,7 @@ thin-provisioning-tools
 tk
 tldr
 tmux
+tomcat8
 tor
 transmission-qt
 tree
@@ -1154,6 +1156,7 @@ udisks2
 ufw
 uncrustify
 unibilium
+unixodbc
 unrar
 unzip
 upower
@@ -1177,7 +1180,6 @@ wayland
 wayland-protocols
 webkit2gtk
 webrtc-audio-processing
-webscarab
 websocketpp
 wget
 which
