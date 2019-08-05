@@ -514,7 +514,9 @@ function! s:set_ncm2() abort
 		" on the work computer
 		Plug 'ncm2/ncm2-github'
 	endif
-	Plug 'ncm2/ncm2-jedi'
+	if (has('win32')) " Unix uses LSP
+		Plug 'ncm2/ncm2-jedi'
+	endif
 	Plug 'ncm2/ncm2-vim'
 		Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to
 		" autocomplete vim variables and functions
