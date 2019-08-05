@@ -508,7 +508,12 @@ function! s:set_ncm2() abort
 
 	Plug 'ncm2/ncm2-bufword'
 	Plug 'ncm2/ncm2-path'
-	Plug 'ncm2/ncm2-github'
+	if (has('unix'))
+		" Thu Aug 01 2019 16:08
+		" Nice to have plugin. We dont need to be making too many http requests 
+		" on the work computer
+		Plug 'ncm2/ncm2-github'
+	endif
 	Plug 'ncm2/ncm2-jedi'
 	Plug 'ncm2/ncm2-vim'
 		Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to
