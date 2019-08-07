@@ -64,7 +64,11 @@ function! plugin#Config()
 	" Fri May 31 2019 08:15 tried coc but it for it to work I need to install 
 	" nodejs. Also is kind of slow. For extensions to work you need to install 
 	" manually. Like: CocInstall coc-<x> 
-	call autocompletion#SetCompl('nvim_compl_manager')
+	" Tue Aug 06 2019 16:42
+	"		- Tired of vim complaining about the neovim-hug plugin.
+	"		- Just use normal vim completion
+	let l:compl = has('nvim') ? 'nvim_compl_manager' : 'shuogo_neo'
+	call autocompletion#SetCompl(l:compl)
 	" call autocompletion#SetCompl(
 				" \ has('unix') ? 'shuogo_deo' :
 				" \ (exists('g:portable_vim') && g:portable_vim == 1 ? 'shuogo_neo' : 'shuogo_deo')
