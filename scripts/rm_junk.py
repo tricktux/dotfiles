@@ -43,6 +43,12 @@ shittyfiles = [
         '~/.java/',
         '~/.oracle_jre_usage/',
         '~/.jssc/',
+        '~/.lsp4xml/',
+        '~/.tooling/',
+        '~/.webclipse/',
+        '~/.swt/',
+        '~/.sonar/',
+        '~/.quake2rtx/',
         '~/.tox/',              # cache directory for tox
         '~/.pylint.d/',
         '~/.qute_test/',
@@ -63,7 +69,7 @@ def yesno(question, default="n"):
     """ Asks the user for YES or NO, always case insensitive.
     Returns True for YES and False for NO.
     """
-    prompt = "%s (y/[n]) " % question
+    prompt = "%s (y/N) " % question
 
     ans = input(prompt).strip().lower()
 
@@ -83,7 +89,7 @@ def rmshit():
         for filename in glob.iglob(absf, recursive=True):
             if os.path.exists(filename):
                 found.append(filename)
-                print("    %s" % filename)
+                print("\t%s" % filename)
 
     if not found:
         print("No shitty files found :)")
