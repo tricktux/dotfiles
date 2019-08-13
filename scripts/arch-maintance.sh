@@ -11,6 +11,8 @@ machine=`hostname`
 
 echo "Cleaning files ..."
 python ~/.config/dotfiles/scripts/rm_junk.py
+# recreating deleted files
+mkdir ~/.local/share/Trash/{files,info}
 
 echo "Cleaning pacman ..."
 # This is very dangerous
