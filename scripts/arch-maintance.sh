@@ -9,37 +9,47 @@
 
 machine=`hostname`
 
-echo "Cleaning files ..."
+echo "Cleaning files desktop files..."
 python ~/.config/dotfiles/scripts/rm_junk.py
 # recreating deleted files
 mkdir ~/.local/share/Trash/{files,info}
 
-echo "Cleaning pacman ..."
-# This is very dangerous
-# sudo pacman -Sc --noconfirm
-# Better way paccache will remove everything except the latest THREE versions of 
-# a package
-sudo paccache -r
-# And remove remove all cached versions of uninstalled packages
-sudo paccache -ruk0
-# Rolling Back to an Older Version of a Package
-# sudo pacman -U /var/cache/pacman/pkg/name-version.pkg.tar.gz
-# sudo pacman-optimize
+clean_pacman_cache() {
+	# This is very dangerous
+	# sudo pacman -Sc --noconfirm
+	# Better way paccache will remove everything except the latest THREE versions of 
+	# a package
+	sudo paccache -r
+	# And remove remove all cached versions of uninstalled packages
+	sudo paccache -ruk0
+	# Rolling Back to an Older Version of a Package
+	# sudo pacman -U /var/cache/pacman/pkg/name-version.pkg.tar.gz
+	# sudo pacman-optimize
+}
 
-# This is also dangerous do it manually
-echo "Removing unused orphan packages. Look through the list and exit if you see
-something unusual"
-read -n1 -r -p "Press any key to continue..." key
-sudo pacman -Rns $(pacman -Qtdq)
+remove_pacman_orphans() {
+	# This is also dangerous do it manually
+	echo "Please look through the list and exit if you see something unusual"
+	sudo pacman -Rns $(pacman -Qtdq)
+}
 
+read -p "Do you wish to clean pacman cache? (y/N)" yn
+case $yn in
+		[Yy]* ) clean_pacman_cache;;
+esac
+
+read -p "Do you wish to remove pacman orphans? (y/N)" yn
+case $yn in
+		[Yy]* ) remove_pacman_orphans;;
+esac
+
+read -p "Do you wish to clean with bleachbit? (y/N)" yn
+case $yn in
+	[Yy]* ) bleachbit --clean --preset;;
+esac
 # Tue Sep 26 2017 18:40 Update Mirror list. Depends on `reflector`
 # echo "Optimizing system memory now in order to do all sudo commands at once"
 # sudo bleachbit --clean system.memory
-
-# echo "Updating system"
-# trizen -Syu
-sudo pacman -Qnq > ~/.config/dotfiles/pkg/$machine/native
-sudo pacman -Qmq > ~/.config/dotfiles/pkg/$machine/aur
 
 # echo "BleachBit runnning"
 
@@ -59,12 +69,4 @@ sudo pacman -Qmq > ~/.config/dotfiles/pkg/$machine/aur
 # bleachbit --list | grep -E "[a-z0-9_\-]+\.[a-z0-9_\-]+" | grep -v 
 # system.free_disk_space | xargs bleachbit --clean
 
-# echo "Cleaning shitty files"
-# curl -kLo ~/.cache/rmshit.py 
-# "https://raw.githubusercontent.com/lahwaacz/Scripts/master/rmshit.py"
-# chmod +x ~/.cache/rmshit.py
-# python cache/rmshit.py
-
-# echo "Updating fish completions"
-# fish_update_completions
 read -n1 -r -p "Done. Press any key to continue..." key
