@@ -59,6 +59,13 @@ shittyfiles = [
     '~/.gnome/',
     '~/unison.log',
     '~/.texlive/',
+    '~/.eclipse/',
+    '~/.gradle/',
+    '~/.m2/',
+    '~/.pki/',
+    '~/.yarn/',
+    '~/.yarnrc/',
+    '~/.mysql_history/',
     '~/.w3m/',
     '~/.subversion/',
     '~/nvvp_workspace/',  # created empty even when the path is set differently in nvvp
