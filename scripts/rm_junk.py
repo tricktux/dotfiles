@@ -108,5 +108,3 @@ def rmshit():
 
 if __name__ == '__main__':
     rmshit()
-
-# vim: ft=python
