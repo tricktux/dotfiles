@@ -8,7 +8,6 @@ shittyfiles = [
     '~/.local/share/Trash/files/',
     '~/.local/share/Trash/info/',
     '~/.python_history',
-    '~/.zplug/',
     '~/.zcompdump*',
     '~/.local/share/xorg/'
     '~/.adobe',  # Flash crap
