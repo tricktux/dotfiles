@@ -10,22 +10,22 @@ function! mappings#Set()
 	" CUSTOM MAPPINGS
 	if has('unix')
 		" System paste
-		nnoremap <Leader>p "+p=`]
-		vnoremap <Leader>p "+p=`]
+		nnoremap <leader>p "+p=`]
+		vnoremap <leader>p "+p=`]
 
-		nnoremap <Leader>y "+yy
-		vnoremap <Leader>y "+y
+		nnoremap <leader>y "+yy
+		vnoremap <leader>y "+y
 
 		nnoremap  o<Esc>
 	else
 		" Copy and paste into system wide clipboard
-		nnoremap <Leader>p "*p=`]
-		vnoremap <Leader>p "*p=`]
+		nnoremap <leader>p "*p=`]
+		vnoremap <leader>p "*p=`]
 
-		nnoremap <Leader>y "*yy
-		vnoremap <Leader>y "*y
+		nnoremap <leader>y "*yy
+		vnoremap <leader>y "*y
 
-		nnoremap <CR> o<ESC>
+		nnoremap <cr> o<ESC>
 
 		" On MS-Windows, this is mapped to cut Visual text
 		" |dos-standard-mappings|.
@@ -79,8 +79,8 @@ function! mappings#Set()
 	if has('terminal') || has('nvim')
 		" See plugin.vim - neoterm
 		" There are more mappins in the [,] section
-		nmap <Leader>te <plug>terminal_toggle
-		nmap <Leader>tE <plug>terminal_new
+		nmap <leader>te <plug>terminal_toggle
+		nmap <leader>tE <plug>terminal_new
 		nmap <leader>x <plug>terminal_send
 		xmap <leader>x <plug>terminal_send
 		nmap <leader>X <plug>terminal_send_line
@@ -159,29 +159,29 @@ function! mappings#Set()
 	nmap <leader>T <plug>generate_tags
 	nnoremap <silent> <plug>generate_tags :call ctags#NvimSyncCtags()<cr>
 
-	nnoremap <Leader>tt :TagbarToggle<cr>
-	nnoremap <Leader>ts :setlocal spell!<cr>
+	nnoremap <leader>tt :TagbarToggle<cr>
+	nnoremap <leader>ts :setlocal spell!<cr>
 	" duplicate current char
-	nnoremap <Leader>d ylp
+	nnoremap <leader>d ylp
 	" Reload syntax
-	nnoremap <Leader>js <Esc>:syntax sync fromstart<cr>
+	nnoremap <leader>js <Esc>:syntax sync fromstart<cr>
 	" Sessions
-	nnoremap <Leader>jes :call mappings#SaveSession()<cr>
-	nnoremap <Leader>jel :call mappings#LoadSession()<cr>
-	nnoremap <Leader>jee :call mappings#LoadSession(has('nvim') ?
+	nnoremap <leader>jes :call mappings#SaveSession()<cr>
+	nnoremap <leader>jel :call mappings#LoadSession()<cr>
+	nnoremap <leader>jee :call mappings#LoadSession(has('nvim') ?
 				\ 'default_nvim.vim' : 'default_vim.vim')<cr>
 	" Count occurrances of last search
-	nnoremap <Leader>jc :%s///gn<cr>
+	nnoremap <leader>jc :%s///gn<cr>
 	" Indenting
-	nnoremap <Leader>j2 :setlocal ts=2 sw=2 sts=2<cr>
-	nnoremap <Leader>j4 :setlocal ts=4 sw=4 sts=4<cr>
-	nnoremap <Leader>j8 :setlocal ts=8 sw=8 sts=8<cr>
+	nnoremap <leader>j2 :setlocal ts=2 sw=2 sts=2<cr>
+	nnoremap <leader>j4 :setlocal ts=4 sw=4 sts=4<cr>
+	nnoremap <leader>j8 :setlocal ts=8 sw=8 sts=8<cr>
 	" not paste the deleted word
 	nnoremap P :normal! "0p<cr>
 	vnoremap P :normal! "0p<cr>
 	" Force wings_syntax on a file
-	nnoremap <Leader>jw :set filetype=wings_syntax<cr>
-	nnoremap <Leader>j. :call <SID>exec_last_command()<cr>
+	nnoremap <leader>jw :set filetype=wings_syntax<cr>
+	nnoremap <leader>j. :call <SID>exec_last_command()<cr>
 	" j mappings taken <swypl;bqruihHdma248eEonf>
 	" nnoremap <Leader>Mc :call utils#ManFind()<cr>
 	" Tue Dec 19 2017 14:34:
@@ -318,7 +318,7 @@ function! mappings#Set()
 	" Rarely works
 	" vnoremap <Leader>ah :<c-u>s/<count>\x\x/\=nr2char(printf("%d", 
 	" "0x".submatch(0)))/g<cr><c-l>`<
-	vnoremap <Leader>nh :<c-u>s/\%V./\=
+	vnoremap <leader>nh :<c-u>s/\%V./\=
 				\ printf("%x",char2nr(submatch(0)))/g<cr><c-l>`<
 	nmap <leader>nr <plug>num_representation
 	xmap <leader>nr <plug>num_representation
@@ -367,14 +367,14 @@ function! mappings#Set()
 	inoremap = =<c-g>u
 
 	" CD <Leader>c?
-	nmap <Leader>cr <plug>cd_root
+	nmap <leader>cr <plug>cd_root
 
-	nnoremap <Leader>cd :lcd %:h<cr>
+	nnoremap <leader>cd :lcd %:h<cr>
 				\:pwd<cr>
-	nnoremap <Leader>cu :lcd ..<cr>
+	nnoremap <leader>cu :lcd ..<cr>
 				\:pwd<cr>
 	" cd into dir. press <Tab> after ci to see folders
-	nnoremap <Leader>cc :pwd<cr>
+	nnoremap <leader>cc :pwd<cr>
 	" TODO.RM-Thu Jun 01 2017 10:10: Create mappings like c21 and c22
 
 	" Folding
@@ -427,24 +427,24 @@ function! mappings#Set()
 	if !exists("g:loaded_plugins")
 		nnoremap <S-k> :buffers<cr>:buffer<Space>
 	else
-		nnoremap <Leader>bs :buffers<cr>:buffer<Space>
+		nnoremap <leader>bs :buffers<cr>:buffer<Space>
 	endif
-	nnoremap <Leader>bd :bp\|bw #\|bd #<cr>
+	nnoremap <leader>bd :bp\|bw #\|bd #<cr>
 	nnoremap <S-j> :b#<cr>
 	" deletes all buffers
-	nnoremap <Leader>bl :%bd<cr>
+	nnoremap <leader>bl :%bd<cr>
 
-	nmap <Leader>bt <Plug>BookmarkToggle
-	nmap <Leader>bi <Plug>BookmarkAnnotate
-	nmap <Leader>ba <Plug>BookmarkShowAll
-	nmap <Leader>bn <Plug>BookmarkNext
-	nmap <Leader>bp <Plug>BookmarkPrev
-	nmap <Leader>bc <Plug>BookmarkClear
-	nmap <Leader>bx <Plug>BookmarkClearAll
-	nmap <Leader>bk <Plug>BookmarkMoveUp
-	nmap <Leader>bj <Plug>BookmarkMoveDown
-	nmap <Leader>bo <Plug>BookmarkLoad
-	nmap <Leader>bs <Plug>BookmarkSave
+	nmap <leader>bt <Plug>BookmarkToggle
+	nmap <leader>bi <Plug>BookmarkAnnotate
+	nmap <leader>ba <Plug>BookmarkShowAll
+	nmap <leader>bn <Plug>BookmarkNext
+	nmap <leader>bp <Plug>BookmarkPrev
+	nmap <leader>bc <Plug>BookmarkClear
+	nmap <leader>bx <Plug>BookmarkClearAll
+	nmap <leader>bk <Plug>BookmarkMoveUp
+	nmap <leader>bj <Plug>BookmarkMoveDown
+	nmap <leader>bo <Plug>BookmarkLoad
+	nmap <leader>bs <Plug>BookmarkSave
 
 	" Version Control <Leader>v?
 	" For all this commands you should be in the svn root folder
@@ -476,14 +476,14 @@ function! mappings#Set()
 	" nnoremap <Leader>vi :!svn info<cr>
 
 	" Wiki mappings <Leader>w?
-	nnoremap <Leader>wo :call <SID>wiki_open()<cr>
-	nnoremap <Leader>wa :call <SID>wiki_add()<cr>
-	nnoremap <Leader>ws :call utils#WikiSearch()<cr>
-	nnoremap <Leader>wi :call <sid>wiki_open('index.md')<cr>
-	nnoremap <Leader>wr :call <sid>wiki_open('random.md')<cr>
-	nnoremap <Leader>ww :call <sid>wiki_open('weekly_log_' .
+	nnoremap <leader>wo :call <SID>wiki_open()<cr>
+	nnoremap <leader>wa :call <SID>wiki_add()<cr>
+	nnoremap <leader>ws :call utils#WikiSearch()<cr>
+	nnoremap <leader>wi :call <sid>wiki_open('index.md')<cr>
+	nnoremap <leader>wr :call <sid>wiki_open('random.md')<cr>
+	nnoremap <leader>ww :call <sid>wiki_open('weekly_log_' .
 				\ strftime('%Y') . '.md')<cr>
-	nnoremap <Leader>wm :call <sid>wiki_open('monthly_log_' .
+	nnoremap <leader>wm :call <sid>wiki_open('monthly_log_' .
 				\ strftime('%Y') . '.md')<cr>
 
 	" Comments <Leader>o
@@ -491,27 +491,27 @@ function! mappings#Set()
 	" nmap <Leader>ot <plug>NERDCommenterAltDelims
 	vmap - <plug>NERDCommenterToggle
 	imap <C-c> <plug>NERDCommenterInsert
-	nnoremap <Leader>oI :call utils#CommentReduceIndent()<cr>
-	nmap <Leader>to <plug>NERDCommenterAltDelims
+	nnoremap <leader>oI :call utils#CommentReduceIndent()<cr>
+	nmap <leader>to <plug>NERDCommenterAltDelims
 	" mapping ol conflicts with mapping o to new line
-	nnoremap <Leader>oe :call utils#EndOfIfComment()<cr>
-	nnoremap <Leader>ou :call utils#UpdateHeader()<cr>
-	nnoremap <Leader>ot :call utils#TodoAdd()<cr>
-	nmap <Leader>oa <Plug>NERDCommenterAppend
-	nnoremap <Leader>od :call utils#CommentDelete()<cr>
+	nnoremap <leader>oe :call utils#EndOfIfComment()<cr>
+	nnoremap <leader>ou :call utils#UpdateHeader()<cr>
+	nnoremap <leader>ot :call utils#TodoAdd()<cr>
+	nmap <leader>oa <Plug>NERDCommenterAppend
+	nnoremap <leader>od :call utils#CommentDelete()<cr>
 	" Comment Indent Increase/Reduce
-	nnoremap <Leader>oi :call utils#CommentIndent()<cr>
+	nnoremap <leader>oi :call utils#CommentIndent()<cr>
 
 	" Edit file at location <Leader>e?
-	nnoremap <Leader>ed :call utils#PathFileFuzzer(g:dotfiles)<cr>
-	nnoremap <Leader>eh :call utils#PathFileFuzzer($HOME)<cr>
+	nnoremap <leader>ed :call utils#PathFileFuzzer(g:dotfiles)<cr>
+	nnoremap <leader>eh :call utils#PathFileFuzzer($HOME)<cr>
 	if (!has('unix'))
 		nnoremap <leader>eC :call utils#PathFileFuzzer('C:\')<cr>
 		nnoremap <leader>eD :call utils#PathFileFuzzer('D:\')<cr>
 		nnoremap <leader>eP :e +<cr>
 	endif
-	nnoremap <Leader>ec :call utils#PathFileFuzzer(getcwd())<cr>
-	nnoremap <Leader>el :call utils#PathFileFuzzer(input
+	nnoremap <leader>ec :call utils#PathFileFuzzer(getcwd())<cr>
+	nnoremap <leader>el :call utils#PathFileFuzzer(input
 				\ ('Folder to recurse: ', "", "file"))<cr>
 	nnoremap <Leader>ei :e 
 
@@ -526,9 +526,9 @@ function! mappings#Set()
 	" endif
 
 	" Edit plugin
-	nnoremap <Leader>ep :call utils#PathFileFuzzer(g:vim_plugins_path)<cr>
+	nnoremap <leader>ep :call utils#PathFileFuzzer(g:vim_plugins_path)<cr>
 	" Edit Vimruntime
-	nnoremap <Leader>ev :call utils#PathFileFuzzer(fnameescape($VIMRUNTIME))<cr>
+	nnoremap <leader>ev :call utils#PathFileFuzzer(fnameescape($VIMRUNTIME))<cr>
 endfunction
 
 function! mappings#SaveSession(...) abort
@@ -1197,7 +1197,7 @@ function! s:version_control_command(cmd) abort
 		if exists(':Gstatus')
 			" nmap here is needed for the <C-n> to work. Otherwise it doesnt know what
 			" it means. This below is if you want it horizontal
-			" nmap <Leader>gs :Gstatus<CR><C-w>L<C-n>
+			" nmap <leader>gs :Gstatus<CR><C-w>L<C-n>
 			execute ':Gstatus'
 		elseif exists(':SVNStatus')
 			execute ':SVNStatus q'
