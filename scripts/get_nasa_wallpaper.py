@@ -52,7 +52,8 @@ def get_request(url):
 
 def main():
     """main"""
-    logging.basicConfig(filename='/tmp/get_nasa_wallpaper.log',level=logging.DEBUG)
+    logging.basicConfig(
+        filename='/tmp/get_nasa_wallpaper.log', level=logging.DEBUG)
     today = datetime.now().strftime("%Y-%m-%d")
     rdate = randomDate("2008-1-1", today, random())
     api = 'https://api.nasa.gov/planetary/apod?hd=true&api_key=DEMO_KEY&date=' + rdate
@@ -62,7 +63,8 @@ def main():
 
     logging.info('api: Getting picture from date: "%s"' % rdate)
     if Path(wall_full_path).is_file():
-        logging.debug('api: Picture from that date already exists. Setting it...')
+        logging.debug(
+            'api: Picture from that date already exists. Setting it...')
         run(wall_cmd)
         return
 
@@ -86,6 +88,7 @@ def main():
     run(wall_cmd)
 
     print("   ")
+
 
 if __name__ == '__main__':
     main()
