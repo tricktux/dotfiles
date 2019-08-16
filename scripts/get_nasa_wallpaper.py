@@ -52,6 +52,7 @@ def get_request(url):
 
 def main():
     """main"""
+    logging.basicConfig(filename='/tmp/get_nasa_wallpaper.log',level=logging.DEBUG)
     today = datetime.now().strftime("%Y-%m-%d")
     rdate = randomDate("2008-1-1", today, random())
     api = 'https://api.nasa.gov/planetary/apod?hd=true&api_key=DEMO_KEY&date=' + rdate
