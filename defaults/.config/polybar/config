@@ -169,7 +169,7 @@ font-4 = Iosevka Nerd Font:style=Medium:size=22;3
 ; When copying remove xbacklight battery and set specific wlan
 modules-left = menu wlan-predator info-pingrtt right-end-bottom space pihole space todo 
 modules-center =  left-end-top temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory right-end-top
-modules-right = left-end-bottom volume xkeyboard github info-trash updates-arch-combined redshift compton
+modules-right = left-end-bottom volume xkeyboard github info-trash updates-arch-combined wallpaper redshift compton
 
 tray-maxsize = 40
 
@@ -183,7 +183,7 @@ font-4 = Iosevka Nerd Font:style=Medium:size=14;3
 
 modules-left = menu wlan-helios info-pingrtt right-end-bottom space pihole space todo
 modules-center =  left-end-top temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory right-end-top
-modules-right = left-end-bottom battery_helios right-end-top space left-end-bottom xbacklight volume xkeyboard github info-trash updates-arch-combined redshift compton
+modules-right = left-end-bottom battery_helios right-end-top space left-end-bottom xbacklight volume xkeyboard github info-trash updates-arch-combined wallpaper redshift compton
 
 tray-maxsize = 20
 
