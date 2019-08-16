@@ -1408,10 +1408,13 @@ function! s:configure_vim_rooter() abort
 	let g:rooter_change_directory_for_non_project_files = 'current'
 	" nnoremap <Leader>cr :call utils#RooterAutoloadCscope()<CR>
 	
-	augroup Rooter
-		autocmd!
-		autocmd User RooterChDir call s:per_project_settings()
-	augroup END
+	" Tue Aug 13 2019 14:23
+	" Disabled since it wasnt really working, and was making me set the maker 
+	" manually constantly. Leaving for potential future use
+	" augroup Rooter
+		" autocmd!
+		" autocmd User RooterChDir call s:per_project_settings()
+	" augroup END
 endfunction
 
 function! s:per_project_settings() abort
@@ -1477,6 +1480,18 @@ function! s:configure_neoformat() abort
 	let g:neoformat_basic_format_trim = 1
 	" Enable alignment globally
 	let g:neoformat_basic_format_align = 1
+	nnoremap <plug>format_code :Neoformat<cr>
+
+	let l:win_clang_path = 'C:\Program Files (x86)\LLVM\bin\clang-check.exe'
+	" Clang available:
+	"		if we are on unix and its executable
+	"		OR
+	"		if we are on win and l:win_clang_path file exists
+	let l:clang = ((has('unix') && executable('clang-format')) ||
+				\ (has('win32') && (filereadable((l:win_clang_path)))))
+	if !l:clang
+		return
+	endif
 	let g:neoformat_enabled_cpp = ['clangformat']
 	let g:neoformat_c_clangformat = {
 				\ 'exe': 'clang-format',
@@ -1494,8 +1509,6 @@ function! s:configure_neoformat() abort
 				\ 'args': ['--indent=spaces=2', '--style=java'],
 				\ 'stdin': 1,
 				\ }
-	nnoremap <plug>format_code :Neoformat<cr>
-
 endfunction
 
 function! s:configure_java_setter_getter() abort
