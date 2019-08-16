@@ -2,7 +2,7 @@
 " Description:    Code to get passwords from the password store
 " Author:		    Reinaldo Molina
 " Email:          rmolin88 at gmail dot com
-" Revision:	    <`4:0.0.0`>
+" Revision:	    0.0.0
 " Created:        Fri Dec 01 2017 10:04
 " Last Modified:  Fri Dec 01 2017 10:04
 
