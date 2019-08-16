@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import time
+import logging
 from datetime import datetime
 from random import random
 from subprocess import run
@@ -39,13 +40,13 @@ def get_request(url):
     try:
         resp = get(url)
     except Exception:
-        print('Failed to make get request')
+        logging.error('Failed to make get request')
         return dict()
 
     try:
         return resp.json()
     except Exception:
-        print('Failed to parse json response')
+        logging.error('Failed to parse json response')
         return dict()
 
 
@@ -58,13 +59,13 @@ def main():
     wall_full_path = '/home/reinaldo/Pictures/wallpapers/nasa_img_' + rdate + '.jpg'
     wall_cmd = ['feh', '--no-fehbg', '--bg-fill', wall_full_path]
 
-    print('api: Getting picture from date: "%s"' % rdate)
+    logging.info('api: Getting picture from date: "%s"' % rdate)
     if Path(wall_full_path).is_file():
-        print('api: Picture from that date already exists. Setting it...')
+        logging.debug('api: Picture from that date already exists. Setting it...')
         run(wall_cmd)
         return
 
-    print('api: Get Request: "%s"' % api)
+    logging.info('api: Get Request: "%s"' % api)
     response = get_request(api)
 
     if not response:
@@ -74,15 +75,16 @@ def main():
     for _ in wall_url:
         if _ not in response:
             continue
-        print('api: Image quality "%s"' % _)
-        print('api: Downloading "%s"...' % response.get(_))
+        logging.info('api: Image quality "%s"' % _)
+        logging.info('api: Downloading "%s"...' % response.get(_))
         urlretrieve(response.get(_), wall_full_path)
         break
 
     # Set it as wallpaper
-    print('api: Setting wallpaper "%s"...' % wall_full_path)
+    logging.info('api: Setting wallpaper "%s"...' % wall_full_path)
     run(wall_cmd)
 
+    print("   ")
 
 if __name__ == '__main__':
     main()
