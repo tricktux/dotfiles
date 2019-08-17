@@ -754,6 +754,7 @@ networkmanager-openconnect
 ninja
 nm-connection-editor
 nmap
+nodejs
 notmuch-runtime
 npth
 nspr
