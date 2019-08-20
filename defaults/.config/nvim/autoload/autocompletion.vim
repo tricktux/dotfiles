@@ -265,7 +265,8 @@ endfunction
 function! s:set_language_client(has_unix) abort
 	Plug 'autozimu/LanguageClient-neovim', {
 			\ 'branch': 'next',
-			\ 'do': has('unix') ? 'bash install.sh' : 'powershell -executionpolicy bypass -File install.ps1',
+			\ 'do': has('unix') ? 'bash install.sh' :
+			\ 'powershell -executionpolicy bypass -File install.ps1',
 			\ }
 
 	" Wed Apr 04 2018 16:25: clangd depends on a compile_commands.json databse.
@@ -319,6 +320,10 @@ function! s:set_language_client(has_unix) abort
 		call extend(g:LanguageClient_serverCommands, l:chosen_java_server)
 	endif
 
+	let g:LanguageClient_hasSnippetSupport = 1
+	let g:LanguageClient_useVirtualText = 0
+
+	let g:LanguageClient_completionPreferTextEdit = 1
 	if exists('g:lightline')
 		let g:lightline.active.left[2] += [ 'lsp' ]
 		let g:lightline.component_function['lsp'] = 'LanguageClient#statusLine'
@@ -360,13 +365,11 @@ function! s:set_language_client_mappings() abort
 
 	if !executable(get(l:key, 0, ''))
 		if &verbose > 0
-			echoerr 'LanguageClient server for ' . &filetype . ': ' .get(l:key, 0, ''). ' not executable'
+			echoerr 'LanguageClient server for ' .
+						\ &filetype . ': ' .get(l:key, 0, ''). ' not executable'
 		endif
 		return
 	endif
-
-	setlocal completefunc=LanguageClient#complete
-	setlocal formatexpr=LanguageClient_textDocument_rangeFormatting()
 
 	nnoremap <buffer> <localleader>d
 				\ :call LanguageClient#textDocument_definition()<CR>
