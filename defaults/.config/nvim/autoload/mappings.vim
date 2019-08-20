@@ -949,6 +949,12 @@ function! mappings#SetWhichKeyMap() abort
 				\ 'a' : 'wings-dev',
 				\ 's' : 'SupportFiles',
 				\ }
+	let l:edit_random_file_type = {
+				\ 'name' : '+random_file_type',
+				\ 'c' : ['UtilsEditTmpFileCpp', 'cpp'],
+				\ 'p' : ['UtilsEditTmpFilePython', 'python'],
+				\ 'm' : ['UtilsEditTmpFileMarkdown', 'markdown'],
+				\ }
 
 	let g:which_key_leader_map.e = {
 				\ 'name' : '+edit',
@@ -956,7 +962,7 @@ function! mappings#SetWhichKeyMap() abort
 				\ 'c' : 'current_dir',
 				\ 'l' : 'specific_location',
 				\ 't' : 'todo',
-				\ 'T' : ['UtilsEditTmpFile', 'temp'],
+				\ 'T' : l:edit_random_file_type,
 				\ 'p' : 'plugins_path',
 				\ 'v' : 'vimruntime',
 				\ 'w' : l:wings,

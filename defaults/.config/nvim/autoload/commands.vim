@@ -33,7 +33,9 @@ function! commands#Set() abort
 	command! UtilsFontZoomOut call s:adjust_gui_font('-')
 
 	command! UtilsFileSize call s:get_file_info()
-	command! UtilsEditTmpFile call s:edit_tmp_doc()
+	command! UtilsEditTmpFileMarkdown call s:edit_tmp_doc('md')
+	command! UtilsEditTmpFileCpp call s:edit_tmp_doc('cpp')
+	command! UtilsEditTmpFilePython call s:edit_tmp_doc('py')
 
 	let msvc = 
 \ "\"C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VC\\vcvarsall.bat\""
@@ -188,9 +190,8 @@ function! s:get_file_info() abort
 	return
 endfunction
 
-function! s:edit_tmp_doc() abort
-	execute 'edit ' . tempname()
-	setlocal filetype=markdown
+function! s:edit_tmp_doc(type) abort
+	execute 'edit ' . tempname() . (empty(a:type) ? '' : '.' . a:type)
 endfunction
 
 function! s:find_brace_in_comment() abort
