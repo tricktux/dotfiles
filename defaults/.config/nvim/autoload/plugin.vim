@@ -1474,7 +1474,6 @@ function! s:configure_neoterm() abort
 endfunction
 
 function! s:configure_neoformat() abort
-	
 	Plug 'sbdchd/neoformat', { 'on' : 'Neoformat' }
 	" Enable trimmming of trailing whitespace globally
 	let g:neoformat_basic_format_trim = 1
@@ -1489,26 +1488,36 @@ function! s:configure_neoformat() abort
 	"		if we are on win and l:win_clang_path file exists
 	let l:clang = ((has('unix') && executable('clang-format')) ||
 				\ (has('win32') && (filereadable((l:win_clang_path)))))
-	if !l:clang
-		return
+	if l:clang
+		let g:neoformat_enabled_cpp = ['clangformat']
+		let g:neoformat_c_clangformat = {
+					\ 'exe': 'clang-format',
+					\ 'args': ['-style=file', '-fallback-style="LLVM"'],
+					\ 'stdin': 1,
+					\ }
+		let g:neoformat_cpp_clangformat = {
+					\ 'exe': 'clang-format',
+				\ 'args': ['-style=file', '-fallback-style="LLVM"'],
+				\ 'stdin': 1,
+				\ }
 	endif
-	let g:neoformat_enabled_cpp = ['clangformat']
-	let g:neoformat_c_clangformat = {
-				\ 'exe': 'clang-format',
-				\ 'args': ['-style=file', '-fallback-style="LLVM"'],
-				\ 'stdin': 1,
-				\ }
-	let g:neoformat_cpp_clangformat = {
-				\ 'exe': 'clang-format',
-				\ 'args': ['-style=file', '-fallback-style="LLVM"'],
-				\ 'stdin': 1,
-				\ }
-	 
-	let g:neoformat_java_astyle = {
-				\ 'exe': 'astyle',
-				\ 'args': ['--indent=spaces=2', '--style=java'],
-				\ 'stdin': 1,
-				\ }
+
+	if executable('astyle')
+		let g:neoformat_enabled_java = ['astyle']
+		let g:neoformat_java_astyle = {
+					\ 'exe': 'astyle',
+					\ 'args': ['--indent=spaces=2', '--style=java'],
+					\ 'stdin': 1,
+					\ }
+	endif
+
+	" if executable('black')
+		" " pip install black
+		" let g:neoformat_python_black = {
+					" \ 'exe': 'black',
+					" \ 'args': ['--line-length 80'],
+					" \ }
+	" endif
 endfunction
 
 function! s:configure_java_setter_getter() abort
