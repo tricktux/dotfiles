@@ -371,7 +371,7 @@ function! s:set_language_client_mappings() abort
 		return
 	endif
 
-	nnoremap <buffer> <localleader>d
+	nnoremap <buffer> <localleader>ld
 				\ :call LanguageClient#textDocument_definition()<CR>
 	nnoremap <buffer> <localleader>lh
 				\ :call LanguageClient#textDocument_hover()<CR>
