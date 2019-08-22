@@ -1119,7 +1119,8 @@ function! mappings#SetWhichKeyMap() abort
 	nnoremap ]/ ]/
 	nnoremap ]# ]#
 	nnoremap [# [#
-	nnoremap ]f ]f
+	nnoremap ]f gf
+	vnoremap ]f gf
 	nnoremap ]i [<c-i>
 	nnoremap [i [<c-i>
 	nnoremap ]I <c-w>i<c-w>L
