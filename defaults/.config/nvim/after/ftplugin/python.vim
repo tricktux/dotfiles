@@ -21,6 +21,11 @@ if !exists("no_plugin_maps") && !exists("no_python_maps")
 	if (exists(':Neoformat'))
 		nnoremap <localleader>f :Neoformat<cr>
 	endif
+	if (exists(':Neomake'))
+		nnoremap <buffer> <plug>make_file :Neomake<cr>
+		nnoremap <buffer> <plug>make_project :Neomake!<cr>
+	endif
+
 endif
 
 call autocompletion#AdditionalLspSettings()
