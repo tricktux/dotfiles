@@ -19,7 +19,7 @@ function! augroup#Set() abort
 		" Nerdtree Fix
 		autocmd FileType nerdtree setlocal relativenumber
 		" Set omnifunc for all others 									" not showing
-		autocmd FileType cs compiler msbuild
+		" autocmd FileType cs compiler msbuild
 
 		" Display help vertical window not split
 		autocmd FileType help wincmd L
