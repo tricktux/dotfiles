@@ -103,9 +103,7 @@ function! s:set_compiler_and_friends() abort
 	if has('unix')
 		call linting#SetNeomakeClangMaker()
 		call linting#SetNeomakeMakeMaker()
-		if exists('g:LanguageClient_serverCommands')
-			call autocompletion#AdditionalLspSettings()
-		endif
+		call autocompletion#AdditionalLspSettings()
 		return 1
 	endif
 
