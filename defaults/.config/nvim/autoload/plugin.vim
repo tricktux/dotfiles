@@ -39,6 +39,10 @@ function! plugin#Config()
 		Plug 'lambdalisue/suda.vim'
 	endif
 
+	if has('win32')
+		call autocompletion#SetOmniSharp()
+	endif
+
 	call s:configure_vim_zoom()
 
 	call s:configure_vim_utils()
@@ -590,7 +594,7 @@ function! plugin#AfterConfig() abort
 	" Run neomake everytime you save a file
 	if exists('g:loaded_neomake')
 		let l:helios_bat_stat = '/sys/class/power_supply/BAT1/status'
-		if !has('unix')
+		if has('win32')
 			call neomake#configure#automake('w')
 		" Thu Apr 25 2019 06:11: This is very qute. But when enabled by default 
 		" things get very cluttered. Let LanguageClient do its thing and then just 
@@ -1521,7 +1525,6 @@ function! s:configure_neoformat() abort
 endfunction
 
 function! s:configure_java_setter_getter() abort
-	
 	Plug 'wsdjeg/java_getset.vim', { 'for' : 'java' }
 		let g:java_getset_disable_map = 1
 

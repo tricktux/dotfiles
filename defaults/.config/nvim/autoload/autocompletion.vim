@@ -865,3 +865,10 @@ function! s:coc_show_documentation()
 		call CocAction('doHover')
 	endif
 endfunction
+
+function! autocompletion#SetOmniSharp() abort
+	Plug 'OmniSharp/omnisharp-vim'
+
+	" Use the stdio OmniSharp-roslyn server
+	let g:OmniSharp_server_stdio = 1
+endfunction
