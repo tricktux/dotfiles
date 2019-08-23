@@ -1075,6 +1075,7 @@ function! mappings#SetWhichKeyMap() abort
 
 	" This mappings are needed so that you can use it
 	nnoremap gg gg
+	vnoremap gg gg
 	nnoremap gd gd
 	nnoremap gD gD
 	nnoremap g; g;
