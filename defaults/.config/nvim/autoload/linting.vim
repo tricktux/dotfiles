@@ -327,7 +327,7 @@ function! linting#SetNeomakeClangMaker() abort
 	let b:neomake_cppcheck_args = '--quiet --language=c++ --enable=all'
 	let b:neomake_clangtidy_args = ["-checks='*'", '%:p']
 	let b:neomake_clangcheck_args = ['-analyze', '%:p']
-	if !has('unix') && executable('clang')
+	if has('win32') && executable('clang')
 		" Tue Aug 21 2018 15:12 
 		" clang-cl is the frontend that uses MSVC cl-like arguments
 		" https://clang.llvm.org/docs/UsersManual.html#clang-cl
