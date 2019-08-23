@@ -871,4 +871,21 @@ function! autocompletion#SetOmniSharp() abort
 
 	" Use the stdio OmniSharp-roslyn server
 	let g:OmniSharp_server_stdio = 1
+
+	" Timeout in seconds to wait for a response from the server
+	let g:OmniSharp_timeout = 5
+
+	" Update semantic highlighting on BufEnter and InsertLeave
+	let g:OmniSharp_highlight_types = 2
+
+	" Enable snippet completion
+	" let g:OmniSharp_want_snippet=1
+
+	if exists(':Files')
+		let g:OmniSharp_selector_ui = 'fzf'
+	elseif exists(':CltrP')
+		let g:OmniSharp_selector_ui = 'ctrlp'
+	else
+		let g:OmniSharp_selector_ui = ''
+	endif
 endfunction
