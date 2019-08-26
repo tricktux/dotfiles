@@ -15,7 +15,7 @@ update_pacman_mirrors() {
 }
 
 updating_python_pip() {
-	source ~/.config/dotfiles/scripts/python_neovim_virtualenv.sh
+	source ~/.config/polybar/scripts/python_neovim_virtualenv.sh
 }
 
 update_nvim_plugins() {
