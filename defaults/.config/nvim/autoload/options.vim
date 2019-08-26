@@ -12,6 +12,13 @@ function! options#Set() abort
 	"omnicomplete menu
 	" save marks
 
+	" Supress messages
+	" a - Usefull abbreviations
+	" c - Do no show match 1 of 2
+	" s - Do not show search hit bottom
+	" t - Truncate message if is too long
+	set shortmess=acst
+
 	set colorcolumn=+1 " Highlight first column after textwidth
 	set guitablabel=%N\ %f
 	" Silly, always set cool colors
