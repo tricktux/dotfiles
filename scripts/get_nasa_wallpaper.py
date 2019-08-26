@@ -65,7 +65,10 @@ def main():
     if Path(wall_full_path).is_file():
         logging.debug(
             'api: Picture from that date already exists. Setting it...')
-        run(wall_cmd)
+        try:
+            run(wall_cmd)
+        except:
+            pass
         return
 
     logging.info('api: Get Request: "%s"' % api)
@@ -85,7 +88,10 @@ def main():
 
     # Set it as wallpaper
     logging.info('api: Setting wallpaper "%s"...' % wall_full_path)
-    run(wall_cmd)
+    try:
+        run(wall_cmd)
+    except:
+        pass
 
     print("   ")
 
