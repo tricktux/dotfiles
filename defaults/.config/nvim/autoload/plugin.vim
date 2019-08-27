@@ -1002,6 +1002,24 @@ function! s:configure_vim_utils() abort
 	nnoremap <Leader>vb :call SVNCopy<CR>
 
 	nnoremap <Leader>of :Dox<CR>
+
+	" TODO - Tue Aug 27 2019 16:33: Move utils functions into its own plugin 
+	" Auto Flux (changing themes) is set in the augroup.vim file
+	" Used data from here: https://www.timeanddate.com/sun/usa/clearwater
+	" Specifically markings for daylight
+	" https://sunrise-sunset.org/api
+	" Make requests here to get exact sunset and sunrise times
+	" Parse output file 
+	let l:m = strftime('%m')
+	let l:t = strftime('%H%M')
+	" let l:night = {
+				" \ '01' :
+				" \ }
+	let g:colorscheme_night_time = 20
+	let g:colorscheme_day_time = 7
+	let g:colorscheme_day = 'PaperColor'
+	let g:colorscheme_night = 'PaperColor'
+
 	" Other commands
 	" command! -nargs=0 DoxLic :call <SID>DoxygenLicenseFunc()
 	" command! -nargs=0 DoxAuthor :call <SID>DoxygenAuthorFunc()
@@ -1102,7 +1120,6 @@ function! s:configure_vim_utils() abort
 
 		call add(g:grip_tools, g:grip_wiki)
 	endif
-
 endfunction
 
 function! s:configure_vim_bookmark() abort

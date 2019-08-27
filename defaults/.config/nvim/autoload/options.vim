@@ -184,18 +184,7 @@ function! options#Set() abort
 	" Status Line and Colorscheme
 	" Set a default bogus colorscheme. If Plugins loaded it will be changed
 	colorscheme desert
-	if exists('g:loaded_plugins')
-		let g:colorscheme_night_time = 18
-		let g:colorscheme_day_time = 8
-		let g:colorscheme_day = 'PaperColor'
-		let g:colorscheme_night = 'PaperColor'
-		" Set highliting for Search and Incsearch
-		" Auto Flux (changing themes) is set in the augroup.vim file
-		augroup FluxLike
-			autocmd!
-			autocmd VimEnter,BufEnter * call utils#Flux()
-		augroup END
-	else
+	if !exists('g:loaded_plugins')
 		" If this not and android device and we have no plugins setup "ugly" status 
 		" line
 		set statusline =
