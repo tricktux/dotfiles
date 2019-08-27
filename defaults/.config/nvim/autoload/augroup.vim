@@ -101,6 +101,11 @@ function! augroup#Set() abort
 			autocmd BufWinEnter * call ctags#LoadCscopeDatabse()
 			autocmd BufWinEnter * call status_line#SetVerControl()
 		augroup END
+
+		augroup FluxLike
+			autocmd!
+			autocmd VimEnter,BufEnter * call utils#Flux()
+		augroup END
 	endif
 
 	" Depends on autoread being set
