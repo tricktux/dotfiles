@@ -506,7 +506,7 @@ function! s:plugin_check() abort
 	endif
 
 	let l:link = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-	if utils#DownloadFile(g:plug_path, l:link) != 1
+	if utils#CurlDown(g:plug_path, l:link) != 1
 		return -1
 	endif
 
@@ -1307,7 +1307,7 @@ function! s:fzf_download() abort
 	
 	let l:link =
 				\ 'https://raw.githubusercontent.com/junegunn/fzf/master/plugin/fzf.vim'
-	if utils#DownloadFile(l:fzf_path, l:link) != 1
+	if utils#CurlDown(l:fzf_path, l:link) != 1
 		return -1
 	endif
 
