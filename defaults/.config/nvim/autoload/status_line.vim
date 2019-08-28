@@ -242,9 +242,9 @@ function! status_line#UpdateColorscheme() abort
 	" Update the name first. This is important. Otherwise no colorscheme is set during startup
 	if exists('g:lightline')
 		if &background ==# 'dark'
-			let g:lightline.colorscheme = g:colorscheme_night . '_dark'
+			let g:lightline.colorscheme = g:flux_night_colorscheme . '_dark'
 		else
-			let g:lightline.colorscheme = g:colorscheme_day . '_light'
+			let g:lightline.colorscheme = g:flux_day_colorscheme . '_light'
 		endif
 	endif
 

@@ -104,7 +104,7 @@ function! augroup#Set() abort
 
 		augroup FluxLike
 			autocmd!
-			autocmd VimEnter,BufEnter * call utils#Flux()
+			autocmd VimEnter,BufEnter * call flux#Flux()
 		augroup END
 	endif
 
