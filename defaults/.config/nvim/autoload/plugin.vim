@@ -1007,17 +1007,14 @@ function! s:configure_vim_utils() abort
 	" Auto Flux (changing themes) is set in the augroup.vim file
 	" Used data from here: https://www.timeanddate.com/sun/usa/clearwater
 	" Specifically markings for daylight
-	" https://sunrise-sunset.org/api
 	" Make requests here to get exact sunset and sunrise times
-	" Parse output file 
-	let l:m = strftime('%m')
-	let l:t = strftime('%H%M')
+	" https://sunrise-sunset.org/api
+	let g:flux_enabled = 1
 	let g:flux_api_lat = 27.972572
 	let g:flux_api_lon = -82.796745
-	let g:flux_enabled = 1
 
 	let g:flux_night_time = 2000
-	let g:flux_day_time = 7000
+	let g:flux_day_time = 700
 	let g:flux_day_colorscheme = 'PaperColor'
 	let g:flux_night_colorscheme = 'PaperColor'
 
@@ -1045,8 +1042,10 @@ function! s:configure_vim_utils() abort
 
 	let g:ctags_create_spell=1
 	let g:ctags_spell_script= g:std_config_path . '/tagstospl.py'
-	let g:ctags_output_dir = g:std_data_path . (has('unix') ? '/ctags/' : '\ctags\')
-	" Cscope databases and spell files will only be created for the following filetypes
+	let g:ctags_output_dir = g:std_data_path . (has('unix') ?
+				\ '/ctags/' : '\ctags\')
+	" Cscope databases and spell files will only be
+	" created for the following filetypes
 	let g:ctags_use_spell_for = ['c', 'cpp']
 	let g:ctags_use_cscope_for = ['c', 'cpp', 'java']
 
