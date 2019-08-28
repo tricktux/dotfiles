@@ -34,8 +34,8 @@ function! flux#Flux() abort
 		return
 	endif
 
-	if strftime("%H%M") >= s:flux_times['day'] ||
-				\ strftime("%H%M") < s:flux_times['night']
+	if strftime("%H%M") >= s:flux_times['night'] ||
+				\ strftime("%H%M") < s:flux_times['day']
 		" Its night time
 		if	&background !=# 'dark' ||
 					\ !exists('g:colors_name') ||
@@ -171,7 +171,7 @@ function! s:get_sunrise_times(time) abort
 	" Time is given in UTC. Subs 4 to get ETC
 	let l:t = strpart(l:content, l:sunrise_idx + 10, 2)
 	" echomsg 't = ' l:t
-	let l:time = (str2nr(l:t) - 4) * 1000
+	let l:time = (str2nr(l:t) - 4) * 100
 	" echomsg 'time = ' l:time
 	let l:t = strpart(l:content, l:sunrise_idx + 13, 2)
 	" echomsg 't = ' l:t
