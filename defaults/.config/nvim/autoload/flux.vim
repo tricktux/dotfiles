@@ -6,6 +6,8 @@
 " Created:        Tue Aug 27 2019 23:20
 " Last Modified:  Tue Aug 27 2019 23:20
 
+" TODO 
+"  check for filereadable(s:api_res_path) every time flux() is called
 let s:api_response_file_name = 'api_response_' . strftime('%m%d%Y') . '.json'
 let s:api_res_path = g:std_cache_path . '/' . s:api_response_file_name
 let s:api_url = 'https://api.sunrise-sunset.org/json?lat={}&lng={}'
@@ -102,15 +104,20 @@ function! s:get_api_response_file() abort
 	let l:url = substitute(l:url, '{}', string(g:flux_api_lon), '')
 	" echomsg 'url = ' l:url
 
-	if !filereadable(s:api_res_path) &&
-				\ s:api_request(s:api_res_path, l:url) == 1
-		" echomsg 'Made request. Checking file'
-		if !filereadable(s:api_res_path)
+	if !filereadable(s:api_res_path)
+		if s:api_request(s:api_res_path, l:url) < 1
 			if &verbose > 0
 				echoerr 'Filed to make api request'
 			endif
 			return
 		endif
+	endif
+
+	if !filereadable(s:api_res_path)
+		if &verbose > 0
+			echoerr 'Filed to make api request'
+		endif
+		return
 	endif
 
 	let l:sunrise = s:get_sunrise_times('sunrise')
