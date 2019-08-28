@@ -35,7 +35,8 @@ if !has('nvim')
 	syntax on
 endif
 
-" You can a pass a list of files to the function and those and only those files will be sourced
+" You can a pass a list of files to the function and those and only
+" those files will be sourced
 function! s:find_vim_config_file(...) abort
 	" If source files were provided source only those and exit
 	if a:0 > 0
@@ -53,15 +54,17 @@ function! s:find_vim_config_file(...) abort
 
 	call s:set_stdpaths()
 
-	let l:root_folder_portable_vim = getcwd() . (has('nvim') ?  '/../../../data/' : '/../../data/')
-	let g:dotfiles = has('unix') ? expand('~/.config/dotfiles') : $LOCALAPPDATA . "\\dotfiles"
+	let l:root_folder_portable_vim = getcwd() . (has('nvim') ?
+				\ '/../../../data/' : '/../../data/')
+	let g:dotfiles = has('unix') ?
+				\ expand('~/.config/dotfiles') : $LOCALAPPDATA . "\\dotfiles"
 
 	if !empty(glob(l:root_folder_portable_vim))
 		" If found portable vim. Redifine std_path
 		" You need 3 folders in root
 		" nvim: copy dotfiles/defaults/.config/nvim
-		" nvim-data: copy nvim-data (win) or .local/share/nvim (unix) from some computer
-		" cache: create empty folder
+		" nvim-data: copy nvim-data (win) or .local/share/nvim 
+		" (unix) from some computer cache: create empty folder
 		let g:std_config_path = l:root_folder_portable_vim . 'nvim'
 		let g:std_data_path = l:root_folder_portable_vim . 'nvim-data'
 		let g:std_cache_path = l:root_folder_portable_vim . 'cache'
@@ -89,12 +92,17 @@ function! s:set_stdpaths() abort
 	" Fix here. These should be vim std paths. Like vimfiles
 	if has('unix')
 		let g:std_config_path = expand('~/.vim')
-		let g:std_data_path = (exists('$XDG_DATA_HOME')) ? $XDG_DATA_HOME . '/nvim' : expand('~/.local/share/nvim')
-		let g:std_cache_path = (exists('$XDG_CACHE_HOME')) ? $XDG_CACHE_HOME . '/nvim' : expand('~/.cache/nvim')
+		let g:std_data_path = (exists('$XDG_DATA_HOME')) ?
+					\ $XDG_DATA_HOME . '/nvim' : expand('~/.local/share/nvim')
+		let g:std_cache_path = (exists('$XDG_CACHE_HOME')) ?
+					\ $XDG_CACHE_HOME . '/nvim' : expand('~/.cache/nvim')
 	else
 		let g:std_config_path = expand("~\\vimfiles")
-		let g:std_data_path = (exists('$LOCALAPPDATA')) ? $LOCALAPPDATA . "\\nvim-data" : expand("~\\AppData\\Local\\nvim-data")
-		let g:std_cache_path = (exists('$TEMP')) ? $TEMP : expand("~\\AppData\\Local\\Temp\\nvim")
+		let g:std_data_path = (exists('$LOCALAPPDATA')) ?
+					\ $LOCALAPPDATA . "\\nvim-data" :
+					\ expand("~\\AppData\\Local\\nvim-data")
+		let g:std_cache_path = (exists('$TEMP')) ?
+					\ $TEMP : expand("~\\AppData\\Local\\Temp\\nvim")
 	endif
 
 endfunction
