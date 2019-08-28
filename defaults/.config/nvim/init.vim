@@ -94,7 +94,7 @@ function! s:set_stdpaths() abort
 	else
 		let g:std_config_path = expand("~\\vimfiles")
 		let g:std_data_path = (exists('$LOCALAPPDATA')) ? $LOCALAPPDATA . "\\nvim-data" : expand("~\\AppData\\Local\\nvim-data")
-		let g:std_cache_path = (exists('$TEMP')) ? $TEMP : expand("~\\AppData\\Local\\Temp")
+		let g:std_cache_path = (exists('$TEMP')) ? $TEMP : expand("~\\AppData\\Local\\Temp\\nvim")
 	endif
 
 endfunction
