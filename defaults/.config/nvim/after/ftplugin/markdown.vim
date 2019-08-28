@@ -155,7 +155,7 @@ function! s:install_template() abort
 	endif
 
 	let l:link = 'https://raw.githubusercontent.com/Wandmalfarbe/pandoc-latex-template/master/eisvogel.tex'
-	if utils#DownloadFile(template_path, l:link) != 1
+	if utils#CurlDown(template_path, l:link) != 1
 		echomsg 'Failed to download templates'
 	endif
 endfunction
