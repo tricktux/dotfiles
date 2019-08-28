@@ -535,11 +535,16 @@ endfunction
 
 function! utils#CurlDown(file_name, link) abort
 	if !executable('curl')
-		echoerr 'curl is not installed'
+		echoerr 'Curl is not installed. Cannot proceed'
 		return
 	endif
 
-	execute "!curl -kfLo " . a:file_name . " --create-dirs " . a:link
+	if empty(a:path) || empty(a:link)
+		echoerr 'Please specify a path and link to download'
+		return
+	endif
+
+	execute "!curl -kfLo " . a:file_name . " --create-dirs \"" . a:link . "\""
 endfunction
 
 function! utils#ChooseEmailAcc() abort
@@ -647,23 +652,6 @@ function! utils#GetPathFolderName(curr_dir) abort
 	endif
 
 	return a:curr_dir[back_slash_index+1:]
-endfunction
-
-function! utils#DownloadFile(path, link) abort
-	" Need curl to download the file
-	if !executable('curl')
-		echomsg 'Master I cant download file for you because you'
-					\' do not have curl.'
-		return 0
-	endif
-
-	if empty(a:path) || empty(a:link)
-		echomsg '[utils#DownloadFile]: Please specify a path and link to download'
-		return -1
-	endif
-
-	execute '!curl -kfLo ' . a:path . ' --create-dirs ' . a:link
-	return 1
 endfunction
 
 function! utils#UpdateBorlandMakefile() abort
