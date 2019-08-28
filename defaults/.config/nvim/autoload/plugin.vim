@@ -1012,13 +1012,14 @@ function! s:configure_vim_utils() abort
 	" Parse output file 
 	let l:m = strftime('%m')
 	let l:t = strftime('%H%M')
-	" let l:night = {
-				" \ '01' :
-				" \ }
-	let g:colorscheme_night_time = 20
-	let g:colorscheme_day_time = 7
-	let g:colorscheme_day = 'PaperColor'
-	let g:colorscheme_night = 'PaperColor'
+	let g:flux_api_lat = 27.972572
+	let g:flux_api_lon = -82.796745
+	let g:flux_enabled = 1
+
+	let g:flux_night_time = 2000
+	let g:flux_day_time = 7000
+	let g:flux_day_colorscheme = 'PaperColor'
+	let g:flux_night_colorscheme = 'PaperColor'
 
 	" Other commands
 	" command! -nargs=0 DoxLic :call <SID>DoxygenLicenseFunc()

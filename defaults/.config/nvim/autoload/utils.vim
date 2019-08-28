@@ -377,79 +377,6 @@ function! utils#AutoHighlightToggle() abort
 endfunction
 
 " Custom command
-" Change vim colorscheme depending on time of the day
-function! utils#Flux() abort
-	if get(g:, 'flux_enabled', 1) == 0
-		return
-	endif
-
-	if !exists('g:colorscheme_night_time') || !exists('g:colorscheme_day_time')
-		if &verbose > 1
-			echoerr 'utils#Flux(): Variables not set properly'
-		endif
-		return
-	endif
-
-	if strftime("%H") >= g:colorscheme_night_time || strftime("%H") < g:colorscheme_day_time
-		" Its night time
-		if	&background !=# 'dark' ||
-				\ !exists('g:colors_name') ||
-				\ g:colors_name !=# g:colorscheme_night
-			call utils#ChangeColors(g:colorscheme_night, 'dark')
-		endif
-	else
-		" Its day time
-		if !exists('g:colors_name')
-			let g:colors_name = g:colorscheme_day
-		endif
-		if &background !=# 'light' ||
-					\ !exists('g:colors_name') ||
-					\ g:colors_name !=# g:colorscheme_day
-			call utils#ChangeColors(g:colorscheme_day, 'light')
-		endif
-	endif
-endfunction
-
-function! utils#ChangeColors(scheme, background) abort
-	if !exists('g:black')
-		if &verbose > 1
-			echoerr 'utils#ChangeColors: Colors do not exist'
-		endif
-	endif
-
-	if a:background ==# 'dark'
-		let color = g:black
-	elseif a:background ==# 'light'
-		let color = g:white
-	else
-		echoerr 'Only possible backgrounds are dark and light'
-		return
-	endif
-
-	try
-		execute "colorscheme " . a:scheme
-	catch
-		if &verbose > 1
-			echoerr 'utils#ChangeColors: Failed to set colorscheme'
-		endif
-		return
-	endtry
-
-	let &background=a:background
-	" Restoring these after colorscheme. Because some of them affect by the colorscheme
-	" call highlight#SetAll('IncSearch',	{ 'bg': color })
-	" call highlight#SetAll('IncSearch',	{ 'fg': 0, 'bg' : 9,  })
-	" call highlight#SetAll('Search', { 'fg' : g:yellow, 'deco' : 'bold', 'bg' : g:turquoise4 })
-	" Tue Jun 26 2018 14:00: Italics fonts on neovim-qt on windows look bad
-	if has('unix') || has('gui_running')
-		call highlight#Set('Comment', { 'deco' : 'italic' })
-	endif
-
-	" If using the lightline plugin then update that as well
-	" this could cause trouble if lightline does not that colorscheme
-	call status_line#UpdateColorscheme()
-endfunction
-
 function! utils#SearchHighlighted() abort
 	if exists(':Wcopen')
 		" Yank selection to reg a then echo it cli
@@ -535,16 +462,21 @@ endfunction
 
 function! utils#CurlDown(file_name, link) abort
 	if !executable('curl')
-		echoerr 'Curl is not installed. Cannot proceed'
-		return
+		if &verbose > 0
+			echoerr 'Curl is not installed. Cannot proceed'
+		endif
+		return -1
 	endif
 
-	if empty(a:path) || empty(a:link)
-		echoerr 'Please specify a path and link to download'
-		return
+	if empty(a:file_name) || empty(a:link)
+		if &verbose > 0
+			echoerr 'Please specify a path and link to download'
+		endif
+		return -2
 	endif
 
 	execute "!curl -kfLo " . a:file_name . " --create-dirs \"" . a:link . "\""
+	return 1
 endfunction
 
 function! utils#ChooseEmailAcc() abort
