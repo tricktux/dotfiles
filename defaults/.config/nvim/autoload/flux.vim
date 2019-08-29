@@ -199,3 +199,7 @@ function! s:api_request(file_name, link) abort
 	execute "!curl -kfLo " . a:file_name . " --create-dirs \"" . a:link . "\""
 	return 1
 endfunction
+
+function! flux#GetTimes() abort
+	echomsg string(s:flux_times)
+endfunction
