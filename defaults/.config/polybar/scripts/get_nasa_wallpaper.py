@@ -58,18 +58,8 @@ def main():
     rdate = randomDate("2008-1-1", today, random())
     api = 'https://api.nasa.gov/planetary/apod?hd=true&api_key=DEMO_KEY&date=' + rdate
     wall_url = ['hdurl', 'url']
-    wall_full_path = '/home/reinaldo/Pictures/wallpapers/nasa_img_' + rdate + '.jpg'
-    wall_cmd = ['feh', '--quiet', '--no-fehbg', '--bg-fill', wall_full_path]
 
     logging.info('api: Getting picture from date: "%s"' % rdate)
-    if Path(wall_full_path).is_file():
-        logging.debug(
-            'api: Picture from that date already exists. Setting it...')
-        try:
-            run(wall_cmd)
-        except:
-            pass
-        return
 
     logging.info('api: Get Request: "%s"' % api)
     response = get_request(api)
@@ -81,13 +71,14 @@ def main():
     for _ in wall_url:
         if _ not in response:
             continue
-        logging.info('api: Image quality "%s"' % _)
-        logging.info('api: Downloading "%s"...' % response.get(_))
-        urlretrieve(response.get(_), wall_full_path)
+        logging.info('api: Image quality "%s"', _)
+        link = response.get(_)
+        logging.info('api: Downloading "%s"...', link)
         break
 
     # Set it as wallpaper
-    logging.info('api: Setting wallpaper "%s"...' % wall_full_path)
+    wall_cmd = ['feh', '--quiet', '--no-fehbg', '--bg-fill', link]
+    logging.info('api: Setting wallpaper "%s"...', wall_cmd)
     try:
         run(wall_cmd)
     except:
