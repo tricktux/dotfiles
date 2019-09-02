@@ -4,8 +4,6 @@ import logging
 import subprocess
 from pathlib import Path
 from sys import exit as sys_exit
-from tempfile import NamedTemporaryFile
-from urllib.request import urlretrieve
 
 from requests import get
 
@@ -47,14 +45,10 @@ def main():
     logging.basicConfig(filename='/tmp/get_wallpaper.log', level=logging.DEBUG)
     api = 'https://api.unsplash.com/photos/random/?client_id='
     pw_path = '/home/reinaldo/.password-store/websites/unsplash.com/access_key.gpg'
-    wall_path = NamedTemporaryFile().name
-    wall_cmd = ['feh', '--quiet', '--no-fehbg', '--bg-fill', wall_path]
 
     pw = get_pw(pw_path)
     if not pw_path:
         sys_exit(1)
-
-    logging.info('api: File name: "%s"', wall_path)
 
     api += pw
     response = get_request(api)
@@ -65,11 +59,10 @@ def main():
     if not links:
         sys_exit(3)
     download = links.get('raw')
-    logging.info('api: Downloading file: "%s"', download)
     if not download:
         sys_exit(4)
-    urlretrieve(download, wall_path)
-    logging.info('api: Setting wallpaper "%s"...', wall_path)
+    logging.info('api: Downloading file: "%s"', download)
+    wall_cmd = ['feh', '--quiet', '--no-fehbg', '--bg-fill', download]
     try:
         subprocess.run(wall_cmd)
     except:
