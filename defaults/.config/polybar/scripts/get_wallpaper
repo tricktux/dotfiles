@@ -2,7 +2,10 @@
 
 import logging
 import subprocess
+import time
+from datetime import datetime
 from pathlib import Path
+import random
 from sys import exit as sys_exit
 
 from requests import get
@@ -40,9 +43,55 @@ def get_request(url):
         return dict()
 
 
-def main():
-    """Main"""
-    logging.basicConfig(filename='/tmp/get_wallpaper.log', level=logging.DEBUG)
+def strTimeProp(start, end, format, prop):
+    """Get a time at a proportion of a range of two formatted times.
+
+    start and end should be strings specifying times formated in the
+    given format (strftime-style), giving an interval [start, end].
+    prop specifies how a proportion of the interval to be taken after
+    start.  The returned time will be in the specified format.
+    """
+
+    stime = time.mktime(time.strptime(start, format))
+    etime = time.mktime(time.strptime(end, format))
+
+    ptime = stime + prop * (etime - stime)
+
+    return time.strftime(format, time.localtime(ptime))
+
+
+def randomDate(start, end, prop):
+    return strTimeProp(start, end, '%Y-%m-%d', prop)
+
+
+def nasa():
+    """nasa"""
+    today = datetime.now().strftime("%Y-%m-%d")
+    rdate = randomDate("2008-1-1", today, random.random())
+    api = 'https://api.nasa.gov/planetary/apod?hd=true&api_key=DEMO_KEY&date=' + rdate
+    wall_url = ['hdurl', 'url']
+
+    logging.info('api: Getting picture from date: "%s"' % rdate)
+
+    logging.info('api: Get Request: "%s"' % api)
+    response = get_request(api)
+
+    if not response:
+        return ''
+
+    # Download image
+    for _ in wall_url:
+        if _ not in response:
+            continue
+        logging.info('api: Image quality "%s"', _)
+        link = response.get(_)
+        logging.info('api: Downloading "%s"...', link)
+        break
+    return link
+
+
+def unsplash():
+    """unsplash"""
     api = 'https://api.unsplash.com/photos/random/?client_id='
     pw_path = '/home/reinaldo/.password-store/websites/unsplash.com/access_key.gpg'
 
@@ -53,18 +102,30 @@ def main():
     api += pw
     response = get_request(api)
     if not response:
-        sys_exit(2)
+        return ''
 
     links = response.get('urls')
     if not links:
-        sys_exit(3)
+        return ''
     download = links.get('raw')
     if not download:
-        sys_exit(4)
+        return ''
     logging.info('api: Downloading file: "%s"', download)
-    wall_cmd = ['feh', '--quiet', '--no-fehbg', '--bg-fill', download]
+    return download
+
+
+def main():
+    """Main"""
+    logging.basicConfig(filename='/tmp/get_wallpaper.log', level=logging.DEBUG)
+    rand = random.uniform(0,1)
+    link = unsplash() if rand < 0.5 else nasa()
+
+    print("   ")
+    if not link:
+        return
+
     try:
-        subprocess.run(wall_cmd)
+        subprocess.run(['feh', '--quiet', '--no-fehbg', '--bg-fill', link])
     except:
         pass
 
