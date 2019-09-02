@@ -59,7 +59,7 @@ def main():
     api = 'https://api.nasa.gov/planetary/apod?hd=true&api_key=DEMO_KEY&date=' + rdate
     wall_url = ['hdurl', 'url']
     wall_full_path = '/home/reinaldo/Pictures/wallpapers/nasa_img_' + rdate + '.jpg'
-    wall_cmd = ['feh', '--no-fehbg', '--bg-fill', wall_full_path]
+    wall_cmd = ['feh', '--quiet', '--no-fehbg', '--bg-fill', wall_full_path]
 
     logging.info('api: Getting picture from date: "%s"' % rdate)
     if Path(wall_full_path).is_file():
