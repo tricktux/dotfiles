@@ -1,0 +1,82 @@
+#!/usr/bin/env python
+
+import logging
+import subprocess
+from pathlib import Path
+from sys import exit as sys_exit
+from tempfile import NamedTemporaryFile
+from urllib.request import urlretrieve
+
+from requests import get
+
+
+def get_pw(path):
+    """docstring for get_pw"""
+
+    if not Path(path).is_file():
+        logging.error("path = %s is not found", path)
+        return ''
+
+    cmd = ['gpg', '-dq', path]
+
+    completed_process = subprocess.run(
+        cmd, check=True, stdout=subprocess.PIPE, encoding="utf-8")
+    return completed_process.stdout[:-1]
+
+
+def get_request(url):
+    """Use requests.get to make the query to the url"""
+    if not url:
+        return dict()
+
+    try:
+        resp = get(url)
+    except Exception:
+        logging.error('Failed to make get request')
+        return dict()
+
+    try:
+        return resp.json()
+    except Exception:
+        logging.error('Failed to parse json response')
+        return dict()
+
+
+def main():
+    """Main"""
+    logging.basicConfig(filename='/tmp/get_wallpaper.log', level=logging.DEBUG)
+    api = 'https://api.unsplash.com/photos/random/?client_id='
+    pw_path = '/home/reinaldo/.password-store/websites/unsplash.com/access_key.gpg'
+    wall_path = NamedTemporaryFile().name
+    wall_cmd = ['feh', '--quiet', '--no-fehbg', '--bg-fill', wall_path]
+
+    pw = get_pw(pw_path)
+    if not pw_path:
+        sys_exit(1)
+
+    logging.info('api: File name: "%s"', wall_path)
+
+    api += pw
+    response = get_request(api)
+    if not response:
+        sys_exit(2)
+
+    links = response.get('urls')
+    if not links:
+        sys_exit(3)
+    download = links.get('raw')
+    logging.info('api: Downloading file: "%s"', download)
+    if not download:
+        sys_exit(4)
+    urlretrieve(download, wall_path)
+    logging.info('api: Setting wallpaper "%s"...', wall_path)
+    try:
+        subprocess.run(wall_cmd)
+    except:
+        pass
+
+
+if __name__ == '__main__':
+    main()
+
+# vim: ft=python
