@@ -83,6 +83,7 @@ if [[ -f $ZSH/oh-my-zsh.sh ]]; then
 		# TODO update prompt
 		zplug "plugins/nice-exit-code",   from:oh-my-zsh
 		zplug "plugins/oh-my-git",   from:oh-my-zsh
+		zplug "romkatv/powerlevel10k", use:powerlevel10k.zsh-theme
 		# zplug "plugins/command-not-found",   from:oh-my-zsh
 		# Breaks fzf mappings
 		# zplug "plugins/vi-mode",   from:oh-my-zsh
@@ -144,7 +145,7 @@ fi
 	# BULLETTRAIN_CONTEXT_DEFAULT_USER="reinaldo"
 	# # BULLETTRAIN_IS_SSH_CLIENT=true
 # else
-prompt walters
+# prompt walters
 # fi
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
@@ -206,3 +207,6 @@ if [[ -f $ZPLUG_INIT ]]; then
 fi
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
