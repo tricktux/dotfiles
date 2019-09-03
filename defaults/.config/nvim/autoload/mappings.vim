@@ -81,9 +81,9 @@ function! mappings#Set()
 		" There are more mappins in the [,] section
 		nmap <leader>te <plug>terminal_toggle
 		nmap <leader>tE <plug>terminal_new
-		nmap <leader>x <plug>terminal_send
-		xmap <leader>x <plug>terminal_send
-		nmap <leader>X <plug>terminal_send_line
+		nmap <localleader>e <plug>terminal_send_line
+		xmap <localleader>e <plug>terminal_send
+		nmap <localleader>E <plug>terminal_send_file
 		nnoremap <leader>r :call <sid>toggle_zoom_terminal('Ttoggle')<cr>
 		nnoremap <leader>R :call <sid>toggle_zoom_terminal('Tnew')<cr>
 
