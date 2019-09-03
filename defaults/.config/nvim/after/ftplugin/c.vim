@@ -23,6 +23,8 @@ let &l:define='^\(#\s*define\|[a-z]*\s*const\s*[a-z]*\)'
 
 " Add mappings, unless the user didn't want this.
 if !exists('no_plugin_maps') && !exists('no_c_maps')
+	nnoremap <buffer> <plug>terminal_send_file :call <sid>repl()<cr>
+
 	" Alternate between header and source file
 	if exists(':A')
 		nnoremap <buffer> <localleader>a :A<cr>
@@ -177,6 +179,21 @@ function! s:cctree_save_xrefdb() abort
 
 	let l:db = g:ctags_output_dir . utils#GetFullPathAsName(getcwd()) . '.xref'
 	execute ':CCTreeSaveXRefDB ' . l:db
+endfunction
+
+function! s:repl() abort
+	if !exists(':T')
+		echoerr 'Neoterm plugin not installed'
+		return
+	endif
+
+	if !executable('clang++')
+		echoerr 'Clang is not in the path'
+		return
+	endif
+
+	execute ':T clang++ ' . expand('%') . ' & ' .
+				\ (has('unix') ? './a.out' : 'a.exe') . "\<cr>"
 endfunction
 
 " Setup AutoHighlight
