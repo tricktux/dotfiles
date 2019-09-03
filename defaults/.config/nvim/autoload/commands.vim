@@ -36,6 +36,7 @@ function! commands#Set() abort
 	command! UtilsEditTmpFileMarkdown call s:edit_tmp_doc('md')
 	command! UtilsEditTmpFileCpp call s:edit_tmp_doc('cpp')
 	command! UtilsEditTmpFilePython call s:edit_tmp_doc('py')
+	command! UtilsEditTmpFileVim call s:edit_tmp_doc('vim')
 
 	let msvc = 
 \ "\"C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VC\\vcvarsall.bat\""

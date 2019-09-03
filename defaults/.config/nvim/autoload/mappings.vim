@@ -954,6 +954,7 @@ function! mappings#SetWhichKeyMap() abort
 				\ 'c' : ['UtilsEditTmpFileCpp', 'cpp'],
 				\ 'p' : ['UtilsEditTmpFilePython', 'python'],
 				\ 'm' : ['UtilsEditTmpFileMarkdown', 'markdown'],
+				\ 'v' : ['UtilsEditTmpFileVim', 'vim'],
 				\ }
 
 	let g:which_key_leader_map.e = {
