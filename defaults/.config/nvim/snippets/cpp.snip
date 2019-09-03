@@ -5,6 +5,21 @@
 # Last Modified: Tue Aug 20 2019 14:32
 # Created: Jun 13 2017 16:26
 
+snippet     iss
+abbr        Input String Stream
+options     head
+    std::istringstream ${1:iss};
+
+snippet     oss
+abbr        Output String Stream
+options     head
+    std::ostringstream ${1:oss};
+
+snippet     ss
+abbr        String Stream
+options     head
+    std::stringstream ${1:ss};
+
 snippet     limits
 abbr        cpp limits
 options     head
@@ -76,12 +91,12 @@ abbr    cpp singleton class
 
 snippet     str
 abbr        std::string
-    std::string ${1:sName};
+    std::string ${1:name};
 
 snippet     vec
 abbr        std::vector
 options     head
-    std::vector<${1:Type}> ${2:vName}; ${3: $2.reserve(1024);}
+    std::vector<${1:Type}> ${2:name}; ${3:$2.reserve(1024);}
 
 snippet logue
 options head
