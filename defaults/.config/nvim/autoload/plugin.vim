@@ -1479,6 +1479,11 @@ function! s:configure_neoterm() abort
 	endif
 
 	Plug 'kassio/neoterm'
+	" let g:neoterm_repl_python = 'ipython '
+	" if has('win32')
+		" let g:neoterm_eof = "\<cr>"
+	" endif
+	let g:neoterm_term_per_tab = 1
 	let g:neoterm_use_relative_path = 1
 	let g:neoterm_default_mod = ''
 	let g:neoterm_autoinsert=1
@@ -1487,6 +1492,7 @@ function! s:configure_neoterm() abort
 	" there is also vimshell
 	nnoremap <plug>terminal_toggle :Ttoggle<CR>
 	nnoremap <plug>terminal_new :Tnew<CR>
+	nnoremap <plug>terminal_send_file :TREPLSendFile<CR>
 	" Use gx{text-object} in normal mode
 	nmap <plug>terminal_send <Plug>(neoterm-repl-send)
 	" Send selected contents in visual mode.
