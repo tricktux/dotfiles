@@ -33,7 +33,7 @@ macro index,pager  a "<pipe-message>abook --datafile ~/.config/neomutt/data/addr
 
 # Fri Jan 25 2019 20:09 
 # nvim crashes when lunching `which-key-plugin` on scratchpad
-set editor='nvr --remote-tab-wait +"setlocal bufhidden=delete"'
+set editor='nvim'
 
 # From https://github.com/bubbl/bubb-confs/blob/master/mutt/.mutt/general
 # A lot of good configs in that link
