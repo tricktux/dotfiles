@@ -171,7 +171,7 @@ endfunction
 
 function! utils#TodoAdd() abort
 	execute "normal! O" . &commentstring[0] . " "
-	execute "normal! ==a TODO-[RM]-(" . strftime("%a %b %d %Y %H:%M") . "): "
+	execute "normal! ==a TODO (" . strftime("%a %b %d %Y %H:%M") . "): "
 endfunction
 
 function! utils#ListFiles(dir) abort
