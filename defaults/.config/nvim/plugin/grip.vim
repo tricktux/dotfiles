@@ -320,7 +320,7 @@ function! s:grip.execute_grip(grepper, user_choice, args) abort
 				\ a:grepper.search_argument == 0
 		let l:search = ''
 	endif
-	execute ':silent grep! ' . l:search
+	execute ':silent grep! "' . l:search . '"'
 
 	" Open quickfix
 	if self.copen > 0

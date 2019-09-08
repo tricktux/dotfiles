@@ -268,7 +268,7 @@ function! mappings#Set()
 	nnoremap [l :lprevious<cr>
 
 	nnoremap ]t :exec 'tjump ' . expand('<cword>')<cr>
-	nnoremap [t <c-t>
+	nnoremap [t :pop<cr>
 	" Split window and jump to tag
 	" nnoremap ]T :exec 'ptag ' . expand('<cword>')<cr><c-w>R
 	nnoremap ]T :call <SID>goto_tag_on_next_win('l')<cr>
@@ -955,6 +955,7 @@ function! mappings#SetWhichKeyMap() abort
 				\ 'p' : ['UtilsEditTmpFilePython', 'python'],
 				\ 'm' : ['UtilsEditTmpFileMarkdown', 'markdown'],
 				\ 'v' : ['UtilsEditTmpFileVim', 'vim'],
+				\ 'g' : ['UtilsEditTmpFileGen', 'general_enter_extension'],
 				\ }
 
 	let g:which_key_leader_map.e = {
