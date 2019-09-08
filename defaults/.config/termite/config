@@ -34,7 +34,7 @@ dynamic_title = true
 
 # Install with nerd-fonts-complete
 # - remember to restart terminal
-; font=Inconsolata Nerd Font 11
+font=Inconsolata Nerd Font 11
 # font=DejaVu Sans Mono Nerd Font 10
 # This is the default value
 # browser = $BROWSER
