@@ -37,6 +37,8 @@ function! commands#Set() abort
 	command! UtilsEditTmpFileCpp call s:edit_tmp_doc('cpp')
 	command! UtilsEditTmpFilePython call s:edit_tmp_doc('py')
 	command! UtilsEditTmpFileVim call s:edit_tmp_doc('vim')
+	command! UtilsEditTmpFileGen call s:edit_tmp_doc(
+				\ input('Please enter an extention for the file(i.e: vim): '))
 
 	let msvc = 
 \ "\"C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VC\\vcvarsall.bat\""
