@@ -31,9 +31,11 @@ function! augroup#Set() abort
 					\ foldenable complete+=kspell ts=2 sw=2 sts=2
 					\ comments+=b:-,b:* spelllang=en_us tw=0
 
-		autocmd FileType markdown,mkd call pencil#init()
-		autocmd FileType text         call pencil#init()
-		autocmd FileType tex         call pencil#init()
+		if exists('g:loaded_plugins')
+			autocmd FileType markdown,mkd call pencil#init()
+			autocmd FileType text         call pencil#init()
+			autocmd FileType tex         call pencil#init()
+		endif
 
 		" formatoptions do not autowrap text
 		autocmd FileType tex setlocal conceallevel=0 nowrap spell
