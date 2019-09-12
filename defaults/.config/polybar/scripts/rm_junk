@@ -69,6 +69,7 @@ shittyfiles = [
     '~/.mysql_history/',
     '~/.w3m/',
     '~/.subversion/',
+    '~/.semantic-highlight-cache',
     '~/nvvp_workspace/',  # created empty even when the path is set differently in nvvp
 ]
 
