@@ -19,6 +19,10 @@ if !exists("no_plugin_maps") && !exists("no_tex_maps")
 	" nnoremap <buffer> <unique> <LocalLeader>` :normal! o````<CR>```<Esc>
 	nmap <buffer> <localleader>f <plug>focus_toggle
 
+	if exists(':ThesaurusQueryReplaceCurrentWord')
+		nnoremap <buffer> <LocalLeader>a :ThesaurusQueryReplaceCurrentWord<cr>
+	endif
+
 	if executable('qpdfview')
 		nnoremap <silent> <buffer> <Plug>preview :!qpdfview --unique --quiet %:r.pdf&<cr>
 	endif
