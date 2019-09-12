@@ -20,16 +20,17 @@ if !exists("no_plugin_maps") && !exists("no_tex_maps")
 	nmap <buffer> <localleader>f <plug>focus_toggle
 
 	if exists(':ThesaurusQueryReplaceCurrentWord')
-		nnoremap <buffer> <LocalLeader>a :ThesaurusQueryReplaceCurrentWord<cr>
-	endif
-
-	if executable('qpdfview')
-		nnoremap <silent> <buffer> <Plug>preview :!qpdfview --unique --quiet %:r.pdf&<cr>
+		nnoremap <buffer> <localLeader>a :ThesaurusQueryReplaceCurrentWord<cr>
 	endif
 
 	if executable('SumatraPDF')
-		nnoremap <silent> <buffer> <Plug>preview :!SumatraPDF %:r.pdf<cr>
+		nnoremap <silent> <buffer> <plug>preview :!SumatraPDF %:r.pdf<cr>
 	endif
+
+	if executable('qpdfview')
+		nnoremap <silent> <buffer> <plug>preview :!qpdfview --unique --quiet %:r.pdf&<cr>
+	endif
+
 endif
 
 let b:tex_flavor = 'pdflatex'
