@@ -10,7 +10,7 @@
 machine=`hostname`
 
 echo "Cleaning files desktop files..."
-python ~/.config/dotfiles/scripts/rm_junk.py
+/home/reinaldo/.config/polybar/scripts/rm_junk
 # recreating deleted files
 mkdir ~/.local/share/Trash/{files,info}
 
