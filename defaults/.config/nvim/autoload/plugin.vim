@@ -416,12 +416,6 @@ function! plugin#Config()
 			let g:lightline.component_function['pencil'] = 'PencilMode'
 		endif
 
-		augroup pencil
-			autocmd!
-			autocmd FileType markdown,mkd call pencil#init()
-			autocmd FileType text         call pencil#init()
-		augroup END
-
 	Plug 'tenfyzhong/vim-gencode-cpp'
 
 	" call s:configure_vim_startify()
