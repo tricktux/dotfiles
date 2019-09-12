@@ -42,15 +42,15 @@ if !exists('no_plugin_maps') && !exists('no_markdown_maps')
 	endif
 
 	if exists(':ThesaurusQueryReplaceCurrentWord')
-		nnoremap <buffer> <LocalLeader>a :ThesaurusQueryReplaceCurrentWord<cr>
-	endif
-
-	if executable('qpdfview')
-		nnoremap <silent> <buffer> <localleader>p :!qpdfview --unique --quiet %:r.pdf&<cr>
+		nnoremap <buffer> <localLeader>a :ThesaurusQueryReplaceCurrentWord<cr>
 	endif
 
 	if executable('SumatraPDF')
-		nnoremap <silent> <buffer> <localleader>p :!SumatraPDF %:r.pdf<cr>
+		nnoremap <silent> <buffer> <plug>preview :!SumatraPDF %:r.pdf<cr>
+	endif
+
+	if executable('qpdfview')
+		nnoremap <silent> <buffer> <plug>preview :!qpdfview --unique --quiet %:r.pdf&<cr>
 	endif
 
 	nnoremap <buffer> <localleader>mp :UtilsMarkdownPandocPdfMaker<cr>
