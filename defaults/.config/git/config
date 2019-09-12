@@ -10,7 +10,7 @@
 	up = rebase
 	ci = commit
 [core]
-	editor = nvr --remote-tab-wait +'set bufhidden=delete'
+	editor = nvim +'set bufhidden=delete'
 
 ; silence some strange warning
 [push]
