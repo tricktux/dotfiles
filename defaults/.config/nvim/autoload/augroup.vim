@@ -27,9 +27,13 @@ function! augroup#Set() abort
 		autocmd FileType help setlocal relativenumber
 		autocmd FileType help nnoremap <buffer> g0 g0
 
-		autocmd FileType markdown setlocal conceallevel=0 wrap spell
+		autocmd FileType markdown,mkd setlocal conceallevel=0 wrap spell
 					\ foldenable complete+=kspell ts=2 sw=2 sts=2
 					\ comments+=b:-,b:* spelllang=en_us tw=0
+
+		autocmd FileType markdown,mkd call pencil#init()
+		autocmd FileType text         call pencil#init()
+		autocmd FileType tex         call pencil#init()
 
 		" formatoptions do not autowrap text
 		autocmd FileType tex setlocal conceallevel=0 nowrap spell
