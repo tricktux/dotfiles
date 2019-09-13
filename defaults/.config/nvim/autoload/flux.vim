@@ -28,18 +28,31 @@ function! flux#Flux() abort
 	endif
 
 	if !exists('g:flux_day_colorscheme') || !exists('g:flux_night_colorscheme')
-		if &verbose > 1
+		if &verbose > 0
 			echoerr 'Variables not set properly'
 		endif
 		return
 	endif
 
-	if strftime("%H%M") >= s:flux_times['night'] ||
-				\ strftime("%H%M") < s:flux_times['day']
+	let l:curr_time = str2nr(strftime("%H%M"))
+	if &verbose > 0
+		echomsg '[flux#Flux()]: day time = ' . string(s:flux_times['day'])
+		echomsg '[flux#Flux()]: night time = ' . string(s:flux_times['night'])
+		echomsg '[flux#Flux()]: current time = ' . string(l:curr_time)
+	endif
+
+	if l:curr_time >= s:flux_times['night'] ||
+				\ l:curr_time < s:flux_times['day']
 		" Its night time
+		if &verbose > 0
+			echomsg '[flux#Flux()]: its night time'
+		endif
 		if	&background !=# 'dark' ||
 					\ !exists('g:colors_name') ||
 					\ g:colors_name !=# g:flux_night_colorscheme
+			if &verbose > 0
+				echomsg '[flux#Flux()]: changing colorscheme to dark'
+			endif
 			call <sid>change_colors(g:flux_night_colorscheme, 'dark')
 		endif
 	else
@@ -47,9 +60,15 @@ function! flux#Flux() abort
 		if !exists('g:colors_name')
 			let g:colors_name = g:flux_day_colorscheme
 		endif
+		if &verbose > 0
+			echomsg '[flux#Flux()]: its day time'
+		endif
 		if &background !=# 'light' ||
 					\ !exists('g:colors_name') ||
 					\ g:colors_name !=# g:flux_day_colorscheme
+			if &verbose > 0
+				echomsg '[flux#Flux()]: changing colorscheme to light'
+			endif
 			call <sid>change_colors(g:flux_day_colorscheme, 'light')
 		endif
 	endif
@@ -154,7 +173,7 @@ function! s:get_sunset_times(time) abort
 	let l:time += str2nr(l:t)
 	" echomsg 'time = ' l:time
 
-	return l:time
+	return str2nr(l:time)
 endfunction
 
 function! s:get_sunrise_times(time) abort
@@ -178,7 +197,7 @@ function! s:get_sunrise_times(time) abort
 	let l:time += str2nr(l:t)
 	" echomsg 'time = ' l:time
 	
-	return l:time
+	return str2nr(l:time)
 endfunction
 
 function! s:api_request(file_name, link) abort
