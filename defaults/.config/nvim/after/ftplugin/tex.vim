@@ -18,6 +18,12 @@ if !exists("no_plugin_maps") && !exists("no_tex_maps")
 	" Encapsulate in markdown file from current line until end of file in ```
 	" nnoremap <buffer> <unique> <LocalLeader>` :normal! o````<CR>```<Esc>
 	nmap <buffer> <localleader>f <plug>focus_toggle
+	xnoremap <buffer> j gj
+	xnoremap <buffer> k gk
+
+	if (exists(':Neomake'))
+		nnoremap <buffer> <plug>make_file :Neomake<cr>
+	endif
 
 	if exists(':ThesaurusQueryReplaceCurrentWord')
 		nnoremap <buffer> <localLeader>a :ThesaurusQueryReplaceCurrentWord<cr>
