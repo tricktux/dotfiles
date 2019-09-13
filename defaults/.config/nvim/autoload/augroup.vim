@@ -29,18 +29,12 @@ function! augroup#Set() abort
 
 		autocmd FileType markdown,mkd setlocal conceallevel=0 wrap spell
 					\ foldenable complete+=kspell ts=2 sw=2 sts=2
-					\ comments+=b:-,b:* spelllang=en_us tw=0
-
-		if exists('g:loaded_plugins')
-			autocmd FileType markdown,mkd call pencil#init()
-			autocmd FileType text         call pencil#init()
-			autocmd FileType tex         call pencil#init()
-		endif
+					\ comments+=b:-,b:* spelllang=en_us tw=0 wrap
 
 		" formatoptions do not autowrap text
 		autocmd FileType tex setlocal conceallevel=0 nowrap spell
 					\ foldenable complete+=kspell ts=2 sw=2 sts=2
-					\ spelllang=en_us tw=0 formatoptions-=tc colorcolumn=+1
+					\ spelllang=en_us tw=0 formatoptions-=tc colorcolumn=+1 wrap
 
 		autocmd FileType mail setlocal spell spelllang=en,es wrap
 					\ textwidth=72

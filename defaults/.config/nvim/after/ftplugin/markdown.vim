@@ -19,8 +19,8 @@ if !exists('no_plugin_maps') && !exists('no_markdown_maps')
 	" nnoremap <buffer> <unique> <LocalLeader>` :normal! o````<CR>```<Esc>
 	nmap <buffer> <localleader>f <plug>focus_toggle
 	inoremap <buffer> * **<Left>
-	" TODO-[RM]-(Fri Oct 20 2017 05:24): Fix this thing here
-	" inoremap <buffer> [ [ ]<Space>
+	xnoremap <buffer> j gj
+	xnoremap <buffer> k gk
 
 	if (exists(':Neomake'))
 		nnoremap <buffer> <plug>make_file :Neomake<cr>
