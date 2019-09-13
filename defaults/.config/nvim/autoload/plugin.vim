@@ -408,14 +408,6 @@ function! plugin#Config()
 
 	call s:configure_vim_bookmark()
 
-	Plug 'reedes/vim-pencil'
-		let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
-		let g:pencil#conceallevel = 0
-		if exists('g:lightline')
-			let g:lightline.active.right[2] += [ 'pencil' ]
-			let g:lightline.component_function['pencil'] = 'PencilMode'
-		endif
-
 	Plug 'tenfyzhong/vim-gencode-cpp'
 
 	" call s:configure_vim_startify()
