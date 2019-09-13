@@ -41,7 +41,8 @@ if !exists("no_plugin_maps") && !exists("no_tex_maps")
 endif
 
 let b:tex_flavor = 'pdflatex'
-let &l:makeprg='pdflatex -interaction=nonstopmode %'
+command! -buffer UtilsTexXelatexMaker call linting#SetNeomakeXeLatex()
+command! -buffer UtilsTexPdfLatexMaker call linting#SetNeomakePdfLatex()
 
 if exists('*AutoCorrect')
 	call AutoCorrect()
