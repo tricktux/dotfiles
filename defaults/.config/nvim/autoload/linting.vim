@@ -305,6 +305,14 @@ function! linting#SetNeomakePandocMaker(type) abort
 	let b:neomake_markdown_enabled_makers = [l:maker]
 endfunction
 
+function! linting#SetNeomakePdfLatex() abort
+	let &l:makeprg='pdflatex -interaction=nonstopmode'
+endfunction
+
+function! linting#SetNeomakeXeLatex() abort
+	let &l:makeprg='xelatex'
+endfunction
+
 function! linting#SetNeomakeMakeMaker() abort
 	if !exists('b:neomake_cpp_enabled_makers')
 		let b:neomake_cpp_enabled_makers = []
