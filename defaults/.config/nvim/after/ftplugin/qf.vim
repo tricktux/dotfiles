@@ -13,9 +13,6 @@ endif
 " Don't load another plugin for this buffer
 let b:did_qf_ftplugin = 1
 
-setlocal wrap
-setlocal nospell
-
 " Taken from 
 " "http://stackoverflow.com/questions/18522086/what-is-the-best-way-to-
 " distinguish-the-current-buffer-is-location-list-or-quick"
@@ -48,4 +45,4 @@ if !exists("no_plugin_maps") && !exists("no_qf_maps")
 	endif
 endif
 
-let b:undo_ftplugin += "setlocal wrap< spell<" 
+let b:undo_ftplugin = "setlocal wrap< spell<" 
