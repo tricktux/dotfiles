@@ -84,6 +84,8 @@ alias mount-copter='sshfs reinaldo@${server_ip}:/ ~/.mnt/copter-server/'
 alias mount-hq='sshfs reinaldo@HQ:/ ~/.mnt/HQ-server/'
 
 # Misc
+# Automatic tmux in server
+alias ssh=ssh -t -- /bin/sh -c 'tmux has-session && exec tmux attach || exec tmux'
 # Removing -2 from tmux in order to get truecolor
 alias tmux='tmux -f ~/.config/tmux/conf'
 alias vim='stty -ixon && vim'
