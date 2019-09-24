@@ -37,6 +37,7 @@ function! plugin#Config()
 
 	if (has('unix'))
 		Plug 'lambdalisue/suda.vim'
+		Plug 'chr4/nginx.vim'
 	endif
 
 	if has('win32')
