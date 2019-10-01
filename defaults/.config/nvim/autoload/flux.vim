@@ -215,7 +215,7 @@ function! s:api_request(file_name, link) abort
 		return -2
 	endif
 
-	execute "!curl -kfLo " . a:file_name . " --create-dirs \"" . a:link . "\""
+	silent execute "!curl -kfLo " . a:file_name . " --create-dirs \"" . a:link . "\""
 	return 1
 endfunction
 
