@@ -44,7 +44,7 @@ font pango:FontAwesome 9
 # - [ ]  Urxvt transparency
 # Close stuff with mod+shift+q
 # It turns out that you can make 2 monitors use the same workspace with this:
-# Got from here: 
+# Got from here:
 # https://faq.i3wm.org/question/1659/
 # force-one-i3-instanceworkspace-across-multiple-monitors.1.html
 # fake-outputs 3840x1200+0+0
@@ -55,91 +55,91 @@ font pango:FontAwesome 9
 ########## Mod ############ {{{
 # Mod1 = Alt
 # Mod4 = Window key
-set $mod Mod4
+	set $mod Mod4
 #}}}
 
 ############# Colors #########################{{{
-# TODO-[RM]-(Sat Mar 16 2019 18:54):  
+# TODO-[RM]-(Sat Mar 16 2019 18:54):
 # - Bring this colors here from .Xresources
 # - If you make chance there it breaks things here
-set_from_resource $darkred     color1  #000000
-set_from_resource $red         color9  #000000
-set_from_resource $darkgreen   color2  #000000
-set_from_resource $green       color10 #000000
-set_from_resource $darkyellow  color3  #000000
-set_from_resource $yellow      color11 #000000
-set_from_resource $darkblue    color4  #000000
-set_from_resource $blue        color12 #000000
-set_from_resource $darkmagenta color5  #000000
-set_from_resource $magenta     color13 #000000
-set_from_resource $darkcyan    color6  #000000
-set_from_resource $cyan        color14 #000000
-set_from_resource $darkwhite   color7  #000000
-set_from_resource $white       color15 #000000
+	set_from_resource $darkred     color1  #000000
+		set_from_resource $red         color9  #000000
+		set_from_resource $darkgreen   color2  #000000
+		set_from_resource $green       color10 #000000
+		set_from_resource $darkyellow  color3  #000000
+		set_from_resource $yellow      color11 #000000
+		set_from_resource $darkblue    color4  #000000
+		set_from_resource $blue        color12 #000000
+		set_from_resource $darkmagenta color5  #000000
+		set_from_resource $magenta     color13 #000000
+		set_from_resource $darkcyan    color6  #000000
+		set_from_resource $cyan        color14 #000000
+		set_from_resource $darkwhite   color7  #000000
+		set_from_resource $white       color15 #000000
 # Use custom colors for black
-set $black       #282828
-set $darkblack   #1d2021
-set $transparent #00000000
+		set $black       #282828
+		set $darkblack   #1d2021
+		set $transparent #00000000
 
 # Colors section | bookers's colors
-set $bg-color 	         #2f343f
-set $inactive-bg-color   #2f343f
-set $text-color          #f3f4f5
-set $inactive-text-color #676E7D
-set $urgent-bg-color     #E53935
+		set $bg-color 	         #2f343f
+		set $inactive-bg-color   #2f343f
+		set $text-color          #f3f4f5
+		set $inactive-text-color #676E7D
+		set $urgent-bg-color     #E53935
 
 #############################################}}}
 
 # Window colors{{{
 #                       BORDER    BACKGROUND  TEXT     INDICATOR   CHILD_BORDER
-client.focused          $black    $blue		  $black	$darkblack $darkyellow
-client.unfocused        $black    $black      $white    $darkblack  $darkblack
-client.focused_inactive $black    $black      $white    $darkblack  $darkblack
-client.urgent           $darkred  $darkred    $black    $darkred    $darkred
-client.background       $black
+	client.focused          $black    $blue		  $black	$darkblack $darkyellow
+		client.unfocused        $black    $black      $white    $darkblack  $darkblack
+		client.focused_inactive $black    $black      $white    $darkblack  $darkblack
+		client.urgent           $darkred  $darkred    $black    $darkred    $darkred
+		client.background       $black
 # }}}
 
 # Movement keys{{{
-set $up k
-set $down j
-set $left h
-set $right l
+	set $up k
+		set $down j
+		set $left h
+		set $right l
 #}}}
 
 # Bindigs{{{
 # Note: Use Mouse+$mod to drag floating windows to their wanted position
 
 # now if I want to write a bunch of stuff I can do that with dvorak
-bindsym control+mod1+d exec --no-startup-id \
+	bindsym control+mod1+d exec --no-startup-id \
 		~/.config/i3/scripts/switch_dvorak.sh
 
 # Launch toggle scratchpads
-bindsym $mod+n exec \
-	--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
-	ranger "$TERMINAL -t ranger -e ranger"
-bindsym $mod+6 exec \
-	--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
-	cmus "$TERMINAL -t cmus -e cmus"
-bindsym $mod+9 exec \
-	--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
-	gmail-mutt "$TERMINAL -t gmail-mutt \
-	-e 'neomutt -F ~/.config/neomutt/user.gmail'"
-bindsym $mod+8 exec \
-	--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
-	proton-mutt "$TERMINAL -t proton-mutt \
-	-e 'neomutt -F ~/.config/neomutt/user.pm'"
-bindsym $mod+7 exec \
-	--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
-	psu-mutt "$TERMINAL -t psu-mutt \
-	-e 'neomutt -F ~/.config/neomutt/user.psu'"
-bindsym $mod+o exec \
-	--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
-	journal "$TERMINAL -t journal \
-	-e ~/.config/i3/scripts/journal.sh"
-#bindsym $mod+o exec \
-	# --no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
-	# terminal "$TERMINAL \
-	# -t terminal -e 'tmux -f /home/reinaldo/.config/tmux/conf'"
+		bindsym $mod+n exec \
+		--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
+		ranger "$TERMINAL -t ranger -e ranger"
+		bindsym $mod+6 exec \
+		--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
+		cmus "$TERMINAL -t cmus -e cmus"
+# bindsym $mod+9 exec \
+# --no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
+# gmail-mutt "$TERMINAL -t gmail-mutt \
+# -e 'neomutt -F ~/.config/neomutt/user.gmail'"
+# bindsym $mod+8 exec \
+# --no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
+# proton-mutt "$TERMINAL -t proton-mutt \
+# -e 'neomutt -F ~/.config/neomutt/user.pm'"
+# bindsym $mod+7 exec \
+# --no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
+# psu-mutt "$TERMINAL -t psu-mutt \
+# -e 'neomutt -F ~/.config/neomutt/user.psu'"
+		bindsym $mod+o exec \
+--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
+journal "$TERMINAL -t journal \
+-e ~/.config/i3/scripts/journal.sh"
+bindsym $mod+i exec \
+--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
+neomutt "$TERMINAL \
+-t neomutt -e ~/.config/i3/scripts/neomutt.sh"
 
 bindsym mod1+Tab exec --no-startup-id i3flip next
 
@@ -152,9 +152,9 @@ bindsym control+mod1+m exec --no-startup-id pamixer --toggle-mute
 bindsym control+mod1+p exec --no-startup-id pavucontrol
 # bindsym control+mod1+b exec --no-startup-id blueberry
 bindsym control+mod1+i exec --no-startup-id \
-	~/.config/i3/scripts/pulseaudio-rofi.sh --input
+~/.config/i3/scripts/pulseaudio-rofi.sh --input
 bindsym control+mod1+o exec --no-startup-id \
-	~/.config/i3/scripts/pulseaudio-rofi.sh --output
+~/.config/i3/scripts/pulseaudio-rofi.sh --output
 
 # bindsym $mod+n exec rofi -show window -opacity "50"
 bindsym $mod+m scratchpad show
@@ -170,7 +170,7 @@ bindsym $mod+Ctrl+$right      resize grow width 3 px or 3 ppt
 bindsym $mod+p exec --no-startup-id passmenu
 
 bindsym $mod+shift+e exec --no-startup-id echo $EMAIL | \
-	xclip -selection "clipboard"
+xclip -selection "clipboard"
 
 # Move focused workspace to monitor
 bindsym $mod+shift+bracketleft move workspace to output left
@@ -184,7 +184,7 @@ bindsym $mod+Mod1+$right focus output right
 
 bindsym $mod+shift+x exec i3lock-fancy
 
-# Wed Jan 02 2019 23:11 
+# Wed Jan 02 2019 23:11
 # Reused to show ranger
 bindsym $mod+mod1+r mode "resize"
 # start a terminal
@@ -274,12 +274,12 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit 
-# shortcut. Do you really want to exit i3? This will end your X session.' -b 
+# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit
+# shortcut. Do you really want to exit i3? This will end your X session.' -b
 # 'Yes, exit i3' 'i3-msg exit'"
 # Here we replace default nagbar with i3-exit
 bindsym Control+Mod1+Delete exec --no-startup-id \
-	~/.config/i3/scripts/shutdown_menu -c
+~/.config/i3/scripts/shutdown_menu -c
 
 ########### Custom Bindings ############################
 bindsym Print exec --no-startup-id gnome-screenshot
@@ -306,11 +306,11 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 # }}}
 
 ############ Workspaces ###################{{{
-set $workspace1 "1"
-set $workspace2 "2"
-set $workspace3 "3"
-set $workspace4 "4"
-set $workspace5 "5"
+	set $workspace1 "1"
+		set $workspace2 "2"
+		set $workspace3 "3"
+		set $workspace4 "4"
+		set $workspace5 "5"
 # set $workspace6 "6"
 # set $workspace7 "7"
 # set $workspace8 "8"
@@ -318,24 +318,24 @@ set $workspace5 "5"
 # set $workspace10 "10"
 
 # Switch to workspace
-bindsym $mod+1 workspace $workspace1
-bindsym $mod+2 workspace $workspace2
-bindsym $mod+3 workspace $workspace3
-bindsym $mod+4 workspace $workspace4
-bindsym $mod+5 workspace $workspace5
+		bindsym $mod+1 workspace $workspace1
+		bindsym $mod+2 workspace $workspace2
+		bindsym $mod+3 workspace $workspace3
+		bindsym $mod+4 workspace $workspace4
+		bindsym $mod+5 workspace $workspace5
 # bindsym $mod+6 workspace $workspace6
 # bindsym $mod+7 workspace $workspace7
 # bindsym $mod+8 workspace $workspace8
 # bindsym $mod+9 workspace $workspace9
 # bindsym $mod+0 workspace $workspace10
-bindsym $mod+Tab workspace back_and_forth
+		bindsym $mod+Tab workspace back_and_forth
 
 # Move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $workspace1
-bindsym $mod+Shift+2 move container to workspace $workspace2
-bindsym $mod+Shift+3 move container to workspace $workspace3
-bindsym $mod+Shift+4 move container to workspace $workspace4
-bindsym $mod+Shift+5 move container to workspace $workspace5
+		bindsym $mod+Shift+1 move container to workspace $workspace1
+		bindsym $mod+Shift+2 move container to workspace $workspace2
+		bindsym $mod+Shift+3 move container to workspace $workspace3
+		bindsym $mod+Shift+4 move container to workspace $workspace4
+		bindsym $mod+Shift+5 move container to workspace $workspace5
 # bindsym $mod+Shift+6 move container to workspace $workspace6
 # bindsym $mod+Shift+7 move container to workspace $workspace7
 # bindsym $mod+Shift+8 move container to workspace $workspace8
@@ -356,7 +356,7 @@ bindsym $mod+Shift+5 move container to workspace $workspace5
 # }}}
 
 #### RULES FOR WORKSPACES AND SPECIFIC APPLICATIONS ####{{{
-# Taken from here: 
+# Taken from here:
 # http://www.linuxlusers.com/2012/12/24/i3-window-manager-tip-making-specific
 # -applications-and-child-windows-open-in-
 # floating-mode-or-with-other-custom-settings/
@@ -367,7 +367,7 @@ bindsym $mod+Shift+5 move container to workspace $workspace5
 # Tip: To find out what these values might be run:
 #       xprop | grep -i 'class'
 #				The actual value is the second name
-		for_window [class="File-roller"] floating enable
+	for_window [class="File-roller"] floating enable
 		for_window [class="Speedcrunch"] floating enable
 		for_window [class="Gloobus-preview"] floating enable
 		for_window [class="Pavucontrol"] floating enable
@@ -424,29 +424,29 @@ bindsym $mod+Shift+5 move container to workspace $workspace5
 #################################################### }}}
 
 # Options{{{
-floating_modifier $mod
+	floating_modifier $mod
 # thin borders
-hide_edge_borders both
+		hide_edge_borders both
 # No borders
-new_window none
-new_float none
+		new_window none
+		new_float none
 
 # Disables gaps when there is only one window
-smart_gaps on
+		smart_gaps on
 
 # Border settings
-new_window pixel 3
-smart_borders on
+		new_window pixel 3
+		smart_borders on
 #smart_borders no_gaps
 
 # Global gaps settings
-gaps inner 5
-gaps outer 5
+		gaps inner 5
+		gaps outer 5
 
 # }}}
 
 # Mode Resize window (you can also use the mouse for that){{{
-mode "resize" {
+	mode "resize" {
 # These bindings trigger as soon as you enter the resize mode
 
 # Pressing left will shrink the window’s width.
@@ -454,99 +454,99 @@ mode "resize" {
 # Pressing down will shrink the window’s height.
 # Pressing up will grow the window’s height.
 		bindsym $left       resize shrink width 10 px or 10 ppt
-		bindsym $up       resize grow height 10 px or 10 ppt
-		bindsym $down         resize shrink height 10 px or 10 ppt
-		bindsym $right      resize grow width 10 px or 10 ppt
+			bindsym $up       resize grow height 10 px or 10 ppt
+			bindsym $down         resize shrink height 10 px or 10 ppt
+			bindsym $right      resize grow width 10 px or 10 ppt
 
 # same bindings, but for the arrow keys
-		bindsym Left        resize shrink width 10 px or 10 ppt
-		bindsym Down        resize grow height 10 px or 10 ppt
-		bindsym Up          resize shrink height 10 px or 10 ppt
-		bindsym Right       resize grow width 10 px or 10 ppt
+			bindsym Left        resize shrink width 10 px or 10 ppt
+			bindsym Down        resize grow height 10 px or 10 ppt
+			bindsym Up          resize shrink height 10 px or 10 ppt
+			bindsym Right       resize grow width 10 px or 10 ppt
 
 # back to normal: Enter or Escape
-		bindsym Return mode "default"
-		bindsym Escape mode "default"
-}
+			bindsym Return mode "default"
+			bindsym Escape mode "default"
+	}
 # }}}
 
 # Mode bluetooth {{{
-# 
-set $mode_bluetooth bluetooth to: (w)wh-1000xm2, (b)ose (d)isconnect
-bindsym mod1+control+b mode "$mode_bluetooth"
-mode "$mode_bluetooth" {
-	bindsym w mode "default", exec --no-startup-id \
-		~/.config/i3/scripts/bluetooth.lua "connect" "04:5D:4B:EA:9C:B2"
-	bindsym b mode "default", exec --no-startup-id \
-		~/.config/i3/scripts/bluetooth.lua "connect" "2C:41:A1:25:F5:C1"
-	bindsym d mode "default", exec --no-startup-id \
-		~/.config/i3/scripts/bluetooth.lua "disconnect"
+#
+	set $mode_bluetooth bluetooth to: (w)wh-1000xm2, (b)ose (d)isconnect
+		bindsym mod1+control+b mode "$mode_bluetooth"
+		mode "$mode_bluetooth" {
+			bindsym w mode "default", exec --no-startup-id \
+				~/.config/i3/scripts/bluetooth.lua "connect" "04:5D:4B:EA:9C:B2"
+				bindsym b mode "default", exec --no-startup-id \
+				~/.config/i3/scripts/bluetooth.lua "connect" "2C:41:A1:25:F5:C1"
+				bindsym d mode "default", exec --no-startup-id \
+				~/.config/i3/scripts/bluetooth.lua "disconnect"
 
-		bindsym Return mode "default"
-		bindsym Escape mode "default"
-}
+				bindsym Return mode "default"
+				bindsym Escape mode "default"
+		}
 # }}}
 
 # Mode Password{{{
-# 
+#
 	set $mode_password pass: press (r)root, (e)esilio, (h)github, (g)git, (l)gitlab, (d)igital_ocean
-bindsym mod1+control+w mode "$mode_password"
-mode "$mode_password" {
-	bindsym r mode "default", \
-		exec --no-startup-id pass --clip linux/`hostname`/user/root
-	bindsym h mode "default", exec --no-startup-id \
-		pass --clip linux/`hostname`/ssh_key/id_ed25519_github
-	bindsym d mode "default", exec --no-startup-id \
-		pass --clip linux/`hostname`/ssh_key/id_ed25519_digitalocean
-	bindsym g mode "default", exec --no-startup-id \
-		pass --clip linux/`hostname`/ssh_key/id_ed25519_git_server
-	bindsym l mode "default", exec --no-startup-id \
-		pass --clip linux/`hostname`/ssh_key/id_ed25519_gitlab
-	bindsym e mode "default", exec --no-startup-id \
-		pass --clip linux/`hostname`/resilio/admin
+		bindsym mod1+control+w mode "$mode_password"
+		mode "$mode_password" {
+			bindsym r mode "default", \
+				exec --no-startup-id pass --clip linux/`hostname`/user/root
+				bindsym h mode "default", exec --no-startup-id \
+				pass --clip linux/`hostname`/ssh_key/id_ed25519_github
+				bindsym d mode "default", exec --no-startup-id \
+				pass --clip linux/`hostname`/ssh_key/id_ed25519_digitalocean
+				bindsym g mode "default", exec --no-startup-id \
+				pass --clip linux/`hostname`/ssh_key/id_ed25519_git_server
+				bindsym l mode "default", exec --no-startup-id \
+				pass --clip linux/`hostname`/ssh_key/id_ed25519_gitlab
+				bindsym e mode "default", exec --no-startup-id \
+				pass --clip linux/`hostname`/resilio/admin
 
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
-}
+				bindsym Return mode "default"
+				bindsym Escape mode "default"
+		}
 # }}}
 
 # Mode gaps{{{
-set $mode_gaps Gaps: (o) outer, (i) inner
-set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
-set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
-bindsym $mod+Shift+g mode "$mode_gaps"
+	set $mode_gaps Gaps: (o) outer, (i) inner
+		set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+		set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+		bindsym $mod+Shift+g mode "$mode_gaps"
 
-mode "$mode_gaps" {
-	bindsym o      mode "$mode_gaps_outer"
-		bindsym i      mode "$mode_gaps_inner"
-		bindsym Return mode "default"
-		bindsym Escape mode "default"
-}
+		mode "$mode_gaps" {
+			bindsym o      mode "$mode_gaps_outer"
+				bindsym i      mode "$mode_gaps_inner"
+				bindsym Return mode "default"
+				bindsym Escape mode "default"
+		}
 
-mode "$mode_gaps_inner" {
-	bindsym plus  gaps inner current plus 5
-		bindsym minus gaps inner current minus 5
-		bindsym 0     gaps inner current set 0
+	mode "$mode_gaps_inner" {
+		bindsym plus  gaps inner current plus 5
+			bindsym minus gaps inner current minus 5
+			bindsym 0     gaps inner current set 0
 
-		bindsym Shift+plus  gaps inner all plus 5
-		bindsym Shift+minus gaps inner all minus 5
-		bindsym Shift+0     gaps inner all set 0
+			bindsym Shift+plus  gaps inner all plus 5
+			bindsym Shift+minus gaps inner all minus 5
+			bindsym Shift+0     gaps inner all set 0
 
-		bindsym Return mode "default"
-		bindsym Escape mode "default"
-}
-mode "$mode_gaps_outer" {
-	bindsym plus  gaps outer current plus 5
-		bindsym minus gaps outer current minus 5
-		bindsym 0     gaps outer current set 0
+			bindsym Return mode "default"
+			bindsym Escape mode "default"
+	}
+	mode "$mode_gaps_outer" {
+		bindsym plus  gaps outer current plus 5
+			bindsym minus gaps outer current minus 5
+			bindsym 0     gaps outer current set 0
 
-		bindsym Shift+plus  gaps outer all plus 5
-		bindsym Shift+minus gaps outer all minus 5
-		bindsym Shift+0     gaps outer all set 0
+			bindsym Shift+plus  gaps outer all plus 5
+			bindsym Shift+minus gaps outer all minus 5
+			bindsym Shift+0     gaps outer all set 0
 
-		bindsym Return mode "default"
-		bindsym Escape mode "default"
-}
+			bindsym Return mode "default"
+			bindsym Escape mode "default"
+	}
 # }}}
 
 # Mode Show/Launch: {{{
@@ -556,17 +556,17 @@ mode "$mode_gaps_outer" {
 # bindsym $mod+n mode "$mode_show"
 
 # mode "$mode_show" {
-	# bindsym c [title="^cmus$"] move to scratchpad, scratchpad show; \
-	#	mode "default"
-	# bindsym o [title="^journal$"] move to scratchpad, scratchpad show; \
-	#	mode "default"
-	# bindsym n [title="^ranger$"] move to scratchpad, scratchpad show; \
-	#	mode "default"
-	# bindsym s [class="^Spotify$"] move to scratchpad, scratchpad show; \
-	#	mode "default"
+# bindsym c [title="^cmus$"] move to scratchpad, scratchpad show; \
+#	mode "default"
+# bindsym o [title="^journal$"] move to scratchpad, scratchpad show; \
+#	mode "default"
+# bindsym n [title="^ranger$"] move to scratchpad, scratchpad show; \
+#	mode "default"
+# bindsym s [class="^Spotify$"] move to scratchpad, scratchpad show; \
+#	mode "default"
 
-	# bindsym Escape mode "default"
-	# bindsym Return mode "default"
+# bindsym Escape mode "default"
+# bindsym Return mode "default"
 # }
 
 # Mode Launch:
@@ -576,7 +576,7 @@ mode "$mode_gaps_outer" {
 
 # Sun Jun 03 2018 23:48: Transitioning to kitty. To return to termite search gitlog for
 # kitty
-# Thu Sep 20 2018 05:48: Very stubborn. Here I go with kitty again 
+# Thu Sep 20 2018 05:48: Very stubborn. Here I go with kitty again
 # bindsym c exec --no-startup-id i3-sensible-terminal --title=cmus cmus
 # bindsym m exec --no-startup-id i3-sensible-terminal --title=gmail-mutt \
 #	neomutt -F ~/.config/mutt/account.gmail; mode "default"
@@ -598,48 +598,48 @@ mode "$mode_gaps_outer" {
 #	ranger
 # mode "$mode_launch" {
 
-	# bindsym c exec --no-startup-id i3-sensible-terminal \
-		# --title=cmus --exec cmus; mode "default"
-	# bindsym n exec --no-startup-id i3-sensible-terminal \
-		# --title=ranger --exec ranger; mode "default"
+# bindsym c exec --no-startup-id i3-sensible-terminal \
+# --title=cmus --exec cmus; mode "default"
+# bindsym n exec --no-startup-id i3-sensible-terminal \
+# --title=ranger --exec ranger; mode "default"
 
-	# bindsym s exec --no-startup-id --exec spotify; mode "default"
-	# bindsym o exec --no-startup-id i3-sensible-terminal --title=journal \
-		# --exec ~/.config/polybar/scripts/journal.sh; mode "default"
+# bindsym s exec --no-startup-id --exec spotify; mode "default"
+# bindsym o exec --no-startup-id i3-sensible-terminal --title=journal \
+# --exec ~/.config/polybar/scripts/journal.sh; mode "default"
 
-	# bindsym t exec --no-startup-id i3-sensible-terminal --title=terminal; \
-		#mode "default"
+# bindsym t exec --no-startup-id i3-sensible-terminal --title=terminal; \
+#mode "default"
 
-	# bindsym Escape mode "default"
-	# bindsym Return mode "default"
+# bindsym Escape mode "default"
+# bindsym Return mode "default"
 # }
 # }}}
 
 # Mode Screenshot: {{{
 # Sat Dec 30 2017 22:56:
 # bindsym f exec --no-startup-id gnome-screenshot -f \
-	# ~/.cache/`date '+%y-%m-%d_%T'`.png;mode "default"
+# ~/.cache/`date '+%y-%m-%d_%T'`.png;mode "default"
 # bindsym s exec --no-startup-id gnome-screenshot -a -f \
-	# ~/.cache/`date '+%y-%m-%d_%T'`.png;mode "default"
+# ~/.cache/`date '+%y-%m-%d_%T'`.png;mode "default"
 # bindsym w exec --no-startup-id gnome-screenshot -w -f \
-	# ~/.cache/`date '+%y-%m-%d_%T'`.png;mode "default"
-set $mode_screenshot screenshot: [f]ull_screen, [s]election, [w]indow, [g]flameshot_gui
+# ~/.cache/`date '+%y-%m-%d_%T'`.png;mode "default"
+	set $mode_screenshot screenshot: [f]ull_screen, [s]election, [w]indow, [g]flameshot_gui
 	bindsym $mod+Shift+s mode "$mode_screenshot"
 
-mode "$mode_screenshot" {
-	bindsym f exec --no-startup-id sleep 0.2 && scrot '%Y-%m-%d_%T_scrot.png' \
-		-e 'mv $f ~/.cache/';mode "default"
-	bindsym s exec --no-startup-id sleep 0.2 && scrot -s \
-		'%Y-%m-%d_%T_scrot.png' \
-		-e 'mv $f ~/.cache/';mode "default"
-	bindsym w exec --no-startup-id sleep 0.2 && scrot -u \
-		'%Y-%m-%d_%T_scrot.png' \
-		-e 'mv $f ~/.cache/';mode "default"
-	bindsym g exec --no-startup-id flameshot gui; mode "default"
+	mode "$mode_screenshot" {
+		bindsym f exec --no-startup-id sleep 0.2 && scrot '%Y-%m-%d_%T_scrot.png' \
+			-e 'mv $f ~/.cache/';mode "default"
+			bindsym s exec --no-startup-id sleep 0.2 && scrot -s \
+			'%Y-%m-%d_%T_scrot.png' \
+			-e 'mv $f ~/.cache/';mode "default"
+			bindsym w exec --no-startup-id sleep 0.2 && scrot -u \
+			'%Y-%m-%d_%T_scrot.png' \
+			-e 'mv $f ~/.cache/';mode "default"
+			bindsym g exec --no-startup-id flameshot gui; mode "default"
 
-	bindsym Escape mode "default"
-	bindsym Return mode "default"
-}
+			bindsym Escape mode "default"
+			bindsym Return mode "default"
+	}
 # }}}
 
 # Bar{{{
@@ -662,32 +662,32 @@ mode "$mode_screenshot" {
 # tray_padding 0
 # height 30
 # colors {
-	# statusline         $white
-	# background         $transparent
-	# separator          $transparent
+# statusline         $white
+# background         $transparent
+# separator          $transparent
 
-										# #BORDER       BACKGROUND   TEXT
-	# focused_workspace  $transparent $transparent $darkwhite
-	# inactive_workspace $transparent $transparent $white
-	# active_workspace   $transparent $transparent $white
-	# urgent_workspace   $darkred     $darkred     $transparent
-	# binding_mode       $darkred     $darkred     $transparent
+# #BORDER       BACKGROUND   TEXT
+# focused_workspace  $transparent $transparent $darkwhite
+# inactive_workspace $transparent $transparent $white
+# active_workspace   $transparent $transparent $white
+# urgent_workspace   $darkred     $darkred     $transparent
+# binding_mode       $darkred     $darkred     $transparent
 # }
 # }
 # }}}
 
 # STARTUP APPLICATIONS  {{{
-exec --no-startup-id compton --fading --daemon
-exec --no-startup-id xscreensaver -no-splash
-exec --no-startup-id pcmanfm --daemon-mode
+	exec --no-startup-id compton --fading --daemon
+		exec --no-startup-id xscreensaver -no-splash
+		exec --no-startup-id pcmanfm --daemon-mode
 
 # exec --no-startup-id i3-sensible-terminal
-exec --no-startup-id nm-applet
-exec --no-startup-id blueberry-tray
+		exec --no-startup-id nm-applet
+		exec --no-startup-id blueberry-tray
 
-exec --no-startup-id cbatticon -c "notify-send 'Battery' 'Critically Low %5'"
+		exec --no-startup-id cbatticon -c "notify-send 'Battery' 'Critically Low %5'"
 
-# Fri Apr 19 2019 08:51: On demand from now on 
+# Fri Apr 19 2019 08:51: On demand from now on
 # exec --no-startup-id protonmail-bridge --cli
 
 # Thu Dec 28 2017 09:48: Seafile fully functional
@@ -703,7 +703,7 @@ exec --no-startup-id cbatticon -c "notify-send 'Battery' 'Critically Low %5'"
 # Rarely use it anymore. Just enable it when you want it
 # exec --no-startup-id redshift -c ~/.config/redshift.conf
 
-# Thu Sep 06 2018 04:19: Cool new audio system tray icon 
+# Thu Sep 06 2018 04:19: Cool new audio system tray icon
 # Tue Apr 02 2019 15:05: Its not so cool.
 #  - barely see what the volume is. going out. polybar volume in
 # exec --no-startup-id pasystray
@@ -733,14 +733,14 @@ exec --no-startup-id cbatticon -c "notify-send 'Battery' 'Critically Low %5'"
 #	/home/reinaldo/.mnt/copter-server&
 
 # Thu Nov 16 2017 18:31 trying to get an a good configuration
-# Sat Jul 28 2018 13:28: New settings 
+# Sat Jul 28 2018 13:28: New settings
 # exec_always --no-startup-id xrandr --dpi 192
 
 # Do not modify here. It can still be used by gnome
 # Not using because it sets up conky with not sure how to use right now
 # exec /home/reinaldo/.dotfiles/scripts/autostart-gnome.sh
-exec_always --no-startup-id feh --randomize --no-fehbg --bg-fill \
-	~/Pictures/wallpapers/*
-exec_always --no-startup-id ~/.config/polybar/scripts/launch.sh
+		exec_always --no-startup-id feh --randomize --no-fehbg --bg-fill \
+~/Pictures/wallpapers/*
+												exec_always --no-startup-id ~/.config/polybar/scripts/launch.sh
 # }}}
 # vim:fdm=marker
