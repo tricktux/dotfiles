@@ -388,10 +388,8 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 		for_window [class="Yad" title="yad-calendar"] floating enable
 
 # Scratchpad
+		for_window [title="^neomutt$"] move to scratchpad
 		for_window [title="^cmus$"] move to scratchpad
-		for_window [title="^proton-mutt$"] move to scratchpad
-		for_window [title="^gmail-mutt$"] move to scratchpad
-		for_window [title="^psu-mutt$"] move to scratchpad
 		for_window [title="^ranger$"] move to scratchpad
 		for_window [title="^journal$"] move to scratchpad
 		for_window [title="^terminal$"] move to scratchpad
