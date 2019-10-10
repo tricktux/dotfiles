@@ -13,7 +13,9 @@ set imap_pass=$my_password
 set folder = 'imaps://imap.gmail.com:993'
 set spoolfile= +INBOX
 set postponed= +$my_drafts_noquote
-set record = +$my_sent_noquote
+# Gmail automatically saves sent emails
+# set record = +$my_sent_noquote
+unset record
 set trash = +$my_trash_noquote
 mailboxes
 
