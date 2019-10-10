@@ -20,8 +20,10 @@ def get_pw(path):
 
     cmd = ['gpg', '-dq', path]
 
-    completed_process = subprocess.run(
-        cmd, check=True, stdout=subprocess.PIPE, encoding="utf-8")
+    completed_process = subprocess.run(cmd,
+                                       check=True,
+                                       stdout=subprocess.PIPE,
+                                       encoding="utf-8")
     return completed_process.stdout[:-1]
 
 
@@ -117,7 +119,7 @@ def unsplash():
 def main():
     """Main"""
     logging.basicConfig(filename='/tmp/get_wallpaper.log', level=logging.DEBUG)
-    rand = random.uniform(0,1)
+    rand = random.uniform(0, 1)
     link = unsplash() if rand < 0.5 else nasa()
 
     print("   ")
@@ -125,7 +127,12 @@ def main():
         return
 
     try:
-        subprocess.run(['feh', '--quiet', '--no-fehbg', '--bg-fill', link])
+        subprocess.call(
+            ['feh', '--quiet', '--no-fehbg', '--bg-fill', link],
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
     except:
         pass
 
