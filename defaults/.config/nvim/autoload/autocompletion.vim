@@ -516,6 +516,9 @@ function! s:set_ncm2() abort
 		" Nice to have plugin. We dont need to be making too many http requests 
 		" on the work computer
 		Plug 'ncm2/ncm2-github'
+		if (executable('look'))
+			Plug 'filipekiss/ncm2-look.vim'
+		endif
 	endif
 	if (has('win32')) " Unix uses LSP
 		Plug 'ncm2/ncm2-jedi'
@@ -528,7 +531,7 @@ function! s:set_ncm2() abort
 		" autocomplete vim variables and functions
 	" Plug 'ncm2/ncm2-neoinclude'
 	
-	if exists('#CompleteChanged')
+	if exists('##CompleteChanged')
 		Plug 'ncm2/float-preview.nvim'
 	endif
 
