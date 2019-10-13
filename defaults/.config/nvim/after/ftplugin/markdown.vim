@@ -13,6 +13,8 @@ endif
 " Don't load another plugin for this buffer
 let b:did_markdown_ftplugin = 1
 
+let b:ncm2_look_enabled = 1
+
 if !exists('no_plugin_maps') && !exists('no_markdown_maps')
 	" TODO-[RM]-(Fri Oct 20 2017 08:50): Fix this code commented here below
 	" Encapsulate in markdown file from current line until end of file in ```
