@@ -14,7 +14,7 @@ function! augroup#Set() abort
 		autocmd!
 		autocmd Filetype fugitive nnoremap <buffer> <s-j> :b#<cr>
 
-		autocmd Filetype wings_syntax set suffixesadd=.scp
+		autocmd Filetype wings_syntax set suffixesadd=.scp,.cmd,.bat
 		autocmd Filetype qf setlocal colorcolumn=""
 		" Nerdtree Fix
 		autocmd FileType nerdtree setlocal relativenumber
@@ -153,7 +153,7 @@ function! s:determine_buf_type() abort
 		set filetype=wings_syntax
 		" elseif ext ==? 'log'
 		" setfiletype unreal-log
-	elseif l:ext ==? 'set' || l:ext ==? 'sum'
+	elseif l:ext ==? 'set' || l:ext ==? 'sum' || l:ext ==? 'ini'
 		set filetype=dosini
 	elseif l:ext ==? 'bin' || l:ext ==? 'pdf' || l:ext ==? 'hsr'
 		if &verbose > 0
