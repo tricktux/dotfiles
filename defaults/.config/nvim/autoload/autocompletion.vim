@@ -476,11 +476,13 @@ function! s:set_ncm() abort
 
 	Plug 'roxma/nvim-completion-manager'
 	" nvim-completion-manager also added suppport for this
-	Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
+	" Sources for deoplete/neocomplete to autocomplete vim variables and functions
+	Plug 'Shougo/neco-vim'
 	Plug 'Shougo/neco-syntax'
 	" Thu Jul 20 2017 21:02: Causes nvim_compl_manager to freeze
 	" Plug 'Shougo/neoinclude.vim'
-	Plug 'roxma/ncm-github'
+	" Sat Oct 26 2019 05:32: Crashes all the time
+	" Plug 'roxma/ncm-github'
 	Plug 'Shougo/echodoc.vim'
 	" Plug 'roxma/ncm-clang'
 
