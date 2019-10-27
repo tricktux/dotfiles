@@ -98,16 +98,8 @@ function! plugin#Config()
 		Plug 'equalsraf/neovim-gui-shim'
 	endif
 
-	if executable('lldb') && has('unix')
-		if has('nvim')
-			Plug 'critiqjo/lldb.nvim'
-			" All mappings moved to c.vim
-			" Note: Remember to always :UpdateRemotePlugins
-			"TODO.RM-Sun May 21 2017 01:14: Create a ftplugin/lldb.vim to disable
-			"folding
-		else
-			Plug 'gilligan/vim-lldb'
-		endif
+	if executable('lldb') && has('unix') && !has('nvim')
+		Plug 'gilligan/vim-lldb'
 	endif
 
 	" Possible Replacement `asyncvim`
