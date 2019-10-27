@@ -321,7 +321,8 @@ function! s:set_language_client(has_unix) abort
 	endif
 
 	let g:LanguageClient_hasSnippetSupport = 1
-	let g:LanguageClient_useVirtualText = 0
+	let g:LanguageClient_useVirtualText = 1
+	let g:LanguageClient_virtualTextPrefix = ' > '
 
 	let g:LanguageClient_completionPreferTextEdit = 1
 	if exists('g:lightline')
