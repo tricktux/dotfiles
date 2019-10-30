@@ -144,9 +144,16 @@ bind-key -n M-] if "[ $(tmux display -p '#{pane_current_command}') = nvim ]" "se
 set -g -a terminal-overrides ',*:Ss=\E[%p1%d q:Se=\E[2 q'
 
 # TMUX plugins
-# git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+# git clone https://github.com/tmux-plugins/tpm ~/.local/shared/tmux/plugins/tpm
 # to install Plugin manager
-# set -g @plugin 'tmux-plugins/tmux-resurrect'
-# set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @plugin 'tmux-plugins/tmux-copycat'
+set -g @plugin 'tmux-plugins/tmux-yank'
+set -g @plugin 'tmux-plugins/tmux-open'
+
+# Installing plugins
+# Add new plugin to ~/.tmux.conf with set -g @plugin '...'
+# Press prefix + I (capital i, as in Install) to fetch the plugin.
+# Press prefix + u updates plugins
+
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
-# run '~/.tmux/plugins/tpm/tpm'
+run '~/.local/shared/tmux/plugins/tpm'
