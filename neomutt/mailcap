@@ -15,3 +15,4 @@ text/html; lynx -assume_charset=%{charset} -display_charset=utf-8 -dump %s; name
 application/pdf; /usr/bin/zathura %s; test=test "$DISPLAY" != ""; description=Portable Document Format; nametemplate=%s.pdf; print=/usr/bin/acroread %s
 image/pdf; /usr/bin/zathura %s; test=test "$DISPLAY" != ""; description=Portable Document Format; nametemplate=%s.pdf; print=/usr/bin/acroread %s
 image/*; feh %s
+text/*; nvim

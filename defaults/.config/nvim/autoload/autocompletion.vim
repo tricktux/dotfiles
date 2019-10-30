@@ -321,7 +321,8 @@ function! s:set_language_client(has_unix) abort
 	endif
 
 	let g:LanguageClient_hasSnippetSupport = 1
-	let g:LanguageClient_useVirtualText = 0
+	let g:LanguageClient_useVirtualText = 1
+	let g:LanguageClient_virtualTextPrefix = ' > '
 
 	let g:LanguageClient_completionPreferTextEdit = 1
 	if exists('g:lightline')
@@ -373,6 +374,8 @@ function! s:set_language_client_mappings() abort
 
 	nnoremap <buffer> <localleader>ld
 				\ :call LanguageClient#textDocument_definition()<CR>
+	nnoremap <buffer> <localleader>lD
+				\ :call LanguageClient#textDocument_typeDefinition()<CR>
 	nnoremap <buffer> <localleader>lh
 				\ :call LanguageClient#textDocument_hover()<CR>
 	nnoremap <buffer> <localleader>lf
@@ -383,6 +386,12 @@ function! s:set_language_client_mappings() abort
 				\ :call LanguageClient#textDocument_documentSymbol()<CR>
 	nnoremap <buffer> <localleader>lr
 				\ :call LanguageClient#textDocument_rename()<CR>
+	nnoremap <buffer> <localleader>lc
+				\ :call LanguageClient_contextMenu()<CR>
+	nnoremap <buffer> <localleader>li
+				\ :call LanguageClient#textDocument_implementation()<CR>
+	nnoremap <buffer> <localleader>la
+				\ :call LanguageClient#textDocument_codeAction()<CR>
 endfunction
 
 function! s:set_vim_clang() abort
@@ -468,11 +477,13 @@ function! s:set_ncm() abort
 
 	Plug 'roxma/nvim-completion-manager'
 	" nvim-completion-manager also added suppport for this
-	Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
+	" Sources for deoplete/neocomplete to autocomplete vim variables and functions
+	Plug 'Shougo/neco-vim'
 	Plug 'Shougo/neco-syntax'
 	" Thu Jul 20 2017 21:02: Causes nvim_compl_manager to freeze
 	" Plug 'Shougo/neoinclude.vim'
-	Plug 'roxma/ncm-github'
+	" Sat Oct 26 2019 05:32: Crashes all the time
+	" Plug 'roxma/ncm-github'
 	Plug 'Shougo/echodoc.vim'
 	" Plug 'roxma/ncm-clang'
 
@@ -516,6 +527,9 @@ function! s:set_ncm2() abort
 		" Nice to have plugin. We dont need to be making too many http requests 
 		" on the work computer
 		Plug 'ncm2/ncm2-github'
+		if (executable('look'))
+			Plug 'filipekiss/ncm2-look.vim'
+		endif
 	endif
 	if (has('win32')) " Unix uses LSP
 		Plug 'ncm2/ncm2-jedi'
@@ -528,7 +542,7 @@ function! s:set_ncm2() abort
 		" autocomplete vim variables and functions
 	" Plug 'ncm2/ncm2-neoinclude'
 	
-	if exists('#CompleteChanged')
+	if exists('##CompleteChanged')
 		Plug 'ncm2/float-preview.nvim'
 	endif
 
@@ -541,10 +555,6 @@ function! s:set_ncm2() abort
 	Plug 'ncm2/ncm2-tagprefix'
 	if executable('tmux')
 		Plug 'ncm2/ncm2-tmux'
-	endif
-	if executable('look')
-		" Complete english words
-		Plug 'filipekiss/ncm2-look.vim'
 	endif
 
 	" Sun Apr 21 2019 23:03: When the LanguageClient is available we dont really 

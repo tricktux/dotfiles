@@ -8,12 +8,15 @@
 # tmux analogue.  This is intended for tmux 1.3, which handles pane selection
 # differently from the previous versions
 
+# Set scroll limit
+set-option -g history-limit 100000
+
 # Thu Apr 18 2019 08:23: From here:
 # https://github.com/tony/tmux-config/blob/master/.tmux.conf
 # Allows for faster key repetition
 # NOTE: Use this command below to truly kill tmux server. Exiting command line wont do it!!
 set -s escape-time 0
-# Start numbering at 1
+# Start numbering at 1, good for using alt to switch windows
 set -g base-index 1
 
 bind q kill-session
