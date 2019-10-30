@@ -98,16 +98,8 @@ function! plugin#Config()
 		Plug 'equalsraf/neovim-gui-shim'
 	endif
 
-	if executable('lldb') && has('unix')
-		if has('nvim')
-			Plug 'critiqjo/lldb.nvim'
-			" All mappings moved to c.vim
-			" Note: Remember to always :UpdateRemotePlugins
-			"TODO.RM-Sun May 21 2017 01:14: Create a ftplugin/lldb.vim to disable
-			"folding
-		else
-			Plug 'gilligan/vim-lldb'
-		endif
+	if executable('lldb') && has('unix') && !has('nvim')
+		Plug 'gilligan/vim-lldb'
 	endif
 
 	" Possible Replacement `asyncvim`
@@ -397,6 +389,7 @@ function! plugin#Config()
 			" Need one for nvim
 			" This one below not so good
 			" Plug 'huawenyu/neogdb.vim'
+			call s:configure_nvimgdb()
 		else
 			" Vim's built in gdb debugger
 			packadd termdebug
@@ -1602,4 +1595,22 @@ function! s:configure_java_setter_getter() abort
 					\ "%modifiers% void %funcname%(%type% %varname%, int index) {\n" .
 					\ "    this.%varname%[index] = %varname%;\n" .
 					\ "}"
+endfunction
+
+function! s:configure_nvimgdb() abort
+	Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
+	" :GdbStart gdb -q ./a.out
+	let g:nvimgdb_disable_start_keymaps = 1
+	let g:nvimgdb_config_override = {
+				\ 'key_next': 'n',
+				\ 'key_step': 's',
+				\ 'key_finish': 'f',
+				\ 'key_continue': 'c',
+				\ 'key_until': 'u',
+				\ 'key_eval': 'e',
+				\ 'key_breakpoint': 'b',
+				\ 'key_frameup':    '',
+				\ 'key_framedown':  '',
+				\ 'set_tkeymaps':   '',
+				\ }
 endfunction

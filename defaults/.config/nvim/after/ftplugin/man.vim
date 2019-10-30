@@ -16,7 +16,8 @@ setlocal wrap
 let b:did_man_ftplugin = 1
 
 if !exists("no_plugin_maps") && !exists("no_man_maps")
-	nnoremap <buffer> q :bp\|bw #\|bd #<CR>
+	nmap <buffer> Q :bp\|bw #\|bd #<CR>
+	nnoremap <buffer> q :hide\|bw #\|bd #<CR>
 	nnoremap <buffer> <S-k> :CtrlPBuffer<CR>
 	nnoremap <buffer> ]t K
 	nnoremap <buffer> [t <C-T>

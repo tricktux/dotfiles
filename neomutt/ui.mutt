@@ -46,7 +46,7 @@ set include = yes
 set menu_scroll
 
 # Only new and read msgs
-# Use $ to synch
+# You have to remove the N flag and then sync
 set mark_old=no
 
 # Setup to view html. Remember to install w3m
@@ -117,7 +117,7 @@ set abort_noattach_regex = "\\<attach(|ed|ments?)\\>"
 # Thu Jan 31 2019 07:36
 # Trying threads
 # Do not like it. When a new messages arrives that is part of a thread stays down there
-# set sort=threads
-# set sort_aux=reverse-threads
+set sort=threads
+set sort_aux=reverse-threads
 
 # vim: ft=neomuttrc

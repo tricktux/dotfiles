@@ -106,6 +106,19 @@ else
 fi
 
 alias shred_dir=FuncShredDir
+alias cmakeclean=FuncCmakeCleanBuild
+
+FuncCmakeCleanBuild()
+{
+	if [ -d ../build ]; then
+		cd ..
+		rm -rf build
+		mkdir build
+		cd build
+	else
+		echo "build directory DOES NOT exist"
+	fi
+}
 
 FuncShredDir()
 {
