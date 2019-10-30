@@ -27,17 +27,16 @@ function! augroup#Set() abort
 		autocmd FileType help setlocal relativenumber
 		autocmd FileType help nnoremap <buffer> g0 g0
 
-		autocmd FileType markdown,mkd setlocal conceallevel=0 wrap spell
+		autocmd FileType markdown,mkd setlocal conceallevel=0 wrap
 					\ foldenable complete+=kspell ts=2 sw=2 sts=2
 					\ comments+=b:-,b:* spelllang=en_us tw=0 wrap
 
 		" formatoptions do not autowrap text
-		autocmd FileType tex setlocal conceallevel=0 nowrap spell
+		autocmd FileType tex setlocal conceallevel=0 nowrap
 					\ foldenable complete+=kspell ts=2 sw=2 sts=2
 					\ spelllang=en_us tw=0 formatoptions-=tc colorcolumn=+1 wrap
 
-		autocmd FileType mail setlocal spell spelllang=en,es wrap
-					\ textwidth=72
+		autocmd FileType mail setlocal wrap textwidth=72
 
 		autocmd FileType vim setlocal tabstop=2 shiftwidth=2 softtabstop=2 nospell
 
@@ -55,7 +54,9 @@ function! augroup#Set() abort
 		autocmd FileType fzf inoremap <buffer> <c-j> <down>
 		autocmd FileType fzf inoremap <buffer> <c-n> <down>
 
-		autocmd FileType gitcommit setlocal spell spelllang=en
+		" Set spell for who?
+		autocmd FileType c,cpp,mail,markdown,gitcommit,tex
+					\ setlocal spell spelllang=en,es
 
 		autocmd FileType terminal setlocal nonumber norelativenumber bufhidden=hide
 		autocmd FileType json syntax match Comment +\/\/.\+$+
