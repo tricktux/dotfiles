@@ -12,6 +12,63 @@ let s:api_response_file_name = 'api_response_' . strftime('%m%d%Y') . '.json'
 let s:api_res_path = g:std_cache_path . '/' . s:api_response_file_name
 let s:api_url = 'https://api.sunrise-sunset.org/json?lat={}&lng={}'
 let s:flux_times = {}
+" async curl request
+
+
+let s:async_curl = {}
+function! s:async_curl.on_event(job_id, data, event) abort
+	if a:event == 'stdout'
+		let str = ' stdout: '.join(a:data)
+	elseif a:event == 'stderr'
+		let str = ' stderr: '.join(a:data)
+	else
+		let str = 'exited'
+	endif
+
+	echomsg str 
+endfunction
+
+let s:async_curl = {
+			\ 'jobid': 0,
+			\ 'callbacks' : { 
+			\ 'on_stdout': function(s:async_curl.on_event), 
+			\ 'on_stderr': function(s:async_curl.on_event),
+			\ 'on_exit': function(s:async_curl.on_event)
+			\ },
+			\ 'cmd': 'curl -kfL --create-dirs -o ',
+			\ }
+" let s:async_curl.callbacks = {
+" \ 'on_stdout': function(s:async_curl.on_event),
+" \ 'on_stderr': function(s:async_curl.on_event),
+" \ 'on_exit': function(s:async_curl.on_event)
+" \ }
+function! s:async_curl.start(file_name, link) abort
+	if !executable('curl')
+		if &verbose > 0
+			echoerr 'Curl is not installed. Cannot proceed'
+		endif
+		return -1
+	endif
+
+	if empty(a:file_name) || empty(a:link)
+		if &verbose > 0
+			echoerr 'Please specify a path and link to download'
+		endif
+		return -2
+	endif
+
+	" silent execute "!curl -kfLo " . a:file_name . " --create-dirs \"" .
+	" \ a:link . "\""
+	let l:cmd = self.cmd . a:file_name . " \"" . a:link . "\""
+	" Callbacks are not adding any value
+	if has('nvim')
+		let self.jobid = jobstart(l:cmd)
+	else
+		call job_start(l:cmd)
+		let self.jobid = 1
+	return self.jobid
+endfunction
+
 
 " Change vim colorscheme depending on time of the day
 function! flux#Flux() abort
@@ -124,17 +181,19 @@ function! s:get_api_response_file() abort
 	" echomsg 'url = ' l:url
 
 	if !filereadable(s:api_res_path)
-		if s:api_request(s:api_res_path, l:url) < 1
+		if s:async_curl.start(s:api_res_path, l:url) < 1
 			if &verbose > 0
 				echoerr 'Filed to make api request'
 			endif
 			return
 		endif
+		" Give curl time to download the file
+		sleep 500m
 	endif
 
 	if !filereadable(s:api_res_path)
 		if &verbose > 0
-			echoerr 'Filed to make api request'
+			echoerr 'API response file does not exists'
 		endif
 		return
 	endif
@@ -198,25 +257,6 @@ function! s:get_sunrise_times(time) abort
 	" echomsg 'time = ' l:time
 	
 	return str2nr(l:time)
-endfunction
-
-function! s:api_request(file_name, link) abort
-	if !executable('curl')
-		if &verbose > 0
-			echoerr 'Curl is not installed. Cannot proceed'
-		endif
-		return -1
-	endif
-
-	if empty(a:file_name) || empty(a:link)
-		if &verbose > 0
-			echoerr 'Please specify a path and link to download'
-		endif
-		return -2
-	endif
-
-	silent execute "!curl -kfLo " . a:file_name . " --create-dirs \"" . a:link . "\""
-	return 1
 endfunction
 
 function! flux#GetTimes() abort
