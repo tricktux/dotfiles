@@ -9,6 +9,10 @@ if info=$(cmus-remote -Q 2> /dev/null); then
 		position=$(echo "$info" | grep -v "set " | grep -v "tag " | grep "position " | cut -d ' ' -f 2)
 		duration=$(echo "$info" | grep -v "set " | grep -v "tag " | grep "duration " | cut -d ' ' -f 2)
 
+		if [ ${#title} -gt 30 ]; then
+			title=${title:0:30}
+		fi
+
 		pos_minutes=$(printf "%02d" $(("$position" / 60)))
 		pos_seconds=$(printf "%02d" $(("$position" % 60)))
 
