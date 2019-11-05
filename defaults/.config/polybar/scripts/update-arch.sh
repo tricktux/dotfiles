@@ -1,6 +1,6 @@
 #!/bin/sh
 
-i3-msg "floating toggle"
+# i3-msg "floating toggle"
 
 echo "Updating system ..."
 trizen -Syu
