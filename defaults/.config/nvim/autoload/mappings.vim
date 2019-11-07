@@ -893,6 +893,9 @@ function! s:add_file(path) abort
 
 	let l:splitter = has('unix') ? '/' : '\'
 
+	" Normalize unix splitters in case we are in windows
+	let l:new_file = substitute(l:new_file, '/', l:splitter, "g")
+
 	if l:new_file[0] !=# l:splitter
 		let l:new_file = l:splitter . l:new_file
 	endif
