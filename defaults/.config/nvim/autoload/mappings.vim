@@ -529,6 +529,7 @@ function! mappings#Set()
 	nnoremap <leader>ep :call utils#PathFileFuzzer(g:vim_plugins_path)<cr>
 	" Edit Vimruntime
 	nnoremap <leader>ev :call utils#PathFileFuzzer(fnameescape($VIMRUNTIME))<cr>
+	nnoremap <leader>ea :call <sid>add_file(getcwd())<cr>
 endfunction
 
 function! mappings#SaveSession(...) abort
@@ -970,6 +971,7 @@ function! mappings#SetWhichKeyMap() abort
 				\ 'p' : 'plugins_path',
 				\ 'v' : 'vimruntime',
 				\ 'w' : l:wings,
+				\ 'a' : 'add folder/file',
 				\ }
 
 	let l:sessions = {
