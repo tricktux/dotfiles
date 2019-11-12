@@ -141,7 +141,9 @@ font pango:FontAwesome 9
 		neomutt "$TERMINAL \
 		-t neomutt -e ~/.config/i3/scripts/neomutt.sh"
 
-bindsym mod1+Tab exec --no-startup-id i3flip next
+# bindsym mod1+Tab exec --no-startup-id i3flip next
+bindsym $mod1+tab [con_mark=_prevFocus0] focus
+# bindsym $mod+ctrl+comma [con_mark=_prevFocus2] focus
 
 # Using now the control keys with vi like mappings just like windows
 bindsym control+mod1+h exec --no-startup-id cmus-remote -u
@@ -684,6 +686,7 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 		exec --no-startup-id blueberry-tray
 
 		exec --no-startup-id cbatticon -c "notify-send 'Battery' 'Critically Low %5'"
+		exec --no-startup-id ~/.config/i3/scripts/focus_previous.sh
 
 # Fri Apr 19 2019 08:51: On demand from now on
 # exec --no-startup-id protonmail-bridge --cli
