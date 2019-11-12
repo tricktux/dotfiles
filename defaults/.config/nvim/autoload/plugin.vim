@@ -15,9 +15,8 @@
 
 " This function should not abort on error. Let continue configuring stuff
 
-let s:fzf_exclude = exists('$FZF_EXCLUDE') ?
-			\ $FZF_EXCLUDE : '.{git,svn}'
-let s:fzf_not_exclude = '!' . s:fzf_exclude
+let s:ignore_file = exists('$IGNORE_FILES') ?
+			\ $IGNORE_FILES : '--ignore-file ' . $APPDATA . 'ignore-file'
 
 function! plugin#Config()
 	if s:plugin_check() != 1
@@ -1329,8 +1328,7 @@ function! s:configure_fzf() abort
 
 	if (!has('unix') && executable('fd'))
 		let $FZF_DEFAULT_COMMAND=
-					\ 'fd --type file --hidden --follow' .
-					\ ' --no-ignore --exclude ' . s:fzf_exclude
+					\ 'fd --type file --hidden --follow --exclude ".{svn,git,sync}"'
 	endif
 
 	" Likewise, Files command with preview window
