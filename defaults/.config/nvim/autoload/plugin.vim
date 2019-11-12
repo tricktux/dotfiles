@@ -15,8 +15,8 @@
 
 " This function should not abort on error. Let continue configuring stuff
 
-let s:fzf_exclude = has('unix') ?
-			\ '(.{git,svn,sync}|build)' : '.{git,svn}'
+let s:fzf_exclude = exists('$FZF_EXCLUDE') ?
+			\ $FZF_EXCLUDE : '.{git,svn}'
 let s:fzf_not_exclude = '!' . s:fzf_exclude
 
 function! plugin#Config()

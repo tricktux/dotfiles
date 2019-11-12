@@ -167,7 +167,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 [[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
 
-FZF_EXCLUDE="(.{sync,git,svn}|build)"
+export FZF_EXCLUDE="(.{sync,git,svn}|build)"
 
 # fzf setup
 if [[ -f /usr/bin/fzf ]]; then
