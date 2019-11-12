@@ -50,7 +50,7 @@ function! plugin#Config()
 
 	" Wed Oct 30 2019 15:28: Best plugin ever! 
 	Plug 'blueyed/vim-diminactive'
-		let g:diminactive_buftype_blacklist = ['CtrlP']
+		let g:diminactive_buftype_blacklist = ['ctrlp']
 		let g:diminactive_enable_focus = 1
 
 	call s:configure_vim_zoom()
