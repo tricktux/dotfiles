@@ -172,16 +172,13 @@ export FZF_EXCLUDE="(.{sync,git,svn}|build)"
 # fzf setup
 if [[ -f /usr/bin/fzf ]]; then
 	source /usr/share/fzf/key-bindings.zsh
-	# if we have rg. use it!
-	if [[ -f /usr/bin/rg ]]; then
-		export FZF_DEFAULT_COMMAND='fd --type file --hidden --no-ignore --follow --exclude "$FZF_EXCLUDE" 2> /dev/null'
-		export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-		export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
-	fi
 
 	# Depends on `install fd`
 	if [[ -f /usr/bin/fd ]]; then
 		export FZF_ALT_C_COMMAND='fd --type directory --hidden --no-ignore --exclude "$FZF_EXCLUDE" /'
+		export FZF_DEFAULT_COMMAND='fd --type file --hidden --no-ignore --follow --exclude "$FZF_EXCLUDE" 2> /dev/null'
+		export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+		export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
 	fi
 
 	# TODO-[RM]-(Wed Oct 25 2017 10:10): Download it
