@@ -539,11 +539,16 @@ function! plugin#AfterConfig() abort
 	" Plugin function names are never detected. Only plugin commands
 	if exists('g:loaded_denite')
 		" Change mappings.
-		call denite#custom#map('insert','<C-j>','<denite:move_to_next_line>','noremap')
-		call denite#custom#map('insert','<C-k>','<denite:move_to_previous_line>','noremap')
-		call denite#custom#map('insert','<C-v>','<denite:do_action:vsplit>','noremap')
-		call denite#custom#map('insert','<C-d>','<denite:scroll_window_downwards>','noremap')
-		call denite#custom#map('insert','<C-u>','<denite:scroll_window_upwards>','noremap')
+		call denite#custom#map('insert','<C-j>',
+					\ '<denite:move_to_next_line>','noremap')
+		call denite#custom#map('insert','<C-k>',
+					\ '<denite:move_to_previous_line>','noremap')
+		call denite#custom#map('insert','<C-v>',
+					\ '<denite:do_action:vsplit>','noremap')
+		call denite#custom#map('insert','<C-d>',
+					\ '<denite:scroll_window_downwards>','noremap')
+		call denite#custom#map('insert','<C-u>',
+					\ '<denite:scroll_window_upwards>','noremap')
 		" Change options
 		call denite#custom#option('default', 'winheight', 15)
 		call denite#custom#option('_', 'highlight_matched_char', 'Function')
@@ -557,18 +562,20 @@ function! plugin#AfterConfig() abort
 			" Ripgrep command on grep source
 			call denite#custom#var('grep', 'command', ['rg'])
 			call denite#custom#var('grep', 'default_opts',
-						\ ['--vimgrep', '--no-heading', '--smart-case', '--follow', '--hidden',
-						\ '--glob', '!.{git,svn,sync}'])
+						\ ['--vimgrep', '--no-heading', '--smart-case', '--follow',
+						\ '--hidden', '--glob', '!.{git,svn,sync}'])
 			call denite#custom#var('grep', 'recursive_opts', [])
 			call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
 			call denite#custom#var('grep', 'separator', ['--'])
 			call denite#custom#var('grep', 'final_opts', [])
 		elseif executable('ag')
 			call denite#custom#var('file_rec', 'command',
-						\ ['ag', '--follow', '--nocolor', '--nogroup', '-g', '--hidden', ''])
+						\ ['ag', '--follow',
+						\ '--nocolor', '--nogroup', '-g', '--hidden', ''])
 			call denite#custom#var('grep', 'command', ['ag'])
 			call denite#custom#var('grep', 'default_opts',
-						\ ['--vimgrep', '--no-heading', '--smart-case', '--follow', '--hidden',
+						\ ['--vimgrep',
+						\ '--no-heading', '--smart-case', '--follow', '--hidden',
 						\ '--glob', s:fzf_not_exclude])
 			call denite#custom#var('grep', 'recursive_opts', [])
 			call denite#custom#var('grep', 'pattern_opt', [])
@@ -663,7 +670,8 @@ function! s:configure_ctrlp() abort
 	" Lightline settings
 	if exists('g:lightline')
 		let g:lightline.active.left[2] += [ 'ctrlpmark' ]
-		let g:lightline.component_function[ 'ctrlpmark' ] = string(function('s:ctrlp_lightline_mark'))
+		let g:lightline.component_function[ 'ctrlpmark' ] =
+					\ string(function('s:ctrlp_lightline_mark'))
 
 		" These functions are called from ctrlp
 		let g:ctrlp_status_func = {
@@ -683,7 +691,8 @@ function! s:ctrlp_lightline_mark() abort
 				\ , g:lightline.ctrlp_next], 0)
 endfunction
 
-function! plugin#CtrlpLightlineFunc1(focus, byfname, regex, prev, item, next, marked) abort
+function! plugin#CtrlpLightlineFunc1(focus, byfname, regex,
+			\ prev, item, next, marked) abort
 	let g:lightline.ctrlp_regex = a:regex
 	let g:lightline.ctrlp_prev = a:prev
 	let g:lightline.ctrlp_item = a:item
@@ -739,10 +748,13 @@ function! s:configure_nerdcommenter() abort
 	let g:NERDCustomDelimiters = {
 				\ 'vim': { 'left': '"', 'right': '', 'leftAlt': '#', 'rightAlt': ''},
 				\ 'markdown': { 'left': '//', 'right': '' },
-				\ 'dosini': { 'left': ';', 'leftAlt': '//', 'right': '', 'rightAlt': '' },
+				\ 'dosini': { 'left': ';', 'leftAlt': '//',
+				\ 'right': '', 'rightAlt': '' },
 				\ 'csv': { 'left': '#', 'right': '' },
-				\ 'plantuml': { 'left': "'", 'right': '', 'leftAlt': "/'", 'rightAlt': "'/"},
-				\ 'wings_syntax': { 'left': '//', 'right': '', 'leftAlt': '//', 'rightAlt': '' },
+				\ 'plantuml': { 'left': "'", 'right': '',
+				\ 'leftAlt': "/'", 'rightAlt': "'/"},
+				\ 'wings_syntax': { 'left': '//', 'right': '',
+				\ 'leftAlt': '//', 'rightAlt': '' },
 				\ 'sql': { 'left': '--', 'right': '', 'leftAlt': 'REM', 'rightAlt': '' }
 				\ }
 
@@ -837,10 +849,12 @@ function! s:configure_pomodoro() abort
 	let g:pomodoro_use_devicons = exists('g:valid_device') ? 1 : 0
 	if executable('twmnc')
 		let g:pomodoro_notification_cmd = 'twmnc -t Vim -i nvim -c "Pomodoro done"
-					\ && mpv ~/.config/dotfiles/notification_sounds/cool_notification1.mp3 2>/dev/null&'
+					\ && mpv ~/.config/dotfiles/notification_sounds/cool_notification1.mp3
+					\ 2>/dev/null&'
 	elseif executable('dunst')
 		let g:pomodoro_notification_cmd = "notify-send 'Pomodoro' 'Session ended'
-					\ && mpv ~/.config/dotfiles/notification_sounds/cool_notification1.mp3 2>/dev/null&"
+					\ && mpv ~/.config/dotfiles/notification_sounds/cool_notification1.mp3
+					\ 2>/dev/null&"
 	elseif executable('powershell')
 		let notif = $APPDATA . '/dotfiles/scripts/win_vim_notification.ps1'
 		if filereadable(notif)
