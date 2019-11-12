@@ -6,3 +6,5 @@
 .sync
 fonts/
 Obj/
+Release/
+Debug/
