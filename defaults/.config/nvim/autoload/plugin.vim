@@ -1323,7 +1323,7 @@ function! s:configure_fzf() abort
 
 	Plug 'junegunn/fzf.vim'
 
-	if (!has('unix') && executable('fd'))
+	if (!exists('$FZF_DEFAULT_COMMAND') && executable('fd'))
 		let $FZF_DEFAULT_COMMAND=
 					\ 'fd --type file --hidden --follow ' . s:ignore_file
 	endif
