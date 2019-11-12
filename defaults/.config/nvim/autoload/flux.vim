@@ -66,6 +66,8 @@ function! s:async_curl.start(file_name, link) abort
 	else
 		call job_start(l:cmd)
 		let self.jobid = 1
+	endif
+
 	return self.jobid
 endfunction
 
@@ -183,7 +185,7 @@ function! s:get_api_response_file() abort
 	if !filereadable(s:api_res_path)
 		if s:async_curl.start(s:api_res_path, l:url) < 1
 			if &verbose > 0
-				echoerr 'Filed to make api request'
+				echoerr 'Failed to make api request'
 			endif
 			return
 		endif
