@@ -14,6 +14,11 @@
 " - jedi mistune setproctitle jedi flake8 autopep8
 
 " This function should not abort on error. Let continue configuring stuff
+
+let s:fzf_exclude = has('unix') ?
+			\ '(.{git,svn,sync}|build)' : '.{git,svn}'
+let s:fzf_not_exclude = '!' . s:fzf_exclude
+
 function! plugin#Config()
 	if s:plugin_check() != 1
 		return -1
@@ -545,7 +550,7 @@ function! plugin#AfterConfig() abort
 		call denite#custom#option('_', 'highlight_matched_range', 'Function')
 		if executable('fd')
 			call denite#custom#var('file_rec', 'command',
-						\ ['fd', '--exclude', '.{git,svn,sync}', '--no-ignore',
+						\ ['fd', '--exclude', s:fzf_exclude, '--no-ignore',
 						\ '--follow', '--hidden'])
 		endif
 		if executable('rg')
@@ -564,7 +569,7 @@ function! plugin#AfterConfig() abort
 			call denite#custom#var('grep', 'command', ['ag'])
 			call denite#custom#var('grep', 'default_opts',
 						\ ['--vimgrep', '--no-heading', '--smart-case', '--follow', '--hidden',
-						\ '--glob', '!.{git,svn,sync}'])
+						\ '--glob', s:fzf_not_exclude])
 			call denite#custom#var('grep', 'recursive_opts', [])
 			call denite#custom#var('grep', 'pattern_opt', [])
 			call denite#custom#var('grep', 'separator', ['--'])
@@ -596,11 +601,8 @@ function! plugin#AfterConfig() abort
 		if executable('rg')
 			nmap <plug>search_grep :Grepper -tool rg<cr>
 			xmap <plug>search_grep :Grepper -tool rg<cr>
-			if has('unix')
-				let g:grepper.rg.grepprg .= " --smart-case --follow --fixed-strings --hidden --iglob '!.{git,svn,sync}'"
-			else
-				let g:grepper.rg.grepprg .= ' --smart-case --follow --fixed-strings --hidden --iglob !.{git,svn,sync}'
-			endif
+			let g:grepper.rg.grepprg .= " --smart-case --follow --fixed-strings"
+						\ " --hidden --iglob " . s:fzf_not_exclude . "\""
 		else
 			nmap <plug>search_grep <plug>(GrepperOperator)
 			xmap <plug>search_grep <plug>(GrepperOperator)
@@ -608,7 +610,8 @@ function! plugin#AfterConfig() abort
 		if executable('pdfgrep')
 			let g:grepper.tools += ['pdfgrep']
 			let g:grepper.pdfgrep = {
-						\ 'grepprg':    'pdfgrep --ignore-case --page-number --recursive --context 1',
+						\ 'grepprg':
+						\ 'pdfgrep --ignore-case --page-number --recursive --context 1',
 						\ }
 		endif
 	endif
@@ -1062,7 +1065,7 @@ function! s:configure_vim_utils() abort
 				\		'--fixed-strings',
 				\		'--hidden',
 				\		'--iglob',
-				\		(has('unix') ? "'!.{git,svn,sync}'" : '!.{git,svn}'),
+				\		s:fzf_not_exclude,
 				\ ],
 				\ 'filetype_support' : 1,
 				\ 'filetype_map' : s:rg_to_vim_filetypes,
@@ -1080,7 +1083,7 @@ function! s:configure_vim_utils() abort
 				\		'--fixed-strings',
 				\		'--hidden',
 				\		'--exclude',
-				\		(has('unix') ? "'.{git,svn,sync}'" : '.{git,svn}'),
+				\		s:fzf_exclude,
 				\ ],
 				\ }
 
@@ -1097,7 +1100,7 @@ function! s:configure_vim_utils() abort
 					\		'--fixed-strings',
 					\		'--hidden',
 					\		'--iglob',
-					\		(has('unix') ? "'!.{git,svn,sync}'" : '!.{git,svn}'),
+					\		s:fzf_not_exclude,
 					\		'$*',
 					\		g:wiki_path,
 					\		],
@@ -1313,7 +1316,7 @@ function! s:configure_fzf() abort
 	if (!has('unix') && executable('fd'))
 		let $FZF_DEFAULT_COMMAND=
 					\ 'fd --type file --hidden --follow' .
-					\ ' --no-ignore --exclude ".{sync,git,svn}"'
+					\ ' --no-ignore --exclude ' . s:fzf_exclude
 	endif
 
 	" Likewise, Files command with preview window
