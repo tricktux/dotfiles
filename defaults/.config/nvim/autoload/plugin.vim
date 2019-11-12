@@ -554,7 +554,7 @@ function! plugin#AfterConfig() abort
 		call denite#custom#option('_', 'highlight_matched_range', 'Function')
 		if executable('fd')
 			call denite#custom#var('file_rec', 'command',
-						\ ['fd', '--exclude', s:fzf_exclude, '--no-ignore',
+						\ ['fd', s:ignore_file,
 						\ '--follow', '--hidden'])
 		endif
 		if executable('rg')
@@ -575,7 +575,7 @@ function! plugin#AfterConfig() abort
 			call denite#custom#var('grep', 'default_opts',
 						\ ['--vimgrep',
 						\ '--no-heading', '--smart-case', '--follow', '--hidden',
-						\ '--glob', s:fzf_not_exclude])
+						\ s:ignore_file)
 			call denite#custom#var('grep', 'recursive_opts', [])
 			call denite#custom#var('grep', 'pattern_opt', [])
 			call denite#custom#var('grep', 'separator', ['--'])
@@ -608,7 +608,7 @@ function! plugin#AfterConfig() abort
 			nmap <plug>search_grep :Grepper -tool rg<cr>
 			xmap <plug>search_grep :Grepper -tool rg<cr>
 			let g:grepper.rg.grepprg .= " --smart-case --follow --fixed-strings"
-						\ " --hidden --iglob " . s:fzf_not_exclude . "\""
+						\ " --hidden " . s:ignore_file . "\""
 		else
 			nmap <plug>search_grep <plug>(GrepperOperator)
 			xmap <plug>search_grep <plug>(GrepperOperator)
@@ -1077,8 +1077,7 @@ function! s:configure_vim_utils() abort
 				\		'--follow',
 				\		'--fixed-strings',
 				\		'--hidden',
-				\		'--iglob',
-				\		s:fzf_not_exclude,
+				\		s:ignore_file,
 				\ ],
 				\ 'filetype_support' : 1,
 				\ 'filetype_map' : s:rg_to_vim_filetypes,
@@ -1095,8 +1094,7 @@ function! s:configure_vim_utils() abort
 				\		'--follow',
 				\		'--fixed-strings',
 				\		'--hidden',
-				\		'--exclude',
-				\		s:fzf_exclude,
+				\		s:ignore_file,
 				\ ],
 				\ }
 
@@ -1112,8 +1110,7 @@ function! s:configure_vim_utils() abort
 					\		'--follow',
 					\		'--fixed-strings',
 					\		'--hidden',
-					\		'--iglob',
-					\		s:fzf_not_exclude,
+					\		s:ignore_file,
 					\		'$*',
 					\		g:wiki_path,
 					\		],
@@ -1328,7 +1325,7 @@ function! s:configure_fzf() abort
 
 	if (!has('unix') && executable('fd'))
 		let $FZF_DEFAULT_COMMAND=
-					\ 'fd --type file --hidden --follow --exclude ".{svn,git,sync}"'
+					\ 'fd --type file --hidden --follow ' . s:ignore_file
 	endif
 
 	" Likewise, Files command with preview window
