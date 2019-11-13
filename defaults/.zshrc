@@ -69,7 +69,7 @@ else
 	fi
 fi
 
-export _Z_DATA="/home/reinaldo/.local/share/z"
+export _Z_DATA="$HOME/.local/share/z"
 
 # Path to your oh-my-zsh installation.
 ZSH=/usr/share/oh-my-zsh/
