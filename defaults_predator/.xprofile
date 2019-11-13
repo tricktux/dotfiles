@@ -20,7 +20,7 @@ export QT_AUTO_SCREEN_SCALE_FACTOR=0
 #  - In the spirit of uniting as many configs as we can.
 # the only diff between default/i3/config and predator/i3/config
 # is this command below. Makes more sense here.
-xrandr --dpi 163 --output DP-0 --panning 3840x2160 \
+xrandr --output DP-0 --auto \
 	--output HDMI-0 --scale 1.6x1.6 --right-of DP-0
 
 # vim:filetype=sh
