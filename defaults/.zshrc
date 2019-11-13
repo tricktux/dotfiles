@@ -69,6 +69,8 @@ else
 	fi
 fi
 
+export _Z_DATA="/home/reinaldo/.local/share/z"
+
 # Path to your oh-my-zsh installation.
 ZSH=/usr/share/oh-my-zsh/
 if [[ -f $ZSH/oh-my-zsh.sh ]]; then
@@ -80,6 +82,7 @@ if [[ -f $ZSH/oh-my-zsh.sh ]]; then
 		zplug "plugins/dotenv",   from:oh-my-zsh
 		zplug "plugins/sudo",   from:oh-my-zsh
 		zplug "plugins/history-substring-search",   from:oh-my-zsh
+		zplug "plugins/z",   from:oh-my-zsh
 		# TODO update prompt
 		zplug "plugins/nice-exit-code",   from:oh-my-zsh
 		zplug "plugins/oh-my-git",   from:oh-my-zsh
