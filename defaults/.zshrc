@@ -170,7 +170,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 [[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
 
-export IGNORE_FILE="--ignore-file ~/.config/ignore-file"
+export IGNORE_FILE="--ignore-file $HOME/.config/ignore-file"
 
 # fzf setup
 if [[ -f /usr/bin/fzf ]]; then
