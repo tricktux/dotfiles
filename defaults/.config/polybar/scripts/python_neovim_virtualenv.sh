@@ -9,19 +9,20 @@
 # Last Modified:  Fri Jan 25 2019 23:09
 
 modules[0]="vim-vint"
-modules[1]="thesaurus"
-modules[2]="neovim-remote"
-modules[3]="psutil"
-modules[4]="flake8"
-modules[5]="isort"
-modules[6]="jedi"
-modules[7]="pynvim"
-modules[8]="python-language-server"
-modules[9]="pip"
-modules[10]="frosted"
-modules[11]="pep8"
-modules[12]="pylint"
-modules[13]="requests"
+modules[1]="neovim-remote"
+modules[2]="psutil"
+modules[3]="flake8"
+modules[4]="isort"
+modules[5]="jedi"
+modules[6]="pynvim"
+modules[7]="python-language-server"
+modules[8]="pip"
+modules[9]="frosted"
+modules[10]="pep8"
+modules[11]="pylint"
+modules[12]="requests"
+modules[13]="neovim"
+modules[14]="stravalib"
 
 modules_2[0]=${modules[7]}
 modules_2[1]=${modules[9]}
