@@ -16,7 +16,7 @@
 " This function should not abort on error. Let continue configuring stuff
 
 let s:ignore_file = exists('$IGNORE_FILE') ?
-			\ $IGNORE_FILE : '--ignore-file ' . $APPDATA . '\ignore-file'
+			\ $IGNORE_FILE : '--ignore-file ' . $LOCALAPPDATA . '\ignore-file'
 
 function! plugin#Config()
 	if s:plugin_check() != 1
