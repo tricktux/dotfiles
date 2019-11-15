@@ -20,6 +20,7 @@ nnoremap 0 :vsc Edit.UncommentSelection<cr>
 nnoremap <s-b> ^
 nnoremap <s-w> $
 nnoremap <s-t> %
+inoremap <c-h> <c-w><c-w>
 
 inoremap <c-j> <c-[>
 inoremap <c-f> <right>
