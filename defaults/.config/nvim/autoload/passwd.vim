@@ -70,7 +70,7 @@ function! passwd#SelectPasswdFile() abort
 	" TODO-[RM]-(Fri Dec 01 2017 11:54): This down here could be a problem. Need to
 	" detect if the '/' was provided in the name. If user provides it could be
 	" duplicated here
-	return s:copy_passwd_to_clipboard(g:passwd_store_dir . '/' . l:passwd_file)
+	return s:copy_passwd_to_clipboard(g:passwd_store_dir . '\' . l:passwd_file)
 endfunction
 
 function! passwd#AddPasswd() abort
