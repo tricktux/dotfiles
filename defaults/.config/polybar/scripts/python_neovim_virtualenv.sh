@@ -8,6 +8,17 @@
 # Created:        Fri Jan 25 2019 23:09
 # Last Modified:  Fri Jan 25 2019 23:09
 
+recreate_custom_mods_symlink() {
+	pydir=`python -m site --user-site`
+	libs=~/Documents/python/python-libs/libs
+	if [ ! -f $pydir/config.py ]; then
+		mkdir -p $pydir
+		ln -s $libs/config.py $pydir
+		ln -s $libs/parse.py $pydir
+		ln -s $libs/logger.py $pydir
+	fi
+}
+
 modules[0]="vim-vint"
 modules[1]="neovim-remote"
 modules[2]="psutil"
@@ -26,6 +37,8 @@ modules[14]="stravalib"
 
 modules_2[0]=${modules[7]}
 modules_2[1]=${modules[9]}
+
+recreate_custom_mods_symlink
 
 # mkdir -p $venv_loc
 # python -m venv $venv_loc/$venv_name
