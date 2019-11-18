@@ -1,31 +1,34 @@
 #!/usr/bin/env python
 
 import logging
+import config
 import subprocess
 import time
 from datetime import datetime
 from pathlib import Path
 import random
 from sys import exit as sys_exit
+import os
 
 from requests import get
 
 
-def get_pw(path):
-    """Get password from pass"""
+def get_pw():
+    """Get password from config file"""
 
-    cmd = ['pass', 'show', path]
+    file = os.path.dirname(os.path.realpath(__file__)) + '/wallpaper.ini'
 
-    try:
-        proc = subprocess.run(cmd,
-                              check=True,
-                              stdout=subprocess.PIPE,
-                              stderr=subprocess.DEVNULL,
-                              encoding="utf-8")
-    except Exception as e:
-        logging.exception("exception getting password")
+    cfg_file = Path(file)
+    if not cfg_file.is_file():
+        logging.info('%s does not exists', file)
         return ''
-    return proc.stdout[:-1]
+
+    cfg = config.ConfigParser(file)
+    key = cfg.get_opt('unsplash', 'key', '')
+    if not key:
+        logging.info('[unsplash]->key does not exists in ini file')
+        return ''
+    return key
 
 
 def get_request(url):
@@ -96,9 +99,8 @@ def nasa():
 def unsplash():
     """unsplash"""
     api = 'https://api.unsplash.com/photos/random/?client_id='
-    pw = 'websites/unsplash.com/access_key'
 
-    pw = get_pw(pw)
+    pw = get_pw()
     if not pw:
         sys_exit(1)
 
