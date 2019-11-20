@@ -5,6 +5,9 @@ import shutil
 import glob
 
 shittyfiles = [
+    '~/.pkg-cache',
+    '~/.clangd',
+    '~/.hunter',
     '~/.cache/',
     '~/.local/share/qutebrowser/',
     '~/.local/share/Trash/files/',
