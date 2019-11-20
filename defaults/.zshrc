@@ -20,6 +20,18 @@ zstyle ':completion:*:kill:*'   force-list always
 zstyle ':completion:*:*:killall:*' menu yes select
 zstyle ':completion:*:killall:*' force-list always
 
+# Avoid duplicates.
+# Taken from: https://leetschau.github.io/remove-duplicate-zsh-history.html
+setopt PUSHD_IGNORE_DUPS
+setopt EXTENDED_HISTORY
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_FIND_NO_DUPS
+setopt HIST_SAVE_NO_DUPS
+# setopt HIST_BEEP
+
 autoload -Uz compinit promptinit
 compinit
 promptinit
