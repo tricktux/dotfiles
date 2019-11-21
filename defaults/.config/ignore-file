@@ -4,6 +4,7 @@
 .svn
 .git
 .sync
+.clangd
 fonts/
 Obj/
 Release/
