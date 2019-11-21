@@ -13,11 +13,11 @@
 " - These are mostly for python stuff
 " - jedi mistune setproctitle jedi flake8 autopep8
 
-" This function should not abort on error. Let continue configuring stuff
 
 let s:ignore_file = exists('$IGNORE_FILE') ?
 			\ $IGNORE_FILE : '--ignore-file ' . $LOCALAPPDATA . '\ignore-file'
 
+" This function should not abort on error. Let continue configuring stuff
 function! plugin#Config()
 	if s:plugin_check() != 1
 		return -1
