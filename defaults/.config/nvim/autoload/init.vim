@@ -61,7 +61,9 @@ function! s:config_win() abort
 	endif
 
 	" Set wiki_path
-	let l:wikis = ['D:\Seafile\KnowledgeIsPower\wiki', 'D:/wiki']
+	let l:wikis = ['D:\Seafile\KnowledgeIsPower\wiki',
+				\ 'D:\wiki',
+				\ 'D:\Reinaldo\Documents\src\resilio\wiki']
 	for l:wiki in l:wikis
 		if !empty(glob(l:wiki))
 			let g:wiki_path =  l:wiki
