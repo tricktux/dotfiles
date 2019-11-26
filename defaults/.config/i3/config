@@ -687,6 +687,7 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 
 		exec --no-startup-id cbatticon -c "notify-send 'Battery' 'Critically Low %5'"
 		exec --no-startup-id ~/.config/i3/scripts/focus_previous.sh
+		exec --no-startup-id guake
 
 # Fri Apr 19 2019 08:51: On demand from now on
 # exec --no-startup-id protonmail-bridge --cli

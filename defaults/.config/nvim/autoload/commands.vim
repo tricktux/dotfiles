@@ -224,6 +224,8 @@ function! s:scratchpad_journal() abort
 	execute('edit ' . g:wiki_path . '/weekly_log_' .
 				\ strftime('%Y') . '.md')
 
+	" Do not open new terminal
+	return
 	if (!exists(':Tnew'))
 		return
 	endif
