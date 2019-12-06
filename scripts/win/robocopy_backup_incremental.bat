@@ -47,5 +47,8 @@ set dest=G:\StationBackups\reinaldo_laptop
 
 
 for /l %%n in (0,1,8) do ( 
-	robocopy "!dirs[%%n]!" %dest% /MIR /W:0 /R:1 /MT:32 /FFT /XJD /NP /NDL /Z
+	REM Fast copy
+	REM  robocopy "!dirs[%%n]!" %dest% /MIR /W:0 /R:1 /MT:8 /FFT /XJD /NP /NDL /Z /ETA
+	REM Slower copy
+	robocopy "!dirs[%%n]!" "%dest%" /MIR /W:0 /R:1 /MT:2 /FFT /XJD /NP /NDL /Z /ETA
 )
