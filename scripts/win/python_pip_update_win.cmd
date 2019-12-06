@@ -20,6 +20,6 @@ set modules[13]=neovim
 REM  set modules_2[0]=${modules[7]}
 REM  set modules_2[1]=${modules[9]}
 REM
-for /l %%n in (0,1,12) do ( 
+for /l %%n in (0,1,13) do ( 
 	pip install --upgrade !modules[%%n]!
 )
