@@ -34,6 +34,7 @@ modules[11]="pylint"
 modules[12]="requests"
 modules[13]="neovim"
 modules[14]="stravalib"
+modules[14]="jinja2"
 
 modules_2[0]=${modules[7]}
 modules_2[1]=${modules[9]}
