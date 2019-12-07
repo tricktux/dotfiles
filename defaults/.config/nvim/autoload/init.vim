@@ -89,6 +89,8 @@ function! s:config_win() abort
 	let l:python3_ver = '3.7.0'
 	let l:pyt2 = "C:\\Python27\\python.exe"
 	let l:pyt3 = [
+				\ $LOCALAPPDATA . "\\Programs\\Python\\Python38\\python.exe",
+				\ "C:\\Python38\\python.exe",
 				\ $LOCALAPPDATA . "\\Programs\\Python\\Python37\\python.exe",
 				\ "C:\\Python37\\python.exe",
 				\ $LOCALAPPDATA . "\\Programs\\Python\\Python36\\python.exe",
