@@ -1077,6 +1077,7 @@ function! s:configure_vim_utils() abort
 				\		'--follow',
 				\		'--fixed-strings',
 				\		'--hidden',
+				\		'--no-ignore-vcs',
 				\		s:ignore_file,
 				\ ],
 				\ 'filetype_support' : 1,
