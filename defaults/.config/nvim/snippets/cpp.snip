@@ -107,7 +107,12 @@ abbr        UpdateStatusAreaEx
 options     head
   UpdateStatusAreaEx("${1:Msg Here}", ${2:COLOR_ERROR, COLOR_WARNING, COLOR_SUCCESS});
 
-snippet log
+snippet dlog
+abbr Easylogging dlog
+options head
+    DLOG(${1:INFO}${2:WARNING}${3:ERROR}${4:FATAL}) << "${5:Message}";
+
+snippet glog
 abbr Google Glog
 options head
     LOG(${1:INFO,WARNING,ERROR,FATAL}) << "[" << __FUNCTION__ << "]: ${2:Message}";
