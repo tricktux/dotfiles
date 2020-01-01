@@ -1620,15 +1620,20 @@ function! s:configure_nvimgdb() abort
 	" :GdbStart gdb -q ./a.out
 	let g:nvimgdb_disable_start_keymaps = 1
 	let g:nvimgdb_config_override = {
-				\ 'key_next': 'n',
-				\ 'key_step': 's',
-				\ 'key_finish': 'f',
-				\ 'key_continue': 'c',
-				\ 'key_until': 'u',
-				\ 'key_eval': 'e',
-				\ 'key_breakpoint': 'b',
+				\ 'key_next': 'gn',
+				\ 'key_step': 'gs',
+				\ 'key_finish': 'gf',
+				\ 'key_continue': 'gc',
+				\ 'key_until': 'gu',
+				\ 'key_eval': 'ge',
+				\ 'key_breakpoint': 'gb',
 				\ 'key_frameup':    '',
 				\ 'key_framedown':  '',
 				\ 'set_tkeymaps':   '',
+				\ }
+
+	let g:nvimgdb_config_override = {
+				\ 'sign_current_line': '>',
+				\ 'sign_breakpoint': [ '*', '#' ],
 				\ }
 endfunction
