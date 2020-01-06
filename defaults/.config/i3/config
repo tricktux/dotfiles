@@ -677,7 +677,7 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 # }}}
 
 # STARTUP APPLICATIONS  {{{
-	exec --no-startup-id compton --fading --daemon
+	exec --no-startup-id picom --fading --daemon
 		exec --no-startup-id xscreensaver -no-splash
 		exec --no-startup-id pcmanfm --daemon-mode
 
@@ -741,8 +741,8 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 # Do not modify here. It can still be used by gnome
 # Not using because it sets up conky with not sure how to use right now
 # exec /home/reinaldo/.dotfiles/scripts/autostart-gnome.sh
-		exec_always --no-startup-id feh --randomize --no-fehbg --bg-fill \
-~/Pictures/wallpapers/*
-												exec_always --no-startup-id ~/.config/polybar/scripts/launch.sh
+exec_always --no-startup-id feh --randomize --no-fehbg --bg-fill \
+	~/Pictures/wallpapers/*
+exec_always --no-startup-id ~/.config/polybar/scripts/launch.sh
 # }}}
 # vim:fdm=marker

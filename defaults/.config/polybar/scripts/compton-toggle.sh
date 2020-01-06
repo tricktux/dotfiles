@@ -1,8 +1,8 @@
 #!/bin/sh
 
-if pgrep -x "compton" > /dev/null
+if pgrep -x "picom" > /dev/null
 then
-	killall compton
+	killall picom
 else
-	compton --fading --daemon&
+	picom --fading --daemon&
 fi
