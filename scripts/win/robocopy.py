@@ -15,19 +15,19 @@ BACKUP_DIRS = [
 
 DEST_DIR = "G:\\StationBackups\\reinaldo_laptop"
 THREADS = 2
-LOG = "robo.log"
+LOG = "%TEMP%\robo.log"
 ROBOCOPY_OPTS = f"/MIR /W:0 /R:1 /MT:{THREADS} /FFT /XJD /NP /NDL /Z /ETA /LOG:{LOG}"
-
+ROBOCOPY_EXE = "C:\Windows\System32\Robocopy.exe"
 
 def main():
     """main"""
-    with open('robocopy.bat', 'w') as robo:
-        for dir in BACKUP_DIRS:
-            base = os.path.basename(dir)
-            dst = os.path.join(DEST_DIR, base)
-            cmd = f"robocopy {ROBOCOPY_OPTS} \"{dir}\" \"{dst}\"\n"
-            robo.write(cmd)
-            print(cmd)
+
+    for dir in BACKUP_DIRS:
+        base = os.path.basename(dir)
+        dst = os.path.join(DEST_DIR, base)
+        cmd = f"{ROBOCOPY_EXE} {ROBOCOPY_OPTS} \"{dir}\" \"{dst}\"\n"
+        print(f"Executing:\n\t{cmd}")
+        #  subprocess.call(cmd.split())
 
 
 if __name__ == "__main__":
