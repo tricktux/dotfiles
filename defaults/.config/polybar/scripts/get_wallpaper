@@ -124,7 +124,9 @@ def main():
     logging.basicConfig(filename='/tmp/get_wallpaper.log', level=logging.DEBUG)
     rand = random.uniform(0, 1)
     print("   ")
-    link = unsplash() if rand < 0.5 else nasa()
+    # Sat Dec 21 2019 09:28: unsplash is throuwing too many weird wallpapers 
+    #  link = unsplash() if rand < 0.5 else nasa()
+    link = nasa()
 
     if not link:
         return
