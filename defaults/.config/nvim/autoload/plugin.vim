@@ -387,7 +387,8 @@ function! plugin#Config()
 	Plug 'PotatoesMaster/i3-vim-syntax'
 	Plug 'elzr/vim-json', { 'for' : 'json' }
 	Plug 'aklt/plantuml-syntax', { 'for' : 'plantuml' }
-	Plug 'Peaches491/vim-glog-syntax'
+	" Plug 'Peaches491/vim-glog-syntax', { 'for' : '' }
+	Plug 'MTDL9/vim-log-highlighting', { 'for' : 'log' }
 	Plug 'hdima/python-syntax'
 		" let g:python_highlight_all=1
 
@@ -1632,8 +1633,8 @@ function! s:configure_nvimgdb() abort
 				\ 'set_tkeymaps':   '',
 				\ }
 
-	let g:nvimgdb_config_override = {
-				\ 'sign_current_line': '>',
-				\ 'sign_breakpoint': [ '*', '#' ],
-				\ }
+	" let g:nvimgdb_config_override = {
+				" \ 'sign_current_line': '>',
+				" \ 'sign_breakpoint': [ '*', '#' ],
+				" \ }
 endfunction
