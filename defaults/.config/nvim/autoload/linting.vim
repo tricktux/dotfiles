@@ -49,7 +49,7 @@ function! s:set_neomake() abort
 	let g:neomake_make_maker = {
 				\ 'exe': 'make',
 				\ 'cwd': '%:p:h',
-				\ 'args': ['--build'],
+				\ 'args': ['--build', '-j`nproc`'],
 				\ 'append_file' : 0,
 				\ 'errorformat': '%f:%l:%c: %m',
 				\ }
