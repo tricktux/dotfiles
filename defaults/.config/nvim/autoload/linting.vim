@@ -49,7 +49,7 @@ function! s:set_neomake() abort
 	let g:neomake_make_maker = {
 				\ 'exe': 'make',
 				\ 'cwd': '%:p:h',
-				\ 'args': ['--build'],
+				\ 'args': ['--build', '-j`nproc`'],
 				\ 'append_file' : 0,
 				\ 'errorformat': '%f:%l:%c: %m',
 				\ }
@@ -60,7 +60,13 @@ function! s:set_neomake() abort
 	"  and build only the name of the current file (%:t:r)
 	let g:neomake_make_unix_maker = {
 				\ 'exe': 'make',
-				\ 'args': ['-C', 'build', '%:t:r'],
+				\ 'args': ['-C', 'build', '-j`nproc`', '%:t:r'],
+				\ 'append_file' : 0,
+				\ 'errorformat': '%f:%l:%c: %m',
+				\ }
+	let g:neomake_ninja_unix_maker = {
+				\ 'exe': 'ninja',
+				\ 'args': ['-C', 'build'],
 				\ 'append_file' : 0,
 				\ 'errorformat': '%f:%l:%c: %m',
 				\ }
@@ -319,8 +325,18 @@ function! linting#SetNeomakeMakeMaker() abort
 	endif
 
 	" Run make inside the build folder
-	let &l:makeprg='make -C build'
+	let &l:makeprg='make -C build -j`nproc`'
 	let b:neomake_cpp_enabled_makers += ['make_unix']
+endfunction
+
+function! linting#SetNeomakeNinjaMaker() abort
+	if !exists('b:neomake_cpp_enabled_makers')
+		let b:neomake_cpp_enabled_makers = []
+	endif
+
+	" Run make inside the build folder
+	let &l:makeprg='ninja -C build'
+	let b:neomake_cpp_enabled_makers += ['ninja_unix']
 endfunction
 
 function! linting#SetNeomakeClangMaker() abort
