@@ -82,7 +82,11 @@ function! s:set_compiler_and_friends() abort
 
 	if has('unix')
 		call linting#SetNeomakeClangMaker()
-		call linting#SetNeomakeMakeMaker()
+		if executable('ninja')
+			call linting#SetNeomakeNinjaMaker()
+		else
+			call linting#SetNeomakeMakeMaker()
+		endif
 		call autocompletion#AdditionalLspSettings()
 		return 1
 	endif
