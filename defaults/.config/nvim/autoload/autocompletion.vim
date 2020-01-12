@@ -263,8 +263,9 @@ function! s:set_mutt_omni_wrap(findstart, base) abort
 endfunction
 
 function! s:set_language_client(has_unix) abort
+	" New version simply broke down. Try the `next` branch from time to time
 	Plug 'autozimu/LanguageClient-neovim', {
-			\ 'branch': 'next',
+			\ 'tag': '0.1.155',
 			\ 'do': has('unix') ? 'bash install.sh' :
 			\ 'powershell -executionpolicy bypass -File install.ps1',
 			\ }
