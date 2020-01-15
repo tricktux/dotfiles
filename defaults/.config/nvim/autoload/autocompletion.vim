@@ -301,10 +301,27 @@ function! s:set_language_client(has_unix) abort
 			\ 'cpp': [ 'cquery', '--language-server', '--log-file=/tmp/cq.log' ],
 			\ 'c': ['cquery', '--language-server', '--log-file=/tmp/cq.log'],
 			\ }
+	let l:clangd_args = [
+				\		'clangd', 
+				\		'--all-scopes-completion=true', 
+				\		'--background-index=true',
+				\		'--clang-tidy=true',
+				\		'--completion-style=detailed',
+				\		'--fallback-style="LLVM"',
+				\		'--pch-storage=memory',
+				\		'--suggest-missing-includes',
+				\		'--header-insertion=iwyu',
+				\		'-j=12',
+				\		'--header-insertion-decorators=false',
+				\ ]
 	let l:clangd = {
-				\ 'cpp': [ 'clangd' ],
-				\ 'c': [ 'clangd' ],
+				\ 'cpp': l:clangd_args,
+				\ 'c': l:clangd_args,
 				\ }
+	" let l:clangd = {
+				" \ 'cpp': l:clangd_args,
+				" \ 'c': l:clangd_args,
+				" \ }
 	let l:chosen_cpp_server = l:clangd
 
 	" Tue Aug 07 2018 16:41: There is a new cpp player in town. `ccls`. Based of 
@@ -435,6 +452,8 @@ function! s:set_neosnippets() abort
 	let g:neosnippet#data_directory = g:std_cache_path . '/neosnippets'
 	" Used by nvim-completion-mgr
 	let g:neosnippet#enable_completed_snippet=1
+	" Tue Jan 14 2020 20:29: For language client completion 
+	let g:neosnippet#enable_complete_done = 1
 
 	" Only contain snippets
 	Plug 'Shougo/neosnippet-snippets'
