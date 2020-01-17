@@ -1229,6 +1229,7 @@ endfunction
 " s:which_key_format also 
 function! s:configure_vim_which_key() abort
 	Plug 'liuchengxu/vim-which-key'
+	let g:which_key_floating_opts = {'row': '-60', 'width': '-100', 'col': '+40'}
 	nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 	vnoremap <silent> <leader> :WhichKeyVisual '<Space>'<CR>
 	nnoremap <silent> <localleader> :WhichKey 'g'<CR>
