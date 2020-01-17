@@ -49,9 +49,9 @@ function! plugin#Config()
 	endif
 
 	" Wed Oct 30 2019 15:28: Best plugin ever! 
-	Plug 'blueyed/vim-diminactive'
-		let g:diminactive_buftype_blacklist = ['ctrlp']
-		let g:diminactive_enable_focus = 1
+	" Plug 'blueyed/vim-diminactive'
+		" let g:diminactive_buftype_blacklist = ['ctrlp']
+		" let g:diminactive_enable_focus = 1
 
 	call s:configure_vim_zoom()
 
@@ -109,6 +109,10 @@ function! plugin#Config()
 		Plug 'radenling/vim-dispatch-neovim'
 		" nvim-qt on unix doesnt populate has('gui_running')
 		Plug 'equalsraf/neovim-gui-shim'
+	endif
+
+	if has('patch-8.1.2114') || has('nvim-0.4')
+		Plug 'liuchengxu/vim-clap'
 	endif
 
 	if executable('lldb') && has('unix') && !has('nvim')
@@ -1343,7 +1347,6 @@ function! s:configure_fzf() abort
 	" command! -bang -nargs=? -complete=dir Files
 				" \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
-	let g:fzf_layout = { 'down': '~40%' }
 	let g:fzf_colors =
 				\ { 'fg':      ['fg', 'Normal'],
 				\ 'bg':      ['bg', 'Normal'],
@@ -1362,8 +1365,12 @@ function! s:configure_fzf() abort
 	let g:fzf_history_dir = g:std_data_path .  '/fzf-history'
 	let g:fzf_buffers_jump = 1
 
-	if has('nvim')
+	if has('nvim-0.4')
+		let g:fzf_layout = { 'window': 'call plugin#FloatingFzf()' }
+	elseif has('nvim')
 		let g:fzf_layout = { 'window': 'enew' }
+	else
+		let g:fzf_layout = { 'down': '~40%' }
 	endif
 
 	autocmd! User FzfStatusLine call <SID>fzf_statusline()
@@ -1645,4 +1652,25 @@ function! s:configure_nvimgdb() abort
 				" \ 'sign_current_line': '>',
 				" \ 'sign_breakpoint': [ '*', '#' ],
 				" \ }
+endfunction
+
+function! plugin#FloatingFzf() abort
+	let buf = nvim_create_buf(v:false, v:true)
+	call setbufvar(buf, '&signcolumn', 'no')
+
+	let height = float2nr(30)
+	let width = float2nr(200)
+	let horizontal = float2nr((&columns - width) / 2)
+	let vertical = 1
+
+	let opts = {
+				\ 'relative': 'editor',
+				\ 'row': vertical,
+				\ 'col': horizontal,
+				\ 'width': width,
+				\ 'height': height,
+				\ 'style': 'minimal'
+				\ }
+
+	call nvim_open_win(buf, v:true, opts)
 endfunction
