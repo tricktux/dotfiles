@@ -1338,6 +1338,8 @@ function! s:configure_fzf() abort
 
 	Plug 'junegunn/fzf.vim'
 
+	nmap <plug>buffer_browser :Buffers<CR>
+	nmap <plug>mru_browser :History<CR>
 	if (!exists('$FZF_DEFAULT_COMMAND') && executable('fd'))
 		let $FZF_DEFAULT_COMMAND=
 					\ 'fd --type file --hidden --follow ' . s:ignore_file
@@ -1368,13 +1370,11 @@ function! s:configure_fzf() abort
 
 	if has('nvim-0.4')
 		let g:fzf_layout = { 'window': 'call plugin#FloatingFzf()' }
-	elseif has('nvim')
-		let g:fzf_layout = { 'window': 'enew' }
 	else
-		let g:fzf_layout = { 'down': '~40%' }
+		let g:fzf_layout = { 'down': '~50%' }
 	endif
 
-	autocmd! User FzfStatusLine call <SID>fzf_statusline()
+	" autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
 	return 1
 endfunction
@@ -1659,7 +1659,7 @@ function! plugin#FloatingFzf() abort
 	let buf = nvim_create_buf(v:false, v:true)
 	call setbufvar(buf, '&signcolumn', 'no')
 
-	let height = float2nr(30)
+	let height = float2nr(50)
 	let width = float2nr(200)
 	let horizontal = float2nr((&columns - width) / 2)
 	let vertical = 1
