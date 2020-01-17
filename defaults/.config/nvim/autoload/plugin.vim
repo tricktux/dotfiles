@@ -1341,8 +1341,9 @@ function! s:configure_fzf() abort
 
 	Plug 'junegunn/fzf.vim'
 
-	nmap <plug>buffer_browser :Buffers<CR>
-	nmap <plug>mru_browser :History<CR>
+	" Very cool, but still too slow
+	" nmap <plug>buffer_browser :Buffers<CR>
+	" nmap <plug>mru_browser :History<CR>
 	if (!exists('$FZF_DEFAULT_COMMAND') && executable('fd'))
 		let $FZF_DEFAULT_COMMAND=
 					\ 'fd --type file --hidden --follow ' . s:ignore_file
@@ -1508,7 +1509,7 @@ function! s:configure_neoterm() abort
 	" Potential substitue
 	" https://github.com/Shougo/deol.nvim/blob/master/doc/deol.txt
 	" there is also vimshell
-	nnoremap <plug>terminal_toggle :Ttoggle<CR>
+	nnoremap <plug>terminal_toggle :UtilsFloatingTerm<CR>
 	nnoremap <plug>terminal_new :Tnew<CR>
 	nnoremap <plug>terminal_send_file :TREPLSendFile<CR>
 	" Use gx{text-object} in normal mode
