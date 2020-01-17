@@ -1047,6 +1047,9 @@ function! mappings#SetWhichKeyMap() abort
 				\ }
 
 	" These funky command names do not work when mapped directly in dictionary
+	nnoremap <leader>; :Commands<cr>
+	nnoremap <leader>: :History:<cr>
+	nnoremap <leader>? :Rg<cr>
 	nnoremap <leader>f; :History:<cr>
 	nnoremap <leader>f/ :History/<cr>
 	nnoremap <leader>fg :GFiles?<cr>
