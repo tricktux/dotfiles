@@ -48,6 +48,9 @@ function! plugin#Config()
 		call autocompletion#SetOmniSharp()
 	endif
 
+
+	Plug 'voldikss/vim-floaterm'
+
 	" Wed Oct 30 2019 15:28: Best plugin ever! 
 	" Plug 'blueyed/vim-diminactive'
 		" let g:diminactive_buftype_blacklist = ['ctrlp']
