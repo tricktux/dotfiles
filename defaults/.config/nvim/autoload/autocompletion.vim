@@ -13,7 +13,7 @@ function! autocompletion#SetCompl(compl) abort
 		" call s:set_ncm()
 		call s:set_ncm2()
 		" call s:set_ulti_snips()
-		if has('nvim-0.5.0')
+		if has('nvim-0.5.0') && get(g:, 'ncm2_supports_lsp', 0)
 			call s:set_nvim_lsp()
 		else
 			call s:set_language_client(has('unix'))
@@ -363,7 +363,7 @@ function! autocompletion#AdditionalLspSettings() abort
 	endif
 
 	if s:completion_choice ==# 'nvim_compl_manager'
-		if has('nvim-0.5.0')
+		if has('nvim-0.5.0') && get(g:, 'ncm2_supports_lsp', 0)
 			return <sid>set_nvim_lsp_mappings()
 		else
 			return <sid>set_language_client_mappings()
@@ -955,7 +955,8 @@ EOF
 endfunction
 
 function! s:set_nvim_lsp_mappings() abort
-	set omnifunc=v:lua.vim.lsp.omnifunc
+	" This doesnt work. Set omnifunc from augroups
+	" set omnifunc=v:lua.vim.lsp.omnifunc
 	nnoremap <silent> <buffer> <localleader>lr <cmd>lua vim.lsp.buf.rename()<cr>
 	nnoremap <silent> <buffer> <localleader>le <cmd>lua vim.lsp.buf.declaration()<cr>
 	nnoremap <silent> <buffer> <localleader>ld <cmd>lua vim.lsp.buf.definition()<cr>
