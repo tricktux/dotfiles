@@ -13,9 +13,10 @@ endif
 " Don't load another plugin for this buffer
 let b:did_cpp_ftplugin = 1
 
-if exists('g:omnifunc_clang')
-	let &l:omnifunc=g:omnifunc_clang
-endif
+" This doesnt work. Set omnifunc from augroups
+" if exists('g:omnifunc_clang')
+	" let &omnifunc=g:omnifunc_clang
+" endif
 
 " This is that delimate doesnt aut fill the newly added matchpairs
 let b:delimitMate_matchpairs = '(:),[:],{:}'
