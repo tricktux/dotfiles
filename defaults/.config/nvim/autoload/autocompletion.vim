@@ -13,7 +13,11 @@ function! autocompletion#SetCompl(compl) abort
 		" call s:set_ncm()
 		call s:set_ncm2()
 		" call s:set_ulti_snips()
-		call s:set_language_client(has('unix'))
+		if has('nvim-0.5.0')
+			call s:set_nvim_lsp()
+		else
+			call s:set_language_client(has('unix'))
+		endif
 		call s:set_neosnippets()
 		Plug 'ncm2/ncm2-neosnippet'
 	elseif a:compl =~# 'shuogo'
@@ -359,7 +363,11 @@ function! autocompletion#AdditionalLspSettings() abort
 	endif
 
 	if s:completion_choice ==# 'nvim_compl_manager'
-		return <sid>set_language_client_mappings()
+		if has('nvim-0.5.0')
+			return <sid>set_nvim_lsp_mappings()
+		else
+			return <sid>set_language_client_mappings()
+		endif
 	endif
 	if s:completion_choice ==# 'coc'
 		return <sid>set_coc_nvim_mappings()
@@ -918,4 +926,44 @@ function! autocompletion#SetOmniSharp() abort
 	else
 		let g:OmniSharp_selector_ui = ''
 	endif
+endfunction
+
+function! s:set_nvim_lsp() abort
+	Plug 'neovim/nvim-lsp'
+endfunction
+
+
+function! autocompletion#SetNvimLsp() abort
+lua << EOF
+local nvim_lsp = require'nvim_lsp'
+nvim_lsp.clangd.setup{
+	cmd = { 
+			 "clangd", 
+			 "--all-scopes-completion=true", 
+			 "--background-index=true",
+			 "--clang-tidy=true",
+			 "--completion-style=detailed",
+			 "--fallback-style=\"LLVM\"",
+			 "--pch-storage=memory",
+			 "--suggest-missing-includes",
+			 "--header-insertion=iwyu",
+			 "-j=12",
+			 "--header-insertion-decorators=false"
+		}
+}
+EOF
+endfunction
+
+function! s:set_nvim_lsp_mappings() abort
+	set omnifunc=v:lua.vim.lsp.omnifunc
+	nnoremap <silent> <buffer> <localleader>lr <cmd>lua vim.lsp.buf.rename()<cr>
+	nnoremap <silent> <buffer> <localleader>le <cmd>lua vim.lsp.buf.declaration()<cr>
+	nnoremap <silent> <buffer> <localleader>ld <cmd>lua vim.lsp.buf.definition()<cr>
+	nnoremap <silent> <buffer> <localleader>lh <cmd>lua vim.lsp.buf.hover()<cr>
+	nnoremap <silent> <buffer> <localleader>li <cmd>lua vim.lsp.buf.implementation()<cr>
+	nnoremap <silent> <buffer> <localleader>lH <cmd>lua vim.lsp.buf.signature_help()<cr>
+	nnoremap <silent> <buffer> <localleader>lD <cmd>lua vim.lsp.buf.type_definition()<cr>
+	nnoremap <silent> <buffer> <localleader>lR <cmd>lua vim.lsp.buf.references()<cr>
+	nnoremap <silent> <buffer> <localleader>lf <cmd>lua vim.lsp.buf.formatting()<cr>
+	nnoremap <silent> <buffer> <localleader>lS <cmd>lua vim.lsp.stop_all_clients()<cr>
 endfunction

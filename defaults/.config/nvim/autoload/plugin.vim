@@ -626,6 +626,10 @@ function! plugin#AfterConfig() abort
 	if exists('g:loaded_prosession')
 		call denite#custom#var('prosession', 'format', 'split')
 	endif
+
+	if has('nvim-0.5.0')
+		call autocompletion#SetNvimLsp()
+	endif
 endfunction
 
 function! s:configure_ctrlp() abort
