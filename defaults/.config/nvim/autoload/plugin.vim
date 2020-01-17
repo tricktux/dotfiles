@@ -81,6 +81,10 @@ function! plugin#Config()
 	" Tue Aug 06 2019 16:42
 	"		- Tired of vim complaining about the neovim-hug plugin.
 	"		- Just use normal vim completion
+	"	Fri Jan 17 2020 05:09: nvim_lsp built in
+	"		- Once it has support from ncm2, see:
+	"		https://github.com/ncm2/ncm2/issues/93
+	"		- Set let g:ncm2_supports_lsp = 1
 	let l:compl = has('nvim') ? 'nvim_compl_manager' : 'shuogo_neo'
 	call autocompletion#SetCompl(l:compl)
 	" call autocompletion#SetCompl(
@@ -625,6 +629,10 @@ function! plugin#AfterConfig() abort
 
 	if exists('g:loaded_prosession')
 		call denite#custom#var('prosession', 'format', 'split')
+	endif
+
+	if has('nvim-0.5.0') && get(g:, 'ncm2_supports_lsp', 0)
+		call autocompletion#SetNvimLsp()
 	endif
 endfunction
 

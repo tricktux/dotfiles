@@ -13,7 +13,11 @@ function! autocompletion#SetCompl(compl) abort
 		" call s:set_ncm()
 		call s:set_ncm2()
 		" call s:set_ulti_snips()
-		call s:set_language_client(has('unix'))
+		if has('nvim-0.5.0') && get(g:, 'ncm2_supports_lsp', 0)
+			call s:set_nvim_lsp()
+		else
+			call s:set_language_client(has('unix'))
+		endif
 		call s:set_neosnippets()
 		Plug 'ncm2/ncm2-neosnippet'
 	elseif a:compl =~# 'shuogo'
@@ -263,8 +267,9 @@ function! s:set_mutt_omni_wrap(findstart, base) abort
 endfunction
 
 function! s:set_language_client(has_unix) abort
+	" New version simply broke down. Try the `next` branch from time to time
 	Plug 'autozimu/LanguageClient-neovim', {
-			\ 'branch': 'next',
+			\ 'tag': '0.1.155',
 			\ 'do': has('unix') ? 'bash install.sh' :
 			\ 'powershell -executionpolicy bypass -File install.ps1',
 			\ }
@@ -300,10 +305,27 @@ function! s:set_language_client(has_unix) abort
 			\ 'cpp': [ 'cquery', '--language-server', '--log-file=/tmp/cq.log' ],
 			\ 'c': ['cquery', '--language-server', '--log-file=/tmp/cq.log'],
 			\ }
+	let l:clangd_args = [
+				\		'clangd', 
+				\		'--all-scopes-completion=true', 
+				\		'--background-index=true',
+				\		'--clang-tidy=true',
+				\		'--completion-style=detailed',
+				\		'--fallback-style="LLVM"',
+				\		'--pch-storage=memory',
+				\		'--suggest-missing-includes',
+				\		'--header-insertion=iwyu',
+				\		'-j=12',
+				\		'--header-insertion-decorators=false',
+				\ ]
 	let l:clangd = {
-				\ 'cpp': [ 'clangd' ],
-				\ 'c': [ 'clangd' ],
+				\ 'cpp': l:clangd_args,
+				\ 'c': l:clangd_args,
 				\ }
+	" let l:clangd = {
+				" \ 'cpp': l:clangd_args,
+				" \ 'c': l:clangd_args,
+				" \ }
 	let l:chosen_cpp_server = l:clangd
 
 	" Tue Aug 07 2018 16:41: There is a new cpp player in town. `ccls`. Based of 
@@ -341,7 +363,11 @@ function! autocompletion#AdditionalLspSettings() abort
 	endif
 
 	if s:completion_choice ==# 'nvim_compl_manager'
-		return <sid>set_language_client_mappings()
+		if has('nvim-0.5.0') && get(g:, 'ncm2_supports_lsp', 0)
+			return <sid>set_nvim_lsp_mappings()
+		else
+			return <sid>set_language_client_mappings()
+		endif
 	endif
 	if s:completion_choice ==# 'coc'
 		return <sid>set_coc_nvim_mappings()
@@ -434,6 +460,8 @@ function! s:set_neosnippets() abort
 	let g:neosnippet#data_directory = g:std_cache_path . '/neosnippets'
 	" Used by nvim-completion-mgr
 	let g:neosnippet#enable_completed_snippet=1
+	" Tue Jan 14 2020 20:29: For language client completion 
+	let g:neosnippet#enable_complete_done = 1
 
 	" Only contain snippets
 	Plug 'Shougo/neosnippet-snippets'
@@ -898,4 +926,45 @@ function! autocompletion#SetOmniSharp() abort
 	else
 		let g:OmniSharp_selector_ui = ''
 	endif
+endfunction
+
+function! s:set_nvim_lsp() abort
+	Plug 'neovim/nvim-lsp'
+endfunction
+
+
+function! autocompletion#SetNvimLsp() abort
+lua << EOF
+local nvim_lsp = require'nvim_lsp'
+nvim_lsp.clangd.setup{
+	cmd = { 
+			 "clangd", 
+			 "--all-scopes-completion=true", 
+			 "--background-index=true",
+			 "--clang-tidy=true",
+			 "--completion-style=detailed",
+			 "--fallback-style=\"LLVM\"",
+			 "--pch-storage=memory",
+			 "--suggest-missing-includes",
+			 "--header-insertion=iwyu",
+			 "-j=12",
+			 "--header-insertion-decorators=false"
+		}
+}
+EOF
+endfunction
+
+function! s:set_nvim_lsp_mappings() abort
+	" This doesnt work. Set omnifunc from augroups
+	" set omnifunc=v:lua.vim.lsp.omnifunc
+	nnoremap <silent> <buffer> <localleader>lr <cmd>lua vim.lsp.buf.rename()<cr>
+	nnoremap <silent> <buffer> <localleader>le <cmd>lua vim.lsp.buf.declaration()<cr>
+	nnoremap <silent> <buffer> <localleader>ld <cmd>lua vim.lsp.buf.definition()<cr>
+	nnoremap <silent> <buffer> <localleader>lh <cmd>lua vim.lsp.buf.hover()<cr>
+	nnoremap <silent> <buffer> <localleader>li <cmd>lua vim.lsp.buf.implementation()<cr>
+	nnoremap <silent> <buffer> <localleader>lH <cmd>lua vim.lsp.buf.signature_help()<cr>
+	nnoremap <silent> <buffer> <localleader>lD <cmd>lua vim.lsp.buf.type_definition()<cr>
+	nnoremap <silent> <buffer> <localleader>lR <cmd>lua vim.lsp.buf.references()<cr>
+	nnoremap <silent> <buffer> <localleader>lf <cmd>lua vim.lsp.buf.formatting()<cr>
+	nnoremap <silent> <buffer> <localleader>lS <cmd>lua vim.lsp.stop_all_clients()<cr>
 endfunction
