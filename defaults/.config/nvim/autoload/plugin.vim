@@ -52,9 +52,9 @@ function! plugin#Config()
 	Plug 'voldikss/vim-floaterm'
 
 	" Wed Oct 30 2019 15:28: Best plugin ever! 
-	" Plug 'blueyed/vim-diminactive'
-		" let g:diminactive_buftype_blacklist = ['ctrlp']
-		" let g:diminactive_enable_focus = 1
+	Plug 'blueyed/vim-diminactive'
+		let g:diminactive_buftype_blacklist = ['ctrlp']
+		let g:diminactive_enable_focus = 1
 
 	call s:configure_vim_zoom()
 
@@ -1509,9 +1509,13 @@ function! s:configure_neoterm() abort
 	" Potential substitue
 	" https://github.com/Shougo/deol.nvim/blob/master/doc/deol.txt
 	" there is also vimshell
-	nnoremap <plug>terminal_toggle :UtilsFloatingTerm<CR>
+	if has('nvim-0.4.0')
+		nnoremap <plug>terminal_toggle :call <sid>floating_term()<cr>
+	else
+		nnoremap <plug>terminal_toggle :Ttoggle<cr>
+	endif
 	nnoremap <plug>terminal_new :Tnew<CR>
-	nnoremap <plug>terminal_send_file :TREPLSendFile<CR>
+	nnoremap <plug>terminal_send_file :TREPLSendFile<cr>
 	" Use gx{text-object} in normal mode
 	nmap <plug>terminal_send <Plug>(neoterm-repl-send)
 	" Send selected contents in visual mode.
@@ -1678,4 +1682,27 @@ function! plugin#FloatingFzf() abort
 				\ }
 
 	call nvim_open_win(buf, v:true, opts)
+endfunction
+
+function! s:floating_term()
+	" Configuration
+	let height = float2nr((&lines - 2) * 0.6)
+	let row = float2nr((&lines - height) / 2)
+	let width = float2nr(&columns * 0.6)
+	let col = float2nr((&columns - width) / 2)
+	" Terminal Window
+	let opts = {
+				\ 'relative': 'editor',
+				\ 'row': row,
+				\ 'col': col,
+				\ 'width': width,
+				\ 'height': height,
+				\ 'style': 'minimal'
+				\ }
+	let buf = nvim_create_buf(v:false, v:true)
+	let float_term_win = nvim_open_win(buf, v:true, opts)
+	" Styling
+	" execute 'hi FloatTermNormal ctermbg=DarkGray guibg=DarkGray'
+	" call setwinvar(float_term_win, '&winhl', 'NormalFloat:FloatTermNormal')
+	:Ttoggle
 endfunction
