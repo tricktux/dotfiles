@@ -240,26 +240,3 @@ function! s:scratchpad_journal() abort
 	normal! <C-\><C-n>
 	normal! gt
 endfunction
-
-function! s:floating_term()
-	" Configuration
-	let height = float2nr((&lines - 2) * 0.6)
-	let row = float2nr((&lines - height) / 2)
-	let width = float2nr(&columns * 0.6)
-	let col = float2nr((&columns - width) / 2)
-	" Terminal Window
-	let opts = {
-				\ 'relative': 'editor',
-				\ 'row': row,
-				\ 'col': col,
-				\ 'width': width,
-				\ 'height': height,
-				\ 'style': 'minimal'
-				\ }
-	let buf = nvim_create_buf(v:false, v:true)
-	let float_term_win = nvim_open_win(buf, v:true, opts)
-	" Styling
-	execute 'hi FloatTermNormal ctermbg=DarkGray guibg=DarkGray'
-	call setwinvar(float_term_win, '&winhl', 'NormalFloat:FloatTermNormal')
-	:Ttoggle
-endfunction
