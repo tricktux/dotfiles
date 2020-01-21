@@ -343,7 +343,8 @@ function! s:set_language_client(has_unix) abort
 	endif
 
 	let g:LanguageClient_hasSnippetSupport = 1
-	let g:LanguageClient_useVirtualText = 1
+	" let g:LanguageClient_useVirtualText = 1 " new version uses enum instead of 
+	" boolean
 	let g:LanguageClient_virtualTextPrefix = ' > '
 
 	let g:LanguageClient_completionPreferTextEdit = 1

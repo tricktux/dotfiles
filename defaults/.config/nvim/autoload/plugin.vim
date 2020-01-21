@@ -1667,15 +1667,15 @@ function! plugin#FloatingFzf() abort
 	let buf = nvim_create_buf(v:false, v:true)
 	call setbufvar(buf, '&signcolumn', 'no')
 
-	let height = float2nr(50)
-	let width = float2nr(200)
-	let horizontal = float2nr((&columns - width) / 2)
-	let vertical = 1
+	let height = float2nr((&lines - 2) * 0.6)
+	let row = float2nr((&lines - height) / 2)
+	let width = float2nr(&columns * 0.6)
+	let col = float2nr((&columns - width) / 2)
 
 	let opts = {
 				\ 'relative': 'editor',
-				\ 'row': vertical,
-				\ 'col': horizontal,
+				\ 'row': row,
+				\ 'col': col,
 				\ 'width': width,
 				\ 'height': height,
 				\ 'style': 'minimal'
