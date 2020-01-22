@@ -2,8 +2,20 @@
 # Description:         Shortcuts to most used cpp stuff
 # Author:              Reinaldo Molina <rmolin88@gmail.com>
 # Version:             1.0.0
-# Last Modified: Tue Aug 20 2019 14:32
+# Last Modified: Wed Jan 22 2020 04:27
 # Created: Jun 13 2017 16:26
+
+snippet     copyctor
+abbr        copy constructor
+options     head
+    ${1:class} ($1 &&other) = delete;
+    $1 (const $1 &other) = delete;
+
+snippet     copyagmnt
+abbr        copy assignment
+options     head
+    ${1:class}& operator=($1 &&other) = delete;
+    $1& operator=(const $1 &other) = delete;
 
 snippet     iss
 abbr        Input String Stream
