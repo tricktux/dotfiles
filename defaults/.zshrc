@@ -194,6 +194,11 @@ if [[ -f /usr/bin/fzf ]]; then
 		export FZF_DEFAULT_COMMAND="fd --type file --hidden --follow $IGNORE_FILE 2> /dev/null"
 		export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 		export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
+		# Taken from: https://github.com/junegunn/fzf/wiki/Color-schemes
+		export FZF_DEFAULT_OPTS='
+			--color fg:240,bg:230,hl:33,fg+:241,bg+:221,hl+:33
+			--color info:33,prompt:33,pointer:166,marker:166,spinner:33
+		'
 	fi
 
 	# TODO-[RM]-(Wed Oct 25 2017 10:10): Download it
