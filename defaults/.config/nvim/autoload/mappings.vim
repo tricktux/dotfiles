@@ -479,12 +479,12 @@ function! mappings#Set()
 	nnoremap <leader>wo :call <SID>wiki_open()<cr>
 	nnoremap <leader>wa :call <SID>wiki_add()<cr>
 	nnoremap <leader>ws :call utils#WikiSearch()<cr>
-	nnoremap <leader>wi :call <sid>wiki_open('index.md')<cr>
-	nnoremap <leader>wr :call <sid>wiki_open('random.md')<cr>
+	nnoremap <leader>wi :call <sid>wiki_open('index.org')<cr>
+	nnoremap <leader>wr :call <sid>wiki_open('random.org')<cr>
 	nnoremap <leader>ww :call <sid>wiki_open('weekly_log_' .
-				\ strftime('%Y') . '.md')<cr>
+				\ strftime('%Y') . '.org')<cr>
 	nnoremap <leader>wm :call <sid>wiki_open('monthly_log_' .
-				\ strftime('%Y') . '.md')<cr>
+				\ strftime('%Y') . '.org')<cr>
 
 	" Comments <Leader>o
 	nmap - <plug>NERDCommenterToggle
