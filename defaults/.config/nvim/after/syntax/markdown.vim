@@ -1,13 +1,15 @@
 " fork: TODO-list stuff
 
-syn region itemTodo       start="^.*\[ ] "  end="$" keepend contains=itemCause
-syn region itemInProgress start="^.*\[o] "  end="$" keepend contains=itemCause
-syn region itemBlocked    start="^.*\[x] "  end="$" keepend contains=itemCause
-syn region itemComplete   start="^.*\[+] "  end="$" keepend contains=itemCause
-syn region itemWontDo     start="^.*\[-] "  end="$" keepend contains=itemCause
+syn match itemTodo       "^.*\[ ]" contains=itemCause
+syn match itemInProgress "^.*\[o]" contains=itemCause
+syn match itemBlocked    "^.*\[x]" contains=itemCause
+syn match itemComplete   "^.*\[+]" contains=itemCause
+syn match itemWontDo     "^.*\[-]" contains=itemCause
+syn match itemTags "@\w*"
 syn region itemCause      start=" > "     end="$"
 syn region itemShell      start=" \$ "    end="$"
 
+highlight def link itemTags PreProc
 highlight def link itemTodo       Type
 highlight def link itemInProgress htmlTagName
 highlight def link itemBlocked    Label
