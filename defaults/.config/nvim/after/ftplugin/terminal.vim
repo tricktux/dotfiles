@@ -19,17 +19,20 @@ if !exists("no_plugin_maps") && !exists("no_terminal_maps")
 		" hide/close terminal
 		" Thu Apr 11 2019 11:25: Doesnt work. Plugin broken 
 		nnoremap <buffer> <silent> q :call <sid>check_zoom()<cr>
+		nnoremap <buffer> <M-`> :call <sid>check_zoom()<cr>
 		nnoremap <buffer> <silent> Q :Tclose<cr>
 	endif
+	" Doesn't work, in win at least
+	" inoremap <buffer> <M-`> <c-\><c-n>ZZ
 	" nunmap <buffer> <c-space>
 endif
 
-" if exists('+winhighlight')
-	" " Create a Terminal Highlight group
-	" highlight Terminal ctermbg=16 ctermfg=144
-	" " Overwrite ctermbg only for this window. Neovim exclusive option
-	" setlocal winhighlight=Normal:Terminal
-" endif
+if exists('+winhighlight') && has('nvim-0.4')
+	" Create a Terminal Highlight group
+	highlight Terminal ctermbg=14 guibg=LightYellow
+	" Overwrite ctermbg only for this window. Neovim exclusive option
+	setlocal winhighlight=NormalFloat:Terminal
+endif
 
 function! s:check_zoom() abort
 	if ((exists('g:loaded_zoom')) && (!empty(zoom#statusline())))

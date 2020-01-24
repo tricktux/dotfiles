@@ -80,6 +80,7 @@ function! mappings#Set()
 		" See plugin.vim - neoterm
 		" There are more mappins in the [,] section
 		nmap <leader>te <plug>terminal_toggle
+		nmap <M-`> <plug>terminal_toggle
 		nmap <leader>tE <plug>terminal_new
 		nmap <localleader>e <plug>terminal_send_line
 		xmap <localleader>e <plug>terminal_send
