@@ -12,6 +12,7 @@ function! augroup#Set() abort
 	" is foldmethod=syntax
 	augroup Filetypes
 		autocmd!
+		autocmd FileType org setlocal ts=2 sw=2 sts=2
 		autocmd Filetype fugitive nnoremap <buffer> <s-j> :b#<cr>
 
 		autocmd Filetype wings_syntax set suffixesadd=.scp,.cmd,.bat
