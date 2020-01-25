@@ -29,7 +29,8 @@ endif
 
 if exists('+winhighlight') && has('nvim-0.4')
 	" Create a Terminal Highlight group
-	highlight Terminal ctermbg=14 guibg=LightYellow
+	execute 'highlight Terminal guibg=' .
+				\ (&background ==# 'light' ? 'White' : 'Black')
 	" Overwrite ctermbg only for this window. Neovim exclusive option
 	setlocal winhighlight=NormalFloat:Terminal
 endif
