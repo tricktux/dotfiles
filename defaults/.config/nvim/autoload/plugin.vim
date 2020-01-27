@@ -1353,29 +1353,29 @@ function! s:configure_fzf() abort
 	endif
 	let l:colors = '--color fg:240,bg:230,hl:33,fg+:241,bg+:221,hl+:33'
 	let l:colors .= ' --color info:33,prompt:33,pointer:166,marker:166,spinner:33'
-	if (!exists('$FZF_DEFAULT_OPTS'))
-		let $FZF_DEFAULT_OPTS=l:colors
-	endif
+	" if (!exists('$FZF_DEFAULT_OPTS'))
+		" let $FZF_DEFAULT_OPTS=l:colors
+	" endif
 
 	" Likewise, Files command with preview window
 	" Thu Jun 06 2019 08:42: Doesnt look good on linux 
 	" command! -bang -nargs=? -complete=dir Files
 				" \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
-	" let g:fzf_colors =
-				" \ { 'fg':      ['fg', 'Normal'],
-				" \ 'bg':      ['bg', 'Normal'],
-				" \ 'hl':      ['fg', 'Comment'],
-				" \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-				" \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-				" \ 'hl+':     ['fg', 'Statement'],
-				" \ 'info':    ['fg', 'PreProc'],
-				" \ 'border':  ['fg', 'Ignore'],
-				" \ 'prompt':  ['fg', 'Conditional'],
-				" \ 'pointer': ['fg', 'Exception'],
-				" \ 'marker':  ['fg', 'Keyword'],
-				" \ 'spinner': ['fg', 'Label'],
-				" \ 'header':  ['fg', 'Comment'] }
+	let g:fzf_colors =
+				\ { 'fg':      ['fg', 'Normal'],
+				\ 'bg':      ['bg', 'Normal'],
+				\ 'hl':      ['fg', 'Comment'],
+				\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+				\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+				\ 'hl+':     ['fg', 'Statement'],
+				\ 'info':    ['fg', 'PreProc'],
+				\ 'border':  ['fg', 'Ignore'],
+				\ 'prompt':  ['fg', 'Conditional'],
+				\ 'pointer': ['fg', 'Exception'],
+				\ 'marker':  ['fg', 'Keyword'],
+				\ 'spinner': ['fg', 'Label'],
+				\ 'header':  ['fg', 'Comment'] }
 
 	let g:fzf_history_dir = g:std_data_path .  '/fzf-history'
 	let g:fzf_buffers_jump = 1
