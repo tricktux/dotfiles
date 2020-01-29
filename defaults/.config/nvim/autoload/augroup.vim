@@ -58,7 +58,8 @@ function! augroup#Set() abort
 		autocmd FileType fzf inoremap <buffer> <c-n> <down>
 
 		" Set spell for who?
-		autocmd FileType c,cpp,mail,markdown,gitcommit,tex
+		autocmd FileType
+					\ c,cpp,mail,markdown,gitcommit,tex,svnj_bwindow,fugitive
 					\ setlocal spell spelllang=en,es
 
 		autocmd FileType terminal setlocal nonumber norelativenumber bufhidden=hide
