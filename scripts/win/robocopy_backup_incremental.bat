@@ -1,3 +1,4 @@
+@echo off
 REM File:           robocopy_backup_incremental.bat
 REM Description:    Perform a backup, incrementally
 REM Author:		    Reinaldo Molina
@@ -23,8 +24,6 @@ REM	 continued after an interruption
 REM	 - /NP and /NDL suppress some debug output
 REM	 - /XJD excludes "junction points" for directories, symbolic links that
 REM	 might cause problems like infinite loops during backup
-
-REM  @echo off
 
 setlocal enabledelayedexpansion
 
