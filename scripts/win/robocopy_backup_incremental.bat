@@ -1,3 +1,4 @@
+@echo off
 REM File:           robocopy_backup_incremental.bat
 REM Description:    Perform a backup, incrementally
 REM Author:		    Reinaldo Molina
@@ -24,13 +25,11 @@ REM	 - /NP and /NDL suppress some debug output
 REM	 - /XJD excludes "junction points" for directories, symbolic links that
 REM	 might cause problems like infinite loops during backup
 
-REM  @echo off
-
 setlocal enabledelayedexpansion
 
-set dirs[0]=C:\Users\h129522\Documents\apps
-set dirs[1]=C:\Users\H129522\AppData\Roaming\gnupg
-set dirs[2]=C:\Users\H129522\.password-store
+set dirs[0]=%USERPROFILE%\Documents\apps
+set dirs[1]=%USERPROFILE%\AppData\Roaming\gnupg
+set dirs[2]=%USERPROFILE%\.password-store
 set dirs[3]=D:\1.WINGS
 set dirs[4]=D:\2.Office
 set dirs[5]=D:\3.Other

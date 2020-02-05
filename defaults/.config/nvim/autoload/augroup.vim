@@ -58,7 +58,8 @@ function! augroup#Set() abort
 		autocmd FileType fzf inoremap <buffer> <c-n> <down>
 
 		" Set spell for who?
-		autocmd FileType c,cpp,mail,markdown,gitcommit,tex
+		autocmd FileType
+					\ c,cpp,mail,markdown,gitcommit,tex,svnj_bwindow,fugitive
 					\ setlocal spell spelllang=en,es
 
 		autocmd FileType terminal setlocal nonumber norelativenumber bufhidden=hide
@@ -153,6 +154,8 @@ function! s:determine_buf_type() abort
 	endif
 	if l:ext ==? 'ino' || l:ext ==? 'pde'
 		set filetype=arduino
+	elseif l:ext ==? 'bat'
+		set filetype=dosini
 	elseif l:ext ==? 'scp'
 		set filetype=wings_syntax
 		" elseif ext ==? 'log'
