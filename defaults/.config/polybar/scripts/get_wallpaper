@@ -70,6 +70,36 @@ def randomDate(start, end, prop):
     return strTimeProp(start, end, '%Y-%m-%d', prop)
 
 
+class reddit():
+    def __init__(self):
+        self.user_agent = 'Python EarthPorn Wallpaper'
+        self.url_base = 'https://www.reddit.com/r/'
+
+    def get_link(self, subreddit, sort_option=None):
+        """Downloads images from subreddit.
+            subreddit="Name of subreddit"
+            sort_option=new/hot/top
+        """
+        subreddit = subreddit.strip('/')
+        if sort_option == None:
+            #  sort_option = 'top/?t=month'
+            sort_option = ''
+
+        url = self.url_base + subreddit + '/' + sort_option + '.json'
+        logging.debug(url)
+
+        user = {'User-Agent': self.user_agent}
+        res = get(url, headers=user)
+
+        if res.status_code != 200:
+            logging.error("Could not download")
+            logging.error(res.status_code)
+            return ''
+        jsonres = res.json()
+        logging.debug('jsonres = "%s"', jsonres)
+        return jsonres['data']['children'][0]['data']['preview']['images'][0]['source']['url']
+
+
 def nasa():
     """nasa"""
     today = datetime.now().strftime("%Y-%m-%d")
@@ -124,8 +154,10 @@ def main():
     logging.basicConfig(filename='/tmp/get_wallpaper.log', level=logging.DEBUG)
     rand = random.uniform(0, 1)
     print("   ")
-    # Sat Dec 21 2019 09:28: unsplash is throuwing too many weird wallpapers 
-    #  link = unsplash() if rand < 0.5 else nasa()
+    # Sat Dec 21 2019 09:28: unsplash is throuwing too many weird wallpapers
+    #  rddit = reddit()
+    #  link = rddit.get_link('EarthPorn')
+    #  link = rddit.get_link('EarthPorn') if rand < 0.5 else nasa()
     link = nasa()
 
     if not link:
