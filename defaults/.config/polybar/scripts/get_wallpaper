@@ -9,6 +9,7 @@ from pathlib import Path
 import random
 from sys import exit as sys_exit
 import os
+import pprint
 
 from requests import get
 
@@ -82,22 +83,31 @@ class reddit():
         """
         subreddit = subreddit.strip('/')
         if sort_option == None:
-            #  sort_option = 'top/?t=month'
-            sort_option = ''
+            sort_option = 'top'
 
         url = self.url_base + subreddit + '/' + sort_option + '.json'
         logging.debug(url)
 
         user = {'User-Agent': self.user_agent}
-        res = get(url, headers=user)
+        try:
+            res = get(url, headers=user)
+        except:
+            logging.exception('Failed to make get request')
+            return ''
 
         if res.status_code != 200:
             logging.error("Could not download")
             logging.error(res.status_code)
             return ''
         jsonres = res.json()
-        logging.debug('jsonres = "%s"', jsonres)
-        return jsonres['data']['children'][0]['data']['preview']['images'][0]['source']['url']
+        images = jsonres['data']['children']
+        num_images = len(images)
+        idx = random.randrange(0, num_images, 1)
+        logging.info('num_images = "%s", idx = "%s"', num_images, idx)
+        image = images[idx]
+        logging.debug('jsonres:\n"%s"', pprint.pformat(image,
+                                                       sort_dicts=False))
+        return image['data']['url']
 
 
 def nasa():
@@ -152,26 +162,43 @@ def unsplash():
 def main():
     """Main"""
     logging.basicConfig(filename='/tmp/get_wallpaper.log', level=logging.DEBUG)
-    rand = random.uniform(0, 1)
+    random.seed()
     print("   ")
     # Sat Dec 21 2019 09:28: unsplash is throuwing too many weird wallpapers
-    #  rddit = reddit()
-    #  link = rddit.get_link('EarthPorn')
-    #  link = rddit.get_link('EarthPorn') if rand < 0.5 else nasa()
-    link = nasa()
+    rddit = reddit()
+    # Deleted sources
+    #  ('pics', 'new'),
+    #  ('pics', 'hot'),
+    #  ('pics', 'top'),
+    #  ('wallpapers', 'new'),
+    #  ('wallpapers', 'hot'),
+    #  ('wallpapers', 'top'),
+    sources = [
+        ('EarthPorn', 'new'),
+        ('EarthPorn', 'hot'),
+        ('EarthPorn', 'top'),
+        (),
+    ]
+    args = sources[random.randrange(0, len(sources), 1)]
+    if not args:
+        link = nasa()
+    else:
+        link = rddit.get_link(args[0], args[1])
+    logging.info('link = "%s"', link)
 
     if not link:
         return
 
     try:
-        subprocess.call(
+        proc = subprocess.Popen(
             ['feh', '--quiet', '--no-fehbg', '--bg-fill', link],
             stdin=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
         )
+        proc.wait()
     except:
-        pass
+        logging.exception('Exception running feh')
 
 
 if __name__ == '__main__':
