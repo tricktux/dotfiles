@@ -155,7 +155,7 @@ function! s:determine_buf_type() abort
 	if l:ext ==? 'ino' || l:ext ==? 'pde'
 		set filetype=arduino
 	elseif l:ext ==? 'bat'
-		set filetype=dosini
+		set filetype=dosbatch
 	elseif l:ext ==? 'scp'
 		set filetype=wings_syntax
 		" elseif ext ==? 'log'
