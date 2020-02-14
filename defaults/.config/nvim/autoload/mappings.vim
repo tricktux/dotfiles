@@ -168,7 +168,7 @@ function! mappings#Set()
 	nnoremap <leader>js <Esc>:syntax sync fromstart<cr>
 	" Sessions
 	nnoremap <leader>jes :call mappings#SaveSession()<cr>
-	nnoremap <leader>jel :call mappings#LoadSession()<cr>
+	nnoremap <leader>jel :Sessions<cr>
 	nnoremap <leader>jee :call mappings#LoadSession(has('nvim') ?
 				\ 'default_nvim.vim' : 'default_vim.vim')<cr>
 	" Count occurrances of last search
