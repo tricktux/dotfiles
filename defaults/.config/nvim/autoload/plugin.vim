@@ -1359,14 +1359,17 @@ function! s:configure_fzf() abort
 	endif
 	let l:colors = '--color fg:240,bg:230,hl:33,fg+:241,bg+:221,hl+:33'
 	let l:colors .= ' --color info:33,prompt:33,pointer:166,marker:166,spinner:33'
-	" if (!exists('$FZF_DEFAULT_OPTS'))
-		" let $FZF_DEFAULT_OPTS=l:colors
-	" endif
+	if (!exists('$FZF_DEFAULT_OPTS'))
+		let $FZF_DEFAULT_OPTS='--layout=reverse --info=inline'
+	endif
 
-	" Likewise, Files command with preview window
-	" Thu Jun 06 2019 08:42: Doesnt look good on linux 
-	" command! -bang -nargs=? -complete=dir Files
-				" \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+	" Fri Feb 14 2020 15:57: A live saver, send from heaven. I came up with it :D 
+	autocmd! FileType fzf tunmap <c-j>
+
+	command! Sessions call fzf#run(fzf#wrap({ 
+				\ 'source': glob(g:std_data_path . '/sessions/*.vim', 0, 1), 
+				\ 'sink': 'source',
+				\ }))
 
 	let g:fzf_colors =
 				\ { 'fg':      ['fg', 'Normal'],
