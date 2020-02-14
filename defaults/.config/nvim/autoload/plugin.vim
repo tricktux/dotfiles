@@ -44,15 +44,17 @@ function! plugin#Config()
 		Plug 'chr4/nginx.vim'
 	endif
 
-	if has('win32')
-		call autocompletion#SetOmniSharp()
-	endif
+	" Thu Feb 06 2020 17:53: Not used. Slowing down startup 
+	" if has('win32')
+		" call autocompletion#SetOmniSharp()
+	" endif
 
 
-	Plug 'jceb/vim-orgmode'
-		let g:org_agenda_files = [ 'd:\wiki\*.org' ]
-		let g:org_todo_keywords=['TODO', 'WAITING', 'VERIFY',
-					\ '|', 'DONE', 'WONTDO', 'NOTNEEDED']
+	" Slowing down startup
+	" Plug 'yuki-ycino/fzf-preview.vim'
+		" Not really working in windows
+		" let g:fzf_preview_command = ''
+		" let g:fzf_binary_preview_command = ''
 
 	" Wed Oct 30 2019 15:28: Best plugin ever! 
 	Plug 'blueyed/vim-diminactive'
