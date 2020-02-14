@@ -161,10 +161,14 @@ function! plugin#Config()
 
 	call s:configure_vim_rooter()
 
-	Plug 'Raimondi/delimitMate'
-	let g:delimitMate_expand_cr = 2
-	let g:delimitMate_expand_space = 1
-	let g:delimitMate_jump_expansion = 1
+	" Fri Feb 14 2020 15:30
+	" Trying alternative
+	Plug 'jiangmiao/auto-pairs'
+		let g:AutoPairsFlyMode = 1
+	" Plug 'Raimondi/delimitMate'
+	" let g:delimitMate_expand_cr = 2
+	" let g:delimitMate_expand_space = 1
+	" let g:delimitMate_jump_expansion = 1
 	" imap <expr> <CR> <Plug>delimitMateCR
 
 	call s:configure_neoformat()
