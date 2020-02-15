@@ -1351,8 +1351,10 @@ function! s:configure_fzf() abort
 	Plug 'junegunn/fzf.vim'
 
 	" Very cool, but still too slow
-	" nmap <plug>buffer_browser :Buffers<CR>
-	" nmap <plug>mru_browser :History<CR>
+	if has('unix')
+		nmap <plug>buffer_browser :Buffers<CR>
+		nmap <plug>mru_browser :History<CR>
+	endif
 	if (!exists('$FZF_DEFAULT_COMMAND') && executable('fd'))
 		let $FZF_DEFAULT_COMMAND=
 					\ 'fd --type file --hidden --follow ' . s:ignore_file
@@ -1362,9 +1364,6 @@ function! s:configure_fzf() abort
 	if (!exists('$FZF_DEFAULT_OPTS'))
 		let $FZF_DEFAULT_OPTS='--layout=reverse --info=inline'
 	endif
-
-	" Fri Feb 14 2020 15:57: A live saver, send from heaven. I came up with it :D 
-	autocmd! FileType fzf tunmap <c-j>
 
 	command! Sessions call fzf#run(fzf#wrap({ 
 				\ 'source': glob(g:std_data_path . '/sessions/*.vim', 0, 1), 
