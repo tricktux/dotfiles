@@ -87,23 +87,6 @@ function! mappings#Set()
 		nmap <localleader>E <plug>terminal_send_file
 		nnoremap <leader>r :call <sid>toggle_zoom_terminal('Ttoggle')<cr>
 		nnoremap <leader>R :call <sid>toggle_zoom_terminal('Tnew')<cr>
-
-		execute "tnoremap " . g:esc . " <C-\\><C-n>"
-		tnoremap <A-h> <C-\><C-n><C-w>h
-		tnoremap <A-j> <C-\><C-n><C-w>j
-		tnoremap <A-k> <C-\><C-n><C-w>k
-		tnoremap <A-l> <C-\><C-n><C-w>l
-
-		tnoremap <a-]> <C-\><C-n>gt
-		tnoremap <a-[> <C-\><C-n>gT
-		for l:idx in range(1,9)
-			execute 'tnoremap <silent> <a-' . l:idx .
-						\ '> <C-\><C-n>' . l:idx. 'gt'
-		endfor
-
-		" Sun Dec 23 2018 11:34 
-		" Can confuse things since I set it up in inputrc as well
-		" tnoremap <C-p> <Up>
 	endif
 
 	nmap <localleader>k <plug>make_project
