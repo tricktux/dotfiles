@@ -489,7 +489,7 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 
 # Mode Password{{{
 #
-	set $mode_password pass: press (r)root, (e)esilio, (h)github, (g)git, (l)gitlab, (d)igital_ocean
+	set $mode_password pass: press (r)root, (e)esilio, (h)github, (g)git, (l)gitlab, (d)igital_ocean, (s)urbook
 		bindsym mod1+control+w mode "$mode_password"
 		mode "$mode_password" {
 			bindsym r mode "default", \
@@ -504,6 +504,8 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 				pass --clip linux/`hostname`/ssh_key/id_ed25519_gitlab
 				bindsym e mode "default", exec --no-startup-id \
 				pass --clip linux/`hostname`/resilio/admin
+				bindsym s mode "default", exec --no-startup-id \
+				pass --clip linux/`hostname`/ssh_key/id_ed25519_surbook
 
 				bindsym Return mode "default"
 				bindsym Escape mode "default"
