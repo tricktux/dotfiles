@@ -920,7 +920,7 @@ function! s:configure_file_browser(choice) abort
 		let g:NETRRootDir = g:std_data_path . '/netranger/'
 		let g:NETRIgnore = [ '.git', '.svn', '.sync' ]
 	elseif a:choice ==# 'ranger'
-		nmap <plug>file_browser :RangerCurrentDirectory<CR>
+		nmap <plug>file_browser :call <sid>floating_ranger()<cr>
 		Plug 'francoiscabrol/ranger.vim', { 'on' : 'RangerCurrentDirectory' }
 		let g:ranger_map_keys = 0
 	endif
