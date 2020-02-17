@@ -102,7 +102,7 @@ function! options#Set() abort
 	" Took out options from here. Makes the session script too long and annoying
 	" Fri Jan 11 2019 21:39 Dont add resize, and winpos. It causes problems in 
 	" linux
-	set sessionoptions=buffers,tabpages,help,blank,winsize,resize
+	set sessionoptions=buffers,tabpages,winpos
 	" if (exists(':tnoremap'))
 		" set sessionoptions+=terminal
 	" endif
