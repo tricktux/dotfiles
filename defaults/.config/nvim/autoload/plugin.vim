@@ -1381,7 +1381,7 @@ function! s:configure_fzf() abort
 
 	command! Sessions call fzf#run(fzf#wrap({ 
 				\ 'source': glob(g:std_data_path . '/sessions/*.vim', 0, 1), 
-				\ 'sink': (exists(':Obsession') ? 'Obsession' : 'source'),
+				\ 'sink': 'source',
 				\ }))
 
 	let g:fzf_colors =
