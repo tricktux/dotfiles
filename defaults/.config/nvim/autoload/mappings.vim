@@ -524,21 +524,22 @@ function! mappings#SaveSession(...) abort
 		let dir = getcwd()
 		silent execute "lcd ". session_path
 		let session_name = input("Enter save session name:", "", "file")
+		" Ensure session_name ends in .vim
 		if match(session_name, '.vim', -4) < 0
 			" Append extention if was not provided
 			let session_name .= '.vim'
 		endif
+		" Restore current dir
 		silent! execute "lcd " . dir
-		" Ensure session_name ends in .vim
-	else
-		" Get current folder as a name
-		let session_name = utils#GetFullPathAsName(getcwd()) . '.vim'
-		" Save a session with the name of the current folder
 		silent! execute "mksession! " . session_path . session_name
-		" Then save another session with the name default name
-		let session_name = a:1
+		return
 	endif
-	silent! execute "mksession! " . session_path . session_name
+
+	" If this a session we have saved before. Auto save it
+	if (empty(v:this_session))
+		return
+	endif
+	silent! execute "mksession! " . v:this_session
 endfunction
 
 function! mappings#LoadSession(...) abort
