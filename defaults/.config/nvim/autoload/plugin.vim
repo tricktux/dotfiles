@@ -1683,9 +1683,9 @@ function! plugin#FloatingFzf() abort
 	let buf = nvim_create_buf(v:false, v:true)
 	call setbufvar(buf, '&signcolumn', 'no')
 
-	let height = float2nr((&lines - 2) * 0.6)
+	let height = float2nr((&lines - 2) * 0.8)
 	let row = float2nr((&lines - height) / 2)
-	let width = float2nr(&columns * 0.6)
+	let width = float2nr(&columns * 0.8)
 	let col = float2nr((&columns - width) / 2)
 
 	let opts = {
@@ -1702,23 +1702,12 @@ endfunction
 
 function! s:floating_term()
 	" Configuration
-	let height = float2nr((&lines - 2) * 0.6)
-	let row = float2nr((&lines - height) / 2)
-	let width = float2nr(&columns * 0.6)
-	let col = float2nr((&columns - width) / 2)
-	" Terminal Window
-	let opts = {
-				\ 'relative': 'editor',
-				\ 'row': row,
-				\ 'col': col,
-				\ 'width': width,
-				\ 'height': height,
-				\ 'style': 'minimal'
-				\ }
-	let buf = nvim_create_buf(v:false, v:true)
-	let float_term_win = nvim_open_win(buf, v:true, opts)
-	" Styling
-	" execute 'hi FloatTermNormal ctermbg=DarkGray guibg=DarkGray'
-	" call setwinvar(float_term_win, '&winhl', 'NormalFloat:FloatTermNormal')
+	call plugin#FloatingFzf()
 	:Ttoggle
+endfunction
+
+function! s:floating_ranger()
+	" Configuration
+	call plugin#FloatingFzf()
+	:RangerCurrentDirectory
 endfunction
