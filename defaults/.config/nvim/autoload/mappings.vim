@@ -152,6 +152,8 @@ function! mappings#Set()
 	" Sessions
 	nnoremap <leader>jes :call mappings#SaveSession()<cr>
 	nnoremap <leader>jel :Sessions<cr>
+	" Pause saving session
+	nnoremap <leader>jep :Obsession<cr>
 	nnoremap <leader>jee :call mappings#LoadSession(has('nvim') ?
 				\ 'default_nvim.vim' : 'default_vim.vim')<cr>
 	" Count occurrances of last search
@@ -519,27 +521,26 @@ endfunction
 function! mappings#SaveSession(...) abort
 	let session_path = g:std_data_path . '/sessions/'
 	" if session name is not provided as function argument ask for it
-	if a:0 < 1
-		silent execute "wall"
-		let dir = getcwd()
-		silent execute "lcd ". session_path
-		let session_name = input("Enter save session name:", "", "file")
-		" Ensure session_name ends in .vim
-		if match(session_name, '.vim', -4) < 0
-			" Append extention if was not provided
-			let session_name .= '.vim'
-		endif
-		" Restore current dir
-		silent! execute "lcd " . dir
-		silent! execute "mksession! " . session_path . session_name
-		return
+	silent execute "wall"
+	let dir = getcwd()
+	silent execute "lcd ". session_path
+	let session_name = input("Enter save session name:", "", "file")
+	" Ensure session_name ends in .vim
+	if match(session_name, '.vim', -4) < 0
+		" Append extention if was not provided
+		let session_name .= '.vim'
 	endif
+	" Restore current dir
+	silent! execute "lcd " . dir
+	execute "Obsession " . session_path . session_name
+		" return
+	" endif
 
-	" If this a session we have saved before. Auto save it
-	if (empty(v:this_session))
-		return
-	endif
-	silent! execute "mksession! " . v:this_session
+	" " If this a session we have saved before. Auto save it
+	" if (empty(v:this_session))
+		" return
+	" endif
+	" silent! execute "mksession! " . v:this_session
 endfunction
 
 function! mappings#LoadSession(...) abort

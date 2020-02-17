@@ -12,7 +12,7 @@ function! augroup#Set() abort
 	" is foldmethod=syntax
 	augroup Filetypes
 		autocmd!
-		" Fri Feb 14 2020 15:57: A live saver, send from heaven. I came up with it :D 
+		" Fri Feb 14 2020 15:57: A live saver, send from heaven. I came up with it :D
 		autocmd FileType fzf tunmap <c-j>
 		autocmd Filetype fugitive nnoremap <buffer> <s-j> :b#<cr>
 
@@ -87,11 +87,9 @@ function! augroup#Set() abort
 			" Sessions
 			" Note: Fri Mar 03 2017 14:13 - This never works.
 			" autocmd VimEnter * call utils#LoadSession('default.vim')
-			" Thu Oct 05 2017 22:22: Special settings that are only detected after vim 
+			" Thu Oct 05 2017 22:22: Special settings that are only detected after vim
 			" is loaded
 			autocmd VimEnter * nested call s:on_vim_enter()
-			autocmd VimLeave,BufEnter * call mappings#SaveSession(has('nvim') ?
-				\ 'default_nvim.vim' : 'default_vim.vim')
 			" Keep splits normalize
 			autocmd VimResized * call s:normalize_window_size()
 		augroup END
@@ -99,7 +97,9 @@ function! augroup#Set() abort
 		augroup BuffTypes
 			autocmd!
 			autocmd BufRead,BufNewFile * call s:determine_buf_type()
-
+			" Do not save sessions on VimLeave, it deletes the tabs
+			" autocmd BufEnter,BufWipeout * call mappings#SaveSession(has('nvim') ?
+						\ 'default_nvim.vim' : 'default_vim.vim')
 			autocmd BufReadPost *
 				\ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit' |
 				\   exe "normal! g`\"" |
