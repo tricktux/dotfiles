@@ -1386,7 +1386,7 @@ function! s:configure_fzf() abort
 				\ 'header':  ['fg', 'Comment'] }
 
 	let g:fzf_history_dir = g:std_data_path .  '/fzf-history'
-	let g:fzf_buffers_jump = 1
+	let g:fzf_buffers_jump = 0
 
 	if has('nvim-0.4')
 		let g:fzf_layout = { 'window': 'call plugin#FloatingFzf()' }
