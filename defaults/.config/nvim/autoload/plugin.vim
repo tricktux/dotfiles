@@ -44,11 +44,23 @@ function! plugin#Config()
 		Plug 'chr4/nginx.vim'
 	endif
 
-	" Thu Feb 06 2020 17:53: Not used. Slowing down startup 
+	" Thu Feb 06 2020 17:53: Not used. Slowing down startup
 	" if has('win32')
 		" call autocompletion#SetOmniSharp()
 	" endif
 
+	Plug 'tpope/vim-obsession'
+	if exists('g:lightline')
+		let g:lightline.active.right[2] += [ 'sessions' ]
+		let g:lightline.component_function['sessions'] = 'ObsessionStatus'
+	endif
+		" let g:obsession_no_bufenter = 1
+	" Mon Feb 17 2020 13:27 not working for me
+	" Plug 'thaerkh/vim-workspace'
+		" let g:workspace_session_directory = g:std_data_path . '/sessions/'
+		" let g:workspace_session_disable_on_args = 1
+		" let g:workspace_autosave_always = 1
+		" let g:workspace_autosave_ignore = ['gitcommit']
 
 	" Slowing down startup
 	" Plug 'yuki-ycino/fzf-preview.vim'
@@ -56,7 +68,7 @@ function! plugin#Config()
 		" let g:fzf_preview_command = ''
 		" let g:fzf_binary_preview_command = ''
 
-	" Wed Oct 30 2019 15:28: Best plugin ever! 
+	" Wed Oct 30 2019 15:28: Best plugin ever!
 	Plug 'blueyed/vim-diminactive'
 		let g:diminactive_buftype_blacklist = ['ctrlp']
 		let g:diminactive_enable_focus = 1
@@ -83,9 +95,9 @@ function! plugin#Config()
 	" - ycm nvim_compl_manager shuogo autocomplpop completor asyncomplete
 	"   neo_clangd coc
 	" call autocompletion#SetCompl(!has('unix') ? 'nvim_compl_manager' : 'coc')
-	" Fri May 31 2019 08:15 tried coc but it for it to work I need to install 
-	" nodejs. Also is kind of slow. For extensions to work you need to install 
-	" manually. Like: CocInstall coc-<x> 
+	" Fri May 31 2019 08:15 tried coc but it for it to work I need to install
+	" nodejs. Also is kind of slow. For extensions to work you need to install
+	" manually. Like: CocInstall coc-<x>
 	" Tue Aug 06 2019 16:42
 	"		- Tired of vim complaining about the neovim-hug plugin.
 	"		- Just use normal vim completion
@@ -102,8 +114,8 @@ function! plugin#Config()
 
 	" Possible values:
 	" - chromatica easytags neotags color_coded clighter8 semantic
-	" Wed Jul 04 2018 13:02: No decent code highlighter at the moment 
-	" Thu Apr 11 2019 12:49: That is still the case 
+	" Wed Jul 04 2018 13:02: No decent code highlighter at the moment
+	" Thu Apr 11 2019 12:49: That is still the case
 	call cpp_highlight#Set('')
 
 	" Possible values:
@@ -119,13 +131,13 @@ function! plugin#Config()
 		Plug 'equalsraf/neovim-gui-shim'
 	endif
 
-	if has('patch-8.1.2114') || has('nvim-0.4')
-		Plug 'liuchengxu/vim-clap'
-	endif
+	" if has('patch-8.1.2114') || has('nvim-0.4')
+		" Plug 'liuchengxu/vim-clap'
+	" endif
 
-	if executable('lldb') && has('unix') && !has('nvim')
-		Plug 'gilligan/vim-lldb'
-	endif
+	" if executable('lldb') && has('unix') && !has('nvim')
+		" Plug 'gilligan/vim-lldb'
+	" endif
 
 	" Possible Replacement `asyncvim`
 	Plug 'tpope/vim-dispatch'
@@ -183,9 +195,9 @@ function! plugin#Config()
 	" aggressive
 
 	" pip install isort --user
-	Plug 'fisadev/vim-isort', { 'for' : 'python' }
-	let g:vim_isort_map = ''
-	let g:vim_isort_python_version = 'python3'
+	" Plug 'fisadev/vim-isort', { 'for' : 'python' }
+	" let g:vim_isort_map = ''
+	" let g:vim_isort_python_version = 'python3'
 
 	" Autocomplete
 	" Version control
@@ -242,14 +254,16 @@ function! plugin#Config()
 
 	call s:configure_vim_sneak()
 
-	Plug 'waiting-for-dev/vim-www'
-	" TODO-[RM]-(Thu Sep 14 2017 21:02): Update this here
-	let g:www_map_keys = 0
-	let g:www_launch_cli_browser_command = g:browser_cmd . ' {{URL}}'
-	nmap <plug>search_internet :Wcsearch duckduckgo <C-R>=expand("<cword>")<CR><CR>
-	xmap <plug>search_internet "*y:call www#www#user_input_search(1, @*)<CR>
+	" Plug 'waiting-for-dev/vim-www'
+	" " TODO-[RM]-(Thu Sep 14 2017 21:02): Update this here
+	" let g:www_map_keys = 0
+	" let g:www_launch_cli_browser_command = g:browser_cmd . ' {{URL}}'
+	" nmap <plug>search_internet :Wcsearch duckduckgo <C-R>=expand("<cword>")<CR><CR>
+	" xmap <plug>search_internet "*y:call www#www#user_input_search(1, @*)<CR>
 
-	Plug 'PProvost/vim-ps1', { 'for' : 'ps1' }
+	if (has('win32'))
+		Plug 'PProvost/vim-ps1', { 'for' : 'ps1' }
+	endif
 
 	" Plug 'vim-pandoc/vim-pandoc', { 'on' : 'Pandoc' }
 	" " You might be able to get away with xelatex in unix
@@ -268,7 +282,7 @@ function! plugin#Config()
 	" augroup pandoc_syntax
 		" au! FileType markdown set filetype=markdown.pandoc
 	" augroup END
-	
+
 	" This plugin depends on 'godlygeek/tabular'
 	Plug 'plasticboy/vim-markdown'
 	let g:vim_markdown_no_default_key_mappings = 1
@@ -296,24 +310,24 @@ function! plugin#Config()
 	" comment:
 	" 'no-preview
 	" in your file
-	" Sun Nov 11 2018 07:30 Doesn't look well and breaks my author header 
+	" Sun Nov 11 2018 07:30 Doesn't look well and breaks my author header
 	" Plug 'scrooloose/vim-slumlord', { 'on' : 'UtilsUmlInFilePreview' }
 
 	Plug 'junegunn/goyo.vim', { 'on' : 'Goyo' }
 		let g:goyo_width = 120
 		nnoremap <plug>focus_toggle :Goyo<cr>
 
-	Plug 'dbmrq/vim-ditto', { 'for' : 'markdown' }
-	let g:ditto_dir = g:std_data_path
-	let g:ditto_file = 'ditto-ignore.txt'
+	" Plug 'dbmrq/vim-ditto', { 'for' : 'markdown' }
+	" let g:ditto_dir = g:std_data_path
+	" let g:ditto_file = 'ditto-ignore.txt'
 
 	" TODO-[RM]-(Sun Sep 10 2017 20:27): Dont really like it
-	call s:configure_vim_wordy()
+	" call s:configure_vim_wordy()
 
 	" TODO-[RM]-(Sun Sep 10 2017 20:26): So far only working on linux
-	Plug 'Ron89/thesaurus_query.vim', { 'on' : 'ThesaurusQueryReplaceCurrentWord' }
+	" Plug 'Ron89/thesaurus_query.vim', { 'on' : 'ThesaurusQueryReplaceCurrentWord' }
 	" Very weird and confusing
-		let g:tq_map_keys = 1
+		" let g:tq_map_keys = 1
 
 	" Autocorrect mispellings on the fly
 	Plug 'panozzaj/vim-autocorrect', { 'for' : 'markdown' }
@@ -336,27 +350,27 @@ function! plugin#Config()
 	" Plug 'google/vim-searchindex'
 
 	" Documentation plugins
-	Plug 'rhysd/devdocs.vim', { 'on' : '<Plug>(devdocs-under-cursor)' }
+	" Plug 'rhysd/devdocs.vim', { 'on' : '<Plug>(devdocs-under-cursor)' }
 	" Sample mapping in a ftplugin/*.vim
-	nnoremap <plug>help_under_cursor <Plug>(devdocs-under-cursor)
+	" nnoremap <plug>help_under_cursor <Plug>(devdocs-under-cursor)
 
 	" Only for arch
-	if executable('dasht')
-		Plug 'sunaku/vim-dasht', { 'on' : 'Dasht' }
-		" When in C++, also search C, Boost, and OpenGL:
-		let g:dasht_filetype_docsets['cpp'] = ['^c$', 'boost', 'OpenGL']
-	endif
+	" if executable('dasht')
+		" Plug 'sunaku/vim-dasht', { 'on' : 'Dasht' }
+		" " When in C++, also search C, Boost, and OpenGL:
+		" let g:dasht_filetype_docsets['cpp'] = ['^c$', 'boost', 'OpenGL']
+	" endif
 
-	Plug 'itchyny/calendar.vim', { 'on' : 'Calendar' }
-	let g:calendar_google_calendar = 1
-	let g:calendar_cache_directory = g:std_cache_path . '/calendar.vim/'
+	" Plug 'itchyny/calendar.vim', { 'on' : 'Calendar' }
+	" let g:calendar_google_calendar = 1
+	" let g:calendar_cache_directory = g:std_cache_path . '/calendar.vim/'
 
 	" Tue Oct 31 2017 11:30: Needs to be loaded last
-	if exists('g:valid_device')
-		Plug 'ryanoasis/vim-devicons'
-		let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-		let g:DevIconsEnableFoldersOpenClose = 1
-	endif
+	" if exists('g:valid_device')
+		" Plug 'ryanoasis/vim-devicons'
+		" let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+		" let g:DevIconsEnableFoldersOpenClose = 1
+	" endif
 
 	Plug 'chaoren/vim-wordmotion'
 		let g:wordmotion_mappings = {
@@ -371,11 +385,11 @@ function! plugin#Config()
 
 	call s:configure_caps()
 
-	Plug 'hari-rangarajan/CCTree'
+	" Plug 'hari-rangarajan/CCTree'
 
 	Plug 'bronson/vim-trailing-whitespace', { 'on' : 'UtilsDetectWhitespace' }
 
-	" Mon Jun 25 2018 14:19: Depricating this in favor of custom made 
+	" Mon Jun 25 2018 14:19: Depricating this in favor of custom made
 	" Plug 'mhinz/vim-grepper'
 	" if exists('g:lightline')
 		" let g:lightline.active.left[2] += [ 'grepper' ]
@@ -397,7 +411,7 @@ function! plugin#Config()
 	Plug 'fourjay/vim-flexagon'
 
 	" Abstract a region to its own buffer for editting. Then save and it will back
-	Plug 'chrisbra/NrrwRgn', { 'on' : 'NR' }
+	" Plug 'chrisbra/NrrwRgn', { 'on' : 'NR' }
 
 	" Tue May 15 2018 17:44: All of these replaced by a single plugin
 	" - Not so fast cowboy. This plugin is updated ever so ofen. Plus you dont get
@@ -467,8 +481,8 @@ function! plugin#Config()
 	" Neovim hacking:
 	Plug 'dbakker/vim-lint'
 
-	Plug 'neovim/nvimdev.nvim'
-		let g:nvimdev_auto_cscope=1
+	" Plug 'neovim/nvimdev.nvim'
+		" let g:nvimdev_auto_cscope=1
 
 	Plug 'tbastos/vim-lua'
 
@@ -1367,7 +1381,7 @@ function! s:configure_fzf() abort
 
 	command! Sessions call fzf#run(fzf#wrap({ 
 				\ 'source': glob(g:std_data_path . '/sessions/*.vim', 0, 1), 
-				\ 'sink': 'source',
+				\ 'sink': (exists(':Obsession') ? 'Obsession' : 'source'),
 				\ }))
 
 	let g:fzf_colors =
@@ -1389,7 +1403,7 @@ function! s:configure_fzf() abort
 	let g:fzf_buffers_jump = 0
 
 	if has('nvim-0.4')
-		let g:fzf_layout = { 'window': 'call plugin#FloatingFzf()' }
+		let g:fzf_layout = { 'window': 'call plugin#FloatingFzf(0.4, 0.4)' }
 	else
 		let g:fzf_layout = { 'down': '~50%' }
 	endif
@@ -1679,13 +1693,17 @@ function! s:configure_nvimgdb() abort
 				" \ }
 endfunction
 
-function! plugin#FloatingFzf() abort
+" width: Decimal between 0 and 1, representing percentage of the window that 
+"					will be covered
+" height: Decimal between 0 and 1, representing percentage of the window that 
+"					will be covered
+function! plugin#FloatingFzf(width, height) abort
 	let buf = nvim_create_buf(v:false, v:true)
 	call setbufvar(buf, '&signcolumn', 'no')
 
-	let height = float2nr((&lines - 2) * 0.8)
+	let height = float2nr((&lines - 2) * a:height)
 	let row = float2nr((&lines - height) / 2)
-	let width = float2nr(&columns * 0.8)
+	let width = float2nr(&columns * a:width)
 	let col = float2nr((&columns - width) / 2)
 
 	let opts = {
@@ -1702,12 +1720,12 @@ endfunction
 
 function! s:floating_term()
 	" Configuration
-	call plugin#FloatingFzf()
+	call plugin#FloatingFzf(0.8, 0.8)
 	:Ttoggle
 endfunction
 
 function! s:floating_ranger()
 	" Configuration
-	call plugin#FloatingFzf()
+	call plugin#FloatingFzf(0.8, 0.8)
 	:RangerCurrentDirectory
 endfunction
