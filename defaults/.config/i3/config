@@ -116,30 +116,30 @@ font pango:FontAwesome 9
 # Launch toggle scratchpads
 	bindsym $mod+n exec \
 		--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
-		ranger "$TERMINAL -t ranger -e ranger"
+		ranger "$TERMINAL -T ranger ranger"
 	bindsym $mod+6 exec \
 		--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
-		cmus "$TERMINAL -t cmus -e cmus"
+		cmus "$TERMINAL -T cmus cmus"
 # bindsym $mod+9 exec \
 # --no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
 # gmail-mutt "$TERMINAL -t gmail-mutt \
 # -e 'neomutt -F ~/.config/neomutt/user.gmail'"
 	bindsym $mod+8 exec \
 		--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
-		journal "$TERMINAL -t journal \
-		-e ~/.config/i3/scripts/journal.sh"
+		journal "$TERMINAL -T journal \
+		~/.config/i3/scripts/journal.sh"
 # bindsym $mod+7 exec \
 # --no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
 # psu-mutt "$TERMINAL -t psu-mutt \
 # -e 'neomutt -F ~/.config/neomutt/user.psu'"
 	bindsym $mod+o exec \
 		--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
-		journal "$TERMINAL -t journal \
-		-e ~/.config/i3/scripts/journal.sh"
+		journal "$TERMINAL -T journal \
+		~/.config/i3/scripts/journal.sh"
 	bindsym $mod+i exec \
 		--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
 		neomutt "$TERMINAL \
-		-t neomutt -e ~/.config/i3/scripts/neomutt.sh"
+		-T neomutt ~/.config/i3/scripts/neomutt.sh"
 
 bindsym mod1+Tab exec --no-startup-id i3flip next
 # bindsym mod1+Tab [con_mark=_prevFocus0] focus
