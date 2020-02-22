@@ -139,7 +139,8 @@ function! options#Set() abort
 	set foldlevelstart=0
 	" use this below option to set other markers
 	"'foldmarker' 'fmr'	string (default: "{{{,}}}")
-	set viewoptions=folds,options,cursor,unix,slash " better unix /
+	" Sat Feb 22 2020 16:05: Save only what is necessary 
+	set viewoptions=cursor,curdir
 	" For conceal markers.
 	if has('conceal')
 		set conceallevel=2 concealcursor=nv
