@@ -516,7 +516,6 @@ function! utils#UpdateSvnBranchInfo() abort
 		return ''
 	endif
 
-	" echomsg 'here'
 	" The system function returns something like "Relative URL: ^/...."
 	" Strip from "^/" forward and put that in status line
 	for line in info
@@ -529,23 +528,16 @@ function! utils#UpdateSvnBranchInfo() abort
 		endif
 	endfor
 
-	" echomsg 'here 1'
-
 	if index == -1
 		" echomsg 'index == -1'
 		return ''
 	endif
 
-	let pot_display = url[index+2:-1] " Again skip last char. Looks ugly
+	" Again skip last char. Looks ugly
+	let pot_display = fnamemodify(url[index+2:-1], '%:t')
 	" echomsg 'pot_display = ' . pot_display
 
-	" echomsg 'here 2'
-
-	if strlen(pot_display) > 15
-		return '...' . pot_display[-15:-2]
-	endif
-
-	return pot_display
+	return pot_display[-15:-2]
 endfunction
 
 function! utils#CommentDelete() abort
