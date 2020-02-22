@@ -120,23 +120,14 @@ font pango:FontAwesome 9
 	bindsym $mod+6 exec \
 		--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
 		cmus "$TERMINAL -T cmus cmus"
-# bindsym $mod+9 exec \
-# --no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
-# gmail-mutt "$TERMINAL -t gmail-mutt \
-# -e 'neomutt -F ~/.config/neomutt/user.gmail'"
-	bindsym $mod+8 exec \
-		--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
-		journal "$TERMINAL -T journal \
-		~/.config/i3/scripts/journal.sh"
-# bindsym $mod+7 exec \
-# --no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
-# psu-mutt "$TERMINAL -t psu-mutt \
-# -e 'neomutt -F ~/.config/neomutt/user.psu'"
 	bindsym $mod+o exec \
 		--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
 		journal "$TERMINAL -T journal \
 		~/.config/i3/scripts/journal.sh"
 	bindsym $mod+i exec \
+		--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
+		terminal "$TERMINAL -T terminal -o background_opacity=0.9"
+	bindsym $mod+8 exec \
 		--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
 		neomutt "$TERMINAL \
 		-T neomutt ~/.config/i3/scripts/neomutt.sh"
