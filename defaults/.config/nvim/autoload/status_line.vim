@@ -196,7 +196,7 @@ function! status_line#SetVerControl() abort
 
 	try
 		if exists('*fugitive#head')
-			let git = fugitive#head()
+			let git = fugitive#statusline()
 			" echomsg 'git = ' . git
 			if !empty(git)
 				let s:ver_ctrl = git_mark . git . l:signify_stats

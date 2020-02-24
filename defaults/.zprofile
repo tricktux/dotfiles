@@ -20,8 +20,8 @@ fi
 # Sat Oct 14 2017 11:12: This will set the i3-sensible-terminal to be used:
 # Termite has priority over kitty
 [ -f /usr/bin/urxvtc ] && export TERMINAL="urxvtc"
-[ -f /usr/bin/kitty ] && export TERMINAL="kitty"
 [ -f /usr/bin/termite ] && export TERMINAL="termite"
+[ -f /usr/bin/kitty ] && export TERMINAL="kitty"
 
 [ -f /usr/bin/firefox ] && export BROWSER="/usr/bin/firefox"
 

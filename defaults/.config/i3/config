@@ -116,30 +116,21 @@ font pango:FontAwesome 9
 # Launch toggle scratchpads
 	bindsym $mod+n exec \
 		--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
-		ranger "$TERMINAL -t ranger -e ranger"
+		ranger "$TERMINAL -T ranger ranger"
 	bindsym $mod+6 exec \
 		--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
-		cmus "$TERMINAL -t cmus -e cmus"
-# bindsym $mod+9 exec \
-# --no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
-# gmail-mutt "$TERMINAL -t gmail-mutt \
-# -e 'neomutt -F ~/.config/neomutt/user.gmail'"
-	bindsym $mod+8 exec \
-		--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
-		journal "$TERMINAL -t journal \
-		-e ~/.config/i3/scripts/journal.sh"
-# bindsym $mod+7 exec \
-# --no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
-# psu-mutt "$TERMINAL -t psu-mutt \
-# -e 'neomutt -F ~/.config/neomutt/user.psu'"
+		cmus "$TERMINAL -T cmus cmus"
 	bindsym $mod+o exec \
 		--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
-		journal "$TERMINAL -t journal \
-		-e ~/.config/i3/scripts/journal.sh"
+		journal "$TERMINAL -T journal \
+		~/.config/i3/scripts/journal.sh"
 	bindsym $mod+i exec \
 		--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
+		terminal "$TERMINAL -T terminal -o background_opacity=0.9"
+	bindsym $mod+8 exec \
+		--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
 		neomutt "$TERMINAL \
-		-t neomutt -e ~/.config/i3/scripts/neomutt.sh"
+		-T neomutt ~/.config/i3/scripts/neomutt.sh"
 
 bindsym mod1+Tab exec --no-startup-id i3flip next
 # bindsym mod1+Tab [con_mark=_prevFocus0] focus
@@ -554,71 +545,6 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 			bindsym Escape mode "default"
 	}
 # }}}
-
-# Mode Show/Launch: {{{
-# Sat Sep 30 2017 18:59:
-# This regex ^ start of subject and $ means end of subject
-# set $mode_show Show: [c]mus, [o]journal, [n]ranger, [s]potify
-# bindsym $mod+n mode "$mode_show"
-
-# mode "$mode_show" {
-# bindsym c [title="^cmus$"] move to scratchpad, scratchpad show; \
-#	mode "default"
-# bindsym o [title="^journal$"] move to scratchpad, scratchpad show; \
-#	mode "default"
-# bindsym n [title="^ranger$"] move to scratchpad, scratchpad show; \
-#	mode "default"
-# bindsym s [class="^Spotify$"] move to scratchpad, scratchpad show; \
-#	mode "default"
-
-# bindsym Escape mode "default"
-# bindsym Return mode "default"
-# }
-
-# Mode Launch:
-# Thu Nov 30 2017 19:56:
-# set $mode_launch Launch: [c]mus, [o]journal, [n]ranger, [s]potify, [t]erminal
-# bindsym $mod+n mode "$mode_launch"
-
-# Sun Jun 03 2018 23:48: Transitioning to kitty. To return to termite search gitlog for
-# kitty
-# Thu Sep 20 2018 05:48: Very stubborn. Here I go with kitty again
-# bindsym c exec --no-startup-id i3-sensible-terminal --title=cmus cmus
-# bindsym m exec --no-startup-id i3-sensible-terminal --title=gmail-mutt \
-#	neomutt -F ~/.config/mutt/account.gmail; mode "default"
-# bindsym u exec --no-startup-id i3-sensible-terminal --title=psu-mutt neomutt \
-#	-F ~/.config/mutt/account.psu; mode "default"
-# bindsym n exec --no-startup-id i3-sensible-terminal --title=ranger ranger
-# These are the values for termite
-# bindsym c exec --no-startup-id i3-sensible-terminal --title=cmus --exec cmus
-
-# bindsym m exec --no-startup-id i3-sensible-terminal \
-# --title=gmail-mutt --exec 'neomutt -F ~/.config/mutt/account.gmail'; \
-# mode "default"
-
-# bindsym u exec --no-startup-id i3-sensible-terminal \
-# --title=psu-mutt --exec 'neomutt -F ~/.config/mutt/account.psu'; \
-# mode "default"
-
-# bindsym n exec --no-startup-id i3-sensible-terminal --title=ranger --exec \
-#	ranger
-# mode "$mode_launch" {
-
-# bindsym c exec --no-startup-id i3-sensible-terminal \
-# --title=cmus --exec cmus; mode "default"
-# bindsym n exec --no-startup-id i3-sensible-terminal \
-# --title=ranger --exec ranger; mode "default"
-
-# bindsym s exec --no-startup-id --exec spotify; mode "default"
-# bindsym o exec --no-startup-id i3-sensible-terminal --title=journal \
-# --exec ~/.config/polybar/scripts/journal.sh; mode "default"
-
-# bindsym t exec --no-startup-id i3-sensible-terminal --title=terminal; \
-#mode "default"
-
-# bindsym Escape mode "default"
-# bindsym Return mode "default"
-# }
 # }}}
 
 # Mode Screenshot: {{{
@@ -693,7 +619,7 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 
 		exec --no-startup-id cbatticon -c "notify-send 'Battery' 'Critically Low %5'"
 		exec --no-startup-id ~/.config/i3/scripts/focus_previous.sh
-		exec --no-startup-id guake
+		# exec --no-startup-id guake
 
 # Fri Apr 19 2019 08:51: On demand from now on
 # exec --no-startup-id protonmail-bridge --cli
