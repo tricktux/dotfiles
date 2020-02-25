@@ -1403,7 +1403,7 @@ function! s:configure_fzf() abort
 	let g:fzf_buffers_jump = 0
 
 	if has('nvim-0.4')
-		let g:fzf_layout = { 'window': 'call plugin#FloatingFzf(0.4, 0.4)' }
+		let g:fzf_layout = { 'window': 'call plugin#FloatingFzf(0.6, 0.4)' }
 	else
 		let g:fzf_layout = { 'down': '~50%' }
 	endif
