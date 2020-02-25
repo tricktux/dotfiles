@@ -12,6 +12,21 @@ function! options#Set() abort
 	"omnicomplete menu
 	" save marks
 
+	" Tue Feb 25 2020 16:40: From vim-galore minimal vimrc 
+	set autoindent
+	set expandtab
+	set shiftround
+	set display=lastline
+	set report=0
+	set splitright
+	set splitbelow
+	set list                   " Show non-printable characters.
+	if has('multi_byte') && &encoding ==# 'utf-8'
+		let &listchars = 'tab:▸ ,extends:❯,precedes:❮,nbsp:±'
+	else
+		let &listchars = 'tab:> ,extends:>,precedes:<,nbsp:.'
+	endif
+	" ------
 	set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
 				\,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
 				\,sm:block-blinkwait175-blinkoff150-blinkon175
@@ -118,7 +133,7 @@ function! options#Set() abort
 	" in order to use <c-j> in cli vim for esc
 	" removing it see what happens
 	" set ttimeoutlen=0
-	set listchars+=precedes:<,extends:> " show indication that line continues
+	" set listchars+=precedes:<,extends:> " show indication that line continues
 	set wrapmargin=2
 	set nowrapscan        " do not wrap search at EOF
 	" will look in current directory for tags
@@ -179,7 +194,10 @@ function! options#Set() abort
 	set secure
 	set noexrc
 	" Wed Oct 18 2017 09:19: Stop annoying bell sound
-	set belloff=all
+	" Tue Feb 25 2020 16:52: Updated from vim-galore 
+	set noerrorbells
+	set novisualbell
+	set t_vb=
 	" Thu Dec 21 2017 09:56: Properly format comment strings
 	if v:version > 703 || v:version == 703 && has('patch541')
 		set formatoptions+=jw
@@ -217,7 +235,7 @@ function! options#Set() abort
 	set lazyredraw " Had to addit to speed up scrolling
 	" Mon May 01 2017 11:21: This breaks split window highliting
 	" Tue Jun 13 2017 20:55: Giving it another try
-	set synmaxcol=200 " Will not highlight passed this column #
+	set synmaxcol=120 " Will not highlight passed this column #
 	" Mon Oct 16 2017 15:22: This speed ups a lot of plugin. Those that have to
 	" do with highliting.
 	set regexpengine=1
@@ -244,8 +262,6 @@ function! options#Set() abort
 	set tagbsearch
 	set tagrelative
 	set tagcase=smart
-
-	set splitright
 
 	" Diff options
 	let &diffopt='vertical'
