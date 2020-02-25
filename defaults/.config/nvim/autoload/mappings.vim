@@ -525,6 +525,9 @@ function! mappings#SaveSession(...) abort
 	let dir = getcwd()
 	silent execute "lcd ". session_path
 	let session_name = input("Enter save session name:", "", "file")
+	if empty(session_name)
+		return
+	endif
 	" Ensure session_name ends in .vim
 	if match(session_name, '.vim', -4) < 0
 		" Append extention if was not provided
