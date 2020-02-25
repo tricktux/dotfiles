@@ -313,8 +313,15 @@ function! mappings#Set()
 	" Consistent n N direction seraching
 	" Mon Jan 21 2019 17:05
 	" Not needed since incsearch.vim plugin
-	" nnoremap <expr> n 'Nn'[v:searchforward]
-	" nnoremap <expr> N 'nN'[v:searchforward]
+  " Tue Feb 25 2020 17:03:
+  " Bringing them back, since got rid of incsearch
+  nnoremap <expr> n  'Nn'[v:searchforward]
+  xnoremap <expr> n  'Nn'[v:searchforward]
+  onoremap <expr> n  'Nn'[v:searchforward]
+
+  nnoremap <expr> N  'nN'[v:searchforward]
+  xnoremap <expr> N  'nN'[v:searchforward]
+  onoremap <expr> N  'nN'[v:searchforward]
 	" Search forward/backwards but return
 	" nnoremap * *zz
 	" nnoremap # #zz
