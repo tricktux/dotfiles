@@ -1443,17 +1443,11 @@ endfunction
 
 function! s:configure_vim_signify() abort
 	Plug 'mhinz/vim-signify'
-	" Mappings are ]c next differences
-	" Mappings are [c prev differences
-	" Gets enabled when you call SignifyToggle
-	let g:signify_vcs_list = [ 'git', 'svn' ]
-	let g:signify_cursorhold_insert     = 1
-	let g:signify_cursorhold_normal     = 1
-	let g:signify_update_on_bufenter    = 0
-	let g:signify_update_on_focusgained = 1
-
 	nmap ]g <plug>(signify-next-hunk)
 	nmap [g <plug>(signify-prev-hunk)
+
+	autocmd User SignifySetup
+				\ exe 'au! signify' | au signify BufWritePost * call sy#start()
 endfunction
 
 function! plugin#SyStatsWrapper() abort
