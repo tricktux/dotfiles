@@ -474,7 +474,7 @@ function! plugin#Config()
 
 	Plug 'neomutt/neomutt.vim', { 'for' : [ 'muttrc' ] }
 
-	call s:configure_incsearch()
+	" call s:configure_incsearch()
 
 	call s:configure_vim_which_key()
 
@@ -1293,6 +1293,8 @@ function! s:configure_incsearch() abort
 	" Mon Jan 21 2019 17:26
 	" Can't believe just discovered this plugin
 	" After almost 4 years of using vim
+	" Tue Feb 25 2020 13:24
+	" Deprecating plugin. Considerable slow down of vim
 	Plug 'haya14busa/incsearch.vim'
 	let g:incsearch#auto_nohlsearch = 1
 	let g:incsearch#separate_highlight = 1
