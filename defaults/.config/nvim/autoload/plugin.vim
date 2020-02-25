@@ -805,7 +805,11 @@ function! s:configure_nerdcommenter() abort
 endfunction
 
 function! s:configure_tagbar() abort
-	Plug 'majutsushi/tagbar'
+	if has('unix')
+		Plug 'majutsushi/tagbar'
+	else
+		Plug 'majutsushi/tagbar', { 'on': 'Tagbar' }
+	endif
 	let g:tagbar_ctags_bin = 'ctags'
 	let g:tagbar_autofocus = 1
 	let g:tagbar_show_linenumbers = 2
@@ -819,9 +823,12 @@ function! s:configure_tagbar() abort
 
 	" These settings do not use patched fonts
 	" Fri Feb 02 2018 15:38: Its number one thing slowing down vim right now.
-	if exists('g:lightline')
+	" Tue Feb 25 2020 14:03: Giving it another try
+	" Tue Feb 25 2020 14:42: Still quite slow. Enabling only for unix 
+	if exists('g:lightline') && has('unix')
 		let g:lightline.active.right[2] += [ 'tagbar' ]
-		" let g:lightline.component_function['tagbar'] = string(function('s:tagbar_lightline'))
+		let g:lightline.component_function['tagbar'] =
+					\ string(function('s:tagbar_lightline'))
 
 		let g:tagbar_status_func = 'plugin#TagbarStatuslineFunc'
 	endif
