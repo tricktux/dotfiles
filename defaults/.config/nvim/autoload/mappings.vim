@@ -189,7 +189,7 @@ function! mappings#Set()
 	" Already settled for the following config
 	" Main reason `:e` resets folds. Kinda annoying
 	nnoremap <c-l> :nohlsearch<cr>:diffupdate<cr>:e<cr><c-l>
-	nnoremap <c-h> <c-w><c-w>
+	nnoremap <c-h> :nohlsearch<cr>
 	nnoremap <C-Space> i<Space><Esc>
 	" These are only for command line
 	" insert in the middle of whole word search
