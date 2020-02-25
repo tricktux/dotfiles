@@ -203,6 +203,10 @@ function! plugin#Config()
 	" Autocomplete
 	" Version control
 	Plug 'tpope/vim-fugitive'
+	if exists('g:lightline')
+		let g:lightline.active.left[2] += [ 'fugitive' ]
+		let g:lightline.component_function['fugitive'] = 'fugitive#statusline'
+	endif
 
 	call s:configure_vim_signify()
 
