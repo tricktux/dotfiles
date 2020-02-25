@@ -413,7 +413,7 @@ function! plugin#Config()
 	" vmap <LocalLeader>r <Plug>RStart
 
   " Good for folding markdown and others
-	Plug 'fourjay/vim-flexagon'
+	Plug 'fourjay/vim-flexagon', { 'for' : 'markdown'}
 
 	" Abstract a region to its own buffer for editting. Then save and it will back
 	" Plug 'chrisbra/NrrwRgn', { 'on' : 'NR' }
