@@ -106,7 +106,8 @@ function! augroup#Set() abort
 				\ endif
 
 			autocmd BufWinEnter * call ctags#LoadCscopeDatabse()
-			autocmd BufWinEnter * call status_line#SetVerControl()
+			" Tue Feb 25 2020 14:00: Really slows down vim 
+			" autocmd BufWinEnter * call status_line#SetVerControl()
 		augroup END
 
 		augroup FluxLike
