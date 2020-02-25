@@ -188,7 +188,8 @@ function! mappings#Set()
 	" Fri Jan 11 2019 13:41 
 	" Already settled for the following config
 	" Main reason `:e` resets folds. Kinda annoying
-	nnoremap <c-l> :nohlsearch<cr>:diffupdate<cr>:e<cr><c-l>
+  nnoremap <c-l>
+        \ :nohlsearch<cr>:diffupdate<cr>:SignifyRefresh<cr>:mode<cr>:syntax sync fromstart<cr>:e<cr><c-l>
 	nnoremap <c-h> :nohlsearch<cr>
 	nnoremap <C-Space> i<Space><Esc>
 	" These are only for command line
