@@ -1,34 +1,34 @@
 [user]
-	; Thu Feb 21 2019 22:19
-	; Github settings. In order to keep your email address private
-	email = 5428479+tricktux@users.noreply.github.com
-	name = Reinaldo Molina
+; Thu Feb 21 2019 22:19
+; Github settings. In order to keep your email address private
+email = 5428479+tricktux@users.noreply.github.com
+name = Reinaldo Molina
 [alias]
-	st = status
-	co = checkout
-	br = branch
-	up = rebase
-	ci = commit
+st = status
+co = checkout
+br = branch
+up = rebase
+ci = commit
 [core]
-	editor = nvim +'set bufhidden=delete'
+editor = nvim +'set bufhidden=delete'
 
 ; silence some strange warning
 [push]
-	default = simple
+default = simple
 
 [diff]
-	tool = neovim
+tool = neovim
 [difftool "neovim"]
-	cmd = nvim -s -d $LOCAL $REMOTE
-	prompt = false
+cmd = nvim -s -d $LOCAL $REMOTE
+prompt = false
 [merge]
-	tool = neovim
-	conflictstyle = diff3
+tool = neovim
+; conflictstyle = diff3
 [mergetool "neovim"]
-	cmd = nvim -s -d $BASE $LOCAL $REMOTE $MERGED -c 'wincmd J | wincmd ='
+cmd = nvim -s -d $BASE $LOCAL $REMOTE $MERGED -c 'wincmd J | wincmd ='
 
 [color]
-	ui = auto
+ui = auto
 [filter "ignoreline"]
-	clean = cat
-	smudge = "sed '/#ignoreline$/'d"
+clean = cat
+smudge = "sed '/#ignoreline$/'d"
