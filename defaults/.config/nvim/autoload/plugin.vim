@@ -39,6 +39,8 @@ function! plugin#Config()
 	" selection - {lightline, airline}
 	call status_line#config('lightline')
 
+  Plug 'whiteinge/diffconflicts'
+
 	if (has('unix'))
 		Plug 'lambdalisue/suda.vim'
 		Plug 'chr4/nginx.vim'
