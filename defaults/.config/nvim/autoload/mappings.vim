@@ -565,6 +565,26 @@ function! mappings#LoadSession(...) abort
     return -1
   endif
 
+  " Save this current session
+  if exists(':Obsession')
+    " Check if there is an ongoing session
+    if ObsessionStatus() ==# '[$]'
+      " If there is save it before leaving
+      silent execute 'Obsession ' . v:this_session
+    endif
+  else
+    silent execute 'mksession! ' . v:this_session
+  endif
+  " Delete all buffers. Otherwise they will be added to the new session
+  silent execute ':%bdelete!'
+
+  " If there are more than 10 sessions, use fanzy fuzzers
+  let l:fuzzers = 0
+  let l:sessions = glob(l:session_path . '*.vim', 0, 1)
+  if len(l:sessions) > 10
+    let l:fuzzers = 1
+  endif
+
 	" Logic path when not called at startup
 	if a:0 >= 1
 		let l:session_name = l:session_path . a:1
@@ -579,34 +599,23 @@ function! mappings#LoadSession(...) abort
 			echomsg '[mappings#LoadSession]: Loading session: ' . 
 						\ l:session_name . '...'
 		endif
-    silent! execute ':%bdelete!'
-		silent! execute 'source ' . l:session_name
+		silent execute 'source ' . l:session_name
 		return
 	endif
 
-  if exists(':FZF')
-    if exists(':Obsession')
-      " Check if there is an ongoing session
-      let l:s = ObsessionStatus()
-      if l:s ==# '[$]'
-        " If there is save it before leaving
-        silent! execute 'Obsession ' . v:this_session
-      endif
-    endif
-    silent! execute ':%bdelete!'
+  if l:fuzzers && exists(':FZF')
     call fzf#run(fzf#wrap({ 
-          \ 'source': glob(l:session_path . '*.vim', 0, 1), 
+          \ 'source': l:sessions, 
           \ 'sink': 'source',
           \ }))
     return
   endif
 
-  if exists(':Denite')
+  if l:fuzzers && exists(':Denite')
     let l:session_name = utils#DeniteYank(l:session_path)
     if !filereadable(l:session_path . l:session_name)
       return
     endif
-    silent! execute ':%bdelete!'
     silent execute 'source ' . l:session_path . l:session_name
     return
   endif
@@ -614,9 +623,8 @@ function! mappings#LoadSession(...) abort
   let l:dir = getcwd()
   execute 'lcd '. l:session_path
   let l:session_name = input('Load session:', "", 'file')
-  silent! execute ':%bdelete!'
   silent execute 'source ' . l:session_path . l:session_name
-  silent! execute 'lcd ' . l:dir
+  silent execute 'lcd ' . l:dir
 endfunction
 
 " Tue May 15 2018 09:07: Forced to make it global. <expr> would not work with s: 
