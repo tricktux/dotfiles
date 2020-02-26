@@ -151,7 +151,7 @@ function! mappings#Set()
 	nnoremap <leader>js <Esc>:syntax sync fromstart<cr>
 	" Sessions
 	nnoremap <leader>jes :call mappings#SaveSession()<cr>
-	nnoremap <leader>jel :Sessions<cr>
+	nnoremap <leader>jel :call mappings#LoadSession()<cr>
 	" Pause saving session
 	nnoremap <leader>jep :Obsession<cr>
 	nnoremap <leader>jee :call mappings#LoadSession(has('nvim') ?
@@ -556,6 +556,15 @@ endfunction
 
 function! mappings#LoadSession(...) abort
 	let l:session_path = g:std_data_path . '/sessions/'
+
+  if empty(finddir('sessions', g:std_data_path))
+    if &verbose > 0
+      echoerr '[mappings#LoadSession]: Folder ' . 
+            \ l:session_path . ' does not exists'
+    endif
+    return -1
+  endif
+
 	" Logic path when not called at startup
 	if a:0 >= 1
 		let l:session_name = l:session_path . a:1
@@ -570,22 +579,44 @@ function! mappings#LoadSession(...) abort
 			echomsg '[mappings#LoadSession]: Loading session: ' . 
 						\ l:session_name . '...'
 		endif
+    silent! execute ':%bdelete!'
 		silent! execute 'source ' . l:session_name
 		return
 	endif
 
-	if exists(':Denite')
-		let l:session_name = utils#DeniteYank(l:session_path)
-		if !filereadable(l:session_path . l:session_name)
-			return
-		endif
-	else
-		let l:dir = getcwd()
-		execute 'lcd '. l:session_path
-		let l:session_name = input('Load session:', "", 'file')
-		silent! execute 'lcd ' . l:dir
-	endif
-	silent execute 'source ' . l:session_path . l:session_name
+  if exists(':FZF')
+    if exists(':Obsession')
+      " Check if there is an ongoing session
+      let l:s = ObsessionStatus()
+      if l:s ==# '[$]'
+        " If there is save it before leaving
+        silent! execute 'Obsession ' . v:this_session
+      endif
+    endif
+    silent! execute ':%bdelete!'
+    call fzf#run(fzf#wrap({ 
+          \ 'source': glob(l:session_path . '*.vim', 0, 1), 
+          \ 'sink': 'source',
+          \ }))
+    return
+  endif
+
+  if exists(':Denite')
+    let l:session_name = utils#DeniteYank(l:session_path)
+    if !filereadable(l:session_path . l:session_name)
+      return
+    endif
+    silent! execute ':%bdelete!'
+    silent execute 'source ' . l:session_path . l:session_name
+    return
+  endif
+
+  let l:dir = getcwd()
+  execute 'lcd '. l:session_path
+  let l:session_name = input('Load session:', "", 'file')
+  silent! execute ':%bdelete!'
+  silent execute 'source ' . l:session_path . l:session_name
+  silent! execute 'lcd ' . l:dir
 endfunction
 
 " Tue May 15 2018 09:07: Forced to make it global. <expr> would not work with s: 

@@ -1403,11 +1403,6 @@ function! s:configure_fzf() abort
 		let $FZF_DEFAULT_OPTS='--layout=reverse --info=inline'
 	endif
 
-	command! Sessions call fzf#run(fzf#wrap({ 
-				\ 'source': glob(g:std_data_path . '/sessions/*.vim', 0, 1), 
-				\ 'sink': 'source',
-				\ }))
-
 	let g:fzf_colors =
 				\ { 'fg':      ['fg', 'Normal'],
 				\ 'bg':      ['bg', 'Normal'],
