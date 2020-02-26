@@ -188,8 +188,9 @@ function! mappings#Set()
 	" Fri Jan 11 2019 13:41 
 	" Already settled for the following config
 	" Main reason `:e` resets folds. Kinda annoying
-	nnoremap <c-l> :nohlsearch<cr>:diffupdate<cr>:e<cr><c-l>
-	nnoremap <c-h> <c-w><c-w>
+  nnoremap <c-l>
+        \ :nohlsearch<cr>:diffupdate<cr>:SignifyRefresh<cr>:mode<cr>:syntax sync fromstart<cr>:e<cr><c-l>
+	nnoremap <c-h> :nohlsearch<cr>
 	nnoremap <C-Space> i<Space><Esc>
 	" These are only for command line
 	" insert in the middle of whole word search
@@ -312,8 +313,15 @@ function! mappings#Set()
 	" Consistent n N direction seraching
 	" Mon Jan 21 2019 17:05
 	" Not needed since incsearch.vim plugin
-	" nnoremap <expr> n 'Nn'[v:searchforward]
-	" nnoremap <expr> N 'nN'[v:searchforward]
+  " Tue Feb 25 2020 17:03:
+  " Bringing them back, since got rid of incsearch
+  nnoremap <expr> n  'Nn'[v:searchforward]
+  xnoremap <expr> n  'Nn'[v:searchforward]
+  onoremap <expr> n  'Nn'[v:searchforward]
+
+  nnoremap <expr> N  'nN'[v:searchforward]
+  xnoremap <expr> N  'nN'[v:searchforward]
+  onoremap <expr> N  'nN'[v:searchforward]
 	" Search forward/backwards but return
 	" nnoremap * *zz
 	" nnoremap # #zz
@@ -525,6 +533,9 @@ function! mappings#SaveSession(...) abort
 	let dir = getcwd()
 	silent execute "lcd ". session_path
 	let session_name = input("Enter save session name:", "", "file")
+	if empty(session_name)
+		return
+	endif
 	" Ensure session_name ends in .vim
 	if match(session_name, '.vim', -4) < 0
 		" Append extention if was not provided

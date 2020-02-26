@@ -16,7 +16,11 @@ function! autocompletion#SetCompl(compl) abort
 		if has('nvim-0.5.0') && get(g:, 'ncm2_supports_lsp', 0)
 			call s:set_nvim_lsp()
 		else
-			call s:set_language_client(has('unix'))
+			" Tue Feb 25 2020 13:33 
+			" No sense in enabling for windows
+			if has('unix')
+				call s:set_language_client(has('unix'))
+			endif
 		endif
 		call s:set_neosnippets()
 		Plug 'ncm2/ncm2-neosnippet'

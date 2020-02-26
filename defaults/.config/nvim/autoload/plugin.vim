@@ -50,11 +50,12 @@ function! plugin#Config()
 	" endif
 
 	Plug 'tpope/vim-obsession'
-	if exists('g:lightline')
-		let g:lightline.active.right[2] += [ 'sessions' ]
-		let g:lightline.component_function['sessions'] = 'ObsessionStatus'
-	endif
-		" let g:obsession_no_bufenter = 1
+		let g:obsession_no_bufenter = 1
+		if exists('g:lightline')
+			let g:lightline.active.right[2] += [ 'sessions' ]
+			let g:lightline.component_function['sessions'] =
+						\ string(function('s:obsession_status'))
+		endif
 	" Mon Feb 17 2020 13:27 not working for me
 	" Plug 'thaerkh/vim-workspace'
 		" let g:workspace_session_directory = g:std_data_path . '/sessions/'
@@ -202,6 +203,10 @@ function! plugin#Config()
 	" Autocomplete
 	" Version control
 	Plug 'tpope/vim-fugitive'
+	if exists('g:lightline')
+		let g:lightline.active.left[2] += [ 'fugitive' ]
+		let g:lightline.component_function['fugitive'] = 'fugitive#statusline'
+	endif
 
 	call s:configure_vim_signify()
 
@@ -408,7 +413,7 @@ function! plugin#Config()
 	" vmap <LocalLeader>r <Plug>RStart
 
   " Good for folding markdown and others
-	Plug 'fourjay/vim-flexagon'
+	Plug 'fourjay/vim-flexagon', { 'for' : 'markdown'}
 
 	" Abstract a region to its own buffer for editting. Then save and it will back
 	" Plug 'chrisbra/NrrwRgn', { 'on' : 'NR' }
@@ -469,7 +474,7 @@ function! plugin#Config()
 
 	Plug 'neomutt/neomutt.vim', { 'for' : [ 'muttrc' ] }
 
-	call s:configure_incsearch()
+	" call s:configure_incsearch()
 
 	call s:configure_vim_which_key()
 
@@ -800,7 +805,11 @@ function! s:configure_nerdcommenter() abort
 endfunction
 
 function! s:configure_tagbar() abort
-	Plug 'majutsushi/tagbar'
+	if has('unix')
+		Plug 'majutsushi/tagbar'
+	else
+		Plug 'majutsushi/tagbar', { 'on': 'Tagbar' }
+	endif
 	let g:tagbar_ctags_bin = 'ctags'
 	let g:tagbar_autofocus = 1
 	let g:tagbar_show_linenumbers = 2
@@ -814,9 +823,12 @@ function! s:configure_tagbar() abort
 
 	" These settings do not use patched fonts
 	" Fri Feb 02 2018 15:38: Its number one thing slowing down vim right now.
-	if exists('g:lightline')
+	" Tue Feb 25 2020 14:03: Giving it another try
+	" Tue Feb 25 2020 14:42: Still quite slow. Enabling only for unix 
+	if exists('g:lightline') && has('unix')
 		let g:lightline.active.right[2] += [ 'tagbar' ]
-		" let g:lightline.component_function['tagbar'] = string(function('s:tagbar_lightline'))
+		let g:lightline.component_function['tagbar'] =
+					\ string(function('s:tagbar_lightline'))
 
 		let g:tagbar_status_func = 'plugin#TagbarStatuslineFunc'
 	endif
@@ -1288,6 +1300,8 @@ function! s:configure_incsearch() abort
 	" Mon Jan 21 2019 17:26
 	" Can't believe just discovered this plugin
 	" After almost 4 years of using vim
+	" Tue Feb 25 2020 13:24
+	" Deprecating plugin. Considerable slow down of vim
 	Plug 'haya14busa/incsearch.vim'
 	let g:incsearch#auto_nohlsearch = 1
 	let g:incsearch#separate_highlight = 1
@@ -1403,7 +1417,7 @@ function! s:configure_fzf() abort
 	let g:fzf_buffers_jump = 0
 
 	if has('nvim-0.4')
-		let g:fzf_layout = { 'window': 'call plugin#FloatingFzf(0.4, 0.4)' }
+		let g:fzf_layout = { 'window': 'call plugin#FloatingFzf(0.6, 0.4)' }
 	else
 		let g:fzf_layout = { 'down': '~50%' }
 	endif
@@ -1429,17 +1443,11 @@ endfunction
 
 function! s:configure_vim_signify() abort
 	Plug 'mhinz/vim-signify'
-	" Mappings are ]c next differences
-	" Mappings are [c prev differences
-	" Gets enabled when you call SignifyToggle
-	let g:signify_vcs_list = [ 'git', 'svn' ]
-	let g:signify_cursorhold_insert     = 1
-	let g:signify_cursorhold_normal     = 1
-	let g:signify_update_on_bufenter    = 0
-	let g:signify_update_on_focusgained = 1
-
 	nmap ]g <plug>(signify-next-hunk)
 	nmap [g <plug>(signify-prev-hunk)
+
+	autocmd User SignifySetup
+				\ exe 'au! signify' | au signify BufWritePost * call sy#start()
 endfunction
 
 function! plugin#SyStatsWrapper() abort
@@ -1728,4 +1736,8 @@ function! s:floating_ranger()
 	" Configuration
 	call plugin#FloatingFzf(0.8, 0.8)
 	:RangerCurrentDirectory
+endfunction
+
+function! s:obsession_status() abort
+	return ObsessionStatus('S:' . fnamemodify(v:this_session, ':t:r'), '$')
 endfunction
