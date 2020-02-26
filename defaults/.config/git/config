@@ -23,9 +23,11 @@ cmd = nvim -s -d $LOCAL $REMOTE
 prompt = false
 [merge]
 tool = neovim
+keepBackup = false
 ; conflictstyle = diff3
 [mergetool "neovim"]
-cmd = nvim -s -d $BASE $LOCAL $REMOTE $MERGED -c 'wincmd J | wincmd ='
+cmd = nvim -c DiffConflicts "$MERGED" "$BASE" "$LOCAL" "$REMOTE"
+trustExitCode = true
 
 [color]
 ui = auto
