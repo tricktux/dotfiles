@@ -19,7 +19,7 @@ function! options#Set() abort
 	set display=lastline
 	set report=0
 	set splitright
-	set splitbelow
+	" set splitbelow looks silly
 	set list                   " Show non-printable characters.
 	if has('multi_byte') && &encoding ==# 'utf-8'
 		let &listchars = 'tab:▸ ,extends:❯,precedes:❮,nbsp:±'
