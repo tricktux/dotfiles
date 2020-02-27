@@ -39,6 +39,8 @@ function! plugin#Config()
 	" selection - {lightline, airline}
 	call status_line#config('lightline')
 
+  Plug 'whiteinge/diffconflicts'
+
 	if (has('unix'))
 		Plug 'lambdalisue/suda.vim'
 		Plug 'chr4/nginx.vim'
@@ -931,6 +933,14 @@ function! s:configure_file_browser(choice) abort
 
 
 	if a:choice ==# 'nerdtree'
+    if has('nvim') && has('unix')
+      " Does not support windows
+      nnoremap <plug>file_browser :LuaTreeToggle<cr>
+      Plug 'kyazdani42/nvim-tree.lua'
+      let g:lua_tree_ignore = [ '.git', '.svn', '__pycache__' ]
+
+      return
+    endif
 		nnoremap <plug>file_browser :NERDTree<CR>
 
 		Plug 'scrooloose/nerdtree', { 'on' : 'NERDTree' }
@@ -1392,11 +1402,6 @@ function! s:configure_fzf() abort
 	if (!exists('$FZF_DEFAULT_OPTS'))
 		let $FZF_DEFAULT_OPTS='--layout=reverse --info=inline'
 	endif
-
-	command! Sessions call fzf#run(fzf#wrap({ 
-				\ 'source': glob(g:std_data_path . '/sessions/*.vim', 0, 1), 
-				\ 'sink': 'source',
-				\ }))
 
 	let g:fzf_colors =
 				\ { 'fg':      ['fg', 'Normal'],

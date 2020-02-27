@@ -151,7 +151,7 @@ function! mappings#Set()
 	nnoremap <leader>js <Esc>:syntax sync fromstart<cr>
 	" Sessions
 	nnoremap <leader>jes :call mappings#SaveSession()<cr>
-	nnoremap <leader>jel :Sessions<cr>
+	nnoremap <leader>jel :call mappings#LoadSession()<cr>
 	" Pause saving session
 	nnoremap <leader>jep :Obsession<cr>
 	nnoremap <leader>jee :call mappings#LoadSession(has('nvim') ?
@@ -556,6 +556,35 @@ endfunction
 
 function! mappings#LoadSession(...) abort
 	let l:session_path = g:std_data_path . '/sessions/'
+
+  if empty(finddir('sessions', g:std_data_path))
+    if &verbose > 0
+      echoerr '[mappings#LoadSession]: Folder ' . 
+            \ l:session_path . ' does not exists'
+    endif
+    return -1
+  endif
+
+  " Save this current session
+  if exists(':Obsession')
+    " Check if there is an ongoing session
+    if ObsessionStatus() ==# '[$]'
+      " If there is save it before leaving
+      silent execute 'Obsession ' . v:this_session
+    endif
+  else
+    silent execute 'mksession! ' . v:this_session
+  endif
+  " Delete all buffers. Otherwise they will be added to the new session
+  silent execute ':%bdelete!'
+
+  " If there are more than 10 sessions, use fanzy fuzzers
+  let l:fuzzers = 0
+  let l:sessions = glob(l:session_path . '*.vim', 0, 1)
+  if len(l:sessions) > 10
+    let l:fuzzers = 1
+  endif
+
 	" Logic path when not called at startup
 	if a:0 >= 1
 		let l:session_name = l:session_path . a:1
@@ -570,22 +599,32 @@ function! mappings#LoadSession(...) abort
 			echomsg '[mappings#LoadSession]: Loading session: ' . 
 						\ l:session_name . '...'
 		endif
-		silent! execute 'source ' . l:session_name
+		silent execute 'source ' . l:session_name
 		return
 	endif
 
-	if exists(':Denite')
-		let l:session_name = utils#DeniteYank(l:session_path)
-		if !filereadable(l:session_path . l:session_name)
-			return
-		endif
-	else
-		let l:dir = getcwd()
-		execute 'lcd '. l:session_path
-		let l:session_name = input('Load session:', "", 'file')
-		silent! execute 'lcd ' . l:dir
-	endif
-	silent execute 'source ' . l:session_path . l:session_name
+  if l:fuzzers && exists(':FZF')
+    call fzf#run(fzf#wrap({ 
+          \ 'source': l:sessions, 
+          \ 'sink': 'source',
+          \ }))
+    return
+  endif
+
+  if l:fuzzers && exists(':Denite')
+    let l:session_name = utils#DeniteYank(l:session_path)
+    if !filereadable(l:session_path . l:session_name)
+      return
+    endif
+    silent execute 'source ' . l:session_path . l:session_name
+    return
+  endif
+
+  let l:dir = getcwd()
+  execute 'lcd '. l:session_path
+  let l:session_name = input('Load session:', "", 'file')
+  silent execute 'source ' . l:session_path . l:session_name
+  silent execute 'lcd ' . l:dir
 endfunction
 
 " Tue May 15 2018 09:07: Forced to make it global. <expr> would not work with s: 

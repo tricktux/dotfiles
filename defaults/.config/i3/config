@@ -126,7 +126,7 @@ font pango:FontAwesome 9
 		~/.config/i3/scripts/journal.sh"
 	bindsym $mod+i exec \
 		--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
-		terminal "$TERMINAL -T terminal -o background_opacity=0.9"
+		terminal "$TERMINAL -T terminal -o background_opacity=0.9 tmux"
 	bindsym $mod+8 exec \
 		--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
 		neomutt "$TERMINAL \
@@ -142,7 +142,9 @@ bindsym control+mod1+l exec --no-startup-id cmus-remote -n
 bindsym control+mod1+k exec --no-startup-id pamixer --increase 5
 bindsym control+mod1+j exec --no-startup-id pamixer --decrease 5
 bindsym control+mod1+m exec --no-startup-id pamixer --toggle-mute
-bindsym control+mod1+p exec --no-startup-id pavucontrol
+bindsym control+mod1+p exec --no-startup-id passmenu
+# Wed Feb 26 2020 10:57: Just lunch pavucontrol from rofi 
+# bindsym control+mod1+p exec --no-startup-id pavucontrol
 # bindsym control+mod1+b exec --no-startup-id blueberry
 bindsym control+mod1+i exec --no-startup-id \
 ~/.config/i3/scripts/pulseaudio-rofi.sh --input
@@ -160,7 +162,8 @@ bindsym $mod+Ctrl+$up       resize grow height 3 px or 3 ppt
 bindsym $mod+Ctrl+$down         resize shrink height 3 px or 3 ppt
 bindsym $mod+Ctrl+$right      resize grow width 3 px or 3 ppt
 
-bindsym $mod+p exec --no-startup-id passmenu
+# Reserving for something good
+# bindsym $mod+p exec --no-startup-id passmenu
 
 bindsym $mod+shift+e exec --no-startup-id echo $EMAIL | \
 xclip -selection "clipboard"
