@@ -181,7 +181,7 @@ font-2 = "Font Awesome 5 Brands:pixelsize=10;1"
 font-3 = Roboto:size=10;0
 font-4 = Iosevka Nerd Font:style=Medium:size=14;3
 
-modules-left = menu wlan-helios info-pingrtt right-end-bottom space space todo
+modules-left = menu wlan-helios info-pingrtt right-end-bottom space left-end-top pihole right-end-bottom space todo
 ; Mon Dec 23 2019 15:06: Nvidia module is useless 
 ; modules-center =  left-end-top temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory right-end-top
 modules-center =  left-end-top temperature cpu cpuload system-uptime-pretty memory right-end-top
