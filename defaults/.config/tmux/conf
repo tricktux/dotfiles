@@ -1,0 +1,163 @@
+# Thu Apr 18 2019 08:23: From here:
+# https://github.com/tony/tmux-config/blob/master/.tmux.conf
+
+# Thu Feb 27 2020 22:22
+# New awesome config from: https://github.com/gpakosz/.tmux (Oh my tmux!)
+
+# Tips {{{
+
+# NOTE: How you can control inner sessions, since all keybindings are caught and 
+# handled by outer sessions?
+# The most common solution is to press prefix twice (prefix is a keybinding that 
+# puts tmux in a command mode, usually it’s C-b, but some people prefer 
+# remapping it to screen-likeC-a). The first prefix keystroke is caught by the 
+# outer session, whereas second is passed to the inner session. No extra steps 
+# need to be done, and this works out of the box.
+
+# NOTE: Use `tmux kill-server` command to truly kill tmux server.
+# Sometimes Exiting command line wont do it!!
+# Installation instructions:
+
+# }}}
+
+# Options {{{
+
+# Set scroll limit
+  set-option -g history-limit 100000
+
+# Allows for faster key repetition
+  set -s escape-time 0
+# set-option -sg escape-time 10
+# Start numbering at 1, good for using alt to switch windows
+  set -g base-index 1
+# vi-style controls for copy mode
+  setw -g mode-keys vi
+
+# Sun Jan 20 2019 13:23 
+# Allow to scrool with mouse wheel
+  setw -g mouse on
+
+# NOTE: Handled now by Oh my tmux!
+# Nvim suggested settings for tmux
+# set -g default-terminal "tmux-256color"
+# Your .bashrc $TERM needs to be xterm-256color
+# set-option -g default-terminal "xterm-256color"
+# Sun May 07 2017 15:20 - For some reason for this to work you have to do it in the terminal and then restart.
+# Somethin like $tmux set-option..... 
+# set-option -ga terminal-overrides ",xterm-256color:Tc"
+
+# NOTE: Handled now by Oh my tmux!
+# Nvim suggested settings for tmux
+# Powerline
+# These below are settings to turn everything off
+  # set-option -g status off
+  # set-window-option -g monitor-activity off
+# These are the new settings to turn on powerline
+# Too much power consumption
+  # set-option -g status on
+  # set-option -g status-interval 2
+  # set-option -g status-justify "centre"
+  # set-option -g status-left-length 60
+  # set-option -g status-right-length 90
+# set-option -g status-left "#(~/.powerline/tmux-powerline/powerline.sh left)"
+# set-option -g status-right "#(~/.powerline/tmux-powerline/powerline.sh right)"
+
+# NOTE: Handled now by Oh my tmux!
+# Fixes changing cursor in terminal
+# set -g -a terminal-overrides ',*:Ss=\E[%p1%d q:Se=\E[2 q'
+
+# }}}
+
+# Bindings {{{
+
+  bind q kill-session
+
+  bind-key C command-prompt -p "Name of new window: " "new-window -n '%%'"
+  bind-key S command-prompt -p "Rename this session: " "rename-session '%%'"
+
+# split windows like vim
+# vim's definition of a horizontal/vertical split is reversed from tmux's
+  bind s split-window -v
+  bind v split-window -h
+  bind V split-window -h -p 100
+
+# move around panes with hjkl, as one would in vim after pressing ctrl-w
+  bind h select-pane -L
+  bind j select-pane -D
+  bind k select-pane -U
+  bind l select-pane -R
+
+# resize panes like vim
+# feel free to change the "1" to however many lines you want to resize by, only
+# one at a time can be slow
+  bind < resize-pane -L 10 
+  bind > resize-pane -R 10
+  bind - resize-pane -D 10
+  bind + resize-pane -U 10 
+
+
+# Zoom pane
+  bind -n M-z resize-pane -Z
+# Split windows with alt
+  bind -n M-v split-window -h
+  bind -n M-s split-window -v
+  bind -n M-x kill-pane
+
+# bind : to command-prompt like vim
+# this is the default in tmux already
+  bind : command-prompt
+
+# Neovim bindings
+  # Alt mappings
+  bind-key -n M-k if "[ $(tmux display -p '#{pane_current_command}') = nvim ]" "send-keys M-k" "select-pane -U"
+  bind-key -n M-j if "[ $(tmux display -p '#{pane_current_command}') = nvim ]" "send-keys M-j" "select-pane -D"
+  bind-key -n M-h if "[ $(tmux display -p '#{pane_current_command}') = nvim ]" "send-keys M-h" "select-pane -L"
+  bind-key -n M-l if "[ $(tmux display -p '#{pane_current_command}') = nvim ]" "send-keys M-l" "select-pane -R"
+  bind-key -n M-t new-window
+  bind-key -n M-1 if "[ $(tmux display -p '#{pane_current_command}') = nvim ]" "send-keys M-1" "select-window -t 1"
+  bind-key -n M-2 if "[ $(tmux display -p '#{pane_current_command}') = nvim ]" "send-keys M-2" "select-window -t 2"
+  bind-key -n M-3 if "[ $(tmux display -p '#{pane_current_command}') = nvim ]" "send-keys M-3" "select-window -t 3"
+  bind-key -n M-4 if "[ $(tmux display -p '#{pane_current_command}') = nvim ]" "send-keys M-4" "select-window -t 4"
+  bind-key -n M-5 if "[ $(tmux display -p '#{pane_current_command}') = nvim ]" "send-keys M-5" "select-window -t 5"
+  bind-key -n M-6 if "[ $(tmux display -p '#{pane_current_command}') = nvim ]" "send-keys M-6" "select-window -t 6"
+  bind-key -n M-7 if "[ $(tmux display -p '#{pane_current_command}') = nvim ]" "send-keys M-7" "select-window -t 7"
+  bind-key -n M-8 if "[ $(tmux display -p '#{pane_current_command}') = nvim ]" "send-keys M-8" "select-window -t 8"
+  bind-key -n M-[ if "[ $(tmux display -p '#{pane_current_command}') = nvim ]" "send-keys M-[" "select-window -t -1"
+  bind-key -n M-] if "[ $(tmux display -p '#{pane_current_command}') = nvim ]" "send-keys M-]" "select-window -t +1"
+
+  bind-key R respawn-window
+
+  bind Left swap-window -t -1
+  bind Right swap-window -t +1
+
+# NOTE: Handled now by Oh my tmux!
+# close pane x
+# Reload pane
+  # bind r source-file ~/.tmux.conf
+  # unbind C-b
+  # set -g prefix C-a
+  # bind C-a send-prefix
+# }}}
+
+# Plugin {{{
+
+# NOTE: Disabled for now
+# TMUX plugins
+# git clone https://github.com/tmux-plugins/tpm ~/.local/shared/tmux/plugins/tpm
+# to install Plugin manager
+  # set-environment -g TMUX_PLUGIN_MANAGER_PATH '~/.local/shared/tmux/plugins/tpm'
+    # set -g @plugin 'tmux-plugins/tmux-copycat'
+    # set -g @plugin 'tmux-plugins/tmux-yank'
+    # set -g @plugin 'tmux-plugins/tmux-open'
+
+# Installing plugins
+# Add new plugin to ~/.tmux.conf with set -g @plugin '...'
+# Press prefix + I (capital i, as in Install) to fetch the plugin.
+# Press prefix + u updates plugins
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+    # run '~/.local/shared/tmux/plugins/tpm'
+
+# }}}
+
+# vim:fdm=marker ft=tmux

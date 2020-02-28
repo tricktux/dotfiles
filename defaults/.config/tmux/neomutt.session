@@ -1,0 +1,9 @@
+new-session -s 'neomutt' -n 'mailserver' 'neomutt -F ~/.config/neomutt/user.molinamail'
+new-window -d -n 'gmail' 'neomutt -F ~/.config/neomutt/user.gmail'
+new-window -d -n 'ufl' 'neomutt -F ~/.config/neomutt/user.ufl'
+# Wed Feb 19 2020 20:11: Account has been disabled 
+# new-window  -d -n 'psu' 'neomutt -F ~/.config/neomutt/user.psu'
+new-window -d -n 'pm server' 'protonmail-bridge --cli'
+new-window -d -n 'pm' 'sleep 5; neomutt -F ~/.config/neomutt/user.pm'
+
+# vim: ft=tmux
