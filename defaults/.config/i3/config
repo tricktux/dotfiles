@@ -26,22 +26,7 @@ font pango:FontAwesome 9
 # X core fonts rendering does not support right-to-left and this being a bitmap
 # font, it doesn’t scale on retina/hidpi displays.
 
-# use these keys for focus, movement, and resize directions when reaching for
-# the arrows is not convenient
-
-# TODO{{{
-# - [X]  Set wallpaper
-# - [X]  i3lock
-# - [ ]  Configure font
-# - [X]  Volume
-# - [ ]  Icons on the status bar
-# - [ ]  Playerctl
-# - [ ]  i3bar
-# - [ ]  Exit stuff. Getting close
-# - [X]  workspaces
-# - [X]  floating window
-# - [ ]  Rofi transparency
-# - [ ]  Urxvt transparency
+# Tips {{{
 # Close stuff with mod+shift+q
 # It turns out that you can make 2 monitors use the same workspace with this:
 # Got from here:
@@ -547,7 +532,6 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 			bindsym Return mode "default"
 			bindsym Escape mode "default"
 	}
-# }}}
 # }}}
 
 # Mode Screenshot: {{{

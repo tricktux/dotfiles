@@ -113,7 +113,7 @@ def print_data(data):
     else:
         str_b = data[1]
 
-    print("%s %s" % (str_q, str_b))
+    print("%s %s%%" % (str_q, str_b))
 
 
 def main():
@@ -142,7 +142,7 @@ def main():
         print(hole.toggle())
         return
 
-    dhole = hole.get(['dns_queries_today', 'ads_blocked_today'])
+    dhole = hole.get(['dns_queries_today', 'ads_percentage_today'])
     if not dhole:
         return
     print_data(dhole)
