@@ -18,6 +18,17 @@ Usage="\
 	E.g.:  $(basename $0) terminal \"$TERMINAL --title=terminal\"
 	"
 
+# Terminal width and position variables
+host=`hostname`
+width=1920
+height=440
+posy=32
+if [ "$host" = "predator" ]; then
+  width=3840
+  height=1200
+  posy=128
+fi
+
 ############## USGCHECKS #################
 
 if [[ $# -lt 1 || "$1" =~ ^(-h|--help)$ || $# -gt 2 ]]; then
@@ -48,7 +59,15 @@ if [[ -z "$visible_wid" ]]; then # If the scratchpad window is not visible
 	done
 
 	echo "$name found. Showing scratchpad."
-	i3-msg "[title="^$name$"] move to scratchpad, scratchpad show"
+  if [ "$name" = "terminal" ]; then
+    i3-msg "[title="^$name$"]\
+      resize set $width $height,\
+      move position 0 px $posy px,\
+      move to scratchpad,\
+      scratchpad show"
+  else
+    i3-msg "[title="^$name$"] move to scratchpad, scratchpad show"
+  fi
 	exit $?
 fi
 
