@@ -40,6 +40,10 @@ function! plugin#Config()
 	call status_line#config('lightline')
 
   Plug 'whiteinge/diffconflicts'
+  Plug 'aquach/vim-http-client', { 'on' : 'HTTPClientDoRequest'}
+    " Plugin to make api requests
+    " Depends on python3 and requests
+    " :HTTPClientDoRequest 
 
 	if (has('unix'))
 		Plug 'lambdalisue/suda.vim'
