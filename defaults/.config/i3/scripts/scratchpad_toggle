@@ -26,7 +26,7 @@ posy=32
 if [ "$host" = "predator" ]; then
   width=3840
   height=1200
-  posy=128
+  posy=45
 fi
 
 ############## USGCHECKS #################
