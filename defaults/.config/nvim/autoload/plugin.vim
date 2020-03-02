@@ -183,7 +183,12 @@ function! plugin#Config()
 	" Fri Feb 14 2020 15:30
 	" Trying alternative
 	Plug 'jiangmiao/auto-pairs'
-		let g:AutoPairsFlyMode = 1
+    " Really annoying option
+		let g:AutoPairsFlyMode = 0
+    let g:AutoPairsShortcutToggle = ''
+    let g:AutoPairsShortcutFastWrap = ''
+    let g:AutoPairsShortcutJump = ''
+    let g:AutoPairsShortcutBackInsert = ''
 	" Plug 'Raimondi/delimitMate'
 	" let g:delimitMate_expand_cr = 2
 	" let g:delimitMate_expand_space = 1
