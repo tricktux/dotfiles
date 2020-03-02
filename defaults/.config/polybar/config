@@ -103,9 +103,9 @@ enable-ipc = false
 scroll-up = i3wm-wsnext
 scroll-down = i3wm-wsprev
 
-modules-left = i3 right-end-top space player-cmus
+modules-left = i3 space space player-cmus
 modules-center = xwindow
-modules-right = strava space openweather space left-end-top date time powermenu
+modules-right = strava space openweather space date time powermenu
 
 [bar/main-bottom]
 bottom = true
@@ -167,9 +167,9 @@ font-3 = Roboto:size=18;0
 font-4 = Iosevka Nerd Font:style=Medium:size=22;3
 
 ; When copying remove xbacklight battery and set specific wlan
-modules-left = menu wlan-predator info-pingrtt right-end-bottom space pihole space todo 
-modules-center =  left-end-top temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory right-end-top
-modules-right = left-end-bottom volume xkeyboard github info-trash updates-arch-combined wallpaper redshift compton
+modules-left = menu wlan-predator info-pingrtt pihole todo 
+modules-center =  temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory 
+modules-right = volume xkeyboard github info-trash updates-arch-combined wallpaper redshift compton
 
 tray-maxsize = 40
 
@@ -181,11 +181,11 @@ font-2 = "Font Awesome 5 Brands:pixelsize=10;1"
 font-3 = Roboto:size=10;0
 font-4 = Iosevka Nerd Font:style=Medium:size=14;3
 
-modules-left = menu wlan-helios info-pingrtt right-end-bottom space left-end-top pihole right-end-bottom space todo
+modules-left = menu wlan-helios info-pingrtt space space pihole space space todo
 ; Mon Dec 23 2019 15:06: Nvidia module is useless 
 ; modules-center =  left-end-top temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory right-end-top
-modules-center =  left-end-top temperature cpu cpuload system-uptime-pretty memory right-end-top
-modules-right = left-end-bottom battery_helios right-end-top space left-end-bottom xbacklight volume xkeyboard github info-trash updates-arch-combined wallpaper redshift compton
+modules-center =  temperature cpu cpuload system-uptime-pretty memory
+modules-right = battery_helios space space xbacklight volume xkeyboard github info-trash updates-arch-combined wallpaper redshift compton
 
 tray-maxsize = 20
 
