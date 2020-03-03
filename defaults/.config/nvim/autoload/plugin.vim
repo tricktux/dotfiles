@@ -99,7 +99,7 @@ function! plugin#Config()
 	endif
 
 	" Possible values:
-	" - ycm nvim_compl_manager shuogo autocomplpop completor asyncomplete
+	" - ycm nvim_compl_manager shuogo_deo shuogo_neo autocomplpop completor asyncomplete
 	"   neo_clangd coc
 	" call autocompletion#SetCompl(!has('unix') ? 'nvim_compl_manager' : 'coc')
 	" Fri May 31 2019 08:15 tried coc but it for it to work I need to install
@@ -112,8 +112,12 @@ function! plugin#Config()
 	"		- Once it has support from ncm2, see:
 	"		https://github.com/ncm2/ncm2/issues/93
 	"		- Set let g:ncm2_supports_lsp = 1
-	let l:compl = has('nvim') ? 'nvim_compl_manager' : 'shuogo_neo'
-	call autocompletion#SetCompl(l:compl)
+  "	Mon Mar 02 2020 12:23
+  "	  - Switching to deoplete again.
+  "	  - ncm2 is not being actively developed.
+  "	  - Having issues in windows
+	" let l:compl = has('nvim') ? 'shuogo_deo' : 'shuogo_neo'
+	call autocompletion#SetCompl('shuogo_deo')
 	" call autocompletion#SetCompl(
 				" \ has('unix') ? 'shuogo_deo' :
 				" \ (exists('g:portable_vim') && g:portable_vim == 1 ? 'shuogo_neo' : 'shuogo_deo')
@@ -577,13 +581,21 @@ function! plugin#AfterConfig() abort
 	endif
 
 	if exists('g:loaded_deoplete')
+    call deoplete#custom#option('smart_case', v:true)
 		" call deoplete#custom#source('javacomplete2', 'mark', '')
-		" call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
+    call deoplete#custom#source('_', 'matchers', ['matcher_fuzzy'])
+    " Use auto delimiter feature
+    call deoplete#custom#source('_', 'converters',
+          \ ['converter_auto_delimiter', 'remove_overlap'])
+    " Disable the candidates in Comment/String syntaxes.
+    call deoplete#custom#source('_',
+          \ 'disabled_syntaxes', ['Comment', 'String'])
 		" c c++
 		call deoplete#custom#source('clang2', 'mark', '')
 		call deoplete#custom#source('LanguageClient',
-					\ 'min_pattern_length',
-					\ 2)
+					\ 'min_pattern_length', 2)
+    call deoplete#custom#source('LanguageClient',
+          \ 'rank', 888)
 	endif
 
 	" Plugin function names are never detected. Only plugin commands

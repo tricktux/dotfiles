@@ -106,7 +106,8 @@ function! s:set_neomake() abort
 	" let g:neomake_java_checkstyle_executable = 'checkstyle'
 	" let g:neomake_java_maven_executable = 'mvn'
 
-	let g:neomake_logfile = g:std_cache_path . '/neomake.log'
+  " Too much logging. Only enable when needed
+	" let g:neomake_logfile = g:std_cache_path . '/neomake.log'
 	let s:msg = ''
 	augroup custom_neomake
 		autocmd!
