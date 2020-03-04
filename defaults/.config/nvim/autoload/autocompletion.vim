@@ -24,19 +24,21 @@ function! autocompletion#SetCompl(compl) abort
 		endif
 		call s:set_neosnippets()
 		Plug 'ncm2/ncm2-neosnippet'
-	elseif a:compl =~# 'shuogo'
-		if a:compl ==# 'shuogo_deo'
-			call s:set_shuogo_deo()
-			call s:set_language_client(has('unix'))
-		else
-			call s:set_shuogo_neo()
-		endif
-		call s:set_shuogo_sources()
-		call s:set_neosnippets()
-		" call s:set_vim_clang()
-		" Wed Apr 04 2018 16:33: Without a compile_commands.json lsp is useless for clangd
-		" Do not setup clangd on windows
-		" if !has('unix') | call s:set_clang_compl('rip_clang_complete') | endif
+  elseif a:compl ==# 'shuogo_deo'
+    call s:set_shuogo_deo_neo_options()
+    if has('unix')
+      call s:set_language_client(has('unix'))
+    endif
+    call s:set_shuogo_sources()
+    call s:set_neosnippets()
+  elseif a:compl ==# 'shuogo_neo'
+    call s:set_shuogo_neo()
+    call s:set_shuogo_sources()
+    call s:set_neosnippets()
+    " call s:set_vim_clang()
+    " Wed Apr 04 2018 16:33: Without a compile_commands.json lsp is useless for clangd
+    " Do not setup clangd on windows
+    " if !has('unix') | call s:set_clang_compl('rip_clang_complete') | endif
 	elseif a:compl ==# 'autocomplpop'
 		Plug 'vim-scripts/AutoComplPop'
 		inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -719,18 +721,15 @@ endfunction
 function! s:set_shuogo_sources() abort
 	" List of sources Plugins
 	" and jedi for autocompletion, `pip install jedi --user`
-	if !executable('pyls')
-		Plug 'zchee/deoplete-jedi'
-	endif
 	Plug 'Shougo/neco-vim' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
 	Plug 'Shougo/neco-syntax' " Sources for deoplete/neocomplete to autocomplete vim variables and functions
-	Plug 'Shougo/echodoc.vim' " Pop for functions info
-		let g:echodoc#enable_at_startup = 1
-		let g:echodoc#type = 'echo'
+	" Plug 'Shougo/echodoc.vim' " Pop for functions info
+		" let g:echodoc#enable_at_startup = 1
+		" let g:echodoc#type = 'echo'
 
 	" Mon Jan 15 2018 05:55: Not working very well
 	" Plug 'SevereOverfl0w/deoplete-github' " Pop for functions info
-	Plug 'fszymanski/deoplete-emoji' " Pop for functions info
+	" Plug 'fszymanski/deoplete-emoji' " Pop for functions info
 	" Email Completion, Has a bug that I need to report
 	" Plug 'fszymanski/deoplete-abook'
 	Plug 'Shougo/context_filetype.vim'
@@ -742,6 +741,12 @@ function! s:set_shuogo_sources() abort
 	" let g:deoplete#sources#clang#libclang_path = g:libclang_path
 	" let g:deoplete#sources#clang#clang_header = g:clangheader_path
 	" endif
+  if has('win32')
+    Plug 'deoplete-plugins/deoplete-jedi', { 'for' : 'python' }
+    Plug 'Shougo/deoplete-clangx'
+    " Super slow plugin
+    " Plug 'Shougo/neoinclude.vim/'
+  endif
 
   " This source didnt really work
 	let l:address_book_loc = '~/.config/neomutt/data/addressbook'
@@ -753,6 +758,33 @@ function! s:set_shuogo_sources() abort
 		Plug 'fszymanski/deoplete-abook', { 'for' : 'mail' }
 			let g:deoplete#sources#abook#datafile = expand(l:address_book_loc)
 	endif
+endfunction
+
+function! s:set_shuogo_deo_neo_options() abort
+  if !has('python3')
+    echomsg 's:set_shuogo_deo_neo_options(): Python3 not installed'
+    return
+  endif
+
+  Plug 'Shougo/deoplete.nvim'
+  if !has('nvim')
+    " Requirements For Vim 8:
+    " - roxma/vim-hug-neovim-rpc
+    " - g:python3_host_prog pointed to your python3 executable, or echo exepath('python3') is not empty.
+    " - neovim python client (pip3 install pynvim)
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+    let g:deoplete#enable_yarp = 1
+  endif
+
+  let g:deoplete#enable_at_startup = 1
+  inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+  inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
+  " Regular settings
+  inoremap <silent><expr> <TAB>
+        \ pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ deoplete#mappings#manual_complete()
 endfunction
 
 function! s:set_shuogo_deo() abort
@@ -771,6 +803,9 @@ function! s:set_shuogo_deo() abort
 		Plug 'roxma/vim-hug-neovim-rpc'
 		let g:deoplete#enable_yarp = 1
 	endif
+
+  " If it is nvim deoplete requires python3 to work
+  let g:deoplete#enable_at_startup = 1
 	" Mon Jan 08 2018 14:49: New options:
 	" - They seem to be working. Specially the enable_yarp one.
 	let g:deoplete#auto_complete_start_length = 3
@@ -781,8 +816,6 @@ function! s:set_shuogo_deo() abort
 	" let g:deoplete#auto_complete_delay=15 " Fixes issue where Autocompletion triggers
 	let g:deoplete#auto_complete_delay=50 " Fixes issue where Autocompletion triggers
 
-	" If it is nvim deoplete requires python3 to work
-	let g:deoplete#enable_at_startup = 1
 	" New settings
 	let g:deoplete#enable_ignore_case = 1
 	let g:deoplete#enable_smart_case = 1
@@ -812,10 +845,6 @@ function! s:set_shuogo_deo() abort
 				\ pumvisible() ? "\<C-n>" :
 				\ <SID>check_back_space() ? "\<TAB>" :
 				\ deoplete#mappings#manual_complete()
-	function! s:check_back_space() abort
-		let col = col('.') - 1
-		return !col || getline('.')[col - 1]  =~ '\s'
-	endfunction
 endfunction
 
 function! s:set_coc_nvim() abort
@@ -858,7 +887,6 @@ function! s:set_coc_nvim() abort
 endfunction
 
 function! s:set_coc_snippets() abort
-	
 	" TODO add custom snippets folder. see: set_neosnippets
 	Plug 'neoclide/coc-snippets'
 	Plug 'Shougo/neosnippet-snippets'
@@ -884,7 +912,6 @@ function! s:set_coc_snippets() abort
 endfunction
 
 function! s:set_coc_nvim_mappings() abort
-	
 	nmap <buffer> <localleader>d <Plug>(coc-definition)
 	nmap <buffer> <localleader>lh 
 				\ :call <sid>coc_show_documentation()<cr>
