@@ -3,7 +3,8 @@
 HOST=1.1.1.1
 
 if ! ping=$(ping -n -c 1 -W 1 $HOST); then
-    echo "no %{F#d60606}%{F-}"
+    rtt="--"
+    icon="%{F#d60606}%{F-}"
 else
     rtt=$(echo "$ping" | sed -rn 's/.*time=([0-9]{1,})\.?[0-9]{0,} ms.*/\1/p')
 
@@ -14,6 +15,5 @@ else
     else
         icon="%{F#d60606}%{F-}"
     fi
-
-    echo "$icon $rtt ms"
 fi
+echo "$icon $rtt ms"
