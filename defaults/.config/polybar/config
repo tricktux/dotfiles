@@ -169,7 +169,7 @@ font-4 = Iosevka Nerd Font:style=Medium:size=22;3
 ; When copying remove xbacklight battery and set specific wlan
 modules-left = menu wlan-predator info-pingrtt space space pihole space space todo 
 modules-center =  temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory 
-modules-right = volume xkeyboard github info-trash updates-arch-combined wallpaper redshift compton
+modules-right = volume xkeyboard info-trash updates-arch-combined wallpaper redshift compton
 
 tray-maxsize = 40
 
@@ -185,9 +185,9 @@ modules-left = menu wlan-helios info-pingrtt space space pihole space space todo
 ; Mon Dec 23 2019 15:06: Nvidia module is useless 
 ; modules-center =  left-end-top temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory right-end-top
 modules-center =  temperature cpu cpuload system-uptime-pretty memory
-modules-right = battery_helios space space xbacklight volume xkeyboard github info-trash updates-arch-combined wallpaper redshift compton
+modules-right = battery_helios space space xbacklight volume xkeyboard info-trash updates-arch-combined wallpaper redshift compton
 
-tray-maxsize = 20
+tray-maxsize = 30
 
 [bar/top-predator]
 inherit = bar/main-top
