@@ -150,8 +150,10 @@ function! mappings#Set()
 	" Reload syntax
 	nnoremap <leader>js <Esc>:syntax sync fromstart<cr>
 	" Sessions
-	nnoremap <leader>jes :call mappings#SaveSession()<cr>
-	nnoremap <leader>jel :call mappings#LoadSession()<cr>
+	nnoremap <leader>jes :SessionsSave<cr>
+  nnoremap <leader>jeS :SessionsSaveAs<cr>
+	nnoremap <leader>jel :SessionsLoad<cr>
+  nnoremap <leader>jen :SessionsNew<cr>
 	" Pause saving session
 	nnoremap <leader>jep :Obsession<cr>
 	nnoremap <leader>jee :call mappings#LoadSession(has('nvim') ?
