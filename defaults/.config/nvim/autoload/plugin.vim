@@ -111,11 +111,15 @@ function! plugin#Config()
 	"	Fri Jan 17 2020 05:09: nvim_lsp built in
 	"		- Once it has support from ncm2, see:
 	"		https://github.com/ncm2/ncm2/issues/93
-	"		- Set let g:ncm2_supports_lsp = 1
+	"		- Set let g:nvim_lsp_support = 1
   "	Mon Mar 02 2020 12:23
   "	  - Switching to deoplete again.
   "	  - ncm2 is not being actively developed.
   "	  - Having issues in windows
+  "	Fri Mar 13 2020 11:36
+  "	  - Trying completion_nvim
+  "	  - Still rough around the edges
+  "	  - Big promess for a lightweigth lua completion plugin
 	" let l:compl = has('nvim') ? 'shuogo_deo' : 'shuogo_neo'
 	call autocompletion#SetCompl('shuogo_deo')
 	" call autocompletion#SetCompl(
@@ -689,7 +693,7 @@ function! plugin#AfterConfig() abort
 		call denite#custom#var('prosession', 'format', 'split')
 	endif
 
-	if has('nvim-0.5.0') && get(g:, 'ncm2_supports_lsp', 0)
+	if has('nvim-0.5.0') && get(g:, 'nvim_lsp_support', 0)
 		call autocompletion#SetNvimLsp()
 	endif
 endfunction

@@ -9,7 +9,11 @@ function! autocompletion#SetCompl(compl) abort
 	let s:completion_choice = a:compl
 	if a:compl ==# 'ycm'
 		call s:set_ycm()
-	elseif a:compl ==# 'nvim_compl_manager'
+	elseif a:compl ==# 'completion_nvim'
+    call s:set_completion_lua()
+    call s:set_nvim_lsp()
+    call s:set_neosnippets()
+  elseif a:compl ==# 'nvim_compl_manager'
 		" call s:set_ncm()
 		call s:set_ncm2()
 		" call s:set_ulti_snips()
@@ -375,9 +379,15 @@ function! autocompletion#AdditionalLspSettings() abort
 		else
 			return <sid>set_language_client_mappings()
 		endif
-	endif
-	if s:completion_choice ==# 'coc'
+  endif
+  if s:completion_choice ==# 'coc'
 		return <sid>set_coc_nvim_mappings()
+  endif
+  if s:completion_choice ==# 'shuogo_deo'
+    return <sid>set_language_client_mappings()
+  endif
+  if s:completion_choice ==# 'completion_nvim' && get(g:, 'nvim_lsp_support', 0)
+    return <sid>set_nvim_lsp_mappings()
 	endif
 endfunction
 
@@ -962,13 +972,23 @@ endfunction
 
 function! s:set_nvim_lsp() abort
 	Plug 'neovim/nvim-lsp'
+
+  let g:nvim_lsp_support = 1
 endfunction
 
 
+" Called from afterconfig plugin
 function! autocompletion#SetNvimLsp() abort
 lua << EOF
 local nvim_lsp = require'nvim_lsp'
+nvim_lsp.pyls.setup{
+  on_attach=require'completion'.on_attach,
+  filetypes= "py",
+  root_dir= nvim_lsp.utils.root_pattern(".git", ".svn")
+  -- root_dir=get_curr_dir() 
+}
 nvim_lsp.clangd.setup{
+  on_attach=require'completion'.on_attach,
 	cmd = { 
 			 "clangd", 
 			 "--all-scopes-completion=true", 
@@ -981,7 +1001,10 @@ nvim_lsp.clangd.setup{
 			 "--header-insertion=iwyu",
 			 "-j=12",
 			 "--header-insertion-decorators=false"
-		}
+		},
+  filetypes= { "c", "cpp" },
+  root_dir= nvim_lsp.utils.root_pattern(".git", ".svn")
+  -- root_dir=get_curr_dir()
 }
 EOF
 endfunction
@@ -999,4 +1022,23 @@ function! s:set_nvim_lsp_mappings() abort
 	nnoremap <silent> <buffer> <localleader>lR <cmd>lua vim.lsp.buf.references()<cr>
 	nnoremap <silent> <buffer> <localleader>lf <cmd>lua vim.lsp.buf.formatting()<cr>
 	nnoremap <silent> <buffer> <localleader>lS <cmd>lua vim.lsp.stop_all_clients()<cr>
+endfunction
+
+function! s:set_completion_lua() abort
+  Plug 'haorenW1025/completion-nvim'
+
+  inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+  " Auto close popup menu when finish completion
+
+  let g:completion_enable_snippet = 'Neosnippet'
+  let g:completion_enable_in_comment = 1
+
+  augroup CompleteionTriggerCharacter
+    autocmd!
+    autocmd CompleteDone * if pumvisible() == 0 | pclose | endif
+    autocmd BufEnter * let g:completion_trigger_character = ['.']
+    autocmd BufEnter *.c,*.cpp let g:completion_trigger_character = ['.', '::']
+  augroup end
 endfunction
