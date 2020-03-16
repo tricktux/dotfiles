@@ -2,7 +2,7 @@
 " Description:	Most of set options are done here.
 " Author:				Reinaldo Molina <rmolin88@gmail.com>
 " Version:				0.0.0
-" Last Modified: Sep 14 2017 14:47
+" Last Modified: Mon Mar 16 2020 13:05
 " Created: Sep 14 2017 14:47
 
 function! options#Set() abort
@@ -14,6 +14,7 @@ function! options#Set() abort
 
 	" Tue Feb 25 2020 16:40: From vim-galore minimal vimrc 
 	set autoindent
+  " No tabs in the code. Tabs are expanded to spaces
 	set expandtab
 	set shiftround
 	set display=lastline
@@ -22,9 +23,9 @@ function! options#Set() abort
 	" set splitbelow looks silly
 	set list                   " Show non-printable characters.
 	if has('multi_byte') && &encoding ==# 'utf-8'
-		let &listchars = 'tab:▸ ,extends:❯,precedes:❮,nbsp:±'
+		let &listchars = 'tab:▸ ,extends:❯,precedes:❮,nbsp:±,trail:-'
 	else
-		let &listchars = 'tab:> ,extends:>,precedes:<,nbsp:.'
+		let &listchars = 'tab:> ,extends:>,precedes:<,nbsp:.,trail:-'
 	endif
 	" ------
 	set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
@@ -133,7 +134,6 @@ function! options#Set() abort
 	" in order to use <c-j> in cli vim for esc
 	" removing it see what happens
 	" set ttimeoutlen=0
-	" set listchars+=precedes:<,extends:> " show indication that line continues
 	set wrapmargin=2
 	set nowrapscan        " do not wrap search at EOF
 	" will look in current directory for tags
@@ -145,9 +145,7 @@ function! options#Set() abort
 		endif
 	endif
 	" set matchpairs+=<:>
-	" Display tabs and trailing spaces visually
-	"set list listchars=tab:\ \ ,trail:?
-	set linebreak    "Wrap lines at convenient points
+  set linebreak    "Wrap lines at convenient points
 	" Open and close folds Automatically
 	" global fold indent
 	" set foldmethod=indent
