@@ -416,11 +416,11 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 # Border settings
 		new_window pixel 3
 		smart_borders on
-		# TODO revisit  when i3 is updated to 4.18
-		# Update is live as of Tue Feb 18 2020 16:22 on github, arch hasn't caught 
-		# up 
-		# border_radius 4
-#smart_borders no_gaps
+
+# TODO revisit  when i3 is updated to 4.18
+# Update is live as of Tue Feb 18 2020 16:22 on github, arch hasn't caught up 
+  # border_radius 4
+  # smart_borders no_gaps
 
 # Global gaps settings
 		gaps inner 5
