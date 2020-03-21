@@ -18,11 +18,11 @@ if !exists("no_plugin_maps") && !exists("no_terminal_maps")
 	if exists('*neoterm#close()')
 		" hide/close terminal
 		" Thu Apr 11 2019 11:25: Doesnt work. Plugin broken 
-		nnoremap <buffer> <silent> q ZZ
-		nnoremap <buffer> <M-`> ZZ
 		nnoremap <buffer> <silent> Q :Tclose<cr>
 	endif
 	" Doesn't work, in win at least
+  nnoremap <buffer> <silent> q ZZ
+  nnoremap <buffer> <M-`> ZZ
 	tnoremap <M-`> <c-\><c-n>ZZ
 	" nunmap <buffer> <c-space>
 	execute "tnoremap " . g:esc . " <C-\\><C-n>"
