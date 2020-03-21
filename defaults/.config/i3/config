@@ -76,8 +76,8 @@ font pango:FontAwesome 9
 #############################################}}}
 
 # Window colors{{{
-#                       BORDER    BACKGROUND  TEXT     INDICATOR   CHILD_BORDER
-	client.focused          $black    $blue		  $black	$darkblack $darkyellow
+#                           BORDER    BACKGROUND  TEXT      INDICATOR   CHILD_BORDER
+    client.focused          $black    $blue		    $black	  $darkblack  $darkyellow
 		client.unfocused        $black    $black      $white    $darkblack  $darkblack
 		client.focused_inactive $black    $black      $white    $darkblack  $darkblack
 		client.urgent           $darkred  $darkred    $black    $darkred    $darkred
