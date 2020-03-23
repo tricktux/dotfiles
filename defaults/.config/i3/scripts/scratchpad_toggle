@@ -48,8 +48,11 @@ if [[ -z "$visible_wid" ]]; then # If the scratchpad window is not visible
 			exit 2
 		fi
 
-		echo "$name not found. Using provided command to launch it."
-		eval "$2 &"  || exit $?
+		echo "$name not found. Executing: '$2'."
+		if ! eval "$2 &" ; then
+      echo "Provided command '$2' failed"
+      exit $?
+    fi
 	fi
 
 	# Wait for application to be available
