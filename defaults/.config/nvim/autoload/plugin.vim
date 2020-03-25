@@ -39,6 +39,7 @@ function! plugin#Config()
   " selection - {lightline, airline}
   call status_line#config('lightline')
 
+  Plug 'Yggdroot/indentLine'
   Plug 'whiteinge/diffconflicts'
   Plug 'aquach/vim-http-client', { 'on' : 'HTTPClientDoRequest'}
     " Plugin to make api requests
@@ -933,7 +934,7 @@ function! s:configure_pomodoro() abort
           \ && mpv ~/.config/dotfiles/notification_sounds/cool_notification1.mp3
           \ 2>/dev/null&"
   elseif executable('powershell')
-    let notif = $APPDATA . '/dotfiles/scripts/win_vim_notification.ps1'
+    let notif = $APPDATA . '/dotfiles/scripts/win/win_vim_notification.ps1'
     if filereadable(notif)
       let g:pomodoro_notification_cmd = 'powershell ' . notif
     endif
