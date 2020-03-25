@@ -48,7 +48,7 @@ fi
 # cool
 alias mkdir='mkdir -pv'
 # Do not wait interval 1 second, go fast #
-alias ping='ping -c 100 -s.2'
+alias ping='ping -c 10 -i .2'
 # do not delete / or prompt if deleting more than 3 files at a time #
 alias rm='rm -I --preserve-root' # confirmation #
 alias ln='ln -i' # Parenting changing perms on / #
