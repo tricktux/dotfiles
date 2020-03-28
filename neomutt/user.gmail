@@ -19,7 +19,7 @@ set my_imp_msgs="Important_Stuff"
 
 set my_username="rmolin88"
 set my_domain="gmail.com"
-set my_password="`pass websites/google.com/rmolin88/neomutt`"
+set my_password="`pass websites/google.com/neomutt`"
 
 source "~/.config/neomutt/imap.gen.mutt"
 
