@@ -30,7 +30,12 @@ cmd = nvim -c DiffConflicts "$MERGED" "$BASE" "$LOCAL" "$REMOTE"
 trustExitCode = true
 
 [color]
-ui = auto
+  ui = true
+  branch = true
+  diff = true
+  interactive = true
+  status = true
+  log = true
 [filter "ignoreline"]
 clean = cat
 smudge = "sed '/#ignoreline$/'d"
