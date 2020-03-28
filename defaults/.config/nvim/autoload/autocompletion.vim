@@ -478,7 +478,7 @@ function! s:set_neosnippets() abort
 	" Used by nvim-completion-mgr
 	let g:neosnippet#enable_completed_snippet=1
 	" Tue Jan 14 2020 20:29: For language client completion 
-	let g:neosnippet#enable_complete_done = 1
+  let g:neosnippet#enable_complete_done = 0
 
 	" Only contain snippets
 	Plug 'Shougo/neosnippet-snippets'
