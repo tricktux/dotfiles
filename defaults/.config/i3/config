@@ -117,6 +117,7 @@ font pango:FontAwesome 9
 		neomutt "$TERMINAL \
 		-T neomutt ~/.config/i3/scripts/neomutt.sh"
 
+# Some silly comment
 bindsym mod1+Tab exec --no-startup-id i3flip next
 # bindsym mod1+Tab [con_mark=_prevFocus0] focus
 # bindsym $mod+ctrl+comma [con_mark=_prevFocus2] focus
