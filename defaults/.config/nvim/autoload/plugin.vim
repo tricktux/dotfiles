@@ -39,7 +39,7 @@ function! plugin#Config()
   " selection - {lightline, airline}
   call status_line#config('lightline')
 
-  Plug 'Yggdroot/indentLine'
+  Plug 'Yggdroot/indentLine', { 'for' : [ 'java', 'cpp', 'c', 'python' ] }
   Plug 'whiteinge/diffconflicts'
   Plug 'aquach/vim-http-client', { 'on' : 'HTTPClientDoRequest'}
     " Plugin to make api requests
