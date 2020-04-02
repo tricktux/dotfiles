@@ -17,6 +17,8 @@ setlocal textwidth=79
 setlocal commentstring=#%s
 setlocal define=^\s*\\(def\\\\|class\\)
 
+abbreviate <buffer> sefl self
+
 if !exists("no_plugin_maps") && !exists("no_python_maps")
 	if (exists(':Neoformat'))
 		nnoremap <localleader>f :Neoformat<cr>
