@@ -29,7 +29,7 @@ function! s:set_neomake() abort
 	" you need to change it. Do it on a per buffer basis. Look on c.vim for
 	" example
 
-  let g:neomake_tempfile_dir = g:std_cache_path . '/neomake%:p:h'
+  let g:neomake_tempfile_dir = g:std_cache_path . '/neomake'
 	let g:neomake_error_sign = {'text':
 				\ (exists('g:valid_device') ? "\uf057" : 'X'),
 				\ 'texthl': 'ErrorMsg'}

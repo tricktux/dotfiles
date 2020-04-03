@@ -1428,6 +1428,9 @@ function! s:configure_fzf() abort
   if (!exists('$FZF_DEFAULT_OPTS'))
     let $FZF_DEFAULT_OPTS='--layout=reverse --info=inline'
   endif
+  if has('win32')
+    let g:fzf_preview_window = ''
+  endif
 
   let g:fzf_colors =
         \ { 'fg':      ['fg', 'Normal'],
