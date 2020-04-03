@@ -144,7 +144,9 @@ function! plugin#Config()
     " plugin to work in neovim
     Plug 'radenling/vim-dispatch-neovim'
     " nvim-qt on unix doesnt populate has('gui_running')
-    Plug 'equalsraf/neovim-gui-shim'
+    " if !exists(g:neovide)
+      " Plug 'equalsraf/neovim-gui-shim'
+    " endif
   endif
 
   " if has('patch-8.1.2114') || has('nvim-0.4')
