@@ -28,7 +28,7 @@ function! options#Set() abort
     let &listchars = 'tab:> ,extends:>,precedes:<,nbsp:.,trail:-'
   endif
   " ------
-  set guifont=consolas:h14
+  set guifont=consolas:h10
   " Fri Apr 03 2020 17:07: I cursor blinking really gets on my nerves
   set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
         \,a:blinkon0-Cursor/lCursor
