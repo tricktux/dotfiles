@@ -69,6 +69,9 @@ if [[ -f /usr/bin/pkgfile ]]; then
 	source /usr/share/doc/pkgfile/command-not-found.zsh
 fi
 
+# Needs to be defined before initializing
+# ZSH_THEME="bubblified"
+
 # zplug
 ZPLUG_INIT=/usr/share/zsh/scripts/zplug/init.zsh
 if [[ -f $ZPLUG_INIT ]]; then
@@ -77,7 +80,7 @@ if [[ -f $ZPLUG_INIT ]]; then
 	zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
 	# Load theme file
-	zplug 'dracula/zsh', as:theme
+  # zplug 'dracula/zsh', as:theme
 
 	zplug 'zsh-users/zsh-autosuggestions'
 else
@@ -105,8 +108,8 @@ if [[ -f $ZSH/oh-my-zsh.sh ]]; then
 		# TODO update prompt
 		zplug "plugins/nice-exit-code",   from:oh-my-zsh
 		zplug "plugins/oh-my-git",   from:oh-my-zsh
-		zplug "romkatv/powerlevel10k", use:powerlevel10k.zsh-theme
-		# zplug "plugins/command-not-found",   from:oh-my-zsh
+    zplug "romkatv/powerlevel10k", use:powerlevel10k.zsh-theme
+    zplug "plugins/command-not-found",   from:oh-my-zsh
 		# Breaks fzf mappings
 		# zplug "plugins/vi-mode",   from:oh-my-zsh
 	else

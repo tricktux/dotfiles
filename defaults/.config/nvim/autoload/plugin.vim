@@ -39,7 +39,7 @@ function! plugin#Config()
   " selection - {lightline, airline}
   call status_line#config('lightline')
 
-  Plug 'Yggdroot/indentLine'
+  Plug 'Yggdroot/indentLine', { 'for' : [ 'java', 'cpp', 'c', 'python' ] }
   Plug 'whiteinge/diffconflicts'
   Plug 'aquach/vim-http-client', { 'on' : 'HTTPClientDoRequest'}
     " Plugin to make api requests
@@ -144,7 +144,9 @@ function! plugin#Config()
     " plugin to work in neovim
     Plug 'radenling/vim-dispatch-neovim'
     " nvim-qt on unix doesnt populate has('gui_running')
-    Plug 'equalsraf/neovim-gui-shim'
+    " if !exists(g:neovide)
+      " Plug 'equalsraf/neovim-gui-shim'
+    " endif
   endif
 
   " if has('patch-8.1.2114') || has('nvim-0.4')
@@ -1427,6 +1429,9 @@ function! s:configure_fzf() abort
   let l:colors .= ' --color info:33,prompt:33,pointer:166,marker:166,spinner:33'
   if (!exists('$FZF_DEFAULT_OPTS'))
     let $FZF_DEFAULT_OPTS='--layout=reverse --info=inline'
+  endif
+  if has('win32')
+    let g:fzf_preview_window = ''
   endif
 
   let g:fzf_colors =

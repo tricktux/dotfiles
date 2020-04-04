@@ -278,10 +278,11 @@ endfunction
 
 function! s:set_language_client(has_unix) abort
 	" New version simply broke down. Try the `next` branch from time to time
+        " \ 'tag': '0.1.155',
 	Plug 'autozimu/LanguageClient-neovim', {
-			\ 'tag': '0.1.155',
+      \ 'branch': 'next',
 			\ 'do': has('unix') ? 'bash install.sh' :
-			\ 'powershell -executionpolicy bypass -File install.ps1',
+			\   'powershell -executionpolicy bypass -File install.ps1',
 			\ }
 
 	" Wed Apr 04 2018 16:25: clangd depends on a compile_commands.json databse.

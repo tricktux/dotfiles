@@ -164,9 +164,10 @@ function! mappings#Set()
 	nnoremap <leader>j2 :setlocal ts=2 sw=2 sts=2<cr>
 	nnoremap <leader>j4 :setlocal ts=4 sw=4 sts=4<cr>
 	nnoremap <leader>j8 :setlocal ts=8 sw=8 sts=8<cr>
-	" not paste the deleted word
-	nnoremap P :normal! "0p<cr>
-	vnoremap P :normal! "0p<cr>
+
+	" Don't paste the deleted word, paste the last copied word, hopefully
+	nnoremap <s-p> :normal! "0p<cr>
+	vnoremap <s-p> :normal! "0p<cr>
 	" Force wings_syntax on a file
 	nnoremap <leader>jw :set filetype=wings_syntax<cr>
 	nnoremap <leader>j. :call <SID>exec_last_command()<cr>
@@ -227,7 +228,7 @@ function! mappings#Set()
 	inoremap <F5> <Space><ESC>"=strftime("%a %b %d %Y %H:%M")<cr>Pa
 	" Auto indent pasted text
 	nnoremap p :normal! p=`]<cr>
-	nnoremap Y y$
+	nnoremap <s-y> y$
 
 	" Vim-unimpaired similar mappings
 	" Do not overwrite [s, [c, [f

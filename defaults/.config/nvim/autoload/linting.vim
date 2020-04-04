@@ -28,6 +28,8 @@ function! s:set_neomake() abort
 	" Fri Oct 27 2017 14:39: neomake defaults are actually pretty amazing. If
 	" you need to change it. Do it on a per buffer basis. Look on c.vim for
 	" example
+
+  let g:neomake_tempfile_dir = g:std_cache_path . '/neomake'
 	let g:neomake_error_sign = {'text':
 				\ (exists('g:valid_device') ? "\uf057" : 'X'),
 				\ 'texthl': 'ErrorMsg'}
