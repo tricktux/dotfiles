@@ -1,4 +1,4 @@
-#!/usr/bin/lua
+#!/usr/bin/luajit
 
 function tablelength(T)
 	local count = 0
