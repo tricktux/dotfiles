@@ -113,7 +113,7 @@ function! s:sessions.new_save() abort
   endif
 
   let name = self.get_new_name()
-  if emtpy(name)
+  if empty(name)
     return
   endif
 
