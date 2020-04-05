@@ -294,15 +294,6 @@ function! s:set_language_client(has_unix) abort
 	" Setup servers
 	" Java server
 	" arch: install jdtls
-	let l:jdtls = {'java': ['jdtls']}
-	let l:chosen_java_server = l:jdtls
-	
-	" Python server
-	let l:pyls = {
-				\ 'python3': ['pyls'],
-				\ 'python':  ['pyls'],
-				\ }
-	let l:chosen_python_server = l:pyls
 
 	" C++ server
 	" Sat Jan 27 2018 11:11: Settings coming from:
@@ -312,10 +303,7 @@ function! s:set_language_client(has_unix) abort
 	" compile_commands.json on its wiki
 	" let g:LanguageClient_loadSettings = 1 " Use an absolute configuration path if you want system-wide settings
 	" let g:LanguageClient_settingsPath = g:std_config_path . '/settings.json'
-	let l:cquery = {
-			\ 'cpp': [ 'cquery', '--language-server', '--log-file=/tmp/cq.log' ],
-			\ 'c': ['cquery', '--language-server', '--log-file=/tmp/cq.log'],
-			\ }
+	let l:cquery = [ 'cquery', '--language-server', '--log-file=/tmp/cq.log' ]
 	let l:clangd_args = [
 				\		'clangd', 
 				\		'--all-scopes-completion=true', 
@@ -329,15 +317,30 @@ function! s:set_language_client(has_unix) abort
 				\		'-j=12',
 				\		'--header-insertion-decorators=false',
 				\ ]
-	let l:clangd = {
+  let l:lua_language_server = [
+        \ 'lua-language-server'
+        \ ]
+  let l:jdtls = [
+        \ 'jdtls'
+        \ ]
+  let l:pyls = [
+        \ 'pyls'
+        \ ]
+
+  let l:chosen_java_server = {
+        \ 'java': l:jdtls
+        \ }
+  let l:chosen_python_server = {
+        \ 'python3': l:pyls,
+        \ 'python':  l:pyls,
+        \ }
+  let l:chosen_lua_server = {
+        \ 'lua' : l:lua_language_server
+        \ }
+	let l:chosen_cpp_server = {
 				\ 'cpp': l:clangd_args,
 				\ 'c': l:clangd_args,
 				\ }
-	" let l:clangd = {
-				" \ 'cpp': l:clangd_args,
-				" \ 'c': l:clangd_args,
-				" \ }
-	let l:chosen_cpp_server = l:clangd
 
 	" Tue Aug 07 2018 16:41: There is a new cpp player in town. `ccls`. Based of 
 	" `cquery` 
@@ -352,6 +355,10 @@ function! s:set_language_client(has_unix) abort
 	if executable(l:chosen_java_server.java[0])
 		call extend(g:LanguageClient_serverCommands, l:chosen_java_server)
 	endif
+
+  if executable(l:chosen_lua_server.lua[0])
+    call extend(g:LanguageClient_serverCommands, l:chosen_lua_server)
+  endif
 
 	let g:LanguageClient_hasSnippetSupport = 1
 	" let g:LanguageClient_useVirtualText = 1 " new version uses enum instead of 
