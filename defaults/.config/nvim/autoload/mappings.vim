@@ -91,8 +91,8 @@ function! mappings#Set()
 
 	nmap <localleader>k <plug>make_project
 	nmap <localleader>j <plug>make_file
-	nnoremap <plug>make_project :make!<cr>
-	nnoremap <plug>make_file :make!<cr>
+	nnoremap <plug>make_project :NeomakeProject<cr>
+	nnoremap <plug>make_file :Neomake<cr>
 
 	nmap <leader>tz <plug>windows_toggle_zoom
 
