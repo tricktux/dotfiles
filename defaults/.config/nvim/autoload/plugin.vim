@@ -1626,6 +1626,14 @@ function! s:configure_neoformat() abort
         \ }
   endif
 
+  if executable('lua-format')
+    let g:neoformat_enabled_lua = ['luaformat']
+    let g:neoformat_lua_luaformat = {
+          \ 'exe': 'lua-format',
+          \ 'args': [],
+          \ 'stdin': 1,
+          \ }
+  endif
   if executable('astyle')
     let g:neoformat_enabled_java = ['astyle']
     let g:neoformat_java_astyle = {
