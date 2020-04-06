@@ -203,7 +203,9 @@ function! mappings#Set()
 	cnoremap <C-s> %s/
 	cnoremap <C-j> <cr>
 	cnoremap <C-p> <Up>
-	cnoremap <C-A> <Home>
+  " Mon Apr 06 2020 15:06
+  " Used to expand * in cli
+	" cnoremap <C-A> <Home>
 	cnoremap <C-F> <Right>
 	cnoremap <C-B> <Left>
 	" Sun Sep 17 2017 14:21: this will not work in vim
