@@ -1253,45 +1253,50 @@ function! s:version_control_command(cmd) abort
 		return
 	endif
 
+  let l:cwd = getcwd()
+  let l:git = !empty(finddir('.git', l:cwd, 1))
+  let l:svn = !empty(finddir('.svn', l:cwd, 1))
+
 	if a:cmd ==? 'status'
-		if exists(':Gstatus')
+		if l:git
 			" nmap here is needed for the <C-n> to work. Otherwise it doesnt know what
 			" it means. This below is if you want it horizontal
 			" nmap <leader>gs :Gstatus<CR><C-w>L<C-n>
 			execute ':Gstatus'
-		elseif exists(':SVNStatus')
+		elseif l:svn
 			execute ':SVNStatus q'
 		else
 			echoerr '[version_control_command]: Please provide a command for status'
 			return
 		endif
 	elseif a:cmd ==? 'log'
-			if exists(':Glog')
+			if l:git
 				execute ':Glog'
-			elseif exists(':SVNLog')
+			elseif l:svn
 				execute ':SVNLog .'
 			else
 				echoerr '[version_control_command]: Please provide a command for log'
 				return
 			endif
 		elseif a:cmd ==? 'commit'
-			if exists(':Gcommit')
-				execute ':Gcommit'
-			elseif exists(':SVNCommit')
+			if l:git
+				silent execute ':Gwrite'
+        execute ':Gcommit'
+			elseif l:svn
 				execute ':SVNCommit .'
 			else
 				echoerr '[version_control_command]: Please provide a command for commit'
 				return
 			endif
 		elseif a:cmd ==? 'push'
-			if exists(':Gpush')
+			if l:git
 				execute ':Gpush'
 			else
 				echoerr '[version_control_command]: Please provide a command for commit'
 				return
 			endif
 		elseif a:cmd ==? 'pull'
-			if exists(':Gpull')
+			if l:git
 				execute ':Gpull'
 			else
 				echoerr '[version_control_command]: Please provide a command for pull'
