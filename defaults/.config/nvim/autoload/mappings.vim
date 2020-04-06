@@ -1133,6 +1133,8 @@ function! mappings#SetWhichKeyMap() abort
 	nnoremap gq gq
 	vnoremap gq gq
 	nnoremap gv gv
+  nnoremap gu gu
+  nnoremap gU gU
 	nnoremap g8 g8
 	nnoremap g< g<
 	nnoremap g? g?
