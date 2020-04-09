@@ -1283,7 +1283,7 @@ function! s:version_control_command(cmd) abort
 				silent execute ':Gwrite'
         execute ':Gcommit'
 			elseif l:svn
-				execute ':SVNCommit .'
+				execute ':SVNCommit'
 			else
 				echoerr '[version_control_command]: Please provide a command for commit'
 				return
@@ -1298,6 +1298,8 @@ function! s:version_control_command(cmd) abort
 		elseif a:cmd ==? 'pull'
 			if l:git
 				execute ':Gpull'
+      elseif l:svn
+        execute ':!svn up .'
 			else
 				echoerr '[version_control_command]: Please provide a command for pull'
 				return
