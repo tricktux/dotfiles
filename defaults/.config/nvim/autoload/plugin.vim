@@ -232,7 +232,7 @@ function! plugin#Config()
 
   call s:configure_vim_signify()
 
-  Plug 'juneedahamed/svnj.vim', { 'on' : 'SVNStatus' }
+  Plug 'juneedahamed/svnj.vim', { 'on' : ['SVNStatus', 'SVNCommit'] }
   let g:svnj_allow_leader_mappings=0
   let g:svnj_cache_dir = g:std_cache_path
   let g:svnj_browse_cache_all = 1
