@@ -109,8 +109,9 @@ function! s:set_vim_syntax_options() abort
 endfunction
 
 function! s:regular_highlight() abort
-	Plug 'justinmk/vim-syntax-extra'
+  Plug 'justinmk/vim-syntax-extra', { 'for' : [ 'c' , 'cpp' ] }
 	Plug 'octol/vim-cpp-enhanced-highlight', { 'for' : [ 'c' , 'cpp' ] }
+  Plug 'vim-jp/cpp-vim', { 'for' : [ 'c' , 'cpp' ] }
 endfunction
 
 function! s:set_neotags() abort
