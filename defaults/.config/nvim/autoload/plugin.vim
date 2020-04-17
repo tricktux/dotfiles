@@ -475,7 +475,7 @@ function! plugin#Config()
 
   Plug 'tenfyzhong/vim-gencode-cpp'
 
-  " call s:configure_vim_startify()
+  call s:configure_vim_startify()
 
   " This already exists on config files
   " Plug 'vim-scripts/a.vim'
@@ -969,10 +969,11 @@ function! s:configure_file_browser(choice) abort
 
       return
     endif
-    nnoremap <plug>file_browser :NERDTree<CR>
+    nnoremap <plug>file_browser :NERDTreeToggle<CR>
 
-    Plug 'scrooloose/nerdtree', { 'on' : 'NERDTree' }
-    Plug 'Xuyuanp/nerdtree-git-plugin', { 'on' : 'NERDTree' }
+    Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle' }
+    " Fri Apr 17 2020 16:27: Probably slows down nerdtree!
+    " Plug 'Xuyuanp/nerdtree-git-plugin', { 'on' : 'NERDTree' }
     " Nerdtree (Dont move. They need to be here)
     let g:NERDTreeShowBookmarks=1  " B key to toggle
     let g:NERDTreeShowLineNumbers=1
