@@ -7,16 +7,20 @@
 " Last Modified:  Fri Mar 13 2020 14:19
 
 
-if exists('g:loaded_sessions')
-	finish
-endif
+" if exists('g:loaded_sessions')
+	" finish
+" endif
 
 let g:loaded_sessions = 1
 
 let s:sessions = {
       \ 'path' : g:std_data_path . '/sessions/',
-      \ 'helper_plugin_cmd' : 'Obsession',
-      \ 'helper_plugin_status_fn' : function('ObsessionStatus'),
+      \ 'helper_plugin' : 
+      \   {
+      \     'cmd' :  'Obsession',
+      \     'status_fn': function('ObsessionStatus'),
+      \     'status_fn_ongoing_session': '[$]',
+      \   },
       \ }
 
 function! s:sessions.existing_save() abort
@@ -36,11 +40,11 @@ function! s:sessions.existing_save() abort
   endif
 
   " Save this current session
-  if exists(':' . self.helper_plugin_cmd)
+  if exists(':' . self.helper_plugin.cmd)
     " Check if there is an ongoing session
     if self.helper_plugin_status_fn() ==# '[$]'
       " If there is save it before leaving
-      silent execute self.helper_plugin_cmd .  ' ' . v:this_session
+      silent execute self.helper_plugin.cmd .  ' ' . v:this_session
     endif
   else
     silent execute 'mksession! ' . v:this_session
@@ -87,7 +91,7 @@ function! s:sessions.new() abort
   let l:rc = self.existing_save()
   if (l:rc >= 0)
     " Pause this current session
-    execute self.helper_plugin_cmd
+    execute self.helper_plugin.cmd
   endif
 
   " Delete all buffers. Otherwise they will be added to the new session
@@ -100,7 +104,7 @@ function! s:sessions.new() abort
   endif
 
   " Pause this current session
-  execute self.helper_plugin_cmd . ' ' . self.path . name
+  execute self.helper_plugin.cmd . ' ' . self.path . name
 endfunction
 
 function! s:sessions.new_save() abort
@@ -118,11 +122,12 @@ function! s:sessions.new_save() abort
   endif
 
   " Save this current session
-  if exists(':' . self.helper_plugin_cmd)
+  if exists(':' . self.helper_plugin.cmd)
     " Check if there is an ongoing session
-    if self.helper_plugin_status_fn() ==# '[$]'
+    if self.helper_plugin.status_fn() ==#
+          \ self.helper_plugin.status_fn_ongoing_session
       " If there is save it before leaving
-      silent execute self.helper_plugin_cmd .  ' ' . name
+      silent execute self.helper_plugin.cmd .  ' ' . name
     endif
   else
     silent execute 'mksession! ' . name
@@ -142,7 +147,7 @@ function! s:sessions.load() abort
   let l:rc = self.existing_save()
   if (l:rc >= 0)
     " Pause this current session
-    execute self.helper_plugin_cmd
+    execute self.helper_plugin.cmd
   endif
 
   " Delete all buffers. Otherwise they will be added to the new session
@@ -175,7 +180,7 @@ function! s:sessions.get_existing_name() abort
   if l:fuzzers && exists(':FZF')
     call fzf#run(fzf#wrap({ 
           \ 'source': l:sessions, 
-          \ 'sink': {line -> setreg('*', line)}},
+          \ 'sink': {line -> setreg('*', line)},
           \ }))
     return getreg('*')
   endif
