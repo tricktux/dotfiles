@@ -7,14 +7,22 @@
 " Last Modified:  Fri Mar 13 2020 14:19
 
 
-" if exists('g:loaded_sessions')
-	" finish
-" endif
+if exists('g:loaded_sessions')
+  finish
+endif
 
 let g:loaded_sessions = 1
 
+" BUG: 
+"   Fri Apr 17 2020 18:06:
+"     Using FZF to load sessions does not really work
+"     Ergo the 100 value for fuzzy_over
+"   
+" fuzzy_over: When there are more than this number of sessions, use fuzzies to 
+"     select a session
 let s:sessions = {
       \ 'path' : g:std_data_path . '/sessions/',
+      \ 'fuzz_over' : 100,
       \ 'helper_plugin' : 
       \   {
       \     'cmd' :  'Obsession',
@@ -26,7 +34,7 @@ let s:sessions = {
 function! s:sessions.existing_save() abort
   if (empty(glob(self.path)))
     if &verbose > 0
-      echoerr '[sessions.save]: Folder ' . 
+      echoerr '[sessions.existing_save]: Folder ' . 
             \ self.path . ' does not exists'
     endif
     return -1
@@ -34,21 +42,31 @@ function! s:sessions.existing_save() abort
 
   if empty(v:this_session)
     if &verbose > 0
-      echoerr '[sessions.save]: There is no existing session'
+      echoerr '[sessions.existing_save]: There is no existing session'
     endif
     return -2
   endif
 
-  " Save this current session
+  let l:cmd = 'mksession!'
   if exists(':' . self.helper_plugin.cmd)
-    " Check if there is an ongoing session
-    if self.helper_plugin_status_fn() ==# '[$]'
-      " If there is save it before leaving
-      silent execute self.helper_plugin.cmd .  ' ' . v:this_session
+    " If helper plugin available use it
+    let l:cmd = self.helper_plugin.cmd
+    " Current helper plugin has the option to be in pause mode. Where no changes 
+    " are saved. If we are in that mode do not save anything just return
+
+    if self.helper_plugin.status_fn() ==#
+          \ self.helper_plugin.status_fn_ongoing_session
+      if &verbose > 0
+        echomsg '[sessions.existing_save]: Obsession is paused. So no saving'
+      endif
+      return
     endif
-  else
-    silent execute 'mksession! ' . v:this_session
   endif
+
+  if &verbose > 0
+    echomsg '[sessions.existing_save]: Saving existing session: ' v:this_session
+  endif
+  silent execute l:cmd .  ' ' . v:this_session
 endfunction
 
 function! s:sessions.get_new_name() abort
@@ -116,22 +134,26 @@ function! s:sessions.new_save() abort
     return -1
   endif
 
-  let name = self.get_new_name()
-  if empty(name)
+  let l:name = self.get_new_name()
+  if empty(l:name)
     return
   endif
 
-  " Save this current session
-  if exists(':' . self.helper_plugin.cmd)
-    " Check if there is an ongoing session
-    if self.helper_plugin.status_fn() ==#
-          \ self.helper_plugin.status_fn_ongoing_session
-      " If there is save it before leaving
-      silent execute self.helper_plugin.cmd .  ' ' . name
-    endif
-  else
-    silent execute 'mksession! ' . name
+  if filereadable(l:name)
+    echoerr "Session already exists: " l:name
+    return
   endif
+
+  let l:cmd = 'mksession!'
+  if exists(':' . self.helper_plugin.cmd)
+    " If helper plugin available use it
+    let l:cmd = self.helper_plugin.cmd
+  endif
+
+  if &verbose > 0
+    echomsg '[sessions.existing_save]: Saving new session: ' l:name
+  endif
+  silent execute l:cmd .  ' ' . l:name
 endfunction
 
 function! s:sessions.load() abort
@@ -155,10 +177,18 @@ function! s:sessions.load() abort
 
   " Get name
   let l:name = self.get_existing_name()
-  if !filereadable(self.path . l:name)
+  if empty(l:name)
     return
   endif
-  execute 'source ' . self.path . l:name
+
+  if &verbose > 0
+    echomsg "[session.load]: Session name is: " l:name
+  endif
+  if !filereadable(l:name)
+    echoerr "[sessions.load]: Session does not exists: " l:name
+    return
+  endif
+  execute 'source ' . l:name
 endfunction
 
 function! s:sessions.get_existing_name() abort
@@ -167,13 +197,13 @@ function! s:sessions.get_existing_name() abort
       echoerr '[session.save]: Folder ' . 
             \ self.path . ' does not exists'
     endif
-    return -1
+    return ''
   endif
 
   " If there are more than 10 sessions, use fanzy fuzzers
   let l:fuzzers = 0
   let l:sessions = glob(self.path . '*.vim', 0, 1)
-  if len(l:sessions) > 10
+  if len(l:sessions) > self.fuzz_over 
     let l:fuzzers = 1
   endif
 
@@ -193,7 +223,7 @@ function! s:sessions.get_existing_name() abort
   execute 'lcd '. self.path
   let l:session_name = input('Load session:', "", 'file')
   silent execute 'lcd ' . l:dir
-  return l:session_name
+  return self.path . l:session_name
 endfunction
 
 command! SessionsLoad call s:sessions.load()
