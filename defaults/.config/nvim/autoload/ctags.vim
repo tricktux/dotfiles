@@ -342,7 +342,7 @@ function! ctags#LoadCscopeDatabse() abort
 
 	" call s:load_tag_spelllang(tag_name)
 	
-	call s:load_cctree_cscope_db(tag_name . '.xref')
+	" call s:load_cctree_cscope_db(tag_name . '.xref')
 endfunction
 
 function! s:add_tags(tags_name) abort
