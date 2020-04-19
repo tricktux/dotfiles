@@ -62,15 +62,8 @@ if [[ -z "$visible_wid" ]]; then # If the scratchpad window is not visible
 	done
 
 	echo "$name found. Showing scratchpad."
-  if [ "$name" = "terminal" ]; then
-    i3-msg "[title="^$name$"]\
-      resize set $width $height,\
-      move position 0 px $posy px,\
-      move to scratchpad,\
-      scratchpad show"
-  else
-    i3-msg "[title="^$name$"] move to scratchpad, scratchpad show"
-  fi
+  i3-msg "[title=\"^$name$\"] scratchpad show; \
+    [title=\"^$name$\"] move position center"
 	exit $?
 fi
 

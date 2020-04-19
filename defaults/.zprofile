@@ -78,6 +78,18 @@ fi
 # export VISUAL=nvim
 export EDITOR=$VISUAL
 
+# i3 position and size variables
+export 
+if [ `hostname` = "predator" ]; then
+  I3_TERMINAL_WIDTH=3840
+  I3_TERMINAL_HEIGHT=800
+  I3_TERMINAL_POSY=48
+else
+  I3_TERMINAL_WIDTH=1920
+  I3_TERMINAL_HEIGHT=440
+  I3_TERMINAL_POSY=32
+fi
+
 # Thu Feb 22 2018 08:59: Can't figure out how to set locale properly on arch. 
 # Result:
 # Wed May 02 2018 04:57: Not needed anymore

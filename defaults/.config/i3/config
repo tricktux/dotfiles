@@ -99,23 +99,31 @@ font pango:FontAwesome 9
 		~/.config/i3/scripts/switch_dvorak.sh
 
 # Launch toggle scratchpads
-	bindsym $mod+n exec \
-		--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
-		ranger "$TERMINAL -T ranger ranger"
-	bindsym $mod+6 exec \
-		--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
-		cmus "$TERMINAL -T cmus cmus"
-	bindsym $mod+o exec \
-		--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
-		journal "$TERMINAL -T journal \
-		~/.config/i3/scripts/journal.sh"
-	bindsym $mod+i exec \
-		--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
-		terminal "$TERMINAL -T terminal -o background_opacity=0.9 tmux"
-	bindsym $mod+8 exec \
-		--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
-		neomutt "$TERMINAL \
-		-T neomutt ~/.config/tmux/neomutt.sh"
+
+bindsym $mod+p exec \
+  --no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
+  terminal "$TERMINAL -T htop htop"
+bindsym $mod+i [title="^terminal$"] scratchpad show, \
+  [title="^terminal$"] move position 0 px $I3_TERMINAL_POSY px
+bindsym $mod+n [title="^scratch$"] scratchpad show, \
+  [title="^scratch$"] move position center
+# bindsym $mod+n exec \
+  # --no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
+  # ranger "$TERMINAL -T ranger ranger"
+# bindsym $mod+6 exec \
+  # --no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
+  # cmus "$TERMINAL -T cmus cmus"
+# bindsym $mod+o exec \
+  # --no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
+  # journal "$TERMINAL -T journal \
+  # ~/.config/i3/scripts/journal.sh"
+# bindsym $mod+i exec \
+  # --no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
+  # terminal "$TERMINAL -T terminal -o background_opacity=0.9 tmux"
+bindsym $mod+8 exec \
+  --no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
+  neomutt "$TERMINAL \
+  -T neomutt ~/.config/tmux/neomutt.sh"
 
 # Some silly comment
 bindsym mod1+Tab exec --no-startup-id i3flip next
@@ -374,7 +382,9 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 		for_window [title="^cmus$"] move to scratchpad
 		for_window [title="^ranger$"] move to scratchpad
 		for_window [title="^journal$"] move to scratchpad
-		for_window [title="^terminal$"] move to scratchpad
+		for_window [title="^terminal$"] move to scratchpad \
+      resize set $I3_TERMINAL_WIDTH $I3_TERMINAL_HEIGHT, floating enable
+    for_window [title="^scratch$"] move to scratchpad
 		for_window [class="Spotify"] move to scratchpad
 
 # Taken from https://github.com/Airblader/dotfiles-manjaro
@@ -606,6 +616,8 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 		exec --no-startup-id blueberry-tray
 
 		exec --no-startup-id cbatticon -c "notify-send 'Battery' 'Critically Low %5'"
+    exec --no-startup-id ~/.config/tmux/scratch.sh
+    exec --no-startup-id $TERMINAL -T terminal -o background_opacity=0.9 tmux
 		# exec --no-startup-id ~/.config/i3/scripts/focus_previous.sh
 		# exec --no-startup-id guake
 
