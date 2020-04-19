@@ -115,7 +115,7 @@ font pango:FontAwesome 9
 	bindsym $mod+8 exec \
 		--no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
 		neomutt "$TERMINAL \
-		-T neomutt ~/.config/i3/scripts/neomutt.sh"
+		-T neomutt ~/.config/tmux/neomutt.sh"
 
 # Some silly comment
 bindsym mod1+Tab exec --no-startup-id i3flip next
