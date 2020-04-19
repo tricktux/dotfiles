@@ -79,16 +79,34 @@ fi
 export EDITOR=$VISUAL
 
 # i3 position and size variables
-export 
 if [ `hostname` = "predator" ]; then
-  I3_TERMINAL_WIDTH=3840
-  I3_TERMINAL_HEIGHT=800
-  I3_TERMINAL_POSY=48
+  # Terminal
+  terminal_width=3840
+  terminal_height=800
+  terminal_posy=48
+  # Htop
+  htop_width=3640
+  htop_height=1024
 else
-  I3_TERMINAL_WIDTH=1920
-  I3_TERMINAL_HEIGHT=440
-  I3_TERMINAL_POSY=32
+  # Assumes helios here
+  # Terminal
+  terminal_width=1920
+  terminal_height=440
+  terminal_posy=32
+  # Htop
+  htop_width=1820
+  htop_height=880
 fi
+
+# Delete existing setup
+# NOTE: If you add more variables update the number of lines to delete
+sed -i '44,48d' ~/.config/i3/config
+# Now add the new values
+sed -i '44s/^/set $terminal_width '"$terminal_width"'\n/' ~/.config/i3/config
+sed -i '44s/^/set $terminal_height '"$terminal_height"'\n/' ~/.config/i3/config
+sed -i '44s/^/set $terminal_posy '"$terminal_posy"'\n/' ~/.config/i3/config
+sed -i '44s/^/set $htop_width '"$htop_width"'\n/' ~/.config/i3/config
+sed -i '44s/^/set $htop_height '"$htop_height"'\n/' ~/.config/i3/config
 
 # Thu Feb 22 2018 08:59: Can't figure out how to set locale properly on arch. 
 # Result:

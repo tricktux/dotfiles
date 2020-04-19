@@ -61,12 +61,12 @@ if [[ -z "$visible_wid" ]]; then # If the scratchpad window is not visible
 		wid="$(xdotool search --name "^$name$" | tail -1 2> /dev/null)"
 	done
 
-	echo "$name found. Showing scratchpad."
-  i3-msg "[title=\"^$name$\"] scratchpad show; \
-    [title=\"^$name$\"] move position center"
-	exit $?
+	# echo "$name found. Showing scratchpad."
+  # i3-msg "[title=\"^$name$\"] scratchpad show; \
+    # [title=\"^$name$\"] move position center"
+	# exit $?
 fi
 
-echo "Hiding instance of $name."
-i3-msg "scratchpad show"
-exit $?
+# echo "Hiding instance of $name."
+# i3-msg "scratchpad show"
+# exit $?
