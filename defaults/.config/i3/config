@@ -111,26 +111,21 @@ set $terminal_width 3840
 		~/.config/i3/scripts/switch_dvorak.sh
 
 # Launch toggle scratchpads
-bindsym $mod+p exec \
-  --no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
-  htop "$TERMINAL -T htop htop", \
+bindsym $mod+p exec --no-startup-id \
+  ~/.config/i3/scripts/xdotool_launch htop htop, \
   [title="^htop$"] scratchpad show, \
   [title="^htop$"] move position center
-bindsym $mod+n exec \
-  --no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
-  scratch "$TERMINAL \
-  -T scratch ~/.config/tmux/scratch.sh", \
+bindsym $mod+n exec --no-startup-id \
+  ~/.config/i3/scripts/xdotool_launch scratch "~/.config/tmux/scratch.sh", \
   [title="^scratch$"] scratchpad show, \
   [title="^scratch$"] move position center
-bindsym $mod+i exec \
-  --no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
-  terminal "$TERMINAL -T terminal -o background_opacity=0.9 tmux", \
+bindsym $mod+i exec --no-startup-id \
+  ~/.config/i3/scripts/xdotool_launch terminal \
+  "-o background_opacity=0.9 tmux", \
   [title="^terminal$"] scratchpad show, \
   [title="^terminal$"] move position 0 px $terminal_posy px
-bindsym $mod+8 exec \
-  --no-startup-id ~/.config/i3/scripts/scratchpad_toggle \
-  neomutt "$TERMINAL \
-  -T neomutt ~/.config/tmux/neomutt.sh", \
+bindsym $mod+8 exec --no-startup-id \
+  ~/.config/i3/scripts/xdotool_launch neomutt "~/.config/tmux/neomutt.sh", \
   [title="^neomutt$"] scratchpad show, move position center, \
   [title="^neomutt$"] move position center
 
