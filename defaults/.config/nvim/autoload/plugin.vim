@@ -170,7 +170,7 @@ function! plugin#Config()
   endif
 
   " Options: netranger, nerdtree
-  call s:configure_file_browser((executable('ranger') ? 'ranger' : 'nerdtree'))
+  call s:configure_file_browser('nerdtree'))
 
   call s:configure_nerdcommenter()
 
@@ -977,13 +977,18 @@ function! s:configure_file_browser(choice) abort
     " Nerdtree (Dont move. They need to be here)
     let g:NERDTreeShowBookmarks=1  " B key to toggle
     let g:NERDTreeShowLineNumbers=1
+    let g:NERDTreeSortHiddenFirst=1
+    let g:NERDTreeAutoDeleteBuffer=1
     let g:NERDTreeShowHidden=1 " i key to toggle
+    let g:NERDTreeMinimalUI=1
+    let g:NERDTreeMinimalMenu=1
     let g:NERDTreeQuitOnOpen=1 " AutoClose after openning file
     let g:NERDTreeBookmarksFile= g:std_data_path . '/.NERDTreeBookmarks'
+    let g:NERDTreeIgnore=['\.d$[[dir]]', '\.o$[[file]]', '__pycache__', '.svn']
   elseif a:choice ==# 'netranger'
     Plug 'ipod825/vim-netranger'
     let g:NETRRootDir = g:std_data_path . '/netranger/'
-    let g:NETRIgnore = [ '.git', '.svn', '.sync' ]
+    let g:NETRIgnore = [ '.git', '.svn', '.sync', '__pycache__' ]
   elseif a:choice ==# 'ranger'
     nmap <plug>file_browser :call <sid>floating_ranger()<cr>
     Plug 'francoiscabrol/ranger.vim', { 'on' : 'RangerCurrentDirectory' }
