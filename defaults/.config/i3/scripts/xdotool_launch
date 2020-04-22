@@ -6,13 +6,13 @@ xdotool.path = [[/usr/bin/xdotool]]
 xdotool.app_exists_args = [[search --name]]
 -- NOTE: Import substitute here for setting terminal name if you change from 
 -- kitty
-xdotool.cmd = '$TERMINAL -T ' .. arg[1] .. ' ' .. arg[2]
+xdotool.cmd = '$TERMINAL --title ' .. arg[1] .. ' ' .. arg[2]
 xdotool.usage = [[
 Usage:
     $(basename $0) <name> <arguments to $TERMINAL>
     <name>    : name the window has
     <arguments to $TERMINAL>: Will use $TERMINAL application
-    E.g.:  $(basename $0) terminal \"--title=terminal\"
+    E.g.:  $(basename $0) ranger /usr/bin/ranger
 ]]
 
 function xdotool:window_visible(app)
