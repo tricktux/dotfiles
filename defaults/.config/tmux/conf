@@ -37,14 +37,13 @@
 # Allow to scrool with mouse wheel
   setw -g mouse on
 
-# NOTE: Handled now by Oh my tmux!
-# Nvim suggested settings for tmux
-# set -g default-terminal "tmux-256color"
-# Your .bashrc $TERM needs to be xterm-256color
-# set-option -g default-terminal "xterm-256color"
-# Sun May 07 2017 15:20 - For some reason for this to work you have to do it in the terminal and then restart.
+# Settings to get proper cursor in nvim
+# Sun May 07 2017 15:20 - For some reason for this to work you have to do it in 
+# the terminal and then restart.
+#   - Wed Apr 22 2020 06:14: No silly just `tmux kill-server` 
 # Somethin like $tmux set-option..... 
-# set-option -ga terminal-overrides ",xterm-256color:Tc"
+set-option -g default-terminal "xterm-256color"
+set-option -ga terminal-overrides ",xterm-256color:Tc"
 
 # NOTE: Handled now by Oh my tmux!
 # Nvim suggested settings for tmux
