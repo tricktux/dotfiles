@@ -1,0 +1,80 @@
+#!/bin/luajit
+
+local xdotool = {}
+
+xdotool.path = [[/usr/bin/xdotool]]
+xdotool.app_exists_args = [[search --name]]
+-- NOTE: Import substitute here for setting terminal name if you change from 
+-- kitty
+xdotool.cmd = '$TERMINAL --title ' .. arg[1] .. ' ' .. arg[2]
+xdotool.usage = [[
+Usage:
+    $(basename $0) <name> <arguments to $TERMINAL>
+    <name>    : name the window has
+    <arguments to $TERMINAL>: Will use $TERMINAL application
+    E.g.:  $(basename $0) ranger /usr/bin/ranger
+]]
+
+function xdotool:wait_for_window_visible(app)
+  while self:window_visible(app) == '' do
+    os.execute('sleep 0.01')
+  end
+  os.execute('sleep 1.01')
+end
+
+function xdotool:window_visible(app)
+    if not app or app == '' then
+        print('Bad argument')
+        return
+    end
+    local cmd = self.path .. ' ' .. self.app_exists_args .. ' ' .. '^' .. app ..
+                    '$'
+    -- print('cmd = "'.. cmd .. '"')
+    local file = assert(io.popen(cmd))
+    local output = file:read('*all')
+    file:close()
+    return output
+end
+
+function xdotool:eval()
+    local file = assert(io.popen(self.cmd))
+    local output = file:read('*all')
+    file:close()
+    return output
+end
+
+function xdotool:check_args()
+    if not arg[1] or arg[1] == '' then
+        print(self.usage)
+        return -1
+    end
+
+    if arg[1] == '-h' or arg[1] == '--help' then
+        print(self.usage)
+        return -2
+    end
+
+    if not arg[2] or arg[2] == '' then
+        print(self.usage)
+        return -3
+    end
+
+    return 0
+end
+
+local function main()
+    if xdotool:check_args() ~= 0 then return end
+
+    local win = xdotool:window_visible(arg[1])
+    if win ~= '' then
+        -- print('Window ' .. arg[1] .. ' exists')
+        return
+    end
+    print('Window ' .. arg[1] .. ' does not exists')
+    print(xdotool:eval())
+    xdotool:wait_for_window_visible(arg[1])
+end
+
+main()
+
+-- vim: ft=lua
