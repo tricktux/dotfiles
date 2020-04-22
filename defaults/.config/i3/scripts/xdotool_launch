@@ -15,6 +15,13 @@ Usage:
     E.g.:  $(basename $0) ranger /usr/bin/ranger
 ]]
 
+function xdotool:wait_for_window_visible(app)
+  while self:window_visible(app) == '' do
+    os.execute('sleep 0.01')
+  end
+  os.execute('sleep 1.01')
+end
+
 function xdotool:window_visible(app)
     if not app or app == '' then
         print('Bad argument')
@@ -65,6 +72,7 @@ local function main()
     end
     print('Window ' .. arg[1] .. ' does not exists')
     print(xdotool:eval())
+    xdotool:wait_for_window_visible(arg[1])
 end
 
 main()
