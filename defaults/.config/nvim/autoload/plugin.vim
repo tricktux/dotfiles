@@ -961,14 +961,14 @@ function! s:configure_file_browser(choice) abort
 
 
   if a:choice ==# 'nerdtree'
-    if has('nvim') && has('unix')
-      " Does not support windows
-      nnoremap <plug>file_browser :LuaTreeToggle<cr>
-      Plug 'kyazdani42/nvim-tree.lua'
-      let g:lua_tree_ignore = [ '.git', '.svn', '__pycache__' ]
+    " if has('nvim') && has('unix')
+      " " Does not support windows
+      " nnoremap <plug>file_browser :LuaTreeToggle<cr>
+      " Plug 'kyazdani42/nvim-tree.lua'
+      " let g:lua_tree_ignore = [ '.git', '.svn', '__pycache__' ]
 
-      return
-    endif
+      " return
+    " endif
     nnoremap <plug>file_browser :NERDTreeToggle<CR>
 
     Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle' }
