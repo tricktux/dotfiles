@@ -144,5 +144,3 @@ local function main()
 end
 
 main()
-
--- vim: ft=lua
