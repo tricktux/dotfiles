@@ -103,21 +103,13 @@ font pango:FontAwesome 9
 # Launch toggle scratchpads
 bindsym $mod+p exec --no-startup-id \
   ~/.config/i3/scripts/xdotool_launch htop htop
-  # [title="^htop$"] scratchpad show, \
-  # [title="^htop$"] move position center
 bindsym $mod+n exec --no-startup-id \
   ~/.config/i3/scripts/xdotool_launch scratch "~/.config/tmux/scratch.sh"
-  # [title="^scratch$"] scratchpad show, \
-  # [title="^scratch$"] move position center
 bindsym $mod+i exec --no-startup-id \
   ~/.config/i3/scripts/xdotool_launch terminal \
   "-o background_opacity=0.9 tmux"
-  # [title="^terminal$"] scratchpad show, \
-  # [title="^terminal$"] move position 0 px $terminal_posy px
 bindsym $mod+8 exec --no-startup-id \
   ~/.config/i3/scripts/xdotool_launch neomutt "~/.config/tmux/neomutt.sh"
-  # [title="^neomutt$"] scratchpad show, \
-  # [title="^neomutt$"] move position center
 
 
 # Some silly comment
@@ -378,9 +370,7 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 		for_window [title="^ranger$"] move to scratchpad
 		for_window [title="^journal$"] move to scratchpad
 		for_window [title="^terminal$"] move to scratchpad
-      # resize set $terminal_width $terminal_height
     for_window [title="^htop$"] move to scratchpad
-      # resize set $htop_width $htop_height
     for_window [title="^scratch$"] move to scratchpad
 		for_window [class="Spotify"] move to scratchpad
 
