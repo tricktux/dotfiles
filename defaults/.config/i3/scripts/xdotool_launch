@@ -9,15 +9,23 @@ local function get_hostname()
     return output:gsub("%s+", "")
 end
 
+local hostname = get_hostname()
 local i3ipc = {}
 
 i3ipc.cmd = [[/usr/bin/i3-msg]]
 i3ipc.args = '[title="^' .. arg[1] .. '$"] scratchpad show'
 i3ipc.terminal = {
     ['helios'] = 'resize set 1920 440, move position 0 px 32 px',
-    ['predator'] = 'resize set 1920 440, move position 0 px 32 px',
+    ['predator'] = 'resize set 3840 800, move position 0 px 48 px'
 }
-i3ipc.window_position = {['terminal'] = i3ipc.terminal[get_hostname()]}
+i3ipc.htop = {
+    ['helios'] = 'resize set 1820 880, move position center',
+    ['predator'] = 'resize set 3640 1024, move position center'
+}
+i3ipc.window_position = {
+    ['terminal'] = i3ipc.terminal[hostname],
+    ['htop'] = i3ipc.htop[hostname]
+}
 
 function i3ipc:hide()
     local cmd = self.cmd .. ' ' .. 'scratchpad show'
@@ -60,7 +68,8 @@ function xdotool:window_exists(app)
         print('Bad argument')
         return
     end
-    local cmd = self.path .. ' ' .. self.app_exists_args .. ' ' .. '"^' .. app .. '$"'
+    local cmd =
+        self.path .. ' ' .. self.app_exists_args .. ' ' .. '"^' .. app .. '$"'
     -- print('cmd = "'.. cmd .. '"')
     local file = assert(io.popen(cmd))
     local output = file:read('*all')

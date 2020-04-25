@@ -38,16 +38,6 @@ font pango:FontAwesome 9
 # }}}
 
 
-# NOTE: Please do not change number of lines up to this point!!!
-# It will break the sed command that insert automatic variables here
-# Automatic variables generated from zprofile {{{
-set $htop_height 1024
-set $htop_width 3640
-set $terminal_posy 48
-set $terminal_height 800
-set $terminal_width 3840
-# }}}
-
 ########## Mod ############ {{{
 # Mod1 = Alt
 # Mod4 = Window key
@@ -112,22 +102,22 @@ set $terminal_width 3840
 
 # Launch toggle scratchpads
 bindsym $mod+p exec --no-startup-id \
-  ~/.config/i3/scripts/xdotool_launch htop htop, \
-  [title="^htop$"] scratchpad show, \
-  [title="^htop$"] move position center
+  ~/.config/i3/scripts/xdotool_launch htop htop
+  # [title="^htop$"] scratchpad show, \
+  # [title="^htop$"] move position center
 bindsym $mod+n exec --no-startup-id \
-  ~/.config/i3/scripts/xdotool_launch scratch "~/.config/tmux/scratch.sh", \
-  [title="^scratch$"] scratchpad show, \
-  [title="^scratch$"] move position center
+  ~/.config/i3/scripts/xdotool_launch scratch "~/.config/tmux/scratch.sh"
+  # [title="^scratch$"] scratchpad show, \
+  # [title="^scratch$"] move position center
 bindsym $mod+i exec --no-startup-id \
   ~/.config/i3/scripts/xdotool_launch terminal \
-  "-o background_opacity=0.9 tmux", \
-  [title="^terminal$"] scratchpad show, \
-  [title="^terminal$"] move position 0 px $terminal_posy px
+  "-o background_opacity=0.9 tmux"
+  # [title="^terminal$"] scratchpad show, \
+  # [title="^terminal$"] move position 0 px $terminal_posy px
 bindsym $mod+8 exec --no-startup-id \
-  ~/.config/i3/scripts/xdotool_launch neomutt "~/.config/tmux/neomutt.sh", \
-  [title="^neomutt$"] scratchpad show, \
-  [title="^neomutt$"] move position center
+  ~/.config/i3/scripts/xdotool_launch neomutt "~/.config/tmux/neomutt.sh"
+  # [title="^neomutt$"] scratchpad show, \
+  # [title="^neomutt$"] move position center
 
 
 # Some silly comment
@@ -387,10 +377,10 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 		for_window [title="^cmus$"] move to scratchpad
 		for_window [title="^ranger$"] move to scratchpad
 		for_window [title="^journal$"] move to scratchpad
-		for_window [title="^terminal$"] move to scratchpad, \
-      resize set $terminal_width $terminal_height
-    for_window [title="^htop$"] move to scratchpad, \
-      resize set $htop_width $htop_height
+		for_window [title="^terminal$"] move to scratchpad
+      # resize set $terminal_width $terminal_height
+    for_window [title="^htop$"] move to scratchpad
+      # resize set $htop_width $htop_height
     for_window [title="^scratch$"] move to scratchpad
 		for_window [class="Spotify"] move to scratchpad
 
