@@ -5,7 +5,8 @@ local function get_hostname()
     local file = assert(io.popen(cmd))
     local output = file:read('*all')
     file:close()
-    return output
+    -- Strip all spaces from output
+    return output:gsub("%s+", "")
 end
 
 local i3ipc = {}
@@ -16,8 +17,7 @@ i3ipc.terminal = {
     ['helios'] = 'resize set 1920 440, move position 0 px 32 px',
     ['predator'] = 'resize set 1920 440, move position 0 px 32 px',
 }
-i3ipc.window_position = {['terminal'] = i3ipc.terminal[get_hostname]}
--- i3ipc.window_size = {['terminal'] = ' '}
+i3ipc.window_position = {['terminal'] = i3ipc.terminal[get_hostname()]}
 
 function i3ipc:hide()
     local cmd = self.cmd .. ' ' .. 'scratchpad show'
