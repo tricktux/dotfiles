@@ -27,7 +27,7 @@ let s:sessions = {
       \   {
       \     'cmd' :  'Obsession',
       \     'status_fn': function('ObsessionStatus'),
-      \     'status_fn_ongoing_session': '[$]',
+      \     'status_fn_session_paused': '[S]',
       \   },
       \ }
 
@@ -55,7 +55,7 @@ function! s:sessions.existing_save() abort
     " are saved. If we are in that mode do not save anything just return
 
     if self.helper_plugin.status_fn() ==#
-          \ self.helper_plugin.status_fn_ongoing_session
+          \ self.helper_plugin.status_fn_session_paused
       if &verbose > 0
         echomsg '[sessions.existing_save]: Obsession is paused. So no saving'
       endif
