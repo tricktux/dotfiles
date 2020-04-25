@@ -603,7 +603,8 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 		exec --no-startup-id pcmanfm --daemon-mode
 
 # exec --no-startup-id i3-sensible-terminal
-		exec --no-startup-id blueberry-tray
+    # Sat Apr 25 2020 13:36: A lot of ram consumption 
+		# exec --no-startup-id blueberry-tray
 
 		exec --no-startup-id cbatticon -c "notify-send 'Battery' 'Critically Low %5'"
     # exec --no-startup-id $TERMINAL -T scratch ~/.config/tmux/scratch.sh
