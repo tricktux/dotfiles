@@ -1,12 +1,46 @@
 #!/bin/luajit
 
+local function get_hostname()
+    local cmd = 'hostname'
+    local file = assert(io.popen(cmd))
+    local output = file:read('*all')
+    file:close()
+    return output
+end
+
+local i3ipc = {}
+
+i3ipc.cmd = [[/usr/bin/i3-msg]]
+i3ipc.args = '[title="^' .. arg[1] .. '$"] scratchpad show'
+i3ipc.terminal = {
+    ['helios'] = 'resize set 1920 440, move position 0 px 32 px',
+    ['predator'] = 'resize set 1920 440, move position 0 px 32 px',
+}
+i3ipc.window_position = {['terminal'] = i3ipc.terminal[get_hostname]}
+-- i3ipc.window_size = {['terminal'] = ' '}
+
+function i3ipc:hide()
+    local cmd = self.cmd .. ' ' .. 'scratchpad show'
+    print(cmd)
+    os.execute(cmd)
+end
+
+function i3ipc:show()
+    local pos = self.window_position[arg[1]]
+    if pos == nil then pos = 'move position center' end
+    local cmd = self.cmd .. ' ' .. self.args .. ', ' .. pos
+    print(cmd)
+    os.execute(cmd)
+end
+
 local xdotool = {}
 
 xdotool.path = [[/usr/bin/xdotool]]
 xdotool.app_exists_args = [[search --name]]
--- NOTE: Import substitute here for setting terminal name if you change from 
+xdotool.app_visible_args = [[search --name --onlyvisible]]
+-- NOTE: Import substitute here for setting terminal name if you change from
 -- kitty
-xdotool.cmd = '$TERMINAL --title ' .. arg[1] .. ' ' .. arg[2]
+xdotool.cmd = '$TERMINAL --title ' .. arg[1] .. ' ' .. arg[2] .. '&'
 xdotool.usage = [[
 Usage:
     $(basename $0) <name> <arguments to $TERMINAL>
@@ -16,10 +50,22 @@ Usage:
 ]]
 
 function xdotool:wait_for_window_visible(app)
-  while self:window_visible(app) == '' do
-    os.execute('sleep 0.01')
-  end
-  os.execute('sleep 1.01')
+    print('Waiting for ' .. app .. '...')
+    while self:window_exists(app) == '' do os.execute('sleep 0.01') end
+    os.execute('sleep 0.1')
+end
+
+function xdotool:window_exists(app)
+    if not app or app == '' then
+        print('Bad argument')
+        return
+    end
+    local cmd = self.path .. ' ' .. self.app_exists_args .. ' ' .. '"^' .. app .. '$"'
+    -- print('cmd = "'.. cmd .. '"')
+    local file = assert(io.popen(cmd))
+    local output = file:read('*all')
+    file:close()
+    return output
 end
 
 function xdotool:window_visible(app)
@@ -27,8 +73,8 @@ function xdotool:window_visible(app)
         print('Bad argument')
         return
     end
-    local cmd = self.path .. ' ' .. self.app_exists_args .. ' ' .. '^' .. app ..
-                    '$'
+    local cmd =
+        self.path .. ' ' .. self.app_visible_args .. ' ' .. '"^' .. app .. '$"'
     -- print('cmd = "'.. cmd .. '"')
     local file = assert(io.popen(cmd))
     local output = file:read('*all')
@@ -37,10 +83,12 @@ function xdotool:window_visible(app)
 end
 
 function xdotool:eval()
-    local file = assert(io.popen(self.cmd))
-    local output = file:read('*all')
-    file:close()
-    return output
+    print('Executing "' .. self.cmd .. '"')
+    os.execute(self.cmd)
+    -- local file = assert(io.popen(self.cmd))
+    -- local output = file:read('*all')
+    -- file:close()
+    -- return output
 end
 
 function xdotool:check_args()
@@ -65,14 +113,20 @@ end
 local function main()
     if xdotool:check_args() ~= 0 then return end
 
-    local win = xdotool:window_visible(arg[1])
-    if win ~= '' then
-        -- print('Window ' .. arg[1] .. ' exists')
+    if xdotool:window_visible(arg[1]) ~= '' then
+        i3ipc:hide()
         return
     end
+
+    if xdotool:window_exists(arg[1]) ~= '' then
+        i3ipc:show()
+        return
+    end
+
     print('Window ' .. arg[1] .. ' does not exists')
-    print(xdotool:eval())
+    xdotool:eval()
     xdotool:wait_for_window_visible(arg[1])
+    i3ipc:show()
 end
 
 main()
