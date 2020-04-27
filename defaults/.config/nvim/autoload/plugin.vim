@@ -39,6 +39,8 @@ function! plugin#Config()
   " selection - {lightline, airline}
   call status_line#config('lightline')
 
+  Plug 'numirias/semshi', { 'for': ['python'], 'do' : 'UpdateRemotePlugins' }
+    let g:semshi#mark_selected_nodes = 0
   Plug 'Yggdroot/indentLine', { 'for' : [ 'java', 'cpp', 'c', 'python' ] }
   Plug 'whiteinge/diffconflicts'
   Plug 'aquach/vim-http-client', { 'on' : 'HTTPClientDoRequest'}
