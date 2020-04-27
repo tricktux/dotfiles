@@ -48,6 +48,13 @@ function! s:set_neomake() abort
 				\ 'cwd': '%:p:h'
 				\ }
 
+  let g:neomake_cmakelint_maker = {
+        \ 'exe': 'cmakelint',
+        \ 'cwd': '%:p:h',
+        \ 'append_file' : 1,
+        \ }
+  let g:neomake_cmake_enabled_makers = ['cmakelint']
+
 	let g:neomake_make_maker = {
 				\ 'exe': 'make',
 				\ 'cwd': '%:p:h',
