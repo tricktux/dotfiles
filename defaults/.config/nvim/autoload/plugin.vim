@@ -659,9 +659,11 @@ function! plugin#AfterConfig() abort
 
   " Run neomake everytime you save a file
   if exists('g:loaded_neomake')
-    let l:helios_bat_stat = '/sys/class/power_supply/BAT1/status'
-    if has('win32')
-      call neomake#configure#automake('w')
+    " Mon Apr 27 2020 04:31:
+    " Toggle it if things get cluttered. Missing a lot of goodies
+    call neomake#configure#automake('w')
+    " let l:helios_bat_stat = '/sys/class/power_supply/BAT1/status'
+    " if has('win32')
     " Thu Apr 25 2019 06:11: This is very qute. But when enabled by default 
     " things get very cluttered. Let LanguageClient do its thing and then just 
     " run on demand 
@@ -670,7 +672,7 @@ function! plugin#AfterConfig() abort
       " if hostname ==# 'helios' && readfile(l:helios_bat_stat) ==# ['Charging']
         " call neomake#configure#automake('w')
       " endif
-    endif
+    " endif
   endif
 
   if exists('g:loaded_grepper')
