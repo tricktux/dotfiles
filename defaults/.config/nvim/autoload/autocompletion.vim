@@ -326,7 +326,13 @@ function! s:set_language_client(has_unix) abort
   let l:pyls = [
         \ 'pyls'
         \ ]
+  let l:cmake_language_server = [
+        \ 'cmake-language-server'
+        \ ]
 
+  let l:chosen_cmake_server = {
+        \ 'cmake': l:cmake_language_server
+        \ }
   let l:chosen_java_server = {
         \ 'java': l:jdtls
         \ }
@@ -359,6 +365,10 @@ function! s:set_language_client(has_unix) abort
   if executable(l:chosen_lua_server.lua[0])
     call extend(g:LanguageClient_serverCommands, l:chosen_lua_server)
   endif
+  " Mon Apr 27 2020 05:06: Does not really do anything 
+  " if executable(l:chosen_cmake_server.cmake[0])
+    " call extend(g:LanguageClient_serverCommands, l:cmake_language_server)
+  " endif
 
 	let g:LanguageClient_hasSnippetSupport = 1
 	" let g:LanguageClient_useVirtualText = 1 " new version uses enum instead of 
