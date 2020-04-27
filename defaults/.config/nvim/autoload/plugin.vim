@@ -311,26 +311,14 @@ function! plugin#Config()
   " augroup END
 
   " This plugin depends on 'godlygeek/tabular'
-  Plug 'plasticboy/vim-markdown'
-  let g:vim_markdown_no_default_key_mappings = 1
-  let g:vim_markdown_toc_autofit = 1
-  let g:vim_markdown_math = 1
-  let g:vim_markdown_folding_level = 1
-  let g:vim_markdown_frontmatter = 1
-  let g:vim_markdown_new_list_item_indent = 0
-  let g:vim_markdown_emphasis_multiline = 0
-  let g:vim_markdown_conceal = 0
-  let g:vim_markdown_follow_anchor = 1
-  let g:vim_markdown_strikethrough = 1
-  let g:vim_markdown_no_extensions_in_markdown = 1
+  call s:configure_tabular()
+  call s:configure_markdown()
 
   " Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
   Plug 'matze/vim-ini-fold', { 'for': 'dosini' }
 
   " Not being used but kept for dependencies
   Plug 'rbgrouleff/bclose.vim'
-
-  call s:configure_tabular()
 
   " Sun Sep 10 2017 20:44 Depends on plantuml being installed
   " If you want dont want to image preview after loading the plugin put the
@@ -1792,4 +1780,19 @@ endfunction
 
 function! s:obsession_status() abort
   return ObsessionStatus('S:' . fnamemodify(v:this_session, ':t:r'), '$')
+endfunction
+
+function! s:configure_markdown() abort
+  Plug 'plasticboy/vim-markdown'
+  let g:vim_markdown_no_default_key_mappings = 1
+  let g:vim_markdown_toc_autofit = 1
+  let g:vim_markdown_math = 1
+  let g:vim_markdown_folding_level = 1
+  let g:vim_markdown_frontmatter = 1
+  let g:vim_markdown_new_list_item_indent = 0
+  let g:vim_markdown_emphasis_multiline = 0
+  let g:vim_markdown_conceal = 0
+  let g:vim_markdown_follow_anchor = 1
+  let g:vim_markdown_strikethrough = 1
+  let g:vim_markdown_no_extensions_in_markdown = 1
 endfunction
