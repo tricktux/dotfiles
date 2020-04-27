@@ -611,7 +611,10 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
     exec --no-startup-id $TERMINAL -T terminal -o background_opacity=0.9 tmux
 		# exec --no-startup-id ~/.config/i3/scripts/focus_previous.sh
 		# exec --no-startup-id guake
-    exec --no-startup-id ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
+    exec --no-startup-id if ! pgrep -u "$USER" ssh-agent > /dev/null; then\
+          ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env" \
+        fi
+
 
 # Fri Apr 19 2019 08:51: On demand from now on
 # exec --no-startup-id protonmail-bridge --cli
