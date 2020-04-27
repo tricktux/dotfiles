@@ -121,8 +121,17 @@ function! s:sessions.new() abort
     return
   endif
 
+  let l:cmd = 'mksession!'
+  if exists(':' . self.helper_plugin.cmd)
+    " If helper plugin available use it
+    let l:cmd = self.helper_plugin.cmd
+  endif
+
+  if &verbose > 0
+    echomsg '[sessions.existing_save]: Saving new session: ' l:name
+  endif
   " Pause this current session
-  execute self.helper_plugin.cmd . ' ' . self.path . name
+  silent execute l:cmd . ' ' . self.path . name
 endfunction
 
 function! s:sessions.new_save() abort
@@ -153,7 +162,7 @@ function! s:sessions.new_save() abort
   if &verbose > 0
     echomsg '[sessions.existing_save]: Saving new session: ' l:name
   endif
-  silent execute l:cmd .  ' ' . l:name
+  silent execute l:cmd . ' ' . self.path . l:name
 endfunction
 
 function! s:sessions.load() abort
