@@ -170,7 +170,7 @@ function! plugin#Config()
   endif
 
   " Options: netranger, nerdtree
-  call s:configure_file_browser('nerdtree'))
+  call s:configure_file_browser('nerdtree')
 
   call s:configure_nerdcommenter()
 
