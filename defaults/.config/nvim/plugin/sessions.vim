@@ -22,6 +22,8 @@ let g:loaded_sessions = 1
 "     select a session
 let s:sessions = {
       \ 'path' : g:std_data_path . '/sessions/',
+      \ 'save_on_timer' : 1500,
+      \ 'timer_id' : 0,
       \ 'fuzz_over' : 100,
       \ 'helper_plugin' : 
       \   {
@@ -234,6 +236,26 @@ function! s:sessions.get_existing_name() abort
   silent execute 'lcd ' . l:dir
   return self.path . l:session_name
 endfunction
+
+function! s:sessions.timer_handler(timer) abort
+  if a:timer != s:sessions.timer_id
+    echomsg '[s:session.timer_handler]: timer does not match input timer id'
+    return -1
+  endif
+
+  if &verbose > 0
+    echomsg '[s:session.timer_handler]: Received callback!'
+  endif
+  return self.existing_save()
+endfunction
+
+if s:sessions.save_on_timer > 0 && s:sessions.timer_id == 0
+  let s:sessions.timer_id = timer_start(
+        \ s:sessions.save_on_timer*1000,
+        \ s:sessions.timer_handler,
+        \ { 'repeat': -1 }
+        \ )
+endif
 
 command! SessionsLoad call s:sessions.load()
 command! SessionsNew call s:sessions.new()
