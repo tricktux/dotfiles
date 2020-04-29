@@ -8,7 +8,7 @@
 
 # Pretty cool colors
 # source ~/.config/neomutt/mutt-solarized-colors.muttrc
-source ~/.config/neomutt/mutt-colors-neonwolf-256.muttrc
+source ~/.config/neomutt/mutt-solarized-colors.muttrc
 
 set realname = "Reinaldo Molina"
 
