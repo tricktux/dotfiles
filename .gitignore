@@ -30,3 +30,4 @@ defaults/.config/systemd/user/default.target.wants/wallpaper.service
 defaults/.config/systemd/user/timers.target.wants/wallpaper.timer
 __pycache__
 default.target.wants
+neomutt/mailboxes
