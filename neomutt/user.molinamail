@@ -18,8 +18,6 @@ set my_username="me"
 set my_domain="molinamail.com"
 set my_password="`pass linux/mailserver/me@molinamail.com`"
 
-source "~/.config/neomutt/imap.gen.mutt"
-
 # Specific to account
 # Overwrite settings if you need to here
 source "~/.config/neomutt/smtp.molinamail.mutt"

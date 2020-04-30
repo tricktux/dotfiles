@@ -17,6 +17,13 @@ then
 	export PATH="$HOME/.local/bin:${PATH}"
 fi
 
+# XDG settings: https://wiki.archlinux.org/index.php/XDG_Base_Directory
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_DATA_DIRS="/usr/local/share:/usr/share"
+export XDG_CONFIG_DIRS="/etc/xdg"
+
 # Sat Oct 14 2017 11:12: This will set the i3-sensible-terminal to be used:
 # Termite has priority over kitty
 [ -f /usr/bin/urxvtc ] && export TERMINAL="urxvtc"

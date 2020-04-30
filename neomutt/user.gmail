@@ -21,8 +21,6 @@ set my_username="rmolin88"
 set my_domain="gmail.com"
 set my_password="`pass websites/google.com/rmolin88/neomutt`"
 
-source "~/.config/neomutt/imap.gen.mutt"
-
 # Specific to account
 # Overwrite settings if you need to here
 source "~/.config/neomutt/smtp.gmail.mutt"
