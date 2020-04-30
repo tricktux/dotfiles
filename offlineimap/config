@@ -2,10 +2,11 @@
 # List of accounts to be synced, separated by a comma.
 accounts = molinamail,gmail
 # Path to file with arbitrary Python code to be loaded
-pythonfile = ~/.offlineimaprc.py
+pythonfile = ~/.config/offlineimap/offlineimap
 # Controls how many accounts may be synced simultaneously
 maxsyncaccounts = 1
 # systemctl enable --user offlineimap@molinamail.service
+socktimeout = 10
 
 [mbnames]
 enabled = yes
@@ -14,6 +15,7 @@ header = "mailboxes "
 peritem = "+%(accountname)s/%(foldername)s"
 sep = " "
 footer = "\n"
+incremental= yes
 
 [Account gmail]
 # Identifier for the local repository; e.g. the maildir to be synced via IMAP.
@@ -30,21 +32,20 @@ quick = 10
 
 [Repository gmail-local]
 # OfflineIMAP supports Maildir, GmailMaildir, and IMAP for local repositories.
-type = GmailMaildir
+type = Maildir
 # Where should the mail be placed?
 localfolders = ~/mail/gmail
+sync_deletes = no
 
 [Repository gmail-remote]
 # Remote repos can be IMAP or Gmail, the latter being a preconfigured IMAP.
 type = Gmail
 remoteuser = rmolin88@gmail.com
 remotepasseval = get_gmail_pass()
-nametrans = lambda foldername:  re.sub ('^\[gmail\]', 'bak',
-                                re.sub ('sent_mail', 'sent',
-                                re.sub ('starred', 'flagged',
-                                re.sub (' ', '_', foldername.lower()))))
+nametrans = lambda foldername:  re.sub ('^\[gmail\]', 'bak', re.sub ('sent_mail', 'sent', re.sub ('starred', 'flagged', re.sub (' ', '_', foldername.lower()))))
 folderfilter = lambda foldername: foldername not in ['[Gmail]/All Mail']
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+maxconnections = 3
 # Necessary to work around https://github.com/OfflineIMAP/offlineimap/issues/573 (versions 7.0.12, 7.2.1)
 ssl_version = tls1_2
 # Instead of closing the connection once a sync is complete, offlineimap will
@@ -77,6 +78,7 @@ quick = 10
 type = Maildir
 # Where should the mail be placed?
 localfolders = ~/mail/molinamail
+sync_deletes = no
 
 [Repository molinamail-remote]
 # Remote repos can be IMAP or Gmail, the latter being a preconfigured IMAP.
