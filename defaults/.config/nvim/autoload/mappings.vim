@@ -136,7 +136,10 @@ function! mappings#Set()
 	nnoremap <plug>get_passwd :silent call passwd#SelectPasswdFile()<cr>
 
 	" TODO-[RM]-(Thu Nov 15 2018 16:58): These two could be combined 
-	" nmap <localleader>h <plug>help_under_cursor
+  nmap <localleader>h <plug>help_under_cursor
+  nnoremap <silent> <plug>help_under_cursor K
+  xmap <localleader>h <plug>help_under_cursor
+  xnoremap <silent> <plug>help_under_cursor K
 	nmap <leader>G <plug>search_internet
 	xmap <leader>G <plug>search_internet
 

@@ -18,7 +18,6 @@ if !exists('no_plugin_maps') && !exists('no_vim_maps')
 	" Quote text by inserting "> "
 	nnoremap <buffer> <plug>make_file :so %<cr>
 	nnoremap <buffer> <plug>make_project :so %<cr>
-	nnoremap <buffer> <localleader>h :h <c-r>=expand("<cword>")<CR><cr>
 	" Echo highlighted text
 	vnoremap <buffer> <localleader>e y:echomsg <c-r>"<cr>
 	" Evaluate highlighted text
