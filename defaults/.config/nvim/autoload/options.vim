@@ -390,6 +390,10 @@ endfunction
 
 function! s:set_syntax() abort
   " SYNTAX_OPTIONS
+
+  " ft-sh-syntax
+  let g:sh_fold_enabled= 4
+
   " ft-java-syntax
   let g:java_highlight_java_lang_ids=1
   let g:java_highlight_functions='indent'
