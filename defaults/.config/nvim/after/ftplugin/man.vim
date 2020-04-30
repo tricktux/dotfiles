@@ -10,10 +10,12 @@ if exists("b:did_man_ftplugin")
 	finish
 endif
 
-setlocal wrap
-
 " Don't load another plugin for this buffer
 let b:did_man_ftplugin = 1
+let s:keepcpo= &cpo
+set cpo&vim
+
+setlocal wrap
 
 if !exists("no_plugin_maps") && !exists("no_man_maps")
 	nmap <buffer> Q :bp\|bw #\|bd #<CR>
@@ -24,3 +26,6 @@ if !exists("no_plugin_maps") && !exists("no_man_maps")
 endif
 
 let b:undo_ftplugin = "setlocal wrap<"
+
+let &cpo = s:keepcpo
+unlet s:keepcpo

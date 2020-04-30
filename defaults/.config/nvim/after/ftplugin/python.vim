@@ -9,12 +9,13 @@
 if exists("b:did_python_ftplugin")
 	finish
 endif
-
 " Don't load another plugin for this buffer
 let b:did_python_ftplugin = 1
 
+let s:keepcpo= &cpo
+set cpo&vim
+
 setlocal textwidth=79
-setlocal commentstring=#%s
 setlocal define=^\s*\\(def\\\\|class\\)
 
 abbreviate <buffer> sefl self
@@ -32,8 +33,20 @@ endif
 
 call autocompletion#AdditionalLspSettings()
 
+hi! link semshiImported Include
+hi! link semshiUnresolved Error
+hi! link semshiParameterUnused Error
+hi! link semshiAttribute Define
+hi! link semshiSelf Statement
+hi! link semshiErrorSign Error
+hi! link semshiErrorChar Error
+
 " TODO.RM-Tue May 02 2017 16:53: 
 " Add support for `isort`
 " Also add better python highlight
 
-let b:undo_ftplugin = "setlocal textwidth< commentstring< define<" 
+let b:undo_ftplugin = 'setlocal textwidth<'
+      \ . '|setlocal define<'
+
+let &cpo = s:keepcpo
+unlet s:keepcpo

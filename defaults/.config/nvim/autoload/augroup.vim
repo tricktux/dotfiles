@@ -40,7 +40,7 @@ function! augroup#Set() abort
 
     autocmd FileType mail setlocal wrap textwidth=72
 
-    autocmd FileType vim setlocal tabstop=2 shiftwidth=2 softtabstop=2 nospell
+    " autocmd FileType vim setlocal tabstop=2 shiftwidth=2 softtabstop=2 nospell
 
     if has('nvim-0.5.0') && get(g:, 'ncm2_supports_lsp', 0)
       autocmd FileType c,cpp set omnifunc=v:lua.vim.lsp.omnifunc
