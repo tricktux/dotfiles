@@ -110,7 +110,7 @@ bindsym $mod+n exec --no-startup-id \
 bindsym $mod+i exec --no-startup-id \
   ~/.config/i3/scripts/xdotool_launch terminal \
   "-o background_opacity=0.9 tmux"
-bindsym $mod+8 exec --no-startup-id \
+bindsym $mod+o exec --no-startup-id \
   ~/.config/i3/scripts/xdotool_launch neomutt "~/.config/tmux/neomutt.sh"
 
 
