@@ -22,11 +22,16 @@ i3ipc.htop = {
     ['helios'] = 'resize set 1820 880, move position center',
     ['predator'] = 'resize set 3640 1024, move position center'
 }
+i3ipc.neomutt = {
+  ['helios'] = 'resize set 1320 880, move position center',
+  ['predator'] = 'resize set 2540 1024, move position center'
+}
 i3ipc.glances = {
   ['helios'] = 'resize set 1820 880, move position center',
   ['predator'] = 'resize set 3640 1024, move position center'
 }
 i3ipc.window_position = {
+    ['neomutt'] = i3ipc.neomutt[hostname],
     ['terminal'] = i3ipc.terminal[hostname],
     ['htop'] = i3ipc.htop[hostname],
     ['glances'] = i3ipc.glances[hostname]
