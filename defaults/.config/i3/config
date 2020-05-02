@@ -101,8 +101,8 @@ font pango:FontAwesome 9
 		~/.config/i3/scripts/switch_dvorak.sh
 
 # Launch toggle scratchpads
-# bindsym $mod+p exec --no-startup-id \
-  # ~/.config/i3/scripts/xdotool_launch glances "glances --theme-white"
+bindsym $mod+u exec --no-startup-id \
+  ~/.config/i3/scripts/xdotool_launch glances "glances --theme-white"
 bindsym $mod+p exec --no-startup-id \
   ~/.config/i3/scripts/xdotool_launch htop htop
 bindsym $mod+n exec --no-startup-id \
