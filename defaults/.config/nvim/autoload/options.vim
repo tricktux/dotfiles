@@ -166,7 +166,7 @@ function! options#Set() abort
   if !has('nvim')
     set noesckeys " No mappings that start with <esc>
   else
-    set inccommand = "nosplit"
+    set inccommand=split
     set scrollback=-1
   endif
 
