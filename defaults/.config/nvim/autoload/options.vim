@@ -12,7 +12,7 @@ function! options#Set() abort
   "omnicomplete menu
   " save marks
 
-  " Tue Feb 25 2020 16:40: From vim-galore minimal vimrc 
+  " Tue Feb 25 2020 16:40: From vim-galore minimal vimrc
   set autoindent
   " No tabs in the code. Tabs are expanded to spaces
   set expandtab
@@ -43,7 +43,7 @@ function! options#Set() abort
   set guitablabel=%N\ %f
   " Silly, always set cool colors
   set termguicolors
-  " Tue Nov 13 2018 22:39: Needed by Shuogo/echodoc.vim 
+  " Tue Nov 13 2018 22:39: Needed by Shuogo/echodoc.vim
   set noshowmode
   " Useful for the find command
   let &path .='.,,..,../..,./*,./*/*,../*,~/,~/**,/usr/include/*'
@@ -51,12 +51,6 @@ function! options#Set() abort
     set shiftwidth=2 tabstop=2
   else
     set shiftwidth=4 tabstop=4
-  endif
-  if has('nvim')
-    set shada='1024,%,s10000,r/tmp,rE:,rF:
-  else
-    set viminfo='1024,%,s10000,r/tmp,rE:,rF:
-    let &viminfofile= g:std_data_path .  '/viminfo'
   endif
   set showtabline=1 " always show tabs in gvim, but not vim"
   set backspace=indent,eol,start
@@ -117,14 +111,14 @@ function! options#Set() abort
   set undofile
   set undolevels=10000      " use many muchos levels of undo
 
-  "set autochdir " working directory is always the same as the file you are 
+  "set autochdir " working directory is always the same as the file you are
   "editing
   " Took out options from here. Makes the session script too long and annoying
-  " Fri Jan 11 2019 21:39 Dont add resize, and winpos. It causes problems in 
+  " Fri Jan 11 2019 21:39 Dont add resize, and winpos. It causes problems in
   " linux
   set sessionoptions=buffers,tabpages,winpos
   " if (exists(':tnoremap'))
-    " set sessionoptions+=terminal
+  " set sessionoptions+=terminal
   " endif
   set hidden
   " see :h timeout this was done to make use of ' faster and keep the other
@@ -156,18 +150,23 @@ function! options#Set() abort
   set foldlevelstart=0
   " use this below option to set other markers
   "'foldmarker' 'fmr' string (default: "{{{,}}}")
-  " Sat Feb 22 2020 16:05: Save only what is necessary 
+  " Sat Feb 22 2020 16:05: Save only what is necessary
   set viewoptions=cursor,curdir
   " For conceal markers.
   if has('conceal')
     set conceallevel=2 concealcursor=nv
   endif
 
-  if !has('nvim')
-    set noesckeys " No mappings that start with <esc>
-  else
-    set inccommand = "nosplit"
+  if has('nvim')
+    set shada='1024,%,s10000,r/tmp,rE:,rF:
+    set inccommand=split
     set scrollback=-1
+  else
+    set viminfo='1024,%,s10000,r/tmp,rE:,rF:
+    let &viminfofile= g:std_data_path .  '/viminfo'
+    set ttyscroll=3
+    set ttyfast " Had to addit to speed up scrolling
+    set noesckeys " No mappings that start with <esc>
   endif
 
   " no mouse enabled
@@ -193,10 +192,9 @@ function! options#Set() abort
   set secure
   set noexrc
   " Wed Oct 18 2017 09:19: Stop annoying bell sound
-  " Tue Feb 25 2020 16:52: Updated from vim-galore 
+  " Tue Feb 25 2020 16:52: Updated from vim-galore
   set noerrorbells
   set novisualbell
-  set t_vb=
   " Thu Dec 21 2017 09:56: Properly format comment strings
   if v:version > 703 || v:version == 703 && has('patch541')
     set formatoptions+=jw
@@ -206,7 +204,7 @@ function! options#Set() abort
   " Set a default bogus colorscheme. If Plugins loaded it will be changed
   colorscheme desert
   if !exists('g:loaded_plugins')
-    " If this not and android device and we have no plugins setup "ugly" status 
+    " If this not and android device and we have no plugins setup "ugly" status
     " line
     set statusline =
     set statusline+=\ [%n]                            " buffernr
@@ -214,7 +212,7 @@ function! options#Set() abort
     set statusline+=\ %y\                             " FileType
     set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''} " Encoding
     " ,BOM\ " :\ " \ " )}\ " Encoding2
-    set statusline+=\ %{(&bomb?\                     
+    set statusline+=\ %{(&bomb?\
     set statusline+=\ %{&ff}\                         " FileFormat (dos/unix..)
     set statusline+=\ %=\ row:%l/%L\ (%03p%%)\        " Rownumber/total (%)
     set statusline+=\ col:%03c\                       " Colnr
@@ -227,10 +225,6 @@ function! options#Set() abort
   " see :h slow-terminal
   set scrolljump=5
   set sidescroll=15 " see help for sidescroll
-  if !has('nvim') " this options were deleted in nvim
-    set ttyscroll=3
-    set ttyfast " Had to addit to speed up scrolling
-  endif
   set lazyredraw " Had to addit to speed up scrolling
   " Mon May 01 2017 11:21: This breaks split window highliting
   " Tue Jun 13 2017 20:55: Giving it another try
@@ -238,12 +232,12 @@ function! options#Set() abort
   " Mon Oct 16 2017 15:22: This speed ups a lot of plugin. Those that have to
   " do with highliting.
   set regexpengine=1
-  " Fri May 19 2017 11:38 Having a lot of hang ups with the function! 
+  " Fri May 19 2017 11:38 Having a lot of hang ups with the function!
   " s:Highlight_Matching_Pair()
-  " on the file C:\Program 
+  " on the file C:\Program
   " Files\nvim\Neovim\share\nvim\runtime\plugin\matchparen.vim
   " This value is suppose to help with it. The default value is 300ms
-  " DoMatchParen, and NoMatchParen are commands that enable and disable the 
+  " DoMatchParen, and NoMatchParen are commands that enable and disable the
   " command
   let g:matchparen_timeout = 80
   let g:matchparen_insert_timeout = 30
@@ -252,8 +246,8 @@ function! options#Set() abort
   " options.vim
   " Grep
   " Fri Mar 23 2018 18:10: Substituted by vim-gprepper plugin
-  " Mon Jun 25 2018 14:08: vim-gprepper not working well on windows with 
-  " neovim-qt 
+  " Mon Jun 25 2018 14:08: vim-gprepper not working well on windows with
+  " neovim-qt
   call s:set_grep()
 
   " Tags
@@ -271,9 +265,11 @@ function! options#Set() abort
   endtry
 
   call s:set_syntax()
+
+  call s:vim_cli()
 endfunction
 
-" CLI
+" Called from augroup function s:on_vim_enter
 function! options#SetCli() abort
   " Detect one of the many gui types
   if has('gui_running')
@@ -291,9 +287,22 @@ function! options#SetCli() abort
     " echomsg 'Detected Eovim GUI. Nothing to do here'
     return
   endif
+endfunction
 
-  " Comes from performance options.
-  hi NonText cterm=NONE ctermfg=NONE
+" CLI
+function! s:vim_cli() abort
+  " Thu May 07 2020 14:22:
+  "   Neovim doesn't need any of these options
+  " Vim terminal options
+
+  if has('nvim')
+    return
+  endif
+
+  set t_vb=
+  " Trying to get termguicolors to work on vim
+  let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
+  let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
   if $TERM ==? 'linux'
     set t_Co=8
   else
@@ -303,59 +312,48 @@ function! options#SetCli() abort
   " fixes colorscheme not filling entire backgroud
   set t_ut=
 
-  if !has('nvim')
-    " Trying to get termguicolors to work on vim
-    let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
-    let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
+  " Tue Sep 12 2017 18:18: These are in order to map Alt in vim terminal
+  " under linux. Obtained but going into insert mode, pressing <c-v> and
+  " then some alt+key combination
+  nnoremap <silent> l <C-w>l
+  nnoremap <silent> h <C-w>h
+  nnoremap <silent> k <C-w>k
+  nnoremap <silent> j <C-w>j
 
-    " Tue Sep 12 2017 18:18: These are in order to map Alt in vim terminal
-    " under linux. Obtained but going into insert mode, pressing <c-v> and
-    " then some alt+key combination
-    nnoremap <silent> l <C-w>l
-    nnoremap <silent> h <C-w>h
-    nnoremap <silent> k <C-w>k
-    nnoremap <silent> j <C-w>j
+  if !has('clipboard') || !has('xterm_clipboard')
+    echomsg 'options#Set(): vim wasnt compiled with clipboard support.'
+    echomsg 'Remove vim and install gvim'
+  else
+    set clipboard=unnamedplus
+  endif
 
-    if !has('clipboard') || !has('xterm_clipboard')
-      echomsg 'options#Set(): vim wasnt compiled with clipboard support.'
-      echomsg 'Remove vim and install gvim'
-    else
-      set clipboard=unnamedplus
-    endif
-
-    if exists('g:system_name') && g:system_name ==# 'cygwin'
-      set term=$TERM
-      " Fixes cursor shape in mintty/cygwin
-      let &t_ti.="\e[1 q"
-      let &t_SI.="\e[5 q"
-      let &t_EI.="\e[1 q"
-      let &t_te.="\e[0 q"
-    endif
+  if exists('g:system_name') && g:system_name ==# 'cygwin'
+    set term=$TERM
+    " Fixes cursor shape in mintty/cygwin
+    let &t_ti.="\e[1 q"
+    let &t_SI.="\e[5 q"
+    let &t_EI.="\e[1 q"
+    let &t_te.="\e[0 q"
   endif
 
   " Set blinking cursor shape everywhere
   if exists('$TMUX')
-    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+      let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+      let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
 
-    " Fixes broken nmap <c-h> inside of tmux
-    nnoremap <BS> :noh<CR>
+      " Fixes broken nmap <c-h> inside of tmux
+      nnoremap <BS> :noh<CR>
   elseif has('unix') " Cursors settings for neo(vim) under linux
-    " Start insert mode (bar cursor shape)
-    let &t_SI = "\<Esc>[5 q"
-    " End insert or replace mode (block cursor shape)
-    let &t_EI = "\<Esc>[1 q"
+      " Start insert mode (bar cursor shape)
+      let &t_SI = "\<Esc>[5 q"
+      " End insert or replace mode (block cursor shape)
+      let &t_EI = "\<Esc>[1 q"
   endif
 
-  if has('unix')
-    " exec 'colorscheme PaperColor'
-  else
-    " Settings for cmder
-    if !has('nvim')
+  if !has('unix') && !has('nvim')
       set term=xterm
-    endif
-    let &t_AB="\e[48;5;%dm"
-    let &t_AF="\e[38;5;%dm"
+      let &t_AB="\e[48;5;%dm"
+      let &t_AF="\e[38;5;%dm"
   endif
 endfunction
 
@@ -364,7 +362,7 @@ function! s:set_grep() abort
   if executable('rg')
     " use option --list-file-types if in doubt
     " rg = ripgrep
-    " Use the -t option to search all text files; -a to search all files; and -u 
+    " Use the -t option to search all text files; -a to search all files; and -u
     " to search all,
     " including hidden files.
     let rg_flags = "rg $* --vimgrep --smart-case " .
