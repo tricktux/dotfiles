@@ -72,8 +72,8 @@ set-option -ga terminal-overrides ",xterm-256color:Tc"
   # Makes it really annoying when not set and using c-b to get back one char
 
   unbind C-b
-  set-option -g prefix C-a
-  bind-key C-a send-prefix
+  set-option -g prefix M-a
+  bind-key M-a send-prefix
   # unbind-key C-b
   # bind-key C-a send-prefix
   bind q kill-session
