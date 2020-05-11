@@ -114,9 +114,6 @@ function! s:sessions.new() abort
     execute self.helper_plugin.cmd
   endif
 
-  " Delete all buffers. Otherwise they will be added to the new session
-  silent execute ':%bdelete!'
-
   " Give this new session a name
   let name = self.get_new_name()
   if empty(name)
@@ -132,6 +129,10 @@ function! s:sessions.new() abort
   if &verbose > 0
     echomsg '[sessions.existing_save]: Saving new session: ' l:name
   endif
+
+  " Delete all buffers. Otherwise they will be added to the new session
+  silent execute ':%bdelete!'
+
   " Pause this current session
   silent execute l:cmd . ' ' . self.path . name
 endfunction
@@ -183,9 +184,6 @@ function! s:sessions.load() abort
     execute self.helper_plugin.cmd
   endif
 
-  " Delete all buffers. Otherwise they will be added to the new session
-  silent execute ':%bdelete!'
-
   " Get name
   let l:name = self.get_existing_name()
   if empty(l:name)
@@ -199,6 +197,10 @@ function! s:sessions.load() abort
     echoerr "[sessions.load]: Session does not exists: " l:name
     return
   endif
+
+  " Delete all buffers. Otherwise they will be added to the new session
+  silent execute ':%bdelete!'
+
   execute 'source ' . l:name
 endfunction
 
