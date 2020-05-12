@@ -270,8 +270,10 @@ function! plugin#Config()
   " Magnum is required by vim-radical. use with gA
   Plug 'glts/vim-magnum', { 'on' : '<Plug>RadicalView' }
   Plug 'glts/vim-radical', { 'on' : '<Plug>RadicalView' }
-  nmap <plug>num_representation <Plug>RadicalView
-  nmap <plug>num_representation <Plug>RadicalView
+  let g:radical_no_mappings = 1
+  " Tue May 12 2020 11:03: This fanciness does not work 
+  " nnoremap <plug>radical_viewer <Plug>RadicalView
+  " xnoremap <plug>radical_viewer <Plug>RadicalView
 
   " W3M - to view cpp-reference help
   if executable('w3m')

@@ -311,12 +311,13 @@ function! mappings#Set()
 	" <Leader>n
 	" Display highlighted numbers as ascii chars. Only works on highlighted text
 	" Rarely works
-	" vnoremap <Leader>ah :<c-u>s/<count>\x\x/\=nr2char(printf("%d", 
-	" "0x".submatch(0)))/g<cr><c-l>`<
+    vnoremap <leader>nc :<c-u>s/<count>\x\x/\=nr2char(printf("%d",
+                \ "0x".submatch(0)))/g<cr><c-l>`<
 	vnoremap <leader>nh :<c-u>s/\%V./\=
 				\ printf("%x",char2nr(submatch(0)))/g<cr><c-l>`<
-	nmap <leader>nr <plug>num_representation
-	xmap <leader>nr <plug>num_representation
+    nnoremap <leader>na ga
+    nmap <leader>nr <Plug>RadicalView
+    xmap <leader>nr <Plug>RadicalView
 
 	" Consistent n N direction seraching
 	" Mon Jan 21 2019 17:05
@@ -1046,8 +1047,10 @@ function! mappings#SetWhichKeyMap() abort
 
 	let g:which_key_leader_map.n = {
 				\ 'name' : '+num_representation',
-				\ 'h' : 'ascii_to_hex',
-				\ 'r' : 'radix_viewer',
+                \ 'h' : 'ascii_to_hex',
+                \ 'c' : 'hex_to_ascii',
+                \ 'r' : 'radical_viewer',
+                \ 'a' : 'get_ascii_cursor',
 				\ }
 
 	let g:which_key_leader_map.v = {
