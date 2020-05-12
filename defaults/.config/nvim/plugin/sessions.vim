@@ -107,13 +107,6 @@ function! s:sessions.new() abort
     return -1
   endif
 
-  " Save current session
-  let l:rc = self.existing_save()
-  if (l:rc >= 0)
-    " Pause this current session
-    execute self.helper_plugin.cmd
-  endif
-
   " Give this new session a name
   let name = self.get_new_name()
   if empty(name)
@@ -128,6 +121,13 @@ function! s:sessions.new() abort
 
   if &verbose > 0
     echomsg '[sessions.existing_save]: Saving new session: ' l:name
+  endif
+
+  " Save current session
+  let l:rc = self.existing_save()
+  if (l:rc >= 0)
+    " Pause this current session
+    execute self.helper_plugin.cmd
   endif
 
   " Delete all buffers. Otherwise they will be added to the new session
@@ -177,13 +177,6 @@ function! s:sessions.load() abort
     return -1
   endif
 
-  " Save current session
-  let l:rc = self.existing_save()
-  if (l:rc >= 0)
-    " Pause this current session
-    execute self.helper_plugin.cmd
-  endif
-
   " Get name
   let l:name = self.get_existing_name()
   if empty(l:name)
@@ -196,6 +189,13 @@ function! s:sessions.load() abort
   if !filereadable(l:name)
     echoerr "[sessions.load]: Session does not exists: " l:name
     return
+  endif
+
+  " Save current session
+  let l:rc = self.existing_save()
+  if (l:rc >= 0)
+    " Pause this current session
+    execute self.helper_plugin.cmd
   endif
 
   " Delete all buffers. Otherwise they will be added to the new session
