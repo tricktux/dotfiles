@@ -7,12 +7,17 @@
 # Last Modified:  Tue Jan 22 2019 17:24
 
 # IMAP config
-set folder = "~/mail"
-source ~/.config/neomutt/mailboxes
-set spoolfile = "+gmail/inbox"
-set record = "+gmail/bak.sent"
-set postponed = "+gmail/bak.drafts"
-set trash = "+gmail/trash"
+set imap_user="$my_username"
+set imap_pass=$my_password
+
+set folder = 'imaps://imap.gmail.com:993'
+set spoolfile= +INBOX
+set postponed= +$my_drafts_noquote
+# Gmail automatically saves sent emails
+# set record = +$my_sent_noquote
+unset record
+set trash = +$my_trash_noquote
+mailboxes
 
 # SMTP config
 set from = "$my_username@$my_domain"

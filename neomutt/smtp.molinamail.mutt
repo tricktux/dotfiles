@@ -7,12 +7,15 @@
 # Last Modified:  Tue Jan 22 2019 17:24
 
 # IMAP config
-set folder = "~/mail"
-source ~/.config/neomutt/mailboxes
-set spoolfile = "+molinamail/INBOX"
-set record = "+molinamail/Sent"
-set postponed = "+molinamail/Drafts"
-set trash = "+molinamail/Archive"
+set imap_user="$my_username@$my_domain"
+set imap_pass=$my_password
+
+set folder = 'imaps://box.molinamail.com:993'
+set spoolfile= +INBOX
+set postponed= +$my_drafts_noquote
+set record = +$my_sent_noquote
+set trash = +$my_trash_noquote
+mailboxes
 
 # SMTP config
 set from = "$my_username@$my_domain"
