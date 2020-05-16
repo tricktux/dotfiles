@@ -1576,6 +1576,8 @@ function! s:configure_neoterm() abort
   " if has('win32')
     " let g:neoterm_eof = "\<cr>"
   " endif
+  " Do not map any keys
+  let g:neoterm_automap_keys = ''
   let g:neoterm_term_per_tab = 1
   let g:neoterm_use_relative_path = 1
   let g:neoterm_default_mod = ''
