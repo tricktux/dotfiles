@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import logging
-import config
+import configparser
 import subprocess
 import time
 from datetime import datetime
@@ -24,12 +24,13 @@ def get_pw():
         logging.info('%s does not exists', file)
         return ''
 
-    cfg = config.ConfigParser(file)
-    key = cfg.get_opt('unsplash', 'key', '')
-    if not key:
+    cfg = configparser.ConfigParser()
+    cfg.read(file)
+    if not cfg.has_option('unsplash', 'key'):
         logging.info('[unsplash]->key does not exists in ini file')
         return ''
-    return key
+
+    return cfg['unsplash']['key']
 
 
 def get_request(url):

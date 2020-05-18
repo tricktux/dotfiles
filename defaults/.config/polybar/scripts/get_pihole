@@ -2,8 +2,8 @@
 
 import sys
 import requests
-import config
-import parse
+import configparser
+import argparse
 
 
 class PiHole():
@@ -31,12 +31,16 @@ class PiHole():
         Gets pihole data, using the 'summary' API request.
         """
 
+        self.webpass = ''
         self.url = ''
         self.data = dict()
-        ip_add = cfg.get_opt('Pihole', 'ip', '')
-        self.webpass = cfg.get_opt('Pihole', 'webpassword', '')
-        if not ip_add:
+
+        if not cfg.has_option('Pihole', 'ip'):
             return
+
+        ip_add = cfg['Pihole']['ip']
+        if cfg.has_option('Pihole', 'webpassword'):
+            self.webpass = cfg['Pihole']['webpassword']
 
         self.url = 'http://' + ip_add + '/admin/api.php?'
 
@@ -119,26 +123,28 @@ def print_data(data):
 def main():
     """Main function."""
     # Parse arguments
-    args = parse.Parser()
-    args.add_description('PiHole Api Interface')
-    args.parser.add_argument('-c',
-                             required=True,
-                             default='pihole.ini',
-                             help='Path to the configuration file')
-    args.parser.add_argument('--toggle',
-                             nargs='?',
-                             const=True,
-                             default=False,
-                             help='Toggle pihole enable')
-    args.parse()
-    cfg_file = args.get_arg('c', '')
+    args = argparse.ArgumentParser(description='PiHole Api Interface')
+    args.add_argument('-c',
+                      required=True,
+                      default='pihole.ini',
+                      dest='config',
+                      help='Path to the configuration file')
+    args.add_argument('--toggle',
+                      nargs='?',
+                      const=True,
+                      dest='toggle',
+                      default=False,
+                      help='Toggle pihole enable')
+    arg = args.parse_args()
+    cfg_file = arg.config
     if not cfg_file:
         sys.exit(1)
 
     # Parse config
-    cfg = config.ConfigParser(cfg_file)
+    cfg = configparser.ConfigParser()
+    cfg.read(cfg_file)
     hole = PiHole(cfg)
-    if args.get_arg('toggle', False):
+    if arg.toggle:
         print(hole.toggle())
         return
 
