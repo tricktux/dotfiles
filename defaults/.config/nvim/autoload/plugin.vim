@@ -39,14 +39,16 @@ function! plugin#Config()
   " selection - {lightline, airline}
   call status_line#config('lightline')
 
-  Plug 'numirias/semshi', { 'for': ['python'], 'do' : 'UpdateRemotePlugins' }
-    let g:semshi#mark_selected_nodes = 0
+  Plug 'numirias/semshi'
+  let g:semshi#mark_selected_nodes = 0
   Plug 'Yggdroot/indentLine', { 'for' : [ 'java', 'cpp', 'c', 'python' ] }
   Plug 'whiteinge/diffconflicts'
   Plug 'aquach/vim-http-client', { 'on' : 'HTTPClientDoRequest'}
-    " Plugin to make api requests
-    " Depends on python3 and requests
-    " :HTTPClientDoRequest 
+  " Plugin to make api requests
+  " Depends on python3 and requests
+  " :HTTPClientDoRequest
+
+  call s:configure_tag_handler('gen_tags')
 
   if (has('unix'))
     Plug 'lambdalisue/suda.vim'
@@ -55,33 +57,33 @@ function! plugin#Config()
 
   " Thu Feb 06 2020 17:53: Not used. Slowing down startup
   " if has('win32')
-    " call autocompletion#SetOmniSharp()
+  " call autocompletion#SetOmniSharp()
   " endif
 
   Plug 'tpope/vim-obsession'
-    let g:obsession_no_bufenter = 1
-    if exists('g:lightline')
-      let g:lightline.active.right[2] += [ 'sessions' ]
-      let g:lightline.component_function['sessions'] =
-            \ string(function('s:obsession_status'))
-    endif
+  let g:obsession_no_bufenter = 1
+  if exists('g:lightline')
+    let g:lightline.active.right[2] += [ 'sessions' ]
+    let g:lightline.component_function['sessions'] =
+          \ string(function('s:obsession_status'))
+  endif
   " Mon Feb 17 2020 13:27 not working for me
   " Plug 'thaerkh/vim-workspace'
-    " let g:workspace_session_directory = g:std_data_path . '/sessions/'
-    " let g:workspace_session_disable_on_args = 1
-    " let g:workspace_autosave_always = 1
-    " let g:workspace_autosave_ignore = ['gitcommit']
+  " let g:workspace_session_directory = g:std_data_path . '/sessions/'
+  " let g:workspace_session_disable_on_args = 1
+  " let g:workspace_autosave_always = 1
+  " let g:workspace_autosave_ignore = ['gitcommit']
 
   " Slowing down startup
   " Plug 'yuki-ycino/fzf-preview.vim'
-    " Not really working in windows
-    " let g:fzf_preview_command = ''
-    " let g:fzf_binary_preview_command = ''
+  " Not really working in windows
+  " let g:fzf_preview_command = ''
+  " let g:fzf_binary_preview_command = ''
 
   " Wed Oct 30 2019 15:28: Best plugin ever!
   Plug 'blueyed/vim-diminactive'
-    let g:diminactive_buftype_blacklist = ['ctrlp']
-    let g:diminactive_enable_focus = 1
+  let g:diminactive_buftype_blacklist = ['ctrlp']
+  let g:diminactive_enable_focus = 1
 
   call s:configure_vim_zoom()
 
@@ -126,9 +128,9 @@ function! plugin#Config()
   " let l:compl = has('nvim') ? 'shuogo_deo' : 'shuogo_neo'
   call autocompletion#SetCompl('shuogo_deo')
   " call autocompletion#SetCompl(
-        " \ has('unix') ? 'shuogo_deo' :
-        " \ (exists('g:portable_vim') && g:portable_vim == 1 ? 'shuogo_neo' : 'shuogo_deo')
-        " \ )
+  " \ has('unix') ? 'shuogo_deo' :
+  " \ (exists('g:portable_vim') && g:portable_vim == 1 ? 'shuogo_neo' : 'shuogo_deo')
+  " \ )
 
   " Possible values:
   " - chromatica easytags neotags color_coded clighter8 semantic
@@ -147,21 +149,21 @@ function! plugin#Config()
     Plug 'radenling/vim-dispatch-neovim'
     " nvim-qt on unix doesnt populate has('gui_running')
     " if !exists(g:neovide)
-      " Plug 'equalsraf/neovim-gui-shim'
+    " Plug 'equalsraf/neovim-gui-shim'
     " endif
   endif
 
   " if has('patch-8.1.2114') || has('nvim-0.4')
-    " Plug 'liuchengxu/vim-clap'
+  " Plug 'liuchengxu/vim-clap'
   " endif
 
   " if executable('lldb') && has('unix') && !has('nvim')
-    " Plug 'gilligan/vim-lldb'
+  " Plug 'gilligan/vim-lldb'
   " endif
 
   " Possible Replacement `asyncvim`
   Plug 'tpope/vim-dispatch'
-    let g:dispatch_no_maps = 1
+  let g:dispatch_no_maps = 1
 
   call s:configure_vim_table_mode()
 
@@ -196,12 +198,12 @@ function! plugin#Config()
   " Fri Feb 14 2020 15:30
   " Trying alternative
   Plug 'jiangmiao/auto-pairs'
-    " Really annoying option
-    let g:AutoPairsFlyMode = 0
-    let g:AutoPairsShortcutToggle = ''
-    let g:AutoPairsShortcutFastWrap = ''
-    let g:AutoPairsShortcutJump = ''
-    let g:AutoPairsShortcutBackInsert = ''
+  " Really annoying option
+  let g:AutoPairsFlyMode = 0
+  let g:AutoPairsShortcutToggle = ''
+  let g:AutoPairsShortcutFastWrap = ''
+  let g:AutoPairsShortcutJump = ''
+  let g:AutoPairsShortcutBackInsert = ''
   " Plug 'Raimondi/delimitMate'
   " let g:delimitMate_expand_cr = 2
   " let g:delimitMate_expand_space = 1
@@ -270,8 +272,10 @@ function! plugin#Config()
   " Magnum is required by vim-radical. use with gA
   Plug 'glts/vim-magnum', { 'on' : '<Plug>RadicalView' }
   Plug 'glts/vim-radical', { 'on' : '<Plug>RadicalView' }
-  nmap <plug>num_representation <Plug>RadicalView
-  nmap <plug>num_representation <Plug>RadicalView
+  let g:radical_no_mappings = 1
+  " Tue May 12 2020 11:03: This fanciness does not work
+  " nnoremap <plug>radical_viewer <Plug>RadicalView
+  " xnoremap <plug>radical_viewer <Plug>RadicalView
 
   " W3M - to view cpp-reference help
   if executable('w3m')
@@ -309,7 +313,7 @@ function! plugin#Config()
   " " pandoc_lang_name = vim_lang_name
   " let g:pandoc#syntax#codeblocks#embeds#langs = [ "latex=tex", 'cpp=cpp' ]
   " augroup pandoc_syntax
-    " au! FileType markdown set filetype=markdown.pandoc
+  " au! FileType markdown set filetype=markdown.pandoc
   " augroup END
 
   " This plugin depends on 'godlygeek/tabular'
@@ -331,8 +335,8 @@ function! plugin#Config()
   " Plug 'scrooloose/vim-slumlord', { 'on' : 'UtilsUmlInFilePreview' }
 
   Plug 'junegunn/goyo.vim', { 'on' : 'Goyo' }
-    let g:goyo_width = 120
-    nnoremap <plug>focus_toggle :Goyo<cr>
+  let g:goyo_width = 120
+  nnoremap <plug>focus_toggle :Goyo<cr>
 
   " Plug 'dbmrq/vim-ditto', { 'for' : 'markdown' }
   " let g:ditto_dir = g:std_data_path
@@ -344,7 +348,7 @@ function! plugin#Config()
   " TODO-[RM]-(Sun Sep 10 2017 20:26): So far only working on linux
   " Plug 'Ron89/thesaurus_query.vim', { 'on' : 'ThesaurusQueryReplaceCurrentWord' }
   " Very weird and confusing
-    " let g:tq_map_keys = 1
+  " let g:tq_map_keys = 1
 
   " Autocorrect mispellings on the fly
   Plug 'panozzaj/vim-autocorrect', { 'for' : 'markdown' }
@@ -373,9 +377,9 @@ function! plugin#Config()
 
   " Only for arch
   " if executable('dasht')
-    " Plug 'sunaku/vim-dasht', { 'on' : 'Dasht' }
-    " " When in C++, also search C, Boost, and OpenGL:
-    " let g:dasht_filetype_docsets['cpp'] = ['^c$', 'boost', 'OpenGL']
+  " Plug 'sunaku/vim-dasht', { 'on' : 'Dasht' }
+  " " When in C++, also search C, Boost, and OpenGL:
+  " let g:dasht_filetype_docsets['cpp'] = ['^c$', 'boost', 'OpenGL']
   " endif
 
   " Plug 'itchyny/calendar.vim', { 'on' : 'Calendar' }
@@ -384,21 +388,21 @@ function! plugin#Config()
 
   " Tue Oct 31 2017 11:30: Needs to be loaded last
   " if exists('g:valid_device')
-    " Plug 'ryanoasis/vim-devicons'
-    " let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-    " let g:DevIconsEnableFoldersOpenClose = 1
+  " Plug 'ryanoasis/vim-devicons'
+  " let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+  " let g:DevIconsEnableFoldersOpenClose = 1
   " endif
 
   Plug 'chaoren/vim-wordmotion'
-    let g:wordmotion_mappings = {
-          \ 'w' : '<M-w>',
-          \ 'b' : '<M-b>',
-          \ 'e' : '',
-          \ 'ge' : '',
-          \ 'aw' : '',
-          \ 'iw' : '',
-          \ '<C-R><C-W>' : ''
-          \ }
+  let g:wordmotion_mappings = {
+        \ 'w' : '<M-w>',
+        \ 'b' : '<M-b>',
+        \ 'e' : '',
+        \ 'ge' : '',
+        \ 'aw' : '',
+        \ 'iw' : '',
+        \ '<C-R><C-W>' : ''
+        \ }
 
   call s:configure_caps()
 
@@ -409,8 +413,8 @@ function! plugin#Config()
   " Mon Jun 25 2018 14:19: Depricating this in favor of custom made
   " Plug 'mhinz/vim-grepper'
   " if exists('g:lightline')
-    " let g:lightline.active.left[2] += [ 'grepper' ]
-    " let g:lightline.component_function['grepper'] = 'grepper#statusline'
+  " let g:lightline.active.left[2] += [ 'grepper' ]
+  " let g:lightline.component_function['grepper'] = 'grepper#statusline'
   " endif
 
   " Plug 'jalvesaq/Nvim-R'
@@ -441,7 +445,7 @@ function! plugin#Config()
   " Plug 'Peaches491/vim-glog-syntax', { 'for' : '' }
   Plug 'MTDL9/vim-log-highlighting', { 'for' : 'log' }
   Plug 'hdima/python-syntax'
-    " let g:python_highlight_all=1
+  " let g:python_highlight_all=1
 
 
   " Gdb debugging
@@ -478,11 +482,11 @@ function! plugin#Config()
   " Relays openning vim in the same folder as your project
   " Plug 'tpope/vim-obsession'
   " Plug 'dhruvasagar/vim-prosession'
-    " let g:prosession_dir = g:std_data_path . '/sessions/'
-    " let g:prosession_on_startup = 1
-    " let g:prosession_default_session = 1
+  " let g:prosession_dir = g:std_data_path . '/sessions/'
+  " let g:prosession_on_startup = 1
+  " let g:prosession_default_session = 1
 
-    " let g:prosession_last_session_dir = g:std_data_path . '/sessions/defaults'
+  " let g:prosession_last_session_dir = g:std_data_path . '/sessions/defaults'
 
   Plug 'neomutt/neomutt.vim', { 'for' : [ 'muttrc' ] }
 
@@ -499,32 +503,32 @@ function! plugin#Config()
   Plug 'dbakker/vim-lint'
 
   " Plug 'neovim/nvimdev.nvim'
-    " let g:nvimdev_auto_cscope=1
+  " let g:nvimdev_auto_cscope=1
 
   Plug 'tbastos/vim-lua'
 
   Plug 'editorconfig/editorconfig-vim'
 
   Plug 'nicwest/vim-camelsnek'
-    nnoremap <plug>to_snake_case :Snek<bar>
-      \   silent! call repeat#set("\<lt>Plug>to_snake_case")<CR>
-    nnoremap <plug>to_camel_case :Camel<bar>
-      \   silent! call repeat#set("\<lt>Plug>to_camel_case")<CR>
-    nnoremap <plug>to_camel_back_case :CamelB<bar>
-      \   silent! call repeat#set("\<lt>Plug>to_camel_back_case")<CR>
-    nnoremap <plug>to_kebak_case :Kebak<bar>
-      \   silent! call repeat#set("\<lt>Plug>to_kebak_case")<CR>
-    vnoremap <plug>to_snake_case :Snek<cr>
-    vnoremap <plug>to_camel_case :Camel<cr>
-    vnoremap <plug>to_camel_back_case :CamelB<cr>
-    vnoremap <plug>to_kebak_case :Kebak<cr>
+  nnoremap <plug>to_snake_case :Snek<bar>
+        \   silent! call repeat#set("\<lt>Plug>to_snake_case")<CR>
+  nnoremap <plug>to_camel_case :Camel<bar>
+        \   silent! call repeat#set("\<lt>Plug>to_camel_case")<CR>
+  nnoremap <plug>to_camel_back_case :CamelB<bar>
+        \   silent! call repeat#set("\<lt>Plug>to_camel_back_case")<CR>
+  nnoremap <plug>to_kebak_case :Kebak<bar>
+        \   silent! call repeat#set("\<lt>Plug>to_kebak_case")<CR>
+  vnoremap <plug>to_snake_case :Snek<cr>
+  vnoremap <plug>to_camel_case :Camel<cr>
+  vnoremap <plug>to_camel_back_case :CamelB<cr>
+  vnoremap <plug>to_kebak_case :Kebak<cr>
 
   if exists('g:languagetool_jar') && !empty('g:languagetool_jar')
     Plug 'rhysd/vim-grammarous'
-      let g:grammarous#languagetool_cmd = g:languagetool_jar
-      let g:grammarous#default_comments_only_filetypes = {
-            \ '*' : 1, 'help' : 0, 'markdown' : 0,
-            \ }
+    let g:grammarous#languagetool_cmd = g:languagetool_jar
+    let g:grammarous#default_comments_only_filetypes = {
+          \ '*' : 1, 'help' : 0, 'markdown' : 0,
+          \ }
     " Plug 'dpelle/vim-LanguageTool', { 'for' : 'markdown' }
   endif
 
@@ -654,14 +658,14 @@ function! plugin#AfterConfig() abort
     call neomake#configure#automake('w')
     " let l:helios_bat_stat = '/sys/class/power_supply/BAT1/status'
     " if has('win32')
-    " Thu Apr 25 2019 06:11: This is very qute. But when enabled by default 
-    " things get very cluttered. Let LanguageClient do its thing and then just 
-    " run on demand 
+    " Thu Apr 25 2019 06:11: This is very qute. But when enabled by default
+    " things get very cluttered. Let LanguageClient do its thing and then just
+    " run on demand
     " else
-      " let hostname = hostname()
-      " if hostname ==# 'helios' && readfile(l:helios_bat_stat) ==# ['Charging']
-        " call neomake#configure#automake('w')
-      " endif
+    " let hostname = hostname()
+    " if hostname ==# 'helios' && readfile(l:helios_bat_stat) ==# ['Charging']
+    " call neomake#configure#automake('w')
+    " endif
     " endif
   endif
 
@@ -846,7 +850,7 @@ function! s:configure_tagbar() abort
   " These settings do not use patched fonts
   " Fri Feb 02 2018 15:38: Its number one thing slowing down vim right now.
   " Tue Feb 25 2020 14:03: Giving it another try
-  " Tue Feb 25 2020 14:42: Still quite slow. Enabling only for unix 
+  " Tue Feb 25 2020 14:42: Still quite slow. Enabling only for unix
   if exists('g:lightline') && has('unix')
     let g:lightline.active.right[2] += [ 'tagbar' ]
     let g:lightline.component_function['tagbar'] =
@@ -954,12 +958,12 @@ function! s:configure_file_browser(choice) abort
 
   if a:choice ==# 'nerdtree'
     " if has('nvim') && has('unix')
-      " " Does not support windows
-      " nnoremap <plug>file_browser :LuaTreeToggle<cr>
-      " Plug 'kyazdani42/nvim-tree.lua'
-      " let g:lua_tree_ignore = [ '.git', '.svn', '__pycache__' ]
+    " " Does not support windows
+    " nnoremap <plug>file_browser :LuaTreeToggle<cr>
+    " Plug 'kyazdani42/nvim-tree.lua'
+    " let g:lua_tree_ignore = [ '.git', '.svn', '__pycache__' ]
 
-      " return
+    " return
     " endif
     nnoremap <plug>file_browser :NERDTreeToggle<CR>
 
@@ -994,9 +998,15 @@ endfunction
 function! s:configure_tag_handler(choice) abort
   if a:choice ==? 'gen_tags'
     Plug 'jsfaint/gen_tags.vim' " Not being suppoprted anymore
+
+    " Sat May 16 2020 12:25: Setting a different cache folder messes things up 
+    " let g:gen_tags#cache_dir = g:std_data_path + '/ctags/'
+    " let g:gen_tags#use_cache_dir = 1
+    let g:loaded_gentags#gtags = 1 " Disable gtags
+    let g:gen_tags#gtags_default_map = 0
+    let g:gen_tags#statusline = 0 
+
     let g:gen_tags#ctags_auto_gen = 1
-    let g:gen_tags#gtags_auto_gen = 1
-    let g:gen_tags#use_cache_dir = 1
     let g:gen_tags#ctags_prune = 1
     let g:gen_tags#ctags_opts = '--sort=no --append'
   elseif a:choice ==? 'gutentags'
@@ -1066,8 +1076,8 @@ function! s:configure_caps() abort
     let g:lightline.active.right[2] += [ 'caps' ]
     let g:lightline.component_function['caps'] = string(function('s:get_caps'))
     let g:lightline.component_type = {
-        \   'caps': 'error',
-        \ }
+          \   'caps': 'error',
+          \ }
   endif
 endfunction
 
@@ -1091,7 +1101,7 @@ function! s:configure_vim_utils() abort
 
   nnoremap <Leader>of :Dox<CR>
 
-  " TODO - Tue Aug 27 2019 16:33: Move utils functions into its own plugin 
+  " TODO - Tue Aug 27 2019 16:33: Move utils functions into its own plugin
   " Auto Flux (changing themes) is set in the augroup.vim file
   " Used data from here: https://www.timeanddate.com/sun/usa/clearwater
   " Specifically markings for daylight
@@ -1210,20 +1220,20 @@ endfunction
 
 function! s:configure_vim_bookmark() abort
   Plug 'MattesGroeger/vim-bookmarks'
-    let g:bookmark_no_default_key_mappings = 1
-    " let g:bookmark_sign = '>>'
-    " let g:bookmark_annotation_sign = '##'
-    let g:bookmark_manage_per_buffer = 0
-    let g:bookmark_save_per_working_dir = 0
-    let g:bookmark_dir = g:std_data_path . '/bookmarks'
-    let g:bookmark_auto_save = 0
-    let g:bookmark_auto_save_file = g:bookmark_dir . '/bookmarks'
-    let g:bookmark_highlight_lines = 1
-    " let g:bookmark_show_warning = 0
-    " let g:bookmark_show_toggle_warning = 0
+  let g:bookmark_no_default_key_mappings = 1
+  " let g:bookmark_sign = '>>'
+  " let g:bookmark_annotation_sign = '##'
+  let g:bookmark_manage_per_buffer = 0
+  let g:bookmark_save_per_working_dir = 0
+  let g:bookmark_dir = g:std_data_path . '/bookmarks'
+  let g:bookmark_auto_save = 0
+  let g:bookmark_auto_save_file = g:bookmark_dir . '/bookmarks'
+  let g:bookmark_highlight_lines = 1
+  " let g:bookmark_show_warning = 0
+  " let g:bookmark_show_toggle_warning = 0
 
-    nnoremap <Plug>BookmarkLoad :call <SID>bookmark_load()<cr>
-    nnoremap <Plug>BookmarkSave :call <SID>bookmark_save()<cr>
+  nnoremap <Plug>BookmarkLoad :call <SID>bookmark_load()<cr>
+  nnoremap <Plug>BookmarkSave :call <SID>bookmark_save()<cr>
 endfunction
 
 function! s:bookmark_save() abort
@@ -1300,7 +1310,7 @@ endfunction
 
 " Additional settings at:
 " 'options.vim' as well
-" s:which_key_format also 
+" s:which_key_format also
 function! s:configure_vim_which_key() abort
   Plug 'liuchengxu/vim-which-key'
   let g:which_key_floating_opts = {'row': '-60', 'width': '-100', 'col': '+40'}
@@ -1314,12 +1324,12 @@ function! s:configure_vim_which_key() abort
   nnoremap <silent> [ :WhichKey '['<CR>
   vnoremap <silent> [ :WhichKeyVisual '['<CR>
 
-  " Wed Mar 27 2019 09:49: Makes neovim crash 
+  " Wed Mar 27 2019 09:49: Makes neovim crash
   " let g:which_key_flatten = 0
   " let g:which_key_hspace = 80
 
   let g:WhichKeyFormatFunc = function('s:which_key_format')
-  
+
   call mappings#SetWhichKeyMap()
 endfunction
 
@@ -1393,7 +1403,7 @@ function! s:fzf_download() abort
   if !empty(glob(l:fzf_path))
     return 1
   endif
-  
+
   let l:link =
         \ 'https://raw.githubusercontent.com/junegunn/fzf/master/plugin/fzf.vim'
   if utils#CurlDown(l:fzf_path, l:link) != 1
@@ -1519,13 +1529,13 @@ function! s:configure_vim_rooter() abort
   let g:rooter_resolve_links = 1
   let g:rooter_change_directory_for_non_project_files = 'current'
   " nnoremap <Leader>cr :call utils#RooterAutoloadCscope()<CR>
-  
+
   " Tue Aug 13 2019 14:23
-  " Disabled since it wasnt really working, and was making me set the maker 
+  " Disabled since it wasnt really working, and was making me set the maker
   " manually constantly. Leaving for potential future use
   " augroup Rooter
-    " autocmd!
-    " autocmd User RooterChDir call s:per_project_settings()
+  " autocmd!
+  " autocmd User RooterChDir call s:per_project_settings()
   " augroup END
 endfunction
 
@@ -1572,8 +1582,10 @@ function! s:configure_neoterm() abort
   Plug 'kassio/neoterm'
   " let g:neoterm_repl_python = 'ipython '
   " if has('win32')
-    " let g:neoterm_eof = "\<cr>"
+  " let g:neoterm_eof = "\<cr>"
   " endif
+  " Do not map any keys
+  let g:neoterm_automap_keys = ''
   let g:neoterm_term_per_tab = 1
   let g:neoterm_use_relative_path = 1
   let g:neoterm_default_mod = ''
@@ -1619,9 +1631,9 @@ function! s:configure_neoformat() abort
           \ }
     let g:neoformat_cpp_clangformat = {
           \ 'exe': 'clang-format',
-        \ 'args': ['-style=file', '-fallback-style="LLVM"'],
-        \ 'stdin': 1,
-        \ }
+          \ 'args': ['-style=file', '-fallback-style="LLVM"'],
+          \ 'stdin': 1,
+          \ }
   endif
 
   if executable('lua-format')
@@ -1642,82 +1654,82 @@ function! s:configure_neoformat() abort
   endif
 
   " if executable('black')
-    " " pip install black
-    " let g:neoformat_python_black = {
-          " \ 'exe': 'black',
-          " \ 'args': ['--line-length 80'],
-          " \ }
+  " " pip install black
+  " let g:neoformat_python_black = {
+  " \ 'exe': 'black',
+  " \ 'args': ['--line-length 80'],
+  " \ }
   " endif
 endfunction
 
 function! s:configure_java_setter_getter() abort
   Plug 'wsdjeg/java_getset.vim', { 'for' : 'java' }
-    let g:java_getset_disable_map = 1
+  let g:java_getset_disable_map = 1
 
-  let g:javagetset_getterTemplate = 
-          \ "\n" .
-          \ "/**\n" .
-          \ " * Get %varname%.\n" .
-          \ " *\n" .
-          \ " * @return %varname% as %type%.\n" .
-          \ " */\n" .
-          \ "%modifiers% %type% %funcname%() {\n" .
-          \ "    return %varname%;\n" .
-          \ "}"
+  let g:javagetset_getterTemplate =
+        \ "\n" .
+        \ "/**\n" .
+        \ " * Get %varname%.\n" .
+        \ " *\n" .
+        \ " * @return %varname% as %type%.\n" .
+        \ " */\n" .
+        \ "%modifiers% %type% %funcname%() {\n" .
+        \ "    return %varname%;\n" .
+        \ "}"
 
   let g:javagetset_getterArrayTemplate =
-          \ "\n" .
-          \ "/**\n" .
-          \ " * Get %varname%.\n" .
-          \ " *\n" .
-          \ " * @return %varname% as %type%[].\n" .
-          \ " */\n" .
-          \ "%modifiers% %type%[] %funcname%() {\n" .
-          \ "    return %varname%;\n" .
-          \ "}\n" .
-          \ "\n" .
-          \ "/**\n" .
-          \ " * Get %varname% element at specified index.\n" .
-          \ " *\n" .
-          \ " * @param index the index.\n" .
-          \ " * @return %varname% at index as %type%.\n" .
-          \ " */\n" .
-          \ "%modifiers% %type% %funcname%(int index) {\n" .
-          \ "    return %varname%[index];\n" .
-          \ "}"
+        \ "\n" .
+        \ "/**\n" .
+        \ " * Get %varname%.\n" .
+        \ " *\n" .
+        \ " * @return %varname% as %type%[].\n" .
+        \ " */\n" .
+        \ "%modifiers% %type%[] %funcname%() {\n" .
+        \ "    return %varname%;\n" .
+        \ "}\n" .
+        \ "\n" .
+        \ "/**\n" .
+        \ " * Get %varname% element at specified index.\n" .
+        \ " *\n" .
+        \ " * @param index the index.\n" .
+        \ " * @return %varname% at index as %type%.\n" .
+        \ " */\n" .
+        \ "%modifiers% %type% %funcname%(int index) {\n" .
+        \ "    return %varname%[index];\n" .
+        \ "}"
 
   " Setter Templates (non-array and array-based)
-  let g:javagetset_setterTemplate = 
-          \ "\n" .
-          \ "/**\n" .
-          \ " * Set %varname%.\n" .
-          \ " *\n" .
-          \ " * @param %varname% the value to set.\n" . 
-          \ " */\n" .
-          \ "%modifiers% void %funcname%(%type% %varname%) {\n" .
-          \ "    this.%varname% = %varname%;\n" .
-          \ "}"
+  let g:javagetset_setterTemplate =
+        \ "\n" .
+        \ "/**\n" .
+        \ " * Set %varname%.\n" .
+        \ " *\n" .
+        \ " * @param %varname% the value to set.\n" .
+        \ " */\n" .
+        \ "%modifiers% void %funcname%(%type% %varname%) {\n" .
+        \ "    this.%varname% = %varname%;\n" .
+        \ "}"
 
   let g:javagetset_setterArrayTemplate =
-          \ "\n" .
-          \ "/**\n" .
-          \ " * Set %varname%.\n" .
-          \ " *\n" .
-          \ " * @param %varname% the value to set.\n" . 
-          \ " */\n" .
-          \ "%modifiers% void %funcname%(%type%[] %varname%) {\n" .
-          \ "    this.%varname% = %varname%;\n" .
-          \ "}\n" .
-          \ "\n" .
-          \ "/**\n" .
-          \ " * Set %varname% at the specified index.\n" .
-          \ " *\n" .
-          \ " * @param %varname% the value to set.\n" . 
-          \ " * @param index the index.\n" . 
-          \ " */\n" .
-          \ "%modifiers% void %funcname%(%type% %varname%, int index) {\n" .
-          \ "    this.%varname%[index] = %varname%;\n" .
-          \ "}"
+        \ "\n" .
+        \ "/**\n" .
+        \ " * Set %varname%.\n" .
+        \ " *\n" .
+        \ " * @param %varname% the value to set.\n" .
+        \ " */\n" .
+        \ "%modifiers% void %funcname%(%type%[] %varname%) {\n" .
+        \ "    this.%varname% = %varname%;\n" .
+        \ "}\n" .
+        \ "\n" .
+        \ "/**\n" .
+        \ " * Set %varname% at the specified index.\n" .
+        \ " *\n" .
+        \ " * @param %varname% the value to set.\n" .
+        \ " * @param index the index.\n" .
+        \ " */\n" .
+        \ "%modifiers% void %funcname%(%type% %varname%, int index) {\n" .
+        \ "    this.%varname%[index] = %varname%;\n" .
+        \ "}"
 endfunction
 
 function! s:configure_nvimgdb() abort
@@ -1738,14 +1750,14 @@ function! s:configure_nvimgdb() abort
         \ }
 
   " let g:nvimgdb_config_override = {
-        " \ 'sign_current_line': '>',
-        " \ 'sign_breakpoint': [ '*', '#' ],
-        " \ }
+  " \ 'sign_current_line': '>',
+  " \ 'sign_breakpoint': [ '*', '#' ],
+  " \ }
 endfunction
 
-" width: Decimal between 0 and 1, representing percentage of the window that 
+" width: Decimal between 0 and 1, representing percentage of the window that
 "         will be covered
-" height: Decimal between 0 and 1, representing percentage of the window that 
+" height: Decimal between 0 and 1, representing percentage of the window that
 "         will be covered
 function! plugin#FloatingFzf(width, height) abort
   let buf = nvim_create_buf(v:false, v:true)

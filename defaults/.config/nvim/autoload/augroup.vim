@@ -105,7 +105,8 @@ function! augroup#Set() abort
         \   exe "normal! g`\"" |
         \ endif
 
-      autocmd BufWinEnter * call ctags#LoadCscopeDatabse()
+      " Sat May 16 2020 12:04: Trying out gen_tags 
+      " autocmd BufWinEnter * call ctags#LoadCscopeDatabse()
       " Tue Feb 25 2020 14:00: Really slows down vim 
       " autocmd BufWinEnter * call status_line#SetVerControl()
     augroup END
