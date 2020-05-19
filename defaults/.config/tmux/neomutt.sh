@@ -18,7 +18,8 @@ session="neomutt"
   'neomutt -F ~/.config/neomutt/user.ufl'
 # Wed Feb 19 2020 20:11: Account has been disabled 
 # /usr/bin/tmux  new-window  -d -t $session -n 'psu' 'neomutt -F ~/.config/neomutt/user.psu'
-/usr/bin/tmux new-window -d -t $session -n 'pmserver' 'protonmail-bridge --cli'
-/usr/bin/tmux new-window -d -t $session -n 'pm' \
-  'sleep 5; neomutt -F ~/.config/neomutt/user.pm'
+# Tue May 19 2020 04:51: Free account doesn't allow this stuff 
+# /usr/bin/tmux new-window -d -t $session -n 'pmserver' 'protonmail-bridge --cli'
+# /usr/bin/tmux new-window -d -t $session -n 'pm' \
+  # 'sleep 5; neomutt -F ~/.config/neomutt/user.pm'
 /usr/bin/tmux -2 attach-session -t $session
