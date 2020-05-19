@@ -27,6 +27,9 @@ zstyle ':completion:*:kill:*'   force-list always
 zstyle ':completion:*:*:killall:*' menu yes select
 zstyle ':completion:*:killall:*' force-list always
 
+# Prevent double entries in $PATH
+typeset -U path
+
 # Avoid duplicates.
 # Taken from: https://leetschau.github.io/remove-duplicate-zsh-history.html
 setopt PUSHD_IGNORE_DUPS
