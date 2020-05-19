@@ -80,6 +80,9 @@ fi
 # export VISUAL=nvim
 export EDITOR=$VISUAL
 
+# Fix typos in cli
+ENABLE_CORRECTION="true"
+
 # Thu Feb 22 2018 08:59: Can't figure out how to set locale properly on arch. 
 # Result:
 # Wed May 02 2018 04:57: Not needed anymore
