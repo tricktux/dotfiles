@@ -9,6 +9,7 @@ defaults/.config/qutebrowser/quickmarks
 defaults/.config/polybar/scripts/github
 defaults/.config/polybar/scripts/config.ini
 defaults/.config/polybar/scripts/pihole.ini
+defaults/.config/zsh/.zcompdump*
 mutt/gmail/cache/
 mutt/gmail/certificates
 mutt/ufl/cache
