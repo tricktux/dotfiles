@@ -965,7 +965,7 @@ function! s:configure_file_browser(choice) abort
 
     " return
     " endif
-    nnoremap <plug>file_browser :NERDTreeToggle<CR>
+    nnoremap <plug>file_browser :NERDTreeToggle <c-r>=getcwd()<cr><cr>
 
     Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle' }
     " Fri Apr 17 2020 16:27: Probably slows down nerdtree!
