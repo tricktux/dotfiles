@@ -1613,6 +1613,10 @@ function! s:configure_neoformat() abort
   let g:neoformat_basic_format_trim = 1
   " Enable alignment globally
   let g:neoformat_basic_format_align = 1
+  " Enable tab to spaces conversion globally
+  let g:neoformat_basic_format_retab = 1
+  let g:neoformat_run_all_formatters = 1
+  let g:neoformat_only_msg_on_error = 1
   nnoremap <plug>format_code :Neoformat<cr>
 
   let l:win_clang_path = 'C:\Program Files (x86)\LLVM\bin\clang-check.exe'
