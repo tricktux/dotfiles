@@ -19,6 +19,7 @@ setlocal tabstop=2
 setlocal shiftwidth=2
 setlocal softtabstop=2
 setlocal nospell
+setlocal textwidth=79
 
 " Add mappings, unless the user didn't want this.
 if !exists('no_plugin_maps') && !exists('no_vim_maps')
@@ -35,6 +36,7 @@ let b:undo_ftplugin = 'setlocal tabstop<'
       \ . '|setlocal shiftwidth<'
       \ . '|setlocal softtabstop<'
       \ . '|setlocal nospell<'
+      \ . '|setlocal textwidth<'
 
 let &cpo = s:keepcpo
 unlet s:keepcpo

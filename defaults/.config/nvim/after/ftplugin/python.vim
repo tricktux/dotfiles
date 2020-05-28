@@ -16,6 +16,9 @@ let s:keepcpo= &cpo
 set cpo&vim
 
 setlocal textwidth=79
+setlocal shiftwidth=2
+setlocal tabstop=2
+setlocal softtabstop=2
 setlocal define=^\s*\\(def\\\\|class\\)
 
 abbreviate <buffer> sefl self
@@ -46,6 +49,9 @@ hi! link semshiErrorChar Error
 " Also add better python highlight
 
 let b:undo_ftplugin = 'setlocal textwidth<'
+      \ . '|setlocal shiftwidth<'
+      \ . '|setlocal tabstop<'
+      \ . '|setlocal softtabstop<'
       \ . '|setlocal define<'
 
 let &cpo = s:keepcpo
