@@ -13,9 +13,10 @@ set modules[7]=pynvim
 set modules[8]=python-language-server
 set modules[9]=pip
 set modules[10]=frosted
-set modules[11]=pep8
-set modules[12]=pylint
-set modules[13]=neovim
+set modules[11]=pylint
+set modules[12]=neovim
+set modules[13]=black
+set modules[14]=docformatter
 
 REM  set modules_2[0]=${modules[7]}
 REM  set modules_2[1]=${modules[9]}
