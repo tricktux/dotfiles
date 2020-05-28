@@ -408,7 +408,7 @@ function! plugin#Config()
 
   " Plug 'hari-rangarajan/CCTree'
 
-  Plug 'bronson/vim-trailing-whitespace', { 'on' : 'UtilsDetectWhitespace' }
+  Plug 'bronson/vim-trailing-whitespace', { 'on' : 'FixWhitespace' }
 
   " Mon Jun 25 2018 14:19: Depricating this in favor of custom made
   " Plug 'mhinz/vim-grepper'
