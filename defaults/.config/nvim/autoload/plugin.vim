@@ -1640,6 +1640,22 @@ function! s:configure_neoformat() abort
           \ }
   endif
 
+  let g:neoformat_enabled_python = []
+  if executable('black')
+    let g:neoformat_python_black = {
+          \ 'exe': 'black',
+          \ 'args': ['--line-length 80'],
+          \ 'stdin': 1,
+          \ }
+  endif
+  let g:neoformat_enabled_python += ['black']
+  if executable('isort')
+    let g:neoformat_enabled_python += ['isort']
+  endif
+  if executable('docformatter')
+    let g:neoformat_enabled_python += ['docformatter']
+  endif
+
   if executable('lua-format')
     let g:neoformat_enabled_lua = ['luaformat']
     let g:neoformat_lua_luaformat = {
