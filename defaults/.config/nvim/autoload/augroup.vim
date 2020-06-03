@@ -74,6 +74,14 @@ function! augroup#Set() abort
     autocmd CmdWinEnter * nnoremap <buffer> <cr> i<cr>
   augroup END
 
+  if exists('#TextYankPost') && has('nvim-0.5')
+    augroup highlight_yank
+      autocmd!
+      autocmd TextYankPost *
+            \ silent! lua require'vim.highlight'.on_yank("IncSearch", 3000)
+    augroup END
+  endif
+
   " To improve syntax highlight speed. If something breaks with highlight
   " increase these number below
   " augroup vimrc
