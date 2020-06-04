@@ -15,8 +15,8 @@ local i3ipc = {}
 i3ipc.cmd = [[/usr/bin/i3-msg]]
 i3ipc.args = '[title="^' .. arg[1] .. '$"] scratchpad show'
 i3ipc.terminal = {
-    ['helios'] = 'resize set 1920 440, move position 0 px 32 px',
-    ['predator'] = 'resize set 3840 800, move position 0 px 48 px'
+    ['helios'] = 'resize set 960 1019, move position 0 px 32 px',
+    ['predator'] = 'resize set 1920 2038, move position 0 px 48 px'
 }
 i3ipc.htop = {
     ['helios'] = 'resize set 1820 880, move position center',
