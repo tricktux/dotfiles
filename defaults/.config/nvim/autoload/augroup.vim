@@ -74,7 +74,7 @@ function! augroup#Set() abort
     autocmd CmdWinEnter * nnoremap <buffer> <cr> i<cr>
   augroup END
 
-  if exists('#TextYankPost') && has('nvim-0.5')
+  if has('nvim-0.5')
     augroup highlight_yank
       autocmd!
       autocmd TextYankPost *
