@@ -228,7 +228,10 @@ function! options#Set() abort
   set lazyredraw " Had to addit to speed up scrolling
   " Mon May 01 2017 11:21: This breaks split window highliting
   " Tue Jun 13 2017 20:55: Giving it another try
-  set synmaxcol=120 " Will not highlight passed this column #
+  " Fri Jun 05 2020 16:17: You knew that it breaks highliting with a low number 
+  " since 2017 and still went ahead and had this issue for years :/. Please do 
+  " not make it lowe than 180
+  set synmaxcol=180 " Will not highlight passed this column #
   " Mon Oct 16 2017 15:22: This speed ups a lot of plugin. Those that have to
   " do with highliting.
   set regexpengine=1
