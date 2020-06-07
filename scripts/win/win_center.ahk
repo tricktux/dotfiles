@@ -27,6 +27,13 @@ SysGet, mon_3, Monitor, 3
 ; !h::Send {Left}
 ; !l::Send {Right}
 
+; Awesomeness!
+; Caps is ctrl
+CapsLock::Ctrl
++CapsLock::CapsLock
+; Control does not do anything. Force adoption
+LCtrl::Return
+
 #+Up::CenterActiveWindowUp() ; if win+shift+↑ is pressed
 #+Down::CenterActiveWindowDown() ; if win+shift+↑ is pressed
 
