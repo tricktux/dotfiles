@@ -10,27 +10,56 @@ function! mappings#Set()
   " CUSTOM MAPPINGS
   if has('unix')
     " System paste
-    nnoremap <leader>p "+p=`]
-    vnoremap <leader>p "+p=`]
+    nnoremap <leader>p "+p=`]zz
+    vnoremap <leader>p "+p=`]zz
 
     nnoremap <leader>y "+yy
     vnoremap <leader>y "+y
 
-    nnoremap  o<Esc>
+    nnoremap  o<Esc>zza
   else
     " Copy and paste into system wide clipboard
-    nnoremap <leader>p "*p=`]
-    vnoremap <leader>p "*p=`]
+    nnoremap <leader>p "*p=`]zz
+    vnoremap <leader>p "*p=`]zz
 
     nnoremap <leader>y "*yy
     vnoremap <leader>y "*y
 
-    nnoremap <cr> o<ESC>
+    nnoremap <cr> o<ESC>zza
 
     " On MS-Windows, this is mapped to cut Visual text
     " |dos-standard-mappings|.
     silent! vunmap <C-X>
   endif
+
+  " Sun Jun 07 2020 11:23 
+  " Auto center screen mappings. There some above as well
+  " Folding
+  " Folding select text then S-f to fold or just S-f to toggle folding
+  nnoremap <C-z> zzze
+  nnoremap <C-c> zMzz
+  nnoremap <C-n> zRzz
+  nnoremap <C-x> zazz
+  " dont use <C-a> it conflicts with tmux prefix
+  nnoremap <C-j> zjzz
+  nnoremap <C-k> zkzz
+  inoremap <ENTER> <ENTER><ESC>zzi
+  let g:esc = '<C-j>'
+  nnoremap <S-CR> O<Esc>zza
+  nnoremap G Gzz
+  nnoremap x xzz
+  " Substitute for ESC
+  execute "vnoremap " . g:esc . " <Esc>zz"
+  execute "inoremap " . g:esc . " <Esc>zz"
+
+  " j and k
+  " Display line movements unless preceded by a count and
+  " Save movements larger than 5 lines to the jumplist. Use Ctrl-o/Ctrl-i.
+  " Added also to center screen on cursor
+  nnoremap <expr> j v:count ?
+        \ (v:count > 5 ? "m'" . v:count : '') . 'jzz' : 'gjzz'
+  nnoremap <expr> k v:count ?
+        \ (v:count > 5 ? "m'" . v:count : '') . 'kzz' : 'gkzz'
 
   " Sun Dec 09 2018 17:15:
   " This extends p in visual mode (note the noremap), so that if you paste from
@@ -39,23 +68,16 @@ function! mappings#Set()
   " This enables the user to yank some text and paste it over several places in
   " a row, without using a named
   " Obtained from: https://vimways.org/2018/for-mappings-and-a-tutorial/
-  xnoremap <silent> p p:if v:register == '"'<bar>let @@=@0<bar>endif<cr>
+  xnoremap <silent> p p:if v:register == '"'<bar>let @@=@0<bar>endif<cr>zz
 
   " List of super useful mappings
   " = fixes indentantion
   " gq formats code
   " Free keys: <Leader>fnzxkiy;h
   " Taken keys: <Leader>qwertasdjcvgp<space>mbolu
-  let g:esc = '<C-j>'
 
   " FileType Specific mappings use <Leader>l
   " Refer to ~/.dotfiles/vim-utils/after/ftplugin to find these
-
-  " j and k
-  " Display line movements unless preceded by a count and
-  " Save movements larger than 5 lines to the jumplist. Use Ctrl-o/Ctrl-i.
-  nnoremap <expr> j v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
-  nnoremap <expr> k v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
 
   " Miscelaneous Mappings <Leader>j?
   " nnoremap <Leader>Ma :Man
@@ -306,8 +328,6 @@ function! mappings#Set()
   nnoremap <S-x> <c-x>
   vnoremap <S-x> <c-x>
 
-  nnoremap <S-CR> O<Esc>
-
   " <Leader>n
   " Display highlighted numbers as ascii chars. Only works on highlighted text
   " Rarely works
@@ -380,15 +400,6 @@ function! mappings#Set()
   nnoremap <leader>cc :pwd<cr>
   " TODO.RM-Thu Jun 01 2017 10:10: Create mappings like c21 and c22
 
-  " Folding
-  " Folding select text then S-f to fold or just S-f to toggle folding
-  nnoremap <C-j> zj
-  nnoremap <C-k> zk
-  nnoremap <C-z> zzze
-  nnoremap <C-c> zM
-  nnoremap <C-n> zR
-  nnoremap <C-x> za
-  " dont use <C-a> it conflicts with tmux prefix
 
   " Window movement
   " move between windows
@@ -404,10 +415,10 @@ function! mappings#Set()
     nnoremap <A-k> :call <SID>tmux_move('k')<cr>
     nnoremap <A-l> :call <SID>tmux_move('l')<cr>
   else
-    nnoremap <silent> <A-l> <C-w>l
-    nnoremap <silent> <A-h> <C-w>h
-    nnoremap <silent> <A-k> <C-w>k
-    nnoremap <silent> <A-j> <C-w>j
+    nnoremap <silent> <A-l> <C-w>lzz
+    nnoremap <silent> <A-h> <C-w>hzz
+    nnoremap <silent> <A-k> <C-w>kzz
+    nnoremap <silent> <A-j> <C-w>jzz
   endif
   nnoremap <silent> <A-S-l> <C-w>>
   nnoremap <silent> <A-S-h> <C-w><
@@ -421,10 +432,6 @@ function! mappings#Set()
   " search all type of files
   " Search visual selection text
   vnoremap // y/<C-R>"<cr>
-
-  " Substitute for ESC
-  execute "vnoremap " . g:esc . " <Esc>"
-  execute "inoremap " . g:esc . " <Esc>"
 
   " Buffers Stuff <Leader>b?
   if !exists("g:loaded_plugins")
