@@ -16,7 +16,7 @@ function! mappings#Set()
     nnoremap <leader>y "+yy
     vnoremap <leader>y "+y
 
-    nnoremap  o<Esc>zza
+    nnoremap  o<Esc>zz
   else
     " Copy and paste into system wide clipboard
     nnoremap <leader>p "*p=`]zz
@@ -25,7 +25,7 @@ function! mappings#Set()
     nnoremap <leader>y "*yy
     vnoremap <leader>y "*y
 
-    nnoremap <cr> o<ESC>zza
+    nnoremap <cr> o<ESC>zz
 
     " On MS-Windows, this is mapped to cut Visual text
     " |dos-standard-mappings|.
@@ -45,7 +45,7 @@ function! mappings#Set()
   nnoremap <C-k> zkzz
   inoremap <ENTER> <ENTER><ESC>zzi
   let g:esc = '<C-j>'
-  nnoremap <S-CR> O<Esc>zza
+  nnoremap <S-CR> O<Esc>zz
   nnoremap G Gzz
   nnoremap x xzz
   " Substitute for ESC
@@ -60,6 +60,21 @@ function! mappings#Set()
         \ (v:count > 5 ? "m'" . v:count : '') . 'jzz' : 'gjzz'
   nnoremap <expr> k v:count ?
         \ (v:count > 5 ? "m'" . v:count : '') . 'kzz' : 'gkzz'
+
+  " Consistent n N direction seraching
+  " Mon Jan 21 2019 17:05
+  " Not needed since incsearch.vim plugin
+  " Tue Feb 25 2020 17:03:
+  " Bringing them back, since got rid of incsearch
+  nnoremap <expr> n 'Nn'[v:searchforward] . 'zz'
+  xnoremap <expr> n 'Nn'[v:searchforward] . 'zz'
+  onoremap <expr> n 'Nn'[v:searchforward] . 'zz'
+
+  nnoremap <expr> N 'nN'[v:searchforward] . 'zz'
+  xnoremap <expr> N 'nN'[v:searchforward] . 'zz'
+  onoremap <expr> N 'nN'[v:searchforward] . 'zz'
+  nnoremap g; g;zz
+  nnoremap g, g,zz
 
   " Sun Dec 09 2018 17:15:
   " This extends p in visual mode (note the noremap), so that if you paste from
@@ -339,18 +354,6 @@ function! mappings#Set()
   nmap <leader>nr <Plug>RadicalView
   xmap <leader>nr <Plug>RadicalView
 
-  " Consistent n N direction seraching
-  " Mon Jan 21 2019 17:05
-  " Not needed since incsearch.vim plugin
-  " Tue Feb 25 2020 17:03:
-  " Bringing them back, since got rid of incsearch
-  nnoremap <expr> n  'Nn'[v:searchforward]
-  xnoremap <expr> n  'Nn'[v:searchforward]
-  onoremap <expr> n  'Nn'[v:searchforward]
-
-  nnoremap <expr> N  'nN'[v:searchforward]
-  xnoremap <expr> N  'nN'[v:searchforward]
-  onoremap <expr> N  'nN'[v:searchforward]
   " Search forward/backwards but return
   " nnoremap * *zz
   " nnoremap # #zz
@@ -1141,8 +1144,6 @@ function! mappings#SetWhichKeyMap() abort
   vnoremap gg gg
   nnoremap gd gd
   nnoremap gD gD
-  nnoremap g; g;
-  nnoremap g, g,
   nnoremap gq gq
   vnoremap gq gq
   nnoremap gv gv
