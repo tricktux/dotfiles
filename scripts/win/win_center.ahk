@@ -30,7 +30,7 @@ SysGet, mon_3, Monitor, 3
 ; Awesomeness!
 ; Caps is ctrl
 CapsLock::Ctrl
-+CapsLock::CapsLock
+#CapsLock::CapsLock ; Win+Caps actually does caps
 ; Control does not do anything. Force adoption
 LCtrl::Return
 
