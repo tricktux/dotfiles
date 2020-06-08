@@ -36,7 +36,7 @@ function! mappings#Set()
   " Auto center screen mappings. There some above as well
   " Folding
   " Folding select text then S-f to fold or just S-f to toggle folding
-  nnoremap <C-z> zzze
+  nnoremap <C-z> zzzs
   nnoremap <C-c> zMzz
   nnoremap <C-n> zRzz
   nnoremap <C-x> zazz
@@ -76,6 +76,8 @@ function! mappings#Set()
   nnoremap g; g;zz
   nnoremap g, g,zz
 
+  nnoremap <c-o> <c-o>zz
+  nnoremap <c-i> <c-i>zz
   " Sun Dec 09 2018 17:15:
   " This extends p in visual mode (note the noremap), so that if you paste from
   " the unnamed (ie. default) register, that register content is not replaced by
@@ -84,6 +86,23 @@ function! mappings#Set()
   " a row, without using a named
   " Obtained from: https://vimways.org/2018/for-mappings-and-a-tutorial/
   xnoremap <silent> p p:if v:register == '"'<bar>let @@=@0<bar>endif<cr>zz
+  " Thu Feb 22 2018 07:42: Mind buggling super good mapping from vim-galore
+  " Tue Apr 24 2018 14:06: For some reason in large .cpp files syntax sync takes
+  " away highlight
+  " nnoremap <c-h> :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
+  " Fri Jan 11 2019 11:13
+  " Moving this mapping to <c-l>
+  " Fri Jan 11 2019 13:41
+  " Already settled for the following config
+  " Main reason `:e` resets folds. Kinda annoying
+  nnoremap <c-l>
+        \ :nohlsearch<cr>
+        \:diffupdate<cr>
+        \:SignifyRefresh<cr>
+        \:mode<cr>
+        \:syntax sync fromstart<cr>
+        \:e<cr><c-l>
+        \:normal! zz<cr>
 
   " List of super useful mappings
   " = fixes indentantion
@@ -222,17 +241,6 @@ function! mappings#Set()
   "   - Tired of typing :wa<cr>
   nnoremap <c-s> :wall<cr>
   nnoremap <c-t> :tabnew<cr>
-  " Thu Feb 22 2018 07:42: Mind buggling super good mapping from vim-galore
-  " Tue Apr 24 2018 14:06: For some reason in large .cpp files syntax sync takes
-  " away highlight
-  " nnoremap <c-h> :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
-  " Fri Jan 11 2019 11:13
-  " Moving this mapping to <c-l>
-  " Fri Jan 11 2019 13:41
-  " Already settled for the following config
-  " Main reason `:e` resets folds. Kinda annoying
-  nnoremap <c-l>
-        \ :nohlsearch<cr>:diffupdate<cr>:SignifyRefresh<cr>:mode<cr>:syntax sync fromstart<cr>:e<cr><c-l>
   nnoremap <c-h> :nohlsearch<cr>
   nnoremap <C-Space> i<Space><Esc>
   " These are only for command line
