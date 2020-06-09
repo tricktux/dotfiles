@@ -43,7 +43,8 @@ function! mappings#Set()
   " dont use <C-a> it conflicts with tmux prefix
   nnoremap <C-j> zjzz
   nnoremap <C-k> zkzz
-  inoremap <ENTER> <ENTER><ESC>zzi
+  " Mon Jun 08 2020 13:27: It's annoying 
+  " inoremap <ENTER> <ENTER><ESC>zzi
   let g:esc = '<C-j>'
   nnoremap <S-CR> O<Esc>zz
   nnoremap G Gzz
