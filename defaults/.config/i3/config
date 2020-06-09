@@ -39,7 +39,8 @@ font pango:FontAwesome 9
 
 
 ########## Mod ############ {{{
-# Mod1 = Alt
+# Mod1 = Alt_L
+# Mod3 = Alt_R
 # Mod4 = Window key
 	set $mod Mod4
 #}}}
