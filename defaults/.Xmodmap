@@ -1,0 +1,16 @@
+! To see this values use: `xmodmap -pm`
+! These are called modifier keys
+!
+! Swap Caps_Lock and Control_L
+!
+remove Lock = Caps_Lock
+remove Control = Control_L
+keysym Control_L = Caps_Lock
+keysym Caps_Lock = Control_L
+add Lock = Caps_Lock
+add Control = Control_L
+
+clear mod1
+clear mod3
+add mod3 = Alt_R Meta_R
+add mod1 = Alt_L Meta_L

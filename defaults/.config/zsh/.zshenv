@@ -64,8 +64,8 @@ if [[ -d "$HOME/Downloads/packages/android-sdk-linux" ]]; then
 fi
 
 # Depends on nvr being installed
-# Mon Jun 25 2018 21:51: Basically what this does is to ensure a unique global 
-# instance of neovim. No matter from where you call nvim. If there is one open 
+# Mon Jun 25 2018 21:51: Basically what this does is to ensure a unique global
+# instance of neovim. No matter from where you call nvim. If there is one open
 # it will open files there. the original option looked like this:
 # export VISUAL="nvr -cc tabedit --remote-wait +'set bufhidden=wipe'"
 # However, that wipe will delete the buffer if you exit it. I dont like that.
@@ -83,7 +83,7 @@ export EDITOR=$VISUAL
 # Fix typos in cli
 ENABLE_CORRECTION="true"
 
-# Thu Feb 22 2018 08:59: Can't figure out how to set locale properly on arch. 
+# Thu Feb 22 2018 08:59: Can't figure out how to set locale properly on arch.
 # Result:
 # Wed May 02 2018 04:57: Not needed anymore
 # export LANG=en_US.UTF-8

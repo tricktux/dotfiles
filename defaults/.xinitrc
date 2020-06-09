@@ -12,42 +12,45 @@ sysmodmap=/etc/X11/xinit/.Xmodmap
 desktop=startlxde
 # desktop=startlxqt
 # desktop=gnome-session
-extra_resources=$userresources-`hostname`
+extra_resources=$userresources-$(hostname)
 
 # merge in defaults and keymaps
 if [ -f $sysresources ]; then
-	xrdb -merge $sysresources
+  xrdb -merge $sysresources
 fi
 
 if [ -f $sysmodmap ]; then
-	xmodmap $sysmodmap
+  xmodmap $sysmodmap
 fi
 
 # Give priority to a file like .Xresources-predator
 if [ -f "$extra_resources" ]; then
-	xrdb -merge "$extra_resources"
+  xrdb -merge "$extra_resources"
 # If that file not present then load regular .Xresources
 elif [ -f "$userresources" ]; then
-    xrdb -merge "$userresources"
+  xrdb -merge "$userresources"
 fi
 
 if [ -f "$usermodmap" ]; then
-    xmodmap "$usermodmap"
+  xmodmap "$usermodmap"
 fi
 
 # start some nice programs
-if [ -d /etc/X11/xinit/xinitrc.d ] ; then
- for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
-  [ -x $f ] && . $f
- done
- unset f
+if [ -d /etc/X11/xinit/xinitrc.d ]; then
+  for f in /etc/X11/xinit/xinitrc.d/?*.sh; do
+    [ -x $f ] && . $f
+  done
+  unset f
 fi
+
+# NOTE: This file is not sourced anymore since using the lightdm
 
 # Make sure this is before the 'exec' command or it won't be sourced.
 [ -f /etc/xprofile ] && source /etc/xprofile
 [ -f ~/.xprofile ] && source ~/.xprofile
+[ -f ~/.Xmodmap ] && xmodmap ~/.Xmodmap
 
 # Activate numlock
-[ -f /usr/bin/numlockx ] && numlockx &
+[ -f /usr/bin/numlockx ] && numlockx on
 
-exec i3 -V >> ~/.cache/i3log-$(date +'%F-%k-%M-%S') 2>&1
+exec i3 -V >>~/.cache/i3log-$(date +'%F-%k-%M-%S') 2>&1

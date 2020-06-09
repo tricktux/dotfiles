@@ -14,7 +14,7 @@ zstyle ':completion:*' completer _expand _complete _ignored _correct _approximat
 zstyle ':completion:*' max-errors 2
 # Autocompletion for sudo
 zstyle ':completion::complete:*' gain-privileges 1
-zstyle :compinstall filename '/home/reinaldo/.zshrc'
+zstyle :compinstall filename '/home/reinaldo/.config/zsh/.zshrc'
 
 zstyle ':completion:*:pacman:*' force-list always
 zstyle ':completion:*:*:pacman:*' menu yes select
