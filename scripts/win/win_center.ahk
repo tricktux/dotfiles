@@ -28,11 +28,9 @@ SysGet, mon_3, Monitor, 3
 ; !l::Send {Right}
 
 ; Awesomeness!
-; Caps is ctrl
+; Swap CapsLock and LCtrl
 CapsLock::Ctrl
-#CapsLock::CapsLock ; Win+Caps actually does caps
-; Control does not do anything. Force adoption
-LCtrl::Return
+LCtrl::CapsLock
 
 #+Up::CenterActiveWindowUp() ; if win+shift+↑ is pressed
 #+Down::CenterActiveWindowDown() ; if win+shift+↑ is pressed
