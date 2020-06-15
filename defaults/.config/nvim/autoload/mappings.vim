@@ -36,7 +36,7 @@ function! mappings#Set()
   " Auto center screen mappings. There some above as well
   " Folding
   " Folding select text then S-f to fold or just S-f to toggle folding
-  nnoremap <C-z> zzzs
+  nnoremap <C-z> zzze
   nnoremap <C-c> zMzz
   nnoremap <C-n> zRzz
   nnoremap <C-x> zazz
