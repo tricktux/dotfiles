@@ -264,11 +264,11 @@ function! mappings#Set()
   cnoremap <silent> <expr> <cr> <SID>center_search()
   " move to the beggning of line
   " Don't make this nnoremap. Breaks stuff
-  nnoremap <S-w> $
-  vnoremap <S-w> $
+  nnoremap <s-w> $
+  vnoremap <s-w> $
   " move to the end of line
-  nnoremap <S-b> ^
-  vnoremap <S-b> ^
+  nnoremap <s-b> ^
+  vnoremap <s-b> ^
   " jump to corresponding item<Leader> ending {,(, etc..
   nmap <S-t> %
   vmap <S-t> %
