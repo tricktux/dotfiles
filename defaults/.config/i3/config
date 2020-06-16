@@ -37,7 +37,6 @@ font pango:FontAwesome 9
 # (I have two 1920x1200 screens.)
 # }}}
 
-
 ########## Mod ############ {{{
 # Mod1 = Alt_L
 # Mod3 = Alt_R
@@ -92,7 +91,6 @@ font pango:FontAwesome 9
   set $left h
   set $right l
 #}}}
-
 
 # Bindigs{{{
 # Note: Use Mouse+$mod to drag floating windows to their wanted position
