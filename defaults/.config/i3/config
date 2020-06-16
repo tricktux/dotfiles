@@ -95,6 +95,21 @@ font pango:FontAwesome 9
 # Bindigs{{{
 # Note: Use Mouse+$mod to drag floating windows to their wanted position
 
+# New cool Mod3 bindings
+bindsym Mod3+r exec --no-startup-id pass --clip linux/`hostname`/user/root
+bindsym Mod3+h exec --no-startup-id \
+  pass --clip linux/`hostname`/ssh_key/id_ed25519_github
+bindsym Mod3+d exec --no-startup-id \
+  pass --clip linux/`hostname`/ssh_key/id_ed25519_digitalocean
+bindsym Mod3+g exec --no-startup-id \
+  pass --clip linux/`hostname`/ssh_key/id_ed25519_git_server
+bindsym Mod3+l exec --no-startup-id \
+  pass --clip linux/`hostname`/ssh_key/id_ed25519_gitlab
+bindsym Mod3+e exec --no-startup-id \
+  pass --clip linux/`hostname`/resilio/admin
+bindsym Mod3+s exec --no-startup-id \
+  pass --clip linux/`hostname`/ssh_key/id_ed25519_surbook
+
 # now if I want to write a bunch of stuff I can do that with dvorak
 	bindsym control+mod1+d exec --no-startup-id \
 		~/.config/i3/scripts/switch_dvorak.sh
