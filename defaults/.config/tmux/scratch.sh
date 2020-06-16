@@ -11,8 +11,8 @@ session="scratch"
 /usr/bin/tmux start-server
 
 /usr/bin/tmux new-session -d -s $session -n 'ranger' '/usr/bin/ranger'
-/usr/bin/tmux new-window -d -t $session -n \
-  'journal' '~/.config/i3/scripts/journal.sh'
+# /usr/bin/tmux new-window -d -t $session -n \
+  # 'journal' '~/.config/i3/scripts/journal.sh'
 # Vim satisfies most of needs
 # /usr/bin/tmux new-window -d -t $session -n 'calc' '/usr/bin/bc -q'
 /usr/bin/tmux new-window -d -t $session -n 'cmus' '/usr/bin/cmus'
