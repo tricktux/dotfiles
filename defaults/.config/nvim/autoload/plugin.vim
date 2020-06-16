@@ -1493,7 +1493,7 @@ function! s:configure_vim_signify() abort
   nmap ]g <plug>(signify-next-hunk)
   nmap [g <plug>(signify-prev-hunk)
 
-  autocmd User SignifySetup
+  autocmd User SignifyAutocmds
         \ exe 'au! signify' | au signify BufWritePost * call sy#start()
 endfunction
 
