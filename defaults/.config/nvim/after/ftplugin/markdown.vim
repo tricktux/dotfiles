@@ -65,7 +65,7 @@ if !exists('no_plugin_maps') && !exists('no_markdown_maps')
 	nnoremap <buffer> <localleader>ms :UtilsMarkdownPandocPdfSlidesMaker<cr>
 	nnoremap <buffer> <localleader>mx :UtilsMarkdownPandocPptxSlidesMaker<cr>
 
-  let b:AutoPairs = {'(':')', '{':'}',"'":"'",'"':'"', '`':'`'}
+  let b:AutoPairs = {'(':')', '{':'}',"'":"'",'"':'"', '`':'`', '<': '>'}
   inoremap [ [ ]
 
   " Super cool
