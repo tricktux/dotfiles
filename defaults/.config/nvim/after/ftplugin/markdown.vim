@@ -47,6 +47,10 @@ if !exists('no_plugin_maps') && !exists('no_markdown_maps')
 		nnoremap <buffer> <localLeader>a :ThesaurusQueryReplaceCurrentWord<cr>
 	endif
 
+  if exists(':OnlineThesaurusCurrentWord')
+    nnoremap <buffer> <localLeader>a :OnlineThesaurusCurrentWord<cr>
+  endif
+
 	if executable('SumatraPDF')
 		nnoremap <silent> <buffer> <plug>preview :!SumatraPDF %:r.pdf<cr>
 	endif

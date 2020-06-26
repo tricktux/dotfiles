@@ -349,6 +349,9 @@ function! plugin#Config()
   " Plug 'Ron89/thesaurus_query.vim', { 'on' : 'ThesaurusQueryReplaceCurrentWord' }
   " Very weird and confusing
   " let g:tq_map_keys = 1
+  " Fri Jun 26 2020 15:17: New alternative 
+  Plug 'beloglazov/vim-online-thesaurus', { 'on' : ':OnlineThesaurusCurrentWord' } 
+  let g:online_thesaurus_map_keys = 0
 
   " Autocorrect mispellings on the fly
   Plug 'panozzaj/vim-autocorrect', { 'for' : 'markdown' }
