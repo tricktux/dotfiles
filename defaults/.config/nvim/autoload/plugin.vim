@@ -43,10 +43,10 @@ function! plugin#Config()
   let g:semshi#mark_selected_nodes = 0
   Plug 'Yggdroot/indentLine', { 'for' : [ 'java', 'cpp', 'c', 'python' ] }
   Plug 'whiteinge/diffconflicts'
-  Plug 'aquach/vim-http-client', { 'on' : 'HTTPClientDoRequest'}
   " Plugin to make api requests
   " Depends on python3 and requests
   " :HTTPClientDoRequest
+  Plug 'aquach/vim-http-client', { 'on' : 'HTTPClientDoRequest'}
 
   call s:configure_tag_handler('gen_tags')
 
@@ -466,7 +466,7 @@ function! plugin#Config()
     endif
   endif
 
-  Plug 'alepez/vim-gtest', { 'for' : ['c', 'cpp'] }
+  Plug 'alepez/vim-gtest', { 'for' : ['cpp'] }
 
   call s:configure_vim_bookmark()
 
