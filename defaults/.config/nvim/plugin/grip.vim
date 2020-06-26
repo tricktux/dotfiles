@@ -11,11 +11,11 @@
 " - Async Search  
 " - More default greppers  
 
-" if exists('g:loaded_grip')
-	" finish
-" endif
+if exists('g:loaded_grip')
+    finish
+endif
 
-" let g:loaded_grip = 1
+let g:loaded_grip = 1
 
 " filetype_map - grepper_ft : vim_ft
 "							 - Ex: 'cpp' : '+'
@@ -33,6 +33,10 @@
 			" \ 'prompt' : {0,1,2}, " does this grep needs a prompt to the user?
 			" \ 'search_argument' : {0,1},
 			" \ }
+
+" let g:grip_copen_botright = 1
+"   If copen is greater than 0 then open copen by taking the whole bottom 
+"   right, instead of crammed into the right most split
 
 " TODO-[RM]-(Tue Feb 05 2019 14:01):  
 " 1. [ ] Create parse_args function
@@ -56,8 +60,6 @@ let s:prompt = {
 "		1: Will add search param to cmd
 "		0: Will not add search param to cmd
 
-let g:loaded_grip = 1
-
 " Must set verbose to 1 as well for this to work
 " let g:grip_debug_file = <your file>
 
@@ -65,6 +67,7 @@ let s:grip = {
 			\ 'grips' : get(g:, 'grip_tools', []),
 			\ 'debug_file' : get(g:, 'grip_debug_file', (tempname() . '_grip')),
 			\ 'copen' : get(g:, 'grip_copen', 20),
+      \ 'botright' : get(g:, 'grip_copen_botright', 1),
 			\ }
 
 function! s:grip.main(...) abort
@@ -324,7 +327,11 @@ function! s:grip.execute_grip(grepper, user_choice, args) abort
 
 	" Open quickfix
 	if self.copen > 0
-		execute 'copen ' . self.copen
+    let l:cmd = 'copen'
+    if self.botright
+      let l:cmd = 'botright ' . l:cmd
+    endif
+		execute l:cmd . self.copen
 	endif
 
 	" Restore options
