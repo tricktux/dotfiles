@@ -163,7 +163,11 @@ function! s:config_unix() abort
 		let g:usr_path = $HOME . '/../usr'
 	endif
 
-	let l:wikis = ['~/Documents/resilio/wiki', '~/External/reinaldo/resilio/wiki']
+	let l:wikis = [
+        \ '~/Documents/resilio/wiki', 
+        \ '~/External/reinaldo/resilio/wiki',
+        \ '/mnt/samba/server/resilio/wiki',
+        \ ]
 	for l:wiki in l:wikis
 		if !empty(glob(l:wiki))
 			let g:wiki_path =  expand(l:wiki)
