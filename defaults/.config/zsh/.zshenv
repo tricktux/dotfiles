@@ -1,13 +1,22 @@
 #
 # ~/.zshenv
 #
+host=`hostname`
+
+if [ "$host" = "surbook" -o "$host" = "predator" ]; then
+  export GDK_SCALE=2
+fi
+
+if [ "$host" = "surbook" ]; then
+  export MOZ_USE_XINPUT2=1
+fi
 
 # Creating local bin folder
 # If user ID is greater than or equal to 1000 & if ~/.local/bin exists and is a
 # directory & if ~/.local/bin is not already in your $PATH
 # then export ~/.local/bin to your $PATH.
-if [[ $UID -ge 1000 && -d $HOME/.local/bin && -z $(echo $PATH \
-  | grep -o $HOME/.local/bin) ]]
+if [[ $UID -ge 1000 && -d $HOME/.local/bin && \
+  -z $(echo $PATH | grep -o $HOME/.local/bin) ]]
 then
   export PATH="$HOME/.local/bin:${PATH}"
 fi

@@ -16,19 +16,23 @@ i3ipc.cmd = [[/usr/bin/i3-msg]]
 i3ipc.args = '[title="^' .. arg[1] .. '$"] scratchpad show'
 i3ipc.terminal = {
     ['helios'] = 'resize set 960 1019, move position 0 px 32 px',
-    ['predator'] = 'resize set 1920 2038, move position 0 px 48 px'
+    ['predator'] = 'resize set 1920 2038, move position 0 px 48 px',
+    ['surbook'] = 'resize set 1368 1730, move position 0 px 48 px'
 }
 i3ipc.htop = {
     ['helios'] = 'resize set 1820 880, move position center',
-    ['predator'] = 'resize set 3640 1024, move position center'
+    ['predator'] = 'resize set 3640 1024, move position center',
+    ['surbook'] = 'resize set 2188 1459, move position center'
 }
 i3ipc.neomutt = {
   ['helios'] = 'resize set 1320 880, move position center',
-  ['predator'] = 'resize set 2540 1024, move position center'
+  ['predator'] = 'resize set 2540 1024, move position center',
+  ['surbook'] = 'resize set 2188 1459, move position center'
 }
 i3ipc.glances = {
   ['helios'] = 'resize set 1820 880, move position center',
-  ['predator'] = 'resize set 3640 1024, move position center'
+  ['predator'] = 'resize set 3640 1024, move position center',
+  ['surbook'] = 'resize set 2188 1459, move position center'
 }
 i3ipc.window_position = {
     ['neomutt'] = i3ipc.neomutt[hostname],

@@ -15,7 +15,7 @@
 # Tue May 19 2020 06:24: 
 #   Switched to lightdm
 export ZDOTDIR=$HOME/.config/zsh
-[[ -f $ZDOTDIR/.zshenv ]] && source $ZDOTDIR/.zshenv
+[ -f $ZDOTDIR/.zshenv ] && source $ZDOTDIR/.zshenv
 
 # Switch caps and control
 # Lightdm sources this file by default
