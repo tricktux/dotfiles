@@ -39,3 +39,7 @@ trustExitCode = true
 [filter "ignoreline"]
 clean = cat
 smudge = "sed '/#ignoreline$/'d"
+
+[pull]
+rebase = false  # merge (the default strategy)
+ff = only       # fast-forward only
