@@ -16,7 +16,7 @@
 
 include-file = ~/.config/polybar/colors.ini
 include-file = ~/.config/polybar/modules.ini
-include-file = ~/.config/polybar/legacy-bars.ini
+; include-file = ~/.config/polybar/legacy-bars.ini
 include-file = ~/.config/polybar/dividers.ini
 
 [global/wm]
@@ -207,5 +207,31 @@ font-2 = "Font Awesome 5 Brands:pixelsize=10;1"
 font-3 = Roboto:size=10;0
 font-4 = Iosevka Nerd Font:style=Medium:size=14;3
 font-5 = Weather Icons:size=12;1
+
+[bar/top-surbook]
+inherit = bar/main-top
+font-0 = "Font Awesome 5 Free:style=Regular:pixelsize=18;1"
+font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=18;1"
+font-2 = "Font Awesome 5 Brands:pixelsize=18;1"
+font-3 = Roboto:size=18;0
+font-4 = Iosevka Nerd Font:style=Medium:size=22;3
+font-5 = Weather Icons:size=20;1
+
+[bar/bottom-surbook]
+inherit = bar/main-bottom
+font-0 = "Font Awesome 5 Free:style=Regular:pixelsize=18;1"
+font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=18;1"
+font-2 = "Font Awesome 5 Brands:pixelsize=18;1"
+font-3 = Roboto:size=18;0
+font-4 = Iosevka Nerd Font:style=Medium:size=22;3
+
+modules-left = menu wlan-surbook info-pingrtt space space pihole space space todo
+; Mon Dec 23 2019 15:06: Nvidia module is useless 
+; modules-center =  left-end-top temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory right-end-top
+modules-center =  temperature cpu cpuload system-uptime-pretty memory
+modules-right = battery_surbook space space xbacklight volume xkeyboard info-trash updates-arch-combined wallpaper redshift compton bluetoothctl
+
+tray-maxsize = 30
+
 
 ; vim: ft=dosini
