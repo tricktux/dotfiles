@@ -136,6 +136,8 @@ bindsym mod1+Tab exec --no-startup-id i3flip next
 # bindsym $mod+ctrl+comma [con_mark=_prevFocus2] focus
 
 # Using now the control keys with vi like mappings just like windows
+# Reload xmodmap stuff
+bindsym control+mod1+x exec --no-startup-id xmodmap ~/.Xmodmap
 bindsym control+mod1+h exec --no-startup-id cmus-remote -u
 bindsym control+mod1+l exec --no-startup-id cmus-remote -n
 bindsym control+mod1+k exec --no-startup-id pamixer --increase 5
