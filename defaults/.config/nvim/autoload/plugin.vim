@@ -1596,7 +1596,7 @@ function! s:configure_neoterm() abort
   let g:neoterm_term_per_tab = 1
   let g:neoterm_use_relative_path = 1
   let g:neoterm_default_mod = ''
-  let g:neoterm_autoinsert=1
+  let g:neoterm_autoinsert=0
   " Potential substitue
   " https://github.com/Shougo/deol.nvim/blob/master/doc/deol.txt
   " there is also vimshell
