@@ -7,6 +7,7 @@
 
 " CUSTOM_COMMANDS
 function! commands#Set() abort
+  command! UtilsBuffersDeleteNoName call s:delete_empty_buffers()
 	command! UtilsWeekGetNumber :echomsg strftime('%V')
 
 	command! UtilsEditJournal call s:scratchpad_journal()
@@ -239,4 +240,17 @@ function! s:scratchpad_journal() abort
 	execute 'terminal'
 	normal! <C-\><C-n>
 	normal! gt
+endfunction
+
+function! s:delete_empty_buffers()
+  let [i, n; empty] = [1, bufnr('$')]
+  while i <= n
+    if bufexists(i) && bufname(i) == ''
+      call add(empty, i)
+    endif
+    let i += 1
+  endwhile
+  if len(empty) > 0
+    exe 'bdelete' join(empty)
+  endif
 endfunction
