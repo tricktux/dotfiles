@@ -1647,15 +1647,15 @@ function! s:configure_neoformat() abort
           \ }
   endif
 
-  let g:neoformat_enabled_python = []
-  if executable('black')
-    let g:neoformat_python_black = {
-          \ 'exe': 'black',
-          \ 'args': ['--line-length 80'],
-          \ 'stdin': 1,
-          \ }
-  endif
-  let g:neoformat_enabled_python += ['black']
+  " let g:neoformat_enabled_python = []
+  " if executable('black')
+    " let g:neoformat_python_black = {
+          " \ 'exe': 'black',
+          " \ 'args': ['--line-length 80'],
+          " \ 'stdin': 1,
+          " \ }
+  " endif
+  " let g:neoformat_enabled_python += ['black']
   if executable('isort')
     let g:neoformat_enabled_python += ['isort']
   endif
