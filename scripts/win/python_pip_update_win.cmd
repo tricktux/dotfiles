@@ -15,7 +15,7 @@ set modules[9]=pip
 set modules[10]=frosted
 set modules[11]=pylint
 set modules[12]=neovim
-set modules[13]=black
+set modules[13]=yapf
 set modules[14]=docformatter
 
 REM  set modules_2[0]=${modules[7]}
