@@ -40,11 +40,14 @@ LCtrl::CapsLock
 #e::ToggleWinMinimize("Outlook")
 #w::ToggleWinMinimize("Wings")
 #z::ToggleWinMinimize("Zeal")
-; LyncTabFrameHostWindowClass
-#i::ToggleWinClass("LyncTabFrameHostWindowClass")
-; Chrome_WidgetWin_1
-#t::ToggleWinClass("Chrome_WidgetWin_1")
-#o::ToggleWinClass("SDL_app")
+; Skype
+; #i::ToggleWinClass("LyncTabFrameHostWindowClass")
+; Teams
+#i::ToggleWinClass("Chrome_WidgetWin_1")
+; Neovide
+; #o::ToggleWinClass("SDL_app")
+; nvim-qt
+#o::ToggleWinClass("Qt5QWindowIcon")
 #p::ToggleWinClass("SUMATRA_PDF_FRAME")
 
 #c::GetClass()
