@@ -63,6 +63,9 @@ function! s:set_neomake() abort
 				\ 'errorformat': '%f:%l:%c: %m',
 				\ }
 
+  " Python linters. Pylint is slow but catches stuff pylama doesnt
+  let g:neomake_python_enabled_makers = ['python', 'frosted', 'pylama', 'pylint']
+
 	"  Very usefull for when using CMake
 	"  ----
 	" -C build - means build inside build directory
