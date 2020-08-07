@@ -48,7 +48,7 @@ LCtrl::CapsLock
 ; #o::ToggleWinClass("SDL_app")
 ; nvim-qt
 #o::ToggleWinClass("Qt5QWindowIcon")
-#p::ToggleWinClass("SUMATRA_PDF_FRAME")
+; #p::ToggleWinClass("SUMATRA_PDF_FRAME")
 
 #c::GetClass()
 
