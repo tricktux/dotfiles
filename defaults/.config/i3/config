@@ -92,7 +92,7 @@ font pango:FontAwesome 9
   set $right l
 #}}}
 
-# Bindigs{{{
+# Bindings{{{
 # Note: Use Mouse+$mod to drag floating windows to their wanted position
 
 # New cool mod3 bindings
