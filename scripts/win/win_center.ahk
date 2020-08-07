@@ -36,8 +36,8 @@ LCtrl::CapsLock
 #+Down::CenterActiveWindowDown() ; if win+shift+↑ is pressed
 
 #n::ToggleWinMinimize("Double Commander")
-#Enter::ToggleWinMinimize("Cmd")
-#e::ToggleWinMinimize("Outlook")
+#;::ToggleWinMinimize("Cmd")
+#p::ToggleWinMinimize("Outlook")
 #w::ToggleWinMinimize("Wings")
 #z::ToggleWinMinimize("Zeal")
 ; Skype

@@ -110,23 +110,22 @@ bindsym mod3+e exec --no-startup-id \
 bindsym mod3+s exec --no-startup-id \
   pass --clip linux/`hostname`/ssh_key/id_ed25519_surbook
 
-# now if I want to write a bunch of stuff I can do that with dvorak
-	bindsym control+mod1+d exec --no-startup-id \
-		~/.config/i3/scripts/switch_dvorak.sh
 
 # Launch toggle scratchpads
+# Trying to achieve symbiosis with windows AutoHotkey
+# $mod+i is reserved for a chat application
+# bindsym $mod+u exec --no-startup-id \
+  # ~/.config/i3/scripts/xdotool_launch glances "glances --theme-white"
 bindsym $mod+u exec --no-startup-id \
-  ~/.config/i3/scripts/xdotool_launch glances "glances --theme-white"
-bindsym $mod+p exec --no-startup-id \
   ~/.config/i3/scripts/xdotool_launch htop htop
 bindsym $mod+o exec --no-startup-id \
   ~/.config/i3/scripts/xdotool_launch journal "~/.config/i3/scripts/journal.sh"
 bindsym $mod+n exec --no-startup-id \
   ~/.config/i3/scripts/xdotool_launch scratch "~/.config/tmux/scratch.sh"
-bindsym $mod+i exec --no-startup-id \
+bindsym $mod+; exec --no-startup-id \
   ~/.config/i3/scripts/xdotool_launch terminal \
   "-o background_opacity=0.9 tmux"
-bindsym $mod+8 exec --no-startup-id \
+bindsym $mod+p exec --no-startup-id \
   ~/.config/i3/scripts/xdotool_launch neomutt "~/.config/tmux/neomutt.sh"
 
 
@@ -138,6 +137,7 @@ bindsym mod1+Tab exec --no-startup-id i3flip next
 # Using now the control keys with vi like mappings just like windows
 # Reload xmodmap stuff
 bindsym control+mod1+x exec --no-startup-id xmodmap ~/.Xmodmap
+bindsym control+mod1+d exec --no-startup-id ~/.config/i3/scripts/switch_dvorak.sh
 bindsym control+mod1+h exec --no-startup-id cmus-remote -u
 bindsym control+mod1+l exec --no-startup-id cmus-remote -n
 bindsym control+mod1+k exec --no-startup-id pamixer --increase 5
