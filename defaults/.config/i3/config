@@ -122,7 +122,7 @@ bindsym $mod+o exec --no-startup-id \
   ~/.config/i3/scripts/xdotool_launch journal "~/.config/i3/scripts/journal.sh"
 bindsym $mod+n exec --no-startup-id \
   ~/.config/i3/scripts/xdotool_launch scratch "~/.config/tmux/scratch.sh"
-bindsym $mod+; exec --no-startup-id \
+bindsym $mod+semicolon exec --no-startup-id \
   ~/.config/i3/scripts/xdotool_launch terminal \
   "-o background_opacity=0.9 tmux"
 bindsym $mod+p exec --no-startup-id \
