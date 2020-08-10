@@ -65,7 +65,7 @@ help_color="#4872FF"
 
 # Clipboard settings
 # Possible options: primary, clipboard, both
-clip=primary
+clip=clipboard
 
 # Seconds before clearing pass from clipboard 
 clip_clear=45
