@@ -143,7 +143,7 @@ bindsym control+mod1+l exec --no-startup-id cmus-remote -n
 bindsym control+mod1+k exec --no-startup-id pamixer --increase 5
 bindsym control+mod1+j exec --no-startup-id pamixer --decrease 5
 bindsym control+mod1+m exec --no-startup-id pamixer --toggle-mute
-bindsym control+mod1+p exec --no-startup-id passmenu
+bindsym control+mod1+p exec --no-startup-id rofi-pass
 # Wed Feb 26 2020 10:57: Just lunch pavucontrol from rofi 
 # bindsym control+mod1+p exec --no-startup-id pavucontrol
 # bindsym control+mod1+b exec --no-startup-id blueberry
