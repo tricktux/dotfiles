@@ -3,6 +3,7 @@
 #
 host=`hostname`
 
+export HOSTNAME=$host
 if [ "$host" = "surbook" -o "$host" = "predator" ]; then
   export GDK_SCALE=2
 fi

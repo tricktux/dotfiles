@@ -4,7 +4,7 @@
 
 # rofi command. Make sure to have "$@" as last argument
 _rofi () {
-  rofi -i -no-auto-select "$@"
+  rofi -config $XDG_CONFIG_HOME/rofi/`hostname` -i -no-auto-select "$@"
 }
 
 # default command to generate passwords
@@ -33,7 +33,7 @@ layout_cmd () {
 
 # fields to be used
 URL_field='url'
-USERNAME_field='user'
+USERNAME_field='login'
 AUTOTYPE_field='autotype'
 
 # delay to be used for :delay keyword
@@ -47,16 +47,16 @@ xdotool_delay=12
 
 ## Programs to be used
 # Editor
-EDITOR='gvim -f'
+EDITOR='nvim'
 
 # Browser
 BROWSER='xdg-open'
 
 ## Misc settings
 
-default_do='menu' # menu, autotype, copyPass, typeUser, typePass, copyUser, copyUrl, viewEntry, typeMenu, actionMenu, copyMenu, openUrl
+default_do='copyPass' # menu, autotype, copyPass, typeUser, typePass, copyUser, copyUrl, viewEntry, typeMenu, actionMenu, copyMenu, openUrl
 auto_enter='false'
-notify='false'
+notify='true'
 default_autotype='user :tab pass'
 
 # color of the help messages
@@ -65,7 +65,7 @@ help_color="#4872FF"
 
 # Clipboard settings
 # Possible options: primary, clipboard, both
-clip=primary
+clip=clipboard
 
 # Seconds before clearing pass from clipboard 
 clip_clear=45
@@ -83,8 +83,8 @@ edit_new_pass="true"
 # Custom Keybindings
 autotype="Alt+1"
 type_user="Alt+2"
-type_pass="Alt+3"
-open_url="Alt+4"
+type_pass="Alt+4"
+open_url="Alt+3"
 copy_name="Alt+u"
 copy_url="Alt+l"
 copy_pass="Alt+p"

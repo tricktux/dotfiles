@@ -122,7 +122,7 @@ bindsym $mod+o exec --no-startup-id \
   ~/.config/i3/scripts/xdotool_launch journal "~/.config/i3/scripts/journal.sh"
 bindsym $mod+n exec --no-startup-id \
   ~/.config/i3/scripts/xdotool_launch scratch "~/.config/tmux/scratch.sh"
-bindsym $mod+; exec --no-startup-id \
+bindsym $mod+semicolon exec --no-startup-id \
   ~/.config/i3/scripts/xdotool_launch terminal \
   "-o background_opacity=0.9 tmux"
 bindsym $mod+p exec --no-startup-id \
@@ -143,7 +143,7 @@ bindsym control+mod1+l exec --no-startup-id cmus-remote -n
 bindsym control+mod1+k exec --no-startup-id pamixer --increase 5
 bindsym control+mod1+j exec --no-startup-id pamixer --decrease 5
 bindsym control+mod1+m exec --no-startup-id pamixer --toggle-mute
-bindsym control+mod1+p exec --no-startup-id passmenu
+bindsym control+mod1+p exec --no-startup-id rofi-pass
 # Wed Feb 26 2020 10:57: Just lunch pavucontrol from rofi 
 # bindsym control+mod1+p exec --no-startup-id pavucontrol
 # bindsym control+mod1+b exec --no-startup-id blueberry
@@ -196,7 +196,8 @@ bindsym $mod+q kill
 # bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 \
 #	-padding 800 -opacity "85" -bw 0 -bc "$bg-color" \
 #	-bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd"
-bindsym $mod+d exec rofi -show drun -opacity "50"
+bindsym $mod+d exec rofi -show drun -opacity "50" \
+  -config $XDG_CONFIG_HOME/rofi/`hostname`
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
