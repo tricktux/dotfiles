@@ -1000,7 +1000,15 @@ function! s:configure_file_browser(choice) abort
     Plug 'francoiscabrol/ranger.vim', { 'on' : 'RangerCurrentDirectory' }
     let g:ranger_map_keys = 0
   elseif a:choice ==# 'chadtree'
+    nnoremap <plug>file_browser :CHADopen<cr>
     Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': ':UpdateRemotePlugins'}
+    lua vim.api.nvim_set_var("chadtree_view", { window_options = 
+          \ {"relativenumber",  
+          \ "nowrap",
+          \ "signcolumn=no",
+          \ "cursorline",
+          \ "winfixwidth"} })
+    let g:chadtree_settings = {"use_icons": 0 }
   endif
 endfunction
 
