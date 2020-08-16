@@ -22,7 +22,6 @@ function! augroup#Set() abort
     autocmd Filetype fugitive nmap <buffer> <C-k> (
 
     autocmd Filetype wings_syntax set suffixesadd=.scp,.cmd,.bat
-    autocmd Filetype qf setlocal colorcolumn=""
     " Nerdtree Fix
     autocmd FileType nerdtree setlocal relativenumber
     " Set omnifunc for all others                   " not showing

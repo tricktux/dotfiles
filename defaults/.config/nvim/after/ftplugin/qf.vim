@@ -6,12 +6,18 @@
 " Created:			 May 02 2017 18:52
 
 " Only do this when not done yet for this buffer
-if exists("b:did_qf_ftplugin")
+if exists('b:did_qf_ftplugin')
 	finish
 endif
 
 " Don't load another plugin for this buffer
 let b:did_qf_ftplugin = 1
+
+let s:keepcpo= &cpoptions
+set cpoptions&vim
+
+setlocal cursorline
+setlocal colorcolumn=""
 
 " Taken from 
 " "http://stackoverflow.com/questions/18522086/what-is-the-best-way-to-
@@ -23,14 +29,14 @@ function! s:detect_list() abort
 	elseif match(@a,'%a   "\[Quickfix List\]"') >= 0
 		let b:list_type = 'c' " qf
 	else
-		echomsg "Neither Location or Quicklist focused!"
+		echomsg 'Neither Location or Quicklist focused!'
 		return 0
 	endif
 	return 1
 endfunction
 
 " Add mappings, unless the user didn't want this.
-if !exists("no_plugin_maps") && !exists("no_qf_maps")
+if !exists('no_plugin_maps') && !exists('no_qf_maps')
 	if <sid>detect_list() == 1 && exists('b:list_type')
 		exec 'nnoremap <buffer> <c-j> :' . b:list_type . 'next<cr><c-w>j'
 		exec 'nnoremap <buffer> <c-k> :' . b:list_type . 'previous<cr><c-w>j'
@@ -45,4 +51,6 @@ if !exists("no_plugin_maps") && !exists("no_qf_maps")
 	endif
 endif
 
-let b:undo_ftplugin = "setlocal wrap< spell<" 
+let &cpoptions = s:keepcpo
+let b:undo_ftplugin = 'setlocal cursorline<'
+      \ . '|setlocal colorcolumn<'
