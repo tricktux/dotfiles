@@ -173,8 +173,8 @@ function! plugin#Config()
     let &diffexpr='EnhancedDiff#Diff("git diff", "--diff-algorithm=patience")'
   endif
 
-  " Options: netranger, nerdtree
-  call s:configure_file_browser('nerdtree')
+  " Options: netranger, nerdtree, chadtree, ranger
+  call s:configure_file_browser('chadtree')
 
   call s:configure_nerdcommenter()
 
@@ -955,7 +955,7 @@ function! s:configure_pomodoro() abort
   endif
 endfunction
 
-" choice - One of netranger, nerdtree, or ranger
+" choice - One of chadtree, netranger, nerdtree, or ranger
 function! s:configure_file_browser(choice) abort
   " file_browser
   " Wed May 03 2017 11:31: Tried `vifm` doesnt work in windows. Doesnt
@@ -999,6 +999,8 @@ function! s:configure_file_browser(choice) abort
     nmap <plug>file_browser :call <sid>floating_ranger()<cr>
     Plug 'francoiscabrol/ranger.vim', { 'on' : 'RangerCurrentDirectory' }
     let g:ranger_map_keys = 0
+  elseif a:choice ==# 'chadtree'
+    Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': ':UpdateRemotePlugins'}
   endif
 endfunction
 
@@ -1816,6 +1818,7 @@ function! s:floating_term()
   " Configuration
   call plugin#FloatingFzf(0.8, 0.8)
   :Ttoggle
+  set winblend=30
 endfunction
 
 function! s:floating_ranger()
