@@ -1647,6 +1647,7 @@ function! s:configure_neoformat() abort
           \ }
   endif
 
+  " Let neoformat choose its thing
   " let g:neoformat_enabled_python = []
   " if executable('black')
     " let g:neoformat_python_black = {
@@ -1656,12 +1657,12 @@ function! s:configure_neoformat() abort
           " \ }
   " endif
   " let g:neoformat_enabled_python += ['black']
-  if executable('isort')
-    let g:neoformat_enabled_python += ['isort']
-  endif
-  if executable('docformatter')
-    let g:neoformat_enabled_python += ['docformatter']
-  endif
+  " if executable('isort')
+    " let g:neoformat_enabled_python += ['isort']
+  " endif
+  " if executable('docformatter')
+    " let g:neoformat_enabled_python += ['docformatter']
+  " endif
 
   if executable('lua-format')
     let g:neoformat_enabled_lua = ['luaformat']
