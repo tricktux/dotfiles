@@ -7,6 +7,7 @@
 " Created: Aug 22 2017 12:33
 
 function! mappings#Set()
+  let g:esc = '<C-j>'
   " CUSTOM MAPPINGS
   if has('unix')
     " System paste
@@ -31,6 +32,23 @@ function! mappings#Set()
     " |dos-standard-mappings|.
     silent! vunmap <C-X>
   endif
+  " Terminal mappings
+  if has('nvim')
+    tnoremap <M-`> <c-\><c-n>ZZ
+    " nunmap <buffer> <c-space>
+    execute "tnoremap " . g:esc . " <C-\\><C-n>"
+    tnoremap <A-h> <C-\><C-n><C-w>h
+    tnoremap <A-j> <C-\><C-n><C-w>j
+    tnoremap <A-k> <C-\><C-n><C-w>k
+    tnoremap <A-l> <C-\><C-n><C-w>l
+
+    tnoremap <a-]> <C-\><C-n>gt
+    tnoremap <a-[> <C-\><C-n>gT
+    for idx in range(1,9)
+      execute 'tnoremap <silent> <a-' . idx .
+            \ '> <C-\><C-n>' . idx. 'gt'
+    endfor
+  endif
 
   " Sun Jun 07 2020 11:23 
   " Auto center screen mappings. There some above as well
@@ -45,7 +63,6 @@ function! mappings#Set()
   nnoremap <C-k> zkzz
   " Mon Jun 08 2020 13:27: It's annoying 
   " inoremap <ENTER> <ENTER><ESC>zzi
-  let g:esc = '<C-j>'
   nnoremap <S-CR> O<Esc>zz
   nnoremap G Gzz
   nnoremap x xzz
