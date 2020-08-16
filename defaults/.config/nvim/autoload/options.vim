@@ -11,7 +11,11 @@ function! options#Set() abort
   "set spell spelllang=en_us
   "omnicomplete menu
   " save marks
-
+  if has('nvim-0.4')
+    " Cool pseudo-transparency for the popup-menu
+    set pumblend=30
+    hi PmenuSel blend=0
+  endif
   " Tue Feb 25 2020 16:40: From vim-galore minimal vimrc
   set autoindent
   " No tabs in the code. Tabs are expanded to spaces
