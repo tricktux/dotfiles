@@ -241,6 +241,10 @@ function! plugin#Config()
   let g:svnj_cache_dir = g:std_cache_path
   let g:svnj_browse_cache_all = 1
   let g:svnj_custom_statusbar_ops_hide = 0
+  let g:svnj_browse_cache_max_cnt = 50
+  let g:svnj_custom_fuzzy_match_hl = 'Directory' 
+  let g:svnj_custom_menu_color = 'Question' 
+  let g:svnj_fuzzy_search = 1
   " colorschemes
   Plug 'morhetz/gruvbox' " colorscheme gruvbox
   Plug 'NLKNguyen/papercolor-theme'
