@@ -1,15 +1,15 @@
 #!/usr/bin/env python
 
-import logging
 import configparser
+import logging
+import os
+import pprint
+import random
 import subprocess
 import time
 from datetime import datetime
 from pathlib import Path
-import random
 from sys import exit as sys_exit
-import os
-import pprint
 
 from requests import get
 
@@ -72,7 +72,7 @@ def randomDate(start, end, prop):
     return strTimeProp(start, end, '%Y-%m-%d', prop)
 
 
-class reddit():
+class Reddit():
     def __init__(self):
         self.user_agent = 'Python EarthPorn Wallpaper'
         self.url_base = 'https://www.reddit.com/r/'
@@ -83,7 +83,7 @@ class reddit():
             sort_option=new/hot/top
         """
         subreddit = subreddit.strip('/')
-        if sort_option == None:
+        if sort_option is None:
             sort_option = 'top'
 
         url = self.url_base + subreddit + '/' + sort_option + '.json'
@@ -166,7 +166,7 @@ def main():
     random.seed()
     print("   ")
     # Sat Dec 21 2019 09:28: unsplash is throuwing too many weird wallpapers
-    rddit = reddit()
+    rddit = Reddit()
     # Deleted sources
     #  ('pics', 'new'),
     #  ('pics', 'hot'),
