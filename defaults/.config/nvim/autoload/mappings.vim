@@ -22,6 +22,7 @@ function! mappings#Set()
     " Copy and paste into system wide clipboard
     nnoremap <a-v> "*p=`]zz
     vnoremap <a-v> "*p=`]zz
+    cnoremap <a-v> <c-r>"*p
 
     nnoremap <leader>y "*yy
     vnoremap <leader>y "*y
@@ -48,6 +49,16 @@ function! mappings#Set()
       execute 'tnoremap <silent> <a-' . idx .
             \ '> <C-\><C-n>' . idx. 'gt'
     endfor
+    if !has('unix')
+      " Simulate unix mappings in windows
+      tnoremap <A-v> <C-\><C-n>"+pi
+      tnoremap <C-w> <C-bs>
+      tnoremap <A-b> <C-Left>
+      tnoremap <A-w> <C-Right>
+      tnoremap <C-f> <Right>
+      tnoremap <C-b> <Left>
+      tnoremap <C-p> <Up>
+    endif
   endif
 
   " Sun Jun 07 2020 11:23 
@@ -263,7 +274,7 @@ function! mappings#Set()
   nnoremap <C-Space> i<Space><Esc>
   " These are only for command line
   " insert in the middle of whole word search
-  cnoremap <C-w> \<\><Left><Left>
+  cnoremap <A-w> \<\><Left><Left>
   " insert visual selection search
   cnoremap <C-u> <c-r>=expand("<cword>")<cr>
   cnoremap <C-s> %s/
