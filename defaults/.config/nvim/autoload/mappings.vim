@@ -22,8 +22,7 @@ function! mappings#Set()
     " Copy and paste into system wide clipboard
     nnoremap <a-v> "*p=`]zz
     vnoremap <a-v> "*p=`]zz
-    cnoremap <a-v> <c-r>"*p
-    inoremap <a-v> <esc>"*pi
+    noremap! <a-v> <c-r>*
 
     nnoremap <leader>y "*yy
     vnoremap <leader>y "*y
@@ -273,24 +272,6 @@ function! mappings#Set()
   nnoremap <c-t> :tabnew<cr>
   nnoremap <c-h> :nohlsearch<cr>
   nnoremap <C-Space> i<Space><Esc>
-  " These are only for command line
-  " insert in the middle of whole word search
-  cnoremap <A-w> \<\><Left><Left>
-  " insert visual selection search
-  cnoremap <C-u> <c-r>=expand("<cword>")<cr>
-  cnoremap <C-s> %s/
-  cnoremap <C-j> <cr>
-  cnoremap <C-p> <Up>
-  " Mon Apr 06 2020 15:06
-  " Used to expand * in cli
-  " cnoremap <C-A> <Home>
-  cnoremap <C-F> <Right>
-  cnoremap <C-B> <Left>
-  " Sun Sep 17 2017 14:21: this will not work in vim
-  cnoremap <A-b> <S-Left>
-  cnoremap <A-f> <S-Right>
-
-  cnoremap <silent> <expr> <cr> <SID>center_search()
   " move to the beggning of line
   " Don't make this nnoremap. Breaks stuff
   nnoremap <s-w> $
@@ -396,16 +377,31 @@ function! mappings#Set()
   " nnoremap * *zz
   " nnoremap # #zz
 
-  " Insert Mode (Individual) mappings
-  inoremap <c-f> <Right>
-  inoremap <c-b> <Left>
+  " These are mappings for Insert, Command-line, and Lang-Arg
+  " insert in the middle of whole word search
+  cnoremap <A-w> \<\><Left><Left>
+  " insert visual selection search
+  cnoremap <C-u> <c-r>=expand("<cword>")<cr>
+  cnoremap <C-s> %s/
+  cnoremap <C-j> <cr>
+  cnoremap <C-p> <Up>
+
+  cnoremap <silent> <expr> <cr> <SID>center_search()
+  noremap! <c-f> <Right>
+  noremap! <c-b> <Left>
   " Sun Sep 17 2017 14:21: this will not work in vim
-  inoremap <a-b> <S-Left>
-  inoremap <a-f> <S-Right>
+  noremap! <a-b> <S-Left>
+  noremap! <a-f> <S-Right>
   " inoremap <c-u> delete from beginning of line until cursor
   " inoremap <a-d> delete from cursor untils end of line
   " inoremap <c-t> shift entire line a shiftwidth
   inoremap <c-d> <c-g>u<del>
+  " Mon Apr 06 2020 15:06
+  " Used to expand * in cli
+  " cnoremap <C-A> <Home>
+  inoremap <c-a> <home>
+  cnoremap <c-d> <del>
+  noremap! <C-j> <cr>
   inoremap <a-t> <c-d>
   " Mon Nov 19 2018 13:33: Sometimes needed. This rarely used
   " inoremap <c-v> <c-o>:normal! "+p<cr>
