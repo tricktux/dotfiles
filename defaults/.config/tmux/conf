@@ -105,7 +105,7 @@ set-option -ga terminal-overrides ",xterm-256color:Tc"
 # Zoom pane
   bind -n M-z resize-pane -Z
 # Split windows with alt
-  bind -n M-v split-window -h
+  # bind -n M-v split-window -h
   bind -n M-s split-window -v
   bind -n M-x kill-pane
 

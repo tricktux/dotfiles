@@ -11,8 +11,8 @@ function! mappings#Set()
   " CUSTOM MAPPINGS
   if has('unix')
     " System paste
-    nnoremap <leader>p "+p=`]zz
-    vnoremap <leader>p "+p=`]zz
+    nnoremap <a-v> "+p=`]zz
+    vnoremap <a-v> "+p=`]zz
 
     nnoremap <leader>y "+yy
     vnoremap <leader>y "+y
@@ -20,8 +20,8 @@ function! mappings#Set()
     nnoremap  o<Esc>zz
   else
     " Copy and paste into system wide clipboard
-    nnoremap <leader>p "*p=`]zz
-    vnoremap <leader>p "*p=`]zz
+    nnoremap <a-v> "*p=`]zz
+    vnoremap <a-v> "*p=`]zz
 
     nnoremap <leader>y "*yy
     vnoremap <leader>y "*y
