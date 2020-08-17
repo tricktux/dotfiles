@@ -6,7 +6,7 @@
 " Created: Apr 29 2017 19:26
 
 " Only do this when not done yet for this buffer
-if exists("b:did_terminal_ftplugin")
+if exists('b:did_terminal_ftplugin')
 	finish
 endif
 
@@ -14,7 +14,7 @@ endif
 let b:did_terminal_ftplugin = 1
 
 " If plugin neoterm was loaded and mappings accepted
-if !exists("no_plugin_maps") && !exists("no_terminal_maps")
+if !exists('no_plugin_maps') && !exists('no_terminal_maps')
 	if exists('*neoterm#close()')
 		" hide/close terminal
 		" Thu Apr 11 2019 11:25: Doesnt work. Plugin broken 
@@ -23,24 +23,6 @@ if !exists("no_plugin_maps") && !exists("no_terminal_maps")
 	" Doesn't work, in win at least
   nnoremap <buffer> <silent> q ZZ
   nnoremap <buffer> <M-`> ZZ
-	tnoremap <M-`> <c-\><c-n>ZZ
-	" nunmap <buffer> <c-space>
-	execute "tnoremap " . g:esc . " <C-\\><C-n>"
-	tnoremap <A-h> <C-\><C-n><C-w>h
-	tnoremap <A-j> <C-\><C-n><C-w>j
-	tnoremap <A-k> <C-\><C-n><C-w>k
-	tnoremap <A-l> <C-\><C-n><C-w>l
-
-	tnoremap <a-]> <C-\><C-n>gt
-	tnoremap <a-[> <C-\><C-n>gT
-	for idx in range(1,9)
-		execute 'tnoremap <silent> <a-' . idx .
-					\ '> <C-\><C-n>' . idx. 'gt'
-	endfor
-
-	" Sun Dec 23 2018 11:34 
-	" Can confuse things since I set it up in inputrc as well
-	" tnoremap <C-p> <Up>
 endif
 
 if exists('+winhighlight') && has('nvim-0.4')

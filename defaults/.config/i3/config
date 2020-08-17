@@ -137,7 +137,8 @@ bindsym mod1+Tab exec --no-startup-id i3flip next
 # Using now the control keys with vi like mappings just like windows
 # Reload xmodmap stuff
 bindsym control+mod1+x exec --no-startup-id xmodmap ~/.Xmodmap
-bindsym control+mod1+d exec --no-startup-id ~/.config/i3/scripts/switch_dvorak.sh
+# Dangerous binding. I don't remember dvorak anymore
+# bindsym control+mod1+d exec --no-startup-id ~/.config/i3/scripts/switch_dvorak.sh
 bindsym control+mod1+h exec --no-startup-id cmus-remote -u
 bindsym control+mod1+l exec --no-startup-id cmus-remote -n
 bindsym control+mod1+k exec --no-startup-id pamixer --increase 5

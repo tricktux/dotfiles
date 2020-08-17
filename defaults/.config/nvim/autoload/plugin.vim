@@ -173,8 +173,8 @@ function! plugin#Config()
     let &diffexpr='EnhancedDiff#Diff("git diff", "--diff-algorithm=patience")'
   endif
 
-  " Options: netranger, nerdtree
-  call s:configure_file_browser('nerdtree')
+  " Options: netranger, nerdtree, chadtree, ranger
+  call s:configure_file_browser('chadtree')
 
   call s:configure_nerdcommenter()
 
@@ -241,6 +241,10 @@ function! plugin#Config()
   let g:svnj_cache_dir = g:std_cache_path
   let g:svnj_browse_cache_all = 1
   let g:svnj_custom_statusbar_ops_hide = 0
+  let g:svnj_browse_cache_max_cnt = 50
+  let g:svnj_custom_fuzzy_match_hl = 'Directory' 
+  let g:svnj_custom_menu_color = 'Question' 
+  let g:svnj_fuzzy_search = 1
   " colorschemes
   Plug 'morhetz/gruvbox' " colorscheme gruvbox
   Plug 'NLKNguyen/papercolor-theme'
@@ -951,7 +955,7 @@ function! s:configure_pomodoro() abort
   endif
 endfunction
 
-" choice - One of netranger, nerdtree, or ranger
+" choice - One of chadtree, netranger, nerdtree, or ranger
 function! s:configure_file_browser(choice) abort
   " file_browser
   " Wed May 03 2017 11:31: Tried `vifm` doesnt work in windows. Doesnt
@@ -995,6 +999,16 @@ function! s:configure_file_browser(choice) abort
     nmap <plug>file_browser :call <sid>floating_ranger()<cr>
     Plug 'francoiscabrol/ranger.vim', { 'on' : 'RangerCurrentDirectory' }
     let g:ranger_map_keys = 0
+  elseif a:choice ==# 'chadtree'
+    nnoremap <plug>file_browser :CHADopen<cr>
+    Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': ':UpdateRemotePlugins'}
+    lua vim.api.nvim_set_var("chadtree_view", { window_options = 
+          \ {"relativenumber",  
+          \ "nowrap",
+          \ "signcolumn=no",
+          \ "cursorline",
+          \ "winfixwidth"} })
+    let g:chadtree_settings = {"use_icons": 0 }
   endif
 endfunction
 
@@ -1647,6 +1661,7 @@ function! s:configure_neoformat() abort
           \ }
   endif
 
+  " Let neoformat choose its thing
   " let g:neoformat_enabled_python = []
   " if executable('black')
     " let g:neoformat_python_black = {
@@ -1656,12 +1671,12 @@ function! s:configure_neoformat() abort
           " \ }
   " endif
   " let g:neoformat_enabled_python += ['black']
-  if executable('isort')
-    let g:neoformat_enabled_python += ['isort']
-  endif
-  if executable('docformatter')
-    let g:neoformat_enabled_python += ['docformatter']
-  endif
+  " if executable('isort')
+    " let g:neoformat_enabled_python += ['isort']
+  " endif
+  " if executable('docformatter')
+    " let g:neoformat_enabled_python += ['docformatter']
+  " endif
 
   if executable('lua-format')
     let g:neoformat_enabled_lua = ['luaformat']
@@ -1811,6 +1826,7 @@ function! s:floating_term()
   " Configuration
   call plugin#FloatingFzf(0.8, 0.8)
   :Ttoggle
+  set winblend=30
 endfunction
 
 function! s:floating_ranger()
