@@ -23,6 +23,7 @@ function! mappings#Set()
     nnoremap <a-v> "*p=`]zz
     vnoremap <a-v> "*p=`]zz
     cnoremap <a-v> <c-r>"*p
+    inoremap <a-v> <esc>"*pi
 
     nnoremap <leader>y "*yy
     vnoremap <leader>y "*y
