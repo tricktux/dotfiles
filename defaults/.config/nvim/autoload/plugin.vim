@@ -174,7 +174,10 @@ function! plugin#Config()
   endif
 
   " Options: netranger, nerdtree, chadtree, ranger
-  call s:configure_file_browser('chadtree')
+  " Mon Aug 17 2020 21:50: Problems with chadtree
+  " - Doesn't always start in the correct directory
+  " - Doesn't always open in the correct directory
+  call s:configure_file_browser('nerdtree')
 
   call s:configure_nerdcommenter()
 
