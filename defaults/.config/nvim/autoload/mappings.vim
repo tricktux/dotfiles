@@ -401,7 +401,6 @@ function! mappings#Set()
   " cnoremap <C-A> <Home>
   inoremap <c-a> <home>
   cnoremap <c-d> <del>
-  noremap! <C-j> <cr>
   inoremap <a-t> <c-d>
   " Mon Nov 19 2018 13:33: Sometimes needed. This rarely used
   " inoremap <c-v> <c-o>:normal! "+p<cr>
