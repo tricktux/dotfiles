@@ -32,7 +32,14 @@ function! options#Set() abort
     let &listchars = 'tab:> ,extends:>,precedes:<,nbsp:.,trail:-'
   endif
   " ------
-  set guifont=consolas:h10
+  if exists('g:neovide')
+    let g:neovide_refresh_rate=60
+    let g:neovide_no_idle=v:false
+    " let g:neovide_fullscreen=v:true
+    set guifont=consolas:h13
+  else
+    set guifont=consolas:h10
+  endif
   " Fri Apr 03 2020 17:07: I cursor blinking really gets on my nerves
   set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
         \,a:blinkon0-Cursor/lCursor
