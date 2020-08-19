@@ -74,9 +74,9 @@ function! s:config_win() abort
 		endif
 	endfor
 
-	if executable('cmder') && has('terminal')
+	" if executable('cmder') && has('terminal')
 		" let &shell=fnameescape('cmd.exe /k c:\tools\cmder\vendor\init.bat')
-	endif
+	" endif
 
 	if !empty(glob('D:/wings-dev/'))
 		call s:set_wings_path('D:/wings-dev/')
@@ -86,33 +86,33 @@ function! s:config_win() abort
 	" available all the time.
 	" Wed Mar 13 2019 10:54: Adding remote python 
 	"D:\wings-dev\vim\vim64\vim81\utils\python-3.7.0-embed-amd64
-	let l:python3_ver = '3.7.0'
-	let l:pyt2 = "C:\\Python27\\python.exe"
-	let l:pyt3 = [
-				\ $LOCALAPPDATA . "\\Programs\\Python\\Python38\\python.exe",
-				\ "C:\\Python38\\python.exe",
-				\ $LOCALAPPDATA . "\\Programs\\Python\\Python37\\python.exe",
-				\ "C:\\Python37\\python.exe",
-				\ $LOCALAPPDATA . "\\Programs\\Python\\Python36\\python.exe",
-				\ "C:\\Python36\\python.exe",
-				\ $VIMRUNTIME . '\utils\python-' .
-				\ l:python3_ver . '-embed-amd64\python.exe',
-				\ ]
+	" let l:python3_ver = '3.7.0'
+	" let l:pyt2 = "C:\\Python27\\python.exe"
+	" let l:pyt3 = [
+				" \ $LOCALAPPDATA . "\\Programs\\Python\\Python38\\python.exe",
+				" \ "C:\\Python38\\python.exe",
+				" \ $LOCALAPPDATA . "\\Programs\\Python\\Python37\\python.exe",
+				" \ "C:\\Python37\\python.exe",
+				" \ $LOCALAPPDATA . "\\Programs\\Python\\Python36\\python.exe",
+				" \ "C:\\Python36\\python.exe",
+				" \ $VIMRUNTIME . '\utils\python-' .
+				" \ l:python3_ver . '-embed-amd64\python.exe',
+				" \ ]
 
 	if !has('nvim')
 		set pyxversion=3
 	endif
 
-	if filereadable(l:pyt2)
-		let g:python_host_prog= l:pyt2
-	endif
+	" if filereadable(l:pyt2)
+		" let g:python_host_prog= l:pyt2
+	" endif
 
-	for l:loc in l:pyt3
-		if filereadable(l:loc)
-			let g:python3_host_prog= l:loc
-			break
-		endif
-	endfor
+	" for l:loc in l:pyt3
+		" if filereadable(l:loc)
+			" let g:python3_host_prog= l:loc
+			" break
+		" endif
+	" endfor
 
 	let l:browsers = [ 'chrome.exe', 'launcher.exe', 'firefox.exe' ]
 	let g:browser_cmd = ''
