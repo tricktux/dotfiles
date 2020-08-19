@@ -7,7 +7,7 @@
 " Created: Aug 22 2017 12:33
 
 function! mappings#Set()
-  let g:esc = '<C-j>'
+  let g:esc = '<C-;>'
   " CUSTOM MAPPINGS
   if has('unix')
     " System paste
