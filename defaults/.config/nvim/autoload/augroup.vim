@@ -12,11 +12,6 @@ function! augroup#Set() abort
   " is foldmethod=syntax
   augroup Filetypes
     autocmd!
-    " Fri Feb 14 2020 15:57: A live saver, send from heaven. I came up with it :D
-    " Sun Aug 16 2020 00:39: It doesn't really work 
-    autocmd FileType fzf silent! tunmap <c-j>
-    " Sun Aug 16 2020 01:36: Now it's beautiful
-    autocmd FileType neoterm tnoremap <c-j> <c-\><c-n>
     autocmd Filetype fugitive nnoremap <buffer> <s-j> :b#<cr>
     autocmd Filetype fugitive nmap <buffer> <C-j> )
     autocmd Filetype fugitive nmap <buffer> <C-k> (
