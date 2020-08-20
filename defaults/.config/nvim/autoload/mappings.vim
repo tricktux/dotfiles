@@ -53,6 +53,7 @@ function! mappings#Set()
     endfor
     if !has('unix')
       " Simulate unix mappings in windows
+      tnoremap <c-a> <home>
       tnoremap <A-v> <C-\><C-n>"+pi
       tnoremap <C-w> <C-bs>
       tnoremap <A-b> <C-Left>
@@ -403,7 +404,9 @@ function! mappings#Set()
   " Mon Apr 06 2020 15:06
   " Used to expand * in cli
   " cnoremap <C-A> <Home>
-  inoremap <c-a> <home>
+  " Thu Aug 20 2020 14:24
+  " This mapping is for retyping what you just typed
+  " inoremap <c-a> <home>
   cnoremap <c-d> <del>
   inoremap <a-t> <c-d>
   " Mon Nov 19 2018 13:33: Sometimes needed. This rarely used
