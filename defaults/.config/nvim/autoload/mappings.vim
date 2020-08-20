@@ -7,7 +7,7 @@
 " Created: Aug 22 2017 12:33
 
 function! mappings#Set()
-  let g:esc = '<C-;>'
+  let g:esc = ['jk', 'kj']
   " CUSTOM MAPPINGS
   if has('unix')
     " System paste
@@ -37,7 +37,9 @@ function! mappings#Set()
   if has('nvim')
     tnoremap <M-`> <c-\><c-n>ZZ
     " nunmap <buffer> <c-space>
-    execute "tnoremap " . g:esc . " <C-\\><C-n>"
+    for m in g:esc
+      execute 'tnoremap ' . m . ' <C-\><C-n>'
+    endfor
     tnoremap <A-h> <C-\><C-n><C-w>h
     tnoremap <A-j> <C-\><C-n><C-w>j
     tnoremap <A-k> <C-\><C-n><C-w>k
@@ -78,8 +80,10 @@ function! mappings#Set()
   nnoremap G Gzz
   nnoremap x xzz
   " Substitute for ESC
-  execute "vnoremap " . g:esc . " <Esc>zz"
-  execute "inoremap " . g:esc . " <Esc>zz"
+  for m in g:esc
+    execute 'vnoremap ' . m . ' <Esc>zz'
+    execute 'inoremap ' . m . ' <Esc>zz'
+  endfor
 
   " j and k
   " Display line movements unless preceded by a count and
