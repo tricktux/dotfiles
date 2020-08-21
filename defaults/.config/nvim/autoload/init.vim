@@ -82,37 +82,11 @@ function! s:config_win() abort
 		call s:set_wings_path('D:/wings-dev/')
 	endif
 
-	" Fri Jan 05 2018 16:40: Many plugins use this now. Making these variables 
-	" available all the time.
-	" Wed Mar 13 2019 10:54: Adding remote python 
-	"D:\wings-dev\vim\vim64\vim81\utils\python-3.7.0-embed-amd64
-	" let l:python3_ver = '3.7.0'
-	" let l:pyt2 = "C:\\Python27\\python.exe"
-	" let l:pyt3 = [
-				" \ $LOCALAPPDATA . "\\Programs\\Python\\Python38\\python.exe",
-				" \ "C:\\Python38\\python.exe",
-				" \ $LOCALAPPDATA . "\\Programs\\Python\\Python37\\python.exe",
-				" \ "C:\\Python37\\python.exe",
-				" \ $LOCALAPPDATA . "\\Programs\\Python\\Python36\\python.exe",
-				" \ "C:\\Python36\\python.exe",
-				" \ $VIMRUNTIME . '\utils\python-' .
-				" \ l:python3_ver . '-embed-amd64\python.exe',
-				" \ ]
+  call s:find_python()
 
 	if !has('nvim')
 		set pyxversion=3
 	endif
-
-	" if filereadable(l:pyt2)
-		" let g:python_host_prog= l:pyt2
-	" endif
-
-	" for l:loc in l:pyt3
-		" if filereadable(l:loc)
-			" let g:python3_host_prog= l:loc
-			" break
-		" endif
-	" endfor
 
 	let l:browsers = [ 'chrome.exe', 'launcher.exe', 'firefox.exe' ]
 	let g:browser_cmd = ''
@@ -201,3 +175,22 @@ function! s:config_unix() abort
 	endif
 	let g:browser_cmd = '/usr/bin/firefox'
 endfunction
+
+function! s:find_python() abort
+  for l:ver in range(50, 33, -1)
+    let l:ver = string(l:ver) 
+    let l:loc = [
+          \ $VIMRUNTIME . '\utils\python-' . l:ver . '-embed-amd64\python.exe',
+          \ $LOCALAPPDATA . "\\Programs\\Python\\Python" . l:ver . "\\python.exe",
+          \ "C:\\Python" . l:ver . "\\python.exe",
+          \ ]
+
+    for l:path in l:loc
+      if filereadable(l:path)
+        let g:python3_host_prog= l:path
+        return
+      endif
+    endfor
+  endfor
+endfunction
+
