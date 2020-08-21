@@ -36,7 +36,7 @@ function! options#Set() abort
     let g:neovide_refresh_rate=60
     let g:neovide_no_idle=v:false
     " let g:neovide_fullscreen=v:true
-    set guifont=consolas:h13
+    set guifont=FuraCode_Nerd_Font_Mono:h13.5
   else
     set guifont=consolas:h10
   endif
