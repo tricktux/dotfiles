@@ -17,8 +17,8 @@ let mapleader=" "
 inoremap <c-c> //<Space> 
 inoremap <c-l> <Right>
 
-inoremap <c-j> <ESC>
-cnoremap <c-j> <ESC>
+inoremap jk <ESC>
+cnoremap jk <ESC>
 
 nnoremap <s-b> ^
 nnoremap <s-w> $
