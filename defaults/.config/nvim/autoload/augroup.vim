@@ -165,6 +165,8 @@ function! s:determine_buf_type() abort
   endif
   if l:ext ==? 'ino' || l:ext ==? 'pde'
     set filetype=arduino
+  elseif l:ext ==? 'csv'
+    set filetype=csv
   elseif l:ext ==? 'bat'
     set filetype=dosbatch
   elseif l:ext ==? 'scp'
