@@ -591,7 +591,7 @@ function! plugin#AfterConfig() abort
     call which_key#register(']', "g:which_key_right_bracket_map")
     call which_key#register('[', "g:which_key_left_bracket_map")
     set timeout
-    set timeoutlen=400
+    set timeoutlen=200
   endif
 
   if exists('g:loaded_deoplete')
