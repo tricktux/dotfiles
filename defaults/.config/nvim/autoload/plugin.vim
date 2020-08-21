@@ -1829,7 +1829,8 @@ function! s:floating_term()
   " Configuration
   call plugin#FloatingFzf(0.8, 0.8)
   :Ttoggle
-  set winblend=30
+  " Not very cool when trying to read error messages
+  set winblend=0
 endfunction
 
 function! s:floating_ranger()
