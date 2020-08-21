@@ -32,11 +32,11 @@ if !exists('no_plugin_maps') && !exists('no_vim_maps')
   vnoremap <buffer> <localleader>E y:<c-r>"<cr>
 endif
 
+let &cpo = s:keepcpo
+unlet s:keepcpo
+
 let b:undo_ftplugin = 'setlocal tabstop<'
       \ . '|setlocal shiftwidth<'
       \ . '|setlocal softtabstop<'
       \ . '|setlocal nospell<'
       \ . '|setlocal textwidth<'
-
-let &cpo = s:keepcpo
-unlet s:keepcpo

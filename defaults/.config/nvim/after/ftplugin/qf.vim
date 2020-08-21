@@ -52,5 +52,7 @@ if !exists('no_plugin_maps') && !exists('no_qf_maps')
 endif
 
 let &cpoptions = s:keepcpo
+unlet s:keepcpo
+
 let b:undo_ftplugin = 'setlocal cursorline<'
       \ . '|setlocal colorcolumn<'

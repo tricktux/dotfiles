@@ -14,6 +14,15 @@ endif
 " Don't load another plugin for this buffer
 let b:did_cs_ftplugin = 1
 
+let s:keepcpo= &cpo
+set cpo&vim
+
+setlocal tabstop=2
+setlocal shiftwidth=2
+setlocal softtabstop=2
+setlocal nospell
+setlocal textwidth=79
+
 function! s:set_omni_mappings() abort
 	" The following commands are contextual, based on the cursor position.
 	nnoremap <buffer> <localleader>ld :OmniSharpGotoDefinition<CR>
@@ -60,3 +69,11 @@ endif
 
 call linting#SetNeomakeMsBuildMaker()
 
+let &cpo = s:keepcpo
+unlet s:keepcpo
+
+let b:undo_ftplugin = 'setlocal tabstop<'
+      \ . '|setlocal shiftwidth<'
+      \ . '|setlocal softtabstop<'
+      \ . '|setlocal nospell<'
+      \ . '|setlocal textwidth<'
