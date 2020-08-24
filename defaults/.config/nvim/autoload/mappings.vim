@@ -7,7 +7,7 @@
 " Created: Aug 22 2017 12:33
 
 function! mappings#Set()
-  let g:esc = ['jk', 'kj']
+  let g:esc = ['<esc>']
   " CUSTOM MAPPINGS
   if has('unix')
     " System paste
