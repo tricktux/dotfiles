@@ -1518,7 +1518,7 @@ function! s:configure_vim_signify() abort
   nmap [g <plug>(signify-prev-hunk)
 
   autocmd User SignifyAutocmds
-        \ exe 'au! signify' | au signify BufWritePost * call sy#start()
+        \ exe 'au! signify' | au signify BufEnter,CursorHold * call sy#start()
 endfunction
 
 function! plugin#SyStatsWrapper() abort
