@@ -671,7 +671,7 @@ function! plugin#AfterConfig() abort
   if exists('g:loaded_neomake')
     " Mon Apr 27 2020 04:31:
     " Toggle it if things get cluttered. Missing a lot of goodies
-    call neomake#configure#automake('w')
+    call neomake#configure#automake('nw', 750)
     " let l:helios_bat_stat = '/sys/class/power_supply/BAT1/status'
     " if has('win32')
     " Thu Apr 25 2019 06:11: This is very qute. But when enabled by default
