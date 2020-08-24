@@ -88,36 +88,36 @@ function! augroup#Set() abort
   " autocmd BufWinEnter,Syntax * syn sync minlines=80 maxlines=80
   " augroup END
 
+  augroup VimType
+    autocmd!
+    " Sessions
+    " Note: Fri Mar 03 2017 14:13 - This never works.
+    " autocmd VimEnter * call utils#LoadSession('default.vim')
+    " Thu Oct 05 2017 22:22: Special settings that are only detected after vim
+    " is loaded
+    autocmd VimEnter * nested call s:on_vim_enter()
+    " Keep splits normalize
+    autocmd VimResized * call s:normalize_window_size()
+  augroup END
+
+  augroup BuffTypes
+    autocmd!
+    autocmd BufRead,BufNewFile * call s:determine_buf_type()
+    " Do not save sessions on VimLeave, it deletes the tabs
+    " autocmd BufEnter,BufWipeout * call mappings#SaveSession(has('nvim') ?
+          \ 'default_nvim.vim' : 'default_vim.vim')
+    autocmd BufReadPost *
+          \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit' |
+          \   exe "normal! g`\"" |
+          \ endif
+
+    " Sat May 16 2020 12:04: Trying out gen_tags 
+    " autocmd BufWinEnter * call ctags#LoadCscopeDatabse()
+    " Tue Feb 25 2020 14:00: Really slows down vim 
+    " autocmd BufWinEnter * call status_line#SetVerControl()
+  augroup END
+
   if exists('g:loaded_plugins')
-    augroup VimType
-      autocmd!
-      " Sessions
-      " Note: Fri Mar 03 2017 14:13 - This never works.
-      " autocmd VimEnter * call utils#LoadSession('default.vim')
-      " Thu Oct 05 2017 22:22: Special settings that are only detected after vim
-      " is loaded
-      autocmd VimEnter * nested call s:on_vim_enter()
-      " Keep splits normalize
-      autocmd VimResized * call s:normalize_window_size()
-    augroup END
-
-    augroup BuffTypes
-      autocmd!
-      autocmd BufRead,BufNewFile * call s:determine_buf_type()
-      " Do not save sessions on VimLeave, it deletes the tabs
-      " autocmd BufEnter,BufWipeout * call mappings#SaveSession(has('nvim') ?
-            \ 'default_nvim.vim' : 'default_vim.vim')
-      autocmd BufReadPost *
-        \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit' |
-        \   exe "normal! g`\"" |
-        \ endif
-
-      " Sat May 16 2020 12:04: Trying out gen_tags 
-      " autocmd BufWinEnter * call ctags#LoadCscopeDatabse()
-      " Tue Feb 25 2020 14:00: Really slows down vim 
-      " autocmd BufWinEnter * call status_line#SetVerControl()
-    augroup END
-
     augroup FluxLike
       autocmd!
       autocmd VimEnter,BufEnter * call flux#Flux()
