@@ -138,7 +138,7 @@ function! s:config_unix() abort
 	endif
 
 	let l:wikis = [
-        \ '~/Documents/resilio/wiki', 
+        \ '~/Documents/wiki', 
         \ '~/External/reinaldo/resilio/wiki',
         \ '/mnt/samba/server/resilio/wiki',
         \ ]
