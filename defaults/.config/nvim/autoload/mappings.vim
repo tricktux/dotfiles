@@ -468,7 +468,7 @@ function! mappings#Set()
   nnoremap <silent> <A-S-k> <C-w>-
   nnoremap <silent> <A-S-j> <C-w>+
 
-  inoremap <c-s> <c-r>=<SID>fix_previous_word()<cr>
+  inoremap <silent> <c-s> <c-r>=<SID>fix_previous_word()<cr>
 
   " Search <Leader>S
   " Tried ack.vim. Discovered that nothing is better than grep with ag.
