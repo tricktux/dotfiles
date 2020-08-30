@@ -21,8 +21,15 @@ function! init#vim() abort
 	" to be here. Otherwise Alt mappings stop working
 	set encoding=utf-8
 
+  " Sun Aug 30 2020 01:14: 
+  "  Load lua modules. Commencement of lua awesomeness
+  if has('nvim-0.5')
+    lua require('config')
+  endif
+
 	" OS_SETTINGS
 	if has('unix') | call s:config_unix() | else | call s:config_win() | endif
+
 
 	" PLUGINS_INIT
 	if plugin#Config()
