@@ -30,7 +30,6 @@ function! init#vim() abort
 	" OS_SETTINGS
 	if has('unix') | call s:config_unix() | else | call s:config_win() | endif
 
-
 	" PLUGINS_INIT
 	if plugin#Config()
 		let g:loaded_plugins = 1
@@ -38,6 +37,10 @@ function! init#vim() abort
 		echomsg 'No plugins were loaded'
 	endif
 
+  if has('nvim-0.5') && get(g:, 'nvim_lsp_support', 0)
+    lua require('config/lsp').set()
+    " call autocompletion#SetNvimLsp()
+  endif
 	" Create required folders for storing usage data
 	call utils#CheckDirWoPrompt(g:std_data_path . '/sessions')
 	call utils#CheckDirWoPrompt(g:std_data_path . '/ctags')
@@ -46,10 +49,10 @@ function! init#vim() abort
 	call utils#CheckDirWoPrompt(g:std_cache_path . '/swap')
 	call utils#CheckDirWoPrompt(g:std_cache_path . '/undofiles')
 
-	call mappings#Set()
-	call options#Set()
-	call augroup#Set()
-	call commands#Set()
+  call mappings#Set()
+  call options#Set()
+  call augroup#Set()
+  call commands#Set()
 endfunction
 
 function! s:config_win() abort

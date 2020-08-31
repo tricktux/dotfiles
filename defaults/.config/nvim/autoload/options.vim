@@ -91,7 +91,9 @@ function! options#Set() abort
   " set complete+=kspell " currently not working
   " set wildmenu " Sun Jul 16 2017 20:24. Dont like this way. Its weird
   set wildmode=list:longest
-  set wildignore+=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn,.git
+  " Mon Aug 31 2020 00:22:
+  " For some crazy reason this disables nvim-lsp
+  " set wildignore+=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn,.git
   set title                " change the terminal's title
   set titlelen=0
   let &titleold="Closing " . v:progname . "..."
@@ -197,7 +199,8 @@ function! options#Set() abort
   set modeline
   set modelines=1
   " Set omni for all filetypes
-  set omnifunc=syntaxcomplete#Complete
+  " Sun Aug 30 2020 23:58: Damn thing 
+  " set omnifunc=syntaxcomplete#Complete
   " Mon Jun 05 2017 11:59: Suppose to Fix cd to relative paths in windows
   let &cdpath = ',' . substitute(substitute($CDPATH,
         \ '[, ]', '\\\0', 'g'), ':', ',', 'g')

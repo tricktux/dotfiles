@@ -1,1 +1,1 @@
-require 'utils'
+require 'config/utils'

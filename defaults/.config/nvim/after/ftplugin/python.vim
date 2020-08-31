@@ -20,6 +20,7 @@ setlocal shiftwidth=4
 setlocal tabstop=4
 setlocal softtabstop=4
 setlocal define=^\s*\\(def\\\\|class\\)
+setlocal omnifunc=v:lua.vim.lsp.omnifunc
 
 abbreviate <buffer> sefl self
 
@@ -53,6 +54,7 @@ let b:undo_ftplugin = 'setlocal textwidth<'
       \ . '|setlocal tabstop<'
       \ . '|setlocal softtabstop<'
       \ . '|setlocal define<'
+      \ . '|setlocal omnifunc<'
 
 let &cpo = s:keepcpo
 unlet s:keepcpo
