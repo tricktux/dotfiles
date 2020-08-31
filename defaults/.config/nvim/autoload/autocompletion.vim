@@ -771,17 +771,17 @@ function! s:set_shuogo_sources() abort
   if exists('##CompleteChanged')
     Plug 'ncm2/float-preview.nvim'
   endif
-  if has('win32')
-    Plug 'deoplete-plugins/deoplete-jedi', { 'for' : 'python' }
-    Plug 'Shougo/deoplete-clangx'
-    " Super slow plugin
-    " Plug 'Shougo/neoinclude.vim/'
-  else
-    Plug 'zchee/deoplete-zsh', { 'for' : 'zsh' }
-    Plug 'Shougo/deoplete-lsp'
-    Plug 'neovim/nvim-lspconfig'
-    let g:nvim_lsp_support = 1
-  endif
+  Plug 'zchee/deoplete-zsh', { 'for' : 'zsh' }
+  Plug 'Shougo/deoplete-lsp'
+  Plug 'neovim/nvim-lspconfig'
+  let g:nvim_lsp_support = 1
+  " if has('win32')
+    " Plug 'deoplete-plugins/deoplete-jedi', { 'for' : 'python' }
+    " Plug 'Shougo/deoplete-clangx'
+    " " Super slow plugin
+    " " Plug 'Shougo/neoinclude.vim/'
+  " else
+  " endif
 
   " This source didnt really work
 	let l:address_book_loc = '~/.config/neomutt/data/addressbook'
@@ -1076,8 +1076,9 @@ function! s:set_completion_lua() abort
     autocmd!
     autocmd CompleteDone * if pumvisible() == 0 | pclose | endif
     autocmd BufEnter * lua require'completion'.on_attach()
+    " TODO: Move these to ftplugin
     autocmd BufEnter *.c,*.cpp let g:completion_trigger_character = ['.', '::', '->']
     autocmd BufEnter * let g:completion_trigger_character = ['.', ':']
-    autocmd Filetype lua,python,cpp setlocal omnifunc=v:lua.vim.lsp.omnifunc
+    " autocmd Filetype lua,python,cpp setlocal omnifunc=v:lua.vim.lsp.omnifunc
   augroup end
 endfunction
