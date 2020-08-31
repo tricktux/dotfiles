@@ -1,16 +1,3 @@
--- local api = vim.api
---
-local function set_external_sources()
-    vim.cmd([[Plug 'steelsojka/completion-buffers']])
-
-    vim.g.completion_chain_complete_list =
-        {
-            {complete_items = {'lsp', 'buffers', 'snippet'}},
-            {complete_items = {'path'}},
-            {mode = {'<c-n>'}}, {mode = {'<c-p>'}}
-        }
-end
-
 local function lsp_enable()
     vim.cmd([[Plug 'neovim/nvim-lspconfig']])
 
@@ -20,6 +7,8 @@ end
 
 local function set()
     vim.cmd([[Plug 'haorenW1025/completion-nvim']])
+    -- External source
+    vim.cmd([[Plug 'steelsojka/completion-buffers']])
 
     vim.g.completion_enable_snippet = 'Neosnippet'
     vim.g.completion_enable_in_comment = 1
@@ -31,8 +20,18 @@ local function set()
     vim.g.completion_sorting = 'none'
     vim.g.completion_matching_strategy_list = {'exact', 'fuzzy'}
     vim.g.completion_sorting = 'none'
+    vim.g.completion_chain_complete_list =
+    {
+        default = {
+            {complete_items = {'lsp', 'buffers', 'snippet'}},
+            {complete_items = {'path'}, triggered_only = {'/'}},
+        },
+        string = {
+            {complete_items = {'path'}, triggered_only = {'/'}},
+        },
+        comment = {},
+    }
 
-    set_external_sources()
     lsp_enable()
 end
 
