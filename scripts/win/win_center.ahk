@@ -33,12 +33,12 @@ SysGet, mon_3, Monitor, 3
 LCtrl::CapsLock
 Esc::CapsLock
 *CapsLock::
-    Send {Blind}{Ctrl Down}
     cDown := A_TickCount
+    Send {Blind}{Ctrl Down}
 Return
 
 *CapsLock up::
-    If ((A_TickCount-cDown)<100)  ; Modify press time as needed (milliseconds)
+    If ((A_TickCount-cDown)<150)  ; Modify press time as needed (milliseconds)
         Send {Blind}{Ctrl Up}{Esc}
     Else
         Send {Blind}{Ctrl Up}
@@ -58,9 +58,9 @@ Return
 ; Teams
 #i::ToggleWinClass("Chrome_WidgetWin_1")
 ; Neovide
-; #o::ToggleWinClass("SDL_app")
+#o::ToggleWinClass("SDL_app")
 ; nvim-qt
-#o::ToggleWinClass("Qt5QWindowIcon")
+; #o::ToggleWinClass("Qt5QWindowIcon")
 ; #p::ToggleWinClass("SUMATRA_PDF_FRAME")
 
 #c::GetClass()
