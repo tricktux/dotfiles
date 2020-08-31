@@ -131,7 +131,7 @@ function! plugin#Config()
   " Sat Aug 29 2020 23:42:
   "   - Giving lua completion another chance
   " let l:compl = has('nvim') ? 'shuogo_deo' : 'shuogo_neo'
-  call autocompletion#SetCompl('shuogo_deo')
+  call autocompletion#SetCompl('completion_nvim')
   " call autocompletion#SetCompl(
   " \ has('unix') ? 'shuogo_deo' :
   " \ (exists('g:portable_vim') && g:portable_vim == 1 ? 'shuogo_neo' : 'shuogo_deo')
