@@ -77,7 +77,7 @@ function! augroup#Set() abort
     augroup highlight_yank
       autocmd!
       autocmd TextYankPost *
-            \ silent! lua require'vim.highlight'.on_yank("IncSearch", 3000)
+            \ silent! lua require'vim.highlight'.on_yank("IncSearch", 1000)
     augroup END
   endif
 
