@@ -41,9 +41,9 @@ function! augroup#Set() abort
 
     " autocmd FileType vim setlocal tabstop=2 shiftwidth=2 softtabstop=2 nospell
 
-    if has('nvim-0.5.0') && get(g:, 'ncm2_supports_lsp', 0)
-      autocmd FileType c,cpp set omnifunc=v:lua.vim.lsp.omnifunc
-    endif
+    " if has('nvim-0.5.0') && get(g:, 'ncm2_supports_lsp', 0)
+      " autocmd FileType c,cpp set omnifunc=v:lua.vim.lsp.omnifunc
+    " endif
     if has('unix')
       autocmd FileType c,cpp setlocal nowrap ts=2 sw=2 sts=2
     else
@@ -77,7 +77,7 @@ function! augroup#Set() abort
     augroup highlight_yank
       autocmd!
       autocmd TextYankPost *
-            \ silent! lua require'vim.highlight'.on_yank("IncSearch", 3000)
+            \ silent! lua require'vim.highlight'.on_yank("IncSearch", 1000)
     augroup END
   endif
 

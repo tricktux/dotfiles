@@ -11,7 +11,7 @@ function! autocompletion#SetCompl(compl) abort
 		call s:set_ycm()
 	elseif a:compl ==# 'completion_nvim'
     call s:set_completion_lua()
-    call s:set_nvim_lsp()
+    " call s:set_nvim_lsp()
     call s:set_neosnippets()
   elseif a:compl ==# 'nvim_compl_manager'
 		" call s:set_ncm()
@@ -30,9 +30,9 @@ function! autocompletion#SetCompl(compl) abort
 		Plug 'ncm2/ncm2-neosnippet'
   elseif a:compl ==# 'shuogo_deo'
     call s:set_shuogo_deo_neo_options()
-    if has('unix')
-      call s:set_language_client(has('unix'))
-    endif
+    " if has('unix')
+      " call s:set_language_client(has('unix'))
+    " endif
     call s:set_shuogo_sources()
     call s:set_neosnippets()
   elseif a:compl ==# 'shuogo_neo'
@@ -761,7 +761,6 @@ function! s:set_shuogo_sources() abort
 	" Email Completion, Has a bug that I need to report
 	" Plug 'fszymanski/deoplete-abook'
 	Plug 'Shougo/context_filetype.vim'
-	Plug 'zchee/deoplete-zsh', { 'for' : 'zsh' }
 	" Tue Oct 31 2017 08:54: Going to attempt to use the other clang
 	"  deoplete-clang
 	" if exists('g:libclang_path') && exists('g:clangheader_path')
@@ -769,11 +768,19 @@ function! s:set_shuogo_sources() abort
 	" let g:deoplete#sources#clang#libclang_path = g:libclang_path
 	" let g:deoplete#sources#clang#clang_header = g:clangheader_path
 	" endif
+  if exists('##CompleteChanged')
+    Plug 'ncm2/float-preview.nvim'
+  endif
   if has('win32')
     Plug 'deoplete-plugins/deoplete-jedi', { 'for' : 'python' }
     Plug 'Shougo/deoplete-clangx'
     " Super slow plugin
     " Plug 'Shougo/neoinclude.vim/'
+  else
+    Plug 'zchee/deoplete-zsh', { 'for' : 'zsh' }
+    Plug 'Shougo/deoplete-lsp'
+    Plug 'neovim/nvim-lspconfig'
+    let g:nvim_lsp_support = 1
   endif
 
   " This source didnt really work
@@ -813,6 +820,11 @@ function! s:set_shuogo_deo_neo_options() abort
         \ pumvisible() ? "\<C-n>" :
         \ <SID>check_back_space() ? "\<TAB>" :
         \ deoplete#mappings#manual_complete()
+
+  augroup CompleteionTriggerCharacter
+    autocmd!
+    autocmd CompleteDone * if pumvisible() == 0 | pclose | endif
+  augroup end
 endfunction
 
 function! s:set_shuogo_deo() abort
@@ -1043,20 +1055,29 @@ function! s:set_nvim_lsp_mappings() abort
 endfunction
 
 function! s:set_completion_lua() abort
-  Plug 'haorenW1025/completion-nvim'
+  lua require('config/completion').set()
+  " Plug 'nvim-lua/completion-nvim'
 
-  inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+  inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ completion#trigger_completion()
   inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
+  "use <c-j> to switch to previous completion
+  imap <c-j> <Plug>(completion_next_source)
+  " imap <c-k> <Plug>(completion_prev_source)
   " Auto close popup menu when finish completion
-
-  let g:completion_enable_snippet = 'Neosnippet'
-  let g:completion_enable_in_comment = 1
+" Use completion-nvim in every buffer
+  " let g:completion_enable_snippet = 'Neosnippet'
+  " let g:completion_enable_in_comment = 1
+  " let g:completion_trigger_keyword_length = 2
 
   augroup CompleteionTriggerCharacter
     autocmd!
     autocmd CompleteDone * if pumvisible() == 0 | pclose | endif
-    autocmd BufEnter * let g:completion_trigger_character = ['.']
-    autocmd BufEnter *.c,*.cpp let g:completion_trigger_character = ['.', '::']
+    autocmd BufEnter * lua require'completion'.on_attach()
+    autocmd BufEnter *.c,*.cpp let g:completion_trigger_character = ['.', '::', '->']
+    autocmd BufEnter * let g:completion_trigger_character = ['.', ':']
+    autocmd Filetype lua,python,cpp setlocal omnifunc=v:lua.vim.lsp.omnifunc
   augroup end
 endfunction

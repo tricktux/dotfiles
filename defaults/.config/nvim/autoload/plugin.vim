@@ -128,6 +128,8 @@ function! plugin#Config()
   "   - Trying completion_nvim
   "   - Still rough around the edges
   "   - Big promess for a lightweigth lua completion plugin
+  " Sat Aug 29 2020 23:42:
+  "   - Giving lua completion another chance
   " let l:compl = has('nvim') ? 'shuogo_deo' : 'shuogo_neo'
   call autocompletion#SetCompl('shuogo_deo')
   " call autocompletion#SetCompl(
@@ -613,6 +615,11 @@ function! plugin#AfterConfig() abort
           \ 'min_pattern_length', 2)
     call deoplete#custom#source('LanguageClient',
           \ 'rank', 888)
+    " the number of processes is equal to that of sources.
+    call deoplete#custom#option({
+          \ 'max_list': 20,
+          \ 'num_processes': 0,
+          \ })
   endif
 
   " Plugin function names are never detected. Only plugin commands
@@ -708,9 +715,10 @@ function! plugin#AfterConfig() abort
     call denite#custom#var('prosession', 'format', 'split')
   endif
 
-  if has('nvim-0.5.0') && get(g:, 'nvim_lsp_support', 0)
-    call autocompletion#SetNvimLsp()
-  endif
+  " if has('nvim-0.5') && get(g:, 'nvim_lsp_support', 0)
+    " lua require('config/lsp').set()
+    " " call autocompletion#SetNvimLsp()
+  " endif
 endfunction
 
 function! s:configure_ctrlp() abort

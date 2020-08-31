@@ -21,6 +21,12 @@ function! init#vim() abort
 	" to be here. Otherwise Alt mappings stop working
 	set encoding=utf-8
 
+  " Sun Aug 30 2020 01:14: 
+  "  Load lua modules. Commencement of lua awesomeness
+  if has('nvim-0.5')
+    lua require('config')
+  endif
+
 	" OS_SETTINGS
 	if has('unix') | call s:config_unix() | else | call s:config_win() | endif
 
@@ -31,6 +37,10 @@ function! init#vim() abort
 		echomsg 'No plugins were loaded'
 	endif
 
+  if has('nvim-0.5') && get(g:, 'nvim_lsp_support', 0)
+    lua require('config/lsp').set()
+    " call autocompletion#SetNvimLsp()
+  endif
 	" Create required folders for storing usage data
 	call utils#CheckDirWoPrompt(g:std_data_path . '/sessions')
 	call utils#CheckDirWoPrompt(g:std_data_path . '/ctags')
@@ -39,10 +49,10 @@ function! init#vim() abort
 	call utils#CheckDirWoPrompt(g:std_cache_path . '/swap')
 	call utils#CheckDirWoPrompt(g:std_cache_path . '/undofiles')
 
-	call mappings#Set()
-	call options#Set()
-	call augroup#Set()
-	call commands#Set()
+  call mappings#Set()
+  call options#Set()
+  call augroup#Set()
+  call commands#Set()
 endfunction
 
 function! s:config_win() abort
@@ -138,7 +148,7 @@ function! s:config_unix() abort
 	endif
 
 	let l:wikis = [
-        \ '~/Documents/resilio/wiki', 
+        \ '~/Documents/wiki', 
         \ '~/External/reinaldo/resilio/wiki',
         \ '/mnt/samba/server/resilio/wiki',
         \ ]
