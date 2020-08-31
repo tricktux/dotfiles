@@ -1517,8 +1517,10 @@ function! s:configure_vim_signify() abort
   nmap ]g <plug>(signify-next-hunk)
   nmap [g <plug>(signify-prev-hunk)
 
+  " Remove all default autocomands and just do this ones
   autocmd User SignifyAutocmds
-        \ exe 'au! signify' | au signify BufEnter,CursorHold * call sy#start()
+        \ exe 'au! signify' |
+        \ au signify InsertLeave,BufEnter,TextChanged * call sy#start()
 endfunction
 
 function! plugin#SyStatsWrapper() abort
