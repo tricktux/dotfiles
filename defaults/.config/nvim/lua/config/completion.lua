@@ -32,7 +32,8 @@ CompletionNvim._opts = {
 
 CompletionNvim._autocmds = {
     compl_nvim = {
-        {"BufEnter", "*", [[lua require('config/completion'):on_attach()]]};
+        {"BufEnter", "*", [[lua require('config/completion'):on_attach()]]},
+        {"CompleteDone", "*", [[if pumvisible() == 0 | pclose | endif]]},
     }
 }
 
