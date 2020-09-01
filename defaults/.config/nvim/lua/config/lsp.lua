@@ -19,7 +19,7 @@ local function lsp_set()
   if vim.fn.executable('lua-language-server') then
     log.info("setting up lua-language-server...")
     nvim_lsp.sumneko_lua.setup{
-      cmd = {"/usr/bin/lua-language-server"},
+      cmd = {"lua-language-server"},
       root_dir = nvim_lsp.util.root_pattern(".git", ".svn")
     }
   end
@@ -28,7 +28,7 @@ local function lsp_set()
     log.info("setting up clangd...")
     nvim_lsp.clangd.setup {
       cmd = {
-        "/usr/bin/clangd", "--all-scopes-completion=true", "--background-index=true",
+        "clangd", "--all-scopes-completion=true", "--background-index=true",
         "--clang-tidy=true", "--completion-style=detailed",
         "--fallback-style=\"LLVM\"", "--pch-storage=memory",
         "--suggest-missing-includes", "--header-insertion=iwyu", "-j=12",
