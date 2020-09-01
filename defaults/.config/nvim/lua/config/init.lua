@@ -1,7 +1,11 @@
 -- Load module to make its functions available
 -- Setup logs
 
-require 'utils/utils'
+local lsp = require('config/lsp')
+local completion = require('config/completion')
 local log = require 'utils/log'
 
-log.info('Start Neovim Run')
+log.info('--- Start Neovim Run ---')
+
+lsp.set()
+completion:set()
