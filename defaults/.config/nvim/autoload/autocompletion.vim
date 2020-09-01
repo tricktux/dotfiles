@@ -1055,8 +1055,9 @@ function! s:set_nvim_lsp_mappings() abort
 endfunction
 
 function! s:set_completion_lua() abort
-  lua require('config/completion').set()
-  " Plug 'nvim-lua/completion-nvim'
+  Plug 'nvim-lua/completion-nvim'
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'steelsojka/completion-buffers'
 
   inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
@@ -1066,19 +1067,4 @@ function! s:set_completion_lua() abort
   "use <c-j> to switch to previous completion
   imap <c-j> <Plug>(completion_next_source)
   " imap <c-k> <Plug>(completion_prev_source)
-  " Auto close popup menu when finish completion
-" Use completion-nvim in every buffer
-  " let g:completion_enable_snippet = 'Neosnippet'
-  " let g:completion_enable_in_comment = 1
-  " let g:completion_trigger_keyword_length = 2
-
-  augroup CompleteionTriggerCharacter
-    autocmd!
-    autocmd CompleteDone * if pumvisible() == 0 | pclose | endif
-    autocmd BufEnter * lua require'completion'.on_attach()
-    " TODO: Move these to ftplugin
-    autocmd BufEnter *.c,*.cpp let g:completion_trigger_character = ['.', '::', '->']
-    autocmd BufEnter * let g:completion_trigger_character = ['.', ':']
-    " autocmd Filetype lua,python,cpp setlocal omnifunc=v:lua.vim.lsp.omnifunc
-  augroup end
 endfunction
