@@ -34,9 +34,9 @@ function! init#vim() abort
   " Sun Aug 30 2020 01:14: 
   "  Load lua modules. Commencement of lua awesomeness
   "  Lua plugin modules are not loaded until after plug#end(). See lua-require
+  "  All lua configs are called from 'config/init.lua' which is sourced below
   if has('nvim-0.5')
-    lua require('config/lsp').set()
-    lua require('config/completion'):set()
+    lua require('config')
   endif
 	" Create required folders for storing usage data
 	call utils#CheckDirWoPrompt(g:std_data_path . '/sessions')
