@@ -145,7 +145,7 @@ function! plugin#Config()
 
   " Possible values:
   " - neomake ale
-  call linting#Set('neomake')
+  " call linting#Set('neomake')
 
   " Neovim exclusive plugins
   if has('nvim')
