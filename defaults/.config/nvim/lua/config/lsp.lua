@@ -10,7 +10,7 @@ local function lsp_set()
         return
     end
 
-    local nvim_lsp = require 'nvim_lsp'
+    local nvim_lsp = require('nvim_lsp')
     if vim.fn.executable('pyls') > 0 then
         log.info("setting up the pyls lsp...")
         nvim_lsp.pyls.setup {
