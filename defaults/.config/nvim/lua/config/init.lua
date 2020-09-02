@@ -7,5 +7,6 @@ local log = require 'utils/log'
 
 log.info('--- Start Neovim Run ---')
 
-lsp.set()
 completion.compl:set()
+completion.diagn:set()
+-- lsp.set()

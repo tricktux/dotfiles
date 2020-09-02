@@ -29,12 +29,19 @@ CompletionNvim._opts = {
 
 CompletionNvim._autocmds = {
     compl_nvim = {
-        {"BufEnter", "*", [[lua require('config/completion').compl:on_attach()]]},
-        {"CompleteDone", "*", [[if pumvisible() == 0 | pclose | endif]]}
+        {
+            "BufEnter", "*",
+            [[lua require('config/completion').compl:on_attach()]]
+        }, {"CompleteDone", "*", [[if pumvisible() == 0 | pclose | endif]]}
     }
 }
 
 function CompletionNvim:on_attach()
+    if vim.b.completion_enable == 1 then
+        -- Setup already done in this buffer
+        return
+    end
+
     local ft = vim.bo.filetype
     if ft == 'c' or ft == 'cpp' then
         self._opts.trigger_character = {'.', '::', '->'}
@@ -43,8 +50,6 @@ function CompletionNvim:on_attach()
     else
         self._opts.trigger_character = {'.'}
     end
-    -- TODO Add per buffer options
-    -- require'diagnostic'.on_attach()
     require('completion').on_attach(self._opts)
 end
 
@@ -60,16 +65,23 @@ end
 
 local DiagnosticNvim = {}
 
-function DiagnosticNvim:on_attach()
-  if not utils.is_mod_available('diagnostic') then
-    log.error("diagnostic-nvim was set, but module not found")
-    return nil
-  end
-
-  return require'diagnostic'.on_attach
+-- Set initial settings for function
+function DiagnosticNvim:set()
+    vim.g.diagnostic_enable_virtual_text = 1
+    vim.g.diagnostic_insert_delay = 0
+    vim.g.diagnostic_auto_popup_while_jump = 1
 end
 
-return {
-  compl = CompletionNvim,
-  diagn = DiagnosticNvim,
-}
+-- Returns hook for nvim_lsp on_attach
+--  If diagnostic-nvim plugin not found returns nil
+--  Otherwise returns the diagnostic-nvim on_attach function
+function DiagnosticNvim:on_attach()
+    if not utils.is_mod_available('diagnostic') then
+        log.error("diagnostic-nvim was set, but module not found")
+        return
+    end
+
+    require'diagnostic'.on_attach()
+end
+
+return {compl = CompletionNvim, diagn = DiagnosticNvim}
