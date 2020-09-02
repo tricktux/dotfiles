@@ -1039,7 +1039,7 @@ nvim_lsp.clangd.setup{
 EOF
 endfunction
 
-function! s:set_nvim_lsp_mappings() abort
+function! autocompletion#set_nvim_lsp_mappings() abort
 	" This doesnt work. Set omnifunc from augroups
 	" set omnifunc=v:lua.vim.lsp.omnifunc
 	nnoremap <silent> <buffer> <localleader>lr <cmd>lua vim.lsp.buf.rename()<cr>
