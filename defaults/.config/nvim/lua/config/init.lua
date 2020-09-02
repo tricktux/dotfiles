@@ -8,4 +8,4 @@ local log = require 'utils/log'
 log.info('--- Start Neovim Run ---')
 
 lsp.set()
-completion:set()
+completion.compl:set()
