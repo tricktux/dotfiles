@@ -715,10 +715,9 @@ function! plugin#AfterConfig() abort
     call denite#custom#var('prosession', 'format', 'split')
   endif
 
-  " if has('nvim-0.5') && get(g:, 'nvim_lsp_support', 0)
-    " lua require('config/lsp').set()
-    " " call autocompletion#SetNvimLsp()
-  " endif
+  if has('nvim-0.5')
+    lua require('config/lsp').set()
+  endif
 endfunction
 
 function! s:configure_ctrlp() abort
