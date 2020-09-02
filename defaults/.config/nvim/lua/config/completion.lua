@@ -1,7 +1,7 @@
-local CompletionNvim = {}
 local utils = require('utils/utils')
 local log = require('utils/log')
 
+local CompletionNvim = {}
 -- undocumented options:
 --  docked_maximum_size
 --  docked_minimum_size
@@ -14,7 +14,6 @@ CompletionNvim._opts = {
     matching_ignore_case = 0,
     enable_auto_paren = 0,
     docked_hover = 1,
-    sorting = 'none',
     matching_strategy_list = {'exact', 'fuzzy'},
     sorting = 'none',
     trigger_character = {'.'},
@@ -30,7 +29,7 @@ CompletionNvim._opts = {
 
 CompletionNvim._autocmds = {
     compl_nvim = {
-        {"BufEnter", "*", [[lua require('config/completion'):on_attach()]]},
+        {"BufEnter", "*", [[lua require('config/completion'):compl_on_attach()]]},
         {"CompleteDone", "*", [[if pumvisible() == 0 | pclose | endif]]}
     }
 }
@@ -59,4 +58,19 @@ function CompletionNvim:set()
     utils.create_augroups(self._autocmds)
 end
 
-return CompletionNvim
+local DiagnosticNvim = {}
+
+function DiagnosticNvim:on_attach()
+  if not utils.is_mod_available('diagnostic') then
+    log.error("diagnostic-nvim was set, but module not found")
+    return nil
+  end
+
+  return require'diagnostic'.on_attach
+end
+
+return {
+  set = CompletionNvim:set(),
+  compl_on_attach = CompletionNvim:on_attach(),
+  diagn_on_attach = DiagnosticNvim:on_attach(),
+}
