@@ -21,19 +21,17 @@ CompletionNvim._opts = {
     chain_complete_list = {
         default = {
             {complete_items = {'lsp', 'buffers', 'snippet'}},
-            {complete_items = {'path'}, triggered_only = {'/'}},
+            {complete_items = {'path'}, triggered_only = {'/'}}
         },
-        string = {
-            {complete_items = {'path'}, triggered_only = {'/'}},
-        },
-        comment = {},
+        string = {{complete_items = {'path'}, triggered_only = {'/'}}},
+        comment = {}
     }
 }
 
 CompletionNvim._autocmds = {
     compl_nvim = {
         {"BufEnter", "*", [[lua require('config/completion'):on_attach()]]},
-        {"CompleteDone", "*", [[if pumvisible() == 0 | pclose | endif]]},
+        {"CompleteDone", "*", [[if pumvisible() == 0 | pclose | endif]]}
     }
 }
 
