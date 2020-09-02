@@ -1058,6 +1058,7 @@ function! s:set_completion_lua() abort
   Plug 'nvim-lua/completion-nvim'
   Plug 'neovim/nvim-lspconfig'
   Plug 'steelsojka/completion-buffers'
+  Plug 'nvim-lua/diagnostic-nvim'
 
   inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
