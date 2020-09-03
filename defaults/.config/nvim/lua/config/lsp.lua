@@ -1,4 +1,5 @@
 local utils = require('utils/utils')
+local map = require('config/mapping')
 local log = require('utils/log')
 
 local function set_lsp_mappings()
@@ -23,7 +24,7 @@ local function set_lsp_mappings()
     for lhs, rhs in pairs(mappings) do
         log.trace("lhs = ", map_pref .. lhs, ", rhs = ",
                   cmd_pref .. rhs .. cmd_suff, ", opts = ", opts)
-        utils.nnoremap(map_pref .. lhs, cmd_pref .. rhs .. cmd_suff, opts)
+        map.nnoremap({map_pref .. lhs}, cmd_pref .. rhs .. cmd_suff, opts)
     end
 end
 
