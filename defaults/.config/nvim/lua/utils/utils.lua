@@ -1,5 +1,11 @@
 local log = require('utils/log')
 
+-- List of useful vim helper functions
+-- >vim.tbl_*
+--  >vim.tbl_count
+-- >vim.validate
+-- >vim.deepcopy
+
 -- Similar to python's pprint. Usage: lua dump({1, 2, 3})
 function dump(...)
     local objects = vim.tbl_map(vim.inspect, {...})
@@ -7,20 +13,13 @@ function dump(...)
 end
 
 local function table_removekey(table, key)
-    if table == nil or key == nil then
-        log.error('Invalid table or key value provided: ', table, key)
-        return nil
-    end
+    vim.validate {table = {table, 't'}}
+    vim.validate {key = {key, 's'}}
+
     local element = table[key]
     if element == nil then return nil end
     table[key] = nil
     return element
-end
-
-local function table_length(T)
-    local count = 0
-    for _ in pairs(T) do count = count + 1 end
-    return count
 end
 
 function is_mod_available(name)
@@ -38,6 +37,5 @@ end
 return {
     dump = dump,
     is_mod_available = is_mod_available,
-    table_length = table_length,
     table_removekey = table_removekey
 }
