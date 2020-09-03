@@ -1,4 +1,5 @@
 local utils = require('utils/utils')
+local augroups = require('config/augroups')
 local log = require('utils/log')
 
 local CompletionNvim = {}
@@ -60,7 +61,7 @@ function CompletionNvim:set()
     end
 
     log.info("setting up completion-nvim...")
-    utils.create_augroups(self._autocmds)
+    augroups.create(self._autocmds)
 end
 
 local DiagnosticNvim = {}
