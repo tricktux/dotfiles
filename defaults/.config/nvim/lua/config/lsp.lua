@@ -18,10 +18,11 @@ local function set_lsp_mappings()
         f = 'buf.formatting()',
         g = 'buf.formatting()',
         S = 'stop_all_clients()',
-        n = 'util.show_line_diagnostics()',
+        n = 'util.show_line_diagnostics()'
     }
     for lhs, rhs in pairs(mappings) do
-        log.trace("lhs = ", map_pref .. lhs, ", rhs = ", cmd_pref .. rhs .. cmd_suff, ", opts = ", opts)
+        log.trace("lhs = ", map_pref .. lhs, ", rhs = ",
+                  cmd_pref .. rhs .. cmd_suff, ", opts = ", opts)
         utils.nnoremap(map_pref .. lhs, cmd_pref .. rhs .. cmd_suff, opts)
     end
 end
