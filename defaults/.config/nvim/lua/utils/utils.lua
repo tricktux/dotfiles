@@ -12,9 +12,7 @@ local function table_removekey(table, key)
         return nil
     end
     local element = table[key]
-    if element == nil then
-        return nil
-    end
+    if element == nil then return nil end
     table[key] = nil
     return element
 end
@@ -52,9 +50,7 @@ local function nnoremap(lhs, rhs, opts)
 end
 
 function is_mod_available(name)
-    if package.loaded[name] then
-        return true
-    end
+    if package.loaded[name] then return true end
     for _, searcher in ipairs(package.searchers or package.loaders) do
         local loader = searcher(name)
         if type(loader) == 'function' then
@@ -92,5 +88,5 @@ return {
     is_mod_available = is_mod_available,
     table_length = table_length,
     table_removekey = table_removekey,
-    nnoremap = nnoremap,
+    nnoremap = nnoremap
 }
