@@ -1,11 +1,37 @@
 local utils = require('utils/utils')
 local log = require('utils/log')
 
+local function set_lsp_mappings()
+    local opts = {silent = true, buffer = true}
+    local map_pref = '<localleader>l'
+    local cmd_pref = '<cmd>lua vim.lsp.'
+    local cmd_suff = '<cr>'
+    local mappings = {
+        r = 'buf.rename()',
+        e = 'buf.declaration()',
+        d = 'buf.definition()',
+        h = 'buf.hover()',
+        i = 'buf.implementation()',
+        H = 'buf.signature_help()',
+        D = 'buf.type_definition()',
+        R = 'buf.references()',
+        f = 'buf.formatting()',
+        g = 'buf.formatting()',
+        S = 'stop_all_clients()',
+        n = 'util.show_line_diagnostics()',
+    }
+    for lhs, rhs in pairs(mappings) do
+        log.trace("lhs = ", map_pref .. lhs, ", rhs = ", cmd_pref .. rhs .. cmd_suff, ", opts = ", opts)
+        utils.nnoremap(map_pref .. lhs, cmd_pref .. rhs .. cmd_suff, opts)
+    end
+end
+
 -- Abstract function that allows you to hook and set settings on a buffer that 
 -- has lsp server support
 local function on_lsp_attach()
     if vim.b.did_on_lsp_attach == 1 then
         -- Setup already done in this buffer
+        log.debug('on_lsp_attach already setup')
         return
     end
 
@@ -13,7 +39,7 @@ local function on_lsp_attach()
     -- These 2 got annoying really quickly
     -- vim.cmd('autocmd CursorHold <buffer> lua vim.lsp.util.show_line_diagnostics()')
     -- vim.cmd("autocmd CursorHold <buffer> lua vim.lsp.buf.hover()")
-    vim.fn['autocompletion#set_nvim_lsp_mappings']()
+    set_lsp_mappings()
     require('config/completion').diagn:on_attach()
     vim.b.did_on_lsp_attach = 1
 end
