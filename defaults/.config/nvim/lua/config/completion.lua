@@ -72,7 +72,7 @@ local function smart_tab()
 
     log.trace("no backspace triggering completion")
     -- TODO check if function exists
-    vim.fn['completion#trigger_completion']()
+    require'completion'.triggerCompletion()
 end
 
 local function smart_s_tab()
