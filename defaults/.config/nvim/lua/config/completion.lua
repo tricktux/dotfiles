@@ -94,8 +94,11 @@ function CompletionNvim:set()
     end
 
     log.info("setting up completion-nvim...")
-    -- map.inoremap("<tab>", "<cmd>lua require('config/completion').smart_tab<cr>", {silent = true})
-    -- map.inoremap("<s-tab>", "<cmd>lua require('config/completion').smart_s_tab<cr>", {silent = true})
+    -- map.inoremap("<tab>", "<cmd>lua require('config/completion').smart_tab<cr>",
+                 -- {silent = true})
+    -- map.inoremap("<s-tab>",
+                 -- "<cmd>lua require('config/completion').smart_s_tab<cr>",
+                 -- {silent = true})
     augroups.create(self._autocmds)
 end
 
@@ -121,8 +124,8 @@ function DiagnosticNvim:on_attach()
 end
 
 return {
-    compl = CompletionNvim, 
-    diagn = DiagnosticNvim, 
+    compl = CompletionNvim,
+    diagn = DiagnosticNvim,
     smart_tab = smart_tab,
-    smart_s_tab = smart_s_tab,
+    smart_s_tab = smart_s_tab
 }
