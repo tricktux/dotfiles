@@ -26,6 +26,8 @@ function M:_noremap(lhs, rhs, opts, mode)
     -- Always add noremap to opts
     -- Do not modify orignal options
     log.trace("opts = ", opts)
+    log.trace("lhs = ", lhs)
+    log.trace("rhs = ", rhs)
     local copts = {}
     if not vim.tbl_isempty(opts) then copts = vim.deepcopy(opts) end
     copts.noremap = true
