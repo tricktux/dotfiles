@@ -96,6 +96,7 @@ function CompletionNvim:set()
     map.inoremap([[<s-tab>]],
                  [[<cmd>lua require('config/completion').smart_s_tab()<cr>]],
                  {silent = true})
+    map.imap([[<c-j>]], [[<Plug>(completion_next_source)]])
     augroups.create(self._autocmds)
 end
 
