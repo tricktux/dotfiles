@@ -7,9 +7,17 @@ local log = require('utils/log')
 -- >vim.deepcopy
 
 -- Similar to python's pprint. Usage: lua dump({1, 2, 3})
-function dump(...)
+local function dump(...)
     local objects = vim.tbl_map(vim.inspect, {...})
     print(unpack(objects))
+end
+
+local function has_unix()
+    return package.config:sub(1,1) == [[/]]
+end
+
+local function has_win()
+    return package.config:sub(1,1) == [[\]]
 end
 
 local function table_removekey(table, key)
@@ -37,5 +45,7 @@ end
 return {
     dump = dump,
     is_mod_available = is_mod_available,
-    table_removekey = table_removekey
+    table_removekey = table_removekey,
+    has_unix = has_unix,
+    has_win = has_win,
 }
