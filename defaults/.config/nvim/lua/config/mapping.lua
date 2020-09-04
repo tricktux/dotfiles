@@ -16,7 +16,7 @@ function M:_noremap(lhs, rhs, opts, mode)
     log.trace("mode = ", mode)
     vim.validate {lhs = {lhs, 'string'}}
     vim.validate {opts = {opts, 'table'}}
-    vim.validate {mode = {mode, function(a) return self._validate_mode(a) end, 'vim mapping mode'}}
+    vim.validate {mode = {mode, function(a) return self:_validate_mode(a) end, 'vim mapping mode'}}
     -- Always set mode to n
     -- Always add noremap to opts
     -- Do not modify orignal options
