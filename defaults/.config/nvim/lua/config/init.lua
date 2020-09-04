@@ -8,7 +8,7 @@ local map = require('config/mapping')
 
 log.info('--- Start Neovim Run ---')
 
+map:set()
 completion.compl:set()
 completion.diagn:set()
-map:set()
 -- lsp.set()

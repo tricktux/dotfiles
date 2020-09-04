@@ -1,6 +1,8 @@
 local utils = require('utils/utils')
-local augroups = require('config/augroups')
 local log = require('utils/log')
+local augroups = require('config/augroups')
+local map = require('config/mapping')
+local api = vim.api
 
 local CompletionNvim = {}
 -- undocumented options:
@@ -54,6 +56,37 @@ function CompletionNvim:on_attach()
     require('completion').on_attach(self._opts)
 end
 
+local function check_back_space()
+    local col = vim.fn.col('.') - 1
+    if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+        return true
+    end
+    return false
+end
+
+local function smart_tab()
+    if vim.fn.pumvisible() ~= 0 then
+        api.nvim_feedkeys([[\<c-n>]], "n", true)
+        return
+    end
+
+    if check_back_space() then
+        api.nvim_feedkeys([[\<tab>]], "n", true)
+        return
+    end
+
+    vim.fn['completion#trigger_completion']()
+end
+
+local function smart_s_tab()
+    if vim.fn.pumvisible() ~= 0 then
+        api.nvim_feedkeys([[\<s-tab>]], "n", true)
+        return
+    end
+
+    api.nvim_feedkeys([[\<c-p>]], "n", true)
+end
+
 function CompletionNvim:set()
     if not utils.is_mod_available('completion') then
         log.error("completion-nvim was set, but module not found")
@@ -61,6 +94,8 @@ function CompletionNvim:set()
     end
 
     log.info("setting up completion-nvim...")
+    -- map.inoremap("<tab>", "<cmd>lua require('config/completion').smart_tab<cr>", {silent = true})
+    -- map.inoremap("<s-tab>", "<cmd>lua require('config/completion').smart_s_tab<cr>", {silent = true})
     augroups.create(self._autocmds)
 end
 
@@ -85,4 +120,9 @@ function DiagnosticNvim:on_attach()
     require'diagnostic'.on_attach()
 end
 
-return {compl = CompletionNvim, diagn = DiagnosticNvim}
+return {
+    compl = CompletionNvim, 
+    diagn = DiagnosticNvim, 
+    smart_tab = smart_tab,
+    smart_s_tab = smart_s_tab,
+}
