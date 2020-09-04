@@ -41,6 +41,9 @@ local function on_lsp_attach()
     -- These 2 got annoying really quickly
     -- vim.cmd('autocmd CursorHold <buffer> lua vim.lsp.util.show_line_diagnostics()')
     -- vim.cmd("autocmd CursorHold <buffer> lua vim.lsp.buf.hover()")
+    if vim.fn.exists(':NeomakeDisableBuffer') == 2 then
+      vim.cmd('NeomakeDisableBuffer')
+    end
     set_lsp_mappings()
     require('config/completion').diagn:on_attach()
     vim.b.did_on_lsp_attach = 1
