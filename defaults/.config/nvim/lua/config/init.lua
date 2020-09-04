@@ -4,7 +4,7 @@
 local lsp = require('config/lsp')
 local completion = require('config/completion')
 local log = require 'utils/log'
-local map = require('config/mapping')
+local map = require('utils/keymap')
 
 log.info('--- Start Neovim Run ---')
 

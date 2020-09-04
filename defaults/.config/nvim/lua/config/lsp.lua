@@ -1,5 +1,5 @@
 local utils = require('utils/utils')
-local map = require('config/mapping')
+local map = require('utils/keymap')
 local log = require('utils/log')
 
 local function set_lsp_mappings()

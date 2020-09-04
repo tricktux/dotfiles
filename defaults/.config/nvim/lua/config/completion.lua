@@ -1,7 +1,7 @@
 local utils = require('utils/utils')
 local log = require('utils/log')
 local augroups = require('config/augroups')
-local map = require('config/mapping')
+local map = require('utils/keymap')
 local api = vim.api
 
 local CompletionNvim = {}
