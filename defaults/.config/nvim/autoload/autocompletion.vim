@@ -1060,12 +1060,6 @@ function! s:set_completion_lua() abort
   Plug 'steelsojka/completion-buffers'
   Plug 'nvim-lua/diagnostic-nvim'
 
-  inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ completion#trigger_completion()
-  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-  "use <c-j> to switch to previous completion
   imap <c-j> <Plug>(completion_next_source)
   " imap <c-k> <Plug>(completion_prev_source)
 endfunction
