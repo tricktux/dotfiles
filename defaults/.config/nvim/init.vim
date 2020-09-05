@@ -81,7 +81,15 @@ function! s:find_vim_config_file(...) abort
 	let &runtimepath .= ',' . g:std_config_path . ',' . g:std_data_path . '/site'
 
 	" Configure
-	call init#vim()
+  " Sun Aug 30 2020 01:14: 
+  "  Load lua modules. Commencement of lua awesomeness
+  "  Lua plugin modules are not loaded until after plug#end(). See lua-require
+  "  All lua configs are called from 'config/init.lua' which is sourced below
+  if has('nvim-0.5')
+    lua require('config')
+  else
+    call init#vim()
+  endif
 endfunction
 
 function! s:set_stdpaths() abort
