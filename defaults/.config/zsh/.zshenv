@@ -79,8 +79,8 @@ fi
 # it will open files there. the original option looked like this:
 # export VISUAL="nvr -cc tabedit --remote-wait +'set bufhidden=wipe'"
 # However, that wipe will delete the buffer if you exit it. I dont like that.
-if [[ -n "$NVIM_LISTEN_ADDRESS" && -f "$HOME/.local/bin/nvr" ]]; then
-  export VISUAL="nvr -s $@"
+if [[ -n "$NVIM_LISTEN_ADDRESS" && -f "/usr/bin/nvr" ]]; then
+  export VISUAL="/usr/bin/nvr -s $@"
 else
   export VISUAL="nvim"
 fi
