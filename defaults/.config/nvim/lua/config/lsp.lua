@@ -30,15 +30,13 @@ end
 
 -- Abstract function that allows you to hook and set settings on a buffer that 
 -- has lsp server support
-local function on_lsp_attach(client_id)
+local function on_lsp_attach()
     if vim.b.did_on_lsp_attach == 1 then
         -- Setup already done in this buffer
         log.debug('on_lsp_attach already setup')
         return
     end
 
-    log.debug('Setting up on_lsp_attach')
-    log.debug('client_id = ', client_id)
     -- These 2 got annoying really quickly
     -- vim.cmd('autocmd CursorHold <buffer> lua vim.lsp.util.show_line_diagnostics()')
     -- vim.cmd("autocmd CursorHold <buffer> lua vim.lsp.buf.hover()")
@@ -48,6 +46,20 @@ local function on_lsp_attach(client_id)
     set_lsp_mappings()
     require('config/completion').diagn:on_attach()
     vim.b.did_on_lsp_attach = 1
+end
+
+local function on_clangd_attach(client_id)
+    if vim.b.did_on_lsp_attach == 1 then
+        -- Setup already done in this buffer
+        log.debug('on_lsp_attach already setup')
+        return
+    end
+
+    log.debug('Setting up on_clangd_attach')
+    log.debug('client_id = ', client_id)
+    local opts = {silent = true, buffer = true}
+    map.nnoremap('<localleader>A', [[<cmd>ClangdSwitchSourceHeader<cr>]], opts)
+    return on_lsp_attach()
 end
 
 -- TODO
@@ -81,7 +93,7 @@ local function lsp_set()
     if vim.fn.executable('clangd') > 0 then
         log.info("setting up the clangd lsp...")
         nvim_lsp.clangd.setup {
-            on_attach = on_lsp_attach,
+            on_attach = on_clangd_attach,
             cmd = {
                 "clangd", "--all-scopes-completion=true",
                 "--background-index=true", "--clang-tidy=true",
@@ -90,8 +102,7 @@ local function lsp_set()
                 "--header-insertion=iwyu", "-j=12",
                 "--header-insertion-decorators=false"
             },
-            filetypes = {"c", "cpp"},
-            root_dir = nvim_lsp.util.root_pattern(".git", ".svn")
+            filetypes = {"c", "cpp"}
         }
     end
 end
