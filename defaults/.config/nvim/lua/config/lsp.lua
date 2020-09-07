@@ -30,7 +30,7 @@ end
 
 -- Abstract function that allows you to hook and set settings on a buffer that 
 -- has lsp server support
-local function on_lsp_attach()
+local function on_lsp_attach(client_id)
     if vim.b.did_on_lsp_attach == 1 then
         -- Setup already done in this buffer
         log.debug('on_lsp_attach already setup')
@@ -38,11 +38,12 @@ local function on_lsp_attach()
     end
 
     log.debug('Setting up on_lsp_attach')
+    log.debug('client_id = ', client_id)
     -- These 2 got annoying really quickly
     -- vim.cmd('autocmd CursorHold <buffer> lua vim.lsp.util.show_line_diagnostics()')
     -- vim.cmd("autocmd CursorHold <buffer> lua vim.lsp.buf.hover()")
     if vim.fn.exists(':NeomakeDisableBuffer') == 2 then
-      vim.cmd('NeomakeDisableBuffer')
+        vim.cmd('NeomakeDisableBuffer')
     end
     set_lsp_mappings()
     require('config/completion').diagn:on_attach()
