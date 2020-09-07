@@ -1059,6 +1059,7 @@ function! s:set_completion_lua() abort
   Plug 'neovim/nvim-lspconfig'
   Plug 'steelsojka/completion-buffers'
   Plug 'nvim-lua/diagnostic-nvim'
+  Plug 'nvim-lua/lsp-status.nvim'
 
   " imap <c-j> <Plug>(completion_next_source)
   " " imap <c-k> <Plug>(completion_prev_source)

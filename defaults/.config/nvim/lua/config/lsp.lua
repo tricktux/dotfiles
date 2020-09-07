@@ -1,4 +1,4 @@
-local utils = require('utils/utils')
+local ut = require('utils/utils')
 local map = require('utils/keymap')
 local log = require('utils/log')
 
@@ -45,6 +45,7 @@ local function on_lsp_attach()
     end
     set_lsp_mappings()
     require('config/completion').diagn:on_attach()
+    require('lsp-status').on_attach()
     vim.b.did_on_lsp_attach = 1
 end
 
@@ -59,26 +60,36 @@ local function on_clangd_attach(client_id)
     log.debug('client_id = ', client_id)
     local opts = {silent = true, buffer = true}
     map.nnoremap('<localleader>a', [[<cmd>ClangdSwitchSourceHeader<cr>]], opts)
-    map.nnoremap('<localleader>A', [[<cmd>vs<cr><cmd>ClangdSwitchSourceHeader<cr>]], opts)
+    map.nnoremap('<localleader>A',
+                 [[<cmd>vs<cr><cmd>ClangdSwitchSourceHeader<cr>]], opts)
     return on_lsp_attach()
 end
 
 -- TODO
 -- Maybe set each server to its own function?
--- What about completion-nvim on_attach
 local function lsp_set()
-    if not utils.is_mod_available('nvim_lsp') then
+    if not ut.is_mod_available('nvim_lsp') then
         log.error("nvim_lsp was set, but module not found")
         return
     end
 
+    if not ut.is_mod_available('lsp-status') then
+        log.error("lsp-status was set, but module not found")
+        return
+    end
+
+    local lsp_status = require('lsp-status')
+    lsp_status.register_progress()
+    -- Notice not all configs have a `callbacks` setting
     local nvim_lsp = require('nvim_lsp')
+
     if vim.fn.executable('pyls') > 0 then
         log.info("setting up the pyls lsp...")
         nvim_lsp.pyls.setup {
             on_attach = on_lsp_attach,
             cmd = {"pyls"},
-            root_dir = nvim_lsp.util.root_pattern(".git", ".svn")
+            root_dir = nvim_lsp.util.root_pattern(".git", ".svn"),
+            capabilities = lsp_status.capabilities,
         }
     end
 
@@ -87,6 +98,7 @@ local function lsp_set()
         nvim_lsp.sumneko_lua.setup {
             on_attach = on_lsp_attach,
             cmd = {"lua-language-server"},
+            capabilities = lsp_status.capabilities,
             root_dir = nvim_lsp.util.root_pattern(".git", ".svn")
         }
     end
@@ -95,6 +107,8 @@ local function lsp_set()
         log.info("setting up the clangd lsp...")
         nvim_lsp.clangd.setup {
             on_attach = on_clangd_attach,
+            callbacks = lsp_status.extensions.clangd.setup(),
+            capabilities = lsp_status.capabilities,
             cmd = {
                 "clangd", "--all-scopes-completion=true",
                 "--background-index=true", "--clang-tidy=true",
