@@ -58,7 +58,8 @@ local function on_clangd_attach(client_id)
     log.debug('Setting up on_clangd_attach')
     log.debug('client_id = ', client_id)
     local opts = {silent = true, buffer = true}
-    map.nnoremap('<localleader>A', [[<cmd>ClangdSwitchSourceHeader<cr>]], opts)
+    map.nnoremap('<localleader>a', [[<cmd>ClangdSwitchSourceHeader<cr>]], opts)
+    map.nnoremap('<localleader>A', [[<cmd>vs<cr><cmd>ClangdSwitchSourceHeader<cr>]], opts)
     return on_lsp_attach()
 end
 
