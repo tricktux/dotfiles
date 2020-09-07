@@ -156,6 +156,12 @@ function! s:neomake_job_finished() abort
 endfunction
 
 function! s:neomake_native_status_line() abort
+  " Check if neomake is disabled
+  let disabled = get(b:, 'neomake', {})
+  if !empty(disabled) && get(disabled, 'disabled', 0)
+    return ''
+  end
+
 	return neomake#statusline#get(
 				\ exists('g:actual_curbuf') ? g:actual_curbuf : bufnr("%"),
 				\ {'format_running': (exists('g:valid_device') ? "\uf188" : '') .
