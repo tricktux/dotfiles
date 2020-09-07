@@ -12,12 +12,29 @@ local function dump(...)
     print(unpack(objects))
 end
 
-local function has_unix()
-    return package.config:sub(1,1) == [[/]]
+local function has_unix() return package.config:sub(1, 1) == [[/]] end
+
+local function has_win() return package.config:sub(1, 1) == [[\]] end
+
+local function exists(file)
+    vim.validate {file = {file, 's'}}
+    local ok, err, code = os.rename(file, file)
+    if not ok and code == 13 then
+        -- Permission denied, but it exists
+        return true, nil
+    end
+    return ok, err
 end
 
-local function has_win()
-    return package.config:sub(1,1) == [[\]]
+--- Check if a directory exists in this path
+local function isdir(path)
+    -- "/" works on both Unix and Windows
+    return exists(path .. "/")
+end
+
+local function isfile(path)
+    -- "/" works on both Unix and Windows
+    return exists(path)
 end
 
 local function table_removekey(table, key)
@@ -30,7 +47,7 @@ local function table_removekey(table, key)
     return element
 end
 
-function is_mod_available(name)
+local function is_mod_available(name)
     if package.loaded[name] then return true end
     for _, searcher in ipairs(package.searchers or package.loaders) do
         local loader = searcher(name)
@@ -48,4 +65,6 @@ return {
     table_removekey = table_removekey,
     has_unix = has_unix,
     has_win = has_win,
+    isfile = isfile,
+    isdir = isdir,
 }
