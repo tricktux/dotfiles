@@ -30,7 +30,7 @@ end
 
 -- Abstract function that allows you to hook and set settings on a buffer that 
 -- has lsp server support
-local function on_lsp_attach()
+local function on_lsp_attach(client_id)
     if vim.b.did_on_lsp_attach == 1 then
         -- Setup already done in this buffer
         log.debug('on_lsp_attach already setup')
@@ -40,12 +40,16 @@ local function on_lsp_attach()
     -- These 2 got annoying really quickly
     -- vim.cmd('autocmd CursorHold <buffer> lua vim.lsp.util.show_line_diagnostics()')
     -- vim.cmd("autocmd CursorHold <buffer> lua vim.lsp.buf.hover()")
+    -- Disable neomake
     if vim.fn.exists(':NeomakeDisableBuffer') == 2 then
         vim.cmd('NeomakeDisableBuffer')
     end
+    -- Disable tagbar
+    vim.b.tagbar_ignore = 1
+
     set_lsp_mappings()
     require('config/completion').diagn:on_attach()
-    require('lsp-status').on_attach()
+    require('lsp-status').on_attach(client_id)
     vim.b.did_on_lsp_attach = 1
 end
 
@@ -62,7 +66,7 @@ local function on_clangd_attach(client_id)
     map.nnoremap('<localleader>a', [[<cmd>ClangdSwitchSourceHeader<cr>]], opts)
     map.nnoremap('<localleader>A',
                  [[<cmd>vs<cr><cmd>ClangdSwitchSourceHeader<cr>]], opts)
-    return on_lsp_attach()
+    return on_lsp_attach(client_id)
 end
 
 -- TODO
@@ -89,7 +93,7 @@ local function lsp_set()
             on_attach = on_lsp_attach,
             cmd = {"pyls"},
             root_dir = nvim_lsp.util.root_pattern(".git", ".svn"),
-            capabilities = lsp_status.capabilities,
+            capabilities = lsp_status.capabilities
         }
     end
 

@@ -1061,6 +1061,18 @@ function! s:set_completion_lua() abort
   Plug 'nvim-lua/diagnostic-nvim'
   Plug 'nvim-lua/lsp-status.nvim'
 
+  if exists('g:lightline') && has('nvim-0.5')
+    let g:lightline.active.right[2] += [ 'lsp_status' ]
+    let g:lightline.component_function['lsp_status'] = 'autocompletion#lsp_status'
+  endif
   " imap <c-j> <Plug>(completion_next_source)
   " " imap <c-k> <Plug>(completion_prev_source)
+endfunction
+
+function! autocompletion#lsp_status() abort
+  if luaeval('#vim.lsp.buf_get_clients() > 0')
+    return luaeval("require('lsp-status').status()")
+  endif
+
+  return ''
 endfunction
