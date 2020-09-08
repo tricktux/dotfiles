@@ -1,4 +1,5 @@
 local log = require('utils/log')
+local luv = vim.loop
 
 -- List of useful vim helper functions
 -- >vim.tbl_*
@@ -15,6 +16,22 @@ end
 local function has_unix() return package.config:sub(1, 1) == [[/]] end
 
 local function has_win() return package.config:sub(1, 1) == [[\]] end
+
+local function isdir(path)
+  vim.validate {path = {path, 's'}}
+  local stat = luv.fs_stat(path)
+  if stat == nil then return nil end
+  if stat.type == "directory" then return true end
+  return nil
+end
+
+local function isfile(path)
+  vim.validate {path = {path, 's'}}
+  local stat = luv.fs_stat(path)
+  if stat == nil then return nil end
+  if stat.type == "file" then return true end
+  return nil
+end
 
 local function table_removekey(table, key)
     vim.validate {table = {table, 't'}}
@@ -44,4 +61,6 @@ return {
     table_removekey = table_removekey,
     has_unix = has_unix,
     has_win = has_win,
+    isdir = isdir,
+    isfile = isfile,
 }
