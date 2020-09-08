@@ -5,11 +5,16 @@ local map = require('utils/keymap')
 
 local function find_dir(dirs)
     vim.validate {dirs = {dirs, 't'}}
-    for _, wiki in pairs(dirs) do
-        local ok, err = utl.isdir(wiki)
-        if ok then return vim.fn.expand(wiki) end
+    for _, dir in pairs(dirs) do
+        local edir = vim.fn.expand(dir)
+        log.trace("Potential dir: ", edir)
+        if vim.fn.isdirectory(edir) == 1 then
+            log.trace("Found dir: ", edir)
+            return edir
+        end
     end
 
+    log.warn("No dir found")
     return nil
 end
 

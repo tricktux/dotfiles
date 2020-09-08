@@ -16,27 +16,6 @@ local function has_unix() return package.config:sub(1, 1) == [[/]] end
 
 local function has_win() return package.config:sub(1, 1) == [[\]] end
 
-local function exists(file)
-    vim.validate {file = {file, 's'}}
-    local ok, err, code = os.rename(file, file)
-    if not ok and code == 13 then
-        -- Permission denied, but it exists
-        return true, nil
-    end
-    return ok, err
-end
-
---- Check if a directory exists in this path
-local function isdir(path)
-    -- "/" works on both Unix and Windows
-    return exists(path .. "/")
-end
-
-local function isfile(path)
-    -- "/" works on both Unix and Windows
-    return exists(path)
-end
-
 local function table_removekey(table, key)
     vim.validate {table = {table, 't'}}
     vim.validate {key = {key, 's'}}
@@ -65,6 +44,4 @@ return {
     table_removekey = table_removekey,
     has_unix = has_unix,
     has_win = has_win,
-    isfile = isfile,
-    isdir = isdir,
 }
