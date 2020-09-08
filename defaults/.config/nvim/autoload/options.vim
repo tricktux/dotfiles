@@ -228,7 +228,7 @@ function! options#Set() abort
     set statusline+=\ %y\                             " FileType
     set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''} " Encoding
     " ,BOM\ " :\ " \ " )}\ " Encoding2
-    set statusline+=\ %{(&bomb?\
+    " set statusline+=\ %{(&bomb?\
     set statusline+=\ %{&ff}\                         " FileFormat (dos/unix..)
     set statusline+=\ %=\ row:%l/%L\ (%03p%%)\        " Rownumber/total (%)
     set statusline+=\ col:%03c\                       " Colnr
