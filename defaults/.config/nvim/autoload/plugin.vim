@@ -554,6 +554,7 @@ function! plugin#Config()
   " All of your Plugins must be added before the following line
   call plug#end()            " required
 
+  let g:loaded_plugins = 1
   return 1
 endfunction
 

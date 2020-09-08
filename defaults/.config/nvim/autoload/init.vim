@@ -25,10 +25,8 @@ function! init#vim() abort
 	if has('unix') | call s:config_unix() | else | call s:config_win() | endif
 
 	" PLUGINS_INIT
-	if plugin#Config()
-		let g:loaded_plugins = 1
-	else
-		echomsg 'No plugins were loaded'
+	if plugin#Config() != 1
+		echoerr 'No plugins were loaded'
 	endif
 
 	" Create required folders for storing usage data

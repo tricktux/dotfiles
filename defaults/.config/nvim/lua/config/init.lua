@@ -2,15 +2,23 @@ local cpl = require('config/completion')
 local log = require('utils/log')
 local utl = require('utils/utils')
 local map = require('utils/keymap')
+local luv = vim.loop
+
+local wikis = {
+    luv.os_homedir() .. '/Documents/wiki',
+    luv.os_homedir() .. '/External/reinaldo/resilio/wiki',
+    '/mnt/samba/server/resilio/wiki'
+}
+
+local data_folders = {'/sessions', '/ctags', '/backup', '/swap', '/undofiles'}
 
 local function find_dir(dirs)
     vim.validate {dirs = {dirs, 't'}}
     for _, dir in pairs(dirs) do
-        local edir = vim.fn.expand(dir)
-        log.trace("Potential dir: ", edir)
-        if vim.fn.isdirectory(edir) == 1 then
-            log.trace("Found dir: ", edir)
-            return edir
+        log.trace("Potential dir: ", dir)
+        if utl.isdir(dir) then
+            log.trace("Found dir: ", dir)
+            return dir
         end
     end
 
@@ -21,10 +29,6 @@ end
 local function config_win() end
 
 local function config_unix()
-    local wikis = {
-        '~/Documents/wiki', '~/External/reinaldo/resilio/wiki',
-        '/mnt/samba/server/resilio/wiki'
-    }
     local wiki = find_dir(wikis)
     log.info("wiki = ", wiki)
     if wiki ~= nil then vim.g.wiki_path = wiki end
@@ -36,7 +40,7 @@ local function _init()
     -- Needs to be defined before the first <Leader>/<LocalLeader> is used
     -- otherwise it goes to "\"
     vim.g.mapleader = [[\<Space>]]
-    vim.g.mapleaderlocal = 'g'
+    vim.g.maplocalleader = 'g'
 
     -- Mon Oct 30 2017 15:24: Patched fonts depend on this option. It also needs
     -- to be here. Otherwise Alt mappings stop working
@@ -49,7 +53,19 @@ local function _init()
     end
 
     -- For now still call init.vim
-    vim.fn['init#vim']()
+    if vim.fn['plugin#Config']() ~= 1 then
+        log.error('No plugins were loaded')
+    end
+
+    -- Create needed directories if they don't exist already
+    for _, folder in pairs(data_folders) do
+        luv.fs_mkdir(vim.g.std_data_path .. folder, 777)
+    end
+
+    vim.fn['mappings#Set']()
+    vim.fn['options#Set']()
+    vim.fn['augroup#Set']()
+    vim.fn['commands#Set']()
     map:set()
     cpl.compl:set()
     cpl.diagn:set()
