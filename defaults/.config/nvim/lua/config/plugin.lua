@@ -15,9 +15,12 @@ local function setup_treesitter()
 
     require'nvim-treesitter.configs'.setup {
         -- This line will install all of them
-        ensure_installed = "all", -- one of "all", "language", or a list of languages
+        -- one of "all", "language", or a list of languages
+        ensure_installed = {
+            "c", "cpp", "python", "lua", "java", "bash", "c_sharp", "markdown"
+        },
         highlight = {
-            enable = true, -- false will disable the whole extension
+            enable = true -- false will disable the whole extension
         }
         -- disable = {"c", "rust"} -- list of language that will be disabled
     }
