@@ -1,4 +1,5 @@
 local lsp = require('config/lsp')
+local plg = require('config/plugin')
 local cpl = require('config/completion')
 local log = require('utils/log')
 local utl = require('utils/utils')
@@ -69,6 +70,7 @@ local function after_init()
     cpl.compl:set()
     cpl.diagn:set()
     lsp.set()
+    plg.setup()
 end
 
-return { init = _init, after_vim_enter = after_init, }
+return {init = _init, after_vim_enter = after_init}
