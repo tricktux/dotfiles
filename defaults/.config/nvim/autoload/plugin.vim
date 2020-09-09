@@ -34,8 +34,10 @@ function! plugin#Config()
     call plug#begin(g:vim_plugins_path)
   endif
 
-  " This call must remain atop since sets the g:lightline variable to which other
-  " plugins add to
+  " Lightline should be one of the very first ones so that plugins can later on 
+  " add to it
+  " This call must remain atop since sets the g:lightline variable to which 
+  " other plugins add to
   " selection - {lightline, airline}
   call status_line#config('lightline')
 
@@ -94,8 +96,6 @@ function! plugin#Config()
 
   call s:configure_async_plugins()
 
-  " Lightline should be one of the very first ones so that plugins can later on add to
-  " it
   if executable('mutt')
     Plug 'guanqun/vim-mutt-aliases-plugin'
   endif
