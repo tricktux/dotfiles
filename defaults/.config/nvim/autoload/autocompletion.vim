@@ -772,9 +772,11 @@ function! s:set_shuogo_sources() abort
     Plug 'ncm2/float-preview.nvim'
   endif
   Plug 'zchee/deoplete-zsh', { 'for' : 'zsh' }
-  Plug 'Shougo/deoplete-lsp'
-  Plug 'neovim/nvim-lspconfig'
-  let g:nvim_lsp_support = 1
+  if has('nvim-0.5')
+    Plug 'Shougo/deoplete-lsp'
+    Plug 'neovim/nvim-lspconfig'
+    let g:nvim_lsp_support = 1
+  endif
   " if has('win32')
     " Plug 'deoplete-plugins/deoplete-jedi', { 'for' : 'python' }
     " Plug 'Shougo/deoplete-clangx'
