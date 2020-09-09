@@ -37,15 +37,6 @@ local function config_unix()
 end
 
 local function _init()
-    -- Needs to be defined before the first <Leader>/<LocalLeader> is used
-    -- otherwise it goes to "\"
-    vim.g.mapleader = [[\<Space>]]
-    vim.g.maplocalleader = 'g'
-
-    -- Mon Oct 30 2017 15:24: Patched fonts depend on this option. It also needs
-    -- to be here. Otherwise Alt mappings stop working
-    vim.o.encoding = 'utf-8'
-
     if utl.has_unix() then
         config_unix()
     else
