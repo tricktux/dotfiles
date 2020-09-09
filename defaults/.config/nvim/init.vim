@@ -94,7 +94,7 @@ function! s:find_vim_config_file(...) abort
   "  Lua plugin modules are not loaded until after plug#end(). See lua-require
   "  All lua configs are called from 'config/init.lua' which is sourced below
   if has('nvim-0.5')
-    lua require('config')
+    lua require('config').init()
   else
     call init#vim()
   endif

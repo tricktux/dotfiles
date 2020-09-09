@@ -1,3 +1,4 @@
+local lsp = require('config/lsp')
 local cpl = require('config/completion')
 local log = require('utils/log')
 local utl = require('utils/utils')
@@ -37,6 +38,7 @@ local function config_unix()
 end
 
 local function _init()
+    log.info('--- Start Neovim Run ---')
     if utl.has_unix() then
         config_unix()
     else
@@ -57,13 +59,16 @@ local function _init()
     vim.fn['options#Set']()
     vim.fn['augroup#Set']()
     vim.fn['commands#Set']()
+end
+
+-- This function is called during the VimEnter event. From the 
+-- plugin#AfterConfig function. This is done to ensure that variables and lua 
+-- modules have been loaded for sure
+local function after_init()
     map:set()
     cpl.compl:set()
     cpl.diagn:set()
-
-    -- Lsp is set from plugin#AfterConfig
-    -- lsp.set()
+    lsp.set()
 end
 
-log.info('--- Start Neovim Run ---')
-_init()
+return { init = _init, after_vim_enter = after_init, }

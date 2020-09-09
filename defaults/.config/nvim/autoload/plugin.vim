@@ -41,6 +41,12 @@ function! plugin#Config()
   " selection - {lightline, airline}
   call status_line#config('lightline')
 
+  " These plugins will be configured via lua
+  if has('nvim-0.5')
+    Plug 'nvim-treesitter/nvim-treesitter'
+  endif
+  " ----------------------------------------
+
   Plug 'rhysd/git-messenger.vim', { 'on' : 'GitMessenger' }
   let g:git_messenger_always_into_popup = v:true
 
@@ -717,7 +723,7 @@ function! plugin#AfterConfig() abort
   endif
 
   if has('nvim-0.5')
-    lua require('config/lsp').set()
+    lua require('config').after_vim_enter()
   endif
 endfunction
 
