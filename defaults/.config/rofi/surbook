@@ -9,7 +9,7 @@
 ! Note: Rofi size in screen is set by its font size. Which in turn is `xrdb -merge` in
 ! the .xinitrc file depending on the hostname
 
-rofi.font:              monospace 28
+rofi.font:              monospace 40
 rofi.modi: window,run,drun
 rofi.show-icons: true
 rofi.theme: /usr/share/rofi/themes/Adapta-Nokto.rasi
