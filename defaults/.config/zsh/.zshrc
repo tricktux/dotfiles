@@ -1,3 +1,133 @@
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+# Start configuration added by Zim install {{{
+#
+# User configuration sourced by interactive shells
+#
+
+# -----------------
+# Zsh configuration
+# -----------------
+
+#
+# History
+#
+
+# Remove older command from the history if a duplicate is to be added.
+setopt HIST_IGNORE_ALL_DUPS
+
+#
+# Input/output
+#
+
+# Set editor default keymap to emacs (`-e`) or vi (`-v`)
+bindkey -e
+
+# Prompt for spelling correction of commands.
+#setopt CORRECT
+
+# Customize spelling correction prompt.
+#SPROMPT='zsh: correct %F{red}%R%f to %F{green}%r%f [nyae]? '
+
+# Remove path separator from WORDCHARS.
+WORDCHARS=${WORDCHARS//[\/]}
+
+
+# --------------------
+# Module configuration
+# --------------------
+
+#
+# completion
+#
+
+# Set a custom path for the completion dump file.
+# If none is provided, the default ${ZDOTDIR:-${HOME}}/.zcompdump is used.
+zstyle ':zim:completion' dumpfile "${XDG_CACHE_HOME}/zcompdump-${ZSH_VERSION}"
+
+#
+# git
+#
+
+# Set a custom prefix for the generated aliases. The default prefix is 'G'.
+zstyle ':zim:git' aliases-prefix 'g'
+
+#
+# input
+#
+
+# Append `../` to your input for each `.` you type after an initial `..`
+# zstyle ':zim:input' double-dot-expand yes
+
+#
+# termtitle
+#
+
+# Set a custom terminal title format using prompt expansion escape sequences.
+# See http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html#Simple-Prompt-Escapes
+# If none is provided, the default '%n@%m: %~' is used.
+# zstyle ':zim:termtitle' format '%1~'
+
+#
+# zsh-autosuggestions
+#
+
+# Customize the style that the suggestions are shown with.
+# See https://github.com/zsh-users/zsh-autosuggestions/blob/master/README.md#suggestion-highlight-style
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
+ZSH_AUTOSUGGEST_STRATEGY=(history completion match_prev_cmd)
+
+#
+# zsh-syntax-highlighting
+#
+
+# Set what highlighters will be used.
+# See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor root line)
+
+# Customize the main highlighter styles.
+# See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters/main.md#how-to-tweak-it
+typeset -A ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[comment]='fg=10'
+
+# ------------------
+# Initialize modules
+# ------------------
+
+if [[ ${ZIM_HOME}/init.zsh -ot ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
+  # Update static initialization script if it's outdated, before sourcing it
+  source ${ZIM_HOME}/zimfw.zsh init -q
+fi
+source ${ZIM_HOME}/init.zsh
+
+# ------------------------------
+# Post-init module configuration
+# ------------------------------
+
+bindkey '^ ' autosuggest-accept
+
+#
+# zsh-history-substring-search
+#
+
+# Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+# Bind up and down keys
+zmodload -F zsh/terminfo +p:terminfo
+if [[ -n ${terminfo[kcuu1]} && -n ${terminfo[kcud1]} ]]; then
+  bindkey ${terminfo[kcuu1]} history-substring-search-up
+  bindkey ${terminfo[kcud1]} history-substring-search-down
+fi
+
+bindkey '^P' history-substring-search-up
+bindkey '^N' history-substring-search-down
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+# }}} End configuration added by Zim install
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block, everything else may go below.
@@ -5,10 +135,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+#{{{compinstall
 # The following lines were added by compinstall
-
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
 
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
 zstyle ':completion:*' max-errors 2
@@ -27,6 +155,9 @@ zstyle ':completion:*:kill:*'   force-list always
 zstyle ':completion:*:*:killall:*' menu yes select
 zstyle ':completion:*:killall:*' force-list always
 
+#}}}
+
+# My Options{{{
 # Prevent double entries in $PATH
 typeset -U path
 
@@ -62,119 +193,36 @@ setopt COMPLETE_ALIASES
 # Module for async
 zmodload zsh/zpty
 
-# vi mode
-bindkey -v
+# }}}
+
+# Source plugins{{{
+# Depends on `pkgfile`
+if [[ -f /usr/bin/pkgfile ]]; then
+  source /usr/share/doc/pkgfile/command-not-found.zsh
+fi
+
+# Depends on `zsh-syntax-highlighting`
+HIGHLIGHT=/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [[ -f $HIGHLIGHT ]]; then
+  source $HIGHLIGHT
+fi
+
+SUGG=/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+if [[ -f $SUGG ]]; then
+  source $SUGG
+fi
+# }}}
+
+# Exports {{{
+export IGNORE_FILE="--ignore-file $HOME/.config/ignore-file"
+
 # reduce timeout
 export KEYTIMEOUT=1
 
-# Depends on `pkgfile`
-if [[ -f /usr/bin/pkgfile ]]; then
-	source /usr/share/doc/pkgfile/command-not-found.zsh
-fi
-
-# Needs to be defined before initializing
-# ZSH_THEME="bubblified"
-
-# zplug
-ZPLUG_INIT=/usr/share/zsh/scripts/zplug/init.zsh
-if [[ -f $ZPLUG_INIT ]]; then
-	source $ZPLUG_INIT
-
-	zplug "zsh-users/zsh-syntax-highlighting", defer:2
-
-	# Load theme file
-  # zplug 'dracula/zsh', as:theme
-
-	zplug 'zsh-users/zsh-autosuggestions'
-else
-	# Syntax highlight
-	HIGHLIGHT=/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-	if [[ -f $HIGHLIGHT ]]; then
-		source $HIGHLIGHT
-	fi
-fi
-
 export _Z_DATA="$HOME/.local/share/z"
 
-# Path to your oh-my-zsh installation.
-ZSH=/usr/share/oh-my-zsh/
-if [[ -f $ZSH/oh-my-zsh.sh ]]; then
-	source $ZSH/oh-my-zsh.sh
-
-	if [[ -f $ZPLUG_INIT ]]; then
-		zplug "plugins/git",   from:oh-my-zsh
-		zplug "plugins/docker",   from:oh-my-zsh
-		zplug "plugins/dotenv",   from:oh-my-zsh
-		zplug "plugins/sudo",   from:oh-my-zsh
-		zplug "plugins/history-substring-search",   from:oh-my-zsh
-		zplug "plugins/z",   from:oh-my-zsh
-		# TODO update prompt
-		zplug "plugins/nice-exit-code",   from:oh-my-zsh
-		zplug "plugins/oh-my-git",   from:oh-my-zsh
-    zplug "romkatv/powerlevel10k", use:powerlevel10k.zsh-theme
-    zplug "plugins/command-not-found",   from:oh-my-zsh
-		# Breaks fzf mappings
-		# zplug "plugins/vi-mode",   from:oh-my-zsh
-	else
-		plugins=(
-			nice-exit-code
-			oh-my-git
-			git
-			docker
-			dotenv
-			history-substring-search
-			sudo # ESC twice to insert sudo
-			command-not-found # Doesnt work with pacman :(
-		)
-	fi
-	# Key bindings for the history substring search
-	bindkey '' history-substring-search-up
-	bindkey '' history-substring-search-down
-	# <c-space> accept sugguestion
-	bindkey '^ ' autosuggest-accept
-
-	ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
-	if [[ ! -d $ZSH_CACHE_DIR ]]; then
-		mkdir $ZSH_CACHE_DIR
-	fi
-fi
-
-# if [[ "$TERM" != "linux" && `uname -o` != "Android" && -f $ZSH/oh-my-zsh.sh ]]; then
-
-	# # Theme
-	# if [[ -f $ZPLUG_INIT ]]; then
-		# setopt prompt_subst # Make sure prompt is able to be generated properly.
-		 # # defer until other plugins like oh-my-zsh is loaded
-		# zplug "caiogondim/bullet-train.zsh", use:bullet-train.zsh-theme, defer:3
-	# else
-		# ZSH_THEME="bullet-train"
-	# fi
-
-	# BULLETTRAIN_PROMPT_ORDER=(
-		# # time
-		# status
-		# custom
-		# context
-		# dir
-		# screen
-		# perl
-		# ruby
-		# virtualenv
-		# # nvm
-		# aws
-		# go
-		# rust
-		# elixir
-		# git
-		# hg
-		# cmd_exec_time
-	  # )
-	# BULLETTRAIN_TIME_12HR=true
-	# BULLETTRAIN_CONTEXT_DEFAULT_USER="reinaldo"
-	# # BULLETTRAIN_IS_SSH_CLIENT=true
-# else
-# prompt walters
-# fi
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+# }}}
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 DISABLE_AUTO_UPDATE="false"
@@ -193,64 +241,51 @@ COMPLETION_WAITING_DOTS="true"
 # much, much faster.
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-[[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
-
-export IGNORE_FILE="--ignore-file $HOME/.config/ignore-file"
-
-# fzf setup
-if [[ -f /usr/bin/fzf ]]; then
-	source /usr/share/fzf/key-bindings.zsh
-
-	# Depends on `install fd`
-	if [[ -f /usr/bin/fd ]]; then
-		export FZF_ALT_C_COMMAND="fd --type directory --hidden --no-ignore-vcs $IGNORE_FILE . /home/reinaldo"
-		export FZF_DEFAULT_COMMAND="fd --type file --hidden --follow $IGNORE_FILE 2> /dev/null"
-		export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-		export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
-		# Taken from: https://github.com/junegunn/fzf/wiki/Color-schemes
-		# Looks really weird with the dark color scheme
-		export FZF_DEFAULT_OPTS="--layout=reverse --info=inline"
-			# --color fg:240,bg:230,hl:33,fg+:241,bg+:221,hl+:33
-			# --color info:33,prompt:33,pointer:166,marker:166,spinner:33
-	fi
-
-	# TODO-[RM]-(Wed Oct 25 2017 10:10): Download it
-	# https://github.com/urbainvaes/fzf-marks
-fi
+# Source files{{{
+[[ -f ~/.bash_aliases ]] && source ~/.bash_aliases
 
 # context for resume making
 # install context-minimals-git
 # mtxrun --generate
 [[ -f /opt/context-minimals/setuptex ]] && source /opt/context-minimals/setuptex
 
-# init zplug
-if [[ -f $ZPLUG_INIT ]]; then
-	# Install plugins if there are plugins that have not been installed
-	if ! zplug check --verbose; then
-		printf "Install? [y/N]: "
-		if read -q; then
-			echo; zplug install
-		fi
-	fi
-
-	# Then, source plugins and add commands to $PATH
-	# For errors use --verbose
-	zplug load
-fi
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+# }}}
 
+# fzf setup{{{
+if [[ -f /usr/bin/fzf ]]; then
+  source /usr/share/fzf/key-bindings.zsh
+
+  # Depends on `install fd`
+  if [[ -f /usr/bin/fd ]]; then
+    export FZF_ALT_C_COMMAND="fd --type directory --hidden --no-ignore-vcs $IGNORE_FILE . /home/reinaldo"
+    export FZF_DEFAULT_COMMAND="fd --type file --hidden --follow $IGNORE_FILE 2> /dev/null"
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
+    # Taken from: https://github.com/junegunn/fzf/wiki/Color-schemes
+    # Looks really weird with the dark color scheme
+    export FZF_DEFAULT_OPTS="--layout=reverse --info=inline"
+    # --color fg:240,bg:230,hl:33,fg+:241,bg+:221,hl+:33
+    # --color info:33,prompt:33,pointer:166,marker:166,spinner:33
+  fi
+
+  # TODO-[RM]-(Wed Oct 25 2017 10:10): Download it
+  # https://github.com/urbainvaes/fzf-marks
+fi
+# }}}
+
+# ssh agent {{{
 # Start ssh-agent to cache ssh keys passphrases. Or use an existing one
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-    ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
+  ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
 fi
 if [[ ! "$SSH_AUTH_SOCK" ]]; then
-    eval "$(<"$XDG_RUNTIME_DIR/ssh-agent.env")" > /dev/null || echo "Failed to start ssh-agent"
+  eval "$(<"$XDG_RUNTIME_DIR/ssh-agent.env")" > /dev/null || echo "Failed to start ssh-agent"
 fi
+# }}}
 
+# tmux on ssh{{{
 # Run tmux automatically on ssh
 if [[ "$TMUX" == "" ]] &&
         [[ "$SSH_CONNECTION" != "" ]]; then
@@ -261,3 +296,6 @@ if [[ "$TMUX" == "" ]] &&
 			tmux -2 new-session -s $WHOAMI
     fi
 fi
+# }}}
+
+# vim: fdm=marker

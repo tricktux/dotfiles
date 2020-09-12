@@ -32,3 +32,8 @@ defaults/.config/systemd/user/timers.target.wants/wallpaper.timer
 __pycache__
 default.target.wants
 neomutt/mailboxes
+defaults/.config/systemd/user/user-applications.target
+defaults/.config/systemd/user/user-applications.target.wants/
+defaults/.config/zsh/.zim/
+defaults/.config/zsh/*.zwc*
+defaults/.config/zsh/.zcompcache/
