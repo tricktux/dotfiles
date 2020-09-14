@@ -6,9 +6,11 @@ local utl = require('utils/utils')
 local map = require('utils/keymap')
 local luv = vim.loop
 
+local home_dir = luv.os_homedir()
+
 local wikis = {
-    luv.os_homedir() .. '/Documents/wiki',
-    luv.os_homedir() .. '/External/reinaldo/resilio/wiki',
+    home_dir .. '/Documents/wiki',
+    home_dir .. '/External/reinaldo/resilio/wiki',
     '/mnt/samba/server/resilio/wiki'
 }
 
