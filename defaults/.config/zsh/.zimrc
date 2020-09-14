@@ -40,3 +40,4 @@ zmodule zsh-users/zsh-history-substring-search
 zmodule romkatv/powerlevel10k
 zmodule rupa/z
 zmodule djui/alias-tips 
+zmodule archive
