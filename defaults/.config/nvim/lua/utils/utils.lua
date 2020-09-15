@@ -25,6 +25,23 @@ local function isdir(path)
   return nil
 end
 
+local function file_fuzzer(path)
+    vim.validate{path = {path, 's'}}
+    
+    if isdir(path) == nil then
+        log.error("Path provided is not valid: ", path)
+        return
+    end
+
+    log.trace('file_fuzzer: path = ', path)
+    if vim.fn.exists(':FZF') > 0 then
+        vim.cmd('Files ' .. path)
+        return
+    end
+    
+    log.error("No file fuzzer configured, FZF not found")
+end
+
 local function isfile(path)
   vim.validate {path = {path, 's'}}
   local stat = luv.fs_stat(path)
@@ -63,4 +80,5 @@ return {
     has_win = has_win,
     isdir = isdir,
     isfile = isfile,
+    file_fuzzer = file_fuzzer,
 }
