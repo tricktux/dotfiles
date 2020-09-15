@@ -30,7 +30,6 @@ SysGet, mon_3, Monitor, 3
 ; Awesomeness!
 ; Swap CapsLock and LCtrl
 ; Next level Awesomeness if possible:
-LCtrl::CapsLock
 Esc::CapsLock
 *CapsLock::
     cDown := A_TickCount
