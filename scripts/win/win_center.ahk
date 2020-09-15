@@ -43,7 +43,6 @@ Return
         Send {Blind}{Ctrl Up}
 Return
 
-
 #+Up::CenterActiveWindowUp() ; if win+shift+↑ is pressed
 #+Down::CenterActiveWindowDown() ; if win+shift+↑ is pressed
 
@@ -70,32 +69,6 @@ GetClass()
     MsgBox, The active window's class is "%class%".
 }
 
-
-; Process, Exist, Opera.exe ; check to see if Opera.exe is running
-; {
-    ; If ! errorLevel
-    ; {
-        ; ;Since Opera is not running open it
-            ; Run, "C:\Program Files\Opera x64\Opera.exe"
-            ; WinWait, ahk_class OperaWindowClass ;wait until Opera is running
-            ; winHide, ahk_class OperaWindowClass  ;then hide it
-            ; Return
-    ; }
-    ; else
-    ; {
-        ; ;if Opera is running and visible then hide it
-            ; IfWinExist, ahk_class OperaWindowClass
-            ; {
-                ; winHide
-            ; }
-        ; ;else if Opera is running and hidden, unhide it
-            ; else {
-                ; winShow, ahk_class OperaWindowClass
-            ; }
-            ; Return
-    ; }
-; }
-
 ToggleWinClass(TheWindowClass)
 {
     SetTitleMatchMode,2
@@ -109,7 +82,7 @@ ToggleWinClass(TheWindowClass)
         IfWinExist, ahk_class %TheWindowClass%
         {
             WinGet, winid, ID, ahk_class %TheWindowClass%
-            DllCall("SwitchToThisWindow", "UInt", winid, "UInt", 1)
+            DllCall("SwitchToThisWindow", UInt, winid, UInt, 1)
         }
     }
     Return
@@ -128,7 +101,7 @@ ToggleWinMinimize(TheWindowTitle)
         IfWinExist, %TheWindowTitle%
         {
             WinGet, winid, ID, %TheWindowTitle%
-            DllCall("SwitchToThisWindow", "UInt", winid, "UInt", 1)
+            DllCall("SwitchToThisWindow", UInt, winid, UInt, 1)
         }
     }
     Return
