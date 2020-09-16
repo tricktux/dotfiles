@@ -25,29 +25,47 @@ local function isdir(path)
   return nil
 end
 
+local function isfile(path)
+    vim.validate {path = {path, 's'}}
+    local stat = luv.fs_stat(path)
+    if stat == nil then return nil end
+    if stat.type == "file" then return true end
+    return nil
+end
+
 local function file_fuzzer(path)
     vim.validate{path = {path, 's'}}
     
-    if isdir(path) == nil then
+    local epath = vim.fn.expand(path)
+    if isdir(epath) == nil then
         log.error("Path provided is not valid: ", path)
         return
     end
 
-    log.trace('file_fuzzer: path = ', path)
+    log.trace('file_fuzzer: path = ', epath)
     if vim.fn.exists(':FZF') > 0 then
-        vim.cmd('Files ' .. path)
+        vim.cmd('Files ' .. epath)
         return
     end
     
-    log.error("No file fuzzer configured, FZF not found")
-end
-
-local function isfile(path)
-  vim.validate {path = {path, 's'}}
-  local stat = luv.fs_stat(path)
-  if stat == nil then return nil end
-  if stat.type == "file" then return true end
-  return nil
+    -- Raw handling of file selection
+    -- Save cwd
+    local dir = vim.fn.getcwd()
+    -- CD to new location
+    vim.cmd("lcd " .. epath)
+    -- Select file
+    local file = vim.fn.input('e ' .. epath, '', 'file')
+    -- Sanitize file
+    if file == nil then
+        return
+    end
+    if isfile(file) == nil then
+        vim.cmd([[echoerr "Selected file does not exists" ]] .. file)
+        vim.cmd("lcd " .. dir)
+        return
+    end
+    vim.cmd("e " .. file)
+    vim.cmd("lcd " .. dir)
 end
 
 local function table_removekey(table, key)
