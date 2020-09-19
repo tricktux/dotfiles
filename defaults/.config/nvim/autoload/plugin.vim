@@ -44,6 +44,7 @@ function! plugin#Config()
   " These plugins will be configured via lua
   if has('nvim-0.5')
     Plug 'nvim-treesitter/nvim-treesitter'
+    Plug 'mhartington/formatter.nvim'
   endif
   " ----------------------------------------
 
@@ -224,7 +225,9 @@ function! plugin#Config()
   " let g:delimitMate_jump_expansion = 1
   " imap <expr> <CR> <Plug>delimitMateCR
 
-  call s:configure_neoformat()
+  if !has('nvim-0.5')
+    call s:configure_neoformat()
+  endif
 
   " cpp
   if get(g:, 'tagbar_safe_to_use', 1)

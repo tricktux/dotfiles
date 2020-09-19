@@ -113,8 +113,7 @@ local function _after_init()
     cpl.compl:set()
     cpl.diagn:set()
     lsp.set()
-    -- Treesitter really far from ready
-    -- plg.setup()
+    plg.setup()
 end
 
 return {init = _init, after_vim_enter = _after_init}
