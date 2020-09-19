@@ -83,7 +83,6 @@ local function setup_formatter()
     }
   end
   if vim.fn.executable('cmake-format') > 0 then
-    -- -mn = minify the code to reduce its size (implies -s)
     formatters['cmake'] = {
       cmake_format = function()
         return {exe = "cmake-format", args = {}, stdin = true}
@@ -92,21 +91,18 @@ local function setup_formatter()
   end
   local isort = nil
   if vim.fn.executable('isort') > 0 then
-    -- -mn = minify the code to reduce its size (implies -s)
     isort = function()
       return {exe = "isort", args = {"-", "--quiet"}, stdin = true}
     end
   end
   local docformatter = nil
   if vim.fn.executable('docformatter') > 0 then
-    -- -mn = minify the code to reduce its size (implies -s)
     docformatter = function()
       return {exe = "docformatter", args = {"-"}, stdin = true}
     end
   end
   local yapf = nil
   if vim.fn.executable('yapf') > 0 then
-    -- -mn = minify the code to reduce its size (implies -s)
     yapf = function() return {exe = "yapf", args = {}, stdin = true} end
   end
   formatters['python'] = {
