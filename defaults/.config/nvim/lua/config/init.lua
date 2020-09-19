@@ -28,6 +28,11 @@ local work_repos = {
 }
 
 local function _work_mappings(work_dir)
+    if not utl.isdir(work_dir) then
+        log.info("Work directory does not exist, must be home pc: ", work_dir)
+        return
+    end
+    log.info("Work directory: ", work_dir)
     local map_pref = '<leader>ew'
     local cmd_pref = '<cmd>lua require("utils.utils").file_fuzzer([['
     local cmd_suff = ']])<cr>'
@@ -50,20 +55,18 @@ local function _find_dir(dirs)
         end
     end
 
-    log.warn("No dir found")
+    log.trace("No dir found")
     return nil
 end
 
 local function _config_win()
-    local wiki = _find_dir(wikis)
+    local wiki = _find_dir(wikis_win)
     log.info("wiki = ", wiki)
     if wiki ~= nil then vim.g.wiki_path = wiki end
 
     vim.g.browser_cmd = 'firefox.exe'
 
-    if utl.isdir(wdev_path) then
-        _work_mappings(wdev_path)
-    end
+    _work_mappings(wdev_path)
 end
 
 local function _config_unix()
