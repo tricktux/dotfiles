@@ -43,7 +43,7 @@ i3ipc.window_position = {
 
 function i3ipc:hide()
     local cmd = self.cmd .. ' ' .. 'scratchpad show'
-    print(cmd)
+    -- print(cmd)
     os.execute(cmd)
 end
 
@@ -51,7 +51,7 @@ function i3ipc:show()
     local pos = self.window_position[arg[1]]
     if pos == nil then pos = 'move position center' end
     local cmd = self.cmd .. ' ' .. self.args .. ', ' .. pos
-    print(cmd)
+    -- print(cmd)
     os.execute(cmd)
 end
 
@@ -72,7 +72,7 @@ Usage:
 ]]
 
 function xdotool:wait_for_window_visible(app)
-    print('Waiting for ' .. app .. '...')
+    -- print('Waiting for ' .. app .. '...')
     while self:window_exists(app) == '' do os.execute('sleep 0.01') end
     os.execute('sleep 0.1')
 end
@@ -106,7 +106,7 @@ function xdotool:window_visible(app)
 end
 
 function xdotool:eval()
-    print('Executing "' .. self.cmd .. '"')
+    -- print('Executing "' .. self.cmd .. '"')
     os.execute(self.cmd)
     -- local file = assert(io.popen(self.cmd))
     -- local output = file:read('*all')
@@ -146,7 +146,7 @@ local function main()
         return
     end
 
-    print('Window ' .. arg[1] .. ' does not exists')
+    -- print('Window ' .. arg[1] .. ' does not exists')
     xdotool:eval()
     xdotool:wait_for_window_visible(arg[1])
     i3ipc:show()
