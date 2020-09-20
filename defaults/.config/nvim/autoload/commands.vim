@@ -69,9 +69,6 @@ function! commands#Set() abort
   command! UtilsTagUpdateCurrFolder call ctags#NvimSyncCtags()
   command! UtilsTagLoadCCTree call ctags#LoadCctreeDb()
 
-  if has('nvim-0.4.0')
-    command! UtilsFloatingTerm call s:floating_term()
-  endif
 endfunction
 
 function! s:capture_cmd_out(...) abort
