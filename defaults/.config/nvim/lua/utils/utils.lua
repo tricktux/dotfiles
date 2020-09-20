@@ -113,6 +113,16 @@ local function open_win_centered(width, height)
   return api.nvim_open_win(buf, true, opts)
 end
 
+-- Execute cmd and return all of its output
+local function io_popen_read(cmd)
+  vim.validate {cmd = {cmd, 's'}}
+  local file = assert(io.popen(cmd))
+  local output = file:read('*all')
+  file:close()
+  -- Strip all spaces from output
+  return output:gsub("%s+", "")
+end
+
 return {
   dump = dump,
   is_mod_available = is_mod_available,
@@ -123,4 +133,5 @@ return {
   isfile = isfile,
   file_fuzzer = file_fuzzer,
   open_win_centered = open_win_centered,
+  io_popen_read = io_popen_read,
 }
