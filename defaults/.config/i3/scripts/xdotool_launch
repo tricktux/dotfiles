@@ -1,12 +1,12 @@
 #!/bin/luajit
 
 local function get_hostname()
-    local cmd = 'hostname'
-    local file = assert(io.popen(cmd))
-    local output = file:read('*all')
-    file:close()
-    -- Strip all spaces from output
-    return output:gsub("%s+", "")
+  local cmd = 'hostname'
+  local file = assert(io.popen(cmd))
+  local output = file:read('*all')
+  file:close()
+  -- Strip all spaces from output
+  return output:gsub("%s+", "")
 end
 
 local hostname = get_hostname()
@@ -15,14 +15,14 @@ local i3ipc = {}
 i3ipc.cmd = [[/usr/bin/i3-msg]]
 i3ipc.args = '[title="^' .. arg[1] .. '$"] scratchpad show'
 i3ipc.terminal = {
-    ['helios'] = 'resize set 960 1019, move position 960 px 32 px',
-    ['predator'] = 'resize set 1920 2038, move position 1920 px 48 px',
-    ['surbook'] = 'resize set 1368 1730, move position 1368 px 48 px'
+  ['helios'] = 'resize set 960 1019, move position 960 px 32 px',
+  ['predator'] = 'resize set 1920 2038, move position 1920 px 48 px',
+  ['surbook'] = 'resize set 1368 1730, move position 1368 px 48 px'
 }
 i3ipc.htop = {
-    ['helios'] = 'resize set 1820 880, move position center',
-    ['predator'] = 'resize set 3640 1024, move position center',
-    ['surbook'] = 'resize set 2188 1459, move position center'
+  ['helios'] = 'resize set 1820 880, move position center',
+  ['predator'] = 'resize set 3640 1024, move position center',
+  ['surbook'] = 'resize set 2188 1459, move position center'
 }
 i3ipc.neomutt = {
   ['helios'] = 'resize set 1320 880, move position center',
@@ -35,24 +35,24 @@ i3ipc.glances = {
   ['surbook'] = 'resize set 2188 1459, move position center'
 }
 i3ipc.window_position = {
-    ['neomutt'] = i3ipc.neomutt[hostname],
-    ['terminal'] = i3ipc.terminal[hostname],
-    ['htop'] = i3ipc.htop[hostname],
-    ['glances'] = i3ipc.glances[hostname]
+  ['neomutt'] = i3ipc.neomutt[hostname],
+  ['terminal'] = i3ipc.terminal[hostname],
+  ['htop'] = i3ipc.htop[hostname],
+  ['glances'] = i3ipc.glances[hostname]
 }
 
 function i3ipc:hide()
-    local cmd = self.cmd .. ' ' .. 'scratchpad show'
-    -- print(cmd)
-    os.execute(cmd)
+  local cmd = self.cmd .. ' ' .. 'scratchpad show'
+  -- print(cmd)
+  os.execute(cmd)
 end
 
 function i3ipc:show()
-    local pos = self.window_position[arg[1]]
-    if pos == nil then pos = 'move position center' end
-    local cmd = self.cmd .. ' ' .. self.args .. ', ' .. pos
-    -- print(cmd)
-    os.execute(cmd)
+  local pos = self.window_position[arg[1]]
+  if pos == nil then pos = 'move position center' end
+  local cmd = self.cmd .. ' ' .. self.args .. ', ' .. pos
+  -- print(cmd)
+  os.execute(cmd)
 end
 
 local xdotool = {}
@@ -72,84 +72,84 @@ Usage:
 ]]
 
 function xdotool:wait_for_window_visible(app)
-    -- print('Waiting for ' .. app .. '...')
-    while self:window_exists(app) == '' do os.execute('sleep 0.01') end
-    os.execute('sleep 0.1')
+  -- print('Waiting for ' .. app .. '...')
+  while self:window_exists(app) == '' do os.execute('sleep 0.01') end
+  os.execute('sleep 0.1')
 end
 
 function xdotool:window_exists(app)
-    if not app or app == '' then
-        print('Bad argument')
-        return
-    end
-    local cmd =
-        self.path .. ' ' .. self.app_exists_args .. ' ' .. '"^' .. app .. '$"'
-    -- print('cmd = "'.. cmd .. '"')
-    local file = assert(io.popen(cmd))
-    local output = file:read('*all')
-    file:close()
-    return output
+  if not app or app == '' then
+    print('Bad argument')
+    return
+  end
+  local cmd = self.path .. ' ' .. self.app_exists_args .. ' ' .. '"^' .. app ..
+                  '$"'
+  -- print('cmd = "'.. cmd .. '"')
+  local file = assert(io.popen(cmd))
+  local output = file:read('*all')
+  file:close()
+  return output
 end
 
 function xdotool:window_visible(app)
-    if not app or app == '' then
-        print('Bad argument')
-        return
-    end
-    local cmd =
-        self.path .. ' ' .. self.app_visible_args .. ' ' .. '"^' .. app .. '$"'
-    -- print('cmd = "'.. cmd .. '"')
-    local file = assert(io.popen(cmd))
-    local output = file:read('*all')
-    file:close()
-    return output
+  if not app or app == '' then
+    print('Bad argument')
+    return
+  end
+  local cmd = self.path .. ' ' .. self.app_visible_args .. ' ' .. '"^' .. app ..
+                  '$"'
+  -- print('cmd = "'.. cmd .. '"')
+  local file = assert(io.popen(cmd))
+  local output = file:read('*all')
+  file:close()
+  return output
 end
 
 function xdotool:eval()
-    -- print('Executing "' .. self.cmd .. '"')
-    os.execute(self.cmd)
-    -- local file = assert(io.popen(self.cmd))
-    -- local output = file:read('*all')
-    -- file:close()
-    -- return output
+  -- print('Executing "' .. self.cmd .. '"')
+  os.execute(self.cmd)
+  -- local file = assert(io.popen(self.cmd))
+  -- local output = file:read('*all')
+  -- file:close()
+  -- return output
 end
 
 function xdotool:check_args()
-    if not arg[1] or arg[1] == '' then
-        print(self.usage)
-        return -1
-    end
+  if not arg[1] or arg[1] == '' then
+    print(self.usage)
+    return -1
+  end
 
-    if arg[1] == '-h' or arg[1] == '--help' then
-        print(self.usage)
-        return -2
-    end
+  if arg[1] == '-h' or arg[1] == '--help' then
+    print(self.usage)
+    return -2
+  end
 
-    if not arg[2] or arg[2] == '' then
-        print(self.usage)
-        return -3
-    end
+  if not arg[2] or arg[2] == '' then
+    print(self.usage)
+    return -3
+  end
 
-    return 0
+  return 0
 end
 
 local function main()
-    if xdotool:check_args() ~= 0 then return end
+  if xdotool:check_args() ~= 0 then return end
 
-    if xdotool:window_visible(arg[1]) ~= '' then
-        i3ipc:hide()
-        return
-    end
+  if xdotool:window_visible(arg[1]) ~= '' then
+    i3ipc:hide()
+    return
+  end
 
-    if xdotool:window_exists(arg[1]) ~= '' then
-        i3ipc:show()
-        return
-    end
-
-    -- print('Window ' .. arg[1] .. ' does not exists')
-    xdotool:eval()
-    xdotool:wait_for_window_visible(arg[1])
+  if xdotool:window_exists(arg[1]) ~= '' then
     i3ipc:show()
+    return
+  end
+
+  -- print('Window ' .. arg[1] .. ' does not exists')
+  xdotool:eval()
+  xdotool:wait_for_window_visible(arg[1])
+  i3ipc:show()
 end
 
 main()
