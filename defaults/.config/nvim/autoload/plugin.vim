@@ -1828,7 +1828,6 @@ endfunction
 "         will be covered
 function! plugin#FloatingFzf(width, height) abort
   let buf = nvim_create_buf(v:false, v:true)
-  call setbufvar(buf, '&signcolumn', 'no')
 
   let height = float2nr((&lines - 2) * a:height)
   let row = float2nr((&lines - height) / 2)
