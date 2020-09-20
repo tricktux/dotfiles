@@ -11,7 +11,7 @@ local log = {_version = "0.1.0"}
 log.usecolor = true
 log.outfile = vim.g.std_cache_path .. '/nvim-lua.log'
 log.console = nil
-log.level = "trace"
+log.level = "info"
 
 local modes = {
   {name = "trace", color = "\27[34m"}, {name = "debug", color = "\27[36m"},
