@@ -36,6 +36,7 @@ function! commands#Set() abort
   command! UtilsFileSize call s:get_file_info()
   command! UtilsEditTmpFileMarkdown call s:edit_tmp_doc('md')
   command! UtilsEditTmpFileCpp call s:edit_tmp_doc('cpp')
+  command! UtilsEditTmpFileLua call s:edit_tmp_doc('lua')
   command! UtilsEditTmpFilePython call s:edit_tmp_doc('py')
   command! UtilsEditTmpFileVim call s:edit_tmp_doc('vim')
   command! UtilsEditTmpFileGen call s:edit_tmp_doc(
@@ -196,7 +197,8 @@ function! s:get_file_info() abort
 endfunction
 
 function! s:edit_tmp_doc(type) abort
-  execute 'edit ' . tempname() . (empty(a:type) ? '' : '.' . a:type)
+  let l:file_name = g:std_cache_path . '/temp_' . strftime("%m%d%Y-%T_")
+  execute 'edit ' . l:file_name . (empty(a:type) ? '' : '.' . a:type)
 endfunction
 
 function! s:find_brace_in_comment() abort

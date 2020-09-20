@@ -1054,6 +1054,7 @@ function! mappings#SetWhichKeyMap() abort
         \ 'p' : ['UtilsEditTmpFilePython', 'python'],
         \ 'm' : ['UtilsEditTmpFileMarkdown', 'markdown'],
         \ 'v' : ['UtilsEditTmpFileVim', 'vim'],
+        \ 'l' : ['UtilsEditTmpFileLua', 'lua'],
         \ 'g' : ['UtilsEditTmpFileGen', 'general_enter_extension'],
         \ }
 
