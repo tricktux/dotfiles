@@ -123,6 +123,20 @@ local function io_popen_read(cmd)
   return output:gsub("%s+", "")
 end
 
+-- Attempt to display ranger in a floating window
+-- local ranger_out = vim.fn.tempname()
+-- vim.b.ranger_out = ranger_out
+-- local win = open_win_centered(0.8, 0.8)
+-- vim.cmd("au TermClose <buffer> * :q")
+-- local cmd = "term ranger --choosefiles " .. ranger_out
+-- vim.cmd(cmd)
+-- vim.cmd("startinsert")
+-- -- api.nvim_win_close(win, true)
+-- local file = io.open(ranger_out)
+-- local output = file:read()
+-- file:close()
+-- vim.cmd("edit " .. output)
+
 return {
   dump = dump,
   is_mod_available = is_mod_available,
