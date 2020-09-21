@@ -1057,7 +1057,8 @@ function! autocompletion#set_nvim_lsp_mappings() abort
 endfunction
 
 function! s:set_completion_lua() abort
-  Plug 'nvim-lua/completion-nvim'
+  " Plug doesnt like nvim-lua on windows
+  Plug (has('unix') ? 'nvim-lua' : 'haorenW1025') . '/completion-nvim'
   Plug 'neovim/nvim-lspconfig'
   Plug 'steelsojka/completion-buffers'
   Plug 'nvim-lua/diagnostic-nvim'
