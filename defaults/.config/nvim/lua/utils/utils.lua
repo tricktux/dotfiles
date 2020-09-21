@@ -109,7 +109,8 @@ local function open_win_centered(width, height)
     style = 'minimal'
   }
 
-  log.trace('row = ', row, 'col = ', col, 'width = ', mwidth, 'height = ', mheight)
+  log.trace('row = ', row, 'col = ', col, 'width = ', mwidth, 'height = ',
+            mheight)
   return api.nvim_open_win(buf, true, opts)
 end
 
@@ -137,6 +138,68 @@ end
 -- file:close()
 -- vim.cmd("edit " .. output)
 
+-- Fixing vim.validate
+
+local validate = (function()
+  local type_names = {
+    t = 'table',
+    s = 'string',
+    n = 'number',
+    b = 'boolean',
+    f = 'function',
+    c = 'callable',
+    ['table'] = 'table',
+    ['string'] = 'string',
+    ['number'] = 'number',
+    ['boolean'] = 'boolean',
+    ['function'] = 'function',
+    ['callable'] = 'callable',
+    ['nil'] = 'nil',
+    ['thread'] = 'thread',
+    ['userdata'] = 'userdata'
+  }
+  local function _type_name(t)
+    local tname = type_names[t]
+    if tname == nil then
+      error(string.format('invalid type name: %s', tostring(t)))
+    end
+    return tname
+  end
+  local function _is_type(val, t)
+    return t == 'callable' and vim.is_callable(val) or type(val) == t
+  end
+
+  return function(opt)
+    assert(type(opt) == 'table',
+           string.format('opt: expected table, got %s', type(opt)))
+    for param_name, spec in pairs(opt) do
+      assert(type(spec) == 'table', string.format('%s: expected table, got %s',
+                                                  param_name, type(spec)))
+
+      local val = spec[1] -- Argument value.
+      local t = spec[2] -- Type name, or callable.
+      local optional = (true == spec[3])
+      local info = debug.getinfo(2, "Sl")
+      local lineinfo = info.short_src .. ":" .. info.currentline
+
+      if not vim.is_callable(t) then -- Check type name.
+        if (not optional or val ~= nil) and not _is_type(val, _type_name(t)) then
+          local msg = string.format("%s: '%s' expected %s, got %s", lineinfo,
+                                    param_name, _type_name(t), type(val))
+          vim.cmd("echohl ErrorMsg")
+          local cmd = string.format([[echomsg "%s"]], msg)
+          vim.cmd(cmd)
+          vim.cmd("echohl None")
+        end
+      elseif not t(val) then -- Check user-provided validation function.
+        error(string.format("%s: expected %s, got %s", param_name,
+                            (spec[3] or '?'), val))
+      end
+    end
+    return true
+  end
+end)()
+
 return {
   dump = dump,
   is_mod_available = is_mod_available,
@@ -147,5 +210,5 @@ return {
   isfile = isfile,
   file_fuzzer = file_fuzzer,
   open_win_centered = open_win_centered,
-  io_popen_read = io_popen_read,
+  io_popen_read = io_popen_read
 }
