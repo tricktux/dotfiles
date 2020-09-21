@@ -154,17 +154,6 @@ function! plugin#Config()
   " - neomake ale
   call linting#Set('neomake')
 
-  " Neovim exclusive plugins
-  if has('nvim')
-    " Note: Thu Aug 24 2017 21:03 This plugin is actually required for the git
-    " plugin to work in neovim
-    Plug 'radenling/vim-dispatch-neovim'
-    " nvim-qt on unix doesnt populate has('gui_running')
-    " if !exists(g:neovide)
-    " Plug 'equalsraf/neovim-gui-shim'
-    " endif
-  endif
-
   " if has('patch-8.1.2114') || has('nvim-0.4')
   " Plug 'liuchengxu/vim-clap'
   " endif
@@ -175,6 +164,11 @@ function! plugin#Config()
 
   " Possible Replacement `asyncvim`
   Plug 'tpope/vim-dispatch'
+  if has('nvim')
+    " Note: Thu Aug 24 2017 21:03 This plugin is actually required for the git
+    " plugin to work in neovim
+    Plug 'radenling/vim-dispatch-neovim'
+  endif
   let g:dispatch_no_maps = 1
 
   call s:configure_vim_table_mode()
