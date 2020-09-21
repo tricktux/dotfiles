@@ -118,7 +118,7 @@ end
 local function setup()
   setup_formatter()
   -- Treesitter really far from ready
-  setup_treesitter()
+  -- setup_treesitter()
 end
 
 return {setup = setup}
