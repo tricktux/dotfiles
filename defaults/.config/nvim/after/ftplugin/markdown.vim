@@ -76,19 +76,19 @@ if !exists('no_plugin_maps') && !exists('no_markdown_maps')
 	nmap <buffer> <localleader>td <plug>todo_delete_mark
 
 	nnoremap <buffer> <plug>todo_insert      :call <sid>todo_mark('o')<bar>
-				\ silent! call repeat#set("\<lt>Plug>todo_insert")<cr>
+				\ silent! call repeat#set("\<lt>Plug>todo_insert", v:count)<cr>
 	nnoremap <buffer> <plug>todo_block       :call <sid>todo_mark('x')<bar>
-				\ silent! call repeat#set("\<lt>Plug>todo_block")<cr>
+				\ silent! call repeat#set("\<lt>Plug>todo_block", v:count)<cr>
 	nnoremap <buffer> <plug>todo_completed   :call <sid>todo_mark('+')<bar>
-				\ silent! call repeat#set("\<lt>Plug>todo_completed")<cr>
+				\ silent! call repeat#set("\<lt>Plug>todo_completed", v:count)<cr>
 	nnoremap <buffer> <plug>todo_wont_do     :call <sid>todo_mark('-')<bar>
-				\ silent! call repeat#set("\<lt>Plug>todo_wont_do")<cr>
+				\ silent! call repeat#set("\<lt>Plug>todo_wont_do", v:count)<cr>
 	nnoremap <buffer> <plug>todo_delete_mark :call <sid>todo_mark(' ')<bar>
-				\ silent! call repeat#set("\<lt>Plug>todo_delete_mark")<cr>
+				\ silent! call repeat#set("\<lt>Plug>todo_delete_mark", v:count)<cr>
 
 	nmap <localleader>b <plug>todo_block
 	nnoremap <buffer> <plug>bold_current_word_si :call <sid>bold_current_word()<bar>
-				\ silent! call repeat#set("\<lt>Plug>bold_current_word_si")<cr>
+				\ silent! call repeat#set("\<lt>Plug>bold_current_word_si", v:count)<cr>
 
 	vmap <localleader>b <plug>bold_visual_word
 	vnoremap <buffer> <plug>bold_visual_word :call <sid>bold_word()<bar>
