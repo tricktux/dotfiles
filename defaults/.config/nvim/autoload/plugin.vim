@@ -41,13 +41,6 @@ function! plugin#Config()
   " selection - {lightline, airline}
   call status_line#config('lightline')
 
-  " These plugins will be configured via lua
-  if has('nvim-0.5')
-    Plug 'nvim-treesitter/nvim-treesitter'
-    Plug 'mhartington/formatter.nvim'
-  endif
-  " ----------------------------------------
-
   Plug 'rhysd/git-messenger.vim', { 'on' : 'GitMessenger' }
   let g:git_messenger_always_into_popup = v:true
 
@@ -219,7 +212,13 @@ function! plugin#Config()
   " let g:delimitMate_jump_expansion = 1
   " imap <expr> <CR> <Plug>delimitMateCR
 
-  if !has('nvim-0.5')
+  " These plugins will be configured via lua
+  if has('nvim-0.5')
+    Plug 'nvim-treesitter/nvim-treesitter'
+    Plug 'mhartington/formatter.nvim'
+    Plug 'nanotee/nvim-lua-guide'
+  else
+    " And these are their alternatives
     call s:configure_neoformat()
   endif
 
@@ -1683,18 +1682,18 @@ function! s:configure_neoformat() abort
   " Let neoformat choose its thing
   " let g:neoformat_enabled_python = []
   " if executable('black')
-    " let g:neoformat_python_black = {
-          " \ 'exe': 'black',
-          " \ 'args': ['--line-length 80'],
-          " \ 'stdin': 1,
-          " \ }
+  " let g:neoformat_python_black = {
+  " \ 'exe': 'black',
+  " \ 'args': ['--line-length 80'],
+  " \ 'stdin': 1,
+  " \ }
   " endif
   " let g:neoformat_enabled_python += ['black']
   " if executable('isort')
-    " let g:neoformat_enabled_python += ['isort']
+  " let g:neoformat_enabled_python += ['isort']
   " endif
   " if executable('docformatter')
-    " let g:neoformat_enabled_python += ['docformatter']
+  " let g:neoformat_enabled_python += ['docformatter']
   " endif
 
   if executable('lua-format')
