@@ -69,11 +69,11 @@ if !exists('no_plugin_maps') && !exists('no_markdown_maps')
   inoremap [ [ ]
 
   " Super cool
-	nmap <localleader>ti <plug>todo_insert
-	nmap <localleader>tb <plug>todo_block
-	nmap <localleader>tc <plug>todo_completed
-	nmap <localleader>tw <plug>todo_wont_do
-	nmap <localleader>td <plug>todo_delete_mark
+	nmap <buffer> <localleader>ti <plug>todo_insert
+	nmap <buffer> <localleader>tb <plug>todo_block
+	nmap <buffer> <localleader>tc <plug>todo_completed
+	nmap <buffer> <localleader>tw <plug>todo_wont_do
+	nmap <buffer> <localleader>td <plug>todo_delete_mark
 
 	nnoremap <buffer> <plug>todo_insert      :call <sid>todo_mark('o')<bar>
 				\ silent! call repeat#set("\<lt>Plug>todo_insert")<cr>
