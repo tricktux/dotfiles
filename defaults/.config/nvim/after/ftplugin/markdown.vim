@@ -75,16 +75,11 @@ if !exists('no_plugin_maps') && !exists('no_markdown_maps')
 	nmap <buffer> <localleader>tw <plug>todo_wont_do
 	nmap <buffer> <localleader>td <plug>todo_delete_mark
 
-	nnoremap <buffer> <plug>todo_insert      :call <sid>todo_mark('o')<bar>
-				\ silent! call repeat#set("\<lt>Plug>todo_insert", v:count)<cr>
-	nnoremap <buffer> <plug>todo_block       :call <sid>todo_mark('x')<bar>
-				\ silent! call repeat#set("\<lt>Plug>todo_block", v:count)<cr>
-	nnoremap <buffer> <plug>todo_completed   :call <sid>todo_mark('+')<bar>
-				\ silent! call repeat#set("\<lt>Plug>todo_completed", v:count)<cr>
-	nnoremap <buffer> <plug>todo_wont_do     :call <sid>todo_mark('-')<bar>
-				\ silent! call repeat#set("\<lt>Plug>todo_wont_do", v:count)<cr>
-	nnoremap <buffer> <plug>todo_delete_mark :call <sid>todo_mark(' ')<bar>
-				\ silent! call repeat#set("\<lt>Plug>todo_delete_mark", v:count)<cr>
+	nnoremap <buffer> <plug>todo_insert      :call <sid>todo_mark('o', 'insert')<cr>
+	nnoremap <buffer> <plug>todo_block       :call <sid>todo_mark('x', 'block')<cr>
+	nnoremap <buffer> <plug>todo_completed   :call <sid>todo_mark('+', 'completed')<cr>
+	nnoremap <buffer> <plug>todo_wont_do     :call <sid>todo_mark('-', 'wont_do')<cr>
+	nnoremap <buffer> <plug>todo_delete_mark :call <sid>todo_mark(' ', 'delete_mark')<cr>
 
 	nmap <localleader>b <plug>todo_block
 	nnoremap <buffer> <plug>bold_current_word_si :call <sid>bold_current_word()<bar>
@@ -185,10 +180,13 @@ function! s:preview_browser() abort
 	endif
 endfunction
 
-function! s:todo_mark(mark) abort
+function! s:todo_mark(mark, name) abort
 	let save_cursor = getcurpos()
 	execute "normal! ^f[lr" . a:mark . "\<Esc>"
 	return setpos('.', save_cursor)
+  if exists('*repeat#set')
+    silent! call repeat#set("\<Plug>todo_" . name, v:count)
+  end
 endfunction
 
 " function! s:todo_clear_mark() abort
