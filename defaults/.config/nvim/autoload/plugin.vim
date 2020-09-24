@@ -215,12 +215,15 @@ function! plugin#Config()
   " These plugins will be configured via lua
   if has('nvim-0.5')
     Plug 'nvim-treesitter/nvim-treesitter'
-    Plug 'mhartington/formatter.nvim'
+    " Plug 'mhartington/formatter.nvim'
     Plug 'nanotee/nvim-lua-guide'
   else
     " And these are their alternatives
     call s:configure_neoformat()
   endif
+
+  " Having problems with formatter.nvim
+  call s:configure_neoformat()
 
   " cpp
   if get(g:, 'tagbar_safe_to_use', 1)
