@@ -7,7 +7,7 @@
 " Created: Aug 22 2017 12:33
 
 function! mappings#Set()
-  let g:esc = ['<esc>']
+  let g:esc = ['<cr>']
   " CUSTOM MAPPINGS
   if has('unix')
     " System paste
@@ -401,6 +401,9 @@ function! mappings#Set()
   " inoremap <a-d> delete from cursor untils end of line
   " inoremap <c-t> shift entire line a shiftwidth
   inoremap <c-d> <c-g>u<del>
+  " Allow me use c-m and c-j no matter what I map <cr> to
+  inoremap <c-m> <cr>
+  inoremap <c-j> <cr>
   " Mon Apr 06 2020 15:06
   " Used to expand * in cli
   " cnoremap <C-A> <Home>
