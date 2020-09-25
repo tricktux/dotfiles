@@ -1,5 +1,5 @@
 [escape]>[caps]
-[caps]>[escape][t&h135][lctrl]
+[caps]>[lctrl]
 [rwin]>[ralt]
 [rctrl]>[delete]
 [bspace]>[lwin]
