@@ -1063,7 +1063,6 @@ function! s:set_completion_lua() abort
   Plug 'steelsojka/completion-buffers'
   Plug 'nvim-lua/diagnostic-nvim'
   Plug 'nvim-lua/lsp-status.nvim'
-  Plug 'tjdevries/nlua.nvim'
 
   if exists('g:lightline') && has('nvim-0.5')
     let g:lightline.active.right[2] += [ 'lsp_status' ]
