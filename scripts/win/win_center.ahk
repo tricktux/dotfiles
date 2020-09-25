@@ -31,17 +31,7 @@ SysGet, mon_3, Monitor, 3
 ; Swap CapsLock and LCtrl
 ; Next level Awesomeness if possible:
 Esc::CapsLock
-*CapsLock::
-    cDown := A_TickCount
-    Send {Blind}{Ctrl Down}
-    Return
-
-*CapsLock up::
-    If ((A_TickCount-cDown) < 175)  ; Modify press time as needed (milliseconds)
-        Send {Blind}{Ctrl Up}{Esc}
-    Else
-        Send {Blind}{Ctrl Up}
-    Return
+CapsLock::LCtrl
 
 #+Up::CenterActiveWindowUp() ; if win+shift+↑ is pressed
 #+Down::CenterActiveWindowDown() ; if win+shift+↑ is pressed
