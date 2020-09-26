@@ -371,7 +371,8 @@ function! plugin#Config()
   let g:online_thesaurus_map_keys = 0
 
   " Autocorrect mispellings on the fly
-  Plug 'panozzaj/vim-autocorrect', { 'for' : 'markdown' }
+  " Fri Sep 25 2020 23:01 Heavily impacts performance 
+  " Plug 'panozzaj/vim-autocorrect', { 'for' : 'markdown' }
   " Disble this file by removing its function call from autload/markdown.vim
 
   " Sun Sep 10 2017 20:44 Depends on languagetool being installed
