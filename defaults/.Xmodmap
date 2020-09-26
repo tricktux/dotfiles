@@ -4,12 +4,13 @@
 ! Swap Caps_Lock and Control_L
 !
 ! This is being taking care now by caps2esc
-! remove Lock = Caps_Lock
-! remove Control = Control_L
-! keysym Control_L = Caps_Lock
-! keysym Caps_Lock = Control_L
-! add Lock = Caps_Lock
-! add Control = Control_L
+! Not anymore
+remove Lock = Caps_Lock
+remove Control = Control_L
+keysym Control_L = Caps_Lock
+keysym Caps_Lock = Control_L
+add Lock = Caps_Lock
+add Control = Control_L
 
 ! Set Right Alt to Mod3
 clear mod1
