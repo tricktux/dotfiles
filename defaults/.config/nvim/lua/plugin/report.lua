@@ -9,22 +9,27 @@ local curr_week = os.date("%U")
 report.name_preffix = "WeeklyReport_ReinaldoMolina_"
 report.full_path = string.format([[%s\hpd\%s\%s%s.md]], vim.g.wiki_path,
                                         curr_year, report.name_preffix, curr_week)
-report.folder = string.format([[%s\hpd\%s]], vim.g.wiki_path, curr_year)
-report.file_name = string.format([[%s%s.md]], report.name_preffix, curr_week)
+report.base_folder = string.format([[%s\hpd]], vim.g.wiki_path)
 
 function report:__find_most_recent()
-    log.debug("Report folder: ", report.folder)
-    if not utl.isdir(self.folder) then
-        local msg = string.format("Creating hpd folder: %q", self.folder)
+    -- Return right away if weekly was already created
+    if utl.isfile(self.full_path) then
+        return true
+    end
+
+    -- Ensure a folder for this year exists
+    local cfolder = self.base_folder .. '\\' .. curr_year
+    log.debug("Report folder: ", cfolder)
+    if not utl.isdir(cfolder) then
+        local msg = string.format("Creating hpd folder: %q", cfolder)
         vim.cmd(string.format([[echohl WarningMsg | echo '%q' | echohl None]], msg))
-        luv.fs_mkdir(self.folder, 777)
+        luv.fs_mkdir(cfolder, 777)
     end
 
     -- Find latest report, search from the current year and week backwards
-    local folder = vim.g.wiki_path .. [[\hpd]]
     local week = curr_week  -- initally start with the curr_week
     for i=curr_year,2016,-1 do
-        search_folder = folder .. '\\' .. i
+        local search_folder = self.base_folder .. '\\' .. i
         log.info(string.format("folder = %q, week = %q", search_folder, week))
         if not utl.isdir(search_folder) then
             log.warn("Folder does not exists: ", search_folder)
@@ -35,10 +40,6 @@ function report:__find_most_recent()
             local potential = search_folder .. '\\' .. self.name_preffix .. j .. '.md'
             if utl.isfile(potential) then
                 log.info("Found potential report file: " .. potential)
-                if j == curr_week then
-                    -- No copies necessary since report for current week exists
-                    return true
-                end
                 -- Make a copy of the last report
                 luv.fs_copyfile(potential, self.full_path)
                 return true
@@ -48,7 +49,7 @@ function report:__find_most_recent()
         -- Start searching from week 52
         week = 52
     end
-    local msg = string.format("Failed to find any previous reports: %q", self.folder)
+    local msg = string.format("Failed to find any previous reports: %q", self.base_folder)
     vim.cmd(string.format([[echohl ErrorMsg | echo '%q' | echohl None]], msg))
     return false
 end
@@ -67,11 +68,4 @@ function report:edit_weekly_report()
     vim.cmd("edit " .. self.full_path)
 end
 
-print("Year: ", curr_year)
-print("Week: ", curr_week)
-print("full_path: ", report.full_path)
-print("file_name: ", report.file_name)
-print("folder: ", report.folder)
-report:edit_weekly_report()
-
-return { report = report }
+return report
