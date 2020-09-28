@@ -12,20 +12,6 @@ report.current = string.format([[%s\%s\%s%s.md]], report.base_folder,
                                 curr_year, report.name_preffix, curr_week)
 
 function report:__find_most_recent()
-  -- Return right away if weekly was already created
-  if utl.isfile(self.current) then
-    return true
-  end
-
-  -- Ensure a folder for this year exists
-  local cfolder = self.base_folder .. '\\' .. curr_year
-  log.debug("Report folder: ", cfolder)
-  if not utl.isdir(cfolder) then
-    local msg = string.format("Creating hpd folder: %q", cfolder)
-    vim.cmd(string.format([[echohl WarningMsg | echo '%q' | echohl None]], msg))
-    luv.fs_mkdir(cfolder, 777)
-  end
-
   -- Find latest report, search from the current year and week backwards
   local week = curr_week  -- initally start with the curr_week
   for i=curr_year,2016,-1 do
@@ -40,16 +26,14 @@ function report:__find_most_recent()
       local potential = search_folder .. '\\' .. self.name_preffix .. j .. '.md'
       if utl.isfile(potential) then
         log.info("Found potential report file: " .. potential)
-        -- Make a copy of the last report
-        luv.fs_copyfile(potential, self.current)
-        return true
+        return potential
       end
     end
     -- If we did not find the report in the curr_year folder.
     -- Start searching from week 52
     week = 52
   end
-  return false
+  return nil
 end
 
 function report:edit_weekly_report()
@@ -59,12 +43,30 @@ function report:edit_weekly_report()
     return
   end
 
-  if self:__find_most_recent() == false then
+  -- Return right away if weekly was already created
+  if utl.isfile(self.current) then
+    vim.cmd("edit " .. self.current)
+    return
+  end
+
+  -- Ensure a folder for this year exists
+  local cfolder = self.base_folder .. '\\' .. curr_year
+  log.debug("Report folder: ", cfolder)
+  if not utl.isdir(cfolder) then
+    local msg = string.format("Creating hpd folder: %q", cfolder)
+    vim.cmd(string.format([[echohl WarningMsg | echo '%q' | echohl None]], msg))
+    luv.fs_mkdir(cfolder, 777)
+  end
+
+  local recent = self:__find_most_recent()
+  if recent == nil then
     local msg = string.format("Failed to find any previous reports: %q", self.base_folder)
     vim.cmd(string.format([[echohl ErrorMsg | echo '%q' | echohl None]], msg))
     return
   end
 
+  -- Make a copy of the last report
+  luv.fs_copyfile(recent, self.current)
   vim.cmd("edit " .. self.current)
 end
 
