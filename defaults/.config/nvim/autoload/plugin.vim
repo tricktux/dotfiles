@@ -333,9 +333,9 @@ function! plugin#Config()
   " au! FileType markdown set filetype=markdown.pandoc
   " augroup END
 
-  " This plugin depends on 'godlygeek/tabular'
   call s:configure_tabular()
-  call s:configure_markdown()
+  " vim-markdown depends on 'godlygeek/tabular'
+  " call s:configure_markdown()
 
   " Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
   Plug 'matze/vim-ini-fold', { 'for': 'dosini' }
