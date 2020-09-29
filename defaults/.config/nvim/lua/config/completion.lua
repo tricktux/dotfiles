@@ -91,9 +91,9 @@ function CompletionNvim:set()
     end
 
     log.info("setting up completion-nvim...")
-    map.inoremap([[<tab>]], [[<Plug>(completion_smart_tab)]],
+    map.imap([[<tab>]], [[<Plug>(completion_smart_tab)]],
                  {silent = true})
-    map.inoremap([[<s-tab>]],
+    map.imap([[<s-tab>]],
                  [[<Plug>(completion_smart_s_tab)]],
                  {silent = true})
     map.imap([[<c-j>]], [[<Plug>(completion_next_source)]])
