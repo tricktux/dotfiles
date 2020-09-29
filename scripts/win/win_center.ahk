@@ -30,7 +30,7 @@ SysGet, mon_3, Monitor, 3
 ; Awesomeness!
 ; Swap CapsLock and LCtrl
 ; Next level Awesomeness if possible:
-Esc::CapsLock
+LCtrl::CapsLock
 CapsLock::LCtrl
 
 #+Up::CenterActiveWindowUp() ; if win+shift+↑ is pressed
