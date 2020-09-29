@@ -197,7 +197,8 @@ function! s:get_file_info() abort
 endfunction
 
 function! s:edit_tmp_doc(type) abort
-  let l:file_name = g:std_cache_path . '/temp_' . strftime('%m%d%Y-%T')
+  let l:sep = has('unix') ? '/' : '\'
+  let l:file_name = g:std_cache_path . l:sep . 'temp_' . strftime('%m%d%Y_%H%M%S')
   execute 'edit ' . l:file_name . (empty(a:type) ? '' : '.' . a:type)
 endfunction
 
