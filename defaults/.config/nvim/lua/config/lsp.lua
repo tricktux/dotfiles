@@ -40,10 +40,6 @@ local function on_lsp_attach(client_id)
     -- These 2 got annoying really quickly
     -- vim.cmd('autocmd CursorHold <buffer> lua vim.lsp.util.show_line_diagnostics()')
     -- vim.cmd("autocmd CursorHold <buffer> lua vim.lsp.buf.hover()")
-    -- Disable neomake
-    if vim.fn.exists(':NeomakeDisableBuffer') == 2 then
-        vim.cmd('NeomakeDisableBuffer')
-    end
     set_lsp_mappings()
     require('config/completion').diagn:on_attach()
 
@@ -60,6 +56,10 @@ local function on_clangd_attach(client_id)
         return
     end
 
+    -- Disable neomake
+    if vim.fn.exists(':NeomakeDisableBuffer') == 2 then
+        vim.cmd('NeomakeDisableBuffer')
+    end
     log.debug('Setting up on_clangd_attach')
     log.debug('client_id = ', client_id)
     local opts = {silent = true, buffer = true}
