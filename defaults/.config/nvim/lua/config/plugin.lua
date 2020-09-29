@@ -8,6 +8,37 @@ local utl = require('utils/utils')
 local log = require('utils/log')
 local map = require('utils/keymap')
 
+local function setup_lspstatus()
+  if not utl.is_mod_available('lsp-status') then
+    log.error("lsp-status was set, but module not found")
+    return
+  end
+
+  -- Default config is acceptable for unix
+  if utl.has_unix() then return end
+
+  local config = {
+    ['indicator_errors'] = 'e:',
+    ['indicator_warnings'] = 'w:',
+    ['indicator_info'] = 'i:',
+    ['indicator_hint'] = 'h:',
+    ['indicator_ok'] = 'ok',
+    ['spinner_frames'] = {
+      '(*---------)',
+      '(--*-------)',
+      '(-----*----)',
+      '(--------*-)',
+      '(---------*)',
+      '(--------*-)',
+      '(-----*----)',
+      '(--*-------)',
+      '(*---------)'
+    },
+    ['status_symbol'] = '',
+  }
+  require('lsp-status').config(config)
+end
+
 local function setup_treesitter()
   if not utl.is_mod_available('nvim-treesitter') then
     log.error('nvim-treesitter module not available')
@@ -121,4 +152,4 @@ local function setup()
   -- setup_treesitter()
 end
 
-return {setup = setup}
+return {setup = setup, setup_lspstatus = setup_lspstatus}

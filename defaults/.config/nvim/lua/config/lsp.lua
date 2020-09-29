@@ -1,6 +1,7 @@
-local ut = require('utils/utils')
+local utl = require('utils/utils')
 local map = require('utils/keymap')
 local log = require('utils/log')
+local plg = require('config/plugin')
 
 local function set_lsp_mappings()
     local opts = {silent = true, buffer = true}
@@ -72,17 +73,18 @@ end
 -- TODO
 -- Maybe set each server to its own function?
 local function lsp_set()
-    if not ut.is_mod_available('nvim_lsp') then
+    if not utl.is_mod_available('nvim_lsp') then
         log.error("nvim_lsp was set, but module not found")
         return
     end
 
-    if not ut.is_mod_available('lsp-status') then
+    if not utl.is_mod_available('lsp-status') then
         log.error("lsp-status was set, but module not found")
         return
     end
 
     local lsp_status = require('lsp-status')
+    plg.setup_lspstatus()  -- Configure plugin options
     lsp_status.register_progress()
     -- Notice not all configs have a `callbacks` setting
     local nvim_lsp = require('nvim_lsp')
@@ -97,7 +99,7 @@ local function lsp_set()
         }
     end
 
-    -- if ut.is_mod_available('nlua.lsp.nvim') then
+    -- if utl.is_mod_available('nlua.lsp.nvim') then
         -- Requires the sumneko_lua server
         -- This is setup nlua autocompletion of built in functions
         -- To get builtin LSP running, do something like:
