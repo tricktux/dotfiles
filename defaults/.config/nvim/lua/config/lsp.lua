@@ -44,11 +44,11 @@ local function on_lsp_attach(client_id)
     if vim.fn.exists(':NeomakeDisableBuffer') == 2 then
         vim.cmd('NeomakeDisableBuffer')
     end
-    -- Disable tagbar
-    vim.b.tagbar_ignore = 1
-
     set_lsp_mappings()
     require('config/completion').diagn:on_attach()
+
+    -- Disable tagbar
+    vim.b.tagbar_ignore = 1
     require('lsp-status').on_attach(client_id)
     vim.b.did_on_lsp_attach = 1
 end
