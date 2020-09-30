@@ -1704,7 +1704,7 @@ function! s:configure_neoformat() abort
     let g:neoformat_enabled_lua = ['luaformat']
     let g:neoformat_lua_luaformat = {
           \ 'exe': 'lua-format',
-          \ 'args': [],
+          \ 'args': ['--indent-width', 2],
           \ 'stdin': 1,
           \ }
   endif
