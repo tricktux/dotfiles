@@ -94,8 +94,6 @@ function! plugin#Config()
 
   call s:configure_vim_utils()
 
-  call s:configure_async_plugins()
-
   if executable('mutt')
     Plug 'guanqun/vim-mutt-aliases-plugin'
   endif
@@ -212,11 +210,19 @@ function! plugin#Config()
   " let g:delimitMate_jump_expansion = 1
   " imap <expr> <CR> <Plug>delimitMateCR
 
+  call s:configure_neoterm()
+
+  call s:configure_fuzzers()
+
   " These plugins will be configured via lua
   if has('nvim-0.5')
     Plug 'nvim-treesitter/nvim-treesitter'
     " Plug 'mhartington/formatter.nvim'
     Plug 'nanotee/nvim-lua-guide'
+    " Fuzzers
+    Plug 'nvim-lua/popup.nvim'
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-lua/telescope.nvim'
   else
     " And these are their alternatives
     call s:configure_neoformat()
@@ -801,19 +807,6 @@ endfunction
 
 function! plugin#CtrlpLightlineFunc2(str) abort
   return lightline#statusline(0)
-endfunction
-
-function! s:configure_async_plugins() abort
-  if !has('nvim') && v:version < 800
-    if &verbose > 0
-      echomsg 'No async support in this version. No neoterm, no denite.'
-    endif
-    return -1
-  endif
-
-  call s:configure_neoterm()
-
-  call s:configure_fuzzers()
 endfunction
 
 function! s:configure_vim_table_mode() abort
