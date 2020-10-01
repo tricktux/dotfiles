@@ -24,17 +24,11 @@ local function setup_lspstatus()
     ['indicator_hint'] = 'h:',
     ['indicator_ok'] = 'ok',
     ['spinner_frames'] = {
-      '(*---------)',
-      '(--*-------)',
-      '(-----*----)',
-      '(--------*-)',
-      '(---------*)',
-      '(--------*-)',
-      '(-----*----)',
-      '(--*-------)',
+      '(*---------)', '(--*-------)', '(-----*----)', '(--------*-)',
+      '(---------*)', '(--------*-)', '(-----*----)', '(--*-------)',
       '(*---------)'
     },
-    ['status_symbol'] = '',
+    ['status_symbol'] = ''
   }
   require('lsp-status').config(config)
 end
@@ -146,10 +140,75 @@ local function setup_formatter()
   require('format').setup(formatters)
 end
 
+local function setup_fuzzer()
+  local cmd_pref = [[<cmd>lua require'telescope.builtin'.]]
+  map.nmap("<plug>buffer_browser", cmd_pref .. [[buffers()<cr>]])
+  map.nmap("<plug>mru_browser", cmd_pref .. [[oldfiles()<cr>]])
+  local actions = require('telescope.actions')
+
+  local config = {
+    defaults = {
+      -- Picker Configuration
+      -- border = {},
+      -- borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
+      -- preview_cutoff = 80,
+      -- selection_strategy = "reset",
+
+      -- Can choose EITHER one of these:
+      -- layout_strategy = "horizontal",
+      -- horizontal_config = {
+          -- get_preview_width = function(columns, _)
+            -- return math.floor(columns * 0.5)
+          -- end,
+        -- },
+
+      -- get_window_options = function(...) end,
+      -- To move to bottom, use strategy descending
+      prompt_position = "top",
+      sorting_strategy = "ascending",
+
+      default_mappings = {
+        i = {
+          ["<c-j>"] = actions.move_selection_next,
+          ["<c-k>"] = actions.move_selection_previous,
+          ["<esc>"] = actions.close,
+          ["<c-c>"] = actions.close,
+          ["<c-q>"] = actions.close,
+          ["<CR>"] = actions.goto_file_selection_edit,
+          ["<c-m>"] = actions.goto_file_selection_edit,
+          ["<C-s>"] = actions.goto_file_selection_split,
+          ["<C-e>"] = actions.preview_scrolling_up,
+          ["<C-d>"] = actions.preview_scrolling_down,
+          ["<C-v>"] = actions.goto_file_selection_vsplit,
+          ["<C-t>"] = actions.goto_file_selection_tabedit,
+        },
+
+        n = {
+          ["<esc>"] = actions.close,
+          ["<c-c>"] = actions.close,
+          ["q"] = actions.close,
+          ["<CR>"] = actions.goto_file_selection_edit,
+          ["<c-m>"] = actions.goto_file_selection_edit,
+        }
+      }
+      -- shorten_path = true,
+      -- winblend = 10, -- help winblend
+      -- winblend = {
+      -- preview = 0,
+      -- prompt = 20,
+      -- results = 20,
+      -- },
+
+    }
+  }
+  require('telescope').setup(config)
+end
+
 local function setup()
   -- setup_formatter()
   -- Treesitter really far from ready
   -- setup_treesitter()
+  setup_fuzzer()
 end
 
 return {setup = setup, setup_lspstatus = setup_lspstatus}

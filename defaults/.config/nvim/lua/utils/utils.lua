@@ -43,8 +43,17 @@ local function file_fuzzer(path)
     return
   end
 
+  if utl.is_mod_available('telescope') then
+    require'telescope.builtin'.find_files{
+      -- Optional
+      cwd = path,
+      find_command = { "rg", "-i", "--hidden", "--files", "-g", "!.git" },
+    }
+    return
+  end
+
   log.trace('file_fuzzer: path = ', epath)
-  if vim.fn.exists(':FZF') > 0 then
+  if vim.fn.exists(':Files') > 0 then
     vim.cmd('Files ' .. epath)
     return
   end

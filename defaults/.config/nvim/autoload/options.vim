@@ -24,7 +24,9 @@ function! options#Set() abort
   set expandtab
   set shiftround
   set display=lastline
-  set report=0
+  " Wed Sep 30 2020 22:24: Don't remember why I have this setting. Seems to be 
+  " conflicting with telescope.vim
+  " set report=0
   set splitright
   " set splitbelow looks silly
   set list                   " Show non-printable characters.
