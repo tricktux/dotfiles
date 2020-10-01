@@ -223,6 +223,7 @@ function! plugin#Config()
     Plug 'nvim-lua/popup.nvim'
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-lua/telescope.nvim'
+    Plug 'Xuyuanp/scrollbar.nvim'
   else
     " And these are their alternatives
     call s:configure_neoformat()

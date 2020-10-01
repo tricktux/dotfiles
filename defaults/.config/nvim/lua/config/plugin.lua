@@ -7,6 +7,7 @@
 local utl = require('utils/utils')
 local log = require('utils/log')
 local map = require('utils/keymap')
+local aug = require('config/augroups')
 
 local function setup_lspstatus()
   if not utl.is_mod_available('lsp-status') then
@@ -140,10 +141,31 @@ local function setup_formatter()
   require('format').setup(formatters)
 end
 
-local function setup_fuzzer()
+local function setup_scrollbar()
+  if not utl.is_mod_available('scrollbar') then
+    log.error('scrollbar module not available')
+    return
+  end
+
+  local au = {
+    scrollbar = {
+      {"CursorMoved,VimResized,QuitPre,WinEnter,FocusGained", "*", "silent! lua require('scrollbar').show()"},
+      {"WinLeave,FocusLost", "*", "silent! lua require('scrollbar').clear()"},
+    }
+  }
+  aug.create(au)
+end
+
+local function setup_telescope()
+  if not utl.is_mod_available('telescope') then
+      log.error('telescope module not available')
+      return
+  end
+
   local cmd_pref = [[<cmd>lua require'telescope.builtin'.]]
-  map.nmap("<plug>buffer_browser", cmd_pref .. [[buffers()<cr>]])
+  map.nmap("<plug>buffer_browser", cmd_pref .. [[buffers{show_all_buffers = true}<cr>]])
   map.nmap("<plug>mru_browser", cmd_pref .. [[oldfiles()<cr>]])
+
   local actions = require('telescope.actions')
 
   local config = {
@@ -151,11 +173,11 @@ local function setup_fuzzer()
       -- Picker Configuration
       -- border = {},
       -- borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
-      -- preview_cutoff = 80,
+      preview_cutoff = (utl.has_unix() and 120 or 9999),
       -- selection_strategy = "reset",
 
-      -- Can choose EITHER one of these:
-      -- layout_strategy = "horizontal",
+      -- Can choose EITHER one of these: horizontal, vertical, center
+      layout_strategy = "horizontal",
       -- horizontal_config = {
           -- get_preview_width = function(columns, _)
             -- return math.floor(columns * 0.5)
@@ -198,7 +220,6 @@ local function setup_fuzzer()
       -- prompt = 20,
       -- results = 20,
       -- },
-
     }
   }
   require('telescope').setup(config)
@@ -208,7 +229,9 @@ local function setup()
   -- setup_formatter()
   -- Treesitter really far from ready
   -- setup_treesitter()
-  setup_fuzzer()
+  setup_telescope()
+  -- Kinda distracting
+  -- setup_scrollbar()
 end
 
 return {setup = setup, setup_lspstatus = setup_lspstatus}
