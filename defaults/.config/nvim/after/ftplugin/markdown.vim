@@ -10,6 +10,13 @@ if exists("b:did_markdown_ftplugin")
 	finish
 endif
 
+" Do not set ftplugin for ftplugin lsp help
+" completion-nvim is the only plugin that sets this variable. If you move 
+" plugins you could have problems
+if exists("b:lsp_floating")
+    finish
+endif
+
 " Don't load another plugin for this buffer
 let b:did_markdown_ftplugin = 1
 
