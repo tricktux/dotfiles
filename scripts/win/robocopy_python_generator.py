@@ -7,17 +7,19 @@ BACKUP_DIRS = [
     r'{USER_PROFILE}\Documents\apps',
     r'{USER_PROFILE}\AppData\Roaming\gnupg',
     r'{USER_PROFILE}\.password-store',
-    r'D:\1.WINGS',
-    r'D:\2.Office',
-    r'D:\3.Other',
-    r'D:\cdats',
-    r'D:\wiki',
-    r'D:\wings-dev',
+    #  r'D:\1.WINGS',
+    #  r'D:\2.Office',
+    #  r'D:\3.Other',
+    #  r'D:\cdats',
+    #  r'D:\wiki',
+    #  r'D:\wings-dev',
+    #  r'D:\Mission.ATPs',
+    #  r'D:\Mission_ATPs',
 ]
 
 DRIVE = 'E'
 DEST_DIR = fr'{DRIVE}:\StationBackups\reinaldo_laptop'
-THREADS = 2
+THREADS = 8
 LOG = r'%TEMP%\robo.log'
 ROBOCOPY_OPTS = f'''/MIR /W:0 /R:1 /MT:{THREADS} /FFT /XJD /NP /NDL /ZB /ETA /E /CREATE'''
 ROBOCOPY_EXE = r'C:\Windows\System32\Robocopy.exe'
