@@ -95,6 +95,13 @@ function! s:find_vim_config_file(...) abort
   "  All lua configs are called from 'config/init.lua' which is sourced below
   if has('nvim-0.5')
     lua require('config').init()
+    if plugin#Config() != 1
+        echoerr 'No plugins were loaded'
+    endif
+    call mappings#Set()
+    call options#Set()
+    call augroup#Set()
+    call commands#Set()
   else
     call init#vim()
   endif

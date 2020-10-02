@@ -88,10 +88,6 @@ local function _init()
         _config_win()
     end
 
-    if vim.fn['plugin#Config']() ~= 1 then
-        log.error('No plugins were loaded')
-    end
-
     -- Create needed directories if they don't exist already
     for _, folder in pairs(data_folders) do
         luv.fs_mkdir(vim.g.std_data_path .. folder, 777)
@@ -99,11 +95,6 @@ local function _init()
     for _, folder in pairs(cache_folders) do
         luv.fs_mkdir(vim.g.std_cache_path .. folder, 777)
     end
-
-    vim.fn['mappings#Set']()
-    vim.fn['options#Set']()
-    vim.fn['augroup#Set']()
-    vim.fn['commands#Set']()
 end
 
 -- This function is called during the VimEnter event. From the 
