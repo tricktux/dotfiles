@@ -1,4 +1,4 @@
-" File:         mappings.vim
+> File:         mappings.vim
 " Description:  Function that sets all the mappings that are not related to
 "               plugins
 " Author:       Reinaldo Molina <rmolin88@gmail.com>
@@ -560,16 +560,35 @@ function! mappings#Set()
   nnoremap <leader>oi :call utils#CommentIndent()<cr>
 
   " Edit file at location <Leader>e?
-  nnoremap <leader>ed :call utils#PathFileFuzzer(g:dotfiles)<cr>
-  nnoremap <leader>eh :call utils#PathFileFuzzer($HOME)<cr>
-  if (!has('unix'))
-    nnoremap <leader>eC :call utils#PathFileFuzzer('C:\')<cr>
-    nnoremap <leader>eD :call utils#PathFileFuzzer('D:\')<cr>
-    nnoremap <leader>eP :e +<cr>
+  if has('nvim-0.5')
+    nnoremap <leader>eh <cmd>lua require('utils.utils').file_fuzzer('$HOME')<cr>
+    nnoremap <leader>ev <cmd>lua require('utils.utils').file_fuzzer('$VIMRUNTIME')<cr>
+    nnoremap <leader>ep <cmd>lua require('utils.utils').file_fuzzer(vim.g.vim_plugins_path)<cr>
+    nnoremap <leader>ec <cmd>lua require('utils.utils').file_fuzzer(vim.fn.getcwd())<cr>
+    if (!has('unix'))
+      nnoremap <leader>eC <cmd>lua require('utils.utils').file_fuzzer([[C:\]])<cr>
+      nnoremap <leader>eD <cmd>lua require('utils.utils').file_fuzzer([[D:\]])<cr>
+      nnoremap <leader>eP :e +<cr>
+      nnoremap <leader>ed <cmd>lua require('utils.utils').file_fuzzer([[$APPDATA\dotfiles]])<cr>
+    else
+      nnoremap <leader>ed <cmd>lua require('utils.utils').file_fuzzer(vim.g.dotfiles)<cr>
+    endif
+  else
+    " Edit plugin
+    nnoremap <leader>ep :call utils#PathFileFuzzer(g:vim_plugins_path)<cr>
+    " Edit Vimruntime
+    nnoremap <leader>ev :call utils#PathFileFuzzer(fnameescape($VIMRUNTIME))<cr>
+    nnoremap <leader>ed :call utils#PathFileFuzzer(g:dotfiles)<cr>
+    nnoremap <leader>eh :call utils#PathFileFuzzer($HOME)<cr>
+    if (!has('unix'))
+        nnoremap <leader>eC :call utils#PathFileFuzzer('C:\')<cr>
+        nnoremap <leader>eD :call utils#PathFileFuzzer('D:\')<cr>
+        nnoremap <leader>eP :e +<cr>
+    endif
+    nnoremap <leader>ec :call utils#PathFileFuzzer(getcwd())<cr>
+    nnoremap <leader>el :call utils#PathFileFuzzer(input
+                \ ('Folder to recurse: ', "", "file"))<cr>
   endif
-  nnoremap <leader>ec :call utils#PathFileFuzzer(getcwd())<cr>
-  nnoremap <leader>el :call utils#PathFileFuzzer(input
-        \ ('Folder to recurse: ', "", "file"))<cr>
   nnoremap <Leader>ei :e
 
   " mnemonic space bar
@@ -582,10 +601,6 @@ function! mappings#Set()
   " \ ('edit ' . g:dotfiles . '/TODO.md')<cr>
   " endif
 
-  " Edit plugin
-  nnoremap <leader>ep :call utils#PathFileFuzzer(g:vim_plugins_path)<cr>
-  " Edit Vimruntime
-  nnoremap <leader>ev :call utils#PathFileFuzzer(fnameescape($VIMRUNTIME))<cr>
   nnoremap <leader>ea :call <sid>add_file(getcwd())<cr>
 endfunction
 
@@ -867,21 +882,11 @@ function! s:wiki_open(...) abort
     return
   endif
 
-  if (exists(':FZF'))
-    execute 'Files ' . g:wiki_path
-    return
-  endif
-
-  if exists(':Denite')
+  if has('nvim-0.5')
+    lua require('utils.utils').file_fuzzer(vim.g.wiki_path)
+  else
     call utils#PathFileFuzzer(g:wiki_path)
-    return
   endif
-
-  let dir = getcwd()
-  execute "cd " . g:wiki_path
-  execute "vs " . fnameescape(g:wiki_path . '/' .
-        \ input('Wiki Name: ', '', 'custom,CheatCompletion'))
-  silent! execute "cd " . dir
 endfunction
 
 function! s:wiki_add() abort
@@ -1148,9 +1153,29 @@ function! mappings#SetWhichKeyMap() abort
         \ 'l' : ['PlugClean', 'clean'],
         \ }
 
+  " Thu Oct 01 2020 16:50: These are telescope alternatives.
+  " However, let's have best of both worlds.
+  " Let's leave telescope for buffer and mru and fzf for these other useful
+  nnoremap <leader>; :lua require('telescope.builtin').commands()<cr>
+  nnoremap <leader>: :lua require('telescope.builtin').commands_history()<cr>
+  nnoremap <leader>fh :lua require('telescope.builtin').help_tags()<cr>
+  " nnoremap <leader>? :lua require('telescope.builtin').live_grep()<cr>
+  " nnoremap <leader>f; :lua require('telescope.builtin').commands()<cr>
+  " nnoremap <leader>f/ :lua require('telescope.builtin').commands_history()<cr>
+  " let g:which_key_leader_map.f = {
+        " \ 'name' : '+fuzzers',
+        " \ 'b' : ['lua require("telescope.builtin").buffers()', 'buffers'],
+        " \ 'f' : ['lua require("telescope.builtin").find_files()', 'files'],
+        " \ 'l' : ['lua require("telescope.builtin").current_buffer_fuzzy_find()', 'lines_all_buffers'],
+        " \ ';' : 'command_history',
+        " \ '/' : 'search_history',
+        " \ 'h' : ['lua require("telescope.builtin").help_tags()', 'helptags'],
+        " \ 'c' : ['lua require("telescope.builtin").commands()', 'commands'],
+        " \ 'C' : ['lua require("telescope.builtin").commands_history()', 'commands_history'],
+        " \ }
   " These funky command names do not work when mapped directly in dictionary
-  nnoremap <leader>; :Commands<cr>
-  nnoremap <leader>: :History:<cr>
+  " nnoremap <leader>; :Commands<cr>
+  " nnoremap <leader>: :History:<cr>
   nnoremap <leader>? :Rg<cr>
   nnoremap <leader>f; :History:<cr>
   nnoremap <leader>f/ :History/<cr>
@@ -1170,7 +1195,7 @@ function! mappings#SetWhichKeyMap() abort
         \ '/' : 'search_history',
         \ 'F' : ['History', 'files_history'],
         \ 's' : ['Snippets', 'ultisnippets'],
-        \ 'h' : ['Helptags', 'helptags'],
+        \ 'h' : 'helptags',
         \ 'y' : ['Filetypes', 'filetypes'],
         \ 'm' : ['Maps', 'maps'],
         \ 'c' : ['Commands', 'commands'],

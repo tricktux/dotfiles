@@ -212,7 +212,8 @@ function! plugin#Config()
 
   call s:configure_neoterm()
 
-  call s:configure_fuzzers()
+  " call s:configure_fuzzers()
+  call s:configure_fzf()
 
   " These plugins will be configured via lua
   if has('nvim-0.5')
