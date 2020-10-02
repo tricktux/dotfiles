@@ -14,6 +14,18 @@ local function dump(...)
   print(unpack(objects))
 end
 
+local function is_mod_available(name)
+  if package.loaded[name] then return true end
+  for _, searcher in ipairs(package.searchers or package.loaders) do
+    local loader = searcher(name)
+    if type(loader) == 'function' then
+      package.preload[name] = loader
+      return true
+    end
+  end
+  return false
+end
+
 local function has_unix() return package.config:sub(1, 1) == [[/]] end
 
 local function has_win() return package.config:sub(1, 1) == [[\]] end
@@ -39,11 +51,11 @@ local function file_fuzzer(path)
 
   local epath = vim.fn.expand(path)
   if isdir(epath) == nil then
-    log.error("Path provided is not valid: ", path)
+    api.nvim_err_writeln("Path provided is not valid: " .. epath)
     return
   end
 
-  if utl.is_mod_available('telescope') then
+  if is_mod_available('telescope') then
     require'telescope.builtin'.find_files{
       -- Optional
       cwd = path,
@@ -84,18 +96,6 @@ local function table_removekey(table, key)
   if element == nil then return nil end
   table[key] = nil
   return element
-end
-
-local function is_mod_available(name)
-  if package.loaded[name] then return true end
-  for _, searcher in ipairs(package.searchers or package.loaders) do
-    local loader = searcher(name)
-    if type(loader) == 'function' then
-      package.preload[name] = loader
-      return true
-    end
-  end
-  return false
 end
 
 -- Creates a floating buffer occuping width and height precentage of the screen
