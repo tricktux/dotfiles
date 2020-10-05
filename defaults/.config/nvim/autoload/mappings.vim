@@ -1,4 +1,4 @@
-> File:         mappings.vim
+" File:         mappings.vim
 " Description:  Function that sets all the mappings that are not related to
 "               plugins
 " Author:       Reinaldo Molina <rmolin88@gmail.com>
