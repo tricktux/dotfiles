@@ -11,7 +11,7 @@ local api = vim.api
 -- Similar to python's pprint. Usage: lua dump({1, 2, 3})
 local function dump(...)
   local objects = vim.tbl_map(vim.inspect, {...})
-  print(unpack(objects))
+   print(unpack(objects))
 end
 
 local function is_mod_available(name)
@@ -100,8 +100,10 @@ end
 
 -- Creates a floating buffer occuping width and height precentage of the screen
 -- Example width = 0.8, height = 0.8
--- Returns window handle
+-- Returns buffer, and window handle
 local function open_win_centered(width, height)
+  vim.validate{width = {width, 'n'}}
+  vim.validate{height = {height, 'n'}}
   local buf = api.nvim_create_buf(false, true)
 
   local mheight = math.floor((vim.o.lines - 2) * height)
@@ -120,7 +122,19 @@ local function open_win_centered(width, height)
 
   log.trace('row = ', row, 'col = ', col, 'width = ', mwidth, 'height = ',
             mheight)
-  return api.nvim_open_win(buf, true, opts)
+  return buf, api.nvim_open_win(buf, true, opts)
+end
+
+-- Execute program in floating terminal
+local function exec_float_term(cmd, closeterm, startinsert)
+  vim.validate{cmd = {cmd, 's'}}
+  vim.validate{startinsert = {startinsert, 'b'}}
+  vim.validate{closeterm = {closeterm, 'b'}}
+  
+  local buf, win = open_win_centered(0.8, 0.8)
+  vim.cmd("term " .. cmd)
+  if closeterm then vim.cmd("au TermClose <buffer=" .. buf .. [[> quit]]) end
+  if startinsert then vim.cmd("startinsert") end
 end
 
 -- Execute cmd and return all of its output
@@ -219,5 +233,6 @@ return {
   isfile = isfile,
   file_fuzzer = file_fuzzer,
   open_win_centered = open_win_centered,
-  io_popen_read = io_popen_read
+  io_popen_read = io_popen_read,
+  exec_float_term = exec_float_term,
 }
