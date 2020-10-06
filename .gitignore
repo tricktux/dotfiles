@@ -37,3 +37,5 @@ defaults/.config/systemd/user/user-applications.target.wants/
 defaults/.config/zsh/.zim/
 defaults/.config/zsh/*.zwc*
 defaults/.config/zsh/.zcompcache/
+
+scripts/win/win_center_kinesis.exe
