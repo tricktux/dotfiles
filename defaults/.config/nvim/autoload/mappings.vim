@@ -291,8 +291,8 @@ function! mappings#Set()
   nnoremap <silent> <F5> a<Space><c-r>=strftime("%a %b %d %Y %H:%M")<cr><esc>
   " Designed this way to be used with snippet md header
   vnoremap <silent> <F5> s<c-r>=strftime("%a %b %d %Y %H:%M")<cr>
-  inoremap <silent> <F5> <Space><c-r>=strftime("%a %b %d %Y %H:%M")<cr>
-  inoremap <silent> <F6> <Space><c-r>=strftime("%V")<cr>
+  inoremap <silent> <F5> <c-r>=strftime("%a %b %d %Y %H:%M")<cr>
+  inoremap <silent> <F6> <c-r>=strftime("%V")<cr>
   inoremap <silent> <F7> <c-r>=strftime("%B")<cr>
   " Auto indent pasted text
   nnoremap p :normal! p=`]<cr>
