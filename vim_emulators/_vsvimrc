@@ -12,6 +12,7 @@
 
 set autoindent
 
+inoremap ;j <esc>
 nnoremap <space>/k :vsc Edit.FindAllReferences<cr>
 nnoremap get :vsc EditorContextMenus.CodeWindow.ViewCallHierarchy<cr>
 nnoremap Q :vsc View.ErrorList<cr>
