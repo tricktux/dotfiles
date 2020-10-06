@@ -4,17 +4,17 @@ import subprocess
 USER_PROFILE = os.getenv('USERPROFILE')
 
 BACKUP_DIRS = [
-    r'{USER_PROFILE}\Documents\apps',
-    r'{USER_PROFILE}\AppData\Roaming\gnupg',
-    r'{USER_PROFILE}\.password-store',
-    #  r'D:\1.WINGS',
-    #  r'D:\2.Office',
-    #  r'D:\3.Other',
-    #  r'D:\cdats',
-    #  r'D:\wiki',
-    #  r'D:\wings-dev',
-    #  r'D:\Mission.ATPs',
-    #  r'D:\Mission_ATPs',
+    fr'{USER_PROFILE}\Documents\apps',
+    fr'{USER_PROFILE}\AppData\Roaming\gnupg',
+    fr'{USER_PROFILE}\.password-store',
+    r'D:\1.WINGS',
+    r'D:\2.Office',
+    r'D:\3.Other',
+    r'D:\cdats',
+    r'D:\wiki',
+    r'D:\wings-dev',
+    r'D:\Mission.ATPs',
+    r'D:\Mission_ATPs',
 ]
 
 DRIVE = 'E'
