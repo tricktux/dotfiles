@@ -54,4 +54,4 @@ set backspace=indent,eol,start whichwrap+=<,>,[,]
 vnoremap <BS> d
 "
 " " Use CTRL-S for saving, also in Insert mode
-noremap <C-S>		:update<CR>
+noremap <C-S>		:w<CR>
