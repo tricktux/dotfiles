@@ -225,6 +225,8 @@ function! plugin#Config()
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-lua/telescope.nvim'
     Plug 'Xuyuanp/scrollbar.nvim'
+    " Use with :LazyGit
+    Plug 'kdheepak/lazygit.nvim'
   else
     " And these are their alternatives
     call s:configure_neoformat()

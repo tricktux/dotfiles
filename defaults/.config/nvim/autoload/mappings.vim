@@ -1343,6 +1343,11 @@ function! s:version_control_command(cmd) abort
   let l:git = !empty(finddir('.git', l:cwd, 1))
   let l:svn = !empty(finddir('.svn', l:cwd, 1))
 
+  if l:git && exists(':LazyGit') && a:cmd !=? 'commit'
+    execute 'LazyGit'
+    return
+  endif
+
   if a:cmd ==? 'status'
     if l:git
       " nmap here is needed for the <C-n> to work. Otherwise it doesnt know what
