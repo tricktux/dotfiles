@@ -148,18 +148,33 @@ local function io_popen_read(cmd)
 end
 
 -- Attempt to display ranger in a floating window
--- local ranger_out = vim.fn.tempname()
--- vim.b.ranger_out = ranger_out
--- local win = open_win_centered(0.8, 0.8)
--- vim.cmd("au TermClose <buffer> * :q")
--- local cmd = "term ranger --choosefiles " .. ranger_out
--- vim.cmd(cmd)
--- vim.cmd("startinsert")
--- -- api.nvim_win_close(win, true)
--- local file = io.open(ranger_out)
--- local output = file:read()
--- file:close()
--- vim.cmd("edit " .. output)
+-- local utl = require('utils.utils')
+
+-- local ranger = {}
+-- ranger.out_file = nil
+-- ranger.opts = {
+  -- on_stdout = 'v:lua.ranger.__on_exit'
+-- }
+
+-- function ranger:exec()
+  -- local buf, win = utl.open_win_centered(0.8, 0.8)
+  -- self.out_file = vim.fn.tempname()
+  -- local cmd = "ranger --choosefiles " .. self.out_file
+  -- local job_id = vim.fn.termopen(cmd, self.opts)
+  -- if job_id <= 0 then
+    -- error("Failed to execute commands: " .. self.cmd.. ". opts = " .. self.opts)
+  -- end
+-- end
+
+-- function ranger:__on_exit(job_id, data, event)
+  -- local file = io.open(self.out_file)
+  -- local output = file:read()
+  -- file:close()
+  -- print(output)
+  -- vim.cmd("edit " .. output)
+-- end
+
+-- ranger:exec()
 
 -- Fixing vim.validate
 
