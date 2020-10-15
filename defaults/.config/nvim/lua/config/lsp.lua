@@ -88,6 +88,16 @@ local function lsp_set()
     lsp_status.register_progress()
     -- Notice not all configs have a `callbacks` setting
     local nvim_lsp = require('nvim_lsp')
+    local pid = tostring(vim.fn.getpid())
+
+    if vim.fn.executable('omnisharp') > 0 then
+        log.info("setting up the omnisharp lsp...")
+        nvim_lsp.omnisharp.setup {
+            on_attach = on_lsp_attach,
+            cmd = { "omnisharp", "--languageserver" , "--hostPID", pid},
+            capabilities = lsp_status.capabilities,
+        }
+    end
 
     if vim.fn.executable('pyls') > 0 then
         log.info("setting up the pyls lsp...")
