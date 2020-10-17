@@ -22,6 +22,12 @@ let b:did_markdown_ftplugin = 1
 
 let b:ncm2_look_enabled = 1
 
+let s:keepcpo= &cpo
+set cpo&vim
+
+setlocal wrap
+setlocal formatoptions-=tc
+
 if !exists('no_plugin_maps') && !exists('no_markdown_maps')
 	" TODO-[RM]-(Fri Oct 20 2017 08:50): Fix this code commented here below
 	" Encapsulate in markdown file from current line until end of file in ```
@@ -220,3 +226,9 @@ command! -buffer UtilsMarkdownPandocDocxMaker call linting#SetNeomakePandocMaker
 command! -buffer UtilsMarkdownPandocHtmlMaker call linting#SetNeomakePandocMaker('html')
 command! -buffer UtilsMarkdownPandocPdfSlidesMaker call linting#SetNeomakePandocMaker('pdf_slides')
 command! -buffer UtilsMarkdownPandocPptxSlidesMaker call linting#SetNeomakePandocMaker('pptx_slides')
+
+let b:undo_ftplugin = 'setlocal wrap<'
+      \ . '|setlocal formatoptions<'
+
+let &cpo = s:keepcpo
+unlet s:keepcpo
