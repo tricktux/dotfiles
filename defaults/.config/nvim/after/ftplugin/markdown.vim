@@ -46,7 +46,9 @@ if !exists('no_plugin_maps') && !exists('no_markdown_maps')
 		nnoremap <buffer> <Leader>tt :TOC<cr>
 	endif
 
-	if exists(':LanguageToolCheck')
+  if exists(':GrammarousCheck')
+    nnoremap <buffer> <LocalLeader>c :GrammarousCheck<cr>
+	elseif exists(':LanguageToolCheck')
 		nnoremap <buffer> <LocalLeader>c :LanguageToolCheck<cr>
 	endif
 
