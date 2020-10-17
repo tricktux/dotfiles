@@ -99,6 +99,9 @@ fi
 # export VISUAL=nvim
 export EDITOR=$VISUAL
 
+# Don't put stuff in home dir go
+export GOPATH="$XDG_DATA_HOME/go"
+
 # Fix typos in cli
 ENABLE_CORRECTION="true"
 
