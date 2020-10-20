@@ -59,7 +59,7 @@ local function file_fuzzer(path)
     require'telescope.builtin'.find_files {
       -- Optional
       cwd = path,
-      find_command = {"rg", "-i", "--hidden", "--files", "-g", "!.git"}
+      find_command = {"rg", "-i", "--hidden", "--files", "-g", "!.{git,svn}"}
     }
     return
   end
