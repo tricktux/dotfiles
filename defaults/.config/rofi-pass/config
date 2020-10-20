@@ -9,7 +9,7 @@ _rofi () {
 
 # default command to generate passwords
 _pwgen () {
-  pwgen -y "$@"
+  pwgen --symbols --capitalize --numerals --secure "$@"
 }
 
 # image viewer to display qrcode of selected entry
