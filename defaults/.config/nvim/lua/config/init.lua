@@ -18,7 +18,7 @@ local wikis_win = {
     [[D:\Reinaldo\Documents\src\resilio\wiki]],
 }
 local data_folders = {[[/sessions]], [[/ctags]]}
-local cache_folders = {[[/backup]], [[/swap]], [[/undofiles]]}
+local cache_folders = {[[/backup]], [[/undo]]}
 local wdev_path = [[D:/wings-dev]]
 local work_repos = {
     ['1'] = [[/src/OneWings]],
@@ -90,13 +90,15 @@ local function _init()
 
     -- Create needed directories if they don't exist already
     for _, folder in pairs(data_folders) do
-        if not luv.fs_mkdir(vim.g.std_data_path .. folder, 777) then
-          log.error('Failed to create: "' .. vim.g.std_data_path .. folder .. '"')
+        log.trace(folder .. " = " .. vim.g.std_data_path .. folder)
+        if not utl.isdir(vim.g.std_data_path .. folder) then
+          vim.fn.mkdir(vim.g.std_data_path .. folder, "p")
         end
     end
     for _, folder in pairs(cache_folders) do
-        if not luv.fs_mkdir(vim.g.std_cache_path .. folder, 777) then
-          log.error('Failed to create: "' .. vim.g.std_data_path .. folder .. '"')
+        log.trace(folder .. " = " .. vim.g.std_cache_path .. folder)
+        if not utl.isdir(vim.g.std_cache_path .. folder) then
+          vim.fn.mkdir(vim.g.std_cache_path .. folder, "p")
         end
     end
 end

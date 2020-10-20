@@ -117,14 +117,15 @@ function! options#Set() abort
   set writebackup
   " Do not skip a single backup
   set backupskip=
-  let &backupdir= g:std_cache_path . '/backup'
+  let &backupdir= g:std_cache_path . '/backup//'
+  let &backupext='_bkp'
   " Tue May 21 2019 10:28: Swap is very painful
   " Still haven't found a good use for it
   set noswapfile
   " let &directory = g:std_cache_path . '/swap//'
 
   " Undofiles
-  let &undodir= g:std_cache_path . '/undofiles'
+  let &undodir= g:std_cache_path . '/undo//'
   set undofile
   set undolevels=10000      " use many muchos levels of undo
 
