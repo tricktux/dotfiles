@@ -1035,8 +1035,8 @@ function! s:configure_tag_handler(choice) abort
     Plug 'jsfaint/gen_tags.vim' " Not being suppoprted anymore
 
     " Sat May 16 2020 12:25: Setting a different cache folder messes things up
-    " let g:gen_tags#cache_dir = g:std_data_path + '/ctags/'
-    " let g:gen_tags#use_cache_dir = 1
+    let g:gen_tags#cache_dir = g:std_cache_path . '/ctags/'
+    let g:gen_tags#use_cache_dir = 1
     let g:loaded_gentags#gtags = 1 " Disable gtags
     let g:gen_tags#gtags_default_map = 0
     let g:gen_tags#statusline = 0
