@@ -65,6 +65,12 @@ function! s:set_neomake() abort
 
   " Python linters. Pylint is slow but catches stuff pylama doesnt
   let g:neomake_python_enabled_makers = ['python', 'frosted', 'pylama', 'pylint']
+  let g:neomake_python_pyling_args = [
+        \ '--output-format=text',
+        \ '--msg-template="{path}:{line}:{column}:{C}: [{symbol}] {msg} [{msg_id}]"',
+        \ '--reports=no',
+        \ '--jobs=0',
+        \ ]
 
 	"  Very usefull for when using CMake
 	"  ----
