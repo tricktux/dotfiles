@@ -70,4 +70,8 @@ esac
 # bleachbit --list | grep -E "[a-z0-9_\-]+\.[a-z0-9_\-]+" | grep -v 
 # system.free_disk_space | xargs bleachbit --clean
 
+systemctl --failed
+read -n1 -r -p "Look for failures in services..." key
+journalctl -p 3 -xb
+read -n1 -r -p "Look for errors in log files..." key
 read -n1 -r -p "Done. Press any key to continue..." key
