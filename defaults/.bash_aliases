@@ -10,6 +10,10 @@
 machine=`hostname`
 server_ip='192.168.128.128'
 
+alias mv="mv --interactive --verbose"
+alias cp="cp --recursive --interactive --verbose"
+alias mkdir="--parents --verbose"
+
 alias install='trizen -S'
 alias update=FuncUpdate
 alias version='trizen -Si'
@@ -40,13 +44,8 @@ alias ...='cd ../../..'
 if [[ -f /usr/bin/advcp ]]; then
 	alias cp='advcp -gi'
 	alias mv='advmv -gi'
-else
-	alias mv='mv -i'
-	alias cp='cp -i'
 fi
 
-# cool
-alias mkdir='mkdir -pv'
 # Do not wait interval 1 second, go fast #
 alias ping='ping -c 10 -i .2'
 # do not delete / or prompt if deleting more than 3 files at a time #
