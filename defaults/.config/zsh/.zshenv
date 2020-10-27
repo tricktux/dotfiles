@@ -84,6 +84,10 @@ if [[ -d "$HOME/Downloads/packages/android-sdk-linux" ]]; then
   export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 fi
 
+# Firefox variables
+export MOZ_WEBRENDER=1
+export MOZ_X11_EGL=1
+
 # Depends on nvr being installed
 # Mon Jun 25 2018 21:51: Basically what this does is to ensure a unique global
 # instance of neovim. No matter from where you call nvim. If there is one open
