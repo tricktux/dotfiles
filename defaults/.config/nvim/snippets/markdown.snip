@@ -16,21 +16,35 @@ options     head
 snippet     scr
 abbr        Hon SCR Checklist
 options     head
-  ## ${1:SCR Number}
+    ## ${1:SCR Number}
+
     - `strftime("%a %b %d %Y %H:%M")`
-    - ${3:Wings Version}
-    - ${4:SCR Description}
-    -  [ ] Create SCR in CC
-    -  [ ] In Progress? Is it opened?
-    -  [ ] Implement in code
-    -  [ ] Put in each source file the header thing with SCR number
-    -  [ ] Send to L for review
-    -  [ ] Take care of L reviews
-    -  [ ] Create STDR
-    -  [ ] Move STDR to SCR folder. 
-    -  [ ] Put in the folder a pdf version of the SCR
-    -  [ ] Update help
-    -  [ ] Upload Code to Official Version Control
+    - ${2:CSCI Version}
+    - Title: ${3:Title}
+    - Description: ${4:Description}
+    - Found In: ${1}\${1}
+    - Customer Report Problem:
+        Notify: ${5: Who is the lead?}
+        Integrated Product Delivery and Support (IPDS) Phase:
+        (${6:2=Concept}, ${7:3=Planning},${8:4=Development}, 
+        ${9:5=Verification},${10:6=Production})
+        Type Of Change:
+        (${11:Requirements}, ${12:Design}, ${13:Implementation}, ${14:Test}, 
+        ${15:Documentation}, ${16:Other})
+    - Analysis: ${17:Analysis}
+    - Implementation: ${18:Implementation}
+    - Verification: Please see attached STD&R
+    - [ ] Create SCR in CC
+    - [ ] In Progress? Is it opened?
+    - [ ] Implement in code
+    - [ ] Put in each source file the header thing with SCR number
+    - [ ] Send to L for review
+    - [ ] Take care of L reviews
+    - [ ] Create STDR
+    - [ ] Move STDR to SCR folder. 
+    - [ ] Put in the folder a pdf version of the SCR
+    - [ ] Update help
+    - [ ] Upload Code to Official Version Control
 
 snippet     author
 abbr        Markdown YAML header
