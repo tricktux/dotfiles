@@ -1164,7 +1164,7 @@ function! mappings#SetWhichKeyMap() abort
   " However, let's have best of both worlds.
   " Let's leave telescope for buffer and mru and fzf for these other useful
   nnoremap <leader>; :lua require('telescope.builtin').commands()<cr>
-  nnoremap <leader>: :lua require('telescope.builtin').commands_history()<cr>
+  nnoremap <leader>: :lua require('telescope.builtin').command_history()<cr>
   nnoremap <leader>fh :lua require('telescope.builtin').help_tags()<cr>
   " nnoremap <leader>? :lua require('telescope.builtin').live_grep()<cr>
   " nnoremap <leader>f; :lua require('telescope.builtin').commands()<cr>
