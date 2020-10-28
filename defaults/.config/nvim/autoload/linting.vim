@@ -389,11 +389,7 @@ function! linting#SetNeomakeClangMaker() abort
 endfunction
 
 function! linting#SetNeomakeBorlandMaker() abort
-	command! -buffer UtilsUpdateBorlandMakefile call utils#UpdateBorlandMakefile()
-	augroup Borland
-		autocmd! * <buffer>
-		autocmd BufWritePre <buffer> call utils#UpdateBorlandMakefile()
-	augroup end
+	command! -buffer UtilsCompilerBorlandUpdateMakefile call <sid>update_borland_makefile()
 
 	" Settings for NeoamkeProject
 	let b:current_compiler = "borland"
@@ -406,6 +402,28 @@ function! linting#SetNeomakeBorlandMaker() abort
 	let b:neomake_cpp_enabled_makers = ['make']
 	let b:neomake_make_args = ['%:r.obj']
 	let b:neomake_make_errorformat = &errorformat
+endfunction
+
+function! s:update_borland_makefile() abort
+  " If compiler is not borland(set by SetupCompiler) fail.
+  if !exists('b:current_compiler') || b:current_compiler !=# 'borland'
+    echomsg 'Error, not in WINGS folder'
+    return -1
+  endif
+
+  let l:bpr = glob('WINGS.bpr')
+  if empty(l:bpr) " We may be in a different folder
+    echomsg 'Failed to locate WINGS.bpr'
+    return -2
+  endif
+
+  if !executable('bpr2mak')
+    echomsg 'bpr2mak	is not executable'
+    return -3
+  endif
+
+  execute "call " . (has('nvim') ? 'jobstart' : 'job_start') .
+        \ "(['bpr2mak', '-omakefile', '" . l:bpr . "'])"
 endfunction
 
 function! linting#SetNeomakeMsBuildMaker() abort

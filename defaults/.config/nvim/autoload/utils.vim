@@ -578,26 +578,6 @@ function! utils#GetPathFolderName(curr_dir) abort
 	return a:curr_dir[back_slash_index+1:]
 endfunction
 
-function! utils#UpdateBorlandMakefile() abort
-	" If compiler is not borland(set by SetupCompiler) fail.
-	if !exists('b:current_compiler') || b:current_compiler !=# 'borland'
-		echomsg 'Error, not in WINGS folder'
-		return -1
-	endif
-
-	if empty(glob('WINGS.bpr')) " We may be in a different folder
-		echomsg 'Failed to locate WINGS.bpr'
-		return -2
-	endif
-
-	if !executable('bpr2mak')
-		echomsg 'bpr2mak	is not executable'
-		return -3
-	endif
-
-	execute "call " . (has('nvim') ? 'jobstart' : 'job_start') . "(['bpr2mak', '-omakefile', 'WINGS.bpr'])"
-endfunction
-
 function! utils#AutoHighlight() abort
 	if exists("*utils#AutoHighlightToggle") && !exists('g:highlight')
 		silent call utils#AutoHighlightToggle()
