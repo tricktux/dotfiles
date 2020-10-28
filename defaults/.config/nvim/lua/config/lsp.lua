@@ -18,7 +18,6 @@ local function set_lsp_mappings()
         D = 'buf.type_definition()',
         R = 'buf.references()',
         f = 'buf.formatting()',
-        g = 'buf.formatting()',
         S = 'stop_all_clients()',
         n = 'util.show_line_diagnostics()'
     }
@@ -26,6 +25,13 @@ local function set_lsp_mappings()
         log.trace("lhs = ", map_pref .. lhs, ", rhs = ",
                   cmd_pref .. rhs .. cmd_suff, ", opts = ", opts)
         map.nnoremap(map_pref .. lhs, cmd_pref .. rhs .. cmd_suff, opts)
+    end
+    if utl.is_mod_available('telescope') then
+        cmd_pref = [[<cmd>lua require('telescope.builtin').lsp_]]
+        map.nnoremap(map_pref .. 'a', cmd_pref .. 'code_actions()' .. cmd_suff, opts)
+        map.nnoremap(map_pref .. 'R', cmd_pref .. 'references()' .. cmd_suff, opts)
+        map.nnoremap(map_pref .. 's', cmd_pref .. 'document_symbols()' .. cmd_suff, opts)
+        map.nnoremap(map_pref .. 'w', cmd_pref .. 'workspace_symbols()' .. cmd_suff, opts)
     end
 end
 
