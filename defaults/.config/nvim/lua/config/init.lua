@@ -67,6 +67,15 @@ local function _config_win()
     vim.g.browser_cmd = 'firefox.exe'
 
     _work_mappings(wdev_path)
+
+    -- Find python
+    local py = vim.fn.glob([[C:\Python*]], false, true)
+    if vim.tbl_isempty(py) == nil then
+        print('ERROR: Failed to find python')
+    else
+        -- Use the latest version found
+        vim.g.python3_host_prog = py[#py] .. [[\python.exe]]
+    end
 end
 
 local function _config_unix()
