@@ -16,7 +16,7 @@ set my_trash_noquote="Archive"
 
 set my_username="me"
 set my_domain="molinamail.com"
-set my_password="`pass linux/mailserver/me@molinamail.com`"
+set my_password="`pass linux/mailserver/rei`"
 
 source "~/.config/neomutt/imap.gen.mutt"
 
