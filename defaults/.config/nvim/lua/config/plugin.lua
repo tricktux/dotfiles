@@ -51,6 +51,32 @@ local function setup_treesitter()
     }
     -- disable = {"c", "rust"} -- list of language that will be disabled
   }
+
+  -- Set highlights for PaperColor
+  local hl = {
+    'highlight TSPunctDelimiter guifg=#00ad7f',
+    'highlight TSPunctSpecial guifg=#004e3d',
+    'highlight TSTagDelimiter guifg=#004257',
+    'highlight TSConstBuiltin guifg=#4c3d3d',
+    'highlight TSConstructor gui=Bold guifg=#533636',
+    'highlight TSVariableBuiltin guifg=#5d2d2d',
+    'highlight TSStringRegex guifg=#855f00',
+    'highlight TSLiteral guifg=#508500',
+    'highlight TSMethod gui=italic guifg=#573232',
+    'highlight TSField guifg=#004785',
+    'highlight TSProperty guifg=#002885',
+    'highlight TSParameterReference guifg=#005685',
+    'highlight TSAttribute guifg=#185d95',
+    'highlight TSTag guifg=#305b7e',
+    'highlight TSKeywordFunction guifg=#40596d',
+    'highlight TSKeywordOperator guifg=#1ac9ff',
+    'highlight TSTypeBuiltin guifg=#b0277d',
+    'highlight TSNamespace guifg=#b71f1f',
+  }
+
+  for _, high in ipairs(hl) do
+    vim.cmd(high)
+  end
 end
 
 local function setup_formatter_clang()
@@ -228,7 +254,7 @@ end
 local function setup()
   -- setup_formatter()
   -- Treesitter really far from ready
-  -- setup_treesitter()
+  setup_treesitter()
   setup_telescope()
   -- Kinda distracting
   -- setup_scrollbar()
