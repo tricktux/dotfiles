@@ -26,7 +26,13 @@ CompletionNvim._opts = {
             {complete_items = {'path'}, triggered_only = {'/'}}
         },
         string = {{complete_items = {'path'}, triggered_only = {'/'}}},
-        comment = {}
+        comment = {},
+        c = {complete_items = {'lsp', 'ts', 'snippet', 'buffer'}},
+        cpp = {complete_items = {'lsp', 'ts', 'snippet', 'buffer'}},
+        lua = {complete_items = {'lsp', 'ts', 'snippet', 'buffer'}},
+        python = {complete_items = {'lsp', 'ts', 'snippet', 'buffer'}},
+        java = {complete_items = {'lsp', 'ts', 'snippet', 'buffer'}},
+        cs = {complete_items = {'lsp', 'ts', 'snippet', 'buffer'}},
     }
 }
 
