@@ -60,7 +60,7 @@ function! augroup#Set() abort
 
     " Set spell for who?
     autocmd FileType
-          \ c,cpp,mail,markdown,gitcommit,tex,svnj_bwindow,fugitive
+          \ mail,markdown,gitcommit,tex,svnj_bwindow,fugitive
           \ setlocal spell spelllang=en,es
 
     autocmd FileType terminal setlocal nonumber norelativenumber bufhidden=hide
