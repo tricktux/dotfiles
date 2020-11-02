@@ -39,3 +39,7 @@ defaults/.config/zsh/*.zwc*
 defaults/.config/zsh/.zcompcache/
 
 scripts/win/win_center_kinesis.exe
+defaults/.gnupg/pubring.kbx
+defaults/.gnupg/pubring.kbx~
+defaults/.gnupg/random_seed
+defaults/.gnupg/tofu.db
