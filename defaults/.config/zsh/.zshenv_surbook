@@ -1,0 +1,12 @@
+# File:           .zshenv_surbook
+# Description:    Commands and variables specific to predator machine
+# Author:       Reinaldo Molina
+# Email:          me at molinamail dot com
+# Revision:     0.0.0
+# Created:        Mon Nov 02 2020 06:28
+# Last Modified:  Mon Nov 02 2020 06:28
+
+export GDK_SCALE=2
+export QT_SCALE_FACTOR=2
+export QT_AUTO_SCREEN_SCALE_FACTOR=0
+export MOZ_USE_XINPUT2=1

@@ -13,14 +13,8 @@
 host=`hostname`
 
 export HOSTNAME=$host
-if [ "$host" = "surbook" -o "$host" = "predator" ]; then
-  export GDK_SCALE=2
-  export QT_SCALE_FACTOR=2
-  export QT_AUTO_SCREEN_SCALE_FACTOR=0
-fi
-
-if [ "$host" = "surbook" ]; then
-  export MOZ_USE_XINPUT2=1
+if [ -f "$ZDOTDIR/.zshenv_$host" ]; then
+  source "$ZDOTDIR/.zshenv_$host"
 fi
 
 # Creating local bin folder
