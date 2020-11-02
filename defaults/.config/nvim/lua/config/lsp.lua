@@ -111,14 +111,48 @@ local function lsp_set()
             on_attach = on_lsp_attach,
             cmd = {"pyls"},
             root_dir = nvim_lsp.util.root_pattern(".git", ".svn"),
-            capabilities = lsp_status.capabilities
+            capabilities = lsp_status.capabilities,
+                settings = { pyls = {
+                    plugins = {
+                        jedi_completion = {
+                            fuzzy = true,
+                            include_params = true
+                        },
+                        mccabe = {
+                            enabled = false
+                        },
+                        pycodestyle = {
+                            enabled = false
+                        },
+                        flake8 = {
+                            enabled = true
+                        },
+                        pydocstyle = {
+                            enabled = false
+                        },
+                        pyflakes = {
+                            enabled = false
+                        },
+                        pylint = {
+                            enabled = false
+                        },
+                        yapf = {
+                            enabled = false
+                        },
+                        pyls_mypy = {
+                            enabled= true,
+                            live_mode= false
+                        }
+                    }
+                }
+            }
         }
     end
 
     -- if utl.is_mod_available('nlua.lsp.nvim') then
-        -- Requires the sumneko_lua server
-        -- This is setup nlua autocompletion of built in functions
-        -- To get builtin LSP running, do something like:
+    -- Requires the sumneko_lua server
+    -- This is setup nlua autocompletion of built in functions
+    -- To get builtin LSP running, do something like:
         -- NOTE: This replaces the calls where you would have before done
         -- `require('nvim_lsp').sumneko_lua.setup()`
         -- require('nlua.lsp.nvim').setup(require('nvim_lsp'),
