@@ -13,7 +13,9 @@
 " Guifont! Consolas:h9
 " Guifont! FontAwesome:h9
 function! s:win_nvim_ugly_font() abort
-	Guifont! Consolas:h10
+    let g:GuiFont ='FontAwesome:h9'
+    execute 'Guifont! ' . g:GuiFont
+	" Guifont! Consolas:h10
 	" Fri Jan 11 2019 11:22 
 	" Dont auto maximize
 	" call GuiWindowMaximized(1)
@@ -22,10 +24,11 @@ endfunction
 
 function! s:win_nvim_nice_font() abort
 	" let g:GuiFont ='DejaVuSansMonoForPowerline Nerd:h9'
-	" let g:GuiFont ='SauceCodePro Nerd Font Mono:h9'
+    let g:GuiFont ='SauceCodePro Nerd Font Mono:h9'
+    " let g:GuiFont ='FontAwesome:h9'
 	" let g:GuiFont ='UbuntuMono NF:h11'
-	" let g:GuiFont ='DejaVuSansMono NF:h9'
-	let g:GuiFont ='FuraCode Nerd Font Mono:h10'
+  " let g:GuiFont ='DejaVuSansMono NF:h9'
+	" let g:GuiFont ='FuraCode Nerd Font Mono:h10'
 	execute 'Guifont! ' . g:GuiFont
 	return s:set_nvim_qt_guioptions()
 endfunction
