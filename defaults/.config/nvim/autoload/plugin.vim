@@ -88,7 +88,7 @@ function! plugin#Config()
   let g:diminactive_buftype_blacklist = ['ctrlp']
   let g:diminactive_enable_focus = 1
 
-  call s:configure_vim_zoom()
+  " call s:configure_vim_zoom()
 
   call s:configure_vim_utils()
 
@@ -222,6 +222,9 @@ function! plugin#Config()
     Plug 'nvim-lua/popup.nvim'
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-lua/telescope.nvim'
+    if exists('g:valid_device')
+        Plug 'kyazdani42/nvim-web-devicons'
+    endif
   else
     " And these are their alternatives
     " If using treesitter don't use Semshi
