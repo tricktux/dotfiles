@@ -64,7 +64,7 @@ local function _config_win()
     log.info("wiki = ", wiki)
     if wiki ~= nil then
         vim.g.wiki_path = wiki
-        vim.g.valid_device = 1
+        -- vim.g.valid_device = 1
     end
 
     vim.g.browser_cmd = 'firefox.exe'
@@ -86,7 +86,7 @@ local function _config_unix()
     log.info("wiki = ", wiki)
     if wiki ~= nil then
         vim.g.wiki_path = wiki
-        vim.g.valid_device = 1
+        -- vim.g.valid_device = 1
     end
 
     vim.g.browser_cmd = '/usr/bin/firefox'
