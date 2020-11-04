@@ -1,6 +1,6 @@
 #!/bin/luajit
 
-local function get_hostname()
+local function _get_hostname()
   local cmd = 'hostname'
   local file = assert(io.popen(cmd))
   local output = file:read('*all')
@@ -9,7 +9,37 @@ local function get_hostname()
   return output:gsub("%s+", "")
 end
 
-local hostname = get_hostname()
+local _usage = [[
+Usage:
+  $(basename $0) <name> <arguments to $TERMINAL>
+  <name>    : name the window has
+  <arguments to $TERMINAL>: Will use $TERMINAL application
+  E.g.:  $(basename $0) ranger /usr/bin/ranger
+]]
+
+
+local function _check_args()
+  if not arg[1] or arg[1] == '' or arg[1] == nil then
+    print(_usage)
+    return -1
+  end
+
+  if arg[1] == '-h' or arg[1] == '--help' then
+    print(_usage)
+    return -2
+  end
+
+  if not arg[2] or arg[2] == '' or arg[2] == nil then
+    print(_usage)
+    return -3
+  end
+
+  return 0
+end
+
+if _check_args() ~= 0 then return end
+
+local hostname = _get_hostname()
 local i3ipc = {}
 
 i3ipc.cmd = [[/usr/bin/i3-msg]]
@@ -63,13 +93,6 @@ xdotool.app_visible_args = [[search --name --onlyvisible]]
 -- NOTE: Import substitute here for setting terminal name if you change from
 -- kitty
 xdotool.cmd = '$TERMINAL --title ' .. arg[1] .. ' ' .. arg[2] .. '&'
-xdotool.usage = [[
-Usage:
-    $(basename $0) <name> <arguments to $TERMINAL>
-    <name>    : name the window has
-    <arguments to $TERMINAL>: Will use $TERMINAL application
-    E.g.:  $(basename $0) ranger /usr/bin/ranger
-]]
 
 function xdotool:wait_for_window_visible(app)
   -- print('Waiting for ' .. app .. '...')
@@ -114,28 +137,7 @@ function xdotool:eval()
   -- return output
 end
 
-function xdotool:check_args()
-  if not arg[1] or arg[1] == '' or arg[1] == nil then
-    print(self.usage)
-    return -1
-  end
-
-  if arg[1] == '-h' or arg[1] == '--help' then
-    print(self.usage)
-    return -2
-  end
-
-  if not arg[2] or arg[2] == '' or arg[2] == nil then
-    print(self.usage)
-    return -3
-  end
-
-  return 0
-end
-
 local function main()
-  if xdotool:check_args() ~= 0 then return end
-
   if xdotool:window_visible(arg[1]) ~= '' then
     i3ipc:hide()
     return
