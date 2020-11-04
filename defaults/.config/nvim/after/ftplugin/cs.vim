@@ -67,7 +67,7 @@ if !exists('no_plugin_maps') && !exists('no_cs_maps')
 	endif
 endif
 
-call linting#SetNeomakeMsBuildMaker()
+lua require('config.linting').set_neomake_msbuild_compiler('cs')
 
 let &cpo = s:keepcpo
 unlet s:keepcpo
