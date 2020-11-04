@@ -12,7 +12,7 @@ server_ip='192.168.128.128'
 
 alias mv="mv --interactive --verbose"
 alias cp="cp --recursive --interactive --verbose"
-alias mkdir="--parents --verbose"
+alias mkdir="mkdir --parents --verbose"
 
 alias install='trizen -S'
 alias update=FuncUpdate
