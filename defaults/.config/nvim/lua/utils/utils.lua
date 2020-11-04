@@ -11,7 +11,47 @@ local api = vim.api
 -- Similar to python's pprint. Usage: lua dump({1, 2, 3})
 local function dump(...)
   local objects = vim.tbl_map(vim.inspect, {...})
-  print(unpack(objects))
+  log.trace(unpack(objects))
+end
+
+-- @brief Recurses through a directory in search for a file
+-- @param dir Directory to recurse
+-- @param file File looking for. Could use wildcards. Will be used by glob()
+-- @param ignore Regex with files that will be ignored. Will be used by 
+-- readdirs(). See help for that function on what can be passed to reduce list 
+-- of files. Example: [[v:val !~ '^\.\|\~$']]
+-- @return Table with all file matches with full path if found. Nil 
+-- otherwise
+local function _find_file_recurse(dir, file, ignore)
+    vim.validate{dir = {dir, 's'}}
+    vim.validate{file = {file, 's'}}
+    vim.validate{ignore = {ignore, 's'}}
+
+    if vim.fn.isdirectory(dir) == 0 then
+        return nil
+    end
+
+    -- Check if the file is in dir
+    log.trace('dir = ' .. vim.inspect(dir))
+    local files = vim.fn.glob(dir .. [[\]] .. file, true, false)
+    log.trace('files = ' .. vim.inspect(files))
+    if files ~= nil and files ~= "" then 
+        return files
+    end
+
+    -- Do not go into backup or dot files
+    local dirs = vim.fn.readdir(dir, ignore)
+    log.trace('dirs = ' .. vim.inspect(dirs))
+    for _, d in ipairs(dirs) do
+        if vim.fn.isdirectory(dir) == 1 then
+            files = _find_file_recurse(dir .. [[\]] .. d, file, ignore)
+            if files ~= nil and files ~= "" then 
+                return  files
+            end
+        end
+    end
+
+    return nil
 end
 
 local function is_mod_available(name)
@@ -33,7 +73,7 @@ local function has_win() return package.config:sub(1, 1) == [[\]] end
 local function isdir(path)
   vim.validate {path = {path, 's'}}
   local stat = luv.fs_stat(path)
-  if stat == nil then return nil end
+  if stat == nil then return false end
   if stat.type == "directory" then return true end
   return nil
 end
@@ -249,5 +289,6 @@ return {
   file_fuzzer = file_fuzzer,
   open_win_centered = open_win_centered,
   io_popen_read = io_popen_read,
-  exec_float_term = exec_float_term
+  exec_float_term = exec_float_term,
+  find_file = _find_file_recurse,
 }
