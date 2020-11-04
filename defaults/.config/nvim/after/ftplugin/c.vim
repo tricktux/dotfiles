@@ -96,7 +96,8 @@ function! s:set_compiler_and_friends() abort
 	command! -buffer UtilsCompilerGcc
 				\ execute("compiler gcc<bar>:setlocal makeprg=mingw32-make")
 	command! -buffer UtilsCompilerBorland call linting#SetNeomakeBorlandMaker()
-	command! -buffer UtilsCompilerMsbuild call linting#SetNeomakeMsBuildMaker()
+	command! -buffer UtilsCompilerMsbuild lua
+        \ require('config.linting').set_neomake_msbuild_compiler('cpp')
 	command! -buffer UtilsCompilerClangNeomake call linting#SetNeomakeClangMaker()
 	nnoremap <buffer> <localleader>mg :UtilsCompilerGcc<cr>
 	nnoremap <buffer> <localleader>mb :UtilsCompilerBorland<cr>
