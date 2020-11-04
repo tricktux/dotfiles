@@ -115,7 +115,7 @@ function xdotool:eval()
 end
 
 function xdotool:check_args()
-  if not arg[1] or arg[1] == '' then
+  if not arg[1] or arg[1] == '' or arg[1] == nil then
     print(self.usage)
     return -1
   end
@@ -125,7 +125,7 @@ function xdotool:check_args()
     return -2
   end
 
-  if not arg[2] or arg[2] == '' then
+  if not arg[2] or arg[2] == '' or arg[2] == nil then
     print(self.usage)
     return -3
   end
