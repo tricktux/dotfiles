@@ -65,12 +65,15 @@ if !exists('no_plugin_maps') && !exists('no_cs_maps')
 	if exists(':OmniSharpStartServer')
 		call <sid>set_omni_mappings()
 	endif
+  command! -buffer UtilsCompilerMsbuild2017 lua
+        \ require('config.linting').set_neomake_msbuild_compiler('cs', 'vs2017')
+  nnoremap <buffer> <localleader>m5 :UtilsCompilerMsbuild2017<cr>
+  command! -buffer UtilsCompilerMsbuild2015 lua
+        \ require('config.linting').set_neomake_msbuild_compiler('cs', 'vs2015')
+  nnoremap <buffer> <localleader>m7 :UtilsCompilerMsbuild2017<cr>
 endif
 
-command! -buffer UtilsCompilerMsbuild lua
-      \ require('config.linting').set_neomake_msbuild_compiler('cs')
-nnoremap <buffer> <localleader>mm :UtilsCompilerMsbuild<cr>
-lua require('config.linting').set_neomake_msbuild_compiler('cs')
+lua require('config.linting').set_neomake_msbuild_compiler('cs', 'vs2017')
 
 let &cpo = s:keepcpo
 unlet s:keepcpo
