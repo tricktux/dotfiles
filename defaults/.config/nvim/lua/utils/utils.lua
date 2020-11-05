@@ -75,15 +75,15 @@ local function isdir(path)
   local stat = luv.fs_stat(path)
   if stat == nil then return false end
   if stat.type == "directory" then return true end
-  return nil
+  return false
 end
 
 local function isfile(path)
   vim.validate {path = {path, 's'}}
   local stat = luv.fs_stat(path)
-  if stat == nil then return nil end
+  if stat == nil then return false end
   if stat.type == "file" then return true end
-  return nil
+  return false
 end
 
 local function file_fuzzer(path)
