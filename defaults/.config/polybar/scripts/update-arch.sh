@@ -55,8 +55,8 @@ esac
 read -p "Do you wish to update zsh-zim? (y/N)" yn
 case $yn in
 [Yy]*)
-  zimfw upgrade
-  zimfw update
+  "$ZIM_HOME/zimfw" upgrade
+  "$ZIM_HOME/zimfw" update
   ;;
 esac
 
