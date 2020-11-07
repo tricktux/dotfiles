@@ -9,14 +9,14 @@
 ! Note: Rofi size in screen is set by its font size. Which in turn is `xrdb -merge` in
 ! the .xinitrc file depending on the hostname
 
-rofi.font:              monospace 28
-rofi.modi: window,run,drun
+rofi.modi: ssh,window,run,drun
 rofi.show-icons: true
 rofi.theme: /usr/share/rofi/themes/Adapta-Nokto.rasi
 rofi.width: 80
 rofi.kb-remove-to-eol:               Control+u
 rofi.kb-remove-to-sol:               Control+shift+u
 rofi.kb-accept-entry:                Control+m,Return,KP_Enter
+! I like ctrl-{h,l} better for next mode, but ctrl-h is backspace
 rofi.kb-mode-next:                   Shift+Right,Control+n
 rofi.kb-mode-previous:               Shift+Left,Control+p
 rofi.kb-row-down:                    Down,Control+j

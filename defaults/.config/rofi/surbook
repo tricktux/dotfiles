@@ -10,16 +10,6 @@
 ! the .xinitrc file depending on the hostname
 
 rofi.font:              monospace 40
-rofi.modi: window,run,drun
-rofi.show-icons: true
-rofi.theme: /usr/share/rofi/themes/Adapta-Nokto.rasi
-rofi.width: 80
-rofi.kb-remove-to-eol:               Control+u
-rofi.kb-remove-to-sol:               Control+shift+u
-rofi.kb-accept-entry:                Control+m,Return,KP_Enter
-rofi.kb-mode-next:                   Shift+Right,Control+n
-rofi.kb-mode-previous:               Shift+Left,Control+p
-rofi.kb-row-down:                    Down,Control+j
-rofi.kb-row-up:                      Up,Control+k
+#include "config"
 
 ! vim:filetype=xdefaults
