@@ -43,3 +43,5 @@ defaults/.gnupg/pubring.kbx
 defaults/.gnupg/pubring.kbx~
 defaults/.gnupg/random_seed
 defaults/.gnupg/tofu.db
+
+defaults/.config/polybar/scripts/strava.ini
