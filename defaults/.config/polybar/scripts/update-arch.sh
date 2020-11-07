@@ -14,12 +14,25 @@ update_pacman_mirrors() {
   fi
 }
 
-update_python_pip() {
-  source ~/.config/polybar/scripts/python_neovim_virtualenv.sh
+update_python_venv() {
+  local venv_loc="$XDG_DATA_HOME/pyvenv/"
+  local venv_name="sys_wide"
+
+  local pkgs=(requests jinja2 stravalib)
+
+  mkdir -p "$venv_loc"
+  python -m venv "$venv_loc/$venv_name"
+  source "$venv_loc/$venv_name/bin/activate"
+  pip3 install --upgrade ${pkgs[*]}
+  deactivate
 }
 
 update_nvim_plugins() {
   nvim +PlugUpgrade +PlugUpdate +UpdateRemotePlugins
+}
+
+update_pynvim() {
+  source /home/reinaldo/.config/nvim/python_neovim_virtualenv.sh
 }
 
 update_pandoc_bin() {
@@ -34,19 +47,22 @@ update_pandoc_bin() {
   makepkg -si
 }
 
-read -p "Do you wish to update python pip? (y/N)" yn
+read -p "Do you wish to update python system wide env? (y/N)" yn
 case $yn in
-[Yy]*) update_python_pip ;;
+[Yy]*) update_python_venv ;;
 esac
 read -p "Do you wish to update pacman mirrors? (y/N)" yn
 case $yn in
 [Yy]*) update_pacman_mirrors ;;
 esac
-read -p "Do you wish to update neovim plugins? (y/N)" yn
+read -p "Do you wish to update neovim plugins pyvenv? (y/N)" yn
 case $yn in
 [Yy]*) update_nvim_plugins ;;
 esac
-
+read -p "Do you wish to update neovim pyvenv? (y/N)" yn
+case $yn in
+  [Yy]*) update_pynvim ;;
+esac
 read -p "Do you wish to update neovim-git? (y/N)" yn
 case $yn in
 [Yy]*) trizen -S neovim-git ;;
@@ -65,4 +81,5 @@ case $yn in
 [Yy]*) update_pandoc_bin ;;
 esac
 
+read -n1 -r -p "Manually update the firefox userjs: ~/.mozilla/firefox/<profile>" key
 read -n1 -r -p "Done. Press any key to continue..." key
