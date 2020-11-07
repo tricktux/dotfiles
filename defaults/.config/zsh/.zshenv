@@ -108,6 +108,9 @@ export GOPATH="$XDG_DATA_HOME/go"
 # Fix typos in cli
 ENABLE_CORRECTION="true"
 
+# root directory for bytecode cache (pyc) files.
+export PYTHONPYCACHEPREFIX="/tmp/pycache"
+
 # Thu Feb 22 2018 08:59: Can't figure out how to set locale properly on arch.
 # Result:
 # Wed May 02 2018 04:57: Not needed anymore
