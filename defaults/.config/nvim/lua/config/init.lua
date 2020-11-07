@@ -90,6 +90,13 @@ local function _config_unix()
     end
 
     vim.g.browser_cmd = '/usr/bin/firefox'
+
+    local py = vim.g.std_data_path .. [[/pyvenv/bin/python]]
+    if not utl.isfile(py) then
+      print('ERROR: Failed to find python venv: ' .. py)
+    else
+      vim.g.python3_host_prog = py
+    end
 end
 
 local function _init()

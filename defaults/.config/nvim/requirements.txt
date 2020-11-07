@@ -1,0 +1,16 @@
+vim-vint
+neovim-remote
+psutil
+flake8
+isort
+jedi
+pynvim
+python-language-server
+pip
+frosted
+pep8
+pylint
+requests
+neovim
+stravalib
+jinja2
