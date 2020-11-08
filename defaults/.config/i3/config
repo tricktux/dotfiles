@@ -1,31 +1,3 @@
-# i3 config file (v4)
-#
-# Please see http://i3wm.org/docs/userguide.html for a complete reference!
-#
-# This config file uses keycodes (bindsym) and was written for the QWERTY
-# layout.
-#
-# To get a config file with the same key positions, but for your current
-# layout, use the i3-config-wizard
-#
-
-# Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
-font pango:FontAwesome 9
-# font pango:Terminus 8
-# set $ft -xos4-terminesspowerline-medium-r-normal--12-120-72-72-c-60-iso10646-1
-
-# This font is widely installed, provides lots of unicode glyphs, right-to-left
-# text rendering and scalability on retina/hidpi displays (thanks to pango).
-#font pango:DejaVu Sans Mono 8
-
-# Before i3 v4.8, we used to recommend this one as the default:
-# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-# The font above is very space-efficient, that is, it looks good, sharp and
-# clear in small sizes. However, its unicode glyph coverage is limited, the old
-# X core fonts rendering does not support right-to-left and this being a bitmap
-# font, it doesn’t scale on retina/hidpi displays.
-
 # Tips {{{
 # Close stuff with mod+shift+q
 # It turns out that you can make 2 monitors use the same workspace with this:
@@ -116,17 +88,12 @@ bindsym mod3+s exec --no-startup-id \
 # $mod+i is reserved for a chat application
 # bindsym $mod+u exec --no-startup-id \
   # ~/.config/i3/scripts/xdotool_launch glances "glances --theme-white"
-bindsym $mod+u exec --no-startup-id \
-  ~/.config/i3/scripts/xdotool_launch htop htop
-bindsym $mod+o exec --no-startup-id \
-  ~/.config/i3/scripts/xdotool_launch journal "~/.config/i3/scripts/journal.sh"
-bindsym $mod+n exec --no-startup-id \
-  ~/.config/i3/scripts/xdotool_launch scratch "~/.config/tmux/scratch.sh"
-bindsym $mod+semicolon exec --no-startup-id \
-  ~/.config/i3/scripts/xdotool_launch terminal \
-  "-o background_opacity=0.9 tmux"
-bindsym $mod+p exec --no-startup-id \
-  ~/.config/i3/scripts/xdotool_launch neomutt "~/.config/tmux/neomutt.sh"
+bindsym $mod+u exec --no-startup-id ~/.config/i3/scripts/xdotool_launch \
+  htop htop
+bindsym $mod+p exec --no-startup-id ~/.config/i3/scripts/xdotool_launch \
+  neomutt "~/.config/tmux/neomutt.sh"
+bindsym $mod+o [title="^journal$"] scratchpad show, move position center
+bindsym $mod+n [title="^scratch$"] scratchpad show, move position center
 
 
 # Some silly comment
@@ -557,6 +524,23 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 	}
 # }}}
 
+# Mode Launch: {{{
+  set $mode_launch launch or toggle: [n]ranger, [o]journal, [t]erminal
+  bindsym $mod+Shift+l mode "$mode_launch"
+
+  mode "$mode_launch" {
+    bindsym t exec --no-startup-id \
+      $TERMINAL -T terminal -o background_opacity=0.9 tmux, mode "default"
+    bindsym o exec --no-startup-id ~/.config/i3/scripts/xdotool_launch journal \
+      "~/.config/i3/scripts/journal.sh" ;mode "default"
+    bindsym n exec --no-startup-id ~/.config/i3/scripts/xdotool_launch scratch \
+      "~/.config/tmux/scratch.sh";mode "default"
+
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+  }
+# }}}
+
 # Mode Screenshot: {{{
 # Sat Dec 30 2017 22:56:
 # bindsym f exec --no-startup-id gnome-screenshot -f \
@@ -565,8 +549,8 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 # ~/.cache/`date '+%y-%m-%d_%T'`.png;mode "default"
 # bindsym w exec --no-startup-id gnome-screenshot -w -f \
 # ~/.cache/`date '+%y-%m-%d_%T'`.png;mode "default"
-	set $mode_screenshot screenshot: [f]ull_screen, [s]election, [w]indow, [g]flameshot_gui
-	bindsym $mod+Shift+s mode "$mode_screenshot"
+set $mode_screenshot screenshot: [f]ull_screen, [s]election, [w]indow, [g]flameshot_gui
+bindsym $mod+Shift+s mode "$mode_screenshot"
 
 	mode "$mode_screenshot" {
 		bindsym f exec --no-startup-id sleep 0.2 && scrot '%Y-%m-%d_%T_scrot.png' \
@@ -632,12 +616,17 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 		# exec --no-startup-id cbatticon -c "notify-send 'Battery' 'Critically Low %5'"
     # exec --no-startup-id $TERMINAL -T scratch ~/.config/tmux/scratch.sh
     exec --no-startup-id $TERMINAL -T terminal -o background_opacity=0.9 tmux
+    exec --no-startup-id ~/.config/i3/scripts/xdotool_launch journal \
+      "~/.config/i3/scripts/journal.sh"
+    exec --no-startup-id ~/.config/i3/scripts/xdotool_launch scratch \
+      "~/.config/tmux/scratch.sh"
 		# exec --no-startup-id ~/.config/i3/scripts/focus_previous.sh
 		# exec --no-startup-id guake
     exec --no-startup-id if ! pgrep -u "$USER" ssh-agent > /dev/null; then\
           ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env" \
         fi
-
+    # One time polybar
+    exec --no-startup-id ~/.config/polybar/scripts/launch.sh
 
 # Fri Apr 19 2019 08:51: On demand from now on
 # exec --no-startup-id protonmail-bridge --cli
@@ -691,8 +680,8 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 # Do not modify here. It can still be used by gnome
 # Not using because it sets up conky with not sure how to use right now
 # exec /home/reinaldo/.dotfiles/scripts/autostart-gnome.sh
-exec_always --no-startup-id feh --randomize --no-fehbg --bg-fill \
-	~/Pictures/wallpapers/*
-exec_always --no-startup-id ~/.config/polybar/scripts/launch.sh
+# exec_always --no-startup-id feh --randomize --no-fehbg --bg-fill \
+	# ~/Pictures/wallpapers/*
+# exec_always --no-startup-id ~/.config/polybar/scripts/launch.sh
 # }}}
 # vim:fdm=marker
