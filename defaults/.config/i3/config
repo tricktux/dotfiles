@@ -280,14 +280,15 @@ bindsym $mod+Shift+r restart
 # 'Yes, exit i3' 'i3-msg exit'"
 # Here we replace default nagbar with i3-exit
 bindsym Control+Mod1+Delete exec --no-startup-id \
-~/.config/i3/scripts/shutdown_menu -c
+  ~/.config/i3/scripts/shutdown_menu -c
 
 ########### Custom Bindings ############################
-bindsym Print exec --no-startup-id gnome-screenshot
-bindsym XF86MonBrightnessUp exec --no-startup-id pkexec brillo -A 10
-bindsym XF86MonBrightnessDown exec --no-startup-id pkexec brillo -U 10
-bindsym $mod+Shift+Right exec --no-startup-id sudo brillo -A 15
-bindsym $mod+Shift+Left exec --no-startup-id sudo brillo -U 15
+bindsym Print exec --no-startup-id sleep 0.2 && scrot '%Y-%m-%d_%T_scrot.png' \
+			-e 'mv $f ~/.cache/'
+bindsym XF86MonBrightnessUp exec --no-startup-id sudo brillo -A 10
+bindsym XF86MonBrightnessDown exec --no-startup-id sudo brillo -U 10
+# bindsym $mod+Shift+Right exec --no-startup-id sudo brillo -A 15
+# bindsym $mod+Shift+Left exec --no-startup-id sudo brillo -U 15
 # So that it agrees with the volume-pulseaudio control
 bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer --increase 5
 bindsym XF86AudioLowerVolume exec --no-startup-id pamixer --decrease 5
@@ -369,76 +370,76 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 #       xprop | grep -i 'class'
 #				The actual value is the second name
 	for_window [class="File-roller"] floating enable
-		for_window [class="Speedcrunch"] floating enable
-		for_window [class="Gloobus-preview"] floating enable
-		for_window [class="Pavucontrol"] floating enable
-		for_window [class="Blueberry.py"] floating enable
-		for_window [class="Galculator"] floating enable
-		for_window [window_role="toolbox_window"] floating enable
-		for_window [class="Variety"] floating enable
+  for_window [class="Speedcrunch"] floating enable
+  for_window [class="Gloobus-preview"] floating enable
+  for_window [class="Pavucontrol"] floating enable
+  for_window [class="Blueberry.py"] floating enable
+  for_window [class="Galculator"] floating enable
+  for_window [window_role="toolbox_window"] floating enable
+  for_window [class="Variety"] floating enable
 
 # My-own
-		for_window [class="Seafile Client"] floating enable
-		for_window [class="Gnome-system-monitor"] floating enable
-		for_window [class="Pinentry"] floating enable
-		for_window [class="Youtube-dl-gui"] floating enable
-		for_window [class="Nm-connection-editor"] floating enable
-		for_window [class="Anki"] floating enable
-		for_window [class="Qt4-ssh-askpass"] floating enable
-		for_window [class="lxqt-openssh-askpass"] floating enable
-		for_window [class="Yad" title="yad-calendar"] floating enable
+  for_window [class="Seafile Client"] floating enable
+  for_window [class="Gnome-system-monitor"] floating enable
+  for_window [class="Pinentry"] floating enable
+  for_window [class="Youtube-dl-gui"] floating enable
+  for_window [class="Nm-connection-editor"] floating enable
+  for_window [class="Anki"] floating enable
+  for_window [class="Qt4-ssh-askpass"] floating enable
+  for_window [class="lxqt-openssh-askpass"] floating enable
+  for_window [class="Yad" title="yad-calendar"] floating enable
 
 # Scratchpad
-		for_window [title="^neomutt$"] move to scratchpad
-    for_window [title="^glances$"] move to scratchpad
-		for_window [title="^cmus$"] move to scratchpad
-		for_window [title="^ranger$"] move to scratchpad
-		for_window [title="^journal$"] move to scratchpad
-		for_window [title="^terminal$"] move to scratchpad
-    for_window [title="^htop$"] move to scratchpad
-    for_window [title="^scratch$"] move to scratchpad
-		for_window [class="Spotify"] move to scratchpad
+  for_window [title="^neomutt$"] move to scratchpad
+  for_window [title="^glances$"] move to scratchpad
+  for_window [title="^cmus$"] move to scratchpad
+  for_window [title="^ranger$"] move to scratchpad
+  for_window [title="^journal$"] move to scratchpad
+  for_window [title="^terminal$"] move to scratchpad
+  for_window [title="^htop$"] move to scratchpad
+  for_window [title="^scratch$"] move to scratchpad
+  for_window [class="Spotify"] move to scratchpad
 
 # Taken from https://github.com/Airblader/dotfiles-manjaro
-		for_window [class="Nitrogen"] floating enable
-		for_window [class="ARandR"] floating enable
-		for_window [class="lxappearance"] floating enable
-		for_window [title="xfce4-volumed"] floating enable
-		for_window [title="xfce4-notifyd"] floating enable
-		for_window [title="Steam*"] floating enable
-		for_window [title="Synergy"] floating enable
-		for_window [title="xfce4-volumed"] border pixel 0
-		for_window [title="xfce4-notifyd"] border pixel 0
-		for_window [class="File-roller"] floating enable
-		for_window [class="Battle.net.exe"] floating enable
-		for_window [class="Skype"] floating enable
-		for_window [class="gsimplecal"] floating enable
-		for_window [window_role="pop-up"] floating enable
-		for_window [window_role="task_dialog"] floating enable
+  for_window [class="Nitrogen"] floating enable
+  for_window [class="ARandR"] floating enable
+  for_window [class="lxappearance"] floating enable
+  for_window [title="xfce4-volumed"] floating enable
+  for_window [title="xfce4-notifyd"] floating enable
+  for_window [title="Steam*"] floating enable
+  for_window [title="Synergy"] floating enable
+  for_window [title="xfce4-volumed"] border pixel 0
+  for_window [title="xfce4-notifyd"] border pixel 0
+  for_window [class="File-roller"] floating enable
+  for_window [class="Battle.net.exe"] floating enable
+  for_window [class="Skype"] floating enable
+  for_window [class="gsimplecal"] floating enable
+  for_window [window_role="pop-up"] floating enable
+  for_window [window_role="task_dialog"] floating enable
 # by ROLE (WM_WINDOW_ROLE)
 # Note: window_role is Typically useful for effecting child windows
 #       such as instant messaging converstations, email composition
 #       windows, etc.
 # Tip: To find out what these values might be run:
 #       xprop | grep -i 'role'
-		for_window [window_role="conversation"] floating enable
-		for_window [window_role="Msgcompose"] floating enable
+  for_window [window_role="conversation"] floating enable
+  for_window [window_role="Msgcompose"] floating enable
 #################################################### }}}
 
 # Options{{{
 	floating_modifier $mod
 # thin borders
-		hide_edge_borders both
+  hide_edge_borders both
 # No borders
-		new_window none
-		new_float none
+  new_window none
+  new_float none
 
 # Disables gaps when there is only one window
-		smart_gaps on
+  smart_gaps on
 
 # Border settings
-		new_window pixel 3
-		smart_borders on
+  new_window pixel 3
+  smart_borders on
 
 # TODO revisit  when i3 is updated to 4.18
 # Update is live as of Tue Feb 18 2020 16:22 on github, arch hasn't caught up 
@@ -446,8 +447,8 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
   # smart_borders no_gaps
 
 # Global gaps settings
-		gaps inner 5
-		gaps outer 5
+  gaps inner 5
+  gaps outer 5
 
 # }}}
 
@@ -558,13 +559,6 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 # }}}
 
 # Mode Screenshot: {{{
-# Sat Dec 30 2017 22:56:
-# bindsym f exec --no-startup-id gnome-screenshot -f \
-# ~/.cache/`date '+%y-%m-%d_%T'`.png;mode "default"
-# bindsym s exec --no-startup-id gnome-screenshot -a -f \
-# ~/.cache/`date '+%y-%m-%d_%T'`.png;mode "default"
-# bindsym w exec --no-startup-id gnome-screenshot -w -f \
-# ~/.cache/`date '+%y-%m-%d_%T'`.png;mode "default"
 	set $mode_screenshot screenshot: [f]ull_screen, [s]election, [w]indow, [g]flameshot_gui
 	bindsym $mod+Shift+s mode "$mode_screenshot"
 
@@ -582,40 +576,6 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 			bindsym Escape mode "default"
 			bindsym Return mode "default"
 	}
-# }}}
-
-# Bar{{{
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-# bar {
-# # status_command i3blocks -c ~/.config/i3/i3blocks.conf
-# # i3bar_command ~/.config/i3/lemonbar/i3_lemonbar.sh
-# # status_command i3blocks -c ~/.config/i3/.i3blocks.conf
-# status_command polybar example
-# # i3bar_command i3bar -t
-# # position top
-# # font pango:Hack, FontAwesome 10
-# # strip_workspace_numbers yes
-# # separator_symbol "■"
-# # bindsym button4 nop
-# # bindsym button5 nop
-# # tray_output eDP1
-# # tray_output LVDS-0
-# tray_padding 0
-# height 30
-# colors {
-# statusline         $white
-# background         $transparent
-# separator          $transparent
-
-# #BORDER       BACKGROUND   TEXT
-# focused_workspace  $transparent $transparent $darkwhite
-# inactive_workspace $transparent $transparent $white
-# active_workspace   $transparent $transparent $white
-# urgent_workspace   $darkred     $darkred     $transparent
-# binding_mode       $darkred     $darkred     $transparent
-# }
-# }
 # }}}
 
 # STARTUP APPLICATIONS  {{{
