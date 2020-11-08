@@ -692,7 +692,7 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 # Not using because it sets up conky with not sure how to use right now
 # exec /home/reinaldo/.dotfiles/scripts/autostart-gnome.sh
 exec_always --no-startup-id feh --randomize --no-fehbg --bg-fill \
-	~/Pictures/wallpapers/*
+	/usr/share/backgrounds/archlinux/*
 exec_always --no-startup-id ~/.config/polybar/scripts/launch.sh
 # }}}
 # vim:fdm=marker
