@@ -75,15 +75,13 @@ read -p "Do you wish to update neovim-git? (y/N)" yn
 case $yn in
 [Yy]*) trizen -S neovim-git ;;
 esac
-
 read -p "Do you wish to update zsh-zim? (y/N)" yn
 case $yn in
 [Yy]*)
-  zimfw upgrade
-  zimfw update
+  zsh "$ZDOTDIR/.zim/zimfw.zsh" upgrade
+  zsh "$ZDOTDIR/.zim/zimfw.zsh" update
   ;;
 esac
-
 read -p "Do you wish to pandoc-{citeproc,crossref}-bin? (y/N)" yn
 case $yn in
 [Yy]*) update_pandoc_bin ;;
