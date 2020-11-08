@@ -102,6 +102,12 @@ end
 local function _init()
     log.info('--- Start Neovim Run ---')
 
+    -- Disable unnecessary providers
+    vim.g.loaded_python_provider = 0
+    vim.g.loaded_ruby_provider = 0
+    vim.g.loaded_perl_provider = 0
+    vim.g.loaded_node_provider = 0
+
     map:set()  -- Set mappings
 
     if utl.has_unix() then
