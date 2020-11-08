@@ -21,6 +21,7 @@ alias pacsearch='trizen -Ss'
 alias pacuninst='trizen -Rscn'
 alias pacuninstonly='trizen -Rdd'
 alias pacbroken='trizen -Qkk'
+alias paclistpkgfiles='trizen -Ql'
 
 # git
 alias ga='git add'
