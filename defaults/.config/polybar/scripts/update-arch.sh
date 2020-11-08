@@ -63,7 +63,7 @@ read -p "Do you wish to update pacman mirrors? (y/N)" yn
 case $yn in
 [Yy]*) update_pacman_mirrors ;;
 esac
-read -p "Do you wish to update neovim plugins pyvenv? (y/N)" yn
+read -p "Do you wish to update neovim plugins? (y/N)" yn
 case $yn in
 [Yy]*) update_nvim_plugins ;;
 esac
