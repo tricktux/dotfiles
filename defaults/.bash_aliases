@@ -14,12 +14,13 @@ alias mv="mv --interactive --verbose"
 alias cp="cp --recursive --interactive --verbose"
 alias mkdir="mkdir --parents --verbose"
 
-alias install='trizen -S'
-alias update=FuncUpdate
-alias version='trizen -Si'
-alias search='trizen -Ss'
-alias remove='trizen -Rscn'
-alias remove-only='trizen -Rdd'
+alias pacinst='trizen -S'
+alias pacup='trizen -Syu'
+alias pacver='trizen -Si'
+alias pacsearch='trizen -Ss'
+alias pacuninst='trizen -Rscn'
+alias pacuninstonly='trizen -Rdd'
+alias pacbroken='trizen -Qkk'
 
 # git
 alias ga='git add'
