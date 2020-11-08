@@ -75,13 +75,13 @@ alias neomutt-psu='neomutt -F ~/.config/neomutt/user.psu'
 
 # Folder
 # UnrealEngineCourse
-alias svn-server=\
-	'cd /home/reinaldo/.mnt/copter-server/mnt/hq-storage/1.Myn/svn-server'
+# alias svn-server=\
+	# 'cd /home/reinaldo/.mnt/copter-server/mnt/hq-storage/1.Myn/svn-server'
 
 # Mounting remote servers
-alias mount-truck='sshfs reinaldo@truck-server:/ ~/.mnt/truck-server/'
-alias mount-copter='sshfs reinaldo@${server_ip}:/ ~/.mnt/copter-server/'
-alias mount-hq='sshfs reinaldo@HQ:/ ~/.mnt/HQ-server/'
+# alias mount-truck='sshfs reinaldo@truck-server:/ ~/.mnt/truck-server/'
+# alias mount-copter='sshfs reinaldo@${server_ip}:/ ~/.mnt/copter-server/'
+# alias mount-hq='sshfs reinaldo@HQ:/ ~/.mnt/HQ-server/'
 
 # Misc
 # Removing -2 from tmux in order to get truecolor
@@ -90,8 +90,8 @@ alias mount-hq='sshfs reinaldo@HQ:/ ~/.mnt/HQ-server/'
 # alias vim='stty -ixon && vim'
 # Reload rxvt and deamon
 # Search help
-alias help=FuncHelp
-alias cpstat=FuncCheckCopy
+# alias help=FuncHelp
+# alias cpstat=FuncCheckCopy
 
 # ls
 if [[ -f /usr/bin/exa ]]; then
@@ -210,7 +210,7 @@ FuncSvnCreate()
 FuncMkcdir()
 {
 	mkdir -p -- "$1" &&
-		cd -P -- "$1"
+  cd -P -- "$1"
 }
 
 # $1 - Name of output file
