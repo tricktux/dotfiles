@@ -15,16 +15,13 @@ update_pacman_mirrors() {
 }
 
 update_python_venv() {
-  local venv_loc="$XDG_DATA_HOME/pyvenv/"
-  local venv_name="sys_wide"
+  local pkgs=(
+    requests jinja2 stravalib vim-vint psutil
+    flake8 isort jedi "python-language-server[all]" frosted
+    pep8 pylint neovim-remote
+  )
 
-  local pkgs=(requests jinja2 stravalib)
-
-  mkdir -p "$venv_loc"
-  python -m venv "$venv_loc/$venv_name"
-  source "$venv_loc/$venv_name/bin/activate"
-  pip3 install --upgrade ${pkgs[*]}
-  deactivate
+  pip3 install --upgrade --user ${pkgs[*]}
 }
 
 update_nvim_plugins() {
@@ -32,7 +29,18 @@ update_nvim_plugins() {
 }
 
 update_pynvim() {
-  source /home/reinaldo/.config/nvim/python_neovim_virtualenv.sh
+  # source /home/reinaldo/.config/nvim/python_neovim_virtualenv.sh
+  local venv_loc="$XDG_DATA_HOME/nvim/"
+  local venv_name="pyvenv"
+
+  local pkgs=(pynvim)
+
+  mkdir -p "$venv_loc"
+  python -m venv "$venv_loc/$venv_name" \
+    --symlinks --clear --upgrade --upgrade-deps
+  source "$venv_loc/$venv_name/bin/activate"
+  pip3 install --upgrade ${pkgs[*]}
+  deactivate
 }
 
 update_pandoc_bin() {
@@ -61,7 +69,7 @@ case $yn in
 esac
 read -p "Do you wish to update neovim pyvenv? (y/N)" yn
 case $yn in
-  [Yy]*) update_pynvim ;;
+[Yy]*) update_pynvim ;;
 esac
 read -p "Do you wish to update neovim-git? (y/N)" yn
 case $yn in
