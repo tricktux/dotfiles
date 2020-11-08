@@ -37,7 +37,7 @@ update_pynvim() {
 
   mkdir -p "$venv_loc"
   python -m venv "$venv_loc/$venv_name" \
-    --symlinks --clear --upgrade --upgrade-deps
+    --symlinks --clear
   source "$venv_loc/$venv_name/bin/activate"
   pip3 install --upgrade ${pkgs[*]}
   deactivate
