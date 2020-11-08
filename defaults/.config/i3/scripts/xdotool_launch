@@ -72,7 +72,7 @@ i3ipc.window_position = {
 }
 
 function i3ipc:hide()
-  local cmd = self.cmd .. ' ' .. 'scratchpad show'
+  local cmd = self.cmd .. ' scratchpad show'
   -- print(cmd)
   os.execute(cmd)
 end
@@ -96,8 +96,8 @@ xdotool.cmd = '$TERMINAL --title ' .. arg[1] .. ' ' .. arg[2] .. '&'
 
 function xdotool:wait_for_window_visible(app)
   -- print('Waiting for ' .. app .. '...')
-  while self:window_exists(app) == '' do os.execute('sleep 0.01') end
-  os.execute('sleep 0.1')
+  while self:window_exists(app) == '' do os.execute('sleep 0.001') end
+  os.execute('sleep 0.008')
 end
 
 function xdotool:window_exists(app)
