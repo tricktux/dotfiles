@@ -105,7 +105,7 @@ scroll-down = i3wm-wsprev
 
 modules-left = i3 space space player-cmus
 modules-center = xwindow
-modules-right = space openweather space date time powermenu
+modules-right = strava space openweather space date time powermenu
 
 [bar/main-bottom]
 bottom = true
