@@ -637,6 +637,7 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
     exec --no-startup-id if ! pgrep -u "$USER" ssh-agent > /dev/null; then\
           ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env" \
         fi
+    exec --no-startup-id ~/.config/polybar/scripts/launch.sh
 
 
 # Fri Apr 19 2019 08:51: On demand from now on
@@ -693,6 +694,5 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 # exec /home/reinaldo/.dotfiles/scripts/autostart-gnome.sh
 exec_always --no-startup-id feh --randomize --no-fehbg --bg-fill \
 	/usr/share/backgrounds/archlinux/*
-exec_always --no-startup-id ~/.config/polybar/scripts/launch.sh
 # }}}
 # vim:fdm=marker
