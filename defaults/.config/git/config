@@ -10,7 +10,7 @@ br = branch
 up = rebase
 ci = commit
 [core]
-editor = /usr/bin/nvr --remote-tab-wait-silent +'set bufhidden=delete'
+editor = nvr --remote-tab-wait-silent +'set bufhidden=delete'
 
 ; silence some strange warning
 [push]
@@ -19,14 +19,14 @@ default = simple
 [diff]
 tool = neovim
 [difftool "neovim"]
-cmd = /usr/bin/nvr --remote-tab-wait-silent +'set bufhidden=delete' -d $LOCAL $REMOTE
+cmd = nvr --remote-tab-wait-silent +'set bufhidden=delete' -d $LOCAL $REMOTE
 prompt = false
 [merge]
 tool = neovim
 keepBackup = false
 ; conflictstyle = diff3
 [mergetool "neovim"]
-cmd = /usr/bin/nvr --remote-tab-wait-silent +'set bufhidden=delete' -c DiffConflicts "$MERGED" "$BASE" "$LOCAL" "$REMOTE"
+cmd = nvr --remote-tab-wait-silent +'set bufhidden=delete' -c DiffConflicts "$MERGED" "$BASE" "$LOCAL" "$REMOTE"
 trustExitCode = true
 
 [color]
