@@ -619,80 +619,15 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 # }}}
 
 # STARTUP APPLICATIONS  {{{
-    exec --no-startup-id nm-applet
-    exec --no-startup-id picom --fading --daemon
-		exec --no-startup-id xscreensaver -no-splash
-		exec --no-startup-id pcmanfm --daemon-mode
-
-# exec --no-startup-id i3-sensible-terminal
-    # Sat Apr 25 2020 13:36: A lot of ram consumption 
-		# exec --no-startup-id blueberry-tray
-
-    # Extra bat stats. Consuming ton of power
-		# exec --no-startup-id cbatticon -c "notify-send 'Battery' 'Critically Low %5'"
-    # exec --no-startup-id $TERMINAL -T scratch ~/.config/tmux/scratch.sh
-    exec --no-startup-id $TERMINAL -T terminal -o background_opacity=0.9 tmux
-		# exec --no-startup-id ~/.config/i3/scripts/focus_previous.sh
-		# exec --no-startup-id guake
-    exec --no-startup-id if ! pgrep -u "$USER" ssh-agent > /dev/null; then\
-          ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env" \
-        fi
-    exec --no-startup-id ~/.config/polybar/scripts/launch.sh
-
-
-# Fri Apr 19 2019 08:51: On demand from now on
-# exec --no-startup-id protonmail-bridge --cli
-
-# Thu Dec 28 2017 09:48: Seafile fully functional
-# exec --no-startup-id dropbox
-# Sun Dec 16 2018 14:12:
-# Your demise has begun!
-# Sun Dec 30 2018 17:41
-# Indeed! It was replaced by rslsync/sync/resilio
-# exec --no-startup-id seafile-applet
-# exec --no-startup-id owncloud-client
-
-# Wed Oct 11 2017 22:16: Application similar to xflux
-# Rarely use it anymore. Just enable it when you want it
-# exec --no-startup-id redshift -c ~/.config/redshift.conf
-
-# Thu Sep 06 2018 04:19: Cool new audio system tray icon
-# Tue Apr 02 2019 15:05: Its not so cool.
-#  - barely see what the volume is. going out. polybar volume in
-# exec --no-startup-id pasystray
-# Sat Jul 07 2018 09:07: A little buggy
-# exec --no-startup-id variety
-
-# Mon Jan 15 2018 18:43: New cool app
-# exec --no-startup-id workrave
-
-# Mon Jul 17 2017 06:55 Not the proper way to start insync. See arch insync
-# exec --no-startup-id insync start
-
-# Notifications daemon. See twmnc for help
-# Fri Jun 30 2017 14:30: Not playing well with rambox
-# Thu Dec 28 2017 09:48: It was reused for a while now switching to dunst
-# exec --no-startup-id twmnd
-
-# Sun Oct 01 2017 08:17: Mount or attempt to mount-copter
-# exec --no-startup-id sshfs odroid@copter-server:/ ~/.mnt/copter-server/
-
-# Start vnc server service
-# exec --no-startup-id x0vncserver -display :0 -passwordfile ~/.vnc/passwd&
-# Start cmus in "daemon" mode
-# exec --no-startup-id tmux new-session -s cmus -d -n cmus -d \
-#	"/usr/bin/cmus $@"&
-# exec --no-startup-id sshfs odroid@copter-server:/ \
-#	/home/reinaldo/.mnt/copter-server&
-
-# Thu Nov 16 2017 18:31 trying to get an a good configuration
-# Sat Jul 28 2018 13:28: New settings
-# exec_always --no-startup-id xrandr --dpi 192
-
-# Do not modify here. It can still be used by gnome
-# Not using because it sets up conky with not sure how to use right now
-# exec /home/reinaldo/.dotfiles/scripts/autostart-gnome.sh
-exec_always --no-startup-id feh --randomize --no-fehbg --bg-fill \
-	/usr/share/backgrounds/archlinux/*
+  exec --no-startup-id nm-applet
+  exec --no-startup-id picom --fading --daemon
+  exec --no-startup-id xscreensaver -no-splash
+  exec --no-startup-id pcmanfm --daemon-mode
+  exec --no-startup-id if ! pgrep -u "$USER" ssh-agent > /dev/null; then\
+        ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env" \
+      fi
+  exec --no-startup-id ~/.config/polybar/scripts/launch.sh
+  exec_always --no-startup-id feh --randomize --no-fehbg --bg-fill \
+    /usr/share/backgrounds/archlinux/*
 # }}}
 # vim:fdm=marker
