@@ -176,7 +176,8 @@ function! plugin#Config()
 
   call s:configure_nerdcommenter()
 
-  Plug 'chrisbra/Colorizer', { 'for' : [ 'css','html','xml' ] }
+  Plug 'chrisbra/Colorizer', { 'on' : 'ColorHighlight',
+        \ 'for' : [ 'css','html','xml' ] }
   let g:colorizer_auto_filetype='css,html,xml'
   Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-surround'
