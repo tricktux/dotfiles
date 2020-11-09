@@ -75,7 +75,7 @@ zstyle ':zim:git' aliases-prefix 'g'
 
 # Customize the style that the suggestions are shown with.
 # See https://github.com/zsh-users/zsh-autosuggestions/blob/master/README.md#suggestion-highlight-style
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=30'
 ZSH_AUTOSUGGEST_STRATEGY=(history completion match_prev_cmd)
 
 #
@@ -89,7 +89,7 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor root line)
 # Customize the main highlighter styles.
 # See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters/main.md#how-to-tweak-it
 typeset -A ZSH_HIGHLIGHT_STYLES
-ZSH_HIGHLIGHT_STYLES[comment]='fg=10'
+ZSH_HIGHLIGHT_STYLES[comment]='fg=4'
 
 # ------------------
 # Initialize modules
