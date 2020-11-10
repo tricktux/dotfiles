@@ -96,7 +96,7 @@ font pango:FontAwesome 9
 # Note: Use Mouse+$mod to drag floating windows to their wanted position
 
 # Task executor
-bindsym control+shift+t exec --no-startup-id \
+bindsym control+shift+s exec --no-startup-id \
   /home/reinaldo/.config/rofi/scripts/myrmidon.sh \
   /home/reinaldo/.config/rofi/scripts/tasks.json 
 
