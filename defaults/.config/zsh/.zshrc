@@ -90,6 +90,11 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor root line)
 # See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters/main.md#how-to-tweak-it
 typeset -A ZSH_HIGHLIGHT_STYLES
 ZSH_HIGHLIGHT_STYLES[comment]='fg=4'
+ZSH_HIGHLIGHT_STYLES[builtin]='fg=93'
+ZSH_HIGHLIGHT_STYLES[command]='fg=93'
+ZSH_HIGHLIGHT_STYLES[function]='fg=93'
+ZSH_HIGHLIGHT_STYLES[alias]='fg=magenta,bold'
+ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
 
 # ------------------
 # Initialize modules
