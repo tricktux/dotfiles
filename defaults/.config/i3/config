@@ -142,21 +142,12 @@ bindsym mod1+Tab exec --no-startup-id i3flip next
 # Using now the control keys with vi like mappings just like windows
 # Reload xmodmap stuff
 bindsym control+mod1+x exec --no-startup-id xmodmap ~/.Xmodmap
-# Dangerous binding. I don't remember dvorak anymore
-# bindsym control+mod1+d exec --no-startup-id ~/.config/i3/scripts/switch_dvorak.sh
 bindsym control+mod1+h exec --no-startup-id cmus-remote -u
 bindsym control+mod1+l exec --no-startup-id cmus-remote -n
 bindsym control+mod1+k exec --no-startup-id pamixer --increase 5
 bindsym control+mod1+j exec --no-startup-id pamixer --decrease 5
 bindsym control+mod1+m exec --no-startup-id pamixer --toggle-mute
 bindsym control+mod1+p exec --no-startup-id rofi-pass
-# Wed Feb 26 2020 10:57: Just lunch pavucontrol from rofi 
-# bindsym control+mod1+p exec --no-startup-id pavucontrol
-# bindsym control+mod1+b exec --no-startup-id blueberry
-bindsym control+mod1+i exec --no-startup-id \
-~/.config/i3/scripts/pulseaudio-rofi.sh --input
-bindsym control+mod1+o exec --no-startup-id \
-~/.config/i3/scripts/pulseaudio-rofi.sh --output
 
 # bindsym $mod+n exec rofi -show window -opacity "50"
 bindsym $mod+m scratchpad show
@@ -279,13 +270,6 @@ bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit
-# shortcut. Do you really want to exit i3? This will end your X session.' -b
-# 'Yes, exit i3' 'i3-msg exit'"
-# Here we replace default nagbar with i3-exit
-bindsym Control+Mod1+Delete exec --no-startup-id \
-  ~/.config/i3/scripts/shutdown_menu -c -p rofi
 
 ########### Custom Bindings ############################
 bindsym Print exec --no-startup-id sleep 0.2 && scrot '%Y-%m-%d_%T_scrot.png' \
@@ -465,7 +449,7 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 # Pressing right will grow the window’s width.
 # Pressing down will shrink the window’s height.
 # Pressing up will grow the window’s height.
-		bindsym $left       resize shrink width 10 px or 10 ppt
+      bindsym $left       resize shrink width 10 px or 10 ppt
 			bindsym $up       resize grow height 10 px or 10 ppt
 			bindsym $down         resize shrink height 10 px or 10 ppt
 			bindsym $right      resize grow width 10 px or 10 ppt
@@ -480,48 +464,6 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 			bindsym Return mode "default"
 			bindsym Escape mode "default"
 	}
-# }}}
-
-# Mode bluetooth {{{
-#
-	set $mode_bluetooth bluetooth to: (w)wh-1000xm2, (b)ose (d)isconnect
-		bindsym mod1+control+b mode "$mode_bluetooth"
-		mode "$mode_bluetooth" {
-			bindsym w mode "default", exec --no-startup-id \
-				~/.config/i3/scripts/bluetooth.lua "connect" "04:5D:4B:EA:9C:B2"
-				bindsym b mode "default", exec --no-startup-id \
-				~/.config/i3/scripts/bluetooth.lua "connect" "2C:41:A1:25:F5:C1"
-				bindsym d mode "default", exec --no-startup-id \
-				~/.config/i3/scripts/bluetooth.lua "disconnect"
-
-				bindsym Return mode "default"
-				bindsym Escape mode "default"
-		}
-# }}}
-
-# Mode Password{{{
-#
-	set $mode_password pass: press (r)root, (e)esilio, (h)github, (g)git, (l)gitlab, (d)igital_ocean, (s)urbook
-		bindsym mod1+control+w mode "$mode_password"
-		mode "$mode_password" {
-			bindsym r mode "default", \
-				exec --no-startup-id pass --clip linux/`hostname`/user/root
-				bindsym h mode "default", exec --no-startup-id \
-				pass --clip linux/`hostname`/ssh_key/id_ed25519_github
-				bindsym d mode "default", exec --no-startup-id \
-				pass --clip linux/`hostname`/ssh_key/id_ed25519_digitalocean
-				bindsym g mode "default", exec --no-startup-id \
-				pass --clip linux/`hostname`/ssh_key/id_ed25519_git_server
-				bindsym l mode "default", exec --no-startup-id \
-				pass --clip linux/`hostname`/ssh_key/id_ed25519_gitlab
-				bindsym e mode "default", exec --no-startup-id \
-				pass --clip linux/`hostname`/resilio/admin
-				bindsym s mode "default", exec --no-startup-id \
-				pass --clip linux/`hostname`/ssh_key/id_ed25519_surbook
-
-				bindsym Return mode "default"
-				bindsym Escape mode "default"
-		}
 # }}}
 
 # Mode gaps{{{
@@ -560,26 +502,6 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 
 			bindsym Return mode "default"
 			bindsym Escape mode "default"
-	}
-# }}}
-
-# Mode Screenshot: {{{
-	set $mode_screenshot screenshot: [f]ull_screen, [s]election, [w]indow, [g]flameshot_gui
-	bindsym $mod+Shift+s mode "$mode_screenshot"
-
-	mode "$mode_screenshot" {
-		bindsym f exec --no-startup-id sleep 0.2 && scrot '%Y-%m-%d_%T_scrot.png' \
-			-e 'mv $f ~/.cache/';mode "default"
-			bindsym s exec --no-startup-id sleep 0.2 && scrot -s \
-			'%Y-%m-%d_%T_scrot.png' \
-			-e 'mv $f ~/.cache/';mode "default"
-			bindsym w exec --no-startup-id sleep 0.2 && scrot -u \
-			'%Y-%m-%d_%T_scrot.png' \
-			-e 'mv $f ~/.cache/';mode "default"
-			bindsym g exec --no-startup-id flameshot gui; mode "default"
-
-			bindsym Escape mode "default"
-			bindsym Return mode "default"
 	}
 # }}}
 
