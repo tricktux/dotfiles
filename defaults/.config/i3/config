@@ -289,7 +289,7 @@ bindsym Control+Mod1+Delete exec --no-startup-id \
 
 ########### Custom Bindings ############################
 bindsym Print exec --no-startup-id sleep 0.2 && scrot '%Y-%m-%d_%T_scrot.png' \
-			-e 'mv $f ~/.cache/'
+			-e 'mv $f /tmp/'
 bindsym XF86MonBrightnessUp exec --no-startup-id sudo brillo -A 10
 bindsym XF86MonBrightnessDown exec --no-startup-id sudo brillo -U 10
 # bindsym $mod+Shift+Right exec --no-startup-id sudo brillo -A 15
