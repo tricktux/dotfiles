@@ -12,7 +12,7 @@
 rofi.modi: ssh,window,run,drun
 rofi.show-icons: true
 rofi.theme: /usr/share/rofi/themes/Adapta-Nokto.rasi
-rofi.width: 80
+rofi.width: 50
 rofi.kb-remove-to-eol:               Control+u
 rofi.kb-remove-to-sol:               Control+shift+u
 rofi.kb-accept-entry:                Control+m,Return,KP_Enter
