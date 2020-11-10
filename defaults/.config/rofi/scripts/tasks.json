@@ -13,15 +13,15 @@
   },
   {
     "name": "polybar relaunch",
-    "command": "~/.config/polybar/scripts/launch.sh"
+    "command": "exec ~/.config/polybar/scripts/launch.sh"
   },
   {
     "name": "bluetooth wh-1000xm2",
-    "command": "~/.config/i3/scripts/bluetooth.lua 'connect' '04:5D:4B:EA:9C:B2'"
+    "command": "exec ~/.config/i3/scripts/bluetooth.lua 'connect' '04:5D:4B:EA:9C:B2'"
   },
   {
     "name": "bluetooth disconnect",
-    "command": "~/.config/i3/scripts/bluetooth.lua 'disconnect'"
+    "command": "exec ~/.config/i3/scripts/bluetooth.lua 'disconnect'"
   },
   {
     "name": "screenshot full screen",
@@ -41,11 +41,11 @@
   },
   {
     "name": "audio select input",
-    "command": "~/.config/i3/scripts/pulseaudio-rofi.sh --input"
+    "command": "exec ~/.config/i3/scripts/pulseaudio-rofi.sh --input"
   },
   {
     "name": "audio select output",
-    "command": "~/.config/i3/scripts/pulseaudio-rofi.sh --output"
+    "command": "exec ~/.config/i3/scripts/pulseaudio-rofi.sh --output"
   },
   {
     "name": "power off",
@@ -83,6 +83,6 @@
   },
   {
     "name": "xmodmap dvorak keyboard layout",
-    "command": "~/.config/i3/scripts/switch_dvorak.sh"
+    "command": "exec ~/.config/i3/scripts/switch_dvorak.sh"
   }
 ]
