@@ -1,5 +1,67 @@
 [
   {
+    "name": "arch update",
+    "command": "$TERMINAL ~/.config/polybar/scripts/update-arch.sh"
+  },
+  {
+    "name": "arch clean",
+    "command": "$TERMINAL ~/.config/polybar/scripts/arch-maintance.sh"
+  },
+  {
+    "name": "audio control",
+    "command": "pavucontrol"
+  },
+  {
+    "name": "polybar relaunch",
+    "command": "~/.config/polybar/scripts/launch.sh"
+  },
+  {
+    "name": "bluetooth wh-1000xm2",
+    "command": "~/.config/i3/scripts/bluetooth.lua 'connect' '04:5D:4B:EA:9C:B2'"
+  },
+  {
+    "name": "bluetooth disconnect",
+    "command": "~/.config/i3/scripts/bluetooth.lua 'disconnect'"
+  },
+  {
+    "name": "screenshot full screen",
+    "command": "sleep 0.2 && scrot '%Y-%m-%d_%T_scrot.png' -e 'mv $f /tmp/'"
+  },
+  {
+    "name": "screenshot selection",
+    "command": "sleep 0.2 && scrot -s '%Y-%m-%d_%T_scrot.png' -e 'mv $f /tmp/'"
+  },
+  {
+    "name": "screenshot window",
+    "command": "sleep 0.2 && scrot -s '%Y-%m-%d_%T_scrot.png' -e 'mv $f /tmp/'"
+  },
+  {
+    "name": "screenshot flameshot",
+    "command": "flameshot gui"
+  },
+  {
+    "name": "audio select input",
+    "command": "~/.config/i3/scripts/pulseaudio-rofi.sh --input"
+  },
+  {
+    "name": "audio select output",
+    "command": "~/.config/i3/scripts/pulseaudio-rofi.sh --output"
+  },
+  {
+    "name": "power off",
+    "confirm": true,
+    "command": "systemctl poweroff"
+  },
+  {
+    "name": "power reboot",
+    "confirm": true,
+    "command": "systemctl reboot"
+  },
+  {
+    "name": "power lock",
+    "command": "i3lock-fancy"
+  },
+  {
     "name": "pass root",
     "command": "pass --clip linux/`hostname`/user/root"
   },
@@ -20,49 +82,7 @@
     "command": "xmodmap ~/.Xmodmap"
   },
   {
-    "name": "audio control",
-    "command": "pavucontrol"
-  },
-  {
-    "name": "audio select input",
-    "command": "~/.config/i3/scripts/pulseaudio-rofi.sh --input"
-  },
-  {
-    "name": "audio select output",
-    "command": "~/.config/i3/scripts/pulseaudio-rofi.sh --output"
-  },
-  {
-    "name": "audio select output",
-    "command": "~/.config/i3/scripts/pulseaudio-rofi.sh --output"
-  },
-  {
-    "name": "xmodmap reload",
-    "command": "xmodmap ~/.Xmodmap"
-  },
-  {
-    "name": "bluetooth wh-1000xm2",
-    "command": "~/.config/i3/scripts/bluetooth.lua 'connect' '04:5D:4B:EA:9C:B2'"
-  },
-  {
-    "name": "bluetooth disconnect",
-    "command": "~/.config/i3/scripts/bluetooth.lua 'disconnect'"
-  },
-  {
-    "name": "Window screenshot",
-    "command": "gnome-screenshot -w"
-  },
-  {
-    "name": "power off",
-    "confirm": true,
-    "command": "systemctl poweroff"
-  },
-  {
-    "name": "power reboot",
-    "confirm": true,
-    "command": "systemctl reboot"
-  },
-  {
-    "name": "power lock",
-    "command": "i3lock-fancy"
+    "name": "xmodmap dvorak keyboard layout",
+    "command": "~/.config/i3/scripts/switch_dvorak.sh"
   }
 ]
