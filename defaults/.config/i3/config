@@ -95,6 +95,11 @@ font pango:FontAwesome 9
 # Bindings{{{
 # Note: Use Mouse+$mod to drag floating windows to their wanted position
 
+# Task executor
+bindsym control+shift+t exec --no-startup-id \
+  /home/reinaldo/.config/rofi/scripts/myrmidon.sh \
+  /home/reinaldo/.config/rofi/scripts/tasks.json 
+
 # New cool mod3 bindings
 bindsym mod3+r exec --no-startup-id pass --clip linux/`hostname`/user/root
 bindsym mod3+h exec --no-startup-id \
@@ -280,7 +285,7 @@ bindsym $mod+Shift+r restart
 # 'Yes, exit i3' 'i3-msg exit'"
 # Here we replace default nagbar with i3-exit
 bindsym Control+Mod1+Delete exec --no-startup-id \
-  ~/.config/i3/scripts/shutdown_menu -c
+  ~/.config/i3/scripts/shutdown_menu -c -p rofi
 
 ########### Custom Bindings ############################
 bindsym Print exec --no-startup-id sleep 0.2 && scrot '%Y-%m-%d_%T_scrot.png' \
