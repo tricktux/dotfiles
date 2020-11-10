@@ -9,7 +9,7 @@
 ! Note: Rofi size in screen is set by its font size. Which in turn is `xrdb -merge` in
 ! the .xinitrc file depending on the hostname
 
-rofi.font:              monospace 40
+rofi.font:              monospace 30
 #include "config"
 
 ! vim:filetype=xdefaults
