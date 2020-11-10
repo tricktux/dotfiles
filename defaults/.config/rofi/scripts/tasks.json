@@ -1,0 +1,68 @@
+[
+  {
+    "name": "pass root",
+    "command": "pass --clip linux/`hostname`/user/root"
+  },
+  {
+    "name": "pass ssh key github",
+    "command": "pass --clip linux/`hostname`/ssh_key/id_ed25519_github"
+  },
+  {
+    "name": "pass ssh key digitalocean",
+    "command": "pass --clip linux/`hostname`/ssh_key/id_ed25519_digitalocean"
+  },
+  {
+    "name": "pass ssh key gitlab",
+    "command": "pass --clip linux/`hostname`/ssh_key/id_ed25519_gitlab"
+  },
+  {
+    "name": "xmodmap reload",
+    "command": "xmodmap ~/.Xmodmap"
+  },
+  {
+    "name": "audio control",
+    "command": "pavucontrol"
+  },
+  {
+    "name": "audio select input",
+    "command": "~/.config/i3/scripts/pulseaudio-rofi.sh --input"
+  },
+  {
+    "name": "audio select output",
+    "command": "~/.config/i3/scripts/pulseaudio-rofi.sh --output"
+  },
+  {
+    "name": "audio select output",
+    "command": "~/.config/i3/scripts/pulseaudio-rofi.sh --output"
+  },
+  {
+    "name": "xmodmap reload",
+    "command": "xmodmap ~/.Xmodmap"
+  },
+  {
+    "name": "bluetooth wh-1000xm2",
+    "command": "~/.config/i3/scripts/bluetooth.lua 'connect' '04:5D:4B:EA:9C:B2'"
+  },
+  {
+    "name": "bluetooth disconnect",
+    "command": "~/.config/i3/scripts/bluetooth.lua 'disconnect'"
+  },
+  {
+    "name": "Window screenshot",
+    "command": "gnome-screenshot -w"
+  },
+  {
+    "name": "power off",
+    "confirm": true,
+    "command": "systemctl poweroff"
+  },
+  {
+    "name": "power reboot",
+    "confirm": true,
+    "command": "systemctl reboot"
+  },
+  {
+    "name": "power lock",
+    "command": "i3lock-fancy"
+  }
+]
