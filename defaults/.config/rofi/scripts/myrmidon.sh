@@ -5,8 +5,14 @@ cwd=$(echo $(dirname $0))
 config_file="${1:-"$HOME/.myrmidon-tasks.json"}"
 tasks=$(cat $config_file)
 
+prompt="Tasks:"
+
+rofi_cmd="rofi -config $XDG_CONFIG_HOME/rofi/$(hostname) \
+  -theme /usr/share/rofi/themes/sidebar.rasi
+  -dmenu -sort -matching fuzzy -i -p $prompt"
+
 # Pass tasks to rofi, and get the output as the selected option
-selected=$(echo $tasks | jq -j 'map(.name) | join("\n")' | rofi -config $XDG_CONFIG_HOME/rofi/$(hostname) -dmenu -sort -matching fuzzy -i -p "Search tasks")
+selected=$(echo $tasks | jq -j 'map(.name) | join("\n")' | $rofi_cmd)
 task=$(echo $tasks | jq ".[] | select(.name == \"$selected\")")
 
 # Exit if no task was found
