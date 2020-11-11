@@ -71,10 +71,10 @@ height = 2%
 radius = 6.0
 fixed-center = true
 
-; background = ${colors.background}
-; foreground = ${colors.foreground}
-background = ${color.bg}
-foreground = ${color.fg}
+background = ${colors.background}
+foreground = ${colors.foreground}
+; background = ${color.bg}
+; foreground = ${color.fg}
 ; underline-color = #00f
 ; overline-color = #f00
 
@@ -116,10 +116,10 @@ height = 2%
 radius = 6.0
 fixed-center = true
 
-; background = ${colors.background}
-; foreground = ${colors.foreground}
-background = ${color.bg}
-foreground = ${color.fg}
+background = ${colors.background}
+foreground = ${colors.foreground}
+; background = ${color.bg}
+; foreground = ${color.fg}
 ; underline-color = #00f
 ; overline-color = #f00
 
@@ -181,6 +181,9 @@ font-2 = "Font Awesome 5 Brands:pixelsize=10;1"
 font-3 = Roboto:size=10;0
 font-4 = Iosevka Nerd Font:style=Medium:size=14;3
 
+background = ${colors.background}
+foreground = ${colors.foreground}
+
 modules-left = menu wlan-helios info-pingrtt space space pihole space space todo
 ; Mon Dec 23 2019 15:06: Nvidia module is useless 
 ; modules-center =  left-end-top temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory right-end-top
@@ -224,6 +227,9 @@ font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=18;1"
 font-2 = "Font Awesome 5 Brands:pixelsize=18;1"
 font-3 = Roboto:size=18;0
 font-4 = Iosevka Nerd Font:style=Medium:size=22;3
+
+background = ${colors.background}
+foreground = ${colors.foreground}
 
 modules-left = menu wlan-surbook info-pingrtt space space pihole space space todo
 ; Mon Dec 23 2019 15:06: Nvidia module is useless 
