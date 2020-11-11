@@ -1,0 +1,13 @@
+configuration {
+	modi: "ssh,window,run,drun";
+	width: 60;
+	show-icons: true;
+	theme: "/usr/share/rofi/themes/Adapta-Nokto.rasi";
+	kb-remove-to-eol: "Control+u";
+	kb-remove-to-sol: "Control+shift+u";
+	kb-accept-entry: "Control+m,Return,KP_Enter";
+	kb-mode-next: "Shift+Right,Control+n";
+	kb-mode-previous: "Shift+Left,Control+p";
+	kb-row-up: "Up,Control+k";
+	kb-row-down: "Down,Control+j";
+}
