@@ -1,0 +1,37 @@
+#!/bin/luajit
+
+local _options = {
+  help = false,
+  verbose = false,
+  init = false,
+}
+
+local _usage = [[
+  Usage: flux [OPTIONS...]
+
+  Sets pywal colorscheme based on the time of the day reported by redshit
+
+    --help (-h)                 Display this message
+    --verbose (-v)              Verbose output
+    --manual (-m)               Use redshit manual method. By default will
+                                redshift default config
+  E.g.:  flux --init
+]]
+
+local function _check_args()
+  if not arg[1] or arg[1] == '' or arg[1] == nil then
+    print(_usage)
+    return -1
+  end
+
+  if arg[1] == '-h' or arg[1] == '--help' then
+    print(_usage)
+    return -2
+  end
+
+  return 0
+end
+
+local function main() if _check_args() ~= 0 then return end end
+
+main()
