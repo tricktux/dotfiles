@@ -19,7 +19,7 @@ local _usage = [[
     --manual (-m)               Use redshit manual method. By default will
                                 redshift default config
     --daytime (-d)              Light theme for pywal. Default: base16-google
-    --nightime (-n)             Dark theme for pywal. Default: 
+    --nighttime (-n)             Dark theme for pywal. Default: 
                                 --base16-gruvbox-hard
 
   Ex: flux -v -m -d --base16 -l
@@ -38,9 +38,9 @@ local function _check_args()
     elseif opt == '-m' or opt == '--manual' then
       _options['manual'] = true
     elseif opt == '-d' or opt == '--daytime' then
-      last_opt = opt
-    elseif opt == '-n' or opt == '--nightime' then
-      last_opt = opt
+      last_opt = 'daytime'
+    elseif opt == '-n' or opt == '--nighttime' then
+      last_opt = 'nighttime'
     elseif last_opt ~= nil then
       _options[last_opt] = opt
       last_opt = nil
@@ -48,15 +48,12 @@ local function _check_args()
 
   end
 
+  for key,copt in pairs(_options) do
+    print(key .. ' = ' .. tostring(copt))
+  end
 end
 
 local function main()
-  print("Hlaksjdf")
-  for key,copt in ipairs(_options) do
-    print(key .. ' = ' .. copt)
-  end
-  print("2Hlaksjdf")
-
   if _check_args() ~= 0 then
     return
   end
