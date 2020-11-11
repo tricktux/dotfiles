@@ -1,12 +1,12 @@
 #!/bin/luajit
 
 local _options = {
-  help = false,
-  verbose = false,
-  manual = false,
-  daytime = 'base16-google',
-  nightime = 'base16-gruvbox-hard',
-  wal_light = false,
+  ['help'] = false,
+  ['verbose'] = false,
+  ['manual'] = false,
+  ['daytime'] = 'base16-google',
+  ['nightime'] = 'base16-gruvbox-hard',
+  ['wal_light'] = false,
 }
 
 local _usage = [[
@@ -26,7 +26,7 @@ local _usage = [[
 ]]
 
 local function _check_args()
-  local last_opt = ''
+  local last_opt = nil
   for _,opt in ipairs(arg) do
     if opt == '-h' or opt == '--help' then
       print(_usage)
@@ -35,21 +35,31 @@ local function _check_args()
 
     if opt == '-v' or opt == '--verbose' then
       _options['verbose'] = true
-    end
-
-    if opt == '-m' or opt == '--manual' then
+    elseif opt == '-m' or opt == '--manual' then
       _options['manual'] = true
+    elseif opt == '-d' or opt == '--daytime' then
+      last_opt = opt
+    elseif opt == '-n' or opt == '--nightime' then
+      last_opt = opt
+    elseif last_opt ~= nil then
+      _options[last_opt] = opt
+      last_opt = nil
     end
 
-    if opt == '-d' or opt == '--daytime' then
-      _options['manual'] = true
-    end
-
-    last_opt = opt
   end
 
 end
 
-local function main() if _check_args() ~= 0 then return end end
+local function main()
+  print("Hlaksjdf")
+  for key,copt in ipairs(_options) do
+    print(key .. ' = ' .. copt)
+  end
+  print("2Hlaksjdf")
+
+  if _check_args() ~= 0 then
+    return
+  end
+end
 
 main()
