@@ -10,8 +10,6 @@ shittyfiles = [
     '~/.hunter',
     '~/.cache/',
     '~/.local/share/qutebrowser/',
-    '~/.local/share/Trash/files/',
-    '~/.local/share/Trash/info/',
     '~/.python_history',
     '~/.zcompdump*',
     '~/.local/share/xorg/'

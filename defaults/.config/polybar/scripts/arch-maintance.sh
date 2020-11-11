@@ -11,9 +11,10 @@ machine=`hostname`
 
 echo "Cleaning files desktop files..."
 /home/reinaldo/.config/polybar/scripts/rm_junk
-# recreating deleted files
+# Recreating deleted files
 mkdir ~/.cache
-mkdir ~/.local/share/Trash/{files,info}
+# Recreating deleted files
+gio trash --empty
 
 clean_pacman_cache() {
 	# This is very dangerous
