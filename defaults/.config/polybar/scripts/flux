@@ -3,7 +3,10 @@
 local _options = {
   help = false,
   verbose = false,
-  init = false,
+  manual = false,
+  daytime = 'base16-google',
+  nightime = 'base16-gruvbox-hard',
+  wal_light = false,
 }
 
 local _usage = [[
@@ -15,21 +18,36 @@ local _usage = [[
     --verbose (-v)              Verbose output
     --manual (-m)               Use redshit manual method. By default will
                                 redshift default config
-  E.g.:  flux --init
+    --daytime (-d)              Light theme for pywal. Default: base16-google
+    --nightime (-n)             Dark theme for pywal. Default: 
+                                --base16-gruvbox-hard
+
+  Ex: flux -v -m -d --base16 -l
 ]]
 
 local function _check_args()
-  if not arg[1] or arg[1] == '' or arg[1] == nil then
-    print(_usage)
-    return -1
+  local last_opt = ''
+  for _,opt in ipairs(arg) do
+    if opt == '-h' or opt == '--help' then
+      print(_usage)
+      return 0
+    end
+
+    if opt == '-v' or opt == '--verbose' then
+      _options['verbose'] = true
+    end
+
+    if opt == '-m' or opt == '--manual' then
+      _options['manual'] = true
+    end
+
+    if opt == '-d' or opt == '--daytime' then
+      _options['manual'] = true
+    end
+
+    last_opt = opt
   end
 
-  if arg[1] == '-h' or arg[1] == '--help' then
-    print(_usage)
-    return -2
-  end
-
-  return 0
 end
 
 local function main() if _check_args() ~= 0 then return end end
