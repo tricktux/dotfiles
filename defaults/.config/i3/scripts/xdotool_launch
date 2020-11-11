@@ -11,10 +11,10 @@ end
 
 local _usage = [[
 Usage:
-  $(basename $0) <name> <arguments to $TERMINAL>
+  xdotool_launch <name> <arguments to $TERMINAL>
   <name>    : name the window has
   <arguments to $TERMINAL>: Will use $TERMINAL application
-  E.g.:  $(basename $0) ranger /usr/bin/ranger
+  E.g.:  xdotool_launch ranger /usr/bin/ranger
 ]]
 
 
