@@ -48,20 +48,20 @@ font pango:FontAwesome 9
 # TODO-[RM]-(Sat Mar 16 2019 18:54):
 # - Bring this colors here from .Xresources
 # - If you make chance there it breaks things here
-	set_from_resource $darkred     color1  #000000
-		set_from_resource $red         color9  #000000
-		set_from_resource $darkgreen   color2  #000000
-		set_from_resource $green       color10 #000000
-		set_from_resource $darkyellow  color3  #000000
-		set_from_resource $yellow      color11 #000000
-		set_from_resource $darkblue    color4  #000000
-		set_from_resource $blue        color12 #000000
-		set_from_resource $darkmagenta color5  #000000
-		set_from_resource $magenta     color13 #000000
-		set_from_resource $darkcyan    color6  #000000
-		set_from_resource $cyan        color14 #000000
-		set_from_resource $darkwhite   color7  #000000
-		set_from_resource $white       color15 #000000
+    set_from_resource $darkred     color1  #f0f0f0
+		set_from_resource $red         color9  #f0f0f0
+		set_from_resource $darkgreen   color2  #f0f0f0
+		set_from_resource $green       color10 #f0f0f0
+		set_from_resource $darkyellow  color3  #f0f0f0
+		set_from_resource $yellow      color11 #f0f0f0
+		set_from_resource $darkblue    color4  #f0f0f0
+		set_from_resource $blue        color12 #f0f0f0
+		set_from_resource $darkmagenta color5  #f0f0f0
+		set_from_resource $magenta     color13 #f0f0f0
+		set_from_resource $darkcyan    color6  #f0f0f0
+		set_from_resource $cyan        color14 #f0f0f0
+		set_from_resource $darkwhite   color7  #f0f0f0
+		set_from_resource $white       color15 #f0f0f0
 # Use custom colors for black
 		set $black       #282828
 		set $darkblack   #1d2021
@@ -513,7 +513,7 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
   exec --no-startup-id if ! pgrep -u "$USER" ssh-agent > /dev/null; then\
         ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env" \
       fi
-  exec --no-startup-id ~/.config/polybar/scripts/launch.sh
+  exec_always --no-startup-id ~/.config/polybar/scripts/launch.sh
   exec_always --no-startup-id feh --randomize --no-fehbg --bg-fill \
     /usr/share/backgrounds/archlinux/*
 # }}}
