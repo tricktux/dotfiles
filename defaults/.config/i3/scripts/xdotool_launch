@@ -17,7 +17,6 @@ Usage:
   E.g.:  xdotool_launch ranger /usr/bin/ranger
 ]]
 
-
 local function _check_args()
   if not arg[1] or arg[1] == '' or arg[1] == nil then
     print(_usage)
