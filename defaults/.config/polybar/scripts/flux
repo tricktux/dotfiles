@@ -71,16 +71,24 @@ local _redshit = {
   manual_provider = '-l manual'
 }
 
-function _redshit:executable()
-  local file, err = io.open(self.cmd)
+-- @brief Check if program is executable by trying to open the binary
+-- May fail with specific protected files
+-- @param cmd (string) Full path to command. Ex: '/usr/bin/cat'
+-- @return (int) 1 if found, 0 if not
+local function _executable(cmd)
+  local file, err = io.open(cmd)
   if file == nil then
-    print('Please install redshift')
+    print('Program not found')
     if _options['verbose'] then print('\t' .. err) end
 
     return 1
   end
 
   return 0
+end
+
+function _redshit:executable()
+  return _executable(self.cmd)
 end
 
 -- @brief Executes redshift with in print mode
