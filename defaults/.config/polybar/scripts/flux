@@ -35,7 +35,7 @@ local function _check_args()
   for _, opt in ipairs(arg) do
     if opt == '-h' or opt == '--help' then
       print(_usage)
-      return 0
+      return 1
     end
 
     if opt == '-v' or opt == '--verbose' then
@@ -61,8 +61,61 @@ local function _check_args()
       print('\t' .. key .. ' = ' .. tostring(copt))
     end
   end
+
+  return 0
 end
 
-local function main() if _check_args() ~= 0 then return end end
+local _redshit = {
+  cmd = [[/usr/bin/redshift]],
+  print = '-p',
+  manual_provider = '-l manual'
+}
 
-main()
+function _redshit:executable()
+  local file, err = io.open(self.cmd)
+  if file == nil then
+    print('Please install redshift')
+    if _options['verbose'] then print('\t' .. err) end
+
+    return 1
+  end
+
+  return 0
+end
+
+-- @brief Executes redshift with in print mode
+-- @param manual (bool) Wether to use force manual location provider
+-- @return Period: Night or Daytime, or '' in case of error
+function _redshit:exec(manual)
+  local cmd = self.cmd .. ' ' .. self.print .. ' ' ..
+                  (manual and self.manual_provider or '') .. ' 2>&1&'
+
+  if _options['verbose'] then print('Redshift command: ' .. cmd) end
+  local file, err = io.popen(cmd)
+  if file == nil then
+    print('Redshift command failed')
+    if _options['verbose'] then print('\t' .. err) end
+
+    return ''
+  end
+  local output = file:read('*all')
+  file:close()
+  if _options['verbose'] then print('Redshift output: ' .. output) end
+  -- Search occurrance of the Period value in the output
+  local period = ''
+  for word in string.gmatch(output, "Period: (%w+)") do period = word end
+  if _options['verbose'] then print('Day period: ' .. period) end
+  return period
+end
+
+local function main()
+  if _check_args() ~= 0 then return 0 end
+
+  if _redshit:executable() ~= 0 then return 1 end
+
+  local red = _redshit:exec(_options['manual'])
+  if red == '' then return 2 end
+
+end
+
+return main()
