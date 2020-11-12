@@ -84,13 +84,14 @@ function _redshit:executable()
 end
 
 -- @brief Executes redshift with in print mode
+-- Note: Day counts from the beggining of sunrise, and night from beg sunset
 -- @param manual (bool) Wether to use force manual location provider
--- @return Period: Night or Daytime, or '' in case of error
+-- @return Period (string): day, night, or '' in case of error
 function _redshit:exec(manual)
   local cmd = self.cmd .. ' ' .. self.print .. ' ' ..
                   (manual and self.manual_provider or '') .. ' 2>&1&'
 
-  if _options['verbose'] then print('Redshift command: ' .. cmd) end
+  if _options['verbose'] then print('Redshift command: \n\t' .. cmd) end
   local file, err = io.popen(cmd)
   if file == nil then
     print('Redshift command failed')
@@ -100,12 +101,11 @@ function _redshit:exec(manual)
   end
   local output = file:read('*all')
   file:close()
-  if _options['verbose'] then print('Redshift output: ' .. output) end
+  if _options['verbose'] then print('Redshift output: \n' .. output) end
   -- Search occurrance of the Period value in the output
-  local period = ''
-  for word in string.gmatch(output, "Period: (%w+)") do period = word end
-  if _options['verbose'] then print('Day period: ' .. period) end
-  return period
+  if string.find(output, "[D-d]ay") ~= nil then return 'day' end
+  if string.find(output, "[N-n]ight") ~= nil then return 'night' end
+  return ''
 end
 
 local function main()
@@ -114,6 +114,7 @@ local function main()
   if _redshit:executable() ~= 0 then return 1 end
 
   local red = _redshit:exec(_options['manual'])
+  if _options['verbose'] then print('Day period: \n\t' .. red) end
   if red == '' then return 2 end
 
 end
