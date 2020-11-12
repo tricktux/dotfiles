@@ -6,28 +6,33 @@ local _options = {
   ['manual'] = false,
   ['daytime'] = 'base16-google',
   ['nightime'] = 'base16-gruvbox-hard',
-  ['wal_light'] = false,
+  ['wal_light'] = false
 }
 
 local _usage = [[
   Usage: flux [OPTIONS...]
 
-  Sets pywal colorscheme based on the time of the day reported by redshit
+  Sets pywal colorscheme based on the time of the day reported by redshit.
+  Intented to be called periodically so that when a change in day/night time is
+  detected the system theme is changed automatically
 
     --help (-h)                 Display this message
     --verbose (-v)              Verbose output
     --manual (-m)               Use redshit manual method. By default will
                                 redshift default config
     --daytime (-d)              Light theme for pywal. Default: base16-google
-    --nighttime (-n)             Dark theme for pywal. Default: 
+    --nighttime (-n)            Dark theme for pywal. Default:
                                 --base16-gruvbox-hard
+    --light (-l)                Use pywal -l switch for daytime, is used for
+                                --themes serve
+                                both for day and night time
 
-  Ex: flux -v -m -d --base16 -l
+  Ex: flux -v -m -d --base16-gruvbox-soft -l
 ]]
 
 local function _check_args()
   local last_opt = nil
-  for _,opt in ipairs(arg) do
+  for _, opt in ipairs(arg) do
     if opt == '-h' or opt == '--help' then
       print(_usage)
       return 0
@@ -37,6 +42,8 @@ local function _check_args()
       _options['verbose'] = true
     elseif opt == '-m' or opt == '--manual' then
       _options['manual'] = true
+    elseif opt == '-l' or opt == '--light' then
+      _options['wal_light'] = true
     elseif opt == '-d' or opt == '--daytime' then
       last_opt = 'daytime'
     elseif opt == '-n' or opt == '--nighttime' then
@@ -48,15 +55,14 @@ local function _check_args()
 
   end
 
-  for key,copt in pairs(_options) do
-    print(key .. ' = ' .. tostring(copt))
+  if _options['verbose'] then
+    print('Switch options:')
+    for key, copt in pairs(_options) do
+      print('\t' .. key .. ' = ' .. tostring(copt))
+    end
   end
 end
 
-local function main()
-  if _check_args() ~= 0 then
-    return
-  end
-end
+local function main() if _check_args() ~= 0 then return end end
 
 main()
