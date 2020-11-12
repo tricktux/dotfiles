@@ -78,18 +78,28 @@ local _redshit = {
 local function _executable(cmd)
   local file, err = io.open(cmd)
   if file == nil then
-    print('Program not found')
+    print('Program ' .. cmd .. ' not found')
     if _options['verbose'] then print('\t' .. err) end
-
     return 1
   end
 
   return 0
 end
 
-function _redshit:executable()
-  return _executable(self.cmd)
+local function _exec(cmd)
+  cmd = cmd .. ' 2>&1&'
+  local file, err = io.popen(cmd)
+  if file == nil then
+    print('Command ' .. cmd .. ' failed')
+    if _options['verbose'] then print('\t' .. err) end
+    return ''
+  end
+  local output = file:read('*all')
+  file:close()
+  return output
 end
+
+function _redshit:executable() return _executable(self.cmd) end
 
 -- @brief Executes redshift with in print mode
 -- Note: Day counts from the beggining of sunrise, and night from beg sunset
@@ -97,18 +107,10 @@ end
 -- @return Period (string): day, night, or '' in case of error
 function _redshit:exec(manual)
   local cmd = self.cmd .. ' ' .. self.print .. ' ' ..
-                  (manual and self.manual_provider or '') .. ' 2>&1&'
+                  (manual and self.manual_provider or '')
 
   if _options['verbose'] then print('Redshift command: \n\t' .. cmd) end
-  local file, err = io.popen(cmd)
-  if file == nil then
-    print('Redshift command failed')
-    if _options['verbose'] then print('\t' .. err) end
-
-    return ''
-  end
-  local output = file:read('*all')
-  file:close()
+  local output = _exec(cmd)
   if _options['verbose'] then print('Redshift output: \n' .. output) end
   -- Search occurrance of the Period value in the output
   if string.find(output, "[D-d]ay") ~= nil then return 'day' end
@@ -116,15 +118,46 @@ function _redshit:exec(manual)
   return ''
 end
 
+local _pywal = {
+  cmd = [[/usr/bin/wal]],
+  theme = '--theme',
+  light = '-l',
+  quiet = '-q'
+}
+
+function _pywal:executable() return _executable(self.cmd) end
+
+-- @brief Execute the pywal command
+-- @param theme (string): Theme name
+-- @param verbose (bool): Produce verbose output
+-- @param light (bool): Pass the light switch
+function _pywal:exec(theme, verbose, light)
+  local cmd = self.cmd .. ' ' .. self.theme .. ' ' .. theme
+  if light then cmd = cmd .. ' ' .. self.light end
+  if not verbose then cmd = cmd .. ' ' .. self.quiet end
+  if _options['verbose'] then print('Pywal command: \n\t' .. cmd) end
+  local output = _exec(cmd)
+  if _options['verbose'] then print('Pywal output: \n' .. output) end
+end
+
 local function main()
   if _check_args() ~= 0 then return 0 end
 
   if _redshit:executable() ~= 0 then return 1 end
+  if _pywal:executable() ~= 0 then return 2 end
 
-  local red = _redshit:exec(_options['manual'])
-  if _options['verbose'] then print('Day period: \n\t' .. red) end
-  if red == '' then return 2 end
+  local period = _redshit:exec(_options['manual'])
+  if _options['verbose'] then print('Day period: \n\t' .. period) end
+  if period == '' then return 3 end
 
+  local theme = _options['daytime']
+  local light = _options['wal_light']
+  if period == 'night' then
+    theme = _options['nighttime']
+    light = false
+  end
+
+  _pywal:exec(theme, _options['verbose'], light)
 end
 
 return main()
