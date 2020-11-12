@@ -226,13 +226,13 @@ function! s:get_sunset_times(time) abort
 
 	" Time is given in UTC. Subs 4 to get ETC plus 12 to convert to military
 	let l:t = strpart(l:content, l:sunrise_idx + 9, 2)
-	" echomsg 't = ' l:t
-	let l:time = (str2nr(l:t) + 12 - 4) * 100
-	" echomsg 'time = ' l:time
+  echomsg 't = ' l:t
+	let l:time = (str2nr(l:t) + 12 - 5) * 100
+  echomsg 'time = ' l:time
 	let l:t = strpart(l:content, l:sunrise_idx + 12, 2)
-	" echomsg 't = ' l:t
+  echomsg 't = ' l:t
 	let l:time += str2nr(l:t)
-	" echomsg 'time = ' l:time
+  echomsg 'time = ' l:time
 
 	return str2nr(l:time)
 endfunction
@@ -250,13 +250,13 @@ function! s:get_sunrise_times(time) abort
 
 	" Time is given in UTC. Subs 4 to get ETC
 	let l:t = strpart(l:content, l:sunrise_idx + 10, 2)
-	" echomsg 't = ' l:t
-	let l:time = (str2nr(l:t) - 4) * 100
-	" echomsg 'time = ' l:time
+  echomsg 't = ' l:t
+	let l:time = (str2nr(l:t) - 5) * 100
+  echomsg 'time = ' l:time
 	let l:t = strpart(l:content, l:sunrise_idx + 13, 2)
-	" echomsg 't = ' l:t
+  echomsg 't = ' l:t
 	let l:time += str2nr(l:t)
-	" echomsg 'time = ' l:time
+  echomsg 'time = ' l:time
 	
 	return str2nr(l:time)
 endfunction
