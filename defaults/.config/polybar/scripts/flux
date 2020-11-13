@@ -1,12 +1,10 @@
 #!/bin/luajit
 
+local config = require("flux_config")
+
 local _options = {
   ['help'] = false,
   ['verbose'] = false,
-  ['manual'] = false,
-  ['daytime'] = 'base16-google',
-  ['nightime'] = 'base16-gruvbox-hard',
-  ['wal_light'] = false
 }
 
 local _usage = [[
@@ -14,22 +12,14 @@ local _usage = [[
 
   Sets pywal colorscheme based on the time of the day reported by redshit.
   Intented to be called periodically so that when a change in day/night time is
-  detected the system theme is changed automatically.
+  detected the system theme is changed automatically. Please see required
+  flux_config.lua file to configure the redshift and pywal commands.
 
     --help (-h)                 Display this message
     --verbose (-v)              Verbose output
-    --manual (-m)               Use redshit manual method. By default will
-                                redshift default config
-    --daytime (-d)              Light theme for pywal. Default: base16-google
-    --nighttime (-n)            Dark theme for pywal. Default:
-                                --base16-gruvbox-hard
-    --light (-l)                Use pywal -l switch for daytime
-
-  Ex: flux -v -m -d --base16-gruvbox-soft -l
 ]]
 
 local function _check_args()
-  local last_opt = nil
   for _, opt in ipairs(arg) do
     if opt == '-h' or opt == '--help' then
       print(_usage)
@@ -38,36 +28,14 @@ local function _check_args()
 
     if opt == '-v' or opt == '--verbose' then
       _options['verbose'] = true
-    elseif opt == '-m' or opt == '--manual' then
-      _options['manual'] = true
-    elseif opt == '-l' or opt == '--light' then
-      _options['wal_light'] = true
-    elseif opt == '-d' or opt == '--daytime' then
-      last_opt = 'daytime'
-    elseif opt == '-n' or opt == '--nighttime' then
-      last_opt = 'nighttime'
-    elseif last_opt ~= nil then
-      _options[last_opt] = opt
-      last_opt = nil
     end
 
-  end
-
-  if _options['verbose'] then
-    print('Switch options:')
-    for key, copt in pairs(_options) do
-      print('\t' .. key .. ' = ' .. tostring(copt))
-    end
   end
 
   return 0
 end
 
-local _redshit = {
-  cmd = [[/usr/bin/redshift]],
-  print = '-p',
-  manual_provider = '-l manual'
-}
+local _redshit = config.redshift
 
 -- @brief Check if program is executable by trying to open the binary
 -- May fail with specific protected files
@@ -103,9 +71,12 @@ function _redshit:executable() return _executable(self.cmd) end
 -- Note: Day counts from the beggining of sunrise, and night from beg sunset
 -- @param manual (bool) Wether to use force manual location provider
 -- @return Period (string): day, night, or '' in case of error
-function _redshit:exec(manual)
-  local cmd = self.cmd .. ' ' .. self.print .. ' ' ..
-                  (manual and self.manual_provider or '')
+function _redshit:exec()
+  local opts = ''
+  for _, opt in ipairs(self.switches) do
+    opts = opts .. ' ' .. opt
+  end
+  local cmd = self.cmd .. opts
 
   if _options['verbose'] then print('Redshift command: \n\t' .. cmd) end
   local output = _exec(cmd)
@@ -116,23 +87,20 @@ function _redshit:exec(manual)
   return ''
 end
 
-local _pywal = {
-  cmd = [[/usr/bin/wal]],
-  theme = '--theme',
-  light = '-l',
-  quiet = '-q'
-}
+local _pywal = config.pywal
 
 function _pywal:executable() return _executable(self.cmd) end
 
 -- @brief Execute the pywal command
--- @param theme (string): Theme name
--- @param verbose (bool): Produce verbose output
--- @param light (bool): Pass the light switch
-function _pywal:exec(theme, verbose, light)
-  local cmd = self.cmd .. ' ' .. self.theme .. ' ' .. theme
-  if light then cmd = cmd .. ' ' .. self.light end
-  if not verbose then cmd = cmd .. ' ' .. self.quiet end
+-- @param period (string): Either 'day' or 'night'
+function _pywal:exec(period)
+  local switches = period == 'day' and 'day' or 'night'
+  local opts = ''
+  for _, opt in ipairs(self[switches]) do
+    opts = opts .. ' ' .. opt
+  end
+  local cmd = self.cmd .. opts
+
   if _options['verbose'] then print('Pywal command: \n\t' .. cmd) end
   local output = _exec(cmd)
   if _options['verbose'] then print('Pywal output: \n' .. output) end
@@ -174,14 +142,7 @@ local function main()
     return
   end
 
-  local theme = _options['daytime']
-  local light = _options['wal_light']
-  if period == 'night' then
-    theme = _options['nighttime']
-    light = false
-  end
-
-  _pywal:exec(theme, _options['verbose'], light)
+  _pywal:exec(period)
 end
 
 return main()
