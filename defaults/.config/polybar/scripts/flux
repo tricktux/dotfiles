@@ -140,6 +140,23 @@ function _pywal:exec(theme, verbose, light)
   if _options['verbose'] then print('Pywal output: \n' .. output) end
 end
 
+local _memory = {
+  location = [[/tmp/flux]],
+}
+
+function _memory:store(period)
+  local file = assert(io.open(self.location, "w+"))
+  file:write(period)
+  file:close()
+end
+
+function _memory.recall()
+  local file = assert(io.open(self.location))
+  local output = file:read('*all')
+  file:close()
+  return output
+end
+
 local function main()
   if _check_args() ~= 0 then return 0 end
 
@@ -149,7 +166,6 @@ local function main()
   local period = _redshit:exec(_options['manual'])
   if _options['verbose'] then print('Day period: \n\t' .. period) end
   if period == '' then return 3 end
-
   local theme = _options['daytime']
   local light = _options['wal_light']
   if period == 'night' then
