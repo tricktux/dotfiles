@@ -23,9 +23,7 @@ local _usage = [[
     --daytime (-d)              Light theme for pywal. Default: base16-google
     --nighttime (-n)            Dark theme for pywal. Default:
                                 --base16-gruvbox-hard
-    --light (-l)                Use pywal -l switch for daytime, is used for
-                                --themes serve
-                                both for day and night time
+    --light (-l)                Use pywal -l switch for daytime
 
   Ex: flux -v -m -d --base16-gruvbox-soft -l
 ]]

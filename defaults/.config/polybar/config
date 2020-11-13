@@ -98,7 +98,7 @@ module-margin-left = 0
 module-margin-right = 0
 
 ; override-redirect = true
-enable-ipc = true
+enable-ipc = false
 
 scroll-up = i3wm-wsnext
 scroll-down = i3wm-wsprev
@@ -143,7 +143,7 @@ module-margin-left = 0
 module-margin-right = 0
 ; override-redirect = true
 ; wm-restack = i3
-enable-ipc = true
+enable-ipc = false
 
 scroll-up = i3wm-wsnext
 scroll-down = i3wm-wsprev
