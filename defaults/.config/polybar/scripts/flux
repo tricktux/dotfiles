@@ -1,22 +1,60 @@
 #!/bin/luajit
 
-local config = require("flux_config")
+local _config = {}
 
-local _options = {
-  ['help'] = false,
-  ['verbose'] = false,
+-- Redshift command. Basically how to run the command.
+-- Switches are provided as its own table
+_config.redshift = {cmd = '/usr/bin/redshift', switches = {"-p", "-l", "manual"}}
+
+-- Wal command. But with switches for day time and switches for night time
+-- Switches are provided as its own table
+_config.pywal = {
+  cmd = '/usr/bin/wal',
+  day = {
+    "--theme", "base16-google", "-l", "-q", "-o",
+    "/home/reinaldo/.config/polybar/launch.sh"
+  },
+  night = {
+    "--theme", "base16-gruvbox-hard", "-q", "-o",
+    "/home/reinaldo/.config/polybar/launch.sh"
+  }
 }
+
+local _options = {['help'] = false, ['verbose'] = false, ['config'] = ''}
 
 local _usage = [[
   Usage: flux [OPTIONS...]
 
   Sets pywal colorscheme based on the time of the day reported by redshit.
   Intented to be called periodically so that when a change in day/night time is
-  detected the system theme is changed automatically. Please see required
-  flux_config.lua file to configure the redshift and pywal commands.
+  detected the system theme is changed automatically.
 
     --help (-h)                 Display this message
     --verbose (-v)              Verbose output
+    --config (-c)               Location to configuration file
+
+  Configuration follows the lua syntax. Sample file:
+    local _M = {}
+
+    -- Redshift command. Basically how to run the command.
+    -- Switches are provided as its own table
+    _M.redshift = {cmd = '/usr/bin/redshift', switches = {"-p", "-l", "manual"}}
+
+    -- Wal command. But with switches for day time and switches for night time
+    -- Switches are provided as its own table
+    _M.pywal = {
+      cmd = '/usr/bin/wal',
+      day = {
+        "--theme", "base16-google", "-l", "-q", "-o",
+        "/home/reinaldo/.config/polybar/launch.sh"
+      },
+      night = {
+        "--theme", "base16-gruvbox-hard", "-q", "-o",
+        "/home/reinaldo/.config/polybar/launch.sh"
+      }
+    }
+
+    return _M
 ]]
 
 local function _check_args()
@@ -26,16 +64,14 @@ local function _check_args()
       return 1
     end
 
-    if opt == '-v' or opt == '--verbose' then
-      _options['verbose'] = true
-    end
+    if opt == '-v' or opt == '--verbose' then _options['verbose'] = true end
 
   end
 
   return 0
 end
 
-local _redshit = config.redshift
+local _redshit = _config.redshift
 
 -- @brief Check if program is executable by trying to open the binary
 -- May fail with specific protected files
@@ -73,9 +109,7 @@ function _redshit:executable() return _executable(self.cmd) end
 -- @return Period (string): day, night, or '' in case of error
 function _redshit:exec()
   local opts = ''
-  for _, opt in ipairs(self.switches) do
-    opts = opts .. ' ' .. opt
-  end
+  for _, opt in ipairs(self.switches) do opts = opts .. ' ' .. opt end
   local cmd = self.cmd .. opts
 
   if _options['verbose'] then print('Redshift command: \n\t' .. cmd) end
@@ -87,7 +121,7 @@ function _redshit:exec()
   return ''
 end
 
-local _pywal = config.pywal
+local _pywal = _config.pywal
 
 function _pywal:executable() return _executable(self.cmd) end
 
@@ -96,9 +130,7 @@ function _pywal:executable() return _executable(self.cmd) end
 function _pywal:exec(period)
   local switches = period == 'day' and 'day' or 'night'
   local opts = ''
-  for _, opt in ipairs(self[switches]) do
-    opts = opts .. ' ' .. opt
-  end
+  for _, opt in ipairs(self[switches]) do opts = opts .. ' ' .. opt end
   local cmd = self.cmd .. opts
 
   if _options['verbose'] then print('Pywal command: \n\t' .. cmd) end
