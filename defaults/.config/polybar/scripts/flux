@@ -14,7 +14,7 @@ local _usage = [[
 
   Sets pywal colorscheme based on the time of the day reported by redshit.
   Intented to be called periodically so that when a change in day/night time is
-  detected the system theme is changed automatically
+  detected the system theme is changed automatically.
 
     --help (-h)                 Display this message
     --verbose (-v)              Verbose output
@@ -140,9 +140,7 @@ function _pywal:exec(theme, verbose, light)
   if _options['verbose'] then print('Pywal output: \n' .. output) end
 end
 
-local _memory = {
-  location = [[/tmp/flux]],
-}
+local _memory = {location = [[/tmp/flux]]}
 
 function _memory:store(period)
   local file = assert(io.open(self.location, "w+"))
@@ -150,8 +148,9 @@ function _memory:store(period)
   file:close()
 end
 
-function _memory.recall()
-  local file = assert(io.open(self.location))
+function _memory:recall()
+  local file = io.open(self.location)
+  if file == nil then return '' end
   local output = file:read('*all')
   file:close()
   return output
@@ -166,6 +165,17 @@ local function main()
   local period = _redshit:exec(_options['manual'])
   if _options['verbose'] then print('Day period: \n\t' .. period) end
   if period == '' then return 3 end
+
+  local last_period = _memory:recall()
+  _memory:store(period)
+  if _options['verbose'] then print('Last day period: \n\t' .. last_period) end
+  if last_period == period then
+    if _options['verbose'] then
+      print('Time of day has not change. Nothing to do. Bye bye :D')
+    end
+    return
+  end
+
   local theme = _options['daytime']
   local light = _options['wal_light']
   if period == 'night' then
