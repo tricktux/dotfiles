@@ -79,15 +79,15 @@ local function _check_args()
   end
 
   if _options['verbose'] then
-    print('Switch options:\n')
+    print('Switch options:')
     for opt, val in pairs(_options) do
-      print('\t' .. opt .. ' = "' .. tostring(val) '"')
+      print('\t' .. opt .. ' = "' .. tostring(val) .. '"')
     end
   end
   return 0
 end
 
-local _redshit = _config.redshift
+local _redshift = _config.redshift
 
 -- @brief Check if program is executable by trying to open the binary
 -- May fail with specific protected files
@@ -121,7 +121,7 @@ end
 -- Note: Day counts from the beggining of sunrise, and night from beg sunset
 -- @param manual (bool) Wether to use force manual location provider
 -- @return Period (string): day, night, or '' in case of error
-function _redshit:exec()
+function _redshift:exec()
   local opts = ''
   for _, opt in ipairs(self.switches) do opts = opts .. ' ' .. opt end
   local cmd = self.cmd .. opts
@@ -177,17 +177,14 @@ local function _reload_config(config_file)
     return nil
   end
 
-  local config = {}
-
-  local f, err = loadfile(config_file, "t", config)
+  local f, err = loadfile(config_file)
   if f == nil then
     print('Error loading config file:\n\t:' .. config_file)
     print('Error:\n\t:' .. err)
     return nil
   end
 
-  f()
-  return config
+  return f()
 end
 
 local function main()
@@ -199,16 +196,22 @@ local function main()
     if config == nil then
       return 1
     end
-    _pywal = config.pywal
-    _redshit = config.redshift
+    if _options['verbose'] then
+      print('Config options:')
+      for opt, val in pairs(config) do
+        print('\t' .. opt .. ' = "' .. tostring(val) .. '"')
+      end
+    end
+    -- Overwrite options
+    for k,v in pairs(config.pywal) do _pywal[k] = v end
+    for k,v in pairs(config.redshift) do _redshift[k] = v end
   end
 
-  local period = _redshit:exec(_options['manual'])
+  local period = _redshift:exec(_options['manual'])
   if _options['verbose'] then print('Day period: \n\t' .. period) end
   if period == '' then return 3 end
 
   local last_period = _memory:recall()
-  _memory:store(period)
   if _options['verbose'] then print('Last day period: \n\t' .. last_period) end
   if last_period == period then
     if _options['verbose'] then
@@ -217,6 +220,7 @@ local function main()
     return
   end
 
+  _memory:store(period)
   _pywal:exec(period)
 end
 
