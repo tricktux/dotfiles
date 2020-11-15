@@ -17,5 +17,6 @@ sleep 1
 
 # Sun Mar 17 2019 15:06
 # Do not enable --reload. Consumes power
-polybar top-$machine &
-polybar bottom-$machine &
+echo "---" | tee -a /tmp/polybar_top.log /tmp/polybar_bottom.log
+polybar top-$machine >>/tmp/polybar_top.log 2>&1 & disown
+polybar bottom-$machine >>/tmp/polybar_bottom.log 2>&1 & disown
