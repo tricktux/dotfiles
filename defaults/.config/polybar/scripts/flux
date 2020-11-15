@@ -24,10 +24,10 @@ _config.pywal = {
 }
 _config.print = {
   enabled = true,
-  day = "",
-  night = "",
-  sunset = "",
-  sunrise = ""
+  day = "  ",
+  night = "  ",
+  sunset = "  ",
+  sunrise = "  "
 }
 
 local _options = {['help'] = false, ['verbose'] = false, ['config'] = ''}
