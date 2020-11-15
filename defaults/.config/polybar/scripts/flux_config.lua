@@ -9,12 +9,10 @@ _M.redshift = {cmd = [[/usr/bin/redshift]], switches = {"-p", "-l", "manual"}}
 _M.pywal = {
   cmd = [[/usr/bin/wal]],
   day = {
-    "--theme", "base16-google", "-l", "-q", "-o",
-    "/home/reinaldo/.config/polybar/launch.sh"
+    "--theme", "base16-google", "-l", "-q",
   },
   night = {
-    "--theme", "base16-gruvbox-hard", "-q", "-o",
-    "/home/reinaldo/.config/polybar/launch.sh"
+    "--theme", "base16-gruvbox-hard", "-q",
   }
 }
 
