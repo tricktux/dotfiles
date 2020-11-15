@@ -15,12 +15,19 @@ _config.pywal = {
   cmd = '/usr/bin/wal',
   day = {
     "--theme", "base16-google", "-l", "-q", "-o",
-    "/home/reinaldo/.config/polybar/launch.sh"
+    "$USER/.config/polybar/launch.sh"
   },
   night = {
     "--theme", "base16-gruvbox-hard", "-q", "-o",
-    "/home/reinaldo/.config/polybar/launch.sh"
+    "$USER/.config/polybar/launch.sh"
   }
+}
+_config.print = {
+  enabled = true,
+  day = "",
+  night = "",
+  sunset = "",
+  sunrise = ""
 }
 
 local _options = {['help'] = false, ['verbose'] = false, ['config'] = ''}
@@ -193,9 +200,7 @@ local function main()
   local cfg = _options['config']
   if cfg ~= '' then
     local config = _reload_config(cfg)
-    if config == nil then
-      return 1
-    end
+    if config == nil then return 1 end
     if _options['verbose'] then
       print('Config options:')
       for opt, val in pairs(config) do
@@ -203,13 +208,16 @@ local function main()
       end
     end
     -- Overwrite options
-    for k,v in pairs(config.pywal) do _pywal[k] = v end
-    for k,v in pairs(config.redshift) do _redshift[k] = v end
+    for k, v in pairs(config.pywal) do _pywal[k] = v end
+    for k, v in pairs(config.redshift) do _redshift[k] = v end
+    for k, v in pairs(config.print) do _config.print[k] = v end
   end
 
   local period = _redshift:exec(_options['manual'])
   if _options['verbose'] then print('Day period: \n\t' .. period) end
   if period == '' then return 3 end
+
+  if _config.print['enabled'] then print(_config.print[period]) end
 
   local last_period = _memory:recall()
   if _options['verbose'] then print('Last day period: \n\t' .. last_period) end

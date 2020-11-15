@@ -8,12 +8,10 @@ _M.redshift = {cmd = [[/usr/bin/redshift]], switches = {"-p", "-l", "manual"}}
 -- Switches are provided as its own table
 _M.pywal = {
   cmd = [[/usr/bin/wal]],
-  day = {
-    "--theme", "base16-google", "-l", "-q",
-  },
-  night = {
-    "--theme", "base16-gruvbox-hard", "-q",
-  }
+  day = {"--theme", "base16-google", "-l", "-q"},
+  night = {"--theme", "base16-gruvbox-hard", "-q"}
 }
+
+_M.print = {enabled = false}
 
 return _M
