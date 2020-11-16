@@ -507,7 +507,8 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
 
 # STARTUP APPLICATIONS  {{{
   exec --no-startup-id nm-applet
-  exec --no-startup-id picom --fading --daemon
+  # https://pastebin.com/tfqSNjti
+  exec --no-startup-id picom -cCGF -b --vsync
   exec --no-startup-id xscreensaver -no-splash
   exec --no-startup-id pcmanfm --daemon-mode
   exec --no-startup-id if ! pgrep -u "$USER" ssh-agent > /dev/null; then\

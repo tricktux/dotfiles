@@ -4,5 +4,5 @@ if pgrep -x "picom" > /dev/null
 then
 	killall picom
 else
-	picom --fading --daemon&
+	picom -cCGF -b --vsync
 fi
