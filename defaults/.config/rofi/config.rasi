@@ -1,8 +1,8 @@
+
 configuration {
-	modi: "ssh,window,run,drun";
+	modi: "window,run,drun";
 	width: 60;
 	show-icons: true;
-	theme: "/usr/share/rofi/themes/Adapta-Nokto.rasi";
 	kb-remove-to-eol: "Control+u";
 	kb-remove-to-sol: "Control+shift+u";
 	kb-accept-entry: "Control+m,Return,KP_Enter";
@@ -10,4 +10,9 @@ configuration {
 	kb-mode-previous: "Shift+Left,Control+p";
 	kb-row-up: "Up,Control+k";
 	kb-row-down: "Down,Control+j";
+  opacity: 50;
 }
+
+@theme "/usr/share/rofi/themes/Adapta-Nokto.rasi"
+@import "/home/reinaldo/.cache/wal/colors-rofi-dark.rasi"
+@import "specific"
