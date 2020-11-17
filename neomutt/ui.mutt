@@ -7,8 +7,20 @@
 # Last Modified:  Tue Jan 22 2019 16:18
 
 # Pretty cool colors
-# source ~/.config/neomutt/mutt-solarized-colors.muttrc
-source ~/.config/neomutt/mutt-solarized-colors.muttrc
+# Just follow terminal colors
+# Taken from: https://www.reddit.com/r/archlinux/comments/aw0re9/using_pywal_with_neomutt/
+color normal white default
+color signature yellow default
+color status default default
+color tilde blue default
+color tree brightred default
+color header brightyellow default ^From:
+color header yellow default ^To:
+color header brightcyan default ^Date
+color header yellow default ^Cc:
+color header brightgreen default ^Subject:
+color header brightcyan default ^X-TRASH:
+color status brightgreen default
 
 set realname = "Reinaldo Molina"
 
