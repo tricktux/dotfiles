@@ -55,7 +55,7 @@ i3ipc.htop = {
 }
 i3ipc.neomutt = {
   ['helios'] = 'resize set 1320 880, move position center',
-  ['predator'] = 'resize set 2540 1024, move position center',
+  ['predator'] = 'resize set 3040 1524, move position center',
   ['surbook'] = 'resize set 2188 1459, move position center'
 }
 i3ipc.glances = {
