@@ -101,6 +101,7 @@ bindsym control+shift+s exec --no-startup-id \
   /home/reinaldo/.config/rofi/scripts/tasks.json 
 
 # New cool mod3 bindings
+# Paste from clipboard
 bindsym mod3+r exec --no-startup-id pass --clip linux/`hostname`/user/root
 bindsym mod3+h exec --no-startup-id \
   pass --clip linux/`hostname`/ssh_key/id_ed25519_github
@@ -163,8 +164,9 @@ bindsym $mod+Ctrl+$right      resize grow width 3 px or 3 ppt
 # Reserving for something good
 # bindsym $mod+p exec --no-startup-id passmenu
 
-bindsym $mod+shift+e exec --no-startup-id echo $EMAIL | \
-xclip -selection "clipboard"
+# Depracated
+# bindsym $mod+shift+e exec --no-startup-id echo $EMAIL | \
+# xclip -selection "clipboard"
 
 # Move focused workspace to monitor
 bindsym $mod+shift+bracketleft move workspace to output left
