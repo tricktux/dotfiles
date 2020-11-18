@@ -37,7 +37,7 @@ local function set_lsp_mappings()
   end
 end
 
--- Abstract function that allows you to hook and set settings on a buffer that 
+-- Abstract function that allows you to hook and set settings on a buffer that
 -- has lsp server support
 local function on_lsp_attach(client_id)
   if vim.b.did_on_lsp_attach == 1 then
@@ -83,6 +83,7 @@ local function diagnostic_set()
       vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
         -- This will disable virtual text, like doing:
         -- let g:diagnostic_enable_virtual_text = 0
+        -- ljkasdlf
         virtual_text = true,
 
         -- This is similar to:
@@ -115,7 +116,8 @@ local function lsp_set()
   lsp_status.register_progress()
   -- Notice not all configs have a `callbacks` setting
   local nvim_lsp = require('lspconfig')
-  local pid = tostring(vim.fn.getpid())
+  diagnostic_set()
+  -- local pid = tostring(vim.fn.getpid())
 
   -- Unbearably slow
   -- if vim.fn.executable('omnisharp') > 0 then
