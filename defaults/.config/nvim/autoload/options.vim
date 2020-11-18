@@ -162,7 +162,12 @@ function! options#Set() abort
   " Open and close folds Automatically
   " global fold indent
   " set foldmethod=indent
-  set foldmethod=indent
+  if has('nvim-0.5')
+    set foldmethod=expr
+    set foldexpr=nvim_treesitter#foldexpr()
+  else
+    set foldmethod=indent
+  end
   set foldnestmax=18      "deepest fold is 18 levels
   set foldlevel=0
   set foldlevelstart=0

@@ -40,43 +40,56 @@ local function setup_treesitter()
     return
   end
 
-  require'nvim-treesitter.configs'.setup {
+  -- local ts = require'nvim-treesitter'
+  local tsconf = require'nvim-treesitter.configs'
+
+  tsconf.setup {
     -- This line will install all of them
     -- one of "all", "language", or a list of languages
     ensure_installed = {
       "c", "cpp", "python", "lua", "java", "bash", "c_sharp", "markdown"
     },
     highlight = {
-      enable = true -- false will disable the whole extension
+      enable = true, -- false will disable the whole extension
+      incremental_selection = { enable = true },
+      textobjects = { enable = true },
+    },
+    indent = {
+      enable = true
     }
     -- disable = {"c", "rust"} -- list of language that will be disabled
   }
 
+  -- if exists('g:lightline')
+    -- let g:lightline.active.right[2] += [ 'sessions' ]
+    -- let g:lightline.component_function['sessions'] =
+    -- \ string(function('s:obsession_status'))
+  -- endif
   -- Set highlights for PaperColor
-  local hl = {
-    'highlight TSPunctDelimiter guifg=#00ad7f',
-    'highlight TSPunctSpecial guifg=#004e3d',
-    'highlight TSTagDelimiter guifg=#004257',
-    'highlight TSConstBuiltin guifg=#00d7af',
-    'highlight TSConstructor gui=Bold guifg=#8700d7',
-    'highlight TSVariableBuiltin guifg=#005faf',
-    'highlight TSStringRegex guifg=#afd700',
-    'highlight TSLiteral guifg=#00bcd4',
-    'highlight TSMethod gui=italic guifg=#d75f87',
-    'highlight TSField guifg=#afd7d7',
-    'highlight TSProperty guifg=#ffaf87',
-    'highlight TSParameterReference guifg=#005685',
-    'highlight TSAttribute guifg=#185d95',
-    'highlight TSTag guifg=#305b7e',
-    'highlight TSKeywordFunction guifg=#40596d',
-    'highlight TSKeywordOperator guifg=#1ac9ff',
-    'highlight TSTypeBuiltin guifg=#5f00ff',
-    'highlight TSNamespace guifg=#b71f1f',
-  }
+  -- local hl = {
+    -- 'highlight TSPunctDelimiter guifg=#00ad7f',
+    -- 'highlight TSPunctSpecial guifg=#004e3d',
+    -- 'highlight TSTagDelimiter guifg=#004257',
+    -- 'highlight TSConstBuiltin guifg=#00d7af',
+    -- 'highlight TSConstructor gui=Bold guifg=#8700d7',
+    -- 'highlight TSVariableBuiltin guifg=#005faf',
+    -- 'highlight TSStringRegex guifg=#afd700',
+    -- 'highlight TSLiteral guifg=#00bcd4',
+    -- 'highlight TSMethod gui=italic guifg=#d75f87',
+    -- 'highlight TSField guifg=#afd7d7',
+    -- 'highlight TSProperty guifg=#ffaf87',
+    -- 'highlight TSParameterReference guifg=#005685',
+    -- 'highlight TSAttribute guifg=#185d95',
+    -- 'highlight TSTag guifg=#305b7e',
+    -- 'highlight TSKeywordFunction guifg=#40596d',
+    -- 'highlight TSKeywordOperator guifg=#1ac9ff',
+    -- 'highlight TSTypeBuiltin guifg=#5f00ff',
+    -- 'highlight TSNamespace guifg=#b71f1f',
+  -- }
 
-  for _, high in ipairs(hl) do
-    vim.cmd(high)
-  end
+  -- for _, high in ipairs(hl) do
+    -- vim.cmd(high)
+  -- end
 end
 
 local function setup_formatter_clang()
