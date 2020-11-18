@@ -34,9 +34,9 @@ function! plugin#Config()
     call plug#begin(g:vim_plugins_path)
   endif
 
-  " Lightline should be one of the very first ones so that plugins can later on 
+  " Lightline should be one of the very first ones so that plugins can later on
   " add to it
-  " This call must remain atop since sets the g:lightline variable to which 
+  " This call must remain atop since sets the g:lightline variable to which
   " other plugins add to
   " selection - {lightline, airline}
   call status_line#config('lightline')
@@ -217,6 +217,12 @@ function! plugin#Config()
   " These plugins will be configured via lua
   if has('nvim-0.5')
     Plug 'nvim-treesitter/nvim-treesitter'
+    if exists('g:lightline')
+      " Unix already enables tagbar. No need for another
+      let g:lightline.active.right[2] += [ 'ts' ]
+      let g:lightline.component_function['ts'] =
+            \ string(function('s:ts_status'))
+    endif
     " Plug 'mhartington/formatter.nvim'
     Plug 'nanotee/nvim-lua-guide'
     " Fuzzers
@@ -229,7 +235,7 @@ function! plugin#Config()
     let g:lazygit_floating_window_corner_chars = ['╭', '╮', '╰', '╯'] " customize lazygit popup window corner characters
     let g:lazygit_use_neovim_remote = 0
     if exists('g:valid_device')
-        Plug 'kyazdani42/nvim-web-devicons'
+      Plug 'kyazdani42/nvim-web-devicons'
     endif
   else
     " And these are their alternatives
@@ -243,9 +249,7 @@ function! plugin#Config()
   call s:configure_neoformat()
 
   " cpp
-  if get(g:, 'tagbar_safe_to_use', 1)
-    call s:configure_tagbar()
-  endif
+  call s:configure_tagbar()
 
   " python
   " Plug 'python-mode/python-mode', { 'for' : 'python' } " Extremely
@@ -272,8 +276,8 @@ function! plugin#Config()
   let g:svnj_browse_cache_all = 1
   let g:svnj_custom_statusbar_ops_hide = 0
   let g:svnj_browse_cache_max_cnt = 50
-  let g:svnj_custom_fuzzy_match_hl = 'Directory' 
-  let g:svnj_custom_menu_color = 'Question' 
+  let g:svnj_custom_fuzzy_match_hl = 'Directory'
+  let g:svnj_custom_menu_color = 'Question'
   let g:svnj_fuzzy_search = 1
   " colorschemes
   Plug 'morhetz/gruvbox' " colorscheme gruvbox
@@ -383,12 +387,12 @@ function! plugin#Config()
   " Plug 'Ron89/thesaurus_query.vim', { 'on' : 'ThesaurusQueryReplaceCurrentWord' }
   " Very weird and confusing
   " let g:tq_map_keys = 1
-  " Fri Jun 26 2020 15:17: New alternative 
-  Plug 'beloglazov/vim-online-thesaurus', { 'on' : 'OnlineThesaurusCurrentWord' } 
+  " Fri Jun 26 2020 15:17: New alternative
+  Plug 'beloglazov/vim-online-thesaurus', { 'on' : 'OnlineThesaurusCurrentWord' }
   let g:online_thesaurus_map_keys = 0
 
   " Autocorrect mispellings on the fly
-  " Fri Sep 25 2020 23:01 Heavily impacts performance 
+  " Fri Sep 25 2020 23:01 Heavily impacts performance
   " Plug 'panozzaj/vim-autocorrect', { 'for' : 'markdown' }
   " Disble this file by removing its function call from autload/markdown.vim
 
@@ -865,11 +869,11 @@ function! s:configure_nerdcommenter() abort
 endfunction
 
 function! s:configure_tagbar() abort
-  if has('unix')
-    Plug 'majutsushi/tagbar'
-  else
-    Plug 'majutsushi/tagbar', { 'on': 'Tagbar' }
+  if !executable('ctags')
+    return
   endif
+
+  Plug 'majutsushi/tagbar', { 'on': 'Tagbar' }
   let g:tagbar_ctags_bin = 'ctags'
   let g:tagbar_autofocus = 1
   let g:tagbar_show_linenumbers = 2
@@ -1026,8 +1030,8 @@ function! s:configure_file_browser(choice) abort
   elseif a:choice ==# 'chadtree'
     nnoremap <plug>file_browser :CHADopen<cr>
     Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': ':UpdateRemotePlugins'}
-    lua vim.api.nvim_set_var("chadtree_view", { window_options = 
-          \ {"relativenumber",  
+    lua vim.api.nvim_set_var("chadtree_view", { window_options =
+          \ {"relativenumber",
           \ "nowrap",
           \ "signcolumn=no",
           \ "cursorline",
@@ -1357,7 +1361,7 @@ endfunction
 " s:which_key_format also
 function! s:configure_vim_which_key() abort
   Plug 'liuchengxu/vim-which-key'
-  " Sat Jun 27 2020 14:34: Windows look to weird 
+  " Sat Jun 27 2020 14:34: Windows look to weird
   " let g:which_key_floating_opts = {'row': '-60', 'width': '-100', 'col': '+40'}
   nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
   vnoremap <silent> <leader> :WhichKeyVisual '<Space>'<CR>
@@ -1883,4 +1887,13 @@ function! s:configure_markdown() abort
   let g:vim_markdown_follow_anchor = 1
   let g:vim_markdown_strikethrough = 1
   let g:vim_markdown_no_extensions_in_markdown = 1
+endfunction
+
+function! s:ts_status() abort
+  return luaeval("require'nvim-treesitter'.statusline({
+        \ indicator_size = 18,
+        \ type_patterns = {'class', 'function', 'method'},
+        \ transform_fn = function(line) return line:gsub('%s*[%[%(%{]*%s*$', '') end,
+        \ separator = ' -> '
+        \ })")
 endfunction
