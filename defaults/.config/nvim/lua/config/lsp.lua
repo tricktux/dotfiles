@@ -114,7 +114,7 @@ local function lsp_set()
   plg.setup_lspstatus() -- Configure plugin options
   lsp_status.register_progress()
   -- Notice not all configs have a `callbacks` setting
-  local nvim_lsp = require('nvim_lsp')
+  local nvim_lsp = require('lspconfig')
   local pid = tostring(vim.fn.getpid())
 
   -- Unbearably slow
