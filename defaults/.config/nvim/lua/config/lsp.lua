@@ -52,7 +52,7 @@ local function on_lsp_attach(client_id)
     -- vim.cmd('autocmd CursorHold <buffer> lua vim.lsp.util.show_line_diagnostics()')
     -- vim.cmd("autocmd CursorHold <buffer> lua vim.lsp.buf.hover()")
     set_lsp_mappings()
-    require('config/completion').diagn:on_attach()
+    -- require('config/completion').diagn:on_attach()
 
     -- Disable tagbar
     vim.b.tagbar_ignore = 1

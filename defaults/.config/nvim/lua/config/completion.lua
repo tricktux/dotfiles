@@ -129,7 +129,7 @@ end
 
 return {
     compl = CompletionNvim,
-    diagn = DiagnosticNvim,
+    -- diagn = DiagnosticNvim,
     smart_tab = smart_tab,
     smart_s_tab = smart_s_tab,
 }

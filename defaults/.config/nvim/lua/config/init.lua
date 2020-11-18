@@ -136,7 +136,7 @@ end
 -- modules have been loaded for sure
 local function _after_init()
     cpl.compl:set()
-    cpl.diagn:set()
+    -- cpl.diagn:set()
     lsp.set()
     plg.setup()
 end

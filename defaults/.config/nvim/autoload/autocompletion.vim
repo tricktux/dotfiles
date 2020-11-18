@@ -1061,7 +1061,8 @@ function! s:set_completion_lua() abort
   Plug (has('unix') ? 'nvim-lua' : 'haorenW1025') . '/completion-nvim'
   Plug 'neovim/nvim-lspconfig'
   Plug 'steelsojka/completion-buffers'
-  Plug 'nvim-lua/diagnostic-nvim'
+  " Deprecated
+  " Plug 'nvim-lua/diagnostic-nvim'
   Plug 'nvim-lua/lsp-status.nvim'
   Plug 'nvim-treesitter/completion-treesitter'
 
