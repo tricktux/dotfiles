@@ -202,7 +202,8 @@ local function setup_telescope()
   end
 
   local cmd_pref = [[<cmd>lua require'telescope.builtin'.]]
-  map.nmap("<plug>buffer_browser", cmd_pref .. [[buffers{show_all_buffers = true}<cr>]])
+  -- Can't beat ctrlp honestly
+  -- map.nmap("<plug>buffer_browser", cmd_pref .. [[buffers{show_all_buffers = true}<cr>]])
   map.nmap("<plug>mru_browser", cmd_pref .. [[oldfiles()<cr>]])
 
   local actions = require('telescope.actions')

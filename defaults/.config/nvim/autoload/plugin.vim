@@ -211,8 +211,8 @@ function! plugin#Config()
 
   call s:configure_neoterm()
 
-  " call s:configure_fuzzers()
-  call s:configure_fzf()
+  call s:configure_fuzzers()
+  " call s:configure_fzf()
 
   " These plugins will be configured via lua
   if has('nvim-0.5')
@@ -1431,11 +1431,6 @@ endfunction
 function! s:configure_fuzzers() abort
   " Can't beat ctrlps buffers and most recent stuff
   call s:configure_ctrlp()
-
-  if has('nvim-0.5')
-    " Telescope will be setup
-    return
-  endif
 
   if (s:configure_fzf() < 1)
     call s:configure_denite()
