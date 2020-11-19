@@ -226,8 +226,8 @@ function! options#Set() abort
 
   " Status Line and Colorscheme
   " Set a default bogus colorscheme. If Plugins loaded it will be changed
-  colorscheme desert
   if !exists('g:loaded_plugins')
+    colorscheme desert
     " If this not and android device and we have no plugins setup "ugly" status
     " line
     set statusline =
