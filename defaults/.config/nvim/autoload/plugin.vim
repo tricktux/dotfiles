@@ -210,7 +210,11 @@ function! plugin#Config()
   " imap <expr> <CR> <Plug>delimitMateCR
 
   call s:configure_neoterm()
-
+  Plug 'dosimple/workspace.vim'
+  nnoremap <c-s> :WS_Backforth()<cr>
+  for l:idx in [1,2,3,4,5,6,7,8,9]
+    execute 'nnoremap <silent> <a-' . l:idx . '> :WS ' . l:idx. '<cr>'
+  endfor
   call s:configure_fuzzers()
   " call s:configure_fzf()
 
