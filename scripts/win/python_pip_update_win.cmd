@@ -2,21 +2,17 @@
 
 setlocal enabledelayedexpansion
 
-REM  set modules[4]=isort It's already installed by pyling
-set modules[0]=psutil
-set modules[1]=flake8
-set modules[2]=jedi
-set modules[3]=pynvim
-set modules[4]=python-language-server
-set modules[5]=pip
-set modules[6]=frosted
-set modules[7]=pylint
-set modules[8]=neovim
-set modules[9]=yapf
-set modules[10]=docformatter
-set modules[11]=pylama
-set modules[12]=ptpython
+REM  set modules[4]=isort It's already installed by pylint
+REM local pkgs=requests psutil ^
+REM    flake8 isort jedi "python-language-server[all]" frosted ^
+REM    pep8 pylint pynvim
 
-for /l %%n in (0,1,12) do ( 
-    pip install --upgrade !modules[%%n]!
-)
+set venv_loc=%APPDATA%\..\Local\nvim-data
+set venv_name=pyvenv
+
+mkdir %venv_loc%
+python -m venv %venv_loc%\%venv_name% --upgrade
+cmd /k call "%venv_loc%\%venv_name%\Scripts\activate.bat"
+REM pip install --upgrade -r nvimvenv.txt
+REM deactivate
+

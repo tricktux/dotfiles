@@ -175,12 +175,16 @@ function! s:config_unix() abort
 endfunction
 
 function! s:find_python() abort
+  let py = g:std_data_path . '\pyvenv\Scripts'
+  if isdirectory(py)
+    let g:python3_host_prog = py . '\python.exe'
+    let $PATH = py . ';' . $PATH 
+    return
+  endif
   for l:ver in range(50, 33, -1)
     let l:ver = string(l:ver) 
     let l:loc = [
           \ $VIMRUNTIME . '\utils\python-' . l:ver . '-embed-amd64\python.exe',
-          \ $LOCALAPPDATA . "\\Programs\\Python\\Python" . l:ver . "\\python.exe",
-          \ "C:\\Python" . l:ver . "\\python.exe",
           \ ]
 
     for l:path in l:loc

@@ -1,0 +1,10 @@
+requests
+psutil
+flake8
+isort
+jedi
+python-language-server[all]
+frosted
+pep8
+pylint
+pynvim

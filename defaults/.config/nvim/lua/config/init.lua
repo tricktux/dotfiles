@@ -72,12 +72,12 @@ local function _config_win()
     _work_mappings(wdev_path)
 
     -- Find python
-    local py = vim.fn.glob([[C:\Python*]], false, true)
-    if vim.tbl_isempty(py) == nil then
-        print('ERROR: Failed to find python')
+    local py = vim.g.std_data_path .. [[\pyvenv\Scripts]]
+    if not vim.fn.isdirectory(py) then
+        print('ERROR: Failed to find python venv: ' .. py)
     else
-        -- Use the latest version found
-        vim.g.python3_host_prog = py[#py] .. [[\python.exe]]
+        vim.g.python3_host_prog = py .. [[\python.exe]]
+        vim.cmd("let $PATH = " .. py .. " . ';' . $PATH" )
     end
 end
 
@@ -91,11 +91,12 @@ local function _config_unix()
 
     vim.g.browser_cmd = '/usr/bin/firefox'
 
-    local py = vim.g.std_data_path .. [[/pyvenv/bin/python]]
-    if not utl.isfile(py) then
+    local py = vim.g.std_data_path .. [[/pyvenv/bin]]
+    if not vim.fn.isdirectory(py) then
       print('ERROR: Failed to find python venv: ' .. py)
     else
-      vim.g.python3_host_prog = py
+      vim.g.python3_host_prog = py .. [[/python]]
+      vim.cmd("let $PATH = " .. py .. " . ';' . $PATH" )
     end
 end
 
