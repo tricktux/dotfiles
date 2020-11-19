@@ -210,11 +210,8 @@ function! plugin#Config()
   " imap <expr> <CR> <Plug>delimitMateCR
 
   call s:configure_neoterm()
+  " See mappings in afterconfig
   Plug 'dosimple/workspace.vim'
-  nnoremap <c-s> :WS_Backforth()<cr>
-  for l:idx in [1,2,3,4,5,6,7,8,9]
-    execute 'nnoremap <silent> <a-' . l:idx . '> :WS ' . l:idx. '<cr>'
-  endfor
   call s:configure_fuzzers()
   " call s:configure_fzf()
 
@@ -641,6 +638,13 @@ endfunction
 function! plugin#AfterConfig() abort
   if (exists('g:neotags_ignore'))
     call cpp_highlight#SetNeotagsHighlight()
+  endif
+
+  if exists('g:loaded_workspace')
+    nnoremap <c-s> :WS_Backforth()<cr>
+    for l:idx in [1,2,3,4,5,6,7,8,9]
+      execute 'nnoremap <silent> <a-' . l:idx . '> :WS ' . l:idx. '<cr>'
+    endfor
   endif
 
   if exists('g:loaded_vim_which_key')

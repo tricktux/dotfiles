@@ -279,7 +279,6 @@ function! mappings#Set()
   " - Reenabling, because why not!
   "   - Tired of typing :wa<cr>
   nnoremap <c-s> :wall<cr>
-  endif
   nnoremap <c-t> :tabnew<cr>
   nnoremap <c-h> :nohlsearch<cr>
   nnoremap <C-Space> i<Space><Esc>
