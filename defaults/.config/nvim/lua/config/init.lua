@@ -77,7 +77,7 @@ local function _config_win()
         print('ERROR: Failed to find python venv: ' .. py)
     else
         vim.g.python3_host_prog = py .. [[\python.exe]]
-        vim.cmd("let $PATH = " .. py .. " . ';' . $PATH" )
+        vim.cmd("let $PATH = '" .. py .. "' . ';' . $PATH" )
     end
 end
 
@@ -96,7 +96,8 @@ local function _config_unix()
       print('ERROR: Failed to find python venv: ' .. py)
     else
       vim.g.python3_host_prog = py .. [[/python]]
-      vim.cmd("let $PATH = " .. py .. " . ';' . $PATH" )
+      -- vim.cmd("let $PATH = " .. py .. " . ';' . $PATH" )
+      vim.cmd("let $PATH = '" .. py .. "' . ';' . $PATH" )
     end
 end
 

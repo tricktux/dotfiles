@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/home/reinaldo/.local/share/pyvenv/bin/python
 
 import configparser
 import logging
