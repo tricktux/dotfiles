@@ -279,6 +279,7 @@ function! mappings#Set()
   " - Reenabling, because why not!
   "   - Tired of typing :wa<cr>
   nnoremap <c-s> :wall<cr>
+  endif
   nnoremap <c-t> :tabnew<cr>
   nnoremap <c-h> :nohlsearch<cr>
   nnoremap <C-Space> i<Space><Esc>
@@ -422,7 +423,7 @@ function! mappings#Set()
   " inoremap <c-k> used by neosnippet to expand snippet
   " inoremap <c-l> used by software caps to toggle caps
   " Sun Jun 10 2018 13:41: Get rid of annoying <c-space>
-  inoremap <c-space> <space>
+  " inoremap <c-space> <space>
 
   " Fri Sep 29 2017 14:20: Break up long text into smaller, better undo
   " chunks. See :undojoin
