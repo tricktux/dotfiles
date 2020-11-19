@@ -15,13 +15,18 @@ update_pacman_mirrors() {
 }
 
 update_python_venv() {
+  local venv_loc="$XDG_DATA_HOME/"
+  local venv_name="pyvenv"
   local pkgs=(
-    requests jinja2 stravalib vim-vint psutil
-    flake8 isort jedi "python-language-server[all]" frosted
-    pep8 pylint neovim-remote
+    requests jinja2 stravalib
   )
 
-  pip3 install --upgrade --user ${pkgs[*]}
+  mkdir -p "$venv_loc"
+  python -m venv "$venv_loc/$venv_name" \
+    --symlinks --clear
+  source "$venv_loc/$venv_name/bin/activate"
+  pip3 install --upgrade ${pkgs[*]}
+  deactivate
 }
 
 update_nvim_plugins() {
@@ -32,8 +37,11 @@ update_pynvim() {
   # source /home/reinaldo/.config/nvim/python_neovim_virtualenv.sh
   local venv_loc="$XDG_DATA_HOME/nvim/"
   local venv_name="pyvenv"
-
-  local pkgs=(pynvim)
+  local pkgs=(
+    vim-vint psutil flake8 jedi 
+    "python-language-server[all]" frosted
+    pep8 pylint pynvim isort 
+  )
 
   mkdir -p "$venv_loc"
   python -m venv "$venv_loc/$venv_name" \
