@@ -286,7 +286,6 @@ function! plugin#Config()
   " colorschemes
   Plug 'morhetz/gruvbox' " colorscheme gruvbox
   Plug 'NLKNguyen/papercolor-theme'
-  Plug 'dylanaraps/wal.vim'
 
   " TODO - Tue Aug 27 2019 16:33: Move utils functions into its own plugin
   " Auto Flux (changing themes) is set in the augroup.vim file
@@ -294,19 +293,14 @@ function! plugin#Config()
   " Specifically markings for daylight
   " Make requests here to get exact sunset and sunrise times
   " https://sunrise-sunset.org/api
-  if has('unix')
-    colorscheme wal
-    let g:flux_enabled = 0
-  else
-    let g:flux_enabled = 1
-    let g:flux_api_lat = 27.972572
-    let g:flux_api_lon = -82.796745
+  let g:flux_enabled = 1
+  let g:flux_api_lat = 27.972572
+  let g:flux_api_lon = -82.796745
 
-    let g:flux_night_time = 2000
-    let g:flux_day_time = 700
-    let g:flux_day_colorscheme = 'PaperColor'
-    let g:flux_night_colorscheme = 'PaperColor'
-  endif
+  let g:flux_night_time = 2000
+  let g:flux_day_time = 700
+  let g:flux_day_colorscheme = 'PaperColor'
+  let g:flux_night_colorscheme = 'PaperColor'
 
   let g:PaperColor_Theme_Options =
         \ {
