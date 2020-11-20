@@ -47,7 +47,7 @@ local function setup_treesitter()
     -- This line will install all of them
     -- one of "all", "language", or a list of languages
     ensure_installed = {
-      "c", "cpp", "python", "lua", "java", "bash", "c_sharp", "markdown"
+      "c", "cpp", "python", "lua", "java", "bash", "c_sharp",
     },
     highlight = {
       enable = true, -- false will disable the whole extension
