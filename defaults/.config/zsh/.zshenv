@@ -10,11 +10,10 @@
 #
 # ~/.zshenv
 #
-host=`hostname`
-
-export HOSTNAME=$host
-if [ -f "$ZDOTDIR/.zshenv_$host" ]; then
-  source "$ZDOTDIR/.zshenv_$host"
+# Important note: zshenv is sourced everytime you open a new terminal
+# Only export things from zshenv host
+if [ -f "$ZDOTDIR/.zshenv_$HOST" ]; then
+  source "$ZDOTDIR/.zshenv_$HOST"
 fi
 
 # Creating local bin folder
