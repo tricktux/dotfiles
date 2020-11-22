@@ -10,8 +10,11 @@ configuration {
 	kb-mode-previous: "Shift+Left,Control+p";
 	kb-row-up: "Up,Control+k";
 	kb-row-down: "Down,Control+j";
-  opacity: 85;
+  opacity: 50;
 }
 
 @theme "/usr/share/rofi/themes/Adapta-Nokto.rasi"
 @import "/home/reinaldo/.cache/wal/colors-rofi-dark.rasi"
+
+
+

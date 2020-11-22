@@ -1,0 +1,6 @@
+* {
+  font: "monospace 20";
+}
+element-icon {
+  size: 50;
+}
