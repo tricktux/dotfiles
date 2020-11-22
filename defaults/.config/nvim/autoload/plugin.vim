@@ -1478,10 +1478,11 @@ function! s:configure_fzf() abort
   Plug 'junegunn/fzf.vim'
 
   " Very cool, but still too slow
-  if has('unix')
-    nmap <plug>buffer_browser :Buffers<CR>
-    nmap <plug>mru_browser :History<CR>
-  endif
+  " Always keep going back to ctrlp
+  " if has('unix')
+    " nmap <plug>buffer_browser :Buffers<CR>
+    " nmap <plug>mru_browser :History<CR>
+  " endif
   if (!exists('$FZF_DEFAULT_COMMAND') && executable('fd'))
     let $FZF_DEFAULT_COMMAND=
           \ 'fd --type file --hidden --follow ' . s:ignore_file
