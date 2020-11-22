@@ -12,7 +12,7 @@
 # export GDK_SCALE=1.5
 # export QT_AUTO_SCREEN_SCALE_FACTOR=1
 
-export HOSTNAME=$HOST
+export HOSTNAME=`hostname`
 
 # Tue May 19 2020 06:24:
 #   Switched to lightdm
@@ -39,8 +39,12 @@ elif [ -f $XDG_CONFIG_HOME/rofi/common.rasi ]; then
 fi
 
 # Commands to run only once at startup specific to hosts
-if [ -f "$HOME/.config/xprofile_$HOST" ]; then
-  source "$HOME/.config/xprofile_$HOST"
+if [ -f "$HOME/.config/xprofile_$HOSTNAME" ]; then
+  source "$HOME/.config/xprofile_$HOSTNAME"
+fi
+
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+  ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
 fi
 
 # vim:filetype=sh
