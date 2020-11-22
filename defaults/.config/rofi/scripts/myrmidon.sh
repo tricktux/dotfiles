@@ -7,7 +7,7 @@ tasks=$(cat $config_file)
 
 prompt="Tasks:"
 
-rofi_cmd="rofi -config $XDG_CONFIG_HOME/rofi/$(hostname) \
+rofi_cmd="rofi
   -theme /usr/share/rofi/themes/sidebar.rasi
   -dmenu -sort -matching fuzzy -i -p $prompt"
 

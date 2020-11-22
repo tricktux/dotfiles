@@ -10,6 +10,7 @@ configuration {
 	kb-mode-previous: "Shift+Left,Control+p";
 	kb-row-up: "Up,Control+k";
 	kb-row-down: "Down,Control+j";
+  opacity: 50;
 }
 
 @theme "/usr/share/rofi/themes/Adapta-Nokto.rasi"
@@ -17,9 +18,3 @@ configuration {
 
 
 
-* {
-  font: "monospace 15";
-}
-element-icon {
-  size: 40;
-}
