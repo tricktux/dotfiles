@@ -5,7 +5,7 @@ cwd=$(echo $(dirname $0))
 config_file="${1:-"$HOME/.myrmidon-tasks.json"}"
 tasks=$(cat $config_file)
 
-prompt="Tasks:"
+prompt="Tasks"
 
 rofi_cmd="rofi
   -theme /usr/share/rofi/themes/sidebar.rasi
