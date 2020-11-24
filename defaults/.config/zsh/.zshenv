@@ -48,7 +48,7 @@ fi
 
 export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
 
-# Ranger load only ~/.config/ranger/rc.conf
+# Ranger do not load the default rc.conf
 export RANGER_LOAD_DEFAULT_RC=FALSE
 
 # Fixes git weird issue
@@ -109,6 +109,8 @@ ENABLE_CORRECTION="true"
 
 # root directory for bytecode cache (pyc) files.
 export PYTHONPYCACHEPREFIX="/tmp/pycache"
+# This can come back to hunt you down. No asserts or docstrings
+export PYTHONOPTIMIZE=2
 
 # Thu Feb 22 2018 08:59: Can't figure out how to set locale properly on arch.
 # Result:
