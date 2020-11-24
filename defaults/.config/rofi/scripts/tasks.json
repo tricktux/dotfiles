@@ -20,6 +20,10 @@
     "command": "exec ~/.config/i3/scripts/bluetooth.lua 'connect' '04:5D:4B:EA:9C:B2'"
   },
   {
+    "name": "bluetooth rofi",
+    "command": "rofi-bluetooth"
+  },
+  {
     "name": "bluetooth disconnect",
     "command": "exec ~/.config/i3/scripts/bluetooth.lua 'disconnect'"
   },
@@ -38,6 +42,10 @@
   {
     "name": "screenshot flameshot",
     "command": "flameshot gui"
+  },
+  {
+    "name": "emoji",
+    "command": "rofi -show emoji -modi emoji"
   },
   {
     "name": "audio select input",
