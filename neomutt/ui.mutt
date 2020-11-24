@@ -21,6 +21,17 @@ color header yellow default ^Cc:
 color header brightgreen default ^Subject:
 color header brightcyan default ^X-TRASH:
 color status brightgreen default
+color index         brightcyan         default        "~N~p!~F"                   # new messages to me
+color index         yellow         default        "~N"                        # new messages
+color index         brightcyan         default        "~U~p!~F"                   # unread messages to me
+color index         blue        default        "~R~p!~F"                   # messages to me
+color index         green         default        "~Q"                        # messages that have been replied to
+color index         brightyellow        default        "~F"                        # flagged messages
+color index         brightyellow        default        "~F~p"                      # flagged messages to me
+color index         brightyellow        default        "~N~F"                      # new flagged messages
+color index         brightyellow        default        "~N~F~p"                    # new flagged messages to me
+color index         brightyellow        default        "~U~F~p"                    # new flagged messages to me
+color index         brightred       default        "~D"                        # deleted messages
 
 set realname = "Reinaldo Molina"
 
@@ -32,6 +43,8 @@ set sort = reverse-date-received
 
 # Option to Save contacts so that autocompletion is possible
 # set display_filter='~/.config/neomutt/mutt.save.contacts.sh'
+# Super ugly but keeps emails timestamp in current timezone
+set display_filter="exec sed -r \"s/^Date:\\s*(([F-Wa-u]{3},\\s*)?[[:digit:]]{1,2}\\s+[A-Sa-y]{3}\\s+[[:digit:]]{4}\\s+[[:digit:]]{1,2}:[[:digit:]]{1,2}(:[[:digit:]]{1,2})?\\s+[+-][[:digit:]]{4})/date +'Date: %a, %d %b %Y %H:%M:%S %z' -d '\\1'/e\""
 # Options to load aliasses file
 # set alias_file= ~/.config/neomutt/data/aliases.txt
 # set sort_alias= alias
