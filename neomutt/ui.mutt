@@ -44,7 +44,7 @@ set sort = reverse-date-received
 # Option to Save contacts so that autocompletion is possible
 # set display_filter='~/.config/neomutt/mutt.save.contacts.sh'
 # Super ugly but keeps emails timestamp in current timezone
-set display_filter="exec sed -r \"s/^Date:\\s*(([F-Wa-u]{3},\\s*)?[[:digit:]]{1,2}\\s+[A-Sa-y]{3}\\s+[[:digit:]]{4}\\s+[[:digit:]]{1,2}:[[:digit:]]{1,2}(:[[:digit:]]{1,2})?\\s+[+-][[:digit:]]{4})/date +'Date: %a, %d %b %Y %H:%M:%S %z' -d '\\1'/e\""
+# set display_filter="exec sed -r \"s/^Date:\\s*(([F-Wa-u]{3},\\s*)?[[:digit:]]{1,2}\\s+[A-Sa-y]{3}\\s+[[:digit:]]{4}\\s+[[:digit:]]{1,2}:[[:digit:]]{1,2}(:[[:digit:]]{1,2})?\\s+[+-][[:digit:]]{4})/date +'Date: %a, %d %b %Y %H:%M:%S %z' -d '\\1'/e\""
 # Options to load aliasses file
 # set alias_file= ~/.config/neomutt/data/aliases.txt
 # set sort_alias= alias
@@ -101,7 +101,11 @@ set sleep_time = 0
 
 # Nice time formats
 set date_format="%m-%d-%y %T"
-set index_format="%2C | %Z [%d] %-30.30F (%-4.4c) %s"
+# set index_format="%2C | %Z [%d] %-30.30F (%-4.4c) %s"
+# set index_format="%3C %Z %{%d.%m.%y %H:%M} %-30.30n (%3l) %s"
+# Obtained from here
+# https://neomutt.org/feature/cond-date
+set index_format='%4C %Z %<[y?%<[m?%<[d?%[%H:%M ]&%[%a %d]>&%[%b %d]>&%[%m/%y ]> %-15.15L (%?l?%4l&%4c?) %s'
 # Alternative. Give it a try
 # set index_format=" %?M?   ↳&%4C?   %Z      %D     %-15.15n    %s"
 
