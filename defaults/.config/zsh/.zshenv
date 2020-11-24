@@ -112,6 +112,9 @@ export PYTHONPYCACHEPREFIX="/tmp/pycache"
 # This can come back to hunt you down. No asserts or docstrings
 export PYTHONOPTIMIZE=2
 
+# As given by the output of tzselect
+export TZ='America/New_York'
+
 # Thu Feb 22 2018 08:59: Can't figure out how to set locale properly on arch.
 # Result:
 # Wed May 02 2018 04:57: Not needed anymore
