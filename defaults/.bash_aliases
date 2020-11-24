@@ -48,6 +48,32 @@ if [[ -f /usr/bin/advcp ]]; then
   alias mv='advmv -gi'
 fi
 
+# cp and mv
+# if [[ -f /usr/bin/rsync ]]; then
+  # alias cp='cpr'
+  # alias mv='mvr'
+# fi
+
+function cpr() {
+  new_args=();
+  for i in "$@"; do
+      case $i in /) i=/;; */) i=${i%/};; esac
+      new_args+=$i;
+  done
+  /usr/bin/rsync --archive -hh --partial --info=stats1 --info=progress2 \
+    --modify-window=1 "${(@)new_args}"
+}
+function mvr() {
+  new_args=();
+  for i in "$@"; do
+    case $i in /) i=/;; */) i=${i%/};; esac
+    new_args+=$i;
+  done
+  /usr/bin/rsync --archive -hh --partial --info=stats1 --info=progress2 \
+    --modify-window=1 --remove-source-files \
+    --backup --backup-dir=/tmp "${(@)new_args}"
+}
+
 # Do not wait interval 1 second, go fast #
 alias ping='ping -c 10 -i .2'
 # do not delete / or prompt if deleting more than 3 files at a time #
