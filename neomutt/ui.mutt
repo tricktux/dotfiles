@@ -40,8 +40,8 @@ set sort = reverse-date-received
 
 ## Abook
 # Is mutually exclusive with the email settings above
-set query_command= "abook --datafile ~/.config/neomutt/data/addressbook --mutt-query '%s'"
-macro index,pager  a "<pipe-message>abook --datafile ~/.config/neomutt/data/addressbook --add-email-quiet<return>"
+set query_command= "abook --datafile $XDG_DATA_HOME/neomutt/addressbook --mutt-query '%s'"
+macro index,pager  a "<pipe-message>abook --datafile $XDG_DATA_HOME/neomutt/addressbook --add-email-quiet<return>"
 
 # Fri Jan 25 2019 20:09 
 # nvim crashes when lunching `which-key-plugin` on scratchpad
@@ -107,13 +107,13 @@ set pager_context=3
 
 # Store message headers locally to speed things up.
 # If hcache is a folder, Mutt will create sub cache folders for each account which may speeds things up even more.
-set header_cache = "~/.config/neomutt/data"
+set header_cache = "$XDG_DATA_HOME/neomutt"
 
 # Store messages locally to speed things up, like searching message bodies.
 # Can be the same folder as header_cache.
 # This will cost important disk usage according to your e-mail amount.
-set message_cachedir = "~/.config/neomutt/data"
-set certificate_file = "~/.config/neomutt/data/certificates"
+set message_cachedir = "$XDG_DATA_HOME/neomutt"
+set certificate_file = "$XDG_DATA_HOME/neomutt/certificates"
 
 # Ask if the user wishes to abort sending if $abort_noattach_regex is found in the
 # body, but no attachments have been added
