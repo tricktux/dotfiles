@@ -5,14 +5,15 @@
 echo "Updating system ..."
 trizen -Syu
 
-update_pacman_mirrors() {
-  if hash /usr/bin/reflector 2>/dev/null; then
-    sudo reflector --protocol https --latest 30 --number 5 --sort \
-      rate --save /etc/pacman.d/mirrorlist -c 'United States' --verbose
-  else
-    echo "reflector is not installed"
-  fi
-}
+# Using reflector.timer
+# update_pacman_mirrors() {
+  # if hash /usr/bin/reflector 2>/dev/null; then
+    # sudo reflector --protocol https --latest 30 --number 5 --sort \
+      # rate --save /etc/pacman.d/mirrorlist -c 'United States' --verbose
+  # else
+    # echo "reflector is not installed"
+  # fi
+# }
 
 update_python_venv() {
   local venv_loc="$XDG_DATA_HOME/"
@@ -67,10 +68,10 @@ read -p "Do you wish to update python system wide env? (y/N)" yn
 case $yn in
 [Yy]*) update_python_venv ;;
 esac
-read -p "Do you wish to update pacman mirrors? (y/N)" yn
-case $yn in
-[Yy]*) update_pacman_mirrors ;;
-esac
+# read -p "Do you wish to update pacman mirrors? (y/N)" yn
+# case $yn in
+# [Yy]*) update_pacman_mirrors ;;
+# esac
 read -p "Do you wish to update neovim plugins? (y/N)" yn
 case $yn in
 [Yy]*) update_nvim_plugins ;;
