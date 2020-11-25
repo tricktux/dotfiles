@@ -101,7 +101,7 @@ end
 -- TODO
 -- Maybe set each server to its own function?
 local function lsp_set()
-  if not utl.is_mod_available('nvim_lsp') then
+  if not utl.is_mod_available('lspconfig') then
     log.error("nvim_lsp was set, but module not found")
     return
   end
