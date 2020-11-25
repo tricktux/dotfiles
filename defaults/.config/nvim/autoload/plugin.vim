@@ -221,6 +221,7 @@ function! plugin#Config()
   " These plugins will be configured via lua
   if has('nvim-0.5')
     Plug 'nvim-treesitter/nvim-treesitter'
+    " Wed Nov 25 2020 07:38: lsp_status_line has prettier function name
     if exists('g:lightline')
       " Unix already enables tagbar. No need for another
       let g:lightline.active.right[2] += [ 'ts' ]
@@ -1887,10 +1888,16 @@ function! s:configure_markdown() abort
 endfunction
 
 function! s:ts_status() abort
-  return luaeval("require'nvim-treesitter'.statusline({
+  " lsp_status status is much better
+  if luaeval('#vim.lsp.buf_get_clients() > 0')
+    return ''
+  endif
+
+  let l:s = luaeval("require'nvim-treesitter'.statusline({
         \ indicator_size = 18,
         \ type_patterns = {'class', 'function', 'method'},
         \ transform_fn = function(line) return line:gsub('%s*[%[%(%{]*%s*$', '') end,
         \ separator = ' -> '
         \ })")
+  return l:s == v:null ? '' : l:s
 endfunction
