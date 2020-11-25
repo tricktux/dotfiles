@@ -38,8 +38,8 @@ makepkg -si
 
 # install dotfiles{{{
 # Download dotfiles
-mkdir ~/.config
-mkdir ~/.cache
+mkdir -p ~/.config
+mkdir -p ~/.cache
 cd ~/.config
 git clone https://github.com/tricktux/dotfiles
 # Install needed software
