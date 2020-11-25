@@ -80,7 +80,7 @@ install openssh mosh
 # - Add to `.ssh/config`
 # - `AddKeysToAgent yes`
 
-# zsh
+# zsh{{{
 install zsh
 # Legacy
 # install oh-my-zsh-git zplug pkgfile
@@ -91,10 +91,14 @@ zsh $ZIM_HOME/zimfw.zsh install
 # Install plugins
 install pkgfile
 # pkgfile needs to be updated
-sudo systemctl enable --now pkgfile-update.timer
+sudo systemctl enable pkgfile-update.timer
+# By default it runs daily
+# Update /usr/lib/systemd/system/pkgfile-update.timer to run weekly
+sudo systemctl start pkgfile-update.service
 
 chsh -s /usr/bin/zsh
 # symlink all the `zsh*` files
+#}}}
 
 # Update arch mirrors {{{
 pacinst reflector
