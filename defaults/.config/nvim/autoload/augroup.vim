@@ -154,7 +154,7 @@ function! s:on_vim_enter() abort
   " This function needs to be here since most of the variables it checks are not
   " populated until vim init is done
   call options#SetCli()
-  call plugin#AfterConfig()
+  " call plugin#AfterConfig()
   " if (argc() == 0) " If no arguments are passed load default session
     " call mappings#LoadSession(has('nvim') ?
           " \ 'default_nvim.vim' : 'default_vim.vim')

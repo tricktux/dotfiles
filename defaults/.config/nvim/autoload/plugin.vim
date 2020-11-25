@@ -637,7 +637,7 @@ function! plugin#AfterConfig() abort
     call cpp_highlight#SetNeotagsHighlight()
   endif
 
-  if exists('g:loaded_vim_which_key')
+  if exists('*which_key#register')
     call which_key#register(g:mapleader, "g:which_key_leader_map")
     call which_key#register(g:maplocalleader, "g:which_key_localleader_map")
     call which_key#register(']', "g:which_key_right_bracket_map")
@@ -646,7 +646,7 @@ function! plugin#AfterConfig() abort
     set timeoutlen=200
   endif
 
-  if exists('g:loaded_deoplete')
+  if exists('*deoplete#custom#option')
     call deoplete#custom#option('smart_case', v:true)
     " call deoplete#custom#source('javacomplete2', 'mark', '')
     call deoplete#custom#source('_', 'matchers', ['matcher_fuzzy'])
@@ -670,7 +670,7 @@ function! plugin#AfterConfig() abort
   endif
 
   " Plugin function names are never detected. Only plugin commands
-  if exists('g:loaded_denite')
+  if exists('*denite#custom#map')
     " Change mappings.
     call denite#custom#map('insert','<C-j>',
           \ '<denite:move_to_next_line>','noremap')
@@ -686,6 +686,10 @@ function! plugin#AfterConfig() abort
     call denite#custom#option('default', 'winheight', 15)
     call denite#custom#option('_', 'highlight_matched_char', 'Function')
     call denite#custom#option('_', 'highlight_matched_range', 'Function')
+    " TODO: Better detection
+    if exists('g:loaded_prosession')
+      call denite#custom#var('prosession', 'format', 'split')
+    endif
     if executable('fd')
       call denite#custom#var('file_rec', 'command',
             \ ['fd', s:ignore_file,
@@ -709,7 +713,7 @@ function! plugin#AfterConfig() abort
       call denite#custom#var('grep', 'default_opts',
             \ ['--vimgrep',
             \ '--no-heading', '--smart-case', '--follow', '--hidden',
-            \ s:ignore_file)
+            \ s:ignore_file])
       call denite#custom#var('grep', 'recursive_opts', [])
       call denite#custom#var('grep', 'pattern_opt', [])
       call denite#custom#var('grep', 'separator', ['--'])
@@ -722,7 +726,7 @@ function! plugin#AfterConfig() abort
   endif
 
   " Run neomake everytime you save a file
-  if exists('g:loaded_neomake')
+  if exists('*neomake#configure#automake')
     " Mon Apr 27 2020 04:31:
     " Toggle it if things get cluttered. Missing a lot of goodies
     call neomake#configure#automake('nw', 750)
@@ -739,7 +743,7 @@ function! plugin#AfterConfig() abort
     " endif
   endif
 
-  if exists('g:loaded_grepper')
+  if exists(':Grepper')
     if executable('rg')
       nmap <plug>search_grep :Grepper -tool rg<cr>
       xmap <plug>search_grep :Grepper -tool rg<cr>
@@ -758,13 +762,6 @@ function! plugin#AfterConfig() abort
     endif
   endif
 
-  if exists('g:loaded_prosession')
-    call denite#custom#var('prosession', 'format', 'split')
-  endif
-
-  if has('nvim-0.5')
-    lua require('config').after_vim_enter()
-  endif
 endfunction
 
 function! s:configure_ctrlp() abort

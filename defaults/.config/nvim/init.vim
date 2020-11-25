@@ -102,9 +102,11 @@ function! s:find_vim_config_file(...) abort
     call options#Set()
     call augroup#Set()
     call commands#Set()
+    lua require('config').after_vim_enter()
   else
     call init#vim()
   endif
+  call plugin#AfterConfig()
 endfunction
 
 function! s:set_stdpaths() abort
