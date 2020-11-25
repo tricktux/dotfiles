@@ -96,10 +96,17 @@ sudo systemctl enable --now pkgfile-update.timer
 chsh -s /usr/bin/zsh
 # symlink all the `zsh*` files
 
-# Update arch mirrors
-install reflector
+# Update arch mirrors {{{
+pacinst reflector
 sudo mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist_king
-sudo reflector --protocol https --latest 30 --number 5 --sort rate --save /etc/pacman.d/mirrorlist -c 'United States' --verbose
+# Put options in config file
+sudo bash -c 'printf "\n--latest 30" >> /etc/xdg/reflector/reflector.conf'
+sudo bash -c 'printf "\n--number 5" >> /etc/xdg/reflector/reflector.conf'
+sudo bash -c 'printf "\n--sort rate" >> /etc/xdg/reflector/reflector.conf'
+sudo bash -c 'printf "\n--country \"United States\"" >> /etc/xdg/reflector/reflector.conf'
+sudo systemctl enable reflector.timer
+sudo systemctl start reflector.service
+#}}}
 
 # Video card
 lspci -k | grep -A 2 -i "VGA"
