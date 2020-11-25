@@ -139,16 +139,11 @@ endfunction
 call s:find_vim_config_file()
 
 " call s:set_stdpaths()
-" execute "source " . g:std_data_path . '/vim-plug/plug.vim'
+" execute "source " . g:std_data_path . '/site/autoload/plug.vim'
 " call plug#begin(g:std_data_path . '/vim_plugins')
-    " Plug 'neovim/nvim-lspconfig'
-    " Plug 'nvim-lua/completion-nvim'
+  " Plug 'nvim-lua/completion-nvim'
+  " Plug 'neovim/nvim-lspconfig'
 " call plug#end()
-" lua require'nvim_lsp'.sumneko_lua.setup{on_attach=require'completion'.on_attach}
-" au Filetype lua setl omnifunc=v:lua.vim.lsp.omnifunc
-" " Use <Tab> and <S-Tab> to navigate through popup menu
-" inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-" " Set completeopt to have a better completion experience
-" set completeopt=menuone,noinsert,noselect
+" lua require('utils/keymap'):set()
+" lua require('config/completion').compl:set()
