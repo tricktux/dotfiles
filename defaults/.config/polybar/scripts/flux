@@ -15,11 +15,11 @@ _config.pywal = {
   cmd = '/usr/bin/wal',
   day = {
     "--theme", "base16-google", "-l", "-q", "-o",
-    "$USER/.config/polybar/launch.sh"
+    "$HOME/.config/polybar/launch.sh"
   },
   night = {
     "--theme", "base16-gruvbox-hard", "-q", "-o",
-    "$USER/.config/polybar/launch.sh"
+    "$HOME/.config/polybar/launch.sh"
   }
 }
 _config.print = {
