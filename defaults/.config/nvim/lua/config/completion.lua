@@ -47,7 +47,7 @@ CompletionNvim._autocmds = {
 
 function CompletionNvim:on_attach()
     if vim.b.completion_enable == 1 then
-        -- Setup already done in this buffer
+        log.trace('Setup already done in this buffer')
         return
     end
 
