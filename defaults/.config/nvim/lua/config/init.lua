@@ -91,7 +91,7 @@ local function _config_unix()
 
     vim.g.browser_cmd = '/usr/bin/firefox'
 
-    local py = vim.g.std_data_path .. [[/pyvenv/bin]]
+    local py = vim.g.std_data_path .. [[/../pyvenv/nvim/bin]]
     if not vim.fn.isdirectory(py) then
       print('ERROR: Failed to find python venv: ' .. py)
     else

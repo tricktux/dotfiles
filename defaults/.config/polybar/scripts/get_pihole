@@ -1,4 +1,4 @@
-#!/home/reinaldo/.local/share/pyvenv/bin/python
+#!/home/reinaldo/.local/share/pyvenv/polybar/bin/python
 
 import sys
 import requests

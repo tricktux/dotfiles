@@ -5,21 +5,26 @@
 echo "Updating system ..."
 trizen -Syu
 
-# Using reflector.timer
-# update_pacman_mirrors() {
-  # if hash /usr/bin/reflector 2>/dev/null; then
-    # sudo reflector --protocol https --latest 30 --number 5 --sort \
-      # rate --save /etc/pacman.d/mirrorlist -c 'United States' --verbose
-  # else
-    # echo "reflector is not installed"
-  # fi
-# }
-
-update_python_venv() {
-  local venv_loc="$XDG_DATA_HOME/"
-  local venv_name="pyvenv"
+update_polybar_python_venv() {
+  local venv_loc="$XDG_DATA_HOME/pyvenv"
+  local venv_name="polybar"
   local pkgs=(
     requests jinja2 stravalib
+  )
+
+  mkdir -p "$venv_loc"
+  python -m venv "$venv_loc/$venv_name" \
+    --symlinks --clear
+  source "$venv_loc/$venv_name/bin/activate"
+  pip3 install --upgrade ${pkgs[*]}
+  deactivate
+}
+
+update_pass_import_python_venv() {
+  local venv_loc="$XDG_DATA_HOME/pyvenv"
+  local venv_name="pass-import"
+  local pkgs=(
+    defusedxml pykeepass secretstorage cryptography file-magic
   )
 
   mkdir -p "$venv_loc"
@@ -36,12 +41,12 @@ update_nvim_plugins() {
 
 update_pynvim() {
   # source /home/reinaldo/.config/nvim/python_neovim_virtualenv.sh
-  local venv_loc="$XDG_DATA_HOME/nvim/"
-  local venv_name="pyvenv"
+  local venv_loc="$XDG_DATA_HOME/pyvenv"
+  local venv_name="nvim"
   local pkgs=(
-    vim-vint psutil flake8 jedi 
+    vim-vint psutil flake8 jedi
     "python-language-server[all]" frosted
-    pep8 pylint pynvim isort 
+    pep8 pylint pynvim isort
   )
 
   mkdir -p "$venv_loc"
@@ -64,21 +69,21 @@ update_pandoc_bin() {
   makepkg -si
 }
 
-read -p "Do you wish to update python system wide env? (y/N)" yn
+read -p "Do you wish to update python polybar env? (y/N)" yn
 case $yn in
-[Yy]*) update_python_venv ;;
+[Yy]*) update_polybar_python_venv ;;
 esac
-# read -p "Do you wish to update pacman mirrors? (y/N)" yn
-# case $yn in
-# [Yy]*) update_pacman_mirrors ;;
-# esac
-read -p "Do you wish to update neovim plugins? (y/N)" yn
+read -p "Do you wish to update pass import python? (y/N)" yn
 case $yn in
-[Yy]*) update_nvim_plugins ;;
+[Yy]*) update_pass_import_python_venv ;;
 esac
 read -p "Do you wish to update neovim pyvenv? (y/N)" yn
 case $yn in
-[Yy]*) update_pynvim ;;
+  [Yy]*) update_pynvim ;;
+esac
+read -p "Do you wish to update neovim plugins? (y/N)" yn
+case $yn in
+[Yy]*) update_nvim_plugins ;;
 esac
 read -p "Do you wish to update neovim-git? (y/N)" yn
 case $yn in
