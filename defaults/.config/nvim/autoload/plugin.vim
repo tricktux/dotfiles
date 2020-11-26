@@ -1550,6 +1550,11 @@ function! s:configure_vim_signify() abort
   autocmd User SignifyAutocmds
         \ exe 'au! signify' |
         \ au signify InsertLeave,BufEnter,TextChanged * call sy#start()
+
+  if exists('g:lightline')
+    let g:lightline.active.left[2] += [ 'sy' ]
+    let g:lightline.component_function['sy'] = 'sy#repo#get_stats_decorated'
+  endif
 endfunction
 
 function! plugin#SyStatsWrapper() abort
