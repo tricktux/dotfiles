@@ -44,6 +44,8 @@ cd ~/.config
 git clone https://github.com/tricktux/dotfiles
 # Install needed software
 trizen -S stow
+# So that you don't loose the hostname command
+trizen -S inetutils
 # Backup current setup
 # Make sure no other dotfiles are left
 mv ~/.bash_logout{,_bak}
