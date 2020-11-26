@@ -50,7 +50,7 @@ xdotool_delay=12
 EDITOR='nvim'
 
 # Browser
-BROWSER='xdg-open'
+BROWSER='/usr/bin/firefox'
 
 ## Misc settings
 
