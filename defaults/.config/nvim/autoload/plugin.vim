@@ -638,7 +638,7 @@ function! plugin#AfterConfig() abort
     call cpp_highlight#SetNeotagsHighlight()
   endif
 
-  if exists('*which_key#register')
+  if exists('s:which_key_set')
     call which_key#register(g:mapleader, "g:which_key_leader_map")
     call which_key#register(g:maplocalleader, "g:which_key_localleader_map")
     call which_key#register(']', "g:which_key_right_bracket_map")
@@ -727,7 +727,7 @@ function! plugin#AfterConfig() abort
   endif
 
   " Run neomake everytime you save a file
-  if exists('*neomake#configure#automake')
+  if exists('g:neomake_set')
     " Mon Apr 27 2020 04:31:
     " Toggle it if things get cluttered. Missing a lot of goodies
     call neomake#configure#automake('nw', 750)
@@ -1363,6 +1363,7 @@ endfunction
 " s:which_key_format also
 function! s:configure_vim_which_key() abort
   Plug 'liuchengxu/vim-which-key'
+  let s:which_key_set = 1
   " Sat Jun 27 2020 14:34: Windows look to weird
   " let g:which_key_floating_opts = {'row': '-60', 'width': '-100', 'col': '+40'}
   nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
