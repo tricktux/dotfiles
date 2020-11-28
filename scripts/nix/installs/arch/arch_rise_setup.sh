@@ -172,6 +172,14 @@ install kitty --noconfirm
 # samba
 # See `random.md samba-manual` section
 
+# nfs{{{
+pacinst nfs-utils
+mkdir -p $HOME/.mnt/skynfs
+sudo bash -c 'printf "192.168.1.138:/volume1/backup /home/reinaldo/.mnt/skynfs nfs _netdev,noauto,user,x-systemd.automount,x-systemd.mount-timeout=10,timeo=14,x-systemd.idle-timeout=1min,vers=3 0 0" >> /etc/fstab'
+# Try it with
+sudo mount -v -t nfs 192.168.1.138:/volume1/backup /home/reinaldo/.mnt/skynfs -o vers=3
+#}}}
+
 # password-store{{{
 install rofi-pass --noconfirm
 # import key
