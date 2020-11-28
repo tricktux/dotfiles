@@ -61,8 +61,13 @@ ls -als ~/
 source ~/.bash_aliases 
 #}}}
 
+# fix time:{{{
+install ntp
+sudo timedatectl set-ntp true
+#}}}
+
 # ccache to speed up compilations
-install ccache
+pacinst ccache
 
 # Beautiful arch wallpapers
 pacinst archlinux-wallpaper --noconfirm
@@ -163,13 +168,11 @@ install kitty --noconfirm
 # Essentials
 
 # resilio
-# fix time:
-install ntp
-sudo timedatectl set-ntp true
 # See `random.md resilio` section
 # samba
 # See `random.md samba-manual` section
-# password-store
+
+# password-store{{{
 install rofi-pass --noconfirm
 # import key
 # From a pc containing the keys:
@@ -188,7 +191,7 @@ install rofi-pass --noconfirm
 # See `random.md key-generation` section
 # import repo
 # See `git.md`
-
+#}}}
 # numlock on at boot
 
 # Tue Mar 26 2019 21:49
