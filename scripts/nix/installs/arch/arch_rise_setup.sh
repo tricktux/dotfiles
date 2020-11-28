@@ -154,8 +154,8 @@ install atool ranger zip unzip w3m ffmpeg highlight libcaca --noconfirm
 install mediainfo odt2txt poppler w3m bat exa fzf fd ripgrep tmux imagemagick ghostscript xclip --noconfirm
 
 # kitty
-install kitty kitty-terminfo --noconfirm
-pip install --user git+git://github.com/fretboardfreak/kitty-theme-changer.git@master
+install kitty --noconfirm
+# pip install --user git+git://github.com/fretboardfreak/kitty-theme-changer.git@master
 
 # Essentials
 
