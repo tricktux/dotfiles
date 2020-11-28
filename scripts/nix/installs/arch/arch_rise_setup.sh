@@ -87,7 +87,8 @@ install zsh
 # Legacy
 # install oh-my-zsh-git zplug pkgfile
 # Install zim
-curl -kfLo $ZIM_HOME/zimfw.zsh --create-dirs https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+curl -kfLo $ZIM_HOME/zimfw.zsh --create-dirs \
+  https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
 chmod +x $ZIM_HOME/zimfw.zsh
 zsh $ZIM_HOME/zimfw.zsh install
 # Install plugins
