@@ -116,6 +116,9 @@ sudo systemctl enable --now reflector.timer
 sudo systemctl start reflector.service
 #}}}
 
+pacinst earlyoom
+sudo systemctl enable --now earlyoom
+
 # Video card
 lspci -k | grep -A 2 -i "VGA"
 # If you happen to see 2 cards here, follow instructions at [this](https://wiki.archlinux.org/index.php/Optimus)
