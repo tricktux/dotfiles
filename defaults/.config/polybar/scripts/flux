@@ -137,8 +137,22 @@ function _redshift:exec()
   local output = _exec(cmd)
   if _options['verbose'] then print('Redshift output: \n' .. output) end
   -- Search occurrance of the Period value in the output
-  if string.find(output, "[D-d]ay") ~= nil then return 'day' end
-  if string.find(output, "[N-n]ight") ~= nil then return 'night' end
+  local trans = false
+  if string.find(output, "[T-t]ransition") ~= nil then trans = true end
+  if string.find(output, "[D-d]ay") ~= nil then
+    if trans then
+      return 'sunrise'
+    else
+      return 'day'
+    end
+  end
+  if string.find(output, "[N-n]ight") ~= nil then
+    if trans then
+      return 'sunset'
+    else
+      return 'night'
+    end
+  end
   return ''
 end
 
