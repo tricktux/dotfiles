@@ -140,18 +140,12 @@ function _redshift:exec()
   local trans = false
   if string.find(output, "[T-t]ransition") ~= nil then trans = true end
   if string.find(output, "[D-d]ay") ~= nil then
-    if trans then
-      return 'sunrise'
-    else
-      return 'day'
-    end
+    if trans then return 'sunrise' end
+    return 'day'
   end
   if string.find(output, "[N-n]ight") ~= nil then
-    if trans then
-      return 'sunset'
-    else
-      return 'night'
-    end
+    if trans then return 'sunset' end
+    return 'night'
   end
   return ''
 end
@@ -161,7 +155,7 @@ local _pywal = _config.pywal
 -- @brief Execute the pywal command
 -- @param period (string): Either 'day' or 'night'
 function _pywal:exec(period)
-  local switches = period == 'day' and 'day' or 'night'
+  local switches = self[period] == nil and 'night' or period
   local opts = ''
   for _, opt in ipairs(self[switches]) do opts = opts .. ' ' .. opt end
   local cmd = self.cmd .. opts
