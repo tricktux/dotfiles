@@ -18,16 +18,14 @@ _config.pywal = {
     "$HOME/.config/polybar/launch.sh"
   },
   sunrise = {
-    "--theme", "solarized", "-l", "-q", "-o",
-    "$HOME/.config/polybar/launch.sh"
+    "--theme", "solarized", "-l", "-q", "-o", "$HOME/.config/polybar/launch.sh"
   },
   night = {
     "--theme", "base16-gruvbox-hard", "-q", "-o",
     "$HOME/.config/polybar/launch.sh"
   },
   sunset = {
-    "--theme", "solarized", "-q", "-o",
-    "$HOME/.config/polybar/launch.sh"
+    "--theme", "solarized", "-q", "-o", "$HOME/.config/polybar/launch.sh"
   }
 }
 _config.print = {
@@ -78,6 +76,17 @@ local _usage = [[
         "--theme", "solarized", "-q", "-o",
         "$HOME/.config/polybar/launch.sh"
       }
+    }
+
+    -- Application could output an icon of your choosing to hint at current time
+    -- of day set. This is useful to combine this application with polybar for
+    -- instance. Output disbled by simply setting enable to false.
+    _M.print = {
+      enabled = true,
+      day = "  ",
+      night = "  ",
+      sunset = "  ",
+      sunrise = "  "
     }
 
     return _M
