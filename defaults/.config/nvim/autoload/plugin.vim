@@ -1552,6 +1552,9 @@ function! s:configure_vim_signify() abort
   Plug 'mhinz/vim-signify'
   nmap ]g <plug>(signify-next-hunk)
   nmap [g <plug>(signify-prev-hunk)
+  highlight SignifySignAdd    ctermfg=black ctermbg=green  guifg=#000000 guibg=#00ff00
+  highlight SignifySignDelete ctermfg=black ctermbg=red    guifg=#ffffff guibg=#ff0000
+  highlight SignifySignChange ctermfg=black ctermbg=yellow guifg=#000000 guibg=#ffff00
 
   augroup hi_si
     autocmd ColorScheme * call s:highlight_signify()
