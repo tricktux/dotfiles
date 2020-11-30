@@ -120,13 +120,6 @@ function! augroup#Set() abort
     " autocmd BufWinEnter * call status_line#SetVerControl()
   augroup END
 
-  if exists('g:loaded_plugins')
-    augroup FluxLike
-      autocmd!
-      autocmd VimEnter,BufEnter * call flux#Flux()
-    augroup END
-  endif
-
   " Depends on autoread being set
   augroup AutoRead
     autocmd!

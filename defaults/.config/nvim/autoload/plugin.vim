@@ -294,14 +294,24 @@ function! plugin#Config()
   " Specifically markings for daylight
   " Make requests here to get exact sunset and sunrise times
   " https://sunrise-sunset.org/api
-  let g:flux_enabled = 1
-  let g:flux_api_lat = 27.972572
-  let g:flux_api_lon = -82.796745
+  " This is analogous with having polybar and the flux script
+  " if has('unix') && executable('luajit')
+    " let g:flux_enabled = 0
+  " else
+    augroup FluxLike
+      autocmd!
+      autocmd VimEnter,BufEnter * call flux#Flux()
+    augroup END
 
-  let g:flux_night_time = 2000
-  let g:flux_day_time = 700
-  let g:flux_day_colorscheme = 'PaperColor'
-  let g:flux_night_colorscheme = 'PaperColor'
+    let g:flux_enabled = 1
+    let g:flux_api_lat = 27.972572
+    let g:flux_api_lon = -82.796745
+
+    let g:flux_night_time = 2000
+    let g:flux_day_time = 700
+    let g:flux_day_colorscheme = 'PaperColor'
+    let g:flux_night_colorscheme = 'PaperColor'
+  " end
 
   let g:PaperColor_Theme_Options =
         \ {
@@ -1542,9 +1552,10 @@ function! s:configure_vim_signify() abort
   Plug 'mhinz/vim-signify'
   nmap ]g <plug>(signify-next-hunk)
   nmap [g <plug>(signify-prev-hunk)
-  highlight SignifySignAdd    ctermfg=black ctermbg=green  guifg=#000000 guibg=#00ff00
-  highlight SignifySignDelete ctermfg=black ctermbg=red    guifg=#ffffff guibg=#ff0000
-  highlight SignifySignChange ctermfg=black ctermbg=yellow guifg=#000000 guibg=#ffff00
+
+  augroup hi_si
+    autocmd ColorScheme * call s:highlight_signify()
+  augroup end
 
   " Remove all default autocomands and just do this ones
   autocmd User SignifyAutocmds
@@ -1555,6 +1566,12 @@ function! s:configure_vim_signify() abort
     let g:lightline.active.left[2] += [ 'sy' ]
     let g:lightline.component_function['sy'] = 'sy#repo#get_stats_decorated'
   endif
+endfunction
+
+function! s:highlight_signify() abort
+    highlight SignifySignAdd    ctermfg=black ctermbg=green  guifg=#000000 guibg=#00ff00
+    highlight SignifySignDelete ctermfg=black ctermbg=red    guifg=#ffffff guibg=#ff0000
+    highlight SignifySignChange ctermfg=black ctermbg=yellow guifg=#000000 guibg=#ffff00
 endfunction
 
 function! plugin#SyStatsWrapper() abort
