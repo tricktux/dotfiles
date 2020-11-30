@@ -7,7 +7,7 @@
 " Last Modified:  Fri Mar 13 2020 14:19
 
 
-if exists('g:loaded_sessions')
+if exists('g:loaded_sessions') || !exists('*ObsessionStatus')
   finish
 endif
 

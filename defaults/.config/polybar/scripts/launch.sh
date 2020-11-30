@@ -2,14 +2,15 @@
 
 machine=$(hostname)
 
+# Be nice initially
 killall -q polybar
 killall -q polybar
 killall -q polybar
 
 # Wait until the processes have been shut down
 while pgrep -x polybar >/dev/null; do
-  # Terminate already running bar instances
-  killall -q polybar
+  # Not so nice signals now
+  killall -q -s SIGKILL polybar
   sleep 0.5
 done
 

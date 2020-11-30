@@ -120,13 +120,6 @@ function! augroup#Set() abort
     " autocmd BufWinEnter * call status_line#SetVerControl()
   augroup END
 
-  if exists('g:loaded_plugins')
-    augroup FluxLike
-      autocmd!
-      autocmd VimEnter,BufEnter * call flux#Flux()
-    augroup END
-  endif
-
   " Depends on autoread being set
   augroup AutoRead
     autocmd!
@@ -154,7 +147,7 @@ function! s:on_vim_enter() abort
   " This function needs to be here since most of the variables it checks are not
   " populated until vim init is done
   call options#SetCli()
-  call plugin#AfterConfig()
+  " call plugin#AfterConfig()
   " if (argc() == 0) " If no arguments are passed load default session
     " call mappings#LoadSession(has('nvim') ?
           " \ 'default_nvim.vim' : 'default_vim.vim')

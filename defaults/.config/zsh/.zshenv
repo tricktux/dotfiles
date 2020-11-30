@@ -10,11 +10,10 @@
 #
 # ~/.zshenv
 #
-host=`hostname`
-
-export HOSTNAME=$host
-if [ -f "$ZDOTDIR/.zshenv_$host" ]; then
-  source "$ZDOTDIR/.zshenv_$host"
+# Important note: zshenv is sourced everytime you open a new terminal
+# Only export things from zshenv host
+if [ -f "$ZDOTDIR/.zshenv_$HOST" ]; then
+  source "$ZDOTDIR/.zshenv_$HOST"
 fi
 
 # Creating local bin folder
@@ -49,7 +48,7 @@ fi
 
 export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
 
-# Ranger load only ~/.config/ranger/rc.conf
+# Ranger do not load the default rc.conf
 export RANGER_LOAD_DEFAULT_RC=FALSE
 
 # Fixes git weird issue
@@ -110,6 +109,11 @@ ENABLE_CORRECTION="true"
 
 # root directory for bytecode cache (pyc) files.
 export PYTHONPYCACHEPREFIX="/tmp/pycache"
+# This can come back to hunt you down. No asserts or docstrings
+export PYTHONOPTIMIZE=2
+
+# As given by the output of tzselect
+export TZ='America/New_York'
 
 # Thu Feb 22 2018 08:59: Can't figure out how to set locale properly on arch.
 # Result:

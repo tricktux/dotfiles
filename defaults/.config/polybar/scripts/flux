@@ -15,11 +15,17 @@ _config.pywal = {
   cmd = '/usr/bin/wal',
   day = {
     "--theme", "base16-google", "-l", "-q", "-o",
-    "$USER/.config/polybar/launch.sh"
+    "$HOME/.config/polybar/launch.sh"
+  },
+  sunrise = {
+    "--theme", "solarized", "-l", "-q", "-o", "$HOME/.config/polybar/launch.sh"
   },
   night = {
     "--theme", "base16-gruvbox-hard", "-q", "-o",
-    "$USER/.config/polybar/launch.sh"
+    "$HOME/.config/polybar/launch.sh"
+  },
+  sunset = {
+    "--theme", "solarized", "-q", "-o", "$HOME/.config/polybar/launch.sh"
   }
 }
 _config.print = {
@@ -50,7 +56,7 @@ local _usage = [[
     -- Switches are provided as its own table
     _M.redshift = {cmd = '/usr/bin/redshift', switches = {"-p", "-l", "manual"}}
 
-    -- Wal command. But with switches for day time and switches for night time
+    -- Wal command. But with switches for time of day period
     -- Switches are provided as its own table
     _M.pywal = {
       cmd = '/usr/bin/wal',
@@ -58,10 +64,29 @@ local _usage = [[
         "--theme", "base16-google", "-l", "-q", "-o",
         "/home/reinaldo/.config/polybar/launch.sh"
       },
+      sunrise = {
+        "--theme", "solarized", "-l", "-q", "-o",
+        "$HOME/.config/polybar/launch.sh"
+      },
       night = {
         "--theme", "base16-gruvbox-hard", "-q", "-o",
         "/home/reinaldo/.config/polybar/launch.sh"
+      },
+      sunset = {
+        "--theme", "solarized", "-q", "-o",
+        "$HOME/.config/polybar/launch.sh"
       }
+    }
+
+    -- Application could output an icon of your choosing to hint at current time
+    -- of day set. This is useful to combine this application with polybar for
+    -- instance. Output disbled by simply setting enable to false.
+    _M.print = {
+      enabled = true,
+      day = "  ",
+      night = "  ",
+      sunset = "  ",
+      sunrise = "  "
     }
 
     return _M
@@ -137,8 +162,16 @@ function _redshift:exec()
   local output = _exec(cmd)
   if _options['verbose'] then print('Redshift output: \n' .. output) end
   -- Search occurrance of the Period value in the output
-  if string.find(output, "[D-d]ay") ~= nil then return 'day' end
-  if string.find(output, "[N-n]ight") ~= nil then return 'night' end
+  local trans = false
+  if string.find(output, "[T-t]ransition") ~= nil then trans = true end
+  if string.find(output, "[D-d]ay") ~= nil then
+    if trans then return 'sunrise' end
+    return 'day'
+  end
+  if string.find(output, "[N-n]ight") ~= nil then
+    if trans then return 'sunset' end
+    return 'night'
+  end
   return ''
 end
 
@@ -147,7 +180,7 @@ local _pywal = _config.pywal
 -- @brief Execute the pywal command
 -- @param period (string): Either 'day' or 'night'
 function _pywal:exec(period)
-  local switches = period == 'day' and 'day' or 'night'
+  local switches = self[period] == nil and 'night' or period
   local opts = ''
   for _, opt in ipairs(self[switches]) do opts = opts .. ' ' .. opt end
   local cmd = self.cmd .. opts

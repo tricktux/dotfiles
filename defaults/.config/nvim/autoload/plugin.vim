@@ -218,6 +218,7 @@ function! plugin#Config()
   " These plugins will be configured via lua
   if has('nvim-0.5')
     Plug 'nvim-treesitter/nvim-treesitter'
+    " Wed Nov 25 2020 07:38: lsp_status_line has prettier function name
     if exists('g:lightline')
       " Unix already enables tagbar. No need for another
       let g:lightline.active.right[2] += [ 'ts' ]
@@ -283,7 +284,6 @@ function! plugin#Config()
   " colorschemes
   Plug 'morhetz/gruvbox' " colorscheme gruvbox
   Plug 'NLKNguyen/papercolor-theme'
-  Plug 'dylanaraps/wal.vim'
 
   " TODO - Tue Aug 27 2019 16:33: Move utils functions into its own plugin
   " Auto Flux (changing themes) is set in the augroup.vim file
@@ -291,10 +291,15 @@ function! plugin#Config()
   " Specifically markings for daylight
   " Make requests here to get exact sunset and sunrise times
   " https://sunrise-sunset.org/api
-  if has('unix')
-    colorscheme wal
-    let g:flux_enabled = 0
-  else
+  " This is analogous with having polybar and the flux script
+  " if has('unix') && executable('luajit')
+    " let g:flux_enabled = 0
+  " else
+    augroup FluxLike
+      autocmd!
+      autocmd VimEnter,BufEnter * call flux#Flux()
+    augroup END
+
     let g:flux_enabled = 1
     let g:flux_api_lat = 27.972572
     let g:flux_api_lon = -82.796745
@@ -303,7 +308,7 @@ function! plugin#Config()
     let g:flux_day_time = 700
     let g:flux_day_colorscheme = 'PaperColor'
     let g:flux_night_colorscheme = 'PaperColor'
-  endif
+  " end
 
   let g:PaperColor_Theme_Options =
         \ {
@@ -640,14 +645,7 @@ function! plugin#AfterConfig() abort
     call cpp_highlight#SetNeotagsHighlight()
   endif
 
-  if exists('g:loaded_workspace')
-    nnoremap <c-s> :WS_Backforth()<cr>
-    for l:idx in [1,2,3,4,5,6,7,8,9]
-      execute 'nnoremap <silent> <a-' . l:idx . '> :WS ' . l:idx. '<cr>'
-    endfor
-  endif
-
-  if exists('g:loaded_vim_which_key')
+  if exists('s:which_key_set')
     call which_key#register(g:mapleader, "g:which_key_leader_map")
     call which_key#register(g:maplocalleader, "g:which_key_localleader_map")
     call which_key#register(']', "g:which_key_right_bracket_map")
@@ -656,7 +654,7 @@ function! plugin#AfterConfig() abort
     set timeoutlen=200
   endif
 
-  if exists('g:loaded_deoplete')
+  if exists('*deoplete#custom#option')
     call deoplete#custom#option('smart_case', v:true)
     " call deoplete#custom#source('javacomplete2', 'mark', '')
     call deoplete#custom#source('_', 'matchers', ['matcher_fuzzy'])
@@ -680,7 +678,7 @@ function! plugin#AfterConfig() abort
   endif
 
   " Plugin function names are never detected. Only plugin commands
-  if exists('g:loaded_denite')
+  if exists('*denite#custom#map')
     " Change mappings.
     call denite#custom#map('insert','<C-j>',
           \ '<denite:move_to_next_line>','noremap')
@@ -696,6 +694,10 @@ function! plugin#AfterConfig() abort
     call denite#custom#option('default', 'winheight', 15)
     call denite#custom#option('_', 'highlight_matched_char', 'Function')
     call denite#custom#option('_', 'highlight_matched_range', 'Function')
+    " TODO: Better detection
+    if exists('g:loaded_prosession')
+      call denite#custom#var('prosession', 'format', 'split')
+    endif
     if executable('fd')
       call denite#custom#var('file_rec', 'command',
             \ ['fd', s:ignore_file,
@@ -719,7 +721,7 @@ function! plugin#AfterConfig() abort
       call denite#custom#var('grep', 'default_opts',
             \ ['--vimgrep',
             \ '--no-heading', '--smart-case', '--follow', '--hidden',
-            \ s:ignore_file)
+            \ s:ignore_file])
       call denite#custom#var('grep', 'recursive_opts', [])
       call denite#custom#var('grep', 'pattern_opt', [])
       call denite#custom#var('grep', 'separator', ['--'])
@@ -732,7 +734,7 @@ function! plugin#AfterConfig() abort
   endif
 
   " Run neomake everytime you save a file
-  if exists('g:loaded_neomake')
+  if exists('g:neomake_set')
     " Mon Apr 27 2020 04:31:
     " Toggle it if things get cluttered. Missing a lot of goodies
     call neomake#configure#automake('nw', 750)
@@ -749,7 +751,7 @@ function! plugin#AfterConfig() abort
     " endif
   endif
 
-  if exists('g:loaded_grepper')
+  if exists(':Grepper')
     if executable('rg')
       nmap <plug>search_grep :Grepper -tool rg<cr>
       xmap <plug>search_grep :Grepper -tool rg<cr>
@@ -768,13 +770,6 @@ function! plugin#AfterConfig() abort
     endif
   endif
 
-  if exists('g:loaded_prosession')
-    call denite#custom#var('prosession', 'format', 'split')
-  endif
-
-  if has('nvim-0.5')
-    lua require('config').after_vim_enter()
-  endif
 endfunction
 
 function! s:configure_ctrlp() abort
@@ -928,8 +923,7 @@ function! s:configure_tagbar() abort
 endfunction
 
 function! s:tagbar_lightline() abort
-  " If file is too big dont try it
-  if getfsize(expand('%s')) > 150000
+  if !exists('*tagbar#currenttag')
     return ''
   endif
 
@@ -1376,6 +1370,7 @@ endfunction
 " s:which_key_format also
 function! s:configure_vim_which_key() abort
   Plug 'liuchengxu/vim-which-key'
+  let s:which_key_set = 1
   " Sat Jun 27 2020 14:34: Windows look to weird
   " let g:which_key_floating_opts = {'row': '-60', 'width': '-100', 'col': '+40'}
   nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
@@ -1489,10 +1484,11 @@ function! s:configure_fzf() abort
   Plug 'junegunn/fzf.vim'
 
   " Very cool, but still too slow
-  if has('unix')
-    nmap <plug>buffer_browser :Buffers<CR>
-    nmap <plug>mru_browser :History<CR>
-  endif
+  " Always keep going back to ctrlp
+  " if has('unix')
+    " nmap <plug>buffer_browser :Buffers<CR>
+    " nmap <plug>mru_browser :History<CR>
+  " endif
   if (!exists('$FZF_DEFAULT_COMMAND') && executable('fd'))
     let $FZF_DEFAULT_COMMAND=
           \ 'fd --type file --hidden --follow ' . s:ignore_file
@@ -1553,11 +1549,29 @@ function! s:configure_vim_signify() abort
   Plug 'mhinz/vim-signify'
   nmap ]g <plug>(signify-next-hunk)
   nmap [g <plug>(signify-prev-hunk)
+  highlight SignifySignAdd    ctermfg=black ctermbg=green  guifg=#000000 guibg=#00ff00
+  highlight SignifySignDelete ctermfg=black ctermbg=red    guifg=#ffffff guibg=#ff0000
+  highlight SignifySignChange ctermfg=black ctermbg=yellow guifg=#000000 guibg=#ffff00
+
+  augroup hi_si
+    autocmd ColorScheme * call s:highlight_signify()
+  augroup end
 
   " Remove all default autocomands and just do this ones
   autocmd User SignifyAutocmds
         \ exe 'au! signify' |
         \ au signify InsertLeave,BufEnter,TextChanged * call sy#start()
+
+  if exists('g:lightline')
+    let g:lightline.active.left[2] += [ 'sy' ]
+    let g:lightline.component_function['sy'] = 'sy#repo#get_stats_decorated'
+  endif
+endfunction
+
+function! s:highlight_signify() abort
+    highlight SignifySignAdd    ctermfg=black ctermbg=green  guifg=#000000 guibg=#00ff00
+    highlight SignifySignDelete ctermfg=black ctermbg=red    guifg=#ffffff guibg=#ff0000
+    highlight SignifySignChange ctermfg=black ctermbg=yellow guifg=#000000 guibg=#ffff00
 endfunction
 
 function! plugin#SyStatsWrapper() abort
@@ -1900,10 +1914,16 @@ function! s:configure_markdown() abort
 endfunction
 
 function! s:ts_status() abort
-  return luaeval("require'nvim-treesitter'.statusline({
+  " lsp_status status is much better
+  if luaeval('#vim.lsp.buf_get_clients() > 0')
+    return ''
+  endif
+
+  let l:s = luaeval("require'nvim-treesitter'.statusline({
         \ indicator_size = 18,
         \ type_patterns = {'class', 'function', 'method'},
         \ transform_fn = function(line) return line:gsub('%s*[%[%(%{]*%s*$', '') end,
         \ separator = ' -> '
         \ })")
+  return l:s == v:null ? '' : l:s
 endfunction

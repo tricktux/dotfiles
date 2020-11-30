@@ -7,6 +7,7 @@
 
 " CUSTOM_COMMANDS
 function! commands#Set() abort
+  command! -nargs=? UtilsPasswdGenerate call s:generate_random_pass(<f-args>) 
   command! UtilsBuffersDeleteNoName call s:delete_empty_buffers()
   command! UtilsWeekGetNumber :echomsg strftime('%V')
 
@@ -253,4 +254,25 @@ function! s:delete_empty_buffers()
   if len(empty) > 0
     exe 'bdelete' join(empty)
   endif
+endfunction
+
+function! s:rand(x,y) abort " random uniform between x and y
+  return luaeval('(_A.y-_A.x)*math.random()+_A.x', {'x':a:x,'y':a:y})
+endfunction
+
+function! s:generate_random_pass(...) abort
+  let l:num_chars = 16
+  if a:0 != 0
+    let l:num_chars = a:1
+  endif
+  " Create a loop until num_chars
+  let l:pass = ''
+  let l:idx = 1
+  while (l:idx != l:num_chars)
+    let l:pass .= nr2char(float2nr(s:rand(33,127)))
+    let l:idx += 1
+  endwhile
+  let @+ = l:pass
+  let @* = l:pass
+  echo l:pass
 endfunction

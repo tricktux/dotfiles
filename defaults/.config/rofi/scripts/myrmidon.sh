@@ -5,9 +5,9 @@ cwd=$(echo $(dirname $0))
 config_file="${1:-"$HOME/.myrmidon-tasks.json"}"
 tasks=$(cat $config_file)
 
-prompt="Tasks:"
+prompt="Tasks"
 
-rofi_cmd="rofi -config $XDG_CONFIG_HOME/rofi/$(hostname) \
+rofi_cmd="rofi
   -theme /usr/share/rofi/themes/sidebar.rasi
   -dmenu -sort -matching fuzzy -i -p $prompt"
 

@@ -25,6 +25,7 @@ endfunction
 function! s:set_neomake() abort
 	" Plugins for All (nvim, linux, win32)
 	Plug 'neomake/neomake'
+  let g:neomake_set = 1
 	" Fri Oct 27 2017 14:39: neomake defaults are actually pretty amazing. If
 	" you need to change it. Do it on a per buffer basis. Look on c.vim for
 	" example

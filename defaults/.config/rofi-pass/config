@@ -4,7 +4,7 @@
 
 # rofi command. Make sure to have "$@" as last argument
 _rofi () {
-  rofi -config $XDG_CONFIG_HOME/rofi/`hostname` -i -no-auto-select "$@"
+  rofi -width 75 -i -no-auto-select "$@"
 }
 
 # default command to generate passwords
@@ -50,7 +50,7 @@ xdotool_delay=12
 EDITOR='nvim'
 
 # Browser
-BROWSER='xdg-open'
+BROWSER='/usr/bin/firefox'
 
 ## Misc settings
 
