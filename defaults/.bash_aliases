@@ -37,6 +37,8 @@ alias ports='netstat -tulanp'
 # ffmpeg
 alias ffmpeg_concat=FuncFfmpegConcat
 
+alias journalctlp='journalctl -o short-precise'
+
 # cd
 alias .='cd ..'
 alias ..='cd ../..'
