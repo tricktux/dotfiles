@@ -151,20 +151,21 @@ sudo tee /proc/acpi/bbswitch <<< {ON,OFF}
 
 # checkout [this][1] link for hardware acceleration
 
-# terminal utils
-install acpi lm_sensors liquidprompt tldr --noconfirm
-install {ttf,otf}-fira-{code,mono} {ttf,otf}-font-awesome nerd-fonts-inconsolata --noconfirm
-install ttf-inconsolata --noconfirm
-install xorg-xfontsel gtk2fontsel --noconfirm
+# terminal utils{{{
+pacinst acpi lm_sensors liquidprompt tldr --noconfirm
+pacinst {ttf,otf}-fira-{code,mono} {ttf,otf}-font-awesome nerd-fonts-inconsolata --noconfirm
+pacinst ttf-inconsolata --noconfirm
+pacinst xorg-xfontsel gtk2fontsel --noconfirm
 # Package doesn't exist anymore thumbnailer 
-install atool ranger zip unzip w3m ffmpeg highlight libcaca --noconfirm
+pacinst atool ranger zip unzip w3m ffmpeg highlight libcaca --noconfirm
 # Not installing anymore: advcp 
-install mediainfo odt2txt poppler w3m bat exa fzf fd ripgrep tmux imagemagick ghostscript xclip --noconfirm
+pacinst mediainfo odt2txt poppler w3m bat exa fzf fd ripgrep tmux imagemagick ghostscript xclip --noconfirm
 
 # kitty
-install kitty --noconfirm
-# pip install --user git+git://github.com/fretboardfreak/kitty-theme-changer.git@master
-
+pacinst kitty --noconfirm
+# Depends on rust
+pacinst page-git
+#}}}
 # Essentials
 
 # resilio
