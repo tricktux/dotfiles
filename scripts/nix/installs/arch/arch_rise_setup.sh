@@ -449,23 +449,24 @@ sudo systemctl enable --now bluetooth
 # Also I use `qutebrowser` for login website
 install qutebrowser pdfjs
 
-# Printing
-
+# Printing{{{
 # keywords: print, hp, cups
-install hplip cups cups-pdf simple-scan-3.12 gtk3-print-backends --noconfirm
+pacinst hplip cups cups-pdf simple-scan gtk3-print-backends --noconfirm
 # install most of the optional software that comes along with hplip
 # Follow arch `cups` instructions.
-	- `sudo systemctl enable --now org.cups.cupsd` look it up in the arch wiki
-	- Then go to the web server interface of cups. Sign in as root.
-	- There you can add printers. Set their default settings.
-	- And also you need to set the users that can have access to the printer.
-- **Note:** If printer doesnt show. Or google-chrome or opera do not print.
-	- You did not `install gtk3-print-backends`
-- **Note:** If you cannot authenticate ensure  your user is a member of the sys group.
-- You can check with: `groups reinaldo`. It should list the sys group.
-- https://wiki.archlinux.org/index.php/CUPS#ConfigurationYou can do this by: `sudo gpasswd -a <user> sys`. 
-- Instructions [here](https://wiki.archlinux.org/index.php/CUPS#Configuration)
-- Cups server lives at: `http://localhost:631/`
+# look it up in the arch wiki
+sudo systemctl enable --now cups.socket
+	# - Then go to the web server interface of cups. Sign in as root.
+	# - There you can add printers. Set their default settings.
+	# - And also you need to set the users that can have access to the printer.
+# - **Note:** If printer doesnt show. Or google-chrome or opera do not print.
+	# - You did not `install gtk3-print-backends`
+# - **Note:** If you cannot authenticate ensure  your user is a member of the sys group.
+# - You can check with: `groups reinaldo`. It should list the sys group.
+# - https://wiki.archlinux.org/index.php/CUPS#ConfigurationYou can do this by: `sudo gpasswd -a <user> sys`.
+# - Instructions [here](https://wiki.archlinux.org/index.php/CUPS#Configuration)
+# - Cups server lives at: `http://localhost:631/`
+#}}}
 
 # Misc
 
