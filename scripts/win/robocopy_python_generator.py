@@ -6,7 +6,9 @@ USER_PROFILE = os.getenv('USERPROFILE')
 BACKUP_DIRS = [
     fr'{USER_PROFILE}\Documents\apps',
     fr'{USER_PROFILE}\AppData\Roaming\gnupg',
+    fr'{USER_PROFILE}\AppData\Roaming\doublecmd',
     fr'{USER_PROFILE}\.password-store',
+    r'C:\Program Files (x86)\Borland',
     r'D:\1.WINGS',
     r'D:\2.Office',
     r'D:\3.Other',
