@@ -2,8 +2,14 @@
 
 # i3-msg "floating toggle"
 
-echo "Updating system ..."
+echo "Updating system..."
 trizen -Syu
+echo "Storing package list..."
+PACMANFILE="$XDG_CONFIG_HOME/dotfiles/pkg/$(hostname)/pacman-list.pkg"
+AURFILE="$XDG_CONFIG_HOME/dotfiles/pkg/$(hostname)/aur-list.pkg"
+pacman -Qqen > $PACMANFILE
+pacman -Qqem > $AURFILE
+
 
 update_polybar_python_venv() {
   local venv_loc="$XDG_DATA_HOME/pyvenv"
