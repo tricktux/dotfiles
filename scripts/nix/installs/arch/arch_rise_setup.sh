@@ -167,7 +167,8 @@ pacinst mediainfo odt2txt poppler w3m bat exa fzf fd ripgrep tmux imagemagick gh
 # kitty
 pacinst kitty --noconfirm
 # Depends on rust
-pacinst page-git
+# Causes all kinds of problems
+# pacinst page-git
 #}}}
 # Essentials
 

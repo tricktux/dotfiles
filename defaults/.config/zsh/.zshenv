@@ -115,10 +115,6 @@ export PYTHONOPTIMIZE=2
 # As given by the output of tzselect
 export TZ='America/New_York'
 
-if [[ -f /usr/bin/page ]]; then
-  export PAGER='page'
-fi
-
 # Thu Feb 22 2018 08:59: Can't figure out how to set locale properly on arch.
 # Result:
 # Wed May 02 2018 04:57: Not needed anymore
