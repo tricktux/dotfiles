@@ -239,6 +239,13 @@ function! plugin#Config()
     if exists('g:valid_device')
       Plug 'kyazdani42/nvim-web-devicons'
     endif
+    Plug 'lewis6991/gitsigns.nvim'
+    " NOTE: depends on plenary.nvim
+    if exists('g:lightline')
+      let g:lightline.active.left[2] += [ 'gitsigns' ]
+      let g:lightline.component_function['gitsigns'] =
+            \ string(function('s:gitsigns_status'))
+    endif
   else
     " And these are their alternatives
     " If using treesitter don't use Semshi
@@ -265,10 +272,10 @@ function! plugin#Config()
   " Autocomplete
   " Version control
   Plug 'tpope/vim-fugitive'
-  if exists('g:lightline')
-    let g:lightline.active.left[2] += [ 'fugitive' ]
-    let g:lightline.component_function['fugitive'] = 'fugitive#statusline'
-  endif
+  " if exists('g:lightline')
+    " let g:lightline.active.left[2] += [ 'fugitive' ]
+    " let g:lightline.component_function['fugitive'] = 'fugitive#statusline'
+  " endif
 
   call s:configure_vim_signify()
 
@@ -643,6 +650,12 @@ endfunction
 function! plugin#AfterConfig() abort
   if (exists('g:neotags_ignore'))
     call cpp_highlight#SetNeotagsHighlight()
+  endif
+
+  if exists('s:signify_set')
+    highlight SignifySignAdd    ctermfg=black ctermbg=green  guifg=#000000 guibg=#00ff00
+    highlight SignifySignDelete ctermfg=black ctermbg=red    guifg=#ffffff guibg=#ff0000
+    highlight SignifySignChange ctermfg=black ctermbg=yellow guifg=#000000 guibg=#ffff00
   endif
 
   if exists('s:which_key_set')
@@ -1547,15 +1560,14 @@ endfunction
 
 function! s:configure_vim_signify() abort
   Plug 'mhinz/vim-signify'
+
+  let s:signify_set = 1
+  " Disable signify for git
+    let g:signify_vcs_cmds = {
+      \ 'git':      '',
+      \ }
   nmap ]g <plug>(signify-next-hunk)
   nmap [g <plug>(signify-prev-hunk)
-  highlight SignifySignAdd    ctermfg=black ctermbg=green  guifg=#000000 guibg=#00ff00
-  highlight SignifySignDelete ctermfg=black ctermbg=red    guifg=#ffffff guibg=#ff0000
-  highlight SignifySignChange ctermfg=black ctermbg=yellow guifg=#000000 guibg=#ffff00
-
-  augroup hi_si
-    autocmd ColorScheme * call s:highlight_signify()
-  augroup end
 
   " Remove all default autocomands and just do this ones
   autocmd User SignifyAutocmds
@@ -1926,4 +1938,12 @@ function! s:ts_status() abort
         \ separator = ' -> '
         \ })")
   return l:s == v:null ? '' : l:s
+endfunction
+
+function! s:gitsigns_status() abort
+  if !exists('b:gitsigns_status')
+    return ''
+  endif
+
+  return '[' . b:gitsigns_head . ']:' . b:gitsigns_status
 endfunction

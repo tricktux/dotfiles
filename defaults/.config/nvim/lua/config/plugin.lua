@@ -41,54 +41,50 @@ local function setup_treesitter()
   end
 
   -- local ts = require'nvim-treesitter'
-  local tsconf = require'nvim-treesitter.configs'
+  local tsconf = require 'nvim-treesitter.configs'
 
   tsconf.setup {
     -- This line will install all of them
     -- one of "all", "language", or a list of languages
-    ensure_installed = {
-      "c", "cpp", "python", "lua", "java", "bash", "c_sharp",
-    },
+    ensure_installed = {"c", "cpp", "python", "lua", "java", "bash", "c_sharp"},
     highlight = {
       enable = true, -- false will disable the whole extension
-      incremental_selection = { enable = true },
-      textobjects = { enable = true },
+      incremental_selection = {enable = true},
+      textobjects = {enable = true}
     },
-    indent = {
-      enable = true
-    }
+    indent = {enable = true}
     -- disable = {"c", "rust"} -- list of language that will be disabled
   }
 
   -- if exists('g:lightline')
-    -- let g:lightline.active.right[2] += [ 'sessions' ]
-    -- let g:lightline.component_function['sessions'] =
-    -- \ string(function('s:obsession_status'))
+  -- let g:lightline.active.right[2] += [ 'sessions' ]
+  -- let g:lightline.component_function['sessions'] =
+  -- \ string(function('s:obsession_status'))
   -- endif
   -- Set highlights for PaperColor
   -- local hl = {
-    -- 'highlight TSPunctDelimiter guifg=#00ad7f',
-    -- 'highlight TSPunctSpecial guifg=#004e3d',
-    -- 'highlight TSTagDelimiter guifg=#004257',
-    -- 'highlight TSConstBuiltin guifg=#00d7af',
-    -- 'highlight TSConstructor gui=Bold guifg=#8700d7',
-    -- 'highlight TSVariableBuiltin guifg=#005faf',
-    -- 'highlight TSStringRegex guifg=#afd700',
-    -- 'highlight TSLiteral guifg=#00bcd4',
-    -- 'highlight TSMethod gui=italic guifg=#d75f87',
-    -- 'highlight TSField guifg=#afd7d7',
-    -- 'highlight TSProperty guifg=#ffaf87',
-    -- 'highlight TSParameterReference guifg=#005685',
-    -- 'highlight TSAttribute guifg=#185d95',
-    -- 'highlight TSTag guifg=#305b7e',
-    -- 'highlight TSKeywordFunction guifg=#40596d',
-    -- 'highlight TSKeywordOperator guifg=#1ac9ff',
-    -- 'highlight TSTypeBuiltin guifg=#5f00ff',
-    -- 'highlight TSNamespace guifg=#b71f1f',
+  -- 'highlight TSPunctDelimiter guifg=#00ad7f',
+  -- 'highlight TSPunctSpecial guifg=#004e3d',
+  -- 'highlight TSTagDelimiter guifg=#004257',
+  -- 'highlight TSConstBuiltin guifg=#00d7af',
+  -- 'highlight TSConstructor gui=Bold guifg=#8700d7',
+  -- 'highlight TSVariableBuiltin guifg=#005faf',
+  -- 'highlight TSStringRegex guifg=#afd700',
+  -- 'highlight TSLiteral guifg=#00bcd4',
+  -- 'highlight TSMethod gui=italic guifg=#d75f87',
+  -- 'highlight TSField guifg=#afd7d7',
+  -- 'highlight TSProperty guifg=#ffaf87',
+  -- 'highlight TSParameterReference guifg=#005685',
+  -- 'highlight TSAttribute guifg=#185d95',
+  -- 'highlight TSTag guifg=#305b7e',
+  -- 'highlight TSKeywordFunction guifg=#40596d',
+  -- 'highlight TSKeywordOperator guifg=#1ac9ff',
+  -- 'highlight TSTypeBuiltin guifg=#5f00ff',
+  -- 'highlight TSNamespace guifg=#b71f1f',
   -- }
 
   -- for _, high in ipairs(hl) do
-    -- vim.cmd(high)
+  -- vim.cmd(high)
   -- end
 end
 
@@ -188,8 +184,10 @@ local function setup_scrollbar()
 
   local au = {
     scrollbar = {
-      {"CursorMoved,VimResized,QuitPre,WinEnter,FocusGained", "*", "silent! lua require('scrollbar').show()"},
-      {"WinLeave,FocusLost", "*", "silent! lua require('scrollbar').clear()"},
+      {
+        "CursorMoved,VimResized,QuitPre,WinEnter,FocusGained", "*",
+        "silent! lua require('scrollbar').show()"
+      }, {"WinLeave,FocusLost", "*", "silent! lua require('scrollbar').clear()"}
     }
   }
   aug.create(au)
@@ -197,8 +195,8 @@ end
 
 local function setup_telescope()
   if not utl.is_mod_available('telescope') then
-      log.error('telescope module not available')
-      return
+    log.error('telescope module not available')
+    return
   end
 
   local cmd_pref = [[<cmd>lua require'telescope.builtin'.]]
@@ -219,10 +217,10 @@ local function setup_telescope()
       -- Can choose EITHER one of these: horizontal, vertical, center
       layout_strategy = "horizontal",
       -- horizontal_config = {
-          -- get_preview_width = function(columns, _)
-            -- return math.floor(columns * 0.5)
-          -- end,
-        -- },
+      -- get_preview_width = function(columns, _)
+      -- return math.floor(columns * 0.5)
+      -- end,
+      -- },
 
       -- get_window_options = function(...) end,
       -- To move to bottom, use strategy descending
@@ -242,7 +240,7 @@ local function setup_telescope()
           ["<C-e>"] = actions.preview_scrolling_up,
           ["<C-d>"] = actions.preview_scrolling_down,
           ["<C-v>"] = actions.goto_file_selection_vsplit,
-          ["<C-t>"] = actions.goto_file_selection_tabedit,
+          ["<C-t>"] = actions.goto_file_selection_tabedit
         },
 
         n = {
@@ -250,7 +248,7 @@ local function setup_telescope()
           ["<c-c>"] = actions.close,
           ["q"] = actions.close,
           ["<CR>"] = actions.goto_file_selection_edit,
-          ["<c-m>"] = actions.goto_file_selection_edit,
+          ["<c-m>"] = actions.goto_file_selection_edit
         }
       }
       -- shorten_path = true,
@@ -265,6 +263,46 @@ local function setup_telescope()
   require('telescope').setup(config)
 end
 
+local function setup_gitsigns()
+  if not utl.is_mod_available('gitsigns') then
+    log.error('gitsigns module not available')
+    return
+  end
+
+  require('gitsigns').setup {
+    signs = {
+      add = {hl = 'DiffAdd', text = '+'},
+      change = {hl = 'DiffChange', text = '!'},
+      delete = {hl = 'DiffDelete', text = '_'},
+      topdelete = {hl = 'DiffDelete', text = '‾'},
+      changedelete = {hl = 'DiffChange', text = '~'}
+    },
+    keymaps = {
+      -- Default keymap options
+      noremap = true,
+      buffer = true,
+
+      ['n ]c'] = {
+        expr = true,
+        "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'"
+      },
+      ['n [c'] = {
+        expr = true,
+        "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'"
+      },
+
+      ['n <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
+      ['n <leader>hu'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
+      ['n <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
+      ['n <leader>hp'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
+      ['n <leader>hb'] = '<cmd>lua require"gitsigns".blame_line()<CR>'
+    },
+    watch_index = {interval = 1000},
+    sign_priority = 6,
+    status_formatter = nil -- Use default
+  }
+end
+
 local function setup()
   -- setup_formatter()
   -- Treesitter really far from ready
@@ -272,6 +310,7 @@ local function setup()
   setup_telescope()
   -- Kinda distracting
   -- setup_scrollbar()
+  setup_gitsigns()
 end
 
 return {setup = setup, setup_lspstatus = setup_lspstatus}
