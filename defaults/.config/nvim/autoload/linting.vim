@@ -268,16 +268,16 @@ function! linting#SetNeomakePandocMaker(type) abort
   " No need for this setting. '-V', 'geometry:margin=.5in'
 	" It can be added as part of the YAML header
 
-	if executable('pandoc-citeproc')
-		" Obtain list of bib files
-		" Read pandoc manual about citations. Can be added to yaml header.
-		" let l:bibl = glob(expand('%:p:h') . '/*.bib', 0, 1)
-		" if !empty(l:bibl)
-			let l:argu += ['--filter',
-						\ 'pandoc-citeproc',
-						\	]
-		" endif
-	endif
+	" if executable('pandoc-citeproc')
+		" " Obtain list of bib files
+		" " Read pandoc manual about citations. Can be added to yaml header.
+		" " let l:bibl = glob(expand('%:p:h') . '/*.bib', 0, 1)
+		" " if !empty(l:bibl)
+			" let l:argu += ['--filter',
+						" \ 'pandoc-citeproc',
+						" \	]
+		" " endif
+	" endif
 
 	if a:type ==# 'pdf'
 		" Set template
