@@ -305,9 +305,6 @@ function! mappings#Set()
 
   " Vim-unimpaired similar mappings
   " Do not overwrite [s, [c, [f
-  " Overwitting [c to make it more useful
-  nnoremap ]c ]czz
-  nnoremap [c [czz
 
   nnoremap <silent> ]y :call <SID>yank_from('+')<cr>
   nnoremap <silent> [y :call <SID>yank_from('-')<cr>
