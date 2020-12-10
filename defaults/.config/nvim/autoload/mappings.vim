@@ -1348,13 +1348,15 @@ function! s:version_control_command(cmd) abort
   let l:git = !empty(finddir('.git', l:cwd, 1))
   let l:svn = !empty(finddir('.svn', l:cwd, 1))
 
-  if l:git && executable('lazygit') && a:cmd !=? 'commit'
-    if exists(':LazyGit')
-      execute "LazyGit"
-    else
-      lua require('utils.utils').exec_float_term('lazygit', true, true)
+  if has('nvim-0.5')
+    if l:git && executable('lazygit') && a:cmd !=? 'commit'
+      if exists(':LazyGit')
+        execute "LazyGit"
+      else
+        lua require('utils.utils').exec_float_term('lazygit', true, true)
+      endif
+      return
     endif
-    return
   endif
 
   if a:cmd ==? 'status'
