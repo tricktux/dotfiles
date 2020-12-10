@@ -11,7 +11,7 @@ set venv_loc=%APPDATA%\..\Local\nvim-data
 set venv_name=pyvenv
 
 mkdir %venv_loc%
-python -m venv %venv_loc%\%venv_name% --upgrade
+python -m venv %venv_loc%\%venv_name% --clear
 cmd /k call "%venv_loc%\%venv_name%\Scripts\activate.bat"
 REM pip install --upgrade -r nvimvenv.txt
 REM deactivate
