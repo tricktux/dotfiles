@@ -1954,17 +1954,19 @@ endfunction
 
 function! s:next_hunk() abort
   if &diff
-    normal! ]c
+    normal! ]czz
     return
   endif
 
   if exists('b:gitsigns_status')
     lua require'gitsigns'.next_hunk()
+    normal! zz
     return
   endif
 
   if exists(':SignifyToggle')
     execute "normal <plug>(signify-next-hunk)"
+    normal! zz
     return
   endif
 
@@ -1973,17 +1975,19 @@ endfunction
 
 function! s:prev_hunk() abort
   if &diff
-    normal! [c
+    normal! [czz
     return
   endif
 
   if exists('b:gitsigns_status')
     lua require'gitsigns'.prev_hunk()
+    normal! zz
     return
   endif
 
   if exists(':SignifyToggle')
     execute "normal <plug>(signify-prev-hunk)"
+    normal! zz
     return
   endif
 
