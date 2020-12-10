@@ -220,15 +220,16 @@ install numlockx --noconfirm
 install networkmanager network-manager-applet networkmanager-openvpn --noconfirm
 sudo systemctl enable NetworkManager.service
 
-# i3-wm
+# i3-wm{{{
 pacinst i3-gaps i3blocks i3lock rofi rofi-dmenu i3ass xdotool dunst --noconfirm
-pacinst pcmanfm feh cbatticon redshift --noconfirm
+pacinst feh cbatticon redshift --noconfirm
 pacinst scrot flameshot --noconfirm
 # Compton changed name to picom
 install picom --noconfirm
 # Deprecated
 # `paystray`
 # `blueberry`
+#}}}
 
 # rofi extra goodies
 pacinst rofi-{emoji,bluetooth-git} networkmanager-dmenu-git 
@@ -237,10 +238,17 @@ pacinst noto-fonts-emoji
 # synology nfs and backups
 pacinst rsync nfs-utils --noconfirm
 
-# polybar
-install jsoncpp polybar alsa-utils paprefs --noconfirm
-install alsa-lib wireless_tools curl pacman-contrib --noconfirm
-install nerd-fonts-iosevka ttf-weather-icons jq --noconfirm
+# polybar{{{
+pacinst jsoncpp polybar alsa-utils paprefs --noconfirm
+pacinst alsa-lib wireless_tools curl pacman-contrib --noconfirm
+pacinst nerd-fonts-iosevka ttf-weather-icons jq --noconfirm
+# usb automount
+# Removing pcmanfm
+# There's a polybar module that will be used to mount/umount devices
+pacinst gvfs-mtp gvfs-gphoto2 udisks2 --noconfirm
+sudo install -Dm644 /home/reinaldo/.config/polybar/scripts/95-usb.rules \
+  /etc/udev/rules.d/95-usb.rules
+#}}}
 
 # xorg
 install xorg xorg-apps xorg-xinit xorg-drivers xorg-server --noconfirm
@@ -419,10 +427,6 @@ install xournal
 # You seriously have to compile gcc6 for that 
 # pdftk
 # pdftk file1.pdf file2.pdf cat output mergedfile.pdf
-
-# usb automount
-
-install gvfs-mtp gvfs-gphoto2 pcmanfm --noconfirm
 
 # windows mount
 
