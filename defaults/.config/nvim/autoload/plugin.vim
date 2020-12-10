@@ -1562,7 +1562,7 @@ function! s:configure_vim_signify() abort
   Plug 'mhinz/vim-signify'
 
   let s:signify_set = 1
-  if !has('nvim-0.5')
+  if has('nvim-0.5')
     " Disable signify for git
     let g:signify_vcs_cmds = {
       \ 'git':      '',
@@ -1948,7 +1948,8 @@ function! s:gitsigns_status() abort
     return ''
   endif
 
-  return '[' . b:gitsigns_head . ']:' . b:gitsigns_status
+  return '[' . b:gitsigns_head . ']' . 
+        \ (!empty(b:gitsigns_status) ? ':' . b:gitsigns_status : '')
 endfunction
 
 function! s:next_hunk() abort
