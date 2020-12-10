@@ -102,6 +102,9 @@ install pkgfile
 sudo systemctl enable pkgfile-update.timer
 # By default it runs daily
 # Update /usr/lib/systemd/system/pkgfile-update.timer to run weekly
+# Also update it to wait for network by adding to [Unit]
+# Wants=network-online.target
+# After=network-online.target nss-lookup.target
 sudo systemctl start pkgfile-update.service
 
 chsh -s /usr/bin/zsh
@@ -164,7 +167,8 @@ pacinst mediainfo odt2txt poppler w3m bat exa fzf fd ripgrep tmux imagemagick gh
 # kitty
 pacinst kitty --noconfirm
 # Depends on rust
-pacinst page-git
+# Causes all kinds of problems
+# pacinst page-git
 #}}}
 # Essentials
 

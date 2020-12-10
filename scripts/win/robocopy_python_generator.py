@@ -16,14 +16,13 @@ BACKUP_DIRS = [
     r'D:\wiki',
     r'D:\wings-dev',
     r'D:\Mission.ATPs',
-    r'D:\Mission_ATPs',
 ]
 
-DRIVE = 'E'
+DRIVE = 'G'
 DEST_DIR = fr'{DRIVE}:\StationBackups\reinaldo_laptop'
-THREADS = 8
+THREADS = 16
 LOG = r'%TEMP%\robo.log'
-ROBOCOPY_OPTS = f'''/MIR /W:0 /R:1 /MT:{THREADS} /FFT /XJD /NP /NDL /ZB /ETA /E /CREATE'''
+ROBOCOPY_OPTS = f'''/MIR /W:0 /R:1 /MT:{THREADS} /FFT /XJD /NP /NDL /ZB /ETA /E'''
 ROBOCOPY_EXE = r'C:\Windows\System32\Robocopy.exe'
 
 def main():
