@@ -29,15 +29,15 @@
   },
   {
     "name": "screenshot full screen",
-    "command": "sleep 0.2 && scrot '%Y-%m-%d_%T_scrot.png' -e 'mv $f /tmp/'"
+    "command": "scrot '/tmp/%Y-%m-%d_%T_scrot.png' -e 'xclip -selection clipboard -target image/png -i $f'"
   },
   {
     "name": "screenshot selection",
-    "command": "sleep 0.2 && scrot -s '%Y-%m-%d_%T_scrot.png' -e 'mv $f /tmp/'"
+    "command": "scrot -s '/tmp/%Y-%m-%d_%T_scrot.png' -e 'xclip -selection clipboard -target image/png -i $f'"
   },
   {
     "name": "screenshot window",
-    "command": "sleep 0.2 && scrot -s '%Y-%m-%d_%T_scrot.png' -e 'mv $f /tmp/'"
+    "command": "scrot -u '/tmp/%Y-%m-%d_%T_scrot.png' -e 'xclip -selection clipboard -target image/png -i $f'"
   },
   {
     "name": "screenshot flameshot",

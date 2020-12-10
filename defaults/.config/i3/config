@@ -273,8 +273,9 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 ########### Custom Bindings ############################
-bindsym Print exec --no-startup-id sleep 0.2 && scrot '%Y-%m-%d_%T_scrot.png' \
-			-e 'mv $f /tmp/'
+bindsym Print exec --no-startup-id sleep 0.2 && \
+  scrot '/tmp/%Y-%m-%d_%T_scrot.png' \
+  -e 'xclip -selection clipboard -target image/png -i $f'
 bindsym XF86MonBrightnessUp exec --no-startup-id sudo brillo -A 10
 bindsym XF86MonBrightnessDown exec --no-startup-id sudo brillo -U 10
 # bindsym $mod+Shift+Right exec --no-startup-id sudo brillo -A 15
