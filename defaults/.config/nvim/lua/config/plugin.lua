@@ -279,7 +279,7 @@ local function setup_gitsigns()
     },
     keymaps = {
       -- Default keymap options
-      noremap = true,
+      noremap = false,
       buffer = true,
 
       ['n ]c'] = {
@@ -301,6 +301,11 @@ local function setup_gitsigns()
     sign_priority = 6,
     status_formatter = nil -- Use default
   }
+  vim.cmd'command! GitSignsStageHunk lua require"gitsigns".stage_hunk()'
+  vim.cmd'command! GitSignsUndoStageHunk lua require"gitsigns".undo_stage_hunk()'
+  vim.cmd'command! GitSignsResetHunk lua require"gitsigns".reset_hunk()'
+  vim.cmd'command! GitSignsPreviewHunk lua require"gitsigns".preview_hunk()'
+  vim.cmd'command! GitSignsBlameLine lua require"gitsigns".blame_line()'
 end
 
 local function setup()
