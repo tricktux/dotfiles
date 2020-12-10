@@ -1562,12 +1562,15 @@ function! s:configure_vim_signify() abort
   Plug 'mhinz/vim-signify'
 
   let s:signify_set = 1
-  " Disable signify for git
+  if !has('nvim-0.5')
+    " Disable signify for git
     let g:signify_vcs_cmds = {
       \ 'git':      '',
       \ }
-  nmap ]g <plug>(signify-next-hunk)
-  nmap [g <plug>(signify-prev-hunk)
+  endif
+
+  nmap ]c :call <sid>next_hunk<cr>
+  nmap [c :call <sid>prev_hunk<cr>
 
   " Remove all default autocomands and just do this ones
   autocmd User SignifyAutocmds
@@ -1946,4 +1949,42 @@ function! s:gitsigns_status() abort
   endif
 
   return '[' . b:gitsigns_head . ']:' . b:gitsigns_status
+endfunction
+
+function! s:next_hunk() abort
+  if &diff
+    normal! ]c
+    return
+  endif
+
+  if exists('b:gitsigns_status')
+    lua require'gitsigns'.next_hunk()
+    return
+  endif
+
+  if exists(':SignifyToggle')
+    execute "normal <plug>(signify-next-hunk)"
+    return
+  endif
+
+  echoerr "No pluging installed to handle VCS hunks"
+endfunction
+
+function! s:prev_hunk() abort
+  if &diff
+    normal! [c
+    return
+  endif
+
+  if exists('b:gitsigns_status')
+    lua require'gitsigns'.prev_hunk()
+    return
+  endif
+
+  if exists(':SignifyToggle')
+    execute "normal <plug>(signify-prev-hunk)"
+    return
+  endif
+
+  echoerr "No pluging installed to handle VCS hunks"
 endfunction
