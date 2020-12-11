@@ -299,9 +299,9 @@ function! plugin#Config()
   " Make requests here to get exact sunset and sunrise times
   " https://sunrise-sunset.org/api
   " This is analogous with having polybar and the flux script
-  " if has('unix') && executable('luajit')
-    " let g:flux_enabled = 0
-  " else
+  if has('unix') && executable('luajit')
+    let g:flux_enabled = 0
+  else
     augroup FluxLike
       autocmd!
       autocmd VimEnter,BufEnter * call flux#Flux()
@@ -315,7 +315,7 @@ function! plugin#Config()
     let g:flux_day_time = 700
     let g:flux_day_colorscheme = 'PaperColor'
     let g:flux_night_colorscheme = 'PaperColor'
-  " end
+  end
 
   let g:PaperColor_Theme_Options =
         \ {

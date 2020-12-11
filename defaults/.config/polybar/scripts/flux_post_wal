@@ -1,0 +1,46 @@
+#!/bin/luajit
+
+local _usage = [[
+Usage: flux_post_wal <time_of_day>
+
+Time of day needs to be one of: day, night, sunrise, sunset
+
+Script will set the neovim colorscheme base on the time of the day
+]]
+
+local _commands = {
+  ['day'] = {['colorscheme'] = 'PaperColor', ['background'] = 'light'},
+  ['night'] = {['colorscheme'] = 'PaperColor', ['background'] = 'dark'},
+  ['sunrise'] = {['colorscheme'] = 'gruvbox', ['background'] = 'light'},
+  ['sunset'] = {['colorscheme'] = 'gruvbox', ['background'] = 'dark'},
+}
+
+local _nvim_servers = {
+  '/tmp/nvimsocket',
+  '/tmp/neovim_journal'
+}
+
+local _nvim_remote = {
+  ['bin'] = '/usr/bin/nvr',
+  ['options'] = '--nostart --servername',
+}
+
+local function main()
+  if arg[1] == nil then
+    print(_usage)
+    return 1
+  end
+
+  nvim_cmds = _commands[arg[1]]
+  if nvim_cmds == nil then
+    print(_usage)
+    return 2
+  end
+
+  for _,socket in ipairs(_nvim_servers) do
+    cmd = _nvim_remote['bin'] .. ' ' .. _nvim_remote['options'] .. ' '
+      .. socket .. ' '
+    os.execute(cmd)
+  end
+
+end
