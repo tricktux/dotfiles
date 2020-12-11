@@ -1569,8 +1569,8 @@ function! s:configure_vim_signify() abort
       \ }
   endif
 
-  nmap ]c :call <sid>next_hunk<cr>
-  nmap [c :call <sid>prev_hunk<cr>
+  nnoremap ]c :call <sid>next_hunk()<cr>
+  nnoremap [c :call <sid>prev_hunk()<cr>
 
   " Remove all default autocomands and just do this ones
   autocmd User SignifyAutocmds
@@ -1965,8 +1965,7 @@ function! s:next_hunk() abort
   endif
 
   if exists(':SignifyToggle')
-    execute "normal <plug>(signify-next-hunk)"
-    normal! zz
+    execute "normal \<plug>(signify-next-hunk)zz"
     return
   endif
 
@@ -1986,8 +1985,7 @@ function! s:prev_hunk() abort
   endif
 
   if exists(':SignifyToggle')
-    execute "normal <plug>(signify-prev-hunk)"
-    normal! zz
+    execute "normal \<plug>(signify-prev-hunk)zz"
     return
   endif
 
