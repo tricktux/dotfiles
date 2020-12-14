@@ -22,7 +22,7 @@ local _nvim_servers = {
 
 local _nvim_remote = {
   ['bin'] = '/usr/bin/nvr',
-  ['options'] = '--nostart --servername',
+  ['options'] = '--nostart --servername -cc',
 }
 
 local function main()
@@ -39,7 +39,7 @@ local function main()
 
   for _,socket in ipairs(_nvim_servers) do
     cmd = _nvim_remote['bin'] .. ' ' .. _nvim_remote['options'] .. ' '
-      .. socket .. ' '
+      .. socket .. ' "ChangeColors ' .. arg[1] .. '"'
     os.execute(cmd)
   end
 

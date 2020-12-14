@@ -234,31 +234,6 @@ function! s:get_readonly() abort
 				\  : ''
 endfunction
 
-function! status_line#UpdateColorscheme() abort
-	if !exists('g:loaded_lightline')
-		return
-	endif
-
-	" Update the name first. This is important. Otherwise no colorscheme is set during startup
-	if exists('g:lightline')
-		if &background ==# 'dark'
-			let g:lightline.colorscheme = g:flux_night_colorscheme . '_dark'
-		else
-			let g:lightline.colorscheme = g:flux_day_colorscheme . '_light'
-		endif
-	endif
-
-	try
-		" if g:colors_name =~# 'wombat\|solarized\|landscape\|jellybeans\|seoul256\|Tomorrow\|gruvbox\|PaperColor\|zenburn'
-		" let g:lightline.colorscheme =
-		" \ substitute(substitute(g:colors_name, '-', '_', 'g'), '256.*', '', '')
-		call lightline#init()
-		call lightline#colorscheme()
-		call lightline#update()
-	catch
-	endtry
-endfunction
-
 function! s:get_word_count() abort
 	if &filetype !=# 'markdown' || !exists('*wordcount')
 		return ''

@@ -113,6 +113,7 @@ function! flux#Flux() abort
 				echomsg '[flux#Flux()]: changing colorscheme to dark'
 			endif
 			call <sid>change_colors(g:flux_night_colorscheme, 'dark')
+      call <sid>change_status_line_colors(g:flux_night_colorscheme . '_dark')
 		endif
 	else
 		" Its day time
@@ -129,34 +130,13 @@ function! flux#Flux() abort
 				echomsg '[flux#Flux()]: changing colorscheme to light'
 			endif
 			call <sid>change_colors(g:flux_day_colorscheme, 'light')
+      call <sid>change_status_line_colors(g:flux_day_colorscheme . '_light')
 		endif
 	endif
 endfunction
 
 function! s:change_colors(scheme, background) abort
-	if !exists('g:black')
-		if &verbose > 1
-			echoerr 'Colors do not exist'
-		endif
-	endif
-
-	if a:background ==# 'dark'
-		let color = g:black
-	elseif a:background ==# 'light'
-		let color = g:white
-	else
-		echoerr 'Only possible backgrounds are dark and light'
-		return
-	endif
-
-	try
-		execute "colorscheme " . a:scheme
-	catch
-		if &verbose > 1
-			echoerr 'Failed to set colorscheme'
-		endif
-		return
-	endtry
+  execute "colorscheme " . a:scheme
 
 	let &background=a:background
 	" Restoring these after colorscheme. Because some of them affect by the colorscheme
@@ -167,10 +147,6 @@ function! s:change_colors(scheme, background) abort
 	if has('unix') || has('gui_running')
 		call highlight#Set('Comment', { 'deco' : 'italic' })
 	endif
-
-	" If using the lightline plugin then update that as well
-	" this could cause trouble if lightline does not that colorscheme
-	call status_line#UpdateColorscheme()
 endfunction
 
 " Returns dictionary:
@@ -264,3 +240,38 @@ endfunction
 function! flux#GetTimes() abort
 	echomsg string(s:flux_times)
 endfunction
+
+function! s:flux_helper(day_period) abort
+
+  " day_period: [<scheme>, <background>, <status_line_colors>]
+  let l:commands = {
+    \ 'day' : ['PaperColor', 'light', 'PaperColor'],
+    \ 'night' : ['PaperColor', 'dark', 'PaperColor_dark'],
+    \ 'sunrise' : ['gruvbox', 'light', 'solarized'],
+    \ 'sunset' : ['gruvbox', 'dark', 'solarized_dark'],
+    \ }
+
+  let l:args = get(l:commands, a:day_period, [])
+
+  if empty(l:args)
+    echoerr 'Invalid day period: ' a:day_period
+  endif
+
+  call s:change_colors(l:args[0], l:args[1])
+  call s:change_status_line_colors(l:args[2])
+endfunction
+
+function! s:change_status_line_colors(colorscheme) abort
+	if !exists('g:loaded_lightline')
+    echoerr 'Lightline not loaded'
+		return
+	endif
+
+  let g:lightline.colorscheme = a:colorscheme
+  call lightline#init()
+  call lightline#colorscheme()
+  call lightline#update()
+endfunction
+
+command! -nargs=1 ChangeColors call s:flux_helper(<f-args>)
+
