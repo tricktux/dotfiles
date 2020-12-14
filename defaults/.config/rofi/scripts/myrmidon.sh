@@ -8,7 +8,7 @@ tasks=$(cat $config_file)
 prompt="Tasks"
 
 rofi_cmd="rofi
-  -theme /usr/share/rofi/themes/sidebar.rasi
+  -lines 20
   -dmenu -sort -matching fuzzy -i -p $prompt"
 
 # Pass tasks to rofi, and get the output as the selected option
