@@ -27,8 +27,8 @@ export ZDOTDIR=$HOME/.config/zsh
 [ -f /usr/bin/numlockx ] && numlockx on
 
 # Setup config for current time of day at startup
-flux_loc="$HOME/.config/polybar/scripts"
-[ -f "$flux_loc/flux" ] && "$flux_loc/flux" -c "$flux_loc/flux_config.lua"
+flux_loc="$HOME/.config/polybar/scripts/flux_"
+[ -f "$flux_loc/flux" ] && "$flux_loc/flux" -c "$flux_loc/flux_init_config.lua"
 
 # Concat rofi configs
 if [ -f $XDG_CONFIG_HOME/rofi/$HOSTNAME.rasi ]; then

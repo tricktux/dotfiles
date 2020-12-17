@@ -241,7 +241,8 @@ function! flux#GetTimes() abort
 	echomsg string(s:flux_times)
 endfunction
 
-function! s:flux_helper(day_period) abort
+" Note: Called from ChangeColors command in commands.vim
+function! flux#Helper(day_period) abort
 
   " day_period: [<scheme>, <background>, <status_line_colors>]
   let l:commands = {
@@ -255,6 +256,7 @@ function! s:flux_helper(day_period) abort
 
   if empty(l:args)
     echoerr 'Invalid day period: ' a:day_period
+    return
   endif
 
   call s:change_colors(l:args[0], l:args[1])
@@ -262,16 +264,19 @@ function! s:flux_helper(day_period) abort
 endfunction
 
 function! s:change_status_line_colors(colorscheme) abort
-	if !exists('g:loaded_lightline')
-    echoerr 'Lightline not loaded'
-		return
-	endif
-
   let g:lightline.colorscheme = a:colorscheme
   call lightline#init()
   call lightline#colorscheme()
   call lightline#update()
 endfunction
 
-command! -nargs=1 ChangeColors call s:flux_helper(<f-args>)
+function! flux#Manual() abort
+  let l:ffile = '/tmp/flux'
+	let l:period = readfile(l:ffile, '', 1)[0]
+  if empty(l:period)
+    echoerr "Failed to read flux file"
+    return
+  endif
 
+  return flux#Helper(l:period)
+endfunction

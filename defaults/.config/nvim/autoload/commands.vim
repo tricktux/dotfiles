@@ -7,6 +7,8 @@
 
 " CUSTOM_COMMANDS
 function! commands#Set() abort
+  command! -nargs=1 ChangeColors call flux#Helper(<f-args>)
+
   command! -nargs=? UtilsPasswdGenerate call s:generate_random_pass(<f-args>) 
   command! UtilsBuffersDeleteNoName call s:delete_empty_buffers()
   command! UtilsWeekGetNumber :echomsg strftime('%V')
@@ -64,7 +66,6 @@ function! commands#Set() abort
   if !exists('g:loaded_plugins')
     return
   endif
-
   " Convention: All commands names need to start with the autoload file name.
   " And use camel case. This way is easier to search
   command! UtilsTagLoadCurrFolder call ctags#LoadCscopeDatabse()

@@ -652,6 +652,10 @@ function! plugin#AfterConfig() abort
     call cpp_highlight#SetNeotagsHighlight()
   endif
 
+  if g:flux_enabled == 0
+    call flux#Manual()
+  endif
+
   if exists('s:signify_set')
     highlight SignifySignAdd    ctermfg=black ctermbg=green  guifg=#000000 guibg=#00ff00
     highlight SignifySignDelete ctermfg=black ctermbg=red    guifg=#ffffff guibg=#ff0000

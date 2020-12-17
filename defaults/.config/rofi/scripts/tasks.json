@@ -12,6 +12,14 @@
     "command": "networkmanager_dmenu"
   },
   {
+    "name": "flux day",
+    "command": "exec ~/.config/polybar/scripts/flux_/flux -c ~/.config/polybar/scripts/flux_/flux_config.lua -f day"
+  },
+  {
+    "name": "flux night",
+    "command": "exec ~/.config/polybar/scripts/flux_/flux -c ~/.config/polybar/scripts/flux_/flux_config.lua -f night"
+  },
+  {
     "name": "polybar relaunch",
     "command": "exec ~/.config/polybar/scripts/launch.sh"
   },

@@ -36,7 +36,12 @@ _config.print = {
   sunrise = "  "
 }
 
-local _options = {['help'] = false, ['verbose'] = false, ['config'] = ''}
+local _options = {
+  ['help'] = false,
+  ['verbose'] = false,
+  ['config'] = '',
+  ['force'] = ''
+}
 
 local _usage = [[
   Usage: flux [OPTIONS...]
@@ -48,6 +53,9 @@ local _usage = [[
     --help (-h)                 Display this message
     --verbose (-v)              Verbose output
     --config (-c)               Location to configuration file
+    --force (-f)                Force a specific day time period config. The 
+                                next argument needs to be one of day, night, 
+                                sunrise, or sunset
 
   Configuration follows the lua syntax. Default configuration:
     local _M = {}
@@ -104,6 +112,8 @@ local function _check_args()
       _options['verbose'] = true
     elseif opt == '-c' or opt == '--config' then
       last_opt = 'config'
+    elseif opt == '-f' or opt == '--force' then
+      last_opt = 'force'
     elseif last_opt ~= nil then
       _options[last_opt] = opt
     end
@@ -178,7 +188,7 @@ end
 local _pywal = _config.pywal
 
 -- @brief Execute the pywal command
--- @param period (string): Either 'day' or 'night'
+-- @param period (string): One of 'day', 'night', 'sunrise', or 'sunset'
 function _pywal:exec(period)
   local switches = self[period] == nil and 'night' or period
   local opts = ''
@@ -246,14 +256,21 @@ local function main()
     for k, v in pairs(config.print) do _config.print[k] = v end
   end
 
+  local forced_period = _options['force']
+  if forced_period ~= '' then
+    if _options['verbose'] then print('Forcing period:\n\t' .. forced_period) end
+    _pywal:exec(forced_period)
+    return
+  end
+
   local period = _redshift:exec(_options['manual'])
-  if _options['verbose'] then print('Day period: \n\t' .. period) end
+  if _options['verbose'] then print('Day period:\n\t' .. period) end
   if period == '' then return 3 end
 
   if _config.print['enabled'] then print(_config.print[period]) end
 
   local last_period = _memory:recall()
-  if _options['verbose'] then print('Last day period: \n\t' .. last_period) end
+  if _options['verbose'] then print('Last day period:\n\t' .. last_period) end
   if last_period == period then
     if _options['verbose'] then
       print('Time of day has not change. Nothing to do. Bye bye :D')

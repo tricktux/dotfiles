@@ -9,7 +9,9 @@ _M.redshift = {cmd = [[/usr/bin/redshift]], switches = {"-p", "-l", "manual"}}
 _M.pywal = {
   cmd = [[/usr/bin/wal]],
   day = {"--theme", "base16-google", "-l", "-q"},
-  night = {"--theme", "base16-gruvbox-hard", "-q"}
+  night = {"--theme", "base16-gruvbox-hard", "-q"},
+  sunset = {"--theme", "solarized", "-q"},
+  sunrise = {"--theme", "solarized", "-l", "-q"}
 }
 
 _M.print = {enabled = false}

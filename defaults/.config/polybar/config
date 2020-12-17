@@ -165,6 +165,7 @@ font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=18;1"
 font-2 = "Font Awesome 5 Brands:pixelsize=18;1"
 font-3 = Roboto:size=18;0
 font-4 = Iosevka Nerd Font:style=Medium:size=22;3
+font-5 = Weather Icons:size=20;1
 
 ; When copying remove xbacklight battery and set specific wlan
 modules-left = menu wlan-predator info-pingrtt space space pihole space space todo 
@@ -180,6 +181,7 @@ font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=10;1"
 font-2 = "Font Awesome 5 Brands:pixelsize=10;1"
 font-3 = Roboto:size=10;0
 font-4 = Iosevka Nerd Font:style=Medium:size=14;3
+font-5 = Weather Icons:size=12;1
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -227,6 +229,7 @@ font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=18;1"
 font-2 = "Font Awesome 5 Brands:pixelsize=18;1"
 font-3 = Roboto:size=18;0
 font-4 = Iosevka Nerd Font:style=Medium:size=22;3
+font-5 = Weather Icons:size=20;1
 
 background = ${colors.background}
 foreground = ${colors.foreground}

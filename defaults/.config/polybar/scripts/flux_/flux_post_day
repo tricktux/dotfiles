@@ -1,0 +1,6 @@
+#!/bin/bash
+
+/usr/bin/nvr --nostart --servername /tmp/nvimsocket -cc "ChangeColors day"
+/usr/bin/nvr --nostart --servername /tmp/neovim_journal -cc "ChangeColors day"
+
+/home/reinaldo/.config/polybar/scripts/launch.sh
