@@ -8,8 +8,8 @@
     "command": "$TERMINAL ~/.config/polybar/scripts/arch-maintance.sh"
   },
   {
-    "name": "audio control",
-    "command": "pavucontrol"
+    "name": "network",
+    "command": "networkmanager_dmenu"
   },
   {
     "name": "polybar relaunch",
@@ -26,6 +26,10 @@
   {
     "name": "bluetooth disconnect",
     "command": "exec ~/.config/i3/scripts/bluetooth.lua 'disconnect'"
+  },
+  {
+    "name": "audio control",
+    "command": "pavucontrol"
   },
   {
     "name": "screenshot full screen",
