@@ -104,6 +104,9 @@ export EDITOR=$VISUAL
 # Don't put stuff in home dir go
 export GOPATH="$XDG_DATA_HOME/go"
 
+# Don't put stuff in home dir rust
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+
 # Fix typos in cli
 ENABLE_CORRECTION="true"
 
