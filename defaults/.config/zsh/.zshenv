@@ -107,6 +107,13 @@ export GOPATH="$XDG_DATA_HOME/go"
 # Don't put stuff in home dir rust
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 
+if [[ -d /usr/lib/ccache/bin ]]; then
+  export PATH="/usr/lib/ccache/bin/:$PATH"
+  export CCACHE_DIR=/tmp/ccache
+  export CCACHE_SLOPPINESS=file_macro,locale,time_macros 
+  export CCACHE_MAXSIZE=5.0G
+fi
+
 # Fix typos in cli
 ENABLE_CORRECTION="true"
 
