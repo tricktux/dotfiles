@@ -1345,7 +1345,7 @@ function! s:version_control_command(cmd) abort
   let l:git = !empty(finddir('.git', l:cwd, 1))
   let l:svn = !empty(finddir('.svn', l:cwd, 1))
 
-  if has('nvim-0.5')
+  if exists(':LazyGit') && executable('lazygit')
     if l:git && executable('lazygit') && a:cmd !=? 'commit'
       if exists(':LazyGit')
         execute "LazyGit"
