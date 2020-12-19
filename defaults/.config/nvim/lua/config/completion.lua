@@ -52,11 +52,13 @@ function CompletionNvim:on_attach()
   local ft = vim.bo.filetype
   if ft == 'c' or ft == 'cpp' then
     self._opts.trigger_character = {'.', '::', '->'}
+    log.trace('Setting trigger characters: ', self._opts.trigger_character)
   elseif ft == 'lua' then
     self._opts.trigger_character = {'.', ':'}
   else
     self._opts.trigger_character = {'.'}
   end
+  log.trace('On attach options: ', self._opts)
   require('completion').on_attach(self._opts)
 end
 

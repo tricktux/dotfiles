@@ -30,7 +30,7 @@ function! autocompletion#SetCompl(compl) abort
 		Plug 'ncm2/ncm2-neosnippet'
   elseif a:compl ==# 'shuogo_deo'
     call s:set_shuogo_deo_neo_options()
-    " if has('unix')
+    " if has('unix') && !has('nvim-0.5')
       " call s:set_language_client(has('unix'))
     " endif
     call s:set_shuogo_sources()
@@ -371,7 +371,7 @@ function! s:set_language_client(has_unix) abort
   " endif
 
 	let g:LanguageClient_hasSnippetSupport = 1
-	" let g:LanguageClient_useVirtualText = 1 " new version uses enum instead of 
+  let g:LanguageClient_useVirtualText = 1 " new version uses enum instead of
 	" boolean
 	let g:LanguageClient_virtualTextPrefix = ' > '
 
@@ -384,7 +384,7 @@ function! s:set_language_client(has_unix) abort
 endfunction
 
 function! autocompletion#AdditionalLspSettings() abort
-	if (!exists('s:completion_choice') && !empty(s:completion_choice))
+	if (!exists('s:completion_choice') || !empty(s:completion_choice))
 		if &verbose > 0
 			echoerr 'Missing s:completion_choice variable'
 		endif
@@ -775,7 +775,8 @@ function! s:set_shuogo_sources() abort
   if has('nvim-0.5')
     Plug 'Shougo/deoplete-lsp'
     Plug 'neovim/nvim-lspconfig'
-    let g:nvim_lsp_support = 1
+    Plug 'nvim-lua/lsp-status.nvim'
+    " let g:nvim_lsp_support = 1
   endif
   " if has('win32')
     " Plug 'deoplete-plugins/deoplete-jedi', { 'for' : 'python' }
@@ -786,7 +787,7 @@ function! s:set_shuogo_sources() abort
   " endif
 
   " This source didnt really work
-	let l:address_book_loc = '~/.config/neomutt/data/addressbook'
+	let l:address_book_loc = '/home/reinaldo/.local/share/neomutt/addressbook'
 	if (filereadable(expand(l:address_book_loc)))
     " This plugin expects abook format abook
 		" Sample command:

@@ -126,7 +126,10 @@ function! plugin#Config()
   "   - Big promess for a lightweigth lua completion plugin
   " Sat Aug 29 2020 23:42:
   "   - Giving lua completion another chance
-  let l:compl = has('nvim-0.5') ? 'completion_nvim' : 'shuogo_deo'
+  " Fri Dec 18 2020 22:56
+  "   - Back to deoplete. clang stopped working and looks to go 
+  " let l:compl = has('nvim-0.5') ? 'completion_nvim' : 'shuogo_deo'
+  let l:compl = 'shuogo_deo'
   call autocompletion#SetCompl(l:compl)
   " call autocompletion#SetCompl(
   " \ has('unix') ? 'shuogo_deo' :
@@ -677,7 +680,7 @@ function! plugin#AfterConfig() abort
     set timeoutlen=200
   endif
 
-  if exists('*deoplete#custom#option')
+  if exists('g:deoplete#enable_at_startup')
     call deoplete#custom#option('smart_case', v:true)
     " call deoplete#custom#source('javacomplete2', 'mark', '')
     call deoplete#custom#source('_', 'matchers', ['matcher_fuzzy'])
@@ -691,8 +694,8 @@ function! plugin#AfterConfig() abort
     call deoplete#custom#source('clang2', 'mark', '')
     call deoplete#custom#source('LanguageClient',
           \ 'min_pattern_length', 2)
-    call deoplete#custom#source('LanguageClient',
-          \ 'rank', 888)
+    " call deoplete#custom#source('LanguageClient',
+          " \ 'rank', 888)
     " the number of processes is equal to that of sources.
     call deoplete#custom#option({
           \ 'max_list': 20,

@@ -133,7 +133,7 @@ end
 -- plugin#AfterConfig function. This is done to ensure that variables and lua 
 -- modules have been loaded for sure
 local function _after_init()
-  cpl.compl:set()
+  -- cpl.compl:set()
   -- cpl.diagn:set()
   lsp.set()
   plg.setup()
