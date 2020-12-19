@@ -178,7 +178,7 @@ local function lsp_set()
     log.info("setting up the clangd lsp...")
     nvim_lsp.clangd.setup {
       on_attach = on_clangd_attach,
-      callbacks = lsp_status.extensions.clangd.setup(),
+      -- callbacks = lsp_status.extensions.clangd.setup(),
       capabilities = lsp_status.capabilities,
       cmd = {
         "clangd", "--all-scopes-completion=true", "--background-index=true",
