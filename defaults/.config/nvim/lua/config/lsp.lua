@@ -102,12 +102,12 @@ end
 -- Maybe set each server to its own function?
 local function lsp_set()
   if not utl.is_mod_available('lspconfig') then
-    log.error("nvim_lsp was set, but module not found")
+    print("ERROR: lspconfig was set, but module not found")
     return
   end
 
   if not utl.is_mod_available('lsp-status') then
-    log.error("lsp-status was set, but module not found")
+    print("ERROR: lsp-status was set, but module not found")
     return
   end
 
@@ -183,11 +183,12 @@ local function lsp_set()
       cmd = {
         "clangd", "--all-scopes-completion=true", "--background-index=true",
         "--clang-tidy=true", "--completion-style=detailed",
-        "--fallback-style=\"LLVM\"", "--pch-storage=memory",
+        "--fallback-style=LLVM", "--pch-storage=memory",
         "--suggest-missing-includes", "--header-insertion=iwyu", "-j=12",
         "--header-insertion-decorators=false"
       },
-      filetypes = {"c", "cpp"}
+      -- Default is better
+      -- filetypes = {"c", "cpp"}
     }
   end
 end
