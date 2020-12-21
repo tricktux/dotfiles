@@ -128,7 +128,6 @@ papirus-icon-theme
 paprefs
 patch
 pavucontrol
-pcmanfm
 pdfgrep
 picom
 pkgconf
@@ -212,7 +211,6 @@ xorg-server-devel
 xorg-server-xephyr
 xorg-server-xnest
 xorg-server-xvfb
-xorg-server-xwayland
 xorg-sessreg
 xorg-smproxy
 xorg-x11perf
@@ -240,6 +238,7 @@ xorg-xrdb
 xorg-xrefresh
 xorg-xsetroot
 xorg-xvinfo
+xorg-xwayland
 xorg-xwd
 xorg-xwininfo
 xorg-xwud
