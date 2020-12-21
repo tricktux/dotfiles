@@ -143,8 +143,10 @@ bindsym mod1+Tab exec --no-startup-id i3flip next
 # Using now the control keys with vi like mappings just like windows
 # Reload xmodmap stuff
 bindsym control+mod1+x exec --no-startup-id xmodmap ~/.Xmodmap
-bindsym control+mod1+h exec --no-startup-id cmus-remote -u
-bindsym control+mod1+l exec --no-startup-id cmus-remote -n
+# bindsym control+mod1+h exec --no-startup-id cmus-remote -u
+# bindsym control+mod1+l exec --no-startup-id cmus-remote -n
+bindsym control+mod1+h exec --no-startup-id playerctl play-pause
+bindsym control+mod1+l exec --no-startup-id playerctl next
 bindsym control+mod1+k exec --no-startup-id pamixer --increase 5
 bindsym control+mod1+j exec --no-startup-id pamixer --decrease 5
 bindsym control+mod1+m exec --no-startup-id pamixer --toggle-mute
@@ -513,7 +515,8 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
   # See :Man picom
   exec --no-startup-id picom --daemon
   # exec --no-startup-id xscreensaver -no-splash
-  exec --no-startup-id pcmanfm --daemon-mode
+  # exec --no-startup-id pcmanfm --daemon-mode
+  exec --no-startup-id playerctld daemon
   exec_always --no-startup-id ~/.config/polybar/scripts/launch.sh
   exec_always --no-startup-id feh --randomize --no-fehbg --bg-fill \
     /usr/share/backgrounds/archlinux/*
