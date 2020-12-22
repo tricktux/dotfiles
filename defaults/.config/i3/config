@@ -519,6 +519,7 @@ bindsym XF86PowerDown exec --no-startup-id "i3-msg '[class=\".\"] kill' && syste
   # exec --no-startup-id xscreensaver -no-splash
   # exec --no-startup-id pcmanfm --daemon-mode
   exec --no-startup-id playerctld daemon
+  exec --no-startup-id tmux start-server
   exec_always --no-startup-id ~/.config/polybar/scripts/launch.sh
   exec_always --no-startup-id feh --randomize --no-fehbg --bg-fill \
     /usr/share/backgrounds/archlinux/*
