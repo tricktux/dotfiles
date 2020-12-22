@@ -127,7 +127,7 @@ sudo systemctl start reflector.service
 pacinst earlyoom
 sudo systemctl enable --now earlyoom
 
-# Video card
+# Video card{{{
 lspci -k | grep -A 2 -i "VGA"
 # If you happen to see 2 cards here, follow instructions at [this](https://wiki.archlinux.org/index.php/Optimus)
 # Should be good
@@ -135,7 +135,7 @@ lspci -k | grep -A 2 -i "VGA"
 # Go to `sudo vim /etc/pacman.conf` and uncomment `multilib` this allows you to
 # install 32-bit programs
 # Mon Sep 18 2017 22:46: Also dont forget to update and uncomment both lines, multilib and Include 
-install nvidia nvidia-libgl lib32-nvidia-libgl lib32-nvidia-utils nvidia-utils nvidia-settings nvtop
+pacinst nvidia nvidia-libgl lib32-nvidia-libgl lib32-nvidia-utils nvidia-utils nvidia-settings nvtop
 # **Nvidia drivers**
 sudo pacman -S nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings vulkan-icd-loader lib32-vulkan-icd-loader
 # **Intel drivers**
@@ -143,16 +143,16 @@ sudo pacman -S lib32-mesa mesa vulkan-intel lib32-vulkan-intel \
   vulkan-icd-loader lib32-vulkan-icd-loader xf86-video-intel
 # **Hybrid Card**
 # If you have one:
-install bumblebee mesa lib32-{virtualgl,nvidia-utils,primus} primus
-install bbswitch
+pacinst bumblebee mesa lib32-{virtualgl,nvidia-utils,primus} primus
+pacinst bbswitch
 # Add your user to the `bumblebee` group:
 gpasswd -a <user> bumblebee
 gpasswd -a reinaldo bumblebee
 sudo systemctl enable --now bumblebeed
 # manually turn on/off gpu
 sudo tee /proc/acpi/bbswitch <<< {ON,OFF}
-
 # checkout [this][1] link for hardware acceleration
+#}}}
 
 # terminal utils{{{
 pacinst acpi lm_sensors liquidprompt tldr --noconfirm
@@ -232,7 +232,7 @@ sudo systemctl enable NetworkManager.service
 # There's a section about Problems with mounted network shares:
 sudo mkdir -p /etc/systemd/system/wpa_supplicant.service.d
 sudo bash -c \
-  'printf "[Unit]" >> /etc/systemd/system/wpa_supplicant.service.d/override.conf'
+  rise'printf "[Unit]" >> /etc/systemd/system/wpa_supplicant.service.d/override.conf'
 sudo bash -c \
   'printf "\nAfter=dbus.service" >> /etc/systemd/system/wpa_supplicant.service.d/override.conf'
 #}}}
@@ -534,13 +534,13 @@ sudo systemctl enable --now cups.socket
 - `install baobab`
 
 ## Steam
-- `install steam ttf-liberation {lib32-}mesa {lib32-}nvidia-utils steam-fonts`
+pacinst --needed steam ttf-liberation lib32-mesa mesa lib32-nvidia-utils nvidia-utils steam-fonts
 
 ## Video playing
 - `install vlc`
 
 ## Passwords
-- pass-import most likely you'll have to download from git page
+# pass-import most likely you'll have to download from git page
 - `install pass keepass pass-import`
 
 ## Root passwd
