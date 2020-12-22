@@ -120,7 +120,8 @@ ENABLE_CORRECTION="true"
 # root directory for bytecode cache (pyc) files.
 export PYTHONPYCACHEPREFIX="/tmp/pycache"
 # This can come back to hunt you down. No asserts or docstrings
-export PYTHONOPTIMIZE=2
+# Tue Dec 22 2020 14:39: Ohhh and it did! So hard. gdb stopped working 
+# export PYTHONOPTIMIZE=2
 
 # As given by the output of tzselect
 export TZ='America/New_York'
