@@ -5,7 +5,7 @@
 echo "Updating system..."
 # Always update keyring first in case it's been a while you've updated the 
 # system
-trizen -S archlinux-keyring ca-certificates
+trizen -S --needed archlinux-keyring ca-certificates
 trizen -Syu
 echo "Storing package list..."
 PACMANFILE="$XDG_CONFIG_HOME/dotfiles/pkg/$(hostname)/pacman-list.pkg"
