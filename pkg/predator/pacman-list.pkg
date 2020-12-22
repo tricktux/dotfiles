@@ -105,6 +105,7 @@ mkinitcpio
 mosh
 mpv
 neomutt
+net-tools
 network-manager-applet
 networkmanager
 networkmanager-openvpn
@@ -177,6 +178,7 @@ ttf-font-awesome
 ttf-inconsolata
 unzip
 urlscan
+valgrind
 vim
 w3m
 wavpack
