@@ -216,9 +216,26 @@ install numlockx --noconfirm
 # screenshots, i3
 # After this steps you should have a working `i3` setup.
 
-# Network Manager
-install networkmanager network-manager-applet networkmanager-openvpn --noconfirm
+# Network Manager{{{
+pacinst networkmanager network-manager-applet networkmanager-openvpn --noconfirm
 sudo systemctl enable NetworkManager.service
+# Setup wpa_supplicant to wait for dbus to shutdown
+# This is a long story complicated bug
+# When you mount NAS stuff through fstab shutdown is halted for a long time 
+# waiting to unmount NAS mounts
+# The problem is that there's a dbus bug that causes it to shutdown too early: 
+# https://bugs.launchpad.net/ubuntu/+source/dbus/+bug/1438612
+# It's related to network manager which, but switching network manager is not 
+# sane
+# The solution is detailed here:
+# https://wiki.archlinux.org/index.php/Wpa_supplicant
+# There's a section about Problems with mounted network shares:
+sudo mkdir -p /etc/systemd/system/wpa_supplicant.service.d
+sudo bash -c \
+  'printf "[Unit]" >> /etc/systemd/system/wpa_supplicant.service.d/override.conf'
+sudo bash -c \
+  'printf "\nAfter=dbus.service" >> /etc/systemd/system/wpa_supplicant.service.d/override.conf'
+#}}}
 
 # i3-wm{{{
 pacinst i3-gaps i3blocks i3lock rofi rofi-dmenu i3ass xdotool dunst --noconfirm
