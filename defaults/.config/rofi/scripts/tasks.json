@@ -70,12 +70,12 @@
   {
     "name": "power off",
     "confirm": true,
-    "command": "systemctl poweroff"
+    "command": "i3-msg '[class=\".\"] kill' && systemctl poweroff"
   },
   {
     "name": "power reboot",
     "confirm": true,
-    "command": "systemctl reboot"
+    "command": "i3-msg '[class=\".\"] kill' && systemctl reboot"
   },
   {
     "name": "power lock",

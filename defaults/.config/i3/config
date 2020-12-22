@@ -291,12 +291,14 @@ bindsym XF86AudioMute exec --no-startup-id pamixer --toggle-mute
 # bindsym XF86AudioMute exec amixer sset Master toggle
 
 # Depends on playerctl
-# bindsym XF86AudioPlay exec playerctl play-pause
-# bindsym XF86AudioNext exec playerctl next
-# bindsym XF86AudioPrev exec playerctl previous
-bindsym XF86AudioPlay exec --no-startup-id cmus-remote -u
-bindsym XF86AudioNext exec --no-startup-id cmus-remote -n
-bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+# bindsym XF86AudioPlay exec --no-startup-id cmus-remote -u
+# bindsym XF86AudioNext exec --no-startup-id cmus-remote -n
+# bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r
+bindsym XF86PowerOff exec --no-startup-id "i3-msg '[class=\".\"] kill' && systemctl poweroff"
+bindsym XF86PowerDown exec --no-startup-id "i3-msg '[class=\".\"] kill' && systemctl poweroff"
 
 # }}}
 
