@@ -16,29 +16,11 @@ mkdir ~/.cache
 # Recreating deleted files
 gio trash --empty
 
-clean_pacman_cache() {
-	# This is very dangerous
-	# sudo pacman -Sc --noconfirm
-	# Better way paccache will remove everything except the latest THREE versions of 
-	# a package
-	sudo paccache -r
-	# And remove remove all cached versions of uninstalled packages
-	sudo paccache -ruk0
-	# Rolling Back to an Older Version of a Package
-	# sudo pacman -U /var/cache/pacman/pkg/name-version.pkg.tar.gz
-	# sudo pacman-optimize
-}
-
 remove_pacman_orphans() {
 	# This is also dangerous do it manually
 	echo "Please look through the list and exit if you see something unusual"
 	sudo pacman -Rns $(pacman -Qtdq)
 }
-
-read -p "Do you wish to clean pacman cache? (y/N)" yn
-case $yn in
-		[Yy]* ) clean_pacman_cache;;
-esac
 
 read -p "Do you wish to remove pacman orphans? (y/N)" yn
 case $yn in
