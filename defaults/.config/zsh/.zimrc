@@ -39,5 +39,6 @@ zmodule zsh-users/zsh-history-substring-search
 
 zmodule romkatv/powerlevel10k
 zmodule rupa/z
-zmodule djui/alias-tips 
+# Makes the terminal slow to typing commands that have autocomplete
+# zmodule djui/alias-tips
 zmodule archive
