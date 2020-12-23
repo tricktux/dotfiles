@@ -141,6 +141,18 @@ sudo bash -c 'printf "\nWhen = PostTransaction" >> /usr/share/libalpm/hooks/pacd
 sudo bash -c 'printf "\nExec = DIFFPROG=\"nvim -d\" DIFFSEARCHPATH=\"/boot /etc /usr\" /usr/bin/pacdiff" >> /usr/share/libalpm/hooks/pacdiff.hook'
 # }}}
 
+# pacman orhpans hook install: {{{
+sudo bash -c 'printf "[Trigger]" > /usr/share/libalpm/hooks/orphans_cleanup.hook'
+sudo bash -c 'printf "\nOperation = Install" >> /usr/share/libalpm/hooks/orphans_cleanup.hook'
+sudo bash -c 'printf "\nOperation = Upgrade" >> /usr/share/libalpm/hooks/orphans_cleanup.hook'
+sudo bash -c 'printf "\nType = Package" >> /usr/share/libalpm/hooks/orphans_cleanup.hook'
+sudo bash -c 'printf "\nTarget = *" >> /usr/share/libalpm/hooks/orphans_cleanup.hook'
+sudo bash -c 'printf "\n\n[Action]" >> /usr/share/libalpm/hooks/orphans_cleanup.hook'
+sudo bash -c 'printf "\nDescription = Remove orphan packages... Careful" >> /usr/share/libalpm/hooks/orphans_cleanup.hook'
+sudo bash -c 'printf "\nWhen = PostTransaction" >> /usr/share/libalpm/hooks/orphans_cleanup.hook'
+sudo bash -c 'printf "\nExec = /usr/bin/pacman -Rns \$(/usr/bin/pacman -Qtdq)" >> /usr/share/libalpm/hooks/orphans_cleanup.hook'
+# }}}
+
 pacinst --needed --noconfirm earlyoom
 sudo systemctl enable --now earlyoom
 
