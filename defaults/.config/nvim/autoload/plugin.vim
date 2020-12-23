@@ -701,6 +701,9 @@ function! plugin#AfterConfig() abort
           \ 'max_list': 20,
           \ 'num_processes': 0,
           \ })
+    " Fix autocompletion inside telescope
+    autocmd Filetype TelescopePrompt 
+          \ call deoplete#custom#buffer_option('auto_complete', v:false)
   endif
 
   " Plugin function names are never detected. Only plugin commands
