@@ -153,6 +153,18 @@ sudo bash -c 'printf "\nWhen = PostTransaction" >> /usr/share/libalpm/hooks/orph
 sudo bash -c 'printf "\nExec = /usr/bin/pacman -Rns \$(/usr/bin/pacman -Qtdq)" >> /usr/share/libalpm/hooks/orphans_cleanup.hook'
 # }}}
 
+# pacman paccache hook install: {{{
+sudo bash -c 'printf "[Trigger]" > /usr/share/libalpm/hooks/paccache_cleanup.hook'
+sudo bash -c 'printf "\nOperation = Install" >> /usr/share/libalpm/hooks/paccache_cleanup.hook'
+sudo bash -c 'printf "\nOperation = Upgrade" >> /usr/share/libalpm/hooks/paccache_cleanup.hook'
+sudo bash -c 'printf "\nType = Package" >> /usr/share/libalpm/hooks/paccache_cleanup.hook'
+sudo bash -c 'printf "\nTarget = *" >> /usr/share/libalpm/hooks/paccache_cleanup.hook'
+sudo bash -c 'printf "\n\n[Action]" >> /usr/share/libalpm/hooks/paccache_cleanup.hook'
+sudo bash -c 'printf "\nDescription = Cleanning pacman cache ..." >> /usr/share/libalpm/hooks/paccache_cleanup.hook'
+sudo bash -c 'printf "\nWhen = PostTransaction" >> /usr/share/libalpm/hooks/paccache_cleanup.hook'
+sudo bash -c 'printf "\nExec = /usr/bin/paccache -ruk0 -r" >> /usr/share/libalpm/hooks/paccache_cleanup.hook'
+# }}}
+
 pacinst --needed --noconfirm earlyoom
 sudo systemctl enable --now earlyoom
 
