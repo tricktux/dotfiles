@@ -127,6 +127,20 @@ sudo systemctl enable --now reflector.timer
 sudo systemctl start reflector.service
 #}}}
 
+
+# pacman pacdiff hook install: {{{
+sudo bash -c 'printf "[Trigger]" > /usr/share/libalpm/hooks/pacdiff.hook'
+sudo bash -c 'printf "\nOperation = Install" >> /usr/share/libalpm/hooks/pacdiff.hook'
+sudo bash -c 'printf "\nOperation = Upgrade" >> /usr/share/libalpm/hooks/pacdiff.hook'
+sudo bash -c 'printf "\nOperation = Remove" >> /usr/share/libalpm/hooks/pacdiff.hook'
+sudo bash -c 'printf "\nType = Package" >> /usr/share/libalpm/hooks/pacdiff.hook'
+sudo bash -c 'printf "\nTarget = *" >> /usr/share/libalpm/hooks/pacdiff.hook'
+sudo bash -c 'printf "\n\n[Action]" >> /usr/share/libalpm/hooks/pacdiff.hook'
+sudo bash -c 'printf "\nDescription = Address .pacnew files ..." >> /usr/share/libalpm/hooks/pacdiff.hook'
+sudo bash -c 'printf "\nWhen = PostTransaction" >> /usr/share/libalpm/hooks/pacdiff.hook'
+sudo bash -c 'printf "\nExec = DIFFPROG=\"nvim -d\" DIFFSEARCHPATH=\"/boot /etc /usr\" /usr/bin/pacdiff" >> /usr/share/libalpm/hooks/pacdiff.hook'
+# }}}
+
 pacinst --needed --noconfirm earlyoom
 sudo systemctl enable --now earlyoom
 
