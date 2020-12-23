@@ -123,6 +123,10 @@ export PYTHONPYCACHEPREFIX="/tmp/pycache"
 # Tue Dec 22 2020 14:39: Ohhh and it did! So hard. gdb stopped working 
 # export PYTHONOPTIMIZE=2
 
+# pacdiff variables
+export DIFFPROG="nvim -d"
+export DIFFSEARCHPATH="/boot /etc /usr"
+
 # As given by the output of tzselect
 export TZ='America/New_York'
 
