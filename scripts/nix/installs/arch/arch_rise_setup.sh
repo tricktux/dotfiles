@@ -70,19 +70,19 @@ sudo timedatectl set-ntp true
 #}}}
 
 # ccache to speed up compilations
-pacinst ccache
+pacinst --needed --noconfirm ccache
 
 # Beautiful arch wallpapers
-pacinst archlinux-wallpaper --noconfirm
+pacinst --needed --noconfirm archlinux-wallpaper
 
 # `arch-audit`
-install arch-audit
+pacinst --needed --noconfirm arch-audit
 # - Enable the `pacman` hook to auto check for vulnerabilities
 # - Not needed anymore:
 # - `sudo cp /usr/share/arch-audit/arch-audit.hook /etc/pacman.d/hooks`
 
 # `ssh`
-install openssh mosh
+pacinst --needed --noconfirm openssh mosh
 # - Actually use `mosh` is much faster
 # - If you want this setup to be `ssh` accessible:
 # - `systemctl enable sshd.socket`
@@ -91,7 +91,7 @@ install openssh mosh
 # - `AddKeysToAgent yes`
 
 # zsh{{{
-install zsh
+pacinst --needed --noconfirm zsh
 # Legacy
 # install oh-my-zsh-git zplug pkgfile
 # Install zim
@@ -100,7 +100,7 @@ curl -kfLo $ZIM_HOME/zimfw.zsh --create-dirs \
 chmod +x $ZIM_HOME/zimfw.zsh
 zsh $ZIM_HOME/zimfw.zsh install
 # Install plugins
-install pkgfile
+pacinst --needed --noconfirm pkgfile
 # pkgfile needs to be updated
 sudo systemctl enable pkgfile-update.timer
 # By default it runs daily
@@ -115,7 +115,7 @@ chsh -s /usr/bin/zsh
 #}}}
 
 # Update arch mirrors {{{
-pacinst reflector
+pacinst --needed --noconfirm reflector
 sudo mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist_king
 # Put options in config file
 sudo bash -c 'printf "\n--latest 30" >> /etc/xdg/reflector/reflector.conf'
@@ -127,7 +127,7 @@ sudo systemctl enable --now reflector.timer
 sudo systemctl start reflector.service
 #}}}
 
-pacinst earlyoom
+pacinst --needed --noconfirm earlyoom
 sudo systemctl enable --now earlyoom
 
 # Video card{{{
@@ -138,16 +138,16 @@ lspci -k | grep -A 2 -i "VGA"
 # Go to `sudo vim /etc/pacman.conf` and uncomment `multilib` this allows you to
 # install 32-bit programs
 # Mon Sep 18 2017 22:46: Also dont forget to update and uncomment both lines, multilib and Include 
-pacinst nvidia nvidia-libgl lib32-nvidia-libgl lib32-nvidia-utils nvidia-utils nvidia-settings nvtop
+pacinst --needed --noconfirm nvidia nvidia-libgl lib32-nvidia-libgl lib32-nvidia-utils nvidia-utils nvidia-settings nvtop
 # **Nvidia drivers**
-sudo pacman -S nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings vulkan-icd-loader lib32-vulkan-icd-loader
+sudo pacman -S --needed --noconfirm nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings vulkan-icd-loader lib32-vulkan-icd-loader
 # **Intel drivers**
-sudo pacman -S lib32-mesa mesa vulkan-intel lib32-vulkan-intel \
+sudo pacman -S --needed --noconfirm lib32-mesa mesa vulkan-intel lib32-vulkan-intel \
   vulkan-icd-loader lib32-vulkan-icd-loader xf86-video-intel
 # **Hybrid Card**
 # If you have one:
-pacinst bumblebee mesa lib32-{virtualgl,nvidia-utils,primus} primus
-pacinst bbswitch
+pacinst --needed --noconfirm bumblebee mesa lib32-{virtualgl,nvidia-utils,primus} primus
+pacinst --needed --noconfirm bbswitch
 # Add your user to the `bumblebee` group:
 gpasswd -a <user> bumblebee
 gpasswd -a reinaldo bumblebee
@@ -158,17 +158,17 @@ sudo tee /proc/acpi/bbswitch <<< {ON,OFF}
 #}}}
 
 # terminal utils{{{
-pacinst acpi lm_sensors liquidprompt tldr --noconfirm
-pacinst {ttf,otf}-fira-{code,mono} {ttf,otf}-font-awesome nerd-fonts-inconsolata --noconfirm
-pacinst ttf-inconsolata --noconfirm
-pacinst xorg-xfontsel gtk2fontsel --noconfirm
+pacinst --needed --noconfirm acpi lm_sensors liquidprompt tldr
+pacinst --needed --noconfirm {ttf,otf}-fira-{code,mono} {ttf,otf}-font-awesome nerd-fonts-inconsolata
+pacinst --needed --noconfirm ttf-inconsolata
+pacinst --needed --noconfirm xorg-xfontsel gtk2fontsel
 # Package doesn't exist anymore thumbnailer 
-pacinst atool ranger zip unzip w3m ffmpeg highlight libcaca --noconfirm
+pacinst --needed --noconfirm atool ranger zip unzip w3m ffmpeg highlight libcaca
 # Not installing anymore: advcp 
-pacinst mediainfo odt2txt poppler w3m bat exa fzf fd ripgrep tmux imagemagick ghostscript xclip --noconfirm
+pacinst --needed --noconfirm mediainfo odt2txt poppler w3m bat exa fzf fd ripgrep tmux imagemagick ghostscript xclip
 
 # kitty
-pacinst kitty --noconfirm
+pacinst --needed --noconfirm kitty
 # Depends on rust
 # Causes all kinds of problems
 # pacinst page-git
@@ -181,7 +181,7 @@ pacinst kitty --noconfirm
 # See `random.md samba-manual` section
 
 # nfs{{{
-pacinst nfs-utils
+pacinst --needed --noconfirm nfs-utils
 mkdir -p $HOME/.mnt/skynfs
 sudo bash -c 'printf "192.168.1.138:/volume1/backup /home/reinaldo/.mnt/skynfs nfs _netdev,noauto,user,x-systemd.automount,x-systemd.mount-timeout=10,timeo=14,x-systemd.idle-timeout=1min,vers=3 0 0" >> /etc/fstab'
 # Try it with
@@ -189,7 +189,7 @@ sudo mount -v -t nfs 192.168.1.138:/volume1/backup /home/reinaldo/.mnt/skynfs -o
 #}}}
 
 # password-store{{{
-install rofi-pass --noconfirm
+pacinst --needed --noconfirm --needed rofi-pass
 # import key
 # From a pc containing the keys:
 # `gpg --armor --output mykey.asc --export-secret-key you@example.com`
@@ -212,7 +212,7 @@ install rofi-pass --noconfirm
 
 # Tue Mar 26 2019 21:49
 # The rest is taken care of at `.xinitrc`
-install numlockx --noconfirm
+pacinst --needed --noconfirm numlockx
 		
 # Desktop
 
@@ -220,7 +220,7 @@ install numlockx --noconfirm
 # After this steps you should have a working `i3` setup.
 
 # Network Manager{{{
-pacinst networkmanager network-manager-applet networkmanager-openvpn --noconfirm
+pacinst --needed --noconfirm networkmanager network-manager-applet networkmanager-openvpn
 sudo systemctl enable NetworkManager.service
 # Setup wpa_supplicant to wait for dbus to shutdown
 # This is a long story complicated bug
@@ -241,39 +241,39 @@ sudo bash -c \
 #}}}
 
 # i3-wm{{{
-pacinst i3-gaps i3blocks i3lock rofi rofi-dmenu i3ass xdotool dunst --noconfirm
-pacinst feh cbatticon redshift --noconfirm
-pacinst scrot flameshot --noconfirm
+pacinst --needed --noconfirm i3-gaps i3blocks i3lock rofi rofi-dmenu i3ass xdotool dunst
+pacinst --needed --noconfirm feh cbatticon redshift
+pacinst --needed --noconfirm scrot flameshot
 # Compton changed name to picom
-install picom --noconfirm
+pacinst --needed --noconfirm picom
 # Deprecated
 # `paystray`
 # `blueberry`
 #}}}
 
 # rofi extra goodies
-pacinst rofi-{emoji,bluetooth-git} networkmanager-dmenu-git 
-pacinst noto-fonts-emoji
+pacinst --needed --noconfirm rofi-{emoji,bluetooth-git} networkmanager-dmenu-git 
+pacinst --needed --noconfirm noto-fonts-emoji
 
 # synology nfs and backups
-pacinst rsync nfs-utils --noconfirm
+pacinst --needed
 
 # polybar{{{
-pacinst jsoncpp polybar alsa-utils paprefs --noconfirm
-pacinst alsa-lib wireless_tools curl pacman-contrib --noconfirm
-pacinst nerd-fonts-iosevka ttf-weather-icons jq --noconfirm
+pacinst --needed --noconfirm jsoncpp polybar alsa-utils paprefs
+pacinst --needed --noconfirm alsa-lib wireless_tools curl pacman-contrib
+pacinst --needed --noconfirm nerd-fonts-iosevka ttf-weather-icons jq
 # usb automount
 # Removing pcmanfm
 # There's a polybar module that will be used to mount/umount devices
-pacinst gvfs-mtp gvfs-gphoto2 udisks2 --noconfirm
+pacinst --needed --noconfirm gvfs-mtp gvfs-gphoto2 udisks2
 sudo install -Dm644 /home/reinaldo/.config/polybar/scripts/95-usb.rules \
   /etc/udev/rules.d/95-usb.rules
 #}}}
 
 # xorg
-install xorg xorg-apps xorg-xinit xorg-drivers xorg-server --noconfirm
+pacinst --needed --noconfirm xorg xorg-apps xorg-xinit xorg-drivers xorg-server
 # `xorg autologin`
-install lightdm --noconfirm
+pacinst --needed --noconfirm lightdm
 sudo systemctl enable lightdm
 
 # add your user to the autologin group
@@ -290,52 +290,52 @@ sudo gpasswd -a reinaldo autologin
 
 # Editor
 
-install neovim cscope ripgrep universal-ctags-git global xclip vim --noconfirm
-install neovim-remote --noconfirm
+pacinst --needed --noconfirm neovim cscope ripgrep universal-ctags-git global xclip vim
+pacinst --needed --noconfirm neovim-remote
 # for diffs
-install meld --noconfirm
+pacinst --needed --noconfirm meld
 # for documentation
-install zeal --noconfirm
-install pandoc-{,citeproc-,crossref-}bin --noconfirm
+pacinst --needed --noconfirm zeal
+pacinst --needed --noconfirm pandoc-{,citeproc-,crossref-}bin
 # - run the `dotfiles/scripts/python_neovim_virtualenv.sh` script
 # to get `/usr/share/dict` completion
-install plantuml look words --noconfirm
+pacinst --needed --noconfirm plantuml look words
 
 ## vim
 
-install vint --noconfirm
+pacinst --needed --noconfirm vint
 
 ## cmake
 
-install cmake-{lint,format} --noconfirm
+pacinst --needed --noconfirm cmake-{lint,format}
 # ~~`install cmake-language-server`~~
 
 ## cpp
 
-install gtest google-glog rapidjson boost boost-libs websocketpp cmake ninja --noconfirm
-install cppcheck cpplint --noconfirm
-install clang lldb gdb --noconfirm
+pacinst --needed --noconfirm gtest google-glog rapidjson boost boost-libs websocketpp cmake ninja
+pacinst --needed --noconfirm cppcheck cpplint
+pacinst --needed --noconfirm clang lldb gdb
 # For coloring gcc and compilers output
-install colorgcc --noconfirm
+pacinst --needed --noconfirm colorgcc
 
 ## shell
 
-install shellcheck-static shfmt --noconfirm
+pacinst --needed --noconfirm shellcheck-static shfmt
 
 ## lua
 ## lua-language-server consumes ton of cpu power. Plus its chinese, don't trust 
 ## it
-install luajit lua-format luacheck --noconfirm
+pacinst --needed --noconfirm luajit lua-format luacheck
 
 ## java
 
 # Installs java the latest and version 8, still widely used.
-install j{re,re8,dk,dk8}-openjdk --noconfirm
-install jdtls checkstyle astyle --noconfirm
+pacinst --needed --noconfirm j{re,re8,dk,dk8}-openjdk
+pacinst --needed --noconfirm jdtls checkstyle astyle
 
 ## python
 
-install python{,-pip} python2{,-pip} --noconfirm
+pacinst --needed --noconfirm python{,-pip} python2{,-pip}
 # Python modules are control via virtual env
 # Run the update-arch.sh script and will create/update such modules
 # install python-language-server flake8 python-pylint yapf --noconfirm
@@ -343,32 +343,32 @@ install python{,-pip} python2{,-pip} --noconfirm
 
 # SSD
 
-install util-linux --noconfirm
+pacinst --needed --noconfirm util-linux
 sudo systemctl enable --now fstrim.timer
 
 # Laptops
 
 ## Brightness
-install brillo
+pacinst --needed --noconfirm brillo
 # see `man brillo`
 
 ## Touchpad 
 
-install xorg-xinput xf86-input-libinput brillo
+pacinst --needed --noconfirm xorg-xinput xf86-input-libinput brillo
 # Also see `synclient.md`
 
 ## power
 
 - #eyword: battery, powertop, power
-install powertop
+pacinst --needed --noconfirm powertop
 sudo powertop --calibrate
 # For more info see: `archwiki powertop`
 # See also `laptop-mode`
-install acpid
+pacinst --needed --noconfirm acpid
 sudo systemctl enable --now acpid
-install laptop-mode-tools
+pacinst --needed --noconfirm laptop-mode-tools
 sudo systemctl enable --now laptop-mode
-install hdparm sdparm ethtool wireless_tools hal python-pyqt5
+pacinst --needed --noconfirm hdparm sdparm ethtool wireless_tools hal python-pyqt5
 
 ### tweaking kernel for battery saving
 
@@ -399,29 +399,29 @@ sudo echo "blacklist snd_hda_codec_hdmi" > /etc/modprobe.d/no_hdmi_audio.conf.co
 # examine the script as it disables bluetooth for example
 
 # Make it pretty
-install numix-gtk-theme paper-icon-theme capitaine-cursors lxappearance adapta-gtk-theme paper-gtk-theme-git --noconfirm
+pacinst --needed --noconfirm numix-gtk-theme paper-icon-theme capitaine-cursors lxappearance adapta-gtk-theme paper-gtk-theme-git
 # And then just go to `Customize Look and Feel` 
 
 # Task Manager
 
-install glances
+pacinst --needed --noconfirm glances
 # ~~`install lxtask stacer-bin glances`~~
 
 # Audio/Music
 
-install cmus playerctl --noconfirm
-install libpulse pamixer alsa-lib libao libcdio libcddb libvorbis libmpcdec wavpack libmad libmodplug libmikmod pavucontrol --noconfirm
-install mpv --noconfirm
+pacinst --needed --noconfirm cmus playerctl
+pacinst --needed --noconfirm libpulse pamixer alsa-lib libao libcdio libcddb libvorbis libmpcdec wavpack libmad libmodplug libmikmod pavucontrol
+pacinst --needed --noconfirm mpv
 
 # Tue Mar 12 2019 07:24
 # Gearing towards `mpd`
 # Mainly because `cmus` is not working properly in `helios`
 # Gonna give it a try
-install mpd vimpc-git --noconfirm
+pacinst --needed --noconfirm mpd vimpc-git
 
 # Email
 # protonmail-bridge 
-install neomutt abook urlscan lynx --noconfirm
+pacinst --needed --noconfirm neomutt abook urlscan lynx
 
 ## Mon Mar 04 2019 22:03 
 
@@ -429,17 +429,17 @@ install neomutt abook urlscan lynx --noconfirm
 # Out of frustration for delayed received notifications in `neomutt`
 # And wonky `ui`
 
-install thunderbird birdtray
+pacinst --needed --noconfirm thunderbird birdtray
 
 # Office
 
-install libreoffice-still hunspell hunspell-es_US
+pacinst --needed --noconfirm libreoffice-still hunspell hunspell-es_US
 
 # pdf & resume
 
-install zathura zathura-pdf-mupdf texlive-most pdfgrep qpdfview --noconfirm
+pacinst --needed --noconfirm zathura zathura-pdf-mupdf texlive-most pdfgrep qpdfview
 # PDF annotations use:
-install xournal
+pacinst --needed --noconfirm xournal
 # PDF searching: `install pdfgrep`
 # PDF Merging:
 # Sat Mar 02 2019 21:18
@@ -450,18 +450,18 @@ install xournal
 
 # windows mount
 
-install ntfs-3g --noconfirm
+pacinst --needed --noconfirm ntfs-3g
 
 ## Then you can just do to mount the windows partition
 # mount /dev/<your_device> /mnt/win
 
 # android
 
-install android-tools android-udev
+pacinst --needed --noconfirm android-tools android-udev
 
 # Bluetooth
 
-install pulseaudio-alsa pulseaudio-bluetooth bluez bluez-libs bluez-utils bluez-firmware --noconfirm
+pacinst --needed --noconfirm pulseaudio-alsa pulseaudio-bluetooth bluez bluez-libs bluez-utils bluez-firmware
 sudo systemctl enable --now bluetooth
 
 # journal
@@ -475,7 +475,7 @@ sudo systemctl enable --now bluetooth
 
 # See `random.md firefox`
 # Also I use `qutebrowser` for login website
-install qutebrowser pdfjs
+pacinst --needed --noconfirm qutebrowser pdfjs
 
 # Printing{{{
 # keywords: print, hp, cups
@@ -501,81 +501,81 @@ sudo systemctl enable --now cups.socket
 ## gui mock ups design
 
 - [here][0]
-- `install pencil`
+- `pacinst --needed --noconfirm pencil`
 
 ## check files duplicates
 
 - Mon Jun 10 2019 09:59
-- `install fdupes`
+- `pacinst --needed --noconfirm fdupes`
 
 ## Diagrams
 
 - Sun Mar 17 2019 18:26 
 - keyword: graphics, graph, editor
 - Mainly for stuff that `plantuml` cannot do
-- `install yed`
+- `pacinst --needed --noconfirm yed`
 
 ## Preload
 
 - Wed May 02 2018 06:04
 - Cool application.
-- `install preload`
+- `pacinst --needed --noconfirm preload`
 - Can be done as user level
 - `sudo systemctl enable --now preload`
 
 ## Youtube-dl
 
 - `~`install youtube-dl-gui-git`~`
-- `install youtube-dl`
+- `pacinst --needed --noconfirm youtube-dl`
 
 ## Screen recording
 
 -  Application to record and share cools screen captures
-- `install asciinema`
+- `pacinst --needed --noconfirm asciinema`
 
 ## Disk Usage Utility
-- `install baobab`
+- `pacinst --needed --noconfirm baobab`
 
 ## Steam
 pacinst --needed steam ttf-liberation lib32-mesa mesa lib32-nvidia-utils nvidia-utils steam-fonts
 
 ## Video playing
-- `install vlc`
+- `pacinst --needed --noconfirm vlc`
 
 ## Passwords
 # pass-import most likely you'll have to download from git page
-- `install pass keepass pass-import`
+- `pacinst --needed --noconfirm pass keepass pass-import`
 
 ## Root passwd
 
 - ~~`install openssh-askpass`~~
 - Tue Mar 26 2019 08:53 
-- `install lxqt-openssh-askpass`
+- `pacinst --needed --noconfirm lxqt-openssh-askpass`
 
 ## wine
 
-- `install wine_gecko wine winetricks wine-mono`
+- `pacinst --needed --noconfirm wine_gecko wine winetricks wine-mono`
 
 ## maintenence
 
-- `install bleachbit`
+- `pacinst --needed --noconfirm bleachbit`
 
 ## Android
 
-- `install android-tools android-udev`
+- `pacinst --needed --noconfirm android-tools android-udev`
 
 ## Android-Dev
 
 - `android-studio android-sdk`
 	- Remember: `~/.bashrc`->`export ANDROID_HOME=<sdk-location>`
 - If you just want to flash stuff to your phone
-	- `install android-udev android-tools`
+- `pacinst --needed --noconfirm android-udev android-tools`
 
 ## syslog
 
 ### Fri Oct 25 2019 14:35\
 
-- `install syslog-ng`
+- `pacinst --needed --noconfirm syslog-ng`
 - `sudo systemctl enable --now syslog-ng@default.service`
 - now when you log with `openlog()` and/or `syslog()` you can see it in `journalctl`
 
