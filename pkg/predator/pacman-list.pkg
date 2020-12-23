@@ -4,6 +4,7 @@ adapta-gtk-theme
 alsa-utils
 android-tools
 android-udev
+arandr
 archlinux-wallpaper
 astyle
 atool
@@ -32,6 +33,7 @@ dhcpcd
 dialog
 dosfstools
 dunst
+earlyoom
 efibootmgr
 exa
 f2fs-tools
@@ -79,6 +81,8 @@ jre8-openjdk
 jsoncpp
 keepass
 kitty
+lib32-nvidia-utils
+lib32-vulkan-icd-loader
 libao
 libcaca
 libcddb
@@ -91,6 +95,7 @@ libtool
 lightdm
 linux
 linux-firmware
+linux-headers
 lldb
 luit
 lvm2
@@ -115,6 +120,7 @@ ntfs-3g
 ntp
 numlockx
 nvidia
+nvidia-dkms
 nvidia-settings
 nvidia-utils
 nvtop
@@ -155,6 +161,7 @@ samba
 scrot
 sed
 shfmt
+steam
 stow
 sudo
 texinfo
@@ -172,6 +179,7 @@ texlive-publishers
 texlive-science
 tldr
 tmux
+traceroute
 ttf-fira-code
 ttf-fira-mono
 ttf-font-awesome
@@ -240,7 +248,6 @@ xorg-xrdb
 xorg-xrefresh
 xorg-xsetroot
 xorg-xvinfo
-xorg-xwayland
 xorg-xwd
 xorg-xwininfo
 xorg-xwud
