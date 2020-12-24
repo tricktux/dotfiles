@@ -81,6 +81,15 @@ pacinst --needed --noconfirm arch-audit
 # - Not needed anymore:
 # - `sudo cp /usr/share/arch-audit/arch-audit.hook /etc/pacman.d/hooks`
 
+# pacman helpers
+pacinst --needed --noconfirm informant ancient-packages
+# NOTE: Add yourself to group "informant" to avoid the need for sudo
+sudo gpasswd -a reinaldo informant
+# List recent news
+sudo informant list
+# Mark them as read
+sudo informant read --all
+
 # `ssh`
 pacinst --needed --noconfirm openssh mosh
 # - Actually use `mosh` is much faster
