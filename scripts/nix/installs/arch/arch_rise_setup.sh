@@ -60,7 +60,7 @@ ls -als ~/
 # Get your aliases
 source ~/.bash_aliases 
 # Pass nvim config to root user as well to make `sudo nvim` usable
-sudo mkir -p /root/.config
+sudo mkdir -p /root/.config
 sudo ln -s /home/reinaldo/.config/nvim /root/.config
 #}}}
 
