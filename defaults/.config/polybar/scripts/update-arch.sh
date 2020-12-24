@@ -6,11 +6,14 @@
 set -Eeuo pipefail
 
 # Execute cleanup() if any of these sig events happen
-trap cleanup SIGINT SIGTERM ERR EXIT
+trap cleanup SIGINT SIGTERM ERR  #EXIT
 
 cleanup() {
-  trap - SIGINT SIGTERM ERR EXIT
-  # script cleanup here
+  trap - SIGINT SIGTERM ERR #EXIT
+  msg "${RED}==============================="
+  msg "${RED}==> Something went wrong... <=="
+  msg "${RED}==============================="
+  read -n1 -r key
 }
 
 # Colors are only meant to be used with msg()
