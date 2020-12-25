@@ -12,6 +12,7 @@ cleanup() {
   trap - SIGINT SIGTERM ERR #EXIT
   msg "${RED}${BOLD}==> Something went wrong..."
   read -n1 -r key
+  exit $?
 }
 
 # Colors are only meant to be used with msg()
