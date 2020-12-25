@@ -82,7 +82,7 @@ pacinst --needed --noconfirm arch-audit
 # - `sudo cp /usr/share/arch-audit/arch-audit.hook /etc/pacman.d/hooks`
 
 # pacman helpers
-pacinst --needed --noconfirm informant ancient-packages
+pacinst --needed --noconfirm ancient-packages informant 
 # NOTE: Add yourself to group "informant" to avoid the need for sudo
 sudo gpasswd -a reinaldo informant
 # List recent news
