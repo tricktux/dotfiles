@@ -10,9 +10,7 @@ trap cleanup SIGINT SIGTERM ERR #EXIT
 
 cleanup() {
   trap - SIGINT SIGTERM ERR #EXIT
-  msg "${RED}==============================="
-  msg "${RED}==> Something went wrong... <=="
-  msg "${RED}==============================="
+  msg "${RED}${BOLD}==> Something went wrong..."
   read -n1 -r key
 }
 
@@ -22,14 +20,16 @@ cleanup() {
 setup_colors() {
   if [[ -t 2 ]] && [[ -z "${NO_COLOR-}" ]] && [[ "${TERM-}" != "dumb" ]]; then
     NOFORMAT='\033[0m' RED='\033[0;31m' GREEN='\033[0;32m' ORANGE='\033[0;33m' \
-      BLUE='\033[0;34m' PURPLE='\033[0;35m' CYAN='\033[0;36m' YELLOW='\033[1;33m'
+      BLUE='\033[0;34m' PURPLE='\033[0;35m' CYAN='\033[0;36m' \
+      YELLOW='\033[1;33m' BOLD='\033[1m'
   else
-    NOFORMAT='' RED='' GREEN='' ORANGE='' BLUE='' PURPLE='' CYAN='' YELLOW=''
+    NOFORMAT='' RED='' GREEN='' ORANGE='' BLUE='' PURPLE='' CYAN='' YELLOW='' \
+      BOLD=''
   fi
 }
 
 msg() {
-  echo >&2 -e "${1-}"
+  echo >&2 -e "${1-}${NOFORMAT}"
 }
 
 update_polybar_python_venv() {
@@ -108,93 +108,82 @@ setup_colors
 # Always update keyring first in case it's been a while you've updated the
 # system
 # This is not a good practice. Leaving it here for reference
-# msg "${PURPLE}==========================="
-# msg "${PURPLE}==> Updating keyring... <=="
-# msg "${PURPLE}==========================="
+# msg "${CYAN}${BOLD}==> Updating keyring..."
 # trizen -Sy --needed archlinux-keyring ca-certificates
 
-msg "${PURPLE}================================"
-msg "${PURPLE}==> Updating all packages... <=="
-msg "${PURPLE}================================"
+msg "${CYAN}${BOLD}==> Updating all packages..."
 trizen -Syu
 
-msg "${PURPLE}==============================="
-msg "${PURPLE}==> Storing package list... <=="
-msg "${PURPLE}===============================${NOFORMAT}"
+msg "${CYAN}${BOLD}==> Storing package list..."
 save_pkg_list_to_dotfiles
 
-msg "${PURPLE}====================================="
-msg "${PURPLE}==> Checking for .pacnew files... <=="
-msg "${PURPLE}=====================================${NOFORMAT}"
+msg "${CYAN}${BOLD}==> Checking for .pacnew files..."
 sudo DIFFPROG="nvim -d" DIFFSEARCHPATH="/boot /etc /usr" /usr/bin/pacdiff
 
 if [[ -f /usr/bin/ancient-packages ]]; then
-  msg "${PURPLE}======================================================="
-  msg "${PURPLE}==> Lists installed packages no longer available... <=="
-  msg "${PURPLE}=======================================================${NOFORMAT}"
+  msg "${CYAN}${BOLD}==> Lists installed packages no longer available..."
   ancient-packages ||
-    msg "${RED}Try again with a wider screen later"
-  msg "${BLUE}==> Do you wish to remove ancient packages? [y/N]"
+    msg "${RED}${BOLD}Try again with a wider screen later"
+  msg "${CYAN}${BOLD}==> Do you wish to remove ancient packages? [y/N]"
   read yn
   case $yn in
   [Yy]*) trizen -Rscn $(ancient-packages -q) ;;
   esac
 fi
 
-msg "${PURPLE}==================================="
-msg "${PURPLE}==> Clean up orphan packages... <=="
-msg "${PURPLE}===================================${NOFORMAT}"
+msg "${CYAN}${BOLD}==> Clean up orphan packages..."
 sudo /usr/bin/pacman -Rns $(/usr/bin/pacman -Qtdq) ||
-  msg "${GREEN}No orphans detected"
+  msg "${GREEN}${BOLD}No orphans detected"
 
-msg "${PURPLE}=================================="
-msg "${PURPLE}==> Clean up pacman's cache... <=="
-msg "${PURPLE}==================================${NOFORMAT}"
+msg "${CYAN}${BOLD}==> Clean up pacman's cache..."
 sudo /usr/bin/paccache -ruk0 -r
 
-msg "${PURPLE}============================================"
-msg "${PURPLE}==> Check for failed systemd services... <=="
-msg "${PURPLE}============================================${NOFORMAT}"
+msg "${CYAN}${BOLD}==> Check for failed systemd services..."
 systemctl --failed
 read -n1 -r key
 
-msg "${PURPLE}==============================================================="
-msg "${PURPLE}==> Look for high priority errors in the systemd journal... <=="
-msg "${PURPLE}===============================================================${NOFORMAT}"
+msg "${CYAN}${BOLD}==> Look for high priority errors in the systemd journal..."
 journalctl -p 3 -xb
 read -n1 -r key
 
-msg "${BLUE}==> Do you wish to back up important folders? [y/N]"
+msg "${BLUE}${BOLD}==> Do you wish to back up important folders? [y/N]"
 read yn
 case $yn in
 [Yy]*) sudo "$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_home.sh" ;;
 esac
-msg "${BLUE}==> Do you wish to update python polybar env? [y/N]"
+msg "${BLUE}${BOLD}==> Do you wish to back up the mail server (~30mins)? [y/N]"
+read yn
+case $yn in
+[Yy]*)
+  sudo "$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_digital_ocean.sh"
+  ;;
+esac
+msg "${BLUE}${BOLD}==> Do you wish to update python polybar env? [y/N]"
 read yn
 case $yn in
 [Yy]*) update_polybar_python_venv ;;
 esac
-msg "${BLUE}==> Do you wish to update pass import python? [y/N]"
+msg "${BLUE}${BOLD}==> Do you wish to update pass import python? [y/N]"
 read yn
 case $yn in
 [Yy]*) update_pass_import_python_venv ;;
 esac
-msg "${BLUE}==> Do you wish to update neovim pyvenv? [y/N]"
+msg "${BLUE}${BOLD}==> Do you wish to update neovim pyvenv? [y/N]"
 read yn
 case $yn in
 [Yy]*) update_pynvim ;;
 esac
-msg "${BLUE}==> Do you wish to update neovim plugins? [y/N]"
+msg "${BLUE}${BOLD}==> Do you wish to update neovim plugins? [y/N]"
 read yn
 case $yn in
 [Yy]*) update_nvim_plugins ;;
 esac
-msg "${BLUE}==> Do you wish to update neovim-git? [y/N]"
+msg "${BLUE}${BOLD}==> Do you wish to update neovim-git? [y/N]"
 read yn
 case $yn in
 [Yy]*) trizen -S neovim-git ;;
 esac
-msg "${BLUE}==> Do you wish to update zsh-zim? [y/N]"
+msg "${BLUE}${BOLD}==> Do you wish to update zsh-zim? [y/N]"
 read yn
 case $yn in
 [Yy]*)
@@ -202,19 +191,12 @@ case $yn in
   zsh "$ZDOTDIR/.zim/zimfw.zsh" update
   ;;
 esac
-msg "${BLUE}==> Do you wish to pandoc-{citeproc,crossref}-bin? [y/N]"
+msg "${BLUE}${BOLD}==> Do you wish to pandoc-{citeproc,crossref}-bin? [y/N]"
 read yn
 case $yn in
 [Yy]*) update_pandoc_bin ;;
 esac
-msg "${BLUE}==> Do you wish to back up the mail server (~30mins)? [y/N]"
-read yn
-case $yn in
-[Yy]*)
-  sudo "$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_digital_ocean.sh"
-  ;;
-esac
-msg "${BLUE}==> Manually update the firefox userjs: ~/.mozilla/firefox/<profile>"
+msg "${BLUE}${BOLD}==> Manually update the firefox userjs: ~/.mozilla/firefox/<profile>"
 read -n1 -r key
-msg "${BLUE}==> Thanks for flying arch updates!"
+msg "${BLUE}${BOLD}==> Thanks for flying arch updates!"
 read -n1 -r key
