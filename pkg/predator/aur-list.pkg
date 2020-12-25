@@ -1,8 +1,10 @@
+ancient-packages
 bluez-firmware
 checkstyle
 cmake-format
 cmake-lint
 i3ass
+informant
 jdtls
 lazygit
 liquidprompt
