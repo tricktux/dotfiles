@@ -207,7 +207,13 @@ read yn
 case $yn in
 [Yy]*) update_pandoc_bin ;;
 esac
-
+msg "${BLUE}==> Do you wish to back up the mail server (~30mins)? [y/N]"
+read yn
+case $yn in
+[Yy]*)
+  sudo "$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_digital_ocean.sh"
+  ;;
+esac
 msg "${BLUE}==> Manually update the firefox userjs: ~/.mozilla/firefox/<profile>"
 read -n1 -r key
 msg "${BLUE}==> Thanks for flying arch updates!"
