@@ -60,7 +60,7 @@ ls -als ~/
 # Get your aliases
 source ~/.bash_aliases 
 # Pass nvim config to root user as well to make `sudo nvim` usable
-sudo mkir -p /root/.config
+sudo mkdir -p /root/.config
 sudo ln -s /home/reinaldo/.config/nvim /root/.config
 #}}}
 
@@ -80,6 +80,15 @@ pacinst --needed --noconfirm arch-audit
 # - Enable the `pacman` hook to auto check for vulnerabilities
 # - Not needed anymore:
 # - `sudo cp /usr/share/arch-audit/arch-audit.hook /etc/pacman.d/hooks`
+
+# pacman helpers
+pacinst --needed --noconfirm informant ancient-packages
+# NOTE: Add yourself to group "informant" to avoid the need for sudo
+sudo gpasswd -a reinaldo informant
+# List recent news
+sudo informant list
+# Mark them as read
+sudo informant read --all
 
 # `ssh`
 pacinst --needed --noconfirm openssh mosh

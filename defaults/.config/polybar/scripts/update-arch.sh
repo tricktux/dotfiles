@@ -6,11 +6,14 @@
 set -Eeuo pipefail
 
 # Execute cleanup() if any of these sig events happen
-trap cleanup SIGINT SIGTERM ERR EXIT
+trap cleanup SIGINT SIGTERM ERR #EXIT
 
 cleanup() {
-  trap - SIGINT SIGTERM ERR EXIT
-  # script cleanup here
+  trap - SIGINT SIGTERM ERR #EXIT
+  msg "${RED}==============================="
+  msg "${RED}==> Something went wrong... <=="
+  msg "${RED}==============================="
+  read -n1 -r key
 }
 
 # Colors are only meant to be used with msg()
@@ -18,7 +21,8 @@ cleanup() {
 # msg "This is a ${RED}very important${NOFORMAT} message
 setup_colors() {
   if [[ -t 2 ]] && [[ -z "${NO_COLOR-}" ]] && [[ "${TERM-}" != "dumb" ]]; then
-    NOFORMAT='\033[0m' RED='\033[0;31m' GREEN='\033[0;32m' ORANGE='\033[0;33m' BLUE='\033[0;34m' PURPLE='\033[0;35m' CYAN='\033[0;36m' YELLOW='\033[1;33m'
+    NOFORMAT='\033[0m' RED='\033[0;31m' GREEN='\033[0;32m' ORANGE='\033[0;33m' \
+      BLUE='\033[0;34m' PURPLE='\033[0;35m' CYAN='\033[0;36m' YELLOW='\033[1;33m'
   else
     NOFORMAT='' RED='' GREEN='' ORANGE='' BLUE='' PURPLE='' CYAN='' YELLOW=''
   fi
@@ -101,12 +105,13 @@ save_pkg_list_to_dotfiles() {
 
 setup_colors
 
-msg "${PURPLE}==========================="
-msg "${PURPLE}==> Updating keyring... <=="
-msg "${PURPLE}==========================="
 # Always update keyring first in case it's been a while you've updated the
 # system
-trizen -Sy --needed archlinux-keyring ca-certificates
+# This is not a good practice. Leaving it here for reference
+# msg "${PURPLE}==========================="
+# msg "${PURPLE}==> Updating keyring... <=="
+# msg "${PURPLE}==========================="
+# trizen -Sy --needed archlinux-keyring ca-certificates
 
 msg "${PURPLE}================================"
 msg "${PURPLE}==> Updating all packages... <=="
@@ -115,24 +120,55 @@ trizen -Syu
 
 msg "${PURPLE}==============================="
 msg "${PURPLE}==> Storing package list... <=="
-msg "${PURPLE}==============================="
+msg "${PURPLE}===============================${NOFORMAT}"
 save_pkg_list_to_dotfiles
 
 msg "${PURPLE}====================================="
 msg "${PURPLE}==> Checking for .pacnew files... <=="
-msg "${PURPLE}====================================="
+msg "${PURPLE}=====================================${NOFORMAT}"
 sudo DIFFPROG="nvim -d" DIFFSEARCHPATH="/boot /etc /usr" /usr/bin/pacdiff
+
+if [[ -f /usr/bin/ancient-packages ]]; then
+  msg "${PURPLE}======================================================="
+  msg "${PURPLE}==> Lists installed packages no longer available... <=="
+  msg "${PURPLE}=======================================================${NOFORMAT}"
+  ancient-packages ||
+    msg "${RED}Try again with a wider screen later"
+  msg "${BLUE}==> Do you wish to remove ancient packages? [y/N]"
+  read yn
+  case $yn in
+  [Yy]*) trizen -Rscn $(ancient-packages -q) ;;
+  esac
+fi
 
 msg "${PURPLE}==================================="
 msg "${PURPLE}==> Clean up orphan packages... <=="
-msg "${PURPLE}==================================="
-sudo /usr/bin/pacman -Rns $(/usr/bin/pacman -Qtdq)
+msg "${PURPLE}===================================${NOFORMAT}"
+sudo /usr/bin/pacman -Rns $(/usr/bin/pacman -Qtdq) ||
+  msg "${GREEN}No orphans detected"
 
 msg "${PURPLE}=================================="
 msg "${PURPLE}==> Clean up pacman's cache... <=="
-msg "${PURPLE}=================================="
+msg "${PURPLE}==================================${NOFORMAT}"
 sudo /usr/bin/paccache -ruk0 -r
 
+msg "${PURPLE}============================================"
+msg "${PURPLE}==> Check for failed systemd services... <=="
+msg "${PURPLE}============================================${NOFORMAT}"
+systemctl --failed
+read -n1 -r key
+
+msg "${PURPLE}==============================================================="
+msg "${PURPLE}==> Look for high priority errors in the systemd journal... <=="
+msg "${PURPLE}===============================================================${NOFORMAT}"
+journalctl -p 3 -xb
+read -n1 -r key
+
+msg "${BLUE}==> Do you wish to back up important folders? [y/N]"
+read yn
+case $yn in
+[Yy]*) sudo "$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_home.sh" ;;
+esac
 msg "${BLUE}==> Do you wish to update python polybar env? [y/N]"
 read yn
 case $yn in

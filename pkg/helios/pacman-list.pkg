@@ -29,6 +29,7 @@ capitaine-cursors
 cbatticon
 ccache
 chromium
+cmake
 cmus
 cppcheck
 cscope
@@ -203,6 +204,7 @@ ttf-font-awesome
 ttf-inconsolata
 unzip
 urlscan
+valgrind
 vi
 vint
 vlc
