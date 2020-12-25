@@ -31,7 +31,7 @@ _M.print = {
   enabled = true,
   day = "  ",
   night = "  ",
-  sunrise = "  ",
+  sunrise = "  ",
   sunset = "  "
 }
 
