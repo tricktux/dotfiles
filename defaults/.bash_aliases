@@ -14,14 +14,22 @@ alias mv="mv --interactive --verbose"
 alias cp="cp --recursive --interactive --verbose"
 alias mkdir="mkdir --parents --verbose"
 
-alias pacinst='trizen -S'
-alias pacup='trizen -Syu'
-alias pacver='trizen -Si'
-alias pacsearch='trizen -Ss'
-alias pacuninst='trizen -Rscn'
-alias pacuninstonly='trizen -Rdd'
+# Install
+alias paci='trizen -S'
+# Update
+alias pacu='trizen -Syu'
+# Version
+alias pacv='trizen -Si'
+# Search
+alias pacs='trizen -Ss'
+# Remove
+alias pacu='trizen -Rscn'
+alias pacr='trizen -Rscn'
+# Remove only
+alias pacuo='trizen -Rdd'
 alias pacbroken='trizen -Qkk'
-alias paclistpkgfiles='trizen -Ql'
+# List files of package
+alias pacll='trizen -Ql'
 
 # git
 alias ga='git add'
