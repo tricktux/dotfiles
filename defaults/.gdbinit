@@ -7,3 +7,5 @@ set history filename ~/.gdbhistory
 
 # Disable python loading
 # set auto-load python-scripts off
+
+source /usr/share/gdb-dashboard/.gdbinit

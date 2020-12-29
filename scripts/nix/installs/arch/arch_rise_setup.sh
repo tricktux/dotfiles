@@ -336,7 +336,7 @@ pacinst --needed --noconfirm cmake-{lint,format}
 
 pacinst --needed --noconfirm gtest google-glog rapidjson boost boost-libs websocketpp cmake ninja
 pacinst --needed --noconfirm cppcheck cpplint
-pacinst --needed --noconfirm clang lldb gdb
+pacinst --needed --noconfirm lldb clang gdb gdb-dashboard-git
 # For coloring gcc and compilers output
 pacinst --needed --noconfirm colorgcc
 
