@@ -4,6 +4,7 @@ adapta-gtk-theme
 alsa-utils
 android-tools
 android-udev
+anki
 arandr
 archlinux-wallpaper
 astyle
@@ -194,6 +195,7 @@ wavpack
 websocketpp
 which
 wireless_tools
+wireshark-qt
 words
 wpa_supplicant
 xclip

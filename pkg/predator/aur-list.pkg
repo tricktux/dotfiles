@@ -1,8 +1,10 @@
 ancient-packages
 bluez-firmware
+bottom-bin
 checkstyle
 cmake-format
 cmake-lint
+gdb-dashboard-git
 i3ass
 informant
 jdtls
