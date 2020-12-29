@@ -70,19 +70,19 @@ sudo timedatectl set-ntp true
 #}}}
 
 # ccache to speed up compilations
-pacinst --needed --noconfirm ccache
+paci --needed --noconfirm ccache
 
 # Beautiful arch wallpapers
-pacinst --needed --noconfirm archlinux-wallpaper
+paci --needed --noconfirm archlinux-wallpaper
 
 # `arch-audit`
-pacinst --needed --noconfirm arch-audit
+paci --needed --noconfirm arch-audit
 # - Enable the `pacman` hook to auto check for vulnerabilities
 # - Not needed anymore:
 # - `sudo cp /usr/share/arch-audit/arch-audit.hook /etc/pacman.d/hooks`
 
 # pacman helpers
-pacinst --needed --noconfirm ancient-packages informant 
+paci --needed --noconfirm ancient-packages informant 
 # NOTE: Add yourself to group "informant" to avoid the need for sudo
 sudo gpasswd -a reinaldo informant
 # List recent news
@@ -91,7 +91,7 @@ sudo informant list
 sudo informant read --all
 
 # `ssh`
-pacinst --needed --noconfirm openssh mosh
+paci --needed --noconfirm openssh mosh
 # - Actually use `mosh` is much faster
 # - If you want this setup to be `ssh` accessible:
 # - `systemctl enable sshd.socket`
@@ -100,7 +100,7 @@ pacinst --needed --noconfirm openssh mosh
 # - `AddKeysToAgent yes`
 
 # zsh{{{
-pacinst --needed --noconfirm zsh
+paci --needed --noconfirm zsh
 # Legacy
 # install oh-my-zsh-git zplug pkgfile
 # Install zim
@@ -109,7 +109,7 @@ curl -kfLo $ZIM_HOME/zimfw.zsh --create-dirs \
 chmod +x $ZIM_HOME/zimfw.zsh
 zsh $ZIM_HOME/zimfw.zsh install
 # Install plugins
-pacinst --needed --noconfirm pkgfile
+paci --needed --noconfirm pkgfile
 # pkgfile needs to be updated
 sudo systemctl enable pkgfile-update.timer
 # By default it runs daily
@@ -124,7 +124,7 @@ chsh -s /usr/bin/zsh
 #}}}
 
 # Update arch mirrors {{{
-pacinst --needed --noconfirm reflector
+paci --needed --noconfirm reflector
 sudo mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist_king
 # Put options in config file
 sudo bash -c 'printf "\n--latest 30" >> /etc/xdg/reflector/reflector.conf'
@@ -136,7 +136,7 @@ sudo systemctl enable --now reflector.timer
 sudo systemctl start reflector.service
 #}}}
 
-pacinst --needed --noconfirm earlyoom
+paci --needed --noconfirm earlyoom
 sudo systemctl enable --now earlyoom
 
 # Video card{{{
@@ -150,10 +150,10 @@ lspci -k | grep -A 2 -i "VGA"
 # **Nvidia drivers**
 # [Instructions](https://wiki.archlinux.org/index.php/NVIDIA)
 # ***LTS*** needed if you are running linux-lts
-pacinst --needed --noconfirm nvidia-lts
+paci --needed --noconfirm nvidia-lts
 # Otherwise use this one....**DO NOT USE BOTH**
-pacinst --needed --noconfirm nvidia
-pacinst --needed --noconfirm nvidia-libgl lib32-nvidia-libgl lib32-nvidia-utils nvidia-utils nvidia-settings nvtop
+paci --needed --noconfirm nvidia
+paci --needed --noconfirm nvidia-libgl lib32-nvidia-libgl lib32-nvidia-utils nvidia-utils nvidia-settings nvtop
 # ***Configure DRM*** It should allow for the kernel to control the card
 sudo bash -c 'printf "options nvidia-drm modeset=1" > /etc/modprobe.d/nvidia-drm.conf'
 # ***Configure Xorg***
@@ -168,8 +168,8 @@ sudo pacman -S --needed --noconfirm lib32-mesa mesa vulkan-intel lib32-vulkan-in
   vulkan-icd-loader lib32-vulkan-icd-loader xf86-video-intel
 # **Hybrid Card**
 # If you have one:
-pacinst --needed --noconfirm bumblebee mesa lib32-{virtualgl,nvidia-utils,primus} primus
-pacinst --needed --noconfirm bbswitch
+paci --needed --noconfirm bumblebee mesa lib32-{virtualgl,nvidia-utils,primus} primus
+paci --needed --noconfirm bbswitch
 # Add your user to the `bumblebee` group:
 gpasswd -a <user> bumblebee
 gpasswd -a reinaldo bumblebee
@@ -180,20 +180,20 @@ sudo tee /proc/acpi/bbswitch <<< {ON,OFF}
 #}}}
 
 # terminal utils{{{
-pacinst --needed --noconfirm acpi lm_sensors liquidprompt tldr
-pacinst --needed --noconfirm {ttf,otf}-fira-{code,mono} {ttf,otf}-font-awesome nerd-fonts-inconsolata
-pacinst --needed --noconfirm ttf-inconsolata
-pacinst --needed --noconfirm xorg-xfontsel gtk2fontsel
+paci --needed --noconfirm acpi lm_sensors liquidprompt tldr
+paci --needed --noconfirm {ttf,otf}-fira-{code,mono} {ttf,otf}-font-awesome nerd-fonts-inconsolata
+paci --needed --noconfirm ttf-inconsolata
+paci --needed --noconfirm xorg-xfontsel gtk2fontsel
 # Package doesn't exist anymore thumbnailer 
-pacinst --needed --noconfirm atool ranger zip unzip w3m ffmpeg highlight libcaca
+paci --needed --noconfirm atool ranger zip unzip w3m ffmpeg highlight libcaca
 # Not installing anymore: advcp 
-pacinst --needed --noconfirm mediainfo odt2txt poppler w3m bat exa fzf fd ripgrep tmux imagemagick ghostscript xclip
+paci --needed --noconfirm mediainfo odt2txt poppler w3m bat exa fzf fd ripgrep tmux imagemagick ghostscript xclip
 
 # kitty
-pacinst --needed --noconfirm kitty
+paci --needed --noconfirm kitty
 # Depends on rust
 # Causes all kinds of problems
-# pacinst page-git
+# paci page-git
 #}}}
 # Essentials
 
@@ -203,7 +203,7 @@ pacinst --needed --noconfirm kitty
 # See `random.md samba-manual` section
 
 # nfs{{{
-pacinst --needed --noconfirm nfs-utils
+paci --needed --noconfirm nfs-utils
 mkdir -p $HOME/.mnt/skynfs
 sudo bash -c 'printf "192.168.1.138:/volume1/backup /home/reinaldo/.mnt/skynfs nfs _netdev,noauto,user,x-systemd.automount,x-systemd.mount-timeout=10,timeo=14,x-systemd.idle-timeout=1min,vers=3 0 0" >> /etc/fstab'
 # Try it with
@@ -211,7 +211,7 @@ sudo mount -v -t nfs 192.168.1.138:/volume1/backup /home/reinaldo/.mnt/skynfs -o
 #}}}
 
 # password-store{{{
-pacinst --needed --noconfirm --needed rofi-pass
+paci --needed --noconfirm --needed rofi-pass
 # import key
 # From a pc containing the keys:
 # `gpg --armor --output mykey.asc --export-secret-key you@example.com`
@@ -234,7 +234,7 @@ pacinst --needed --noconfirm --needed rofi-pass
 
 # Tue Mar 26 2019 21:49
 # The rest is taken care of at `.xinitrc`
-pacinst --needed --noconfirm numlockx
+paci --needed --noconfirm numlockx
 		
 # Desktop
 
@@ -242,7 +242,7 @@ pacinst --needed --noconfirm numlockx
 # After this steps you should have a working `i3` setup.
 
 # Network Manager{{{
-pacinst --needed --noconfirm networkmanager network-manager-applet networkmanager-openvpn
+paci --needed --noconfirm networkmanager network-manager-applet networkmanager-openvpn
 sudo systemctl enable NetworkManager.service
 # Setup wpa_supplicant to wait for dbus to shutdown
 # This is a long story complicated bug
@@ -263,39 +263,39 @@ sudo bash -c \
 #}}}
 
 # i3-wm{{{
-pacinst --needed --noconfirm i3-gaps i3blocks i3lock rofi rofi-dmenu i3ass xdotool dunst
-pacinst --needed --noconfirm feh cbatticon redshift
-pacinst --needed --noconfirm scrot flameshot
+paci --needed --noconfirm i3-gaps i3blocks i3lock rofi rofi-dmenu i3ass xdotool dunst
+paci --needed --noconfirm feh cbatticon redshift
+paci --needed --noconfirm scrot flameshot
 # Compton changed name to picom
-pacinst --needed --noconfirm picom
+paci --needed --noconfirm picom
 # Deprecated
 # `paystray`
 # `blueberry`
 #}}}
 
 # rofi extra goodies
-pacinst --needed --noconfirm rofi-{emoji,bluetooth-git} networkmanager-dmenu-git 
-pacinst --needed --noconfirm noto-fonts-emoji
+paci --needed --noconfirm rofi-{emoji,bluetooth-git} networkmanager-dmenu-git 
+paci --needed --noconfirm noto-fonts-emoji
 
 # synology nfs and backups
-pacinst --needed
+paci --needed
 
 # polybar{{{
-pacinst --needed --noconfirm jsoncpp polybar alsa-utils paprefs
-pacinst --needed --noconfirm alsa-lib wireless_tools curl pacman-contrib
-pacinst --needed --noconfirm nerd-fonts-iosevka ttf-weather-icons jq
+paci --needed --noconfirm jsoncpp polybar alsa-utils paprefs
+paci --needed --noconfirm alsa-lib wireless_tools curl pacman-contrib
+paci --needed --noconfirm nerd-fonts-iosevka ttf-weather-icons jq
 # usb automount
 # Removing pcmanfm
 # There's a polybar module that will be used to mount/umount devices
-pacinst --needed --noconfirm gvfs-mtp gvfs-gphoto2 udisks2
+paci --needed --noconfirm gvfs-mtp gvfs-gphoto2 udisks2
 sudo install -Dm644 /home/reinaldo/.config/polybar/scripts/95-usb.rules \
   /etc/udev/rules.d/95-usb.rules
 #}}}
 
 # xorg
-pacinst --needed --noconfirm xorg xorg-apps xorg-xinit xorg-drivers xorg-server
+paci --needed --noconfirm xorg xorg-apps xorg-xinit xorg-drivers xorg-server
 # `xorg autologin`
-pacinst --needed --noconfirm lightdm
+paci --needed --noconfirm lightdm
 sudo systemctl enable lightdm
 
 # add your user to the autologin group
@@ -312,52 +312,52 @@ sudo gpasswd -a reinaldo autologin
 
 # Editor
 
-pacinst --needed --noconfirm neovim cscope ripgrep universal-ctags-git global xclip vim
-pacinst --needed --noconfirm neovim-remote
+paci --needed --noconfirm neovim cscope ripgrep universal-ctags-git global xclip vim
+paci --needed --noconfirm neovim-remote
 # for diffs
-pacinst --needed --noconfirm meld
+paci --needed --noconfirm meld
 # for documentation
-pacinst --needed --noconfirm zeal
-pacinst --needed --noconfirm pandoc-{,citeproc-,crossref-}bin
+paci --needed --noconfirm zeal
+paci --needed --noconfirm pandoc-{,citeproc-,crossref-}bin
 # - run the `dotfiles/scripts/python_neovim_virtualenv.sh` script
 # to get `/usr/share/dict` completion
-pacinst --needed --noconfirm plantuml look words
+paci --needed --noconfirm plantuml look words
 
 ## vim
 
-pacinst --needed --noconfirm vint
+paci --needed --noconfirm vint
 
 ## cmake
 
-pacinst --needed --noconfirm cmake-{lint,format}
+paci --needed --noconfirm cmake-{lint,format}
 # ~~`install cmake-language-server`~~
 
 ## cpp
 
-pacinst --needed --noconfirm gtest google-glog rapidjson boost boost-libs websocketpp cmake ninja
-pacinst --needed --noconfirm cppcheck cpplint
-pacinst --needed --noconfirm lldb clang gdb gdb-dashboard-git
+paci --needed --noconfirm gtest google-glog rapidjson boost boost-libs websocketpp cmake ninja
+paci --needed --noconfirm cppcheck cpplint
+paci --needed --noconfirm lldb clang gdb gdb-dashboard-git
 # For coloring gcc and compilers output
-pacinst --needed --noconfirm colorgcc
+paci --needed --noconfirm colorgcc
 
 ## shell
 
-pacinst --needed --noconfirm shellcheck-static shfmt
+paci --needed --noconfirm shellcheck-static shfmt
 
 ## lua
 ## lua-language-server consumes ton of cpu power. Plus its chinese, don't trust 
 ## it
-pacinst --needed --noconfirm luajit lua-format luacheck
+paci --needed --noconfirm luajit lua-format luacheck
 
 ## java
 
 # Installs java the latest and version 8, still widely used.
-pacinst --needed --noconfirm j{re,re8,dk,dk8}-openjdk
-pacinst --needed --noconfirm jdtls checkstyle astyle
+paci --needed --noconfirm j{re,re8,dk,dk8}-openjdk
+paci --needed --noconfirm jdtls checkstyle astyle
 
 ## python
 
-pacinst --needed --noconfirm python{,-pip} python2{,-pip}
+paci --needed --noconfirm python{,-pip} python2{,-pip}
 # Python modules are control via virtual env
 # Run the update-arch.sh script and will create/update such modules
 # install python-language-server flake8 python-pylint yapf --noconfirm
@@ -365,32 +365,32 @@ pacinst --needed --noconfirm python{,-pip} python2{,-pip}
 
 # SSD
 
-pacinst --needed --noconfirm util-linux
+paci --needed --noconfirm util-linux
 sudo systemctl enable --now fstrim.timer
 
 # Laptops
 
 ## Brightness
-pacinst --needed --noconfirm brillo
+paci --needed --noconfirm brillo
 # see `man brillo`
 
 ## Touchpad 
 
-pacinst --needed --noconfirm xorg-xinput xf86-input-libinput brillo
+paci --needed --noconfirm xorg-xinput xf86-input-libinput brillo
 # Also see `synclient.md`
 
 ## power
 
 - #eyword: battery, powertop, power
-pacinst --needed --noconfirm powertop
+paci --needed --noconfirm powertop
 sudo powertop --calibrate
 # For more info see: `archwiki powertop`
 # See also `laptop-mode`
-pacinst --needed --noconfirm acpid
+paci --needed --noconfirm acpid
 sudo systemctl enable --now acpid
-pacinst --needed --noconfirm laptop-mode-tools
+paci --needed --noconfirm laptop-mode-tools
 sudo systemctl enable --now laptop-mode
-pacinst --needed --noconfirm hdparm sdparm ethtool wireless_tools hal python-pyqt5
+paci --needed --noconfirm hdparm sdparm ethtool wireless_tools hal python-pyqt5
 
 ### tweaking kernel for battery saving
 
@@ -421,29 +421,29 @@ sudo echo "blacklist snd_hda_codec_hdmi" > /etc/modprobe.d/no_hdmi_audio.conf.co
 # examine the script as it disables bluetooth for example
 
 # Make it pretty
-pacinst --needed --noconfirm numix-gtk-theme paper-icon-theme capitaine-cursors lxappearance adapta-gtk-theme paper-gtk-theme-git
+paci --needed --noconfirm numix-gtk-theme paper-icon-theme capitaine-cursors lxappearance adapta-gtk-theme paper-gtk-theme-git
 # And then just go to `Customize Look and Feel` 
 
 # Task Manager
 
-pacinst --needed --noconfirm glances
+paci --needed --noconfirm glances
 # ~~`install lxtask stacer-bin glances`~~
 
 # Audio/Music
 
-pacinst --needed --noconfirm cmus playerctl
-pacinst --needed --noconfirm libpulse pamixer alsa-lib libao libcdio libcddb libvorbis libmpcdec wavpack libmad libmodplug libmikmod pavucontrol
-pacinst --needed --noconfirm mpv
+paci --needed --noconfirm cmus playerctl
+paci --needed --noconfirm libpulse pamixer alsa-lib libao libcdio libcddb libvorbis libmpcdec wavpack libmad libmodplug libmikmod pavucontrol
+paci --needed --noconfirm mpv
 
 # Tue Mar 12 2019 07:24
 # Gearing towards `mpd`
 # Mainly because `cmus` is not working properly in `helios`
 # Gonna give it a try
-pacinst --needed --noconfirm mpd vimpc-git
+paci --needed --noconfirm mpd vimpc-git
 
 # Email
 # protonmail-bridge 
-pacinst --needed --noconfirm neomutt abook urlscan lynx
+paci --needed --noconfirm neomutt abook urlscan lynx
 
 ## Mon Mar 04 2019 22:03 
 
@@ -451,17 +451,17 @@ pacinst --needed --noconfirm neomutt abook urlscan lynx
 # Out of frustration for delayed received notifications in `neomutt`
 # And wonky `ui`
 
-pacinst --needed --noconfirm thunderbird birdtray
+paci --needed --noconfirm thunderbird birdtray
 
 # Office
 
-pacinst --needed --noconfirm libreoffice-still hunspell hunspell-es_US
+paci --needed --noconfirm libreoffice-still hunspell hunspell-es_US
 
 # pdf & resume
 
-pacinst --needed --noconfirm zathura zathura-pdf-mupdf texlive-most pdfgrep qpdfview
+paci --needed --noconfirm zathura zathura-pdf-mupdf texlive-most pdfgrep qpdfview
 # PDF annotations use:
-pacinst --needed --noconfirm xournal
+paci --needed --noconfirm xournal
 # PDF searching: `install pdfgrep`
 # PDF Merging:
 # Sat Mar 02 2019 21:18
@@ -472,18 +472,18 @@ pacinst --needed --noconfirm xournal
 
 # windows mount
 
-pacinst --needed --noconfirm ntfs-3g
+paci --needed --noconfirm ntfs-3g
 
 ## Then you can just do to mount the windows partition
 # mount /dev/<your_device> /mnt/win
 
 # android
 
-pacinst --needed --noconfirm android-tools android-udev
+paci --needed --noconfirm android-tools android-udev
 
 # Bluetooth
 
-pacinst --needed --noconfirm pulseaudio-alsa pulseaudio-bluetooth bluez bluez-libs bluez-utils bluez-firmware
+paci --needed --noconfirm pulseaudio-alsa pulseaudio-bluetooth bluez bluez-libs bluez-utils bluez-firmware
 sudo systemctl enable --now bluetooth
 
 # journal
@@ -497,11 +497,11 @@ sudo systemctl enable --now bluetooth
 
 # See `random.md firefox`
 # Also I use `qutebrowser` for login website
-pacinst --needed --noconfirm qutebrowser pdfjs
+paci --needed --noconfirm qutebrowser pdfjs
 
 # Printing{{{
 # keywords: print, hp, cups
-pacinst hplip cups cups-pdf simple-scan gtk3-print-backends --noconfirm
+paci hplip cups cups-pdf simple-scan gtk3-print-backends --noconfirm
 # install most of the optional software that comes along with hplip
 # Follow arch `cups` instructions.
 # look it up in the arch wiki
@@ -523,81 +523,81 @@ sudo systemctl enable --now cups.socket
 ## gui mock ups design
 
 - [here][0]
-- `pacinst --needed --noconfirm pencil`
+- `paci --needed --noconfirm pencil`
 
 ## check files duplicates
 
 - Mon Jun 10 2019 09:59
-- `pacinst --needed --noconfirm fdupes`
+- `paci --needed --noconfirm fdupes`
 
 ## Diagrams
 
 - Sun Mar 17 2019 18:26 
 - keyword: graphics, graph, editor
 - Mainly for stuff that `plantuml` cannot do
-- `pacinst --needed --noconfirm yed`
+- `paci --needed --noconfirm yed`
 
 ## Preload
 
 - Wed May 02 2018 06:04
 - Cool application.
-- `pacinst --needed --noconfirm preload`
+- `paci --needed --noconfirm preload`
 - Can be done as user level
 - `sudo systemctl enable --now preload`
 
 ## Youtube-dl
 
 - `~`install youtube-dl-gui-git`~`
-- `pacinst --needed --noconfirm youtube-dl`
+- `paci --needed --noconfirm youtube-dl`
 
 ## Screen recording
 
 -  Application to record and share cools screen captures
-- `pacinst --needed --noconfirm asciinema`
+- `paci --needed --noconfirm asciinema`
 
 ## Disk Usage Utility
-- `pacinst --needed --noconfirm baobab`
+- `paci --needed --noconfirm baobab`
 
 ## Steam
-pacinst --needed steam ttf-liberation lib32-mesa mesa lib32-nvidia-utils nvidia-utils steam-fonts
+paci --needed steam ttf-liberation lib32-mesa mesa lib32-nvidia-utils nvidia-utils steam-fonts
 
 ## Video playing
-- `pacinst --needed --noconfirm vlc`
+- `paci --needed --noconfirm vlc`
 
 ## Passwords
 # pass-import most likely you'll have to download from git page
-- `pacinst --needed --noconfirm pass keepass pass-import`
+- `paci --needed --noconfirm pass keepass pass-import`
 
 ## Root passwd
 
 - ~~`install openssh-askpass`~~
 - Tue Mar 26 2019 08:53 
-- `pacinst --needed --noconfirm lxqt-openssh-askpass`
+- `paci --needed --noconfirm lxqt-openssh-askpass`
 
 ## wine
 
-- `pacinst --needed --noconfirm wine_gecko wine winetricks wine-mono`
+- `paci --needed --noconfirm wine_gecko wine winetricks wine-mono`
 
 ## maintenence
 
-- `pacinst --needed --noconfirm bleachbit`
+- `paci --needed --noconfirm bleachbit`
 
 ## Android
 
-- `pacinst --needed --noconfirm android-tools android-udev`
+- `paci --needed --noconfirm android-tools android-udev`
 
 ## Android-Dev
 
 - `android-studio android-sdk`
 	- Remember: `~/.bashrc`->`export ANDROID_HOME=<sdk-location>`
 - If you just want to flash stuff to your phone
-- `pacinst --needed --noconfirm android-udev android-tools`
+- `paci --needed --noconfirm android-udev android-tools`
 
 ## syslog
 
 ### Fri Oct 25 2019 14:35\
 
-- `pacinst --needed --noconfirm syslog-ng`
+- `paci --needed --noconfirm syslog-ng`
 - `sudo systemctl enable --now syslog-ng@default.service`
 - now when you log with `openlog()` and/or `syslog()` you can see it in `journalctl`
 
