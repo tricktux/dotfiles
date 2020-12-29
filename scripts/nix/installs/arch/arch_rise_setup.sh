@@ -172,7 +172,9 @@ paci --needed --noconfirm nvidia-lts
 paci --needed --noconfirm nvidia
 paci --needed --noconfirm nvidia-libgl lib32-nvidia-libgl lib32-nvidia-utils nvidia-utils nvidia-settings nvtop
 # ***Configure DRM*** It should allow for the kernel to control the card
-sudo bash -c 'printf "options nvidia-drm modeset=1" > /etc/modprobe.d/nvidia-drm.conf'
+# Don't do this. I though it caused problems with picom. Now not sure. Better be 
+# safe than sorry
+# sudo bash -c 'printf "options nvidia-drm modeset=1" > /etc/modprobe.d/nvidia-drm.conf'
 # ***Configure Xorg***
 # Don't worry it will auto backup /etc/X11/xorg.conf
 sudo nvidia-xconfig
