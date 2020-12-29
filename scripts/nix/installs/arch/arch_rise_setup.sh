@@ -136,8 +136,25 @@ sudo systemctl enable --now reflector.timer
 sudo systemctl start reflector.service
 #}}}
 
+# Linux kernel{{{
+# Tue Dec 29 2020 09:44
+# Just stay with LTS please. When nvidia is involved is just painful
+# Installing LTS
+paci linux-lts{,-headers} nvidia-lts
+# If you need to remove linux
+pacu linux{,-headers} nvidia
+# **NOTE: Otherwise you wont be able to boot**
+# Update /boot/loader/entries/arch.conf
+# Below for lts
+# linux /vmlinuz-linux-lts
+# initrd /initramfs-linux-lts.img
+# Just remove the -lts for regular linux
+#}}}
+
+# Protects from running out of memory{{{
 paci --needed --noconfirm earlyoom
 sudo systemctl enable --now earlyoom
+#}}}
 
 # Video card{{{
 lspci -k | grep -A 2 -i "VGA"
