@@ -147,9 +147,22 @@ lspci -k | grep -A 2 -i "VGA"
 # Go to `sudo vim /etc/pacman.conf` and uncomment `multilib` this allows you to
 # install 32-bit programs
 # Mon Sep 18 2017 22:46: Also dont forget to update and uncomment both lines, multilib and Include 
-pacinst --needed --noconfirm nvidia nvidia-libgl lib32-nvidia-libgl lib32-nvidia-utils nvidia-utils nvidia-settings nvtop
 # **Nvidia drivers**
-sudo pacman -S --needed --noconfirm nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings vulkan-icd-loader lib32-vulkan-icd-loader
+# [Instructions](https://wiki.archlinux.org/index.php/NVIDIA)
+# ***LTS*** needed if you are running linux-lts
+pacinst --needed --noconfirm nvidia-lts
+# Otherwise use this one....**DO NOT USE BOTH**
+pacinst --needed --noconfirm nvidia
+pacinst --needed --noconfirm nvidia-libgl lib32-nvidia-libgl lib32-nvidia-utils nvidia-utils nvidia-settings nvtop
+# ***Configure DRM*** It should allow for the kernel to control the card
+sudo bash -c 'printf "options nvidia-drm modeset=1" > /etc/modprobe.d/nvidia-drm.conf'
+# ***Configure Xorg***
+# Don't worry it will auto backup /etc/X11/xorg.conf
+sudo nvidia-xconfig
+# Tue Dec 29 2020 05:35
+# ***DKMS*** is only needed if you are running a custom version of the kernel
+sudo pacman -S --needed --noconfirm nvidia-dkms
+sudo pacman -S --needed --noconfirm nvidia-utils lib32-nvidia-utils nvidia-settings vulkan-icd-loader lib32-vulkan-icd-loader
 # **Intel drivers**
 sudo pacman -S --needed --noconfirm lib32-mesa mesa vulkan-intel lib32-vulkan-intel \
   vulkan-icd-loader lib32-vulkan-icd-loader xf86-video-intel
