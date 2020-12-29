@@ -53,6 +53,11 @@ i3ipc.htop = {
   ['predator'] = 'resize set 3040 1524, move position center',
   ['surbook'] = 'resize set 2188 1459, move position center'
 }
+i3ipc.bottom = {
+  ['helios'] = 'resize set 1820 880, move position center',
+  ['predator'] = 'resize set 3040 1524, move position center',
+  ['surbook'] = 'resize set 2188 1459, move position center'
+}
 i3ipc.neomutt = {
   ['helios'] = 'resize set 1320 880, move position center',
   ['predator'] = 'resize set 3040 1524, move position center',
@@ -67,6 +72,7 @@ i3ipc.window_position = {
   ['neomutt'] = i3ipc.neomutt[hostname],
   ['terminal'] = i3ipc.terminal[hostname],
   ['htop'] = i3ipc.htop[hostname],
+  ['bottom'] = i3ipc.bottom[hostname],
   ['glances'] = i3ipc.glances[hostname]
 }
 

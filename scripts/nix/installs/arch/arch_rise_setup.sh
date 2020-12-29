@@ -266,6 +266,8 @@ sudo bash -c \
 paci --needed --noconfirm i3-gaps i3blocks i3lock rofi rofi-dmenu i3ass xdotool dunst
 paci --needed --noconfirm feh cbatticon redshift
 paci --needed --noconfirm scrot flameshot
+# Replacement for htop. Execute: btm
+paci --needed --noconfirm bottom-bin
 # Compton changed name to picom
 paci --needed --noconfirm picom
 # Deprecated

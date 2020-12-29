@@ -123,7 +123,7 @@ bindsym mod3+s exec --no-startup-id \
 # bindsym $mod+u exec --no-startup-id \
   # ~/.config/i3/scripts/xdotool_launch glances "glances --theme-white"
 bindsym $mod+u exec --no-startup-id \
-  ~/.config/i3/scripts/xdotool_launch htop htop
+  ~/.config/i3/scripts/xdotool_launch bottom btm
 bindsym $mod+o exec --no-startup-id \
   ~/.config/i3/scripts/xdotool_launch journal "~/.config/i3/scripts/journal.sh"
 bindsym $mod+n exec --no-startup-id \
@@ -392,6 +392,7 @@ bindsym XF86PowerDown exec --no-startup-id "i3-msg '[class=\".\"] kill' && syste
   for_window [title="^journal$"] move to scratchpad
   for_window [title="^terminal$"] move to scratchpad
   for_window [title="^htop$"] move to scratchpad
+  for_window [title="^bottom$"] move to scratchpad
   for_window [title="^scratch$"] move to scratchpad
   for_window [class="Spotify"] move to scratchpad
 
