@@ -63,6 +63,11 @@ function! plugin#Config()
   " call autocompletion#SetOmniSharp()
   " endif
 
+  Plug 'dbeniamine/cheat.sh-vim'
+  let g:CheatSheetDoNotMap=1
+  let g:CheatSheetIdPath=g:std_cache_path .
+        \ '\cheat_sh_id'
+
   Plug 'tpope/vim-obsession'
   let g:obsession_no_bufenter = 1
   if exists('g:lightline')
