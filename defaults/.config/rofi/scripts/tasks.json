@@ -36,6 +36,18 @@
     "command": "exec ~/.config/i3/scripts/bluetooth.lua 'disconnect'"
   },
   {
+    "name": "cheatsheet pdf",
+    "command": "exec ~/.config/i3/scripts/cheatsheet/cht.sh"
+  },
+  {
+    "name": "cheatsheet navi",
+    "command": "$TERMINAL /usr/bin/navi"
+  },
+  {
+    "name": "cheatsheet cheat.sh",
+    "command": "$TERMINAL /usr/bin/cht.sh --shell"
+  },
+  {
     "name": "audio control",
     "command": "pavucontrol"
   },
