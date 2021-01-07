@@ -127,10 +127,12 @@ mkinitcpio
 mosh
 mpv
 neomutt
+net-tools
 netctl
 network-manager-applet
 networkmanager
 networkmanager-openvpn
+nfs-utils
 nmap
 noto-fonts-emoji
 ntp
@@ -209,6 +211,7 @@ ttf-roboto-mono
 ufw
 unzip
 urlscan
+usbutils
 vi
 vim
 vint
