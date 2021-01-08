@@ -130,6 +130,9 @@ export DIFFSEARCHPATH="/boot /etc /usr"
 # As given by the output of tzselect
 export TZ='America/New_York'
 
+# Wine
+export WINEPREFIX="$XDG_DATA_HOME/wine"
+
 # Thu Feb 22 2018 08:59: Can't figure out how to set locale properly on arch.
 # Result:
 # Wed May 02 2018 04:57: Not needed anymore

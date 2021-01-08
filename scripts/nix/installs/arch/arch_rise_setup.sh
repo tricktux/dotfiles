@@ -595,9 +595,21 @@ paci --needed steam ttf-liberation lib32-mesa mesa lib32-nvidia-utils nvidia-uti
 - Tue Mar 26 2019 08:53 
 - `paci --needed --noconfirm lxqt-openssh-askpass`
 
-## wine
-
-- `paci --needed --noconfirm wine_gecko wine winetricks wine-mono`
+## wine{{{
+# Make sure WINEPREFIX exists
+paci --needed --noconfirm wine wine-gecko winetricks wine-mono
+paci --needed --noconfirm lib32-lib{pulse,xrandr}
+paci --needed --noconfirm dxvk-bin
+setup_dxvk install
+# Temp directory on tmpfs
+rm -r "$WINEPREFIX/drive_c/users/$USER/Temp"
+ln -s /tmp/ "$WINEPREFIX/drive_c/users/$USER/Temp"
+# Fix fonts
+cd ${WINEPREFIX:-~/.wine}/drive_c/windows/Fonts && for i in /usr/share/fonts/**/*.{ttf,otf}; do ln -s "$i" ; done
+export FREETYPE_PROPERTIES="truetype:interpreter-version=35"
+winetricks corefonts
+winetricks settings fontsmooth=rgb
+#}}}
 
 ## maintenence
 
