@@ -123,16 +123,17 @@ bindsym mod3+s exec --no-startup-id \
 # bindsym $mod+u exec --no-startup-id \
   # ~/.config/i3/scripts/xdotool_launch glances "glances --theme-white"
 bindsym $mod+u exec --no-startup-id \
-  ~/.config/i3/scripts/xdotool_launch bottom btm
+  ~/.config/i3/scripts/xdotool_launch bottom
 bindsym $mod+o exec --no-startup-id \
-  ~/.config/i3/scripts/xdotool_launch journal "~/.config/i3/scripts/journal.sh"
+  ~/.config/i3/scripts/xdotool_launch journal
 bindsym $mod+n exec --no-startup-id \
-  ~/.config/i3/scripts/xdotool_launch scratch "~/.config/tmux/scratch.sh"
+  ~/.config/i3/scripts/xdotool_launch scratch
 bindsym $mod+semicolon exec --no-startup-id \
-  ~/.config/i3/scripts/xdotool_launch terminal \
-  "-o background_opacity=0.9 tmux"
+  ~/.config/i3/scripts/xdotool_launch terminal
 bindsym $mod+p exec --no-startup-id \
-  ~/.config/i3/scripts/xdotool_launch neomutt "~/.config/tmux/neomutt.sh"
+  ~/.config/i3/scripts/xdotool_launch neomutt
+bindsym $mod+apostrophe exec --no-startup-id \
+  ~/.config/i3/scripts/xdotool_launch spotify
 
 
 # Some silly comment
