@@ -41,7 +41,7 @@
   },
   {
     "name": "cheatsheet navi",
-    "command": "$TERMINAL /usr/bin/navi"
+    "command": "$TERMINAL --hold /usr/bin/navi --print"
   },
   {
     "name": "cheatsheet cheat.sh",
