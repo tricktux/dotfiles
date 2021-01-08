@@ -115,9 +115,9 @@ xdotool.app_visible_args = [[search --name --onlyvisible]]
 -- NOTE: substitute here for setting terminal name if you change from kitty
 xdotool.exec = {
   ['scratch'] = '$TERMINAL --title scratch ~/.config/tmux/scratch.sh',
-  ['journal'] = '~$TERMINAL --title journal ~/.config/i3/scripts/journal.sh',
-  ['neomutt'] = '~$TERMINAL --title neomutt ~/.config/tmux/neomutt.sh',
-  ['terminal'] = '-$TERMINAL --title terminal o background_opacity=0.9 tmux',
+  ['journal'] = '$TERMINAL --title journal ~/.config/i3/scripts/journal.sh',
+  ['neomutt'] = '$TERMINAL --title neomutt ~/.config/tmux/neomutt.sh',
+  ['terminal'] = '$TERMINAL --title terminal o background_opacity=0.9 tmux',
   ['htop'] = '$TERMINAL --title htop htop',
   ['bottom'] = '$TERMINAL --title bottom btm',
   ['glances'] = '$TERMINAL --title glances glances --theme-white',
