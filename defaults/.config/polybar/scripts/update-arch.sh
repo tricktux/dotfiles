@@ -48,6 +48,19 @@ update_polybar_python_venv() {
   deactivate
 }
 
+update_github_repositories() {
+  local repos=(
+    "$XDG_DATA_HOME\polybar-scripts"
+  )
+
+  for i in "${repos[@]}"; do
+    if [[ -d "$i" ]]; then
+      cd "$i"
+      git pull origin master
+    fi
+  done
+}
+
 update_pass_import_python_venv() {
   local venv_loc="$XDG_DATA_HOME/pyvenv"
   local venv_name="pass-import"
