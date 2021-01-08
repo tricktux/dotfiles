@@ -28,10 +28,10 @@ local function _check_args()
     return -2
   end
 
-  if not arg[2] or arg[2] == '' or arg[2] == nil then
-    print(_usage)
-    return -3
-  end
+  -- if not arg[2] or arg[2] == '' or arg[2] == nil then
+    -- print(_usage)
+    -- return -3
+  -- end
 
   return 0
 end
@@ -42,11 +42,27 @@ local hostname = _get_hostname()
 local i3ipc = {}
 
 i3ipc.cmd = [[/usr/bin/i3-msg]]
-i3ipc.args = '[title="^' .. arg[1] .. '$"] scratchpad show'
+-- i3ipc.args = '[title="^' .. arg[1] .. '$"] scratchpad show'
+i3ipc.args = {
+  ['scratch'] = '[title="^scratch$"] scratchpad show',
+  ['journal'] = '[title="^journal$"] scratchpad show',
+  ['neomutt'] = '[title="^neomutt$"] scratchpad show',
+  ['terminal'] = '[title="^terminal$"] scratchpad show',
+  ['htop'] = '[title="^htop$"] scratchpad show',
+  ['bottom'] = '[title="^bottom$"] scratchpad show',
+  ['glances'] = '[title="^glances$"] scratchpad show',
+  ['spotify'] = '[class="^Spotify$"] scratchpad show',
+}
 i3ipc.terminal = {
   ['helios'] = 'resize set 960 1019, move position 960 px 32 px',
   ['predator'] = 'resize set 1920 2038, move position 1920 px 60 px',
   ['surbook'] = 'resize set 1368 1730, move position 1368 px 48 px'
+}
+i3ipc.scratch = {
+  ['surbook'] = 'resize set 1588 1459, move position center'
+}
+i3ipc.journal = {
+  ['surbook'] = 'resize set 1588 1459, move position center'
 }
 i3ipc.htop = {
   ['helios'] = 'resize set 1820 880, move position center',
@@ -69,6 +85,8 @@ i3ipc.glances = {
   ['surbook'] = 'resize set 2188 1459, move position center'
 }
 i3ipc.window_position = {
+  ['scratch'] = i3ipc.scratch[hostname],
+  ['journal'] = i3ipc.journal[hostname],
   ['neomutt'] = i3ipc.neomutt[hostname],
   ['terminal'] = i3ipc.terminal[hostname],
   ['htop'] = i3ipc.htop[hostname],
@@ -83,9 +101,8 @@ function i3ipc:hide()
 end
 
 function i3ipc:show()
-  local pos = self.window_position[arg[1]]
-  if pos == nil then pos = 'move position center' end
-  local cmd = self.cmd .. ' ' .. self.args .. ', ' .. pos
+  local pos = self.window_position[arg[1]] or 'move position center'
+  local cmd = self.cmd .. ' ' .. self.args[arg[1]] .. ', ' .. pos
   -- print(cmd)
   os.execute(cmd)
 end
@@ -95,9 +112,17 @@ local xdotool = {}
 xdotool.path = [[/usr/bin/xdotool]]
 xdotool.app_exists_args = [[search --name]]
 xdotool.app_visible_args = [[search --name --onlyvisible]]
--- NOTE: Import substitute here for setting terminal name if you change from
--- kitty
-xdotool.cmd = '$TERMINAL --title ' .. arg[1] .. ' ' .. arg[2] .. '&'
+-- NOTE: substitute here for setting terminal name if you change from kitty
+xdotool.exec = {
+  ['scratch'] = '$TERMINAL --title scratch ~/.config/tmux/scratch.sh',
+  ['journal'] = '~$TERMINAL --title journal ~/.config/i3/scripts/journal.sh',
+  ['neomutt'] = '~$TERMINAL --title neomutt ~/.config/tmux/neomutt.sh',
+  ['terminal'] = '-$TERMINAL --title terminal o background_opacity=0.9 tmux',
+  ['htop'] = '$TERMINAL --title htop htop',
+  ['bottom'] = '$TERMINAL --title bottom btm',
+  ['glances'] = '$TERMINAL --title glances glances --theme-white',
+  ['spotify'] = 'spotify',
+}
 
 function xdotool:wait_for_window_visible(app)
   -- print('Waiting for ' .. app .. '...')
@@ -134,12 +159,9 @@ function xdotool:window_visible(app)
 end
 
 function xdotool:eval()
-  -- print('Executing "' .. self.cmd .. '"')
-  os.execute(self.cmd)
-  -- local file = assert(io.popen(self.cmd))
-  -- local output = file:read('*all')
-  -- file:close()
-  -- return output
+  local cmd = self.exec[arg[1]] .. '&'
+  -- print('Executing "' .. cmd .. '"')
+  os.execute(cmd)
 end
 
 local function main()
