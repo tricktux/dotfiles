@@ -10,7 +10,7 @@ trap cleanup SIGINT SIGTERM ERR #EXIT
 
 cleanup() {
   trap - SIGINT SIGTERM ERR #EXIT
-  msg "${RED}${BOLD}==> Something went wrong..."
+  msg_error "==> Something went wrong...   "
   read -n1 -r key
   exit $?
 }
@@ -30,7 +30,16 @@ setup_colors() {
 }
 
 msg() {
-  echo >&2 -e "${1-}${NOFORMAT}"
+  echo >&2 -e "${1-}${2-}${NOFORMAT}"
+}
+msg_not() {
+  echo >&2 -e "${1-}${2-}${NOFORMAT}"
+  # Skip pretty characters
+  notify-send 'Arch Update' "${2:4:-6}"
+}
+msg_error() {
+  echo >&2 -e "${RED}${BOLD}${1-}${NOFORMAT}"
+  notify-send 'Arch Update' "${1:4:-6}" -u critical
 }
 
 update_polybar_python_venv() {
@@ -122,74 +131,84 @@ setup_colors
 # Always update keyring first in case it's been a while you've updated the
 # system
 # This is not a good practice. Leaving it here for reference
-# msg "${CYAN}${BOLD}==> Updating keyring..."
+# msg "${CYAN}${BOLD}==> Updating keyring...   "
 # trizen -Sy --needed archlinux-keyring ca-certificates
 
-msg "${CYAN}${BOLD}==> Updating all packages..."
+msg_not "${CYAN}${BOLD}" "==> Updating core packages...   "
+sudo pacman -Syu
+
+msg_not "${CYAN}${BOLD}" "==> Updating aur packages...   "
 trizen -Syu
 
-msg "${CYAN}${BOLD}==> Storing package list..."
+msg "${CYAN}${BOLD}" "==> Storing package list...   "
 save_pkg_list_to_dotfiles
 
-msg "${CYAN}${BOLD}==> Checking for .pacnew files..."
-sudo DIFFPROG="nvim -d" DIFFSEARCHPATH="/boot /etc /usr" /usr/bin/pacdiff
+msg "${CYAN}${BOLD}" "==> Checking for .pacnew files...   "
+if [[ $(/usr/bin/pacdiff -o) ]]; then
+  msg_not "${CYAN}${BOLD}" "==> Please address .pacnew files...   "
+  sudo DIFFPROG="nvim -d" DIFFSEARCHPATH="/boot /etc /usr" /usr/bin/pacdiff
+fi
 
-if [[ -f /usr/bin/ancient-packages ]]; then
-  msg "${CYAN}${BOLD}==> Lists installed packages no longer available..."
-  ancient-packages ||
-    msg "${RED}${BOLD}Try again with a wider screen later"
-  msg "${CYAN}${BOLD}==> Do you wish to remove ancient packages? [y/N]"
+if [ -f /usr/bin/ancient-packages -a $(/usr/bin/ancient-packages -q) ]; then
+  msg_not "${CYAN}${BOLD}" "==> Remove ancient packages? [y/N]"
   read yn
   case $yn in
   [Yy]*) trizen -Rscn $(ancient-packages -q) ;;
   esac
 fi
 
-msg "${CYAN}${BOLD}==> Clean up orphan packages..."
-sudo /usr/bin/pacman -Rns $(/usr/bin/pacman -Qtdq) ||
-  msg "${GREEN}${BOLD}No orphans detected"
+msg "${CYAN}${BOLD}" "==> Checking for orphan packages...   "
+if [[ $(/usr/bin/pacman -Qtdq) ]]; then
+  msg_not "${CYAN}${BOLD}" "==> Please clean orphan packages...   "
+  sudo /usr/bin/pacman -Rns $(/usr/bin/pacman -Qtdq)
+fi
 
-msg "${CYAN}${BOLD}==> Clean up pacman's cache..."
+msg "${CYAN}${BOLD}" "==> Clean up pacman's cache...   "
 sudo /usr/bin/paccache -ruk0 -r
 
-msg "${CYAN}${BOLD}==> Check for failed systemd services..."
+msg_not "${CYAN}${BOLD}" "==> Checking for failed services...   "
 systemctl --failed
 read -n1 -r key
 
-msg "${CYAN}${BOLD}==> Look for high priority errors in the systemd journal..."
+msg_not "${CYAN}${BOLD}" "==> Looking for errors in journalctl...   "
 journalctl -p 3 -xb
 read -n1 -r key
 
-msg "${BLUE}${BOLD}==> Do you wish to back up important folders? [y/N]"
+msg_not "${BLUE}${BOLD}" "==> Back up important folders? [y/N]"
 read yn
 case $yn in
 [Yy]*) sudo "$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_home.sh" ;;
 esac
-msg "${BLUE}${BOLD}==> Do you wish to back up the mail server (~30mins)? [y/N]"
+msg_not "${BLUE}${BOLD}" "==> Back up the mail server (~30mins)? [y/N]"
 read yn
 case $yn in
 [Yy]*)
-  sudo "$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_digital_ocean.sh"
+  "$TERMINAL" sudo \
+    $XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_digital_ocean.sh &
   ;;
 esac
-msg "${BLUE}${BOLD}==> Do you wish to back up emails (~30mins)? [y/N]"
+msg_not "${BLUE}${BOLD}" "==> Back up emails (~60mins)? [y/N]"
 read yn
 case $yn in
 [Yy]*)
-  offlineimap -c "$XDG_CONFIG_HOME/dotfiles/offlineimap/backup" -o
+  "$TERMINAL" offlineimap -c "$XDG_CONFIG_HOME/dotfiles/offlineimap/backup" -o &
   ;;
 esac
-msg "${BLUE}${BOLD}==> Do you wish to remove junk? [y/N]"
+msg_not "${BLUE}${BOLD}" "==> Remove junk? [y/N]"
 read yn
 case $yn in
 [Yy]*)
-  source /home/reinaldo/.config/polybar/scripts/rm_junk
+  msg "${CYAN}${BOLD}" "==> Please close all applications..."
+  read -n1 -r key
+  source "$XDG_CONFIG_HOME/polybar/scripts/rm_junk"
   ;;
 esac
-msg "${BLUE}${BOLD}==> Do you wish to remove browser junk? [y/N]"
+msg_not "${BLUE}${BOLD}" "==> Remove browser junk? [y/N]"
 read yn
 case $yn in
 [Yy]*)
+  msg "${CYAN}${BOLD}" "==> Please close browsers...   "
+  read -n1 -r key
   bleachbit --clean chromium.cache \
     firefox.backup \
     firefox.cache \
@@ -213,32 +232,32 @@ case $yn in
     chromium.vacuum
   ;;
 esac
-msg "${BLUE}${BOLD}==> Do you wish to update python polybar env? [y/N]"
+msg_not "${BLUE}${BOLD}" "==> Update python polybar env? [y/N]"
 read yn
 case $yn in
 [Yy]*) update_polybar_python_venv ;;
 esac
-msg "${BLUE}${BOLD}==> Do you wish to update pass import python? [y/N]"
+msg_not "${BLUE}${BOLD}" "==> Update pass import python? [y/N]"
 read yn
 case $yn in
 [Yy]*) update_pass_import_python_venv ;;
 esac
-msg "${BLUE}${BOLD}==> Do you wish to update neovim pyvenv? [y/N]"
+msg_not "${BLUE}${BOLD}" "==> Update neovim pyvenv? [y/N]"
 read yn
 case $yn in
 [Yy]*) update_pynvim ;;
 esac
-msg "${BLUE}${BOLD}==> Do you wish to update neovim plugins? [y/N]"
+msg_not "${BLUE}${BOLD}" "==> Update neovim plugins? [y/N]"
 read yn
 case $yn in
 [Yy]*) update_nvim_plugins ;;
 esac
-msg "${BLUE}${BOLD}==> Do you wish to update neovim-git? [y/N]"
+msg_not "${BLUE}${BOLD}" "==> Update neovim-git? [y/N]"
 read yn
 case $yn in
 [Yy]*) trizen -S neovim-git ;;
 esac
-msg "${BLUE}${BOLD}==> Do you wish to update zsh-zim? [y/N]"
+msg_not "${BLUE}${BOLD}" "==> Update zsh-zim? [y/N]"
 read yn
 case $yn in
 [Yy]*)
@@ -246,12 +265,17 @@ case $yn in
   zsh "$ZDOTDIR/.zim/zimfw.zsh" update
   ;;
 esac
-msg "${BLUE}${BOLD}==> Do you wish to pandoc-{citeproc,crossref}-bin? [y/N]"
+msg_not "${BLUE}${BOLD}" "==> Update pandoc extras? [y/N]"
 read yn
 case $yn in
 [Yy]*) update_pandoc_bin ;;
 esac
-msg "${BLUE}${BOLD}==> Manually update the firefox userjs: ~/.mozilla/firefox/<profile>"
+msg_not "${BLUE}${BOLD}" "==> Manually update the firefox userjs: ~/.mozilla/firefox/<profile>"
 read -n1 -r key
-msg "${BLUE}${BOLD}==> Thanks for flying arch updates!"
+
+for job in $(jobs -p); do
+  msg_not "${BLUE}${BOLD}" "==> Waiting for job: ${job} to finish...   "
+  wait $job
+done
+msg_not "${BLUE}${BOLD}" "==> Thanks for flying arch updates!"
 read -n1 -r key
