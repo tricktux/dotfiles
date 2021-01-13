@@ -10,3 +10,9 @@ export GDK_SCALE=2
 export QT_SCALE_FACTOR=2
 export QT_AUTO_SCREEN_SCALE_FACTOR=0
 export MOZ_USE_XINPUT2=1
+
+if [ -f /usr/bin/xrandr ]; then
+  /usr/bin/xrandr --dpi 192
+fi
+
+vim: ft=sh

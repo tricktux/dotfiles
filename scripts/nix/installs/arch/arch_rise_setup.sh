@@ -136,8 +136,25 @@ sudo systemctl enable --now reflector.timer
 sudo systemctl start reflector.service
 #}}}
 
+# Linux kernel{{{
+# Tue Dec 29 2020 09:44
+# Just stay with LTS please. When nvidia is involved is just painful
+# Installing LTS
+paci linux-lts{,-headers} nvidia-lts
+# If you need to remove linux
+pacu linux{,-headers} nvidia
+# **NOTE: Otherwise you wont be able to boot**
+# Update /boot/loader/entries/arch.conf
+# Below for lts
+# linux /vmlinuz-linux-lts
+# initrd /initramfs-linux-lts.img
+# Just remove the -lts for regular linux
+#}}}
+
+# Protects from running out of memory{{{
 paci --needed --noconfirm earlyoom
 sudo systemctl enable --now earlyoom
+#}}}
 
 # Video card{{{
 lspci -k | grep -A 2 -i "VGA"
@@ -155,7 +172,9 @@ paci --needed --noconfirm nvidia-lts
 paci --needed --noconfirm nvidia
 paci --needed --noconfirm nvidia-libgl lib32-nvidia-libgl lib32-nvidia-utils nvidia-utils nvidia-settings nvtop
 # ***Configure DRM*** It should allow for the kernel to control the card
-sudo bash -c 'printf "options nvidia-drm modeset=1" > /etc/modprobe.d/nvidia-drm.conf'
+# Don't do this. I though it caused problems with picom. Now not sure. Better be 
+# safe than sorry
+# sudo bash -c 'printf "options nvidia-drm modeset=1" > /etc/modprobe.d/nvidia-drm.conf'
 # ***Configure Xorg***
 # Don't worry it will auto backup /etc/X11/xorg.conf
 sudo nvidia-xconfig
@@ -576,9 +595,21 @@ paci --needed steam ttf-liberation lib32-mesa mesa lib32-nvidia-utils nvidia-uti
 - Tue Mar 26 2019 08:53 
 - `paci --needed --noconfirm lxqt-openssh-askpass`
 
-## wine
-
-- `paci --needed --noconfirm wine_gecko wine winetricks wine-mono`
+## wine{{{
+# Make sure WINEPREFIX exists
+paci --needed --noconfirm wine wine-gecko winetricks wine-mono
+paci --needed --noconfirm lib32-lib{pulse,xrandr}
+paci --needed --noconfirm dxvk-bin
+setup_dxvk install
+# Temp directory on tmpfs
+rm -r "$WINEPREFIX/drive_c/users/$USER/Temp"
+ln -s /tmp/ "$WINEPREFIX/drive_c/users/$USER/Temp"
+# Fix fonts
+cd ${WINEPREFIX:-~/.wine}/drive_c/windows/Fonts && for i in /usr/share/fonts/**/*.{ttf,otf}; do ln -s "$i" ; done
+export FREETYPE_PROPERTIES="truetype:interpreter-version=35"
+winetricks corefonts
+winetricks settings fontsmooth=rgb
+#}}}
 
 ## maintenence
 

@@ -1,12 +1,15 @@
+ancient-packages
 bluez-firmware
+bottom-bin
 brillo
 checkstyle
 cmake-format
 cmake-lint
+gdb-dashboard-git
 hal
-htop-vim-git
 i3ass
 i3lock-fancy-git
+informant
 jdtls
 laptop-mode-tools
 lazygit

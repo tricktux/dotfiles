@@ -6,6 +6,7 @@ android-tools
 android-udev
 anki
 arandr
+arch-audit
 archlinux-wallpaper
 astyle
 atool
@@ -24,6 +25,7 @@ cbatticon
 ccache
 chromium
 clang
+cmake
 cmus
 colorgcc
 cppcheck
@@ -32,6 +34,8 @@ cups
 cups-pdf
 dhcpcd
 dialog
+docker
+docker-compose
 dosfstools
 dunst
 earlyoom
@@ -82,6 +86,7 @@ jre8-openjdk
 jsoncpp
 keepass
 kitty
+lib32-libpulse
 lib32-nvidia-utils
 lib32-vulkan-icd-loader
 libao
@@ -94,10 +99,11 @@ libmpcdec
 libreoffice-still
 libtool
 lightdm
-linux
 linux-firmware
-linux-headers
+linux-lts
+linux-lts-headers
 lldb
+luajit
 luit
 lvm2
 lxappearance
@@ -120,12 +126,12 @@ noto-fonts-emoji
 ntfs-3g
 ntp
 numlockx
-nvidia
-nvidia-dkms
+nvidia-lts
 nvidia-settings
 nvidia-utils
 nvtop
 odt2txt
+offlineimap
 openssh-askpass
 otf-fira-mono
 otf-font-awesome
@@ -179,6 +185,7 @@ texlive-pictures
 texlive-pstricks
 texlive-publishers
 texlive-science
+thunderbird
 tldr
 tmux
 traceroute
@@ -194,6 +201,10 @@ w3m
 wavpack
 websocketpp
 which
+wine
+wine-gecko
+wine-mono
+winetricks
 wireless_tools
 wireshark-qt
 words

@@ -2,9 +2,12 @@ ancient-packages
 bluez-firmware
 bottom-bin
 checkstyle
+cht.sh-git
 cmake-format
 cmake-lint
+dxvk-bin
 gdb-dashboard-git
+git-delta
 i3ass
 informant
 jdtls
@@ -12,7 +15,8 @@ lazygit
 liquidprompt
 lua-format
 luacheck
-neovim-git
+navi-bin
+neovim-nightly-bin
 neovim-remote
 nerd-fonts-dejavu-complete
 nerd-fonts-inconsolata

@@ -103,7 +103,7 @@ enable-ipc = false
 scroll-up = i3wm-wsnext
 scroll-down = i3wm-wsprev
 
-modules-left = i3 space space player-cmus
+modules-left = i3 space space playerctl
 modules-center = xwindow
 modules-right = strava space openweather space date time powermenu
 
