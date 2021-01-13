@@ -172,6 +172,47 @@ case $yn in
   sudo "$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_digital_ocean.sh"
   ;;
 esac
+msg "${BLUE}${BOLD}==> Do you wish to back up emails (~30mins)? [y/N]"
+read yn
+case $yn in
+[Yy]*)
+  offlineimap -c "$XDG_CONFIG_HOME/dotfiles/offlineimap/backup" -o
+  ;;
+esac
+msg "${BLUE}${BOLD}==> Do you wish to remove junk? [y/N]"
+read yn
+case $yn in
+[Yy]*)
+  source /home/reinaldo/.config/polybar/scripts/rm_junk
+  ;;
+esac
+msg "${BLUE}${BOLD}==> Do you wish to remove browser junk? [y/N]"
+read yn
+case $yn in
+[Yy]*)
+  bleachbit --clean chromium.cache \
+    firefox.backup \
+    firefox.cache \
+    firefox.cookies \
+    firefox.crash_reports \
+    firefox.dom \
+    firefox.forms \
+    firefox.passwords \
+    firefox.session_restore \
+    firefox.site_preferences \
+    firefox.url_history \
+    firefox.vacuum \
+    chromium.cookies \
+    chromium.dom \
+    chromium.form_history \
+    chromium.history \
+    chromium.passwords \
+    chromium.search_engines \
+    chromium.session \
+    chromium.sync \
+    chromium.vacuum
+  ;;
+esac
 msg "${BLUE}${BOLD}==> Do you wish to update python polybar env? [y/N]"
 read yn
 case $yn in
