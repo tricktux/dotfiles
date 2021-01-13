@@ -15,7 +15,7 @@ trap cleanup SIGINT SIGTERM ERR #EXIT
 
 cleanup() {
   trap - SIGINT SIGTERM ERR #EXIT
-  msg "${RED}${BOLD}==> Something went wrong..."
+  msg_error "==> Something went wrong..."
   read -n1 -r key
   exit $?
 }
@@ -35,7 +35,13 @@ setup_colors() {
 }
 
 msg() {
-  echo >&2 -e "${1-}${NOFORMAT}"
+  echo >&2 -e "${1-}${2-}${NOFORMAT}"
+  # Skip pretty characters
+  notify-send 'Rsync Mail Server' "${2}"
+}
+msg_error() {
+  echo >&2 -e "${RED}${BOLD}${1-}${NOFORMAT}"
+  notify-send 'Rsync Mail Server' "${1:4:-3}" -u critical
 }
 
 setup_colors
@@ -54,7 +60,7 @@ rsync $OPTS $SRC $SNAP/latest >>$SNAP/rsync.log
 
 COUNT=$(wc -l $SNAP/rsync.log | cut -d" " -f1)
 if [ "$COUNT" -gt "$MINCHANGES" ]; then
-  msg "${CYAN}[rsync_backup]: Creating new snapshot..."
+  msg "${CYAN}" "Creating new snapshot..."
   DATETAG=$(date +%Y-%m-%d)
   if [ ! -e $SNAP/$DATETAG ]; then
     cp -al $SNAP/latest $SNAP/$DATETAG
