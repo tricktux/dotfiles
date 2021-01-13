@@ -6,6 +6,7 @@ android-tools
 android-udev
 anki
 arandr
+arch-audit
 archlinux-wallpaper
 astyle
 atool
@@ -24,6 +25,7 @@ cbatticon
 ccache
 chromium
 clang
+cmake
 cmus
 colorgcc
 cppcheck
@@ -32,6 +34,8 @@ cups
 cups-pdf
 dhcpcd
 dialog
+docker
+docker-compose
 dosfstools
 dunst
 earlyoom
@@ -127,6 +131,7 @@ nvidia-settings
 nvidia-utils
 nvtop
 odt2txt
+offlineimap
 openssh-askpass
 otf-fira-mono
 otf-font-awesome

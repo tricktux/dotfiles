@@ -7,6 +7,7 @@ cmake-format
 cmake-lint
 dxvk-bin
 gdb-dashboard-git
+git-delta
 i3ass
 informant
 jdtls
