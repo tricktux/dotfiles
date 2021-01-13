@@ -65,7 +65,7 @@ function! plugin#Config()
 
   Plug 'dbeniamine/cheat.sh-vim'
   let g:CheatSheetDoNotMap=1
-  let g:CheatSheetIdPath=g:std_cache_path .
+  let g:ChePHX_GUIatSheetIdPath=g:std_cache_path .
         \ '\cheat_sh_id'
 
   Plug 'tpope/vim-obsession'
