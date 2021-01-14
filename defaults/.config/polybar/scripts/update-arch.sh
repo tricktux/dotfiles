@@ -75,6 +75,7 @@ update_pass_import_python_venv() {
   local venv_name="pass-import"
   local pkgs=(
     defusedxml pykeepass secretstorage cryptography file-magic
+    pyaml pass-import
   )
 
   mkdir -p "$venv_loc"
