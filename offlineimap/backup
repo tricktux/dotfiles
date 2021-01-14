@@ -99,4 +99,42 @@ keepalive = 60
 # is not set.
 holdconnectionopen = yes
 
+[Account molinamail-meli]
+# Identifier for the local repository; e.g. the maildir to be synced via IMAP.
+localrepository = molinamail-meli-local
+# Identifier for the remote repository; i.e. the actual IMAP, usually non-local.
+remoterepository = molinamail-meli-remote
+# Minutes between syncs
+autorefresh = 0.5
+# Quick-syncs do not update if the only changes were to IMAP flags.
+# autorefresh=0.5 together with quick=10 yields
+# 10 quick refreshes between each full refresh, with 0.5 minutes between every 
+# refresh, regardless of type.
+quick = 10
+
+[Repository molinamail-meli-local]
+# OfflineIMAP supports Maildir, GmailMaildir, and IMAP for local repositories.
+type = Maildir
+# Where should the mail be placed?
+localfolders = ~/.mnt/skywafer/home/mail/molinamail-meli
+sync_deletes = no
+
+[Repository molinamail-meli-remote]
+# Remote repos can be IMAP or Gmail, the latter being a preconfigured IMAP.
+type = IMAP
+remotehost = box.molinamail.com
+remoteuser = melixam@molinamail.com
+remotepasseval = get_molinamail_meli_pass()
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+# Instead of closing the connection once a sync is complete, offlineimap will
+# send empty data to the server to hold the connection open. A value of 60
+# attempts to hold the connection for a minute between syncs (both quick and
+# autorefresh).This setting has no effect if autorefresh and holdconnectionopen
+# are not both set.
+  keepalive = 60
+# OfflineIMAP normally closes IMAP server connections between refreshes if
+# the global option autorefresh is specified.  If you wish it to keep the
+# connection open, set this to true. This setting has no effect if autorefresh
+# is not set.
+  holdconnectionopen = yes
 # vim: ft=dosini
