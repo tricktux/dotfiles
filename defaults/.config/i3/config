@@ -380,7 +380,7 @@ bindsym XF86PowerDown exec --no-startup-id "i3-msg '[class=\".\"] kill' && syste
   for_window [class="Pinentry"] floating enable
   for_window [class="Youtube-dl-gui"] floating enable
   for_window [class="Nm-connection-editor"] floating enable
-  for_window [class="Anki"] floating enable
+  # for_window [class="Anki"] floating enable
   for_window [class="Qt4-ssh-askpass"] floating enable
   for_window [class="lxqt-openssh-askpass"] floating enable
   for_window [class="Yad" title="yad-calendar"] floating enable
