@@ -209,6 +209,9 @@ case $yn in
   msg "${CYAN}${BOLD}" "==> Please close all applications..."
   read -n1 -r key
   source "$XDG_CONFIG_HOME/polybar/scripts/rm_junk"
+  mkdir -p ~/.cache
+  # Clean trash
+  gio trash --empty
   ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Remove browser junk? [y/N]"
