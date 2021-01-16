@@ -331,9 +331,8 @@ sudo gpasswd -a reinaldo autologin
 # autologin-user=reinaldo
 # autologin-session=i3-with-shmlog
 
-# Editor
-
-paci --needed --noconfirm neovim cscope ripgrep universal-ctags-git global xclip vim
+# Development environment {{{
+paci --needed --noconfirm neovim cscope ripgrep ctags global xclip vim
 paci --needed --noconfirm neovim-remote
 # for diffs
 paci --needed --noconfirm meld
@@ -350,8 +349,12 @@ paci --needed --noconfirm vint
 
 ## cmake
 
-paci --needed --noconfirm cmake-{lint,format}
+paci --needed --noconfirm cmake{,-lint,-format}
 # ~~`install cmake-language-server`~~
+
+## rust{{{
+paci rust{,fmt,-analyzer}
+#}}}
 
 ## cpp
 
@@ -383,7 +386,7 @@ paci --needed --noconfirm python{,-pip} python2{,-pip}
 # Run the update-arch.sh script and will create/update such modules
 # install python-language-server flake8 python-pylint yapf --noconfirm
 # pip install --user stravalib
-
+#}}}
 # SSD
 
 paci --needed --noconfirm util-linux
