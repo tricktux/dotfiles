@@ -50,6 +50,16 @@ SRC="/home/reinaldo/.gnupg /home/reinaldo/.ssh /home/reinaldo/.password-store /t
 SNAP="/home/reinaldo/.mnt/skynfs/$HOSTNAME"
 OPTS="-rltgoi --delay-updates --delete --chmod=a-w --copy-links --mkpath"
 MINCHANGES=20
+CIFS_OPTIONS=credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,noauto,_netdev,nolock
+SKYWAFER="//192.168.1.138/homes"
+
+# Mount homes if not mounted before
+if ! [ "$(ls -A $DIR)" ]; then
+  # Ensure folder exists
+  mkdir -p "$DIR"
+  msg "${CYAN}${BOLD}" "==> Mounting homes..."
+  sudo mount -t cifs "$SKYWAFER" "$DIR" -o "$CIFS_OPTIONS"
+fi
 
 rsync $OPTS $SRC $SNAP/latest >>$SNAP/rsync.log
 
