@@ -151,6 +151,7 @@ if [[ $(/usr/bin/pacdiff -o) ]]; then
 fi
 
 if [ -f /usr/bin/ancient-packages -a $(/usr/bin/ancient-packages -q) ]; then
+  /usr/bin/ancient-packages
   msg_not "${CYAN}${BOLD}" "==> Remove ancient packages? [y/N]"
   read yn
   case $yn in
