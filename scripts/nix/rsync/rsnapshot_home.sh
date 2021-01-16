@@ -15,7 +15,7 @@ trap cleanup SIGINT SIGTERM ERR #EXIT
 
 cleanup() {
   trap - SIGINT SIGTERM ERR #EXIT
-  msg "${RED}${BOLD}==> Something went wrong..."
+  msg_error "==> Something went wrong..."
   read -n1 -r key
   exit $?
 }
@@ -35,7 +35,13 @@ setup_colors() {
 }
 
 msg() {
-  echo >&2 -e "${1-}${NOFORMAT}"
+  echo >&2 -e "${1-}${2-}${NOFORMAT}"
+  # Skip pretty characters
+  notify-send 'Rsync Home' "${2}"
+}
+msg_error() {
+  echo >&2 -e "${RED}${BOLD}${1-}${NOFORMAT}"
+  notify-send 'Rsync Home' "${1:4:-3}" -u critical
 }
 
 setup_colors
@@ -47,18 +53,20 @@ setup_colors
 tar -cjf /tmp/pacman_database.tar.bz2 /var/lib/pacman/local
 SRC="/home/reinaldo/.gnupg /home/reinaldo/.ssh /home/reinaldo/.password-store /tmp/pacman_database.tar.bz2"
 # SNAP="/snapshots/username"
-SNAP="/home/reinaldo/.mnt/skynfs/$HOSTNAME"
+SNAP="$HOME/.mnt/skynfs/$HOSTNAME"
 OPTS="-rltgoi --delay-updates --delete --chmod=a-w --copy-links --mkpath"
 MINCHANGES=20
 CIFS_OPTIONS=credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,noauto,_netdev,nolock
 SKYWAFER="//192.168.1.138/homes"
 
 # Mount homes if not mounted before
-if ! [ "$(ls -A $DIR)" ]; then
+if ! [ "$(ls -A $SNAP)" ]; then
   # Ensure folder exists
-  mkdir -p "$DIR"
-  msg "${CYAN}${BOLD}" "==> Mounting homes..."
-  sudo mount -t cifs "$SKYWAFER" "$DIR" -o "$CIFS_OPTIONS"
+  msg_error "==> Backup destination not available..."
+  exit 1
+  # TODO: Try to mount it
+  # sudo mount -t cifs "$SKYWAFER" "$DIR" -o "$CIFS_OPTIONS"
+  # mkdir -p "$SNAP"
 fi
 
 rsync $OPTS $SRC $SNAP/latest >>$SNAP/rsync.log
@@ -68,7 +76,7 @@ rsync $OPTS $SRC $SNAP/latest >>$SNAP/rsync.log
 
 COUNT=$(wc -l $SNAP/rsync.log | cut -d" " -f1)
 if [ "$COUNT" -gt "$MINCHANGES" ]; then
-  msg "${CYAN}[rsync_backup]: Creating new snapshot..."
+  msg "${CYAN}${BOLD}" "==> [rsync_backup]: Creating new snapshot..."
   DATETAG=$(date +%Y-%m-%d)
   if [ ! -e $SNAP/$DATETAG ]; then
     cp -al $SNAP/latest $SNAP/$DATETAG

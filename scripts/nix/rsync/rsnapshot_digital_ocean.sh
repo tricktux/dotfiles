@@ -48,10 +48,20 @@ setup_colors
 
 SRC="digital_ocean:/home/user-data/" #dont forget trailing slash!
 # SNAP="/snapshots/username"
-SNAP="/home/reinaldo/.mnt/skynfs/mailserver"
+SNAP="$HOME/.mnt/skynfs/mailserver"
 OPTS="-rltgoi -v --archive --delay-updates --delete --chmod=a-w 
   --copy-links --mkpath --relative -e 'ssh'"
 MINCHANGES=20
+
+# Mount homes if not mounted before
+if ! [ "$(ls -A $SNAP)" ]; then
+  # Ensure folder exists
+  msg_error "==> Backup destination not available..."
+  exit 1
+  # TODO: Try to mount it
+  # sudo mount -t cifs "$SKYWAFER" "$DIR" -o "$CIFS_OPTIONS"
+  # mkdir -p "$SNAP"
+fi
 
 rsync $OPTS $SRC $SNAP/latest >>$SNAP/rsync.log
 
@@ -60,7 +70,7 @@ rsync $OPTS $SRC $SNAP/latest >>$SNAP/rsync.log
 
 COUNT=$(wc -l $SNAP/rsync.log | cut -d" " -f1)
 if [ "$COUNT" -gt "$MINCHANGES" ]; then
-  msg "${CYAN}" "Creating new snapshot..."
+  msg "${CYAN}${BOLD}" "==> [rsync_backup]: Creating new snapshot..."
   DATETAG=$(date +%Y-%m-%d)
   if [ ! -e $SNAP/$DATETAG ]; then
     cp -al $SNAP/latest $SNAP/$DATETAG
