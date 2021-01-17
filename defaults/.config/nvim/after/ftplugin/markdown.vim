@@ -103,8 +103,6 @@ if !exists('no_plugin_maps') && !exists('no_markdown_maps')
 	vmap <localleader>b <plug>bold_visual_word
 	vnoremap <buffer> <plug>bold_visual_word :call <sid>bold_word()<bar>
 				\ silent! call repeat#set("\<lt>Plug>bold_visual_word", v:count)<cr>
-
-	nnoremap ]f <Plug>Markdown_EditUrlUnderCursor
 endif
 
 function! s:bold_current_word() abort
