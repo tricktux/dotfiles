@@ -263,11 +263,18 @@ read yn
 case $yn in
 [Yy]*) update_nvim_plugins ;;
 esac
-msg_not "${BLUE}${BOLD}" "==> Update neovim-git? [y/N]"
-read yn
-case $yn in
-[Yy]*) trizen -S neovim-git ;;
-esac
+# msg_not "${BLUE}${BOLD}" "==> Update github third-party repos? [y/N]"
+# read yn
+# case $yn in
+# [Yy]*)
+  # ;;
+# esac
+# Sun Jan 17 2021 05:52: Moved to neovim-nightly-bin
+# msg_not "${BLUE}${BOLD}" "==> Update neovim-git? [y/N]"
+# read yn
+# case $yn in
+# [Yy]*) trizen -S neovim-git ;;
+# esac
 msg_not "${BLUE}${BOLD}" "==> Update zsh-zim? [y/N]"
 read yn
 case $yn in
