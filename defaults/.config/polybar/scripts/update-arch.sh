@@ -112,9 +112,8 @@ update_pandoc_bin() {
   # Sun Jul 14 2019 20:59
   # For some reason pandoc-{citeproc,crossref}-bin have been deleted from aur
   # So use this temporary workaround
-  cd /tmp
-  git clone --recursive https://github.com/ashwinvis/aur.git
-  cd aur/pandoc-citeproc-bin
+  git clone --recursive https://github.com/ashwinvis/aur.git /tmp/aur
+  cd /tmp/aur/pandoc-citeproc-bin
   makepkg -si
   cd ../pandoc-crossref-bin
   makepkg -si
