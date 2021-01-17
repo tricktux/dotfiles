@@ -12,11 +12,6 @@ import subprocess
 # You always need to import ranger.api.commands here to get the Command class:
 from ranger.api.commands import *
 
-#  from ranger.container.file import File
-
-# A simple command for demonstration purposes follows.
-# -----------------------------------------------------------------------------
-
 
 #  https://github.com/ask1234560/ranger-zjumper
 class z(Command):
@@ -25,6 +20,12 @@ class z(Command):
     """
 
     def execute(self):
+
+        if self.arg(1):
+            search_string = self.rest(1)
+        else:
+            self.fm.notify("Usage: z <search string>", bad=True)
+            return
 
         # location of .z file
         z_loc = os.getenv("_Z_DATA") or os.getenv("HOME") + "/.local/share/z"
@@ -38,12 +39,11 @@ class z(Command):
             if req.search(i):
                 directories.append(i.split("|")[0])
 
-        try:
-            #  smallest(length) directory will be the directory required
-            self.fm.execute_console("cd " +
-                                    min(directories, key=lambda x: len(x)))
-        except Exception as e:
-            raise Exception("Directory not found")
+        z_folder = os.path.abspath(min(directories, key=lambda x: len(x)))
+        if os.path.isdir(z_folder):
+            self.fm.cd(z_folder)
+        else:
+            self.fm.notify(f"Z: Directory ({z_folder}) not found", bad=True)
 
 
 class fzf(Command):
