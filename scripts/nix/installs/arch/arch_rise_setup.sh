@@ -337,6 +337,7 @@ sudo gpasswd -a reinaldo autologin
 # Development environment {{{
 paci --needed --noconfirm neovim cscope ripgrep ctags global xclip vim
 paci --needed --noconfirm neovim-remote
+paci --needed --noconfirm ripgrep-all
 # for diffs
 paci --needed --noconfirm meld
 # for documentation
@@ -347,8 +348,8 @@ paci --needed --noconfirm pandoc-{,citeproc-,crossref-}bin
 paci --needed --noconfirm plantuml look words
 
 ## vim
-
-paci --needed --noconfirm vint
+# Sun Jan 17 2021 07:07: Depracated. Install in the pynvim venv
+# paci --needed --noconfirm vint
 
 ## cmake
 
