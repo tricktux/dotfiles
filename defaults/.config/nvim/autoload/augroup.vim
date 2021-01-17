@@ -53,7 +53,12 @@ function! augroup#Set() abort
           \ fdn=88 define=^\\(#\\s*define\\|[a-z]*\\s*const\\s*[a-z]*\\)
 
     " Python
-    " autocmd FileType python setlocal foldmethod=syntax
+    autocmd FileType python setlocal foldmethod=syntax
+          \ textwidth=79
+          \ shiftwidth=4
+          \ tabstop=4
+          \ softtabstop=4
+          \ define=^\s*\\(def\\\\|class\\)
 
     autocmd FileType fzf inoremap <buffer> <c-j> <down>
     autocmd FileType fzf inoremap <buffer> <c-n> <down>
