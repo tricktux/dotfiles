@@ -1,4 +1,5 @@
 advcp
+ancient-packages
 bluez-firmware
 brillo
 cmake-format
@@ -8,6 +9,7 @@ dispad-git
 hal
 htop-vim-git
 i3ass
+informant
 jdtls
 laptop-mode-tools
 lazygit
@@ -22,7 +24,6 @@ nerd-fonts-iosevka
 networkmanager-dmenu-git
 numix-gtk-theme
 optimus-manager
-otf-fira-code
 paper-gtk-theme-git
 paper-icon-theme
 pass-import
@@ -33,11 +34,8 @@ rofi-dmenu
 rofi-emoji
 simple-scan-3.12
 spotify
-synology-drive
 teamviewer
-trizen-git
+trizen
 ttf-weather-icons
-universal-ctags-git
 vdhcoapp-bin
-xlogin-git
 zeal

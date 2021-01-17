@@ -53,7 +53,6 @@ feh
 firefox
 firefox-extension-privacybadger
 firefox-noscript
-flake8
 flameshot
 flex
 fzf
@@ -119,7 +118,7 @@ mkinitcpio
 mosh
 mpv
 neomutt
-neovim-qt
+net-tools
 netctl
 network-manager-applet
 networkmanager
@@ -149,7 +148,6 @@ patch
 pavucontrol
 pcmanfm
 pdfgrep
-pdftk
 picom
 pkgconf
 pkgfile
@@ -159,11 +157,8 @@ powertop
 primus
 pulseaudio-alsa
 pulseaudio-bluetooth
-python-language-server
 python-pip
 python-pykeepass
-python-pylint
-python-pynvim
 python-pyqt5
 python-pywal
 python2-pip
@@ -206,7 +201,6 @@ unzip
 urlscan
 valgrind
 vi
-vint
 vlc
 vulkan-icd-loader
 vulkan-intel
@@ -216,6 +210,7 @@ websocketpp
 wget
 which
 wireless_tools
+wireshark-qt
 words
 wpa_supplicant
 xf86-input-evdev
