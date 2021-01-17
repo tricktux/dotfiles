@@ -97,7 +97,7 @@ update_pynvim() {
   local pkgs=(
     vim-vint psutil flake8 jedi
     "python-language-server[all]" frosted
-    pep8 pylint pynvim isort
+    pep8 pylint pynvim isort mypy
   )
 
   mkdir -p "$venv_loc"
