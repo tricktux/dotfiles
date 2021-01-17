@@ -150,7 +150,7 @@ if [[ $(/usr/bin/pacdiff -o) ]]; then
   sudo DIFFPROG="nvim -d" DIFFSEARCHPATH="/boot /etc /usr" /usr/bin/pacdiff
 fi
 
-if [ -f /usr/bin/ancient-packages -a $(/usr/bin/ancient-packages -q) ]; then
+if [[ -f /usr/bin/ancient-packages ]] && [[ $(/usr/bin/ancient-packages -q) ]]; then
   /usr/bin/ancient-packages
   msg_not "${CYAN}${BOLD}" "==> Remove ancient packages? [y/N]"
   read yn
@@ -192,9 +192,9 @@ esac
 msg_not "${BLUE}${BOLD}" "==> Sync passwords? [y/N]"
 read yn
 case $yn in
-  [Yy]*)
-    "$TERMINAL" $HOME/Documents/wiki/scripts/backup_keepass_db.sh &
-    ;;
+[Yy]*)
+  "$TERMINAL" $HOME/Documents/wiki/scripts/backup_keepass_db.sh &
+  ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Back up emails (~60mins)? [y/N]"
 read yn
