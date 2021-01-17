@@ -52,8 +52,8 @@ setup_colors
 [[ -f /tmp/pacman_database.tar.bz2 ]] && rm /tmp/pacman_database.tar.bz2
 tar -cjf /tmp/pacman_database.tar.bz2 /var/lib/pacman/local
 SRC="/home/reinaldo/.gnupg /home/reinaldo/.ssh /home/reinaldo/.password-store /tmp/pacman_database.tar.bz2"
-# SNAP="/snapshots/username"
-SNAP="$HOME/.mnt/skynfs/$HOSTNAME"
+# Needs full path since its run as sudo
+SNAP="/home/reinaldo/.mnt/skynfs/$HOSTNAME"
 OPTS="-rltgoi --delay-updates --delete --chmod=a-w --copy-links --mkpath"
 MINCHANGES=20
 CIFS_OPTIONS=credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,noauto,_netdev,nolock

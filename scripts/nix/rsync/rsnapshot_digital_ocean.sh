@@ -47,8 +47,8 @@ msg_error() {
 setup_colors
 
 SRC="digital_ocean:/home/user-data/" #dont forget trailing slash!
-# SNAP="/snapshots/username"
-SNAP="$HOME/.mnt/skynfs/mailserver"
+# Needs full path since its run as sudo
+SNAP="/home/reinaldo/.mnt/skynfs/mailserver"
 OPTS="-rltgoi -v --archive --delay-updates --delete --chmod=a-w 
   --copy-links --mkpath --relative -e 'ssh'"
 MINCHANGES=20
