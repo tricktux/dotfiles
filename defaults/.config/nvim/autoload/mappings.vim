@@ -533,18 +533,19 @@ function! mappings#Set()
   " nnoremap <Leader>vi :!svn info<cr>
 
   " Wiki mappings <Leader>w?
-  nnoremap <leader>wo :call <SID>wiki_open()<cr>
-  nnoremap <leader>wa :call <SID>wiki_add()<cr>
-  nnoremap <leader>ws :call utils#WikiSearch()<cr>
-  nnoremap <leader>wi :call <sid>wiki_open('index.md')<cr>
-  nnoremap <leader>wr :call <sid>wiki_open('random.md')<cr>
-  nnoremap <leader>ww :call <sid>wiki_open('weekly_log_' .
+  nnoremap <silent> <leader>wo :call <SID>wiki_open()<cr>
+  nnoremap <silent> <leader>wa :call <SID>wiki_add()<cr>
+  nnoremap <silent> <leader>ws :call utils#WikiSearch()<cr>
+  nnoremap <silent> <leader>wi :call <sid>wiki_open('index.md')<cr>
+  nnoremap <silent> <leader>wb :call <sid>wiki_open('brain_dump.md')<cr>
+  nnoremap <silent> <leader>wr :call <sid>wiki_open('random.md')<cr>
+  nnoremap <silent> <leader>ww :call <sid>wiki_open('weekly_log_' .
         \ strftime('%Y') . '.md')<cr>
-  nnoremap <leader>wm :call <sid>wiki_open('monthly_log_' .
+  nnoremap <silent> <leader>wm :call <sid>wiki_open('monthly_log_' .
         \ strftime('%Y') . '.md')<cr>
   if has('nvim-0.5')
     " Command to edit weekly report
-    nnoremap <leader>wp <cmd>lua require('plugin.report'):edit_weekly_report()<cr>
+    nnoremap <silent> <leader>wp <cmd>lua require('plugin.report'):edit_weekly_report()<cr>
   end
 
   " Comments <Leader>o
