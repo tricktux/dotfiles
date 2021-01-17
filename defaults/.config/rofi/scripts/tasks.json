@@ -20,6 +20,10 @@
     "command": "exec ~/.config/polybar/scripts/flux_/flux -c ~/.config/polybar/scripts/flux_/flux_config.lua -f night"
   },
   {
+    "name": "qrencode clipboard",
+    "command": "xclip -selection clipboard -o | qrencode -o - |  feh -FZ -"
+  },
+  {
     "name": "polybar relaunch",
     "command": "exec ~/.config/polybar/scripts/launch.sh"
   },
