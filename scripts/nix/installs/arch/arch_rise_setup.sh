@@ -282,14 +282,17 @@ sudo bash -c \
 #}}}
 
 # i3-wm{{{
-paci --needed --noconfirm i3-gaps i3blocks i3lock rofi rofi-dmenu i3ass xdotool dunst
-paci --needed --noconfirm feh cbatticon redshift
+paci --needed --noconfirm i3-gaps i3blocks i3lock rofi rofi-dmenu i3ass xdotool 
+paci --needed --noconfirm feh redshift qrencode xclip dunst
 paci --needed --noconfirm scrot flameshot
+# Needed to backup emails
+paci --needed --noconfirm offlineimap
 # Replacement for htop. Execute: btm
 paci --needed --noconfirm bottom-bin
 # Compton changed name to picom
 paci --needed --noconfirm picom
 # Deprecated
+# `cbatticon `
 # `paystray`
 # `blueberry`
 #}}}
