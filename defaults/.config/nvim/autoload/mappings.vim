@@ -1275,6 +1275,8 @@ function! mappings#SetWhichKeyMap() abort
   nnoremap [s [s
   let g:which_key_right_bracket_map = {}
   let g:which_key_right_bracket_map.c = 'next_diff'
+  let g:which_key_right_bracket_map.p = ['diffput', 'diffput']
+  let g:which_key_right_bracket_map.g = ['diffget', 'diffget']
   let g:which_key_right_bracket_map.y = 'yank_from_next_lines'
   let g:which_key_right_bracket_map.d = 'delete_next_lines'
   let g:which_key_right_bracket_map.o = 'comment_next_lines'
@@ -1304,6 +1306,8 @@ function! mappings#SetWhichKeyMap() abort
 
   let g:which_key_left_bracket_map = {}
   let g:which_key_left_bracket_map.c = 'prev_diff'
+  let g:which_key_left_bracket_map.p = ['diffput', 'diffput']
+  let g:which_key_left_bracket_map.g = ['diffget', 'diffget']
   let g:which_key_left_bracket_map.y = 'yank_from_prev_lines'
   let g:which_key_left_bracket_map.d = 'delete_prev_lines'
   let g:which_key_left_bracket_map.o = 'comment_prev_lines'
