@@ -131,7 +131,7 @@ bindsym $mod+n exec --no-startup-id \
 bindsym $mod+semicolon exec --no-startup-id \
   ~/.config/i3/scripts/xdotool_launch terminal
 bindsym $mod+p exec --no-startup-id \
-  ~/.config/i3/scripts/xdotool_launch neomutt
+  ~/.config/i3/scripts/xdotool_launch evolution
 bindsym $mod+apostrophe exec --no-startup-id \
   ~/.config/i3/scripts/xdotool_launch spotify
 
@@ -396,6 +396,7 @@ bindsym XF86PowerDown exec --no-startup-id "i3-msg '[class=\".\"] kill' && syste
   for_window [title="^bottom$"] move to scratchpad
   for_window [title="^scratch$"] move to scratchpad
   for_window [class="Spotify"] move to scratchpad
+  for_window [class="Evolution"] move to scratchpad, scratchpad show 
 
 # Taken from https://github.com/Airblader/dotfiles-manjaro
   for_window [class="Nitrogen"] floating enable

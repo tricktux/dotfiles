@@ -47,6 +47,7 @@ i3ipc.args = {
   ['scratch'] = '[title="^scratch$"] scratchpad show',
   ['journal'] = '[title="^journal$"] scratchpad show',
   ['neomutt'] = '[title="^neomutt$"] scratchpad show',
+  ['evolution'] = '[class="^Evolution$"] scratchpad show',
   ['terminal'] = '[title="^terminal$"] scratchpad show',
   ['htop'] = '[title="^htop$"] scratchpad show',
   ['bottom'] = '[title="^bottom$"] scratchpad show',
@@ -79,6 +80,11 @@ i3ipc.neomutt = {
   ['predator'] = 'resize set 3040 1524, move position center',
   ['surbook'] = 'resize set 2188 1459, move position center'
 }
+i3ipc.evolution = {
+    ['helios'] = 'resize set 1320 880, move position center',
+    ['predator'] = 'resize set 3040 1524, move position center',
+    ['surbook'] = 'resize set 2188 1459, move position center'
+}
 i3ipc.glances = {
   ['helios'] = 'resize set 1820 880, move position center',
   ['predator'] = 'resize set 3640 1024, move position center',
@@ -88,6 +94,7 @@ i3ipc.window_position = {
   ['scratch'] = i3ipc.scratch[hostname],
   ['journal'] = i3ipc.journal[hostname],
   ['neomutt'] = i3ipc.neomutt[hostname],
+  ['evolution'] = i3ipc.evolution[hostname],
   ['terminal'] = i3ipc.terminal[hostname],
   ['htop'] = i3ipc.htop[hostname],
   ['bottom'] = i3ipc.bottom[hostname],
@@ -117,6 +124,7 @@ xdotool.exec = {
   ['scratch'] = '$TERMINAL --title scratch ~/.config/tmux/scratch.sh',
   ['journal'] = '$TERMINAL --title journal ~/.config/i3/scripts/journal.sh',
   ['neomutt'] = '$TERMINAL --title neomutt ~/.config/tmux/neomutt.sh',
+  ['evolution'] = 'evolution',
   ['terminal'] = '$TERMINAL --title terminal -o background_opacity=0.9 tmux',
   ['htop'] = '$TERMINAL --title htop htop',
   ['bottom'] = '$TERMINAL --title bottom btm',
