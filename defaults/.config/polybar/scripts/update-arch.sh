@@ -126,6 +126,16 @@ save_pkg_list_to_dotfiles() {
   pacman -Qqem >$AURFILE
 }
 
+update_pihole() {
+  ssh root@192.168.1.107 << EOF
+  pihole -up
+  cloudflared update
+  systemctl status cloudflared
+  systemctl restart cloudflared
+  systemctl status cloudflared
+  EOF
+}
+
 setup_colors
 
 # Always update keyring first in case it's been a while you've updated the
@@ -201,6 +211,13 @@ case $yn in
 [Yy]*)
   "$TERMINAL" offlineimap -c "$XDG_CONFIG_HOME/dotfiles/offlineimap/backup" -o &
   ;;
+esac
+msg_not "${BLUE}${BOLD}" "==> Update pihole? [y/N]"
+read yn
+case $yn in
+  [Yy]*)
+    update_pihole
+    ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Remove junk? [y/N]"
 read yn
