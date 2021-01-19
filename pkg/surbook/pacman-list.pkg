@@ -30,7 +30,6 @@ clang
 cmus
 colorgcc
 cppcheck
-cronie
 cscope
 cups
 cups-pdf
@@ -40,6 +39,8 @@ dialog
 docker
 docker-compose
 dosfstools
+dstat
+dunst
 earlyoom
 efibootmgr
 ethtool
@@ -53,7 +54,6 @@ ffmpeg
 file
 findutils
 firefox
-flake8
 flameshot
 flex
 fzf
@@ -64,7 +64,6 @@ gdb
 gettext
 ghostscript
 git
-glances
 global
 google-glog
 gparted
@@ -83,7 +82,6 @@ hunspell
 i3-gaps
 i3blocks
 i3lock
-i3status
 imagemagick
 intel-gpu-tools
 intel-media-driver
@@ -137,8 +135,8 @@ nmap
 noto-fonts-emoji
 ntp
 odt2txt
+offlineimap
 openssh
-os-prober
 otf-fira-mono
 otf-font-awesome
 pacman
@@ -150,7 +148,6 @@ patch
 pavucontrol
 pcmanfm
 pdfgrep
-php-cgi
 picom
 pkgconf
 pkgfile
@@ -158,12 +155,10 @@ plantuml
 playerctl
 poppler
 powertop
-ppp
 pulseaudio
 pulseaudio-alsa
 pulseaudio-bluetooth
 python-cpplint
-python-language-server
 python-pip
 python-pykeepass
 python-pylint
@@ -184,7 +179,6 @@ sdparm
 sed
 shfmt
 simple-scan
-socat
 stow
 sudo
 syslog-ng
@@ -208,13 +202,11 @@ ttf-fira-mono
 ttf-font-awesome
 ttf-inconsolata
 ttf-roboto-mono
-ufw
 unzip
 urlscan
 usbutils
 vi
 vim
-vint
 vulkan-intel
 w3m
 wavpack
@@ -272,7 +264,6 @@ xorg-xwayland
 xorg-xwd
 xorg-xwininfo
 xorg-xwud
-xournalpp
 xsel
 yapf
 zathura
