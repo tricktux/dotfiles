@@ -128,11 +128,11 @@ save_pkg_list_to_dotfiles() {
 
 update_pihole() {
   ssh root@192.168.1.107 << EOF
-  pihole -up
-  cloudflared update
-  systemctl status cloudflared
-  systemctl restart cloudflared
-  systemctl status cloudflared
+    pihole -up
+    cloudflared update
+    systemctl status cloudflared
+    systemctl restart cloudflared
+    systemctl status cloudflared
   EOF
 }
 
