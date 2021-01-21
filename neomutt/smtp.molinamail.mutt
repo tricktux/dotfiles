@@ -7,15 +7,43 @@
 # Last Modified:  Tue Jan 22 2019 17:24
 
 # IMAP config
-set imap_user="$my_username@$my_domain"
-set imap_pass=$my_password
+# set imap_user="$my_username@$my_domain"
+# set imap_pass=$my_password
 
-set folder = 'imaps://box.molinamail.com:993'
-set spoolfile= +INBOX
-set postponed= +$my_drafts_noquote
-set record = +$my_sent_noquote
-set trash = +$my_trash_noquote
-mailboxes
+# set folder = 'imaps://box.molinamail.com:993'
+set folder = "~/mail/molinamail"
+set spoolfile= "~/mail/molinamail/inbox"
+set postponed= "~/mail/molinamail/Drafts"
+set record = "~/mail/molinamail/Sent"
+set trash = "~/mail/molinamail/Archive"
+mailboxes =amazon
+mailboxes =ana_sofia
+mailboxes =anadaycareupdates
+mailboxes =Archive
+mailboxes =boxupdates
+mailboxes =cpp
+mailboxes =Drafts
+mailboxes =events
+mailboxes =finances
+mailboxes =github
+mailboxes =health
+mailboxes =honeywellpaystubs
+mailboxes =inbox
+mailboxes =jobs
+mailboxes =pollen
+mailboxes =receipts
+mailboxes =registrations
+mailboxes =relevant
+mailboxes =Sent
+mailboxes =shopping
+mailboxes =Spam
+mailboxes =strava
+mailboxes =Trash
+mailboxes =waterford_hoa
+mailboxes =zwift
+
+set mbox_type=Maildir
+# sidebar_whitelist '~/mail/molinamail/'
 
 # SMTP config
 set from = "$my_username@$my_domain"
