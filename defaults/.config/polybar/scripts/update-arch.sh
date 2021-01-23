@@ -127,13 +127,16 @@ save_pkg_list_to_dotfiles() {
 }
 
 update_pihole() {
-  ssh root@192.168.1.107 << EOF
-    pihole -up
-    cloudflared update
-    systemctl status cloudflared
-    systemctl restart cloudflared
-    systemctl status cloudflared
-  EOF
+  ssh root@192.168.1.107 <<EOF
+pihole -up
+cloudflared update
+systemctl status cloudflared
+read -n1 -r key
+systemctl restart cloudflared
+read -n1 -r key
+systemctl status cloudflared
+read -n1 -r key
+EOF
 }
 
 setup_colors
@@ -215,9 +218,9 @@ esac
 msg_not "${BLUE}${BOLD}" "==> Update pihole? [y/N]"
 read yn
 case $yn in
-  [Yy]*)
-    update_pihole
-    ;;
+[Yy]*)
+  update_pihole
+  ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Remove junk? [y/N]"
 read yn
