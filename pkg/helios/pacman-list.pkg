@@ -26,13 +26,13 @@ boost
 boost-libs
 bumblebee
 capitaine-cursors
-cbatticon
 ccache
 chromium
 cmake
 cmus
 cppcheck
 cscope
+ctags
 cups
 cups-pdf
 dhcp
@@ -45,6 +45,7 @@ earlyoom
 efibootmgr
 espeak
 ethtool
+evolution
 exa
 f2fs-tools
 fakeroot
@@ -63,6 +64,7 @@ ghostscript
 git
 glances
 global
+go
 google-glog
 groff
 grub
@@ -81,6 +83,7 @@ i3blocks
 i3lock
 imagemagick
 inetutils
+isync
 jdk-openjdk
 jdk8-openjdk
 jq
@@ -106,6 +109,7 @@ lightdm
 linux
 linux-firmware
 lldb
+luajit
 luit
 lvm2
 lxappearance
@@ -136,6 +140,7 @@ nvidia-settings
 nvidia-utils
 nvtop
 odt2txt
+offlineimap
 openssh
 os-prober
 otf-fira-mono
@@ -163,6 +168,7 @@ python-pyqt5
 python-pywal
 python2-pip
 qpdfview
+qrencode
 ranger
 rapidjson
 redshift
