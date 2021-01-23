@@ -1,12 +1,12 @@
 #!/usr/bin/luajit
 
-function tablelength(T)
+local function tablelength(T)
 	local count = 0
 	for _ in pairs(T) do count = count + 1 end
 	return count
 end
 
-function connect_to(device)
+local function connect_to(device)
 	if device == nil then
 		return false
 	end
@@ -19,8 +19,8 @@ function connect_to(device)
 	end
 
 	print('==> Connecting to ' .. device)
-	for i = 0, 10 do
-		local rc = os.execute("bluetoothctl -- connect " .. device)
+	for _ = 0, 10 do
+		rc = os.execute("bluetoothctl -- connect " .. device)
 		if rc == true then
 			return true
 		end
@@ -30,9 +30,9 @@ function connect_to(device)
 	return false
 end
 
-function disconnect()
+local function disconnect()
 	print('==> Disconnecting')
-	for i = 0, 10 do
+	for _ = 0, 10 do
 		local rc = os.execute("bluetoothctl -- disconnect")
 		if rc == true then
 			break
@@ -47,7 +47,7 @@ function disconnect()
 	end
 end
 
-function main()
+local function main()
 	local len = tablelength(arg) - 2
 
 	if len < 1 then
