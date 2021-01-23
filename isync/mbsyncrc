@@ -26,47 +26,47 @@ Channel gmail
 Master :gmail-remote:
 Slave :gmail-local:
 # Exclude everything under the internal [Gmail] folder, except the interesting folders
-# Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
+Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/Drafts" "[Gmail]/Important"
 # Or include everything
-Patterns * !"[Gmail]/All Mail"
+# Patterns * !"[Gmail]/All Mail"
 # Automatically create missing mailboxes, both locally and on the server
 Create Both
 # Save the synchronization state files in the relevant directory
 SyncState *
 
-# Channel sync-googlemail-default
-# Master :gmail-remote:
-# Slave :gmail-local:
-# # Select some mailboxes to sync
-# Patterns "INBOX" "arch"
+Channel sync-googlemail-default
+Master :gmail-remote:
+Slave :gmail-local:
+# Select some mailboxes to sync
+Patterns "INBOX" "arch"
 
-# Channel sync-googlemail-sent
-# Master :gmail-remote:"[Google Mail]/Sent Mail"
-# Slave :gmail-local:sent
-# Create Slave
+Channel sync-googlemail-sent
+Master :gmail-remote:"[Gmail]/Sent Mail"
+Slave :gmail-local:sent
+Create Slave
 
-# Channel sync-googlemail-drafts
-# Master :gmail-remote:"[Google Mail]/Drafts"
-# Slave :gmail-local:drafts
-# Create Slave
+Channel sync-googlemail-drafts
+Master :gmail-remote:"[Gmail]/Drafts"
+Slave :gmail-local:drafts
+Create Slave
 
-# Channel sync-googlemail-important
-# Master :gmail-remote:"[Google Mail]/Important"
-# Slave :gmail-local:important
-# Create Slave
+Channel sync-googlemail-important
+Master :gmail-remote:"[Gmail]/Important"
+Slave :gmail-local:important
+Create Slave
 
-# Channel sync-googlemail-flagged
-# Master :gmail-remote:"[Google Mail]/Starred"
-# Slave :gmail-local:flagged
-# Create Slave
+Channel sync-googlemail-flagged
+Master :gmail-remote:"[Gmail]/Starred"
+Slave :gmail-local:flagged
+Create Slave
 
-# # Get all the channels together into a group.
-# Group googlemail
-# Channel sync-googlemail-default
-# Channel sync-googlemail-sent
-# Channel sync-googlemail-drafts
-# Channel sync-googlemail-important
-# Channel sync-googlemail-flagged
+# Get all the channels together into a group.
+Group googlemail
+Channel sync-googlemail-default
+Channel sync-googlemail-sent
+Channel sync-googlemail-drafts
+Channel sync-googlemail-important
+Channel sync-googlemail-flagged
 
 IMAPAccount molinamail
 # Address to connect to
