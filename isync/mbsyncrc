@@ -26,7 +26,7 @@ Channel gmail
 Master :gmail-remote:
 Slave :gmail-local:
 # Exclude everything under the internal [Gmail] folder, except the interesting folders
-Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/Drafts" "[Gmail]/Important"
+Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/Drafts"
 # Or include everything
 # Patterns * !"[Gmail]/All Mail"
 # Automatically create missing mailboxes, both locally and on the server
@@ -50,10 +50,10 @@ Master :gmail-remote:"[Gmail]/Drafts"
 Slave :gmail-local:drafts
 Create Slave
 
-Channel sync-googlemail-important
-Master :gmail-remote:"[Gmail]/Important"
-Slave :gmail-local:important
-Create Slave
+# Channel sync-googlemail-important
+# Master :gmail-remote:"[Gmail]/Important"
+# Slave :gmail-local:important
+# Create Slave
 
 Channel sync-googlemail-flagged
 Master :gmail-remote:"[Gmail]/Starred"
