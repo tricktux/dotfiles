@@ -128,14 +128,14 @@ save_pkg_list_to_dotfiles() {
 
 update_pihole() {
   ssh root@192.168.1.107 <<EOF
-pihole -up
-cloudflared update
-systemctl status cloudflared
-read -n1 -r key
-systemctl restart cloudflared
-read -n1 -r key
-systemctl status cloudflared
-read -n1 -r key
+  pihole -up
+  cloudflared update
+  systemctl status cloudflared
+  read -n1 -r key
+  systemctl restart cloudflared
+  read -n1 -r key
+  systemctl status cloudflared
+  read -n1 -r key
 EOF
 }
 
@@ -208,11 +208,12 @@ case $yn in
   "$TERMINAL" $HOME/Documents/wiki/scripts/backup_keepass_db.sh &
   ;;
 esac
-msg_not "${BLUE}${BOLD}" "==> Back up emails (~60mins)? [y/N]"
+msg_not "${BLUE}${BOLD}" "==> Back up emails (~15mins)? [y/N]"
 read yn
 case $yn in
 [Yy]*)
-  "$TERMINAL" offlineimap -c "$XDG_CONFIG_HOME/dotfiles/offlineimap/backup" -o &
+  "$TERMINAL" sudo \
+    $XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_mail.sh &
   ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Update pihole? [y/N]"
