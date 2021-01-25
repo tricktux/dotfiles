@@ -233,6 +233,9 @@ case $yn in
   mkdir -p ~/.cache
   # Clean trash
   gio trash --empty
+  # Restore pywal cache files
+  msg "${CYAN}${BOLD}" "==> Please restore colors by forcing flux night or day..."
+  read -n1 -r key
   ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Remove browser junk? [y/N]"
