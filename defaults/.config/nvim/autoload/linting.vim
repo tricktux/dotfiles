@@ -79,7 +79,7 @@ function! s:set_neomake() abort
 	"  and build only the name of the current file (%:t:r)
 	let g:neomake_make_unix_maker = {
 				\ 'exe': 'make',
-				\ 'args': ['-C', 'build', '-j`nproc`', '%:t:r'],
+				\ 'args': ['-C', 'build', '-j12', '%:t:r'],
 				\ 'append_file' : 0,
 				\ 'errorformat': '%f:%l:%c: %m',
 				\ }
