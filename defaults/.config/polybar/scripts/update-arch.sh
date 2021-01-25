@@ -229,7 +229,7 @@ case $yn in
 [Yy]*)
   msg "${CYAN}${BOLD}" "==> Please close all applications..."
   read -n1 -r key
-  source "$XDG_CONFIG_HOME/polybar/scripts/rm_junk"
+  "$XDG_CONFIG_HOME/polybar/scripts/rm_junk"
   mkdir -p ~/.cache
   # Clean trash
   gio trash --empty
@@ -288,12 +288,8 @@ msg_not "${BLUE}${BOLD}" "==> Diff ranger config with default? [y/N]"
 read yn
 case $yn in
 [Yy]*)
-  nvim -d /usr/share/doc/ranger/config/commands.py \
-    "$XDG_CONFIG_HOME/ranger/commands.py"
   nvim -d /usr/share/doc/ranger/config/rc.conf \
     "$XDG_CONFIG_HOME/ranger/rc.conf"
-  nvim -d /usr/share/doc/ranger/config/scope.sh \
-    "$XDG_CONFIG_HOME/ranger/scope.sh"
   ;;
 esac
 # msg_not "${BLUE}${BOLD}" "==> Update github third-party repos? [y/N]"
