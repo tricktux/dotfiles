@@ -31,6 +31,7 @@ cmus
 colorgcc
 cppcheck
 cscope
+ctags
 cups
 cups-pdf
 curlftpfs
@@ -44,6 +45,7 @@ dunst
 earlyoom
 efibootmgr
 ethtool
+evolution
 exa
 f2fs-tools
 fakeroot
@@ -65,6 +67,7 @@ gettext
 ghostscript
 git
 global
+gnome-keyring
 google-glog
 gparted
 grep
@@ -86,6 +89,7 @@ imagemagick
 intel-gpu-tools
 intel-media-driver
 intel-ucode
+isync
 jdk-openjdk
 jdk8-openjdk
 jq
@@ -166,6 +170,7 @@ python-pynvim
 python-pyqt5
 python-pywal
 qpdfview
+qrencode
 ranger
 rapidjson
 redshift
