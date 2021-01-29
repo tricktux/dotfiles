@@ -457,17 +457,38 @@ paci --needed --noconfirm numix-gtk-theme paper-icon-theme capitaine-cursors lxa
 paci --needed --noconfirm glances
 # ~~`install lxtask stacer-bin glances`~~
 
-# Audio/Music
+# Audio/Music{{{
 
 paci --needed --noconfirm cmus playerctl
 paci --needed --noconfirm libpulse pamixer alsa-lib libao libcdio libcddb libvorbis libmpcdec wavpack libmad libmodplug libmikmod pavucontrol
 paci --needed --noconfirm mpv
 
+paci --needed --noconfirm spotify
+# Spotify theme
+paci --needed --noconfirm spicetify-{cli,themes-git}
+# https://github.com/morpheusthewhite/spicetify-themes/tree/master/Dribbblish
+# Steps to set the theme
+cd /usr/share/spicetify-cli/Themes/Dribbblish
+# cp dribbblish.js ../../Extensions
+spicetify config extensions dribbblish.js
+spicetify config current_theme Dribbblish color_scheme base
+spicetify config inject_css 1 replace_colors 1 overwrite_assets 1
+# https://github.com/khanhas/spicetify-cli/wiki/Installation#spotify-installed-from-aur
+sudo chmod a+wr /opt/spotify
+sudo chmod a+wr /opt/spotify/Apps -R
+# spicetify config color_scheme dracula2
+spicetify config color_scheme beach-sunset
+spicetify backup
+spicetify apply
+
 # Tue Mar 12 2019 07:24
 # Gearing towards `mpd`
 # Mainly because `cmus` is not working properly in `helios`
 # Gonna give it a try
-paci --needed --noconfirm mpd vimpc-git
+# Fri Jan 29 2021 16:20: !Deprecated!
+# paci --needed --noconfirm mpd vimpc-git
+
+#}}}
 
 # Email
 # protonmail-bridge 

@@ -80,6 +80,11 @@ i3ipc.neomutt = {
   ['predator'] = 'resize set 3040 1524, move position center',
   ['surbook'] = 'resize set 2188 1459, move position center'
 }
+i3ipc.spotify = {
+  ['helios'] = 'resize set 1320 480, move position center',
+  ['predator'] = 'resize set 3040 1024, move position center',
+  ['surbook'] = 'resize set 2188 1059, move position center'
+}
 i3ipc.evolution = {
     ['helios'] = 'resize set 1320 880, move position center',
     ['predator'] = 'resize set 3040 1524, move position center',
@@ -98,7 +103,8 @@ i3ipc.window_position = {
   ['terminal'] = i3ipc.terminal[hostname],
   ['htop'] = i3ipc.htop[hostname],
   ['bottom'] = i3ipc.bottom[hostname],
-  ['glances'] = i3ipc.glances[hostname]
+  ['glances'] = i3ipc.glances[hostname],
+  ['spotify'] = i3ipc.spotify[hostname],
 }
 
 function i3ipc:hide()
