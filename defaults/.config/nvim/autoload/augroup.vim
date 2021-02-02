@@ -53,7 +53,7 @@ function! augroup#Set() abort
           \ fdn=88 define=^\\(#\\s*define\\|[a-z]*\\s*const\\s*[a-z]*\\)
 
     " Python
-    autocmd FileType python setlocal foldmethod=syntax
+    autocmd FileType python setlocal
           \ textwidth=79
           \ shiftwidth=4
           \ tabstop=4
