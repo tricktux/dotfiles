@@ -46,16 +46,18 @@ local function setup_treesitter()
   tsconf.setup {
     -- This line will install all of them
     -- one of "all", "language", or a list of languages
-    ensure_installed = {"c", "cpp", "python", "lua", "java", "bash", "c_sharp"},
+    ensure_installed = {"c", "cpp", "python", "lua", "java", "bash", 
+            "c_sharp", "rust", "json", "toml"},
     highlight = {
       enable = true, -- false will disable the whole extension
-      incremental_selection = {enable = true},
+      -- incremental_selection = {enable = true},
       textobjects = {enable = true}
     },
     indent = {enable = true}
     -- disable = {"c", "rust"} -- list of language that will be disabled
   }
 
+  vim.cmd("autocmd FileType c,cpp,python,lua,java,bash,rust,json,toml,cs setlocal foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
   -- if exists('g:lightline')
   -- let g:lightline.active.right[2] += [ 'sessions' ]
   -- let g:lightline.component_function['sessions'] =
