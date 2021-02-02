@@ -100,7 +100,7 @@ git:
     # detects that your password store is a git repository, as well as
     # providing options for pushing to/pulling from the remote repository.
     # You can disable this feature by setting the following option to false:
-    use-git: true
+    use-git: false
     # One of 'auto', 'builtin', or 'native-git'. 'builtin' will use the Git
     # library to sync your password repository. This will work out of the box,
     # but the library has several limitations. Notably, credential helpers
@@ -222,7 +222,7 @@ hotkeys:
         type-username: false
         type-password: false
   - 
-    hotkey: 'ctrl alt shift p'
+    hotkey: 'ctrl alt a'
     action: 'decrypt-password'
     options:
         copy-to-clipboard: true
@@ -268,7 +268,7 @@ application:
         # Should we check for updates?
         # This will, when an update is available, add a menu entry that, when
         # clicked, will send you to the GitHub release page for the update.
-        check-for-updates: true
+        check-for-updates: false
         # Set this to true if you also want to check for prereleases.
         allow-prereleases: false
 
