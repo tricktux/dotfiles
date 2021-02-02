@@ -1590,8 +1590,8 @@ function! s:configure_vim_signify() abort
       \ }
   endif
 
-  nnoremap ]c :call <sid>next_hunk()<cr>
-  nnoremap [c :call <sid>prev_hunk()<cr>
+  nnoremap <silent> ]c :call <sid>next_hunk()<cr>
+  nnoremap <silent> [c :call <sid>prev_hunk()<cr>
 
   " Remove all default autocomands and just do this ones
   autocmd User SignifyAutocmds
