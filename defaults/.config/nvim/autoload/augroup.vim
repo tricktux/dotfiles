@@ -60,6 +60,13 @@ function! augroup#Set() abort
           \ softtabstop=4
           \ define=^\s*\\(def\\\\|class\\)
 
+    " Python
+    autocmd FileType vim setlocal
+                \ textwidth=79
+                \ shiftwidth=2
+                \ tabstop=2
+                \ softtabstop=2
+
     autocmd FileType fzf inoremap <buffer> <c-j> <down>
     autocmd FileType fzf inoremap <buffer> <c-n> <down>
 
