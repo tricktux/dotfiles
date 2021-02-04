@@ -1,72 +1,72 @@
-IMAPAccount gmail
-# Address to connect to
-Host imap.gmail.com
-User rmolin88@gmail.com
-# Pass ***************
-# To store the password in an encrypted file use PassCmd instead of Pass
-PassCmd "pass websites/google.com/rmolin88/neomutt"
-#
-# Use SSL
-SSLType IMAPS
-# The following line should work. If get certificate errors, uncomment the two following lines and read the "Troubleshooting" section.
-CertificateFile /etc/ssl/certs/ca-certificates.crt
-#CertificateFile ~/.cert/imap.gmail.com.pem
-#CertificateFile ~/.cert/Equifax_Secure_CA.pem
+# IMAPAccount gmail
+# # Address to connect to
+# Host imap.gmail.com
+# User rmolin88@gmail.com
+# # Pass ***************
+# # To store the password in an encrypted file use PassCmd instead of Pass
+# PassCmd "pass websites/google.com/rmolin88/neomutt"
+# #
+# # Use SSL
+# SSLType IMAPS
+# # The following line should work. If get certificate errors, uncomment the two following lines and read the "Troubleshooting" section.
+# CertificateFile /etc/ssl/certs/ca-certificates.crt
+# #CertificateFile ~/.cert/imap.gmail.com.pem
+# #CertificateFile ~/.cert/Equifax_Secure_CA.pem
 
-IMAPStore gmail-remote
-Account gmail
+# IMAPStore gmail-remote
+# Account gmail
 
-MaildirStore gmail-local
-SubFolders Verbatim
-# The trailing "/" is important
-Path ~/mail/gmail/
-Inbox ~/mail/gmail/inbox
+# MaildirStore gmail-local
+# SubFolders Verbatim
+# # The trailing "/" is important
+# Path ~/mail/gmail/
+# Inbox ~/mail/gmail/inbox
 
-Channel gmail
-Master :gmail-remote:
-Slave :gmail-local:
-# Exclude everything under the internal [Gmail] folder, except the interesting folders
-Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/Drafts"
-# Or include everything
-# Patterns * !"[Gmail]/All Mail"
-# Automatically create missing mailboxes, both locally and on the server
-Create Both
-# Save the synchronization state files in the relevant directory
-SyncState *
+# Channel gmail
+# Master :gmail-remote:
+# Slave :gmail-local:
+# # Exclude everything under the internal [Gmail] folder, except the interesting folders
+# Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/Drafts"
+# # Or include everything
+# # Patterns * !"[Gmail]/All Mail"
+# # Automatically create missing mailboxes, both locally and on the server
+# Create Both
+# # Save the synchronization state files in the relevant directory
+# SyncState *
 
-Channel sync-googlemail-default
-Master :gmail-remote:
-Slave :gmail-local:
-# Select some mailboxes to sync
-Patterns "INBOX" "arch"
+# Channel sync-googlemail-default
+# Master :gmail-remote:
+# Slave :gmail-local:
+# # Select some mailboxes to sync
+# Patterns "INBOX" "arch"
 
-Channel sync-googlemail-sent
-Master :gmail-remote:"[Gmail]/Sent Mail"
-Slave :gmail-local:sent
-Create Slave
-
-Channel sync-googlemail-drafts
-Master :gmail-remote:"[Gmail]/Drafts"
-Slave :gmail-local:drafts
-Create Slave
-
-# Channel sync-googlemail-important
-# Master :gmail-remote:"[Gmail]/Important"
-# Slave :gmail-local:important
+# Channel sync-googlemail-sent
+# Master :gmail-remote:"[Gmail]/Sent Mail"
+# Slave :gmail-local:sent
 # Create Slave
 
-Channel sync-googlemail-flagged
-Master :gmail-remote:"[Gmail]/Starred"
-Slave :gmail-local:flagged
-Create Slave
+# Channel sync-googlemail-drafts
+# Master :gmail-remote:"[Gmail]/Drafts"
+# Slave :gmail-local:drafts
+# Create Slave
 
-# Get all the channels together into a group.
-Group googlemail
-Channel sync-googlemail-default
-Channel sync-googlemail-sent
-Channel sync-googlemail-drafts
-Channel sync-googlemail-important
-Channel sync-googlemail-flagged
+# # Channel sync-googlemail-important
+# # Master :gmail-remote:"[Gmail]/Important"
+# # Slave :gmail-local:important
+# # Create Slave
+
+# Channel sync-googlemail-flagged
+# Master :gmail-remote:"[Gmail]/Starred"
+# Slave :gmail-local:flagged
+# Create Slave
+
+# # Get all the channels together into a group.
+# Group googlemail
+# Channel sync-googlemail-default
+# Channel sync-googlemail-sent
+# Channel sync-googlemail-drafts
+# Channel sync-googlemail-important
+ # Channel sync-googlemail-flagged
 
 IMAPAccount molinamail
 # Address to connect to
@@ -140,3 +140,44 @@ Patterns *
 Create Both
 # Save the synchronization state files in the relevant directory
 SyncState *
+
+# IMAPAccount ufl
+# # Address to connect to
+# Host outlook.office365.com
+# User rmolin88ufl.edu
+# # Pass ***************
+# # To store the password in an encrypted file use PassCmd instead of Pass
+# PassCmd "pass school/ufl.edu/login | head -n 1"
+# #
+# SSLType IMAPS
+# SSLVersion TLSv1.2
+# AuthMechs PLAIN
+# # Increase timeout to avoid o365 IMAP hiccups
+# Timeout 120
+# PipelineDepth 50
+# # SSLVersions TLSv1
+# # The following line should work. If get certificate errors, uncomment the two following lines and read the "Troubleshooting" section.
+# CertificateFile /etc/ssl/certs/ca-certificates.crt
+# #CertificateFile ~/.cert/imap.gmail.com.pem
+# #CertificateFile ~/.cert/Equifax_Secure_CA.pem
+
+# IMAPStore ufl-remote
+# Account ufl
+
+# MaildirStore ufl-local
+# SubFolders Verbatim
+# # The trailing "/" is important
+# Path ~/mail/ufl/
+# Inbox ~/mail/ufl/inbox
+
+# Channel ufl
+# Master :ufl-remote:
+# Slave :ufl-local:
+# # Exclude everything under the internal [Gmail] folder, except the interesting folders
+# # Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
+# # Or include everything
+# Patterns *
+# # Automatically create missing mailboxes, both locally and on the server
+# Create Both
+# # Save the synchronization state files in the relevant directory
+# SyncState *
