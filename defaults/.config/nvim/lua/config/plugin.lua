@@ -279,7 +279,8 @@ local function setup_gitsigns()
       topdelete = {hl = 'DiffDelete', text = '‾'},
       changedelete = {hl = 'DiffChange', text = '~'}
     },
-    numhl = true,
+    -- Kinda annoying
+    numhl = false,
     keymaps = {
       -- Default keymap options
       -- noremap = false,
