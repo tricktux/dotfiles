@@ -26,8 +26,8 @@ cleanup() {
 # Synchronizing email
 # Do it in the background. It can take up to 5 minutes
 /usr/bin/mbsync -D -ac ~/.config/isync/mbsyncrc >! /tmp/isync.log 2>&1 &
-/usr/bin/goimapnotify -conf ~/.config/imapnotify/gmail.conf \
-  >! /tmp/imapnotify_gmail.log 2>&1 &
+# /usr/bin/goimapnotify -conf ~/.config/imapnotify/gmail.conf \
+  # >! /tmp/imapnotify_gmail.log 2>&1 &
 /usr/bin/goimapnotify -conf ~/.config/imapnotify/molinamail.conf \
   >! /tmp/imapnotify_molinamail.log 2>&1 &
 
