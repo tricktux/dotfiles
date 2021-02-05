@@ -16,7 +16,7 @@ set my_trash_noquote="Archive"
 
 set my_username="rmolin88"
 set my_domain="ufl.edu"
-set my_password="`pass school/ufl.edu/rmolin88`"
+set my_password="`pass school/ufl.edu/login`"
 
 source "~/.config/neomutt/imap.gen.mutt"
 

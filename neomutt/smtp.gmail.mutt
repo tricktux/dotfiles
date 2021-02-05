@@ -1,39 +1,19 @@
 # File:           smtp.gmail.mutt
 # Description:     SMPT/IMAP/Folder settings for gmail
 # Author:		    Reinaldo Molina
-# Email:          rmolin88 at gmail dot com
-# Revision:	    0.0.0
-# Created:        Tue Jan 22 2019 17:24
-# Last Modified:  Tue Jan 22 2019 17:24
 
 # IMAP config
 set imap_user="$my_username"
 set imap_pass=$my_password
 
-set folder = "~/mail/gmail"
-set spoolfile= "~/mail/gmail/inbox"
-set postponed= "~/mail/gmail/Drafts"
-set record = "~/mail/gmail/Sent"
-set trash = "~/mail/gmail/Archive"
-mailboxes =[Gmail]/Drafts
-mailboxes ="[Gmail]/Sent Mail"
-mailboxes =[Gmail]/Starred
-mailboxes =Banks
-mailboxes =Events
-mailboxes =Family
-mailboxes =Houses
-mailboxes =Important_Stuff
-mailboxes =inbox
-mailboxes =Job_Opportunities
-mailboxes =Linux_Kernel
-mailboxes =Meli_Cosa_Rica
-mailboxes =PSU
-mailboxes =Receipts
-mailboxes =Shippings
-mailboxes =TO_DO
-mailboxes =UF
-
-set mbox_type=Maildir
+set folder = 'imaps://imap.gmail.com:993'
+set spoolfile= +INBOX
+set postponed= +$my_drafts_noquote
+# Gmail automatically saves sent emails
+# set record = +$my_sent_noquote
+unset record
+set trash = +$my_trash_noquote
+mailboxes
 
 # SMTP config
 set from = "$my_username@$my_domain"

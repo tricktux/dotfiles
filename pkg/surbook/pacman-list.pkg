@@ -45,7 +45,6 @@ dunst
 earlyoom
 efibootmgr
 ethtool
-evolution
 exa
 f2fs-tools
 fakeroot
@@ -67,7 +66,6 @@ gettext
 ghostscript
 git
 global
-gnome-keyring
 google-glog
 gparted
 grep
