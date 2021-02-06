@@ -2,6 +2,10 @@
 
 HOST=1.1.1.1
 
+# simpletest --simple
+# rtt=$(echo "$data" | sed -rn 's/.*Ping: ([0-9]{1,})\.?[0-9]{0,} ms.*/\1/p')
+# down=$(echo "$data" | sed -rn 's/.*Download: ([0-9]{1,})\.?[0-9]{0,} Mbit\/s.*/\1/p')
+# up=$(echo "$data" | sed -rn 's/.*Upload: ([0-9]{1,})\.?[0-9]{0,} Mbit\/s.*/\1/p')
 if ! ping=$(ping -n -c 1 -W 1 $HOST); then
     rtt="--"
     icon="%{F#d60606}%{F-}"
