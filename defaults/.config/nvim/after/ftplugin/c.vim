@@ -176,12 +176,21 @@ function! s:repl() abort
 		return
 	endif
 
-	if !executable('clang++')
-		echoerr 'Clang is not in the path'
-		return
+  let l:compiler = ''
+	if executable('clang++')
+    let l:compiler = 'clang++'
 	endif
 
-	execute ':T clang++ ' . expand('%') . ' & ' .
+  if executable('g++')
+    let l:compiler = 'g++'
+  endif
+
+  if l:compiler == ''
+    echoerr 'No cpp compiler found'
+    return
+  endif
+
+	execute ':T ' . l:compiler . ' ' . expand('%') . ' && ' .
 				\ (has('unix') ? './a.out' : 'a.exe') . "\<cr>"
 endfunction
 
