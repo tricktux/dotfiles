@@ -19,19 +19,22 @@ local function connect_to(device)
 		return false
 	end
 
-	msg('Powering on bluetooth')
+  msg('Powering on bluetooth')
 	local rc = os.execute("bluetoothctl -- power on")
 	if rc == false then
 		msg_error('Failed to power on')
 		return false
 	end
 
-	msg('Connecting to ' .. device)
+  msg('Connecting to ' .. device)
 	for _ = 0, 10 do
-		rc = os.execute("bluetoothctl -- connect " .. device)
+    -- TODO: Does it really returns true?
+		rc =  os.execute("bluetoothctl -- connect " .. device)
 		if rc == true then
+      msg("Connected")
 			return true
 		end
+    os.execute("sleep 1")
 	end
 
 	msg_error('Failed to connect')
