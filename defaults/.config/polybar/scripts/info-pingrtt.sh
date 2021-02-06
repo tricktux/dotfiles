@@ -9,7 +9,7 @@ else
     rtt=$(echo "$ping" | sed -rn 's/.*Ping: ([0-9]{1,})\.?[0-9]{0,} ms.*/\1/p')
     down=$(echo "$ping" | sed -rn 's/.*Download: ([0-9]{1,})\.?[0-9]{0,} Mbit\/s.*/\1/p')
     up=$(echo "$ping" | sed -rn 's/.*Upload: ([0-9]{1,})\.?[0-9]{0,} Mbit\/s.*/\1/p')
-    out="$rtt ms $down Mbit/s $up Mbit/s"
+    out="$rtt ms  $down Mbit/s  $up Mbit/s"
 
     if [ "$rtt" -lt 50 ]; then
         icon="%{F#3cb703}%{F-}"
