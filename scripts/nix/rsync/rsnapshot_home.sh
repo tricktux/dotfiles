@@ -45,6 +45,7 @@ msg_error() {
 }
 
 setup_colors
+echo >&2 -e "${CYAN}${BOLD}==>Backing up home<==${NOFORMAT}"
 
 # Backup pacman's local database
 # More info here:

@@ -45,6 +45,7 @@ msg_error() {
 }
 
 setup_colors
+echo >&2 -e "${CYAN}${BOLD}==>Backing up mail server<==${NOFORMAT}"
 
 SRC="digital_ocean:/home/user-data/" #dont forget trailing slash!
 # Needs full path since its run as sudo
