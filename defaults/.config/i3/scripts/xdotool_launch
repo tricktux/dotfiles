@@ -81,9 +81,9 @@ i3ipc.neomutt = {
   ['surbook'] = 'resize set 2188 1459, move position center'
 }
 i3ipc.spotify = {
-  ['helios'] = 'resize set 1320 480, move position center',
-  ['predator'] = 'resize set 3040 1024, move position center',
-  ['surbook'] = 'resize set 2188 1059, move position center'
+  ['helios'] = 'resize set 1320 880, move position center',
+  ['predator'] = 'resize set 3040 1424, move position center',
+  ['surbook'] = 'resize set 2188 1459, move position center'
 }
 i3ipc.evolution = {
     ['helios'] = 'resize set 1320 880, move position center',
