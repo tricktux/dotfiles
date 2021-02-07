@@ -143,6 +143,13 @@ set abort_noattach = ask-yes
 # English: attach, attached, attachment, attachments
 set abort_noattach_regex = "\\<attach(|ed|ments?)\\>"
 
+set signature = ~/.config/neomutt/signature_gen
+# Sun Feb 07 2021 16:05:
+# Apparently there are different ettiquetes as to where the reply should be:
+# https://en.wikipedia.org/wiki/Posting_style
+# I'll stick with the top
+set sig_on_top 
+
 # Thu Jan 31 2019 07:36
 # Trying threads
 # Do not like it. When a new messages arrives that is part of a thread stays down there
