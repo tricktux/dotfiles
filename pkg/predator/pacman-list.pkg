@@ -30,6 +30,7 @@ cmus
 colorgcc
 cppcheck
 cscope
+ctags
 cups
 cups-pdf
 dhcpcd
@@ -165,6 +166,8 @@ reflector
 ripgrep
 rofi-pass
 rsync
+rust
+rust-analyzer
 samba
 scrot
 sed

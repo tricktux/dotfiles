@@ -6,32 +6,43 @@ local function tablelength(T)
 	return count
 end
 
+local function msg(content)
+  os.execute("notify-send 'Bluetooth' '" .. content .. "'")
+end
+
+local function msg_error(content)
+  os.execute("notify-send 'Bluetooth' '" .. content .. "' -u critical")
+end
+
 local function connect_to(device)
 	if device == nil then
 		return false
 	end
 
-	print('==> Powering on bluetooth')
+  msg('Powering on bluetooth')
 	local rc = os.execute("bluetoothctl -- power on")
 	if rc == false then
-		print('\tFailed to power on')
+		msg_error('Failed to power on')
 		return false
 	end
 
-	print('==> Connecting to ' .. device)
+  msg('Connecting to ' .. device)
 	for _ = 0, 10 do
-		rc = os.execute("bluetoothctl -- connect " .. device)
+    -- TODO: Does it really returns true?
+		rc =  os.execute("bluetoothctl -- connect " .. device)
 		if rc == true then
+      msg("Connected")
 			return true
 		end
+    os.execute("sleep 1")
 	end
 
-	print('\tFailed to connect')
+	msg_error('Failed to connect')
 	return false
 end
 
 local function disconnect()
-	print('==> Disconnecting')
+	msg('Disconnecting')
 	for _ = 0, 10 do
 		local rc = os.execute("bluetoothctl -- disconnect")
 		if rc == true then
@@ -39,10 +50,10 @@ local function disconnect()
 		end
 	end
 
-	print('==> Unpowering bluetooth')
+	msg('Unpowering bluetooth')
 	local rc = os.execute("bluetoothctl -- power off")
 	if rc == false then
-		print('\tFailed to power off')
+		msg_error('Failed to power off')
 		return false
 	end
 end
@@ -51,7 +62,7 @@ local function main()
 	local len = tablelength(arg) - 2
 
 	if len < 1 then
-		print('Please specify which bluetooth to connect')
+		msg_error('Please specify which bluetooth to connect')
 		return
 	end
 
@@ -63,7 +74,7 @@ local function main()
 	elseif input == "disconnect" then
 		disconnect()
 	else
-		print('Unrecognized command')
+		msg_error('Unrecognized command')
 	end
 end
 

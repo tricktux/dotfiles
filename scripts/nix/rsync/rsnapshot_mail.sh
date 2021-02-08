@@ -45,6 +45,7 @@ msg_error() {
 }
 
 setup_colors
+echo >&2 -e "${CYAN}${BOLD}==>Backing up emails<==${NOFORMAT}"
 
 SRC="/home/reinaldo/mail"
 # Needs full path since its run as sudo
