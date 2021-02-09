@@ -2,6 +2,7 @@
 
 import argparse
 import configparser
+import csv
 import datetime
 import logging
 import sys
@@ -13,6 +14,13 @@ from stravalib.client import Client
 
 DEBUG = 0
 LOG = 'get_activities'
+
+
+def seconds_to_hours(seconds):
+    """Converts seconds to hours and mintues string"""
+    m, s = divmod(seconds, 60)
+    h, m = divmod(m, 60)
+    return "%d:%02d" % (h, m)
 
 
 class Config():
@@ -64,12 +72,14 @@ class Config():
 class Parser():
     def __init__(self):
         self.parser = argparse.ArgumentParser(description='Get strava info')
-        self.parser.add_argument(
-            'config',
-            default='config.ini',
-            help='path to the configuration file')
-        self.parser.add_argument(
-            '--debug', '-d', type=int, default=0, help='create debug file')
+        self.parser.add_argument('config',
+                                 default='config.ini',
+                                 help='path to the configuration file')
+        self.parser.add_argument('--debug',
+                                 '-d',
+                                 type=int,
+                                 default=0,
+                                 help='create debug file')
         self.args = self.parser.parse_args()
 
 
@@ -159,24 +169,59 @@ class Strava():
 
         return str(avg)
 
+    def get_csv_of_bike_activities(self):
+        """https://pythonhosted.org/stravalib/api.html#stravalib.model.Activity"""
+        logger = logging.getLogger(LOG)
+        file_path = r'/tmp/bike.csv'
+        print(self.activities)
+        with open(file_path, 'w') as csvfile:
+            fieldnames = [
+                'date', 'duration', 'distance', 'avg heart rate', 'avg power',
+                'avg cadence', 'elevation', 'avg speed', 'trainer'
+            ]
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer.writeheader()
+            for activity in sorted(self.activities, key=self.sortby):
+                if activity.type not in ('Ride', 'VirtualRide'):
+                    continue
+                date = activity.start_date_local.strftime("%x")
+                print(date)
+                seconds = datetime.timedelta(
+                    seconds=activity.elapsed_time.seconds).total_seconds()
+                hrs = seconds_to_hours(seconds)
+                distance = unithelper.miles(activity.distance)
+                hr = activity.average_heartrate if activity.has_heartrate else 'N/A'
+                power = activity.average_watts if activity.device_watts else 'N/A'
+                cadence = activity.average_cadence
+                elevation = unithelper.feet(activity.total_elevation_gain)
+                spd = unithelper.miles_per_hour(activity.average_speed)
+                trainer = 'yes' if activity.type == 'VirtualRide' else 'no'
+                writer.writerow({
+                    'date': date,
+                    'duration': hrs,
+                    'distance': distance,
+                    'avg heart rate': hr,
+                    'avg power': power,
+                    'avg cadence': cadence,
+                    'elevation': elevation,
+                    'avg speed': spd,
+                    'trainer': trainer
+                })
+
+        return file_path
+
 
 def set_logger():
     """Setups the logger"""
     logger = logging.getLogger(LOG)
-    handler = RotatingFileHandler(
-        '/tmp/' + LOG + '.log', maxBytes=10**6, backupCount=5)
+    handler = RotatingFileHandler('/tmp/' + LOG + '.log',
+                                  maxBytes=10**6,
+                                  backupCount=5)
     formatter = logging.Formatter('%(asctime)s_%(levelname)s: %(message)s')
 
     handler.setFormatter(formatter)
     logger.addHandler(handler)
     logger.setLevel(logging.DEBUG)
-
-
-def seconds_to_hours(seconds):
-    """Converts seconds to hours and mintues string"""
-    m, s = divmod(seconds, 60)
-    h, m = divmod(m, 60)
-    return "%d:%02d" % (h, m)
 
 
 if __name__ == '__main__':
@@ -197,10 +242,11 @@ if __name__ == '__main__':
         sys.exit(2)
     year = config.get_str('Workout', 'year', "")
     strava = Strava(token, client_id, client_secret, year, config)
+    #  strava.get_csv_of_bike_activities()
     num_workouts = strava.get_num_activities()
     td = strava.get_total_time()
     num_hours = seconds_to_hours(td)
     num_miles = strava.get_total_distance()
     avg_bike_speed = strava.get_last_bike_avg_speed()[:-7]
-    print(num_workouts + ' ' + num_hours + ' ' + num_miles + 'm ' +
+    print(num_workouts + ' ' + num_hours + ' ' + num_miles + ' m ' +
           avg_bike_speed + ' m/h')
