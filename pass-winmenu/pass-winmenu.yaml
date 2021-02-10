@@ -220,9 +220,9 @@ hotkeys:
     options:
         copy-to-clipboard: true
         type-username: false
-        type-password: false
+        type-password: true
   - 
-    hotkey: 'ctrl alt shift p'
+    hotkey: 'ctrl alt a'
     action: 'decrypt-password'
     options:
         copy-to-clipboard: true
