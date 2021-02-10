@@ -14,6 +14,9 @@ alias mv="mv --interactive --verbose"
 alias cp="cp --recursive --interactive --verbose"
 alias mkdir="mkdir --parents --verbose"
 
+# Fix for kitty ssh
+alias ssh="kitty +kitten ssh"
+
 # Install
 alias paci='trizen -S'
 # Update
