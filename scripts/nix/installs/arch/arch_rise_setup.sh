@@ -400,6 +400,8 @@ sudo systemctl enable --now fstrim.timer
 
 ## Brightness
 paci --needed --noconfirm brillo
+# Add your user to the video group not to have to use sudo
+sudo gpasswd -a reinaldo video
 # see `man brillo`
 
 ## Touchpad 
