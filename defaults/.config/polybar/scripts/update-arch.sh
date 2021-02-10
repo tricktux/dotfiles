@@ -127,15 +127,10 @@ save_pkg_list_to_dotfiles() {
 }
 
 update_pihole() {
-  ssh root@192.168.1.107 <<EOF
-  pihole -up
-  cloudflared update
-  systemctl status cloudflared
-  read -n1 -r key
-  systemctl restart cloudflared
-  read -n1 -r key
-  systemctl status cloudflared
-  read -n1 -r key
+  ssh root@192.168.1.107 /bin/bash <<EOF
+pihole -up
+cloudflared update
+systemctl status cloudflared
 EOF
 }
 
@@ -220,7 +215,20 @@ msg_not "${BLUE}${BOLD}" "==> Update pihole? [y/N]"
 read yn
 case $yn in
 [Yy]*)
-  update_pihole
+  ssh root@192.168.1.107
+  ;;
+esac
+msg_not "${BLUE}${BOLD}" "==> Update mail server? [y/N]"
+read yn
+case $yn in
+[Yy]*)
+  ssh digital_ocean
+# apt-get -y update &&
+# apt-get -y upgrade &&
+# apt-get -y autoremove &&
+# apt-get -y autoclean
+# reboot
+# EOF
   ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Remove junk? [y/N]"
