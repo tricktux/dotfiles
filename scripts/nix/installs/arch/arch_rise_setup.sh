@@ -25,14 +25,17 @@ Defaults:reinaldo timestamp_timeout=7200
 # Copy your `mirrorlist`:
 scp /etc/pacman.d/mirrorlist reinaldo@192.168.1.194:/home/reinaldo/mirrorlist
 
-# install `trizen`{{{
+# install `paru`{{{
 # From this point on you need to login as your user
-# You should not run `trizen` or `makepkg` as `root`
+# You should not run `paru` or `makepkg` as `root`
 pacman -S git
 su reinaldo
-cd /tmp
-git clone https://aur.archlinux.org/trizen.git --depth 1
-cd trizen
+# cd /tmp
+# git clone https://aur.archlinux.org/trizen.git --depth 1
+# cd trizen
+# makepkg -si
+git clone https://aur.archlinux.org/paru.git --depth 1 /tmp/paru
+cd /tmp/paru
 makepkg -si
 #}}}
 
@@ -43,15 +46,15 @@ mkdir -p ~/.cache
 cd ~/.config
 git clone https://github.com/tricktux/dotfiles
 # Install needed software
-trizen -S stow
+paru -S stow
 # So that you don't loose the hostname command
-trizen -S inetutils
+paru -S inetutils
 # Backup current setup
 # Make sure no other dotfiles are left
 mv ~/.bash_logout{,_bak}
 mv ~/.bash_profile{,_bak}
 mv ~/.bashrc{,_bak}
-mv ~/.config/trizen{,_}
+# mv ~/.config/paru{,_}
 # Install your configs
 cd ~/.config/dotfiles
 stow -t /home/reinaldo -S defaults 

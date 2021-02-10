@@ -9,6 +9,7 @@
 
 machine=$(hostname)
 server_ip='192.168.128.128'
+aur_helper='paru'
 
 alias mv="mv --interactive --verbose"
 alias cp="cp --recursive --interactive --verbose"
@@ -18,21 +19,21 @@ alias mkdir="mkdir --parents --verbose"
 alias ssh="kitty +kitten ssh"
 
 # Install
-alias paci='trizen -S'
+alias paci="$aur_helper -S"
 # Update
-alias pacu='trizen -Syu'
+alias pacu="$aur_helper -Syu"
 # Version
-alias pacv='trizen -Si'
+alias pacv="$aur_helper -Si"
 # Search
-alias pacs='trizen -Ss'
+alias pacs="$aur_helper -Ss"
 # Remove
-alias pacu='trizen -Rscn'
-alias pacr='trizen -Rscn'
+alias pacu="$aur_helper -Rscn"
+alias pacr="$aur_helper -Rscn"
 # Remove only
-alias pacuo='trizen -Rdd'
-alias pacbroken='trizen -Qkk'
+alias pacuo="$aur_helper -Rdd"
+alias pacbroken="$aur_helper -Qkk"
 # List files of package
-alias pacll='trizen -Ql'
+alias pacll="$aur_helper -Ql"
 
 # git
 alias ga='git add'
