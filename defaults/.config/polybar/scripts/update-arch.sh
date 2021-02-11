@@ -170,7 +170,7 @@ fi
 msg "${CYAN}${BOLD}" "==> Checking for orphan packages...   "
 if [[ $(/usr/bin/pacman -Qtdq) ]]; then
   msg_not "${CYAN}${BOLD}" "==> Please clean orphan packages...   "
-  sudo /usr/bin/pacman -Rns $(/usr/bin/pacman -Qtdq) || echo "\tOr not..."
+  sudo /usr/bin/pacman -Rns $(/usr/bin/pacman -Qtdq) || echo "...  Or not..."
 fi
 
 msg "${CYAN}${BOLD}" "==> Clean up pacman's cache...   "

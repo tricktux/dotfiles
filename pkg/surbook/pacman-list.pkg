@@ -143,6 +143,7 @@ otf-fira-mono
 otf-font-awesome
 pacman
 pacman-contrib
+pacutils
 pamixer
 paprefs
 parted
@@ -182,6 +183,7 @@ sdparm
 sed
 shfmt
 simple-scan
+speedtest-cli
 stow
 sudo
 syslog-ng
