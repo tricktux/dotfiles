@@ -2,6 +2,7 @@
 # Inspiration from:
 # https://betterdev.blog/minimal-safe-bash-script-template/
 
+aur_helper='paru'
 # Fail as soon as a command fails
 set -Eeuo pipefail
 
@@ -140,13 +141,13 @@ setup_colors
 # system
 # This is not a good practice. Leaving it here for reference
 # msg "${CYAN}${BOLD}==> Updating keyring...   "
-# trizen -Sy --needed archlinux-keyring ca-certificates
+# $aur_helper -Sy --needed archlinux-keyring ca-certificates
 
-msg_not "${CYAN}${BOLD}" "==> Updating core packages...   "
+msg "${CYAN}${BOLD}" "========== Welcome! To the Arch Maintnance Script! 💪😎  =========="
 sudo pacman -Syu
 
 msg_not "${CYAN}${BOLD}" "==> Updating aur packages...   "
-trizen -Syu
+$aur_helper -Syu
 
 msg "${CYAN}${BOLD}" "==> Storing package list...   "
 save_pkg_list_to_dotfiles
@@ -162,14 +163,14 @@ if [[ -f /usr/bin/ancient-packages ]] && [[ $(/usr/bin/ancient-packages -q) ]]; 
   msg_not "${CYAN}${BOLD}" "==> Remove ancient packages? [y/N]"
   read yn
   case $yn in
-  [Yy]*) trizen -Rscn $(ancient-packages -q) ;;
+  [Yy]*) $aur_helper -Rscn $(ancient-packages -q) ;;
   esac
 fi
 
 msg "${CYAN}${BOLD}" "==> Checking for orphan packages...   "
 if [[ $(/usr/bin/pacman -Qtdq) ]]; then
   msg_not "${CYAN}${BOLD}" "==> Please clean orphan packages...   "
-  sudo /usr/bin/pacman -Rns $(/usr/bin/pacman -Qtdq)
+  sudo /usr/bin/pacman -Rns $(/usr/bin/pacman -Qtdq) || echo "\tOr not..."
 fi
 
 msg "${CYAN}${BOLD}" "==> Clean up pacman's cache...   "
@@ -313,7 +314,7 @@ esac
 # msg_not "${BLUE}${BOLD}" "==> Update neovim-git? [y/N]"
 # read yn
 # case $yn in
-# [Yy]*) trizen -S neovim-git ;;
+# [Yy]*) $aur_helper -S neovim-git ;;
 # esac
 msg_not "${BLUE}${BOLD}" "==> Update zsh-zim? [y/N]"
 read yn
