@@ -45,7 +45,6 @@ earlyoom
 efibootmgr
 espeak
 ethtool
-evolution
 exa
 f2fs-tools
 fakeroot
@@ -146,6 +145,7 @@ os-prober
 otf-fira-mono
 otf-font-awesome
 pacman-contrib
+pacutils
 pamixer
 paprefs
 parted
@@ -181,6 +181,7 @@ screen
 scrot
 sdparm
 shfmt
+speedtest-cli
 stow
 sudo
 syslog-ng
