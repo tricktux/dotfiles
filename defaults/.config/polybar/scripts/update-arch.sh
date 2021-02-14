@@ -216,14 +216,14 @@ msg_not "${BLUE}${BOLD}" "==> Update pihole? [y/N]"
 read yn
 case $yn in
 [Yy]*)
-  ssh root@192.168.1.107
+  kitty +kitten ssh root@192.168.1.107
   ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Update mail server? [y/N]"
 read yn
 case $yn in
 [Yy]*)
-  ssh digital_ocean
+  kitty +kitten ssh digital_ocean
 # apt-get -y update &&
 # apt-get -y upgrade &&
 # apt-get -y autoremove &&
