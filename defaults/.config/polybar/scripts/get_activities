@@ -5,6 +5,7 @@ import configparser
 import csv
 import datetime
 import logging
+import os
 import sys
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
@@ -242,7 +243,6 @@ if __name__ == '__main__':
         sys.exit(2)
     year = config.get_str('Workout', 'year', "")
     strava = Strava(token, client_id, client_secret, year, config)
-    #  strava.get_csv_of_bike_activities()
     num_workouts = strava.get_num_activities()
     td = strava.get_total_time()
     num_hours = seconds_to_hours(td)
@@ -250,3 +250,5 @@ if __name__ == '__main__':
     avg_bike_speed = strava.get_last_bike_avg_speed()[:-7]
     print(num_workouts + ' ' + num_hours + ' ' + num_miles + ' m ' +
           avg_bike_speed + ' m/h')
+    if not os.path.isfile(r'/tmp/bike.csv'):
+        strava.get_csv_of_bike_activities()

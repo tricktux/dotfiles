@@ -2,7 +2,7 @@
 
 HOST=1.1.1.1
 
-if ! ping=$(speedtest --simple); then
+if ! ping=$(speedtest --simple 2> /dev/null); then
     rtt="--"
     icon="%{F#d60606}%{F-}"
 else

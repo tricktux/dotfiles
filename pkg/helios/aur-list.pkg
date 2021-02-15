@@ -9,7 +9,6 @@ dispad-git
 goimapnotify
 hal
 i3ass
-informant
 jdtls
 laptop-mode-tools
 lazygit
@@ -25,6 +24,7 @@ optimus-manager
 pandoc-bin
 paper-gtk-theme-git
 paper-icon-theme
+paru
 polybar
 preload
 ripgrep-all
@@ -32,9 +32,10 @@ rofi-bluetooth-git
 rofi-dmenu
 rofi-emoji
 simple-scan-3.12
+spicetify-cli
+spicetify-themes-git
 spotify
 teamviewer
-trizen
 ttf-weather-icons
 vdhcoapp-bin
 zeal

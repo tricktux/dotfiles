@@ -8,6 +8,7 @@ cmake-format
 cmake-lint
 ffscreencast
 gdb-dashboard-git
+goimapnotify
 gpointing-device-settings
 hal
 i3ass
@@ -30,6 +31,7 @@ oh-my-zsh-git
 pandoc-bin
 paper-gtk-theme-git
 paper-icon-theme
+paru
 polybar
 preload
 rofi-bluetooth-git
@@ -40,7 +42,6 @@ spicetify-cli
 spicetify-themes-git
 spotify
 ssmtp
-trizen
 ttf-weather-icons
 zeal
 zplug
