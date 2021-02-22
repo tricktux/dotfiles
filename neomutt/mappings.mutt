@@ -57,4 +57,7 @@ macro attach,compose \cb "<pipe-entry> urlscan<Enter>" "call urlscan to extract 
 macro index b '<enter-command>toggle sidebar_visible<enter><refresh>'
 macro pager b '<enter-command>toggle sidebar_visible<enter><redraw-screen>'
 
+# "Save all non-text attachments using ripmime"
+macro pager S "<pipe-message> ripmime -i - -d /tmp<enter>"
+
 # vim: ft=neomuttrc
