@@ -27,7 +27,7 @@ source "~/.config/neomutt/smtp.molinamail.mutt"
 source "~/.config/neomutt/ui.mutt"
 source "~/.config/neomutt/mappings.mutt"
 
-macro   index   gi "<change-folder>=INBOX<enter>"       "Go to Inbox"
+macro   index   gi "<change-folder>=inbox<enter>"       "Go to Inbox"
 macro   index   gs "<change-folder>=$my_sent<enter>"    "Go to Sent"
 macro   index   gd "<change-folder>=$my_drafts<enter>"  "Go to Drafts"
 macro   index   gt "<change-folder>=$my_trash<enter>"   "Go to Trash"
