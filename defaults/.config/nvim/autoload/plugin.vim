@@ -247,12 +247,15 @@ function! plugin#Config()
     if exists('g:valid_device')
       Plug 'kyazdani42/nvim-web-devicons'
     endif
-    Plug 'lewis6991/gitsigns.nvim'
-    " NOTE: depends on plenary.nvim
-    if exists('g:lightline')
-      let g:lightline.active.left[2] += [ 'gitsigns' ]
-      let g:lightline.component_function['gitsigns'] =
-            \ string(function('s:gitsigns_status'))
+    if has('unix')
+      " Thu Feb 25 2021 12:33: Using both (gitsigns and signify) on windows is a pain
+      Plug 'lewis6991/gitsigns.nvim'
+      " NOTE: depends on plenary.nvim
+      if exists('g:lightline')
+        let g:lightline.active.left[2] += [ 'gitsigns' ]
+        let g:lightline.component_function['gitsigns'] =
+              \ string(function('s:gitsigns_status'))
+      endif
     endif
   elseif has('nvim-0.4')
     Plug 'kdheepak/lazygit.nvim', { 'branch': 'nvim-v0.4.3' }
@@ -1580,23 +1583,20 @@ function! s:configure_denite() abort
 endfunction
 
 function! s:configure_vim_signify() abort
+  if has('nvim-0.5') && has('unix')
+    return
+  endif
+
   Plug 'mhinz/vim-signify'
 
   let s:signify_set = 1
-  if has('nvim-0.5')
-    " Disable signify for git
-    let g:signify_vcs_cmds = {
-      \ 'git':      '',
-      \ }
-  endif
-
   nnoremap <silent> ]c :call <sid>next_hunk()<cr>
   nnoremap <silent> [c :call <sid>prev_hunk()<cr>
 
   " Remove all default autocomands and just do this ones
   autocmd User SignifyAutocmds
         \ exe 'au! signify' |
-        \ au signify InsertLeave,BufEnter,TextChanged * call sy#start()
+        \ au signify InsertLeave,TextChanged,BufEnter * call sy#start()
 
   if exists('g:lightline')
     let g:lightline.active.left[2] += [ 'sy' ]
