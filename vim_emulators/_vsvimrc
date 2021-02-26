@@ -50,6 +50,9 @@ behave mswin
 "
 " " backspace and cursor keys wrap to previous/next line
 set backspace=indent,eol,start
+
+set timeout
+set timeoutlen=200
 "
 " " backspace in Visual mode deletes selection
 vnoremap <BS> d
