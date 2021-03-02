@@ -3,7 +3,22 @@ local map = require('utils/keymap')
 local log = require('utils/log')
 local plg = require('config/plugin')
 
-local function set_lsp_mappings(client_id)
+local function set_lsp_options(capabilities)
+  if capabilities.document_highlight then
+    vim.cmd([[
+      hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
+      hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
+      hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
+      augroup lsp_document_highlight
+        autocmd! * <buffer>
+        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+      augroup END
+    ]], false)
+  end
+end
+
+local function set_lsp_mappings(capabilities)
   local opts = {silent = true, buffer = true}
   local map_pref = '<localleader>l'
   local cmd_pref = '<cmd>lua vim.lsp.'
@@ -44,9 +59,9 @@ local function set_lsp_mappings(client_id)
   end
 
    -- Set some keybinds conditional on server capabilities
-  if client.resolved_capabilities.document_formatting then
+  if capabilities.document_formatting then
     map.nnoremap(map_pref .. 'f', cmd_pref .. 'buf.formatting()' .. cmd_suff, opts)
-  elseif client.resolved_capabilities.document_range_formatting then
+  elseif capabilities.document_range_formatting then
     map.nnoremap(map_pref .. 'f', cmd_pref .. 'buf.range_formatting()' .. cmd_suff, opts)
   end
 
@@ -68,7 +83,8 @@ local function on_lsp_attach(client_id)
   -- These 2 got annoying really quickly
   -- vim.cmd('autocmd CursorHold <buffer> lua vim.lsp.util.show_line_diagnostics()')
   -- vim.cmd("autocmd CursorHold <buffer> lua vim.lsp.buf.hover()")
-  set_lsp_mappings(client_id)
+  set_lsp_mappings(client_id.resolved_capabilities)
+  set_lsp_options(client_id.resolved_capabilities)
   -- require('config/completion').diagn:on_attach()
 
   -- Disable tagbar
