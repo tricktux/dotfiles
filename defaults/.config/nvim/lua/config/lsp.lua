@@ -48,6 +48,14 @@ local function set_lsp_mappings(capabilities)
   map.nnoremap(map_pref .. 'wl', 
     '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))'
     .. cmd_suff, opts)
+
+  -- Set some keybinds conditional on server capabilities
+  if capabilities.document_formatting then
+    map.nnoremap(map_pref .. 'f', cmd_pref .. 'buf.formatting()' .. cmd_suff, opts)
+  elseif capabilities.document_range_formatting then
+    map.nnoremap(map_pref .. 'f', cmd_pref .. 'buf.range_formatting()' .. cmd_suff, opts)
+  end
+
   if utl.is_mod_available('telescope') then
     cmd_pref = [[<cmd>lua require('telescope.builtin').lsp_]]
     map.nnoremap(map_pref .. 'a', cmd_pref .. 'code_actions()' .. cmd_suff, opts)
@@ -57,14 +65,6 @@ local function set_lsp_mappings(capabilities)
     map.nnoremap(map_pref .. 'ws', cmd_pref .. 'workspace_symbols()' .. cmd_suff,
                  opts)
   end
-
-   -- Set some keybinds conditional on server capabilities
-  if capabilities.document_formatting then
-    map.nnoremap(map_pref .. 'f', cmd_pref .. 'buf.formatting()' .. cmd_suff, opts)
-  elseif capabilities.document_range_formatting then
-    map.nnoremap(map_pref .. 'f', cmd_pref .. 'buf.range_formatting()' .. cmd_suff, opts)
-  end
-
 end
 
 -- Abstract function that allows you to hook and set settings on a buffer that
@@ -124,9 +124,7 @@ local function diagnostic_set()
         -- let g:diagnostic_show_sign = 1
         -- To configure sign display,
         --  see: ":help vim.lsp.diagnostic.set_signs()"
-        signs = function(bufnr, client_id)
-          return vim.bo[bufnr].show_signs == false
-        end,
+        signs = true,
 
         -- This is similar to:
         -- "let g:diagnostic_insert_delay = 1"
