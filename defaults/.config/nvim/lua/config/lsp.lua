@@ -114,14 +114,19 @@ local function diagnostic_set()
       vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
         -- This will disable virtual text, like doing:
         -- let g:diagnostic_enable_virtual_text = 0
-        -- ljkasdlf
-        virtual_text = true,
+        virtual_text = {
+          spacing = 4,
+        },
 
+        -- Enable underline, use default values
+        underline = true,
         -- This is similar to:
         -- let g:diagnostic_show_sign = 1
         -- To configure sign display,
         --  see: ":help vim.lsp.diagnostic.set_signs()"
-        signs = true,
+        signs = function(bufnr, client_id)
+          return vim.bo[bufnr].show_signs == false
+        end,
 
         -- This is similar to:
         -- "let g:diagnostic_insert_delay = 1"
