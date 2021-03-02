@@ -27,14 +27,14 @@ local function set_lsp_mappings(capabilities)
     r = 'buf.rename()',
     e = 'buf.declaration()',
     d = 'buf.definition()',
-    t = 'buf.type_definition()',
     h = 'buf.hover()',
     i = 'buf.implementation()',
     H = 'buf.signature_help()',
     D = 'buf.type_definition()',
     R = 'buf.references()',
     S = 'stop_all_clients()',
-    n = 'util.show_line_diagnostics()',
+    n = 'diagnostic.show_line_diagnostics()',
+    l = 'diagnostic.set_loclist()',
     ['wa'] = 'buf.add_workspace_folder()',
     ['wr'] = 'buf.remove_workspace_folder()',
   }
@@ -48,6 +48,10 @@ local function set_lsp_mappings(capabilities)
   map.nnoremap(map_pref .. 'wl', 
     '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))'
     .. cmd_suff, opts)
+
+  -- Diagnostics
+  map.nnoremap(']l', cmd_pref .. 'diagnostic.goto_next()' .. cmd_suff, opts)
+  map.nnoremap('[l', cmd_pref .. 'diagnostic.goto_prev()' .. cmd_suff, opts)
 
   -- Set some keybinds conditional on server capabilities
   if capabilities.document_formatting then
