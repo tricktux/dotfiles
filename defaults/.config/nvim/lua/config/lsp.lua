@@ -3,7 +3,7 @@ local map = require('utils/keymap')
 local log = require('utils/log')
 local plg = require('config/plugin')
 
-local function set_lsp_mappings()
+local function set_lsp_mappings(client_id)
   local opts = {silent = true, buffer = true}
   local map_pref = '<localleader>l'
   local cmd_pref = '<cmd>lua vim.lsp.'
@@ -12,12 +12,12 @@ local function set_lsp_mappings()
     r = 'buf.rename()',
     e = 'buf.declaration()',
     d = 'buf.definition()',
+    t = 'buf.type_definition()',
     h = 'buf.hover()',
     i = 'buf.implementation()',
     H = 'buf.signature_help()',
     D = 'buf.type_definition()',
     R = 'buf.references()',
-    f = 'buf.formatting()',
     S = 'stop_all_clients()',
     n = 'util.show_line_diagnostics()',
     ['wa'] = 'buf.add_workspace_folder()',
@@ -42,6 +42,14 @@ local function set_lsp_mappings()
     map.nnoremap(map_pref .. 'ws', cmd_pref .. 'workspace_symbols()' .. cmd_suff,
                  opts)
   end
+
+   -- Set some keybinds conditional on server capabilities
+  if client.resolved_capabilities.document_formatting then
+    map.nnoremap(map_pref .. 'f', cmd_pref .. 'buf.formatting()' .. cmd_suff, opts)
+  elseif client.resolved_capabilities.document_range_formatting then
+    map.nnoremap(map_pref .. 'f', cmd_pref .. 'buf.range_formatting()' .. cmd_suff, opts)
+  end
+
 end
 
 -- Abstract function that allows you to hook and set settings on a buffer that
@@ -60,7 +68,7 @@ local function on_lsp_attach(client_id)
   -- These 2 got annoying really quickly
   -- vim.cmd('autocmd CursorHold <buffer> lua vim.lsp.util.show_line_diagnostics()')
   -- vim.cmd("autocmd CursorHold <buffer> lua vim.lsp.buf.hover()")
-  set_lsp_mappings()
+  set_lsp_mappings(client_id)
   -- require('config/completion').diagn:on_attach()
 
   -- Disable tagbar
