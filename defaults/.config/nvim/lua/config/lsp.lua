@@ -5,7 +5,7 @@ local plg = require('config/plugin')
 
 local function set_lsp_options(capabilities)
   if capabilities.document_highlight then
-    vim.cmd([[
+    vim.api.nvim_exec([[
       hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
       hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
       hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
