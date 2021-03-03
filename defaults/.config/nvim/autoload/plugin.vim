@@ -219,7 +219,8 @@ function! plugin#Config()
 
   call s:configure_neoterm()
   " See mappings in afterconfig
-  Plug 'dosimple/workspace.vim'
+  " Wed Mar 03 2021 12:30: Does not work well with sessions
+  " Plug 'dosimple/workspace.vim'
   call s:configure_fuzzers()
   " call s:configure_fzf()
 
