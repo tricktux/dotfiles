@@ -137,13 +137,45 @@ EOF
 
 setup_colors
 
+msg "${CYAN}${BOLD}" "========== Welcome! To the Arch Maintnance Script! 💪😎  =========="
+# Backups first, since most likely they'll be kernel update and that messes up
+# everything
+msg_not "${BLUE}${BOLD}" "==> Back up important folders? [y/N]"
+read yn
+case $yn in
+[Yy]*) sudo "$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_home.sh" ;;
+esac
+msg_not "${BLUE}${BOLD}" "==> Back up the mail server (~30mins)? [y/N]"
+read yn
+case $yn in
+[Yy]*)
+  "$TERMINAL" sudo \
+    $XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_digital_ocean.sh &
+  ;;
+esac
+msg_not "${BLUE}${BOLD}" "==> Sync passwords? [y/N]"
+read yn
+case $yn in
+[Yy]*)
+  "$TERMINAL" $HOME/Documents/wiki/scripts/backup_keepass_db.sh &
+  ;;
+esac
+msg_not "${BLUE}${BOLD}" "==> Back up emails (~15mins)? [y/N]"
+read yn
+case $yn in
+[Yy]*)
+  "$TERMINAL" sudo \
+    $XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_mail.sh &
+  ;;
+esac
+
 # Always update keyring first in case it's been a while you've updated the
 # system
 # This is not a good practice. Leaving it here for reference
 # msg "${CYAN}${BOLD}==> Updating keyring...   "
 # $aur_helper -Sy --needed archlinux-keyring ca-certificates
 
-msg "${CYAN}${BOLD}" "========== Welcome! To the Arch Maintnance Script! 💪😎  =========="
+msg_not "${CYAN}${BOLD}" "==> Updating core packages...   "
 sudo pacman -Syu
 
 msg_not "${CYAN}${BOLD}" "==> Updating aur packages...   "
@@ -184,34 +216,6 @@ msg_not "${CYAN}${BOLD}" "==> Looking for errors in journalctl...   "
 journalctl -p 3 -xb
 read -n1 -r key
 
-msg_not "${BLUE}${BOLD}" "==> Back up important folders? [y/N]"
-read yn
-case $yn in
-[Yy]*) sudo "$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_home.sh" ;;
-esac
-msg_not "${BLUE}${BOLD}" "==> Back up the mail server (~30mins)? [y/N]"
-read yn
-case $yn in
-[Yy]*)
-  "$TERMINAL" sudo \
-    $XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_digital_ocean.sh &
-  ;;
-esac
-msg_not "${BLUE}${BOLD}" "==> Sync passwords? [y/N]"
-read yn
-case $yn in
-[Yy]*)
-  "$TERMINAL" $HOME/Documents/wiki/scripts/backup_keepass_db.sh &
-  ;;
-esac
-msg_not "${BLUE}${BOLD}" "==> Back up emails (~15mins)? [y/N]"
-read yn
-case $yn in
-[Yy]*)
-  "$TERMINAL" sudo \
-    $XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_mail.sh &
-  ;;
-esac
 msg_not "${BLUE}${BOLD}" "==> Update pihole? [y/N]"
 read yn
 case $yn in
@@ -224,12 +228,12 @@ read yn
 case $yn in
 [Yy]*)
   kitty +kitten ssh digital_ocean
-# apt-get -y update &&
-# apt-get -y upgrade &&
-# apt-get -y autoremove &&
-# apt-get -y autoclean
-# reboot
-# EOF
+  # apt-get -y update &&
+  # apt-get -y upgrade &&
+  # apt-get -y autoremove &&
+  # apt-get -y autoclean
+  # reboot
+  # EOF
   ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Remove junk? [y/N]"

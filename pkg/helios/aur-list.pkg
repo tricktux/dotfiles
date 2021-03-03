@@ -28,6 +28,7 @@ paru
 polybar
 preload
 ripgrep-all
+ripmime
 rofi-bluetooth-git
 rofi-dmenu
 rofi-emoji
@@ -39,3 +40,4 @@ teamviewer
 ttf-weather-icons
 vdhcoapp-bin
 zeal
+zoom
