@@ -107,6 +107,7 @@ libtool
 lightdm
 linux
 linux-firmware
+linux-headers
 lldb
 luajit
 luit
