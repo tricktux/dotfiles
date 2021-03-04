@@ -217,7 +217,7 @@ local function setup_telescope()
       -- selection_strategy = "reset",
 
       -- Can choose EITHER one of these: horizontal, vertical, center
-      layout_strategy = "horizontal",
+      -- layout_strategy = "horizontal",
       -- horizontal_config = {
       -- get_preview_width = function(columns, _)
       -- return math.floor(columns * 0.5)
@@ -228,6 +228,20 @@ local function setup_telescope()
       -- To move to bottom, use strategy descending
       prompt_position = "top",
       sorting_strategy = "ascending",
+      layout_strategy = "flex",
+      winblend = 5,
+      layout_defaults = {
+          horizontal = {
+          width_padding = 0.1,
+          height_padding = 0.1,
+          preview_width = 0.6,
+        },
+          vertical = {
+          width_padding = 0.05,
+          height_padding = 1,
+          preview_height = 0.5,
+        }
+      },
 
       default_mappings = {
         i = {
