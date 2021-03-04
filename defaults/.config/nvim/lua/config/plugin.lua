@@ -250,23 +250,28 @@ local function setup_telescope()
           ["<esc>"] = actions.close,
           ["<c-c>"] = actions.close,
           ["<c-q>"] = actions.close,
-          ["<CR>"] = actions.goto_file_selection_edit,
-          ["<c-m>"] = actions.goto_file_selection_edit,
-          ["<C-s>"] = actions.goto_file_selection_split,
+          ["<CR>"] = actions.file_edit,
+          ["<c-m>"] = actions.file_edit,
+          ["<C-s>"] = actions.file_split,
           ["<C-e>"] = actions.preview_scrolling_up,
           ["<C-d>"] = actions.preview_scrolling_down,
-          ["<C-v>"] = actions.goto_file_selection_vsplit,
-          ["<C-t>"] = actions.goto_file_selection_tabedit
+          ["<C-v>"] = actions.file_vsplit,
+          ["<C-t>"] = actions.file_tab
         },
 
         n = {
           ["<esc>"] = actions.close,
           ["<c-c>"] = actions.close,
           ["q"] = actions.close,
-          ["<CR>"] = actions.goto_file_selection_edit,
-          ["<c-m>"] = actions.goto_file_selection_edit
+          ["<CR>"] = actions.file_edit,
+          ["<c-m>"] = actions.file_edit
         }
-      }
+      },
+      width = 0.75,
+      preview_cutoff = 120,
+      results_height = 1,
+      results_width = 0.8,
+
       -- shorten_path = true,
       -- winblend = 10, -- help winblend
       -- winblend = {
