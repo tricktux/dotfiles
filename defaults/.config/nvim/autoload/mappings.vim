@@ -134,14 +134,7 @@ function! mappings#Set()
   " Fri Jan 11 2019 13:41
   " Already settled for the following config
   " Main reason `:e` resets folds. Kinda annoying
-  nnoremap <c-l>
-        \ :nohlsearch<cr>
-        \:diffupdate<cr>
-        \:SignifyRefresh<cr>
-        \:mode<cr>
-        \:syntax sync fromstart<cr>
-        \:e<cr><c-l>
-        \:normal! zz<cr>
+  nnoremap <c-l> :call <sid>refresh_buffer()<cr>
 
   " List of super useful mappings
   " = fixes indentantion
@@ -1532,4 +1525,16 @@ endfunction
 
 function! s:todo_remove() abort
   return delete('/tmp/todo.txt')
+endfunction
+
+function! s:refresh_buffer() abort
+  nohlsearch
+  diffupdate
+  mode
+  syntax sync fromstart
+  edit
+  normal! zz<cr>
+  if exists(':SignifyRefresh')
+    SignifyRefresh
+  endif
 endfunction
