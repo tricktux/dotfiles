@@ -36,7 +36,7 @@ local function set_lsp_mappings(capabilities)
     n = 'diagnostic.show_line_diagnostics()',
     l = 'diagnostic.set_loclist()',
     ['wa'] = 'buf.add_workspace_folder()',
-    ['wr'] = 'buf.remove_workspace_folder()',
+    ['wr'] = 'buf.remove_workspace_folder()'
   }
   for lhs, rhs in pairs(mappings) do
     log.trace("lhs = ", map_pref .. lhs, ", rhs = ",
@@ -45,9 +45,9 @@ local function set_lsp_mappings(capabilities)
   end
 
   -- Workspace mappings
-  map.nnoremap(map_pref .. 'wl', 
-    '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))'
-    .. cmd_suff, opts)
+  map.nnoremap(map_pref .. 'wl',
+               '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))' ..
+                   cmd_suff, opts)
 
   -- Diagnostics
   map.nnoremap(']l', cmd_pref .. 'diagnostic.goto_next()' .. cmd_suff, opts)
@@ -55,9 +55,11 @@ local function set_lsp_mappings(capabilities)
 
   -- Set some keybinds conditional on server capabilities
   if capabilities.document_formatting then
-    map.nnoremap(map_pref .. 'f', cmd_pref .. 'buf.formatting()' .. cmd_suff, opts)
+    map.nnoremap(map_pref .. 'f', cmd_pref .. 'buf.formatting()' .. cmd_suff,
+                 opts)
   elseif capabilities.document_range_formatting then
-    map.nnoremap(map_pref .. 'f', cmd_pref .. 'buf.range_formatting()' .. cmd_suff, opts)
+    map.nnoremap(map_pref .. 'f',
+                 cmd_pref .. 'buf.range_formatting()' .. cmd_suff, opts)
   end
 
   if utl.is_mod_available('telescope') then
@@ -66,8 +68,8 @@ local function set_lsp_mappings(capabilities)
     map.nnoremap(map_pref .. 'R', cmd_pref .. 'references()' .. cmd_suff, opts)
     map.nnoremap(map_pref .. 's', cmd_pref .. 'document_symbols()' .. cmd_suff,
                  opts)
-    map.nnoremap(map_pref .. 'ws', cmd_pref .. 'workspace_symbols()' .. cmd_suff,
-                 opts)
+    map.nnoremap(map_pref .. 'ws',
+                 cmd_pref .. 'workspace_symbols()' .. cmd_suff, opts)
   end
 end
 
@@ -118,9 +120,7 @@ local function diagnostic_set()
       vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
         -- This will disable virtual text, like doing:
         -- let g:diagnostic_enable_virtual_text = 0
-        virtual_text = {
-          spacing = 4,
-        },
+        virtual_text = {spacing = 4},
 
         -- Enable underline, use default values
         underline = true,
@@ -161,9 +161,9 @@ local function lsp_set()
   if vim.fn.executable('omnisharp') > 0 then
     log.info("setting up the omnisharp lsp...")
     nvim_lsp.omnisharp.setup {
-        on_attach = on_lsp_attach,
-        cmd = { "omnisharp", "--languageserver" , "--hostPID", pid},
-        capabilities = lsp_status.capabilities,
+      on_attach = on_lsp_attach,
+      cmd = {"omnisharp", "--languageserver", "--hostPID", pid},
+      capabilities = lsp_status.capabilities
     }
   end
 
@@ -224,7 +224,7 @@ local function lsp_set()
         "--fallback-style=LLVM", "--pch-storage=memory",
         "--suggest-missing-includes", "--header-insertion=iwyu", "-j=12",
         "--header-insertion-decorators=false"
-      },
+      }
       -- Default is better
       -- filetypes = {"c", "cpp"}
     }
