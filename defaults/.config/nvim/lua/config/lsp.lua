@@ -3,12 +3,16 @@ local map = require('utils/keymap')
 local log = require('utils/log')
 local plg = require('config/plugin')
 
-local function set_lsp_options(capabilities)
+local function set_lsp_options(capabilities, bufnr)
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
   if capabilities.document_highlight then
     vim.api.nvim_exec([[
-      hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
-      hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
-      hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
+      hi LspReferenceRead cterm=bold ctermbg=red guibg=#008787
+      hi LspReferenceText cterm=bold ctermbg=red guibg=#008787
+      hi LspReferenceWrite cterm=bold ctermbg=red guibg=#008787
       augroup lsp_document_highlight
         autocmd! * <buffer>
         autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
@@ -75,7 +79,7 @@ end
 
 -- Abstract function that allows you to hook and set settings on a buffer that
 -- has lsp server support
-local function on_lsp_attach(client_id)
+local function on_lsp_attach(client_id, bufnr)
   if vim.b.did_on_lsp_attach == 1 then
     -- Setup already done in this buffer
     log.debug('on_lsp_attach already setup')
@@ -90,7 +94,7 @@ local function on_lsp_attach(client_id)
   -- vim.cmd('autocmd CursorHold <buffer> lua vim.lsp.util.show_line_diagnostics()')
   -- vim.cmd("autocmd CursorHold <buffer> lua vim.lsp.buf.hover()")
   set_lsp_mappings(client_id.resolved_capabilities)
-  set_lsp_options(client_id.resolved_capabilities)
+  set_lsp_options(client_id.resolved_capabilities, bufnr)
   -- require('config/completion').diagn:on_attach()
 
   -- Disable tagbar
