@@ -101,6 +101,7 @@ Slave :molinamail-local:
 Patterns *
 # Automatically create missing mailboxes, both locally and on the server
 Create Both
+Expunge Both
 # Save the synchronization state files in the relevant directory
 SyncState *
 
@@ -138,6 +139,7 @@ Slave :molinamail_meli-local:
 Patterns *
 # Automatically create missing mailboxes, both locally and on the server
 Create Both
+Expunge Both
 # Save the synchronization state files in the relevant directory
 SyncState *
 
