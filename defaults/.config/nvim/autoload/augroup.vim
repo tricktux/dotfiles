@@ -61,7 +61,7 @@ function! augroup#Set() abort
           \ define=^\s*\\(def\\\\|class\\)
 
     " Python
-    autocmd FileType vim setlocal
+    autocmd FileType vim,lua setlocal
                 \ textwidth=79
                 \ shiftwidth=2
                 \ tabstop=2
