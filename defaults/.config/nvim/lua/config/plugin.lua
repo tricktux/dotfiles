@@ -331,7 +331,47 @@ local function setup_gitsigns()
   vim.cmd'command! GitSignsBlameLine lua require"gitsigns".blame_line()'
 end
 
+local _packer = {}
+_packer._path = vim.g.std_data_path .. [[/site/pack/packer/start/packer.nvim]]
+_packer._repo = [[https://github.com/wbthomason/packer.nvim]]
+
+function _packer:download()
+  if vim.fn.isdirectory(self._path) ~= 0 then
+    -- Already exists
+    return
+  end
+
+  if vim.fn.executable('git') == 0 then
+    print("Git is not in your path. Cannot download packer.nvim")
+    return
+  end
+
+  local git_cmd = 'git clone ' .. self._repo .. ' --depth 1 ' .. self._path
+  print("packer.nvim does not exist downloading...")
+  vim.fn.system(git_cmd)
+  vim.cmd('packadd packer.nvim')
+end
+
+function _packer:setup()
+  local packer = nil
+  if packer == nil then
+    packer = require('packer')
+    packer.init()
+  end
+
+  local use = packer.use
+  packer.reset()
+
+  use {'wbthomason/packer.nvim'}
+end
+
 local function setup()
+  _packer:download()
+  if not utl.is_mod_available('packer') then
+    print("ERROR: packer.nvim module not found")
+    return
+  end
+  _packer:setup()
   -- setup_formatter()
   -- Treesitter really far from ready
   setup_treesitter()
