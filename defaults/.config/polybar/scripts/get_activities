@@ -28,7 +28,6 @@ def plot():
     duration = []
     with open(r'/tmp/bike.csv') as csvfile:
         reader = csv.DictReader(csvfile)
-        next(reader)  # Skip header
         for row in reader:
             if row['avg power'] == 'N/A':
                 continue
