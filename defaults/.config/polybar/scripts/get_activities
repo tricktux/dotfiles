@@ -10,11 +10,44 @@ import sys
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
 
+import matplotlib.dates as mdates
+import matplotlib.pyplot as plt
 from stravalib import unithelper
 from stravalib.client import Client
 
 DEBUG = 0
 LOG = 'get_activities'
+
+
+def plot():
+    if not os.path.isfile(r'/tmp/bike.csv'):
+        return
+    date = []
+    power = []
+    heart_rate = []
+    duration = []
+    with open(r'/tmp/bike.csv') as csvfile:
+        reader = csv.DictReader(csvfile)
+        next(reader)  # Skip header
+        for row in reader:
+            if row['avg power'] == 'N/A':
+                continue
+            date.append(row['date'])
+            heart_rate.append(float(row['avg heart rate']))
+            power.append(float(row['avg power']))
+            dur = row['duration']
+            hours = int(dur[0]) * 60
+            duration.append(hours + int(dur[-2:]))
+
+    x = [datetime.datetime.strptime(d, '%m/%d/%y').date() for d in date]
+    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%m/%d/%y'))
+    plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=5))
+    plt.plot(x, heart_rate, '-', label='Heart Rate')
+    plt.plot(x, power, ':', label='Avg Power (watts)')
+    plt.plot(x, duration, '-.', label='Duration (mins)')
+    plt.gcf().autofmt_xdate()
+    plt.legend(loc='best')
+    plt.savefig(r'/tmp/bike.png')
 
 
 def seconds_to_hours(seconds):
@@ -252,3 +285,4 @@ if __name__ == '__main__':
           avg_bike_speed + ' m/h')
     if not os.path.isfile(r'/tmp/bike.csv'):
         strava.get_csv_of_bike_activities()
+        plot()

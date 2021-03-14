@@ -47,7 +47,7 @@ update_polybar_python_venv() {
   local venv_loc="$XDG_DATA_HOME/pyvenv"
   local venv_name="polybar"
   local pkgs=(
-    requests jinja2 stravalib
+    requests jinja2 stravalib matplot
   )
 
   mkdir -p "$venv_loc"
@@ -96,7 +96,7 @@ update_pynvim() {
   local venv_loc="$XDG_DATA_HOME/pyvenv"
   local venv_name="nvim"
   local pkgs=(
-    vim-vint psutil flake8 jedi
+    vim-vint psutil flake8 jedi matplot
     "python-language-server[all]" frosted
     pep8 pylint pynvim isort mypy
   )
