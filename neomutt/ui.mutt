@@ -90,12 +90,6 @@ set confirmappend=no
 set delete=yes
 set autoedit
 
-# Sat Nov 04 2017 12:54: Neomutt only feature
-# If an opttion does not work search the manual. It may appear in different
-# types of options. You just need to put it in th correct one.
-set beep_new
-set new_mail_command="notify-send 'New Email in %f' '%n new messages, %u unread.' && mpg123 ~/.config/dotfiles/notification_sounds/cool_notification0.mp3 2>/dev/null&"
-
 # Speed up folders switch
 set sleep_time = 0
 
