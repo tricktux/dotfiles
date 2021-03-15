@@ -10,9 +10,9 @@ local function set_lsp_options(capabilities, bufnr)
 
   if capabilities.document_highlight then
     vim.api.nvim_exec([[
-      hi LspReferenceRead cterm=bold ctermbg=red guibg=#008787
-      hi LspReferenceText cterm=bold ctermbg=red guibg=#008787
-      hi LspReferenceWrite cterm=bold ctermbg=red guibg=#008787
+      hi LspReferenceRead cterm=bold ctermbg=red guibg=Yellow
+      hi LspReferenceText cterm=bold ctermbg=red guibg=Yellow
+      hi LspReferenceWrite cterm=bold ctermbg=red guibg=Yellow
       augroup lsp_document_highlight
         autocmd! * <buffer>
         autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
