@@ -176,7 +176,7 @@ local function lsp_set()
     nvim_lsp.pyls.setup {
       on_attach = on_lsp_attach,
       cmd = {"pyls"},
-      root_dir = nvim_lsp.util.root_pattern(".git", ".svn"),
+      -- root_dir = nvim_lsp.util.root_pattern(".git", ".svn"),
       capabilities = lsp_status.capabilities,
       settings = {
         pyls = {
