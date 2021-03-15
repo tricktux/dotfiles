@@ -226,7 +226,7 @@ function! plugin#Config()
 
   " These plugins will be configured via lua
   if has('nvim-0.5')
-    Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+    " Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
     " Wed Nov 25 2020 07:38: lsp_status_line has prettier function name
     if exists('g:lightline')
       " Unix already enables tagbar. No need for another

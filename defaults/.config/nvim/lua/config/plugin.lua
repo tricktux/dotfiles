@@ -366,6 +366,13 @@ function _packer:setup()
   packer.reset()
 
   use {'wbthomason/packer.nvim'}
+
+  -- Post-install/update hook with neovim command
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate',
+    config = setup_treesitter()
+  }
 end
 
 local function setup()
@@ -377,7 +384,7 @@ local function setup()
   _packer:setup()
   -- setup_formatter()
   -- Treesitter really far from ready
-  setup_treesitter()
+  -- setup_treesitter()
   setup_telescope()
   -- Kinda distracting
   -- setup_scrollbar()
