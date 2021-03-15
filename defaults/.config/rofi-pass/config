@@ -54,7 +54,7 @@ BROWSER='/usr/bin/firefox'
 
 ## Misc settings
 
-default_do='typePass copyPass' # menu, autotype, copyPass, typeUser, typePass, copyUser, copyUrl, viewEntry, typeMenu, actionMenu, copyMenu, openUrl
+default_do='copyPass' # menu, autotype, copyPass, typeUser, typePass, copyUser, copyUrl, viewEntry, typeMenu, actionMenu, copyMenu, openUrl
 auto_enter='true'
 notify='true'
 default_autotype='user :tab pass'
