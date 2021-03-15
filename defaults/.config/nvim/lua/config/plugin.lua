@@ -46,8 +46,10 @@ local function setup_treesitter()
   tsconf.setup {
     -- This line will install all of them
     -- one of "all", "language", or a list of languages
-    ensure_installed = {"c", "cpp", "python", "lua", "java", "bash", 
-            "c_sharp", "rust", "json", "toml"},
+    ensure_installed = {
+      "c", "cpp", "python", "lua", "java", "bash", "c_sharp", "rust", "json",
+      "toml"
+    },
     highlight = {
       enable = true, -- false will disable the whole extension
       -- incremental_selection = {enable = true},
@@ -57,7 +59,8 @@ local function setup_treesitter()
     -- disable = {"c", "rust"} -- list of language that will be disabled
   }
 
-  vim.cmd("autocmd FileType c,cpp,python,lua,java,bash,rust,json,toml,cs setlocal foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
+  vim.cmd(
+      "autocmd FileType c,cpp,python,lua,java,bash,rust,json,toml,cs setlocal foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
   -- if exists('g:lightline')
   -- let g:lightline.active.right[2] += [ 'sessions' ]
   -- let g:lightline.component_function['sessions'] =
@@ -231,15 +234,15 @@ local function setup_telescope()
       layout_strategy = "flex",
       winblend = 5,
       layout_defaults = {
-          horizontal = {
+        horizontal = {
           width_padding = 0.1,
           height_padding = 0.1,
-          preview_width = 0.6,
+          preview_width = 0.6
         },
-          vertical = {
+        vertical = {
           width_padding = 0.05,
           height_padding = 1,
-          preview_height = 0.5,
+          preview_height = 0.5
         }
       },
 
@@ -270,7 +273,7 @@ local function setup_telescope()
       width = 0.75,
       preview_cutoff = 120,
       results_height = 1,
-      results_width = 0.8,
+      results_width = 0.8
 
       -- shorten_path = true,
       -- winblend = 10, -- help winblend
@@ -306,12 +309,12 @@ local function setup_gitsigns()
       -- buffer = true,
 
       -- ['n ]c'] = {
-        -- expr = true,
-        -- "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'"
+      -- expr = true,
+      -- "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'"
       -- },
       -- ['n [c'] = {
-        -- expr = true,
-        -- "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'"
+      -- expr = true,
+      -- "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'"
       -- },
 
       -- ['n <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
@@ -324,11 +327,11 @@ local function setup_gitsigns()
     sign_priority = 6,
     status_formatter = nil -- Use default
   }
-  vim.cmd'command! GitSignsStageHunk lua require"gitsigns".stage_hunk()'
-  vim.cmd'command! GitSignsUndoStageHunk lua require"gitsigns".undo_stage_hunk()'
-  vim.cmd'command! GitSignsResetHunk lua require"gitsigns".reset_hunk()'
-  vim.cmd'command! GitSignsPreviewHunk lua require"gitsigns".preview_hunk()'
-  vim.cmd'command! GitSignsBlameLine lua require"gitsigns".blame_line()'
+  vim.cmd 'command! GitSignsStageHunk lua require"gitsigns".stage_hunk()'
+  vim.cmd 'command! GitSignsUndoStageHunk lua require"gitsigns".undo_stage_hunk()'
+  vim.cmd 'command! GitSignsResetHunk lua require"gitsigns".reset_hunk()'
+  vim.cmd 'command! GitSignsPreviewHunk lua require"gitsigns".preview_hunk()'
+  vim.cmd 'command! GitSignsBlameLine lua require"gitsigns".blame_line()'
 end
 
 local _packer = {}
