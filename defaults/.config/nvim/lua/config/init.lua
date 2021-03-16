@@ -1,6 +1,4 @@
-local lsp = require('config/lsp')
 local plg = require('config/plugin')
-local cpl = require('config/completion')
 local log = require('utils/log')
 local utl = require('utils/utils')
 local map = require('utils/keymap')
@@ -127,16 +125,8 @@ local function _init()
       vim.fn.mkdir(vim.g.std_cache_path .. folder, "p")
     end
   end
-end
 
--- This function is called during the VimEnter event. From the 
--- plugin#AfterConfig function. This is done to ensure that variables and lua 
--- modules have been loaded for sure
-local function _after_init()
-  -- cpl.compl:set()
-  -- cpl.diagn:set()
-  lsp.set()
   plg.setup()
 end
 
-return {init = _init, after_vim_enter = _after_init}
+return {init = _init}
