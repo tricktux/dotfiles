@@ -356,6 +356,13 @@ function _packer:download()
   vim.cmd('packadd packer.nvim')
 end
 
+local function setup_lazygit()
+  vim.g.lazygit_floating_window_winblend = 0 -- transparency of floating window
+  vim.g.lazygit_floating_window_scaling_factor = 0.9 -- scaling factor for floating window
+  vim.g.lazygit_floating_window_corner_chars = {'╭', '╮', '╰', '╯'} -- customize lazygit popup window corner characters
+  vim.g.lazygit_use_neovim_remote = 0
+end
+
 function _packer.setup()
   local packer = nil
   if packer == nil then
@@ -374,6 +381,39 @@ function _packer.setup()
     run = ':TSUpdate',
     config = setup_treesitter()
   }
+
+  use {
+    'hrsh7th/nvim-compe',
+    config = require('config.plugins.compe').config(),
+    requires = {
+      {'hrsh7th/vim-vsnip', opt = true}, {'hrsh7th/vim-vsnip-integ', opt = true}
+    }
+  }
+
+  use {
+    'neovim/nvim-lspconfig',
+    config = require('config.lsp').set(),
+    requires = {'nvim-lua/lsp-status.nvim', opt = true}
+  }
+
+  -- Use dependency and run lua function after load
+  use {
+    'lewis6991/gitsigns.nvim',
+    cond = utl.has_unix(),
+    config = setup_gitsigns(),
+    requires = {'nvim-lua/plenary.nvim', opt = true}
+  }
+
+  use {
+    'nvim-lua/telescope.nvim',
+    config = setup_telescope(),
+    requires = {
+      {'nvim-lua/popup.nvim', opt = true}, {'nvim-lua/plenary.nvim', opt = true}
+    }
+  }
+
+  use {'kdheepak/lazygit.nvim', config = setup_lazygit()}
+  use {'nanotee/nvim-lua-guide'}
 end
 
 local function setup()
@@ -383,13 +423,6 @@ local function setup()
     return
   end
   _packer:setup()
-  -- setup_formatter()
-  -- Treesitter really far from ready
-  -- setup_treesitter()
-  setup_telescope()
-  -- Kinda distracting
-  -- setup_scrollbar()
-  setup_gitsigns()
 end
 
 return {setup = setup, setup_lspstatus = setup_lspstatus}

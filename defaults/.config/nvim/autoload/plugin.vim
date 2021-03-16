@@ -134,8 +134,12 @@ function! plugin#Config()
   " Fri Dec 18 2020 22:56
   "   - Back to deoplete. clang stopped working and looks to go 
   " let l:compl = has('nvim-0.5') ? 'completion_nvim' : 'shuogo_deo'
-  let l:compl = 'shuogo_deo'
-  call autocompletion#SetCompl(l:compl)
+  " Mon Mar 15 2021 22:23:
+  " - New lua complication nvim-compe. Configured through packer.nvim
+  if !has('nvim-0.5')
+    let l:compl = 'shuogo_deo'
+    call autocompletion#SetCompl(l:compl)
+  endif
   " call autocompletion#SetCompl(
   " \ has('unix') ? 'shuogo_deo' :
   " \ (exists('g:portable_vim') && g:portable_vim == 1 ? 'shuogo_neo' : 'shuogo_deo')
@@ -235,22 +239,22 @@ function! plugin#Config()
             \ string(function('s:ts_status'))
     endif
     " Plug 'mhartington/formatter.nvim'
-    Plug 'nanotee/nvim-lua-guide'
+    " Plug 'nanotee/nvim-lua-guide'
     " Fuzzers
-    Plug 'nvim-lua/popup.nvim'
-    Plug 'nvim-lua/plenary.nvim'
-    Plug 'nvim-lua/telescope.nvim'
-    Plug 'kdheepak/lazygit.nvim'
-    let g:lazygit_floating_window_winblend = 0 " transparency of floating window
-    let g:lazygit_floating_window_scaling_factor = 0.9 " scaling factor for floating window
-    let g:lazygit_floating_window_corner_chars = ['╭', '╮', '╰', '╯'] " customize lazygit popup window corner characters
-    let g:lazygit_use_neovim_remote = 0
+    " Plug 'nvim-lua/popup.nvim'
+    " Plug 'nvim-lua/plenary.nvim'
+    " Plug 'nvim-lua/telescope.nvim'
+    " Plug 'kdheepak/lazygit.nvim'
+    " let g:lazygit_floating_window_winblend = 0 " transparency of floating window
+    " let g:lazygit_floating_window_scaling_factor = 0.9 " scaling factor for floating window
+    " let g:lazygit_floating_window_corner_chars = ['╭', '╮', '╰', '╯'] " customize lazygit popup window corner characters
+    " let g:lazygit_use_neovim_remote = 0
     if exists('g:valid_device')
       Plug 'kyazdani42/nvim-web-devicons'
     endif
     if has('unix')
       " Thu Feb 25 2021 12:33: Using both (gitsigns and signify) on windows is a pain
-      Plug 'lewis6991/gitsigns.nvim'
+      " Plug 'lewis6991/gitsigns.nvim'
       " NOTE: depends on plenary.nvim
       if exists('g:lightline')
         let g:lightline.active.left[2] += [ 'gitsigns' ]
