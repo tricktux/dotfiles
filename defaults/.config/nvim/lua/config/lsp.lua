@@ -182,14 +182,14 @@ local function lsp_set()
         pyls = {
           plugins = {
             jedi_completion = {fuzzy = true, include_params = true},
-            mccabe = {enabled = true},
-            pycodestyle = {enabled = true},
-            flake8 = {enabled = true},
+            mccabe = {enabled = false},
+            pycodestyle = {enabled = false},
+            flake8 = {enabled = false},
             pydocstyle = {enabled = false},
             pyflakes = {enabled = false},
             pylint = {enabled = true},
             yapf = {enabled = false},
-            pyls_mypy = {enabled = true, live_mode = false}
+            pyls_mypy = {enabled = false, live_mode = false}
           }
         }
       }
