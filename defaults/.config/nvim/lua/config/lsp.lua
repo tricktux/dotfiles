@@ -196,16 +196,6 @@ local function lsp_set()
     }
   end
 
-  -- if utl.is_mod_available('nlua.lsp.nvim') then
-  -- Requires the sumneko_lua server
-  -- This is setup nlua autocompletion of built in functions
-  -- To get builtin LSP running, do something like:
-  -- NOTE: This replaces the calls where you would have before done
-  -- `require('nvim_lsp').sumneko_lua.setup()`
-  -- require('nlua.lsp.nvim').setup(require('nvim_lsp'),
-  -- {on_attach = nil, globals = { "Color", "c", "Group", "g", "s", } })
-  -- end
-
   if vim.fn.executable('lua-language-server') > 0 then
     log.info("setting up the lua-language-server lsp...")
     nvim_lsp.sumneko_lua.setup {
