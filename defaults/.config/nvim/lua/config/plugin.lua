@@ -355,7 +355,7 @@ function _packer:download()
   vim.cmd('packadd packer.nvim')
 end
 
-function _packer:setup()
+function _packer.setup()
   local packer = nil
   if packer == nil then
     packer = require('packer')
