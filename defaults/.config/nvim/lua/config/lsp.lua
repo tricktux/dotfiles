@@ -200,9 +200,29 @@ local function lsp_set()
     log.info("setting up the lua-language-server lsp...")
     nvim_lsp.sumneko_lua.setup {
       on_attach = on_lsp_attach,
-      cmd = {"lua-language-server"},
       capabilities = lsp_status.capabilities,
-      root_dir = nvim_lsp.util.root_pattern(".git", ".svn")
+      cmd = {"lua-language-server"},
+      settings = {
+        Lua = {
+          runtime = {
+            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+            version = 'LuaJIT',
+            -- Setup your lua path
+            path = vim.split(package.path, ';')
+          },
+          diagnostics = {
+            -- Get the language server to recognize the `vim` global
+            globals = {'vim'}
+          },
+          workspace = {
+            -- Make the server aware of Neovim runtime files
+            library = {
+              [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+              [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true
+            }
+          }
+        }
+      }
     }
   end
 
