@@ -159,11 +159,11 @@ local function lsp_set()
   -- Notice not all configs have a `callbacks` setting
   local nvim_lsp = require('lspconfig')
   diagnostic_set()
-  local pid = tostring(vim.fn.getpid())
 
   -- Unbearably slow
   if vim.fn.executable('omnisharp') > 0 then
     log.info("setting up the omnisharp lsp...")
+    local pid = tostring(vim.fn.getpid())
     nvim_lsp.omnisharp.setup {
       on_attach = on_lsp_attach,
       cmd = {"omnisharp", "--languageserver", "--hostPID", pid},
