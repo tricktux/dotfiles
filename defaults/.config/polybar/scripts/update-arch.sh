@@ -96,7 +96,7 @@ update_pynvim() {
   local venv_loc="$XDG_DATA_HOME/pyvenv"
   local venv_name="nvim"
   local pkgs=(
-    vim-vint psutil flake8 jedi==0.17.2 matplot
+    vim-vint psutil flake8 "jedi==0.17.2" matplot
     "python-language-server[all]" frosted
     pep8 pylint pynvim isort mypy
   )
@@ -105,7 +105,7 @@ update_pynvim() {
   python -m venv "$venv_loc/$venv_name" \
     --symlinks --clear
   source "$venv_loc/$venv_name/bin/activate"
-  pip3 install --upgrade ${pkgs[*]}
+  pip3 install --ignore-installed --upgrade ${pkgs[*]}
   deactivate
 }
 
