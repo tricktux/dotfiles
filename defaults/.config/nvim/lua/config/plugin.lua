@@ -8,10 +8,11 @@ local utl = require('utils/utils')
 local log = require('utils/log')
 local map = require('utils/keymap')
 local aug = require('config/augroups')
+local api = vim.api
 
 local function setup_lspstatus()
   if not utl.is_mod_available('lsp-status') then
-    log.error("lsp-status was set, but module not found")
+    api.nvim_err_writeln("lsp-status was set, but module not found")
     return
   end
 
@@ -36,7 +37,7 @@ end
 
 local function setup_treesitter()
   if not utl.is_mod_available('nvim-treesitter') then
-    log.error('nvim-treesitter module not available')
+    api.nvim_err_writeln('nvim-treesitter module not available')
     return
   end
 
@@ -110,7 +111,7 @@ end
 
 local function setup_formatter()
   if not utl.is_mod_available('format') then
-    log.error('format module not available')
+    api.nvim_err_writeln('format module not available')
     return
   end
 
@@ -183,7 +184,7 @@ end
 
 local function setup_scrollbar()
   if not utl.is_mod_available('scrollbar') then
-    log.error('scrollbar module not available')
+    api.nvim_err_writeln('scrollbar module not available')
     return
   end
 
@@ -200,7 +201,7 @@ end
 
 local function setup_telescope()
   if not utl.is_mod_available('telescope') then
-    log.error('telescope module not available')
+    api.nvim_err_writeln('telescope module not available')
     return
   end
 
@@ -289,7 +290,7 @@ end
 
 local function setup_gitsigns()
   if not utl.is_mod_available('gitsigns') then
-    log.error('gitsigns module not available')
+    api.nvim_err_writeln('gitsigns module not available')
     return
   end
 
@@ -378,7 +379,7 @@ end
 local function setup()
   _packer:download()
   if not utl.is_mod_available('packer') then
-    print("ERROR: packer.nvim module not found")
+    api.nvim_err_writeln("packer.nvim module not found")
     return
   end
   _packer:setup()
