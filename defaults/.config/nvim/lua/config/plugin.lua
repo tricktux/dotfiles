@@ -445,7 +445,7 @@ function _packer:setup()
   use {
     'neovim/nvim-lspconfig',
     config = require('config.lsp').set(),
-    requires = {'nvim-lua/lsp-status.nvim'}
+    requires = {{'nvim-lua/lsp-status.nvim'}, {'ray-x/lsp_signature.nvim'}}
   }
 
   -- Use dependency and run lua function after load
