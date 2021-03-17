@@ -39,7 +39,7 @@ _G.s_tab_complete = function()
   end
 end
 
-function M.config()
+function M.compe()
 
   if not utl.is_mod_available('compe') then
     print('ERROR: nvim-compe module not available')

@@ -437,7 +437,7 @@ function _packer:setup()
 
   use {
     'hrsh7th/nvim-compe',
-    config = require('config.plugins.compe').config(),
+    config = require('config.plugins.completion').compe(),
     requires = {{'hrsh7th/vim-vsnip'}, {'hrsh7th/vim-vsnip-integ'}}
   }
 
