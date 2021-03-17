@@ -465,6 +465,10 @@ function _packer:setup()
 
   use {'kdheepak/lazygit.nvim', config = setup_lazygit()}
   use {'nanotee/nvim-lua-guide'}
+  use {
+    'kyazdani42/nvim-tree.lua',
+    config = require('config.plugins.tree_explorer').nvimtree_config()
+  }
 end
 
 local function setup()

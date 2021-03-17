@@ -184,7 +184,9 @@ function! plugin#Config()
   " Mon Aug 17 2020 21:50: Problems with chadtree
   " - Doesn't always start in the correct directory
   " - Doesn't always open in the correct directory
-  call s:configure_file_browser('nerdtree')
+  if !has('nvim-0.5')
+    call s:configure_file_browser('nerdtree')
+  end
 
   call s:configure_nerdcommenter()
 
