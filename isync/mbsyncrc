@@ -23,8 +23,8 @@
 # Inbox ~/mail/gmail/inbox
 
 # Channel gmail
-# Master :gmail-remote:
-# Slave :gmail-local:
+# Far :gmail-remote:
+# Near :gmail-local:
 # # Exclude everything under the internal [Gmail] folder, except the interesting folders
 # Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/Drafts"
 # # Or include everything
@@ -35,30 +35,30 @@
 # SyncState *
 
 # Channel sync-googlemail-default
-# Master :gmail-remote:
-# Slave :gmail-local:
+# Far :gmail-remote:
+# Near :gmail-local:
 # # Select some mailboxes to sync
 # Patterns "INBOX" "arch"
 
 # Channel sync-googlemail-sent
-# Master :gmail-remote:"[Gmail]/Sent Mail"
-# Slave :gmail-local:sent
-# Create Slave
+# Far :gmail-remote:"[Gmail]/Sent Mail"
+# Near :gmail-local:sent
+# Create Near
 
 # Channel sync-googlemail-drafts
-# Master :gmail-remote:"[Gmail]/Drafts"
-# Slave :gmail-local:drafts
-# Create Slave
+# Far :gmail-remote:"[Gmail]/Drafts"
+# Near :gmail-local:drafts
+# Create Near
 
 # # Channel sync-googlemail-important
-# # Master :gmail-remote:"[Gmail]/Important"
-# # Slave :gmail-local:important
-# # Create Slave
+# # Far :gmail-remote:"[Gmail]/Important"
+# # Near :gmail-local:important
+# # Create Near
 
 # Channel sync-googlemail-flagged
-# Master :gmail-remote:"[Gmail]/Starred"
-# Slave :gmail-local:flagged
-# Create Slave
+# Far :gmail-remote:"[Gmail]/Starred"
+# Near :gmail-local:flagged
+# Create Near
 
 # # Get all the channels together into a group.
 # Group googlemail
@@ -93,8 +93,8 @@ Path ~/mail/molinamail/
 Inbox ~/mail/molinamail/inbox
 
 Channel molinamail
-Master :molinamail-remote:
-Slave :molinamail-local:
+Far :molinamail-remote:
+Near :molinamail-local:
 # Exclude everything under the internal [Gmail] folder, except the interesting folders
 # Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
 # Or include everything
@@ -131,8 +131,8 @@ Path ~/mail/molinamail_meli/
 Inbox ~/mail/molinamail_meli/inbox
 
 Channel molinamail_meli
-Master :molinamail_meli-remote:
-Slave :molinamail_meli-local:
+Far :molinamail_meli-remote:
+Near :molinamail_meli-local:
 # Exclude everything under the internal [Gmail] folder, except the interesting folders
 # Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
 # Or include everything
@@ -173,8 +173,8 @@ SyncState *
 # Inbox ~/mail/ufl/inbox
 
 # Channel ufl
-# Master :ufl-remote:
-# Slave :ufl-local:
+# Far :ufl-remote:
+# Near :ufl-local:
 # # Exclude everything under the internal [Gmail] folder, except the interesting folders
 # # Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
 # # Or include everything
