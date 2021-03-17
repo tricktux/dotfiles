@@ -42,6 +42,7 @@ function M.nvimtree_config()
     ["<C-x>"] = tree_cb("split"),
     ["<C-t>"] = tree_cb("tabnew"),
     ["<BS>"] = tree_cb("close_node"),
+    ["u"] = tree_cb("close_node"),
     ["<S-CR>"] = tree_cb("close_node"),
     ["<Tab>"] = tree_cb("preview"),
     ["I"] = tree_cb("toggle_ignored"),
@@ -52,7 +53,7 @@ function M.nvimtree_config()
     ["r"] = tree_cb("rename"),
     ["<C-r>"] = tree_cb("full_rename"),
     ["x"] = tree_cb("cut"),
-    ["c"] = tree_cb("copy"),
+    ["y"] = tree_cb("copy"),
     ["p"] = tree_cb("paste"),
     ["[c"] = tree_cb("prev_git_item"),
     ["]c"] = tree_cb("next_git_item"),
@@ -85,7 +86,6 @@ function M.nvimtree_config()
   -- \   }
   -- \ }
 
-  
   vim.cmd('nnoremap <plug>file_browser :NvimTreeToggle<cr>')
   -- nnoremap <C-n> :NvimTreeToggle<CR>
   -- nnoremap <leader>r :NvimTreeRefresh<CR>
