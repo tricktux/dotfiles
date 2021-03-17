@@ -160,6 +160,10 @@ local function lsp_set()
   local nvim_lsp = require('lspconfig')
   diagnostic_set()
 
+  -- local capabilities = vim.lsp.protocol.make_client_capabilities()
+  local capabilities = lsp_status.capabilities
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
+
   -- Unbearably slow
   if vim.fn.executable('omnisharp') > 0 then
     log.info("setting up the omnisharp lsp...")
@@ -167,7 +171,7 @@ local function lsp_set()
     nvim_lsp.omnisharp.setup {
       on_attach = on_lsp_attach,
       cmd = {"omnisharp", "--languageserver", "--hostPID", pid},
-      capabilities = lsp_status.capabilities
+      capabilities = capabilities
     }
   end
 
@@ -177,7 +181,7 @@ local function lsp_set()
       on_attach = on_lsp_attach,
       cmd = {"pyls"},
       -- root_dir = nvim_lsp.util.root_pattern(".git", ".svn"),
-      capabilities = lsp_status.capabilities,
+      capabilities = capabilities,
       settings = {
         pyls = {
           plugins = {
@@ -200,7 +204,7 @@ local function lsp_set()
     log.info("setting up the lua-language-server lsp...")
     nvim_lsp.sumneko_lua.setup {
       on_attach = on_lsp_attach,
-      capabilities = lsp_status.capabilities,
+      capabilities = capabilities,
       cmd = {"lua-language-server"},
       settings = {
         Lua = {
@@ -229,9 +233,12 @@ local function lsp_set()
   if vim.fn.executable('clangd') > 0 then
     log.info("setting up the clangd lsp...")
     nvim_lsp.clangd.setup {
+      handlers = lsp_status.extensions.clangd.setup(),
+      init_options = {
+        clangdFileStatus = true
+      },
       on_attach = on_clangd_attach,
-      -- callbacks = lsp_status.extensions.clangd.setup(),
-      capabilities = lsp_status.capabilities,
+      capabilities = capabilities,
       cmd = {
         "clangd", "--all-scopes-completion=true", "--background-index=true",
         "--clang-tidy=true", "--completion-style=detailed",
