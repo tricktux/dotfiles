@@ -306,17 +306,17 @@ local function setup_gitsigns()
     numhl = false,
     keymaps = {
       -- Default keymap options
-      -- noremap = false,
-      -- buffer = true,
+      noremap = true,
+      buffer = true,
 
-      -- ['n ]c'] = {
-      -- expr = true,
-      -- "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'"
-      -- },
-      -- ['n [c'] = {
-      -- expr = true,
-      -- "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'"
-      -- },
+      ['n ]c'] = {
+        expr = true,
+        "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'"
+      },
+      ['n [c'] = {
+        expr = true,
+        "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'"
+      }
 
       -- ['n <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
       -- ['n <leader>hu'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
@@ -333,6 +333,7 @@ local function setup_gitsigns()
   vim.cmd 'command! GitSignsResetHunk lua require"gitsigns".reset_hunk()'
   vim.cmd 'command! GitSignsPreviewHunk lua require"gitsigns".preview_hunk()'
   vim.cmd 'command! GitSignsBlameLine lua require"gitsigns".blame_line()'
+  vim.cmd 'command! GitSignsResetBuffer lua require"gitsigns".reset_buffer()'
 end
 
 local function setup_lazygit()
@@ -459,9 +460,7 @@ function _packer:setup()
   use {
     'nvim-lua/telescope.nvim',
     config = setup_telescope(),
-    requires = {
-      {'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}
-    }
+    requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
   }
 
   use {'kdheepak/lazygit.nvim', config = setup_lazygit()}
