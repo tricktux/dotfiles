@@ -385,6 +385,20 @@ local function setup_lazygit()
   vim.g.lazygit_use_neovim_remote = 0
 end
 
+local function setup_octo()
+  if not utl.is_mod_available('telescope') then
+    api.nvim_err_writeln('telescope module not available')
+    return
+  end
+
+  if not utl.is_mod_available('octo') then
+    api.nvim_err_writeln('octo module not available')
+    return
+  end
+
+  require('telescope').load_extension('octo')
+end
+
 local _packer = {}
 _packer._path = vim.g.std_data_path .. [[/site/pack/packer/start/packer.nvim]]
 _packer._repo = [[https://github.com/wbthomason/packer.nvim]]
@@ -515,6 +529,12 @@ function _packer:setup()
   use {
     'kosayoda/nvim-lightbulb',
     config = setup_lightbulb()
+  }
+
+  use {
+    'pwntester/octo.nvim',
+    config = setup_octo(),
+    requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}, {'nvim-lua/telescope.nvim'}}
   }
 end
 
