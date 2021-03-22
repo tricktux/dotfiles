@@ -6,6 +6,20 @@ local function tablelength(T)
 	return count
 end
 
+local function _exec(cmd)
+  cmd = cmd .. ' 2>&1&'
+  local file, err = io.popen(cmd)
+  if file == nil then
+    print('Command ' .. cmd .. ' failed')
+    print('\t' .. err)
+    return ''
+  end
+  local output = file:read('*all')
+  file:close()
+  return output
+end
+
+
 local function msg(content)
   os.execute("notify-send 'Bluetooth' '" .. content .. "'")
 end
@@ -20,17 +34,16 @@ local function connect_to(device)
 	end
 
   msg('Powering on bluetooth')
-	local rc = os.execute("bluetoothctl -- power on")
-	if rc == false then
+	local rc = _exec("bluetoothctl -- power on")
+  if string.find(rc, "succeeded") == nil then
 		msg_error('Failed to power on')
 		return false
 	end
 
   msg('Connecting to ' .. device)
 	for _ = 0, 10 do
-    -- TODO: Does it really returns true?
-		rc =  os.execute("bluetoothctl -- connect " .. device)
-		if rc == true then
+		rc =  _exec("bluetoothctl -- connect " .. device)
+    if string.find(rc, "successful") ~= nil then
       msg("Connected")
 			return true
 		end
@@ -44,15 +57,15 @@ end
 local function disconnect()
 	msg('Disconnecting')
 	for _ = 0, 10 do
-		local rc = os.execute("bluetoothctl -- disconnect")
-		if rc == true then
+		local rc = _exec("bluetoothctl -- disconnect")
+		if string.find(rc, "Successful") ~= nil then
 			break
 		end
 	end
 
 	msg('Unpowering bluetooth')
-	local rc = os.execute("bluetoothctl -- power off")
-	if rc == false then
+	local rc = _exec("bluetoothctl -- power off")
+	if string.find(rc, "succeeded") == nil then
 		msg_error('Failed to power off')
 		return false
 	end
@@ -68,6 +81,12 @@ local function main()
 
 	local input = arg[1]
 	local device = arg[2]
+
+  local rc = _exec("systemctl is-active 'bluetooth.service'")
+  if string.find(rc, "active") == nil then
+    msg_error("Bluetooth service is not active")
+    return
+  end
 
 	if input == "connect" then
 		connect_to(device)
