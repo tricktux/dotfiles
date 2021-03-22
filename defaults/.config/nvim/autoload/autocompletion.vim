@@ -502,7 +502,7 @@ function! s:set_neosnippets() abort
 	Plug 'Shougo/neosnippet-snippets'
 	Plug 'honza/vim-snippets'
 	let g:snips_author = 'Reinaldo Molina'
-	let g:snips_email = 'rmolin88 at gmail dot com'
+	let g:snips_email = 'me at molinamail dot com'
 	let g:snips_github = 'rmolin88'
 endfunction
 
