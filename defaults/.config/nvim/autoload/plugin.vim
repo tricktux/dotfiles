@@ -139,6 +139,8 @@ function! plugin#Config()
   if !has('nvim-0.5')
     let l:compl = 'shuogo_deo'
     call autocompletion#SetCompl(l:compl)
+  else
+    call s:set_neosnippets()
   endif
   " call autocompletion#SetCompl(
   " \ has('unix') ? 'shuogo_deo' :
@@ -2018,4 +2020,31 @@ function! s:prev_hunk() abort
   endif
 
   echoerr "No pluging installed to handle VCS hunks"
+endfunction
+
+function! s:set_neosnippets() abort
+  Plug 'Shougo/neosnippet'
+  imap <plug>snip_expand <Plug>(neosnippet_expand_or_jump)
+  smap <plug>snip_expand <Plug>(neosnippet_expand_or_jump)
+  xmap <plug>snip_expand <Plug>(neosnippet_expand_target)
+  smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+        \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+  " Tell Neosnippet about the other snippets
+  let g:neosnippet#snippets_directory= [
+        \ g:vim_plugins_path . '/vim-snippets/snippets',
+        \ g:std_config_path . '/snippets/',
+        \ ]
+  " Fri Oct 20 2017 21:47: Not really data but cache
+  let g:neosnippet#data_directory = g:std_cache_path . '/neosnippets'
+  " Used by nvim-completion-mgr
+  let g:neosnippet#enable_completed_snippet=1
+  " Tue Jan 14 2020 20:29: For language client completion 
+  let g:neosnippet#enable_complete_done = 0
+
+  " Only contain snippets
+  Plug 'Shougo/neosnippet-snippets'
+  Plug 'honza/vim-snippets'
+  let g:snips_author = 'Reinaldo Molina'
+  let g:snips_email = 'me at molinamail dot com'
+  let g:snips_github = 'rmolin88'
 endfunction
