@@ -38,7 +38,7 @@ end
 
 if _check_args() ~= 0 then return end
 
-local hostname = _get_hostname()
+local hostname = os.getenv("HOSTNAME")
 local i3ipc = {}
 
 i3ipc.cmd = [[/usr/bin/i3-msg]]
