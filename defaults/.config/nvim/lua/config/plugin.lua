@@ -531,11 +531,14 @@ function _packer:setup()
     config = setup_lightbulb()
   }
 
-  use {
-    'pwntester/octo.nvim',
-    config = setup_octo(),
-    requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}, {'nvim-lua/telescope.nvim'}}
-  }
+  -- Depends on github cli
+  if vim.fn.executable('gh') > 0 then
+    use {
+      'pwntester/octo.nvim',
+      config = setup_octo(),
+      requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}, {'nvim-lua/telescope.nvim'}}
+    }
+  end
 end
 
 local function setup()
