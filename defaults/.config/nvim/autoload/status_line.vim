@@ -74,7 +74,7 @@ function! s:lightline_config() abort
 				\ 'active' : {
 				\   'left': [
 				\							[ 'mode', 'spell' ],
-				\							[ 'readonly', 'filename' ],
+				\							[ 'readonly' ],
 				\							[  ]
 				\						],
 				\ 'right': [ [ 'lineinfo' ],
@@ -90,6 +90,20 @@ function! s:lightline_config() abort
 	let g:lightline.tabline = {
 				\ 'left': [ ['tabs'] ],
 				\ 'right': [ [ 'bufnum' , 'close'] ] }
+
+  let g:lightline.mode_map = {
+        \ 'n' : 'N',
+        \ 'i' : 'I',
+        \ 'R' : 'R',
+        \ 'v' : 'V',
+        \ 'V' : 'VL',
+        \ "\<C-v>": 'VB',
+        \ 'c' : 'C',
+        \ 's' : 'S',
+        \ 'S' : 'SL',
+        \ "\<C-s>": 'SB',
+        \ 't': 'T',
+        \ }
 
 	let g:lightline.component = {}
 	if exists('g:valid_device')
