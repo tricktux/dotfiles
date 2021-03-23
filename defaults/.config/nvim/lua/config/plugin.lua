@@ -44,7 +44,7 @@ local function setup_treesitter()
   -- local ts = require'nvim-treesitter'
   local tsconf = require 'nvim-treesitter.configs'
 
-  tsconf.setup {
+  local config = {
     -- This line will install all of them
     -- one of "all", "language", or a list of languages
     ensure_installed = {
@@ -54,11 +54,16 @@ local function setup_treesitter()
     highlight = {
       enable = true, -- false will disable the whole extension
       -- incremental_selection = {enable = true},
-      textobjects = {enable = true}
     },
-    indent = {enable = true}
-    -- disable = {"c", "rust"} -- list of language that will be disabled
+    indent = {enable = true},
+    textobjects = {enable = true},
   }
+
+  if utl.is_mod_available('rainbow') then
+    config["rainbow"] = {enable = true}
+  end
+
+  tsconf.setup(config)
 
   vim.cmd(
       "autocmd FileType c,cpp,python,lua,java,bash,rust,json,toml,cs setlocal foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
@@ -489,7 +494,9 @@ function _packer:setup()
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
-    config = setup_treesitter()
+    config = setup_treesitter(),
+    requires = {{'p00f/nvim-ts-rainbow'}}
+    -- {'romgrk/nvim-treesitter-context'} still some rough edges
   }
 
   use {
