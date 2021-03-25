@@ -71,7 +71,7 @@ function! plugin#Config()
   Plug 'tpope/vim-obsession'
   let g:obsession_no_bufenter = 1
   if exists('g:lightline')
-    let g:lightline.active.right[2] += [ 'sessions' ]
+    let g:lightline.active.left[1] += [ 'sessions' ]
     let g:lightline.component_function['sessions'] =
           \ string(function('s:obsession_status'))
   endif
