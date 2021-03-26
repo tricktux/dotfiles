@@ -1965,7 +1965,7 @@ function! s:ts_status() abort
   endif
 
   let l:s = luaeval("require'nvim-treesitter'.statusline({
-        \ indicator_size = 18,
+        \ indicator_size = 40,
         \ type_patterns = {'class', 'function', 'method'},
         \ transform_fn = function(line) return line:gsub('%s*[%[%(%{]*%s*$', '') end,
         \ separator = ' -> '
