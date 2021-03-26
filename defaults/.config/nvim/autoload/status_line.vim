@@ -74,7 +74,7 @@ function! s:lightline_config() abort
 				\ 'active' : {
 				\   'left': [
 				\							[ 'mode', 'spell' ],
-				\							[ 'readonly' ],
+				\							[ 'readonly', 'filename' ],
 				\							[  ]
 				\						],
 				\ 'right': [ [ 'lineinfo' ],
