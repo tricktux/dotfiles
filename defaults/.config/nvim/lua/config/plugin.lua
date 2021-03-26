@@ -17,7 +17,10 @@ local function setup_lspstatus()
   end
 
   -- Default config is acceptable for unix
-  if utl.has_unix() then return end
+  if utl.has_unix() then 
+    require('lsp-status').config{}
+    return 
+  end
 
   local config = {
     ['indicator_errors'] = 'e:',
