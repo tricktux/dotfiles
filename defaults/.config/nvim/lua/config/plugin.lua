@@ -17,9 +17,9 @@ local function setup_lspstatus()
   end
 
   -- Default config is acceptable for unix
-  if utl.has_unix() then 
+  if utl.has_unix() then
     require('lsp-status').config{}
-    return 
+    return
   end
 
   local config = {

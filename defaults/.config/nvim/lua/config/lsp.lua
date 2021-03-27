@@ -91,7 +91,8 @@ local function on_lsp_attach(client_id, bufnr)
     vim.cmd('NeomakeDisableBuffer')
   end
   -- These 2 got annoying really quickly
-  vim.cmd('autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()')
+  vim.cmd(
+      'autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()')
   -- vim.cmd("autocmd CursorHold <buffer> lua vim.lsp.buf.hover()")
   set_lsp_mappings(client_id.resolved_capabilities)
   set_lsp_options(client_id.resolved_capabilities, bufnr)
@@ -125,12 +126,13 @@ local function diagnostic_set()
   -- https://github.com/neovim/nvim-lspconfig/issues/69
   local method = "textDocument/publishDiagnostics"
   local default_handler = vim.lsp.handlers[method]
-  vim.lsp.handlers[method] = function(err, method, result, client_id, bufnr, config)
+  vim.lsp.handlers[method] = function(err, method, result, client_id, bufnr,
+                                      config)
     config = {
-        virtual_text = false,
-        underline = true,
-        signs = true,
-        update_in_insert = false
+      virtual_text = false,
+      underline = true,
+      signs = true,
+      update_in_insert = false
     }
     -- Call the default handler
     default_handler(err, method, result, client_id, bufnr, config)
@@ -244,9 +246,7 @@ local function lsp_set()
     log.info("setting up the clangd lsp...")
     nvim_lsp.clangd.setup {
       handlers = lsp_status.extensions.clangd.setup(),
-      init_options = {
-        clangdFileStatus = true
-      },
+      init_options = {clangdFileStatus = true},
       on_attach = on_clangd_attach,
       capabilities = capabilities,
       cmd = {
