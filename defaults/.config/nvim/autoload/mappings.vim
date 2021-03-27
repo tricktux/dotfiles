@@ -134,7 +134,7 @@ function! mappings#Set()
   " Fri Jan 11 2019 13:41
   " Already settled for the following config
   " Main reason `:e` resets folds. Kinda annoying
-  nnoremap <c-l> :call <sid>refresh_buffer()<cr>
+  " nnoremap <c-l> :call <sid>refresh_buffer()<cr>
 
   " List of super useful mappings
   " = fixes indentantion

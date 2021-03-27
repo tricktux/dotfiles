@@ -1,17 +1,41 @@
 local map = require('utils/keymap')
+local api = vim.api
 local utl = require('utils/utils')
 
-local function setup_edit()
-  -- map.nnoremap("<leader>ed" :call utils#PathFileFuzzer(g:dotfiles)<cr>)
-  -- nnoremap <leader>eh :call utils#PathFileFuzzer($HOME)<cr>
-  -- if (!has('unix'))
-    -- nnoremap <leader>eC :call utils#PathFileFuzzer('C:\')<cr>
-    -- nnoremap <leader>eD :call utils#PathFileFuzzer('D:\')<cr>
-    -- nnoremap <leader>eP :e +<cr>
-  -- endif
-  -- nnoremap <leader>ec :call utils#PathFileFuzzer(getcwd())<cr>
-  -- nnoremap <leader>el :call utils#PathFileFuzzer(input
-        -- \ ('Folder to recurse: ', "", "file"))<cr>
+
+local function refresh_buffer()
+  api.nvim_exec([[
+    nohlsearch
+    diffupdate
+    mode
+    syntax sync fromstart
+    edit
+    normal! zz<cr>
+  ]], true)
+
+  if vim.fn.exists(':SignifyRefresh') > 0 then
+    vim.cmd('SignifyRefresh')
+  end
+
+  if utl.is_mod_available('gitsigns') then
+    require"gitsigns".reset_buffer()
+  end
+
+  local lsp_clients = vim.lsp.buf_get_clients()
+  if #lsp_clients == 0 then
+    return
+  end
+  -- print(vim.inspect(lsp_clients))
 end
 
-return { setup_edit = setup_edit }
+local function setup()
+  if not utl.is_mod_available('vimp') then
+    api.nvim_err_writeln("vimp was set, but module not found")
+    return
+  end
+
+  local vimp = require('vimp')
+  vimp.nnoremap('<c-l>', refresh_buffer)
+end
+
+return { setup = setup }

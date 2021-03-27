@@ -1,4 +1,5 @@
 local plg = require('config/plugin')
+local maps = require('config/mappings')
 local log = require('utils/log')
 local utl = require('utils/utils')
 local map = require('utils/keymap')
@@ -127,6 +128,7 @@ local function _init()
   end
 
   plg.setup()
+  maps.setup()
 end
 
 return {init = _init}

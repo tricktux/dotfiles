@@ -549,6 +549,8 @@ function _packer:setup()
       requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}, {'nvim-lua/telescope.nvim'}}
     }
   end
+
+  use {'svermeulen/vimpeccable'}
 end
 
 local function setup()
