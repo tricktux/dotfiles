@@ -3,6 +3,7 @@ local maps = require('config/mappings')
 local log = require('utils/log')
 local utl = require('utils/utils')
 local map = require('utils/keymap')
+local aug = require('config/augroups')
 local luv = vim.loop
 
 local home_dir = luv.os_homedir()
@@ -129,6 +130,7 @@ local function _init()
 
   plg.setup()
   maps.setup()
+  aug.setup()
 end
 
 return {init = _init}
