@@ -91,7 +91,7 @@ local function on_lsp_attach(client_id, bufnr)
     vim.cmd('NeomakeDisableBuffer')
   end
   -- These 2 got annoying really quickly
-  -- vim.cmd('autocmd CursorHold <buffer> lua vim.lsp.util.show_line_diagnostics()')
+  vim.cmd('autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()')
   -- vim.cmd("autocmd CursorHold <buffer> lua vim.lsp.buf.hover()")
   set_lsp_mappings(client_id.resolved_capabilities)
   set_lsp_options(client_id.resolved_capabilities, bufnr)
@@ -121,11 +121,29 @@ local function on_clangd_attach(client_id)
 end
 
 local function diagnostic_set()
-  vim.lsp.handlers["textDocument/publishDiagnostics"] =
-      vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+  -- Taken from: 
+  -- https://github.com/neovim/nvim-lspconfig/issues/69
+  do
+    local method = "textDocument/publishDiagnostics"
+    local default_handler = vim.lsp.handlers[method]
+    vim.lsp.handlers[method] = function(err, method, result, client_id, bufnr, config)
+    default_handler(err, method, result, client_id, bufnr, config)
+      local diagnostics = vim.lsp.diagnostic.get_all()
+      local qflist = {}
+      for bufnr, diagnostic in pairs(diagnostics) do
+        for _, d in ipairs(diagnostic) do
+          d.bufnr = bufnr
+          d.lnum = d.range.start.line + 1
+          d.col = d.range.start.character + 1
+          d.text = d.message
+          table.insert(qflist, d)
+        end
+      end
+      -- print(vim.inspect(config))
+      config = {
         -- This will disable virtual text, like doing:
         -- let g:diagnostic_enable_virtual_text = 0
-        virtual_text = {spacing = 4},
+        virtual_text = false,
 
         -- Enable underline, use default values
         underline = true,
@@ -138,7 +156,32 @@ local function diagnostic_set()
         -- This is similar to:
         -- "let g:diagnostic_insert_delay = 1"
         update_in_insert = false
-      })
+        }
+      vim.lsp.util.set_qflist(qflist)
+      vim.lsp.diagnostic.set_loclist({open_loclist = false})
+      vim.lsp.diagnostic.set_signs(diagnostics, bufnr)
+      vim.lsp.diagnostic.set_virtual_text({show_header = false})
+      vim.lsp.diagnostic.set_underline(diagnostics, bufnr, client_id)
+    end
+  end
+  -- vim.lsp.handlers["textDocument/publishDiagnostics"] =
+      -- vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+        -- -- This will disable virtual text, like doing:
+        -- -- let g:diagnostic_enable_virtual_text = 0
+        -- virtual_text = false,
+
+        -- -- Enable underline, use default values
+        -- underline = true,
+        -- -- This is similar to:
+        -- -- let g:diagnostic_show_sign = 1
+        -- -- To configure sign display,
+        -- --  see: ":help vim.lsp.diagnostic.set_signs()"
+        -- signs = true,
+
+        -- -- This is similar to:
+        -- -- "let g:diagnostic_insert_delay = 1"
+        -- update_in_insert = false
+      -- })
 end
 
 -- TODO
