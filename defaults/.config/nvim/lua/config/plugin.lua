@@ -18,7 +18,7 @@ local function setup_lspstatus()
 
   -- Default config is acceptable for unix
   if utl.has_unix() then
-    require('lsp-status').config{}
+    require('lsp-status').config {}
     return
   end
 
@@ -55,16 +55,14 @@ local function setup_treesitter()
       "toml"
     },
     highlight = {
-      enable = true, -- false will disable the whole extension
+      enable = true -- false will disable the whole extension
       -- incremental_selection = {enable = true},
     },
     indent = {enable = true},
-    textobjects = {enable = true},
+    textobjects = {enable = true}
   }
 
-  if utl.is_mod_available('rainbow') then
-    config["rainbow"] = {enable = true}
-  end
+  if utl.is_mod_available('rainbow') then config["rainbow"] = {enable = true} end
 
   tsconf.setup(config)
 
@@ -217,34 +215,34 @@ local function setup_lightbulb()
 
   require'nvim-lightbulb'.update_lightbulb {
     sign = {
-        enabled = true,
-        -- Priority of the gutter sign
-        priority = 10,
+      enabled = true,
+      -- Priority of the gutter sign
+      priority = 10
     },
     float = {
-        enabled = false,
-        -- Text to show in the popup float
-        text = "💡",
-        -- Available keys for window options:
-        -- - height     of floating window
-        -- - width      of floating window
-        -- - wrap_at    character to wrap at for computing height
-        -- - max_width  maximal width of floating window
-        -- - max_height maximal height of floating window
-        -- - pad_left   number of columns to pad contents at left
-        -- - pad_right  number of columns to pad contents at right
-        -- - pad_top    number of lines to pad contents at top
-        -- - pad_bottom number of lines to pad contents at bottom
-        -- - offset_x   x-axis offset of the floating window
-        -- - offset_y   y-axis offset of the floating window
-        -- - anchor     corner of float to place at the cursor (NW, NE, SW, SE)
-        -- - winblend   transparency of the window (0-100)
-        win_opts = {},
+      enabled = false,
+      -- Text to show in the popup float
+      text = "💡",
+      -- Available keys for window options:
+      -- - height     of floating window
+      -- - width      of floating window
+      -- - wrap_at    character to wrap at for computing height
+      -- - max_width  maximal width of floating window
+      -- - max_height maximal height of floating window
+      -- - pad_left   number of columns to pad contents at left
+      -- - pad_right  number of columns to pad contents at right
+      -- - pad_top    number of lines to pad contents at top
+      -- - pad_bottom number of lines to pad contents at bottom
+      -- - offset_x   x-axis offset of the floating window
+      -- - offset_y   y-axis offset of the floating window
+      -- - anchor     corner of float to place at the cursor (NW, NE, SW, SE)
+      -- - winblend   transparency of the window (0-100)
+      win_opts = {}
     },
     virtual_text = {
-        enabled = false,
-        -- Text to show at virtual text
-        text = "💡",
+      enabled = false,
+      -- Text to show at virtual text
+      text = "💡"
     }
   }
 end
@@ -407,6 +405,12 @@ local function setup_octo()
   require('telescope').load_extension('octo')
 end
 
+local function setup_indent_blankline()
+  vim.g.indent_blankline_filetype = {
+    'vim', 'lua', 'c', 'python', 'cpp', 'java', 'cs', 'sh'
+  }
+end
+
 local _packer = {}
 _packer._path = vim.g.std_data_path .. [[/site/pack/packer/start/packer.nvim]]
 _packer._repo = [[https://github.com/wbthomason/packer.nvim]]
@@ -536,21 +540,27 @@ function _packer:setup()
     config = require('config.plugins.tree_explorer').nvimtree_config()
   }
 
-  use {
-    'kosayoda/nvim-lightbulb',
-    config = setup_lightbulb()
-  }
+  use {'kosayoda/nvim-lightbulb', config = setup_lightbulb()}
 
   -- Depends on github cli
   if vim.fn.executable('gh') > 0 then
     use {
       'pwntester/octo.nvim',
       config = setup_octo(),
-      requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}, {'nvim-lua/telescope.nvim'}}
+      requires = {
+        {'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'},
+        {'nvim-lua/telescope.nvim'}
+      }
     }
   end
 
   use {'svermeulen/vimpeccable'}
+
+  use {
+    'lukas-reineke/indent-blankline.nvim',
+    branch = 'lua',
+    config = setup_indent_blankline()
+  }
 end
 
 local function setup()

@@ -44,7 +44,7 @@ function! plugin#Config()
   Plug 'rhysd/git-messenger.vim', { 'on' : 'GitMessenger' }
   let g:git_messenger_always_into_popup = v:true
 
-  Plug 'Yggdroot/indentLine', { 'for' : [ 'java', 'cpp', 'c', 'python' ] }
+  " Plug 'Yggdroot/indentLine', { 'for' : [ 'java', 'cpp', 'c', 'python' ] }
   Plug 'whiteinge/diffconflicts'
   " Plugin to make api requests
   " Depends on python3 and requests
