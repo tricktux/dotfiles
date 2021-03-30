@@ -87,8 +87,10 @@ local function on_lsp_attach(client_id, bufnr)
   end
 
   -- Disable neomake
-  if vim.fn.exists(':NeomakeDisableBuffer') == 2 then
-    vim.cmd('NeomakeDisableBuffer')
+  if vim.fn.exists(':NeomakeDisableBuffer') > 2 then
+    if vim.bo.filetype ~= 'python' then
+      vim.cmd('NeomakeDisableBuffer')
+    end
   end
   -- These 2 got annoying really quickly
   vim.cmd(
@@ -203,7 +205,7 @@ local function lsp_set()
             flake8 = {enabled = false},
             pydocstyle = {enabled = false},
             pyflakes = {enabled = false},
-            pylint = {enabled = true},
+            pylint = {enabled = false},
             yapf = {enabled = false},
             pyls_mypy = {enabled = false, live_mode = false}
           }
