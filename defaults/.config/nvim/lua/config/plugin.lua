@@ -407,8 +407,11 @@ end
 
 local function setup_indent_blankline()
   vim.g.indent_blankline_filetype = {
-    'vim', 'lua', 'c', 'python', 'cpp', 'java', 'cs', 'sh'
+    'vim', 'lua', 'c', 'python', 'cpp', 'java', 'cs', 'sh', 'ps1', 'dosbatch'
   }
+  vim.g.indent_blankline_char_highlight_list = {'Comment'}
+  vim.g.indent_blankline_char_list = {'¦', '┆', '┊'}
+  vim.g.indent_blankline_show_first_indent_level = false
 end
 
 local _packer = {}

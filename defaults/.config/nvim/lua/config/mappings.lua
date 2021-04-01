@@ -21,11 +21,10 @@ local function refresh_buffer()
     require"gitsigns".reset_buffer()
   end
 
-  local lsp_clients = vim.lsp.buf_get_clients()
-  if #lsp_clients == 0 then
-    return
+  if vim.fn.exists(':IndentBlanklineRefresh') > 0 then
+    vim.cmd('IndentBlanklineRefresh')
   end
-  -- print(vim.inspect(lsp_clients))
+
 end
 
 local function setup()
