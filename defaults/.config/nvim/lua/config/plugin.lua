@@ -8,6 +8,7 @@ local utl = require('utils/utils')
 local log = require('utils/log')
 local map = require('utils/keymap')
 local aug = require('config/augroups')
+local compl = require('config.plugins.completion')
 local api = vim.api
 
 local function setup_lspstatus()
@@ -511,10 +512,25 @@ function _packer:setup()
     -- {'romgrk/nvim-treesitter-context'} still some rough edges
   }
 
+  -- Fri Apr 02 2021 09:08: Very slow for big files
+  -- use {
+    -- 'hrsh7th/nvim-compe',
+    -- config = compl.compe(),
+    -- requires = {{'hrsh7th/vim-vsnip'}, {'hrsh7th/vim-vsnip-integ'}}
+  -- }
   use {
-    'hrsh7th/nvim-compe',
-    config = require('config.plugins.completion').compe(),
-    requires = {{'hrsh7th/vim-vsnip'}, {'hrsh7th/vim-vsnip-integ'}}
+    'Shougo/deoplete.nvim',
+    run = ':UpdateRemotePlugins',
+    requires = {
+      {'Shougo/neco-vim'},
+      {'Shougo/neco-syntax'},
+      {'Shougo/context_filetype.vim'},
+      {'ncm2/float-preview.nvim'},
+      {'zchee/deoplete-zsh'},
+      {'Shougo/deoplete-lsp'}
+    },
+    -- neosnippets set from plugin.vim
+    config = compl.deoplete(),
   }
 
   use {

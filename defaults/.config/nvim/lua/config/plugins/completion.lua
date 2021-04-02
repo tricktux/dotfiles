@@ -1,6 +1,6 @@
 local utl = require('utils/utils')
 local log = require('utils/log')
-local augroups = require('config/augroups')
+local aug = require('config/augroups')
 local map = require('utils/keymap')
 local api = vim.api
 
@@ -14,9 +14,9 @@ local check_back_space = function()
     local col = vim.fn.col('.') - 1
     if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
         return true
-    else
-        return false
     end
+
+    return false
 end
 
 -- Use (s-)tab to:
@@ -36,11 +36,35 @@ end
 _G.s_tab_complete = function()
   if vim.fn.pumvisible() == 1 then
     return t "<C-p>"
-  elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
-    return t "<Plug>(vsnip-jump-prev)"
-  else
-    return t "<S-Tab>"
   end
+
+  if vim.fn.call("vsnip#jumpable", {-1}) == 1 then
+    return t "<Plug>(vsnip-jump-prev)"
+  end
+  return t "<S-Tab>"
+end
+
+local function deoplete_s_tab()
+  if vim.fn.pumvisible() == 1 then
+    vim.fn.feedkeys([[\<c-p>]], "n")
+    return
+  end
+
+  vim.fn.feedkeys([[\<s-tab>]], "n")
+end
+
+local function deoplete_tab()
+  if vim.fn.pumvisible() == 1 then
+    vim.fn.feedkeys([[\<c-n>]], "n")
+    return
+  end
+
+  if check_back_space() then
+    vim.fn.feedkeys([[\<tab>]], "n")
+    return
+  end
+
+  return vim.fn['deoplete#manual_complete']()
 end
 
 function M.deoplete()
@@ -49,8 +73,25 @@ function M.deoplete()
     return
   end
 
+  if not utl.is_mod_available('vimp') then
+    api.nvim_err_writeln('deoplete: vimp module not available')
+    return
+  end
+
+  local vimp = require('vimp')
   vim.g['deoplete#enable_at_startup'] = 1
 
+  vimp.inoremap({'expr', 'silent'}, '<c-h>',
+    [[deoplete#smart_close_popup()."\<c-h>"]])
+  vimp.inoremap({'expr', 'silent'}, '<bs>',
+    [[deoplete#smart_close_popup()."\<C-h>"]])
+  vimp.inoremap({'silent'}, '<tab>', deoplete_tab)
+  vimp.inoremap({'silent'}, '<s-tab>', deoplete_s_tab)
+  aug.create({
+    prev_close = {
+      {"CompleteDone", "*", [[if pumvisible() == 0 | pclose | endif]]}
+    }
+  })
 end
 
 function M.compe()
@@ -156,17 +197,17 @@ require('completion').on_attach(self._opts)
 end
 
 local function smart_tab()
-if vim.fn.pumvisible() ~= 0 then
-log.trace("pum is visible, sending c-n")
-api.nvim_eval([[feedkeys("\<c-n>", "n")]])
-return
-end
+  if vim.fn.pumvisible() ~= 0 then
+    log.trace("pum is visible, sending c-n")
+    api.nvim_eval([[feedkeys("\<c-n>", "n")]])
+    return
+  end
 
-log.trace("pum is not visible, checking backspace")
-local col = vim.fn.col('.') - 1
-if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
-api.nvim_eval([[feedkeys("\<tab>", "n")]])
-return
+  log.trace("pum is not visible, checking backspace")
+  local col = vim.fn.col('.') - 1
+  if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+    api.nvim_eval([[feedkeys("\<tab>", "n")]])
+  return
 end
 
 log.trace("no backspace triggering completion")
@@ -193,7 +234,7 @@ log.info("setting up completion-nvim...")
 map.imap([[<tab>]], [[<Plug>(completion_smart_tab)]], {silent = true})
 map.imap([[<s-tab>]], [[<Plug>(completion_smart_s_tab)]], {silent = true})
 map.imap([[<c-j>]], [[<Plug>(completion_next_source)]])
-augroups.create(self._autocmds)
+aug.create(self._autocmds)
 end
 
 local DiagnosticNvim = {}
