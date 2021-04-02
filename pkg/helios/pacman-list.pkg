@@ -40,6 +40,7 @@ dhcpcd
 dialog
 docker
 dosfstools
+doxygen
 dunst
 earlyoom
 efibootmgr
@@ -61,6 +62,7 @@ gcc
 gdb
 ghostscript
 git
+github-cli
 glances
 global
 go
@@ -76,7 +78,7 @@ highlight
 hplip
 hub
 hunspell
-hunspell-en_US
+hunspell-en_us
 i3-gaps
 i3blocks
 i3lock
@@ -92,6 +94,7 @@ jsoncpp
 keepass
 kitty
 languagetool
+lazygit
 lib32-nvidia-utils
 lib32-primus
 lib32-virtualgl
@@ -105,9 +108,9 @@ libmpcdec
 libreoffice-still
 libtool
 lightdm
-linux
 linux-firmware
-linux-headers
+linux-lts
+linux-lts-headers
 lldb
 luajit
 luit
@@ -134,8 +137,8 @@ noto-fonts-emoji
 ntfs-3g
 ntp
 numlockx
-nvidia
 nvidia-dkms
+nvidia-lts
 nvidia-settings
 nvidia-utils
 nvtop
@@ -177,6 +180,7 @@ reflector
 ripgrep
 rofi-calc
 rofi-pass
+rust
 samba
 screen
 scrot

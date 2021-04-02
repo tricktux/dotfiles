@@ -11,9 +11,11 @@ hal
 i3ass
 jdtls
 laptop-mode-tools
-lazygit
+lcov
 lua-format
+lua-language-server
 luacheck
+mop
 neovim-nightly-bin
 neovim-remote
 nerd-fonts-inconsolata
@@ -24,7 +26,7 @@ optimus-manager
 pandoc-bin
 paper-gtk-theme-git
 paper-icon-theme
-paru
+paru-bin
 polybar
 preload
 ripgrep-all
@@ -35,7 +37,6 @@ rofi-emoji
 simple-scan-3.12
 spicetify-cli
 spicetify-themes-git
-spotify
 teamviewer
 ttf-weather-icons
 vdhcoapp-bin
