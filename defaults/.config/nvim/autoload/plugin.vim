@@ -136,6 +136,8 @@ function! plugin#Config()
   " let l:compl = has('nvim-0.5') ? 'completion_nvim' : 'shuogo_deo'
   " Mon Mar 15 2021 22:23:
   " - New lua complication nvim-compe. Configured through packer.nvim
+  " Fri Apr 02 2021 09:15:
+  " - Compe is slow for big files. Crawling back to deoplete once again
   if !has('nvim-0.5')
     let l:compl = 'shuogo_deo'
     call autocompletion#SetCompl(l:compl)
