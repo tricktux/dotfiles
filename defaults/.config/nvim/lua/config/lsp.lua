@@ -184,6 +184,7 @@ local function lsp_set()
     local pid = tostring(vim.fn.getpid())
     nvim_lsp.omnisharp.setup {
       on_attach = on_lsp_attach,
+      filetypes = {"cs"},
       cmd = {"omnisharp", "--languageserver", "--hostPID", pid},
       capabilities = capabilities
     }
