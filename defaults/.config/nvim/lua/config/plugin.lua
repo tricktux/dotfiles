@@ -500,6 +500,8 @@ function _packer:setup()
 
   use {'wbthomason/packer.nvim'}
 
+  use {'svermeulen/vimpeccable'}
+
   -- Post-install/update hook with neovim command
   use {
     'nvim-treesitter/nvim-treesitter',
@@ -556,8 +558,6 @@ function _packer:setup()
       }
     }
   end
-
-  use {'svermeulen/vimpeccable'}
 
   use {
     'lukas-reineke/indent-blankline.nvim',
