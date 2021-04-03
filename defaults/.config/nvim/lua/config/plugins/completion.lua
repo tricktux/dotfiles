@@ -11,12 +11,10 @@ local t = function(str)
 end
 
 local check_back_space = function()
-    local col = vim.fn.col('.') - 1
-    if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
-        return true
-    end
+  local col = vim.fn.col('.') - 1
+  if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then return true end
 
-    return false
+  return false
 end
 
 -- Use (s-)tab to:
@@ -34,9 +32,7 @@ _G.tab_complete = function()
   end
 end
 _G.s_tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-p>"
-  end
+  if vim.fn.pumvisible() == 1 then return t "<C-p>" end
 
   if vim.fn.call("vsnip#jumpable", {-1}) == 1 then
     return t "<Plug>(vsnip-jump-prev)"
@@ -82,9 +78,9 @@ function M.deoplete()
   vim.g['deoplete#enable_at_startup'] = 1
 
   vimp.inoremap({'expr', 'silent'}, '<c-h>',
-    [[deoplete#smart_close_popup()."\<c-h>"]])
+                [[deoplete#smart_close_popup()."\<c-h>"]])
   vimp.inoremap({'expr', 'silent'}, '<bs>',
-    [[deoplete#smart_close_popup()."\<C-h>"]])
+                [[deoplete#smart_close_popup()."\<C-h>"]])
   vimp.inoremap({'silent'}, '<tab>', deoplete_tab)
   vimp.inoremap({'silent'}, '<s-tab>', deoplete_s_tab)
   aug.create({
@@ -125,16 +121,17 @@ function M.compe()
       ultisnips = true,
       -- spell = false,
       -- tags = false,
-      snippets_nvim = true,
+      snippets_nvim = true
       -- treesitter = false
     }
   }
 
-
   vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
   vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
-  vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-  vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+  vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()",
+                          {expr = true})
+  vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()",
+                          {expr = true})
 
 end
 
@@ -144,56 +141,56 @@ local CompletionNvim = {}
 --  docked_minimum_size
 --  enable_focusable_hover
 CompletionNvim._opts = {
-enable_snippet = 'Neosnippet',
-enable_in_comment = 1,
-trigger_keyword_length = 2,
-auto_change_source = 0,
-matching_ignore_case = 0,
-enable_auto_paren = 0,
-docked_hover = 1,
-matching_strategy_list = {'exact', 'fuzzy'},
-sorting = 'none',
-trigger_character = {'.'},
-chain_complete_list = {
-default = {
-{complete_items = {'lsp', 'buffers', 'snippet'}},
-{complete_items = {'path'}, triggered_only = {'/'}}
-},
-string = {{complete_items = {'path'}, triggered_only = {'/'}}},
-comment = {},
-c = {complete_items = {'lsp', 'ts', 'snippet', 'buffer'}},
-cpp = {complete_items = {'lsp', 'ts', 'snippet', 'buffer'}},
-lua = {complete_items = {'lsp', 'ts', 'snippet', 'buffer'}},
-python = {complete_items = {'lsp', 'ts', 'snippet', 'buffer'}},
-java = {complete_items = {'lsp', 'ts', 'snippet', 'buffer'}},
-cs = {complete_items = {'lsp', 'ts', 'snippet', 'buffer'}}
-}
+  enable_snippet = 'Neosnippet',
+  enable_in_comment = 1,
+  trigger_keyword_length = 2,
+  auto_change_source = 0,
+  matching_ignore_case = 0,
+  enable_auto_paren = 0,
+  docked_hover = 1,
+  matching_strategy_list = {'exact', 'fuzzy'},
+  sorting = 'none',
+  trigger_character = {'.'},
+  chain_complete_list = {
+    default = {
+      {complete_items = {'lsp', 'buffers', 'snippet'}},
+      {complete_items = {'path'}, triggered_only = {'/'}}
+    },
+    string = {{complete_items = {'path'}, triggered_only = {'/'}}},
+    comment = {},
+    c = {complete_items = {'lsp', 'ts', 'snippet', 'buffer'}},
+    cpp = {complete_items = {'lsp', 'ts', 'snippet', 'buffer'}},
+    lua = {complete_items = {'lsp', 'ts', 'snippet', 'buffer'}},
+    python = {complete_items = {'lsp', 'ts', 'snippet', 'buffer'}},
+    java = {complete_items = {'lsp', 'ts', 'snippet', 'buffer'}},
+    cs = {complete_items = {'lsp', 'ts', 'snippet', 'buffer'}}
+  }
 }
 
 CompletionNvim._autocmds = {
-compl_nvim = {
-{"BufEnter", "*", [[lua require('config/completion').compl:on_attach()]]},
-{"CompleteDone", "*", [[if pumvisible() == 0 | pclose | endif]]}
-}
+  compl_nvim = {
+    {"BufEnter", "*", [[lua require('config/completion').compl:on_attach()]]},
+    {"CompleteDone", "*", [[if pumvisible() == 0 | pclose | endif]]}
+  }
 }
 
 function CompletionNvim:on_attach()
-if vim.b.completion_enable == 1 then
-log.trace('Setup already done in this buffer')
-return
-end
+  if vim.b.completion_enable == 1 then
+    log.trace('Setup already done in this buffer')
+    return
+  end
 
-local ft = vim.bo.filetype
-if ft == 'c' or ft == 'cpp' then
-self._opts.trigger_character = {'.', '::', '->'}
-log.trace('Setting trigger characters: ', self._opts.trigger_character)
-elseif ft == 'lua' then
-self._opts.trigger_character = {'.', ':'}
-else
-self._opts.trigger_character = {'.'}
-end
-log.trace('On attach options: ', self._opts)
-require('completion').on_attach(self._opts)
+  local ft = vim.bo.filetype
+  if ft == 'c' or ft == 'cpp' then
+    self._opts.trigger_character = {'.', '::', '->'}
+    log.trace('Setting trigger characters: ', self._opts.trigger_character)
+  elseif ft == 'lua' then
+    self._opts.trigger_character = {'.', ':'}
+  else
+    self._opts.trigger_character = {'.'}
+  end
+  log.trace('On attach options: ', self._opts)
+  require('completion').on_attach(self._opts)
 end
 
 local function smart_tab()
@@ -207,55 +204,55 @@ local function smart_tab()
   local col = vim.fn.col('.') - 1
   if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
     api.nvim_eval([[feedkeys("\<tab>", "n")]])
-  return
-end
+    return
+  end
 
-log.trace("no backspace triggering completion")
--- TODO check if function exists
-require'completion'.triggerCompletion()
+  log.trace("no backspace triggering completion")
+  -- TODO check if function exists
+  require'completion'.triggerCompletion()
 end
 
 local function smart_s_tab()
-if vim.fn.pumvisible() ~= 0 then
-api.nvim_eval([[feedkeys("\<c-p>", "n")]])
-return
-end
+  if vim.fn.pumvisible() ~= 0 then
+    api.nvim_eval([[feedkeys("\<c-p>", "n")]])
+    return
+  end
 
-api.nvim_eval([[feedkeys("\<s-tab>", "n")]])
+  api.nvim_eval([[feedkeys("\<s-tab>", "n")]])
 end
 
 function CompletionNvim:set()
-if not utils.is_mod_available('completion') then
-log.error("completion-nvim was set, but module not found")
-return
-end
+  if not utils.is_mod_available('completion') then
+    log.error("completion-nvim was set, but module not found")
+    return
+  end
 
-log.info("setting up completion-nvim...")
-map.imap([[<tab>]], [[<Plug>(completion_smart_tab)]], {silent = true})
-map.imap([[<s-tab>]], [[<Plug>(completion_smart_s_tab)]], {silent = true})
-map.imap([[<c-j>]], [[<Plug>(completion_next_source)]])
-aug.create(self._autocmds)
+  log.info("setting up completion-nvim...")
+  map.imap([[<tab>]], [[<Plug>(completion_smart_tab)]], {silent = true})
+  map.imap([[<s-tab>]], [[<Plug>(completion_smart_s_tab)]], {silent = true})
+  map.imap([[<c-j>]], [[<Plug>(completion_next_source)]])
+  aug.create(self._autocmds)
 end
 
 local DiagnosticNvim = {}
 
 -- Set initial settings for function
 function DiagnosticNvim:set()
-vim.g.diagnostic_enable_virtual_text = 1
-vim.g.diagnostic_insert_delay = 0
-vim.g.diagnostic_auto_popup_while_jump = 1
+  vim.g.diagnostic_enable_virtual_text = 1
+  vim.g.diagnostic_insert_delay = 0
+  vim.g.diagnostic_auto_popup_while_jump = 1
 end
 
 -- Returns hook for nvim_lsp on_attach
 --  If diagnostic-nvim plugin not found returns nil
 --  Otherwise returns the diagnostic-nvim on_attach function
 function DiagnosticNvim:on_attach()
-if not utils.is_mod_available('diagnostic') then
-log.error("diagnostic-nvim was set, but module not found")
-return
-end
+  if not utils.is_mod_available('diagnostic') then
+    log.error("diagnostic-nvim was set, but module not found")
+    return
+  end
 
-require'diagnostic'.on_attach()
+  require'diagnostic'.on_attach()
 end
 
 -- return {
