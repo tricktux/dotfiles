@@ -81,8 +81,8 @@ function M.deoplete()
                 [[deoplete#smart_close_popup()."\<c-h>"]])
   vimp.inoremap({'expr', 'silent'}, '<bs>',
                 [[deoplete#smart_close_popup()."\<C-h>"]])
-  vimp.inoremap({'silent'}, '<tab>', deoplete_tab)
-  vimp.inoremap({'silent'}, '<s-tab>', deoplete_s_tab)
+  -- vimp.inoremap({'silent'}, '<tab>', deoplete_tab)
+  -- vimp.inoremap({'silent'}, '<s-tab>', deoplete_s_tab)
   aug.create({
     prev_close = {
       {"CompleteDone", "*", [[if pumvisible() == 0 | pclose | endif]]}
