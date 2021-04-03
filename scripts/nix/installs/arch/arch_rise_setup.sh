@@ -73,6 +73,9 @@ sudo timedatectl set-ntp true
 #}}}
 
 # Install old packages: {{{
+# NOTE: Go to `sudo vim /etc/pacman.conf` and uncomment `multilib`
+sudo pacman-key --refresh-keys
+sudo pacman -Sy archlinux-keyring && sudo pacman -Su
 sudo pacman -S --needed - < ~/.config/dotfiles/pkg/surbook/pacman-list.pkg
 paru -S --needed - < ~/.config/dotfiles/pkg/surbook/aur-list.pkg
 # }}}
