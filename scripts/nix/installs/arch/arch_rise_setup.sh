@@ -22,6 +22,19 @@ Defaults rootpw
 Defaults:reinaldo timestamp_timeout=7200
 # }}}
 
+## 3. Network
+# Run this section as root, not using sudo
+su
+# ip link`
+# # ip link set <wlan0> up`
+# dmesg | grep iwlwifi`
+# ip link show <interface>`
+# wpa_supplicant -B -i interface -c <(wpa_passphrase "your_SSID" "your_key")`
+# - Check the connection:
+# - `iw dev <interface> link`
+# - Obtain ip address:
+# - `dhcpcd <wlan0>`
+
 # Copy your `mirrorlist`:
 scp /etc/pacman.d/mirrorlist reinaldo@192.168.1.194:/home/reinaldo/mirrorlist
 
