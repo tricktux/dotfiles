@@ -72,6 +72,11 @@ paci ntp
 sudo timedatectl set-ntp true
 #}}}
 
+# Install old packages: {{{
+sudo pacman -S --needed - < ~/.config/dotfiles/pkg/surbook/pacman-list.pkg
+paru -S --needed - < ~/.config/dotfiles/pkg/surbook/aur-list.pkg
+# }}}
+
 # ccache to speed up compilations
 paci --needed --noconfirm ccache
 
