@@ -173,6 +173,7 @@ esac
 # system
 # This is not a good practice. Leaving it here for reference
 # msg "${CYAN}${BOLD}==> Updating keyring...   "
+# sudo pacman-key --refresh-keys
 # $aur_helper -Sy --needed archlinux-keyring ca-certificates
 
 msg_not "${CYAN}${BOLD}" "==> Updating core packages...   "
