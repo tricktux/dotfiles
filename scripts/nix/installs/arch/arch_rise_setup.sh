@@ -34,7 +34,7 @@ su reinaldo
 # git clone https://aur.archlinux.org/trizen.git --depth 1
 # cd trizen
 # makepkg -si
-git clone https://aur.archlinux.org/paru.git --depth 1 /tmp/paru
+git clone https://aur.archlinux.org/paru-bin.git --depth 1 /tmp/paru
 cd /tmp/paru
 makepkg -si
 #}}}
@@ -68,7 +68,7 @@ sudo ln -s /home/reinaldo/.config/nvim /root/.config
 #}}}
 
 # fix time:{{{
-install ntp
+paci ntp
 sudo timedatectl set-ntp true
 #}}}
 
