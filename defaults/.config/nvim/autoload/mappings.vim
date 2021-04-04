@@ -48,7 +48,7 @@ function! mappings#Set()
     tnoremap <a-]> <C-\><C-n>gt
     tnoremap <a-[> <C-\><C-n>gT
     for idx in range(1,9)
-      execute 'tnoremap <silent> <a-' . idx .
+      execute 'tnoremap <silent> <c-' . idx .
             \ '> <C-\><C-n>' . idx. 'gt'
     endfor
     if !has('unix')
