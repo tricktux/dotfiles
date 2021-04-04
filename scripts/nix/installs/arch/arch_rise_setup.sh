@@ -331,7 +331,7 @@ sudo systemctl enable NetworkManager.service
 # There's a section about Problems with mounted network shares:
 sudo mkdir -p /etc/systemd/system/wpa_supplicant.service.d
 sudo bash -c \
-  rise'printf "[Unit]" >> /etc/systemd/system/wpa_supplicant.service.d/override.conf'
+  'printf "[Unit]" >> /etc/systemd/system/wpa_supplicant.service.d/override.conf'
 sudo bash -c \
   'printf "\nAfter=dbus.service" >> /etc/systemd/system/wpa_supplicant.service.d/override.conf'
 #}}}
