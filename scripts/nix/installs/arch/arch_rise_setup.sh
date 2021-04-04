@@ -54,8 +54,9 @@ makepkg -si
 
 # install dotfiles{{{
 # Download dotfiles
-mkdir -p ~/.config
-mkdir -p ~/.cache
+mkdir -p ~/.{config,cache}
+mkdir -p ~/Documents
+mkdir -p ~/.local/share/Trash/files
 cd ~/.config
 git clone https://github.com/tricktux/dotfiles
 # Install needed software
@@ -122,6 +123,11 @@ paci --needed --noconfirm openssh mosh
 # - `systemctl enable sshd`
 # - Add to `.ssh/config`
 # - `AddKeysToAgent yes`
+
+# email {{{
+mkdir -p ~/mail/{molinamail,molinamail_meli}/inbox
+/usr/bin/mbsync -D -ac ~/.config/isync/mbsyncrc
+# }}}
 
 # zsh{{{
 paci --needed --noconfirm zsh
@@ -249,7 +255,7 @@ paci --needed --noconfirm kitty
 # samba
 # See `random.md samba-manual` section
 
-# nfs{{{
+# nfs/samba {{{
 paci --needed --noconfirm nfs-utils
 mkdir -p $HOME/.mnt/skynfs
 mkdir -p $HOME/.mnt/skywafer/{home,music,shared,video}
