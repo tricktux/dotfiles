@@ -261,7 +261,12 @@ sudo bash -c 'printf "\n//192.168.1.138/music /home/reinaldo/.mnt/skywafer/music
 sudo mount -v -t nfs 192.168.1.138:/volume1/backup /home/reinaldo/.mnt/skynfs -o vers=3
 mv ~/.gnupg{,_orig}
 sudo cp -r /home/reinaldo/.mnt/skynfs/surbook/.{ssh,password-store,gnupg} /home/reinaldo
-sudo chown -R reinaldo ~/.{ssh,password-store,gnupg}
+sudo chown -R reinaldo: ~/.{ssh,password-store,gnupg}
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/*
+chmod 644 -f ~/.ssh/*.pub ~/.ssh/authorized_keys ~/.ssh/known_hosts
+chmod 700 -R ~/.password-store/*
+chmod 700 -R ~/.gnupg/*
 
 sudo mkdir -p /etc/samba/credentials
 sudo nvim /etc/samba/credentials/share
