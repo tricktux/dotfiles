@@ -48,7 +48,7 @@ function! mappings#Set()
     tnoremap <a-]> <C-\><C-n>gt
     tnoremap <a-[> <C-\><C-n>gT
     for idx in range(1,9)
-      execute 'tnoremap <silent> <c-' . idx .
+      execute 'tnoremap <silent> <a-' . idx .
             \ '> <C-\><C-n>' . idx. 'gt'
     endfor
     if !has('unix')
@@ -353,7 +353,7 @@ function! mappings#Set()
   nnoremap <a-]> gt
   nnoremap <a-[> gT
   for l:idx in [1,2,3,4,5,6,7,8,9]
-    execute 'nnoremap <silent> <a-' . l:idx . '> :call <SID>switch_or_set_tab(' . l:idx. ')<cr>'
+    execute 'nnoremap <silent> <localleader>' . l:idx . ' :call <SID>switch_or_set_tab(' . l:idx. ')<cr>'
   endfor
 
   " Create an undo break point. Mark current possition. Go to word. Fix and come back.
