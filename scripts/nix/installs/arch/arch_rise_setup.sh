@@ -259,6 +259,10 @@ sudo bash -c 'printf "\n//192.168.1.138/music /home/reinaldo/.mnt/skywafer/music
 
 # Try it with
 sudo mount -v -t nfs 192.168.1.138:/volume1/backup /home/reinaldo/.mnt/skynfs -o vers=3
+mv ~/.gnupg{,_orig}
+sudo cp -r /home/reinaldo/.mnt/skynfs/surbook/.{ssh,password-store,gnupg} /home/reinaldo
+sudo chown -R reinaldo ~/.{ssh,password-store,gnupg}
+
 sudo mkdir -p /etc/samba/credentials
 sudo nvim /etc/samba/credentials/share
 # - format:
@@ -270,6 +274,8 @@ sudo chmod 700 /etc/samba/credentials/share
 sudo chmod 600 /etc/samba/credentials/share
 
 sudo mount -t cifs //192.168.1.138/home ~/.mnt/skywafer/home -o credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev
+mkdir -p ~/Documents
+ln -s ~/.mnt/skywafer/home/Drive/wiki ~/Documents
 #}}}
 
 # password-store{{{
