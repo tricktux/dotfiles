@@ -2,7 +2,6 @@ ancient-packages
 bluez-firmware
 bottom-bin
 brillo
-checkstyle
 cht.sh-git
 cmake-format
 cmake-lint
@@ -16,7 +15,6 @@ i3lock-fancy-git
 informant
 jdtls
 laptop-mode-tools
-lazygit
 liquidprompt
 lua-format
 navi-bin
@@ -31,7 +29,7 @@ oh-my-zsh-git
 pandoc-bin
 paper-gtk-theme-git
 paper-icon-theme
-paru
+paru-bin
 polybar
 preload
 rofi-bluetooth-git
@@ -40,7 +38,6 @@ rofi-emoji
 rslsync
 spicetify-cli
 spicetify-themes-git
-spotify
 ssmtp
 ttf-weather-icons
 zeal

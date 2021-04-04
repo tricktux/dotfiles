@@ -84,6 +84,7 @@ i3-gaps
 i3blocks
 i3lock
 imagemagick
+inetutils
 intel-gpu-tools
 intel-media-driver
 intel-ucode
@@ -96,6 +97,7 @@ jre8-openjdk
 keepass
 kitty
 kitty-terminfo
+lazygit
 lib32-mesa
 libao
 libcaca
@@ -138,7 +140,7 @@ noto-fonts-emoji
 ntp
 odt2txt
 offlineimap
-openssh
+os-prober
 otf-fira-mono
 otf-font-awesome
 pacman
@@ -158,6 +160,7 @@ plantuml
 playerctl
 poppler
 powertop
+ppp
 pulseaudio
 pulseaudio-alsa
 pulseaudio-bluetooth
