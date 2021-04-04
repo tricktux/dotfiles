@@ -128,6 +128,7 @@ paci --needed --noconfirm zsh
 # Legacy
 # install oh-my-zsh-git zplug pkgfile
 # Install zim
+export ZIM_HOME=/home/reinaldo/.config/zsh/.zim
 curl -kfLo $ZIM_HOME/zimfw.zsh --create-dirs \
   https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
 chmod +x $ZIM_HOME/zimfw.zsh
@@ -141,6 +142,7 @@ sudo systemctl enable pkgfile-update.timer
 # Also update it to wait for network by adding to [Unit]
 # Wants=network-online.target
 # After=network-online.target nss-lookup.target
+sudo vim /usr/lib/systemd/system/pkgfile-update.timer
 sudo systemctl start pkgfile-update.service
 
 chsh -s /usr/bin/zsh
@@ -165,10 +167,12 @@ sudo systemctl start reflector.service
 # Just stay with LTS please. When nvidia is involved is just painful
 # Installing LTS
 paci linux-lts{,-headers} nvidia-lts
+paci linux-lts{,-headers}
 # If you need to remove linux
 pacu linux{,-headers} nvidia
 # **NOTE: Otherwise you wont be able to boot**
 # Update /boot/loader/entries/arch.conf
+sudo nvim /boot/loader/entries/arch.conf
 # Below for lts
 # linux /vmlinuz-linux-lts
 # initrd /initramfs-linux-lts.img
@@ -248,9 +252,24 @@ paci --needed --noconfirm kitty
 # nfs{{{
 paci --needed --noconfirm nfs-utils
 mkdir -p $HOME/.mnt/skynfs
+mkdir -p $HOME/.mnt/skywafer/{home,music,shared,video}
 sudo bash -c 'printf "192.168.1.138:/volume1/backup /home/reinaldo/.mnt/skynfs nfs _netdev,noauto,user,x-systemd.automount,x-systemd.mount-timeout=10,timeo=14,x-systemd.idle-timeout=1min,vers=3 0 0" >> /etc/fstab'
+sudo bash -c 'printf "\n//192.168.1.138/home /home/reinaldo/.mnt/skywafer/home cifs credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev 0 0" >> /etc/fstab'
+sudo bash -c 'printf "\n//192.168.1.138/music /home/reinaldo/.mnt/skywafer/music cifs credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev 0 0" >> /etc/fstab'
+
 # Try it with
 sudo mount -v -t nfs 192.168.1.138:/volume1/backup /home/reinaldo/.mnt/skynfs -o vers=3
+sudo mkdir -p /etc/samba/credentials
+sudo nvim /etc/samba/credentials/share
+# - format:
+# - `username=X`
+# - `password=Y`
+# - Obscure the file:
+sudo chown root:root /etc/samba/credentials/share
+sudo chmod 700 /etc/samba/credentials/share
+sudo chmod 600 /etc/samba/credentials/share
+
+sudo mount -t cifs //192.168.1.138/home ~/.mnt/skywafer/home -o credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev
 #}}}
 
 # password-store{{{
@@ -278,7 +297,7 @@ paci --needed --noconfirm --needed rofi-pass
 # Tue Mar 26 2019 21:49
 # The rest is taken care of at `.xinitrc`
 paci --needed --noconfirm numlockx
-		
+
 # Desktop
 
 # screenshots, i3
@@ -286,6 +305,7 @@ paci --needed --noconfirm numlockx
 
 # Network Manager{{{
 paci --needed --noconfirm networkmanager network-manager-applet networkmanager-openvpn
+pacu networkmanager network-manager-applet networkmanager-openvpn
 sudo systemctl enable NetworkManager.service
 # Setup wpa_supplicant to wait for dbus to shutdown
 # This is a long story complicated bug
@@ -352,7 +372,7 @@ sudo gpasswd -a reinaldo autologin
 
 # Create
 # Valid session names under /usr/share/xsessions/*.desktop
-# /etc/lightdm/lightdm.conf
+sudo nvim /etc/lightdm/lightdm.conf
 
 # [Seat:*]
 # autologin-user=reinaldo
@@ -454,14 +474,14 @@ paci --needed --noconfirm hdparm sdparm ethtool wireless_tools hal python-pyqt5
 #### webcam
 
 # blacklist it.
-sudo echo "blacklist uvcvideo" > /etc/modprobe.d/no_webcam.conf
+sudo sudo bash -c 'printf "blacklist uvcvideo" > /etc/modprobe.d/no_webcam.conf'
 
 #### audio power save
 
 # To check audio driver: `lspci -k`
-sudo echo "options snd_had_intel power_save=1" > /etc/modprobe.d/audio.conf
+sudo sudo bash -c 'printf "options snd_had_intel power_save=1" > /etc/modprobe.d/audio.conf'
 # Disable hdmi output
-sudo echo "blacklist snd_hda_codec_hdmi" > /etc/modprobe.d/no_hdmi_audio.conf.conf
+sudo sudo bash -c 'printf "blacklist snd_hda_codec_hdmi" > /etc/modprobe.d/no_hdmi_audio.conf.conf'
 
 #### wifi
 
