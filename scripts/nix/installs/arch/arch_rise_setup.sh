@@ -22,18 +22,45 @@ Defaults rootpw
 Defaults:reinaldo timestamp_timeout=7200
 # }}}
 
-## 3. Network
+## 3. Network{{{
 # Run this section as root, not using sudo
-su
+# su
 # ip link`
 # # ip link set <wlan0> up`
 # dmesg | grep iwlwifi`
 # ip link show <interface>`
-# wpa_supplicant -B -i interface -c <(wpa_passphrase "your_SSID" "your_key")`
+# wpa_supplicant -B -i <interface> -c <(wpa_passphrase "your_SSID" "your_key")`
+# NOTE: Substitute <wlp1s0> with your interface from ip link show
+sudo bash -c 'wpa_passphrase "05238_5GHz" "<password>" > /etc/wpa_supplicant/wpa_supplicant-wlp1s0.conf'
+# Delete commented password sudo nvim /etc/wpa_supplicant/wpa_supplicant-wlp1s0.conf
+
+sudo bash -c 'cat >> /etc/wpa_supplicant/wpa_supplicant-wlp1s0.conf' << EOL
+# Giving configuration update rights to wpa_cli
+ctrl_interface=/run/wpa_supplicant
+ctrl_interface_group=wheel
+update_config=1
+
+# AP scanning
+ap_scan=1
+
+# ISO/IEC alpha2 country code in which the device is operating
+country=US
+
+# auto-connect to any unsecured network as a fallback with the lowest priority:
+network={
+  key_mgmt=NONE
+  priority=-999
+}
+EOL
 # - Check the connection:
 # - `iw dev <interface> link`
 # - Obtain ip address:
+sudo systemctl enable --now wpa_supplicant@wlp1s0 
+sudo systemctl status wpa_supplicant@wlp1s0 
+sudo systemctl enable --now dhcpcd@wlp1s0 
+sudo systemctl status dhcpcd@wlp1s0 
 # - `dhcpcd <wlan0>`
+#}}}
 
 # Copy your `mirrorlist`:
 scp /etc/pacman.d/mirrorlist reinaldo@192.168.1.194:/home/reinaldo/mirrorlist
