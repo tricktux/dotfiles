@@ -8,8 +8,12 @@
     "command": "$TERMINAL ~/.config/polybar/scripts/arch-maintance.sh"
   },
   {
-    "name": "network",
-    "command": "networkmanager_dmenu"
+    "name": "network-openvpn-client-home-start",
+    "command": "sudo systemctl start openvpn-client@home"
+  },
+  {
+    "name": "network-openvpn-client-home-stop",
+    "command": "sudo systemctl stop openvpn-client@home"
   },
   {
     "name": "flux day",

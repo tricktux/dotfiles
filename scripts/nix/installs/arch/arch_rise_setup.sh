@@ -325,15 +325,16 @@ sudo cp /home/reinaldo/Documents/wiki/misc/home.ovpn /etc/openvpn/client/home.co
 sudo nvim /etc/openvpn/client/home.conf
 # Then create the file
 sudo nvim /etc/openvpn/client/pass.conf
+# use meli openvpn account
 # - format:
 # - `<username>`
 # - `<password>`
 # - Obscure the file:
+# https://bbs.archlinux.org/viewtopic.php?id=260900
 sudo chown openvpn:openvpn /etc/openvpn/client/{home,pass}.conf
 sudo chmod 700 /etc/openvpn/client/{home,pass}.conf
 sudo chmod 600 /etc/openvpn/client/{home,pass}.conf
 sudo systemctl start openvpn-client@home
-# use meli openvpn account
 # }}}
 
 # password-store{{{
