@@ -316,6 +316,26 @@ mkdir -p ~/Documents
 ln -s ~/.mnt/skywafer/home/Drive/wiki ~/Documents
 #}}}
 
+# openvpn {{{
+paci --needed openvpn
+# Test it
+sudo openvpn ~/Documents/wiki/misc/home.ovpn
+sudo cp /home/reinaldo/Documents/wiki/misc/home.ovpn /etc/openvpn/client/home.conf
+# Edit config and add pass.conf to the uth-user-pass line
+sudo nvim /etc/openvpn/client/home.conf
+# Then create the file
+sudo nvim /etc/openvpn/client/pass.conf
+# - format:
+# - `<username>`
+# - `<password>`
+# - Obscure the file:
+sudo chown openvpn:openvpn /etc/openvpn/client/{home,pass}.conf
+sudo chmod 700 /etc/openvpn/client/{home,pass}.conf
+sudo chmod 600 /etc/openvpn/client/{home,pass}.conf
+sudo systemctl start openvpn-client@home
+# use meli openvpn account
+# }}}
+
 # password-store{{{
 paci --needed --noconfirm --needed rofi-pass
 # import key
@@ -629,7 +649,7 @@ sudo systemctl enable --now bluetooth
 
 # Tue Mar 26 2019 08:58
 # Auto clean up
-# modify `/etc/systemd/journald.conf`
+sudo nvim /etc/systemd/journald.conf
 # Add or uncomment `SystemMaxUse=2G`
 
 # Browser
