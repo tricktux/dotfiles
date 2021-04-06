@@ -15,4 +15,4 @@ if [ -f /usr/bin/xrandr ]; then
   /usr/bin/xrandr --dpi 192
 fi
 
-vim: ft=sh
+# vim: ft=sh
