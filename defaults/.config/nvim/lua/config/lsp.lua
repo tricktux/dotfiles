@@ -251,6 +251,7 @@ local function lsp_set()
       handlers = lsp_status.extensions.clangd.setup(),
       init_options = {clangdFileStatus = true},
       on_attach = on_clangd_attach,
+      filetypes = {"c", "cpp"},
       capabilities = capabilities,
       cmd = {
         "clangd", "--all-scopes-completion=true", "--background-index=true",
@@ -259,8 +260,6 @@ local function lsp_set()
         "--suggest-missing-includes", "--header-insertion=iwyu", "-j=12",
         "--header-insertion-decorators=false"
       }
-      -- Default is better
-      -- filetypes = {"c", "cpp"}
     }
   end
 end
