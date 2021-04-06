@@ -518,25 +518,25 @@ function _packer:setup()
   }
 
   -- Fri Apr 02 2021 09:08: Very slow for big files
-  -- use {
-    -- 'hrsh7th/nvim-compe',
-    -- config = compl.compe(),
-    -- requires = {{'hrsh7th/vim-vsnip'}, {'hrsh7th/vim-vsnip-integ'}}
-  -- }
   use {
-    'Shougo/deoplete.nvim',
-    run = ':UpdateRemotePlugins',
-    requires = {
-      {'Shougo/neco-vim'},
-      {'Shougo/neco-syntax'},
-      {'Shougo/context_filetype.vim'},
-      {'ncm2/float-preview.nvim'},
-      {'zchee/deoplete-zsh'},
-      {'Shougo/deoplete-lsp'}
-    },
-    -- neosnippets set from plugin.vim
-    config = compl.deoplete(),
+    'hrsh7th/nvim-compe',
+    config = compl.compe(),
+    requires = {{'hrsh7th/vim-vsnip'}, {'hrsh7th/vim-vsnip-integ'}}
   }
+  -- use {
+    -- 'Shougo/deoplete.nvim',
+    -- run = ':UpdateRemotePlugins',
+    -- requires = {
+      -- {'Shougo/neco-vim'},
+      -- {'Shougo/neco-syntax'},
+      -- {'Shougo/context_filetype.vim'},
+      -- {'ncm2/float-preview.nvim'},
+      -- {'zchee/deoplete-zsh'},
+      -- {'Shougo/deoplete-lsp'}
+    -- },
+    -- -- neosnippets set from plugin.vim
+    -- config = compl.deoplete(),
+  -- }
 
   use {
     'neovim/nvim-lspconfig',
