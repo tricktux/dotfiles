@@ -40,6 +40,11 @@ local function setup_lspstatus()
 end
 
 local function setup_treesitter()
+  -- Mon Apr 05 2021 17:36:
+  -- performance of treesitter in large files is very low.
+  -- Keep as little modules enabled as possible.
+  -- Also no status line
+  -- No extra modules. Looking at you rainbow
   if not utl.is_mod_available('nvim-treesitter') then
     api.nvim_err_writeln('nvim-treesitter module not available')
     return
@@ -59,16 +64,16 @@ local function setup_treesitter()
       enable = true -- false will disable the whole extension
       -- incremental_selection = {enable = true},
     },
-    indent = {enable = true},
-    textobjects = {enable = true}
+    indent = {enable = false},
+    -- textobjects = {enable = true}
   }
 
-  if utl.is_mod_available('rainbow') then config["rainbow"] = {enable = true} end
+  -- if utl.is_mod_available('rainbow') then config["rainbow"] = {enable = true} end
 
   tsconf.setup(config)
 
-  vim.cmd(
-      "autocmd FileType c,cpp,python,lua,java,bash,rust,json,toml,cs setlocal foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
+  -- vim.cmd(
+      -- "autocmd FileType c,cpp,python,lua,java,bash,rust,json,toml,cs setlocal foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
   -- if exists('g:lightline')
   -- let g:lightline.active.right[2] += [ 'sessions' ]
   -- let g:lightline.component_function['sessions'] =

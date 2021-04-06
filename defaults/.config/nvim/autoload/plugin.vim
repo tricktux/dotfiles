@@ -238,12 +238,12 @@ function! plugin#Config()
   if has('nvim-0.5')
     " Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
     " Wed Nov 25 2020 07:38: lsp_status_line has prettier function name
-    if exists('g:lightline')
-      " Unix already enables tagbar. No need for another
-      let g:lightline.active.right[2] += [ 'ts' ]
-      let g:lightline.component_function['ts'] =
-            \ string(function('s:ts_status'))
-    endif
+    " if exists('g:lightline')
+      " " Unix already enables tagbar. No need for another
+      " let g:lightline.active.right[2] += [ 'ts' ]
+      " let g:lightline.component_function['ts'] =
+            " \ string(function('s:ts_status'))
+    " endif
     " Plug 'mhartington/formatter.nvim'
     " Plug 'nanotee/nvim-lua-guide'
     " Fuzzers
@@ -1961,6 +1961,19 @@ function! s:configure_markdown() abort
 endfunction
 
 function! s:ts_status() abort
+  " If file too big. Don't bother
+  let l:fs = getfsize(expand('%'))
+  if l:fs > 1000000
+    if exists(':Neomake')
+      NeomakeDisableBuffer
+    endif
+    return ''
+  endif
+
+  " if exists(':TSBufDisable')
+    " setlocal foldmethod=expr foldexpr=nvim_treesitter#foldexpr()
+  " endif
+
   " lsp_status status is much better
   if luaeval('#vim.lsp.buf_get_clients() > 0')
     return ''
