@@ -392,7 +392,7 @@ sudo bash -c \
 
 # i3-wm{{{
 paci --needed --noconfirm i3-gaps i3blocks i3lock rofi rofi-dmenu i3ass xdotool 
-paci --needed --noconfirm feh redshift qrencode xclip dunst
+paci --needed --noconfirm feh redshift qrencode xclip dunst libnotify
 paci --needed --noconfirm scrot flameshot
 # Needed to backup emails
 paci --needed --noconfirm offlineimap
@@ -417,6 +417,8 @@ paci --needed
 paci --needed --noconfirm jsoncpp polybar alsa-utils paprefs
 paci --needed --noconfirm alsa-lib wireless_tools curl pacman-contrib
 paci --needed --noconfirm nerd-fonts-iosevka ttf-weather-icons jq
+paci --needed --noconfirm python-pywal
+wal --theme base16-google -l -q -o "$HOME/.config/polybar/launch.sh"
 # usb automount
 # Removing pcmanfm
 # There's a polybar module that will be used to mount/umount devices
@@ -445,7 +447,7 @@ sudo nvim /etc/lightdm/lightdm.conf
 
 # Development environment {{{
 paci --needed --noconfirm neovim cscope ripgrep ctags global xclip vim
-paci --needed --noconfirm neovim-remote
+paci --needed --noconfirm neovim-remote lazygit
 paci --needed --noconfirm ripgrep-all
 # for diffs
 paci --needed --noconfirm meld
