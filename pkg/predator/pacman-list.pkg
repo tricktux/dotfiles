@@ -16,6 +16,7 @@ base
 bat
 binutils
 bison
+bleachbit
 bluez
 bluez-utils
 boost
@@ -80,6 +81,7 @@ i3lock
 imagemagick
 inetutils
 intel-ucode
+isync
 jdk-openjdk
 jdk8-openjdk
 jq
@@ -87,6 +89,7 @@ jre8-openjdk
 jsoncpp
 keepass
 kitty
+lazygit
 lib32-libpulse
 lib32-nvidia-utils
 lib32-vulkan-icd-loader
@@ -159,6 +162,7 @@ python-pywal
 python2
 python2-pip
 qpdfview
+qrencode
 ranger
 rapidjson
 redshift
@@ -172,6 +176,7 @@ samba
 scrot
 sed
 shfmt
+speedtest-cli
 steam
 stow
 sudo
