@@ -64,7 +64,7 @@ local function setup_treesitter()
       enable = true -- false will disable the whole extension
       -- incremental_selection = {enable = true},
     },
-    indent = {enable = false},
+    indent = {enable = false}
     -- textobjects = {enable = true}
   }
 
@@ -73,7 +73,7 @@ local function setup_treesitter()
   tsconf.setup(config)
 
   -- vim.cmd(
-      -- "autocmd FileType c,cpp,python,lua,java,bash,rust,json,toml,cs setlocal foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
+  -- "autocmd FileType c,cpp,python,lua,java,bash,rust,json,toml,cs setlocal foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
   -- if exists('g:lightline')
   -- let g:lightline.active.right[2] += [ 'sessions' ]
   -- let g:lightline.component_function['sessions'] =
@@ -524,18 +524,18 @@ function _packer:setup()
     requires = {{'hrsh7th/vim-vsnip'}, {'hrsh7th/vim-vsnip-integ'}}
   }
   -- use {
-    -- 'Shougo/deoplete.nvim',
-    -- run = ':UpdateRemotePlugins',
-    -- requires = {
-      -- {'Shougo/neco-vim'},
-      -- {'Shougo/neco-syntax'},
-      -- {'Shougo/context_filetype.vim'},
-      -- {'ncm2/float-preview.nvim'},
-      -- {'zchee/deoplete-zsh'},
-      -- {'Shougo/deoplete-lsp'}
-    -- },
-    -- -- neosnippets set from plugin.vim
-    -- config = compl.deoplete(),
+  -- 'Shougo/deoplete.nvim',
+  -- run = ':UpdateRemotePlugins',
+  -- requires = {
+  -- {'Shougo/neco-vim'},
+  -- {'Shougo/neco-syntax'},
+  -- {'Shougo/context_filetype.vim'},
+  -- {'ncm2/float-preview.nvim'},
+  -- {'zchee/deoplete-zsh'},
+  -- {'Shougo/deoplete-lsp'}
+  -- },
+  -- -- neosnippets set from plugin.vim
+  -- config = compl.deoplete(),
   -- }
 
   use {
