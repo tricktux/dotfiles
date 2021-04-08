@@ -11,6 +11,6 @@ export QT_SCALE_FACTOR=2
 export QT_AUTO_SCREEN_SCALE_FACTOR=0
 
 if [ -f /usr/bin/xrandr ]; then
-  /usr/bin/xrandr --output DP-4 --auto \
-    --output HDMI-0 --scale 1.8x1.8 --right-of DP-4
+  /usr/bin/xrandr --output DP-2 --auto \
+    --output HDMI-0 --scale 1.8x1.8 --right-of DP-2
 fi
