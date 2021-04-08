@@ -517,6 +517,11 @@ function _packer:setup()
     -- {'romgrk/nvim-treesitter-context'} still some rough edges
   }
 
+  use {
+    'hoob3rt/lualine.nvim',
+    -- requires = {'kyazdani42/nvim-web-devicons', opt = true}
+  }
+
   -- Fri Apr 02 2021 09:08: Very slow for big files
   -- Thu Apr 08 2021 13:44: It was more treesitter's fault
   use {
