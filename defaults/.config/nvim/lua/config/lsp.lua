@@ -87,7 +87,7 @@ local function on_lsp_attach(client_id, bufnr)
   end
 
   -- Disable neomake
-  if vim.fn.exists(':NeomakeDisableBuffer') > 2 then
+  if vim.fn.exists(':NeomakeDisableBuffer') > 0 then
     if vim.bo.filetype ~= 'python' then
       vim.cmd('NeomakeDisableBuffer')
     end
@@ -107,7 +107,7 @@ local function on_lsp_attach(client_id, bufnr)
   vim.b.did_on_lsp_attach = 1
 end
 
-local function on_clangd_attach(client_id)
+local function on_clangd_attach(client_id, bufnr)
   if vim.b.did_on_lsp_attach == 1 then
     -- Setup already done in this buffer
     log.debug('on_lsp_attach already setup')
@@ -120,7 +120,7 @@ local function on_clangd_attach(client_id)
   map.nnoremap('<localleader>a', [[<cmd>ClangdSwitchSourceHeader<cr>]], opts)
   map.nnoremap('<localleader>A',
                [[<cmd>vs<cr><cmd>ClangdSwitchSourceHeader<cr>]], opts)
-  return on_lsp_attach(client_id)
+  return on_lsp_attach(client_id, bufnr)
 end
 
 local function diagnostic_set()
