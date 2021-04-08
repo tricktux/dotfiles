@@ -518,6 +518,7 @@ function _packer:setup()
   }
 
   -- Fri Apr 02 2021 09:08: Very slow for big files
+  -- Thu Apr 08 2021 13:44: It was more treesitter's fault
   use {
     'hrsh7th/nvim-compe',
     config = compl.compe(),
