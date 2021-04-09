@@ -31,10 +31,10 @@ Defaults:reinaldo timestamp_timeout=7200
 # ip link show <interface>`
 # wpa_supplicant -B -i <interface> -c <(wpa_passphrase "your_SSID" "your_key")`
 # NOTE: Substitute <wlp1s0> with your interface from ip link show
-sudo bash -c 'wpa_passphrase "05238_5GHz" "<password>" > /etc/wpa_supplicant/wpa_supplicant-wlp1s0.conf'
+sudo bash -c 'wpa_passphrase "05238_5GHz" "<password>" > /etc/wpa_supplicant/wpa_supplicant-wlan0.conf'
 # Delete commented password sudo nvim /etc/wpa_supplicant/wpa_supplicant-wlp1s0.conf
 
-sudo bash -c 'cat >> /etc/wpa_supplicant/wpa_supplicant-wlp1s0.conf' << EOL
+sudo bash -c 'cat >> /etc/wpa_supplicant/wpa_supplicant-wlan0.conf' << EOL
 # Giving configuration update rights to wpa_cli
 ctrl_interface=/run/wpa_supplicant
 ctrl_interface_group=wheel
@@ -55,10 +55,10 @@ EOL
 # - Check the connection:
 # - `iw dev <interface> link`
 # - Obtain ip address:
-sudo systemctl enable --now wpa_supplicant@wlp1s0 
-sudo systemctl status wpa_supplicant@wlp1s0 
-sudo systemctl enable --now dhcpcd@wlp1s0 
-sudo systemctl status dhcpcd@wlp1s0 
+sudo systemctl enable --now wpa_supplicant@wlan0 
+sudo systemctl status wpa_supplicant@wlan0 
+sudo systemctl enable --now dhcpcd@wlan0 
+sudo systemctl status dhcpcd@wlan0 
 # - `dhcpcd <wlan0>`
 #}}}
 
@@ -68,8 +68,7 @@ scp /etc/pacman.d/mirrorlist reinaldo@192.168.1.194:/home/reinaldo/mirrorlist
 # install `paru`{{{
 # From this point on you need to login as your user
 # You should not run `paru` or `makepkg` as `root`
-pacman -S git
-su reinaldo
+pacman -S --needed git
 # cd /tmp
 # git clone https://aur.archlinux.org/trizen.git --depth 1
 # cd trizen
@@ -126,6 +125,9 @@ paci --needed --noconfirm ccache
 
 # Beautiful arch wallpapers
 paci --needed --noconfirm archlinux-wallpaper
+# TODO
+# optional dependency
+# wallutils: support the simple timed wallpaper format
 
 # `arch-audit`
 paci --needed --noconfirm arch-audit
@@ -133,7 +135,8 @@ paci --needed --noconfirm arch-audit
 # - Not needed anymore:
 # - `sudo cp /usr/share/arch-audit/arch-audit.hook /etc/pacman.d/hooks`
 
-# pacman helpers
+# pacman helpers{{{
+# Thu Apr 08 2021 14:43: NOTE: Don't do this anymore
 paci --needed --noconfirm ancient-packages informant 
 # NOTE: Add yourself to group "informant" to avoid the need for sudo
 sudo gpasswd -a reinaldo informant
@@ -141,6 +144,7 @@ sudo gpasswd -a reinaldo informant
 sudo informant list
 # Mark them as read
 sudo informant read --all
+#}}}
 
 # `ssh`
 paci --needed --noconfirm openssh mosh
@@ -150,11 +154,6 @@ paci --needed --noconfirm openssh mosh
 # - `systemctl enable sshd`
 # - Add to `.ssh/config`
 # - `AddKeysToAgent yes`
-
-# email {{{
-mkdir -p ~/mail/{molinamail,molinamail_meli}/inbox
-/usr/bin/mbsync -D -ac ~/.config/isync/mbsyncrc
-# }}}
 
 # zsh{{{
 paci --needed --noconfirm zsh
@@ -192,15 +191,21 @@ sudo bash -c 'printf "\n--sort rate" >> /etc/xdg/reflector/reflector.conf'
 sudo bash -c 'printf "\n--country \"United States\"" >> /etc/xdg/reflector/reflector.conf'
 sudo bash -c 'printf "\n--info" >> /etc/xdg/reflector/reflector.conf'
 sudo systemctl enable --now reflector.timer
+sudo systemctl start reflector.timer
+sudo systemctl status reflector.timer
 sudo systemctl start reflector.service
+sudo systemctl status reflector.service
+sudo reflector --country "United States" --latest 30 --number 5 \
+  --sort rate --protocol https --save /etc/pacman.d/mirrorlist
+
 #}}}
 
 # Linux kernel{{{
 # Tue Dec 29 2020 09:44
 # Just stay with LTS please. When nvidia is involved is just painful
 # Installing LTS
-paci linux-lts{,-headers} nvidia-lts
-paci linux-lts{,-headers}
+paci --needed --noconfirm linux-lts{,-headers} nvidia-lts
+paci --needed --noconfirm linux-lts{,-headers}
 # If you need to remove linux
 pacu linux{,-headers} nvidia
 # **NOTE: Otherwise you wont be able to boot**
@@ -223,6 +228,8 @@ lspci -k | grep -A 2 -i "VGA"
 # Should be good
 # With the predator you should also do:
 # Go to `sudo vim /etc/pacman.conf` and uncomment `multilib` this allows you to
+sudo vim /etc/pacman.conf
+sudo pacman -Sy
 # install 32-bit programs
 # Mon Sep 18 2017 22:46: Also dont forget to update and uncomment both lines, multilib and Include 
 # **Nvidia drivers**
@@ -231,7 +238,8 @@ lspci -k | grep -A 2 -i "VGA"
 paci --needed --noconfirm nvidia-lts
 # Otherwise use this one....**DO NOT USE BOTH**
 paci --needed --noconfirm nvidia
-paci --needed --noconfirm nvidia-libgl lib32-nvidia-libgl lib32-nvidia-utils nvidia-utils nvidia-settings nvtop
+paci --needed --noconfirm nvidia-libgl lib32-nvidia-libgl lib32-nvidia-utils \
+  nvidia-utils nvidia-settings nvtop
 # ***Configure DRM*** It should allow for the kernel to control the card
 # Don't do this. I though it caused problems with picom. Now not sure. Better be 
 # safe than sorry
@@ -242,13 +250,15 @@ sudo nvidia-xconfig
 # Tue Dec 29 2020 05:35
 # ***DKMS*** is only needed if you are running a custom version of the kernel
 sudo pacman -S --needed --noconfirm nvidia-dkms
-sudo pacman -S --needed --noconfirm nvidia-utils lib32-nvidia-utils nvidia-settings vulkan-icd-loader lib32-vulkan-icd-loader
+sudo pacman -S --needed --noconfirm nvidia-utils lib32-nvidia-utils \
+  nvidia-settings vulkan-icd-loader lib32-vulkan-icd-loader
 # **Intel drivers**
-sudo pacman -S --needed --noconfirm lib32-mesa mesa vulkan-intel lib32-vulkan-intel \
-  vulkan-icd-loader lib32-vulkan-icd-loader xf86-video-intel
+sudo pacman -S --needed --noconfirm lib32-mesa mesa vulkan-intel \
+  lib32-vulkan-intel vulkan-icd-loader lib32-vulkan-icd-loader xf86-video-intel
 # **Hybrid Card**
 # If you have one:
-paci --needed --noconfirm bumblebee mesa lib32-{virtualgl,nvidia-utils,primus} primus
+paci --needed --noconfirm bumblebee mesa \
+  lib32-{virtualgl,nvidia-utils,primus} primus
 paci --needed --noconfirm bbswitch
 # Add your user to the `bumblebee` group:
 gpasswd -a <user> bumblebee
@@ -261,16 +271,21 @@ sudo tee /proc/acpi/bbswitch <<< {ON,OFF}
 
 # terminal utils{{{
 paci --needed --noconfirm acpi lm_sensors liquidprompt tldr
-paci --needed --noconfirm {ttf,otf}-fira-{code,mono} {ttf,otf}-font-awesome nerd-fonts-inconsolata
+paci --needed --noconfirm {ttf,otf}-fira-{code,mono} {ttf,otf}-font-awesome \
+  nerd-fonts-inconsolata
 paci --needed --noconfirm ttf-inconsolata
 paci --needed --noconfirm xorg-xfontsel gtk2fontsel
 # Package doesn't exist anymore thumbnailer 
 paci --needed --noconfirm atool ranger zip unzip w3m ffmpeg highlight libcaca
 # Not installing anymore: advcp 
-paci --needed --noconfirm mediainfo odt2txt poppler w3m bat exa fzf fd ripgrep tmux imagemagick ghostscript xclip
+paci --needed --noconfirm mediainfo odt2txt poppler w3m bat exa fzf fd \
+  ripgrep tmux imagemagick ghostscript xclip
+
+# Main languages
+paci --needed --noconfirm rust go
 
 # kitty
-paci --needed --noconfirm kitty
+paci --needed --noconfirm kitty termite
 # Depends on rust
 # Causes all kinds of problems
 # paci page-git
@@ -291,18 +306,21 @@ sudo bash -c 'printf "\n//192.168.1.138/home /home/reinaldo/.mnt/skywafer/home c
 sudo bash -c 'printf "\n//192.168.1.138/music /home/reinaldo/.mnt/skywafer/music cifs credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev 0 0" >> /etc/fstab'
 
 # Try it with
-sudo mount -v -t nfs 192.168.1.138:/volume1/backup /home/reinaldo/.mnt/skynfs -o vers=3
+sudo mount -v -t nfs 192.168.1.138:/volume1/backup /home/reinaldo/.mnt/skynfs \
+  -o vers=3
 mv ~/.gnupg{,_orig}
-sudo cp -r /home/reinaldo/.mnt/skynfs/surbook/.{ssh,password-store,gnupg} /home/reinaldo
+sudo cp -r \
+  /home/reinaldo/.mnt/skynfs/predator/latest/.{ssh,password-store,gnupg} \
+  /home/reinaldo
 sudo chown -R reinaldo: ~/.{ssh,password-store,gnupg}
 chmod 700 ~/.ssh
 chmod 600 ~/.ssh/*
 chmod 644 -f ~/.ssh/*.pub ~/.ssh/authorized_keys ~/.ssh/known_hosts
-chmod 700 -R ~/.password-store/*
-chmod 700 -R ~/.gnupg/*
+# chmod 700 -R ~/.password-store/*
+# chmod 700 -R ~/.gnupg/*
 
 sudo mkdir -p /etc/samba/credentials
-sudo nvim /etc/samba/credentials/share
+sudo vim /etc/samba/credentials/share
 # - format:
 # - `username=X`
 # - `password=Y`
@@ -394,8 +412,6 @@ sudo bash -c \
 paci --needed --noconfirm i3-gaps i3blocks i3lock rofi rofi-dmenu i3ass xdotool 
 paci --needed --noconfirm feh redshift qrencode xclip dunst
 paci --needed --noconfirm scrot flameshot
-# Needed to backup emails
-paci --needed --noconfirm offlineimap
 # Replacement for htop. Execute: btm
 paci --needed --noconfirm bottom-bin
 # Compton changed name to picom
@@ -411,7 +427,7 @@ paci --needed --noconfirm rofi-{emoji,bluetooth-git} networkmanager-dmenu-git
 paci --needed --noconfirm noto-fonts-emoji
 
 # synology nfs and backups
-paci --needed
+# paci --needed
 
 # polybar{{{
 paci --needed --noconfirm jsoncpp polybar alsa-utils paprefs
@@ -437,15 +453,16 @@ sudo gpasswd -a reinaldo autologin
 
 # Create
 # Valid session names under /usr/share/xsessions/*.desktop
-sudo nvim /etc/lightdm/lightdm.conf
+sudo vim /etc/lightdm/lightdm.conf
 
 # [Seat:*]
 # autologin-user=reinaldo
 # autologin-session=i3-with-shmlog
 
 # Development environment {{{
-paci --needed --noconfirm neovim cscope ripgrep ctags global xclip vim
+paci --needed --noconfirm neovim-nightly-bin cscope ripgrep ctags global xclip
 paci --needed --noconfirm neovim-remote
+# Takes forever, rust compilation
 paci --needed --noconfirm ripgrep-all
 # for diffs
 paci --needed --noconfirm meld
@@ -454,7 +471,7 @@ paci --needed --noconfirm zeal
 paci --needed --noconfirm pandoc-{,citeproc-,crossref-}bin
 # - run the `dotfiles/scripts/python_neovim_virtualenv.sh` script
 # to get `/usr/share/dict` completion
-paci --needed --noconfirm plantuml look words
+paci --needed --noconfirm plantuml words
 
 ## vim
 # Sun Jan 17 2021 07:07: Depracated. Install in the pynvim venv
@@ -466,7 +483,7 @@ paci --needed --noconfirm cmake{,-lint,-format}
 # ~~`install cmake-language-server`~~
 
 ## rust{{{
-paci rust{,fmt,-analyzer}
+paci --needed --noconfirm rust{,fmt,-analyzer}
 #}}}
 
 ## cpp
@@ -479,7 +496,7 @@ paci --needed --noconfirm colorgcc
 
 ## shell
 
-paci --needed --noconfirm shellcheck-static shfmt
+paci --needed --noconfirm shellcheck-bin shfmt
 
 ## lua
 ## lua-language-server consumes ton of cpu power. Plus its chinese, don't trust 
@@ -490,7 +507,8 @@ paci --needed --noconfirm luajit lua-format luacheck
 
 # Installs java the latest and version 8, still widely used.
 paci --needed --noconfirm j{re,re8,dk,dk8}-openjdk
-paci --needed --noconfirm jdtls checkstyle astyle
+# checkstyle out of date
+paci --needed --noconfirm jdtls astyle
 
 ## python
 
@@ -601,9 +619,16 @@ spicetify apply
 
 #}}}
 
-# Email
+# email {{{
 # protonmail-bridge 
-paci --needed --noconfirm neomutt abook urlscan lynx
+paci --needed --noconfirm neomutt abook urlscan lynx \
+  isync goimapnotify
+# Needed to backup emails
+# paci --needed --noconfirm offlineimap
+mkdir -p ~/mail/{molinamail,molinamail_meli}/inbox
+/usr/bin/mbsync -D -ac ~/.config/isync/mbsyncrc
+# }}}
+
 
 ## Mon Mar 04 2019 22:03 
 
@@ -615,7 +640,7 @@ paci --needed --noconfirm thunderbird birdtray
 
 # Office
 
-paci --needed --noconfirm libreoffice-still hunspell hunspell-es_US
+paci --needed --noconfirm libreoffice-still hunspell hunspell-en_us
 
 # pdf & resume
 
@@ -650,7 +675,7 @@ sudo systemctl enable --now bluetooth
 
 # Tue Mar 26 2019 08:58
 # Auto clean up
-sudo nvim /etc/systemd/journald.conf
+sudo vim /etc/systemd/journald.conf
 # Add or uncomment `SystemMaxUse=2G`
 
 # Browser
