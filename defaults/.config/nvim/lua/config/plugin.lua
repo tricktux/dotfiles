@@ -9,6 +9,7 @@ local log = require('utils/log')
 local map = require('utils/keymap')
 local aug = require('config/augroups')
 local compl = require('config.plugins.completion')
+local line = require('config.plugins.statusline')
 local api = vim.api
 
 local function setup_lspstatus()
@@ -506,6 +507,12 @@ function _packer:setup()
 
   use {'wbthomason/packer.nvim'}
 
+  use {
+    'hoob3rt/lualine.nvim',
+    config = line.lualine_config(),
+    -- requires = {'kyazdani42/nvim-web-devicons', opt = true}
+  }
+
   use {'svermeulen/vimpeccable'}
 
   -- Post-install/update hook with neovim command
@@ -515,11 +522,6 @@ function _packer:setup()
     config = setup_treesitter(),
     requires = {{'p00f/nvim-ts-rainbow'}}
     -- {'romgrk/nvim-treesitter-context'} still some rough edges
-  }
-
-  use {
-    'hoob3rt/lualine.nvim',
-    -- requires = {'kyazdani42/nvim-web-devicons', opt = true}
   }
 
   -- Fri Apr 02 2021 09:08: Very slow for big files

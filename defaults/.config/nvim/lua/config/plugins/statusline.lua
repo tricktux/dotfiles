@@ -4,8 +4,8 @@ local api = vim.api
 local M = {}
 
 function M.lualine_config()
-  if not utl.is_mod_available('nvim-tree') then
-    api.nvim_err_writeln("nvim-tree was set, but module not found")
+  if not utl.is_mod_available('lualine') then
+    api.nvim_err_writeln("lualine was set, but module not found")
     return
   end
   local config = {
