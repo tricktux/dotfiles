@@ -463,7 +463,7 @@ sudo vim /etc/lightdm/lightdm.conf
 
 # Development environment {{{
 paci --needed --noconfirm neovim-nightly-bin cscope ripgrep ctags global xclip
-paci --needed --noconfirm neovim-remote
+paci --needed --noconfirm neovim-remote lazygit
 # Takes forever, rust compilation
 paci --needed --noconfirm ripgrep-all
 # for diffs
