@@ -10,7 +10,7 @@ trap cleanup SIGINT SIGTERM ERR #EXIT
 
 cleanup() {
   trap - SIGINT SIGTERM ERR #EXIT
-  notify-send 'Email' "Something went wrong..." -u critical
+  notify-send 'Neomutt' "Something went wrong..." -u critical
   read -n1 -r key
   exit $?
 }
@@ -32,11 +32,11 @@ cleanup() {
   >/tmp/imapnotify_molinamail.log 2>&1 &
 
 /usr/bin/tmux new-session -d -s $session -n 'mailserver' \
-  'neomutt -F ~/.config/neomutt/user.molinamail'
+  'neomutt -F ~/.config/neomutt/user.molinamail 2>/tmp/nmutt-molinamail.log'
 /usr/bin/tmux new-window -d -t $session -n 'gmail' \
-  'neomutt -F ~/.config/neomutt/user.gmail'
+  'neomutt -F ~/.config/neomutt/user.gmail 2>/tmp/nmutt-gmail.log'
 /usr/bin/tmux new-window -d -t $session -n 'ufl' \
-  'neomutt -F ~/.config/neomutt/user.ufl'
+  'neomutt -F ~/.config/neomutt/user.ufl 2>/tmp/nmutt-ufl.log'
 # Wed Feb 19 2020 20:11: Account has been disabled
 # /usr/bin/tmux  new-window  -d -t $session -n 'psu' 'neomutt -F ~/.config/neomutt/user.psu'
 # Tue May 19 2020 04:51: Free account doesn't allow this stuff
