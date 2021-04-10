@@ -97,6 +97,7 @@ alias chmod='chmod --preserve-root'
 alias chgrp='chgrp --preserve-root'
 alias diff='diff --color=auto'
 alias grep='grep --color=auto'
+alias ip='ip -color=auto'
 alias cat='bat'
 
 # svn
