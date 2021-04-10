@@ -228,6 +228,7 @@ lspci -k | grep -A 2 -i "VGA"
 # Should be good
 # With the predator you should also do:
 # Go to `sudo vim /etc/pacman.conf` and uncomment `multilib` this allows you to
+# Now that you are there also uncomment the Color option
 sudo vim /etc/pacman.conf
 sudo pacman -Sy
 # install 32-bit programs
