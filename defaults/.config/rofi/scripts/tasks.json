@@ -44,6 +44,10 @@
     "command": "exec ~/.config/i3/scripts/bluetooth.lua 'disconnect'"
   },
   {
+    "name": "clearwater beach camera",
+    "command": "$BROWSER https://www.myclearwater.com/news-info/beach-cameras"
+  },
+  {
     "name": "cheatsheet pdf",
     "command": "exec ~/.config/i3/scripts/cheatsheet/cht.sh"
   },
