@@ -329,6 +329,7 @@ sudo chown root:root /etc/samba/credentials/share
 sudo chmod 700 /etc/samba/credentials/share
 sudo chmod 600 /etc/samba/credentials/share
 
+paci --needed --noconfirm cifs-utils
 sudo mount -t cifs //192.168.1.138/home ~/.mnt/skywafer/home -o credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev
 mkdir -p ~/Documents
 ln -s ~/.mnt/skywafer/home/Drive/wiki ~/Documents
