@@ -97,8 +97,8 @@ font pango:FontAwesome 9
 
 # Task executor
 bindsym control+shift+s exec --no-startup-id \
-  /home/reinaldo/.config/rofi/scripts/myrmidon.sh \
-  /home/reinaldo/.config/rofi/scripts/tasks.json 
+  $HOME/.config/rofi/scripts/myrmidon.sh \
+  $HOME/.config/rofi/scripts/tasks.json 
 
 # New cool mod3 bindings
 # Paste from clipboard
