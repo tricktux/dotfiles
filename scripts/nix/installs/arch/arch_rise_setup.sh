@@ -682,12 +682,35 @@ sudo systemctl enable --now bluetooth
 sudo vim /etc/systemd/journald.conf
 # Add or uncomment `SystemMaxUse=2G`
 
-# Browser
+# Browser{{{
 
-# See `random.md firefox`
+## firefox
+
+paci --needed --noconfirm firefox
+# paci --needed --noconfirm firefox-extension-privacybadger`
+# paci --needed --noconfirm libnotify speech-dispatcher festival`
+paci --needed --noconfirm vdhcoapp-bin
+ # `Video Youtube donwloader extension helper app`
+# - Extensions: `noscript, vimium-FF, duckduckgo`
+
+### profiles
+
+# - live at: `~/.mozilla/firefox/XXXXXX.<name>`
+# - `firefox -P <name>`
+# - `firefox -ProfileManager`
+
+### extensions
+
+# - Cookie AutoDelete
+# - NoScript
+# - Vimium
+# - Disconnect
+# - Privacy Badger
+
 # Also I use `qutebrowser` for login website
 paci --needed --noconfirm qutebrowser pdfjs
 
+#}}}
 # Printing{{{
 # keywords: print, hp, cups
 paci hplip cups cups-pdf simple-scan gtk3-print-backends --noconfirm
