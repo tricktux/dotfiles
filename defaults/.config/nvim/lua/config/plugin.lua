@@ -507,11 +507,11 @@ function _packer:setup()
 
   use {'wbthomason/packer.nvim'}
 
-  use {
-    'hoob3rt/lualine.nvim',
-    config = line.lualine_config(),
-    -- requires = {'kyazdani42/nvim-web-devicons', opt = true}
-  }
+  -- use {
+    -- 'hoob3rt/lualine.nvim',
+    -- config = line.lualine_config(),
+    -- -- requires = {'kyazdani42/nvim-web-devicons', opt = true}
+  -- }
 
   use {'svermeulen/vimpeccable'}
 

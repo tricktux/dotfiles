@@ -39,9 +39,7 @@ function! plugin#Config()
   " This call must remain atop since sets the g:lightline variable to which
   " other plugins add to
   " selection - {lightline, airline}
-  if !has('nvim-0.5')
-    call status_line#config('lightline')
-  endif
+  call status_line#config('lightline')
 
   Plug 'rhysd/git-messenger.vim', { 'on' : 'GitMessenger' }
   let g:git_messenger_always_into_popup = v:true
