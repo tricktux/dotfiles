@@ -71,22 +71,6 @@ update_github_repositories() {
   done
 }
 
-update_pass_import_python_venv() {
-  local venv_loc="$XDG_DATA_HOME/pyvenv"
-  local venv_name="pass-import"
-  local pkgs=(
-    defusedxml pykeepass secretstorage cryptography file-magic
-    pyaml pass-import
-  )
-
-  mkdir -p "$venv_loc"
-  python -m venv "$venv_loc/$venv_name" \
-    --symlinks --clear
-  source "$venv_loc/$venv_name/bin/activate"
-  pip3 install --upgrade ${pkgs[*]}
-  deactivate
-}
-
 update_nvim_plugins() {
   nvim +PlugUpgrade +PlugUpdate +UpdateRemotePlugins
 }
@@ -285,11 +269,6 @@ msg_not "${BLUE}${BOLD}" "==> Update python polybar env? [y/N]"
 read yn
 case $yn in
 [Yy]*) update_polybar_python_venv ;;
-esac
-msg_not "${BLUE}${BOLD}" "==> Update pass import python? [y/N]"
-read yn
-case $yn in
-[Yy]*) update_pass_import_python_venv ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Update neovim pyvenv? [y/N]"
 read yn
