@@ -376,6 +376,15 @@ sudo systemctl start openvpn-client@home
 
 # password-store{{{
 paci --needed --noconfirm --needed rofi-pass
+## Passwords
+# pass-import most likely you'll have to download from git page
+gpg --recv-keys 06A26D531D56C42D66805049C5469996F0DF68EC
+paci --needed --noconfirm python-pykeepass
+paci --needed --noconfirm pass keepass pass-import
+## Root passwd
+# - ~~`install openssh-askpass`~~
+# - Tue Mar 26 2019 08:53
+paci --needed --noconfirm lxqt-openssh-askpass
 # import key
 # From a pc containing the keys:
 # `gpg --armor --output mykey.asc --export-secret-key you@example.com`
@@ -776,16 +785,6 @@ paci --needed steam ttf-liberation lib32-mesa mesa lib32-nvidia-utils nvidia-uti
 
 ## Video playing
 - `paci --needed --noconfirm vlc`
-
-## Passwords
-# pass-import most likely you'll have to download from git page
-- `paci --needed --noconfirm pass keepass pass-import`
-
-## Root passwd
-
-- ~~`install openssh-askpass`~~
-- Tue Mar 26 2019 08:53 
-- `paci --needed --noconfirm lxqt-openssh-askpass`
 
 ## wine{{{
 # Make sure WINEPREFIX exists
