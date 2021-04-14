@@ -10,14 +10,14 @@ function M.lualine_config()
   end
   local config = {
     options = {
-      theme = 'gruvbox',
-      section_separators = {'', ''},
-      component_separators = {'', ''},
-      icons_enabled = true
+      theme = 'papercolor_light',
+      section_separators = {'|', '|'},
+      component_separators = {'|', '|'},
+      icons_enabled = false
     },
     sections = {
       lualine_a = {{'mode', upper = true}},
-      lualine_b = {{'branch', icon = ''}},
+      lualine_b = {{'branch', icon = ''}},
       lualine_c = {{'filename', file_status = true}},
       lualine_x = {'encoding', 'fileformat', 'filetype'},
       lualine_y = {'progress'},
@@ -31,7 +31,7 @@ function M.lualine_config()
       lualine_y = {},
       lualine_z = {}
     },
-    extensions = {'fzf'}
+    -- extensions = {'fzf'}
   }
   require('lualine').setup(config)
 end
