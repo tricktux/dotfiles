@@ -51,6 +51,8 @@ behave mswin
 " " backspace and cursor keys wrap to previous/next line
 set backspace=indent,eol,start
 
+set ignorecase
+set smartcase
 set timeout
 set timeoutlen=200
 "
