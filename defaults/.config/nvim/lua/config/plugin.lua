@@ -418,6 +418,64 @@ local function setup_indent_blankline()
   vim.g.indent_blankline_show_first_indent_level = false
 end
 
+local function setup_git_worktree()
+  -- Workflow is:
+  -- mkcdir neovim
+  -- git clone <neovim> --bare
+  -- git worktree add master <branch>
+  -- Then you'll have: neovim/{master,neovim.git,<other_workstrees>}
+  if not utl.is_mod_available('git-worktree') then
+    api.nvim_err_writeln('git-worktree module not available')
+    return
+  end
+
+  if not utl.is_mod_available('vimp') then
+    api.nvim_err_writeln('vimp module not available')
+    return
+  end
+  local vimp = require('vimp')
+
+  local gw = require('git-worktree')
+  gw.setup({
+    update_on_change = true,
+    clearjumps_on_change = true,
+  })
+
+  local function get_worktree_name(upstream)
+    local wt_name = nil
+    wt_name = vim.fn.input("New worktree name?\n")
+    if wt_name == nil then
+      return
+    end
+
+    local upstream_name = nil
+    if upstream ~= nil then
+      upstream_name = vim.fn.input("Branch?\n", [[upstream/master]])
+    end
+
+    return {wt_name, upstream_name}
+  end
+
+  local gwa = function() gw.create_worktree(get_worktree_name(true)) end
+  local gwd = function() gw.delete_worktree(get_worktree_name()) end
+  local gws = function() gw.switch_worktree(get_worktree_name()) end
+
+  vimp.nnoremap('<leader>vwa', gwa)
+  vimp.nnoremap('<leader>vwd', gwd)
+  vimp.nnoremap('<leader>vws', gws)
+
+  if utl.is_mod_available('telescope') then
+    local t = require('telescope')
+    t.load_extension("git_worktree")
+    -- To bring up the telescope window listing your workspaces run the following
+
+    vimp.nnoremap({'override'}, '<leader>vws', t.extensions.git_worktree.git_worktrees)
+    -- <Enter> - switches to that worktree
+    -- <c-d> - deletes that worktree
+    -- <c-D> - force deletes that worktree
+  end
+end
+
 local _packer = {}
 _packer._path = vim.g.std_data_path .. [[/site/pack/packer/start/packer.nvim]]
 _packer._repo = [[https://github.com/wbthomason/packer.nvim]]
@@ -589,6 +647,11 @@ function _packer:setup()
     'lukas-reineke/indent-blankline.nvim',
     branch = 'lua',
     config = setup_indent_blankline()
+  }
+
+  use {
+    'ThePrimeagen/git-worktree.nvim',
+    config = setup_git_worktree()
   }
 end
 
