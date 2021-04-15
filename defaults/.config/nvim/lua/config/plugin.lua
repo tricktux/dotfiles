@@ -399,17 +399,14 @@ local function setup_lazygit()
 end
 
 local function setup_octo()
-  if not utl.is_mod_available('telescope') then
-    api.nvim_err_writeln('telescope module not available')
-    return
-  end
-
   if not utl.is_mod_available('octo') then
     api.nvim_err_writeln('octo module not available')
     return
   end
 
-  require('telescope').load_extension('octo')
+  if utl.is_mod_available('telescope') then
+    require('telescope').load_extension('octo')
+  end
 end
 
 local function setup_indent_blankline()
