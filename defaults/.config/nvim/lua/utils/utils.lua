@@ -23,35 +23,29 @@ end
 -- @return Table with all file matches with full path if found. Nil 
 -- otherwise
 local function _find_file_recurse(dir, file, ignore)
-    vim.validate{dir = {dir, 's'}}
-    vim.validate{file = {file, 's'}}
-    vim.validate{ignore = {ignore, 's'}}
+  vim.validate {dir = {dir, 's'}}
+  vim.validate {file = {file, 's'}}
+  vim.validate {ignore = {ignore, 's'}}
 
-    if vim.fn.isdirectory(dir) == 0 then
-        return nil
+  if vim.fn.isdirectory(dir) == 0 then return nil end
+
+  -- Check if the file is in dir
+  log.trace('dir = ' .. vim.inspect(dir))
+  local files = vim.fn.glob(dir .. [[\]] .. file, true, false)
+  log.trace('files = ' .. vim.inspect(files))
+  if files ~= nil and files ~= "" then return files end
+
+  -- Do not go into backup or dot files
+  local dirs = vim.fn.readdir(dir, ignore)
+  log.trace('dirs = ' .. vim.inspect(dirs))
+  for _, d in ipairs(dirs) do
+    if vim.fn.isdirectory(dir) == 1 then
+      files = _find_file_recurse(dir .. [[\]] .. d, file, ignore)
+      if files ~= nil and files ~= "" then return files end
     end
+  end
 
-    -- Check if the file is in dir
-    log.trace('dir = ' .. vim.inspect(dir))
-    local files = vim.fn.glob(dir .. [[\]] .. file, true, false)
-    log.trace('files = ' .. vim.inspect(files))
-    if files ~= nil and files ~= "" then 
-        return files
-    end
-
-    -- Do not go into backup or dot files
-    local dirs = vim.fn.readdir(dir, ignore)
-    log.trace('dirs = ' .. vim.inspect(dirs))
-    for _, d in ipairs(dirs) do
-        if vim.fn.isdirectory(dir) == 1 then
-            files = _find_file_recurse(dir .. [[\]] .. d, file, ignore)
-            if files ~= nil and files ~= "" then 
-                return  files
-            end
-        end
-    end
-
-    return nil
+  return nil
 end
 
 local function is_mod_available(name)
@@ -174,7 +168,9 @@ local function exec_float_term(cmd, closeterm, startinsert)
 
   local buf, win = open_win_centered(0.8, 0.8)
   vim.cmd("term " .. cmd)
-  if closeterm then vim.cmd("au TermClose <buffer=" .. buf .. [[> quit]]) end
+  if closeterm then
+    vim.cmd("au TermClose <buffer=" .. buf .. [[> quit | bwipeout!]] .. buf)
+  end
   if startinsert then vim.cmd("startinsert") end
 end
 
@@ -194,25 +190,25 @@ end
 -- local ranger = {}
 -- ranger.out_file = nil
 -- ranger.opts = {
-  -- on_stdout = 'v:lua.ranger.__on_exit'
+-- on_stdout = 'v:lua.ranger.__on_exit'
 -- }
 
 -- function ranger:exec()
-  -- local buf, win = utl.open_win_centered(0.8, 0.8)
-  -- self.out_file = vim.fn.tempname()
-  -- local cmd = "ranger --choosefiles " .. self.out_file
-  -- local job_id = vim.fn.termopen(cmd, self.opts)
-  -- if job_id <= 0 then
-    -- error("Failed to execute commands: " .. self.cmd.. ". opts = " .. self.opts)
-  -- end
+-- local buf, win = utl.open_win_centered(0.8, 0.8)
+-- self.out_file = vim.fn.tempname()
+-- local cmd = "ranger --choosefiles " .. self.out_file
+-- local job_id = vim.fn.termopen(cmd, self.opts)
+-- if job_id <= 0 then
+-- error("Failed to execute commands: " .. self.cmd.. ". opts = " .. self.opts)
+-- end
 -- end
 
 -- function ranger:__on_exit(job_id, data, event)
-  -- local file = io.open(self.out_file)
-  -- local output = file:read()
-  -- file:close()
-  -- print(output)
-  -- vim.cmd("edit " .. output)
+-- local file = io.open(self.out_file)
+-- local output = file:read()
+-- file:close()
+-- print(output)
+-- vim.cmd("edit " .. output)
 -- end
 
 -- ranger:exec()
@@ -231,5 +227,5 @@ return {
   open_win_centered = open_win_centered,
   io_popen_read = io_popen_read,
   exec_float_term = exec_float_term,
-  find_file = _find_file_recurse,
+  find_file = _find_file_recurse
 }
