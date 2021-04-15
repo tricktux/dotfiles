@@ -23,7 +23,6 @@ neovim-nightly-bin
 neovim-remote
 nerd-fonts-inconsolata
 nerd-fonts-iosevka
-networkmanager-dmenu-git
 numix-gtk-theme
 oh-my-zsh-git
 pandoc-bin
@@ -36,6 +35,7 @@ rofi-bluetooth-git
 rofi-dmenu
 rofi-emoji
 rslsync
+solaar-git
 spicetify-cli
 spicetify-themes-git
 ssmtp

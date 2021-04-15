@@ -45,6 +45,7 @@ dunst
 earlyoom
 efibootmgr
 ethtool
+evemu
 exa
 f2fs-tools
 fakeroot
@@ -111,9 +112,11 @@ libtool
 libva-intel-driver
 libva-utils
 lightdm
-linux
 linux-firmware
+linux-lts
+linux-lts-headers
 lldb
+lsof
 luajit
 luit
 lvm2
@@ -131,15 +134,13 @@ mpv
 neomutt
 net-tools
 netctl
-network-manager-applet
-networkmanager
-networkmanager-openvpn
 nfs-utils
 nmap
 noto-fonts-emoji
 ntp
 odt2txt
 offlineimap
+openvpn
 os-prober
 otf-fira-mono
 otf-font-awesome
@@ -190,6 +191,7 @@ speedtest-cli
 stow
 sudo
 syslog-ng
+termite
 texinfo
 texlive-bibtexextra
 texlive-core
@@ -276,6 +278,7 @@ xsel
 yapf
 zathura
 zathura-pdf-mupdf
+zim
 zip
 zsh
 zsh-completions
