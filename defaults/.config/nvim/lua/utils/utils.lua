@@ -157,7 +157,8 @@ local function open_win_centered(width, height)
     col = col,
     width = mwidth,
     height = mheight,
-    style = 'minimal'
+    style = 'minimal',
+    border = 'single'
   }
 
   log.trace('row = ', row, 'col = ', col, 'width = ', mwidth, 'height = ',

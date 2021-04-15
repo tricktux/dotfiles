@@ -1917,7 +1917,8 @@ function! plugin#FloatingFzf(width, height) abort
         \ 'col': col,
         \ 'width': width,
         \ 'height': height,
-        \ 'style': 'minimal'
+        \ 'style': 'minimal',
+        \ 'border': 'single'
         \ }
 
   call nvim_open_win(buf, v:true, opts)

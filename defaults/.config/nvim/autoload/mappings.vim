@@ -1339,27 +1339,21 @@ function! s:version_control_command(cmd) abort
     return
   endif
 
-  let l:cwd = getcwd()
-  let l:git = !empty(finddir('.git', l:cwd, 1))
-  let l:svn = !empty(finddir('.svn', l:cwd, 1))
-
-  if exists(':LazyGit') && executable('lazygit')
-    if l:git && executable('lazygit') && a:cmd !=? 'commit'
-      if exists(':LazyGit')
-        execute "LazyGit"
-      else
-        lua require('utils.utils').exec_float_term('lazygit', true, true)
-      endif
-      return
-    endif
-  endif
+  let l:git = !empty(glob('.git', v:true, v:true))
+  let l:svn = !empty(glob('.svn', v:true, v:true))
 
   if a:cmd ==? 'status'
     if l:git
       " nmap here is needed for the <C-n> to work. Otherwise it doesnt know what
       " it means. This below is if you want it horizontal
       " nmap <leader>gs :Gstatus<CR><C-w>L<C-n>
-      execute ':Gstatus'
+      " if exists(':LazyGit')
+        " LazyGit
+      if executable('lazygit')
+        lua require('utils.utils').exec_float_term('lazygit', true, true)
+      else
+        execute ':Gstatus'
+      endif
     elseif l:svn
       execute ':SVNStatus q'
     else
