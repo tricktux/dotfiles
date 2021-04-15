@@ -86,7 +86,11 @@ function M.nvimtree_config()
   -- \   }
   -- \ }
 
-  vim.cmd('nnoremap <plug>file_browser :NvimTreeToggle<cr>')
+  if utl.is_mod_available('vimp') then
+    require('vimp').nnoremap('<plug>file_browser', ':NvimTreeToggle<cr>')
+  else
+    vim.cmd('nnoremap <plug>file_browser :NvimTreeToggle<cr>')
+  end
   -- nnoremap <C-n> :NvimTreeToggle<CR>
   -- nnoremap <leader>r :NvimTreeRefresh<CR>
   -- nnoremap <leader>n :NvimTreeFindFile<CR>
