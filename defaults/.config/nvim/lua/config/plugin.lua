@@ -512,6 +512,12 @@ function _packer:setup()
 
   use {'svermeulen/vimpeccable'}
 
+  use {
+    'nvim-lua/telescope.nvim',
+    config = setup_telescope(),
+    requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
+  }
+
   -- Post-install/update hook with neovim command
   use {
     'nvim-treesitter/nvim-treesitter',
@@ -557,12 +563,6 @@ function _packer:setup()
       requires = {'nvim-lua/plenary.nvim'}
     }
   end
-
-  use {
-    'nvim-lua/telescope.nvim',
-    config = setup_telescope(),
-    requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
-  }
 
   use {'kdheepak/lazygit.nvim', config = setup_lazygit()}
   use {'nanotee/nvim-lua-guide'}
