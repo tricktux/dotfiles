@@ -1213,10 +1213,6 @@ function! s:configure_vim_utils() abort
   " This has been moved to the auto 'rtp'
   " Plug g:location_vim_utils
   " Load the rest of the stuff and set the settings
-  let g:svn_repo_url = 'svn://odroid@copter-server/'
-  let g:svn_repo_name = 'UnrealEngineCourse/BattleTanks_2/'
-  nnoremap <Leader>vw :call SVNSwitch<CR>
-  nnoremap <Leader>vb :call SVNCopy<CR>
 
   nnoremap <Leader>of :Dox<CR>
 
