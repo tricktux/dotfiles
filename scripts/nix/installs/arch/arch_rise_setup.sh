@@ -602,8 +602,9 @@ paci --needed --noconfirm glances
 
 # Audio/Music{{{
 
-paci --needed --noconfirm cmus playerctl
-paci --needed --noconfirm libpulse pamixer alsa-lib libao libcdio libcddb libvorbis libmpcdec wavpack libmad libmodplug libmikmod pavucontrol
+paci --needed --noconfirm cmus playerctl pipewire
+paci --needed --noconfirm pamixer alsa-lib libao libcdio libcddb libvorbis \
+  libmpcdec wavpack libmad libmodplug libmikmod pavucontrol
 paci --needed --noconfirm mpv
 
 paci --needed --noconfirm spotify
@@ -682,7 +683,7 @@ paci --needed --noconfirm android-tools android-udev
 
 # Bluetooth
 
-paci --needed --noconfirm pulseaudio-alsa pulseaudio-bluetooth bluez bluez-libs bluez-utils bluez-firmware
+paci --needed --noconfirm pipewire-alsa pipewire-bluetooth bluez bluez-libs bluez-utils bluez-firmware
 sudo systemctl enable --now bluetooth
 
 # journal
