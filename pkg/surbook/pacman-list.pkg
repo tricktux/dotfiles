@@ -27,6 +27,7 @@ cbatticon
 ccache
 chromium
 clang
+cmake
 cmus
 colorgcc
 cppcheck
@@ -67,6 +68,7 @@ gettext
 ghostscript
 git
 global
+go
 google-glog
 gparted
 grep
@@ -181,6 +183,7 @@ reflector
 ripgrep
 rofi-pass
 rsync
+rust
 samba
 scrot
 sdparm
