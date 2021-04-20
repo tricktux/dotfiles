@@ -136,6 +136,11 @@ local function diagnostic_set()
     }
     -- Call the default handler
     default_handler(err, method, result, client_id, bufnr, config)
+    vim.lsp.diagnostic.set_loclist({open_loclist = false})
+    -- Do overwrite my search list
+    if #vim.fn.getqflist() > 0 then
+      return
+    end
     local diagnostics = vim.lsp.diagnostic.get_all()
     local qflist = {}
     for nbufnr, diagnostic in pairs(diagnostics) do
@@ -148,7 +153,6 @@ local function diagnostic_set()
       end
     end
     vim.lsp.util.set_qflist(qflist)
-    vim.lsp.diagnostic.set_loclist({open_loclist = false})
   end
 end
 
