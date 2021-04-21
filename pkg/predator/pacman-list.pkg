@@ -19,6 +19,7 @@ boost
 boost-libs
 capitaine-cursors
 ccache
+cifs-utils
 clang
 cmus
 colorgcc
@@ -41,6 +42,7 @@ feh
 ffmpeg
 file
 findutils
+firefox
 flameshot
 flex
 fzf
@@ -77,6 +79,7 @@ jq
 jre8-openjdk
 jsoncpp
 kitty
+lazygit
 lib32-nvidia-utils
 libao
 libcaca
@@ -94,6 +97,7 @@ lldb
 luajit
 lvm2
 lxappearance
+lxqt-openssh-askpass
 lynx
 m4
 make
@@ -132,6 +136,7 @@ pulseaudio-alsa
 pulseaudio-bluetooth
 python-cpplint
 python-pip
+python-pywal
 python2
 python2-pip
 qpdfview
@@ -142,6 +147,7 @@ redshift
 reflector
 ripgrep
 rofi-pass
+rsync
 rust
 rust-analyzer
 scrot
