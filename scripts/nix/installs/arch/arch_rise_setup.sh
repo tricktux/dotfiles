@@ -683,7 +683,7 @@ paci --needed --noconfirm android-tools android-udev
 
 # Bluetooth
 
-paci --needed --noconfirm pipewire-alsa pipewire-bluetooth bluez bluez-libs bluez-utils bluez-firmware
+paci --needed --noconfirm pipewire-{pulse,jack,alsa} bluez bluez-libs bluez-utils bluez-firmware
 sudo systemctl enable --now bluetooth
 
 # journal
