@@ -45,7 +45,7 @@
   },
   {
     "name": "clearwater beach camera",
-    "command": "$BROWSER https://www.myclearwater.com/news-info/beach-cameras"
+    "command": "$BROWSER https://www.visitstpeteclearwater.com/webcams"
   },
   {
     "name": "cheatsheet pdf",
