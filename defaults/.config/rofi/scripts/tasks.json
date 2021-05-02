@@ -48,6 +48,10 @@
     "command": "$BROWSER https://www.visitstpeteclearwater.com/webcams"
   },
   {
+    "name": "tampa bay rays livestream",
+    "command": "python ~/Documents/wiki/scripts/selenium-chrome-buffstreams.py > /tmp/sel.log"
+  },
+  {
     "name": "cheatsheet pdf",
     "command": "exec ~/.config/i3/scripts/cheatsheet/cht.sh"
   },
