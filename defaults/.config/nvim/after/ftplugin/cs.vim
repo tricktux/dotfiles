@@ -17,9 +17,9 @@ let b:did_cs_ftplugin = 1
 let s:keepcpo= &cpo
 set cpo&vim
 
-setlocal tabstop=2
-setlocal shiftwidth=2
-setlocal softtabstop=2
+setlocal tabstop=4
+setlocal shiftwidth=4
+setlocal softtabstop=4
 setlocal nospell
 setlocal textwidth=79
 
