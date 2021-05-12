@@ -116,7 +116,8 @@ function! augroup#Set() abort
           \ endif
 
     " Autosave
-    autocmd InsertLeave,TextChanged * silent! update
+    " Wed May 12 2021 11:42: Save less often
+    autocmd CursorHold * silent! update
 
     " Sat May 16 2020 12:04: Trying out gen_tags 
     " autocmd BufWinEnter * call ctags#LoadCscopeDatabse()
