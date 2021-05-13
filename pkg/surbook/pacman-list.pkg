@@ -1,4 +1,3 @@
-abook
 acpi
 acpid
 adapta-gtk-theme
@@ -25,7 +24,6 @@ boost
 capitaine-cursors
 cbatticon
 ccache
-chromium
 clang
 cmake
 cmus
@@ -47,6 +45,7 @@ earlyoom
 efibootmgr
 ethtool
 evemu
+evolution
 exa
 f2fs-tools
 fakeroot
@@ -68,6 +67,7 @@ gettext
 ghostscript
 git
 global
+gnome-keyring
 go
 google-glog
 gparted
@@ -157,6 +157,10 @@ pavucontrol
 pcmanfm
 pdfgrep
 picom
+pipewire
+pipewire-alsa
+pipewire-jack
+pipewire-pulse
 pkgconf
 pkgfile
 plantuml
@@ -164,9 +168,7 @@ playerctl
 poppler
 powertop
 ppp
-pulseaudio
 pulseaudio-alsa
-pulseaudio-bluetooth
 python-cpplint
 python-pip
 python-pykeepass
@@ -174,6 +176,7 @@ python-pylint
 python-pynvim
 python-pyqt5
 python-pywal
+python-selenium
 qpdfview
 qrencode
 ranger
