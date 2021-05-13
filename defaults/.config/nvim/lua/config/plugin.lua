@@ -436,17 +436,12 @@ local function setup_git_worktree()
   local vimp = require('vimp')
 
   local gw = require('git-worktree')
-  gw.setup({
-    update_on_change = true,
-    clearjumps_on_change = true,
-  })
+  gw.setup({update_on_change = true, clearjumps_on_change = true})
 
   local function get_worktree_name(upstream)
     local wt_name = nil
     wt_name = vim.fn.input("New worktree name?\n")
-    if wt_name == nil then
-      return
-    end
+    if wt_name == nil then return end
 
     local upstream_name = nil
     if upstream ~= nil then
@@ -469,7 +464,8 @@ local function setup_git_worktree()
     t.load_extension("git_worktree")
     -- To bring up the telescope window listing your workspaces run the following
 
-    vimp.nnoremap({'override'}, '<leader>vws', t.extensions.git_worktree.git_worktrees)
+    vimp.nnoremap({'override'}, '<leader>vws',
+                  t.extensions.git_worktree.git_worktrees)
     -- <Enter> - switches to that worktree
     -- <c-d> - deletes that worktree
     -- <c-D> - force deletes that worktree
@@ -481,9 +477,11 @@ _packer._path = vim.g.std_data_path .. [[/site/pack/packer/start/packer.nvim]]
 _packer._repo = [[https://github.com/wbthomason/packer.nvim]]
 _packer._config = {
   ensure_dependencies = true, -- Should packer install plugin dependencies?
-  -- package_root = util.join_paths(vim.fn.stdpath('data'), 'site', 'pack'),
-  -- compile_path = util.join_paths(vim.fn.stdpath('config'), 'plugin',
-  -- 'packer_compiled.vim'),
+  package_root = require('packer.util').join_paths(vim.fn.stdpath('data'),
+                                                   'site', 'pack'),
+  compile_path = require('packer.util').join_paths(vim.fn.stdpath('data'),
+                                                   'site', 'plugin',
+                                                   'packer_compiled.vim'),
   plugin_package = 'packer', -- The default package for plugins
   max_jobs = nil, -- Limit the number of simultaneous jobs. nil means no limit
   auto_clean = true, -- During sync(), remove unused plugins
@@ -563,9 +561,9 @@ function _packer:setup()
   use {'wbthomason/packer.nvim'}
 
   -- use {
-    -- 'hoob3rt/lualine.nvim',
-    -- config = line.lualine_config(),
-    -- -- requires = {'kyazdani42/nvim-web-devicons', opt = true}
+  -- 'hoob3rt/lualine.nvim',
+  -- config = line.lualine_config(),
+  -- -- requires = {'kyazdani42/nvim-web-devicons', opt = true}
   -- }
 
   use {'svermeulen/vimpeccable'}
@@ -649,10 +647,7 @@ function _packer:setup()
     config = setup_indent_blankline()
   }
 
-  use {
-    'ThePrimeagen/git-worktree.nvim',
-    config = setup_git_worktree()
-  }
+  use {'ThePrimeagen/git-worktree.nvim', config = setup_git_worktree()}
 end
 
 local function setup()
