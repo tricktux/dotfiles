@@ -644,6 +644,16 @@ function _packer:setup()
   if utl.has_unix() then
     use {'ThePrimeagen/git-worktree.nvim'}
   end
+
+  -- Default commands
+  -- key 	description
+  -- "" 	open peekup window
+  -- <Esc> 	close peekup window
+  -- any character 	select and copy text from the corresponding " register
+  -- <C-j>, <C-k> 	scroll the list up and down
+  -- <Up>, <Down> 	move to next registers type
+  use 'gennaro-tedesco/nvim-peekup'
+  vim.g.peekup_paste_after = [[""]]
 end
 
 local function setup()
