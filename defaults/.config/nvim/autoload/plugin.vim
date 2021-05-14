@@ -41,9 +41,6 @@ function! plugin#Config()
   " selection - {lightline, airline}
   call status_line#config('lightline')
 
-  Plug 'rhysd/git-messenger.vim', { 'on' : 'GitMessenger' }
-  let g:git_messenger_always_into_popup = v:true
-
   " Plug 'Yggdroot/indentLine', { 'for' : [ 'java', 'cpp', 'c', 'python' ] }
   Plug 'whiteinge/diffconflicts'
   " Plugin to make api requests
