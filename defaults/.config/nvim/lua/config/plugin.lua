@@ -548,6 +548,10 @@ function _packer:download()
   vim.cmd('packadd packer.nvim')
 end
 
+-- Thu May 13 2021 22:42: After much debuggin, found out that config property 
+-- is not working as intended because of issues in packer.nvim. See:
+-- https://github.com/wbthomason/packer.nvim/issues/351
+-- TL;DR: no outside of local scope function calling for config
 function _packer:setup()
   local packer = nil
   if packer == nil then
@@ -570,7 +574,6 @@ function _packer:setup()
 
   use {
     'nvim-lua/telescope.nvim',
-    config = setup_telescope(),
     requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
   }
 
@@ -578,7 +581,6 @@ function _packer:setup()
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
-    config = setup_treesitter(),
     requires = {{'p00f/nvim-ts-rainbow'}}
     -- {'romgrk/nvim-treesitter-context'} still some rough edges
   }
@@ -587,7 +589,6 @@ function _packer:setup()
   -- Thu Apr 08 2021 13:44: It was more treesitter's fault
   use {
     'hrsh7th/nvim-compe',
-    config = compl.compe(),
     requires = {{'hrsh7th/vim-vsnip'}, {'hrsh7th/vim-vsnip-integ'}}
   }
   -- use {
@@ -607,7 +608,6 @@ function _packer:setup()
 
   use {
     'neovim/nvim-lspconfig',
-    config = require('config.lsp').set(),
     requires = {{'nvim-lua/lsp-status.nvim'}, {'ray-x/lsp_signature.nvim'}}
   }
 
@@ -615,25 +615,20 @@ function _packer:setup()
   if utl.has_unix() then
     use {
       'lewis6991/gitsigns.nvim',
-      config = setup_gitsigns(),
       requires = {'nvim-lua/plenary.nvim'}
     }
   end
 
-  use {'kdheepak/lazygit.nvim', config = setup_lazygit()}
+  use {'kdheepak/lazygit.nvim'}
   use {'nanotee/nvim-lua-guide'}
-  use {
-    'kyazdani42/nvim-tree.lua',
-    config = require('config.plugins.tree_explorer').nvimtree_config()
-  }
+  use { 'kyazdani42/nvim-tree.lua'}
 
-  use {'kosayoda/nvim-lightbulb', config = setup_lightbulb()}
+  use {'kosayoda/nvim-lightbulb'}
 
   -- Depends on github cli
   if vim.fn.executable('gh') > 0 then
     use {
       'pwntester/octo.nvim',
-      config = setup_octo(),
       requires = {
         {'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'},
         {'nvim-lua/telescope.nvim'}
@@ -644,10 +639,11 @@ function _packer:setup()
   use {
     'lukas-reineke/indent-blankline.nvim',
     branch = 'lua',
-    config = setup_indent_blankline()
   }
 
-  use {'ThePrimeagen/git-worktree.nvim', config = setup_git_worktree()}
+  if utl.has_unix() then
+    use {'ThePrimeagen/git-worktree.nvim'}
+  end
 end
 
 local function setup()
@@ -656,7 +652,20 @@ local function setup()
     api.nvim_err_writeln("packer.nvim module not found")
     return
   end
+
   _packer:setup()
+
+  setup_telescope()
+  setup_treesitter()
+  compl.compe()
+  require('config.lsp').set()
+  if utl.has_unix() then setup_gitsigns() end
+  setup_lazygit()
+  require('config.plugins.tree_explorer').nvimtree_config()
+  setup_lightbulb()
+  if vim.fn.executable('gh') > 0 then setup_octo() end
+  setup_indent_blankline()
+  if utl.has_unix() then setup_git_worktree() end
 end
 
 return {setup = setup, setup_lspstatus = setup_lspstatus}
