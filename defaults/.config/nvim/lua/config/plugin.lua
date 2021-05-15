@@ -613,15 +613,12 @@ function _packer:setup()
 
   -- Use dependency and run lua function after load
   if utl.has_unix() then
-    use {
-      'lewis6991/gitsigns.nvim',
-      requires = {'nvim-lua/plenary.nvim'}
-    }
+    use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}}
   end
 
   use {'kdheepak/lazygit.nvim'}
   use {'nanotee/nvim-lua-guide'}
-  use { 'kyazdani42/nvim-tree.lua'}
+  use {'kyazdani42/nvim-tree.lua'}
 
   use {'kosayoda/nvim-lightbulb'}
 
@@ -636,14 +633,9 @@ function _packer:setup()
     }
   end
 
-  use {
-    'lukas-reineke/indent-blankline.nvim',
-    branch = 'lua',
-  }
+  use {'lukas-reineke/indent-blankline.nvim', branch = 'lua'}
 
-  if utl.has_unix() then
-    use {'ThePrimeagen/git-worktree.nvim'}
-  end
+  if utl.has_unix() then use {'ThePrimeagen/git-worktree.nvim'} end
 
   -- Default commands
   -- key 	description
@@ -655,10 +647,7 @@ function _packer:setup()
   use 'gennaro-tedesco/nvim-peekup'
   vim.g.peekup_paste_after = [[""]]
 
-  use {
-    'rhysd/git-messenger.vim', 
-     cmd = ':GitMessenger'
-   }
+  use {'rhysd/git-messenger.vim', cmd = ':GitMessenger'}
   vim.g.git_messenger_always_into_popup = true
 end
 
