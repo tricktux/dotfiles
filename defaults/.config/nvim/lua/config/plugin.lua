@@ -647,7 +647,7 @@ function _packer:setup()
   use 'gennaro-tedesco/nvim-peekup'
   vim.g.peekup_paste_after = [[""]]
 
-  use {'rhysd/git-messenger.vim', cmd = ':GitMessenger'}
+  use {'rhysd/git-messenger.vim', cmd = 'GitMessenger'}
   vim.g.git_messenger_always_into_popup = true
 end
 
