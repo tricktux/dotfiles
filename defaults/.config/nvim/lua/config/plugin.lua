@@ -272,7 +272,7 @@ local function setup_telescope()
       -- Picker Configuration
       -- border = {},
       -- borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
-      preview_cutoff = (utl.has_unix() and 120 or 9999),
+      -- preview_cutoff = (utl.has_unix() and 120 or 9999),
       -- selection_strategy = "reset",
 
       -- Can choose EITHER one of these: horizontal, vertical, center
