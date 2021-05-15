@@ -1,4 +1,3 @@
-abook
 acpi
 acpid
 adapta-gtk-theme
@@ -167,6 +166,7 @@ python-pip
 python-pykeepass
 python-pyqt5
 python-pywal
+python-selenium
 python2-pip
 qpdfview
 qrencode
