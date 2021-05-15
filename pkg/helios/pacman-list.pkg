@@ -45,6 +45,7 @@ earlyoom
 efibootmgr
 espeak
 ethtool
+evolution
 exa
 f2fs-tools
 fakeroot
@@ -64,6 +65,7 @@ git
 github-cli
 glances
 global
+gnome-keyring
 go
 google-glog
 groff
@@ -182,6 +184,7 @@ samba
 screen
 scrot
 sdparm
+seahorse
 shfmt
 speedtest-cli
 stow
