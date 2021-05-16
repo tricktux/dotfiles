@@ -137,13 +137,14 @@ case $yn in
     $XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_digital_ocean.sh &
   ;;
 esac
-msg_not "${BLUE}${BOLD}" "==> Sync passwords? [y/N]"
-read yn
-case $yn in
-[Yy]*)
-  "$TERMINAL" $HOME/Documents/wiki/scripts/backup_keepass_db.sh &
-  ;;
-esac
+# TODO: Semi Automate this process
+# msg_not "${BLUE}${BOLD}" "==> Sync passwords? [y/N]"
+# read yn
+# case $yn in
+# [Yy]*)
+  # "$TERMINAL" $HOME/Documents/scripts/backup_keepass_db.sh &
+  # ;;
+# esac
 msg_not "${BLUE}${BOLD}" "==> Back up emails (~15mins)? [y/N]"
 read yn
 case $yn in
