@@ -1600,12 +1600,12 @@ function! s:configure_vim_signify() abort
   " Remove all default autocomands and just do this ones
   autocmd User SignifyAutocmds
         \ exe 'au! signify' |
-        \ au signify InsertLeave,TextChanged,BufEnter * call sy#start()
+        \ au signify CursorHold * call sy#start()
 
-  if exists('g:lightline')
-    let g:lightline.active.left[2] += [ 'sy' ]
-    let g:lightline.component_function['sy'] = 'sy#repo#get_stats_decorated'
-  endif
+  " if exists('g:lightline')
+    " let g:lightline.active.left[2] += [ 'sy' ]
+    " let g:lightline.component_function['sy'] = 'sy#repo#get_stats_decorated'
+  " endif
 endfunction
 
 function! s:highlight_signify() abort
