@@ -233,8 +233,8 @@ case $yn in
   # Clean trash
   gio trash --empty
   # Restore pywal cache files
-  msg "${CYAN}${BOLD}" "==> Please restore colors by forcing flux night or day..."
-  read -n1 -r key
+  $XDG_CONFIG_HOME/polybar/scripts/flux_/flux -c \
+    $XDG_CONFIG_HOME/polybar/scripts/flux_/flux_config.lua -f day
   ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Remove browser junk? [y/N]"
