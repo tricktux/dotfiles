@@ -302,7 +302,7 @@ function! plugin#Config()
     " let g:lightline.component_function['fugitive'] = 'fugitive#statusline'
   " endif
 
-  call s:configure_vim_signify()
+  " call s:configure_vim_signify()
 
   Plug 'juneedahamed/svnj.vim', { 'on' : ['SVNStatus', 'SVNCommit'] }
   let g:svnj_allow_leader_mappings=0
