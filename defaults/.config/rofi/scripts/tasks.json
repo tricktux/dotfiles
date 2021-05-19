@@ -128,9 +128,5 @@
   {
     "name": "xmodmap reload",
     "command": "xmodmap ~/.Xmodmap"
-  },
-  {
-    "name": "xmodmap dvorak keyboard layout",
-    "command": "exec ~/.config/i3/scripts/switch_dvorak.sh"
   }
 ]
