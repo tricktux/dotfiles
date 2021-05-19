@@ -3,6 +3,7 @@ ancient-packages
 bluez-firmware
 bottom-bin
 brillo
+chromedriver
 cmake-format
 cmake-lint
 cpplint
