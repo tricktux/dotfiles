@@ -49,7 +49,7 @@
   },
   {
     "name": "tampa bay rays livestream",
-    "command": "python ~/Documents/wiki/scripts/selenium-chrome-buffstreams.py > /tmp/sel.log"
+    "command": "python ~/Documents/scripts/selenium-chrome-buffstreams.py > /tmp/sel.log"
   },
   {
     "name": "cheatsheet pdf",
