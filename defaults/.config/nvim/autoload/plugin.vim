@@ -285,22 +285,8 @@ function! plugin#Config()
   " cpp
   call s:configure_tagbar()
 
-  " python
-  " Plug 'python-mode/python-mode', { 'for' : 'python' } " Extremely
-  " aggressive
-
-  " pip install isort --user
-  " Plug 'fisadev/vim-isort', { 'for' : 'python' }
-  " let g:vim_isort_map = ''
-  " let g:vim_isort_python_version = 'python3'
-
-  " Autocomplete
   " Version control
   Plug 'tpope/vim-fugitive'
-  " if exists('g:lightline')
-    " let g:lightline.active.left[2] += [ 'fugitive' ]
-    " let g:lightline.component_function['fugitive'] = 'fugitive#statusline'
-  " endif
 
   " call s:configure_vim_signify()
 
