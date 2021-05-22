@@ -1,4 +1,3 @@
-abook
 acpi
 adapta-gtk-theme
 alsa-utils
@@ -14,6 +13,7 @@ base
 bat
 binutils
 bison
+bleachbit
 bluez
 boost
 boost-libs
@@ -125,15 +125,19 @@ pamixer
 paprefs
 patch
 pavucontrol
+pcmanfm
 pdfgrep
 picom
+pipewire
+pipewire-alsa
+pipewire-jack
+pipewire-pulse
 pkgconf
 pkgfile
 plantuml
 playerctl
 poppler
 pulseaudio-alsa
-pulseaudio-bluetooth
 python-cpplint
 python-pip
 python-pywal
