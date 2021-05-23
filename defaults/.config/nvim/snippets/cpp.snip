@@ -5,6 +5,17 @@
 # Last Modified: Wed Jan 22 2020 04:27
 # Created: Jun 13 2017 16:26
 
+snippet     main
+abbr        cpp main function
+options     head
+    #include <cstdio>
+
+    int main(int argc, char *argv[]) {
+      printf("hello world");
+      ${1}
+      return 0;
+    }
+
 snippet     p
 abbr        printf
 options     head
