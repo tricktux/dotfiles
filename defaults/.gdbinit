@@ -9,3 +9,8 @@ set history filename ~/.cache/gdbhistory
 # set auto-load python-scripts off
 
 source /usr/share/gdb-dashboard/.gdbinit
+
+# Get rid of annoying "quit anyway" prompt
+define hook-quit
+    set confirm off
+end
