@@ -14,3 +14,12 @@ source /usr/share/gdb-dashboard/.gdbinit
 define hook-quit
     set confirm off
 end
+
+define bs
+    save breakpoints /tmp/breakpoints
+end
+
+define br
+   source /tmp/breakpoints
+   run
+end
