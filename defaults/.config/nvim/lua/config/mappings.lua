@@ -5,11 +5,11 @@ local utl = require('utils/utils')
 
 local function refresh_buffer()
   api.nvim_exec([[
+    update
     nohlsearch
     diffupdate
     mode
-    edit
-    normal! zz<cr>
+    normal! zzze<cr>
   ]], false)
 
   if vim.fn.exists(':SignifyRefresh') > 0 then
