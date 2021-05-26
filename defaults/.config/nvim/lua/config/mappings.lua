@@ -8,10 +8,9 @@ local function refresh_buffer()
     nohlsearch
     diffupdate
     mode
-    syntax sync fromstart
     edit
     normal! zz<cr>
-  ]], true)
+  ]], false)
 
   if vim.fn.exists(':SignifyRefresh') > 0 then
     vim.cmd('SignifyRefresh')
