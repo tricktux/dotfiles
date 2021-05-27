@@ -103,7 +103,7 @@ ToggleWinMinimize(TheWindowTitle)
 
 CenterMouseOnActiveWindow()
 {
-    ; Sleep 50
+    Sleep 50
     CoordMode,Mouse,Screen
     WinGetPos, winTopL_x, winTopL_y, width, height, A
     winCenter_x := winTopL_x + width/2
@@ -115,79 +115,79 @@ CenterMouseOnActiveWindow()
 
 MouseMon3()
 {
-new_x := mon_1Left + (mon_1Right - mon_1Left) // 2
-           new_y := mon_1Top + (mon_1Bottom - mon_1Top) // 2
-           MouseMove new_x, new_y
-           DllCall("SetCursorPos", int, new_x, int, new_y) 
+    new_x := mon_1Left + (mon_1Right - mon_1Left) // 2
+    new_y := mon_1Top + (mon_1Bottom - mon_1Top) // 2
+    MouseMove new_x, new_y
+    DllCall("SetCursorPos", int, new_x, int, new_y) 
 }
 
 MouseMon2()
 {
-new_x := mon_3Left + (mon_3Right - mon_3Left) // 2
-           new_y := mon_3Top + (mon_3Bottom - mon_3Top) // 2
-           MouseMove new_x, new_y
-           DllCall("SetCursorPos", int, new_x, int, new_y) 
+    new_x := mon_3Left + (mon_3Right - mon_3Left) // 2
+    new_y := mon_3Top + (mon_3Bottom - mon_3Top) // 2
+    MouseMove new_x, new_y
+    DllCall("SetCursorPos", int, new_x, int, new_y) 
 }
 
 
 MouseMon1()
 {
-new_x := mon_2Left + (mon_2Right - mon_2Left) // 2
-           new_y := mon_2Top + (mon_2Bottom - mon_2Top) // 2
-           ; MouseMove new_x, new_y
-           DllCall("SetCursorPos", int, new_x, int, new_y) 
+    new_x := mon_2Left + (mon_2Right - mon_2Left) // 2
+    new_y := mon_2Top + (mon_2Bottom - mon_2Top) // 2
+    ; MouseMove new_x, new_y
+    DllCall("SetCursorPos", int, new_x, int, new_y) 
 }
 
 CenterActiveWindowDown()
 {
     ; Get the window handle from de active window.
-        winHandle := WinExist("A")
+    winHandle := WinExist("A")
 
-        VarSetCapacity(monitorInfo, 40)
-        NumPut(40, monitorInfo)
+    VarSetCapacity(monitorInfo, 40)
+    NumPut(40, monitorInfo)
 
-        ; Get the current monitor from the active window handle.
-        monitorHandle := DllCall("MonitorFromWindow", "uint", winHandle, "uint", 0x2)
-        DllCall("GetMonitorInfo", "uint", monitorHandle, "uint", &monitorInfo) 
+    ; Get the current monitor from the active window handle.
+    monitorHandle := DllCall("MonitorFromWindow", "uint", winHandle, "uint", 0x2)
+    DllCall("GetMonitorInfo", "uint", monitorHandle, "uint", &monitorInfo) 
 
-        ; Get WorkArea bounding coordinates of the current monitor.
-        A_Left   := NumGet(monitorInfo, 20, "Int")
-        A_Top    := NumGet(monitorInfo, 24, "Int")
-        A_Right  := NumGet(monitorInfo, 28, "Int")
-        A_Bottom := NumGet(monitorInfo, 32, "Int")
+    ; Get WorkArea bounding coordinates of the current monitor.
+    A_Left   := NumGet(monitorInfo, 20, "Int")
+    A_Top    := NumGet(monitorInfo, 24, "Int")
+    A_Right  := NumGet(monitorInfo, 28, "Int")
+    A_Bottom := NumGet(monitorInfo, 32, "Int")
 
-        ; Calculate window coordinates.
-        winW := (A_Right - A_Left) * 0.5 ; Change the factor here to your desired width.
-        winH := A_Bottom*0.59
-        winX := A_Left + (winW / 2)
-        winY := A_Top + (winH*0.69)
+    ; Calculate window coordinates.
+    winW := (A_Right - A_Left) * 0.5 ; Change the factor here to your desired width.
+    winH := A_Bottom*0.59
+    winX := A_Left + (winW / 2)
+    winY := A_Top + (winH*0.69)
 
-        WinMove, A,, %winX%, %winY%, %winW%, %winH%
+    WinMove, A,, %winX%, %winY%, %winW%, %winH%
 }
 
 CenterActiveWindowUp()
 {
     ; Get the window handle from de active window.
-        winHandle := WinExist("A")
+    winHandle := WinExist("A")
 
-        VarSetCapacity(monitorInfo, 40)
-        NumPut(40, monitorInfo)
+    VarSetCapacity(monitorInfo, 40)
+    NumPut(40, monitorInfo)
 
-        ; Get the current monitor from the active window handle.
-        monitorHandle := DllCall("MonitorFromWindow", "uint", winHandle, "uint", 0x2)
-        DllCall("GetMonitorInfo", "uint", monitorHandle, "uint", &monitorInfo) 
+    ; Get the current monitor from the active window handle.
+    monitorHandle := DllCall("MonitorFromWindow", "uint", winHandle, "uint", 0x2)
+    DllCall("GetMonitorInfo", "uint", monitorHandle, "uint", &monitorInfo) 
 
-        ; Get WorkArea bounding coordinates of the current monitor.
-        A_Left   := NumGet(monitorInfo, 20, "Int")
-        A_Top    := NumGet(monitorInfo, 24, "Int")
-        A_Right  := NumGet(monitorInfo, 28, "Int")
-        A_Bottom := NumGet(monitorInfo, 32, "Int")
+    ; Get WorkArea bounding coordinates of the current monitor.
+    A_Left   := NumGet(monitorInfo, 20, "Int")
+    A_Top    := NumGet(monitorInfo, 24, "Int")
+    A_Right  := NumGet(monitorInfo, 28, "Int")
+    A_Bottom := NumGet(monitorInfo, 32, "Int")
 
-        ; Calculate window coordinates.
-        winW := (A_Right - A_Left) * 0.5 ; Change the factor here to your desired width.
-        winH := A_Bottom*0.59
-        winX := A_Left + (winW / 2)
-        winY := A_Top + (winH*0.02)
+    ; Calculate window coordinates.
+    winW := (A_Right - A_Left) * 0.5 ; Change the factor here to your desired width.
+    winH := A_Bottom*0.59
+    winX := A_Left + (winW / 2)
+    winY := A_Top + (winH*0.02)
 
-        WinMove, A,, %winX%, %winY%, %winW%, %winH%
+    WinMove, A,, %winX%, %winY%, %winW%, %winH%
 }
