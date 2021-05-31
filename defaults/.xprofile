@@ -12,7 +12,7 @@
 # export GDK_SCALE=1.5
 # export QT_AUTO_SCREEN_SCALE_FACTOR=1
 
-export HOSTNAME=`hostname`
+export HOSTNAME=$(hostname)
 
 # Tue May 19 2020 06:24:
 #   Switched to lightdm
@@ -43,8 +43,8 @@ if [ -f "$HOME/.config/xprofile_$HOSTNAME" ]; then
   source "$HOME/.config/xprofile_$HOSTNAME"
 fi
 
-if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-  ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
+if ! pgrep -u "$USER" ssh-agent >/dev/null; then
+  ssh-agent >"$XDG_RUNTIME_DIR/ssh-agent.env"
 fi
 
 # vim:filetype=sh
