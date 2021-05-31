@@ -16,10 +16,6 @@ local function refresh_buffer()
     vim.cmd('SignifyRefresh')
   end
 
-  if utl.is_mod_available('gitsigns') then
-    require"gitsigns".reset_buffer()
-  end
-
   if vim.fn.exists(':IndentBlanklineRefresh') > 0 then
     vim.cmd('IndentBlanklineRefresh')
   end
