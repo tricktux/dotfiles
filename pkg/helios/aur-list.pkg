@@ -8,6 +8,7 @@ cmake-format
 cmake-lint
 cpplint
 dispad-git
+gdb-dashboard-git
 goimapnotify
 google-chrome
 hal
