@@ -5,6 +5,16 @@
 # Last Modified: Wed Jan 22 2020 04:27
 # Created: Jun 13 2017 16:26
 
+snippet     us
+abbr        unordered set
+options     head
+    std::unordered_set<${1:key}> ${2:name};
+
+snippet     um
+abbr        unordered map
+options     head
+    std::unordered_map<${1:key}, ${2:val}> ${3:name};
+
 snippet     main
 abbr        cpp main function
 options     head
