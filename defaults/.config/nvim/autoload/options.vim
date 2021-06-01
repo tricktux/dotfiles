@@ -17,7 +17,7 @@ function! options#Set() abort
     hi PmenuSel blend=0
   endif
   " Mon Aug 24 2020 14:55: For CursorHold to trigger more often 
-  set updatetime=888
+  set updatetime=100
   " Tue Feb 25 2020 16:40: From vim-galore minimal vimrc
   set autoindent
   " No tabs in the code. Tabs are expanded to spaces
