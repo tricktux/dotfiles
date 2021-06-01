@@ -1,112 +1,112 @@
 [
   {
-    "name": "arch update",
+    "name": "📦 arch update",
     "command": "$TERMINAL ~/.config/polybar/scripts/update-arch.sh"
   },
   {
-    "name": "arch clean",
+    "name": "🧹 arch clean",
     "command": "$TERMINAL ~/.config/polybar/scripts/arch-maintance.sh"
   },
   {
-    "name": "network-openvpn-client-home-start",
+    "name": "🔒 network-openvpn-client-home-start",
     "command": "sudo systemctl start openvpn-client@home"
   },
   {
-    "name": "network-openvpn-client-home-stop",
+    "name": "🔓 network-openvpn-client-home-stop",
     "command": "sudo systemctl stop openvpn-client@home"
   },
   {
-    "name": "flux day",
+    "name": "☀️ flux day",
     "command": "exec ~/.config/polybar/scripts/flux_/flux -c ~/.config/polybar/scripts/flux_/flux_config.lua -f day"
   },
   {
-    "name": "flux night",
+    "name": "🌑 flux night",
     "command": "exec ~/.config/polybar/scripts/flux_/flux -c ~/.config/polybar/scripts/flux_/flux_config.lua -f night"
   },
   {
-    "name": "qrencode clipboard",
+    "name": "📷 qrencode clipboard",
     "command": "xclip -selection clipboard -o | qrencode -o - |  feh -FZ -"
   },
   {
-    "name": "polybar relaunch",
+    "name": "📎 polybar relaunch",
     "command": "exec ~/.config/polybar/scripts/launch.sh"
   },
   {
-    "name": "bluetooth wh-1000xm2",
+    "name": "🎧 bluetooth wh-1000xm2",
     "command": "exec ~/.config/i3/scripts/bluetooth.lua 'connect' '04:5D:4B:EA:9C:B2'"
   },
   {
-    "name": "bluetooth rofi",
+    "name": "💙 bluetooth rofi",
     "command": "rofi-bluetooth"
   },
   {
-    "name": "bluetooth disconnect",
+    "name": "📴 bluetooth disconnect",
     "command": "exec ~/.config/i3/scripts/bluetooth.lua 'disconnect'"
   },
   {
-    "name": "clearwater beach camera",
+    "name": "🏖️ clearwater beach camera",
     "command": "$BROWSER https://www.visitstpeteclearwater.com/webcams"
   },
   {
-    "name": "tampa bay rays livestream",
+    "name": "⚾ tampa bay rays livestream",
     "command": "python ~/Documents/scripts/selenium-chrome-buffstreams.py > /tmp/sel.log"
   },
   {
-    "name": "cheatsheet pdf",
+    "name": "📔 cheatsheet pdf",
     "command": "exec ~/.config/i3/scripts/cheatsheet/cht.sh"
   },
   {
-    "name": "cheatsheet navi",
+    "name": "📔 cheatsheet navi",
     "command": "$TERMINAL --hold /usr/bin/navi --print"
   },
   {
-    "name": "cheatsheet cheat.sh",
+    "name": "📔 cheatsheet cheat.sh",
     "command": "$TERMINAL /usr/bin/cht.sh --shell"
   },
   {
-    "name": "audio control",
+    "name": "📯 audio control",
     "command": "pavucontrol"
   },
   {
-    "name": "screenshot full screen",
+    "name": "🪟 screenshot full screen",
     "command": "scrot '/tmp/%Y-%m-%d_%T_scrot.png' -e 'xclip -selection clipboard -target image/png -i $f'"
   },
   {
-    "name": "screenshot selection",
+    "name": "🪟 screenshot selection",
     "command": "scrot -s '/tmp/%Y-%m-%d_%T_scrot.png' -e 'xclip -selection clipboard -target image/png -i $f'"
   },
   {
-    "name": "screenshot window",
+    "name": "🪟 screenshot window",
     "command": "scrot -u '/tmp/%Y-%m-%d_%T_scrot.png' -e 'xclip -selection clipboard -target image/png -i $f'"
   },
   {
-    "name": "screenshot flameshot",
+    "name": "🪟 screenshot flameshot",
     "command": "flameshot gui"
   },
   {
-    "name": "emoji",
+    "name": "😀 emoji",
     "command": "rofi -show emoji -modi emoji"
   },
   {
-    "name": "audio select input",
+    "name": "🎙️ audio select input",
     "command": "exec ~/.config/i3/scripts/pulseaudio-rofi.sh --input"
   },
   {
-    "name": "audio select output",
+    "name": "📢 audio select output",
     "command": "exec ~/.config/i3/scripts/pulseaudio-rofi.sh --output"
   },
   {
-    "name": "power off",
+    "name": "🖥️ power off",
     "confirm": true,
     "command": "i3-msg '[class=\".\"] kill' && systemctl poweroff"
   },
   {
-    "name": "power reboot",
+    "name": "💻 power reboot",
     "confirm": true,
     "command": "i3-msg '[class=\".\"] kill' && systemctl reboot"
   },
   {
-    "name": "power lock",
+    "name": "🔐 power lock",
     "command": "i3lock-fancy"
   },
   {
@@ -126,7 +126,7 @@
     "command": "pass --clip linux/`hostname`/ssh_key/id_ed25519_gitlab"
   },
   {
-    "name": "xmodmap reload",
+    "name": "⌨️ xmodmap reload",
     "command": "xmodmap ~/.Xmodmap"
   }
 ]
