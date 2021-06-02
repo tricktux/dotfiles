@@ -18,8 +18,8 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 ; Can't figure out good mapping for this
 ; >+3::MouseMon3() ; Alt3
-; >+1::MouseMon1() ; Alt1
-; >+2::MouseMon2() ; Alt2
+!1::WPA_MoveMouseToMonitor(2) ; Alt1
+!2::WPA_MoveMouseToMonitor(1) ; Alt2
 #`::CenterMouseOnActiveWindow()
 
 ; Excellent idea but it messes up with vim
@@ -101,6 +101,8 @@ ToggleWinMinimize(TheWindowTitle)
 }
 
 
+
+
 CenterMouseOnActiveWindow()
 {
     Sleep 50
@@ -117,7 +119,7 @@ MouseMon3()
 {
     new_x := mon_1Left + (mon_1Right - mon_1Left) // 2
     new_y := mon_1Top + (mon_1Bottom - mon_1Top) // 2
-    MouseMove new_x, new_y
+    ; MouseMove new_x, new_y
     DllCall("SetCursorPos", int, new_x, int, new_y) 
 }
 
@@ -125,7 +127,7 @@ MouseMon2()
 {
     new_x := mon_3Left + (mon_3Right - mon_3Left) // 2
     new_y := mon_3Top + (mon_3Bottom - mon_3Top) // 2
-    MouseMove new_x, new_y
+    ; MouseMove new_x, new_y
     DllCall("SetCursorPos", int, new_x, int, new_y) 
 }
 
@@ -191,3 +193,27 @@ CenterActiveWindowUp()
 
     WinMove, A,, %winX%, %winY%, %winW%, %winH%
 }
+
+WPA_MoveMouseToMonitor(md)
+{
+    SysGet, mc, MonitorCount
+    if (md<1 or md>mc)
+        return
+    
+    Loop, %mc%
+        SysGet, mon%A_Index%, MonitorWorkArea, %A_Index%
+    
+    ; Destination monitor
+    mdx := mon%md%Left
+    mdy := mon%md%Top
+    mdw := mon%md%Right - mdx
+    mdh := mon%md%Bottom - mdy
+    
+    mdxc := mdx+mdw/2, mdyc := mdy+mdh/2
+    
+    CoordMode, Mouse, Screen
+    ; MouseMove, mdxc, mdyc, 0
+    DllCall("SetCursorPos", int, mdxc, int, mdyc) 
+    DllCall("SetCursorPos", int, mdxc, int, mdyc) 
+}
+
