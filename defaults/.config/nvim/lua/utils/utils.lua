@@ -17,10 +17,10 @@ end
 -- @brief Recurses through a directory in search for a file
 -- @param dir Directory to recurse
 -- @param file File looking for. Could use wildcards. Will be used by glob()
--- @param ignore Regex with files that will be ignored. Will be used by 
--- readdirs(). See help for that function on what can be passed to reduce list 
+-- @param ignore Regex with files that will be ignored. Will be used by
+-- readdirs(). See help for that function on what can be passed to reduce list
 -- of files. Example: [[v:val !~ '^\.\|\~$']]
--- @return Table with all file matches with full path if found. Nil 
+-- @return Table with all file matches with full path if found. Nil
 -- otherwise
 local function _find_file_recurse(dir, file, ignore)
   vim.validate {dir = {dir, 's'}}
@@ -166,7 +166,7 @@ local function exec_float_term(cmd, closeterm, startinsert)
   vim.validate {startinsert = {startinsert, 'b'}}
   vim.validate {closeterm = {closeterm, 'b'}}
 
-  local buf, win = open_win_centered(0.8, 0.8)
+  local buf, _ = open_win_centered(0.8, 0.8)
   vim.cmd("term " .. cmd)
   if closeterm then
     vim.cmd("au TermClose <buffer=" .. buf .. [[> quit | bwipeout!]] .. buf)
