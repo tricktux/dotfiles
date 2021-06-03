@@ -113,7 +113,7 @@ function! flux#Flux() abort
 				echomsg '[flux#Flux()]: changing colorscheme to dark'
 			endif
 			call <sid>change_colors(g:flux_night_colorscheme, 'dark')
-      call <sid>change_status_line_colors(g:flux_night_colorscheme . '_dark')
+      call <sid>change_status_line_colors(g:flux_night_colorscheme)
 		endif
 	else
 		" Its day time
@@ -130,7 +130,7 @@ function! flux#Flux() abort
 				echomsg '[flux#Flux()]: changing colorscheme to light'
 			endif
 			call <sid>change_colors(g:flux_day_colorscheme, 'light')
-      call <sid>change_status_line_colors(g:flux_day_colorscheme . '_light')
+      call <sid>change_status_line_colors(g:flux_day_colorscheme)
 		endif
 	endif
 endfunction
@@ -244,12 +244,15 @@ endfunction
 " Note: Called from ChangeColors command in commands.vim
 function! flux#Helper(day_period) abort
 
+  let l:day = g:flux_day_colorscheme
+  let l:night = g:flux_night_colorscheme
+
   " day_period: [<scheme>, <background>, <status_line_colors>]
   let l:commands = {
-    \ 'day' : ['PaperColor', 'light', 'PaperColor'],
-    \ 'night' : ['PaperColor', 'dark', 'PaperColor_dark'],
-    \ 'sunrise' : ['gruvbox', 'light', 'solarized'],
-    \ 'sunset' : ['gruvbox', 'dark', 'solarized_dark'],
+    \ 'day' : [l:day, 'light', l:day],
+    \ 'night' : [l:night, 'dark', l:night],
+    \ 'sunrise' : [l:day, 'light', l:day],
+    \ 'sunset' : [l:night, 'dark', l:night],
     \ }
 
   let l:args = get(l:commands, a:day_period, [])

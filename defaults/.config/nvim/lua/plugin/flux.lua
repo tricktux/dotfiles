@@ -4,10 +4,18 @@ local nvim_flux = {}
 
 nvim_flux._file_location = [[/tmp/flux]]
 nvim_flux._mapping = {
-  ['day'] = {'colorscheme PaperColor', 'set background=light'},
-  ['night'] = {'colorscheme PaperColor', 'set background=dark'},
-  ['sunrise'] = {'colorscheme gruvbox', 'set background=light'},
-  ['sunset'] = {'colorscheme gruvbox', 'set background=dark'}
+  ['day'] = {
+    'colorscheme ' .. vim.g.flux_day_colorscheme, 'set background=light'
+  },
+  ['night'] = {
+    'colorscheme ' .. vim.g.flux_night_colorscheme, 'set background=dark'
+  },
+  ['sunrise'] = {
+    'colorscheme ' .. vim.g.flux_day_colorscheme, 'set background=light'
+  },
+  ['sunset'] = {
+    'colorscheme ' .. vim.g.flux_night_colorscheme, 'set background=dark'
+  }
 }
 
 local function read_file(path)

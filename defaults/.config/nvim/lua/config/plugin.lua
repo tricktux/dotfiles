@@ -649,6 +649,13 @@ function _packer:setup()
 
   use {'rhysd/git-messenger.vim', cmd = 'GitMessenger'}
   vim.g.git_messenger_always_into_popup = true
+
+  use 'folke/tokyonight.nvim'
+  vim.g.tokyonight_terminal_colors = true
+  vim.g.tokyonight_italic_comments = true
+  vim.g.tokyonight_dark_float = true
+  vim.g.tokyonight_sidebars = { "qf", "terminal", "packer" }
+  vim.g.tokyonight_style = "night"
 end
 
 local function setup()

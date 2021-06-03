@@ -25,13 +25,13 @@ if !exists('no_plugin_maps') && !exists('no_terminal_maps')
   nnoremap <buffer> <M-`> ZZ
 endif
 
-if exists('+winhighlight') && has('nvim-0.4')
-	" Create a Terminal Highlight group
-	execute 'highlight Terminal guibg=' .
-				\ (&background ==# 'light' ? 'White' : 'Black')
-	" Overwrite ctermbg only for this window. Neovim exclusive option
-	setlocal winhighlight=NormalFloat:Terminal
-endif
+" if exists('+winhighlight') && has('nvim-0.4')
+	" " Create a Terminal Highlight group
+	" execute 'highlight Terminal guibg=' .
+				" \ (&background ==# 'light' ? 'White' : 'Black')
+	" " Overwrite ctermbg only for this window. Neovim exclusive option
+	" setlocal winhighlight=NormalFloat:Terminal
+" endif
 
 function! s:check_zoom() abort
 	if ((exists('g:loaded_zoom')) && (!empty(zoom#statusline())))
