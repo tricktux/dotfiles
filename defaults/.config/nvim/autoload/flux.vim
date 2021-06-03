@@ -113,7 +113,7 @@ function! flux#Flux() abort
 				echomsg '[flux#Flux()]: changing colorscheme to dark'
 			endif
 			call <sid>change_colors(g:flux_night_colorscheme, 'dark')
-      call <sid>change_status_line_colors(g:flux_night_colorscheme)
+      call <sid>change_status_line_colors(g:flux_night_statusline_colorscheme)
 		endif
 	else
 		" Its day time
@@ -130,7 +130,7 @@ function! flux#Flux() abort
 				echomsg '[flux#Flux()]: changing colorscheme to light'
 			endif
 			call <sid>change_colors(g:flux_day_colorscheme, 'light')
-      call <sid>change_status_line_colors(g:flux_day_colorscheme)
+      call <sid>change_status_line_colors(g:flux_day_statusline_colorscheme)
 		endif
 	endif
 endfunction

@@ -301,7 +301,7 @@ function! plugin#Config()
   let g:svnj_fuzzy_search = 1
   " colorschemes
   " Plug 'morhetz/gruvbox' " colorscheme gruvbox
-  " Plug 'NLKNguyen/papercolor-theme'
+  Plug 'NLKNguyen/papercolor-theme'
 
   " TODO - Tue Aug 27 2019 16:33: Move utils functions into its own plugin
   " Auto Flux (changing themes) is set in the augroup.vim file
@@ -310,8 +310,10 @@ function! plugin#Config()
   " Make requests here to get exact sunset and sunrise times
   " https://sunrise-sunset.org/api
   " This is analogous with having polybar and the flux script
-  let g:flux_day_colorscheme = 'tokyonight'
-  let g:flux_night_colorscheme = 'tokyonight'
+  let g:flux_day_colorscheme = 'PaperColor'
+  let g:flux_night_colorscheme = 'PaperColor'
+  let g:flux_day_statusline_colorscheme = 'PaperColor_light'
+  let g:flux_night_statusline_colorscheme = 'PaperColor_dark'
   if has('unix') && executable('luajit')
     let g:flux_enabled = 0
   else
@@ -338,7 +340,11 @@ function! plugin#Config()
         \   },
         \   'theme':
         \   {
-        \     'default': { 'transparent_background': 0 }
+        \     'default': { 
+        \       'transparent_background': 0,
+        \       'allow_bold': 1,
+        \       'allow_italic': 1
+        \     }
         \   }
         \ }
 
