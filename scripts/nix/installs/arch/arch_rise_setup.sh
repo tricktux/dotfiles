@@ -769,10 +769,9 @@ sudo systemctl enable --now cups.socket
 - Can be done as user level
 - `sudo systemctl enable --now preload`
 
-## Youtube-dl
-
-- `~`install youtube-dl-gui-git`~`
-- `paci --needed --noconfirm youtube-dl`
+## Youtube-dl{{{
+paci --needed --noconfirm youtube-dl ytmdl
+#}}}
 
 ## Screen recording
 
