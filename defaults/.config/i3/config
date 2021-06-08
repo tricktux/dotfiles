@@ -276,6 +276,9 @@ bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
+bindsym $mod+shift+s exec --no-startup-id sleep 0.2 && \
+scrot -s '/tmp/%Y-%m-%d_%T_scrot.png' -e \
+'xclip -selection clipboard -target image/png -i $f'
 
 ########### Custom Bindings ############################
 bindsym Print exec --no-startup-id sleep 0.2 && \
