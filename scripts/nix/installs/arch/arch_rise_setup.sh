@@ -577,7 +577,9 @@ sudo sudo bash -c 'printf "blacklist uvcvideo" > /etc/modprobe.d/no_webcam.conf'
 #### audio power save
 
 # To check audio driver: `lspci -k`
+# Sun Jun 06 2021 22:49: These cause trouble!
 sudo sudo bash -c 'printf "options snd_had_intel power_save=1" > /etc/modprobe.d/audio.conf'
+sudo sudo bash -c 'printf "options snd_had_intel probe_mask=1" > /etc/modprobe.d/audio.conf'
 # Disable hdmi output
 sudo sudo bash -c 'printf "blacklist snd_hda_codec_hdmi" > /etc/modprobe.d/no_hdmi_audio.conf.conf'
 
@@ -682,10 +684,16 @@ paci --needed --noconfirm ntfs-3g
 
 paci --needed --noconfirm android-tools android-udev
 
-# Bluetooth
+# Bluetooth/Audio {{{
+## Pipewire
+paci --needed --noconfirm pipewire pipewire-{pulse,jack,alsa}
+## PulseAudio
+paci --needed --noconfirm pulseaudio pulseaudio-{bluetooth,jack,alsa,equalizer}
 
-paci --needed --noconfirm pipewire-{pulse,jack,alsa} bluez bluez-libs bluez-utils bluez-firmware
+#Blue
+paci --needed --noconfirm  bluez bluez-libs bluez-utils bluez-firmware
 sudo systemctl enable --now bluetooth
+#}}}
 
 # journal
 
