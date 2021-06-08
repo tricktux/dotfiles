@@ -32,8 +32,10 @@ pandoc-bin
 paper-gtk-theme-git
 paper-icon-theme
 paru-bin
+pass-import
 polybar
 preload
+rmapi
 rofi-bluetooth-git
 rofi-dmenu
 rofi-emoji
