@@ -73,7 +73,7 @@
   },
   {
     "name": "🪟 screenshot selection",
-    "command": "scrot -s '/tmp/%Y-%m-%d_%T_scrot.png' -e 'xclip -selection clipboard -target image/png -i $f'"
+    "command": "scrot -fz -q 10 --line style=dash,width=3,color='red' -s '/tmp/%Y-%m-%d_%T_scrot.png' -e 'xclip -selection clipboard -target image/png -i $f'"
   },
   {
     "name": "🪟 screenshot window",
