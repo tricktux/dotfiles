@@ -481,6 +481,8 @@ paci --needed --noconfirm neovim-remote lazygit
 paci --needed --noconfirm ripgrep-all
 # for diffs
 paci --needed --noconfirm meld
+# markdown preview
+paci --needed --noconfirm glow
 # for documentation
 paci --needed --noconfirm zeal
 paci --needed --noconfirm pandoc-{,citeproc-,crossref-}bin

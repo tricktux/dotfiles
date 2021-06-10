@@ -654,8 +654,13 @@ function _packer:setup()
   vim.g.tokyonight_terminal_colors = true
   vim.g.tokyonight_italic_comments = true
   vim.g.tokyonight_dark_float = true
-  vim.g.tokyonight_sidebars = { "qf", "terminal", "packer" }
+  vim.g.tokyonight_sidebars = {"qf", "terminal", "packer"}
   vim.g.tokyonight_style = "night"
+
+  if vim.fn.executable('glow') > 0 then
+    use {'npxbr/glow.nvim', cmd = 'Glow'}
+    vim.cmd 'command! MarkdownPreviewGlow Glow'
+  end
 end
 
 local function setup()

@@ -628,6 +628,9 @@ function! plugin#Config()
     " Plug 'dpelle/vim-LanguageTool', { 'for' : 'markdown' }
   endif
 
+  if has('unix')
+    Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+  endif
 
   " All of your Plugins must be added before the following line
   call plug#end()            " required
