@@ -661,6 +661,8 @@ function _packer:setup()
     use {'npxbr/glow.nvim', cmd = 'Glow'}
     vim.cmd 'command! MarkdownPreviewGlow Glow'
   end
+
+  if utl.has_unix() then use {'camspiers/snap', rocks = {'fzy'}} end
 end
 
 local function setup()
