@@ -752,50 +752,56 @@ sudo systemctl enable --now cups.socket
 # - Cups server lives at: `http://localhost:631/`
 #}}}
 
-# Misc
+# Misc{{{
+## 💲 Stonks {{{
+paci --needed --noconfirm tickrs
+#}}}
 
-## gui mock ups design
+## gui mock ups design{{{
+# - [here][0]
+paci --needed --noconfirm pencil
+#}}}
 
-- [here][0]
-- `paci --needed --noconfirm pencil`
+## check files duplicates{{{
+# - Mon Jun 10 2019 09:59
+paci --needed --noconfirm fdupes
+#}}}
 
-## check files duplicates
+## Diagrams{{{
+# - Sun Mar 17 2019 18:26
+# - keyword: graphics, graph, editor
+# - Mainly for stuff that `plantuml` cannot do
+paci --needed --noconfirm yed
+#}}}
 
-- Mon Jun 10 2019 09:59
-- `paci --needed --noconfirm fdupes`
-
-## Diagrams
-
-- Sun Mar 17 2019 18:26 
-- keyword: graphics, graph, editor
-- Mainly for stuff that `plantuml` cannot do
-- `paci --needed --noconfirm yed`
-
-## Preload
-
-- Wed May 02 2018 06:04
-- Cool application.
-- `paci --needed --noconfirm preload`
-- Can be done as user level
-- `sudo systemctl enable --now preload`
+## Preload{{{
+# - Wed May 02 2018 06:04
+# - Cool application.
+paci --needed --noconfirm preload
+# - Can be done as user level
+sudo systemctl enable --now preload
+#}}}
 
 ## Youtube-dl{{{
 paci --needed --noconfirm youtube-dl ytmdl
 #}}}
 
-## Screen recording
+## Screen recording{{{
+# -  Application to record and share cools screen captures
+paci --needed --noconfirm asciinema
+#}}}
 
--  Application to record and share cools screen captures
-- `paci --needed --noconfirm asciinema`
+## Disk Usage Utility{{{
+paci --needed --noconfirm baobab
+#}}}
 
-## Disk Usage Utility
-- `paci --needed --noconfirm baobab`
-
-## Steam
+## Steam{{{
 paci --needed steam ttf-liberation lib32-mesa mesa lib32-nvidia-utils nvidia-utils steam-fonts
+#}}}
 
-## Video playing
-- `paci --needed --noconfirm vlc`
+## Video playing{{{
+paci --needed --noconfirm vlc
+#}}}
 
 ## wine{{{
 # Make sure WINEPREFIX exists
@@ -813,28 +819,25 @@ winetricks corefonts
 winetricks settings fontsmooth=rgb
 #}}}
 
-## maintenence
+## maintenence{{{
+paci --needed --noconfirm bleachbit
+#}}}
 
-- `paci --needed --noconfirm bleachbit`
+## Android{{{
+paci --needed --noconfirm android-tools android-udev
+#}}}
 
-## Android
+## Android-Dev{{{
+paci --needed --noconfirm android-studio android-sdk
+# - Remember: `~/.bashrc`->`export ANDROID_HOME=<sdk-location>`
+#}}}
 
-- `paci --needed --noconfirm android-tools android-udev`
-
-## Android-Dev
-
-- `android-studio android-sdk`
-	- Remember: `~/.bashrc`->`export ANDROID_HOME=<sdk-location>`
-- If you just want to flash stuff to your phone
-- `paci --needed --noconfirm android-udev android-tools`
-
-## syslog
-
+## syslog{{{
 ### Fri Oct 25 2019 14:35\
-
-- `paci --needed --noconfirm syslog-ng`
-- `sudo systemctl enable --now syslog-ng@default.service`
-- now when you log with `openlog()` and/or `syslog()` you can see it in `journalctl`
+# - `paci --needed --noconfirm syslog-ng`
+# - `sudo systemctl enable --now syslog-ng@default.service`
+# - now when you log with `openlog()` and/or `syslog()` you can see it in `journalctl`}}}
+#}}}
 
 # [0]: https://pencil.evolus.vn/
 # [1]: https://wiki.archlinux.org/index.php/Hardware_video_acceleration
