@@ -263,38 +263,18 @@ FuncPdfConvert() {
 }
 
 FuncUpdate() {
-  # Thu Dec 27 2018 23:45
-  # Not needed since samba :D
-  # Wed Jan 09 2019 21:01
-  # Not so fast cowboy. samba didnt work for streaming files
-  # Wed Jan 16 2019 20:08
-  # Going back to samba since hq odroid died
-  # However, this is samba on router
-  # Tue Mar 26 2019 19:40
-  # Now trying samba from fstab
-  # if [[ ! -d /mnt/samba/docs ]]; then
-  # sudo mount -t cifs //Linksys05238/samba /mnt/samba -o \
-  # credentials=/etc/samba/credentials/share,uid=1000,gid=985,vers=1.0
-  # fi
-  # sshfs reinaldo@$server_ip:/mnt/hq-storage/1.Myn/samba \
-  #	~/.mnt/copter-server/
-  # Tue Oct 16 2018 20:10: You really dont want to update your plugins
-  # everday. Things break. Very frequently.
-  # nvim +PlugUpgrade +PlugUpdate +UpdateRemotePlugins
-  local_gits=('~/.config/dotfiles/'
-    '~/.password-store/'
-    '~/Documents/cpp/ML_SC2/Arrancar0/')
-  # if [[ ! -d /mnt/samba/docs ]]; then
-  for i in $local_gits; do
+  local local_gits=(~/.config/dotfiles/
+    ~/.password-store/
+    ~/Documents/scripts)
+  for i in ${local_gits[@]}; do
     if [[ -d $i ]]; then
       cd $i
-      gpl
+      git pull origin master
+    else
+      echo "Invalid directory: '$i'"
     fi
   done
   cd
-  # Sat Mar 09 2019 20:24
-  # When there are 30+ updates to be made
-  # trizen -Syu
 }
 
 # mylist.txt looks like this:
