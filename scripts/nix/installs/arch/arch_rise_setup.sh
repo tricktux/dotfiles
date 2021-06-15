@@ -494,49 +494,50 @@ paci --needed --noconfirm plantuml words
 # Sun Jan 17 2021 07:07: Depracated. Install in the pynvim venv
 # paci --needed --noconfirm vint
 
-## cmake
-
+## cmake{{{
 paci --needed --noconfirm cmake{,-lint,-format}
 # ~~`install cmake-language-server`~~
+#}}}
 
 ## rust{{{
 paci --needed --noconfirm rust{,fmt,-analyzer}
 #}}}
 
-## cpp
-
+## cpp{{{
 paci --needed --noconfirm gtest google-glog rapidjson boost boost-libs websocketpp cmake ninja
 paci --needed --noconfirm cppcheck cpplint
 paci --needed --noconfirm lldb clang gdb gdb-dashboard-git
 # For coloring gcc and compilers output
 paci --needed --noconfirm colorgcc
+#}}}
 
-## shell
-
+## shell{{{
 paci --needed --noconfirm shellcheck-bin shfmt
+#}}}
 
-## lua
+## lua{{{
 ## lua-language-server consumes ton of cpu power. Plus its chinese, don't trust 
 ## it
-paci --needed --noconfirm luajit lua-format luacheck
+## Tue Jun 15 2021 11:21: Giving it another try
+paci --needed --noconfirm luajit lua-format luacheck lua-language-server
+#}}}
 
-## java
-
+## java{{{
 # Installs java the latest and version 8, still widely used.
 paci --needed --noconfirm j{re,re8,dk,dk8}-openjdk
 # checkstyle out of date
 paci --needed --noconfirm jdtls astyle
+#}}}
 
-## python
-
+## python{{{
 paci --needed --noconfirm python{,-pip} python2{,-pip}
 # Python modules are control via virtual env
 # Run the update-arch.sh script and will create/update such modules
 # install python-language-server flake8 python-pylint yapf --noconfirm
 # pip install --user stravalib
 #}}}
-# SSD
 
+# SSD
 paci --needed --noconfirm util-linux
 sudo systemctl enable --now fstrim.timer
 
