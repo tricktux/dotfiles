@@ -712,8 +712,6 @@ function _packer:setup()
     vim.cmd 'command! MarkdownPreviewGlow Glow'
   end
 
-  use {'camspiers/snap'}
-
   -- Attempts to replace, but it's missing ;, feature
   -- use 'ggandor/lightspeed.nvim'
 
