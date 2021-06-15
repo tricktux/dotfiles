@@ -811,7 +811,7 @@ paci --needed --noconfirm dxvk-bin
 setup_dxvk install
 # Temp directory on tmpfs
 rm -r "$WINEPREFIX/drive_c/users/$USER/Temp"
-ln -s /tmp/ "$WINEPREFIX/drive_c/users/$USER/Temp"
+ln -s /tmp/wintemp "$WINEPREFIX/drive_c/users/$USER/Temp"
 # Fix fonts
 cd ${WINEPREFIX:-~/.wine}/drive_c/windows/Fonts && for i in /usr/share/fonts/**/*.{ttf,otf}; do ln -s "$i" ; done
 export FREETYPE_PROPERTIES="truetype:interpreter-version=35"
