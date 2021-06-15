@@ -489,6 +489,32 @@ local function setup_lightspeed()
   }
 end
 
+local function setup_luadev()
+  if not utl.is_mod_available('lua-dev') then
+    api.nvim_err_writeln('lua-dev module not available')
+    return
+  end
+
+  log.info("setting up the lua-language-server lsp...")
+  local luadev = require("lua-dev").setup({
+    library = {
+      vimruntime = true, -- runtime path
+      -- full signature, docs and completion of vim.api, vim.treesitter, 
+      -- vim.lsp and others
+      types = true,
+      plugins = true, -- installed opt or start plugins in packpath
+    },
+    -- pass any additional options that will be merged in the final lsp config
+    lspconfig = {
+      cmd = {"lua-language-server"},
+      on_attach = require('config.lsp').on_lsp_attach
+    }
+  })
+
+  local lspconfig = require('lspconfig')
+  lspconfig.sumneko_lua.setup(luadev)
+end
+
 local _packer = {}
 _packer._path = vim.g.std_data_path .. [[/site/pack/packer/start/packer.nvim]]
 _packer._repo = [[https://github.com/wbthomason/packer.nvim]]
@@ -683,6 +709,8 @@ function _packer:setup()
 
   -- Attempts to replace, but it's missing ;, feature
   -- use 'ggandor/lightspeed.nvim'
+
+  if vim.fn.executable('lua-language-server') > 0 then use 'folke/lua-dev.nvim' end
 end
 
 local function setup()
@@ -706,6 +734,7 @@ local function setup()
   setup_indent_blankline()
   if utl.has_unix() then setup_git_worktree() end
   -- setup_lightspeed()
+  if vim.fn.executable('lua-language-server') > 0 then setup_luadev() end
 end
 
 return {setup = setup, setup_lspstatus = setup_lspstatus}
