@@ -536,11 +536,6 @@ function! mappings#Set()
         \ strftime('%Y') . '.md')<cr>
   nnoremap <silent> <leader>wm :call <sid>wiki_open('monthly_log_' .
         \ strftime('%Y') . '.md')<cr>
-  if has('nvim-0.5')
-    " Command to edit weekly report
-    nnoremap <silent> <leader>wp <cmd>lua require('plugin.report'):edit_weekly_report()<cr>
-  end
-
   " Comments <Leader>o
   nmap - <plug>NERDCommenterToggle
   " nmap <Leader>ot <plug>NERDCommenterAltDelims

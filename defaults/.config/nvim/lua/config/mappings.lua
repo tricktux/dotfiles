@@ -20,7 +20,10 @@ local function refresh_buffer()
   if vim.fn.exists(':IndentBlanklineRefresh') > 0 then
     vim.cmd('IndentBlanklineRefresh')
   end
+end
 
+local function ewr()
+  return require('plugin.report'):edit_weekly_report()
 end
 
 local function setup()
@@ -31,6 +34,7 @@ local function setup()
 
   local vimp = require('vimp')
   vimp.nnoremap('<c-l>', refresh_buffer)
+  vimp.nnoremap([[<leader>wp]], ewr)
 end
 
 return { setup = setup }
