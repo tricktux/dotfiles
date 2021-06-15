@@ -489,9 +489,16 @@ local function setup_lightspeed()
   }
 end
 
+-- There's an issue where the server stays Diagnosing current file and consumes
+-- 25% of cpu. It stays stuck there
 local function setup_luadev()
   if not utl.is_mod_available('lua-dev') then
     api.nvim_err_writeln('lua-dev module not available')
+    return
+  end
+
+  if not utl.is_mod_available('lspconfig') then
+    api.nvim_err_writeln('lspconfig module not available')
     return
   end
 
@@ -502,7 +509,7 @@ local function setup_luadev()
       -- full signature, docs and completion of vim.api, vim.treesitter, 
       -- vim.lsp and others
       types = true,
-      plugins = true, -- installed opt or start plugins in packpath
+      plugins = true -- installed opt or start plugins in packpath
     },
     -- pass any additional options that will be merged in the final lsp config
     lspconfig = {
@@ -705,7 +712,7 @@ function _packer:setup()
     vim.cmd 'command! MarkdownPreviewGlow Glow'
   end
 
-  if utl.has_unix() then use {'camspiers/snap', rocks = {'fzy'}} end
+  use {'camspiers/snap'}
 
   -- Attempts to replace, but it's missing ;, feature
   -- use 'ggandor/lightspeed.nvim'
