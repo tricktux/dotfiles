@@ -553,20 +553,7 @@ function! mappings#Set()
   nnoremap <leader>oi :call utils#CommentIndent()<cr>
 
   " Edit file at location <Leader>e?
-  if has('nvim-0.5')
-    nnoremap <leader>eh <cmd>lua require('utils.utils').file_fuzzer('$HOME')<cr>
-    nnoremap <leader>ev <cmd>lua require('utils.utils').file_fuzzer('$VIMRUNTIME')<cr>
-    nnoremap <leader>ep <cmd>lua require('utils.utils').file_fuzzer(vim.g.vim_plugins_path)<cr>
-    nnoremap <leader>ec <cmd>lua require('utils.utils').file_fuzzer(vim.fn.getcwd())<cr>
-    if (!has('unix'))
-      nnoremap <leader>eC <cmd>lua require('utils.utils').file_fuzzer([[C:\]])<cr>
-      nnoremap <leader>eD <cmd>lua require('utils.utils').file_fuzzer([[D:\]])<cr>
-      nnoremap <leader>eP :e +<cr>
-      nnoremap <leader>ed <cmd>lua require('utils.utils').file_fuzzer([[$APPDATA\dotfiles]])<cr>
-    else
-      nnoremap <leader>ed <cmd>lua require('utils.utils').file_fuzzer(vim.g.dotfiles)<cr>
-    endif
-  else
+  if !has('nvim-0.5')
     " Edit plugin
     nnoremap <leader>ep :call utils#PathFileFuzzer(g:vim_plugins_path)<cr>
     " Edit Vimruntime
