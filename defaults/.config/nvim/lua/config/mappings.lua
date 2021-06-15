@@ -9,6 +9,7 @@ local function refresh_buffer()
     nohlsearch
     diffupdate
     mode
+    edit
     normal! zzze<cr>
   ]], false)
 
