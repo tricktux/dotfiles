@@ -472,6 +472,23 @@ local function setup_git_worktree()
   end
 end
 
+local function setup_lightspeed()
+  if not utl.is_mod_available('lightspeed') then
+    api.nvim_err_writeln('lightspeed module not available')
+    return
+  end
+
+  require'lightspeed'.setup {
+    jump_to_first_match = true,
+    jump_on_partial_input_safety_timeout = 400,
+    highlight_unique_chars = false,
+    grey_out_search_area = true,
+    match_only_the_start_of_same_char_seqs = true,
+    limit_ft_matches = 5,
+    full_inclusive_prefix_key = '<c-x>'
+  }
+end
+
 local _packer = {}
 _packer._path = vim.g.std_data_path .. [[/site/pack/packer/start/packer.nvim]]
 _packer._repo = [[https://github.com/wbthomason/packer.nvim]]
@@ -663,6 +680,9 @@ function _packer:setup()
   end
 
   if utl.has_unix() then use {'camspiers/snap', rocks = {'fzy'}} end
+
+  -- Attempts to replace, but it's missing ;, feature
+  -- use 'ggandor/lightspeed.nvim'
 end
 
 local function setup()
@@ -685,6 +705,7 @@ local function setup()
   if vim.fn.executable('gh') > 0 then setup_octo() end
   setup_indent_blankline()
   if utl.has_unix() then setup_git_worktree() end
+  -- setup_lightspeed()
 end
 
 return {setup = setup, setup_lspstatus = setup_lspstatus}
