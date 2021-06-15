@@ -217,36 +217,6 @@ local function lsp_set()
     }
   end
 
-  if vim.fn.executable('lua-language-server') > 0 then
-    log.info("setting up the lua-language-server lsp...")
-    nvim_lsp.sumneko_lua.setup {
-      on_attach = on_lsp_attach,
-      capabilities = capabilities,
-      cmd = {"lua-language-server"},
-      settings = {
-        Lua = {
-          runtime = {
-            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-            version = 'LuaJIT',
-            -- Setup your lua path
-            path = vim.split(package.path, ';')
-          },
-          diagnostics = {
-            -- Get the language server to recognize the `vim` global
-            globals = {'vim'}
-          },
-          workspace = {
-            -- Make the server aware of Neovim runtime files
-            library = {
-              [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-              [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true
-            }
-          }
-        }
-      }
-    }
-  end
-
   if vim.fn.executable('clangd') > 0 then
     log.info("setting up the clangd lsp...")
     nvim_lsp.clangd.setup {
@@ -266,4 +236,4 @@ local function lsp_set()
   end
 end
 
-return {set = lsp_set}
+return {set = lsp_set, on_lsp_attach = on_lsp_attach}
