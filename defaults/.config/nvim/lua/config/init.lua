@@ -128,7 +128,7 @@ local function _init()
     end
   end
 
-  plg.setup()
+  plg.setup()  -- Also setups lsp
   maps.setup()
   aug.setup()
 end
