@@ -1,12 +1,14 @@
 ---
 # List of ticker symbols to start app with
 symbols:
- - UWMC
- - BB
  - WISH
- - CLF
- - CLOV
  - CLNE
+ - CLF
+ - BB
+ - AMC
+ - CRSR
+ - WKHS
+ - PLTR
  - DOGE-USD
 
 # Chart type to start app with
