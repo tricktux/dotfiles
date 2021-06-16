@@ -522,6 +522,89 @@ local function setup_luadev()
   lspconfig.sumneko_lua.setup(luadev)
 end
 
+local function setup_nvim_dap()
+  if not utl.is_mod_available('dap') then
+    api.nvim_err_writeln('dap module not available')
+    return
+  end
+
+  if not utl.is_mod_available('dapui') then
+    api.nvim_err_writeln('dapui module not available')
+    return
+  end
+
+  local dap = require('dap')
+  dap.adapters.lldb = {
+    type = 'executable',
+    command = '/usr/bin/lldb-vscode', -- adjust as needed
+    name = "lldb"
+  }
+
+  local dap = require('dap')
+  dap.configurations.cpp = {
+    {
+      name = "Launch",
+      type = "lldb",
+      request = "launch",
+      program = function()
+        return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/',
+                            'file')
+      end,
+      cwd = '${workspaceFolder}',
+      stopOnEntry = false,
+      args = {},
+
+      -- if you change `runInTerminal` to true, you might need to change the yama/ptrace_scope setting:
+      --
+      --    echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+      --
+      -- Otherwise you might get the following error:
+      --
+      --    Error on launch: Failed to attach to the target process
+      --
+      -- But you should be aware of the implications:
+      -- https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html
+      runInTerminal = false
+    }
+  }
+
+  -- If you want to use this for rust and c, add something like this:
+  dap.configurations.c = dap.configurations.cpp
+  dap.configurations.rust = dap.configurations.cpp
+
+  -- Close with: require("dapui").close()
+  require("dapui").setup({
+    icons = {expanded = "⯆", collapsed = "⯈"},
+    mappings = {
+      -- Use a table to apply multiple mappings
+      expand = {"<CR>", "<2-LeftMouse>"},
+      open = "o",
+      remove = "d",
+      edit = "e"
+    },
+    sidebar = {
+      open_on_start = true,
+      elements = {
+        -- You can change the order of elements in the sidebar
+        "scopes", "breakpoints", "stacks", "watches"
+      },
+      width = 40,
+      position = "left" -- Can be "left" or "right"
+    },
+    tray = {
+      open_on_start = true,
+      elements = {"repl"},
+      height = 10,
+      position = "bottom" -- Can be "bottom" or "top"
+    },
+    floating = {
+      max_height = nil, -- These can be integers or a float between 0 and 1.
+      max_width = nil -- Floats will be treated as percentage of your screen.
+    }
+  })
+
+end
+
 local _packer = {}
 _packer._path = vim.g.std_data_path .. [[/site/pack/packer/start/packer.nvim]]
 _packer._repo = [[https://github.com/wbthomason/packer.nvim]]
@@ -597,6 +680,8 @@ function _packer:download()
   vim.fn.system(git_cmd)
   vim.cmd('packadd packer.nvim')
 end
+
+local function has_unix() return utl.has_unix() end
 
 -- Thu May 13 2021 22:42: After much debuggin, found out that config property 
 -- is not working as intended because of issues in packer.nvim. See:
@@ -716,6 +801,9 @@ function _packer:setup()
   -- use 'ggandor/lightspeed.nvim'
 
   if vim.fn.executable('lua-language-server') > 0 then use 'folke/lua-dev.nvim' end
+  if utl.has_unix() then
+    use {"rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"}}
+  end
 end
 
 local function setup()
@@ -740,6 +828,7 @@ local function setup()
   if utl.has_unix() then setup_git_worktree() end
   -- setup_lightspeed()
   if vim.fn.executable('lua-language-server') > 0 then setup_luadev() end
+  if utl.has_unix() then setup_nvim_dap() end
 end
 
 return {setup = setup, setup_lspstatus = setup_lspstatus}
