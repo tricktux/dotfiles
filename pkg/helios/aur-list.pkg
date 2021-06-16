@@ -1,4 +1,5 @@
 abook
+alttab-git
 ancient-packages
 bluez-firmware
 bottom-bin
@@ -12,7 +13,6 @@ gdb-dashboard-git
 goimapnotify
 google-chrome
 hal
-i3ass
 i3lock-fancy-git
 jdtls
 laptop-mode-tools
@@ -42,8 +42,10 @@ rofi-emoji
 simple-scan-3.12
 spicetify-cli
 spicetify-themes-git
+spotify
 teamviewer
 ttf-weather-icons
 vdhcoapp-bin
+ytmdl
 zeal
 zoom

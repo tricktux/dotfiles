@@ -545,18 +545,15 @@ function! plugin#Config()
 
 
   " Gdb debugging
-  if has('unix')
-    if has('nvim')
-      " Need one for nvim
-      " This one below not so good
-      " Plug 'huawenyu/neogdb.vim'
-      call s:configure_nvimgdb()
-    else
-      " Vim's built in gdb debugger
-      packadd termdebug
-      " Another option
-      " Plug 'cpiger/NeoDebug'
-    endif
+  if has('unix') && !has('nvim-0.5')
+    " Need one for nvim
+    " This one below not so good
+    " Plug 'huawenyu/neogdb.vim'
+    call s:configure_nvimgdb()
+    " Vim's built in gdb debugger
+    " packadd termdebug
+    " Another option
+    " Plug 'cpiger/NeoDebug'
   endif
 
   Plug 'alepez/vim-gtest', { 'for' : ['cpp'] }
