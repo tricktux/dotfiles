@@ -554,10 +554,10 @@ sudo gpasswd -a reinaldo video
 paci --needed --noconfirm xorg-xinput xf86-input-libinput brillo
 # Also see `synclient.md`
 
-## power
-
+## power{{{
 - #eyword: battery, powertop, power
-paci --needed --noconfirm powertop
+paci --needed --noconfirm powertop powerstat cpupower-gui
+sudo powerstat -R -s
 sudo powertop --calibrate
 # For more info see: `archwiki powertop`
 # See also `laptop-mode`
@@ -566,6 +566,7 @@ sudo systemctl enable --now acpid
 paci --needed --noconfirm laptop-mode-tools
 sudo systemctl enable --now laptop-mode
 paci --needed --noconfirm hdparm sdparm ethtool wireless_tools hal python-pyqt5
+#}}}
 
 ### tweaking kernel for battery saving
 
