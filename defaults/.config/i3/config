@@ -102,19 +102,20 @@ bindsym control+shift+s exec --no-startup-id \
 
 # New cool mod3 bindings
 # Paste from clipboard
-bindsym mod3+r exec --no-startup-id pass --clip linux/`hostname`/user/root
+bindsym mod3+r exec --no-startup-id pass --clip linux/`hostname`/user/root && \
+  notify-send 'pass' 'Root password copied'
 bindsym mod3+h exec --no-startup-id \
-  pass --clip linux/`hostname`/ssh_key/id_ed25519_github
+  pass --clip linux/`hostname`/ssh_key/id_ed25519_github && \
+  notify-send 'pass' 'Github ssh key copied'
 bindsym mod3+d exec --no-startup-id \
-  pass --clip linux/`hostname`/ssh_key/id_ed25519_digitalocean
+  pass --clip linux/`hostname`/ssh_key/id_ed25519_digitalocean && \
+  notify-send 'pass' 'DigitalOcean ssh key copied'
 bindsym mod3+g exec --no-startup-id \
-  pass --clip linux/`hostname`/ssh_key/id_ed25519_git_server
+  pass --clip linux/`hostname`/ssh_key/id_ed25519_git_server && \
+  notify-send 'pass' 'Git server ssh key copied'
 bindsym mod3+l exec --no-startup-id \
-  pass --clip linux/`hostname`/ssh_key/id_ed25519_gitlab
-bindsym mod3+e exec --no-startup-id \
-  pass --clip linux/`hostname`/resilio/admin
-bindsym mod3+s exec --no-startup-id \
-  pass --clip linux/`hostname`/ssh_key/id_ed25519_surbook
+  pass --clip linux/`hostname`/ssh_key/id_ed25519_gitlab && \
+  notify-send 'pass' 'GitLab ssh key copied'
 
 
 # Launch toggle scratchpads
