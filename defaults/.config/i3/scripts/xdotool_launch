@@ -53,6 +53,7 @@ i3ipc.args = {
   ['bottom'] = '[title="^bottom$"] scratchpad show',
   ['glances'] = '[title="^glances$"] scratchpad show',
   ['spotify'] = '[class="^Spotify$"] scratchpad show',
+  ['tickrs'] = '[title="^tickrs$"] scratchpad show',
 }
 i3ipc.terminal = {
   ['helios'] = 'resize set 960 1019, move position 960 px 32 px',
@@ -95,6 +96,11 @@ i3ipc.glances = {
   ['predator'] = 'resize set 3640 1024, move position center',
   ['surbook'] = 'resize set 2188 1459, move position center'
 }
+i3ipc.tickrs = {
+  ['helios'] = 'resize set 1820 880, move position center',
+  ['predator'] = 'resize set 3040 1524, move position center',
+  ['surbook'] = 'resize set 2188 1459, move position center'
+}
 i3ipc.window_position = {
   ['scratch'] = i3ipc.scratch[hostname],
   ['journal'] = i3ipc.journal[hostname],
@@ -105,6 +111,7 @@ i3ipc.window_position = {
   ['bottom'] = i3ipc.bottom[hostname],
   ['glances'] = i3ipc.glances[hostname],
   ['spotify'] = i3ipc.spotify[hostname],
+  ['tickrs'] = i3ipc.tickrs[hostname],
 }
 
 function i3ipc:hide()
@@ -136,6 +143,7 @@ xdotool.exec = {
   ['bottom'] = '$TERMINAL --title bottom btm',
   ['glances'] = '$TERMINAL --title glances glances --theme-white',
   ['spotify'] = 'spotify',
+  ['tickrs'] = '$TERMINAL --title tickrs tickrs',
 }
 
 function xdotool:wait_for_window_visible(app)
