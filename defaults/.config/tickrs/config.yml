@@ -11,6 +11,12 @@ symbols:
  - WKHS
  - PLTR
  - DOGE-USD
+  # Market indicators
+ - SPY
+ - DIA
+ - VTI
+ - BND
+ - VNQ
 
 # Chart type to start app with
 # Default is line
