@@ -139,10 +139,8 @@ function! options#Set() abort
   " set sessionoptions+=terminal
   " endif
   set hidden
-  " see :h timeout this was done to make use of ' faster and keep the other
-  " timeout the same
-  set notimeout
-  set nottimeout
+  set timeout
+  set timeoutlen=200
   " cant remember why I had a timeout len I think it was
   " in order to use <c-j> in cli vim for esc
   " removing it see what happens
