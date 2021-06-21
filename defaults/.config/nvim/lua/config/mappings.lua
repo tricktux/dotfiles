@@ -18,13 +18,6 @@ local function refresh_buffer()
   end
 end
 
-local function ewr() return require('plugin.report'):edit_weekly_report() end
-
-local function ff(arg)
-  vim.validate {arg = {arg, 's'}}
-  return require('utils.utils').file_fuzzer(arg)
-end
-
 local function setup()
   if not utl.is_mod_available('vimp') then
     api.nvim_err_writeln("vimp was set, but module not found")
@@ -33,21 +26,19 @@ local function setup()
 
   local vimp = require('vimp')
   vimp.nnoremap('<c-l>', refresh_buffer)
-  vimp.nnoremap([[<leader>wp]], ewr)
 
-  vimp.nnoremap('<leader>eh', function() ff('$HOME') end)
-  vimp.nnoremap('<leader>ev', function() ff('$VIMRUNTIME') end)
-  vimp.nnoremap('<leader>eP', function() ff(vim.g.vim_plugins_path) end)
-  local lua_plugins = vim.g.std_data_path .. [[/site/pack/packer]]
-  vimp.nnoremap('<leader>ep', function() ff(lua_plugins) end)
-  vimp.nnoremap('<leader>ec', function() ff(vim.fn.getcwd()) end)
-  if not utl.has_unix() then
-    vimp.nnoremap('<leader>eC', function() ff([[C:\]]) end)
-    vimp.nnoremap('<leader>eD', function() ff([[D:\]]) end)
-    vimp.nnoremap('<leader>ed', function() ff([[$APPDATA\dotfiles]]) end)
-  else
-    vimp.nnoremap('<leader>ed', function() ff(vim.g.dotfiles) end)
-  end
+  vimp.vnoremap('gA', 'g<c-a>')
+  vimp.vnoremap('gX', 'g<c-x>')
+  vimp.vnoremap(']f', 'gf')
+  vimp.nnoremap(']f', 'gf')
+  vimp.nnoremap(']i', '[<c-i>')
+  vimp.nnoremap('[i', '[<c-i>')
+  vimp.nnoremap(']I', '<c-w>i<c-w>L')
+  vimp.nnoremap('[I', '<c-w>i<c-w>H')
+  vimp.nnoremap(']e', '[<c-d>')
+  vimp.nnoremap('[e', '[<c-d>')
+  vimp.nnoremap(']E', '<c-w>d<c-w>L')
+  vimp.nnoremap('[E', '<c-w>d<c-w>H')
 end
 
 return {setup = setup}

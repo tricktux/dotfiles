@@ -772,16 +772,6 @@ function _packer:setup()
 
   if utl.has_unix() then use {'ThePrimeagen/git-worktree.nvim'} end
 
-  -- Default commands
-  -- key 	description
-  -- "" 	open peekup window
-  -- <Esc> 	close peekup window
-  -- any character 	select and copy text from the corresponding " register
-  -- <C-j>, <C-k> 	scroll the list up and down
-  -- <Up>, <Down> 	move to next registers type
-  use 'gennaro-tedesco/nvim-peekup'
-  vim.g.peekup_paste_after = [[""]]
-
   use {'rhysd/git-messenger.vim', cmd = 'GitMessenger'}
   vim.g.git_messenger_always_into_popup = true
 
@@ -804,6 +794,8 @@ function _packer:setup()
   if utl.has_unix() then
     use {"rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"}}
   end
+
+  use { "folke/which-key.nvim" }
 end
 
 local function setup()
@@ -829,6 +821,7 @@ local function setup()
   -- setup_lightspeed()
   if vim.fn.executable('lua-language-server') > 0 then setup_luadev() end
   if utl.has_unix() then setup_nvim_dap() end
+  require('config.plugins.whichkey'):setup()
 end
 
 return {setup = setup, setup_lspstatus = setup_lspstatus}

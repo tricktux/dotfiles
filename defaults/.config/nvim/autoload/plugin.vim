@@ -585,7 +585,7 @@ function! plugin#Config()
 
   " call s:configure_incsearch()
 
-  call s:configure_vim_which_key()
+  " call s:configure_vim_which_key()
 
   " Plug  'tpope/vim-abolish'
   " Want to turn fooBar into foo_bar? Press crs (coerce to snake_case).
