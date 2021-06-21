@@ -1,4 +1,5 @@
 abook
+alttab-git
 ancient-packages
 bluez-firmware
 bottom-bin
@@ -7,19 +8,21 @@ chromedriver
 cht.sh-git
 cmake-format
 cmake-lint
+cpupower-gui
+dxvk-bin
 ffscreencast
 gdb-dashboard-git
-goimapnotify
+glow-bin
 google-chrome
 gpointing-device-settings
 hal
 i3ass
 i3lock-fancy-git
-informant
 jdtls
 laptop-mode-tools
 liquidprompt
 lua-format
+lua-language-server-git
 navi-bin
 ncpamixer
 neovim-nightly-bin
@@ -34,6 +37,7 @@ paper-icon-theme
 paru-bin
 pass-import
 polybar
+powerstat
 preload
 rmapi
 rofi-bluetooth-git
@@ -43,7 +47,9 @@ rslsync
 solaar-git
 spicetify-cli
 spicetify-themes-git
+spotify
 ssmtp
 ttf-weather-icons
+ytmdl
 zeal
 zplug

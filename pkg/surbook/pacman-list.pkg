@@ -69,6 +69,7 @@ git
 global
 gnome-keyring
 go
+goimapnotify
 google-glog
 gparted
 grep
@@ -101,6 +102,8 @@ keepass
 kitty
 kitty-terminfo
 lazygit
+lib32-libpulse
+lib32-libxrandr
 lib32-mesa
 libao
 libcaca
@@ -168,7 +171,6 @@ playerctl
 poppler
 powertop
 ppp
-pulseaudio-alsa
 python-cpplint
 python-pip
 python-pykeepass
@@ -211,6 +213,7 @@ texlive-pictures
 texlive-pstricks
 texlive-publishers
 texlive-science
+tickrs
 tldr
 tmux
 ttf-fira-code
@@ -229,6 +232,10 @@ wavpack
 websocketpp
 wget
 which
+wine
+wine-gecko
+wine-mono
+winetricks
 wireless_tools
 words
 wpa_supplicant
