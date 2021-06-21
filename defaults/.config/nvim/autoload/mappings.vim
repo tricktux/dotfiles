@@ -1234,6 +1234,8 @@ function! mappings#SetWhichKeyMap() abort
   nnoremap [{ [{
   nnoremap [/ [/
   nnoremap ]/ ]/
+  nnoremap ]c ]c
+  nnoremap [c [c
   nnoremap ]# ]#
   nnoremap [# [#
   nnoremap ]f gf
