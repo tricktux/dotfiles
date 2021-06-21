@@ -118,6 +118,7 @@ bindsym mod3+l exec --no-startup-id \
   notify-send 'pass' 'GitLab ssh key copied'
 
 
+# Use `xev -event keyboard` to find name of key
 # Launch toggle scratchpads
 # Trying to achieve symbiosis with windows AutoHotkey
 # $mod+i is reserved for a chat application
