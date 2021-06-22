@@ -636,6 +636,64 @@ local function setup_nvim_dap()
 
 end
 
+local function setup_neogit()
+  if not utl.is_mod_available('neogit') then
+    api.nvim_err_writeln('neogit module not available')
+    return
+  end
+
+  local neogit = require("neogit")
+
+  neogit.setup {
+    disable_signs = false,
+    disable_context_highlighting = false,
+    disable_commit_confirmation = false,
+    -- customize displayed signs
+    signs = {
+      -- { CLOSED, OPENED }
+      section = { ">", "v" },
+      item = { ">", "v" },
+      hunk = { "", "" },
+    },
+    integrations = {
+      -- Neogit only provides inline diffs. If you want a more traditional way to look at diffs you can use `sindrets/diffview.nvim`.
+      -- The diffview integration enables the diff popup, which is a wrapper around `sindrets/diffview.nvim`.
+      --
+      -- Requires you to have `sindrets/diffview.nvim` installed.
+      -- use { 
+        --   'TimUntersberger/neogit', 
+        --   requires = { 
+          --     'nvim-lua/plenary.nvim',
+          --     'sindrets/diffview.nvim' 
+        --   }
+      -- }
+      --
+      diffview = false  
+    },
+    -- override/add mappings
+    mappings = {
+      -- modify status buffer mappings
+      status = {
+        -- Adds a mapping with "B" as key that does the "BranchPopup" command
+        ["B"] = "BranchPopup",
+        -- Removes the default mapping of "s"
+        ["s"] = "",
+      }
+    }
+  }
+
+  if not utl.is_mod_available('which-key') then
+    api.nvim_err_writeln('which-key module not available')
+    return
+  end
+  local wk = require("which-key")
+  -- open using defaults
+  -- neogit.open()
+  -- open commit popup
+  -- neogit.open({ "commit" })
+  wk.register{["<leader>vo"] = {neogit.open, "neogit_open"}}
+end
+
 local _packer = {}
 _packer._path = vim.g.std_data_path .. [[/site/pack/packer/start/packer.nvim]]
 _packer._repo = [[https://github.com/wbthomason/packer.nvim]]
@@ -827,6 +885,8 @@ function _packer:setup()
   end
 
   use { "folke/which-key.nvim" }
+
+  use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
 end
 
 local function setup()
@@ -854,6 +914,7 @@ local function setup()
   -- setup_lightspeed()
   if vim.fn.executable('lua-language-server') > 0 then setup_luadev() end
   if utl.has_unix() then setup_nvim_dap() end
+  setup_neogit()
 end
 
 return {setup = setup, setup_lspstatus = setup_lspstatus}
