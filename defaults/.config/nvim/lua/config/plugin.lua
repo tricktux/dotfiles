@@ -65,12 +65,18 @@ local function setup_treesitter()
       enable = true -- false will disable the whole extension
       -- incremental_selection = {enable = true},
     },
-    indent = {enable = false}
+    indent = {enable = false},
+    textsubjects = {
+      enable = true,
+      keymaps = {
+        ['.'] = 'textsubjects-smart',
+        [';'] = 'textsubjects-big',
+      }
+    },
     -- textobjects = {enable = true}
   }
 
   -- if utl.is_mod_available('rainbow') then config["rainbow"] = {enable = true} end
-
   tsconf.setup(config)
 
   -- vim.cmd(
@@ -741,7 +747,7 @@ function _packer:setup()
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
-    requires = {{'p00f/nvim-ts-rainbow'}}
+    requires = {'p00f/nvim-ts-rainbow', 'RRethy/nvim-treesitter-textsubjects'}
     -- {'romgrk/nvim-treesitter-context'} still some rough edges
   }
 
