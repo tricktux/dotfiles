@@ -285,6 +285,28 @@ local function setup_telescope()
 
       -- get_window_options = function(...) end,
       -- To move to bottom, use strategy descending
+      pickers = {
+        git_files = {
+          recurse_submodules = true
+        },
+        find_files = {
+          hidden = true
+        },
+        buffers = {
+          show_all_buffers = true,
+          sort_lastused = true,
+          theme = "dropdown",
+          previewer = true,
+          mappings = {
+            i = {
+              ["<c-d>"] = require("telescope.actions").delete_buffer,
+            },
+            n = {
+              ["<c-d>"] = require("telescope.actions").delete_buffer,
+            }
+          }
+        }
+      },
       prompt_position = "top",
       sorting_strategy = "ascending",
       layout_strategy = "flex",
