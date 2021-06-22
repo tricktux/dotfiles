@@ -829,6 +829,8 @@ local function setup()
 
   _packer:setup()
 
+  -- which-key first in case we want add mappings on the other plugins
+  require('config.plugins.whichkey'):setup()
   setup_telescope()
   setup_treesitter()
   compl.compe()
@@ -843,7 +845,6 @@ local function setup()
   -- setup_lightspeed()
   if vim.fn.executable('lua-language-server') > 0 then setup_luadev() end
   if utl.has_unix() then setup_nvim_dap() end
-  require('config.plugins.whichkey'):setup()
 end
 
 return {setup = setup, setup_lspstatus = setup_lspstatus}
