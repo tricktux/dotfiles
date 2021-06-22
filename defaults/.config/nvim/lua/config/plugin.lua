@@ -451,15 +451,16 @@ local function setup_git_worktree()
     return
   end
 
-  if not utl.is_mod_available('vimp') then
-    api.nvim_err_writeln('vimp module not available')
+  if not utl.is_mod_available('which-key') then
+    api.nvim_err_writeln('which-key module not available')
     return
   end
-  local vimp = require('vimp')
+  local wk = require("which-key")
 
   local gw = require('git-worktree')
   gw.setup({update_on_change = true, clearjumps_on_change = true})
 
+  local mapping_prefix = {"prefix", [[<leader>v]]}
   local function get_worktree_name(upstream)
     local wt_name = nil
     wt_name = vim.fn.input("New worktree name?\n")
@@ -477,21 +478,23 @@ local function setup_git_worktree()
   local gwd = function() gw.delete_worktree(get_worktree_name()) end
   local gws = function() gw.switch_worktree(get_worktree_name()) end
 
-  vimp.nnoremap('<leader>vwa', gwa)
-  vimp.nnoremap('<leader>vwd', gwd)
-  vimp.nnoremap('<leader>vws', gws)
-
+  local mapping = {}
+  mapping.w = {
+    name = 'worktree',
+    a = {gwa, 'create'},
+    d = {gwd, 'delete'},
+    s = {gws, 'switch'},
+  }
   if utl.is_mod_available('telescope') then
     local t = require('telescope')
     t.load_extension("git_worktree")
     -- To bring up the telescope window listing your workspaces run the following
-
-    vimp.nnoremap({'override'}, '<leader>vws',
-                  t.extensions.git_worktree.git_worktrees)
+    mapping.w.s = {t.extensions.git_worktree.git_worktrees, 'switch'}
     -- <Enter> - switches to that worktree
     -- <c-d> - deletes that worktree
     -- <c-D> - force deletes that worktree
   end
+  wk.register(mapping, mapping_prefix)
 end
 
 local function setup_lightspeed()
