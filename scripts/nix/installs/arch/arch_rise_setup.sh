@@ -555,8 +555,16 @@ paci --needed --noconfirm xorg-xinput xf86-input-libinput brillo
 # Also see `synclient.md`
 
 ## power{{{
-- #eyword: battery, powertop, power
-paci --needed --noconfirm powertop powerstat cpupower-gui
+# keyword: battery, powertop, power
+paci --needed --noconfirm powertop powerstat cpupower{,-gui}
+# Set cpu governor based on laptop charging or not. Please run `cpupower 
+# frequency-info` to display the governors your cpu supports
+# Read here about cpu governors. Choosing schedutil for battery and performance 
+# for charging
+# https://forum.xda-developers.com/t/ref-guide-most-up-to-date-guide-on-cpu-governors-i-o-schedulers-and-more.3048957/
+# **SET GOVERNOR** by adjusting /etc/laptop-mode/conf.d/cpufreq.conf
+# The seeting for on AC is normally NOLM_AC_X, since laptop-mode is disabled in 
+# AC mode
 sudo powerstat -R -s
 sudo powertop --calibrate
 # For more info see: `archwiki powertop`
