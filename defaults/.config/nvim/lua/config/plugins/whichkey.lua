@@ -165,8 +165,8 @@ leader.v = {
   p = 'push',
   u = 'pull/update',
   l = 'log',
-  S = {'<cmd>SignifyToggle<cr>' ,'signify_toggle'},
-  d = {'<cmd>SignifyDiff<cr>' ,'signify_diff'},
+  S = {'<cmd>SignifyToggle<cr>', 'signify_toggle'},
+  d = {'<cmd>SignifyDiff<cr>', 'signify_diff'},
 }
 local function ewr() return require('plugin.report'):edit_weekly_report() end
 leader.w = {
