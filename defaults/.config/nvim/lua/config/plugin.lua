@@ -168,10 +168,14 @@ function _packer:setup()
     end,
   }
 
-  if vim.fn.executable('glow') > 0 then
-    use {'npxbr/glow.nvim', cmd = 'Glow'}
-    vim.cmd 'command! MarkdownPreviewGlow Glow'
-  end
+  use {
+    'npxbr/glow.nvim', 
+    cmd = 'Glow',
+    cond = function() return vim.fn.executable('glow') > 0 end,
+    config = function()
+      vim.cmd 'command! MarkdownPreviewGlow Glow'
+    end
+  }
 
   use {
     'folke/lua-dev.nvim',
