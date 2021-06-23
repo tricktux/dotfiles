@@ -720,8 +720,6 @@ function _packer:download()
   vim.cmd('packadd packer.nvim')
 end
 
-local function has_unix() return utl.has_unix() end
-
 -- Thu May 13 2021 22:42: After much debuggin, found out that config property 
 -- is not working as intended because of issues in packer.nvim. See:
 -- https://github.com/wbthomason/packer.nvim/issues/351
@@ -737,12 +735,6 @@ function _packer:setup()
   packer.reset()
 
   use {'wbthomason/packer.nvim'}
-
-  -- use {
-  -- 'hoob3rt/lualine.nvim',
-  -- config = line.lualine_config(),
-  -- -- requires = {'kyazdani42/nvim-web-devicons', opt = true}
-  -- }
 
   use {
     "folke/which-key.nvim",
@@ -770,21 +762,6 @@ function _packer:setup()
     'hrsh7th/nvim-compe',
     requires = {{'hrsh7th/vim-vsnip'}, {'hrsh7th/vim-vsnip-integ'}}
   }
-  -- use {
-  -- 'Shougo/deoplete.nvim',
-  -- run = ':UpdateRemotePlugins',
-  -- requires = {
-  -- {'Shougo/neco-vim'},
-  -- {'Shougo/neco-syntax'},
-  -- {'Shougo/context_filetype.vim'},
-  -- {'ncm2/float-preview.nvim'},
-  -- {'zchee/deoplete-zsh'},
-  -- {'Shougo/deoplete-lsp'}
-  -- },
-  -- -- neosnippets set from plugin.vim
-  -- config = compl.deoplete(),
-  -- }
-
   use {
     'neovim/nvim-lspconfig',
     requires = {{'nvim-lua/lsp-status.nvim'}, {'ray-x/lsp_signature.nvim'}}
