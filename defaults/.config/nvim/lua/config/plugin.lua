@@ -466,7 +466,7 @@ local function setup_git_worktree()
   local gw = require('git-worktree')
   gw.setup({update_on_change = true, clearjumps_on_change = true})
 
-  local mapping_prefix = {"prefix", [[<leader>v]]}
+  local mapping_prefix = {prefix = [[<leader>v]]}
   local function get_worktree_name(upstream)
     local wt_name = nil
     wt_name = vim.fn.input("New worktree name?\n")
