@@ -102,8 +102,8 @@ local function on_lsp_attach(client_id, bufnr)
     if vim.bo.filetype ~= 'python' then vim.cmd('NeomakeDisableBuffer') end
   end
   -- These 2 got annoying really quickly
-  vim.cmd(
-      'autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()')
+  -- vim.cmd(
+      -- 'autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()')
   -- vim.cmd("autocmd CursorHold <buffer> lua vim.lsp.buf.hover()")
   set_lsp_mappings(client_id.resolved_capabilities)
   set_lsp_options(client_id.resolved_capabilities, bufnr)
