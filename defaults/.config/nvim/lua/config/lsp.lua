@@ -1,7 +1,7 @@
-local utl = require('utils/utils')
-local map = require('utils/keymap')
-local log = require('utils/log')
-local plg = require('config/plugin')
+local utl = require('utils.utils')
+local map = require('utils.keymap')
+local log = require('utils.log')
+local plg = require('config.plugin')
 
 local function set_lsp_options(capabilities, bufnr)
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
