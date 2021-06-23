@@ -255,7 +255,7 @@ lleader.c = {
 lleader.k = {'<plug>make_project', 'make_project'}
 lleader.j = {'<plug>make_file', 'make_file'}
 lleader.f = {'<plug>format_code', 'format_code'}
-lleader.f = {'<plug>refactor_code', 'refactor_code'}
+lleader.r = {'<plug>refactor_code', 'refactor_code'}
 
 local rbracket = {}
 local rbracket_p = '['
