@@ -475,10 +475,6 @@ function! plugin#Config()
   " let g:dasht_filetype_docsets['cpp'] = ['^c$', 'boost', 'OpenGL']
   " endif
 
-  " Plug 'itchyny/calendar.vim', { 'on' : 'Calendar' }
-  " let g:calendar_google_calendar = 1
-  " let g:calendar_cache_directory = g:std_cache_path . '/calendar.vim/'
-
   " Tue Oct 31 2017 11:30: Needs to be loaded last
   " if exists('g:valid_device')
   " Plug 'ryanoasis/vim-devicons'
