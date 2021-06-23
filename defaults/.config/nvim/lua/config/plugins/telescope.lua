@@ -2,6 +2,28 @@ local utl = require('utils.utils')
 
 local M = {}
 
+function M.set_lsp_mappings(bufnr)
+  if not utl.is_mod_available('which-key') then
+    vim.api.nvim_err_writeln('telescope.lua: which-key module not available')
+    return
+  end
+
+  local wk = require("which-key")
+  local ts = require("telescope.builtin")
+  local opts = {prefix = '<localleader>lt', buffer = bufnr}
+  local mappings = {
+    name = 'telescope',
+    c = {ts.lsp_code_actions, 'code_actions'},
+    r = {ts.lsp_references, 'references'},
+    d = {ts.lsp_definitions, 'definitions'},
+    i = {ts.lsp_implementations, 'implementations'},
+    s = {ts.lsp_document_symbols, 'document_symbols'},
+    a = {ts.lsp_code_actions, 'code_actions'},
+    w = {ts.lsp_workspace_symbols, 'workspace_symbols'},
+  }
+  wk.register(mappings, opts)
+end
+
 local function set_mappings()
   if not utl.is_mod_available('which-key') then
     vim.api.nvim_err_writeln('telescope.lua: which-key module not available')
