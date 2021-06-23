@@ -218,16 +218,15 @@ function M:__setup()
     requires = 'nvim-lua/plenary.nvim',
     config = function() 
       require('neogit').setup {}
-      if not utl.is_mod_available('which-key') then
-        api.nvim_err_writeln('which-key module not available')
+      if not require('utils.utils').is_mod_available('which-key') then
+        vim.api.nvim_err_writeln('which-key module not available')
         return
       end
-      local wk = require("which-key")
-      -- open using defaults
-      -- neogit.open()
       -- open commit popup
       -- neogit.open({ "commit" })
-      wk.register{["<leader>vo"] = {neogit.open, "neogit_open"}}
+      require("which-key").register{
+        ["<leader>vo"] = {require('neogit').open, "neogit_open"}
+      }
     end
   }
 end
