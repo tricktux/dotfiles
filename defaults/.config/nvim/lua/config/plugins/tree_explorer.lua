@@ -86,9 +86,11 @@ function M.nvimtree_config()
   -- \   }
   -- \ }
 
-  if utl.is_mod_available('vimp') then
-    require('vimp').nnoremap('<plug>file_browser', ':NvimTreeToggle<cr>')
+  if utl.is_mod_available('which-key') then
+    local wk = require("which-key")
+    wk.register{"<plug>file_browser", require('nvim-tree').toggle}
   else
+    vim.api.nvim_err_writeln('tree_explorer.lua: which-key module not available')
     vim.cmd('nnoremap <plug>file_browser :NvimTreeToggle<cr>')
   end
   -- nnoremap <C-n> :NvimTreeToggle<CR>
