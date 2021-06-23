@@ -3,6 +3,30 @@ local map = require('utils.keymap')
 local log = require('utils.log')
 local plg = require('config.plugin')
 
+local function setup_lspstatus()
+  if not utl.is_mod_available('lsp-status') then
+    api.nvim_err_writeln("lsp-status was set, but module not found")
+    return false
+  end
+
+  local config = {
+    ['indicator_errors'] = 'e:',
+    ['indicator_warnings'] = 'w:',
+    ['indicator_info'] = 'i:',
+    ['indicator_hint'] = 'h:',
+    ['indicator_ok'] = 'ok',
+    ['spinner_frames'] = {
+      '(*---------)', '(--*-------)', '(-----*----)', '(--------*-)',
+      '(---------*)', '(--------*-)', '(-----*----)', '(--*-------)',
+      '(*---------)'
+    },
+    ['status_symbol'] = ''
+  }
+  require('lsp-status').config(config)
+  require('lsp-status').register_progress()
+  return true
+end
+
 local function set_lsp_options(capabilities, bufnr)
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
@@ -151,14 +175,14 @@ local function lsp_set()
     return
   end
 
-  if not utl.is_mod_available('lsp-status') then
-    print("ERROR: lsp-status was set, but module not found")
+  local ok = setup_lspstatus() -- Configure plugin options
+  if not ok then
+    api.nvim_err_writeln("lsp: failed to set lsp-status")
     return
   end
 
   local lsp_status = require('lsp-status')
-  plg.setup_lspstatus() -- Configure plugin options
-  lsp_status.register_progress()
+
   -- Notice not all configs have a `callbacks` setting
   local nvim_lsp = require('lspconfig')
   diagnostic_set()
