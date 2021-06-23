@@ -7,16 +7,16 @@
 local utl = require('utils.utils')
 local api = vim.api
 
-local _packer = {}
-_packer._path = vim.g.std_data_path .. [[/site/pack/packer/start/packer.nvim]]
-_packer._repo = [[https://github.com/wbthomason/packer.nvim]]
-_packer._config = {
+local M = {}
+M._path = vim.g.std_data_path .. [[/site/pack/packer/start/packer.nvim]]
+M._repo = [[https://github.com/wbthomason/packer.nvim]]
+M._config = {
   compile_path = require('packer.util').join_paths(vim.fn.stdpath('data'),
                                                    'site', 'plugin',
                                                    'packer_compiled.vim'),
 }
 
-function _packer:download()
+function M:download()
   if vim.fn.isdirectory(self._path) ~= 0 then
     -- Already exists
     return
@@ -37,7 +37,7 @@ end
 -- is not working as intended because of issues in packer.nvim. See:
 -- https://github.com/wbthomason/packer.nvim/issues/351
 -- TL;DR: no outside of local scope function calling for config
-function _packer:setup()
+function M:__setup()
   local packer = nil
   if packer == nil then
     packer = require('packer')
@@ -232,14 +232,14 @@ function _packer:setup()
   }
 end
 
-local function setup()
-  _packer:download()
+function M:setup()
+  self:download()
   if not utl.is_mod_available('packer') then
     api.nvim_err_writeln("packer.nvim module not found")
     return
   end
 
-  _packer:setup()
+  self:__setup()
 end
 
-return {setup = setup}
+return M
