@@ -1,7 +1,6 @@
 local utl = require('utils.utils')
 local map = require('utils.keymap')
 local log = require('utils.log')
-local plg = require('config.plugin')
 
 local function setup_lspstatus()
   if not utl.is_mod_available('lsp-status') then
@@ -15,11 +14,6 @@ local function setup_lspstatus()
     ['indicator_info'] = 'i:',
     ['indicator_hint'] = 'h:',
     ['indicator_ok'] = 'ok',
-    ['spinner_frames'] = {
-      '(*---------)', '(--*-------)', '(-----*----)', '(--------*-)',
-      '(---------*)', '(--------*-)', '(-----*----)', '(--*-------)',
-      '(*---------)'
-    },
     ['status_symbol'] = ''
   }
   require('lsp-status').config(config)
@@ -28,63 +22,57 @@ local function setup_lspstatus()
 end
 
 local function set_lsp_options(capabilities, bufnr)
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+  vim.opt.omnifunc = 'v:lua.vim.lsp.omnifunc'
 end
 
-local function set_lsp_mappings(capabilities)
-  local opts = {silent = true, buffer = true}
-  local map_pref = '<localleader>l'
-  local cmd_pref = '<cmd>lua vim.lsp.'
-  local cmd_suff = '<cr>'
-  local mappings = {
-    r = 'buf.rename()',
-    e = 'buf.declaration()',
-    d = 'buf.definition()',
-    h = 'buf.hover()',
-    i = 'buf.implementation()',
-    H = 'buf.signature_help()',
-    D = 'buf.type_definition()',
-    R = 'buf.references()',
-    S = 'stop_all_clients()',
-    n = 'diagnostic.show_line_diagnostics()',
-    l = 'diagnostic.set_loclist()',
-    ['wa'] = 'buf.add_workspace_folder()',
-    ['wr'] = 'buf.remove_workspace_folder()'
-  }
-  for lhs, rhs in pairs(mappings) do
-    log.trace("lhs = ", map_pref .. lhs, ", rhs = ",
-              cmd_pref .. rhs .. cmd_suff, ", opts = ", opts)
-    map.nnoremap(map_pref .. lhs, cmd_pref .. rhs .. cmd_suff, opts)
+local function set_lsp_mappings(capabilities, bufnr)
+  if not utl.is_mod_available('which-key') then
+    vim.api.nvim_err_writeln('lsp.lua: which-key module not available')
+    return
   end
 
-  -- Workspace mappings
-  map.nnoremap(map_pref .. 'wl',
-               '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))' ..
-                   cmd_suff, opts)
-
-  -- Diagnostics
-  map.nnoremap(']l', cmd_pref .. 'diagnostic.goto_next()' .. cmd_suff, opts)
-  map.nnoremap('[l', cmd_pref .. 'diagnostic.goto_prev()' .. cmd_suff, opts)
+  local wk = require("which-key")
+  local opts = {prefix = '<localleader>l', buffer = bufnr}
+  local lsp = vim.lsp
+  local list = '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>'
+  local workspace = {
+    name = 'workspace',
+    a = {lsp.buf.add_workspace_folder, 'add_workspace_folder'},
+    r = {lsp.buf.remove_workspace_folder, 'remove_workspace_folder'},
+    l = {list, 'list_folders'},
+  }
+  local mappings = {
+    name = 'lsp',
+    r = {lsp.buf.rename, 'rename'},
+    e = {lsp.buf.declaration, 'declaration'},
+    d = {lsp.buf.definition, 'definition'},
+    h = {lsp.buf.hover, 'hover'},
+    i = {lsp.buf.implementation, 'implementation'},
+    H = {lsp.buf.signature_help, 'signature_help'},
+    D = {lsp.buf.type_definition, 'type_definition'},
+    R = {lsp.buf.references, 'references'},
+    S = {lsp.stop_all_clients, 'stop_all_clients'},
+    n = {lsp.diagnostic.show_line_diagnostics, 'show_line_diagnostics'},
+    l = {lsp.diagnostic.set_loclist, 'set_loclist'},
+    w = workspace,
+  }
 
   -- Set some keybinds conditional on server capabilities
   if capabilities.document_formatting then
-    map.nnoremap(map_pref .. 'f', cmd_pref .. 'buf.formatting()' .. cmd_suff,
-                 opts)
+    mappings.f = {lsp.buf.formatting, 'formatting'}
   elseif capabilities.document_range_formatting then
-    map.nnoremap(map_pref .. 'f',
-                 cmd_pref .. 'buf.range_formatting()' .. cmd_suff, opts)
+    mappings.f = {lsp.buf.range_formatting, 'range_formatting'}
   end
+  wk.register(mappings, opts)
+
+  -- Diagnostics
+  opts.prefix = "]l"
+  wk.register({lsp.diagnostic.goto_next, "diagnostic_next"}, opts)
+  opts.prefix = "[l"
+  wk.register({lsp.diagnostic.goto_prev, "diagnostic_prev"}, opts)
 
   if utl.is_mod_available('telescope') then
-    cmd_pref = [[<cmd>lua require('telescope.builtin').lsp_]]
-    map.nnoremap(map_pref .. 'a', cmd_pref .. 'code_actions()' .. cmd_suff, opts)
-    map.nnoremap(map_pref .. 'R', cmd_pref .. 'references()' .. cmd_suff, opts)
-    map.nnoremap(map_pref .. 's', cmd_pref .. 'document_symbols()' .. cmd_suff,
-                 opts)
-    map.nnoremap(map_pref .. 'ws',
-                 cmd_pref .. 'workspace_symbols()' .. cmd_suff, opts)
+    require('config.plugins.telescope').set_lsp_mappings(bufnr)
   end
 end
 
@@ -105,7 +93,7 @@ local function on_lsp_attach(client_id, bufnr)
   -- vim.cmd(
       -- 'autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()')
   -- vim.cmd("autocmd CursorHold <buffer> lua vim.lsp.buf.hover()")
-  set_lsp_mappings(client_id.resolved_capabilities)
+  set_lsp_mappings(client_id.resolved_capabilities, bufnr)
   set_lsp_options(client_id.resolved_capabilities, bufnr)
   -- require('config/completion').diagn:on_attach()
 
