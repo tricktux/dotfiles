@@ -72,7 +72,7 @@ update_github_repositories() {
 }
 
 update_nvim_plugins() {
-  nvim +PlugUpgrade +PlugUpdate +UpdateRemotePlugins
+  nvim +PlugUpgrade +PlugUpdate +PackerSync +UpdateRemotePlugins
 }
 
 update_pynvim() {
