@@ -65,12 +65,18 @@ local function setup_treesitter()
       enable = true -- false will disable the whole extension
       -- incremental_selection = {enable = true},
     },
-    indent = {enable = false}
+    indent = {enable = false},
+    textsubjects = {
+      enable = true,
+      keymaps = {
+        ['.'] = 'textsubjects-smart',
+        [';'] = 'textsubjects-big',
+      }
+    },
     -- textobjects = {enable = true}
   }
 
   -- if utl.is_mod_available('rainbow') then config["rainbow"] = {enable = true} end
-
   tsconf.setup(config)
 
   -- vim.cmd(
@@ -285,6 +291,28 @@ local function setup_telescope()
 
       -- get_window_options = function(...) end,
       -- To move to bottom, use strategy descending
+      pickers = {
+        git_files = {
+          recurse_submodules = true
+        },
+        find_files = {
+          hidden = true
+        },
+        buffers = {
+          show_all_buffers = true,
+          sort_lastused = true,
+          theme = "dropdown",
+          previewer = true,
+          mappings = {
+            i = {
+              ["<c-d>"] = require("telescope.actions").delete_buffer,
+            },
+            n = {
+              ["<c-d>"] = require("telescope.actions").delete_buffer,
+            }
+          }
+        }
+      },
       prompt_position = "top",
       sorting_strategy = "ascending",
       layout_strategy = "flex",
@@ -429,15 +457,16 @@ local function setup_git_worktree()
     return
   end
 
-  if not utl.is_mod_available('vimp') then
-    api.nvim_err_writeln('vimp module not available')
+  if not utl.is_mod_available('which-key') then
+    api.nvim_err_writeln('which-key module not available')
     return
   end
-  local vimp = require('vimp')
+  local wk = require("which-key")
 
   local gw = require('git-worktree')
   gw.setup({update_on_change = true, clearjumps_on_change = true})
 
+  local mapping_prefix = {"prefix", [[<leader>v]]}
   local function get_worktree_name(upstream)
     local wt_name = nil
     wt_name = vim.fn.input("New worktree name?\n")
@@ -455,21 +484,23 @@ local function setup_git_worktree()
   local gwd = function() gw.delete_worktree(get_worktree_name()) end
   local gws = function() gw.switch_worktree(get_worktree_name()) end
 
-  vimp.nnoremap('<leader>vwa', gwa)
-  vimp.nnoremap('<leader>vwd', gwd)
-  vimp.nnoremap('<leader>vws', gws)
-
+  local mapping = {}
+  mapping.w = {
+    name = 'worktree',
+    a = {gwa, 'create'},
+    d = {gwd, 'delete'},
+    s = {gws, 'switch'},
+  }
   if utl.is_mod_available('telescope') then
     local t = require('telescope')
     t.load_extension("git_worktree")
     -- To bring up the telescope window listing your workspaces run the following
-
-    vimp.nnoremap({'override'}, '<leader>vws',
-                  t.extensions.git_worktree.git_worktrees)
+    mapping.w.s = {t.extensions.git_worktree.git_worktrees, 'switch'}
     -- <Enter> - switches to that worktree
     -- <c-d> - deletes that worktree
     -- <c-D> - force deletes that worktree
   end
+  wk.register(mapping, mapping_prefix)
 end
 
 local function setup_lightspeed()
@@ -605,6 +636,64 @@ local function setup_nvim_dap()
 
 end
 
+local function setup_neogit()
+  if not utl.is_mod_available('neogit') then
+    api.nvim_err_writeln('neogit module not available')
+    return
+  end
+
+  local neogit = require("neogit")
+
+  neogit.setup {
+    disable_signs = false,
+    disable_context_highlighting = false,
+    disable_commit_confirmation = false,
+    -- customize displayed signs
+    signs = {
+      -- { CLOSED, OPENED }
+      section = { ">", "v" },
+      item = { ">", "v" },
+      hunk = { "", "" },
+    },
+    integrations = {
+      -- Neogit only provides inline diffs. If you want a more traditional way to look at diffs you can use `sindrets/diffview.nvim`.
+      -- The diffview integration enables the diff popup, which is a wrapper around `sindrets/diffview.nvim`.
+      --
+      -- Requires you to have `sindrets/diffview.nvim` installed.
+      -- use { 
+        --   'TimUntersberger/neogit', 
+        --   requires = { 
+          --     'nvim-lua/plenary.nvim',
+          --     'sindrets/diffview.nvim' 
+        --   }
+      -- }
+      --
+      diffview = false  
+    },
+    -- override/add mappings
+    mappings = {
+      -- modify status buffer mappings
+      status = {
+        -- Adds a mapping with "B" as key that does the "BranchPopup" command
+        ["B"] = "BranchPopup",
+        -- Removes the default mapping of "s"
+        ["s"] = "",
+      }
+    }
+  }
+
+  if not utl.is_mod_available('which-key') then
+    api.nvim_err_writeln('which-key module not available')
+    return
+  end
+  local wk = require("which-key")
+  -- open using defaults
+  -- neogit.open()
+  -- open commit popup
+  -- neogit.open({ "commit" })
+  wk.register{["<leader>vo"] = {neogit.open, "neogit_open"}}
+end
+
 local _packer = {}
 _packer._path = vim.g.std_data_path .. [[/site/pack/packer/start/packer.nvim]]
 _packer._repo = [[https://github.com/wbthomason/packer.nvim]]
@@ -716,7 +805,7 @@ function _packer:setup()
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
-    requires = {{'p00f/nvim-ts-rainbow'}}
+    requires = {'p00f/nvim-ts-rainbow', 'RRethy/nvim-treesitter-textsubjects'}
     -- {'romgrk/nvim-treesitter-context'} still some rough edges
   }
 
@@ -796,6 +885,8 @@ function _packer:setup()
   end
 
   use { "folke/which-key.nvim" }
+
+  use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
 end
 
 local function setup()
@@ -807,6 +898,8 @@ local function setup()
 
   _packer:setup()
 
+  -- which-key first in case we want add mappings on the other plugins
+  require('config.plugins.whichkey'):setup()
   setup_telescope()
   setup_treesitter()
   compl.compe()
@@ -821,7 +914,7 @@ local function setup()
   -- setup_lightspeed()
   if vim.fn.executable('lua-language-server') > 0 then setup_luadev() end
   if utl.has_unix() then setup_nvim_dap() end
-  require('config.plugins.whichkey'):setup()
+  setup_neogit()
 end
 
 return {setup = setup, setup_lspstatus = setup_lspstatus}

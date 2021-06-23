@@ -10,7 +10,7 @@ M.__config = {
     -- the presets plugin, adds help for a bunch of default keybindings in Neovim
     -- No actual key bindings are created
     spelling = {
-      enabled = false, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
+      enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
       suggestions = 20, -- how many suggestions should be shown in the list?
     },
     presets = {
@@ -54,7 +54,7 @@ M.__config = {
     align = "left", -- align columns left, center or right
   },
   ignore_missing = false, -- enable this to hide mappings for which you didn't specify a label
-  hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "^:", "^ ", "^call ", "^lua " }, -- hide mapping boilerplate
+  hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "^:", "^ ", "^call ", "^lua ", "<plug>", "<Plug>"},
   show_help = true, -- show a help message in the command line for using WhichKey
   triggers = "auto", -- automatically setup triggers
   -- triggers = {"<leader>"} -- or specifiy a list manually
@@ -121,7 +121,7 @@ leader.e = {
   c = {function() ff(vim.fn.getcwd()) end, 'current_dir'},
   t = edit_random_file_type,
   p = {function() ff(lua_plugins) end, 'lua_plugins_path'},
-  i = {function() ff(vim.g.vim_plugins_path) end, 'vim_plugins_path'},
+  l = {function() ff(vim.g.vim_plugins_path) end, 'vim_plugins_path'},
   v = {function() ff('$VIMRUNTIME') end, 'vimruntime'},
   w = wings,
   a = 'add folder/file',
@@ -165,8 +165,8 @@ leader.v = {
   p = 'push',
   u = 'pull/update',
   l = 'log',
-  S = {'<cmd>SignifyToggle<cr>' ,'signify_toggle'},
-  d = {'<cmd>SignifyDiff<cr>' ,'signify_diff'},
+  S = {'<cmd>SignifyToggle<cr>', 'signify_toggle'},
+  d = {'<cmd>SignifyDiff<cr>', 'signify_diff'},
 }
 local function ewr() return require('plugin.report'):edit_weekly_report() end
 leader.w = {
@@ -206,6 +206,7 @@ local git = {
   S = {telescope .. 'git_stash()<cr>', 'stash'},
 }
 leader['?'] = {telescope .. 'live_grep()<cr>', 'live_grep'}
+leader['/'] = {'<plug>search_grep', 'search_grip'}
 leader.f = {
   name = 'fuzzers',
   g = git,
@@ -243,6 +244,19 @@ lleader['<'] = 'print_prev_command_output'
 lleader['?'] = 'rot13_encode_motion'
 lleader['q'] = 'format_motion'
 lleader['~'] = 'swap_case_motion'
+lleader.e = {'<plug>terminal_send_line', 'send_line_terminal'}
+lleader.E = {'<plug>terminal_send_line', 'send_file_terminal'}
+lleader.c = {
+  name = 'var_case_change',
+  s = {'<plug>to_snake_case', 'to_snake_case'},
+  c = {'<plug>to_camel_case', 'to_camel_case'},
+  b = {'<plug>to_camel_back_case', 'to_camel_back_case'},
+  k = {'<plug>to_kebak_case', 'to_kebak_case'},
+}
+lleader.k = {'<plug>make_project', 'make_project'}
+lleader.j = {'<plug>make_file', 'make_file'}
+lleader.f = {'<plug>format_code', 'format_code'}
+lleader.f = {'<plug>refactor_code', 'refactor_code'}
 
 local rbracket = {}
 local rbracket_p = '['

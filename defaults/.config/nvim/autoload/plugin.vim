@@ -488,8 +488,8 @@ function! plugin#Config()
 
   Plug 'chaoren/vim-wordmotion'
   let g:wordmotion_mappings = {
-        \ 'w' : '<M-w>',
-        \ 'b' : '<M-b>',
+        \ 'w' : 'L',
+        \ 'b' : 'H',
         \ 'e' : '',
         \ 'W' : '',
         \ 'B' : '',
