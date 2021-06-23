@@ -744,6 +744,11 @@ function _packer:setup()
   -- -- requires = {'kyazdani42/nvim-web-devicons', opt = true}
   -- }
 
+  use {
+    "folke/which-key.nvim",
+    config = function() require('config.plugins.whichkey'):setup() end,
+  }
+
   use {'svermeulen/vimpeccable'}
 
   use {
@@ -834,8 +839,6 @@ function _packer:setup()
     use {"rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"}}
   end
 
-  use { "folke/which-key.nvim" }
-
   use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
 end
 
@@ -849,7 +852,6 @@ local function setup()
   _packer:setup()
 
   -- which-key first in case we want add mappings on the other plugins
-  require('config.plugins.whichkey'):setup()
   setup_telescope()
   setup_treesitter()
   compl.compe()
