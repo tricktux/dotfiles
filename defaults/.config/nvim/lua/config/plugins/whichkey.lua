@@ -314,9 +314,6 @@ lbracket['('] = 'goto_prev_unmatched_parenthesis'
 lbracket['{'] = 'goto_prev_unmatched_brace'
 lbracket['#'] = 'goto_prev_unmatched_defined_if'
 lbracket['/'] = 'goto_prev_comment'
-lbracket['"'] = 'which_key_ignore'
-lbracket[']'] = 'which_key_ignore'
-lbracket['%'] = 'which_key_ignore'
 
 function M:setup()
   if not utl.is_mod_available('which-key') then
