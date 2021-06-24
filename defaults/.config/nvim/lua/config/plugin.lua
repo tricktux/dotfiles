@@ -171,7 +171,8 @@ function M:__setup()
           -- full signature, docs and completion of vim.api, vim.treesitter, 
           -- vim.lsp and others
           types = true,
-          plugins = true -- installed opt or start plugins in packpath
+          -- List of plugins you want autocompletion for
+          plugins = {'plenary'}
         },
         -- pass any additional options that will be merged in the final lsp config
         lspconfig = {
