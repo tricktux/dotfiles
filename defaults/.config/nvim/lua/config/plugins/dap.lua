@@ -4,6 +4,14 @@ local M = {}
 
 M.filetypes = {'c', 'cpp', 'rust'}
 
+local function breakpoint_cond()
+  require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))
+end
+
+local function breakpoint_msg()
+  require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))
+end
+
 function M:set_mappings(bufnr)
   if not utl.has_unix() then return end
 
@@ -42,6 +50,8 @@ function M:set_mappings(bufnr)
     name = 'breakpoints',
     b = {dap.set_breakpoint, 'set_breakpoint'},
     l = {dap.list_breakpoints, 'list_breakpoints'},
+    g = {breakpoint_msg, 'breakpoint_with_msg'},
+    c = {breakpoint_cond, 'breakpoint_with_conditional'},
     t = {dap.toggle_breakpoint, 'toggle_breakpoint'},
     e = {dap.set_exception_breakpoints, 'set_exception_breakpoints'}
   }
@@ -75,6 +85,7 @@ function M:set_mappings(bufnr)
   local u = require("dapui")
   local ui = {
     name = 'ui',
+    o = {dap.repl.open, 'open'},
     o = {u.open, 'open'},
     c = {u.close, 'close'},
     t = {u.toggle, 'toggle'},
@@ -83,23 +94,37 @@ function M:set_mappings(bufnr)
   }
   local mappings = {
     name = 'dap',
-    c = {dap.continue, 'continue'},
     r = {dap.run, 'run'},
     b = breakpoints,
-    o = {dap.step_over, 'step_over'},
-    s = {dap.stop, 'stop'},
-    i = {dap.step_into, 'step_into'},
-    u = {dap.step_out, 'step_out'},
     p = {dap.pause, 'pause'},
-    n = {dap.up, 'up_stacktrace'},
-    d = {dap.down, 'down_stacktrace'},
-    t = {dap.run_to_cursor, 'run_to_cursor'},
+    k = {dap.up, 'up_stacktrace'},
+    j = {dap.down, 'down_stacktrace'},
+    c = {dap.run_to_cursor, 'run_to_cursor'},
+    t = {dap.toggle_breakpoint, 'toggle_breakpoint'},
+    u = {u.toggle, 'toggle_ui'},
+    h = {v.hover, 'hover_variable'},
+    e = {dap.repl.toggle, 'toggle_repl_'},
+    -- Showing these guys here for reference
+    ['<F2>'] = {dap.stop, 'stop'},
+    ['<F5>'] = {dap.continue, 'continue'},
+    ['<F8>'] = {dap.toggle_breakpoint, 'toggle_breakpoint'},
+    ['<F10>'] = {dap.step_over, 'step_over'},
+    ['<F11>'] = {dap.step_into, 'step_into'},
+    ['<F12>'] = {dap.step_out, 'step_out'},
     l = repl,
     v = vars,
     w = widgets,
     g = ui,
   }
 
+  wk.register({
+      ['<F2>'] = {dap.stop, 'stop'},
+      ['<F5>'] = {dap.continue, 'continue'},
+      ['<F8>'] = {dap.toggle_breakpoint, 'toggle_breakpoint'},
+      ['<F10>'] = {dap.step_over, 'step_over'},
+      ['<F11>'] = {dap.step_into, 'step_into'},
+      ['<F12>'] = {dap.step_out, 'step_out'},
+    }, {buffer = bufnr})
   wk.register(mappings, opts)
 end
 
