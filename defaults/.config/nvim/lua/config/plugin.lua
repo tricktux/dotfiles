@@ -157,27 +157,6 @@ function M:__setup()
   }
 
   use {
-    'folke/tokyonight.nvim',
-    diable = true,  -- Missing too many highlights
-    config = function()
-      vim.g.tokyonight_terminal_colors = true
-      vim.g.tokyonight_italic_comments = true
-      vim.g.tokyonight_dark_float = true
-      vim.g.tokyonight_sidebars = {"qf", "terminal", "packer"}
-      vim.g.tokyonight_style = "night"
-    end,
-  }
-
-  use {
-    'npxbr/glow.nvim', 
-    cmd = 'Glow',
-    cond = function() return vim.fn.executable('glow') > 0 end,
-    config = function()
-      vim.cmd 'command! MarkdownPreviewGlow Glow'
-    end
-  }
-
-  use {
     'folke/lua-dev.nvim',
     cond = function() return vim.fn.executable('lua-language-server') > 0 end,
     config = function() 
