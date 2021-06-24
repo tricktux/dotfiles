@@ -103,8 +103,12 @@ local function on_lsp_attach(client_id, bufnr)
 
   -- Disable tagbar
   vim.b.tagbar_ignore = 1
-  require('lsp-status').on_attach(client_id)
-  require'lsp_signature'.on_attach()
+  if utl.is_mod_available('lsp-status') then
+    require('lsp-status').on_attach(client_id)
+  end
+  if utl.is_mod_available('lsp_signature') then
+    require'lsp_signature'.on_attach()
+  end
   vim.b.did_on_lsp_attach = 1
 end
 
