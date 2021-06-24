@@ -2,13 +2,95 @@ local utl = require('utils.utils')
 
 local M = {}
 
--- TODO
-function M.set_mappings()
+M.filetypes = {'c', 'cpp', 'rust'}
+
+function M:set_mappings(bufnr)
+  if not utl.has_unix() then return end
+
   if not utl.is_mod_available('which-key') then
     vim.api.nvim_err_writeln('dap.lua: which-key module not available')
     return
   end
+
+  -- Determine if there is a config for this filetype
+  local cft = vim.opt.filetype:get()
+  local found = false
+  for _, ft in ipairs(self.filetypes) do
+    if ft == cft then
+      found = true
+      break
+    end
+  end
+  if not found then
+    return
+  end
+
   local wk = require("which-key")
+  local dap = require("dap")
+  local opts = {prefix = '<localleader>p', buffer = bufnr}
+  local breakpoints = {
+    name = 'breakpoints',
+    b = {dap.set_breakpoint, 'set_breakpoint'},
+    l = {dap.list_breakpoints, 'list_breakpoints'},
+    t = {dap.toggle_breakpoint, 'toggle_breakpoint'},
+    e = {dap.set_exception_breakpoints, 'set_exception_breakpoints'}
+  }
+  local repl = {
+    name = 'repl',
+    o = {dap.repl.open, 'open'},
+    t = {dap.repl.toggle, 'toggle'},
+    c = {dap.repl.close, 'close'}
+  }
+  local v = require("dap.ui.variables")
+  local vars = {
+    name = 'variables',
+    h = {v.hover, 'hover'},
+    s = {v.scopes, 'scopes'},
+    v = {v.visual_hover, 'visual_hover'},
+    t = {v.toggle_multiline_display, 'toggle_multiline_display'}
+  }
+  local w = require('dap.ui.widgets')
+  local widgets = {
+    name = 'widgets',
+    ['ss'] = {function() w.sidebar(w.scopes).open() end, 'sidebar_scopes'},
+    ['sf'] = {function() w.sidebar(w.frames).open() end, 'sidebar_frames'},
+    ['h'] = {function() w.hover() end, 'hover_expression'},
+    ['fs'] = {
+      function() w.centered_float(w.scopes).open() end, 'sidebar_scopes'
+    },
+    ['ff'] = {
+      function() w.centered_float(w.frames).open() end, 'sidebar_frames'
+    }
+  }
+  local u = require("dapui")
+  local ui = {
+    name = 'ui',
+    o = {u.open, 'open'},
+    c = {u.close, 'close'},
+    t = {u.toggle, 'toggle'},
+    f = {u.float_element, 'float_element'},
+    e = {u.eval, 'eval'},
+  }
+  local mappings = {
+    name = 'dap',
+    c = {dap.continue, 'continue'},
+    r = {dap.run, 'run'},
+    b = breakpoints,
+    o = {dap.step_over, 'step_over'},
+    s = {dap.stop, 'stop'},
+    i = {dap.step_into, 'step_into'},
+    u = {dap.step_out, 'step_out'},
+    p = {dap.pause, 'pause'},
+    n = {dap.up, 'up_stacktrace'},
+    d = {dap.down, 'down_stacktrace'},
+    t = {dap.run_to_cursor, 'run_to_cursor'},
+    l = repl,
+    v = vars,
+    w = widgets,
+    g = ui,
+  }
+
+  wk.register(mappings, opts)
 end
 
 function M.setup()

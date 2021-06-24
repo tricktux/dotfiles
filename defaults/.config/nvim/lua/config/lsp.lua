@@ -96,6 +96,9 @@ local function on_lsp_attach(client_id, bufnr)
   -- vim.cmd("autocmd CursorHold <buffer> lua vim.lsp.buf.hover()")
   set_lsp_mappings(client_id.resolved_capabilities, bufnr)
   set_lsp_options(client_id.resolved_capabilities, bufnr)
+  if utl.is_mod_available('dap') then
+    require('config.plugins.dap'):set_mappings(bufnr)
+  end
   -- require('config/completion').diagn:on_attach()
 
   -- Disable tagbar
