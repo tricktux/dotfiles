@@ -29,7 +29,6 @@ function M.setup()
     name = "lldb"
   }
 
-  local dap = require('dap')
   dap.configurations.cpp = {
     {
       name = "Launch",
