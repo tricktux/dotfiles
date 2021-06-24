@@ -4,7 +4,7 @@ local log = require('utils.log')
 
 local function setup_lspstatus()
   if not utl.is_mod_available('lsp-status') then
-    api.nvim_err_writeln("lsp-status was set, but module not found")
+    vim.api.nvim_err_writeln("lsp-status was set, but module not found")
     return false
   end
 
@@ -165,7 +165,7 @@ local function lsp_set()
 
   local ok = setup_lspstatus() -- Configure plugin options
   if not ok then
-    api.nvim_err_writeln("lsp: failed to set lsp-status")
+    vim.api.nvim_err_writeln("lsp: failed to set lsp-status")
     return
   end
 
