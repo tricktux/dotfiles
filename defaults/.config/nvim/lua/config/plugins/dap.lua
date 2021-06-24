@@ -12,6 +12,16 @@ function M:set_mappings(bufnr)
     return
   end
 
+  if not utl.is_mod_available('dap') then
+    vim.api.nvim_err_writeln('dap.lua: dap module not available')
+    return
+  end
+
+  if not utl.is_mod_available('dapui') then
+    vim.api.nvim_err_writeln('dap.lua: dauip module not available')
+    return
+  end
+
   -- Determine if there is a config for this filetype
   local cft = vim.opt.filetype:get()
   local found = false
