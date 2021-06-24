@@ -13,12 +13,12 @@ end
 
 function M.setup()
   if not utl.is_mod_available('dap') then
-    api.nvim_err_writeln('dap module not available')
+    vim.api.nvim_err_writeln('dap module not available')
     return
   end
 
   if not utl.is_mod_available('dapui') then
-    api.nvim_err_writeln('dapui module not available')
+    vim.api.nvim_err_writeln('dapui module not available')
     return
   end
 

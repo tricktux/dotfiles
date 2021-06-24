@@ -1,3 +1,4 @@
+local utl = require('utils.utils')
 
 local M = {}
 
@@ -8,12 +9,12 @@ function M.setup()
   -- git worktree add master <branch>
   -- Then you'll have: neovim/{master,neovim.git,<other_workstrees>}
   if not utl.is_mod_available('git-worktree') then
-    api.nvim_err_writeln('git-worktree module not available')
+    vim.api.nvim_err_writeln('git-worktree module not available')
     return
   end
 
   if not utl.is_mod_available('which-key') then
-    api.nvim_err_writeln('which-key module not available')
+    vim.api.nvim_err_writeln('which-key module not available')
     return
   end
   local wk = require("which-key")
