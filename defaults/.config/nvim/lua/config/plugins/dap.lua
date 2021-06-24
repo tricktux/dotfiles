@@ -173,6 +173,9 @@ function M.setup()
     }
   }
 
+  -- repl autocompletion
+  vim.cmd[[au FileType dap-repl lua require('dap.ext.autocompl').attach()]]
+
   -- If you want to use this for rust and c, add something like this:
   dap.configurations.c = dap.configurations.cpp
   dap.configurations.rust = dap.configurations.cpp
