@@ -3,6 +3,7 @@ adapta-gtk-theme
 alsa-utils
 android-tools
 android-udev
+anki
 arch-audit
 archlinux-wallpaper
 astyle
@@ -34,6 +35,7 @@ dosfstools
 dunst
 earlyoom
 efibootmgr
+evolution
 exa
 f2fs-tools
 fakeroot
@@ -53,7 +55,9 @@ gettext
 ghostscript
 git
 global
+gnome-keyring
 go
+goimapnotify
 google-glog
 grep
 groff
@@ -141,6 +145,7 @@ pulseaudio-alsa
 python-cpplint
 python-pip
 python-pywal
+python-selenium
 python2
 python2-pip
 qpdfview
@@ -183,6 +188,7 @@ ttf-inconsolata
 udisks2
 unzip
 urlscan
+vi
 vim
 w3m
 wavpack

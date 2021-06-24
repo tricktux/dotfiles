@@ -1,10 +1,12 @@
 abook
+alttab-git
 bluez-firmware
 bottom-bin
+chromedriver
 cmake-format
 cmake-lint
 gdb-dashboard-git
-goimapnotify
+google-chrome
 i3ass
 jdtls
 liquidprompt
@@ -17,6 +19,7 @@ nerd-fonts-iosevka
 networkmanager-dmenu-git
 numix-gtk-theme
 otf-fira-code-onum-patch
+pandoc-bin
 paper-gtk-theme-git
 paper-icon-theme
 paru-bin
@@ -24,6 +27,7 @@ pass-import
 polybar
 rofi-bluetooth-git
 rofi-dmenu
+rofi-emoji
 shellcheck-bin
 ttf-weather-icons
 vdhcoapp-bin
