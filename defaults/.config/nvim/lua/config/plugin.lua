@@ -212,7 +212,6 @@ function M:__setup()
 
   use {
     'mizlan/iswap.nvim',
-    cmd = 'ISwap',
     requires = 'nvim-treesitter/nvim-treesitter',
     config = function()
       require('iswap').setup{
@@ -231,7 +230,13 @@ function M:__setup()
         -- Highlight group for the greyed background
         -- default 'Comment'
         hl_grey = 'LineNr'
-    }
+      }
+      if not require('utils.utils').is_mod_available('which-key') then
+        vim.api.nvim_err_writeln('iswap: which-key module not available')
+        return
+      end
+      require("which-key").register{
+        ["<localleader>s"] = {require('iswap').iswap, "iswap_arguments"}}
     end
   }
 end
