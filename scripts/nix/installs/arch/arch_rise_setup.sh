@@ -566,6 +566,7 @@ paci --needed --noconfirm powertop powerstat cpupower{,-gui}
 # https://forum.xda-developers.com/t/ref-guide-most-up-to-date-guide-on-cpu-governors-i-o-schedulers-and-more.3048957/
 # **SET GOVERNOR** by adjusting /etc/laptop-mode/conf.d/cpufreq.conf
 # The seeting for on AC is normally NOLM_AC_X, since laptop-mode is disabled in 
+# If no LaptopMode set your governor at /etc/default/cpupower
 # AC mode
 sudo powerstat -R -s
 sudo powertop --calibrate
