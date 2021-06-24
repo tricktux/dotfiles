@@ -34,12 +34,13 @@ local function set_lsp_mappings(capabilities, bufnr)
   local wk = require("which-key")
   local opts = {prefix = '<localleader>l', buffer = bufnr}
   local lsp = vim.lsp
-  local list = '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>'
+  local list =
+      '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>'
   local workspace = {
     name = 'workspace',
     a = {lsp.buf.add_workspace_folder, 'add_workspace_folder'},
     r = {lsp.buf.remove_workspace_folder, 'remove_workspace_folder'},
-    l = {list, 'list_folders'},
+    l = {list, 'list_folders'}
   }
   local mappings = {
     name = 'lsp',
@@ -54,7 +55,7 @@ local function set_lsp_mappings(capabilities, bufnr)
     S = {lsp.stop_all_clients, 'stop_all_clients'},
     n = {lsp.diagnostic.show_line_diagnostics, 'show_line_diagnostics'},
     l = {lsp.diagnostic.set_loclist, 'set_loclist'},
-    w = workspace,
+    w = workspace
   }
 
   -- Set some keybinds conditional on server capabilities
@@ -91,7 +92,7 @@ local function on_lsp_attach(client_id, bufnr)
   end
   -- These 2 got annoying really quickly
   -- vim.cmd(
-      -- 'autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()')
+  -- 'autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()')
   -- vim.cmd("autocmd CursorHold <buffer> lua vim.lsp.buf.hover()")
   set_lsp_mappings(client_id.resolved_capabilities, bufnr)
   set_lsp_options(client_id.resolved_capabilities, bufnr)
@@ -137,9 +138,7 @@ local function diagnostic_set()
     default_handler(err, method, result, client_id, bufnr, config)
     vim.lsp.diagnostic.set_loclist({open_loclist = false})
     -- Do overwrite my search list
-    if #vim.fn.getqflist() > 0 then
-      return
-    end
+    if #vim.fn.getqflist() > 0 then return end
     local diagnostics = vim.lsp.diagnostic.get_all()
     local qflist = {}
     for nbufnr, diagnostic in pairs(diagnostics) do
