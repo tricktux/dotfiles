@@ -125,6 +125,9 @@ leader.e = {
   v = {function() ff('$VIMRUNTIME') end, 'vimruntime'},
   w = wings,
   a = 'add folder/file',
+  P = {function() 
+        vim.api.nvim_exec('edit ' .. vim.fn.getreg('+'), true)
+      end, 'edit_file_path_clipboard'}
 }
 local sessions = {
   name = 'sessions',
