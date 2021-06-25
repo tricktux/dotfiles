@@ -103,19 +103,19 @@ bindsym control+shift+s exec --no-startup-id \
 # New cool mod3 bindings
 # Paste from clipboard
 bindsym mod3+r exec --no-startup-id pass --clip linux/`hostname`/user/root && \
-  notify-send 'pass' 'Root password copied'
+  notify-send 'pass' 'root password copied'
 bindsym mod3+h exec --no-startup-id \
   pass --clip linux/`hostname`/ssh_key/id_ed25519_github && \
-  notify-send 'pass' 'Github ssh key copied'
+  notify-send 'pass' 'github ssh key copied'
 bindsym mod3+d exec --no-startup-id \
   pass --clip linux/`hostname`/ssh_key/id_ed25519_digitalocean && \
-  notify-send 'pass' 'DigitalOcean ssh key copied'
+  notify-send 'pass' 'digitalOcean ssh key copied'
 bindsym mod3+g exec --no-startup-id \
   pass --clip linux/`hostname`/ssh_key/id_ed25519_git_server && \
-  notify-send 'pass' 'Git server ssh key copied'
+  notify-send 'pass' 'git server ssh key copied'
 bindsym mod3+l exec --no-startup-id \
   pass --clip linux/`hostname`/ssh_key/id_ed25519_gitlab && \
-  notify-send 'pass' 'GitLab ssh key copied'
+  notify-send 'pass' 'gitLab ssh key copied'
 
 
 # Use `xev -event keyboard` to find name of key
