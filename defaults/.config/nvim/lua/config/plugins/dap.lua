@@ -93,7 +93,7 @@ function M:set_mappings(bufnr)
   }
   local mappings = {
     name = 'dap',
-    r = {dap.run, 'run'},
+    r = {dap.continue, 'continue'},
     b = breakpoints,
     p = {dap.pause, 'pause'},
     k = {dap.up, 'up_stacktrace'},
@@ -102,7 +102,7 @@ function M:set_mappings(bufnr)
     t = {dap.toggle_breakpoint, 'toggle_breakpoint'},
     u = {u.toggle, 'toggle_ui'},
     h = {v.hover, 'hover_variable'},
-    e = {dap.repl.toggle, 'toggle_repl_'},
+    e = {dap.repl.toggle, 'toggle_repl'},
     -- Showing these guys here for reference
     ['<F2>'] = {dap.stop, 'stop'},
     ['<F5>'] = {dap.continue, 'continue'},
