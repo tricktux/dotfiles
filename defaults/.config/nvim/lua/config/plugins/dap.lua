@@ -85,7 +85,6 @@ function M:set_mappings(bufnr)
   local u = require("dapui")
   local ui = {
     name = 'ui',
-    o = {dap.repl.open, 'open'},
     o = {u.open, 'open'},
     c = {u.close, 'close'},
     t = {u.toggle, 'toggle'},
