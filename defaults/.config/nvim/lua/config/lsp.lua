@@ -226,7 +226,7 @@ local function lsp_set()
     log.info("setting up the clangd lsp...")
     nvim_lsp.clangd.setup {
       handlers = lsp_status.extensions.clangd.setup(),
-      init_options = {clangdFileStatus = true},
+      init_options = {clangdFileStatus = false},
       on_attach = on_clangd_attach,
       filetypes = {"c", "cpp"},
       capabilities = capabilities,
