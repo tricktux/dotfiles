@@ -39,9 +39,7 @@ function M:set_mappings(bufnr)
       break
     end
   end
-  if not found then
-    return
-  end
+  if not found then return end
 
   local wk = require("which-key")
   local dap = require("dap")
@@ -89,7 +87,7 @@ function M:set_mappings(bufnr)
     c = {u.close, 'close'},
     t = {u.toggle, 'toggle'},
     f = {u.float_element, 'float_element'},
-    e = {u.eval, 'eval'},
+    e = {u.eval, 'eval'}
   }
   local mappings = {
     name = 'dap',
@@ -113,17 +111,17 @@ function M:set_mappings(bufnr)
     l = repl,
     v = vars,
     w = widgets,
-    g = ui,
+    g = ui
   }
 
   wk.register({
-      ['<F2>'] = {dap.stop, 'stop'},
-      ['<F5>'] = {dap.continue, 'continue'},
-      ['<F8>'] = {dap.toggle_breakpoint, 'toggle_breakpoint'},
-      ['<F10>'] = {dap.step_over, 'step_over'},
-      ['<F11>'] = {dap.step_into, 'step_into'},
-      ['<F12>'] = {dap.step_out, 'step_out'},
-    }, {buffer = bufnr})
+    ['<F2>'] = {dap.stop, 'stop'},
+    ['<F5>'] = {dap.continue, 'continue'},
+    ['<F8>'] = {dap.toggle_breakpoint, 'toggle_breakpoint'},
+    ['<F10>'] = {dap.step_over, 'step_over'},
+    ['<F11>'] = {dap.step_into, 'step_into'},
+    ['<F12>'] = {dap.step_out, 'step_out'}
+  }, {buffer = bufnr})
   wk.register(mappings, opts)
 end
 
@@ -173,7 +171,7 @@ function M.setup()
   }
 
   -- repl autocompletion
-  vim.cmd[[au FileType dap-repl lua require('dap.ext.autocompl').attach()]]
+  vim.cmd [[au FileType dap-repl lua require('dap.ext.autocompl').attach()]]
 
   -- If you want to use this for rust and c, add something like this:
   dap.configurations.c = dap.configurations.cpp
