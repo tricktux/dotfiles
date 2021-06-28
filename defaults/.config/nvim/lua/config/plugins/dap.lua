@@ -2,7 +2,7 @@ local utl = require('utils.utils')
 
 local M = {}
 
-M.filetypes = {'c', 'cpp', 'rust'}
+M.filetypes = {}
 
 local function breakpoint_cond()
   require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))
@@ -134,6 +134,40 @@ function M.setup()
     return
   end
 
+  require("dapui").setup({
+      icons = {expanded = "⯆", collapsed = "⯈"},
+      mappings = {
+        -- Use a table to apply multiple mappings
+        expand = {"<CR>", "<2-LeftMouse>"},
+        open = "o",
+        remove = "d",
+        edit = "e"
+      },
+      sidebar = {
+        open_on_start = true,
+        elements = {
+          -- You can change the order of elements in the sidebar
+          "scopes", "breakpoints", "stacks"
+        },
+        width = 40,
+        position = "left" -- Can be "left" or "right"
+      },
+      tray = {
+        open_on_start = true,
+        elements = {"repl"},
+        height = 10,
+        position = "bottom" -- Can be "bottom" or "top"
+      },
+      floating = {
+        max_height = nil, -- These can be integers or a float between 0 and 1.
+        max_width = nil -- Floats will be treated as percentage of your screen.
+      }
+  })
+
+  if vim.fn.executable('lldb-vscode') <= 0 then
+    return
+  end
+
   local dap = require('dap')
   dap.adapters.lldb = {
     type = 'executable',
@@ -171,37 +205,8 @@ function M.setup()
   -- If you want to use this for rust and c, add something like this:
   dap.configurations.c = dap.configurations.cpp
   dap.configurations.rust = dap.configurations.cpp
+  table.insert(self.filetypes, 'cpp', 'c', 'rust')
 
-  -- Close with: require("dapui").close()
-  require("dapui").setup({
-    icons = {expanded = "⯆", collapsed = "⯈"},
-    mappings = {
-      -- Use a table to apply multiple mappings
-      expand = {"<CR>", "<2-LeftMouse>"},
-      open = "o",
-      remove = "d",
-      edit = "e"
-    },
-    sidebar = {
-      open_on_start = true,
-      elements = {
-        -- You can change the order of elements in the sidebar
-        "scopes", "breakpoints", "stacks", "watches"
-      },
-      width = 40,
-      position = "left" -- Can be "left" or "right"
-    },
-    tray = {
-      open_on_start = true,
-      elements = {"repl"},
-      height = 10,
-      position = "bottom" -- Can be "bottom" or "top"
-    },
-    floating = {
-      max_height = nil, -- These can be integers or a float between 0 and 1.
-      max_width = nil -- Floats will be treated as percentage of your screen.
-    }
-  })
 end
 
 return M
