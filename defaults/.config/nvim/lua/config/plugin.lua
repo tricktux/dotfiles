@@ -8,16 +8,11 @@ local utl = require('utils.utils')
 local api = vim.api
 
 local M = {}
-M._path = vim.g.std_data_path .. [[/site/pack/packer/start/packer.nvim]]
-M._repo = [[https://github.com/wbthomason/packer.nvim]]
-M._config = {
-  compile_path = require('packer.util').join_paths(vim.fn.stdpath('data'),
-                                                   'site', 'plugin',
-                                                   'packer_compiled.vim'),
-}
+M.__path = vim.g.std_data_path .. [[/site/pack/packer/start/packer.nvim]]
+M.__repo = [[https://github.com/wbthomason/packer.nvim]]
 
 function M:download()
-  if vim.fn.isdirectory(self._path) ~= 0 then
+  if vim.fn.isdirectory(self.__path) ~= 0 then
     -- Already exists
     return
   end
@@ -27,7 +22,7 @@ function M:download()
     return
   end
 
-  local git_cmd = 'git clone ' .. self._repo .. ' --depth 1 ' .. self._path
+  local git_cmd = 'git clone ' .. self.__repo .. ' --depth 1 ' .. self.__path
   print("packer.nvim does not exist downloading...")
   vim.fn.system(git_cmd)
   vim.cmd('packadd packer.nvim')
@@ -41,7 +36,7 @@ function M:__setup()
   local packer = nil
   if packer == nil then
     packer = require('packer')
-    packer.init(self._config)
+    packer.init()
   end
 
   local use = packer.use
