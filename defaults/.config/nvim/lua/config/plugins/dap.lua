@@ -13,8 +13,6 @@ local function breakpoint_msg()
 end
 
 function M:set_mappings(bufnr)
-  if not utl.has_unix() then return end
-
   if not utl.is_mod_available('which-key') then
     vim.api.nvim_err_writeln('dap.lua: which-key module not available')
     return
@@ -139,7 +137,7 @@ function M.setup()
   local dap = require('dap')
   dap.adapters.lldb = {
     type = 'executable',
-    command = '/usr/bin/lldb-vscode', -- adjust as needed
+    command = utl.has_unix() and '/usr/bin/lldb-vscode' or 'lldb-vscode'
     name = "lldb"
   }
 
