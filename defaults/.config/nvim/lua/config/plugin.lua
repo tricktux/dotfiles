@@ -13,7 +13,7 @@ M._repo = [[https://github.com/wbthomason/packer.nvim]]
 M._config = {
   compile_path = require('packer.util').join_paths(vim.fn.stdpath('data'),
                                                    'site', 'plugin',
-                                                   'packer_compiled.vim'),
+                                                   'packer_compiled.vim')
 }
 
 function M:download()
@@ -51,7 +51,7 @@ function M:__setup()
 
   use {
     "folke/which-key.nvim",
-    config = function() require('config.plugins.whichkey'):setup() end,
+    config = function() require('config.plugins.whichkey'):setup() end
   }
 
   use {'svermeulen/vimpeccable'}
@@ -59,7 +59,7 @@ function M:__setup()
   use {
     'nvim-lua/telescope.nvim',
     requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
-    config = function() require('config.plugins.telescope').setup() end,
+    config = function() require('config.plugins.telescope').setup() end
   }
 
   -- Post-install/update hook with neovim command
@@ -68,7 +68,7 @@ function M:__setup()
     run = ':TSUpdate',
     requires = {'p00f/nvim-ts-rainbow', 'RRethy/nvim-treesitter-textsubjects'},
     -- {'romgrk/nvim-treesitter-context'} still some rough edges
-    config = function() require('config.plugins.treesitter').setup() end,
+    config = function() require('config.plugins.treesitter').setup() end
   }
 
   -- Fri Apr 02 2021 09:08: Very slow for big files
@@ -85,7 +85,7 @@ function M:__setup()
   }
 
   use {
-    'lewis6991/gitsigns.nvim', 
+    'lewis6991/gitsigns.nvim',
     requires = {'nvim-lua/plenary.nvim'},
     cond = function() return require('utils.utils').has_unix() end,
     config = function() require('config.plugins.gitsigns').setup() end
@@ -103,7 +103,7 @@ function M:__setup()
   use {'nanotee/nvim-lua-guide'}
   use {
     'kyazdani42/nvim-tree.lua',
-    config = function() 
+    config = function()
       require('config.plugins.tree_explorer').nvimtree_config()
     end
   }
@@ -123,18 +123,17 @@ function M:__setup()
       {'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'},
       {'nvim-lua/telescope.nvim'}
     },
-    config = function()
-      require('telescope').load_extension('octo')
-    end,
+    config = function() require('telescope').load_extension('octo') end,
     cond = function() return vim.fn.executable('gh') > 0 end
   }
 
   use {
-    'lukas-reineke/indent-blankline.nvim', 
+    'lukas-reineke/indent-blankline.nvim',
     branch = 'lua',
     config = function()
       vim.g.indent_blankline_filetype = {
-        'vim', 'lua', 'c', 'python', 'cpp', 'java', 'cs', 'sh', 'ps1', 'dosbatch'
+        'vim', 'lua', 'c', 'python', 'cpp', 'java', 'cs', 'sh', 'ps1',
+        'dosbatch'
       }
       vim.g.indent_blankline_char_highlight_list = {'Comment'}
       vim.g.indent_blankline_char_list = {'¦', '┆', '┊'}
@@ -151,15 +150,13 @@ function M:__setup()
   use {
     'rhysd/git-messenger.vim',
     cmd = 'GitMessenger',
-    config = function()
-      vim.g.git_messenger_always_into_popup = true
-    end
+    config = function() vim.g.git_messenger_always_into_popup = true end
   }
 
   use {
     'folke/lua-dev.nvim',
     cond = function() return vim.fn.executable('lua-language-server') > 0 end,
-    config = function() 
+    config = function()
       if not require('utils.utils').is_mod_available('lspconfig') then
         api.nvim_err_writeln('lspconfig module not available')
         return
@@ -187,16 +184,16 @@ function M:__setup()
   }
 
   use {
-    'rcarriga/nvim-dap-ui', 
+    'rcarriga/nvim-dap-ui',
     requires = {{"mfussenegger/nvim-dap"}},
     cond = function() return require('utils.utils').has_unix() end,
     config = function() require('config.plugins.dap').setup() end
   }
 
   use {
-    'TimUntersberger/neogit', 
+    'TimUntersberger/neogit',
     requires = 'nvim-lua/plenary.nvim',
-    config = function() 
+    config = function()
       require('neogit').setup {}
       if not require('utils.utils').is_mod_available('which-key') then
         vim.api.nvim_err_writeln('which-key module not available')
@@ -204,7 +201,7 @@ function M:__setup()
       end
       -- open commit popup
       -- neogit.open({ "commit" })
-      require("which-key").register{
+      require("which-key").register {
         ["<leader>vo"] = {require('neogit').open, "neogit_open"}
       }
     end
@@ -214,7 +211,7 @@ function M:__setup()
     'mizlan/iswap.nvim',
     requires = 'nvim-treesitter/nvim-treesitter',
     config = function()
-      require('iswap').setup{
+      require('iswap').setup {
         -- The keys that will be used as a selection, in order
         -- ('asdfghjklqwertyuiopzxcvbnm' by default)
         keys = 'qwertyuiop',
@@ -235,8 +232,9 @@ function M:__setup()
         vim.api.nvim_err_writeln('iswap: which-key module not available')
         return
       end
-      require("which-key").register{
-        ["<localleader>s"] = {require('iswap').iswap, "iswap_arguments"}}
+      require("which-key").register {
+        ["<localleader>s"] = {require('iswap').iswap, "iswap_arguments"}
+      }
     end
   }
 end
