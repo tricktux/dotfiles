@@ -17,30 +17,6 @@ local wikis_win = {
 }
 local data_folders = {[[/sessions]], [[/ctags]]}
 local cache_folders = {[[/backup]], [[/undo]]}
-local wdev_path = [[D:/wings-dev]]
-local work_repos = {
-  ['1'] = [[/src/OneWings]],
-  ['2'] = [[/src/OneWings2]],
-  ['c'] = [[/config]],
-  ['s'] = [[/src]]
-}
-
-local function _work_mappings(work_dir)
-  if not utl.isdir(work_dir) then
-    log.info("Work directory does not exist, must be home pc: ", work_dir)
-    return
-  end
-  log.info("Work directory: ", work_dir)
-  local map_pref = '<leader>ew'
-  local cmd_pref = '<cmd>lua require("utils.utils").file_fuzzer([['
-  local cmd_suff = ']])<cr>'
-  local opts = {silent = true}
-  for lhs, rhs in pairs(work_repos) do
-    log.trace("lhs = ", map_pref .. lhs, ", rhs = ",
-              cmd_pref .. work_dir .. rhs .. cmd_suff, ", opts = ", opts)
-    map.nnoremap(map_pref .. lhs, cmd_pref .. work_dir .. rhs .. cmd_suff, opts)
-  end
-end
 
 local function _find_dir(dirs)
   vim.validate {dirs = {dirs, 't'}}
@@ -65,8 +41,6 @@ local function _config_win()
   end
 
   vim.g.browser_cmd = 'firefox.exe'
-
-  _work_mappings(wdev_path)
 
   -- Find python
   local py = vim.g.std_data_path .. [[\pyvenv\Scripts]]
