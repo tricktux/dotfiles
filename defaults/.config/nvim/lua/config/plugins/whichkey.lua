@@ -189,15 +189,6 @@ leader.o = {
   t = 'add_todo',
   d = 'delete',
 }
-leader.P = {
-  name = 'plugins',
-  i = {'<cmd>PlugInstall<cr>', 'install'},
-  u = {'<cmd>PlugUpdate<cr>', 'update'},
-  r = {'<cmd>UpdateRemotePlugins<cr>', 'update_remote_plugins'},
-  g = {'<cmd>PlugUpgrade<cr>', 'upgrade_vim_plug'},
-  s = {'<cmd>PlugSearch<cr>', 'search'},
-  l = {'<cmd>PlugClean<cr>', 'clean'},
-}
 leader['/'] = {'<plug>search_grep', 'search_grip'}
 leader.d = 'duplicate_char'
 leader.p = 'paste_from_system'

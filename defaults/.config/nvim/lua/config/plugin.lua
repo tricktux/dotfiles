@@ -241,6 +241,43 @@ function M:__setup()
   }
 end
 
+function M:__set_mappings()
+  if not utl.is_mod_available('which-key') then
+    vim.api.nvim_err_writeln('plugin.lua: which-key module not available')
+    return
+  end
+
+  local wk = require("which-key")
+  local opts = {prefix = '<leader>P'}
+  local plug = {
+    name = 'Plug',
+    i = {'<cmd>PlugInstall<cr>', 'install'},
+    u = {'<cmd>PlugUpdate<cr>', 'update'},
+    r = {'<cmd>UpdateRemotePlugins<cr>', 'update_remote_plugins'},
+    g = {'<cmd>PlugUpgrade<cr>', 'upgrade_vim_plug'},
+    s = {'<cmd>PlugSearch<cr>', 'search'},
+    l = {'<cmd>PlugClean<cr>', 'clean'},
+  }
+  local p = require('packer')
+  local packer = {
+    name = 'Packer',
+    c = {p.compile, 'compile'},
+    u = {p.update, 'update'},
+    r = {'<cmd>UpdateRemotePlugins<cr>', 'update_remote_plugins'},
+    i = {p.install, 'install'},
+    s = {p.sync, 'sync'},
+    a = {p.status, 'status'},
+    l = {p.clean, 'clean'},
+    l = {p.clean, 'clean'},
+  }
+  local mappings = {
+    name = 'plugins',
+    l = plug,
+    a = packer
+  }
+  wk.register(mappings, opts)
+end
+
 function M:setup()
   self:download()
   if not utl.is_mod_available('packer') then
@@ -249,6 +286,7 @@ function M:setup()
   end
 
   self:__setup()
+  self:__set_mappings()
 end
 
 return M
