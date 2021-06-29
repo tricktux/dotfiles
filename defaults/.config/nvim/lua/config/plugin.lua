@@ -8,16 +8,11 @@ local utl = require('utils.utils')
 local api = vim.api
 
 local M = {}
-M._path = vim.g.std_data_path .. [[/site/pack/packer/start/packer.nvim]]
-M._repo = [[https://github.com/wbthomason/packer.nvim]]
-M._config = {
-  compile_path = require('packer.util').join_paths(vim.fn.stdpath('data'),
-                                                   'site', 'plugin',
-                                                   'packer_compiled.vim')
-}
+M.__path = vim.g.std_data_path .. [[/site/pack/packer/start/packer.nvim]]
+M.__repo = [[https://github.com/wbthomason/packer.nvim]]
 
 function M:download()
-  if vim.fn.isdirectory(self._path) ~= 0 then
+  if vim.fn.isdirectory(self.__path) ~= 0 then
     -- Already exists
     return
   end
@@ -27,7 +22,7 @@ function M:download()
     return
   end
 
-  local git_cmd = 'git clone ' .. self._repo .. ' --depth 1 ' .. self._path
+  local git_cmd = 'git clone ' .. self.__repo .. ' --depth 1 ' .. self.__path
   print("packer.nvim does not exist downloading...")
   vim.fn.system(git_cmd)
   vim.cmd('packadd packer.nvim')
@@ -41,7 +36,7 @@ function M:__setup()
   local packer = nil
   if packer == nil then
     packer = require('packer')
-    packer.init(self._config)
+    packer.init()
   end
 
   local use = packer.use
@@ -184,9 +179,9 @@ function M:__setup()
   }
 
   use {
-    'rcarriga/nvim-dap-ui',
-    requires = {{"mfussenegger/nvim-dap"}, {'mfussenegger/nvim-dap-python'}},
-    cond = function() return require('utils.utils').has_unix() end,
+    'rcarriga/nvim-dap-ui', 
+    requires = {{"mfussenegger/nvim-dap"}},
+    -- cond = function() return require('utils.utils').has_unix() end,
     config = function() require('config.plugins.dap'):setup() end
   }
 
@@ -239,6 +234,43 @@ function M:__setup()
   }
 end
 
+function M:__set_mappings()
+  if not utl.is_mod_available('which-key') then
+    vim.api.nvim_err_writeln('plugin.lua: which-key module not available')
+    return
+  end
+
+  local wk = require("which-key")
+  local opts = {prefix = '<leader>P'}
+  local plug = {
+    name = 'Plug',
+    i = {'<cmd>PlugInstall<cr>', 'install'},
+    u = {'<cmd>PlugUpdate<cr>', 'update'},
+    r = {'<cmd>UpdateRemotePlugins<cr>', 'update_remote_plugins'},
+    g = {'<cmd>PlugUpgrade<cr>', 'upgrade_vim_plug'},
+    s = {'<cmd>PlugSearch<cr>', 'search'},
+    l = {'<cmd>PlugClean<cr>', 'clean'},
+  }
+  local p = require('packer')
+  local packer = {
+    name = 'Packer',
+    c = {p.compile, 'compile'},
+    u = {p.update, 'update'},
+    r = {'<cmd>UpdateRemotePlugins<cr>', 'update_remote_plugins'},
+    i = {p.install, 'install'},
+    s = {p.sync, 'sync'},
+    a = {p.status, 'status'},
+    l = {p.clean, 'clean'},
+    l = {p.clean, 'clean'},
+  }
+  local mappings = {
+    name = 'plugins',
+    l = plug,
+    a = packer
+  }
+  wk.register(mappings, opts)
+end
+
 function M:setup()
   self:download()
   if not utl.is_mod_available('packer') then
@@ -247,6 +279,7 @@ function M:setup()
   end
 
   self:__setup()
+  self:__set_mappings()
 end
 
 return M
