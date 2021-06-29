@@ -4,6 +4,7 @@ local M = {}
 
 M.__filetypes = {}
 M.__pyvenv_nix = [[$HOME/.local/share/pyvenv/nvim/bin/python]]
+M.__pyvenv_win = [[$HOME\AppData\Local\nvim-data\pyvenv\Scripts\python.exe]]
 
 local function breakpoint_cond()
   require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))
@@ -19,7 +20,8 @@ function M:__setup_python()
     return
   end
 
-  require('dap-python').setup(self.__pyvenv_nix)
+  local env = utl.has_unix() and self.__pyvenv_nix or self.__pyvenv_win
+  require('dap-python').setup(env)
   table.insert(self.__filetypes, 'python')
 end
 
