@@ -232,6 +232,20 @@ function M:__setup()
       }
     end
   }
+
+  use {
+    'kristijanhusak/orgmode.nvim',
+    config = function()
+      require('orgmode').setup{
+        org_agenda_files = {vim.g.wiki_path .. [[\*]]},
+        org_priority_lowest = 'D',
+        -- org_default_notes_file = '~/Dropbox/org/refile.org',
+        -- mappings = {
+          -- disable_all = true
+        -- },
+      }
+    end
+  }
 end
 
 function M:__set_mappings()

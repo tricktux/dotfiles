@@ -93,9 +93,12 @@ end
 function M.compe()
 
   if not utl.is_mod_available('compe') then
-    print('ERROR: nvim-compe module not available')
+    print('completion.lua: nvim-compe module not available')
     return
   end
+
+  local orgmode = utl.is_mod_available('orgmode') and true or false
+  local lsp = utl.is_mod_available('lspconfig') and true or false
 
   require'compe'.setup {
     enabled = true,
@@ -116,9 +119,10 @@ function M.compe()
       buffer = true,
       calc = true,
       vsnip = true,
-      nvim_lsp = true,
+      nvim_lsp = lsp,
       nvim_lua = true,
       ultisnips = true,
+      orgmode = orgmode,
       -- spell = false,
       -- tags = false,
       snippets_nvim = true
