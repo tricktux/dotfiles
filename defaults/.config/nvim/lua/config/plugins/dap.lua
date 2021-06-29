@@ -2,7 +2,8 @@ local utl = require('utils.utils')
 
 local M = {}
 
-M.filetypes = {'c', 'cpp', 'rust'}
+M.__filetypes = {'c', 'cpp', 'rust', 'python'}
+M.__pyvenv_nix = [[$HOME/.local/share/pyvenv/nvim/bin/python]]
 
 local function breakpoint_cond()
   require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))
@@ -10,6 +11,15 @@ end
 
 local function breakpoint_msg()
   require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))
+end
+
+function M:__setup_python()
+  if not utl.is_mod_available('dap-python') then
+    vim.api.nvim_err_writeln('dap.lua: dap-python module not available')
+    return
+  end
+
+  require('dap-python').setup(self.__pyvenv_nix)
 end
 
 function M:set_mappings(bufnr)
@@ -33,7 +43,7 @@ function M:set_mappings(bufnr)
   -- Determine if there is a config for this filetype
   local cft = vim.opt.filetype:get()
   local found = false
-  for _, ft in ipairs(self.filetypes) do
+  for _, ft in ipairs(self.__filetypes) do
     if ft == cft then
       found = true
       break
@@ -114,6 +124,17 @@ function M:set_mappings(bufnr)
     g = ui
   }
 
+  local py = require('dap-python')
+  if cft == 'python' then
+    mappings.y = {
+      name = 'py_unittest',
+      m = {py.test_method, 'test_method'},
+      c = {py.test_class, 'test_class'},
+      s = {py.debug_selection, 'debug_selection'}
+    }
+    vim.cmd [[vnoremap <silent> <buffer> <localleader>pys <ESC>:lua require('dap-python').debug_selection()<CR>]]
+  end
+
   wk.register({
     ['<F2>'] = {dap.stop, 'stop'},
     ['<F5>'] = {dap.continue, 'continue'},
@@ -125,7 +146,7 @@ function M:set_mappings(bufnr)
   wk.register(mappings, opts)
 end
 
-function M.setup()
+function M:setup()
   if not utl.is_mod_available('dap') then
     vim.api.nvim_err_writeln('dap module not available')
     return
@@ -136,6 +157,7 @@ function M.setup()
     return
   end
 
+  self:__setup_python()
   local dap = require('dap')
   dap.adapters.lldb = {
     type = 'executable',
