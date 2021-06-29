@@ -2,7 +2,7 @@ local utl = require('utils.utils')
 
 local M = {}
 
-M.__filetypes = {'c', 'cpp', 'rust', 'python'}
+M.__filetypes = {}
 M.__pyvenv_nix = [[$HOME/.local/share/pyvenv/nvim/bin/python]]
 
 local function breakpoint_cond()
@@ -20,6 +20,7 @@ function M:__setup_python()
   end
 
   require('dap-python').setup(self.__pyvenv_nix)
+  table.insert(self.__filetypes, 'python')
 end
 
 function M:set_mappings(bufnr)
@@ -185,6 +186,8 @@ function M:setup()
       }
   })
 
+  self:__setup_python()
+
   if vim.fn.executable('lldb-vscode') <= 0 then
     return
   end
@@ -226,9 +229,9 @@ function M:setup()
   -- If you want to use this for rust and c, add something like this:
   dap.configurations.c = dap.configurations.cpp
   dap.configurations.rust = dap.configurations.cpp
-  table.insert(self.filetypes, 'cpp')
-  table.insert(self.filetypes, 'c')
-  table.insert(self.filetypes, 'rust')
+  table.insert(self.__filetypes, 'cpp')
+  table.insert(self.__filetypes, 'c')
+  table.insert(self.__filetypes, 'rust')
 end
 
 return M
