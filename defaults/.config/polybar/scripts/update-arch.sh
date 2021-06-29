@@ -82,7 +82,7 @@ update_pynvim() {
   local pkgs=(
     vim-vint psutil flake8 "jedi==0.17.2" matplot
     "python-language-server[all]" frosted
-    pep8 pylint pynvim isort mypy
+    pep8 pylint pynvim isort mypy debugpy
   )
 
   mkdir -p "$venv_loc"
