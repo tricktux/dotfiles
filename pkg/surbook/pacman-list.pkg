@@ -29,6 +29,7 @@ cmake
 cmus
 colorgcc
 cppcheck
+cpupower
 cscope
 ctags
 cups
