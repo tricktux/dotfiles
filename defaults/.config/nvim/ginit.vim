@@ -13,12 +13,10 @@
 " Guifont! Consolas:h9
 " Guifont! FontAwesome:h9
 function! s:win_nvim_ugly_font() abort
-    let g:GuiFont ='FontAwesome:h9'
+    let l:font = "Consolas:h9"
+    let g:GuiFont = l:font
     execute 'Guifont! ' . g:GuiFont
-	" Guifont! Consolas:h10
-	" Fri Jan 11 2019 11:22 
-	" Dont auto maximize
-	" call GuiWindowMaximized(1)
+    let &guifont=l:font
 	return s:set_nvim_qt_guioptions()
 endfunction
 
