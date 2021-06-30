@@ -9,14 +9,19 @@ function M:setup()
   end
 
   require('orgmode').setup {
-    org_agenda_files = {vim.g.wiki_path .. [[\*]]},
+    org_agenda_files = {vim.g.wiki_path .. [[/*]]},
     org_priority_lowest = 'D',
     org_todo_keywords = {
       'TODO', 'WAITING', 'BLOCKED', '|', 'DONE', 'WONT_DO', 'CANCELED'
     },
-    -- org_default_notes_file = '~/Dropbox/org/refile.org',
+    org_default_notes_file = vim.g.wiki_path .. [[/notes.org]],
     mappings = {
       global = {org_agenda = '<leader>ma', org_capture = '<leader>mc'},
+      capture = {
+        org_capture_finalize = 'q',
+        org_capture_refile = 'R',
+        org_capture_kill = 'Q'
+      },
       agenda = {
         org_agenda_later = '<localleader>l',
         org_agenda_earlier = '<localleader>e',
