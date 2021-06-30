@@ -160,7 +160,7 @@ function M:__setup()
       local luadev = require("lua-dev").setup({
         library = {
           vimruntime = true, -- runtime path
-          -- full signature, docs and completion of vim.api, vim.treesitter, 
+          -- full signature, docs and completion of vim.api, vim.treesitter,
           -- vim.lsp and others
           types = true,
           -- List of plugins you want autocompletion for
@@ -179,7 +179,7 @@ function M:__setup()
   }
 
   use {
-    'rcarriga/nvim-dap-ui', 
+    'rcarriga/nvim-dap-ui',
     requires = {{"mfussenegger/nvim-dap"}, {"mfussenegger/nvim-dap-python"}},
     -- cond = function() return require('utils.utils').has_unix() end,
     config = function() require('config.plugins.dap'):setup() end
@@ -236,12 +236,12 @@ function M:__setup()
   use {
     'kristijanhusak/orgmode.nvim',
     config = function()
-      require('orgmode').setup{
+      require('orgmode').setup {
         org_agenda_files = {vim.g.wiki_path .. [[\*]]},
-        org_priority_lowest = 'D',
+        org_priority_lowest = 'D'
         -- org_default_notes_file = '~/Dropbox/org/refile.org',
         -- mappings = {
-          -- disable_all = true
+        -- disable_all = true
         -- },
       }
     end
@@ -263,7 +263,7 @@ function M:__set_mappings()
     r = {'<cmd>UpdateRemotePlugins<cr>', 'update_remote_plugins'},
     g = {'<cmd>PlugUpgrade<cr>', 'upgrade_vim_plug'},
     s = {'<cmd>PlugSearch<cr>', 'search'},
-    l = {'<cmd>PlugClean<cr>', 'clean'},
+    l = {'<cmd>PlugClean<cr>', 'clean'}
   }
   local p = require('packer')
   local packer = {
@@ -275,13 +275,9 @@ function M:__set_mappings()
     s = {p.sync, 'sync'},
     a = {p.status, 'status'},
     l = {p.clean, 'clean'},
-    l = {p.clean, 'clean'},
+    l = {p.clean, 'clean'}
   }
-  local mappings = {
-    name = 'plugins',
-    l = plug,
-    a = packer
-  }
+  local mappings = {name = 'plugins', l = plug, a = packer}
   wk.register(mappings, opts)
 end
 

@@ -11,7 +11,7 @@ M.__config = {
     -- No actual key bindings are created
     spelling = {
       enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
-      suggestions = 20, -- how many suggestions should be shown in the list?
+      suggestions = 20 -- how many suggestions should be shown in the list?
     },
     presets = {
       operators = true, -- adds help for operators like d, y, ...
@@ -20,8 +20,8 @@ M.__config = {
       windows = true, -- default bindings on <c-w>
       nav = true, -- misc bindings to work with windows
       z = true, -- bindings for folds, spelling and others prefixed with z
-      g = false, -- bindings for prefixed with g
-    },
+      g = false -- bindings for prefixed with g
+    }
   },
   -- add operators that will trigger motion and text object completion
   -- to enable all native operators, set the preset / operators plugin above
@@ -33,28 +33,29 @@ M.__config = {
     -- ["<cr>"] = "RET",
     -- ["<tab>"] = "TAB",
   },
-  motions = {
-    count = true,
-  },
+  motions = {count = true},
   icons = {
     breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
     separator = "→", -- symbol used between a key and it's label
-    group = "+", -- symbol prepended to a group
+    group = "+" -- symbol prepended to a group
   },
   window = {
     border = "none", -- none, single, double, shadow
     position = "bottom", -- bottom, top
-    margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
-    padding = { 1, 2, 1, 2 }, -- extra window padding [top, right, bottom, left]
+    margin = {1, 0, 1, 0}, -- extra window margin [top, right, bottom, left]
+    padding = {1, 2, 1, 2} -- extra window padding [top, right, bottom, left]
   },
   layout = {
-    height = { min = 4, max = 25 }, -- min and max height of the columns
-    width = { min = 20, max = 50 }, -- min and max width of the columns
+    height = {min = 4, max = 25}, -- min and max height of the columns
+    width = {min = 20, max = 50}, -- min and max width of the columns
     spacing = 3, -- spacing between columns
-    align = "left", -- align columns left, center or right
+    align = "left" -- align columns left, center or right
   },
   ignore_missing = false, -- enable this to hide mappings for which you didn't specify a label
-  hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "^:", "^ ", "^call ", "^lua ", "<plug>", "<Plug>"},
+  hidden = {
+    "<silent>", "<cmd>", "<Cmd>", "<CR>", "^:", "^ ", "^call ", "^lua ",
+    "<plug>", "<Plug>"
+  },
   show_help = true, -- show a help message in the command line for using WhichKey
   triggers = "auto", -- automatically setup triggers
   -- triggers = {"<leader>"} -- or specifiy a list manually
@@ -62,9 +63,9 @@ M.__config = {
   triggers_blacklist = {
     -- list of mode / prefixes that should never be hooked by WhichKey
     -- this is mostly relevant for keymaps that start with a native binding
-    i = { "j", "k" },
-    v = { "j", "k" },
-  },
+    i = {"j", "k"},
+    v = {"j", "k"}
+  }
 }
 
 local leader = {}
@@ -76,21 +77,21 @@ leader.t = {
   e = 'terminal',
   t = 'tagbar',
   s = 'spelling',
-  o = 'alternative_commenter',
+  o = 'alternative_commenter'
 }
 leader.c = {
   name = 'cd',
   r = 'root',
   d = 'current_file',
   u = 'one_folder_up',
-  c = 'display_curr_work_dir',
+  c = 'display_curr_work_dir'
 }
 local wings = {
   name = 'wings',
   ['1'] = 'OneWins1',
   ['2'] = 'OneWins2',
   a = 'wings-dev',
-  s = 'SupportFiles',
+  s = 'SupportFiles'
 }
 
 local edit_random_file_type = {
@@ -100,7 +101,7 @@ local edit_random_file_type = {
   m = {'<cmd>UtilsEditTmpFileMarkdown<cr>', 'markdown'},
   v = {'<cmd>UtilsEditTmpFileVim<cr>', 'vim'},
   l = {'<cmd>UtilsEditTmpFileLua<cr>', 'lua'},
-  g = {'<cmd>UtilsEditTmpFileGen<cr>', 'general_enter_extension'},
+  g = {'<cmd>UtilsEditTmpFileGen<cr>', 'general_enter_extension'}
 }
 
 local function ff(arg)
@@ -125,16 +126,12 @@ leader.e = {
   v = {function() ff('$VIMRUNTIME') end, 'vimruntime'},
   w = wings,
   a = 'add folder/file',
-  P = {function() 
-        vim.api.nvim_exec('edit ' .. vim.fn.getreg('+'), true)
-      end, 'edit_file_path_clipboard'}
+  P = {
+    function() vim.api.nvim_exec('edit ' .. vim.fn.getreg('+'), true) end,
+    'edit_file_path_clipboard'
+  }
 }
-local sessions = {
-  name = 'sessions',
-  s = 'save',
-  l = 'load',
-  e = 'load_default',
-}
+local sessions = {name = 'sessions', s = 'save', l = 'load', e = 'load_default'}
 leader.j = {
   name = 'misc',
   ['2'] = '2_char_indent',
@@ -146,19 +143,15 @@ leader.j = {
   c = 'count_last_search',
   ['-'] = {'<cmd>UtilsFontZoomOut<cr>', 'font_decrease'},
   ['='] = {'<cmd>UtilsFontZoomIn<cr>', 'font_increase'},
-  e = sessions,
+  e = sessions
 }
-leader.b = {
-  name = 'buffers/bookmarks',
-  d = 'delete_current',
-  l = 'delete_all',
-}
+leader.b = {name = 'buffers/bookmarks', d = 'delete_current', l = 'delete_all'}
 leader.n = {
   name = 'num_representation',
   h = 'ascii_to_hex',
   c = 'hex_to_ascii',
   r = 'radical_viewer',
-  a = 'get_ascii_cursor',
+  a = 'get_ascii_cursor'
 }
 leader.v = {
   name = 'version_control',
@@ -169,7 +162,7 @@ leader.v = {
   u = 'pull/update',
   l = 'log',
   S = {'<cmd>SignifyToggle<cr>', 'signify_toggle'},
-  d = {'<cmd>SignifyDiff<cr>', 'signify_diff'},
+  d = {'<cmd>SignifyDiff<cr>', 'signify_diff'}
 }
 local function ewr() return require('plugin.report'):edit_weekly_report() end
 leader.w = {
@@ -177,7 +170,7 @@ leader.w = {
   o = 'open',
   a = 'add',
   s = 'search',
-  r = {ewr, 'weekly_report_open'},
+  r = {ewr, 'weekly_report_open'}
 }
 leader.o = {
   name = 'comments',
@@ -187,9 +180,10 @@ leader.o = {
   u = 'update_header_date',
   e = 'end_of_if_comment',
   t = 'add_todo',
-  d = 'delete',
+  d = 'delete'
 }
 leader['/'] = {'<plug>search_grep', 'search_grip'}
+leader.F = {'<plug>file_browser', 'file_browser'}
 leader.d = 'duplicate_char'
 leader.p = 'paste_from_system'
 leader.y = 'yank_to_system'
@@ -208,7 +202,7 @@ lleader.c = {
   s = {'<plug>to_snake_case', 'to_snake_case'},
   c = {'<plug>to_camel_case', 'to_camel_case'},
   b = {'<plug>to_camel_back_case', 'to_camel_back_case'},
-  k = {'<plug>to_kebak_case', 'to_kebak_case'},
+  k = {'<plug>to_kebak_case', 'to_kebak_case'}
 }
 lleader.k = {'<plug>make_project', 'make_project'}
 lleader.j = {'<plug>make_file', 'make_file'}
