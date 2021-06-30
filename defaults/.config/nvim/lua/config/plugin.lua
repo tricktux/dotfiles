@@ -235,16 +235,7 @@ function M:__setup()
 
   use {
     'kristijanhusak/orgmode.nvim',
-    config = function()
-      require('orgmode').setup {
-        org_agenda_files = {vim.g.wiki_path .. [[\*]]},
-        org_priority_lowest = 'D'
-        -- org_default_notes_file = '~/Dropbox/org/refile.org',
-        -- mappings = {
-        -- disable_all = true
-        -- },
-      }
-    end
+    config = function() require('config.plugins.orgmode'):setup() end,
   }
 end
 
@@ -275,7 +266,6 @@ function M:__set_mappings()
     s = {p.sync, 'sync'},
     a = {p.status, 'status'},
     l = {p.clean, 'clean'},
-    l = {p.clean, 'clean'}
   }
   local mappings = {name = 'plugins', l = plug, a = packer}
   wk.register(mappings, opts)
