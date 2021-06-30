@@ -17,6 +17,25 @@ function M:setup()
     org_default_notes_file = vim.g.wiki_path .. [[/notes.org]],
     mappings = {
       global = {org_agenda = '<leader>ma', org_capture = '<leader>mc'},
+      org = {
+        org_refile = '<localleader>r',
+        org_increase_date = '<localleader>A',
+        org_decrease_date = '<localleader>X',
+        org_change_date = '<localleader>d',
+        org_set_tags_command = '<localleader>t',
+        org_toggle_archive_tag = '<localleader>a',
+        org_todo = '<localleader>j',
+        org_todo_prev = '<localleaderk',
+        org_move_subtree_down = '<localleader>J',
+        org_move_subtree_up = '<localleaderK',
+        org_do_promote = '<localleader>h',
+        org_do_demote = '<localleader>l',
+        org_demote_subtree = '<localleader>L',
+        org_promote_subtree = '<localleader>H',
+        org_meta_return = '<localleader><cr>',
+        org_open_at_point = '<localleader>f',
+        org_toggle_checkbox = '<localleader>d',
+      },
       capture = {
         org_capture_finalize = 'q',
         org_capture_refile = 'R',
@@ -29,7 +48,7 @@ function M:setup()
         org_agenda_week_view = '<localleader>w',
         org_agenda_month_view = '<localleader>m',
         org_agenda_year_view = '<localleader>y',
-        org_agenda_goto = '<localleader>f'
+        org_agenda_goto = '<localleader>f',
       }
     }
   }
