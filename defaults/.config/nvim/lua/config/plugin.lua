@@ -53,7 +53,10 @@ function M:__setup()
 
   use {
     'nvim-lua/telescope.nvim',
-    requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
+    requires = {
+      {'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'},
+      {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
+    },
     config = function() require('config.plugins.telescope').setup() end
   }
 
