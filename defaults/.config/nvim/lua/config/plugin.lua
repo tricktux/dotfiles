@@ -235,7 +235,7 @@ function M:__setup()
 
   use {
     'kristijanhusak/orgmode.nvim',
-    config = function() require('config.plugins.orgmode'):setup() end,
+    config = function() require('config.plugins.orgmode'):setup() end
   }
 end
 
@@ -265,7 +265,7 @@ function M:__set_mappings()
     i = {p.install, 'install'},
     s = {p.sync, 'sync'},
     a = {p.status, 'status'},
-    l = {p.clean, 'clean'},
+    l = {p.clean, 'clean'}
   }
   local mappings = {name = 'plugins', l = plug, a = packer}
   wk.register(mappings, opts)
