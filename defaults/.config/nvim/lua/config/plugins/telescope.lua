@@ -124,24 +124,20 @@ function M.setup()
           }
         }
       },
-      prompt_position = "top",
       sorting_strategy = "ascending",
       layout_strategy = "flex",
       winblend = 5,
-      layout_defaults = {
+      layout_config = {
+        prompt_position = "top",
         horizontal = {
-          width_padding = 0.1,
-          height_padding = 0.1,
           preview_width = 0.6
         },
         vertical = {
-          width_padding = 0.05,
-          height_padding = 1,
           preview_height = 0.5
         }
       },
 
-      default_mappings = {
+      mappings = {
         i = {
           ["<c-j>"] = actions.move_selection_next,
           ["<c-k>"] = actions.move_selection_previous,
@@ -165,18 +161,6 @@ function M.setup()
           ["<c-m>"] = actions.file_edit
         }
       },
-      width = 0.75,
-      preview_cutoff = 120,
-      results_height = 1,
-      results_width = 0.8
-
-      -- shorten_path = true,
-      -- winblend = 10, -- help winblend
-      -- winblend = {
-        -- preview = 0,
-        -- prompt = 20,
-        -- results = 20,
-      -- },
     }
   }
   require('telescope').setup(config)
