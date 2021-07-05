@@ -48,3 +48,5 @@ defaults/.config/polybar/scripts/strava.ini
 defaults/.config/rofi/config.rasi
 defaults/.config/nvim/plugin/packer_compiled.vim
 scripts/win/win_center.exe
+
+defaults/.config/nvim/plugin/packer_compiled.lua
