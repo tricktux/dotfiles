@@ -33,32 +33,28 @@ function M.nvimtree_config()
     -- ["<CR>"] = ":YourVimFunction()<cr>",
     -- ["u"] = ":lua require'some_module'.some_function()<cr>",
     -- default mappings
-    ["<CR>"] = tree_cb("edit"),
-    ["o"] = tree_cb("edit"),
-    ["<2-LeftMouse>"] = tree_cb("edit"),
-    ["<2-RightMouse>"] = tree_cb("cd"),
-    ["<C-]>"] = tree_cb("cd"),
-    ["<C-v>"] = tree_cb("vsplit"),
-    ["<C-x>"] = tree_cb("split"),
-    ["<C-t>"] = tree_cb("tabnew"),
-    ["<BS>"] = tree_cb("close_node"),
-    ["u"] = tree_cb("close_node"),
-    ["<S-CR>"] = tree_cb("close_node"),
-    ["<Tab>"] = tree_cb("preview"),
-    ["I"] = tree_cb("toggle_ignored"),
-    ["H"] = tree_cb("toggle_dotfiles"),
-    ["R"] = tree_cb("refresh"),
-    ["a"] = tree_cb("create"),
-    ["d"] = tree_cb("remove"),
-    ["r"] = tree_cb("rename"),
-    ["<C-r>"] = tree_cb("full_rename"),
-    ["x"] = tree_cb("cut"),
-    ["y"] = tree_cb("copy"),
-    ["p"] = tree_cb("paste"),
-    ["[c"] = tree_cb("prev_git_item"),
-    ["]c"] = tree_cb("next_git_item"),
-    ["-"] = tree_cb("dir_up"),
-    ["q"] = tree_cb("close")
+    {key = "<CR>", cb = tree_cb("edit")}, {key = "o", cb = tree_cb("edit")},
+    {key = "<2-LeftMouse>", cb = tree_cb("edit")},
+    {key = "<2-RightMouse>", cb = tree_cb("cd")},
+    {key = "<C-]>", cb = tree_cb("cd")},
+    {key = "<C-v>", cb = tree_cb("vsplit")},
+    {key = "<C-x>", cb = tree_cb("split")},
+    {key = "<C-t>", cb = tree_cb("tabnew")},
+    {key = "<BS>", cb = tree_cb("close_node")},
+    {key = "u", cb = tree_cb("close_node")},
+    {key = "<S-CR>", cb = tree_cb("close_node")},
+    {key = "<Tab>", cb = tree_cb("preview")},
+    {key = "I", cb = tree_cb("toggle_ignored")},
+    {key = "H", cb = tree_cb("toggle_dotfiles")},
+    {key = "R", cb = tree_cb("refresh")}, {key = "a", cb = tree_cb("create")},
+    {key = "d", cb = tree_cb("remove")}, {key = "r", cb = tree_cb("rename")},
+    {key = "<C-r>", cb = tree_cb("full_rename")},
+    {key = "x", cb = tree_cb("cut")}, {key = "y", cb = tree_cb("copy")},
+    {key = "p", cb = tree_cb("paste")},
+    {key = "[c", cb = tree_cb("prev_git_item")},
+    {key = "]c", cb = tree_cb("next_git_item")},
+    {key = "-", cb = tree_cb("dir_up")}, {key = "q", cb = tree_cb("close")},
+    {key = "?", cb = tree_cb("toggle_help")}
   }
 
   -- If 0, do not show the icons for one of 'git' 'folder' and 'files'
@@ -88,12 +84,12 @@ function M.nvimtree_config()
 
   vim.cmd('nnoremap <plug>file_browser :lua require(\'nvim-tree\').toggle()<cr>')
   -- if utl.is_mod_available('which-key') then
-    -- local wk = require("which-key")
-    -- wk.register{require('nvim-tree').toggle, "<plug>file_browser"}
-    -- print('Set file_browser mapping...')
+  -- local wk = require("which-key")
+  -- wk.register{require('nvim-tree').toggle, "<plug>file_browser"}
+  -- print('Set file_browser mapping...')
   -- else
-    -- vim.api.nvim_err_writeln('tree_explorer.lua: which-key module not available')
-    -- vim.cmd('nnoremap <plug>file_browser :NvimTreeToggle<cr>')
+  -- vim.api.nvim_err_writeln('tree_explorer.lua: which-key module not available')
+  -- vim.cmd('nnoremap <plug>file_browser :NvimTreeToggle<cr>')
   -- end
   -- nnoremap <C-n> :NvimTreeToggle<CR>
   -- nnoremap <leader>r :NvimTreeRefresh<CR>
