@@ -127,7 +127,6 @@ function M:__setup()
 
   use {
     'lukas-reineke/indent-blankline.nvim',
-    branch = 'lua',
     config = function()
       vim.g.indent_blankline_filetype = {
         'vim', 'lua', 'c', 'python', 'cpp', 'java', 'cs', 'sh', 'ps1',
