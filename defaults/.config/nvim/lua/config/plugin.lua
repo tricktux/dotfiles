@@ -241,6 +241,11 @@ function M:__setup()
     config = function() require('config.plugins.orgmode'):setup() end
   }
 
+  use {
+    'tpope/vim-obsession',
+    config = function() require('config.plugins.misc'):setup_obsession() end
+  }
+
   -- Keep this setup last. So that it finalizes the lualine config
   use {
     'hoob3rt/lualine.nvim',
