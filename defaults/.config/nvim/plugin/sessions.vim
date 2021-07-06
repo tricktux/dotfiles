@@ -7,7 +7,7 @@
 " Last Modified:  Fri Mar 13 2020 14:19
 
 
-if exists('g:loaded_sessions') || !exists('*ObsessionStatus')
+if exists('g:loaded_sessions')
   finish
 endif
 
@@ -28,7 +28,7 @@ let s:sessions = {
       \ 'helper_plugin' : 
       \   {
       \     'cmd' :  'Obsession',
-      \     'status_fn': function('ObsessionStatus'),
+      \     'status_fn': 'ObsessionStatus',
       \     'status_fn_session_paused': '[S]',
       \   },
       \ }
@@ -49,6 +49,14 @@ function! s:sessions.existing_save() abort
     return -2
   endif
 
+  if !exists(self.helper_plugin.status_fn)
+    if &verbose > 0
+      echoerr '[sessions.existing_save]: Invalid status function'
+    endif
+    return -3
+  endif
+
+  let fn = function(self.helper_plugin.status_fn)
   let l:cmd = 'mksession!'
   if exists(':' . self.helper_plugin.cmd)
     " If helper plugin available use it
@@ -56,8 +64,7 @@ function! s:sessions.existing_save() abort
     " Current helper plugin has the option to be in pause mode. Where no changes 
     " are saved. If we are in that mode do not save anything just return
 
-    if self.helper_plugin.status_fn() ==#
-          \ self.helper_plugin.status_fn_session_paused
+    if fn() ==# self.helper_plugin.status_fn_session_paused
       if &verbose > 0
         echomsg '[sessions.existing_save]: Obsession is paused. So no saving'
       endif
