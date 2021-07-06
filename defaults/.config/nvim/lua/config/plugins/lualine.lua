@@ -8,7 +8,7 @@ local api = vim.api
 local M = {}
 
 -- Color table for highlights
-M.__colors = {
+M.colors = {
   bg = '#202328',
   fg = '#bbc2cf',
   yellow = '#ECBE7B',
@@ -43,8 +43,8 @@ M.__config = {
       -- We are going to use lualine_c an lualine_x as left and
       -- right section. Both are highlighted by c theme .  So we
       -- are just setting default looks o statusline
-      normal = {c = {fg = M.__colors.fg, bg = M.__colors.bg}},
-      inactive = {c = {fg = M.__colors.fg, bg = M.__colors.bg}}
+      normal = {c = {fg = M.colors.fg, bg = M.colors.bg}},
+      inactive = {c = {fg = M.colors.fg, bg = M.colors.bg}}
     }
   },
   sections = {
@@ -74,15 +74,20 @@ function M:ins_left(component)
   table.insert(self.__config.sections.lualine_c, component)
 end
 
--- Inserts a component in lualine_x ot right section
+-- Inserts a component in lualine_x at left section
 function M:ins_right(component)
+  table.insert(self.__config.sections.lualine_x, 1, component)
+end
+
+-- Inserts a component in lualine_x at right section
+function M:__ins_right(component)
   table.insert(self.__config.sections.lualine_x, component)
 end
 
 function M:config()
   self:ins_left{
     function() return '▊' end,
-    color = {fg = self.__colors.blue}, -- Sets highlighting of component
+    color = {fg = self.colors.blue}, -- Sets highlighting of component
     left_padding = 0 -- We don't need space before this
   }
 
@@ -91,31 +96,32 @@ function M:config()
     function()
       -- auto change color according to neovims mode
       local mode_color = {
-        n = self.__colors.red,
-        i = self.__colors.green,
-        v = self.__colors.blue,
-        [''] = self.__colors.blue,
-        V = self.__colors.blue,
-        c = self.__colors.magenta,
-        no = self.__colors.red,
-        s = self.__colors.orange,
-        S = self.__colors.orange,
-        [''] = self.__colors.orange,
-        ic = self.__colors.yellow,
-        R = self.__colors.violet,
-        Rv = self.__colors.violet,
-        cv = self.__colors.red,
-        ce = self.__colors.red,
-        r = self.__colors.cyan,
-        rm = self.__colors.cyan,
-        ['r?'] = self.__colors.cyan,
-        ['!'] = self.__colors.red,
-        t = self.__colors.red
+        n = self.colors.red,
+        i = self.colors.green,
+        v = self.colors.blue,
+        [''] = self.colors.blue,
+        V = self.colors.blue,
+        c = self.colors.magenta,
+        no = self.colors.red,
+        s = self.colors.orange,
+        S = self.colors.orange,
+        [''] = self.colors.orange,
+        ic = self.colors.yellow,
+        R = self.colors.violet,
+        Rv = self.colors.violet,
+        cv = self.colors.red,
+        ce = self.colors.red,
+        r = self.colors.cyan,
+        rm = self.colors.cyan,
+        ['r?'] = self.colors.cyan,
+        ['!'] = self.colors.red,
+        t = self.colors.red
       }
+      local mode = vim.fn.mode()
       vim.api.nvim_command(
-          'hi! LualineMode guifg=' .. mode_color[vim.fn.mode()] .. " guibg=" ..
-              self.__colors.bg)
-      return ''
+          'hi! LualineMode guifg=' .. mode_color[mode] .. " guibg=" ..
+              self.colors.bg)
+      return mode
     end,
     color = "LualineMode",
     left_padding = 0
@@ -125,82 +131,34 @@ function M:config()
     'filename',
     file_status = true,
     condition = self.__conditions.buffer_not_empty,
-    color = {fg = self.__colors.magenta, gui = 'bold'}
+    color = {fg = self.colors.magenta, gui = 'bold'}
   }
 
   self:ins_left{
     'branch',
-    icons_enabled = true,
-    icon = 'git:',
     condition = self.__conditions.check_git_workspace,
-    color = {fg = self.__colors.violet, gui = 'bold'}
+    color = {fg = self.colors.violet, gui = 'bold'}
   }
 
   self:ins_left{
     'diff',
     -- Is it me or the symbol for modified us really weird
     symbols = {added = '+', modified = '~', removed = '-'},
-    color_added = self.__colors.green,
-    color_modified = self.__colors.orange,
-    color_removed = self.__colors.red,
+    color_added = self.colors.green,
+    color_modified = self.colors.orange,
+    color_removed = self.colors.red,
     condition = self.__conditions.hide_in_width
   }
 
   -- Insert mid section. You can make any number of sections in neovim :)
   -- for lualine it's any number greater then 2
-  -- self:ins_left{function() return '%=' end}
+  self:ins_left{function() return '%=' end}
 
-  self:ins_right{
-    'diagnostics',
-    sources = {'nvim_lsp'},
-    symbols = {error = 'e:', warn = 'w:', info = 'i:', hint = 'h:'},
-    color_error = self.__colors.red,
-    color_warn = self.__colors.yellow,
-    color_info = self.__colors.cyan,
-    color_hint = self.__colors.blue
-  }
+  self:__ins_right{'location'}
 
-  self:ins_right{
-    -- Lsp server name .
-    function()
-      local msg = 'No Active Lsp'
-      local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-      local clients = vim.lsp.get_active_clients()
-      if next(clients) == nil then return msg end
-      for _, client in ipairs(clients) do
-        local filetypes = client.config.filetypes
-        if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-          return client.name
-        end
-      end
-      return msg
-    end,
-    icons_enabled = true,
-    icon = 'lsp:',
-    color = {fg = '#ffffff', gui = 'bold'},
-    condition = function() return #vim.lsp.buf_get_clients() > 0 end
-  }
+  self:__ins_right{'progress', color = {fg = self.colors.fg, gui = 'bold'}}
 
-  -- Add components to right sections
-  -- self:ins_right{
-  -- 'o:encoding', -- option component same as &encoding in viml
-  -- upper = true, -- I'm not sure why it's upper case either ;)
-  -- condition = self.__conditions.hide_in_width,
-  -- color = {fg = self.__colors.green, gui = 'bold'}
-  -- }
-
-  -- self:ins_right{
-  -- 'fileformat',
-  -- upper = true,
-  -- icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
-  -- color = {fg = self.__colors.green, gui = 'bold'}
-  -- }
-
-  self:ins_right{'location'}
-
-  self:ins_right{'progress', color = {fg = self.__colors.fg, gui = 'bold'}}
-
-  self:ins_right{
+  self:__ins_right{
     -- filesize component
     function()
       local function format_file_size(file)
@@ -221,9 +179,10 @@ function M:config()
     condition = self.__conditions.buffer_not_empty
   }
 
-  self:ins_right{
+  self:__ins_right{
+
     function() return '▊' end,
-    color = {fg = self.__colors.blue},
+    color = {fg = self.colors.blue},
     right_padding = 0
   }
 

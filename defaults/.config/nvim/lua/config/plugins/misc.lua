@@ -13,7 +13,7 @@ function M.setup_obsession()
   vim.g.obsession_no_bufenter = 1
   line:ins_right{
     obsession_status,
-    color = {fg = line.__colors.violet, gui = 'bold'}
+    color = {fg = line.colors.blue, gui = 'bold'}
   }
 end
 

@@ -18,6 +18,13 @@ local function setup_lspstatus()
   }
   require('lsp-status').config(config)
   require('lsp-status').register_progress()
+
+  local line = require('config.plugins.lualine')
+  line:ins_right{
+    require('lsp-status').status,
+    color = {fg = line.colors.green, gui = 'bold'},
+    condition = function() return #vim.lsp.buf_get_clients() > 0 end
+  }
   return true
 end
 
