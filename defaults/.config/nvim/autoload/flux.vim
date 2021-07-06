@@ -267,6 +267,10 @@ function! flux#Helper(day_period) abort
 endfunction
 
 function! s:change_status_line_colors(colorscheme) abort
+  if !exists('g:lightline')
+    return
+  end
+
   let g:lightline.colorscheme = a:colorscheme
   call lightline#init()
   call lightline#colorscheme()

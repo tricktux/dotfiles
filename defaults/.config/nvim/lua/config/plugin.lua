@@ -53,7 +53,10 @@ function M:__setup()
 
   use {
     'nvim-lua/telescope.nvim',
-    requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
+    requires = {
+      {'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'},
+      {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
+    },
     config = function() require('config.plugins.telescope').setup() end
   }
 
@@ -95,6 +98,7 @@ function M:__setup()
       vim.g.lazygit_use_neovim_remote = 0
     end
   }
+
   use {'nanotee/nvim-lua-guide'}
   use {
     'kyazdani42/nvim-tree.lua',
@@ -124,7 +128,6 @@ function M:__setup()
 
   use {
     'lukas-reineke/indent-blankline.nvim',
-    branch = 'lua',
     config = function()
       vim.g.indent_blankline_filetype = {
         'vim', 'lua', 'c', 'python', 'cpp', 'java', 'cs', 'sh', 'ps1',
@@ -235,8 +238,21 @@ function M:__setup()
 
   use {
     'kristijanhusak/orgmode.nvim',
-    config = function() require('config.plugins.orgmode'):setup() end,
+    config = function() require('config.plugins.orgmode'):setup() end
   }
+
+  use {
+    'tpope/vim-obsession',
+    config = function() require('config.plugins.misc'):setup_obsession() end
+  }
+
+  -- Keep this setup last. So that it finalizes the lualine config
+  use {
+    'hoob3rt/lualine.nvim',
+    -- requires = {'kyazdani42/nvim-web-devicons', opt = true},
+    config = function() require('config.plugins.lualine'):setup() end
+  }
+
 end
 
 function M:__set_mappings()
@@ -265,7 +281,7 @@ function M:__set_mappings()
     i = {p.install, 'install'},
     s = {p.sync, 'sync'},
     a = {p.status, 'status'},
-    l = {p.clean, 'clean'},
+    l = {p.clean, 'clean'}
   }
   local mappings = {name = 'plugins', l = plug, a = packer}
   wk.register(mappings, opts)
@@ -278,6 +294,9 @@ function M:setup()
     return
   end
 
+  -- Setup initial lualine config. Plugins will add stuff, setup will finalize 
+  -- it
+  require('config.plugins.lualine'):config()
   self:__setup()
   self:__set_mappings()
 end

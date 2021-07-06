@@ -10,7 +10,6 @@ cmake-lint
 cpplint
 dispad-git
 gdb-dashboard-git
-goimapnotify
 google-chrome
 hal
 i3lock-fancy-git
@@ -18,7 +17,7 @@ jdtls
 laptop-mode-tools
 lcov
 lua-format
-lua-language-server
+lua-language-server-git
 luacheck
 mop
 neovim-nightly-bin

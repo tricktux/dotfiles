@@ -39,7 +39,7 @@ function! plugin#Config()
   " This call must remain atop since sets the g:lightline variable to which
   " other plugins add to
   " selection - {lightline, airline}
-  call status_line#config('lightline')
+  " call status_line#config('lightline')
 
   " Plug 'Yggdroot/indentLine', { 'for' : [ 'java', 'cpp', 'c', 'python' ] }
   Plug 'whiteinge/diffconflicts'
@@ -65,13 +65,13 @@ function! plugin#Config()
   let g:ChePHX_GUIatSheetIdPath=g:std_cache_path .
         \ '\cheat_sh_id'
 
-  Plug 'tpope/vim-obsession'
-  let g:obsession_no_bufenter = 1
-  if exists('g:lightline')
-    let g:lightline.active.left[1] += [ 'sessions' ]
-    let g:lightline.component_function['sessions'] =
-          \ string(function('s:obsession_status'))
-  endif
+  " Plug 'tpope/vim-obsession'
+  " let g:obsession_no_bufenter = 1
+  " if exists('g:lightline')
+    " let g:lightline.active.left[1] += [ 'sessions' ]
+    " let g:lightline.component_function['sessions'] =
+          " \ string(function('s:obsession_status'))
+  " endif
   " Mon Feb 17 2020 13:27 not working for me
   " Plug 'thaerkh/vim-workspace'
   " let g:workspace_session_directory = g:std_data_path . '/sessions/'
