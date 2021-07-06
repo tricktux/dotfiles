@@ -150,11 +150,7 @@ function M:config()
     condition = self.__conditions.hide_in_width
   }
 
-  -- Insert mid section. You can make any number of sections in neovim :)
-  -- for lualine it's any number greater then 2
-  self:ins_left{function() return '%=' end}
-
-  self:__ins_right{'location'}
+  self:__ins_right{'location', right_padding = 0}
 
   self:__ins_right{'progress', color = {fg = self.colors.fg, gui = 'bold'}}
 
@@ -176,7 +172,9 @@ function M:config()
       if string.len(file) == 0 then return '' end
       return format_file_size(file)
     end,
-    condition = self.__conditions.buffer_not_empty
+    condition = self.__conditions.buffer_not_empty,
+    left_padding = 0,
+    right_padding = 0,
   }
 
   self:__ins_right{
