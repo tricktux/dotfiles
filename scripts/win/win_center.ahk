@@ -34,8 +34,8 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 LCtrl::CapsLock
 CapsLock::LCtrl
 
-; #+Up::CenterActiveWindowUp() ; if win+shift+↑ is pressed
-; #+Down::CenterActiveWindowDown() ; if win+shift+↑ is pressed
+#+Up::CenterActiveWindowUp() ; if win+shift+↑ is pressed
+#+Down::CenterActiveWindowDown() ; if win+shift+↑ is pressed
 
 #n::ToggleWinMinimize("Double Commander")
 #;::ToggleWinMinimize("Cmd")
