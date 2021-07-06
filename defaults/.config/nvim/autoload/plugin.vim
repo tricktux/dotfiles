@@ -39,7 +39,7 @@ function! plugin#Config()
   " This call must remain atop since sets the g:lightline variable to which
   " other plugins add to
   " selection - {lightline, airline}
-  call status_line#config('lightline')
+  " call status_line#config('lightline')
 
   " Plug 'Yggdroot/indentLine', { 'for' : [ 'java', 'cpp', 'c', 'python' ] }
   Plug 'whiteinge/diffconflicts'

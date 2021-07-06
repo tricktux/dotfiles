@@ -98,6 +98,7 @@ function M:__setup()
       vim.g.lazygit_use_neovim_remote = 0
     end
   }
+
   use {'nanotee/nvim-lua-guide'}
   use {
     'kyazdani42/nvim-tree.lua',
@@ -239,6 +240,14 @@ function M:__setup()
     'kristijanhusak/orgmode.nvim',
     config = function() require('config.plugins.orgmode'):setup() end
   }
+
+  -- Keep this setup last. So that it finalizes the lualine config
+  use {
+    'hoob3rt/lualine.nvim',
+    -- requires = {'kyazdani42/nvim-web-devicons', opt = true},
+    config = function() require('config.plugins.lualine'):setup() end
+  }
+
 end
 
 function M:__set_mappings()
@@ -280,6 +289,9 @@ function M:setup()
     return
   end
 
+  -- Setup initial lualine config. Plugins will add stuff, setup will finalize 
+  -- it
+  require('config.plugins.lualine'):setup_config()
   self:__setup()
   self:__set_mappings()
 end
