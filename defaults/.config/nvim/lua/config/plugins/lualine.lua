@@ -63,9 +63,10 @@ M.__config = {
     lualine_v = {},
     lualine_y = {},
     lualine_z = {},
-    lualine_c = {},
-    lualine_x = {}
-  }
+    lualine_c = {{'filename', path = 2}},
+    lualine_x = {'location'}
+  },
+  extensions = {'fzf', 'nvim-tree', 'quickfix', 'fugitive'}
 }
 
 -- Inserts a component in lualine_c at left section
@@ -78,7 +79,7 @@ function M:ins_right(component)
   table.insert(self.__config.sections.lualine_x, component)
 end
 
-function M:setup_config()
+function M:config()
   self:ins_left{
     function() return '▊' end,
     color = {fg = self.__colors.blue}, -- Sets highlighting of component
@@ -122,12 +123,14 @@ function M:setup_config()
 
   self:ins_left{
     'filename',
+    file_status = true,
     condition = self.__conditions.buffer_not_empty,
     color = {fg = self.__colors.magenta, gui = 'bold'}
   }
 
   self:ins_left{
     'branch',
+    icons_enabled = true,
     icon = 'git:',
     condition = self.__conditions.check_git_workspace,
     color = {fg = self.__colors.violet, gui = 'bold'}
@@ -172,25 +175,26 @@ function M:setup_config()
       end
       return msg
     end,
+    icons_enabled = true,
     icon = 'lsp:',
     color = {fg = '#ffffff', gui = 'bold'},
-    condition = function() return #vim.lsp.get_active_clients() > 0 end
+    condition = function() return #vim.lsp.buf_get_clients() > 0 end
   }
 
   -- Add components to right sections
-  self:ins_right{
-    'o:encoding', -- option component same as &encoding in viml
-    upper = true, -- I'm not sure why it's upper case either ;)
-    condition = self.__conditions.hide_in_width,
-    color = {fg = self.__colors.green, gui = 'bold'}
-  }
+  -- self:ins_right{
+  -- 'o:encoding', -- option component same as &encoding in viml
+  -- upper = true, -- I'm not sure why it's upper case either ;)
+  -- condition = self.__conditions.hide_in_width,
+  -- color = {fg = self.__colors.green, gui = 'bold'}
+  -- }
 
-  self:ins_right{
-    'fileformat',
-    upper = true,
-    icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
-    color = {fg = self.__colors.green, gui = 'bold'}
-  }
+  -- self:ins_right{
+  -- 'fileformat',
+  -- upper = true,
+  -- icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
+  -- color = {fg = self.__colors.green, gui = 'bold'}
+  -- }
 
   self:ins_right{'location'}
 

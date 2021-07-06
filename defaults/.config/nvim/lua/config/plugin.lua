@@ -291,7 +291,7 @@ function M:setup()
 
   -- Setup initial lualine config. Plugins will add stuff, setup will finalize 
   -- it
-  require('config.plugins.lualine'):setup_config()
+  require('config.plugins.lualine'):config()
   self:__setup()
   self:__set_mappings()
 end
