@@ -55,8 +55,25 @@ local function on_attach(bufnr)
     k = {gs.prev_hunk, 'prev_hunk'}
   }
   wk.register(mappings, opts)
-  wk.register ({["]c"] = {next_hunk, 'next_hunk'}}, {buffer = bufnr})
-  wk.register ({["[c"] = {prev_hunk, 'prev_hunk'}}, {buffer = bufnr})
+  wk.register({
+    ["]c"] = {next_hunk, 'next_hunk'},
+    ["[c"] = {prev_hunk, 'prev_hunk'}
+  }, {buffer = bufnr})
+
+  if utl.is_mod_available('telescope') then
+    local ts = require("telescope.builtin")
+    opts.prefix = '<leader>vt'
+    mappings = {
+      name = 'telescope',
+      f = {ts.git_files, 'files'},
+      C = {ts.git_commits, 'commits'},
+      c = {ts.git_bcommits, 'commits_current_buffer'},
+      b = {ts.git_branches, 'branches'},
+      s = {ts.git_status, 'status'},
+      S = {ts.git_stash, 'stash'}
+    }
+    wk.register(mappings, opts)
+  end
   return true
 end
 
