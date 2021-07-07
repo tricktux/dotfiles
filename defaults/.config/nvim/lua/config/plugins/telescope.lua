@@ -77,7 +77,7 @@ end
 
 function M.setup()
   if not utl.is_mod_available('telescope') then
-    api.nvim_err_writeln('telescope module not available')
+    vim.api.nvim_err_writeln('telescope module not available')
     return
   end
 
