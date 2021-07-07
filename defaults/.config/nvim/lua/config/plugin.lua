@@ -154,31 +154,7 @@ function M:__setup()
   use {
     'folke/lua-dev.nvim',
     cond = function() return vim.fn.executable('lua-language-server') > 0 end,
-    config = function()
-      if not require('utils.utils').is_mod_available('lspconfig') then
-        api.nvim_err_writeln('lspconfig module not available')
-        return
-      end
-
-      local luadev = require("lua-dev").setup({
-        library = {
-          vimruntime = true, -- runtime path
-          -- full signature, docs and completion of vim.api, vim.treesitter,
-          -- vim.lsp and others
-          types = true,
-          -- List of plugins you want autocompletion for
-          plugins = {'plenary'}
-        },
-        -- pass any additional options that will be merged in the final lsp config
-        lspconfig = {
-          cmd = {"lua-language-server"},
-          on_attach = require('config.lsp').on_lsp_attach
-        }
-      })
-
-      local lspconfig = require('lspconfig')
-      lspconfig.sumneko_lua.setup(luadev)
-    end
+    config = function() require('config.plugins.misc').setup_luadev() end
   }
 
   use {
@@ -191,49 +167,13 @@ function M:__setup()
   use {
     'TimUntersberger/neogit',
     requires = 'nvim-lua/plenary.nvim',
-    config = function()
-      require('neogit').setup {}
-      if not require('utils.utils').is_mod_available('which-key') then
-        vim.api.nvim_err_writeln('which-key module not available')
-        return
-      end
-      -- open commit popup
-      -- neogit.open({ "commit" })
-      require("which-key").register {
-        ["<leader>vo"] = {require('neogit').open, "neogit_open"}
-      }
-    end
+    config = function() require('config.plugins.misc').setup_neogit() end
   }
 
   use {
     'mizlan/iswap.nvim',
     requires = 'nvim-treesitter/nvim-treesitter',
-    config = function()
-      require('iswap').setup {
-        -- The keys that will be used as a selection, in order
-        -- ('asdfghjklqwertyuiopzxcvbnm' by default)
-        keys = 'qwertyuiop',
-        -- Grey out the rest of the text when making a selection
-        -- (enabled by default)
-        grey = 'enabled',
-        -- Highlight group for the sniping value (asdf etc.)
-        -- default 'Search'
-        hl_snipe = 'ErrorMsg',
-        -- Highlight group for the visual selection of terms
-        -- default 'Visual'
-        hl_selection = 'WarningMsg',
-        -- Highlight group for the greyed background
-        -- default 'Comment'
-        hl_grey = 'LineNr'
-      }
-      if not require('utils.utils').is_mod_available('which-key') then
-        vim.api.nvim_err_writeln('iswap: which-key module not available')
-        return
-      end
-      require("which-key").register {
-        ["<localleader>s"] = {require('iswap').iswap, "iswap_arguments"}
-      }
-    end
+    config = function() require('config.plugins.misc').setup_iswap() end
   }
 
   use {
