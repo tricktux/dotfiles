@@ -210,7 +210,7 @@ lleader.f = {'<plug>format_code', 'format_code'}
 lleader.r = {'<plug>refactor_code', 'refactor_code'}
 
 local rbracket = {}
-local rbracket_p = '['
+local rbracket_p = ']'
 rbracket.c = 'next_diff'
 rbracket.p = {'<cmd>diffput<cr>', 'diffput'}
 rbracket.g = {'<cmd>diffget<cr>', 'diffget'}
@@ -239,7 +239,7 @@ rbracket['/'] = 'goto_next_comment'
 rbracket['#'] = 'goto_next_unmatched_defined_if'
 
 local lbracket = {}
-local lbracket_p = ']'
+local lbracket_p = '['
 lbracket.c = 'prev_diff'
 lbracket.p = {'<cmd>diffput<cr>', 'diffput'}
 lbracket.g = {'<cmd>diffget<cr>', 'diffget'}
