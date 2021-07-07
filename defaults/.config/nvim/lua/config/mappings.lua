@@ -1,5 +1,5 @@
 local api = vim.api
-local utl = require('utils/utils')
+local utl = require('utils.utils')
 
 local function refresh_buffer()
   api.nvim_exec([[
@@ -12,6 +12,8 @@ local function refresh_buffer()
   ]], false)
 
   if vim.fn.exists(':SignifyRefresh') > 0 then vim.cmd('SignifyRefresh') end
+
+  if utl.is_mod_available('gitsigns') then require('gitsigns').refresh() end
 
   if vim.fn.exists(':IndentBlanklineRefresh') > 0 then
     vim.cmd('IndentBlanklineRefresh')
