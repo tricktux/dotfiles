@@ -133,22 +133,6 @@ function M:config()
     color = {fg = self.colors.magenta, gui = 'bold'}
   }
 
-  self:ins_left{
-    'branch',
-    condition = self.__conditions.check_git_workspace,
-    color = {fg = self.colors.violet, gui = 'bold'}
-  }
-
-  self:ins_left{
-    'diff',
-    -- Is it me or the symbol for modified us really weird
-    symbols = {added = '+', modified = '~', removed = '-'},
-    color_added = self.colors.green,
-    color_modified = self.colors.orange,
-    color_removed = self.colors.red,
-    condition = self.__conditions.hide_in_width
-  }
-
   self:__ins_right{'location', right_padding = 0}
 
   self:__ins_right{'progress', color = {fg = self.colors.fg, gui = 'bold'}}
