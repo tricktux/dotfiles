@@ -85,7 +85,6 @@ function M:__setup()
   use {
     'lewis6991/gitsigns.nvim',
     requires = {'nvim-lua/plenary.nvim'},
-    cond = function() return require('utils.utils').has_unix() end,
     config = function() require('config.plugins.gitsigns').setup() end
   }
 
