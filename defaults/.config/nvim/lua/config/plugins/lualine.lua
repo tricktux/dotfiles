@@ -118,9 +118,8 @@ function M:config()
         t = self.colors.red
       }
       local mode = vim.fn.mode()
-      vim.api.nvim_command(
-          'hi! LualineMode guifg=' .. mode_color[mode] .. " guibg=" ..
-              self.colors.bg)
+      vim.api.nvim_command('hi! LualineMode guifg=' .. mode_color[mode] ..
+                               " guibg=" .. self.colors.bg)
       return mode
     end,
     color = "LualineMode",
@@ -174,7 +173,7 @@ function M:config()
     end,
     condition = self.__conditions.buffer_not_empty,
     left_padding = 0,
-    right_padding = 0,
+    right_padding = 0
   }
 
   self:__ins_right{
