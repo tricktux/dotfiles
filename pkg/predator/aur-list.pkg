@@ -5,12 +5,15 @@ bottom-bin
 chromedriver
 cmake-format
 cmake-lint
+cpupower-gui
 gdb-dashboard-git
+geekbench
 google-chrome
 i3ass
 jdtls
 liquidprompt
 lua-format
+lua-language-server-git
 luacheck
 neovim-nightly-bin
 neovim-remote

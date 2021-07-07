@@ -25,6 +25,7 @@ clang
 cmus
 colorgcc
 cppcheck
+cpupower
 cscope
 ctags
 cups
@@ -179,6 +180,7 @@ texlive-pictures
 texlive-pstricks
 texlive-publishers
 texlive-science
+tickrs
 tldr
 tmux
 ttf-fira-code
