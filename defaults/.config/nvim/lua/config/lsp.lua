@@ -23,7 +23,8 @@ local function setup_lspstatus()
   line:ins_right{
     require('lsp-status').status,
     color = {fg = line.colors.green, gui = 'bold'},
-    condition = function() return #vim.lsp.buf_get_clients() > 0 end
+    condition = function() return #vim.lsp.buf_get_clients() > 0 end,
+    right_padding = 0
   }
   return true
 end
