@@ -162,7 +162,7 @@ function! s:neomake_job_finished() abort
 	let s:msg .= printf("%s: %d ", m.maker.name, m.exit_code)
 endfunction
 
-function! s:neomake_native_status_line() abort
+function! linting#neomake_native_status_line() abort
   " Check if neomake is disabled
   let disabled = get(b:, 'neomake', {})
   if !empty(disabled) && get(disabled, 'disabled', 0)
