@@ -23,7 +23,8 @@ function report:__find_most_recent()
     end
     for j=week,1,-1 do
       -- Create file name
-      local potential = search_folder .. '\\' .. self.name_preffix .. j .. '.md'
+      local potential = search_folder .. '\\' .. self.name_preffix .. string.format("%02d", j) .. '.md'
+      log.info("Searching file: " .. potential)
       if utl.isfile(potential) then
         log.info("Found potential report file: " .. potential)
         return potential
