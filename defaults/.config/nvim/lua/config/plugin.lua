@@ -182,11 +182,131 @@ function M:__setup()
   }
 
   use {
-    'tpope/vim-obsession',
-    config = function() require('config.plugins.misc'):setup_obsession() end
+    'majutsushi/tagbar', 
+    cmd = 'Tagbar',
+    config = function()
+      vim.g.tagbar_ctags_bin = 'ctags'
+      vim.g.tagbar_autofocus = 1
+      vim.g.tagbar_show_linenumbers = 2
+      vim.g.tagbar_map_togglesort = 'r'
+      vim.g.tagbar_map_nexttag = '<c-j>'
+      vim.g.tagbar_map_prevtag = '<c-k>'
+      vim.g.tagbar_map_openallfolds = '<c-n>'
+      vim.g.tagbar_map_closeallfolds = '<c-c>'
+      vim.g.tagbar_map_togglefold = '<c-x>'
+      vim.g.tagbar_autoclose = 1
+    end
+  }
+
+  use {
+    'juneedahamed/svnj.vim', 
+    cmd = {'SVNStatus', 'SVNCommit'},
+    config = function()
+      vim.g.svnj_allow_leader_mappings=0
+      vim.g.svnj_cache_dir = vim.g.std_cache_path
+      vim.g.svnj_browse_cache_all = 1
+      vim.g.svnj_custom_statusbar_ops_hide = 0
+      vim.g.svnj_browse_cache_max_cnt = 50
+      vim.g.svnj_custom_fuzzy_match_hl = 'Directory'
+      vim.g.svnj_custom_menu_color = 'Question'
+      vim.g.svnj_fuzzy_search = 1
+    end
+  }
+
+  use {
+    'PProvost/vim-ps1',
+    ft = 'ps1',
+    cond = function() return require('utils.utils').has_win() end,
+  }
+
+  use {'matze/vim-ini-fold', ft = 'dosini'}
+
+  use {
+    'chrisbra/csv.vim', 
+    ft = 'csv',
+    config = function()
+      vim.g.no_csv_maps = 1
+      vim.g.csv_strict_columns = 1
+    end
+  }
+
+  -- Good for folding markdown and others
+  use {'fourjay/vim-flexagon', ft = 'markdown'}
+
+  -- Extra syntax
+  use {'elzr/vim-json', ft = 'json'}
+  use {'aklt/plantuml-syntax', ft = 'plantuml'}
+  use {'MTDL9/vim-log-highlighting', ft = 'log'}
+  use {'alepez/vim-gtest', ft = 'cpp'}
+  use {'neomutt/neomutt.vim', ft = 'muttrc'}
+
+  use 'editorconfig/editorconfig-vim'
+
+  use {
+    'chaoren/vim-wordmotion', 
+    config = function()
+      vim.g.wordmotion_mappings = {
+        w = 'L',
+        b = 'H',
+        e = '',
+        W = '',
+        B = '',
+        E = '',
+        ['ge']= '',
+        ['aw']= '',
+        ['iw']= '',
+        ['<C-R><C-W>'] = ''
+      }
+    end
+  }
+
+  use {
+    'mhinz/vim-startify',
+    config = function()
+      vim.g.startify_session_dir = vim.g.std_data_path .. '/sessions/'
+
+      vim.g.startify_lists = {
+        { ['type'] = 'sessions',  ['header'] = {'   Sessions'}       },
+        { ['type'] = 'files',     ['header'] = {'   MRU'}            },
+      }
+      vim.g.startify_change_to_dir = 0
+      vim.g.startify_session_sort = 1
+      vim.g.startify_session_number = 10
+    end
+  }
+
+  use {
+    'NLKNguyen/papercolor-theme',
+    config = function() require('config.plugins.misc'):setup_papercolor() end
+  }
+
+  use {
+    'jiangmiao/auto-pairs',
+    config = function()
+      -- Really annoying option
+      vim.g.AutoPairsFlyMode = 0
+      vim.g.AutoPairsShortcutToggle = ''
+      vim.g.AutoPairsShortcutFastWrap = ''
+      vim.g.AutoPairsShortcutJump = ''
+      vim.g.AutoPairsShortcutBackInsert = ''
+    end
   }
 
   use {'tpope/vim-fugitive', cmd = 'Gcommit'}
+  use 'tpope/vim-repeat'
+  use 'tpope/vim-surround'
+  use {
+    'tpope/vim-dispatch',
+    config = function() vim.g.dispatch_no_maps = 1 end
+  }
+  use {
+    'radenling/vim-dispatch-neovim',
+    cond = function() return vim.fn.has('nvim') > 0 end
+  }
+  use {
+    'tpope/vim-obsession',
+    config = function() require('config.plugins.misc'):setup_obsession() end
+  }
 
   -- Keep this setup last. So that it finalizes the lualine config
   use {

@@ -165,13 +165,13 @@ function! plugin#Config()
   " endif
 
   " Possible Replacement `asyncvim`
-  Plug 'tpope/vim-dispatch'
-  if has('nvim')
-    " Note: Thu Aug 24 2017 21:03 This plugin is actually required for the git
-    " plugin to work in neovim
-    Plug 'radenling/vim-dispatch-neovim'
-  endif
-  let g:dispatch_no_maps = 1
+  " Plug 'tpope/vim-dispatch'
+  " if has('nvim')
+    " " Note: Thu Aug 24 2017 21:03 This plugin is actually required for the git
+    " " plugin to work in neovim
+    " Plug 'radenling/vim-dispatch-neovim'
+  " endif
+  " let g:dispatch_no_maps = 1
 
   call s:configure_vim_table_mode()
 
@@ -191,33 +191,33 @@ function! plugin#Config()
 
   call s:configure_nerdcommenter()
 
-  Plug 'chrisbra/Colorizer', { 'on' : 'ColorHighlight',
-        \ 'for' : [ 'css','html','xml' ] }
-  let g:colorizer_auto_filetype='css,html,xml'
-  Plug 'tpope/vim-repeat'
-  Plug 'tpope/vim-surround'
+  " Plug 'chrisbra/Colorizer', { 'on' : 'ColorHighlight',
+        " \ 'for' : [ 'css','html','xml' ] }
+  " let g:colorizer_auto_filetype='css,html,xml'
+  " Plug 'tpope/vim-repeat'
+  " Plug 'tpope/vim-surround'
 
   " Fold stuff
   " Fri May 19 2017 12:50 I have tried many times to get 'fdm=syntax' to work
   " on large files but its just not possible. Too slow.
-  Plug 'Konfekt/FastFold', { 'on' : 'FastFold' }
+  " Plug 'Konfekt/FastFold', { 'on' : 'FastFold' }
   " Stop updating folds everytime I save a file
-  let g:fastfold_savehook = 0
-  " To update folds now you have to do it manually pressing 'zuz'
-  let g:fastfold_fold_command_suffixes =
-        \['x','X','a','A','o','O','c','C','r','R','m','M','i','n','N']
+  " let g:fastfold_savehook = 0
+  " " To update folds now you have to do it manually pressing 'zuz'
+  " let g:fastfold_fold_command_suffixes =
+        " \['x','X','a','A','o','O','c','C','r','R','m','M','i','n','N']
 
   call s:configure_vim_rooter()
 
   " Fri Feb 14 2020 15:30
   " Trying alternative
-  Plug 'jiangmiao/auto-pairs'
-  " Really annoying option
-  let g:AutoPairsFlyMode = 0
-  let g:AutoPairsShortcutToggle = ''
-  let g:AutoPairsShortcutFastWrap = ''
-  let g:AutoPairsShortcutJump = ''
-  let g:AutoPairsShortcutBackInsert = ''
+  " Plug 'jiangmiao/auto-pairs'
+  " " Really annoying option
+  " let g:AutoPairsFlyMode = 0
+  " let g:AutoPairsShortcutToggle = ''
+  " let g:AutoPairsShortcutFastWrap = ''
+  " let g:AutoPairsShortcutJump = ''
+  " let g:AutoPairsShortcutBackInsert = ''
   " Plug 'Raimondi/delimitMate'
   " let g:delimitMate_expand_cr = 2
   " let g:delimitMate_expand_space = 1
@@ -283,25 +283,25 @@ function! plugin#Config()
   call s:configure_neoformat()
 
   " cpp
-  call s:configure_tagbar()
+  " call s:configure_tagbar()
 
   " Version control
   " Plug 'tpope/vim-fugitive'
 
   " call s:configure_vim_signify()
 
-  Plug 'juneedahamed/svnj.vim', { 'on' : ['SVNStatus', 'SVNCommit'] }
-  let g:svnj_allow_leader_mappings=0
-  let g:svnj_cache_dir = g:std_cache_path
-  let g:svnj_browse_cache_all = 1
-  let g:svnj_custom_statusbar_ops_hide = 0
-  let g:svnj_browse_cache_max_cnt = 50
-  let g:svnj_custom_fuzzy_match_hl = 'Directory'
-  let g:svnj_custom_menu_color = 'Question'
-  let g:svnj_fuzzy_search = 1
+  " Plug 'juneedahamed/svnj.vim', { 'on' : ['SVNStatus', 'SVNCommit'] }
+  " let g:svnj_allow_leader_mappings=0
+  " let g:svnj_cache_dir = g:std_cache_path
+  " let g:svnj_browse_cache_all = 1
+  " let g:svnj_custom_statusbar_ops_hide = 0
+  " let g:svnj_browse_cache_max_cnt = 50
+  " let g:svnj_custom_fuzzy_match_hl = 'Directory'
+  " let g:svnj_custom_menu_color = 'Question'
+  " let g:svnj_fuzzy_search = 1
   " colorschemes
   " Plug 'morhetz/gruvbox' " colorscheme gruvbox
-  Plug 'NLKNguyen/papercolor-theme'
+  " Plug 'NLKNguyen/papercolor-theme'
 
   " TODO - Tue Aug 27 2019 16:33: Move utils functions into its own plugin
   " Auto Flux (changing themes) is set in the augroup.vim file
@@ -310,43 +310,43 @@ function! plugin#Config()
   " Make requests here to get exact sunset and sunrise times
   " https://sunrise-sunset.org/api
   " This is analogous with having polybar and the flux script
-  let g:flux_day_colorscheme = 'PaperColor'
-  let g:flux_night_colorscheme = 'PaperColor'
-  let g:flux_day_statusline_colorscheme = 'PaperColor_light'
-  let g:flux_night_statusline_colorscheme = 'PaperColor_dark'
-  if has('unix') && executable('luajit')
-    let g:flux_enabled = 0
-  else
-    augroup FluxLike
-      autocmd!
-      autocmd VimEnter,BufEnter * call flux#Flux()
-    augroup END
+  " let g:flux_day_colorscheme = 'PaperColor'
+  " let g:flux_night_colorscheme = 'PaperColor'
+  " let g:flux_day_statusline_colorscheme = 'PaperColor_light'
+  " let g:flux_night_statusline_colorscheme = 'PaperColor_dark'
+  " if has('unix') && executable('luajit')
+    " let g:flux_enabled = 0
+  " else
+    " augroup FluxLike
+      " autocmd!
+      " autocmd VimEnter,BufEnter * call flux#Flux()
+    " augroup END
 
-    let g:flux_enabled = 1
-    let g:flux_api_lat = 27.972572
-    let g:flux_api_lon = -82.796745
+    " let g:flux_enabled = 1
+    " let g:flux_api_lat = 27.972572
+    " let g:flux_api_lon = -82.796745
 
-    let g:flux_night_time = 2000
-    let g:flux_day_time = 700
-  end
+    " let g:flux_night_time = 2000
+    " let g:flux_day_time = 700
+  " end
 
-  let g:PaperColor_Theme_Options =
-        \ {
-        \   'language':
-        \   {
-        \     'python': { 'highlight_builtins': 1 },
-        \     'c': { 'highlight_builtins': 1 },
-        \     'cpp': { 'highlight_standard_library': 1 },
-        \   },
-        \   'theme':
-        \   {
-        \     'default': { 
-        \       'transparent_background': 0,
-        \       'allow_bold': 1,
-        \       'allow_italic': 1
-        \     }
-        \   }
-        \ }
+  " let g:PaperColor_Theme_Options =
+        " \ {
+        " \   'language':
+        " \   {
+        " \     'python': { 'highlight_builtins': 1 },
+        " \     'c': { 'highlight_builtins': 1 },
+        " \     'cpp': { 'highlight_standard_library': 1 },
+        " \   },
+        " \   'theme':
+        " \   {
+        " \     'default': {
+        " \       'transparent_background': 0,
+        " \       'allow_bold': 1,
+        " \       'allow_italic': 1
+        " \     }
+        " \   }
+        " \ }
 
   " Mon Jan 08 2018 15:08: Do not load these schemes unless they are going to be used
   " Sun May 07 2017 16:25 - Gave it a try and didnt like it
@@ -367,12 +367,12 @@ function! plugin#Config()
   " xnoremap <plug>radical_viewer <Plug>RadicalView
 
   " W3M - to view cpp-reference help
-  if executable('w3m')
-    " TODO-[RM]-(Thu Sep 14 2017 21:12): No chance to get this working on windows
-    Plug 'yuratomo/w3m.vim'
-    let g:w3m#history#save_file = g:std_cache_path . '/vim_w3m_hist'
-    " Mon Sep 18 2017 22:37: To open html file do `:W3mLocal %'
-  endif
+  " if executable('w3m')
+    " " TODO-[RM]-(Thu Sep 14 2017 21:12): No chance to get this working on windows
+    " Plug 'yuratomo/w3m.vim'
+    " let g:w3m#history#save_file = g:std_cache_path . '/vim_w3m_hist'
+    " " Mon Sep 18 2017 22:37: To open html file do `:W3mLocal %'
+  " endif
 
   call s:configure_vim_sneak()
 
@@ -383,9 +383,9 @@ function! plugin#Config()
   " nmap <plug>search_internet :Wcsearch duckduckgo <C-R>=expand("<cword>")<CR><CR>
   " xmap <plug>search_internet "*y:call www#www#user_input_search(1, @*)<CR>
 
-  if (has('win32'))
-    Plug 'PProvost/vim-ps1', { 'for' : 'ps1' }
-  endif
+  " if (has('win32'))
+    " Plug 'PProvost/vim-ps1', { 'for' : 'ps1' }
+  " endif
 
   " Plug 'vim-pandoc/vim-pandoc', { 'on' : 'Pandoc' }
   " " You might be able to get away with xelatex in unix
@@ -410,10 +410,10 @@ function! plugin#Config()
   " call s:configure_markdown()
 
   " Plug 'sheerun/vim-polyglot' " A solid language pack for Vim.
-  Plug 'matze/vim-ini-fold', { 'for': 'dosini' }
+  " Plug 'matze/vim-ini-fold', { 'for': 'dosini' }
 
   " Not being used but kept for dependencies
-  Plug 'rbgrouleff/bclose.vim'
+  " Plug 'rbgrouleff/bclose.vim'
 
   " Sun Sep 10 2017 20:44 Depends on plantuml being installed
   " If you want dont want to image preview after loading the plugin put the
@@ -439,8 +439,8 @@ function! plugin#Config()
   " Very weird and confusing
   " let g:tq_map_keys = 1
   " Fri Jun 26 2020 15:17: New alternative
-  Plug 'beloglazov/vim-online-thesaurus', { 'on' : 'OnlineThesaurusCurrentWord' }
-  let g:online_thesaurus_map_keys = 0
+  " Plug 'beloglazov/vim-online-thesaurus', { 'on' : 'OnlineThesaurusCurrentWord' }
+  " let g:online_thesaurus_map_keys = 0
 
   " Autocorrect mispellings on the fly
   " Fri Sep 25 2020 23:01 Heavily impacts performance
@@ -450,9 +450,9 @@ function! plugin#Config()
   " Sun Sep 10 2017 20:44 Depends on languagetool being installed
   call s:configure_pomodoro()
 
-  Plug 'chrisbra/csv.vim', { 'for' : 'csv' }
-  let g:no_csv_maps = 1
-  let g:csv_strict_columns = 1
+  " Plug 'chrisbra/csv.vim', { 'for' : 'csv' }
+  " let g:no_csv_maps = 1
+  " let g:csv_strict_columns = 1
   " augroup Csv_Arrange
   " autocmd!
   " autocmd BufWritePost *.csv call CsvArrangeColumns()
@@ -482,25 +482,25 @@ function! plugin#Config()
   " let g:DevIconsEnableFoldersOpenClose = 1
   " endif
 
-  Plug 'chaoren/vim-wordmotion'
-  let g:wordmotion_mappings = {
-        \ 'w' : 'L',
-        \ 'b' : 'H',
-        \ 'e' : '',
-        \ 'W' : '',
-        \ 'B' : '',
-        \ 'E' : '',
-        \ 'ge' : '',
-        \ 'aw' : '',
-        \ 'iw' : '',
-        \ '<C-R><C-W>' : ''
-        \ }
+  " Plug 'chaoren/vim-wordmotion'
+  " let g:wordmotion_mappings = {
+        " \ 'w' : 'L',
+        " \ 'b' : 'H',
+        " \ 'e' : '',
+        " \ 'W' : '',
+        " \ 'B' : '',
+        " \ 'E' : '',
+        " \ 'ge' : '',
+        " \ 'aw' : '',
+        " \ 'iw' : '',
+        " \ '<C-R><C-W>' : ''
+        " \ }
 
   call s:configure_caps()
 
   " Plug 'hari-rangarajan/CCTree'
 
-  Plug 'bronson/vim-trailing-whitespace', { 'on' : 'FixWhitespace' }
+  " Plug 'bronson/vim-trailing-whitespace', { 'on' : 'FixWhitespace' }
 
   " Mon Jun 25 2018 14:19: Depricating this in favor of custom made
   " Plug 'mhinz/vim-grepper'
@@ -521,7 +521,7 @@ function! plugin#Config()
   " vmap <LocalLeader>r <Plug>RStart
 
   " Good for folding markdown and others
-  Plug 'fourjay/vim-flexagon', { 'for' : 'markdown'}
+  " Plug 'fourjay/vim-flexagon', { 'for' : 'markdown'}
 
   " Abstract a region to its own buffer for editting. Then save and it will back
   " Plug 'chrisbra/NrrwRgn', { 'on' : 'NR' }
@@ -531,12 +531,12 @@ function! plugin#Config()
   "   options. Pretty much only the defaults. Its a good source to find syntax plugins
   "   but that's all.
   " Plug 'sheerun/vim-polyglot'
-  Plug 'PotatoesMaster/i3-vim-syntax'
-  Plug 'elzr/vim-json', { 'for' : 'json' }
-  Plug 'aklt/plantuml-syntax', { 'for' : 'plantuml' }
+  " Plug 'PotatoesMaster/i3-vim-syntax'
+  " Plug 'elzr/vim-json', { 'for' : 'json' }
+  " Plug 'aklt/plantuml-syntax', { 'for' : 'plantuml' }
   " Plug 'Peaches491/vim-glog-syntax', { 'for' : '' }
-  Plug 'MTDL9/vim-log-highlighting', { 'for' : 'log' }
-  Plug 'hdima/python-syntax'
+  " Plug 'MTDL9/vim-log-highlighting', { 'for' : 'log' }
+  " Plug 'hdima/python-syntax'
   " let g:python_highlight_all=1
 
 
@@ -552,19 +552,19 @@ function! plugin#Config()
     " Plug 'cpiger/NeoDebug'
   endif
 
-  Plug 'alepez/vim-gtest', { 'for' : ['cpp'] }
+  " Plug 'alepez/vim-gtest', { 'for' : ['cpp'] }
 
   call s:configure_vim_bookmark()
 
-  Plug 'tenfyzhong/vim-gencode-cpp'
+  " Plug 'tenfyzhong/vim-gencode-cpp'
 
-  call s:configure_vim_startify()
+  " call s:configure_vim_startify()
 
   " This already exists on config files
   " Plug 'vim-scripts/a.vim'
 
-  Plug 'jvenant/vim-java-imports', { 'for' : 'java' }
-  call s:configure_java_setter_getter()
+  " Plug 'jvenant/vim-java-imports', { 'for' : 'java' }
+  " call s:configure_java_setter_getter()
 
   " Fri Jan 18 2019 17:20
   " They are not as good as my handmade version
@@ -577,7 +577,7 @@ function! plugin#Config()
 
   " let g:prosession_last_session_dir = g:std_data_path . '/sessions/defaults'
 
-  Plug 'neomutt/neomutt.vim', { 'for' : [ 'muttrc' ] }
+  " Plug 'neomutt/neomutt.vim', { 'for' : [ 'muttrc' ] }
 
   " call s:configure_incsearch()
 
@@ -589,14 +589,14 @@ function! plugin#Config()
   " dot.case (cr.), space case (cr<space>), and Title Case (crt) are all just 3 keystrokes away.
 
   " Neovim hacking:
-  Plug 'dbakker/vim-lint'
+  " Plug 'dbakker/vim-lint'
 
   " Plug 'neovim/nvimdev.nvim'
   " let g:nvimdev_auto_cscope=1
 
-  Plug 'tbastos/vim-lua'
+  " Plug 'tbastos/vim-lua'
 
-  Plug 'editorconfig/editorconfig-vim'
+  " Plug 'editorconfig/editorconfig-vim'
 
   Plug 'nicwest/vim-camelsnek'
   nnoremap <plug>to_snake_case :Snek<bar>
@@ -665,7 +665,7 @@ function! plugin#AfterConfig() abort
     call cpp_highlight#SetNeotagsHighlight()
   endif
 
-  if g:flux_enabled == 0
+  if get(g:, 'flux_enabled', -1) == 0
     call flux#Manual()
   endif
 

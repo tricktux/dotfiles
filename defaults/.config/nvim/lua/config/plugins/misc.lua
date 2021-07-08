@@ -11,6 +11,44 @@ local function obsession_status()
                                                         ':t:r'), '$')
 end
 
+function M.setup_papercolor()
+  vim.g.flux_day_colorscheme = 'PaperColor'
+  vim.g.flux_night_colorscheme = 'PaperColor'
+  vim.g.flux_day_statusline_colorscheme = 'PaperColor_light'
+  vim.g.flux_night_statusline_colorscheme = 'PaperColor_dark'
+  if vim.fn.has('unix') > 0 and vim.fn.executable('luajit') > 0 then
+    vim.g.flux_enabled = 0
+  else
+    vim.cmd [[
+      augroup FluxLike
+        autocmd!
+        autocmd VimEnter,BufEnter * call flux#Flux()
+      augroup END
+    ]]
+
+    vim.g.flux_enabled = 1
+    vim.g.flux_api_lat = 27.972572
+    vim.g.flux_api_lon = -82.796745
+
+    vim.g.flux_night_time = 2000
+    vim.g.flux_day_time = 700
+  end
+  vim.g.PaperColor_Theme_Options = {
+    ['language'] = {
+      ['python'] = { ['highlight_builtins'] = 1 },
+      ['c'] = { ['highlight_builtins'] = 1 },
+      ['cpp'] = { ['highlight_standard_library'] = 1 },
+    },
+    ['theme'] = {
+      ['default'] = { 
+        ['transparent_background'] = 0,
+        ['allow_bold'] = 1,
+        ['allow_italic'] = 1
+      }
+    }
+  }
+end
+
 function M.setup_luadev()
   if not utl.is_mod_available('lspconfig') then
     api.nvim_err_writeln('misc.lua: lspconfig module not available')
