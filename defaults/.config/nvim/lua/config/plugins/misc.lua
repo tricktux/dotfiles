@@ -1,4 +1,4 @@
-local utl = require('utils/utils')
+local utl = require('utils.utils')
 local line = require('config.plugins.lualine')
 local api = vim.api
 
@@ -18,20 +18,20 @@ function M.setup_luadev()
   end
 
   local luadev = require("lua-dev").setup({
-      library = {
-        vimruntime = true, -- runtime path
-        -- full signature, docs and completion of vim.api, vim.treesitter,
-        -- vim.lsp and others
-        types = true,
-        -- List of plugins you want autocompletion for
-        plugins = {'plenary'}
-      },
-      -- pass any additional options that will be merged in the final lsp config
-      lspconfig = {
-        cmd = {"lua-language-server"},
-        on_attach = require('config.lsp').on_lsp_attach
-      }
-    })
+    library = {
+      vimruntime = true, -- runtime path
+      -- full signature, docs and completion of vim.api, vim.treesitter,
+      -- vim.lsp and others
+      types = true,
+      -- List of plugins you want autocompletion for
+      plugins = {'plenary'}
+    },
+    -- pass any additional options that will be merged in the final lsp config
+    lspconfig = {
+      cmd = {"lua-language-server"},
+      on_attach = require('config.lsp').on_lsp_attach
+    }
+  })
 
   local lspconfig = require('lspconfig')
   lspconfig.sumneko_lua.setup(luadev)
@@ -44,15 +44,27 @@ function M.setup_neogit()
   end
 
   require('neogit').setup {}
-  if not require('utils.utils').is_mod_available('which-key') then
+  if not utl.is_mod_available('which-key') then
     vim.api.nvim_err_writeln('which-key module not available')
     return
   end
   -- open commit popup
   -- neogit.open({ "commit" })
   require("which-key").register {
-    ["<leader>vo"] = {require('neogit').open, "neogit_open"},
-    ["<leader>vc"] = {require('neogit').open, "neogit_open"}
+    ["<leader>vo"] = {require('neogit').open, "neogit_open"}
+  }
+end
+
+function M.setup_git_messenger()
+  vim.g.git_messenger_always_into_popup = true
+
+  if not utl.is_mod_available('which-key') then
+    vim.api.nvim_err_writeln('which-key module not available')
+    return
+  end
+
+  require("which-key").register {
+    ["<leader>vm"] = {'<cmd>GitMessenger<cr>', "git_messenger"}
   }
 end
 

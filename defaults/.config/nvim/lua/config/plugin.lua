@@ -147,7 +147,7 @@ function M:__setup()
   use {
     'rhysd/git-messenger.vim',
     cmd = 'GitMessenger',
-    config = function() vim.g.git_messenger_always_into_popup = true end
+    config = function() require('config.plugins.misc').setup_git_messenger() end
   }
 
   use {
@@ -184,6 +184,8 @@ function M:__setup()
     'tpope/vim-obsession',
     config = function() require('config.plugins.misc'):setup_obsession() end
   }
+
+  use {'tpope/vim-fugitive', cmd = 'Gcommit'}
 
   -- Keep this setup last. So that it finalizes the lualine config
   use {
