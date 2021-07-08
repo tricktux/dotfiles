@@ -35,8 +35,9 @@ end
 function M:__setup()
   local packer = nil
   if packer == nil then
+    local jobs = utl.has_unix() and nil or 5
     packer = require('packer')
-    packer.init()
+    packer.init({max_jobs = jobs})
   end
 
   local use = packer.use
