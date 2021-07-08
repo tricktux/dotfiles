@@ -286,7 +286,7 @@ function! plugin#Config()
   call s:configure_tagbar()
 
   " Version control
-  Plug 'tpope/vim-fugitive'
+  " Plug 'tpope/vim-fugitive'
 
   " call s:configure_vim_signify()
 

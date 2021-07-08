@@ -51,7 +51,8 @@ function M.setup_neogit()
   -- open commit popup
   -- neogit.open({ "commit" })
   require("which-key").register {
-    ["<leader>vo"] = {require('neogit').open, "neogit_open"}
+    ["<leader>vo"] = {require('neogit').open, "neogit_open"},
+    ["<leader>vc"] = {require('neogit').open, "neogit_open"}
   }
 end
 
