@@ -100,9 +100,6 @@ ToggleWinMinimize(TheWindowTitle)
     Return
 }
 
-
-
-
 CenterMouseOnActiveWindow()
 {
     Sleep 50
@@ -159,9 +156,9 @@ CenterActiveWindowDown()
     A_Bottom := NumGet(monitorInfo, 32, "Int")
 
     ; Calculate window coordinates.
-    winW := (A_Right - A_Left) * 0.5 ; Change the factor here to your desired width.
+    winW := (A_Right - A_Left) * 0.75 ; Change the factor here to your desired width.
     winH := A_Bottom*0.59
-    winX := A_Left + (winW / 2)
+    winX := A_Left + (A_Right - A_Left - winW)/2
     winY := A_Top + (winH*0.69)
 
     WinMove, A,, %winX%, %winY%, %winW%, %winH%
