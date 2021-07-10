@@ -50,6 +50,28 @@ function M.setup_papercolor()
   }
 end
 
+function M.setup_pomodoro()
+  vim.g.pomodoro_use_devicons = 0
+  if vim.fn.executable('dunst') > 0 then
+    vim.g.pomodoro_notification_cmd =
+        "notify-send 'Pomodoro' 'Session ended' && " ..
+            "mpv ~/.config/dotfiles/notification_sounds/cool_notification1.mp3 " ..
+            "2>/dev/null&"
+  elseif vim.fn.executable('powershell') > 0 then
+    local notif = os.getenv("APPDATA ") .. '/dotfiles/scripts/win/win_vim_notification.ps1'
+    if vim.fn.filereadable(notif) then
+      vim.g.pomodoro_notification_cmd = notif
+    end
+  end
+  vim.g.pomodoro_log_file = vim.g.std_data_path .. '/pomodoro_log'
+
+  line:ins_left{
+    vim.fn['pomo#status_bar'],
+    color = {fg = line.colors.orange, gui = 'bold'},
+    left_padding = 0
+  }
+end
+
 function M.setup_luadev()
   if not utl.is_mod_available('lspconfig') then
     api.nvim_err_writeln('misc.lua: lspconfig module not available')

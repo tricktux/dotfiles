@@ -448,7 +448,7 @@ function! plugin#Config()
   " Disble this file by removing its function call from autload/markdown.vim
 
   " Sun Sep 10 2017 20:44 Depends on languagetool being installed
-  call s:configure_pomodoro()
+  " call s:configure_pomodoro()
 
   " Plug 'chrisbra/csv.vim', { 'for' : 'csv' }
   " let g:no_csv_maps = 1

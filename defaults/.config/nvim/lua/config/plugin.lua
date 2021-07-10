@@ -305,6 +305,10 @@ function M:__setup()
     config = function() require('config.plugins.misc'):setup_obsession() end
   }
 
+  use {
+    'tricktux/pomodoro.vim',
+    config = function() require('config.plugins.misc'):setup_pomodoro() end
+  }
   -- Keep this setup last. So that it finalizes the lualine config
   use {
     'hoob3rt/lualine.nvim',
