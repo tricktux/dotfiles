@@ -28,7 +28,7 @@ function M:download()
   vim.cmd('packadd packer.nvim')
 end
 
--- Thu May 13 2021 22:42: After much debuggin, found out that config property 
+-- Thu May 13 2021 22:42: After much debuggin, found out that config property
 -- is not working as intended because of issues in packer.nvim. See:
 -- https://github.com/wbthomason/packer.nvim/issues/351
 -- TL;DR: no outside of local scope function calling for config
@@ -182,7 +182,7 @@ function M:__setup()
   }
 
   use {
-    'majutsushi/tagbar', 
+    'majutsushi/tagbar',
     cmd = 'Tagbar',
     config = function()
       vim.g.tagbar_ctags_bin = 'ctags'
@@ -199,10 +199,10 @@ function M:__setup()
   }
 
   use {
-    'juneedahamed/svnj.vim', 
+    'juneedahamed/svnj.vim',
     cmd = {'SVNStatus', 'SVNCommit'},
     config = function()
-      vim.g.svnj_allow_leader_mappings=0
+      vim.g.svnj_allow_leader_mappings = 0
       vim.g.svnj_cache_dir = vim.g.std_cache_path
       vim.g.svnj_browse_cache_all = 1
       vim.g.svnj_custom_statusbar_ops_hide = 0
@@ -216,13 +216,13 @@ function M:__setup()
   use {
     'PProvost/vim-ps1',
     ft = 'ps1',
-    cond = function() return require('utils.utils').has_win() end,
+    cond = function() return require('utils.utils').has_win() end
   }
 
   use {'matze/vim-ini-fold', ft = 'dosini'}
 
   use {
-    'chrisbra/csv.vim', 
+    'chrisbra/csv.vim',
     ft = 'csv',
     config = function()
       vim.g.no_csv_maps = 1
@@ -243,7 +243,7 @@ function M:__setup()
   use 'editorconfig/editorconfig-vim'
 
   use {
-    'chaoren/vim-wordmotion', 
+    'chaoren/vim-wordmotion',
     config = function()
       vim.g.wordmotion_mappings = {
         w = 'L',
@@ -252,9 +252,9 @@ function M:__setup()
         W = '',
         B = '',
         E = '',
-        ['ge']= '',
-        ['aw']= '',
-        ['iw']= '',
+        ['ge'] = '',
+        ['aw'] = '',
+        ['iw'] = '',
         ['<C-R><C-W>'] = ''
       }
     end
@@ -266,8 +266,8 @@ function M:__setup()
       vim.g.startify_session_dir = vim.g.std_data_path .. '/sessions/'
 
       vim.g.startify_lists = {
-        { ['type'] = 'sessions',  ['header'] = {'   Sessions'}       },
-        { ['type'] = 'files',     ['header'] = {'   MRU'}            },
+        {['type'] = 'sessions', ['header'] = {'   Sessions'}},
+        {['type'] = 'files', ['header'] = {'   MRU'}}
       }
       vim.g.startify_change_to_dir = 0
       vim.g.startify_session_sort = 1
@@ -295,10 +295,7 @@ function M:__setup()
   use {'tpope/vim-fugitive', cmd = 'Gcommit'}
   use 'tpope/vim-repeat'
   use 'tpope/vim-surround'
-  use {
-    'tpope/vim-dispatch',
-    config = function() vim.g.dispatch_no_maps = 1 end
-  }
+  use {'tpope/vim-dispatch', config = function() vim.g.dispatch_no_maps = 1 end}
   use {
     'radenling/vim-dispatch-neovim',
     cond = function() return vim.fn.has('nvim') > 0 end
@@ -356,7 +353,7 @@ function M:setup()
     return
   end
 
-  -- Setup initial lualine config. Plugins will add stuff, setup will finalize 
+  -- Setup initial lualine config. Plugins will add stuff, setup will finalize
   -- it
   require('config.plugins.lualine'):config()
   self:__setup()
