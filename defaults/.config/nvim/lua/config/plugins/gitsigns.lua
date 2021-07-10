@@ -80,9 +80,7 @@ end
 local function status_line()
   if vim.fn.exists('b:gitsigns_status') <= 0 then return '' end
 
-  local s = vim.fn.empty('b:gitsigns_status') <= 0 and ': ' ..
-                vim.b.gitsigns_status or ''
-  return vim.b.gitsigns_head .. s
+  return vim.b.gitsigns_head .. ' ' .. vim.b.gitsigns_status
 end
 
 function M.setup()
