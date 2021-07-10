@@ -36,12 +36,12 @@ function M.setup_papercolor()
   end
   vim.g.PaperColor_Theme_Options = {
     ['language'] = {
-      ['python'] = { ['highlight_builtins'] = 1 },
-      ['c'] = { ['highlight_builtins'] = 1 },
-      ['cpp'] = { ['highlight_standard_library'] = 1 },
+      ['python'] = {['highlight_builtins'] = 1},
+      ['c'] = {['highlight_builtins'] = 1},
+      ['cpp'] = {['highlight_standard_library'] = 1}
     },
     ['theme'] = {
-      ['default'] = { 
+      ['default'] = {
         ['transparent_background'] = 0,
         ['allow_bold'] = 1,
         ['allow_italic'] = 1
