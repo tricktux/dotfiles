@@ -1471,9 +1471,9 @@ function! s:configure_fuzzers() abort
   " Can't beat ctrlps buffers and most recent stuff
   call s:configure_ctrlp()
 
-  if (s:configure_fzf() < 1)
-    call s:configure_denite()
-  endif
+  " if (s:configure_fzf() < 1)
+    " call s:configure_denite()
+  " endif
 endfunction
 
 function! s:fzf_statusline() abort
