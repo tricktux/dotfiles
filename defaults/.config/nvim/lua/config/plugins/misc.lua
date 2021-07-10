@@ -18,6 +18,7 @@ function M.setup_papercolor()
   vim.g.flux_night_statusline_colorscheme = 'PaperColor_dark'
   if vim.fn.has('unix') > 0 and vim.fn.executable('luajit') > 0 then
     vim.g.flux_enabled = 0
+    vim.fn['flux#Manual']()
   else
     vim.cmd [[
       augroup FluxLike
