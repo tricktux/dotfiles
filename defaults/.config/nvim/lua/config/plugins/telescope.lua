@@ -47,6 +47,8 @@ local function set_mappings()
     S = {ts.git_stash, 'stash'}
   }
   leader['?'] = {ts.live_grep, 'live_grep'}
+  leader[';'] = {ts.commands, 'commands'}
+  leader[':'] = {ts.command_history, 'command_history'}
   leader.f = {
     name = 'fuzzers',
     g = git,

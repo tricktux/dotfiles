@@ -18,6 +18,7 @@ function M.setup_papercolor()
   vim.g.flux_night_statusline_colorscheme = 'PaperColor_dark'
   if vim.fn.has('unix') > 0 and vim.fn.executable('luajit') > 0 then
     vim.g.flux_enabled = 0
+    vim.fn['flux#Manual']()
   else
     vim.cmd [[
       augroup FluxLike
@@ -35,17 +36,39 @@ function M.setup_papercolor()
   end
   vim.g.PaperColor_Theme_Options = {
     ['language'] = {
-      ['python'] = { ['highlight_builtins'] = 1 },
-      ['c'] = { ['highlight_builtins'] = 1 },
-      ['cpp'] = { ['highlight_standard_library'] = 1 },
+      ['python'] = {['highlight_builtins'] = 1},
+      ['c'] = {['highlight_builtins'] = 1},
+      ['cpp'] = {['highlight_standard_library'] = 1}
     },
     ['theme'] = {
-      ['default'] = { 
+      ['default'] = {
         ['transparent_background'] = 0,
         ['allow_bold'] = 1,
         ['allow_italic'] = 1
       }
     }
+  }
+end
+
+function M.setup_pomodoro()
+  vim.g.pomodoro_use_devicons = 0
+  if vim.fn.executable('dunst') > 0 then
+    vim.g.pomodoro_notification_cmd =
+        "notify-send 'Pomodoro' 'Session ended' && " ..
+            "mpv ~/.config/dotfiles/notification_sounds/cool_notification1.mp3 " ..
+            "2>/dev/null&"
+  elseif vim.fn.executable('powershell') > 0 then
+    local notif = os.getenv("APPDATA ") .. '/dotfiles/scripts/win/win_vim_notification.ps1'
+    if vim.fn.filereadable(notif) then
+      vim.g.pomodoro_notification_cmd = notif
+    end
+  end
+  vim.g.pomodoro_log_file = vim.g.std_data_path .. '/pomodoro_log'
+
+  line:ins_left{
+    vim.fn['pomo#status_bar'],
+    color = {fg = line.colors.orange, gui = 'bold'},
+    left_padding = 0
   }
 end
 
