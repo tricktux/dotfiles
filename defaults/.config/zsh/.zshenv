@@ -133,6 +133,9 @@ export TZ='America/New_York'
 # Wine
 export WINEPREFIX="$XDG_DATA_HOME/wine"
 
+# npm: https://wiki.archlinux.org/title/Node.js#Node_Packaged_Modules
+export npm_config_prefix="$HOME/.local"
+
 # Thu Feb 22 2018 08:59: Can't figure out how to set locale properly on arch.
 # Result:
 # Wed May 02 2018 04:57: Not needed anymore
