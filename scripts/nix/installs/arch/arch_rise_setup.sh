@@ -24,17 +24,19 @@ Defaults:reinaldo timestamp_timeout=7200
 
 ## 3. Network{{{
 # Run this section as root, not using sudo
-# su
-# ip link`
-# # ip link set <wlan0> up`
-# dmesg | grep iwlwifi`
-# ip link show <interface>`
-# wpa_supplicant -B -i <interface> -c <(wpa_passphrase "your_SSID" "your_key")`
+interface="wlp1s0"
+su
+ip link
+ip link set up dev $interface
+dmesg | grep iwlwifi
+ip link show $interface
+wpa_supplicant -B -i $interface -c <(wpa_passphrase "<SID>" "<passwd>")
+dhcpcd $interface
 # NOTE: Substitute <wlp1s0> with your interface from ip link show
 sudo bash -c 'wpa_passphrase "05238_5GHz" "<password>" > /etc/wpa_supplicant/wpa_supplicant-wlan0.conf'
 # Delete commented password sudo nvim /etc/wpa_supplicant/wpa_supplicant-wlp1s0.conf
 
-sudo bash -c 'cat >> /etc/wpa_supplicant/wpa_supplicant-wlan0.conf' << EOL
+sudo bash -c 'cat >> /etc/wpa_supplicant/wpa_supplicant-${interface}.conf' << EOL
 # Giving configuration update rights to wpa_cli
 ctrl_interface=/run/wpa_supplicant
 ctrl_interface_group=wheel
@@ -55,11 +57,11 @@ EOL
 # - Check the connection:
 # - `iw dev <interface> link`
 # - Obtain ip address:
-sudo systemctl enable --now wpa_supplicant@wlan0 
-sudo systemctl status wpa_supplicant@wlan0 
-sudo systemctl enable --now dhcpcd@wlan0 
-sudo systemctl status dhcpcd@wlan0 
-# - `dhcpcd <wlan0>`
+sudo systemctl enable --now wpa_supplicant@$interface 
+sudo systemctl status wpa_supplicant@$interface 
+sudo systemctl enable --now dhcpcd@$interface 
+sudo systemctl status dhcpcd@$interface 
+sudo systemctl restart dhcpcd@$interface 
 
 # Setup wpa_supplicant to wait for dbus to shutdown
 # This is a long story complicated bug
