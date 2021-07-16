@@ -36,6 +36,10 @@
     "command": "exec ~/.config/i3/scripts/bluetooth.lua 'connect' '04:5D:4B:EA:9C:B2'"
   },
   {
+    "name": "🎧 bluetooth philips pn402",
+    "command": "exec ~/.config/i3/scripts/bluetooth.lua 'connect' '88:D0:39:48:7D:00'"
+  },
+  {
     "name": "💙 bluetooth rofi",
     "command": "rofi-bluetooth"
   },
