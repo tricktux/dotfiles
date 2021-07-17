@@ -32,6 +32,8 @@ dmesg | grep iwlwifi
 ip link show $interface
 wpa_supplicant -B -i $interface -c <(wpa_passphrase "<SID>" "<passwd>")
 dhcpcd $interface
+# NOTE: Once this works proceed to create the config files and enable 
+# wpa_supplicant and dhcpcd 
 # NOTE: Substitute <wlp1s0> with your interface from ip link show
 sudo bash -c 'wpa_passphrase "05238_5GHz" "<password>" > /etc/wpa_supplicant/wpa_supplicant-wlan0.conf'
 # Delete commented password sudo nvim /etc/wpa_supplicant/wpa_supplicant-wlp1s0.conf
