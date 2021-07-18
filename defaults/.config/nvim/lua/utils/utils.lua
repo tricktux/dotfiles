@@ -184,6 +184,26 @@ local function io_popen_read(cmd)
   return output:gsub("%s+", "")
 end
 
+local function get_visual_selection()
+    -- Why is this not a built-in Vim script function?!
+    local sline = vim.fn.getpos("'<")
+    local line_start = sline[2]
+    local column_start = sline[3]
+    local eline = vim.fn.getpos("'>")
+    local line_end = eline[2]
+    local column_end = eline[3]
+    local lines = vim.fn.getline(line_start, line_end)
+    if lines == nil then
+      return ''
+    end
+    local selection = vim.opt.selection:get() == 'inclusive' and 1 or 2
+    lines[1] = lines[1]:sub(column_start - 1)
+    lines[#lines] = lines[#lines]:sub(1, column_end - selection)
+    local ret = table.concat(lines, "\n")
+    -- print("ret = " .. ret)
+    return ret
+end
+
 -- Attempt to display ranger in a floating window
 -- local utl = require('utils.utils')
 
@@ -227,5 +247,6 @@ return {
   open_win_centered = open_win_centered,
   io_popen_read = io_popen_read,
   exec_float_term = exec_float_term,
-  find_file = _find_file_recurse
+  find_file = _find_file_recurse,
+  get_visual_selection = get_visual_selection
 }
