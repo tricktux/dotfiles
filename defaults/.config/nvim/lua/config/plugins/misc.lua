@@ -64,6 +64,7 @@ function M.setup_neoterm()
     api.nvim_err_writeln("vimp was set, but module not found")
     return
   end
+  local vimp = require('vimp')
   vimp.nnoremap({'override'}, '<plug>terminal_toggle', function()
     require('utils.utils').exec_float_term('Ttoggle')
   end)
