@@ -450,10 +450,10 @@ function! mappings#Set()
     nnoremap <A-k> :call Focus('up', 'k')<cr>
     nnoremap <A-j> :call Focus('down', 'j')<cr>
   elseif has('unix') && executable('tmux') && exists('$TMUX')
-    nnoremap <A-h> :call <SID>tmux_move('h')<cr>
-    nnoremap <A-j> :call <SID>tmux_move('j')<cr>
-    nnoremap <A-k> :call <SID>tmux_move('k')<cr>
-    nnoremap <A-l> :call <SID>tmux_move('l')<cr>
+    nnoremap <silent> <A-h> :call <SID>tmux_move('h')<cr>
+    nnoremap <silent> <A-j> :call <SID>tmux_move('j')<cr>
+    nnoremap <silent> <A-k> :call <SID>tmux_move('k')<cr>
+    nnoremap <silent> <A-l> :call <SID>tmux_move('l')<cr>
   else
     nnoremap <silent> <A-l> <C-w>lzz
     nnoremap <silent> <A-h> <C-w>hzz
