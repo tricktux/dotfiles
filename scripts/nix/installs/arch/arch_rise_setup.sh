@@ -1,5 +1,8 @@
 # Basics
 
+# You could start here:
+# https://github.com/ahmedelhori/install-arch
+
 # Add your user {{{
 # useradd -m -g users -G wheel,storage,power,sys -s /bin/bash <USERNAME>
 useradd -m -g users -G wheel,storage,power,sys -s /bin/bash reinaldo
