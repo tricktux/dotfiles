@@ -314,6 +314,12 @@ function M:__setup()
     'kassio/neoterm',
     config = function() require('config.plugins.misc'):setup_neoterm() end
   }
+
+  use {
+    'ferrine/md-img-paste.vim',
+    ft = 'markdown'
+  }
+
   -- Keep this setup last. So that it finalizes the lualine config
   use {
     'hoob3rt/lualine.nvim',
