@@ -50,6 +50,33 @@ function M.setup_papercolor()
   }
 end
 
+function M.setup_neoterm()
+
+  vim.g.neoterm_automap_keys = ''
+  vim.g.neoterm_term_per_tab = 1
+  vim.g.neoterm_use_relative_path = 1
+  vim.g.neoterm_default_mod = ''
+  vim.g.neoterm_autoinsert = 0
+  -- " Potential substitue
+  -- " https://github.com/Shougo/deol.nvim/blob/master/doc/deol.txt
+  -- " there is also vimshell
+  if not utl.is_mod_available('vimp') then
+    api.nvim_err_writeln("vimp was set, but module not found")
+    return
+  end
+  vimp.nnoremap({'override'}, '<plug>terminal_toggle', function()
+    require('utils.utils').exec_float_term('Ttoggle')
+  end)
+  vimp.nnoremap({'override'}, '<plug>terminal_new', '<cmd>Tnew<cr>')
+  vimp.nnoremap({'override'}, '<plug>terminal_send_file',
+                '<cmd>TREPLSendFile<cr>')
+  -- " Use gx{text-object} in normal mode
+  -- vimp.nnoremap({'override'}, '<plug>terminal_send', '<Plug>(neoterm-repl-send)')
+  vimp.xnoremap({'override'}, '<plug>terminal_send', '<Plug>(neoterm-repl-send)')
+  vimp.nnoremap({'override'}, '<plug>terminal_send_line',
+            '<Plug>(neoterm-repl-send-line)')
+end
+
 function M.setup_pomodoro()
   vim.g.pomodoro_use_devicons = 0
   if vim.fn.executable('dunst') > 0 then
@@ -58,7 +85,8 @@ function M.setup_pomodoro()
             "mpv ~/.config/dotfiles/notification_sounds/cool_notification1.mp3 " ..
             "2>/dev/null&"
   elseif vim.fn.executable('powershell') > 0 then
-    local notif = os.getenv("APPDATA ") .. '/dotfiles/scripts/win/win_vim_notification.ps1'
+    local notif = os.getenv("APPDATA ") ..
+                      '/dotfiles/scripts/win/win_vim_notification.ps1'
     if vim.fn.filereadable(notif) then
       vim.g.pomodoro_notification_cmd = notif
     end
