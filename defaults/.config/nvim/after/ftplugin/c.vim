@@ -179,19 +179,25 @@ function! s:repl() abort
   let l:compiler = ''
 	if executable('clang++')
     let l:compiler = 'clang++'
-	endif
-
-  if executable('g++')
+  elseif executable('g++')
     let l:compiler = 'g++'
   endif
 
-  if l:compiler == ''
+  if l:compiler ==# ''
     echoerr 'No cpp compiler found'
     return
   endif
 
-	execute ':T ' . l:compiler . ' ' . expand('%') . ' && ' .
-				\ (has('unix') ? './a.out' : 'a.exe') . "\<cr>"
+  let l:cmd = l:compiler . ' ' . expand('%') . ' -g -O3 && ' .
+				\ (has('unix') ? './a.out' : 'a.exe')
+
+  if exists('$TMUX')
+    let l:terminal =  '!tmux send -t \! ' . shellescape(l:cmd) . ' Enter'
+  else
+    let l:terminal = 'T ' . shellescape(l:cmd)
+  endif
+
+  silent execute l:terminal
 endfunction
 
 " Setup AutoHighlight

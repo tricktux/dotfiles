@@ -58,6 +58,8 @@ if !exists('no_plugin_maps') && !exists('no_markdown_maps')
 		nnoremap <buffer> <LocalLeader>c :LanguageToolCheck<cr>
 	endif
 
+  nnoremap <silent> <buffer> <localleader>i :call mdip#MarkdownClipboardImage()<cr>
+
 	if exists(':ThesaurusQueryReplaceCurrentWord')
 		nnoremap <buffer> <localLeader>a :ThesaurusQueryReplaceCurrentWord<cr>
 	endif
@@ -66,13 +68,15 @@ if !exists('no_plugin_maps') && !exists('no_markdown_maps')
     nnoremap <buffer> <localLeader>a :OnlineThesaurusCurrentWord<cr>
   endif
 
-	if executable('SumatraPDF')
-		nnoremap <silent> <buffer> <plug>preview :!SumatraPDF %:r.pdf<cr>
-	endif
+	" if executable('SumatraPDF')
+		" nnoremap <silent> <buffer> <plug>preview :!SumatraPDF %:r.pdf<cr>
+	" endif
 
-	if executable('qpdfview')
-		nnoremap <silent> <buffer> <plug>preview :!qpdfview --unique --quiet %:r.pdf&<cr>
-	endif
+	" if executable('qpdfview')
+		" nnoremap <silent> <buffer> <plug>preview :!qpdfview --unique --quiet %:r.pdf&<cr>
+	" endif
+
+  nnoremap <silent> <buffer> <localleader>p :MarkdownPreview<cr>
 
 	nnoremap <buffer> <localleader>mp :UtilsMarkdownPandocPdfMaker<cr>
 	nnoremap <buffer> <localleader>md :UtilsMarkdownPandocDocxMaker<cr>

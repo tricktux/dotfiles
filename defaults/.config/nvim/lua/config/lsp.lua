@@ -205,28 +205,26 @@ local function lsp_set()
     }
   end
 
-  if vim.fn.executable('pyls') > 0 then
-    log.info("setting up the pyls lsp...")
-    nvim_lsp.pyls.setup {
+  if vim.fn.executable('pylsp') > 0 then
+    log.info("setting up the pylsp lsp...")
+    nvim_lsp.pylsp.setup {
       on_attach = on_lsp_attach,
-      cmd = {"pyls"},
-      -- root_dir = nvim_lsp.util.root_pattern(".git", ".svn"),
       capabilities = capabilities,
-      settings = {
-        pyls = {
-          plugins = {
-            jedi_completion = {fuzzy = true, include_params = true},
-            mccabe = {enabled = false},
-            pycodestyle = {enabled = false},
-            flake8 = {enabled = false},
-            pydocstyle = {enabled = false},
-            pyflakes = {enabled = false},
-            pylint = {enabled = false},
-            yapf = {enabled = false},
-            pyls_mypy = {enabled = false, live_mode = false}
-          }
-        }
-      }
+      -- settings = {
+        -- pyls = {
+          -- plugins = {
+            -- jedi_completion = {fuzzy = true, include_params = true},
+            -- mccabe = {enabled = false},
+            -- pycodestyle = {enabled = false},
+            -- flake8 = {enabled = false},
+            -- pydocstyle = {enabled = false},
+            -- pyflakes = {enabled = false},
+            -- pylint = {enabled = false},
+            -- yapf = {enabled = false},
+            -- pyls_mypy = {enabled = false, live_mode = false}
+          -- }
+        -- }
+      -- }
     }
   end
 

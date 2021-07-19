@@ -224,7 +224,7 @@ function! plugin#Config()
   " let g:delimitMate_jump_expansion = 1
   " imap <expr> <CR> <Plug>delimitMateCR
 
-  call s:configure_neoterm()
+  " call s:configure_neoterm()
   " See mappings in afterconfig
   " Wed Mar 03 2021 12:30: Does not work well with sessions
   " Plug 'dosimple/workspace.vim'
