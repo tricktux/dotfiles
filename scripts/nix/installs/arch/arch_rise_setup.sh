@@ -483,6 +483,10 @@ sudo vim /etc/lightdm/lightdm.conf
 # autologin-user=reinaldo
 # autologin-session=i3-with-shmlog
 
+# Benchmarking {{{
+paci --needed --noconfirm hyperfine
+# }}}
+
 # Development environment {{{
 paci --needed --noconfirm neovim-nightly-bin cscope ripgrep ctags global xclip
 paci --needed --noconfirm neovim-remote lazygit
