@@ -101,8 +101,7 @@ function M.setup_pomodoro()
             "mpv ~/.config/dotfiles/notification_sounds/cool_notification1.mp3 " ..
             "2>/dev/null&"
   elseif vim.fn.executable('powershell') > 0 then
-    local notif = os.getenv("APPDATA ") ..
-                      '/dotfiles/scripts/win/win_vim_notification.ps1'
+    local notif = os.getenv("APPDATA") .. '/dotfiles/scripts/win/win_vim_notification.ps1'
     if vim.fn.filereadable(notif) then
       vim.g.pomodoro_notification_cmd = notif
     end

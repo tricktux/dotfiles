@@ -75,10 +75,19 @@ local function _init()
   log.info('--- Start Neovim Run ---')
 
   -- Disable unnecessary providers
+  -- Saves on average 3ms (on linux) :D
   vim.g.loaded_python_provider = 0
   vim.g.loaded_ruby_provider = 0
   vim.g.loaded_perl_provider = 0
   vim.g.loaded_node_provider = 0
+
+  local disabled_built_ins = {
+    "netrw", "netrwPlugin", "netrwSettings", "netrwFileHandlers", "gzip", "zip",
+    "zipPlugin", "tar", "tarPlugin", "getscript", "getscriptPlugin", "vimball",
+    "vimballPlugin", "2html_plugin", "logipat", "rrhelper", "spellfile_plugin",
+  }
+
+  for _, plugin in pairs(disabled_built_ins) do vim.g["loaded_" .. plugin] = 1 end
 
   map:set() -- Set mappings
 
@@ -102,7 +111,7 @@ local function _init()
     end
   end
 
-  plg:setup()  -- Also setups lsp
+  plg:setup() -- Also setups lsp
   maps.setup()
   aug.setup()
 end

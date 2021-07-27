@@ -2,11 +2,12 @@ requests
 psutil
 flake8
 isort
-jedi==0.17.2
-python-language-server[all]
+jedi
+pynvim
+python-lsp-server[all]
 frosted
 pep8
 pylint
-pynvim
 matplot
 debugpy
+pylama

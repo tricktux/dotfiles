@@ -33,11 +33,11 @@ paru-bin
 pass-import
 polybar
 preload
+python-spotdl
 ripgrep-all
 ripmime
 rofi-bluetooth-git
 rofi-dmenu
-rofi-emoji
 simple-scan-3.12
 spicetify-cli
 spicetify-themes-git
