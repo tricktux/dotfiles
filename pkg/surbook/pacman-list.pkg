@@ -143,6 +143,7 @@ netctl
 nfs-utils
 nmap
 noto-fonts-emoji
+npm
 ntp
 odt2txt
 offlineimap
@@ -187,6 +188,7 @@ rapidjson
 redshift
 reflector
 ripgrep
+rofi-emoji
 rofi-pass
 rsync
 rust

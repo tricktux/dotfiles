@@ -78,11 +78,12 @@ if !exists('no_plugin_maps') && !exists('no_markdown_maps')
 
   nnoremap <silent> <buffer> <localleader>p :MarkdownPreview<cr>
 
-	nnoremap <buffer> <localleader>mp :UtilsMarkdownPandocPdfMaker<cr>
-	nnoremap <buffer> <localleader>md :UtilsMarkdownPandocDocxMaker<cr>
-	nnoremap <buffer> <localleader>mh :UtilsMarkdownPandocHtmlMaker<cr>
-	nnoremap <buffer> <localleader>ms :UtilsMarkdownPandocPdfSlidesMaker<cr>
-	nnoremap <buffer> <localleader>mx :UtilsMarkdownPandocPptxSlidesMaker<cr>
+  nnoremap <silent> <buffer> <localleader>ma :lua require('config.linting').set_neomake_anki_maker()<cr>
+  nnoremap <silent> <buffer> <localleader>mp :UtilsMarkdownPandocPdfMaker<cr>
+	nnoremap <silent> <buffer> <localleader>md :UtilsMarkdownPandocDocxMaker<cr>
+	nnoremap <silent> <buffer> <localleader>mh :UtilsMarkdownPandocHtmlMaker<cr>
+	nnoremap <silent> <buffer> <localleader>ms :UtilsMarkdownPandocPdfSlidesMaker<cr>
+	nnoremap <silent> <buffer> <localleader>mx :UtilsMarkdownPandocPptxSlidesMaker<cr>
 
   let b:AutoPairs = {'(':')', '{':'}',"'":"'",'"':'"', '`':'`', '<': '>'}
   inoremap [ [ ]
@@ -202,7 +203,7 @@ function! s:todo_mark(mark, name) abort
 	execute "normal! ^f[lr" . a:mark . "\<Esc>"
 	return setpos('.', save_cursor)
   if exists('*repeat#set')
-    silent! call repeat#set("\<Plug>todo_" . name, v:count)
+    silent! call repeat#set("\<Plug>todo_" . a:name, v:count)
   end
 endfunction
 
