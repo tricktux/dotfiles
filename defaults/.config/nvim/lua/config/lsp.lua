@@ -151,7 +151,7 @@ local function diagnostic_set()
     }
     -- Call the default handler
     default_handler(err, method, result, client_id, bufnr, config)
-    vim.lsp.diagnostic.set_loclist({open_loclist = false})
+    vim.lsp.diagnostic.set_loclist({open = false})
     -- Do overwrite my search list
     if #vim.fn.getqflist() > 0 then return end
     local diagnostics = vim.lsp.diagnostic.get_all()
