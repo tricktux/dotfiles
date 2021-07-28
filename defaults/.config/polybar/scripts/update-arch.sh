@@ -58,19 +58,6 @@ update_polybar_python_venv() {
   deactivate
 }
 
-update_github_repositories() {
-  local repos=(
-    "$XDG_DATA_HOME\polybar-scripts"
-  )
-
-  for i in "${repos[@]}"; do
-    if [[ -d "$i" ]]; then
-      cd "$i"
-      git pull origin master
-    fi
-  done
-}
-
 update_nvim_plugins() {
   nvim +PlugUpgrade +PlugUpdate +PackerSync +UpdateRemotePlugins
 }
