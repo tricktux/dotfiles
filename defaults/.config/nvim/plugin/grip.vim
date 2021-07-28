@@ -272,7 +272,7 @@ function! s:grip.execute_grip(grepper, user_choice, args) abort
 	if s:USER_CHOICE.USE_CURR_WORD == 1
 		let l:search = expand('<cword>')
 	else
-		let l:search = '"' . input('Please enter search word:') . '"'
+		let l:search = '' . input('Please enter search word:') . ''
 	endif
 
 	if empty(l:search)
