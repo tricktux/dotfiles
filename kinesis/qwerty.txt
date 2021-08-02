@@ -1,5 +1,7 @@
 [escape]>[caps]
 [caps]>[lctrl]
+[lctrl]>[rmouse]
+[lalt]>[prtscr]
 [rwin]>[ralt]
 [rctrl]>[delete]
 [bspace]>[lwin]
@@ -7,3 +9,5 @@
 [enter]>[bspace]
 [rshift]>[enter]
 [intl-\]>[enter][t&h135][lalt]
+[up]>[down]
+[down]>[up]
