@@ -19,7 +19,7 @@ syn case ignore
 " Directives
 syn match wingsIdentifier 	"[a-z_$][a-z0-9_$]*"
 
-syn match wingsLabel      	"_^:[A-Z]_$"
+syn match wingsLabel      	"^:[A-Z].*$"
 
 syn match decNumber		"0\+[1-7]\=[\t\n$,; ]"
 syn match decNumber		"[1-9]\d*"
@@ -77,7 +77,6 @@ syn keyword wingsFail           FAIL
 syn match wingsFail           "Syntax Error.*$"
 syn match wingsFail           "Script Error.*$"
 
-" syn match wingsLabel      	"_^:[A-Z]_$"
 syn match wingsFail           "/\_^[a-zA-Z].*$"
                                   
 syn match wingsFlgas          "\sZ\s"
@@ -108,7 +107,7 @@ if version >= 508 || !exists("did_wings_syntax_inits")
   endif
 
   HiLink wingsTodo		Todo
-  HiLink wingsLabel		Type
+  HiLink wingsLabel		Conditional
   HiLink wingsString		String
   HiLink wingsChar		String
   HiLink wingsOpcode		Statement
