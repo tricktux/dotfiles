@@ -159,6 +159,19 @@ function M.setup()
         override_file_sorter = true, -- override the file sorter
         case_mode = "smart_case" -- or "ignore_case" or "respect_case"
         -- the default case_mode is "smart_case"
+      },
+      frecency = {
+        -- db_root = "home/my_username/path/to/db_root",
+        show_scores = true,
+        show_unindexed = true,
+        ignore_patterns = {"*.git/*", "*/tmp/*"},
+        disable_devicons = true,
+        workspaces = {
+          ["conf"] = "$USER/.config",
+          -- ["data"] = "$USER/.local/share",
+          ["project"] = "$USER/Documents",
+          ["wiki"] = "$USER/Documents/wiki"
+        }
       }
     }
   }

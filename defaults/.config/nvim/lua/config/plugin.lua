@@ -315,10 +315,20 @@ function M:__setup()
     config = function() require('config.plugins.misc'):setup_neoterm() end
   }
 
-  use {
-    'ferrine/md-img-paste.vim',
-    ft = 'markdown'
-  }
+  use {'ferrine/md-img-paste.vim', ft = 'markdown'}
+
+  if utl.has_unix() then
+    use {
+      "nvim-telescope/telescope-frecency.nvim",
+      config = function()
+        require"telescope".load_extension("frecency")
+        vim.api.nvim_set_keymap("n", "<c-p>",
+                                "<cmd>lua require('telescope').extensions.frecency.frecency()<CR>",
+                                {noremap = true, silent = true})
+      end,
+      requires = {{"tami5/sql.nvim"}, {'nvim-lua/telescope.nvim'}}
+    }
+  end
 
   -- Keep this setup last. So that it finalizes the lualine config
   use {
