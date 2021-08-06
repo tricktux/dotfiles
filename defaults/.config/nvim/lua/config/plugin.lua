@@ -330,6 +330,21 @@ function M:__setup()
     }
   end
 
+  use {
+    "sunjon/Shade.nvim",
+    config = function()
+      require'shade'.setup({
+        overlay_opacity = 80,
+        opacity_step = 1
+        -- keys = {
+        -- brightness_up = '<C-Up>',
+        -- brightness_down = '<C-Down>',
+        -- toggle = '<Leader>s'
+        -- }
+      })
+    end
+  }
+
   -- Keep this setup last. So that it finalizes the lualine config
   use {
     'hoob3rt/lualine.nvim',
