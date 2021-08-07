@@ -303,7 +303,28 @@ if [[ "$TMUX" == "" ]] &&
 fi
 # }}}
 
+# p10k setup {{{
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
+# TODO: Don't source this file, but rather: romkatv/powerlevel10k/config/p10k-lean.zsh
+# TODO: Use a suggested font so that there is no that many differences
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
+typeset -g POWERLEVEL9K_DIR_CLASSES=()
+typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_FOREGROUND=242
+typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_CHAR='.'
+typeset -g POWERLEVEL9K_RULER_CHAR='-'        # reasonable alternative: '·'
+typeset -g POWERLEVEL9K_RULER_FOREGROUND=242
+typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=false
+typeset -g POWERLEVEL9K_MODE=ascii
+typeset -g POWERLEVEL9K_VIM_SHELL_VISUAL_IDENTIFIER_EXPANSION='nvim'
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=verbose
+typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=off
+typeset -g POWERLEVEL9K_BACKGROUND_JOBS_VERBOSE=true
+typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_PRECISION=2
+typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=0
+typeset -g POWERLEVEL9K_STATUS_VERBOSE_SIGNAME=true
+typeset -g POWERLEVEL9K_STATUS_ERROR=true
+typeset -g POWERLEVEL9K_STATUS_OK=true
+typeset -g POWERLEVEL9K_VCS_BRANCH_ICON='\uF126 '
+# }}}
 # vim: fdm=marker
