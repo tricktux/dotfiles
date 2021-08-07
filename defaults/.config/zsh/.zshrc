@@ -192,6 +192,26 @@ zstyle ':zim:duration-info' show-milliseconds yes
 zstyle ':zim:completion' dumpfile "/tmp/zcompdump-${ZSH_VERSION}"
 # }}}
 
+# Zsh Plugin Opions {{{
+bindkey '^ ' autosuggest-accept
+
+# See https://github.com/zsh-users/zsh-autosuggestions/blob/master/README.md#suggestion-highlight-style
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=30'
+ZSH_AUTOSUGGEST_STRATEGY=(history completion match_prev_cmd)
+
+# See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor root line)
+# Customize the main highlighter styles.
+# See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters/main.md#how-to-tweak-it
+typeset -A ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[comment]='fg=4'
+ZSH_HIGHLIGHT_STYLES[builtin]='fg=93'
+ZSH_HIGHLIGHT_STYLES[command]='fg=93'
+ZSH_HIGHLIGHT_STYLES[function]='fg=93'
+ZSH_HIGHLIGHT_STYLES[alias]='fg=magenta,bold'
+ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
+# }}}
+
 # Source plugins{{{
 # Depends on `pkgfile`
 if [[ -f /usr/bin/pkgfile ]]; then
