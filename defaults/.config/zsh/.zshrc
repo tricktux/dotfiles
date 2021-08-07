@@ -201,8 +201,9 @@ export _Z_DATA="$HOME/.local/share/z"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 # }}}
 
+# Oh-My-Zsh Options{{{
 # Uncomment the following line to disable bi-weekly auto-update checks.
-DISABLE_AUTO_UPDATE="false"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to disable auto-setting terminal title
 DISABLE_AUTO_TITLE="true"
@@ -217,6 +218,7 @@ COMPLETION_WAITING_DOTS="true"
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
 DISABLE_UNTRACKED_FILES_DIRTY="true"
+# }}}
 
 # Source files{{{
 [[ -f ~/.bash_aliases ]] && source ~/.bash_aliases
