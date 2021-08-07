@@ -85,18 +85,10 @@ function! plugin#Config()
   " let g:fzf_preview_command = ''
   " let g:fzf_binary_preview_command = ''
 
-  " Put here all the native vim plugins
-  if !has('nvim')
-    " Wed Oct 30 2019 15:28: Best plugin ever!
-    Plug 'blueyed/vim-diminactive'
-    let g:diminactive_buftype_blacklist = ['ctrlp']
-    let g:diminactive_enable_focus = 1
-
-    Plug 'junegunn/goyo.vim', { 'on' : 'Goyo' }
-    let g:goyo_width = 120
-    nnoremap <plug>focus_toggle :Goyo<cr>
-
-  endif
+  " Wed Oct 30 2019 15:28: Best plugin ever!
+  Plug 'blueyed/vim-diminactive'
+  let g:diminactive_buftype_blacklist = ['ctrlp']
+  let g:diminactive_enable_focus = 1
 
   " call s:configure_vim_zoom()
 
@@ -430,6 +422,10 @@ function! plugin#Config()
   " in your file
   " Sun Nov 11 2018 07:30 Doesn't look well and breaks my author header
   " Plug 'scrooloose/vim-slumlord', { 'on' : 'UtilsUmlInFilePreview' }
+
+  Plug 'junegunn/goyo.vim', { 'on' : 'Goyo' }
+  let g:goyo_width = 120
+  nnoremap <plug>focus_toggle :Goyo<cr>
 
   " Plug 'dbmrq/vim-ditto', { 'for' : 'markdown' }
   " let g:ditto_dir = g:std_data_path
