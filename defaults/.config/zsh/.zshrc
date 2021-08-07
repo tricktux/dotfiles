@@ -154,7 +154,7 @@ zstyle ':completion:*:killall:*' force-list always
 
 #}}}
 
-# My Options{{{
+# My Zsh Options{{{
 # Prevent double entries in $PATH
 typeset -U path
 
@@ -181,6 +181,14 @@ SAVEHIST=100000
 setopt appendhistory autocd extendedglob nomatch notify
 unsetopt beep
 # End of lines configured by zsh-newuser-install
+# }}}
+
+# Zimfw options {{{
+# Don't check for new version automatically
+zstyle ':zim' disable-version-check yes
+
+zstyle ':zim:duration-info' threshold 0.01
+zstyle ':zim:duration-info' show-milliseconds yes
 # }}}
 
 # Source plugins{{{
