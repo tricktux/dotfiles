@@ -188,17 +188,6 @@ unsetopt beep
 if [[ -f /usr/bin/pkgfile ]]; then
   source /usr/share/doc/pkgfile/command-not-found.zsh
 fi
-
-# Depends on `zsh-syntax-highlighting`
-HIGHLIGHT=/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-if [[ -f $HIGHLIGHT ]]; then
-  source $HIGHLIGHT
-fi
-
-SUGG=/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-if [[ -f $SUGG ]]; then
-  source $SUGG
-fi
 # }}}
 
 # Exports {{{
