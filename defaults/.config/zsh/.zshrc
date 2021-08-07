@@ -189,6 +189,7 @@ zstyle ':zim' disable-version-check yes
 
 zstyle ':zim:duration-info' threshold 0.01
 zstyle ':zim:duration-info' show-milliseconds yes
+zstyle ':zim:completion' dumpfile "/tmp/zcompdump-${ZSH_VERSION}"
 # }}}
 
 # Source plugins{{{
