@@ -256,9 +256,6 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # install context-minimals-git
 # mtxrun --generate
 [[ -f /opt/context-minimals/setuptex ]] && source /opt/context-minimals/setuptex
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 # }}}
 
 # fzf setup{{{
@@ -305,5 +302,8 @@ if [[ "$TMUX" == "" ]] &&
     fi
 fi
 # }}}
+
+# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
+[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
 # vim: fdm=marker
