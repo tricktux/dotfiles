@@ -181,15 +181,6 @@ SAVEHIST=100000
 setopt appendhistory autocd extendedglob nomatch notify
 unsetopt beep
 # End of lines configured by zsh-newuser-install
-
-# This will set the default prompt to the walters theme
-
-# Autocompletion for aliases
-setopt COMPLETE_ALIASES
-
-# Module for async
-zmodload zsh/zpty
-
 # }}}
 
 # Source plugins{{{
