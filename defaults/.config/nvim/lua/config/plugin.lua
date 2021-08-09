@@ -330,6 +330,16 @@ function M:__setup()
     }
   end
 
+  use {
+    'gcmt/taboo.vim',
+    config = function()
+        -- vim.api.nvim_set_keymap("n", "<leader>tr", "<cmd>TabooRename "
+                  -- .. vim.api.nvim_input("New Tab Name: ") .. "<cr>",
+                    -- {noremap = true, silent = true})
+        vim.cmd[[nnoremap <leader>tr :TabooRename ]]
+    end
+  }
+
   -- Keep this setup last. So that it finalizes the lualine config
   use {
     'hoob3rt/lualine.nvim',
