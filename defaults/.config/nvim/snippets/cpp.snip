@@ -149,6 +149,22 @@ abbr        UpdateStatusAreaEx
 options     head
   UpdateStatusAreaEx("${1:Msg Here}", ${2:COLOR_ERROR, COLOR_WARNING, COLOR_SUCCESS});
 
+
+snippet lgi
+abbr LG Info
+options head
+    LG.info("${1:Message}"${2:Variables});
+
+snippet lgw
+abbr LG Warn
+options head
+    LG.warn("${1:Message}"${2:Variables});
+
+snippet lge
+abbr LG Error
+options head
+    LG.error("${1:Message}"${2:Variables});
+
 snippet dlog
 abbr Easylogging dlog
 options head
