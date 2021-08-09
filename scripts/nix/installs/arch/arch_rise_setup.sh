@@ -184,6 +184,7 @@ paci --needed --noconfirm zsh
 # Legacy
 # install oh-my-zsh-git zplug pkgfile
 # Install zim
+chsh -s /usr/bin/zsh
 export ZIM_HOME=/home/reinaldo/.config/zsh/.zim
 curl -kfLo $ZIM_HOME/zimfw.zsh --create-dirs \
   https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
@@ -200,8 +201,6 @@ sudo systemctl enable pkgfile-update.timer
 # After=network-online.target nss-lookup.target
 sudo vim /usr/lib/systemd/system/pkgfile-update.timer
 sudo systemctl start pkgfile-update.service
-
-chsh -s /usr/bin/zsh
 # symlink all the `zsh*` files
 #}}}
 
