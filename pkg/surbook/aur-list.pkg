@@ -2,7 +2,6 @@ abook
 alttab-git
 ancient-packages
 bluez-firmware
-bottom-bin
 brillo
 chromedriver
 cht.sh-git
@@ -51,6 +50,8 @@ spotify
 ssmtp
 termite
 ttf-weather-icons
+vdhcoapp
+whatsapp-nativefier
 ytmdl
 zeal
 zplug

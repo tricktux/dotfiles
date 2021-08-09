@@ -6,28 +6,29 @@
 # Sets sane Zsh built-in environment options.
 zmodule environment
 # Provides handy git aliases and functions.
-zmodule git
+# zmodule git
 # Applies correct bindkeys for input events.
 zmodule input
 # Sets a custom terminal title.
-zmodule termtitle
+# zmodule termtitle
 # Utility aliases and functions. Adds colour to ls, grep and less.
 zmodule utility
 
 #
 # Prompt
-#
-# Exposes git repository status information to prompts.
-zmodule git-info
-# A customizable version of steeef's prompt theme.
-# zmodule steeef
+# Note: These modules are not needed if you use an external prompt
+# Exposes to prompts how long the last command took to execute, used by asciiship.
+# zmodule duration-info
+# # Exposes git repository status information to prompts, used by asciiship.
+# zmodule git-info
+# # A heavily reduced, ASCII-only version of the Spaceship and Starship prompts.
+# zmodule asciiship
 
 # Additional completion definitions for Zsh.
 zmodule zsh-users/zsh-completions
 # Enables and configures smart and extensive tab completion.
 # completion must be sourced after zsh-users/zsh-completions
-# Tue Jan 12 2021 17:06: Really slowing things down
-# zmodule completion
+zmodule completion
 # Fish-like autosuggestions for Zsh.
 zmodule zsh-users/zsh-autosuggestions
 # Fish-like syntax highlighting for Zsh.
@@ -38,8 +39,9 @@ zmodule zsh-users/zsh-syntax-highlighting
 zmodule zsh-users/zsh-history-substring-search
 # }}} End configuration added by Zim install
 
+# My Modules {{{
 zmodule romkatv/powerlevel10k
-zmodule rupa/z
-# Makes the terminal slow to typing commands that have autocomplete
-# zmodule djui/alias-tips
+zmodule exa
 zmodule archive
+zmodule rupa/z
+# }}}
