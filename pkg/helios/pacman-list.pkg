@@ -23,6 +23,7 @@ bluez
 bluez-utils
 boost
 boost-libs
+bottom
 bumblebee
 capitaine-cursors
 ccache
@@ -81,6 +82,7 @@ hplip
 hub
 hunspell
 hunspell-en_us
+hyperfine
 i3-gaps
 i3blocks
 i3lock

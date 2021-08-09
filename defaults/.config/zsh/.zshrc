@@ -1,6 +1,3 @@
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
-
 # Start configuration added by Zim install {{{
 #
 # User configuration sourced by interactive shells
@@ -44,21 +41,21 @@ WORDCHARS=${WORDCHARS//[\/]}
 
 # Set a custom path for the completion dump file.
 # If none is provided, the default ${ZDOTDIR:-${HOME}}/.zcompdump is used.
-zstyle ':zim:completion' dumpfile "${XDG_CACHE_HOME}/zcompdump-${ZSH_VERSION}"
+#zstyle ':zim:completion' dumpfile "${ZDOTDIR:-${HOME}}/.zcompdump-${ZSH_VERSION}"
 
 #
 # git
 #
 
 # Set a custom prefix for the generated aliases. The default prefix is 'G'.
-zstyle ':zim:git' aliases-prefix 'g'
+#zstyle ':zim:git' aliases-prefix 'g'
 
 #
 # input
 #
 
 # Append `../` to your input for each `.` you type after an initial `..`
-# zstyle ':zim:input' double-dot-expand yes
+#zstyle ':zim:input' double-dot-expand yes
 
 #
 # termtitle
@@ -67,7 +64,7 @@ zstyle ':zim:git' aliases-prefix 'g'
 # Set a custom terminal title format using prompt expansion escape sequences.
 # See http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html#Simple-Prompt-Escapes
 # If none is provided, the default '%n@%m: %~' is used.
-# zstyle ':zim:termtitle' format '%1~'
+#zstyle ':zim:termtitle' format '%1~'
 
 #
 # zsh-autosuggestions
@@ -75,8 +72,7 @@ zstyle ':zim:git' aliases-prefix 'g'
 
 # Customize the style that the suggestions are shown with.
 # See https://github.com/zsh-users/zsh-autosuggestions/blob/master/README.md#suggestion-highlight-style
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=30'
-ZSH_AUTOSUGGEST_STRATEGY=(history completion match_prev_cmd)
+#ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
 
 #
 # zsh-syntax-highlighting
@@ -84,24 +80,19 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion match_prev_cmd)
 
 # Set what highlighters will be used.
 # See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor root line)
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
 # Customize the main highlighter styles.
 # See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters/main.md#how-to-tweak-it
-typeset -A ZSH_HIGHLIGHT_STYLES
-ZSH_HIGHLIGHT_STYLES[comment]='fg=4'
-ZSH_HIGHLIGHT_STYLES[builtin]='fg=93'
-ZSH_HIGHLIGHT_STYLES[command]='fg=93'
-ZSH_HIGHLIGHT_STYLES[function]='fg=93'
-ZSH_HIGHLIGHT_STYLES[alias]='fg=magenta,bold'
-ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
+#typeset -A ZSH_HIGHLIGHT_STYLES
+#ZSH_HIGHLIGHT_STYLES[comment]='fg=242'
 
 # ------------------
 # Initialize modules
 # ------------------
 
-if [[ ${ZIM_HOME}/init.zsh -ot ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
-  # Update static initialization script if it's outdated, before sourcing it
+if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
+  # Update static initialization script if it does not exist or it's outdated, before sourcing it
   source ${ZIM_HOME}/zimfw.zsh init -q
 fi
 source ${ZIM_HOME}/init.zsh
@@ -109,8 +100,6 @@ source ${ZIM_HOME}/init.zsh
 # ------------------------------
 # Post-init module configuration
 # ------------------------------
-
-bindkey '^ ' autosuggest-accept
 
 #
 # zsh-history-substring-search
@@ -132,6 +121,9 @@ bindkey '^N' history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 # }}} End configuration added by Zim install
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -162,7 +154,7 @@ zstyle ':completion:*:killall:*' force-list always
 
 #}}}
 
-# My Options{{{
+# My Zsh Options{{{
 # Prevent double entries in $PATH
 typeset -U path
 
@@ -189,32 +181,41 @@ SAVEHIST=100000
 setopt appendhistory autocd extendedglob nomatch notify
 unsetopt beep
 # End of lines configured by zsh-newuser-install
+# }}}
 
-# This will set the default prompt to the walters theme
+# Zimfw options {{{
+# Don't check for new version automatically
+zstyle ':zim' disable-version-check yes
 
-# Autocompletion for aliases
-setopt COMPLETE_ALIASES
+zstyle ':zim:duration-info' threshold 0.01
+zstyle ':zim:duration-info' show-milliseconds yes
+zstyle ':zim:completion' dumpfile "/tmp/zcompdump-${ZSH_VERSION}"
+# }}}
 
-# Module for async
-zmodload zsh/zpty
+# Zsh Plugin Opions {{{
+bindkey '^ ' autosuggest-accept
 
+# See https://github.com/zsh-users/zsh-autosuggestions/blob/master/README.md#suggestion-highlight-style
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=30'
+ZSH_AUTOSUGGEST_STRATEGY=(history completion match_prev_cmd)
+
+# See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor root line)
+# Customize the main highlighter styles.
+# See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters/main.md#how-to-tweak-it
+typeset -A ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[comment]='fg=4'
+ZSH_HIGHLIGHT_STYLES[builtin]='fg=93'
+ZSH_HIGHLIGHT_STYLES[command]='fg=93'
+ZSH_HIGHLIGHT_STYLES[function]='fg=93'
+ZSH_HIGHLIGHT_STYLES[alias]='fg=magenta,bold'
+ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
 # }}}
 
 # Source plugins{{{
 # Depends on `pkgfile`
 if [[ -f /usr/bin/pkgfile ]]; then
   source /usr/share/doc/pkgfile/command-not-found.zsh
-fi
-
-# Depends on `zsh-syntax-highlighting`
-HIGHLIGHT=/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-if [[ -f $HIGHLIGHT ]]; then
-  source $HIGHLIGHT
-fi
-
-SUGG=/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-if [[ -f $SUGG ]]; then
-  source $SUGG
 fi
 # }}}
 
@@ -229,8 +230,9 @@ export _Z_DATA="$HOME/.local/share/z"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 # }}}
 
+# Oh-My-Zsh Options{{{
 # Uncomment the following line to disable bi-weekly auto-update checks.
-DISABLE_AUTO_UPDATE="false"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to disable auto-setting terminal title
 DISABLE_AUTO_TITLE="true"
@@ -245,6 +247,7 @@ COMPLETION_WAITING_DOTS="true"
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
 DISABLE_UNTRACKED_FILES_DIRTY="true"
+# }}}
 
 # Source files{{{
 [[ -f ~/.bash_aliases ]] && source ~/.bash_aliases
@@ -253,9 +256,6 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # install context-minimals-git
 # mtxrun --generate
 [[ -f /opt/context-minimals/setuptex ]] && source /opt/context-minimals/setuptex
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 # }}}
 
 # fzf setup{{{
@@ -303,4 +303,28 @@ if [[ "$TMUX" == "" ]] &&
 fi
 # }}}
 
+# p10k setup {{{
+# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
+# TODO: Don't source this file, but rather: romkatv/powerlevel10k/config/p10k-lean.zsh
+# TODO: Use a suggested font so that there is no that many differences
+[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
+
+typeset -g POWERLEVEL9K_DIR_CLASSES=()
+typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_FOREGROUND=242
+typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_CHAR='.'
+typeset -g POWERLEVEL9K_RULER_CHAR='-'        # reasonable alternative: '·'
+typeset -g POWERLEVEL9K_RULER_FOREGROUND=242
+typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=false
+typeset -g POWERLEVEL9K_MODE=ascii
+typeset -g POWERLEVEL9K_VIM_SHELL_VISUAL_IDENTIFIER_EXPANSION='nvim'
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=verbose
+typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=off
+typeset -g POWERLEVEL9K_BACKGROUND_JOBS_VERBOSE=true
+typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_PRECISION=2
+typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=0
+typeset -g POWERLEVEL9K_STATUS_VERBOSE_SIGNAME=true
+typeset -g POWERLEVEL9K_STATUS_ERROR=true
+typeset -g POWERLEVEL9K_STATUS_OK=true
+typeset -g POWERLEVEL9K_VCS_BRANCH_ICON='\uF126 '
+# }}}
 # vim: fdm=marker
