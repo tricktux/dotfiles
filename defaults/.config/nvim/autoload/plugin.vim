@@ -85,11 +85,6 @@ function! plugin#Config()
   " let g:fzf_preview_command = ''
   " let g:fzf_binary_preview_command = ''
 
-  " Wed Oct 30 2019 15:28: Best plugin ever!
-  Plug 'blueyed/vim-diminactive'
-  let g:diminactive_buftype_blacklist = ['ctrlp']
-  let g:diminactive_enable_focus = 1
-
   " call s:configure_vim_zoom()
 
   call s:configure_vim_utils()
