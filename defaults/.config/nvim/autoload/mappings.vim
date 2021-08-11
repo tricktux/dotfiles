@@ -68,6 +68,8 @@ function! mappings#Set()
   " Auto center screen mappings. There some above as well
   " Folding
   " Folding select text then S-f to fold or just S-f to toggle folding
+  nnoremap ]c ]czz
+  nnoremap [c [czz
   nnoremap <C-z> zzze
   nnoremap <C-c> zMzz
   nnoremap <C-n> zRzz
@@ -235,6 +237,7 @@ function! mappings#Set()
   nnoremap <silent> <plug>generate_tags :call ctags#NvimSyncCtags()<cr>
 
   nnoremap <leader>tt :TagbarToggle<cr>
+  nnoremap <leader>tn :NeomakeToggleTab<cr>
   nnoremap <leader>ts :setlocal spell!<cr>
   " duplicate current char
   nnoremap <leader>d ylp
