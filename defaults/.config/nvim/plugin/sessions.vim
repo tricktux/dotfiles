@@ -246,22 +246,14 @@ function! s:sessions.get_existing_name() abort
   return self.path . l:session_name
 endfunction
 
-function! s:sessions.timer_handler(timer) abort
-  if a:timer != s:sessions.timer_id
-    echomsg '[s:session.timer_handler]: timer does not match input timer id'
-    return -1
-  endif
-
-  if &verbose > 0
-    echomsg '[s:session.timer_handler]: Received callback!'
-  endif
-  return self.existing_save()
+function! s:sessions_timer_handler(timer) abort
+  exe "SessionsSave"
 endfunction
 
 if s:sessions.save_on_timer > 0 && s:sessions.timer_id == 0
   let s:sessions.timer_id = timer_start(
         \ s:sessions.save_on_timer*1000,
-        \ s:sessions.timer_handler,
+        \ funcref("s:sessions_timer_handler"),
         \ { 'repeat': -1 }
         \ )
 endif
