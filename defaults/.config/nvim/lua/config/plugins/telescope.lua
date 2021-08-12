@@ -1,4 +1,5 @@
 local utl = require('utils.utils')
+local Path = require('plenary.path')
 
 local M = {}
 
@@ -24,6 +25,46 @@ function M.set_lsp_mappings(bufnr)
   wk.register(mappings, opts)
 end
 
+local cust_path_display = function(opts, path)
+  if utl.has_win() then path = path:gsub("/", "\\") end  -- normalize paths
+  local tail = require("telescope.utils").path_tail(path)
+  return string.format("%-40s %s", tail, path)
+end
+
+local cust_layout_config = {
+  height = 0.5,
+  width = 0.6,
+}
+
+local cust_buff_opts = {
+  show_all_buffers = true,
+  only_cwd = true,
+  sort_mru = true,
+  sort_lastused = true,
+  previewer = false,
+  path_display = cust_path_display,
+  layout_config = cust_layout_config,
+  mappings = {
+    i = {["<c-d>"] = require('telescope.actions').delete_buffer},
+    n = {["<c-d>"] = require('telescope.actions').delete_buffer}
+  }
+}
+
+local cust_files_opts = {
+  previewer = false,
+  layout_config = cust_layout_config,
+  path_display = cust_path_display
+}
+
+local win_file = Path:new(os.getenv("LOCALAPPDATA")):joinpath([[\ignore-file]])
+local win_ignore_file = [[--ignore-file=]] .. win_file:absolute()
+local nix_ignore_file = os.getenv("IGNORE_FILE") or ''
+local ignore_file = utl.has_win() and win_ignore_file or nix_ignore_file
+
+local fd_file_cmd = {"fd", "--type", "file", "--hidden", "--follow", ignore_file}
+local fd_folder_cmd = {"fd", "--type", "directory", "--hidden", "--follow", ignore_file}
+local rg_file_cmd = {"rg", "-i", "--hidden", "--files", ignore_file}
+
 local function set_mappings()
   if not utl.is_mod_available('which-key') then
     vim.api.nvim_err_writeln('telescope.lua: which-key module not available')
@@ -35,7 +76,28 @@ local function set_mappings()
   local leader = {}
   local leader_p = [[<leader>]]
 
-  wk.register {"<plug>mru_browser", require('telescope.builtin').oldfiles}
+  wk.register {
+    ["<plug>buffer_browser"] = { 
+      function() 
+        local opts = cust_buff_opts
+        opts["only_cwd"] = false
+        ts.buffers(opts) 
+      end, "buffers"
+    },
+    ["0"] = { 
+      function() ts.buffers(cust_buff_opts) end, "buffers"
+    },
+    ["<plug>mru_browser"] = {
+      function() 
+        local opts = cust_files_opts
+        local p = vim.fn.getcwd()
+        opts['prompt_title'] = 'Find files in "' .. p .. '"'
+        opts['search_dirs'] = {p}
+        opts['find_command'] = rg_file_cmd
+        ts.find_files(opts)
+      end, "oldfiles"
+    }
+  }
 
   local git = {
     name = 'git',
@@ -104,26 +166,22 @@ function M.setup()
 
       -- get_window_options = function(...) end,
       -- To move to bottom, use strategy descending
+      -- C:\Users\h129522\AppData\Roaming\dotfiles\defaults\.config\nvim\lua\config\plugins\telescope.lua
+      path_display = function(opts, path)
+        if utl.has_win() then path = path:gsub("/", "\\") end  -- normalize paths
+        local tail = require("telescope.utils").path_tail(path)
+        return string.format("%-40s (%s)", tail, path)
+      end,
       pickers = {
         git_files = {recurse_submodules = true},
         find_files = {hidden = true},
-        buffers = {
-          show_all_buffers = true,
-          sort_lastused = true,
-          theme = "dropdown",
-          previewer = true,
-          mappings = {
-            i = {["<c-d>"] = actions.delete_buffer},
-            n = {["<c-d>"] = actions.delete_buffer}
-          }
-        }
       },
       sorting_strategy = "ascending",
       layout_strategy = "flex",
       winblend = 5,
       layout_config = {
         prompt_position = "top",
-        horizontal = {preview_width = 0.6},
+        horizontal = {preview_width = 0.5},
         vertical = {preview_height = 0.5}
       },
 

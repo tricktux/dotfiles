@@ -135,6 +135,7 @@ function! plugin#Config()
     call autocompletion#SetCompl(l:compl)
   else
     call s:set_neosnippets()
+    call s:configure_fuzzers()
   endif
   " call autocompletion#SetCompl(
   " \ has('unix') ? 'shuogo_deo' :
@@ -223,7 +224,6 @@ function! plugin#Config()
   " See mappings in afterconfig
   " Wed Mar 03 2021 12:30: Does not work well with sessions
   " Plug 'dosimple/workspace.vim'
-  call s:configure_fuzzers()
   " call s:configure_fzf()
 
   " These plugins will be configured via lua
