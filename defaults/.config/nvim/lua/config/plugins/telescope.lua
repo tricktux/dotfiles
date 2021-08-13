@@ -28,7 +28,7 @@ end
 local cust_path_display = function(opts, path)
   if utl.has_win() then path = path:gsub("/", "\\") end  -- normalize paths
   local tail = require("telescope.utils").path_tail(path)
-  return string.format("%-40s %s", tail, path)
+  return string.format("%-35s %s", tail, path)
 end
 
 local cust_layout_config = {
@@ -38,7 +38,7 @@ local cust_layout_config = {
 
 local cust_buff_opts = {
   show_all_buffers = true,
-  only_cwd = true,
+  only_cwd = false,
   sort_mru = true,
   sort_lastused = true,
   previewer = false,
@@ -63,7 +63,24 @@ local ignore_file = utl.has_win() and win_ignore_file or nix_ignore_file
 
 local fd_file_cmd = {"fd", "--type", "file", "--hidden", "--follow", ignore_file}
 local fd_folder_cmd = {"fd", "--type", "directory", "--hidden", "--follow", ignore_file}
-local rg_file_cmd = {"rg", "-i", "--hidden", "--files", ignore_file}
+local rg_file_cmd = {"rg", "-i", "--hidden", "--files", "--follow", ignore_file}
+
+local function ff(path)
+  vim.validate {path = {path, 's'}}
+
+  if utl.has_win() then path = path:gsub("/", "\\") end  -- normalize paths
+  local ppath = Path:new(path)
+  if not ppath:is_dir() then
+    vim.api.nvim_err_writeln('telescope.lua: path not found: ' .. ppath:absolute())
+    return
+  end
+  local opts = cust_files_opts
+  local spath = ppath:absolute()
+  opts['prompt_title'] = 'Files in "' .. spath .. '"...'
+  opts['cwd'] = spath
+  opts['find_command'] = rg_file_cmd
+  require("telescope.builtin").find_files(opts)
+end
 
 local function set_mappings()
   if not utl.is_mod_available('which-key') then
@@ -78,25 +95,33 @@ local function set_mappings()
 
   wk.register {
     ["<plug>buffer_browser"] = { 
-      function() 
-        local opts = cust_buff_opts
-        opts["only_cwd"] = false
-        ts.buffers(opts) 
-      end, "buffers"
-    },
-    ["0"] = { 
       function() ts.buffers(cust_buff_opts) end, "buffers"
     },
     ["<plug>mru_browser"] = {
-      function() 
-        local opts = cust_files_opts
-        local p = vim.fn.getcwd()
-        opts['prompt_title'] = 'Find files in "' .. p .. '"'
-        opts['search_dirs'] = {p}
-        opts['find_command'] = rg_file_cmd
-        ts.find_files(opts)
-      end, "oldfiles"
+      function() ff(vim.fn.getcwd()) end, "oldfiles"
     }
+  }
+
+  local function ff_dotfiles()
+    local dotfiles = nil
+    if utl.has_unix() then
+      dotfiles = Path:new(vim.g.dotfiles)
+    else
+      dotfiles = Path:new(os.getenv("APPDATA")):joinpath([[dotfiles]])
+    end
+    return ff(dotfiles:absolute())
+  end
+
+  local lua_plugins = Path:new(vim.g.std_data_path):joinpath([[site/pack/packer]]):absolute()
+
+  leader.e = {
+    name = "edit",
+    d = {ff_dotfiles, 'dotfiles'},
+    h = {function() ff(os.getenv('HOME')) end, 'home'},
+    c = {function() ff(vim.fn.getcwd()) end, 'current_dir'},
+    p = {function() ff(lua_plugins) end, 'lua_plugins_path'},
+    l = {function() ff(vim.g.vim_plugins_path) end, 'vim_plugins_path'},
+    v = {function() ff(os.getenv('VIMRUNTIME')) end, 'vimruntime'},
   }
 
   local git = {
@@ -150,28 +175,7 @@ function M.setup()
 
   local config = {
     defaults = {
-      -- Picker Configuration
-      -- border = {},
-      -- borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
-      -- preview_cutoff = (utl.has_unix() and 120 or 9999),
-      -- selection_strategy = "reset",
-
-      -- Can choose EITHER one of these: horizontal, vertical, center
-      -- layout_strategy = "horizontal",
-      -- horizontal_config = {
-      -- get_preview_width = function(columns, _)
-      -- return math.floor(columns * 0.5)
-      -- end,
-      -- },
-
-      -- get_window_options = function(...) end,
-      -- To move to bottom, use strategy descending
-      -- C:\Users\h129522\AppData\Roaming\dotfiles\defaults\.config\nvim\lua\config\plugins\telescope.lua
-      path_display = function(opts, path)
-        if utl.has_win() then path = path:gsub("/", "\\") end  -- normalize paths
-        local tail = require("telescope.utils").path_tail(path)
-        return string.format("%-40s (%s)", tail, path)
-      end,
+      path_display = cust_path_display,
       pickers = {
         git_files = {recurse_submodules = true},
         find_files = {hidden = true},

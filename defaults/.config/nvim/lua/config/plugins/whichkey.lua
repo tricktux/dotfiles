@@ -86,13 +86,6 @@ leader.c = {
   u = 'one_folder_up',
   c = 'display_curr_work_dir'
 }
-local wings = {
-  name = 'wings',
-  ['1'] = 'OneWins1',
-  ['2'] = 'OneWins2',
-  a = 'wings-dev',
-  s = 'SupportFiles'
-}
 
 local edit_random_file_type = {
   name = 'random_file_type',
@@ -104,33 +97,16 @@ local edit_random_file_type = {
   g = {'<cmd>UtilsEditTmpFileGen<cr>', 'general_enter_extension'}
 }
 
-local function ff(arg)
-  vim.validate {arg = {arg, 's'}}
-  return require('utils.utils').file_fuzzer(arg)
-end
-
-local function ff_dotfiles()
-  local arg = utl.has_unix() and vim.g.dotfiles or [[$APPDATA\dotfiles]]
-  return ff(arg)
-end
-local lua_plugins = vim.g.std_data_path .. [[/site/pack/packer]]
-
 leader.e = {
   name = 'edit',
-  d = {ff_dotfiles, 'dotfiles'},
-  h = {function() ff('$HOME') end, 'home'},
-  c = {function() ff(vim.fn.getcwd()) end, 'current_dir'},
   t = edit_random_file_type,
-  p = {function() ff(lua_plugins) end, 'lua_plugins_path'},
-  l = {function() ff(vim.g.vim_plugins_path) end, 'vim_plugins_path'},
-  v = {function() ff('$VIMRUNTIME') end, 'vimruntime'},
-  w = wings,
   a = 'add folder/file',
   P = {
     function() vim.api.nvim_exec('edit ' .. vim.fn.getreg('+'), true) end,
     'edit_file_path_clipboard'
   }
 }
+
 local sessions = {name = 'sessions', s = 'save', l = 'load', e = 'load_default'}
 leader.j = {
   name = 'misc',
