@@ -26,15 +26,12 @@ function M.set_lsp_mappings(bufnr)
 end
 
 local cust_path_display = function(opts, path)
-  if utl.has_win() then path = path:gsub("/", "\\") end  -- normalize paths
+  if utl.has_win() then path = path:gsub("/", "\\") end -- normalize paths
   local tail = require("telescope.utils").path_tail(path)
   return string.format("%-35s %s", tail, path)
 end
 
-local cust_layout_config = {
-  height = 0.5,
-  width = 0.6,
-}
+local cust_layout_config = {height = 0.5, width = 0.6}
 
 local cust_buff_opts = {
   show_all_buffers = true,
@@ -61,17 +58,22 @@ local win_ignore_file = [[--ignore-file=]] .. win_file:absolute()
 local nix_ignore_file = os.getenv("IGNORE_FILE") or ''
 local ignore_file = utl.has_win() and win_ignore_file or nix_ignore_file
 
-local fd_file_cmd = {"fd", "--type", "file", "--hidden", "--follow", ignore_file}
-local fd_folder_cmd = {"fd", "--type", "directory", "--hidden", "--follow", ignore_file}
+local fd_file_cmd = {
+  "fd", "--type", "file", "--hidden", "--follow", ignore_file
+}
+local fd_folder_cmd = {
+  "fd", "--type", "directory", "--hidden", "--follow", ignore_file
+}
 local rg_file_cmd = {"rg", "-i", "--hidden", "--files", "--follow", ignore_file}
 
 local function ff(path)
   vim.validate {path = {path, 's'}}
 
-  if utl.has_win() then path = path:gsub("/", "\\") end  -- normalize paths
+  if utl.has_win() then path = path:gsub("/", "\\") end -- normalize paths
   local ppath = Path:new(path)
   if not ppath:is_dir() then
-    vim.api.nvim_err_writeln('telescope.lua: path not found: ' .. ppath:absolute())
+    vim.api.nvim_err_writeln('telescope.lua: path not found: ' ..
+                                 ppath:absolute())
     return
   end
   local opts = cust_files_opts
@@ -94,12 +96,10 @@ local function set_mappings()
   local leader_p = [[<leader>]]
 
   wk.register {
-    ["<plug>buffer_browser"] = { 
+    ["<plug>buffer_browser"] = {
       function() ts.buffers(cust_buff_opts) end, "buffers"
     },
-    ["<plug>mru_browser"] = {
-      function() ff(vim.fn.getcwd()) end, "oldfiles"
-    }
+    ["<plug>mru_browser"] = {function() ff(vim.fn.getcwd()) end, "oldfiles"}
   }
 
   local function ff_dotfiles()
@@ -112,7 +112,8 @@ local function set_mappings()
     return ff(dotfiles:absolute())
   end
 
-  local lua_plugins = Path:new(vim.g.std_data_path):joinpath([[site/pack/packer]]):absolute()
+  local lua_plugins = Path:new(vim.g.std_data_path):joinpath(
+                          [[site/pack/packer]]):absolute()
 
   leader.e = {
     name = "edit",
@@ -121,7 +122,7 @@ local function set_mappings()
     c = {function() ff(vim.fn.getcwd()) end, 'current_dir'},
     p = {function() ff(lua_plugins) end, 'lua_plugins_path'},
     l = {function() ff(vim.g.vim_plugins_path) end, 'vim_plugins_path'},
-    v = {function() ff(os.getenv('VIMRUNTIME')) end, 'vimruntime'},
+    v = {function() ff(os.getenv('VIMRUNTIME')) end, 'vimruntime'}
   }
 
   local git = {
@@ -178,7 +179,7 @@ function M.setup()
       path_display = cust_path_display,
       pickers = {
         git_files = {recurse_submodules = true},
-        find_files = {hidden = true},
+        find_files = {hidden = true}
       },
       sorting_strategy = "ascending",
       layout_strategy = "flex",
