@@ -27,7 +27,7 @@ let s:sessions = {
       \ 'fuzz_over' : 100,
       \ 'helper_plugin' : 
       \   {
-      \     'cmd' :  'Obsession',
+      \     'cmd' :  ':Obsession',
       \     'status_fn': 'ObsessionStatus',
       \     'status_fn_session_paused': '[S]',
       \   },
@@ -49,22 +49,22 @@ function! s:sessions.existing_save() abort
     return -2
   endif
 
-  if !exists(self.helper_plugin.status_fn)
+  if !exists('*' . self.helper_plugin.status_fn)
     if &verbose > 0
       echoerr '[sessions.existing_save]: Invalid status function'
     endif
     return -3
   endif
 
-  let fn = function(self.helper_plugin.status_fn)
+  let Fn = function(self.helper_plugin.status_fn)
   let l:cmd = 'mksession!'
-  if exists(':' . self.helper_plugin.cmd)
+  if exists(self.helper_plugin.cmd)
     " If helper plugin available use it
     let l:cmd = self.helper_plugin.cmd
     " Current helper plugin has the option to be in pause mode. Where no changes 
     " are saved. If we are in that mode do not save anything just return
 
-    if fn() ==# self.helper_plugin.status_fn_session_paused
+    if Fn() ==# self.helper_plugin.status_fn_session_paused
       if &verbose > 0
         echomsg '[sessions.existing_save]: Obsession is paused. So no saving'
       endif
