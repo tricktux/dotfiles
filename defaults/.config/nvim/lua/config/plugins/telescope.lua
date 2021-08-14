@@ -56,16 +56,23 @@ local cust_files_opts = {
 local win_file = Path:new(os.getenv("LOCALAPPDATA")):joinpath([[\ignore-file]])
 local win_ignore_file = [[--ignore-file=]] .. win_file:absolute()
 -- TODO: For now env var ignore file is not working
-local nix_ignore_file = [[--ignore-file=$USER/.config/ignore-file]]
+local nix_ignore_file = [[--ignore-file=]] .. os.getenv("HOME") ..
+                            [[/.config/ignore-file]]
 local ignore_file = utl.has_win() and win_ignore_file or nix_ignore_file
 
 local fd_file_cmd = {
-  "fd", "--type", "file", "--hidden", "--follow", ignore_file
+  "fd", "--type=file", "--color=never", "--hidden", "--follow", ignore_file
 }
 local fd_folder_cmd = {
-  "fd", "--type", "directory", "--hidden", "--follow", ignore_file
+  "fd", "--type=directory", "--color=never", "--hidden", "--follow", ignore_file
 }
-local rg_file_cmd = {"rg", "-i", "--hidden", "--files", "--follow", ignore_file}
+local rg_file_cmd = {
+  "rg", "--color=never", "--hidden", "--files", "--follow", ignore_file
+}
+local rg_grep_cmd = {
+  "--color=never", "--hidden", "--fixed-strings", "--smart-case", "--follow",
+  ignore_file
+}
 
 local function ff(path)
   vim.validate {path = {path, 's'}}
@@ -81,7 +88,7 @@ local function ff(path)
   local spath = ppath:absolute()
   opts['prompt_title'] = 'Files in "' .. spath .. '"...'
   opts['cwd'] = spath
-  opts['find_command'] = rg_file_cmd
+  opts['find_command'] = fd_file_cmd
   require("telescope.builtin").find_files(opts)
 end
 
@@ -135,7 +142,9 @@ local function set_mappings()
     s = {ts.git_status, 'status'},
     S = {ts.git_stash, 'stash'}
   }
-  leader['?'] = {ts.live_grep, 'live_grep'}
+  leader['?'] = {
+    function() ts.live_grep {additional_args = rg_grep_cmd} end, 'live_grep'
+  }
   leader[';'] = {ts.commands, 'commands'}
   leader[':'] = {ts.command_history, 'command_history'}
   leader.f = {
@@ -177,8 +186,6 @@ function M.setup()
 
   local config = {
     defaults = {
-      previewer = false,
-      path_display = cust_path_display,
       pickers = {
         git_files = {recurse_submodules = true},
         find_files = {hidden = true}
