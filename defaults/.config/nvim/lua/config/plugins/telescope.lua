@@ -55,7 +55,8 @@ local cust_files_opts = {
 
 local win_file = Path:new(os.getenv("LOCALAPPDATA")):joinpath([[\ignore-file]])
 local win_ignore_file = [[--ignore-file=]] .. win_file:absolute()
-local nix_ignore_file = os.getenv("IGNORE_FILE") or ''
+-- TODO: For now env var ignore file is not working
+local nix_ignore_file = [[--ignore-file=$USER/.config/ignore-file]]
 local ignore_file = utl.has_win() and win_ignore_file or nix_ignore_file
 
 local fd_file_cmd = {
@@ -176,6 +177,7 @@ function M.setup()
 
   local config = {
     defaults = {
+      previewer = false,
       path_display = cust_path_display,
       pickers = {
         git_files = {recurse_submodules = true},
