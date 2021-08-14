@@ -322,7 +322,7 @@ function M:__setup()
       "nvim-telescope/telescope-frecency.nvim",
       config = function()
         require"telescope".load_extension("frecency")
-        vim.api.nvim_set_keymap("n", "<c-p>",
+        vim.api.nvim_set_keymap("n", "0",
                                 "<cmd>lua require('telescope').extensions.frecency.frecency()<CR>",
                                 {noremap = true, silent = true})
       end,
@@ -332,12 +332,7 @@ function M:__setup()
 
   use {
     'gcmt/taboo.vim',
-    config = function()
-        -- vim.api.nvim_set_keymap("n", "<leader>tr", "<cmd>TabooRename "
-                  -- .. vim.api.nvim_input("New Tab Name: ") .. "<cr>",
-                    -- {noremap = true, silent = true})
-        vim.cmd[[nnoremap <leader>tr :TabooRename ]]
-    end
+    config = function() vim.cmd[[nnoremap <leader>tr :TabooRename ]] end
   }
 
   -- Keep this setup last. So that it finalizes the lualine config
@@ -346,7 +341,6 @@ function M:__setup()
     -- requires = {'kyazdani42/nvim-web-devicons', opt = true},
     config = function() require('config.plugins.lualine'):setup() end
   }
-
 end
 
 function M:__set_mappings()
