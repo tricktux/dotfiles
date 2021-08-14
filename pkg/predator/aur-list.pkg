@@ -5,7 +5,6 @@ bottom-bin
 chromedriver
 cmake-format
 cmake-lint
-cpupower-gui
 gdb-dashboard-git
 geekbench
 google-chrome
@@ -30,8 +29,10 @@ pass-import
 polybar
 rofi-bluetooth-git
 rofi-dmenu
-rofi-emoji
 shellcheck-bin
+spotify
+termite
 ttf-weather-icons
 vdhcoapp-bin
+ytmdl
 zeal

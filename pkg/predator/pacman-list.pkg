@@ -156,6 +156,7 @@ rapidjson
 redshift
 reflector
 ripgrep
+rofi-emoji
 rofi-pass
 rsync
 rust
@@ -166,7 +167,6 @@ shfmt
 simple-scan
 stow
 sudo
-termite
 texinfo
 texlive-bibtexextra
 texlive-core
@@ -254,6 +254,7 @@ xorg-xwayland
 xorg-xwd
 xorg-xwininfo
 xorg-xwud
+youtube-dl
 zathura
 zathura-pdf-mupdf
 zip
