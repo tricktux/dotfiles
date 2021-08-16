@@ -68,6 +68,8 @@ function! mappings#Set()
   " Auto center screen mappings. There some above as well
   " Folding
   " Folding select text then S-f to fold or just S-f to toggle folding
+  nnoremap * *zz
+  nnoremap # #zz
   nnoremap ]c ]czz
   nnoremap [c [czz
   nnoremap <C-z> zzze
@@ -377,10 +379,6 @@ function! mappings#Set()
   nnoremap <leader>na ga
   nmap <leader>nr <Plug>RadicalView
   xmap <leader>nr <Plug>RadicalView
-
-  " Search forward/backwards but return
-  " nnoremap * *zz
-  " nnoremap # #zz
 
   " These are mappings for Insert, Command-line, and Lang-Arg
   " insert in the middle of whole word search
