@@ -68,6 +68,7 @@ function! mappings#Set()
   " Auto center screen mappings. There some above as well
   " Folding
   " Folding select text then S-f to fold or just S-f to toggle folding
+  nnoremap <c-d> <c-d>zz
   nnoremap * *zz
   nnoremap # #zz
   nnoremap ]c ]czz
