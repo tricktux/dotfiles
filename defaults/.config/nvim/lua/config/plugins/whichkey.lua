@@ -1,6 +1,25 @@
 local utl = require('utils/utils')
 local api = vim.api
 
+local function refresh_buffer()
+  api.nvim_exec([[
+  update
+  nohlsearch
+  diffupdate
+  mode
+  edit
+  normal! zzze<cr>
+  ]], false)
+
+  if vim.fn.exists(':SignifyRefresh') > 0 then vim.cmd('SignifyRefresh') end
+
+  if utl.is_mod_available('gitsigns') then require('gitsigns').refresh() end
+
+  if vim.fn.exists(':IndentBlanklineRefresh') > 0 then
+    vim.cmd('IndentBlanklineRefresh')
+  end
+end
+
 local M = {}
 
 M.__config = {
@@ -253,6 +272,10 @@ function M:setup()
   wk.register(lleader, {prefix = lleader_p})
   wk.register(lbracket, {prefix = lbracket_p})
   wk.register(rbracket, {prefix = rbracket_p})
+  -- Global mappings
+  wk.register({
+    ["<c-l>"] = {refresh_buffer, "refresh_buffer"}
+  })
 end
 
 return M
