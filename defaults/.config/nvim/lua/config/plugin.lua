@@ -338,13 +338,13 @@ function M:__setup()
   use {
     'ironhouzi/starlite-nvim',
     config = function()
-      vim.cmd[[
-        nnoremap <silent> 0 :lua require'starlite'.g_star()<cr>
-        nnoremap <silent> * :lua require'starlite'.star()<cr>
-        nnoremap <silent> g* :lua require'starlite'.g_star()<cr>
-        nnoremap <silent> # :lua require'starlite'.hash()<cr>
-        nnoremap <silent> g# :lua require'starlite'.g_hash()<cr>
-      ]]
+      local map = require('utils.keymap')
+
+      map.nnoremap('0', '<cmd>lua require"starlite".g_star()<cr>')
+      map.nnoremap('*', '<cmd>lua require"starlite".star()<cr>')
+      map.nnoremap('g*', '<cmd>lua require"starlite".g_star()<cr>')
+      map.nnoremap('#', '<cmd>lua require"starlite".hash()<cr>')
+      map.nnoremap('g#', '<cmd>lua require"starlite".g_hash()<cr>')
     end
   }
 
