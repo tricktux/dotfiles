@@ -114,8 +114,8 @@ function! mappings#Set()
   onoremap <expr> N 'nN'[v:searchforward] . 'zz'
 
   " Consistent ; and , as well
-  nmap <expr>; getcharsearch().forward ? '<plug>Sneak_;' : '<plug>Sneak_,'
-  nmap <expr>, getcharsearch().forward ? '<plug>Sneak_,' : '<plug>Sneak_;'
+  " nmap <expr>; getcharsearch().forward ? '<plug>Sneak_;' : '<plug>Sneak_,'
+  " nmap <expr>, getcharsearch().forward ? '<plug>Sneak_,' : '<plug>Sneak_;'
 
   nnoremap g; g;zz
   nnoremap g, g,zz
