@@ -335,6 +335,19 @@ function M:__setup()
     config = function() vim.cmd[[nnoremap <leader>tr :TabooRename ]] end
   }
 
+  use {
+    'ironhouzi/starlite-nvim',
+    config = function()
+      vim.cmd[[
+        nnoremap <silent> 0 :lua require'starlite'.g_star()<cr>
+        nnoremap <silent> * :lua require'starlite'.star()<cr>
+        nnoremap <silent> g* :lua require'starlite'.g_star()<cr>
+        nnoremap <silent> # :lua require'starlite'.hash()<cr>
+        nnoremap <silent> g# :lua require'starlite'.g_hash()<cr>
+      ]]
+    end
+  }
+
   -- Keep this setup last. So that it finalizes the lualine config
   use {
     'hoob3rt/lualine.nvim',
