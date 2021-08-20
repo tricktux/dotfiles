@@ -1,6 +1,10 @@
 local map = require('utils.keymap')
 
 local function setup()
+  -- Awesome hack, typing a command is used way more often than next
+  map.nnoremap(';', ':', {nowait = true, silent = true})
+  map.vnoremap(';', ':', {nowait = true, silent = true})
+
   map.vnoremap('gA', 'g<c-a>')
   map.vnoremap('gX', 'g<c-x>')
   map.vnoremap(']f', 'gf')
