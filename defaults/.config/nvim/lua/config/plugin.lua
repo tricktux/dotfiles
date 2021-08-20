@@ -348,6 +348,11 @@ function M:__setup()
     end
   }
 
+  use {
+    'justinmk/vim-sneak',
+    config = function() require('config.plugins.misc'):setup_sneak() end
+  }
+
   -- Keep this setup last. So that it finalizes the lualine config
   use {
     'hoob3rt/lualine.nvim',

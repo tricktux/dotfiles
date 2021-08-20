@@ -133,9 +133,10 @@ function! plugin#Config()
   if !has('nvim-0.5')
     let l:compl = 'shuogo_deo'
     call autocompletion#SetCompl(l:compl)
+    call s:configure_fuzzers()
+    call s:configure_vim_sneak()
   else
     call s:set_neosnippets()
-    call s:configure_fuzzers()
   endif
   " call autocompletion#SetCompl(
   " \ has('unix') ? 'shuogo_deo' :
@@ -368,8 +369,6 @@ function! plugin#Config()
     " let g:w3m#history#save_file = g:std_cache_path . '/vim_w3m_hist'
     " " Mon Sep 18 2017 22:37: To open html file do `:W3mLocal %'
   " endif
-
-  call s:configure_vim_sneak()
 
   " Plug 'waiting-for-dev/vim-www'
   " " TODO-[RM]-(Thu Sep 14 2017 21:02): Update this here
@@ -1688,7 +1687,7 @@ function! s:configure_neoterm() abort
   " let g:neoterm_eof = "\<cr>"
   " endif
   " Do not map any keys
-  let g:neoterm_automap_keys = ''
+  let g:neoterm_automap_keys = '<leader>tT'
   let g:neoterm_term_per_tab = 1
   let g:neoterm_use_relative_path = 1
   let g:neoterm_default_mod = ''

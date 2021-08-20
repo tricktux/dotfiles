@@ -1,8 +1,57 @@
 local utl = require('utils.utils')
 local line = require('config.plugins.lualine')
+local map = require('utils.keymap')
 local api = vim.api
 
 local M = {}
+
+function M.setup_sneak()
+  vim.g["sneak#absolute_dir"] = 1
+  vim.g["sneak#label"] = 1
+
+  -- " 2-character Sneak (default)
+  map.nmap('s', '<Plug>Sneak_s')
+  map.nmap('S', '<Plug>Sneak_S')
+  -- " visual-mode
+  map.xmap('?', '<Plug>Sneak_s')
+  map.xmap('?', '<Plug>Sneak_S')
+  -- " operator-pending-mode
+  map.omap('?', '<Plug>Sneak_s')
+  map.omap('?', '<Plug>Sneak_S')
+
+  -- " repeat motion
+  map.map(':', '<Plug>Sneak_;')
+  map.map(',', '<Plug>Sneak_,')
+
+  -- " 1-character enhanced 'f'
+  map.nmap('f', '<Plug>Sneak_f')
+  map.nmap('F', '<Plug>Sneak_F')
+  -- " visual-mode
+  map.xmap('?', '<Plug>Sneak_f')
+  map.xmap('?', '<Plug>Sneak_F')
+  -- " operator-pending-mode
+  map.omap('?', '<Plug>Sneak_f')
+  map.omap('?', '<Plug>Sneak_F')
+
+  -- " 1-character enhanced 't'
+  map.nmap('t', '<Plug>Sneak_t')
+  map.nmap('T', '<Plug>Sneak_T')
+  -- " visual-mode
+  map.xmap('?', '<Plug>Sneak_t')
+  map.xmap('?', '<Plug>Sneak_T')
+  -- " operator-pending-mode
+  map.omap('?', '<Plug>Sneak_t')
+  map.omap('?', '<Plug>Sneak_T')
+
+  -- " label-mode
+  map.nmap('s', '<Plug>SneakLabel_s')
+  map.nmap('S', '<Plug>SneakLabel_S')
+
+  -- TODO: See a way not to have to map these
+  map.xnoremap('s', 's')
+  map.xmap('T', '%')
+  map.nmap('T', '%')
+end
 
 local function obsession_status()
   return vim.fn['ObsessionStatus']('S:' ..
