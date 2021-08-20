@@ -25,7 +25,7 @@ function M:_validate_map_args(lhs, rhs, opts, mode)
   log.trace("opts = ", opts)
   log.trace("lhs = ", lhs)
   log.trace("rhs = ", rhs)
-  local copts = {}
+  local copts = {silent = true}
   -- Make a copy of the opts table if valid. This way does'nt get modified 
   -- through the subsequent functions
   if opts ~= nil then copts = {unpack(opts)} end
