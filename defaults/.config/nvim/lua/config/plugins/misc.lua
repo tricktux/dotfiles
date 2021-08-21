@@ -10,15 +10,8 @@ function M.setup_sneak()
   vim.g["sneak#label"] = 1
 
   -- " 2-character Sneak (default)
-  map.nmap('s', '<Plug>Sneak_s')
-  map.nmap('S', '<Plug>Sneak_S')
-  -- " visual-mode
-  map.xmap('?', '<Plug>Sneak_s')
-  map.xmap('?', '<Plug>Sneak_S')
-  -- " operator-pending-mode
-  map.omap('?', '<Plug>Sneak_s')
-  map.omap('?', '<Plug>Sneak_S')
-
+  -- map.nmap('s', '<Plug>Sneak_s')
+  -- map.nmap('S', '<Plug>Sneak_S')
   -- " repeat motion
   map.map(':', '<Plug>Sneak_;')
   map.map(',', '<Plug>Sneak_,')
@@ -26,31 +19,34 @@ function M.setup_sneak()
   -- " 1-character enhanced 'f'
   map.nmap('f', '<Plug>Sneak_f')
   map.nmap('F', '<Plug>Sneak_F')
-  -- " visual-mode
-  map.xmap('?', '<Plug>Sneak_f')
-  map.xmap('?', '<Plug>Sneak_F')
-  -- " operator-pending-mode
-  map.omap('?', '<Plug>Sneak_f')
-  map.omap('?', '<Plug>Sneak_F')
-
   -- " 1-character enhanced 't'
   map.nmap('t', '<Plug>Sneak_t')
   map.nmap('T', '<Plug>Sneak_T')
-  -- " visual-mode
-  map.xmap('?', '<Plug>Sneak_t')
-  map.xmap('?', '<Plug>Sneak_T')
-  -- " operator-pending-mode
-  map.omap('?', '<Plug>Sneak_t')
-  map.omap('?', '<Plug>Sneak_T')
-
   -- " label-mode
   map.nmap('s', '<Plug>SneakLabel_s')
   map.nmap('S', '<Plug>SneakLabel_S')
 
   -- TODO: See a way not to have to map these
-  map.xnoremap('s', 's')
+  -- Wait for: https://github.com/justinmk/vim-sneak/pull/248
+  -- vim.g["sneak#disable_mappings"] = 1
+  -- " visual-mode
+  map.xmap('s', 's')
+  map.xmap('S', 'S')
+  -- " operator-pending-mode
+  map.omap('s', 's')
+  map.omap('S', 'S')
+  -- " visual-mode
+  map.xmap('f', 'f')
+  map.xmap('F', 'F')
+  -- " operator-pending-mode
+  map.omap('f', 'f')
+  map.omap('F', 'F')
+  -- " visual-mode
+  map.xmap('t', 't')
   map.xmap('T', '%')
-  map.nmap('T', '%')
+  -- " operator-pending-mode
+  map.omap('t', 't')
+  map.omap('T', '%')
 end
 
 local function obsession_status()
