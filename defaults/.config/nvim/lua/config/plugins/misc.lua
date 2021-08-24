@@ -5,12 +5,41 @@ local api = vim.api
 
 local M = {}
 
-function M.setup_bdelete()
+function M.setup_bookmarks()
+  vim.g.bookmark_no_default_key_mappings = 1
+  vim.g.bookmark_manage_per_buffer = 0
+  vim.g.bookmark_save_per_working_dir = 0
+  vim.g.bookmark_dir = vim.g.std_data_path .. '/bookmarks'
+  vim.g.bookmark_auto_save = 0
+  vim.g.bookmark_auto_save_file = vim.g.bookmark_dir .. '/bookmarks'
+  vim.g.bookmark_highlight_lines = 1
+
   if not utl.is_mod_available('which-key') then
     vim.api.nvim_err_writeln('which-key module not available')
     return
   end
 
+  local wk = require("which-key")
+  local leader = {}
+  local leader_p = [[<leader>]]
+  leader.B = {
+    name = 'bookmarks',
+    t = {"<Plug>BookmarkToggle", "BookmarkToggle"},
+    i = {"<Plug>BookmarkAnnotate", "BookmarkAnnotate"},
+    a = {"<Plug>BookmarkShowAll", "BookmarkShowAll"},
+    n = {"<Plug>BookmarkNext", "BookmarkNext"},
+    p = {"<Plug>BookmarkPrev", "BookmarkPrev"},
+    c = {"<Plug>BookmarkClear", "BookmarkClear"},
+    x = {"<Plug>BookmarkClearAll", "BookmarkClearAll"},
+    k = {"<Plug>BookmarkMoveUp", "BookmarkMoveUp"},
+    j = {"<Plug>BookmarkMoveDown", "BookmarkMoveDown"},
+    o = {"<Plug>BookmarkLoad", "BookmarkLoad"},
+    s = {"<Plug>BookmarkSave", "BookmarkSave"},
+  }
+  wk.register(leader, {prefix = leader_p})
+end
+
+function M.setup_bdelete()
   local bd = require('close_buffers')
   bd.setup({
     filetype_ignore = {},  -- Filetype to ignore when running deletions
@@ -19,6 +48,11 @@ function M.setup_bdelete()
     preserve_window_layout = { 'this', 'nameless' },  -- Types of deletion that should preserve the window layout
     next_buffer_cmd = nil,  -- Custom function to retrieve the next buffer when preserving window layout
   })
+
+  if not utl.is_mod_available('which-key') then
+    vim.api.nvim_err_writeln('which-key module not available')
+    return
+  end
 
   local wk = require("which-key")
   local leader = {}
@@ -79,9 +113,9 @@ end
 
 local function obsession_status()
   return vim.fn['ObsessionStatus']('S:' ..
-                                       vim.fn
-                                           .fnamemodify(vim.v.this_session,
-                                                        ':t:r'), '$')
+  vim.fn
+  .fnamemodify(vim.v.this_session,
+  ':t:r'), '$')
 end
 
 function M.setup_papercolor()
@@ -94,10 +128,10 @@ function M.setup_papercolor()
     vim.fn['flux#Manual']()
   else
     vim.cmd [[
-      augroup FluxLike
-        autocmd!
-        autocmd VimEnter,BufEnter * call flux#Flux()
-      augroup END
+    augroup FluxLike
+    autocmd!
+    autocmd VimEnter,BufEnter * call flux#Flux()
+    augroup END
     ]]
 
     vim.g.flux_enabled = 1
@@ -143,7 +177,7 @@ function M.setup_neoterm()
   end)
   vimp.nnoremap({'override'}, '<plug>terminal_new', '<cmd>Tnew<cr>')
   vimp.nnoremap({'override'}, '<plug>terminal_send_file',
-                '<cmd>TREPLSendFile<cr>')
+  '<cmd>TREPLSendFile<cr>')
   -- " Use gx{text-object} in normal mode
   -- vimp.nnoremap({'override'}, '<plug>terminal_send', '<Plug>(neoterm-repl-send)')
   if vim.fn.exists('$TMUX') > 0 then
@@ -155,14 +189,14 @@ function M.setup_neoterm()
     end)
     vimp.xnoremap({'override'}, '<plug>terminal_send', function()
       local csel = vim.fn.shellescape(
-                        require('utils.utils').get_visual_selection())
+      require('utils.utils').get_visual_selection())
       if csel == '' or csel == nil then return end
       -- \! = ! which means target (-t) last active tmux pane (!)
       vim.cmd([[silent !tmux send-keys -t \! ]] .. csel .. [[ Enter]])
     end)
   else
     vimp.nnoremap({'override'}, '<plug>terminal_send_line',
-                  '<Plug>(neoterm-repl-send-line)')
+    '<Plug>(neoterm-repl-send-line)')
   end
 end
 
@@ -170,9 +204,9 @@ function M.setup_pomodoro()
   vim.g.pomodoro_use_devicons = 0
   if vim.fn.executable('dunst') > 0 then
     vim.g.pomodoro_notification_cmd =
-        "notify-send 'Pomodoro' 'Session ended' && " ..
-            "mpv ~/.config/dotfiles/notification_sounds/cool_notification1.mp3 " ..
-            "2>/dev/null&"
+    "notify-send 'Pomodoro' 'Session ended' && " ..
+    "mpv ~/.config/dotfiles/notification_sounds/cool_notification1.mp3 " ..
+    "2>/dev/null&"
   elseif vim.fn.executable('powershell') > 0 then
     local notif = os.getenv("APPDATA") .. '/dotfiles/scripts/win/win_vim_notification.ps1'
     if vim.fn.filereadable(notif) then

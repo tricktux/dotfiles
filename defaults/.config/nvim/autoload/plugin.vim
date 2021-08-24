@@ -135,6 +135,7 @@ function! plugin#Config()
     call autocompletion#SetCompl(l:compl)
     call s:configure_fuzzers()
     call s:configure_vim_sneak()
+    call s:configure_vim_bookmark()
   else
     call s:set_neosnippets()
   endif
@@ -547,8 +548,6 @@ function! plugin#Config()
   endif
 
   " Plug 'alepez/vim-gtest', { 'for' : ['cpp'] }
-
-  call s:configure_vim_bookmark()
 
   " Plug 'tenfyzhong/vim-gencode-cpp'
 

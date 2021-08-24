@@ -486,18 +486,6 @@ function! mappings#Set()
   " deletes all buffers
   nnoremap <leader>bl :%bd<cr>
 
-  nmap <leader>bt <Plug>BookmarkToggle
-  nmap <leader>bi <Plug>BookmarkAnnotate
-  nmap <leader>ba <Plug>BookmarkShowAll
-  nmap <leader>bn <Plug>BookmarkNext
-  nmap <leader>bp <Plug>BookmarkPrev
-  nmap <leader>bc <Plug>BookmarkClear
-  nmap <leader>bx <Plug>BookmarkClearAll
-  nmap <leader>bk <Plug>BookmarkMoveUp
-  nmap <leader>bj <Plug>BookmarkMoveDown
-  nmap <leader>bo <Plug>BookmarkLoad
-  nmap <leader>bs <Plug>BookmarkSave
-
   " Version Control <Leader>v?
   " For all this commands you should be in the svn root folder
   " Add all files
