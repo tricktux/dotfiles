@@ -140,7 +140,6 @@ leader.j = {
   ['='] = {'<cmd>UtilsFontZoomIn<cr>', 'font_increase'},
   e = sessions
 }
-leader.b = {name = 'buffers/bookmarks', d = 'delete_current', l = 'delete_all'}
 leader.n = {
   name = 'num_representation',
   h = 'ascii_to_hex',

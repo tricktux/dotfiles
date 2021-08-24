@@ -5,6 +5,34 @@ local api = vim.api
 
 local M = {}
 
+function M.setup_bdelete()
+  if not utl.is_mod_available('which-key') then
+    vim.api.nvim_err_writeln('which-key module not available')
+    return
+  end
+
+  local bd = require('close_buffers')
+  bd.setup({
+    filetype_ignore = {},  -- Filetype to ignore when running deletions
+    file_glob_ignore = {},  -- File name glob pattern to ignore when running deletions (e.g. '*.md')
+    file_regex_ignore = {}, -- File name regex pattern to ignore when running deletions (e.g. '.*[.]md')
+    preserve_window_layout = { 'this', 'nameless' },  -- Types of deletion that should preserve the window layout
+    next_buffer_cmd = nil,  -- Custom function to retrieve the next buffer when preserving window layout
+  })
+
+  local wk = require("which-key")
+  local leader = {}
+  local leader_p = [[<leader>]]
+  leader.b = {
+    name = 'buffers',
+    d = {function() bd.delete({type = 'this'}) end, 'buffer_delete_current'},
+    l = {function() bd.delete({type = 'all', force = true}) end, 'buffer_delete_all'},
+    n = {function() bd.delete({type = 'nameless'}) end, 'buffer_delete_nameless'},
+    g = {function() bd.delete({glob = vim.fn.input("Please enter glob (ex. *.lua): ")}) end, 'buffer_delete_glob'},
+  }
+  wk.register(leader, {prefix = leader_p})
+end
+
 function M.setup_sneak()
   vim.g["sneak#absolute_dir"] = 1
   vim.g["sneak#label"] = 1
@@ -21,7 +49,6 @@ function M.setup_sneak()
   map.nmap('F', '<Plug>Sneak_F')
   -- " 1-character enhanced 't'
   map.nmap('t', '<Plug>Sneak_t')
-  map.nmap('T', '<Plug>Sneak_T')
   -- " label-mode
   map.nmap('s', '<Plug>SneakLabel_s')
   map.nmap('S', '<Plug>SneakLabel_S')
@@ -30,6 +57,7 @@ function M.setup_sneak()
   -- Wait for: https://github.com/justinmk/vim-sneak/pull/248
   -- vim.g["sneak#disable_mappings"] = 1
   -- " visual-mode
+  map.nmap('T', '%')
   map.xmap('s', 's')
   map.xmap('S', 'S')
   -- " operator-pending-mode

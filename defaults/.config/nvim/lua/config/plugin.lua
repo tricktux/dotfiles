@@ -353,6 +353,11 @@ function M:__setup()
     config = function() require('config.plugins.misc'):setup_sneak() end
   }
 
+  use {
+    'kazhala/close-buffers.nvim',
+    config = function() require('config.plugins.misc'):setup_bdelete() end
+  }
+
   -- Keep this setup last. So that it finalizes the lualine config
   use {
     'hoob3rt/lualine.nvim',
