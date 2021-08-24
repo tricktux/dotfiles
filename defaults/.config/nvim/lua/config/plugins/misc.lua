@@ -5,6 +5,13 @@ local api = vim.api
 
 local M = {}
 
+function M.setup_starlite()
+  map.nnoremap('*', '<cmd>lua require"starlite".star()<cr>')
+  map.nnoremap('g*', '<cmd>lua require"starlite".g_star()<cr>')
+  map.nnoremap('#', '<cmd>lua require"starlite".hash()<cr>')
+  map.nnoremap('g#', '<cmd>lua require"starlite".g_hash()<cr>')
+end
+
 function M.setup_bookmarks()
   vim.g.bookmark_no_default_key_mappings = 1
   vim.g.bookmark_manage_per_buffer = 0

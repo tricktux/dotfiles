@@ -337,15 +337,7 @@ function M:__setup()
 
   use {
     'ironhouzi/starlite-nvim',
-    config = function()
-      local map = require('utils.keymap')
-
-      map.nnoremap('0', '<cmd>lua require"starlite".g_star()<cr>')
-      map.nnoremap('*', '<cmd>lua require"starlite".star()<cr>')
-      map.nnoremap('g*', '<cmd>lua require"starlite".g_star()<cr>')
-      map.nnoremap('#', '<cmd>lua require"starlite".hash()<cr>')
-      map.nnoremap('g#', '<cmd>lua require"starlite".g_hash()<cr>')
-    end
+    config = function() require('config.plugins.misc'):setup_starlite() end
   }
 
   use {
