@@ -47,9 +47,9 @@ CapsLock::LCtrl
 ; Teams
 #i::ToggleWinClass("Chrome_WidgetWin_1")
 ; Neovide
-#o::ToggleWinClass("SDL_app")
+; #o::ToggleWinClass("SDL_app")
 ; nvim-qt
-; #o::ToggleWinClass("Qt5QWindowIcon")
+#o::ToggleWinClass("Qt5QWindowIcon")
 ; #p::ToggleWinClass("SUMATRA_PDF_FRAME")
 
 #c::GetClass()
