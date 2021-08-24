@@ -317,19 +317,6 @@ function M:__setup()
 
   use {'ferrine/md-img-paste.vim', ft = 'markdown'}
 
-  if utl.has_unix() then
-    use {
-      "nvim-telescope/telescope-frecency.nvim",
-      config = function()
-        require"telescope".load_extension("frecency")
-        vim.api.nvim_set_keymap("n", "0",
-                                "<cmd>lua require('telescope').extensions.frecency.frecency()<CR>",
-                                {noremap = true, silent = true})
-      end,
-      requires = {{"tami5/sql.nvim"}, {'nvim-lua/telescope.nvim'}}
-    }
-  end
-
   use {
     'gcmt/taboo.vim',
     config = function() vim.cmd[[nnoremap <leader>tr :TabooRename ]] end
