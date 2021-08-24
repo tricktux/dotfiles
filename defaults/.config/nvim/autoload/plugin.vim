@@ -42,28 +42,14 @@ function! plugin#Config()
   " call status_line#config('lightline')
 
   " Plug 'Yggdroot/indentLine', { 'for' : [ 'java', 'cpp', 'c', 'python' ] }
-  Plug 'whiteinge/diffconflicts'
   " Plugin to make api requests
   " Depends on python3 and requests
   " :HTTPClientDoRequest
-  Plug 'aquach/vim-http-client', { 'on' : 'HTTPClientDoRequest'}
-
-  call s:configure_tag_handler('gen_tags')
-
-  if (has('unix'))
-    Plug 'lambdalisue/suda.vim'
-    Plug 'chr4/nginx.vim'
-  endif
 
   " Thu Feb 06 2020 17:53: Not used. Slowing down startup
   " if has('win32')
   " call autocompletion#SetOmniSharp()
   " endif
-
-  Plug 'dbeniamine/cheat.sh-vim'
-  let g:CheatSheetDoNotMap=1
-  let g:ChePHX_GUIatSheetIdPath=g:std_cache_path .
-        \ '\cheat_sh_id'
 
   " Plug 'tpope/vim-obsession'
   " let g:obsession_no_bufenter = 1
@@ -88,16 +74,6 @@ function! plugin#Config()
   " call s:configure_vim_zoom()
 
   call s:configure_vim_utils()
-
-  if executable('mutt')
-    Plug 'guanqun/vim-mutt-aliases-plugin'
-  endif
-
-  if executable('gpg')
-    " This plugin doesnt work with gvim. Use only from cli
-    Plug 'jamessan/vim-gnupg'
-    let g:GPGUseAgent = 0
-  endif
 
   " Possible values:
   " - ycm nvim_compl_manager shuogo_deo shuogo_neo autocomplpop completor asyncomplete
@@ -131,7 +107,37 @@ function! plugin#Config()
   " Fri Apr 02 2021 09:15:
   " - Compe is slow for big files. Crawling back to deoplete once again
   if !has('nvim-0.5')
+    " misc
+    call s:configure_file_browser('nerdtree')
+    if exists('g:no_cool_diffopt_available')
+      Plug 'chrisbra/vim-diff-enhanced'
+      let &diffexpr='EnhancedDiff#Diff("git diff", "--diff-algorithm=patience")'
+    endif
+
+    call cpp_highlight#Set('')
+    Plug 'whiteinge/diffconflicts'
+    Plug 'aquach/vim-http-client', { 'on' : 'HTTPClientDoRequest'}
+    call s:configure_tag_handler('gen_tags')
     let l:compl = 'shuogo_deo'
+    Plug 'dbeniamine/cheat.sh-vim'
+    let g:CheatSheetDoNotMap=1
+    let g:ChePHX_GUIatSheetIdPath=g:std_cache_path .
+          \ '\cheat_sh_id'
+    if (has('unix'))
+      Plug 'lambdalisue/suda.vim'
+      Plug 'chr4/nginx.vim'
+    endif
+
+    if executable('mutt')
+      Plug 'guanqun/vim-mutt-aliases-plugin'
+    endif
+
+    if executable('gpg')
+      " This plugin doesnt work with gvim. Use only from cli
+      Plug 'jamessan/vim-gnupg'
+      let g:GPGUseAgent = 0
+    endif
+
     call autocompletion#SetCompl(l:compl)
     call s:configure_fuzzers()
     call s:configure_vim_sneak()
@@ -148,7 +154,6 @@ function! plugin#Config()
   " - chromatica easytags neotags color_coded clighter8 semantic
   " Wed Jul 04 2018 13:02: No decent code highlighter at the moment
   " Thu Apr 11 2019 12:49: That is still the case
-  call cpp_highlight#Set('')
 
   " Possible values:
   " - neomake ale
@@ -173,20 +178,10 @@ function! plugin#Config()
 
   call s:configure_vim_table_mode()
 
-  " misc
-  if exists('g:no_cool_diffopt_available')
-    Plug 'chrisbra/vim-diff-enhanced'
-    let &diffexpr='EnhancedDiff#Diff("git diff", "--diff-algorithm=patience")'
-  endif
-
   " Options: netranger, nerdtree, chadtree, ranger
   " Mon Aug 17 2020 21:50: Problems with chadtree
   " - Doesn't always start in the correct directory
   " - Doesn't always open in the correct directory
-  if !has('nvim-0.5')
-    call s:configure_file_browser('nerdtree')
-  end
-
   call s:configure_nerdcommenter()
 
   " Plug 'chrisbra/Colorizer', { 'on' : 'ColorHighlight',

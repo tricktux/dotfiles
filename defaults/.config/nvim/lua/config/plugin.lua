@@ -341,6 +341,44 @@ function M:__setup()
     'MattesGroeger/vim-bookmarks',
     config = function() require('config.plugins.misc'):setup_bookmarks() end
   }
+  
+  use 'whiteinge/diffconflicts'
+
+  use {
+    'aquach/vim-http-client',
+    cmd = 'HTTPClientDoRequest'
+  }
+
+  use {
+    'jsfaint/gen_tags.vim', -- Not being suppoprted anymore
+    config = function()
+      vim.g["gen_tags#cache_dir"] = vim.g.std_cache_path .. '/ctags/'
+      vim.g["gen_tags#use_cache_dir"] = 1
+      vim.g["loaded_gentags#gtags"] = 1 -- Disable gtags
+      vim.g["gen_tags#gtags_default_map"] = 0
+      vim.g["gen_tags#statusline"] = 0
+
+      vim.g["gen_tags#ctags_auto_gen"] = 1
+      vim.g["gen_tags#ctags_prune"] = 1
+      vim.g["gen_tags#ctags_opts"] = '--sort=no --append'
+    end
+  }
+
+  use {
+    'lambdalisue/suda.vim',
+    cond = function() return require('utils.utils').has_unix() end
+  }
+
+  use {
+    'chr4/nginx.vim',
+    cond = function() return require('utils.utils').has_unix() end
+  }
+
+  use {
+    'jamessan/vim-gnupg',
+    cond = function() return vim.fn.executable('gpg') > 0 end,
+  }
+
 
   -- Keep this setup last. So that it finalizes the lualine config
   use {
