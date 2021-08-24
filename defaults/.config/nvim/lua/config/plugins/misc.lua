@@ -78,11 +78,9 @@ function M.setup_sneak()
   vim.g["sneak#absolute_dir"] = 1
   vim.g["sneak#label"] = 1
 
-  -- " 2-character Sneak (default)
-  -- map.nmap('s', '<Plug>Sneak_s')
-  -- map.nmap('S', '<Plug>Sneak_S')
   -- " repeat motion
-  map.map(':', '<Plug>Sneak_;')
+  -- Using : for next f,t is cumbersome, use ' for that, and ` for marks 
+  map.map("'", '<Plug>Sneak_;')
   map.map(',', '<Plug>Sneak_,')
 
   -- " 1-character enhanced 'f'
