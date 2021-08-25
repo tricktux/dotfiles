@@ -98,6 +98,8 @@ local function set_mappings()
     return
   end
 
+  vim.cmd[[cmap <c-v> <Plug>(TelescopeFuzzyCommandSearch)]]
+
   local wk = require("which-key")
   local ts = require("telescope.builtin")
   local leader = {}
