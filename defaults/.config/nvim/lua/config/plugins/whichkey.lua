@@ -164,16 +164,6 @@ leader.w = {
   s = 'search',
   r = {ewr, 'weekly_report_open'}
 }
-leader.o = {
-  name = 'comments',
-  I = 'reduce_indent',
-  i = 'increase_indent',
-  a = 'append',
-  u = 'update_header_date',
-  e = 'end_of_if_comment',
-  t = 'add_todo',
-  d = 'delete'
-}
 leader['/'] = {'<plug>search_grep', 'search_grip'}
 leader.F = {'<plug>file_browser', 'file_browser'}
 leader.d = 'duplicate_char'

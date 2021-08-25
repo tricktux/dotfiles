@@ -5,6 +5,88 @@ local api = vim.api
 
 local M = {}
 
+function M.setup_kommentary()
+  require('kommentary.config').configure_language("wings_syntax", {
+    single_line_comment_string = "//",
+    prefer_single_line_comments = true,
+  })
+
+  vim.g.kommentary_create_default_mappings = false  -- Somthing
+
+  --[[ The default mapping for line-wise operation; will toggle the range from
+  commented to not-commented and vice-versa, will use a single-line comment. ]]
+  vim.api.nvim_set_keymap("n", "-", "<Plug>kommentary_line_default", {})
+  --[[ The default mapping for visual selections; will toggle the range from
+  commented to not-commented and vice-versa, will use multi-line comments when
+  the range is longer than 1 line, otherwise it will use a single-line comment. ]]
+  vim.api.nvim_set_keymap("x", "-", "<Plug>kommentary_visual_default<C-c>", {})
+  --[[ The default mapping for motions; will toggle the range from commented to
+  not-commented and vice-versa, will use multi-line comments when the range
+  is longer than 1 line, otherwise it will use a single-line comment. ]]
+  vim.api.nvim_set_keymap("n", "0", "<Plug>kommentary_motion_default", {})
+
+  --[[--
+  Creates mappings for in/decreasing comment level.
+  ]]
+  --[[ vim.api.nvim_set_keymap("n", "<leader>oic", "<Plug>kommentary_line_increase", {})
+  vim.api.nvim_set_keymap("n", "<leader>oi", "<Plug>kommentary_motion_increase", {})
+  vim.api.nvim_set_keymap("x", "<leader>oi", "<Plug>kommentary_visual_increase", {})
+  vim.api.nvim_set_keymap("n", "<leader>odc", "<Plug>kommentary_line_decrease", {})
+  vim.api.nvim_set_keymap("n", "<leader>od", "<Plug>kommentary_motion_decrease", {})
+  vim.api.nvim_set_keymap("x", "<leader>od", "<Plug>kommentary_visual_decrease", {}) ]]
+end
+
+function M.setup_comment_frame()
+  require('nvim-comment-frame').setup({
+
+    -- if true, <leader>cf keymap will be disabled
+    disable_default_keymap = true,
+
+    -- adds custom keymap
+    -- keymap = '<leader>cc',
+    -- multiline_keymap = '<leader>C',
+
+    -- start the comment with this string
+    start_str = '//',
+
+    -- end the comment line with this string
+    end_str = '//',
+
+    -- fill the comment frame border with this character
+    fill_char = '-',
+
+    -- width of the comment frame
+    frame_width = 70,
+
+    -- wrap the line after 'n' characters
+    line_wrap_len = 50,
+
+    -- automatically indent the comment frame based on the line
+    auto_indent = true,
+
+    -- add comment above the current line
+    add_comment_above = true,
+
+    -- configurations for individual language goes here
+    languages = {
+    }
+  })
+
+  if not utl.is_mod_available('which-key') then
+    vim.api.nvim_err_writeln('which-key module not available')
+    return
+  end
+
+  local wk = require("which-key")
+  local leader = {}
+  local leader_p = [[<leader>]]
+  leader.o = {
+    name = 'comments',
+    m = {require('nvim-comment-frame').add_multiline_comment, "add_multiline_comment"},
+  }
+  wk.register(leader, {prefix = leader_p})
+end
+
 function M.setup_starlite()
   map.nnoremap('*', '<cmd>lua require"starlite".star()<cr>')
   map.nnoremap('g*', '<cmd>lua require"starlite".g_star()<cr>')

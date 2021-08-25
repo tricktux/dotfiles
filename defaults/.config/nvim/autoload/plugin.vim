@@ -107,6 +107,7 @@ function! plugin#Config()
   " Fri Apr 02 2021 09:15:
   " - Compe is slow for big files. Crawling back to deoplete once again
   if !has('nvim-0.5')
+    call s:configure_nerdcommenter()
     " misc
     call s:configure_file_browser('nerdtree')
     if exists('g:no_cool_diffopt_available')
@@ -182,7 +183,6 @@ function! plugin#Config()
   " Mon Aug 17 2020 21:50: Problems with chadtree
   " - Doesn't always start in the correct directory
   " - Doesn't always open in the correct directory
-  call s:configure_nerdcommenter()
 
   " Plug 'chrisbra/Colorizer', { 'on' : 'ColorHighlight',
         " \ 'for' : [ 'css','html','xml' ] }

@@ -379,6 +379,16 @@ function M:__setup()
     cond = function() return vim.fn.executable('gpg') > 0 end,
   }
 
+  use { 
+    's1n7ax/nvim-comment-frame',
+    requires = { { 'nvim-treesitter' } },
+    config = function() require('config.plugins.misc'):setup_comment_frame() end
+  }
+
+  use {
+    'b3nj5m1n/kommentary',
+    config = function() require('config.plugins.misc'):setup_kommentary() end
+  }
 
   -- Keep this setup last. So that it finalizes the lualine config
   use {
