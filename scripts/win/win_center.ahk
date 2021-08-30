@@ -42,6 +42,7 @@ CapsLock::LCtrl
 #p::ToggleWinMinimize("Outlook")
 #w::ToggleWinMinimize("Wings")
 #z::ToggleWinMinimize("Zeal")
+#.::MuteTeamsMic()
 ; Skype
 ; #i::ToggleWinClass("LyncTabFrameHostWindowClass")
 ; Teams
@@ -60,14 +61,33 @@ GetClass()
     MsgBox, The active windows class is "%class%".
 }
 
+ToggleWinExe(TheWindowExe)
+{
+    SetTitleMatchMode,2
+    DetectHiddenWindows, Off
+    IfWinActive, ahk_exe %TheWindowClass%
+    {
+        WinMinimize, ahk_exe %TheWindowClass%
+    }
+    Else
+    {
+        IfWinExist, ahk_exe %TheWindowClass%
+        {
+            WinGet, winid, ID, ahk_exe %TheWindowClass%
+            DllCall("SwitchToThisWindow", UInt, winid, UInt, 1)
+        }
+    }
+    Return
+}
+
 ToggleWinClass(TheWindowClass)
 {
     SetTitleMatchMode,2
-        DetectHiddenWindows, Off
-        IfWinActive, ahk_class %TheWindowClass%
-        {
-            WinMinimize, ahk_class %TheWindowClass%
-        }
+    DetectHiddenWindows, Off
+    IfWinActive, ahk_class %TheWindowClass%
+    {
+        WinMinimize, ahk_class %TheWindowClass%
+    }
     Else
     {
         IfWinExist, ahk_class %TheWindowClass%
@@ -214,3 +234,15 @@ WPA_MoveMouseToMonitor(md)
     DllCall("SetCursorPos", int, mdxc, int, mdyc) 
 }
 
+MuteTeamsMic()
+{
+    if WinExist("ahk_exe Teams.exe") {
+        ; Switch to Teams and send the mute toggle "<Ctrl><Shift>m"
+            WinActivate, ahk_exe Teams.exe
+            Send {LCtrl down}
+        Send {Shift down}
+        Send m
+            Send {LCtrl up}
+        Send {Shift up}
+    }
+}

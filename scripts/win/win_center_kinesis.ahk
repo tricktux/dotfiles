@@ -36,6 +36,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #p::ToggleWinMinimize("Outlook")
 #w::ToggleWinMinimize("Wings")
 #z::ToggleWinMinimize("Zeal")
+#.::MuteTeamsMic()
 ; Skype
 ; #i::ToggleWinClass("LyncTabFrameHostWindowClass")
 ; Teams
@@ -208,3 +209,15 @@ WPA_MoveMouseToMonitor(md)
     DllCall("SetCursorPos", int, mdxc, int, mdyc) 
 }
 
+MuteTeamsMic()
+{
+    if WinExist("ahk_exe Teams.exe") {
+        ; Switch to Teams and send the mute toggle "<Ctrl><Shift>m"
+        WinActivate, ahk_exe Teams.exe
+        Send {LCtrl down}
+        Send {Shift down}
+        Send m
+        Send {LCtrl up}
+        Send {Shift up}
+    }
+}
