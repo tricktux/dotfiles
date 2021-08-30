@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<doublecmd DCVersion="0.9.6 beta">
+<doublecmd DCVersion="0.9.10 beta">
   <Hotkeys Version="46">
     <Form Name="Main">
       <Hotkey>
@@ -409,6 +409,18 @@
       <Hotkey>
         <Shortcut>Ctrl+D</Shortcut>
         <Command>cm_DirHotList</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Shift+R</Shortcut>
+        <Command>cm_RenameTab</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Shift+S</Shortcut>
+        <Command>cm_ResaveFavoriteTabs</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Shift+L</Shortcut>
+        <Command>cm_LoadFavoriteTabs</Command>
       </Hotkey>
       <Hotkey>
         <Shortcut>Del</Shortcut>
