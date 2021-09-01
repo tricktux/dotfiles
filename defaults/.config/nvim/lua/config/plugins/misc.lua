@@ -112,8 +112,13 @@ function M.setup_focus()
 end
 
 function M.setup_kommentary()
-  require('kommentary.config').configure_language("wings_syntax", {
+  local config = require('kommentary.config')
+  config.configure_language("wings_syntax", {
     single_line_comment_string = "//",
+    prefer_single_line_comments = true,
+  })
+  config.configure_language("dosini", {
+    single_line_comment_string = ";",
     prefer_single_line_comments = true,
   })
 
