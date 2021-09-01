@@ -403,6 +403,11 @@ function M:__setup()
     'beauwilliams/focus.nvim',
     config = function() require('config.plugins.misc'):setup_focus() end
   }
+  use {
+    "folke/zen-mode.nvim",
+    -- cmd = 'ZenMode',
+    config = function() require('config.plugins.misc'):setup_zen_mode() end
+  }
   -- Keep this setup last. So that it finalizes the lualine config
   use {
     'hoob3rt/lualine.nvim',

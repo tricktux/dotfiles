@@ -107,6 +107,10 @@ function! plugin#Config()
   " Fri Apr 02 2021 09:15:
   " - Compe is slow for big files. Crawling back to deoplete once again
   if !has('nvim-0.5')
+    Plug 'junegunn/goyo.vim', { 'on' : 'Goyo' }
+    let g:goyo_width = 120
+    nnoremap <plug>focus_toggle :Goyo<cr>
+
     call s:configure_nerdcommenter()
     " misc
     call s:configure_file_browser('nerdtree')
@@ -412,10 +416,6 @@ function! plugin#Config()
   " in your file
   " Sun Nov 11 2018 07:30 Doesn't look well and breaks my author header
   " Plug 'scrooloose/vim-slumlord', { 'on' : 'UtilsUmlInFilePreview' }
-
-  Plug 'junegunn/goyo.vim', { 'on' : 'Goyo' }
-  let g:goyo_width = 120
-  nnoremap <plug>focus_toggle :Goyo<cr>
 
   " Plug 'dbmrq/vim-ditto', { 'for' : 'markdown' }
   " let g:ditto_dir = g:std_data_path
