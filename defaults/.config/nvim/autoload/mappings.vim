@@ -445,27 +445,29 @@ function! mappings#Set()
 
   " Window movement
   " move between windows
-  if exists('*Focus') && executable('i3-vim-nav')
-    " i3 integration
-    nnoremap <A-l> :call Focus('right', 'l')<cr>
-    nnoremap <A-h> :call Focus('left', 'h')<cr>
-    nnoremap <A-k> :call Focus('up', 'k')<cr>
-    nnoremap <A-j> :call Focus('down', 'j')<cr>
-  elseif has('unix') && executable('tmux') && exists('$TMUX')
-    nnoremap <silent> <A-h> :call <SID>tmux_move('h')<cr>
-    nnoremap <silent> <A-j> :call <SID>tmux_move('j')<cr>
-    nnoremap <silent> <A-k> :call <SID>tmux_move('k')<cr>
-    nnoremap <silent> <A-l> :call <SID>tmux_move('l')<cr>
-  else
-    nnoremap <silent> <A-l> <C-w>lzz
-    nnoremap <silent> <A-h> <C-w>hzz
-    nnoremap <silent> <A-k> <C-w>kzz
-    nnoremap <silent> <A-j> <C-w>jzz
+  if !has('nvim')
+    if exists('*Focus') && executable('i3-vim-nav')
+      " i3 integration
+      nnoremap <A-l> :call Focus('right', 'l')<cr>
+      nnoremap <A-h> :call Focus('left', 'h')<cr>
+      nnoremap <A-k> :call Focus('up', 'k')<cr>
+      nnoremap <A-j> :call Focus('down', 'j')<cr>
+    elseif has('unix') && executable('tmux') && exists('$TMUX')
+      nnoremap <silent> <A-h> :call <SID>tmux_move('h')<cr>
+      nnoremap <silent> <A-j> :call <SID>tmux_move('j')<cr>
+      nnoremap <silent> <A-k> :call <SID>tmux_move('k')<cr>
+      nnoremap <silent> <A-l> :call <SID>tmux_move('l')<cr>
+    else
+      nnoremap <silent> <A-l> <C-w>lzz
+      nnoremap <silent> <A-h> <C-w>hzz
+      nnoremap <silent> <A-k> <C-w>kzz
+      nnoremap <silent> <A-j> <C-w>jzz
+    endif
+    nnoremap <silent> <A-S-l> <C-w>>
+    nnoremap <silent> <A-S-h> <C-w><
+    nnoremap <silent> <A-S-k> <C-w>-
+    nnoremap <silent> <A-S-j> <C-w>+
   endif
-  nnoremap <silent> <A-S-l> <C-w>>
-  nnoremap <silent> <A-S-h> <C-w><
-  nnoremap <silent> <A-S-k> <C-w>-
-  nnoremap <silent> <A-S-j> <C-w>+
 
   inoremap <silent> <c-s> <c-r>=<SID>fix_previous_word()<cr>
 
