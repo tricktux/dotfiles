@@ -101,7 +101,7 @@ function! augroup#Set() abort
     " is loaded
     autocmd VimEnter * nested call s:on_vim_enter()
     " Keep splits normalize
-    autocmd VimResized * call s:normalize_window_size()
+    " autocmd VimResized * execute "normal! \<c-w>="
   augroup END
 
   augroup BuffTypes

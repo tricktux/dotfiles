@@ -5,6 +5,57 @@ local api = vim.api
 
 local M = {}
 
+local function focus_mode_toggle_mappings()
+  if vim.g.focus_mode_mappings == 0 then
+    print('Focus: Enabling...')
+    vim.cmd[[
+      autocmd! VimResized
+      FocusEnable
+    ]]
+    vim.api.nvim_set_keymap('n', '<a-h>', ':FocusSplitLeft<CR>', { silent = true })
+    vim.api.nvim_set_keymap('n', '<a-j>', ':FocusSplitDown<CR>', { silent = true })
+    vim.api.nvim_set_keymap('n', '<a-k>', ':FocusSplitUp<CR>', { silent = true })
+    vim.api.nvim_set_keymap('n', '<a-l>', ':FocusSplitRight<CR>', { silent = true })
+    vim.g.focus_mode_mappings = 1
+    return
+  end
+
+  print('Focus: Disabling...')
+  vim.cmd[[
+    autocmd VimResized * execute "normal! \<c-w>="
+    FocusDisable
+  ]]
+  require('config.mappings').window_movement_setup()
+  vim.g.focus_mode_mappings = 0
+end
+
+function M.setup_focus()
+  -- Initially mappings are enabled
+  vim.g.focus_mode_mappings = 1
+  vim.api.nvim_set_keymap('n', '<a-h>', ':FocusSplitLeft<CR>', { silent = true })
+  vim.api.nvim_set_keymap('n', '<a-j>', ':FocusSplitDown<CR>', { silent = true })
+  vim.api.nvim_set_keymap('n', '<a-k>', ':FocusSplitUp<CR>', { silent = true })
+  vim.api.nvim_set_keymap('n', '<a-l>', ':FocusSplitRight<CR>', { silent = true })
+  local focus = require('focus')
+
+  require('which-key').register{
+    ["<leader>tw"] = {focus_mode_toggle_mappings, "focus_mode_toggle_mappings"}
+  }
+
+  local focus = require('focus')
+  -- Displays line numbers in the focussed window only
+  -- Not displayed in unfocussed windows
+  -- Default: true
+  focus.number = false
+  focus.relativenumber = false
+  -- Enable auto highlighting for focussed/unfocussed windows
+  -- Default: false
+  focus.winhighlight = false
+  -- vim.cmd('hi link UnfocusedWindow CursorLine')
+  -- vim.cmd('hi link FocusedWindow VisualNOS')
+  -- focus.enable = false
+end
+
 function M.setup_kommentary()
   require('kommentary.config').configure_language("wings_syntax", {
     single_line_comment_string = "//",
