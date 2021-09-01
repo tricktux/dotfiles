@@ -33,17 +33,16 @@ function M.nvimtree_config()
     -- ["<CR>"] = ":YourVimFunction()<cr>",
     -- ["u"] = ":lua require'some_module'.some_function()<cr>",
     -- default mappings
-    {key = "<CR>", cb = tree_cb("edit")}, {key = "o", cb = tree_cb("edit")},
-    {key = "<2-LeftMouse>", cb = tree_cb("edit")},
-    {key = "<2-RightMouse>", cb = tree_cb("cd")},
-    {key = "<C-]>", cb = tree_cb("cd")},
-    {key = "<C-v>", cb = tree_cb("vsplit")},
-    {key = "<C-x>", cb = tree_cb("split")},
-    {key = "<C-t>", cb = tree_cb("tabnew")},
-    {key = "<BS>", cb = tree_cb("close_node")},
+    {key = "<cr>", cb = tree_cb("edit")},
+    {key = "o", cb = tree_cb("edit")},
+    {key = "<c-]>", cb = tree_cb("cd")},
+    {key = "<c-v>", cb = tree_cb("vsplit")},
+    {key = "<c-x>", cb = tree_cb("split")},
+    {key = "<c-t>", cb = tree_cb("tabnew")},
+    {key = "<bs>", cb = tree_cb("close_node")},
     {key = "u", cb = tree_cb("close_node")},
-    {key = "<S-CR>", cb = tree_cb("close_node")},
-    {key = "<Tab>", cb = tree_cb("preview")},
+    {key = "<s-cr>", cb = tree_cb("close_node")},
+    {key = "<tab>", cb = tree_cb("preview")},
     {key = "I", cb = tree_cb("toggle_ignored")},
     {key = "H", cb = tree_cb("toggle_dotfiles")},
     {key = "R", cb = tree_cb("refresh")}, {key = "a", cb = tree_cb("create")},
@@ -54,6 +53,7 @@ function M.nvimtree_config()
     {key = "[c", cb = tree_cb("prev_git_item")},
     {key = "]c", cb = tree_cb("next_git_item")},
     {key = "-", cb = tree_cb("dir_up")}, {key = "q", cb = tree_cb("close")},
+    {key = "q", cb = tree_cb("close") },
     {key = "?", cb = tree_cb("toggle_help")}
   }
 
@@ -82,7 +82,10 @@ function M.nvimtree_config()
   -- \   }
   -- \ }
 
-  vim.cmd('nnoremap <plug>file_browser :lua require(\'nvim-tree\').toggle()<cr>')
+  -- vim.cmd('nnoremap <plug>file_browser :lua require(\'nvim-tree\').toggle()<cr>')
+  require('which-key').register{
+    ["<plug>file_browser"] = {require('nvim-tree').toggle, "file_browser"}
+  }
   -- if utl.is_mod_available('which-key') then
   -- local wk = require("which-key")
   -- wk.register{require('nvim-tree').toggle, "<plug>file_browser"}
