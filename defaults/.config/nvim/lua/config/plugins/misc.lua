@@ -20,12 +20,12 @@ function M.setup_zen_mode()
       options = {
         signcolumn = "no", -- disable signcolumn
         number = false, -- disable number column
-        relativenumber = false, -- disable relative numbers
+        relativenumber = false -- disable relative numbers
         -- cursorline = false, -- disable cursorline
         -- cursorcolumn = false, -- disable cursor column
         -- foldcolumn = "0", -- disable fold column
         -- list = false, -- disable whitespace characters
-      },
+      }
     },
     plugins = {
       -- disable some global vim options (vim.o...)
@@ -33,20 +33,20 @@ function M.setup_zen_mode()
       options = {
         enabled = true,
         ruler = false, -- disables the ruler text in the cmd line area
-        showcmd = false, -- disables the command in the last line of the screen
+        showcmd = false -- disables the command in the last line of the screen
       },
-      twilight = { enabled = false }, -- enable to start Twilight when zen mode opens
-      gitsigns = { enabled = false }, -- disables git signs
-      tmux = { enabled = false }, -- disables the tmux statusline
+      twilight = {enabled = false}, -- enable to start Twilight when zen mode opens
+      gitsigns = {enabled = false}, -- disables git signs
+      tmux = {enabled = false}, -- disables the tmux statusline
       -- this will change the font size on kitty when in zen mode
       -- to make this work, you need to set the following kitty options:
       -- - allow_remote_control socket-only
       -- - listen_on unix:/tmp/kitty
       kitty = {
         enabled = false,
-        font = "+4", -- font size increment
-      },
-    },
+        font = "+4" -- font size increment
+      }
+    }
     -- callback where you can add custom code when the Zen window opens
     --[[ on_open = function(win)
     end, ]]
@@ -59,8 +59,8 @@ function M.setup_zen_mode()
     return
   end
 
-  require('which-key').register{
-    ["<plug>focus_toggle"] = {'<cmd>ZenMode<cr>', "zen_mode_focus_toggle"},
+  require('which-key').register {
+    ["<plug>focus_toggle"] = {'<cmd>ZenMode<cr>', "zen_mode_focus_toggle"}
   }
 end
 
@@ -84,12 +84,12 @@ function M.setup_focus()
     return
   end
 
-  require('which-key').register{
+  require('which-key').register {
     ["<leader>tw"] = {'<cmd>FocusToggle<cr>', "focus_mode_toggle_mappings"},
     ["<a-h>"] = {function() focus.split_command('h') end, "window_switch_left"},
     ["<a-j>"] = {function() focus.split_command('j') end, "window_switch_down"},
     ["<a-k>"] = {function() focus.split_command('k') end, "window_switch_up"},
-    ["<a-l>"] = {function() focus.split_command('l') end, "window_switch_right"},
+    ["<a-l>"] = {function() focus.split_command('l') end, "window_switch_right"}
   }
 end
 
@@ -97,14 +97,14 @@ function M.setup_kommentary()
   local config = require('kommentary.config')
   config.configure_language("wings_syntax", {
     single_line_comment_string = "//",
-    prefer_single_line_comments = true,
+    prefer_single_line_comments = true
   })
   config.configure_language("dosini", {
     single_line_comment_string = ";",
-    prefer_single_line_comments = true,
+    prefer_single_line_comments = true
   })
 
-  vim.g.kommentary_create_default_mappings = false  -- Somthing
+  vim.g.kommentary_create_default_mappings = false -- Somthing
 
   --[[ The default mapping for line-wise operation; will toggle the range from
   commented to not-commented and vice-versa, will use a single-line comment. ]]
@@ -161,8 +161,7 @@ function M.setup_comment_frame()
     add_comment_above = true,
 
     -- configurations for individual language goes here
-    languages = {
-    }
+    languages = {}
   })
 
   if not utl.is_mod_available('which-key') then
@@ -175,7 +174,10 @@ function M.setup_comment_frame()
   local leader_p = [[<leader>]]
   leader.o = {
     name = 'comments',
-    m = {require('nvim-comment-frame').add_multiline_comment, "add_multiline_comment"},
+    m = {
+      require('nvim-comment-frame').add_multiline_comment,
+      "add_multiline_comment"
+    }
   }
   wk.register(leader, {prefix = leader_p})
 end
@@ -216,7 +218,7 @@ function M.setup_bookmarks()
     k = {"<Plug>BookmarkMoveUp", "BookmarkMoveUp"},
     j = {"<Plug>BookmarkMoveDown", "BookmarkMoveDown"},
     o = {"<Plug>BookmarkLoad", "BookmarkLoad"},
-    s = {"<Plug>BookmarkSave", "BookmarkSave"},
+    s = {"<Plug>BookmarkSave", "BookmarkSave"}
   }
   wk.register(leader, {prefix = leader_p})
 end
@@ -224,11 +226,11 @@ end
 function M.setup_bdelete()
   local bd = require('close_buffers')
   bd.setup({
-    filetype_ignore = {},  -- Filetype to ignore when running deletions
-    file_glob_ignore = {},  -- File name glob pattern to ignore when running deletions (e.g. '*.md')
+    filetype_ignore = {}, -- Filetype to ignore when running deletions
+    file_glob_ignore = {}, -- File name glob pattern to ignore when running deletions (e.g. '*.md')
     file_regex_ignore = {}, -- File name regex pattern to ignore when running deletions (e.g. '.*[.]md')
-    preserve_window_layout = { 'this', 'nameless' },  -- Types of deletion that should preserve the window layout
-    next_buffer_cmd = nil,  -- Custom function to retrieve the next buffer when preserving window layout
+    preserve_window_layout = {'this', 'nameless'}, -- Types of deletion that should preserve the window layout
+    next_buffer_cmd = nil -- Custom function to retrieve the next buffer when preserving window layout
   })
 
   if not utl.is_mod_available('which-key') then
@@ -242,9 +244,18 @@ function M.setup_bdelete()
   leader.b = {
     name = 'buffers',
     d = {function() bd.delete({type = 'this'}) end, 'buffer_delete_current'},
-    l = {function() bd.delete({type = 'all', force = true}) end, 'buffer_delete_all'},
-    n = {function() bd.delete({type = 'nameless'}) end, 'buffer_delete_nameless'},
-    g = {function() bd.delete({glob = vim.fn.input("Please enter glob (ex. *.lua): ")}) end, 'buffer_delete_glob'},
+    l = {
+      function() bd.delete({type = 'all', force = true}) end,
+      'buffer_delete_all'
+    },
+    n = {
+      function() bd.delete({type = 'nameless'}) end, 'buffer_delete_nameless'
+    },
+    g = {
+      function()
+        bd.delete({glob = vim.fn.input("Please enter glob (ex. *.lua): ")})
+      end, 'buffer_delete_glob'
+    }
   }
   wk.register(leader, {prefix = leader_p})
 end
@@ -293,9 +304,9 @@ end
 
 local function obsession_status()
   return vim.fn['ObsessionStatus']('S:' ..
-  vim.fn
-  .fnamemodify(vim.v.this_session,
-  ':t:r'), '$')
+                                       vim.fn
+                                           .fnamemodify(vim.v.this_session,
+                                                        ':t:r'), '$')
 end
 
 function M.setup_papercolor()
@@ -338,7 +349,6 @@ function M.setup_papercolor()
 end
 
 function M.setup_neoterm()
-
   vim.g.neoterm_automap_keys = ''
   vim.g.neoterm_term_per_tab = 1
   vim.g.neoterm_use_relative_path = 1
@@ -357,7 +367,7 @@ function M.setup_neoterm()
   end)
   vimp.nnoremap({'override'}, '<plug>terminal_new', '<cmd>Tnew<cr>')
   vimp.nnoremap({'override'}, '<plug>terminal_send_file',
-  '<cmd>TREPLSendFile<cr>')
+                '<cmd>TREPLSendFile<cr>')
   -- " Use gx{text-object} in normal mode
   -- vimp.nnoremap({'override'}, '<plug>terminal_send', '<Plug>(neoterm-repl-send)')
   if vim.fn.exists('$TMUX') > 0 then
@@ -369,14 +379,14 @@ function M.setup_neoterm()
     end)
     vimp.xnoremap({'override'}, '<plug>terminal_send', function()
       local csel = vim.fn.shellescape(
-      require('utils.utils').get_visual_selection())
+                       require('utils.utils').get_visual_selection())
       if csel == '' or csel == nil then return end
       -- \! = ! which means target (-t) last active tmux pane (!)
       vim.cmd([[silent !tmux send-keys -t \! ]] .. csel .. [[ Enter]])
     end)
   else
     vimp.nnoremap({'override'}, '<plug>terminal_send_line',
-    '<Plug>(neoterm-repl-send-line)')
+                  '<Plug>(neoterm-repl-send-line)')
   end
 end
 
@@ -384,11 +394,12 @@ function M.setup_pomodoro()
   vim.g.pomodoro_use_devicons = 0
   if vim.fn.executable('dunst') > 0 then
     vim.g.pomodoro_notification_cmd =
-    "notify-send 'Pomodoro' 'Session ended' && " ..
-    "mpv ~/.config/dotfiles/notification_sounds/cool_notification1.mp3 " ..
-    "2>/dev/null&"
+        "notify-send 'Pomodoro' 'Session ended' && " ..
+            "mpv ~/.config/dotfiles/notification_sounds/cool_notification1.mp3 " ..
+            "2>/dev/null&"
   elseif vim.fn.executable('powershell') > 0 then
-    local notif = os.getenv("APPDATA") .. '/dotfiles/scripts/win/win_vim_notification.ps1'
+    local notif = os.getenv("APPDATA") ..
+                      '/dotfiles/scripts/win/win_vim_notification.ps1'
     if vim.fn.filereadable(notif) then
       vim.g.pomodoro_notification_cmd = notif
     end
