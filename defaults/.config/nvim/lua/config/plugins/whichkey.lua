@@ -91,12 +91,7 @@ local leader = {}
 local leader_p = [[<leader>]]
 leader.t = {
   name = 'toggle',
-  j = 'file_browser',
-  f = 'focus_plugin',
-  e = 'terminal',
-  t = 'tagbar',
   s = 'spelling',
-  o = 'alternative_commenter'
 }
 leader.c = {
   name = 'cd',
@@ -165,7 +160,6 @@ leader.w = {
   r = {ewr, 'weekly_report_open'}
 }
 leader['/'] = {'<plug>search_grep', 'search_grip'}
-leader.F = {'<plug>file_browser', 'file_browser'}
 leader.d = 'duplicate_char'
 leader.p = 'paste_from_system'
 leader.y = 'yank_to_system'
