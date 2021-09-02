@@ -361,22 +361,27 @@ function M.setup_neoterm()
     api.nvim_err_writeln("vimp was set, but module not found")
     return
   end
-  local vimp = require('vimp')
-  vimp.nnoremap({'override'}, '<plug>terminal_toggle', function()
-    require('utils.utils').exec_float_term('Ttoggle')
-  end)
-  vimp.nnoremap({'override'}, '<plug>terminal_new', '<cmd>Tnew<cr>')
-  vimp.nnoremap({'override'}, '<plug>terminal_send_file',
-                '<cmd>TREPLSendFile<cr>')
-  -- " Use gx{text-object} in normal mode
-  -- vimp.nnoremap({'override'}, '<plug>terminal_send', '<Plug>(neoterm-repl-send)')
+  require('which-key').register {
+    ['<plug>terminal_toggle'] = {
+      function() require('utils.utils').exec_float_term('Ttoggle') end,
+      "terminal"
+    },
+    ['<plug>terminal_new'] = {'<cmd>Tnew<cr>', 'term_new'},
+    ['<plug>terminal_send_file'] = {'<cmd>TREPLSendFile<cr>', 'term_send_file'},
+    ['<plug>terminal_send'] = {'<Plug>(neoterm-repl-send)', 'term_send_line'}
+  }
   if vim.fn.exists('$TMUX') > 0 then
-    vimp.nnoremap({'override'}, '<plug>terminal_send_line', function()
-      local cline = vim.fn.shellescape(vim.fn.getline('.'))
-      if cline == '' or cline == nil then return end
-      -- \! = ! which means target (-t) last active tmux pane (!)
-      vim.cmd([[silent !tmux send-keys -t \! ]] .. cline .. [[ Enter]])
-    end)
+    require('which-key').register {
+      ['<plug>terminal_send_line'] = {
+        function()
+          local cline = vim.fn.shellescape(vim.fn.getline('.'))
+          if cline == '' or cline == nil then return end
+          -- \! = ! which means target (-t) last active tmux pane (!)
+          vim.cmd([[silent !tmux send-keys -t \! ]] .. cline .. [[ Enter]])
+        end, "term_send_line"
+      }
+    }
+    local vimp = require('vimp')
     vimp.xnoremap({'override'}, '<plug>terminal_send', function()
       local csel = vim.fn.shellescape(
                        require('utils.utils').get_visual_selection())
@@ -385,8 +390,11 @@ function M.setup_neoterm()
       vim.cmd([[silent !tmux send-keys -t \! ]] .. csel .. [[ Enter]])
     end)
   else
-    vimp.nnoremap({'override'}, '<plug>terminal_send_line',
-                  '<Plug>(neoterm-repl-send-line)')
+    require('which-key').register {
+      ['<plug>terminal_send_line'] = {
+        '<Plug>(neoterm-repl-send-line)', "term_send_line"
+      }
+    }
   end
 end
 
