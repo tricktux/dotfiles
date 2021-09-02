@@ -86,6 +86,7 @@ highlight
 hplip
 hub
 hunspell
+hyperfine
 i3-gaps
 i3blocks
 i3lock
@@ -149,6 +150,8 @@ ntp
 odt2txt
 offlineimap
 openvpn
+opera
+opera-ffmpeg-codecs
 os-prober
 otf-fira-mono
 otf-font-awesome
