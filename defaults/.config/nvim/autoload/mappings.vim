@@ -239,7 +239,6 @@ function! mappings#Set()
   nmap <leader>T <plug>generate_tags
   nnoremap <silent> <plug>generate_tags :call ctags#NvimSyncCtags()<cr>
 
-  nnoremap <leader>tt :TagbarToggle<cr>
   nnoremap <leader>tn :NeomakeToggleTab<cr>
   nnoremap <leader>ts :setlocal spell!<cr>
   " duplicate current char
@@ -529,17 +528,11 @@ function! mappings#Set()
   nnoremap <silent> <leader>wm :call <sid>wiki_open('monthly_log_' .
         \ strftime('%Y') . '.md')<cr>
   " Comments <Leader>o
-  nmap - <plug>NERDCommenterToggle
-  " nmap <Leader>ot <plug>NERDCommenterAltDelims
-  vmap - <plug>NERDCommenterToggle
-  imap <C-c> <plug>NERDCommenterInsert
   nnoremap <leader>oI :call utils#CommentReduceIndent()<cr>
-  nmap <leader>to <plug>NERDCommenterAltDelims
   " mapping ol conflicts with mapping o to new line
   nnoremap <leader>oe :call utils#EndOfIfComment()<cr>
   nnoremap <leader>ou :call utils#UpdateHeader()<cr>
   nnoremap <leader>ot :call utils#TodoAdd()<cr>
-  nmap <leader>oa <Plug>NERDCommenterAppend
   nnoremap <leader>od :call utils#CommentDelete()<cr>
   " Comment Indent Increase/Reduce
   nnoremap <leader>oi :call utils#CommentIndent()<cr>
