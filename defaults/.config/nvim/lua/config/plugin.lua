@@ -55,7 +55,7 @@ function M:__setup()
   use {
     'nvim-lua/telescope.nvim',
     requires = {
-      {'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'},
+      {'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}
       -- {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
     },
     config = function() require('config.plugins.telescope').setup() end
@@ -328,7 +328,7 @@ function M:__setup()
 
   use {
     'gcmt/taboo.vim',
-    config = function() vim.cmd[[nnoremap <leader>tr :TabooRename ]] end
+    config = function() vim.cmd [[nnoremap <leader>tr :TabooRename ]] end
   }
 
   use {
@@ -350,13 +350,10 @@ function M:__setup()
     'MattesGroeger/vim-bookmarks',
     config = function() require('config.plugins.misc'):setup_bookmarks() end
   }
-  
+
   use 'whiteinge/diffconflicts'
 
-  use {
-    'aquach/vim-http-client',
-    cmd = 'HTTPClientDoRequest'
-  }
+  use {'aquach/vim-http-client', cmd = 'HTTPClientDoRequest'}
 
   use {
     'jsfaint/gen_tags.vim', -- Not being suppoprted anymore
@@ -385,12 +382,12 @@ function M:__setup()
 
   use {
     'jamessan/vim-gnupg',
-    cond = function() return vim.fn.executable('gpg') > 0 end,
+    cond = function() return vim.fn.executable('gpg') > 0 end
   }
 
-  use { 
+  use {
     's1n7ax/nvim-comment-frame',
-    requires = { { 'nvim-treesitter' } },
+    requires = {{'nvim-treesitter'}},
     config = function() require('config.plugins.misc'):setup_comment_frame() end
   }
 
