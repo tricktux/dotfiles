@@ -31,6 +31,10 @@ function M:setup()
   map.nnoremap(';', ':', {nowait = true, silent = true})
   map.vnoremap(';', ':', {nowait = true, silent = true})
 
+  -- Let's make <s-v> consistent as well
+  map.nnoremap('<s-v>', 'v$h')
+  map.nnoremap('<c-q>', '<s-v>')
+
   map.vnoremap('gA', 'g<c-a>')
   map.vnoremap('gX', 'g<c-x>')
   map.vnoremap(']f', 'gf')
