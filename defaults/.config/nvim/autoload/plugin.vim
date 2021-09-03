@@ -107,6 +107,7 @@ function! plugin#Config()
   " Fri Apr 02 2021 09:15:
   " - Compe is slow for big files. Crawling back to deoplete once again
   if !has('nvim-0.5')
+    call s:configure_tagbar()
     Plug 'junegunn/goyo.vim', { 'on' : 'Goyo' }
     let g:goyo_width = 120
     nnoremap <plug>focus_toggle :Goyo<cr>
@@ -279,7 +280,6 @@ function! plugin#Config()
   call s:configure_neoformat()
 
   " cpp
-  " call s:configure_tagbar()
 
   " Version control
   " Plug 'tpope/vim-fugitive'
