@@ -52,7 +52,7 @@ function M.nvimtree_config()
     {key = "p", cb = tree_cb("paste")},
     {key = "[c", cb = tree_cb("prev_git_item")},
     {key = "]c", cb = tree_cb("next_git_item")},
-    {key = "-", cb = tree_cb("dir_up")}, {key = "q", cb = tree_cb("close")},
+    {key = "-", cb = tree_cb("dir_up")},
     {key = "q", cb = tree_cb("close") },
     {key = "?", cb = tree_cb("toggle_help")}
   }
