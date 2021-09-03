@@ -11,19 +11,11 @@
         <Command>cm_RenameOnly</Command>
       </Hotkey>
       <Hotkey>
-        <Shortcut>F3</Shortcut>
-        <Command>cm_View</Command>
-      </Hotkey>
-      <Hotkey>
-        <Shortcut>F4</Shortcut>
-        <Command>cm_Edit</Command>
-      </Hotkey>
-      <Hotkey>
-        <Shortcut>F5</Shortcut>
+        <Shortcut>Shift+C</Shortcut>
         <Command>cm_Copy</Command>
       </Hotkey>
       <Hotkey>
-        <Shortcut>F6</Shortcut>
+        <Shortcut>Shift+N</Shortcut>
         <Command>cm_Rename</Command>
       </Hotkey>
       <Hotkey>
@@ -132,7 +124,7 @@
         <Command>cm_ShellExecute</Command>
       </Hotkey>
       <Hotkey>
-        <Shortcut>Ctrl+Shift+C</Shortcut>
+        <Shortcut>Shift+Y</Shortcut>
         <Command>cm_CopyFullNamesToClip</Command>
       </Hotkey>
       <Hotkey>
@@ -156,20 +148,12 @@
         <Command>cm_AddPathAndFilenameToCmdLine</Command>
       </Hotkey>
       <Hotkey>
-        <Shortcut>Ctrl+Shift+Tab</Shortcut>
-        <Command>cm_PrevTab</Command>
-      </Hotkey>
-      <Hotkey>
         <Shortcut>Ctrl+Shift+F7</Shortcut>
         <Command>cm_AddNewSearch</Command>
       </Hotkey>
       <Hotkey>
         <Shortcut>Ctrl+Shift+F8</Shortcut>
         <Command>cm_TreeView</Command>
-      </Hotkey>
-      <Hotkey>
-        <Shortcut>Ctrl+Tab</Shortcut>
-        <Command>cm_NextTab</Command>
       </Hotkey>
       <Hotkey>
         <Shortcut>Ctrl+Up</Shortcut>
@@ -196,7 +180,7 @@
         <Command>cm_CopySamePanel</Command>
       </Hotkey>
       <Hotkey>
-        <Shortcut>Shift+F10</Shortcut>
+        <Shortcut>Shift+I</Shortcut>
         <Command>cm_ContextMenu</Command>
       </Hotkey>
       <Hotkey>
@@ -264,14 +248,6 @@
         <Command>cm_SrcOpenDrives</Command>
       </Hotkey>
       <Hotkey>
-        <Shortcut>Alt+]</Shortcut>
-        <Command>cm_NextTab</Command>
-      </Hotkey>
-      <Hotkey>
-        <Shortcut>Alt+[</Shortcut>
-        <Command>cm_PrevTab</Command>
-      </Hotkey>
-      <Hotkey>
         <Shortcut>/</Shortcut>
         <Command>cm_Search</Command>
       </Hotkey>
@@ -286,10 +262,6 @@
       <Hotkey>
         <Shortcut>Ctrl+Shift+I</Shortcut>
         <Command>cm_CompareDirectories</Command>
-      </Hotkey>
-      <Hotkey>
-        <Shortcut>Ctrl+Shift+R</Shortcut>
-        <Command>cm_ContextMenu</Command>
       </Hotkey>
       <Hotkey>
         <Shortcut>Ctrl+S</Shortcut>
@@ -423,6 +395,26 @@
         <Command>cm_LoadFavoriteTabs</Command>
       </Hotkey>
       <Hotkey>
+        <Shortcut>Shift+T</Shortcut>
+        <Command>cm_OpenDirInNewTab</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Shift+J</Shortcut>
+        <Command>cm_PrevTab</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Shift+K</Shortcut>
+        <Command>cm_NextTab</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Shift+E</Shortcut>
+        <Command>cm_Edit</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Shift+V</Shortcut>
+        <Command>cm_View</Command>
+      </Hotkey>
+      <Hotkey>
         <Shortcut>Del</Shortcut>
         <Command>cm_Delete</Command>
         <Control>Files Panel</Control>
@@ -516,28 +508,8 @@
     </Form>
     <Form Name="Viewer">
       <Hotkey>
-        <Shortcut>F1</Shortcut>
-        <Command>cm_About</Command>
-      </Hotkey>
-      <Hotkey>
-        <Shortcut>F2</Shortcut>
-        <Command>cm_Reload</Command>
-      </Hotkey>
-      <Hotkey>
-        <Shortcut>N</Shortcut>
+        <Shortcut>L</Shortcut>
         <Command>cm_LoadNextFile</Command>
-      </Hotkey>
-      <Hotkey>
-        <Shortcut>Right</Shortcut>
-        <Command>cm_LoadNextFile</Command>
-      </Hotkey>
-      <Hotkey>
-        <Shortcut>P</Shortcut>
-        <Command>cm_LoadPrevFile</Command>
-      </Hotkey>
-      <Hotkey>
-        <Shortcut>Left</Shortcut>
-        <Command>cm_LoadPrevFile</Command>
       </Hotkey>
       <Hotkey>
         <Shortcut>1</Shortcut>
@@ -576,23 +548,11 @@
         <Command>cm_ExitViewer</Command>
       </Hotkey>
       <Hotkey>
-        <Shortcut>F</Shortcut>
-        <Command>cm_Find</Command>
-      </Hotkey>
-      <Hotkey>
-        <Shortcut>Ctrl+F</Shortcut>
-        <Command>cm_Find</Command>
-      </Hotkey>
-      <Hotkey>
-        <Shortcut>F7</Shortcut>
-        <Command>cm_Find</Command>
-      </Hotkey>
-      <Hotkey>
-        <Shortcut>F3</Shortcut>
+        <Shortcut>N</Shortcut>
         <Command>cm_FindNext</Command>
       </Hotkey>
       <Hotkey>
-        <Shortcut>Shift+F3</Shortcut>
+        <Shortcut>Shift+N</Shortcut>
         <Command>cm_FindPrev</Command>
       </Hotkey>
       <Hotkey>
@@ -600,11 +560,7 @@
         <Command>cm_Preview</Command>
       </Hotkey>
       <Hotkey>
-        <Shortcut>Num+</Shortcut>
-        <Command>cm_ZoomIn</Command>
-      </Hotkey>
-      <Hotkey>
-        <Shortcut>Num-</Shortcut>
+        <Shortcut>-</Shortcut>
         <Command>cm_ZoomOut</Command>
       </Hotkey>
       <Hotkey>
@@ -638,6 +594,26 @@
         <Shortcut>X</Shortcut>
         <Command>cm_ChangeEncoding</Command>
         <Param>UTF-16LE</Param>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>R</Shortcut>
+        <Command>cm_Reload</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>/</Shortcut>
+        <Command>cm_Find</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>H</Shortcut>
+        <Command>cm_LoadPrevFile</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>=</Shortcut>
+        <Command>cm_ZoomIn</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>F1</Shortcut>
+        <Command>cm_About</Command>
       </Hotkey>
     </Form>
     <Form Name="Differ">
