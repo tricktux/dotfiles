@@ -8,7 +8,8 @@ local luv = vim.loop
 
 local home_dir = luv.os_homedir()
 local wikis = {
-  home_dir .. '/Documents/wiki', home_dir .. '/External/reinaldo/resilio/wiki',
+  home_dir .. '/Documents/wiki', home_dir .. '/Documents/Drive/wiki',
+  home_dir .. '/External/reinaldo/resilio/wiki',
   '/mnt/samba/server/resilio/wiki'
 }
 local wikis_win = {
@@ -84,7 +85,7 @@ local function _init()
   local disabled_built_ins = {
     "netrw", "netrwPlugin", "netrwSettings", "netrwFileHandlers", "gzip", "zip",
     "zipPlugin", "tar", "tarPlugin", "getscript", "getscriptPlugin", "vimball",
-    "vimballPlugin", "2html_plugin", "logipat", "rrhelper", "spellfile_plugin",
+    "vimballPlugin", "2html_plugin", "logipat", "rrhelper", "spellfile_plugin"
   }
 
   for _, plugin in pairs(disabled_built_ins) do vim.g["loaded_" .. plugin] = 1 end
