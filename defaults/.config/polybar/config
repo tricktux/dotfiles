@@ -36,7 +36,7 @@ throttle-output = 5
 throttle-output-for = 10
 
 ; Time in milliseconds that the input handler will wait between processing events
-throttle-input-for = 30
+; throttle-input-for = 30
 
 ; Reload upon receiving XCB_RANDR_SCREEN_CHANGE_NOTIFY events
 screenchange-reload = false
@@ -158,6 +158,7 @@ tray-padding = 2
 tray-scale = 1
 
 [bar/bottom-predator]
+; Use `xrandr --query` to get the monitor property
 inherit = bar/main-bottom
 monitor = DP-2
 font-0 = "Font Awesome 5 Free:style=Regular:pixelsize=18;1"
