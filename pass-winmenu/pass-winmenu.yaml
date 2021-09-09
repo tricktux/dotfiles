@@ -146,6 +146,25 @@ gpg:
     # pass-winmenu to detect when this happens, and force the pinentry window to the
     # foreground.
     pinentry-fix: false
+
+    # If you wish to pass custom options to gpg.exe, you can add them here.
+    # A full list of available options can be found here:
+    # https://www.gnupg.org/documentation/manuals/gnupg/GPG-Options.html#GPG-Options
+    additional-options:
+        # These options are added to all GPG operations.
+        always:
+            # Setting a key without adding a value will add it as a flag option
+            # Example: increasing the log verbosity of GPG:
+#            verbose:
+        # These options are added when encrypting.
+        encrypt:
+            # Example: adding hidden recipients:
+#            hidden-recipient: example@example.org
+        # These options are added when decrypting.
+        decrypt:
+        # These options are added when signing Git commits.
+        sign:
+
     gpg-agent:
         # Gpg-agent can have a pretty long startup time on Windows. This option allows
         # the gpg-agent to be started alongside pass-winmenu so it'll be ready when
@@ -164,12 +183,6 @@ gpg:
                 # This is the maximum amount of time gpg-agent will remember your passphrase
                 # Once this amount of time has expired, gpg-agent will always ask you to re-enter it.
                 max-cache-ttl: 127800
-
-output:
-    # If your keyboard has dead keys enabled (type ' + e for é), this should
-    # be set to true, otherwise usernames/passwords might not be entered
-    # correctly.
-    dead-keys: false
 
 # Here you can map hotkeys to various actions. Supported actions are:
 # - decrypt-password
@@ -344,8 +357,10 @@ interface:
         search:
             text-colour: '#FFDDDDDD'
             background-colour: '#00FFFFFF'
-            border-colour: '#FF000000'
+            border-colour: '[accent]'
             border-width: [0, 0, 1, 0]
+        search-hint:
+            text-colour: '#FF999999'
         # This determines the styling of all unselected options.
         options:
             text-colour: '#FFDDDDDD'
