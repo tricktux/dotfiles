@@ -5,6 +5,14 @@ local api = vim.api
 
 local M = {}
 
+function M.setup_lens()
+  -- Resizing not always work
+  -- Specially when openning a few windows, like 5 or 6
+  vim.g["lens#disabled_filetypes"] = {'nerdtree', 'fzf', 'NvimTree'}
+  vim.g["lens#width_resize_max"] = 120
+  vim.g["lens#height_resize_max"] = 60
+end
+
 function M.setup_zen_mode()
   require("zen-mode").setup {
     window = {
@@ -75,16 +83,27 @@ function M.setup_focus()
     relativenumber = false,
     -- Enable auto highlighting for focussed/unfocussed windows
     -- Default: false
-    winhighlight = false
+    winhighlight = false,
     -- vim.cmd('hi link UnfocusedWindow CursorLine')
     -- vim.cmd('hi link FocusedWindow VisualNOS')
     -- focus.enable = false
+    -- width = 100
   }
   if not utl.is_mod_available('which-key') then
     vim.api.nvim_err_writeln('which-key module not available')
     return
   end
 
+  if vim.fn.exists('$TMUX') > 0 then
+    require('which-key').register {
+      ["<leader>tw"] = {'<cmd>FocusToggle<cr>', "focus_mode_toggle_mappings"},
+      ["<a-h>"] = {function() focus.split_command('h') end, "window_switch_left"},
+      ["<a-j>"] = {function() focus.split_command('j') end, "window_switch_down"},
+      ["<a-k>"] = {function() focus.split_command('k') end, "window_switch_up"},
+      ["<a-l>"] = {function() focus.split_command('l') end, "window_switch_right"}
+    }
+    return
+  end
   require('which-key').register {
     ["<leader>tw"] = {'<cmd>FocusToggle<cr>', "focus_mode_toggle_mappings"},
     ["<a-h>"] = {function() focus.split_command('h') end, "window_switch_left"},

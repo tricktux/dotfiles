@@ -405,6 +405,13 @@ function M:__setup()
     -- cmd = 'ZenMode',
     config = function() require('config.plugins.misc'):setup_zen_mode() end
   }
+
+  --[[ use {
+    'camspiers/lens.vim',
+    requires = 'camspiers/animate.vim',
+    config = function() require('config.plugins.misc'):setup_lens() end
+  } ]]
+
   -- Keep this setup last. So that it finalizes the lualine config
   use {
     'hoob3rt/lualine.nvim',
