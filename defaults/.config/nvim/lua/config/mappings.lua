@@ -2,6 +2,17 @@ local map = require('utils.keymap')
 
 local M = {}
 
+function _G.tmux_move(direction)
+  vim.validate {direction = {direction, 'string'}}
+
+  local curr_win = vim.api.nvim_get_current_win()
+  vim.fn.execute('wincmd ' .. direction)
+  local new_win = vim.api.nvim_get_current_win()
+  if new_win == curr_win then
+    vim.fn.system('tmux select-pane -' .. vim.fn.tr(direction, 'phjkl', 'lLDUR'))
+  end
+end
+
 function M:window_movement_setup()
   if vim.fn.exists('*Focus') > 0 and vim.fn.executable('i3-vim-nav') > 0 then
     -- " i3 integration
@@ -12,11 +23,12 @@ function M:window_movement_setup()
     return
   end
 
-  if vim.fn.has('unix') > 0 and vim.fn.executable('tmux') > 0 and vim.fn.exists('$TMUX') > 0 then
-    map.nnoremap('<A-h>', "<cmd>call <SID>tmux_move('h')<cr>")
-    map.nnoremap('<A-j>', "<cmd>call <SID>tmux_move('j')<cr>")
-    map.nnoremap('<A-k>', "<cmd>call <SID>tmux_move('k')<cr>")
-    map.nnoremap('<A-l>', "<cmd>call <SID>tmux_move('l')<cr>")
+  if vim.fn.has('unix') > 0 and vim.fn.executable('tmux') > 0 and
+      vim.fn.exists('$TMUX') > 0 then
+      map.nnoremap('<A-h>', [[<cmd>call v:lua.tmux_move('h')<cr>]])
+      map.nnoremap('<A-j>', [[<cmd>call v:lua.tmux_move('j')<cr>]])
+      map.nnoremap('<A-k>', [[<cmd>call v:lua.tmux_move('k')<cr>]])
+      map.nnoremap('<A-l>', [[<cmd>call v:lua.tmux_move('l')<cr>]])
     return
   end
 
