@@ -184,12 +184,15 @@ fi
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 # TODO: Don't source this file, but rather: romkatv/powerlevel10k/config/p10k-lean.zsh
 # TODO: Use a suggested font so that there is no that many differences
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
 typeset -g POWERLEVEL9K_DIR_CLASSES=()
 typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_FOREGROUND=242
-typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_CHAR='.'
-typeset -g POWERLEVEL9K_RULER_CHAR='-'        # reasonable alternative: '·'
+typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_CHAR=' '
+# Extra line after command runs
+typeset -g POWERLEVEL9K_SHOW_RULER=false
+typeset -g POWERLEVEL9K_RULER_CHAR=' '
 typeset -g POWERLEVEL9K_RULER_FOREGROUND=242
 typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=false
 typeset -g POWERLEVEL9K_MODE=ascii
