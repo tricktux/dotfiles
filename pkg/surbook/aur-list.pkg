@@ -47,6 +47,7 @@ spicetify-cli
 spicetify-themes-git
 spotify
 ssmtp
+synology-drive
 termite
 ttf-weather-icons
 vdhcoapp
@@ -54,3 +55,4 @@ whatsapp-nativefier
 ytmdl
 zeal
 zplug
+zsh-theme-powerlevel10k-git
