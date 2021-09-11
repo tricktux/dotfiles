@@ -4,6 +4,7 @@ alsa-utils
 android-tools
 android-udev
 anki
+arandr
 arch-audit
 archlinux-wallpaper
 astyle
@@ -100,6 +101,7 @@ linux-firmware
 linux-lts
 linux-lts-headers
 lldb
+lsof
 luajit
 lvm2
 lxappearance
