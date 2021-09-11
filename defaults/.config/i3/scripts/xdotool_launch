@@ -53,7 +53,8 @@ i3ipc.args = {
   ['bottom'] = '[title="^bottom$"] scratchpad show',
   ['glances'] = '[title="^glances$"] scratchpad show',
   ['spotify'] = '[class="^Spotify$"] scratchpad show',
-  ['tickrs'] = '[title="^tickrs$"] scratchpad show'
+  ['tickrs'] = '[title="^tickrs$"] scratchpad show',
+  ['whatsapp'] = '[title="^WhatsApp$"] scratchpad show'
 }
 i3ipc.terminal = {
   ['helios'] = 'resize set 960 1019, move position 960 px 32 px',
@@ -97,6 +98,11 @@ i3ipc.tickrs = {
   ['predator'] = 'resize set 3040 1524, move position center',
   ['surbook'] = 'resize set 2188 1459, move position center'
 }
+i3ipc.whatsapp = {
+  ['helios'] = 'resize set 1820 880, move position center',
+  ['predator'] = 'resize set 3040 1524, move position center',
+  ['surbook'] = 'resize set 2188 1459, move position center'
+}
 i3ipc.window_position = {
   ['scratch'] = i3ipc.scratch[hostname],
   ['journal'] = i3ipc.journal[hostname],
@@ -107,7 +113,8 @@ i3ipc.window_position = {
   ['bottom'] = i3ipc.bottom[hostname],
   ['glances'] = i3ipc.glances[hostname],
   ['spotify'] = i3ipc.spotify[hostname],
-  ['tickrs'] = i3ipc.tickrs[hostname]
+  ['tickrs'] = i3ipc.tickrs[hostname],
+  ['whatsapp'] = i3ipc.whatsapp[hostname]
 }
 
 function i3ipc:hide()
@@ -139,7 +146,8 @@ xdotool.exec = {
   ['bottom'] = '$TERMINAL --title bottom btm',
   ['glances'] = '$TERMINAL --title glances glances --theme-white',
   ['spotify'] = 'spotify',
-  ['tickrs'] = '$TERMINAL --title tickrs tickrs'
+  ['tickrs'] = '$TERMINAL --title tickrs tickrs',
+  ['whatsapp'] = '/usr/bin/whatsapp-nativefier'
 }
 
 function xdotool:wait_for_window_visible(app)
@@ -153,8 +161,7 @@ function xdotool:window_exists(app)
     print('Bad argument')
     return
   end
-  local cmd = self.path .. ' ' .. self.app_exists_args .. ' ' .. '"^' .. app ..
-                  '$"'
+  local cmd = self.path .. ' ' .. self.app_exists_args .. ' ' .. '"^' .. app .. '$"'
   -- print('cmd = "'.. cmd .. '"')
   local file = assert(io.popen(cmd))
   local output = file:read('*all')
@@ -167,8 +174,7 @@ function xdotool:window_visible(app)
     print('Bad argument')
     return
   end
-  local cmd = self.path .. ' ' .. self.app_visible_args .. ' ' .. '"^' .. app ..
-                  '$"'
+  local cmd = self.path .. ' ' .. self.app_visible_args .. ' ' .. '"^' .. app .. '$"'
   -- print('cmd = "'.. cmd .. '"')
   local file = assert(io.popen(cmd))
   local output = file:read('*all')

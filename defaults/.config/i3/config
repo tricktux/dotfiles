@@ -138,6 +138,8 @@ bindsym $mod+apostrophe exec --no-startup-id \
   ~/.config/i3/scripts/xdotool_launch spotify
 bindsym $mod+comma exec --no-startup-id \
   ~/.config/i3/scripts/xdotool_launch tickrs
+bindsym $mod+i exec --no-startup-id \
+  ~/.config/i3/scripts/xdotool_launch whatsapp
 
 
 # Some silly comment
@@ -398,6 +400,7 @@ bindsym XF86PowerDown exec --no-startup-id "i3-msg '[class=\".\"] kill' && syste
   for_window [class="Yad" title="yad-calendar"] floating enable
 
 # Scratchpad
+  for_window [title="^WhatsApp$"] move to scratchpad
   for_window [title="^tickrs$"] move to scratchpad
   for_window [title="^neomutt$"] move to scratchpad
   for_window [title="^glances$"] move to scratchpad
