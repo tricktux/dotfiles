@@ -268,6 +268,11 @@ read yn
 case $yn in
 [Yy]*) update_nvim_plugins ;;
 esac
+msg_not "${BLUE}${BOLD}" "==> Update neovim nightly? [y/N]"
+read yn
+case $yn in
+  [Yy]*) $aur_helper -S neovim-nightly-bin ;;
+esac
 msg_not "${BLUE}${BOLD}" "==> Diff ranger config with default? [y/N]"
 read yn
 case $yn in
@@ -276,18 +281,6 @@ case $yn in
     "$XDG_CONFIG_HOME/ranger/rc.conf"
   ;;
 esac
-# msg_not "${BLUE}${BOLD}" "==> Update github third-party repos? [y/N]"
-# read yn
-# case $yn in
-# [Yy]*)
-# ;;
-# esac
-# Sun Jan 17 2021 05:52: Moved to neovim-nightly-bin
-# msg_not "${BLUE}${BOLD}" "==> Update neovim-git? [y/N]"
-# read yn
-# case $yn in
-# [Yy]*) $aur_helper -S neovim-git ;;
-# esac
 msg_not "${BLUE}${BOLD}" "==> Update zsh-zim? [y/N]"
 read yn
 case $yn in
