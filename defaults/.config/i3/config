@@ -109,13 +109,13 @@ bindsym mod3+h exec --no-startup-id \
   notify-send 'pass' 'github ssh key copied'
 bindsym mod3+d exec --no-startup-id \
   pass --clip linux/`hostname`/ssh_key/id_ed25519_digitalocean && \
-  notify-send 'pass' 'digitalOcean ssh key copied'
+  notify-send 'pass' 'digitalocean ssh key copied'
 bindsym mod3+g exec --no-startup-id \
   pass --clip linux/`hostname`/ssh_key/id_ed25519_git_server && \
   notify-send 'pass' 'git server ssh key copied'
 bindsym mod3+l exec --no-startup-id \
   pass --clip linux/`hostname`/ssh_key/id_ed25519_gitlab && \
-  notify-send 'pass' 'gitLab ssh key copied'
+  notify-send 'pass' 'gitlab ssh key copied'
 
 
 # Use `xev -event keyboard` to find name of key
