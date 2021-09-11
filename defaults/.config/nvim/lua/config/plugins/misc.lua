@@ -67,18 +67,19 @@ end
 function M.setup_focus()
   -- Initially mappings are enabled
   local focus = require('focus')
-
-  -- Displays line numbers in the focussed window only
-  -- Not displayed in unfocussed windows
-  -- Default: true
-  focus.number = false
-  focus.relativenumber = false
-  -- Enable auto highlighting for focussed/unfocussed windows
-  -- Default: false
-  focus.winhighlight = false
-  -- vim.cmd('hi link UnfocusedWindow CursorLine')
-  -- vim.cmd('hi link FocusedWindow VisualNOS')
-  -- focus.enable = false
+  focus.setup {
+    -- Displays line numbers in the focussed window only
+    -- Not displayed in unfocussed windows
+    -- Default: true
+    number = false,
+    relativenumber = false,
+    -- Enable auto highlighting for focussed/unfocussed windows
+    -- Default: false
+    winhighlight = false
+    -- vim.cmd('hi link UnfocusedWindow CursorLine')
+    -- vim.cmd('hi link FocusedWindow VisualNOS')
+    -- focus.enable = false
+  }
   if not utl.is_mod_available('which-key') then
     vim.api.nvim_err_writeln('which-key module not available')
     return
