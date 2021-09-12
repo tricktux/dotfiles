@@ -412,6 +412,12 @@ function M:__setup()
     config = function() require('config.plugins.misc'):setup_lens() end
   } ]]
 
+  use {
+    'sindrets/diffview.nvim',
+    cmd = {'DiffviewOpen', 'DiffviewFileHistory'},
+    config = function() require('config.plugins.misc'):setup_diffview() end
+  }
+
   -- Keep this setup last. So that it finalizes the lualine config
   use {
     'hoob3rt/lualine.nvim',

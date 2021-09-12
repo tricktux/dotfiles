@@ -5,6 +5,98 @@ local api = vim.api
 
 local M = {}
 
+function M.setup_diffview()
+  -- Lua
+  local cb = require'diffview.config'.diffview_callback
+
+  require'diffview'.setup {
+    diff_binaries = false, -- Show diffs for binaries
+    use_icons = false, -- Requires nvim-web-devicons
+    enhanced_diff_hl = false, -- See ':h diffview-config-enhanced_diff_hl'
+    signs = {fold_closed = "", fold_open = ""},
+    file_panel = {
+      position = "left", -- One of 'left', 'right', 'top', 'bottom'
+      width = 35, -- Only applies when position is 'left' or 'right'
+      height = 10 -- Only applies when position is 'top' or 'bottom'
+    },
+    file_history_panel = {
+      position = "bottom",
+      width = 35,
+      height = 16,
+      log_options = {
+        max_count = 256, -- Limit the number of commits
+        follow = true, -- Follow renames (only for single file)
+        all = true, -- Include all refs under 'refs/' including HEAD
+        merges = false, -- List only merge commits
+        no_merges = false, -- List no merge commits
+        reverse = false -- List commits in reverse order
+      }
+    },
+    key_bindings = {
+      disable_defaults = true, -- Disable the default key bindings
+      -- The `view` bindings are active in the diff buffers, only when the current
+      -- tabpage is a Diffview.
+      view = {
+        ["<leader>dj"] = cb("select_next_entry"), -- Open the diff for the next file
+        ["<leader>dk"] = cb("select_prev_entry"), -- Open the diff for the previous file
+        ["gf"] = cb("goto_file"), -- Open the file in a new split in previous tabpage
+        ["<C-w><C-f>"] = cb("goto_file_split"), -- Open the file in a new split
+        ["<C-w>gf"] = cb("goto_file_tab"), -- Open the file in a new tabpage
+        ["<leader>dp"] = cb("focus_files"), -- Bring focus to the files panel
+        ["<leader>dt"] = cb("toggle_files") -- Toggle the files panel.
+      },
+      file_panel = {
+        ["j"] = cb("next_entry"), -- Bring the cursor to the next file entry
+        ["<down>"] = cb("next_entry"),
+        ["k"] = cb("prev_entry"), -- Bring the cursor to the previous file entry.
+        ["<up>"] = cb("prev_entry"),
+        ["<cr>"] = cb("select_entry"), -- Open the diff for the selected entry.
+        ["o"] = cb("select_entry"),
+        ["<2-LeftMouse>"] = cb("select_entry"),
+        ["<leader>ds"] = cb("toggle_stage_entry"), -- Stage / unstage the selected entry.
+        ["<leader>da"] = cb("stage_all"), -- Stage all entries.
+        ["<leader>du"] = cb("unstage_all"), -- Unstage all entries.
+        ["<leader>dU"] = cb("restore_entry"), -- Restore entry to the state on the left side.
+        ["<leader>dr"] = cb("refresh_files"), -- Update stats and entries in the file list.
+        ["<leader>dj"] = cb("select_next_entry"), -- Open the diff for the next file
+        ["<leader>dk"] = cb("select_prev_entry"), -- Open the diff for the previous file
+        ["gf"] = cb("goto_file"),
+        ["<C-w><C-f>"] = cb("goto_file_split"),
+        ["<C-w>gf"] = cb("goto_file_tab"),
+        ["<leader>dp"] = cb("focus_files"), -- Bring focus to the files panel
+        ["<leader>dt"] = cb("toggle_files") -- Toggle the files panel.
+      },
+      file_history_panel = {
+        ["<leader>do"] = cb("options"), -- Open the option panel
+        ["<leader>dd"] = cb("open_in_diffview"), -- Open the entry under the cursor in a diffview
+        ["zR"] = cb("open_all_folds"),
+        ["<c-n>"] = cb("open_all_folds"),
+        ["zM"] = cb("close_all_folds"),
+        ["<c-c>"] = cb("close_all_folds"),
+        ["j"] = cb("next_entry"),
+        ["<down>"] = cb("next_entry"),
+        ["k"] = cb("prev_entry"),
+        ["<up>"] = cb("prev_entry"),
+        ["<cr>"] = cb("select_entry"),
+        ["o"] = cb("select_entry"),
+        ["<2-LeftMouse>"] = cb("select_entry"),
+        ["<leader>dj"] = cb("select_next_entry"), -- Open the diff for the next file
+        ["<leader>dk"] = cb("select_prev_entry"), -- Open the diff for the previous file
+        ["gf"] = cb("goto_file"),
+        ["<C-w><C-f>"] = cb("goto_file_split"),
+        ["<C-w>gf"] = cb("goto_file_tab"),
+        ["<leader>dp"] = cb("focus_files"), -- Bring focus to the files panel
+        ["<leader>dt"] = cb("toggle_files") -- Toggle the files panel.
+      },
+      option_panel = {
+        ["<leader>ds"] = cb("select"),
+        ["<tab>"] = cb("select"),
+        ["q"] = cb("close")
+      }
+    }
+  }
+end
+
 function M.setup_lens()
   -- Resizing not always work
   -- Specially when openning a few windows, like 5 or 6
@@ -83,7 +175,7 @@ function M.setup_focus()
     relativenumber = false,
     -- Enable auto highlighting for focussed/unfocussed windows
     -- Default: false
-    winhighlight = false,
+    winhighlight = false
     -- vim.cmd('hi link UnfocusedWindow CursorLine')
     -- vim.cmd('hi link FocusedWindow VisualNOS')
     -- focus.enable = false
@@ -97,10 +189,16 @@ function M.setup_focus()
   if vim.fn.exists('$TMUX') > 0 then
     require('which-key').register {
       ["<leader>tw"] = {'<cmd>FocusToggle<cr>', "focus_mode_toggle_mappings"},
-      ["<a-h>"] = {function() focus.split_command('h') end, "window_switch_left"},
-      ["<a-j>"] = {function() focus.split_command('j') end, "window_switch_down"},
+      ["<a-h>"] = {
+        function() focus.split_command('h') end, "window_switch_left"
+      },
+      ["<a-j>"] = {
+        function() focus.split_command('j') end, "window_switch_down"
+      },
       ["<a-k>"] = {function() focus.split_command('k') end, "window_switch_up"},
-      ["<a-l>"] = {function() focus.split_command('l') end, "window_switch_right"}
+      ["<a-l>"] = {
+        function() focus.split_command('l') end, "window_switch_right"
+      }
     }
     return
   end
