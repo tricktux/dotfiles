@@ -20,15 +20,6 @@ function _G.tmux_move(direction)
 end
 
 function M:window_movement_setup()
-  if vim.fn.exists('*Focus') > 0 and vim.fn.executable('i3-vim-nav') > 0 then
-    -- " i3 integration
-    map.nnoremap('<A-l>', '<cmd>call Focus("right", "l")<cr>')
-    map.nnoremap('<A-h>', '<cmd>call Focus("left", "h")<cr>')
-    map.nnoremap('<A-k>', '<cmd>call Focus("up", "k")<cr>')
-    map.nnoremap('<A-j>', '<cmd>call Focus("down", "j")<cr>')
-    return
-  end
-
   if vim.fn.has('unix') > 0 and vim.fn.executable('tmux') > 0 and
       vim.fn.exists('$TMUX') > 0 then
       map.nnoremap('<A-h>', [[<cmd>call v:lua.tmux_move('h')<cr>]])
