@@ -25,7 +25,7 @@ alias pacu="$aur_helper -Syu"
 # Version
 alias pacv="$aur_helper -Si"
 # Search
-alias pacs="$aur_helper -Ss"
+alias pacs="$aur_helper -Slq | fzf --multi --preview '$aur_helper -Si {1}' | xargs -ro $aur_helper -S"
 # Remove
 alias pacu="$aur_helper -Rscn"
 alias pacr="$aur_helper -Rscn"
