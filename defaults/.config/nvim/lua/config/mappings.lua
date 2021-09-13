@@ -5,11 +5,17 @@ local M = {}
 function _G.tmux_move(direction)
   vim.validate {direction = {direction, 'string'}}
 
+  local valid_dir = 'phjkl'
+  if not (valid_dir):find(direction) then
+    vim.api.nvim_err_writeln('tmux_move: direction: "' .. direction ' is not a valid"')
+    return
+  end
+
   local curr_win = vim.api.nvim_get_current_win()
   vim.fn.execute('wincmd ' .. direction)
   local new_win = vim.api.nvim_get_current_win()
   if new_win == curr_win then
-    vim.fn.system('tmux select-pane -' .. vim.fn.tr(direction, 'phjkl', 'lLDUR'))
+    vim.fn.system('tmux select-pane -' .. vim.fn.tr(direction, valid_dir, 'lLDUR'))
   end
 end
 
