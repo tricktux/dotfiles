@@ -308,6 +308,9 @@ paci --needed --noconfirm atool ranger zip unzip w3m ffmpeg highlight libcaca
 paci --needed --noconfirm mediainfo odt2txt poppler w3m bat exa fzf fd \
   ripgrep tmux imagemagick ghostscript xclip
 
+# Utility to lint aur packages, makepkg, PKGBUILD
+paci --needed --noconfirm namcap
+
 # Utility to easily handle systemctl
 paci --needed --noconfirm chkservice
 
