@@ -471,7 +471,10 @@ function M.setup_neoterm()
     },
     ['<plug>terminal_new'] = {'<cmd>Tnew<cr>', 'term_new'},
     ['<plug>terminal_send_file'] = {'<cmd>TREPLSendFile<cr>', 'term_send_file'},
-    ['<plug>terminal_send'] = {'<Plug>(neoterm-repl-send)', 'term_send_line'}
+    ['<plug>terminal_send'] = {'<Plug>(neoterm-repl-send)', 'term_send_line'},
+    ['<plug>terminal_send_line'] = {
+      '<Plug>(neoterm-repl-send-line)', "term_send_line"
+    }
   }
   if vim.fn.exists('$TMUX') > 0 then
     require('which-key').register {
@@ -480,24 +483,21 @@ function M.setup_neoterm()
           local cline = vim.fn.shellescape(vim.fn.getline('.'))
           if cline == '' or cline == nil then return end
           -- \! = ! which means target (-t) last active tmux pane (!)
-          vim.cmd([[silent !tmux send-keys -t \! ]] .. cline .. [[ Enter]])
+          vim.fn.system([[tmux send-keys -t \! ]] .. cline .. [[ Enter]])
         end, "term_send_line"
       }
     }
-    local vimp = require('vimp')
-    vimp.xnoremap({'override'}, '<plug>terminal_send', function()
-      local csel = vim.fn.shellescape(
-                       require('utils.utils').get_visual_selection())
-      if csel == '' or csel == nil then return end
-      -- \! = ! which means target (-t) last active tmux pane (!)
-      vim.cmd([[silent !tmux send-keys -t \! ]] .. csel .. [[ Enter]])
-    end)
-  else
-    require('which-key').register {
-      ['<plug>terminal_send_line'] = {
-        '<Plug>(neoterm-repl-send-line)', "term_send_line"
+    require('which-key').register({
+      ['<plug>terminal_send'] = {
+        function()
+          local csel = vim.fn.shellescape(
+                           require('utils.utils').get_visual_selection())
+          if csel == '' or csel == nil then return end
+          -- \! = ! which means target (-t) last active tmux pane (!)
+          vim.fn.system([[tmux send-keys -t \! ]] .. csel .. [[ Enter]])
+        end, 'terminal_send'
       }
-    }
+    }, {mode = 'x'})
   end
 end
 
