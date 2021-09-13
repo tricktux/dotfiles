@@ -175,11 +175,12 @@ function M.setup_focus()
     relativenumber = false,
     -- Enable auto highlighting for focussed/unfocussed windows
     -- Default: false
-    winhighlight = false
+    winhighlight = false,
     -- vim.cmd('hi link UnfocusedWindow CursorLine')
     -- vim.cmd('hi link FocusedWindow VisualNOS')
     -- focus.enable = false
     -- width = 100
+    tmux = true
   }
   if not utl.is_mod_available('which-key') then
     vim.api.nvim_err_writeln('which-key module not available')
