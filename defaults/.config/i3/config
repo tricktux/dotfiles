@@ -207,6 +207,7 @@ bindsym $mod+q kill
 #	-padding 800 -opacity "85" -bw 0 -bc "$bg-color" \
 #	-bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd"
 bindsym $mod+d exec --no-startup-id "rofi -show drun"
+bindsym $mod+w exec --no-startup-id "rofi -show window"
   # -show drun -opacity '50' \
   # -config $XDG_CONFIG_HOME/rofi/`hostname`"
 # There also is the (new) i3-dmenu-desktop which only displays applications
@@ -258,7 +259,7 @@ bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
+bindsym $mod+t layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
