@@ -187,22 +187,6 @@ function M.setup_focus()
     return
   end
 
-  if vim.fn.exists('$TMUX') > 0 then
-    require('which-key').register {
-      ["<leader>tw"] = {'<cmd>FocusToggle<cr>', "focus_mode_toggle_mappings"},
-      ["<a-h>"] = {
-        function() focus.split_command('h') end, "window_switch_left"
-      },
-      ["<a-j>"] = {
-        function() focus.split_command('j') end, "window_switch_down"
-      },
-      ["<a-k>"] = {function() focus.split_command('k') end, "window_switch_up"},
-      ["<a-l>"] = {
-        function() focus.split_command('l') end, "window_switch_right"
-      }
-    }
-    return
-  end
   require('which-key').register {
     ["<leader>tw"] = {'<cmd>FocusToggle<cr>', "focus_mode_toggle_mappings"},
     ["<a-h>"] = {function() focus.split_command('h') end, "window_switch_left"},
