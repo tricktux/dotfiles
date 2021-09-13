@@ -254,6 +254,9 @@ bindsym $mod+Shift+$right move right
 # split in vertical orientation
 bindsym $mod+v split v
 
+# Help
+bindsym $mod+question exec i3help
+
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
