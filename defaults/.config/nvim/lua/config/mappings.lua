@@ -29,6 +29,7 @@ function M:window_movement_setup()
       map.nnoremap('<A-j>', [[<cmd>call v:lua.tmux_move('j')<cr>]])
       map.nnoremap('<A-k>', [[<cmd>call v:lua.tmux_move('k')<cr>]])
       map.nnoremap('<A-l>', [[<cmd>call v:lua.tmux_move('l')<cr>]])
+      map.nnoremap('<A-p>', [[<cmd>call v:lua.tmux_move('p')<cr>]])
     return
   end
 
@@ -36,6 +37,7 @@ function M:window_movement_setup()
   map.nnoremap("<A-h>", "<C-w>hzz")
   map.nnoremap("<A-k>", "<C-w>kzz")
   map.nnoremap("<A-j>", "<C-w>jzz")
+  map.nnoremap("<A-p>", "<C-w>pzz")
 end
 
 function M:setup()
