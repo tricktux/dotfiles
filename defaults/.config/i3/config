@@ -129,7 +129,7 @@ bindsym $mod+u exec --no-startup-id \
 bindsym $mod+o exec --no-startup-id \
   ~/.config/i3/scripts/xdotool_launch journal
 bindsym $mod+n exec --no-startup-id \
-  ~/.config/i3/scripts/xdotool_launch scratch
+  ~/.config/i3/scripts/xdotool_launch doublecmd
 bindsym $mod+semicolon exec --no-startup-id \
   ~/.config/i3/scripts/xdotool_launch terminal
 bindsym $mod+p exec --no-startup-id \
@@ -404,7 +404,7 @@ bindsym XF86PowerDown exec --no-startup-id "i3-msg '[class=\".\"] kill' && syste
   for_window [class="Yad" title="yad-calendar"] floating enable
 
 # Scratchpad
-  for_window [title="^WhatsApp$"] move to scratchpad
+  for_window [title="^WhatsApp.*Firefox$"] move to scratchpad
   for_window [title="^tickrs$"] move to scratchpad
   for_window [title="^neomutt$"] move to scratchpad
   for_window [title="^glances$"] move to scratchpad
@@ -416,6 +416,7 @@ bindsym XF86PowerDown exec --no-startup-id "i3-msg '[class=\".\"] kill' && syste
   for_window [title="^bottom$"] move to scratchpad
   for_window [title="^scratch$"] move to scratchpad
   for_window [class="Spotify"] move to scratchpad
+  for_window [title="^Double Commander.*"] move to scratchpad
   for_window [class="Evolution"] move to scratchpad, scratchpad show 
 
 # Taken from https://github.com/Airblader/dotfiles-manjaro

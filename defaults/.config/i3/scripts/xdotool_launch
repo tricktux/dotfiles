@@ -44,17 +44,18 @@ local i3ipc = {}
 i3ipc.cmd = [[/usr/bin/i3-msg]]
 -- i3ipc.args = '[title="^' .. arg[1] .. '$"] scratchpad show'
 i3ipc.args = {
-  ['scratch'] = '[title="^scratch$"] scratchpad show',
-  ['journal'] = '[title="^journal$"] scratchpad show',
-  ['neomutt'] = '[title="^neomutt$"] scratchpad show',
-  ['evolution'] = '[class="^Evolution$"] scratchpad show',
-  ['terminal'] = '[title="^terminal$"] scratchpad show',
-  ['htop'] = '[title="^htop$"] scratchpad show',
-  ['bottom'] = '[title="^bottom$"] scratchpad show',
-  ['glances'] = '[title="^glances$"] scratchpad show',
-  ['spotify'] = '[class="^Spotify$"] scratchpad show',
-  ['tickrs'] = '[title="^tickrs$"] scratchpad show',
-  ['whatsapp'] = '[title="^WhatsApp$"] scratchpad show'
+  ['scratch'] = [[[title="^scratch$"] scratchpad show]],
+  ['doublecmd'] = [[[title=\"^Double Commander.*\"] scratchpad show]],
+  ['journal'] = [[[title="^journal$"] scratchpad show]],
+  ['neomutt'] = "[title=\"^neomutt$\"] scratchpad show",
+  ['evolution'] = [[[class="^Evolution$"] scratchpad show]],
+  ['terminal'] = [[[title="^terminal$"] scratchpad show]],
+  ['htop'] = [[[title="^htop$"] scratchpad show]],
+  ['bottom'] = [[[title="^bottom$"] scratchpad show]],
+  ['glances'] = [[[title="^glances$"] scratchpad show]],
+  ['spotify'] = [[[class="^Spotify$"] scratchpad show]],
+  ['tickrs'] = [[[title="^tickrs$"] scratchpad show]],
+  ['whatsapp'] = [[[title=\"^WhatsApp.*Firefox$\"] scratchpad show]]
 }
 i3ipc.terminal = {
   ['helios'] = 'resize set 960 1019, move position 960 px 32 px',
@@ -62,6 +63,7 @@ i3ipc.terminal = {
   ['surbook'] = 'resize set 1368 1730, move position 1368 px 48 px'
 }
 i3ipc.scratch = {['surbook'] = 'resize set 1588 1459, move position center'}
+i3ipc.doublecmd = {['surbook'] = 'resize set 1588 1459, move position center'}
 i3ipc.journal = {['surbook'] = 'resize set 1588 1459, move position center'}
 i3ipc.htop = {
   ['helios'] = 'resize set 1820 880, move position center',
@@ -105,6 +107,7 @@ i3ipc.whatsapp = {
 }
 i3ipc.window_position = {
   ['scratch'] = i3ipc.scratch[hostname],
+  ['doublecmd'] = i3ipc.doublecmd[hostname],
   ['journal'] = i3ipc.journal[hostname],
   ['neomutt'] = i3ipc.neomutt[hostname],
   ['evolution'] = i3ipc.evolution[hostname],
@@ -125,7 +128,7 @@ end
 
 function i3ipc:show()
   local pos = self.window_position[arg[1]] or 'move position center'
-  local cmd = self.cmd .. ' ' .. self.args[arg[1]] .. ', ' .. pos
+  local cmd = self.cmd .. ' "' .. self.args[arg[1]] .. ', ' .. pos .. '"'
   -- print(cmd)
   os.execute(cmd)
 end
@@ -138,6 +141,7 @@ xdotool.app_visible_args = [[search --name --onlyvisible]]
 -- NOTE: substitute here for setting terminal name if you change from kitty
 xdotool.exec = {
   ['scratch'] = '$TERMINAL --title scratch ~/.config/tmux/scratch.sh',
+  ['doublecmd'] = '/usr/bin/doublecmd',
   ['journal'] = '$TERMINAL --title journal ~/.config/i3/scripts/journal.sh',
   ['neomutt'] = '$TERMINAL --title neomutt ~/.config/tmux/neomutt.sh',
   ['evolution'] = 'evolution',
@@ -147,7 +151,7 @@ xdotool.exec = {
   ['glances'] = '$TERMINAL --title glances glances --theme-white',
   ['spotify'] = 'spotify',
   ['tickrs'] = '$TERMINAL --title tickrs tickrs',
-  ['whatsapp'] = '/usr/bin/whatsapp-nativefier'
+  ['whatsapp'] = '/usr/bin/firefox --new-window https://web.whatsapp.com'
 }
 
 function xdotool:wait_for_window_visible(app)
@@ -161,7 +165,8 @@ function xdotool:window_exists(app)
     print('Bad argument')
     return
   end
-  local cmd = self.path .. ' ' .. self.app_exists_args .. ' ' .. '"^' .. app .. '$"'
+  local cmd = self.path .. ' ' .. self.app_exists_args .. ' ' .. '"^' .. app ..
+                  '$"'
   -- print('cmd = "'.. cmd .. '"')
   local file = assert(io.popen(cmd))
   local output = file:read('*all')
@@ -174,7 +179,8 @@ function xdotool:window_visible(app)
     print('Bad argument')
     return
   end
-  local cmd = self.path .. ' ' .. self.app_visible_args .. ' ' .. '"^' .. app .. '$"'
+  local cmd = self.path .. ' ' .. self.app_visible_args .. ' ' .. '"^' .. app ..
+                  '$"'
   -- print('cmd = "'.. cmd .. '"')
   local file = assert(io.popen(cmd))
   local output = file:read('*all')
@@ -189,13 +195,8 @@ function xdotool:eval()
 end
 
 local function main()
-  if xdotool:window_visible(arg[1]) ~= '' then
-    i3ipc:hide()
-    return
-  end
-
   if xdotool:window_exists(arg[1]) ~= '' then
-    i3ipc:show()
+    i3ipc:show()  -- It will also hide the window if shown
     return
   end
 
