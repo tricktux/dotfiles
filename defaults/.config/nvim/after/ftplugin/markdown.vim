@@ -111,13 +111,13 @@ if !exists('no_plugin_maps') && !exists('no_markdown_maps')
 endif
 
 function! s:bold_current_word() abort
-	execute "normal viwS*"
-	execute "normal gvS*"
+	execute 'normal viwS*'
+	execute 'normal gvS*'
 endfunction
 
 function! s:bold_word() abort
-	execute "normal gvS*"
-	execute "normal gvS*"
+	execute 'normal gvS*'
+	execute 'normal gvS*'
 endfunction
 
 if exists('*AutoCorrect')
