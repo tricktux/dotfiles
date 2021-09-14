@@ -52,9 +52,9 @@ alias ffmpeg_concat=FuncFfmpegConcat
 alias journalctlp='journalctl -o short-precise'
 
 # cd
-alias .='cd ..'
-alias ..='cd ../..'
-alias ...='cd ../../..'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
 
 # cp and mv
 if [[ -f /usr/bin/advcp ]]; then
