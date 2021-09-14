@@ -102,22 +102,32 @@ if !exists('no_plugin_maps') && !exists('no_markdown_maps')
 	nnoremap <buffer> <plug>todo_delete_mark :call <sid>todo_mark(' ', 'delete_mark')<cr>
 
 	nmap <localleader>b <plug>todo_block
-	nnoremap <buffer> <plug>bold_current_word_si :call <sid>bold_current_word()<bar>
+	nnoremap <buffer> <plug>bold_current_word_si :call <sid>double_surround_current_word('*')<bar>
 				\ silent! call repeat#set("\<lt>Plug>bold_current_word_si", v:count)<cr>
 
 	vmap <localleader>b <plug>bold_visual_word
-	vnoremap <buffer> <plug>bold_visual_word :call <sid>bold_word()<bar>
+	vnoremap <buffer> <plug>bold_visual_word :call <sid>double_surround_word('*')<bar>
 				\ silent! call repeat#set("\<lt>Plug>bold_visual_word", v:count)<cr>
+  vnoremap <buffer> <localleader>` :call <sid>surround_word('`')<cr>
+  nnoremap <buffer> <localleader>` :call <sid>surround_current_word('`')<cr>
 endif
 
-function! s:bold_current_word() abort
-	execute 'normal viwS*'
-	execute 'normal gvS*'
+function! s:surround_current_word(character) abort
+  execute 'normal viwS' . a:character
 endfunction
 
-function! s:bold_word() abort
-	execute 'normal gvS*'
-	execute 'normal gvS*'
+function! s:surround_word(character) abort
+  execute 'normal gvS' . a:character
+endfunction
+
+function! s:double_surround_current_word(character) abort
+	execute 'normal viwS' . a:character
+	execute 'normal gvS' . a:character
+endfunction
+
+function! s:double_surround_word(character) abort
+	execute 'normal gvS' . a:character
+	execute 'normal gvS' . a:character
 endfunction
 
 if exists('*AutoCorrect')
