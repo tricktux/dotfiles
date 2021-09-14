@@ -50,3 +50,10 @@ defaults/.config/nvim/plugin/packer_compiled.vim
 scripts/win/win_center.exe
 
 defaults/.config/nvim/plugin/packer_compiled.lua
+defaults/.config/doublecmd/doublecmd_.xml
+defaults/.config/doublecmd/history.xml
+defaults/.config/doublecmd/multiarc.ini
+defaults/.config/doublecmd/pixmaps.cache
+defaults/.config/doublecmd/pixmaps.txt
+defaults/.config/doublecmd/session.ini
+defaults/.config/doublecmd/shortcuts_.scf
