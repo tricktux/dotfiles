@@ -44,7 +44,7 @@ function M:setup()
 
   -- Let's make <s-v> consistent as well
   map.nnoremap('<s-v>', 'v$h')
-  map.nnoremap('<c-q>', '<s-v>')
+  map.nnoremap('vv', '<s-v>')
 
   map.vnoremap('gA', 'g<c-a>')
   map.vnoremap('gX', 'g<c-x>')
