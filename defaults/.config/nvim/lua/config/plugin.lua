@@ -243,6 +243,10 @@ function M:__setup()
   use {'fourjay/vim-flexagon', ft = 'markdown'}
 
   -- Extra syntax
+  use {
+    'PotatoesMaster/i3-vim-syntax',
+    cond = function() return require('utils.utils').has_unix() end
+  }
   use {'elzr/vim-json', ft = 'json'}
   use {'aklt/plantuml-syntax', ft = 'plantuml'}
   use {'MTDL9/vim-log-highlighting', ft = 'log'}
