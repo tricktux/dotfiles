@@ -196,7 +196,7 @@ end
 
 local function main()
   if xdotool:window_exists(arg[1]) ~= '' then
-    i3ipc:show()  -- It will also hide the window if shown
+    i3ipc:show() -- It will also hide the window if shown
     return
   end
 
