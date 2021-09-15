@@ -420,6 +420,7 @@ bindsym XF86PowerDown exec --no-startup-id "i3-msg '[class=\".\"] kill' && syste
   for_window [class="Evolution"] move to scratchpad, scratchpad show 
 
 # Taken from https://github.com/Airblader/dotfiles-manjaro
+  for_window [class="Doublecmd"][window_type=dialog] focus
   for_window [class="Nitrogen"] floating enable
   for_window [class="ARandR"] floating enable
   for_window [class="lxappearance"] floating enable
