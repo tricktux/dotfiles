@@ -133,4 +133,6 @@ export npm_config_prefix="$HOME/.local"
 # Wed May 02 2018 04:57: Not needed anymore
 # export LANG=en_US.UTF-8
 
+export BAT_THEME="Coldark-Cold"
+
 # vim: fdm=marker
