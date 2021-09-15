@@ -10,19 +10,19 @@ _M.pywal = {
   cmd = '/usr/bin/wal',
   day = {
     "--theme", "base16-google", "-l", "-q", "-o",
-    "'/home/reinaldo/.config/polybar/scripts/flux_/flux_post_day'"
+    "'$HOME/.config/polybar/scripts/flux_/flux_post_day'"
   },
   sunrise = {
     "--theme", "solarized", "-l", "-q", "-o",
-    "'/home/reinaldo/.config/polybar/scripts/flux_/flux_post_sunrise'"
+    "'$HOME/.config/polybar/scripts/flux_/flux_post_sunrise'"
   },
   night = {
     "--theme", "base16-gruvbox-hard", "-q", "-o",
-    "'/home/reinaldo/.config/polybar/scripts/flux_/flux_post_night'"
+    "'$HOME/.config/polybar/scripts/flux_/flux_post_night'"
   },
   sunset = {
     "--theme", "solarized", "-q", "-o",
-    "'/home/reinaldo/.config/polybar/scripts/flux_/flux_post_sunset'"
+    "'$HOME/.config/polybar/scripts/flux_/flux_post_sunset'"
   }
 }
 

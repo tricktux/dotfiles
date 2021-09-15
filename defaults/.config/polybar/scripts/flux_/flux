@@ -70,7 +70,7 @@ local _usage = [[
       cmd = '/usr/bin/wal',
       day = {
         "--theme", "base16-google", "-l", "-q", "-o",
-        "/home/reinaldo/.config/polybar/launch.sh"
+        "$HOME/.config/polybar/launch.sh"
       },
       sunrise = {
         "--theme", "solarized", "-l", "-q", "-o",
@@ -78,7 +78,7 @@ local _usage = [[
       },
       night = {
         "--theme", "base16-gruvbox-hard", "-q", "-o",
-        "/home/reinaldo/.config/polybar/launch.sh"
+        "$HOME/.config/polybar/launch.sh"
       },
       sunset = {
         "--theme", "solarized", "-q", "-o",
