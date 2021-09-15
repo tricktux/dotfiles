@@ -1,6 +1,11 @@
 #!/bin/bash
+# Polybar is restarted by wal
 
 /usr/bin/nvr --nostart --servername /tmp/nvimsocket -cc "ChangeColors night"
 /usr/bin/nvr --nostart --servername /tmp/neovim_journal -cc "ChangeColors night"
 
-# /home/reinaldo/.config/polybar/scripts/launch.sh
+xfconf-query -c xsettings -p /Net/ThemeName -s "Adapta-Nokto"
+xfconf-query -c xsettings -p /Net/IconThemeName -s "Paper"
+# See here to change the cursor. Not straight forward.
+# https://wiki.archlinux.org/title/Cursor_themes
+# xfconf-query -c xsettings -p /Net/CursorName -s "CapitaineCursors"

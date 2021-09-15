@@ -545,6 +545,7 @@ bindsym XF86PowerDown exec --no-startup-id "i3-msg '[class=\".\"] kill' && syste
   exec --no-startup-id /usr/bin/synology-drive
   exec --no-startup-id playerctld daemon
   exec --no-startup-id tmux start-server
+  exec --no-startup-id xfsettings --replace --daemon
   exec --no-startup-id alttab -w 1 -d 2 -frame rgb:26/8b/d2 -bg rgb:f1/f1/f1 \
     -fg rgb:55/55/55 -t 120x120 -i 120x120
   exec_always --no-startup-id ~/.config/polybar/scripts/launch.sh
