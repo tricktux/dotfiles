@@ -126,11 +126,30 @@ function i3ipc:hide()
   os.execute(cmd)
 end
 
+local function __exec(cmd)
+  cmd = cmd .. ' 2>&1&'
+  local file, err = io.popen(cmd)
+  if file == nil then
+    print('Command ' .. cmd .. ' failed')
+    print('\t' .. err)
+    return ''
+  end
+  local output = file:read('*all')
+  file:close()
+  return output
+end
+
+
 function i3ipc:show()
   local pos = self.window_position[arg[1]] or 'move position center'
   local cmd = self.cmd .. ' "' .. self.args[arg[1]] .. ', ' .. pos .. '"'
   -- print(cmd)
-  os.execute(cmd)
+  local rc = __exec(cmd)
+  if string.find(rc, "ERROR:") ~= nil then
+    return false
+  end
+
+  return true
 end
 
 local xdotool = {}
@@ -157,7 +176,7 @@ xdotool.exec = {
 function xdotool:wait_for_window_visible(app)
   -- print('Waiting for ' .. app .. '...')
   while self:window_exists(app) == '' do os.execute('sleep 0.001') end
-  os.execute('sleep 0.008')
+  os.execute('sleep 0.01')
 end
 
 function xdotool:window_exists(app)
@@ -195,13 +214,14 @@ function xdotool:eval()
 end
 
 local function main()
-  if xdotool:window_exists(arg[1]) ~= '' then
-    i3ipc:show() -- It will also hide the window if shown
+  -- It will also hide the window if shown
+  if i3ipc:show() == true then
     return
   end
 
   -- print('Window ' .. arg[1] .. ' does not exists')
   xdotool:eval()
+  -- xdotool search --sync --onlyvisible --class "google-chrome"
   xdotool:wait_for_window_visible(arg[1])
   i3ipc:show()
 end
