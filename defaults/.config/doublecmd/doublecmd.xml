@@ -123,11 +123,11 @@
   <Behaviours>
     <GoToRoot>False</GoToRoot>
     <ActiveRight>False</ActiveRight>
-    <RunInTerminalStayOpenCmd>powershell.exe</RunInTerminalStayOpenCmd>
-    <RunInTerminalStayOpenParams/>
-    <RunInTerminalCloseCmd>cmd.exe</RunInTerminalCloseCmd>
-    <RunInTerminalCloseParams>/C {command}</RunInTerminalCloseParams>
-    <JustRunTerminal>powershell.exe</JustRunTerminal>
+    <RunInTerminalStayOpenCmd>$TERMINAL</RunInTerminalStayOpenCmd>
+    <RunInTerminalStayOpenParams>--hold</RunInTerminalStayOpenParams>
+    <RunInTerminalCloseCmd>$TERMINAL</RunInTerminalCloseCmd>
+    <RunInTerminalCloseParams>{command}</RunInTerminalCloseParams>
+    <JustRunTerminal>$TERMINAL</JustRunTerminal>
     <JustRunTermParams/>
     <OnlyOneAppInstance>True</OnlyOneAppInstance>
     <LynxLike>True</LynxLike>
@@ -169,24 +169,24 @@
     <DriveBlackListUnmounted>False</DriveBlackListUnmounted>
   </Behaviours>
   <Tools>
-    <Viewer Enabled="False">
-      <Path/>
-      <Parameters/>
-      <RunInTerminal>False</RunInTerminal>
-      <KeepTerminalOpen>False</KeepTerminalOpen>
+    <Viewer Enabled="True">
+      <Path>/usr/bin/bat</Path>
+      <Parameters>%ps</Parameters>
+      <RunInTerminal>True</RunInTerminal>
+      <KeepTerminalOpen>True</KeepTerminalOpen>
     </Viewer>
     <Editor Enabled="True">
-      <Path>"c:\program files\notepad++\notepad++.exe"</Path>
-      <Parameters>%p</Parameters>
-      <RunInTerminal>False</RunInTerminal>
-      <KeepTerminalOpen>True</KeepTerminalOpen>
+      <Path>/usr/bin/nvr -s</Path>
+      <Parameters>%ps</Parameters>
+      <RunInTerminal>True</RunInTerminal>
+      <KeepTerminalOpen>False</KeepTerminalOpen>
     </Editor>
     <Differ Enabled="True">
-      <Path>C:\Program Files (x86)\Beyond Compare 3\BCompare.exe</Path>
-      <Parameters>%pl %pr</Parameters>
-      <RunInTerminal>False</RunInTerminal>
-      <KeepTerminalOpen>False</KeepTerminalOpen>
-      <FramePosAfterComp>0</FramePosAfterComp>
+      <Path>/usr/bin/diff</Path>
+      <Parameters>%p</Parameters>
+      <RunInTerminal>True</RunInTerminal>
+      <KeepTerminalOpen>True</KeepTerminalOpen>
+      <FramePosAfterComp>1</FramePosAfterComp>
     </Differ>
   </Tools>
   <Fonts>
@@ -501,7 +501,7 @@
   </Log>
   <History>
     <SearchReplaceHistory Save="True"/>
-    <DirHistory Save="True"/>
+    <DirHistory Save="False"/>
     <CmdLineHistory Save="True"/>
     <FileMaskHistory Save="True"/>
   </History>
@@ -513,7 +513,7 @@
   </QuickSearch>
   <QuickFilter>
     <AutoHide>True</AutoHide>
-    <SaveSessionModifications>False</SaveSessionModifications>
+    <SaveSessionModifications>True</SaveSessionModifications>
   </QuickFilter>
   <Miscellaneous>
     <GridVertLine>False</GridVertLine>
@@ -693,7 +693,7 @@
     <PathToLibrary>lua5.1.dll</PathToLibrary>
   </Lua>
   <NameShortcutFile>shortcuts.scf</NameShortcutFile>
-  <HotKeySortOrder>2</HotKeySortOrder>
+  <HotKeySortOrder>0</HotKeySortOrder>
   <UseEnterToCloseHotKeyEditor>True</UseEnterToCloseHotKeyEditor>
   <LastUsedPacker>zip</LastUsedPacker>
   <UseShellForFileOperations>True</UseShellForFileOperations>

@@ -63,7 +63,11 @@ i3ipc.terminal = {
   ['surbook'] = 'resize set 1368 1730, move position 1368 px 48 px'
 }
 i3ipc.scratch = {['surbook'] = 'resize set 1588 1459, move position center'}
-i3ipc.doublecmd = {['surbook'] = 'resize set 1588 1459, move position center'}
+i3ipc.doublecmd = {
+  ['helios'] = 'resize set 1820 880, move position center',
+  ['predator'] = 'resize set 3040 1524, move position center',
+  ['surbook'] = 'resize set 2188 1459, move position center'
+}
 i3ipc.journal = {['surbook'] = 'resize set 1588 1459, move position center'}
 i3ipc.htop = {
   ['helios'] = 'resize set 1820 880, move position center',
