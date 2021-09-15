@@ -106,16 +106,16 @@
     <Position Save="False">
       <Maximized>False</Maximized>
       <Splitter>50</Splitter>
-      <Left>960</Left>
-      <Top>270</Top>
-      <Width>1908</Width>
-      <Height>1608</Height>
+      <Left>400</Left>
+      <Top>318</Top>
+      <Width>3028</Width>
+      <Height>1512</Height>
       <PixelsPerInch>161</PixelsPerInch>
     </Position>
   </MainWindow>
   <Configuration Save="True" SortOrder="0" TreeType="0">
     <UseConfigInProgramDir>False</UseConfigInProgramDir>
-    <FolderTabs Save="True"/>
+    <FolderTabs Save="False"/>
   </Configuration>
   <Language>
     <POFileName>doublecmd.en.po</POFileName>
@@ -420,39 +420,23 @@
               <Entry Active="True">
                 <FileSource Type="FileSystem"/>
                 <Paths>
-                  <Path Filename="language">/usr/lib/doublecmd/</Path>
-                  <Path Filename="doublecmd">/usr/lib/</Path>
-                  <Path Filename="lib">/usr/</Path>
-                  <Path Filename="home">/</Path>
-                  <Path Filename="reinaldo">/home/</Path>
-                  <Path Filename="mail">/home/reinaldo/</Path>
-                  <Path Filename="molinamail">/home/reinaldo/mail/</Path>
-                  <Path Filename="..">/home/reinaldo/mail/molinamail/</Path>
-                  <Path Filename="molinamail">/home/reinaldo/mail/</Path>
-                  <Path Filename=".vnc">/home/reinaldo/</Path>
-                  <Path Filename="..">/home/reinaldo/.vnc/</Path>
-                  <Path Filename=".vnc">/home/reinaldo/</Path>
-                  <Path Filename="predator:1.log">/home/reinaldo/.vnc/</Path>
-                  <Path Filename=".mozilla">/home/reinaldo/</Path>
-                  <Path Filename="orgmode.lua">/home/reinaldo/.config/dotfiles/defaults/.config/nvim/lua/config/plugins/</Path>
-                  <Path Filename="plugins">/home/reinaldo/.config/dotfiles/defaults/.config/nvim/lua/config/</Path>
-                  <Path Filename="config">/home/reinaldo/.config/dotfiles/defaults/.config/nvim/lua/</Path>
-                  <Path Filename="lua">/home/reinaldo/.config/dotfiles/defaults/.config/nvim/</Path>
-                  <Path Filename="nvim">/home/reinaldo/.config/dotfiles/defaults/.config/</Path>
-                  <Path Filename=".config">/home/reinaldo/.config/dotfiles/defaults/</Path>
-                  <Path Filename="defaults">/home/reinaldo/.config/dotfiles/</Path>
-                  <Path Filename="dotfiles">/home/reinaldo/.config/</Path>
-                  <Path Filename="Documents">/home/reinaldo/</Path>
-                  <Path Filename="awesome-cv">/home/reinaldo/Documents/</Path>
-                  <Path Filename="LICENSE">/home/reinaldo/Documents/awesome-cv/</Path>
-                  <Path Filename="awesome-cv">/home/reinaldo/Documents/</Path>
-                  <Path Filename="Documents">/home/reinaldo/</Path>
-                  <Path Filename="..">/home/reinaldo/Documents/awesome-cv/</Path>
-                  <Path Filename="awesome-cv">/home/reinaldo/Documents/</Path>
-                  <Path Filename=".config">/home/reinaldo/</Path>
-                  <Path Filename="doublecmd">/home/reinaldo/.config/</Path>
-                  <Path Filename="doublecmd.xml">/home/reinaldo/.config/doublecmd/</Path>
-                  <Path Filename="doublecmd">/home/reinaldo/.config/</Path>
+                  <Path>/home/reinaldo/.config/doublecmd/</Path>
+                </Paths>
+              </Entry>
+            </History>
+            <ColumnsView>
+              <ColumnsSet>Default</ColumnsSet>
+            </ColumnsView>
+          </FileView>
+          <Title>config</Title>
+        </Tab>
+        <Tab>
+          <FileView Type="columns">
+            <History>
+              <Entry Active="True">
+                <FileSource Type="FileSystem"/>
+                <Paths>
+                  <Path>/home/reinaldo/.icons/default/</Path>
                 </Paths>
               </Entry>
             </History>
@@ -461,6 +445,38 @@
             </ColumnsView>
           </FileView>
           <Title>home</Title>
+        </Tab>
+        <Tab>
+          <FileView Type="columns">
+            <History>
+              <Entry Active="True">
+                <FileSource Type="FileSystem"/>
+                <Paths>
+                  <Path>/home/reinaldo/Documents/awesome-cv/</Path>
+                </Paths>
+              </Entry>
+            </History>
+            <ColumnsView>
+              <ColumnsSet>Default</ColumnsSet>
+            </ColumnsView>
+          </FileView>
+          <Title>Documents</Title>
+        </Tab>
+        <Tab>
+          <FileView Type="columns">
+            <History>
+              <Entry Active="True">
+                <FileSource Type="FileSystem"/>
+                <Paths>
+                  <Path>/home/reinaldo/.local/share/icons/hicolor/</Path>
+                </Paths>
+              </Entry>
+            </History>
+            <ColumnsView>
+              <ColumnsSet>Default</ColumnsSet>
+            </ColumnsView>
+          </FileView>
+          <Title>local.share</Title>
         </Tab>
       </Left>
       <Right>
@@ -471,19 +487,7 @@
               <Entry Active="True">
                 <FileSource Type="FileSystem"/>
                 <Paths>
-                  <Path Filename="language">/usr/lib/doublecmd/</Path>
-                  <Path Filename="doublecmd">/usr/lib/</Path>
-                  <Path Filename="highlighters">/usr/lib/doublecmd/</Path>
-                  <Path Filename="doublecmd">/usr/lib/</Path>
-                  <Path Filename="..">/usr/lib/doublecmd/</Path>
-                  <Path Filename=".android">/home/reinaldo/</Path>
-                  <Path Filename="..">/home/reinaldo/.android/</Path>
-                  <Path Filename=".config">/home/reinaldo/</Path>
-                  <Path Filename="dotfiles">/home/reinaldo/.config/</Path>
-                  <Path Filename="defaults">/home/reinaldo/.config/dotfiles/</Path>
-                  <Path Filename=".config">/home/reinaldo/.config/dotfiles/defaults/</Path>
-                  <Path Filename="doublecmd">/home/reinaldo/.config/dotfiles/defaults/.config/</Path>
-                  <Path Filename="shortcuts.scf">/home/reinaldo/.config/dotfiles/defaults/.config/doublecmd/</Path>
+                  <Path>/home/reinaldo/.config/dotfiles/doublecmd/</Path>
                 </Paths>
               </Entry>
             </History>
@@ -491,6 +495,38 @@
               <ColumnsSet>Default</ColumnsSet>
             </ColumnsView>
           </FileView>
+          <Title>dotfiles</Title>
+        </Tab>
+        <Tab>
+          <FileView Type="columns">
+            <History>
+              <Entry Active="True">
+                <FileSource Type="FileSystem"/>
+                <Paths>
+                  <Path>/tmp/</Path>
+                </Paths>
+              </Entry>
+            </History>
+            <ColumnsView>
+              <ColumnsSet>Default</ColumnsSet>
+            </ColumnsView>
+          </FileView>
+        </Tab>
+        <Tab>
+          <FileView Type="columns">
+            <History>
+              <Entry Active="True">
+                <FileSource Type="FileSystem"/>
+                <Paths>
+                  <Path>/bin/</Path>
+                </Paths>
+              </Entry>
+            </History>
+            <ColumnsView>
+              <ColumnsSet>Default</ColumnsSet>
+            </ColumnsView>
+          </FileView>
+          <Title>usr</Title>
         </Tab>
       </Right>
     </OpenedTabs>
@@ -500,10 +536,10 @@
     <Options>1023</Options>
   </Log>
   <History>
-    <SearchReplaceHistory Save="True"/>
+    <SearchReplaceHistory Save="False"/>
     <DirHistory Save="False"/>
-    <CmdLineHistory Save="True"/>
-    <FileMaskHistory Save="True"/>
+    <CmdLineHistory Save="False"/>
+    <FileMaskHistory Save="False"/>
   </History>
   <QuickSearch>
     <MatchBeginning>False</MatchBeginning>
