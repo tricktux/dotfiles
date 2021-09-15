@@ -103,7 +103,7 @@
     </MainToolbar>
   </Toolbars>
   <MainWindow>
-    <Position Save="True">
+    <Position Save="False">
       <Maximized>False</Maximized>
       <Splitter>50</Splitter>
       <Left>960</Left>
