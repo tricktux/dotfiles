@@ -6,14 +6,14 @@
   <ActualTabs>
     <GUIDE409CAEB-3226-4E40-970D-50D8DFEACC1D>
       <Left>
-        <ActiveTab>0</ActiveTab>
+        <ActiveTab>1</ActiveTab>
         <Tab>
           <FileView Type="columns">
             <History>
               <Entry Active="True">
                 <FileSource Type="FileSystem"/>
                 <Paths>
-                  <Path>/home/reinaldo/Documents/awesome-cv/</Path>
+                  <Path>/home/reinaldo/</Path>
                 </Paths>
               </Entry>
             </History>
@@ -22,6 +22,22 @@
             </ColumnsView>
           </FileView>
           <Title>home</Title>
+        </Tab>
+        <Tab>
+          <FileView Type="columns">
+            <History>
+              <Entry Active="True">
+                <FileSource Type="FileSystem"/>
+                <Paths>
+                  <Path>/home/reinaldo/.config/doublecmd/</Path>
+                </Paths>
+              </Entry>
+            </History>
+            <ColumnsView>
+              <ColumnsSet>Default</ColumnsSet>
+            </ColumnsView>
+          </FileView>
+          <Title>config</Title>
         </Tab>
       </Left>
       <Right>
@@ -32,7 +48,23 @@
               <Entry Active="True">
                 <FileSource Type="FileSystem"/>
                 <Paths>
-                  <Path>/usr/lib/doublecmd/</Path>
+                  <Path>/home/reinaldo/.config/dotfiles/doublecmd/</Path>
+                </Paths>
+              </Entry>
+            </History>
+            <ColumnsView>
+              <ColumnsSet>Default</ColumnsSet>
+            </ColumnsView>
+          </FileView>
+          <Title>dotfiles</Title>
+        </Tab>
+        <Tab>
+          <FileView Type="columns">
+            <History>
+              <Entry Active="True">
+                <FileSource Type="FileSystem"/>
+                <Paths>
+                  <Path>/tmp/</Path>
                 </Paths>
               </Entry>
             </History>
