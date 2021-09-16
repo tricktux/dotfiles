@@ -402,6 +402,7 @@ bindsym XF86PowerDown exec --no-startup-id "i3-msg '[class=\".\"] kill' && syste
   for_window [class="Qt4-ssh-askpass"] floating enable
   for_window [class="lxqt-openssh-askpass"] floating enable
   for_window [class="Yad" title="yad-calendar"] floating enable
+  for_window [class="^Evolution$"] floating enable
 
 # Scratchpad
   for_window [title="^WhatsApp.*Firefox$"] move to scratchpad
@@ -417,7 +418,7 @@ bindsym XF86PowerDown exec --no-startup-id "i3-msg '[class=\".\"] kill' && syste
   for_window [title="^scratch$"] move to scratchpad
   for_window [class="Spotify"] move to scratchpad
   for_window [title="^Double Commander.*"] move to scratchpad
-  for_window [class="Evolution"] move to scratchpad, scratchpad show 
+  for_window [title=".*Evolution$"] move to scratchpad
 
 # Taken from https://github.com/Airblader/dotfiles-manjaro
   for_window [class="Doublecmd"][window_type=dialog] focus
