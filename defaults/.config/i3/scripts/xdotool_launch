@@ -1,5 +1,6 @@
 #!/bin/luajit
 
+-- TODO: Very obsolete usage
 local _usage = [[
 Usage:
   xdotool_launch <name> <arguments to $TERMINAL>
