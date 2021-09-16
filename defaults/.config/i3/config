@@ -450,17 +450,13 @@ bindsym XF86PowerDown exec --no-startup-id "i3-msg '[class=\".\"] kill' && syste
 # Options{{{
 	floating_modifier $mod
 # thin borders
-  hide_edge_borders both
-# No borders
-  new_window none
-  new_float none
-
+  hide_edge_borders smart
 # Disables gaps when there is only one window
   smart_gaps on
 
 # Border settings
-  new_window pixel 3
-  smart_borders on
+  default_border normal
+  default_floating_border pixel 1
 
 # TODO revisit  when i3 is updated to 4.18
 # Update is live as of Tue Feb 18 2020 16:22 on github, arch hasn't caught up 
