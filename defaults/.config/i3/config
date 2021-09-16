@@ -455,7 +455,7 @@ bindsym XF86PowerDown exec --no-startup-id "i3-msg '[class=\".\"] kill' && syste
   smart_gaps on
 
 # Border settings
-  default_border normal
+  default_border pixel
   default_floating_border pixel 1
 
 # TODO revisit  when i3 is updated to 4.18
