@@ -379,10 +379,6 @@
         <Command>cm_RenameTab</Command>
       </Hotkey>
       <Hotkey>
-        <Shortcut>Shift+S</Shortcut>
-        <Command>cm_ResaveFavoriteTabs</Command>
-      </Hotkey>
-      <Hotkey>
         <Shortcut>Shift+L</Shortcut>
         <Command>cm_LoadFavoriteTabs</Command>
       </Hotkey>
@@ -499,6 +495,11 @@
       <Hotkey>
         <Shortcut>'</Shortcut>
         <Command>cm_DirHotList</Command>
+        <Control>Files Panel</Control>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Shift+S</Shortcut>
+        <Command>cm_ResaveFavoriteTabs</Command>
         <Control>Files Panel</Control>
       </Hotkey>
     </Form>
