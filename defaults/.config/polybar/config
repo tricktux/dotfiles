@@ -171,7 +171,7 @@ font-5 = Weather Icons:size=20;1
 ; When copying remove xbacklight battery and set specific wlan
 modules-left = menu wlan-predator info-pingrtt isrunning-openvpn-home space pihole space space todo 
 modules-center =  temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory 
-modules-right = system-usb-udev volume xkeyboard info-trash updates-arch-combined wallpaper flux redshift bluetoothctl compton
+modules-right = system-usb-udev volume xkeyboard info-trash updates-arch-combined wallpaper flux redshift compton
 
 tray-maxsize = 40
 
@@ -191,7 +191,7 @@ modules-left = menu wlan-helios info-pingrtt isrunning-openvpn-home space pihole
 ; Mon Dec 23 2019 15:06: Nvidia module is useless 
 ; modules-center =  left-end-top temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory right-end-top
 modules-center =  temperature cpu cpuload system-uptime-pretty memory
-modules-right = system-usb-udev battery_helios space space xbacklight volume xkeyboard info-trash updates-arch-combined wallpaper flux redshift bluetoothctl compton
+modules-right = system-usb-udev battery_helios space space xbacklight volume xkeyboard info-trash updates-arch-combined wallpaper flux redshift compton
 
 tray-maxsize = 30
 
@@ -239,7 +239,7 @@ modules-left = menu wlan-surbook info-pingrtt isrunning-openvpn-home space pihol
 ; Mon Dec 23 2019 15:06: Nvidia module is useless 
 ; modules-center =  left-end-top temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory right-end-top
 modules-center =  temperature cpu cpuload system-uptime-pretty memory
-modules-right = system-usb-udev battery_surbook space space xbacklight volume xkeyboard info-trash updates-arch-combined wallpaper flux redshift bluetoothctl compton
+modules-right = system-usb-udev battery_surbook space space xbacklight volume xkeyboard info-trash updates-arch-combined wallpaper flux redshift compton
 
 tray-maxsize = 30
 
