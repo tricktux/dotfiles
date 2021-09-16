@@ -418,7 +418,7 @@ bindsym XF86PowerDown exec --no-startup-id "i3-msg '[class=\".\"] kill' && syste
   # for_window [title="^htop$"] move to scratchpad
   for_window [title="^bottom$" class="^kitty$"] move to scratchpad
   for_window [title="^scratch$" class="^kitty$"] move to scratchpad
-  for_window [title="^Spotfiy$" class="^Spotfiy$"] move to scratchpad
+  for_window [title="^Spotify$" class="^Spotify$"] move to scratchpad
   for_window [title="^Double Commander.*" class="^Doublecmd$"] move to scratchpad
   for_window [title=".*Evolution$" class="^Evolution$"] move to scratchpad
 

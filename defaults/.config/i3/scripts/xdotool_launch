@@ -119,7 +119,7 @@ apps['bottom'] = {
 apps['spotify'] = {
   -- Expression to find this window
   --  Used by i3ipc
-  regex = '[title=\\"^Spotfiy$\\" class=\\"^Spotfiy$\\"]',
+  regex = '[title=\\"^Spotify$\\" class=\\"^Spotify$\\"]',
   -- Command to execute for this window
   i3cmd = {
     -- Different commands for different hosts
@@ -226,8 +226,8 @@ local function main()
 
   print('Window ' .. app .. ' does not exists waiting...')
   os.execute(apps[app].exec)
-  -- Wait ~4 seconds for app to start
-  for i = 1, 40 do
+  -- Wait ~8 seconds for app to start
+  for i = 1, 80 do
     if i3ipc:show(apps[app]) == true then return end
     os.execute('sleep 0.1')
   end
