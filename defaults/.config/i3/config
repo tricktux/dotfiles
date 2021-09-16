@@ -405,6 +405,9 @@ bindsym XF86PowerDown exec --no-startup-id "i3-msg '[class=\".\"] kill' && syste
   for_window [class="^Evolution$"] floating enable
   for_window [class="^Doublecmd$"][window_type=dialog] floating enable, focus 
   for_window [class="^Doublecmd$"] floating enable
+  for_window [class="^battle.net.exe$"] floating enable
+  for_window [class="^Blueman-manager$"] floating enable
+  for_window [title="Steam*" class="^Steam$"] floating enable
 
 # Scratchpad
   for_window [title=".*WhatsApp.*Firefox$" class="^firefox$"] move to scratchpad
@@ -428,7 +431,6 @@ bindsym XF86PowerDown exec --no-startup-id "i3-msg '[class=\".\"] kill' && syste
   for_window [class="lxappearance"] floating enable
   for_window [title="xfce4-volumed"] floating enable, border pixel 0
   for_window [title="xfce4-notifyd"] floating enable, border pixel 0
-  for_window [title="Steam*"] floating enable
   for_window [title="Synergy"] floating enable
   for_window [class="File-roller"] floating enable
   for_window [class="Battle.net.exe"] floating enable
