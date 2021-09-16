@@ -531,8 +531,8 @@
       </Right>
     </OpenedTabs>
   </Tabs>
-  <Log Enabled="False" LogFileWithDateInName="False">
-    <FileName>%DC_CONFIG_PATH%\doublecmd.log</FileName>
+  <Log Enabled="True" LogFileWithDateInName="False">
+    <FileName>/tmp/doublecmd.log</FileName>
     <Options>1023</Options>
   </Log>
   <History>
