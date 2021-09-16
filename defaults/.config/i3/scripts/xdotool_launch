@@ -1,14 +1,5 @@
 #!/bin/luajit
 
-local function _get_hostname()
-  local cmd = 'hostname'
-  local file = assert(io.popen(cmd))
-  local output = file:read('*all')
-  file:close()
-  -- Strip all spaces from output
-  return output:gsub("%s+", "")
-end
-
 local _usage = [[
 Usage:
   xdotool_launch <name> <arguments to $TERMINAL>
@@ -17,7 +8,159 @@ Usage:
   E.g.:  xdotool_launch ranger /usr/bin/ranger
 ]]
 
-local function _check_args()
+local hostname = os.getenv("HOSTNAME")
+
+local apps = {}
+-- Default values
+apps.i3cmd = [[scratchpad show, move position center]]
+
+apps['scratch'] = {
+  -- Expression to find this window
+  --  Used by i3ipc
+  regex = {value = [[^scratch$]], type = 'title'},
+  -- Command to execute for this window
+  i3cmd = {
+    -- Different commands for different hosts
+    surbook = [[scratchpad show, resize set 1588 1459, move position center]]
+  },
+  -- How to start this application if it does not exists
+  exec = [[$TERMINAL --title scratch $HOME/.config/tmux/scratch.sh&]]
+}
+
+apps['doublecmd'] = {
+  -- Expression to find this window
+  --  Used by i3ipc
+  regex = {value = [[^Double Commander.*]], type = 'title'},
+  -- Command to execute for this window
+  i3cmd = {
+    -- Different commands for different hosts
+    ['helios'] = 'scratchpad show, resize set 1820 880, move position center',
+    ['predator'] = 'scratchpad show, resize set 3040 1524, move position center',
+    ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center'
+  },
+  -- How to start this application if it does not exists
+  exec = [[/usr/bin/doublecmd&]]
+}
+
+apps['journal'] = {
+  -- Expression to find this window
+  --  Used by i3ipc
+  regex = {value = [[^journal$]], type = 'title'},
+  -- Command to execute for this window
+  i3cmd = {
+    -- Different commands for different hosts
+    ['surbook'] = 'scratchpad show, resize set 1588 1459, move position center'
+  },
+  -- How to start this application if it does not exists
+  exec = [[$TERMINAL --title journal $HOME/.config/i3/scripts/journal.sh&]]
+}
+
+apps['neomutt'] = {
+  -- Expression to find this window
+  --  Used by i3ipc
+  regex = {value = [[^neomutt$]], type = 'title'},
+  -- Command to execute for this window
+  i3cmd = {
+    -- Different commands for different hosts
+    ['helios'] = 'scratchpad show, resize set 1320 880, move position center',
+    ['predator'] = 'scratchpad show, resize set 3040 1524, move position center',
+    ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center'
+  },
+  -- How to start this application if it does not exists
+  exec = [[$TERMINAL --title neomutt $HOME/.config/tmux/neomutt.sh&]]
+}
+
+apps['evolution'] = {
+  -- Expression to find this window
+  --  Used by i3ipc
+  regex = {value = [[.*Evolution$]], type = 'title'},
+  -- Command to execute for this window
+  i3cmd = {
+    -- Different commands for different hosts
+    ['helios'] = 'scratchpad show, resize set 1320 880, move position center',
+    ['predator'] = 'scratchpad show, resize set 3040 1524, move position center',
+    ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center'
+  },
+  -- How to start this application if it does not exists
+  exec = [[/usr/bin/evolution&]]
+}
+
+apps['terminal'] = {
+  -- Expression to find this window
+  --  Used by i3ipc
+  regex = {value = [[^terminal$]], type = 'title'},
+  -- Command to execute for this window
+  i3cmd = {
+    -- Different commands for different hosts
+    ['helios'] = 'scratchpad show, resize set 960 1019, move position 960 px 32 px',
+    ['predator'] = 'scratchpad show, resize set 1920 2038, move position 1920 px 60 px',
+    ['surbook'] = 'scratchpad show, resize set 1368 1730, move position 1368 px 48 px'
+  },
+  -- How to start this application if it does not exists
+  exec = [[$TERMINAL --title terminal -o background_opacity=0.9 /usr/bin/tmux&]]
+}
+
+apps['bottom'] = {
+  -- Expression to find this window
+  --  Used by i3ipc
+  regex = {value = [[^bottom$]], type = 'title'},
+  -- Command to execute for this window
+  i3cmd = {
+    -- Different commands for different hosts
+    ['helios'] = 'scratchpad show, resize set 1820 880, move position center',
+    ['predator'] = 'scratchpad show, resize set 3040 1524, move position center',
+    ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center'
+  },
+  -- How to start this application if it does not exists
+  exec = [[$TERMINAL --title bottom /usr/bin/btm&]]
+}
+
+apps['spotify'] = {
+  -- Expression to find this window
+  --  Used by i3ipc
+  regex = {value = [[^Spotify$]], type = 'class'},
+  -- Command to execute for this window
+  i3cmd = {
+    -- Different commands for different hosts
+    ['helios'] = 'scratchpad show, resize set 1320 880, move position center',
+    ['predator'] = 'scratchpad show, resize set 3040 1424, move position center',
+    ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center'
+  },
+  -- How to start this application if it does not exists
+  exec = [[/usr/bin/spotify&]]
+}
+
+apps['tickrs'] = {
+  -- Expression to find this window
+  --  Used by i3ipc
+  regex = {value = [[^tickrs$]], type = 'title'},
+  -- Command to execute for this window
+  i3cmd = {
+    -- Different commands for different hosts
+    ['helios'] = 'scratchpad show, resize set 1820 880, move position center',
+    ['predator'] = 'scratchpad show, resize set 3040 1524, move position center',
+    ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center'
+  },
+  -- How to start this application if it does not exists
+  exec = [[$TERMINAL --title tickrs /usr/bin/tickrs&]]
+}
+
+apps['whatsapp'] = {
+  -- Expression to find this window
+  --  Used by i3ipc
+  regex = {value = [[^WhatsApp.*Firefox$]], type = 'title'},
+  -- Command to execute for this window
+  i3cmd = {
+    -- Different commands for different hosts
+    ['helios'] = 'scratchpad show, resize set 1820 880, move position center',
+    ['predator'] = 'scratchpad show, resize set 3040 1524, move position center',
+    ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center'
+  },
+  -- How to start this application if it does not exists
+  exec = [[/usr/bin/firefox --new-window https://web.whatsapp.com&]]
+}
+
+local function __check_args()
   if not arg[1] or arg[1] == '' or arg[1] == nil then
     print(_usage)
     return -1
@@ -28,106 +171,12 @@ local function _check_args()
     return -2
   end
 
-  -- if not arg[2] or arg[2] == '' or arg[2] == nil then
-  -- print(_usage)
-  -- return -3
-  -- end
+  if apps[arg[1]] == nil then
+    print(_usage)
+    return -3
+  end
 
   return 0
-end
-
-if _check_args() ~= 0 then return end
-
-local hostname = os.getenv("HOSTNAME")
-local i3ipc = {}
-
-i3ipc.cmd = [[/usr/bin/i3-msg]]
--- i3ipc.args = '[title="^' .. arg[1] .. '$"] scratchpad show'
-i3ipc.args = {
-  ['scratch'] = [[[title="^scratch$"] scratchpad show]],
-  ['doublecmd'] = [[[title=\"^Double Commander.*\"] scratchpad show]],
-  ['journal'] = [[[title="^journal$"] scratchpad show]],
-  ['neomutt'] = "[title=\"^neomutt$\"] scratchpad show",
-  ['evolution'] = [[[class="^Evolution$"] scratchpad show]],
-  ['terminal'] = [[[title="^terminal$"] scratchpad show]],
-  ['htop'] = [[[title="^htop$"] scratchpad show]],
-  ['bottom'] = [[[title="^bottom$"] scratchpad show]],
-  ['glances'] = [[[title="^glances$"] scratchpad show]],
-  ['spotify'] = [[[class="^Spotify$"] scratchpad show]],
-  ['tickrs'] = [[[title="^tickrs$"] scratchpad show]],
-  ['whatsapp'] = [[[title=\"^WhatsApp.*Firefox$\"] scratchpad show]]
-}
-i3ipc.terminal = {
-  ['helios'] = 'resize set 960 1019, move position 960 px 32 px',
-  ['predator'] = 'resize set 1920 2038, move position 1920 px 60 px',
-  ['surbook'] = 'resize set 1368 1730, move position 1368 px 48 px'
-}
-i3ipc.scratch = {['surbook'] = 'resize set 1588 1459, move position center'}
-i3ipc.doublecmd = {
-  ['helios'] = 'resize set 1820 880, move position center',
-  ['predator'] = 'resize set 3040 1524, move position center',
-  ['surbook'] = 'resize set 2188 1459, move position center'
-}
-i3ipc.journal = {['surbook'] = 'resize set 1588 1459, move position center'}
-i3ipc.htop = {
-  ['helios'] = 'resize set 1820 880, move position center',
-  ['predator'] = 'resize set 3040 1524, move position center',
-  ['surbook'] = 'resize set 2188 1459, move position center'
-}
-i3ipc.bottom = {
-  ['helios'] = 'resize set 1820 880, move position center',
-  ['predator'] = 'resize set 3040 1524, move position center',
-  ['surbook'] = 'resize set 2188 1459, move position center'
-}
-i3ipc.neomutt = {
-  ['helios'] = 'resize set 1320 880, move position center',
-  ['predator'] = 'resize set 3040 1524, move position center',
-  ['surbook'] = 'resize set 2188 1459, move position center'
-}
-i3ipc.spotify = {
-  ['helios'] = 'resize set 1320 880, move position center',
-  ['predator'] = 'resize set 3040 1424, move position center',
-  ['surbook'] = 'resize set 2188 1459, move position center'
-}
-i3ipc.evolution = {
-  ['helios'] = 'resize set 1320 880, move position center',
-  ['predator'] = 'resize set 3040 1524, move position center',
-  ['surbook'] = 'resize set 2188 1459, move position center'
-}
-i3ipc.glances = {
-  ['helios'] = 'resize set 1820 880, move position center',
-  ['predator'] = 'resize set 3640 1024, move position center',
-  ['surbook'] = 'resize set 2188 1459, move position center'
-}
-i3ipc.tickrs = {
-  ['helios'] = 'resize set 1820 880, move position center',
-  ['predator'] = 'resize set 3040 1524, move position center',
-  ['surbook'] = 'resize set 2188 1459, move position center'
-}
-i3ipc.whatsapp = {
-  ['helios'] = 'resize set 1820 880, move position center',
-  ['predator'] = 'resize set 3040 1524, move position center',
-  ['surbook'] = 'resize set 2188 1459, move position center'
-}
-i3ipc.window_position = {
-  ['scratch'] = i3ipc.scratch[hostname],
-  ['doublecmd'] = i3ipc.doublecmd[hostname],
-  ['journal'] = i3ipc.journal[hostname],
-  ['neomutt'] = i3ipc.neomutt[hostname],
-  ['evolution'] = i3ipc.evolution[hostname],
-  ['terminal'] = i3ipc.terminal[hostname],
-  ['htop'] = i3ipc.htop[hostname],
-  ['bottom'] = i3ipc.bottom[hostname],
-  ['glances'] = i3ipc.glances[hostname],
-  ['spotify'] = i3ipc.spotify[hostname],
-  ['tickrs'] = i3ipc.tickrs[hostname],
-  ['whatsapp'] = i3ipc.whatsapp[hostname]
-}
-
-function i3ipc:hide()
-  local cmd = self.cmd .. ' scratchpad show'
-  -- print(cmd)
-  os.execute(cmd)
 end
 
 local function __exec(cmd)
@@ -143,91 +192,46 @@ local function __exec(cmd)
   return output
 end
 
+local i3ipc = {}
+i3ipc.cmd = [[/usr/bin/i3-msg]]
 
-function i3ipc:show()
-  local pos = self.window_position[arg[1]] or 'move position center'
-  local cmd = self.cmd .. ' "' .. self.args[arg[1]] .. ', ' .. pos .. '"'
+-- app: One of the apps tables
+function i3ipc:show(app)
+  if app == nil then
+    print('ERROR: Empty app instance')
+    return true
+  end
+  -- Format i3-msg command
+  local i3cmd = app.i3cmd[hostname] or apps.i3cmd
+  local window = string.format('[%s=\\"%s\\"]', app.regex.type, app.regex.value)
+  local cmd = string.format('%s "%s %s"', self.cmd, window, i3cmd)
   -- print(cmd)
   local rc = __exec(cmd)
-  if string.find(rc, "ERROR:") ~= nil then
-    return false
-  end
+  if string.find(rc, "ERROR:") ~= nil then return false end
 
   return true
 end
 
-local xdotool = {}
-
-xdotool.path = [[/usr/bin/xdotool]]
-xdotool.app_exists_args = [[search --name]]
-xdotool.app_visible_args = [[search --name --onlyvisible]]
--- NOTE: substitute here for setting terminal name if you change from kitty
-xdotool.exec = {
-  ['scratch'] = '$TERMINAL --title scratch ~/.config/tmux/scratch.sh',
-  ['doublecmd'] = '/usr/bin/doublecmd',
-  ['journal'] = '$TERMINAL --title journal ~/.config/i3/scripts/journal.sh',
-  ['neomutt'] = '$TERMINAL --title neomutt ~/.config/tmux/neomutt.sh',
-  ['evolution'] = 'evolution',
-  ['terminal'] = '$TERMINAL --title terminal -o background_opacity=0.9 tmux',
-  ['htop'] = '$TERMINAL --title htop htop',
-  ['bottom'] = '$TERMINAL --title bottom btm',
-  ['glances'] = '$TERMINAL --title glances glances --theme-white',
-  ['spotify'] = 'spotify',
-  ['tickrs'] = '$TERMINAL --title tickrs tickrs',
-  ['whatsapp'] = '/usr/bin/firefox --new-window https://web.whatsapp.com'
-}
-
-function xdotool:wait_for_window_visible(app)
-  -- print('Waiting for ' .. app .. '...')
-  while self:window_exists(app) == '' do os.execute('sleep 0.001') end
-  os.execute('sleep 0.01')
-end
-
-function xdotool:window_exists(app)
-  if not app or app == '' then
-    print('Bad argument')
-    return
-  end
-  local cmd = self.path .. ' ' .. self.app_exists_args .. ' ' .. '"^' .. app ..
-                  '$"'
-  -- print('cmd = "'.. cmd .. '"')
-  local file = assert(io.popen(cmd))
-  local output = file:read('*all')
-  file:close()
-  return output
-end
-
-function xdotool:window_visible(app)
-  if not app or app == '' then
-    print('Bad argument')
-    return
-  end
-  local cmd = self.path .. ' ' .. self.app_visible_args .. ' ' .. '"^' .. app ..
-                  '$"'
-  -- print('cmd = "'.. cmd .. '"')
-  local file = assert(io.popen(cmd))
-  local output = file:read('*all')
-  file:close()
-  return output
-end
-
-function xdotool:eval()
-  local cmd = self.exec[arg[1]] .. '&'
-  -- print('Executing "' .. cmd .. '"')
-  os.execute(cmd)
+local function __msg(content)
+  os.execute("notify-send 'i3show' '" .. content .. "' -u critical")
 end
 
 local function main()
-  -- It will also hide the window if shown
-  if i3ipc:show() == true then
-    return
-  end
+  if __check_args() ~= 0 then return end
 
-  -- print('Window ' .. arg[1] .. ' does not exists')
-  xdotool:eval()
-  -- xdotool search --sync --onlyvisible --class "google-chrome"
-  xdotool:wait_for_window_visible(arg[1])
-  i3ipc:show()
+  local app = arg[1]
+
+  -- It will also hide the window if shown
+  if i3ipc:show(apps[app]) == true then return end
+
+  print('Window ' .. app .. ' does not exists waiting...')
+  os.execute(apps[app].exec)
+  -- Wait ~4 seconds for app to start
+  for i = 1, 40 do
+    if i3ipc:show(apps[app]) == true then return end
+    os.execute('sleep 0.1')
+  end
+  __msg(string.format('App did not start: "%s"', app))
 end
 
 main()
