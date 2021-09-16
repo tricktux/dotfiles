@@ -64,10 +64,6 @@
         <Command>cm_ToggleFullscreenConsole</Command>
       </Hotkey>
       <Hotkey>
-        <Shortcut>Ctrl+Q</Shortcut>
-        <Command>cm_QuickView</Command>
-      </Hotkey>
-      <Hotkey>
         <Shortcut>Ctrl+R</Shortcut>
         <Command>cm_Refresh</Command>
       </Hotkey>
@@ -190,10 +186,6 @@
       <Hotkey>
         <Shortcut>Alt+V</Shortcut>
         <Command>cm_OperationsViewer</Command>
-      </Hotkey>
-      <Hotkey>
-        <Shortcut>Alt+X</Shortcut>
-        <Command>cm_Exit</Command>
       </Hotkey>
       <Hotkey>
         <Shortcut>Alt+Z</Shortcut>
@@ -413,6 +405,10 @@
       <Hotkey>
         <Shortcut>Shift+V</Shortcut>
         <Command>cm_View</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Ctrl+Q</Shortcut>
+        <Command>cm_Exit</Command>
       </Hotkey>
       <Hotkey>
         <Shortcut>Del</Shortcut>
