@@ -403,25 +403,26 @@ bindsym XF86PowerDown exec --no-startup-id "i3-msg '[class=\".\"] kill' && syste
   for_window [class="lxqt-openssh-askpass"] floating enable
   for_window [class="Yad" title="yad-calendar"] floating enable
   for_window [class="^Evolution$"] floating enable
+  for_window [class="^Doublecmd$"][window_type=dialog] floating enable, focus 
+  for_window [class="^Doublecmd$"] floating enable
 
 # Scratchpad
-  for_window [title="^WhatsApp.*Firefox$"] move to scratchpad
-  for_window [title="^tickrs$"] move to scratchpad
-  for_window [title="^neomutt$"] move to scratchpad
-  for_window [title="^glances$"] move to scratchpad
-  for_window [title="^cmus$"] move to scratchpad
-  for_window [title="^ranger$"] move to scratchpad
-  for_window [title="^journal$"] move to scratchpad
-  for_window [title="^terminal$"] move to scratchpad
-  for_window [title="^htop$"] move to scratchpad
-  for_window [title="^bottom$"] move to scratchpad
-  for_window [title="^scratch$"] move to scratchpad
-  for_window [class="Spotify"] move to scratchpad
-  for_window [title="^Double Commander.*"] move to scratchpad
-  for_window [title=".*Evolution$"] move to scratchpad
+  for_window [title=".*WhatsApp.*Firefox$" class="^firefox$"] move to scratchpad
+  for_window [title="^tickrs$" class="^kitty$"] move to scratchpad
+  for_window [title="^neomutt$" class="^kitty$"] move to scratchpad
+  # for_window [title="^glances$"] move to scratchpad
+  # for_window [title="^cmus$"] move to scratchpad
+  # for_window [title="^ranger$"] move to scratchpad
+  for_window [title="^journal$" class="^kitty$"] move to scratchpad
+  for_window [title="^terminal$" class="^kitty$"] move to scratchpad
+  # for_window [title="^htop$"] move to scratchpad
+  for_window [title="^bottom$" class="^kitty$"] move to scratchpad
+  for_window [title="^scratch$" class="^kitty$"] move to scratchpad
+  for_window [title="^Spotfiy$" class="^Spotfiy$"] move to scratchpad
+  for_window [title="^Double Commander.*" class="^Doublecmd$"] move to scratchpad
+  for_window [title=".*Evolution$" class="^Evolution$"] move to scratchpad
 
 # Taken from https://github.com/Airblader/dotfiles-manjaro
-  for_window [class="Doublecmd"][window_type=dialog] focus
   for_window [class="Nitrogen"] floating enable
   for_window [class="ARandR"] floating enable
   for_window [class="lxappearance"] floating enable
