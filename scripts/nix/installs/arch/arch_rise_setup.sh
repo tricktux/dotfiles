@@ -182,16 +182,11 @@ paci --needed --noconfirm openssh mosh
 # zsh{{{
 paci --needed --noconfirm zsh
 # Legacy
-# install oh-my-zsh-git zplug pkgfile
-# Install zim
-chsh -s /usr/bin/zsh
-export ZIM_HOME=/home/reinaldo/.config/zsh/.zim
-curl -kfLo $ZIM_HOME/zimfw.zsh --create-dirs \
-  https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
-chmod +x $ZIM_HOME/zimfw.zsh
-zsh $ZIM_HOME/zimfw.zsh install
 # Install plugins
-paci --needed --noconfirm pkgfile
+paci --needed --noconfirm pkgfile z-git \
+  zsh-theme-powerlevel10k zsh-autosuggestions \
+  zsh-history-substring-search zsh-syntax-highlighting
+
 # pkgfile needs to be updated
 sudo systemctl enable pkgfile-update.timer
 # By default it runs daily

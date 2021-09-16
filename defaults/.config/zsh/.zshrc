@@ -14,9 +14,15 @@ fi
 
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
 zstyle ':completion:*' max-errors 2
+zstyle ':completion:*' completer _complete _correct _approximate
+zstyle ':completion:*' expand prefix suffix
+zstyle ':completion:*' completer _expand_alias _complete _approximate
+zstyle ':completion:*' menu select
+zstyle ':completion:*' file-sort name
+zstyle ':completion:*' ignore-parents pwd
+
 # Autocompletion for sudo
 zstyle ':completion::complete:*' gain-privileges 1
-zstyle :compinstall filename '/home/reinaldo/.config/zsh/.zshrc'
 
 zstyle ':completion:*:pacman:*' force-list always
 zstyle ':completion:*:*:pacman:*' menu yes select
@@ -28,6 +34,7 @@ zstyle ':completion:*:kill:*'   force-list always
 
 zstyle ':completion:*:*:killall:*' menu yes select
 zstyle ':completion:*:killall:*' force-list always
+zstyle :compinstall filename '$HOME/.config/zsh/.zshrc'
 
 #}}}
 
@@ -71,6 +78,7 @@ zstyle ':zim:completion' dumpfile "/tmp/zcompdump-${ZSH_VERSION}"
 
 # Zsh Plugin Opions {{{
 bindkey '^ ' autosuggest-accept
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # See https://github.com/zsh-users/zsh-autosuggestions/blob/master/README.md#suggestion-highlight-style
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=30'
@@ -87,6 +95,32 @@ ZSH_HIGHLIGHT_STYLES[command]='fg=93'
 ZSH_HIGHLIGHT_STYLES[function]='fg=93'
 ZSH_HIGHLIGHT_STYLES[alias]='fg=magenta,bold'
 ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# z setup {{{
+[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
+# }}}
+#
+# zsh-history-substring-search{{{
+
+# Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+# Bind up and down keys
+zmodload -F zsh/terminfo +p:terminfo
+if [[ -n ${terminfo[kcuu1]} && -n ${terminfo[kcud1]} ]]; then
+  bindkey ${terminfo[kcuu1]} history-substring-search-up
+  bindkey ${terminfo[kcud1]} history-substring-search-down
+fi
+
+bindkey '^P' history-substring-search-up
+bindkey '^N' history-substring-search-down
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+# }}}
+
 # }}}
 
 # Source plugins{{{
@@ -207,4 +241,5 @@ typeset -g POWERLEVEL9K_STATUS_ERROR=true
 typeset -g POWERLEVEL9K_STATUS_OK=true
 typeset -g POWERLEVEL9K_VCS_BRANCH_ICON='\uF126 '
 # }}}
+
 # vim: fdm=marker
