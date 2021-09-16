@@ -206,8 +206,8 @@ bindsym $mod+q kill
 # bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 \
 #	-padding 800 -opacity "85" -bw 0 -bc "$bg-color" \
 #	-bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd"
-bindsym $mod+d exec --no-startup-id "rofi -show drun"
-bindsym $mod+w exec --no-startup-id "rofi -show window"
+bindsym $mod+d exec --no-startup-id "rofi -show combi -combi-modi window,drun -modi combi -show-icons"
+# bindsym $mod+w exec --no-startup-id "rofi -show window"
   # -show drun -opacity '50' \
   # -config $XDG_CONFIG_HOME/rofi/`hostname`"
 # There also is the (new) i3-dmenu-desktop which only displays applications
