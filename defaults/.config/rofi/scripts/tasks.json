@@ -114,19 +114,19 @@
     "command": "i3lock-fancy"
   },
   {
-    "name": "pass root",
+    "name": "🔑 pass root",
     "command": "pass --clip linux/`hostname`/user/root"
   },
   {
-    "name": "pass ssh key github",
+    "name": "🔑 pass ssh key github",
     "command": "pass --clip linux/`hostname`/ssh_key/id_ed25519_github"
   },
   {
-    "name": "pass ssh key digitalocean",
+    "name": "🔑 pass ssh key digitalocean",
     "command": "pass --clip linux/`hostname`/ssh_key/id_ed25519_digitalocean"
   },
   {
-    "name": "pass ssh key gitlab",
+    "name": "🔑 pass ssh key gitlab",
     "command": "pass --clip linux/`hostname`/ssh_key/id_ed25519_gitlab"
   },
   {
