@@ -1,11 +1,11 @@
 [
   {
     "name": "📦 arch update",
-    "command": "$TERMINAL ~/.config/polybar/scripts/update-arch.sh"
+    "command": "$TERMINAL $HOME/.config/polybar/scripts/update-arch.sh"
   },
   {
     "name": "🧹 arch clean",
-    "command": "$TERMINAL ~/.config/polybar/scripts/arch-maintance.sh"
+    "command": "$TERMINAL $HOME/.config/polybar/scripts/arch-maintance.sh"
   },
   {
     "name": "🔒 network-openvpn-client-home-start",
@@ -17,11 +17,11 @@
   },
   {
     "name": "☀️ flux day",
-    "command": "exec ~/.config/polybar/scripts/flux_/flux -c ~/.config/polybar/scripts/flux_/flux_config.lua -f day"
+    "command": "exec $HOME/.config/polybar/scripts/flux_/flux -c $HOME/.config/polybar/scripts/flux_/flux_config.lua -f day"
   },
   {
     "name": "🌑 flux night",
-    "command": "exec ~/.config/polybar/scripts/flux_/flux -c ~/.config/polybar/scripts/flux_/flux_config.lua -f night"
+    "command": "exec $HOME/.config/polybar/scripts/flux_/flux -c $HOME/.config/polybar/scripts/flux_/flux_config.lua -f night"
   },
   {
     "name": "📷 qrencode clipboard",
@@ -29,15 +29,15 @@
   },
   {
     "name": "📎 polybar relaunch",
-    "command": "exec ~/.config/polybar/scripts/launch.sh"
+    "command": "exec $HOME/.config/polybar/scripts/launch.sh"
   },
   {
     "name": "🎧 bluetooth wh-1000xm2",
-    "command": "exec ~/.config/i3/scripts/bluetooth.lua 'connect' '04:5D:4B:EA:9C:B2'"
+    "command": "exec $HOME/.config/i3/scripts/bluetooth.lua 'connect' '04:5D:4B:EA:9C:B2'"
   },
   {
     "name": "🎧 bluetooth philips pn402",
-    "command": "exec ~/.config/i3/scripts/bluetooth.lua 'connect' '88:D0:39:48:7D:00'"
+    "command": "exec $HOME/.config/i3/scripts/bluetooth.lua 'connect' '88:D0:39:48:7D:00'"
   },
   {
     "name": "💙 bluetooth rofi",
@@ -45,7 +45,7 @@
   },
   {
     "name": "📴 bluetooth disconnect",
-    "command": "exec ~/.config/i3/scripts/bluetooth.lua 'disconnect'"
+    "command": "exec $HOME/.config/i3/scripts/bluetooth.lua 'disconnect'"
   },
   {
     "name": "🏖️ clearwater beach camera",
@@ -53,11 +53,11 @@
   },
   {
     "name": "⚾ tampa bay rays livestream",
-    "command": "python ~/Documents/scripts/selenium-chrome-buffstreams.py > /tmp/sel.log"
+    "command": "python $HOME/Documents/scripts/selenium-chrome-buffstreams.py > /tmp/sel.log"
   },
   {
     "name": "📔 cheatsheet pdf",
-    "command": "exec ~/.config/i3/scripts/cheatsheet/cht.sh"
+    "command": "exec $HOME/.config/i3/scripts/cheatsheet/cht.sh"
   },
   {
     "name": "📔 cheatsheet navi",
@@ -93,11 +93,11 @@
   },
   {
     "name": "🎙️ audio select input",
-    "command": "exec ~/.config/i3/scripts/pulseaudio-rofi.sh --input"
+    "command": "exec $HOME/.config/i3/scripts/pulseaudio-rofi.sh --input"
   },
   {
     "name": "📢 audio select output",
-    "command": "exec ~/.config/i3/scripts/pulseaudio-rofi.sh --output"
+    "command": "exec $HOME/.config/i3/scripts/pulseaudio-rofi.sh --output"
   },
   {
     "name": "🖥️ power off",
@@ -131,6 +131,6 @@
   },
   {
     "name": "⌨️ xmodmap reload",
-    "command": "xmodmap ~/.Xmodmap"
+    "command": "xmodmap $HOME/.Xmodmap"
   }
 ]

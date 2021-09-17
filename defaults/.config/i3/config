@@ -83,7 +83,7 @@ client.focused          #4C7899 #285577 #FFFFFF #2E9EF4   $darkyellow
 client.focused_inactive #333333 #5F676A #FFFFFF #484E50   #5F676A
 client.unfocused        #333333 #222222 #888888 #292D2E   #222222
 client.urgent           #2F343A #900000 #FFFFFF #900000   #900000
-client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C}
+client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
 # }}}
 
 # Movement keys{{{
@@ -126,21 +126,21 @@ bindsym mod3+l exec --no-startup-id \
 # bindsym $mod+u exec --no-startup-id \
   # ~/.config/i3/scripts/xdotool_launch glances "glances --theme-white"
 bindsym $mod+u exec --no-startup-id \
-  ~/.config/i3/scripts/xdotool_launch bottom
+  $HOME/.config/i3/scripts/xdotool_launch bottom
 bindsym $mod+o exec --no-startup-id \
-  ~/.config/i3/scripts/xdotool_launch journal
+  $HOME/.config/i3/scripts/xdotool_launch journal
 bindsym $mod+n exec --no-startup-id \
-  ~/.config/i3/scripts/xdotool_launch doublecmd
+  $HOME/.config/i3/scripts/xdotool_launch doublecmd
 bindsym $mod+semicolon exec --no-startup-id \
-  ~/.config/i3/scripts/xdotool_launch terminal
+  $HOME/.config/i3/scripts/xdotool_launch terminal
 bindsym $mod+p exec --no-startup-id \
-  ~/.config/i3/scripts/xdotool_launch evolution
+  $HOME/.config/i3/scripts/xdotool_launch evolution
 bindsym $mod+apostrophe exec --no-startup-id \
-  ~/.config/i3/scripts/xdotool_launch spotify
+  $HOME/.config/i3/scripts/xdotool_launch spotify
 bindsym $mod+comma exec --no-startup-id \
-  ~/.config/i3/scripts/xdotool_launch tickrs
+  $HOME/.config/i3/scripts/xdotool_launch tickrs
 bindsym $mod+i exec --no-startup-id \
-  ~/.config/i3/scripts/xdotool_launch whatsapp
+  $HOME/.config/i3/scripts/xdotool_launch whatsapp
 
 
 # Some silly comment
@@ -150,7 +150,7 @@ bindsym $mod+i exec --no-startup-id \
 
 # Using now the control keys with vi like mappings just like windows
 # Reload xmodmap stuff
-bindsym control+mod1+x exec --no-startup-id xmodmap ~/.Xmodmap
+bindsym control+mod1+x exec --no-startup-id xmodmap $HOME/.Xmodmap
 # bindsym control+mod1+h exec --no-startup-id cmus-remote -u
 # bindsym control+mod1+l exec --no-startup-id cmus-remote -n
 bindsym control+mod1+h exec --no-startup-id playerctl play-pause
@@ -541,7 +541,7 @@ bindsym XF86PowerDown exec --no-startup-id "i3-msg '[class=\".\"] kill' && syste
   # See :Man picom
   exec_always --no-startup-id feh --randomize --no-fehbg --bg-fill \
     /usr/share/backgrounds/archlinux/*
-  exec_always --no-startup-id ~/.config/polybar/scripts/launch.sh
+  exec_always --no-startup-id $HOME/.config/polybar/scripts/launch.sh
   exec --no-startup-id picom --daemon
   # exec --no-startup-id xscreensaver -no-splash
   # exec --no-startup-id pcmanfm --daemon-mode
