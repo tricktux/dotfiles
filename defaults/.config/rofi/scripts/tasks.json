@@ -130,6 +130,14 @@
     "command": "pass --clip linux/`hostname`/ssh_key/id_ed25519_gitlab"
   },
   {
+    "name": "📂 i3scratchpad cmus ranger calc",
+    "command": "exec $HOME/.config/i3/scripts/xdotool_launch scratch"
+  },
+  {
+    "name": "📧 i3scratchpad neomutt",
+    "command": "exec $HOME/.config/i3/scripts/xdotool_launch neomutt"
+  },
+  {
     "name": "⌨️ xmodmap reload",
     "command": "xmodmap $HOME/.Xmodmap"
   }
