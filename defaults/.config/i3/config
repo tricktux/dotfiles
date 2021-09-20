@@ -411,7 +411,7 @@ bindsym XF86PowerDown exec --no-startup-id "i3-msg '[class=\".\"] kill' && syste
   for_window [title="Steam*" class="^Steam$"] floating enable
 
 # Scratchpad
-  for_window [title=".*WhatsApp.*Firefox$" class="^firefox$"] move to scratchpad
+  for_window [title=".*(WhatsApp|Messages for web).*" class="^firefox$"] move to scratchpad
   for_window [title="^tickrs$" class="^kitty$"] move to scratchpad
   for_window [title="^neomutt$" class="^kitty$"] move to scratchpad
   # for_window [title="^glances$"] move to scratchpad
