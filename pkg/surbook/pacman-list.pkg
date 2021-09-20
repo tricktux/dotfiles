@@ -18,6 +18,7 @@ bat
 binutils
 bison
 bleachbit
+blueman
 bluez
 bluez-utils
 boost
@@ -41,6 +42,7 @@ dialog
 docker
 docker-compose
 dosfstools
+doublecmd-gtk2
 dstat
 dunst
 earlyoom
@@ -192,6 +194,7 @@ rapidjson
 redshift
 reflector
 ripgrep
+rofi-calc
 rofi-emoji
 rofi-pass
 rsync
@@ -249,6 +252,7 @@ wpa_supplicant
 xclip
 xf86-video-intel
 xf86-video-vesa
+xfce4-settings
 xorg-bdftopcf
 xorg-docs
 xorg-font-util
@@ -298,7 +302,10 @@ xsel
 yapf
 zathura
 zathura-pdf-mupdf
-zim
 zip
 zsh
+zsh-autosuggestions
 zsh-completions
+zsh-history-substring-search
+zsh-syntax-highlighting
+zsh-theme-powerlevel10k
