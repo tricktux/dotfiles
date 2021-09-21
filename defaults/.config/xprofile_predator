@@ -6,11 +6,24 @@
 # Created:        Mon Nov 02 2020 06:28
 # Last Modified:  Mon Nov 02 2020 06:28
 
-export GDK_SCALE=2
-export QT_SCALE_FACTOR=2
-export QT_AUTO_SCREEN_SCALE_FACTOR=0
+# export GDK_SCALE=2
+# export QT_SCALE_FACTOR=2
+# export QT_AUTO_SCREEN_SCALE_FACTOR=1
 
 if [ -f /usr/bin/xrandr ]; then
-  /usr/bin/xrandr --output DP-2 --auto \
-    --output HDMI-0 --scale 1.8x1.8 --right-of DP-2
+  /usr/bin/xrandr \
+    --dpi 156 \
+    --output DP-2 --mode 3840x2160 --rate 60 --pos 0x0 --primary \
+    --output HDMI-0 --mode 1920x1080 --rate 60 --pos 3840x0 \
+    --output DVI-D-0 --off \
+    --output DP-0 --off \
+    --output DP-1 --off \
+    --output DP-3 --off \
+    --output DP-4 --off \
+    --output DP-5 --off
+
+  echo "Xft.dpi: 156" | xrdb -merge
+
 fi
+
+# vim:filetype=sh
