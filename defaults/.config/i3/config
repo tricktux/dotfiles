@@ -425,6 +425,7 @@ bindsym XF86PowerDown exec --no-startup-id "i3-msg '[class=\".\"] kill' && syste
   for_window [title="^Spotify$" class="^Spotify$"] move to scratchpad
   for_window [title="^Double Commander.*" class="^Doublecmd$"] move to scratchpad
   for_window [title=".*Evolution$" class="^Evolution$"] move to scratchpad
+  for_window [class="^Evolution-alarm-notify$"] floating enable, focus
 
 # Taken from https://github.com/Airblader/dotfiles-manjaro
   for_window [class="Nitrogen"] floating enable
