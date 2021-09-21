@@ -465,11 +465,15 @@ sudo install -Dm644 /home/reinaldo/.config/polybar/scripts/95-usb.rules \
   /etc/udev/rules.d/95-usb.rules
 #}}}
 
-# xorg
+# xorg{{{
+# Multi Monitor setup, or for HiDPI displays it's best to auto calculate 
+# resolution
+paci --needed --noconfirm xorg-xrandr arandr xdisplaylayout
 paci --needed --noconfirm xorg xorg-apps xorg-xinit xorg-drivers xorg-server
 # `xorg autologin`
 paci --needed --noconfirm lightdm
 sudo systemctl enable lightdm
+#}}}
 
 # add your user to the autologin group
 sudo groupadd -r autologin
