@@ -158,7 +158,7 @@ apps['whatsapp'] = {
     ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center'
   },
   -- How to start this application if it does not exists
-  exec = [[/usr/bin/firefox --browser https://web.whatsapp.com https://messages.google.com/web&]]
+  exec = [[/usr/bin/firefox https://web.whatsapp.com https://messages.google.com/web&]]
 }
 
 local function __check_args()
