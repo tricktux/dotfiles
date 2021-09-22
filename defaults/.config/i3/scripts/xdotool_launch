@@ -149,7 +149,7 @@ apps['tickrs'] = {
 apps['whatsapp'] = {
   -- Expression to find this window
   --  Used by i3ipc
-  regex = '[title=\\".*(WhatsApp|Messages for web).*\\" class=\\"^firefox$\\"]',
+  regex = '[con_mark=\\"msgs\\"]',
   -- Command to execute for this window
   i3cmd = {
     -- Different commands for different hosts
