@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 
 session="scratch"
 
@@ -14,8 +14,23 @@ session="scratch"
 # /usr/bin/tmux new-window -d -t $session -n \
   # 'journal' '~/.config/i3/scripts/journal.sh'
 # Vim satisfies most of needs
-/usr/bin/tmux new-window -d -t $session -n 'bottom' '/usr/bin/btm'
+if [[ -f /usr/bin/btm ]]; then
+  /usr/bin/tmux new-window -d -t $session -n 'bottom' '/usr/bin/btm'
+fi
+if [[ -f /usr/bin/nvtop ]]; then
+  /usr/bin/tmux new-window -d -t $session -n 'nvtop' '/usr/bin/nvtop'
+fi
 /usr/bin/tmux new-window -d -t $session -n 'cmus' '/usr/bin/cmus'
-/usr/bin/tmux new-window -d -t $session -n 'stonks' '/usr/bin/tickrs'
-/usr/bin/tmux new-window -d -t $session -n 'calc' '/usr/bin/bc -q'
+if [[ -f /usr/bin/tickrs ]]; then
+  /usr/bin/tmux new-window -d -t $session -n 'stonks' '/usr/bin/tickrs'
+fi
+if [[ -f /usr/bin/bc ]]; then
+  /usr/bin/tmux new-window -d -t $session -n 'calc' '/usr/bin/bc -q'
+fi
+if [[ -f /usr/bin/cava ]]; then
+  /usr/bin/tmux new-window -d -t $session -n 'cava' '/usr/bin/cava'
+fi
+if [[ -f /usr/bin/tty-clock ]]; then
+  /usr/bin/tmux new-window -d -t $session -n 'clock' '/usr/bin/tty-clock -c -x -b -n'
+fi
 /usr/bin/tmux attach-session -t $session
