@@ -44,6 +44,9 @@
 # Somethin like $tmux set-option..... 
 set-option -g default-terminal "xterm-256color"
 set-option -ga terminal-overrides ",xterm-256color:Tc"
+# tmux to pass along these (and other) xterm-style key sequences to programs 
+# running inside tmux
+set-option -gw xterm-keys on
 
 # NOTE: Handled now by Oh my tmux!
 # Nvim suggested settings for tmux
