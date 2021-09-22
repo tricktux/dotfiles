@@ -14,6 +14,8 @@ session="scratch"
 # /usr/bin/tmux new-window -d -t $session -n \
   # 'journal' '~/.config/i3/scripts/journal.sh'
 # Vim satisfies most of needs
+/usr/bin/tmux new-window -d -t $session -n 'bottom' '/usr/bin/btm'
 /usr/bin/tmux new-window -d -t $session -n 'cmus' '/usr/bin/cmus'
+/usr/bin/tmux new-window -d -t $session -n 'stonks' '/usr/bin/tickrs'
 /usr/bin/tmux new-window -d -t $session -n 'calc' '/usr/bin/bc -q'
 /usr/bin/tmux attach-session -t $session

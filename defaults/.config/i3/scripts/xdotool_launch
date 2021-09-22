@@ -22,7 +22,9 @@ apps['scratch'] = {
   -- Command to execute for this window
   i3cmd = {
     -- Different commands for different hosts
-    surbook = [[scratchpad show, resize set 1588 1459, move position center]]
+    ['helios'] = 'scratchpad show, resize set 1820 880, move position center',
+    ['predator'] = 'scratchpad show, resize set 3040 1524, move position center',
+    ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center'
   },
   -- How to start this application if it does not exists
   exec = [[$TERMINAL --title scratch $HOME/.config/tmux/scratch.sh&]]
