@@ -6,13 +6,21 @@
 # Created:        Mon Nov 02 2020 06:28
 # Last Modified:  Mon Nov 02 2020 06:28
 
-export GDK_SCALE=2
-export QT_SCALE_FACTOR=2
-export QT_AUTO_SCREEN_SCALE_FACTOR=0
+# export GDK_SCALE=2
+# export QT_SCALE_FACTOR=2
+# export QT_AUTO_SCREEN_SCALE_FACTOR=0
 export MOZ_USE_XINPUT2=1
 
 if [ -f /usr/bin/xrandr ]; then
-  /usr/bin/xrandr --dpi 192
+  /usr/bin/xrandr \
+    --dpi 264 \
+    --output eDP1 --mode 2736x1824 --rate 60 --pos 0x0 --primary \
+    --output DP1 --off \
+    --output HDMI1 --off \
+    --output HDMI2 --off \
+    --output VIRTUAL1 --off
+
+  echo "Xft.dpi: 264" | xrdb -merge
 fi
 
 # vim: ft=sh
