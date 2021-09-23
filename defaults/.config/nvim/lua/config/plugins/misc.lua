@@ -172,6 +172,7 @@ function M.setup_focus()
     -- Not displayed in unfocussed windows
     -- Default: true
     number = false,
+    excluded_buftypes = {'nofile', 'prompt'},
     relativenumber = false,
     -- Enable auto highlighting for focussed/unfocussed windows
     -- Default: false
