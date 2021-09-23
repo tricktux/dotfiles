@@ -281,14 +281,6 @@ case $yn in
     "$XDG_CONFIG_HOME/ranger/rc.conf"
   ;;
 esac
-msg_not "${BLUE}${BOLD}" "==> Update zsh-zim? [y/N]"
-read yn
-case $yn in
-[Yy]*)
-  zsh "$ZDOTDIR/.zim/zimfw.zsh" upgrade
-  zsh "$ZDOTDIR/.zim/zimfw.zsh" update
-  ;;
-esac
 msg_not "${BLUE}${BOLD}" "==> Update pandoc extras? [y/N]"
 read yn
 case $yn in
