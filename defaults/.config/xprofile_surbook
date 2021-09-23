@@ -13,14 +13,14 @@ export MOZ_USE_XINPUT2=1
 
 if [ -f /usr/bin/xrandr ]; then
   /usr/bin/xrandr \
-    --dpi 264 \
+    --dpi 192 \
     --output eDP1 --mode 2736x1824 --rate 60 --pos 0x0 --primary \
     --output DP1 --off \
     --output HDMI1 --off \
     --output HDMI2 --off \
     --output VIRTUAL1 --off
 
-  echo "Xft.dpi: 264" | xrdb -merge
+  echo "Xft.dpi: 192" | xrdb -merge
 fi
 
 # vim: ft=sh
