@@ -23,7 +23,7 @@ function! augroup#Set() abort
     " autocmd FileType cs compiler msbuild
 
     " Display help vertical window not split
-    autocmd FileType help wincmd L
+    " autocmd FileType help wincmd L
     autocmd FileType help nnoremap <buffer> q :helpc<cr>
     autocmd FileType help setlocal relativenumber
     autocmd FileType help nnoremap <buffer> g0 g0
