@@ -461,8 +461,8 @@ function M.setup_neoterm()
   -- " Potential substitue
   -- " https://github.com/Shougo/deol.nvim/blob/master/doc/deol.txt
   -- " there is also vimshell
-  if not utl.is_mod_available('vimp') then
-    api.nvim_err_writeln("vimp was set, but module not found")
+  if not utl.is_mod_available('which-key') then
+    api.nvim_err_writeln("which-key was set, but module not found")
     return
   end
   require('which-key').register {
