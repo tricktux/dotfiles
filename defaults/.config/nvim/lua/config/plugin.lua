@@ -50,8 +50,6 @@ function M:__setup()
     config = function() require('config.plugins.whichkey'):setup() end
   }
 
-  use {'svermeulen/vimpeccable'}
-
   use {
     'nvim-lua/telescope.nvim',
     requires = {
