@@ -21,7 +21,8 @@ function M.setup()
     -- one of "all", "language", or a list of languages
     ensure_installed = {
       "c", "cpp", "python", "lua", "java", "bash", "c_sharp", "rust", "json",
-      "toml"
+      "toml", "bash", "cmake", "dockerfile", "json5", "latex", "r", "yaml",
+      "vim",
     },
     highlight = {
       enable = true -- false will disable the whole extension
