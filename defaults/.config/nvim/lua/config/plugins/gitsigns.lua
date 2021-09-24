@@ -100,7 +100,7 @@ function M.setup()
     -- Kinda annoying
     numhl = false,
     keymaps = nil,
-    watch_index = {interval = 100, follow_files = true},
+    watch_gitdir = {interval = 100, follow_files = true},
     sign_priority = 6,
     status_formatter = format_status,
     on_attach = on_attach
