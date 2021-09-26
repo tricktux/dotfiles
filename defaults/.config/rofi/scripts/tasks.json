@@ -17,11 +17,11 @@
   },
   {
     "name": "☀️ flux day",
-    "command": "exec $HOME/.config/polybar/scripts/flux_/flux -c $HOME/.config/polybar/scripts/flux_/flux_config.lua -f day"
+    "command": "exec $HOME/.config/polybar/scripts/flux_/flux -v -c $HOME/.config/polybar/scripts/flux_/flux_config.lua -f day"
   },
   {
     "name": "🌑 flux night",
-    "command": "exec $HOME/.config/polybar/scripts/flux_/flux -c $HOME/.config/polybar/scripts/flux_/flux_config.lua -f night"
+    "command": "exec $HOME/.config/polybar/scripts/flux_/flux -v -c $HOME/.config/polybar/scripts/flux_/flux_config.lua -f night"
   },
   {
     "name": "📷 qrencode clipboard",
