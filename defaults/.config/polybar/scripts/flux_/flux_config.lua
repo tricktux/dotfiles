@@ -9,20 +9,20 @@ _M.redshift = {cmd = [[/usr/bin/redshift]], switches = {"-p", "-l", "manual"}}
 _M.pywal = {
   cmd = '/usr/bin/wal',
   day = {
-    "--theme", "base16-google", "-l", "-q", "-o",
-    "'$HOME/.config/polybar/scripts/flux_/flux_post_day'"
+    "--theme", "base16-google", "-l", "-o",
+    [["$HOME/.config/polybar/scripts/flux_/flux_post_day"]]
   },
   sunrise = {
-    "--theme", "solarized", "-l", "-q", "-o",
-    "'$HOME/.config/polybar/scripts/flux_/flux_post_sunrise'"
+    "--theme", "solarized", "-l", "-o",
+    [["$HOME/.config/polybar/scripts/flux_/flux_post_sunrise"]]
   },
   night = {
-    "--theme", "base16-gruvbox-hard", "-q", "-o",
-    "'$HOME/.config/polybar/scripts/flux_/flux_post_night'"
+    "--theme", "base16-gruvbox-hard", "-o",
+    [["$HOME/.config/polybar/scripts/flux_/flux_post_night"]]
   },
   sunset = {
-    "--theme", "solarized", "-q", "-o",
-    "'$HOME/.config/polybar/scripts/flux_/flux_post_sunset'"
+    "--theme", "solarized", "-o",
+    [["$HOME/.config/polybar/scripts/flux_/flux_post_sunset"]]
   }
 }
 
