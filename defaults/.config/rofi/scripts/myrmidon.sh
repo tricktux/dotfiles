@@ -28,7 +28,7 @@ confirm=$(echo $task | jq ".confirm")
 if [[ $confirm == "true" ]]; then
   # Chain the confirm command before executing the selected command
   confirm_script="$cwd/confirm.sh 'Confirm $selected?'"
-  eval "$confirm_script && \"$task_command\" > /dev/null &"
+  eval "$confirm_script && \"$task_command\" >/tmp/task.log 2>&1"
 else
-  eval "\"$task_command\" > /dev/null &"
+  eval "\"$task_command\" >/tmp/task.log 2>&1"
 fi
