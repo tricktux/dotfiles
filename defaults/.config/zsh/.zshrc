@@ -63,6 +63,8 @@ HISTFILE=~/.histfile
 HISTSIZE=100000
 SAVEHIST=100000
 setopt appendhistory autocd extendedglob nomatch notify
+# Allow > redirection to overwrite existing file
+setopt clobber
 unsetopt beep
 # End of lines configured by zsh-newuser-install
 # }}}
