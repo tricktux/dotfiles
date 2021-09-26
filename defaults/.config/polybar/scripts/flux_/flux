@@ -101,7 +101,7 @@ local _usage = [[
 ]]
 
 local function _check_args()
-  local last_opt = ''
+  local last_opt = nil
   for _, opt in ipairs(arg) do
     if opt == '-h' or opt == '--help' then
       print(_usage)
@@ -116,6 +116,7 @@ local function _check_args()
       last_opt = 'force'
     elseif last_opt ~= nil then
       _options[last_opt] = opt
+      last_opt = nil
     end
 
   end
