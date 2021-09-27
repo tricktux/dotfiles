@@ -281,6 +281,14 @@ case $yn in
     "$XDG_CONFIG_HOME/ranger/rc.conf"
   ;;
 esac
+msg_not "${BLUE}${BOLD}" "==> Install update npm/md2apkg? [y/N]"
+read yn
+case $yn in
+[Yy]*)
+  # TODO: Check first if npm is installed
+  /usr/bin/npm install -g md2apkg
+  ;;
+esac
 msg_not "${BLUE}${BOLD}" "==> Diff i3 config with default? [y/N]"
 read yn
 case $yn in
