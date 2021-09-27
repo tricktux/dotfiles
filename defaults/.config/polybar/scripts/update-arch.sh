@@ -271,7 +271,7 @@ esac
 msg_not "${BLUE}${BOLD}" "==> Update neovim nightly? [y/N]"
 read yn
 case $yn in
-  [Yy]*) $aur_helper -S neovim-nightly-bin ;;
+[Yy]*) $aur_helper -S neovim-nightly-bin ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Diff ranger config with default? [y/N]"
 read yn
@@ -279,6 +279,22 @@ case $yn in
 [Yy]*)
   nvim -d /usr/share/doc/ranger/config/rc.conf \
     "$XDG_CONFIG_HOME/ranger/rc.conf"
+  ;;
+esac
+msg_not "${BLUE}${BOLD}" "==> Diff i3 config with default? [y/N]"
+read yn
+case $yn in
+[Yy]*)
+  nvim -d /etc/i3/config \
+    "$XDG_CONFIG_HOME/i3/config"
+  ;;
+esac
+msg_not "${BLUE}${BOLD}" "==> Diff dunst config with default? [y/N]"
+read yn
+case $yn in
+[Yy]*)
+  nvim -d /etc/dunst/dunstrc \
+    "$XDG_CONFIG_HOME/dunst/dunstrc"
   ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Update pandoc extras? [y/N]"
