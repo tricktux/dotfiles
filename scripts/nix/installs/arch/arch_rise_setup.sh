@@ -438,6 +438,7 @@ paci --needed --noconfirm scrot flameshot
 paci --needed --noconfirm bottom-bin
 # Compton changed name to picom
 paci --needed --noconfirm picom
+paci --needed --noconfirm xss-lock
 # Deprecated
 # `cbatticon `
 # `paystray`
