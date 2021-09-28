@@ -414,6 +414,8 @@ function M:__setup()
     config = function() require('config.plugins.misc'):setup_lens() end
   } ]]
 
+  use {'weilbith/nvim-code-action-menu', cmd = 'CodeActionMenu'}
+
   use {
     'sindrets/diffview.nvim',
     cmd = {'DiffviewOpen', 'DiffviewFileHistory'},
