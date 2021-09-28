@@ -11,7 +11,7 @@ if [[ -f /usr/bin/nvr ]]; then
 fi
 
 if [[ -f /usr/bin/xfconf-query ]]; then
-  xfconf-query -c xsettings -p /Net/ThemeName -s "Adapta-Nokto"
+  xfconf-query -c xsettings -p /Net/ThemeName -s "Adapta"
   xfconf-query -c xsettings -p /Net/IconThemeName -s "Paper"
 fi
 # See here to change the cursor. Not straight forward.
