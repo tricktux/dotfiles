@@ -158,7 +158,12 @@ function M:setup()
     return
   end
 
-  require("dapui").setup({
+  local dap, dapui = require('dap'), require('dapui')
+  dap.listeners.after.event_initialized['dapui_config'] = function() dapui.open() end
+  dap.listeners.before.event_terminated['dapui_config'] = function() dapui.close() end
+  dap.listeners.before.event_exited['dapui_config'] = function() dapui.close() end
+
+  dapui.setup({
       icons = {expanded = "⯆", collapsed = "⯈"},
       mappings = {
         -- Use a table to apply multiple mappings
@@ -168,7 +173,6 @@ function M:setup()
         edit = "e"
       },
       sidebar = {
-        open_on_start = true,
         elements = {
           -- You can change the order of elements in the sidebar
           "scopes", "breakpoints", "stacks"
@@ -177,7 +181,6 @@ function M:setup()
         position = "left" -- Can be "left" or "right"
       },
       tray = {
-        open_on_start = true,
         elements = {"repl"},
         size = 10,
         position = "bottom" -- Can be "bottom" or "top"
@@ -194,7 +197,6 @@ function M:setup()
     return
   end
 
-  local dap = require('dap')
   dap.adapters.lldb = {
     type = 'executable',
     command = utl.has_unix() and '/usr/bin/lldb-vscode' or 'lldb-vscode',
