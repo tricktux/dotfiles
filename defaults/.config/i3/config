@@ -36,7 +36,7 @@ font pango:FontAwesome 9
 floating_modifier $mod
 
 # Task executor
-bindsym control+shift+s exec --no-startup-id \
+bindsym $mod+w exec --no-startup-id \
   $HOME/.config/rofi/scripts/myrmidon.sh \
   $HOME/.config/rofi/scripts/tasks.json 
 
@@ -69,7 +69,7 @@ bindsym $mod+u exec --no-startup-id \
 bindsym $mod+o exec --no-startup-id \
   $HOME/.config/i3/scripts/xdotool_launch journal
 bindsym $mod+n exec --no-startup-id \
-  $HOME/.config/i3/scripts/xdotool_launch doublecmd
+  $HOME/.config/i3/scripts/xdotool_launch ranger
 bindsym $mod+semicolon exec --no-startup-id \
   $HOME/.config/i3/scripts/xdotool_launch terminal
 bindsym $mod+p exec --no-startup-id \
@@ -369,6 +369,7 @@ bindsym XF86PowerDown exec --no-startup-id "i3-msg '[class=\".\"] kill' && syste
 
 # Scratchpad
   for_window [title=".*(WhatsApp|Messages for web).*" class="^firefox$"] mark "msgs", move to scratchpad
+  for_window [title="^ranger$" class="^kitty$"] move to scratchpad
   for_window [title="^tickrs$" class="^kitty$"] move to scratchpad
   for_window [title="^neomutt$" class="^kitty$"] move to scratchpad
   # for_window [title="^glances$"] move to scratchpad
