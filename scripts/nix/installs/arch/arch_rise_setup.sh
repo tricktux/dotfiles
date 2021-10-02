@@ -766,7 +766,7 @@ paci --needed --noconfirm qutebrowser pdfjs
 #}}}
 # Printing{{{
 # keywords: print, hp, cups
-paci hplip cups cups-pdf simple-scan gtk3-print-backends --noconfirm
+paci --noconfirm --needed hplip cups cups-pdf simple-scan gtk3-print-backends
 # install most of the optional software that comes along with hplip
 # Follow arch `cups` instructions.
 # look it up in the arch wiki
