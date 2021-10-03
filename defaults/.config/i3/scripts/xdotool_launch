@@ -28,7 +28,7 @@ apps['ranger'] = {
     ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center'
   },
   -- How to start this application if it does not exists
-  exec = [[$TERMINAL --title ranger /usr/bin/ranger]]
+  exec = [[$TERMINAL --title ranger /usr/bin/ranger&]]
 }
 
 apps['scratch'] = {
@@ -43,7 +43,7 @@ apps['scratch'] = {
     ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center'
   },
   -- How to start this application if it does not exists
-  exec = [[$TERMINAL --title scratch $HOME/.config/tmux/scratch.sh]]
+  exec = [[$TERMINAL --title scratch $HOME/.config/tmux/scratch.sh&]]
 }
 
 apps['doublecmd'] = {
@@ -58,7 +58,7 @@ apps['doublecmd'] = {
     ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center'
   },
   -- How to start this application if it does not exists
-  exec = [[/usr/bin/doublecmd]]
+  exec = [[/usr/bin/doublecmd&]]
 }
 
 apps['journal'] = {
@@ -71,7 +71,7 @@ apps['journal'] = {
     ['surbook'] = 'scratchpad show, resize set 1588 1459, move position center'
   },
   -- How to start this application if it does not exists
-  exec = [[$TERMINAL --title journal $HOME/.config/i3/scripts/journal.sh]]
+  exec = [[$TERMINAL --title journal $HOME/.config/i3/scripts/journal.sh&]]
 }
 
 apps['neomutt'] = {
@@ -86,7 +86,7 @@ apps['neomutt'] = {
     ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center'
   },
   -- How to start this application if it does not exists
-  exec = [[$TERMINAL --title neomutt $HOME/.config/tmux/neomutt.sh]]
+  exec = [[$TERMINAL --title neomutt $HOME/.config/tmux/neomutt.sh&]]
 }
 
 apps['evolution'] = {
@@ -101,7 +101,7 @@ apps['evolution'] = {
     ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center'
   },
   -- How to start this application if it does not exists
-  exec = [[/usr/bin/evolution]]
+  exec = [[/usr/bin/evolution&]]
 }
 
 apps['terminal'] = {
@@ -116,7 +116,7 @@ apps['terminal'] = {
     ['surbook'] = 'scratchpad show, resize set 1368 1730, move position 1368 px 48 px'
   },
   -- How to start this application if it does not exists
-  exec = [[$TERMINAL --title terminal -o background_opacity=0.9 /usr/bin/tmux]]
+  exec = [[$TERMINAL --title terminal -o background_opacity=0.9 /usr/bin/tmux&]]
 }
 
 apps['bottom'] = {
@@ -131,7 +131,7 @@ apps['bottom'] = {
     ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center'
   },
   -- How to start this application if it does not exists
-  exec = [[$TERMINAL --title bottom /usr/bin/btm]]
+  exec = [[$TERMINAL --title bottom /usr/bin/btm&]]
 }
 
 apps['spotify'] = {
@@ -146,7 +146,7 @@ apps['spotify'] = {
     ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center'
   },
   -- How to start this application if it does not exists
-  exec = [[/usr/bin/spotify]]
+  exec = [[/usr/bin/spotify&]]
 }
 
 apps['tickrs'] = {
@@ -161,7 +161,7 @@ apps['tickrs'] = {
     ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center'
   },
   -- How to start this application if it does not exists
-  exec = [[$TERMINAL --title tickrs /usr/bin/tickrs]]
+  exec = [[$TERMINAL --title tickrs /usr/bin/tickrs&]]
 }
 
 apps['whatsapp'] = {
@@ -176,7 +176,7 @@ apps['whatsapp'] = {
     ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center'
   },
   -- How to start this application if it does not exists
-  exec = [[/usr/bin/firefox https://web.whatsapp.com https://messages.google.com/web]]
+  exec = [[/usr/bin/firefox https://web.whatsapp.com https://messages.google.com/web&]]
 }
 
 local function __check_args()
@@ -199,7 +199,7 @@ local function __check_args()
 end
 
 local function __exec(cmd)
-  cmd = cmd .. ' 2>&1&'
+  cmd = cmd .. ' 2>&1'
   local file, err = io.popen(cmd)
   if file == nil then
     print('Command ' .. cmd .. ' failed')
