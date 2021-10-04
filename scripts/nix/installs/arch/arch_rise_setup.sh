@@ -626,9 +626,10 @@ sudo sudo bash -c 'printf "blacklist snd_hda_codec_hdmi" > /etc/modprobe.d/no_hd
 # examine the script as it disables bluetooth for example
 
 # Make it pretty
+# Dark mode, night
 paci --needed --noconfirm numix-gtk-theme paper-icon-theme \
   capitaine-cursors lxappearance adapta-gtk-theme paper-gtk-theme-git \
-  xfce4-settings
+  xfce4-settings qt5-styleplugins
 # And then just go to `Customize Look and Feel` 
 
 # Task Manager

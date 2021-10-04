@@ -135,4 +135,7 @@ export npm_config_prefix="$HOME/.local"
 
 export BAT_THEME="Coldark-Cold"
 
+# QT5 dark mode
+export QT_QPA_PLATFORMTHEME=gtk2
+
 # vim: fdm=marker
