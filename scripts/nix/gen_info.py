@@ -36,19 +36,29 @@ class Status():
             return
 
         for scoreboard in games:
-            ret = f"\tStart Time: {scoreboard.game_start_time}\n"
-            ret += f"\tHome: {scoreboard.home_team:10} "
+            gid = scoreboard.game_id
+            ret = "**************\n"
+            ret += f"Game ID: {gid}\n"
+            ret += f"Start Time: {scoreboard.game_start_time}\n"
+            ret += f"Home: {scoreboard.home_team:10} "
             ret += f"R: {scoreboard.home_team_runs:02}, "
             ret += f"H: {scoreboard.home_team_hits:02}, "
             ret += f"E: {scoreboard.home_team_errors}\n"
-            ret += f"\tAway: {scoreboard.away_team:10} "
+            ret += f"Away: {scoreboard.away_team:10} "
             ret += f"R: {scoreboard.away_team_runs:02}, "
             ret += f"H: {scoreboard.away_team_hits:02}, "
             ret += f"E: {scoreboard.away_team_errors}\n"
-            ret += f"\tStatus: {scoreboard.game_status}\n"
-            gid = scoreboard.game_id
-            box_score = mlbgame.box_score(gid)
-            ret += box_score.print_scoreboard()
+            ret += f"Status: {scoreboard.game_status}\n"
+            ret += str(mlbgame.box_score(gid).print_scoreboard())
+            ret += "\n**************\n"
+            players = mlbgame.players(gid)
+            ret += "Home team players:\n"
+            for player in players.home_players:
+                ret += f"\t{player.first} {player.last} ({player.position})\n"
+            ret += "Away team players:\n"
+            for player in players.away_players:
+                ret += f"\t{player.first} {player.last} ({player.position})\n"
+            # TODO: Team stats
             print(ret)
 
 
