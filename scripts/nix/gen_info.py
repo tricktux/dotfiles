@@ -11,16 +11,6 @@ class Status():
 
     def __init__(self, team):
         self.team = team
-        self.away_team = ''
-        self.away_runs = 0
-        self.away_hits = 0
-        self.away_errors = 0
-        self.home_team = ''
-        self.home_runs = 0
-        self.home_hits = 0
-        self.home_errors = 0
-        self.curr_inning = 0
-        self.game_status = ''
 
     def get(self, year, month, day) -> str:
         """
@@ -38,14 +28,14 @@ class Status():
                                          home=self.team,
                                          away=self.team)
         except:
-            return 'Failed to get game data'
+            return 'Failed to get scoreboard data'
 
         if not sb:
             return 'No game today'
 
         # pp = pprint.PrettyPrinter()
         # print(f"sb = {pp.pprint(sb)}")
-        game_id = sb['game_id']
+        game_id = next(iter(sb.values()))
 
         ret = f"Home: {game_id['home_team']:10} "
         ret += f"R: {game_id['home_team_runs']:02}, "
@@ -57,11 +47,37 @@ class Status():
         ret += f"E: {game_id['away_team_errors']}\n"
         ret += f"Status: {game_id['game_status']}"
 
+        try:
+            todays_games = mlbgame.day(year,
+                                       month,
+                                       day,
+                                       home=self.team,
+                                       away=self.team)
+        except:
+            return 'Failed to get day data'
+
+        if not todays_games:
+            return 'No games today'
+
+        for game in todays_games:
+            gid = game.game_id
+            if not gid:
+                break
+            pp = pprint.PrettyPrinter()
+            print(f"gid = {pp.pprint(gid)}")
+            # events = mlbgame.game_events(gid)
+            # for event in events:
+            #     print(f"event = {event.nice_output()}")
+
+
         return ret
 
 
 def main():
     """Main function"""
+    # dates = mlbgame.important_dates().nice_output().replace('\n', '\t\n')
+    dates = mlbgame.important_dates()
+    print(f"Important Dates:\n*******\n{dates}\n********")
     team = "Rays"
     year = int(datetime.now().strftime("%Y"))
     month = int(datetime.now().strftime("%m"))
