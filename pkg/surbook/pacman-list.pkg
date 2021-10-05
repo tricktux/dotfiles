@@ -4,7 +4,6 @@ adapta-gtk-theme
 alsa-utils
 android-tools
 android-udev
-anki
 arch-audit
 archlinux-wallpaper
 astyle
@@ -69,6 +68,7 @@ gcc
 gdb
 gettext
 ghostscript
+gimp
 git
 global
 gnome-keyring
@@ -103,7 +103,7 @@ jdk8-openjdk
 jq
 jre-openjdk
 jre8-openjdk
-keepass
+keepassxc
 kitty
 kitty-terminfo
 lazygit
@@ -127,6 +127,7 @@ linux-lts
 linux-lts-headers
 lldb
 lsof
+lua-language-server
 luajit
 luit
 lvm2
@@ -139,6 +140,7 @@ man-db
 mediainfo
 meld
 mkinitcpio
+mono
 mosh
 mpv
 neomutt
@@ -152,8 +154,6 @@ ntp
 odt2txt
 offlineimap
 openvpn
-opera
-opera-ffmpeg-codecs
 os-prober
 otf-fira-mono
 otf-font-awesome
@@ -180,6 +180,7 @@ poppler
 powertop
 ppp
 python-cpplint
+python-pillow
 python-pip
 python-pykeepass
 python-pylint
@@ -189,7 +190,6 @@ python-pywal
 python-selenium
 qpdfview
 qrencode
-ranger
 rapidjson
 redshift
 reflector
@@ -230,6 +230,7 @@ ttf-fira-code
 ttf-fira-mono
 ttf-font-awesome
 ttf-inconsolata
+ttf-iosevka-nerd
 ttf-roboto-mono
 unzip
 urlscan
@@ -299,6 +300,7 @@ xorg-xwd
 xorg-xwininfo
 xorg-xwud
 xsel
+xss-lock
 yapf
 zathura
 zathura-pdf-mupdf
