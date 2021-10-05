@@ -14,7 +14,7 @@ end
 
 local function next_hunk()
   if vim.opt.diff:get() then
-    vim.cmd "normal! ]c"
+    vim.cmd "normal! ]czz"
     return
   end
 
@@ -23,7 +23,7 @@ end
 
 local function prev_hunk()
   if vim.opt.diff:get() then
-    vim.cmd "normal! [c"
+    vim.cmd "normal! [czz"
     return
   end
 
