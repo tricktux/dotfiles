@@ -141,8 +141,8 @@ padding-right = 0
 
 module-margin-left = 0
 module-margin-right = 0
-; override-redirect = true
-; wm-restack = i3
+override-redirect = false
+wm-restack = i3
 enable-ipc = false
 
 scroll-up = i3wm-wsnext
@@ -173,7 +173,7 @@ modules-left = menu wlan-predator info-pingrtt isrunning-openvpn-home space piho
 modules-center =  temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory 
 modules-right = system-usb-udev volume xkeyboard info-trash updates-arch-combined wallpaper flux redshift compton
 
-tray-maxsize = 40
+tray-maxsize = 30
 
 [bar/bottom-helios]
 inherit = bar/main-bottom
