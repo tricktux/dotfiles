@@ -289,13 +289,21 @@ case $yn in
     "$XDG_CONFIG_HOME/i3/config"
   ;;
 esac
+msg_not "${BLUE}${BOLD}" "==> Diff picom config with default? [y/N]"
+read yn
+case $yn in
+[Yy]*)
+  nvim -d /etc/xdg/picom.conf \
+    "$XDG_CONFIG_HOME/picom.conf"
+  ;;
+esac
 msg_not "${BLUE}${BOLD}" "==> Diff kitty config with default? [y/N]"
 read yn
 case $yn in
 [Yy]*)
   curl -fsSL \
     https://sw.kovidgoyal.net/kitty/_downloads/433dadebd0bf504f8b008985378086ce/kitty.conf \
-    > /tmp/kitty.conf
+    >/tmp/kitty.conf
   nvim -d /tmp/kitty.conf \
     "$XDG_CONFIG_HOME/kitty/kitty.conf"
   ;;
