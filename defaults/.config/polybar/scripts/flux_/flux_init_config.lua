@@ -8,7 +8,7 @@ _M.redshift = {cmd = [[/usr/bin/redshift]], switches = {"-p", "-l", "manual"}}
 -- Switches are provided as its own table
 _M.pywal = {
   -- Skip reloading stuff
-  cmd = [[/usr/bin/wal -e]],
+  cmd = [[/usr/bin/wal]],
   day = {
     "--theme", "base16-google", "-l", "-o",
     [["$HOME/.config/polybar/scripts/flux_/flux_post_day"]]
