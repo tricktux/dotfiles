@@ -479,8 +479,6 @@ bindsym XF86PowerDown exec --no-startup-id "i3-msg '[class=\".\"] kill' && syste
   # https://pastebin.com/tfqSNjti
   # See :Man picom
   exec --no-startup-id picom --daemon
-  # exec --no-startup-id xscreensaver -no-splash
-  # exec --no-startup-id pcmanfm --daemon-mode
   exec --no-startup-id playerctld daemon
   exec --no-startup-id tmux start-server
   exec --no-startup-id alttab -w 1 -d 2 -frame rgb:26/8b/d2 -bg rgb:f1/f1/f1 \
