@@ -574,7 +574,7 @@ paci --needed --noconfirm xorg-xinput xf86-input-libinput brillo
 
 ## power{{{
 # keyword: battery, powertop, power
-paci --needed --noconfirm powertop powerstat cpupower{,-gui}
+paci --needed --noconfirm powertop powerstat cpupower
 # Set cpu governor based on laptop charging or not. Please run `cpupower 
 # frequency-info` to display the governors your cpu supports
 # Read here about cpu governors. Choosing schedutil for battery and performance 
