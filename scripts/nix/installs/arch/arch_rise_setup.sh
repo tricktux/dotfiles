@@ -627,6 +627,8 @@ sudo sudo bash -c 'printf "blacklist snd_hda_codec_hdmi" > /etc/modprobe.d/no_hd
 
 # Make it pretty
 # Dark mode, night
+# NOTE: After installing xfce4-settings open the keyboard application and delete 
+# all the xfce shortcuts, they interfere with i3, then reboot
 paci --needed --noconfirm numix-gtk-theme paper-icon-theme \
   capitaine-cursors lxappearance adapta-gtk-theme paper-gtk-theme-git \
   xfce4-settings qt5-styleplugins
