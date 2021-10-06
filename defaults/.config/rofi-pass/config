@@ -43,7 +43,7 @@ delay=2
 wait=0.2
 
 # delay between keypresses when typing (in ms)
-xdotool_delay=12
+xdotool_delay=32
 
 ## Programs to be used
 # Editor
