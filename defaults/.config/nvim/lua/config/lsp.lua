@@ -201,7 +201,9 @@ local function lsp_set()
       on_attach = on_lsp_attach,
       filetypes = {"cs"},
       cmd = {"omnisharp", "--languageserver", "--hostPID", pid},
-      capabilities = capabilities
+      capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp
+                                                                     .protocol
+                                                                     .make_client_capabilities())
     }
   end
 
@@ -209,21 +211,24 @@ local function lsp_set()
     log.info("setting up the pylsp lsp...")
     nvim_lsp.pylsp.setup {
       on_attach = on_lsp_attach,
-      capabilities = capabilities,
+      capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp
+                                                                     .protocol
+                                                                     .make_client_capabilities())
+
       -- settings = {
-        -- pyls = {
-          -- plugins = {
-            -- jedi_completion = {fuzzy = true, include_params = true},
-            -- mccabe = {enabled = false},
-            -- pycodestyle = {enabled = false},
-            -- flake8 = {enabled = false},
-            -- pydocstyle = {enabled = false},
-            -- pyflakes = {enabled = false},
-            -- pylint = {enabled = false},
-            -- yapf = {enabled = false},
-            -- pyls_mypy = {enabled = false, live_mode = false}
-          -- }
-        -- }
+      -- pyls = {
+      -- plugins = {
+      -- jedi_completion = {fuzzy = true, include_params = true},
+      -- mccabe = {enabled = false},
+      -- pycodestyle = {enabled = false},
+      -- flake8 = {enabled = false},
+      -- pydocstyle = {enabled = false},
+      -- pyflakes = {enabled = false},
+      -- pylint = {enabled = false},
+      -- yapf = {enabled = false},
+      -- pyls_mypy = {enabled = false, live_mode = false}
+      -- }
+      -- }
       -- }
     }
   end
@@ -235,7 +240,9 @@ local function lsp_set()
       init_options = {clangdFileStatus = false},
       on_attach = on_clangd_attach,
       filetypes = {"c", "cpp"},
-      capabilities = capabilities,
+      capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp
+                                                                     .protocol
+                                                                     .make_client_capabilities()),
       cmd = {
         "clangd", "--all-scopes-completion=true", "--background-index=true",
         "--clang-tidy=true", "--completion-style=detailed",
