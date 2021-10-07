@@ -7,6 +7,7 @@
 # xfsettingsd is needed by flux, must remain before it
 /usr/bin/xfsettingsd --replace --daemon
 # Setup config for current time of day at startup
+rm /tmp/flux || echo "file did not exist"
 $HOME/.config/polybar/scripts/flux_/flux \
   -v -c $HOME/.config/polybar/scripts/flux_/flux_init_config.lua \
   > /tmp/fluxinit.log 2>&1
