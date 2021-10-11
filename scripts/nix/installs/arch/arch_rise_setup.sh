@@ -612,7 +612,7 @@ sudo sudo bash -c 'printf "blacklist uvcvideo" > /etc/modprobe.d/no_webcam.conf'
 sudo sudo bash -c 'printf "options snd_had_intel power_save=1" > /etc/modprobe.d/audio.conf'
 sudo sudo bash -c 'printf "options snd_had_intel probe_mask=1" > /etc/modprobe.d/audio.conf'
 # Disable hdmi output
-sudo sudo bash -c 'printf "blacklist snd_hda_codec_hdmi" > /etc/modprobe.d/no_hdmi_audio.conf.conf'
+sudo sudo bash -c 'printf "blacklist snd_hda_codec_hdmi" > /etc/modprobe.d/no_hdmi_audio.conf'
 
 #### wifi
 
