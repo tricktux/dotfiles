@@ -27,7 +27,8 @@ if [[ "$hostname" = "surbook" ]]; then
     /usr/bin/xrandr \
       --dpi 96 \
       --output eDP1 --off \
-      --output DP1 --mode "1920x1080tv" --rate 60 --pos 0x0 --primary \  --output HDMI1 --off \
+      --output DP1 --mode "1920x1080tv" --rate 60 --pos 0x0 --primary \
+      --output HDMI1 --off \
       --output HDMI2 --off \
       --output VIRTUAL1 --off
 
