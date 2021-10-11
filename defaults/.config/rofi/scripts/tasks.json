@@ -138,6 +138,14 @@
     "command": "exec $HOME/.config/i3/scripts/xdotool_launch neomutt"
   },
   {
+    "name": "💻 xrandr main",
+    "command": "exec $HOME/.config/i3/scripts/xrandr.sh main"
+  },
+  {
+    "name": "📺 xrandr tv",
+    "command": "exec $HOME/.config/i3/scripts/xrandr.sh tv"
+  },
+  {
     "name": "⌨️ xmodmap reload",
     "command": "xmodmap $HOME/.Xmodmap"
   }

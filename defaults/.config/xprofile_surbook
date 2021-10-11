@@ -21,6 +21,12 @@ if [ -f /usr/bin/xrandr ]; then
     --output VIRTUAL1 --off
 
   echo "Xft.dpi: 192" | xrdb -merge
+  # Setup tv mode
+  /usr/bin/xrandr \
+    --newmode "1920x1080tv"  \
+    173.00  1920 2048 2248 2576  1080 1083 1088 1120 -hsync +vsync
+  /usr/bin/xrandr \
+    --addmode DP1 "1920x1080tv"
 fi
 
 # vim: ft=sh
