@@ -4,7 +4,6 @@ adapta-gtk-theme
 alsa-utils
 android-tools
 android-udev
-anki
 arch-audit
 archlinux-wallpaper
 asciinema
@@ -19,6 +18,7 @@ bbswitch
 binutils
 bison
 bleachbit
+blueman
 bluez
 bluez-utils
 boost
@@ -99,6 +99,7 @@ keepass
 kitty
 languagetool
 lazygit
+lcov
 lib32-nvidia-utils
 lib32-primus
 lib32-virtualgl
@@ -116,6 +117,7 @@ linux-firmware
 linux-lts
 linux-lts-headers
 lldb
+lua-language-server
 luajit
 luit
 lvm2
@@ -213,6 +215,7 @@ ttf-fira-code
 ttf-fira-mono
 ttf-font-awesome
 ttf-inconsolata
+ttf-iosevka-nerd
 unzip
 urlscan
 valgrind
@@ -292,4 +295,8 @@ zathura
 zathura-pdf-mupdf
 zip
 zsh
+zsh-autosuggestions
 zsh-completions
+zsh-history-substring-search
+zsh-syntax-highlighting
+zsh-theme-powerlevel10k

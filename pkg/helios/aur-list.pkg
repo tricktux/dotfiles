@@ -1,6 +1,7 @@
 abook
 alttab-git
 ancient-packages
+anki
 bluez-firmware
 brillo
 chromedriver
@@ -14,15 +15,12 @@ hal
 i3lock-fancy-git
 jdtls
 laptop-mode-tools
-lcov
 lua-format
-lua-language-server-git
 luacheck
 mop
 neovim-nightly-bin
 neovim-remote
 nerd-fonts-inconsolata
-nerd-fonts-iosevka
 numix-gtk-theme
 optimus-manager
 pandoc-bin
@@ -42,6 +40,7 @@ simple-scan-3.12
 spicetify-cli
 spicetify-themes-git
 spotify
+synology-drive
 teamviewer
 ttf-weather-icons
 vdhcoapp-bin
