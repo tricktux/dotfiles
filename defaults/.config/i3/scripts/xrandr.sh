@@ -48,7 +48,7 @@ if [[ "$hostname" = "surbook" ]]; then
 fi
 
 if [[ "$hostname" = "predator" ]]; then
-  echo "found surbook"
+  echo "found predator"
   if [[ "$1" = "main" ]]; then
     echo "setting up main configuration"
     /usr/bin/xrandr \
@@ -64,6 +64,30 @@ if [[ "$hostname" = "predator" ]]; then
 
     echo "Xft.dpi: 156" | xrdb -merge
 
+    # Restart polybar
+    $HOME/.config/polybar/scripts/launch.sh
+    notify-send "xrandr" \
+      "Configuration '$1' set!" \
+      -a 'arandr'
+    exit 0
+  fi
+
+  notify-send "xrandr" \
+    "Configuration '$1' not valid" \
+    -u critical -a 'Arandr'
+  exit 2
+fi
+
+if [[ "$hostname" = "helios" ]]; then
+  echo "found helios"
+  if [[ "$1" = "main" ]]; then
+    echo "setting up main configuration"
+    /usr/bin/xrandr \
+      --dpi 144 \
+      --output eDP1 --mode 1920x1080 --rate 144 --pos 0x0 --primary \
+      --output VIRTUAL1 --off
+
+    echo "Xft.dpi: 144" | xrdb -merge
     # Restart polybar
     $HOME/.config/polybar/scripts/launch.sh
     notify-send "xrandr" \
