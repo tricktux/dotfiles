@@ -464,7 +464,8 @@ paci --needed --noconfirm noto-fonts-emoji
 # polybar{{{
 paci --needed --noconfirm jsoncpp polybar alsa-utils paprefs
 paci --needed --noconfirm alsa-lib wireless_tools curl pacman-contrib
-paci --needed --noconfirm nerd-fonts-iosevka ttf-weather-icons jq
+paci --needed --noconfirm ttf-weather-icons jq
+paci --needed --noconfirm nerd-fonts-iosevka
 paci --needed --noconfirm python-pywal
 wal --theme base16-google -l -q -o "$HOME/.config/polybar/launch.sh"
 # usb automount
