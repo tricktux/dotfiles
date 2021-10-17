@@ -3,7 +3,6 @@ adapta-gtk-theme
 alsa-utils
 android-tools
 android-udev
-anki
 arandr
 arch-audit
 archlinux-wallpaper
@@ -16,9 +15,11 @@ bat
 binutils
 bison
 bleachbit
+blueman
 bluez
 boost
 boost-libs
+bottom
 capitaine-cursors
 ccache
 cifs-utils
@@ -33,7 +34,9 @@ cups
 cups-pdf
 dhcpcd
 dialog
+docker
 dosfstools
+doublecmd-gtk2
 dunst
 earlyoom
 efibootmgr
@@ -56,6 +59,7 @@ gdb
 gettext
 ghostscript
 git
+glava
 global
 gnome-keyring
 go
@@ -84,7 +88,7 @@ jdk8-openjdk
 jq
 jre8-openjdk
 jsoncpp
-keepass
+keepassxc
 kitty
 lazygit
 lib32-nvidia-utils
@@ -102,7 +106,9 @@ linux-lts
 linux-lts-headers
 lldb
 lsof
+lua-language-server
 luajit
+lutris
 lvm2
 lxappearance
 lxqt-openssh-askpass
@@ -112,8 +118,10 @@ make
 mediainfo
 meld
 mkinitcpio
+mono
 mosh
 mpv
+namcap
 neomutt
 nfs-utils
 noto-fonts-emoji
@@ -154,7 +162,6 @@ python2
 python2-pip
 qpdfview
 qrencode
-ranger
 rapidjson
 redshift
 reflector
@@ -168,6 +175,7 @@ scrot
 sed
 shfmt
 simple-scan
+steam
 stow
 sudo
 texinfo
@@ -191,6 +199,7 @@ ttf-fira-code
 ttf-fira-mono
 ttf-font-awesome
 ttf-inconsolata
+ttf-iosevka-nerd
 udisks2
 unzip
 urlscan
@@ -219,6 +228,7 @@ xf86-video-qxl
 xf86-video-vesa
 xf86-video-vmware
 xf86-video-voodoo
+xfce4-settings
 xorg-docs
 xorg-fonts-100dpi
 xorg-fonts-75dpi
@@ -258,8 +268,12 @@ xorg-xwayland
 xorg-xwd
 xorg-xwininfo
 xorg-xwud
+xss-lock
 youtube-dl
 zathura
 zathura-pdf-mupdf
 zip
 zsh
+zsh-autosuggestions
+zsh-history-substring-search
+zsh-syntax-highlighting
