@@ -440,7 +440,7 @@ sudo systemctl enable NetworkManager.service
 #}}}
 
 # i3-wm{{{
-paci --needed --noconfirm i3-gaps i3lock-fancy-git rofi rofi-dmenu alttab xdotool 
+paci --needed --noconfirm i3-gaps i3lock-fancy-git rofi rofi-dmenu alttab-git xdotool 
 paci --needed --noconfirm feh redshift qrencode xclip dunst libnotify
 paci --needed --noconfirm scrot flameshot
 # Replacement for htop. Execute: btm
