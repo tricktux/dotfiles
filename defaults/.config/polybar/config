@@ -243,5 +243,34 @@ modules-right = system-usb-udev battery_surbook space space xbacklight volume xk
 
 tray-maxsize = 30
 
+[bar/top-aero]
+inherit = bar/main-top
+font-0 = "Font Awesome 5 Free:style=Regular:pixelsize=16;1"
+font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=16;1"
+font-2 = "Font Awesome 5 Brands:pixelsize=16;1"
+font-3 = Roboto:size=18;0
+font-4 = Iosevka Nerd Font:style=Medium:size=20;3
+font-5 = Weather Icons:size=18;1
+
+[bar/bottom-aero]
+inherit = bar/main-bottom
+font-0 = "Font Awesome 5 Free:style=Regular:pixelsize=16;1"
+font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=16;1"
+font-2 = "Font Awesome 5 Brands:pixelsize=16;1"
+font-3 = Roboto:size=16;0
+font-4 = Iosevka Nerd Font:style=Medium:size=20;3
+font-5 = Weather Icons:size=18;1
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+modules-left = menu wlan-surbook info-pingrtt isrunning-openvpn-home space pihole space space todo
+; Mon Dec 23 2019 15:06: Nvidia module is useless 
+; modules-center =  left-end-top temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory right-end-top
+modules-center =  temperature cpu cpuload system-uptime-pretty memory
+modules-right = system-usb-udev battery_aero space space xbacklight volume xkeyboard info-trash updates-arch-combined wallpaper flux redshift compton
+
+tray-maxsize = 30
+
 
 ; vim: ft=dosini
