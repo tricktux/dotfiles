@@ -265,6 +265,7 @@ sudo pacman -Sy
 # **Nvidia drivers**
 # [Instructions](https://wiki.archlinux.org/index.php/NVIDIA)
 # ***LTS*** needed if you are running linux-lts
+# NVIDIA {{{
 paci --needed --noconfirm nvidia-lts
 # Otherwise use this one....**DO NOT USE BOTH**
 paci --needed --noconfirm nvidia
@@ -297,6 +298,16 @@ sudo systemctl enable --now bumblebeed
 # manually turn on/off gpu
 sudo tee /proc/acpi/bbswitch <<< {ON,OFF}
 # checkout [this][1] link for hardware acceleration
+#}}}
+
+# AMD
+paci --needed --noconfirm lib32-mesa mesa
+paci --needed --noconfirm xf86-video-amdgpu
+paci --needed --noconfirm lib32-vulkan-radeon vulkan-radeon vulkan-mesa-layers
+paci --needed --noconfirm lib32-libva-mesa-driver libva-mesa-driver \
+  mesa-vdpau lib32-mesa-vdpau
+paci --needed --noconfirm radeontop
+
 #}}}
 
 # terminal utils{{{
