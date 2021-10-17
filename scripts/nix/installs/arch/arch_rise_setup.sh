@@ -126,6 +126,7 @@ cd ~/.config/dotfiles
 stow -t /home/reinaldo -S defaults 
 # Check that all went well
 ls -als ~/ 
+ls -als ~/.config
 # Get your aliases
 source ~/.bash_aliases 
 # Pass nvim config to root user as well to make `sudo nvim` usable
