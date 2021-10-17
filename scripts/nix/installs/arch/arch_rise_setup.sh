@@ -476,7 +476,7 @@ sudo install -Dm644 /home/reinaldo/.config/polybar/scripts/95-usb.rules \
 # xorg{{{
 # Multi Monitor setup, or for HiDPI displays it's best to auto calculate 
 # resolution
-paci --needed --noconfirm xorg-xrandr arandr xdisplaylayout
+paci --needed --noconfirm xorg-xrandr arandr xlayoutdisplay
 paci --needed --noconfirm xorg xorg-apps xorg-xinit xorg-drivers xorg-server
 # `xorg autologin`
 paci --needed --noconfirm lightdm
