@@ -368,15 +368,16 @@ sudo chmod 600 /etc/samba/credentials/share
 paci --needed --noconfirm cifs-utils
 sudo mount -t cifs //192.168.1.138/home ~/.mnt/skywafer/home -o credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev
 mkdir -p ~/Documents
-ln -s ~/.mnt/skywafer/home/Drive/wiki ~/Documents
+# ln -s ~/.mnt/skywafer/home/Drive/wiki ~/Documents
+paci --needed --noconfirm synology-drive
 #}}}
 
 # openvpn {{{
-paci --needed openvpn
+paci --needed --noconfirm openvpn
 # Test it
-sudo openvpn ~/Documents/wiki/misc/home.ovpn
-sudo cp /home/reinaldo/Documents/wiki/misc/home.ovpn /etc/openvpn/client/home.conf
-# Edit config and add pass.conf to the uth-user-pass line
+sudo openvpn ~/Documents/Drive/wiki/misc/home.ovpn
+sudo cp /home/reinaldo/Documents/Drive/wiki/misc/home.ovpn /etc/openvpn/client/home.conf
+# Edit config and add pass.conf to the auth-user-pass line
 sudo nvim /etc/openvpn/client/home.conf
 # Then create the file
 sudo nvim /etc/openvpn/client/pass.conf
