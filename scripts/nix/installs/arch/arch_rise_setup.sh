@@ -88,6 +88,8 @@ sudo bash -c \
 
 # Copy your `mirrorlist`:
 scp /etc/pacman.d/mirrorlist reinaldo@192.168.1.194:/home/reinaldo/mirrorlist
+sudo mv /etc/pacman.d/mirrorlist{,.bak}
+sudo mv /home/reinaldo/mirrorlist /etc/pacman.d/mirrorlist
 
 # install `paru`{{{
 # From this point on you need to login as your user
