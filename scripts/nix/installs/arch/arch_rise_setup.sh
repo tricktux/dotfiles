@@ -443,7 +443,7 @@ paci --needed --noconfirm i3-gaps i3lock-fancy-git rofi rofi-dmenu alttab xdotoo
 paci --needed --noconfirm feh redshift qrencode xclip dunst libnotify
 paci --needed --noconfirm scrot flameshot
 # Replacement for htop. Execute: btm
-paci --needed --noconfirm bottom-bin
+paci --needed --noconfirm bottom
 # Compton changed name to picom
 paci --needed --noconfirm picom
 paci --needed --noconfirm xss-lock
