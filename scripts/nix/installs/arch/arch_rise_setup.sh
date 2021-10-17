@@ -433,7 +433,7 @@ paci --needed --noconfirm numlockx
 
 # Network Manager{{{
 paci --needed --noconfirm networkmanager network-manager-applet networkmanager-openvpn
-pacu networkmanager network-manager-applet networkmanager-openvpn
+pacu networkmanager network-manager-applet networkmanager-openvpn networkmanager-dmenu-git 
 sudo systemctl enable NetworkManager.service
 #}}}
 
@@ -453,7 +453,7 @@ paci --needed --noconfirm xss-lock
 #}}}
 
 # rofi extra goodies
-paci --needed --noconfirm rofi-{emoji,bluetooth-git} networkmanager-dmenu-git 
+paci --needed --noconfirm rofi-{emoji,bluetooth-git}
 paci --needed --noconfirm noto-fonts-emoji
 
 # synology nfs and backups
