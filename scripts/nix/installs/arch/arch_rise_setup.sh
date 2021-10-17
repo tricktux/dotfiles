@@ -189,6 +189,9 @@ paci --needed --noconfirm zsh
 paci --needed --noconfirm pkgfile z-git \
   zsh-theme-powerlevel10k zsh-autosuggestions \
   zsh-history-substring-search zsh-syntax-highlighting
+chsh -s /usr/bin/zsh
+export ZDOTDIR=$HOME/.config/zsh
+zsh
 
 # pkgfile needs to be updated
 sudo systemctl enable pkgfile-update.timer
