@@ -245,6 +245,7 @@ sudo nvim /boot/loader/entries/arch.conf
 # Protects from running out of memory{{{
 paci --needed --noconfirm earlyoom
 sudo systemctl enable --now earlyoom
+sudo systemctl status earlyoom
 #}}}
 
 # Video card{{{
