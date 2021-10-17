@@ -305,7 +305,7 @@ paci --needed --noconfirm {ttf,otf}-fira-{code,mono} {ttf,otf}-font-awesome \
 paci --needed --noconfirm ttf-inconsolata
 paci --needed --noconfirm xorg-xfontsel gtk2fontsel
 # Package doesn't exist anymore thumbnailer 
-paci --needed --noconfirm atool ranger zip unzip w3m ffmpeg highlight libcaca python-pillow
+paci --needed --noconfirm atool ranger-git zip unzip w3m ffmpeg highlight libcaca python-pillow
 # Not installing anymore: advcp 
 paci --needed --noconfirm mediainfo odt2txt poppler w3m bat exa fzf fd \
   ripgrep tmux imagemagick ghostscript xclip
