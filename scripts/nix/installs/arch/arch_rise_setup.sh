@@ -200,7 +200,7 @@ sudo systemctl enable pkgfile-update.timer
 # Also update it to wait for network by adding to [Unit]
 # Wants=network-online.target
 # After=network-online.target nss-lookup.target
-sudo vim /usr/lib/systemd/system/pkgfile-update.timer
+sudo nvim /usr/lib/systemd/system/pkgfile-update.timer
 sudo systemctl start pkgfile-update.service
 # symlink all the `zsh*` files
 #}}}
@@ -256,7 +256,7 @@ lspci -k | grep -A 2 -i "VGA"
 # Also add the ParallelDownloads = 5 option
 # Also uncomment Color option
 # Also add ILoveCandy option
-sudo vim /etc/pacman.conf
+sudo nvim /etc/pacman.conf
 sudo pacman -Sy
 # install 32-bit programs
 # Mon Sep 18 2017 22:46: Also dont forget to update and uncomment both lines, multilib and Include 
@@ -354,7 +354,7 @@ chmod 644 -f ~/.ssh/*.pub ~/.ssh/authorized_keys ~/.ssh/known_hosts
 # chmod 700 -R ~/.gnupg/*
 
 sudo mkdir -p /etc/samba/credentials
-sudo vim /etc/samba/credentials/share
+sudo nvim /etc/samba/credentials/share
 # - format:
 # - `username=X`
 # - `password=Y`
@@ -488,7 +488,7 @@ sudo gpasswd -a reinaldo autologin
 
 # Create
 # Valid session names under /usr/share/xsessions/*.desktop
-sudo vim /etc/lightdm/lightdm.conf
+sudo nvim /etc/lightdm/lightdm.conf
 
 # [Seat:*]
 # autologin-user=reinaldo
@@ -741,7 +741,7 @@ sudo systemctl enable --now bluetooth
 
 # Tue Mar 26 2019 08:58
 # Auto clean up
-sudo vim /etc/systemd/journald.conf
+sudo nvim /etc/systemd/journald.conf
 # Add or uncomment `SystemMaxUse=2G`
 
 # Browser{{{
