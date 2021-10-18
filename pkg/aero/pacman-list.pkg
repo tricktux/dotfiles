@@ -19,6 +19,7 @@ bluez
 bottom
 capitaine-cursors
 ccache
+cifs-utils
 clang
 cmus
 cppcheck
@@ -32,6 +33,7 @@ dunst
 earlyoom
 efibootmgr
 ethtool
+evolution
 exa
 f2fs-tools
 fakeroot
@@ -51,6 +53,7 @@ gettext
 ghostscript
 git
 global
+gnome-keyring
 go
 goimapnotify
 google-glog
@@ -78,6 +81,10 @@ jre8-openjdk
 keepassxc
 kitty
 lazygit
+lib32-libva-mesa-driver
+lib32-mesa
+lib32-mesa-vdpau
+lib32-vulkan-radeon
 libao
 libcaca
 libcddb
@@ -87,6 +94,7 @@ libmikmod
 libmpcdec
 libreoffice-still
 libtool
+libva-mesa-driver
 lightdm
 linux
 linux-firmware
@@ -101,17 +109,19 @@ m4
 make
 mediainfo
 meld
+mesa-vdpau
 mkinitcpio
 mosh
 mpv
 namcap
 neomutt
-neovim
+nfs-utils
 noto-fonts-emoji
 ntfs-3g
 ntp
 numlockx
 odt2txt
+openvpn
 otf-fira-mono
 otf-font-awesome
 pacman
@@ -142,11 +152,13 @@ python-pywal
 python2
 python2-pip
 qpdfview
+radeontop
 rapidjson
 redshift
 reflector
 ripgrep
 rofi-emoji
+rofi-pass
 rust
 rust-analyzer
 scrot
@@ -179,6 +191,8 @@ ttf-inconsolata
 udisks2
 unzip
 urlscan
+vulkan-mesa-layers
+vulkan-radeon
 w3m
 wavpack
 websocketpp

@@ -13,6 +13,7 @@ laptop-mode-tools
 liquidprompt
 lua-format
 luacheck
+neovim-git
 neovim-remote
 nerd-fonts-inconsolata
 numix-gtk-theme
@@ -30,7 +31,9 @@ rofi-bluetooth-git
 rofi-dmenu
 rtw89-dkms-git
 shellcheck-bin
+synology-drive
 termite
+ttf-weather-icons
 vdhcoapp-bin
 xlayoutdisplay
 ytmdl
