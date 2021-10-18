@@ -335,6 +335,8 @@ paci --needed --noconfirm rust go
 
 # kitty
 paci --needed --noconfirm kitty termite
+cp "$HOME"/.config/kitty/{predator,"$(hostname)"}.conf
+nvim "$HOME/.config/kitty/$(hostname).conf"
 # Depends on rust
 # Causes all kinds of problems
 # paci page-git
@@ -453,6 +455,10 @@ sudo systemctl enable NetworkManager.service
 #}}}
 
 # i3-wm{{{
+cp "$HOME"/.config/rofi/{predator,"$(hostname)"}.rasi
+nvim "$HOME/.config/rofi/$(hostname).rasi"
+# Action also update the xdotool script for the new hostname
+nvim "$HOME/.config/i3/scripts/xdotool_launch"
 paci --needed --noconfirm i3-gaps i3lock-fancy-git rofi rofi-dmenu alttab-git xdotool 
 paci --needed --noconfirm feh redshift qrencode xclip dunst libnotify
 paci --needed --noconfirm scrot flameshot
@@ -475,6 +481,8 @@ paci --needed --noconfirm noto-fonts-emoji
 # paci --needed
 
 # polybar{{{
+# NOTE: For new hostnames you will to tweak polybar/config and 
+# polybar/modules.ini
 paci --needed --noconfirm jsoncpp polybar alsa-utils paprefs
 paci --needed --noconfirm alsa-lib wireless_tools curl pacman-contrib
 paci --needed --noconfirm ttf-weather-icons jq
@@ -494,6 +502,11 @@ sudo install -Dm644 /home/reinaldo/.config/polybar/scripts/95-usb.rules \
 # resolution
 paci --needed --noconfirm xorg-xrandr arandr xlayoutdisplay
 paci --needed --noconfirm xorg xorg-apps xorg-xinit xorg-drivers xorg-server
+/usr/bin/xlayoutdisplay
+# ACTION: Copy output and paste it there
+nvim "$HOME/.config/xprofile-$(hostname)"
+# ACTION: Now is also a good time to add that hostname there
+nvim "$HOME/.config/i3/scripts/xrandr.sh"
 # `xorg autologin`
 paci --needed --noconfirm lightdm
 sudo systemctl enable lightdm
