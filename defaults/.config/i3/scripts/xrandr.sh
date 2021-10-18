@@ -16,7 +16,7 @@ if [[ "$hostname" = "surbook" ]]; then
 
     echo "Xft.dpi: 192" | xrdb -merge
     # Restart polybar
-    $HOME/.config/polybar/scripts/launch.sh
+    "$HOME/.config/polybar/scripts/launch.sh"
     notify-send "xrandr" \
       "Configuration '$1' set!" \
       -a 'arandr'
@@ -34,7 +34,7 @@ if [[ "$hostname" = "surbook" ]]; then
 
     echo "Xft.dpi: 96" | xrdb -merge
     # Restart polybar
-    $HOME/.config/polybar/scripts/launch.sh
+    "$HOME/.config/polybar/scripts/launch.sh"
     notify-send "xrandr" \
       "Configuration '$1' set!" \
       -a 'arandr'
@@ -59,7 +59,7 @@ if [[ "$hostname" = "aero" ]]; then
 
     echo "Xft.dpi: 192" | xrdb -merge
     # Restart polybar
-    $HOME/.config/polybar/scripts/launch.sh
+    "$HOME/.config/polybar/scripts/launch.sh"
     notify-send "xrandr" \
       "Configuration '$1' set!" \
       -a 'arandr'
@@ -75,7 +75,7 @@ if [[ "$hostname" = "aero" ]]; then
 
     echo "Xft.dpi: 96" | xrdb -merge
     # Restart polybar
-    $HOME/.config/polybar/scripts/launch.sh
+    "$HOME/.config/polybar/scripts/launch.sh"
     notify-send "xrandr" \
       "Configuration '$1' set!" \
       -a 'arandr'
@@ -106,7 +106,7 @@ if [[ "$hostname" = "predator" ]]; then
     echo "Xft.dpi: 156" | xrdb -merge
 
     # Restart polybar
-    $HOME/.config/polybar/scripts/launch.sh
+    "$HOME/.config/polybar/scripts/launch.sh"
     notify-send "xrandr" \
       "Configuration '$1' set!" \
       -a 'arandr'
@@ -130,7 +130,7 @@ if [[ "$hostname" = "helios" ]]; then
 
     echo "Xft.dpi: 144" | xrdb -merge
     # Restart polybar
-    $HOME/.config/polybar/scripts/launch.sh
+    "$HOME/.config/polybar/scripts/launch.sh"
     notify-send "xrandr" \
       "Configuration '$1' set!" \
       -a 'arandr'
