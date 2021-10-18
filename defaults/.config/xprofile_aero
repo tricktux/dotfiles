@@ -1,0 +1,7 @@
+xrandr \
+ --dpi 192 \
+ --output eDP --mode 2560x1600 --rate 60 --pos 0x0 --primary \
+ --output HDMI-A-0 --off \
+ --output DisplayPort-0 --off
+
+echo "Xft.dpi: 192" | xrdb -merge
