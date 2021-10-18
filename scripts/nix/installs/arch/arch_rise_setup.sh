@@ -111,6 +111,8 @@ mkdir -p ~/Documents
 mkdir -p ~/.local/share/Trash/files
 cd ~/.config
 git clone https://github.com/tricktux/dotfiles
+# NOTE: Change link to: ssh://github/tricktux/dotfiles
+nvim "$HOME/.config/dotfiles/.git"
 # Install needed software
 paru -S stow
 # So that you don't loose the hostname command
