@@ -81,6 +81,22 @@ if [[ "$hostname" = "aero" ]]; then
       -a 'arandr'
     exit 0
   fi
+  if [[ "$1" = "home_dock" ]]; then
+    echo "setting up home_dock configuration"
+    /usr/bin/xrandr \
+      --dpi 156 \
+      --output eDP --off \
+      --output HDMI-A-0 --off \
+      --output DisplayPort-0 --mode 3840x2160 --rate 30 --pos 0x0 --primary
+
+    echo "Xft.dpi: 156" | xrdb -merge
+    # Restart polybar
+    "$HOME/.config/polybar/scripts/launch.sh"
+    notify-send "xrandr" \
+      "Configuration '$1' set!" \
+      -a 'arandr'
+          exit 0
+  fi
 
   notify-send "xrandr" \
     "Configuration '$1' not valid" \

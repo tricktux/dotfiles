@@ -146,6 +146,10 @@
     "command": "exec $HOME/.config/i3/scripts/xrandr.sh tv"
   },
   {
+    "name": "📺 xrandr home_dock",
+    "command": "exec $HOME/.config/i3/scripts/xrandr.sh home_dock"
+  },
+  {
     "name": "⌨️ xmodmap reload",
     "command": "xmodmap $HOME/.Xmodmap"
   }
