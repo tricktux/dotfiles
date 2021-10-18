@@ -169,7 +169,7 @@ font-4 = Iosevka Nerd Font:style=Medium:size=22;3
 font-5 = Weather Icons:size=20;1
 
 ; When copying remove xbacklight battery and set specific wlan
-modules-left = menu wlan-predator info-pingrtt isrunning-openvpn-home space pihole space space todo 
+modules-left = wlan-predator info-pingrtt isrunning-openvpn-home space pihole space space todo 
 modules-center =  temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory 
 modules-right = system-usb-udev volume xkeyboard info-trash updates-arch-combined wallpaper flux redshift compton
 
@@ -187,7 +187,7 @@ font-5 = Weather Icons:size=12;1
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-modules-left = menu wlan-helios info-pingrtt isrunning-openvpn-home space pihole space space todo
+modules-left = wlan-helios info-pingrtt isrunning-openvpn-home space pihole space space todo
 ; Mon Dec 23 2019 15:06: Nvidia module is useless 
 ; modules-center =  left-end-top temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory right-end-top
 modules-center =  temperature cpu cpuload system-uptime-pretty memory
@@ -235,7 +235,7 @@ font-5 = Weather Icons:size=20;1
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-modules-left = menu wlan-surbook info-pingrtt isrunning-openvpn-home space pihole space space todo
+modules-left = wlan-surbook info-pingrtt isrunning-openvpn-home space pihole space space todo
 ; Mon Dec 23 2019 15:06: Nvidia module is useless 
 ; modules-center =  left-end-top temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory right-end-top
 modules-center =  temperature cpu cpuload system-uptime-pretty memory
@@ -264,7 +264,7 @@ font-5 = Weather Icons:size=18;1
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-modules-left = menu wlan-surbook info-pingrtt isrunning-openvpn-home space pihole space space todo
+modules-left = wlan-surbook info-pingrtt isrunning-openvpn-home space pihole space space todo
 ; Mon Dec 23 2019 15:06: Nvidia module is useless 
 ; modules-center =  left-end-top temperature cpu system-nvidia-smi cpuload system-uptime-pretty memory right-end-top
 modules-center =  temperature cpu cpuload system-uptime-pretty memory
