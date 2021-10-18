@@ -47,6 +47,49 @@ if [[ "$hostname" = "surbook" ]]; then
   exit 2
 fi
 
+if [[ "$hostname" = "aero" ]]; then
+  echo "found surbook"
+  if [[ "$1" = "main" ]]; then
+    echo "setting up main configuration"
+    /usr/bin/xrandr \
+      --dpi 192 \
+      --output eDP --mode 2560x1600 --rate 60 --pos 0x0 --primary \
+      --output HDMI-A-0 --off \
+      --output DisplayPort-0 --off
+
+    echo "Xft.dpi: 192" | xrdb -merge
+    # Restart polybar
+    $HOME/.config/polybar/scripts/launch.sh
+    notify-send "xrandr" \
+      "Configuration '$1' set!" \
+      -a 'arandr'
+    exit 0
+  fi
+  if [[ "$1" = "tv" ]]; then
+    echo "setting up tv configuration"
+    /usr/bin/xrandr \
+      --dpi 96 \
+      --output eDP1 --off \
+      --output DP1 --mode "1920x1080tv" --rate 60 --pos 0x0 --primary \
+      --output HDMI1 --off \
+      --output HDMI2 --off \
+      --output VIRTUAL1 --off
+
+    echo "Xft.dpi: 96" | xrdb -merge
+    # Restart polybar
+    $HOME/.config/polybar/scripts/launch.sh
+    notify-send "xrandr" \
+      "Configuration '$1' set!" \
+      -a 'arandr'
+    exit 0
+  fi
+
+  notify-send "xrandr" \
+    "Configuration '$1' not valid" \
+    -u critical -a 'Arandr'
+  exit 2
+fi
+
 if [[ "$hostname" = "predator" ]]; then
   echo "found predator"
   if [[ "$1" = "main" ]]; then
