@@ -710,13 +710,22 @@ spicetify apply
 #}}}
 
 # email {{{
-# protonmail-bridge 
+# neomutt {{{
 paci --needed --noconfirm neomutt abook urlscan lynx \
   isync goimapnotify
 # Needed to backup emails
 # paci --needed --noconfirm offlineimap
 mkdir -p ~/mail/{molinamail,molinamail_meli}/inbox
 /usr/bin/mbsync -D -ac ~/.config/isync/mbsyncrc
+#}}}
+
+# evolution {{{
+paci --needed --noconfirm evolution gnome-keyring libsecret
+# ACTION: setup empty password so that `lightdm` can unlock the `keyring` at login
+# Run through the normal setup and when the "Default Keyring" setup comes, just 
+# leave empty
+evolution
+#}}}
 # }}}
 
 
