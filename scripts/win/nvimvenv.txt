@@ -1,7 +1,7 @@
 requests
 psutil
 flake8
-isort
+# isort
 jedi
 pynvim
 python-lsp-server[all]
