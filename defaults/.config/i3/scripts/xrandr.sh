@@ -16,7 +16,7 @@ if [[ "$hostname" = "surbook" ]]; then
 
     echo "Xft.dpi: 192" | xrdb -merge
     # Restart polybar
-    $HOME/.config/polybar/scripts/launch.sh
+    "$HOME/.config/polybar/scripts/launch.sh"
     notify-send "xrandr" \
       "Configuration '$1' set!" \
       -a 'arandr'
@@ -34,11 +34,68 @@ if [[ "$hostname" = "surbook" ]]; then
 
     echo "Xft.dpi: 96" | xrdb -merge
     # Restart polybar
-    $HOME/.config/polybar/scripts/launch.sh
+    "$HOME/.config/polybar/scripts/launch.sh"
     notify-send "xrandr" \
       "Configuration '$1' set!" \
       -a 'arandr'
     exit 0
+  fi
+
+  notify-send "xrandr" \
+    "Configuration '$1' not valid" \
+    -u critical -a 'Arandr'
+  exit 2
+fi
+
+if [[ "$hostname" = "aero" ]]; then
+  echo "found surbook"
+  if [[ "$1" = "main" ]]; then
+    echo "setting up main configuration"
+    /usr/bin/xrandr \
+      --dpi 192 \
+      --output eDP --mode 2560x1600 --rate 60 --pos 0x0 --primary \
+      --output HDMI-A-0 --off \
+      --output DisplayPort-0 --off
+
+    echo "Xft.dpi: 192" | xrdb -merge
+    # Restart polybar
+    "$HOME/.config/polybar/scripts/launch.sh"
+    notify-send "xrandr" \
+      "Configuration '$1' set!" \
+      -a 'arandr'
+    exit 0
+  fi
+  if [[ "$1" = "tv" ]]; then
+    echo "setting up tv configuration"
+    /usr/bin/xrandr \
+      --dpi 96 \
+      --output eDP --off \
+      --output HDMI-A-0 --off \
+      --output DisplayPort-0 --mode 3840x2160 --rate 30 --pos 0x0 --primary
+
+    echo "Xft.dpi: 96" | xrdb -merge
+    # Restart polybar
+    "$HOME/.config/polybar/scripts/launch.sh"
+    notify-send "xrandr" \
+      "Configuration '$1' set!" \
+      -a 'arandr'
+    exit 0
+  fi
+  if [[ "$1" = "home_dock" ]]; then
+    echo "setting up home_dock configuration"
+    /usr/bin/xrandr \
+      --dpi 156 \
+      --output eDP --off \
+      --output HDMI-A-0 --off \
+      --output DisplayPort-0 --mode 3840x2160 --rate 30 --pos 0x0 --primary
+
+    echo "Xft.dpi: 156" | xrdb -merge
+    # Restart polybar
+    "$HOME/.config/polybar/scripts/launch.sh"
+    notify-send "xrandr" \
+      "Configuration '$1' set!" \
+      -a 'arandr'
+          exit 0
   fi
 
   notify-send "xrandr" \
@@ -65,7 +122,7 @@ if [[ "$hostname" = "predator" ]]; then
     echo "Xft.dpi: 156" | xrdb -merge
 
     # Restart polybar
-    $HOME/.config/polybar/scripts/launch.sh
+    "$HOME/.config/polybar/scripts/launch.sh"
     notify-send "xrandr" \
       "Configuration '$1' set!" \
       -a 'arandr'
@@ -89,7 +146,7 @@ if [[ "$hostname" = "helios" ]]; then
 
     echo "Xft.dpi: 144" | xrdb -merge
     # Restart polybar
-    $HOME/.config/polybar/scripts/launch.sh
+    "$HOME/.config/polybar/scripts/launch.sh"
     notify-send "xrandr" \
       "Configuration '$1' set!" \
       -a 'arandr'

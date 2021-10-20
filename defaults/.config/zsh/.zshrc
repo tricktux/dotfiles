@@ -54,6 +54,15 @@ setopt HIST_FIND_NO_DUPS
 setopt HIST_SAVE_NO_DUPS
 # setopt HIST_BEEP
 
+function chpwd() {
+    emulate -L zsh
+    if [[ -f /usr/bin/exa ]]; then
+      /usr/bin/exa -bghHliSa
+      return
+    fi
+    ls -als --color=auto
+}
+
 autoload -Uz compinit promptinit
 compinit
 promptinit

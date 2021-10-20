@@ -25,7 +25,8 @@ apps['ranger'] = {
     -- Different commands for different hosts
     ['helios'] = 'scratchpad show, resize set 1820 880, move position center',
     ['predator'] = 'scratchpad show, resize set 3040 1524, move position center',
-    ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center'
+    ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center',
+    ['aero'] = 'scratchpad show, resize set 2188 1459, move position center'
   },
   -- How to start this application if it does not exists
   exec = [[$TERMINAL --title ranger /usr/bin/ranger&]]
@@ -40,7 +41,8 @@ apps['scratch'] = {
     -- Different commands for different hosts
     ['helios'] = 'scratchpad show, resize set 1820 880, move position center',
     ['predator'] = 'scratchpad show, resize set 3040 1524, move position center',
-    ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center'
+    ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center',
+    ['aero'] = 'scratchpad show, resize set 2188 1459, move position center'
   },
   -- How to start this application if it does not exists
   exec = [[$TERMINAL --title scratch $HOME/.config/tmux/scratch.sh&]]
@@ -55,7 +57,8 @@ apps['doublecmd'] = {
     -- Different commands for different hosts
     ['helios'] = 'scratchpad show, resize set 1820 880, move position center',
     ['predator'] = 'scratchpad show, resize set 3040 1524, move position center',
-    ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center'
+    ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center',
+    ['aero'] = 'scratchpad show, resize set 2188 1459, move position center'
   },
   -- How to start this application if it does not exists
   exec = [[/usr/bin/doublecmd&]]
@@ -68,7 +71,8 @@ apps['journal'] = {
   -- Command to execute for this window
   i3cmd = {
     -- Different commands for different hosts
-    ['surbook'] = 'scratchpad show, resize set 1588 1459, move position center'
+    ['surbook'] = 'scratchpad show, resize set 1588 1459, move position center',
+    ['aero'] = 'scratchpad show, resize set 1588 1459, move position center'
   },
   -- How to start this application if it does not exists
   exec = [[$TERMINAL --title journal $HOME/.config/i3/scripts/journal.sh&]]
@@ -83,7 +87,8 @@ apps['neomutt'] = {
     -- Different commands for different hosts
     ['helios'] = 'scratchpad show, resize set 1320 880, move position center',
     ['predator'] = 'scratchpad show, resize set 3040 1524, move position center',
-    ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center'
+    ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center',
+    ['aero'] = 'scratchpad show, resize set 2188 1459, move position center'
   },
   -- How to start this application if it does not exists
   exec = [[$TERMINAL --title neomutt $HOME/.config/tmux/neomutt.sh&]]
@@ -98,7 +103,8 @@ apps['evolution'] = {
     -- Different commands for different hosts
     ['helios'] = 'scratchpad show, resize set 1320 880, move position center',
     ['predator'] = 'scratchpad show, resize set 3040 1524, move position center',
-    ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center'
+    ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center',
+    ['aero'] = 'scratchpad show, resize set 2188 1459, move position center'
   },
   -- How to start this application if it does not exists
   exec = [[/usr/bin/evolution&]]
@@ -113,7 +119,8 @@ apps['terminal'] = {
     -- Different commands for different hosts
     ['helios'] = 'scratchpad show, resize set 960 1019, move position 960 px 32 px',
     ['predator'] = 'scratchpad show, resize set 1920 2038, move position 1920 px 60 px',
-    ['surbook'] = 'scratchpad show, resize set 1368 1730, move position 1368 px 48 px'
+    ['surbook'] = 'scratchpad show, resize set 1368 1730, move position 1368 px 48 px',
+    ['aero'] = 'scratchpad show, resize set 1368 1730, move position 1368 px 48 px'
   },
   -- How to start this application if it does not exists
   exec = [[$TERMINAL --title terminal -o background_opacity=0.9 /usr/bin/tmux&]]
@@ -128,7 +135,8 @@ apps['bottom'] = {
     -- Different commands for different hosts
     ['helios'] = 'scratchpad show, resize set 1820 880, move position center',
     ['predator'] = 'scratchpad show, resize set 3040 1524, move position center',
-    ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center'
+    ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center',
+    ['aero'] = 'scratchpad show, resize set 2188 1459, move position center'
   },
   -- How to start this application if it does not exists
   exec = [[$TERMINAL --title bottom /usr/bin/btm&]]
@@ -143,7 +151,8 @@ apps['spotify'] = {
     -- Different commands for different hosts
     ['helios'] = 'scratchpad show, resize set 1320 880, move position center',
     ['predator'] = 'scratchpad show, resize set 3040 1424, move position center',
-    ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center'
+    ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center',
+    ['aero'] = 'scratchpad show, resize set 2188 1459, move position center'
   },
   -- How to start this application if it does not exists
   exec = [[/usr/bin/spotify&]]
@@ -158,7 +167,8 @@ apps['tickrs'] = {
     -- Different commands for different hosts
     ['helios'] = 'scratchpad show, resize set 1820 880, move position center',
     ['predator'] = 'scratchpad show, resize set 3040 1524, move position center',
-    ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center'
+    ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center',
+    ['aero'] = 'scratchpad show, resize set 2188 1459, move position center'
   },
   -- How to start this application if it does not exists
   exec = [[$TERMINAL --title tickrs /usr/bin/tickrs&]]
@@ -173,7 +183,8 @@ apps['whatsapp'] = {
     -- Different commands for different hosts
     ['helios'] = 'scratchpad show, resize set 1820 880, move position center',
     ['predator'] = 'scratchpad show, resize set 3040 1524, move position center',
-    ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center'
+    ['surbook'] = 'scratchpad show, resize set 2188 1459, move position center',
+    ['aero'] = 'scratchpad show, resize set 2188 1459, move position center'
   },
   -- How to start this application if it does not exists
   exec = [[/usr/bin/firefox https://web.whatsapp.com https://messages.google.com/web&]]

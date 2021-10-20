@@ -88,6 +88,8 @@ sudo bash -c \
 
 # Copy your `mirrorlist`:
 scp /etc/pacman.d/mirrorlist reinaldo@192.168.1.194:/home/reinaldo/mirrorlist
+sudo mv /etc/pacman.d/mirrorlist{,.bak}
+sudo mv /home/reinaldo/mirrorlist /etc/pacman.d/mirrorlist
 
 # install `paru`{{{
 # From this point on you need to login as your user
@@ -109,6 +111,8 @@ mkdir -p ~/Documents
 mkdir -p ~/.local/share/Trash/files
 cd ~/.config
 git clone https://github.com/tricktux/dotfiles
+# NOTE: Change link to: ssh://github/tricktux/dotfiles
+nvim "$HOME/.config/dotfiles/.git"
 # Install needed software
 paru -S stow
 # So that you don't loose the hostname command
@@ -124,6 +128,7 @@ cd ~/.config/dotfiles
 stow -t /home/reinaldo -S defaults 
 # Check that all went well
 ls -als ~/ 
+ls -als ~/.config
 # Get your aliases
 source ~/.bash_aliases 
 # Pass nvim config to root user as well to make `sudo nvim` usable
@@ -186,6 +191,9 @@ paci --needed --noconfirm zsh
 paci --needed --noconfirm pkgfile z-git \
   zsh-theme-powerlevel10k zsh-autosuggestions \
   zsh-history-substring-search zsh-syntax-highlighting
+chsh -s /usr/bin/zsh
+export ZDOTDIR=$HOME/.config/zsh
+zsh
 
 # pkgfile needs to be updated
 sudo systemctl enable pkgfile-update.timer
@@ -194,7 +202,7 @@ sudo systemctl enable pkgfile-update.timer
 # Also update it to wait for network by adding to [Unit]
 # Wants=network-online.target
 # After=network-online.target nss-lookup.target
-sudo vim /usr/lib/systemd/system/pkgfile-update.timer
+sudo nvim /usr/lib/systemd/system/pkgfile-update.timer
 sudo systemctl start pkgfile-update.service
 # symlink all the `zsh*` files
 #}}}
@@ -208,6 +216,7 @@ sudo bash -c 'printf "\n--number 5" >> /etc/xdg/reflector/reflector.conf'
 sudo bash -c 'printf "\n--sort rate" >> /etc/xdg/reflector/reflector.conf'
 sudo bash -c 'printf "\n--country \"United States\"" >> /etc/xdg/reflector/reflector.conf'
 sudo bash -c 'printf "\n--info" >> /etc/xdg/reflector/reflector.conf'
+sudo nvim /etc/xdg/reflector/reflector.conf
 sudo systemctl enable --now reflector.timer
 sudo systemctl start reflector.timer
 sudo systemctl status reflector.timer
@@ -238,6 +247,7 @@ sudo nvim /boot/loader/entries/arch.conf
 # Protects from running out of memory{{{
 paci --needed --noconfirm earlyoom
 sudo systemctl enable --now earlyoom
+sudo systemctl status earlyoom
 #}}}
 
 # Video card{{{
@@ -250,13 +260,14 @@ lspci -k | grep -A 2 -i "VGA"
 # Also add the ParallelDownloads = 5 option
 # Also uncomment Color option
 # Also add ILoveCandy option
-sudo vim /etc/pacman.conf
+sudo nvim /etc/pacman.conf
 sudo pacman -Sy
 # install 32-bit programs
 # Mon Sep 18 2017 22:46: Also dont forget to update and uncomment both lines, multilib and Include 
 # **Nvidia drivers**
 # [Instructions](https://wiki.archlinux.org/index.php/NVIDIA)
 # ***LTS*** needed if you are running linux-lts
+# NVIDIA {{{
 paci --needed --noconfirm nvidia-lts
 # Otherwise use this one....**DO NOT USE BOTH**
 paci --needed --noconfirm nvidia
@@ -291,6 +302,16 @@ sudo tee /proc/acpi/bbswitch <<< {ON,OFF}
 # checkout [this][1] link for hardware acceleration
 #}}}
 
+# AMD
+paci --needed --noconfirm lib32-mesa mesa
+paci --needed --noconfirm xf86-video-amdgpu
+paci --needed --noconfirm lib32-vulkan-radeon vulkan-radeon vulkan-mesa-layers
+paci --needed --noconfirm lib32-libva-mesa-driver libva-mesa-driver \
+  mesa-vdpau lib32-mesa-vdpau
+paci --needed --noconfirm radeontop
+
+#}}}
+
 # terminal utils{{{
 paci --needed --noconfirm acpi lm_sensors liquidprompt tldr
 paci --needed --noconfirm {ttf,otf}-fira-{code,mono} {ttf,otf}-font-awesome \
@@ -298,7 +319,7 @@ paci --needed --noconfirm {ttf,otf}-fira-{code,mono} {ttf,otf}-font-awesome \
 paci --needed --noconfirm ttf-inconsolata
 paci --needed --noconfirm xorg-xfontsel gtk2fontsel
 # Package doesn't exist anymore thumbnailer 
-paci --needed --noconfirm atool ranger zip unzip w3m ffmpeg highlight libcaca python-pillow
+paci --needed --noconfirm atool ranger-git zip unzip w3m ffmpeg highlight libcaca python-pillow
 # Not installing anymore: advcp 
 paci --needed --noconfirm mediainfo odt2txt poppler w3m bat exa fzf fd \
   ripgrep tmux imagemagick ghostscript xclip
@@ -314,6 +335,8 @@ paci --needed --noconfirm rust go
 
 # kitty
 paci --needed --noconfirm kitty termite
+cp "$HOME"/.config/kitty/{predator,"$(hostname)"}.conf
+nvim "$HOME/.config/kitty/$(hostname).conf"
 # Depends on rust
 # Causes all kinds of problems
 # paci page-git
@@ -348,7 +371,7 @@ chmod 644 -f ~/.ssh/*.pub ~/.ssh/authorized_keys ~/.ssh/known_hosts
 # chmod 700 -R ~/.gnupg/*
 
 sudo mkdir -p /etc/samba/credentials
-sudo vim /etc/samba/credentials/share
+sudo nvim /etc/samba/credentials/share
 # - format:
 # - `username=X`
 # - `password=Y`
@@ -360,15 +383,16 @@ sudo chmod 600 /etc/samba/credentials/share
 paci --needed --noconfirm cifs-utils
 sudo mount -t cifs //192.168.1.138/home ~/.mnt/skywafer/home -o credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev
 mkdir -p ~/Documents
-ln -s ~/.mnt/skywafer/home/Drive/wiki ~/Documents
+# ln -s ~/.mnt/skywafer/home/Drive/wiki ~/Documents
+paci --needed --noconfirm synology-drive
 #}}}
 
 # openvpn {{{
-paci --needed openvpn
+paci --needed --noconfirm openvpn
 # Test it
-sudo openvpn ~/Documents/wiki/misc/home.ovpn
-sudo cp /home/reinaldo/Documents/wiki/misc/home.ovpn /etc/openvpn/client/home.conf
-# Edit config and add pass.conf to the uth-user-pass line
+sudo openvpn ~/Documents/Drive/wiki/misc/home.ovpn
+sudo cp /home/reinaldo/Documents/Drive/wiki/misc/home.ovpn /etc/openvpn/client/home.conf
+# Edit config and add pass.conf to the auth-user-pass line
 sudo nvim /etc/openvpn/client/home.conf
 # Then create the file
 sudo nvim /etc/openvpn/client/pass.conf
@@ -390,7 +414,7 @@ paci --needed --noconfirm --needed rofi-pass
 # pass-import most likely you'll have to download from git page
 gpg --recv-keys 06A26D531D56C42D66805049C5469996F0DF68EC
 paci --needed --noconfirm python-pykeepass
-paci --needed --noconfirm pass keepass pass-import
+paci --needed --noconfirm pass keepassxc pass-import
 ## Root passwd
 # - ~~`install openssh-askpass`~~
 # - Tue Mar 26 2019 08:53
@@ -426,16 +450,20 @@ paci --needed --noconfirm numlockx
 
 # Network Manager{{{
 paci --needed --noconfirm networkmanager network-manager-applet networkmanager-openvpn
-pacu networkmanager network-manager-applet networkmanager-openvpn
+pacu networkmanager network-manager-applet networkmanager-openvpn networkmanager-dmenu-git 
 sudo systemctl enable NetworkManager.service
 #}}}
 
 # i3-wm{{{
-paci --needed --noconfirm i3-gaps i3lock-fancy-git rofi rofi-dmenu alttab xdotool 
+cp "$HOME"/.config/rofi/{predator,"$(hostname)"}.rasi
+nvim "$HOME/.config/rofi/$(hostname).rasi"
+# Action also update the xdotool script for the new hostname
+nvim "$HOME/.config/i3/scripts/xdotool_launch"
+paci --needed --noconfirm i3-gaps i3lock-fancy-git rofi rofi-dmenu alttab-git xdotool 
 paci --needed --noconfirm feh redshift qrencode xclip dunst libnotify
 paci --needed --noconfirm scrot flameshot
 # Replacement for htop. Execute: btm
-paci --needed --noconfirm bottom-bin
+paci --needed --noconfirm bottom
 # Compton changed name to picom
 paci --needed --noconfirm picom
 paci --needed --noconfirm xss-lock
@@ -446,16 +474,19 @@ paci --needed --noconfirm xss-lock
 #}}}
 
 # rofi extra goodies
-paci --needed --noconfirm rofi-{emoji,bluetooth-git} networkmanager-dmenu-git 
+paci --needed --noconfirm rofi-{emoji,bluetooth-git}
 paci --needed --noconfirm noto-fonts-emoji
 
 # synology nfs and backups
 # paci --needed
 
 # polybar{{{
+# NOTE: For new hostnames you will to tweak polybar/config and 
+# polybar/modules.ini
 paci --needed --noconfirm jsoncpp polybar alsa-utils paprefs
 paci --needed --noconfirm alsa-lib wireless_tools curl pacman-contrib
-paci --needed --noconfirm nerd-fonts-iosevka ttf-weather-icons jq
+paci --needed --noconfirm ttf-weather-icons jq
+paci --needed --noconfirm nerd-fonts-iosevka
 paci --needed --noconfirm python-pywal
 wal --theme base16-google -l -q -o "$HOME/.config/polybar/launch.sh"
 # usb automount
@@ -469,8 +500,13 @@ sudo install -Dm644 /home/reinaldo/.config/polybar/scripts/95-usb.rules \
 # xorg{{{
 # Multi Monitor setup, or for HiDPI displays it's best to auto calculate 
 # resolution
-paci --needed --noconfirm xorg-xrandr arandr xdisplaylayout
+paci --needed --noconfirm xorg-xrandr arandr xlayoutdisplay
 paci --needed --noconfirm xorg xorg-apps xorg-xinit xorg-drivers xorg-server
+/usr/bin/xlayoutdisplay
+# ACTION: Copy output and paste it there
+nvim "$HOME/.config/xprofile-$(hostname)"
+# ACTION: Now is also a good time to add that hostname there
+nvim "$HOME/.config/i3/scripts/xrandr.sh"
 # `xorg autologin`
 paci --needed --noconfirm lightdm
 sudo systemctl enable lightdm
@@ -482,7 +518,7 @@ sudo gpasswd -a reinaldo autologin
 
 # Create
 # Valid session names under /usr/share/xsessions/*.desktop
-sudo vim /etc/lightdm/lightdm.conf
+sudo nvim /etc/lightdm/lightdm.conf
 
 # [Seat:*]
 # autologin-user=reinaldo
@@ -674,13 +710,22 @@ spicetify apply
 #}}}
 
 # email {{{
-# protonmail-bridge 
+# neomutt {{{
 paci --needed --noconfirm neomutt abook urlscan lynx \
   isync goimapnotify
 # Needed to backup emails
 # paci --needed --noconfirm offlineimap
 mkdir -p ~/mail/{molinamail,molinamail_meli}/inbox
 /usr/bin/mbsync -D -ac ~/.config/isync/mbsyncrc
+#}}}
+
+# evolution {{{
+paci --needed --noconfirm evolution gnome-keyring libsecret
+# ACTION: setup empty password so that `lightdm` can unlock the `keyring` at login
+# Run through the normal setup and when the "Default Keyring" setup comes, just 
+# leave empty
+evolution
+#}}}
 # }}}
 
 
@@ -735,7 +780,7 @@ sudo systemctl enable --now bluetooth
 
 # Tue Mar 26 2019 08:58
 # Auto clean up
-sudo vim /etc/systemd/journald.conf
+sudo nvim /etc/systemd/journald.conf
 # Add or uncomment `SystemMaxUse=2G`
 
 # Browser{{{
