@@ -30,6 +30,11 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 #k::CenterActiveWindowUp() ; if win+shift+↑ is pressed
 #j::CenterActiveWindowDown() ; if win+shift+↑ is pressed
+#m::WinMinimize, A
+^!m::Send, {Volume_Mute}
+^!j::Send, {Volume_Down}
+^!k::Send, {Volume_Up}
+^!h::Send, {Media_Play_Pause}
 
 #n::ToggleWinMinimize("Double Commander")
 #;::ToggleWinMinimize("Cmd")
