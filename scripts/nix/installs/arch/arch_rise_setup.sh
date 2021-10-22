@@ -769,10 +769,11 @@ paci --needed --noconfirm android-tools android-udev
 ## Pipewire
 paci --needed --noconfirm pipewire pipewire-{pulse,jack,alsa}
 ## PulseAudio
-paci --needed --noconfirm pulseaudio pulseaudio-{bluetooth,jack,alsa,equalizer}
+# paci --needed --noconfirm pulseaudio pulseaudio-{bluetooth,jack,alsa,equalizer}
 
 #Blue
 paci --needed --noconfirm  bluez bluez-libs bluez-utils bluez-firmware
+paci --needed --noconfirm  blueman
 sudo systemctl enable --now bluetooth
 #}}}
 
