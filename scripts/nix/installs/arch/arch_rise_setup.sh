@@ -492,9 +492,8 @@ paci --needed --noconfirm nerd-fonts-iosevka
 paci --needed --noconfirm python-pywal
 wal --theme base16-google -l -q -o "$HOME/.config/polybar/launch.sh"
 # usb automount
-# Removing pcmanfm
 # There's a polybar module that will be used to mount/umount devices
-paci --needed --noconfirm gvfs-mtp gvfs-gphoto2 udisks2
+paci --needed --noconfirm gvfs-mtp gvfs-gphoto2 udisks2 pcmanfm
 sudo install -Dm644 /home/reinaldo/.config/polybar/scripts/95-usb.rules \
   /etc/udev/rules.d/95-usb.rules
 #}}}
