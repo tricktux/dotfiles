@@ -835,6 +835,9 @@ sudo systemctl enable --now cups.socket
 #}}}
 
 # Misc{{{
+ 
+# anki
+paci --needed --noconfirm anki-official-binary-bundle
 ## 💲 Stonks {{{
 paci --needed --noconfirm tickrs
 #}}}
