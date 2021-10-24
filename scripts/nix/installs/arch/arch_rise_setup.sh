@@ -541,7 +541,7 @@ paci --needed --noconfirm meld
 paci --needed --noconfirm glow
 # for documentation
 paci --needed --noconfirm zeal
-paci --needed --noconfirm pandoc-{,citeproc-,crossref-}bin
+paci --needed --noconfirm pandoc-bin
 # - run the `dotfiles/scripts/python_neovim_virtualenv.sh` script
 # to get `/usr/share/dict` completion
 paci --needed --noconfirm plantuml words
