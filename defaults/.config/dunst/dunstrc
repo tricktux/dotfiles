@@ -322,7 +322,7 @@
 
     # Context menu. Equivalent dunstctl command:
     # dunstctl context
-    # context = ctrl+shift+period
+    context = ctrl+shift+period
 
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
