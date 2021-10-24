@@ -684,6 +684,9 @@ paci --needed --noconfirm pamixer alsa-lib libao libcdio libcddb libvorbis \
   libmpcdec wavpack libmad libmodplug libmikmod pavucontrol
 paci --needed --noconfirm mpv
 
+# Download music
+paci --needed --noconfirm python-spotdl
+
 paci --needed --noconfirm spotify
 # Spotify theme
 paci --needed --noconfirm spicetify-{cli,themes-git}
