@@ -166,7 +166,9 @@ paci --needed --noconfirm arch-audit
 
 # pacman helpers{{{
 # Thu Apr 08 2021 14:43: NOTE: Don't do this anymore
-paci --needed --noconfirm ancient-packages informant 
+paci --needed --noconfirm informant 
+paci --needed --noconfirm ancient-packages
+  informant 
 # NOTE: Add yourself to group "informant" to avoid the need for sudo
 sudo gpasswd -a reinaldo informant
 # List recent news
