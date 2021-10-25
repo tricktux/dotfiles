@@ -15,6 +15,7 @@ base
 bat
 binutils
 bison
+blueman
 bluez
 bottom
 capitaine-cursors
@@ -101,6 +102,7 @@ linux-firmware
 linux-headers
 lldb
 lm_sensors
+lua-language-server
 lvm2
 lxappearance
 lxqt-openssh-askpass
@@ -112,6 +114,7 @@ meld
 mesa-vdpau
 mkinitcpio
 mosh
+mplayer
 mpv
 namcap
 neomutt
@@ -127,11 +130,13 @@ otf-font-awesome
 pacman
 pacman-contrib
 pamixer
+papirus-icon-theme
 paprefs
 parted
 pass
 patch
 pavucontrol
+pcmanfm
 pdfgrep
 picom
 pipewire
@@ -159,6 +164,7 @@ reflector
 ripgrep
 rofi-emoji
 rofi-pass
+rsync
 rust
 rust-analyzer
 scrot
@@ -191,6 +197,7 @@ ttf-inconsolata
 udisks2
 unzip
 urlscan
+vi
 vulkan-mesa-layers
 vulkan-radeon
 w3m
