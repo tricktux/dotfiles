@@ -129,6 +129,7 @@ function M:config()
   self:ins_left{
     'filename',
     file_status = true,
+    path = 1,
     condition = self.__conditions.buffer_not_empty,
     color = {fg = self.colors.magenta, gui = 'bold'}
   }
@@ -137,6 +138,12 @@ function M:config()
     function() return vim.fn['linting#neomake_native_status_line']() end,
     color = {fg = self.colors.yellow, gui = 'bold'},
     right_padding = 0
+  }
+
+  self:__ins_right{
+    'filetype',
+    colored = true,
+    icon_only = false
   }
 
   self:__ins_right{'location', right_padding = 0}
