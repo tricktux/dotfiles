@@ -13,6 +13,7 @@ function M.setup()
     return
   end
 
+  require('nvim-treesitter.install').compilers = { "clang" }
   -- local ts = require'nvim-treesitter'
   local tsconf = require 'nvim-treesitter.configs'
 
