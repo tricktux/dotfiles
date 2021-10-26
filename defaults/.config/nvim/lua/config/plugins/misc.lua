@@ -164,6 +164,20 @@ function M.setup_zen_mode()
   }
 end
 
+function M.setup_gpsnvim()
+  local gps = require('nvim-gps')
+  gps.setup{
+    --[[ icons = {},
+    -- Disable languages here
+    languages = {},
+    separator = ' > ' ]]
+  }
+  line:ins_left{
+    gps.get_location, condition = gps.is_available
+  }
+
+end
+
 function M.setup_focus()
   -- Initially mappings are enabled
   local focus = require('focus')

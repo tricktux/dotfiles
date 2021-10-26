@@ -430,6 +430,12 @@ function M:__setup()
     config = function() require('config.plugins.misc'):setup_diffview() end
   }
 
+  use {
+    "SmiteshP/nvim-gps",
+    requires = "nvim-treesitter/nvim-treesitter",
+    config = function() require('config.plugins.misc'):setup_gpsnvim() end
+  }
+
   -- Keep this setup last. So that it finalizes the lualine config
   use {
     'hoob3rt/lualine.nvim',
