@@ -54,7 +54,7 @@ update_polybar_python_venv() {
   python -m venv "$venv_loc/$venv_name" \
     --symlinks --clear
   source "$venv_loc/$venv_name/bin/activate"
-  pip3 install --upgrade ${pkgs[*]}
+  pip3 install --upgrade "${pkgs[*]}"
   deactivate
 }
 
@@ -76,7 +76,7 @@ update_pynvim() {
   python -m venv "$venv_loc/$venv_name" \
     --symlinks --clear
   source "$venv_loc/$venv_name/bin/activate"
-  pip3 install --ignore-installed --upgrade ${pkgs[*]}
+  pip3 install --ignore-installed --upgrade "${pkgs[*]}"
   deactivate
 }
 
@@ -94,8 +94,8 @@ update_pandoc_bin() {
 save_pkg_list_to_dotfiles() {
   local PACMANFILE="$XDG_CONFIG_HOME/dotfiles/pkg/$(hostname)/pacman-list.pkg"
   local AURFILE="$XDG_CONFIG_HOME/dotfiles/pkg/$(hostname)/aur-list.pkg"
-  pacman -Qqen >$PACMANFILE
-  pacman -Qqem >$AURFILE
+  pacman -Qqen >"$PACMANFILE"
+  pacman -Qqem >"$AURFILE"
 }
 
 update_pihole() {
@@ -112,16 +112,16 @@ msg "${CYAN}${BOLD}" "========== Welcome! To the Arch Maintnance Script! ðŸ’ªðŸ˜
 # Backups first, since most likely they'll be kernel update and that messes up
 # everything
 msg_not "${BLUE}${BOLD}" "==> Back up important folders? [y/N]"
-read yn
+read -r yn
 case $yn in
 [Yy]*) sudo "$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_home.sh" ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Back up the mail server (~30mins)? [y/N]"
-read yn
+read -r yn
 case $yn in
 [Yy]*)
   "$TERMINAL" sudo \
-    $XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_digital_ocean.sh &
+    "$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_digital_ocean.sh" &
   ;;
 esac
 # TODO: Semi Automate this process
@@ -133,11 +133,11 @@ esac
 # ;;
 # esac
 msg_not "${BLUE}${BOLD}" "==> Back up emails (~15mins)? [y/N]"
-read yn
+read -r yn
 case $yn in
 [Yy]*)
   "$TERMINAL" sudo \
-    $XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_mail.sh &
+    "$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_mail.sh" &
   ;;
 esac
 
@@ -166,16 +166,16 @@ fi
 if [[ -f /usr/bin/ancient-packages ]] && [[ $(/usr/bin/ancient-packages -q) ]]; then
   /usr/bin/ancient-packages
   msg_not "${CYAN}${BOLD}" "==> Remove ancient packages? [y/N]"
-  read yn
+  read -r yn
   case $yn in
-  [Yy]*) $aur_helper -Rscn $(ancient-packages -q) ;;
+  [Yy]*) $aur_helper -Rscn "$(ancient-packages -q)" ;;
   esac
 fi
 
 msg "${CYAN}${BOLD}" "==> Checking for orphan packages...   "
 if [[ $(/usr/bin/pacman -Qtdq) ]]; then
   msg_not "${CYAN}${BOLD}" "==> Please clean orphan packages...   "
-  sudo /usr/bin/pacman -Rns $(/usr/bin/pacman -Qtdq) || echo "...  Or not..."
+  sudo /usr/bin/pacman -Rns "$(/usr/bin/pacman -Qtdq)" || echo "...  Or not..."
 fi
 
 msg "${CYAN}${BOLD}" "==> Clean up pacman's cache...   "
@@ -190,14 +190,14 @@ journalctl -p 3 -xb
 read -n1 -r key
 
 msg_not "${BLUE}${BOLD}" "==> Update pihole? [y/N]"
-read yn
+read -r yn
 case $yn in
 [Yy]*)
   kitty +kitten ssh root@192.168.1.107
   ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Update mail server? [y/N]"
-read yn
+read -r yn
 case $yn in
 [Yy]*)
   kitty +kitten ssh digital_ocean
@@ -210,7 +210,7 @@ case $yn in
   ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Remove junk? [y/N]"
-read yn
+read -r yn
 case $yn in
 [Yy]*)
   msg "${CYAN}${BOLD}" "==> Please close all applications..."
@@ -220,12 +220,12 @@ case $yn in
   # Clean trash
   gio trash --empty
   # Restore pywal cache files
-  $XDG_CONFIG_HOME/polybar/scripts/flux_/flux -c \
-    $XDG_CONFIG_HOME/polybar/scripts/flux_/flux_config.lua -f day
+  "$XDG_CONFIG_HOME/polybar/scripts/flux_/flux" -c \
+    "$XDG_CONFIG_HOME/polybar/scripts/flux_/flux_config.lua" -f day
   ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Remove browser junk? [y/N]"
-read yn
+read -r yn
 case $yn in
 [Yy]*)
   msg "${CYAN}${BOLD}" "==> Please close browsers...   "
@@ -254,27 +254,27 @@ case $yn in
   ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Update python polybar env? [y/N]"
-read yn
+read -r yn
 case $yn in
 [Yy]*) update_polybar_python_venv ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Update neovim pyvenv? [y/N]"
-read yn
+read -r yn
 case $yn in
 [Yy]*) update_pynvim ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Update neovim plugins? [y/N]"
-read yn
+read -r yn
 case $yn in
 [Yy]*) update_nvim_plugins ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Update neovim nightly? [y/N]"
-read yn
+read -r yn
 case $yn in
 [Yy]*) $aur_helper -S neovim-nightly-bin ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Diff ranger config with default? [y/N]"
-read yn
+read -r yn
 case $yn in
 [Yy]*)
   nvim -d /usr/share/doc/ranger/config/rc.conf \
@@ -282,7 +282,7 @@ case $yn in
   ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Diff i3 config with default? [y/N]"
-read yn
+read -r yn
 case $yn in
 [Yy]*)
   nvim -d /etc/i3/config \
@@ -290,7 +290,7 @@ case $yn in
   ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Diff picom config with default? [y/N]"
-read yn
+read -r yn
 case $yn in
 [Yy]*)
   nvim -d /etc/xdg/picom.conf \
@@ -298,7 +298,7 @@ case $yn in
   ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Diff kitty config with default? [y/N]"
-read yn
+read -r yn
 case $yn in
 [Yy]*)
   curl -fsSL \
@@ -309,7 +309,7 @@ case $yn in
   ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Diff dunst config with default? [y/N]"
-read yn
+read -r yn
 case $yn in
 [Yy]*)
   nvim -d /etc/dunst/dunstrc \
@@ -317,7 +317,7 @@ case $yn in
   ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Install update npm/md2apkg? [y/N]"
-read yn
+read -r yn
 case $yn in
 [Yy]*)
   # TODO: Check first if npm is installed
@@ -325,7 +325,7 @@ case $yn in
   ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Update pandoc extras? [y/N]"
-read yn
+read -r yn
 case $yn in
 [Yy]*) update_pandoc_bin ;;
 esac
@@ -334,7 +334,7 @@ read -n1 -r key
 
 for job in $(jobs -p); do
   msg_not "${BLUE}${BOLD}" "==> Waiting for job: ${job} to finish...   "
-  wait $job
+  wait "$job"
 done
 msg_not "${BLUE}${BOLD}" "==> Thanks for flying arch updates!"
 read -n1 -r key

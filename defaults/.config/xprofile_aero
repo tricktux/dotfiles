@@ -5,3 +5,4 @@ xrandr \
  --output DisplayPort-0 --off
 
 echo "Xft.dpi: 192" | xrdb -merge
+echo "Xcursor.size: 48" | xrdb -merge

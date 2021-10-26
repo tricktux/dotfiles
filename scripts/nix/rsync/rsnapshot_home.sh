@@ -54,35 +54,39 @@ echo >&2 -e "${CYAN}${BOLD}==>Backing up home<==${NOFORMAT}"
 tar -cjf /tmp/pacman_database.tar.bz2 /var/lib/pacman/local
 SRC="/home/reinaldo/.gnupg /home/reinaldo/.ssh /home/reinaldo/.password-store /tmp/pacman_database.tar.bz2"
 # Needs full path since its run as sudo
-SNAP="/home/reinaldo/.mnt/skynfs/$HOSTNAME"
+BASE="/home/reinaldo/.mnt/skynfs"
+SNAP="$BASE/$HOSTNAME"
 OPTS="-rltgoi --delay-updates --delete --chmod=a-w --copy-links --mkpath"
 MINCHANGES=20
-CIFS_OPTIONS=credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,noauto,_netdev,nolock
-SKYWAFER="//192.168.1.138/homes"
+# CIFS_OPTIONS=credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,noauto,_netdev,nolock
+# SKYWAFER="//192.168.1.138/homes"
 
 # Mount homes if not mounted before
-if ! [ "$(ls -A $SNAP)" ]; then
+if ! [ "$(ls -A "$BASE")" ]; then
   # Ensure folder exists
-  msg_error "==> Backup destination not available..."
+  msg_error "==> Backup destination ($BASE) not available..."
   exit 1
   # TODO: Try to mount it
   # sudo mount -t cifs "$SKYWAFER" "$DIR" -o "$CIFS_OPTIONS"
   # mkdir -p "$SNAP"
 fi
 
+mkdir -p "$SNAP"
+mkdir -p "$SNAP/latest"
+
 rsync $OPTS $SRC $SNAP/latest >>$SNAP/rsync.log
 
 # check if enough has changed and if so
 # make a hardlinked copy named as the date
 
-COUNT=$(wc -l $SNAP/rsync.log | cut -d" " -f1)
+COUNT=$(wc -l "$SNAP/rsync.log" | cut -d" " -f1)
 if [ "$COUNT" -gt "$MINCHANGES" ]; then
   msg "${CYAN}${BOLD}" "==> [rsync_backup]: Creating new snapshot..."
   DATETAG=$(date +%Y-%m-%d)
-  if [ ! -e $SNAP/$DATETAG ]; then
-    cp -al $SNAP/latest $SNAP/$DATETAG
-    chmod u+w $SNAP/$DATETAG
-    mv $SNAP/rsync.log $SNAP/$DATETAG
-    chmod u-w $SNAP/$DATETAG
+  if [ ! -e "$SNAP/$DATETAG" ]; then
+    cp -al "$SNAP/latest" "$SNAP/$DATETAG"
+    chmod u+w "$SNAP/$DATETAG"
+    mv "$SNAP/rsync.log" "$SNAP/$DATETAG"
+    chmod u-w "$SNAP/$DATETAG"
   fi
 fi

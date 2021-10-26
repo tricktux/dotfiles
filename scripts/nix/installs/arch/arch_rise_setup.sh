@@ -166,7 +166,9 @@ paci --needed --noconfirm arch-audit
 
 # pacman helpers{{{
 # Thu Apr 08 2021 14:43: NOTE: Don't do this anymore
-paci --needed --noconfirm ancient-packages informant 
+paci --needed --noconfirm informant 
+paci --needed --noconfirm ancient-packages
+  informant 
 # NOTE: Add yourself to group "informant" to avoid the need for sudo
 sudo gpasswd -a reinaldo informant
 # List recent news
@@ -365,10 +367,10 @@ sudo cp -r \
   /home/reinaldo
 sudo chown -R reinaldo: ~/.{ssh,password-store,gnupg}
 chmod 700 ~/.ssh
-chmod 600 ~/.ssh/*
+chmod 600 -R ~/.ssh/*
 chmod 644 -f ~/.ssh/*.pub ~/.ssh/authorized_keys ~/.ssh/known_hosts
-# chmod 700 -R ~/.password-store/*
-# chmod 700 -R ~/.gnupg/*
+chmod 700 -R ~/.password-store
+chmod 700 -R ~/.gnupg
 
 sudo mkdir -p /etc/samba/credentials
 sudo nvim /etc/samba/credentials/share
@@ -490,9 +492,8 @@ paci --needed --noconfirm nerd-fonts-iosevka
 paci --needed --noconfirm python-pywal
 wal --theme base16-google -l -q -o "$HOME/.config/polybar/launch.sh"
 # usb automount
-# Removing pcmanfm
 # There's a polybar module that will be used to mount/umount devices
-paci --needed --noconfirm gvfs-mtp gvfs-gphoto2 udisks2
+paci --needed --noconfirm gvfs-mtp gvfs-gphoto2 udisks2 pcmanfm
 sudo install -Dm644 /home/reinaldo/.config/polybar/scripts/95-usb.rules \
   /etc/udev/rules.d/95-usb.rules
 #}}}
@@ -539,7 +540,7 @@ paci --needed --noconfirm meld
 paci --needed --noconfirm glow
 # for documentation
 paci --needed --noconfirm zeal
-paci --needed --noconfirm pandoc-{,citeproc-,crossref-}bin
+paci --needed --noconfirm pandoc-bin
 # - run the `dotfiles/scripts/python_neovim_virtualenv.sh` script
 # to get `/usr/share/dict` completion
 paci --needed --noconfirm plantuml words
@@ -682,6 +683,9 @@ paci --needed --noconfirm pamixer alsa-lib libao libcdio libcddb libvorbis \
   libmpcdec wavpack libmad libmodplug libmikmod pavucontrol
 paci --needed --noconfirm mpv
 
+# Download music
+paci --needed --noconfirm python-spotdl
+
 paci --needed --noconfirm spotify
 # Spotify theme
 paci --needed --noconfirm spicetify-{cli,themes-git}
@@ -769,10 +773,11 @@ paci --needed --noconfirm android-tools android-udev
 ## Pipewire
 paci --needed --noconfirm pipewire pipewire-{pulse,jack,alsa}
 ## PulseAudio
-paci --needed --noconfirm pulseaudio pulseaudio-{bluetooth,jack,alsa,equalizer}
+# paci --needed --noconfirm pulseaudio pulseaudio-{bluetooth,jack,alsa,equalizer}
 
 #Blue
 paci --needed --noconfirm  bluez bluez-libs bluez-utils bluez-firmware
+paci --needed --noconfirm  blueman
 sudo systemctl enable --now bluetooth
 #}}}
 
@@ -832,6 +837,9 @@ sudo systemctl enable --now cups.socket
 #}}}
 
 # Misc{{{
+ 
+# anki
+paci --needed --noconfirm anki-official-binary-bundle
 ## 💲 Stonks {{{
 paci --needed --noconfirm tickrs
 #}}}

@@ -20,9 +20,11 @@ fi
 if [[ -f /usr/bin/nvtop ]]; then
   /usr/bin/tmux new-window -d -t $session -n 'nvtop' '/usr/bin/nvtop'
 fi
-/usr/bin/tmux new-window -d -t $session -n 'cmus' '/usr/bin/cmus'
-if [[ -f /usr/bin/tickrs ]]; then
-  /usr/bin/tmux new-window -d -t $session -n 'stonks' '/usr/bin/tickrs'
+if [[ -f /usr/bin/radeontop ]]; then
+  /usr/bin/tmux new-window -d -t $session -n 'radeontop' '/usr/bin/radeontop'
+fi
+if [[ -f /usr/bin/cmus ]]; then
+  /usr/bin/tmux new-window -d -t $session -n 'cmus' '/usr/bin/cmus'
 fi
 if [[ -f /usr/bin/bc ]]; then
   /usr/bin/tmux new-window -d -t $session -n 'calc' '/usr/bin/bc -q'

@@ -1,5 +1,8 @@
 abook
 alttab-git
+ancient-packages
+anki-official-binary-bundle
+bibata-extra-cursor-theme
 bluez-firmware
 brillo
 cmake-format
@@ -10,6 +13,7 @@ hal
 i3lock-fancy-git
 jdtls
 laptop-mode-tools
+layan-cursor-theme-git
 liquidprompt
 lua-format
 luacheck
@@ -18,13 +22,17 @@ neovim-remote
 nerd-fonts-inconsolata
 numix-gtk-theme
 otf-fira-code-onum-patch
+pandoc-bin
 paper-gtk-theme-git
 paper-icon-theme
+papirus-folders
+papirus-libreoffice-theme
 paru-bin
 pass-import
 polybar
 powerstat
 preload
+qogir-icon-theme
 qt5-styleplugins
 ranger-git
 rofi-bluetooth-git
@@ -35,6 +43,7 @@ synology-drive
 termite
 ttf-weather-icons
 vdhcoapp-bin
+volantes-cursors
 xlayoutdisplay
 ytmdl
 z-git
