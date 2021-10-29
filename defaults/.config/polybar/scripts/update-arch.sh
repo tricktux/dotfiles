@@ -54,7 +54,7 @@ update_polybar_python_venv() {
   python -m venv "$venv_loc/$venv_name" \
     --symlinks --clear
   source "$venv_loc/$venv_name/bin/activate"
-  pip3 install --upgrade "${pkgs[*]}"
+  pip3 install --upgrade ${pkgs[*]}
   deactivate
 }
 
@@ -76,7 +76,7 @@ update_pynvim() {
   python -m venv "$venv_loc/$venv_name" \
     --symlinks --clear
   source "$venv_loc/$venv_name/bin/activate"
-  pip3 install --ignore-installed --upgrade "${pkgs[*]}"
+  pip3 install --ignore-installed --upgrade ${pkgs[*]}
   deactivate
 }
 
