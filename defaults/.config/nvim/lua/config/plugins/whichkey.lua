@@ -157,7 +157,7 @@ leader.w = {
   o = 'open',
   a = 'add',
   s = 'search',
-  r = {ewr, 'weekly_report_open'}
+  R = {ewr, 'weekly_report_open'}
 }
 leader['/'] = {'<plug>search_grep', 'search_grip'}
 leader.d = 'duplicate_char'
