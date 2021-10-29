@@ -270,7 +270,36 @@ esac
 msg_not "${BLUE}${BOLD}" "==> Update neovim nightly? [y/N]"
 read -r yn
 case $yn in
-[Yy]*) $aur_helper -S neovim-nightly-bin ;;
+[Yy]*)
+  # Create a subshell to cd locally
+  (
+    set -o pipefail
+    pkgname=neovim-git
+    srcdir=/tmp
+    pkgdir=
+    cd /tmp/
+    git clone --depth=1 https://github.com/neovim/neovim.git "${pkgname}"
+    cmake -S"${pkgname}" -Bbuild \
+      -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+      -DCMAKE_INSTALL_PREFIX=/usr
+    cmake --build build
+    cd "${srcdir}/build"
+    sudo DESTDIR="${pkgdir}" cmake --build . --target install
+
+    cd "${srcdir}/${pkgname}"
+    sudo install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+    sudo install -Dm644 runtime/nvim.desktop "${pkgdir}/usr/share/applications/nvim.desktop"
+    sudo install -Dm644 runtime/nvim.png "${pkgdir}/usr/share/pixmaps/nvim.png"
+
+    # Make Arch vim packages work
+    sudo mkdir -p "${pkgdir}"/etc/xdg/nvim
+    echo "\" This line makes pacman-installed global Arch Linux vim packages work." > "${pkgdir}"/etc/xdg/nvim/sysinit.vim
+    sudo echo "source /usr/share/nvim/archlinux.vim" >> "${pkgdir}"/etc/xdg/nvim/sysinit.vim
+
+    mkdir -p "${pkgdir}"/usr/share/vim
+    sudo echo "set runtimepath+=/usr/share/vim/vimfiles" > "${pkgdir}"/usr/share/nvim/archlinux.vim
+  )
+  ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Diff ranger config with default? [y/N]"
 read -r yn
