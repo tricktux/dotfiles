@@ -207,7 +207,7 @@ local function lsp_set()
     }
   end
 
-  if vim.fn.executable('pylsp') > 0 then
+  if vim.fn.executable('pyright-langserver') > 0 then
     log.info("setting up the pylsp lsp...")
     nvim_lsp.pylsp.setup {
       on_attach = on_lsp_attach,
