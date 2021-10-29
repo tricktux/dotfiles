@@ -586,6 +586,9 @@ paci --needed --noconfirm jdtls astyle
 
 ## python{{{
 paci --needed --noconfirm python{,-pip} python2{,-pip}
+
+# Current python lsp is coded in npm now
+paci --needed --noconfirm pyright
 # Python modules are control via virtual env
 # Run the update-arch.sh script and will create/update such modules
 # install python-language-server flake8 python-pylint yapf --noconfirm
@@ -838,8 +841,13 @@ sudo systemctl enable --now cups.socket
 
 # Misc{{{
  
-# anki
+# anki {{{
 paci --needed --noconfirm anki-official-binary-bundle
+# Markdown to anki converter
+paci --needed --noconfirm npm
+npm install -g md2apkg
+#}}}
+
 ## 💲 Stonks {{{
 paci --needed --noconfirm tickrs
 #}}}

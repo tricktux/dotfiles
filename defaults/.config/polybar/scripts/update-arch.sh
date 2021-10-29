@@ -68,8 +68,7 @@ update_pynvim() {
   local venv_name="nvim"
   local pkgs=(
     vim-vint psutil flake8 jedi matplot
-    "python-lsp-server[all]" frosted
-    pep8 pylint pylama pynvim isort mypy debugpy
+    frosted pep8 pylint pylama pynvim isort mypy debugpy
   )
 
   mkdir -p "$venv_loc"
@@ -316,12 +315,13 @@ case $yn in
     "$XDG_CONFIG_HOME/dunst/dunstrc"
   ;;
 esac
-msg_not "${BLUE}${BOLD}" "==> Install update npm/md2apkg? [y/N]"
+msg_not "${BLUE}${BOLD}" "==> Update all npm global packages (md2apkg)? [y/N]"
 read -r yn
 case $yn in
 [Yy]*)
-  # TODO: Check first if npm is installed
-  /usr/bin/npm install -g md2apkg
+  if [[ -f /usr/bin/npm ]]; then
+    /usr/bin/npm update -g
+  fi
   ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Update pandoc extras? [y/N]"
