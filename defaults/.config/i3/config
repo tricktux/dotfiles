@@ -35,6 +35,13 @@ font pango:FontAwesome 9
 # Note: Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+# dunst mappings {{{
+bindsym control+space exec --no-startup-id dunstctl close
+bindsym control+shift+space exec --no-startup-id dunstctl close-all
+bindsym control+shift+period exec --no-startup-id dunstctl context
+bindsym control+grave exec --no-startup-id dunstctl history-pop
+# }}}
+
 # Task executor
 bindsym $mod+w exec --no-startup-id \
   $HOME/.config/rofi/scripts/myrmidon.sh \
