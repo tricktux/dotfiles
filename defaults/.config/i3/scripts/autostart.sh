@@ -8,8 +8,8 @@
 /usr/bin/xfsettingsd --replace --daemon
 # Setup config for current time of day at startup
 rm /tmp/flux || echo "file did not exist"
-$HOME/.config/polybar/scripts/flux_/flux \
-  -v -c $HOME/.config/polybar/scripts/flux_/flux_init_config.lua \
+"$HOME"/.config/polybar/scripts/flux_/flux \
+  -v -c "$HOME"/.config/polybar/scripts/flux_/flux_init_config.lua \
   > /tmp/fluxinit.log 2>&1
 
 # https://pastebin.com/tfqSNjti
@@ -25,4 +25,4 @@ alttab -w 1 -d 2 -frame rgb:26/8b/d2 -bg rgb:f1/f1/f1 \
 # screen before suspend. Use loginctl lock-session to lock your screen.
 xss-lock --transfer-sleep-lock -- i3lock-fancy --nofork&
 xmodmap ~/.Xmodmap
-$HOME/.config/polybar/scripts/launch.sh
+"$HOME"/.config/polybar/scripts/launch.sh
