@@ -9,6 +9,7 @@ cmake-format
 cmake-lint
 gdb-dashboard-git
 glow
+google-chrome
 hal
 i3lock-fancy-git
 jdtls
@@ -17,7 +18,6 @@ layan-cursor-theme-git
 liquidprompt
 lua-format
 luacheck
-neovim-git
 neovim-remote
 nerd-fonts-inconsolata
 numix-gtk-theme

@@ -120,6 +120,7 @@ namcap
 neomutt
 nfs-utils
 noto-fonts-emoji
+npm
 ntfs-3g
 ntp
 numlockx
@@ -149,6 +150,7 @@ plantuml
 playerctl
 poppler
 powertop
+pyright
 python-cpplint
 python-pillow
 python-pip
