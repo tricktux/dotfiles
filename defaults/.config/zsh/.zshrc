@@ -75,6 +75,7 @@ setopt appendhistory autocd extendedglob nomatch notify
 # Allow > redirection to overwrite existing file
 setopt clobber
 unsetopt beep
+setopt correct correct_all
 # End of lines configured by zsh-newuser-install
 # }}}
 
