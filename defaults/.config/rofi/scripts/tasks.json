@@ -151,6 +151,10 @@
   },
   {
     "name": "⌨️ xmodmap reload",
-    "command": "xmodmap $HOME/.Xmodmap"
+    "command": "xmodmap $HOME/.config/.Xmodmap"
+  },
+  {
+    "name": "xmodmap kinesis",
+    "command": "xmodmap $HOME/.config/.XmodmapKinesis"
   }
 ]

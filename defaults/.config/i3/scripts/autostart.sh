@@ -24,5 +24,5 @@ alttab -w 1 -d 2 -frame rgb:26/8b/d2 -bg rgb:f1/f1/f1 \
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
 xss-lock --transfer-sleep-lock -- i3lock-fancy --nofork&
-xmodmap ~/.Xmodmap
+xmodmap "$HOME"/.config/.Xmodmap
 "$HOME"/.config/polybar/scripts/launch.sh
