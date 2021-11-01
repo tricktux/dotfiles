@@ -138,4 +138,8 @@ export BAT_THEME="Coldark-Cold"
 # QT5 dark mode
 export QT_QPA_PLATFORMTHEME=gtk2
 
+# Less hist file
+export LESSHISTFILE="$HOME"/.local/share/lesshst
+export LESSHISTSIZE=1000
+
 # vim: fdm=marker
