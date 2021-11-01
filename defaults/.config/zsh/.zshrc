@@ -68,7 +68,7 @@ compinit
 promptinit
 # End of lines added by compinstall
 # Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
+HISTFILE=~/.local/share/histfile
 HISTSIZE=100000
 SAVEHIST=100000
 setopt appendhistory autocd extendedglob nomatch notify
