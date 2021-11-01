@@ -28,8 +28,12 @@
     "command": "xclip -selection clipboard -o | qrencode -o - |  feh -FZ -"
   },
   {
-    "name": "📎 polybar relaunch",
+    "name": "📎 polybar relaunch/restart",
     "command": "exec $HOME/.config/polybar/scripts/launch.sh"
+  },
+  {
+    "name": "📎 dunst relaunch/restart",
+    "command": "exec $HOME/.config/dunst/restart.sh"
   },
   {
     "name": "🎧 bluetooth wh-1000xm2",
@@ -105,7 +109,7 @@
     "command": "i3-msg '[class=\".\"] kill' && systemctl poweroff"
   },
   {
-    "name": "💻 power reboot",
+    "name": "💻 power reboot/restart",
     "confirm": true,
     "command": "i3-msg '[class=\".\"] kill' && systemctl reboot"
   },
