@@ -103,6 +103,7 @@ linux-headers
 lldb
 lm_sensors
 lua-language-server
+luajit
 lvm2
 lxappearance
 lxqt-openssh-askpass
@@ -199,12 +200,14 @@ ttf-inconsolata
 udisks2
 unzip
 urlscan
+usbutils
 vi
 vulkan-mesa-layers
 vulkan-radeon
 w3m
 wavpack
 websocketpp
+wget
 which
 wireless_tools
 words
