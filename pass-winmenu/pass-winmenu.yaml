@@ -118,6 +118,9 @@ git:
     # sync-mode is set to 'native-git'. This is useful if you have a passphrase
     # on your key and want to use plink.exe/pageant.exe to supply the key.
     # Example: 'C:\Program Files\PuTTY\plink.exe'
+    # Note: If the GIT_SSH environment variable is set, pass-winmenu uses that,
+    # and you do not need to set this configuration variable. If you do set it,
+    # its value will take precedence over the GIT_SSH environment variable.
     ssh-path: null
     # Periodically run 'git fetch' on the password repository.
     auto-fetch: true
