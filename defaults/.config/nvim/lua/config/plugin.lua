@@ -193,6 +193,7 @@ function M:__setup()
 
   use {
     'kristijanhusak/orgmode.nvim',
+    disable = true,
     config = function() require('config.plugins.orgmode'):setup() end
   }
 
