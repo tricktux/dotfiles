@@ -802,6 +802,12 @@ paci --needed --noconfirm firefox
 # paci --needed --noconfirm firefox-extension-privacybadger`
 # paci --needed --noconfirm libnotify speech-dispatcher festival`
 paci --needed --noconfirm vdhcoapp-bin
+# Move profile to ram, for chrome and firefox
+paci --needed --noconfirm profile-sync-daemon
+sudo EDITOR=nvim visudo
+# Add
+# reinaldo ALL=(ALL) NOPASSWD: /usr/bin/psd-overlay-helper
+systemctl --user enable --now psd
  # `Video Youtube donwloader extension helper app`
 # - Extensions: `noscript, vimium-FF, duckduckgo`
 
