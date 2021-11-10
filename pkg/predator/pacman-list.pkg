@@ -53,6 +53,7 @@ firefox
 flameshot
 flex
 fzf
+galculator
 gawk
 gcc
 gdb
@@ -138,6 +139,7 @@ otf-font-awesome
 pacman
 pacman-contrib
 pamixer
+papirus-icon-theme
 paprefs
 patch
 pavucontrol

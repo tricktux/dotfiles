@@ -1,6 +1,6 @@
 abook
 alttab-git
-anki
+anki-official-binary-bundle
 bluez-firmware
 chkservice
 chromedriver
@@ -18,7 +18,7 @@ lua-format
 luacheck
 lutris-battlenet-meta
 mps-youtube-git
-neovim-nightly-bin
+neovim-git
 neovim-remote
 nerd-fonts-inconsolata
 networkmanager-dmenu-git
