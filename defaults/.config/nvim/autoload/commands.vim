@@ -7,9 +7,10 @@
 
 " CUSTOM_COMMANDS
 function! commands#Set() abort
+  command! UtilsRemoveTrailingWhiteSpaces call s:trim_trailing_white_spaces()
   command! -nargs=1 ChangeColors call flux#Helper(<f-args>)
 
-  command! -nargs=? UtilsPasswdGenerate call s:generate_random_pass(<f-args>) 
+  command! -nargs=? UtilsPasswdGenerate call s:generate_random_pass(<f-args>)
   command! UtilsBuffersDeleteNoName call s:delete_empty_buffers()
   command! UtilsWeekGetNumber :echomsg strftime('%V')
 
@@ -277,3 +278,9 @@ function! s:generate_random_pass(...) abort
   let @* = l:pass
   echo l:pass
 endfunction
+
+function! s:trim_trailing_white_spaces() abort
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
+  endfunction
