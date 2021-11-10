@@ -8,7 +8,7 @@ brillo
 cmake-format
 cmake-lint
 gdb-dashboard-git
-glow
+glow-bin
 google-chrome
 hal
 i3lock-fancy-git
