@@ -16,7 +16,7 @@ passwd
 # }}}
 
 # Allow user to execute sudo commands {{{
-EDITOR=vim visudo
+EDITOR=nvim visudo
 # Search for wheel and uncomment that line
 # And underneath add the following:
 Defaults rootpw
@@ -112,7 +112,7 @@ mkdir -p ~/.local/share/Trash/files
 cd ~/.config
 git clone https://github.com/tricktux/dotfiles
 # NOTE: Change link to: ssh://github/tricktux/dotfiles
-nvim "$HOME/.config/dotfiles/.git"
+nvim "$HOME/.config/dotfiles/.git/config"
 # Install needed software
 paru -S stow
 # So that you don't loose the hostname command
@@ -143,6 +143,7 @@ sudo timedatectl set-ntp true
 
 # Install old packages: {{{
 # NOTE: Go to `sudo vim /etc/pacman.conf` and uncomment `multilib`
+sudo nvim /etc/pacman.conf
 sudo pacman-key --refresh-keys
 sudo pacman -Sy archlinux-keyring && sudo pacman -Su
 sudo pacman -S --needed - < ~/.config/dotfiles/pkg/surbook/pacman-list.pkg
