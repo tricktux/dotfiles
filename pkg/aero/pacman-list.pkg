@@ -30,6 +30,7 @@ ctags
 cups
 cups-pdf
 dhcpcd
+dosfstools
 dunst
 earlyoom
 efibootmgr
@@ -60,6 +61,7 @@ goimapnotify
 google-glog
 grep
 groff
+grub
 gtest
 gtk2fontsel
 gvfs-gphoto2
@@ -103,7 +105,6 @@ linux-headers
 lldb
 lm_sensors
 lua-language-server
-luajit
 lvm2
 lxappearance
 lxqt-openssh-askpass
@@ -127,6 +128,7 @@ ntp
 numlockx
 odt2txt
 openvpn
+os-prober
 otf-fira-mono
 otf-font-awesome
 pacman

@@ -318,7 +318,7 @@ paci --needed --noconfirm radeontop
 # terminal utils{{{
 paci --needed --noconfirm acpi lm_sensors liquidprompt tldr
 paci --needed --noconfirm {ttf,otf}-fira-{code,mono} {ttf,otf}-font-awesome \
-  nerd-fonts-inconsolata
+  nerd-fonts-inconsolata {ttf,otf}-cascadia-code
 paci --needed --noconfirm ttf-inconsolata
 paci --needed --noconfirm xorg-xfontsel gtk2fontsel
 # Package doesn't exist anymore thumbnailer 
@@ -625,6 +625,7 @@ paci --needed --noconfirm powertop powerstat cpupower
 # The seeting for on AC is normally NOLM_AC_X, since laptop-mode is disabled in 
 # If no LaptopMode set your governor at /etc/default/cpupower
 # AC mode
+sudo nvim /etc/laptop-mode/conf.d/cpufreq.conf
 sudo powerstat -R -s
 sudo powertop --calibrate
 # For more info see: `archwiki powertop`
@@ -801,6 +802,12 @@ paci --needed --noconfirm firefox
 # paci --needed --noconfirm firefox-extension-privacybadger`
 # paci --needed --noconfirm libnotify speech-dispatcher festival`
 paci --needed --noconfirm vdhcoapp-bin
+# Move profile to ram, for chrome and firefox
+paci --needed --noconfirm profile-sync-daemon
+sudo EDITOR=nvim visudo
+# Add
+# reinaldo ALL=(ALL) NOPASSWD: /usr/bin/psd-overlay-helper
+systemctl --user enable --now psd
  # `Video Youtube donwloader extension helper app`
 # - Extensions: `noscript, vimium-FF, duckduckgo`
 
