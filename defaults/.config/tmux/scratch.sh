@@ -14,7 +14,9 @@ session="scratch"
 # /usr/bin/tmux new-window -d -t $session -n \
   # 'journal' '~/.config/i3/scripts/journal.sh'
 # Vim satisfies most of needs
-if [[ -f /usr/bin/btm ]]; then
+if [[ -f /usr/bin/htop ]]; then
+  /usr/bin/tmux new-session -d -s $session -n 'htop' '/usr/bin/htop'
+elif [[ -f /usr/bin/btm ]]; then
   /usr/bin/tmux new-session -d -s $session -n 'bottom' '/usr/bin/btm'
 fi
 if [[ -f /usr/bin/nvtop ]]; then
