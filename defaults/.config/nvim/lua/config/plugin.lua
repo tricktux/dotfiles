@@ -182,6 +182,7 @@ function M:__setup()
   use {
     'TimUntersberger/neogit',
     requires = 'nvim-lua/plenary.nvim',
+    disable = true,
     config = function() require('config.plugins.misc').setup_neogit() end
   }
 
