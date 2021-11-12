@@ -167,11 +167,17 @@ end
 function M.setup_gpsnvim()
   local gps = require('nvim-gps')
   gps.setup{
-    --[[ icons = {},
-    -- Disable languages here
-    languages = {},
-    separator = ' > ' ]]
+    icons = {
+      ["class-name"] = '',      -- Classes and class-like objects
+      ["function-name"] = '',   -- Functions
+      ["method-name"] = '',     -- Methods (functions inside class-like objects)
+      ["container-name"] = '',  -- Containers (example: lua tables)
+      ["tag-name"] = ''         -- Tags (example: html tags)
+    },
+    depth = 4,
+    separator = ' > '
   }
+
   line:ins_left{
     gps.get_location, condition = gps.is_available
   }
