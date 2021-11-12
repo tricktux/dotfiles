@@ -245,6 +245,7 @@ local function lsp_set()
 
   if vim.fn.executable('clangd') > 0 then
     log.info("setting up the clangd lsp...")
+    local cores = utl.has_win() and os.getenv("NUMBER_OF_PROCESSORS") or vim.fn.system('nproc')
     nvim_lsp.clangd.setup {
       handlers = lsp_status.extensions.clangd.setup(),
       init_options = {clangdFileStatus = false},
@@ -258,7 +259,7 @@ local function lsp_set()
         "clangd", "--all-scopes-completion=true", "--background-index=true",
         "--clang-tidy=true", "--completion-style=detailed",
         "--fallback-style=LLVM", "--pch-storage=memory",
-        "--suggest-missing-includes", "--header-insertion=iwyu", "-j=12",
+        "--header-insertion=iwyu", "-j=" .. cores,
         "--header-insertion-decorators=false"
       }
     }
