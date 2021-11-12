@@ -150,8 +150,9 @@ local function diagnostic_set()
       update_in_insert = false
     }
     -- Call the default handler
+    local loc = vim.fn.has('nvim-0.6') > 0 and {open = false} or {open_loclist = false}
     default_handler(err, method, result, client_id, bufnr, config)
-    vim.lsp.diagnostic.set_loclist({open = false})
+    vim.lsp.diagnostic.set_loclist(loc)
     -- Do overwrite my search list
     if #vim.fn.getqflist() > 0 then return end
     local diagnostics = vim.lsp.diagnostic.get_all()
