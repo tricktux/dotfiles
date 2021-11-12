@@ -189,9 +189,16 @@ local function lsp_set()
   local nvim_lsp = require('lspconfig')
   diagnostic_set()
 
+  -- vim.lsp.set_log_level("debug")
+
   -- local capabilities = vim.lsp.protocol.make_client_capabilities()
   local capabilities = lsp_status.capabilities
   capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+  local flags = {
+    allow_incremental_sync = true,
+    debounce_text_changes = 150,
+  }
 
   -- Unbearably slow
   if vim.fn.executable('omnisharp') > 0 then
@@ -199,6 +206,7 @@ local function lsp_set()
     local pid = tostring(vim.fn.getpid())
     nvim_lsp.omnisharp.setup {
       on_attach = on_lsp_attach,
+      flags = flags,
       filetypes = {"cs"},
       cmd = {"omnisharp", "--languageserver", "--hostPID", pid},
       capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp
@@ -211,6 +219,7 @@ local function lsp_set()
     log.info("setting up the pylsp lsp...")
     nvim_lsp.pylsp.setup {
       on_attach = on_lsp_attach,
+      flags = flags,
       capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp
                                                                      .protocol
                                                                      .make_client_capabilities())
@@ -239,6 +248,7 @@ local function lsp_set()
       handlers = lsp_status.extensions.clangd.setup(),
       init_options = {clangdFileStatus = false},
       on_attach = on_clangd_attach,
+      flags = flags,
       filetypes = {"c", "cpp"},
       capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp
                                                                      .protocol
