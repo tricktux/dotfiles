@@ -164,6 +164,15 @@ function M.setup_zen_mode()
   }
 end
 
+local function gps_get_location()
+  local ret = require('nvim-gps').get_location()
+  if ret == "error" then
+    return ''
+  end
+
+  return ret
+end
+
 function M.setup_gpsnvim()
   local gps = require('nvim-gps')
   gps.setup{
@@ -179,7 +188,7 @@ function M.setup_gpsnvim()
   }
 
   line:ins_left{
-    gps.get_location, condition = gps.is_available
+    gps_get_location, condition = gps.is_available
   }
 
 end
