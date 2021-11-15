@@ -24,11 +24,10 @@
     # dynamic width from 0 to 300
     # width = (0, 300)
     # constant width of 300
-    width = (0, 500)
+    width = (300, 500)
 
     # The maximum height of a single notification, excluding the frame.
-    height = (0, 500)
-    # geometry = "500x50-15+49"
+    height = (300, 500)
 
     # Position the notification in the top right corner
     origin = top-right
@@ -126,7 +125,7 @@
     #        <u>underline</u>
     #
     #        For a complete reference see
-    #        <https://developer.gnome.org/pango/stable/pango-Markup.html>.
+    #        <https://docs.gtk.org/Pango/pango_markup.html>.
     #
     # strip: This setting is provided for compatibility with some broken
     #        clients that send markup even though it's not enabled on the
@@ -337,9 +336,15 @@
 #    new_icon
 #    set_stack_tag
 #    set_transient
+#    set_category
 #    timeout
 #    urgency
+#    skip_display
+#    history_ignore
 #    action_name
+#    word_wrap
+#    ellipsize
+#    alignment
 #
 # Shell-like globbing will get expanded.
 #
