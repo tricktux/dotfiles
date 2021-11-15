@@ -43,4 +43,7 @@ if ! pgrep -u "$USER" ssh-agent >/dev/null; then
   ssh-agent >"$XDG_RUNTIME_DIR/ssh-agent.env"
 fi
 
+# Used to move cache directory there
+mkdir -p /tmp/firefox
+
 # vim:filetype=sh
