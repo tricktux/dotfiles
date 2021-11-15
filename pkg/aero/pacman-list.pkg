@@ -19,6 +19,7 @@ blueman
 bluez
 bottom
 capitaine-cursors
+catch2
 ccache
 cifs-utils
 clang
@@ -47,6 +48,7 @@ findutils
 firefox
 flameshot
 flex
+fmt
 fzf
 gawk
 gcc
@@ -63,6 +65,7 @@ grep
 groff
 grub
 gtest
+gtk-engines
 gtk2fontsel
 gvfs-gphoto2
 gvfs-mtp
@@ -104,6 +107,7 @@ linux-firmware
 linux-headers
 lldb
 lm_sensors
+lsof
 lua-language-server
 lvm2
 lxappearance
@@ -118,9 +122,11 @@ mkinitcpio
 mosh
 mplayer
 mpv
+msgpack-cxx
 namcap
 neomutt
 nfs-utils
+nmap
 noto-fonts-emoji
 npm
 ntfs-3g
@@ -129,6 +135,7 @@ numlockx
 odt2txt
 openvpn
 os-prober
+otf-cascadia-code
 otf-fira-mono
 otf-font-awesome
 pacman
@@ -153,6 +160,7 @@ plantuml
 playerctl
 poppler
 powertop
+profile-sync-daemon
 pyright
 python-cpplint
 python-pillow
@@ -177,7 +185,9 @@ sdparm
 sed
 shfmt
 simple-scan
+speedtest-cli
 stow
+strace
 sudo
 texinfo
 texlive-bibtexextra
@@ -195,6 +205,7 @@ texlive-science
 tickrs
 tldr
 tmux
+ttf-cascadia-code
 ttf-fira-code
 ttf-fira-mono
 ttf-font-awesome
