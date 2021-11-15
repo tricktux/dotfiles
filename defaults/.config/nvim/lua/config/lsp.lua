@@ -150,7 +150,8 @@ local function diagnostic_set()
       update_in_insert = false
     }
     -- Call the default handler
-    local loc = vim.fn.has('nvim-0.6') > 0 and {open = false} or {open_loclist = false}
+    local loc = vim.fn.has('nvim-0.6') > 0 and {open = false} or
+                    {open_loclist = false}
     default_handler(err, method, result, client_id, bufnr, config)
     vim.lsp.diagnostic.set_loclist(loc)
     -- Do overwrite my search list
@@ -196,10 +197,7 @@ local function lsp_set()
   local capabilities = lsp_status.capabilities
   capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-  local flags = {
-    allow_incremental_sync = true,
-    debounce_text_changes = 150,
-  }
+  local flags = {allow_incremental_sync = true, debounce_text_changes = 150}
 
   -- Unbearably slow
   if vim.fn.executable('omnisharp') > 0 then
@@ -224,28 +222,14 @@ local function lsp_set()
       capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp
                                                                      .protocol
                                                                      .make_client_capabilities())
-
-      -- settings = {
-      -- pyls = {
-      -- plugins = {
-      -- jedi_completion = {fuzzy = true, include_params = true},
-      -- mccabe = {enabled = false},
-      -- pycodestyle = {enabled = false},
-      -- flake8 = {enabled = false},
-      -- pydocstyle = {enabled = false},
-      -- pyflakes = {enabled = false},
-      -- pylint = {enabled = false},
-      -- yapf = {enabled = false},
-      -- pyls_mypy = {enabled = false, live_mode = false}
-      -- }
-      -- }
-      -- }
     }
   end
 
   if vim.fn.executable('clangd') > 0 then
     log.info("setting up the clangd lsp...")
-    local cores = utl.has_win() and os.getenv("NUMBER_OF_PROCESSORS") or vim.fn.system('nproc')
+    local cores = utl.has_win() and os.getenv("NUMBER_OF_PROCESSORS") or
+                      table.concat(vim.fn.systemlist('nproc'))
+
     nvim_lsp.clangd.setup {
       handlers = lsp_status.extensions.clangd.setup(),
       init_options = {clangdFileStatus = false},
