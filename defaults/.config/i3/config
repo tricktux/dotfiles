@@ -102,7 +102,7 @@ bindsym control+mod1+k exec --no-startup-id pamixer --increase 5
 bindsym control+mod1+j exec --no-startup-id pamixer --decrease 5
 bindsym control+mod1+m exec --no-startup-id pamixer --toggle-mute
 # New logitec k780 keyboard does not support this shortcut
-bindsym control+mod1+a exec --no-startup-id rofi-pass
+# bindsym control+mod1+a exec --no-startup-id rofi-pass
 bindsym control+mod1+p exec --no-startup-id rofi-pass
 
 bindsym $mod+m scratchpad show
