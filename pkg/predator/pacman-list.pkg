@@ -62,6 +62,7 @@ ghostscript
 git
 glava
 global
+gnome-disk-utility
 gnome-keyring
 go
 goimapnotify
@@ -73,6 +74,7 @@ gtk2fontsel
 gvfs-gphoto2
 gvfs-mtp
 gzip
+hdparm
 highlight
 hplip
 hunspell
@@ -125,6 +127,7 @@ mpv
 namcap
 neomutt
 nfs-utils
+nmap
 noto-fonts-emoji
 ntfs-3g
 ntp

@@ -9,6 +9,7 @@ cmake-lint
 gdb-dashboard-git
 geekbench
 google-chrome
+htop-vim
 i3ass
 i3help-git
 i3lock-fancy-git
