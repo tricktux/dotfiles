@@ -2,8 +2,8 @@
 # The parser is also very primitive, and not human-friendly.
 htop_version=3.2.0-dev
 config_reader_min_version=2
-fields=0 48 17 18 38 39 40 2 46 47 49 1
-sort_key=47
+fields=0 48 17 18 38 39 109 110 40 2 46 47 49 1
+sort_key=46
 sort_direction=-1
 tree_sort_key=0
 tree_sort_direction=1
@@ -38,7 +38,7 @@ enable_mouse=1
 delay=15
 hide_function_bar=0
 header_layout=two_50_50
-column_meters_0=LeftCPUs2 Memory Swap
-column_meter_modes_0=1 1 1
-column_meters_1=RightCPUs2 Tasks LoadAverage Uptime
+column_meters_0=LeftCPUs Memory Swap DiskIO NetworkIO
+column_meter_modes_0=1 1 1 2 2
+column_meters_1=RightCPUs Tasks LoadAverage Uptime
 column_meter_modes_1=1 2 2 2
