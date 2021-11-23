@@ -103,15 +103,18 @@ class z(Command):
 
     def execute(self):
 
-        if self.arg(1):
-            search_string = self.rest(1)
-        else:
+        if not self.arg(1):
             self.fm.notify("Usage: z <search string>", bad=True)
             return
 
         # location of .z file
         z_loc = os.getenv("_Z_DATA") or os.getenv("HOME") + "/.local/share/z"
-        with open(z_loc, "r") as fobj:
+
+        if not os.path.isfile(z_loc):
+            self.fm.notify("Failed to find z database. Please set _Z_DATA", bad=True)
+            return
+
+        with open(z_loc, "r", encoding="utf-8") as fobj:
             flists = fobj.readlines()
 
         # user given directory
@@ -147,13 +150,13 @@ class fzf(Command):
         if self.quantifier:
             # match only directories
             command = "fd --type directory --hidden --no-ignore-vcs \
-                        --ignore-file /home/reinaldo/.config/ignore-file \
+                        --ignore-file $HOME/.config/ignore-file \
                         2>/dev/null | fzf +m"
 
         else:
             # match files and directories
             command = "fd --type file --hidden --follow \
-                        --ignore-file /home/reinaldo/.config/ignore-file \
+                        --ignore-file $HOME/.config/ignore-file \
                         2>/dev/null | fzf +m"
 
         fzf = self.fm.execute_command(command,
