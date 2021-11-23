@@ -48,7 +48,7 @@ if [[ "$hostname" = "surbook" ]]; then
 fi
 
 if [[ "$hostname" = "aero" ]]; then
-  echo "found surbook"
+  echo "found aero"
   if [[ "$1" = "main" ]]; then
     echo "setting up main configuration"
     /usr/bin/xrandr \
