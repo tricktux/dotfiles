@@ -142,6 +142,22 @@
     "command": "exec $HOME/.config/i3/scripts/xdotool_launch neomutt"
   },
   {
+    "name": "🖼️ wallpaper internet random",
+    "command": "exec ~/.config/polybar/scripts/get_wallpaper"
+  },
+  {
+    "name": "🖼️ wallpaper arch random",
+    "command": "exec feh --randomize --no-fehbg --bg-fill /usr/share/backgrounds/archlinux/*"
+  },
+  {
+    "name": "🌃 redshift toggle night",
+    "command": "exec ~/.config/polybar/scripts/redshift-toggle.sh"
+  },
+  {
+    "name": "✍ compositor toggle",
+    "command": "exec ~/.config/polybar/scripts/compton-toggle.sh"
+  },
+  {
     "name": "💻 xrandr main",
     "command": "exec $HOME/.config/i3/scripts/xrandr.sh main"
   },
