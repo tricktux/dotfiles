@@ -86,8 +86,8 @@ if [[ "$hostname" = "aero" ]]; then
     /usr/bin/xrandr \
       --dpi 156 \
       --output eDP --off \
-      --output HDMI-A-0 --off \
-      --output DisplayPort-0 --mode 3840x2160 --rate 30 --pos 0x0 --primary
+      --output HDMI-A-0 --mode 1920x1080 --rate 60 --pos 3840x0 --scale 1.25x1.25 \
+      --output DisplayPort-0 --mode 3840x2160 --rate 60 --pos 0x0 --primary
 
     echo "Xft.dpi: 156" | xrdb -merge
     # Restart polybar
