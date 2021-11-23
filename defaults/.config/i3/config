@@ -71,12 +71,12 @@ bindsym mod3+l exec --no-startup-id \
 # $mod+i is reserved for a chat application
 # bindsym $mod+u exec --no-startup-id \
   # ~/.config/i3/scripts/xdotool_launch glances "glances --theme-white"
-bindsym $mod+u exec --no-startup-id \
+bindsym $mod+n exec --no-startup-id \
   $HOME/.config/i3/scripts/xdotool_launch scratch
 bindsym $mod+o exec --no-startup-id \
   $HOME/.config/i3/scripts/xdotool_launch journal
-bindsym $mod+n exec --no-startup-id \
-  $HOME/.config/i3/scripts/xdotool_launch ranger
+# bindsym $mod+n exec --no-startup-id \
+  # $HOME/.config/i3/scripts/xdotool_launch ranger
 bindsym $mod+semicolon exec --no-startup-id \
   $HOME/.config/i3/scripts/xdotool_launch terminal
 bindsym $mod+p exec --no-startup-id \
