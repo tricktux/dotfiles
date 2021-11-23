@@ -202,3 +202,41 @@ class rga(Command):
             else:
                 self.fm.select_file(fzf_file)
 
+
+class yank_image_to_clipbard(Command):
+    """
+    use xclip to copy image file to clipboard
+        xclip -selection clipboard -t image/jpg -i <file path>
+
+    """
+
+    def execute(self):
+
+        if not os.path.isfile(r"/usr/bin/xclip"):
+            self.fm.notify("Please install xclip", bad=True)
+            return
+
+        file = self.fm.thisfile.path
+        if not os.path.isfile(file):
+            self.fm.notify(f"File selected does not exists: '{file}'", bad=True)
+            return
+
+        _, ext = os.path.splitext(file)
+
+        ext = ext[1:]  # strip out dot
+
+        if ext != "png":
+            if not os.path.isfile(r"/usr/bin/convert"):
+                self.fm.notify("Please install convert", bad=True)
+                return
+
+            # convert image.jpg png:- | xclip -selection clipboard -t image/png
+            cmd = f"convert {file} png:- | xclip -selection clipboard -t image/png"
+        else:
+            cmd = f"xclip -selection clipboard -t image/{ext} -i {file}"
+
+        proc = self.fm.execute_command(cmd, universal_newlines=True)
+        proc.communicate()
+        if proc.returncode != 0:
+            self.fm.notify(f"xclip command failed: '{cmd}'", bad=True)
+
