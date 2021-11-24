@@ -526,6 +526,17 @@ sudo nvim /etc/lightdm/lightdm.conf
 # autologin-user=reinaldo
 # autologin-session=i3-with-shmlog
 
+# windows virtual machine {{{
+# You can download images from: 
+# https://developer.microsoft.com/en-us/windows/downloads/virtual-machines/
+# **NOTE** host-modules-arch is for when you have a linux kernel installed.
+# As opposed to any other kenerl, like lts, zen, etc...
+paci --needed virtualbox{,-host-modules-arch}
+sudo modprobe vboxdrv
+sudo groupadd -r vboxdrv
+sudo gpasswd -a reinaldo vboxdrv
+# }}}
+
 # Benchmarking {{{
 paci --needed --noconfirm hyperfine
 # }}}
