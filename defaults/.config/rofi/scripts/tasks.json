@@ -138,8 +138,8 @@
     "command": "exec $HOME/.config/i3/scripts/xdotool_launch scratch"
   },
   {
-    "name": "📧 i3scratchpad neomutt",
-    "command": "exec $HOME/.config/i3/scripts/xdotool_launch neomutt"
+    "name": "📧 email neomutt",
+    "command": "exec $TERMINAL $HOME/.config/tmux/neomutt.sh"
   },
   {
     "name": "🖼️ wallpaper internet random",
