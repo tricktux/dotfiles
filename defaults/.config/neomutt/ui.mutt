@@ -6,40 +6,12 @@
 # Created:        Tue Jan 22 2019 16:18
 # Last Modified:  Tue Jan 22 2019 16:18
 
-# Pretty cool colors
-# Just follow terminal colors
-# Taken from: https://www.reddit.com/r/archlinux/comments/aw0re9/using_pywal_with_neomutt/
-color normal white default
-color signature yellow default
-color status default default
-color tilde blue default
-color tree brightred default
-color header brightyellow default ^From:
-color header yellow default ^To:
-color header brightcyan default ^Date
-color header yellow default ^Cc:
-color header brightgreen default ^Subject:
-color header brightcyan default ^X-TRASH:
-color status brightgreen default
-color index         brightcyan         default        "~N~p!~F"                   # new messages to me
-color index         yellow         default        "~N"                        # new messages
-color index         brightcyan         default        "~U~p!~F"                   # unread messages to me
-color index         blue        default        "~R~p!~F"                   # messages to me
-color index         green         default        "~Q"                        # messages that have been replied to
-color index         brightyellow        default        "~F"                        # flagged messages
-color index         brightyellow        default        "~F~p"                      # flagged messages to me
-color index         brightyellow        default        "~N~F"                      # new flagged messages
-color index         brightyellow        default        "~N~F~p"                    # new flagged messages to me
-color index         brightyellow        default        "~U~F~p"                    # new flagged messages to me
-color index         brightred       default        "~D"                        # deleted messages
+source "~/.config/neomutt/colors"
 
 set realname = "Reinaldo Molina"
 
 set copy=yes			# always save a copy of outgoing messages
 set move = no # Do not move read emails
-
-# Sort to show most recent first
-set sort = reverse-date-received
 
 # Option to Save contacts so that autocompletion is possible
 # set display_filter='~/.config/neomutt/mutt.save.contacts.sh'
@@ -99,7 +71,7 @@ set date_format="%m-%d-%y %T"
 # set index_format="%3C %Z %{%d.%m.%y %H:%M} %-30.30n (%3l) %s"
 # Obtained from here
 # uie
-set index_format='%4C %Z %<[y?%<[m?%<[d?%[%H:%M ]&%[%a %d]>&%[%b %d]>&%[%m/%y ]> %-15.15L (%?l?%4l&%4c?) %s'
+set index_format='%4C %Z %<[y?%<[m?%<[d?%[%H:%M ]&%[%a %d]>&%[%b %d]>&%[%m/%y ]> %30.30L (%?l?%4l&%4c?) %s'
 # Alternative. Give it a try
 # set index_format=" %?M?   ↳&%4C?   %Z      %D     %-15.15n    %s"
 
@@ -147,7 +119,32 @@ set sig_on_top
 # Thu Jan 31 2019 07:36
 # Trying threads
 # Do not like it. When a new messages arrives that is part of a thread stays down there
+# Sort to show most recent first
+set sort = reverse-date-received
 # set sort=threads
-# set sort_aux=reverse-threads
+# set sort_aux = reverse-last-date-received
+
+# From Franklin
+# set uncollapse_jump
+# set quit
+
+# set pipe_decode          # strip headers and eval mimes when piping
+# set thorough_search      # strip headers and eval mimes before searching
+# set timeout = 0
+
+# set sort_re
+# set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
+# set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
+# set send_charset = "utf-8:iso-8859-1:us-ascii"
+# set sort_re
+# set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
+# set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
+# set send_charset = "utf-8:iso-8859-1:us-ascii"
+# # status bar, date format, finding stuff etc.
+# set status_chars = " *%A"
+# set status_format = "[ Folder: %f ] [%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]%>─%?p?( %p postponed )?"
+# set envelope_from
+
+# set reverse_name                     # reply as whomever it was to
 
 # vim: ft=neomuttrc
