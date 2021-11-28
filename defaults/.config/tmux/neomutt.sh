@@ -31,6 +31,8 @@ cleanup() {
 /usr/bin/goimapnotify -conf ~/.config/imapnotify/molinamail.conf \
   >/tmp/imapnotify_molinamail.log 2>&1 &
 
+/usr/bin/tmux kill-session -t $session || echo "session did not exist"
+
 /usr/bin/tmux new-session -d -s $session -n 'mailserver' \
   'neomutt -F ~/.config/neomutt/user.molinamail 2>/tmp/nmutt-molinamail.log'
 /usr/bin/tmux new-window -d -t $session -n 'gmail' \
