@@ -13,7 +13,7 @@ set postponed= +$my_drafts_noquote
 # set record = +$my_sent_noquote
 unset record
 set trash = +$my_trash_noquote
-mailboxes
+# mailboxes =INBOX =[Gmail]/Sent\ Mail =[Gmail]/Drafts =[Gmail]/Spam =[Gmail]/Trash
 
 # SMTP config
 set from = "$my_username@$my_domain"
