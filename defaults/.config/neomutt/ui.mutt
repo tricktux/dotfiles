@@ -31,6 +31,7 @@ macro index,pager  a "<pipe-message>abook --datafile $XDG_DATA_HOME/neomutt/addr
 # Fri Jan 25 2019 20:09 
 # nvim crashes when lunching `which-key-plugin` on scratchpad
 set editor='nvim'
+set abort_key='ctrl-c'
 
 # From https://github.com/bubbl/bubb-confs/blob/master/mutt/.mutt/general
 # A lot of good configs in that link
