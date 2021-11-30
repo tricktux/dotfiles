@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 
 session="neomutt"
 
@@ -31,6 +31,14 @@ cleanup() {
 /usr/bin/goimapnotify -conf ~/.config/imapnotify/molinamail.conf \
   >/tmp/imapnotify_molinamail.log 2>&1 &
 
+if [[ $(systemctl --user is-active vdirsyncer) = "inactive" ]]; then
+  echo "Synchronizing vdirsyncer. Please wait..."
+  /usr/bin/vdirsyncer -vdebug sync \
+    >/tmp/vdirsyncer.log 2>&1
+
+  systemctl --user start vdirsyncer
+fi
+
 /usr/bin/tmux kill-session -t $session || echo "session did not exist"
 
 /usr/bin/tmux new-session -d -s $session -n 'mailserver' \
@@ -39,6 +47,8 @@ cleanup() {
   'neomutt -F ~/.config/neomutt/user.gmail 2>/tmp/nmutt-gmail.log'
 /usr/bin/tmux new-window -d -t $session -n 'ufl' \
   'neomutt -F ~/.config/neomutt/user.ufl 2>/tmp/nmutt-ufl.log'
+/usr/bin/tmux new-window -d -t $session -n 'calendars' \
+  'khal interactive 2>/tmp/khal.log'
 # Wed Feb 19 2020 20:11: Account has been disabled
 # /usr/bin/tmux  new-window  -d -t $session -n 'psu' 'neomutt -F ~/.config/neomutt/user.psu'
 # Tue May 19 2020 04:51: Free account doesn't allow this stuff
