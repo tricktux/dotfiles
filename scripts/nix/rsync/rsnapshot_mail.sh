@@ -47,7 +47,7 @@ msg_error() {
 setup_colors
 echo >&2 -e "${CYAN}${BOLD}==>Backing up emails<==${NOFORMAT}"
 
-SRC="/home/reinaldo/mail"
+SRC="/home/reinaldo/.local/share/mail"
 # Needs full path since its run as sudo
 SNAP="/home/reinaldo/.mnt/skynfs/mail"
 OPTS="-rltgoi --delay-updates --delete --chmod=a-w --copy-links --mkpath"

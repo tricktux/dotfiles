@@ -736,7 +736,7 @@ paci --needed --noconfirm neomutt abook urlscan lynx \
   isync goimapnotify
 # Needed to backup emails
 # paci --needed --noconfirm offlineimap
-mkdir -p ~/mail/{molinamail,molinamail_meli}/inbox
+mkdir -p ~/.local/share/mail/{molinamail,molinamail_meli}/inbox
 /usr/bin/mbsync -D -ac ~/.config/isync/mbsyncrc
 #}}}
 
@@ -751,8 +751,8 @@ evolution
 
 # calendar/contacts {{{
 paci --needed vdirsyncer
-mkdir -p ~/.local/vdirsyncer/{status,calendar,contacts}
-sudo bash -c 'printf "pass show "$@" | head -n 1" >> /usr/lib/password-store/extensions/first-line.bash'
+mkdir -p ~/.local/share/vdirsyncer/{status,calendar,contacts}
+sudo bash -c 'printf "pass show "$@" | head -n 1" > /usr/lib/password-store/extensions/first-line.bash'
 sudo chmod +x /usr/lib/password-store/extensions/first-line.bash
 vdirsyncer discover {contacts,calendars}
 vdirsyncer sync

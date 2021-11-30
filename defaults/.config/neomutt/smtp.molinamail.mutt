@@ -11,11 +11,11 @@
 # set imap_pass=$my_password
 
 # set folder = 'imaps://box.molinamail.com:993'
-set folder = "~/mail/molinamail"
-set spoolfile= "~/mail/molinamail/inbox"
-set postponed= "~/mail/molinamail/Drafts"
-set record = "~/mail/molinamail/Sent"
-set trash = "~/mail/molinamail/Archive"
+set folder = "~/.local/share/mail/molinamail"
+set spoolfile= "~/.local/share/mail/molinamail/inbox"
+set postponed= "~/.local/share/mail/molinamail/Drafts"
+set record = "~/.local/share/mail/molinamail/Sent"
+set trash = "~/.local/share/mail/molinamail/Archive"
 mailboxes =adrian
 mailboxes =amazon
 mailboxes =ana_sofia

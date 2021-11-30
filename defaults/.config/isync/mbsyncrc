@@ -89,8 +89,8 @@ Account molinamail
 MaildirStore molinamail-local
 SubFolders Verbatim
 # The trailing "/" is important
-Path ~/mail/molinamail/
-Inbox ~/mail/molinamail/inbox
+Path ~/.local/share/mail/molinamail/
+Inbox ~/.local/share/mail/molinamail/inbox
 
 Channel molinamail
 Far :molinamail-remote:
@@ -127,8 +127,8 @@ Account molinamail_meli
 MaildirStore molinamail_meli-local
 SubFolders Verbatim
 # The trailing "/" is important
-Path ~/mail/molinamail_meli/
-Inbox ~/mail/molinamail_meli/inbox
+Path ~/.local/share/mail/molinamail_meli/
+Inbox ~/.local/share/mail/molinamail_meli/inbox
 
 Channel molinamail_meli
 Far :molinamail_meli-remote:
