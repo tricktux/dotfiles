@@ -749,6 +749,17 @@ evolution
 #}}}
 # }}}
 
+# calendar/contacts {{{
+paci --needed vdirsyncer
+mkdir -p ~/.local/vdirsyncer/{status,calendar,contacts}
+sudo bash -c 'printf "pass show "$@" | head -n 1" >> /usr/lib/password-store/extensions/first-line.bash'
+sudo chmod +x /usr/lib/password-store/extensions/first-line.bash
+vdirsyncer discover {contacts,calendars}
+vdirsyncer sync
+
+paci --needed khal khard
+# }}}
+
 
 ## Mon Mar 04 2019 22:03 
 
