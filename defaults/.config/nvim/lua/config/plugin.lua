@@ -313,7 +313,7 @@ function M:__setup()
     end
   }
 
-  use {'tpope/vim-fugitive', cmd = 'Gcommit'}
+  use {'tpope/vim-fugitive', cmd = 'Git'}
   use 'tpope/vim-repeat'
   use 'tpope/vim-surround'
   use {'tpope/vim-dispatch', config = function() vim.g.dispatch_no_maps = 1 end}
