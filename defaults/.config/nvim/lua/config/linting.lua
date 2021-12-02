@@ -68,10 +68,9 @@ local function set_neomake_anki_maker()
     return
   end
 
-  local dirname = vim.fn.expand('%:p:h:t')
-  local filename = vim.fn.expand('%:p:t:r')
+  -- For deck name, use the first heading of the file
   local args = {
-    '-i', '%:t', '-o', '%:t:r.apkg', '-n', dirname .. '::' .. filename
+    '-i', '%:t', '-o', '%:t:r.apkg'
   }
   vim.b.neomake_anki_maker = {
     exe = bin,
