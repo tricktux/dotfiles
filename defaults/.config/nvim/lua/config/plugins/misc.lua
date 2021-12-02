@@ -496,7 +496,7 @@ function M.setup_neoterm()
   end
   require('which-key').register {
     ['<plug>terminal_toggle'] = {
-      function() require('utils.utils').exec_float_term('Ttoggle') end,
+      function() require('utils.utils').exec_float_term('Ttoggle', true) end,
       "terminal"
     },
     ['<plug>terminal_new'] = {'<cmd>Tnew<cr>', 'term_new'},

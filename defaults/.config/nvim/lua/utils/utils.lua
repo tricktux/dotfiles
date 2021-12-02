@@ -152,7 +152,7 @@ local function open_win_centered(width, height)
     width = mwidth,
     height = mheight,
     style = 'minimal',
-    border = 'single'
+    border = 'rounded'
   }
 
   log.trace('row = ', row, 'col = ', col, 'width = ', mwidth, 'height = ',
@@ -160,16 +160,20 @@ local function open_win_centered(width, height)
   return buf, api.nvim_open_win(buf, true, opts)
 end
 
--- Execute program in floating terminal
+-- @brief Execute program in floating terminal
+-- @param cmd vim command, if terminal command is desired append term
+-- @param closeterm close window when command is done?
+-- @param startinsert start insert mode in terminal
 local function exec_float_term(cmd, closeterm, startinsert)
   vim.validate {cmd = {cmd, 's'}}
-  vim.validate {startinsert = {startinsert, 'b'}}
-  vim.validate {closeterm = {closeterm, 'b'}}
+  -- Last true makes them optional arguments
+  vim.validate {startinsert = {startinsert, 'b', true}}
+  vim.validate {closeterm = {closeterm, 'b', true}}
 
   local buf, _ = open_win_centered(0.8, 0.8)
-  vim.cmd("term " .. cmd)
+  vim.cmd(cmd)
   if closeterm then
-    vim.cmd("au TermClose <buffer=" .. buf .. [[> quit | bwipeout!]] .. buf)
+    vim.cmd("au TermClose <buffer=" .. buf .. [[> quit!]])
   end
   if startinsert then vim.cmd("startinsert") end
 end
