@@ -1,0 +1,29 @@
+[calendars]
+
+[[cositos]]
+path = ~/.local/share/vdirsyncer/calendar/cositos
+color = dark red
+
+[[tasks]]
+path = ~/.local/share/vdirsyncer/calendar/tasks
+color = dark blue
+
+[[google]]
+path = ~/.local/share/vdirsyncer/calendar/google
+color = dark green
+
+[[sports-calendar]]
+path = ~/.local/share/vdirsyncer/calendar/sports-calendar
+color = yellow
+
+[locale]
+timeformat = %H:%M
+dateformat = %Y-%m-%d
+longdateformat = %Y-%m-%d
+datetimeformat = %Y-%m-%d %H:%M
+longdatetimeformat = %Y-%m-%d %H:%M
+
+[default]
+default_calendar = cositos
+
+# vim: ft=dosini

@@ -80,7 +80,7 @@ bindsym $mod+o exec --no-startup-id \
 bindsym $mod+semicolon exec --no-startup-id \
   $HOME/.config/i3/scripts/xdotool_launch terminal
 bindsym $mod+p exec --no-startup-id \
-  $HOME/.config/i3/scripts/xdotool_launch evolution
+  $HOME/.config/i3/scripts/xdotool_launch neomutt
 bindsym $mod+apostrophe exec --no-startup-id \
   $HOME/.config/i3/scripts/xdotool_launch spotify
 bindsym $mod+comma exec --no-startup-id \

@@ -32,7 +32,7 @@ macro   index   gs "<change-folder>=$my_sent<enter>"    "Go to Sent"
 macro   index   gd "<change-folder>=$my_drafts<enter>"  "Go to Drafts"
 macro   index   gt "<change-folder>=$my_trash<enter>"   "Go to Trash"
 # "run mbsync to sync molinamail"
-macro   index r "<enter-command>sync-mailbox<enter><shell-escape>pkill -x mbsync; mbsync -c /home/reinaldo/.config/isync/mbsyncrc molinamail<enter>"
+macro   index R "<shell-escape>pkill -x mbsync; mbsync -c /home/reinaldo/.config/isync/mbsyncrc molinamail<enter>"
 # TODO.RM-Fri Jun 30 2017 02:58: Figure out a new mapping
 # macro index,pager mp '<copy-message>=Important_Stuff<enter>'
 

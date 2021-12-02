@@ -1,0 +1,41 @@
+[general]
+status_path = "~/.local/share/vdirsyncer/status/"
+
+# Contacts
+[pair contacts]
+a = "contacts_local"
+b = "contacts_remote"
+collections = ["from a", "from b"]
+conflict_resolution = "b wins"
+
+[storage contacts_local]
+type = "filesystem"
+path = "~/.local/share/vdirsyncer/contacts/"
+fileext = ".vcf"
+
+[storage contacts_remote]
+type = "carddav"
+# We can simplify this URL here as well. In theory it shouldn't matter.
+url = "https://box.molinamail.com"
+username = "me@molinamail.com"
+password.fetch = ["command", "pass", "first-line", "linux/mailserver/rei"]
+
+# Calendars
+[pair calendars]
+a = "calendars_local"
+b = "calendars_remote"
+collections = ["from a", "from b"]
+metadata = ["color", "displayname"]
+
+[storage calendars_local]
+type = "filesystem"
+path = "~/.local/share/vdirsyncer/calendar/"
+fileext = ".ics"
+
+[storage calendars_remote]
+type = "caldav"
+url = "https://box.molinamail.com"
+username = "me@molinamail.com"
+password.fetch = ["command", "pass", "first-line", "linux/mailserver/rei"]
+
+# vim: ft=dosini
