@@ -1316,12 +1316,12 @@ function! s:version_control_command(cmd) abort
       " nmap here is needed for the <C-n> to work. Otherwise it doesnt know what
       " it means. This below is if you want it horizontal
       " nmap <leader>gs :Gstatus<CR><C-w>L<C-n>
-      " if exists(':LazyGit')
-        " LazyGit
-      if executable('lazygit')
-        lua require('utils.utils').exec_float_term('lazygit', true, true)
+      if exists(':LazyGit')
+        LazyGit
+      elseif executable('lazygit')
+        lua require('utils.utils').exec_float_term('term lazygit', true, true)
       else
-        execute ':Gstatus'
+        execute ':Git status'
       endif
     elseif l:svn
       execute ':SVNStatus q'
@@ -1331,7 +1331,7 @@ function! s:version_control_command(cmd) abort
     endif
   elseif a:cmd ==? 'log'
     if l:git
-      execute ':Glog'
+      execute ':Git log'
     elseif l:svn
       execute ':SVNLog .'
     else
@@ -1340,8 +1340,8 @@ function! s:version_control_command(cmd) abort
     endif
   elseif a:cmd ==? 'commit'
     if l:git
-      silent execute ':Gwrite'
-      execute ':Gcommit'
+      silent execute ':Git write'
+      execute ':Git commit'
     elseif l:svn
       execute ':SVNCommit'
     else
@@ -1350,14 +1350,14 @@ function! s:version_control_command(cmd) abort
     endif
   elseif a:cmd ==? 'push'
     if l:git
-      execute ':Gpush'
+      execute ':Git push'
     else
       echoerr '[version_control_command]: Please provide a command for commit'
       return
     endif
   elseif a:cmd ==? 'pull'
     if l:git
-      execute ':Gpull'
+      execute ':Git pull'
     elseif l:svn
       execute ':!svn up .'
     else
