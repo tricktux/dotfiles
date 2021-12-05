@@ -752,7 +752,7 @@ evolution
 # calendar/contacts {{{
 paci --needed vdirsyncer
 mkdir -p ~/.local/share/vdirsyncer/{status,calendar,contacts}
-sudo bash -c 'printf "pass show "$@" | head -n 1" > /usr/lib/password-store/extensions/first-line.bash'
+sudo bash -c 'printf "pass show \"\$@\" | head -n 1" > /usr/lib/password-store/extensions/first-line.bash'
 sudo chmod +x /usr/lib/password-store/extensions/first-line.bash
 vdirsyncer discover {contacts,calendars}
 vdirsyncer sync
