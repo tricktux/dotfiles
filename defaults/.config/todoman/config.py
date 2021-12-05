@@ -8,4 +8,4 @@ humanize = True
 dt_separator = " -- "
 default_priority = 1
 cache_path = "$XDG_CACHE_HOME/todoman/cache.sqlite3"
-
+default_command = "list --sort due --no-reverse"
