@@ -757,7 +757,8 @@ sudo chmod +x /usr/lib/password-store/extensions/first-line.bash
 vdirsyncer discover {contacts,calendars}
 vdirsyncer sync
 
-paci --needed khal khard
+# Calendar, contacts and todo applications that read from vdir
+paci --needed khal khard todoman
 # }}}
 
 
