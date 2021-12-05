@@ -193,7 +193,7 @@ paci --needed --noconfirm zsh
 # Install plugins
 paci --needed --noconfirm pkgfile z-git \
   zsh-theme-powerlevel10k zsh-autosuggestions \
-  zsh-history-substring-search zsh-syntax-highlighting
+  zsh-history-substring-search zsh-syntax-highlighting zsh-completions
 chsh -s /usr/bin/zsh
 export ZDOTDIR=$HOME/.config/zsh
 zsh
