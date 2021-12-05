@@ -159,12 +159,12 @@ plantuml
 playerctl
 poppler
 pulseaudio-alsa
+pyright
 python-cpplint
 python-pip
 python-pywal
 python-selenium
 python2
-python2-pip
 qpdfview
 qrencode
 rapidjson
