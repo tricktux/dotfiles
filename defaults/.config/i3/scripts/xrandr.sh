@@ -64,8 +64,7 @@ if [[ "$hostname" = "aero" ]]; then
       "Configuration '$1' set!" \
       -a 'arandr'
     exit 0
-  fi
-  if [[ "$1" = "tv" ]]; then
+  elif [[ "$1" = "tv" ]]; then
     echo "setting up tv configuration"
     /usr/bin/xrandr \
       --dpi 96 \
@@ -80,14 +79,32 @@ if [[ "$hostname" = "aero" ]]; then
       "Configuration '$1' set!" \
       -a 'arandr'
     exit 0
-  fi
-  if [[ "$1" = "home_dock" ]]; then
+  elif [[ "$1" = "home_dock" ]]; then
     echo "setting up home_dock configuration"
     /usr/bin/xrandr \
       --dpi 156 \
       --output eDP --off \
       --output HDMI-A-0 --mode 1920x1080 --rate 60 --pos 3840x0 --scale 1.25x1.25 \
       --output DisplayPort-0 --mode 3840x2160 --rate 60 --pos 0x0 --primary
+
+    echo "Xft.dpi: 156" | xrdb -merge
+    # Restart polybar
+    "$HOME/.config/polybar/scripts/launch.sh"
+    notify-send "xrandr" \
+      "Configuration '$1' set!" \
+      -a 'arandr'
+          exit 0
+  elif [[ "$1" = "work_dock" ]]; then
+    echo "setting up work_dock configuration"
+    xrandr \
+      --dpi 156 \
+      --output eDP --off \
+      --output HDMI-A-0 --off \
+      --output DisplayPort-0 --off \
+      --output DisplayPort-1 --mode 1920x1080 --rate 60 --pos 3840x0 \
+      --output DisplayPort-2 --off \
+      --output DisplayPort-3 --mode 3840x2160 --rate 60 --pos 0x0 --primary
+
 
     echo "Xft.dpi: 156" | xrdb -merge
     # Restart polybar
