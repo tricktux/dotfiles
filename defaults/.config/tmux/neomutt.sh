@@ -49,4 +49,5 @@ fi
   'neomutt -F ~/.config/neomutt/user.ufl 2>/tmp/nmutt-ufl.log'
 /usr/bin/tmux new-window -d -t $session -n 'calendars' \
   'khal interactive 2>/tmp/khal.log'
+/usr/bin/tmux new-window -d -t $session -n 'todo'
 /usr/bin/tmux -2 attach-session -t $session
