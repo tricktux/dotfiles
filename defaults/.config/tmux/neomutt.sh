@@ -31,12 +31,12 @@ cleanup() {
 /usr/bin/goimapnotify -conf ~/.config/imapnotify/molinamail.conf \
   >/tmp/imapnotify_molinamail.log 2>&1 &
 
-if [[ $(systemctl --user is-active vdirsyncer) = "inactive" ]]; then
+if [[ $(systemctl --user is-active vdirsyncer.timer) = "inactive" ]]; then
   echo "Synchronizing vdirsyncer. Please wait..."
   /usr/bin/vdirsyncer -vdebug sync \
     >/tmp/vdirsyncer.log 2>&1
 
-  systemctl --user start vdirsyncer
+  systemctl --user start vdirsyncer.timer
 fi
 
 /usr/bin/tmux kill-session -t $session || echo "session did not exist"
