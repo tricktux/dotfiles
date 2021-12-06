@@ -49,10 +49,4 @@ fi
   'neomutt -F ~/.config/neomutt/user.ufl 2>/tmp/nmutt-ufl.log'
 /usr/bin/tmux new-window -d -t $session -n 'calendars' \
   'khal interactive 2>/tmp/khal.log'
-# Wed Feb 19 2020 20:11: Account has been disabled
-# /usr/bin/tmux  new-window  -d -t $session -n 'psu' 'neomutt -F ~/.config/neomutt/user.psu'
-# Tue May 19 2020 04:51: Free account doesn't allow this stuff
-# /usr/bin/tmux new-window -d -t $session -n 'pmserver' 'protonmail-bridge --cli'
-# /usr/bin/tmux new-window -d -t $session -n 'pm' \
-# 'sleep 5; neomutt -F ~/.config/neomutt/user.pm'
 /usr/bin/tmux -2 attach-session -t $session
