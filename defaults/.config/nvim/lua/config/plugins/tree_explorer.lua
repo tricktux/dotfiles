@@ -25,6 +25,7 @@ function M.nvimtree_config()
   -- empty string depending on your font.
   vim.g.nvim_tree_icon_padding = ' ' 
   vim.g.nvim_tree_special_files = { ['README.md'] = 1, ['Makefile'] = 1, ['MAKEFILE'] = 1 } -- List of filenames that gets highlighted with NvimTreeSpecialFile
+  vim.g.nvim_tree_respect_buf_cwd = 1
 
   local tree_cb = require'nvim-tree.config'.nvim_tree_callback
 
@@ -39,7 +40,7 @@ function M.nvimtree_config()
     follow = true,
     open_on_tab = false,
     hijack_cursor = false,
-    update_cwd = false,
+    update_cwd = true,
     update_focused_file = {enable = true, update_cwd = true, ignore_list = {}},
     system_open = {cmd = nil, args = {}},
     filters = {

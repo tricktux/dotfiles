@@ -205,7 +205,7 @@ function! plugin#Config()
   " let g:fastfold_fold_command_suffixes =
         " \['x','X','a','A','o','O','c','C','r','R','m','M','i','n','N']
 
-  call s:configure_vim_rooter()
+  " call s:configure_vim_rooter()
 
   " Fri Feb 14 2020 15:30
   " Trying alternative
