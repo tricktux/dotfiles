@@ -70,14 +70,6 @@ function M:set_mappings(bufnr)
     t = {dap.repl.toggle, 'toggle'},
     c = {dap.repl.close, 'close'}
   }
-  local v = require("dap.ui.variables")
-  local vars = {
-    name = 'variables',
-    h = {v.hover, 'hover'},
-    s = {v.scopes, 'scopes'},
-    v = {v.visual_hover, 'visual_hover'},
-    t = {v.toggle_multiline_display, 'toggle_multiline_display'}
-  }
   local w = require('dap.ui.widgets')
   local widgets = {
     name = 'widgets',
