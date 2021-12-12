@@ -412,12 +412,12 @@ sudo systemctl start openvpn-client@home
 # }}}
 
 # password-store{{{
-paci --needed --noconfirm --needed rofi-pass
+paci --needed --noconfirm --needed pass rofi-pass
 ## Passwords
 # pass-import most likely you'll have to download from git page
 gpg --recv-keys 06A26D531D56C42D66805049C5469996F0DF68EC
 paci --needed --noconfirm python-pykeepass
-paci --needed --noconfirm pass keepassxc pass-import
+paci --needed --noconfirm pass keepassxc pass-import pass-update
 ## Root passwd
 # - ~~`install openssh-askpass`~~
 # - Tue Mar 26 2019 08:53
