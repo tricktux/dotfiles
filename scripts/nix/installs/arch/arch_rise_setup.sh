@@ -409,6 +409,7 @@ sudo chown openvpn:openvpn /etc/openvpn/client/{home,pass}.conf
 sudo chmod 700 /etc/openvpn/client/{home,pass}.conf
 sudo chmod 600 /etc/openvpn/client/{home,pass}.conf
 sudo systemctl start openvpn-client@home
+sudo systemctl status openvpn-client@home
 # }}}
 
 # password-store{{{
