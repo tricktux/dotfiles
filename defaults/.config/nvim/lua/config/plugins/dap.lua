@@ -70,14 +70,6 @@ function M:set_mappings(bufnr)
     t = {dap.repl.toggle, 'toggle'},
     c = {dap.repl.close, 'close'}
   }
-  local v = require("dap.ui.variables")
-  local vars = {
-    name = 'variables',
-    h = {v.hover, 'hover'},
-    s = {v.scopes, 'scopes'},
-    v = {v.visual_hover, 'visual_hover'},
-    t = {v.toggle_multiline_display, 'toggle_multiline_display'}
-  }
   local w = require('dap.ui.widgets')
   local widgets = {
     name = 'widgets',
@@ -147,6 +139,23 @@ function M:set_mappings(bufnr)
   wk.register(mappings, opts)
 end
 
+function M:__set_virt_text()
+  require("nvim-dap-virtual-text").setup {
+    enabled = true,                     -- enable this plugin (the default)
+    enabled_commands = true,            -- create commands DapVirtualTextEnable, DapVirtualTextDisable, DapVirtualTextToggle, (DapVirtualTextForceRefresh for refreshing when debug adapter did not notify its termination)
+    highlight_changed_variables = true, -- highlight changed values with NvimDapVirtualTextChanged, else always NvimDapVirtualText
+    highlight_new_as_changed = false,   -- highlight new variables in the same way as changed variables (if highlight_changed_variables)
+    show_stop_reason = true,            -- show stop reason when stopped for exceptions
+    commented = false,                  -- prefix virtual text with comment string
+    -- experimental features:
+    virt_text_pos = 'eol',              -- position of virtual text, see `:h nvim_buf_set_extmark()`
+    all_frames = false,                 -- show virtual text for all stack frames not only current. Only works for debugpy on my machine.
+    virt_lines = false,                 -- show virtual lines instead of virtual text (will flicker!)
+    virt_text_win_col = nil             -- position the virtual text at a fixed window column (starting from the first text column) ,
+                                        -- e.g. 80 to position at column 80, see `:h nvim_buf_set_extmark()`
+  }
+end
+
 function M:setup()
   if not utl.is_mod_available('dap') then
     vim.api.nvim_err_writeln('dap module not available')
@@ -155,6 +164,11 @@ function M:setup()
 
   if not utl.is_mod_available('dapui') then
     vim.api.nvim_err_writeln('dapui module not available')
+    return
+  end
+
+  if not utl.is_mod_available('nvim-dap-virtual-text') then
+    vim.api.nvim_err_writeln('nvim-dap-virtual-text module not available')
     return
   end
 
@@ -192,6 +206,8 @@ function M:setup()
   })
 
   self:__setup_python()
+
+  self:__set_virt_text()
 
   if vim.fn.executable('lldb-vscode') <= 0 then
     return
