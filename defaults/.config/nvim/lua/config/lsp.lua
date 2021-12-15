@@ -262,4 +262,4 @@ local function lsp_set()
   end
 end
 
-return {set = lsp_set, on_lsp_attach = on_lsp_attach}
+return {setup = lsp_set, on_lsp_attach = on_lsp_attach}
