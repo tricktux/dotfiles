@@ -19,7 +19,6 @@ lua-format
 luacheck
 lutris-battlenet-meta
 mps-youtube-git
-neovim-git
 neovim-remote
 nerd-fonts-inconsolata
 networkmanager-dmenu-git
@@ -30,6 +29,7 @@ paper-gtk-theme-git
 paper-icon-theme
 paru-bin
 pass-import
+pass-update
 polybar
 python2-pip
 qt5-styleplugins
