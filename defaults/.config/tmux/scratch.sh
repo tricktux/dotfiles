@@ -31,7 +31,7 @@ if [[ -f /usr/bin/cmus ]]; then
   /usr/bin/tmux new-window -d -t $session -n 'cmus' '/usr/bin/cmus'
 fi
 if [[ -f /usr/bin/bc ]]; then
-  /usr/bin/tmux new-window -d -t $session -n 'calc' '/usr/bin/bc -q'
+  /usr/bin/tmux new-window -d -t $session -n 'calc' '/usr/bin/bc --mathlib'
 fi
 if [[ -f /usr/bin/cava ]]; then
   /usr/bin/tmux new-window -d -t $session -n 'cava' '/usr/bin/cava'
