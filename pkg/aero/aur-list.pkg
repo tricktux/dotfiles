@@ -35,7 +35,6 @@ pass-import
 polybar
 powerstat
 preload
-python2-pip
 qogir-icon-theme
 qt5-styleplugins
 ranger-git
