@@ -59,6 +59,7 @@ gcc
 gdb
 gettext
 ghostscript
+gimagereader-gtk
 git
 glava
 global
@@ -188,6 +189,7 @@ simple-scan
 steam
 stow
 sudo
+tesseract-data-eng
 texinfo
 texlive-bibtexextra
 texlive-core

@@ -35,6 +35,7 @@ python2-pip
 qt5-styleplugins
 ranger-git
 rmapi
+rmview
 rofi-bluetooth-git
 rofi-dmenu
 shellcheck-bin
