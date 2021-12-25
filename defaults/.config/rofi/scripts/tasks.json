@@ -36,6 +36,10 @@
     "command": "exec $HOME/.config/dunst/restart.sh"
   },
   {
+    "name": "🎧 bluetooth wh-1000xm4",
+    "command": "exec $HOME/.config/i3/scripts/bluetooth.lua 'connect' '14:3F:A6:EA:F5:D1'"
+  },
+  {
     "name": "🎧 bluetooth wh-1000xm2",
     "command": "exec $HOME/.config/i3/scripts/bluetooth.lua 'connect' '04:5D:4B:EA:9C:B2'"
   },
