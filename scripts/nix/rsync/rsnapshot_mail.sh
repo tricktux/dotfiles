@@ -45,17 +45,18 @@ msg_error() {
 }
 
 setup_colors
-echo >&2 -e "${CYAN}${BOLD}==>Backing up emails<==${NOFORMAT}"
+echo >&2 -e "${CYAN}${BOLD}==>Backing up email/calendar<==${NOFORMAT}"
 
-SRC="/home/reinaldo/.local/share/mail"
+SRC="/home/reinaldo/.local/share/mail /home/reinaldo/.local/share/vdirsyncer"
 # Needs full path since its run as sudo
+BASE="/home/reinaldo/.mnt/skynfs"
 SNAP="/home/reinaldo/.mnt/skynfs/mail"
 OPTS="-rltgoi --delay-updates --delete --chmod=a-w --copy-links --mkpath"
 MINCHANGES=40
 CIFS_OPTIONS=credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,noauto,_netdev,nolock
 
 # Mount homes if not mounted before
-if ! [ "$(ls -A $SNAP)" ]; then
+if ! [ "$(ls -A $BASE)" ]; then
   # Ensure folder exists
   msg_error "==> Backup destination not available..."
   exit 1
