@@ -73,7 +73,7 @@ fi
 
 echo >&2 -e "${CYAN}${BOLD}==> Backing home directiories... <==${NOFORMAT}"
 mkdir -p "$SNAP/latest"
-rsync $OPTS $SRC $SNAP/latest >>$SNAP/rsync.log
+rsync $OPTS $SRC $SNAP/latest | tee $SNAP/rsync.log
 
 # check if enough has changed and if so
 # make a hardlinked copy named as the date
