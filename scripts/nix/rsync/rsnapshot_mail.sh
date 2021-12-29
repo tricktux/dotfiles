@@ -61,7 +61,15 @@ if ! [ "$(ls -A $BASE)" ]; then
   exit 1
 fi
 
-rsync $OPTS $SRC $SNAP/latest >>$SNAP/rsync.log
+echo >&2 -e "${CYAN}${BOLD}==> Synchronizing email... <==${NOFORMAT}"
+/usr/bin/mbsync -D -ac "$HOME"/.config/isync/mbsyncrc || echo "mbsync never retuns code 0..."
+
+echo >&2 -e "${CYAN}${BOLD}==> Synchronizing calendar and contacts... <==${NOFORMAT}"
+/usr/bin/vdirsyncer --verbosity debug sync
+
+echo >&2 -e "${CYAN}${BOLD}==> Backing up emails... <==${NOFORMAT}"
+mkdir -p "$SNAP"
+rsync $OPTS $SRC "$SNAP"/latest | tee "$SNAP"/rsync.log
 
 # check if enough has changed and if so
 # make a hardlinked copy named as the date
