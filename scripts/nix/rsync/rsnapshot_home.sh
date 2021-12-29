@@ -45,11 +45,12 @@ msg_error() {
 }
 
 setup_colors
-echo >&2 -e "${CYAN}${BOLD}==>Backing up home<==${NOFORMAT}"
+echo >&2 -e "${CYAN}${BOLD}==> Backing up home... <==${NOFORMAT}"
 
 # Backup pacman's local database
 # More info here:
 # https://wiki.archlinux.org/index.php/Pacman/Restore_local_database
+echo >&2 -e "${CYAN}${BOLD}==> Backing pacman's local database... <==${NOFORMAT}"
 [[ -f /tmp/pacman_database.tar.bz2 ]] && rm /tmp/pacman_database.tar.bz2
 tar -cjf /tmp/pacman_database.tar.bz2 /var/lib/pacman/local
 SRC="/home/reinaldo/.gnupg /home/reinaldo/.ssh /home/reinaldo/.password-store /tmp/pacman_database.tar.bz2"
@@ -71,7 +72,7 @@ if ! [ "$(ls -A "$BASE")" ]; then
   # mkdir -p "$SNAP"
 fi
 
-mkdir -p "$SNAP"
+echo >&2 -e "${CYAN}${BOLD}==> Backing home directiories... <==${NOFORMAT}"
 mkdir -p "$SNAP/latest"
 
 rsync $OPTS $SRC $SNAP/latest >>$SNAP/rsync.log
