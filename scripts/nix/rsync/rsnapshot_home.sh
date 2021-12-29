@@ -45,14 +45,13 @@ msg_error() {
 }
 
 setup_colors
-echo >&2 -e "${CYAN}${BOLD}==> Backing up home... <==${NOFORMAT}"
 
 # Backup pacman's local database
 # More info here:
 # https://wiki.archlinux.org/index.php/Pacman/Restore_local_database
 echo >&2 -e "${CYAN}${BOLD}==> Backing pacman's local database... <==${NOFORMAT}"
 [[ -f /tmp/pacman_database.tar.bz2 ]] && rm /tmp/pacman_database.tar.bz2
-tar -cjf /tmp/pacman_database.tar.bz2 /var/lib/pacman/local
+tar -vcjf /tmp/pacman_database.tar.bz2 /var/lib/pacman/local
 
 SRC="/home/reinaldo/.gnupg /home/reinaldo/.ssh /home/reinaldo/.password-store /tmp/pacman_database.tar.bz2"
 # Needs full path since its run as sudo
