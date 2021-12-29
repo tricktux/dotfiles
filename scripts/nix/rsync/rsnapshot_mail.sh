@@ -57,7 +57,7 @@ MINCHANGES=40
 # Mount homes if not mounted before
 if ! [ "$(ls -A "$BASE")" ]; then
   # Ensure folder exists
-  msg_error "==> Backup destination ${BASE} not available..."
+  msg_error "==> Backup destination '${BASE}' not available..."
   exit 1
 fi
 
@@ -75,7 +75,7 @@ rsync $OPTS $SRC "$SNAP"/latest | tee "$SNAP"/rsync.log
 # make a hardlinked copy named as the date
 COUNT=$(wc -l "$SNAP"/rsync.log | cut -d" " -f1)
 if [ "$COUNT" -gt "$MINCHANGES" ]; then
-  msg "${CYAN}${BOLD}" "==> [rsync_backup]: Creating new snapshot..."
+  msg "${CYAN}${BOLD}" "==> Creating new snapshot..."
   DATETAG=$(date +%Y-%m-%d)
   if [ ! -e "$SNAP/$DATETAG" ]; then
     cp -al "$SNAP/latest" "$SNAP/$DATETAG"
