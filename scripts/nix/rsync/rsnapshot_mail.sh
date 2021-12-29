@@ -55,7 +55,7 @@ OPTS="-rltgoi --delay-updates --delete --copy-links --mkpath"
 MINCHANGES=40
 
 # Mount homes if not mounted before
-if ! [ "$(ls -A $BASE)" ]; then
+if ! [ "$(ls -A "$BASE")" ]; then
   # Ensure folder exists
   msg_error "==> Backup destination ${BASE} not available..."
   exit 1
@@ -73,15 +73,14 @@ rsync $OPTS $SRC "$SNAP"/latest | tee "$SNAP"/rsync.log
 
 # check if enough has changed and if so
 # make a hardlinked copy named as the date
-
-COUNT=$(wc -l $SNAP/rsync.log | cut -d" " -f1)
+COUNT=$(wc -l "$SNAP"/rsync.log | cut -d" " -f1)
 if [ "$COUNT" -gt "$MINCHANGES" ]; then
   msg "${CYAN}${BOLD}" "==> [rsync_backup]: Creating new snapshot..."
   DATETAG=$(date +%Y-%m-%d)
-  if [ ! -e $SNAP/$DATETAG ]; then
-    cp -al $SNAP/latest $SNAP/$DATETAG
-    chmod u+w $SNAP/$DATETAG
-    mv $SNAP/rsync.log $SNAP/$DATETAG
-    chmod u-w $SNAP/$DATETAG
+  if [ ! -e "$SNAP/$DATETAG" ]; then
+    cp -al "$SNAP/latest" "$SNAP/$DATETAG"
+    chmod u+w "$SNAP"/"$DATETAG"
+    mv "$SNAP"/rsync.log "$SNAP/$DATETAG"
+    chmod u-w "$SNAP/$DATETAG"
   fi
 fi
