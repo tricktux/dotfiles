@@ -37,11 +37,11 @@ setup_colors() {
 msg() {
   echo >&2 -e "${1-}${2-}${NOFORMAT}"
   # Skip pretty characters
-  notify-send 'Rsync Home' "${2}"
+  notify-send 'Rsync calendar and contacts' "${2}"
 }
 msg_error() {
   echo >&2 -e "${RED}${BOLD}${1-}${NOFORMAT}"
-  notify-send 'Rsync Home' "${1:4:-3}" -u critical
+  notify-send 'Rsync calendar and contacts' "${1:4:-3}" -u critical
 }
 
 setup_colors
