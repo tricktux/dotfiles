@@ -51,7 +51,7 @@ SRC="$HOME/.local/share/mail $HOME/.local/share/vdirsyncer"
 # Needs full path since its run as sudo
 BASE="/home/reinaldo/.mnt/skynfs"
 SNAP="/home/reinaldo/.mnt/skynfs/mail"
-OPTS="-rltgoi --delay-updates --delete --chmod=a-w --copy-links --mkpath"
+OPTS="-rltgoi --delay-updates --delete --copy-links --mkpath"
 MINCHANGES=40
 
 # Mount homes if not mounted before
