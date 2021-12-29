@@ -57,7 +57,7 @@ MINCHANGES=40
 # Mount homes if not mounted before
 if ! [ "$(ls -A $BASE)" ]; then
   # Ensure folder exists
-  msg_error "==> Backup destination not available..."
+  msg_error "==> Backup destination ${BASE} not available..."
   exit 1
 fi
 
