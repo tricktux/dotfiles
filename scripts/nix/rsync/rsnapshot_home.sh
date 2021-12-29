@@ -53,14 +53,13 @@ echo >&2 -e "${CYAN}${BOLD}==> Backing up home... <==${NOFORMAT}"
 echo >&2 -e "${CYAN}${BOLD}==> Backing pacman's local database... <==${NOFORMAT}"
 [[ -f /tmp/pacman_database.tar.bz2 ]] && rm /tmp/pacman_database.tar.bz2
 tar -cjf /tmp/pacman_database.tar.bz2 /var/lib/pacman/local
+
 SRC="/home/reinaldo/.gnupg /home/reinaldo/.ssh /home/reinaldo/.password-store /tmp/pacman_database.tar.bz2"
 # Needs full path since its run as sudo
 BASE="/home/reinaldo/.mnt/skynfs"
 SNAP="$BASE/$HOSTNAME"
 OPTS="-rltgoi --delay-updates --delete --copy-links --mkpath"
 MINCHANGES=20
-# CIFS_OPTIONS=credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,noauto,_netdev,nolock
-# SKYWAFER="//192.168.1.138/homes"
 
 # Mount homes if not mounted before
 if ! [ "$(ls -A "$BASE")" ]; then
