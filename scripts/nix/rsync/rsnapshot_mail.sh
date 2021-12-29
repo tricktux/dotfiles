@@ -49,8 +49,8 @@ echo >&2 -e "${CYAN}${BOLD}==>Backing up email/calendar<==${NOFORMAT}"
 
 SRC="$HOME/.local/share/mail $HOME/.local/share/vdirsyncer"
 # Needs full path since its run as sudo
-BASE="/home/reinaldo/.mnt/skynfs"
-SNAP="/home/reinaldo/.mnt/skynfs/mail"
+BASE="$HOME/.mnt/skywafer/home"
+SNAP="$HOME/.mnt/skywafer/home/bkps/mail"
 OPTS="-rltgoi --delay-updates --delete --copy-links --mkpath"
 MINCHANGES=40
 
