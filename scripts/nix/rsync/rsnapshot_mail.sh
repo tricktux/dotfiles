@@ -47,7 +47,7 @@ msg_error() {
 setup_colors
 echo >&2 -e "${CYAN}${BOLD}==>Backing up email/calendar<==${NOFORMAT}"
 
-SRC="/home/reinaldo/.local/share/mail /home/reinaldo/.local/share/vdirsyncer"
+SRC="$HOME/.local/share/mail $HOME/.local/share/vdirsyncer"
 # Needs full path since its run as sudo
 BASE="/home/reinaldo/.mnt/skynfs"
 SNAP="/home/reinaldo/.mnt/skynfs/mail"
