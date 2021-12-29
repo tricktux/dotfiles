@@ -57,7 +57,7 @@ SRC="/home/reinaldo/.gnupg /home/reinaldo/.ssh /home/reinaldo/.password-store /t
 # Needs full path since its run as sudo
 BASE="/home/reinaldo/.mnt/skynfs"
 SNAP="$BASE/$HOSTNAME"
-OPTS="-rltgoi --delay-updates --delete --chmod=a-w --copy-links --mkpath"
+OPTS="-rltgoi --delay-updates --delete --copy-links --mkpath"
 MINCHANGES=20
 # CIFS_OPTIONS=credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,noauto,_netdev,nolock
 # SKYWAFER="//192.168.1.138/homes"
