@@ -153,11 +153,11 @@ local function diagnostic_set()
     local loc = vim.fn.has('nvim-0.6') > 0 and {open = false} or
                     {open_loclist = false}
     default_handler(err, method, result, client_id, bufnr, config)
-    vim.lsp.diagnostic.set_loclist(loc)
+    vim.diagnostic.setloclist(loc)
     -- Do overwrite my search list
     if #vim.fn.getqflist() > 0 then return end
-    local diagnostics = vim.lsp.diagnostic.get_all()
-    local qflist = {}
+    local diagnostics = vim.diagnostic.get()
+    local qflist = {open = false}
     for nbufnr, diagnostic in pairs(diagnostics) do
       for _, d in ipairs(diagnostic) do
         d.bufnr = nbufnr
@@ -167,7 +167,7 @@ local function diagnostic_set()
         table.insert(qflist, d)
       end
     end
-    vim.lsp.util.set_qflist(qflist)
+    vim.diagnostic.setqflist(qflist)
   end
 end
 
