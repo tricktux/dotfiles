@@ -112,7 +112,7 @@ Host box.molinamail.com
 User melixam@molinamail.com
 # Pass ***************
 # To store the password in an encrypted file use PassCmd instead of Pass
-PassCmd "pass all_passwds_db/eMail/MolinaMail"
+PassCmd "pass all_passwds_db/eMail/MolinaMail-Meli"
 #
 # Use SSL
 SSLType IMAPS

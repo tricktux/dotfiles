@@ -37,43 +37,50 @@ setup_colors() {
 msg() {
   echo >&2 -e "${1-}${2-}${NOFORMAT}"
   # Skip pretty characters
-  notify-send 'Rsync Home' "${2}"
+  notify-send 'Rsync calendar and contacts' "${2}"
 }
 msg_error() {
   echo >&2 -e "${RED}${BOLD}${1-}${NOFORMAT}"
-  notify-send 'Rsync Home' "${1:4:-3}" -u critical
+  notify-send 'Rsync calendar and contacts' "${1:4:-3}" -u critical
 }
 
 setup_colors
-echo >&2 -e "${CYAN}${BOLD}==>Backing up emails<==${NOFORMAT}"
+echo >&2 -e "${CYAN}${BOLD}==>Backing up email/calendar<==${NOFORMAT}"
 
-SRC="/home/reinaldo/.local/share/mail"
+SRC="$HOME/.local/share/mail $HOME/.local/share/vdirsyncer"
 # Needs full path since its run as sudo
-SNAP="/home/reinaldo/.mnt/skynfs/mail"
-OPTS="-rltgoi --delay-updates --delete --chmod=a-w --copy-links --mkpath"
+BASE="$HOME/.mnt/skywafer/home"
+SNAP="$HOME/.mnt/skywafer/home/bkps/mail"
+OPTS="-rltgoi --delay-updates --delete --copy-links --mkpath"
 MINCHANGES=40
-CIFS_OPTIONS=credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,noauto,_netdev,nolock
 
 # Mount homes if not mounted before
-if ! [ "$(ls -A $SNAP)" ]; then
+if ! [ "$(ls -A "$BASE")" ]; then
   # Ensure folder exists
-  msg_error "==> Backup destination not available..."
+  msg_error "==> Backup destination '${BASE}' not available..."
   exit 1
 fi
 
-rsync $OPTS $SRC $SNAP/latest >>$SNAP/rsync.log
+echo >&2 -e "${CYAN}${BOLD}==> Synchronizing email... <==${NOFORMAT}"
+/usr/bin/mbsync -D -ac "$HOME"/.config/isync/mbsyncrc || echo "mbsync never retuns code 0..."
+
+echo >&2 -e "${CYAN}${BOLD}==> Synchronizing calendar and contacts... <==${NOFORMAT}"
+/usr/bin/vdirsyncer --verbosity debug sync
+
+echo >&2 -e "${CYAN}${BOLD}==> Backing up emails... <==${NOFORMAT}"
+mkdir -p "$SNAP"
+rsync $OPTS $SRC "$SNAP"/latest | tee "$SNAP"/rsync.log
 
 # check if enough has changed and if so
 # make a hardlinked copy named as the date
-
-COUNT=$(wc -l $SNAP/rsync.log | cut -d" " -f1)
+COUNT=$(wc -l "$SNAP"/rsync.log | cut -d" " -f1)
 if [ "$COUNT" -gt "$MINCHANGES" ]; then
-  msg "${CYAN}${BOLD}" "==> [rsync_backup]: Creating new snapshot..."
+  msg "${CYAN}${BOLD}" "==> Creating new snapshot..."
   DATETAG=$(date +%Y-%m-%d)
-  if [ ! -e $SNAP/$DATETAG ]; then
-    cp -al $SNAP/latest $SNAP/$DATETAG
-    chmod u+w $SNAP/$DATETAG
-    mv $SNAP/rsync.log $SNAP/$DATETAG
-    chmod u-w $SNAP/$DATETAG
+  if [ ! -e "$SNAP/$DATETAG" ]; then
+    cp -al "$SNAP/latest" "$SNAP/$DATETAG"
+    chmod u+w "$SNAP"/"$DATETAG"
+    mv "$SNAP"/rsync.log "$SNAP/$DATETAG"
+    chmod u-w "$SNAP/$DATETAG"
   fi
 fi

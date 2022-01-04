@@ -84,7 +84,7 @@ if [[ "$hostname" = "aero" ]]; then
     /usr/bin/xrandr \
       --dpi 156 \
       --output eDP --off \
-      --output HDMI-A-0 --mode 1920x1080 --rate 60 --pos 3840x0 --scale 1.25x1.25 \
+      --output HDMI-A-0 --mode 3840x2160 --rate 60 --pos 3840x0 \
       --output DisplayPort-0 --mode 3840x2160 --rate 60 --pos 0x0 --primary
 
     echo "Xft.dpi: 156" | xrdb -merge
@@ -101,7 +101,7 @@ if [[ "$hostname" = "aero" ]]; then
       --output eDP --off \
       --output HDMI-A-0 --off \
       --output DisplayPort-0 --off \
-      --output DisplayPort-1 --mode 1920x1080 --rate 60 --pos 3840x0 --scale 1.25x1.25 \
+      --output DisplayPort-1 --mode 3840x2160 --rate 60 --pos 3840x0 \
       --output DisplayPort-2 --off \
       --output DisplayPort-3 --mode 3840x2160 --rate 60 --pos 0x0 --primary
 
@@ -127,13 +127,13 @@ if [[ "$hostname" = "predator" ]]; then
     echo "setting up main configuration"
     /usr/bin/xrandr \
       --dpi 156 \
-      --output DP-2 --mode 3840x2160 --rate 60 --pos 0x0 --primary \
-      --output HDMI-0 --mode 1920x1080 --rate 60 --pos 3840x0 \
       --output DVI-D-0 --off \
+      --output HDMI-0 --off \
       --output DP-0 --off \
       --output DP-1 --off \
+      --output DP-2 --mode 3840x2160 --rate 60 --pos 0x0 --primary \
       --output DP-3 --off \
-      --output DP-4 --off \
+      --output DP-4 --mode 3840x2160 --rate 60 --pos 3840x0 \
       --output DP-5 --off
 
     echo "Xft.dpi: 156" | xrdb -merge

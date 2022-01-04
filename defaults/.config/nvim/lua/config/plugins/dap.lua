@@ -102,7 +102,6 @@ function M:set_mappings(bufnr)
     c = {dap.run_to_cursor, 'run_to_cursor'},
     t = {dap.toggle_breakpoint, 'toggle_breakpoint'},
     u = {u.toggle, 'toggle_ui'},
-    h = {v.hover, 'hover_variable'},
     e = {dap.repl.toggle, 'toggle_repl'},
     -- Showing these guys here for reference
     ['<F2>'] = {dap.stop, 'stop'},
@@ -112,7 +111,6 @@ function M:set_mappings(bufnr)
     ['<F11>'] = {dap.step_into, 'step_into'},
     ['<F12>'] = {dap.step_out, 'step_out'},
     l = repl,
-    v = vars,
     w = widgets,
     g = ui
   }

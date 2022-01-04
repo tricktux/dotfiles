@@ -45,21 +45,20 @@ msg_error() {
 }
 
 setup_colors
-echo >&2 -e "${CYAN}${BOLD}==>Backing up home<==${NOFORMAT}"
 
 # Backup pacman's local database
 # More info here:
 # https://wiki.archlinux.org/index.php/Pacman/Restore_local_database
+echo >&2 -e "${CYAN}${BOLD}==> Backing pacman's local database... <==${NOFORMAT}"
 [[ -f /tmp/pacman_database.tar.bz2 ]] && rm /tmp/pacman_database.tar.bz2
-tar -cjf /tmp/pacman_database.tar.bz2 /var/lib/pacman/local
-SRC="/home/reinaldo/.gnupg /home/reinaldo/.ssh /home/reinaldo/.password-store /tmp/pacman_database.tar.bz2"
+tar -vcjf /tmp/pacman_database.tar.bz2 /var/lib/pacman/local
+
+SRC="$HOME/.gnupg $HOME/.ssh $HOME/.password-store /tmp/pacman_database.tar.bz2"
 # Needs full path since its run as sudo
-BASE="/home/reinaldo/.mnt/skynfs"
+BASE="$HOME/.mnt/skywafer"
 SNAP="$BASE/$HOSTNAME"
-OPTS="-rltgoi --delay-updates --delete --chmod=a-w --copy-links --mkpath"
+OPTS="-rltgoi --delay-updates --delete --copy-links --mkpath"
 MINCHANGES=20
-# CIFS_OPTIONS=credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,noauto,_netdev,nolock
-# SKYWAFER="//192.168.1.138/homes"
 
 # Mount homes if not mounted before
 if ! [ "$(ls -A "$BASE")" ]; then
@@ -71,10 +70,9 @@ if ! [ "$(ls -A "$BASE")" ]; then
   # mkdir -p "$SNAP"
 fi
 
-mkdir -p "$SNAP"
+echo >&2 -e "${CYAN}${BOLD}==> Backing home directiories... <==${NOFORMAT}"
 mkdir -p "$SNAP/latest"
-
-rsync $OPTS $SRC $SNAP/latest >>$SNAP/rsync.log
+rsync ${OPTS} ${SRC} "$SNAP/latest" | tee "$SNAP/rsync.log"
 
 # check if enough has changed and if so
 # make a hardlinked copy named as the date

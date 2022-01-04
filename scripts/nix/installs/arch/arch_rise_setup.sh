@@ -477,6 +477,10 @@ paci --needed --noconfirm xss-lock
 # `blueberry`
 #}}}
 
+# fonts {{{
+sudo pacman -S $(pacman -Ssq noto-fonts-\*)
+# }}}
+
 # rofi extra goodies
 paci --needed --noconfirm rofi-{emoji,bluetooth-git}
 paci --needed --noconfirm noto-fonts-emoji

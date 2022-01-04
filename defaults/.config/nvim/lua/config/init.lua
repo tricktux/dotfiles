@@ -1,4 +1,3 @@
-local plg = require('config.plugin')
 local maps = require('config.mappings')
 local log = require('utils.log')
 local utl = require('utils.utils')
@@ -113,12 +112,12 @@ local function _init()
   end
 
   -- Rationale for plugins last:
-  --  This way you can set your default mappings/options and plugins can 
-  --  overwrite them later, if they need to. Also get rid of all plugin 
+  --  This way you can set your default mappings/options and plugins can
+  --  overwrite them later, if they need to. Also get rid of all plugin
   --  specific stuff. Downside is no which-key
   maps:setup()
   aug.setup()
-  plg:setup() -- Also setups lsp
+  require('config.plugins.packer'):setup() -- Also setups lsp
 end
 
 return {init = _init}

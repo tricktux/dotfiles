@@ -136,6 +136,25 @@ local function on_clangd_attach(client_id, bufnr)
   return on_lsp_attach(client_id, bufnr)
 end
 
+local function print_diagnostics(opts, bufnr, line_nr)
+  bufnr = bufnr or 0
+  line_nr = line_nr or (vim.api.nvim_win_get_cursor(0)[1] - 1)
+  opts = opts or {['lnum'] = line_nr}
+
+  local line_diagnostics = vim.diagnostic.get(bufnr, opts)
+  if vim.tbl_isempty(line_diagnostics) then return end
+
+  local diagnostic_message = ""
+  for i, diagnostic in ipairs(line_diagnostics) do
+    diagnostic_message = diagnostic_message .. string.format("%d: %s", i, diagnostic.message or "")
+    print(diagnostic_message)
+    if i ~= #line_diagnostics then
+      diagnostic_message = diagnostic_message .. "\n"
+    end
+  end
+  vim.api.nvim_echo({{diagnostic_message, "Normal"}}, false, {})
+end
+
 local function diagnostic_set()
   -- Taken from:
   -- https://github.com/neovim/nvim-lspconfig/issues/69
@@ -153,11 +172,11 @@ local function diagnostic_set()
     local loc = vim.fn.has('nvim-0.6') > 0 and {open = false} or
                     {open_loclist = false}
     default_handler(err, method, result, client_id, bufnr, config)
-    vim.lsp.diagnostic.set_loclist(loc)
+    vim.diagnostic.setloclist(loc)
     -- Do overwrite my search list
     if #vim.fn.getqflist() > 0 then return end
-    local diagnostics = vim.lsp.diagnostic.get_all()
-    local qflist = {}
+    local diagnostics = vim.diagnostic.get()
+    local qflist = {open = false}
     for nbufnr, diagnostic in pairs(diagnostics) do
       for _, d in ipairs(diagnostic) do
         d.bufnr = nbufnr
@@ -167,8 +186,12 @@ local function diagnostic_set()
         table.insert(qflist, d)
       end
     end
-    vim.lsp.util.set_qflist(qflist)
+    vim.diagnostic.setqflist(qflist)
   end
+
+  -- Taken from:
+  -- https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#print-diagnostics-to-message-area
+  vim.cmd [[ autocmd CursorHold * lua require('config.lsp').print_diagnostics() ]]
 end
 
 -- TODO
@@ -262,4 +285,4 @@ local function lsp_set()
   end
 end
 
-return {setup = lsp_set, on_lsp_attach = on_lsp_attach}
+return {setup = lsp_set, on_lsp_attach = on_lsp_attach, print_diagnostics = print_diagnostics}

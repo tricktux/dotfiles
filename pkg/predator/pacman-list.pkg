@@ -59,6 +59,7 @@ gcc
 gdb
 gettext
 ghostscript
+gimagereader-gtk
 git
 glava
 global
@@ -92,6 +93,8 @@ jq
 jre8-openjdk
 jsoncpp
 keepassxc
+khal
+khard
 kitty
 lazygit
 lib32-nvidia-utils
@@ -126,6 +129,8 @@ mosh
 mpv
 namcap
 neomutt
+neovim
+nextcloud-client
 nfs-utils
 nmap
 noto-fonts-emoji
@@ -137,6 +142,7 @@ nvidia-settings
 nvtop
 odt2txt
 openvpn
+otf-cascadia-code
 otf-fira-mono
 otf-font-awesome
 pacman
@@ -183,6 +189,7 @@ simple-scan
 steam
 stow
 sudo
+tesseract-data-eng
 texinfo
 texlive-bibtexextra
 texlive-core
@@ -200,6 +207,8 @@ tickrs
 tigervnc
 tldr
 tmux
+todoman
+ttf-cascadia-code
 ttf-fira-code
 ttf-fira-mono
 ttf-font-awesome
@@ -208,6 +217,7 @@ ttf-iosevka-nerd
 udisks2
 unzip
 urlscan
+vdirsyncer
 vi
 vim
 w3m
@@ -280,5 +290,6 @@ zathura-pdf-mupdf
 zip
 zsh
 zsh-autosuggestions
+zsh-completions
 zsh-history-substring-search
 zsh-syntax-highlighting
