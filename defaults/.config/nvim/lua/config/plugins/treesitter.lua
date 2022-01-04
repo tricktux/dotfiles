@@ -23,11 +23,11 @@ function M.setup()
     ensure_installed = {
       "c", "cpp", "python", "lua", "java", "bash", "c_sharp", "rust", "json",
       "toml", "bash", "cmake", "dockerfile", "json5", "latex", "r", "yaml",
-      "vim",
+      "vim", "markdown", "json", "make", "nix", "html", "llvm", "comment"
     },
     highlight = {
-      enable = true -- false will disable the whole extension
-      -- incremental_selection = {enable = true},
+      enable = true, -- false will disable the whole extension
+      additional_vim_regex_highlighting = {'markdown'}
     },
     indent = {enable = false},
     textsubjects = {
