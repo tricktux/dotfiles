@@ -52,6 +52,7 @@ function! options#Set() abort
   " t - Truncate message if is too long
   set shortmess=acst
 
+  let &signcolumn='number'
   set colorcolumn=+1 " Highlight first column after textwidth
   set guitablabel=%N\ %f
   " Silly, always set cool colors
