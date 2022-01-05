@@ -23,7 +23,7 @@ function M:setup()
     },
     sources = {
       {name = 'nvim_lsp'}, {name = 'vsnip'}, {name = 'buffer'}, {name = 'path'},
-      {name = 'calc'}, {name = 'treesitter'}, {name = 'tags'}
+      {name = 'calc'} -- This sources slow down {name = 'treesitter'}, {name = 'tags'}
     },
     formatting = {
       format = function(entry, vim_item)
