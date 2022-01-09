@@ -55,6 +55,7 @@ gcc
 gdb
 gettext
 ghostscript
+gimp
 git
 global
 gnome-keyring
@@ -220,6 +221,7 @@ udisks2
 unzip
 urlscan
 usbutils
+valgrind
 vdirsyncer
 vi
 virtualbox
