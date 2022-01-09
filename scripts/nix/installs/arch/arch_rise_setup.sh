@@ -690,6 +690,16 @@ sudo sudo bash -c 'printf "blacklist snd_hda_codec_hdmi" > /etc/modprobe.d/no_hd
 paci --needed --noconfirm numix-gtk-theme paper-icon-theme \
   capitaine-cursors lxappearance adapta-gtk-theme paper-gtk-theme-git \
   xfce4-settings qt5-styleplugins
+# Also modify all these files:
+nvim ~/.gtkrc-2.0
+# gtk-cursor-theme-name="Bibata-Modern-DarkRed"
+mkdir ~/.icons/default
+nvim ~/.icons/default/index.theme
+# [icon theme] 
+# Inherits=Bibata-Modern-DarkRed
+nvim ~/.config/gtk-3.0/settings.ini
+# gtk-cursor-theme-name="Bibata-Modern-DarkRed"
+
 paci --needed --noconfirm papirus-icon-theme
 # And then just go to `Customize Look and Feel` 
 
