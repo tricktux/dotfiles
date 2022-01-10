@@ -67,11 +67,18 @@ local fd_folder_cmd = {
   "fd", "--type=directory", "--color=never", "--hidden", "--follow", ignore_file
 }
 local rg_file_cmd = {
-  "rg", "--color=never", "--hidden", "--files", "--follow", ignore_file
+  "rg", "--color=never", "--hidden", "--files", "--follow", ignore_file,
+  "--no-heading",
+  "--with-filename",
+  "--line-number",
+  "--column",
 }
 local rg_grep_cmd = {
-  "--color=never", "--hidden", "--fixed-strings", "--smart-case", "--follow",
-  ignore_file
+  "--color=never", "--hidden", "--smart-case", "--follow", ignore_file,
+  "--no-heading",
+  "--with-filename",
+  "--line-number",
+  "--column",
 }
 
 local function ff(path)
