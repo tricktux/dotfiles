@@ -113,6 +113,8 @@ local function set_mappings()
   local leader_p = [[<leader>]]
 
   wk.register {
+    ["Q"] = {function() ts.quickfix{ignore_filename = false} end, "quickfix"},
+    ["L"] = {function() ts.loclist{ignore_filename = false} end, "loclist"},
     ["<plug>buffer_browser"] = {
       function() ts.buffers(cust_buff_opts) end, "buffers"
     },
@@ -217,7 +219,7 @@ function M.setup()
           ["<c-k>"] = actions.move_selection_previous,
           ["<esc>"] = actions.close,
           ["<c-c>"] = actions.close,
-          ["<c-q>"] = actions.close,
+          ["<c-q>"] = actions.smart_send_to_qflist,
           ["<CR>"] = actions.file_edit,
           ["<c-m>"] = actions.file_edit,
           ["<C-s>"] = actions.file_split,
