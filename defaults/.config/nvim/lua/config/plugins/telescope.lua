@@ -236,8 +236,8 @@ function M.setup()
           ["<CR>"] = actions.file_edit,
           ["<c-m>"] = actions.file_edit,
           ["<C-s>"] = actions.file_split,
-          ["<C-e>"] = actions.preview_scrolling_up,
-          ["<C-d>"] = actions.preview_scrolling_down,
+          ["<C-u>"] = actions.results_scrolling_up,
+          ["<C-d>"] = actions.results_scrolling_down,
           ["<C-v>"] = actions.file_vsplit,
           ["<C-t>"] = actions.file_tab,
           ["<C-p>"] = actions_layout.toggle_preview
