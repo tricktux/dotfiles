@@ -192,6 +192,7 @@ function M.setup()
 
   set_mappings()
   local actions = require('telescope.actions')
+  local actions_layout = require('telescope.actions.layout')
 
   local config = {
     defaults = {
@@ -207,7 +208,9 @@ function M.setup()
         horizontal = {preview_width = 0.5},
         vertical = {preview_height = 0.5}
       },
-
+      preview = {
+        hide_on_startup = true,
+      },
       mappings = {
         i = {
           ["<c-j>"] = actions.move_selection_next,
@@ -221,7 +224,8 @@ function M.setup()
           ["<C-e>"] = actions.preview_scrolling_up,
           ["<C-d>"] = actions.preview_scrolling_down,
           ["<C-v>"] = actions.file_vsplit,
-          ["<C-t>"] = actions.file_tab
+          ["<C-t>"] = actions.file_tab,
+          ["<C-p>"] = actions_layout.toggle_preview
         },
 
         n = {
