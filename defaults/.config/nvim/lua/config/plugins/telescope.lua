@@ -114,7 +114,7 @@ local function set_mappings()
 
   wk.register {
     ["Q"] = {function() ts.quickfix{ignore_filename = false} end, "quickfix"},
-    ["L"] = {function() ts.loclist{ignore_filename = false} end, "loclist"},
+    ["U"] = {function() ts.loclist{ignore_filename = false} end, "loclist"},
     ["<plug>buffer_browser"] = {
       function() ts.buffers(cust_buff_opts) end, "buffers"
     },
