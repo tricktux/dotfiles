@@ -175,9 +175,9 @@ function M:__setup()
   use {
     'rcarriga/nvim-dap-ui',
     requires = {
-      {"mfussenegger/nvim-dap"},
-      {"mfussenegger/nvim-dap-python"},
-      {'theHamsta/nvim-dap-virtual-text'}
+      {"mfussenegger/nvim-dap", opt = true},
+      {"mfussenegger/nvim-dap-python", opt = true},
+      {'theHamsta/nvim-dap-virtual-text', opt = true}
     },
     cond = function() return require('utils.utils').has_unix() end,
     config = function() require('config.plugins.dap'):setup() end
