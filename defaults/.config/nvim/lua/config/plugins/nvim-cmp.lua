@@ -5,7 +5,7 @@ function M:setup()
   cmp.setup({
     snippet = {
       expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` user.
+        vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
       end
     },
     mapping = {
@@ -17,12 +17,12 @@ function M:setup()
       ['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
       ['<C-j>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
       ['<C-k>'] = cmp.mapping.disable,  -- used for snippets
-      ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-      ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-      ['<CR>'] = cmp.mapping.disable,
+      -- ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+      -- ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }),
     },
     sources = {
-      {name = 'nvim_lsp'}, {name = 'vsnip'}, {name = 'buffer'}, {name = 'path'},
+      {name = 'nvim_lsp'}, {name = 'ultisnips'}, {name = 'buffer'}, {name = 'path'},
       {name = 'calc'} -- This sources slow down {name = 'treesitter'}, {name = 'tags'}
     },
     formatting = {
