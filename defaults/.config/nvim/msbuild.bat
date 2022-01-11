@@ -10,4 +10,5 @@ REM VS2017
 /verbosity:quiet ^
 /target:Build ^
 /property:GenerateFullPath=true ^
+/l:FileLogger,Microsoft.Build.Engine;logfile=Manual_MSBuild_ReleaseVersion_LOG.log ^
 PHX_GUI/PHX_GUI.sln
