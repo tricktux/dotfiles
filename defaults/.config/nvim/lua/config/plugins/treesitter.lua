@@ -27,7 +27,7 @@ function M.setup()
     },
     highlight = {
       enable = true, -- false will disable the whole extension
-      additional_vim_regex_highlighting = {'markdown'}
+      additional_vim_regex_highlighting = {}
     },
     indent = {enable = false},
     textsubjects = {
