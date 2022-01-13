@@ -172,16 +172,17 @@ function M:__setup()
     config = function() require('config.plugins.misc').setup_luadev() end
   }
 
-  use {
-    'rcarriga/nvim-dap-ui',
-    requires = {
-      {"mfussenegger/nvim-dap", opt = true},
-      {"mfussenegger/nvim-dap-python", opt = true},
-      {'theHamsta/nvim-dap-virtual-text', opt = true}
-    },
-    cond = function() return require('utils.utils').has_unix() end,
-    config = function() require('config.plugins.dap'):setup() end
-  }
+  if utl.has_unix() then
+    use {
+      'rcarriga/nvim-dap-ui',
+      requires = {
+        {"mfussenegger/nvim-dap"},
+        {"mfussenegger/nvim-dap-python"},
+        {'theHamsta/nvim-dap-virtual-text'}
+      },
+      config = function() require('config.plugins.dap'):setup() end
+    }
+  end
 
   use {
     'TimUntersberger/neogit',
