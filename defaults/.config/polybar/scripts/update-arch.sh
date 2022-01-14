@@ -113,13 +113,13 @@ msg "${CYAN}${BOLD}" "========== Welcome! To the Arch Maintnance Script! ðŸ’ªðŸ˜
 msg_not "${BLUE}${BOLD}" "==> Back up important folders? [y/N]"
 read -r yn
 case $yn in
-[Yy]*) sudo "$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_home.sh" ;;
+[Yy]*) "$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_home.sh" ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Back up the mail server (~30mins)? [y/N]"
 read -r yn
 case $yn in
 [Yy]*)
-  "$TERMINAL" sudo \
+  "$TERMINAL" \
     "$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_digital_ocean.sh" &
   ;;
 esac
@@ -135,7 +135,7 @@ msg_not "${BLUE}${BOLD}" "==> Back up emails (~15mins)? [y/N]"
 read -r yn
 case $yn in
 [Yy]*)
-  "$TERMINAL" sudo \
+  "$TERMINAL" \
     "$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_mail.sh" &
   ;;
 esac
