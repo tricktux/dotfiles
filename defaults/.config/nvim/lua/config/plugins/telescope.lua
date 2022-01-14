@@ -175,6 +175,10 @@ local function set_mappings()
   }
   leader[';'] = {function() ts.commands{layout_config = cust_layout_config} end, 'commands'}
   leader[':'] = {function() ts.command_history{layout_config = cust_layout_config} end, 'command_history'}
+
+  local browser = function() return require "telescope".extensions.file_browser.file_browser() end
+  leader['F'] = {browser, 'file browser'}
+
   leader.f = {
     name = 'fuzzers',
     g = git,
@@ -277,6 +281,17 @@ function M.setup()
         case_mode = "smart_case" -- or "ignore_case" or "respect_case"
         -- the default case_mode is "smart_case"
       },
+      file_browser = {
+        theme = "ivy",
+        mappings = {
+          ["i"] = {
+            -- your custom insert mode mappings
+          },
+          ["n"] = {
+            -- your custom normal mode mappings
+          },
+        },
+      },
       frecency = {
         -- db_root = "home/my_username/path/to/db_root",
         show_scores = true,
@@ -293,9 +308,7 @@ function M.setup()
     }
   }
   require('telescope').setup(config)
-  -- To get fzf loaded and working with telescope, you need to call
-  -- load_extension, somewhere after setup function:
-  -- require('telescope').load_extension('fzf')
+  require'telescope'.load_extension("file_browser")
 end
 
 return M

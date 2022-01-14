@@ -53,8 +53,9 @@ function M:__setup()
   use {
     'nvim-lua/telescope.nvim',
     requires = {
-      {'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}
-      -- {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
+      {'nvim-lua/popup.nvim'},
+      {'nvim-lua/plenary.nvim'},
+      {'nvim-telescope/telescope-file-browser.nvim'},
     },
     config = function() require('config.plugins.telescope').setup() end
   }
@@ -105,12 +106,12 @@ function M:__setup()
   }
 
   use {'nanotee/nvim-lua-guide'}
-  use {
+  --[[ use {
     'kyazdani42/nvim-tree.lua',
     config = function()
       require('config.plugins.tree_explorer').nvimtree_config()
     end
-  }
+  } ]]
 
   use {
     'kosayoda/nvim-lightbulb',
