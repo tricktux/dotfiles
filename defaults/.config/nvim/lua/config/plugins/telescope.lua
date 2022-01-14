@@ -115,6 +115,10 @@ local function set_mappings()
   wk.register {
     ["Q"] = {function() ts.quickfix{ignore_filename = false} end, "quickfix"},
     ["U"] = {function() ts.loclist{ignore_filename = false} end, "loclist"},
+    -- Map <s-;> to commands history
+    [':'] = {function() ts.command_history{layout_config = cust_layout_config} end, 'command_history'},
+    -- Map <c-;> to commands
+    [''] = {function() ts.commands{layout_config = cust_layout_config} end, 'commands'},
     ["<plug>buffer_browser"] = {
       function() ts.buffers(cust_buff_opts) end, "buffers"
     },
