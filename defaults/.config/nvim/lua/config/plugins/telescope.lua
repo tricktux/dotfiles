@@ -11,16 +11,16 @@ function M.set_lsp_mappings(bufnr)
 
   local wk = require("which-key")
   local ts = require("telescope.builtin")
-  local opts = {prefix = '<localleader>lt', buffer = bufnr}
+  local opts = {prefix = '<localleader>l', buffer = bufnr}
   local mappings = {
     name = 'telescope',
-    c = {ts.lsp_code_actions, 'code_actions'},
-    r = {ts.lsp_references, 'references'},
-    d = {ts.lsp_definitions, 'definitions'},
-    i = {ts.lsp_implementations, 'implementations'},
-    s = {ts.lsp_document_symbols, 'document_symbols'},
-    a = {ts.lsp_code_actions, 'code_actions'},
-    w = {ts.lsp_workspace_symbols, 'workspace_symbols'}
+    c = {ts.lsp_code_actions, 'tele_code_actions'},
+    R = {ts.lsp_references, 'tele_references'},
+    d = {ts.lsp_definitions, 'tele_definitions'},
+    i = {ts.lsp_implementations, 'tele_implementations'},
+    s = {ts.lsp_document_symbols, 'tele_document_symbols'},
+    a = {ts.lsp_code_actions, 'tele_code_actions'},
+    W = {ts.lsp_workspace_symbols, 'tele_workspace_symbols'}
   }
   wk.register(mappings, opts)
 end
@@ -186,7 +186,8 @@ local function set_mappings()
     t = {ts.current_buffer_tags, 'tags_curr_buffer'},
     T = {ts.tags, 'tags_all_buffers'},
     s = {ts.tagstack, 'tags_stack'},
-    r = {ts.treesitter, 'treesitter'},
+    r = {ts.registers, 'registers'},
+    R = {ts.treesitter, 'treesitter'},
     [';'] = {ts.command_history, 'command_history'},
     ['/'] = {ts.search_history, 'search_history'},
     F = {ts.oldfiles, 'oldfiles'},
