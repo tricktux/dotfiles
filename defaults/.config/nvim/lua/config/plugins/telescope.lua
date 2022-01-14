@@ -207,6 +207,7 @@ function M.setup()
 
   set_mappings()
   local actions = require('telescope.actions')
+  local actions_generate = require('telescope.actions.generate')
   local actions_layout = require('telescope.actions.layout')
 
   local config = {
@@ -240,15 +241,26 @@ function M.setup()
           ["<C-d>"] = actions.results_scrolling_down,
           ["<C-v>"] = actions.file_vsplit,
           ["<C-t>"] = actions.file_tab,
-          ["<C-p>"] = actions_layout.toggle_preview
+          ["<C-p>"] = actions_layout.toggle_preview,
+          ["?"] = actions_generate.which_key {
+            name_width = 20, -- typically leads to smaller floats
+            max_height = 0.5, -- increase potential maximum height
+            seperator = " > ", -- change sep between mode, keybind, and name
+            close_with_action = false, -- do not close float on action
+          },
         },
-
         n = {
           ["<esc>"] = actions.close,
           ["<c-c>"] = actions.close,
           ["q"] = actions.close,
           ["<CR>"] = actions.file_edit,
-          ["<c-m>"] = actions.file_edit
+          ["<c-m>"] = actions.file_edit,
+          ["?"] = actions_generate.which_key {
+            name_width = 20, -- typically leads to smaller floats
+            max_height = 0.5, -- increase potential maximum height
+            seperator = " > ", -- change sep between mode, keybind, and name
+            close_with_action = false, -- do not close float on action
+          },
         }
       }
     },
