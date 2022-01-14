@@ -3,11 +3,7 @@ local M = {}
 function M:setup()
   local cmp = require 'cmp'
   cmp.setup({
-    snippet = {
-      expand = function(args)
-        vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-      end
-    },
+    snippet = {},
     mapping = {
       ['<C-d>'] = cmp.mapping.scroll_docs(-4),
       ['<C-u>'] = cmp.mapping.scroll_docs(4),
@@ -22,7 +18,7 @@ function M:setup()
       ['<CR>'] = cmp.mapping.confirm({ select = true }),
     },
     sources = {
-      {name = 'nvim_lsp'}, {name = 'ultisnips'}, {name = 'buffer'}, {name = 'path'},
+      {name = 'nvim_lsp'}, {name = 'buffer'}, {name = 'path'},
       {name = 'calc'} -- This sources slow down {name = 'treesitter'}, {name = 'tags'}
     },
     formatting = {
@@ -34,7 +30,6 @@ function M:setup()
         vim_item.menu = ({
           buffer = "[buffer]",
           nvim_lsp = "[lsp]",
-          luasnip = "[luasnip]",
           nvim_lua = "[lua]",
           latex_symbols = "[latex]"
         })[entry.source.name]

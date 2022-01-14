@@ -68,25 +68,14 @@ function M:__setup()
     config = function() require('config.plugins.treesitter').setup() end
   }
 
-  -- Fri Apr 02 2021 09:08: Very slow for big files
-  -- Thu Apr 08 2021 13:44: It was more treesitter's fault
-  --[[ use {
-    'hrsh7th/nvim-compe',
-    requires = {{'hrsh7th/vim-vsnip'}, {'hrsh7th/vim-vsnip-integ'}},
-    config = function() require('config.plugins.completion').compe() end
-  } ]]
-
   use {
     'hrsh7th/nvim-cmp',
     requires = {
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-nvim-lua',
       'hrsh7th/cmp-nvim-lsp',
-      -- 'hrsh7th/cmp-vsnip',
-      -- 'hrsh7th/vim-vsnip',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-calc',
-      'quangnguyen30192/cmp-nvim-ultisnips',
       'ray-x/cmp-treesitter',
       'quangnguyen30192/cmp-nvim-tags',
     },
