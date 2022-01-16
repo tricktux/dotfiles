@@ -39,6 +39,7 @@ dosfstools
 doublecmd-gtk2
 dunst
 earlyoom
+easyeffects
 efibootmgr
 evolution
 exa
@@ -76,6 +77,7 @@ gvfs-gphoto2
 gvfs-mtp
 gzip
 hdparm
+helvum
 highlight
 hplip
 hunspell
@@ -170,7 +172,6 @@ python-cpplint
 python-pip
 python-pywal
 python-selenium
-python2
 qpdfview
 qrencode
 rapidjson
@@ -287,6 +288,7 @@ xss-lock
 youtube-dl
 zathura
 zathura-pdf-mupdf
+zbar
 zip
 zsh
 zsh-autosuggestions
