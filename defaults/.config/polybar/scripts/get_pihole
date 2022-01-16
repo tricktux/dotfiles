@@ -103,21 +103,17 @@ def print_data(data):
     if len(data) < 2:
         sys.exit(2)
 
-    queries = float(data[0].replace(',', ''))
+    queries = float(data[0])
     if queries > 999:
         queries /= 1000
         str_q = str(round(queries, 1)) + 'k'
     else:
         str_q = data[0]
 
-    blocked = float(data[1].replace(',', ''))
-    if blocked > 999:
-        blocked /= 1000
-        str_b = str(round(blocked, 1)) + 'k'
-    else:
-        str_b = data[1]
+    blocked = float(data[1])
+    str_b = str(round(blocked, 1)) + '%'
 
-    print("%s %s%%" % (str_q, str_b))
+    print("%s %s" % (str_q, str_b))
 
 
 def main():
