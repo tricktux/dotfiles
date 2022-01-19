@@ -218,6 +218,7 @@ function M.setup()
   local actions = require('telescope.actions')
   local actions_generate = require('telescope.actions.generate')
   local actions_layout = require('telescope.actions.layout')
+  local fb_actions = require "telescope".extensions.file_browser.actions
 
   local config = {
     defaults = {
@@ -286,6 +287,12 @@ function M.setup()
         mappings = {
           ["i"] = {
             -- your custom insert mode mappings
+            ["<c-i>"] = fb_actions.toggle_hidden,
+            ["<c-n>"] = fb_actions.create,
+            ["<c-r>"] = fb_actions.rename,
+            ["<c-m>"] = fb_actions.move,
+            ["<c-c>"] = fb_actions.copy,
+            ["<c-d>"] = fb_actions.remove,
           },
           ["n"] = {
             -- your custom normal mode mappings

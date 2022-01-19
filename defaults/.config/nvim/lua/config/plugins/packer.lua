@@ -53,9 +53,8 @@ function M:__setup()
   use {
     'nvim-lua/telescope.nvim',
     requires = {
-      {'nvim-lua/popup.nvim'},
-      {'nvim-lua/plenary.nvim'},
-      {'nvim-telescope/telescope-file-browser.nvim'},
+      {'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'},
+      {'nvim-telescope/telescope-file-browser.nvim'}
     },
     config = function() require('config.plugins.telescope').setup() end
   }
@@ -72,13 +71,9 @@ function M:__setup()
   use {
     'hrsh7th/nvim-cmp',
     requires = {
-      'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-nvim-lua',
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-path',
-      'hrsh7th/cmp-calc',
-      'ray-x/cmp-treesitter',
-      'quangnguyen30192/cmp-nvim-tags',
+      'hrsh7th/cmp-buffer', 'hrsh7th/cmp-nvim-lua', 'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-path', 'hrsh7th/cmp-calc', 'ray-x/cmp-treesitter',
+      'quangnguyen30192/cmp-nvim-tags'
     },
     config = function() require('config.plugins.nvim-cmp').setup() end
   }
@@ -167,8 +162,7 @@ function M:__setup()
     use {
       'rcarriga/nvim-dap-ui',
       requires = {
-        {"mfussenegger/nvim-dap"},
-        {"mfussenegger/nvim-dap-python"},
+        {"mfussenegger/nvim-dap"}, {"mfussenegger/nvim-dap-python"},
         {'theHamsta/nvim-dap-virtual-text'}
       },
       config = function() require('config.plugins.dap'):setup() end
