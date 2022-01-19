@@ -79,14 +79,14 @@ bindsym $mod+n exec --no-startup-id \
   $HOME/.config/i3/scripts/xdotool_launch ranger
 bindsym $mod+semicolon exec --no-startup-id \
   $HOME/.config/i3/scripts/xdotool_launch terminal
-bindsym $mod+p exec --no-startup-id \
-  $HOME/.config/i3/scripts/xdotool_launch neomutt
-bindsym $mod+apostrophe exec --no-startup-id \
-  $HOME/.config/i3/scripts/xdotool_launch spotify
-bindsym $mod+comma exec --no-startup-id \
-  $HOME/.config/i3/scripts/xdotool_launch tickrs
-bindsym $mod+i exec --no-startup-id \
-  $HOME/.config/i3/scripts/xdotool_launch whatsapp
+# bindsym $mod+p exec --no-startup-id \
+#   $HOME/.config/i3/scripts/xdotool_launch neomutt
+# bindsym $mod+apostrophe exec --no-startup-id \
+#   $HOME/.config/i3/scripts/xdotool_launch spotify
+# bindsym $mod+comma exec --no-startup-id \
+#   $HOME/.config/i3/scripts/xdotool_launch tickrs
+# bindsym $mod+i exec --no-startup-id \
+#   $HOME/.config/i3/scripts/xdotool_launch whatsapp
 
 # alttab grabs himself the keyboard keys, no need for binding
 # bindsym mod1+Tab exec --no-startup-id alttab

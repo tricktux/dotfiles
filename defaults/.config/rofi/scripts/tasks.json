@@ -138,12 +138,20 @@
     "command": "pass --clip linux/`hostname`/ssh_key/id_ed25519_gitlab"
   },
   {
-    "name": "📂 i3scratchpad cmus ranger calc",
-    "command": "exec $HOME/.config/i3/scripts/xdotool_launch scratch"
+    "name": "📂 htop cmus calc",
+    "command": "$TERMINAL $HOME/.config/tmux/scratch.sh"
+  },
+  {
+    "name": "📂 tickrs stonks market",
+    "command": "$TERMINAL /usr/bin/tickrs"
+  },
+  {
+    "name": "📂 whatsapp text",
+    "command": "exec /usr/bin/firefox https://web.whatsapp.com https://messages.google.com/web"
   },
   {
     "name": "📧 email neomutt",
-    "command": "exec $TERMINAL $HOME/.config/tmux/neomutt.sh"
+    "command": "$TERMINAL $HOME/.config/tmux/neomutt.sh"
   },
   {
     "name": "🖼️ wallpaper internet random",
