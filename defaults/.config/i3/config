@@ -71,12 +71,12 @@ bindsym mod3+l exec --no-startup-id \
 # $mod+i is reserved for a chat application
 # bindsym $mod+u exec --no-startup-id \
   # ~/.config/i3/scripts/xdotool_launch glances "glances --theme-white"
-bindsym $mod+n exec --no-startup-id \
-  $HOME/.config/i3/scripts/xdotool_launch scratch
+# bindsym $mod+n exec --no-startup-id \
+  # $HOME/.config/i3/scripts/xdotool_launch scratch
 bindsym $mod+o exec --no-startup-id \
   $HOME/.config/i3/scripts/xdotool_launch journal
-# bindsym $mod+n exec --no-startup-id \
-  # $HOME/.config/i3/scripts/xdotool_launch ranger
+bindsym $mod+n exec --no-startup-id \
+  $HOME/.config/i3/scripts/xdotool_launch ranger
 bindsym $mod+semicolon exec --no-startup-id \
   $HOME/.config/i3/scripts/xdotool_launch terminal
 bindsym $mod+p exec --no-startup-id \
@@ -215,11 +215,11 @@ set $ws2 "2"
 set $ws3 "3"
 set $ws4 "4"
 set $ws5 "5"
-# set $ws6 "6"
-# set $ws7 "7"
-# set $ws8 "8"
-# set $ws9 "9"
-# set $ws10 "10"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -227,11 +227,11 @@ bindsym $mod+2 workspace number $ws2
 bindsym $mod+3 workspace number $ws3
 bindsym $mod+4 workspace number $ws4
 bindsym $mod+5 workspace number $ws5
-# bindsym $mod+6 workspace number $ws6
-# bindsym $mod+7 workspace number $ws7
-# bindsym $mod+8 workspace number $ws8
-# bindsym $mod+9 workspace number $ws9
-# bindsym $mod+0 workspace number $ws10
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
 bindsym $mod+Tab workspace back_and_forth
 
 # Move focused container to workspace
@@ -240,11 +240,11 @@ bindsym $mod+Shift+2 move container to workspace number $ws2
 bindsym $mod+Shift+3 move container to workspace number $ws3
 bindsym $mod+Shift+4 move container to workspace number $ws4
 bindsym $mod+Shift+5 move container to workspace number $ws5
-# bindsym $mod+Shift+6 move container to workspace number $ws6
-# bindsym $mod+Shift+7 move container to workspace number $ws7
-# bindsym $mod+Shift+8 move container to workspace number $ws8
-# bindsym $mod+Shift+9 move container to workspace number $ws9
-# bindsym $mod+Shift+0 move container to workspace number $ws10
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -375,22 +375,22 @@ bindsym XF86PowerDown exec --no-startup-id "i3-msg '[class=\".\"] kill' && syste
   for_window [title="Steam*" class="^Steam$"] floating enable
 
 # Scratchpad
-  for_window [title=".*(WhatsApp|Messages for web).*" class="^firefox$"] mark "msgs", move to scratchpad
+  # for_window [title=".*(WhatsApp|Messages for web).*" class="^firefox$"] mark "msgs", move to scratchpad
   for_window [title="^ranger$" class="^kitty$"] move to scratchpad
-  for_window [title="^tickrs$" class="^kitty$"] move to scratchpad
-  for_window [title="^neomutt$" class="^kitty$"] move to scratchpad
+  # for_window [title="^tickrs$" class="^kitty$"] move to scratchpad
+  # for_window [title="^neomutt$" class="^kitty$"] move to scratchpad
   # for_window [title="^glances$"] move to scratchpad
   # for_window [title="^cmus$"] move to scratchpad
   # for_window [title="^ranger$"] move to scratchpad
   for_window [title="^journal$" class="^kitty$"] move to scratchpad
   for_window [title="^terminal$" class="^kitty$"] move to scratchpad
   # for_window [title="^htop$"] move to scratchpad
-  for_window [title="^bottom$" class="^kitty$"] move to scratchpad
-  for_window [title="^scratch$" class="^kitty$"] move to scratchpad
-  for_window [title="^Spotify$" class="^Spotify$"] move to scratchpad
-  for_window [title="^Double Commander.*" class="^Doublecmd$"] move to scratchpad
-  for_window [title=".*Evolution$" class="^Evolution$"] move to scratchpad
-  for_window [class="^Evolution-alarm-notify$"] floating enable, focus
+  # for_window [title="^bottom$" class="^kitty$"] move to scratchpad
+  # for_window [title="^scratch$" class="^kitty$"] move to scratchpad
+  # for_window [title="^Spotify$" class="^Spotify$"] move to scratchpad
+  # for_window [title="^Double Commander.*" class="^Doublecmd$"] move to scratchpad
+  # for_window [title=".*Evolution$" class="^Evolution$"] move to scratchpad
+  # for_window [class="^Evolution-alarm-notify$"] floating enable, focus
 
 # Taken from https://github.com/Airblader/dotfiles-manjaro
   for_window [class="Nitrogen"] floating enable
