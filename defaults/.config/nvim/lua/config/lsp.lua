@@ -79,6 +79,10 @@ local function set_lsp_mappings(capabilities, bufnr)
   wk.register({lsp.diagnostic.goto_next, "diagnostic_next"}, opts)
   opts.prefix = "[l"
   wk.register({lsp.diagnostic.goto_prev, "diagnostic_prev"}, opts)
+  opts.prefix = "<localleader>d"
+  wk.register({lsp.buf.definition, 'lsp_definition'}, opts)
+  opts.prefix = "<localleader>r"
+  wk.register({lsp.buf.rename, 'lsp_rename'}, opts)
 
   if utl.is_mod_available('telescope') then
     require('config.plugins.telescope').set_lsp_mappings(bufnr)
