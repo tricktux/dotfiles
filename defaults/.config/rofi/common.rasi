@@ -1,6 +1,6 @@
 
 configuration {
-	modi: "window,run,drun";
+	modi: "window,ssh,drun,combi";
 	width: 40;
 /*	lines: 15;*/
 /*	columns: 1;*/
@@ -37,7 +37,7 @@ configuration {
 /*	auto-select: false;*/
 /*	parse-hosts: false;*/
 /*	parse-known-hosts: true;*/
-/*	combi-modi: "window,run";*/
+combi-modi: "window,drun,Tasks:~/.config/rofi/scripts/tasks.sh";
 /*	matching: "normal";*/
 /*	tokenize: true;*/
 /*	m: "-5";*/
