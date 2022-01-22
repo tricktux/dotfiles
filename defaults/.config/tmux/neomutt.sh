@@ -33,8 +33,8 @@ mkdir -p ~/.local/share/mail/molinamail_meli
 
 if [[ $(systemctl --user is-active vdirsyncer.timer) = "inactive" ]]; then
   echo "Synchronizing vdirsyncer. Please wait..."
-  /usr/bin/vdirsyncer -vdebug sync \
-    >/tmp/vdirsyncer.log 2>&1
+  # /usr/bin/vdirsyncer -vdebug sync \
+  #   >/tmp/vdirsyncer.log 2>&1
 
   systemctl --user start vdirsyncer.timer
 fi
