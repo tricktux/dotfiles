@@ -27,6 +27,7 @@ cleanup() {
 # Do it in the background. It can take up to 5 minutes
 mkdir -p ~/.local/share/mail/molinamail
 mkdir -p ~/.local/share/mail/molinamail_meli
+mkdir -p ~/.local/share/mail/molinamail_mcp
 /usr/bin/mbsync -ac ~/.config/isync/mbsyncrc >/tmp/mbsync.log 2>&1 &
 /usr/bin/goimapnotify -conf ~/.config/imapnotify/molinamail.conf \
   >/tmp/imapnotify_molinamail.log 2>&1 &
@@ -47,6 +48,8 @@ fi
   'neomutt -F ~/.config/neomutt/user.gmail 2>/tmp/nmutt-gmail.log'
 /usr/bin/tmux new-window -d -t $session -n 'ufl' \
   'neomutt -F ~/.config/neomutt/user.ufl 2>/tmp/nmutt-ufl.log'
+/usr/bin/tmux new-window -d -t $session -n 'mcp' \
+    'neomutt -F ~/.config/neomutt/user.molinamail_mcp 2>/tmp/nmutt-mcp.log'
 /usr/bin/tmux new-window -d -t $session -n 'calendars' \
   'khal interactive 2>/tmp/khal.log'
 /usr/bin/tmux new-window -d -t $session -n 'todo'

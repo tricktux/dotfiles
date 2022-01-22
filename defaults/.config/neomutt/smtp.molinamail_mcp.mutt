@@ -1,0 +1,29 @@
+# File:           smtp.gmail.mutt
+# Description:     SMPT/IMAP/Folder settings for gmail
+# Author:		    Reinaldo Molina
+# Email:          rmolin88 at gmail dot com
+# Revision:	    0.0.0
+# Created:        Tue Jan 22 2019 17:24
+# Last Modified:  Tue Jan 22 2019 17:24
+
+# IMAP config
+# set imap_user="$my_username@$my_domain"
+# set imap_pass=$my_password
+
+# set folder = 'imaps://box.molinamail.com:993'
+set folder = "~/.local/share/mail/molinamail_mcp"
+set spoolfile= "~/.local/share/mail/molinamail_mcp/inbox"
+set postponed= "~/.local/share/mail/molinamail_mcp/Drafts"
+set record = "~/.local/share/mail/molinamail_mcp/Sent"
+set trash = "~/.local/share/mail/molinamail_mcp/Archive"
+
+set mbox_type=Maildir
+# sidebar_whitelist '~/mail/molinamail/'
+
+# SMTP config
+set from = "$my_username@$my_domain"
+set smtp_pass = $my_password
+set hostname = $my_domain
+set smtp_url = "smtp://$my_username@$my_domain@box.molinamail.com:587/"
+
+# vim: ft=neomuttrc
