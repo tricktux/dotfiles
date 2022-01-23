@@ -26,6 +26,15 @@ Defaults:reinaldo timestamp_timeout=7200
 # }}}
 
 ## 3. Network{{{
+# Fix dhcpcd slow startup
+# https://wiki.archlinux.org/title/dhcpcd#dhcpcd@.service_causes_slow_startup
+sudo mkdir -p /etc/systemd/system/dhcpcd@.service.d
+sudo bash -c 'cat > /etc/systemd/system/dhcpcd@.service.d/no-wait.conf' << EOL
+[Service]
+ExecStart=
+ExecStart=/usr/bin/dhcpcd -b -q %I
+EOL
+
 # Run this section as root, not using sudo
 interface="wlp1s0"
 su
