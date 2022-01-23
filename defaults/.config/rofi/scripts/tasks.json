@@ -109,13 +109,11 @@
   },
   {
     "name": "🖥️ power off",
-    "confirm": true,
-    "command": "i3-msg '[class=\".\"] kill' && systemctl poweroff"
+    "command": "systemctl poweroff"
   },
   {
     "name": "💻 power reboot/restart",
-    "confirm": true,
-    "command": "i3-msg '[class=\".\"] kill' && systemctl reboot"
+    "command": "systemctl reboot"
   },
   {
     "name": "🔐 power lock",

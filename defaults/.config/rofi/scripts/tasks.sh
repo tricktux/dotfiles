@@ -10,26 +10,9 @@ if [[ $# -gt 0 ]]; then
   fi
 
   task=$(echo "$tasks" | jq ".[] | select(.name == \"$1\")")
-
-  # Exit if no task was found
-  if [[ $task == "" ]]; then
-    echo "No task defined as '$1' within config file."
-    exit 1
-  fi
-
   task_command=$(echo "$task" | jq ".command")
-  confirm=$(echo $task | jq ".confirm")
-
-  # Check whether we need confirmation to run this task
-  if [[ $confirm == "true" ]]; then
-    # Chain the confirm command before executing the selected command
-    confirm_script="$conf 'Confirm $selected?'"
-    # coproc is the key so that rofi does not wait for the command output
-    coproc ( eval "$confirm_script && \"$task_command\" >>/tmp/task.log 2>&1" )
-  else
-    # coproc is the key so that rofi does not wait for the command output
-    coproc ( eval "\"$task_command\" >>/tmp/task.log 2>&1" )
-  fi
+  coproc ( eval "\"$task_command\" >>/tmp/task.log 2>&1" )
+  exit 0
 else
   if [[ $ROFI_RETV -ne 0 ]]; then
     exit 3
