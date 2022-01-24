@@ -74,15 +74,23 @@ local function set_lsp_mappings(capabilities, bufnr)
   end
   wk.register(mappings, opts)
 
-  -- Diagnostics
+  -- Override default mappings with lsp intelligent analougous
   opts.prefix = "]l"
   wk.register({lsp.diagnostic.goto_next, "diagnostic_next"}, opts)
   opts.prefix = "[l"
   wk.register({lsp.diagnostic.goto_prev, "diagnostic_prev"}, opts)
-  opts.prefix = "<localleader>d"
-  wk.register({lsp.buf.definition, 'lsp_definition'}, opts)
-  opts.prefix = "<localleader>r"
-  wk.register({lsp.buf.rename, 'lsp_rename'}, opts)
+  opts.prefix = "<localleader>"
+  mappings = {
+    D = {function()
+          vim.cmd[[vsplit]]
+          lsp.buf.definition()
+        end, 'lsp_definition_split'},
+    r = {lsp.buf.rename, 'lsp_rename'},
+    d = {lsp.buf.definition, 'lsp_definition'},
+    u = {lsp.buf.references, 'references'},
+  }
+
+  wk.register(mappings, opts)
 
   if utl.is_mod_available('telescope') then
     require('config.plugins.telescope').set_lsp_mappings(bufnr)

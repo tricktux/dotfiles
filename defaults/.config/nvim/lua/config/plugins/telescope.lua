@@ -23,6 +23,23 @@ function M.set_lsp_mappings(bufnr)
     W = {ts.lsp_workspace_symbols, 'tele_workspace_symbols'}
   }
   wk.register(mappings, opts)
+
+  -- Override default mappings with telescope lsp intelligent analougous
+  opts.prefix = "<localleader>"
+  mappings = {
+    D = {function()
+      vim.cmd[[vsplit]]
+      ts.lsp_definitions()
+    end, 'tele_lsp_definition_split'},
+    d = {ts.lsp_definitions, 'tele_lsp_definition'},
+    u = {ts.lsp_references, 'tele_lsp_references'},
+    U = {function()
+      vim.cmd[[vsplit]]
+      ts.lsp_references()
+    end, 'tele_lsp_references_split'},
+  }
+
+  wk.register(mappings, opts)
 end
 
 local cust_path_display = function(opts, path)
