@@ -148,8 +148,14 @@ local function print_diagnostics(opts, bufnr, line_nr)
   local line_diagnostics = vim.diagnostic.get(bufnr, opts)
   if vim.tbl_isempty(line_diagnostics) then return end
 
-  local diagnostic_message = string.format("[%d/%d]: %s", 1, #line_diagnostics, line_diagnostics[1].message or "")
-  vim.api.nvim_echo({{diagnostic_message, "Normal"}}, false, {})
+  -- Open float if too many diagnostics
+  if #line_diagnostics > 1 then
+    vim.diagnostic.open_float{severity_sort=true, source="if_many"}
+    return
+  end
+
+  -- Otherwise just echo down message area
+  vim.api.nvim_echo({{line_diagnostics[1].message, "Normal"}}, false, {})
 end
 
 local function diagnostic_set()
