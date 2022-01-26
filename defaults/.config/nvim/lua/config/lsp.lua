@@ -206,8 +206,9 @@ local function lsp_set()
 
   -- vim.lsp.set_log_level("debug")
 
-  -- local capabilities = vim.lsp.protocol.make_client_capabilities()
-  local capabilities = lsp_status.capabilities
+  local cmp_lsp = require('cmp_nvim_lsp')
+
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
 
   local flags = {allow_incremental_sync = true, debounce_text_changes = 150}
@@ -232,9 +233,7 @@ local function lsp_set()
     nvim_lsp.pyright.setup {
       on_attach = on_lsp_attach,
       flags = flags,
-      capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp
-                                                                     .protocol
-                                                                     .make_client_capabilities())
+      capabilities = cmp_lsp.update_capabilities(capabilities)
     }
   end
 
@@ -244,14 +243,11 @@ local function lsp_set()
                       table.concat(vim.fn.systemlist('nproc'))
 
     nvim_lsp.clangd.setup {
-      handlers = lsp_status.extensions.clangd.setup(),
       init_options = {clangdFileStatus = false},
       on_attach = on_clangd_attach,
       flags = flags,
       filetypes = {"c", "cpp"},
-      capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp
-                                                                     .protocol
-                                                                     .make_client_capabilities()),
+      capabilities = cmp_lsp.update_capabilities(capabilities),
       cmd = {
         "clangd", "--all-scopes-completion=true", "--background-index=true",
         "--clang-tidy=true", "--completion-style=detailed",
