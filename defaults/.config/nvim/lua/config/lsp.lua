@@ -148,24 +148,6 @@ local function on_clangd_attach(client_id, bufnr)
   return on_lsp_attach(client_id, bufnr)
 end
 
-local function print_diagnostics(opts, bufnr, line_nr)
-  bufnr = bufnr or 0
-  line_nr = line_nr or (vim.api.nvim_win_get_cursor(0)[1] - 1)
-  opts = opts or {['lnum'] = line_nr}
-
-  local line_diagnostics = vim.diagnostic.get(bufnr, opts)
-  if vim.tbl_isempty(line_diagnostics) then return end
-
-  -- Open float if too many diagnostics
-  if #line_diagnostics > 1 then
-    vim.diagnostic.open_float{severity_sort=true, source="if_many"}
-    return
-  end
-
-  -- Otherwise just echo down message area
-  vim.api.nvim_echo({{line_diagnostics[1].message, "Normal"}}, false, {})
-end
-
 local function diagnostic_set()
   -- Taken from:
   -- https://github.com/neovim/nvim-lspconfig/issues/69
@@ -177,7 +159,8 @@ local function diagnostic_set()
       virtual_text = false,
       underline = true,
       signs = true,
-      update_in_insert = false
+      update_in_insert = false,
+      float = {severity_sort = true, source = "if_many"}
     }
     -- Call the default handler
     local loc = vim.fn.has('nvim-0.6') > 0 and {open = false} or
@@ -199,10 +182,6 @@ local function diagnostic_set()
     end
     vim.diagnostic.setqflist(qflist)
   end
-
-  -- Taken from:
-  -- https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#print-diagnostics-to-message-area
-  vim.cmd [[ autocmd CursorHold * lua require('config.lsp').print_diagnostics() ]]
 end
 
 -- TODO
@@ -296,4 +275,4 @@ local function lsp_set()
   end
 end
 
-return {setup = lsp_set, on_lsp_attach = on_lsp_attach, print_diagnostics = print_diagnostics}
+return {setup = lsp_set, on_lsp_attach = on_lsp_attach}
