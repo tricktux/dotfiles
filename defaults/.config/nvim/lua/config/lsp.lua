@@ -2,31 +2,40 @@ local utl = require('utils.utils')
 local map = require('utils.keymap')
 local log = require('utils.log')
 
-local function setup_lspstatus()
-  if not utl.is_mod_available('lsp-status') then
-    vim.api.nvim_err_writeln("lsp-status was set, but module not found")
-    return false
-  end
-
-  local config = {
-    ['indicator_errors'] = 'e:',
-    ['indicator_warnings'] = 'w:',
-    ['indicator_info'] = 'i:',
-    ['indicator_hint'] = 'h:',
-    ['indicator_ok'] = 'ok',
-    ['status_symbol'] = ''
+local function setup_fidget()
+  require'fidget'.setup{
+    text = {
+      spinner = "dots",         -- animation shown when tasks are ongoing
+      done = "✔",               -- character shown when all tasks are complete
+      commenced = "Started",    -- message shown when task starts
+      completed = "Completed",  -- message shown when task completes
+    },
+    align = {
+      bottom = true,            -- align fidgets along bottom edge of buffer
+      right = true,             -- align fidgets along right edge of buffer
+    },
+    timer = {
+      spinner_rate = 125,       -- frame rate of spinner animation, in ms
+      fidget_decay = 2000,      -- how long to keep around empty fidget, in ms
+      task_decay = 1000,        -- how long to keep around completed task, in ms
+    },
+    fmt = {
+      leftpad = true,           -- right-justify text in fidget box
+      fidget =                  -- function to format fidget title
+        function(fidget_name, spinner)
+          return string.format("%s %s", spinner, fidget_name)
+        end,
+      task =                    -- function to format each task line
+        function(task_name, message, percentage)
+          return string.format(
+          "%s%s [%s]",
+          message,
+          percentage and string.format(" (%s%%)", percentage) or "",
+          task_name
+          )
+        end,
+    },
   }
-  require('lsp-status').config(config)
-  require('lsp-status').register_progress()
-
-  local line = require('config.plugins.lualine')
-  line:ins_right{
-    require('lsp-status').status,
-    color = {fg = line.colors.green, gui = 'bold'},
-    condition = function() return #vim.lsp.buf_get_clients() > 0 end,
-    right_padding = 0
-  }
-  return true
 end
 
 local function set_lsp_options(capabilities, bufnr)
@@ -192,19 +201,12 @@ local function lsp_set()
     return
   end
 
-  local ok = setup_lspstatus() -- Configure plugin options
-  if not ok then
-    vim.api.nvim_err_writeln("lsp: failed to set lsp-status")
-    return
-  end
-
-  local lsp_status = require('lsp-status')
-
   -- Notice not all configs have a `callbacks` setting
   local nvim_lsp = require('lspconfig')
   diagnostic_set()
 
   -- vim.lsp.set_log_level("debug")
+  setup_fidget()
 
   local cmp_lsp = require('cmp_nvim_lsp')
 

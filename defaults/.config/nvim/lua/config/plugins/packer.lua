@@ -80,7 +80,7 @@ function M:__setup()
 
   use {
     'neovim/nvim-lspconfig',
-    requires = {{'nvim-lua/lsp-status.nvim'}, {'ray-x/lsp_signature.nvim'}},
+    requires = {{'ray-x/lsp_signature.nvim'}, {'j-hui/fidget.nvim'}},
     config = function() require('config.lsp').setup() end
   }
 
