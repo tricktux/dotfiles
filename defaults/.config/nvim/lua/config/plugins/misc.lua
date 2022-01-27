@@ -19,16 +19,16 @@ function M.setup_project()
 
     -- All the patterns used to detect root dir, when **"pattern"** is in
     -- detection_methods
-    patterns = { 
-      ".git", 
-      "_darcs", 
-      ".hg", 
-      ".bzr", 
-      ".svn", 
-      "Makefile", 
+    patterns = {
+      ".git",
+      "_darcs",
+      ".hg",
+      ".bzr",
+      ".svn",
+      "Makefile",
       ".vs",
       "*.sln",
-      "package.json" 
+      "package.json"
     },
 
     -- Table of lsp clients to ignore by name
@@ -447,7 +447,7 @@ function M.setup_sneak()
   vim.g["sneak#label"] = 1
 
   -- " repeat motion
-  -- Using : for next f,t is cumbersome, use ' for that, and ` for marks 
+  -- Using : for next f,t is cumbersome, use ' for that, and ` for marks
   map.map("'", '<Plug>Sneak_;')
   map.map(',', '<Plug>Sneak_,')
 
@@ -616,7 +616,7 @@ function M.setup_luadev()
       -- vim.lsp and others
       types = true,
       -- List of plugins you want autocompletion for
-      plugins = {'plenary'}
+      plugins = true
     },
     -- pass any additional options that will be merged in the final lsp config
     lspconfig = {
