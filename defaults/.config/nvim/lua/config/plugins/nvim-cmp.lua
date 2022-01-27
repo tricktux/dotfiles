@@ -1,6 +1,13 @@
+local utl = require('utils.utils')
+
 local M = {}
 
 function M:setup()
+  local win_sources = {{name = 'nvim_lsp'}, {name = 'buffer'}, {name = 'calc'}}
+  local unix_sources = {
+    {name = 'nvim_lsp'}, {name = 'buffer'}, {name = 'calc'}, {name = 'path'},
+    {name = 'tags'}
+  }
   local cmp = require 'cmp'
   cmp.setup({
     snippet = {},
@@ -17,10 +24,7 @@ function M:setup()
       -- ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
       ['<CR>'] = cmp.mapping.confirm({ select = true }),
     },
-    sources = {
-      {name = 'nvim_lsp'}, {name = 'buffer'}, {name = 'path'},
-      {name = 'calc'} -- This sources slow down {name = 'treesitter'}, {name = 'tags'}
-    },
+    sources = utl.has_unix() and unix_sources or win_sources,
     formatting = {
       format = function(entry, vim_item)
         -- fancy icons and a name of kind
