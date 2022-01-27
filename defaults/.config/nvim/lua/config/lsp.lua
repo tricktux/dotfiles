@@ -97,6 +97,7 @@ local function set_lsp_mappings(capabilities, bufnr)
     r = {lsp.buf.rename, 'lsp_rename'},
     d = {lsp.buf.definition, 'lsp_definition'},
     u = {lsp.buf.references, 'references'},
+    n = {lsp.diagnostic.show_line_diagnostics, 'show_line_diagnostics'},
   }
 
   wk.register(mappings, opts)
@@ -169,7 +170,7 @@ local function diagnostic_set()
       underline = true,
       signs = true,
       update_in_insert = false,
-      float = {severity_sort = true, source = "if_many"}
+      float = false,
     }
     -- Call the default handler
     local loc = vim.fn.has('nvim-0.6') > 0 and {open = false} or
