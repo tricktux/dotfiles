@@ -433,6 +433,11 @@ function M:__setup()
     config = function() require('config.plugins.misc'):setup_project() end
   }
 
+  --[[ use {
+    'jose-elias-alvarez/null-ls.nvim',
+    config = function() require('config.plugins.null-ls'):setup() end
+  } ]]
+
   -- Keep this setup last. So that it finalizes the lualine config
   use {
     'nvim-lualine/lualine.nvim',
