@@ -96,7 +96,8 @@ local function set_lsp_mappings(capabilities, bufnr)
     r = {lsp.buf.rename, 'lsp_rename'},
     d = {lsp.buf.definition, 'lsp_definition'},
     u = {lsp.buf.references, 'references'},
-    n = {lsp.diagnostic.show_line_diagnostics, 'show_line_diagnostics'}
+    n = {lsp.diagnostic.show_line_diagnostics, 'show_line_diagnostics'},
+    h = {lsp.buf.hover, 'hover'}
   }
 
   wk.register(mappings, opts)
