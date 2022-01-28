@@ -3,38 +3,35 @@ local map = require('utils.keymap')
 local log = require('utils.log')
 
 local function setup_fidget()
-  require'fidget'.setup{
+  require'fidget'.setup {
     text = {
-      spinner = "dots",         -- animation shown when tasks are ongoing
-      done = "✔",               -- character shown when all tasks are complete
-      commenced = "Started",    -- message shown when task starts
-      completed = "Completed",  -- message shown when task completes
+      spinner = "dots", -- animation shown when tasks are ongoing
+      done = "✔", -- character shown when all tasks are complete
+      commenced = "Started", -- message shown when task starts
+      completed = "Completed" -- message shown when task completes
     },
     align = {
-      bottom = true,            -- align fidgets along bottom edge of buffer
-      right = true,             -- align fidgets along right edge of buffer
+      bottom = true, -- align fidgets along bottom edge of buffer
+      right = true -- align fidgets along right edge of buffer
     },
     timer = {
-      spinner_rate = 125,       -- frame rate of spinner animation, in ms
-      fidget_decay = 2000,      -- how long to keep around empty fidget, in ms
-      task_decay = 1000,        -- how long to keep around completed task, in ms
+      spinner_rate = 125, -- frame rate of spinner animation, in ms
+      fidget_decay = 2000, -- how long to keep around empty fidget, in ms
+      task_decay = 1000 -- how long to keep around completed task, in ms
     },
     fmt = {
-      leftpad = true,           -- right-justify text in fidget box
-      fidget =                  -- function to format fidget title
-        function(fidget_name, spinner)
-          return string.format("%s %s", spinner, fidget_name)
-        end,
-      task =                    -- function to format each task line
-        function(task_name, message, percentage)
-          return string.format(
-          "%s%s [%s]",
-          message,
-          percentage and string.format(" (%s%%)", percentage) or "",
-          task_name
-          )
-        end,
-    },
+      leftpad = true, -- right-justify text in fidget box
+      fidget = -- function to format fidget title
+      function(fidget_name, spinner)
+        return string.format("%s %s", spinner, fidget_name)
+      end,
+      task = -- function to format each task line
+      function(task_name, message, percentage)
+        return string.format("%s%s [%s]", message, percentage and
+                                 string.format(" (%s%%)", percentage) or "",
+                             task_name)
+      end
+    }
   }
 end
 
@@ -90,14 +87,16 @@ local function set_lsp_mappings(capabilities, bufnr)
   wk.register({lsp.diagnostic.goto_prev, "diagnostic_prev"}, opts)
   opts.prefix = "<localleader>"
   mappings = {
-    D = {function()
-          vim.cmd[[vsplit]]
-          lsp.buf.definition()
-        end, 'lsp_definition_split'},
+    D = {
+      function()
+        vim.cmd [[vsplit]]
+        lsp.buf.definition()
+      end, 'lsp_definition_split'
+    },
     r = {lsp.buf.rename, 'lsp_rename'},
     d = {lsp.buf.definition, 'lsp_definition'},
     u = {lsp.buf.references, 'references'},
-    n = {lsp.diagnostic.show_line_diagnostics, 'show_line_diagnostics'},
+    n = {lsp.diagnostic.show_line_diagnostics, 'show_line_diagnostics'}
   }
 
   wk.register(mappings, opts)
@@ -170,7 +169,7 @@ local function diagnostic_set()
       underline = true,
       signs = true,
       update_in_insert = false,
-      float = false,
+      float = false
     }
     -- Call the default handler
     local loc = vim.fn.has('nvim-0.6') > 0 and {open = false} or
@@ -267,9 +266,9 @@ local function lsp_set()
         rust = {
           unstable_features = false,
           build_on_save = false,
-          all_features = true,
-        },
-      },
+          all_features = true
+        }
+      }
     }
   end
 end
