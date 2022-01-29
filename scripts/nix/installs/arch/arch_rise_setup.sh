@@ -698,7 +698,7 @@ sudo sudo bash -c 'printf "blacklist snd_hda_codec_hdmi" > /etc/modprobe.d/no_hd
 # all the xfce shortcuts, they interfere with i3, then reboot
 paci --needed --noconfirm numix-gtk-theme paper-icon-theme \
   capitaine-cursors lxappearance adapta-gtk-theme paper-gtk-theme-git \
-  xfce4-settings qt5-styleplugins
+  xfce4-settings qt5-styleplugins bibata-cursor-theme-bin
 # Also modify all these files:
 nvim ~/.gtkrc-2.0
 # gtk-cursor-theme-name="Bibata-Modern-DarkRed"
@@ -934,7 +934,7 @@ sudo systemctl enable --now preload
 #}}}
 
 ## Youtube-dl{{{
-paci --needed --noconfirm youtube-dl ytmdl
+paci --needed --noconfirm youtube-dl ytmdl ytfzf
 #}}}
 
 ## Screen recording{{{
