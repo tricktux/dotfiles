@@ -227,7 +227,7 @@ sudo bash -c 'printf "\n--latest 30" >> /etc/xdg/reflector/reflector.conf'
 sudo bash -c 'printf "\n--number 5" >> /etc/xdg/reflector/reflector.conf'
 sudo bash -c 'printf "\n--sort rate" >> /etc/xdg/reflector/reflector.conf'
 sudo bash -c 'printf "\n--country \"United States\"" >> /etc/xdg/reflector/reflector.conf'
-sudo bash -c 'printf "\n--info" >> /etc/xdg/reflector/reflector.conf'
+sudo bash -c 'printf "\n--verbose" >> /etc/xdg/reflector/reflector.conf'
 sudo nvim /etc/xdg/reflector/reflector.conf
 sudo systemctl enable --now reflector.timer
 sudo systemctl start reflector.timer
