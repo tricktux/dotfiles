@@ -76,6 +76,7 @@ gtk2fontsel
 gvfs-gphoto2
 gvfs-mtp
 gzip
+handbrake
 hdparm
 helvum
 highlight
@@ -171,7 +172,6 @@ pyright
 python-cpplint
 python-pip
 python-pywal
-python-selenium
 qpdfview
 qrencode
 rapidjson
@@ -221,6 +221,7 @@ urlscan
 vdirsyncer
 vi
 vim
+vlc
 w3m
 wavpack
 websocketpp

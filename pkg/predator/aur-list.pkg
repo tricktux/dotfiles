@@ -1,6 +1,8 @@
 abook
 alttab-git
 anki-official-binary-bundle
+bibata-cursor-theme-bin
+bibata-extra-cursor-theme
 bluez-firmware
 chkservice
 chromedriver
@@ -32,9 +34,9 @@ pass-import
 pass-update
 polybar
 popcorntime-bin
+python-selenium
 qt5-styleplugins
 ranger-git
-rmapi
 rmview
 rofi-bluetooth-git
 rofi-dmenu
@@ -47,7 +49,8 @@ tty-clock
 vdhcoapp-bin
 vmtouch
 xlayoutdisplay
-ytmdl
+ytfzf
 z-git
 zeal
+zoom
 zsh-theme-powerlevel10k-git
