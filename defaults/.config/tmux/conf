@@ -81,6 +81,9 @@ set-option -gw xterm-keys on
   # bind-key C-a send-prefix
   bind q kill-session
 
+  bind-key -n C-Tab next-window
+  bind-key -n C-S-Tab previous-window
+
   bind-key C command-prompt -p "Name of new window: " "new-window -n '%%'"
   bind-key S command-prompt -p "Rename this session: " "rename-session '%%'"
 
