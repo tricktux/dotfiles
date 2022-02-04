@@ -22,6 +22,7 @@ boost-libs
 bottom
 capitaine-cursors
 ccache
+cheese
 cifs-utils
 clang
 cmus
@@ -83,7 +84,7 @@ highlight
 hplip
 hunspell
 hunspell-en_us
-i3-gaps
+i3-wm
 i3blocks
 i3lock
 imagemagick
@@ -209,6 +210,7 @@ tigervnc
 tldr
 tmux
 todoman
+transmission-qt
 ttf-cascadia-code
 ttf-fira-code
 ttf-fira-mono
