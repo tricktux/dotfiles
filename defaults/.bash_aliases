@@ -17,6 +17,7 @@ alias mkdir="mkdir --parents --verbose"
 
 # Fix for kitty ssh
 alias ssh="kitty +kitten ssh"
+alias kt="kitty @ set-tab-title"
 
 # Install
 alias paci="$aur_helper -S"
