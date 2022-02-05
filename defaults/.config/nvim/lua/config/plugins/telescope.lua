@@ -178,16 +178,16 @@ local function set_mappings()
     function() ts.live_grep {additional_args = rg_grep_cmd} end, 'live_grep'
   }
   leader['/'] = {
-    function() 
+    function()
       local input = vim.fn.input("Enter regex for telescope.grep_string: ")
       if input == nil or input == "" then
         return
       end
       ts.grep_string {
-        search = input, 
-        use_regex = true, 
+        search = input,
+        use_regex = true,
         additional_args = rg_grep_cmd
-      } 
+      }
     end, 'live_grep'
   }
   leader[';'] = {function() ts.commands{layout_config = cust_layout_config} end, 'commands'}
