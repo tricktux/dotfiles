@@ -45,7 +45,7 @@ apps['scratch'] = {
     ['aero'] = 'scratchpad show, resize set 2038 1259, move position center'
   },
   -- How to start this application if it does not exists
-  exec = [[$TERMINAL --title scratch $HOME/.config/tmux/scratch.sh&]]
+  exec = [[$TERMINAL --title scratch $HOME/.config/kitty/scratch.sh&]]
 }
 
 apps['doublecmd'] = {
@@ -91,7 +91,7 @@ apps['neomutt'] = {
     ['aero'] = 'scratchpad show, resize set 2038 1259, move position center'
   },
   -- How to start this application if it does not exists
-  exec = [[$TERMINAL --title neomutt $HOME/.config/tmux/neomutt.sh&]]
+  exec = [[$TERMINAL --title neomutt $HOME/.config/kitty/neomutt.sh&]]
 }
 
 apps['evolution'] = {
@@ -123,7 +123,7 @@ apps['terminal'] = {
     ['aero'] = 'scratchpad show, resize set 1280 1505, move position 1280 px 48 px'
   },
   -- How to start this application if it does not exists
-  exec = [[$TERMINAL --title terminal -o background_opacity=0.9 /usr/bin/tmux&]]
+  exec = [[$TERMINAL --title terminal -o background_opacity=0.9]]
 }
 
 apps['bottom'] = {
