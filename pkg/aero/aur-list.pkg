@@ -22,6 +22,7 @@ layan-cursor-theme-git
 liquidprompt
 lua-format
 luacheck
+mkchromecast
 neovim-remote
 nerd-fonts-inconsolata
 numix-gtk-theme
@@ -43,7 +44,6 @@ ranger-git
 rmview
 rofi-bluetooth-git
 rofi-dmenu
-rtw89-dkms-git
 shellcheck-bin
 spotify
 synology-drive
@@ -52,6 +52,6 @@ ttf-weather-icons
 vdhcoapp-bin
 volantes-cursors
 xlayoutdisplay
-ytmdl
 z-git
 zeal
+zoom
