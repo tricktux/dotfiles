@@ -249,6 +249,7 @@ function M:__setup()
   use {'MTDL9/vim-log-highlighting', ft = 'log'}
   use {'alepez/vim-gtest', ft = 'cpp'}
   use {'neomutt/neomutt.vim', ft = 'muttrc'}
+  use {'fladson/vim-kitty'}
 
   use 'editorconfig/editorconfig-vim'
 
