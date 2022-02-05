@@ -722,7 +722,9 @@ paci --needed --noconfirm glances
 paci --needed --noconfirm cmus playerctl pipewire
 paci --needed --noconfirm pamixer alsa-lib libao libcdio libcddb libvorbis \
   libmpcdec wavpack libmad libmodplug libmikmod pavucontrol
-paci --needed --noconfirm mpv
+# mpv-mpris is a plugin that adds mpris support to mpv. This allows playerctl to 
+# control it
+paci --needed --noconfirm mpv mpv-mpris
 
 # Download music
 paci --needed --noconfirm python-spotdl
