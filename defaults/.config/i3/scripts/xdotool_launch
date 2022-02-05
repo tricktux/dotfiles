@@ -118,7 +118,7 @@ apps['terminal'] = {
   i3cmd = {
     -- Different commands for different hosts
     ['helios'] = 'scratchpad show, resize set 960 1019, move position 960 px 32 px',
-    ['predator'] = 'scratchpad show, resize set 1920 2038, move position 1920 px 60 px',
+    ['predator'] = 'scratchpad show, resize set 1920 2055, move position 1920 px 50 px',
     ['surbook'] = 'scratchpad show, resize set 1368 1730, move position 1368 px 48 px',
     ['aero'] = 'scratchpad show, resize set 1280 1505, move position 1280 px 48 px'
   },
