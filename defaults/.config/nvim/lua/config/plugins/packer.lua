@@ -250,6 +250,13 @@ function M:__setup()
   use {'alepez/vim-gtest', ft = 'cpp'}
   use {'neomutt/neomutt.vim', ft = 'muttrc'}
   use {'fladson/vim-kitty'}
+  use {
+    'knubie/vim-kitty-navigator',
+    run = 'cp ./*.py ~/.config/kitty/',
+    after = 'which-key.nvim',
+    setup = function() vim.g.kitty_navigator_no_mappings = 1 end,
+    config = function() require('config.plugins.misc'):config_kitty_navigator() end
+  }
 
   use 'editorconfig/editorconfig-vim'
 

@@ -1,4 +1,5 @@
 local utl = require('utils/utils')
+local log = require('utils.log')
 local api = vim.api
 
 local function refresh_buffer()
@@ -259,6 +260,7 @@ function M:setup()
   wk.register({
     ["<c-l>"] = {refresh_buffer, "refresh_buffer"}
   })
+  log.info("setup of which key complete")
 end
 
 return M

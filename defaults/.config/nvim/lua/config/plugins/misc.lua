@@ -1,9 +1,25 @@
 local utl = require('utils.utils')
+local log = require('utils.log')
 local line = require('config.plugins.lualine')
 local map = require('utils.keymap')
 local api = vim.api
 
 local M = {}
+
+function M.config_kitty_navigator()
+  if not utl.is_mod_available('which-key') then
+    vim.api.nvim_err_writeln('which-key module not available')
+    return
+  end
+
+  require('which-key').register {
+    ["<a-h>"] = {'<cmd>KittyNavigateLeft<cr>', "kitty_left"},
+    ["<a-j>"] = {'<cmd>KittyNavigateDown<cr>', "kitty_down"},
+    ["<a-k>"] = {'<cmd>KittyNavigateUp<cr>', "kitty_up"},
+    ["<a-l>"] = {'<cmd>KittyNavigateRight<cr>', "kitty_right"}
+  }
+  log.info("setup of kitty navigator complete")
+end
 
 function M.setup_project()
   require("project_nvim").setup {
