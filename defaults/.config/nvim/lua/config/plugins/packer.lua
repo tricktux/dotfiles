@@ -255,7 +255,8 @@ function M:__setup()
     run = 'cp ./*.py ~/.config/kitty/',
     after = 'which-key.nvim',
     setup = function() vim.g.kitty_navigator_no_mappings = 1 end,
-    config = function() require('config.plugins.misc'):config_kitty_navigator() end
+    config = function() require('config.plugins.misc'):config_kitty_navigator() end,
+    cond = function() return require('utils.utils').has_unix() end
   }
 
   use 'editorconfig/editorconfig-vim'
