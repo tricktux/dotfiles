@@ -91,7 +91,7 @@ function M:__setup()
 
   use {
     'kdheepak/lazygit.nvim',
-    config = function()
+    setup = function()
       vim.g.lazygit_floating_window_winblend = 0 -- transparency of floating window
       vim.g.lazygit_floating_window_scaling_factor = 0.9 -- scaling factor for floating window
       vim.g.lazygit_floating_window_corner_chars = {'╭', '╮', '╰', '╯'} -- customize lazygit popup window corner characters
@@ -128,7 +128,7 @@ function M:__setup()
 
   use {
     'lukas-reineke/indent-blankline.nvim',
-    config = function()
+    setup = function()
       vim.g.indent_blankline_filetype = {
         'vim', 'lua', 'c', 'python', 'cpp', 'java', 'cs', 'sh', 'ps1',
         'dosbatch'
@@ -190,7 +190,7 @@ function M:__setup()
   use {
     'majutsushi/tagbar',
     cmd = 'Tagbar',
-    config = function()
+    setup = function()
       vim.g.tagbar_ctags_bin = 'ctags'
       vim.g.tagbar_autofocus = 1
       vim.g.tagbar_show_linenumbers = 2
@@ -207,7 +207,7 @@ function M:__setup()
   use {
     'juneedahamed/svnj.vim',
     cmd = {'SVNStatus', 'SVNCommit'},
-    config = function()
+    setup = function()
       vim.g.svnj_allow_leader_mappings = 0
       vim.g.svnj_cache_dir = vim.g.std_cache_path
       vim.g.svnj_browse_cache_all = 1
@@ -230,7 +230,7 @@ function M:__setup()
   use {
     'chrisbra/csv.vim',
     ft = 'csv',
-    config = function()
+    setup = function()
       vim.g.no_csv_maps = 1
       vim.g.csv_strict_columns = 1
     end
@@ -262,7 +262,7 @@ function M:__setup()
 
   use {
     'chaoren/vim-wordmotion',
-    config = function()
+    setup = function()
       vim.g.wordmotion_mappings = {
         w = 'L',
         b = 'H',
@@ -280,7 +280,7 @@ function M:__setup()
 
   use {
     'mhinz/vim-startify',
-    config = function()
+    setup = function()
       vim.g.startify_session_dir = vim.g.std_data_path .. '/sessions/'
 
       vim.g.startify_lists = {
@@ -300,7 +300,7 @@ function M:__setup()
 
   use {
     'jiangmiao/auto-pairs',
-    config = function()
+    setup = function()
       -- Really annoying option
       vim.g.AutoPairsFlyMode = 0
       vim.g.AutoPairsShortcutToggle = ''
@@ -313,7 +313,7 @@ function M:__setup()
   use {'tpope/vim-fugitive', cmd = 'Git'}
   use 'tpope/vim-repeat'
   use 'tpope/vim-surround'
-  use {'tpope/vim-dispatch', config = function() vim.g.dispatch_no_maps = 1 end}
+  use {'tpope/vim-dispatch', setup = function() vim.g.dispatch_no_maps = 1 end}
   use {
     'radenling/vim-dispatch-neovim',
     cond = function() return vim.fn.has('nvim') > 0 end
@@ -366,7 +366,7 @@ function M:__setup()
 
   use {
     'jsfaint/gen_tags.vim', -- Not being suppoprted anymore
-    config = function()
+    setup = function()
       vim.g["gen_tags#cache_dir"] = vim.g.std_cache_path .. '/ctags/'
       vim.g["gen_tags#use_cache_dir"] = 1
       vim.g["loaded_gentags#gtags"] = 1 -- Disable gtags
