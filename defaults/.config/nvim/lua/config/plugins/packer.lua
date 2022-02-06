@@ -148,7 +148,8 @@ function M:__setup()
   use {
     'rhysd/git-messenger.vim',
     cmd = 'GitMessenger',
-    config = function() require('config.plugins.misc').setup_git_messenger() end
+    setup = function() vim.g.git_messenger_always_into_popup = true end,
+    config = function() require('config.plugins.misc').config_git_messenger() end
   }
 
   use {
@@ -253,7 +254,6 @@ function M:__setup()
   use {
     'knubie/vim-kitty-navigator',
     run = 'cp ./*.py ~/.config/kitty/',
-    after = 'which-key.nvim',
     setup = function() vim.g.kitty_navigator_no_mappings = 1 end,
     config = function() require('config.plugins.misc'):config_kitty_navigator() end,
     cond = function() return require('utils.utils').has_unix() end
@@ -296,7 +296,7 @@ function M:__setup()
 
   use {
     'NLKNguyen/papercolor-theme',
-    config = function() require('config.plugins.misc'):setup_papercolor() end
+    setup = function() require('config.plugins.misc'):setup_papercolor() end
   }
 
   use {
@@ -321,17 +321,18 @@ function M:__setup()
   }
   use {
     'tpope/vim-obsession',
-    config = function() require('config.plugins.misc'):setup_obsession() end
+    setup = function() require('config.plugins.misc'):setup_obsession() end
   }
 
   use {
     'tricktux/pomodoro.vim',
-    config = function() require('config.plugins.misc'):setup_pomodoro() end
+    setup = function() require('config.plugins.misc'):setup_pomodoro() end,
   }
 
   use {
     'kassio/neoterm',
-    config = function() require('config.plugins.misc'):setup_neoterm() end
+    setup = function() require('config.plugins.misc'):setup_neoterm() end,
+    config = function() require('config.plugins.misc'):config_neoterm() end,
   }
 
   use {'ferrine/md-img-paste.vim', ft = 'markdown'}
@@ -348,7 +349,7 @@ function M:__setup()
 
   use {
     'justinmk/vim-sneak',
-    config = function() require('config.plugins.misc'):setup_sneak() end
+    setup = function() require('config.plugins.misc'):setup_sneak() end
   }
 
   use {
@@ -358,7 +359,9 @@ function M:__setup()
 
   use {
     'MattesGroeger/vim-bookmarks',
-    config = function() require('config.plugins.misc'):setup_bookmarks() end
+    after = 'which-key.nvim',
+    setup = function() require('config.plugins.misc'):setup_bookmarks() end,
+    config = function() require('config.plugins.misc'):config_bookmarks() end
   }
 
   use 'whiteinge/diffconflicts'
@@ -403,7 +406,8 @@ function M:__setup()
 
   use {
     'b3nj5m1n/kommentary',
-    config = function() require('config.plugins.misc'):setup_kommentary() end
+    setup = function() vim.g.kommentary_create_default_mappings = false end,
+    config = function() require('config.plugins.misc'):config_kommentary() end
   }
 
   use {

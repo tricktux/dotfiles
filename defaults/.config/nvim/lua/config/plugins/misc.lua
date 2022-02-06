@@ -255,7 +255,6 @@ function M.setup_gpsnvim()
   line:ins_left{
     gps_get_location, condition = gps.is_available
   }
-
 end
 
 function M.setup_focus()
@@ -291,7 +290,7 @@ function M.setup_focus()
   }
 end
 
-function M.setup_kommentary()
+function M.config_kommentary()
   local config = require('kommentary.config')
   config.configure_language("wings_syntax", {
     single_line_comment_string = "//",
@@ -301,8 +300,6 @@ function M.setup_kommentary()
     single_line_comment_string = ";",
     prefer_single_line_comments = true
   })
-
-  vim.g.kommentary_create_default_mappings = false -- Somthing
 
   --[[ The default mapping for line-wise operation; will toggle the range from
   commented to not-commented and vice-versa, will use a single-line comment. ]]
@@ -395,7 +392,9 @@ function M.setup_bookmarks()
   vim.g.bookmark_auto_save = 0
   vim.g.bookmark_auto_save_file = vim.g.bookmark_dir .. '/bookmarks'
   vim.g.bookmark_highlight_lines = 1
+end
 
+function M.config_bookmarks()
   if not utl.is_mod_available('which-key') then
     vim.api.nvim_err_writeln('which-key module not available')
     return
@@ -517,10 +516,10 @@ function M.setup_papercolor()
     vim.fn['flux#Manual']()
   else
     vim.cmd [[
-    augroup FluxLike
-    autocmd!
-    autocmd VimEnter,BufEnter * call flux#Flux()
-    augroup END
+      augroup FluxLike
+      autocmd!
+      autocmd VimEnter,BufEnter * call flux#Flux()
+      augroup END
     ]]
 
     vim.g.flux_enabled = 1
@@ -555,6 +554,9 @@ function M.setup_neoterm()
   -- " Potential substitue
   -- " https://github.com/Shougo/deol.nvim/blob/master/doc/deol.txt
   -- " there is also vimshell
+end
+
+function M.config_neoterm()
   if not utl.is_mod_available('which-key') then
     api.nvim_err_writeln("which-key was set, but module not found")
     return
@@ -696,9 +698,7 @@ function M.setup_neogit()
   }
 end
 
-function M.setup_git_messenger()
-  vim.g.git_messenger_always_into_popup = true
-
+function M.config_git_messenger()
   if not utl.is_mod_available('which-key') then
     vim.api.nvim_err_writeln('which-key module not available')
     return
