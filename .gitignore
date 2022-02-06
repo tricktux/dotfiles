@@ -58,3 +58,5 @@ defaults/.config/doublecmd/pixmaps.txt
 defaults/.config/doublecmd/session.ini
 defaults/.config/doublecmd/shortcuts_.scf
 defaults/.config/doublecmd/favoritetabs.xml
+defaults/.config/kitty/neighboring_window.py
+defaults/.config/kitty/pass_keys.py
