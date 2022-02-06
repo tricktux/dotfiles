@@ -84,7 +84,7 @@ function M:__ins_right(component)
   table.insert(self.__config.sections.lualine_x, component)
 end
 
-function M:config()
+function M:setup()
   self:ins_left{
     function() return '▊' end,
     color = {fg = self.colors.blue}, -- Sets highlighting of component
@@ -134,11 +134,11 @@ function M:config()
     color = {fg = self.colors.magenta, gui = 'bold'}
   }
 
-  self:__ins_right{
+  --[[ self:__ins_right{
     function() return vim.fn['linting#neomake_native_status_line']() end,
     color = {fg = self.colors.yellow, gui = 'bold'},
     right_padding = 0
-  }
+  } ]]
 
   self:__ins_right{
     'filetype',
@@ -182,7 +182,7 @@ function M:config()
 
 end
 
-function M:setup()
+function M:config()
   if not utl.is_mod_available('lualine') then
     api.nvim_err_writeln("lualine was set, but module not found")
     return

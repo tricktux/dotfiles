@@ -37,7 +37,7 @@ function M:__setup()
   if packer == nil then
     local jobs = utl.has_unix() and nil or 5
     packer = require('packer')
-    packer.init({max_jobs = jobs})
+    packer.init({max_jobs = jobs, log = "trace"})
   end
 
   local use = packer.use
@@ -449,8 +449,6 @@ function M:__setup()
   -- Keep this setup last. So that it finalizes the lualine config
   use {
     'nvim-lualine/lualine.nvim',
-    -- requires = {'kyazdani42/nvim-web-devicons', opt = true},
-    config = function() require('config.plugins.lualine'):setup() end
   }
 end
 
@@ -493,11 +491,11 @@ function M:setup()
     return
   end
 
-  -- Setup initial lualine config. Plugins will add stuff, setup will finalize
-  -- it
-  require('config.plugins.lualine'):config()
+  -- Ensure lualine is the first to setup and last to config
+  require('config.plugins.lualine'):setup()
   self:__setup()
   self:__set_mappings()
+  require('config.plugins.lualine'):config()
 end
 
 return M
