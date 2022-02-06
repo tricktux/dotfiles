@@ -20,14 +20,16 @@ function _G.tmux_move(direction)
 end
 
 function M:window_movement_setup()
-  if vim.fn.has('unix') > 0 and vim.fn.executable('tmux') > 0 and
-      vim.fn.exists('$TMUX') > 0 then
-      map.nnoremap('<A-h>', [[<cmd>call v:lua.tmux_move('h')<cr>]])
-      map.nnoremap('<A-j>', [[<cmd>call v:lua.tmux_move('j')<cr>]])
-      map.nnoremap('<A-k>', [[<cmd>call v:lua.tmux_move('k')<cr>]])
-      map.nnoremap('<A-l>', [[<cmd>call v:lua.tmux_move('l')<cr>]])
-      map.nnoremap('<A-p>', [[<cmd>call v:lua.tmux_move('p')<cr>]])
-    return
+  if vim.fn.has('unix') > 0 then
+      if vim.fn.exists('$TMUX') > 0 then
+        map.nnoremap('<A-h>', [[<cmd>call v:lua.tmux_move('h')<cr>]])
+        map.nnoremap('<A-j>', [[<cmd>call v:lua.tmux_move('j')<cr>]])
+        map.nnoremap('<A-k>', [[<cmd>call v:lua.tmux_move('k')<cr>]])
+        map.nnoremap('<A-l>', [[<cmd>call v:lua.tmux_move('l')<cr>]])
+        map.nnoremap('<A-p>', [[<cmd>call v:lua.tmux_move('p')<cr>]])
+        -- elseif vim.fn.exists('$KITTY_WINDOW_ID') > 0 then
+        return
+      end
   end
 
   map.nnoremap("<A-l>", "<C-w>lzz")
