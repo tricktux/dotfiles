@@ -52,9 +52,7 @@ function M:__setup()
 
   use {
     'nvim-lua/telescope.nvim',
-    requires = {
-      {'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'},
-    },
+    requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
     config = function() require('config.plugins.telescope').setup() end
   }
 
@@ -255,7 +253,9 @@ function M:__setup()
     'knubie/vim-kitty-navigator',
     run = 'cp ./*.py ~/.config/kitty/',
     setup = function() vim.g.kitty_navigator_no_mappings = 1 end,
-    config = function() require('config.plugins.misc'):config_kitty_navigator() end,
+    config = function()
+      require('config.plugins.misc'):config_kitty_navigator()
+    end,
     cond = function() return require('utils.utils').has_unix() end
   }
 
@@ -326,13 +326,13 @@ function M:__setup()
 
   use {
     'tricktux/pomodoro.vim',
-    setup = function() require('config.plugins.misc'):setup_pomodoro() end,
+    setup = function() require('config.plugins.misc'):setup_pomodoro() end
   }
 
   use {
     'kassio/neoterm',
     setup = function() require('config.plugins.misc'):setup_neoterm() end,
-    config = function() require('config.plugins.misc'):config_neoterm() end,
+    config = function() require('config.plugins.misc'):config_neoterm() end
   }
 
   use {'ferrine/md-img-paste.vim', ft = 'markdown'}
@@ -451,9 +451,7 @@ function M:__setup()
   } ]]
 
   -- Keep this setup last. So that it finalizes the lualine config
-  use {
-    'nvim-lualine/lualine.nvim',
-  }
+  use {'nvim-lualine/lualine.nvim'}
 end
 
 function M:__set_mappings()
