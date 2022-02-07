@@ -40,11 +40,6 @@ local function set_lsp_options(capabilities, bufnr)
 end
 
 local function set_lsp_mappings(capabilities, bufnr)
-  if not utl.is_mod_available('which-key') then
-    vim.api.nvim_err_writeln('lsp.lua: which-key module not available')
-    return
-  end
-
   local wk = require("which-key")
   local opts = {prefix = '<localleader>l', buffer = bufnr}
   local lsp = vim.lsp
@@ -102,9 +97,7 @@ local function set_lsp_mappings(capabilities, bufnr)
 
   wk.register(mappings, opts)
 
-  if utl.is_mod_available('telescope') then
-    require('config.plugins.telescope').set_lsp_mappings(bufnr)
-  end
+  require('config.plugins.telescope').set_lsp_mappings(bufnr)
 end
 
 -- Abstract function that allows you to hook and set settings on a buffer that
@@ -126,19 +119,12 @@ local function on_lsp_attach(client_id, bufnr)
   -- vim.cmd("autocmd CursorHold <buffer> lua vim.lsp.buf.hover()")
   set_lsp_mappings(client_id.resolved_capabilities, bufnr)
   set_lsp_options(client_id.resolved_capabilities, bufnr)
-  if utl.is_mod_available('dap') then
-    require('config.plugins.dap'):set_mappings(bufnr)
-  end
+  require('config.plugins.dap'):set_mappings(bufnr)
   -- require('config/completion').diagn:on_attach()
 
   -- Disable tagbar
   vim.b.tagbar_ignore = 1
-  if utl.is_mod_available('lsp-status') then
-    require('lsp-status').on_attach(client_id)
-  end
-  if utl.is_mod_available('lsp_signature') then
-    require'lsp_signature'.on_attach()
-  end
+  require'lsp_signature'.on_attach()
   vim.b.did_on_lsp_attach = 1
 end
 
@@ -197,11 +183,6 @@ end
 -- TODO
 -- Maybe set each server to its own function?
 local function lsp_set()
-  if not utl.is_mod_available('lspconfig') then
-    print("ERROR: lspconfig was set, but module not found")
-    return
-  end
-
   -- Notice not all configs have a `callbacks` setting
   local nvim_lsp = require('lspconfig')
   diagnostic_set()
