@@ -31,11 +31,6 @@ local function prev_hunk()
 end
 
 local function on_attach(bufnr)
-  if not utl.is_mod_available('which-key') then
-    vim.api.nvim_err_writeln('gitsigns.lua: which-key module not available')
-    return false
-  end
-
   local wk = require("which-key")
   local opts = {prefix = '<leader>vg', buffer = bufnr}
   local gs = require("gitsigns")
@@ -60,20 +55,18 @@ local function on_attach(bufnr)
     ["[c"] = {prev_hunk, 'prev_hunk'}
   }, {buffer = bufnr})
 
-  if utl.is_mod_available('telescope') then
-    local ts = require("telescope.builtin")
-    opts.prefix = '<leader>vt'
-    mappings = {
-      name = 'telescope',
-      f = {ts.git_files, 'files'},
-      C = {ts.git_commits, 'commits'},
-      c = {ts.git_bcommits, 'commits_current_buffer'},
-      b = {ts.git_branches, 'branches'},
-      s = {ts.git_status, 'status'},
-      S = {ts.git_stash, 'stash'}
-    }
-    wk.register(mappings, opts)
-  end
+  local ts = require("telescope.builtin")
+  opts.prefix = '<leader>vt'
+  mappings = {
+    name = 'telescope',
+    f = {ts.git_files, 'files'},
+    C = {ts.git_commits, 'commits'},
+    c = {ts.git_bcommits, 'commits_current_buffer'},
+    b = {ts.git_branches, 'branches'},
+    s = {ts.git_status, 'status'},
+    S = {ts.git_stash, 'stash'}
+  }
+  wk.register(mappings, opts)
   return true
 end
 
@@ -84,11 +77,6 @@ local function status_line()
 end
 
 function M.setup()
-  if not utl.is_mod_available('gitsigns') then
-    vim.api.nvim_err_writeln('gitsigns module not available')
-    return
-  end
-
   require('gitsigns').setup {
     signs = {
       add = {hl = 'DiffAdd', text = '+'},

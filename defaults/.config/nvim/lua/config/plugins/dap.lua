@@ -15,32 +15,12 @@ local function breakpoint_msg()
 end
 
 function M:__setup_python()
-  if not utl.is_mod_available('dap-python') then
-    vim.api.nvim_err_writeln('dap.lua: dap-python module not available')
-    return
-  end
-
   local env = utl.has_unix() and self.__pyvenv_nix or self.__pyvenv_win
   require('dap-python').setup(env)
   table.insert(self.__filetypes, 'python')
 end
 
 function M:set_mappings(bufnr)
-  if not utl.is_mod_available('which-key') then
-    vim.api.nvim_err_writeln('dap.lua: which-key module not available')
-    return
-  end
-
-  if not utl.is_mod_available('dap') then
-    vim.api.nvim_err_writeln('dap.lua: dap module not available')
-    return
-  end
-
-  if not utl.is_mod_available('dapui') then
-    vim.api.nvim_err_writeln('dap.lua: dauip module not available')
-    return
-  end
-
   -- Determine if there is a config for this filetype
   local cft = vim.opt.filetype:get()
   local found = false
@@ -155,21 +135,6 @@ function M:__set_virt_text()
 end
 
 function M:setup()
-  if not utl.is_mod_available('dap') then
-    vim.api.nvim_err_writeln('dap module not available')
-    return
-  end
-
-  if not utl.is_mod_available('dapui') then
-    vim.api.nvim_err_writeln('dapui module not available')
-    return
-  end
-
-  if not utl.is_mod_available('nvim-dap-virtual-text') then
-    vim.api.nvim_err_writeln('nvim-dap-virtual-text module not available')
-    return
-  end
-
   local dap, dapui = require('dap'), require('dapui')
   dap.listeners.after.event_initialized['dapui_config'] = function() dapui.open() end
   dap.listeners.before.event_terminated['dapui_config'] = function() dapui.close() end

@@ -69,11 +69,6 @@ function M.deoplete()
     return
   end
 
-  if not utl.is_mod_available('vimp') then
-    api.nvim_err_writeln('deoplete: vimp module not available')
-    return
-  end
-
   local vimp = require('vimp')
   vim.g['deoplete#enable_at_startup'] = 1
 
@@ -91,11 +86,6 @@ function M.deoplete()
 end
 
 function M.compe()
-
-  if not utl.is_mod_available('compe') then
-    print('completion.lua: nvim-compe module not available')
-    return
-  end
 
   local orgmode = utl.is_mod_available('orgmode') and true or false
   local lsp = utl.is_mod_available('lspconfig') and true or false
@@ -226,11 +216,6 @@ local function smart_s_tab()
 end
 
 function CompletionNvim:set()
-  if not utils.is_mod_available('completion') then
-    log.error("completion-nvim was set, but module not found")
-    return
-  end
-
   log.info("setting up completion-nvim...")
   map.imap([[<tab>]], [[<Plug>(completion_smart_tab)]], {silent = true})
   map.imap([[<s-tab>]], [[<Plug>(completion_smart_s_tab)]], {silent = true})
@@ -251,11 +236,6 @@ end
 --  If diagnostic-nvim plugin not found returns nil
 --  Otherwise returns the diagnostic-nvim on_attach function
 function DiagnosticNvim:on_attach()
-  if not utils.is_mod_available('diagnostic') then
-    log.error("diagnostic-nvim was set, but module not found")
-    return
-  end
-
   require'diagnostic'.on_attach()
 end
 

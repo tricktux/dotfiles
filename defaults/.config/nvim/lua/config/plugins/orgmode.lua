@@ -3,11 +3,6 @@ local utl = require('utils.utils')
 local M = {}
 
 function M:setup()
-  if not utl.is_mod_available('orgmode') then
-    vim.api.nvim_err_writeln("orgmode.nvim module not found")
-    return
-  end
-
   require('orgmode').setup {
     org_agenda_files = {vim.g.wiki_path .. [[/*]]},
     org_priority_lowest = 'D',

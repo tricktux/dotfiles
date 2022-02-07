@@ -52,6 +52,7 @@ function M:__setup()
 
   use {
     'nvim-lua/telescope.nvim',
+    after = 'which-key.nvim',
     requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
     config = function() require('config.plugins.telescope').setup() end
   }
@@ -59,6 +60,7 @@ function M:__setup()
   -- Post-install/update hook with neovim command
   use {
     'nvim-treesitter/nvim-treesitter',
+    after = 'which-key.nvim',
     run = ':TSUpdate',
     requires = {'p00f/nvim-ts-rainbow', 'RRethy/nvim-treesitter-textsubjects'},
     -- {'romgrk/nvim-treesitter-context'} still some rough edges
@@ -83,6 +85,7 @@ function M:__setup()
 
   use {
     'lewis6991/gitsigns.nvim',
+    after = 'which-key.nvim',
     requires = {'nvim-lua/plenary.nvim'},
     config = function() require('config.plugins.gitsigns').setup() end
   }
@@ -139,6 +142,8 @@ function M:__setup()
 
   use {
     'ThePrimeagen/git-worktree.nvim',
+    after = {'which-key.nvim', 'telescope.nvim'},
+    requires = {{'nvim-lua/telescope.nvim'}, {'folke/which-key.nvim'}},
     cond = function() return require('utils.utils').has_unix() end,
     config = function() require('config.plugins.git_worktree').setup() end
   }
@@ -176,8 +181,9 @@ function M:__setup()
 
   use {
     'mizlan/iswap.nvim',
+    after = {'which-key.nvim', 'nvim-treesitter'},
     requires = 'nvim-treesitter/nvim-treesitter',
-    config = function() require('config.plugins.misc').setup_iswap() end
+    config = function() require('config.plugins.misc').config_iswap() end
   }
 
   use {
@@ -331,6 +337,7 @@ function M:__setup()
 
   use {
     'kassio/neoterm',
+    after = 'which-key.nvim',
     setup = function() require('config.plugins.misc'):setup_neoterm() end,
     config = function() require('config.plugins.misc'):config_neoterm() end
   }
@@ -354,6 +361,7 @@ function M:__setup()
 
   use {
     'kazhala/close-buffers.nvim',
+    after = 'which-key.nvim',
     config = function() require('config.plugins.misc'):setup_bdelete() end
   }
 
@@ -400,7 +408,8 @@ function M:__setup()
 
   use {
     's1n7ax/nvim-comment-frame',
-    requires = {{'nvim-treesitter'}},
+    after = {'which-key.nvim', 'nvim-treesitter'},
+    requires = "nvim-treesitter/nvim-treesitter",
     config = function() require('config.plugins.misc'):setup_comment_frame() end
   }
 
@@ -412,11 +421,13 @@ function M:__setup()
 
   use {
     'beauwilliams/focus.nvim',
+    after = 'which-key.nvim',
     config = function() require('config.plugins.misc'):setup_focus() end
   }
   use {
     "folke/zen-mode.nvim",
-    -- cmd = 'ZenMode',
+    cmd = 'ZenMode',
+    after = 'which-key.nvim',
     config = function() require('config.plugins.misc'):setup_zen_mode() end
   }
 
@@ -436,13 +447,16 @@ function M:__setup()
 
   use {
     "SmiteshP/nvim-gps",
+    after = 'nvim-treesitter',
     requires = "nvim-treesitter/nvim-treesitter",
     config = function() require('config.plugins.misc'):setup_gpsnvim() end
   }
 
   use {
     "ahmedkhalf/project.nvim",
-    config = function() require('config.plugins.misc'):setup_project() end
+    after = 'telescope.nvim',
+    requires = {'nvim-lua/telescope.nvim'},
+    config = function() require('config.plugins.misc'):config_project() end
   }
 
   --[[ use {
@@ -455,11 +469,6 @@ function M:__setup()
 end
 
 function M:__set_mappings()
-  if not utl.is_mod_available('which-key') then
-    vim.api.nvim_err_writeln('plugin.lua: which-key module not available')
-    return
-  end
-
   local wk = require("which-key")
   local opts = {prefix = '<leader>P'}
   local plug = {
@@ -488,11 +497,6 @@ end
 
 function M:setup()
   self:download()
-  if not utl.is_mod_available('packer') then
-    api.nvim_err_writeln("packer.nvim module not found")
-    return
-  end
-
   -- Ensure lualine is the first to setup and last to config
   require('config.plugins.lualine'):setup()
   self:__setup()

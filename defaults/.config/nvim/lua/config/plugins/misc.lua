@@ -1,17 +1,10 @@
-local utl = require('utils.utils')
 local log = require('utils.log')
 local line = require('config.plugins.lualine')
 local map = require('utils.keymap')
-local api = vim.api
 
 local M = {}
 
 function M.config_kitty_navigator()
-  if not utl.is_mod_available('which-key') then
-    vim.api.nvim_err_writeln('which-key module not available')
-    return
-  end
-
   require('which-key').register {
     ["<a-h>"] = {'<cmd>KittyNavigateLeft<cr>', "kitty_left"},
     ["<a-j>"] = {'<cmd>KittyNavigateDown<cr>', "kitty_down"},
@@ -21,7 +14,7 @@ function M.config_kitty_navigator()
   log.info("setup of kitty navigator complete")
 end
 
-function M.setup_project()
+function M.config_project()
   require("project_nvim").setup {
     -- Manual mode doesn't automatically change your root directory, so you have
     -- the option to manually do so using `:ProjectRoot` command.
@@ -219,10 +212,6 @@ function M.setup_zen_mode()
     --[[ on_close = function()
     end, ]]
   }
-  if not utl.is_mod_available('which-key') then
-    vim.api.nvim_err_writeln('which-key module not available')
-    return
-  end
 
   require('which-key').register {
     ["<plug>focus_toggle"] = {'<cmd>ZenMode<cr>', "zen_mode_focus_toggle"}
@@ -276,10 +265,6 @@ function M.setup_focus()
     -- width = 100
     tmux = true
   }
-  if not utl.is_mod_available('which-key') then
-    vim.api.nvim_err_writeln('which-key module not available')
-    return
-  end
 
   require('which-key').register {
     ["<leader>tw"] = {'<cmd>FocusToggle<cr>', "focus_mode_toggle_mappings"},
@@ -359,11 +344,6 @@ function M.setup_comment_frame()
     languages = {}
   })
 
-  if not utl.is_mod_available('which-key') then
-    vim.api.nvim_err_writeln('which-key module not available')
-    return
-  end
-
   local wk = require("which-key")
   local leader = {}
   local leader_p = [[<leader>]]
@@ -395,11 +375,6 @@ function M.setup_bookmarks()
 end
 
 function M.config_bookmarks()
-  if not utl.is_mod_available('which-key') then
-    vim.api.nvim_err_writeln('which-key module not available')
-    return
-  end
-
   local wk = require("which-key")
   local leader = {}
   local leader_p = [[<leader>]]
@@ -430,10 +405,6 @@ function M.setup_bdelete()
     next_buffer_cmd = nil -- Custom function to retrieve the next buffer when preserving window layout
   })
 
-  if not utl.is_mod_available('which-key') then
-    vim.api.nvim_err_writeln('which-key module not available')
-    return
-  end
 
   local wk = require("which-key")
   local leader = {}
@@ -557,10 +528,6 @@ function M.setup_neoterm()
 end
 
 function M.config_neoterm()
-  if not utl.is_mod_available('which-key') then
-    api.nvim_err_writeln("which-key was set, but module not found")
-    return
-  end
   require('which-key').register {
     ['<plug>terminal_toggle'] = {
       function() require('utils.utils').exec_float_term('Ttoggle', true) end,
@@ -655,11 +622,6 @@ function M.setup_pomodoro()
 end
 
 function M.setup_luadev()
-  if not utl.is_mod_available('lspconfig') then
-    api.nvim_err_writeln('misc.lua: lspconfig module not available')
-    return
-  end
-
   local luadev = require("lua-dev").setup({
     library = {
       vimruntime = true, -- runtime path
@@ -681,16 +643,7 @@ function M.setup_luadev()
 end
 
 function M.setup_neogit()
-  if not utl.is_mod_available('neogit') then
-    api.nvim_err_writeln('misc.lua: neogit module not available')
-    return
-  end
-
   require('neogit').setup {}
-  if not utl.is_mod_available('which-key') then
-    vim.api.nvim_err_writeln('which-key module not available')
-    return
-  end
   -- open commit popup
   -- neogit.open({ "commit" })
   require("which-key").register {
@@ -699,22 +652,12 @@ function M.setup_neogit()
 end
 
 function M.config_git_messenger()
-  if not utl.is_mod_available('which-key') then
-    vim.api.nvim_err_writeln('which-key module not available')
-    return
-  end
-
   require("which-key").register {
     ["<leader>vm"] = {'<cmd>GitMessenger<cr>', "git_messenger"}
   }
 end
 
-function M.setup_iswap()
-  if not utl.is_mod_available('iswap') then
-    api.nvim_err_writeln('misc.lua: iswap module not available')
-    return
-  end
-
+function M.config_iswap()
   require('iswap').setup {
     -- The keys that will be used as a selection, in order
     -- ('asdfghjklqwertyuiopzxcvbnm' by default)
@@ -732,10 +675,6 @@ function M.setup_iswap()
     -- default 'Comment'
     hl_grey = 'LineNr'
   }
-  if not utl.is_mod_available('which-key') then
-    api.nvim_err_writeln('misc.lua: which-key module not available')
-    return
-  end
   require("which-key").register {
     ["<localleader>s"] = {require('iswap').iswap, "iswap_arguments"}
   }

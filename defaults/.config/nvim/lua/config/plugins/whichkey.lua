@@ -245,11 +245,6 @@ lbracket['#'] = 'goto_prev_unmatched_defined_if'
 lbracket['/'] = 'goto_prev_comment'
 
 function M:setup()
-  if not utl.is_mod_available('which-key') then
-    api.nvim_err_writeln('which-key module not available')
-    return
-  end
-
   local wk = require("which-key")
   wk.setup(self.__config)
   wk.register(leader, {prefix = leader_p})

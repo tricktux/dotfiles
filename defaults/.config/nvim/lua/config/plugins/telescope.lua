@@ -4,11 +4,6 @@ local Path = require('plenary.path')
 local M = {}
 
 function M.set_lsp_mappings(bufnr)
-  if not utl.is_mod_available('which-key') then
-    vim.api.nvim_err_writeln('telescope.lua: which-key module not available')
-    return
-  end
-
   local wk = require("which-key")
   local ts = require("telescope.builtin")
   local opts = {prefix = '<localleader>l', buffer = bufnr}
@@ -117,11 +112,6 @@ local function ff(path)
 end
 
 local function set_mappings()
-  if not utl.is_mod_available('which-key') then
-    vim.api.nvim_err_writeln('telescope.lua: which-key module not available')
-    return
-  end
-
   vim.cmd[[cmap <c-v> <Plug>(TelescopeFuzzyCommandSearch)]]
 
   local wk = require("which-key")
@@ -221,11 +211,6 @@ local function set_mappings()
 end
 
 function M.setup()
-  if not utl.is_mod_available('telescope') then
-    vim.api.nvim_err_writeln('telescope module not available')
-    return
-  end
-
   set_mappings()
   local actions = require('telescope.actions')
   local actions_generate = require('telescope.actions.generate')

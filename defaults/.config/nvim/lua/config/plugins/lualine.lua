@@ -183,10 +183,6 @@ function M:setup()
 end
 
 function M:config()
-  if not utl.is_mod_available('lualine') then
-    api.nvim_err_writeln("lualine was set, but module not found")
-    return
-  end
   require('lualine').setup(self.__config)
 end
 

@@ -4,11 +4,6 @@ local api = vim.api
 local M = {}
 
 function M.nvimtree_config()
-  if not utl.is_mod_available('nvim-tree') then
-    api.nvim_err_writeln("nvim-tree was set, but module not found")
-    return
-  end
-
   -- These additional options must be set **BEFORE** calling `require'nvim-tree'` or calling setup.
   vim.g.nvim_tree_quit_on_open = 1 -- 0 by default, closes the tree when you open a file
   vim.g.nvim_tree_indent_markers = 1 -- 0 by default, this option shows indent markers when folders are open

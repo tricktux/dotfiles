@@ -8,11 +8,6 @@ function M.setup()
   -- Keep as little modules enabled as possible.
   -- Also no status line
   -- No extra modules. Looking at you rainbow
-  if not utl.is_mod_available('nvim-treesitter') then
-    api.nvim_err_writeln('nvim-treesitter module not available')
-    return
-  end
-
   require('nvim-treesitter.install').compilers = { "clang" }
   -- local ts = require'nvim-treesitter'
   local tsconf = require 'nvim-treesitter.configs'
