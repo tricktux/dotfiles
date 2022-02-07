@@ -255,16 +255,6 @@ function M:__setup()
   use {'alepez/vim-gtest', ft = 'cpp'}
   use {'neomutt/neomutt.vim', ft = 'muttrc'}
   use {'fladson/vim-kitty'}
-  use {
-    'knubie/vim-kitty-navigator',
-    run = 'cp ./*.py ~/.config/kitty/',
-    setup = function() vim.g.kitty_navigator_no_mappings = 1 end,
-    config = function()
-      require('config.plugins.misc'):config_kitty_navigator()
-    end,
-    cond = function() return require('utils.utils').has_unix() end
-  }
-
   use 'editorconfig/editorconfig-vim'
 
   use {
@@ -421,9 +411,9 @@ function M:__setup()
 
   use {
     'beauwilliams/focus.nvim',
-    after = 'which-key.nvim',
-    config = function() require('config.plugins.misc'):setup_focus() end
+    config = function() require('config.plugins.misc'):config_focus() end
   }
+
   use {
     "folke/zen-mode.nvim",
     cmd = 'ZenMode',
@@ -463,6 +453,17 @@ function M:__setup()
     'jose-elias-alvarez/null-ls.nvim',
     config = function() require('config.plugins.null-ls'):setup() end
   } ]]
+
+  use {
+    'knubie/vim-kitty-navigator',
+    after = 'focus.nvim',
+    run = 'cp ./*.py ~/.config/kitty/',
+    setup = function() vim.g.kitty_navigator_no_mappings = 1 end,
+    config = function()
+      require('config.plugins.misc'):config_kitty_navigator()
+    end,
+    cond = function() return require('utils.utils').has_unix() end
+  }
 
   -- Keep this setup last. So that it finalizes the lualine config
   use {'nvim-lualine/lualine.nvim'}

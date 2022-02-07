@@ -246,7 +246,7 @@ function M.setup_gpsnvim()
   }
 end
 
-function M.setup_focus()
+function M.config_focus()
   -- Initially mappings are enabled
   local focus = require('focus')
   focus.setup {
@@ -266,13 +266,15 @@ function M.setup_focus()
     tmux = true
   }
 
-  require('which-key').register {
+  local mappings = {
     ["<leader>tw"] = {'<cmd>FocusToggle<cr>', "focus_mode_toggle_mappings"},
     ["<a-h>"] = {function() focus.split_command('h') end, "window_switch_left"},
     ["<a-j>"] = {function() focus.split_command('j') end, "window_switch_down"},
     ["<a-k>"] = {function() focus.split_command('k') end, "window_switch_up"},
     ["<a-l>"] = {function() focus.split_command('l') end, "window_switch_right"}
   }
+  require('which-key').register(mappings)
+  log.info("setup of focus complete")
 end
 
 function M.config_kommentary()
