@@ -9,7 +9,6 @@ cht.sh-git
 cmake-format
 cmake-lint
 gdb-dashboard-git
-glow-bin
 google-chrome
 hal
 htop-vim
