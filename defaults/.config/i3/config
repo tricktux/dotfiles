@@ -419,7 +419,7 @@ bindsym XF86PowerDown exec --no-startup-id "i3-msg '[class=\".\"] kill' && syste
 
 # Border settings
   default_border pixel 4
-  default_floating_border pixel 6
+  default_floating_border pixel 3
 
 # }}}
 
