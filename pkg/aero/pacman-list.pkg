@@ -9,7 +9,6 @@ arandr
 arch-audit
 archlinux-wallpaper
 astyle
-atool
 autoconf
 automake
 base
@@ -149,6 +148,7 @@ mplayer
 mpv
 msgpack-cxx
 namcap
+neofetch
 neomutt
 neovim
 nfs-utils
