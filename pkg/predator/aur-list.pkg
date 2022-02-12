@@ -1,9 +1,11 @@
 abook
 alttab-git
 anki-official-binary-bundle
+atool
 bibata-cursor-theme-bin
 bibata-extra-cursor-theme
 bluez-firmware
+cava
 chkservice
 chromedriver
 cmake-format
@@ -21,6 +23,7 @@ lua-format
 luacheck
 lutris-battlenet-meta
 mps-youtube-git
+mpv-mpris
 neovim-remote
 nerd-fonts-inconsolata
 networkmanager-dmenu-git
