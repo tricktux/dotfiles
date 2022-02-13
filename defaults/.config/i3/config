@@ -363,7 +363,7 @@ bindsym XF86PowerDown exec --no-startup-id "i3-msg '[class=\".\"] kill' && syste
   for_window [class="Qt4-ssh-askpass"] floating enable
   for_window [class="lxqt-openssh-askpass"] floating enable
   for_window [class="Yad" title="yad-calendar"] floating enable
-  for_window [class="^Evolution$"] floating enable
+  # for_window [class="^Evolution$"] floating enable
   for_window [class="^battle.net.exe$"] floating enable
   for_window [class="^Blueman-manager$"] floating enable
   for_window [title="Steam*" class="^Steam$"] floating enable
