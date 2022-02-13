@@ -4,6 +4,8 @@
 /usr/bin/kitty @launch --type overlay --window-title 'htop' /usr/bin/htop
 # tab title
 /usr/bin/kitty @set-tab-title 'htop'
+# pause htop
+/usr/bin/kitty @send-text 'Z'
 # cmus
 /usr/bin/kitty @launch --type tab \
   --location after --tab-title 'cmus' --window-title 'cmus' /usr/bin/cmus
@@ -15,4 +17,5 @@ fi
 # calc
 /usr/bin/kitty @launch --type tab --dont-take-focus \
   --location after --tab-title 'calc' --window-title 'calc' /usr/bin/bc --mathlib
+# Bring focus back to htop window
 /usr/bin/kitty @focus-tab --match title:'htop'
