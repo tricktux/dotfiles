@@ -148,7 +148,6 @@ function! plugin#Config()
     call s:configure_fuzzers()
     call s:configure_vim_sneak()
     call s:configure_vim_bookmark()
-  else
     call s:set_neosnippets()
   endif
   " call autocompletion#SetCompl(

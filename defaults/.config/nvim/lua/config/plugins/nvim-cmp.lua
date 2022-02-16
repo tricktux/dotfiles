@@ -3,42 +3,80 @@ local utl = require('utils.utils')
 local M = {}
 
 function M:setup()
-  local win_sources = {{name = 'nvim_lsp'}, {name = 'buffer'}, {name = 'calc'}}
+  local win_sources = {{name = 'nvim_lsp'}, {name = 'buffer'}, {name = 'luasnip'}, {name = 'calc'}}
   local unix_sources = {
-    {name = 'nvim_lsp'}, {name = 'buffer'}, {name = 'calc'}, {name = 'path'},
+    {name = 'nvim_lsp'}, {name = 'buffer'}, {name = 'luasnip'}, {name = 'calc'}, {name = 'path'},
     {name = 'tags'}
   }
   local cmp = require 'cmp'
+  local lspkind = require('lspkind')
+  local luasnip = require("luasnip")
   cmp.setup({
-    snippet = {},
+    snippet = {
+      expand = function(args)
+        require("luasnip").lsp_expand(args.body)
+      end,
+    },
+    completion = {
+      keyword_length = 2,
+    },
     mapping = {
       ['<C-d>'] = cmp.mapping.scroll_docs(-4),
       ['<C-u>'] = cmp.mapping.scroll_docs(4),
+      -- Move cursor
       ['<C-f>'] = cmp.mapping.disable,
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-q>'] = cmp.mapping.close(),
-      ['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-      ['<C-j>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+      -- Snippets
+      --[[ ["<Tab>"] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+          cmp.select_next_item()
+        elseif luasnip.expand_or_jumpable() then
+          luasnip.expand_or_jump()
+        elseif has_words_before() then
+          cmp.complete()
+        else
+          fallback()
+        end
+      end, { "i", "s" }),
+      ["<S-Tab>"] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+          cmp.select_prev_item()
+        elseif luasnip.jumpable(-1) then
+          luasnip.jump(-1)
+        else
+          fallback()
+        end
+      end, { "i", "s" }), ]]
+      -- Used by snipets
+      ['<C-j>'] = cmp.mapping.disable,
+      ['<C-l>'] = cmp.mapping.disable,
       ['<C-k>'] = cmp.mapping.disable,  -- used for snippets
       -- ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
       -- ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }),
+      ['<CR>'] = cmp.mapping.disable,
     },
     sources = utl.has_unix() and unix_sources or win_sources,
     formatting = {
-      format = function(entry, vim_item)
-        -- fancy icons and a name of kind
-        -- vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " .. vim_item.kind
-
-        -- set a name for each source
-        vim_item.menu = ({
-          buffer = "[buffer]",
+      format = lspkind.cmp_format {
+        mode = 'text',
+        maxwidth = 18,
+        menu = {
+          buffer = "[buf]",
           nvim_lsp = "[lsp]",
-          nvim_lua = "[lua]",
-          latex_symbols = "[latex]"
-        })[entry.source.name]
-        return vim_item
-      end
+          nvim_lua = "[api]",
+          path = "[path]",
+          luasnip = "[snip]",
+          calc = "[calc]",
+        },
+      },
+    },
+    experimental = {
+      -- Let's play with this for a day or two
+      ghost_text = true,
+    },
+    view = {
+      entries = 'custom'
     }
   })
 end

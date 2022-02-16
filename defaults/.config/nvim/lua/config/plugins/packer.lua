@@ -69,10 +69,11 @@ function M:__setup()
 
   use {
     'hrsh7th/nvim-cmp',
+    after = 'LuaSnip',
     requires = {
       'hrsh7th/cmp-buffer', 'hrsh7th/cmp-nvim-lua', 'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path', 'hrsh7th/cmp-calc', 'ray-x/cmp-treesitter',
-      'quangnguyen30192/cmp-nvim-tags'
+      'quangnguyen30192/cmp-nvim-tags', 'onsails/lspkind-nvim'
     },
     config = function() require('config.plugins.nvim-cmp').setup() end
   }
@@ -453,6 +454,13 @@ function M:__setup()
     'jose-elias-alvarez/null-ls.nvim',
     config = function() require('config.plugins.null-ls'):setup() end
   } ]]
+
+  use {
+    'L3MON4D3/LuaSnip',
+    after = 'which-key.nvim',
+    requires = {'rafamadriz/friendly-snippets', 'honza/vim-snippets'},
+    config = function() require('config.plugins.luasnip'):config() end
+  }
 
   use {
     'knubie/vim-kitty-navigator',
