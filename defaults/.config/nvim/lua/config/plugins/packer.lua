@@ -463,6 +463,15 @@ function M:__setup()
   }
 
   use {
+    "danymat/neogen",
+    after = {'which-key.nvim', 'LuaSnip'},
+    config = function() require('config.plugins.misc'):config_neogen() end,
+    requires = "nvim-treesitter/nvim-treesitter",
+    -- Uncomment next line if you want to follow only stable versions
+    tag = "*" 
+  }
+
+  use {
     'knubie/vim-kitty-navigator',
     after = 'focus.nvim',
     run = 'cp ./*.py ~/.config/kitty/',

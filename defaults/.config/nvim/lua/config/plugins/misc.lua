@@ -4,6 +4,80 @@ local map = require('utils.keymap')
 
 local M = {}
 
+function M.config_neogen()
+  local ls_ok, ls = pcall(require, 'luasnip')
+  local ng = require('neogen')
+  local wk = require("which-key")
+
+  ng.setup{
+    enabled = true,
+    languages = {
+      csharp = {
+        template = {
+          annotation_convention = "xmldoc"
+        }
+      },
+    }
+  }
+  local next_w_ls = function()
+    if ls.expand_or_jumpable() then
+      ls.expand_or_jump()
+    elseif ng.jumpable() then
+      ng.jump_next()
+    end
+  end
+
+  local prev_w_ls = function()
+    if ls.jumpable(-1) then
+      ls.jump(-1)
+    elseif ng.jumpable(true) then
+      ng.jump_prev()
+    end
+  end
+
+  local next = function()
+    if ng.jumpable() then
+      ng.jump_next()
+    end
+  end
+
+  local prev = function()
+    if ng.jumpable(true) then
+      ng.jump_prev()
+    end
+  end
+
+  local mappings_w_ls = {
+      -- <c-k> is my expansion key
+      -- this will expand the current item or jump to the next item within the snippet.
+      ["<c-k>"] = { next_w_ls, "next_snippet"},
+        -- <c-j> is my jump backwards key.
+        -- this always moves to the previous item within the snippet
+      ["<c-j>"] = { prev_w_ls, "in_snippet_prev"},
+  }
+
+  local mappings = {
+    -- <c-k> is my expansion key
+    -- this will expand the current item or jump to the next item within the snippet.
+    ["<c-k>"] = { next, "next_snippet"},
+    -- <c-j> is my jump backwards key.
+    -- this always moves to the previous item within the snippet
+    ["<c-j>"] = { prev, "in_snippet_prev"},
+  }
+
+  wk.register(ls_ok and mappings_w_ls or mappings, {mode = "i"})
+  wk.register(ls_ok and mappings_w_ls or mappings, {mode = "s"})
+
+  mappings = {
+    name = 'generate_doc',
+    f = {function() ng.generate{type = "func"} end, 'function'},
+    c = {function() ng.generate{type = "class"} end, 'class'},
+    i = {function() ng.generate{type = "file"} end, 'file'},
+    t = {function() ng.generate{type = "type"} end, 'type'},
+  }
+  wk.register(mappings, {prefix = '<leader>og'})
+end
+
 function M.config_kitty_navigator()
   require('which-key').register {
     ["<a-h>"] = {'<cmd>KittyNavigateLeft<cr>', "kitty_left"},
