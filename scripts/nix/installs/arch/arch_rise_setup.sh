@@ -343,7 +343,7 @@ paci --needed --noconfirm namcap
 paci --needed --noconfirm chkservice
 
 # Main languages
-paci --needed --noconfirm rust go
+paci --needed --noconfirm go
 
 # kitty
 paci --needed --noconfirm kitty termite
@@ -581,7 +581,9 @@ paci --needed --noconfirm cmake{,-lint,-format}
 #}}}
 
 ## rust{{{
-paci --needed --noconfirm rust{,fmt,-analyzer}
+paci --needed --noconfirm rustup sccache rust-analyzer
+rustup toolchain install stable
+rustup component add rust-src rustfmt clippy
 #}}}
 
 ## cpp{{{
