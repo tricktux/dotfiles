@@ -336,6 +336,16 @@ function M:__setup()
   use {'ferrine/md-img-paste.vim', ft = 'markdown'}
 
   use {
+    'iamcco/markdown-preview.nvim',
+    setup = function()
+      vim.g.mkdp_auto_close = 0
+    end,
+    run = 'cd app && npm install',
+    ft = 'markdown',
+    cond = function() return require('utils.utils').has_unix() end
+  }
+
+  use {
     'gcmt/taboo.vim',
     config = function() vim.cmd [[nnoremap <leader>tr :TabooRename ]] end
   }

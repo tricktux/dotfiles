@@ -107,6 +107,9 @@ function! plugin#Config()
   " Fri Apr 02 2021 09:15:
   " - Compe is slow for big files. Crawling back to deoplete once again
   if !has('nvim-0.5')
+    if has('unix')
+      Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+    endif
     call s:configure_tagbar()
     Plug 'junegunn/goyo.vim', { 'on' : 'Goyo' }
     let g:goyo_width = 120
@@ -606,10 +609,6 @@ function! plugin#Config()
           \ '*' : 1, 'help' : 0, 'markdown' : 0,
           \ }
     " Plug 'dpelle/vim-LanguageTool', { 'for' : 'markdown' }
-  endif
-
-  if has('unix')
-    Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
   endif
 
   " All of your Plugins must be added before the following line
