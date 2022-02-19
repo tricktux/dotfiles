@@ -902,7 +902,18 @@ sudo systemctl enable --now cups.socket
 # Misc{{{
  
 # anki {{{
+# Official
 paci --needed --noconfirm anki-official-binary-bundle
+
+# Beta{{{
+# https://betas.ankiweb.net/
+cd ~/.local/share/pyvenv
+python -m venv anki-beta
+cd anki-beta
+./bin/pip install --upgrade pip
+./bin/pip install --upgrade --pre "aqt[qt6]"
+./bin/anki
+# }}}
 # Markdown to anki converter
 paci --needed --noconfirm npm
 npm install -g md2apkg
