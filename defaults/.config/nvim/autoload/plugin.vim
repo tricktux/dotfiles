@@ -107,6 +107,9 @@ function! plugin#Config()
   " Fri Apr 02 2021 09:15:
   " - Compe is slow for big files. Crawling back to deoplete once again
   if !has('nvim-0.5')
+    " Possible values:
+    " - neomake ale
+    call linting#Set('neomake')
     if has('unix')
       Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
     endif
@@ -162,10 +165,6 @@ function! plugin#Config()
   " - chromatica easytags neotags color_coded clighter8 semantic
   " Wed Jul 04 2018 13:02: No decent code highlighter at the moment
   " Thu Apr 11 2019 12:49: That is still the case
-
-  " Possible values:
-  " - neomake ale
-  call linting#Set('neomake')
 
   " if has('patch-8.1.2114') || has('nvim-0.4')
   " Plug 'liuchengxu/vim-clap'

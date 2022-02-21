@@ -482,6 +482,12 @@ function M:__setup()
   }
 
   use {
+    'neomake/neomake',
+    setup = function() vim.cmd[[call linting#Set('neomake')]] end,
+    config = function() require('config.plugins.misc'):config_neomake() end,
+  }
+
+  use {
     'knubie/vim-kitty-navigator',
     after = 'focus.nvim',
     run = 'cp ./*.py ~/.config/kitty/',

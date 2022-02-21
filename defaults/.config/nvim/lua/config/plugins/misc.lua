@@ -4,6 +4,18 @@ local map = require('utils.keymap')
 
 local M = {}
 
+function M.config_neomake()
+  log.info('ins_right(): neomake')
+  line:ins_right{
+    function() 
+      return vim.fn['linting#neomake_native_status_line']()
+    end, 
+    color = {fg = line.colors.yellow, gui = 'bold'},
+    right_padding = 0,
+  }
+  vim.fn['neomake#configure#automake']('nw', 750)
+end
+
 function M.config_neogen()
   local ls_ok, ls = pcall(require, 'luasnip')
   local ng = require('neogen')
