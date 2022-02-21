@@ -196,6 +196,10 @@ paci --needed --noconfirm openssh mosh
 # - Add to `.ssh/config`
 # - `AddKeysToAgent yes`
 
+# install polkit {{{
+paci --needed --noconfirm lxqt-policykit
+# }}}
+
 # zsh{{{
 paci --needed --noconfirm zsh
 # Legacy

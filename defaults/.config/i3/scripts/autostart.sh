@@ -14,15 +14,15 @@ rm /tmp/flux || echo "file did not exist"
 
 # https://pastebin.com/tfqSNjti
 # See :Man picom
-picom --daemon
-playerctld daemon
-tmux start-server
-alttab -w 1 -d 2 -frame rgb:26/8b/d2 -bg rgb:f1/f1/f1 \
+/usr/bin/picom --daemon
+/usr/bin/playerctld daemon
+/usr/bin/alttab -w 1 -d 2 -frame rgb:26/8b/d2 -bg rgb:f1/f1/f1 \
   -fg rgb:55/55/55 -t 120x120 -i 120x120&
 /usr/bin/synology-drive
 /usr/bin/blueman-applet&
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-xss-lock --transfer-sleep-lock -- i3lock-fancy --nofork&
-xmodmap "$HOME"/.config/Xmodmap
+/usr/bin/xss-lock --transfer-sleep-lock -- i3lock-fancy --nofork&
+/usr/bin/xmodmap "$HOME"/.config/Xmodmap
+/usr/bin/lxqt-policykit-agent&
 "$HOME"/.config/polybar/scripts/launch.sh
