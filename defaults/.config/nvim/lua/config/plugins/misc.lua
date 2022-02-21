@@ -327,6 +327,7 @@ function M.setup_gpsnvim()
     separator = ' > '
   }
 
+  log.info('ins_left(): nvim-gps')
   line:ins_left{
     gps_get_location, condition = gps.is_available
   }
@@ -702,8 +703,9 @@ function M.setup_pomodoro()
   end
   vim.g.pomodoro_log_file = vim.g.std_data_path .. '/pomodoro_log'
 
+  log.info('ins_left(): pomodoro')
   line:ins_left{
-    vim.fn['pomo#status_bar'],
+    function() return vim.fn['pomo#status_bar']() end,
     color = {fg = line.colors.orange, gui = 'bold'},
     left_padding = 0
   }
@@ -770,6 +772,7 @@ end
 
 function M.setup_obsession()
   vim.g.obsession_no_bufenter = 1
+  log.info('ins_right(): obsession')
   line:ins_right{
     obsession_status,
     color = {fg = line.colors.blue, gui = 'bold'},

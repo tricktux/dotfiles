@@ -498,8 +498,15 @@ function M:__setup()
     cond = function() return require('utils.utils').has_unix() end
   }
 
-  -- Keep this setup last. So that it finalizes the lualine config
-  use {'nvim-lualine/lualine.nvim'}
+  use {
+    'nvim-lualine/lualine.nvim',
+    -- List of plugins that update the lualine elements
+    -- Add plugis here that use the ins_{left,right} functions
+    after = {
+      'neomake', 'nvim-gps', 'pomodoro.vim', 'vim-obsession', 'gitsigns.nvim'
+    },
+    config = function() require('config.plugins.lualine'):config() end
+  }
 end
 
 function M:__set_mappings()
@@ -535,7 +542,6 @@ function M:setup()
   require('config.plugins.lualine'):setup()
   self:__setup()
   self:__set_mappings()
-  require('config.plugins.lualine'):config()
 end
 
 return M

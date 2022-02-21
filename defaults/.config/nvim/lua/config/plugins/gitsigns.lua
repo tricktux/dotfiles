@@ -1,5 +1,6 @@
 local utl = require('utils.utils')
 local line = require('config.plugins.lualine')
+local log = require('utils.log')
 
 local M = {}
 
@@ -94,6 +95,7 @@ function M.setup()
     on_attach = on_attach
   }
 
+  log.info('ins_left(): gitsigns')
   line:ins_left{status_line, color = {fg = line.colors.violet, gui = 'bold'}}
 end
 

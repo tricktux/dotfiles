@@ -4,6 +4,7 @@
 -- Link: https://gist.github.com/hoob3rt/b200435a765ca18f09f83580a606b878
 local utl = require('utils/utils')
 local api = vim.api
+local log = require('utils.log')
 
 local M = {}
 
@@ -30,6 +31,32 @@ M.__conditions = {
     local gitdir = vim.fn.finddir('.git', filepath .. ';')
     return gitdir and #gitdir > 0 and #gitdir < #filepath
   end
+}
+
+-- Diagnositcs
+M.__diagnostics = {
+  'diagnostics',
+
+  -- Table of diagnostic sources, available sources are:
+  --   'nvim_lsp', 'nvim_diagnostic', 'coc', 'ale', 'vim_lsp'.
+  -- or a function that returns a table as such:
+  --   { error=error_cnt, warn=warn_cnt, info=info_cnt, hint=hint_cnt }
+  sources = { 'nvim_lsp' },
+
+  -- Displays diagnostics for the defined severity types
+  sections = { 'error', 'warn', 'info', 'hint' },
+
+  diagnostics_color = {
+    -- Same values as the general color option can be used here.
+    error = 'DiagnosticError', -- Changes diagnostics' error color.
+    warn  = 'DiagnosticWarn',  -- Changes diagnostics' warn color.
+    info  = 'DiagnosticInfo',  -- Changes diagnostics' info color.
+    hint  = 'DiagnosticHint',  -- Changes diagnostics' hint color.
+  },
+  symbols = {error = 'E', warn = 'W', info = 'I', hint = 'H'},
+  colored = true,           -- Displays diagnostics status in color if set to true.
+  update_in_insert = false, -- Update diagnostics in insert mode.
+  always_visible = false,   -- Show diagnostics even if there are none.
 }
 
 -- Config
@@ -71,12 +98,16 @@ M.__config = {
 
 -- Inserts a component in lualine_c at left section
 function M:ins_left(component)
+  log.info('ins_left(): component = ', component)
   table.insert(self.__config.sections.lualine_c, component)
+  log.info('ins_left(): lualine_c = ', self.__config.sections.lualine_c)
 end
 
 -- Inserts a component in lualine_x at left section
 function M:ins_right(component)
+  log.info('ins_right(): component = ', component)
   table.insert(self.__config.sections.lualine_x, 1, component)
+  log.info('ins_right(): lualine_x = ', self.__config.sections.lualine_x)
 end
 
 -- Inserts a component in lualine_x at right section
@@ -134,11 +165,7 @@ function M:setup()
     color = {fg = self.colors.magenta, gui = 'bold'}
   }
 
-  --[[ self:__ins_right{
-    function() return vim.fn['linting#neomake_native_status_line']() end,
-    color = {fg = self.colors.yellow, gui = 'bold'},
-    right_padding = 0
-  } ]]
+  self:__ins_right(self.__diagnostics)
 
   self:__ins_right{
     'filetype',
@@ -183,7 +210,8 @@ function M:setup()
 end
 
 function M:config()
-  require('lualine').setup(self.__config)
+  log.info('lualine config: ', self.__config)
+  require('lualine').setup(self.__config)
 end
 
 return M
