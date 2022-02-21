@@ -196,6 +196,10 @@ paci --needed --noconfirm openssh mosh
 # - Add to `.ssh/config`
 # - `AddKeysToAgent yes`
 
+# install polkit {{{
+paci --needed --noconfirm lxqt-policykit
+# }}}
+
 # zsh{{{
 paci --needed --noconfirm zsh
 # Legacy
@@ -343,7 +347,7 @@ paci --needed --noconfirm namcap
 paci --needed --noconfirm chkservice
 
 # Main languages
-paci --needed --noconfirm rust go
+paci --needed --noconfirm go
 
 # kitty
 paci --needed --noconfirm kitty termite
@@ -399,6 +403,10 @@ mkdir -p ~/Documents
 paci --needed --noconfirm synology-drive
 #}}}
 
+# VPN {{{
+
+paci --needed --noconfirm riseup-vpn
+
 # openvpn {{{
 paci --needed --noconfirm openvpn
 # Test it
@@ -419,6 +427,7 @@ sudo chmod 700 /etc/openvpn/client/{home,pass}.conf
 sudo chmod 600 /etc/openvpn/client/{home,pass}.conf
 sudo systemctl start openvpn-client@home
 sudo systemctl status openvpn-client@home
+# }}}
 # }}}
 
 # password-store{{{
@@ -581,7 +590,9 @@ paci --needed --noconfirm cmake{,-lint,-format}
 #}}}
 
 ## rust{{{
-paci --needed --noconfirm rust{,fmt,-analyzer}
+paci --needed --noconfirm rustup sccache rust-analyzer
+rustup toolchain install stable
+rustup component add rust-src rustfmt clippy
 #}}}
 
 ## cpp{{{
@@ -900,7 +911,18 @@ sudo systemctl enable --now cups.socket
 # Misc{{{
  
 # anki {{{
+# Official
 paci --needed --noconfirm anki-official-binary-bundle
+
+# Beta{{{
+# https://betas.ankiweb.net/
+cd ~/.local/share/pyvenv
+python -m venv anki-beta
+cd anki-beta
+./bin/pip install --upgrade pip
+./bin/pip install --upgrade --pre "aqt[qt6]"
+./bin/anki
+# }}}
 # Markdown to anki converter
 paci --needed --noconfirm npm
 npm install -g md2apkg

@@ -242,15 +242,25 @@ local function lsp_set()
     }
   end
 
-  if vim.fn.executable('rls') > 0 then
-    nvim_lsp.rls.setup {
+  if vim.fn.executable('rust-analyzer') > 0 then
+    nvim_lsp.rust_analyzer.setup {
+      on_attach = on_lsp_attach,
+      flags = flags,
+      capabilities = cmp_lsp.update_capabilities(capabilities),
       settings = {
-        rust = {
-          unstable_features = false,
-          build_on_save = false,
-          all_features = true
-        }
-      }
+        ["rust-analyzer"] = {
+          assist = {
+            importGranularity = "module",
+            importPrefix = "by_self",
+          },
+          cargo = {
+            loadOutDirsFromCheck = true,
+          },
+          procMacro = {
+            enable = true,
+          },
+        },
+      },
     }
   end
 end
