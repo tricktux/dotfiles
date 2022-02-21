@@ -45,18 +45,28 @@ M.__diagnostics = {
 
   -- Displays diagnostics for the defined severity types
   sections = { 'error', 'warn', 'info', 'hint' },
-
-  diagnostics_color = {
-    -- Same values as the general color option can be used here.
-    error = 'DiagnosticError', -- Changes diagnostics' error color.
-    warn  = 'DiagnosticWarn',  -- Changes diagnostics' warn color.
-    info  = 'DiagnosticInfo',  -- Changes diagnostics' info color.
-    hint  = 'DiagnosticHint',  -- Changes diagnostics' hint color.
-  },
   symbols = {error = 'E', warn = 'W', info = 'I', hint = 'H'},
   colored = true,           -- Displays diagnostics status in color if set to true.
   update_in_insert = false, -- Update diagnostics in insert mode.
   always_visible = false,   -- Show diagnostics even if there are none.
+  diagnostics_color = {
+    error = {
+      fg = M.colors.red,
+      gui = 'bold'
+    },
+    warn = {
+      fg = M.colors.orange,
+      gui = 'bold'
+    },
+    info = {
+      fg = M.colors.cyan,
+      gui = 'bold'
+    },
+    hint = {
+      fg = M.colors.violet,
+      gui = 'bold'
+    },
+  }
 }
 
 -- Config
@@ -66,13 +76,7 @@ M.__config = {
     component_separators = "",
     section_separators = "",
     icons_enabled = false,
-    theme = {
-      -- We are going to use lualine_c an lualine_x as left and
-      -- right section. Both are highlighted by c theme .  So we
-      -- are just setting default looks o statusline
-      normal = {c = {fg = M.colors.fg, bg = M.colors.bg}},
-      inactive = {c = {fg = M.colors.fg, bg = M.colors.bg}}
-    }
+    theme = utl.has_unix() and 'pywal' or 'auto'
   },
   sections = {
     -- these are to remove the defaults
@@ -162,7 +166,6 @@ function M:setup()
     file_status = true,
     path = 1,
     condition = self.__conditions.buffer_not_empty,
-    color = {fg = self.colors.magenta, gui = 'bold'}
   }
 
   self:__ins_right(self.__diagnostics)
@@ -201,7 +204,6 @@ function M:setup()
   }
 
   self:__ins_right{
-
     function() return '▊' end,
     color = {fg = self.colors.blue},
     right_padding = 0
