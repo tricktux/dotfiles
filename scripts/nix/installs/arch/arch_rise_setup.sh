@@ -403,6 +403,10 @@ mkdir -p ~/Documents
 paci --needed --noconfirm synology-drive
 #}}}
 
+# VPN {{{
+
+paci --needed --noconfirm riseup-vpn
+
 # openvpn {{{
 paci --needed --noconfirm openvpn
 # Test it
@@ -423,6 +427,7 @@ sudo chmod 700 /etc/openvpn/client/{home,pass}.conf
 sudo chmod 600 /etc/openvpn/client/{home,pass}.conf
 sudo systemctl start openvpn-client@home
 sudo systemctl status openvpn-client@home
+# }}}
 # }}}
 
 # password-store{{{
