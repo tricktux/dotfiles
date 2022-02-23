@@ -59,11 +59,10 @@ M.__diagnostics = {
       gui = 'bold'
     },
     info = {
-      fg = M.colors.cyan,
       gui = 'bold'
     },
     hint = {
-      fg = M.colors.violet,
+      fg = M.colors.green,
       gui = 'bold'
     },
   }
@@ -76,7 +75,7 @@ M.__config = {
     component_separators = "",
     section_separators = "",
     icons_enabled = false,
-    theme = utl.has_unix() and 'pywal' or 'auto'
+    theme = 'auto'
   },
   sections = {
     -- these are to remove the defaults
@@ -178,7 +177,7 @@ function M:setup()
 
   self:__ins_right{'location', right_padding = 0}
 
-  self:__ins_right{'progress', color = {fg = self.colors.fg, gui = 'bold'}}
+  self:__ins_right{'progress'}
 
   self:__ins_right{
     -- filesize component

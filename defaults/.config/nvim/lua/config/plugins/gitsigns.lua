@@ -96,7 +96,7 @@ function M.setup()
   }
 
   log.info('ins_left(): gitsigns')
-  line:ins_left{status_line, color = {fg = line.colors.violet, gui = 'bold'}}
+  line:ins_left{status_line, color = {gui = 'bold'}}
 end
 
 return M
