@@ -121,37 +121,8 @@ function M:setup()
   }
 
   self:ins_left{
-    -- mode component
-    function()
-      -- auto change color according to neovims mode
-      local mode_color = {
-        n = self.colors.red,
-        i = self.colors.green,
-        v = self.colors.blue,
-        [''] = self.colors.blue,
-        V = self.colors.blue,
-        c = self.colors.magenta,
-        no = self.colors.red,
-        s = self.colors.orange,
-        S = self.colors.orange,
-        [''] = self.colors.orange,
-        ic = self.colors.yellow,
-        R = self.colors.violet,
-        Rv = self.colors.violet,
-        cv = self.colors.red,
-        ce = self.colors.red,
-        r = self.colors.cyan,
-        rm = self.colors.cyan,
-        ['r?'] = self.colors.cyan,
-        ['!'] = self.colors.red,
-        t = self.colors.red
-      }
-      local mode = vim.fn.mode()
-      vim.api.nvim_command('hi! LualineMode guifg=' .. mode_color[mode] ..
-                               " guibg=" .. self.colors.bg)
-      return mode
-    end,
-    color = "LualineMode",
+    'mode',
+    fmt = function(str) return str:sub(1, 1) end,
     left_padding = 0
   }
 
