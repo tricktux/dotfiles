@@ -3,7 +3,6 @@
 -- Credit: glepnir
 -- Link: https://gist.github.com/hoob3rt/b200435a765ca18f09f83580a606b878
 local utl = require('utils/utils')
-local api = vim.api
 local log = require('utils.log')
 
 local M = {}
@@ -101,16 +100,12 @@ M.__config = {
 
 -- Inserts a component in lualine_c at left section
 function M:ins_left(component)
-  log.info('ins_left(): component = ', component)
   table.insert(self.__config.sections.lualine_c, component)
-  log.info('ins_left(): lualine_c = ', self.__config.sections.lualine_c)
 end
 
 -- Inserts a component in lualine_x at left section
 function M:ins_right(component)
-  log.info('ins_right(): component = ', component)
   table.insert(self.__config.sections.lualine_x, 1, component)
-  log.info('ins_right(): lualine_x = ', self.__config.sections.lualine_x)
 end
 
 -- Inserts a component in lualine_x at right section
