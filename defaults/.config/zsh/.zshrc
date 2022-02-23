@@ -254,4 +254,4 @@ typeset -g POWERLEVEL9K_STATUS_OK=true
 typeset -g POWERLEVEL9K_VCS_BRANCH_ICON='\uF126 '
 # }}}
 
-# vim: fdm=marker
+# vim: fdm=marker:ft=bash
