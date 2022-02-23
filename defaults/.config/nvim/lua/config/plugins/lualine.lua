@@ -41,14 +41,14 @@ M.__diagnostics = {
   --   'nvim_lsp', 'nvim_diagnostic', 'coc', 'ale', 'vim_lsp'.
   -- or a function that returns a table as such:
   --   { error=error_cnt, warn=warn_cnt, info=info_cnt, hint=hint_cnt }
-  sources = { 'nvim_lsp' },
+  sources = {'nvim_lsp'},
 
   -- Displays diagnostics for the defined severity types
-  sections = { 'error', 'warn', 'info', 'hint' },
+  sections = {'error', 'warn', 'info', 'hint'},
   symbols = {error = 'E', warn = 'W', info = 'I', hint = 'H'},
-  colored = true,           -- Displays diagnostics status in color if set to true.
+  colored = true, -- Displays diagnostics status in color if set to true.
   update_in_insert = false, -- Update diagnostics in insert mode.
-  always_visible = false,   -- Show diagnostics even if there are none.
+  always_visible = false, -- Show diagnostics even if there are none.
   diagnostics_color = {
     error = {
       fg = M.colors.red,
@@ -164,16 +164,12 @@ function M:setup()
     'filename',
     file_status = true,
     path = 1,
-    condition = self.__conditions.buffer_not_empty,
+    condition = self.__conditions.buffer_not_empty
   }
 
   self:__ins_right(self.__diagnostics)
 
-  self:__ins_right{
-    'filetype',
-    colored = true,
-    icon_only = false
-  }
+  self:__ins_right{'filetype', colored = true, icon_only = false}
 
   self:__ins_right{'location', right_padding = 0}
 
@@ -212,7 +208,7 @@ end
 
 function M:config()
   log.info('lualine config: ', self.__config)
-  require('lualine').setup(self.__config)
+  require('lualine').setup(self.__config)
 end
 
 return M
