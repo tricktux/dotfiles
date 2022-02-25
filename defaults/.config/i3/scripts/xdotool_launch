@@ -123,7 +123,7 @@ apps['terminal'] = {
     ['aero'] = 'scratchpad show, resize set 1280 1505, move position 1280 px 48 px'
   },
   -- How to start this application if it does not exists
-  exec = [[$TERMINAL --title terminal -o background_opacity=0.9]]
+  exec = [[$TERMINAL --title terminal -o background_opacity=0.9&]]
 }
 
 apps['bottom'] = {
@@ -234,7 +234,7 @@ function i3ipc:show(app)
   -- Format i3-msg command
   local i3cmd = app.i3cmd[hostname] or apps.i3cmd
   local cmd = string.format('%s "%s %s"', self.cmd, app.regex, i3cmd)
-  -- print(cmd)
+  print(cmd)
   local rc = __exec(cmd)
   if string.find(rc, "ERROR:") ~= nil then return false end
 
@@ -256,7 +256,7 @@ local function main()
   print('Window ' .. app .. ' does not exists waiting...')
   os.execute(apps[app].exec)
   -- Wait ~8 seconds for app to start
-  for i = 1, 80 do
+  for _ = 1, 80 do
     if i3ipc:show(apps[app]) == true then return end
     os.execute('sleep 0.1')
   end
