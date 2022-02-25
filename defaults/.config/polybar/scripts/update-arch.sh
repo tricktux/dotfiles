@@ -267,6 +267,15 @@ read -r yn
 case $yn in
 [Yy]*) update_nvim_plugins ;;
 esac
+msg_not "${BLUE}${BOLD}" "==> Update all npm global packages (md2apkg)? [y/N]"
+read -r yn
+case $yn in
+[Yy]*)
+  if [[ -f /usr/bin/npm ]]; then
+    /usr/bin/npm update -g
+  fi
+  ;;
+esac
 msg_not "${BLUE}${BOLD}" "==> Update neovim nightly? [y/N]"
 read -r yn
 case $yn in
@@ -293,11 +302,11 @@ case $yn in
 
     # Make Arch vim packages work
     sudo mkdir -p "${pkgdir}"/etc/xdg/nvim
-    echo "\" This line makes pacman-installed global Arch Linux vim packages work." > "${pkgdir}"/etc/xdg/nvim/sysinit.vim
-    sudo echo "source /usr/share/nvim/archlinux.vim" >> "${pkgdir}"/etc/xdg/nvim/sysinit.vim
+    echo "\" This line makes pacman-installed global Arch Linux vim packages work." >"${pkgdir}"/etc/xdg/nvim/sysinit.vim
+    sudo echo "source /usr/share/nvim/archlinux.vim" >>"${pkgdir}"/etc/xdg/nvim/sysinit.vim
 
     mkdir -p "${pkgdir}"/usr/share/vim
-    sudo echo "set runtimepath+=/usr/share/vim/vimfiles" > "${pkgdir}"/usr/share/nvim/archlinux.vim
+    sudo echo "set runtimepath+=/usr/share/vim/vimfiles" >"${pkgdir}"/usr/share/nvim/archlinux.vim
   )
   ;;
 esac
@@ -342,15 +351,6 @@ case $yn in
 [Yy]*)
   nvim -d /etc/dunst/dunstrc \
     "$XDG_CONFIG_HOME/dunst/dunstrc"
-  ;;
-esac
-msg_not "${BLUE}${BOLD}" "==> Update all npm global packages (md2apkg)? [y/N]"
-read -r yn
-case $yn in
-[Yy]*)
-  if [[ -f /usr/bin/npm ]]; then
-    /usr/bin/npm update -g
-  fi
   ;;
 esac
 msg_not "${BLUE}${BOLD}" "==> Update pandoc extras? [y/N]"
