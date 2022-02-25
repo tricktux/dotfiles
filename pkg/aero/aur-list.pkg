@@ -7,6 +7,7 @@ bibata-extra-cursor-theme
 bluez-firmware
 brillo
 cava
+chromedriver
 cht.sh-git
 cmake-format
 cmake-lint
@@ -42,6 +43,7 @@ preload
 qogir-icon-theme
 qt5-styleplugins
 ranger-git
+riseup-vpn
 rmview
 rofi-bluetooth-git
 rofi-dmenu
