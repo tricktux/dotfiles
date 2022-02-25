@@ -5,7 +5,6 @@
 -- Created:        Tue Sep 08 2020 22:20
 -- Last Modified:  Tue Sep 08 2020 22:20
 local utl = require('utils.utils')
-local api = vim.api
 
 local M = {}
 M.__path = vim.g.std_data_path .. [[/site/pack/packer/start/packer.nvim]]
