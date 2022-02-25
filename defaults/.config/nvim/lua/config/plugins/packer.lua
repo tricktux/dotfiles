@@ -337,9 +337,7 @@ function M:__setup()
 
   use {
     'iamcco/markdown-preview.nvim',
-    setup = function()
-      vim.g.mkdp_auto_close = 0
-    end,
+    setup = function() vim.g.mkdp_auto_close = 0 end,
     run = 'cd app && npm install',
     ft = 'markdown',
     cond = function() return require('utils.utils').has_unix() end
@@ -478,13 +476,13 @@ function M:__setup()
     config = function() require('config.plugins.misc'):config_neogen() end,
     requires = "nvim-treesitter/nvim-treesitter",
     -- Uncomment next line if you want to follow only stable versions
-    tag = "*" 
+    tag = "*"
   }
 
   use {
     'neomake/neomake',
-    setup = function() vim.cmd[[call linting#Set('neomake')]] end,
-    config = function() require('config.plugins.misc'):config_neomake() end,
+    setup = function() vim.cmd [[call linting#Set('neomake')]] end,
+    config = function() require('config.plugins.misc'):config_neomake() end
   }
 
   use {
