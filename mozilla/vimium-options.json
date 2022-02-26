@@ -1,5 +1,5 @@
 {
-  "settingsVersion": "1.66",
+  "settingsVersion": "1.67.1",
   "exclusionRules": [],
   "filterLinkHints": false,
   "waitForEnterForFilteredHints": true,
@@ -15,7 +15,7 @@
   "scrollStepSize": 60,
   "smoothScroll": true,
   "grabBackFocus": true,
-  "searchEngines": "w: https://www.wikipedia.org/w/index.php?title=Special:Search&search=%s Wikipedia\n\n# More examples.\n#\n# (Vimium supports search completion Wikipedia, as\n# above, and for these.)\n#\naw: https://wiki.archlinux.org/index.php?search=%s Archwiki\nyt: https://www.youtube.com/results?search_query=%s Youtube\naz: https://www.amazon.com/s/?field-keywords=%s Amazon\ngh: https://github.com/search?q=%s GitHub\nwa: http://www.wolframalpha.com/input/?i=%s Wolfram|Alpha\nw: http://en.wikipedia.org/wiki/Special:Search?search=%s Wikipedia",
+  "searchEngines": "# More examples.\n#\n# (Vimium supports search completion Wikipedia, as\n# above, and for these.)\n#\nyt: https://www.youtube.com/results?search_query=%s Youtube\naz: https://www.amazon.com/s/?field-keywords=%s Amazon\ngh: https://github.com/search?q=%s GitHub\nwa: http://www.wolframalpha.com/input/?i=%s Wolfram|Alpha\nwk: http://en.wikipedia.org/wiki/Special:Search?search=%s Wikipedia\naw: https://wiki.archlinux.org/index.php?search=%s ArchWiki\nar: https://aur.archlinux.org/packages/?K=%s AUR\ncp: https://en.cppreference.com/mwiki/index.php?search=%s CppReference\npy: https://docs.python.org/3.7/search.html?q=%s Python\nhn: https://www.hnsearch.com/search#request/submissions&q=%s&start=0 HackerNews\nso: https://stackoverflow.com/search?q=%s StackOverflow\ngm: https://www.google.com/maps?q=%s Google Maps",
   "searchUrl": "https://www.google.com/search?q=",
   "userDefinedLinkHintCss": "div > .vimiumHintMarker {\n/* linkhint boxes */\nbackground: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFF785),\n  color-stop(100%,#FFC542));\nborder: 1px solid #E3BE23;\n}\n\ndiv > .vimiumHintMarker span {\n/* linkhint text */\ncolor: black;\nfont-weight: bold;\nfont-size: 12px;\n}\n\ndiv > .vimiumHintMarker > .matchingCharacter {\n}"
 }
