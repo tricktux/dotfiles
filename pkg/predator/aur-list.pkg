@@ -10,6 +10,7 @@ chkservice
 chromedriver
 cmake-format
 cmake-lint
+downgrade
 gdb-dashboard-git
 geekbench
 google-chrome
@@ -40,6 +41,7 @@ popcorntime-bin
 python-selenium
 qt5-styleplugins
 ranger-git
+riseup-vpn
 rmapi
 rmview
 rofi-bluetooth-git
