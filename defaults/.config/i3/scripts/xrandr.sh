@@ -2,6 +2,13 @@
 
 hostname=$HOSTNAME
 
+if [ -f /usr/bin/xrandr ]; then
+  notify-send "xrandr" \
+    "xrandr program not available" \
+    -u critical -a 'Arandr'
+  exit 1
+fi
+
 if [[ "$hostname" = "surbook" ]]; then
   echo "found surbook"
   if [[ "$1" = "main" ]]; then
@@ -93,7 +100,7 @@ if [[ "$hostname" = "aero" ]]; then
     notify-send "xrandr" \
       "Configuration '$1' set!" \
       -a 'arandr'
-          exit 0
+    exit 0
   elif [[ "$1" = "work_dock" ]]; then
     echo "setting up work_dock configuration"
     xrandr \
@@ -105,14 +112,13 @@ if [[ "$hostname" = "aero" ]]; then
       --output DisplayPort-2 --off \
       --output DisplayPort-3 --mode 3840x2160 --rate 60 --pos 0x0 --primary
 
-
     echo "Xft.dpi: 156" | xrdb -merge
     # Restart polybar
     "$HOME/.config/polybar/scripts/launch.sh"
     notify-send "xrandr" \
       "Configuration '$1' set!" \
       -a 'arandr'
-          exit 0
+    exit 0
   fi
 
   notify-send "xrandr" \
@@ -129,11 +135,11 @@ if [[ "$hostname" = "predator" ]]; then
       --dpi 156 \
       --output DVI-D-0 --off \
       --output HDMI-0 --off \
-      --output DP-0 --off \
+      --output DP-0 --mode 3840x2160 --rate 60 --pos 0x0 --primary \
       --output DP-1 --off \
-      --output DP-2 --mode 3840x2160 --rate 60 --pos 0x0 --primary \
+      --output DP-2 --mode 3840x2160 --rate 60 --pos 3840x0 \
       --output DP-3 --off \
-      --output DP-4 --mode 3840x2160 --rate 60 --pos 3840x0 \
+      --output DP-4 --off \
       --output DP-5 --off
 
     echo "Xft.dpi: 156" | xrdb -merge
