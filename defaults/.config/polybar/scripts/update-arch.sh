@@ -180,6 +180,13 @@ fi
 msg "${CYAN}${BOLD}" "[RIMP]==> Clean up pacman's cache...   "
 sudo /usr/bin/paccache -ruk0 -r
 
+if [[ -f /usr/bin/fwupdmgr ]]; then
+  msg "${CYAN}${BOLD}" "[RIMP]==> Update firmware?...   "
+  sudo /usr/bin/fwupdmgr update || echo "...  Or not..."
+else
+  msg_not "${CYAN}${BOLD}" "[RIMP]==> Consider installing fwupdmgr?...   "
+fi
+
 msg_not "${CYAN}${BOLD}" "[RIMP]==> Checking for failed services...   "
 systemctl --failed
 read -n1 -r key

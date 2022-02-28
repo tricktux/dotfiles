@@ -318,6 +318,10 @@ sudo tee /proc/acpi/bbswitch <<< {ON,OFF}
 # checkout [this][1] link for hardware acceleration
 #}}}
 
+# hardware {{{
+paci --needed --noconfirm fwupd
+# }}}
+
 # AMD
 paci --needed --noconfirm lib32-mesa mesa
 paci --needed --noconfirm xf86-video-amdgpu
