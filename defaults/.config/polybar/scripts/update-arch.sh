@@ -36,7 +36,7 @@ msg() {
 msg_not() {
   echo >&2 -e "${1-}${2-}${NOFORMAT}"
   # Skip pretty characters
-  notify-send 'Arch Update' "${2:4:-6}"
+  notify-send 'Arch Update' "${2:10:-6}"
 }
 msg_error() {
   echo >&2 -e "${RED}${BOLD}${1-}${NOFORMAT}"
@@ -110,12 +110,12 @@ setup_colors
 msg "${CYAN}${BOLD}" "========== Welcome! To the Arch Maintnance Script! 💪😎  =========="
 # Backups first, since most likely they'll be kernel update and that messes up
 # everything
-msg_not "${BLUE}${BOLD}" "==> Back up important folders? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Back up important folders? [y/N]"
 read -r yn
 case $yn in
 [Yy]*) "$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_home.sh" ;;
 esac
-msg_not "${BLUE}${BOLD}" "==> Back up the mail server (~30mins)? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Back up the mail server (~30mins)? [y/N]"
 read -r yn
 case $yn in
 [Yy]*)
@@ -131,7 +131,7 @@ esac
 # "$TERMINAL" $HOME/Documents/scripts/backup_keepass_db.sh &
 # ;;
 # esac
-msg_not "${BLUE}${BOLD}" "==> Back up emails (~15mins)? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Back up emails (~15mins)? [y/N]"
 read -r yn
 case $yn in
 [Yy]*)
@@ -147,55 +147,55 @@ esac
 # sudo pacman-key --refresh-keys
 # $aur_helper -Sy --needed archlinux-keyring ca-certificates
 
-msg_not "${CYAN}${BOLD}" "==> Updating core packages...   "
+msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating core packages...   "
 sudo pacman -Syu
 
-msg_not "${CYAN}${BOLD}" "==> Updating aur packages...   "
+msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating aur packages...   "
 $aur_helper -Syu
 
-msg "${CYAN}${BOLD}" "==> Storing package list...   "
+msg "${CYAN}${BOLD}" "[RIMP]==> Storing package list...   "
 save_pkg_list_to_dotfiles
 
-msg "${CYAN}${BOLD}" "==> Checking for .pacnew files...   "
+msg "${CYAN}${BOLD}" "[RIMP]==> Checking for .pacnew files...   "
 if [[ $(/usr/bin/pacdiff -o) ]]; then
-  msg_not "${CYAN}${BOLD}" "==> Please address .pacnew files...   "
+  msg_not "${CYAN}${BOLD}" "[RIMP]==> Please address .pacnew files...   "
   sudo DIFFPROG="nvim -d" DIFFSEARCHPATH="/boot /etc /usr" /usr/bin/pacdiff
 fi
 
 if [[ -f /usr/bin/ancient-packages ]] && [[ $(/usr/bin/ancient-packages -q) ]]; then
   /usr/bin/ancient-packages
-  msg_not "${CYAN}${BOLD}" "==> Remove ancient packages? [y/N]"
+  msg_not "${CYAN}${BOLD}" "[RIMP]==> Remove ancient packages? [y/N]"
   read -r yn
   case $yn in
   [Yy]*) $aur_helper -Rscn "$(ancient-packages -q)" ;;
   esac
 fi
 
-msg "${CYAN}${BOLD}" "==> Checking for orphan packages...   "
+msg "${CYAN}${BOLD}" "[RIMP]==> Checking for orphan packages...   "
 if [[ $(/usr/bin/pacman -Qtdq) ]]; then
-  msg_not "${CYAN}${BOLD}" "==> Please clean orphan packages...   "
+  msg_not "${CYAN}${BOLD}" "[RIMP]==> Please clean orphan packages...   "
   sudo /usr/bin/pacman -Rns "$(/usr/bin/pacman -Qtdq)" || echo "...  Or not..."
 fi
 
-msg "${CYAN}${BOLD}" "==> Clean up pacman's cache...   "
+msg "${CYAN}${BOLD}" "[RIMP]==> Clean up pacman's cache...   "
 sudo /usr/bin/paccache -ruk0 -r
 
-msg_not "${CYAN}${BOLD}" "==> Checking for failed services...   "
+msg_not "${CYAN}${BOLD}" "[RIMP]==> Checking for failed services...   "
 systemctl --failed
 read -n1 -r key
 
-msg_not "${CYAN}${BOLD}" "==> Looking for errors in journalctl...   "
+msg_not "${CYAN}${BOLD}" "[RIMP]==> Looking for errors in journalctl...   "
 journalctl -p 3 -xb
 read -n1 -r key
 
-msg_not "${BLUE}${BOLD}" "==> Update pihole? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Update pihole? [y/N]"
 read -r yn
 case $yn in
 [Yy]*)
   kitty +kitten ssh root@192.168.1.107
   ;;
 esac
-msg_not "${BLUE}${BOLD}" "==> Update mail server? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Update mail server? [y/N]"
 read -r yn
 case $yn in
 [Yy]*)
@@ -208,11 +208,11 @@ case $yn in
   # EOF
   ;;
 esac
-msg_not "${BLUE}${BOLD}" "==> Remove junk? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Remove junk? [y/N]"
 read -r yn
 case $yn in
 [Yy]*)
-  msg "${CYAN}${BOLD}" "==> Please close all applications..."
+  msg "${CYAN}${BOLD}" "[RIMP]==> Please close all applications..."
   read -n1 -r key
   "$XDG_CONFIG_HOME/polybar/scripts/rm_junk"
   mkdir -p ~/.cache
@@ -223,11 +223,11 @@ case $yn in
     "$XDG_CONFIG_HOME/polybar/scripts/flux_/flux_config.lua" -f day
   ;;
 esac
-msg_not "${BLUE}${BOLD}" "==> Remove browser junk? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Remove browser junk? [y/N]"
 read -r yn
 case $yn in
 [Yy]*)
-  msg "${CYAN}${BOLD}" "==> Please close browsers...   "
+  msg "${CYAN}${BOLD}" "[RIMP]==> Please close browsers...   "
   read -n1 -r key
   bleachbit --clean chromium.cache \
     firefox.backup \
@@ -252,22 +252,22 @@ case $yn in
     chromium.vacuum
   ;;
 esac
-msg_not "${BLUE}${BOLD}" "==> Update python polybar env? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Update python polybar env? [y/N]"
 read -r yn
 case $yn in
 [Yy]*) update_polybar_python_venv ;;
 esac
-msg_not "${BLUE}${BOLD}" "==> Update neovim pyvenv? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Update neovim pyvenv? [y/N]"
 read -r yn
 case $yn in
 [Yy]*) update_pynvim ;;
 esac
-msg_not "${BLUE}${BOLD}" "==> Update neovim plugins? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Update neovim plugins? [y/N]"
 read -r yn
 case $yn in
 [Yy]*) update_nvim_plugins ;;
 esac
-msg_not "${BLUE}${BOLD}" "==> Update all npm global packages (md2apkg)? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Update all npm global packages (md2apkg)? [y/N]"
 read -r yn
 case $yn in
 [Yy]*)
@@ -276,7 +276,7 @@ case $yn in
   fi
   ;;
 esac
-msg_not "${BLUE}${BOLD}" "==> Update neovim nightly? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Update neovim nightly? [y/N]"
 read -r yn
 case $yn in
 [Yy]*)
@@ -310,7 +310,7 @@ case $yn in
   )
   ;;
 esac
-msg_not "${BLUE}${BOLD}" "==> Diff ranger config with default? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Diff ranger config with default? [y/N]"
 read -r yn
 case $yn in
 [Yy]*)
@@ -318,7 +318,7 @@ case $yn in
     "$XDG_CONFIG_HOME/ranger/rc.conf"
   ;;
 esac
-msg_not "${BLUE}${BOLD}" "==> Diff i3 config with default? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Diff i3 config with default? [y/N]"
 read -r yn
 case $yn in
 [Yy]*)
@@ -326,7 +326,7 @@ case $yn in
     "$XDG_CONFIG_HOME/i3/config"
   ;;
 esac
-msg_not "${BLUE}${BOLD}" "==> Diff picom config with default? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Diff picom config with default? [y/N]"
 read -r yn
 case $yn in
 [Yy]*)
@@ -334,7 +334,7 @@ case $yn in
     "$XDG_CONFIG_HOME/picom.conf"
   ;;
 esac
-msg_not "${BLUE}${BOLD}" "==> Diff kitty config with default? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Diff kitty config with default? [y/N]"
 read -r yn
 case $yn in
 [Yy]*)
@@ -345,7 +345,7 @@ case $yn in
     "$XDG_CONFIG_HOME/kitty/kitty.conf"
   ;;
 esac
-msg_not "${BLUE}${BOLD}" "==> Diff dunst config with default? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Diff dunst config with default? [y/N]"
 read -r yn
 case $yn in
 [Yy]*)
@@ -353,17 +353,17 @@ case $yn in
     "$XDG_CONFIG_HOME/dunst/dunstrc"
   ;;
 esac
-msg_not "${BLUE}${BOLD}" "==> Update pandoc extras? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Update pandoc extras? [y/N]"
 read -r yn
 case $yn in
 [Yy]*) update_pandoc_bin ;;
 esac
-msg_not "${BLUE}${BOLD}" "==> Manually update the firefox userjs: ~/.mozilla/firefox/<profile>"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Manually update the firefox userjs: ~/.mozilla/firefox/<profile>"
 read -n1 -r key
 
 for job in $(jobs -p); do
-  msg_not "${BLUE}${BOLD}" "==> Waiting for job: ${job} to finish...   "
+  msg_not "${BLUE}${BOLD}" "[RIMP]==> Waiting for job: ${job} to finish...   "
   wait "$job"
 done
-msg_not "${BLUE}${BOLD}" "==> Thanks for flying arch updates!"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Thanks for flying arch updates!"
 read -n1 -r key
