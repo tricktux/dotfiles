@@ -10,7 +10,20 @@
 # export QT_SCALE_FACTOR=2
 # export QT_AUTO_SCREEN_SCALE_FACTOR=1
 
-# Setup configuration in only one place
-source "$HOME"/.config/i3/scripts/xrandr.sh "main"
+if [ -f /usr/bin/xrandr ]; then
+  /usr/bin/xrandr \
+    --dpi 156 \
+    --output DVI-D-0 --off \
+    --output HDMI-0 --off \
+    --output DP-0 --off \
+    --output DP-1 --off \
+    --output DP-2 --mode 3840x2160 --rate 60 --pos 0x0 --primary \
+    --output DP-3 --off \
+    --output DP-4 --mode 3840x2160 --rate 60 --pos 3840x0 \
+    --output DP-5 --off
+
+  echo "Xft.dpi: 156" | xrdb -merge
+
+fi
 
 # vim:filetype=sh
