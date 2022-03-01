@@ -2,7 +2,7 @@
 
 hostname=$HOSTNAME
 
-if [ -f /usr/bin/xrandr ]; then
+if [[ ! -f /usr/bin/xrandr ]]; then
   notify-send "xrandr" \
     "xrandr program not available" \
     -u critical -a 'Arandr'
