@@ -34,6 +34,7 @@ cups
 cups-pdf
 dhcpcd
 dialog
+discord
 docker
 dosfstools
 doublecmd-gtk2
@@ -53,6 +54,7 @@ findutils
 firefox
 flameshot
 flex
+fwupd
 fzf
 galculator
 gawk
