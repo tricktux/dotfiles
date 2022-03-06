@@ -11,6 +11,7 @@ chromedriver
 cht.sh-git
 cmake-format
 cmake-lint
+displaylink
 gdb-dashboard-git
 google-chrome
 hal
