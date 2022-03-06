@@ -192,7 +192,10 @@ if [[ $(/usr/bin/pacman -Qtdq) ]]; then
 fi
 
 msg "${CYAN}${BOLD}" "[RIMP]==> Clean up pacman's cache...   "
-sudo /usr/bin/paccache -ruk0 -r
+# Leave only the 3 most recent versions of packaages
+sudo /usr/bin/paccache -r
+# Remove cache for deleted packages
+sudo /usr/bin/paccache -ruk0
 
 if [[ -f /usr/bin/fwupdmgr ]]; then
   msg "${CYAN}${BOLD}" "[RIMP]==> Update firmware?...   "
