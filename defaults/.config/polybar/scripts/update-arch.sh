@@ -163,7 +163,7 @@ esac
 # $aur_helper -Sy --needed archlinux-keyring ca-certificates
 
 msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating pacman cache FROM server...     "
-rsync -rltgoi --delay-updates --delete --copy-links -e ssh \
+sudo rsync -rltgoi --delay-updates --copy-links -e ssh \
   $pacman_cache_loc /var/cache/pacman/pkg/ || echo "there were errors..."
 
 msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating core packages...     "
@@ -204,7 +204,7 @@ sudo /usr/bin/paccache -r
 sudo /usr/bin/paccache -ruk0
 
 msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating pacman cache TO server...     "
-rsync -rltgoi --delay-updates --delete --copy-links -e ssh \
+rsync -rltgoi --delay-updates --copy-links -e ssh \
   /var/cache/pacman/pkg/ "$pacman_cache_loc" || echo "there were errors..."
 
 if [[ -f /usr/bin/fwupdmgr ]]; then
