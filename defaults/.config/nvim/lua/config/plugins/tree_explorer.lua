@@ -13,8 +13,8 @@ function M.nvimtree_config()
   vim.g.nvim_tree_add_trailing = 1 -- 0 by default, append a trailing slash to folder names
   vim.g.nvim_tree_show_icons = {['git'] = 0, ['folders'] = 0, ['files'] = 0}
   vim.g.nvim_tree_group_empty = 1 -- 0 by default, compact folders that only contain a single folder into one node in the file tree
-  -- one space by default, used for rendering the space between the icon and 
-  -- the filename. Use with caution, it could break rendering if you set an 
+  -- one space by default, used for rendering the space between the icon and
+  -- the filename. Use with caution, it could break rendering if you set an
   -- empty string depending on your font.
   vim.g.nvim_tree_icon_padding = ' '
   vim.g.nvim_tree_special_files = {
