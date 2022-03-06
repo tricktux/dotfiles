@@ -17,6 +17,7 @@ binutils
 bison
 blueman
 bluez
+bolt
 bottom
 capitaine-cursors
 catch2
@@ -50,6 +51,7 @@ firefox
 flameshot
 flex
 fmt
+fwupd
 fzf
 gawk
 gcc
