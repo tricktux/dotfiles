@@ -38,16 +38,16 @@ msg() {
 msg_not() {
   echo >&2 -e "${1-}${2-}${NOFORMAT}"
   # Skip pretty characters
-  notify-send 'Arch Update' "${2:10:-6}"
+  notify-send 'Arch Update' "${2:10:-8}"
 }
 msg_error() {
   echo >&2 -e "${RED}${BOLD}${1-}${NOFORMAT}"
-  notify-send 'Arch Update' "${1:4:-6}" -u critical
+  notify-send 'Arch Update' "${1:4:-8}" -u critical
 }
 
 quit() {
   for job in $(jobs -p); do
-    msg_not "${BLUE}${BOLD}" "[RIMP]==> Waiting for job: ${job} to finish...   "
+    msg_not "${BLUE}${BOLD}" "[RIMP]==> Waiting for job: ${job} to finish...     "
     wait "$job"
   done
   msg_not "${BLUE}${BOLD}" "[RIMP]==> Thanks for flying arch updates!"
@@ -162,22 +162,22 @@ esac
 # sudo pacman-key --refresh-keys
 # $aur_helper -Sy --needed archlinux-keyring ca-certificates
 
-msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating pacman cache FROM server...   "
+msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating pacman cache FROM server...     "
 rsync -rltgoi --delay-updates --delete --copy-links -e ssh \
   $pacman_cache_loc /var/cache/pacman/pkg/ || echo "there were errors..."
 
-msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating core packages...   "
+msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating core packages...     "
 sudo pacman -Syu
 
-msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating aur packages...   "
+msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating aur packages...     "
 $aur_helper -Syu
 
-msg "${CYAN}${BOLD}" "[RIMP]==> Storing package list...   "
+msg "${CYAN}${BOLD}" "[RIMP]==> Storing package list...     "
 save_pkg_list_to_dotfiles
 
-msg "${CYAN}${BOLD}" "[RIMP]==> Checking for .pacnew files...   "
+msg "${CYAN}${BOLD}" "[RIMP]==> Checking for .pacnew files...     "
 if [[ $(/usr/bin/pacdiff -o) ]]; then
-  msg_not "${CYAN}${BOLD}" "[RIMP]==> Please address .pacnew files...   "
+  msg_not "${CYAN}${BOLD}" "[RIMP]==> Please address .pacnew files...     "
   sudo DIFFPROG="nvim -d" DIFFSEARCHPATH="/boot /etc /usr" /usr/bin/pacdiff
 fi
 
@@ -191,34 +191,34 @@ if [[ -f /usr/bin/ancient-packages ]] && [[ $(/usr/bin/ancient-packages -q) ]]; 
   esac
 fi
 
-msg "${CYAN}${BOLD}" "[RIMP]==> Checking for orphan packages...   "
+msg "${CYAN}${BOLD}" "[RIMP]==> Checking for orphan packages...     "
 if [[ $(/usr/bin/pacman -Qtdq) ]]; then
-  msg_not "${CYAN}${BOLD}" "[RIMP]==> Please clean orphan packages...   "
+  msg_not "${CYAN}${BOLD}" "[RIMP]==> Please clean orphan packages...     "
   sudo /usr/bin/pacman -Rns "$(/usr/bin/pacman -Qtdq)" || echo "...  Or not..."
 fi
 
-msg "${CYAN}${BOLD}" "[RIMP]==> Clean up pacman's cache...   "
+msg "${CYAN}${BOLD}" "[RIMP]==> Clean up pacman's cache...     "
 # Leave only the 3 most recent versions of packaages
 sudo /usr/bin/paccache -r
 # Remove cache for deleted packages
 sudo /usr/bin/paccache -ruk0
 
-msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating pacman cache TO server...   "
+msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating pacman cache TO server...     "
 rsync -rltgoi --delay-updates --delete --copy-links -e ssh \
   /var/cache/pacman/pkg/ "$pacman_cache_loc" || echo "there were errors..."
 
 if [[ -f /usr/bin/fwupdmgr ]]; then
-  msg "${CYAN}${BOLD}" "[RIMP]==> Update firmware?...   "
+  msg "${CYAN}${BOLD}" "[RIMP]==> Update firmware?...     "
   sudo /usr/bin/fwupdmgr update || echo "...  Or not..."
 else
-  msg_not "${CYAN}${BOLD}" "[RIMP]==> Consider installing fwupdmgr?...   "
+  msg_not "${CYAN}${BOLD}" "[RIMP]==> Consider installing fwupdmgr?...     "
 fi
 
-msg_not "${CYAN}${BOLD}" "[RIMP]==> Checking for failed services...   "
+msg_not "${CYAN}${BOLD}" "[RIMP]==> Checking for failed services...     "
 systemctl --failed
 read -n1 -r key
 
-msg_not "${CYAN}${BOLD}" "[RIMP]==> Looking for errors in journalctl...   "
+msg_not "${CYAN}${BOLD}" "[RIMP]==> Looking for errors in journalctl...     "
 journalctl -p 3 -xb
 read -n1 -r key
 
@@ -249,7 +249,7 @@ read -r yn
 case $yn in
 [Qq]*) quit ;;
 [Yy]*)
-  msg "${CYAN}${BOLD}" "[RIMP]==> Please close all applications..."
+  msg "${CYAN}${BOLD}" "[RIMP]==> Please close all applications...  "
   read -n1 -r key
   "$XDG_CONFIG_HOME/polybar/scripts/rm_junk"
   mkdir -p ~/.cache
@@ -265,7 +265,7 @@ read -r yn
 case $yn in
 [Qq]*) quit ;;
 [Yy]*)
-  msg "${CYAN}${BOLD}" "[RIMP]==> Please close browsers...   "
+  msg "${CYAN}${BOLD}" "[RIMP]==> Please close browsers...     "
   read -n1 -r key
   bleachbit --clean chromium.cache \
     firefox.backup \
