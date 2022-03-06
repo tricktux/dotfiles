@@ -5,7 +5,6 @@ local M = {}
 
 function M.nvimtree_config()
   -- These additional options must be set **BEFORE** calling `require'nvim-tree'` or calling setup.
-  vim.g.nvim_tree_quit_on_open = 1 -- 0 by default, closes the tree when you open a file
   vim.g.nvim_tree_indent_markers = 1 -- 0 by default, this option shows indent markers when folders are open
   vim.g.nvim_tree_git_hl = 0 -- 0 by default, will enable file highlight for git attributes (can be used without the icons).
   vim.g.nvim_tree_highlight_opened_files = 1 -- 0 by default, will enable folder and file icon highlight for opened files/directories.
@@ -14,7 +13,6 @@ function M.nvimtree_config()
   vim.g.nvim_tree_add_trailing = 1 -- 0 by default, append a trailing slash to folder names
   vim.g.nvim_tree_show_icons = {['git'] = 0, ['folders'] = 0, ['files'] = 0}
   vim.g.nvim_tree_group_empty = 1 -- 0 by default, compact folders that only contain a single folder into one node in the file tree
-  vim.g.nvim_tree_disable_window_picker = 1 -- 0 by default, will disable the window picker.
   -- one space by default, used for rendering the space between the icon and 
   -- the filename. Use with caution, it could break rendering if you set an 
   -- empty string depending on your font.
@@ -46,6 +44,23 @@ function M.nvimtree_config()
     diagnostics = {
       enable = false,
       icons = {hint = "", info = "", warning = "", error = ""}
+    },
+    actions = {
+      change_dir = {enable = true, global = false},
+      open_file = {
+        quit_on_open = true,
+        resize_window = false,
+        window_picker = {
+          enable = false,
+          chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+          exclude = {
+            filetype = {
+              "notify", "packer", "qf", "diff", "fugitive", "fugitiveblame"
+            },
+            buftype = {"nofile", "terminal", "help"}
+          }
+        }
+      }
     },
     update_to_buf_dir = {enable = true, auto_open = true},
     view = {
