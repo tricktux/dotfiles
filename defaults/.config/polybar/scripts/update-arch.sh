@@ -43,6 +43,16 @@ msg_error() {
   notify-send 'Arch Update' "${1:4:-6}" -u critical
 }
 
+quit() {
+  for job in $(jobs -p); do
+    msg_not "${BLUE}${BOLD}" "[RIMP]==> Waiting for job: ${job} to finish...   "
+    wait "$job"
+  done
+  msg_not "${BLUE}${BOLD}" "[RIMP]==> Thanks for flying arch updates!"
+  read -n1 -r key
+  exit 0
+}
+
 update_polybar_python_venv() {
   local venv_loc="$XDG_DATA_HOME/pyvenv"
   local venv_name="polybar"
@@ -110,14 +120,16 @@ setup_colors
 msg "${CYAN}${BOLD}" "========== Welcome! To the Arch Maintnance Script! 💪😎  =========="
 # Backups first, since most likely they'll be kernel update and that messes up
 # everything
-msg_not "${BLUE}${BOLD}" "[RIMP]==> Back up important folders? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Back up important folders? [y/N/q]"
 read -r yn
 case $yn in
 [Yy]*) "$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_home.sh" ;;
+[Qq]*) quit ;;
 esac
-msg_not "${BLUE}${BOLD}" "[RIMP]==> Back up the mail server (~30mins)? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Back up the mail server (~30mins)? [y/N/q]"
 read -r yn
 case $yn in
+[Qq]*) quit ;;
 [Yy]*)
   "$TERMINAL" \
     "$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_digital_ocean.sh" &
@@ -131,9 +143,10 @@ esac
 # "$TERMINAL" $HOME/Documents/scripts/backup_keepass_db.sh &
 # ;;
 # esac
-msg_not "${BLUE}${BOLD}" "[RIMP]==> Back up emails (~15mins)? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Back up emails (~15mins)? [y/N/q]"
 read -r yn
 case $yn in
+[Qq]*) quit ;;
 [Yy]*)
   "$TERMINAL" \
     "$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_mail.sh" &
@@ -164,9 +177,10 @@ fi
 
 if [[ -f /usr/bin/ancient-packages ]] && [[ $(/usr/bin/ancient-packages -q) ]]; then
   /usr/bin/ancient-packages
-  msg_not "${CYAN}${BOLD}" "[RIMP]==> Remove ancient packages? [y/N]"
+  msg_not "${CYAN}${BOLD}" "[RIMP]==> Remove ancient packages? [y/N/q]"
   read -r yn
   case $yn in
+  [Qq]*) quit ;;
   [Yy]*) $aur_helper -Rscn "$(ancient-packages -q)" ;;
   esac
 fi
@@ -195,16 +209,18 @@ msg_not "${CYAN}${BOLD}" "[RIMP]==> Looking for errors in journalctl...   "
 journalctl -p 3 -xb
 read -n1 -r key
 
-msg_not "${BLUE}${BOLD}" "[RIMP]==> Update pihole? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Update pihole? [y/N/q]"
 read -r yn
 case $yn in
+[Qq]*) quit ;;
 [Yy]*)
   kitty +kitten ssh root@192.168.1.107
   ;;
 esac
-msg_not "${BLUE}${BOLD}" "[RIMP]==> Update mail server? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Update mail server? [y/N/q]"
 read -r yn
 case $yn in
+[Qq]*) quit ;;
 [Yy]*)
   kitty +kitten ssh digital_ocean
   # apt-get -y update &&
@@ -215,9 +231,10 @@ case $yn in
   # EOF
   ;;
 esac
-msg_not "${BLUE}${BOLD}" "[RIMP]==> Remove junk? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Remove junk? [y/N/q]"
 read -r yn
 case $yn in
+[Qq]*) quit ;;
 [Yy]*)
   msg "${CYAN}${BOLD}" "[RIMP]==> Please close all applications..."
   read -n1 -r key
@@ -230,9 +247,10 @@ case $yn in
     "$XDG_CONFIG_HOME/polybar/scripts/flux_/flux_config.lua" -f day
   ;;
 esac
-msg_not "${BLUE}${BOLD}" "[RIMP]==> Remove browser junk? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Remove browser junk? [y/N/q]"
 read -r yn
 case $yn in
+[Qq]*) quit ;;
 [Yy]*)
   msg "${CYAN}${BOLD}" "[RIMP]==> Please close browsers...   "
   read -n1 -r key
@@ -259,33 +277,38 @@ case $yn in
     chromium.vacuum
   ;;
 esac
-msg_not "${BLUE}${BOLD}" "[RIMP]==> Update python polybar env? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Update python polybar env? [y/N/q]"
 read -r yn
 case $yn in
+[Qq]*) quit ;;
 [Yy]*) update_polybar_python_venv ;;
 esac
-msg_not "${BLUE}${BOLD}" "[RIMP]==> Update neovim pyvenv? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Update neovim pyvenv? [y/N/q]"
 read -r yn
 case $yn in
+[Qq]*) quit ;;
 [Yy]*) update_pynvim ;;
 esac
-msg_not "${BLUE}${BOLD}" "[RIMP]==> Update neovim plugins? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Update neovim plugins? [y/N/q]"
 read -r yn
 case $yn in
+[Qq]*) quit ;;
 [Yy]*) update_nvim_plugins ;;
 esac
-msg_not "${BLUE}${BOLD}" "[RIMP]==> Update all npm global packages (md2apkg)? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Update all npm global packages (md2apkg)? [y/N/q]"
 read -r yn
 case $yn in
+[Qq]*) quit ;;
 [Yy]*)
   if [[ -f /usr/bin/npm ]]; then
     /usr/bin/npm update -g
   fi
   ;;
 esac
-msg_not "${BLUE}${BOLD}" "[RIMP]==> Update neovim nightly? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Update neovim nightly? [y/N/q]"
 read -r yn
 case $yn in
+[Qq]*) quit ;;
 [Yy]*)
   # Create a subshell to cd locally
   (
@@ -317,33 +340,37 @@ case $yn in
   )
   ;;
 esac
-msg_not "${BLUE}${BOLD}" "[RIMP]==> Diff ranger config with default? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Diff ranger config with default? [y/N/q]"
 read -r yn
 case $yn in
+[Qq]*) quit ;;
 [Yy]*)
   nvim -d /usr/share/doc/ranger/config/rc.conf \
     "$XDG_CONFIG_HOME/ranger/rc.conf"
   ;;
 esac
-msg_not "${BLUE}${BOLD}" "[RIMP]==> Diff i3 config with default? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Diff i3 config with default? [y/N/q]"
 read -r yn
 case $yn in
+[Qq]*) quit ;;
 [Yy]*)
   nvim -d /etc/i3/config \
     "$XDG_CONFIG_HOME/i3/config"
   ;;
 esac
-msg_not "${BLUE}${BOLD}" "[RIMP]==> Diff picom config with default? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Diff picom config with default? [y/N/q]"
 read -r yn
 case $yn in
+[Qq]*) quit ;;
 [Yy]*)
   nvim -d /etc/xdg/picom.conf \
     "$XDG_CONFIG_HOME/picom.conf"
   ;;
 esac
-msg_not "${BLUE}${BOLD}" "[RIMP]==> Diff kitty config with default? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Diff kitty config with default? [y/N/q]"
 read -r yn
 case $yn in
+[Qq]*) quit ;;
 [Yy]*)
   curl -fsSL \
     https://sw.kovidgoyal.net/kitty/_downloads/433dadebd0bf504f8b008985378086ce/kitty.conf \
@@ -352,25 +379,22 @@ case $yn in
     "$XDG_CONFIG_HOME/kitty/kitty.conf"
   ;;
 esac
-msg_not "${BLUE}${BOLD}" "[RIMP]==> Diff dunst config with default? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Diff dunst config with default? [y/N/q]"
 read -r yn
 case $yn in
+[Qq]*) quit ;;
 [Yy]*)
   nvim -d /etc/dunst/dunstrc \
     "$XDG_CONFIG_HOME/dunst/dunstrc"
   ;;
 esac
-msg_not "${BLUE}${BOLD}" "[RIMP]==> Update pandoc extras? [y/N]"
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Update pandoc extras? [y/N/q]"
 read -r yn
 case $yn in
+[Qq]*) quit ;;
 [Yy]*) update_pandoc_bin ;;
 esac
 msg_not "${BLUE}${BOLD}" "[RIMP]==> Manually update the firefox userjs: ~/.mozilla/firefox/<profile>"
 read -n1 -r key
 
-for job in $(jobs -p); do
-  msg_not "${BLUE}${BOLD}" "[RIMP]==> Waiting for job: ${job} to finish...   "
-  wait "$job"
-done
-msg_not "${BLUE}${BOLD}" "[RIMP]==> Thanks for flying arch updates!"
-read -n1 -r key
+quit
