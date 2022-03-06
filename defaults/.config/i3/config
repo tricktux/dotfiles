@@ -52,9 +52,9 @@ bindsym mod3+h exec --no-startup-id \
 bindsym mod3+d exec --no-startup-id \
   pass --clip linux/`hostname`/ssh_key/id_ed25519_digitalocean && \
   notify-send 'pass' 'digitalocean ssh key copied'
-bindsym mod3+g exec --no-startup-id \
-  pass --clip linux/`hostname`/ssh_key/id_ed25519_git_server && \
-  notify-send 'pass' 'git server ssh key copied'
+bindsym mod3+s exec --no-startup-id \
+  pass --clip nas/synology/skywafer/rei_login && \
+  notify-send 'pass' 'skywafer rei_login copied'
 bindsym mod3+l exec --no-startup-id \
   pass --clip linux/`hostname`/ssh_key/id_ed25519_gitlab && \
   notify-send 'pass' 'gitlab ssh key copied'
