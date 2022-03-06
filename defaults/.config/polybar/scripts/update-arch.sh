@@ -3,6 +3,8 @@
 # https://betterdev.blog/minimal-safe-bash-script-template/
 
 aur_helper='paru'
+pacman_cache_loc="nowtheme@192.168.1.139::NetBackup/pacman_cache/$(uname -m)/"
+rsync_opts="-rltgoi --delay-updates --delete --copy-links -e ssh"
 # Fail as soon as a command fails
 set -Eeuo pipefail
 
@@ -160,6 +162,10 @@ esac
 # sudo pacman-key --refresh-keys
 # $aur_helper -Sy --needed archlinux-keyring ca-certificates
 
+msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating pacman cache FROM server...   "
+rsync -rltgoi --delay-updates --delete --copy-links -e ssh \
+  $pacman_cache_loc /var/cache/pacman/pkg/ || echo "there were errors..."
+
 msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating core packages...   "
 sudo pacman -Syu
 
@@ -196,6 +202,10 @@ msg "${CYAN}${BOLD}" "[RIMP]==> Clean up pacman's cache...   "
 sudo /usr/bin/paccache -r
 # Remove cache for deleted packages
 sudo /usr/bin/paccache -ruk0
+
+msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating pacman cache TO server...   "
+rsync -rltgoi --delay-updates --delete --copy-links -e ssh \
+  /var/cache/pacman/pkg/ "$pacman_cache_loc" || echo "there were errors..."
 
 if [[ -f /usr/bin/fwupdmgr ]]; then
   msg "${CYAN}${BOLD}" "[RIMP]==> Update firmware?...   "
