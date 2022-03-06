@@ -32,6 +32,7 @@ alias pacs="$aur_helper -Slq | fzf --multi --preview '$aur_helper -Si {1}' | xar
 alias pacu="$aur_helper -Rscn"
 alias pacr="$aur_helper -Rscn"
 # Remove only
+alias pacro="$aur_helper -Rdd"
 alias pacuo="$aur_helper -Rdd"
 alias pacbroken="$aur_helper -Qkk"
 # List files of package
