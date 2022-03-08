@@ -56,7 +56,7 @@ tar -vcjf /tmp/pacman_database.tar.bz2 /var/lib/pacman/local
 SRC="$HOME/.gnupg $HOME/.ssh $HOME/.password-store /tmp/pacman_database.tar.bz2"
 # Needs full path since its run as sudo
 BASE="$HOME/.mnt/skywafer"
-SNAP="$BASE/$HOSTNAME"
+SNAP="$BASE/home/bkps/$HOSTNAME"
 OPTS="-rltgoi --delay-updates --delete --copy-links --mkpath"
 MINCHANGES=20
 
