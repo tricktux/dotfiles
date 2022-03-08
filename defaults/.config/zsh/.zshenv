@@ -111,6 +111,7 @@ ENABLE_CORRECTION="true"
 
 # root directory for bytecode cache (pyc) files.
 export PYTHONPYCACHEPREFIX="/tmp/pycache"
+export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
 # This can come back to hunt you down. No asserts or docstrings
 # Tue Dec 22 2020 14:39: Ohhh and it did! So hard. gdb stopped working 
 # export PYTHONOPTIMIZE=2
