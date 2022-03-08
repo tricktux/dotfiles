@@ -24,6 +24,7 @@ ccache
 cheese
 cifs-utils
 clang
+cmake
 cmus
 colorgcc
 cppcheck
