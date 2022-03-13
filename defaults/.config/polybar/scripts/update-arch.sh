@@ -219,7 +219,7 @@ fi
 msg "${CYAN}${BOLD}" "[RIMP]==> Checking for orphan packages...     "
 if [[ $(/usr/bin/pacman -Qtdq) ]]; then
   msg_not "${CYAN}${BOLD}" "[RIMP]==> Please clean orphan packages...     "
-  sudo /usr/bin/pacman -Qtdq | sudo /usr/bin/pacman -Rns -  || echo "...  Or not..."
+  sudo /usr/bin/pacman -Qtdq | sudo /usr/bin/pacman -Rns - || echo "...  Or not..."
 fi
 
 msg "${CYAN}${BOLD}" "[RIMP]==> Clean up pacman's cache...     "
