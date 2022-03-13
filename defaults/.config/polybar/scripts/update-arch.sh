@@ -125,7 +125,17 @@ msg "${CYAN}${BOLD}" "========== Welcome! To the Arch Maintnance Script! ðŸ’ªðŸ˜
 msg_not "${BLUE}${BOLD}" "[RIMP]==> Back up important folders? [y/N/q]"
 read -r yn
 case $yn in
-[Yy]*) "$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_home.sh" ;;
+[Yy]*)
+  # Backup pacman's local database
+  # More info here:
+  # https://wiki.archlinux.org/index.php/Pacman/Restore_local_database
+  [[ -f /tmp/pacman_database.tar.bz2 ]] && rm /tmp/pacman_database.tar.bz2
+  tar -vcjf /tmp/pacman_database.tar.bz2 /var/lib/pacman/local
+  # Create database backup
+  "$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot.sh" \
+    -s "$HOME/.gnupg $HOME/.ssh $HOME/.password-store /tmp/pacman_database.tar.bz2" \
+    -d "$HOME/.mnt/skywafer/home/bkps/$HOSTNAME"
+  ;;
 [Qq]*) quit ;;
 esac
 msg_not "${BLUE}${BOLD}" "[RIMP]==> Back up the mail server (~30mins)? [y/N/q]"
@@ -145,13 +155,31 @@ esac
 # "$TERMINAL" $HOME/Documents/scripts/backup_keepass_db.sh &
 # ;;
 # esac
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Back up anki? [y/N/q]"
+read -r yn
+case $yn in
+[Qq]*) quit ;;
+[Yy]*)
+  SRC="$HOME/.local/share/Anki2"
+  SNAP="$HOME/.mnt/skywafer/home/bkps/anki"
+  anki --no-sandbox & # Anki sync
+  sleep 5
+  pkill -x anki
+  "$TERMINAL" \
+    "$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot.sh" -s $SRC -d $SNAP &
+  ;;
+esac
 msg_not "${BLUE}${BOLD}" "[RIMP]==> Back up emails (~15mins)? [y/N/q]"
 read -r yn
 case $yn in
 [Qq]*) quit ;;
 [Yy]*)
+  SRC="$HOME/.local/share/mail $HOME/.local/share/vdirsyncer"
+  SNAP="$HOME/.mnt/skywafer/home/bkps/mail"
+  /usr/bin/mbsync -D -ac "$HOME"/.config/isync/mbsyncrc || echo "mbsync never retuns code 0..."
+  /usr/bin/vdirsyncer --verbosity debug sync
   "$TERMINAL" \
-    "$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot_mail.sh" &
+    "$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot.sh" -s $SRC -d $SNAP &
   ;;
 esac
 
