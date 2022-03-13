@@ -194,10 +194,7 @@ msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating pacman cache FROM server...     "
 sudo rsync -rltgoi --delay-updates --copy-links -e ssh \
   $pacman_cache_loc /var/cache/pacman/pkg/ || echo "there were errors..."
 
-msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating core packages...     "
-sudo pacman -Syu
-
-msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating aur packages...     "
+msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating core and aur packages...     "
 $aur_helper -Syu
 
 msg "${CYAN}${BOLD}" "[RIMP]==> Storing package list...     "
