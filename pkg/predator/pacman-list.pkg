@@ -134,6 +134,7 @@ mkinitcpio
 mono
 mosh
 mpv
+mpv-mpris
 namcap
 neomutt
 neovim
