@@ -21,7 +21,7 @@ alias kstt="kitty @set-tab-title"
 alias kswt="kitty @set-window-title"
 
 # Install
-alias paci="$HOME/.config/dotfiles/scripts/nix/arch.sh -i"
+alias paci="$HOME/.config/dotfiles/scripts/nix/arch.sh -i $@"
 # Update
 alias pacu="$HOME/.config/dotfiles/scripts/nix/arch.sh -u"
 # Version
