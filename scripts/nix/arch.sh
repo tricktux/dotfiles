@@ -4,7 +4,6 @@
 
 aur_helper='paru'
 pacman_cache_loc="nowtheme@192.168.1.139::NetBackup/pacman_cache/$(uname -m)/"
-rsync_opts="-rltgoi --delay-updates --delete --copy-links -e ssh"
 # Fail as soon as a command fails
 set -Eeuo pipefail
 
@@ -13,7 +12,7 @@ trap cleanup SIGINT SIGTERM ERR #EXIT
 
 cleanup() {
   trap - SIGINT SIGTERM ERR #EXIT
-  msg_error "==> Something went wrong...   "
+  msg_error "==> Something went wrong...     "
   read -n1 -r key
   exit $?
 }
