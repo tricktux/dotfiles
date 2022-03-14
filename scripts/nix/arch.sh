@@ -323,6 +323,10 @@ update_servers() {
 }
 
 pac_maintenance() {
+  msg "${CYAN}${BOLD}" "[RIMP]==> Printing state of all packages to /tmp/pac.log ...     "
+  "$aur_helper" -Qkk > /tmp/pac.log
+  nvim /tmp/pac.log
+
   msg "${CYAN}${BOLD}" "[RIMP]==> Checking for .pacnew files...     "
   if [[ $(/usr/bin/pacdiff -o) ]]; then
     msg_not "${CYAN}${BOLD}" "[RIMP]==> Please address .pacnew files...     "
