@@ -49,7 +49,7 @@ function M:config()
     },
     -- <c-l> is selecting within a list of options.
     -- This is useful for choice nodes (introduced in the forthcoming episode 2)
-    ["<c-l>"] = {
+    ["<c-h>"] = {
       function() if ls.choice_active() then ls.change_choice(1) end end,
       "in_snippet_select"
     }
