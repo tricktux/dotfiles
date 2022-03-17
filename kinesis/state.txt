@@ -1,0 +1,10 @@
+startup_file=qwerty.txt
+key_click_tone=OFF
+toggle_tone=OFF
+macro_disable=OFF
+macro_speed=9
+status_play_speed=4
+power_user=true
+program_key_lock=OFF
+
+v_drive_open_on_startup=off
