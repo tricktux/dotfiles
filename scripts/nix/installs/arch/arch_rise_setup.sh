@@ -975,7 +975,11 @@ paci --needed --noconfirm baobab
 #}}}
 
 ## Steam{{{
-paci --needed steam ttf-liberation lib32-mesa mesa lib32-nvidia-utils nvidia-utils steam-fonts
+paci steam ttf-liberation steam-fonts
+## IF AMD
+paci xf86-video-amdgpu lib32-mesa mesa
+# If NVIDIO
+paci lib32-nvidia-utils nvidia-utils
 #}}}
 
 ## Video playing{{{

@@ -98,6 +98,7 @@ export GOPATH="$XDG_DATA_HOME/go"
 
 # Don't put stuff in home dir rust
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 
 if [[ -d /usr/lib/ccache/bin ]]; then
   export PATH="/usr/lib/ccache/bin/:$PATH"

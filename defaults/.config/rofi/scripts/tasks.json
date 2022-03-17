@@ -1,11 +1,11 @@
 [
   {
     "name": "📦 arch update",
-    "command": "$TERMINAL $HOME/.config/polybar/scripts/update-arch.sh"
+    "command": "$TERMINAL $HOME/.config/dotfiles/scripts/nix/arch.sh"
   },
   {
     "name": "🧹 arch clean",
-    "command": "$TERMINAL $HOME/.config/polybar/scripts/arch-maintance.sh"
+    "command": "$TERMINAL $HOME/.config/dotfiles/scripts/nix/arch.sh -c"
   },
   {
     "name": "🔒 network-openvpn-client-home-start",

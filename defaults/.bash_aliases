@@ -21,13 +21,14 @@ alias kstt="kitty @set-tab-title"
 alias kswt="kitty @set-window-title"
 
 # Install
-alias paci="$aur_helper -Syu"
+alias paci="$HOME/.config/dotfiles/scripts/nix/arch.sh -i $@"
 # Update
-alias pacu="$aur_helper -Syu"
+alias pacu="$HOME/.config/dotfiles/scripts/nix/arch.sh -u"
 # Version
 alias pacv="$aur_helper -Si"
 # Search
-alias pacs="$aur_helper -Slq | fzf --multi --preview '$aur_helper -Si {1}' | xargs -ro $aur_helper -S"
+alias pacsf="$aur_helper -Slq | fzf --multi --preview '$aur_helper -Si {1}' | xargs -ro $aur_helper -S"
+alias pacs="$aur_helper -Ss"
 # Remove
 alias pacu="$aur_helper -Rscn"
 alias pacr="$aur_helper -Rscn"
