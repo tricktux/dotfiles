@@ -49,21 +49,10 @@ M.__diagnostics = {
   update_in_insert = false, -- Update diagnostics in insert mode.
   always_visible = false, -- Show diagnostics even if there are none.
   diagnostics_color = {
-    error = {
-      fg = M.colors.red,
-      gui = 'bold'
-    },
-    warn = {
-      fg = M.colors.orange,
-      gui = 'bold'
-    },
-    info = {
-      gui = 'bold'
-    },
-    hint = {
-      fg = M.colors.green,
-      gui = 'bold'
-    },
+    error = {fg = M.colors.red, gui = 'bold'},
+    warn = {fg = M.colors.orange, gui = 'bold'},
+    info = {gui = 'bold'},
+    hint = {fg = M.colors.green, gui = 'bold'}
   }
 }
 
