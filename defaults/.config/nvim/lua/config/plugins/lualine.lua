@@ -63,6 +63,7 @@ M.__config = {
     component_separators = "",
     section_separators = "",
     icons_enabled = false,
+    globalstatus = vim.fn.has('nvim-0.7') > 0 and true or false,
     theme = 'auto'
   },
   sections = {
