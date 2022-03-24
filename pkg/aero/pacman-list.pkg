@@ -136,9 +136,11 @@ lldb
 lm_sensors
 lsof
 lua-language-server
+luacheck
 lutris
 lvm2
 lxappearance
+lxqt-openssh-askpass
 lxqt-policykit
 lynx
 m4
