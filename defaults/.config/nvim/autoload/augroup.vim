@@ -12,11 +12,7 @@ function! augroup#Set() abort
   " is foldmethod=syntax
   augroup Filetypes
     autocmd!
-    autocmd Filetype fugitive nnoremap <buffer> <s-j> :b#<cr>
-    autocmd Filetype fugitive nmap <buffer> <C-j> )
-    autocmd Filetype fugitive nmap <buffer> <C-k> (
-
-    autocmd Filetype wings_syntax set suffixesadd=.scp,.cmd,.bat
+    " autocmd Filetype wings_syntax set suffixesadd=.scp,.cmd,.bat
     " Nerdtree Fix
     autocmd FileType nerdtree setlocal relativenumber
     " Set omnifunc for all others                   " not showing

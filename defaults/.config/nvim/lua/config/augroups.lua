@@ -36,6 +36,33 @@ local function setup()
   api.nvim_create_autocmd('TextYankPost', {
     callback = function() vim.highlight.on_yank {timeout = 250} end,
     pattern = '*',
+    desc = 'Highlight text on Yank',
+    group = id
+  })
+
+  id = api.nvim_create_augroup('Filetypes', {clear = true})
+  api.nvim_create_autocmd('Filetype', {
+    callback = function()
+      vim.keymap.set('n', [[<s-j>]], [[:b#<cr>]],
+                     {silent = true, buffer = true, desc = 'Remap next buffer'})
+      vim.keymap.set('n', [[<C-j>]], [[)]],
+                     {silent = true, buffer = true, desc = 'Next section'})
+      vim.keymap.set('n', [[<C-k>]], [[(]],
+                     {silent = true, buffer = true, desc = 'Prev section'})
+    end,
+    pattern = 'fugitive',
+    desc = 'Better mappings for fugitive filetypes',
+    group = id
+  })
+
+  -- TODO: Not really working
+  api.nvim_create_autocmd('Filetype', {
+    callback = function()
+      vim.opt.suffixesadd:append(".scp,.cmd,.bat")
+      print("hello world")
+    end,
+    pattern = 'wings_syntax',
+    desc = 'Better go to files for wings filetypes',
     group = id
   })
 end
