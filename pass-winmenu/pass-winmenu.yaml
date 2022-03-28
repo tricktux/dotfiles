@@ -267,6 +267,8 @@ notifications:
         password-generated: true
         # ...a password has been edited:
         password-updated: true
+        # ...a TOTP code is copied to the clipboard:
+        totp-copied: true
         # ...changes are pushed to Git:
         git-push: true
         # ...changes are pulled from Git:
