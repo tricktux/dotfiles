@@ -97,11 +97,7 @@ local function _init()
 
   map:set() -- Set mappings
 
-  if utl.has_unix() then
-    _config_unix()
-  else
-    _config_win()
-  end
+  if utl.has_unix() then _config_unix() else _config_win() end
 
   -- Create needed directories if they don't exist already
   for _, folder in pairs(data_folders) do
