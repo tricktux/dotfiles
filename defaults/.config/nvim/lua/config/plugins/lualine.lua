@@ -163,7 +163,6 @@ function M:setup()
 end
 
 function M:config()
-  log.info('lualine config: ', self.__config)
   require('lualine').setup(self.__config)
 end
 
