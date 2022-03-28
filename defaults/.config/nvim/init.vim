@@ -104,8 +104,8 @@ function! s:find_vim_config_file(...) abort
     call commands#Set()
   else
     call init#vim()
+    call plugin#AfterConfig()
   endif
-  call plugin#AfterConfig()
 endfunction
 
 function! s:set_stdpaths() abort

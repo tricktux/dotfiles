@@ -81,6 +81,12 @@ local function _init()
   vim.g.loaded_perl_provider = 0
   vim.g.loaded_node_provider = 0
 
+  if vim.fn.has('nvim-0.7') > 0 then
+    -- Disable filetypes.vim and enable filetypes.lua
+    vim.g.did_load_ftdetect = 1
+    vim.g.do_filetype_lua = 1
+  end
+
   local disabled_built_ins = {
     "netrw", "netrwPlugin", "netrwSettings", "netrwFileHandlers", "gzip", "zip",
     "zipPlugin", "tar", "tarPlugin", "getscript", "getscriptPlugin", "vimball",

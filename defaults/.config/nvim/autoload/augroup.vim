@@ -10,76 +10,96 @@ function! augroup#Set() abort
   " ALL_AUTOGROUP_STUFF
   " All of these options contain performance drawbacks but the most important
   " is foldmethod=syntax
-  augroup Filetypes
-    autocmd!
-    " autocmd Filetype wings_syntax set suffixesadd=.scp,.cmd,.bat
-    " Nerdtree Fix
-    autocmd FileType nerdtree setlocal relativenumber
-    " Set omnifunc for all others                   " not showing
-    " autocmd FileType cs compiler msbuild
+  if !has('nvim-0.7')
+    augroup Filetypes
+      autocmd!
 
-    " Display help vertical window not split
-    " autocmd FileType help wincmd L
-    autocmd FileType help nnoremap <buffer> q :helpc<cr>
-    autocmd FileType help setlocal relativenumber
-    autocmd FileType help nnoremap <buffer> g0 g0
+      autocmd FileType markdown,mkd setlocal conceallevel=0 wrap
+            \ foldenable complete+=kspell ts=2 sw=2 sts=2
+            \ comments+=b:-,b:* spelllang=en_us tw=0 wrap
 
-    autocmd FileType markdown,mkd setlocal conceallevel=0 wrap
-          \ foldenable complete+=kspell ts=2 sw=2 sts=2
-          \ comments+=b:-,b:* spelllang=en_us tw=0 wrap
+      " formatoptions do not autowrap text
+      autocmd FileType tex setlocal conceallevel=0 nowrap
+            \ foldenable complete+=kspell ts=2 sw=2 sts=2
+            \ spelllang=en_us tw=0 formatoptions-=tc colorcolumn=+1 wrap
 
-    " formatoptions do not autowrap text
-    autocmd FileType tex setlocal conceallevel=0 nowrap
-          \ foldenable complete+=kspell ts=2 sw=2 sts=2
-          \ spelllang=en_us tw=0 formatoptions-=tc colorcolumn=+1 wrap
+      autocmd FileType mail setlocal wrap textwidth=72
 
-    autocmd FileType mail setlocal wrap textwidth=72
+      " autocmd FileType vim setlocal tabstop=2 shiftwidth=2 softtabstop=2 nospell
 
-    " autocmd FileType vim setlocal tabstop=2 shiftwidth=2 softtabstop=2 nospell
-
-    " if has('nvim-0.5.0') && get(g:, 'ncm2_supports_lsp', 0)
+      " if has('nvim-0.5.0') && get(g:, 'ncm2_supports_lsp', 0)
       " autocmd FileType c,cpp set omnifunc=v:lua.vim.lsp.omnifunc
-    " endif
-    if has('unix')
-      autocmd FileType c,cpp setlocal nowrap ts=2 sw=2 sts=2
-    else
-      autocmd FileType c,cpp setlocal nowrap ts=4 sw=4 sts=4
+      " endif
+      if has('unix')
+        autocmd FileType c,cpp setlocal nowrap ts=2 sw=2 sts=2
+      else
+        autocmd FileType c,cpp setlocal nowrap ts=4 sw=4 sts=4
+      endif
+      autocmd FileType c,cpp setlocal nowrap fen
+            \ fdn=88 define=^\\(#\\s*define\\|[a-z]*\\s*const\\s*[a-z]*\\)
+
+      " Python
+      autocmd FileType python setlocal
+            \ textwidth=79
+            \ shiftwidth=4
+            \ tabstop=4
+            \ softtabstop=4
+            \ define=^\s*\\(def\\\\|class\\)
+
+      autocmd FileType vim,lua setlocal
+            \ textwidth=79
+            \ shiftwidth=2
+            \ tabstop=2
+            \ softtabstop=2
+
+      autocmd FileType fzf inoremap <buffer> <c-j> <down>
+      autocmd FileType fzf inoremap <buffer> <c-n> <down>
+      autocmd FileType json syntax match Comment +\/\/.\+$+
+      " Set spell for who?
+      autocmd FileType
+            \ mail,markdown,gitcommit,tex,svnj_bwindow,fugitive
+            \ setlocal spell spelllang=en,es
+      autocmd FileType terminal setlocal nonumber norelativenumber bufhidden=hide
+    augroup END
+
+    augroup VimType
+      autocmd!
+      " Sessions
+      " Note: Fri Mar 03 2017 14:13 - This never works.
+      " autocmd VimEnter * call utils#LoadSession('default.vim')
+      " Thu Oct 05 2017 22:22: Special settings that are only detected after vim
+      " is loaded
+      autocmd VimEnter * nested call s:on_vim_enter()
+      " Keep splits normalize
+      " autocmd VimResized * execute "normal! \<c-w>="
+    augroup END
+    augroup CmdWin
+      autocmd!
+      autocmd CmdWinEnter * nnoremap <buffer> q i" <cr>
+      autocmd CmdWinEnter * nnoremap <buffer> <cr> i<cr>
+    augroup END
+    if !has('nvim')
+      augroup Terminal
+        autocmd!
+        autocmd TerminalOpen * setlocal bufhidden=hide filetype=terminal
+      augroup END
     endif
-    autocmd FileType c,cpp setlocal nowrap fen
-          \ fdn=88 define=^\\(#\\s*define\\|[a-z]*\\s*const\\s*[a-z]*\\)
 
-    " Python
-    autocmd FileType python setlocal
-          \ textwidth=79
-          \ shiftwidth=4
-          \ tabstop=4
-          \ softtabstop=4
-          \ define=^\s*\\(def\\\\|class\\)
+    " Autosave
+    " Wed May 12 2021 11:42: Save less often
+    autocmd CursorHold * silent! update
+    " Depends on autoread being set
+    augroup AutoRead
+      autocmd!
+      autocmd CursorHold * silent! checktime
+    augroup END
 
-    " Python
-    autocmd FileType vim,lua setlocal
-                \ textwidth=79
-                \ shiftwidth=2
-                \ tabstop=2
-                \ softtabstop=2
+    autocmd BufRead,BufNewFile * call s:determine_buf_type()
+    " Do not save sessions on VimLeave, it deletes the tabs
+    " autocmd BufEnter,BufWipeout * call mappings#SaveSession(has('nvim') ?
+    " \ 'default_nvim.vim' : 'default_vim.vim')
+  endif
 
-    autocmd FileType fzf inoremap <buffer> <c-j> <down>
-    autocmd FileType fzf inoremap <buffer> <c-n> <down>
-
-    " Set spell for who?
-    autocmd FileType
-          \ mail,markdown,gitcommit,tex,svnj_bwindow,fugitive
-          \ setlocal spell spelllang=en,es
-
-    autocmd FileType terminal setlocal nonumber norelativenumber bufhidden=hide
-    autocmd FileType json syntax match Comment +\/\/.\+$+
-  augroup END
-
-  augroup CmdWin
-    autocmd!
-    autocmd CmdWinEnter * nnoremap <buffer> q i" <cr>
-    autocmd CmdWinEnter * nnoremap <buffer> <cr> i<cr>
-  augroup END
 
   " To improve syntax highlight speed. If something breaks with highlight
   " increase these number below
@@ -88,59 +108,19 @@ function! augroup#Set() abort
   " autocmd BufWinEnter,Syntax * syn sync minlines=80 maxlines=80
   " augroup END
 
-  augroup VimType
-    autocmd!
-    " Sessions
-    " Note: Fri Mar 03 2017 14:13 - This never works.
-    " autocmd VimEnter * call utils#LoadSession('default.vim')
-    " Thu Oct 05 2017 22:22: Special settings that are only detected after vim
-    " is loaded
-    autocmd VimEnter * nested call s:on_vim_enter()
-    " Keep splits normalize
-    " autocmd VimResized * execute "normal! \<c-w>="
-  augroup END
-
   augroup BuffTypes
     autocmd!
-    autocmd BufRead,BufNewFile * call s:determine_buf_type()
-    " Do not save sessions on VimLeave, it deletes the tabs
-    " autocmd BufEnter,BufWipeout * call mappings#SaveSession(has('nvim') ?
-          \ 'default_nvim.vim' : 'default_vim.vim')
     autocmd BufReadPost *
           \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit' |
           \   exe "normal! g`\"" |
           \ endif
 
-    " Autosave
-    " Wed May 12 2021 11:42: Save less often
-    autocmd CursorHold * silent! update
-
-    " Sat May 16 2020 12:04: Trying out gen_tags 
+    " Sat May 16 2020 12:04: Trying out gen_tags
     " autocmd BufWinEnter * call ctags#LoadCscopeDatabse()
-    " Tue Feb 25 2020 14:00: Really slows down vim 
+    " Tue Feb 25 2020 14:00: Really slows down vim
     " autocmd BufWinEnter * call status_line#SetVerControl()
   augroup END
 
-  " Depends on autoread being set
-  augroup AutoRead
-    autocmd!
-    autocmd CursorHold * silent! checktime
-  augroup END
-
-  if has('nvim')
-    augroup Terminal
-      autocmd!
-      autocmd TermOpen * set filetype=terminal
-    augroup END
-  else
-    augroup Terminal
-      autocmd!
-      autocmd TerminalOpen *
-            \ if &buftype == 'terminal' |
-            \ setlocal bufhidden=hide |
-            \ endif
-    augroup END
-  endif
 endfunction
 
 " Things to do after everything has being loaded
@@ -148,10 +128,10 @@ function! s:on_vim_enter() abort
   " This function needs to be here since most of the variables it checks are not
   " populated until vim init is done
   call options#SetCli()
-  " call plugin#AfterConfig()
+  call plugin#AfterConfig()
   " if (argc() == 0) " If no arguments are passed load default session
-    " call mappings#LoadSession(has('nvim') ?
-          " \ 'default_nvim.vim' : 'default_vim.vim')
+  " call mappings#LoadSession(has('nvim') ?
+  " \ 'default_nvim.vim' : 'default_vim.vim')
   " endif
 endfunction
 
@@ -193,7 +173,7 @@ function! s:normalize_window_size() abort
   execute "normal \<c-w>="
 endfunction
 
-" Thu Apr 26 2018 18:08: Never have being able to get this to work 
+" Thu Apr 26 2018 18:08: Never have being able to get this to work
 function! s:restore_last_file() abort
   while !v:vim_did_enter
     execute ':sleep 1m'
