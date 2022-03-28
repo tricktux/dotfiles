@@ -27,6 +27,7 @@ layan-cursor-theme-git
 liquidprompt
 lua-format
 mkchromecast
+neovim-git
 neovim-remote
 nerd-fonts-inconsolata
 numix-gtk-theme
@@ -55,6 +56,7 @@ ttf-weather-icons
 vdhcoapp-bin
 volantes-cursors
 xlayoutdisplay
+ytfzf
 z-git
 zeal
 zoom
