@@ -4,7 +4,9 @@ REM C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe ^
 REM VS2015
 REM "C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe" ^
 REM VS2017
-"C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\MSBuild\15.0\Bin\MSBuild.exe" ^
+REM "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\MSBuild\15.0\Bin\MSBuild.exe" ^
+REM VS2022
+c:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Current\Bin\MSBuild.exe ^
 /maxcpucount ^
 /nologo ^
 /verbosity:quiet ^
