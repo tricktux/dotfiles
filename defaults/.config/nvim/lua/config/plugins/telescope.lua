@@ -65,28 +65,21 @@ local cust_files_opts = {
   path_display = cust_path_display
 }
 
-local win_file = Path:new(os.getenv("LOCALAPPDATA")):joinpath([[\ignore-file]])
-local win_ignore_file = [[--ignore-file=]] .. win_file:absolute()
--- TODO: For now env var ignore file is not working
-local nix_ignore_file = [[--ignore-file=]] .. os.getenv("HOME") ..
-                            [[/.config/ignore-file]]
-local ignore_file = utl.has_win() and win_ignore_file or nix_ignore_file
-
 local fd_file_cmd = {
-  "fd", "--type=file", "--color=never", "--hidden", "--follow", ignore_file
+  "fd", "--type=file", "--color=never", "--hidden", "--follow", utl.rg_ignore_file
 }
 local fd_folder_cmd = {
-  "fd", "--type=directory", "--color=never", "--hidden", "--follow", ignore_file
+  "fd", "--type=directory", "--color=never", "--hidden", "--follow", utl.rg_ignore_file
 }
 local rg_file_cmd = {
-  "rg", "--color=never", "--hidden", "--files", "--follow", ignore_file,
+  "rg", "--color=never", "--hidden", "--files", "--follow", utl.rg_ignore_file,
   "--no-heading",
   "--with-filename",
   "--line-number",
   "--column",
 }
 local rg_grep_cmd = {
-  "--color=never", "--hidden", "--smart-case", "--follow", ignore_file,
+  "--color=never", "--hidden", "--smart-case", "--follow", utl.rg_ignore_file,
   "--no-heading",
   "--with-filename",
   "--line-number",

@@ -1,4 +1,5 @@
 local log = require('utils/log')
+local Path = require('plenary.path')
 local luv = vim.loop
 local api = vim.api
 
@@ -63,6 +64,12 @@ end
 local function has_unix() return package.config:sub(1, 1) == [[/]] end
 
 local function has_win() return package.config:sub(1, 1) == [[\]] end
+
+local win_file = Path:new(os.getenv("LOCALAPPDATA")):joinpath([[ignore-file]])
+local win_ignore_file = [[--ignore-file=]] .. win_file:absolute()
+-- TODO: For now env var ignore file is not working
+local nix_ignore_file = [[--ignore-file=]] .. os.getenv("HOME") .. [[/.config/ignore-file]]
+local ignore_file = has_win() and win_ignore_file or nix_ignore_file
 
 local function isdir(path)
   vim.validate {path = {path, 's'}}
@@ -252,5 +259,6 @@ return {
   io_popen_read = io_popen_read,
   exec_float_term = exec_float_term,
   find_file = _find_file_recurse,
-  get_visual_selection = get_visual_selection
+  get_visual_selection = get_visual_selection,
+  rg_ignore_file = ignore_file
 }
