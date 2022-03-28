@@ -73,8 +73,6 @@ function! plugin#Config()
 
   " call s:configure_vim_zoom()
 
-  call s:configure_vim_utils()
-
   " Possible values:
   " - ycm nvim_compl_manager shuogo_deo shuogo_neo autocomplpop completor asyncomplete
   "   neo_clangd coc
@@ -108,6 +106,7 @@ function! plugin#Config()
   " - Compe is slow for big files. Crawling back to deoplete once again
   if !has('nvim-0.5')
     " Possible values:
+    call s:configure_vim_utils()
     " - neomake ale
     call linting#Set('neomake')
     if has('unix')
