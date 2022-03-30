@@ -42,7 +42,6 @@ function M.config_alpha()
   end
   alpha.setup(startify.config)
 end
-end
 
 function M.config_neomake()
   log.info('ins_right(): neomake')
