@@ -276,6 +276,12 @@ function M:__setup()
     end
   }
 
+  -- TODO: Alternate plugin. No support for plugins for now... :(
+  -- see: https://github.com/goolord/alpha-nvim/issues/51
+  --[[ use {
+    'goolord/alpha-nvim',
+    config = function() require('config.plugins.misc'):config_alpha() end
+  } ]]
   use {
     'mhinz/vim-startify',
     setup = function()
@@ -584,9 +590,7 @@ function M:__setup_local_grip_plugin()
 
   vim.g.grip_tools = { vim.g.grip_rg, vim.g.grip_pdfgrep, vim.g.grip_rg_list }
 
-  log.info('Grip: wiki_path = ', vim.g.wiki_path)
   if vim.g.wiki_path == nil then return end
-  log.info('Grip: setting up wiki_path')
 
   vim.g.grip_wiki = {
     name = 'wiki',
