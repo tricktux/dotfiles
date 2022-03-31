@@ -72,6 +72,7 @@ gnome-keyring
 go
 goimapnotify
 google-glog
+gperf
 grep
 groff
 gtest
@@ -106,12 +107,15 @@ lazygit
 lib32-nvidia-utils
 libao
 libcaca
+libluv
 libmad
 libmikmod
 libmpcdec
 libnotify
 libreoffice-still
+libtermkey
 libtool
+libutf8proc
 lightdm
 linux-firmware
 linux-lts
@@ -119,6 +123,9 @@ linux-lts-headers
 lldb
 lsof
 lua-language-server
+lua51-lpeg
+lua51-mpack
+luacheck
 luajit
 lutris
 lvm2
@@ -135,12 +142,13 @@ mono
 mosh
 mpv
 mpv-mpris
+msgpack-c
 namcap
 neofetch
 neomutt
-neovim
 nextcloud-client
 nfs-utils
+ninja
 nmap
 noto-fonts-emoji
 ntfs-3g
@@ -217,6 +225,7 @@ tldr
 tmux
 todoman
 transmission-qt
+tree-sitter
 ttf-cascadia-code
 ttf-fira-code
 ttf-fira-mono
@@ -224,6 +233,7 @@ ttf-font-awesome
 ttf-inconsolata
 ttf-iosevka-nerd
 udisks2
+unibilium
 unzip
 urlscan
 vdirsyncer
