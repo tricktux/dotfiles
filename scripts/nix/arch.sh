@@ -323,7 +323,7 @@ update_servers() {
 
 pac_maintenance() {
   msg "${CYAN}${BOLD}" "[RIMP]==> Printing state of all packages to /tmp/pac.log ...     "
-  "$aur_helper" -Qkk > /tmp/pac.log
+  "$aur_helper" -Qkk 2>&1 /tmp/pac.log
   nvim /tmp/pac.log
 
   msg "${CYAN}${BOLD}" "[RIMP]==> Checking for .pacnew files...     "
@@ -412,6 +412,42 @@ backup() {
   esac
 }
 
+update_neovim_git() {
+  # Create a subshell to cd locally
+  (
+    set -o pipefail
+    # Dependencies
+    sudo pacman -S --needed --noconfirm cmake unzip ninja tree-sitter curl libluv \
+	    libtermkey libutf8proc libuv libvterm>=0.1.git5 luajit msgpack-c \
+	    unibilium gperf lua51-mpack lua51-lpeg
+    pkgname=neovim-git
+    srcdir=/tmp
+    pkgdir=
+    cd /tmp/
+    [[ -d /tmp/neovim-git ]] && rm -rf neovim-git
+    git clone --depth=1 https://github.com/neovim/neovim.git "${pkgname}"
+    cmake -S"${pkgname}" -Bbuild \
+      -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+      -DCMAKE_INSTALL_PREFIX=/usr
+    cmake --build build
+    cd "${srcdir}/build"
+    sudo DESTDIR="${pkgdir}" cmake --build . --target install
+
+    cd "${srcdir}/${pkgname}"
+    sudo install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+    sudo install -Dm644 runtime/nvim.desktop "${pkgdir}/usr/share/applications/nvim.desktop"
+    sudo install -Dm644 runtime/nvim.png "${pkgdir}/usr/share/pixmaps/nvim.png"
+
+    # Make Arch vim packages work
+    sudo mkdir -p "${pkgdir}"/etc/xdg/nvim
+    echo "\" This line makes pacman-installed global Arch Linux vim packages work." >"${pkgdir}"/etc/xdg/nvim/sysinit.vim
+    sudo echo "source /usr/share/nvim/archlinux.vim" >>"${pkgdir}"/etc/xdg/nvim/sysinit.vim
+
+    mkdir -p "${pkgdir}"/usr/share/vim
+    sudo echo "set runtimepath+=/usr/share/vim/vimfiles" >"${pkgdir}"/usr/share/nvim/archlinux.vim
+  )
+}
+
 setup_colors
 
 # Source: https://www.redhat.com/sysadmin/arguments-options-bash-scripts
@@ -422,7 +458,7 @@ help() {
   echo "All options are optional"
   echo "If no options are provided all tasks will run optionally"
   echo
-  echo "Syntax: update-arch [-i|b|s|c|p|d|n|h]"
+  echo "Syntax: update-arch [-i|b|s|c|p|d|v|n|h]"
   echo "options:"
   echo "i     Install a package"
   echo "b     Run only Backup tasks"
@@ -432,12 +468,13 @@ help() {
   echo "p     Update python virtual environments"
   echo "d     Diff configs with new /etc configs"
   echo "n     Update npm packages"
+  echo "v     Update neovim-git"
   echo "h     Print this Help."
   echo
 }
 
 # Get the options
-while getopts "i:ubcpdh" option; do
+while getopts "i:ubcpdvh" option; do
   case $option in
   h) # display Help
     help
@@ -470,6 +507,10 @@ while getopts "i:ubcpdh" option; do
     ;;
   n)
     update_npm
+    exit 0
+    ;;
+  v)
+    update_neovim_git
     exit 0
     ;;
   \?) # Invalid option
@@ -515,34 +556,7 @@ read -r yn
 case $yn in
 [Qq]*) quit ;;
 [Yy]*)
-  # Create a subshell to cd locally
-  (
-    set -o pipefail
-    pkgname=neovim-git
-    srcdir=/tmp
-    pkgdir=
-    cd /tmp/
-    git clone --depth=1 https://github.com/neovim/neovim.git "${pkgname}"
-    cmake -S"${pkgname}" -Bbuild \
-      -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-      -DCMAKE_INSTALL_PREFIX=/usr
-    cmake --build build
-    cd "${srcdir}/build"
-    sudo DESTDIR="${pkgdir}" cmake --build . --target install
-
-    cd "${srcdir}/${pkgname}"
-    sudo install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
-    sudo install -Dm644 runtime/nvim.desktop "${pkgdir}/usr/share/applications/nvim.desktop"
-    sudo install -Dm644 runtime/nvim.png "${pkgdir}/usr/share/pixmaps/nvim.png"
-
-    # Make Arch vim packages work
-    sudo mkdir -p "${pkgdir}"/etc/xdg/nvim
-    echo "\" This line makes pacman-installed global Arch Linux vim packages work." >"${pkgdir}"/etc/xdg/nvim/sysinit.vim
-    sudo echo "source /usr/share/nvim/archlinux.vim" >>"${pkgdir}"/etc/xdg/nvim/sysinit.vim
-
-    mkdir -p "${pkgdir}"/usr/share/vim
-    sudo echo "set runtimepath+=/usr/share/vim/vimfiles" >"${pkgdir}"/usr/share/nvim/archlinux.vim
-  )
+  update_neovim_git()
   ;;
 esac
 
