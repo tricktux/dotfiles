@@ -106,6 +106,8 @@ function! plugin#Config()
   " - Compe is slow for big files. Crawling back to deoplete once again
   if !has('nvim-0.5')
     " Possible values:
+    call s:configure_vim_table_mode()
+
     call s:configure_vim_utils()
     " - neomake ale
     call linting#Set('neomake')
@@ -181,8 +183,6 @@ function! plugin#Config()
     " Plug 'radenling/vim-dispatch-neovim'
   " endif
   " let g:dispatch_no_maps = 1
-
-  call s:configure_vim_table_mode()
 
   " Options: netranger, nerdtree, chadtree, ranger
   " Mon Aug 17 2020 21:50: Problems with chadtree

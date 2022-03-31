@@ -492,6 +492,18 @@ function M:__setup()
   }
 
   use {
+    'dhruvasagar/vim-table-mode',
+    cmd = 'TableModeToggle',
+    setup = function()
+      vim.g.table_mode_corner = '|'
+      vim.g.table_mode_align_char = ':'
+      vim.g.table_mode_disable_mappings = 1
+      vim.keymap.set('n', [[<leader>ta]], [[<cmd>TableModeToggle<cr>]],
+                     {silent = true})
+    end
+  }
+
+  use {
     'knubie/vim-kitty-navigator',
     after = 'focus.nvim',
     run = 'cp ./*.py ~/.config/kitty/',
@@ -544,34 +556,24 @@ function M:__setup_local_grip_plugin()
   vim.g.grip_pdfgrep = {
     executable = 'pdfgrep',
     args = {
-      [[$*]],
-      '--ignore-case',
-      '--page-number',
-      '--recursive',
-      '--context',
-      '1',
+      [[$*]], '--ignore-case', '--page-number', '--recursive', '--context', '1'
     },
     grepformat = vim.opt.grepformat:get()
   }
   local rg_to_vim_filetypes = {
     vim = 'vimscript',
     python = 'py',
-    markdown = 'md',
+    markdown = 'md'
   }
   vim.g.grip_rg = {
     executable = 'rg',
-    args = { 
-      '--vimgrep',
-      '--smart-case',
-      '--follow',
-      '--fixed-strings',
-      '--hidden',
-      '--no-ignore-vcs',
-      utl.rg_ignore_file,
+    args = {
+      '--vimgrep', '--smart-case', '--follow', '--fixed-strings', '--hidden',
+      '--no-ignore-vcs', utl.rg_ignore_file
     },
     ['filetype_support'] = 1,
     ['filetype_map'] = rg_to_vim_filetypes,
-    ['filetype_option'] = '--type',
+    ['filetype_option'] = '--type'
   }
 
   vim.g.grip_rg_list = {
@@ -580,15 +582,10 @@ function M:__setup_local_grip_plugin()
     search_argument = 0,
     prompt = 0,
     grepformat = '%f',
-    args = {
-      '--follow',
-      '--fixed-strings',
-      '--hidden',
-      utl.rg_ignore_file,
-    },
+    args = {'--follow', '--fixed-strings', '--hidden', utl.rg_ignore_file}
   }
 
-  vim.g.grip_tools = { vim.g.grip_rg, vim.g.grip_pdfgrep, vim.g.grip_rg_list }
+  vim.g.grip_tools = {vim.g.grip_rg, vim.g.grip_pdfgrep, vim.g.grip_rg_list}
 
   if vim.g.wiki_path == nil then return end
 
@@ -597,15 +594,9 @@ function M:__setup_local_grip_plugin()
     prompt = 1,
     executable = 'rg',
     args = {
-      '--vimgrep',
-      '--smart-case',
-      '--follow',
-      '--fixed-strings',
-      '--hidden',
-      utl.rg_ignore_file,
-      [[$*]],
-      vim.g.wiki_path,
-    },
+      '--vimgrep', '--smart-case', '--follow', '--fixed-strings', '--hidden',
+      utl.rg_ignore_file, [[$*]], vim.g.wiki_path
+    }
   }
 
   table.insert(vim.g.grip_tools, vim.g.wiki)
