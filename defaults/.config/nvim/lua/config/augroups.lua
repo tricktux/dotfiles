@@ -55,15 +55,9 @@ local function setup()
 
   id = api.nvim_create_augroup('Cursor', {clear = true})
   api.nvim_create_autocmd('CursorHold', {
-    command = [[silent! update]],
+    command = [[silent! update | checktime]],
     pattern = '*',
-    desc = 'Avoid manual save',
-    group = id
-  })
-  api.nvim_create_autocmd('CursorHold', {
-    command = [[silent! checktime]],
-    pattern = '*',
-    desc = 'Update changed files',
+    desc = 'Avoid manual save, autoread',
     group = id
   })
 
