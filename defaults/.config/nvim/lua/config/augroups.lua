@@ -168,14 +168,6 @@ local function setup()
     desc = 'Better settings for c',
     group = id
   })
-  api.nvim_create_autocmd('BufWinEnter', {
-    callback = function()
-      vim.opt.cursorline = false
-    end,
-    pattern = '*',
-    desc = 'No screen lines',
-    group = id
-  })
 end
 
 return {create = create, setup = setup}

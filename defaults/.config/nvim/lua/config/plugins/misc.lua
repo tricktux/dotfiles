@@ -382,6 +382,8 @@ function M.config_focus()
     number = false,
     excluded_buftypes = {'nofile', 'prompt'},
     relativenumber = false,
+    cursorline = false,
+    signcolumn = false,
     -- Enable auto highlighting for focussed/unfocussed windows
     -- Default: false
     winhighlight = false,
