@@ -53,7 +53,6 @@ function! options#Set() abort
   set shortmess=acst
 
   let &signcolumn='number'
-  set colorcolumn=+1 " Highlight first column after textwidth
   set guitablabel=%N\ %f
   " Silly, always set cool colors
   set termguicolors
@@ -166,10 +165,6 @@ function! options#Set() abort
   "'foldmarker' 'fmr' string (default: "{{{,}}}")
   " Sat Feb 22 2020 16:05: Save only what is necessary
   set viewoptions=cursor,curdir
-  " For conceal markers.
-  if has('conceal')
-    set conceallevel=2 concealcursor=nv
-  endif
 
   if has('nvim')
     set shada='1024,%,s10000,r/tmp,rE:,rF:
@@ -238,6 +233,10 @@ function! options#Set() abort
 
   " Performance Settings
   " see :h slow-terminal
+  set conceallevel=0
+  set colorcolumn=""
+  set nocursorcolumn
+  set nocursorline
   set scrolljump=5
   set sidescroll=15 " see help for sidescroll
   set lazyredraw " Had to addit to speed up scrolling
