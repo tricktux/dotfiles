@@ -133,7 +133,7 @@ local function set_mappings()
     return ff(dotfiles:absolute())
   end
 
-  local lua_plugins = Path:new(vim.g.std_data_path):joinpath(
+  local lua_plugins = Path:new(vim.fn.stdpath('data')):joinpath(
                           [[site/pack/packer]]):absolute()
 
   leader.e = {

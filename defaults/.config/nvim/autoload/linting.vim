@@ -33,7 +33,7 @@ function! s:set_neomake() abort
 	" you need to change it. Do it on a per buffer basis. Look on c.vim for
 	" example
 
-  let g:neomake_tempfile_dir = g:std_cache_path . '/neomake'
+  let g:neomake_tempfile_dir = stdpath('cache') . '/neomake'
 	let g:neomake_error_sign = {'text':
 				\ (exists('g:valid_device') ? "\uf057" : 'X'),
 				\ 'texthl': 'ErrorMsg'}
@@ -122,7 +122,7 @@ function! s:set_neomake() abort
 	" install maven checkstyle uncrustify gradle
 	" for gradle make sure that the `gradlew` script in your project is executable
 	let g:neomake_java_checkstyle_xml =
-				\ g:std_config_path . '/java_checkstyle_SWENG861.xml'
+				\ stdpath('config') . '/java_checkstyle_SWENG861.xml'
 	" Sun Dec 09 2018 19:18:
 	" Not necessary. neomake picks it up automatically
 	" let g:neomake_java_checkstyle_executable = 'checkstyle'
@@ -285,7 +285,7 @@ function! linting#SetNeomakePandocMaker(type) abort
 	if a:type ==# 'pdf'
 		" Set template
 		if !has('unix')
-			let l:cc = substitute(g:std_cache_path, "[\\/]", '\\\\', 'g') . '\\\\'
+			let l:cc = substitute(stdpath('cache'), "[\\/]", '\\\\', 'g') . '\\\\'
 			let l:argu += [
 						\ '--pdf-engine-opt', '-aux-directory=' . l:cc
 						\ ]

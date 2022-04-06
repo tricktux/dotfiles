@@ -21,7 +21,7 @@ let g:loaded_sessions = 1
 " fuzzy_over: When there are more than this number of sessions, use fuzzies to 
 "     select a session
 let s:sessions = {
-      \ 'path' : g:std_data_path . '/sessions/',
+      \ 'path' : stdpath('data') . '/sessions/',
       \ 'save_on_timer' : 1500,
       \ 'timer_id' : 0,
       \ 'fuzz_over' : 100,

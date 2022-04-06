@@ -9,7 +9,7 @@
 " TODO 
 "  check for filereadable(s:api_res_path) every time flux() is called
 let s:api_response_file_name = 'api_response_' . strftime('%m%d%Y') . '.json'
-let s:api_res_path = g:std_cache_path . '/' . s:api_response_file_name
+let s:api_res_path = stdpath('cache') . '/' . s:api_response_file_name
 let s:api_url = 'https://api.sunrise-sunset.org/json?lat={}&lng={}'
 let s:flux_times = {}
 " async curl request

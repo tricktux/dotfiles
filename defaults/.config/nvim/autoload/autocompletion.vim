@@ -144,7 +144,7 @@ function! s:set_shuogo_neo() abort
 	let g:neocomplete#enable_auto_close_preview=1
 
 	let g:neocomplete#enable_smart_case = 1
-	let g:neocomplete#data_directory = g:std_cache_path . '/neocomplete'
+	let g:neocomplete#data_directory = stdpath('cache') . '/neocomplete'
 	" Define keyword.
 	if !exists('g:neocomplete#keyword_patterns')
 		let g:neocomplete#keyword_patterns = {}
@@ -489,10 +489,10 @@ function! s:set_neosnippets() abort
 	" Tell Neosnippet about the other snippets
 	let g:neosnippet#snippets_directory= [
 				\ g:vim_plugins_path . '/vim-snippets/snippets',
-				\ g:std_config_path . '/snippets/',
+				\ stdpath('config') . '/snippets/',
 				\ ]
 	" Fri Oct 20 2017 21:47: Not really data but cache
-	let g:neosnippet#data_directory = g:std_cache_path . '/neosnippets'
+	let g:neosnippet#data_directory = stdpath('cache') . '/neosnippets'
 	" Used by nvim-completion-mgr
 	let g:neosnippet#enable_completed_snippet=1
 	" Tue Jan 14 2020 20:29: For language client completion 
@@ -653,7 +653,7 @@ function! s:set_ulti_snips() abort
 				\ )
 	let g:UltiSnipsSnippetDirectories= [
 				\ g:vim_plugins_path . '/vim-snippets/snippets',
-				\ g:std_config_path . '/snippets/',
+				\ stdpath('config') . '/snippets/',
 				\ ]
 
 	" c-j c-k for moving in snippet

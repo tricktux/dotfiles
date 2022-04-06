@@ -8,7 +8,7 @@ local utl = require('utils.utils')
 local log = require('utils/log')
 
 local M = {}
-M.__path = vim.g.std_data_path .. [[/site/pack/packer/start/packer.nvim]]
+M.__path = vim.fn.stdpath('data') .. [[/site/pack/packer/start/packer.nvim]]
 M.__repo = [[https://github.com/wbthomason/packer.nvim]]
 
 function M:download()
@@ -215,7 +215,7 @@ function M:__setup()
     cmd = {'SVNStatus', 'SVNCommit'},
     setup = function()
       vim.g.svnj_allow_leader_mappings = 0
-      vim.g.svnj_cache_dir = vim.g.std_cache_path
+      vim.g.svnj_cache_dir = vim.fn.stdpath('cache')
       vim.g.svnj_browse_cache_all = 1
       vim.g.svnj_custom_statusbar_ops_hide = 0
       vim.g.svnj_browse_cache_max_cnt = 50
@@ -285,7 +285,7 @@ function M:__setup()
   use {
     'mhinz/vim-startify',
     setup = function()
-      vim.g.startify_session_dir = vim.g.std_data_path .. '/sessions/'
+      vim.g.startify_session_dir = vim.fn.stdpath('data') .. '/sessions/'
 
       vim.g.startify_lists = {
         {['type'] = 'sessions', ['header'] = {'   Sessions'}},
@@ -384,7 +384,7 @@ function M:__setup()
   use {
     'jsfaint/gen_tags.vim', -- Not being suppoprted anymore
     setup = function()
-      vim.g["gen_tags#cache_dir"] = vim.g.std_cache_path .. '/ctags/'
+      vim.g["gen_tags#cache_dir"] = vim.fn.stdpath('cache') .. '/ctags/'
       vim.g["gen_tags#use_cache_dir"] = 1
       vim.g["loaded_gentags#gtags"] = 1 -- Disable gtags
       vim.g["gen_tags#gtags_default_map"] = 0

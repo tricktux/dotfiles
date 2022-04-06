@@ -30,12 +30,12 @@ function! init#vim() abort
 	endif
 
 	" Create required folders for storing usage data
-	call utils#CheckDirWoPrompt(g:std_data_path . '/sessions')
-	call utils#CheckDirWoPrompt(g:std_data_path . '/ctags')
+	call utils#CheckDirWoPrompt(stdpath('data') . '/sessions')
+	call utils#CheckDirWoPrompt(stdpath('data') . '/ctags')
 	" Backups
-	call utils#CheckDirWoPrompt(g:std_cache_path . '/backup')
-	call utils#CheckDirWoPrompt(g:std_cache_path . '/swap')
-	call utils#CheckDirWoPrompt(g:std_cache_path . '/undofiles')
+	call utils#CheckDirWoPrompt(stdpath('cache') . '/backup')
+	call utils#CheckDirWoPrompt(stdpath('cache') . '/swap')
+	call utils#CheckDirWoPrompt(stdpath('cache') . '/undofiles')
 
   call mappings#Set()
   call options#Set()
@@ -175,7 +175,7 @@ function! s:config_unix() abort
 endfunction
 
 function! s:find_python() abort
-  let py = g:std_data_path . '\pyvenv\Scripts'
+  let py = stdpath('data') . '\pyvenv\Scripts'
   if isdirectory(py)
     let g:python3_host_prog = py . '\python.exe'
     let $PATH = py . ';' . $PATH 

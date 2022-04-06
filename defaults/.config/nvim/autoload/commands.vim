@@ -101,8 +101,8 @@ function! s:capture_cmd_out(...) abort
 endfunction
 
 function! s:profile_performance() abort
-  if exists('g:std_cache_path')
-    execute 'profile start ' . g:std_cache_path . '/profile_' .
+  if exists('*stdpath')
+    execute 'profile start ' . stdpath('cache') . '/profile_' .
           \ strftime("%m%d%y-%H.%M.%S") . '.log'
   else
     execute 'profile start ~/.cache/profile_' .
@@ -201,7 +201,7 @@ endfunction
 
 function! s:edit_tmp_doc(type) abort
   let l:sep = has('unix') ? '/' : '\'
-  let l:file_name = g:std_cache_path . l:sep . 'temp_' . strftime('%m%d%Y_%H%M%S')
+  let l:file_name = stdpath('cache') . l:sep . 'temp_' . strftime('%m%d%Y_%H%M%S')
   execute 'edit ' . l:file_name . (empty(a:type) ? '' : '.' . a:type)
 endfunction
 

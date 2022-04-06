@@ -167,12 +167,7 @@ endfunction
 
 function! s:install_template() abort
 	if has('win32')
-		if !exists('g:std_config_path')
-			echomsg 's:install_template(): g:std_config_path doesnt exist'
-			return
-		else
-			let template_path = g:std_config_path . "\\..\\pandoc\\templates\\eisvogel.latex"
-		endif
+    let template_path = stdpath('config') . "\\..\\pandoc\\templates\\eisvogel.latex"
 	else
 		" Sat Sep 16 2017 18:16:
 		" Keyword: latex, pandoc, markdown, pdf, templates, arch, linux, texlive, packages

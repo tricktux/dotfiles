@@ -115,7 +115,7 @@ function! options#Set() abort
   set writebackup
   " Do not skip a single backup
   set backupskip=
-  let &backupdir= g:std_cache_path . '/backup//'
+  let &backupdir= stdpath('cache') . '/backup//'
   let &backupext='_bkp'
   " Tue May 21 2019 10:28: Swap is very painful
   " Still haven't found a good use for it
@@ -123,7 +123,7 @@ function! options#Set() abort
   " let &directory = g:std_cache_path . '/swap//'
 
   " Undofiles
-  let &undodir= g:std_cache_path . '/undo//'
+  let &undodir= stdpath('cache') . '/undo//'
   set undofile
   set undolevels=10000      " use many muchos levels of undo
 
@@ -172,7 +172,7 @@ function! options#Set() abort
     set scrollback=-1
   else
     set viminfo='1024,%,s10000,r/tmp,rE:,rF:
-    let &viminfofile= g:std_data_path .  '/viminfo'
+    let &viminfofile= stdpath('data') .  '/viminfo'
     set ttyscroll=3
     set ttyfast " Had to addit to speed up scrolling
     set noesckeys " No mappings that start with <esc>

@@ -570,7 +570,7 @@ function! mappings#Set()
 endfunction
 
 function! mappings#SaveSession(...) abort
-  let session_path = g:std_data_path . '/sessions/'
+  let session_path = stdpath('data') . '/sessions/'
   " if session name is not provided as function argument ask for it
   silent execute "wall"
   let dir = getcwd()
@@ -598,9 +598,9 @@ function! mappings#SaveSession(...) abort
 endfunction
 
 function! mappings#LoadSession(...) abort
-  let l:session_path = g:std_data_path . '/sessions/'
+  let l:session_path = stdpath('data') . '/sessions/'
 
-  if empty(finddir('sessions', g:std_data_path))
+  if empty(finddir('sessions', stdpath('data')))
     if &verbose > 0
       echoerr '[mappings#LoadSession]: Folder ' .
             \ l:session_path . ' does not exists'

@@ -134,7 +134,7 @@ function! plugin#Config()
     let l:compl = 'shuogo_deo'
     Plug 'dbeniamine/cheat.sh-vim'
     let g:CheatSheetDoNotMap=1
-    let g:ChePHX_GUIatSheetIdPath=g:std_cache_path .
+    let g:ChePHX_GUIatSheetIdPath=stdpath('cache') .
           \ '\cheat_sh_id'
     if (has('unix'))
       Plug 'lambdalisue/suda.vim'
@@ -804,7 +804,7 @@ function! s:configure_ctrlp() abort
   " to keep this innacurrate list of files around. Rely on it less.
   " Thu May 03 2018 05:55: Giving ctrlp another chance. There is like a 1 sec delay
   " with Denite file_mru and file/old doesnt really work.
-  let g:ctrlp_cache_dir = g:std_data_path . '/ctrlp'
+  let g:ctrlp_cache_dir = stdpath('data') . '/ctrlp'
   let g:ctrlp_working_path_mode = 'wra'
   let g:ctrlp_max_history = &history
   let g:ctrlp_clear_cache_on_exit = 0
@@ -1015,7 +1015,7 @@ function! s:configure_pomodoro() abort
       let g:pomodoro_notification_cmd = 'powershell ' . notif
     endif
   endif
-  let g:pomodoro_log_file = g:std_data_path . '/pomodoro_log'
+  let g:pomodoro_log_file = stdpath('data') . '/pomodoro_log'
 
   if exists('g:lightline')
     let g:lightline.active.left[2] += [ 'pomodoro' ]
@@ -1057,11 +1057,11 @@ function! s:configure_file_browser(choice) abort
     let g:NERDTreeMinimalUI=1
     let g:NERDTreeMinimalMenu=1
     let g:NERDTreeQuitOnOpen=1 " AutoClose after openning file
-    let g:NERDTreeBookmarksFile= g:std_data_path . '/.NERDTreeBookmarks'
+    let g:NERDTreeBookmarksFile= stdpath('data') . '/.NERDTreeBookmarks'
     let g:NERDTreeIgnore=['\.d$[[dir]]', '\.o$[[file]]', '__pycache__', '.svn']
   elseif a:choice ==# 'netranger'
     Plug 'ipod825/vim-netranger'
-    let g:NETRRootDir = g:std_data_path . '/netranger/'
+    let g:NETRRootDir = stdpath('data') . '/netranger/'
     let g:NETRIgnore = [ '.git', '.svn', '.sync', '__pycache__' ]
   elseif a:choice ==# 'ranger'
     nmap <plug>file_browser :call <sid>floating_ranger()<cr>
@@ -1088,7 +1088,7 @@ function! s:configure_tag_handler(choice) abort
     Plug 'jsfaint/gen_tags.vim' " Not being suppoprted anymore
 
     " Sat May 16 2020 12:25: Setting a different cache folder messes things up
-    let g:gen_tags#cache_dir = g:std_cache_path . '/ctags/'
+    let g:gen_tags#cache_dir = stdpath('cache') . '/ctags/'
     let g:gen_tags#use_cache_dir = 1
     let g:loaded_gentags#gtags = 1 " Disable gtags
     let g:gen_tags#gtags_default_map = 0
@@ -1113,7 +1113,7 @@ function! s:configure_tag_handler(choice) abort
     let g:gutentags_project_root = ['.svn']
     let g:gutentags_add_default_project_roots = 1
 
-    let g:gutentags_cache_dir = g:std_data_path . '/ctags'
+    let g:gutentags_cache_dir = stdpath('data') . '/ctags'
 
     " if executable('rg')
     " let g:gutentags_file_list_command = 'rg --files'
@@ -1209,8 +1209,8 @@ function! s:configure_vim_utils() abort
   let g:DoxygenToolkit_compactDoc = "yes"
 
   let g:ctags_create_spell=1
-  let g:ctags_spell_script= g:std_config_path . '/tagstospl.py'
-  let g:ctags_output_dir = g:std_data_path . (has('unix') ?
+  let g:ctags_spell_script= stdpath('config') . '/tagstospl.py'
+  let g:ctags_output_dir = stdpath('data') . (has('unix') ?
         \ '/ctags/' : '\ctags\')
   " Cscope databases and spell files will only be
   " created for the following filetypes
@@ -1295,7 +1295,7 @@ function! s:configure_vim_bookmark() abort
   " let g:bookmark_annotation_sign = '##'
   let g:bookmark_manage_per_buffer = 0
   let g:bookmark_save_per_working_dir = 0
-  let g:bookmark_dir = g:std_data_path . '/bookmarks'
+  let g:bookmark_dir = stdpath('data') . '/bookmarks'
   let g:bookmark_auto_save = 0
   let g:bookmark_auto_save_file = g:bookmark_dir . '/bookmarks'
   let g:bookmark_highlight_lines = 1
@@ -1365,9 +1365,7 @@ function! s:configure_vim_startify() abort
   Plug 'mhinz/vim-startify'
 
   " Session options
-  if exists('g:std_data_path')
-    let g:startify_session_dir = g:std_data_path . '/sessions/'
-  endif
+  let g:startify_session_dir = stdpath('data') . '/sessions/'
 
   let g:startify_lists = [
         \ { 'type': 'sessions',  'header': ['   Sessions']       },
@@ -1469,7 +1467,7 @@ function! s:fzf_statusline() abort
 endfunction
 
 function! s:fzf_download() abort
-  let l:fzf_path = g:std_data_path . '/site/plugin/fzf.vim'
+  let l:fzf_path = stdpath('data') . '/site/plugin/fzf.vim'
 
   " If already loaded files cool
   if !empty(glob(l:fzf_path))
@@ -1530,7 +1528,7 @@ function! s:configure_fzf() abort
         \ 'spinner': ['fg', 'Label'],
         \ 'header':  ['fg', 'Comment'] }
 
-  let g:fzf_history_dir = g:std_data_path .  '/fzf-history'
+  let g:fzf_history_dir = stdpath('data') .  '/fzf-history'
   let g:fzf_buffers_jump = 0
 
   if has('nvim-0.4')
@@ -2015,10 +2013,10 @@ function! s:set_neosnippets() abort
   " Tell Neosnippet about the other snippets
   let g:neosnippet#snippets_directory= [
         \ g:vim_plugins_path . '/vim-snippets/snippets',
-        \ g:std_config_path . '/snippets/',
+        \ stdpath('config') . '/snippets/',
         \ ]
   " Fri Oct 20 2017 21:47: Not really data but cache
-  let g:neosnippet#data_directory = g:std_cache_path . '/neosnippets'
+  let g:neosnippet#data_directory = stdpath('cache') . '/neosnippets'
   " Used by nvim-completion-mgr
   let g:neosnippet#enable_completed_snippet=1
   " Tue Jan 14 2020 20:29: For language client completion 

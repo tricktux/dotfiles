@@ -31,7 +31,7 @@ function M:config()
   -- in rtp (for custom-snippet probably
   -- -- `~/.config/nvim/snippets`).
   require("luasnip.loaders.from_snipmate").load({
-    path = {vim.g.std_config_path .. [[/snippets/]]}
+    path = {vim.fn.stdpath('config') .. [[/snippets/]]}
   })
 
   local wk = require("which-key")

@@ -173,7 +173,7 @@ function! s:set_easytags() abort
 	Plug 'xolox/vim-misc' " dependency of vim-easytags
 	Plug 'xolox/vim-shell' " dependency of vim-easytags
 	set regexpengine=1 " This speed up the engine alot but still not enough
-	let g:easytags_file = g:std_cache_path . '/easytags_tags'
+	let g:easytags_file = stdpath('cache') . '/easytags_tags'
 	let g:easytags_syntax_keyword = 'always'
 	let g:easytags_auto_update = 0
 	" let g:easytags_cmd = 'ctags'
@@ -201,7 +201,7 @@ function! s:set_clighter8() abort
 																\ 'clighter8FunctionDecl']
 	let g:clighter8_libclang_path = 'C:\Program Files\LLVM\bin\libclang.dll'
 	" let g:clighter8_global_compile_args = ['-I/usr/local/include']
-	let g:clighter8_logfile = g:std_cache_path . '/clighter8.log'
+	let g:clighter8_logfile = stdpath('cache') . '/clighter8.log'
 	call s:set_clighter8_highlight()
 endfunction
 

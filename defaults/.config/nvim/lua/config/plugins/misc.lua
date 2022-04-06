@@ -182,7 +182,7 @@ function M.config_project()
 
     -- Path where project.nvim will store the project history for use in
     -- telescope
-    datapath = vim.g.std_data_path,
+    datapath = vim.fn.stdpath('data'),
   }
 
   require('telescope').load_extension('projects')
@@ -498,7 +498,7 @@ function M.setup_bookmarks()
   vim.g.bookmark_no_default_key_mappings = 1
   vim.g.bookmark_manage_per_buffer = 0
   vim.g.bookmark_save_per_working_dir = 0
-  vim.g.bookmark_dir = vim.g.std_data_path .. '/bookmarks'
+  vim.g.bookmark_dir = vim.fn.stdpath('data') .. '/bookmarks'
   vim.g.bookmark_auto_save = 0
   vim.g.bookmark_auto_save_file = vim.g.bookmark_dir .. '/bookmarks'
   vim.g.bookmark_highlight_lines = 1
@@ -742,7 +742,7 @@ function M.setup_pomodoro()
       vim.g.pomodoro_notification_cmd = notif
     end
   end
-  vim.g.pomodoro_log_file = vim.g.std_data_path .. '/pomodoro_log'
+  vim.g.pomodoro_log_file = vim.fn.stdpath('data') .. '/pomodoro_log'
 
   log.info('ins_left(): pomodoro')
   line:ins_left{

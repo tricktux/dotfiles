@@ -2,7 +2,7 @@ local utl = require('utils.utils')
 local api = vim.api
 
 local M = {}
-M.__path = vim.g.std_data_path .. [[/site/pack/packer/start/paq-nvim]]
+M.__path = vim.fn.stdpath('data') .. [[/site/pack/packer/start/paq-nvim]]
 M.__repo = [[https://github.com/savq/paq-nvim]]
 
 M.__plugins = {
