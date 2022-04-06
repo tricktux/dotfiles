@@ -3,7 +3,7 @@
 # https://betterdev.blog/minimal-safe-bash-script-template/
 
 aur_helper='paru'
-pacman_cache_loc="nowtheme@192.168.1.138::NetBackup/pacman_cache/$(uname -m)/"
+pacman_cache_loc="nowtheme@192.168.1.139::NetBackup/pacman_cache/$(uname -m)/"
 # Fail as soon as a command fails
 set -Eeuo pipefail
 
