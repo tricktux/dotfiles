@@ -1,4 +1,4 @@
-local log = require('utils/log')
+local log = require('utils.log')
 
 log.info('Setting lua filetypes...')
 vim.filetype.add({
