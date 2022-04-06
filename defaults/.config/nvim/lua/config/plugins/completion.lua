@@ -1,7 +1,7 @@
-local utl = require('utils/utils')
-local log = require('utils/log')
-local aug = require('config/augroups')
-local map = require('utils/keymap')
+local utl = require('utils.utils')
+local log = require('utils.log')
+local aug = require('config.aucmds')
+local map = require('utils.keymap')
 local api = vim.api
 
 local M = {}
