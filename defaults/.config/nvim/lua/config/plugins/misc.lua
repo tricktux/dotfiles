@@ -608,6 +608,7 @@ local function obsession_status()
 end
 
 function M.setup_papercolor()
+  log.info('[papercolor]: Setting up...')
   vim.g.flux_day_colorscheme = 'PaperColor'
   vim.g.flux_night_colorscheme = 'PaperColor'
   vim.g.flux_day_statusline_colorscheme = 'PaperColor_light'

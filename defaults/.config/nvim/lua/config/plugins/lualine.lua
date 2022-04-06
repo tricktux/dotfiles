@@ -2,7 +2,7 @@
 -- Author: shadmansaleh
 -- Credit: glepnir
 -- Link: https://gist.github.com/hoob3rt/b200435a765ca18f09f83580a606b878
-local utl = require('utils/utils')
+local utl = require('utils.utils')
 local log = require('utils.log')
 
 local M = {}
@@ -103,7 +103,41 @@ function M:__ins_right(component)
   table.insert(self.__config.sections.lualine_x, component)
 end
 
+function M:__filesize()
+  local function format_file_size(file)
+    local size = vim.fn.getfsize(file)
+    if size <= 0 then return '' end
+    local sufixes = {'b', 'k', 'm', 'g'}
+    local i = 1
+    while size > 1024 do
+      size = size / 1024
+      i = i + 1
+    end
+    return string.format('%.1f%s', size, sufixes[i])
+  end
+  local file = vim.fn.expand('%:p')
+  if string.len(file) == 0 then return '' end
+  return format_file_size(file)
+end
+
+function M:__lsp()
+  local msg = ''
+  local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+  local clients = vim.lsp.get_active_clients()
+  if next(clients) == nil then
+    return msg
+  end
+  for _, client in ipairs(clients) do
+    local filetypes = client.config.filetypes
+    if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+      return 'lsp: ' .. client.name
+    end
+  end
+  return msg
+end
+
 function M:setup()
+  log.info("[lualine]: Setting up...")
   self:ins_left{
     function() return '▊' end,
     color = {fg = self.colors.blue}, -- Sets highlighting of component
@@ -116,6 +150,15 @@ function M:setup()
     left_padding = 0
   }
 
+  self:ins_left{ 'windows', }
+
+  self:ins_left { self.__lsp, }
+
+  self:ins_left(self.__diagnostics)
+
+  -- Insert mid section. You can make any number of sections in neovim :)
+  self:ins_left{function() return '%=' end}
+
   self:ins_left{
     'filename',
     file_status = true,
@@ -123,32 +166,19 @@ function M:setup()
     condition = self.__conditions.buffer_not_empty
   }
 
-  self:__ins_right(self.__diagnostics)
-
   self:__ins_right{'filetype', colored = true, icon_only = false}
+
+  self:__ins_right{'fileformat'}
+
+  self:__ins_right{'encoding'}
 
   self:__ins_right{'location', right_padding = 0}
 
   self:__ins_right{'progress'}
 
+  -- filesize component
   self:__ins_right{
-    -- filesize component
-    function()
-      local function format_file_size(file)
-        local size = vim.fn.getfsize(file)
-        if size <= 0 then return '' end
-        local sufixes = {'b', 'k', 'm', 'g'}
-        local i = 1
-        while size > 1024 do
-          size = size / 1024
-          i = i + 1
-        end
-        return string.format('%.1f%s', size, sufixes[i])
-      end
-      local file = vim.fn.expand('%:p')
-      if string.len(file) == 0 then return '' end
-      return format_file_size(file)
-    end,
+    self.__filesize,
     condition = self.__conditions.buffer_not_empty,
     left_padding = 0,
     right_padding = 0
@@ -159,10 +189,10 @@ function M:setup()
     color = {fg = self.colors.blue},
     right_padding = 0
   }
-
 end
 
 function M:config()
+  log.info("[lualine]: Configuring...")
   require('lualine').setup(self.__config)
 end
 

@@ -5,7 +5,7 @@
 -- Created:        Tue Sep 08 2020 22:20
 -- Last Modified:  Tue Sep 08 2020 22:20
 local utl = require('utils.utils')
-local log = require('utils/log')
+local log = require('utils.log')
 
 local M = {}
 M.__path = vim.fn.stdpath('data') .. [[/site/pack/packer/start/packer.nvim]]
@@ -299,7 +299,11 @@ function M:__setup()
 
   use {
     'NLKNguyen/papercolor-theme',
-    setup = function() require('config.plugins.misc'):setup_papercolor() end
+    setup = function() require('config.plugins.misc'):setup_papercolor() end,
+    config = function()
+      require('utils.log').info('[papercolor]: Configuring...')
+      vim.cmd[[colorscheme PaperColor]]
+    end
   }
 
   use {
@@ -519,7 +523,8 @@ function M:__setup()
     -- List of plugins that update the lualine elements
     -- Add plugis here that use the ins_{left,right} functions
     after = {
-      'neomake', 'nvim-gps', 'pomodoro.vim', 'vim-obsession', 'gitsigns.nvim'
+      'neomake', 'nvim-gps', 'pomodoro.vim', 'vim-obsession', 'gitsigns.nvim',
+      'papercolor-theme'
     },
     config = function() require('config.plugins.lualine'):config() end
   }
