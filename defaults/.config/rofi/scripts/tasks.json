@@ -124,6 +124,10 @@
     "command": "pass --clip linux/`hostname`/user/root"
   },
   {
+    "name": "🔑 pass skywafer",
+    "command": "pass --clip nas/synology/skywafer/rei_login"
+  },
+  {
     "name": "🔑 pass ssh key github",
     "command": "pass --clip linux/`hostname`/ssh_key/id_ed25519_github"
   },
