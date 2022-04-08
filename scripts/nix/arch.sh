@@ -55,6 +55,9 @@ quit() {
 }
 
 update_machine_learning() {
+  # This is all that is needed to have a neat self contained environment
+  # All needed is to activate the environment: source bin/activate
+  # jupyter notebook <x>
   $aur_helper -Syu --needed --noconfirm python38 \
     nvidia opencl-nvidia cuda \
     ncurses5-compat-libs python-pycuda cudnn
@@ -63,7 +66,7 @@ update_machine_learning() {
   local venv_loc="$XDG_DATA_HOME/pyvenv"
   local venv_name="machine_learning"
   local pkgs=(
-    turicreate
+    turicreate jupyter_ascending pycuda
   )
 
   mkdir -p "$venv_loc"
@@ -73,6 +76,9 @@ update_machine_learning() {
   pip3.8 install --upgrade ${pkgs[*]}
   pip3.8 uninstall -y tensorflow
   pip3.8 install tensorflow-gpu
+  jupyter nbextension    install jupyter_ascending --user --py
+  jupyter nbextension     enable jupyter_ascending --user --py
+  jupyter serverextension enable jupyter_ascending --user --py
   deactivate
 }
 
@@ -102,6 +108,7 @@ update_pynvim() {
   local pkgs=(
     vim-vint psutil flake8 jedi matplot
     frosted pep8 pylint pylama pynvim isort mypy debugpy
+    jupyter_ascending
   )
 
   mkdir -p "$venv_loc"
