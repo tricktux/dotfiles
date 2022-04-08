@@ -75,7 +75,7 @@ help() {
 SRC="INVALID"
 # Needs full path since its run as sudo
 SNAP="INVALID"
-OPTS="-rltgoi --delay-updates --delete --copy-links --mkpath"
+OPTS="-rltgoi --delay-updates --delete --copy-links --mkpath --info=progress2"
 MINCHANGES=20
 
 # Get the options
