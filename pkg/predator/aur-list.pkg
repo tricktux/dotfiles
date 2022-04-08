@@ -23,6 +23,7 @@ liquidprompt
 lua-format
 lutris-battlenet-meta
 mps-youtube-git
+ncurses5-compat-libs
 neovim-git
 neovim-remote
 nerd-fonts-inconsolata
@@ -38,6 +39,7 @@ pass-update
 polybar
 popcorntime-bin
 python-selenium
+python38
 qpdfview
 qt5-styleplugins
 ranger-git
