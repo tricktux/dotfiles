@@ -54,6 +54,28 @@ quit() {
   exit 0
 }
 
+update_machine_learning() {
+  $aur_helper -Syu --needed --noconfirm python38 \
+    nvidia opencl-nvidia cuda \
+    ncurses5-compat-libs python-pycuda cudnn
+
+  python3.8 -m ensurepip --upgrade
+  local venv_loc="$XDG_DATA_HOME/pyvenv"
+  local venv_name="machine_learning"
+  local pkgs=(
+    turicreate
+  )
+
+  mkdir -p "$venv_loc"
+  python3.8 -m venv "$venv_loc/$venv_name" \
+    --symlinks --clear
+  source "$venv_loc/$venv_name/bin/activate"
+  pip3.8 install --upgrade ${pkgs[*]}
+  pip3.8 uninstall -y tensorflow
+  pip3.8 install tensorflow-gpu
+  deactivate
+}
+
 update_polybar_python_venv() {
   local venv_loc="$XDG_DATA_HOME/pyvenv"
   local venv_name="polybar"
@@ -125,7 +147,7 @@ pac_update_install() {
   # $aur_helper -Sy --needed archlinux-keyring ca-certificates
 
   msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating pacman cache FROM server...     "
-  sudo rsync -rltgoi --delay-updates --copy-links -e ssh \
+  sudo rsync -rltgoi --delay-updates --copy-links --info=progress2 -e ssh \
     $pacman_cache_loc /var/cache/pacman/pkg/ || echo "there were errors..."
 
   msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating core and aur packages...     "
@@ -135,7 +157,7 @@ pac_update_install() {
   save_pkg_list_to_dotfiles
 
   msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating pacman cache TO server...     "
-  rsync -rltgoi --delay-updates --copy-links -e ssh \
+  rsync -rltgoi --delay-updates --copy-links --info=progress2 -e ssh \
     /var/cache/pacman/pkg/ "$pacman_cache_loc" || echo "there were errors..."
 }
 
@@ -293,6 +315,12 @@ update_python_venv() {
   case $yn in
   [Qq]*) quit ;;
   [Yy]*) update_pynvim ;;
+  esac
+  msg_not "${BLUE}${BOLD}" "[RIMP]==> Update machine learning pyvenv? [y/N/q]"
+  read -r yn
+  case $yn in
+    [Qq]*) quit ;;
+    [Yy]*) update_machine_learning ;;
   esac
 }
 
@@ -463,7 +491,8 @@ help() {
   echo "i     Install a package"
   echo "b     Run only Backup tasks"
   echo "c     Clean up tasks"
-  echo "u     Pacman Udpate and Maintnance tasks"
+  echo "u     Pacman Udpate"
+  echo "m     Maintnance tasks"
   echo "s     Update servers"
   echo "p     Update python virtual environments"
   echo "d     Diff configs with new /etc configs"
@@ -474,7 +503,7 @@ help() {
 }
 
 # Get the options
-while getopts "i:ubcpdvh" option; do
+while getopts "i:ubcpdmvh" option; do
   case $option in
   h) # display Help
     help
@@ -490,6 +519,9 @@ while getopts "i:ubcpdvh" option; do
     ;;
   u)
     pac_update_install
+    exit 0
+    ;;
+  m)
     pac_maintenance
     exit 0
     ;;
