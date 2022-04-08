@@ -121,6 +121,9 @@ export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
 export DIFFPROG="nvim -d"
 export DIFFSEARCHPATH="/boot /etc /usr"
 
+# jupyter
+export JUPYTERLAB_DIR=$HOME/.local/share/jupyter/lab
+
 # As given by the output of tzselect
 export TZ='America/New_York'
 
