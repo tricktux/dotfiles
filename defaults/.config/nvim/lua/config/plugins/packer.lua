@@ -518,6 +518,10 @@ function M:__setup()
     cond = function() return require('utils.utils').has_unix() end
   }
 
+  if vim.fn.has('unix') then
+    use {'untitled-ai/jupyter_ascending.vim'}
+  end
+
   use {
     'nvim-lualine/lualine.nvim',
     -- List of plugins that update the lualine elements
