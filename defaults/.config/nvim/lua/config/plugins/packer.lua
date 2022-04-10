@@ -519,7 +519,16 @@ function M:__setup()
   }
 
   if vim.fn.has('unix') then
-    use {'untitled-ai/jupyter_ascending.vim'}
+    use {
+      'untitled-ai/jupyter_ascending.vim',
+      setup = function()
+        local py = os.getenv("HOME") ..
+          [[/.local/share/pyvenv/machine_learning/bin/python]]
+        if vim.fn.isdirectory(py) > 0 then
+          vim.g.jupyter_ascending_python_executable = py
+        end
+      end
+    }
   end
 
   use {

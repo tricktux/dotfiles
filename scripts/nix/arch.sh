@@ -108,7 +108,6 @@ update_pynvim() {
   local pkgs=(
     vim-vint psutil flake8 jedi matplot
     frosted pep8 pylint pylama pynvim isort mypy debugpy
-    jupyter_ascending
   )
 
   mkdir -p "$venv_loc"
