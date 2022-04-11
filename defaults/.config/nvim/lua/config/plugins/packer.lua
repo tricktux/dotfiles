@@ -468,10 +468,11 @@ function M:__setup()
     config = function() require('config.plugins.misc'):config_project() end
   }
 
-  --[[ use {
+  use {
     'jose-elias-alvarez/null-ls.nvim',
+    requires = { "nvim-lua/plenary.nvim" },
     config = function() require('config.plugins.null-ls'):setup() end
-  } ]]
+  }
 
   use {
     'L3MON4D3/LuaSnip',
