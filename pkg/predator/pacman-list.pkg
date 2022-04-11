@@ -32,6 +32,8 @@ cppcheck
 cpupower
 cscope
 ctags
+cuda
+cudnn
 cups
 cups-pdf
 dhcpcd
@@ -88,6 +90,7 @@ highlight
 hplip
 hunspell
 hunspell-en_us
+hyperfine
 i3-wm
 i3blocks
 i3lock
@@ -100,6 +103,7 @@ jdk8-openjdk
 jq
 jre8-openjdk
 jsoncpp
+jupyter-notebook
 keepassxc
 khal
 khard
@@ -155,10 +159,12 @@ noto-fonts-emoji
 ntfs-3g
 ntp
 numlockx
+nvidia
 nvidia-lts
 nvidia-settings
 nvtop
 odt2txt
+opencl-nvidia
 openvpn
 otf-cascadia-code
 otf-fira-mono
@@ -186,6 +192,7 @@ pulseaudio-alsa
 pyright
 python-cpplint
 python-pip
+python-pycuda
 python-pywal
 qrencode
 rapidjson

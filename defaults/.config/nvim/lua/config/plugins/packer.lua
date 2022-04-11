@@ -519,6 +519,19 @@ function M:__setup()
     cond = function() return require('utils.utils').has_unix() end
   }
 
+  if vim.fn.has('unix') then
+    use {
+      'untitled-ai/jupyter_ascending.vim',
+      setup = function()
+        local py = os.getenv("HOME") ..
+          [[/.local/share/pyvenv/machine_learning/bin/python]]
+        if vim.fn.isdirectory(py) > 0 then
+          vim.g.jupyter_ascending_python_executable = py
+        end
+      end
+    }
+  end
+
   use {
     'nvim-lualine/lualine.nvim',
     -- List of plugins that update the lualine elements
