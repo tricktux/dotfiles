@@ -112,7 +112,6 @@ local function _config_unix()
 end
 
 local function init_os()
-  require('utils.keymap'):set() -- Set mappings
   local log = require('utils.log')
   local utl = require('utils.utils')
 
@@ -138,6 +137,7 @@ local function main()
   log.info('--- Start Neovim Run ---')
   set_globals()
 
+  require('utils.keymap'):set() -- Set mappings
   init_os()
   -- Rationale for plugins last:
   --  This way you can set your default mappings/options and plugins can
