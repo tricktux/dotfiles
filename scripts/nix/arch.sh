@@ -581,6 +581,14 @@ case $yn in
 [Qq]*) quit ;;
 [Yy]*) update_nvim_plugins ;;
 esac
+msg_not "${BLUE}${BOLD}" "[RIMP]==> Update all rustup packages? [y/N/q]"
+read -r yn
+case $yn in
+  [Qq]*) quit ;;
+  [Yy]*)
+    rustup update
+    ;;
+esac
 msg_not "${BLUE}${BOLD}" "[RIMP]==> Update all npm global packages (md2apkg)? [y/N/q]"
 read -r yn
 case $yn in
@@ -594,7 +602,7 @@ read -r yn
 case $yn in
 [Qq]*) quit ;;
 [Yy]*)
-  update_neovim_git()
+  update_neovim_git
   ;;
 esac
 
