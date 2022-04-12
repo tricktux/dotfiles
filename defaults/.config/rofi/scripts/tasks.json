@@ -8,12 +8,12 @@
     "command": "$TERMINAL $HOME/.config/dotfiles/scripts/nix/arch.sh -c"
   },
   {
-    "name": "🔒 network-openvpn-client-home-start",
-    "command": "sudo systemctl start openvpn-client@home"
+    "name": "🔒 network-wireguard-wg0-home-start",
+    "command": "sudo systemctl start systemd-resolved wg-quick@wg0"
   },
   {
-    "name": "🔓 network-openvpn-client-home-stop",
-    "command": "sudo systemctl stop openvpn-client@home"
+    "name": "🔓 network-wireguard-wg0-home-stop",
+    "command": "sudo systemctl stop wg-quick@wg0 systemd-resolved"
   },
   {
     "name": "☀️ flux day",

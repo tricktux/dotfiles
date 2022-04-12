@@ -411,6 +411,24 @@ paci --needed --noconfirm synology-drive
 
 paci --needed --noconfirm riseup-vpn
 
+# wireguard {{{
+# Get conf file from router linux_pcs
+# Put it at /etc/wireguard/wg0.conf
+paci --needed --noconfirm wire0guard-tools systemd-resolvconf
+# The value for this ip is given by the ip assigned to the peer
+# You can find it in the config file
+sudo bash -c 'echo "nameserver 10.4.0.7" >> /etc/resolv.conf'
+sudo reboot
+# Try it with:
+sudo wg-quick up wg0
+sudo wg-quick down wg0
+sudo systemctl start wg-quick@wg0.service
+sudo systemctl status wg-quick@wg0.service
+sudo systemctl stop wg-quick@wg0.service
+sudo chmod 700 /etc/wireguard/wg0.conf
+sudo chmod 600 /etc/wireguard/wg0.conf
+# }}}
+
 # openvpn {{{
 paci --needed --noconfirm openvpn
 # Test it

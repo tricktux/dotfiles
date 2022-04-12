@@ -1,10 +1,10 @@
 #!/bin/sh
 
-UNIT="openvpn-client@home"
+UNIT="wg-quick@wg0"
 
 journalctl --follow -o cat --unit $UNIT | while read -r; do
   if [ "$(systemctl is-active "$UNIT")" = "active" ]; then
-    echo "   home.ovpn  "
+    echo "   wg0  "
   else
     echo ""
   fi
