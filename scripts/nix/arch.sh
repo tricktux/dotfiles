@@ -516,7 +516,7 @@ while getopts "i:ubcpdmvh" option; do
     exit
     ;;
   i)
-    pac_update_install $OPTARG
+    pac_update_install ${OPTARG}
     exit 0
     ;;
   b)
