@@ -106,8 +106,8 @@ update_pynvim() {
   local venv_loc="$XDG_DATA_HOME/pyvenv"
   local venv_name="nvim"
   local pkgs=(
-    vim-vint psutil flake8 jedi matplot
-    frosted pep8 pylint pylama pynvim isort mypy debugpy
+    vim-vint psutil flake8 mypy debugpy
+    frosted pep8 pylint pylama pynvim isort 
   )
 
   mkdir -p "$venv_loc"
