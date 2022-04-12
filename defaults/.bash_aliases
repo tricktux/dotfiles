@@ -21,23 +21,23 @@ alias kstt="kitty @set-tab-title"
 alias kswt="kitty @set-window-title"
 
 # Install
-alias paci="$HOME/.config/dotfiles/scripts/nix/arch.sh -i $@"
+alias paci="\$HOME"/.config/dotfiles/scripts/nix/arch.sh -i "$@"
 # Update
-alias pacu="$HOME/.config/dotfiles/scripts/nix/arch.sh -u"
+alias pacu="\$HOME"/.config/dotfiles/scripts/nix/arch.sh -u
 # Version
-alias pacv="$aur_helper -Si"
+alias pacv="\$aur_helper -Si"
 # Search
-alias pacsf="$aur_helper -Slq | fzf --multi --preview '$aur_helper -Si {1}' | xargs -ro $aur_helper -S"
-alias pacs="$aur_helper -Ss"
+alias pacsf="\$aur_helper -Slq | fzf --multi --preview '\$aur_helper -Si {1}' | xargs -ro \$aur_helper -S"
+alias pacs="\$aur_helper -Ss"
 # Remove
-alias pacu="$aur_helper -Rscn"
-alias pacr="$aur_helper -Rscn"
+alias pacu="\$aur_helper -Rscn"
+alias pacr="\$aur_helper -Rscn"
 # Remove only
-alias pacro="$aur_helper -Rdd"
-alias pacuo="$aur_helper -Rdd"
-alias pacbroken="$aur_helper -Qkk"
+alias pacro="\$aur_helper -Rdd"
+alias pacuo="\$aur_helper -Rdd"
+alias pacbroken="\$aur_helper -Qkk"
 # List files of package
-alias pacll="$aur_helper -Ql"
+alias pacll="\$aur_helper -Ql"
 
 # git
 alias ga='git add'
