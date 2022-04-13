@@ -372,12 +372,12 @@ nvim "$HOME/.config/kitty/$(hostname).conf"
 paci --needed --noconfirm nfs-utils
 mkdir -p $HOME/.mnt/skynfs
 mkdir -p $HOME/.mnt/skywafer/{home,music,shared,video}
-sudo bash -c 'printf "192.168.1.138:/volume1/backup /home/reinaldo/.mnt/skynfs nfs _netdev,noauto,user,x-systemd.automount,x-systemd.mount-timeout=10,timeo=14,x-systemd.idle-timeout=1min,vers=3 0 0" >> /etc/fstab'
-sudo bash -c 'printf "\n//192.168.1.138/home /home/reinaldo/.mnt/skywafer/home cifs credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev 0 0" >> /etc/fstab'
-sudo bash -c 'printf "\n//192.168.1.138/music /home/reinaldo/.mnt/skywafer/music cifs credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev 0 0" >> /etc/fstab'
+sudo bash -c 'printf "192.168.1.139:/volume1/backup /home/reinaldo/.mnt/skynfs nfs _netdev,noauto,user,x-systemd.automount,x-systemd.mount-timeout=10,timeo=14,x-systemd.idle-timeout=1min,vers=3 0 0" >> /etc/fstab'
+sudo bash -c 'printf "\n//192.168.1.139/home /home/reinaldo/.mnt/skywafer/home cifs credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev 0 0" >> /etc/fstab'
+sudo bash -c 'printf "\n//192.168.1.139/music /home/reinaldo/.mnt/skywafer/music cifs credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev 0 0" >> /etc/fstab'
 
 # Try it with
-sudo mount -v -t nfs 192.168.1.138:/volume1/backup /home/reinaldo/.mnt/skynfs \
+sudo mount -v -t nfs 192.168.1.139:/volume1/backup /home/reinaldo/.mnt/skynfs \
   -o vers=3
 mv ~/.gnupg{,_orig}
 sudo cp -r \
@@ -400,8 +400,15 @@ sudo chown root:root /etc/samba/credentials/share
 sudo chmod 700 /etc/samba/credentials/share
 sudo chmod 600 /etc/samba/credentials/share
 
+# This is now for the caching of `pacman` packages on the network
+sudo nvim /etc/rsync
+# All the content in this file should just be the password: nas/synology/skywafer/rsync
+sudo chown root:root /etc/rsync
+sudo chmod 700 /etc/rsync
+sudo chmod 600 /etc/rsync
+
 paci --needed --noconfirm cifs-utils
-sudo mount -t cifs //192.168.1.138/home ~/.mnt/skywafer/home -o credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev
+sudo mount -t cifs //192.168.1.139/home ~/.mnt/skywafer/home -o credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev
 mkdir -p ~/Documents
 # ln -s ~/.mnt/skywafer/home/Drive/wiki ~/Documents
 paci --needed --noconfirm synology-drive

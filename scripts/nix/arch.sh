@@ -153,17 +153,19 @@ pac_update_install() {
   # $aur_helper -Sy --needed archlinux-keyring ca-certificates
 
   msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating pacman cache FROM server...     "
-  sudo rsync -rltgoi --delay-updates --copy-links --info=progress2 -e ssh \
-    $pacman_cache_loc /var/cache/pacman/pkg/ || echo "there were errors..."
+  sudo rsync -rltgoi --delay-updates --copy-links --info=progress1 \
+    --password-file=/etc/rsync \
+    "$pacman_cache_loc" /var/cache/pacman/pkg/
 
   msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating core and aur packages...     "
-  $aur_helper -Syu $@
+  $aur_helper -Syu "$@"
 
   msg "${CYAN}${BOLD}" "[RIMP]==> Storing package list...     "
   save_pkg_list_to_dotfiles
 
   msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating pacman cache TO server...     "
-  rsync -rltgoi --delay-updates --copy-links --info=progress2 -e ssh \
+  rsync -rltgoi --delay-updates --copy-links --info=progress1 \
+    --password-file=/etc/rsync \
     /var/cache/pacman/pkg/ "$pacman_cache_loc" || echo "there were errors..."
 }
 
