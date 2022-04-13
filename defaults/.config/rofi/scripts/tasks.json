@@ -153,7 +153,7 @@
   },
   {
     "name": "📧 email neomutt",
-    "command": "$TERMINAL $HOME/.config/kitty/neomutt.sh"
+    "command": "$TERMINAL --hold $HOME/.config/kitty/neomutt.sh"
   },
   {
     "name": "🖼️ wallpaper internet random",
