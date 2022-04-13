@@ -8,4 +8,5 @@ journalctl --follow -o cat --unit $UNIT | while read -r; do
   else
     echo ""
   fi
+  sleep 1
 done
