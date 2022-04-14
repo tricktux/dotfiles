@@ -5,7 +5,6 @@ local M = {}
 
 function M.nvimtree_config()
   -- These additional options must be set **BEFORE** calling `require'nvim-tree'` or calling setup.
-  vim.g.nvim_tree_indent_markers = 1 -- 0 by default, this option shows indent markers when folders are open
   vim.g.nvim_tree_git_hl = 0 -- 0 by default, will enable file highlight for git attributes (can be used without the icons).
   vim.g.nvim_tree_highlight_opened_files = 1 -- 0 by default, will enable folder and file icon highlight for opened files/directories.
   vim.g.nvim_tree_root_folder_modifier = ':~' -- This is the default. See :help filename-modifiers for more options
@@ -31,7 +30,6 @@ function M.nvimtree_config()
     hijack_netrw = true,
     open_on_setup = false,
     ignore_ft_on_setup = {'startify', 'dashboard'},
-    auto_close = true,
     auto_open = true,
     tab_open = true,
     follow = true,
@@ -41,6 +39,16 @@ function M.nvimtree_config()
     update_focused_file = {enable = true, update_cwd = true, ignore_list = {}},
     system_open = {cmd = nil, args = {}},
     filters = {dotfiles = false, custom = {}},
+    renderer = {
+      indent_markers = {
+        enable = true,
+        icons = {
+          corner = "└ ",
+          edge = "│ ",
+          none = "  ",
+        },
+      },
+    },
     diagnostics = {
       enable = false,
       icons = {hint = "", info = "", warning = "", error = ""}
