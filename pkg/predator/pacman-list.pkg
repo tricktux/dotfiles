@@ -83,7 +83,6 @@ gtk2fontsel
 gvfs-gphoto2
 gvfs-mtp
 gzip
-handbrake
 hdparm
 helvum
 highlight
@@ -212,6 +211,7 @@ steam
 stow
 stylua
 sudo
+systemd-resolvconf
 tesseract-data-eng
 texinfo
 texlive-bibtexextra
