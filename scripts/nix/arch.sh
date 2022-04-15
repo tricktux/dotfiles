@@ -58,15 +58,20 @@ update_machine_learning() {
   # This is all that is needed to have a neat self contained environment
   # All needed is to activate the environment: source bin/activate
   # jupyter notebook <x>
-  $aur_helper -Syu --needed --noconfirm python38 \
-    nvidia opencl-nvidia cuda \
-    ncurses5-compat-libs python-pycuda cudnn
+  amd=`lspci | grep 'VGA'`
+  $aur_helper -Syu --needed --noconfirm python38
+
+  if [[ $amd != *"AMD"* ]]; then
+    $aur_helper -Syu --needed --noconfirm \
+      nvidia opencl-nvidia cuda \
+      ncurses5-compat-libs cudnn
+  fi
 
   python3.8 -m ensurepip --upgrade
   local venv_loc="$XDG_DATA_HOME/pyvenv"
   local venv_name="machine_learning"
   local pkgs=(
-    turicreate jupyter_ascending pycuda
+    turicreate jupyter_ascending
   )
 
   mkdir -p "$venv_loc"
@@ -74,8 +79,10 @@ update_machine_learning() {
     --symlinks --clear
   source "$venv_loc/$venv_name/bin/activate"
   pip3.8 install --upgrade ${pkgs[*]}
-  pip3.8 uninstall -y tensorflow
-  pip3.8 install tensorflow-gpu
+  if [[ $amd != *"AMD"* ]]; then
+    pip3.8 uninstall -y tensorflow
+    pip3.8 install tensorflow-gpu pycuda
+  fi
   jupyter nbextension    install jupyter_ascending --user --py
   jupyter nbextension     enable jupyter_ascending --user --py
   jupyter serverextension enable jupyter_ascending --user --py
@@ -153,8 +160,8 @@ pac_update_install() {
   # $aur_helper -Sy --needed archlinux-keyring ca-certificates
 
   msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating pacman cache FROM server...     "
-  sudo rsync -rltgoi --delay-updates --copy-links --info=progress1 \
-    --password-file=/etc/rsync \
+  sudo rsync -rltgoi --delay-updates --copy-links --info=progress2 \
+    --password-file=/etc/rsync --progress \
     "$pacman_cache_loc" /var/cache/pacman/pkg/
 
   msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating core and aur packages...     "
@@ -164,9 +171,9 @@ pac_update_install() {
   save_pkg_list_to_dotfiles
 
   msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating pacman cache TO server...     "
-  rsync -rltgoi --delay-updates --copy-links --info=progress1 \
-    --password-file=/etc/rsync \
-    /var/cache/pacman/pkg/ "$pacman_cache_loc" || echo "there were errors..."
+  sudo rsync -rltgoi --delay-updates --copy-links --info=progress2 \
+    --password-file=/etc/rsync --progress \
+    /var/cache/pacman/pkg/ "$pacman_cache_loc"
 }
 
 cleanup_junk() {
