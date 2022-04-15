@@ -523,11 +523,15 @@ function M:__setup()
     use {
       'untitled-ai/jupyter_ascending.vim',
       setup = function()
-        local py = os.getenv("HOME") ..
-          [[/.local/share/pyvenv/machine_learning/bin/python]]
-        if vim.fn.isdirectory(py) > 0 then
-          vim.g.jupyter_ascending_python_executable = py
-        end
+        vim.g.jupyter_ascending_default_mappings = false
+        vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+          pattern = "*.sync.py",
+          callback = function()
+            vim.keymap.set('n', '<localleader>j', '<Plug>JupyterExecute', { silent = true, buffer = true })
+            vim.keymap.set('n', '<localleader>k', '<Plug>JupyterExecuteAll', { silent = true, buffer = true })
+          end,
+          once = true
+        })
       end
     }
   end
