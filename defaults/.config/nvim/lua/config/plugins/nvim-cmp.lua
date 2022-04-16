@@ -17,9 +17,9 @@ function M:setup()
       end,
     },
     completion = {
-      keyword_length = 2,
+      keyword_length = 1,
     },
-    mapping = {
+    mapping = cmp.mapping.preset.insert({
       ['<C-d>'] = cmp.mapping.scroll_docs(4),
       ['<C-u>'] = cmp.mapping.scroll_docs(-4),
       -- Move cursor
@@ -33,7 +33,7 @@ function M:setup()
       -- ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
       -- ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
       ['<CR>'] = cmp.mapping.disable,
-    },
+    }),
     sources = utl.has_unix() and unix_sources or win_sources,
     formatting = {
       format = lspkind.cmp_format {
@@ -51,7 +51,7 @@ function M:setup()
     },
     experimental = {
       -- Let's play with this for a day or two
-      ghost_text = true,
+      ghost_text = false,
     },
     view = {
       entries = 'custom'
