@@ -58,7 +58,7 @@ update_machine_learning() {
   # This is all that is needed to have a neat self contained environment
   # All needed is to activate the environment: source bin/activate
   # jupyter notebook <x>
-  amd=`lspci | grep 'VGA'`
+  amd=$(lspci | grep 'VGA')
   $aur_helper -Syu --needed --noconfirm python38
 
   if [[ $amd != *"AMD"* ]]; then
@@ -71,14 +71,14 @@ update_machine_learning() {
   local venv_loc="$XDG_DATA_HOME/pyvenv"
   local venv_name="machine_learning"
   local pkgs=(
-    turicreate jupyter_ascending
+    turicreate jupyter_ascending matplot
   )
 
   mkdir -p "$venv_loc"
   python3.8 -m venv "$venv_loc/$venv_name" \
     --symlinks --clear
   source "$venv_loc/$venv_name/bin/activate"
-  pip3.8 install --upgrade ${pkgs[*]}
+  pip3.8 install --upgrade "${pkgs[@]}"
   if [[ $amd != *"AMD"* ]]; then
     pip3.8 uninstall -y tensorflow
     pip3.8 install tensorflow-gpu pycuda
