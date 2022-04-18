@@ -640,7 +640,7 @@ paci --needed --noconfirm shellcheck-bin shfmt
 ## lua-language-server consumes ton of cpu power. Plus its chinese, don't trust 
 ## it
 ## Tue Jun 15 2021 11:21: Giving it another try
-paci --needed --noconfirm luajit lua-format luacheck lua-language-server-git
+paci --needed --noconfirm luajit stylua luacheck lua-language-server-git
 #}}}
 
 ## java{{{
