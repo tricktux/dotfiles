@@ -1,3 +1,4 @@
+local log = require('utils.log')
 local null = require("null-ls")
 local helpers = require("null-ls.helpers")
 
@@ -34,10 +35,108 @@ M.plantuml = {
   }),
 }
 
+M.msbuild = {
+  name = "msbuild",
+  filetypes = {"c", "cpp", "cs"},
+  method = null.methods.DIAGNOSTICS,
+  generator = null.generator({
+    command = "msbuild",
+    args = {},
+    to_stdin = true,
+    from_stderr = true,
+    -- choose an output format (raw, json, or line)
+    format = "raw",
+    check_exit_code = function(code, stderr)
+      local success = code == 0
+
+      if not success then
+        -- can be noisy for things that run often (e.g. diagnostics), but can
+        -- be useful for things that run on demand (e.g. formatting)
+        print(stderr)
+      end
+
+      return success
+    end,
+    -- use helpers to parse the output from string matchers,
+    -- or parse it manually with a function
+    -- 'errorformat': '%EError line %l in file: %f,%Z%m',
+    on_output = helpers.diagnostics.from_errorformat(
+    [=[%f(%l): %t%*[^ ] C%n: %m [%.%#]]=], 'msbuild')
+  }),
+}
+
 function M:setup()
-  local sources = {}
-  if vim.fn.executable('plantuml') > 0 then
+  -- See here for configuring builtins
+  -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md
+  -- See here for list of builtins
+  -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
+  local sources = {
+    null.builtins.diagnostics.editorconfig_checker
+  }
+  if vim.fn.executable('python') > 0 then
+    log.info('NullLs setting up json_tool...')
+    table.insert(sources, null.builtins.formatting.json_tool)
+  end
+  local py = vim.fn.stdpath('data') .. [[/../pyvenv/nvim/bin]]
+  if vim.fn.isdirectory(py) > 0 then
+    local exe = py .. [[/mypy]]
+    if vim.fn.filereadable(exe) > 0 then
+      log.info('NullLs setting up mypy...')
+      table.insert(sources, null.builtins.diagnostics.mypy.with{cmd = exe})
+    end
+    exe = py .. [[/isort]]
+    if vim.fn.filereadable(exe) > 0 then
+      log.info('NullLs setting up isort...')
+      table.insert(sources, null.builtins.formatting.isort.with{cmd = exe})
+    end
+    exe = py .. [[/black]]
+    if vim.fn.filereadable(exe) > 0 then
+      log.info('NullLs setting up black...')
+      table.insert(sources, null.builtins.formatting.black.with{cmd = exe})
+    end
+    exe = py .. [[/autopep8]]
+    if vim.fn.filereadable(exe) > 0 then
+      log.info('NullLs setting up autopep8...')
+      table.insert(sources, null.builtins.formatting.autopep8.with{cmd = exe})
+    end
+    exe = py .. [[/pylint]]
+    if vim.fn.filereadable(exe) > 0 then
+      log.info('NullLs setting up pylint...')
+      table.insert(sources, null.builtins.diagnostics.pylint.with{cmd = exe})
+    end
+    exe = py .. [[/pylama]]
+    if vim.fn.filereadable(exe) > 0 then
+      log.info('NullLs setting up pylama...')
+      table.insert(sources, null.builtins.diagnostics.pylama.with{cmd = exe})
+    end
+  end
+  if vim.fn.executable('stylua') > 0 then
+    log.info('NullLs setting up stylua...')
     table.insert(sources, null.builtins.formatting.stylua)
+  end
+  if vim.fn.executable('shfmt') > 0 then
+    log.info('NullLs setting up shfmt...')
+    table.insert(sources, null.builtins.formatting.shfmt)
+  end
+  if vim.fn.executable('shellcheck') > 0 then
+    log.info('NullLs setting up shellcheck...')
+    table.insert(sources, null.builtins.diagnostics.shellcheck)
+  end
+  if vim.fn.executable('rustfmt') > 0 then
+    log.info('NullLs setting up rustfmt...')
+    table.insert(sources, null.builtins.formatting.rustfmt.with{
+      extra_args = { "--edition=2021" }
+    })
+  end
+  if vim.fn.executable('cmake-format') > 0 then
+    log.info('NullLs setting up cmake-format...')
+    table.insert(sources, null.builtins.formatting.cmake_format)
+  end
+  if vim.fn.executable('clang-format') > 0 then
+    log.info('NullLs setting up clang-format...')
+    table.insert(sources, null.builtins.formatting.clang_format.with{
+      extra_args = {'-style=file', '-fallback-style="LLVM"'}
+    })
   end
 
   null.setup({
@@ -48,6 +147,9 @@ function M:setup()
   })
   if vim.fn.executable('plantuml') > 0 then
     null.register(self.plantuml)
+  end
+  if vim.fn.has('win32') > 0 then
+    null.register(self.msbuild)
   end
 end
 

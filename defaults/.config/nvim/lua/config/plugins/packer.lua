@@ -256,7 +256,6 @@ function M:__setup()
   use {'alepez/vim-gtest', ft = 'cpp'}
   use {'neomutt/neomutt.vim', ft = 'muttrc'}
   use {'fladson/vim-kitty'}
-  use 'editorconfig/editorconfig-vim'
 
   use {
     'chaoren/vim-wordmotion',
@@ -491,12 +490,6 @@ function M:__setup()
   }
 
   use {
-    'neomake/neomake',
-    setup = function() vim.cmd [[call linting#Set('neomake')]] end,
-    config = function() require('config.plugins.misc'):config_neomake() end
-  }
-
-  use {
     'dhruvasagar/vim-table-mode',
     cmd = 'TableModeToggle',
     setup = function()
@@ -541,7 +534,7 @@ function M:__setup()
     -- List of plugins that update the lualine elements
     -- Add plugis here that use the ins_{left,right} functions
     after = {
-      'neomake', 'nvim-gps', 'pomodoro.vim', 'vim-obsession', 'gitsigns.nvim',
+      'nvim-gps', 'pomodoro.vim', 'vim-obsession', 'gitsigns.nvim',
       'papercolor-theme'
     },
     config = function() require('config.plugins.lualine'):config() end

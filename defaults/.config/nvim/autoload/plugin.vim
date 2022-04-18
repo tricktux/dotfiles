@@ -105,6 +105,8 @@ function! plugin#Config()
   " Fri Apr 02 2021 09:15:
   " - Compe is slow for big files. Crawling back to deoplete once again
   if !has('nvim-0.5')
+    " Having problems with formatter.nvim
+    call s:configure_neoformat()
     " Possible values:
     call s:configure_vim_table_mode()
 
@@ -273,11 +275,8 @@ function! plugin#Config()
     " If using treesitter don't use Semshi
     Plug 'numirias/semshi'
     let g:semshi#mark_selected_nodes = 0
-    call s:configure_neoformat()
   endif
 
-  " Having problems with formatter.nvim
-  call s:configure_neoformat()
 
   " cpp
 
