@@ -1,13 +1,7 @@
-requests
-psutil
-flake8
-# isort
-jedi
-pynvim
-python-lsp-server[all]
-frosted
-pep8
-pylint
-matplot
+mypy
 debugpy
+black
+autopep8
+pylint
 pylama
+isort 
