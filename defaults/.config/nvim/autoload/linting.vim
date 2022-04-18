@@ -46,11 +46,11 @@ function! s:set_neomake() abort
 				\ (exists('g:valid_device') ? "\uf449" : 'I'),
 				\ 'texthl': 'NeomakeInfoSign'}
 
-	" let g:neomake_plantuml_maker = {
-	" 			\ 'exe': 'plantuml',
-	" 			\ 'errorformat': '%EError line %l in file: %f,%Z%m',
-	" 			\ 'cwd': '%:p:h'
-	" 			\ }
+	let g:neomake_plantuml_maker = {
+				\ 'exe': 'plantuml',
+				\ 'errorformat': '%EError line %l in file: %f,%Z%m',
+				\ 'cwd': '%:p:h'
+				\ }
 
   let g:neomake_cmakelint_maker = {
         \ 'exe': 'cmakelint',
@@ -116,7 +116,7 @@ function! s:set_neomake() abort
 	" `<LocalLeader>m` to make entire projects, meaning to run your project 
 	" builder.
 	" Fri Nov 03 2017 19:20: For vim linting use: `pip install vim-vint --user`
-	" let g:neomake_plantuml_enabled_makers = ['plantuml']
+	let g:neomake_plantuml_enabled_makers = ['plantuml']
 
 	" java setup
 	" install maven checkstyle uncrustify gradle
