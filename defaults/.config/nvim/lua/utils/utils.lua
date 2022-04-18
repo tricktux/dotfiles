@@ -1,4 +1,4 @@
-local log = require('utils/log')
+local log = require('utils.log')
 local Path = require('plenary.path')
 local luv = vim.loop
 local api = vim.api
