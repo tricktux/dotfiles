@@ -100,7 +100,7 @@ update_polybar_python_venv() {
   python -m venv "$venv_loc/$venv_name" \
     --symlinks --clear
   source "$venv_loc/$venv_name/bin/activate"
-  pip3 install --upgrade ${pkgs[*]}
+  pip3 install --upgrade "${pkgs[@]}"
   deactivate
 }
 
@@ -113,15 +113,15 @@ update_pynvim() {
   local venv_loc="$XDG_DATA_HOME/pyvenv"
   local venv_name="nvim"
   local pkgs=(
-    vim-vint psutil flake8 mypy debugpy
-    frosted pep8 pylint pylama pynvim isort 
+    mypy debugpy black
+    autopep8 pylint pylama pynvim isort 
   )
 
   mkdir -p "$venv_loc"
   python -m venv "$venv_loc/$venv_name" \
     --symlinks --clear
   source "$venv_loc/$venv_name/bin/activate"
-  pip3 install --ignore-installed --upgrade ${pkgs[*]}
+  pip3 install --ignore-installed --upgrade "${pkgs[@]}"
   deactivate
 }
 
