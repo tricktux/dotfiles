@@ -67,12 +67,6 @@ local function set_lsp_mappings(capabilities, bufnr)
     w = workspace
   }
 
-  -- Set some keybinds conditional on server capabilities
-  if capabilities.document_formatting then
-    mappings.f = {lsp.buf.formatting, 'formatting'}
-  elseif capabilities.document_range_formatting then
-    mappings.f = {lsp.buf.range_formatting, 'range_formatting'}
-  end
   wk.register(mappings, opts)
 
   -- Override default mappings with lsp intelligent analougous
@@ -95,6 +89,13 @@ local function set_lsp_mappings(capabilities, bufnr)
     h = {lsp.buf.hover, 'hover'}
   }
 
+  -- Set some keybinds conditional on server capabilities
+  if capabilities.document_formatting then
+    mappings.f = {lsp.buf.formatting, 'formatting'}
+  end
+  if capabilities.document_range_formatting then
+    mappings.F = {lsp.buf.range_formatting, 'range_formatting'}
+  end
   wk.register(mappings, opts)
 
   require('config.plugins.telescope').set_lsp_mappings(bufnr)
