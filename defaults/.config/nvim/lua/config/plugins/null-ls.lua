@@ -77,38 +77,29 @@ function M:setup()
     log.info('NullLs setting up json_tool...')
     table.insert(sources, null.builtins.formatting.json_tool)
   end
-  local py = vim.fn.stdpath('data') .. [[/../pyvenv/nvim/bin]]
-  if vim.fn.isdirectory(py) > 0 then
-    local exe = py .. [[/mypy]]
-    if vim.fn.filereadable(exe) > 0 then
-      log.info('NullLs setting up mypy...')
-      table.insert(sources, null.builtins.diagnostics.mypy.with{cmd = exe})
-    end
-    exe = py .. [[/isort]]
-    if vim.fn.filereadable(exe) > 0 then
-      log.info('NullLs setting up isort...')
-      table.insert(sources, null.builtins.formatting.isort.with{cmd = exe})
-    end
-    exe = py .. [[/black]]
-    if vim.fn.filereadable(exe) > 0 then
-      log.info('NullLs setting up black...')
-      table.insert(sources, null.builtins.formatting.black.with{cmd = exe})
-    end
-    exe = py .. [[/autopep8]]
-    if vim.fn.filereadable(exe) > 0 then
-      log.info('NullLs setting up autopep8...')
-      table.insert(sources, null.builtins.formatting.autopep8.with{cmd = exe})
-    end
-    exe = py .. [[/pylint]]
-    if vim.fn.filereadable(exe) > 0 then
-      log.info('NullLs setting up pylint...')
-      table.insert(sources, null.builtins.diagnostics.pylint.with{cmd = exe})
-    end
-    exe = py .. [[/pylama]]
-    if vim.fn.filereadable(exe) > 0 then
-      log.info('NullLs setting up pylama...')
-      table.insert(sources, null.builtins.diagnostics.pylama.with{cmd = exe})
-    end
+  if vim.fn.executable("mypy") > 0 then
+    log.info('NullLs setting up mypy...')
+    table.insert(sources, null.builtins.diagnostics.mypy)
+  end
+  if vim.fn.executable("isort") > 0 then
+    log.info('NullLs setting up isort...')
+    table.insert(sources, null.builtins.formatting.isort)
+  end
+  if vim.fn.executable("black") > 0 then
+    log.info('NullLs setting up black...')
+    table.insert(sources, null.builtins.formatting.black)
+  end
+  if vim.fn.executable("autopep8") > 0 then
+    log.info('NullLs setting up autopep8...')
+    table.insert(sources, null.builtins.formatting.autopep8)
+  end
+  if vim.fn.executable("pylint") > 0 then
+    log.info('NullLs setting up pylint...')
+    table.insert(sources, null.builtins.diagnostics.pylint)
+  end
+  if vim.fn.executable("pylama") > 0 then
+    log.info('NullLs setting up pylama...')
+    table.insert(sources, null.builtins.diagnostics.pylama)
   end
   if vim.fn.executable('stylua') > 0 then
     log.info('NullLs setting up stylua...')
@@ -138,10 +129,14 @@ function M:setup()
       extra_args = {'-style=file', '-fallback-style="LLVM"'}
     })
   end
+  if vim.fn.executable('cppcheck') > 0 then
+    log.info('NullLs setting up cppcheck...')
+    table.insert(sources, null.builtins.diagnostics.cppcheck)
+  end
 
   null.setup({
-    debug = false,
-    diagnostics_format = "[#{c}] #{m} (#{s})",
+    debug = true,
+    diagnostics_format = "(#{s}): #{m}",
     on_attach = require('config.lsp').on_lsp_attach,
     sources = sources
   })
