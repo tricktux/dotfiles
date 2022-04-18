@@ -62,8 +62,8 @@ local function set_lsp_mappings(capabilities, bufnr)
     D = {lsp.buf.type_definition, 'type_definition'},
     R = {lsp.buf.references, 'references'},
     S = {lsp.stop_all_clients, 'stop_all_clients'},
-    n = {lsp.diagnostic.show_line_diagnostics, 'show_line_diagnostics'},
-    l = {lsp.diagnostic.set_loclist, 'set_loclist'},
+    n = {vim.diagnostic.open_float, 'show_line_diagnostics'},
+    l = {lsp.diagnostic.setloclist, 'set_loclist'},
     w = workspace
   }
 
@@ -91,7 +91,7 @@ local function set_lsp_mappings(capabilities, bufnr)
     r = {lsp.buf.rename, 'lsp_rename'},
     d = {lsp.buf.definition, 'lsp_definition'},
     u = {lsp.buf.references, 'references'},
-    n = {lsp.diagnostic.show_line_diagnostics, 'show_line_diagnostics'},
+    n = {vim.diagnostic.open_float, 'show_line_diagnostics'},
     h = {lsp.buf.hover, 'hover'}
   }
 
