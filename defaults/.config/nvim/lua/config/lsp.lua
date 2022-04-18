@@ -145,40 +145,22 @@ local function on_clangd_attach(client_id, bufnr)
   return on_lsp_attach(client_id, bufnr)
 end
 
-local function diagnostic_set()
-  -- Taken from:
-  -- https://github.com/neovim/nvim-lspconfig/issues/69
-  local method = "textDocument/publishDiagnostics"
-  local default_handler = vim.lsp.handlers[method]
-  vim.lsp.handlers[method] = function(err, method, result, client_id, bufnr,
-                                      config)
-    config = {
-      virtual_text = false,
+local function diagnostic_config()
+  local opts = {
+      virtual_text = {source = "if_many"},
       underline = true,
       signs = true,
       update_in_insert = false,
-      float = false
-    }
-    -- Call the default handler
-    local loc = vim.fn.has('nvim-0.6') > 0 and {open = false} or
-                    {open_loclist = false}
-    default_handler(err, method, result, client_id, bufnr, config)
-    vim.diagnostic.setloclist(loc)
-    -- Do overwrite my search list
-    if #vim.fn.getqflist() > 0 then return end
-    local diagnostics = vim.diagnostic.get()
-    local qflist = {open = false}
-    for nbufnr, diagnostic in pairs(diagnostics) do
-      for _, d in ipairs(diagnostic) do
-        d.bufnr = nbufnr
-        d.lnum = d.range.start.line + 1
-        d.col = d.range.start.character + 1
-        d.text = d.message
-        table.insert(qflist, d)
-      end
-    end
-    vim.diagnostic.setqflist(qflist)
-  end
+      float = {source = "if_many"}
+  }
+  vim.diagnostic.config(opts)
+  vim.api.nvim_create_autocmd("DiagnosticChanged", {
+          pattern = "*",
+          callback = function()
+            vim.diagnostic.setqflist{open = false }
+            vim.diagnostic.setloclist{open = false }
+          end,
+        })
 end
 
 -- TODO
@@ -186,7 +168,8 @@ end
 local function lsp_set()
   -- Notice not all configs have a `callbacks` setting
   local nvim_lsp = require('lspconfig')
-  diagnostic_set()
+
+  diagnostic_config()
 
   -- vim.lsp.set_log_level("debug")
   setup_fidget()
