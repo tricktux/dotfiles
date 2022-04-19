@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<doublecmd DCVersion="1.0.4 beta" ConfigVersion="12">
+<doublecmd DCVersion="1.0.5 beta" ConfigVersion="12">
   <Toolbars>
     <MainToolbar>
       <Row>
@@ -216,7 +216,7 @@
       <KeepTerminalOpen>True</KeepTerminalOpen>
     </Viewer>
     <Editor Enabled="True">
-      <Path>/usr/bin/nvr -s</Path>
+      <Path>nvim --server /tmp/nvim.socket --remote</Path>
       <Parameters>%ps</Parameters>
       <RunInTerminal>True</RunInTerminal>
       <KeepTerminalOpen>False</KeepTerminalOpen>
@@ -486,133 +486,8 @@
       <MulRenPathRangeSeparator>- </MulRenPathRangeSeparator>
     </MultiRename>
   </FileOperations>
-  <Tabs>
-    <Options>49937</Options>
-    <CharacterLimit>32</CharacterLimit>
-    <Position>0</Position>
-    <ActionOnDoubleClick>2</ActionOnDoubleClick>
-    <OpenedTabs>
-      <Left>
-        <ActiveTab>0</ActiveTab>
-        <Tab>
-          <FileView Type="columns">
-            <History>
-              <Entry Active="True">
-                <FileSource Type="FileSystem"/>
-                <Paths>
-                  <Path>/home/reinaldo/.config/doublecmd/</Path>
-                </Paths>
-              </Entry>
-            </History>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-          <Title>config</Title>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <History>
-              <Entry Active="True">
-                <FileSource Type="FileSystem"/>
-                <Paths>
-                  <Path>/home/reinaldo/.icons/default/</Path>
-                </Paths>
-              </Entry>
-            </History>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-          <Title>home</Title>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <History>
-              <Entry Active="True">
-                <FileSource Type="FileSystem"/>
-                <Paths>
-                  <Path>/home/reinaldo/Documents/awesome-cv/</Path>
-                </Paths>
-              </Entry>
-            </History>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-          <Title>Documents</Title>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <History>
-              <Entry Active="True">
-                <FileSource Type="FileSystem"/>
-                <Paths>
-                  <Path>/home/reinaldo/.local/share/icons/hicolor/</Path>
-                </Paths>
-              </Entry>
-            </History>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-          <Title>local.share</Title>
-        </Tab>
-      </Left>
-      <Right>
-        <ActiveTab>0</ActiveTab>
-        <Tab>
-          <FileView Type="columns">
-            <History>
-              <Entry Active="True">
-                <FileSource Type="FileSystem"/>
-                <Paths>
-                  <Path>/home/reinaldo/.config/dotfiles/doublecmd/</Path>
-                </Paths>
-              </Entry>
-            </History>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-          <Title>dotfiles</Title>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <History>
-              <Entry Active="True">
-                <FileSource Type="FileSystem"/>
-                <Paths>
-                  <Path>/tmp/</Path>
-                </Paths>
-              </Entry>
-            </History>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <History>
-              <Entry Active="True">
-                <FileSource Type="FileSystem"/>
-                <Paths>
-                  <Path>/bin/</Path>
-                </Paths>
-              </Entry>
-            </History>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-          <Title>usr</Title>
-        </Tab>
-      </Right>
-    </OpenedTabs>
-  </Tabs>
-  <Log Enabled="True" LogFileWithDateInName="False" Count="0">
-    <FileName>/tmp/doublecmd.log</FileName>
+  <Log Enabled="False" LogFileWithDateInName="False" Count="0">
+    <FileName>%DC_CONFIG_PATH%\doublecmd.log</FileName>
     <Options>1023</Options>
   </Log>
   <History>
@@ -629,7 +504,7 @@
   </QuickSearch>
   <QuickFilter>
     <AutoHide>True</AutoHide>
-    <SaveSessionModifications>True</SaveSessionModifications>
+    <SaveSessionModifications>False</SaveSessionModifications>
   </QuickFilter>
   <Miscellaneous>
     <GridVertLine>False</GridVertLine>

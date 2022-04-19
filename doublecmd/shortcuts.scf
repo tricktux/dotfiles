@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<doublecmd DCVersion="0.9.10 beta">
-  <Hotkeys Version="46">
+<doublecmd DCVersion="1.0.5 beta">
+  <Hotkeys Version="53">
     <Form Name="Main">
       <Hotkey>
         <Shortcut>F2</Shortcut>
@@ -11,11 +11,7 @@
         <Command>cm_RenameOnly</Command>
       </Hotkey>
       <Hotkey>
-        <Shortcut>Shift+C</Shortcut>
-        <Command>cm_Copy</Command>
-      </Hotkey>
-      <Hotkey>
-        <Shortcut>Shift+N</Shortcut>
+        <Shortcut>Ctrl+N</Shortcut>
         <Command>cm_Rename</Command>
       </Hotkey>
       <Hotkey>
@@ -37,11 +33,11 @@
       </Hotkey>
       <Hotkey>
         <Shortcut>Ctrl+B</Shortcut>
-        <Command>cm_FlatView</Command>
+        <Command>cm_RenameTab</Command>
       </Hotkey>
       <Hotkey>
         <Shortcut>Ctrl+F</Shortcut>
-        <Command>cm_QuickFilter</Command>
+        <Command>cm_LoadFavoriteTabs</Command>
       </Hotkey>
       <Hotkey>
         <Shortcut>Ctrl+H</Shortcut>
@@ -52,20 +48,12 @@
         <Command>cm_DirHistory</Command>
       </Hotkey>
       <Hotkey>
-        <Shortcut>Ctrl+L</Shortcut>
-        <Command>cm_CalculateSpace</Command>
-      </Hotkey>
-      <Hotkey>
         <Shortcut>Ctrl+M</Shortcut>
-        <Command>cm_MultiRename</Command>
+        <Command>cm_ContextMenu</Command>
       </Hotkey>
       <Hotkey>
         <Shortcut>Ctrl+O</Shortcut>
-        <Command>cm_ToggleFullscreenConsole</Command>
-      </Hotkey>
-      <Hotkey>
-        <Shortcut>Ctrl+Q</Shortcut>
-        <Command>cm_QuickView</Command>
+        <Command>cm_View</Command>
       </Hotkey>
       <Hotkey>
         <Shortcut>Ctrl+R</Shortcut>
@@ -124,7 +112,7 @@
         <Command>cm_ShellExecute</Command>
       </Hotkey>
       <Hotkey>
-        <Shortcut>Shift+Y</Shortcut>
+        <Shortcut>Ctrl+Y</Shortcut>
         <Command>cm_CopyFullNamesToClip</Command>
       </Hotkey>
       <Hotkey>
@@ -180,20 +168,12 @@
         <Command>cm_CopySamePanel</Command>
       </Hotkey>
       <Hotkey>
-        <Shortcut>Shift+I</Shortcut>
-        <Command>cm_ContextMenu</Command>
-      </Hotkey>
-      <Hotkey>
         <Shortcut>Shift+F12</Shortcut>
         <Command>cm_DoAnyCmCommand</Command>
       </Hotkey>
       <Hotkey>
         <Shortcut>Alt+V</Shortcut>
         <Command>cm_OperationsViewer</Command>
-      </Hotkey>
-      <Hotkey>
-        <Shortcut>Alt+X</Shortcut>
-        <Command>cm_Exit</Command>
       </Hotkey>
       <Hotkey>
         <Shortcut>Alt+Z</Shortcut>
@@ -252,20 +232,12 @@
         <Command>cm_Search</Command>
       </Hotkey>
       <Hotkey>
-        <Shortcut>Ctrl+P</Shortcut>
-        <Command>cm_EditPath</Command>
-      </Hotkey>
-      <Hotkey>
         <Shortcut>Ctrl+I</Shortcut>
         <Command>cm_CompareContents</Command>
       </Hotkey>
       <Hotkey>
         <Shortcut>Ctrl+Shift+I</Shortcut>
         <Command>cm_CompareDirectories</Command>
-      </Hotkey>
-      <Hotkey>
-        <Shortcut>Ctrl+S</Shortcut>
-        <Command>cm_SymLink</Command>
       </Hotkey>
       <Hotkey>
         <Shortcut>F1</Shortcut>
@@ -325,7 +297,7 @@
         <Param>index=9</Param>
       </Hotkey>
       <Hotkey>
-        <Shortcut>Alt+`</Shortcut>
+        <Shortcut>Alt+0</Shortcut>
         <Command>cm_ActivateTabByIndex</Command>
         <Param>index=-1</Param>
       </Hotkey>
@@ -383,36 +355,39 @@
         <Command>cm_DirHotList</Command>
       </Hotkey>
       <Hotkey>
-        <Shortcut>Shift+R</Shortcut>
-        <Command>cm_RenameTab</Command>
+        <Shortcut>Ctrl+L</Shortcut>
+        <Command>cm_Reload</Command>
       </Hotkey>
       <Hotkey>
-        <Shortcut>Shift+S</Shortcut>
-        <Command>cm_ResaveFavoriteTabs</Command>
-      </Hotkey>
-      <Hotkey>
-        <Shortcut>Shift+L</Shortcut>
-        <Command>cm_LoadFavoriteTabs</Command>
-      </Hotkey>
-      <Hotkey>
-        <Shortcut>Shift+T</Shortcut>
-        <Command>cm_OpenDirInNewTab</Command>
-      </Hotkey>
-      <Hotkey>
-        <Shortcut>Shift+J</Shortcut>
+        <Shortcut>Ctrl+J</Shortcut>
         <Command>cm_PrevTab</Command>
       </Hotkey>
       <Hotkey>
-        <Shortcut>Shift+K</Shortcut>
+        <Shortcut>Ctrl+K</Shortcut>
         <Command>cm_NextTab</Command>
       </Hotkey>
       <Hotkey>
-        <Shortcut>Shift+E</Shortcut>
+        <Shortcut>Ctrl+E</Shortcut>
         <Command>cm_Edit</Command>
       </Hotkey>
       <Hotkey>
-        <Shortcut>Shift+V</Shortcut>
-        <Command>cm_View</Command>
+        <Shortcut>Ctrl+Q</Shortcut>
+        <Command>cm_Exit</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Ctrl+Shift+B</Shortcut>
+        <Command>cm_FlatViewSel</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Ctrl+Shift+W</Shortcut>
+        <Command>cm_CloseAllTabs</Command>
+        <Param>side=both</Param>
+        <Param>dolocked=1</Param>
+        <Param>confirmlocked=0</Param>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Ctrl+P</Shortcut>
+        <Command>cm_Copy</Command>
       </Hotkey>
       <Hotkey>
         <Shortcut>Del</Shortcut>
@@ -503,6 +478,11 @@
       <Hotkey>
         <Shortcut>'</Shortcut>
         <Command>cm_DirHotList</Command>
+        <Control>Files Panel</Control>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Ctrl+S</Shortcut>
+        <Command>cm_ResaveFavoriteTabs</Command>
         <Control>Files Panel</Control>
       </Hotkey>
     </Form>
@@ -596,10 +576,6 @@
         <Param>UTF-16LE</Param>
       </Hotkey>
       <Hotkey>
-        <Shortcut>R</Shortcut>
-        <Command>cm_Reload</Command>
-      </Hotkey>
-      <Hotkey>
         <Shortcut>/</Shortcut>
         <Command>cm_Find</Command>
       </Hotkey>
@@ -614,6 +590,14 @@
       <Hotkey>
         <Shortcut>F1</Shortcut>
         <Command>cm_About</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>F6</Shortcut>
+        <Command>cm_ShowCaret</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Ctrl+P</Shortcut>
+        <Command>cm_Print</Command>
       </Hotkey>
     </Form>
     <Form Name="Differ">
@@ -654,6 +638,14 @@
       <Hotkey>
         <Shortcut>F2</Shortcut>
         <Command>cm_AddToQueue</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>F5</Shortcut>
+        <Command>cm_ToggleSelectionInName</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>F6</Shortcut>
+        <Command>cm_ToggleSelectionInName</Command>
       </Hotkey>
     </Form>
     <Form Name="Edit Comment Dialog">
@@ -826,6 +818,164 @@
       <Hotkey>
         <Shortcut>Ctrl+R</Shortcut>
         <Command>cm_SelectCopyRightToLeft</Command>
+      </Hotkey>
+    </Form>
+    <Form Name="MultiRename">
+      <Hotkey>
+        <Shortcut>Ctrl+R</Shortcut>
+        <Command>cm_ResetAll</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Ctrl+I</Shortcut>
+        <Command>cm_InvokeEditor</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>F3</Shortcut>
+        <Command>cm_LoadNamesFromFile</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>F4</Shortcut>
+        <Command>cm_EditNames</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Shift+F4</Shortcut>
+        <Command>cm_EditNewNames</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>F10</Shortcut>
+        <Command>cm_Config</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>F9</Shortcut>
+        <Command>cm_Rename</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Esc</Shortcut>
+        <Command>cm_Close</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Shift+F2</Shortcut>
+        <Command>cm_ShowPresetsMenu</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>F2</Shortcut>
+        <Command>cm_DropDownPresetList</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Alt+0</Shortcut>
+        <Command>cm_LoadLastPreset</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Alt+1</Shortcut>
+        <Command>cm_LoadPreset1</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Alt+2</Shortcut>
+        <Command>cm_LoadPreset2</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Alt+3</Shortcut>
+        <Command>cm_LoadPreset3</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Alt+4</Shortcut>
+        <Command>cm_LoadPreset4</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Alt+5</Shortcut>
+        <Command>cm_LoadPreset5</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Alt+6</Shortcut>
+        <Command>cm_LoadPreset6</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Alt+7</Shortcut>
+        <Command>cm_LoadPreset7</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Alt+8</Shortcut>
+        <Command>cm_LoadPreset8</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Alt+9</Shortcut>
+        <Command>cm_LoadPreset9</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Ctrl+S</Shortcut>
+        <Command>cm_SavePreset</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>F12</Shortcut>
+        <Command>cm_SavePresetAs</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Shift+F6</Shortcut>
+        <Command>cm_RenamePreset</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Ctrl+D</Shortcut>
+        <Command>cm_DeletePreset</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Ctrl+Shift+S</Shortcut>
+        <Command>cm_SortPresets</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Ctrl+F2</Shortcut>
+        <Command>cm_AnyNameMask</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Ctrl+F3</Shortcut>
+        <Command>cm_NameNameMask</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Ctrl+F4</Shortcut>
+        <Command>cm_ExtNameMask</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Ctrl+F7</Shortcut>
+        <Command>cm_CtrNameMask</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Ctrl+F5</Shortcut>
+        <Command>cm_DateNameMask</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Ctrl+F6</Shortcut>
+        <Command>cm_TimeNameMask</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Ctrl+F1</Shortcut>
+        <Command>cm_PlgnNameMask</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Ctrl+Shift+F2</Shortcut>
+        <Command>cm_AnyExtMask</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Ctrl+Shift+F3</Shortcut>
+        <Command>cm_NameExtMask</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Ctrl+Shift+F4</Shortcut>
+        <Command>cm_ExtExtMask</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Ctrl+Shift+F7</Shortcut>
+        <Command>cm_CtrExtMask</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Ctrl+Shift+F5</Shortcut>
+        <Command>cm_DateExtMask</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Ctrl+Shift+F6</Shortcut>
+        <Command>cm_TimeExtMask</Command>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Ctrl+Shift+F1</Shortcut>
+        <Command>cm_PlgnExtMask</Command>
       </Hotkey>
     </Form>
   </Hotkeys>

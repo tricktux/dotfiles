@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<doublecmd DCVersion="0.9.10 beta" ConfigVersion="10">
+<doublecmd DCVersion="1.0.5 beta" ConfigVersion="12">
   <Toolbars>
     <MainToolbar>
       <Row>
@@ -101,9 +101,46 @@
         </Command>
       </Row>
     </MainToolbar>
+    <MiddleToolbar>
+      <Row>
+        <Command>
+          <ID>{CB742F60-F860-4BBB-9DAC-75CE0914155D}</ID>
+          <Icon>cm_view</Icon>
+          <Command>cm_View</Command>
+        </Command>
+        <Command>
+          <ID>{74CB80B5-299C-411D-833B-6817B71F252C}</ID>
+          <Icon>cm_edit</Icon>
+          <Command>cm_Edit</Command>
+        </Command>
+        <Command>
+          <ID>{9E552A91-CBED-4808-8BE4-AAF10476F41E}</ID>
+          <Icon>cm_copy</Icon>
+          <Command>cm_Copy</Command>
+        </Command>
+        <Command>
+          <ID>{96B68FF1-AAA1-4769-91D8-E2480A359DA9}</ID>
+          <Icon>cm_rename</Icon>
+          <Command>cm_Rename</Command>
+        </Command>
+        <Separator>
+          <Style>True</Style>
+        </Separator>
+        <Command>
+          <ID>{2C9CFCEE-B291-4A36-A686-8AF926E1E31C}</ID>
+          <Icon>cm_packfiles</Icon>
+          <Command>cm_PackFiles</Command>
+        </Command>
+        <Command>
+          <ID>{4849271F-0101-48F5-9C3F-ED8511B833CD}</ID>
+          <Icon>cm_makedir</Icon>
+          <Command>cm_MakeDir</Command>
+        </Command>
+      </Row>
+    </MiddleToolbar>
   </Toolbars>
   <MainWindow>
-    <Position Save="True">
+    <Position Save="False">
       <Maximized>False</Maximized>
       <Splitter>50</Splitter>
       <Left>434</Left>
@@ -115,13 +152,14 @@
   </MainWindow>
   <Configuration Save="True" SortOrder="0" TreeType="0">
     <UseConfigInProgramDir>False</UseConfigInProgramDir>
-    <FolderTabs Save="True"/>
+    <FolderTabs Save="False"/>
   </Configuration>
   <Language>
     <POFileName>doublecmd.en.po</POFileName>
   </Language>
   <Behaviours>
     <GoToRoot>False</GoToRoot>
+    <ShowCurDirTitleBar>False</ShowCurDirTitleBar>
     <ActiveRight>False</ActiveRight>
     <RunInTerminalStayOpenCmd>powershell.exe</RunInTerminalStayOpenCmd>
     <RunInTerminalStayOpenParams/>
@@ -133,9 +171,11 @@
     <LynxLike>True</LynxLike>
     <FileSizeFormat>0</FileSizeFormat>
     <OperationSizeFormat>0</OperationSizeFormat>
-    <HeaderFooterSizeFormat>0</HeaderFooterSizeFormat>
+    <HeaderSizeFormat>0</HeaderSizeFormat>
+    <FooterSizeFormat>0</FooterSizeFormat>
     <FileSizeDigits>1</FileSizeDigits>
-    <HeaderFooterDigits>1</HeaderFooterDigits>
+    <HeaderDigits>1</HeaderDigits>
+    <FooterDigits>1</FooterDigits>
     <OperationSizeDigits>1</OperationSizeDigits>
     <PersonalizedByte>B</PersonalizedByte>
     <PersonalizedKilo>KB</PersonalizedKilo>
@@ -176,10 +216,10 @@
       <KeepTerminalOpen>False</KeepTerminalOpen>
     </Viewer>
     <Editor Enabled="True">
-      <Path>"c:\program files\notepad++\notepad++.exe"</Path>
+      <Path>nvim --server "\\.\pipe\nvim-pipe-88888" --remote</Path>
       <Parameters>%p</Parameters>
-      <RunInTerminal>False</RunInTerminal>
-      <KeepTerminalOpen>True</KeepTerminalOpen>
+      <RunInTerminal>True</RunInTerminal>
+      <KeepTerminalOpen>False</KeepTerminalOpen>
     </Editor>
     <Differ Enabled="True">
       <Path>C:\Program Files (x86)\Beyond Compare 3\BCompare.exe</Path>
@@ -256,6 +296,12 @@
       <Style>0</Style>
       <Quality>0</Quality>
     </Console>
+    <TreeViewMenu>
+      <Name>default</Name>
+      <Size>10</Size>
+      <Style>0</Style>
+      <Quality>0</Quality>
+    </TreeViewMenu>
   </Fonts>
   <Colors>
     <UseCursorBorder>False</UseCursorBorder>
@@ -285,6 +331,12 @@
       <Error>255</Error>
       <Success>32768</Success>
     </LogWindow>
+    <PathLabel>
+      <ActiveColor>-2147483635</ActiveColor>
+      <ActiveFontColor>-2147483634</ActiveFontColor>
+      <InactiveColor>-2147483633</InactiveColor>
+      <InactiveFontColor>-2147483630</InactiveFontColor>
+    </PathLabel>
   </Colors>
   <ToolTips>
     <ShowToolTipMode>True</ShowToolTipMode>
@@ -298,8 +350,19 @@
       <FlatIcons>True</FlatIcons>
       <ButtonHeight>42</ButtonHeight>
       <IconSize>28</IconSize>
+      <ShowCaptions>False</ShowCaptions>
       <ReportErrorWithCommands>False</ReportErrorWithCommands>
+      <FilenameStyle>0</FilenameStyle>
+      <PathToBeRelativeTo>%COMMANDER_PATH%</PathToBeRelativeTo>
+      <PathModifierElements>0</PathModifierElements>
     </ButtonBar>
+    <MiddleBar Enabled="False">
+      <FlatIcons>True</FlatIcons>
+      <ButtonHeight>24</ButtonHeight>
+      <IconSize>16</IconSize>
+      <ShowCaptions>False</ShowCaptions>
+      <ReportErrorWithCommands>False</ReportErrorWithCommands>
+    </MiddleBar>
     <DriveBar1>False</DriveBar1>
     <DriveBar2>True</DriveBar2>
     <DriveBarFlat>True</DriveBarFlat>
@@ -324,6 +387,8 @@
     <PanelOfOperationsInBackground>True</PanelOfOperationsInBackground>
     <HorizontalFilePanels>False</HorizontalFilePanels>
     <ShortFormatDriveInfo>True</ShortFormatDriveInfo>
+    <UppercaseDriveLetter>False</UppercaseDriveLetter>
+    <ShowColonAfterDrive>False</ShowColonAfterDrive>
   </Layout>
   <FilesViews>
     <Sorting>
@@ -332,6 +397,7 @@
       <SortFolderMode>0</SortFolderMode>
       <NewFilesPosition>2</NewFilesPosition>
       <UpdatedFilesPosition>2</UpdatedFilesPosition>
+      <SpecialSorting>False</SpecialSorting>
     </Sorting>
     <ColumnsView>
       <AutoSaveWidth>True</AutoSaveWidth>
@@ -401,463 +467,34 @@
       <CopyOwnership>False</CopyOwnership>
       <CopyPermissions>False</CopyPermissions>
       <ExcludeEmptyTemplateDirectories>True</ExcludeEmptyTemplateDirectories>
+      <CopyOnWrite>2</CopyOnWrite>
+      <CopyXattributes>True</CopyXattributes>
     </Options>
     <Extract>
       <Overwrite>False</Overwrite>
     </Extract>
+    <LongNameAlert>True</LongNameAlert>
+    <MultiRename>
+      <MulRenShowMenuBarOnTop>True</MulRenShowMenuBarOnTop>
+      <MulRenInvalidCharReplacement>.</MulRenInvalidCharReplacement>
+      <MulRenLaunchBehavor>0</MulRenLaunchBehavor>
+      <MulRenExitModifiedPreset>0</MulRenExitModifiedPreset>
+      <MulRenSaveRenamingLog>0</MulRenSaveRenamingLog>
+      <MulRenLogFilename>%DC_CONFIG_PATH%\multirename.log</MulRenLogFilename>
+      <MultRenDailyIndividualDirLog>True</MultRenDailyIndividualDirLog>
+      <MulRenFilenameWithFullPathInLog>False</MulRenFilenameWithFullPathInLog>
+      <MulRenPathRangeSeparator>- </MulRenPathRangeSeparator>
+    </MultiRename>
   </FileOperations>
-  <Tabs>
-    <Options>49937</Options>
-    <CharacterLimit>32</CharacterLimit>
-    <Position>0</Position>
-    <ActionOnDoubleClick>2</ActionOnDoubleClick>
-    <OpenedTabs>
-      <Left>
-        <ActiveTab>8</ActiveTab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>2</Direction>
-                <Function>7</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>2</Direction>
-                <Function>7</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>2</Direction>
-                <Function>7</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>2</Direction>
-                <Function>7</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>2</Direction>
-                <Function>7</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>2</Direction>
-                <Function>7</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>2</Direction>
-                <Function>7</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>2</Direction>
-                <Function>7</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>1</Direction>
-                <Function>1</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>1</Direction>
-                <Function>1</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>1</Direction>
-                <Function>1</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>1</Direction>
-                <Function>1</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-      </Left>
-      <Right>
-        <ActiveTab>20</ActiveTab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>1</Direction>
-                <Function>1</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>1</Direction>
-                <Function>1</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>2</Direction>
-                <Function>7</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>2</Direction>
-                <Function>7</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>2</Direction>
-                <Function>7</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>1</Direction>
-                <Function>1</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>1</Direction>
-                <Function>1</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>2</Direction>
-                <Function>7</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>2</Direction>
-                <Function>7</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>1</Direction>
-                <Function>1</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>2</Direction>
-                <Function>7</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>1</Direction>
-                <Function>1</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>2</Direction>
-                <Function>7</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>1</Direction>
-                <Function>1</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>2</Direction>
-                <Function>7</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>1</Direction>
-                <Function>1</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>1</Direction>
-                <Function>1</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>2</Direction>
-                <Function>7</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>2</Direction>
-                <Function>7</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>2</Direction>
-                <Function>7</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>1</Direction>
-                <Function>1</Function>
-              </Sorting>
-            </Sortings>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-      </Right>
-    </OpenedTabs>
-  </Tabs>
-  <Log Enabled="False" LogFileWithDateInName="False">
+  <Log Enabled="False" LogFileWithDateInName="False" Count="0">
     <FileName>%DC_CONFIG_PATH%\doublecmd.log</FileName>
     <Options>1023</Options>
   </Log>
   <History>
-    <SearchReplaceHistory Save="True"/>
-    <DirHistory Save="True"/>
-    <CmdLineHistory Save="True"/>
-    <FileMaskHistory Save="True"/>
+    <SearchReplaceHistory Save="False"/>
+    <DirHistory Save="False"/>
+    <CmdLineHistory Save="False"/>
+    <FileMaskHistory Save="False"/>
   </History>
   <QuickSearch>
     <MatchBeginning>False</MatchBeginning>
@@ -883,6 +520,9 @@
     <ShowOnlyValidEnv>True</ShowOnlyValidEnv>
     <WhereToAddNewHotDir>2</WhereToAddNewHotDir>
     <InplaceRenameButton>False</InplaceRenameButton>
+    <FilenameStyle>0</FilenameStyle>
+    <PathToBeRelativeTo>%COMMANDER_PATH%</PathToBeRelativeTo>
+    <PathModifierElements>0</PathModifierElements>
   </Miscellaneous>
   <Thumbnails Save="True">
     <Width>128</Width>
@@ -914,106 +554,11 @@
     </ShowInMenus>
     <ShowButtonGlyphs>0</ShowButtonGlyphs>
     <ShowHiddenDimmed>False</ShowHiddenDimmed>
+    <ToolSize>24</ToolSize>
   </Icons>
   <IgnoreList Enabled="False">
     <IgnoreListFile>%DC_CONFIG_PATH%\ignorelist.txt</IgnoreListFile>
   </IgnoreList>
-  <DirectoryHotList>
-    <HotDir Name="-local" Path=""/>
-    <HotDir Name="dotfiles" Path="C:\Users\H129522\AppData\Roaming\dotfiles"/>
-    <HotDir Name="Program Files (x86)" Path="C:\Program Files (x86)" Target="D:\wings-dev\src\MAMSs\NeoMAMS"/>
-    <HotDir Name="chocolatey_bin" Path="C:\ProgramData\chocolatey\bin" Target="D:\wings-dev\src\JSF\f35_summary_report_creator"/>
-    <HotDir Name="tools" Path="C:\tools" Target="\\WINGS_024671-3\_UtilizationTracker_"/>
-    <HotDir Name="H129522" Path="C:\Users\H129522"/>
-    <HotDir Name="Documents" Path="C:\Users\H129522\Documents"/>
-    <HotDir Name="Shared" Path="C:\Users\H129522\Documents\Shared"/>
-    <HotDir Name="Downloads" Path="C:\Users\H129522\Downloads" Target="D:\AeroSvn\OWII\OneWingsII_AF2801_Working\SUM"/>
-    <HotDir Name="Music" Path="C:\Users\H129522\Music"/>
-    <HotDir Name="vim-data" Path="C:\Users\H129522\AppData\Local\vim-data"/>
-    <HotDir Name="nvim-data" Path="C:\Users\H129522\AppData\Local\nvim-data" Target="D:\Reports\F35\INS"/>
-    <HotDir Name="Temp" Path="C:\Users\H129522\AppData\Local\Temp"/>
-    <HotDir Name="--" Path=""/>
-    <HotDir Name="-wiki" Path=""/>
-    <HotDir Name="cheatsheet" Path="D:\wiki\cheatsheet"/>
-    <HotDir Name="hpd_2021" Path="D:\wiki\hpd\2021" Target="D:\wings-dev\src\wings2\trunk"/>
-    <HotDir Name="prod-issues" Path="D:\wiki\wings\prod-issues" Target="D:\wings-dev\docs\blk60-win-src_sw_docs_08-29-18\1. User's Manuals"/>
-    <HotDir Name="programs" Path="D:\wiki\programs" Target="D:\wiki\programs\f16-block60\docs\LM_Provided\10-30-18"/>
-    <HotDir Name="A10" Path="D:\wiki\programs\a10" Target="D:\wiki\programs\f16-block60\docs\LM_Provided\10-30-18"/>
-    <HotDir Name="bacn" Path="D:\wiki\programs\bacn" Target="D:\wiki\programs\f16-block60\docs\LM_Provided\10-30-18"/>
-    <HotDir Name="cfcs-talin" Path="D:\wiki\programs\cfcs-talin" Target="D:\wiki\programs\f16-block60\docs\LM_Provided\10-30-18"/>
-    <HotDir Name="f16-block60" Path="D:\wiki\programs\f16-block60"/>
-    <HotDir Name="nep_mcore" Path="D:\wiki\programs\nep_mcore"/>
-    <HotDir Name="owii" Path="D:\wiki\programs\owii" Target="D:\wiki\programs\f16-block60\docs\LM_Provided\10-30-18"/>
-    <HotDir Name="polaris" Path="D:\wiki\programs\polaris" Target="D:\wiki\programs\f16-block60\docs\LM_Provided\10-30-18"/>
-    <HotDir Name="--" Path=""/>
-    <HotDir Name="-dev" Path=""/>
-    <HotDir Name="docs" Path="D:\wings-dev\docs" Target="D:\wings-dev\docs\blk60-win-src_sw_docs_08-29-18\1. User's Manuals"/>
-    <HotDir Name="doxy" Path="D:\wings-dev\docs\doxy"/>
-    <HotDir Name="install" Path="D:\wings-dev\install" Target="D:\wings-dev\docs\blk60-win-src_sw_docs_08-29-18\1. User's Manuals"/>
-    <HotDir Name="src" Path="D:\wings-dev\src" Target="D:\wings-dev\config\OneWingsSupFiles\61_OWII_F35_FC_SCR_4872"/>
-    <HotDir Name="F16_Blk_60" Path="D:\wings-dev\src\F16_Blk_60" Target="D:\wiki\hpd\2018"/>
-    <HotDir Name="OneWings" Path="D:\wings-dev\src\OneWings"/>
-    <HotDir Name="OneWingsII" Path="D:\wings-dev\src\OneWings2"/>
-    <HotDir Name="OneWingsSupFiles" Path="D:\wings-dev\config\OneWingsSupFiles"/>
-    <HotDir Name="wings-dev" Path="d:\wings-dev"/>
-    <HotDir Name="--" Path=""/>
-    <HotDir Name="Mission.ATPs" Path="D:\Mission.ATPs" Target="D:\AeroSvn\2.src\CP74379457_EGI_EAGLE_SOA_429\Report_Templates"/>
-    <HotDir Name="-work" Path=""/>
-    <HotDir Name="1.WINGS" Path="d:\1.WINGS"/>
-    <HotDir Name="2.Office" Path="D:\2.Office"/>
-    <HotDir Name="Charge_#s" Path="D:\2.Office\Charge_#s" Target="D:\wings-dev\src\OneWingsII\OneWingsII"/>
-    <HotDir Name="--" Path=""/>
-    <HotDir Name="-network" Path=""/>
-    <HotDir Name="-polaris" Path=""/>
-    <HotDir Name="StatusSheet" Path="\\Fl51fs01\POLARIS\8. Engineering Functions\5. Engineering Test Services\ETS SW SDF\Core KC-130 ETS SDF\ATP Core SW SDF\Status" Target="r:"/>
-    <HotDir Name="--" Path=""/>
-    <HotDir Name="_UtilizationTracker_" Path="\\WINGS_024671-3\_UtilizationTracker_" Target="C:\Program Files (x86)"/>
-    <HotDir Name="JSF (STOF PTS Update)" Path="\\130.181.226.13\GNOWorks\Wings\JSF (STOF PTS Update)" Target="D:\AeroSvn\2.src"/>
-    <HotDir Name="AG-012148 (FA18 ANAV2)" Path="\\FL51S03\GNOWorks\Wings\AG-012148 (FA18 ANAV2)\Status" Target="D:\wiki\programs\f18_anav2"/>
-    <HotDir Name="AI-006639 (NEP MCORE)" Path="\\Fl51s03\gnoworks\Wings\AI-006639 (NEP MCORE)" Target="\\130.181.226.13\ClearwaterEngrg\Aircraft"/>
-    <HotDir Name="-KAI_KFX" Path=""/>
-    <HotDir Name="AG-010945 (KAI KF-X EGI)" Path="\\Fl51s03\gnoworks\Wings\AG-010945 (KAI KF-X EGI)" Target="D:\wings-dev\src\OneWings2\OneWings2"/>
-    <HotDir Name="KAI KFX EGI" Path="\\130.181.226.13\ClearwaterEngrg\Aircraft\KAI KFX EGI" Target="D:\wings-dev\src\OneWings2\OneWings2"/>
-    <HotDir Name="--" Path=""/>
-    <HotDir Name="-C130J" Path=""/>
-    <HotDir Name="AG-011848 (C-130 J SAASM EGI Anti-Jam)" Path="\\FL51s03\GNOWorks\Wings\AG-011848 (C-130 J SAASM EGI Anti-Jam)" Target="D:\2.Office\Charge_#s\2020"/>
-    <HotDir Name="C-130J  Anti Jam" Path="\\fl51s01\ClearwaterEngrg\Aircraft\C-130J  Anti Jam" Target="\\FL51s03\GNOWorks\Wings\AG-011848 (C-130 J SAASM EGI Anti-Jam)"/>
-    <HotDir Name="--" Path=""/>
-    <HotDir Name="BOEs for ETS SW" Path="\\fl51s03\GNOWorks\Wings\BOEs for ETS SW"/>
-    <HotDir Name="-A-10" Path=""/>
-    <HotDir Name="AG-010584 (A-10 Obsolescence Upgrade)" Path="\\Fl51s03\gnoworks\Wings\AG-010584 (A-10 Obsolescence Upgrade)" Target="D:\wings-dev\src\OneWings2\OneWings2"/>
-    <HotDir Name="A-10 EGI Upgrade" Path="\\130.181.226.13\ClearwaterEngrg\Aircraft\A-10 EGI Upgrade"/>
-    <HotDir Name="--" Path=""/>
-    <HotDir Name="BACN (Bombardier MIL GPS EGI)" Path="\\Fl51s03\gnoworks\Wings\EC-018023 (Bombardier BACN MIL GPS EGI)" Target="D:\wings-dev\src\OneWings2\OneWings2"/>
-    <HotDir Name="EDs" Path="\\Fl51s03\gnoworks\Wings\Software\SDF\Documentation\EDs"/>
-    <HotDir Name="CATE_ISO_Image" Path="\\az18st1272\Aero1\CommonATEProduction\Aero_PDM_Releases\Aerospace_Standard_Test_Image\Windows_7\ISO" Target="D:\Reports\EGI\34209400-TB44-()"/>
-    <HotDir Name="Army SOA EAGLE (Phase 2)" Path="\\fl51s03\ClearwaterEngrg\Aircraft\Army SOA EAGLE (Phase 2)"/>
-    <HotDir Name="Evolution Phase 3" Path="\\fl51s03\GNOWorks\Wings\AF-002492 (OneWINGS Evolution Project Phase 3)"/>
-    <HotDir Name="-ATACMS" Path=""/>
-    <HotDir Name="ATACMS Post Processing Utility (2017)" Path="\\fl51s03\GNOWorks\Wings\ATACMS Post Processing Utility (2017)"/>
-    <HotDir Name="--" Path=""/>
-    <HotDir Name="-F16" Path=""/>
-    <HotDir Name="F-16 UAE EGI Upgrade" Path="\\fl51s03\ClearwaterEngrg\Aircraft\F-16 UAE EGI Upgrade"/>
-    <HotDir Name="AG-011057 (F16 Blk 60 EGI)" Path="\\fl51s03\GNOWorks\Wings\AG-011057 (F16 Blk 60 EGI)" Target="\\fl51s03"/>
-    <HotDir Name="--" Path=""/>
-    <HotDir Name="-wings" Path=""/>
-    <HotDir Name="Drops" Path="\\Fl51s03\gnoworks\Wings\Drops"/>
-    <HotDir Name="MX_Foundation" Path="\\Fl51s03\gnoworks\Wings\Drops\MAXT\MX_Foundation" Target="g:\WINGS ToolBox - NHS 886\MX-Foundation"/>
-    <HotDir Name="SwitchExecutive-Configurations" Path="\\Fl51s03\gnoworks\Wings\Drops\National_Instuments\SwitchExecutive\SwitchExecutive-Configurations"/>
-    <HotDir Name="drops_onewings" Path="\\Fl51s03\gnoworks\Wings\Drops\OneWINGS"/>
-    <HotDir Name="drops_source_Reinaldo" Path="\\Fl51s03\gnoworks\Wings\Drops\Source\Reinaldo" Target="C:\Users\H129522\Documents\Shared\misc\blake\Post Data"/>
-    <HotDir Name="NI License Tracking" Path="\\Fl51s03\GNOWorks\Wings\Software\SDF\License Tracking" Target="\\Fl51s03\gnoworks\Wings"/>
-    <HotDir Name="SCRs" Path="\\Fl51s03\gnoworks\Wings\Software\SDF\WINGS Executables\OneWINGS\SCRs" Target="network"/>
-    <HotDir Name="--" Path=""/>
-    <HotDir Name="-F35" Path=""/>
-    <HotDir Name="F35-INS Production 74205015-001" Path="\\Fl51s03\gnoworks\Wings\Software\SDF\WINGS Production ATPs and Diags\F35 aka JSF\F35-INS Production 74205015-001" Target="D:\wings-dev\src\f35_summary_report_creator"/>
-    <HotDir Name="--" Path=""/>
-    <HotDir Name="SUM" Path="\\Fl51s03\GNOWorks\Wings\Software\SDF\Documentation\SUM" Target="e:\jsf"/>
-    <HotDir Name="--" Path=""/>
-    <HotDir Name="-SVNLinks" Path=""/>
-    <HotDir Name="NISwitchExecutiveConfigs" Path="https://aero-svn-rc.honeywell.com/svn/Engineering_Test/Product_Domains/InertialNav/WINGS/trunk/SDF/Utilities/Tools/Switch_Executive/Configurations" Target="&quot;C:\Program Files (x86)\Google\Chrome\Application\chrome.exe&quot;"/>
-    <HotDir Name="--" Path=""/>
-  </DirectoryHotList>
   <Viewer>
     <PreviewVisible>False</PreviewVisible>
     <ImageStretch>False</ImageStretch>
@@ -1035,11 +580,16 @@
     <TextPosition>0</TextPosition>
     <TabSpaces>8</TabSpaces>
     <MaxTextWidth>1024</MaxTextWidth>
+    <PrintMargins>200|200|200|200</PrintMargins>
+    <ShowCaret>False</ShowCaret>
+    <LeftMargin>4</LeftMargin>
+    <ExtraLineSpan>0</ExtraLineSpan>
   </Viewer>
   <Editor>
     <EditWaitTime>2000</EditWaitTime>
     <SynEditOptions>856075</SynEditOptions>
     <SynEditTabWidth>8</SynEditTabWidth>
+    <SynEditRightEdge>80</SynEditRightEdge>
   </Editor>
   <SyncDirs>
     <Subdirs>False</Subdirs>
@@ -1053,6 +603,11 @@
     <FilterSingles>True</FilterSingles>
     <FileMask>*</FileMask>
     <Asymmetric Save="False">False</Asymmetric>
+    <Colors>
+      <Left>32768</Left>
+      <Right>16711680</Right>
+      <Unknown>255</Unknown>
+    </Colors>
   </SyncDirs>
   <InternalAssociations>
     <OfferToAddNewFileType>False</OfferToAddNewFileType>
@@ -1062,6 +617,9 @@
     <OpenSystemWithTerminalClose>False</OpenSystemWithTerminalClose>
     <OpenSystemWithTerminalStayOpen>False</OpenSystemWithTerminalStayOpen>
     <IncludeFileAssociation>False</IncludeFileAssociation>
+    <FilenameStyle>0</FilenameStyle>
+    <PathToBeRelativeTo>%COMMANDER_PATH%</PathToBeRelativeTo>
+    <PathModifierElements>0</PathModifierElements>
   </InternalAssociations>
   <TreeViewMenu>
     <UseTVMDirectoryHotlistFMC>False</UseTVMDirectoryHotlistFMC>
@@ -1139,7 +697,7 @@
     <PathToLibrary>lua5.1.dll</PathToLibrary>
   </Lua>
   <NameShortcutFile>shortcuts.scf</NameShortcutFile>
-  <HotKeySortOrder>2</HotKeySortOrder>
+  <HotKeySortOrder>0</HotKeySortOrder>
   <UseEnterToCloseHotKeyEditor>True</UseEnterToCloseHotKeyEditor>
   <LastUsedPacker>zip</LastUsedPacker>
   <UseShellForFileOperations>True</UseShellForFileOperations>
@@ -1596,6 +1154,11 @@
         <Path>%commander_path%\plugins\wcx\unrar\unrar.wcx</Path>
         <Flags>607</Flags>
       </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>zst</ArchiveExt>
+        <Path>%commander_path%\plugins\wcx\zip\zip.wcx</Path>
+        <Flags>91</Flags>
+      </WcxPlugin>
     </WcxPlugins>
     <WdxPlugins>
       <WdxPlugin>
@@ -1620,7 +1183,18 @@
         <Path>%commander_path%\plugins\wfx\ftp\ftp.wfx</Path>
       </WfxPlugin>
     </WfxPlugins>
-    <WlxPlugins/>
+    <WlxPlugins>
+      <WlxPlugin Enabled="True">
+        <Name>preview</Name>
+        <Path>%commander_path%\plugins\wlx\preview\preview.wlx</Path>
+        <DetectString>(EXT="HTM")|(EXT="HTML")|(EXT="MHT")|(EXT="MHTML")</DetectString>
+      </WlxPlugin>
+      <WlxPlugin Enabled="True">
+        <Name>wmp</Name>
+        <Path>%commander_path%\plugins\wlx\wmp\wmp.wlx</Path>
+        <DetectString>(EXT="WAV")|(EXT="MP3")|(EXT="MP4")|(EXT="AVI")</DetectString>
+      </WlxPlugin>
+    </WlxPlugins>
     <TweakPluginWidth0>0</TweakPluginWidth0>
     <TweakPluginHeight0>0</TweakPluginHeight0>
     <TweakPluginWidth1>0</TweakPluginWidth1>
@@ -1645,6 +1219,20 @@
       <Added>11206570</Added>
       <Deleted>11184895</Deleted>
       <Modified>16755370</Modified>
+      <Binary>
+        <Modified>255</Modified>
+      </Binary>
     </Colors>
+    <IgnoreCase>False</IgnoreCase>
+    <KeepScrolling>True</KeepScrolling>
+    <PaintBackground>True</PaintBackground>
+    <LineDifferences>False</LineDifferences>
+    <IgnoreWhiteSpace>False</IgnoreWhiteSpace>
   </Differ>
+  <Tabs>
+    <Options>54033</Options>
+    <CharacterLimit>32</CharacterLimit>
+    <Position>0</Position>
+    <ActionOnDoubleClick>2</ActionOnDoubleClick>
+  </Tabs>
 </doublecmd>

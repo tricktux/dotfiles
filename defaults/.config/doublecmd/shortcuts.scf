@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<doublecmd DCVersion="1.0.4 beta">
+<doublecmd DCVersion="1.0.5 beta">
   <Hotkeys Version="53">
     <Form Name="Main">
       <Hotkey>
@@ -232,10 +232,6 @@
         <Command>cm_Search</Command>
       </Hotkey>
       <Hotkey>
-        <Shortcut>Ctrl+P</Shortcut>
-        <Command>cm_EditPath</Command>
-      </Hotkey>
-      <Hotkey>
         <Shortcut>Ctrl+I</Shortcut>
         <Command>cm_CompareContents</Command>
       </Hotkey>
@@ -388,6 +384,10 @@
         <Param>side=both</Param>
         <Param>dolocked=1</Param>
         <Param>confirmlocked=0</Param>
+      </Hotkey>
+      <Hotkey>
+        <Shortcut>Ctrl+P</Shortcut>
+        <Command>cm_Copy</Command>
       </Hotkey>
       <Hotkey>
         <Shortcut>Del</Shortcut>
