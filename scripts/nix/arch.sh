@@ -108,20 +108,26 @@ update_nvim_plugins() {
   nvim +PlugUpgrade +PlugUpdate +PackerSync +UpdateRemotePlugins
 }
 
+update_pymodules() {
+  local venv_loc="$XDG_DATA_HOME/pyvenv"
+  local venv_name="pydev"
+  local pkgs=(
+    mypy debugpy black selenium
+    autopep8 pylint pylama isort 
+  )
+
+  pip3 install --ignore-installed --upgrade "${pkgs[@]}"
+}
 update_pynvim() {
   # source /home/reinaldo/.config/nvim/python_neovim_virtualenv.sh
   local venv_loc="$XDG_DATA_HOME/pyvenv"
   local venv_name="nvim"
-  local pkgs=(
-    mypy debugpy black
-    autopep8 pylint pylama pynvim isort 
-  )
 
   mkdir -p "$venv_loc"
   python -m venv "$venv_loc/$venv_name" \
     --symlinks --clear
   source "$venv_loc/$venv_name/bin/activate"
-  pip3 install --ignore-installed --upgrade "${pkgs[@]}"
+  pip3 install --ignore-installed --upgrade pynvim
   deactivate
 }
 
@@ -324,6 +330,12 @@ update_python_venv() {
   case $yn in
   [Qq]*) quit ;;
   [Yy]*) update_polybar_python_venv ;;
+  esac
+  msg_not "${BLUE}${BOLD}" "[RIMP]==> Update python local modules? [y/N/q]"
+  read -r yn
+  case $yn in
+  [Qq]*) quit ;;
+  [Yy]*) update_pymodules ;;
   esac
   msg_not "${BLUE}${BOLD}" "[RIMP]==> Update neovim pyvenv? [y/N/q]"
   read -r yn
