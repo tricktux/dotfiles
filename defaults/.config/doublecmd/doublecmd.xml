@@ -559,10 +559,6 @@
   <IgnoreList Enabled="False">
     <IgnoreListFile>%DC_CONFIG_PATH%\ignorelist.txt</IgnoreListFile>
   </IgnoreList>
-  <DirectoryHotList>
-    <HotDir Name="home" Path="/home/reinaldo" Target="/home/reinaldo/Documents/awesome-cv"/>
-    <HotDir Name=".config" Path="/home/reinaldo/.config"/>
-  </DirectoryHotList>
   <Viewer>
     <PreviewVisible>False</PreviewVisible>
     <ImageStretch>False</ImageStretch>
