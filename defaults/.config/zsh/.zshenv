@@ -38,8 +38,6 @@ if [[ -d  "/home/reinaldo/app" ]]; then
   export ORACLE_HOME=/home/reinaldo/app/reinaldo/product/12.2.0/client_1
 fi
 
-export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
-
 # Ranger do not load the default rc.conf
 export RANGER_LOAD_DEFAULT_RC=FALSE
 

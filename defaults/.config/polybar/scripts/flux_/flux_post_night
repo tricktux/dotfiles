@@ -1,13 +1,11 @@
 #!/bin/bash
 # Polybar is restarted by wal
 
-if [[ -f /usr/bin/nvr ]]; then
-  if [[ -S /tmp/nvimsocket ]]; then
-    /usr/bin/nvr --nostart --servername /tmp/nvimsocket -cc "ChangeColors night"
-  fi
-  if [[ -S /tmp/neovim_journal ]]; then
-    /usr/bin/nvr --nostart --servername /tmp/neovim_journal -cc "ChangeColors night"
-  fi
+if [[ -S /tmp/nvim.socket ]]; then
+    /usr/bin/nvim --server /tmp/nvim.socket --remote-send ":ChangeColors night<cr>"
+fi
+if [[ -S /tmp/nvim_journal.socket ]]; then
+    /usr/bin/nvim --server /tmp/nvim_journal.socket --remote-send ":ChangeColors night<cr>"
 fi
 
 if [[ -f /usr/bin/xfconf-query ]]; then

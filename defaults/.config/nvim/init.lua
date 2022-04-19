@@ -79,8 +79,9 @@ local function _config_win()
     -- vim.g.valid_device = 1
   end
 
-  vim.g.browser_cmd = 'firefox.exe'
+  vim.cmd[[silent! call serverstart('\\.\pipe\nvim-pipe-88888')]]
 
+  vim.g.browser_cmd = 'firefox.exe'
   -- Find python
   local py = vim.fn.stdpath('data') .. [[\pyvenv\Scripts]]
   if vim.fn.isdirectory(py) <= 0 then
@@ -98,6 +99,8 @@ local function _config_unix()
     vim.g.wiki_path = wiki
     -- vim.g.valid_device = 1
   end
+
+  vim.cmd[[silent! call serverstart('/tmp/nvim.socket')]]
 
   vim.g.browser_cmd = '/usr/bin/firefox'
 
