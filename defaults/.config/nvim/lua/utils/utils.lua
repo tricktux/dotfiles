@@ -9,6 +9,27 @@ local api = vim.api
 -- >vim.validate
 -- >vim.deepcopy
 
+local Set = {}
+
+function Set.new(t)
+  local set = {}
+  for _, l in ipairs(t) do
+    set[l] = true
+  end
+  return set
+end
+
+function Set.tostring(set)
+  local s = ""
+  local sep = ""
+  for e in pairs(set) do
+    s = s .. sep .. e
+    sep = ", "
+  end
+  return s
+end
+
+
 -- Similar to python's pprint. Usage: lua dump({1, 2, 3})
 local function dump(...)
   local objects = vim.tbl_map(vim.inspect, {...})
@@ -260,5 +281,6 @@ return {
   exec_float_term = exec_float_term,
   find_file = _find_file_recurse,
   get_visual_selection = get_visual_selection,
-  rg_ignore_file = ignore_file
+  rg_ignore_file = ignore_file,
+  Set = Set
 }
