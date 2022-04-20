@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # File:           journal.sh
 # Description:    Launch editor for journal
 # Author:		    Reinaldo Molina
@@ -6,5 +8,6 @@
 # Created:        Thu Jan 17 2019 21:07
 # Last Modified:  Thu Jan 17 2019 21:07
 
-/usr/bin/nvim +UtilsEditJournal --listen /tmp/neovim_journal -i \
+
+/usr/bin/nvim +UtilsEditJournal --listen /tmp/nvim_journal.socket -i \
 	~/.local/share/nvim/shada/journal.shada
