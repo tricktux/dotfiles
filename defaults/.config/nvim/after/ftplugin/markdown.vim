@@ -25,7 +25,6 @@ let b:ncm2_look_enabled = 1
 let s:keepcpo= &cpo
 set cpo&vim
 
-setlocal wrap
 setlocal formatoptions-=tc
 
 if !exists('no_plugin_maps') && !exists('no_markdown_maps')
@@ -235,8 +234,7 @@ command! -buffer UtilsMarkdownPandocHtmlMaker call linting#SetNeomakePandocMaker
 command! -buffer UtilsMarkdownPandocPdfSlidesMaker call linting#SetNeomakePandocMaker('pdf_slides')
 command! -buffer UtilsMarkdownPandocPptxSlidesMaker call linting#SetNeomakePandocMaker('pptx_slides')
 
-let b:undo_ftplugin = 'setlocal wrap<'
-      \ . '|setlocal formatoptions<'
+let b:undo_ftplugin = 'setlocal formatoptions<'
 
 let &cpo = s:keepcpo
 unlet s:keepcpo
