@@ -2,7 +2,7 @@
 -- Author: shadmansaleh
 -- Credit: glepnir
 -- Link: https://gist.github.com/hoob3rt/b200435a765ca18f09f83580a606b878
-local utl = require('utils.utils')
+local set = require('utils.utils').Set
 local log = require('utils.log')
 
 local M = {}
@@ -121,19 +121,25 @@ function M:__filesize()
 end
 
 function M:__lsp()
-  local msg = ''
-  local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-  local clients = vim.lsp.get_active_clients()
-  if next(clients) == nil then
-    return msg
-  end
-  for _, client in ipairs(clients) do
-    local filetypes = client.config.filetypes
-    if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-      return 'lsp: ' .. client.name
-    end
-  end
-  return msg
+	local msg = ""
+	local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
+	local clients = vim.lsp.get_active_clients()
+	if next(clients) == nil then
+		return msg
+	end
+  local clients_set = {}
+	for _, client in ipairs(clients) do
+		local filetypes = client.config.filetypes
+		if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+			if client.name == "null-ls" then
+				local prov = require("config.plugins.null-ls").list_registered_providers_names(buf_ft)
+        table.insert(clients_set, set.tostring(prov))
+			else
+        table.insert(clients_set, client.name)
+			end
+		end
+	end
+	return 'lsp: [' .. set.tostring(set.new(clients_set)) .. ']'
 end
 
 function M:setup()

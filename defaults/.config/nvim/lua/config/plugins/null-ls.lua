@@ -63,6 +63,18 @@ M.msbuild = {
 	}),
 }
 
+function M.list_registered_providers_names(filetype)
+	local s = require("null-ls.sources")
+	local available_sources = s.get_available(filetype)
+	local registered = {}
+	for _, source in ipairs(available_sources) do
+		for _ in pairs(source.methods) do
+      table.insert(registered, source.name)
+		end
+	end
+	return require("utils.utils").Set.new(registered)
+end
+
 function M:setup()
 	-- See here for configuring builtins
 	-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md
@@ -70,10 +82,26 @@ function M:setup()
 	-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
 	local sources = {
 		null.builtins.diagnostics.editorconfig_checker,
+		null.builtins.formatting.trim_newlines.with({
+			disabled_filetypes = { "rust" }, -- use rustfmt
+		}),
+		null.builtins.formatting.trim_whitespace.with({
+			disabled_filetypes = { "rust" }, -- use rustfmt
+		}),
+    null.builtins.code_actions.gitsigns,
 	}
-	if vim.fn.executable("python") > 0 then
-		log.info("NullLs setting up json_tool...")
-		table.insert(sources, null.builtins.formatting.json_tool)
+  if vim.fn.executable("write-good") > 0 then
+    log.info("NullLs setting up write-good...")
+    table.insert(sources, null.builtins.diagnostics.write_good)
+  end
+	if vim.fn.executable("prettier") > 0 then
+		log.info("NullLs setting up prettier...")
+		table.insert(
+			sources,
+			null.builtins.formatting.prettier.with({
+				filetypes = { "html", "css", "yaml", "markdown", "json" },
+			})
+		)
 	end
 	if vim.fn.executable("mypy") > 0 then
 		log.info("NullLs setting up mypy...")
