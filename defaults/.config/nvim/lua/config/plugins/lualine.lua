@@ -128,9 +128,11 @@ function M:__lsp()
 		return msg
 	end
   local clients_set = {}
+  local any = false
 	for _, client in ipairs(clients) do
 		local filetypes = client.config.filetypes
 		if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+      any = true
 			if client.name == "null-ls" then
 				local prov = require("config.plugins.null-ls").list_registered_providers_names(buf_ft)
         table.insert(clients_set, set.tostring(prov))
@@ -139,7 +141,7 @@ function M:__lsp()
 			end
 		end
 	end
-	return 'lsp: [' .. set.tostring(set.new(clients_set)) .. ']'
+	return any and 'lsp: [' .. set.tostring(set.new(clients_set)) .. ']' or ''
 end
 
 function M:setup()

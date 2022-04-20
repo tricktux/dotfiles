@@ -69,7 +69,7 @@ function M.list_registered_providers_names(filetype)
 	local registered = {}
 	for _, source in ipairs(available_sources) do
 		for _ in pairs(source.methods) do
-      table.insert(registered, source.name)
+			table.insert(registered, source.name)
 		end
 	end
 	return require("utils.utils").Set.new(registered)
@@ -88,12 +88,11 @@ function M:setup()
 		null.builtins.formatting.trim_whitespace.with({
 			disabled_filetypes = { "rust" }, -- use rustfmt
 		}),
-    null.builtins.code_actions.gitsigns,
 	}
-  if vim.fn.executable("write-good") > 0 then
-    log.info("NullLs setting up write-good...")
-    table.insert(sources, null.builtins.diagnostics.write_good)
-  end
+	if vim.fn.executable("write-good") > 0 then
+		log.info("NullLs setting up write-good...")
+		table.insert(sources, null.builtins.diagnostics.write_good)
+	end
 	if vim.fn.executable("prettier") > 0 then
 		log.info("NullLs setting up prettier...")
 		table.insert(
