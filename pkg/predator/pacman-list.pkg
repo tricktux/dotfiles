@@ -149,6 +149,7 @@ msgpack-c
 namcap
 neofetch
 neomutt
+neovim
 nextcloud-client
 nfs-utils
 ninja
@@ -186,6 +187,7 @@ pkgfile
 plantuml
 playerctl
 poppler
+prettier
 pulseaudio-alsa
 pyright
 python-cpplint

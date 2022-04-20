@@ -24,7 +24,6 @@ lua-format
 lutris-battlenet-meta
 mps-youtube-git
 ncurses5-compat-libs
-neovim-git
 neovim-remote
 nerd-fonts-inconsolata
 networkmanager-dmenu-git
@@ -57,6 +56,7 @@ ttf-weather-icons
 tty-clock
 vdhcoapp-bin
 vmtouch
+write-good
 xlayoutdisplay
 ytfzf
 z-git
