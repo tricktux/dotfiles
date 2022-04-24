@@ -32,6 +32,7 @@ function M.setup()
         [';'] = 'textsubjects-big',
       }
     },
+    rainbow = {enable = true}
     -- textobjects = {enable = true}
   }
 
