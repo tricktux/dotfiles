@@ -46,9 +46,9 @@ end
 function M.config_neomake()
   log.info('ins_right(): neomake')
   line:ins_right{
-    function() 
+    function()
       return vim.fn['linting#neomake_native_status_line']()
-    end, 
+    end,
     color = {fg = line.colors.yellow, gui = 'bold'},
     right_padding = 0,
   }
@@ -140,6 +140,13 @@ function M.config_kitty_navigator()
 end
 
 function M.config_project()
+  local has_telescope, telescope = pcall(require, "telescope")
+
+  if not has_telescope then
+    log.error('[config_project]: telescope not available')
+    return
+  end
+
   require("project_nvim").setup {
     -- Manual mode doesn't automatically change your root directory, so you have
     -- the option to manually do so using `:ProjectRoot` command.
@@ -185,7 +192,9 @@ function M.config_project()
     datapath = vim.fn.stdpath('data'),
   }
 
-  require('telescope').load_extension('projects')
+  telescope.load_extension('projects')
+
+  require("which-key").register{["<leader>fp"] = {telescope.extensions.projects.projects, 'projects'}}
 end
 
 function M.setup_diffview()

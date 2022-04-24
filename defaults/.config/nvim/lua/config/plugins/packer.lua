@@ -462,7 +462,7 @@ function M:__setup()
 
   use {
     "ahmedkhalf/project.nvim",
-    after = 'telescope.nvim',
+    after = {'telescope.nvim', 'which-key.nvim'},
     requires = {'nvim-lua/telescope.nvim'},
     config = function() require('config.plugins.misc'):config_project() end
   }
