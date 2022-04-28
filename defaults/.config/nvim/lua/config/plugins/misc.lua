@@ -4,6 +4,61 @@ local map = require('utils.keymap')
 
 local M = {}
 
+function M.config_notify()
+  local has_telescope, telescope = pcall(require, "telescope")
+  local has_which_key, whichkey = pcall(require, "which-key")
+
+  if has_telescope and has_which_key then
+    telescope.load_extension('notify')
+    whichkey.register{["<leader>fn"] = {telescope.extensions.notify.notify, 'notify'}}
+  else
+    log.error("[notify]: no telescope and no mappings set")
+  end
+
+  vim.notify =  require("notify")
+  vim.notify.setup({
+    -- Minimum level to show
+    level = "info",
+
+    -- Animation style (see below for details)
+    stages = "fade_in_slide_out",
+
+    -- Function called when a new window is opened, use for changing win settings/config
+    on_open = nil,
+
+    -- Function called when a window is closed
+    on_close = nil,
+
+    -- Render function for notifications. See notify-render()
+    render = "default",
+
+    -- Default timeout for notifications
+    timeout = 5000,
+
+    -- Max number of columns for messages
+    max_width = nil,
+    -- Max number of lines for a message
+    max_height = nil,
+
+    -- For stages that change opacity this is treated as the highlight behind the window
+    -- Set this to either a highlight group, an RGB hex value e.g. "#000000" or a function returning an RGB code for dynamic values
+    background_colour = "Normal",
+
+    -- Minimum width for notification windows
+    minimum_width = 50,
+
+    -- Icons for the different levels
+    icons = {
+      ERROR = "",
+      WARN = "",
+      INFO = "",
+      DEBUG = "",
+      TRACE = "✎",
+    },
+  })
+
+end
+
 function M.config_alpha()
   local alpha = require'alpha'
   local startify = require'alpha.themes.startify'

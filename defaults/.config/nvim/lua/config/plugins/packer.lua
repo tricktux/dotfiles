@@ -468,6 +468,12 @@ function M:__setup()
   }
 
   use {
+    "rcarriga/nvim-notify",
+    after = {'telescope.nvim', 'which-key.nvim'},
+    config = function() require('config.plugins.misc'):config_notify() end
+  }
+
+  use {
     'jose-elias-alvarez/null-ls.nvim',
     requires = { "nvim-lua/plenary.nvim" },
     config = function() require('config.plugins.null-ls'):setup() end
