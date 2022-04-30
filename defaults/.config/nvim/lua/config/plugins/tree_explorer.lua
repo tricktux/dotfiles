@@ -30,9 +30,6 @@ function M.nvimtree_config()
     hijack_netrw = true,
     open_on_setup = false,
     ignore_ft_on_setup = {'startify', 'dashboard'},
-    auto_open = true,
-    tab_open = true,
-    follow = true,
     open_on_tab = false,
     hijack_cursor = false,
     update_cwd = true,
@@ -70,11 +67,9 @@ function M.nvimtree_config()
         }
       }
     },
-    update_to_buf_dir = {enable = true, auto_open = true},
     view = {
       width = 30,
       side = 'left',
-      auto_resize = false,
       mappings = {
         custom_only = false,
         list = {
