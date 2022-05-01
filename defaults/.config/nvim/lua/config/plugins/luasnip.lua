@@ -13,7 +13,7 @@ function M:config()
     updateevents = "TextChanged,TextChangedI",
 
     -- Autosnippets:
-    enable_autosnippets = true,
+    enable_autosnippets = false,
 
     -- Crazy highlights!!
     -- ext_opts = nil,
