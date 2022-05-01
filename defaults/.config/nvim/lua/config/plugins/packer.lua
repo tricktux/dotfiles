@@ -73,7 +73,8 @@ function M:__setup()
     requires = {
       'hrsh7th/cmp-buffer', 'hrsh7th/cmp-nvim-lua', 'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path', 'hrsh7th/cmp-calc', 'ray-x/cmp-treesitter',
-      'quangnguyen30192/cmp-nvim-tags', 'onsails/lspkind-nvim'
+      'quangnguyen30192/cmp-nvim-tags', 'onsails/lspkind-nvim',
+      'saadparwaiz1/cmp_luasnip'
     },
     config = function() require('config.plugins.nvim-cmp').setup() end
   }
