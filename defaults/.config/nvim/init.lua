@@ -155,3 +155,4 @@ local function main()
 end
 
 main()
+-- vim.cmd('source ' .. home_dir .. [[/.config/nvim/minimal.lua]])
