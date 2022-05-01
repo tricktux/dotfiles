@@ -413,6 +413,9 @@ bindsym XF86PowerDown exec --no-startup-id "i3-msg '[class=\".\"] kill' && syste
 #################################################### }}}
 
 # Options{{{
+  # For years this has been so annoying!!! 
+  focus_follows_mouse no
+
   hide_edge_borders smart
   workspace_layout tabbed
   title_align center
