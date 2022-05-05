@@ -168,6 +168,18 @@ local function setup()
     desc = 'Better settings for c',
     group = id
   })
+
+  id = api.nvim_create_augroup('Buf', {clear = true})
+  vim.api.nvim_create_autocmd('BufReadPost',  {
+    group    = id,
+    pattern  = '*',
+    callback = function()
+      if vim.fn.line("'\"") > 0 and vim.fn.line("'\"") <= vim.fn.line("$") then
+        vim.fn.setpos('.', vim.fn.getpos("'\""))
+        vim.api.nvim_feedkeys('zz', 'n', true)
+      end
+    end 
+  })
 end
 
 return {create = create, setup = setup}

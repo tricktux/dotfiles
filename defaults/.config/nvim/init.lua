@@ -150,7 +150,6 @@ local function main()
   end
   vim.fn["mappings#Set"]()
   vim.fn["options#Set"]()
-  vim.fn["augroup#Set"]()
   vim.fn["commands#Set"]()
 end
 

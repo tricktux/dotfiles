@@ -10,104 +10,97 @@ function! augroup#Set() abort
   " ALL_AUTOGROUP_STUFF
   " All of these options contain performance drawbacks but the most important
   " is foldmethod=syntax
-  if !has('nvim-0.7')
-    augroup Filetypes
-      autocmd!
-
-      autocmd FileType markdown,mkd setlocal conceallevel=0 wrap
-            \ foldenable complete+=kspell ts=2 sw=2 sts=2
-            \ comments+=b:-,b:* spelllang=en_us tw=0 wrap
-
-      " formatoptions do not autowrap text
-      autocmd FileType tex setlocal conceallevel=0 nowrap
-            \ foldenable complete+=kspell ts=2 sw=2 sts=2
-            \ spelllang=en_us tw=0 formatoptions-=tc colorcolumn=+1 wrap
-
-      autocmd FileType mail setlocal wrap textwidth=72
-
-      " autocmd FileType vim setlocal tabstop=2 shiftwidth=2 softtabstop=2 nospell
-
-      " if has('nvim-0.5.0') && get(g:, 'ncm2_supports_lsp', 0)
-      " autocmd FileType c,cpp set omnifunc=v:lua.vim.lsp.omnifunc
-      " endif
-      if has('unix')
-        autocmd FileType c,cpp setlocal nowrap ts=2 sw=2 sts=2
-      else
-        autocmd FileType c,cpp setlocal nowrap ts=4 sw=4 sts=4
-      endif
-      autocmd FileType c,cpp setlocal nowrap fen
-            \ fdn=88 define=^\\(#\\s*define\\|[a-z]*\\s*const\\s*[a-z]*\\)
-
-      " Python
-      autocmd FileType python setlocal
-            \ textwidth=79
-            \ shiftwidth=4
-            \ tabstop=4
-            \ softtabstop=4
-            \ define=^\s*\\(def\\\\|class\\)
-
-      autocmd FileType vim,lua setlocal
-            \ textwidth=79
-            \ shiftwidth=2
-            \ tabstop=2
-            \ softtabstop=2
-
-      autocmd FileType fzf inoremap <buffer> <c-j> <down>
-      autocmd FileType fzf inoremap <buffer> <c-n> <down>
-      autocmd FileType json syntax match Comment +\/\/.\+$+
-      " Set spell for who?
-      autocmd FileType
-            \ mail,markdown,gitcommit,tex,svnj_bwindow,fugitive
-            \ setlocal spell spelllang=en,es
-      autocmd FileType terminal setlocal nonumber norelativenumber bufhidden=hide
-    augroup END
-
-    augroup VimType
-      autocmd!
-      " Sessions
-      " Note: Fri Mar 03 2017 14:13 - This never works.
-      " autocmd VimEnter * call utils#LoadSession('default.vim')
-      " Thu Oct 05 2017 22:22: Special settings that are only detected after vim
-      " is loaded
-      autocmd VimEnter * nested call s:on_vim_enter()
-      " Keep splits normalize
-      " autocmd VimResized * execute "normal! \<c-w>="
-    augroup END
-    augroup CmdWin
-      autocmd!
-      autocmd CmdWinEnter * nnoremap <buffer> q i" <cr>
-      autocmd CmdWinEnter * nnoremap <buffer> <cr> i<cr>
-    augroup END
-    if !has('nvim')
-      augroup Terminal
-        autocmd!
-        autocmd TerminalOpen * setlocal bufhidden=hide filetype=terminal
-      augroup END
-    endif
-
-    " Autosave
-    " Wed May 12 2021 11:42: Save less often
-    autocmd CursorHold * silent! update
-    " Depends on autoread being set
-    augroup AutoRead
-      autocmd!
-      autocmd CursorHold * silent! checktime
-    augroup END
-
-    autocmd BufRead,BufNewFile * call s:determine_buf_type()
-    " Do not save sessions on VimLeave, it deletes the tabs
-    " autocmd BufEnter,BufWipeout * call mappings#SaveSession(has('nvim') ?
-    " \ 'default_nvim.vim' : 'default_vim.vim')
+  if has('nvim-0.7')
+    return
   endif
 
+  augroup Filetypes
+    autocmd!
 
-  " To improve syntax highlight speed. If something breaks with highlight
-  " increase these number below
-  " augroup vimrc
-  " autocmd!
-  " autocmd BufWinEnter,Syntax * syn sync minlines=80 maxlines=80
-  " augroup END
+    autocmd FileType markdown,mkd setlocal conceallevel=0 wrap
+          \ foldenable complete+=kspell ts=2 sw=2 sts=2
+          \ comments+=b:-,b:* spelllang=en_us tw=0 wrap
 
+    " formatoptions do not autowrap text
+    autocmd FileType tex setlocal conceallevel=0 nowrap
+          \ foldenable complete+=kspell ts=2 sw=2 sts=2
+          \ spelllang=en_us tw=0 formatoptions-=tc colorcolumn=+1 wrap
+
+    autocmd FileType mail setlocal wrap textwidth=72
+
+    " autocmd FileType vim setlocal tabstop=2 shiftwidth=2 softtabstop=2 nospell
+
+    " if has('nvim-0.5.0') && get(g:, 'ncm2_supports_lsp', 0)
+    " autocmd FileType c,cpp set omnifunc=v:lua.vim.lsp.omnifunc
+    " endif
+    if has('unix')
+      autocmd FileType c,cpp setlocal nowrap ts=2 sw=2 sts=2
+    else
+      autocmd FileType c,cpp setlocal nowrap ts=4 sw=4 sts=4
+    endif
+    autocmd FileType c,cpp setlocal nowrap fen
+          \ fdn=88 define=^\\(#\\s*define\\|[a-z]*\\s*const\\s*[a-z]*\\)
+
+    " Python
+    autocmd FileType python setlocal
+          \ textwidth=79
+          \ shiftwidth=4
+          \ tabstop=4
+          \ softtabstop=4
+          \ define=^\s*\\(def\\\\|class\\)
+
+    autocmd FileType vim,lua setlocal
+          \ textwidth=79
+          \ shiftwidth=2
+          \ tabstop=2
+          \ softtabstop=2
+
+    autocmd FileType fzf inoremap <buffer> <c-j> <down>
+    autocmd FileType fzf inoremap <buffer> <c-n> <down>
+    autocmd FileType json syntax match Comment +\/\/.\+$+
+    " Set spell for who?
+    autocmd FileType
+          \ mail,markdown,gitcommit,tex,svnj_bwindow,fugitive
+          \ setlocal spell spelllang=en,es
+    autocmd FileType terminal setlocal nonumber norelativenumber bufhidden=hide
+  augroup END
+
+  augroup VimType
+    autocmd!
+    " Sessions
+    " Note: Fri Mar 03 2017 14:13 - This never works.
+    " autocmd VimEnter * call utils#LoadSession('default.vim')
+    " Thu Oct 05 2017 22:22: Special settings that are only detected after vim
+    " is loaded
+    autocmd VimEnter * nested call s:on_vim_enter()
+    " Keep splits normalize
+    " autocmd VimResized * execute "normal! \<c-w>="
+  augroup END
+  augroup CmdWin
+    autocmd!
+    autocmd CmdWinEnter * nnoremap <buffer> q i" <cr>
+    autocmd CmdWinEnter * nnoremap <buffer> <cr> i<cr>
+  augroup END
+  if !has('nvim')
+    augroup Terminal
+      autocmd!
+      autocmd TerminalOpen * setlocal bufhidden=hide filetype=terminal
+    augroup END
+  endif
+
+  " Autosave
+  " Wed May 12 2021 11:42: Save less often
+  autocmd CursorHold * silent! update
+  " Depends on autoread being set
+  augroup AutoRead
+    autocmd!
+    autocmd CursorHold * silent! checktime
+  augroup END
+
+  autocmd BufRead,BufNewFile * call s:determine_buf_type()
+  " Do not save sessions on VimLeave, it deletes the tabs
+  " autocmd BufEnter,BufWipeout * call mappings#SaveSession(has('nvim') ?
+  " \ 'default_nvim.vim' : 'default_vim.vim')
   augroup BuffTypes
     autocmd!
     autocmd BufReadPost *
@@ -120,6 +113,15 @@ function! augroup#Set() abort
     " Tue Feb 25 2020 14:00: Really slows down vim
     " autocmd BufWinEnter * call status_line#SetVerControl()
   augroup END
+
+
+
+  " To improve syntax highlight speed. If something breaks with highlight
+  " increase these number below
+  " augroup vimrc
+  " autocmd!
+  " autocmd BufWinEnter,Syntax * syn sync minlines=80 maxlines=80
+  " augroup END
 
 endfunction
 
