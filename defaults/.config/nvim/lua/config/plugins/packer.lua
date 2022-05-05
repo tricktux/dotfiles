@@ -519,13 +519,6 @@ function M:__setup()
     cond = function() return require('utils.utils').has_unix() end
   }
 
-  use {
-    'karb94/neoscroll.nvim',
-    config = function()
-      require('config.plugins.misc'):config_neoscrooll()
-    end,
-  }
-
   if vim.fn.has('unix') then
     use {
       'untitled-ai/jupyter_ascending.vim',
