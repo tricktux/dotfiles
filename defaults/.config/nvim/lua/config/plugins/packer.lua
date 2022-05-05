@@ -81,6 +81,7 @@ function M:__setup()
 
   use {
     'neovim/nvim-lspconfig',
+    tag = 'v0.1.3',  -- Compatible with 0.7.0
     requires = {{'ray-x/lsp_signature.nvim'}, {'j-hui/fidget.nvim'}},
     config = function() require('config.lsp').setup() end
   }
