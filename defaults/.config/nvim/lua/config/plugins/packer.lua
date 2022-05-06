@@ -498,6 +498,14 @@ function M:__setup()
   }
 
   use {
+    'tpope/vim-capslock',
+    setup = function()
+      vim.keymap.set('i', [[<c-l>]], "<Plug>CapsLockToggle",
+        {silent = true, desc = "caps_lock_toggle"})
+    end
+  }
+
+  use {
     'dhruvasagar/vim-table-mode',
     cmd = 'TableModeToggle',
     setup = function()
@@ -542,7 +550,7 @@ function M:__setup()
         vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
           pattern = "*.sync.py",
           callback = function()
-            vim.keymap.set('n', '<localleader>j', '<Plug>JupyterExecute'
+            vim.keymap.set('n', '<localleader>j', '<Plug>JupyterExecute',
             {
               silent = true, 
               buffer = true,

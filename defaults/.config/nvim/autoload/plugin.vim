@@ -105,6 +105,8 @@ function! plugin#Config()
   " Fri Apr 02 2021 09:15:
   " - Compe is slow for big files. Crawling back to deoplete once again
   if !has('nvim-0.5')
+    call s:configure_caps()
+
     call s:configure_tabular()
     " Magnum is required by vim-radical. use with gA
     Plug 'glts/vim-magnum', { 'on' : '<Plug>RadicalView' }
@@ -484,8 +486,6 @@ function! plugin#Config()
         " \ 'iw' : '',
         " \ '<C-R><C-W>' : ''
         " \ }
-
-  call s:configure_caps()
 
   " Plug 'hari-rangarajan/CCTree'
 
