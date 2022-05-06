@@ -505,7 +505,21 @@ function M:__setup()
       vim.g.table_mode_align_char = ':'
       vim.g.table_mode_disable_mappings = 1
       vim.keymap.set('n', [[<leader>ta]], [[<cmd>TableModeToggle<cr>]],
-                     {silent = true})
+                    {silent = true, desc = "table_mode_toggle"})
+    end
+  }
+
+  use {
+    'glts/vim-radical',
+    requires = 'glts/vim-magnum',
+    setup = function()
+      vim.g.radical_no_mappings = 1
+      vim.keymap.set({'n', 'x'}, '<leader>nr', '<Plug>RadicalView', 
+        {
+          silent = true, 
+          buffer = true,
+          desc = "radical_view"
+        })
     end
   }
 
@@ -528,8 +542,20 @@ function M:__setup()
         vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
           pattern = "*.sync.py",
           callback = function()
-            vim.keymap.set('n', '<localleader>j', '<Plug>JupyterExecute', { silent = true, buffer = true })
-            vim.keymap.set('n', '<localleader>k', '<Plug>JupyterExecuteAll', { silent = true, buffer = true })
+            vim.keymap.set('n', '<localleader>j', '<Plug>JupyterExecute'
+            {
+              silent = true, 
+              buffer = true,
+              desc = "jupyter_execute"
+            })
+
+            vim.keymap.set('n', '<localleader>k', '<Plug>JupyterExecuteAll', 
+            {
+              silent = true, 
+              buffer = true,
+              desc = "jupyter_execute_all"
+            })
+
           end,
           once = true
         })

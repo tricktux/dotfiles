@@ -105,6 +105,15 @@ function! plugin#Config()
   " Fri Apr 02 2021 09:15:
   " - Compe is slow for big files. Crawling back to deoplete once again
   if !has('nvim-0.5')
+    call s:configure_tabular()
+    " Magnum is required by vim-radical. use with gA
+    Plug 'glts/vim-magnum', { 'on' : '<Plug>RadicalView' }
+    Plug 'glts/vim-radical', { 'on' : '<Plug>RadicalView' }
+    let g:radical_no_mappings = 1
+    " Tue May 12 2020 11:03: This fanciness does not work
+    " nnoremap <plug>radical_viewer <Plug>RadicalView
+    " xnoremap <plug>radical_viewer <Plug>RadicalView
+
     " Having problems with formatter.nvim
     call s:configure_neoformat()
     " Possible values:
@@ -353,14 +362,6 @@ function! plugin#Config()
   " Plug 'altercation/vim-colors-solarized'
   " Plug 'jnurmine/Zenburn'
 
-  " Magnum is required by vim-radical. use with gA
-  Plug 'glts/vim-magnum', { 'on' : '<Plug>RadicalView' }
-  Plug 'glts/vim-radical', { 'on' : '<Plug>RadicalView' }
-  let g:radical_no_mappings = 1
-  " Tue May 12 2020 11:03: This fanciness does not work
-  " nnoremap <plug>radical_viewer <Plug>RadicalView
-  " xnoremap <plug>radical_viewer <Plug>RadicalView
-
   " W3M - to view cpp-reference help
   " if executable('w3m')
     " " TODO-[RM]-(Thu Sep 14 2017 21:12): No chance to get this working on windows
@@ -398,7 +399,6 @@ function! plugin#Config()
   " au! FileType markdown set filetype=markdown.pandoc
   " augroup END
 
-  call s:configure_tabular()
   " vim-markdown depends on 'godlygeek/tabular'
   " call s:configure_markdown()
 
