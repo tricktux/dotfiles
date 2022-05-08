@@ -65,7 +65,7 @@
   },
   {
     "name": "📔 cheatsheet pdf",
-    "command": "exec $HOME/.config/i3/scripts/cheatsheet/cht.sh"
+    "command": "rofi -show file-browser-extended -file-browser-dir $HOME/Documents/Drive/wiki/cheatsheet"
   },
   {
     "name": "📔 cheatsheet navi",

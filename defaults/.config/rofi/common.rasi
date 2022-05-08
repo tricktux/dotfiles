@@ -1,6 +1,6 @@
 
 configuration {
-	modi: "window,ssh,drun,combi";
+  modi: "window,ssh,drun,combi,Tasks:~/.config/rofi/scripts/tasks.sh,emoji,file-browser-extended";
 	width: 40;
 /*	lines: 15;*/
 /*	columns: 1;*/

@@ -529,7 +529,7 @@ sudo pacman -S $(pacman -Ssq noto-fonts-\*)
 # }}}
 
 # rofi extra goodies
-paci --needed --noconfirm rofi-{emoji,bluetooth-git}
+paci --needed --noconfirm rofi-{emoji,bluetooth-git,file-browser-extended-git}
 paci --needed --noconfirm noto-fonts-emoji
 
 # synology nfs and backups

@@ -48,6 +48,7 @@ rmapi
 rmview
 rofi-bluetooth-git
 rofi-dmenu
+rofi-file-browser-extended-git
 shellcheck-bin
 steam-fonts
 synology-drive
