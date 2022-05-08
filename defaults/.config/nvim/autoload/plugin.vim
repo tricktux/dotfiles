@@ -105,6 +105,29 @@ function! plugin#Config()
   " Fri Apr 02 2021 09:15:
   " - Compe is slow for big files. Crawling back to deoplete once again
   if !has('nvim-0.5')
+
+    Plug 'nicwest/vim-camelsnek'
+    nmap <localleader>cs <plug>to_snake_case
+    nmap <localleader>cc <plug>to_camel_case
+    nmap <localleader>cb <plug>to_camel_back_case
+    nmap <localleader>ck <plug>to_kebak_case
+    vmap <localleader>cs <plug>to_snake_case
+    vmap <localleader>cc <plug>to_camel_case
+    vmap <localleader>cb <plug>to_camel_back_case
+    vmap <localleader>ck <plug>to_kebak_case
+
+    nnoremap <plug>to_snake_case :Snek<bar>
+          \   silent! call repeat#set("\<lt>Plug>to_snake_case")<CR>
+    nnoremap <plug>to_camel_case :Camel<bar>
+          \   silent! call repeat#set("\<lt>Plug>to_camel_case")<CR>
+    nnoremap <plug>to_camel_back_case :CamelB<bar>
+          \   silent! call repeat#set("\<lt>Plug>to_camel_back_case")<CR>
+    nnoremap <plug>to_kebak_case :Kebak<bar>
+          \   silent! call repeat#set("\<lt>Plug>to_kebak_case")<CR>
+    vnoremap <plug>to_snake_case :Snek<cr>
+    vnoremap <plug>to_camel_case :Camel<cr>
+    vnoremap <plug>to_camel_back_case :CamelB<cr>
+    vnoremap <plug>to_kebak_case :Kebak<cr>
     call s:configure_caps()
 
     call s:configure_tabular()
@@ -584,20 +607,6 @@ function! plugin#Config()
   " Plug 'tbastos/vim-lua'
 
   " Plug 'editorconfig/editorconfig-vim'
-
-  Plug 'nicwest/vim-camelsnek'
-  nnoremap <plug>to_snake_case :Snek<bar>
-        \   silent! call repeat#set("\<lt>Plug>to_snake_case")<CR>
-  nnoremap <plug>to_camel_case :Camel<bar>
-        \   silent! call repeat#set("\<lt>Plug>to_camel_case")<CR>
-  nnoremap <plug>to_camel_back_case :CamelB<bar>
-        \   silent! call repeat#set("\<lt>Plug>to_camel_back_case")<CR>
-  nnoremap <plug>to_kebak_case :Kebak<bar>
-        \   silent! call repeat#set("\<lt>Plug>to_kebak_case")<CR>
-  vnoremap <plug>to_snake_case :Snek<cr>
-  vnoremap <plug>to_camel_case :Camel<cr>
-  vnoremap <plug>to_camel_back_case :CamelB<cr>
-  vnoremap <plug>to_kebak_case :Kebak<cr>
 
   if executable('languagetool')
     Plug 'rhysd/vim-grammarous', { 'on' : 'GrammarousCheck' }

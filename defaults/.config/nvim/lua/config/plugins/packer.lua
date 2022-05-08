@@ -37,13 +37,13 @@ function M:__setup()
   if packer == nil then
     local jobs = utl.has_unix() and nil or 5
     packer = require('packer')
-    packer.init({max_jobs = jobs, log = "trace"})
+    packer.init({ max_jobs = jobs, log = "trace" })
   end
 
   local use = packer.use
   packer.reset()
 
-  use {'wbthomason/packer.nvim'}
+  use { 'wbthomason/packer.nvim' }
 
   use {
     "folke/which-key.nvim",
@@ -53,7 +53,7 @@ function M:__setup()
   use {
     'nvim-lua/telescope.nvim',
     after = 'which-key.nvim',
-    requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
+    requires = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } },
     config = function() require('config.plugins.telescope').setup() end
   }
 
@@ -62,7 +62,7 @@ function M:__setup()
     'nvim-treesitter/nvim-treesitter',
     after = 'which-key.nvim',
     run = ':TSUpdate',
-    requires = {'p00f/nvim-ts-rainbow', 'RRethy/nvim-treesitter-textsubjects'},
+    requires = { 'p00f/nvim-ts-rainbow', 'RRethy/nvim-treesitter-textsubjects' },
     -- {'romgrk/nvim-treesitter-context'} still some rough edges
     config = function() require('config.plugins.treesitter').setup() end
   }
@@ -81,15 +81,15 @@ function M:__setup()
 
   use {
     'neovim/nvim-lspconfig',
-    tag = 'v0.1.3',  -- Compatible with 0.7.0
-    requires = {{'ray-x/lsp_signature.nvim'}, {'j-hui/fidget.nvim'}},
+    tag = 'v0.1.3', -- Compatible with 0.7.0
+    requires = { { 'ray-x/lsp_signature.nvim' }, { 'j-hui/fidget.nvim' } },
     config = function() require('config.lsp').setup() end
   }
 
   use {
     'lewis6991/gitsigns.nvim',
     after = 'which-key.nvim',
-    requires = {'nvim-lua/plenary.nvim'},
+    requires = { 'nvim-lua/plenary.nvim' },
     config = function() require('config.plugins.gitsigns').setup() end
   }
 
@@ -98,12 +98,12 @@ function M:__setup()
     setup = function()
       vim.g.lazygit_floating_window_winblend = 0 -- transparency of floating window
       vim.g.lazygit_floating_window_scaling_factor = 0.9 -- scaling factor for floating window
-      vim.g.lazygit_floating_window_corner_chars = {'╭', '╮', '╰', '╯'} -- customize lazygit popup window corner characters
+      vim.g.lazygit_floating_window_corner_chars = { '╭', '╮', '╰', '╯' } -- customize lazygit popup window corner characters
       vim.g.lazygit_use_neovim_remote = 0
     end
   }
 
-  use {'nanotee/nvim-lua-guide'}
+  use { 'nanotee/nvim-lua-guide' }
   use {
     'kyazdani42/nvim-tree.lua',
     config = function()
@@ -115,7 +115,7 @@ function M:__setup()
     'kosayoda/nvim-lightbulb',
     config = function()
       vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
-      require'nvim-lightbulb'.update_lightbulb {}
+      require 'nvim-lightbulb'.update_lightbulb {}
     end
   }
 
@@ -123,8 +123,8 @@ function M:__setup()
   use {
     'pwntester/octo.nvim',
     requires = {
-      {'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'},
-      {'nvim-lua/telescope.nvim'}
+      { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' },
+      { 'nvim-lua/telescope.nvim' }
     },
     config = function() require('telescope').load_extension('octo') end,
     cond = function() return vim.fn.executable('gh') > 0 end
@@ -137,16 +137,16 @@ function M:__setup()
         'vim', 'lua', 'c', 'python', 'cpp', 'java', 'cs', 'sh', 'ps1',
         'dosbatch'
       }
-      vim.g.indent_blankline_char_highlight_list = {'Comment'}
-      vim.g.indent_blankline_char_list = {'¦', '┆', '┊'}
+      vim.g.indent_blankline_char_highlight_list = { 'Comment' }
+      vim.g.indent_blankline_char_list = { '¦', '┆', '┊' }
       vim.g.indent_blankline_show_first_indent_level = false
     end
   }
 
   use {
     'ThePrimeagen/git-worktree.nvim',
-    after = {'which-key.nvim', 'telescope.nvim'},
-    requires = {{'nvim-lua/telescope.nvim'}, {'folke/which-key.nvim'}},
+    after = { 'which-key.nvim', 'telescope.nvim' },
+    requires = { { 'nvim-lua/telescope.nvim' }, { 'folke/which-key.nvim' } },
     cond = function() return require('utils.utils').has_unix() end,
     config = function() require('config.plugins.git_worktree').setup() end
   }
@@ -168,8 +168,8 @@ function M:__setup()
     use {
       'rcarriga/nvim-dap-ui',
       requires = {
-        {"mfussenegger/nvim-dap"}, {"mfussenegger/nvim-dap-python"},
-        {'theHamsta/nvim-dap-virtual-text'}
+        { "mfussenegger/nvim-dap" }, { "mfussenegger/nvim-dap-python" },
+        { 'theHamsta/nvim-dap-virtual-text' }
       },
       config = function() require('config.plugins.dap'):setup() end
     }
@@ -184,7 +184,7 @@ function M:__setup()
 
   use {
     'mizlan/iswap.nvim',
-    after = {'which-key.nvim', 'nvim-treesitter'},
+    after = { 'which-key.nvim', 'nvim-treesitter' },
     requires = 'nvim-treesitter/nvim-treesitter',
     config = function() require('config.plugins.misc').config_iswap() end
   }
@@ -214,7 +214,7 @@ function M:__setup()
 
   use {
     'juneedahamed/svnj.vim',
-    cmd = {'SVNStatus', 'SVNCommit'},
+    cmd = { 'SVNStatus', 'SVNCommit' },
     setup = function()
       vim.g.svnj_allow_leader_mappings = 0
       vim.g.svnj_cache_dir = vim.fn.stdpath('cache')
@@ -233,7 +233,7 @@ function M:__setup()
     cond = function() return require('utils.utils').has_win() end
   }
 
-  use {'matze/vim-ini-fold', ft = 'dosini'}
+  use { 'matze/vim-ini-fold', ft = 'dosini' }
 
   use {
     'chrisbra/csv.vim',
@@ -245,19 +245,19 @@ function M:__setup()
   }
 
   -- Good for folding markdown and others
-  use {'fourjay/vim-flexagon', ft = 'markdown'}
+  use { 'fourjay/vim-flexagon', ft = 'markdown' }
 
   -- Extra syntax
   use {
     'PotatoesMaster/i3-vim-syntax',
     cond = function() return require('utils.utils').has_unix() end
   }
-  use {'elzr/vim-json', ft = 'json'}
-  use {'aklt/plantuml-syntax', ft = 'plantuml'}
-  use {'MTDL9/vim-log-highlighting', ft = 'log'}
-  use {'alepez/vim-gtest', ft = 'cpp'}
-  use {'neomutt/neomutt.vim', ft = 'muttrc'}
-  use {'fladson/vim-kitty'}
+  use { 'elzr/vim-json', ft = 'json' }
+  use { 'aklt/plantuml-syntax', ft = 'plantuml' }
+  use { 'MTDL9/vim-log-highlighting', ft = 'log' }
+  use { 'alepez/vim-gtest', ft = 'cpp' }
+  use { 'neomutt/neomutt.vim', ft = 'muttrc' }
+  use { 'fladson/vim-kitty' }
 
   use {
     'chaoren/vim-wordmotion',
@@ -289,8 +289,8 @@ function M:__setup()
       vim.g.startify_session_dir = vim.fn.stdpath('data') .. '/sessions/'
 
       vim.g.startify_lists = {
-        {['type'] = 'sessions', ['header'] = {'   Sessions'}},
-        {['type'] = 'files', ['header'] = {'   MRU'}}
+        { ['type'] = 'sessions', ['header'] = { '   Sessions' } },
+        { ['type'] = 'files', ['header'] = { '   MRU' } }
       }
       vim.g.startify_change_to_dir = 0
       vim.g.startify_session_sort = 1
@@ -303,7 +303,7 @@ function M:__setup()
     setup = function() require('config.plugins.misc'):setup_papercolor() end,
     config = function()
       require('utils.log').info('[papercolor]: Configuring...')
-      vim.cmd[[colorscheme PaperColor]]
+      vim.cmd [[colorscheme PaperColor]]
     end
   }
 
@@ -319,10 +319,10 @@ function M:__setup()
     end
   }
 
-  use {'tpope/vim-fugitive', cmd = 'Git'}
+  use { 'tpope/vim-fugitive', cmd = 'Git' }
   use 'tpope/vim-repeat'
   use 'tpope/vim-surround'
-  use {'tpope/vim-dispatch', setup = function() vim.g.dispatch_no_maps = 1 end}
+  use { 'tpope/vim-dispatch', setup = function() vim.g.dispatch_no_maps = 1 end }
   use {
     'radenling/vim-dispatch-neovim',
     cond = function() return vim.fn.has('nvim') > 0 end
@@ -344,7 +344,7 @@ function M:__setup()
     config = function() require('config.plugins.misc'):config_neoterm() end
   }
 
-  use {'ferrine/md-img-paste.vim', ft = 'markdown'}
+  use { 'ferrine/md-img-paste.vim', ft = 'markdown' }
 
   use {
     'iamcco/markdown-preview.nvim',
@@ -384,7 +384,7 @@ function M:__setup()
 
   use 'whiteinge/diffconflicts'
 
-  use {'aquach/vim-http-client', cmd = 'HTTPClientDoRequest'}
+  use { 'aquach/vim-http-client', cmd = 'HTTPClientDoRequest' }
 
   use {
     'jsfaint/gen_tags.vim', -- Not being suppoprted anymore
@@ -418,7 +418,7 @@ function M:__setup()
 
   use {
     's1n7ax/nvim-comment-frame',
-    after = {'which-key.nvim', 'nvim-treesitter'},
+    after = { 'which-key.nvim', 'nvim-treesitter' },
     requires = "nvim-treesitter/nvim-treesitter",
     config = function() require('config.plugins.misc'):setup_comment_frame() end
   }
@@ -447,11 +447,11 @@ function M:__setup()
     config = function() require('config.plugins.misc'):setup_lens() end
   } ]]
 
-  use {'weilbith/nvim-code-action-menu', cmd = 'CodeActionMenu'}
+  use { 'weilbith/nvim-code-action-menu', cmd = 'CodeActionMenu' }
 
   use {
     'sindrets/diffview.nvim',
-    cmd = {'DiffviewOpen', 'DiffviewFileHistory'},
+    cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
     config = function() require('config.plugins.misc'):setup_diffview() end
   }
 
@@ -464,14 +464,31 @@ function M:__setup()
 
   use {
     "ahmedkhalf/project.nvim",
-    after = {'telescope.nvim', 'which-key.nvim'},
-    requires = {'nvim-lua/telescope.nvim'},
+    after = { 'telescope.nvim', 'which-key.nvim' },
+    requires = { 'nvim-lua/telescope.nvim' },
     config = function() require('config.plugins.misc'):config_project() end
   }
 
   use {
+    'nicwest/vim-camelsnek',
+    setup = function()
+      local opts = {
+        silent = true,
+        desc = "to_snake_case"
+      }
+      vim.keymap.set({ 'n', 'v' }, '<localleader>cs', '<cmd>Snek<cr>', opts)
+      opts.desc = "to_camel_case"
+      vim.keymap.set({ 'n', 'v' }, '<localleader>cc', '<cmd>Camel<cr>', opts)
+      opts.desc = "to_camel_back_case"
+      vim.keymap.set({ 'n', 'v' }, '<localleader>cb', '<cmd>CamelB<cr>', opts)
+      opts.desc = "to_kebak_case"
+      vim.keymap.set({ 'n', 'v' }, '<localleader>ck', '<cmd>Kebak<cr>', opts)
+    end
+  }
+
+  use {
     "rcarriga/nvim-notify",
-    after = {'telescope.nvim', 'which-key.nvim'},
+    after = { 'telescope.nvim', 'which-key.nvim' },
     config = function() require('config.plugins.misc'):config_notify() end
   }
 
@@ -484,13 +501,13 @@ function M:__setup()
   use {
     'L3MON4D3/LuaSnip',
     after = 'which-key.nvim',
-    requires = {'rafamadriz/friendly-snippets', 'honza/vim-snippets'},
+    requires = { 'rafamadriz/friendly-snippets', 'honza/vim-snippets' },
     config = function() require('config.plugins.luasnip'):config() end
   }
 
   use {
     "danymat/neogen",
-    after = {'which-key.nvim', 'LuaSnip'},
+    after = { 'which-key.nvim', 'LuaSnip' },
     config = function() require('config.plugins.misc'):config_neogen() end,
     requires = "nvim-treesitter/nvim-treesitter",
     -- Uncomment next line if you want to follow only stable versions
@@ -501,7 +518,7 @@ function M:__setup()
     'tpope/vim-capslock',
     setup = function()
       vim.keymap.set('i', [[<c-l>]], "<Plug>CapsLockToggle",
-        {silent = true, desc = "caps_lock_toggle"})
+        { silent = true, desc = "caps_lock_toggle" })
     end
   }
 
@@ -513,7 +530,7 @@ function M:__setup()
       vim.g.table_mode_align_char = ':'
       vim.g.table_mode_disable_mappings = 1
       vim.keymap.set('n', [[<leader>ta]], [[<cmd>TableModeToggle<cr>]],
-                    {silent = true, desc = "table_mode_toggle"})
+        { silent = true, desc = "table_mode_toggle" })
     end
   }
 
@@ -522,12 +539,11 @@ function M:__setup()
     requires = 'glts/vim-magnum',
     setup = function()
       vim.g.radical_no_mappings = 1
-      vim.keymap.set({'n', 'x'}, '<leader>nr', '<Plug>RadicalView', 
+      vim.keymap.set({ 'n', 'x' }, '<leader>nr', '<Plug>RadicalView',
         {
-          silent = true, 
-          buffer = true,
-          desc = "radical_view"
-        })
+        silent = true,
+        desc = "radical_view"
+      })
     end
   }
 
@@ -547,19 +563,19 @@ function M:__setup()
       'untitled-ai/jupyter_ascending.vim',
       setup = function()
         vim.g.jupyter_ascending_default_mappings = false
-        vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+        vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
           pattern = "*.sync.py",
           callback = function()
             vim.keymap.set('n', '<localleader>j', '<Plug>JupyterExecute',
-            {
-              silent = true, 
+              {
+              silent = true,
               buffer = true,
               desc = "jupyter_execute"
             })
 
-            vim.keymap.set('n', '<localleader>k', '<Plug>JupyterExecuteAll', 
-            {
-              silent = true, 
+            vim.keymap.set('n', '<localleader>k', '<Plug>JupyterExecuteAll',
+              {
+              silent = true,
               buffer = true,
               desc = "jupyter_execute_all"
             })
@@ -585,28 +601,28 @@ end
 
 function M:__set_mappings()
   local wk = require("which-key")
-  local opts = {prefix = '<leader>P'}
+  local opts = { prefix = '<leader>P' }
   local plug = {
     name = 'Plug',
-    i = {'<cmd>PlugInstall<cr>', 'install'},
-    u = {'<cmd>PlugUpdate<cr>', 'update'},
-    r = {'<cmd>UpdateRemotePlugins<cr>', 'update_remote_plugins'},
-    g = {'<cmd>PlugUpgrade<cr>', 'upgrade_vim_plug'},
-    s = {'<cmd>PlugSearch<cr>', 'search'},
-    l = {'<cmd>PlugClean<cr>', 'clean'}
+    i = { '<cmd>PlugInstall<cr>', 'install' },
+    u = { '<cmd>PlugUpdate<cr>', 'update' },
+    r = { '<cmd>UpdateRemotePlugins<cr>', 'update_remote_plugins' },
+    g = { '<cmd>PlugUpgrade<cr>', 'upgrade_vim_plug' },
+    s = { '<cmd>PlugSearch<cr>', 'search' },
+    l = { '<cmd>PlugClean<cr>', 'clean' }
   }
   local p = require('packer')
   local packer = {
     name = 'Packer',
-    c = {p.compile, 'compile'},
-    u = {p.update, 'update'},
-    r = {'<cmd>UpdateRemotePlugins<cr>', 'update_remote_plugins'},
-    i = {p.install, 'install'},
-    s = {p.sync, 'sync'},
-    a = {p.status, 'status'},
-    l = {p.clean, 'clean'}
+    c = { p.compile, 'compile' },
+    u = { p.update, 'update' },
+    r = { '<cmd>UpdateRemotePlugins<cr>', 'update_remote_plugins' },
+    i = { p.install, 'install' },
+    s = { p.sync, 'sync' },
+    a = { p.status, 'status' },
+    l = { p.clean, 'clean' }
   }
-  local mappings = {name = 'plugins', l = plug, a = packer}
+  local mappings = { name = 'plugins', l = plug, a = packer }
   wk.register(mappings, opts)
 end
 
@@ -640,10 +656,10 @@ function M:__setup_local_grip_plugin()
     search_argument = 0,
     prompt = 0,
     grepformat = '%f',
-    args = {'--follow', '--fixed-strings', '--hidden', utl.rg_ignore_file}
+    args = { '--follow', '--fixed-strings', '--hidden', utl.rg_ignore_file }
   }
 
-  vim.g.grip_tools = {vim.g.grip_rg, vim.g.grip_pdfgrep, vim.g.grip_rg_list}
+  vim.g.grip_tools = { vim.g.grip_rg, vim.g.grip_pdfgrep, vim.g.grip_rg_list }
 
   if vim.g.wiki_path == nil then return end
 

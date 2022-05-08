@@ -176,10 +176,6 @@ lleader.e = {'<plug>terminal_send_line', 'send_line_terminal'}
 lleader.E = {'<plug>terminal_send_file', 'send_file_terminal'}
 lleader.c = {
   name = 'var_case_change',
-  s = {'<plug>to_snake_case', 'to_snake_case'},
-  c = {'<plug>to_camel_case', 'to_camel_case'},
-  b = {'<plug>to_camel_back_case', 'to_camel_back_case'},
-  k = {'<plug>to_kebak_case', 'to_kebak_case'}
 }
 lleader.k = {'<plug>make_project', 'make_project'}
 lleader.j = {'<plug>make_file', 'make_file'}

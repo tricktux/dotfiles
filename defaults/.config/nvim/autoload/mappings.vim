@@ -189,15 +189,6 @@ function! mappings#Set()
 
   nmap <leader>tz <plug>windows_toggle_zoom
 
-  nmap <localleader>cs <plug>to_snake_case
-  nmap <localleader>cc <plug>to_camel_case
-  nmap <localleader>cb <plug>to_camel_back_case
-  nmap <localleader>ck <plug>to_kebak_case
-  vmap <localleader>cs <plug>to_snake_case
-  vmap <localleader>cc <plug>to_camel_case
-  vmap <localleader>cb <plug>to_camel_back_case
-  vmap <localleader>ck <plug>to_kebak_case
-
   nmap <localleader>f <plug>format_code
   xmap <localleader>f <plug>format_code
 
