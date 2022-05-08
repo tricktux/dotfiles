@@ -37,6 +37,7 @@ cups
 cups-pdf
 dhcpcd
 dosfstools
+doublecmd-gtk2
 dunst
 earlyoom
 efibootmgr
@@ -157,6 +158,7 @@ msgpack-cxx
 namcap
 neofetch
 neomutt
+neovim
 nfs-utils
 nmap
 noto-fonts
