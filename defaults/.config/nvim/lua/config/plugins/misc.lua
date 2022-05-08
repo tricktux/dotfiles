@@ -1,6 +1,7 @@
 local log = require('utils.log')
 local line = require('config.plugins.lualine')
 local map = require('utils.keymap')
+local api = vim.api
 
 local M = {}
 
@@ -700,12 +701,13 @@ function M.setup_papercolor()
     vim.g.flux_enabled = 0
     vim.fn['flux#Manual']()
   else
-    vim.cmd [[
-      augroup FluxLike
-      autocmd!
-      autocmd VimEnter,BufEnter * call flux#Flux()
-      augroup END
-    ]]
+    local id = api.nvim_create_augroup('FluxLike', {clear = true})
+    api.nvim_create_autocmd({'VimEnter', 'BufEnter'}, {
+      callback = vim.fn['flux#Flux'],
+      pattern = '*',
+      desc = 'Flux',
+      group = id
+    })
 
     vim.g.flux_enabled = 1
     vim.g.flux_api_lat = 27.972572
@@ -715,11 +717,6 @@ function M.setup_papercolor()
     vim.g.flux_day_time = 700
   end
   vim.g.PaperColor_Theme_Options = {
-    ['language'] = {
-      ['python'] = {['highlight_builtins'] = 1},
-      ['c'] = {['highlight_builtins'] = 1},
-      ['cpp'] = {['highlight_standard_library'] = 1}
-    },
     ['theme'] = {
       ['default'] = {
         ['transparent_background'] = 0,
