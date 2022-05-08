@@ -468,11 +468,10 @@ function! mappings#Set()
   vnoremap // y/<C-R>"<cr>
 
   " Buffers Stuff <Leader>b?
-  if !exists("g:loaded_plugins")
+  if !hasmapto("<s-k>", "n")
     nnoremap <S-k> :buffers<cr>:buffer<Space>
-  else
-    nnoremap <leader>bs :buffers<cr>:buffer<Space>
   endif
+  nnoremap <leader>bs :buffers<cr>:buffer<Space>
   nnoremap <leader>bd :bp\|bw #\|bd #<cr>
   nnoremap <S-j> :b#<cr>
   " deletes all buffers

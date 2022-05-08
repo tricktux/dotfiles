@@ -125,7 +125,7 @@ function! s:man_under_cursor() abort
 endfunction
 
 " Setup Compiler and some specific stuff
-call <SID>set_compiler_and_friends()
+" call <SID>set_compiler_and_friends()
 
 function! s:cctree_load_db() abort
 	if !exists('g:ctags_output_dir') || empty('g:ctags_output_dir')

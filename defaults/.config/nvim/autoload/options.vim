@@ -212,24 +212,22 @@ function! options#Set() abort
 
   " Status Line and Colorscheme
   " Set a default bogus colorscheme. If Plugins loaded it will be changed
-  if !exists('g:loaded_plugins')
-    colorscheme desert
-    " If this not and android device and we have no plugins setup "ugly" status
-    " line
-    set statusline =
-    set statusline+=\ [%n]                            " buffernr
-    set statusline+=\ %<%F\ %m%r%w                    " File+path
-    set statusline+=\ %y\                             " FileType
-    set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''} " Encoding
-    " ,BOM\ " :\ " \ " )}\ " Encoding2
-    " set statusline+=\ %{(&bomb?\
-    set statusline+=\ %{&ff}\                         " FileFormat (dos/unix..)
-    set statusline+=\ %=\ row:%l/%L\ (%03p%%)\        " Rownumber/total (%)
-    set statusline+=\ col:%03c\                       " Colnr
-    set statusline+=\ \ %m%r%w\ %P\ \            " Modified? Readonly? Top/bot.
-    " If you want to put color to status line needs to be after command
-    " colorscheme. Otherwise this commands clears it the color
-  endif
+  colorscheme desert
+  " If this not and android device and we have no plugins setup "ugly" status
+  " line
+  set statusline =
+  set statusline+=\ [%n]                            " buffernr
+  set statusline+=\ %<%F\ %m%r%w                    " File+path
+  set statusline+=\ %y\                             " FileType
+  set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''} " Encoding
+  " ,BOM\ " :\ " \ " )}\ " Encoding2
+  " set statusline+=\ %{(&bomb?\
+  set statusline+=\ %{&ff}\                         " FileFormat (dos/unix..)
+  set statusline+=\ %=\ row:%l/%L\ (%03p%%)\        " Rownumber/total (%)
+  set statusline+=\ col:%03c\                       " Colnr
+  set statusline+=\ \ %m%r%w\ %P\ \            " Modified? Readonly? Top/bot.
+  " If you want to put color to status line needs to be after command
+  " colorscheme. Otherwise this commands clears it the color
 
   " Performance Settings
   " see :h slow-terminal

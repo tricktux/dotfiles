@@ -64,9 +64,6 @@ function! commands#Set() abort
           \ "cmd.exe /k " . msvc . "<cr>"
   endif
 
-  if !exists('g:loaded_plugins')
-    return
-  endif
   " Convention: All commands names need to start with the autoload file name.
   " And use camel case. This way is easier to search
   command! UtilsTagLoadCurrFolder call ctags#LoadCscopeDatabse()
