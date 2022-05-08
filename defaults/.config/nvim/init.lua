@@ -29,9 +29,6 @@ local function set_globals()
     and home_dir .. "/.config/dotfiles"
     or os.getenv("LOCALAPPDATA") .. "\\dotfiles"
 
-  vim.g.plug_path = vim.fn.stdpath('data') .. '/site/autoload/plug.vim'
-  vim.g.vim_plugins_path = vim.fn.stdpath('data') .. '/vim_plugins'
-
   -- Disable unnecessary providers
   -- Saves on average 3ms (on linux) :D
   vim.g.loaded_python_provider = 0
@@ -145,9 +142,6 @@ local function main()
   require('config.mappings'):setup()
   require('config.aucmds').setup()
   require('config.plugins.packer'):setup() -- Also setups lsp
-  if vim.fn["plugin#Config"]() ~= 1 then
-    vim.api.nvim_err_writeln('No plugins were loaded')
-  end
   vim.fn["mappings#Set"]()
   vim.fn["options#Set"]()
   vim.fn["commands#Set"]()
