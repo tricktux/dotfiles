@@ -10,17 +10,17 @@ function M.config_neoscrooll()
   local perf = vim.fn.has('unix') > 0 and false or true
   require('neoscroll').setup({
     -- All these keys will be mapped to their corresponding default scrolling animation
-    mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',
-    '<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
-    hide_cursor = true,          -- Hide cursor while scrolling
-    stop_eof = true,             -- Stop at <EOF> when scrolling downwards
+    mappings = { '<C-u>', '<C-d>', '<C-b>', '<C-f>',
+      '<C-y>', '<C-e>', 'zt', 'zz', 'zb' },
+    hide_cursor = true, -- Hide cursor while scrolling
+    stop_eof = true, -- Stop at <EOF> when scrolling downwards
     use_local_scrolloff = false, -- Use the local scope of scrolloff instead of the global scope
-    respect_scrolloff = false,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
+    respect_scrolloff = false, -- Stop scrolling when the cursor reaches the scrolloff margin of the file
     cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
-    easing_function = nil,       -- Default easing function
-    pre_hook = nil,              -- Function to run before the scrolling animation starts
-    post_hook = nil,             -- Function to run after the scrolling animation ends
-    performance_mode = perf,    -- Disable "Performance Mode" on all buffers.
+    easing_function = nil, -- Default easing function
+    pre_hook = nil, -- Function to run before the scrolling animation starts
+    post_hook = nil, -- Function to run after the scrolling animation ends
+    performance_mode = perf, -- Disable "Performance Mode" on all buffers.
   })
 end
 
@@ -30,12 +30,12 @@ function M.config_notify()
 
   if has_telescope and has_which_key then
     telescope.load_extension('notify')
-    whichkey.register{["<leader>fn"] = {telescope.extensions.notify.notify, 'notify'}}
+    whichkey.register { ["<leader>fn"] = { telescope.extensions.notify.notify, 'notify' } }
   else
     log.error("[notify]: no telescope and no mappings set")
   end
 
-  vim.notify =  require("notify")
+  vim.notify = require("notify")
   vim.notify.setup({
     -- Minimum level to show
     level = "info",
@@ -80,8 +80,8 @@ function M.config_notify()
 end
 
 function M.config_alpha()
-  local alpha = require'alpha'
-  local startify = require'alpha.themes.startify'
+  local alpha = require 'alpha'
+  local startify = require 'alpha.themes.startify'
   startify.section.header.val = {
     [[                                   __                ]],
     [[      ___     ___    ___   __  __ /\_\    ___ ___    ]],
@@ -91,7 +91,7 @@ function M.config_alpha()
     [[     \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
   }
   startify.section.top_buttons.val = {
-    startify.button( "e", "New file" , ":ene <BAR> startinsert <CR>"),
+    startify.button("e", "New file", ":ene <BAR> startinsert <CR>"),
   }
   -- disable MRU
   startify.section.mru.val = { { type = "padding", val = 0 } }
@@ -103,7 +103,7 @@ function M.config_alpha()
   -- startify.nvim_web_devicons.highlight = 'Keyword'
   --
   startify.section.bottom_buttons.val = {
-    startify.button( "q", "Quit NVIM" , ":qa<CR>"),
+    startify.button("q", "Quit NVIM", ":qa<CR>"),
   }
   startify.section.footer = {
     { type = "text", val = "footer" },
@@ -111,20 +111,19 @@ function M.config_alpha()
   -- ignore filetypes in MRU
 
   startify.mru_opts.ignore = function(path, ext)
-    return
-    (string.find(path, "COMMIT_EDITMSG"))
-    or  (vim.tbl_contains(default_mru_ignore, ext))
+    return (string.find(path, "COMMIT_EDITMSG"))
+        or (vim.tbl_contains(default_mru_ignore, ext))
   end
   alpha.setup(startify.config)
 end
 
 function M.config_neomake()
   log.info('ins_right(): neomake')
-  line:ins_right{
+  line:ins_right {
     function()
       return vim.fn['linting#neomake_native_status_line']()
     end,
-    color = {fg = line.colors.yellow, gui = 'bold'},
+    color = { fg = line.colors.yellow, gui = 'bold' },
     right_padding = 0,
   }
   vim.fn['neomake#configure#automake']('nw', 750)
@@ -135,7 +134,7 @@ function M.config_neogen()
   local ng = require('neogen')
   local wk = require("which-key")
 
-  ng.setup{
+  ng.setup {
     enabled = true,
     languages = {
       csharp = {
@@ -174,42 +173,42 @@ function M.config_neogen()
   end
 
   local mappings_w_ls = {
-      -- <c-k> is my expansion key
-      -- this will expand the current item or jump to the next item within the snippet.
-      ["<c-k>"] = { next_w_ls, "next_snippet"},
-        -- <c-j> is my jump backwards key.
-        -- this always moves to the previous item within the snippet
-      ["<c-j>"] = { prev_w_ls, "in_snippet_prev"},
+    -- <c-k> is my expansion key
+    -- this will expand the current item or jump to the next item within the snippet.
+    ["<c-k>"] = { next_w_ls, "next_snippet" },
+    -- <c-j> is my jump backwards key.
+    -- this always moves to the previous item within the snippet
+    ["<c-j>"] = { prev_w_ls, "in_snippet_prev" },
   }
 
   local mappings = {
     -- <c-k> is my expansion key
     -- this will expand the current item or jump to the next item within the snippet.
-    ["<c-k>"] = { next, "next_snippet"},
+    ["<c-k>"] = { next, "next_snippet" },
     -- <c-j> is my jump backwards key.
     -- this always moves to the previous item within the snippet
-    ["<c-j>"] = { prev, "in_snippet_prev"},
+    ["<c-j>"] = { prev, "in_snippet_prev" },
   }
 
-  wk.register(ls_ok and mappings_w_ls or mappings, {mode = "i"})
-  wk.register(ls_ok and mappings_w_ls or mappings, {mode = "s"})
+  wk.register(ls_ok and mappings_w_ls or mappings, { mode = "i" })
+  wk.register(ls_ok and mappings_w_ls or mappings, { mode = "s" })
 
   mappings = {
     name = 'generate_doc',
-    f = {function() ng.generate{type = "func"} end, 'function'},
-    c = {function() ng.generate{type = "class"} end, 'class'},
-    i = {function() ng.generate{type = "file"} end, 'file'},
-    t = {function() ng.generate{type = "type"} end, 'type'},
+    f = { function() ng.generate { type = "func" } end, 'function' },
+    c = { function() ng.generate { type = "class" } end, 'class' },
+    i = { function() ng.generate { type = "file" } end, 'file' },
+    t = { function() ng.generate { type = "type" } end, 'type' },
   }
-  wk.register(mappings, {prefix = '<leader>og'})
+  wk.register(mappings, { prefix = '<leader>og' })
 end
 
 function M.config_kitty_navigator()
   require('which-key').register {
-    ["<a-h>"] = {'<cmd>KittyNavigateLeft<cr>', "kitty_left"},
-    ["<a-j>"] = {'<cmd>KittyNavigateDown<cr>', "kitty_down"},
-    ["<a-k>"] = {'<cmd>KittyNavigateUp<cr>', "kitty_up"},
-    ["<a-l>"] = {'<cmd>KittyNavigateRight<cr>', "kitty_right"}
+    ["<a-h>"] = { '<cmd>KittyNavigateLeft<cr>', "kitty_left" },
+    ["<a-j>"] = { '<cmd>KittyNavigateDown<cr>', "kitty_down" },
+    ["<a-k>"] = { '<cmd>KittyNavigateUp<cr>', "kitty_up" },
+    ["<a-l>"] = { '<cmd>KittyNavigateRight<cr>', "kitty_right" }
   }
   log.info("setup of kitty navigator complete")
 end
@@ -269,18 +268,18 @@ function M.config_project()
 
   telescope.load_extension('projects')
 
-  require("which-key").register{["<leader>fp"] = {telescope.extensions.projects.projects, 'projects'}}
+  require("which-key").register { ["<leader>fp"] = { telescope.extensions.projects.projects, 'projects' } }
 end
 
 function M.setup_diffview()
   -- Lua
-  local cb = require'diffview.config'.diffview_callback
+  local cb = require 'diffview.config'.diffview_callback
 
-  require'diffview'.setup {
+  require 'diffview'.setup {
     diff_binaries = false, -- Show diffs for binaries
     use_icons = false, -- Requires nvim-web-devicons
     enhanced_diff_hl = false, -- See ':h diffview-config-enhanced_diff_hl'
-    signs = {fold_closed = "", fold_open = ""},
+    signs = { fold_closed = "", fold_open = "" },
     file_panel = {
       position = "left", -- One of 'left', 'right', 'top', 'bottom'
       width = 35, -- Only applies when position is 'left' or 'right'
@@ -367,7 +366,7 @@ end
 function M.setup_lens()
   -- Resizing not always work
   -- Specially when openning a few windows, like 5 or 6
-  vim.g["lens#disabled_filetypes"] = {'nerdtree', 'fzf', 'NvimTree'}
+  vim.g["lens#disabled_filetypes"] = { 'nerdtree', 'fzf', 'NvimTree' }
   vim.g["lens#width_resize_max"] = 120
   vim.g["lens#height_resize_max"] = 60
 end
@@ -402,9 +401,9 @@ function M.setup_zen_mode()
         ruler = false, -- disables the ruler text in the cmd line area
         showcmd = false -- disables the command in the last line of the screen
       },
-      twilight = {enabled = false}, -- enable to start Twilight when zen mode opens
-      gitsigns = {enabled = false}, -- disables git signs
-      tmux = {enabled = false}, -- disables the tmux statusline
+      twilight = { enabled = false }, -- enable to start Twilight when zen mode opens
+      gitsigns = { enabled = false }, -- disables git signs
+      tmux = { enabled = false }, -- disables the tmux statusline
       -- this will change the font size on kitty when in zen mode
       -- to make this work, you need to set the following kitty options:
       -- - allow_remote_control socket-only
@@ -423,7 +422,7 @@ function M.setup_zen_mode()
   }
 
   require('which-key').register {
-    ["<plug>focus_toggle"] = {'<cmd>ZenMode<cr>', "zen_mode_focus_toggle"}
+    ["<plug>focus_toggle"] = { '<cmd>ZenMode<cr>', "zen_mode_focus_toggle" }
   }
 end
 
@@ -438,20 +437,20 @@ end
 
 function M.setup_gpsnvim()
   local gps = require('nvim-gps')
-  gps.setup{
+  gps.setup {
     icons = {
-      ["class-name"] = '',      -- Classes and class-like objects
-      ["function-name"] = '',   -- Functions
-      ["method-name"] = '',     -- Methods (functions inside class-like objects)
-      ["container-name"] = '',  -- Containers (example: lua tables)
-      ["tag-name"] = ''         -- Tags (example: html tags)
+      ["class-name"] = '', -- Classes and class-like objects
+      ["function-name"] = '', -- Functions
+      ["method-name"] = '', -- Methods (functions inside class-like objects)
+      ["container-name"] = '', -- Containers (example: lua tables)
+      ["tag-name"] = '' -- Tags (example: html tags)
     },
     depth = 4,
     separator = ' > '
   }
 
   log.info('ins_left(): nvim-gps')
-  line:ins_left{
+  line:ins_left {
     gps_get_location, condition = gps.is_available
   }
 end
@@ -464,7 +463,7 @@ function M.config_focus()
     -- Not displayed in unfocussed windows
     -- Default: true
     number = false,
-    excluded_buftypes = {'nofile', 'prompt'},
+    excluded_buftypes = { 'nofile', 'prompt' },
     relativenumber = false,
     cursorline = false,
     signcolumn = false,
@@ -479,11 +478,11 @@ function M.config_focus()
   }
 
   local mappings = {
-    ["<leader>tw"] = {'<cmd>FocusToggle<cr>', "focus_mode_toggle_mappings"},
-    ["<a-h>"] = {function() focus.split_command('h') end, "window_switch_left"},
-    ["<a-j>"] = {function() focus.split_command('j') end, "window_switch_down"},
-    ["<a-k>"] = {function() focus.split_command('k') end, "window_switch_up"},
-    ["<a-l>"] = {function() focus.split_command('l') end, "window_switch_right"}
+    ["<leader>tw"] = { '<cmd>FocusToggle<cr>', "focus_mode_toggle_mappings" },
+    ["<a-h>"] = { function() focus.split_command('h') end, "window_switch_left" },
+    ["<a-j>"] = { function() focus.split_command('j') end, "window_switch_down" },
+    ["<a-k>"] = { function() focus.split_command('k') end, "window_switch_up" },
+    ["<a-l>"] = { function() focus.split_command('l') end, "window_switch_right" }
   }
   require('which-key').register(mappings)
   log.info("setup of focus complete")
@@ -568,7 +567,7 @@ function M.setup_comment_frame()
       "add_multiline_comment"
     }
   }
-  wk.register(leader, {prefix = leader_p})
+  wk.register(leader, { prefix = leader_p })
 end
 
 function M.setup_starlite()
@@ -594,19 +593,19 @@ function M.config_bookmarks()
   local leader_p = [[<leader>]]
   leader.B = {
     name = 'bookmarks',
-    t = {"<Plug>BookmarkToggle", "BookmarkToggle"},
-    i = {"<Plug>BookmarkAnnotate", "BookmarkAnnotate"},
-    a = {"<Plug>BookmarkShowAll", "BookmarkShowAll"},
-    n = {"<Plug>BookmarkNext", "BookmarkNext"},
-    p = {"<Plug>BookmarkPrev", "BookmarkPrev"},
-    c = {"<Plug>BookmarkClear", "BookmarkClear"},
-    x = {"<Plug>BookmarkClearAll", "BookmarkClearAll"},
-    k = {"<Plug>BookmarkMoveUp", "BookmarkMoveUp"},
-    j = {"<Plug>BookmarkMoveDown", "BookmarkMoveDown"},
-    o = {"<Plug>BookmarkLoad", "BookmarkLoad"},
-    s = {"<Plug>BookmarkSave", "BookmarkSave"}
+    t = { "<Plug>BookmarkToggle", "BookmarkToggle" },
+    i = { "<Plug>BookmarkAnnotate", "BookmarkAnnotate" },
+    a = { "<Plug>BookmarkShowAll", "BookmarkShowAll" },
+    n = { "<Plug>BookmarkNext", "BookmarkNext" },
+    p = { "<Plug>BookmarkPrev", "BookmarkPrev" },
+    c = { "<Plug>BookmarkClear", "BookmarkClear" },
+    x = { "<Plug>BookmarkClearAll", "BookmarkClearAll" },
+    k = { "<Plug>BookmarkMoveUp", "BookmarkMoveUp" },
+    j = { "<Plug>BookmarkMoveDown", "BookmarkMoveDown" },
+    o = { "<Plug>BookmarkLoad", "BookmarkLoad" },
+    s = { "<Plug>BookmarkSave", "BookmarkSave" }
   }
-  wk.register(leader, {prefix = leader_p})
+  wk.register(leader, { prefix = leader_p })
 end
 
 function M.setup_bdelete()
@@ -615,7 +614,7 @@ function M.setup_bdelete()
     filetype_ignore = {}, -- Filetype to ignore when running deletions
     file_glob_ignore = {}, -- File name glob pattern to ignore when running deletions (e.g. '*.md')
     file_regex_ignore = {}, -- File name regex pattern to ignore when running deletions (e.g. '.*[.]md')
-    preserve_window_layout = {'this', 'nameless'}, -- Types of deletion that should preserve the window layout
+    preserve_window_layout = { 'this', 'nameless' }, -- Types of deletion that should preserve the window layout
     next_buffer_cmd = nil -- Custom function to retrieve the next buffer when preserving window layout
   })
 
@@ -625,21 +624,21 @@ function M.setup_bdelete()
   local leader_p = [[<leader>]]
   leader.b = {
     name = 'buffers',
-    d = {function() bd.delete({type = 'this'}) end, 'buffer_delete_current'},
+    d = { function() bd.delete({ type = 'this' }) end, 'buffer_delete_current' },
     l = {
-      function() bd.delete({type = 'all', force = true}) end,
+      function() bd.delete({ type = 'all', force = true }) end,
       'buffer_delete_all'
     },
     n = {
-      function() bd.delete({type = 'nameless'}) end, 'buffer_delete_nameless'
+      function() bd.delete({ type = 'nameless' }) end, 'buffer_delete_nameless'
     },
     g = {
       function()
-        bd.delete({glob = vim.fn.input("Please enter glob (ex. *.lua): ")})
+        bd.delete({ glob = vim.fn.input("Please enter glob (ex. *.lua): ") })
       end, 'buffer_delete_glob'
     }
   }
-  wk.register(leader, {prefix = leader_p})
+  wk.register(leader, { prefix = leader_p })
 end
 
 function M.setup_sneak()
@@ -686,9 +685,9 @@ end
 
 local function obsession_status()
   return vim.fn['ObsessionStatus']('S:' ..
-                                       vim.fn
-                                           .fnamemodify(vim.v.this_session,
-                                                        ':t:r'), '$')
+    vim.fn
+    .fnamemodify(vim.v.this_session,
+      ':t:r'), '$')
 end
 
 function M.setup_papercolor()
@@ -701,9 +700,9 @@ function M.setup_papercolor()
     vim.g.flux_enabled = 0
     vim.fn['flux#Manual']()
   else
-    local id = api.nvim_create_augroup('FluxLike', {clear = true})
-    api.nvim_create_autocmd({'VimEnter', 'BufEnter'}, {
-      callback = vim.fn['flux#Flux'],
+    local id = api.nvim_create_augroup('FluxLike', { clear = true })
+    api.nvim_create_autocmd({ 'VimEnter', 'BufEnter' }, {
+      callback = function() vim.fn['flux#Flux']() end,
       pattern = '*',
       desc = 'Flux',
       group = id
@@ -744,9 +743,9 @@ function M.config_neoterm()
       function() require('utils.utils').exec_float_term('Ttoggle', true) end,
       "terminal"
     },
-    ['<plug>terminal_new'] = {'<cmd>Tnew<cr>', 'term_new'},
-    ['<plug>terminal_send_file'] = {'<cmd>TREPLSendFile<cr>', 'term_send_file'},
-    ['<plug>terminal_send'] = {'<Plug>(neoterm-repl-send)', 'term_send_line'},
+    ['<plug>terminal_new'] = { '<cmd>Tnew<cr>', 'term_new' },
+    ['<plug>terminal_send_file'] = { '<cmd>TREPLSendFile<cr>', 'term_send_file' },
+    ['<plug>terminal_send'] = { '<Plug>(neoterm-repl-send)', 'term_send_line' },
     ['<plug>terminal_send_line'] = {
       '<Plug>(neoterm-repl-send-line)', "term_send_line"
     }
@@ -767,13 +766,13 @@ function M.config_neoterm()
       ['<plug>terminal_send'] = {
         function()
           local csel = vim.fn.shellescape(
-                           require('utils.utils').get_visual_selection())
+            require('utils.utils').get_visual_selection())
           if csel == '' or csel == nil then return end
           -- \! = ! which means target (-t) last active tmux pane (!)
           vim.fn.system([[tmux send-keys -t \! ]] .. csel .. [[ Enter]])
         end, 'terminal_send'
       }
-    }, {mode = 'x'})
+    }, { mode = 'x' })
   elseif vim.fn.exists('$KITTY_WINDOW_ID') > 0 then
     require('which-key').register {
       ['<plug>terminal_send_line'] = {
@@ -799,26 +798,25 @@ function M.config_neoterm()
       ['<plug>terminal_send'] = {
         function()
           local csel = vim.fn.shellescape(
-          require('utils.utils').get_visual_selection())
+            require('utils.utils').get_visual_selection())
           -- \\x0d is the terminal Enter key code
           if csel == '' or csel == nil then return end
           vim.fn.system([[kitty @ send-text --match recent:1 ]] .. csel .. [[\\x0d]])
         end, 'terminal_send'
       }
-    }, {mode = 'x'})
+    }, { mode = 'x' })
   end
 end
 
 function M.setup_pomodoro()
   vim.g.pomodoro_use_devicons = 0
   if vim.fn.executable('dunst') > 0 then
-    vim.g.pomodoro_notification_cmd =
-        "notify-send 'Pomodoro' 'Session ended' && " ..
-            "mpv ~/.config/dotfiles/notification_sounds/cool_notification1.mp3 " ..
-            "2>/dev/null&"
+    vim.g.pomodoro_notification_cmd = "notify-send 'Pomodoro' 'Session ended' && " ..
+        "mpv ~/.config/dotfiles/notification_sounds/cool_notification1.mp3 " ..
+        "2>/dev/null&"
   elseif vim.fn.executable('powershell') > 0 then
     local notif = os.getenv("APPDATA") ..
-                      '/dotfiles/scripts/win/win_vim_notification.ps1'
+        '/dotfiles/scripts/win/win_vim_notification.ps1'
     if vim.fn.filereadable(notif) then
       vim.g.pomodoro_notification_cmd = notif
     end
@@ -826,9 +824,9 @@ function M.setup_pomodoro()
   vim.g.pomodoro_log_file = vim.fn.stdpath('data') .. '/pomodoro_log'
 
   log.info('ins_left(): pomodoro')
-  line:ins_left{
+  line:ins_left {
     function() return vim.fn['pomo#status_bar']() end,
-    color = {fg = line.colors.orange, gui = 'bold'},
+    color = { fg = line.colors.orange, gui = 'bold' },
     left_padding = 0
   }
 end
@@ -845,7 +843,7 @@ function M.setup_luadev()
     },
     -- pass any additional options that will be merged in the final lsp config
     lspconfig = {
-      cmd = {"lua-language-server"},
+      cmd = { "lua-language-server" },
       on_attach = require('config.lsp').on_lsp_attach
     }
   })
@@ -859,13 +857,13 @@ function M.setup_neogit()
   -- open commit popup
   -- neogit.open({ "commit" })
   require("which-key").register {
-    ["<leader>vo"] = {require('neogit').open, "neogit_open"}
+    ["<leader>vo"] = { require('neogit').open, "neogit_open" }
   }
 end
 
 function M.config_git_messenger()
   require("which-key").register {
-    ["<leader>vm"] = {'<cmd>GitMessenger<cr>', "git_messenger"}
+    ["<leader>vm"] = { '<cmd>GitMessenger<cr>', "git_messenger" }
   }
 end
 
@@ -888,16 +886,16 @@ function M.config_iswap()
     hl_grey = 'LineNr'
   }
   require("which-key").register {
-    ["<localleader>s"] = {require('iswap').iswap, "iswap_arguments"}
+    ["<localleader>s"] = { require('iswap').iswap, "iswap_arguments" }
   }
 end
 
 function M.setup_obsession()
   vim.g.obsession_no_bufenter = 1
   log.info('ins_right(): obsession')
-  line:ins_right{
+  line:ins_right {
     obsession_status,
-    color = {fg = line.colors.blue, gui = 'bold'},
+    color = { fg = line.colors.blue, gui = 'bold' },
     right_padding = 0
   }
 end
