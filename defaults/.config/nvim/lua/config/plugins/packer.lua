@@ -66,7 +66,7 @@ function M:__setup()
     run = ':TSUpdate',
     requires = { 'p00f/nvim-ts-rainbow', 'RRethy/nvim-treesitter-textsubjects' },
     -- {'romgrk/nvim-treesitter-context'} still some rough edges
-    config = function() require('config.plugins.treesitter').setup() end
+    config = function() require('config.plugins.treesitter'):setup() end
   }
 
   use {
