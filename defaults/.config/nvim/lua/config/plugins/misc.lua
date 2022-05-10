@@ -825,9 +825,8 @@ function M.config_iswap()
     -- default 'Comment'
     hl_grey = 'LineNr'
   }
-  require("which-key").register {
-    ["<localleader>s"] = { require('iswap').iswap, "iswap_arguments" }
-  }
+  local opts = {silent = true, desc = "iswap_arguments"}
+  vim.keymap.set('n', "<localleader>s", require('iswap').iswap, opts)
 end
 
 function M.setup_obsession()
