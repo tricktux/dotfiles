@@ -166,16 +166,25 @@ function M:setup()
 	end
 
 	null.setup({
-		debug = true,
+		debug = false,
+        -- Attach only if current buf has certain lines
+        should_attach = function()
+            local max = vim.fn.has('unix') > 0 and 50000 or 1000
+            return vim.api.nvim_buf_line_count(0) < max
+        end,
+        debounce = 250,
+        default_timeout = 2500,
 		diagnostics_format = "(#{s}): #{m}",
 		on_attach = require("config.lsp").on_lsp_attach,
 		root_dir = nil, -- It was interfering with projector
+        on_init = nil,
+        on_exit = nil,
 		sources = sources,
 	})
 	if vim.fn.executable("plantuml") > 0 then
 		null.register(self.plantuml)
 	end
-	if vim.fn.has("win32") > 0 then
+	if vim.fn.executable('msbuild') > 0 then
 		null.register(self.msbuild)
 	end
 end
