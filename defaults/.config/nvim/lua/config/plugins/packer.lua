@@ -5,7 +5,6 @@
 -- Created:        Tue Sep 08 2020 22:20
 -- Last Modified:  Tue Sep 08 2020 22:20
 local utl = require('utils.utils')
-local log = require('utils.log')
 
 local M = {}
 M.__path = vim.fn.stdpath('data') .. [[/site/pack/packer/start/packer.nvim]]
@@ -53,8 +52,8 @@ function M:__setup()
   use {
     'nvim-lua/telescope.nvim',
     after = 'which-key.nvim',
-    requires = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } },
-    config = function() require('config.plugins.telescope').setup() end
+    requires = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' }, { "ahmedkhalf/project.nvim" } },
+    config = function() require('config.plugins.telescope'):setup() end
   }
 
   -- Post-install/update hook with neovim command
@@ -76,7 +75,7 @@ function M:__setup()
       'quangnguyen30192/cmp-nvim-tags', 'onsails/lspkind-nvim',
       'saadparwaiz1/cmp_luasnip'
     },
-    config = function() require('config.plugins.nvim-cmp').setup() end
+    config = function() require('config.plugins.nvim-cmp'):setup() end
   }
 
   use {
@@ -460,13 +459,6 @@ function M:__setup()
     after = 'nvim-treesitter',
     requires = "nvim-treesitter/nvim-treesitter",
     config = function() require('config.plugins.misc'):setup_gpsnvim() end
-  }
-
-  use {
-    "ahmedkhalf/project.nvim",
-    after = { 'telescope.nvim', 'which-key.nvim' },
-    requires = { 'nvim-lua/telescope.nvim' },
-    config = function() require('config.plugins.misc'):config_project() end
   }
 
   use {
