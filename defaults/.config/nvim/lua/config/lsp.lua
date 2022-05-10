@@ -35,7 +35,8 @@ local function setup_fidget()
 end
 
 local function set_lsp_options(capabilities, bufnr)
-  vim.opt.omnifunc = 'v:lua.vim.lsp.omnifunc'
+  vim.api.nvim_buf_set_option(0, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  vim.api.nvim_buf_set_option(0, 'formatexpr', 'v:lua.vim.lsp.formatexpr()')
 end
 
 local function set_lsp_mappings(capabilities, bufnr)
