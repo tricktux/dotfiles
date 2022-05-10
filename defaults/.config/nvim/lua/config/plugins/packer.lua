@@ -361,7 +361,7 @@ function M:__setup()
 
   use {
     'ironhouzi/starlite-nvim',
-    config = function() require('config.plugins.misc'):setup_starlite() end
+    config = function() require('config.plugins.misc'):config_starlite() end
   }
 
   use {

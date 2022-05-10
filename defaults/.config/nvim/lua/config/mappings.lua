@@ -1,15 +1,30 @@
-local map = require('utils.keymap')
+local api = vim.api
+local utl = require('utils.utils')
 
 local M = {}
 
-function _G.tmux_move(direction)
-  vim.validate {direction = {direction, 'string'}}
+local function refresh_buffer()
+  api.nvim_exec([[
+  update
+  nohlsearch
+  diffupdate
+  mode
+  edit
+  normal! zzze<cr>
+  ]], false)
 
-  local valid_dir = 'phjkl'
-  if not (valid_dir):find(direction) then
-    vim.api.nvim_err_writeln('tmux_move: direction: "' .. direction ' is not a valid"')
-    return
+  if vim.fn.exists(':SignifyRefresh') > 0 then vim.cmd('SignifyRefresh') end
+
+  if utl.is_mod_available('gitsigns') then require('gitsigns').refresh() end
+
+  if vim.fn.exists(':IndentBlanklineRefresh') > 0 then
+    vim.cmd('IndentBlanklineRefresh')
   end
+end
+
+local function tmux_move(direction)
+  local valid_dir = 'phjkl'
+  vim.validate { direction = { direction, function(d) return (valid_dir):find(d) end, valid_dir } }
 
   local curr_win = vim.api.nvim_get_current_win()
   vim.fn.execute('wincmd ' .. direction)
@@ -20,53 +35,84 @@ function _G.tmux_move(direction)
 end
 
 function M:window_movement_setup()
+  local opts = { silent = true, desc = 'tmux_move_left' }
   if vim.fn.has('unix') > 0 then
-      if vim.fn.exists('$TMUX') > 0 then
-        map.nnoremap('<A-h>', [[<cmd>call v:lua.tmux_move('h')<cr>]])
-        map.nnoremap('<A-j>', [[<cmd>call v:lua.tmux_move('j')<cr>]])
-        map.nnoremap('<A-k>', [[<cmd>call v:lua.tmux_move('k')<cr>]])
-        map.nnoremap('<A-l>', [[<cmd>call v:lua.tmux_move('l')<cr>]])
-        map.nnoremap('<A-p>', [[<cmd>call v:lua.tmux_move('p')<cr>]])
-        -- elseif vim.fn.exists('$KITTY_WINDOW_ID') > 0 then
-        return
-      end
+    if vim.fn.exists('$TMUX') > 0 then
+      vim.keymap.set('n', '<A-h>', function() tmux_move('h') end, opts)
+      opts.desc = 'tmux_move_down'
+      vim.keymap.set('n', '<A-j>', function() tmux_move('j') end, opts)
+      opts.desc = 'tmux_move_up'
+      vim.keymap.set('n', '<A-k>', function() tmux_move('k') end, opts)
+      opts.desc = 'tmux_move_right'
+      vim.keymap.set('n', '<A-l>', function() tmux_move('l') end, opts)
+      opts.desc = 'tmux_move_prev'
+      vim.keymap.set('n', '<A-p>', function() tmux_move('p') end, opts)
+      -- elseif vim.fn.exists('$KITTY_WINDOW_ID') > 0 then
+      return
+    end
   end
 
-  map.nnoremap("<A-l>", "<C-w>lzz")
-  map.nnoremap("<A-h>", "<C-w>hzz")
-  map.nnoremap("<A-k>", "<C-w>kzz")
-  map.nnoremap("<A-j>", "<C-w>jzz")
-  map.nnoremap("<A-p>", "<C-w>pzz")
+  opts.desc = 'cursor_right_win'
+  vim.keymap.set('n', "<A-l>", "<C-w>lzz", opts)
+  opts.desc = 'cursor_left_win'
+  vim.keymap.set('n', "<A-h>", "<C-w>hzz", opts)
+  opts.desc = 'cursor_up_win'
+  vim.keymap.set('n', "<A-k>", "<C-w>kzz", opts)
+  opts.desc = 'cursor_bot_win'
+  vim.keymap.set('n', "<A-j>", "<C-w>jzz", opts)
+  opts.desc = 'cursor_prev_win'
+  vim.keymap.set('n', "<A-p>", "<C-w>pzz", opts)
 end
 
 function M:setup()
+  local opts = { nowait = true, silent = true, desc = 'start_cmd' }
   -- Awesome hack, typing a command is used way more often than next
-  map.nnoremap(';', ':', {nowait = true, silent = true})
-  map.vnoremap(';', ':', {nowait = true, silent = true})
+  vim.keymap.set({ 'n', 'v' }, ';', ':', opts)
 
+  opts = { silent = true, desc = 'visual_end_line' }
   -- Let's make <s-v> consistent as well
-  map.nnoremap('<s-v>', 'v$h')
-  map.nnoremap('vv', '<s-v>')
+  vim.keymap.set('n', '<s-v>', 'v$h', opts)
+  opts = { silent = true, desc = 'visual_line' }
+  vim.keymap.set('n', 'vv', '<s-v>', opts)
 
-  map.vnoremap('gA', 'g<c-a>')
-  map.vnoremap('gX', 'g<c-x>')
-  map.vnoremap(']f', 'gf')
-  map.nnoremap(']f', 'gf')
-  map.nnoremap(']i', '[<c-i>')
-  map.nnoremap('[i', '[<c-i>')
-  map.nnoremap(']I', '<c-w>i<c-w>L')
-  map.nnoremap('[I', '<c-w>i<c-w>H')
-  map.nnoremap(']e', '[<c-d>')
-  map.nnoremap('[e', '[<c-d>')
-  map.nnoremap(']E', '<c-w>d<c-w>L')
-  map.nnoremap('[E', '<c-w>d<c-w>H')
+  opts = { silent = true, desc = 'visual_increment' }
+  vim.keymap.set('v', 'gA', 'g<c-a>', opts)
+  opts.desc = 'visual_decrement'
+  vim.keymap.set('v', 'gX', 'g<c-x>', opts)
+  opts.desc = 'goto_file_under_cursor'
+  vim.keymap.set({'v', 'n'}, ']f', 'gf', opts)
+  opts.desc = 'goto_include_under_cursor'
+  vim.keymap.set('n', ']i', '[<c-i>', opts)
+  opts.desc = 'goto_include_under_cursor'
+  vim.keymap.set('n', '[i', '[<c-i>', opts)
+  opts.desc = 'goto_include_under_cursor_on_right_win'
+  vim.keymap.set('n', ']I', '<c-w>i<c-w>L', opts)
+  opts.desc = 'goto_include_under_cursor_on_left_win'
+  vim.keymap.set('n', '[I', '<c-w>i<c-w>H', opts)
+  opts.desc = 'goto_define_under_cursor'
+  vim.keymap.set('n', ']e', '[<c-d>', opts)
+  opts.desc = 'goto_define_under_cursor'
+  vim.keymap.set('n', '[e', '[<c-d>', opts)
+  opts.desc = 'goto_define_under_cursor_on_right_win'
+  vim.keymap.set('n', ']E', '<c-w>d<c-w>L', opts)
+  opts.desc = 'goto_define_under_cursor_on_left_win'
+  vim.keymap.set('n', '[E', '<c-w>d<c-w>H', opts)
+
+  vim.keymap.set({'n', 'x', 'o'}, 't', '%')
 
   self:window_movement_setup()
   -- Window resizing
-  map.nnoremap("<A-S-l>", "<C-w>>")
-  map.nnoremap("<A-S-h>", "<C-w><")
-  map.nnoremap("<A-S-k>", "<C-w>-")
-  map.nnoremap("<A-S-j>", "<C-w>+")
+  opts.desc = 'window_size_increase_right'
+  vim.keymap.set('n', "<A-S-l>", "<C-w>>", opts)
+  opts.desc = 'window_size_increase_left'
+  vim.keymap.set('n', "<A-S-h>", "<C-w><", opts)
+  opts.desc = 'window_size_increase_up'
+  vim.keymap.set('n', "<A-S-k>", "<C-w>+", opts)
+  opts.desc = 'window_size_increase_bot'
+  vim.keymap.set('n', "<A-S-j>", "<C-w>-", opts)
+
+  opts.desc = 'refresh_buffer'
+  vim.keymap.set('n', "<c-l>", refresh_buffer, opts)
 end
 
 return M

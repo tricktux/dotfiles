@@ -1,25 +1,4 @@
-local utl = require('utils/utils')
 local log = require('utils.log')
-local api = vim.api
-
-local function refresh_buffer()
-  api.nvim_exec([[
-  update
-  nohlsearch
-  diffupdate
-  mode
-  edit
-  normal! zzze<cr>
-  ]], false)
-
-  if vim.fn.exists(':SignifyRefresh') > 0 then vim.cmd('SignifyRefresh') end
-
-  if utl.is_mod_available('gitsigns') then require('gitsigns').refresh() end
-
-  if vim.fn.exists(':IndentBlanklineRefresh') > 0 then
-    vim.cmd('IndentBlanklineRefresh')
-  end
-end
 
 local M = {}
 
@@ -195,12 +174,7 @@ rbracket.q = 'next_quickfix_item'
 rbracket.l = 'next_location_list_item'
 rbracket.t = 'goto_tag_under_cursor'
 rbracket.T = 'goto_tag_under_cursor_on_right_win'
-rbracket.f = 'goto_file_under_cursor'
 rbracket.F = 'goto_file_under_cursor_on_right_win'
-rbracket.i = 'goto_include_under_cursor'
-rbracket.I = 'goto_include_under_cursor_on_right_win'
-rbracket.e = 'goto_define_under_cursor'
-rbracket.E = 'goto_define_under_cursor_on_right_win'
 rbracket.z = 'scroll_right'
 rbracket.Z = 'scroll_up'
 rbracket.s = 'goto_next_spell_error'
@@ -227,9 +201,6 @@ lbracket.T = 'goto_tag_under_cursor_on_left_win'
 lbracket.f = 'go_back_one_file'
 lbracket.F = 'goto_file_under_cursor_on_left_win'
 lbracket.i = 'goto_include_under_cursor'
-lbracket.I = 'goto_include_under_cursor_on_left_win'
-lbracket.e = 'goto_define_under_cursor'
-lbracket.E = 'goto_define_under_cursor_on_left_win'
 lbracket.z = 'scroll_left'
 lbracket.Z = 'scroll_down'
 lbracket.s = 'goto_prev_spell_error'
@@ -247,10 +218,6 @@ function M:setup()
   wk.register(lleader, {prefix = lleader_p})
   wk.register(lbracket, {prefix = lbracket_p})
   wk.register(rbracket, {prefix = rbracket_p})
-  -- Global mappings
-  wk.register({
-    ["<c-l>"] = {refresh_buffer, "refresh_buffer"}
-  })
   log.info("setup of which key complete")
 end
 

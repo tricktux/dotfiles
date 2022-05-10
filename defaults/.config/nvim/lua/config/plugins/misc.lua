@@ -1,6 +1,5 @@
 local log = require('utils.log')
 local line = require('config.plugins.lualine')
-local map = require('utils.keymap')
 local api = vim.api
 
 local M = {}
@@ -570,11 +569,16 @@ function M.setup_comment_frame()
   wk.register(leader, { prefix = leader_p })
 end
 
-function M.setup_starlite()
-  map.nnoremap('*', '<cmd>lua require"starlite".star()<cr>')
-  map.nnoremap('g*', '<cmd>lua require"starlite".g_star()<cr>')
-  map.nnoremap('#', '<cmd>lua require"starlite".hash()<cr>')
-  map.nnoremap('g#', '<cmd>lua require"starlite".g_hash()<cr>')
+function M.config_starlite()
+  local opts = { silent = true, desc = 'goto_next_abs_word_under_cursor' }
+  local sl = require('starlite')
+  vim.keymap.set('n', '*', sl.star, opts)
+  opts.desc = 'goto_next_word_under_cursor'
+  vim.keymap.set('n', 'g*', sl.g_star, opts)
+  opts.desc = 'goto_prev_abs_word_under_cursor'
+  vim.keymap.set('n', '#', sl.hash, opts)
+  opts.desc = 'goto_prev_word_under_cursor'
+  vim.keymap.set('n', 'g#', sl.g_hash, opts)
 end
 
 function M.setup_bookmarks()
@@ -647,40 +651,34 @@ function M.setup_sneak()
 
   -- " repeat motion
   -- Using : for next f,t is cumbersome, use ' for that, and ` for marks
-  map.map("'", '<Plug>Sneak_;')
-  map.map(',', '<Plug>Sneak_,')
+  local opts = { silent = true, desc = 'Sneak_;' }
+  vim.keymap.set('n', "'", '<Plug>Sneak_;', opts)
+  opts.desc = 'Sneak_,'
+  vim.keymap.set('n', ',', '<Plug>Sneak_,', opts)
 
   -- " 1-character enhanced 'f'
-  map.nmap('f', '<Plug>Sneak_f')
-  map.nmap('F', '<Plug>Sneak_F')
+  opts.desc = 'Sneak_f'
+  vim.keymap.set('n', 'f', '<Plug>Sneak_f', opts)
+  opts.desc = 'Sneak_F'
+  vim.keymap.set('n', 'F', '<Plug>Sneak_F', opts)
   -- " 1-character enhanced 't'
-  map.nmap('t', '<Plug>Sneak_t')
+  opts.desc = 'Sneak_t'
+  vim.keymap.set('n', 't', '<Plug>Sneak_t', opts)
   -- " label-mode
-  map.nmap('s', '<Plug>SneakLabel_s')
-  map.nmap('S', '<Plug>SneakLabel_S')
+  opts.desc = 'Sneak_t'
+  vim.keymap.set('n', 's', '<Plug>SneakLabel_s', opts)
+  opts.desc = 'Sneak_t'
+  vim.keymap.set('n', 'S', '<Plug>SneakLabel_S', opts)
 
   -- TODO: See a way not to have to map these
   -- Wait for: https://github.com/justinmk/vim-sneak/pull/248
   -- vim.g["sneak#disable_mappings"] = 1
-  -- " visual-mode
-  map.nmap('T', '%')
-  map.xmap('s', 's')
-  map.xmap('S', 'S')
-  -- " operator-pending-mode
-  map.omap('s', 's')
-  map.omap('S', 'S')
-  -- " visual-mode
-  map.xmap('f', 'f')
-  map.xmap('F', 'F')
-  -- " operator-pending-mode
-  map.omap('f', 'f')
-  map.omap('F', 'F')
-  -- " visual-mode
-  map.xmap('t', 't')
-  map.xmap('T', '%')
-  -- " operator-pending-mode
-  map.omap('t', 't')
-  map.omap('T', '%')
+  vim.keymap.set({'x', 'o'}, '<Plug>Sneak_s', '')
+  vim.keymap.set({'x', 'o'}, '<Plug>Sneak_S', '')
+  vim.keymap.set({'x', 'o'}, '<Plug>Sneak_f', '')
+  vim.keymap.set({'x', 'o'}, '<Plug>Sneak_F', '')
+  vim.keymap.set({'x', 'o'}, '<Plug>Sneak_t', '')
+  vim.keymap.set({'x', 'o'}, '<Plug>Sneak_T', '')
 end
 
 local function obsession_status()

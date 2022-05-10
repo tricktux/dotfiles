@@ -1,5 +1,4 @@
 local utl = require('utils.utils')
-local map = require('utils.keymap')
 local log = require('utils.log')
 
 local function setup_fidget()
@@ -43,6 +42,7 @@ local function set_lsp_mappings(capabilities, bufnr)
   local wk = require("which-key")
   local opts = {prefix = '<localleader>l', buffer = bufnr}
   local lsp = vim.lsp
+  local diag = vim.diagnostic
   local list =
       '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>'
   local workspace = {
@@ -71,9 +71,9 @@ local function set_lsp_mappings(capabilities, bufnr)
 
   -- Override default mappings with lsp intelligent analougous
   opts.prefix = "]l"
-  wk.register({lsp.diagnostic.goto_next, "diagnostic_next"}, opts)
+  wk.register({diag.diagnostic.goto_next, "diagnostic_next"}, opts)
   opts.prefix = "[l"
-  wk.register({lsp.diagnostic.goto_prev, "diagnostic_prev"}, opts)
+  wk.register({diag.diagnostic.goto_prev, "diagnostic_prev"}, opts)
   opts.prefix = "<localleader>"
   mappings = {
     D = {
@@ -138,9 +138,10 @@ local function on_clangd_attach(client_id, bufnr)
 
   log.debug('Setting up on_clangd_attach')
   log.debug('client_id = ', client_id)
-  local opts = {silent = true, buffer = true}
-  map.nnoremap('<localleader>a', [[<cmd>ClangdSwitchSourceHeader<cr>]], opts)
-  map.nnoremap('<localleader>A',
+  local opts = {silent = true, buffer = true, desc = 'clangd_switch_source_header'}
+  vim.keymap.set('n', '<localleader>a', [[<cmd>ClangdSwitchSourceHeader<cr>]], opts)
+  opts.desc = 'clangd_switch_source_header'
+  vim.keymap.set('n', '<localleader>A',
                [[<cmd>vs<cr><cmd>ClangdSwitchSourceHeader<cr>]], opts)
   return on_lsp_attach(client_id, bufnr)
 end
