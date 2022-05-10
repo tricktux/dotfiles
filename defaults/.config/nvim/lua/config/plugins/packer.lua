@@ -52,7 +52,10 @@ function M:__setup()
   use {
     'nvim-lua/telescope.nvim',
     after = 'which-key.nvim',
-    requires = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' }, { "ahmedkhalf/project.nvim" } },
+    requires = {
+      { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' },
+      { "ahmedkhalf/project.nvim" }, { 'nvim-telescope/telescope-ui-select.nvim' }
+    },
     config = function() require('config.plugins.telescope'):setup() end
   }
 

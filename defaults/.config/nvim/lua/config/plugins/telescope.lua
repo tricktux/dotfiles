@@ -340,8 +340,11 @@ function M:setup()
       }
     }
   }
-  require('telescope').setup(config)
+
+  local ts = require("telescope")
+  ts.setup(config)
   self:config_project()
+  ts.load_extension("ui-select")
 end
 
 return M
