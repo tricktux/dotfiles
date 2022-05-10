@@ -2,7 +2,7 @@ local utl = require('utils.utils')
 local log = require('utils.log')
 
 local function setup_fidget()
-  require'fidget'.setup {
+  require 'fidget'.setup {
     text = {
       spinner = "dots", -- animation shown when tasks are ongoing
       done = "✔", -- character shown when all tasks are complete
@@ -27,8 +27,8 @@ local function setup_fidget()
       task = -- function to format each task line
       function(task_name, message, percentage)
         return string.format("%s%s [%s]", message, percentage and
-                                 string.format(" (%s%%)", percentage) or "",
-                             task_name)
+          string.format(" (%s%%)", percentage) or "",
+          task_name)
       end
     }
   }
@@ -40,30 +40,30 @@ end
 
 local function set_lsp_mappings(capabilities, bufnr)
   local wk = require("which-key")
-  local opts = {prefix = '<localleader>l', buffer = bufnr}
+  local opts = { prefix = '<localleader>l', buffer = bufnr }
   local lsp = vim.lsp
   local diag = vim.diagnostic
   local list =
-      '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>'
+  '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>'
   local workspace = {
     name = 'workspace',
-    a = {lsp.buf.add_workspace_folder, 'add_workspace_folder'},
-    r = {lsp.buf.remove_workspace_folder, 'remove_workspace_folder'},
-    l = {list, 'list_folders'}
+    a = { lsp.buf.add_workspace_folder, 'add_workspace_folder' },
+    r = { lsp.buf.remove_workspace_folder, 'remove_workspace_folder' },
+    l = { list, 'list_folders' }
   }
   local mappings = {
     name = 'lsp',
-    r = {lsp.buf.rename, 'rename'},
-    e = {lsp.buf.declaration, 'declaration'},
-    d = {lsp.buf.definition, 'definition'},
-    h = {lsp.buf.hover, 'hover'},
-    i = {lsp.buf.implementation, 'implementation'},
-    H = {lsp.buf.signature_help, 'signature_help'},
-    D = {lsp.buf.type_definition, 'type_definition'},
-    R = {lsp.buf.references, 'references'},
-    S = {lsp.stop_all_clients, 'stop_all_clients'},
-    n = {vim.diagnostic.open_float, 'show_line_diagnostics'},
-    l = {lsp.diagnostic.setloclist, 'set_loclist'},
+    r = { lsp.buf.rename, 'rename' },
+    e = { lsp.buf.declaration, 'declaration' },
+    d = { lsp.buf.definition, 'definition' },
+    h = { lsp.buf.hover, 'hover' },
+    i = { lsp.buf.implementation, 'implementation' },
+    H = { lsp.buf.signature_help, 'signature_help' },
+    D = { lsp.buf.type_definition, 'type_definition' },
+    R = { lsp.buf.references, 'references' },
+    S = { lsp.stop_all_clients, 'stop_all_clients' },
+    n = { vim.diagnostic.open_float, 'show_line_diagnostics' },
+    l = { lsp.diagnostic.setloclist, 'set_loclist' },
     w = workspace
   }
 
@@ -71,9 +71,9 @@ local function set_lsp_mappings(capabilities, bufnr)
 
   -- Override default mappings with lsp intelligent analougous
   opts.prefix = "]l"
-  wk.register({diag.diagnostic.goto_next, "diagnostic_next"}, opts)
+  wk.register({ diag.goto_next, "diagnostic_next" }, opts)
   opts.prefix = "[l"
-  wk.register({diag.diagnostic.goto_prev, "diagnostic_prev"}, opts)
+  wk.register({ diag.goto_prev, "diagnostic_prev" }, opts)
   opts.prefix = "<localleader>"
   mappings = {
     D = {
@@ -82,19 +82,19 @@ local function set_lsp_mappings(capabilities, bufnr)
         lsp.buf.definition()
       end, 'lsp_definition_split'
     },
-    r = {lsp.buf.rename, 'lsp_rename'},
-    d = {lsp.buf.definition, 'lsp_definition'},
-    u = {lsp.buf.references, 'references'},
-    n = {vim.diagnostic.open_float, 'show_line_diagnostics'},
-    h = {lsp.buf.hover, 'hover'}
+    r = { lsp.buf.rename, 'lsp_rename' },
+    d = { lsp.buf.definition, 'lsp_definition' },
+    u = { lsp.buf.references, 'references' },
+    n = { vim.diagnostic.open_float, 'show_line_diagnostics' },
+    h = { lsp.buf.hover, 'hover' }
   }
 
   -- Set some keybinds conditional on server capabilities
   if capabilities.document_formatting then
-    mappings.f = {lsp.buf.formatting, 'formatting'}
+    mappings.f = { lsp.buf.formatting, 'formatting' }
   end
   if capabilities.document_range_formatting then
-    mappings.F = {lsp.buf.range_formatting, 'range_formatting'}
+    mappings.F = { lsp.buf.range_formatting, 'range_formatting' }
   end
   wk.register(mappings, opts)
 
@@ -125,7 +125,7 @@ local function on_lsp_attach(client_id, bufnr)
 
   -- Disable tagbar
   vim.b.tagbar_ignore = 1
-  require'lsp_signature'.on_attach()
+  require 'lsp_signature'.on_attach()
   vim.b.did_on_lsp_attach = 1
 end
 
@@ -138,30 +138,30 @@ local function on_clangd_attach(client_id, bufnr)
 
   log.debug('Setting up on_clangd_attach')
   log.debug('client_id = ', client_id)
-  local opts = {silent = true, buffer = true, desc = 'clangd_switch_source_header'}
+  local opts = { silent = true, buffer = true, desc = 'clangd_switch_source_header' }
   vim.keymap.set('n', '<localleader>a', [[<cmd>ClangdSwitchSourceHeader<cr>]], opts)
   opts.desc = 'clangd_switch_source_header'
   vim.keymap.set('n', '<localleader>A',
-               [[<cmd>vs<cr><cmd>ClangdSwitchSourceHeader<cr>]], opts)
+    [[<cmd>vs<cr><cmd>ClangdSwitchSourceHeader<cr>]], opts)
   return on_lsp_attach(client_id, bufnr)
 end
 
 local function diagnostic_config()
   local opts = {
-      virtual_text = {source = "if_many"},
-      underline = true,
-      signs = true,
-      update_in_insert = false,
-      float = {source = "if_many"}
+    virtual_text = { source = "if_many" },
+    underline = true,
+    signs = true,
+    update_in_insert = false,
+    float = { source = "if_many" }
   }
   vim.diagnostic.config(opts)
   vim.api.nvim_create_autocmd("DiagnosticChanged", {
-          pattern = "*",
-          callback = function()
-            vim.diagnostic.setqflist{open = false }
-            vim.diagnostic.setloclist{open = false }
-          end,
-        })
+    pattern = "*",
+    callback = function()
+      vim.diagnostic.setqflist { open = false }
+      vim.diagnostic.setloclist { open = false }
+    end,
+  })
 end
 
 -- TODO
@@ -180,9 +180,9 @@ local function lsp_set()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities = cmp_lsp.update_capabilities(capabilities)
   capabilities.textDocument.completion.completionItem.snippetSupport = true
-  capabilities.offsetEncoding = 'utf-8'  -- Set the same encoding for all servers
+  capabilities.offsetEncoding = 'utf-8' -- Set the same encoding for all servers
 
-  local flags = {allow_incremental_sync = true, debounce_text_changes = 150}
+  local flags = { allow_incremental_sync = true, debounce_text_changes = 150 }
 
   -- Unbearably slow
   if vim.fn.executable('omnisharp') > 0 then
@@ -191,8 +191,8 @@ local function lsp_set()
     nvim_lsp.omnisharp.setup {
       on_attach = on_lsp_attach,
       flags = flags,
-      filetypes = {"cs"},
-      cmd = {"omnisharp", "--languageserver", "--hostPID", pid},
+      filetypes = { "cs" },
+      cmd = { "omnisharp", "--languageserver", "--hostPID", pid },
       root_dir = nvim_lsp.util.root_pattern(".vs", "*.csproj", "*.sln"),
       capabilities = capabilities
     }
@@ -210,13 +210,13 @@ local function lsp_set()
   if vim.fn.executable('clangd') > 0 then
     log.info("setting up the clangd lsp...")
     local cores = utl.has_win() and os.getenv("NUMBER_OF_PROCESSORS") or
-                      table.concat(vim.fn.systemlist('nproc'))
+        table.concat(vim.fn.systemlist('nproc'))
 
     nvim_lsp.clangd.setup {
-      init_options = {clangdFileStatus = false},
+      init_options = { clangdFileStatus = false },
       on_attach = on_clangd_attach,
       flags = flags,
-      filetypes = {"c", "cpp"},
+      filetypes = { "c", "cpp" },
       capabilities = capabilities,
       cmd = {
         "clangd", "--all-scopes-completion=true", "--background-index=true",
@@ -251,4 +251,4 @@ local function lsp_set()
   end
 end
 
-return {setup = lsp_set, on_lsp_attach = on_lsp_attach}
+return { setup = lsp_set, on_lsp_attach = on_lsp_attach }
