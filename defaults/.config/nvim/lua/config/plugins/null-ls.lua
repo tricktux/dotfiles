@@ -176,7 +176,7 @@ function M:setup()
         default_timeout = 2500,
 		diagnostics_format = "(#{s}): #{m}",
 		on_attach = require("config.lsp").on_lsp_attach,
-		root_dir = nil, -- It was interfering with projector
+		root_dir = function() return nil end, -- It was interfering with projector
         on_init = nil,
         on_exit = nil,
 		sources = sources,
