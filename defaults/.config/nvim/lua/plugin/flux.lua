@@ -19,7 +19,7 @@ nvim_flux._mapping = {
 }
 
 local function read_file(path)
-  vim.validate {path = {path, 's'}}
+  vim.validate { path = { path, 's' } }
   local file = io.open(path)
   if file == nil then return '' end
   local output = file:read('*all')
@@ -31,7 +31,7 @@ function nvim_flux:check()
   local period = read_file(self._file_location)
   if period == nil or period == '' then
     api.nvim_err_writeln("Failed to get daytime period from: " ..
-                             self._file_location)
+      self._file_location)
     return
   end
 
