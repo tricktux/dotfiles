@@ -35,17 +35,30 @@ function M:setup()
       enable = true, -- false will disable the whole extension
       additional_vim_regex_highlighting = false,
     },
-    indent = {enable = true},
-    iswap = {enable = true},
-    nvimGPS = {enable = true},
+    indent = {
+      disable = self.__disable,
+      enable = true
+    },
+    iswap = {
+      disable = self.__disable,
+      enable = true
+    },
+    nvimGPS = {
+      disable = self.__disable,
+      enable = true}
+    ,
     textsubjects = {
+      disable = self.__disable,
       enable = true,
       keymaps = {
         ['.'] = 'textsubjects-smart',
         [';'] = 'textsubjects-big',
       }
     },
-    rainbow = {enable = true}
+    rainbow = {
+      disable = self.__disable,
+      enable = true
+    }
   }
 
   -- if utl.is_mod_available('rainbow') then config["rainbow"] = {enable = true} end
