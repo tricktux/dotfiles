@@ -287,8 +287,9 @@ function M:setup()
           ["<esc>"] = actions.close,
           ["<c-c>"] = actions.close,
           ["<c-q>"] = actions.smart_send_to_qflist,
-          ["<CR>"] = actions.file_edit,
-          ["<c-m>"] = actions.file_edit,
+          -- Mapping enter breaks other modes, such as commands, select, etc...
+          -- ["<CR>"] = actions.file_edit,
+          -- ["<c-m>"] = actions.file_edit,
           ["<C-s>"] = actions.file_split,
           ["<C-u>"] = actions.results_scrolling_up,
           ["<C-d>"] = actions.results_scrolling_down,
@@ -306,13 +307,13 @@ function M:setup()
           ["<esc>"] = actions.close,
           ["<c-c>"] = actions.close,
           ["q"] = actions.close,
-          ["<CR>"] = actions.file_edit,
-          ["<c-m>"] = actions.file_edit,
+          -- ["<CR>"] = actions.file_edit,
+          -- ["<c-m>"] = actions.file_edit,
           ["?"] = actions_generate.which_key {
             name_width = 20, -- typically leads to smaller floats
             max_height = 0.5, -- increase potential maximum height
             seperator = " > ", -- change sep between mode, keybind, and name
-            close_with_action = false, -- do not close float on action
+            close_with_action = true, -- do not close float on action
           },
         }
       }
