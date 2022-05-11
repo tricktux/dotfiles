@@ -28,12 +28,6 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ; !h::Send {Left}
 ; !l::Send {Right}
 
-; Awesomeness!
-; Swap CapsLock and LCtrl
-; Next level Awesomeness if possible:
-LCtrl::CapsLock
-CapsLock::LCtrl
-
 #k::CenterActiveWindowUp() ; if win+shift+↑ is pressed
 #j::CenterActiveWindowDown() ; if win+shift+↑ is pressed
 #m::WinMinimize, A
