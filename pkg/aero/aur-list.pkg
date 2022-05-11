@@ -37,7 +37,6 @@ papirus-libreoffice-theme
 paru-bin
 pass-import
 pass-update
-polybar
 popcorntime-bin
 powerstat
 preload
@@ -47,6 +46,7 @@ ranger-git
 riseup-vpn
 rofi-bluetooth-git
 rofi-dmenu
+rofi-file-browser-extended-git
 spotify
 synology-drive
 termite

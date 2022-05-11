@@ -197,6 +197,7 @@ pkgconf
 pkgfile
 plantuml
 playerctl
+polybar
 poppler
 powertop
 profile-sync-daemon
@@ -263,6 +264,7 @@ speedtest-cli
 steam
 stow
 strace
+stylua
 sudo
 texinfo
 texlive-bibtexextra
