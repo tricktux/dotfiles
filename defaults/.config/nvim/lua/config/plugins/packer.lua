@@ -367,8 +367,12 @@ function M:__setup()
   }
 
   use {
-    'justinmk/vim-sneak',
-    setup = function() require('config.plugins.misc'):setup_sneak() end
+    'phaazon/hop.nvim',
+    tag = "*",
+    config = function()
+      -- you can configure Hop the way you like here; see :h hop-config
+      require'hop'.setup { }
+    end
   }
 
   use {
@@ -536,9 +540,9 @@ function M:__setup()
       vim.g.radical_no_mappings = 1
       vim.keymap.set({ 'n', 'x' }, '<leader>nr', '<Plug>RadicalView',
         {
-        silent = true,
-        desc = "radical_view"
-      })
+          silent = true,
+          desc = "radical_view"
+        })
     end
   }
 
@@ -563,17 +567,17 @@ function M:__setup()
           callback = function()
             vim.keymap.set('n', '<localleader>j', '<Plug>JupyterExecute',
               {
-              silent = true,
-              buffer = true,
-              desc = "jupyter_execute"
-            })
+                silent = true,
+                buffer = true,
+                desc = "jupyter_execute"
+              })
 
             vim.keymap.set('n', '<localleader>k', '<Plug>JupyterExecuteAll',
               {
-              silent = true,
-              buffer = true,
-              desc = "jupyter_execute_all"
-            })
+                silent = true,
+                buffer = true,
+                desc = "jupyter_execute_all"
+              })
 
           end,
           once = true
