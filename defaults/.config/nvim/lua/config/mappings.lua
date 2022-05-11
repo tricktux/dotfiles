@@ -65,9 +65,9 @@ function M:window_movement_setup()
 end
 
 function M:setup()
-  local opts = { nowait = true, silent = true, desc = 'start_cmd' }
+  local opts = { nowait = true, desc = 'start_cmd' }
   -- Awesome hack, typing a command is used way more often than next
-  vim.keymap.set({ 'n', 'v' }, ';', ':', opts)
+  vim.keymap.set('n', ';', ':', opts)
 
   opts = { silent = true, desc = 'visual_end_line' }
   -- Let's make <s-v> consistent as well
