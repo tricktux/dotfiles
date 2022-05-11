@@ -101,6 +101,12 @@ function M:setup()
 				filetypes = { "html", "css", "yaml", "markdown", "json" },
 			})
 		)
+  elseif vim.fn.executable('jq') then
+		log.info("NullLs setting up jq...")
+		table.insert(sources, null.builtins.formatting.jq)
+  elseif vim.fn.executable('python') then
+    log.info("NullLs setting up python json_tool...")
+    table.insert(sources, null.builtins.formatting.json_tool)
 	end
 	if vim.fn.executable("mypy") > 0 then
 		log.info("NullLs setting up mypy...")
