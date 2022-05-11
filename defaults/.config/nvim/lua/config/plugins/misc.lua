@@ -467,6 +467,37 @@ function M.config_focus()
 	log.info("setup of focus complete")
 end
 
+
+function M.setup_sneak()
+    vim.g["sneak#absolute_dir"] = 1
+    vim.g["sneak#label"] = 1
+
+    -- " repeat motion
+    -- Using : for next f,t is cumbersome, use ' for that, and ` for marks
+    vim.keymap.set('n', "'", '<Plug>Sneak_;')
+    vim.keymap.set('n', ',', '<Plug>Sneak_,')
+
+    -- " 1-character enhanced 'f'
+    vim.keymap.set('n', 'f', '<Plug>Sneak_f')
+    vim.keymap.set('n', 'F', '<Plug>Sneak_F')
+    -- " 1-character enhanced 't'
+    vim.keymap.set('n', 't', '<Plug>Sneak_t')
+    -- " label-mode
+    vim.keymap.set('n', 's', '<Plug>SneakLabel_s')
+    vim.keymap.set('n', 'S', '<Plug>SneakLabel_S')
+
+    -- TODO: See a way not to have to map these
+    -- Wait for: https://github.com/justinmk/vim-sneak/pull/248
+    -- vim.g["sneak#disable_mappings"] = 1
+    -- " visual-mode
+    vim.keymap.set({'x', 'o'}, 's', 's')
+    vim.keymap.set({'x', 'o'}, 'S', 'S')
+    vim.keymap.set({'x', 'o'}, 'f', 'f')
+    vim.keymap.set({'x', 'o'}, 'F', 'F')
+    vim.keymap.set({'x', 'o'}, 't', 't')
+    vim.keymap.set({'x', 'o'}, 'T', '%')
+end
+
 function M.config_kommentary()
 	local config = require("kommentary.config")
 	config.configure_language("wings_syntax", {

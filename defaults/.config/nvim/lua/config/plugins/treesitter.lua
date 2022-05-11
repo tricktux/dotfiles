@@ -61,7 +61,6 @@ function M:setup()
     }
   }
 
-  -- if utl.is_mod_available('rainbow') then config["rainbow"] = {enable = true} end
   tsconf.setup(config)
   vim.cmd[[
     set foldmethod=expr

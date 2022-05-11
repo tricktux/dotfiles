@@ -65,7 +65,6 @@ function M:__setup()
     after = 'which-key.nvim',
     run = ':TSUpdate',
     requires = { 'p00f/nvim-ts-rainbow', 'RRethy/nvim-treesitter-textsubjects' },
-    -- {'romgrk/nvim-treesitter-context'} still some rough edges
     config = function() require('config.plugins.treesitter'):setup() end
   }
 
@@ -367,12 +366,8 @@ function M:__setup()
   }
 
   use {
-    'phaazon/hop.nvim',
-    tag = "*",
-    config = function()
-      -- you can configure Hop the way you like here; see :h hop-config
-      require'hop'.setup { }
-    end
+    'justinmk/vim-sneak',
+    setup = function() require('config.plugins.misc'):setup_sneak() end
   }
 
   use {
