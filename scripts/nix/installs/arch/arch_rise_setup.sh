@@ -594,8 +594,10 @@ paci --needed --noconfirm hyperfine
 # }}}
 
 # Development environment {{{
-paci --needed --noconfirm neovim-nightly-bin cscope ripgrep ctags global xclip
-paci --needed --noconfirm neovim-remote lazygit
+paci --needed --noconfirm neovim cscope ripgrep ctags global xclip
+paci --needed --noconfirm lazygit
+# Cheatsheets
+paci --needed --noconfirm cht.sh-git navi-bin
 # Takes forever, rust compilation
 paci --needed --noconfirm ripgrep-all
 # for diffs
