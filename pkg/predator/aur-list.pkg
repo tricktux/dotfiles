@@ -8,6 +8,7 @@ bluez-firmware
 cava
 chkservice
 chromedriver
+cht.sh-git
 cmake-format
 cmake-lint
 downgrade
@@ -23,6 +24,7 @@ liquidprompt
 lua-format
 lutris-battlenet-meta
 mps-youtube-git
+navi-bin
 ncurses5-compat-libs
 neovim-remote
 nerd-fonts-inconsolata
