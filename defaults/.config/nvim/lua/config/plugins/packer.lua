@@ -17,12 +17,12 @@ function M:download()
   end
 
   if vim.fn.executable('git') == 0 then
-    print("Git is not in your path. Cannot download packer.nvim")
+    vim.notify("Packer: git is not in your path. Cannot download packer.nvim", vim.log.levels.ERROR)
     return
   end
 
   local git_cmd = 'git clone ' .. self.__repo .. ' --depth 1 ' .. self.__path
-  print("packer.nvim does not exist downloading...")
+  vim.notify("Packer: downloading packer.nvim...", vim.log.levels.INFO)
   vim.fn.system(git_cmd)
   vim.cmd('packadd packer.nvim')
 end
