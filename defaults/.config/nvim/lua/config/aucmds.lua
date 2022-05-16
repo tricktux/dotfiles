@@ -1,6 +1,28 @@
 local log = require('utils/log')
 local api = vim.api
 
+local function treesitter_ensure_parser_installed()
+  local parsers = require 'nvim-treesitter.parsers'
+  local lang = parsers.get_buf_lang()
+
+  if not parsers.get_parser_configs()[lang] or parsers.has_parser(lang) or vim.b.ts_asked_already == true then
+    return
+  end
+
+  vim.schedule_wrap(function()
+    vim.ui.select({ 'Y', 'n' }, {
+      prompt = 'Install treesitter parser for '..lang.. ':',
+    }, 
+    function(choice)
+      if choice == 'n' then
+        vim.b.ts_asked_already = true
+        return
+      end
+      vim.cmd('TSInstall '..lang)
+    end)
+  end)()
+end
+
 local function create(definitions)
   for group_name, definition in pairs(definitions) do
     log.info("Setting augroup = ", group_name)
@@ -37,6 +59,7 @@ local function set_text_settings()
   vim.opt.softtabstop = 2
   vim.opt.comments:append({b = '-'})
   vim.opt.spelllang = {'en_us', 'es'}
+  vim.opt.spell = true
 end
 
 local function setup()
@@ -94,7 +117,6 @@ local function setup()
     group = id
   })
 
-  -- TODO: Not really working
   api.nvim_create_autocmd('Filetype', {
     callback = function()
       vim.opt.suffixesadd = {".scp", ".cmd", ".bat"}
@@ -102,15 +124,6 @@ local function setup()
     end,
     pattern = 'wings_syntax',
     desc = 'Better go to files for wings filetypes',
-    group = id
-  })
-  api.nvim_create_autocmd('Filetype', {
-    callback = function()
-      vim.opt.relativenumber = true
-      log.info('nerdtree autocmd called')
-    end,
-    pattern = 'nerdtree',
-    desc = 'nerdtree relativenumber',
     group = id
   })
   api.nvim_create_autocmd('Filetype', {
@@ -124,6 +137,23 @@ local function setup()
     end,
     pattern = 'help',
     desc = 'Better mappings for help filetypes',
+    group = id
+  })
+  api.nvim_create_autocmd('Filetype', {
+    callback = treesitter_ensure_parser_installed,
+    pattern = '*',
+    desc = 'Ask to install treesitter',
+    group = id
+  })
+  api.nvim_create_autocmd('Filetype', {
+    callback = function()
+      log.info('python, lua autocmd called')
+      vim.opt.tabstop = 2
+      vim.opt.shiftwidth = 2
+      vim.opt.softtabstop = 2
+    end,
+    pattern = {'python', 'lua'},
+    desc = 'Set spaces to 2',
     group = id
   })
   api.nvim_create_autocmd('Filetype', {
@@ -172,6 +202,7 @@ local function setup()
   id = api.nvim_create_augroup('Buf', {clear = true})
   vim.api.nvim_create_autocmd('BufReadPost',  {
     group    = id,
+    desc = 'Restore cursor on file open',
     pattern  = '*',
     callback = function()
       if vim.fn.line("'\"") > 0 and vim.fn.line("'\"") <= vim.fn.line("$") then
