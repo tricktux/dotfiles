@@ -90,11 +90,17 @@ M.__config = {
 
 -- Inserts a component in lualine_c at left section
 function M:ins_left(component)
+  if self.__setup_called ~= true then
+    self:setup()
+  end
   table.insert(self.__config.sections.lualine_c, component)
 end
 
 -- Inserts a component in lualine_x at left section
 function M:ins_right(component)
+  if self.__setup_called ~= true then
+    self:setup()
+  end
   table.insert(self.__config.sections.lualine_x, 1, component)
 end
 
@@ -132,19 +138,22 @@ function M:__lsp()
 	for _, client in ipairs(clients) do
 		local filetypes = client.config.filetypes
 		if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-      any = true
+            any = true
 			if client.name == "null-ls" then
 				local prov = require("config.plugins.null-ls").list_registered_providers_names(buf_ft)
-        table.insert(clients_set, set.tostring(prov))
+                table.insert(clients_set, set.tostring(prov))
 			else
-        table.insert(clients_set, client.name)
+                table.insert(clients_set, client.name)
 			end
 		end
 	end
 	return any and 'lsp: [' .. set.tostring(set.new(clients_set)) .. ']' or ''
 end
 
+M.__setup_called = false
+
 function M:setup()
+  self.__setup_called = true
   log.info("[lualine]: Setting up...")
   self:ins_left{
     function() return '▊' end,

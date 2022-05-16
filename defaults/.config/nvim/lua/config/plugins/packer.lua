@@ -697,8 +697,6 @@ end
 function M:setup()
   self:__setup_local_grip_plugin()
   self:download()
-  -- Ensure lualine is the first to setup and last to config
-  require('config.plugins.lualine'):setup()
   self:__setup()
 end
 
