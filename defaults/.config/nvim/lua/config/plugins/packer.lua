@@ -10,6 +10,43 @@ local M = {}
 M.__path = vim.fn.stdpath('data') .. [[/site/pack/packer/start/packer.nvim]]
 M.__repo = [[https://github.com/wbthomason/packer.nvim]]
 
+function M:__update() 
+  local p = require('packer')
+  local snapshot_time = os.date("%y%m%d_%H%M%S")
+  vim.notify("PackerSnapshot '" .. snapshot_time .. "' started..", vim.log.levels.INFO)
+  p.snapshot(snapshot_time)
+  vim.notify("PackerSync started..", vim.log.levels.INFO)
+  p.sync()
+end
+
+function M:config()
+  local p = require('packer')
+  local opts = { silent = true, desc = 'packer_compile' }
+
+  vim.keymap.set('n', "<leader>Pc", p.compile, opts)
+  opts.desc = 'packer_update'
+  vim.keymap.set('n', "<leader>Pu", p.update, opts)
+  opts.desc = 'packer_my_update'
+  vim.keymap.set('n', "<leader>PU", self.__update, opts)
+  opts.desc = 'update_remote_plugins'
+  vim.keymap.set('n', "<leader>Pr", "<cmd>UpdateRemotePlugins<cr>", opts)
+  opts.desc = 'packer_install'
+  vim.keymap.set('n', "<leader>Pi", p.install, opts)
+  opts.desc = 'packer_sync'
+  vim.keymap.set('n', "<leader>Ps", p.sync, opts)
+  opts.desc = 'packer_status'
+  vim.keymap.set('n', "<leader>Pa", p.status, opts)
+  opts.desc = 'packer_clean'
+  vim.keymap.set('n', "<leader>Pl", p.clean, opts)
+
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "PackerCompileDone",
+    callback = function()
+      vim.notify("PackerCompile done...", vim.log.levels.INFO)
+    end
+  })
+end
+
 function M:download()
   if vim.fn.isdirectory(self.__path) ~= 0 then
     -- Already exists
@@ -36,13 +73,20 @@ function M:__setup()
   if packer == nil then
     local jobs = utl.has_unix() and nil or 5
     packer = require('packer')
-    packer.init({ max_jobs = jobs, log = "trace" })
+    packer.init{
+      max_jobs = jobs,
+      snapshot_path = vim.fn.stdpath('data') .. [[/packer_snapshots]],
+      log = "trace"
+    }
   end
 
   local use = packer.use
   packer.reset()
 
-  use { 'wbthomason/packer.nvim' }
+  use { 
+    'wbthomason/packer.nvim',
+    config = function() require('config.plugins.packer'):config() end
+  }
 
   use {
     "folke/which-key.nvim",
@@ -595,35 +639,9 @@ function M:__setup()
       'nvim-gps', 'pomodoro.vim', 'vim-obsession', 'gitsigns.nvim',
       'papercolor-theme'
     },
+    -- setup = function() require('config.plugins.lualine'):setup() end,
     config = function() require('config.plugins.lualine'):config() end
   }
-end
-
-function M:__set_mappings()
-  local wk = require("which-key")
-  local opts = { prefix = '<leader>P' }
-  local plug = {
-    name = 'Plug',
-    i = { '<cmd>PlugInstall<cr>', 'install' },
-    u = { '<cmd>PlugUpdate<cr>', 'update' },
-    r = { '<cmd>UpdateRemotePlugins<cr>', 'update_remote_plugins' },
-    g = { '<cmd>PlugUpgrade<cr>', 'upgrade_vim_plug' },
-    s = { '<cmd>PlugSearch<cr>', 'search' },
-    l = { '<cmd>PlugClean<cr>', 'clean' }
-  }
-  local p = require('packer')
-  local packer = {
-    name = 'Packer',
-    c = { p.compile, 'compile' },
-    u = { p.update, 'update' },
-    r = { '<cmd>UpdateRemotePlugins<cr>', 'update_remote_plugins' },
-    i = { p.install, 'install' },
-    s = { p.sync, 'sync' },
-    a = { p.status, 'status' },
-    l = { p.clean, 'clean' }
-  }
-  local mappings = { name = 'plugins', l = plug, a = packer }
-  wk.register(mappings, opts)
 end
 
 function M:__setup_local_grip_plugin()
@@ -682,7 +700,6 @@ function M:setup()
   -- Ensure lualine is the first to setup and last to config
   require('config.plugins.lualine'):setup()
   self:__setup()
-  self:__set_mappings()
 end
 
 return M
