@@ -26,7 +26,6 @@ lutris-battlenet-meta
 mps-youtube-git
 navi-bin
 ncurses5-compat-libs
-neovim-remote
 nerd-fonts-inconsolata
 networkmanager-dmenu-git
 numix-gtk-theme
@@ -38,7 +37,6 @@ paper-icon-theme
 paru-bin
 pass-import
 pass-update
-polybar
 popcorntime-bin
 python-selenium
 python38

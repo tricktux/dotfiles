@@ -43,6 +43,7 @@ docker
 dosfstools
 doublecmd-gtk2
 dunst
+dvdbackup
 earlyoom
 easyeffects
 efibootmgr
@@ -186,6 +187,7 @@ pkgconf
 pkgfile
 plantuml
 playerctl
+polybar
 poppler
 prettier
 pulseaudio-alsa
