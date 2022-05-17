@@ -65,10 +65,10 @@ if [[ -f /usr/bin/xss-lock ]]; then
 else
   printf "\n==X Please install xss-lock\n"
 fi
-if [[ -f /usr/bin/xmodmap ]]; then
-  /usr/bin/xmodmap "$HOME"/.config/Xmodmap
+if [[ -f /usr/bin/setxkbmap ]]; then
+  /usr/bin/setxkbmap -option 'caps:ctrl_modifier'
 else
-  printf "\n==X Please install xmodmap\n"
+  printf "\n==X Please install setxkbmap\n"
 fi
 if [[ -f /usr/bin/lxqt-policykit-agent ]]; then
   /usr/bin/lxqt-policykit-agent&
