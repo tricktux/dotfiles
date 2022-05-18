@@ -252,8 +252,8 @@ ripgrep
 rofi-emoji
 rofi-pass
 rsync
-rust
 rust-analyzer
+rustup
 scrcpy
 scrot
 sdparm
