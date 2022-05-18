@@ -147,17 +147,6 @@ local function setup()
   })
   api.nvim_create_autocmd('Filetype', {
     callback = function()
-      log.info('python, lua autocmd called')
-      vim.opt.tabstop = 2
-      vim.opt.shiftwidth = 2
-      vim.opt.softtabstop = 2
-    end,
-    pattern = {'python', 'lua'},
-    desc = 'Set spaces to 2',
-    group = id
-  })
-  api.nvim_create_autocmd('Filetype', {
-    callback = function()
       log.info('markdown autocmd called')
       set_text_settings()
     end,
