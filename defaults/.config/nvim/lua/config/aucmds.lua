@@ -106,19 +106,6 @@ local function setup()
   })
   api.nvim_create_autocmd('Filetype', {
     callback = function()
-      log.info('help autocmd called')
-      vim.opt.relativenumber = true
-      vim.keymap.set('n', [[q]], [[:helpc<cr>]],
-                     {silent = true, buffer = true, desc = 'exit help'})
-      vim.keymap.set('n', [[g0]], [[g0]],
-                     {silent = true, buffer = true, desc = 'show sections'})
-    end,
-    pattern = 'help',
-    desc = 'Better mappings for help filetypes',
-    group = id
-  })
-  api.nvim_create_autocmd('Filetype', {
-    callback = function()
       log.info('markdown autocmd called')
       set_text_settings()
     end,
