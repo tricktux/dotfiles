@@ -236,37 +236,6 @@ local function get_visual_selection()
     return ret
 end
 
--- Attempt to display ranger in a floating window
--- local utl = require('utils.utils')
-
--- local ranger = {}
--- ranger.out_file = nil
--- ranger.opts = {
--- on_stdout = 'v:lua.ranger.__on_exit'
--- }
-
--- function ranger:exec()
--- local buf, win = utl.open_win_centered(0.8, 0.8)
--- self.out_file = vim.fn.tempname()
--- local cmd = "ranger --choosefiles " .. self.out_file
--- local job_id = vim.fn.termopen(cmd, self.opts)
--- if job_id <= 0 then
--- error("Failed to execute commands: " .. self.cmd.. ". opts = " .. self.opts)
--- end
--- end
-
--- function ranger:__on_exit(job_id, data, event)
--- local file = io.open(self.out_file)
--- local output = file:read()
--- file:close()
--- print(output)
--- vim.cmd("edit " .. output)
--- end
-
--- ranger:exec()
-
--- Fixing vim.validate
-
 return {
   dump = dump,
   is_mod_available = is_mod_available,
@@ -282,5 +251,6 @@ return {
   find_file = _find_file_recurse,
   get_visual_selection = get_visual_selection,
   rg_ignore_file = ignore_file,
+  buf_has_treesitter = buf_has_treesitter,
   Set = Set
 }
