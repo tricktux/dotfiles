@@ -1,27 +1,5 @@
-local log = require('utils/log')
+local log = require('utils.log')
 local api = vim.api
-
-local function treesitter_ensure_parser_installed()
-  local parsers = require 'nvim-treesitter.parsers'
-  local lang = parsers.get_buf_lang()
-
-  if not parsers.get_parser_configs()[lang] or parsers.has_parser(lang) or vim.b.ts_asked_already == true then
-    return
-  end
-
-  vim.schedule_wrap(function()
-    vim.ui.select({ 'Y', 'n' }, {
-      prompt = 'Install treesitter parser for '..lang.. ':',
-    }, 
-    function(choice)
-      if choice == 'n' then
-        vim.b.ts_asked_already = true
-        return
-      end
-      vim.cmd('TSInstall '..lang)
-    end)
-  end)()
-end
 
 local function create(definitions)
   for group_name, definition in pairs(definitions) do
@@ -137,12 +115,6 @@ local function setup()
     end,
     pattern = 'help',
     desc = 'Better mappings for help filetypes',
-    group = id
-  })
-  api.nvim_create_autocmd('Filetype', {
-    callback = treesitter_ensure_parser_installed,
-    pattern = '*',
-    desc = 'Ask to install treesitter',
     group = id
   })
   api.nvim_create_autocmd('Filetype', {

@@ -1,16 +1,106 @@
-local utl = require('utils/utils')
 
 local M = {}
 
 M.c_max_lines = vim.fn.has('unix') > 0 and 50000 or 1000
 
-function M:__disable(lang, bufnr)
+local function disable(lang, bufnr)
   if lang ~= "cpp" or lang ~= "c" then
     return true
   end
 
-  return vim.api.nvim_buf_line_count(bufnr) < self.c_max_lines
+  local __disabled = vim.api.nvim_buf_line_count(bufnr) < M.c_max_lines
+  if __disabled then
+    vim.b.ts_disabled = 1
+  end
+  return __disabled
 end
+
+local function setup_buf_keymaps_opts()
+  local opts = {silent = true, buffer = true, desc = 'treesitter_toggle_buffer'}
+  vim.keymap.set('n', '<leader>tt', [[<cmd>TSBufToggle<cr>]], opts)
+  vim.opt_local.foldmethod = "expr"
+  vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+end
+
+local function buf_has_ts()
+  local parsers = require 'nvim-treesitter.parsers'
+  local lang = parsers.get_buf_lang()
+
+  if not parsers.get_parser_configs()[lang] or parsers.has_parser(lang) then
+    return true
+  end
+
+  return false
+end
+
+local function ensure_parser_installed()
+  if vim.b.ts_asked_already or vim.b.ts_disabled then
+    return
+  end
+
+  if buf_has_ts() then
+    setup_buf_keymaps_opts()
+    vim.b.ts_asked_already = true
+    return
+  end
+
+  vim.schedule_wrap(function()
+    vim.ui.select({ 'Y', 'n' }, {
+      prompt = 'Install treesitter parser for '..lang.. ':',
+    }, 
+    function(choice)
+      vim.b.ts_asked_already = true
+      if choice == 'n' then
+        return
+      end
+      vim.cmd('TSInstall '..lang)
+      setup_buf_keymaps_opts()
+    end)
+  end)()
+end
+
+M.__config = {
+  -- This line will install all of them
+  -- one of "all", "language", or a list of languages
+  ensure_installed = {
+    "c", "cpp", "python", "lua", "java", "bash", "c_sharp", "rust", "json",
+    "toml", "bash", "cmake", "dockerfile", "json5", "latex", "r", "yaml",
+    "vim", "markdown", "json", "make", "nix", "html", "llvm", "comment"
+  },
+  highlight = {
+    disable = disable,
+    enable = true, -- false will disable the whole extension
+    additional_vim_regex_highlighting = false,
+  },
+  incremental_selection = {
+    disable = disable,
+    enable = true
+  },
+  indent = {
+    disable = disable,
+    enable = true
+  },
+  iswap = {
+    disable = disable,
+    enable = true
+  },
+  nvimGPS = {
+    disable = disable,
+    enable = true
+  },
+  textsubjects = {
+    disable = disable,
+    enable = true,
+    keymaps = {
+      ['.'] = 'textsubjects-smart',
+      [';'] = 'textsubjects-big',
+    }
+  },
+  rainbow = {
+    disable = disable,
+    enable = true
+  }
+}
 
 function M:setup()
   -- Mon Apr 05 2021 17:36:
@@ -19,53 +109,13 @@ function M:setup()
   -- Also no status line
   -- No extra modules. Looking at you rainbow
   require('nvim-treesitter.install').compilers = { "clang" }
-  -- local ts = require'nvim-treesitter'
   local tsconf = require 'nvim-treesitter.configs'
-
-  local config = {
-    -- This line will install all of them
-    -- one of "all", "language", or a list of languages
-    ensure_installed = {
-      "c", "cpp", "python", "lua", "java", "bash", "c_sharp", "rust", "json",
-      "toml", "bash", "cmake", "dockerfile", "json5", "latex", "r", "yaml",
-      "vim", "markdown", "json", "make", "nix", "html", "llvm", "comment"
-    },
-    highlight = {
-      disable = self.__disable,
-      enable = true, -- false will disable the whole extension
-      additional_vim_regex_highlighting = false,
-    },
-    indent = {
-      disable = self.__disable,
-      enable = true
-    },
-    iswap = {
-      disable = self.__disable,
-      enable = true
-    },
-    nvimGPS = {
-      disable = self.__disable,
-      enable = true}
-    ,
-    textsubjects = {
-      disable = self.__disable,
-      enable = true,
-      keymaps = {
-        ['.'] = 'textsubjects-smart',
-        [';'] = 'textsubjects-big',
-      }
-    },
-    rainbow = {
-      disable = self.__disable,
-      enable = true
-    }
-  }
-
-  tsconf.setup(config)
-  vim.cmd[[
-    set foldmethod=expr
-    set foldexpr=nvim_treesitter#foldexpr()
-  ]]
-end
+  tsconf.setup(self.__config)
+  vim.api.nvim_create_autocmd('Filetype', {
+    callback = ensure_parser_installed,
+    pattern = '*',
+    desc = 'Ask to install treesitter',
+  })
+  end
 
 return M
