@@ -2,9 +2,8 @@ local utl = require('utils.utils')
 
 local M = {}
 
+M.__loaded = false
 M.__filetypes = {}
-M.__pyvenv_nix = [[$HOME/.local/share/pyvenv/nvim/bin/python]]
-M.__pyvenv_win = [[$HOME\AppData\Local\nvim-data\pyvenv\Scripts\python.exe]]
 
 local function breakpoint_cond()
   require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))
@@ -15,12 +14,18 @@ local function breakpoint_msg()
 end
 
 function M:__setup_python()
-  local env = utl.has_unix() and self.__pyvenv_nix or self.__pyvenv_win
-  require('dap-python').setup(env)
+  if vim.fn.executable("python") <= 0 then
+    return
+  end
+  require('dap-python').setup('python')
   table.insert(self.__filetypes, 'python')
 end
 
 function M:set_mappings(bufnr)
+  if not self.__loaded then
+    return
+  end
+
   -- Determine if there is a config for this filetype
   local cft = vim.opt.filetype:get()
   local found = false
@@ -136,9 +141,9 @@ end
 
 function M:setup()
   local dap, dapui = require('dap'), require('dapui')
-  dap.listeners.after.event_initialized['dapui_config'] = function() dapui.open() end
-  dap.listeners.before.event_terminated['dapui_config'] = function() dapui.close() end
-  dap.listeners.before.event_exited['dapui_config'] = function() dapui.close() end
+  dap.listeners.after.event_initialized['dapui_config'] = function() dapui:open() end
+  dap.listeners.before.event_terminated['dapui_config'] = function() dapui:close() end
+  dap.listeners.before.event_exited['dapui_config'] = function() dapui:close() end
 
   dapui.setup({
       icons = {expanded = "⯆", collapsed = "⯈"},
@@ -171,6 +176,8 @@ function M:setup()
   self:__setup_python()
 
   self:__set_virt_text()
+
+  self.__loaded = true
 
   if vim.fn.executable('lldb-vscode') <= 0 then
     return
