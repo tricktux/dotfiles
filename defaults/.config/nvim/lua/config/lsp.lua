@@ -91,8 +91,11 @@ local function set_lsp_mappings(capabilities, bufnr)
   }
 
   -- Set some keybinds conditional on server capabilities
+  local fmt = vim.fn.has('nvim-0.8') and function()
+    lsp.buf.format({async = true})
+  end or lsp.buf.formatting
   if capabilities.document_formatting then
-    mappings.f = { lsp.buf.formatting, 'formatting' }
+    mappings.f = { fmt, 'formatting' }
   end
   if capabilities.document_range_formatting then
     mappings.F = { lsp.buf.range_formatting, 'range_formatting' }
