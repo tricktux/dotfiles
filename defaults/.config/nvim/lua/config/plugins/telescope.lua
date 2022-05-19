@@ -57,6 +57,12 @@ function M:config_project()
 
   vim.api.nvim_create_autocmd("BufEnter", {
     callback = function()
+      if vim.b.did_project_root == true then
+        return
+      end
+
+      vim.b.did_project_root = true
+
       local pr_ok, pr = pcall(require, "project_nvim.project")
       if not pr_ok then
         print("project_nvim not available")
