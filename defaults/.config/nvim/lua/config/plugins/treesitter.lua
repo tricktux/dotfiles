@@ -38,9 +38,10 @@ local function ensure_parser_installed()
     return
   end
 
+  vim.b.ts_asked_already = true
+
   if buf_has_ts() then
     setup_buf_keymaps_opts()
-    vim.b.ts_asked_already = true
     return
   end
 
@@ -49,7 +50,6 @@ local function ensure_parser_installed()
       prompt = 'Install treesitter parser for '..lang.. ':',
     }, 
     function(choice)
-      vim.b.ts_asked_already = true
       if choice == 'n' then
         return
       end
@@ -74,7 +74,7 @@ M.__config = {
   },
   incremental_selection = {
     disable = disable,
-    enable = true
+    enable = false  -- superseded by textsubjects
   },
   indent = {
     disable = disable,
