@@ -35,8 +35,8 @@ local function setup_fidget()
 end
 
 local function set_lsp_options(capabilities, bufnr)
-  vim.api.nvim_buf_set_option(0, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-  vim.api.nvim_buf_set_option(0, 'formatexpr', 'v:lua.vim.lsp.formatexpr()')
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  vim.api.nvim_buf_set_option(bufnr, 'formatexpr', 'v:lua.vim.lsp.formatexpr()')
 end
 
 local function set_lsp_mappings(capabilities, bufnr)
@@ -106,28 +106,17 @@ end
 -- has lsp server support
 local function on_lsp_attach(client_id, bufnr)
   if vim.b.did_on_lsp_attach == 1 then
-    -- Setup already done in this buffer
-    log.debug('on_lsp_attach already setup')
     return
   end
 
-  -- Disable neomake
-  if vim.fn.exists(':NeomakeDisableBuffer') > 0 then
-    if vim.bo.filetype ~= 'python' then vim.cmd('NeomakeDisableBuffer') end
-  end
-  -- These 2 got annoying really quickly
-  -- vim.cmd(
-  -- 'autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()')
-  -- vim.cmd("autocmd CursorHold <buffer> lua vim.lsp.buf.hover()")
-  set_lsp_mappings(client_id.resolved_capabilities, bufnr)
-  set_lsp_options(client_id.resolved_capabilities, bufnr)
-  require('config.plugins.dap'):set_mappings(bufnr)
-  -- require('config/completion').diagn:on_attach()
-
-  -- Disable tagbar
-  vim.b.tagbar_ignore = 1
-  require 'lsp_signature'.on_attach()
   vim.b.did_on_lsp_attach = 1
+
+  local cap = vim.fn.has('nvim-0.8') and client_id.server_capabilities or client_id.resolved_capabilities
+  set_lsp_mappings(cap, bufnr)
+  set_lsp_options(cap, bufnr)
+  require('config.plugins.dap'):set_mappings(bufnr)
+
+  require 'lsp_signature'.on_attach()
 end
 
 local function on_clangd_attach(client_id, bufnr)
