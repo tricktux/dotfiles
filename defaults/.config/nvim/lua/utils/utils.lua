@@ -236,6 +236,39 @@ local function get_visual_selection()
     return ret
 end
 
+local function execute_in_shell(cmd)
+  local fmt = string.format
+  local fn = vim.fn
+  vim.validate {cmd = {cmd, 's'}}
+  -- cmd = fn.shellescape(cmd)
+  if fn.exists("$KITTY_WINDOW_ID") > 0 then
+    fcmd = [[/usr/bin/kitty @ send-text --match recent:1 ]] .. cmd .. [[\\x0d]]
+    log.info(fmt("repl.cpp.cmd = %s", cmd))
+    fn.system(fcmd)
+    return
+  end
+
+  if fn.exists('$TMUX') > 0 then
+    -- \! = ! which means target (-t) last active tmux pane (!)
+    fcmd =  [[/usr/bin/tmux send -t ! ]] .. cmd .. ' Enter'
+    log.info(fmt("repl.cpp.cmd = %s", cmd))
+    fn.system(fcmd)
+    return
+  end
+
+  --[[ if fn.exists(':T') > 0 then
+    fcmd =  'T ' .. cmd
+    log.info(fmt("repl.cpp.cmd = %s", cmd))
+    vim.cmd(fcmd)
+    return
+  end ]]
+
+  fcmd =  'vsplit term://' .. cmd
+  log.info(fmt("repl.cpp.cmd = %s", cmd))
+  vim.cmd(fcmd)
+  vim.notify("[cpp.repl]: no compiler available", vim.log.levels.ERROR)
+end
+
 return {
   dump = dump,
   is_mod_available = is_mod_available,
@@ -251,6 +284,6 @@ return {
   find_file = _find_file_recurse,
   get_visual_selection = get_visual_selection,
   rg_ignore_file = ignore_file,
-  buf_has_treesitter = buf_has_treesitter,
+  execute_in_shell = execute_in_shell,
   Set = Set
 }

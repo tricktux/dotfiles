@@ -763,74 +763,31 @@ function M.config_neoterm()
 		},
 	})
 	-- TODO: Move these functions to which key and the functions somewhere else
-	if vim.fn.exists("$TMUX") > 0 then
-		require("which-key").register({
-			["<plug>terminal_send_line"] = {
-				function()
-					local cline = vim.fn.shellescape(vim.fn.getline("."))
-					if cline == "" or cline == nil then
-						return
-					end
-					-- \! = ! which means target (-t) last active tmux pane (!)
-					vim.fn.system([[tmux send-keys -t \! ]] .. cline .. [[ Enter]])
-				end,
-				"term_send_line",
-			},
-		})
-		require("which-key").register({
-			["<plug>terminal_send"] = {
-				function()
-					local csel = vim.fn.shellescape(require("utils.utils").get_visual_selection())
-					if csel == "" or csel == nil then
-						return
-					end
-					-- \! = ! which means target (-t) last active tmux pane (!)
-					vim.fn.system([[tmux send-keys -t \! ]] .. csel .. [[ Enter]])
-				end,
-				"terminal_send",
-			},
-		}, { mode = "x" })
-	elseif vim.fn.exists("$KITTY_WINDOW_ID") > 0 then
-		require("which-key").register({
-			["<plug>terminal_send_line"] = {
-				function()
-					local cline = vim.fn.shellescape(vim.fn.getline("."))
-					if cline == "" or cline == nil then
-						return
-					end
-					-- \\x0d is the terminal Enter key code
-					vim.fn.system([[kitty @ send-text --match recent:1 ]] .. cline .. [[\\x0d]])
-				end,
-				"term_send_line",
-			},
-		})
-		require("which-key").register({
-			["<plug>terminal_send_file"] = {
-				function()
-					local cfile = vim.fn.expand("%:p")
-					if cfile == "" or cfile == nil then
-						return
-					end
-					-- \\x0d is the terminal Enter key code
-					vim.fn.system([[kitty @ send-text --match recent:1 ]] .. cfile .. [[\\x0d]])
-				end,
-				"term_send_line",
-			},
-		})
-		require("which-key").register({
-			["<plug>terminal_send"] = {
-				function()
-					local csel = vim.fn.shellescape(require("utils.utils").get_visual_selection())
-					-- \\x0d is the terminal Enter key code
-					if csel == "" or csel == nil then
-						return
-					end
-					vim.fn.system([[kitty @ send-text --match recent:1 ]] .. csel .. [[\\x0d]])
-				end,
-				"terminal_send",
-			},
-		}, { mode = "x" })
-	end
+  require("which-key").register({
+    ["<plug>terminal_send_line"] = {
+      function()
+        local cline = vim.fn.getline(".")
+        if cline == "" or cline == nil then
+          return
+        end
+        require('utils.utils').execute_in_shell(cline)
+      end,
+      "term_send_line",
+    },
+  })
+  require("which-key").register({
+    ["<plug>terminal_send"] = {
+      function()
+        local utl = require("utils.utils")
+        local csel = utl.get_visual_selection()
+        if csel == "" or csel == nil then
+          return
+        end
+        utl.execute_in_shell(csel)
+      end,
+      "terminal_send",
+    },
+  }, { mode = "x" })
 end
 
 function M.setup_pomodoro()
