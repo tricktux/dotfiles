@@ -7,7 +7,7 @@ function M:config_project()
   require("project_nvim").setup {
     -- Manual mode doesn't automatically change your root directory, so you have
     -- the option to manually do so using `:ProjectRoot` command.
-    manual_mode = false,
+    manual_mode = true,
 
     -- Methods of detecting the root directory. **"lsp"** uses the native neovim
     -- lsp, while **"pattern"** uses vim-rooter like glob pattern matching. Here
@@ -54,6 +54,23 @@ function M:config_project()
 
   local opts = {silent = true, desc = 'projects'}
   vim.keymap.set('n', "<leader>fp", ts.extensions.projects.projects, opts)
+
+  vim.api.nvim_create_autocmd("BufEnter", {
+    callback = function()
+      local pr_ok, pr = pcall(require, "project_nvim.project")
+      if not pr_ok then
+        print("project_nvim not available")
+        return
+      end
+      local root, _ = pr.get_project_root()
+      if root == "" or root == nil then
+        root = vim.fn.expand("%:h")
+      end
+      vim.cmd('lcd '.. root)
+    end,
+    pattern = "*",
+    desc = "ProjectRoot",
+  })
 end
 
 function M.set_lsp_mappings(bufnr)
