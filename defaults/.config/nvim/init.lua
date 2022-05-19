@@ -164,6 +164,7 @@ local function main()
   require("config.aucmds").setup()
   vim.fn["options#Set"]()
   vim.fn["commands#Set"]()
+  require("config.options"):setup()
   require("config.plugins.packer"):setup() -- Also setups lsp
 end
 

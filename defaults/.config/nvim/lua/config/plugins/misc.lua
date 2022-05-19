@@ -407,11 +407,13 @@ function M.setup_gpsnvim()
 		separator = " > ",
 	})
 
-	log.info("ins_left(): nvim-gps")
-	line:ins_left({
-		gps_get_location,
-		condition = gps.is_available,
-	})
+  if vim.fn.has("nvim-0.8") <= 0 then
+    log.info("ins_left(): nvim-gps")
+    line:ins_left({
+      gps_get_location,
+      condition = gps.is_available,
+    })
+  end
 end
 
 function M.config_focus()
