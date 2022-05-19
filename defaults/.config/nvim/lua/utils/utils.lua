@@ -3,15 +3,17 @@ local Path = require('plenary.path')
 local luv = vim.loop
 local api = vim.api
 
+local M = {}
+
 -- List of useful vim helper functions
 -- >vim.tbl_*
 --  >vim.tbl_count
 -- >vim.validate
 -- >vim.deepcopy
 
-local Set = {}
+function M.set_new(t)
+  vim.validate {t = {t, 't'}}
 
-function Set.new(t)
   local set = {}
   for _, l in ipairs(t) do
     set[l] = true
@@ -19,7 +21,9 @@ function Set.new(t)
   return set
 end
 
-function Set.tostring(set)
+function M.set_tostring(set)
+  vim.validate {set = {set, 't'}}
+
   local s = ""
   local sep = ""
   for e in pairs(set) do
@@ -30,12 +34,6 @@ function Set.tostring(set)
 end
 
 
--- Similar to python's pprint. Usage: lua dump({1, 2, 3})
-local function dump(...)
-  local objects = vim.tbl_map(vim.inspect, {...})
-  log.trace(unpack(objects))
-end
-
 -- @brief Recurses through a directory in search for a file
 -- @param dir Directory to recurse
 -- @param file File looking for. Could use wildcards. Will be used by glob()
@@ -44,7 +42,7 @@ end
 -- of files. Example: [[v:val !~ '^\.\|\~$']]
 -- @return Table with all file matches with full path if found. Nil
 -- otherwise
-local function _find_file_recurse(dir, file, ignore)
+function M.find_file(dir, file, ignore)
   vim.validate {dir = {dir, 's'}}
   vim.validate {file = {file, 's'}}
   vim.validate {ignore = {ignore, 's'}}
@@ -70,7 +68,7 @@ local function _find_file_recurse(dir, file, ignore)
   return nil
 end
 
-local function is_mod_available(name)
+function M.is_mod_available(name)
   if package.loaded[name] then return true end
   for _, searcher in ipairs(package.searchers or package.loaders) do
     local loader = searcher(name)
@@ -82,17 +80,18 @@ local function is_mod_available(name)
   return false
 end
 
-local function has_unix() return package.config:sub(1, 1) == [[/]] end
+function M.has_unix() return package.config:sub(1, 1) == [[/]] end
 
-local function has_win() return package.config:sub(1, 1) == [[\]] end
+function M.has_win() return package.config:sub(1, 1) == [[\]] end
 
+-- TODO:remove plenary dependency
 local win_file = Path:new(os.getenv("LOCALAPPDATA")):joinpath([[ignore-file]])
 local win_ignore_file = [[--ignore-file=]] .. win_file:absolute()
 -- TODO: For now env var ignore file is not working
 local nix_ignore_file = [[--ignore-file=]] .. os.getenv("HOME") .. [[/.config/ignore-file]]
-local ignore_file = has_win() and win_ignore_file or nix_ignore_file
+M.rg_ignore_file = M.has_win() and win_ignore_file or nix_ignore_file
 
-local function isdir(path)
+function M.isdir(path)
   vim.validate {path = {path, 's'}}
   local stat = luv.fs_stat(path)
   if stat == nil then return false end
@@ -100,7 +99,7 @@ local function isdir(path)
   return false
 end
 
-local function isfile(path)
+function M.isfile(path)
   vim.validate {path = {path, 's'}}
   local stat = luv.fs_stat(path)
   if stat == nil then return false end
@@ -108,7 +107,7 @@ local function isfile(path)
   return false
 end
 
-local function file_fuzzer(path)
+function M.file_fuzzer(path)
   vim.validate {path = {path, 's'}}
 
   local epath = vim.fn.expand(path)
@@ -150,7 +149,7 @@ local function file_fuzzer(path)
   vim.cmd("lcd " .. dir)
 end
 
-local function table_removekey(table, key)
+function M.table_removekey(table, key)
   vim.validate {table = {table, 't'}}
   vim.validate {key = {key, 's'}}
 
@@ -163,7 +162,7 @@ end
 -- Creates a floating buffer occuping width and height precentage of the screen
 -- Example width = 0.8, height = 0.8
 -- Returns buffer, and window handle
-local function open_win_centered(width, height)
+function M.open_win_centered(width, height)
   vim.validate {width = {width, 'n'}}
   vim.validate {height = {height, 'n'}}
   local buf = api.nvim_create_buf(false, true)
@@ -192,7 +191,7 @@ end
 -- @param cmd vim command, if terminal command is desired append term
 -- @param closeterm close window when command is done?
 -- @param startinsert start insert mode in terminal
-local function exec_float_term(cmd, closeterm, startinsert)
+function M.exec_float_term(cmd, closeterm, startinsert)
   vim.validate {cmd = {cmd, 's'}}
   -- Last true makes them optional arguments
   vim.validate {startinsert = {startinsert, 'b', true}}
@@ -207,7 +206,7 @@ local function exec_float_term(cmd, closeterm, startinsert)
 end
 
 -- Execute cmd and return all of its output
-local function io_popen_read(cmd)
+function M.io_popen_read(cmd)
   vim.validate {cmd = {cmd, 's'}}
   local file = assert(io.popen(cmd))
   local output = file:read('*all')
@@ -216,7 +215,7 @@ local function io_popen_read(cmd)
   return output:gsub("%s+", "")
 end
 
-local function get_visual_selection()
+function M.get_visual_selection()
     -- Why is this not a built-in Vim script function?!
     local sline = vim.fn.getpos("'<")
     local line_start = sline[2]
@@ -236,7 +235,7 @@ local function get_visual_selection()
     return ret
 end
 
-local function execute_in_shell(cmd)
+function M.execute_in_shell(cmd)
   local fmt = string.format
   local fn = vim.fn
   vim.validate {cmd = {cmd, 's'}}
@@ -269,21 +268,4 @@ local function execute_in_shell(cmd)
   vim.notify("[cpp.repl]: no compiler available", vim.log.levels.ERROR)
 end
 
-return {
-  dump = dump,
-  is_mod_available = is_mod_available,
-  table_removekey = table_removekey,
-  has_unix = has_unix,
-  has_win = has_win,
-  isdir = isdir,
-  isfile = isfile,
-  file_fuzzer = file_fuzzer,
-  open_win_centered = open_win_centered,
-  io_popen_read = io_popen_read,
-  exec_float_term = exec_float_term,
-  find_file = _find_file_recurse,
-  get_visual_selection = get_visual_selection,
-  rg_ignore_file = ignore_file,
-  execute_in_shell = execute_in_shell,
-  Set = Set
-}
+return M
