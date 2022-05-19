@@ -175,7 +175,6 @@ function M:__setup()
 		end,
 	})
 
-	use({ "nanotee/nvim-lua-guide" })
 	use({
 		"kyazdani42/nvim-tree.lua",
 		config = function()
@@ -188,22 +187,6 @@ function M:__setup()
 		config = function()
 			vim.cmd([[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]])
 			require("nvim-lightbulb").update_lightbulb({})
-		end,
-	})
-
-	-- Depends on github cli
-	use({
-		"pwntester/octo.nvim",
-		requires = {
-			{ "nvim-lua/popup.nvim" },
-			{ "nvim-lua/plenary.nvim" },
-			{ "nvim-lua/telescope.nvim" },
-		},
-		config = function()
-			require("telescope").load_extension("octo")
-		end,
-		cond = function()
-			return vim.fn.executable("gh") > 0
 		end,
 	})
 
@@ -251,17 +234,76 @@ function M:__setup()
 		end,
 	})
 
-	use({
-		"folke/lua-dev.nvim",
-		cond = function()
-			return vim.fn.executable("lua-language-server") > 0
-		end,
-		config = function()
-			require("config.plugins.misc").setup_luadev()
-		end,
-	})
-
 	if utl.has_unix() then
+		use({
+			"knubie/vim-kitty-navigator",
+			after = "focus.nvim",
+			run = "cp ./*.py ~/.config/kitty/",
+			setup = function()
+				vim.g.kitty_navigator_no_mappings = 1
+			end,
+			config = function()
+				require("config.plugins.misc"):config_kitty_navigator()
+			end,
+		})
+
+		use({
+			"untitled-ai/jupyter_ascending.vim",
+			setup = function()
+				vim.g.jupyter_ascending_default_mappings = false
+				vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+					pattern = "*.sync.py",
+					callback = function()
+            if vim.b.has_jupyter_plugin == true then
+              return
+            end
+            vim.b.has_jupyter_plugin = true
+            local opts = {silent = true, buffer = true, desc = "jupyter_execute"}
+						vim.keymap.set("n", "<localleader>j", "<Plug>JupyterExecute", opts)
+            opts.desc = "jupyter_execute_all"
+						vim.keymap.set("n", "<localleader>k", "<Plug>JupyterExecuteAll", opts)
+					end,
+				})
+			end,
+		})
+		-- Depends on github cli
+		use({
+			"folke/lua-dev.nvim",
+			cond = function()
+				return vim.fn.executable("lua-language-server") > 0
+			end,
+			config = function()
+				require("config.plugins.misc").setup_luadev()
+			end,
+		})
+
+		use({
+			"pwntester/octo.nvim",
+			requires = {
+				{ "nvim-lua/popup.nvim" },
+				{ "nvim-lua/plenary.nvim" },
+				{ "nvim-lua/telescope.nvim" },
+			},
+			config = function()
+				require("telescope").load_extension("octo")
+			end,
+			cond = function()
+				return vim.fn.executable("gh") > 0
+			end,
+		})
+
+		use({ "lambdalisue/suda.vim" })
+
+		use({ "chr4/nginx.vim" })
+
+		use({
+			"kristijanhusak/orgmode.nvim",
+			disable = true,
+			config = function()
+				require("config.plugins.orgmode"):setup()
+			end,
+		})
+
 		use({
 			"rcarriga/nvim-dap-ui",
 			requires = {
@@ -276,45 +318,11 @@ function M:__setup()
 	end
 
 	use({
-		"TimUntersberger/neogit",
-		requires = "nvim-lua/plenary.nvim",
-		disable = true,
-		config = function()
-			require("config.plugins.misc").setup_neogit()
-		end,
-	})
-
-	use({
 		"mizlan/iswap.nvim",
 		after = { "which-key.nvim", "nvim-treesitter" },
 		requires = "nvim-treesitter/nvim-treesitter",
 		config = function()
 			require("config.plugins.misc").config_iswap()
-		end,
-	})
-
-	use({
-		"kristijanhusak/orgmode.nvim",
-		disable = true,
-		config = function()
-			require("config.plugins.orgmode"):setup()
-		end,
-	})
-
-	use({
-		"majutsushi/tagbar",
-		cmd = "Tagbar",
-		setup = function()
-			vim.g.tagbar_ctags_bin = "ctags"
-			vim.g.tagbar_autofocus = 1
-			vim.g.tagbar_show_linenumbers = 2
-			vim.g.tagbar_map_togglesort = "r"
-			vim.g.tagbar_map_nexttag = "<c-j>"
-			vim.g.tagbar_map_prevtag = "<c-k>"
-			vim.g.tagbar_map_openallfolds = "<c-n>"
-			vim.g.tagbar_map_closeallfolds = "<c-c>"
-			vim.g.tagbar_map_togglefold = "<c-x>"
-			vim.g.tagbar_autoclose = 1
 		end,
 	})
 
@@ -352,9 +360,6 @@ function M:__setup()
 		end,
 	})
 
-	-- Good for folding markdown and others
-	use({ "fourjay/vim-flexagon", ft = "markdown" })
-
 	-- Extra syntax
 	use({
 		"PotatoesMaster/i3-vim-syntax",
@@ -362,10 +367,8 @@ function M:__setup()
 			return require("utils.utils").has_unix()
 		end,
 	})
-	use({ "elzr/vim-json", ft = "json" })
 	use({ "aklt/plantuml-syntax", ft = "plantuml" })
 	use({ "MTDL9/vim-log-highlighting", ft = "log" })
-	use({ "alepez/vim-gtest", ft = "cpp" })
 	use({ "neomutt/neomutt.vim", ft = "muttrc" })
 	use({ "fladson/vim-kitty" })
 
@@ -431,21 +434,8 @@ function M:__setup()
 		end,
 	})
 
-	use({ "tpope/vim-fugitive", cmd = "Git" })
 	use("tpope/vim-repeat")
 	use("tpope/vim-surround")
-	use({
-		"tpope/vim-dispatch",
-		setup = function()
-			vim.g.dispatch_no_maps = 1
-		end,
-	})
-	use({
-		"radenling/vim-dispatch-neovim",
-		cond = function()
-			return vim.fn.has("nvim") > 0
-		end,
-	})
 	use({
 		"tpope/vim-obsession",
 		setup = function()
@@ -525,8 +515,6 @@ function M:__setup()
 		end,
 	})
 
-	use("whiteinge/diffconflicts")
-
 	use({ "aquach/vim-http-client", cmd = "HTTPClientDoRequest" })
 
 	use({
@@ -541,20 +529,6 @@ function M:__setup()
 			vim.g["gen_tags#ctags_auto_gen"] = 1
 			vim.g["gen_tags#ctags_prune"] = 1
 			vim.g["gen_tags#ctags_opts"] = "--sort=no --append"
-		end,
-	})
-
-	use({
-		"lambdalisue/suda.vim",
-		cond = function()
-			return require("utils.utils").has_unix()
-		end,
-	})
-
-	use({
-		"chr4/nginx.vim",
-		cond = function()
-			return require("utils.utils").has_unix()
 		end,
 	})
 
@@ -712,47 +686,6 @@ function M:__setup()
 			})
 		end,
 	})
-
-	use({
-		"knubie/vim-kitty-navigator",
-		after = "focus.nvim",
-		run = "cp ./*.py ~/.config/kitty/",
-		setup = function()
-			vim.g.kitty_navigator_no_mappings = 1
-		end,
-		config = function()
-			require("config.plugins.misc"):config_kitty_navigator()
-		end,
-		cond = function()
-			return require("utils.utils").has_unix()
-		end,
-	})
-
-	if vim.fn.has("unix") then
-		use({
-			"untitled-ai/jupyter_ascending.vim",
-			setup = function()
-				vim.g.jupyter_ascending_default_mappings = false
-				vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-					pattern = "*.sync.py",
-					callback = function()
-						vim.keymap.set("n", "<localleader>j", "<Plug>JupyterExecute", {
-							silent = true,
-							buffer = true,
-							desc = "jupyter_execute",
-						})
-
-						vim.keymap.set("n", "<localleader>k", "<Plug>JupyterExecuteAll", {
-							silent = true,
-							buffer = true,
-							desc = "jupyter_execute_all",
-						})
-					end,
-					once = true,
-				})
-			end,
-		})
-	end
 
 	use({
 		"nvim-lualine/lualine.nvim",
