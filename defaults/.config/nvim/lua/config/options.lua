@@ -16,10 +16,11 @@ M.eval = function()
 end
 
 function M:setup()
-	vim.opt.laststatus = 3
-	if vim.fn.has("nvim-0.8") > 0 then
-		vim.opt.winbar = "%{v:lua.require'config.options'.eval()}"
-	end
+  vim.opt.background = 'light'  -- This forces lualine to use the right theme
+  vim.opt.laststatus = 3
+  if vim.fn.has("nvim-0.8") > 0 then
+    vim.opt.winbar = "%{v:lua.require'config.options'.eval()}"
+  end
 end
 
 return M
