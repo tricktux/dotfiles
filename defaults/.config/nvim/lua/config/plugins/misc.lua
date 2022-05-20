@@ -750,12 +750,6 @@ end
 
 function M.config_neoterm()
 	require("which-key").register({
-		["<plug>terminal_toggle"] = {
-			function()
-				require("utils.utils").exec_float_term("Ttoggle", true)
-			end,
-			"terminal",
-		},
 		["<plug>terminal_new"] = { "<cmd>Tnew<cr>", "term_new" },
 		["<plug>terminal_send_file"] = { "<cmd>TREPLSendFile<cr>", "term_send_file" },
 		["<plug>terminal_send"] = { "<Plug>(neoterm-repl-send)", "term_send_line" },
@@ -764,32 +758,6 @@ function M.config_neoterm()
 			"term_send_line",
 		},
 	})
-	-- TODO: Move these functions to which key and the functions somewhere else
-  require("which-key").register({
-    ["<plug>terminal_send_line"] = {
-      function()
-        local cline = vim.fn.getline(".")
-        if cline == "" or cline == nil then
-          return
-        end
-        require('utils.utils').execute_in_shell(cline)
-      end,
-      "term_send_line",
-    },
-  })
-  require("which-key").register({
-    ["<plug>terminal_send"] = {
-      function()
-        local utl = require("utils.utils")
-        local csel = utl.get_visual_selection()
-        if csel == "" or csel == nil then
-          return
-        end
-        utl.execute_in_shell(csel)
-      end,
-      "terminal_send",
-    },
-  }, { mode = "x" })
 end
 
 function M.setup_pomodoro()

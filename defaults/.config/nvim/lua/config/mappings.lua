@@ -34,6 +34,39 @@ local function tmux_move(direction)
   end
 end
 
+function M.terminal_mappings()
+
+  local opts = { silent = true, desc =  "terminal"}
+  vim.keymap.set('n', "<plug>terminal_toggle",
+    function()
+      utl.exec_float_term("term", true)
+    end,
+    opts
+  )
+  opts.desc = 'terminal_send_line'
+  vim.keymap.set('n', "<plug>terminal_send_line",
+    function()
+      local cline = vim.fn.getline(".")
+      if cline == "" or cline == nil then
+        return
+      end
+      utl.execute_in_shell(cline)
+    end,
+    opts
+  )
+  opts.desc = 'terminal_send'
+  vim.keymap.set('x', "<plug>terminal_send",
+    function()
+      local csel = utl.get_visual_selection()
+      if csel == "" or csel == nil then
+        return
+      end
+      utl.execute_in_shell(csel)
+    end,
+    opts
+  )
+end
+
 function M:window_movement_setup()
   local opts = { silent = true, desc = 'tmux_move_left' }
   if vim.fn.has('unix') > 0 then
@@ -100,16 +133,18 @@ function M:setup()
 
   vim.keymap.set({'n', 'x', 'o'}, 't', '%')
 
-  self:window_movement_setup()
-  -- Window resizing
-  opts.desc = 'window_size_increase_right'
-  vim.keymap.set('n', "<A-S-l>", "<C-w>>", opts)
-  opts.desc = 'window_size_increase_left'
-  vim.keymap.set('n', "<A-S-h>", "<C-w><", opts)
-  opts.desc = 'window_size_increase_up'
-  vim.keymap.set('n', "<A-S-k>", "<C-w>+", opts)
-  opts.desc = 'window_size_increase_bot'
-  vim.keymap.set('n', "<A-S-j>", "<C-w>-", opts)
+  self.terminal_mappings()
+
+	self:window_movement_setup()
+	-- Window resizing
+	opts.desc = "window_size_increase_right"
+	vim.keymap.set("n", "<A-S-l>", "<C-w>>", opts)
+	opts.desc = "window_size_increase_left"
+	vim.keymap.set("n", "<A-S-h>", "<C-w><", opts)
+	opts.desc = "window_size_increase_up"
+	vim.keymap.set("n", "<A-S-k>", "<C-w>+", opts)
+	opts.desc = "window_size_increase_bot"
+	vim.keymap.set("n", "<A-S-j>", "<C-w>-", opts)
 
   opts.desc = 'refresh_buffer'
   vim.keymap.set('n', "<c-l>", refresh_buffer, opts)
