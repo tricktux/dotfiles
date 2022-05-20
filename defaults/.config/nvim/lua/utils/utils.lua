@@ -213,18 +213,13 @@ end
 -- @param cmd vim command, if terminal command is desired append term
 -- @param closeterm close window when command is done?
 -- @param startinsert start insert mode in terminal
-function M.exec_float_term(cmd, closeterm, startinsert)
+function M.exec_float_term(cmd, startinsert)
 	vim.validate({ cmd = { cmd, "s" } })
 	-- Last true makes them optional arguments
 	vim.validate({ startinsert = { startinsert, "b", true } })
-	vim.validate({ closeterm = { closeterm, "b", true } })
 
-	local _, _ = M.open_win_centered(0.8, 0.8)
+	M.open_win_centered(0.8, 0.8)
 	vim.cmd(cmd)
-	--[[ if closeterm then
-		local opts = { buffer = buf, desc = "Prevent the prompt on quit", command = "quit!" }
-    vim.api.nvim_create_autocmd("TermClose", opts)
-	end ]]
 	if startinsert then
 		vim.cmd("startinsert")
 	end

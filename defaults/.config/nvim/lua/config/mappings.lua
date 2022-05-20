@@ -50,7 +50,7 @@ end
 function M.terminal_mappings()
 	local opts = { silent = true, desc = "terminal" }
 	vim.keymap.set("n", "<plug>terminal_toggle", function()
-		utl.exec_float_term("term", true)
+		utl.exec_float_term("term")
 	end, opts)
 	opts.desc = "terminal_send_line"
 	vim.keymap.set("n", "<plug>terminal_send_line", function()

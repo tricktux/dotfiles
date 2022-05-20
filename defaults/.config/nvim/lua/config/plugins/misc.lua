@@ -1,4 +1,5 @@
 local log = require("utils.log")
+local utl = require("utils.utils")
 local line = require("config.plugins.lualine")
 local api = vim.api
 
@@ -469,7 +470,6 @@ function M.config_focus()
 	log.info("setup of focus complete")
 end
 
-
 function M.setup_sneak()
     vim.g["sneak#absolute_dir"] = 1
     vim.g["sneak#label"] = 1
@@ -757,7 +757,11 @@ function M.config_neoterm()
 			"<Plug>(neoterm-repl-send-line)",
 			"term_send_line",
 		},
-	})
+  })
+  local opts = { silent = true, desc = "terminal" }
+  vim.keymap.set("n", "<plug>terminal_toggle", function()
+    utl.exec_float_term("Ttoggle")
+  end, opts)
 end
 
 function M.setup_pomodoro()
