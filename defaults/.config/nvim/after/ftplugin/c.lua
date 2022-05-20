@@ -37,7 +37,7 @@ local function repl()
   end
 
   local out = fn.tempname()
-  local exec_out = fn.has('unix') > 0 and './' .. out or out .. '.exe'
+  local exec_out = fn.has('unix') > 0 and out or out .. '.exe'
   local filename = fn.expand("%")
   local cmd = fn.shellescape(fmt("%s %s -g -O3 -o %s && %s", comp, filename, out, exec_out))
   log.info(fmt("repl.cpp.cmd = %s", cmd))
