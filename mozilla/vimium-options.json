@@ -4,7 +4,7 @@
   "filterLinkHints": false,
   "waitForEnterForFilteredHints": true,
   "hideHud": false,
-  "keyMappings": "# Insert your preferred key mappings here.\nmap e scrollPageUp\nmap h scrollPageUp\nmap l scrollPageDown\nmap <a-]> nextTab\nmap <a-[> previousTab\nmap ' Marks.activateGotoMode\nmap q removeTab\nmap Q restoreTab",
+  "keyMappings": "# Insert your preferred key mappings here.\nmap e scrollPageUp\nmap j scrollDown\nmap k scrollUp\nmap h scrollPageUp\nmap l scrollPageDown\nmap <a-]> nextTab\nmap <a-[> previousTab\nmap ' Marks.activateGotoMode\nmap q removeTab\nmap Q restoreTab",
   "linkHintCharacters": "sadfjklewcmpgh",
   "linkHintNumbers": "0123456789",
   "newTabUrl": "about:newtab",
@@ -13,9 +13,9 @@
   "regexFindMode": false,
   "ignoreKeyboardLayout": false,
   "scrollStepSize": 60,
-  "smoothScroll": true,
+  "smoothScroll": false,
   "grabBackFocus": true,
   "searchEngines": "# More examples.\n#\n# (Vimium supports search completion Wikipedia, as\n# above, and for these.)\n#\nyt: https://www.youtube.com/results?search_query=%s Youtube\naz: https://www.amazon.com/s/?field-keywords=%s Amazon\ngh: https://github.com/search?q=%s GitHub\nwa: http://www.wolframalpha.com/input/?i=%s Wolfram|Alpha\nwk: http://en.wikipedia.org/wiki/Special:Search?search=%s Wikipedia\naw: https://wiki.archlinux.org/index.php?search=%s ArchWiki\nar: https://aur.archlinux.org/packages/?K=%s AUR\ncp: https://en.cppreference.com/mwiki/index.php?search=%s CppReference\npy: https://docs.python.org/3.7/search.html?q=%s Python\nhn: https://www.hnsearch.com/search#request/submissions&q=%s&start=0 HackerNews\nso: https://stackoverflow.com/search?q=%s StackOverflow\ngm: https://www.google.com/maps?q=%s Google Maps",
   "searchUrl": "https://www.google.com/search?q=",
-  "userDefinedLinkHintCss": "div > .vimiumHintMarker {\n/* linkhint boxes */\nbackground: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFF785),\n  color-stop(100%,#FFC542));\nborder: 1px solid #E3BE23;\n}\n\ndiv > .vimiumHintMarker span {\n/* linkhint text */\ncolor: black;\nfont-weight: bold;\nfont-size: 12px;\n}\n\ndiv > .vimiumHintMarker > .matchingCharacter {\n}"
+  "userDefinedLinkHintCss": "/* HUD */\n\niframe.vimiumHUDFrame {\n    height: 30px;\n    min-height: 30px;\n}\n\ndiv.vimiumHUD {\n    background-color: #222;\n    border-color: #f4f;\n    border-radius: 0;\n    border-style: solid;\n    border-width: 0 3px 0 0;\n    color: #f4f;\n    font-weight: bold;\n    padding: 8px;\n    text-shadow: none;\n}\n\n/* Link Hints */\n\ndiv > .vimiumHintMarker {\n    background: #222;\n    border-color: #f4f;\n    border-radius: 0;\n    border-style: solid;\n    border-width: 0 0 0 3px;\n    cursor: default;\n    padding: 4px;\n}\n\ndiv > .vimiumHintMarker span {\n    color: #f4f;\n    cursor: default;\n    font-size: 12px;\n    font-weight: bold;\n    text-shadow: none;\n}\n\ndiv > .vimiumActiveHintMarker span {\n    color: #f8f!important;\n}\n\n/* Vomnibar */\n\n#vomnibar {\n    background: #333;\n    border-radius: 0;\n    box-shadow: none;\n}\n\n#vomnibar .vomnibarSearchArea {\n    background-color: #222;\n    border: none;\n    border-color: #f4f;\n    border-radius: 0;\n    border-style: solid;\n    border-width: 0 0 0 4px;\n}\n\n#vomnibar .vomnibarSearchArea > input {\n    background-color: #222;\n    border: none;\n    color: #f4f;\n}\n\n#vomnibar ul {\n    background-color: #333;\n    border-radius: 0;\n}\n\n#vomnibar li {\n    background-color: transparent;\n    border-color: #F8F;\n    border-style: solid;\n    border-width: 0;\n    margin-top: 10px;\n    transition: background-color 0.1s ease;\n}\n\n#vomnibar li em,\n#vomnibar li .vomnibarTitle {\n    color: #fff;\n}\n\n#vomnibar li em .vomnibarMatch,\n#vomnibar li .vomnibarTitle .vomnibarMatch,\n#vomnibar li .vomnibarMatch {\n    color: #f4f;\n}\n\n#vomnibar li .vomnibarUrl {\n    color: #ccc;\n}\n\n#vomnibar li.vomnibarSelected {\n    background-color: #444;\n}"
 }
