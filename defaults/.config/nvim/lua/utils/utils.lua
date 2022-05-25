@@ -63,7 +63,7 @@ function M.find_file(dir, file, ignore)
 	log.trace("dirs = " .. vim.inspect(dirs))
 	for _, d in ipairs(dirs) do
 		if vim.fn.isdirectory(dir) == 1 then
-			files = _find_file_recurse(dir .. [[\]] .. d, file, ignore)
+			files = M._find_file_recurse(dir .. [[\]] .. d, file, ignore)
 			if files ~= nil and files ~= "" then
 				return files
 			end
@@ -130,12 +130,12 @@ function M.file_fuzzer(path)
 	vim.validate({ path = { path, "s" } })
 
 	local epath = vim.fn.expand(path)
-	if isdir(epath) == nil then
+	if M.isdir(epath) == nil then
 		api.nvim_err_writeln("Path provided is not valid: " .. epath)
 		return
 	end
 
-	if is_mod_available("telescope") then
+	if M.is_mod_available("telescope") then
 		require("telescope.builtin").find_files({
 			-- Optional
 			cwd = path,
@@ -161,7 +161,7 @@ function M.file_fuzzer(path)
 	if file == nil then
 		return
 	end
-	if isfile(file) == nil then
+	if M.isfile(file) == nil then
 		vim.cmd([[echoerr "Selected file does not exists" ]] .. file)
 		vim.cmd("lcd " .. dir)
 		return
