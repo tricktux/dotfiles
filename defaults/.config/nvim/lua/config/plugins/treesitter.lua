@@ -65,12 +65,12 @@ M.__config = {
   ensure_installed = {
     "c", "cpp", "python", "lua", "java", "bash", "c_sharp", "rust", "json",
     "toml", "bash", "cmake", "dockerfile", "json5", "latex", "r", "yaml",
-    "vim", "markdown", "json", "make", "nix", "html", "llvm", "comment"
+    "vim", "markdown", "json", "make", "nix", "html", "llvm", "comment", "org"
   },
   highlight = {
     disable = disable,
     enable = true, -- false will disable the whole extension
-    additional_vim_regex_highlighting = false,
+    additional_vim_regex_highlighting = {'org'},
   },
   incremental_selection = {
     disable = disable,

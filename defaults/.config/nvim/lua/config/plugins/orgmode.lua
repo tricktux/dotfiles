@@ -3,7 +3,10 @@ local utl = require('utils.utils')
 local M = {}
 
 function M:setup()
-  require('orgmode').setup {
+  local org = require('orgmode')
+  org.setup_ts_grammar()
+  
+  org.setup {
     org_agenda_files = {vim.g.wiki_path .. [[/*]]},
     org_priority_lowest = 'D',
     org_todo_keywords = {
@@ -14,8 +17,8 @@ function M:setup()
       global = {org_agenda = '<leader>ma', org_capture = '<leader>mc'},
       org = {
         org_refile = '<localleader>r',
-        org_increase_date = '<localleader>A',
-        org_decrease_date = '<localleader>X',
+        org_timestamp_up = '<localleader>A',
+        org_timestamp_down = '<localleader>X',
         org_change_date = '<localleader>d',
         org_set_tags_command = '<localleader>t',
         org_toggle_archive_tag = '<localleader>a',

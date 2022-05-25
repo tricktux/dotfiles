@@ -297,14 +297,6 @@ function M:__setup()
 		use({ "chr4/nginx.vim" })
 
 		use({
-			"kristijanhusak/orgmode.nvim",
-			disable = true,
-			config = function()
-				require("config.plugins.orgmode"):setup()
-			end,
-		})
-
-		use({
 			"rcarriga/nvim-dap-ui",
 			requires = {
 				{ "mfussenegger/nvim-dap" },
@@ -325,6 +317,15 @@ function M:__setup()
 			require("config.plugins.misc").config_iswap()
 		end,
 	})
+
+  use({
+    "kristijanhusak/orgmode.nvim",
+    after = "nvim-treesitter",
+    requires = "nvim-treesitter/nvim-treesitter",
+    config = function()
+      require("config.plugins.orgmode"):setup()
+    end,
+  })
 
 	use({
 		"juneedahamed/svnj.vim",

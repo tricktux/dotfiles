@@ -3,10 +3,10 @@ local utl = require('utils.utils')
 local M = {}
 
 function M:setup()
-  local win_sources = {{name = 'nvim_lsp'}, {name = 'buffer'}, {name = 'luasnip'}, {name = 'calc'}}
+  local win_sources = {{name = 'nvim_lsp'}, {name = 'buffer'}, {name = 'luasnip'}, {name = 'calc'}, {name = 'orgmode'}}
   local unix_sources = {
     {name = 'nvim_lsp'}, {name = 'buffer'}, {name = 'luasnip'}, {name = 'calc'}, {name = 'path'},
-    {name = 'tags'}
+    {name = 'tags'}, {name = 'orgmode'} 
   }
   local cmp = require 'cmp'
   local lspkind = require('lspkind')
