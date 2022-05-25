@@ -615,6 +615,15 @@ paci --needed --noconfirm plantuml words
 # Sun Jan 17 2021 07:07: Depracated. Install in the pynvim venv
 # paci --needed --noconfirm vint
 
+
+# doomemacs {{{
+paci --needed --noconfirm emacs
+# Ensure ~/.emacs* does not exists
+# symlink <dotfiles>/doom to ~/.config/doom
+git clone https://github.com/hlissner/doom-emacs ~/.config/emacs
+~/.config/emacs/bin/doom install
+# }}}
+
 ## cmake{{{
 paci --needed --noconfirm cmake{,-lint,-format}
 # ~~`install cmake-language-server`~~
@@ -920,6 +929,7 @@ systemctl --user enable --now psd
 paci --needed --noconfirm qutebrowser pdfjs
 
 #}}}
+
 # Printing{{{
 # keywords: print, hp, cups
 paci --noconfirm --needed hplip cups cups-pdf simple-scan gtk3-print-backends

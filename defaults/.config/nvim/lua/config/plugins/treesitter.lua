@@ -22,17 +22,6 @@ local function setup_buf_keymaps_opts()
   vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
 end
 
-local function buf_has_ts()
-  local parsers = require 'nvim-treesitter.parsers'
-  local lang = parsers.get_buf_lang()
-
-  if not parsers.get_parser_configs()[lang] or parsers.has_parser(lang) then
-    return true
-  end
-
-  return false
-end
-
 local function ensure_parser_installed()
   if vim.b.ts_asked_already or vim.b.ts_disabled then
     return
@@ -40,7 +29,10 @@ local function ensure_parser_installed()
 
   vim.b.ts_asked_already = true
 
-  if buf_has_ts() then
+  local parsers = require 'nvim-treesitter.parsers'
+  local lang = parsers.get_buf_lang()
+
+  if not parsers.get_parser_configs()[lang] or parsers.has_parser(lang) then
     setup_buf_keymaps_opts()
     return
   end
