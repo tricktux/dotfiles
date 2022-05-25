@@ -7,7 +7,7 @@ function M:setup()
   org.setup_ts_grammar()
   
   org.setup {
-    org_agenda_files = {vim.g.wiki_path .. [[/*]]},
+    org_agenda_files = {vim.g.wiki_path .. [[/**/*.org]]},
     org_priority_lowest = 'D',
     org_todo_keywords = {
       'TODO', 'WAITING', 'BLOCKED', '|', 'DONE', 'WONT_DO', 'CANCELED'
