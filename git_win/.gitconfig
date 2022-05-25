@@ -30,3 +30,5 @@
 	;prompt = false
 [color]
 	ui = auto
+[safe]
+	directory = *
