@@ -320,7 +320,7 @@ function M:__setup()
 
   use({
     "kristijanhusak/orgmode.nvim",
-    after = "nvim-treesitter",
+    after = {"nvim-treesitter", "LuaSnip"},
     requires = "nvim-treesitter/nvim-treesitter",
     config = function()
       require("config.plugins.orgmode"):setup()
@@ -635,7 +635,6 @@ function M:__setup()
 
 	use({
 		"L3MON4D3/LuaSnip",
-		after = "which-key.nvim",
 		requires = { "rafamadriz/friendly-snippets", "honza/vim-snippets" },
 		config = function()
 			require("config.plugins.luasnip"):config()
