@@ -462,7 +462,7 @@ function M:__setup()
 		end,
 	})
 
-	use({ "ferrine/md-img-paste.vim", ft = "markdown" })
+	use({ "ferrine/md-img-paste.vim", ft = {"markdown", "org"} })
 
 	use({
 		"iamcco/markdown-preview.nvim",
