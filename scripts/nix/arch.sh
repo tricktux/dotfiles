@@ -536,14 +536,14 @@ help() {
 }
 
 # Get the options
-while getopts "i:ubcpdmvh" option; do
+while getopts "i:ubcpdmvhn" option; do
 	case $option in
 	h) # display Help
 		help
 		exit
 		;;
 	i)
-		pac_update_install ${OPTARG}
+		pac_update_install "${OPTARG}"
 		exit 0
 		;;
 	b)
