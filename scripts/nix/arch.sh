@@ -157,6 +157,22 @@ systemctl status cloudflared
 EOF
 }
 
+lightdm_fix_xs_errors() {
+	# Pending: https://github.com/canonical/lightdm/issues/95#issuecomment-1139517222
+	if ! strings /usr/sbin/lightdm | grep -q '.xsession-errors'; then
+		return
+	fi
+
+	if [[ ! -f /usr/bin/bbe ]]; then
+		return 
+	fi
+
+	sudo cp -f /usr/sbin/lightdm{,_bkp}
+	bbe -e 's/.xsession-errors/.cache\x2Fxs-errors/' /usr/sbin/lightdm_bkp >/tmp/outfile
+	chmod +x /tmp/outfile
+	sudo mv /tmp/outfile /usr/sbin/lightdm
+}
+
 pac_update_install() {
 	# Always update keyring first in case it's been a while you've updated the
 	# system
@@ -180,6 +196,8 @@ pac_update_install() {
 	sudo rsync -rltgoi --delay-updates --copy-links --info=progress2 \
 		--password-file=/etc/rsync --progress \
 		/var/cache/pacman/pkg/ "$pacman_cache_loc"
+
+	lightdm_fix_xs_errors
 }
 
 cleanup_junk() {
