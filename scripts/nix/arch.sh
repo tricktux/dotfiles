@@ -191,7 +191,12 @@ cleanup_junk() {
 	[Yy]*)
 		# TODO
 		# Leave only the 3 most recent versions of packaages
-		sudo /usr/bin/paccache -r
+    sudo mount -t cifs //192.168.1.139/NetBackup ~/.mnt/skywafer/NetBackup \
+      -o credentials=/etc/samba/credentials/share,\
+      workgroup=WORKGROUP,uid=1000,gid=985,nofail,\
+      x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev
+    sudo /usr/bin/paccache --remove -vvv \
+      --cachedir=/home/reinaldo/.mnt/skywafer/NetBackup/pacman_cache/x86_64
 		# Remove cache for deleted packages
 		# Omit for now, otherwise we are constantly downloading removed files
 		# sudo /usr/bin/paccache -ruk0
@@ -203,7 +208,7 @@ cleanup_junk() {
 	[Qq]*) quit ;;
 	[Yy]*)
 		# Leave only the 3 most recent versions of packaages
-		sudo /usr/bin/paccache -r
+		sudo /usr/bin/paccache -r -vvv
 		# Remove cache for deleted packages
 		# Omit for now, otherwise we are constantly downloading removed files
 		# sudo /usr/bin/paccache -ruk0
