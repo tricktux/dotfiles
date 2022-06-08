@@ -21,63 +21,87 @@ function M.__setup_snippets()
 	end
 
 	local todo_snips = {}
-	for k = 1, 3 do
-		table.insert(
-			todo_snips,
-			s(
-				string.rep("t", k),
-				fmt(
-					[[
+  for k = 1, 3 do
+    table.insert(
+      todo_snips,
+      s(
+        string.rep("d", k),
+        fmt(
+          [[
     {} TODO {} :{}:
-      {}
-      {}
+        {}
+        {}
     ]],
-					{
-						t(string.rep("*", k)),
-						i(1, "description"),
-						i(2, "tags"),
-						f(function()
-							return "SCHEDULED: <" .. get_date() .. ">"
-						end, {}),
-						f(function()
-							return "[" .. get_date_time() .. "]"
-						end, {}),
-					}
-				)
-			)
-		)
-	end
+          {
+            t(string.rep("*", k)),
+            i(1, "description"),
+            i(2, "tags"),
+            f(function()
+              return "DEADLINE: <" .. get_date() .. ">"
+            end, {}),
+            f(function()
+              return "[" .. get_date_time() .. "]"
+            end, {}),
+          }
+        )
+      )
+    )
+    table.insert(
+      todo_snips,
+      s(
+        string.rep("t", k),
+        fmt(
+          [[
+    {} TODO {} :{}:
+        {}
+        {}
+    ]],
+          {
+            t(string.rep("*", k)),
+            i(1, "description"),
+            i(2, "tags"),
+            f(function()
+              return "SCHEDULED: <" .. get_date() .. ">"
+            end, {}),
+            f(function()
+              return "[" .. get_date_time() .. "]"
+            end, {}),
+          }
+        )
+      )
+    )
+  end
 
-	table.insert(
-		todo_snips,
-		s(
-			"tc",
-			fmt(
-				[[
+  table.insert(
+    todo_snips,
+    s(
+      "tc",
+      fmt(
+        [[
   {} TODO {} :{}:
-    {}
-    {}
+      {}
+      {}
   ]],
-				{
-					c(1, {
-						i(nil, "*"),
-						i(nil, "**"),
-						i(nil, "***"),
-					}),
-					i(2, "description"),
-					i(3, "tags"),
-					f(function()
-						return "SCHEDULED: <" .. get_date() .. ">"
-					end, {}),
-					f(function()
-						return "[" .. get_date_time() .. "]"
-					end, {}),
-				}
-			)
-		)
-	)
+        {
+          c(1, {
+            i(nil, "*"),
+            i(nil, "**"),
+            i(nil, "***"),
+          }),
+          i(2, "description"),
+          i(3, "tags"),
+          f(function()
+            return "SCHEDULED: <" .. get_date() .. ">"
+            end, {}),
+          f(function()
+            return "[" .. get_date_time() .. "]"
+            end, {}),
+        }
+      )
+    )
+  )
 
-	ls.add_snippets("org", todo_snips)
+  ls.add_snippets("org", todo_snips)
 end
 
 function M:setup()
