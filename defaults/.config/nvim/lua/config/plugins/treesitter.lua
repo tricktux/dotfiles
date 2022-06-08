@@ -69,7 +69,7 @@ M.__config = {
   highlight = {
     disable = disable,
     enable = true, -- false will disable the whole extension
-    additional_vim_regex_highlighting = {'org'},
+    additional_vim_regex_highlighting = false,
   },
   incremental_selection = {
     disable = disable,
