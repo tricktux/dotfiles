@@ -86,6 +86,10 @@ function M:setup()
 
 	self.__setup_snippets()
 
+  vim.cmd[[
+    hi link OrgTODO OrgBold
+  ]]
+
 	org.setup({
 		org_agenda_files = { vim.g.wiki_path .. [[/**/*.org]] },
 		org_priority_lowest = "D",
