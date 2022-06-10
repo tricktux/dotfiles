@@ -157,6 +157,22 @@ systemctl status cloudflared
 EOF
 }
 
+lightdm_fix_xs_errors() {
+	# Pending: https://github.com/canonical/lightdm/issues/95#issuecomment-1139517222
+	if ! strings /usr/sbin/lightdm | grep -q '.xsession-errors'; then
+		return
+	fi
+
+	if [[ ! -f /usr/bin/bbe ]]; then
+		return 
+	fi
+
+	sudo cp -f /usr/sbin/lightdm{,_bkp}
+	bbe -e 's/.xsession-errors/.cache\x2Fxs-errors/' /usr/sbin/lightdm_bkp >/tmp/outfile
+	chmod +x /tmp/outfile
+	sudo mv /tmp/outfile /usr/sbin/lightdm
+}
+
 pac_update_install() {
 	# Always update keyring first in case it's been a while you've updated the
 	# system
@@ -164,22 +180,13 @@ pac_update_install() {
 	# msg "${CYAN}${BOLD}==> Updating keyring...   "
 	# sudo pacman-key --refresh-keys
 	# $aur_helper -Sy --needed archlinux-keyring ca-certificates
-
-	msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating pacman cache FROM server...     "
-	sudo rsync -rltgoi --delay-updates --copy-links --info=progress2 \
-		--password-file=/etc/rsync --progress \
-		"$pacman_cache_loc" /var/cache/pacman/pkg/
-
 	msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating core and aur packages...     "
 	$aur_helper -Syu "$@"
 
 	msg "${CYAN}${BOLD}" "[RIMP]==> Storing package list...     "
 	save_pkg_list_to_dotfiles
 
-	msg_not "${CYAN}${BOLD}" "[RIMP]==> Updating pacman cache TO server...     "
-	sudo rsync -rltgoi --delay-updates --copy-links --info=progress2 \
-		--password-file=/etc/rsync --progress \
-		/var/cache/pacman/pkg/ "$pacman_cache_loc"
+	# lightdm_fix_xs_errors
 }
 
 cleanup_junk() {
@@ -189,12 +196,6 @@ cleanup_junk() {
 	case $yn in
 	[Qq]*) quit ;;
 	[Yy]*)
-		# TODO
-		# Leave only the 3 most recent versions of packaages
-    sudo mount -t cifs //192.168.1.139/NetBackup ~/.mnt/skywafer/NetBackup \
-      -o credentials=/etc/samba/credentials/share,\
-      workgroup=WORKGROUP,uid=1000,gid=985,nofail,\
-      x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev
     sudo /usr/bin/paccache --remove -vvv \
       --cachedir=/home/reinaldo/.mnt/skywafer/NetBackup/pacman_cache/x86_64
 		# Remove cache for deleted packages
@@ -210,8 +211,7 @@ cleanup_junk() {
 		# Leave only the 3 most recent versions of packaages
 		sudo /usr/bin/paccache -r -vvv
 		# Remove cache for deleted packages
-		# Omit for now, otherwise we are constantly downloading removed files
-		# sudo /usr/bin/paccache -ruk0
+		sudo /usr/bin/paccache -ruk0
 		;;
 	esac
 	msg_not "${BLUE}${BOLD}" "[RIMP]==> Remove junk? [y/N/q]"
@@ -536,14 +536,14 @@ help() {
 }
 
 # Get the options
-while getopts "i:ubcpdmvh" option; do
+while getopts "i:ubcpdmvhn" option; do
 	case $option in
 	h) # display Help
 		help
 		exit
 		;;
 	i)
-		pac_update_install ${OPTARG}
+		pac_update_install "${OPTARG}"
 		exit 0
 		;;
 	b)

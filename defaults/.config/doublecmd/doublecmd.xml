@@ -222,10 +222,10 @@
       <KeepTerminalOpen>False</KeepTerminalOpen>
     </Editor>
     <Differ Enabled="True">
-      <Path>/usr/bin/diff</Path>
-      <Parameters>%p</Parameters>
-      <RunInTerminal>True</RunInTerminal>
-      <KeepTerminalOpen>True</KeepTerminalOpen>
+      <Path>/usr/bin/meld</Path>
+      <Parameters/>
+      <RunInTerminal>False</RunInTerminal>
+      <KeepTerminalOpen>False</KeepTerminalOpen>
       <FramePosAfterComp>1</FramePosAfterComp>
     </Differ>
   </Tools>

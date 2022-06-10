@@ -276,6 +276,9 @@ lspci -k | grep -A 2 -i "VGA"
 # Also add the ParallelDownloads = 5 option
 # Also uncomment Color option
 # Also add ILoveCandy option
+# Also add:
+# CacheDir    = /home/reinaldo/.mnt/skywafer/NetBackup/pacman_cache/x86_64
+# CacheDir    = /var/cache/pacman/pkg/
 sudo nvim /etc/pacman.conf
 sudo pacman -Sy
 # install 32-bit programs
@@ -372,7 +375,7 @@ nvim "$HOME/.config/kitty/$(hostname).conf"
 paci --needed --noconfirm nfs-utils
 mkdir -p $HOME/.mnt/skynfs
 mkdir -p $HOME/.mnt/skywafer/{home,music,shared,video}
-sudo bash -c 'printf "192.168.1.139:/volume1/backup /home/reinaldo/.mnt/skynfs nfs _netdev,noauto,user,x-systemd.automount,x-systemd.mount-timeout=10,timeo=14,x-systemd.idle-timeout=1min,vers=3 0 0" >> /etc/fstab'
+sudo bash -c 'printf "\n//192.168.1.139/NetBackup /home/reinaldo/.mnt/skywafer/NetBackup cifs credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev 0 0" >> /etc/fstab'
 sudo bash -c 'printf "\n//192.168.1.139/home /home/reinaldo/.mnt/skywafer/home cifs credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev 0 0" >> /etc/fstab'
 sudo bash -c 'printf "\n//192.168.1.139/music /home/reinaldo/.mnt/skywafer/music cifs credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev 0 0" >> /etc/fstab'
 
