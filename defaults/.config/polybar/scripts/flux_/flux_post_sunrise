@@ -2,10 +2,12 @@
 # Polybar is restarted by wal
 
 if [[ -S /tmp/nvim.socket ]]; then
-    /usr/bin/nvim --server /tmp/nvim.socket --remote-send ":ChangeColors sunrise<cr>"
+  /usr/bin/nvim --server /tmp/nvim.socket --remote-send \
+    '<c-\><c-n> tR'
 fi
 if [[ -S /tmp/nvim_journal.socket ]]; then
-    /usr/bin/nvim --server /tmp/nvim_journal.socket --remote-send ":ChangeColors sunrise<cr>"
+  /usr/bin/nvim --server /tmp/nvim_journal.socket --remote-send \
+    '<c-\><c-n> tR'
 fi
 
 if [[ -f /usr/bin/xfconf-query ]]; then

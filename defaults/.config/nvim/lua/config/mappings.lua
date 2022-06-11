@@ -161,6 +161,16 @@ function M:setup()
 
 	opts.desc = "refresh_buffer"
 	vim.keymap.set("n", "<c-l>", refresh_buffer, opts)
+
+  -- Flux colors
+  opts.desc = "toggle_colors_day"
+  vim.keymap.set("n", "<leader>td", "<cmd>ChangeColors day<cr>", opts)
+  opts.desc = "toggle_colors_night"
+  vim.keymap.set("n", "<leader>tn", "<cmd>ChangeColors night<cr>", opts)
+  opts.desc = "toggle_colors_sunset"
+  vim.keymap.set("n", "<leader>tS", "<cmd>ChangeColors sunset<cr>", opts)
+  opts.desc = "toggle_colors_sunrise"
+  vim.keymap.set("n", "<leader>tR", "<cmd>ChangeColors sunrise<cr>", opts)
 end
 
 return M
