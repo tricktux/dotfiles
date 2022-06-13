@@ -2,7 +2,7 @@
 ---@author Reinaldo Molina
 
 if vim.b.did_org_ftplugin then
-  return
+	return
 end
 
 vim.b.did_org_ftplugin = 1
@@ -13,17 +13,18 @@ vim.opt_local.tabstop = 4
 vim.opt_local.spell = true
 
 vim.b.AutoPairs = {
-  ['='] = '=',
-  ['('] = ')',
-  ['"'] = '"',
-  ['['] = ']',
-  ['<'] = '>',
+	["="] = "=",
+	["("] = ")",
+	['"'] = '"',
+	["["] = "]",
+	["<"] = ">",
 }
 
 if vim.fn.exists("*mdip#MarkdownClipboardImage") > 0 then
-  local opts = {silent = true, buffer = true, desc = "insert_clipboard_image"}
-  vim.keymap.set("n", "<localleader>i", 
-    function() return vim.fn["mdip#MarkdownClipboardImage"]() end, opts)
+	local opts = { silent = true, buffer = true, desc = "insert_clipboard_image" }
+	vim.keymap.set("n", "<localleader>i", function()
+		return vim.fn["mdip#MarkdownClipboardImage"]()
+	end, opts)
 end
 
 -- Make sure treesitter is not overriding foldexpr/indent in Org buffers

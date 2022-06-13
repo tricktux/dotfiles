@@ -209,9 +209,11 @@ cleanup_junk() {
 	[Qq]*) quit ;;
 	[Yy]*)
 		# Leave only the 3 most recent versions of packaages
-		sudo /usr/bin/paccache -r -vvv
+		sudo /usr/bin/paccache -r -vvv \
+      --cachedir=/var/cache/pacman/pkg
 		# Remove cache for deleted packages
-		sudo /usr/bin/paccache -ruk0
+		sudo /usr/bin/paccache -ruk0 \
+      --cachedir=/var/cache/pacman/pkg
 		;;
 	esac
 	msg_not "${BLUE}${BOLD}" "[RIMP]==> Remove junk? [y/N/q]"
