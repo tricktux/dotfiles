@@ -13,10 +13,7 @@
 " Guifont! Consolas:h9
 " Guifont! FontAwesome:h9
 function! s:win_nvim_ugly_font() abort
-    let l:font = "Consolas:h9"
-    let g:GuiFont = l:font
-    execute 'Guifont! ' . g:GuiFont
-    let &guifont=l:font
+  GuiFont Cascadia Code:h11
 	return s:set_nvim_qt_guioptions()
 endfunction
 
