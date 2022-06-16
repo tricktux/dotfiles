@@ -3,6 +3,19 @@ local Path = require('plenary.path')
 
 local M = {}
 
+local function project_bufenter_event()
+  local pr_ok, pr = pcall(require, "project_nvim.project")
+  if not pr_ok then
+    vim.api.nvim_err_writeln("project_nvim not available")
+    return
+  end
+  local root, _ = pr.get_project_root()
+  if root == "" or root == nil then
+    return
+  end
+  vim.cmd('lcd '.. root)
+end
+
 function M:config_project()
   require("project_nvim").setup {
     -- Manual mode doesn't automatically change your root directory, so you have
@@ -56,20 +69,9 @@ function M:config_project()
   vim.keymap.set('n', "<leader>fp", ts.extensions.projects.projects, opts)
 
   vim.api.nvim_create_autocmd("BufEnter", {
-    callback = function()
-      local pr_ok, pr = pcall(require, "project_nvim.project")
-      if not pr_ok then
-        print("project_nvim not available")
-        return
-      end
-      local root, _ = pr.get_project_root()
-      if root == "" or root == nil then
-        root = vim.fn.expand("%:h")
-      end
-      vim.cmd('lcd '.. root)
-    end,
+    callback = project_bufenter_event,
     pattern = "*",
-    desc = "ProjectRoot",
+    desc = "My ProjectRoot",
   })
 end
 
