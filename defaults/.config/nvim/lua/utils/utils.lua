@@ -102,6 +102,9 @@ local win_ignore_file = [[--ignore-file=]] .. win_file:absolute()
 local nix_ignore_file = [[--ignore-file=]] .. os.getenv("HOME") .. [[/.config/ignore-file]]
 M.rg_ignore_file = M.has_win() and win_ignore_file or nix_ignore_file
 
+M.buftype_whitelist = {"", "acwrite"}
+M.buftype_blacklist = {"nofile", "prompt", "terminal"}
+
 function M.isdir(path)
 	vim.validate({ path = { path, "s" } })
 	local stat = luv.fs_stat(path)
