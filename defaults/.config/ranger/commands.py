@@ -95,6 +95,7 @@ import subprocess
 
 from ranger.api.commands import Command
 
+
 #  https://github.com/ask1234560/ranger-zjumper
 class z(Command):
     """:z
@@ -108,10 +109,12 @@ class z(Command):
             return
 
         # location of .z file
-        z_loc = os.getenv("_Z_DATA") or os.getenv("HOME") + "/.local/share/z"
+        h = os.getenv("_Z_DATA") or os.getenv("HOME")
+        z_loc = f"{h}/.local/share/z"
 
         if not os.path.isfile(z_loc):
-            self.fm.notify("Failed to find z database. Please set _Z_DATA", bad=True)
+            self.fm.notify(
+                "Failed to find z database. Please set _Z_DATA", bad=True)
             return
 
         with open(z_loc, "r", encoding="utf-8") as fobj:
@@ -125,7 +128,8 @@ class z(Command):
                 directories.append(i.split("|")[0])
 
         if not directories:
-            self.fm.notify(f"Z: Search ({self.arg(1)}) not in database", bad=True)
+            self.fm.notify(
+                f"Z: Search ({self.arg(1)}) not in database", bad=True)
             return
 
         z_folder = os.path.abspath(min(directories, key=lambda x: len(x)))
@@ -159,12 +163,12 @@ class fzf(Command):
                         --ignore-file $HOME/.config/ignore-file \
                         2>/dev/null | fzf +m"
 
-        fzf = self.fm.execute_command(command,
-                                      universal_newlines=True,
-                                      stdout=subprocess.PIPE)
-        stdout, stderr = fzf.communicate()
-        if fzf.returncode == 0:
-            fzf_file = os.path.abspath(stdout.rstrip('\n'))
+        cmd = self.fm.execute_command(
+            command, universal_newlines=True, stdout=subprocess.PIPE
+        )
+        stdout, _ = cmd.communicate()
+        if cmd.returncode == 0:
+            fzf_file = os.path.abspath(stdout.rstrip("\n"))
             if os.path.isdir(fzf_file):
                 self.fm.cd(fzf_file)
             else:
@@ -187,15 +191,17 @@ class rga(Command):
             self.fm.notify("Usage: rga <search string>", bad=True)
             return
 
-        command = "rga '%s' . --rga-adapters=pandoc,poppler 2>/dev/null \
+        command = (
+            f"rga '{search_string}' . --rga-adapters=pandoc,poppler 2>/dev/null \
                         | fzf +m \
-                        | awk -F':' '{print $1}'" % search_string
-        fzf = self.fm.execute_command(command,
-                                      universal_newlines=True,
-                                      stdout=subprocess.PIPE)
-        stdout, stderr = fzf.communicate()
-        if fzf.returncode == 0:
-            fzf_file = os.path.abspath(stdout.rstrip('\n'))
+                        | awk -F':' '{{print $1}}'"
+        )
+        cmd = self.fm.execute_command(
+            command, universal_newlines=True, stdout=subprocess.PIPE
+        )
+        stdout, _ = cmd.communicate()
+        if cmd.returncode == 0:
+            fzf_file = os.path.abspath(stdout.rstrip("\n"))
             #  self.fm.execute_file(File(fzf_file))
             if os.path.isdir(fzf_file):
                 self.fm.cd(fzf_file)
@@ -218,7 +224,8 @@ class yank_image_to_clipbard(Command):
 
         file = self.fm.thisfile.path
         if not os.path.isfile(file):
-            self.fm.notify(f"File selected does not exists: '{file}'", bad=True)
+            self.fm.notify(
+                f"File selected does not exists: '{file}'", bad=True)
             return
 
         _, ext = os.path.splitext(file)
@@ -239,4 +246,3 @@ class yank_image_to_clipbard(Command):
         proc.communicate()
         if proc.returncode != 0:
             self.fm.notify(f"xclip command failed: '{cmd}'", bad=True)
-
