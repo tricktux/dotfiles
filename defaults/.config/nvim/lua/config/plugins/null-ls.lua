@@ -97,13 +97,12 @@ function M:setup()
       extra_filetypes = { "mail", "gitcommit", "svncommit", "org" },
     }))
 	end
+  if vim.fn.executable("prettierd") > 0 then
+    log.info("NullLs setting up prettierd...")
+    table.insert(sources, null.builtins.formatting.prettierd)
+  elseif vim.fn.executable("prettier") > 0 then
 		log.info("NullLs setting up prettier...")
-		table.insert(
-			sources,
-			null.builtins.formatting.prettier.with({
-				filetypes = { "html", "css", "yaml", "markdown", "json" },
-			})
-		)
+		table.insert(sources, null.builtins.formatting.prettier)
   elseif vim.fn.executable('jq') then
 		log.info("NullLs setting up jq...")
 		table.insert(sources, null.builtins.formatting.jq)
