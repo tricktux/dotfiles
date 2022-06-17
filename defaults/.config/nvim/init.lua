@@ -40,6 +40,7 @@ local function set_globals()
 	if vim.fn.has("nvim-0.7") > 0 then
 		-- Disable filetypes.vim and enable filetypes.lua
 		vim.g.did_load_ftdetect = 1
+    vim.g.did_load_filetypes = 0
 		vim.g.do_filetype_lua = 1
 	end
 
