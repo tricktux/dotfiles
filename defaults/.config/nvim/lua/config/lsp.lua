@@ -91,15 +91,10 @@ local function set_lsp_mappings(capabilities, bufnr)
   }
 
   -- Set some keybinds conditional on server capabilities
-  local fmt = vim.fn.has('nvim-0.8') and function()
-    lsp.buf.format({async = true})
-  end or lsp.buf.formatting
-  if capabilities.document_formatting then
-    mappings.f = { fmt, 'formatting' }
-  end
-  if capabilities.document_range_formatting then
-    mappings.F = { lsp.buf.range_formatting, 'range_formatting' }
-  end
+  local fmt = vim.fn.has('nvim-0.8') > 0 and function()
+    lsp.buf.format({async = false}) end or lsp.buf.formatting
+  mappings.f = { fmt, 'formatting' }
+  mappings.F = { lsp.buf.range_formatting, 'range_formatting' }
   wk.register(mappings, opts)
 
   require('config.plugins.telescope').set_lsp_mappings(bufnr)
