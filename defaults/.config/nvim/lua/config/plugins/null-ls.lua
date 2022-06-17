@@ -89,11 +89,14 @@ function M:setup()
 			disabled_filetypes = { "rust" }, -- use rustfmt
 		}), ]]
 	}
-	if vim.fn.executable("write-good") > 0 then
-		log.info("NullLs setting up write-good...")
-		table.insert(sources, null.builtins.diagnostics.write_good)
+	if vim.fn.executable("vale") > 0 then
+    -- Initially run 'vale sync' to download style paths
+    -- Check config with 'vale ls-config'
+		log.info("NullLs setting up vale...")
+    table.insert(sources, null.builtins.diagnostics.vale.with({
+      extra_filetypes = { "mail", "gitcommit", "svncommit", "org" },
+    }))
 	end
-	if vim.fn.executable("prettier") > 0 then
 		log.info("NullLs setting up prettier...")
 		table.insert(
 			sources,
