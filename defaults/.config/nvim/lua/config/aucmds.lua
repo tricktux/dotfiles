@@ -29,7 +29,6 @@ end
 local function set_text_settings()
   vim.opt.conceallevel = 0
   vim.opt.textwidth = 0
-  vim.opt.wrap = true
   vim.opt.foldenable = true
   vim.opt.complete:append('kspell')
   vim.opt.tabstop = 2
@@ -126,7 +125,6 @@ local function setup()
   api.nvim_create_autocmd('Filetype', {
     callback = function()
       log.info('mail autocmd called')
-      vim.opt.wrap = true
       vim.opt.textwidth = 72
     end,
     pattern = 'mail',
@@ -137,7 +135,6 @@ local function setup()
     callback = function()
       log.info('c autocmd called')
       local tab = vim.fn.has('unix') > 0 and 2 or 4
-      vim.opt.wrap = false
       vim.opt.tabstop = tab
       vim.opt.shiftwidth = tab
       vim.opt.softtabstop = tab
