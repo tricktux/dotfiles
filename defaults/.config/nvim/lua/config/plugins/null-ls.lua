@@ -97,6 +97,7 @@ function M:setup()
       sources,
       null.builtins.diagnostics.vale.with({
         extra_filetypes = { "mail", "gitcommit", "svncommit", "org" },
+        extra_args = vim.fn.has("unix") > 0 and { [[--config=/home/reinaldo/.config/.vale.ini]] } or {},
       })
     )
   end
