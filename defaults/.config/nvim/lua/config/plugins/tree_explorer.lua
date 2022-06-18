@@ -1,4 +1,4 @@
-local utl = require('utils/utils')
+local utl = require("utils/utils")
 local api = vim.api
 
 local M = {}
@@ -23,20 +23,34 @@ function M.nvimtree_config()
   } -- List of filenames that gets highlighted with NvimTreeSpecialFile
   vim.g.nvim_tree_respect_buf_cwd = 1
 
-  local tree_cb = require'nvim-tree.config'.nvim_tree_callback
+  local tree_cb = require("nvim-tree.config").nvim_tree_callback
 
-  require'nvim-tree'.setup {
+  require("nvim-tree").setup({
     disable_netrw = true,
     hijack_netrw = true,
     open_on_setup = false,
-    ignore_ft_on_setup = {'startify', 'dashboard'},
+    ignore_ft_on_setup = { "startify", "dashboard" },
     open_on_tab = false,
     hijack_cursor = false,
     update_cwd = true,
-    update_focused_file = {enable = true, update_cwd = true, ignore_list = {}},
-    system_open = {cmd = nil, args = {}},
-    filters = {dotfiles = false, custom = {}},
+    respect_buf_cwd = true,
+    update_focused_file = { enable = true, update_cwd = true, ignore_list = {} },
+    system_open = { cmd = nil, args = {} },
+    filters = { dotfiles = false, custom = {} },
     renderer = {
+      highlight_git = false,
+      group_empty = true,
+      highlight_opened_files = "all",
+      add_trailing = true,
+      special_files = {
+        ["README.md"] = 1,
+        ["Makefile"] = 1,
+        ["MAKEFILE"] = 1,
+      },
+      icons = {
+        padding = " ",
+        show = { ["folder_arrow"] = false, ["folder"] = false, ["file"] = false },
+      },
       indent_markers = {
         enable = true,
         icons = {
@@ -48,10 +62,10 @@ function M.nvimtree_config()
     },
     diagnostics = {
       enable = false,
-      icons = {hint = "", info = "", warning = "", error = ""}
+      icons = { hint = "", info = "", warning = "", error = "" },
     },
     actions = {
-      change_dir = {enable = true, global = false},
+      change_dir = { enable = true, global = false },
       open_file = {
         quit_on_open = true,
         resize_window = false,
@@ -60,54 +74,60 @@ function M.nvimtree_config()
           chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
           exclude = {
             filetype = {
-              "notify", "packer", "qf", "diff", "fugitive", "fugitiveblame"
+              "notify",
+              "packer",
+              "qf",
+              "diff",
+              "fugitive",
+              "fugitiveblame",
             },
-            buftype = {"nofile", "terminal", "help"}
-          }
-        }
-      }
+            buftype = { "nofile", "terminal", "help" },
+          },
+        },
+      },
     },
     view = {
       width = 30,
-      side = 'left',
+      side = "left",
       mappings = {
         custom_only = false,
         list = {
           -- ["<CR>"] = ":YourVimFunction()<cr>",
           -- ["u"] = ":lua require'some_module'.some_function()<cr>",
           -- default mappings
-          {key = "<cr>", cb = tree_cb("edit")},
-          {key = "o", cb = tree_cb("edit")},
-          {key = "<c-]>", cb = tree_cb("cd")},
-          {key = "<c-v>", cb = tree_cb("vsplit")},
-          {key = "<c-x>", cb = tree_cb("split")},
-          {key = "<c-t>", cb = tree_cb("tabnew")},
-          {key = "<bs>", cb = tree_cb("close_node")},
-          {key = "u", cb = tree_cb("close_node")},
-          {key = "<s-cr>", cb = tree_cb("close_node")},
-          {key = "<tab>", cb = tree_cb("preview")},
-          {key = "I", cb = tree_cb("toggle_ignored")},
-          {key = "H", cb = tree_cb("toggle_dotfiles")},
-          {key = "R", cb = tree_cb("refresh")},
-          {key = "a", cb = tree_cb("create")},
-          {key = "d", cb = tree_cb("remove")},
-          {key = "r", cb = tree_cb("rename")},
-          {key = "<C-r>", cb = tree_cb("full_rename")},
-          {key = "x", cb = tree_cb("cut")}, {key = "y", cb = tree_cb("copy")},
-          {key = "p", cb = tree_cb("paste")},
-          {key = "[c", cb = tree_cb("prev_git_item")},
-          {key = "]c", cb = tree_cb("next_git_item")},
-          {key = "-", cb = tree_cb("dir_up")},
-          {key = "q", cb = tree_cb("close")},
-          {key = "?", cb = tree_cb("toggle_help")}
-        }
-      }
-    }
-  }
+          { key = "<cr>", cb = tree_cb("edit") },
+          { key = "o", cb = tree_cb("edit") },
+          { key = "<c-]>", cb = tree_cb("cd") },
+          { key = "<c-v>", cb = tree_cb("vsplit") },
+          { key = "<c-x>", cb = tree_cb("split") },
+          { key = "<c-t>", cb = tree_cb("tabnew") },
+          { key = "<bs>", cb = tree_cb("close_node") },
+          { key = "u", cb = tree_cb("close_node") },
+          { key = "<s-cr>", cb = tree_cb("close_node") },
+          { key = "<tab>", cb = tree_cb("preview") },
+          { key = "I", cb = tree_cb("toggle_ignored") },
+          { key = "H", cb = tree_cb("toggle_dotfiles") },
+          { key = "R", cb = tree_cb("refresh") },
+          { key = "a", cb = tree_cb("create") },
+          { key = "d", cb = tree_cb("remove") },
+          { key = "r", cb = tree_cb("rename") },
+          { key = "<C-r>", cb = tree_cb("full_rename") },
+          { key = "x", cb = tree_cb("cut") },
+          { key = "y", cb = tree_cb("copy") },
+          { key = "p", cb = tree_cb("paste") },
+          { key = "[c", cb = tree_cb("prev_git_item") },
+          { key = "]c", cb = tree_cb("next_git_item") },
+          { key = "-", cb = tree_cb("dir_up") },
+          { key = "q", cb = tree_cb("close") },
+          { key = "?", cb = tree_cb("toggle_help") },
+        },
+      },
+    },
+  })
 
-  require('which-key').register {
-    ["<plug>file_browser"] = {require('nvim-tree').toggle, "file_browser"}
-  }
+  require("which-key").register({
+    ["<plug>file_browser"] = { require("nvim-tree").toggle, "file_browser" },
+  })
 end
 
 return M
