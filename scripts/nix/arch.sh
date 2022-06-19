@@ -456,7 +456,7 @@ backup() {
 		pkill -x anki
 		sleep 3 # Give it time to close
 		"$TERMINAL" \
-			"$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot.sh" -s $SRC -d $SNAP &
+			"$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot.sh" -s "$SRC" -d "$SNAP" &
 		;;
 	esac
 	msg_not "${BLUE}${BOLD}" "[RIMP]==> Back up emails (~15mins)? [y/N/q]"
@@ -466,10 +466,11 @@ backup() {
 	[Yy]*)
 		SRC="$HOME/.local/share/mail $HOME/.local/share/vdirsyncer"
 		SNAP="$HOME/.mnt/skywafer/home/bkps/mail"
-		/usr/bin/mbsync -D -ac "$HOME"/.config/isync/mbsyncrc || echo "mbsync never retuns code 0..."
-		/usr/bin/vdirsyncer --verbosity debug sync
+    /usr/bin/mbsync -D -ac "$HOME"/.config/isync/mbsyncrc \
+      || echo "mbsync never retuns code 0..."
+    /usr/bin/vdirsyncer --verbosity debug sync
 		"$TERMINAL" \
-			"$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot.sh" -s $SRC -d $SNAP &
+      "$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot.sh" -s "$SRC" -d "$SNAP" &
 		;;
 	esac
 }
