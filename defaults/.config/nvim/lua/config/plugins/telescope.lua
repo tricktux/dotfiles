@@ -81,12 +81,10 @@ function M.set_lsp_mappings(bufnr)
   local vks = vim.keymap.set
   local ts = require("telescope.builtin")
   local mappings = {
-    c = {ts.lsp_code_actions, 'tele_code_actions'},
     R = {ts.lsp_references, 'tele_references'},
     d = {ts.lsp_definitions, 'tele_definitions'},
     i = {ts.lsp_implementations, 'tele_implementations'},
     s = {ts.lsp_document_symbols, 'tele_document_symbols'},
-    a = {ts.lsp_code_actions, 'tele_code_actions'},
     W = {ts.lsp_workspace_symbols, 'tele_workspace_symbols'}
   }
 
