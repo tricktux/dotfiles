@@ -92,7 +92,7 @@ function M.set_lsp_mappings(bufnr)
 
   for k,v in pairs(mappings) do
     opts.desc = v[2]
-    vks('n', preffix .. k, v[1], opts)
+    vks('n', prefix .. k, v[1], opts)
   end
 
   -- Override default mappings with telescope lsp intelligent analogous
@@ -112,7 +112,7 @@ function M.set_lsp_mappings(bufnr)
 
   for k,v in pairs(mappings) do
     opts.desc = v[2]
-    vks('n', preffix .. k, v[1], opts)
+    vks('n', prefix .. k, v[1], opts)
   end
 end
 
