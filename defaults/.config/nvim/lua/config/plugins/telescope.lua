@@ -76,11 +76,11 @@ function M:config_project()
 end
 
 function M.set_lsp_mappings(bufnr)
-  local wk = require("which-key")
+  local opts = {buffer = bufnr, silent = true}
+  local prefix = '<localleader>l'
+  local vks = vim.keymap.set
   local ts = require("telescope.builtin")
-  local opts = {prefix = '<localleader>l', buffer = bufnr}
   local mappings = {
-    name = 'telescope',
     c = {ts.lsp_code_actions, 'tele_code_actions'},
     R = {ts.lsp_references, 'tele_references'},
     d = {ts.lsp_definitions, 'tele_definitions'},
@@ -89,10 +89,14 @@ function M.set_lsp_mappings(bufnr)
     a = {ts.lsp_code_actions, 'tele_code_actions'},
     W = {ts.lsp_workspace_symbols, 'tele_workspace_symbols'}
   }
-  wk.register(mappings, opts)
 
-  -- Override default mappings with telescope lsp intelligent analougous
-  opts.prefix = "<localleader>"
+  for k,v in pairs(mappings) do
+    opts.desc = v[2]
+    vks('n', preffix .. k, v[1], opts)
+  end
+
+  -- Override default mappings with telescope lsp intelligent analogous
+  prefix = "<localleader>"
   mappings = {
     D = {function()
       vim.cmd[[vsplit]]
@@ -106,7 +110,10 @@ function M.set_lsp_mappings(bufnr)
     end, 'tele_lsp_references_split'},
   }
 
-  wk.register(mappings, opts)
+  for k,v in pairs(mappings) do
+    opts.desc = v[2]
+    vks('n', preffix .. k, v[1], opts)
+  end
 end
 
 local cust_path_display = function(opts, path)
@@ -178,14 +185,10 @@ end
 
 function M:set_mappings()
   local ts = require("telescope.builtin")
-
+  local leader = {}
   local opts = {silent = true, desc = 'telescope_fuzzy_command_search'}
   local vks = vim.keymap.set
   vks('c', '<c-v>', '<Plug>(TelescopeFuzzyCommandSearch)', opts)
-  opts.desc = "quickfix"
-  vks('n', '<leader>fq', function() ts.quickfix{ignore_filename = false} end, opts)
-  opts.desc = "loclist"
-  vks('n', '<leader>fu', function() ts.loclist{ignore_filename = false} end, opts)
 
   -- Map <s-;> to commands history
   opts.desc = "command_history"
@@ -195,10 +198,6 @@ function M:set_mappings()
   opts.desc = "mru_browser"
   vks('n', "<plug>mru_browser", function() ff(vim.fn.getcwd()) end, opts)
 
-  local wk = require("which-key")
-  local leader = {}
-  local leader_p = [[<leader>]]
-  
   local function ff_dotfiles()
     local dotfiles = nil
     if utl.has_unix() then
@@ -213,7 +212,6 @@ function M:set_mappings()
                           [[site/pack/packer]]):absolute()
 
   leader.e = {
-    name = "edit",
     d = {ff_dotfiles, 'dotfiles'},
     h = {function() ff(os.getenv('HOME')) end, 'home'},
     c = {function() ff(vim.fn.getcwd()) end, 'current_dir'},
@@ -222,8 +220,12 @@ function M:set_mappings()
     v = {function() ff(os.getenv('VIMRUNTIME')) end, 'vimruntime'}
   }
 
+  for k,v in pairs(leader.e) do
+    opts.desc = v[2]
+    vks('n', "<leader>e" .. k, v[1], opts)
+  end
+
   local git = {
-    name = 'git',
     f = {ts.git_files, 'files'},
     C = {ts.git_commits, 'commits'},
     c = {ts.git_bcommits, 'commits_current_buffer'},
@@ -231,33 +233,23 @@ function M:set_mappings()
     s = {ts.git_status, 'status'},
     S = {ts.git_stash, 'stash'}
   }
-  leader['?'] = {
-    function() ts.live_grep {additional_args = rg_grep_cmd} end, 'live_grep'
-  }
-  --[[ leader['/'] = {
-    function()
-      local input = vim.fn.input("Enter regex for telescope.grep_string: ")
-      if input == nil or input == "" then
-        return
-      end
-      ts.grep_string {
-        search = input,
-        use_regex = true,
-        additional_args = rg_grep_cmd
-      }
-    end, 'live_grep'
-  } ]]
-  leader[';'] = {function() ts.commands{layout_config = cust_layout_config} end, 'commands'}
-  leader[':'] = {function() ts.command_history{layout_config = cust_layout_config} end, 'command_history'}
+
+  for k,v in pairs(git) do
+    opts.desc = v[2]
+    vks('n', "<leader>fg" .. k, v[1], opts)
+  end
+
+  opts.desc = "live_grep"
+  vks('n', "<leader>?", function() ts.live_grep {additional_args = rg_grep_cmd} end, opts)
+  opts.desc = "commands"
+  vks('n', "<leader>;", function() ts.commands{layout_config = cust_layout_config} end, opts)
 
   leader.f = {
-    name = 'fuzzers',
-    g = git,
     b = {ts.buffers, 'buffers'},
     f = {ts.find_files, 'files'},
     o = {ts.vim_options, 'vim_options'},
     O = {ts.colorscheme, 'colorscheme'},
-    L = {ts.current_buffer_fuzzy_find, 'lines_current_buffer'},
+    l = {ts.current_buffer_fuzzy_find, 'lines_current_buffer'},
     t = {ts.current_buffer_tags, 'tags_curr_buffer'},
     T = {ts.tags, 'tags_all_buffers'},
     s = {ts.tagstack, 'tags_stack'},
@@ -273,10 +265,14 @@ function M:set_mappings()
     M = {ts.man_pages, 'man_pages'},
     c = {ts.commands, 'commands'},
     q = {ts.quickfix, 'quickfix'},
-    l = {ts.loclist, 'locationlist'},
+    u = {ts.loclist, 'locationlist'},
     d = {ts.reloader, 'reload_lua_modules'}
   }
-  wk.register(leader, {prefix = leader_p})
+
+  for k,v in pairs(leader.f) do
+    opts.desc = v[2]
+    vks('n', "<leader>f" .. k, v[1], opts)
+  end
 end
 
 function M:setup()
