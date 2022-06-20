@@ -171,6 +171,12 @@ function M:setup()
   vim.keymap.set("n", "<leader>tS", "<cmd>ChangeColors sunset<cr>", opts)
   opts.desc = "toggle_colors_sunrise"
   vim.keymap.set("n", "<leader>tR", "<cmd>ChangeColors sunrise<cr>", opts)
+
+  -- Quickfix/Location list
+  opts.desc = "quickfix"
+  vim.keymap.set("n", "<s-q>", "<cmd>copen 20<cr>", opts)
+  opts.desc = "quickfix"
+  vim.keymap.set("n", "<s-u>", "<cmd>lopen 20<cr>", opts)
 end
 
 return M

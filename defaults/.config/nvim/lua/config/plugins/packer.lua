@@ -687,6 +687,22 @@ function M:__setup()
 		end,
 	})
 
+  use({
+    -- Folder name to give
+    "https://gitlab.com/yorickpeterse/nvim-pqf",
+    as = "nvim-pqf",
+    config = function()
+      require('pqf').setup({
+        signs = {
+          error = 'E',
+          warning = 'W',
+          info = 'I',
+          hint = 'H'
+        }
+      })
+    end
+  })
+
 	use({
 		"nvim-lualine/lualine.nvim",
 		-- List of plugins that update the lualine elements

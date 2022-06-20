@@ -308,11 +308,11 @@ function! mappings#Set()
   nnoremap <silent> [m :m -2<cr>
 
   " Quickfix and Location stuff
-  nnoremap <silent> <s-q> :call quickfix#ToggleList("Quickfix List", 'c')<cr>
+  " nnoremap <silent> <s-q> :call quickfix#ToggleList("Quickfix List", 'c')<cr>
   nnoremap ]q :cnext<cr>
   nnoremap [q :cprevious<cr>
 
-  nnoremap <silent> <s-u> :call quickfix#ToggleList("Location List", 'l')<cr>
+  " nnoremap <silent> <s-u> :call quickfix#ToggleList("Location List", 'l')<cr>
   nnoremap ]l :lnext<cr>
   nnoremap [l :lprevious<cr>
 
