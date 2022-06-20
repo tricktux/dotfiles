@@ -177,25 +177,28 @@ local function ff(path)
 end
 
 function M:set_mappings()
+  local ts = require("telescope.builtin")
+
   local opts = {silent = true, desc = 'telescope_fuzzy_command_search'}
-  vim.keymap.set('c', '<c-v>', '<Plug>(TelescopeFuzzyCommandSearch)', opts)
+  local vks = vim.keymap.set
+  vks('c', '<c-v>', '<Plug>(TelescopeFuzzyCommandSearch)', opts)
+  opts.desc = "quickfix"
+  vks('n', '<leader>fq', function() ts.quickfix{ignore_filename = false} end, opts)
+  opts.desc = "loclist"
+  vks('n', '<leader>fu', function() ts.loclist{ignore_filename = false} end, opts)
+
+  -- Map <s-;> to commands history
+  opts.desc = "command_history"
+  vks('n', ':', function() ts.command_history{layout_config = cust_layout_config} end, opts)
+  opts.desc = "buffer_browser"
+  vks('n', "<plug>buffer_browser", function() ts.buffers(cust_buff_opts) end, opts)
+  opts.desc = "mru_browser"
+  vks('n', "<plug>mru_browser", function() ff(vim.fn.getcwd()) end, opts)
 
   local wk = require("which-key")
-  local ts = require("telescope.builtin")
   local leader = {}
   local leader_p = [[<leader>]]
-
-  wk.register {
-    ["Q"] = {function() ts.quickfix{ignore_filename = false} end, "quickfix"},
-    ["U"] = {function() ts.loclist{ignore_filename = false} end, "loclist"},
-    -- Map <s-;> to commands history
-    [':'] = {function() ts.command_history{layout_config = cust_layout_config} end, 'command_history'},
-    ["<plug>buffer_browser"] = {
-      function() ts.buffers(cust_buff_opts) end, "buffers"
-    },
-    ["<plug>mru_browser"] = {function() ff(vim.fn.getcwd()) end, "oldfiles"}
-  }
-
+  
   local function ff_dotfiles()
     local dotfiles = nil
     if utl.has_unix() then
