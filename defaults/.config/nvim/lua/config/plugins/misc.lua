@@ -188,12 +188,19 @@ function M.config_neogen()
 end
 
 function M.config_kitty_navigator()
-	require("which-key").register({
+  local opts = { silent = true }
+	local mappings = {
 		["<a-h>"] = { "<cmd>KittyNavigateLeft<cr>", "kitty_left" },
 		["<a-j>"] = { "<cmd>KittyNavigateDown<cr>", "kitty_down" },
 		["<a-k>"] = { "<cmd>KittyNavigateUp<cr>", "kitty_up" },
 		["<a-l>"] = { "<cmd>KittyNavigateRight<cr>", "kitty_right" },
-	})
+	}
+  for k, v in pairs(mappings) do
+    if v[1] ~= nil then
+      opts.desc = v[2]
+      vks("n", k, v[1], opts)
+    end
+  end
 	log.info("setup of kitty navigator complete")
 end
 
