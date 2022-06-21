@@ -110,10 +110,11 @@ local function set_lsp_mappings(capabilities, bufnr)
 	end or lsp.buf.formatting
 	mappings.f = { fmt, "formatting" }
 	mappings.F = { lsp.buf.range_formatting, "range_formatting" }
+
   for k,v in pairs(mappings) do
     if v[1] ~= nil then
       opts.desc = v[2]
-      vks('n', prefix .. 'w' .. k, v[1], opts)
+      vks('n', prefix .. k, v[1], opts)
     end
   end
 
