@@ -598,10 +598,10 @@ function M.setup_bdelete()
 		next_buffer_cmd = nil, -- Custom function to retrieve the next buffer when preserving window layout
 	})
 
-	local wk = require("which-key")
+  local opts = { silent = true }
 	local leader = {}
-	local leader_p = [[<leader>]]
-	leader.b = {
+	local prefix = [[<leader>b]]
+	leader = {
 		name = "buffers",
 		d = {
 			function()
@@ -628,7 +628,12 @@ function M.setup_bdelete()
 			"buffer_delete_glob",
 		},
 	}
-	wk.register(leader, { prefix = leader_p })
+  for k, v in pairs(leader) do
+    if v[1] ~= nil then
+      opts.desc = v[2]
+      vks("n", prefix .. k, v[1], opts)
+    end
+  end
 end
 
 function M.config_leap()
