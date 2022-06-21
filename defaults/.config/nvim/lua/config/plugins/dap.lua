@@ -1,4 +1,5 @@
 local utl = require("utils.utils")
+local vks = vim.keymap.set
 
 local M = {}
 
@@ -39,9 +40,9 @@ function M:set_mappings(bufnr)
     return
   end
 
-  local wk = require("which-key")
   local dap = require("dap")
-  local opts = { prefix = "<localleader>p", buffer = bufnr }
+  local opts = { silent = true, buffer = bufnr }
+  local prefix = "<localleader>pb"
   local breakpoints = {
     b = { dap.set_breakpoint, "set_breakpoint" },
     l = { dap.list_breakpoints, "list_breakpoints" },
@@ -50,16 +51,16 @@ function M:set_mappings(bufnr)
     t = { dap.toggle_breakpoint, "toggle_breakpoint" },
     e = { dap.set_exception_breakpoints, "set_exception_breakpoints" },
   }
-  utl.keymaps_set(mappings, "n", opts, prefix)
+  utl.keymaps_set(breakpoints, "n", opts, prefix)
   local repl = {
-    name = "repl",
     o = { dap.repl.open, "open" },
     t = { dap.repl.toggle, "toggle" },
     c = { dap.repl.close, "close" },
   }
+  prefix = "<localleader>pl"
+  utl.keymaps_set(repl, "n", opts, prefix)
   local w = require("dap.ui.widgets")
   local widgets = {
-    name = "widgets",
     ["ss"] = {
       function()
         w.sidebar(w.scopes).open()
@@ -91,6 +92,8 @@ function M:set_mappings(bufnr)
       "sidebar_frames",
     },
   }
+  prefix = "<localleader>pw"
+  utl.keymaps_set(widgets, "n", opts, prefix)
   local u = require("dapui")
   local ui = {
     name = "ui",
@@ -100,10 +103,10 @@ function M:set_mappings(bufnr)
     f = { u.float_element, "float_element" },
     e = { u.eval, "eval" },
   }
+  prefix = "<localleader>pg"
+  utl.keymaps_set(ui, "n", opts, prefix)
   local mappings = {
-    name = "dap",
     r = { dap.continue, "continue" },
-    b = breakpoints,
     p = { dap.pause, "pause" },
     k = { dap.up, "up_stacktrace" },
     j = { dap.down, "down_stacktrace" },
@@ -111,38 +114,44 @@ function M:set_mappings(bufnr)
     t = { dap.toggle_breakpoint, "toggle_breakpoint" },
     u = { u.toggle, "toggle_ui" },
     e = { dap.repl.toggle, "toggle_repl" },
+    C = { dap.close, "close" },
+    s = { dap.step_over, "step_over" },
+    i = { dap.step_into, "step_into" },
+    o = { dap.step_out, "step_out" },
+    h = { w.hover, "hover" },
     -- Showing these guys here for reference
-    ["<F2>"] = { dap.stop, "stop" },
+    ["<F2>"] = { dap.close, "close" },
     ["<F5>"] = { dap.continue, "continue" },
     ["<F8>"] = { dap.toggle_breakpoint, "toggle_breakpoint" },
     ["<F10>"] = { dap.step_over, "step_over" },
     ["<F11>"] = { dap.step_into, "step_into" },
     ["<F12>"] = { dap.step_out, "step_out" },
-    l = repl,
-    w = widgets,
-    g = ui,
   }
+  prefix = "<localleader>p"
+  utl.keymaps_set(mappings, "n", opts, prefix)
 
   local py = require("dap-python")
   if cft == "python" then
-    mappings.y = {
-      name = "py_unittest",
+    mappings = {
       m = { py.test_method, "test_method" },
       c = { py.test_class, "test_class" },
       s = { py.debug_selection, "debug_selection" },
     }
-    vim.cmd([[vnoremap <silent> <buffer> <localleader>pys <ESC>:lua require('dap-python').debug_selection()<CR>]])
+    prefix = "<localleader>py"
+    utl.keymaps_set(mappings, "n", opts, prefix)
+    opts.desc = "debug_selection"
+    vks("v", "<localleader>pys", py.debug_selection, opts)
   end
 
-  wk.register({
-    ["<F2>"] = { dap.stop, "stop" },
+  mappings = {
+    ["<F2>"] = { dap.close, "close" },
     ["<F5>"] = { dap.continue, "continue" },
     ["<F8>"] = { dap.toggle_breakpoint, "toggle_breakpoint" },
     ["<F10>"] = { dap.step_over, "step_over" },
     ["<F11>"] = { dap.step_into, "step_into" },
     ["<F12>"] = { dap.step_out, "step_out" },
-  }, { buffer = bufnr })
-  wk.register(mappings, opts)
+  }
+  utl.keymaps_set(mappings, "n", opts)
 end
 
 function M:__set_virt_text()
@@ -165,13 +174,13 @@ end
 function M:setup()
   local dap, dapui = require("dap"), require("dapui")
   dap.listeners.after.event_initialized["dapui_config"] = function()
-    dapui:open()
+    dapui.open()
   end
   dap.listeners.before.event_terminated["dapui_config"] = function()
-    dapui:close()
+    dapui.close()
   end
   dap.listeners.before.event_exited["dapui_config"] = function()
-    dapui:close()
+    dapui.close()
   end
 
   dapui.setup({
