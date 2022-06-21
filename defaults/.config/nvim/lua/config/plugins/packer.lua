@@ -99,7 +99,6 @@ function M:__setup()
 
 	use({
 		"nvim-lua/telescope.nvim",
-		after = "which-key.nvim",
 		requires = {
 			{ "nvim-lua/popup.nvim" },
 			{ "nvim-lua/plenary.nvim" },
@@ -114,7 +113,6 @@ function M:__setup()
 	-- Post-install/update hook with neovim command
 	use({
 		"nvim-treesitter/nvim-treesitter",
-		after = "which-key.nvim",
 		run = ":TSUpdate",
 		requires = { "p00f/nvim-ts-rainbow", "RRethy/nvim-treesitter-textsubjects" },
 		config = function()
@@ -158,7 +156,6 @@ function M:__setup()
 
 	use({
 		"lewis6991/gitsigns.nvim",
-		after = "which-key.nvim",
 		requires = { "nvim-lua/plenary.nvim" },
 		config = function()
 			require("config.plugins.gitsigns").setup()
@@ -213,8 +210,8 @@ function M:__setup()
 
 	use({
 		"ThePrimeagen/git-worktree.nvim",
-		after = { "which-key.nvim", "telescope.nvim" },
-		requires = { { "nvim-lua/telescope.nvim" }, { "folke/which-key.nvim" } },
+		after = { "telescope.nvim" },
+		requires = { { "nvim-lua/telescope.nvim" } },
 		cond = function()
 			return require("utils.utils").has_unix()
 		end,
@@ -311,7 +308,7 @@ function M:__setup()
 
 	use({
 		"mizlan/iswap.nvim",
-		after = { "which-key.nvim", "nvim-treesitter" },
+		after = { "nvim-treesitter" },
 		requires = "nvim-treesitter/nvim-treesitter",
 		config = function()
 			require("config.plugins.misc").config_iswap()
@@ -453,7 +450,6 @@ function M:__setup()
 
 	use({
 		"kassio/neoterm",
-		after = "which-key.nvim",
 		setup = function()
 			require("config.plugins.misc"):setup_neoterm()
 		end,
@@ -499,7 +495,6 @@ function M:__setup()
 
 	use({
 		"kazhala/close-buffers.nvim",
-		after = "which-key.nvim",
 		config = function()
 			require("config.plugins.misc"):setup_bdelete()
 		end,
@@ -507,7 +502,6 @@ function M:__setup()
 
 	use({
 		"MattesGroeger/vim-bookmarks",
-		after = "which-key.nvim",
 		setup = function()
 			require("config.plugins.misc"):setup_bookmarks()
 		end,
@@ -542,7 +536,7 @@ function M:__setup()
 
 	use({
 		"s1n7ax/nvim-comment-frame",
-		after = { "which-key.nvim", "nvim-treesitter" },
+		after = { "nvim-treesitter" },
 		requires = "nvim-treesitter/nvim-treesitter",
 		config = function()
 			require("config.plugins.misc"):setup_comment_frame()
@@ -569,7 +563,6 @@ function M:__setup()
 	use({
 		"folke/zen-mode.nvim",
 		cmd = "ZenMode",
-		after = "which-key.nvim",
 		config = function()
 			require("config.plugins.misc"):setup_zen_mode()
 		end,
@@ -619,7 +612,7 @@ function M:__setup()
 
 	use({
 		"rcarriga/nvim-notify",
-		after = { "telescope.nvim", "which-key.nvim" },
+		after = { "telescope.nvim" },
 		config = function()
 			require("config.plugins.misc"):config_notify()
 		end,
@@ -643,7 +636,7 @@ function M:__setup()
 
 	use({
 		"danymat/neogen",
-		after = { "which-key.nvim", "LuaSnip" },
+		after = { "LuaSnip" },
 		config = function()
 			require("config.plugins.misc"):config_neogen()
 		end,
