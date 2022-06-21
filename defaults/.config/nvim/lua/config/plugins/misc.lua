@@ -536,29 +536,21 @@ function M.setup_comment_frame()
 		languages = {},
 	})
 
-	local wk = require("which-key")
-	local leader = {}
-	local leader_p = [[<leader>]]
-	leader.o = {
-		name = "comments",
-		m = {
-			require("nvim-comment-frame").add_multiline_comment,
-			"add_multiline_comment",
-		},
-	}
-	wk.register(leader, { prefix = leader_p })
+	local p = [[<leader>om]]
+  local o = { silent = true, desc = "add_multiline_comment" }
+  vks('n', p, require("nvim-comment-frame").add_multiline_comment, o)
 end
 
 function M.config_starlite()
 	local opts = { silent = true, desc = "goto_next_abs_word_under_cursor" }
 	local sl = require("starlite")
-	vim.keymap.set("n", "*", sl.star, opts)
+	vks("n", "*", sl.star, opts)
 	opts.desc = "goto_next_word_under_cursor"
-	vim.keymap.set("n", "g*", sl.g_star, opts)
+	vks("n", "g*", sl.g_star, opts)
 	opts.desc = "goto_prev_abs_word_under_cursor"
-	vim.keymap.set("n", "#", sl.hash, opts)
+	vks("n", "#", sl.hash, opts)
 	opts.desc = "goto_prev_word_under_cursor"
-	vim.keymap.set("n", "g#", sl.g_hash, opts)
+	vks("n", "g#", sl.g_hash, opts)
 end
 
 function M.setup_bookmarks()
@@ -658,8 +650,8 @@ function M.config_leap()
            [:x "gs" "<Plug>(leap-cross-window)"]
            [:o "gs" "<Plug>(leap-cross-window)"]]
 	})
-	vim.keymap.set("n", "s", [[<Plug>(leap-forward)]])
-	vim.keymap.set("n", "t", [[<Plug>(leap-forward)]])
+	vks("n", "s", [[<Plug>(leap-forward)]])
+	vks("n", "t", [[<Plug>(leap-forward)]])
 end
 
 local function obsession_status()
@@ -726,7 +718,7 @@ function M.config_neoterm()
 		},
 	})
 	local opts = { silent = true, desc = "terminal" }
-	vim.keymap.set("n", "<plug>terminal_toggle", function()
+	vks("n", "<plug>terminal_toggle", function()
 		utl.exec_float_term("Ttoggle")
 	end, opts)
 end
@@ -810,7 +802,7 @@ function M.config_iswap()
 		hl_grey = "LineNr",
 	})
 	local opts = { silent = true, desc = "iswap_arguments" }
-	vim.keymap.set("n", "<localleader>s", require("iswap").iswap, opts)
+	vks("n", "<localleader>s", require("iswap").iswap, opts)
 end
 
 function M.setup_obsession()
