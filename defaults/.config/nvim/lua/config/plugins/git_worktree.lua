@@ -1,4 +1,4 @@
-local utl = require('utils.utils')
+local vks = vim.keymap.set
 
 local M = {}
 
@@ -8,12 +8,9 @@ function M.setup()
   -- git clone <neovim> --bare
   -- git worktree add master <branch>
   -- Then you'll have: neovim/{master,neovim.git,<other_workstrees>}
-  local wk = require("which-key")
-
   local gw = require('git-worktree')
   gw.setup({update_on_change = true, clearjumps_on_change = true})
 
-  local mapping_prefix = {prefix = [[<leader>v]]}
   local function get_worktree_name(upstream)
     local wt_name = nil
     wt_name = vim.fn.input("New worktree name?\n")
@@ -31,23 +28,30 @@ function M.setup()
   local gwd = function() gw.delete_worktree(get_worktree_name()) end
   local gws = function() gw.switch_worktree(get_worktree_name()) end
 
-  local mapping = {}
-  mapping.w = {
-    name = 'worktree',
+  local opts = { silent = true }
+  local prefix = [[<leader>vw]]
+  local mappings = {}
+  mappings = {
     a = {gwa, 'create'},
     d = {gwd, 'delete'},
     s = {gws, 'switch'},
   }
-  if utl.is_mod_available('telescope') then
-    local t = require('telescope')
-    t.load_extension("git_worktree")
+  local tl_ok, tl = pcall(require, "telescope")
+  if tl_ok then
+    tl.load_extension("git_worktree")
     -- To bring up the telescope window listing your workspaces run the following
-    mapping.w.s = {t.extensions.git_worktree.git_worktrees, 'switch'}
+    opts.desc = "switch"
+    vks('n', prefix .. 's', tl.extensions.git_worktree.git_worktrees, opts)
     -- <Enter> - switches to that worktree
     -- <c-d> - deletes that worktree
     -- <c-D> - force deletes that worktree
   end
-  wk.register(mapping, mapping_prefix)
+  for k, v in pairs(mappings) do
+    if v[1] ~= nil then
+      opts.desc = v[2]
+      vks("n", k, v[1], opts)
+    end
+  end
 end
 
 return M
