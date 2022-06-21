@@ -1,21 +1,27 @@
-local utl = require('utils.utils')
-local line = require('config.plugins.lualine')
-local log = require('utils.log')
+local utl = require("utils.utils")
+local line = require("config.plugins.lualine")
+local log = require("utils.log")
 
 local M = {}
 
 local function format_status(status)
   local added, changed, removed = status.added, status.changed, status.removed
   local status_txt = {}
-  if added and added > 0 then table.insert(status_txt, '+' .. added) end
-  if changed and changed > 0 then table.insert(status_txt, '~' .. changed) end
-  if removed and removed > 0 then table.insert(status_txt, '-' .. removed) end
-  return table.concat(status_txt, ' ')
+  if added and added > 0 then
+    table.insert(status_txt, "+" .. added)
+  end
+  if changed and changed > 0 then
+    table.insert(status_txt, "~" .. changed)
+  end
+  if removed and removed > 0 then
+    table.insert(status_txt, "-" .. removed)
+  end
+  return table.concat(status_txt, " ")
 end
 
 local function next_hunk()
   if vim.opt.diff:get() then
-    vim.cmd "normal! ]czz"
+    vim.cmd("normal! ]czz")
     return
   end
 
@@ -24,7 +30,7 @@ end
 
 local function prev_hunk()
   if vim.opt.diff:get() then
-    vim.cmd "normal! [czz"
+    vim.cmd("normal! [czz")
     return
   end
 
@@ -71,31 +77,33 @@ local function on_attach(bufnr)
 end
 
 local function status_line()
-  if vim.fn.exists('b:gitsigns_status') <= 0 then return '' end
+  if vim.fn.exists("b:gitsigns_status") <= 0 then
+    return ""
+  end
 
-  return vim.b.gitsigns_head .. ' ' .. vim.b.gitsigns_status
+  return vim.b.gitsigns_head .. " " .. vim.b.gitsigns_status
 end
 
 function M.setup()
-  require('gitsigns').setup {
+  require("gitsigns").setup({
     signs = {
-      add = {hl = 'DiffAdd', text = '+'},
-      change = {hl = 'DiffChange', text = '!'},
-      delete = {hl = 'DiffDelete', text = '_'},
-      topdelete = {hl = 'DiffDelete', text = '‾'},
-      changedelete = {hl = 'DiffChange', text = '~'}
+      add = { hl = "DiffAdd", text = "+" },
+      change = { hl = "DiffChange", text = "!" },
+      delete = { hl = "DiffDelete", text = "_" },
+      topdelete = { hl = "DiffDelete", text = "‾" },
+      changedelete = { hl = "DiffChange", text = "~" },
     },
     -- Kinda annoying
     numhl = false,
     keymaps = nil,
-    watch_gitdir = {interval = 888, follow_files = true},
+    watch_gitdir = { interval = 888, follow_files = true },
     sign_priority = 6,
     status_formatter = format_status,
-    on_attach = on_attach
-  }
+    on_attach = on_attach,
+  })
 
-  log.info('ins_left(): gitsigns')
-  line:ins_left{status_line, color = {gui = 'bold'}}
+  log.info("ins_left(): gitsigns")
+  line:ins_left({ status_line, color = { gui = "bold" } })
 end
 
 return M
