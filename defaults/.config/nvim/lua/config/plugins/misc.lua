@@ -564,11 +564,10 @@ function M.setup_bookmarks()
 end
 
 function M.config_bookmarks()
-	local wk = require("which-key")
+  local opts = { silent = true }
 	local leader = {}
-	local leader_p = [[<leader>]]
-	leader.B = {
-		name = "bookmarks",
+	local prefix = [[<leader>B]]
+	leader = {
 		t = { "<Plug>BookmarkToggle", "BookmarkToggle" },
 		i = { "<Plug>BookmarkAnnotate", "BookmarkAnnotate" },
 		a = { "<Plug>BookmarkShowAll", "BookmarkShowAll" },
@@ -581,7 +580,12 @@ function M.config_bookmarks()
 		o = { "<Plug>BookmarkLoad", "BookmarkLoad" },
 		s = { "<Plug>BookmarkSave", "BookmarkSave" },
 	}
-	wk.register(leader, { prefix = leader_p })
+  for k, v in pairs(leader) do
+    if v[1] ~= nil then
+      opts.desc = v[2]
+      vks("n", prefix .. k, v[1], opts)
+    end
+  end
 end
 
 function M.setup_bdelete()
