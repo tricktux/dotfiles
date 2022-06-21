@@ -638,17 +638,6 @@ function M.config_leap()
 			prev_group = "",
 			eol = "",
 		},
-		--[[ [[:n "s"  "<Plug>(leap-forward)"]
-           [:n "S"  "<Plug>(leap-backward)"]
-           [:x "s"  "<Plug>(leap-forward)"]
-           [:x "S"  "<Plug>(leap-backward)"]
-           [:o "z"  "<Plug>(leap-forward)"]
-           [:o "Z"  "<Plug>(leap-backward)"]
-           [:o "x"  "<Plug>(leap-forward-x)"]
-           [:o "X"  "<Plug>(leap-backward-x)"]
-           [:n "gs" "<Plug>(leap-cross-window)"]
-           [:x "gs" "<Plug>(leap-cross-window)"]
-           [:o "gs" "<Plug>(leap-cross-window)"]]
 	})
 	vks("n", "s", [[<Plug>(leap-forward)]])
 	vks("n", "t", [[<Plug>(leap-forward)]])
