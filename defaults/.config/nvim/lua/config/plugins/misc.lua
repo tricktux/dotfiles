@@ -1,6 +1,7 @@
 local log = require("utils.log")
 local utl = require("utils.utils")
 local line = require("config.plugins.lualine")
+local vks = vim.keymap.set
 local api = vim.api
 
 local M = {}
@@ -127,11 +128,10 @@ function M.config_neomake()
 end
 
 function M.config_neogen()
-	local ls_ok, ls = pcall(require, "luasnip")
+	local ls_ok, _ = pcall(require, "luasnip")
 	local ng = require("neogen")
-	local wk = require("which-key")
 
-	ng.setup({
+	local config = {
 		enabled = true,
 		languages = {
 			csharp = {
@@ -140,58 +140,16 @@ function M.config_neogen()
 				},
 			},
 		},
-	})
-	local next_w_ls = function()
-		if ls.expand_or_jumpable() then
-			ls.expand_or_jump()
-		elseif ng.jumpable() then
-			ng.jump_next()
-		end
-	end
-
-	local prev_w_ls = function()
-		if ls.jumpable(-1) then
-			ls.jump(-1)
-		elseif ng.jumpable(true) then
-			ng.jump_prev()
-		end
-	end
-
-	local next = function()
-		if ng.jumpable() then
-			ng.jump_next()
-		end
-	end
-
-	local prev = function()
-		if ng.jumpable(true) then
-			ng.jump_prev()
-		end
-	end
-
-	local mappings_w_ls = {
-		-- <c-k> is my expansion key
-		-- this will expand the current item or jump to the next item within the snippet.
-		["<c-k>"] = { next_w_ls, "next_snippet" },
-		-- <c-j> is my jump backwards key.
-		-- this always moves to the previous item within the snippet
-		["<c-j>"] = { prev_w_ls, "in_snippet_prev" },
 	}
 
+	if ls_ok then
+		config.snippet_engine = "luasnip"
+	end
+
+	ng.setup(config)
+
+	local opts = { silent = true }
 	local mappings = {
-		-- <c-k> is my expansion key
-		-- this will expand the current item or jump to the next item within the snippet.
-		["<c-k>"] = { next, "next_snippet" },
-		-- <c-j> is my jump backwards key.
-		-- this always moves to the previous item within the snippet
-		["<c-j>"] = { prev, "in_snippet_prev" },
-	}
-
-	wk.register(ls_ok and mappings_w_ls or mappings, { mode = "i" })
-	wk.register(ls_ok and mappings_w_ls or mappings, { mode = "s" })
-
-	mappings = {
-		name = "generate_doc",
 		f = {
 			function()
 				ng.generate({ type = "func" })
@@ -217,7 +175,16 @@ function M.config_neogen()
 			"type",
 		},
 	}
-	wk.register(mappings, { prefix = "<leader>og" })
+	local prefix = "<leader>og"
+	opts.desc = "generate_neogen"
+	vks("n", prefix, ng.generate, opts)
+	prefix = "<leader>oG"
+	for k, v in pairs(mappings) do
+		if v[1] ~= nil then
+			opts.desc = v[2]
+			vks("n", prefix .. k, v[1], opts)
+		end
+	end
 end
 
 function M.config_kitty_navigator()
