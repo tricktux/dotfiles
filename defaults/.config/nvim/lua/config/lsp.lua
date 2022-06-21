@@ -1,5 +1,6 @@
 local utl = require("utils.utils")
 local log = require("utils.log")
+local vks = vim.keymap.set
 
 local function setup_fidget()
 	require("fidget").setup({
@@ -43,19 +44,23 @@ local function set_lsp_options(capabilities, bufnr)
 end
 
 local function set_lsp_mappings(capabilities, bufnr)
-	local wk = require("which-key")
-	local opts = { prefix = "<localleader>l", buffer = bufnr }
+	local opts = { silent = true, buffer = bufnr }
+  local prefix = "<localleader>l"
 	local lsp = vim.lsp
 	local diag = vim.diagnostic
-	local list = "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>"
+	local list = function() vim.pretty_print(vim.lsp.buf.list_workspace_folders()) end
 	local workspace = {
-		name = "workspace",
 		a = { lsp.buf.add_workspace_folder, "add_workspace_folder" },
 		r = { lsp.buf.remove_workspace_folder, "remove_workspace_folder" },
 		l = { list, "list_folders" },
 	}
+  for k,v in pairs(workspace) do
+    if v[1] ~= nil then
+      opts.desc = v[2]
+      vks('n', prefix .. 'w' .. k, v[1], opts)
+    end
+  end
 	local mappings = {
-		name = "lsp",
 		r = { lsp.buf.rename, "rename" },
 		e = { lsp.buf.declaration, "declaration" },
 		d = { lsp.buf.definition, "definition" },
@@ -67,17 +72,23 @@ local function set_lsp_mappings(capabilities, bufnr)
 		S = { lsp.stop_all_clients, "stop_all_clients" },
 		n = { vim.diagnostic.open_float, "show_line_diagnostics" },
 		l = { lsp.diagnostic.setloclist, "set_loclist" },
-		w = workspace,
 	}
 
-	wk.register(mappings, opts)
+  for k,v in pairs(mappings) do
+    if v[1] ~= nil then
+      opts.desc = v[2]
+      vks('n', prefix .. 'w' .. k, v[1], opts)
+    end
+  end
 
 	-- Override default mappings with lsp intelligent analougous
-	opts.prefix = "]l"
-	wk.register({ diag.goto_next, "diagnostic_next" }, opts)
-	opts.prefix = "[l"
-	wk.register({ diag.goto_prev, "diagnostic_prev" }, opts)
-	opts.prefix = "<localleader>"
+	prefix = "]l"
+  opts.desc = "diagnostic_next"
+  vks('n', prefix, diag.goto_next, opts)
+	prefix = "[l"
+  opts.desc = "diagnostic_prev"
+  vks('n', prefix, diag.goto_prev, opts)
+	prefix = "<localleader>"
 	mappings = {
 		D = {
 			function()
@@ -99,7 +110,12 @@ local function set_lsp_mappings(capabilities, bufnr)
 	end or lsp.buf.formatting
 	mappings.f = { fmt, "formatting" }
 	mappings.F = { lsp.buf.range_formatting, "range_formatting" }
-	wk.register(mappings, opts)
+  for k,v in pairs(mappings) do
+    if v[1] ~= nil then
+      opts.desc = v[2]
+      vks('n', prefix .. 'w' .. k, v[1], opts)
+    end
+  end
 
 	require("config.plugins.telescope").set_lsp_mappings(bufnr)
 end
