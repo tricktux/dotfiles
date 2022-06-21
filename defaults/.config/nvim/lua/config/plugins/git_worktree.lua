@@ -1,3 +1,4 @@
+local utl = require("utils.utils")
 local vks = vim.keymap.set
 
 local M = {}
@@ -46,12 +47,7 @@ function M.setup()
     -- <c-d> - deletes that worktree
     -- <c-D> - force deletes that worktree
   end
-  for k, v in pairs(mappings) do
-    if v[1] ~= nil then
-      opts.desc = v[2]
-      vks("n", k, v[1], opts)
-    end
-  end
+  utl.keymaps_set(mappings, 'n', opts, prefix)
 end
 
 return M

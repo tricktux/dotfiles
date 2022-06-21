@@ -26,13 +26,11 @@ end
 
 function M.config_notify()
 	local has_telescope, telescope = pcall(require, "telescope")
-	local has_which_key, whichkey = pcall(require, "which-key")
 
-	if has_telescope and has_which_key then
+	if has_telescope then
 		telescope.load_extension("notify")
-		whichkey.register({ ["<leader>fn"] = { telescope.extensions.notify.notify, "notify" } })
-	else
-		log.error("[notify]: no telescope and no mappings set")
+    local opts = {silent = true, desc = "notify"}
+    vks('n', "<leader>fn", telescope.extensions.notify.notify, opts)
 	end
 
 	vim.notify = require("notify")
@@ -179,12 +177,7 @@ function M.config_neogen()
 	opts.desc = "generate_neogen"
 	vks("n", prefix, ng.generate, opts)
 	prefix = "<leader>oG"
-	for k, v in pairs(mappings) do
-		if v[1] ~= nil then
-			opts.desc = v[2]
-			vks("n", prefix .. k, v[1], opts)
-		end
-	end
+  utl.keymaps_set(mappings, 'n', opts, prefix)
 end
 
 function M.config_kitty_navigator()
@@ -195,12 +188,7 @@ function M.config_kitty_navigator()
 		["<a-k>"] = { "<cmd>KittyNavigateUp<cr>", "kitty_up" },
 		["<a-l>"] = { "<cmd>KittyNavigateRight<cr>", "kitty_right" },
 	}
-  for k, v in pairs(mappings) do
-    if v[1] ~= nil then
-      opts.desc = v[2]
-      vks("n", k, v[1], opts)
-    end
-  end
+  utl.keymaps_set(mappings, 'n', opts)
 	log.info("setup of kitty navigator complete")
 end
 
@@ -354,9 +342,8 @@ function M.setup_zen_mode()
     end, ]]
 	})
 
-	require("which-key").register({
-		["<plug>focus_toggle"] = { "<cmd>ZenMode<cr>", "zen_mode_focus_toggle" },
-	})
+  local opts = { silent = true, desc = "zen_mode_focus_toggle" }
+	vks('n', "<plug>focus_toggle", "<cmd>ZenMode<cr>", opts)
 end
 
 local function gps_get_location()
@@ -440,7 +427,8 @@ function M.config_focus()
 			"window_switch_right",
 		},
 	}
-	require("which-key").register(mappings)
+  local opts = { silent = true }
+  utl.keymaps_set(mappings, 'n', opts)
 	log.info("setup of focus complete")
 end
 
@@ -587,12 +575,7 @@ function M.config_bookmarks()
 		o = { "<Plug>BookmarkLoad", "BookmarkLoad" },
 		s = { "<Plug>BookmarkSave", "BookmarkSave" },
 	}
-  for k, v in pairs(leader) do
-    if v[1] ~= nil then
-      opts.desc = v[2]
-      vks("n", prefix .. k, v[1], opts)
-    end
-  end
+  utl.keymaps_set(leader, 'n', opts, prefix)
 end
 
 function M.setup_bdelete()
@@ -635,12 +618,7 @@ function M.setup_bdelete()
 			"buffer_delete_glob",
 		},
 	}
-  for k, v in pairs(leader) do
-    if v[1] ~= nil then
-      opts.desc = v[2]
-      vks("n", prefix .. k, v[1], opts)
-    end
-  end
+  utl.keymaps_set(leader, 'n', opts, prefix)
 end
 
 function M.config_leap()
@@ -713,7 +691,8 @@ function M.setup_neoterm()
 end
 
 function M.config_neoterm()
-	require("which-key").register({
+  local opts = { silent = true }
+	local mappings = {
 		["<plug>terminal_new"] = { "<cmd>Tnew<cr>", "term_new" },
 		["<plug>terminal_send_file"] = { "<cmd>TREPLSendFile<cr>", "term_send_file" },
 		["<plug>terminal_send"] = { "<Plug>(neoterm-repl-send)", "term_send_line" },
@@ -721,11 +700,9 @@ function M.config_neoterm()
 			"<Plug>(neoterm-repl-send-line)",
 			"term_send_line",
 		},
-	})
-	local opts = { silent = true, desc = "terminal" }
-	vks("n", "<plug>terminal_toggle", function()
-		utl.exec_float_term("Ttoggle")
-	end, opts)
+    ["<plug>terminal_toggle"] = {function() utl.exec_float_term("Ttoggle") end, "terminal"}
+	}
+  utl.keymaps_set(mappings, 'n', opts)
 end
 
 function M.setup_pomodoro()
@@ -777,15 +754,13 @@ function M.setup_neogit()
 	require("neogit").setup({})
 	-- open commit popup
 	-- neogit.open({ "commit" })
-	require("which-key").register({
-		["<leader>vo"] = { require("neogit").open, "neogit_open" },
-	})
+  local opts = { silent = true, desc = "neogit_open" }
+	vks('n', "<leader>vo", require("neogit").open, opts)
 end
 
 function M.config_git_messenger()
-	require("which-key").register({
-		["<leader>vm"] = { "<cmd>GitMessenger<cr>", "git_messenger" },
-	})
+  local opts = { silent = true, desc = "git_messenger" }
+	vks('n', "<leader>vm", "<cmd>GitMessenger<cr>", opts)
 end
 
 function M.config_iswap()

@@ -292,4 +292,23 @@ function M.execute_in_shell(cmd)
 	vim.notify("[cpp.repl]: no compiler available", vim.log.levels.ERROR)
 end
 
+--- Abstraction over vim.keymap.set
+---@param mappings (table). Example: 
+--  local mappings = {<lhs> = {<rhs>, <desc>}}
+---@param mode Same as mode in keymap
+---@param opts Same as in keymap.
+--              Desc is expected in mappings
+---@param prefix (string) To be prefixed to all the indices of mappings
+--                Can be nil
+function M.keymaps_set(mappings, mode, opts, prefix)
+  vim.validate({ mappings = { mappings, "t" } })
+
+  for k, v in pairs(mappings) do
+    if v[1] ~= nil then
+      opts.desc = v[2]
+      vim.keymap.set(mode, prefix ~= nil and prefix .. k or k, v[1], opts)
+    end
+  end
+end
+
 return M

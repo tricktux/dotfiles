@@ -32,42 +32,41 @@ local function prev_hunk()
 end
 
 local function on_attach(bufnr)
-  local wk = require("which-key")
-  local opts = {prefix = '<leader>vg', buffer = bufnr}
+  local opts = { silent = true, buffer = bufnr }
+  local prefix = "<leader>vg"
   local gs = require("gitsigns")
   local mappings = {
-    name = 'gitsigns',
-    l = {gs.select_hunk, 'select_hunk'},
-    s = {gs.stage_hunk, 'stage_hunk'},
-    S = {gs.stage_buffer, 'stage_buffer'},
-    u = {gs.undo_stage_hunk, 'undo_stage_hunk'},
-    d = {gs.diffthis, 'diffthis'},
-    t = {gs.toggle_signs, 'toggle_signs'},
-    r = {gs.reset_hunk, 'reset_hunk'},
-    R = {gs.reset_buffer, 'reset_buffer'},
-    b = {gs.blame_line, 'blame_line'},
-    p = {gs.preview_hunk, 'preview_hunk'},
-    j = {gs.next_hunk, 'next_hunk'},
-    k = {gs.prev_hunk, 'prev_hunk'}
+    l = { gs.select_hunk, "select_hunk" },
+    s = { gs.stage_hunk, "stage_hunk" },
+    S = { gs.stage_buffer, "stage_buffer" },
+    u = { gs.undo_stage_hunk, "undo_stage_hunk" },
+    d = { gs.diffthis, "diffthis" },
+    t = { gs.toggle_signs, "toggle_signs" },
+    r = { gs.reset_hunk, "reset_hunk" },
+    R = { gs.reset_buffer, "reset_buffer" },
+    b = { gs.blame_line, "blame_line" },
+    p = { gs.preview_hunk, "preview_hunk" },
+    j = { gs.next_hunk, "next_hunk" },
+    k = { gs.prev_hunk, "prev_hunk" },
   }
-  wk.register(mappings, opts)
-  wk.register({
-    ["]c"] = {next_hunk, 'next_hunk'},
-    ["[c"] = {prev_hunk, 'prev_hunk'}
-  }, {buffer = bufnr})
+  utl.keymaps_set(mappings,"n", opts, prefix)
+  mappings = {
+    ["]c"] = { next_hunk, "next_hunk" },
+    ["[c"] = { prev_hunk, "prev_hunk" },
+  }
+  utl.keymaps_set(mappings,"n", opts)
 
   local ts = require("telescope.builtin")
-  opts.prefix = '<leader>vt'
+  prefix = "<leader>vt"
   mappings = {
-    name = 'telescope',
-    f = {ts.git_files, 'files'},
-    C = {ts.git_commits, 'commits'},
-    c = {ts.git_bcommits, 'commits_current_buffer'},
-    b = {ts.git_branches, 'branches'},
-    s = {ts.git_status, 'status'},
-    S = {ts.git_stash, 'stash'}
+    f = { ts.git_files, "files" },
+    C = { ts.git_commits, "commits" },
+    c = { ts.git_bcommits, "commits_current_buffer" },
+    b = { ts.git_branches, "branches" },
+    s = { ts.git_status, "status" },
+    S = { ts.git_stash, "stash" },
   }
-  wk.register(mappings, opts)
+  utl.keymaps_set(mappings,"n", opts, prefix)
   return true
 end
 
