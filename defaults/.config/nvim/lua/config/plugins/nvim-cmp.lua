@@ -1,15 +1,26 @@
-local utl = require('utils.utils')
+local utl = require("utils.utils")
 
 local M = {}
 
 function M:setup()
-  local win_sources = {{name = 'nvim_lsp'}, {name = 'buffer'}, {name = 'luasnip'}, {name = 'calc'}, {name = 'orgmode'}}
-  local unix_sources = {
-    {name = 'nvim_lsp'}, {name = 'buffer'}, {name = 'luasnip'}, {name = 'calc'}, {name = 'path'},
-    {name = 'tags'}, {name = 'orgmode'} 
+  local win_sources = {
+    { name = "nvim_lsp" },
+    { name = "buffer" },
+    { name = "luasnip" },
+    { name = "calc" },
+    { name = "orgmode" },
   }
-  local cmp = require 'cmp'
-  local lspkind = require('lspkind')
+  local unix_sources = {
+    { name = "nvim_lsp" },
+    { name = "buffer" },
+    { name = "luasnip" },
+    { name = "calc" },
+    { name = "path" },
+    { name = "tags" },
+    { name = "orgmode" },
+  }
+  local cmp = require("cmp")
+  local lspkind = require("lspkind")
   cmp.setup({
     snippet = {
       expand = function(args)
@@ -20,24 +31,24 @@ function M:setup()
       keyword_length = 1,
     },
     mapping = cmp.mapping.preset.insert({
-      ['<C-d>'] = cmp.mapping.scroll_docs(4),
-      ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+      ["<C-d>"] = cmp.mapping.scroll_docs(4),
+      ["<C-u>"] = cmp.mapping.scroll_docs(-4),
       -- Move cursor
-      ['<C-f>'] = cmp.mapping.disable,
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<C-q>'] = cmp.mapping.close(),
+      ["<C-f>"] = cmp.mapping.disable,
+      ["<C-Space>"] = cmp.mapping.complete(),
+      ["<C-q>"] = cmp.mapping.close(),
       -- Used by snipets
-      ['<C-j>'] = cmp.mapping.disable,
-      ['<C-l>'] = cmp.mapping.disable,
-      ['<C-k>'] = cmp.mapping.disable,  -- used for snippets
+      ["<C-j>"] = cmp.mapping.disable,
+      ["<C-l>"] = cmp.mapping.disable,
+      ["<C-k>"] = cmp.mapping.disable, -- used for snippets
       -- ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
       -- ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-      ['<CR>'] = cmp.mapping.disable,
+      ["<CR>"] = cmp.mapping.disable,
     }),
     sources = utl.has_unix() and unix_sources or win_sources,
     formatting = {
-      format = lspkind.cmp_format {
-        mode = 'text',
+      format = lspkind.cmp_format({
+        mode = "text",
         maxwidth = 18,
         menu = {
           buffer = "[buf]",
@@ -47,15 +58,15 @@ function M:setup()
           luasnip = "[snip]",
           calc = "[calc]",
         },
-      },
+      }),
     },
     experimental = {
       -- Let's play with this for a day or two
       ghost_text = false,
     },
     view = {
-      entries = 'custom'
-    }
+      entries = "custom",
+    },
   })
 end
 
