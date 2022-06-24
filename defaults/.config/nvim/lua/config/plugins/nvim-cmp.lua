@@ -2,6 +2,11 @@ local utl = require("utils.utils")
 
 local M = {}
 
+local check_backspace = function()
+  local col = vim.fn.col(".") - 1
+  return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
+end
+
 function M:setup()
   local win_sources = {
     { name = "nvim_lsp" },
@@ -20,6 +25,28 @@ function M:setup()
     { name = "orgmode" },
   }
   local cmp = require("cmp")
+  local prev = cmp.mapping(function(fallback)
+    if cmp.visible() then
+      cmp.select_prev_item()
+    else
+      fallback()
+    end
+  end, {
+    "i",
+    "s",
+  })
+  local next = cmp.mapping(function(fallback)
+    if cmp.visible() then
+      cmp.select_next_item()
+    elseif check_backspace() then
+      fallback()
+    else
+      fallback()
+    end
+  end, {
+    "i",
+    "s",
+  })
   local lspkind = require("lspkind")
   cmp.setup({
     snippet = {
@@ -31,41 +58,52 @@ function M:setup()
       keyword_length = 1,
     },
     mapping = cmp.mapping.preset.insert({
-      ["<C-d>"] = cmp.mapping.scroll_docs(4),
-      ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+      ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+      ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+      ["<C-p>"] = prev,
+      ["<C-n>"] = next,
       -- Move cursor
-      ["<C-f>"] = cmp.mapping.disable,
-      ["<C-Space>"] = cmp.mapping.complete(),
-      ["<C-q>"] = cmp.mapping.close(),
+      ["<C-f>"] = cmp.config.disable,
+      ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+      ["<C-q>"] = cmp.mapping({
+        i = cmp.mapping.abort(),
+        c = cmp.mapping.close(),
+      }),
       -- Used by snipets
-      ["<C-j>"] = cmp.mapping.disable,
-      ["<C-l>"] = cmp.mapping.disable,
-      ["<C-k>"] = cmp.mapping.disable, -- used for snippets
-      -- ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-      -- ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-      ["<CR>"] = cmp.mapping.disable,
+      ["<C-j>"] = cmp.config.disable,
+      ["<C-l>"] = cmp.config.disable,
+      ["<C-k>"] = cmp.config.disable, -- used for snippets
+      ["<CR>"] = cmp.config.disable,
+      ["<Tab>"] = next,
+      ["<S-Tab>"] = prev,
     }),
     sources = utl.has_unix() and unix_sources or win_sources,
     formatting = {
       format = lspkind.cmp_format({
         mode = "text",
-        maxwidth = 18,
+        maxwidth = 50,
+        -- NOTE: order matters
         menu = {
-          buffer = "[buf]",
           nvim_lsp = "[lsp]",
           nvim_lua = "[api]",
-          path = "[path]",
           luasnip = "[snip]",
+          buffer = "[buf]",
+          path = "[path]",
           calc = "[calc]",
         },
       }),
     },
+    window = {
+      documentation = {
+        border = "rounded",
+      },
+      completion = {
+        border = "rounded",
+      },
+    },
     experimental = {
       -- Let's play with this for a day or two
       ghost_text = false,
-    },
-    view = {
-      entries = "custom",
     },
   })
 end
