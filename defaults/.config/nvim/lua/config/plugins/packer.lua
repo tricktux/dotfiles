@@ -209,18 +209,6 @@ function M:__setup()
   })
 
   use({
-    "ThePrimeagen/git-worktree.nvim",
-    after = { "telescope.nvim" },
-    requires = { { "nvim-lua/telescope.nvim" } },
-    cond = function()
-      return require("utils.utils").has_unix()
-    end,
-    config = function()
-      require("config.plugins.git_worktree").setup()
-    end,
-  })
-
-  use({
     "rhysd/git-messenger.vim",
     cmd = "GitMessenger",
     setup = function()
@@ -232,6 +220,27 @@ function M:__setup()
   })
 
   if utl.has_unix() then
+    use({
+      "iamcco/markdown-preview.nvim",
+      setup = function()
+        vim.g.mkdp_auto_close = 0
+      end,
+      run = "cd app && npm install",
+      ft = "markdown",
+    })
+
+    -- Extra syntax
+    use({ "PotatoesMaster/i3-vim-syntax" })
+
+    use({
+      "ThePrimeagen/git-worktree.nvim",
+      after = { "telescope.nvim" },
+      requires = { { "nvim-lua/telescope.nvim" } },
+      config = function()
+        require("config.plugins.git_worktree").setup()
+      end,
+    })
+
     use({
       "knubie/vim-kitty-navigator",
       after = "focus.nvim",
@@ -358,13 +367,6 @@ function M:__setup()
     end,
   })
 
-  -- Extra syntax
-  use({
-    "PotatoesMaster/i3-vim-syntax",
-    cond = function()
-      return require("utils.utils").has_unix()
-    end,
-  })
   use({ "aklt/plantuml-syntax", ft = "plantuml" })
   use({ "MTDL9/vim-log-highlighting", ft = "log" })
   use({ "neomutt/neomutt.vim", ft = "muttrc" })
@@ -453,18 +455,6 @@ function M:__setup()
   })
 
   use({ "ferrine/md-img-paste.vim", ft = { "markdown", "org" } })
-
-  use({
-    "iamcco/markdown-preview.nvim",
-    setup = function()
-      vim.g.mkdp_auto_close = 0
-    end,
-    run = "cd app && npm install",
-    ft = "markdown",
-    cond = function()
-      return require("utils.utils").has_unix()
-    end,
-  })
 
   use({
     "gcmt/taboo.vim",
