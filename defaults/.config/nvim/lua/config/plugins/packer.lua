@@ -221,6 +221,27 @@ function M:__setup()
 
   if utl.has_unix() then
     use({
+      "zbirenbaum/copilot.lua",
+      requires = {
+        { "zbirenbaum/copilot-cmp", module = "copilot_cmp" },
+        --[[ {
+          "github/copilot.vim",
+          setup = function()
+            -- extract with tar -xJvf
+            vim.g.copilot_node_command = "/home/reinaldo/.local/lib/nodejs/node-v16.15.1-linux-x64/bin/node"
+          end,
+        }, ]]
+      },
+      event = { "VimEnter" },
+      config = function()
+        require("config.plugins.misc").config_copilot()
+        vim.defer_fn(function()
+          require("copilot").setup()
+        end, 100)
+      end,
+    })
+
+    use({
       "iamcco/markdown-preview.nvim",
       setup = function()
         vim.g.mkdp_auto_close = 0

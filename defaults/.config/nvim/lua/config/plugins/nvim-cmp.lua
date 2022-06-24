@@ -24,6 +24,12 @@ function M:setup()
     { name = "tags" },
     { name = "orgmode" },
   }
+  local cp_ok, _ = pcall(require, "copilot_cmp")
+  if cp_ok then
+    table.insert(unix_sources, 1, { name = "copilot" })
+    print("[cmp]: enabling copilot source...")
+  end
+
   local cmp = require("cmp")
   local prev = cmp.mapping(function(fallback)
     if cmp.visible() then
@@ -32,9 +38,9 @@ function M:setup()
       fallback()
     end
   end, {
-    "i",
-    "s",
-  })
+      "i",
+      "s",
+    })
   local next = cmp.mapping(function(fallback)
     if cmp.visible() then
       cmp.select_next_item()
@@ -44,9 +50,9 @@ function M:setup()
       fallback()
     end
   end, {
-    "i",
-    "s",
-  })
+      "i",
+      "s",
+    })
   local lspkind = require("lspkind")
   cmp.setup({
     snippet = {
@@ -84,6 +90,7 @@ function M:setup()
         maxwidth = 50,
         -- NOTE: order matters
         menu = {
+          copilot = "[cp]",
           nvim_lsp = "[lsp]",
           nvim_lua = "[api]",
           luasnip = "[snip]",
