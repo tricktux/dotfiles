@@ -9,9 +9,11 @@ local function project_bufenter_event()
     vim.api.nvim_err_writeln("project_nvim not available")
     return
   end
-  local root, _ = pr.get_project_root()
+  local root, _ = pr.on_buf_enter()
   if root == "" or root == nil then
-    return
+    local cwd = Path:new(vim.fn.expand("%:p:h", true))
+    if not cwd:is_dir() then return end
+    root = cwd:absolute()
   end
   vim.cmd('lcd '.. root)
 end
