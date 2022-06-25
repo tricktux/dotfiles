@@ -347,7 +347,7 @@ function M:__setup()
 
   use({
     "kristijanhusak/orgmode.nvim",
-    after = { "nvim-treesitter", "LuaSnip" },
+    after = { "nvim-treesitter" },
     requires = "nvim-treesitter/nvim-treesitter",
     config = function()
       require("config.plugins.orgmode"):setup()
