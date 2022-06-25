@@ -14,126 +14,126 @@ local apps = {}
 apps.i3cmd = [[scratchpad show, move position center]]
 
 -- NOTE: Also add it to i3/config
-apps['ranger'] = {
+apps["ranger"] = {
   -- Expression to find this window
   --  Used by i3ipc
   regex = '[title=\\"^ranger$\\" class=\\"^kitty$\\"]',
   -- Command to execute for this window
-  i3cmd = 'scratchpad show, resize set 80ppt 60ppt, move position center',
+  i3cmd = "scratchpad show, resize set 80ppt 60ppt, move position center",
   -- How to start this application if it does not exists
-  exec = [[$TERMINAL --title ranger /usr/bin/ranger&]]
+  exec = [[$TERMINAL --title ranger /usr/bin/ranger&]],
 }
 
-apps['scratch'] = {
+apps["scratch"] = {
   -- Expression to find this window
   --  Used by i3ipc
   regex = '[title=\\"^scratch$\\" class=\\"^kitty$\\"]',
   -- Command to execute for this window
-  i3cmd = 'scratchpad show, resize set 80ppt 60ppt, move position center',
+  i3cmd = "scratchpad show, resize set 80ppt 60ppt, move position center",
   -- How to start this application if it does not exists
-  exec = [[$TERMINAL --title scratch $HOME/.config/kitty/scratch.sh&]]
+  exec = [[$TERMINAL --title scratch $HOME/.config/kitty/scratch.sh&]],
 }
 
-apps['doublecmd'] = {
+apps["doublecmd"] = {
   -- Expression to find this window
   --  Used by i3ipc
   regex = '[title=\\"^Double Commander.*\\" class=\\"^Doublecmd$\\"]',
   -- Command to execute for this window
-  i3cmd = 'scratchpad show, resize set 80ppt 60ppt, move position center',
+  i3cmd = "scratchpad show, resize set 80ppt 60ppt, move position center",
   -- How to start this application if it does not exists
-  exec = [[/usr/bin/doublecmd&]]
+  exec = [[/usr/bin/doublecmd&]],
 }
 
-apps['journal'] = {
+apps["journal"] = {
   -- Expression to find this window
   --  Used by i3ipc
   regex = '[title=\\"^journal$\\" class=\\"^kitty$\\"]',
   -- How to start this application if it does not exists
-  exec = [[$TERMINAL --title journal $HOME/.config/i3/scripts/journal.sh&]]
+  exec = [[$TERMINAL --title journal $HOME/.config/i3/scripts/journal.sh&]],
 }
 
-apps['neomutt'] = {
+apps["neomutt"] = {
   -- Expression to find this window
   --  Used by i3ipc
   regex = '[title=\\"^neomutt$\\" class=\\"^kitty$\\"]',
   -- Command to execute for this window
-  i3cmd = 'scratchpad show, resize set 80ppt 60ppt, move position center',
+  i3cmd = "scratchpad show, resize set 80ppt 60ppt, move position center",
   -- How to start this application if it does not exists
-  exec = [[$TERMINAL --title neomutt $HOME/.config/kitty/neomutt.sh&]]
+  exec = [[$TERMINAL --title neomutt $HOME/.config/kitty/neomutt.sh&]],
 }
 
-apps['evolution'] = {
+apps["evolution"] = {
   -- Expression to find this window
   --  Used by i3ipc
   regex = '[title=\\".*Evolution$\\" class=\\"^Evolution$\\"]',
   -- Command to execute for this window
-  i3cmd = 'scratchpad show, resize set 80ppt 60ppt, move position center',
+  i3cmd = "scratchpad show, resize set 80ppt 60ppt, move position center",
   -- How to start this application if it does not exists
-  exec = [[/usr/bin/evolution&]]
+  exec = [[/usr/bin/evolution&]],
 }
 
-apps['terminal'] = {
+apps["terminal"] = {
   -- Expression to find this window
   --  Used by i3ipc
   regex = '[title=\\"^terminal$\\" class=\\"^kitty$\\"]',
   -- Command to execute for this window
-  i3cmd = 'scratchpad show, resize set 80ppt 60ppt, move position center',
+  i3cmd = "scratchpad show, resize set 80ppt 60ppt, move position center",
   -- How to start this application if it does not exists
-  exec = [[$TERMINAL --title terminal -o background_opacity=0.9&]]
+  exec = [[$TERMINAL --title terminal -o background_opacity=0.9&]],
 }
 
-apps['bottom'] = {
+apps["bottom"] = {
   -- Expression to find this window
   --  Used by i3ipc
   regex = '[title=\\"^bottom$\\" class=\\"^kitty$\\"]',
   -- Command to execute for this window
-  i3cmd = 'scratchpad show, resize set 80ppt 60ppt, move position center',
+  i3cmd = "scratchpad show, resize set 80ppt 60ppt, move position center",
   -- How to start this application if it does not exists
-  exec = [[$TERMINAL --title bottom /usr/bin/btm&]]
+  exec = [[$TERMINAL --title bottom /usr/bin/btm&]],
 }
 
-apps['spotify'] = {
+apps["spotify"] = {
   -- Expression to find this window
   --  Used by i3ipc
   regex = '[title=\\"^Spotify$\\" class=\\"^Spotify$\\"]',
   -- Command to execute for this window
-  i3cmd = 'scratchpad show, resize set 80ppt 60ppt, move position center',
+  i3cmd = "scratchpad show, resize set 80ppt 60ppt, move position center",
   -- How to start this application if it does not exists
-  exec = [[/usr/bin/spotify&]]
+  exec = [[/usr/bin/spotify&]],
 }
 
-apps['tickrs'] = {
+apps["tickrs"] = {
   -- Expression to find this window
   --  Used by i3ipc
   regex = '[title=\\"^tickrs$\\" class=\\"^kitty$\\"]',
   -- Command to execute for this window
-  i3cmd = 'scratchpad show, resize set 80ppt 60ppt, move position center',
+  i3cmd = "scratchpad show, resize set 80ppt 60ppt, move position center",
   -- How to start this application if it does not exists
-  exec = [[$TERMINAL --title tickrs /usr/bin/tickrs&]]
+  exec = [[$TERMINAL --title tickrs /usr/bin/tickrs&]],
 }
 
-apps['whatsapp'] = {
+apps["whatsapp"] = {
   -- Expression to find this window
   --  Used by i3ipc
   regex = '[con_mark=\\"msgs\\"]',
   -- Command to execute for this window
-  i3cmd = 'scratchpad show, resize set 80ppt 60ppt, move position center',
+  i3cmd = "scratchpad show, resize set 80ppt 60ppt, move position center",
   -- How to start this application if it does not exists
-  exec = [[/usr/bin/firefox https://web.whatsapp.com https://messages.google.com/web&]]
+  exec = [[/usr/bin/firefox https://web.whatsapp.com https://messages.google.com/web&]],
 }
 
 local function __check_args()
-  if not arg[1] or arg[1] == '' or arg[1] == nil then
+  if not arg[1] or arg[1] == "" or arg[1] == nil then
     print(_usage)
     return -1
   end
 
-  if arg[1] == '-h' or arg[1] == '--help' then
+  if arg[1] == "-h" or arg[1] == "--help" then
     print(_usage)
     return -2
   end
 
-  if apps[arg[1]] == nil then
+  if apps[ arg[1] ] == nil then
     print(_usage)
     return -3
   end
@@ -142,14 +142,14 @@ local function __check_args()
 end
 
 local function __exec(cmd)
-  cmd = cmd .. ' 2>&1'
+  cmd = cmd .. " 2>&1"
   local file, err = io.popen(cmd)
   if file == nil then
-    print('Command ' .. cmd .. ' failed')
-    print('\t' .. err)
-    return ''
+    print("Command " .. cmd .. " failed")
+    print("\t" .. err)
+    return ""
   end
-  local output = file:read('*all')
+  local output = file:read("*all")
   file:close()
   return output
 end
@@ -160,7 +160,7 @@ i3ipc.cmd = [[/usr/bin/i3-msg]]
 -- app: One of the apps tables
 function i3ipc:show(app)
   if app == nil then
-    print('ERROR: Empty app instance')
+    print("ERROR: Empty app instance")
     return true
   end
   -- Format i3-msg command
@@ -168,7 +168,9 @@ function i3ipc:show(app)
   local cmd = string.format('%s "%s %s"', self.cmd, app.regex, i3cmd)
   print(cmd)
   local rc = __exec(cmd)
-  if string.find(rc, "ERROR:") ~= nil then return false end
+  if string.find(rc, "ERROR:") ~= nil then
+    return false
+  end
 
   return true
 end
@@ -178,19 +180,25 @@ local function __msg(content)
 end
 
 local function main()
-  if __check_args() ~= 0 then return end
+  if __check_args() ~= 0 then
+    return
+  end
 
   local app = arg[1]
 
   -- It will also hide the window if shown
-  if i3ipc:show(apps[app]) == true then return end
+  if i3ipc:show(apps[app]) == true then
+    return
+  end
 
-  print('Window ' .. app .. ' does not exists waiting...')
+  print("Window " .. app .. " does not exists waiting...")
   os.execute(apps[app].exec)
   -- Wait ~8 seconds for app to start
   for _ = 1, 80 do
-    if i3ipc:show(apps[app]) == true then return end
-    os.execute('sleep 0.1')
+    if i3ipc:show(apps[app]) == true then
+      return
+    end
+    os.execute("sleep 0.1")
   end
   __msg(string.format('App did not start: "%s"', app))
 end
