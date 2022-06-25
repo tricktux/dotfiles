@@ -27,6 +27,7 @@ end
 local function repl()
   local fmt = string.format
   local fn = vim.fn
+  local comp = nil
   if fn.executable('clang++') > 0 then
     comp = 'clang++'
   elseif fn.executable('g++') > 0 then
