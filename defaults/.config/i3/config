@@ -71,7 +71,7 @@ bindsym mod3+l exec --no-startup-id \
 bindsym $mod+o exec --no-startup-id \
   $HOME/.config/i3/scripts/xdotool_launch journal
 bindsym $mod+n exec --no-startup-id \
-  $HOME/.config/i3/scripts/xdotool_launch ranger
+  $HOME/.config/i3/scripts/xdotool_launch doublecmd
 bindsym $mod+semicolon exec --no-startup-id \
   $HOME/.config/i3/scripts/xdotool_launch terminal
 # bindsym $mod+p exec --no-startup-id \
@@ -382,7 +382,7 @@ bindsym XF86PowerDown exec --no-startup-id "i3-msg '[class=\".\"] kill' && syste
   # for_window [title="^bottom$" class="^kitty$"] move to scratchpad
   # for_window [title="^scratch$" class="^kitty$"] move to scratchpad
   # for_window [title="^Spotify$" class="^Spotify$"] move to scratchpad
-  # for_window [title="^Double Commander.*" class="^Doublecmd$"] move to scratchpad
+  for_window [title="^Double Commander.*" class="^Doublecmd$"] move to scratchpad
   # for_window [title=".*Evolution$" class="^Evolution$"] move to scratchpad
   # for_window [class="^Evolution-alarm-notify$"] floating enable, focus
 
