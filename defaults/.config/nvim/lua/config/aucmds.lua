@@ -69,7 +69,6 @@ local function setup()
     callback = function()
       log.info("terminal autocmd called")
       vim.opt.number = false
-      vim.opt.relativenumber = false
       vim.opt.bufhidden = "hide"
       vim.keymap.set("n", [[q]], [[ZZ]], { silent = true, buffer = true })
       vim.keymap.set("n", [[<M-`>]], [[ZZ]], { silent = true, buffer = true })
