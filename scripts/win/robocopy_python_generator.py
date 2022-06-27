@@ -35,7 +35,7 @@ def main():
             continue
         base = os.path.basename(d)
         dst = os.path.join(DEST_DIR, base)
-        cmd = f"{ROBOCOPY_EXE} \"{d}\" \"{dst}\" {ROBOCOPY_OPTS}"
+        cmd = f'{ROBOCOPY_EXE} "{d}" "{dst}" {ROBOCOPY_OPTS}'
         print(f"Executing:\n\t{cmd}...")
         with subprocess.Popen(cmd) as proc:
             proc.wait()
