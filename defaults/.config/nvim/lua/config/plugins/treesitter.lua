@@ -64,7 +64,8 @@ M.__config = {
   ensure_installed = {
     "c", "cpp", "python", "lua", "java", "bash", "c_sharp", "rust", "json",
     "toml", "bash", "cmake", "dockerfile", "json5", "latex", "r", "yaml",
-    "vim", "markdown", "json", "make", "nix", "html", "llvm", "comment", "org"
+    "vim", "markdown", "markdown_inline", "json", "make", "nix", "html", 
+    "llvm", "comment", "org"
   },
   highlight = {
     disable = disable,
