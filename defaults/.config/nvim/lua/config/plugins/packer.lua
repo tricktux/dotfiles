@@ -711,6 +711,25 @@ function M:__setup()
 			require("config.plugins.lualine"):config()
 		end,
 	})
+
+	if vim.fn.has("nvim-0.8") > 0 then
+		use({
+			"smjonas/inc-rename.nvim",
+			config = function()
+				require("inc_rename").setup()
+			end,
+		})
+	end
+
+	use({
+		"nvim-neotest/neotest",
+		requires = {
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+			"antoinemadec/FixCursorHold.nvim",
+		},
+    require("config.plugins.misc"):config_neotest()
+	})
 end
 
 function M:__setup_local_grip_plugin()
