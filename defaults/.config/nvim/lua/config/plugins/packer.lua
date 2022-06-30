@@ -727,6 +727,8 @@ function M:__setup()
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",
 			"antoinemadec/FixCursorHold.nvim",
+      "nvim-neotest/neotest-python",
+      "nvim-neotest/neotest-plenary",
 		},
     require("config.plugins.misc"):config_neotest()
 	})
