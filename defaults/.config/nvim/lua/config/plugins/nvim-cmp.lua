@@ -27,7 +27,6 @@ function M:setup()
   local cp_ok, _ = pcall(require, "copilot_cmp")
   if cp_ok then
     table.insert(unix_sources, 1, { name = "copilot" })
-    print("[cmp]: enabling copilot source...")
   end
 
   local cmp = require("cmp")

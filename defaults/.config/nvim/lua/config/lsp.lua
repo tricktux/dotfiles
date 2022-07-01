@@ -60,8 +60,11 @@ local function set_lsp_mappings(capabilities, bufnr)
       vks('n', prefix .. 'w' .. k, v[1], opts)
     end
   end
+
+  local rename = vim.fn.exists(":IncRename") > 0 and ":IncRename " or lsp.buf.rename
+
 	local mappings = {
-		r = { lsp.buf.rename, "rename" },
+		r = { rename, "rename" },
 		e = { lsp.buf.declaration, "declaration" },
 		d = { lsp.buf.definition, "definition" },
 		h = { lsp.buf.hover, "hover" },
@@ -97,7 +100,7 @@ local function set_lsp_mappings(capabilities, bufnr)
 			end,
 			"lsp_definition_split",
 		},
-		r = { lsp.buf.rename, "lsp_rename" },
+		r = { rename, "lsp_rename" },
 		d = { lsp.buf.definition, "lsp_definition" },
 		u = { lsp.buf.references, "references" },
 		n = { vim.diagnostic.open_float, "show_line_diagnostics" },
