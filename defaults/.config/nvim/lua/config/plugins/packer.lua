@@ -475,12 +475,19 @@ function M:__setup()
 		end,
 	})
 
-	use({ "ferrine/md-img-paste.vim", ft = { "markdown", "org" } })
+	use({
+		"ferrine/md-img-paste.vim",
+		ft = { "markdown", "org" },
+		setup = function()
+			require("config.plugins.misc"):setup_img_paste()
+		end,
+	})
 
 	use({
 		"gcmt/taboo.vim",
 		config = function()
-			vim.cmd([[nnoremap <leader>tr :TabooRename ]])
+      local opts = {silent = true, desc = "TabooRename"}
+      vim.keymap.set("n", "<leader>tr", "<cmd>TabooRename<cr>", opts)
 		end,
 	})
 
@@ -727,10 +734,10 @@ function M:__setup()
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",
 			"antoinemadec/FixCursorHold.nvim",
-      "nvim-neotest/neotest-python",
-      "nvim-neotest/neotest-plenary",
+			"nvim-neotest/neotest-python",
+			"nvim-neotest/neotest-plenary",
 		},
-    require("config.plugins.misc"):config_neotest()
+		require("config.plugins.misc"):config_neotest(),
 	})
 end
 

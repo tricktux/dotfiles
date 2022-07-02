@@ -844,4 +844,24 @@ function M.config_neotest()
   })
 end
 
+function M.setup_img_paste()
+  vim.cmd[=[
+    function! g:OrgmodePasteImage(relpath)
+      execute "normal! i#+CAPTION: H"
+      let ipos = getcurpos()
+      execute "normal! aere"
+      execute "normal! o[[./" . a:relpath . "]]"
+      call setpos('.', ipos)
+      execute "normal! ve\<C-g>"
+    endfunction
+  ]=]
+  api.nvim_create_autocmd("FileType", {
+    callback = function()
+      vim.g.PasteImageFunction = 'g:OrgmodePasteImage'
+    end,
+    pattern = "org",
+    desc = "PasteImageFunction",
+  })
+end
+
 return M
