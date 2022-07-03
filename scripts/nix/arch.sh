@@ -118,6 +118,7 @@ update_pymodules() {
 
 	pip3 install --ignore-installed --upgrade "${pkgs[@]}"
 }
+
 update_pynvim() {
 	# source /home/reinaldo/.config/nvim/python_neovim_virtualenv.sh
 	local venv_loc="$XDG_DATA_HOME/pyvenv"
@@ -164,7 +165,7 @@ lightdm_fix_xs_errors() {
 	fi
 
 	if [[ ! -f /usr/bin/bbe ]]; then
-		return 
+		return
 	fi
 
 	sudo cp -f /usr/sbin/lightdm{,_bkp}
@@ -196,8 +197,8 @@ cleanup_junk() {
 	case $yn in
 	[Qq]*) quit ;;
 	[Yy]*)
-    sudo /usr/bin/paccache --remove -vvv \
-      --cachedir=/home/reinaldo/.mnt/skywafer/NetBackup/pacman_cache/x86_64
+		sudo /usr/bin/paccache --remove -vvv \
+			--cachedir=/home/reinaldo/.mnt/skywafer/NetBackup/pacman_cache/x86_64
 		# Remove cache for deleted packages
 		# Omit for now, otherwise we are constantly downloading removed files
 		# sudo /usr/bin/paccache -ruk0
@@ -210,10 +211,10 @@ cleanup_junk() {
 	[Yy]*)
 		# Leave only the 3 most recent versions of packaages
 		sudo /usr/bin/paccache -r -vvv \
-      --cachedir=/var/cache/pacman/pkg
+			--cachedir=/var/cache/pacman/pkg
 		# Remove cache for deleted packages
 		sudo /usr/bin/paccache -ruk0 \
-      --cachedir=/var/cache/pacman/pkg
+			--cachedir=/var/cache/pacman/pkg
 		;;
 	esac
 	msg_not "${BLUE}${BOLD}" "[RIMP]==> Remove junk? [y/N/q]"
@@ -428,10 +429,17 @@ backup() {
 		# https://wiki.archlinux.org/index.php/Pacman/Restore_local_database
 		[[ -f /tmp/pacman_database.tar.bz2 ]] && rm /tmp/pacman_database.tar.bz2
 		tar -vcjf /tmp/pacman_database.tar.bz2 /var/lib/pacman/local
+		srcs=(
+			"$HOME/.gnupg" "$HOME/.ssh" "$HOME/.password-store" "/tmp/pacman_database.tar.bz2"
+      "$HOME/.local/share/histfile" "$HOME/.local/share/z"
+		)
+    src=""
+    for str in "${srcs[@]}"; do
+      src+="$str "
+    done
 		# Create database backup
 		"$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot.sh" \
-			-s "$HOME/.gnupg $HOME/.ssh $HOME/.password-store /tmp/pacman_database.tar.bz2" \
-			-d "$HOME/.mnt/skywafer/home/bkps/$HOSTNAME"
+			-s "$src" -d "$HOME/.mnt/skywafer/home/bkps/$HOSTNAME"
 		;;
 	[Qq]*) quit ;;
 	esac
@@ -466,11 +474,11 @@ backup() {
 	[Yy]*)
 		SRC="$HOME/.local/share/mail $HOME/.local/share/vdirsyncer"
 		SNAP="$HOME/.mnt/skywafer/home/bkps/mail"
-    /usr/bin/mbsync -D -ac "$HOME"/.config/isync/mbsyncrc \
-      || echo "mbsync never retuns code 0..."
-    /usr/bin/vdirsyncer --verbosity debug sync
+		/usr/bin/mbsync -D -ac "$HOME"/.config/isync/mbsyncrc ||
+			echo "mbsync never retuns code 0..."
+		/usr/bin/vdirsyncer --verbosity debug sync
 		"$TERMINAL" \
-      "$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot.sh" -s "$SRC" -d "$SNAP" &
+			"$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot.sh" -s "$SRC" -d "$SNAP" &
 		;;
 	esac
 }
