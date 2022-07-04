@@ -225,20 +225,7 @@ function! s:scratchpad_journal() abort
     return
   endif
 
-  execute('edit ' . g:wiki_path . '/weekly_log_' .
-        \ strftime('%Y') . '.md')
-
-  " Do not open new terminal
-  return
-  if (!exists(':Tnew'))
-    return
-  endif
-
-  " Create a new tab with terminal in it
-  execute 'tabnew'
-  execute 'terminal'
-  normal! <C-\><C-n>
-  normal! gt
+  execute('edit ' . g:wiki_path . '/notes.org')
 endfunction
 
 function! s:delete_empty_buffers()
