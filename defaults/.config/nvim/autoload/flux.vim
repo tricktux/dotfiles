@@ -6,71 +6,12 @@
 " Created:        Tue Aug 27 2019 23:20
 " Last Modified:  Tue Aug 27 2019 23:20
 
-" TODO 
-"  check for filereadable(s:api_res_path) every time flux() is called
 let s:api_response_file_name = 'sunrise-sunset_response_' . strftime('%m%d%Y') . '.json'
 let s:api_res_path = stdpath('cache') . '/' . s:api_response_file_name
 let s:api_url = 'https://api.sunrise-sunset.org/json?lat={}&lng={}'
 let s:flux_times = {}
 let s:day_time_handled = 0
 let s:night_time_handled = 0
-" async curl request
-
-
-let s:async_curl = {}
-function! s:async_curl.on_event(job_id, data, event) abort
-	if a:event == 'stdout'
-		let str = ' stdout: '.join(a:data)
-	elseif a:event == 'stderr'
-		let str = ' stderr: '.join(a:data)
-	else
-		let str = 'exited'
-	endif
-
-	echomsg str 
-endfunction
-
-let s:async_curl = {
-			\ 'jobid': 0,
-			\ 'callbacks' : { 
-			\ 'on_stdout': function(s:async_curl.on_event), 
-			\ 'on_stderr': function(s:async_curl.on_event),
-			\ 'on_exit': function(s:async_curl.on_event)
-			\ },
-			\ 'cmd': 'curl -kfL --create-dirs -o ',
-			\ }
-" let s:async_curl.callbacks = {
-" \ 'on_stdout': function(s:async_curl.on_event),
-" \ 'on_stderr': function(s:async_curl.on_event),
-" \ 'on_exit': function(s:async_curl.on_event)
-" \ }
-function! s:async_curl.start(file_name, link) abort
-	if !executable('curl')
-		if &verbose > 0
-			echoerr 'Curl is not installed. Cannot proceed'
-		endif
-		return -1
-	endif
-
-	if empty(a:file_name) || empty(a:link)
-		if &verbose > 0
-			echoerr 'Please specify a path and link to download'
-		endif
-		return -2
-	endif
-
-	" silent execute "!curl -kfLo " . a:file_name . " --create-dirs \"" . " \ a:link . "\""
-	let l:cmd = self.cmd . a:file_name . " \"" . a:link . "\""
-	" Callbacks are not adding any value
-	if has('nvim')
-		let self.jobid = jobstart(l:cmd)
-	else
-		call job_start(l:cmd)
-		let self.jobid = 1
-	endif
-
-	return self.jobid
-endfunction
 
 
 " Change vim colorscheme depending on time of the day
