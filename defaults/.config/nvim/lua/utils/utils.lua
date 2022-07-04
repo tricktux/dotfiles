@@ -228,6 +228,17 @@ function M.exec_float_term(cmd, startinsert)
 	end
 end
 
+
+function M.read_file(path)
+  vim.validate { path = { path, 's' } }
+  local file = io.open(path)
+  if file == nil then return '' end
+  local output = file:read('*all')
+  file:close()
+  return output
+end
+
+
 -- Execute cmd and return all of its output
 function M.io_popen_read(cmd)
 	vim.validate({ cmd = { cmd, "s" } })
