@@ -665,6 +665,7 @@ local function set_colorscheme(period)
   vim.cmd("colorscheme catppuccin")
 end
 
+-- This function is called on vim enter
 function M.setup_flux()
   local f = require("plugin.flux")
   f:setup{
@@ -675,7 +676,7 @@ function M.setup_flux()
     f:check()
     return
   end
-  vim.fn["flux#Flux"]()
+  vim.fn["flux#Flux"]()  -- Initially set the colorscheme
   local id = api.nvim_create_augroup("FluxLike", { clear = true })
   api.nvim_create_autocmd("BufEnter", {
     callback = function()
