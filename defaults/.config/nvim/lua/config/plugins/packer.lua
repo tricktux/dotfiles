@@ -427,17 +427,6 @@ function M:__setup()
 	})
 
 	use({
-		"NLKNguyen/papercolor-theme",
-		setup = function()
-			require("config.plugins.misc"):setup_papercolor()
-		end,
-		config = function()
-			require("utils.log").info("[papercolor]: Configuring...")
-			vim.cmd([[colorscheme PaperColor]])
-		end,
-	})
-
-	use({
 		"jiangmiao/auto-pairs",
 		setup = function()
 			-- Really annoying option
@@ -737,8 +726,18 @@ function M:__setup()
 			"nvim-neotest/neotest-python",
 			"nvim-neotest/neotest-plenary",
 		},
-		require("config.plugins.misc"):config_neotest(),
+		config = function()
+      require("config.plugins.misc"):config_neotest()
+    end
 	})
+
+  use({
+    "catppuccin/nvim",
+    as = "catppuccin",
+    config = function()
+      require("config.plugins.misc"):config_catpuccin()
+    end
+  })
 end
 
 function M:__setup_local_grip_plugin()
@@ -813,6 +812,11 @@ function M:setup()
 	self:__setup_local_grip_plugin()
 	self:download()
 	self:__setup()
+  vim.api.nvim_create_autocmd("VimEnter", {
+    callback = require("config.plugins.misc").setup_flux,
+    pattern = "*",
+    desc = "FluxVimEnter",
+  })
 end
 
 return M

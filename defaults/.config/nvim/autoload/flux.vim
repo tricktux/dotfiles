@@ -8,10 +8,12 @@
 
 " TODO 
 "  check for filereadable(s:api_res_path) every time flux() is called
-let s:api_response_file_name = 'api_response_' . strftime('%m%d%Y') . '.json'
+let s:api_response_file_name = 'sunrise-sunset_response_' . strftime('%m%d%Y') . '.json'
 let s:api_res_path = stdpath('cache') . '/' . s:api_response_file_name
 let s:api_url = 'https://api.sunrise-sunset.org/json?lat={}&lng={}'
 let s:flux_times = {}
+let s:day_time_handled = 0
+let s:night_time_handled = 0
 " async curl request
 
 
@@ -57,8 +59,7 @@ function! s:async_curl.start(file_name, link) abort
 		return -2
 	endif
 
-	" silent execute "!curl -kfLo " . a:file_name . " --create-dirs \"" .
-	" \ a:link . "\""
+	" silent execute "!curl -kfLo " . a:file_name . " --create-dirs \"" . " \ a:link . "\""
 	let l:cmd = self.cmd . a:file_name . " \"" . a:link . "\""
 	" Callbacks are not adding any value
 	if has('nvim')
@@ -86,13 +87,6 @@ function! flux#Flux() abort
 		endif
 	endif
 
-	if !exists('g:flux_day_colorscheme') || !exists('g:flux_night_colorscheme')
-		if &verbose > 0
-			echoerr 'Variables not set properly'
-		endif
-		return
-	endif
-
 	let l:curr_time = str2nr(strftime("%H%M"))
 	if &verbose > 0
 		echomsg '[flux#Flux()]: day time = ' . string(s:flux_times['day'])
@@ -106,44 +100,25 @@ function! flux#Flux() abort
 		if &verbose > 0
 			echomsg '[flux#Flux()]: its night time'
 		endif
-		if	&background !=# 'dark' ||
-					\ !exists('g:colors_name') ||
-					\ g:colors_name !=# g:flux_night_colorscheme
-			if &verbose > 0
-				echomsg '[flux#Flux()]: changing colorscheme to dark'
-			endif
-			call <sid>change_colors(g:flux_night_colorscheme, 'dark')
-      call <sid>change_status_line_colors(g:flux_night_statusline_colorscheme)
-		endif
-	else
-		" Its day time
-		if !exists('g:colors_name')
-			let g:colors_name = g:flux_day_colorscheme
-		endif
-		if &verbose > 0
-			echomsg '[flux#Flux()]: its day time'
-		endif
-		if &background !=# 'light' ||
-					\ !exists('g:colors_name') ||
-					\ g:colors_name !=# g:flux_day_colorscheme
-			if &verbose > 0
-				echomsg '[flux#Flux()]: changing colorscheme to light'
-			endif
-			call <sid>change_colors(g:flux_day_colorscheme, 'light')
-      call <sid>change_status_line_colors(g:flux_day_statusline_colorscheme)
-		endif
-	endif
-endfunction
 
-function! s:change_colors(scheme, background) abort
-  execute "colorscheme " . a:scheme
+    if s:night_time_handled == 1
+      return
+    endif
 
-	let &background=a:background
-	" Restoring these after colorscheme. Because some of them affect by the colorscheme
-	" call highlight#SetAll('IncSearch',	{ 'bg': color })
-	" call highlight#SetAll('IncSearch',	{ 'fg': 0, 'bg' : 9,  })
-	" call highlight#SetAll('Search', { 'fg' : g:yellow, 'deco' : 'bold', 'bg' : g:turquoise4 })
-	" Tue Jun 26 2018 14:00: Italics fonts on neovim-qt on windows look bad
+    lua require("plugin.flux"):set('night')
+    let s:night_time_handled = 1
+    let s:day_time_handled = 0
+    return
+  endif
+
+  " Its day time
+  if s:day_time_handled == 1
+    return
+  endif
+
+  lua require("plugin.flux"):set('day')
+  let s:day_time_handled = 1
+  let s:night_time_handled = 0
 endfunction
 
 " Returns dictionary:
@@ -156,14 +131,7 @@ function! s:get_api_response_file() abort
 	" echomsg 'url = ' l:url
 
 	if !filereadable(s:api_res_path)
-		if s:async_curl.start(s:api_res_path, l:url) < 1
-			if &verbose > 0
-				echoerr 'Failed to make api request'
-			endif
-			return
-		endif
-		" Give curl time to download the file
-		sleep 500m
+    silent execute "!curl --create-dirs -kfL -o " . s:api_res_path . " \"" . l:url . "\""
 	endif
 
 	if !filereadable(s:api_res_path)
@@ -232,55 +200,4 @@ function! s:get_sunrise_times(time) abort
   " echomsg 'time = ' l:time
 	
 	return str2nr(l:time)
-endfunction
-
-function! flux#GetTimes() abort
-	echomsg string(s:flux_times)
-endfunction
-
-" Note: Called from ChangeColors command in commands.vim
-function! flux#Helper(day_period) abort
-
-  let l:day = g:flux_day_colorscheme
-  let l:night = g:flux_night_colorscheme
-
-  " day_period: [<scheme>, <background>, <status_line_colors>]
-  let l:commands = {
-    \ 'day' : [l:day, 'light', l:day],
-    \ 'night' : [l:night, 'dark', l:night],
-    \ 'sunrise' : [l:day, 'light', l:day],
-    \ 'sunset' : [l:night, 'dark', l:night],
-    \ }
-
-  let l:args = get(l:commands, a:day_period, [])
-
-  if empty(l:args)
-    echoerr 'Invalid day period: ' a:day_period
-    return
-  endif
-
-  call s:change_colors(l:args[0], l:args[1])
-  call s:change_status_line_colors(l:args[2])
-endfunction
-
-function! s:change_status_line_colors(colorscheme) abort
-  if !exists('g:lightline')
-    return
-  end
-
-  let g:lightline.colorscheme = a:colorscheme
-  call lightline#init()
-  call lightline#colorscheme()
-  call lightline#update()
-endfunction
-
-function! flux#Manual() abort
-  let l:ffile = '/tmp/flux'
-	let l:period = readfile(l:ffile, '', 1)[0]
-  if empty(l:period)
-    echoerr "Failed to read flux file"
-    return
-  endif
-
-  return flux#Helper(l:period)
 endfunction

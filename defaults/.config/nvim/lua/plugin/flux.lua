@@ -1,47 +1,45 @@
 local api = vim.api
+local utl = require("utils.utils")
 
-local nvim_flux = {}
+local M = {}
 
-nvim_flux._file_location = [[/tmp/flux]]
-nvim_flux._mapping = {
-  ['day'] = {
-    'colorscheme ' .. vim.g.flux_day_colorscheme, 'set background=light'
-  },
-  ['night'] = {
-    'colorscheme ' .. vim.g.flux_night_colorscheme, 'set background=dark'
-  },
-  ['sunrise'] = {
-    'colorscheme ' .. vim.g.flux_day_colorscheme, 'set background=light'
-  },
-  ['sunset'] = {
-    'colorscheme ' .. vim.g.flux_night_colorscheme, 'set background=dark'
+M._file_location = [[/tmp/flux]]
+-- Example of callback function:
+--[[ local function set_colorscheme(period)
+  local flavour = {
+    day = "latter",
+    night = "mocha",
+    sunrise = "frappe",
+    sunset = "macchiato",
   }
+  vim.g.catppuccin_flavour = flavour[period]
+  vim.cmd("colorscheme catppuccin")
+end ]]
+M._config = {
+  ['callback'] = nil,
 }
 
-local function read_file(path)
-  vim.validate { path = { path, 's' } }
-  local file = io.open(path)
-  if file == nil then return '' end
-  local output = file:read('*all')
-  file:close()
-  return output
+function M:setup(config)
+  vim.validate({ config = { config, "t", true } })
+  self._config = vim.tbl_deep_extend("force", self._config, config)
 end
 
-function nvim_flux:check()
-  local period = read_file(self._file_location)
+function M:set(period)
+  vim.validate { period = { period, 's' } }
+  local cb = self._config.callback
+  vim.validate { cb = { cb, 'f' } }
+  cb(period)
+end
+
+function M:check()
+  local period = utl.read_file(self._file_location)
   if period == nil or period == '' then
     api.nvim_err_writeln("Failed to get daytime period from: " ..
       self._file_location)
     return
   end
 
-  local cmds = self._mapping[period]
-  if cmds == nil then
-    api.nvim_err_writeln("Failed to understand daytime period: " .. period)
-    return
-  end
-
-  for _, cmd in ipairs(cmds) do vim.cmd(cmd) end
+  self:set(period)
 end
 
-return nvim_flux
+return M

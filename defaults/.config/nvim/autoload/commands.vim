@@ -8,7 +8,6 @@
 " CUSTOM_COMMANDS
 function! commands#Set() abort
   command! UtilsRemoveTrailingWhiteSpaces call s:trim_trailing_white_spaces()
-  command! -nargs=1 ChangeColors call flux#Helper(<f-args>)
 
   command! -nargs=? UtilsPasswdGenerate call s:generate_random_pass(<f-args>)
   command! UtilsBuffersDeleteNoName call s:delete_empty_buffers()

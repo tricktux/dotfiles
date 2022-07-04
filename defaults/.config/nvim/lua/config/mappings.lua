@@ -163,14 +163,15 @@ function M:setup()
 	vim.keymap.set("n", "<c-l>", refresh_buffer, opts)
 
   -- Flux colors
+  local f = require("plugin.flux")
   opts.desc = "toggle_colors_day"
-  vim.keymap.set("n", "<leader>td", "<cmd>ChangeColors day<cr>", opts)
+  vim.keymap.set("n", "<leader>td", function() f:set('day') end, opts)
   opts.desc = "toggle_colors_night"
-  vim.keymap.set("n", "<leader>tn", "<cmd>ChangeColors night<cr>", opts)
+  vim.keymap.set("n", "<leader>tn", function() f:set('night') end, opts)
   opts.desc = "toggle_colors_sunset"
-  vim.keymap.set("n", "<leader>tS", "<cmd>ChangeColors sunset<cr>", opts)
+  vim.keymap.set("n", "<leader>tS", function() f:set('sunset') end, opts)
   opts.desc = "toggle_colors_sunrise"
-  vim.keymap.set("n", "<leader>tR", "<cmd>ChangeColors sunrise<cr>", opts)
+  vim.keymap.set("n", "<leader>tR", function() f:set('sunrise') end, opts)
 
   -- Quickfix/Location list
   opts.desc = "quickfix"

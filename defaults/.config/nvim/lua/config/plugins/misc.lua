@@ -643,40 +643,55 @@ end
 
 function M.setup_papercolor()
 	log.info("[papercolor]: Setting up...")
-	vim.g.flux_day_colorscheme = "PaperColor"
-	vim.g.flux_night_colorscheme = "PaperColor"
-	vim.g.flux_day_statusline_colorscheme = "PaperColor_light"
-	vim.g.flux_night_statusline_colorscheme = "PaperColor_dark"
-	if vim.fn.has("unix") > 0 and vim.fn.executable("luajit") > 0 then
-		vim.g.flux_enabled = 0
-		vim.fn["flux#Manual"]()
-	else
-		local id = api.nvim_create_augroup("FluxLike", { clear = true })
-		api.nvim_create_autocmd({ "VimEnter", "BufEnter" }, {
-			callback = function()
-				vim.fn["flux#Flux"]()
-			end,
-			pattern = "*",
-			desc = "Flux",
-			group = id,
-		})
+  vim.g.PaperColor_Theme_Options = {
+    ["theme"] = {
+      ["default"] = {
+        ["transparent_background"] = 0,
+        ["allow_bold"] = 1,
+        ["allow_italic"] = 1,
+      },
+    },
+  }
+end
 
-		vim.g.flux_enabled = 1
-		vim.g.flux_api_lat = 27.972572
-		vim.g.flux_api_lon = -82.796745
+local function set_colorscheme(period)
+  local flavour = {
+    day = "latter",
+    night = "mocha",
+    sunrise = "frappe",
+    sunset = "macchiato",
+  }
+  vim.g.catppuccin_flavour = flavour[period]
+  vim.cmd("colorscheme catppuccin")
+end
 
-		vim.g.flux_night_time = 2000
-		vim.g.flux_day_time = 700
-	end
-	vim.g.PaperColor_Theme_Options = {
-		["theme"] = {
-			["default"] = {
-				["transparent_background"] = 0,
-				["allow_bold"] = 1,
-				["allow_italic"] = 1,
-			},
-		},
-	}
+function M.setup_flux()
+  local f = require("plugin.flux")
+  f:setup{
+    callback = set_colorscheme,
+  }
+  if vim.fn.has("unix") > 0 and vim.fn.executable("luajit") > 0 then
+    vim.g.flux_enabled = 0
+    f:check()
+    return
+  end
+  vim.fn["flux#Flux"]()
+  local id = api.nvim_create_augroup("FluxLike", { clear = true })
+  api.nvim_create_autocmd("BufEnter", {
+    callback = function()
+      vim.fn["flux#Flux"]()
+    end,
+    pattern = "*",
+    desc = "Flux",
+    group = id,
+  })
+
+  vim.g.flux_enabled = 1
+  vim.g.flux_api_lat = 27.972572
+  vim.g.flux_api_lon = -82.796745
+
+  vim.g.flux_night_time = 2000
+  vim.g.flux_day_time = 700
 end
 
 function M.setup_neoterm()
@@ -862,6 +877,21 @@ function M.setup_img_paste()
     pattern = "org",
     desc = "PasteImageFunction",
   })
+end
+
+function M.config_catpuccin()
+  local catppuccin = require("catppuccin")
+  catppuccin.setup{
+    integrations = {
+      which_key = true,
+      dashboard = true,
+      vim_sneak = true,
+      markdown = true,
+      ts_rainbow = false,
+      notify = true,
+      symbols_outline = true,
+    },
+  }
 end
 
 return M
