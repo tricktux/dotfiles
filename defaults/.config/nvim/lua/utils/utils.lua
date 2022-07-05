@@ -306,8 +306,8 @@ end
 --- Abstraction over vim.keymap.set
 ---@param mappings (table). Example: 
 --  local mappings = {<lhs> = {<rhs>, <desc>}}
----@param mode Same as mode in keymap
----@param opts Same as in keymap.
+---@param mode table, string same as mode in keymap
+---@param opts string, function as in keymap.
 --              Desc is expected in mappings
 ---@param prefix (string) To be prefixed to all the indices of mappings
 --                Can be nil
