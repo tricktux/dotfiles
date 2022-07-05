@@ -878,10 +878,6 @@ function M.setup_img_paste()
     ]=])
   local id = api.nvim_create_augroup("ImagePastePlugin", { clear = true })
   local opts = {silent = true, desc = "image_paste", buffer = 0}
-  local org = function()
-    vim.g.PasteImageFunction = "g:OrgmodePasteImage"
-    vim.fn["mdip#MarkdownClipboardImage"]()
-  end
   local md = function()
     vim.g.PasteImageFunction = "g:MarkdownPasteImage"
     vim.fn["mdip#MarkdownClipboardImage"]()
@@ -933,6 +929,7 @@ function M.config_catpuccin()
 			symbols_outline = true,
 		},
   })
+  vim.g.catppuccin_flavour = "frappe"
   vim.cmd("colorscheme catppuccin")
 end
 
