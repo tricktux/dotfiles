@@ -138,7 +138,7 @@ export DOOMDIR="$XDG_CONFIG_HOME/doom"
 # Wed May 02 2018 04:57: Not needed anymore
 # export LANG=en_US.UTF-8
 
-export BAT_THEME="Coldark-Cold"
+export BAT_THEME="base16"
 
 # QT5 dark mode
 export QT_QPA_PLATFORMTHEME=gtk2
