@@ -29,8 +29,8 @@ function M.config_notify()
 
 	if has_telescope then
 		telescope.load_extension("notify")
-    local opts = {silent = true, desc = "notify"}
-    vks('n', "<leader>fn", telescope.extensions.notify.notify, opts)
+		local opts = { silent = true, desc = "notify" }
+		vks("n", "<leader>fn", telescope.extensions.notify.notify, opts)
 	end
 
 	vim.notify = require("notify")
@@ -177,18 +177,18 @@ function M.config_neogen()
 	opts.desc = "generate_neogen"
 	vks("n", prefix, ng.generate, opts)
 	prefix = "<leader>oG"
-  utl.keymaps_set(mappings, 'n', opts, prefix)
+	utl.keymaps_set(mappings, "n", opts, prefix)
 end
 
 function M.config_kitty_navigator()
-  local opts = { silent = true }
+	local opts = { silent = true }
 	local mappings = {
 		["<a-h>"] = { "<cmd>KittyNavigateLeft<cr>", "kitty_left" },
 		["<a-j>"] = { "<cmd>KittyNavigateDown<cr>", "kitty_down" },
 		["<a-k>"] = { "<cmd>KittyNavigateUp<cr>", "kitty_up" },
 		["<a-l>"] = { "<cmd>KittyNavigateRight<cr>", "kitty_right" },
 	}
-  utl.keymaps_set(mappings, 'n', opts)
+	utl.keymaps_set(mappings, "n", opts)
 	log.info("setup of kitty navigator complete")
 end
 
@@ -342,8 +342,8 @@ function M.setup_zen_mode()
     end, ]]
 	})
 
-  local opts = { silent = true, desc = "zen_mode_focus_toggle" }
-	vks('n', "<plug>focus_toggle", "<cmd>ZenMode<cr>", opts)
+	local opts = { silent = true, desc = "zen_mode_focus_toggle" }
+	vks("n", "<plug>focus_toggle", "<cmd>ZenMode<cr>", opts)
 end
 
 local function gps_get_location()
@@ -427,8 +427,8 @@ function M.config_focus()
 			"window_switch_right",
 		},
 	}
-  local opts = { silent = true }
-  utl.keymaps_set(mappings, 'n', opts)
+	local opts = { silent = true }
+	utl.keymaps_set(mappings, "n", opts)
 	log.info("setup of focus complete")
 end
 
@@ -532,8 +532,8 @@ function M.setup_comment_frame()
 	})
 
 	local p = [[<leader>om]]
-  local o = { silent = true, desc = "add_multiline_comment" }
-  vks('n', p, require("nvim-comment-frame").add_multiline_comment, o)
+	local o = { silent = true, desc = "add_multiline_comment" }
+	vks("n", p, require("nvim-comment-frame").add_multiline_comment, o)
 end
 
 function M.config_starlite()
@@ -559,7 +559,7 @@ function M.setup_bookmarks()
 end
 
 function M.config_bookmarks()
-  local opts = { silent = true }
+	local opts = { silent = true }
 	local leader = {}
 	local prefix = [[<leader>B]]
 	leader = {
@@ -575,7 +575,7 @@ function M.config_bookmarks()
 		o = { "<Plug>BookmarkLoad", "BookmarkLoad" },
 		s = { "<Plug>BookmarkSave", "BookmarkSave" },
 	}
-  utl.keymaps_set(leader, 'n', opts, prefix)
+	utl.keymaps_set(leader, "n", opts, prefix)
 end
 
 function M.setup_bdelete()
@@ -588,7 +588,7 @@ function M.setup_bdelete()
 		next_buffer_cmd = nil, -- Custom function to retrieve the next buffer when preserving window layout
 	})
 
-  local opts = { silent = true }
+	local opts = { silent = true }
 	local leader = {}
 	local prefix = [[<leader>b]]
 	leader = {
@@ -618,7 +618,7 @@ function M.setup_bdelete()
 			"buffer_delete_glob",
 		},
 	}
-  utl.keymaps_set(leader, 'n', opts, prefix)
+	utl.keymaps_set(leader, "n", opts, prefix)
 end
 
 function M.config_leap()
@@ -643,56 +643,56 @@ end
 
 function M.setup_papercolor()
 	log.info("[papercolor]: Setting up...")
-  vim.g.PaperColor_Theme_Options = {
-    ["theme"] = {
-      ["default"] = {
-        ["transparent_background"] = 0,
-        ["allow_bold"] = 1,
-        ["allow_italic"] = 1,
-      },
-    },
-  }
+	vim.g.PaperColor_Theme_Options = {
+		["theme"] = {
+			["default"] = {
+				["transparent_background"] = 0,
+				["allow_bold"] = 1,
+				["allow_italic"] = 1,
+			},
+		},
+	}
 end
 
 local function set_colorscheme(period)
-  local flavour = {
-    day = "latter",
-    night = "mocha",
-    sunrise = "frappe",
-    sunset = "macchiato",
-  }
-  vim.g.catppuccin_flavour = flavour[period]
-  vim.cmd("colorscheme catppuccin")
+	local flavour = {
+		day = "latter",
+		night = "mocha",
+		sunrise = "frappe",
+		sunset = "macchiato",
+	}
+	vim.g.catppuccin_flavour = flavour[period]
+	vim.cmd("colorscheme catppuccin")
 end
 
 -- This function is called on vim enter
 function M.setup_flux()
-  local f = require("plugin.flux")
-  f:setup{
-    callback = set_colorscheme,
-  }
-  if vim.fn.has("unix") > 0 and vim.fn.executable("luajit") > 0 then
-    vim.g.flux_enabled = 0
-    f:check()
-    return
-  end
-  vim.fn["flux#Flux"]()  -- Initially set the colorscheme
-  local id = api.nvim_create_augroup("FluxLike", { clear = true })
-  api.nvim_create_autocmd("BufEnter", {
-    callback = function()
-      vim.fn["flux#Flux"]()
-    end,
-    pattern = "*",
-    desc = "Flux",
-    group = id,
-  })
+	local f = require("plugin.flux")
+	f:setup({
+		callback = set_colorscheme,
+	})
+	if vim.fn.has("unix") > 0 and vim.fn.executable("luajit") > 0 then
+		vim.g.flux_enabled = 0
+		f:check()
+		return
+	end
+	vim.fn["flux#Flux"]() -- Initially set the colorscheme
+	local id = api.nvim_create_augroup("FluxLike", { clear = true })
+	api.nvim_create_autocmd("BufEnter", {
+		callback = function()
+			vim.fn["flux#Flux"]()
+		end,
+		pattern = "*",
+		desc = "Flux",
+		group = id,
+	})
 
-  vim.g.flux_enabled = 1
-  vim.g.flux_api_lat = 27.972572
-  vim.g.flux_api_lon = -82.796745
+	vim.g.flux_enabled = 1
+	vim.g.flux_api_lat = 27.972572
+	vim.g.flux_api_lon = -82.796745
 
-  vim.g.flux_night_time = 2000
-  vim.g.flux_day_time = 700
+	vim.g.flux_night_time = 2000
+	vim.g.flux_day_time = 700
 end
 
 function M.setup_neoterm()
@@ -707,7 +707,7 @@ function M.setup_neoterm()
 end
 
 function M.config_neoterm()
-  local opts = { silent = true }
+	local opts = { silent = true }
 	local mappings = {
 		["<plug>terminal_new"] = { "<cmd>Tnew<cr>", "term_new" },
 		["<plug>terminal_send_file"] = { "<cmd>TREPLSendFile<cr>", "term_send_file" },
@@ -716,9 +716,14 @@ function M.config_neoterm()
 			"<Plug>(neoterm-repl-send-line)",
 			"term_send_line",
 		},
-    ["<plug>terminal_toggle"] = {function() utl.exec_float_term("Ttoggle") end, "terminal"}
+		["<plug>terminal_toggle"] = {
+			function()
+				utl.exec_float_term("Ttoggle")
+			end,
+			"terminal",
+		},
 	}
-  utl.keymaps_set(mappings, 'n', opts)
+	utl.keymaps_set(mappings, "n", opts)
 end
 
 function M.setup_pomodoro()
@@ -770,33 +775,33 @@ function M.setup_neogit()
 	require("neogit").setup({})
 	-- open commit popup
 	-- neogit.open({ "commit" })
-  local opts = { silent = true, desc = "neogit_open" }
-	vks('n', "<leader>vo", require("neogit").open, opts)
+	local opts = { silent = true, desc = "neogit_open" }
+	vks("n", "<leader>vo", require("neogit").open, opts)
 end
 
 function M.config_git_messenger()
-  local opts = { silent = true, desc = "git_messenger" }
-	vks('n', "<leader>vm", "<cmd>GitMessenger<cr>", opts)
+	local opts = { silent = true, desc = "git_messenger" }
+	vks("n", "<leader>vm", "<cmd>GitMessenger<cr>", opts)
 end
 
 function M.config_copilot()
-  local status_ok, copilot = pcall(require, "copilot")
-  if not status_ok then
-    return
-  end
+	local status_ok, copilot = pcall(require, "copilot")
+	if not status_ok then
+		return
+	end
 
-  copilot.setup {
-    cmp = {
-      enabled = true,
-      method = "getPanelCompletions",
-    },
-    panel = { -- no config options yet
-      enabled = true,
-    },
-    ft_disable = { "markdown" },
-    -- plugin_manager_path = vim.fn.stdpath "data" .. "/site/pack/packer",
-    -- server_opts_overrides = {},
-  }
+	copilot.setup({
+		cmp = {
+			enabled = true,
+			method = "getPanelCompletions",
+		},
+		panel = { -- no config options yet
+			enabled = true,
+		},
+		ft_disable = { "markdown" },
+		-- plugin_manager_path = vim.fn.stdpath "data" .. "/site/pack/packer",
+		-- server_opts_overrides = {},
+	})
 end
 
 function M.config_iswap()
@@ -831,37 +836,37 @@ function M.setup_obsession()
 	})
 end
 
-local neotest_py_adapter = {
-  adapters = {
-    require("neotest-python")({
-        -- Extra arguments for nvim-dap configuration
-        dap = { justMyCode = false },
-        -- Command line arguments for runner
-        -- Can also be a function to return dynamic values
-        args = {"--log-level", "DEBUG"},
-        -- Runner to use. Will use pytest if available by default.
-        -- Can be a function to return dynamic value.
-        runner = "pytest",
-
-        -- Returns if a given file path is a test file.
-        -- NB: This function is called a lot so don't perform any heavy tasks within it.
-        -- is_test_file = function(file_path)
-        -- end,
-    })
-  }
-}
-
 function M.config_neotest()
-  require("neotest").setup({
-    adapters = {
-      require("neotest-python")(neotest_py_adapter),
-      require("neotest-plenary"),
-    },
-  })
+	local neotest_py_adapter = {
+		adapters = {
+			require("neotest-python")({
+				-- Extra arguments for nvim-dap configuration
+				dap = { justMyCode = false },
+				-- Command line arguments for runner
+				-- Can also be a function to return dynamic values
+				args = { "--log-level", "DEBUG" },
+				-- Runner to use. Will use pytest if available by default.
+				-- Can be a function to return dynamic value.
+				runner = "pytest",
+
+				-- Returns if a given file path is a test file.
+				-- NB: This function is called a lot so don't perform any heavy tasks within it.
+				-- is_test_file = function(file_path)
+				-- end,
+			}),
+		},
+	}
+
+	require("neotest").setup({
+		adapters = {
+			require("neotest-python")(neotest_py_adapter),
+			require("neotest-plenary"),
+		},
+	})
 end
 
 function M.setup_img_paste()
-  vim.cmd[=[
+	vim.cmd([=[
     function! g:OrgmodePasteImage(relpath)
       execute "normal! i#+CAPTION: H"
       let ipos = getcurpos()
@@ -870,29 +875,29 @@ function M.setup_img_paste()
       call setpos('.', ipos)
       execute "normal! ve\<C-g>"
     endfunction
-  ]=]
-  api.nvim_create_autocmd("FileType", {
-    callback = function()
-      vim.g.PasteImageFunction = 'g:OrgmodePasteImage'
-    end,
-    pattern = "org",
-    desc = "PasteImageFunction",
-  })
+  ]=])
+	api.nvim_create_autocmd("FileType", {
+		callback = function()
+			vim.g.PasteImageFunction = "g:OrgmodePasteImage"
+		end,
+		pattern = "org",
+		desc = "PasteImageFunction",
+	})
 end
 
 function M.config_catpuccin()
-  local catppuccin = require("catppuccin")
-  catppuccin.setup{
-    integrations = {
-      which_key = true,
-      dashboard = true,
-      vim_sneak = true,
-      markdown = true,
-      ts_rainbow = false,
-      notify = true,
-      symbols_outline = true,
-    },
-  }
+	local catppuccin = require("catppuccin")
+	catppuccin.setup({
+		integrations = {
+			which_key = true,
+			dashboard = true,
+			vim_sneak = true,
+			markdown = true,
+			ts_rainbow = false,
+			notify = true,
+			symbols_outline = true,
+		},
+	})
 end
 
 return M

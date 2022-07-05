@@ -124,15 +124,15 @@ function M:__setup()
 		"hrsh7th/nvim-cmp",
 		after = "LuaSnip",
 		requires = {
-			"hrsh7th/cmp-buffer",
-			"hrsh7th/cmp-nvim-lua",
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-path",
-			"hrsh7th/cmp-calc",
-			"ray-x/cmp-treesitter",
-			"quangnguyen30192/cmp-nvim-tags",
-			"onsails/lspkind-nvim",
-			"saadparwaiz1/cmp_luasnip",
+			{ "hrsh7th/cmp-buffer", opt = false },
+			{ "hrsh7th/cmp-nvim-lua", opt = false },
+			{ "hrsh7th/cmp-nvim-lsp", opt = false },
+			{ "hrsh7th/cmp-path", opt = false },
+			{ "hrsh7th/cmp-calc", opt = false },
+			{ "ray-x/cmp-treesitter", opt = false },
+			{ "quangnguyen30192/cmp-nvim-tags", opt = false },
+			{ "onsails/lspkind-nvim", opt = false },
+			{ "saadparwaiz1/cmp_luasnip", opt = false },
 		},
 		config = function()
 			require("config.plugins.nvim-cmp"):setup()
@@ -475,8 +475,8 @@ function M:__setup()
 	use({
 		"gcmt/taboo.vim",
 		config = function()
-      local opts = {silent = true, desc = "TabooRename"}
-      vim.keymap.set("n", "<leader>tr", "<cmd>TabooRename<cr>", opts)
+			local opts = { silent = true, desc = "TabooRename" }
+			vim.keymap.set("n", "<leader>tr", "<cmd>TabooRename<cr>", opts)
 		end,
 	})
 
@@ -700,7 +700,6 @@ function M:__setup()
 			"pomodoro.vim",
 			"vim-obsession",
 			"gitsigns.nvim",
-			"papercolor-theme",
 		},
 		-- setup = function() require('config.plugins.lualine'):setup() end,
 		config = function()
@@ -727,17 +726,17 @@ function M:__setup()
 			"nvim-neotest/neotest-plenary",
 		},
 		config = function()
-      require("config.plugins.misc"):config_neotest()
-    end
+			require("config.plugins.misc"):config_neotest()
+		end,
 	})
 
-  use({
-    "catppuccin/nvim",
-    as = "catppuccin",
-    config = function()
-      require("config.plugins.misc"):config_catpuccin()
-    end
-  })
+	use({
+		"catppuccin/nvim",
+		as = "catppuccin",
+		config = function()
+			require("config.plugins.misc"):config_catpuccin()
+		end,
+	})
 end
 
 function M:__setup_local_grip_plugin()
