@@ -29,14 +29,13 @@ function M.__setup_orgmode_snippets()
         string.rep("d", k),
         fmt(
           [[
-    {} TODO {} :{}:
-    {}
-    {}
+    {} TODO {}
+      {}
+      {}
     ]]     ,
           {
             t(string.rep("*", k)),
             i(1, "description"),
-            i(2, "tags"),
             f(function()
               return "DEADLINE: <" .. get_date() .. ">"
             end, {}),
@@ -53,14 +52,13 @@ function M.__setup_orgmode_snippets()
         string.rep("t", k),
         fmt(
           [[
-    {} TODO {} :{}:
-    {}
-    {}
+    {} TODO {}
+      {}
+      {}
     ]]     ,
           {
             t(string.rep("*", k)),
             i(1, "description"),
-            i(2, "tags"),
             f(function()
               return "SCHEDULED: <" .. get_date() .. ">"
             end, {}),
@@ -79,9 +77,9 @@ function M.__setup_orgmode_snippets()
       "tc",
       fmt(
         [[
-  {} TODO {} :{}:
-  {}
-  {}
+  {} TODO {}
+    {}
+    {}
   ]]     ,
         {
           c(1, {
@@ -90,7 +88,6 @@ function M.__setup_orgmode_snippets()
             i(nil, "***"),
           }),
           i(2, "description"),
-          i(3, "tags"),
           f(function()
             return "SCHEDULED: <" .. get_date() .. ">"
           end, {}),
