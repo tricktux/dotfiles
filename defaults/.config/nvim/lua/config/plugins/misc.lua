@@ -875,14 +875,49 @@ function M.setup_img_paste()
       call setpos('.', ipos)
       execute "normal! ve\<C-g>"
     endfunction
-  ]=])
-	api.nvim_create_autocmd("FileType", {
-		callback = function()
-			vim.g.PasteImageFunction = "g:OrgmodePasteImage"
-		end,
-		pattern = "org",
-		desc = "PasteImageFunction",
-	})
+    ]=])
+  local id = api.nvim_create_augroup("ImagePastePlugin", { clear = true })
+  local opts = {silent = true, desc = "image_paste", buffer = 0}
+  local org = function()
+    vim.g.PasteImageFunction = "g:OrgmodePasteImage"
+    vim.fn["mdip#MarkdownClipboardImage"]()
+  end
+  local md = function()
+    vim.g.PasteImageFunction = "g:MarkdownPasteImage"
+    vim.fn["mdip#MarkdownClipboardImage"]()
+  end
+  local tex = function()
+    vim.g.PasteImageFunction = "g:LatexPasteImage"
+    vim.fn["mdip#MarkdownClipboardImage"]()
+  end
+  local org = function()
+    vim.g.PasteImageFunction = "g:OrgmodePasteImage"
+    vim.fn["mdip#MarkdownClipboardImage"]()
+  end
+  api.nvim_create_autocmd("FileType", {
+    callback = function()
+      vks("n", "<localleader>i", org, opts)
+    end,
+    pattern = "org",
+    desc = "OrgModePasteImageFunction",
+    group = id,
+  })
+  api.nvim_create_autocmd("FileType", {
+    callback = function()
+      vks("n", "<localleader>i", md, opts)
+    end,
+    pattern = "markdown",
+    desc = "MarkdownPasteImageFunction",
+    group = id,
+  })
+  api.nvim_create_autocmd("FileType", {
+    callback = function()
+      vks("n", "<localleader>i", tex, opts)
+    end,
+    pattern = "tex",
+    desc = "LatexPasteImageFunction",
+    group = id,
+  })
 end
 
 function M.config_catpuccin()
@@ -893,11 +928,12 @@ function M.config_catpuccin()
 			dashboard = true,
 			vim_sneak = true,
 			markdown = true,
-			ts_rainbow = false,
+			ts_rainbow = true,
 			notify = true,
 			symbols_outline = true,
 		},
-	})
+  })
+  vim.cmd("colorscheme catppuccin")
 end
 
 return M

@@ -57,8 +57,6 @@ if !exists('no_plugin_maps') && !exists('no_markdown_maps')
 		nnoremap <buffer> <LocalLeader>c :LanguageToolCheck<cr>
 	endif
 
-  nnoremap <silent> <buffer> <localleader>i :call mdip#MarkdownClipboardImage()<cr>
-
 	if exists(':ThesaurusQueryReplaceCurrentWord')
 		nnoremap <buffer> <localLeader>a :ThesaurusQueryReplaceCurrentWord<cr>
 	endif
