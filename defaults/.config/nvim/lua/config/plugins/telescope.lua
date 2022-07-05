@@ -92,10 +92,7 @@ function M.set_lsp_mappings(bufnr)
 		W = { ts.lsp_workspace_symbols, "tele_workspace_symbols" },
 	}
 
-	for k, v in pairs(mappings) do
-		opts.desc = v[2]
-		vks("n", prefix .. k, v[1], opts)
-	end
+  utl.keymaps_set(mappings, "n", opts, prefix)
 
 	-- Override default mappings with telescope lsp intelligent analogous
 	prefix = "<localleader>"
@@ -117,6 +114,8 @@ function M.set_lsp_mappings(bufnr)
 			"tele_lsp_references_split",
 		},
 	}
+
+  utl.keymaps_set(mappings, "n", opts, prefix)
 
 	for k, v in pairs(mappings) do
 		opts.desc = v[2]
