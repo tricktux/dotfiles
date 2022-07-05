@@ -656,7 +656,7 @@ end
 
 local function set_colorscheme(period)
 	local flavour = {
-		day = "latter",
+		day = "latte",
 		night = "mocha",
 		sunrise = "frappe",
 		sunset = "macchiato",
