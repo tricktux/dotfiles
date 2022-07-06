@@ -1,4 +1,5 @@
 local utl = require("utils.utils")
+local map = require("config.mappings")
 local line = require("config.plugins.lualine")
 local log = require("utils.log")
 
@@ -55,12 +56,12 @@ local function on_attach(bufnr)
     j = { gs.next_hunk, "next_hunk" },
     k = { gs.prev_hunk, "prev_hunk" },
   }
-  utl.keymaps_set(mappings,"n", opts, prefix)
+  map.keymaps_set(mappings,"n", opts, prefix)
   mappings = {
     ["]c"] = { next_hunk, "next_hunk" },
     ["[c"] = { prev_hunk, "prev_hunk" },
   }
-  utl.keymaps_set(mappings,"n", opts)
+  map.keymaps_set(mappings,"n", opts)
 
   local ts = require("telescope.builtin")
   prefix = "<leader>vt"
@@ -72,7 +73,7 @@ local function on_attach(bufnr)
     s = { ts.git_status, "status" },
     S = { ts.git_stash, "stash" },
   }
-  utl.keymaps_set(mappings,"n", opts, prefix)
+  map.keymaps_set(mappings,"n", opts, prefix)
   return true
 end
 

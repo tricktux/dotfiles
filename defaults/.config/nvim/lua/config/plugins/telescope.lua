@@ -1,5 +1,6 @@
 local utl = require("utils.utils")
 local Path = require("plenary.path")
+local map = require("config.mappings")
 
 local M = {}
 
@@ -92,7 +93,7 @@ function M.set_lsp_mappings(bufnr)
 		W = { ts.lsp_workspace_symbols, "tele_workspace_symbols" },
 	}
 
-  utl.keymaps_set(mappings, "n", opts, prefix)
+  map.keymaps_set(mappings, "n", opts, prefix)
 
 	-- Override default mappings with telescope lsp intelligent analogous
 	prefix = "<localleader>"
@@ -115,7 +116,7 @@ function M.set_lsp_mappings(bufnr)
 		},
 	}
 
-  utl.keymaps_set(mappings, "n", opts, prefix)
+  map.keymaps_set(mappings, "n", opts, prefix)
 
 	for k, v in pairs(mappings) do
 		opts.desc = v[2]
@@ -153,62 +154,19 @@ local cust_files_opts = {
 	path_display = cust_path_display,
 }
 
-local fd_file_cmd = {
-	"fd",
-	"--type=file",
-	"--color=never",
-	"--hidden",
-	"--follow",
-	utl.rg_ignore_file,
-}
-local fd_folder_cmd = {
-	"fd",
-	"--type=directory",
-	"--color=never",
-	"--hidden",
-	"--follow",
-	utl.rg_ignore_file,
-}
-local rg_file_cmd = {
-	"rg",
-	"--color=never",
-	"--hidden",
-	"--files",
-	"--follow",
-	utl.rg_ignore_file,
-	"--no-heading",
-	"--with-filename",
-	"--line-number",
-	"--column",
-}
-local rg_grep_cmd = {
-	"--color=never",
-	"--hidden",
-	"--smart-case",
-	"--follow",
-	utl.rg_ignore_file,
-	"--no-heading",
-	"--with-filename",
-	"--line-number",
-	"--column",
-}
-
-local function ff(path)
+function M:file_fuzzer(path)
 	vim.validate({ path = { path, "s" } })
 
-	if utl.has_win() then
-		path = path:gsub("/", "\\")
-	end -- normalize paths
-	local ppath = Path:new(path)
+  local ppath = Path:new(path)
 	if not ppath:is_dir() then
-		vim.api.nvim_err_writeln("telescope.lua: path not found: " .. ppath:absolute())
+    vim.notify("telescope.lua: path not found: " .. ppath:absolute(), vim.log.levels.ERROR)
 		return
 	end
 	local opts = cust_files_opts
 	local spath = ppath:absolute()
 	opts["prompt_title"] = 'Files in "' .. spath .. '"...'
 	opts["cwd"] = spath
-	opts["find_command"] = fd_file_cmd
+	opts["find_command"] = utl.fd.file_cmd
 	require("telescope.builtin").find_files(opts)
 end
 
@@ -228,62 +186,6 @@ function M:set_mappings()
 	vks("n", "<plug>buffer_browser", function()
 		ts.buffers(cust_buff_opts)
 	end, opts)
-	opts.desc = "mru_browser"
-	vks("n", "<plug>mru_browser", function()
-		ff(vim.fn.getcwd())
-	end, opts)
-
-	local function ff_dotfiles()
-		local dotfiles = nil
-		if utl.has_unix() then
-			dotfiles = Path:new(vim.g.dotfiles)
-		else
-			dotfiles = Path:new(os.getenv("APPDATA")):joinpath([[dotfiles]])
-		end
-		return ff(dotfiles:absolute())
-	end
-
-	local lua_plugins = Path:new(vim.fn.stdpath("data")):joinpath([[site/pack/packer]]):absolute()
-
-	leader.e = {
-		d = { ff_dotfiles, "dotfiles" },
-		h = {
-			function()
-				ff(os.getenv("HOME"))
-			end,
-			"home",
-		},
-		c = {
-			function()
-				ff(vim.fn.getcwd())
-			end,
-			"current_dir",
-		},
-		p = {
-			function()
-				ff(lua_plugins)
-			end,
-			"lua_plugins_path",
-		},
-		l = {
-			function()
-				ff(vim.g.vim_plugins_path)
-			end,
-			"vim_plugins_path",
-		},
-		v = {
-			function()
-				ff(os.getenv("VIMRUNTIME"))
-			end,
-			"vimruntime",
-		},
-	}
-
-	for k, v in pairs(leader.e) do
-		opts.desc = v[2]
-		vks("n", "<leader>e" .. k, v[1], opts)
-	end
-
 	local git = {
 		f = { ts.git_files, "files" },
 		C = { ts.git_commits, "commits" },
@@ -299,9 +201,7 @@ function M:set_mappings()
 	end
 
 	opts.desc = "live_grep"
-	vks("n", "<leader>?", function()
-		ts.live_grep({ additional_args = rg_grep_cmd })
-	end, opts)
+	vks("n", "<leader>?", ts.live_grep, opts)
 	opts.desc = "commands"
 	vks("n", "<leader>;", function()
 		ts.commands({ layout_config = cust_layout_config })
@@ -346,6 +246,7 @@ function M:setup()
 
 	local config = {
 		defaults = {
+      vimgrep_arguments = utl.rg.grep_cmd,
 			pickers = {
 				git_files = { recurse_submodules = true },
 				find_files = { hidden = true },

@@ -1,7 +1,82 @@
 local api = vim.api
+local vks = vim.keymap.set
 local utl = require("utils.utils")
+local fs = require("utils.utils").fs
+local vf = vim.fn
 
 local M = {}
+
+--- Abstraction over keymaps_set
+-- @param keys table expects all the arguments to keymaps_set
+function M:keymaps_sets(keys)
+  vim.validate({ keys = { keys, "t" } })
+
+  self.keymaps_set(keys.mappings, keys.mode, keys.opts, keys.prefix)
+end
+
+--- Abstraction over vim.keymap.set
+---@param mappings (table). Example: 
+--  local mappings = {<lhs> = {<rhs>, <desc>}}
+---@param mode table, string same as mode in keymap
+---@param opts string, function as in keymap.
+--              Desc is expected in mappings
+---@param prefix (string) To be prefixed to all the indices of mappings
+--                Can be nil
+function M.keymaps_set(mappings, mode, opts, prefix)
+  vim.validate({ mappings = { mappings, "t" } })
+
+  for k, v in pairs(mappings) do
+    if v[1] ~= nil then
+      opts.desc = v[2]
+      vks(mode, prefix ~= nil and prefix .. k or k, v[1], opts)
+    end
+  end
+end
+
+local lua_plugins = vf.stdpath("data") .. [[/site/pack/packer]]
+
+local edit = {}
+edit.mode = "n"
+edit.prefix = "<leader>e"
+edit.opts = { silent = true }
+edit.mappings = {
+  d = { 
+    function()
+      fs.path.fuzzer(vim.g.dotfiles)
+    end,
+    "dotfiles" 
+  },
+  h = {
+    function()
+      fs.path.fuzzer(os.getenv("HOME"))
+    end,
+    "home",
+  },
+  c = {
+    function()
+      fs.path.fuzzer(vf.getcwd())
+    end,
+    "current_dir",
+  },
+  p = {
+    function()
+      fs.path.fuzzer(lua_plugins)
+    end,
+    "lua_plugins_path",
+  },
+  l = {
+    function()
+      fs.path.fuzzer(vim.g.vim_plugins_path)
+    end,
+    "vim_plugins_path",
+  },
+  v = {
+    function()
+      fs.path.fuzzer(os.getenv("VIMRUNTIME"))
+    end,
+    "vimruntime",
+  },
+}
 
 local function refresh_buffer()
 	api.nvim_exec(
@@ -16,7 +91,7 @@ local function refresh_buffer()
 		false
 	)
 
-	if vim.fn.exists(":SignifyRefresh") > 0 then
+	if vf.exists(":SignifyRefresh") > 0 then
 		vim.cmd("SignifyRefresh")
 	end
 
@@ -24,7 +99,7 @@ local function refresh_buffer()
 		require("gitsigns").refresh()
 	end
 
-	if vim.fn.exists(":IndentBlanklineRefresh") > 0 then
+	if vf.exists(":IndentBlanklineRefresh") > 0 then
 		vim.cmd("IndentBlanklineRefresh")
 	end
 end
@@ -40,28 +115,28 @@ local function tmux_move(direction)
 	} })
 
 	local curr_win = vim.api.nvim_get_current_win()
-	vim.fn.execute("wincmd " .. direction)
+	vf.execute("wincmd " .. direction)
 	local new_win = vim.api.nvim_get_current_win()
 	if new_win == curr_win then
-		vim.fn.system("tmux select-pane -" .. vim.fn.tr(direction, valid_dir, "lLDUR"))
+		vf.system("tmux select-pane -" .. vf.tr(direction, valid_dir, "lLDUR"))
 	end
 end
 
 function M.terminal_mappings()
 	local opts = { silent = true, desc = "terminal" }
-	vim.keymap.set("n", "<plug>terminal_toggle", function()
+	vks("n", "<plug>terminal_toggle", function()
 		utl.exec_float_term("term")
 	end, opts)
 	opts.desc = "terminal_send_line"
-	vim.keymap.set("n", "<plug>terminal_send_line", function()
-		local cline = vim.fn.getline(".")
+	vks("n", "<plug>terminal_send_line", function()
+		local cline = vf.getline(".")
 		if cline == "" or cline == nil then
 			return
 		end
 		utl.execute_in_shell(cline)
 	end, opts)
 	opts.desc = "terminal_send"
-	vim.keymap.set("x", "<plug>terminal_send", function()
+	vks("x", "<plug>terminal_send", function()
 		local csel = utl.get_visual_selection()
 		if csel == "" or csel == nil then
 			return
@@ -72,25 +147,25 @@ end
 
 function M:window_movement_setup()
 	local opts = { silent = true, desc = "tmux_move_left" }
-	if vim.fn.has("unix") > 0 then
-		if vim.fn.exists("$TMUX") > 0 then
-			vim.keymap.set("n", "<A-h>", function()
+	if vf.has("unix") > 0 then
+		if vf.exists("$TMUX") > 0 then
+			vks("n", "<A-h>", function()
 				tmux_move("h")
 			end, opts)
 			opts.desc = "tmux_move_down"
-			vim.keymap.set("n", "<A-j>", function()
+			vks("n", "<A-j>", function()
 				tmux_move("j")
 			end, opts)
 			opts.desc = "tmux_move_up"
-			vim.keymap.set("n", "<A-k>", function()
+			vks("n", "<A-k>", function()
 				tmux_move("k")
 			end, opts)
 			opts.desc = "tmux_move_right"
-			vim.keymap.set("n", "<A-l>", function()
+			vks("n", "<A-l>", function()
 				tmux_move("l")
 			end, opts)
 			opts.desc = "tmux_move_prev"
-			vim.keymap.set("n", "<A-p>", function()
+			vks("n", "<A-p>", function()
 				tmux_move("p")
 			end, opts)
 			-- elseif vim.fn.exists('$KITTY_WINDOW_ID') > 0 then
@@ -99,85 +174,90 @@ function M:window_movement_setup()
 	end
 
 	opts.desc = "cursor_right_win"
-	vim.keymap.set("n", "<A-l>", "<C-w>lzz", opts)
+	vks("n", "<A-l>", "<C-w>lzz", opts)
 	opts.desc = "cursor_left_win"
-	vim.keymap.set("n", "<A-h>", "<C-w>hzz", opts)
+	vks("n", "<A-h>", "<C-w>hzz", opts)
 	opts.desc = "cursor_up_win"
-	vim.keymap.set("n", "<A-k>", "<C-w>kzz", opts)
+	vks("n", "<A-k>", "<C-w>kzz", opts)
 	opts.desc = "cursor_bot_win"
-	vim.keymap.set("n", "<A-j>", "<C-w>jzz", opts)
+	vks("n", "<A-j>", "<C-w>jzz", opts)
 	opts.desc = "cursor_prev_win"
-	vim.keymap.set("n", "<A-p>", "<C-w>pzz", opts)
+	vks("n", "<A-p>", "<C-w>pzz", opts)
 end
 
 function M:setup()
 	local opts = { nowait = true, desc = "start_cmd" }
 	-- Awesome hack, typing a command is used way more often than next
-	vim.keymap.set("n", ";", ":", opts)
+	vks("n", ";", ":", opts)
 
 	opts = { silent = true, desc = "visual_end_line" }
 	-- Let's make <s-v> consistent as well
-	vim.keymap.set("n", "<s-v>", "v$h", opts)
+	vks("n", "<s-v>", "v$h", opts)
 	opts = { silent = true, desc = "visual_line" }
-	vim.keymap.set("n", "vv", "<s-v>", opts)
+	vks("n", "vv", "<s-v>", opts)
 
 	opts = { silent = true, desc = "visual_increment" }
-	vim.keymap.set("v", "gA", "g<c-a>", opts)
+	vks("v", "gA", "g<c-a>", opts)
 	opts.desc = "visual_decrement"
-	vim.keymap.set("v", "gX", "g<c-x>", opts)
+	vks("v", "gX", "g<c-x>", opts)
 	opts.desc = "goto_file_under_cursor"
-	vim.keymap.set({ "v", "n" }, "]f", "gf", opts)
+	vks({ "v", "n" }, "]f", "gf", opts)
 	opts.desc = "goto_include_under_cursor"
-	vim.keymap.set("n", "]i", "[<c-i>", opts)
+	vks("n", "]i", "[<c-i>", opts)
 	opts.desc = "goto_include_under_cursor"
-	vim.keymap.set("n", "[i", "[<c-i>", opts)
+	vks("n", "[i", "[<c-i>", opts)
 	opts.desc = "goto_include_under_cursor_on_right_win"
-	vim.keymap.set("n", "]I", "<c-w>i<c-w>L", opts)
+	vks("n", "]I", "<c-w>i<c-w>L", opts)
 	opts.desc = "goto_include_under_cursor_on_left_win"
-	vim.keymap.set("n", "[I", "<c-w>i<c-w>H", opts)
+	vks("n", "[I", "<c-w>i<c-w>H", opts)
 	opts.desc = "goto_define_under_cursor"
-	vim.keymap.set("n", "]e", "[<c-d>", opts)
+	vks("n", "]e", "[<c-d>", opts)
 	opts.desc = "goto_define_under_cursor"
-	vim.keymap.set("n", "[e", "[<c-d>", opts)
+	vks("n", "[e", "[<c-d>", opts)
 	opts.desc = "goto_define_under_cursor_on_right_win"
-	vim.keymap.set("n", "]E", "<c-w>d<c-w>L", opts)
+	vks("n", "]E", "<c-w>d<c-w>L", opts)
 	opts.desc = "goto_define_under_cursor_on_left_win"
-	vim.keymap.set("n", "[E", "<c-w>d<c-w>H", opts)
+	vks("n", "[E", "<c-w>d<c-w>H", opts)
 
-	vim.keymap.set({ "n", "x", "o" }, "t", "%")
+	vks({ "n", "x", "o" }, "t", "%")
 
   self.terminal_mappings()
 
 	self:window_movement_setup()
 	-- Window resizing
 	opts.desc = "window_size_increase_right"
-	vim.keymap.set("n", "<A-S-l>", "<C-w>>", opts)
+	vks("n", "<A-S-l>", "<C-w>>", opts)
 	opts.desc = "window_size_increase_left"
-	vim.keymap.set("n", "<A-S-h>", "<C-w><", opts)
+	vks("n", "<A-S-h>", "<C-w><", opts)
 	opts.desc = "window_size_increase_up"
-	vim.keymap.set("n", "<A-S-k>", "<C-w>+", opts)
+	vks("n", "<A-S-k>", "<C-w>+", opts)
 	opts.desc = "window_size_increase_bot"
-	vim.keymap.set("n", "<A-S-j>", "<C-w>-", opts)
+	vks("n", "<A-S-j>", "<C-w>-", opts)
 
 	opts.desc = "refresh_buffer"
-	vim.keymap.set("n", "<c-l>", refresh_buffer, opts)
+	vks("n", "<c-l>", refresh_buffer, opts)
 
   -- Flux colors
   local f = require("plugin.flux")
   opts.desc = "toggle_colors_day"
-  vim.keymap.set("n", "<leader>td", function() f:set('day') end, opts)
+  vks("n", "<leader>td", function() f:set('day') end, opts)
   opts.desc = "toggle_colors_night"
-  vim.keymap.set("n", "<leader>tn", function() f:set('night') end, opts)
+  vks("n", "<leader>tn", function() f:set('night') end, opts)
   opts.desc = "toggle_colors_sunset"
-  vim.keymap.set("n", "<leader>tS", function() f:set('sunset') end, opts)
+  vks("n", "<leader>tS", function() f:set('sunset') end, opts)
   opts.desc = "toggle_colors_sunrise"
-  vim.keymap.set("n", "<leader>tR", function() f:set('sunrise') end, opts)
+  vks("n", "<leader>tR", function() f:set('sunrise') end, opts)
 
   -- Quickfix/Location list
   opts.desc = "quickfix"
-  vim.keymap.set("n", "<s-q>", "<cmd>copen 20<cr>", opts)
+  vks("n", "<s-q>", "<cmd>copen 20<cr>", opts)
   opts.desc = "quickfix"
-  vim.keymap.set("n", "<s-u>", "<cmd>lopen 20<cr>", opts)
+  vks("n", "<s-u>", "<cmd>lopen 20<cr>", opts)
+
+  opts.desc = "cwd_files"
+  vks("n", "<c-p>", function() fs.path.fuzzer(vf.getcwd()) end, opts)
+
+  self:keymaps_sets(edit)
 end
 
 return M

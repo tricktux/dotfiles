@@ -1,5 +1,4 @@
 local log = require("utils.log")
-local Path = require("plenary.path")
 local luv = vim.loop
 local api = vim.api
 
@@ -33,6 +32,7 @@ function M.set_tostring(set)
 	return s
 end
 
+-- TODO Fix broken function. Maybe use `plenary`
 -- @brief Recurses through a directory in search for a file
 -- @param dir Directory to recurse
 -- @param file File looking for. Could use wildcards. Will be used by glob()
@@ -95,15 +95,124 @@ function M.has_win()
 	return package.config:sub(1, 1) == [[\]]
 end
 
--- TODO:remove plenary dependency
-local win_file = Path:new(os.getenv("LOCALAPPDATA")):joinpath([[ignore-file]])
-local win_ignore_file = [[--ignore-file=]] .. win_file:absolute()
--- TODO: For now env var ignore file is not working
-local nix_ignore_file = [[--ignore-file=]] .. os.getenv("HOME") .. [[/.config/ignore-file]]
-M.rg_ignore_file = M.has_win() and win_ignore_file or nix_ignore_file
+local nix_file = vim.fn.expand(os.getenv("HOME") .. [[/.config/ignore-file]])
+local win_file = vim.fn.expand(os.getenv("LOCALAPPDATA") .. [[/ignore-file]])
+M.ignore_file = [[--ignore-file=]] .. vim.fn.fnameescape(M.has_win() and win_file or nix_file)
 
-M.buftype_whitelist = {"", "acwrite"}
-M.buftype_blacklist = {"nofile", "prompt", "terminal"}
+M.fd = {}
+M.fd.switches = {}
+M.fd.bin = M.has_win() and "fd" or [[/usr/bin/fd]]
+M.fd.switches.common = vim.tbl_flatten{
+  "--color=never",
+  "--hidden",
+  "--follow",
+  M.ignore_file,
+}
+M.fd.switches.file = vim.tbl_flatten{
+  M.fd.switches.common,
+  "--type=file",
+}
+M.fd.switches.folder = vim.tbl_flatten{
+  M.fd.switches.common,
+  "--type=directory",
+}
+M.fd.folder_cmd = vim.tbl_flatten{
+  M.fd.bin, M.fd.switches.folder 
+}
+M.fd.file_cmd = vim.tbl_flatten{
+  M.fd.bin, M.fd.switches.file 
+}
+M.rg = {}
+M.rg.switches = {}
+M.rg.bin = M.has_win() and "rg" or [[/usr/bin/rg]]
+M.rg.switches.common = vim.tbl_flatten{
+  "--vimgrep",
+  "--hidden",
+  "--smart-case",
+  "--follow",
+  "--no-ignore-vcs",
+  M.ignore_file,
+}
+M.rg.switches.file = vim.tbl_flatten{
+  M.rg.switches.common,
+  "--files",
+}
+M.rg.grep_cmd = vim.tbl_flatten{
+  M.rg.bin, M.rg.switches.common 
+}
+M.rg.file_cmd = vim.tbl_flatten{
+  M.rg.bin, M.rg.switches.file 
+}
+
+M.buftype = {}
+M.buftype.whitelist = {"", "acwrite"}
+M.buftype.blacklist = {"nofile", "prompt", "terminal"}
+
+-- Filesystem
+M.fs = {}
+M.fs.path = {}
+M.fs.path.sep = package.config:sub(1, 1)
+function M.fs.path.normalize(path)
+  vim.validate({ path = { path, "s" } })
+
+  local plok, pl = pcall(require, "plenary.path" )
+  if not plok then
+    vim.notify("plenary is not available", vim.log.levels.ERROR)
+    return
+  end
+  local sep = {
+    w = {"/", "\\"},
+    u = {"\\", "/"},
+  }
+  local g = M.has_win() and sep.w or sep.u
+  local p = string.gsub(path, g[1], g[2])
+  return pl:new(p):absolute()
+end
+function M.fs.path.exists(path)
+  vim.validate({ path = { path, "s" } })
+
+  local plok, pl = pcall(require, "plenary.path" )
+  if not plok then
+    vim.notify("plenary is not available", vim.log.levels.ERROR)
+    return
+  end
+
+  return pl:new(path):exists()
+end
+M.fs.file = {}
+
+--- Creates path for a new file
+---@param path string Base path from where folder/file will be created
+function M.fs.file.create(path)
+  vim.validate({ path = { path, "s" } })
+  local plok, pl = pcall(require, "plenary.path" )
+  if not plok then
+    vim.notify("plenary is not available", vim.log.levels.ERROR)
+    return
+  end
+
+  local ppath = pl:new(vim.fn.fnameescape(path))
+  if not ppath:is_dir() then
+    vim.notify("utils.create_file: path not found: " .. ppath:absolute(), vim.log.levels.ERROR)
+    return
+  end
+
+  local p = string.format('Enter name for new file(%s): ', ppath:absolute())
+  local i = nil
+  vim.ui.input({ prompt = p}, function(input) i = input end)
+  if i == nil then
+    return
+  end
+
+  local f = ppath:joinpath(i)
+  local d = f:parent()
+  if not d:mkdir{parents = true, exists_ok = true} then
+    vim.notify("utils.create_file: failed to create parent folder: " .. d:absolute(), vim.log.levels.ERROR)
+    return
+  end
+
+  vim.cmd("edit " .. f:absolute())
+end
 
 function M.isdir(path)
 	vim.validate({ path = { path, "s" } })
@@ -129,51 +238,59 @@ function M.isfile(path)
 	return false
 end
 
-function M.file_fuzzer(path)
+function M.fs.path.native_fuzzer(path)
+  vim.validate({ path = { path, "s" } })
+
+  local epath = vim.fn.expand(path)
+  if M.isdir(epath) == nil then
+    vim.notify("Path provided is not valid: " .. epath, vim.log.levels.ERROR)
+    return
+  end
+
+  -- Raw handling of file selection
+  -- Save cwd
+  local dir = vim.fn.getcwd()
+  -- CD to new location
+  vim.cmd("lcd " .. epath)
+  -- Select file
+  local file = vim.fn.input("e " .. epath, "", "file")
+  -- Sanitize file
+  if file == nil then
+    return
+  end
+  if M.isfile(file) == nil then
+    vim.notify("Selected file does not exists" .. file, vim.log.levels.ERROR)
+    -- Restore working directory
+    vim.cmd("lcd " .. dir)
+    return
+  end
+  vim.cmd("e " .. file)
+  vim.cmd("lcd " .. dir)
+end
+
+function M.fs.path.fuzzer(path)
 	vim.validate({ path = { path, "s" } })
 
-	local epath = vim.fn.expand(path)
-	if M.isdir(epath) == nil then
-		api.nvim_err_writeln("Path provided is not valid: " .. epath)
+  local tsok, _ = pcall(require, "telescope" )
+  if tsok then
+    local p = M.fs.path.normalize(path)
+    if not M.fs.path.exists(p) then
+      vim.notify("utils: path not found: " .. p, vim.log.levels.ERROR)
+      return
+    end
+    require("config.plugins.telescope"):file_fuzzer(p)
 		return
-	end
+  end
 
-	if M.is_mod_available("telescope") then
-		require("telescope.builtin").find_files({
-			-- Optional
-			cwd = path,
-			find_command = { "rg", "-i", "--hidden", "--files", "-g", "!.{git,svn}" },
-		})
-		return
-	end
-
-	log.trace("file_fuzzer: path = ", epath)
 	if vim.fn.exists(":Files") > 0 then
 		vim.cmd("Files " .. epath)
 		return
 	end
 
-	-- Raw handling of file selection
-	-- Save cwd
-	local dir = vim.fn.getcwd()
-	-- CD to new location
-	vim.cmd("lcd " .. epath)
-	-- Select file
-	local file = vim.fn.input("e " .. epath, "", "file")
-	-- Sanitize file
-	if file == nil then
-		return
-	end
-	if M.isfile(file) == nil then
-		vim.cmd([[echoerr "Selected file does not exists" ]] .. file)
-		vim.cmd("lcd " .. dir)
-		return
-	end
-	vim.cmd("e " .. file)
-	vim.cmd("lcd " .. dir)
+  M.fs.path.native_fuzzer(path)
 end
 
-function M.table_removekey(table, key)
+function M.tbl_removekey(table, key)
 	vim.validate({ table = { table, "t" } })
 	vim.validate({ key = { key, "s" } })
 
@@ -301,25 +418,6 @@ function M.execute_in_shell(cmd)
 	log.info(fmt("repl.cpp.cmd = %s", cmd))
 	vim.cmd(fcmd)
 	vim.notify("[cpp.repl]: no compiler available", vim.log.levels.ERROR)
-end
-
---- Abstraction over vim.keymap.set
----@param mappings (table). Example: 
---  local mappings = {<lhs> = {<rhs>, <desc>}}
----@param mode table, string same as mode in keymap
----@param opts string, function as in keymap.
---              Desc is expected in mappings
----@param prefix (string) To be prefixed to all the indices of mappings
---                Can be nil
-function M.keymaps_set(mappings, mode, opts, prefix)
-  vim.validate({ mappings = { mappings, "t" } })
-
-  for k, v in pairs(mappings) do
-    if v[1] ~= nil then
-      opts.desc = v[2]
-      vim.keymap.set(mode, prefix ~= nil and prefix .. k or k, v[1], opts)
-    end
-  end
 end
 
 return M

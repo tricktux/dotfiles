@@ -98,6 +98,11 @@ function M:setup()
       null.builtins.diagnostics.vale.with({
         extra_filetypes = { "mail", "gitcommit", "svncommit", "org" },
         extra_args = vim.fn.has("unix") > 0 and { [[--config=/home/reinaldo/.config/.vale.ini]] } or {},
+        runtime_condition = function(params)
+          -- It's really annoying and slow on windows
+          -- Register source, but enable it manually
+          return vim.b.null_enable_vale
+        end,
       })
     )
   end

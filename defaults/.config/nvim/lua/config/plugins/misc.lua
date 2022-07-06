@@ -1,6 +1,7 @@
 local log = require("utils.log")
 local utl = require("utils.utils")
 local line = require("config.plugins.lualine")
+local map = require("config.mappings")
 local vks = vim.keymap.set
 local api = vim.api
 
@@ -177,7 +178,7 @@ function M.config_neogen()
 	opts.desc = "generate_neogen"
 	vks("n", prefix, ng.generate, opts)
 	prefix = "<leader>oG"
-	utl.keymaps_set(mappings, "n", opts, prefix)
+	map.keymaps_set(mappings, "n", opts, prefix)
 end
 
 function M.config_kitty_navigator()
@@ -188,7 +189,7 @@ function M.config_kitty_navigator()
 		["<a-k>"] = { "<cmd>KittyNavigateUp<cr>", "kitty_up" },
 		["<a-l>"] = { "<cmd>KittyNavigateRight<cr>", "kitty_right" },
 	}
-	utl.keymaps_set(mappings, "n", opts)
+	map.keymaps_set(mappings, "n", opts)
 	log.info("setup of kitty navigator complete")
 end
 
@@ -428,7 +429,7 @@ function M.config_focus()
 		},
 	}
 	local opts = { silent = true }
-	utl.keymaps_set(mappings, "n", opts)
+	map.keymaps_set(mappings, "n", opts)
 	log.info("setup of focus complete")
 end
 
@@ -575,7 +576,7 @@ function M.config_bookmarks()
 		o = { "<Plug>BookmarkLoad", "BookmarkLoad" },
 		s = { "<Plug>BookmarkSave", "BookmarkSave" },
 	}
-	utl.keymaps_set(leader, "n", opts, prefix)
+	map.keymaps_set(leader, "n", opts, prefix)
 end
 
 function M.setup_bdelete()
@@ -618,7 +619,7 @@ function M.setup_bdelete()
 			"buffer_delete_glob",
 		},
 	}
-	utl.keymaps_set(leader, "n", opts, prefix)
+	map.keymaps_set(leader, "n", opts, prefix)
 end
 
 function M.config_leap()
@@ -723,7 +724,7 @@ function M.config_neoterm()
 			"terminal",
 		},
 	}
-	utl.keymaps_set(mappings, "n", opts)
+	map.keymaps_set(mappings, "n", opts)
 end
 
 function M.setup_pomodoro()
@@ -931,6 +932,61 @@ function M.config_catpuccin()
   })
   vim.g.catppuccin_flavour = "frappe"
   vim.cmd("colorscheme catppuccin")
+end
+
+function M.setup_grip()
+  vim.g.grip_pdfgrep = {
+    executable = "pdfgrep",
+    args = {
+      [[$*]],
+      "--ignore-case",
+      "--page-number",
+      "--recursive",
+      "--context",
+      "1",
+    },
+    grepformat = vim.opt.grepformat:get(),
+  }
+  local rg_to_vim_filetypes = {
+    vim = "vimscript",
+    python = "py",
+    markdown = "md",
+  }
+  vim.g.grip_rg = {
+    executable = utl.rg.bin,
+    args = utl.rg.switches.common,
+    ["filetype_support"] = 1,
+    ["filetype_map"] = rg_to_vim_filetypes,
+    ["filetype_option"] = "--type",
+  }
+
+  vim.g.grip_rg_list = {
+    name = "list_files",
+    executable = utl.rg.bin,
+    search_argument = 0,
+    prompt = 0,
+    grepformat = "%f",
+    args = utl.rg.switches.common,
+  }
+
+  vim.g.grip_tools = { vim.g.grip_rg, vim.g.grip_pdfgrep, vim.g.grip_rg_list }
+
+  if vim.g.wiki_path == nil then
+    return
+  end
+
+  vim.g.grip_wiki = {
+    name = "wiki",
+    prompt = 1,
+    executable = utl.rg.bin,
+    args = {
+      utl.rg.switches.common,
+      [[$*]],
+      vim.g.wiki_path,
+    },
+  }
+
+  table.insert(vim.g.grip_tools, vim.g.grip_wiki)
 end
 
 return M

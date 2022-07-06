@@ -1,4 +1,5 @@
 local utl = require("utils.utils")
+local map = require("config.mappings")
 local vks = vim.keymap.set
 
 local M = {}
@@ -51,14 +52,14 @@ function M:set_mappings(bufnr)
     t = { dap.toggle_breakpoint, "toggle_breakpoint" },
     e = { dap.set_exception_breakpoints, "set_exception_breakpoints" },
   }
-  utl.keymaps_set(breakpoints, "n", opts, prefix)
+  map.keymaps_set(breakpoints, "n", opts, prefix)
   local repl = {
     o = { dap.repl.open, "open" },
     t = { dap.repl.toggle, "toggle" },
     c = { dap.repl.close, "close" },
   }
   prefix = "<localleader>pl"
-  utl.keymaps_set(repl, "n", opts, prefix)
+  map.keymaps_set(repl, "n", opts, prefix)
   local w = require("dap.ui.widgets")
   local widgets = {
     ["ss"] = {
@@ -93,7 +94,7 @@ function M:set_mappings(bufnr)
     },
   }
   prefix = "<localleader>pw"
-  utl.keymaps_set(widgets, "n", opts, prefix)
+  map.keymaps_set(widgets, "n", opts, prefix)
   local u = require("dapui")
   local ui = {
     name = "ui",
@@ -104,7 +105,7 @@ function M:set_mappings(bufnr)
     e = { u.eval, "eval" },
   }
   prefix = "<localleader>pg"
-  utl.keymaps_set(ui, "n", opts, prefix)
+  map.keymaps_set(ui, "n", opts, prefix)
   local mappings = {
     r = { dap.continue, "continue" },
     p = { dap.pause, "pause" },
@@ -128,7 +129,7 @@ function M:set_mappings(bufnr)
     ["<F12>"] = { dap.step_out, "step_out" },
   }
   prefix = "<localleader>p"
-  utl.keymaps_set(mappings, "n", opts, prefix)
+  map.keymaps_set(mappings, "n", opts, prefix)
 
   local py = require("dap-python")
   if cft == "python" then
@@ -138,7 +139,7 @@ function M:set_mappings(bufnr)
       s = { py.debug_selection, "debug_selection" },
     }
     prefix = "<localleader>py"
-    utl.keymaps_set(mappings, "n", opts, prefix)
+    map.keymaps_set(mappings, "n", opts, prefix)
     opts.desc = "debug_selection"
     vks("v", "<localleader>pys", py.debug_selection, opts)
   end
@@ -151,7 +152,7 @@ function M:set_mappings(bufnr)
     ["<F11>"] = { dap.step_into, "step_into" },
     ["<F12>"] = { dap.step_out, "step_out" },
   }
-  utl.keymaps_set(mappings, "n", opts)
+  map.keymaps_set(mappings, "n", opts)
 end
 
 function M:__set_virt_text()

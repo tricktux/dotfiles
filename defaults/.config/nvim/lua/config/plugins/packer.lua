@@ -255,7 +255,6 @@ function M:__setup()
 
 		use({
 			"ThePrimeagen/git-worktree.nvim",
-			after = { "telescope.nvim" },
 			requires = { { "nvim-lua/telescope.nvim" } },
 			config = function()
 				require("config.plugins.git_worktree").setup()
@@ -739,83 +738,9 @@ function M:__setup()
 	})
 end
 
-function M:__setup_local_grip_plugin()
-	vim.g.grip_pdfgrep = {
-		executable = "pdfgrep",
-		args = {
-			[[$*]],
-			"--ignore-case",
-			"--page-number",
-			"--recursive",
-			"--context",
-			"1",
-		},
-		grepformat = vim.opt.grepformat:get(),
-	}
-	local rg_to_vim_filetypes = {
-		vim = "vimscript",
-		python = "py",
-		markdown = "md",
-	}
-	vim.g.grip_rg = {
-		executable = "rg",
-		args = {
-			"--vimgrep",
-			"--smart-case",
-			"--follow",
-			"--fixed-strings",
-			"--hidden",
-			"--no-ignore-vcs",
-			utl.rg_ignore_file,
-		},
-		["filetype_support"] = 1,
-		["filetype_map"] = rg_to_vim_filetypes,
-		["filetype_option"] = "--type",
-	}
-
-	vim.g.grip_rg_list = {
-		name = "list_files",
-		executable = "fd",
-		search_argument = 0,
-		prompt = 0,
-		grepformat = "%f",
-		args = { "--follow", "--fixed-strings", "--hidden", utl.rg_ignore_file },
-	}
-
-	vim.g.grip_tools = { vim.g.grip_rg, vim.g.grip_pdfgrep, vim.g.grip_rg_list }
-
-	if vim.g.wiki_path == nil then
-		return
-	end
-
-	vim.g.grip_wiki = {
-		name = "wiki",
-		prompt = 1,
-		executable = "rg",
-		args = {
-			"--vimgrep",
-			"--smart-case",
-			"--follow",
-			"--fixed-strings",
-			"--hidden",
-			utl.rg_ignore_file,
-			[[$*]],
-			vim.g.wiki_path,
-		},
-	}
-
-	table.insert(vim.g.grip_tools, vim.g.wiki)
-end
-
 function M:setup()
-	self:__setup_local_grip_plugin()
 	self:download()
 	self:__setup()
-  vim.api.nvim_create_autocmd("VimEnter", {
-    callback = require("config.plugins.misc").setup_flux,
-    pattern = "*",
-    desc = "FluxVimEnter",
-  })
 end
 
 return M
