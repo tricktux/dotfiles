@@ -1,8 +1,113 @@
 local log = require("utils.log")
+local map = require("config.mappings")
 local null = require("null-ls")
 local helpers = require("null-ls.helpers")
 
 local M = {}
+
+local function get_sources_for_filetype(ft)
+  local srcs = null.get_sources()
+  local ret = {}
+  for _,v in pairs(srcs) do
+    if v.filetypes[ft] == true then
+      table.insert(ret, v.name)
+    end
+  end
+
+  return ret
+end
+
+M.maps = {}
+M.maps.mode = "n"
+M.maps.prefix = "<leader>tn"
+M.maps.opts = { silent = true }
+M.maps.mappings = {
+  d = { 
+    function()
+      local ft = vim.opt.filetype:get()
+      local srcs = get_sources_for_filetype(ft)
+      if srcs == nil then
+        vim.notify("No null-ls sources enabled", vim.log.levels.WARN)
+        return
+      end
+      local s = {}
+      for _,v in pairs(srcs) do
+        if v.enabled == true then
+          table.insert(s, v.name)
+        end
+      end
+      if s == nil then
+        vim.notify("No null-ls sources enabled", vim.log.levels.WARN)
+        return
+      end
+      vim.ui.select(s, {
+        prompt = 'Select source to disable:',
+        format_item = nil,
+      }, function(choice)
+        null.toggle(choice)
+      end)
+    end,
+    "disable_source" 
+  },
+  e = { 
+    function()
+      local ft = vim.opt.filetype:get()
+      local srcs = get_sources_for_filetype(ft)
+      if srcs == nil then
+        vim.notify("No null-ls sources enabled", vim.log.levels.WARN)
+        return
+      end
+      local s = {}
+      for _,v in pairs(srcs) do
+        if v.enabled == false then
+          table.insert(s, v.name)
+        end
+      end
+      if s == nil then
+        vim.notify("No null-ls sources disabled", vim.log.levels.WARN)
+        return
+      end
+      vim.ui.select(s, {
+        prompt = 'Select source to enable:',
+        format_item = nil,
+      }, function(choice)
+        null.toggle(choice)
+      end)
+    end,
+    "enable_source" 
+  },
+  s = { 
+    function()
+      local ft = vim.opt.filetype:get()
+      local srcs = get_sources_for_filetype(ft)
+      if srcs == nil then
+        vim.notify("No null-ls sources enabled", vim.log.levels.WARN)
+        return
+      end
+      vim.ui.select(srcs, {
+        prompt = 'Select source to toggle:',
+        format_item = nil,
+      }, function(choice)
+          null.toggle(choice)
+      end)
+    end,
+    "toggle_source" 
+  },
+  a = { 
+    function() 
+      local ft = vim.opt.filetype:get()
+      local srcs = get_sources_for_filetype(ft)
+      for _,v in pairs(srcs) do
+        null.toggle(v.name)
+      end
+    end,
+    "toggle_all_sources_for_this_ft" 
+  },
+  v = { 
+    function() require("null-ls").toggle("vale") end,
+    "vale" 
+  },
+}
 
 --- Dependencies:
 M.plantuml = {
@@ -96,7 +201,7 @@ function M:setup()
     table.insert(
       sources,
       null.builtins.diagnostics.vale.with({
-        extra_filetypes = { "mail", "gitcommit", "svncommit", "org" },
+        filetypes = {},
         extra_args = vim.fn.has("unix") > 0 and { [[--config=/home/reinaldo/.config/.vale.ini]] } or {},
         runtime_condition = function(params)
           -- It's really annoying and slow on windows
@@ -203,6 +308,7 @@ function M:setup()
   if vim.fn.executable("msbuild") > 0 then
     null.register(self.msbuild)
   end
+  map:keymaps_sets(self.maps)
 end
 
 return M
