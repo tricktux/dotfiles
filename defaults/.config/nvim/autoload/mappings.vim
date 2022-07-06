@@ -506,17 +506,6 @@ function! mappings#Set()
   " nnoremap <Leader>vo :!svn log .<cr>
   " nnoremap <Leader>vi :!svn info<cr>
 
-  " Wiki mappings <Leader>w?
-  nnoremap <silent> <leader>wo :call <SID>wiki_open()<cr>
-  nnoremap <silent> <leader>wa :call <SID>wiki_add()<cr>
-  nnoremap <silent> <leader>ws :call utils#WikiSearch()<cr>
-  nnoremap <silent> <leader>wi :call <sid>wiki_open('index.md')<cr>
-  nnoremap <silent> <leader>wb :call <sid>wiki_open('brain_dump.md')<cr>
-  nnoremap <silent> <leader>wr :call <sid>wiki_open('random.md')<cr>
-  nnoremap <silent> <leader>ww :call <sid>wiki_open('weekly_log_' .
-        \ strftime('%Y') . '.md')<cr>
-  nnoremap <silent> <leader>wm :call <sid>wiki_open('monthly_log_' .
-        \ strftime('%Y') . '.md')<cr>
   " Comments <Leader>o
   nnoremap <leader>oI :call utils#CommentReduceIndent()<cr>
   " mapping ol conflicts with mapping o to new line
@@ -528,21 +517,32 @@ function! mappings#Set()
   nnoremap <leader>oi :call utils#CommentIndent()<cr>
 
   " Edit file at location <Leader>e?
-  if !has('nvim-0.5')
-    " Edit plugin
-    nnoremap <leader>ep :call utils#PathFileFuzzer(g:vim_plugins_path)<cr>
-    " Edit Vimruntime
-    nnoremap <leader>ev :call utils#PathFileFuzzer(fnameescape($VIMRUNTIME))<cr>
-    nnoremap <leader>ed :call utils#PathFileFuzzer(g:dotfiles)<cr>
-    nnoremap <leader>eh :call utils#PathFileFuzzer($HOME)<cr>
-    if (!has('unix'))
-        nnoremap <leader>eC :call utils#PathFileFuzzer('C:\')<cr>
-        nnoremap <leader>eD :call utils#PathFileFuzzer('D:\')<cr>
-        nnoremap <leader>eP :e +<cr>
+if !has('nvim-0.5')
+  " Wiki mappings <Leader>w?
+  nnoremap <silent> <leader>wo :call <SID>wiki_open()<cr>
+  nnoremap <silent> <leader>wa :call <SID>wiki_add()<cr>
+  nnoremap <silent> <leader>ws :call utils#WikiSearch()<cr>
+  nnoremap <silent> <leader>wi :call <sid>wiki_open('index.md')<cr>
+  nnoremap <silent> <leader>wb :call <sid>wiki_open('brain_dump.md')<cr>
+  nnoremap <silent> <leader>wr :call <sid>wiki_open('random.md')<cr>
+  nnoremap <silent> <leader>ww :call <sid>wiki_open('weekly_log_' .
+  \ strftime('%Y') . '.md')<cr>
+  nnoremap <silent> <leader>wm :call <sid>wiki_open('monthly_log_' .
+  \ strftime('%Y') . '.md')<cr>
+  " Edit plugin
+  nnoremap <leader>ep :call utils#PathFileFuzzer(g:vim_plugins_path)<cr>
+  " Edit Vimruntime
+  nnoremap <leader>ev :call utils#PathFileFuzzer(fnameescape($VIMRUNTIME))<cr>
+  nnoremap <leader>ed :call utils#PathFileFuzzer(g:dotfiles)<cr>
+  nnoremap <leader>eh :call utils#PathFileFuzzer($HOME)<cr>
+  if (!has('unix'))
+    nnoremap <leader>eC :call utils#PathFileFuzzer('C:\')<cr>
+    nnoremap <leader>eD :call utils#PathFileFuzzer('D:\')<cr>
+    nnoremap <leader>eP :e +<cr>
     endif
     nnoremap <leader>ec :call utils#PathFileFuzzer(getcwd())<cr>
     nnoremap <leader>el :call utils#PathFileFuzzer(input
-                \ ('Folder to recurse: ', "", "file"))<cr>
+    \ ('Folder to recurse: ', "", "file"))<cr>
   endif
   nnoremap <Leader>ei :e
 

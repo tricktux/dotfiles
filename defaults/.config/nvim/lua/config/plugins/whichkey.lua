@@ -131,14 +131,6 @@ leader.v = {
   u = 'pull/update',
   l = 'log',
 }
-local function ewr() return require('plugin.report'):edit_weekly_report() end
-leader.w = {
-  name = 'wiki',
-  o = 'open',
-  a = 'add',
-  s = 'search',
-  R = {ewr, 'weekly_report_open'}
-}
 leader['/'] = {'<plug>search_grep', 'search_grip'}
 leader.d = 'duplicate_char'
 leader.p = 'paste_from_system'

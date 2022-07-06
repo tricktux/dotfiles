@@ -2,18 +2,7 @@
 ---@author Reinaldo Molina <me at molina mail dot com>
 ---@license MIT
 
-local home_dir = vim.loop.os_homedir()
-local wikis = {
-	home_dir .. "/Documents/wiki",
-	home_dir .. "/Documents/Drive/wiki",
-	home_dir .. "/External/reinaldo/resilio/wiki",
-	"/mnt/samba/server/resilio/wiki",
-}
-local wikis_win = {
-	[[D:\Seafile\KnowledgeIsPower\wiki]],
-	[[D:\wiki]],
-	[[D:\Reinaldo\Documents\src\resilio\wiki]],
-}
+local home = vim.loop.os_homedir()
 local data_folders = { [[/sessions]], [[/ctags]] }
 local cache_folders = { [[/backup]], [[/undo]] }
 
@@ -26,9 +15,6 @@ local function set_globals()
     let maplocalleader = "g"
   ]])
 	-----------------------
-
-	vim.g.dotfiles = vim.fn.has("unix") > 0 and home_dir .. "/.config/dotfiles"
-		or os.getenv("LOCALAPPDATA") .. "\\dotfiles"
 
 	-- Disable unnecessary providers
 	-- Saves on average 3ms (on linux) :D
@@ -69,38 +55,17 @@ local function set_globals()
 	end
 end
 
-local function _find_dir(dirs)
-	local log = require("utils.log")
-	local utl = require("utils.utils")
-	vim.validate({ dirs = { dirs, "t" } })
-	for _, dir in pairs(dirs) do
-		log.trace("Potential dir: ", dir)
-		if utl.isdir(dir) then
-			log.trace("Found dir: ", dir)
-			return dir
-		end
-	end
-
-	log.trace("No dir found")
-	return nil
-end
-
 local function _config_win()
 	local log = require("utils.log")
-	local wiki = _find_dir(wikis_win)
-	log.info("wiki = ", wiki)
-	if wiki ~= nil then
-		vim.g.wiki_path = wiki
-		-- vim.g.valid_device = 1
-	end
 
 	vim.cmd([[silent! call serverstart('\\.\pipe\nvim-pipe-88888')]])
 
+  vim.g.dotfiles = os.getenv("APPDATA") .. "/dotfiles"
 	vim.g.browser_cmd = "firefox.exe"
 	-- Find python
 	local py = vim.fn.stdpath("data") .. [[\pyvenv\Scripts]]
 	if vim.fn.isdirectory(py) <= 0 then
-		print("ERROR: Failed to find python venv: " .. py)
+		vim.api.nvim_err_write_ln("ERROR: Failed to find python venv: " .. py)
 	else
 		vim.g.python3_host_prog = py .. [[\python.exe]]
 	end
@@ -108,15 +73,10 @@ end
 
 local function _config_unix()
 	local log = require("utils.log")
-	local wiki = _find_dir(wikis)
-	log.info("wiki = ", wiki)
-	if wiki ~= nil then
-		vim.g.wiki_path = wiki
-		-- vim.g.valid_device = 1
-	end
 
 	vim.cmd([[silent! call serverstart('/tmp/nvim.socket')]])
 
+  vim.g.dotfiles = home .. "/.config/dotfiles"
 	vim.g.browser_cmd = "/usr/bin/firefox"
 
 	local py = vim.fn.stdpath("data") .. [[/../pyvenv/nvim/bin]]
@@ -166,7 +126,12 @@ local function main()
   vim.fn["options#Set"]()
   vim.fn["commands#Set"]()
   require("config.options"):setup()
+  -- setup wiki early so that path is available
+  require("plugin.wiki"):setup()
   require("config.plugins.packer"):setup() -- Also setups lsp
+  -- Setup homebrew plugins
+  require("config.plugins.misc").setup_grip()
+  require("config.plugins.misc").setup_flux()
 end
 
 main()

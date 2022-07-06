@@ -1,12 +1,19 @@
-local utl = require('utils/utils')
-local log = require('utils/log')
+local utl = require("utils.utils")
+local fs = require("utils.utils").fs
+local log = require('utils.log')
+local map = require("config.mappings")
 local luv = vim.loop
+local home = vim.loop.os_homedir()
+
+local M = {}
+
+M.path = nil
 
 local report = {}
 
 local curr_year = os.date("%Y")
 local curr_week = os.date("%U")
-report.base_folder = string.format([[%s\hpd]], vim.g.wiki_path)
+report.base_folder = string.format([[%s\hpd]], M.path)
 report.name_preffix = "WeeklyReport_ReinaldoMolina_"
 report.current = string.format([[%s\%s\%s%s.md]], report.base_folder,
                                 curr_year, report.name_preffix, curr_week)
@@ -38,7 +45,7 @@ function report:__find_most_recent()
 end
 
 function report:edit_weekly_report()
-  if vim.g.wiki_path == nil then
+  if M.path == nil then
     local msg = "Wiki path not set"
     vim.cmd(string.format([[echohl ErrorMsg | echo '%q' | echohl None]], msg))
     return
@@ -71,4 +78,70 @@ function report:edit_weekly_report()
   vim.cmd("edit " .. self.current)
 end
 
-return report
+local wikis = {
+  home .. "/Documents/wiki",
+  home .. "/Documents/Drive/wiki",
+  home .. "/External/reinaldo/resilio/wiki",
+  "/mnt/samba/server/resilio/wiki",
+  [[D:\Seafile\KnowledgeIsPower\wiki]],
+  [[D:\wiki]],
+  [[D:\Reinaldo\Documents\src\resilio\wiki]],
+}
+
+function M:_find_wiki()
+  for _, dir in pairs(wikis) do
+    if utl.isdir(dir) then
+      self.path = dir
+      return
+    end
+  end
+
+  vim.api.nvim_err_write_ln("ERROR: Failed to find a wiki folder")
+end
+
+M.maps = {}
+M.maps.mode = "n"
+M.maps.prefix = "<leader>w"
+M.maps.opts = { silent = true }
+M.maps.mappings = {
+  o = { 
+    function()
+      fs.path.fuzzer(M.path)
+    end,
+    "wiki_open" 
+  },
+  a = { 
+    function()
+      fs.file.create(M.path)
+    end,
+    "wiki_add" 
+  },
+  r = { 
+    function()
+      local s = fs.path.sep
+      vim.cmd("edit " .. M.path .. s .. "random.org")
+    end,
+    "wiki_random" 
+  },
+  p = { 
+    function()
+      report:edit_weekly_report()
+    end, 
+    "weekly_report" 
+  },
+  w = { 
+    function()
+      local s = fs.path.sep
+      vim.cmd("edit " .. M.path .. s .. "notes.org")
+    end,
+    "wiki_notes" 
+  },
+}
+
+function M:setup()
+  self:_find_wiki()
+  vim.g.wiki_path = self.path
+  map:keymaps_sets(self.maps)
+end
+
+return M
