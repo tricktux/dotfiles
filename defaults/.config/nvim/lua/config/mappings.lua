@@ -33,7 +33,29 @@ function M.keymaps_set(mappings, mode, opts, prefix)
   end
 end
 
-local lua_plugins = vf.stdpath("data") .. [[/site/pack/packer]]
+
+local colors = {}
+colors.mode = "n"
+colors.prefix = "<leader>tc"
+colors.opts = { silent = true }
+colors.mappings = {
+  d = { 
+    function() require("plugin.flux"):set('day') end,
+    "day" 
+  },
+  n = { 
+    function() require("plugin.flux"):set('night') end,
+    "night" 
+  },
+  r = { 
+    function() require("plugin.flux"):set('sunrise') end,
+    "sunrise" 
+  },
+  s = { 
+    function() require("plugin.flux"):set('sunset') end,
+    "sunset" 
+  },
+}
 
 local edit = {}
 edit.mode = "n"
@@ -60,7 +82,7 @@ edit.mappings = {
   },
   p = {
     function()
-      fs.path.fuzzer(lua_plugins)
+      fs.path.fuzzer(vf.stdpath("data") .. [[/site/pack/packer]])
     end,
     "lua_plugins_path",
   },
@@ -237,17 +259,6 @@ function M:setup()
 	opts.desc = "refresh_buffer"
 	vks("n", "<c-l>", refresh_buffer, opts)
 
-  -- Flux colors
-  local f = require("plugin.flux")
-  opts.desc = "toggle_colors_day"
-  vks("n", "<leader>td", function() f:set('day') end, opts)
-  opts.desc = "toggle_colors_night"
-  vks("n", "<leader>tn", function() f:set('night') end, opts)
-  opts.desc = "toggle_colors_sunset"
-  vks("n", "<leader>tS", function() f:set('sunset') end, opts)
-  opts.desc = "toggle_colors_sunrise"
-  vks("n", "<leader>tR", function() f:set('sunrise') end, opts)
-
   -- Quickfix/Location list
   opts.desc = "quickfix"
   vks("n", "<s-q>", "<cmd>copen 20<cr>", opts)
@@ -258,6 +269,7 @@ function M:setup()
   vks("n", "<c-p>", function() fs.path.fuzzer(vf.getcwd()) end, opts)
 
   self:keymaps_sets(edit)
+  self:keymaps_sets(colors)
 end
 
 return M
