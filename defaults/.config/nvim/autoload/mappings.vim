@@ -164,7 +164,6 @@ function! mappings#Set()
   " - tj, te, ta, tt, tf, ts, to, tn
   nmap <leader>F <Plug>file_browser
   nmap <leader>tf <plug>focus_toggle
-  nnoremap <leader>tc :call <sid>toggle_conceal<cr>
 
   nmap <s-k> <plug>buffer_browser
   nmap <c-p> <plug>mru_browser
@@ -184,8 +183,6 @@ function! mappings#Set()
 
   nmap <localleader>k <plug>make_project
   nmap <localleader>j <plug>make_file
-  nnoremap <plug>make_project :NeomakeProject<cr>
-  nnoremap <plug>make_file :Neomake<cr>
 
   nmap <leader>tz <plug>windows_toggle_zoom
 
@@ -230,7 +227,6 @@ function! mappings#Set()
   nmap <leader>T <plug>generate_tags
   nnoremap <silent> <plug>generate_tags :call ctags#NvimSyncCtags()<cr>
 
-  nnoremap <leader>tn :NeomakeToggleTab<cr>
   nnoremap <leader>ts :setlocal spell!<cr>
   " duplicate current char
   nnoremap <leader>d ylp
@@ -518,6 +514,7 @@ function! mappings#Set()
 
   " Edit file at location <Leader>e?
 if !has('nvim-0.5')
+  nnoremap <leader>tc :call <sid>toggle_conceal<cr>
   " Wiki mappings <Leader>w?
   nnoremap <silent> <leader>wo :call <SID>wiki_open()<cr>
   nnoremap <silent> <leader>wa :call <SID>wiki_add()<cr>
