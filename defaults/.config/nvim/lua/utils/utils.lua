@@ -91,7 +91,7 @@ M.has_unix = package.config:sub(1, 1) == [[/]]
 M.has_win = package.config:sub(1, 1) == [[\]]
 
 local nix_file = vim.loop.os_homedir() .. [[/.config/ignore-file]]
--- local win_file = os.getenv("LOCALAPPDATA") .. [[\ignore-file]]
+local win_file = (os.getenv("LOCALAPPDATA") or "nil") .. [[\ignore-file]]
 M.ignore_file = [[--ignore-file=]] .. (M.has_win and win_file or nix_file)
 
 M.fd = {}
