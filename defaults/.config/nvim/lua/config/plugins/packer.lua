@@ -337,7 +337,6 @@ function M:__setup()
 
 	use({
 		"mizlan/iswap.nvim",
-		after = { "nvim-treesitter" },
 		requires = "nvim-treesitter/nvim-treesitter",
 		config = function()
 			require("config.plugins.misc").config_iswap()
@@ -346,7 +345,6 @@ function M:__setup()
 
 	use({
 		"kristijanhusak/orgmode.nvim",
-		after = { "nvim-treesitter" },
 		requires = "nvim-treesitter/nvim-treesitter",
 		config = function()
 			require("config.plugins.orgmode"):setup()
@@ -536,7 +534,6 @@ function M:__setup()
 
 	use({
 		"s1n7ax/nvim-comment-frame",
-		after = { "nvim-treesitter" },
 		requires = "nvim-treesitter/nvim-treesitter",
 		config = function()
 			require("config.plugins.misc"):setup_comment_frame()
@@ -580,7 +577,6 @@ function M:__setup()
 
 	use({
 		"SmiteshP/nvim-gps",
-		after = "nvim-treesitter",
 		requires = "nvim-treesitter/nvim-treesitter",
 		config = function()
 			require("config.plugins.misc"):setup_gpsnvim()
