@@ -593,7 +593,6 @@ function M.setup_bdelete()
   local leader = {}
   local prefix = [[<leader>b]]
   leader = {
-    name = "buffers",
     d = {
       function()
         bd.delete({ type = "this" })
