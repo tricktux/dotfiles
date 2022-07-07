@@ -26,25 +26,15 @@ M.maps.mappings = {
     function()
       local ft = vim.opt.filetype:get()
       local srcs = get_sources_for_filetype(ft)
-      if srcs == nil then
-        vim.notify("No null-ls sources enabled", vim.log.levels.WARN)
+      if vim.tbl_isempty(srcs) then
+        vim.notify("No null-ls sources installed for '" .. ft .."'", vim.log.levels.WARN)
         return
       end
-      local s = {}
-      for _, v in pairs(srcs) do
-        if v.enabled == true then
-          table.insert(s, v.name)
-        end
-      end
-      if s == nil then
-        vim.notify("No null-ls sources enabled", vim.log.levels.WARN)
-        return
-      end
-      vim.ui.select(s, {
+      vim.ui.select(srcs, {
         prompt = "Select source to disable:",
         format_item = nil,
       }, function(choice)
-        null.toggle(choice)
+        null.disable(choice)
       end)
     end,
     "disable_source",
@@ -53,25 +43,15 @@ M.maps.mappings = {
     function()
       local ft = vim.opt.filetype:get()
       local srcs = get_sources_for_filetype(ft)
-      if srcs == nil then
-        vim.notify("No null-ls sources enabled", vim.log.levels.WARN)
+      if vim.tbl_isempty(srcs) then
+        vim.notify("No null-ls sources installed for '" .. ft .."'", vim.log.levels.WARN)
         return
       end
-      local s = {}
-      for _, v in pairs(srcs) do
-        if v.enabled == false then
-          table.insert(s, v.name)
-        end
-      end
-      if s == nil then
-        vim.notify("No null-ls sources disabled", vim.log.levels.WARN)
-        return
-      end
-      vim.ui.select(s, {
+      vim.ui.select(srcs, {
         prompt = "Select source to enable:",
         format_item = nil,
       }, function(choice)
-        null.toggle(choice)
+        null.enable(choice)
       end)
     end,
     "enable_source",
@@ -80,8 +60,8 @@ M.maps.mappings = {
     function()
       local ft = vim.opt.filetype:get()
       local srcs = get_sources_for_filetype(ft)
-      if srcs == nil then
-        vim.notify("No null-ls sources enabled", vim.log.levels.WARN)
+      if vim.tbl_isempty(srcs) then
+        vim.notify("No null-ls sources installed for '" .. ft .."'", vim.log.levels.WARN)
         return
       end
       vim.ui.select(srcs, {
@@ -93,19 +73,37 @@ M.maps.mappings = {
     end,
     "toggle_source",
   },
-  a = {
+  E = {
     function()
       local ft = vim.opt.filetype:get()
       local srcs = get_sources_for_filetype(ft)
+      if vim.tbl_isempty(srcs) then
+        vim.notify("No null-ls sources installed for '" .. ft .."'", vim.log.levels.WARN)
+        return
+      end
       for _, v in pairs(srcs) do
-        null.toggle(v.name)
+        null.enable(v)
       end
     end,
-    "toggle_all_sources_for_this_ft",
+    "disable_all",
+  },
+  D = {
+    function()
+      local ft = vim.opt.filetype:get()
+      local srcs = get_sources_for_filetype(ft)
+      if vim.tbl_isempty(srcs) then
+        vim.notify("No null-ls sources installed for '" .. ft .."'", vim.log.levels.WARN)
+        return
+      end
+      for _, v in pairs(srcs) do
+        null.disable(v)
+      end
+    end,
+    "disable_all",
   },
   v = {
     function()
-      require("null-ls").toggle("vale")
+      null.toggle("vale")
     end,
     "vale",
   },
