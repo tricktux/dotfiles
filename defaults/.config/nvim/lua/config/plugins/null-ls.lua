@@ -8,7 +8,7 @@ local M = {}
 local function get_sources_for_filetype(ft)
   local srcs = null.get_sources()
   local ret = {}
-  for _,v in pairs(srcs) do
+  for _, v in pairs(srcs) do
     if v.filetypes[ft] == true then
       table.insert(ret, v.name)
     end
@@ -22,7 +22,7 @@ M.maps.mode = "n"
 M.maps.prefix = "<leader>tn"
 M.maps.opts = { silent = true }
 M.maps.mappings = {
-  d = { 
+  d = {
     function()
       local ft = vim.opt.filetype:get()
       local srcs = get_sources_for_filetype(ft)
@@ -31,7 +31,7 @@ M.maps.mappings = {
         return
       end
       local s = {}
-      for _,v in pairs(srcs) do
+      for _, v in pairs(srcs) do
         if v.enabled == true then
           table.insert(s, v.name)
         end
@@ -41,15 +41,15 @@ M.maps.mappings = {
         return
       end
       vim.ui.select(s, {
-        prompt = 'Select source to disable:',
+        prompt = "Select source to disable:",
         format_item = nil,
       }, function(choice)
         null.toggle(choice)
       end)
     end,
-    "disable_source" 
+    "disable_source",
   },
-  e = { 
+  e = {
     function()
       local ft = vim.opt.filetype:get()
       local srcs = get_sources_for_filetype(ft)
@@ -58,7 +58,7 @@ M.maps.mappings = {
         return
       end
       local s = {}
-      for _,v in pairs(srcs) do
+      for _, v in pairs(srcs) do
         if v.enabled == false then
           table.insert(s, v.name)
         end
@@ -68,15 +68,15 @@ M.maps.mappings = {
         return
       end
       vim.ui.select(s, {
-        prompt = 'Select source to enable:',
+        prompt = "Select source to enable:",
         format_item = nil,
       }, function(choice)
         null.toggle(choice)
       end)
     end,
-    "enable_source" 
+    "enable_source",
   },
-  s = { 
+  s = {
     function()
       local ft = vim.opt.filetype:get()
       local srcs = get_sources_for_filetype(ft)
@@ -85,27 +85,29 @@ M.maps.mappings = {
         return
       end
       vim.ui.select(srcs, {
-        prompt = 'Select source to toggle:',
+        prompt = "Select source to toggle:",
         format_item = nil,
       }, function(choice)
-          null.toggle(choice)
+        null.toggle(choice)
       end)
     end,
-    "toggle_source" 
+    "toggle_source",
   },
-  a = { 
-    function() 
+  a = {
+    function()
       local ft = vim.opt.filetype:get()
       local srcs = get_sources_for_filetype(ft)
-      for _,v in pairs(srcs) do
+      for _, v in pairs(srcs) do
         null.toggle(v.name)
       end
     end,
-    "toggle_all_sources_for_this_ft" 
+    "toggle_all_sources_for_this_ft",
   },
-  v = { 
-    function() require("null-ls").toggle("vale") end,
-    "vale" 
+  v = {
+    function()
+      require("null-ls").toggle("vale")
+    end,
+    "vale",
   },
 }
 
