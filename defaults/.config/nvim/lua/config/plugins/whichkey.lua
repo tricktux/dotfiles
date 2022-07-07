@@ -131,7 +131,6 @@ leader.v = {
   u = 'pull/update',
   l = 'log',
 }
-leader['/'] = {'<plug>search_grep', 'search_grip'}
 leader.d = 'duplicate_char'
 leader.p = 'paste_from_system'
 leader.y = 'yank_to_system'

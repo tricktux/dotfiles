@@ -89,7 +89,7 @@ local function init_os()
 	local log = require("utils.log")
 	local utl = require("utils.utils")
 
-	if utl.has_unix() then
+	if utl.has_unix then
 		_config_unix()
 	else
 		_config_win()
@@ -130,7 +130,6 @@ local function main()
   require("plugin.wiki"):setup()
   require("config.plugins.packer"):setup() -- Also setups lsp
   -- Setup homebrew plugins
-  require("config.plugins.misc").setup_grip()
   require("config.plugins.misc").setup_flux()
 end
 
