@@ -71,7 +71,7 @@ end
 function M:__setup()
 	local packer = nil
 	if packer == nil then
-		local jobs = utl.has_unix() and nil or 5
+		local jobs = utl.has_unix and nil or 5
 		packer = require("packer")
 		packer.init({
 			max_jobs = jobs,
@@ -103,7 +103,6 @@ function M:__setup()
 			{ "nvim-lua/popup.nvim" },
 			{ "nvim-lua/plenary.nvim" },
 			{ "ahmedkhalf/project.nvim" },
-			{ "nvim-telescope/telescope-ui-select.nvim" },
 		},
 		config = function()
 			require("config.plugins.telescope"):setup()
@@ -219,7 +218,7 @@ function M:__setup()
 		end,
 	})
 
-	if utl.has_unix() then
+	if utl.has_unix then
 		use({
 			"zbirenbaum/copilot.lua",
 			requires = {
@@ -369,9 +368,6 @@ function M:__setup()
 	use({
 		"PProvost/vim-ps1",
 		ft = "ps1",
-		cond = function()
-			return require("utils.utils").has_win()
-		end,
 	})
 
 	use({ "matze/vim-ini-fold", ft = "dosini" })
