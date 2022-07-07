@@ -220,7 +220,7 @@ local function lsp_set()
 
 	if vim.fn.executable("clangd") > 0 then
 		log.info("setting up the clangd lsp...")
-		local cores = utl.has_win() and os.getenv("NUMBER_OF_PROCESSORS") or table.concat(vim.fn.systemlist("nproc"))
+		local cores = utl.has_win and os.getenv("NUMBER_OF_PROCESSORS") or table.concat(vim.fn.systemlist("nproc"))
 
 		nvim_lsp.clangd.setup({
 			init_options = { clangdFileStatus = false },

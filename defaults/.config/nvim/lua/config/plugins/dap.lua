@@ -231,7 +231,7 @@ function M:setup()
 
   dap.adapters.lldb = {
     type = "executable",
-    command = utl.has_unix() and "/usr/bin/lldb-vscode" or "lldb-vscode",
+    command = utl.has_unix and "/usr/bin/lldb-vscode" or "lldb-vscode",
     name = "lldb",
   }
 

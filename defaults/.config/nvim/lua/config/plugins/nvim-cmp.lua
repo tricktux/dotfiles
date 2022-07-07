@@ -82,7 +82,7 @@ function M:setup()
       ["<Tab>"] = next,
       ["<S-Tab>"] = prev,
     }),
-    sources = utl.has_unix() and unix_sources or win_sources,
+    sources = utl.has_unix and unix_sources or win_sources,
     formatting = {
       format = lspkind.cmp_format({
         mode = "text",

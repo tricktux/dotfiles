@@ -87,21 +87,16 @@ function M.is_mod_available(name)
 	return false
 end
 
-function M.has_unix()
-	return package.config:sub(1, 1) == [[/]]
-end
+M.has_unix = package.config:sub(1, 1) == [[/]]
+M.has_win = package.config:sub(1, 1) == [[\]]
 
-function M.has_win()
-	return package.config:sub(1, 1) == [[\]]
-end
-
-local nix_file = vim.fn.expand(os.getenv("HOME") .. [[/.config/ignore-file]])
-local win_file = vim.fn.expand(os.getenv("LOCALAPPDATA") .. [[/ignore-file]])
-M.ignore_file = [[--ignore-file=]] .. vim.fn.fnameescape(M.has_win() and win_file or nix_file)
+local nix_file = vim.loop.os_homedir() .. [[/.config/ignore-file]]
+-- local win_file = os.getenv("LOCALAPPDATA") .. [[\ignore-file]]
+M.ignore_file = [[--ignore-file=]] .. (M.has_win and win_file or nix_file)
 
 M.fd = {}
 M.fd.switches = {}
-M.fd.bin = M.has_win() and "fd" or [[/usr/bin/fd]]
+M.fd.bin = M.has_win and "fd" or [[/usr/bin/fd]]
 M.fd.switches.common = vim.tbl_flatten{
   "--color=never",
   "--hidden",
@@ -117,14 +112,14 @@ M.fd.switches.folder = vim.tbl_flatten{
   "--type=directory",
 }
 M.fd.folder_cmd = vim.tbl_flatten{
-  M.fd.bin, M.fd.switches.folder 
+  M.fd.bin, M.fd.switches.folder
 }
 M.fd.file_cmd = vim.tbl_flatten{
-  M.fd.bin, M.fd.switches.file 
+  M.fd.bin, M.fd.switches.file
 }
 M.rg = {}
 M.rg.switches = {}
-M.rg.bin = M.has_win() and "rg" or [[/usr/bin/rg]]
+M.rg.bin = M.has_win and "rg" or [[/usr/bin/rg]]
 M.rg.switches.common = vim.tbl_flatten{
   "--vimgrep",
   "--hidden",
@@ -138,10 +133,10 @@ M.rg.switches.file = vim.tbl_flatten{
   "--files",
 }
 M.rg.grep_cmd = vim.tbl_flatten{
-  M.rg.bin, M.rg.switches.common 
+  M.rg.bin, M.rg.switches.common
 }
 M.rg.file_cmd = vim.tbl_flatten{
-  M.rg.bin, M.rg.switches.file 
+  M.rg.bin, M.rg.switches.file
 }
 
 M.buftype = {}
@@ -164,7 +159,7 @@ function M.fs.path.normalize(path)
     w = {"/", "\\"},
     u = {"\\", "/"},
   }
-  local g = M.has_win() and sep.w or sep.u
+  local g = M.has_win and sep.w or sep.u
   local p = string.gsub(path, g[1], g[2])
   return pl:new(p):absolute()
 end
