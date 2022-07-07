@@ -94,6 +94,8 @@ local function custom_live_grep()
     end
     vim.ui.input(live_grep_opts[ret].opts, live_grep_opts[ret].on_confirm)
   end
+
+  opts_values.prompt_title = "Live grep in '" .. opts_values.cwd .. "'..."
   ts.live_grep(opts_values)
 end
 
@@ -279,7 +281,9 @@ function M:set_mappings()
   vks("n", "<plug>buffer_browser", function()
     ts.buffers(cust_buff_opts)
   end, opts)
-  local git = {
+  local git = {}
+  git.prefix = "<leader>fg"
+  git.mappings = {
     f = { ts.git_files, "files" },
     C = { ts.git_commits, "commits" },
     c = { ts.git_bcommits, "commits_current_buffer" },
@@ -288,21 +292,28 @@ function M:set_mappings()
     S = { ts.git_stash, "stash" },
   }
 
-  for k, v in pairs(git) do
-    opts.desc = v[2]
-    vks("n", "<leader>fg" .. k, v[1], opts)
-  end
+  map:keymaps_sets(git)
 
-  opts.desc = "live_grep"
-  vks("n", "<leader>/", ts.live_grep, opts)
-  opts.desc = "custom_live_grep"
-  vks("n", "<leader>?", custom_live_grep, opts)
-  opts.desc = "commands"
-  vks("n", "<leader>;", function()
-    ts.commands({ layout_config = cust_layout_config })
+  opts.desc = "grep_cword"
+  vks("n", "<leader>>", function() 
+    local wd = vim.fn.getcwd()
+    local s = vim.fn.expand("<cword>")
+    ts.grep_string({
+      prompt_title = "Grep for '" .. s .. "' in '" .. wd .. "'..."
+    })
   end, opts)
+  vks("n", "<leader>,", function() 
+    ts.live_grep({
+      prompt_title = "Live grep in '" .. vim.fn.getcwd() .. "'..."
+    })
+    end, opts)
+  opts.desc = "resume_ts_picker"
+  vks("n", "<leader>.", ts.resume, opts)
+  opts.desc = "custom_live_grep"
+  vks("n", "<leader><", custom_live_grep, opts)
 
-  leader.f = {
+  leader.prefix = "<leader>f"
+  leader.mappings = {
     b = { ts.buffers, "buffers" },
     f = { ts.find_files, "files" },
     o = { ts.vim_options, "vim_options" },
@@ -328,10 +339,7 @@ function M:set_mappings()
     d = { ts.reloader, "reload_lua_modules" },
   }
 
-  for k, v in pairs(leader.f) do
-    opts.desc = v[2]
-    vks("n", "<leader>f" .. k, v[1], opts)
-  end
+  map:keymaps_sets(leader)
 end
 
 function M:setup()
@@ -378,12 +386,12 @@ function M:setup()
           ["<C-d>"] = actions.results_scrolling_down,
           ["<C-v>"] = actions.file_vsplit,
           ["<C-t>"] = actions.file_tab,
-          ["<C-w>"] = actions_layout.toggle_preview,
+          ["<C-e>"] = actions_layout.toggle_preview,
           ["?"] = actions_generate.which_key({
             name_width = 20, -- typically leads to smaller floats
             max_height = 0.5, -- increase potential maximum height
             seperator = " > ", -- change sep between mode, keybind, and name
-            close_with_action = false, -- do not close float on action
+            close_with_action = true, -- do not close float on action
           }),
         },
         n = {
