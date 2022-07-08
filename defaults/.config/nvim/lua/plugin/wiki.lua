@@ -118,8 +118,7 @@ M.maps.mappings = {
   },
   r = { 
     function()
-      local s = fs.path.sep
-      vim.cmd("edit " .. M.path .. s .. "random.org")
+      vim.cmd("edit " .. M.path .. [[/org/random.org]])
     end,
     "wiki_random" 
   },
@@ -131,8 +130,7 @@ M.maps.mappings = {
   },
   w = { 
     function()
-      local s = fs.path.sep
-      vim.cmd("edit " .. M.path .. s .. "notes.org")
+      vim.cmd("edit " .. M.path .. [[/org/notes.org]])
     end,
     "wiki_notes" 
   },

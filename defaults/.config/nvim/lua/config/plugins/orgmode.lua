@@ -9,7 +9,7 @@ function M:setup()
   ]]
 
 	org.setup({
-		org_agenda_files = { vim.g.wiki_path .. [[/**/*.org]] },
+		org_agenda_files = { vim.g.wiki_path .. [[/org/**/*.org]] },
 		org_priority_lowest = "D",
 		org_todo_keywords = {
 			"TODO",
@@ -20,7 +20,7 @@ function M:setup()
 			"WONT_DO",
 			"CANCELED",
 		},
-		org_default_notes_file = vim.g.wiki_path .. [[/notes.org]],
+		org_default_notes_file = vim.g.wiki_path .. [[/org/notes.org]],
 		mappings = {
 			global = { org_agenda = "<leader>ma", org_capture = "<leader>mc" },
 			org = {
@@ -54,7 +54,7 @@ function M:setup()
 				org_agenda_week_view = "<localleader>w",
 				org_agenda_month_view = "<localleader>m",
 				org_agenda_year_view = "<localleader>y",
-				org_agenda_goto = "<localleader>f",
+				org_agenda_goto = "<cr>",
 			},
 		},
 	})
