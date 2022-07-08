@@ -132,13 +132,13 @@ function M:config_project()
     -- detection_methods
     patterns = {
       ".git",
+      ".svn",
+      ".vs",
+      "*.sln",
+      "Makefile",
       "_darcs",
       ".hg",
       ".bzr",
-      ".svn",
-      "Makefile",
-      ".vs",
-      "*.sln",
       "package.json",
     },
 
