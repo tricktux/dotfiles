@@ -362,6 +362,7 @@ function M.io_popen_read(cmd)
 end
 
 function M.get_visual_selection()
+  print("get_visual_selection")
 	-- Why is this not a built-in Vim script function?!
 	local sline = vim.fn.getpos("'<")
 	local line_start = sline[2]
@@ -373,12 +374,11 @@ function M.get_visual_selection()
 	if lines == nil then
 		return ""
 	end
-	local selection = vim.opt.selection:get() == "inclusive" and 1 or 2
-	lines[1] = lines[1]:sub(column_start - 1)
-	lines[#lines] = lines[#lines]:sub(1, column_end - selection)
-	local ret = table.concat(lines, "\n")
-	-- print("ret = " .. ret)
-	return ret
+	-- local selection = vim.opt.selection:get() == "inclusive" and 1 or 2
+	-- lines[1] = lines[1]:sub(column_start - 1)
+	-- lines[#lines] = lines[#lines]:sub(1, column_end - selection)
+  print("ret = " .. vim.inspect(ret))
+	return table.concat(lines, "\n")
 end
 
 function M.execute_in_shell(cmd)
