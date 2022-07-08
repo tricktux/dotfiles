@@ -16,10 +16,13 @@ vim.opt_local.suffixesadd:prepend('.lua')
 vim.opt_local.suffixesadd:prepend('init.lua')
 vim.opt_local.path:prepend(vim.fn.stdpath('config')..'/lua')
 
-vim.cmd[[
-  vnoremap <buffer> <localleader>e y:echomsg <c-r>"<cr>
-  nnoremap <buffer> <plug>make_file :so %<cr>
-  nnoremap <buffer> <plug>make_project :so %<cr>
-  " Evaluate highlighted text
-  vnoremap <buffer> <localleader>E y:<c-r>"<cr>
-]]
+local map = require("config.mappings")
+local maps = {}
+maps.opts = {silent = true, buffer = 0}
+maps.mappings = {
+  ["<localleader>e"] = {"y<cmd>lua print(<c-r>\")<cr>", "lua_print_selection", "v"},
+  ["<plug>make_file"] = {"<cmd>so %<cr>", "source_file"},
+  ["<localleader>E"] = {"y<cmd>lua <c-r>\"<cr>", "lua_eval_selection", "v"},
+}
+
+map:keymaps_sets(maps)
