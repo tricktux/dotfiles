@@ -20,7 +20,8 @@ function M:setup()
   vim.opt.laststatus = 3
   if vim.fn.has("nvim-0.8") > 0 then
     vim.opt.winbar = "%{v:lua.require'config.options'.eval()}"
-    vim.opt.cmdheight = 0
+    -- https://github.com/neovim/neovim/pull/19185
+    -- vim.opt.cmdheight = 0
   end
 end
 
