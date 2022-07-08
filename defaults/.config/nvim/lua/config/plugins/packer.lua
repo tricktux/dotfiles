@@ -7,7 +7,13 @@
 local utl = require("utils.utils")
 
 local M = {}
-M.__path = vim.fn.stdpath("data") .. [[/site/pack/packer/start/packer.nvim]]
+local data_folder = vim.fn.stdpath("data")
+M.path = {}
+M.__package_name = "plugins"  -- folder under which plugins are located
+M.path.plugins = data_folder .. [[/site/pack/]] .. M.__package_name
+M.path.__this = M.path.plugins .. [[/start/packer.nvim]]
+M.path.__snaphots = data_folder .. [[/packer_snapshots]]
+M.path.__compile = data_folder .. [[/site/plugin/packer_compiled.lua]]
 M.__repo = [[https://github.com/wbthomason/packer.nvim]]
 
 function M:__update()
@@ -48,7 +54,7 @@ function M:config()
 end
 
 function M:download()
-	if vim.fn.isdirectory(self.__path) ~= 0 then
+	if vim.fn.isdirectory(self.path.__this) ~= 0 then
 		-- Already exists
 		return
 	end
@@ -58,7 +64,7 @@ function M:download()
 		return
 	end
 
-	local git_cmd = "git clone " .. self.__repo .. " --depth 1 " .. self.__path
+	local git_cmd = "git clone " .. self.__repo .. " --depth 1 " .. self.path.__this
 	vim.notify("Packer: downloading packer.nvim...", vim.log.levels.INFO)
 	vim.fn.system(git_cmd)
 	vim.cmd("packadd packer.nvim")
@@ -75,8 +81,10 @@ function M:__setup()
 		packer = require("packer")
 		packer.init({
 			max_jobs = jobs,
-			snapshot_path = vim.fn.stdpath("data") .. [[/packer_snapshots]],
+			snapshot_path = self.path.__snaphots,
+      plugin_package = M.__package_name,
 			log = "trace",
+      compile_path = self.path.__compile
 		})
 	end
 
