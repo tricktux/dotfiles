@@ -16,7 +16,9 @@ end
 
 --- Abstraction over vim.keymap.set
 ---@param mappings (table). Example: 
---  local mappings = {<lhs> = {<rhs>, <desc>}}
+--  local mappings = {<lhs> = {<rhs>, <desc>, mode}}
+--  The mode above is optional
+--  It allows the user to overwrite the mode just for this mapping
 ---@param mode table or string (optional, default = "n") same as mode in keymap
 ---@param opts string or function (optional default = {silent = true}) as in keymap.
 --              Desc is expected in mappings
@@ -33,18 +35,70 @@ function M.keymaps_set(mappings, mode, opts, prefix)
   local p = prefix or ""
 
   for k, v in pairs(mappings) do
-    if v[2] ~= nil then
-      o.desc = v[2]
-    end
+    o.desc = v[2] or nil
+    m = v[3] or m
 
     vim.validate({['rhs = ' .. p .. k] = {v[1], {"s", "f"}}})
     vks(m, p .. k, v[1], o)
   end
 end
 
+local function refresh_buffer()
+	api.nvim_exec(
+		[[
+  update
+  nohlsearch
+  diffupdate
+  mode
+  edit
+  normal! zzze<cr>
+  ]],
+		false
+	)
+
+	if vf.exists(":SignifyRefresh") > 0 then
+		vim.cmd("SignifyRefresh")
+	end
+
+	if utl.is_mod_available("gitsigns") then
+		require("gitsigns").refresh()
+	end
+
+	if vf.exists(":IndentBlanklineRefresh") > 0 then
+		vim.cmd("IndentBlanklineRefresh")
+	end
+end
+
+local function tmux_move(direction)
+	local valid_dir = "phjkl"
+	vim.validate({ direction = {
+		direction,
+		function(d)
+			return (valid_dir):find(d)
+		end,
+		valid_dir,
+	} })
+
+	local curr_win = vim.api.nvim_get_current_win()
+	vf.execute("wincmd " .. direction)
+	local new_win = vim.api.nvim_get_current_win()
+	if new_win == curr_win then
+		vf.system("tmux select-pane -" .. vf.tr(direction, valid_dir, "lLDUR"))
+	end
+end
+
+local function terminal_send_line()
+  local csel = utl.get_visual_selection()
+  if csel == "" or csel == nil then
+    return
+  end
+  utl.execute_in_shell(csel)
+end
+
 -- Visual mode mappings
-local visual = {}
-visual.mode = "x"
+local visual = {
+  mode = "x"
+}
 -- Select mode mappings
 local selectm = {}
 selectm.mode = "s"
@@ -109,72 +163,23 @@ edit.mappings = {
   },
 }
 
-local function refresh_buffer()
-	api.nvim_exec(
-		[[
-  update
-  nohlsearch
-  diffupdate
-  mode
-  edit
-  normal! zzze<cr>
-  ]],
-		false
-	)
-
-	if vf.exists(":SignifyRefresh") > 0 then
-		vim.cmd("SignifyRefresh")
-	end
-
-	if utl.is_mod_available("gitsigns") then
-		require("gitsigns").refresh()
-	end
-
-	if vf.exists(":IndentBlanklineRefresh") > 0 then
-		vim.cmd("IndentBlanklineRefresh")
-	end
-end
-
-local function tmux_move(direction)
-	local valid_dir = "phjkl"
-	vim.validate({ direction = {
-		direction,
-		function(d)
-			return (valid_dir):find(d)
-		end,
-		valid_dir,
-	} })
-
-	local curr_win = vim.api.nvim_get_current_win()
-	vf.execute("wincmd " .. direction)
-	local new_win = vim.api.nvim_get_current_win()
-	if new_win == curr_win then
-		vf.system("tmux select-pane -" .. vf.tr(direction, valid_dir, "lLDUR"))
-	end
-end
-
-function M.terminal_mappings()
-	local opts = { silent = true, desc = "terminal" }
-	vks("n", "<plug>terminal_toggle", function()
-		utl.exec_float_term("term")
-	end, opts)
-	opts.desc = "terminal_send_line"
-	vks("n", "<plug>terminal_send_line", function()
-		local cline = vf.getline(".")
-		if cline == "" or cline == nil then
-			return
-		end
-		utl.execute_in_shell(cline)
-	end, opts)
-	opts.desc = "terminal_send"
-	vks("x", "<plug>terminal_send", function()
-		local csel = utl.get_visual_selection()
-		if csel == "" or csel == nil then
-			return
-		end
-		utl.execute_in_shell(csel)
-	end, opts)
-end
+local terminal = {}
+terminal.mappings = {
+  ["<a-`>"] = { function()
+      utl.exec_float_term("term")
+    end,
+    "terminal_toggle"
+  },
+  ["<localleader>e"] = { function()
+      local csel = utl.get_visual_selection()
+      if csel == "" or csel == nil then
+        return
+      end
+      utl.execute_in_shell(csel)
+    end, 
+    "terminal_send_line", {"n", "x"}
+  },
+}
 
 function M:window_movement_setup()
 	local opts = { silent = true, desc = "tmux_move_left" }
@@ -254,8 +259,6 @@ function M:setup()
 
 	vks({ "n", "x", "o" }, "t", "%")
 
-  self.terminal_mappings()
-
 	self:window_movement_setup()
 	-- Window resizing
 	opts.desc = "window_size_increase_right"
@@ -281,6 +284,7 @@ function M:setup()
 
   self:keymaps_sets(edit)
   self:keymaps_sets(colors)
+  self:keymaps_sets(terminal)
 end
 
 return M
