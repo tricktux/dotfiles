@@ -167,7 +167,9 @@ function M:setup()
     left_padding = 0
   }
 
-  self:ins_left{ 'windows', }
+  if vim.fn.has("nvim-0.8") == 0 then
+    self:ins_left{ 'windows', }
+  end
 
   self:ins_left { self.__lsp, }
 
