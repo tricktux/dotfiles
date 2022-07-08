@@ -42,6 +42,15 @@ function M.keymaps_set(mappings, mode, opts, prefix)
   end
 end
 
+-- Visual mode mappings
+local visual = {}
+visual.mode = "x"
+-- Select mode mappings
+local selectm = {}
+selectm.mode = "s"
+-- Visual and Select mode mappings
+local viselect = {}
+viselect.mode = "v"
 
 local colors = {}
 colors.prefix = "<leader>tc"
@@ -87,15 +96,10 @@ edit.mappings = {
   },
   p = {
     function()
-      fs.path.fuzzer(vf.stdpath("data") .. [[/site/pack/packer]])
+      local p = require("config.plugins.packer").path.plugins
+      fs.path.fuzzer(p)
     end,
     "lua_plugins_path",
-  },
-  l = {
-    function()
-      fs.path.fuzzer(vim.g.vim_plugins_path)
-    end,
-    "vim_plugins_path",
   },
   v = {
     function()
@@ -211,6 +215,8 @@ function M:window_movement_setup()
 	opts.desc = "cursor_prev_win"
 	vks("n", "<A-p>", "<C-w>pzz", opts)
 end
+
+
 
 function M:setup()
 	local opts = { nowait = true, desc = "start_cmd" }

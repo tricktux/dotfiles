@@ -12,7 +12,7 @@ function! mappings#Set()
   if has('unix')
     " System paste
     nnoremap <a-v> "+p=`]zz
-    vnoremap <a-v> "+p=`]zz
+    xnoremap <a-v> "+p=`]zz
 
     nnoremap <leader>y "+yy
     vnoremap <leader>y "+y
@@ -250,7 +250,7 @@ function! mappings#Set()
 
   " Don't paste the deleted word, paste the last copied word, hopefully
   nnoremap <s-p> :normal! "0p<cr>
-  vnoremap <s-p> :normal! "0p<cr>
+  xnoremap <s-p> :normal! "0p<cr>
   " Force wings_syntax on a file
   nnoremap <leader>jw :set filetype=wings_syntax<cr>
   nnoremap <leader>j. :call <SID>exec_last_command()<cr>
@@ -270,13 +270,13 @@ function! mappings#Set()
   " move to the beggning of line
   " Don't make this nnoremap. Breaks stuff
   nnoremap <s-w> $
-  vnoremap <s-w> $
+  xnoremap <s-w> $
   " move to the end of line
   nnoremap <s-b> ^
-  vnoremap <s-b> ^
+  xnoremap <s-b> ^
   " jump to corresponding item<Leader> ending {,(, etc..
   nmap <S-t> %
-  vmap <S-t> %
+  xmap <S-t> %
   " Automatically insert date
   nnoremap <silent> <F5> a<Space><c-r>=strftime("%a %b %d %Y %H:%M")<cr><esc>
   " Designed this way to be used with snippet md header
@@ -354,7 +354,7 @@ function! mappings#Set()
 
   " decrease number
   nnoremap <S-x> <c-x>
-  vnoremap <S-x> <c-x>
+  xnoremap <S-x> <c-x>
 
   " <Leader>n
   " Display highlighted numbers as ascii chars. Only works on highlighted text
@@ -461,7 +461,7 @@ function! mappings#Set()
   " Tried ack.vim. Discovered that nothing is better than grep with ag.
   " search all type of files
   " Search visual selection text
-  vnoremap // y/<C-R>"<cr>
+  xnoremap // y/<C-R>"<cr>
 
   " Buffers Stuff <Leader>b?
   if !hasmapto("<s-k>", "n")
@@ -1163,22 +1163,22 @@ function! mappings#SetWhichKeyMap() abort
 
   " This mappings are needed so that you can use it
   nnoremap gg gg
-  vnoremap gg gg
+  xnoremap gg gg
   nnoremap gd gd
   nnoremap gD gD
   nnoremap gq gq
-  vnoremap gq gq
+  xnoremap gq gq
   nnoremap gv gv
   nnoremap gu gu
   nnoremap gU gU
   nnoremap g8 g8
   nnoremap g< g<
   nnoremap g? g?
-  vnoremap g? g?
+  xnoremap g? g?
 
   " {Dec,Inc}rease list of number
-  vnoremap gA g<c-a>
-  vnoremap gX g<c-x>
+  xnoremap gA g<c-a>
+  xnoremap gX g<c-x>
 
   let g:which_key_localleader_map = {}
   let g:which_key_localleader_map.g = 'which_key_ignore'
@@ -1211,7 +1211,7 @@ function! mappings#SetWhichKeyMap() abort
   nnoremap ]# ]#
   nnoremap [# [#
   nnoremap ]f gf
-  vnoremap ]f gf
+  xnoremap ]f gf
   nnoremap ]i [<c-i>
   nnoremap [i [<c-i>
   nnoremap ]I <c-w>i<c-w>L
