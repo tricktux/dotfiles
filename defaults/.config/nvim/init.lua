@@ -23,9 +23,8 @@ local function set_globals()
 	vim.g.loaded_perl_provider = 0
 	vim.g.loaded_node_provider = 0
 
-	if vim.fn.has("nvim-0.7") > 0 then
+	if vim.fn.has("nvim-0.8") == 0 then
 		-- Disable filetypes.vim and enable filetypes.lua
-		vim.g.did_load_ftdetect = 1
     vim.g.did_load_filetypes = 0
 		vim.g.do_filetype_lua = 1
 	end
