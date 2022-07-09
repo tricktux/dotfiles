@@ -23,6 +23,7 @@ jdtls
 liquidprompt
 lua-format
 lutris-battlenet-meta
+mimeo
 mps-youtube-git
 navi-bin
 ncurses5-compat-libs
@@ -59,6 +60,7 @@ vale
 vdhcoapp-bin
 vmtouch
 write-good
+xdg-utils-mimeo
 xlayoutdisplay
 ytfzf
 z-git
