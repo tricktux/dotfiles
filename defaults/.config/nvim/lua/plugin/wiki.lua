@@ -7,13 +7,17 @@ local home = vim.loop.os_homedir()
 
 local M = {}
 
-M.path = nil
+M.path = {
+  base = "",
+  main = [[/org/notes.org]],
+  random = [[/org/random.org]],
+}
 
 local report = {}
 
 local curr_year = os.date("%Y")
 local curr_week = os.date("%U")
-report.base_folder = string.format([[%s\hpd]], M.path)
+report.base_folder = string.format([[%s\hpd]], M.path.base)
 report.name_preffix = "WeeklyReport_ReinaldoMolina_"
 report.current = string.format([[%s\%s\%s%s.md]], report.base_folder, curr_year, report.name_preffix, curr_week)
 
@@ -44,7 +48,7 @@ function report:__find_most_recent()
 end
 
 function report:edit_weekly_report()
-	if M.path == nil then
+	if M.path.base == nil then
 		local msg = "Wiki path not set"
 		vim.cmd(string.format([[echohl ErrorMsg | echo '%q' | echohl None]], msg))
 		return
@@ -90,7 +94,7 @@ local wikis = {
 function M:_find_wiki()
 	for _, dir in pairs(wikis) do
 		if utl.isdir(dir) then
-			self.path = dir
+			self.path.base = dir
 			return
 		end
 	end
@@ -105,19 +109,19 @@ M.maps.opts = { silent = true }
 M.maps.mappings = {
 	o = {
 		function()
-			fs.path.fuzzer(M.path)
+			fs.path.fuzzer(M.path.base)
 		end,
 		"wiki_open",
 	},
 	a = {
 		function()
-			fs.file.create(M.path)
+			fs.file.create(M.path.base)
 		end,
 		"wiki_add",
 	},
 	r = {
 		function()
-			vim.cmd("edit " .. M.path .. [[/org/random.org]])
+      vim.cmd("edit " .. M.path.base .. M.path.random)
 		end,
 		"wiki_random",
 	},
@@ -129,7 +133,7 @@ M.maps.mappings = {
 	},
 	w = {
 		function()
-			vim.cmd("edit " .. M.path .. [[/org/notes.org]])
+      vim.cmd("edit " .. M.path.base .. M.path.main)
 		end,
 		"wiki_notes",
 	},
@@ -137,8 +141,9 @@ M.maps.mappings = {
 
 function M:setup()
 	self:_find_wiki()
-	vim.g.wiki_path = self.path
+	vim.g.wiki_path = self.path.base
 	map:keymaps_sets(self.maps)
+  vim.api.nvim_create_user_command('UtilsEditJournal', "edit " .. M.path.base .. M.path.main, {})
 end
 
 return M

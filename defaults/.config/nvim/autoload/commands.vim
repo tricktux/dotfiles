@@ -7,13 +7,15 @@
 
 " CUSTOM_COMMANDS
 function! commands#Set() abort
+  if !has("nvim")
+    command! UtilsEditJournal call s:scratchpad_journal()
+  endif
   command! UtilsRemoveTrailingWhiteSpaces call s:trim_trailing_white_spaces()
 
   command! -nargs=? UtilsPasswdGenerate call s:generate_random_pass(<f-args>)
   command! UtilsBuffersDeleteNoName call s:delete_empty_buffers()
   command! UtilsWeekGetNumber :echomsg strftime('%V')
 
-  command! UtilsEditJournal call s:scratchpad_journal()
   command! UtilsIndentWholeFile execute("normal! mzgg=G`z")
   command! UtilsFileFormat2Dos :e ++ff=dos<cr>
   command! UtilsFileFormat2Unix call s:convert_line_ending_to_unix()
