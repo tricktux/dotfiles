@@ -1,4 +1,5 @@
 local log = require("utils.log")
+local fmt = string.format
 local utl = require("utils.utils")
 local line = require("config.plugins.lualine")
 local map = require("config.mappings")
@@ -655,6 +656,7 @@ function M.setup_papercolor()
 end
 
 local function set_colorscheme(period)
+
 	local flavour = {
 		day = "latte",
 		night = "mocha",
@@ -662,6 +664,8 @@ local function set_colorscheme(period)
 		sunset = "macchiato",
 	}
 	vim.g.catppuccin_flavour = flavour[period]
+  log.info(fmt("set_colorscheme: period = '%s'", period))
+  log.info(fmt("set_colorscheme: catppuccin_flavour = '%s'", flavour[period]))
 	vim.cmd("colorscheme catppuccin")
 end
 
@@ -929,8 +933,8 @@ function M.config_catpuccin()
 			symbols_outline = true,
 		},
 	})
-	vim.g.catppuccin_flavour = "frappe"
-	vim.cmd("colorscheme catppuccin")
+  -- Need a way to setup this plugin until after packer finishes
+  M.setup_flux()
 end
 
 function M.setup_grip()
