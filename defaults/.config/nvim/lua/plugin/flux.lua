@@ -7,7 +7,7 @@ M._file_location = [[/tmp/flux]]
 -- Example of callback function:
 --[[ local function set_colorscheme(period)
   local flavour = {
-    day = "latter",
+    day = "latte",
     night = "mocha",
     sunrise = "frappe",
     sunset = "macchiato",
@@ -24,8 +24,13 @@ function M:setup(config)
   self._config = vim.tbl_deep_extend("force", self._config, config)
 end
 
+local _periods = {"day", "night", "sunset", "sunrise"}
+local function _validate_period(period)
+  return vim.tbl_contains(_periods, period)
+end
+
 function M:set(period)
-  vim.validate { period = { period, 's' } }
+  vim.validate{period={period, _validate_period, 'one of: ' .. vim.inspect(_periods)}}
   local cb = self._config.callback
   vim.validate { cb = { cb, 'f' } }
   cb(period)
