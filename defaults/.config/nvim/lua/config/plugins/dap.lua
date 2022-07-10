@@ -97,7 +97,6 @@ function M:set_mappings(bufnr)
   map.keymaps_set(widgets, "n", opts, prefix)
   local u = require("dapui")
   local ui = {
-    name = "ui",
     o = { u.open, "open" },
     c = { u.close, "close" },
     t = { u.toggle, "toggle" },
