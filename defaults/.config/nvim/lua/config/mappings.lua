@@ -81,13 +81,15 @@ end
 
 local function tmux_move(direction)
 	local valid_dir = "phjkl"
-	vim.validate({ direction = {
-		direction,
-		function(d)
-			return (valid_dir):find(d)
-		end,
-		valid_dir,
-	} })
+	vim.validate({
+		direction = {
+			direction,
+			function(d)
+				return (valid_dir):find(d)
+			end,
+			valid_dir,
+		},
+	})
 
 	local curr_win = vim.api.nvim_get_current_win()
 	vf.execute("wincmd " .. direction)
@@ -98,16 +100,16 @@ local function tmux_move(direction)
 end
 
 local function terminal_send_line()
-  local csel = utl.get_visual_selection()
-  if csel == "" or csel == nil then
-    return
-  end
-  utl.execute_in_shell(csel)
+	local csel = utl.get_visual_selection()
+	if csel == "" or csel == nil then
+		return
+	end
+	utl.execute_in_shell(csel)
 end
 
 -- Visual mode mappings
 local visual = {
-  mode = "x"
+	mode = "x",
 }
 -- Select mode mappings
 local selectm = {}
@@ -119,58 +121,66 @@ viselect.mode = "v"
 local colors = {}
 colors.prefix = "<leader>tc"
 colors.mappings = {
-  d = { 
-    function() require("plugin.flux"):set('day') end,
-    "day" 
-  },
-  n = { 
-    function() require("plugin.flux"):set('night') end,
-    "night" 
-  },
-  r = { 
-    function() require("plugin.flux"):set('sunrise') end,
-    "sunrise" 
-  },
-  s = { 
-    function() require("plugin.flux"):set('sunset') end,
-    "sunset" 
-  },
+	d = {
+		function()
+			require("plugin.flux"):set("day")
+		end,
+		"day",
+	},
+	n = {
+		function()
+			require("plugin.flux"):set("night")
+		end,
+		"night",
+	},
+	r = {
+		function()
+			require("plugin.flux"):set("sunrise")
+		end,
+		"sunrise",
+	},
+	s = {
+		function()
+			require("plugin.flux"):set("sunset")
+		end,
+		"sunset",
+	},
 }
 
 local edit = {}
 edit.prefix = "<leader>e"
 edit.mappings = {
-  d = { 
-    function()
-      fs.path.fuzzer(vim.g.dotfiles)
-    end,
-    "dotfiles" 
-  },
-  h = {
-    function()
-      fs.path.fuzzer(os.getenv("HOME"))
-    end,
-    "home",
-  },
-  c = {
-    function()
-      fs.path.fuzzer(vf.getcwd())
-    end,
-    "current_dir",
-  },
-  p = {
-    function()
-      local p = require("config.plugins.packer").path.plugins
-      fs.path.fuzzer(p)
-    end,
-    "lua_plugins_path",
-  },
-  v = {
-    function()
-      fs.path.fuzzer(os.getenv("VIMRUNTIME"))
-    end,
-    "vimruntime",
-  },
+	d = {
+		function()
+			fs.path.fuzzer(vim.g.dotfiles)
+		end,
+		"dotfiles",
+	},
+	h = {
+		function()
+			fs.path.fuzzer(os.getenv("HOME"))
+		end,
+		"home",
+	},
+	c = {
+		function()
+			fs.path.fuzzer(vf.getcwd())
+		end,
+		"current_dir",
+	},
+	p = {
+		function()
+			local p = require("config.plugins.packer").path.plugins
+			fs.path.fuzzer(p)
+		end,
+		"lua_plugins_path",
+	},
+	v = {
+		function()
+			fs.path.fuzzer(os.getenv("VIMRUNTIME"))
+		end,
+		"vimruntime",
+	},
 }
 
 local terminal = {}
@@ -231,8 +241,6 @@ function M:window_movement_setup()
 	vks("n", "<A-p>", "<C-w>pzz", opts)
 end
 
-
-
 function M:setup()
 	local opts = { nowait = true, desc = "start_cmd" }
 	-- Awesome hack, typing a command is used way more often than next
@@ -283,18 +291,20 @@ function M:setup()
 	opts.desc = "refresh_buffer"
 	vks("n", "<c-l>", refresh_buffer, opts)
 
-  -- Quickfix/Location list
-  opts.desc = "quickfix"
-  vks("n", "<s-q>", "<cmd>copen 20<cr>", opts)
-  opts.desc = "quickfix"
-  vks("n", "<s-u>", "<cmd>lopen 20<cr>", opts)
+	-- Quickfix/Location list
+	opts.desc = "quickfix"
+	vks("n", "<s-q>", "<cmd>copen 20<cr>", opts)
+	opts.desc = "quickfix"
+	vks("n", "<s-u>", "<cmd>lopen 20<cr>", opts)
 
-  opts.desc = "cwd_files"
-  vks("n", "<c-p>", function() fs.path.fuzzer(vf.getcwd()) end, opts)
+	opts.desc = "cwd_files"
+	vks("n", "<c-p>", function()
+		fs.path.fuzzer(vf.getcwd())
+	end, opts)
 
-  self:keymaps_sets(edit)
-  self:keymaps_sets(colors)
-  self:keymaps_sets(terminal)
+	self:keymaps_sets(edit)
+	self:keymaps_sets(colors)
+	self:keymaps_sets(terminal)
 end
 
 return M
