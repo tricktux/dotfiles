@@ -140,6 +140,7 @@ function M:config_project()
       ".hg",
       ".bzr",
       "package.json",
+      "[Cc]argo.toml",
     },
 
     -- Table of lsp clients to ignore by name
