@@ -299,12 +299,9 @@ M.__plugins.common = {
 		end,
 	},
 	{
-		"kassio/neoterm",
-		setup = function()
-			require("config.plugins.misc"):setup_neoterm()
-		end,
+		"akinsho/toggleterm.nvim",
 		config = function()
-			require("config.plugins.misc"):config_neoterm()
+			require("config.plugins.misc"):config_toggleterm()
 		end,
 	},
 	{

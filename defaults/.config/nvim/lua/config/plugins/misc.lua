@@ -656,7 +656,6 @@ function M.setup_papercolor()
 end
 
 local function set_colorscheme(period)
-
 	local flavour = {
 		day = "latte",
 		night = "mocha",
@@ -697,6 +696,32 @@ function M.setup_flux()
 
 	vim.g.flux_night_time = 2000
 	vim.g.flux_day_time = 700
+end
+
+function M.config_toggleterm()
+	require("toggleterm").setup({
+		direction = "float",
+		close_on_exit = false,
+		float_opts = {
+			border = "curved",
+		},
+	})
+  local maps = {}
+	maps.mappings = {
+		["<plug>terminal_toggle"] = { "<cmd>ToggleTerm<cr>", "terminal_toggle_toggleterm" },
+		["<plug>terminal_send_line"] = { "<cmd>ToggleTermSendCurrentLine<cr>", "term_send_line_toggleterm" },
+    ["<plug>terminal_send_line_visual"] = { "<cmd>ToggleTermSendVisualLines<cr>", "terminal_send_line_visual_toggleterm", "x"},
+		["<plug>terminal_send_visual"] = { "<cmd>ToggleTermSendVisualSelection<cr>", "terminal_send_visual_toggleterm", "x" },
+		["<plug>terminal_open_horizontal"] = {
+			"<cmd>ToggleTerm direction=horizontal<cr>",
+			"terminal_open_horizontal_toggleterm",
+		},
+    ["<plug>terminal_open_vertical"] = {
+      "<cmd>ToggleTerm direction=vertical<cr>",
+      "terminal_open_vertical_toggleterm",
+    },
+	}
+	map:keymaps_sets(maps)
 end
 
 function M.setup_neoterm()
