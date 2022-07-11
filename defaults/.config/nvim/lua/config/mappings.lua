@@ -1,4 +1,6 @@
 local api = vim.api
+local log = require("utils.log")
+local fmt = string.format
 local vks = vim.keymap.set
 local utl = require("utils.utils")
 local fs = require("utils.utils").fs
@@ -9,38 +11,46 @@ local M = {}
 --- Abstraction over keymaps_set
 -- @param keys table expects all the arguments to keymaps_set
 function M:keymaps_sets(keys)
-  vim.validate({ keys = { keys, "t" } })
+	vim.validate({ keys = { keys, "t" } })
 
-  self.keymaps_set(keys.mappings, keys.mode, keys.opts, keys.prefix)
+	self.keymaps_set(keys.mappings, keys.mode, keys.opts, keys.prefix)
 end
 
 --- Abstraction over vim.keymap.set
----@param mappings (table). Example: 
+---@param mappings (table). Example:
 --  local mappings = {<lhs> = {<rhs>, <desc>, mode}}
 --  The mode above is optional
 --  It allows the user to overwrite the mode just for this mapping
+--  The function also detects if rhs is a <plug> type mapping and adds remap 
+--  option for you
 ---@param mode table or string (optional, default = "n") same as mode in keymap
 ---@param opts string or function (optional default = {silent = true}) as in keymap.
 --              Desc is expected in mappings
 ---@param prefix (string) To be prefixed to all the indices of mappings
 --                Can be nil
 function M.keymaps_set(mappings, mode, opts, prefix)
-  vim.validate({ mappings = { mappings, "t" } })
-  vim.validate({ mode = { mode, {"s", "t"}, true } })
-  vim.validate({ opts = { opts, "t", true } })
-  vim.validate({ prefix = { prefix, "s", true } })
+	vim.validate({ mappings = { mappings, "t" } })
+	vim.validate({ mode = { mode, { "s", "t" }, true } })
+	vim.validate({ opts = { opts, "t", true } })
+	vim.validate({ prefix = { prefix, "s", true } })
 
-  local m = mode or "n"
-  local o = opts or { silent = true }
-  local p = prefix or ""
+	for k, v in pairs(mappings) do
+    local o = vim.deepcopy(opts or {silent = true})
+		o.desc = v[2] or nil
+		local m = v[3] or vim.deepcopy(mode or "n")
+    local lhs = prefix and prefix .. k or k
 
-  for k, v in pairs(mappings) do
-    o.desc = v[2] or nil
-    m = v[3] or m
-
-    vim.validate({['rhs = ' .. p .. k] = {v[1], {"s", "f"}}})
-    vks(m, p .. k, v[1], o)
-  end
+		vim.validate({ ["lhs = " .. lhs .. ", rhs = "] = { v[1], { "s", "f" } } })
+    local t = type(v[1])
+    if t == "string" then  -- determine if rhs is a <plug> mapping
+      local i, j = string.find(v[1], "^<[Pp]lug>")
+      if i == 1 and j == 6 then
+        o.remap = true
+      end
+    end
+    log.trace(fmt("mapping: m = '%s', lhs = '%s', rhs = '%s', o = '%s'", vim.inspect(m), lhs, v[1], vim.inspect(o)))
+		vks(m, lhs, v[1], o)
+	end
 end
 
 local function refresh_buffer()
