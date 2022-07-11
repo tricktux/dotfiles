@@ -183,7 +183,7 @@ local function lsp_set()
 
 	diagnostic_config()
 
-	-- vim.lsp.set_log_level("debug")
+	-- vim.lsp.log.set_level("debug")
 	setup_fidget()
 
 	local cmp_lsp = require("cmp_nvim_lsp")
@@ -191,7 +191,6 @@ local function lsp_set()
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
 	capabilities = cmp_lsp.update_capabilities(capabilities)
 	capabilities.textDocument.completion.completionItem.snippetSupport = true
-	capabilities.offsetEncoding = "utf-8" -- Set the same encoding for all servers
 
 	local flags = { allow_incremental_sync = true, debounce_text_changes = 150 }
 
@@ -221,13 +220,15 @@ local function lsp_set()
 	if vim.fn.executable("clangd") > 0 then
 		log.info("setting up the clangd lsp...")
 		local cores = utl.has_win and os.getenv("NUMBER_OF_PROCESSORS") or table.concat(vim.fn.systemlist("nproc"))
+    local c = vim.deepcopy(capabilities)
+    c.offsetEncoding = "utf-8" -- Set the same encoding only for clangd
 
 		nvim_lsp.clangd.setup({
 			init_options = { clangdFileStatus = false },
 			on_attach = on_clangd_attach,
 			flags = flags,
 			filetypes = { "c", "cpp" },
-			capabilities = capabilities,
+			capabilities = c,
 			cmd = {
 				"clangd",
 				"--all-scopes-completion=true",
@@ -244,6 +245,7 @@ local function lsp_set()
 	end
 
 	if vim.fn.executable("rust-analyzer") > 0 then
+    log.info("setting up the rust-analyzer...")
 		nvim_lsp.rust_analyzer.setup({
 			on_attach = on_lsp_attach,
 			flags = flags,
