@@ -171,22 +171,15 @@ M.__plugins.common = {
 	},
 	{
 		"lukas-reineke/indent-blankline.nvim",
-		setup = function()
-			vim.g.indent_blankline_filetype = {
-				"vim",
-				"lua",
-				"c",
-				"python",
-				"cpp",
-				"java",
-				"cs",
-				"sh",
-				"ps1",
-				"dosbatch",
-			}
-			vim.g.indent_blankline_char_highlight_list = { "Comment" }
-			vim.g.indent_blankline_char_list = { "¦", "┆", "┊" }
-			vim.g.indent_blankline_show_first_indent_level = false
+		config = function()
+      local config = {
+        char_highlight_list = { "Comment" },
+        char_list = { "¦", "┆", "┊" },
+        show_first_indent_level = false,
+        show_current_context = true,
+      }
+      -- highlight IndentBlanklineContextChar guifg=#00FF00 gui=nocombine
+      require("indent_blankline").setup (config)
 		end,
 	},
 	{
