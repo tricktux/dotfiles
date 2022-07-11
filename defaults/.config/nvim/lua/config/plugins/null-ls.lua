@@ -103,9 +103,17 @@ M.maps.mappings = {
   },
   v = {
     function()
-      null.toggle("vale")
+      vim.b.null_enable_vale = 1
+      null.enable("vale")
     end,
-    "vale",
+    "vale_enable",
+  },
+  V = {
+    function()
+      vim.b.null_enable_vale = 0
+      null.disable("vale")
+    end,
+    "vale_disable",
   },
 }
 
