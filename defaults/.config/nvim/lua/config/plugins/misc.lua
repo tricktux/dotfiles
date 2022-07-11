@@ -664,8 +664,8 @@ local function set_colorscheme(period)
 		sunset = "macchiato",
 	}
 	vim.g.catppuccin_flavour = flavour[period]
-  log.info(fmt("set_colorscheme: period = '%s'", period))
-  log.info(fmt("set_colorscheme: catppuccin_flavour = '%s'", flavour[period]))
+	log.info(fmt("set_colorscheme: period = '%s'", period))
+	log.info(fmt("set_colorscheme: catppuccin_flavour = '%s'", flavour[period]))
 	vim.cmd("colorscheme catppuccin")
 end
 
@@ -933,8 +933,8 @@ function M.config_catpuccin()
 			symbols_outline = true,
 		},
 	})
-  -- Need a way to setup this plugin until after packer finishes
-  M.setup_flux()
+	-- Need a way to setup this plugin until after packer finishes
+	M.setup_flux()
 end
 
 function M.setup_grip()
