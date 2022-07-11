@@ -185,20 +185,29 @@ edit.mappings = {
 
 local terminal = {}
 terminal.mappings = {
-  ["<a-`>"] = { function()
-      utl.exec_float_term("term")
-    end,
-    "terminal_toggle"
-  },
-  ["<localleader>e"] = { function()
-      local csel = utl.get_visual_selection()
-      if csel == "" or csel == nil then
-        return
-      end
-      utl.execute_in_shell(csel)
-    end, 
-    "terminal_send_line", {"n", "x"}
-  },
+  ["<localleader>e"] = { "<plug>terminal_send_line", "terminal_send_line" },
+  ["ge"] = { "<plug>terminal_send_line_visual", "terminal_send_line_visual", "x" },
+  ["<localleader>v"] = { "<plug>terminal_send_visual", "terminal_send_visual", "x" },
+  ["<leader>Th"] = { "<plug>terminal_open_horizontal", "terminal_open_horizontal" },
+  ["<leader>Tv"] = { "<plug>terminal_open_vertical", "terminal_open_vertical" },
+	["<a-`>"] = { "<plug>terminal_toggle", "terminal_toggle" },
+	["<plug>terminal_toggle"] = {
+		function()
+			utl.exec_float_term("term")
+		end,
+		"terminal_toggle",
+	},
+	["<plug>terminal_send_line"] = {
+		function()
+			local csel = utl.get_visual_selection()
+			if csel == "" or csel == nil then
+				return
+			end
+			utl.execute_in_shell(csel)
+		end,
+		"terminal_send_line",
+		{ "n", "x" },
+	},
 }
 
 function M:window_movement_setup()
