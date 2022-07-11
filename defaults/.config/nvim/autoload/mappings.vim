@@ -168,21 +168,6 @@ function! mappings#Set()
   nmap <s-k> <plug>buffer_browser
   nmap <c-p> <plug>mru_browser
   " terminal-emulator mappings
-  if has('terminal') || has('nvim')
-    " See plugin.vim - neoterm
-    " There are more mappins in the [,] section
-    nmap <leader>te <plug>terminal_toggle
-    nmap <M-`> <plug>terminal_toggle
-    nmap <leader>tE <plug>terminal_new
-    nmap <localleader>e <plug>terminal_send_line
-    xmap <localleader>e <plug>terminal_send
-    nmap <localleader>E <plug>terminal_send_file
-    nnoremap <leader>r :call <sid>toggle_zoom_terminal('Ttoggle')<cr>
-    nnoremap <leader>R :call <sid>toggle_zoom_terminal('Tnew')<cr>
-  endif
-
-  nmap <localleader>k <plug>make_project
-  nmap <localleader>j <plug>make_file
 
   nmap <leader>tz <plug>windows_toggle_zoom
 
@@ -223,9 +208,8 @@ function! mappings#Set()
   xnoremap <silent> <plug>help_under_cursor K
   nmap <leader>G <plug>search_internet
   xmap <leader>G <plug>search_internet
-
-  nmap <leader>T <plug>generate_tags
-  nnoremap <silent> <plug>generate_tags :call ctags#NvimSyncCtags()<cr>
+  nmap <localleader>k <plug>make_project
+  nmap <localleader>j <plug>make_file
 
   nnoremap <leader>ts :setlocal spell!<cr>
   " duplicate current char
@@ -325,12 +309,6 @@ function! mappings#Set()
   nnoremap [f <c-o>
   nnoremap <silent> ]F :call <SID>goto_file_on_next_win('l')<cr>
   nnoremap <silent> [F :call <SID>goto_file_on_next_win('h')<cr>
-
-  " Terminal
-  nnoremap <silent> ]r :call <SID>goto_terminal_on_next_win('l', 'Ttoggle')<cr>
-  nnoremap <silent> [r :call <SID>goto_terminal_on_next_win('h', 'Ttoggle')<cr>
-  nnoremap <silent> ]R :call <SID>goto_terminal_on_next_win('l', 'Tnew')<cr>
-  nnoremap <silent> [R :call <SID>goto_terminal_on_next_win('h', 'Tnew')<cr>
 
   " Scroll to the sides z{l,h} and up and down
   nnoremap ]z 10zl
@@ -432,7 +410,29 @@ function! mappings#Set()
   " Window movement
   " move between windows
   if !has('nvim')
-    if exists('*Focus') && executable('i3-vim-nav')
+
+    if has('terminal') || has('nvim')
+      " See plugin.vim - neoterm
+      " There are more mappins in the [,] section
+      nmap <leader>te <plug>terminal_toggle
+      nmap <M-`> <plug>terminal_toggle
+      nmap <leader>tE <plug>terminal_new
+      nmap <localleader>e <plug>terminal_send_line
+      xmap <localleader>e <plug>terminal_send
+      nmap <localleader>E <plug>terminal_send_file
+      nnoremap <leader>r :call <sid>toggle_zoom_terminal('Ttoggle')<cr>
+      nnoremap <leader>R :call <sid>toggle_zoom_terminal('Tnew')<cr>
+      " Terminal
+      nnoremap <silent> ]r :call <SID>goto_terminal_on_next_win('l', 'Ttoggle')<cr>
+      nnoremap <silent> [r :call <SID>goto_terminal_on_next_win('h', 'Ttoggle')<cr>
+      nnoremap <silent> ]R :call <SID>goto_terminal_on_next_win('l', 'Tnew')<cr>
+      nnoremap <silent> [R :call <SID>goto_terminal_on_next_win('h', 'Tnew')<cr>
+    endif
+
+    nmap <leader>T <plug>generate_tags
+    nnoremap <silent> <plug>generate_tags :call ctags#NvimSyncCtags()<cr>
+
+   if exists('*Focus') && executable('i3-vim-nav')
       " i3 integration
       nnoremap <A-l> :call Focus('right', 'l')<cr>
       nnoremap <A-h> :call Focus('left', 'h')<cr>
