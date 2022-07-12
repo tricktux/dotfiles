@@ -949,6 +949,10 @@ function M.config_catpuccin()
 	local catppuccin = require("catppuccin")
 	catppuccin.setup({
 		integrations = {
+      indent_blankline = {
+        enabled = true,
+        colored_indent_levels = true,
+      },
 			which_key = true,
 			dashboard = true,
 			vim_sneak = true,
