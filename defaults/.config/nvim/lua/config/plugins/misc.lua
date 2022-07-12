@@ -1017,4 +1017,16 @@ function M.setup_grip()
 	table.insert(vim.g.grip_tools, vim.g.grip_wiki)
 end
 
+function M.config_indent_blankline()
+  local config = {
+    char_highlight_list = { "Comment" },
+    char_list = { "¦", "┆", "┊" },
+    show_first_indent_level = false,
+    show_current_context = true,
+    buftype_exclude = utl.buftype.blacklist,
+    filetype_exclude = vim.tbl_flatten{utl.filetype.blacklist, "markdown", "org", "mail"},
+  }
+  require("indent_blankline").setup (config)
+end
+
 return M

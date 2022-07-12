@@ -172,14 +172,7 @@ M.__plugins.common = {
 	{
 		"lukas-reineke/indent-blankline.nvim",
 		config = function()
-      local config = {
-        char_highlight_list = { "Comment" },
-        char_list = { "¦", "┆", "┊" },
-        show_first_indent_level = false,
-        show_current_context = true,
-      }
-      -- highlight IndentBlanklineContextChar guifg=#00FF00 gui=nocombine
-      require("indent_blankline").setup (config)
+			require("config.plugins.misc").config_indent_blankline()
 		end,
 	},
 	{
