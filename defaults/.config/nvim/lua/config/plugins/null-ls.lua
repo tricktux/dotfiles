@@ -305,7 +305,9 @@ function M:setup()
     debounce = 250,
     default_timeout = 2500,
     diagnostics_format = "(#{s}): #{m}",
-    on_attach = require("config.lsp").on_lsp_attach,
+    -- TODO: loop through sources to check if there's a formatting source
+    -- Only then overwrite mappings.
+    -- on_attach = require("config.lsp").on_lsp_attach,
     on_init = nil,
     on_exit = nil,
     sources = sources,
