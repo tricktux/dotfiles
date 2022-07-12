@@ -118,6 +118,8 @@ selectm.mode = "s"
 local viselect = {}
 viselect.mode = "v"
 
+-- NOTE: Please update the mappings in flux_post_{day,night,sunrise,sunset} 
+-- if updating these mappings below
 local colors = {}
 colors.prefix = "<leader>tc"
 colors.mappings = {
