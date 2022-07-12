@@ -1033,4 +1033,8 @@ function M.config_indent_blankline()
   require("indent_blankline").setup (config)
 end
 
+function M.config_surround()
+  require("nvim-surround").setup()
+end
+
 return M

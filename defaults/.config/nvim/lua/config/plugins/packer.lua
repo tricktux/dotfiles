@@ -271,7 +271,12 @@ M.__plugins.common = {
 		end,
 	},
 	{ "tpope/vim-repeat" },
-	{ "kylechui/nvim-surround" },
+	{ 
+    "kylechui/nvim-surround",
+    config = function()
+      require("config.plugins.misc"):config_surround()
+    end,
+  },
 	{
 		"tpope/vim-obsession",
 		setup = function()
