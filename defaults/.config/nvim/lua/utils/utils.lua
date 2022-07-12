@@ -141,7 +141,13 @@ M.rg.file_cmd = vim.tbl_flatten{
 
 M.buftype = {}
 M.buftype.whitelist = {"", "acwrite"}
-M.buftype.blacklist = {"nofile", "prompt", "terminal"}
+M.buftype.blacklist = {"nofile", "prompt", "terminal", "quickfix"}
+M.filetype = {
+  blacklist = {
+    "lspinfo", "packer", "checkhealth", "help", "man", "", "NvimTree",
+    "startify"
+  }
+}
 
 -- Filesystem
 M.fs = {}
