@@ -424,7 +424,8 @@ paci --needed --noconfirm riseup-vpn
 # wireguard {{{
 # Get conf file from router linux_pcs
 # Put it at /etc/wireguard/wg0.conf
-paci --needed --noconfirm wire0guard-tools systemd-resolvconf
+paci --needed --noconfirm wireguard-tools systemd-resolvconf
+sudo systemctl enable --now systemd-resolved.service
 # The value for this ip is given by the ip assigned to the peer
 # You can find it in the config file
 sudo bash -c 'echo "nameserver 10.4.0.7" >> /etc/resolv.conf'
