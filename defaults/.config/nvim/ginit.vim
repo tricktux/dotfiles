@@ -5,93 +5,37 @@
 " Last Modified: Oct 27 2017 08:16
 " Created: Oct 27 2017 08:16
 
-" Choose one font
-" Guifont DejaVu Sans Mono:h10
-" Guifont Hack:h8
-" Guifont Monospace:h10
-" Guifont Incosolata for Powerline:h10
-" Guifont! Consolas:h9
-" Guifont! FontAwesome:h9
-function! s:win_nvim_ugly_font() abort
-  GuiFont Cascadia Code:h11
-	return s:set_nvim_qt_guioptions()
-endfunction
+let s:font = "Cascadia Code:h11"
 
-function! s:win_nvim_nice_font() abort
-	" let g:GuiFont ='DejaVuSansMonoForPowerline Nerd:h9'
-    let g:GuiFont ='SauceCodePro Nerd Font Mono:h9'
-    " let g:GuiFont ='FontAwesome:h9'
-	" let g:GuiFont ='UbuntuMono NF:h11'
-  " let g:GuiFont ='DejaVuSansMono NF:h9'
-	" let g:GuiFont ='FuraCode Nerd Font Mono:h10'
-	execute 'Guifont! ' . g:GuiFont
-	return s:set_nvim_qt_guioptions()
-endfunction
-
-function! s:win_gvim_ugly_font() abort
-	set guifont=consolas:h10
-	call s:set_gvim_guioptions()
-endfunction
-
-function! s:win_gvim_nice_font() abort
-	set guifont=consolas:h10
-	call s:set_gvim_guioptions()
-endfunction
-
-function! s:unix_nvim_ugly_font() abort
-	let g:GuiFont ='FuraCode Nerd Font:h9'
-	execute 'Guifont! ' . g:GuiFont
-	return s:set_nvim_qt_guioptions()
-endfunction
-
-function! s:unix_nvim_nice_font() abort
-	let g:GuiFont ='FuraCode Nerd Font:h9'
-	execute 'Guifont! ' . g:GuiFont
-	return s:set_nvim_qt_guioptions()
-endfunction
-
-function! s:unix_gvim_ugly_font() abort
-	set guifont=Consolas:h8
-	call s:set_gvim_guioptions()
-endfunction
-
-function! s:unix_gvim_nice_font() abort
-	set guifont =DejaVu\ Sans\ Mono\ 10
-	call s:set_gvim_guioptions()
-endfunction
-
-function! s:set_gvim_guioptions() abort
-	set guioptions-=T  " no toolbar
-	set guioptions-=m  " no menu bar
-	set guioptions-=r  " no right scroll bar
-	set guioptions-=l  " no left scroll bar
-	set guioptions-=L  " no side scroll bar
-	set guioptions+=c  " no pop ups
-endfunction
-
-function! s:set_nvim_qt_guioptions() abort
+function! s:set_nvim_qt() abort
+  execute "GuiFont " . s:font
 	GuiTabline 0
 	GuiPopupmenu 0
 endfunction
 
-function! SetGui() abort
-	if has('unix') && exists('g:GuiLoaded') && !exists('g:valid_device')
-		return s:unix_nvim_ugly_font()
-	elseif has('unix') && exists('g:GuiLoaded') && exists('g:valid_device')
-		return s:unix_nvim_nice_font()
-	elseif has('unix') && !exists('g:GuiLoaded') && !exists('g:valid_device')
-		return s:unix_gvim_ugly_font()
-	elseif has('unix') && !exists('g:GuiLoaded') && exists('g:valid_device')
-		return s:unix_gvim_nice_font()
-	elseif has('win32') && exists('g:GuiLoaded') && !exists('g:valid_device')
-		return s:win_nvim_ugly_font()
-	elseif has('win32') && exists('g:GuiLoaded') && exists('g:valid_device')
-		return s:win_nvim_nice_font()
-	elseif has('win32') && !exists('g:GuiLoaded') && !exists('g:valid_device')
-		return s:win_gvim_ugly_font()
-	elseif has('win32') && !exists('g:GuiLoaded') && exists('g:valid_device')
-		return s:win_gvim_nice_font()
-	endif
+function! s:set_neovide() abort
+  let l:font = "Cascadia Code:h10"
+  let &guifont = l:font
+  let g:neovide_refresh_rate = 140
+  let g:neovide_no_idle=v:true
+  let g:neovide_remember_window_size = v:true
+  let g:neovide_profiler = v:false
+  " let g:neovide_cursor_vfx_mode = ""
+  let g:neovide_scroll_animation_length = 0.1
+  let g:neovide_cursor_animation_length=0.0
 endfunction
 
-call SetGui()
+function! s:set_gui() abort
+  if exists('g:GuiLoaded')
+    call s:set_nvim_qt()
+    return
+  end
+	if exists('g:neovide')
+    call s:set_neovide()
+    return
+  end
+
+  echomsg "Unrecognized GUI Application..."
+endfunction
+
+call s:set_gui()
