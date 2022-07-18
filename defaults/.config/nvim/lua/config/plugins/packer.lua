@@ -529,6 +529,7 @@ M.__plugins.common = {
 		config = function()
 			require("config.plugins.misc"):config_catpuccin()
 		end,
+    run = "CatppuccinCompile",
 	},
 }
 M.__plugins.deps = {}

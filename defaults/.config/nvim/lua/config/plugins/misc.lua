@@ -948,6 +948,12 @@ end
 function M.config_catpuccin()
 	local catppuccin = require("catppuccin")
 	catppuccin.setup({
+    compile = {
+        enabled = true,
+        -- .. [[/site/plugin/catppuccin]]
+        path = vim.fn.stdpath("data") .. [[/site/plugin/catppuccin]],
+        suffix = "_compiled"
+    },
 		integrations = {
       indent_blankline = {
         enabled = true,
