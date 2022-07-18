@@ -167,6 +167,12 @@ function M:setup()
     left_padding = 0
   }
 
+  self:ins_left{'filetype', colored = true, icon_only = false}
+
+  self:ins_left{'fileformat'}
+
+  self:ins_left{'encoding'}
+
   if vim.fn.has("nvim-0.8") == 0 then
     self:ins_left{ 'windows', }
   end
@@ -184,12 +190,6 @@ function M:setup()
     path = 1,
     condition = self.__conditions.buffer_not_empty
   }
-
-  self:__ins_right{'filetype', colored = true, icon_only = false}
-
-  self:__ins_right{'fileformat'}
-
-  self:__ins_right{'encoding'}
 
   self:__ins_right{'location', right_padding = 0}
 
