@@ -20,6 +20,7 @@ function M:setup()
 			"WONT_DO",
 			"CANCELED",
 		},
+    org_highlight_latex_and_related = "entities",
 		org_default_notes_file = vim.g.wiki_path .. [[/org/notes.org]],
 		mappings = {
 			global = { org_agenda = "<leader>ma", org_capture = "<leader>mc" },
