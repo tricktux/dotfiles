@@ -179,4 +179,4 @@ LP_ENABLE_SSH_COLORS=1
 # will be disabled
 LP_DISABLED_VCS_PATH=""
 
-# vim: set et sts=4 sw=4 tw=120 ft=sh:
+# vim: set et sw=4 tw=120 ft=sh:

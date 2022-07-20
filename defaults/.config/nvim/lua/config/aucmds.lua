@@ -34,7 +34,6 @@ local function set_text_settings()
   vim.opt.complete:append("kspell")
   vim.opt.tabstop = 2
   vim.opt.shiftwidth = 2
-  vim.opt.softtabstop = 2
   vim.opt.comments:append({ b = "-" })
   vim.opt.spelllang = { "en_us", "es" }
   vim.opt.spell = true
@@ -136,7 +135,6 @@ local function setup()
       local tab = vim.fn.has("unix") > 0 and 2 or 4
       vim.opt.tabstop = tab
       vim.opt.shiftwidth = tab
-      vim.opt.softtabstop = tab
     end,
     pattern = { "c", "cpp" },
     desc = "Better settings for c",

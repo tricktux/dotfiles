@@ -109,4 +109,4 @@ color body          brightcolor39   color233        "((@(([0-9a-z-]+\\.)*[0-9a-z
 #color body		magenta		default	"(ftp|https?|gopher|news|telnet|finger)://[^ \"\t\r\n]+"
 #color body		magenta		default	"[-a-z_0-9.]+@[-a-z_0-9.]+"
 
-# vi: ft=muttrc ts=4 sw=4 sts=4 et
+# vi: ft=muttrc ts=4 sw=4 et

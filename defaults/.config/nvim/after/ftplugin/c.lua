@@ -9,7 +9,6 @@ local log = require('utils.log')
 local utl = require('utils.utils')
 
 vim.opt_local.shiftwidth = 2
-vim.opt_local.softtabstop = 2
 vim.opt_local.tabstop = 2
 
 local opts = {silent = true, buffer = true, desc = 'help_under_cursor'}

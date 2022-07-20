@@ -228,9 +228,9 @@ function! mappings#Set()
   " Count occurrances of last search
   nnoremap <leader>jc :%s///gn<cr>
   " Indenting
-  nnoremap <leader>j2 :setlocal ts=2 sw=2 sts=2<cr>
-  nnoremap <leader>j4 :setlocal ts=4 sw=4 sts=4<cr>
-  nnoremap <leader>j8 :setlocal ts=8 sw=8 sts=8<cr>
+  nnoremap <leader>j2 :setlocal ts=2 sw=2<cr>
+  nnoremap <leader>j4 :setlocal ts=4 sw=4<cr>
+  nnoremap <leader>j8 :setlocal ts=8 sw=8<cr>
 
   " Don't paste the deleted word, paste the last copied word, hopefully
   nnoremap <s-p> :normal! "0p<cr>
