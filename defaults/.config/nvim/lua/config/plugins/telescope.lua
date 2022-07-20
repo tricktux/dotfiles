@@ -4,6 +4,22 @@ local map = require("config.mappings")
 
 local M = {}
 
+local function grep_cword()
+	local ts = require("telescope.builtin")
+	local wd = vim.fn.getcwd()
+	local s = vim.fn.expand("<cword>")
+	ts.grep_string({
+		prompt_title = "Grep for '" .. s .. "' in '" .. wd .. "'...",
+	})
+end
+
+local function live_grep()
+	local ts = require("telescope.builtin")
+	ts.live_grep({
+		prompt_title = "Live grep in '" .. vim.fn.getcwd() .. "'...",
+	})
+end
+
 local function custom_live_grep()
 	local ts = require("telescope.builtin")
 	local wd = vim.fn.getcwd()
@@ -296,22 +312,17 @@ function M:set_mappings()
 	map:keymaps_sets(git)
 
 	opts.desc = "grep_cword"
-	vks("n", "<leader>>", function()
-		local wd = vim.fn.getcwd()
-		local s = vim.fn.expand("<cword>")
-		ts.grep_string({
-			prompt_title = "Grep for '" .. s .. "' in '" .. wd .. "'...",
-		})
-	end, opts)
-	vks("n", "<leader>,", function()
-		ts.live_grep({
-			prompt_title = "Live grep in '" .. vim.fn.getcwd() .. "'...",
-		})
-	end, opts)
+	vks("n", "<leader>>", grep_cword, opts)
+  vks("n", "<leader><space>j", grep_cword, opts)
+	opts.desc = "live_grep"
+	vks("n", "<leader>,", live_grep, opts)
+  vks("n", "<leader><space>k", live_grep, opts)
 	opts.desc = "resume_ts_picker"
 	vks("n", "<leader>.", ts.resume, opts)
+  vks("n", "<leader><space>l", ts.resume, opts)
 	opts.desc = "custom_live_grep"
 	vks("n", "<leader><", custom_live_grep, opts)
+  vks("n", "<leader><space>;", custom_live_grep, opts)
 
 	leader.prefix = "<leader>f"
 	leader.mappings = {
