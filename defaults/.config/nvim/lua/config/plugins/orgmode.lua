@@ -56,6 +56,7 @@ function M:setup()
 				org_agenda_month_view = "<localleader>m",
 				org_agenda_year_view = "<localleader>y",
 				org_agenda_goto = "<cr>",
+        org_agenda_switch_to = "<localleader>f",
 			},
 		},
 	})
