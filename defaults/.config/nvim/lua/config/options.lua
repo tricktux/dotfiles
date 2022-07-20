@@ -30,7 +30,7 @@ function M:setup()
   -- Mon Aug 24 2020 14:55: For CursorHold to trigger more often 
   vim.opt.updatetime=100
   vim.opt.display:append("uhex")
-  vim.opt.sessionoptions = {"buffers","tabpages","options","winsize"}
+  vim.opt.sessionoptions = {"buffers","tabpages"}
   vim.opt.foldmethod = "syntax"
   vim.opt.mouse = ""
   vim.opt.background = "light"  -- This forces lualine to use the right theme
