@@ -11,19 +11,6 @@ function! options#Set() abort
   "set spell spelllang=en_us
   "omnicomplete menu
   " save marks
-  if has('nvim-0.4')
-    " Cool pseudo-transparency for the popup-menu
-    set pumblend=30
-    hi PmenuSel blend=0
-  endif
-  " Mon Aug 24 2020 14:55: For CursorHold to trigger more often 
-  set updatetime=100
-  " Tue Feb 25 2020 16:40: From vim-galore minimal vimrc
-  set autoindent
-  " No tabs in the code. Tabs are expanded to spaces
-  set expandtab
-  set shiftround
-  set display=lastline
   " Wed Sep 30 2020 22:24: Don't remember why I have this setting. Seems to be 
   " conflicting with telescope.vim
   " set report=0
@@ -36,12 +23,6 @@ function! options#Set() abort
     let &listchars = 'tab:> ,extends:>,precedes:<,nbsp:.,trail:-'
   endif
   " ------
-  if exists('g:neovide')
-    let g:neovide_refresh_rate=60
-    let g:neovide_no_idle=v:false
-    " let g:neovide_fullscreen=v:true
-    set guifont=FuraCode_Nerd_Font_Mono:h13.5
-  endif
   " Fri Apr 03 2020 17:07: I cursor blinking really gets on my nerves
   set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
         \,a:blinkon0-Cursor/lCursor
@@ -60,19 +41,8 @@ function! options#Set() abort
   set noshowmode
   " Useful for the find command
   let &path .='.,,..,../..,./*,./*/*,../*,~/,~/**,/usr/include/*'
-  if has('unix')
-    set shiftwidth=2 tabstop=2
-  else
-    set shiftwidth=4 tabstop=4
-  endif
   set showtabline=1 " always show tabs in gvim, but not vim"
   set backspace=indent,eol,start
-  " allow backspacing over everything in insert mode
-  " indents defaults. Custom values are changes in after/indent
-  " When 'sts' is negative, the value of 'shiftwidth' is used.
-  set softtabstop=-8
-  set smarttab      " insert tabs on the start of a line according to
-  " shiftwidth, not tabstop
 
   set showmatch     " set show matching parenthesis
   set showcmd       " Show partial commands in the last lines
@@ -132,10 +102,6 @@ function! options#Set() abort
   " Took out options from here. Makes the session script too long and annoying
   " Fri Jan 11 2019 21:39 Dont add resize, and winpos. It causes problems in
   " linux
-  set sessionoptions=buffers,tabpages,winpos,globals
-  " if (exists(':tnoremap'))
-  " set sessionoptions+=terminal
-  " endif
   set hidden
   set timeout
   set timeoutlen=200
@@ -155,14 +121,6 @@ function! options#Set() abort
   endif
   " set matchpairs+=<:>
   set linebreak    "Wrap lines at convenient points
-  " Open and close folds Automatically
-  " global fold indent
-  set foldmethod=indent
-  set foldnestmax=18      "deepest fold is 18 levels
-  set foldlevel=0
-  set foldlevelstart=0
-  " use this below option to set other markers
-  "'foldmarker' 'fmr' string (default: "{{{,}}}")
   " Sat Feb 22 2020 16:05: Save only what is necessary
   set viewoptions=cursor,curdir
 
@@ -177,10 +135,6 @@ function! options#Set() abort
     set ttyfast " Had to addit to speed up scrolling
     set noesckeys " No mappings that start with <esc>
   endif
-
-  " no mouse enabled
-  set mouse=
-  set laststatus=2
 
   " Thu Oct 26 2017 05:13: On small split screens text goes outside of range
   " Fri Jun 15 2018 14:00: These options are better set on case by case basis
