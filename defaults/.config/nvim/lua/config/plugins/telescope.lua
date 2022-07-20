@@ -378,6 +378,7 @@ function M:set_mappings()
 
 	map:keymaps_sets(git)
 
+  -- TODO: These should all probably <plug> type
   local search = { prefix = "<leader>" }
   search.mappings = {
     [">"] = {grep_cword, "grep_cword_all_files"},
@@ -405,7 +406,7 @@ function M:set_mappings()
 		l = { ts.current_buffer_fuzzy_find, "lines_current_buffer" },
 		t = { ts.current_buffer_tags, "tags_curr_buffer" },
 		T = { ts.tags, "tags_all_buffers" },
-		s = { ts.tagstack, "tags_stack" },
+		s = { ts.tagstack, "tags_stack" },  -- rarely used
 		r = { ts.registers, "registers" },
 		R = { ts.treesitter, "treesitter" },
 		e = { ts.resume, "resume_picker" },

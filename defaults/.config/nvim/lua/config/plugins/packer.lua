@@ -278,9 +278,13 @@ M.__plugins.common = {
     end,
   },
 	{
-		"tpope/vim-obsession",
-		setup = function()
-			require("config.plugins.misc"):setup_obsession()
+    "rmagatti/auto-session",
+		requires = {
+      { "rmagatti/session-lens" },
+      { "nvim-lua/telescope.nvim" },
+		},
+		config = function()
+			require("config.plugins.misc"):config_auto_session()
 		end,
 	},
 	{
@@ -502,8 +506,8 @@ M.__plugins.common = {
 		after = {
 			"nvim-gps",
 			"pomodoro.vim",
-			"vim-obsession",
 			"gitsigns.nvim",
+      "auto-session"
 		},
 		-- setup = function() require('config.plugins.lualine'):setup() end,
 		config = function()

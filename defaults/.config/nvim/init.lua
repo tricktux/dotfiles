@@ -29,6 +29,8 @@ local function set_globals()
 		vim.g.do_filetype_lua = 1
 	end
 
+  vim.g.sessions_path = vim.fn.stdpath("data") .. [[/sessions]]
+
 	local disabled_built_ins = {
 		"netrw",
 		"netrwPlugin",

@@ -1043,4 +1043,35 @@ function M.config_surround()
   require("nvim-surround").setup()
 end
 
+function M.config_auto_session()
+  local opts = {
+    log_level = 'info',
+    auto_session_enable_last_session = false,
+    auto_session_root_dir = vim.g.sessions_path,
+    auto_session_enabled = false,
+    auto_save_enabled = true,
+    auto_restore_enabled = false,
+    auto_session_suppress_dirs = nil,
+    auto_session_use_git_branch = true,
+    -- the configs below are lua only
+    bypass_session_save_file_types = nil
+  }
+  
+  require('auto-session').setup(opts)
+  require('session-lens').setup {
+    path_display = {'shorten'},
+    -- theme_conf = { border = false },
+    previewer = false
+  }
+  require("telescope").load_extension("session-lens")
+  local o = { silent = true, desc = "sessions" }
+  local s = require("telescope._extensions.session-lens.main").search_session
+  vks("n", "<leader>fs", s, o)
+  line:ins_left({
+    require('auto-session-library').current_session_name,
+    color = { gui = "bold" },
+    -- left_padding = 0,
+  })
+end
+
 return M
