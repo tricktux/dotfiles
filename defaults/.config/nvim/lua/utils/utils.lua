@@ -138,6 +138,12 @@ M.rg.grep_cmd = vim.tbl_flatten{
 M.rg.file_cmd = vim.tbl_flatten{
   M.rg.bin, M.rg.switches.file
 }
+M.rg.vim_to_rg_map = {
+  vim = "vimscript",
+  python = "py",
+  markdown = "md",
+}
+
 
 M.buftype = {}
 M.buftype.whitelist = {"", "acwrite"}

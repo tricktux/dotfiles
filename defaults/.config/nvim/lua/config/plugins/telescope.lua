@@ -1,6 +1,8 @@
 local utl = require("utils.utils")
 local Path = require("plenary.path")
 local map = require("config.mappings")
+local vf = vim.fn
+local fmt = string.format
 
 local M = {}
 
@@ -20,80 +22,145 @@ local function live_grep()
 	})
 end
 
+local live_grep_opts = {
+  cwd = wd,
+  glob_pattern = nil,
+  type_filter = nil,
+}
+
+local live_grep_opts_input = {
+  cwd = {
+    opts = {
+      prompt = "Change search directory: ",
+      default = vf.getcwd(),
+      completion = "dir",
+    },
+    on_confirm = function(input)
+      if input == nil then
+        return
+      end
+
+      local plok, pl = pcall(require, "plenary.path")
+      if not plok then
+        if vim.fn.isdir(vf.getcwd() .. input) == 1 then
+          live_grep_opts.cwd = vf.getcwd() .. input
+        end
+        return
+      end
+      local p = pl:new(input)
+      if not p:exists() then
+        vim.notify("Invalid input path: '" .. p:absolute() .. "'", vim.log.levels.WARN)
+        return
+      end
+      live_grep_opts.cwd = p:absolute()
+    end,
+  },
+  glob_pattern = {
+    opts = {
+      prompt = "Change glob pattern 'i.e: !*.toml':",
+    },
+    on_confirm = function(input)
+      if input == nil then
+        return
+      end
+
+      live_grep_opts.glob_pattern = input
+    end,
+  },
+  type_filter = {
+    opts = {
+      prompt = "Change type filter: ",
+      default = vim.opt.filetype:get(),
+    },
+    on_confirm = function(input)
+      if input == nil then
+        return
+      end
+
+      live_grep_opts.type_filter = utl.rg.vim_to_rg_map[input] or input
+    end,
+  },
+}
+
+local function grep_cfilter_cword()
+  local ts = require("telescope.builtin")
+  local f = vim.opt.filetype:get()
+  local fx = utl.rg.vim_to_rg_map[f] or f
+  local s = vim.fn.expand("<cword>")
+  local c = vf.getcwd()
+  local p = fmt("Grep for '%s' with filter '%s' in '%s'", s, fx, c)
+  local a = function(opts)
+    return "--type=" .. fx
+  end
+  local o = {
+    prompt_title = p,
+    cwd = c,
+    additional_args = a
+  }
+  ts.grep_string(o)
+end
+
+local function grep_cglob_cword()
+  local ts = require("telescope.builtin")
+  local g = [[*.]] .. vim.fn.expand("%:e")
+  local s = vim.fn.expand("<cword>")
+  local c = vf.getcwd()
+  local p = fmt("Grep for '%s' with glob '%s' in '%s'", s, g, c)
+  local a = function(opts)
+    return "--glob=" .. g
+  end
+  local o = {
+    prompt_title = p,
+    cwd = c,
+    additional_args = a
+  }
+  ts.grep_string(o)
+end
+
+local function live_grep_cfile_type_filter()
+  local ts = require("telescope.builtin")
+  local f = vim.opt.filetype:get()
+  local fx = utl.rg.vim_to_rg_map[f] or f
+  local c = vf.getcwd()
+  local p = fmt("Live grep in '%s' for filter '%s'", c, fx)
+  local o = {
+    prompt_title = p,
+    cwd = c,
+    type_filter = fx
+  }
+  -- print(vim.inspect(o))
+  ts.live_grep(o)
+end
+
+local function live_grep_cfile_glob_pattern()
+  local ts = require("telescope.builtin")
+  local g = [[*.]] .. vim.fn.expand("%:e")
+  local c = vf.getcwd()
+  local p = fmt("Live grep in '%s' for glob '%s'", c, g)
+  local o = {
+    prompt_title = p,
+    cwd = c,
+    glob_pattern = g
+  }
+  -- print(vim.inspect(o))
+  ts.live_grep(o)
+end
+
 local function custom_live_grep()
 	local ts = require("telescope.builtin")
 	local wd = vim.fn.getcwd()
-	local vim_to_rg_map = {
-		vim = "vimscript",
-		python = "py",
-		markdown = "md",
-	}
 	local opts_names = { "cwd", "glob_pattern", "type_filter" }
-	local opts_values = {
+	local live_grep_opts = {
 		cwd = wd,
 		glob_pattern = nil,
 		type_filter = nil,
 	}
-	local live_grep_opts = {
-		cwd = {
-			opts = {
-				prompt = "Change search directory: ",
-				default = wd,
-				completion = "dir",
-			},
-			on_confirm = function(input)
-				if input == nil then
-					return
-				end
-
-				local plok, pl = pcall(require, "plenary.path")
-				if not plok then
-					if vim.fn.isdir(wd .. input) == 1 then
-						opts_values.cwd = wd .. input
-					end
-					return
-				end
-				local p = pl:new(input)
-				if not p:exists() then
-					vim.notify("Invalid input path: '" .. p:absolute() .. "'", vim.log.levels.WARN)
-					return
-				end
-				opts_values.cwd = p:absolute()
-			end,
-		},
-		glob_pattern = {
-			opts = {
-				prompt = "Change glob pattern 'i.e: !*.toml':",
-			},
-			on_confirm = function(input)
-				if input == nil then
-					return
-				end
-
-				opts_values.glob_pattern = input
-			end,
-		},
-		type_filter = {
-			opts = {
-				prompt = "Change type filter: ",
-				default = vim.opt.filetype:get(),
-			},
-			on_confirm = function(input)
-				if input == nil then
-					return
-				end
-
-				opts_values.type_filter = vim_to_rg_map[input] or input
-			end,
-		},
-	}
-
 	local function make_choice()
 		local choice = nil
 		vim.ui.select(opts_names, {
 			prompt = "Would you like to modify an option?:",
 			format_item = function(item)
-				return "'" .. item .. "' = " .. (opts_values[item] or "nil")
+				return "'" .. item .. "' = " .. (live_grep_opts[item] or "nil")
 			end,
 		}, function(selected)
 			choice = selected
@@ -111,8 +178,8 @@ local function custom_live_grep()
 		vim.ui.input(live_grep_opts[ret].opts, live_grep_opts[ret].on_confirm)
 	end
 
-	opts_values.prompt_title = "Live grep in '" .. opts_values.cwd .. "'..."
-	ts.live_grep(opts_values)
+	live_grep_opts.prompt_title = "Live grep in '" .. live_grep_opts.cwd .. "'..."
+	ts.live_grep(live_grep_opts)
 end
 
 local function project_bufenter_event()
@@ -311,18 +378,23 @@ function M:set_mappings()
 
 	map:keymaps_sets(git)
 
-	opts.desc = "grep_cword"
-	vks("n", "<leader>>", grep_cword, opts)
-  vks("n", "<leader><space>j", grep_cword, opts)
-	opts.desc = "live_grep"
-	vks("n", "<leader>,", live_grep, opts)
-  vks("n", "<leader><space>k", live_grep, opts)
-	opts.desc = "resume_ts_picker"
-	vks("n", "<leader>.", ts.resume, opts)
-  vks("n", "<leader><space>l", ts.resume, opts)
-	opts.desc = "custom_live_grep"
-	vks("n", "<leader><", custom_live_grep, opts)
-  vks("n", "<leader><space>;", custom_live_grep, opts)
+  local search = { prefix = "<leader>" }
+  search.mappings = {
+    [">"] = {grep_cword, "grep_cword_all_files"},
+    [","] = {grep_cfilter_cword, "grep_cfilter_cword" },
+    ["."] = {ts.resume, "resume" },
+    ["<"] = {grep_cglob_cword, "grep_cglob_cword" },
+    ["si"] = {grep_cword, "grep_cword_all_files"},
+    ["so"] = {live_grep, "live_grep_all_words_all_files"},
+    ["sl"] = {ts.resume, "ts.resume"},
+    ["s;"] = {custom_live_grep , "custom_live_grep"},
+    ["sj"] = {live_grep_cfile_glob_pattern, "live_grep_cfile_glob_pattern"},
+    ["sk"] = {live_grep_cfile_type_filter, "live_grep_cfile_type_filter"},
+    ["sf"] = {grep_cfilter_cword, "grep_cfilter_cword"},
+    ["sg"] = {grep_cglob_cword, "grep_cglob_cword"},
+  }
+
+  map:keymaps_sets(search)
 
 	leader.prefix = "<leader>f"
 	leader.mappings = {
