@@ -5,42 +5,58 @@ local _config = {}
 -- Redshift command. Basically how to run the command.
 -- Switches are provided as its own table
 _config.redshift = {
-  cmd = '/usr/bin/redshift',
-  switches = {"-p", "-l", "manual"}
+	cmd = "/usr/bin/redshift",
+	switches = { "-p", "-l", "manual" },
 }
 
 -- Wal command. But with switches for day time and switches for night time
 -- Switches are provided as its own table
 _config.pywal = {
-  cmd = '/usr/bin/wal',
-  day = {
-    "--theme", "base16-google", "-l", "-q", "-o",
-    "$HOME/.config/polybar/launch.sh"
-  },
-  sunrise = {
-    "--theme", "solarized", "-l", "-q", "-o", "$HOME/.config/polybar/launch.sh"
-  },
-  night = {
-    "--theme", "base16-gruvbox-hard", "-q", "-o",
-    "$HOME/.config/polybar/launch.sh"
-  },
-  sunset = {
-    "--theme", "solarized", "-q", "-o", "$HOME/.config/polybar/launch.sh"
-  }
+	cmd = "/usr/bin/wal",
+	day = {
+		"--theme",
+		"base16-google",
+		"-l",
+		"-q",
+		"-o",
+		"$HOME/.config/polybar/launch.sh",
+	},
+	sunrise = {
+		"--theme",
+		"solarized",
+		"-l",
+		"-q",
+		"-o",
+		"$HOME/.config/polybar/launch.sh",
+	},
+	night = {
+		"--theme",
+		"base16-gruvbox-hard",
+		"-q",
+		"-o",
+		"$HOME/.config/polybar/launch.sh",
+	},
+	sunset = {
+		"--theme",
+		"solarized",
+		"-q",
+		"-o",
+		"$HOME/.config/polybar/launch.sh",
+	},
 }
 _config.print = {
-  enabled = true,
-  day = "  ",
-  night = "  ",
-  sunset = "  ",
-  sunrise = "  "
+	enabled = true,
+	day = "  ",
+	night = "  ",
+	sunset = "  ",
+	sunrise = "  ",
 }
 
 local _options = {
-  ['help'] = false,
-  ['verbose'] = false,
-  ['config'] = '',
-  ['force'] = ''
+	["help"] = false,
+	["verbose"] = false,
+	["config"] = "",
+	["force"] = "",
 }
 
 local _usage = [[
@@ -101,33 +117,32 @@ local _usage = [[
 ]]
 
 local function _check_args()
-  local last_opt = nil
-  for _, opt in ipairs(arg) do
-    if opt == '-h' or opt == '--help' then
-      print(_usage)
-      return 1
-    end
+	local last_opt = nil
+	for _, opt in ipairs(arg) do
+		if opt == "-h" or opt == "--help" then
+			print(_usage)
+			return 1
+		end
 
-    if opt == '-v' or opt == '--verbose' then
-      _options['verbose'] = true
-    elseif opt == '-c' or opt == '--config' then
-      last_opt = 'config'
-    elseif opt == '-f' or opt == '--force' then
-      last_opt = 'force'
-    elseif last_opt ~= nil then
-      _options[last_opt] = opt
-      last_opt = nil
-    end
+		if opt == "-v" or opt == "--verbose" then
+			_options["verbose"] = true
+		elseif opt == "-c" or opt == "--config" then
+			last_opt = "config"
+		elseif opt == "-f" or opt == "--force" then
+			last_opt = "force"
+		elseif last_opt ~= nil then
+			_options[last_opt] = opt
+			last_opt = nil
+		end
+	end
 
-  end
-
-  if _options['verbose'] then
-    print('Switch options:')
-    for opt, val in pairs(_options) do
-      print('\t' .. opt .. ' = "' .. tostring(val) .. '"')
-    end
-  end
-  return 0
+	if _options["verbose"] then
+		print("Switch options:")
+		for opt, val in pairs(_options) do
+			print("\t" .. opt .. ' = "' .. tostring(val) .. '"')
+		end
+	end
+	return 0
 end
 
 local _redshift = _config.redshift
@@ -137,27 +152,31 @@ local _redshift = _config.redshift
 -- @param cmd (string) Full path to command. Ex: '/usr/bin/cat'
 -- @return (int) 1 if found, 0 if not
 local function _isfile(cmd)
-  local file, err = io.open(cmd)
-  if file == nil then
-    print('Program ' .. cmd .. ' not found')
-    if _options['verbose'] then print('\t' .. err) end
-    return 1
-  end
+	local file, err = io.open(cmd)
+	if file == nil then
+		print("Program " .. cmd .. " not found")
+		if _options["verbose"] then
+			print("\t" .. err)
+		end
+		return 1
+	end
 
-  return 0
+	return 0
 end
 
 local function _exec(cmd)
-  cmd = cmd .. ' 2>&1&'
-  local file, err = io.popen(cmd)
-  if file == nil then
-    print('Command ' .. cmd .. ' failed')
-    if _options['verbose'] then print('\t' .. err) end
-    return ''
-  end
-  local output = file:read('*all')
-  file:close()
-  return output
+	cmd = cmd .. " 2>&1&"
+	local file, err = io.popen(cmd)
+	if file == nil then
+		print("Command " .. cmd .. " failed")
+		if _options["verbose"] then
+			print("\t" .. err)
+		end
+		return ""
+	end
+	local output = file:read("*all")
+	file:close()
+	return output
 end
 
 -- @brief Executes redshift with in print mode
@@ -165,25 +184,37 @@ end
 -- @param manual (bool) Wether to use force manual location provider
 -- @return Period (string): day, night, or '' in case of error
 function _redshift:exec()
-  local opts = ''
-  for _, opt in ipairs(self.switches) do opts = opts .. ' ' .. opt end
-  local cmd = self.cmd .. opts
+	local opts = ""
+	for _, opt in ipairs(self.switches) do
+		opts = opts .. " " .. opt
+	end
+	local cmd = self.cmd .. opts
 
-  if _options['verbose'] then print('Redshift command: \n\t' .. cmd) end
-  local output = _exec(cmd)
-  if _options['verbose'] then print('Redshift output: \n' .. output) end
-  -- Search occurrance of the Period value in the output
-  local trans = false
-  if string.find(output, "[T-t]ransition") ~= nil then trans = true end
-  if string.find(output, "[D-d]ay") ~= nil then
-    if trans then return 'sunrise' end
-    return 'day'
-  end
-  if string.find(output, "[N-n]ight") ~= nil then
-    if trans then return 'sunset' end
-    return 'night'
-  end
-  return ''
+	if _options["verbose"] then
+		print("Redshift command: \n\t" .. cmd)
+	end
+	local output = _exec(cmd)
+	if _options["verbose"] then
+		print("Redshift output: \n" .. output)
+	end
+	-- Search occurrance of the Period value in the output
+	local trans = false
+	if string.find(output, "[T-t]ransition") ~= nil then
+		trans = true
+	end
+	if string.find(output, "[D-d]ay") ~= nil then
+		if trans then
+			return "sunrise"
+		end
+		return "day"
+	end
+	if string.find(output, "[N-n]ight") ~= nil then
+		if trans then
+			return "sunset"
+		end
+		return "night"
+	end
+	return ""
 end
 
 local _pywal = _config.pywal
@@ -191,96 +222,124 @@ local _pywal = _config.pywal
 -- @brief Execute the pywal command
 -- @param period (string): One of 'day', 'night', 'sunrise', or 'sunset'
 function _pywal:exec(period)
-  local switches = self[period] == nil and 'night' or period
-  local opts = ''
-  for _, opt in ipairs(self[switches]) do opts = opts .. ' ' .. opt end
-  local cmd = self.cmd .. opts
+	local switches = self[period] == nil and "night" or period
+	local opts = ""
+	for _, opt in ipairs(self[switches]) do
+		opts = opts .. " " .. opt
+	end
+	local cmd = self.cmd .. opts
 
-  if _options['verbose'] then print('Pywal command: \n\t' .. cmd) end
-  local output = _exec(cmd)
-  if _options['verbose'] then print('Pywal output: \n' .. output) end
+	if _options["verbose"] then
+		print("Pywal command: \n\t" .. cmd)
+	end
+	local output = _exec(cmd)
+	if _options["verbose"] then
+		print("Pywal output: \n" .. output)
+	end
 end
 
-local _memory = {location = [[/tmp/flux]]}
+local _memory = { location = [[/tmp/flux]] }
 
 function _memory:store(period)
-  local file = assert(io.open(self.location, "w+"))
-  file:write(period)
-  file:close()
+	local file = assert(io.open(self.location, "w+"))
+	file:write(period)
+	file:close()
 end
 
 function _memory:recall()
-  local file = io.open(self.location)
-  if file == nil then return '' end
-  local output = file:read('*all')
-  file:close()
-  return output
+	local file = io.open(self.location)
+	if file == nil then
+		return ""
+	end
+	local output = file:read("*all")
+	file:close()
+	return output
 end
 
 local function _reload_config(config_file)
-  if config_file == nil or config_file == '' then
-    print('Error: Invalid config file provided')
-    return nil
-  end
+	if config_file == nil or config_file == "" then
+		print("Error: Invalid config file provided")
+		return nil
+	end
 
-  if _isfile(config_file) ~= 0 then
-    print('Error: Config file not found:\n\t:' .. config_file)
-    return nil
-  end
+	if _isfile(config_file) ~= 0 then
+		print("Error: Config file not found:\n\t:" .. config_file)
+		return nil
+	end
 
-  local f, err = loadfile(config_file)
-  if f == nil then
-    print('Error loading config file:\n\t:' .. config_file)
-    print('Error:\n\t:' .. err)
-    return nil
-  end
+	local f, err = loadfile(config_file)
+	if f == nil then
+		print("Error loading config file:\n\t:" .. config_file)
+		print("Error:\n\t:" .. err)
+		return nil
+	end
 
-  return f()
+	return f()
 end
 
 local function main()
-  if _check_args() ~= 0 then return 0 end
+	if _check_args() ~= 0 then
+		return 0
+	end
 
-  local cfg = _options['config']
-  if cfg ~= '' then
-    local config = _reload_config(cfg)
-    if config == nil then return 1 end
-    if _options['verbose'] then
-      print('Config options:')
-      for opt, val in pairs(config) do
-        print('\t' .. opt .. ' = "' .. tostring(val) .. '"')
-      end
-    end
-    -- Overwrite options
-    for k, v in pairs(config.pywal) do _pywal[k] = v end
-    for k, v in pairs(config.redshift) do _redshift[k] = v end
-    for k, v in pairs(config.print) do _config.print[k] = v end
-  end
+	local cfg = _options["config"]
+	if cfg ~= "" then
+		local config = _reload_config(cfg)
+		if config == nil then
+			return 1
+		end
+		if _options["verbose"] then
+			print("Config options:")
+			for opt, val in pairs(config) do
+				print("\t" .. opt .. ' = "' .. tostring(val) .. '"')
+			end
+		end
+		-- Overwrite options
+		for k, v in pairs(config.pywal) do
+			_pywal[k] = v
+		end
+		for k, v in pairs(config.redshift) do
+			_redshift[k] = v
+		end
+		for k, v in pairs(config.print) do
+			_config.print[k] = v
+		end
+	end
 
-  local forced_period = _options['force']
-  if forced_period ~= '' then
-    if _options['verbose'] then print('Forcing period:\n\t' .. forced_period) end
-    _pywal:exec(forced_period)
-    return
-  end
+	local forced_period = _options["force"]
+	if forced_period ~= "" then
+		if _options["verbose"] then
+			print("Forcing period:\n\t" .. forced_period)
+		end
+		_pywal:exec(forced_period)
+		return
+	end
 
-  local period = _redshift:exec(_options['manual'])
-  if _options['verbose'] then print('Day period:\n\t' .. period) end
-  if period == '' then return 3 end
+	local period = _redshift:exec(_options["manual"])
+	if _options["verbose"] then
+		print("Day period:\n\t" .. period)
+	end
+	if period == "" then
+		return 3
+	end
 
-  if _config.print['enabled'] then print(_config.print[period]) end
+	if _config.print["enabled"] then
+		print(_config.print[period])
+	end
 
-  local last_period = _memory:recall()
-  if _options['verbose'] then print('Last day period:\n\t' .. last_period) end
-  if last_period == period then
-    if _options['verbose'] then
-      print('Time of day has not change. Nothing to do. Bye bye :D')
-    end
-    return
-  end
+	local last_period = _memory:recall()
+	if _options["verbose"] then
+		print("Last day period:\n\t" .. last_period)
+	end
+	if last_period == period then
+		if _options["verbose"] then
+			print("Time of day has not change. Nothing to do. Bye bye :D")
+		end
+		return
+	end
 
-  _memory:store(period)
-  _pywal:exec(period)
+	_memory:store(period)
+	_pywal:exec(period)
 end
 
 return main()
