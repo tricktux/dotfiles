@@ -64,3 +64,6 @@ defaults/.config/nvim/spell
 defaults/.config/nvim/spell
 defaults/.config/doublecmd/extassoc.xml
 defaults/.config/doublecmd/highlighters.xml
+defaults/.config/kitty/themes
+defaults/.config/kitty/current-theme.conf
+defaults/.config/kitty/kitty.conf.bak
