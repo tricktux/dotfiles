@@ -3,6 +3,7 @@ local Path = require("plenary.path")
 local map = require("config.mappings")
 local vf = vim.fn
 local fmt = string.format
+local log = require("utils.log")
 
 local M = {}
 
@@ -406,7 +407,6 @@ function M:set_mappings()
 		l = { ts.current_buffer_fuzzy_find, "lines_current_buffer" },
 		t = { ts.current_buffer_tags, "tags_curr_buffer" },
 		T = { ts.tags, "tags_all_buffers" },
-		s = { ts.tagstack, "tags_stack" },  -- rarely used
 		r = { ts.registers, "registers" },
 		R = { ts.treesitter, "treesitter" },
 		e = { ts.resume, "resume_picker" },
@@ -429,6 +429,7 @@ end
 
 function M:setup()
 	self:set_mappings()
+  log.info("[telescope]: called set_mappings")
 	local actions = require("telescope.actions")
 	local actions_generate = require("telescope.actions.generate")
 	local actions_layout = require("telescope.actions.layout")

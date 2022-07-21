@@ -1058,7 +1058,7 @@ function M.config_auto_session()
     -- the configs below are lua only
     bypass_session_save_file_types = nil
   }
-  
+
   require('auto-session').setup(opts)
   require('session-lens').setup {
     path_display = {'shorten'},
@@ -1067,8 +1067,8 @@ function M.config_auto_session()
   }
   require("telescope").load_extension("session-lens")
   local o = { silent = true, desc = "sessions" }
-  local s = require("telescope._extensions.session-lens.main").search_session
-  vks("n", "<leader>fs", s, o)
+  log.info("[sessions]: mappings")
+  vks("n", "<leader>fs", "<cmd>SearchSession<cr>", o)
   line:ins_left({
     require('auto-session-library').current_session_name,
     color = { gui = "bold" },
