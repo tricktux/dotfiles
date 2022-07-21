@@ -18,7 +18,7 @@ function M:setup()
 			"|",
 			"DONE",
 			"WONT_DO",
-			"CANCELED",
+			"CANCELLED",
 		},
     org_highlight_latex_and_related = "entities",
 		org_default_notes_file = vim.g.wiki_path .. [[/org/notes.org]],
