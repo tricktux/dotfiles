@@ -105,7 +105,7 @@ update_polybar_python_venv() {
 }
 
 update_nvim_plugins() {
-	nvim +PackerSync
+	nvim +PackerUPDATE
 }
 
 update_pymodules() {

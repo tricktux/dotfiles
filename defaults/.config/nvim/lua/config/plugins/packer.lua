@@ -668,6 +668,8 @@ function M:setup()
 
 	log.trace("packer: plugins = ", plugins)
 	packer.startup({ plugins, config = self.__config })
+  local o = {desc = "packer_snapshot_sync"}
+  vim.api.nvim_create_user_command('PackerUPDATE', self.__update, o)
 end
 
 return M
