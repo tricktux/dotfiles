@@ -18,7 +18,7 @@ BACKUP_DIRS = [
     # r"D:\Mission.ATPs",
 ]
 
-DRIVE = 'G'
+DRIVE = 'M'
 DEST_DIR = fr'{DRIVE}:\StationBackups\reinaldo_laptop'
 THREADS = 16
 LOG = r"%TEMP%\robo.log"
