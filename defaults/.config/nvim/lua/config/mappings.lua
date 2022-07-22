@@ -66,17 +66,20 @@ local function refresh_buffer()
 		false
 	)
 
-	if vf.exists(":SignifyRefresh") > 0 then
-		vim.cmd("SignifyRefresh")
-	end
+  local ind_ok, ind = pcall(require, "indent_blankline.commands")
+  if ind_ok and ind.refresh ~= nil then
+    ind.refresh(false, true)
+  end
 
-	if utl.is_mod_available("gitsigns") then
-		require("gitsigns").refresh()
-	end
+  local line_ok, line = pcall(require, "lualine")
+  if line_ok and line.refresh ~= nil then
+    line.refresh()
+  end
 
-	if vf.exists(":IndentBlanklineRefresh") > 0 then
-		vim.cmd("IndentBlanklineRefresh")
-	end
+  local git_ok, git = pcall(require, "gitsigns")
+  if git_ok and git.refresh ~= nil then
+    git.refresh()
+  end
 end
 
 local function tmux_move(direction)
