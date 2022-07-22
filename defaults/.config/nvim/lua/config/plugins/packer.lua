@@ -6,6 +6,7 @@
 -- Last Modified:  Tue Sep 08 2020 22:20
 local utl = require("utils.utils")
 local log = require("utils.log")
+local vks = vim.keymap.set
 
 local M = {}
 local data_folder = vim.fn.stdpath("data")
@@ -535,6 +536,17 @@ M.__plugins.common = {
 		end,
     run = "CatppuccinCompile",
 	},
+  {
+    "brenoprata10/nvim-highlight-color",
+    cmd = "HighlightColorsOn",
+    config = function()
+      local o = {silent = true, desc = "highlight_colors_on"}
+      require('nvim-highlight-colors').setup {}
+      vks("n", "<leader>tch", "<cmd>HighlightColorsOn<cr>", o)
+      o.desc = "highlight_colors_off"
+      vks("n", "<leader>tco", "<cmd>HighlightColorsOff<cr>", o)
+    end,
+  },
 }
 M.__plugins.deps = {}
 M.__plugins.deps.has = {
