@@ -537,7 +537,7 @@ M.__plugins.common = {
     run = "CatppuccinCompile",
 	},
   {
-    "brenoprata10/nvim-highlight-color",
+    "brenoprata10/nvim-highlight-colors",
     cmd = "HighlightColorsOn",
     config = function()
       local o = {silent = true, desc = "highlight_colors_on"}
