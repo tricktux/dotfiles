@@ -92,12 +92,53 @@ M.__config = {
 	extensions = { "fzf", "nvim-tree", "quickfix", "fugitive" },
 }
 
+M.__buffers = {
+  'buffers',
+  show_filename_only = true,   -- Shows shortened relative path when set to false.
+  hide_filename_extension = false,   -- Hide filename extension when set to true.
+  show_modified_status = true, -- Shows indicator when the buffer is modified.
+  mode = 4, -- 0: Shows buffer name
+  -- 1: Shows buffer index
+  -- 2: Shows buffer name + buffer index
+  -- 3: Shows buffer number
+  -- 4: Shows buffer name + buffer number
+  max_length = vim.o.columns * 2 / 3, -- Maximum width of buffers component,
+  -- it can also be a function that returns
+  -- the value of `max_length` dynamically.
+}
+
+M.__winbar = {
+  lualine_a = {},
+  lualine_b = {},
+  lualine_c = {'filename'},
+  lualine_x = {},
+  lualine_y = {},
+  lualine_z = {}
+}
+
+M.__inactive_winbar = {
+  lualine_a = {},
+  lualine_b = {},
+  lualine_c = {'filename'},
+  lualine_x = {},
+  lualine_y = {},
+  lualine_z = {}
+}
+
 -- Inserts a component in lualine_c at left section
 function M:ins_left(component)
 	if self.__setup_called ~= true then
 		self:setup()
 	end
 	table.insert(self.__config.sections.lualine_c, component)
+end
+
+-- Inserts a component in lualine_c at left section
+function M:ins_winbar(component)
+  if self.__setup_called ~= true then
+    self:setup()
+  end
+	table.insert(self.__winbar.lualine_c, component)
 end
 
 -- Inserts a component in lualine_x at left section
@@ -230,7 +271,11 @@ function M:setup()
 end
 
 function M:config()
-	log.info("[lualine]: Configuring...")
+  if vim.fn.has("nvim-0.8") > 0 then
+    self.__config.winbar = self.__winbar
+    self.__config.inactive_winbar = self.__inactive_winbar
+  end
+  log.info("[lualine]: Configuring...", self.__config)
 	require("lualine").setup(self.__config)
 end
 
