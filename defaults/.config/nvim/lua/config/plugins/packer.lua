@@ -539,12 +539,14 @@ M.__plugins.common = {
   {
     "brenoprata10/nvim-highlight-colors",
     cmd = "HighlightColorsOn",
-    config = function()
+    setup = function()
       local o = {silent = true, desc = "highlight_colors_on"}
-      require('nvim-highlight-colors').setup {}
-      vks("n", "<leader>tch", "<cmd>HighlightColorsOn<cr>", o)
+      vim.keymap.set("n", "<leader>tch", "<cmd>HighlightColorsOn<cr>", o)
       o.desc = "highlight_colors_off"
-      vks("n", "<leader>tco", "<cmd>HighlightColorsOff<cr>", o)
+      vim.keymap.set("n", "<leader>tco", "<cmd>HighlightColorsOff<cr>", o)
+    end,
+    config = function()
+      require('nvim-highlight-colors').setup {}
     end,
   },
 }
