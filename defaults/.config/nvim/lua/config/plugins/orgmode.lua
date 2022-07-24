@@ -4,10 +4,6 @@ function M:setup()
 	local org = require("orgmode")
 	org.setup_ts_grammar()
 
-  vim.cmd[[
-    hi link OrgTODO OrgBold
-  ]]
-
 	org.setup({
 		org_agenda_files = { vim.g.wiki_path .. [[/org/**/*.org]] },
 		org_priority_lowest = "D",
