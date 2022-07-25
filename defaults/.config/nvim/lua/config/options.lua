@@ -9,6 +9,11 @@ function M:setup()
 	vim.opt.shiftwidth = 4 -- Always set this two values to the same
 	vim.opt.tabstop = 4
 	----------------------------
+  -- Title
+  vim.opt.title = true
+  vim.opt.titlelen = 90  -- Percent of columns
+  ----------------------------
+
 	vim.opt.pumblend = 30
 	vim.api.nvim_set_hl(0, "PmenuSel", { blend = 0 })
 	-- Mon Aug 24 2020 14:55: For CursorHold to trigger more often

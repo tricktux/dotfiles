@@ -231,7 +231,8 @@ function M:setup()
 		self:ins_left({ "windows" })
 	end
 
-	self:ins_left({ self.__lsp })
+  -- TODO: Not working
+	-- self:ins_left({ self.__lsp })
 
 	self:ins_left(self.__diagnostics)
 
@@ -243,10 +244,9 @@ function M:setup()
 	})
 
 	self:ins_left({
-		"filename",
-		file_status = true,
-		path = 1,
-		condition = self.__conditions.buffer_not_empty,
+    function()
+      return vim.api.nvim_eval_statusline(vim.fn.getcwd() .. "<=>%f%m%r", {}).str
+    end
 	})
 
 	self:__ins_right({ "location", right_padding = 0 })

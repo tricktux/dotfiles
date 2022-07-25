@@ -64,22 +64,6 @@ function! options#Set() abort
   " Mon Aug 31 2020 00:22:
   " For some crazy reason this disables nvim-lsp
   " set wildignore+=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn,.git
-  set title                " change the terminal's title
-  set titlelen=0
-  let &titleold="Closing " . v:progname . "..."
-
-  " Set a pretty title
-  augroup TitleString
-    autocmd!
-    if (exists('#DirChanged'))
-      autocmd BufWinLeave,BufWinEnter,CursorHold,DirChanged,TabEnter *
-            \ let &titlestring = <sid>get_titlestring()
-    else
-      autocmd BufWinLeave,BufWinEnter,CursorHold,TabEnter *
-            \ let &titlestring = <sid>get_titlestring()
-    endif
-  augroup END
-
   " All backups!
   set backup " backup overwritten files
   set writebackup
