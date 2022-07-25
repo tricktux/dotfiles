@@ -14,7 +14,7 @@ BACKUP_DIRS = [
     r"D:\3.Other",
     r"D:\cdats",
     r"D:\wiki",
-    # r"D:\wings-dev",
+    r"D:\wings-dev",
     # r"D:\Mission.ATPs",
 ]
 
