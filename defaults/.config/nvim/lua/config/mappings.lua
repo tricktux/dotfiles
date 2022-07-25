@@ -154,19 +154,17 @@ colors.mappings = {
   },
 }
 
---[[ function! s:edit_tmp_doc(type) abort
-let l:sep = has('unix') ? '/' : '\'
-let l:file_name = stdpath('cache') . l:sep . 'temp_' . strftime('%m%d%Y_%H%M%S')
-execute 'edit ' . l:file_name . (empty(a:type) ? '' : '.' . a:type)
-endfunction ]]
-
 local edit = {}
 edit.prefix = "<leader>e"
 edit.edit_temporary_file = function(type)
-  local s = utl.fs.sep
+  local s = utl.fs.path.sep
   local t = os.date("%y%m%d_%H%M%S")
   local f = fmt("%s%stemp_%s", vim.fn.stdpath("cache"), s, t)
   local e = type and "." .. type or ""
+  if vf.has("nvim-0.8") > 0 then
+    vim.cmd({cmd = "edit", args = {fmt("%s%s", f, e)}})
+    return
+  end
   vim.cmd(fmt("edit %s%s", f, e))
 end
 edit.mappings = {
