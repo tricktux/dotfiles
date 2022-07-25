@@ -371,12 +371,17 @@ function M.setup_gpsnvim()
 		separator = " > ",
 	})
 
-	if vim.fn.has("nvim-0.8") <= 0 then
-		log.info("ins_left(): nvim-gps")
-		line:ins_left({
+  log.info("ins_left(): nvim-gps")
+	if vim.fn.has("nvim-0.8") > 0 then
+		line:ins_winbar({
 			gps_get_location,
 			condition = gps.is_available,
 		})
+  else
+    line:ins_left({
+      gps_get_location,
+      condition = gps.is_available,
+    })
 	end
 end
 

@@ -81,24 +81,9 @@ leader.c = {
   c = 'display_curr_work_dir'
 }
 
-local edit_random_file_type = {
-  name = 'random_file_type',
-  c = {'<cmd>UtilsEditTmpFileCpp<cr>', 'cpp'},
-  p = {'<cmd>UtilsEditTmpFilePython<cr>', 'python'},
-  m = {'<cmd>UtilsEditTmpFileMarkdown<cr>', 'markdown'},
-  v = {'<cmd>UtilsEditTmpFileVim<cr>', 'vim'},
-  l = {'<cmd>UtilsEditTmpFileLua<cr>', 'lua'},
-  g = {'<cmd>UtilsEditTmpFileGen<cr>', 'general_enter_extension'}
-}
-
 leader.e = {
   name = 'edit',
-  t = edit_random_file_type,
-  a = 'add folder/file',
-  P = {
-    function() vim.api.nvim_exec('edit ' .. vim.fn.getreg('+'), true) end,
-    'edit_file_path_clipboard'
-  }
+  t = "temporary",
 }
 
 local sessions = {name = 'sessions', s = 'save', l = 'load', e = 'load_default'}
