@@ -2,7 +2,7 @@
 -- Author: shadmansaleh
 -- Credit: glepnir
 -- Link: https://gist.github.com/hoob3rt/b200435a765ca18f09f83580a606b878
-local set = require("utils.utils").Set
+local utl = require("utils.utils")
 local log = require("utils.log")
 
 local M = {}
@@ -245,7 +245,16 @@ function M:setup()
 
 	self:ins_left({
     function()
-      return vim.api.nvim_eval_statusline(vim.fn.getcwd() .. "<=>%f%m%r", {}).str
+      local f = "%f%m%r"
+      local btbs = utl.buftype.blacklist_set
+      local bt = vim.api.nvim_buf_get_option(0, "buftype")
+      local ftbs = utl.filetype.blacklist_set
+      local ft = vim.opt_local.filetype:get()
+      if btbs[bt] or ftbs[ft] then
+        return vim.api.nvim_eval_statusline(f, {}).str
+      end
+
+      return vim.api.nvim_eval_statusline(vim.fn.getcwd() .. "<=>" .. f, {}).str
     end
 	})
 
