@@ -514,6 +514,7 @@ function! mappings#Set()
 
   " Edit file at location <Leader>e?
 if !has('nvim-0.5')
+  nnoremap <leader>ea :call <sid>add_file(getcwd())<cr>
   nnoremap <leader>tc :call <sid>toggle_conceal<cr>
   " Wiki mappings <Leader>w?
   nnoremap <silent> <leader>wo :call <SID>wiki_open()<cr>
@@ -553,7 +554,6 @@ if !has('nvim-0.5')
   " \ ('edit ' . g:dotfiles . '/TODO.md')<cr>
   " endif
 
-  nnoremap <leader>ea :call <sid>add_file(getcwd())<cr>
 endfunction
 
 function! mappings#SaveSession(...) abort

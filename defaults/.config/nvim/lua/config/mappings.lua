@@ -168,6 +168,12 @@ edit.edit_temporary_file = function(type)
   vim.cmd(fmt("edit %s%s", f, e))
 end
 edit.mappings = {
+  a = {
+    function()
+      fs.file.create(vim.fn.getcwd())
+    end,
+    "add_new_file_folder",
+  },
   d = {
     function()
       fs.path.fuzzer(vim.g.dotfiles)

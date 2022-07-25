@@ -84,7 +84,6 @@ leader.c = {
 leader.e = {
   name = 'edit',
   t = "temporary",
-  a = 'add folder/file',
 }
 
 local sessions = {name = 'sessions', s = 'save', l = 'load', e = 'load_default'}
