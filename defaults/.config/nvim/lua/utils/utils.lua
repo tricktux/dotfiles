@@ -10,7 +10,8 @@ local M = {}
 -- >vim.validate
 -- >vim.deepcopy
 
-function M.set_new(t)
+M.set = {}
+function M.set.new(t)
 	vim.validate({ t = { t, "t" } })
 
 	local set = {}
@@ -20,7 +21,7 @@ function M.set_new(t)
 	return set
 end
 
-function M.set_tostring(set)
+function M.set.tostring(set)
 	vim.validate({ set = { set, "t" } })
 
 	local s = ""
@@ -148,12 +149,14 @@ M.rg.vim_to_rg_map = {
 M.buftype = {}
 M.buftype.whitelist = {"", "acwrite"}
 M.buftype.blacklist = {"nofile", "prompt", "terminal", "quickfix"}
+M.buftype.blacklist_set = M.set.new(M.buftype.blacklist)
 M.filetype = {
   blacklist = {
     "lspinfo", "packer", "checkhealth", "help", "man", "", "NvimTree",
     "startify"
-  }
+  },
 }
+M.filetype.blacklist_set = M.set.new(M.filetype.blacklist)
 
 -- Filesystem
 M.fs = {}

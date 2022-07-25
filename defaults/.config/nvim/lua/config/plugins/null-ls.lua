@@ -185,7 +185,7 @@ function M.list_registered_providers_names(filetype)
       table.insert(registered, source.name)
     end
   end
-  return require("utils.utils").set_new(registered)
+  return require("utils.utils").set.new(registered)
 end
 
 function M:setup()
