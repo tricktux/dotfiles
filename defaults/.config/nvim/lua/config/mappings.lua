@@ -73,7 +73,9 @@ local function refresh_buffer()
 
   local line_ok, line = pcall(require, "lualine")
   if line_ok and line.refresh ~= nil then
-    line.refresh()
+    line.refresh({kind = "all", place = { 'statusline', 'winbar', 'tabline' }})
+    -- This is here just for windows.
+    line.setup()
   end
 
   local git_ok, git = pcall(require, "gitsigns")
