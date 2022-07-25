@@ -39,13 +39,6 @@ function! commands#Set() abort
   command! UtilsFontZoomOut call s:adjust_gui_font('-')
 
   command! UtilsFileSize call s:get_file_info()
-  command! UtilsEditTmpFileMarkdown call s:edit_tmp_doc('md')
-  command! UtilsEditTmpFileCpp call s:edit_tmp_doc('cpp')
-  command! UtilsEditTmpFileLua call s:edit_tmp_doc('lua')
-  command! UtilsEditTmpFilePython call s:edit_tmp_doc('py')
-  command! UtilsEditTmpFileVim call s:edit_tmp_doc('vim')
-  command! UtilsEditTmpFileGen call s:edit_tmp_doc(
-        \ input('Please enter an extention for the file(i.e: vim): '))
 
   let msvc =
         \ "\"C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VC\\vcvarsall.bat\""
@@ -195,12 +188,6 @@ function! s:get_file_info() abort
   let ret = printf('Size of file "%s" = %f MBytes - %d Bytes', file, mb, bytes)
   echomsg ret
   return
-endfunction
-
-function! s:edit_tmp_doc(type) abort
-  let l:sep = has('unix') ? '/' : '\'
-  let l:file_name = stdpath('cache') . l:sep . 'temp_' . strftime('%m%d%Y_%H%M%S')
-  execute 'edit ' . l:file_name . (empty(a:type) ? '' : '.' . a:type)
 endfunction
 
 function! s:find_brace_in_comment() abort

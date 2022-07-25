@@ -272,17 +272,17 @@ M.__plugins.common = {
 		end,
 	},
 	{ "tpope/vim-repeat" },
-	{ 
-    "kylechui/nvim-surround",
-    config = function()
-      require("config.plugins.misc"):config_surround()
-    end,
-  },
 	{
-    "rmagatti/auto-session",
+		"kylechui/nvim-surround",
+		config = function()
+			require("config.plugins.misc"):config_surround()
+		end,
+	},
+	{
+		"rmagatti/auto-session",
 		requires = {
-      { "rmagatti/session-lens" },
-      { "nvim-lua/telescope.nvim" },
+			{ "rmagatti/session-lens" },
+			{ "nvim-lua/telescope.nvim" },
 		},
 		config = function()
 			require("config.plugins.misc"):config_auto_session()
@@ -508,7 +508,7 @@ M.__plugins.common = {
 			"nvim-gps",
 			"pomodoro.vim",
 			"gitsigns.nvim",
-      "auto-session"
+			"auto-session",
 		},
 		-- setup = function() require('config.plugins.lualine'):setup() end,
 		config = function()
@@ -534,21 +534,21 @@ M.__plugins.common = {
 		config = function()
 			require("config.plugins.misc"):config_catpuccin()
 		end,
-    run = "CatppuccinCompile",
+		run = "CatppuccinCompile",
 	},
-  {
-    "brenoprata10/nvim-highlight-colors",
-    cmd = "HighlightColorsOn",
-    setup = function()
-      local o = {silent = true, desc = "highlight_colors_on"}
-      vim.keymap.set("n", "<leader>tch", "<cmd>HighlightColorsOn<cr>", o)
-      o.desc = "highlight_colors_off"
-      vim.keymap.set("n", "<leader>tco", "<cmd>HighlightColorsOff<cr>", o)
-    end,
-    config = function()
-      require('nvim-highlight-colors').setup {}
-    end,
-  },
+	{
+		"brenoprata10/nvim-highlight-colors",
+		cmd = "HighlightColorsOn",
+		setup = function()
+			local o = { silent = true, desc = "highlight_colors_on" }
+			vim.keymap.set("n", "<leader>tch", "<cmd>HighlightColorsOn<cr>", o)
+			o.desc = "highlight_colors_off"
+			vim.keymap.set("n", "<leader>tco", "<cmd>HighlightColorsOff<cr>", o)
+		end,
+		config = function()
+			require("nvim-highlight-colors").setup({})
+		end,
+	},
 }
 M.__plugins.deps = {}
 M.__plugins.deps.has = {
@@ -682,8 +682,8 @@ function M:setup()
 
 	log.trace("packer: plugins = ", plugins)
 	packer.startup({ plugins, config = self.__config })
-  local o = {desc = "packer_snapshot_sync"}
-  vim.api.nvim_create_user_command('PackerUPDATE', self.__update, o)
+	local o = { desc = "packer_snapshot_sync" }
+	vim.api.nvim_create_user_command("PackerUPDATE", self.__update, o)
 end
 
 return M
