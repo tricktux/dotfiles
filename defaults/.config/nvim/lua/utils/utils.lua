@@ -206,7 +206,7 @@ function M.fs.file.create(path)
 
   local p = string.format('Enter name for new file(%s): ', ppath:absolute())
   local i = nil
-  vim.ui.input({ prompt = p}, function(input) i = input end)
+  vim.ui.input({prompt = p, completion = "file"}, function(input) i = input end)
   if i == nil then
     return
   end
