@@ -402,7 +402,6 @@ M.term = {}
 M.term.exec = function(cmd)
   vim.validate({ cmd = { cmd, "s" } })
   local fcmd = ""
-  -- cmd = fn.shellescape(cmd)
   if fn.exists("$KITTY_WINDOW_ID") > 0 then
     fcmd = [[/usr/bin/kitty @ send-text --match recent:1 ]] .. cmd .. [[\\x0d]]
     log.info(fmt("term.exec.cmd = %s", cmd))
