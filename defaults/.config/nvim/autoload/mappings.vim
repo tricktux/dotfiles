@@ -211,7 +211,6 @@ function! mappings#Set()
   nmap <localleader>k <plug>make_project
   nmap <localleader>j <plug>make_file
 
-  nnoremap <leader>ts :setlocal spell!<cr>
   " duplicate current char
   nnoremap <leader>d ylp
   " Reload syntax

@@ -154,6 +154,44 @@ colors.mappings = {
   },
 }
 
+local toggle = {
+  prefix = "<leader>t",
+  virtual = true,  -- Used to toggle virtual_text
+  diagnostic = true,   -- Used to toggle diagnostic 
+}
+toggle.mappings = {
+  s = {
+    function()
+      local s = vim.opt_local.spell
+      s = not s:get()
+      print(fmt("toggle: spell '%s'", (s and "enabled" or "disabled")))
+    end,
+    "toggle_spell"
+  },
+  v = {
+    function()
+      local v = toggle.virtual
+      v = not v
+      vim.diagnostic.config{virtual_text = v}
+      print(fmt("toggle: virtual_text '%s'", (v and "enabled" or "disabled")))
+    end,
+    "toggle_virtual_text"
+  },
+  d = {
+    function()
+      local d = toggle.diagnostic
+      d = not d
+      if d then
+        vim.diagnostic.disable()
+      else
+        vim.diagnostic.enable()
+      end
+      print(fmt("toggle: vim_diagnostic '%s'", (d and "enabled" or "disabled")))
+    end,
+    "toggle_vim_diagnostic"
+  }
+}
+
 local edit = {}
 edit.prefix = "<leader>e"
 edit.edit_temporary_file = function(type)
@@ -396,6 +434,7 @@ function M:setup()
     }
   end
   self:keymaps_sets(terminal)
+  self:keymaps_sets(toggle)
 end
 
 return M

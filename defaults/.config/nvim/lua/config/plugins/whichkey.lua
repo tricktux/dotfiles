@@ -71,7 +71,6 @@ local leader = {}
 local leader_p = [[<leader>]]
 leader.t = {
   name = 'toggle',
-  s = 'spelling',
 }
 leader.c = {
   name = 'cd',
