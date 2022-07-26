@@ -431,7 +431,7 @@ backup() {
 		tar -vcjf /tmp/pacman_database.tar.bz2 /var/lib/pacman/local
 		srcs=(
 			"$HOME/.gnupg" "$HOME/.ssh" "$HOME/.password-store" "/tmp/pacman_database.tar.bz2"
-      "$HOME/.local/share/histfile" "$HOME/.local/share/z"
+            "$HOME/.local/share/histfile" "$HOME/.local/share/z" "$HOME/.config/doublecmd"
 		)
     src=""
     for str in "${srcs[@]}"; do
