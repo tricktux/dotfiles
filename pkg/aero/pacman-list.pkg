@@ -265,6 +265,7 @@ stow
 strace
 stylua
 sudo
+systemd-resolvconf
 texinfo
 texlive-bibtexextra
 texlive-core
@@ -304,6 +305,7 @@ websocketpp
 wget
 which
 wine-staging
+wireguard-tools
 wireless_tools
 words
 wpa_supplicant
