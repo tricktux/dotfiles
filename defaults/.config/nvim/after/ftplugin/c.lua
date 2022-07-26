@@ -5,13 +5,14 @@ if vim.b.did_cpp_ftplugin then
 end
 
 vim.b.did_cpp_ftplugin = 1
+local fmt = string.format
+local fn = vim.fn
 local log = require('utils.log')
 local utl = require('utils.utils')
 
 vim.opt_local.shiftwidth = 2
 vim.opt_local.tabstop = 2
 
-local opts = {silent = true, buffer = true, desc = 'help_under_cursor'}
 if vim.fn.has('unix') > 0 then
   vim.keymap.set(
     'n',
@@ -19,13 +20,11 @@ if vim.fn.has('unix') > 0 then
     function()
       vim.fn.execute(":vertical Man " .. vim.fn.expand('<cword>'))
     end,
-    opts
+    {silent = true, buffer = true, desc = 'help_under_cursor'}
   )
 end
 
 local function repl()
-  local fmt = string.format
-  local fn = vim.fn
   local comp = nil
   if fn.executable('clang++') > 0 then
     comp = 'clang++'
@@ -41,7 +40,7 @@ local function repl()
   local filename = fn.expand("%")
   local cmd = fn.shellescape(fmt("%s %s -g -O3 -o %s && %s", comp, filename, out, exec_out))
   log.info(fmt("repl.cpp.cmd = %s", cmd))
-  utl.execute_in_shell(cmd)
+  utl.term.exec(cmd)
 end
 
 opts.desc = 'terminal_send_file'

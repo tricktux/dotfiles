@@ -40,8 +40,6 @@ function! commands#Set() abort
 
   command! UtilsFileSize call s:get_file_info()
 
-  let msvc =
-        \ "\"C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VC\\vcvarsall.bat\""
   if has('unix')
     " This mapping will load the journal from the most recent boot and highlight
     " it for you
@@ -54,8 +52,6 @@ function! commands#Set() abort
     command! UtilsLinuxExecuteCurrFile execute("silent !./%")
   else
     command! UtilsTermOpen :term cmd.exe /k c:\tools\cmder\vendor\init.bat<cr>
-    execute "command! UtilsTermVisualStudioOpen :term " .
-          \ "cmd.exe /k " . msvc . "<cr>"
   endif
 
   " Convention: All commands names need to start with the autoload file name.

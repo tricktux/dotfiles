@@ -1,6 +1,8 @@
 local log = require("utils.log")
 local luv = vim.loop
 local api = vim.api
+local fmt = string.format
+local fn = vim.fn
 
 local M = {}
 
@@ -396,38 +398,35 @@ function M.get_visual_selection()
 	return table.concat(lines, "\n")
 end
 
-function M.execute_in_shell(cmd)
-	local fmt = string.format
-	local fn = vim.fn
-	vim.validate({ cmd = { cmd, "s" } })
-	local fcmd = ""
-	-- cmd = fn.shellescape(cmd)
-	if fn.exists("$KITTY_WINDOW_ID") > 0 then
-		fcmd = [[/usr/bin/kitty @ send-text --match recent:1 ]] .. cmd .. [[\\x0d]]
-		log.info(fmt("repl.cpp.cmd = %s", cmd))
-		fn.system(fcmd)
-		return
-	end
-
-	if fn.exists("$TMUX") > 0 then
-		-- \! = ! which means target (-t) last active tmux pane (!)
-		fcmd = [[/usr/bin/tmux send -t ! ]] .. cmd .. " Enter"
-		log.info(fmt("repl.cpp.cmd = %s", cmd))
-		fn.system(fcmd)
-		return
-	end
-
-	--[[ if fn.exists(':T') > 0 then
-    fcmd =  'T ' .. cmd
-    log.info(fmt("repl.cpp.cmd = %s", cmd))
-    vim.cmd(fcmd)
+M.term = {}
+M.term.exec = function(cmd)
+  vim.validate({ cmd = { cmd, "s" } })
+  local fcmd = ""
+  -- cmd = fn.shellescape(cmd)
+  if fn.exists("$KITTY_WINDOW_ID") > 0 then
+    fcmd = [[/usr/bin/kitty @ send-text --match recent:1 ]] .. cmd .. [[\\x0d]]
+    log.info(fmt("term.exec.cmd = %s", cmd))
+    fn.system(fcmd)
     return
-  end ]]
+  end
 
-	fcmd = "vsplit term://" .. cmd
-	log.info(fmt("repl.cpp.cmd = %s", cmd))
-	vim.cmd(fcmd)
-	vim.notify("[cpp.repl]: no compiler available", vim.log.levels.ERROR)
+  if fn.exists("$TMUX") > 0 then
+    -- \! = ! which means target (-t) last active tmux pane (!)
+    fcmd = [[/usr/bin/tmux send -t ! ]] .. cmd .. " Enter"
+    log.info(fmt("term.exec.cmd = %s", cmd))
+    fn.system(fcmd)
+    return
+  end
+
+  if fn.exists(':TermExec') > 0 then
+    log.info(fmt("term.exec.cmd = %s", cmd))
+    require("toggleterm").exec(cmd)
+    return
+  end
+
+  fcmd = "vsplit term://" .. cmd
+  log.info(fmt("term.exec.cmd = %s", cmd))
+  vim.cmd(fcmd)
 end
 
 return M

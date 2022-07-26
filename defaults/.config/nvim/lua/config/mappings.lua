@@ -4,7 +4,7 @@ local fmt = string.format
 local vks = vim.keymap.set
 local utl = require("utils.utils")
 local fs = require("utils.utils").fs
-local vf = vim.fn
+local fn = vim.fn
 
 local M = {}
 
@@ -97,10 +97,10 @@ local function tmux_move(direction)
   })
 
   local curr_win = vim.api.nvim_get_current_win()
-  vf.execute("wincmd " .. direction)
+  fn.execute("wincmd " .. direction)
   local new_win = vim.api.nvim_get_current_win()
   if new_win == curr_win then
-    vf.system("tmux select-pane -" .. vf.tr(direction, valid_dir, "lLDUR"))
+    fn.system("tmux select-pane -" .. fn.tr(direction, valid_dir, "lLDUR"))
   end
 end
 
@@ -109,7 +109,7 @@ local function terminal_send_line()
   if csel == "" or csel == nil then
     return
   end
-  utl.execute_in_shell(csel)
+  utl.term.exec(csel)
 end
 
 -- Visual mode mappings
@@ -161,7 +161,7 @@ edit.edit_temporary_file = function(type)
   local t = os.date("%y%m%d_%H%M%S")
   local f = fmt("%s%stemp_%s", vim.fn.stdpath("cache"), s, t)
   local e = type and "." .. type or ""
-  if vf.has("nvim-0.8") > 0 then
+  if fn.has("nvim-0.8") > 0 then
     vim.cmd({cmd = "edit", args = {fmt("%s%s", f, e)}})
     return
   end
@@ -188,7 +188,7 @@ edit.mappings = {
   },
   c = {
     function()
-      fs.path.fuzzer(vf.getcwd())
+      fs.path.fuzzer(fn.getcwd())
     end,
     "current_dir",
   },
@@ -276,7 +276,7 @@ terminal.mappings = {
       if csel == "" or csel == nil then
         return
       end
-      utl.execute_in_shell(csel)
+      utl.term.exec(csel)
     end,
     "terminal_send_line",
     { "n", "x" },
@@ -285,8 +285,8 @@ terminal.mappings = {
 
 function M:window_movement_setup()
   local opts = { silent = true, desc = "tmux_move_left" }
-  if vf.has("unix") > 0 then
-    if vf.exists("$TMUX") > 0 then
+  if fn.has("unix") > 0 then
+    if fn.exists("$TMUX") > 0 then
       vks("n", "<A-h>", function()
         tmux_move("h")
       end, opts)
@@ -381,11 +381,20 @@ function M:setup()
 
   opts.desc = "cwd_files"
   vks("n", "<c-p>", function()
-    fs.path.fuzzer(vf.getcwd())
+    fs.path.fuzzer(fn.getcwd())
   end, opts)
 
   self:keymaps_sets(edit)
   self:keymaps_sets(colors)
+  if utl.has_win then
+    terminal.mappings["<leader>TV"] = {
+      function()
+        local cmd = [[cmd.exe /k "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VC\\vcvarsall.bat"]]
+        utl.term.exec(cmd)
+      end,
+      "terminal_open_visual_studio"
+    }
+  end
   self:keymaps_sets(terminal)
 end
 
