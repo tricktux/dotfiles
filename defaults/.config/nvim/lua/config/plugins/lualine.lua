@@ -89,7 +89,7 @@ M.__config = {
 		lualine_c = { { "filename", path = 2 } },
 		lualine_x = { "location" },
 	},
-	extensions = { "fzf", "nvim-tree", "quickfix", "fugitive" },
+	extensions = { "man", "nvim-tree", "quickfix", "toggleterm", "nvim-dap-ui", "symbols-outline" },
 }
 
 M.__buffers = {
@@ -257,6 +257,9 @@ function M:setup()
       return vim.api.nvim_eval_statusline(vim.fn.getcwd() .. "<=>" .. f, {}).str
     end
 	})
+
+  self:__ins_right({ "tabs", mode = 2 }) -- Show tabs in status line
+  vim.opt.showtabline = 0  -- Give me back that extra line
 
 	self:__ins_right({ "location", right_padding = 0 })
 
