@@ -7,14 +7,12 @@ end
 vim.b.did_cpp_ftplugin = 1
 local fmt = string.format
 local fn = vim.fn
+local vks = vim.keymap.set
 local log = require('utils.log')
 local utl = require('utils.utils')
 
-vim.opt_local.shiftwidth = 2
-vim.opt_local.tabstop = 2
-
 if vim.fn.has('unix') > 0 then
-  vim.keymap.set(
+  vks(
     'n',
     '<plug>help_under_cursor',
     function()
@@ -43,8 +41,7 @@ local function repl()
   utl.term.exec(cmd)
 end
 
-opts.desc = 'terminal_send_file'
-vim.keymap.set('n', '<plug>terminal_send_file', repl, opts)
+vks('n', '<plug>terminal_send_file', repl, {desc = 'terminal_send_file'})
 
 --[[ function! s:time_exe_win(...) abort
 if !exists(':Dispatch')
