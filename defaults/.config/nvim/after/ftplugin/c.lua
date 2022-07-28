@@ -11,6 +11,7 @@ local vks = vim.keymap.set
 local log = require('utils.log')
 local utl = require('utils.utils')
 
+local o = {silent = true, buffer = true, desc = 'help_under_cursor'}
 if vim.fn.has('unix') > 0 then
   vks(
     'n',
@@ -18,7 +19,7 @@ if vim.fn.has('unix') > 0 then
     function()
       vim.fn.execute(":vertical Man " .. vim.fn.expand('<cword>'))
     end,
-    {silent = true, buffer = true, desc = 'help_under_cursor'}
+    o
   )
 end
 
@@ -41,7 +42,8 @@ local function repl()
   utl.term.exec(cmd)
 end
 
-vks('n', '<plug>terminal_send_file', repl, {desc = 'terminal_send_file'})
+o.desc = 'terminal_send_file'
+vks('n', '<plug>terminal_send_file', repl, o)
 
 --[[ function! s:time_exe_win(...) abort
 if !exists(':Dispatch')
