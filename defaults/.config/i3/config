@@ -323,13 +323,34 @@ bindsym XF86PowerDown exec --no-startup-id "i3-msg '[class=\".\"] kill' && syste
 # }}}
 
 # Window colors{{{
-# Taken from: https://thomashunter.name/i3-configurator/
-# class                 border  bground text    indicator child_border
-  client.focused          #4C7899 #285577 #FFFFFF #2E9EF4   #DE935F
-  client.focused_inactive #333333 #5F676A #FFFFFF #484E50   #5F676A
-  client.unfocused        #333333 #222222 #888888 #292D2E   #222222
-  client.urgent           #2F343A #900000 #FFFFFF #900000   #900000
-  client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
+# Adapted from: https://github.com/pascalwhoop/dotfiles/blob/master/.config/i3/config
+set_from_resource $color0     i3wm.color0     #1d2021
+set_from_resource $color1     i3wm.color1     #2e2d2d
+set_from_resource $color2     i3wm.color2     #08A2FB
+set_from_resource $color3     i3wm.color3     #63B1F1
+set_from_resource $color4     i3wm.color4     #6BC6F8
+set_from_resource $color5     i3wm.color5     #979695
+set_from_resource $color6     i3wm.color6     #D5BE97
+set_from_resource $color7     i3wm.color7     #95B6DD
+set_from_resource $color8     i3wm.color8     #cbddeb
+set_from_resource $color9     i3wm.color9     #8e9aa4
+set_from_resource $color10    i3wm.color10    #08A2FB
+set_from_resource $color11    i3wm.color11    #63B1F1
+set_from_resource $color12    i3wm.color12    #6BC6F8
+set_from_resource $color13    i3wm.color13    #979695
+set_from_resource $color14    i3wm.color14    #D5BE97
+set_from_resource $color15    i3wm.color15    #95B6DD
+
+set_from_resource $background i3wm.background #000000
+set_from_resource $foreground i3wm.foreground #ffffff
+# class                 border      backgr.     text         indicator    child_border
+client.focused          $color6     $color6     $background  $foreground  $color6
+client.focused_inactive $color3     $color3     $background  $background  $color3
+client.unfocused        $background $background $foreground  $background  $color8
+client.urgent           $foreground $color9     $foreground  $background  $color9
+client.placeholder      $color7     #0000ff     $foreground  $background  $background
+
+client.background       $background
 # }}}
 
 #### RULES FOR WORKSPACES AND SPECIFIC APPLICATIONS ####{{{
