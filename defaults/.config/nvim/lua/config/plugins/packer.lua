@@ -537,16 +537,16 @@ M.__plugins.common = {
 		run = "CatppuccinCompile",
 	},
 	{
-		"brenoprata10/nvim-highlight-colors",
-		cmd = "HighlightColorsOn",
+		"norcalli/nvim-colorizer.lua",
+		cmd = "ColorizerToggle",
 		setup = function()
-			local o = { silent = true, desc = "highlight_colors_on" }
-			vim.keymap.set("n", "<leader>tch", "<cmd>HighlightColorsOn<cr>", o)
-			o.desc = "highlight_colors_off"
-			vim.keymap.set("n", "<leader>tco", "<cmd>HighlightColorsOff<cr>", o)
+			local o = { silent = true, desc = "toggle_highlight" }
+			vim.keymap.set("n", "<leader>tch", "<cmd>ColorizerToggle<cr>", o)
 		end,
 		config = function()
-			require("nvim-highlight-colors").setup({})
+			require 'colorizer'.setup {
+        '!*'; -- Dont highlight any files
+      }
 		end,
 	},
 }
