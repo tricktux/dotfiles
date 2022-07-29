@@ -62,7 +62,6 @@ local function _config_win()
 	vim.cmd([[silent! call serverstart('\\.\pipe\nvim-pipe-88888')]])
 
   vim.g.dotfiles = os.getenv("APPDATA") .. "/dotfiles"
-	vim.g.browser_cmd = "firefox.exe"
 	-- Find python
 	local py = vim.fn.stdpath("data") .. [[\pyvenv\Scripts]]
 	if vim.fn.isdirectory(py) <= 0 then
@@ -78,7 +77,6 @@ local function _config_unix()
 	vim.cmd([[silent! call serverstart('/tmp/nvim.socket')]])
 
   vim.g.dotfiles = home .. "/.config/dotfiles"
-	vim.g.browser_cmd = "/usr/bin/firefox"
 
 	local py = vim.fn.stdpath("data") .. [[/../pyvenv/nvim/bin]]
 	if vim.fn.isdirectory(py) > 0 then
