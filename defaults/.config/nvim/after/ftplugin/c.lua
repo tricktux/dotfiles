@@ -9,19 +9,7 @@ local fmt = string.format
 local fn = vim.fn
 local vks = vim.keymap.set
 local log = require('utils.log')
-local utl = require('utils.utils')
-
-local o = {silent = true, buffer = true, desc = 'help_under_cursor'}
-if vim.fn.has('unix') > 0 then
-  vks(
-    'n',
-    '<plug>help_under_cursor',
-    function()
-      vim.fn.execute(":vertical Man " .. vim.fn.expand('<cword>'))
-    end,
-    o
-  )
-end
+local u = require('utils.utils')
 
 local function repl()
   local comp = nil
@@ -39,10 +27,10 @@ local function repl()
   local filename = fn.expand("%")
   local cmd = fn.shellescape(fmt("%s %s -g -O3 -o %s && %s", comp, filename, out, exec_out))
   log.info(fmt("repl.cpp.cmd = %s", cmd))
-  utl.term.exec(cmd)
+  u.term.exec(cmd)
 end
 
-o.desc = 'terminal_send_file'
+local o = {desc = 'terminal_send_file'}
 vks('n', '<plug>terminal_send_file', repl, o)
 
 --[[ function! s:time_exe_win(...) abort
