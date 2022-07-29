@@ -16,6 +16,10 @@ if [[ -f /usr/bin/xfconf-query ]]; then
   xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus-Dark"
 fi
 
+# https://github.com/ankitects/anki/pull/1905/files
+if [[ -f /usr/bin/gsettings ]]; then
+  gsettings set org.gnome.desktop.interface gtk-theme 'prefer-dark'
+fi
 # See here to change the cursor. Not straight forward.
 # https://wiki.archlinux.org/title/Cursor_themes
 # xfconf-query -c xsettings -p /Net/CursorName -s "CapitaineCursors"
