@@ -562,27 +562,25 @@ function M.setup_bookmarks()
 	vim.g.bookmark_dir = vim.fn.stdpath("data") .. "/bookmarks"
 	vim.g.bookmark_auto_save = 0
 	vim.g.bookmark_auto_save_file = vim.g.bookmark_dir .. "/bookmarks"
-	vim.g.bookmark_highlight_lines = 1
-end
+  vim.g.bookmark_highlight_lines = 1
 
-function M.config_bookmarks()
-	local opts = { silent = true }
-	local leader = {}
-	local prefix = [[<leader>B]]
-	leader = {
-		t = { "<Plug>BookmarkToggle", "BookmarkToggle" },
-		i = { "<Plug>BookmarkAnnotate", "BookmarkAnnotate" },
-		a = { "<Plug>BookmarkShowAll", "BookmarkShowAll" },
-		n = { "<Plug>BookmarkNext", "BookmarkNext" },
-		p = { "<Plug>BookmarkPrev", "BookmarkPrev" },
-		c = { "<Plug>BookmarkClear", "BookmarkClear" },
-		x = { "<Plug>BookmarkClearAll", "BookmarkClearAll" },
-		k = { "<Plug>BookmarkMoveUp", "BookmarkMoveUp" },
-		j = { "<Plug>BookmarkMoveDown", "BookmarkMoveDown" },
-		o = { "<Plug>BookmarkLoad", "BookmarkLoad" },
-		s = { "<Plug>BookmarkSave", "BookmarkSave" },
-	}
-	map.keymaps_set(leader, "n", opts, prefix)
+  local opts = { silent = true }
+  local leader = {}
+  local prefix = [[<leader>B]]
+  leader = {
+    t = { "<Plug>BookmarkToggle", "BookmarkToggle" },
+    i = { "<Plug>BookmarkAnnotate", "BookmarkAnnotate" },
+    a = { "<Plug>BookmarkShowAll", "BookmarkShowAll" },
+    n = { "<Plug>BookmarkNext", "BookmarkNext" },
+    p = { "<Plug>BookmarkPrev", "BookmarkPrev" },
+    c = { "<Plug>BookmarkClear", "BookmarkClear" },
+    x = { "<Plug>BookmarkClearAll", "BookmarkClearAll" },
+    k = { "<Plug>BookmarkMoveUp", "BookmarkMoveUp" },
+    j = { "<Plug>BookmarkMoveDown", "BookmarkMoveDown" },
+    o = { "<Plug>BookmarkLoad", "BookmarkLoad" },
+    s = { "<Plug>BookmarkSave", "BookmarkSave" },
+  }
+  map.keymaps_set(leader, "n", opts, prefix)
 end
 
 function M.setup_bdelete()
@@ -838,6 +836,10 @@ function M.config_copilot()
 	})
 end
 
+function M.setup_iswap()
+  local opts = { silent = true, desc = "iswap_arguments" }
+  vks("n", "<localleader>s", require("iswap").iswap, opts)
+end
 function M.config_iswap()
 	require("iswap").setup({
 		-- The keys that will be used as a selection, in order
@@ -856,8 +858,6 @@ function M.config_iswap()
 		-- default 'Comment'
 		hl_grey = "LineNr",
 	})
-	local opts = { silent = true, desc = "iswap_arguments" }
-	vks("n", "<localleader>s", require("iswap").iswap, opts)
 end
 
 function M.setup_obsession()
@@ -897,6 +897,21 @@ function M.config_neotest()
 			require("neotest-plenary"),
 		},
 	})
+  local maps = {prefix = "<leader>st"}
+  maps.mappings = {
+    f = {
+      function() 
+        require("neotest").run.run(vim.fn.expand("%")) 
+      end,
+      "neotest_run_current_file"
+    },
+    r = {
+      function() 
+        require("neotest").run.run() 
+      end,
+      "neotest_run_nearest"
+    },
+  }
 end
 
 function M.setup_img_paste()
@@ -1065,6 +1080,9 @@ function M.config_auto_session()
   }
 
   require('auto-session').setup(opts)
+end
+
+function M.config_session_lens()
   require('session-lens').setup {
     path_display = {'shorten'},
     -- theme_conf = { border = false },

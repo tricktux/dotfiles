@@ -6,6 +6,7 @@
 -- Last Modified:  Tue Sep 08 2020 22:20
 local utl = require("utils.utils")
 local log = require("utils.log")
+local map = require("config.mappings")
 local vks = vim.keymap.set
 
 local M = {}
@@ -152,6 +153,7 @@ M.__plugins.common = {
 	},
 	{
 		"kdheepak/lazygit.nvim",
+    cmd = "Lazygit",
 		setup = function()
 			vim.g.lazygit_floating_window_winblend = 0 -- transparency of floating window
 			vim.g.lazygit_floating_window_scaling_factor = 0.9 -- scaling factor for floating window
@@ -161,6 +163,7 @@ M.__plugins.common = {
 	},
 	{
 		"kyazdani42/nvim-tree.lua",
+    keys = "<plug>file_browser",
 		config = function()
 			require("config.plugins.tree_explorer").nvimtree_config()
 		end,
@@ -184,6 +187,7 @@ M.__plugins.common = {
 	{
 		"mizlan/iswap.nvim",
 		requires = "nvim-treesitter/nvim-treesitter",
+    keys = "<localleader>s",
 		config = function()
 			require("config.plugins.misc").config_iswap()
 		end,
@@ -191,6 +195,7 @@ M.__plugins.common = {
 	{
 		"kristijanhusak/orgmode.nvim",
 		requires = "nvim-treesitter/nvim-treesitter",
+    ft = "org",
 		config = function()
 			require("config.plugins.orgmode"):setup()
 		end,
@@ -276,7 +281,15 @@ M.__plugins.common = {
 	{
 		"rmagatti/auto-session",
 		requires = {
-			{ "rmagatti/session-lens" },
+			{
+        "rmagatti/session-lens",
+        keys = {
+          {"n", "<leader>fs", "search_session"}
+        },
+        config = function()
+          require("config.plugins.misc"):config_session_lens()
+        end,
+      },
 			{ "nvim-lua/telescope.nvim" },
 		},
 		config = function()
@@ -285,12 +298,14 @@ M.__plugins.common = {
 	},
 	{
 		"tricktux/pomodoro.vim",
+    cmd = "Pomodoro",
 		setup = function()
 			require("config.plugins.misc"):setup_pomodoro()
 		end,
 	},
 	{
 		"akinsho/toggleterm.nvim",
+    cmd = "ToggleTerm",
 		config = function()
 			require("config.plugins.misc"):config_toggleterm()
 		end,
@@ -304,6 +319,7 @@ M.__plugins.common = {
 	},
 	{
 		"gcmt/taboo.vim",
+    cmd = "TabooRename",
 		config = function()
 			local opts = { silent = true, desc = "TabooRename" }
 			vim.keymap.set("n", "<leader>tr", "<cmd>TabooRename<cr>", opts)
@@ -317,6 +333,20 @@ M.__plugins.common = {
 	},
 	{
 		"justinmk/vim-sneak",
+    keys = {
+      -- Using : for next f,t is cumbersome, use ' for that, and ` for marks
+      { "n", "'", "sneak_;" },
+      { "n", ",", "sneak_," },
+
+      -- " 1-character enhanced 'f'
+      { "n", "f", "sneak_f" },
+      { "n", "F", "sneak_F" },
+      -- " 1-character enhanced 't'
+      { "n", "t", "sneak_t" },
+      -- " label-mode
+      { "n", "s", "sneakLabel_s" },
+      { "n", "S", "sneakLabel_S" },
+    },
 		setup = function()
 			require("config.plugins.misc"):setup_sneak()
 		end,
@@ -329,43 +359,29 @@ M.__plugins.common = {
 	},
 	{
 		"MattesGroeger/vim-bookmarks",
+    cmd = {"BookmarkToggle", "BookmarkAnnotate", "BookmarkShowAll"},
 		setup = function()
 			require("config.plugins.misc"):setup_bookmarks()
-		end,
-		config = function()
-			require("config.plugins.misc"):config_bookmarks()
 		end,
 	},
 	{ "aquach/vim-http-client", cmd = "HTTPClientDoRequest" },
 	{
-		"jsfaint/gen_tags.vim", -- Not being suppoprted anymore
-		setup = function()
-			vim.g["gen_tags#cache_dir"] = vim.fn.stdpath("cache") .. "/ctags/"
-			vim.g["gen_tags#use_cache_dir"] = 1
-			vim.g["loaded_gentags#gtags"] = 1 -- Disable gtags
-			vim.g["gen_tags#gtags_default_map"] = 0
-			vim.g["gen_tags#statusline"] = 0
-
-			vim.g["gen_tags#ctags_auto_gen"] = 1
-			vim.g["gen_tags#ctags_prune"] = 1
-			vim.g["gen_tags#ctags_opts"] = "--sort=no --append"
-		end,
-	},
-	{
-		"jamessan/vim-gnupg",
-		cond = function()
-			return vim.fn.executable("gpg") > 0
-		end,
-	},
-	{
 		"s1n7ax/nvim-comment-frame",
 		requires = "nvim-treesitter/nvim-treesitter",
+    keys = {
+      {"n", "<leader>om", "add_multiline_comment"},
+    },
 		config = function()
 			require("config.plugins.misc"):setup_comment_frame()
 		end,
 	},
 	{
 		"b3nj5m1n/kommentary",
+    keys = {
+      {"n", "-", "kommentary_line_default"},
+      {"x", "-", "kommentary_visual_default"},
+      {"n", "0", "kommentary_motion_default"},
+    },
 		setup = function()
 			vim.g.kommentary_create_default_mappings = false
 		end,
@@ -403,6 +419,16 @@ M.__plugins.common = {
 	},
 	{
 		"nicwest/vim-camelsnek",
+    keys = {
+      {"n", "<localleader>cs", "snek"},
+      {"v", "<localleader>cs", "snek"},
+      {"n", "<localleader>cc", "camel"},
+      {"v", "<localleader>cc", "camel"},
+      {"n", "<localleader>cb", "camelb"},
+      {"v", "<localleader>cb", "camelb"},
+      {"n", "<localleader>ck", "kebak"},
+      {"v", "<localleader>ck", "kebak"},
+    },
 		setup = function()
 			local opts = {
 				silent = true,
@@ -441,6 +467,13 @@ M.__plugins.common = {
 	{
 		"danymat/neogen",
 		after = { "LuaSnip" },
+    keys = {
+      {"n", "<leader>og", "generate_neogen"},
+      {"n", "<leader>oGf", "generate_neogen_function"},
+      {"n", "<leader>oGc", "generate_neogen_class"},
+      {"n", "<leader>oGf", "generate_neogen_file"},
+      {"n", "<leader>oGt", "generate_neogen_type"},
+    },
 		config = function()
 			require("config.plugins.misc"):config_neogen()
 		end,
@@ -450,6 +483,9 @@ M.__plugins.common = {
 	},
 	{
 		"tpope/vim-capslock",
+    keys = {
+      {"i", "<c-l>", "caps_lock_toggle"},
+    },
 		setup = function()
 			vim.keymap.set("i", [[<c-l>]], "<Plug>CapsLockToggle", { silent = true, desc = "caps_lock_toggle" })
 		end,
@@ -472,6 +508,10 @@ M.__plugins.common = {
 	{
 		"glts/vim-radical",
 		requires = "glts/vim-magnum",
+    keys = {
+      {"x", "<leader>nr", "radical_view"},
+      {"n", "<leader>nr", "radical_view"},
+    },
 		setup = function()
 			vim.g.radical_no_mappings = 1
 			vim.keymap.set({ "n", "x" }, "<leader>nr", "<Plug>RadicalView", {
@@ -519,6 +559,10 @@ M.__plugins.common = {
 			"nvim-neotest/neotest-python",
 			"nvim-neotest/neotest-plenary",
 		},
+    keys = {
+      {"n", "<leader>stf", "neotest_run_current_file"},
+      {"n", "<leader>str", "neotest_run_nearest"},
+    },
 		config = function()
 			require("config.plugins.misc"):config_neotest()
 		end,
@@ -550,12 +594,19 @@ M.__plugins.deps.has = {
 	["nvim-0.8"] = {
 		{
 			"smjonas/inc-rename.nvim",
+      cmd = "IncRename",
 			config = function()
 				require("inc_rename").setup()
 			end,
 		},
 	},
 	["unix"] = {
+    {
+      "jamessan/vim-gnupg",
+      cond = function()
+        return vim.fn.executable("gpg") > 0
+      end,
+    },
 		{
 			"zbirenbaum/copilot.lua",
 			requires = {
@@ -588,6 +639,11 @@ M.__plugins.deps.has = {
 		{
 			"ThePrimeagen/git-worktree.nvim",
 			requires = { { "nvim-lua/telescope.nvim" } },
+      keys = {
+        {"n", "<leader>vwa", "git_worktree_create"}, 
+        {"n", "<leader>vwd", "git_worktree_delete"}, 
+        {"n", "<leader>vws", "git_worktree_switch"},
+      },
 			config = function()
 				require("config.plugins.git_worktree").setup()
 			end,
