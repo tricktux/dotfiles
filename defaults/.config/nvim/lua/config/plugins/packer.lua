@@ -27,25 +27,20 @@ function M:__update()
 	p.sync()
 end
 
-function M:config()
-	local p = require("packer")
-	local opts = { silent = true, desc = "packer_compile" }
+M.maps = { prefix = "<leader>P" }
+M.maps.mappings = {
+  c = {function() require("packer").compile() end, "packer_compile"},
+  u = {function() require("packer").update() end, "packer_update"},
+  U = {function() M.__update() end, "packer_snapshot_update"},
+  r = {"<cmd>UpdateRemotePlugins<cr>", "update_remote_plugins"},
+  i = {function() require("packer").install() end, "packer_install"},
+  s = {function() require("packer").sync() end, "packer_sync"},
+  a = {function() require("packer").status() end, "packer_status"},
+  l = {function() require("packer").clean() end, "packer_clean"},
+}
 
-	vim.keymap.set("n", "<leader>Pc", p.compile, opts)
-	opts.desc = "packer_update"
-	vim.keymap.set("n", "<leader>Pu", p.update, opts)
-	opts.desc = "packer_my_update"
-	vim.keymap.set("n", "<leader>PU", self.__update, opts)
-	opts.desc = "update_remote_plugins"
-	vim.keymap.set("n", "<leader>Pr", "<cmd>UpdateRemotePlugins<cr>", opts)
-	opts.desc = "packer_install"
-	vim.keymap.set("n", "<leader>Pi", p.install, opts)
-	opts.desc = "packer_sync"
-	vim.keymap.set("n", "<leader>Ps", p.sync, opts)
-	opts.desc = "packer_status"
-	vim.keymap.set("n", "<leader>Pa", p.status, opts)
-	opts.desc = "packer_clean"
-	vim.keymap.set("n", "<leader>Pl", p.clean, opts)
+function M:config()
+  map:keymaps_sets(self.maps)
 
 	vim.api.nvim_create_autocmd("User", {
 		pattern = "PackerCompileDone",
