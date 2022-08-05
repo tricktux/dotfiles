@@ -137,7 +137,7 @@ M.__plugins.common = {
 	},
 	{
 		"neovim/nvim-lspconfig",
-		tag = vim.fn.has("nvim-0.8") and "*" or "v0.1.3*", -- Compatible with 0.7.0
+		tag = vim.fn.has("nvim-0.8") > 0 and "*" or "v0.1.3*", -- Compatible with 0.7.0
 		requires = { { "ray-x/lsp_signature.nvim" }, { "j-hui/fidget.nvim" } },
 		config = function()
 			require("config.lsp").setup()
