@@ -139,9 +139,17 @@ M.__plugins.common = {
 	{
 		"neovim/nvim-lspconfig",
 		tag = vim.fn.has("nvim-0.8") > 0 and "*" or "v0.1.3*", -- Compatible with 0.7.0
-		requires = { { "ray-x/lsp_signature.nvim" }, { "j-hui/fidget.nvim" } },
+		requires = {
+      {"ray-x/lsp_signature.nvim"},
+      {
+        "j-hui/fidget.nvim",
+        config = function()
+          require("config.lsp"):config_fidget()
+        end,
+      },
+    },
 		config = function()
-			require("config.lsp").setup()
+			require("config.lsp"):config()
 		end,
 	},
 	{
@@ -349,7 +357,12 @@ M.__plugins.common = {
     },
 		setup = function()
 			require("config.plugins.misc"):setup_sneak()
+      -- Silly I know, but needs to be here
+      require("config.plugins.misc"):config_sneak()
 		end,
+    config = function()
+      require("config.plugins.misc"):config_sneak()
+    end,
 	},
 	{
 		"kazhala/close-buffers.nvim",
@@ -478,7 +491,7 @@ M.__plugins.common = {
 			require("config.plugins.misc"):config_neogen()
 		end,
 		requires = "nvim-treesitter/nvim-treesitter",
-		-- Uncomment next line if you want to follow only stable versions
+		-- Comment next line if you don't want to follow only stable versions
 		tag = "*",
 	},
 	{
@@ -537,15 +550,6 @@ M.__plugins.common = {
 	},
 	{
 		"nvim-lualine/lualine.nvim",
-		-- List of plugins that update the lualine elements
-		-- Add plugis here that use the ins_{left,right} functions
-		after = {
-			"nvim-gps",
-			"pomodoro.vim",
-			"gitsigns.nvim",
-			"auto-session",
-		},
-		-- setup = function() require('config.plugins.lualine'):setup() end,
 		config = function()
 			require("config.plugins.lualine"):config()
 		end,
@@ -704,12 +708,14 @@ M.__plugins.deps.has = {
 		{ "lambdalisue/suda.vim" },
 		{ "chr4/nginx.vim" },
 		{
-			"rcarriga/nvim-dap-ui",
+			"rcarriga/nvim-dap",
 			requires = {
-				{ "mfussenegger/nvim-dap" },
+				{ "mfussenegger/nvim-dap-ui" },
 				{ "mfussenegger/nvim-dap-python" },
 				{ "theHamsta/nvim-dap-virtual-text" },
 			},
+      -- Comment next line if you don't want to follow only stable versions
+      tag = "*",
 			config = function()
 				require("config.plugins.dap"):setup()
 			end,

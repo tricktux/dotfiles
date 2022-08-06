@@ -2,7 +2,9 @@ local utl = require("utils.utils")
 local log = require("utils.log")
 local vks = vim.keymap.set
 
-local function setup_fidget()
+local M = {}
+
+function M:config_fidget()
 	require("fidget").setup({
 		text = {
 			spinner = "dots", -- animation shown when tasks are ongoing
@@ -133,7 +135,7 @@ local function on_lsp_attach(client_id, bufnr)
 
 	vim.b.did_on_lsp_attach = 1
 
-	local cap = vim.fn.has("nvim-0.8") and client_id.server_capabilities or client_id.resolved_capabilities
+	local cap = vim.fn.has("nvim-0.8") > 0 and client_id.server_capabilities or client_id.resolved_capabilities
 	set_lsp_mappings(cap, bufnr)
 	set_lsp_options(cap, bufnr)
 	require("config.plugins.dap"):set_mappings(bufnr)
@@ -175,16 +177,41 @@ local function diagnostic_config()
 	})
 end
 
+--[[ M.__servers = {
+  ["omnisharp"] = {
+    exe = "omnisharp",
+    name = "omnisharp",
+    ft = {"cs"},
+    setup = {
+      on_attach = M.on_lsp_attach,
+      flags = flags,
+      filetypes = { "cs" },
+      cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+      root_dir = nvim_lsp.util.root_pattern(".vs", "*.csproj", "*.sln"),
+      capabilities = capabilities,
+    },
+  },
+  ["pyright"] = {
+    exe = "pyright-langserver",
+    name = "pyright",
+    ft = {"python"},
+    setup = {
+			on_attach = M.on_lsp_attach,
+			flags = flags,
+			capabilities = capabilities,
+    },
+  },
+} ]]
+
 -- TODO
 -- Maybe set each server to its own function?
-local function lsp_set()
+function M:config()
 	-- Notice not all configs have a `callbacks` setting
 	local nvim_lsp = require("lspconfig")
 
 	diagnostic_config()
 
 	-- vim.lsp.log.set_level("debug")
-	setup_fidget()
 
 	local cmp_lsp = require("cmp_nvim_lsp")
 
@@ -194,15 +221,21 @@ local function lsp_set()
 
 	local flags = { allow_incremental_sync = true, debounce_text_changes = 150 }
 
+  --[[ for server,value in pairs(self.__servers) do
+    if vim.fn.executable(value.exe) > 0 then
+      log.info("setting up the " .. server .. " lsp...")
+      nvim_lsp[value.name].setup(value.setup)
+    end
+  end ]]
+
 	-- Unbearably slow
 	if vim.fn.executable("omnisharp") > 0 then
 		log.info("setting up the omnisharp lsp...")
-		local pid = tostring(vim.fn.getpid())
 		nvim_lsp.omnisharp.setup({
 			on_attach = on_lsp_attach,
 			flags = flags,
 			filetypes = { "cs" },
-			cmd = { "omnisharp", "--languageserver", "--hostPID", pid },
+			cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
 			root_dir = nvim_lsp.util.root_pattern(".vs", "*.csproj", "*.sln"),
 			capabilities = capabilities,
 		})
@@ -268,4 +301,4 @@ local function lsp_set()
 	end
 end
 
-return { setup = lsp_set, on_lsp_attach = on_lsp_attach }
+return M
