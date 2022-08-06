@@ -131,6 +131,7 @@ function M:ins_left(component)
 		self:setup()
 	end
 	table.insert(self.__config.sections.lualine_c, component)
+  self:re_setup()
 end
 
 -- Inserts a component in lualine_c at left section
@@ -139,6 +140,7 @@ function M:ins_winbar(component)
     self:setup()
   end
 	table.insert(self.__winbar.lualine_c, component)
+  self:re_setup()
 end
 
 -- Inserts a component in lualine_x at left section
@@ -147,11 +149,13 @@ function M:ins_right(component)
 		self:setup()
 	end
 	table.insert(self.__config.sections.lualine_x, 1, component)
+  self:re_setup()
 end
 
 -- Inserts a component in lualine_x at right section
 function M:__ins_right(component)
 	table.insert(self.__config.sections.lualine_x, component)
+  self:re_setup()
 end
 
 function M:__filesize()
@@ -280,13 +284,21 @@ function M:setup()
 		color = { fg = self.colors.blue },
 		right_padding = 0,
 	})
-end
 
-function M:config()
   if vim.fn.has("nvim-0.8") > 0 then
     self.__config.winbar = self.__winbar
     self.__config.inactive_winbar = self.__inactive_winbar
   end
+end
+
+function M:re_setup()
+  local line_ok, line = pcall(require, "lualine")
+  if line_ok  then
+    line.setup(self.__config)
+  end
+end
+
+function M:config()
   log.info("[lualine]: Configuring...", self.__config)
 	require("lualine").setup(self.__config)
 end
