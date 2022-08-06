@@ -472,7 +472,9 @@ M.__plugins.common = {
 	},
 	{
 		"L3MON4D3/LuaSnip",
-		requires = { "rafamadriz/friendly-snippets", "honza/vim-snippets" },
+		requires = {
+      "rafamadriz/friendly-snippets",
+    },
 		config = function()
 			require("config.plugins.luasnip"):config()
 		end,
