@@ -668,7 +668,7 @@ endfunction
 
 function! s:yank_from(sign) abort
   let in = s:parse_line_mod_input('Yank',  a:sign)
-  execute "normal :" . in . "y\<CR>p"
+  execute "normal! :" . in . "y\<CR>p"
 endfunction
 
 " msg - {Comment, Delete, Paste, Yank}
@@ -686,7 +686,7 @@ endfunction
 
 function! s:delete_line(sign) abort
   let in = s:parse_line_mod_input('Delete',  a:sign)
-  execute "normal :" . in . "d\<CR>``"
+  execute "normal! :" . in . "d\<CR>``"
 endfunction
 
 function! s:comment_line(sign) abort
@@ -696,12 +696,12 @@ function! s:comment_line(sign) abort
   endif
 
   let in = s:parse_line_mod_input('Comment',  a:sign)
-  execute "normal mm:" . in . "\<CR>"
-  execute "normal :call NERDComment(\"n\", \"Toggle\")\<CR>`m"
+  execute "normal! mm:" . in . "\<CR>"
+  execute "normal! :call NERDComment(\"n\", \"Toggle\")\<CR>`m"
 endfunction
 
 function! s:exec_last_command() abort
-  execute "normal :\<Up>\<CR>"
+  execute "normal! :\<Up>\<CR>"
 endfunction
 
 function! s:next_match_and_center() abort
