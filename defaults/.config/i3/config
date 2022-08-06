@@ -345,7 +345,7 @@ set_from_resource $background i3wm.background #000000
 set_from_resource $foreground i3wm.foreground #ffffff
 # class                 border      backgr.     text         indicator    child_border
 client.focused          $color6     $color6     $background  $foreground  $color6
-client.focused_inactive $color3     $color3     $background  $background  $color3
+client.focused_inactive $color8     $color8     $background  $background  $color8
 client.unfocused        $background $background $foreground  $background  $color8
 client.urgent           $foreground $color9     $foreground  $background  $color9
 client.placeholder      $color7     #0000ff     $foreground  $background  $background
