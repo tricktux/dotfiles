@@ -17,10 +17,6 @@ function M.__setup_orgmode_snippets()
     return os.date("%Y-%m-%d %a")
   end
 
-  local function schedule()
-    return require("orgmode").action("org_mappings.org_schedule")
-  end
-
   local todo_snips = {}
   for k = 1, 3 do
     table.insert(
@@ -134,7 +130,7 @@ function M:config()
   -- If path is not specified, luasnip will look for the `snippets` directory
   -- in rtp (for custom-snippet probably
   -- -- `~/.config/nvim/snippets`).
-  require("luasnip.loaders.from_snipmate").load({
+  require("luasnip.loaders.from_snipmate").lazy_load({
     path = { vim.fn.stdpath("config") .. [[/snippets/]] },
   })
 
