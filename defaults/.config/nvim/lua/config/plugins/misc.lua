@@ -439,10 +439,7 @@ function M.config_focus()
 	log.info("setup of focus complete")
 end
 
-function M.setup_sneak()
-	vim.g["sneak#absolute_dir"] = 1
-	vim.g["sneak#label"] = 1
-
+function M.config_sneak()
 	-- " repeat motion
 	-- Using : for next f,t is cumbersome, use ' for that, and ` for marks
 	vim.keymap.set("n", "'", "<Plug>Sneak_;")
@@ -468,6 +465,12 @@ function M.setup_sneak()
 	vim.keymap.set({ "x", "o" }, "t", "t")
 	vim.keymap.set({ "x", "o" }, "T", "%")
 end
+
+function M.setup_sneak()
+  vim.g["sneak#absolute_dir"] = 1
+  vim.g["sneak#label"] = 1
+end
+
 
 function M.config_kommentary()
 	local config = require("kommentary.config")
