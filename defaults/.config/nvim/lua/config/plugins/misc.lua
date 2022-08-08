@@ -53,7 +53,7 @@ function M.config_notify()
 		render = "default",
 
 		-- Default timeout for notifications
-		timeout = 5000,
+		timeout = 2000,
 
 		-- Max number of columns for messages
 		max_width = nil,
@@ -774,7 +774,9 @@ function M.setup_pomodoro()
 		end
 	end
 	vim.g.pomodoro_log_file = vim.fn.stdpath("data") .. "/pomodoro_log"
+end
 
+function M.config_pomodoro()
 	log.info("ins_left(): pomodoro")
 	line:ins_left({
 		function()
