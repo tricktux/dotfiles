@@ -14,8 +14,8 @@ chocolatey-compatibility.extension 1.0.0
 chocolatey-core.extension 1.4.0
 chocolatey-dotnetfx.extension 1.0.1
 chocolatey-windowsupdate.extension 1.0.4
-cmake 3.23.2
-cmake.install 3.23.2
+cmake 3.23.3
+cmake.install 3.23.3
 Cygwin 3.3.4.20220408
 dotnet-6.0-sdk 6.0.302
 dotnet-6.0-sdk-1xx 6.0.107
@@ -62,11 +62,11 @@ python 3.10.5
 python3 3.10.5
 ripgrep 13.0.0.20210621
 rufus 3.19
-rust-analyzer 2022.07.18
+rust-analyzer 2022.08.01
 rustup.install 1.24.3
 sumatrapdf 3.4.6
 sumatrapdf.install 3.4.6.20220629
-Temurinjre 18.0.1.1000
+Temurinjre 18.0.2.900
 texlive 2022.20220702
 tortoisesvn 1.14.3.29387
 treesizefree 4.5.3
@@ -81,7 +81,3 @@ vscode.install 1.69.2
 zeal 0.6.1
 zeal.install 0.6.1
 81 packages installed.
-
-Did you know Pro / Business automatically syncs with Programs and
- Features? Learn more about Package Synchronizer at
- https://chocolatey.org/compare
