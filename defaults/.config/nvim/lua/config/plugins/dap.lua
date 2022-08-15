@@ -95,16 +95,17 @@ function M:set_mappings(bufnr)
   }
   prefix = "<localleader>pw"
   map.keymaps_set(widgets, "n", opts, prefix)
-  local u = require("dapui")
-  local ui = {
+  -- local u = require("dapui")
+  --[[ local ui = {
+    name = "ui",
     o = { u.open, "open" },
     c = { u.close, "close" },
     t = { u.toggle, "toggle" },
     f = { u.float_element, "float_element" },
     e = { u.eval, "eval" },
-  }
-  prefix = "<localleader>pg"
-  map.keymaps_set(ui, "n", opts, prefix)
+  } ]]
+  -- prefix = "<localleader>pg"
+  -- map.keymaps_set(ui, "n", opts, prefix)
   local mappings = {
     r = { dap.continue, "continue" },
     p = { dap.pause, "pause" },
@@ -112,7 +113,7 @@ function M:set_mappings(bufnr)
     j = { dap.down, "down_stacktrace" },
     c = { dap.run_to_cursor, "run_to_cursor" },
     t = { dap.toggle_breakpoint, "toggle_breakpoint" },
-    u = { u.toggle, "toggle_ui" },
+    -- u = { u.toggle, "toggle_ui" },
     e = { dap.repl.toggle, "toggle_repl" },
     C = { dap.close, "close" },
     s = { dap.step_over, "step_over" },
