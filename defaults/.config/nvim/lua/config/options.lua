@@ -13,10 +13,6 @@ function M:setup()
   vim.opt.title = true
   vim.opt.titlelen = 90  -- Percent of columns
   ----------------------------
-
-	vim.opt.pumblend = 30
-	vim.api.nvim_set_hl(0, "PmenuSel", { blend = 0 })
-	-- Mon Aug 24 2020 14:55: For CursorHold to trigger more often
 	vim.opt.updatetime = 100
 	vim.opt.display:append("uhex")
 	vim.opt.sessionoptions = { "buffers", "tabpages" }
