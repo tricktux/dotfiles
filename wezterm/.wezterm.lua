@@ -7,9 +7,14 @@ return {
     'Fira Code',
     'DengXian',
   },
+  window_padding = {
+    left = 0,
+    right = 0,
+    top = 0,
+    bottom = 0,
+  },
   -- harfbuzz_features = {"calt=1", "clig=1", "liga=1"},
   window_close_confirmation = "NeverPrompt",
-
   hide_tab_bar_if_only_one_tab = true,
 
   -- The font size, measured in points
