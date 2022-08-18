@@ -1,49 +1,19 @@
--- local wezterm = require 'wezterm';
-
--- -- A helper function for my fallback fonts
--- function font_with_fallback(name, params)
--- local names = {name, "Noto Color Emoji", "JetBrains Mono"}
-  -- return wezterm.font_with_fallback(names, params)
--- end
-
--- return {
-  -- font = font_with_fallback("Operator Mono SSm Lig Medium"),
-  -- font_rules= {
-    -- -- Select a fancy italic font for italic text
-    -- {
-      -- italic = true,
-      -- font = font_with_fallback("Operator Mono SSm Lig Medium Italic"),
-    -- },
-
-    -- -- Similarly, a fancy bold+italic font
-    -- {
-      -- italic = true,
-      -- intensity = "Bold",
-      -- font = font_with_fallback("Operator Mono SSm Lig Book Italic"),
-    -- },
-
-    -- -- Make regular bold text a different color to make it stand out even more
-    -- {
-      -- intensity = "Bold",
-      -- font = font_with_fallback("Operator Mono SSm Lig Bold", {foreground = "tomato"}),
-    -- },
-
-    -- -- For half-intensity text, use a lighter weight font
-    -- {
-      -- intensity = "Half",
-      -- font = font_with_fallback("Operator Mono SSm Lig Light"),
-    -- },
-  -- },
--- }
+local w = require 'wezterm'
 
 return {
-  harfbuzz_features = {"calt=0", "clig=0", "liga=0"},
+
+  font = w.font_with_fallback {
+    'Cascadia Code',
+    'Fira Code',
+    'DengXian',
+  },
+  -- harfbuzz_features = {"calt=1", "clig=1", "liga=1"},
   window_close_confirmation = "NeverPrompt",
 
   hide_tab_bar_if_only_one_tab = true,
 
   -- The font size, measured in points
-  font_size = 14.0,
+  font_size = 9.0,
 
   -- (available starting in version 20210203-095643-70a364eb)
   -- Scale the effective cell height.
