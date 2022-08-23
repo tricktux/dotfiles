@@ -1,7 +1,7 @@
 Chocolatey v1.1.0
 7zip 22.1
 7zip.install 22.1
-adobereader 2022.001.20169
+adobereader 2022.002.20191
 AdoptOpenJDKjre 16.0.1.901
 anki 2.1.54
 autohotkey 1.1.34.03
@@ -17,22 +17,23 @@ chocolatey-windowsupdate.extension 1.0.4
 cmake 3.24.0
 cmake.install 3.24.0
 Cygwin 3.3.4.20220408
-dotnet-6.0-sdk 6.0.302
-dotnet-6.0-sdk-1xx 6.0.107
+dotnet-6.0-sdk 6.0.400
+dotnet-6.0-sdk-1xx 6.0.108
 dotnet-6.0-sdk-2xx 6.0.203
-dotnet-6.0-sdk-3xx 6.0.302
-dotnet-sdk 6.0.302
+dotnet-6.0-sdk-3xx 6.0.303
+dotnet-6.0-sdk-4xx 6.0.400
+dotnet-sdk 6.0.400
 DotNet4.5.2 4.5.2.20140902
 dotnet4.7.2 4.7.2.20210903
-dotnetcore-3.1-desktopruntime 3.1.27
-dotnetcore-desktopruntime 3.1.27
+dotnetcore-3.1-desktopruntime 3.1.28
+dotnetcore-desktopruntime 3.1.28
 dotnetfx 4.8.0.20220524
 doublecmd 1.0.6
 doxygen.install 1.9.4
 fd 8.4.0
-fzf 0.32.0
-git 2.37.1
-git.install 2.37.1
+fzf 0.32.1
+git 2.37.2.2
+git.install 2.37.2.2
 gpg4win 4.0.3
 graphviz 5.0.0
 jq 1.6
@@ -54,7 +55,7 @@ nmap 7.92.0.20220321
 nodejs-lts 16.16.0
 notepadplusplus 8.4.4
 notepadplusplus.install 8.4.4
-nuget.commandline 6.2.1
+nuget.commandline 6.3.0
 pandoc 2.19
 pass-winmenu 1.13
 plantuml 1.2022.6
@@ -76,8 +77,10 @@ vale 2.20.0
 vcredist140 14.32.31332
 vcredist2008 9.0.30729.616104
 vcredist2015 14.0.24215.20170201
-vscode 1.70.0
-vscode.install 1.70.0
+vscode 1.70.1
+vscode.install 1.70.1
+wezterm 20220807.113146
+wezterm.install 20220807.113146
 zeal 0.6.1
 zeal.install 0.6.1
-81 packages installed.
+84 packages installed.
