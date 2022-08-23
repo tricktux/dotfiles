@@ -386,14 +386,14 @@ function M:set_mappings()
     [","] = {grep_cfilter_cword, "grep_cfilter_cword" },
     ["."] = {ts.resume, "resume" },
     ["<"] = {grep_cglob_cword, "grep_cglob_cword" },
-    ["si"] = {grep_cword, "grep_cword_all_files"},
-    ["so"] = {live_grep, "live_grep_all_words_all_files"},
-    ["sl"] = {ts.resume, "ts.resume"},
-    ["s;"] = {custom_live_grep , "custom_live_grep"},
-    ["sj"] = {live_grep_cfile_glob_pattern, "live_grep_cfile_glob_pattern"},
-    ["sk"] = {live_grep_cfile_type_filter, "live_grep_cfile_type_filter"},
-    ["sf"] = {grep_cfilter_cword, "grep_cfilter_cword"},
-    ["sg"] = {grep_cglob_cword, "grep_cglob_cword"},
+    ["sca"] = {grep_cword, "grep_cword_all_files"},
+    ["saa"] = {live_grep, "live_grep_all_words_all_files"},
+    ["sr"] = {ts.resume, "ts.resume"},
+    ["su"] = {custom_live_grep , "custom_live_grep"},
+    ["sag"] = {live_grep_cfile_glob_pattern, "live_grep_cfile_glob_pattern"},
+    ["saf"] = {live_grep_cfile_type_filter, "live_grep_cfile_type_filter"},
+    ["scf"] = {grep_cfilter_cword, "grep_cword_filter"},
+    ["scg"] = {grep_cglob_cword, "grep_cword_cglob"},
   }
 
   map:keymaps_sets(search)

@@ -19,7 +19,7 @@ BACKUP_DIRS = [
 ]
 
 DRIVE = 'M'
-DEST_DIR = fr'{DRIVE}:\StationBackups\reinaldo_laptop'
+DEST_DIR = r'\\Fl51s03\gnoworks\Wings\Drops\Source\Reinaldo\StationBackups\reinaldo_laptop'
 THREADS = 16
 LOG = r"%TEMP%\robo.log"
 ROBOCOPY_OPTS = f"/MIR /W:0 /R:1 /MT:{THREADS} /FFT /XJD /NP /NDL /ETA /E"
