@@ -10,18 +10,19 @@ end
 function M:setup()
   local win_sources = {
     { name = "nvim_lsp" },
-    { name = "buffer" },
+    { name = "omni" },
+    { name = "buffer", keyword_length = 3 },
     { name = "luasnip" },
     { name = "calc" },
     { name = "orgmode" },
   }
   local unix_sources = {
     { name = "nvim_lsp" },
-    { name = "buffer" },
+    { name = "omni" },
+    { name = "buffer", keyword_length = 3 },
     { name = "luasnip" },
     { name = "calc" },
     { name = "path" },
-    { name = "tags" },
     { name = "orgmode" },
   }
   local cp_ok, _ = pcall(require, "copilot_cmp")
