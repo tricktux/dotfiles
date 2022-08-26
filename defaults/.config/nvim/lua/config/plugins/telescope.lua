@@ -521,7 +521,6 @@ function M:setup()
 
 	local ts = require("telescope")
 	ts.setup(config)
-	self:config_project()
 end
 
 return M
