@@ -90,6 +90,7 @@ M.__plugins.common = {
 	},
 	{
 		"folke/which-key.nvim",
+    keys = "<leader>",
 		config = function()
 			require("config.plugins.whichkey"):setup()
 		end,
