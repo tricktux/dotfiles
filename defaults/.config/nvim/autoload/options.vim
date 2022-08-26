@@ -148,9 +148,7 @@ function! options#Set() abort
     set formatoptions+=jw
   endif
 
-  " Status Line and Colorscheme
-  " Set a default bogus colorscheme. If Plugins loaded it will be changed
-  colorscheme desert
+  " Status Line
   " If this not and android device and we have no plugins setup "ugly" status
   " line
   set statusline =
