@@ -376,7 +376,15 @@ M.__plugins.common = {
 	},
 	{
 		"akinsho/toggleterm.nvim",
-    cmd = "ToggleTerm",
+    cmd = {
+      "ToggleTerm",
+      "ToggleTermSendCurrentLine",
+      "ToggleTermSendVisualLines",
+      "ToggleTermSendVisualSelection",
+    },
+    setup = function()
+      require("config.plugins.misc"):setup_toggleterm()
+    end,
 		config = function()
 			require("config.plugins.misc"):config_toggleterm()
 		end,
