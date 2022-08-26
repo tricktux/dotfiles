@@ -127,8 +127,6 @@ local function main()
   require("config.options"):setup()
   -- setup wiki early so that path is available
   require("plugin.wiki"):setup()
-  -- The real config of plugins does not happen until much later
-  require("config.plugins.packer"):setup() -- Also setups lsp
 end
 
 main()
