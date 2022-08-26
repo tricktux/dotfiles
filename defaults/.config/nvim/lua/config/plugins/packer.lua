@@ -189,7 +189,7 @@ M.__plugins.common = {
   { "hrsh7th/cmp-path", after = "nvim-cmp"},
   { "hrsh7th/cmp-calc", after = "nvim-cmp"},
   { "ray-x/cmp-treesitter", after = "nvim-cmp" },
-  { "onsails/lspkind-nvim", after = "nvim-cmp" },
+  { "onsails/lspkind-nvim", after = "nvim-cmp", module = "lspkind" },
   { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp"},
   { "hrsh7th/cmp-omni", after = "nvim-cmp" },
   -- lspconfig after nvim-cmp
