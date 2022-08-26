@@ -594,6 +594,7 @@ M.__plugins.common = {
       }
 		end,
 	},
+  {"lewis6991/impatient.nvim"},
 }
 M.__plugins.deps = {}
 M.__plugins.deps.has = {
