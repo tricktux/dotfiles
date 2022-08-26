@@ -20,27 +20,28 @@ M.path.__compile = data_folder .. [[/site/plugin/packer_compiled.lua]]
 M.__repo = [[https://github.com/wbthomason/packer.nvim]]
 
 function M:__update()
+  local snapshot_time = os.date("%y%m%d_%H%M%S")
+  vim.notify("PackerSnapshot '" .. snapshot_time .. "' started..", vim.log.levels.INFO)
+  local c = [[PackerSnapshot ]] .. snapshot_time
+  vim.cmd(c)
 	local p = require("packer")
-	local snapshot_time = os.date("%y%m%d_%H%M%S")
-	vim.notify("PackerSnapshot '" .. snapshot_time .. "' started..", vim.log.levels.INFO)
-	p.snapshot(snapshot_time)
 	vim.notify("PackerSync started..", vim.log.levels.INFO)
 	p.sync()
 end
 
 M.maps = { prefix = "<leader>P" }
 M.maps.mappings = {
-  c = {function() require("packer").compile() end, "packer_compile"},
-  u = {function() require("packer").update() end, "packer_update"},
+  c = {"<cmd>PackerCompile<cr>", "packer_compile"},
+  u = {"<cmd>PackerUpdate<cr>", "packer_update"},
   U = {function() M.__update() end, "packer_snapshot_update"},
   r = {"<cmd>UpdateRemotePlugins<cr>", "update_remote_plugins"},
-  i = {function() require("packer").install() end, "packer_install"},
-  s = {function() require("packer").sync() end, "packer_sync"},
-  a = {function() require("packer").status() end, "packer_status"},
-  l = {function() require("packer").clean() end, "packer_clean"},
+  i = {"<cmd>PackerInstall<cr>", "packer_install"},
+  s = {"<cmd>PackerSync<cr>", "packer_sync"},
+  a = {"<cmd>PackerStatus<cr>", "packer_status"},
+  l = {"<cmd>PackerClean<cr>", "packer_clean"},
 }
 
-function M:config()
+function M:setup()
   map:keymaps_sets(self.maps)
 
 	vim.api.nvim_create_autocmd("User", {
@@ -49,6 +50,8 @@ function M:config()
 			vim.notify("PackerCompile done...", vim.log.levels.INFO)
 		end,
 	})
+  local o = { desc = "packer_snapshot_sync" }
+  vim.api.nvim_create_user_command("PackerUPDATE", self.__update, o)
 end
 
 function M:download()
@@ -58,12 +61,12 @@ function M:download()
 	end
 
 	if vim.fn.executable("git") == 0 then
-		vim.notify("Packer: git is not in your path. Cannot download packer.nvim", vim.log.levels.ERROR)
+		print("Packer: git is not in your path. Cannot download packer.nvim")
 		return
 	end
 
 	local git_cmd = "git clone " .. self.__repo .. " --depth 1 " .. self.path.__this
-	vim.notify("Packer: downloading packer.nvim...", vim.log.levels.INFO)
+	print("Packer: downloading packer.nvim...")
 	vim.fn.system(git_cmd)
 	vim.cmd("packadd packer.nvim")
 end
@@ -84,78 +87,140 @@ M.__plugins = {}
 M.__plugins.common = {
 	{
 		"wbthomason/packer.nvim",
-		config = function()
-			require("config.plugins.packer"):config()
+    cmd = {
+      "PackerSnapshot",
+      "PackerSnapshotRollback",
+      "PackerSnapshotDelete",
+      "PackerInstall",
+      "PackerUpdate",
+      "PackerSync",
+      "PackerClean",
+      "PackerCompile",
+      "PackerStatus",
+      "PackerProfile",
+      "PackerLoad",
+    },
+		setup = function()
+			require("config.plugins.packer"):setup()
 		end,
+    config = function()
+      require("config.plugins.packer"):config()
+    end,
 	},
 	{
 		"folke/which-key.nvim",
-    keys = "<leader>",
+    event = "CursorHold",
 		config = function()
 			require("config.plugins.whichkey"):setup()
 		end,
 	},
+  { "nvim-lua/plenary.nvim", module = "plenary" },
+  -- Telescope
 	{
 		"nvim-lua/telescope.nvim",
-		requires = {
-			{ "nvim-lua/popup.nvim" },
-			{ "nvim-lua/plenary.nvim" },
-			{ "ahmedkhalf/project.nvim" },
-		},
+    -- Lazyload once we enter
+    event = "CursorHold",
 		config = function()
 			require("config.plugins.telescope"):setup()
 		end,
 	},
+  {
+    "ahmedkhalf/project.nvim",
+    after = "telescope.nvim",
+    config = function() 
+      require("config.plugins.telescope"):config_project() 
+    end,
+  },
+  -- Treesitter loading
 	{
 		"nvim-treesitter/nvim-treesitter",
-		run = ":TSUpdate",
-		requires = { "p00f/nvim-ts-rainbow", "RRethy/nvim-treesitter-textsubjects" },
+    event = "CursorHold",
 		config = function()
 			require("config.plugins.treesitter"):setup()
 		end,
 	},
+  {"p00f/nvim-ts-rainbow", after = "nvim-treesitter"},
+  {"RRethy/nvim-treesitter-textsubjects", after = "nvim-treesitter"},
+  {
+    "mizlan/iswap.nvim",
+    after = "nvim-treesitter",
+    config = function()
+      require("config.plugins.misc").config_iswap()
+    end,
+  },
+  {
+    "s1n7ax/nvim-comment-frame",
+    after = "nvim-treesitter",
+    config = function()
+      require("config.plugins.misc"):setup_comment_frame()
+    end,
+  },
+  {
+    "SmiteshP/nvim-gps",
+    after = "nvim-treesitter",
+    config = function()
+      require("config.plugins.misc"):setup_gpsnvim()
+    end,
+  },
+  ------------------------
+  -- This is the order to load completion
+  {
+    "rafamadriz/friendly-snippets",
+    -- Lazyload on start
+    event = "CursorHold",
+  },
+  {
+    "L3MON4D3/LuaSnip",
+    after = "friendly-snippets",
+    config = function()
+      require("config.plugins.luasnip"):config()
+    end,
+  },
 	{
 		"hrsh7th/nvim-cmp",
-		after = "LuaSnip",
-		requires = {
-			{ "hrsh7th/cmp-buffer", opt = false },
-			{ "hrsh7th/cmp-nvim-lua", opt = false },
-			{ "hrsh7th/cmp-nvim-lsp", opt = false },
-			{ "hrsh7th/cmp-path", opt = false },
-			{ "hrsh7th/cmp-calc", opt = false },
-			{ "ray-x/cmp-treesitter", opt = false },
-			{ "quangnguyen30192/cmp-nvim-tags", opt = false },
-			{ "onsails/lspkind-nvim", opt = false },
-			{ "saadparwaiz1/cmp_luasnip", opt = false },
-		},
+    after = "LuaSnip",
 		config = function()
 			require("config.plugins.nvim-cmp"):setup()
 		end,
 	},
-	{
-		"RishabhRD/nvim-cheat.sh",
-		requires = "RishabhRD/popfix",
-		cmd = "Cheat",
-	},
-	{
-		"neovim/nvim-lspconfig",
-		tag = vim.fn.has("nvim-0.8") > 0 and "*" or "v0.1.3*", -- Compatible with 0.7.0
-		requires = {
-      {"ray-x/lsp_signature.nvim"},
-      {
-        "j-hui/fidget.nvim",
-        config = function()
-          require("config.lsp"):config_fidget()
-        end,
-      },
-    },
-		config = function()
-			require("config.lsp"):config()
-		end,
-	},
+  { "hrsh7th/cmp-buffer", after = "nvim-cmp"},
+  { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp"},
+  { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp"},
+  { "hrsh7th/cmp-path", after = "nvim-cmp"},
+  { "hrsh7th/cmp-calc", after = "nvim-cmp"},
+  { "ray-x/cmp-treesitter", after = "nvim-cmp" },
+  { "onsails/lspkind-nvim", after = "nvim-cmp" },
+  { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp"},
+  { "hrsh7th/cmp-omni", after = "nvim-cmp" },
+  -- lspconfig after nvim-cmp
+  {
+    "neovim/nvim-lspconfig",
+    after = "cmp-nvim-lsp",
+    tag = vim.fn.has("nvim-0.8") > 0 and "*" or "v0.1.3*", -- Compatible with 0.7.0
+    config = function()
+      require("config.lsp"):config()
+    end,
+  },
+  {"ray-x/lsp_signature.nvim", after = "nvim-lspconfig"},
+  {
+    "j-hui/fidget.nvim",
+    after = "nvim-lspconfig",
+    config = function()
+      require("config.lsp"):config_fidget()
+    end,
+  },
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    after = "nvim-lspconfig",
+    config = function()
+      require("config.plugins.null-ls"):setup()
+    end,
+  },
+  { "weilbith/nvim-code-action-menu", after = "nvim-lspconfig" },
+  ------------------
 	{
 		"lewis6991/gitsigns.nvim",
-		requires = { "nvim-lua/plenary.nvim" },
+    event = "CursorHold",
 		config = function()
 			require("config.plugins.gitsigns").setup()
 		end,
@@ -179,6 +244,7 @@ M.__plugins.common = {
 	},
 	{
 		"lukas-reineke/indent-blankline.nvim",
+    event = "CursorHold",
 		config = function()
 			require("config.plugins.misc").config_indent_blankline()
 		end,
@@ -191,14 +257,6 @@ M.__plugins.common = {
 		end,
 		config = function()
 			require("config.plugins.misc").config_git_messenger()
-		end,
-	},
-	{
-		"mizlan/iswap.nvim",
-		requires = "nvim-treesitter/nvim-treesitter",
-    keys = "<localleader>s",
-		config = function()
-			require("config.plugins.misc").config_iswap()
 		end,
 	},
 	{
@@ -240,6 +298,7 @@ M.__plugins.common = {
 	{ "MTDL9/vim-log-highlighting", ft = "log" },
 	{
 		"chaoren/vim-wordmotion",
+    event = "CursorHold",
 		setup = function()
 			vim.g.wordmotion_mappings = {
 				w = "L",
@@ -271,6 +330,7 @@ M.__plugins.common = {
 	},
 	{
 		"jiangmiao/auto-pairs",
+    event = "CursorHold",
 		setup = function()
 			-- Really annoying option
 			vim.g.AutoPairsFlyMode = 0
@@ -280,9 +340,13 @@ M.__plugins.common = {
 			vim.g.AutoPairsShortcutBackInsert = ""
 		end,
 	},
-	{ "tpope/vim-repeat" },
+	{ 
+    "tpope/vim-repeat",
+    event = "CursorHold",
+  },
 	{
 		"kylechui/nvim-surround",
+    event = "CursorHold",
 		config = function()
 			require("config.plugins.misc"):config_surround()
 		end,
@@ -292,9 +356,7 @@ M.__plugins.common = {
 		requires = {
 			{
         "rmagatti/session-lens",
-        keys = {
-          {"n", "<leader>fs", "search_session"}
-        },
+        after = "telescope.nvim",
         config = function()
           require("config.plugins.misc"):config_session_lens()
         end,
@@ -336,26 +398,14 @@ M.__plugins.common = {
 	},
 	{
 		"ironhouzi/starlite-nvim",
+    event = "CursorHold",
 		config = function()
 			require("config.plugins.misc"):config_starlite()
 		end,
 	},
 	{
 		"justinmk/vim-sneak",
-    keys = {
-      -- Using : for next f,t is cumbersome, use ' for that, and ` for marks
-      { "n", "'", "sneak_;" },
-      { "n", ",", "sneak_," },
-
-      -- " 1-character enhanced 'f'
-      { "n", "f", "sneak_f" },
-      { "n", "F", "sneak_F" },
-      -- " 1-character enhanced 't'
-      { "n", "t", "sneak_t" },
-      -- " label-mode
-      { "n", "s", "sneakLabel_s" },
-      { "n", "S", "sneakLabel_S" },
-    },
+    event = "CursorHold",
 		setup = function()
 			require("config.plugins.misc"):setup_sneak()
       -- Silly I know, but needs to be here
@@ -367,6 +417,7 @@ M.__plugins.common = {
 	},
 	{
 		"kazhala/close-buffers.nvim",
+    event = "CursorHold",
 		config = function()
 			require("config.plugins.misc"):setup_bdelete()
 		end,
@@ -379,16 +430,6 @@ M.__plugins.common = {
 		end,
 	},
 	{ "aquach/vim-http-client", cmd = "HTTPClientDoRequest" },
-	{
-		"s1n7ax/nvim-comment-frame",
-		requires = "nvim-treesitter/nvim-treesitter",
-    keys = {
-      {"n", "<leader>om", "add_multiline_comment"},
-    },
-		config = function()
-			require("config.plugins.misc"):setup_comment_frame()
-		end,
-	},
 	{
 		"b3nj5m1n/kommentary",
     keys = {
@@ -405,6 +446,7 @@ M.__plugins.common = {
 	},
 	{
 		"beauwilliams/focus.nvim",
+    event = "CursorHold",
 		config = function()
 			require("config.plugins.misc"):config_focus()
 		end,
@@ -416,19 +458,11 @@ M.__plugins.common = {
 			require("config.plugins.misc"):setup_zen_mode()
 		end,
 	},
-	{ "weilbith/nvim-code-action-menu", cmd = "CodeActionMenu" },
 	{
 		"sindrets/diffview.nvim",
 		cmd = { "DiffviewOpen", "DiffviewFileHistory" },
 		config = function()
 			require("config.plugins.misc"):setup_diffview()
-		end,
-	},
-	{
-		"SmiteshP/nvim-gps",
-		requires = "nvim-treesitter/nvim-treesitter",
-		config = function()
-			require("config.plugins.misc"):setup_gpsnvim()
 		end,
 	},
 	{
@@ -465,24 +499,7 @@ M.__plugins.common = {
 		end,
 	},
 	{
-		"jose-elias-alvarez/null-ls.nvim",
-		requires = { "nvim-lua/plenary.nvim" },
-		config = function()
-			require("config.plugins.null-ls"):setup()
-		end,
-	},
-	{
-		"L3MON4D3/LuaSnip",
-		requires = {
-      "rafamadriz/friendly-snippets",
-    },
-		config = function()
-			require("config.plugins.luasnip"):config()
-		end,
-	},
-	{
 		"danymat/neogen",
-		after = { "LuaSnip" },
     keys = {
       {"n", "<leader>og", "generate_neogen"},
       {"n", "<leader>oGf", "generate_neogen_function"},
@@ -523,7 +540,6 @@ M.__plugins.common = {
 	},
 	{
 		"glts/vim-radical",
-		requires = "glts/vim-magnum",
     keys = {
       {"x", "<leader>nr", "radical_view"},
       {"n", "<leader>nr", "radical_view"},
@@ -536,10 +552,12 @@ M.__plugins.common = {
 			})
 		end,
 	},
+  { "glts/vim-magnum", after = "vim-radical" },
 	{
 		-- Folder name to give
 		"https://gitlab.com/yorickpeterse/nvim-pqf",
 		as = "nvim-pqf",
+    event = "QuickFixCmdPre",
 		config = function()
 			require("pqf").setup({
 				signs = {
@@ -557,15 +575,10 @@ M.__plugins.common = {
 			require("config.plugins.lualine"):config()
 		end,
 	},
+  -- These go together
 	{
 		"nvim-neotest/neotest",
-		requires = {
-			"nvim-lua/plenary.nvim",
-			"nvim-treesitter/nvim-treesitter",
-			"antoinemadec/FixCursorHold.nvim",
-			"nvim-neotest/neotest-python",
-			"nvim-neotest/neotest-plenary",
-		},
+    ft = "python",
     keys = {
       {"n", "<leader>stf", "neotest_run_current_file"},
       {"n", "<leader>str", "neotest_run_nearest"},
@@ -574,6 +587,10 @@ M.__plugins.common = {
 			require("config.plugins.misc"):config_neotest()
 		end,
 	},
+  {"antoinemadec/FixCursorHold.nvim", after = "neotest"},
+  {"nvim-neotest/neotest-python", after = "neotest"},
+  {"nvim-neotest/neotest-plenary", after = "neotest"},
+  ------
 	{
 		"catppuccin/nvim",
 		as = "catppuccin",
@@ -609,6 +626,11 @@ M.__plugins.deps.has = {
 		},
 	},
 	["unix"] = {
+    {
+      "RishabhRD/nvim-cheat.sh",
+      requires = "RishabhRD/popfix",
+      cmd = "Cheat",
+    },
     {
       "jamessan/vim-gnupg",
       cond = function()
@@ -698,7 +720,6 @@ M.__plugins.deps.has = {
 		{
 			"pwntester/octo.nvim",
 			requires = {
-				{ "nvim-lua/popup.nvim" },
 				{ "nvim-lua/plenary.nvim" },
 				{ "nvim-lua/telescope.nvim" },
 			},
@@ -729,7 +750,7 @@ M.__plugins.deps.has = {
 	},
 }
 
-function M:setup()
+function M:config()
 	self:download()
 	local packer = require("packer")
 	local plugins = self.__plugins.common
@@ -743,8 +764,6 @@ function M:setup()
 
 	log.trace("packer: plugins = ", plugins)
 	packer.startup({ plugins, config = self.__config })
-	local o = { desc = "packer_snapshot_sync" }
-	vim.api.nvim_create_user_command("PackerUPDATE", self.__update, o)
 end
 
 return M
