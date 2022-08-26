@@ -103,11 +103,6 @@ M.__config = {
 }
 
 function M:setup()
-  -- Mon Apr 05 2021 17:36:
-  -- performance of treesitter in large files is very low.
-  -- Keep as little modules enabled as possible.
-  -- Also no status line
-  -- No extra modules. Looking at you rainbow
   require('nvim-treesitter.install').compilers = { "clang" }
   local tsconf = require 'nvim-treesitter.configs'
   tsconf.setup(self.__config)
