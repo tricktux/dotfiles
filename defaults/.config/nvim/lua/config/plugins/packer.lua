@@ -623,11 +623,36 @@ M.__plugins.common = {
   {"lewis6991/impatient.nvim"},
 }
 M.__plugins.deps = {}
+M.__plugins.deps.executable = {
+  ["lua-language-server"] = {
+    {
+      "folke/lua-dev.nvim",
+      after = "nvim-lspconfig",
+      config = function()
+        require("config.plugins.misc").setup_luadev()
+      end,
+    },
+  },
+  ["gh"] = {
+    {
+      "pwntester/octo.nvim",
+      after = "telescope.nvim",
+      config = function()
+        require("telescope").load_extension("octo")
+      end,
+    },
+  },
+  ["gpg"] = {
+    {
+      "jamessan/vim-gnupg",
+    },
+  }
+}
 M.__plugins.deps.has = {
 	["nvim-0.8"] = {
 		{
 			"smjonas/inc-rename.nvim",
-      cmd = "IncRename",
+      after = "nvim-lspconfig",
 			config = function()
 				require("inc_rename").setup()
 			end,
@@ -636,27 +661,21 @@ M.__plugins.deps.has = {
 	["unix"] = {
     {
       "RishabhRD/nvim-cheat.sh",
-      requires = "RishabhRD/popfix",
       cmd = "Cheat",
     },
-    {
-      "jamessan/vim-gnupg",
-      cond = function()
-        return vim.fn.executable("gpg") > 0
-      end,
-    },
+    {"RishabhRD/popfix", after = "nvim-cheat.sh"},
 		{
 			"iamcco/markdown-preview.nvim",
+      ft = "markdown",
 			setup = function()
 				vim.g.mkdp_auto_close = 0
 			end,
 			run = "cd app && npm install",
-			ft = "markdown",
 		},
 		{ "PotatoesMaster/i3-vim-syntax" },
 		{
 			"ThePrimeagen/git-worktree.nvim",
-			requires = { { "nvim-lua/telescope.nvim" } },
+      after = "telescope.nvim",
       keys = {
         {"n", "<leader>vwa", "git_worktree_create"}, 
         {"n", "<leader>vwd", "git_worktree_delete"}, 
@@ -679,6 +698,7 @@ M.__plugins.deps.has = {
 		},
 		{
 			"untitled-ai/jupyter_ascending.vim",
+      ft = "python",
 			setup = function()
 				vim.g.jupyter_ascending_default_mappings = false
 				vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
@@ -696,30 +716,8 @@ M.__plugins.deps.has = {
 				})
 			end,
 		},
-		{
-			"folke/lua-dev.nvim",
-			cond = function()
-				return vim.fn.executable("lua-language-server") > 0
-			end,
-			config = function()
-				require("config.plugins.misc").setup_luadev()
-			end,
-		},
-		{
-			"pwntester/octo.nvim",
-			requires = {
-				{ "nvim-lua/plenary.nvim" },
-				{ "nvim-lua/telescope.nvim" },
-			},
-			config = function()
-				require("telescope").load_extension("octo")
-			end,
-			cond = function()
-				return vim.fn.executable("gh") > 0
-			end,
-		},
-		{ "lambdalisue/suda.vim" },
-		{ "chr4/nginx.vim" },
+		{ "lambdalisue/suda.vim", cmd = {"SudaWrite", "SudaRead"} },
+		{ "chr4/nginx.vim", ft = "nginx" },
 		{
 			"rcarriga/nvim-dap",
 			requires = {
@@ -739,9 +737,16 @@ M.__plugins.deps.has = {
 }
 
 function M:config()
-	self:download()
+	-- self:download()
 	local packer = require("packer")
 	local plugins = self.__plugins.common
+  for key, exe in pairs(self.__plugins.deps.executable) do
+    if vim.fn.executable(key) > 0 then
+      for _, plug in pairs(exe) do
+        table.insert(plugins, plug)
+      end
+    end
+  end
 	for key, dep in pairs(self.__plugins.deps.has) do
 		if vim.fn.has(key) > 0 then
 			for _, plug in pairs(dep) do
