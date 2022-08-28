@@ -807,8 +807,7 @@ function M.setup_luadev()
 		},
 	})
 
-	local lspconfig = require("lspconfig")
-	lspconfig.sumneko_lua.setup(luadev)
+  require("lspconfig").sumneko_lua.setup(luadev)
 end
 
 function M.setup_neogit()
