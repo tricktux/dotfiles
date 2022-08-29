@@ -14,8 +14,8 @@ chocolatey-compatibility.extension 1.0.0
 chocolatey-core.extension 1.4.0
 chocolatey-dotnetfx.extension 1.0.1
 chocolatey-windowsupdate.extension 1.0.4
-cmake 3.24.0
-cmake.install 3.24.0
+cmake 3.24.1
+cmake.install 3.24.1
 Cygwin 3.3.4.20220408
 dotnet-6.0-sdk 6.0.400
 dotnet-6.0-sdk-1xx 6.0.108
@@ -35,7 +35,7 @@ fzf 0.32.1
 git 2.37.2.2
 git.install 2.37.2.2
 gpg4win 4.0.3
-graphviz 5.0.0
+graphviz 5.0.1
 jq 1.6
 KB2533623 2.0.0
 KB2919355 1.0.20160915
@@ -48,22 +48,22 @@ lazygit 0.35
 llvm 14.0.6
 make 4.3
 mingw 11.2.0.07112021
-neovide 0.9.0
+neovide 0.10.1
 neovim 0.7.3-beta
 netfx-4.7.2 4.7.2.0
 nmap 7.92.0.20220321
-nodejs-lts 16.16.0
+nodejs-lts 16.17.0
 notepadplusplus 8.4.4
 notepadplusplus.install 8.4.4
 nuget.commandline 6.3.0
-pandoc 2.19
+pandoc 2.19.1
 pass-winmenu 1.13
 plantuml 1.2022.6
 python 3.10.6
 python3 3.10.6
 ripgrep 13.0.0.20210621
 rufus 3.20
-rust-analyzer 2022.08.08
+rust-analyzer 2022.08.22
 rustup.install 1.24.3
 sumatrapdf 3.4.6
 sumatrapdf.install 3.4.6.20220629
@@ -77,10 +77,8 @@ vale 2.20.0
 vcredist140 14.32.31332
 vcredist2008 9.0.30729.616104
 vcredist2015 14.0.24215.20170201
-vscode 1.70.1
-vscode.install 1.70.1
-wezterm 20220807.113146
-wezterm.install 20220807.113146
+vscode 1.70.2
+vscode.install 1.70.2
 zeal 0.6.1
 zeal.install 0.6.1
-84 packages installed.
+82 packages installed.
