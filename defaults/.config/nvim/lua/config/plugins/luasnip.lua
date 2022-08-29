@@ -98,11 +98,39 @@ function M.__setup_orgmode_snippets()
   ls.add_snippets("org", todo_snips)
 end
 
+function M.__setup_cpp_snippets()
+  local ls = require("luasnip")
+  local s = ls.s
+  local fmt = require("luasnip.extras.fmt").fmt
+  local i = ls.insert_node
+
+  local types = {"info", "warn", "error"}
+  local log_snippet = {}
+  for _, v in pairs(types) do
+    local tp = string.sub(v, 1, 1)
+    local str = string.format([[LG.%s("{}"{});]], v)
+    table.insert(log_snippet, 
+      s("lg" .. tp, fmt(
+          str,
+          {
+            i(1, "description"),
+            i(2, ", variables"),
+          }
+        )
+      )
+    )
+  end
+  ls.add_snippets("cpp", log_snippet)
+  ls.add_snippets("c", log_snippet)
+end
+
+
 function M:config()
   local ls = require("luasnip")
   local types = require("luasnip.util.types")
 
   self.__setup_orgmode_snippets()
+  self.__setup_cpp_snippets()
 
   ls.config.set_config({
     -- This tells LuaSnip to remember to keep around the last snippet.
