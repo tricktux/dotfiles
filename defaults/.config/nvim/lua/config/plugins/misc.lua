@@ -996,7 +996,7 @@ function M.config_catpuccin()
     compile = {
         enabled = true,
         -- .. [[/site/plugin/catppuccin]]
-        path = vim.fn.stdpath("data") .. [[/site/plugin/catppuccin]],
+        path = vim.fn.stdpath("data") .. [[/catppuccin]],
         suffix = "_compiled"
     },
 		integrations = {
