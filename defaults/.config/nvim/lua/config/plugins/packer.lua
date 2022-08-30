@@ -9,6 +9,7 @@ local log = require("utils.log")
 local map = require("config.mappings")
 local vks = vim.keymap.set
 
+local lsp_version = vim.fn.has("nvim-0.8") > 0 and "*" or "v0.1.3*" -- Compatible with 0.7.0
 local M = {}
 local data_folder = vim.fn.stdpath("data")
 M.path = {}
@@ -196,7 +197,7 @@ M.__plugins.common = {
   {
     "neovim/nvim-lspconfig",
     after = "cmp-nvim-lsp",
-    tag = vim.fn.has("nvim-0.8") > 0 and "*" or "v0.1.3*", -- Compatible with 0.7.0
+    tag = lsp_version,
     config = function()
       require("config.lsp"):config()
     end,
