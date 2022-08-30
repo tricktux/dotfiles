@@ -606,6 +606,7 @@ M.__plugins.common = {
     module = "catppuccin",
     run = ":CatppuccinCompile",
     cmd = {"CatppuccinCompile", "CatppuccinStatus", "Catppuccin", "CatppuccinClean"},
+    tag = vim.fn.has("nvim-0.8") > 0 and "*" or "v0.2.1", -- Compatible with 0.7.0"
     setup = function()
       require("config.plugins.misc"):setup_catpuccin()
     end,
