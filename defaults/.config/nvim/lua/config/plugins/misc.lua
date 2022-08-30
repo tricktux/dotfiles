@@ -671,7 +671,7 @@ local function set_colorscheme(period)
 	vim.g.catppuccin_flavour = flavour[period]
 	log.info(fmt("set_colorscheme: period = '%s'", period))
 	log.info(fmt("set_colorscheme: catppuccin_flavour = '%s'", flavour[period]))
-	vim.cmd("colorscheme catppuccin")
+  vim.cmd("Catppuccin " .. flavour[period])
 end
 
 -- This function is called on vim enter
