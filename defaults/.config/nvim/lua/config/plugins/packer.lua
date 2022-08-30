@@ -602,25 +602,30 @@ M.__plugins.common = {
   ------
 	{
 		"catppuccin/nvim",
-		as = "catppuccin",
-		config = function()
-			require("config.plugins.misc"):config_catpuccin()
-		end,
-		run = "CatppuccinCompile",
-	},
-	{
-		"norcalli/nvim-colorizer.lua",
-		cmd = "ColorizerToggle",
-		setup = function()
-			local o = { silent = true, desc = "toggle_highlight" }
-			vim.keymap.set("n", "<leader>tch", "<cmd>ColorizerToggle<cr>", o)
-		end,
-		config = function()
-			require 'colorizer'.setup {
+    as = "catppuccin",
+    module = "catppuccin",
+    run = ":CatppuccinCompile",
+    cmd = {"CatppuccinCompile", "CatppuccinStatus", "Catppuccin", "CatppuccinClean"},
+    setup = function()
+      require("config.plugins.misc"):setup_catpuccin()
+    end,
+    config = function()
+      require("config.plugins.misc"):config_catpuccin()
+    end,
+  },
+  {
+    "norcalli/nvim-colorizer.lua",
+    cmd = "ColorizerToggle",
+    setup = function()
+      local o = { silent = true, desc = "toggle_highlight" }
+      vim.keymap.set("n", "<leader>tch", "<cmd>ColorizerToggle<cr>", o)
+    end,
+    config = function()
+      require 'colorizer'.setup {
         '!*'; -- Dont highlight any files
       }
-		end,
-	},
+    end,
+  },
   {"lewis6991/impatient.nvim"},
 }
 M.__plugins.deps = {}
