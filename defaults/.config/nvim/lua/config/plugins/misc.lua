@@ -685,11 +685,12 @@ function M.setup_flux()
 		f:check()
 		return
 	end
-	vim.fn["flux#Flux"]() -- Initially set the colorscheme
 	local id = api.nvim_create_augroup("FluxLike", { clear = true })
-	api.nvim_create_autocmd("BufEnter", {
+	api.nvim_create_autocmd("CursorHold", {
 		callback = function()
-			vim.fn["flux#Flux"]()
+      vim.defer_fn(function()
+        vim.fn["flux#Flux"]()
+      end, 0) -- Defered for live reloading
 		end,
 		pattern = "*",
 		desc = "Flux",
