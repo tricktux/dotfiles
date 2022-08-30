@@ -972,6 +972,23 @@ function M.setup_img_paste()
 	})
 end
 
+function M.setup_catpuccin()
+  -- Need a way to setup this plugin until after packer finishes
+  M.setup_flux()
+  
+  -- Create an autocmd User PackerCompileDone to update it every time packer is compiled
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "PackerCompileDone",
+    callback = function()
+      require('catppuccin').compile()
+      vim.defer_fn(function()
+        vim.cmd "colorscheme catppuccin"
+      end, 0) -- Defered for live reloading
+    end,
+    desc = "Catppuccin compile on PackerCompileDone"
+  })
+end
+
 function M.config_catpuccin()
 	local catppuccin = require("catppuccin")
 	catppuccin.setup({
@@ -995,8 +1012,6 @@ function M.config_catpuccin()
 			symbols_outline = true,
 		},
 	})
-	-- Need a way to setup this plugin until after packer finishes
-	M.setup_flux()
 end
 
 function M.setup_grip()
