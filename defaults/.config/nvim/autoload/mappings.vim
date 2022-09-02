@@ -8,61 +8,7 @@
 
 function! mappings#Set()
   let g:esc = [';j']
-  " CUSTOM MAPPINGS
-  if has('unix')
-    " System paste
-    nnoremap <a-v> "+p=`]zz
-    xnoremap <a-v> "+p=`]zz
-
-    nnoremap <leader>y "+yy
-    vnoremap <leader>y "+y
-
-    nnoremap  o<Esc>zz
-  else
-    " Copy and paste into system wide clipboard
-    nnoremap <a-v> "*p=`]zz
-    vnoremap <a-v> "*p=`]zz
-    noremap! <a-v> <c-r>*
-
-    nnoremap <leader>y "*yy
-    vnoremap <leader>y "*y
-
-    nnoremap <cr> o<ESC>zz
-
-    " On MS-Windows, this is mapped to cut Visual text
-    " |dos-standard-mappings|.
-    silent! vunmap <C-X>
-  endif
   " Terminal mappings
-  if has('nvim')
-    tnoremap <M-`> <c-\><c-n>ZZ
-    " nunmap <buffer> <c-space>
-    for m in g:esc
-      execute 'tnoremap ' . m . ' <C-\><C-n>'
-    endfor
-    tnoremap <A-h> <C-\><C-n><C-w>h
-    tnoremap <A-j> <C-\><C-n><C-w>j
-    tnoremap <A-k> <C-\><C-n><C-w>k
-    tnoremap <A-l> <C-\><C-n><C-w>l
-
-    tnoremap <a-]> <C-\><C-n>gt
-    tnoremap <a-[> <C-\><C-n>gT
-    for idx in range(1,9)
-      execute 'tnoremap <silent> <a-' . idx .
-            \ '> <C-\><C-n>' . idx. 'gt'
-    endfor
-    if !has('unix')
-      " Simulate unix mappings in windows
-      tnoremap <c-a> <home>
-      tnoremap <A-v> <C-\><C-n>"+pi
-      tnoremap <C-w> <C-bs>
-      tnoremap <A-b> <C-Left>
-      tnoremap <A-w> <C-Right>
-      tnoremap <C-f> <Right>
-      tnoremap <C-b> <Left>
-      tnoremap <C-p> <Up>
-    endif
-  endif
 
   " Sun Jun 07 2020 11:23 
   " Auto center screen mappings. There some above as well
@@ -85,11 +31,6 @@ function! mappings#Set()
   nnoremap <S-CR> O<Esc>zz
   nnoremap G Gzz
   nnoremap x xzz
-  " Substitute for ESC
-  for m in g:esc
-    execute 'vnoremap ' . m . ' <Esc>zz'
-    execute 'inoremap ' . m . ' <Esc>zz'
-  endfor
 
   " j and k
   " Display line movements unless preceded by a count and

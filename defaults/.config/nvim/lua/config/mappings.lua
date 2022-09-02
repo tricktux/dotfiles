@@ -8,6 +8,8 @@ local fn = vim.fn
 
 local M = {}
 
+M.esc = [[;j]]
+
 --- Abstraction over keymaps_set
 -- @param keys table expects all the arguments to keymaps_set
 function M:keymaps_sets(keys)
@@ -396,30 +398,27 @@ M.terminal.mappings = {
 
 function M:window_movement_setup()
 	local opts = { silent = true, desc = "tmux_move_left" }
-	if fn.has("unix") > 0 then
-		if fn.exists("$TMUX") > 0 then
-			vks("n", "<A-h>", function()
-				tmux_move("h")
-			end, opts)
-			opts.desc = "tmux_move_down"
-			vks("n", "<A-j>", function()
-				tmux_move("j")
-			end, opts)
-			opts.desc = "tmux_move_up"
-			vks("n", "<A-k>", function()
-				tmux_move("k")
-			end, opts)
-			opts.desc = "tmux_move_right"
-			vks("n", "<A-l>", function()
-				tmux_move("l")
-			end, opts)
-			opts.desc = "tmux_move_prev"
-			vks("n", "<A-p>", function()
-				tmux_move("p")
-			end, opts)
-			-- elseif vim.fn.exists('$KITTY_WINDOW_ID') > 0 then
-			return
-		end
+	if fn.has("unix") > 0 and fn.exists("$TMUX") > 0 then
+    vks("n", "<A-h>", function()
+      tmux_move("h")
+    end, opts)
+    opts.desc = "tmux_move_down"
+    vks("n", "<A-j>", function()
+      tmux_move("j")
+    end, opts)
+    opts.desc = "tmux_move_up"
+    vks("n", "<A-k>", function()
+      tmux_move("k")
+    end, opts)
+    opts.desc = "tmux_move_right"
+    vks("n", "<A-l>", function()
+      tmux_move("l")
+    end, opts)
+    opts.desc = "tmux_move_prev"
+    vks("n", "<A-p>", function()
+      tmux_move("p")
+    end, opts)
+    return
 	end
 
 	opts.desc = "cursor_right_win"
@@ -432,95 +431,134 @@ function M:window_movement_setup()
 	vks("n", "<A-j>", "<C-w>jzz", opts)
 	opts.desc = "cursor_prev_win"
 	vks("n", "<A-p>", "<C-w>pzz", opts)
+  -- Window resizing
+  opts.desc = "window_size_increase_right"
+  vks("n", "<A-S-l>", "<C-w>>", opts)
+  opts.desc = "window_size_increase_left"
+  vks("n", "<A-S-h>", "<C-w><", opts)
+  opts.desc = "window_size_increase_up"
+  vks("n", "<A-S-k>", "<C-w>+", opts)
+  opts.desc = "window_size_increase_bot"
+  vks("n", "<A-S-j>", "<C-w>-", opts)
+end
+
+local function misc_mappings()
+  vks({"v", "i"}, M.esc, [[<Esc>zz]])
+  local opts = { nowait = true, desc = "start_cmd" }
+  -- Awesome hack, typing a command is used way more often than next
+  vks("n", ";", ":", opts)
+
+  opts = { silent = true, desc = "visual_end_line" }
+  -- Let's make <s-v> consistent as well
+  vks("n", "<s-v>", "v$h", opts)
+  opts = { silent = true, desc = "visual_line" }
+  vks("n", "vv", "<s-v>", opts)
+  opts = { silent = true, desc = "visual_increment" }
+  vks("v", "gA", "g<c-a>", opts)
+  opts.desc = "visual_decrement"
+  vks("v", "gX", "g<c-x>", opts)
+
+  vks({ "n", "x", "o" }, "t", "%")
+
+  opts.desc = "refresh_buffer"
+  vks("n", "<c-l>", refresh_buffer, opts)
+
+  -- Quickfix/Location list
+  opts.desc = "quickfix"
+  vks("n", "<s-q>", "<cmd>copen 20<cr>", opts)
+  opts.desc = "quickfix"
+  vks("n", "<s-u>", "<cmd>lopen 20<cr>", opts)
+
+  opts.desc = "cwd_files"
+  vks("n", "<c-p>", function()
+    fs.path.fuzzer(fn.getcwd())
+  end, opts)
+
+  vks({"v", "n"}, "<cr>", [=[o<Esc>zz]=])
+end
+
+M.braces = {}
+M.braces.mappings = {
+  ["]f"] = {"gf", "goto_file_under_cursor", { "v", "n" }},
+  ["]i"] = {"[<c-i>", "goto_include_under_cursor"},
+  ["[i"] = {"[<c-i>", "goto_include_under_cursor"},
+  ["]I"] = {"<c-w>i<c-w>L", "goto_include_under_cursor_on_right_win"},
+  ["[I"] = {"<c-w>i<c-w>H", "goto_include_under_cursor_on_left_win"},
+  ["]e"] = {"[<c-d>", "goto_define_under_cursor"},
+  ["[e"] = {"[<c-d>", "goto_define_under_cursor"},
+  ["]E"] = {"<c-w>d<c-w>L", "goto_define_under_cursor_on_right_win"},
+  ["[E"] = {"<c-w>d<c-w>H", "goto_define_under_cursor_on_left_win"},
+}
+
+M.builtin_terminal = {
+  mode = "t"
+}
+M.builtin_terminal.mappings = {
+  ["<M-`>"] = {[[<c-\><c-n>ZZ]], "terminal_toggle"},
+  [M.esc] = {[[<C-\><C-n>]], "terminal_escape"},
+  ["<A-h>"] = {[[<C-\><C-n><C-w>h]]},
+  ["<A-j>"] = {[[<C-\><C-n><C-w>j]]},
+  ["<A-k>"] = {[[<C-\><C-n><C-w>k]]},
+  ["<A-l>"] = {[[<C-\><C-n><C-w>l]]},
+  ["<a-]>"] = {[[<C-\><C-n>gt]]},
+  ["<a-[>"] = {[[<C-\><C-n>gT]]},
+}
+
+local function windows_os_mappings()
+  vks({"x", "n"}, "<a-v>", [=["*p=`]zz]=])
+  vks("n", "<leader>y", [=["*yy]=])
+  vks("v", "<leader>y", [=["*y]=])
+  vim.cmd[[silent! vunmap <c-x>]]
+  
+  M.builtin_terminal.mappings["<c-a>"] = {"<home>"}
+  M.builtin_terminal.mappings["<A-v>"] = {[[<C-\><C-n>"+pi]]}
+  M.builtin_terminal.mappings["<C-w>"] = {"<C-bs>"}
+  M.builtin_terminal.mappings["<A-b>"] = {"<C-Left>"}
+  M.builtin_terminal.mappings["<A-w>"] = {"<C-Right>"}
+  M.builtin_terminal.mappings["<C-f>"] = {"<Right>"}
+  M.builtin_terminal.mappings["<C-b>"] = {"<Left>"}
+  M.builtin_terminal.mappings["<C-p>"] = {"<Up>"}
+  M.terminal.mappings["<leader>TV"] = {
+    function()
+      local cmd = [[cmd.exe /k "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VC\\vcvarsall.bat"]]
+      utl.term.exec(cmd)
+    end,
+    "terminal_open_visual_studio",
+  }
+  local ms = [[https://docs.microsoft.com/en-us/search/?terms=]]
+  M.help.mappings["wm"] = {
+    function()
+      vim.ui.input({ prompt = "Enter search word for browser: " }, function(input)
+        utl.browser.search(ms .. input)
+      end)
+    end,
+    "help_input_microsoft",
+  }
+  M.help.mappings["cm"] = {
+    function()
+      utl.browser.search(ms .. fn.expand("<cword>"))
+    end,
+    "help_cword_microsoft",
+  }
+end
+
+local function unix_os_mappings()
+  vks({"x", "n"}, "<a-v>", [=["+p=`]zz]=])
+  vks({"v", "n"}, "<leader>y", [=["+yy]=])
 end
 
 function M:setup()
-	local opts = { nowait = true, desc = "start_cmd" }
-	-- Awesome hack, typing a command is used way more often than next
-	vks("n", ";", ":", opts)
-
-	opts = { silent = true, desc = "visual_end_line" }
-	-- Let's make <s-v> consistent as well
-	vks("n", "<s-v>", "v$h", opts)
-	opts = { silent = true, desc = "visual_line" }
-	vks("n", "vv", "<s-v>", opts)
-
-	opts = { silent = true, desc = "visual_increment" }
-	vks("v", "gA", "g<c-a>", opts)
-	opts.desc = "visual_decrement"
-	vks("v", "gX", "g<c-x>", opts)
-	opts.desc = "goto_file_under_cursor"
-	vks({ "v", "n" }, "]f", "gf", opts)
-	opts.desc = "goto_include_under_cursor"
-	vks("n", "]i", "[<c-i>", opts)
-	opts.desc = "goto_include_under_cursor"
-	vks("n", "[i", "[<c-i>", opts)
-	opts.desc = "goto_include_under_cursor_on_right_win"
-	vks("n", "]I", "<c-w>i<c-w>L", opts)
-	opts.desc = "goto_include_under_cursor_on_left_win"
-	vks("n", "[I", "<c-w>i<c-w>H", opts)
-	opts.desc = "goto_define_under_cursor"
-	vks("n", "]e", "[<c-d>", opts)
-	opts.desc = "goto_define_under_cursor"
-	vks("n", "[e", "[<c-d>", opts)
-	opts.desc = "goto_define_under_cursor_on_right_win"
-	vks("n", "]E", "<c-w>d<c-w>L", opts)
-	opts.desc = "goto_define_under_cursor_on_left_win"
-	vks("n", "[E", "<c-w>d<c-w>H", opts)
-
-	vks({ "n", "x", "o" }, "t", "%")
-
+  if utl.has_win then
+    windows_os_mappings()
+  else
+    unix_os_mappings()
+  end
+  misc_mappings()
+  self:keymaps_sets(self.builtin_terminal)
+  self:keymaps_sets(self.braces)
 	self:window_movement_setup()
-	-- Window resizing
-	opts.desc = "window_size_increase_right"
-	vks("n", "<A-S-l>", "<C-w>>", opts)
-	opts.desc = "window_size_increase_left"
-	vks("n", "<A-S-h>", "<C-w><", opts)
-	opts.desc = "window_size_increase_up"
-	vks("n", "<A-S-k>", "<C-w>+", opts)
-	opts.desc = "window_size_increase_bot"
-	vks("n", "<A-S-j>", "<C-w>-", opts)
-
-	opts.desc = "refresh_buffer"
-	vks("n", "<c-l>", refresh_buffer, opts)
-
-	-- Quickfix/Location list
-	opts.desc = "quickfix"
-	vks("n", "<s-q>", "<cmd>copen 20<cr>", opts)
-	opts.desc = "quickfix"
-	vks("n", "<s-u>", "<cmd>lopen 20<cr>", opts)
-
-	opts.desc = "cwd_files"
-	vks("n", "<c-p>", function()
-		fs.path.fuzzer(fn.getcwd())
-	end, opts)
-
 	self:keymaps_sets(self.edit)
 	self:keymaps_sets(self.colors)
-	if utl.has_win then
-		M.terminal.mappings["<leader>TV"] = {
-			function()
-				local cmd = [[cmd.exe /k "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VC\\vcvarsall.bat"]]
-				utl.term.exec(cmd)
-			end,
-			"terminal_open_visual_studio",
-		}
-		local ms = [[https://docs.microsoft.com/en-us/search/?terms=]]
-		M.help.mappings["wm"] = {
-			function()
-        vim.ui.input({ prompt = "Enter search word for browser: " }, function(input)
-          utl.browser.search(ms .. input)
-        end)
-			end,
-			"help_input_microsoft",
-		}
-		M.help.mappings["cm"] = {
-			function()
-				utl.browser.search(ms .. fn.expand("<cword>"))
-			end,
-			"help_cword_microsoft",
-		}
-	end
 	self:keymaps_sets(self.terminal)
 	self:keymaps_sets(self.toggle)
   self:keymaps_sets(self.help)
