@@ -794,12 +794,12 @@ end
 function M.setup_luadev()
 	local luadev = require("lua-dev").setup({
 		library = {
-			vimruntime = true, -- runtime path
+			vimruntime = false, -- runtime path
 			-- full signature, docs and completion of vim.api, vim.treesitter,
 			-- vim.lsp and others
-			types = true,
+			types = false,
 			-- List of plugins you want autocompletion for
-			plugins = true,
+			plugins = false,
 		},
 		-- pass any additional options that will be merged in the final lsp config
 		lspconfig = {
