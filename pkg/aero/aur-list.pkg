@@ -11,6 +11,8 @@ chromedriver
 cht.sh-git
 cmake-format
 cmake-lint
+displaylink
+evdi
 gdb-dashboard-git
 google-chrome
 hal
@@ -24,7 +26,6 @@ laptop-mode-tools
 layan-cursor-theme-git
 liquidprompt
 mkchromecast
-neovim-git
 nerd-fonts-inconsolata
 numix-gtk-theme
 otf-fira-code-onum-patch

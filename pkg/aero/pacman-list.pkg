@@ -158,6 +158,7 @@ msgpack-cxx
 namcap
 neofetch
 neomutt
+neovim
 nfs-utils
 nmap
 noto-fonts
@@ -253,7 +254,6 @@ rofi-pass
 rsync
 rust-analyzer
 rustup
-scrcpy
 scrot
 sdparm
 sed
