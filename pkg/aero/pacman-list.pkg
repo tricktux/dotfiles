@@ -137,7 +137,6 @@ linux-headers
 lldb
 lm_sensors
 lsof
-lua-language-server
 luacheck
 lutris
 lvm2
