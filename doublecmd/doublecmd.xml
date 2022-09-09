@@ -140,7 +140,7 @@
     </MiddleToolbar>
   </Toolbars>
   <MainWindow>
-    <Position Save="False">
+    <Position Save="True">
       <Maximized>False</Maximized>
       <Splitter>50</Splitter>
       <Left>434</Left>
@@ -152,7 +152,7 @@
   </MainWindow>
   <Configuration Save="True" SortOrder="0" TreeType="0">
     <UseConfigInProgramDir>False</UseConfigInProgramDir>
-    <FolderTabs Save="False"/>
+    <FolderTabs Save="True"/>
   </Configuration>
   <Language>
     <POFileName>doublecmd.en.po</POFileName>
@@ -491,10 +491,10 @@
     <Options>1023</Options>
   </Log>
   <History>
-    <SearchReplaceHistory Save="False"/>
-    <DirHistory Save="False"/>
-    <CmdLineHistory Save="False"/>
-    <FileMaskHistory Save="False"/>
+    <SearchReplaceHistory Save="True"/>
+    <DirHistory Save="True"/>
+    <CmdLineHistory Save="True"/>
+    <FileMaskHistory Save="True"/>
   </History>
   <QuickSearch>
     <MatchBeginning>False</MatchBeginning>
@@ -534,7 +534,7 @@
     <CreateNewEncoding>3</CreateNewEncoding>
   </Description>
   <AutoRefresh>
-    <Options>3</Options>
+    <Options>7</Options>
     <ExcludeDirs/>
     <Mode>1</Mode>
   </AutoRefresh>
