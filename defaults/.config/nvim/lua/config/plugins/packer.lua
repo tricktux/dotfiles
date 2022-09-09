@@ -370,7 +370,7 @@ M.__plugins.common = {
 	},
 	{
 		"tricktux/pomodoro.vim",
-    cmd = "Pomodoro",
+    cmd = "PomodoroStart",
 		setup = function()
 			require("config.plugins.misc"):setup_pomodoro()
 		end,
