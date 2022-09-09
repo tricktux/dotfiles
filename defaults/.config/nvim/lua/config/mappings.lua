@@ -506,10 +506,11 @@ M.builtin_terminal.mappings = {
 
 local function windows_os_mappings()
   vks({"x", "n"}, "<a-v>", [=["*p=`]zz]=])
+  vks("i", "<a-v>", [=[<c-r>*]=])
   vks("n", "<leader>y", [=["*yy]=])
   vks("v", "<leader>y", [=["*y]=])
   vim.cmd[[silent! vunmap <c-x>]]
-  
+
   M.builtin_terminal.mappings["<c-a>"] = {"<home>"}
   M.builtin_terminal.mappings["<A-v>"] = {[[<C-\><C-n>"+pi]]}
   M.builtin_terminal.mappings["<C-w>"] = {"<C-bs>"}
