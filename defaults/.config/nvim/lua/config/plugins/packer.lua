@@ -615,7 +615,7 @@ M.__plugins.common = {
     end,
   },
   {
-    "norcalli/nvim-colorizer.lua",
+    "NvChad/nvim-colorizer.lua",
     cmd = "ColorizerToggle",
     setup = function()
       local o = { silent = true, desc = "toggle_highlight" }
