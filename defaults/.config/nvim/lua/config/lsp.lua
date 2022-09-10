@@ -177,31 +177,6 @@ local function diagnostic_config()
 	})
 end
 
---[[ M.__servers = {
-  ["omnisharp"] = {
-    exe = "omnisharp",
-    name = "omnisharp",
-    ft = {"cs"},
-    setup = {
-      on_attach = M.on_lsp_attach,
-      flags = flags,
-      filetypes = { "cs" },
-      cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
-      root_dir = nvim_lsp.util.root_pattern(".vs", "*.csproj", "*.sln"),
-      capabilities = capabilities,
-    },
-  },
-  ["pyright"] = {
-    exe = "pyright-langserver",
-    name = "pyright",
-    ft = {"python"},
-    setup = {
-			on_attach = M.on_lsp_attach,
-			flags = flags,
-			capabilities = capabilities,
-    },
-  },
-} ]]
 
 -- TODO
 -- Maybe set each server to its own function?
