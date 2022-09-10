@@ -680,12 +680,23 @@ function M.setup_flux()
 	f:setup({
 		callback = set_colorscheme,
 	})
+  local id = api.nvim_create_augroup("FluxLike", { clear = true })
 	if vim.fn.has("unix") > 0 and vim.fn.executable("luajit") > 0 then
 		vim.g.flux_enabled = 0
-		f:check()
+
+    api.nvim_create_autocmd("CursorHold", {
+        callback = function()
+          vim.defer_fn(function()
+            f:check()
+          end, 0) -- Defered for live reloading
+        end,
+        pattern = "*",
+        desc = "Flux",
+        once = true,
+        group = id,
+      })
 		return
 	end
-	local id = api.nvim_create_augroup("FluxLike", { clear = true })
 	api.nvim_create_autocmd("CursorHold", {
 		callback = function()
       vim.defer_fn(function()
