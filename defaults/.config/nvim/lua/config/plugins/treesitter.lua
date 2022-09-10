@@ -20,10 +20,10 @@ local function setup_buf_keymaps_opts()
   vim.keymap.set('n', '<leader>tt', [[<cmd>TSBufToggle<cr>]], opts)
   -- Only overwrite settings when instructed
   -- The best place to set these variables is after/ftplugin
-  if vim.b.did_fold_settings == nil then
+  --[[ if vim.b.did_fold_settings == nil then
     vim.opt_local.foldmethod = "expr"
     vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
-  end
+  end ]]
   if vim.b.did_indent_settings == nil then
     vim.opt_local.indentexpr = "nvim_treesitter#indent()"
   end
