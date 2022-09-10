@@ -631,15 +631,6 @@ M.__plugins.common = {
 }
 M.__plugins.deps = {}
 M.__plugins.deps.executable = {
-  ["lua-language-server"] = {
-    {
-      "folke/lua-dev.nvim",
-      after = "nvim-lspconfig",
-      config = function()
-        require("config.plugins.misc").setup_luadev()
-      end,
-    },
-  },
   ["gh"] = {
     {
       "pwntester/octo.nvim",
