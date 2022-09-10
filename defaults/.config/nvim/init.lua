@@ -16,6 +16,8 @@ local function set_globals()
   ]])
 	-----------------------
 
+  -- https://github.com/neovim/neovim/issues/14090#issuecomment-1237820552
+  vim.g.ts_highlight_lua = true
 	-- Disable unnecessary providers
 	-- Saves on average 3ms (on linux) :D
 	vim.g.loaded_python_provider = 0
