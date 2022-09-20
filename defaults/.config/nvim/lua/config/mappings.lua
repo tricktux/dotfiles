@@ -475,6 +475,9 @@ local function misc_mappings()
   end, opts)
 
   vks({"v", "n"}, "<cr>", [=[o<Esc>zz]=])
+
+  -- Decrease number
+  vks({ "n", "x"}, "<s-x>", "<c-x>")
 end
 
 M.braces = {}

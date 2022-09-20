@@ -1133,4 +1133,54 @@ function M.config_session_lens()
   })
 end
 
+M.dial_nvim = {
+  nkeys = {
+    opts = { noremap = true, silent = true, expr = true },
+    mappings = {
+        ["<c-a>"] = {function() require("dial.map").inc_normal() end, "inc_under_cursor"},
+        ["<s-x>"] = {function() require("dial.map").dec_normal() end, "inc_under_cursor"},
+      },
+    },
+  vkeys = {
+    mode = "x",
+    opts = { noremap = true, silent = true, expr = true },
+    mappings = {
+      ["<c-a>"] = {function() return require("dial.map").inc_visual() .. "gv" end, "inc_v_under_cursor"},
+      ["<s-x>"] = {function() return require("dial.map").dec_visual() .. "gv" end, "dec_v_under_cursor"},
+      ["g<c-a>"] = {function() return require("dial.map").inc_gvisual() .. "gv" end, "inc_gv_under_cursor"},
+      ["g<s-x>"] = {function() return require("dial.map").dec_gvisual() .. "gv"end, "dec_gv_under_cursor"},
+    },
+  }
+}
+M.dial_nvim.setup = function()
+  -- map:keymaps_sets(M.dial_nvim.nkeys)
+  -- map:keymaps_sets(M.dial_nvim.vkeys)
+end
+
+M.dial_nvim.config = function()
+  vim.api.nvim_set_keymap("n", "<C-a>", require("dial.map").inc_normal(), {noremap = true})
+  vim.api.nvim_set_keymap("n", "<s-x>", require("dial.map").dec_normal(), {noremap = true})
+  vim.api.nvim_set_keymap("v", "<C-a>", require("dial.map").inc_visual(), {noremap = true})
+  vim.api.nvim_set_keymap("v", "<s-x>", require("dial.map").dec_visual(), {noremap = true})
+  vim.api.nvim_set_keymap("v", "g<C-a>", require("dial.map").inc_gvisual(), {noremap = true})
+  vim.api.nvim_set_keymap("v", "g<s-x>", require("dial.map").dec_gvisual(), {noremap = true})
+
+  local augend = require("dial.augend")
+  require("dial.config").augends:register_group{
+    -- default augends used when no group name is specified
+    default = {
+        augend.integer.alias.decimal,
+        augend.integer.alias.hex,
+        augend.integer.alias.octal,
+        augend.integer.alias.binary,
+        augend.date.alias["%Y/%m/%d"],
+        augend.date.alias["%Y-%m-%d"],
+        augend.date.alias["%m/%d"],
+        augend.date.alias["%H:%M"],
+        augend.constant.alias.ja_weekday_full,
+        augend.constant.alias.bool,
+        augend.semver.alias.semver,
+    },
+  }
+  end
 return M

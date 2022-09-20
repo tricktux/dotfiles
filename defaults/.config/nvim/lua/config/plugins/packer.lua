@@ -627,6 +627,13 @@ M.__plugins.common = {
       }
     end,
   },
+  {
+    "monaqa/dial.nvim",
+    event = "CursorHold",
+    config = function()
+      require("config.plugins.misc").dial_nvim.config()
+    end,
+  },
   {"lewis6991/impatient.nvim"},
 }
 M.__plugins.deps = {}

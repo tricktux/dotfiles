@@ -270,10 +270,6 @@ function! mappings#Set()
   nnoremap ]S :call <sid>fix_next_word()<cr>
   nnoremap [S :call <sid>fix_previous_word()<cr>
 
-  " decrease number
-  nnoremap <S-x> <c-x>
-  xnoremap <S-x> <c-x>
-
   " <Leader>n
   " Display highlighted numbers as ascii chars. Only works on highlighted text
   " Rarely works
