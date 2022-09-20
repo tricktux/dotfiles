@@ -33,7 +33,7 @@ class PiHole():
 
         self.webpass = ''
         self.url = ''
-        self.data = dict()
+        self.data = {}
 
         if not cfg.has_option('Pihole', 'ip'):
             return
@@ -50,7 +50,7 @@ class PiHole():
         """
 
         if not self.url or not query:
-            return dict()
+            return {}
 
         url = self.url + query
         try:
