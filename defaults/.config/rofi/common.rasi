@@ -1,6 +1,6 @@
 
 configuration {
-  modi: "window,ssh,drun,combi,Tasks:~/.config/rofi/scripts/tasks.sh,emoji,file-browser-extended";
+  modi: "window,ssh,drun,combi,tasks:~/.config/rofi/scripts/tasks.sh,emoji,file-browser-extended";
 	width: 40;
 /*	lines: 15;*/
 /*	columns: 1;*/
@@ -37,7 +37,7 @@ configuration {
 /*	auto-select: false;*/
 /*	parse-hosts: false;*/
 /*	parse-known-hosts: true;*/
-combi-modi: "window,drun,Tasks:~/.config/rofi/scripts/tasks.sh";
+combi-modi: "window,drun,tasks:~/.config/rofi/scripts/tasks.sh,emoji";
 /*	matching: "normal";*/
 /*	tokenize: true;*/
 /*	m: "-5";*/
