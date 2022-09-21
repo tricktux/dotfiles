@@ -1,18 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
-import sys
-import socket
 import argparse
 import operator
-import time
-import select
-from contextlib import contextmanager
-from subprocess import call, DEVNULL
-import sqlite3
+import os
 import pathlib
-
+import select
+import socket
+import sqlite3
+import sys
+import time
+from contextlib import contextmanager
+from subprocess import DEVNULL, call
 
 SOCKDIR = os.environ.get("XDG_RUNTIME_DIR", "/var/tmp")
 SOCKFILE = os.path.join(SOCKDIR, "polypomo.sock")
@@ -60,11 +59,11 @@ class Timer:
         if days > 0:
             strtime.append(str(days))
         if days > 0 or hours > 0:
-            strtime.append("{:02d}".format(hours))
+            strtime.append("{:2d}".format(hours))
 
         # Always append minutes and seconds
-        strtime.append("{:02d}".format(minutes))
-        strtime.append("{:02d}".format(seconds))
+        strtime.append("{:2d}".format(minutes))
+        strtime.append("{:2d}".format(seconds))
 
         return neg + ":".join(strtime)
 
@@ -112,7 +111,7 @@ class Status:
         status = TOMATO if self.status == "work" else BREAK
         if not self.active:
             status = PAUSE
-        sys.stdout.write("{} {}\n".format(status, self.timer))
+        sys.stdout.write("{}{}\n".format(status, self.timer))
         sys.stdout.flush()
 
     def toggle(self):
@@ -340,7 +339,8 @@ class ValidateTime(argparse.Action):
                 "Time format should be +num or -num to add or remove time, respectively"
             )
         if not values[1:].isdigit():
-            parser.error("Expected number after +/- but saw '{}'".format(values[1:]))
+            parser.error(
+                "Expected number after +/- but saw '{}'".format(values[1:]))
 
         # action = operator.add if values[0] == '+' else operator.sub
         # value = int(values[1:])
@@ -383,7 +383,8 @@ def parse_args():
     end.set_defaults(func=action_end)
 
     # lock timer changes
-    lock = sub.add_parser("lock", help="lock time actions - prevent changing time")
+    lock = sub.add_parser(
+        "lock", help="lock time actions - prevent changing time")
     lock.set_defaults(func=action_lock)
 
     # lock timer changes
