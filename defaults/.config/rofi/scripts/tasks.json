@@ -96,10 +96,6 @@
     "command": "flameshot gui"
   },
   {
-    "name": "😀 emoji",
-    "command": "rofi -show emoji -modi emoji"
-  },
-  {
     "name": "🎙️ audio select input",
     "command": "exec $HOME/.config/i3/scripts/pulseaudio-rofi.sh --input"
   },
@@ -190,6 +186,14 @@
   {
     "name": "⌨️ xmodmap reload",
     "command": "xmodmap $HOME/.config/Xmodmap"
+  },
+  {
+    "name": "⏳ pomodoro toggle",
+    "command": "$HOME/.config/polybar/scripts/polypomo toggle"
+  },
+  {
+    "name": "⏳ pomodoro end",
+    "command": "$HOME/.config/polybar/scripts/polypomo end"
   },
   {
     "name": "xmodmap kinesis",
