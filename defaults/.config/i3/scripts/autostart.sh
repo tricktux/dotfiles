@@ -58,6 +58,12 @@ if [[ -f /usr/bin/blueman-applet ]]; then
 else
   printf "\n==X Please install blueman-applet\n"
 fi
+
+if [[ -f /usr/bin/nm-applet ]]; then
+    /usr/bin/nm-applet&
+else
+    printf "\n==X Please install network-manager-applet\n"
+fi
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
 if [[ -f /usr/bin/xss-lock ]]; then
