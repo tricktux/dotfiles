@@ -419,6 +419,21 @@ pac_maintenance() {
 	fi
 }
 
+update_polybar_scripts() {
+	msg_not "${BLUE}${BOLD}" "[RIMP]==> Update polybar scripts? [y/N/q]"
+	read -r yn
+	case $yn in
+	[Yy]*)
+        local loc="$HOME"/.config/polybar/scripts/
+		curl -fsSL \
+			https://raw.githubusercontent.com/unode/polypomo/master/polypomo \
+			>"$loc"/polypomo
+        chmod +x "$loc"/polypomo
+		;;
+	[Qq]*) quit ;;
+	esac
+}
+
 backup() {
 	msg_not "${BLUE}${BOLD}" "[RIMP]==> Back up important folders? [y/N/q]"
 	read -r yn
@@ -433,10 +448,10 @@ backup() {
 			"$HOME/.gnupg" "$HOME/.ssh" "$HOME/.password-store" "/tmp/pacman_database.tar.bz2"
             "$HOME/.local/share/histfile" "$HOME/.local/share/z" "$HOME/.config/doublecmd"
 		)
-    src=""
-    for str in "${srcs[@]}"; do
-      src+="$str "
-    done
+        src=""
+        for str in "${srcs[@]}"; do
+        src+="$str "
+        done
 		# Create database backup
 		"$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot.sh" \
 			-s "$src" -d "$HOME/.mnt/skywafer/home/bkps/$HOSTNAME"
@@ -530,7 +545,7 @@ help() {
 	echo "All options are optional"
 	echo "If no options are provided all tasks will run optionally"
 	echo
-	echo "Syntax: update-arch [-i|b|s|c|p|d|v|n|h]"
+	echo "Syntax: update-arch [-i|b|s|c|p|d|v|n|y|h]"
 	echo "options:"
 	echo "i     Install a package"
 	echo "b     Run only Backup tasks"
@@ -542,12 +557,13 @@ help() {
 	echo "d     Diff configs with new /etc configs"
 	echo "n     Update npm packages"
 	echo "v     Update neovim-git"
+    echo "y     Update polybar scripts"
 	echo "h     Print this Help."
 	echo
 }
 
 # Get the options
-while getopts "i:ubcpdmvhn" option; do
+while getopts "i:ubcpdmvyhn" option; do
 	case $option in
 	h) # display Help
 		help
@@ -575,6 +591,10 @@ while getopts "i:ubcpdmvhn" option; do
 		;;
 	p)
 		update_python_venv
+		exit 0
+		;;
+	y)
+		update_polybar_scripts
 		exit 0
 		;;
 	d)
@@ -612,6 +632,8 @@ update_servers
 cleanup_junk
 
 update_python_venv
+
+update_polybar_scripts
 
 msg_not "${BLUE}${BOLD}" "[RIMP]==> Update neovim plugins? [y/N/q]"
 read -r yn
