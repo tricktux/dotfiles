@@ -506,7 +506,8 @@ paci --needed --noconfirm numlockx
 # Network Manager{{{
 paci --needed --noconfirm networkmanager network-manager-applet networkmanager-openvpn
 pacu networkmanager network-manager-applet networkmanager-openvpn networkmanager-dmenu-git 
-sudo systemctl enable NetworkManager.service
+sudo systemctl enable --now NetworkManager.service
+sudo systemctl status NetworkManager.service
 #}}}
 
 # i3-wm{{{
