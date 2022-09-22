@@ -9,5 +9,5 @@
 # Last Modified:  Thu Jan 17 2019 21:07
 
 
-/usr/bin/nvim +UtilsEditJournal --listen /tmp/nvim_journal.socket -i \
+/usr/bin/nvim --listen /tmp/nvim_journal.socket -i \
 	~/.local/share/nvim/shada/journal.shada
