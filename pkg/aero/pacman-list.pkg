@@ -22,6 +22,7 @@ blueman
 bluez
 bolt
 bottom
+calibre
 capitaine-cursors
 catch2
 ccache
@@ -158,6 +159,8 @@ namcap
 neofetch
 neomutt
 neovim
+network-manager-applet
+networkmanager-openvpn
 nfs-utils
 nmap
 noto-fonts
