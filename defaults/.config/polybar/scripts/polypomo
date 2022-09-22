@@ -364,7 +364,7 @@ def parse_args():
     parser.add_argument(
         "--breaktime",
         type=int,
-        default=3 * 60,
+        default=5 * 60,
         help="Default break timer time in seconds",
     )
     parser.add_argument(
