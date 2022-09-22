@@ -403,7 +403,7 @@ client.background       $background
   # for_window [title="^bottom$" class="^kitty$"] move to scratchpad
   # for_window [title="^scratch$" class="^kitty$"] move to scratchpad
   # for_window [title="^Spotify$" class="^Spotify$"] move to scratchpad
-  for_window [title="^Double Commander \d\.\d\.\d beta build \d+; \d+/\d+/\d+$" class="^Doublecmd$"] move to scratchpad
+  for_window [title="^Double Commander \d\.\d\.\d.*" class="^Doublecmd$"] move to scratchpad
   # for_window [title=".*Evolution$" class="^Evolution$"] move to scratchpad
   # for_window [class="^Evolution-alarm-notify$"] floating enable, focus
 
