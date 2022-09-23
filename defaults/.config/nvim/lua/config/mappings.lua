@@ -219,31 +219,28 @@ M.toggle = {
 M.toggle.mappings = {
 	s = {
 		function()
-			local s = vim.opt_local.spell
-			s = not s:get()
-			print(fmt("toggle: spell '%s'", (s and "enabled" or "disabled")))
+      vim.opt_local.spell = not vim.opt_local.spell:get()
+      print(fmt("toggle: spell '%s'", (vim.opt_local.spell:get() and "enabled" or "disabled")))
 		end,
 		"toggle_spell",
 	},
 	v = {
 		function()
-			local v = M.toggle.virtual
-			v = not v
-			vim.diagnostic.config({ virtual_text = v })
-			print(fmt("toggle: virtual_text '%s'", (v and "enabled" or "disabled")))
+			M.toggle.virtual = not M.toggle.virtual
+			vim.diagnostic.config({ virtual_text = M.toggle.virtual })
+			print(fmt("toggle: virtual_text '%s'", (M.toggle.virtual and "enabled" or "disabled")))
 		end,
 		"toggle_virtual_text",
 	},
 	d = {
 		function()
-			local d = M.toggle.diagnostic
-			d = not d
-			if d then
+			M.toggle.diagnostic = not M.toggle.diagnostic
+			if M.toggle.diagnostic then
 				vim.diagnostic.disable()
 			else
 				vim.diagnostic.enable()
 			end
-			print(fmt("toggle: vim_diagnostic '%s'", (d and "enabled" or "disabled")))
+			print(fmt("toggle: vim_diagnostic '%s'", (M.toggle.diagnostic and "enabled" or "disabled")))
 		end,
 		"toggle_vim_diagnostic",
 	},
