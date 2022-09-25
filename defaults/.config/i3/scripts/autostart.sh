@@ -81,6 +81,11 @@ if [[ -f /usr/bin/lxqt-policykit-agent ]]; then
 else
   printf "\n==X Please install lxqt-policykit-agent\n"
 fi
+if [[ -f /usr/bin/uair ]]; then
+  uair --socket /tmp/uair_pomo.socket > /tmp/uair_pomo.file&
+else
+  printf "\n==X Please install uair\n"
+fi
 
 poly="$HOME"/.config/polybar/scripts/launch.sh
 if [[ -f $poly ]]; then

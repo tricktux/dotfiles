@@ -189,11 +189,19 @@
   },
   {
     "name": "⏳ pomodoro toggle",
-    "command": "$HOME/.config/polybar/scripts/polypomo toggle"
+    "command": "uairctl --socket /tmp/uair_pomo.socket toggle"
   },
   {
-    "name": "⏳ pomodoro end",
-    "command": "$HOME/.config/polybar/scripts/polypomo end"
+    "name": "⏳ pomodoro next",
+    "command": "uairctl --socket /tmp/uair_pomo.socket next"
+  },
+  {
+    "name": "⏳ pomodoro prev",
+    "command": "uairctl --socket /tmp/uair_pomo.socket prev"
+  },
+  {
+    "name": "⏳ pomodoro restart",
+    "command": "pkill -x uair; echo '' > /tmp/uair_pomo.file; uair --socket /tmp/uair_pomo.socket > /tmp/uair_pomo.file&"
   },
   {
     "name": "xmodmap kinesis",

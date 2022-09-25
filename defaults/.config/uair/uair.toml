@@ -1,0 +1,15 @@
+[defaults]
+format = "{time}\n"
+autostart = false
+
+[[sessions]]
+name = "Work"
+duration = "25m"
+format = "\U0001F345{time} \n"
+command = "notify-send 'Pomodoro' 'Work Done!'"
+
+[[sessions]]
+name = "Rest"
+duration = "5m"
+format = "\U0001F3D6 {time}end \n"
+command = "notify-send 'Pomodoro' 'Rest Done!'"
