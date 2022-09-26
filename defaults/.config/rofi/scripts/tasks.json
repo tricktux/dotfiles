@@ -197,11 +197,11 @@
   },
   {
     "name": "⏳ pomodoro next",
-    "command": "uairctl --socket /tmp/uair_pomo.socket next"
+    "command": "uairctl --socket /tmp/uair_pomo.socket next; uairctl --socket /tmp/uair_pomo.socket toggle"
   },
   {
     "name": "⏳ pomodoro prev",
-    "command": "uairctl --socket /tmp/uair_pomo.socket prev"
+    "command": "uairctl --socket /tmp/uair_pomo.socket prev; uairctl --socket /tmp/uair_pomo.socket toggle"
   },
   {
     "name": "⏳ pomodoro restart",
