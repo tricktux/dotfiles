@@ -47,23 +47,25 @@ end
 
 local function set_lsp_mappings(capabilities, bufnr)
 	local opts = { silent = true, buffer = bufnr }
-  local prefix = "<localleader>l"
+	local prefix = "<localleader>l"
 	local lsp = vim.lsp
 	local diag = vim.diagnostic
-	local list = function() vim.pretty_print(vim.lsp.buf.list_workspace_folders()) end
+	local list = function()
+		vim.pretty_print(vim.lsp.buf.list_workspace_folders())
+	end
 	local workspace = {
 		a = { lsp.buf.add_workspace_folder, "add_workspace_folder" },
 		r = { lsp.buf.remove_workspace_folder, "remove_workspace_folder" },
 		l = { list, "list_folders" },
 	}
-  for k,v in pairs(workspace) do
-    if v[1] ~= nil then
-      opts.desc = v[2]
-      vks('n', prefix .. 'w' .. k, v[1], opts)
-    end
-  end
+	for k, v in pairs(workspace) do
+		if v[1] ~= nil then
+			opts.desc = v[2]
+			vks("n", prefix .. "w" .. k, v[1], opts)
+		end
+	end
 
-  local rename = vim.fn.exists(":IncRename") > 0 and ":IncRename " or lsp.buf.rename
+	local rename = vim.fn.exists(":IncRename") > 0 and ":IncRename " or lsp.buf.rename
 
 	local mappings = {
 		r = { rename, "rename" },
@@ -79,20 +81,20 @@ local function set_lsp_mappings(capabilities, bufnr)
 		l = { lsp.diagnostic.setloclist, "set_loclist" },
 	}
 
-  for k,v in pairs(mappings) do
-    if v[1] ~= nil then
-      opts.desc = v[2]
-      vks('n', prefix .. 'w' .. k, v[1], opts)
-    end
-  end
+	for k, v in pairs(mappings) do
+		if v[1] ~= nil then
+			opts.desc = v[2]
+			vks("n", prefix .. "w" .. k, v[1], opts)
+		end
+	end
 
 	-- Override default mappings with lsp intelligent analougous
 	prefix = "]l"
-  opts.desc = "diagnostic_next"
-  vks('n', prefix, diag.goto_next, opts)
+	opts.desc = "diagnostic_next"
+	vks("n", prefix, diag.goto_next, opts)
 	prefix = "[l"
-  opts.desc = "diagnostic_prev"
-  vks('n', prefix, diag.goto_prev, opts)
+	opts.desc = "diagnostic_prev"
+	vks("n", prefix, diag.goto_prev, opts)
 	prefix = "<localleader>"
 	mappings = {
 		D = {
@@ -116,12 +118,12 @@ local function set_lsp_mappings(capabilities, bufnr)
 	mappings.f = { fmt, "formatting" }
 	mappings.F = { lsp.buf.range_formatting, "range_formatting" }
 
-  for k,v in pairs(mappings) do
-    if v[1] ~= nil then
-      opts.desc = v[2]
-      vks('n', prefix .. k, v[1], opts)
-    end
-  end
+	for k, v in pairs(mappings) do
+		if v[1] ~= nil then
+			opts.desc = v[2]
+			vks("n", prefix .. k, v[1], opts)
+		end
+	end
 
 	require("config.plugins.telescope").set_lsp_mappings(bufnr)
 end
@@ -177,7 +179,6 @@ local function diagnostic_config()
 	})
 end
 
-
 -- TODO
 -- Maybe set each server to its own function?
 function M:config()
@@ -196,34 +197,34 @@ function M:config()
 
 	local flags = { allow_incremental_sync = true, debounce_text_changes = 150 }
 
-  if vim.fn.executable("lua-language-server") > 0 then
-    log.info("setting up the lua lsp...")
-    nvim_lsp.sumneko_lua.setup {
-      on_attach = on_lsp_attach,
-      flags = flags,
-      capabilities = capabilities,
-      settings = {
-        Lua = {
-          runtime = {
-            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-            version = 'LuaJIT',
-          },
-          diagnostics = {
-            -- Get the language server to recognize the `vim` global
-            globals = {'vim'},
-          },
-          -- workspace = {
-            -- Make the server aware of Neovim runtime files
-            -- library = vim.api.nvim_get_runtime_file("", true),
-          -- },
-          -- Do not send telemetry data containing a randomized but unique identifier
-          telemetry = {
-            enable = false,
-          },
-        },
-      },
-    }
-  end
+	if vim.fn.executable("lua-language-server") > 0 then
+		log.info("setting up the lua lsp...")
+		nvim_lsp.sumneko_lua.setup({
+			on_attach = on_lsp_attach,
+			flags = flags,
+			capabilities = capabilities,
+			settings = {
+				Lua = {
+					runtime = {
+						-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+						version = "LuaJIT",
+					},
+					diagnostics = {
+						-- Get the language server to recognize the `vim` global
+						globals = { "vim" },
+					},
+					-- workspace = {
+					-- Make the server aware of Neovim runtime files
+					-- library = vim.api.nvim_get_runtime_file("", true),
+					-- },
+					-- Do not send telemetry data containing a randomized but unique identifier
+					telemetry = {
+						enable = false,
+					},
+				},
+			},
+		})
+	end
 
 	-- Unbearably slow
 	if vim.fn.executable("omnisharp") > 0 then
@@ -250,8 +251,8 @@ function M:config()
 	if vim.fn.executable("clangd") > 0 then
 		log.info("setting up the clangd lsp...")
 		local cores = utl.has_win and os.getenv("NUMBER_OF_PROCESSORS") or table.concat(vim.fn.systemlist("nproc"))
-    local c = vim.deepcopy(capabilities)
-    c.offsetEncoding = "utf-8" -- Set the same encoding only for clangd
+		local c = vim.deepcopy(capabilities)
+		c.offsetEncoding = "utf-8" -- Set the same encoding only for clangd
 
 		nvim_lsp.clangd.setup({
 			init_options = { clangdFileStatus = false },
@@ -275,7 +276,7 @@ function M:config()
 	end
 
 	if vim.fn.executable("rust-analyzer") > 0 then
-    log.info("setting up the rust-analyzer...")
+		log.info("setting up the rust-analyzer...")
 		nvim_lsp.rust_analyzer.setup({
 			on_attach = on_lsp_attach,
 			flags = flags,

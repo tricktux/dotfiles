@@ -232,7 +232,7 @@ M.__plugins.common = {
 	},
 	{
 		"kdheepak/lazygit.nvim",
-    cmd = {"LazyGit", "LazyGitConfig", "LazyGitFilter", "LazyGitFilterCurrentFile"},
+		cmd = { "LazyGit", "LazyGitConfig", "LazyGitFilter", "LazyGitFilterCurrentFile" },
 		setup = function()
 			vim.g.lazygit_floating_window_winblend = 0 -- transparency of floating window
 			vim.g.lazygit_floating_window_scaling_factor = 0.9 -- scaling factor for floating window

@@ -371,17 +371,17 @@ function M.setup_gpsnvim()
 		separator = " > ",
 	})
 
-  log.info("ins_left(): nvim-gps")
+	log.info("ins_left(): nvim-gps")
 	if vim.fn.has("nvim-0.8") > 0 then
 		line:ins_winbar({
 			gps_get_location,
 			condition = gps.is_available,
 		})
-  else
-    line:ins_left({
-      gps_get_location,
-      condition = gps.is_available,
-    })
+	else
+		line:ins_left({
+			gps_get_location,
+			condition = gps.is_available,
+		})
 	end
 end
 
@@ -467,10 +467,9 @@ function M.config_sneak()
 end
 
 function M.setup_sneak()
-  vim.g["sneak#absolute_dir"] = 1
-  vim.g["sneak#label"] = 1
+	vim.g["sneak#absolute_dir"] = 1
+	vim.g["sneak#label"] = 1
 end
-
 
 function M.config_kommentary()
 	local config = require("kommentary.config")
@@ -565,25 +564,25 @@ function M.setup_bookmarks()
 	vim.g.bookmark_dir = vim.fn.stdpath("data") .. "/bookmarks"
 	vim.g.bookmark_auto_save = 0
 	vim.g.bookmark_auto_save_file = vim.g.bookmark_dir .. "/bookmarks"
-  vim.g.bookmark_highlight_lines = 1
+	vim.g.bookmark_highlight_lines = 1
 
-  local opts = { silent = true }
-  local leader = {}
-  local prefix = [[<leader>B]]
-  leader = {
-    t = { "<Plug>BookmarkToggle", "BookmarkToggle" },
-    i = { "<Plug>BookmarkAnnotate", "BookmarkAnnotate" },
-    a = { "<Plug>BookmarkShowAll", "BookmarkShowAll" },
-    n = { "<Plug>BookmarkNext", "BookmarkNext" },
-    p = { "<Plug>BookmarkPrev", "BookmarkPrev" },
-    c = { "<Plug>BookmarkClear", "BookmarkClear" },
-    x = { "<Plug>BookmarkClearAll", "BookmarkClearAll" },
-    k = { "<Plug>BookmarkMoveUp", "BookmarkMoveUp" },
-    j = { "<Plug>BookmarkMoveDown", "BookmarkMoveDown" },
-    o = { "<Plug>BookmarkLoad", "BookmarkLoad" },
-    s = { "<Plug>BookmarkSave", "BookmarkSave" },
-  }
-  map.keymaps_set(leader, "n", opts, prefix)
+	local opts = { silent = true }
+	local leader = {}
+	local prefix = [[<leader>B]]
+	leader = {
+		t = { "<Plug>BookmarkToggle", "BookmarkToggle" },
+		i = { "<Plug>BookmarkAnnotate", "BookmarkAnnotate" },
+		a = { "<Plug>BookmarkShowAll", "BookmarkShowAll" },
+		n = { "<Plug>BookmarkNext", "BookmarkNext" },
+		p = { "<Plug>BookmarkPrev", "BookmarkPrev" },
+		c = { "<Plug>BookmarkClear", "BookmarkClear" },
+		x = { "<Plug>BookmarkClearAll", "BookmarkClearAll" },
+		k = { "<Plug>BookmarkMoveUp", "BookmarkMoveUp" },
+		j = { "<Plug>BookmarkMoveDown", "BookmarkMoveDown" },
+		o = { "<Plug>BookmarkLoad", "BookmarkLoad" },
+		s = { "<Plug>BookmarkSave", "BookmarkSave" },
+	}
+	map.keymaps_set(leader, "n", opts, prefix)
 end
 
 function M.setup_bdelete()
@@ -671,7 +670,7 @@ local function set_colorscheme(period)
 	vim.g.catppuccin_flavour = flavour[period]
 	log.info(fmt("set_colorscheme: period = '%s'", period))
 	log.info(fmt("set_colorscheme: catppuccin_flavour = '%s'", flavour[period]))
-  vim.cmd("Catppuccin " .. flavour[period])
+	vim.cmd("Catppuccin " .. flavour[period])
 end
 
 -- This function is called on vim enter
@@ -680,28 +679,28 @@ function M.setup_flux()
 	f:setup({
 		callback = set_colorscheme,
 	})
-  local id = api.nvim_create_augroup("FluxLike", { clear = true })
+	local id = api.nvim_create_augroup("FluxLike", { clear = true })
 	if vim.fn.has("unix") > 0 and vim.fn.executable("luajit") > 0 then
 		vim.g.flux_enabled = 0
 
-    api.nvim_create_autocmd("CursorHold", {
-        callback = function()
-          vim.defer_fn(function()
-            f:check()
-          end, 0) -- Defered for live reloading
-        end,
-        pattern = "*",
-        desc = "Flux",
-        once = true,
-        group = id,
-      })
+		api.nvim_create_autocmd("CursorHold", {
+			callback = function()
+				vim.defer_fn(function()
+					f:check()
+				end, 0) -- Defered for live reloading
+			end,
+			pattern = "*",
+			desc = "Flux",
+			once = true,
+			group = id,
+		})
 		return
 	end
 	api.nvim_create_autocmd("CursorHold", {
 		callback = function()
-      vim.defer_fn(function()
-        vim.fn["flux#Flux"]()
-      end, 0) -- Defered for live reloading
+			vim.defer_fn(function()
+				vim.fn["flux#Flux"]()
+			end, 0) -- Defered for live reloading
 		end,
 		pattern = "*",
 		desc = "Flux",
@@ -717,33 +716,41 @@ function M.setup_flux()
 end
 
 function M.setup_toggleterm()
-  local maps = {}
-  maps.mappings = {
-    ["<plug>terminal_toggle"] = { "<cmd>ToggleTerm<cr>", "terminal_toggle_toggleterm" },
-    ["<plug>terminal_send_line"] = { "<cmd>ToggleTermSendCurrentLine<cr>", "term_send_line_toggleterm" },
-    ["<plug>terminal_send_line_visual"] = { "<cmd>ToggleTermSendVisualLines<cr>", "terminal_send_line_visual_toggleterm", "x"},
-    ["<plug>terminal_send_visual"] = { "<cmd>ToggleTermSendVisualSelection<cr>", "terminal_send_visual_toggleterm", "x" },
-    ["<plug>terminal_open_horizontal"] = {
-      "<cmd>ToggleTerm direction=horizontal<cr>",
-      "terminal_open_horizontal_toggleterm",
-    },
-    ["<plug>terminal_open_vertical"] = {
-      "<cmd>ToggleTerm direction=vertical<cr>",
-      "terminal_open_vertical_toggleterm",
-    },
-  }
-  map:keymaps_sets(maps)
+	local maps = {}
+	maps.mappings = {
+		["<plug>terminal_toggle"] = { "<cmd>ToggleTerm<cr>", "terminal_toggle_toggleterm" },
+		["<plug>terminal_send_line"] = { "<cmd>ToggleTermSendCurrentLine<cr>", "term_send_line_toggleterm" },
+		["<plug>terminal_send_line_visual"] = {
+			"<cmd>ToggleTermSendVisualLines<cr>",
+			"terminal_send_line_visual_toggleterm",
+			"x",
+		},
+		["<plug>terminal_send_visual"] = {
+			"<cmd>ToggleTermSendVisualSelection<cr>",
+			"terminal_send_visual_toggleterm",
+			"x",
+		},
+		["<plug>terminal_open_horizontal"] = {
+			"<cmd>ToggleTerm direction=horizontal<cr>",
+			"terminal_open_horizontal_toggleterm",
+		},
+		["<plug>terminal_open_vertical"] = {
+			"<cmd>ToggleTerm direction=vertical<cr>",
+			"terminal_open_vertical_toggleterm",
+		},
+	}
+	map:keymaps_sets(maps)
 end
 
 function M.config_toggleterm()
-    require("toggleterm").setup({
-      direction = "float",
-      close_on_exit = false,
-      float_opts = {
-        border = "curved",
-      },
-    })
-  end
+	require("toggleterm").setup({
+		direction = "float",
+		close_on_exit = false,
+		float_opts = {
+			border = "curved",
+		},
+	})
+end
 
 function M.setup_neoterm()
 	vim.g.neoterm_automap_keys = ""
@@ -819,7 +826,7 @@ function M.setup_luadev()
 		},
 	})
 
-  require("lspconfig").sumneko_lua.setup(luadev)
+	require("lspconfig").sumneko_lua.setup(luadev)
 end
 
 function M.setup_neogit()
@@ -856,8 +863,8 @@ function M.config_copilot()
 end
 
 function M.setup_iswap()
-  local opts = { silent = true, desc = "iswap_arguments" }
-  vks("n", "<localleader>s", require("iswap").iswap, opts)
+	local opts = { silent = true, desc = "iswap_arguments" }
+	vks("n", "<localleader>s", require("iswap").iswap, opts)
 end
 function M.config_iswap()
 	require("iswap").setup({
@@ -916,21 +923,21 @@ function M.config_neotest()
 			require("neotest-plenary"),
 		},
 	})
-  local maps = {prefix = "<leader>st"}
-  maps.mappings = {
-    f = {
-      function() 
-        require("neotest").run.run(vim.fn.expand("%")) 
-      end,
-      "neotest_run_current_file"
-    },
-    r = {
-      function() 
-        require("neotest").run.run() 
-      end,
-      "neotest_run_nearest"
-    },
-  }
+	local maps = { prefix = "<leader>st" }
+	maps.mappings = {
+		f = {
+			function()
+				require("neotest").run.run(vim.fn.expand("%"))
+			end,
+			"neotest_run_current_file",
+		},
+		r = {
+			function()
+				require("neotest").run.run()
+			end,
+			"neotest_run_nearest",
+		},
+	}
 end
 
 function M.setup_img_paste()
@@ -985,36 +992,36 @@ function M.setup_img_paste()
 end
 
 function M.setup_catpuccin()
-  -- Need a way to setup this plugin until after packer finishes
-  M.setup_flux()
-  
-  -- Create an autocmd User PackerCompileDone to update it every time packer is compiled
-  vim.api.nvim_create_autocmd("User", {
-    pattern = "PackerCompileDone",
-    callback = function()
-      require('catppuccin').compile()
-      vim.defer_fn(function()
-        vim.cmd "colorscheme catppuccin"
-      end, 0) -- Defered for live reloading
-    end,
-    desc = "Catppuccin compile on PackerCompileDone"
-  })
+	-- Need a way to setup this plugin until after packer finishes
+	M.setup_flux()
+
+	-- Create an autocmd User PackerCompileDone to update it every time packer is compiled
+	vim.api.nvim_create_autocmd("User", {
+		pattern = "PackerCompileDone",
+		callback = function()
+			require("catppuccin").compile()
+			vim.defer_fn(function()
+				vim.cmd("colorscheme catppuccin")
+			end, 0) -- Defered for live reloading
+		end,
+		desc = "Catppuccin compile on PackerCompileDone",
+	})
 end
 
 function M.config_catpuccin()
 	local catppuccin = require("catppuccin")
 	catppuccin.setup({
-    compile = {
-        enabled = true,
-        -- .. [[/site/plugin/catppuccin]]
-        path = vim.fn.stdpath("data") .. [[/catppuccin]],
-        suffix = "_compiled"
-    },
+		compile = {
+			enabled = true,
+			-- .. [[/site/plugin/catppuccin]]
+			path = vim.fn.stdpath("data") .. [[/catppuccin]],
+			suffix = "_compiled",
+		},
 		integrations = {
-      indent_blankline = {
-        enabled = true,
-        colored_indent_levels = true,
-      },
+			indent_blankline = {
+				enabled = true,
+				colored_indent_levels = true,
+			},
 			which_key = true,
 			dashboard = true,
 			vim_sneak = true,
@@ -1082,105 +1089,135 @@ function M.setup_grip()
 end
 
 function M.config_indent_blankline()
-  local config = {
-    char_highlight_list = { "Comment" },
-    char_list = { "¦", "┆", "┊" },
-    show_first_indent_level = false,
-    show_current_context = true,
-    buftype_exclude = utl.buftype.blacklist,
-    filetype_exclude = vim.tbl_flatten{utl.filetype.blacklist, "markdown", "org", "mail"},
-  }
-  require("indent_blankline").setup (config)
+	local config = {
+		char_highlight_list = { "Comment" },
+		char_list = { "¦", "┆", "┊" },
+		show_first_indent_level = false,
+		show_current_context = true,
+		buftype_exclude = utl.buftype.blacklist,
+		filetype_exclude = vim.tbl_flatten({ utl.filetype.blacklist, "markdown", "org", "mail" }),
+	}
+	require("indent_blankline").setup(config)
 end
 
 function M.config_surround()
-  require("nvim-surround").setup()
+	require("nvim-surround").setup()
 end
 
 function M.config_auto_session()
-  local s = utl.fs.path.sep
-  local opts = {
-    log_level = 'info',
-    auto_session_enable_last_session = false,
-    auto_session_root_dir = vim.fn.stdpath('data').. s .. "sessions" .. s,
-    auto_session_enabled = true,
-    auto_session_create_enabled = true,
-    auto_save_enabled = true,
-    auto_restore_enabled = false,
-    auto_session_suppress_dirs = nil,
-    auto_session_use_git_branch = true,
-    -- the configs below are lua only
-    bypass_session_save_file_types = nil
-  }
+	local s = utl.fs.path.sep
+	local opts = {
+		log_level = "info",
+		auto_session_enable_last_session = false,
+		auto_session_root_dir = vim.fn.stdpath("data") .. s .. "sessions" .. s,
+		auto_session_enabled = true,
+		auto_session_create_enabled = true,
+		auto_save_enabled = true,
+		auto_restore_enabled = false,
+		auto_session_suppress_dirs = nil,
+		auto_session_use_git_branch = true,
+		-- the configs below are lua only
+		bypass_session_save_file_types = nil,
+	}
 
-  require('auto-session').setup(opts)
+	require("auto-session").setup(opts)
 end
 
 function M.config_session_lens()
-  require('session-lens').setup {
-    path_display = {'shorten'},
-    -- theme_conf = { border = false },
-    previewer = false
-  }
-  require("telescope").load_extension("session-lens")
-  local o = { silent = true, desc = "sessions" }
-  log.info("[sessions]: mappings")
-  vks("n", "<leader>fs", "<cmd>SearchSession<cr>", o)
-  line:ins_left({
-    require('auto-session-library').current_session_name,
-    color = { gui = "bold" },
-    -- left_padding = 0,
-  })
+	require("session-lens").setup({
+		path_display = { "shorten" },
+		-- theme_conf = { border = false },
+		previewer = false,
+	})
+	require("telescope").load_extension("session-lens")
+	local o = { silent = true, desc = "sessions" }
+	log.info("[sessions]: mappings")
+	vks("n", "<leader>fs", "<cmd>SearchSession<cr>", o)
+	line:ins_left({
+		require("auto-session-library").current_session_name,
+		color = { gui = "bold" },
+		-- left_padding = 0,
+	})
 end
 
 M.dial_nvim = {
-  nkeys = {
-    opts = { noremap = true, silent = true, expr = true },
-    mappings = {
-        ["<c-a>"] = {function() require("dial.map").inc_normal() end, "inc_under_cursor"},
-        ["<s-x>"] = {function() require("dial.map").dec_normal() end, "inc_under_cursor"},
-      },
-    },
-  vkeys = {
-    mode = "x",
-    opts = { noremap = true, silent = true, expr = true },
-    mappings = {
-      ["<c-a>"] = {function() return require("dial.map").inc_visual() .. "gv" end, "inc_v_under_cursor"},
-      ["<s-x>"] = {function() return require("dial.map").dec_visual() .. "gv" end, "dec_v_under_cursor"},
-      ["g<c-a>"] = {function() return require("dial.map").inc_gvisual() .. "gv" end, "inc_gv_under_cursor"},
-      ["g<s-x>"] = {function() return require("dial.map").dec_gvisual() .. "gv"end, "dec_gv_under_cursor"},
-    },
-  }
+	nkeys = {
+		opts = { noremap = true, silent = true, expr = true },
+		mappings = {
+			["<c-a>"] = {
+				function()
+					require("dial.map").inc_normal()
+				end,
+				"inc_under_cursor",
+			},
+			["<s-x>"] = {
+				function()
+					require("dial.map").dec_normal()
+				end,
+				"inc_under_cursor",
+			},
+		},
+	},
+	vkeys = {
+		mode = "x",
+		opts = { noremap = true, silent = true, expr = true },
+		mappings = {
+			["<c-a>"] = {
+				function()
+					return require("dial.map").inc_visual() .. "gv"
+				end,
+				"inc_v_under_cursor",
+			},
+			["<s-x>"] = {
+				function()
+					return require("dial.map").dec_visual() .. "gv"
+				end,
+				"dec_v_under_cursor",
+			},
+			["g<c-a>"] = {
+				function()
+					return require("dial.map").inc_gvisual() .. "gv"
+				end,
+				"inc_gv_under_cursor",
+			},
+			["g<s-x>"] = {
+				function()
+					return require("dial.map").dec_gvisual() .. "gv"
+				end,
+				"dec_gv_under_cursor",
+			},
+		},
+	},
 }
 M.dial_nvim.setup = function()
-  -- map:keymaps_sets(M.dial_nvim.nkeys)
-  -- map:keymaps_sets(M.dial_nvim.vkeys)
+	-- map:keymaps_sets(M.dial_nvim.nkeys)
+	-- map:keymaps_sets(M.dial_nvim.vkeys)
 end
 
 M.dial_nvim.config = function()
-  vim.api.nvim_set_keymap("n", "<C-a>", require("dial.map").inc_normal(), {noremap = true})
-  vim.api.nvim_set_keymap("n", "<s-x>", require("dial.map").dec_normal(), {noremap = true})
-  vim.api.nvim_set_keymap("v", "<C-a>", require("dial.map").inc_visual(), {noremap = true})
-  vim.api.nvim_set_keymap("v", "<s-x>", require("dial.map").dec_visual(), {noremap = true})
-  vim.api.nvim_set_keymap("v", "g<C-a>", require("dial.map").inc_gvisual(), {noremap = true})
-  vim.api.nvim_set_keymap("v", "g<s-x>", require("dial.map").dec_gvisual(), {noremap = true})
+	vim.api.nvim_set_keymap("n", "<C-a>", require("dial.map").inc_normal(), { noremap = true })
+	vim.api.nvim_set_keymap("n", "<s-x>", require("dial.map").dec_normal(), { noremap = true })
+	vim.api.nvim_set_keymap("v", "<C-a>", require("dial.map").inc_visual(), { noremap = true })
+	vim.api.nvim_set_keymap("v", "<s-x>", require("dial.map").dec_visual(), { noremap = true })
+	vim.api.nvim_set_keymap("v", "g<C-a>", require("dial.map").inc_gvisual(), { noremap = true })
+	vim.api.nvim_set_keymap("v", "g<s-x>", require("dial.map").dec_gvisual(), { noremap = true })
 
-  local augend = require("dial.augend")
-  require("dial.config").augends:register_group{
-    -- default augends used when no group name is specified
-    default = {
-        augend.integer.alias.decimal,
-        augend.integer.alias.hex,
-        augend.integer.alias.octal,
-        augend.integer.alias.binary,
-        augend.date.alias["%Y/%m/%d"],
-        augend.date.alias["%Y-%m-%d"],
-        augend.date.alias["%m/%d"],
-        augend.date.alias["%H:%M"],
-        augend.constant.alias.ja_weekday_full,
-        augend.constant.alias.bool,
-        augend.semver.alias.semver,
-    },
-  }
-  end
+	local augend = require("dial.augend")
+	require("dial.config").augends:register_group({
+		-- default augends used when no group name is specified
+		default = {
+			augend.integer.alias.decimal,
+			augend.integer.alias.hex,
+			augend.integer.alias.octal,
+			augend.integer.alias.binary,
+			augend.date.alias["%Y/%m/%d"],
+			augend.date.alias["%Y-%m-%d"],
+			augend.date.alias["%m/%d"],
+			augend.date.alias["%H:%M"],
+			augend.constant.alias.ja_weekday_full,
+			augend.constant.alias.bool,
+			augend.semver.alias.semver,
+		},
+	})
+end
 return M
