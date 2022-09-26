@@ -16,12 +16,16 @@
     "command": "sudo systemctl stop wg-quick@wg0 systemd-resolved"
   },
   {
-    "name": "☀️ flux day",
-    "command": "exec $HOME/.config/polybar/scripts/flux_/flux -v -c $HOME/.config/polybar/scripts/flux_/flux_config.lua -f day"
+    "name": "☀️ flux dforce day",
+    "command": "exec $HOME/.config/polybar/scripts/flux_/flux -v -c $HOME/.config/polybar/scripts/flux_/flux_config.lua -f day>>/tmp/flux.log 2>&1"
   },
   {
-    "name": "🌑 flux night",
-    "command": "exec $HOME/.config/polybar/scripts/flux_/flux -v -c $HOME/.config/polybar/scripts/flux_/flux_config.lua -f night"
+    "name": "🌑 flux force night",
+    "command": "exec $HOME/.config/polybar/scripts/flux_/flux -v -c $HOME/.config/polybar/scripts/flux_/flux_config.lua -f night>>/tmp/flux.log 2>&1"
+  },
+  {
+    "name": "🌑 flux force disable ",
+    "command": "exec $HOME/.config/polybar/scripts/flux_/flux -v -c $HOME/.config/polybar/scripts/flux_/flux_config.lua -r >>/tmp/flux.log 2>&1"
   },
   {
     "name": "📷 qrencode clipboard",

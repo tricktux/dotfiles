@@ -52,11 +52,16 @@ _config.print = {
 	sunrise = "  ",
 }
 
+local forced_mode = {}
+forced_mode.file = "/tmp/flux_forced"
+forced_mode.name = "disable_force"
+
 local _options = {
 	["help"] = false,
 	["verbose"] = false,
 	["config"] = "",
 	["force"] = "",
+  [forced_mode.name] = false,
 }
 
 local _usage = [[
@@ -72,6 +77,9 @@ local _usage = [[
     --force (-f)                Force a specific day time period config. The 
                                 next argument needs to be one of day, night, 
                                 sunrise, or sunset
+    --disable_force (-r)        Resume checking time to set colorscheme, it will 
+                                immediately set the correct colorscheme. TL;DR 
+                                undoes the force option 
 
   Configuration follows the lua syntax. Default configuration:
     local _M = {}
@@ -130,6 +138,8 @@ local function _check_args()
 			last_opt = "config"
 		elseif opt == "-f" or opt == "--force" then
 			last_opt = "force"
+    elseif opt == "-r" or opt == "--" .. forced_mode.name then
+			_options[forced_mode.name] = true
 		elseif last_opt ~= nil then
 			_options[last_opt] = opt
 			last_opt = nil
@@ -154,13 +164,14 @@ local _redshift = _config.redshift
 local function _isfile(cmd)
 	local file, err = io.open(cmd)
 	if file == nil then
-		print("Program " .. cmd .. " not found")
+		print("file " .. cmd .. " not found")
 		if _options["verbose"] then
 			print("\t" .. err)
 		end
 		return 1
 	end
 
+  file:close()
 	return 0
 end
 
@@ -175,9 +186,9 @@ local function _exec(cmd)
 		return ""
 	end
 	local output = file:read("*all")
-	file:close()
 	return output
 end
+
 
 -- @brief Executes redshift with in print mode
 -- Note: Day counts from the beggining of sunrise, and night from beg sunset
@@ -277,6 +288,23 @@ local function _reload_config(config_file)
 	return f()
 end
 
+
+forced_mode.enabled = _isfile(forced_mode.file) == 0
+forced_mode.enable = function(period, verbose)
+  if verbose then
+    print("Forcing period:\n\t" .. period)
+  end
+  io.open(forced_mode.file, "w+"):close()
+end
+forced_mode.disable = function(verbose)
+  if verbose then
+    print("Disabling Forced period:\n")
+  end
+  -- Remove forced_mode.file
+  os.remove(forced_mode.file)
+  forced_mode.enabled = false
+end
+
 local function main()
 	if _check_args() ~= 0 then
 		return 0
@@ -308,14 +336,22 @@ local function main()
 
 	local forced_period = _options["force"]
 	if forced_period ~= "" then
-		if _options["verbose"] then
-			print("Forcing period:\n\t" .. forced_period)
-		end
-		_pywal:exec(forced_period)
-		return
+    forced_mode.enable(forced_period, _options["verbose"])
 	end
 
-	local period = _redshift:exec(_options["manual"])
+  local disable_forced = _options[forced_mode.name]
+  if disable_forced  then
+    forced_mode.disable(_options["verbose"])
+  end
+
+  if forced_mode.enabled then
+    if _options["verbose"] then
+      print("Forced mode enabled\n")
+    end
+    return
+  end
+
+  local period = forced_period ~= "" and forced_period or _redshift:exec(_options["manual"])
 	if _options["verbose"] then
 		print("Day period:\n\t" .. period)
 	end
