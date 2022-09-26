@@ -40,12 +40,12 @@ function M:config_fidget()
 	})
 end
 
-local function set_lsp_options(capabilities, bufnr)
+local function set_lsp_options(bufnr)
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 	vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
 end
 
-local function set_lsp_mappings(capabilities, bufnr)
+local function set_lsp_mappings(bufnr)
 	local opts = { silent = true, buffer = bufnr }
 	local prefix = "<localleader>l"
 	local lsp = vim.lsp
@@ -137,9 +137,8 @@ local function on_lsp_attach(client_id, bufnr)
 
 	vim.b.did_on_lsp_attach = 1
 
-	local cap = vim.fn.has("nvim-0.8") > 0 and client_id.server_capabilities or client_id.resolved_capabilities
-	set_lsp_mappings(cap, bufnr)
-	set_lsp_options(cap, bufnr)
+	set_lsp_mappings(bufnr)
+	set_lsp_options(bufnr)
 	require("config.plugins.dap"):set_mappings(bufnr)
 
 	require("lsp_signature").on_attach()
