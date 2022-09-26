@@ -477,6 +477,21 @@ local function misc_mappings()
   vks({ "n", "x"}, "<s-x>", "<c-x>")
 end
 
+M.plug = {}
+M.plug.mappings = {
+  ["<leader>F"] = {"<plug>file_browser", "file_browser"},
+  ["<leader>tf"] = {"<plug>focus_toggle", "focus_toggle"},
+  ["<s-k>"] = {"<plug>buffer_browser", "buffer_browser"},
+  ["<c-p>"] = {"<plug>mru_browser", "mru_browser"},
+  ["<localleader>f"] = {"<plug>format_code", "format_code", {"x", "n"}},
+  ["<localleader>r"] = {"<plug>refactor_code", "refactor_code", {"x", "n"}},
+  ["<c-k>"] = {"<plug>snip_expand", "snip_expand", {"x", "i", "s"}},
+  ["<leader>G"] = {"<plug>search_internet", "search_internet", {"x", "n"}},
+  ["<localleader>k"] = {"<plug>make_project", "make_project"},
+  ["<localleader>j"] = {"<plug>make_file", "make_file"},
+  ["<leader>cr"] = {"<plug>cd_root", "cd_root"},
+}
+
 M.braces = {}
 M.braces.mappings = {
   ["]f"] = {"gf", "goto_file_under_cursor", { "v", "n" }},
@@ -563,6 +578,7 @@ function M:setup()
 	self:keymaps_sets(self.terminal)
 	self:keymaps_sets(self.toggle)
   self:keymaps_sets(self.help)
+  self:keymaps_sets(self.plug)
 end
 
 return M

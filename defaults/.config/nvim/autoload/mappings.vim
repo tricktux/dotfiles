@@ -103,41 +103,15 @@ function! mappings#Set()
   " - gd, gD, g;, gq, gs, gl, gA, gT, gg, G, gG, gh, gv, gn, gm, gx, gt, gr
   " Toggle mappings:
   " - tj, te, ta, tt, tf, ts, to, tn
-  nmap <leader>F <Plug>file_browser
-  nmap <leader>tf <plug>focus_toggle
-
-  nmap <s-k> <plug>buffer_browser
-  nmap <c-p> <plug>mru_browser
-  " terminal-emulator mappings
-
-  nmap <leader>tz <plug>windows_toggle_zoom
-
-  nmap <localleader>f <plug>format_code
-  xmap <localleader>f <plug>format_code
 
   " Tue Feb 12 2019 17:50
   " Substituted by fzf and which key mappings
   " nmap <a-;> <plug>fuzzy_command_history
   " nmap <a-e> <plug>fuzzy_vim_help
 
-  " Refactor word under the cursor
-  nmap <localleader>r <plug>refactor_code
-  xmap <localleader>r <plug>refactor_code
-
   nnoremap <plug>refactor_code :%s/\<<c-r>=
         \ expand("<cword>")<cr>\>//gc<Left><Left><Left>
   xnoremap <plug>refactor_code "hy:%s/<C-r>h//gc<left><left><left>
-
-  " Global settings for all ftplugins
-  imap <c-k> <plug>snip_expand
-  smap <c-k> <plug>snip_expand
-  xmap <c-k> <plug>snip_expand
-
-  nmap <leader>/ <plug>search_grep
-  xmap <leader>/ <plug>search_grep
-
-  nnoremap <silent> <plug>search_grep :Grip rg<cr>
-  " xnoremap <silent> <plug>search_grep :call <SID>grep()<cr>
 
   nmap <leader>W <plug>get_passwd
   nnoremap <plug>get_passwd :silent call passwd#SelectPasswdFile()<cr>
@@ -147,10 +121,6 @@ function! mappings#Set()
   nnoremap <silent> <plug>help_under_cursor K
   xmap <localleader>h <plug>help_under_cursor
   xnoremap <silent> <plug>help_under_cursor K
-  nmap <leader>G <plug>search_internet
-  xmap <leader>G <plug>search_internet
-  nmap <localleader>k <plug>make_project
-  nmap <localleader>j <plug>make_file
 
   " duplicate current char
   nnoremap <leader>d ylp
@@ -278,8 +248,6 @@ function! mappings#Set()
   vnoremap <leader>nh :<c-u>s/\%V./\=
         \ printf("%x",char2nr(submatch(0)))/g<cr><c-l>`<
   nnoremap <leader>na ga
-  nmap <leader>nr <Plug>RadicalView
-  xmap <leader>nr <Plug>RadicalView
 
   " These are mappings for Insert, Command-line, and Lang-Arg
   " insert in the middle of whole word search
@@ -332,7 +300,6 @@ function! mappings#Set()
   inoremap = =<c-g>u
 
   " CD <Leader>c?
-  nmap <leader>cr <plug>cd_root
 
   nnoremap <leader>cd :lcd %:h<cr>
         \:pwd<cr>

@@ -561,6 +561,7 @@ M.__plugins.common = {
 			vim.g.radical_no_mappings = 1
 			vim.keymap.set({ "n", "x" }, "<leader>nr", "<Plug>RadicalView", {
 				silent = true,
+        remap = true,
 				desc = "radical_view",
 			})
 		end,
