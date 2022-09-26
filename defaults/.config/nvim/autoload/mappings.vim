@@ -1239,7 +1239,7 @@ function! s:version_control_command(cmd) abort
       " nmap here is needed for the <C-n> to work. Otherwise it doesnt know what
       " it means. This below is if you want it horizontal
       " nmap <leader>gs :Gstatus<CR><C-w>L<C-n>
-      if exists(':LazyGit')
+      if exists(':LazyGit') > 0
         LazyGit
       elseif executable('lazygit')
         lua require('utils.utils').exec_float_term('term lazygit', true, true)
