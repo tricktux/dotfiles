@@ -467,7 +467,7 @@ local function misc_mappings()
   vks("n", "<s-u>", "<cmd>lopen 20<cr>", opts)
 
   opts.desc = "cwd_files"
-  vks("n", "<c-p>", function()
+  vks("n", "<plug>mru_browser", function()
     fs.path.fuzzer(fn.getcwd())
   end, opts)
 
@@ -564,6 +564,7 @@ local function unix_os_mappings()
 end
 
 function M:setup()
+  self:keymaps_sets(self.plug)
   if utl.has_win then
     windows_os_mappings()
   else
@@ -578,7 +579,6 @@ function M:setup()
 	self:keymaps_sets(self.terminal)
 	self:keymaps_sets(self.toggle)
   self:keymaps_sets(self.help)
-  self:keymaps_sets(self.plug)
 end
 
 return M
