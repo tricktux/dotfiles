@@ -1,5 +1,5 @@
 xrandr \
- --dpi 192 \
+ --dpi 228 \
  --output eDP --mode 2560x1600 --rate 60 --pos 0x0 --primary \
  --output HDMI-A-0 --off \
  --output DisplayPort-0 --off
