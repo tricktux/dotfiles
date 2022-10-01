@@ -136,9 +136,6 @@ source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring
 # }}}
 
 # Source plugins{{{
-# Depends on `pkgfile`
-if [[ -f /usr/bin/pkgfile ]]; then
-  source /usr/share/doc/pkgfile/command-not-found.zsh
 fi
 # }}}
 
