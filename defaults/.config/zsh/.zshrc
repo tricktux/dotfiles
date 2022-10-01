@@ -136,6 +136,13 @@ source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring
 # }}}
 
 # Source plugins{{{
+if [[ -f /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.zsh ]]; then
+  function zvm_config() {
+    ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
+    ZVM_VI_INSERT_ESCAPE_BINDKEY=\;j
+  }
+  # Inspect the file below for config options
+  source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.zsh
 fi
 # }}}
 
