@@ -53,7 +53,7 @@ function M.config_notify()
 		render = "default",
 
 		-- Default timeout for notifications
-		timeout = 2000,
+		timeout = 500,
 
 		-- Max number of columns for messages
 		max_width = nil,
