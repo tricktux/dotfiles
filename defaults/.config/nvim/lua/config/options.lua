@@ -20,6 +20,7 @@ function M:setup()
 	vim.opt.mouse = ""
 	vim.opt.background = "light" -- This forces lualine to use the right theme
 	vim.opt.laststatus = 3
+  vim.opt.cmdheight = 0
 end
 
 return M
