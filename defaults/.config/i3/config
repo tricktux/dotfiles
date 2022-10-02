@@ -132,6 +132,7 @@ bindsym $mod+shift+x exec i3lock-fancy
 # start a terminal
 # This is set by the value of $TERMINAL. Which in turn is set inside of .bashrc
 bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
+bindsym $mod+shift+Return exec --no-startup-id $BROWSER
 
 # kill focused window
 bindsym $mod+q kill
