@@ -89,50 +89,35 @@ zstyle ':zim:completion' dumpfile "/tmp/zcompdump-${ZSH_VERSION}"
 # }}}
 
 # Zsh Plugin Opions {{{
-bindkey '^ ' autosuggest-accept
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# See https://github.com/zsh-users/zsh-autosuggestions/blob/master/README.md#suggestion-highlight-style
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=30'
-ZSH_AUTOSUGGEST_STRATEGY=(history completion match_prev_cmd)
+if [[ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+  bindkey '^ ' autosuggest-accept
+  source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor root line)
-# Customize the main highlighter styles.
-# See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters/main.md#how-to-tweak-it
-typeset -A ZSH_HIGHLIGHT_STYLES
-ZSH_HIGHLIGHT_STYLES[comment]='fg=4'
-ZSH_HIGHLIGHT_STYLES[builtin]='fg=93'
-ZSH_HIGHLIGHT_STYLES[command]='fg=93'
-ZSH_HIGHLIGHT_STYLES[function]='fg=93'
-ZSH_HIGHLIGHT_STYLES[alias]='fg=magenta,bold'
-ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  # See https://github.com/zsh-users/zsh-autosuggestions/blob/master/README.md#suggestion-highlight-style
+  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=30'
+  ZSH_AUTOSUGGEST_STRATEGY=(history completion match_prev_cmd)
+fi
+
+if [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+  # See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
+  ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor root line)
+  # Customize the main highlighter styles.
+  # See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters/main.md#how-to-tweak-it
+  typeset -A ZSH_HIGHLIGHT_STYLES
+  ZSH_HIGHLIGHT_STYLES[comment]='fg=4'
+  ZSH_HIGHLIGHT_STYLES[builtin]='fg=93'
+  ZSH_HIGHLIGHT_STYLES[command]='fg=93'
+  ZSH_HIGHLIGHT_STYLES[function]='fg=93'
+  ZSH_HIGHLIGHT_STYLES[alias]='fg=magenta,bold'
+  ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
+  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
 # z setup {{{
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
 # }}}
 #
-# zsh-history-substring-search{{{
-
-# Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-
-# Bind up and down keys
-zmodload -F zsh/terminfo +p:terminfo
-if [[ -n ${terminfo[kcuu1]} && -n ${terminfo[kcud1]} ]]; then
-  bindkey ${terminfo[kcuu1]} history-substring-search-up
-  bindkey ${terminfo[kcud1]} history-substring-search-down
-fi
-
-bindkey '^P' history-substring-search-up
-bindkey '^N' history-substring-search-down
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
-source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
-# }}}
-
 # }}}
 
 # Source plugins{{{
@@ -140,11 +125,42 @@ if [[ -f /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.zsh ]]; then
   function zvm_config() {
     ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
     ZVM_VI_INSERT_ESCAPE_BINDKEY=\;j
+    # Needed for fzf to work
+    ZVM_INIT_MODE=sourcing
   }
+
   # Inspect the file below for config options
   source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.zsh
 fi
 # }}}
+
+
+# zsh-history-substring-search{{{
+
+if [[ -f /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh ]]; then
+  # Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
+  bindkey '^[[A' history-substring-search-up
+  bindkey '^[[B' history-substring-search-down
+
+  # Bind up and down keys
+  zmodload -F zsh/terminfo +p:terminfo
+  if [[ -n ${terminfo[kcuu1]} && -n ${terminfo[kcud1]} ]]; then
+    bindkey ${terminfo[kcuu1]} history-substring-search-up
+    bindkey ${terminfo[kcud1]} history-substring-search-down
+  fi
+
+  bindkey -M viins '^P' history-substring-search-up
+  bindkey -M viins '^N' history-substring-search-down
+  bindkey -M vicmd '^P' history-substring-search-up
+  bindkey -M vicmd '^N' history-substring-search-down
+  bindkey -M emacs '^P' history-substring-search-up
+  bindkey -M emacs '^N' history-substring-search-down
+  bindkey -M vicmd 'k' history-substring-search-up
+  bindkey -M vicmd 'j' history-substring-search-down
+  source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+fi
+# }}}
+
 
 # Exports {{{
 export IGNORE_FILE="--ignore-file $HOME/.config/ignore-file"
@@ -188,6 +204,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # fzf setup{{{
 if [[ -f /usr/bin/fzf ]]; then
   source /usr/share/fzf/key-bindings.zsh
+  source /usr/share/fzf/completion.zsh
 
   # Depends on `install fd`
   if [[ -f /usr/bin/fd ]]; then
