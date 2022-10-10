@@ -30,7 +30,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ; Neovide
 ; #o::ToggleWinClass("SDL_app")
 ; nvim-qt
-#o::ToggleWinClass("Qt5QWindowIcon")
+#o::ToggleWinClass("ConsoleWindowClass")
 ; #p::ToggleWinClass("SUMATRA_PDF_FRAME")
 
 ToggleWinClass(TheWindowClass)

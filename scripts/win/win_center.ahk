@@ -36,7 +36,7 @@ CapsLock::LCtrl
 ; Neovide
 ; #o::ToggleWinClass("SDL_app")
 ; nvim-qt
-#o::ToggleWinClass("Qt5QWindowIcon")
+#o::ToggleWinClass("ConsoleWindowClass")
 ; #p::ToggleWinClass("SUMATRA_PDF_FRAME")
 
 ToggleWinClass(TheWindowClass)
