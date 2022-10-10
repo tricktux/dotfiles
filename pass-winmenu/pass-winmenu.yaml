@@ -12,7 +12,7 @@
 password-store:
     # The path to your password store. Can be relative or absolute, and
     # %-variables (as used in Windows Explorer) are supported.
-    location: '%userprofile%\.password-store'
+    location: 'D:\stuff\.password-store'
     # A regex string against which all filenames in the password directory are
     # compared. All matching files are considered password files.
     password-file-match: '.*\.gpg$'
@@ -61,7 +61,7 @@ password-store:
         #  - $date     (The current date, formatted as yyyy-MM-dd)
         #  - $time     (The current time, formatted as HH:mm:ss)
         default-content: |
-            Username: 
+            login: 
         # Example configuration (uncomment to enable):
 #        default-content: |
 #            Username: $filename
@@ -88,7 +88,7 @@ password-store:
         # capturing group.
         method: 'regex'
         options:
-            regex: '^[Uu]sername: ((?<username>.*)\r|(?<username>.*))$'
+            regex: '^[Ll]ogin: ((?<login>.*)\r|(?<login>.*))$'
             regex-options:
                 ignore-case: false
                 multiline: true
@@ -100,7 +100,7 @@ git:
     # detects that your password store is a git repository, as well as
     # providing options for pushing to/pulling from the remote repository.
     # You can disable this feature by setting the following option to false:
-    use-git: true
+    use-git: false
     # One of 'auto', 'builtin', or 'native-git'. 'builtin' will use the Git
     # library to sync your password repository. This will work out of the box,
     # but the library has several limitations. Notably, credential helpers
@@ -140,7 +140,7 @@ gpg:
     # have a separate GPG homedir that isn't related to the one used for your
     # password files), you can have pass-winmenu pass along a custom value
     # to GPG. For example, like so:
-    #   gnupghome-override: '%userprofile%\.gnupg'
+    gnupghome-override: '%appdata%\gnupg'
     # This normally shouldn't be necessary.
     # The GNUPGHOME environment variable is not overridden when the value is null.
     gnupghome-override: null
@@ -176,13 +176,13 @@ gpg:
         config:
             # Set this to true to allow pass-winmenu to manage some configuration keys in your
             # `gpg-agent.conf` file, allowing you to configure features like password timeout.
-            allow-config-management: false
+            allow-config-management: true
             # When allow-config-management is set to true, the following configuration keys
             # will be added to `gpg-agent.conf`:
             keys:
                 # Remember your GPG passphrase for up to 3600 seconds (one hour).
                 # Every time you decrypt a password within this one-hour timespan, the timer will reset.
-                default-cache-ttl: 3600
+                default-cache-ttl: 28800
                 # This is the maximum amount of time gpg-agent will remember your passphrase
                 # Once this amount of time has expired, gpg-agent will always ask you to re-enter it.
                 max-cache-ttl: 127800
