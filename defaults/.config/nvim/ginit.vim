@@ -5,7 +5,7 @@
 " Last Modified: Oct 27 2017 08:16
 " Created: Oct 27 2017 08:16
 
-let s:font = "Cascadia Code:h11"
+let s:font = "Cascadia Code:h8"
 
 function! s:set_nvim_qt() abort
   execute "GuiFont " . s:font
