@@ -67,7 +67,7 @@ local function _config_win()
 	-- Find python
 	local py = vim.fn.stdpath("data") .. [[\pyvenv\Scripts]]
 	if vim.fn.isdirectory(py) <= 0 then
-		vim.api.nvim_err_write_ln("ERROR: Failed to find python venv: " .. py)
+		print("ERROR: Failed to find python venv: " .. py)
 	else
 		vim.g.python3_host_prog = py .. [[\python.exe]]
 	end

@@ -99,7 +99,7 @@ function M:_find_wiki()
 		end
 	end
 
-	vim.api.nvim_err_write_ln("ERROR: Failed to find a wiki folder")
+	print("ERROR: Failed to find a wiki folder")
 end
 
 M.maps = {}
