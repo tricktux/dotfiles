@@ -14,7 +14,7 @@ local data_folder = vim.fn.stdpath("data")
 M.path = {}
 M.__package_name = "plugins" -- folder under which plugins are located
 M.path.plugins = data_folder .. [[/site/pack/]] .. M.__package_name
-M.path.__this = M.path.plugins .. [[/start/packer.nvim]]
+M.path.__this = M.path.plugins .. [[/opt/packer.nvim]]
 M.path.__snaphots = data_folder .. [[/packer_snapshots]]
 M.path.__compile = data_folder .. [[/site/plugin/packer_compiled.lua]]
 M.__repo = [[https://github.com/wbthomason/packer.nvim]]
@@ -65,6 +65,7 @@ function M:download()
 		return
 	end
 
+	vim.fn.mkdir(self.path.__this, "p")
 	if vim.fn.executable("git") == 0 then
 		print("Packer: git is not in your path. Cannot download packer.nvim")
 		return
@@ -74,6 +75,8 @@ function M:download()
 	print("Packer: downloading packer.nvim...")
 	vim.fn.system(git_cmd)
 	vim.cmd("packadd packer.nvim")
+	self:config()
+	vim.cmd("PackerSync")
 end
 
 M.__config = {

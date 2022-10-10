@@ -121,7 +121,8 @@ local function main()
 	--  This way you can set your default mappings/options and plugins can
 	--  overwrite them later, if they need to. Also get rid of all plugin
 	--  specific stuff. Downside is no which-key
-  vim.fn["mappings#Set"]()
+	require("config.plugins.packer"):download()
+	vim.fn["mappings#Set"]()
 	require("config.mappings"):setup()
   require("config.aucmds").setup()
   vim.fn["options#Set"]()
