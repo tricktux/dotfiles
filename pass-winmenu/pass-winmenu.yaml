@@ -88,7 +88,7 @@ password-store:
         # capturing group.
         method: 'regex'
         options:
-            regex: '^[Ll]ogin: ((?<login>.*)\r|(?<login>.*))$'
+            regex: '^[Ll]ogin: ((?<username>.*)\r|(?<username>.*))$'
             regex-options:
                 ignore-case: false
                 multiline: true
