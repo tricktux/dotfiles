@@ -5,3 +5,6 @@ autopep8
 pylint
 pylama
 isort 
+matplotlib
+numpy
+pandas
