@@ -12,5 +12,7 @@ c:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Current\Bin\M
 /verbosity:quiet ^
 /target:Build ^
 /property:GenerateFullPath=true ^
+/property:Configuration=Release ^
+/property:Platform=x64 ^
 /l:FileLogger,Microsoft.Build.Engine;logfile=Manual_MSBuild_ReleaseVersion_LOG.log ^
 PHX_GUI/PHX_GUI.sln
