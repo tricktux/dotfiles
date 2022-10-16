@@ -188,7 +188,7 @@ function M:config()
 	local cmp_lsp = require("cmp_nvim_lsp")
 
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
-	capabilities = cmp_lsp.update_capabilities(capabilities)
+	capabilities = cmp_lsp.default_capabilities(capabilities)
 	capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 	local flags = { allow_incremental_sync = true, debounce_text_changes = 150 }
