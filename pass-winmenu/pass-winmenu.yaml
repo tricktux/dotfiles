@@ -286,7 +286,7 @@ application:
         # Should we check for updates?
         # This will, when an update is available, add a menu entry that, when
         # clicked, will send you to the GitHub release page for the update.
-        check-for-updates: true
+        check-for-updates: false
         # Set this to true if you also want to check for prereleases.
         allow-prereleases: false
 
