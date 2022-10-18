@@ -37,7 +37,7 @@ password-store:
             # set to unchecked by default.
             enabled: true
           - 
-            name: Numeric
+            name: Numbers
             characters: '0123456789'
             enabled: true
           - 
@@ -48,10 +48,10 @@ password-store:
             name: Uppercase
             characters: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
             enabled: true
-          - 
-            name: Whitespace
-            characters: ' '
-            enabled: false
+#          - 
+#            name: Whitespace
+#            characters: ' '
+#            enabled: false
         # This template allows you to alter the default metadata that's
         # added to new password files. Note that this is a multiline string;
         # any leading spaces will be ignored.
@@ -144,11 +144,6 @@ gpg:
     # This normally shouldn't be necessary.
     # The GNUPGHOME environment variable is not overridden when the value is null.
     gnupghome-override: null
-    # On multi-monitor screens, pinentry often fails to make itself the foreground
-    # window when it asks for your password. When enabled, this option will allow
-    # pass-winmenu to detect when this happens, and force the pinentry window to the
-    # foreground.
-    pinentry-fix: false
 
     # If you wish to pass custom options to gpg.exe, you can add them here.
     # A full list of available options can be found here:
@@ -201,6 +196,12 @@ gpg:
 #        typed, it will be followed by a tab before the password is entered.
 # - add-password
 # - edit-password
+# - generate-totp-code
+#     Generate a TOTP code. To use this feature, a password file must have
+#     a a field in its metadata containing the TOTP secret, such as:
+#       TOTP: <secret>
+#     or using an otpauth URL:
+#       OTPAUTH: otpauth://otp/account?secret=<secret>
 # - decrypt-metadata
 #     Decrypt the metadata of a password file (all lines after the first line).
 #     available options:
@@ -224,6 +225,9 @@ gpg:
 # - git-pull
 # - git-push
 # - open-shell
+#     Open your password store in a shell.
+# - open-explorer
+#     Open your password store in a new Explorer window.
 # Actions can be further configured using the 'options' variable.
 #
 # The default configuration has one hotkey for copying the password to your
@@ -236,9 +240,9 @@ hotkeys:
     options:
         copy-to-clipboard: true
         type-username: false
-        type-password: true
+        type-password: false
   - 
-    hotkey: 'ctrl alt a'
+    hotkey: 'ctrl alt shift p'
     action: 'decrypt-password'
     options:
         copy-to-clipboard: true
@@ -286,7 +290,7 @@ application:
         # Should we check for updates?
         # This will, when an update is available, add a menu entry that, when
         # clicked, will send you to the GitHub release page for the update.
-        check-for-updates: false
+        check-for-updates: true
         # Set this to true if you also want to check for prereleases.
         allow-prereleases: false
 
@@ -343,7 +347,7 @@ interface:
     # accent colour (available on Windows 8 and 10).
     style:
         orientation: 'vertical'
-        # Number of items between the curernt selection and the border
+        # Number of items between the current selection and the border
         # before the window should start scrolling.
         scroll-boundary: 0
         font-size: 14
