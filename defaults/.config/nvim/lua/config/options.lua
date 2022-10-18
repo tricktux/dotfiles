@@ -21,6 +21,8 @@ function M:setup()
 	vim.opt.background = "light" -- This forces lualine to use the right theme
 	vim.opt.laststatus = 3
   vim.opt.cmdheight = 1
+  vim.opt.spell = true
+  vim.opt.spelllang = {"en_us", "es"}
 end
 
 return M

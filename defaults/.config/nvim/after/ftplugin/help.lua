@@ -8,7 +8,6 @@ end
 vim.b.did_help_ftplugin = 1
 
 vim.opt_local.relativenumber = true
-vim.opt_local.spell = false
 
 local opts = {silent = true, buffer = true, desc = 'exit help'}
 vim.keymap.set('n', [[q]], [[:helpc<cr>]], opts)

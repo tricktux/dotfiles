@@ -8,7 +8,6 @@
 function! options#Set() abort
   " SET_OPTIONS
   " Regular stuff
-  "set spell spelllang=en_us
   "omnicomplete menu
   " save marks
   " Wed Sep 30 2020 22:24: Don't remember why I have this setting. Seems to be 

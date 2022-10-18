@@ -35,8 +35,6 @@ local function set_text_settings()
   vim.opt.tabstop = 2
   vim.opt.shiftwidth = 2
   vim.opt.comments:append({ b = "-" })
-  vim.opt.spelllang = { "en_us", "es" }
-  vim.opt.spell = true
 end
 
 local function setup()
