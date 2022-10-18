@@ -122,6 +122,15 @@ function M.__setup_cpp_snippets()
   end
   ls.add_snippets("cpp", log_snippet)
   ls.add_snippets("c", log_snippet)
+
+  local cout = s("cout", fmt(
+      [[std::cout << "{}\n";]],
+      {
+        i(1, "description"),
+      }
+    )
+  )
+  ls.add_snippets("cpp", {cout})
 end
 
 
