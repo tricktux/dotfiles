@@ -3,6 +3,7 @@ local log = require('utils.log')
 log.info('Setting lua filetypes...')
 vim.filetype.add({
   extension = {
+    CPP = "cpp",
     ino = "arduino",
     pde = "arduino",
     csv = "csv",
