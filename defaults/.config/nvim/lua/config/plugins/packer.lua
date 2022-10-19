@@ -390,6 +390,7 @@ M.__plugins.common = {
 			"ToggleTermSendVisualLines",
 			"ToggleTermSendVisualSelection",
 		},
+    tag = '*',
 		setup = function()
 			require("config.plugins.misc"):setup_toggleterm()
 		end,
