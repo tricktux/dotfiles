@@ -4,15 +4,32 @@ local M = {}
 M.c_max_lines = vim.fn.has('unix') > 0 and 50000 or 1000
 
 local function disable(lang, bufnr)
-  if lang ~= "cpp" or lang ~= "c" then
+  if vim.b.ts_disabled then  -- buffer result
+    return vim.b.ts_disabled == 1
+  end
+
+  -- Max file size for unix files
+  local max_filesize = 2097152  -- 2 * 1024 * 1024 = 2097152 = 2Mb
+  if vim.fn.has("unix") <= 0 then
+    -- Max file size for windows files
+    max_filesize = 1048576  -- 1 * 1024 * 1024 = 1048576 = 1Mb
+    if lang == "cpp" or lang == "c" then
+      -- Max file size for windows cpp/c files
+      max_filesize = 512000 -- 500 * 1024 = 512000 500Kb
+    end
+  end
+
+  -- Disable TS for cpp window files bigger than 10kb
+  local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
+  if ok and stats and stats.size > max_filesize then
+    local msg = "[TreeSitter]: Highlight disabled, file is bigger than '" .. max_filesize / 1024 .. "Kb'"
+    vim.notify(msg, vim.log.levels.WARN)
+    vim.b.ts_disabled = 1
     return true
   end
 
-  local __disabled = vim.api.nvim_buf_line_count(bufnr) < M.c_max_lines
-  if __disabled then
-    vim.b.ts_disabled = 1
-  end
-  return __disabled
+  vim.b.ts_disabled = 0
+  return false
 end
 
 local function setup_buf_keymaps_opts()
@@ -20,17 +37,21 @@ local function setup_buf_keymaps_opts()
   vim.keymap.set('n', '<leader>tt', [[<cmd>TSBufToggle<cr>]], opts)
   -- Only overwrite settings when instructed
   -- The best place to set these variables is after/ftplugin
-  --[[ if vim.b.did_fold_settings == nil then
+  if vim.b.did_fold_settings == nil then
     vim.opt_local.foldmethod = "expr"
     vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
-  end ]]
+  end
   if vim.b.did_indent_settings == nil then
     vim.opt_local.indentexpr = "nvim_treesitter#indent()"
   end
 end
 
 local function ensure_parser_installed()
-  if vim.b.ts_asked_already or vim.b.ts_disabled then
+  if vim.b.ts_asked_already then
+    return
+  end
+
+  if vim.b.ts_disabled and vim.b.ts_disabled == 1 then
     return
   end
 
