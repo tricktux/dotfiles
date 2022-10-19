@@ -14,8 +14,8 @@ start cmd /k "cup all -y"
 choco list --local-only > %dot%\pkg\choco-windows\choco_pkg.txt
 
 :: Backup to the network
-set rob=%dot%\scripts\win\robocopy_python_generator.py
-start cmd /k python %rob%
+:: set rob=%dot%\scripts\win\robocopy_python_generator.py
+:: start cmd /k python %rob%
 
 :: Update python pip
 set req=%dot%\scripts\win\nvimvenv.txt
@@ -33,3 +33,5 @@ cleanmgr.exe /SAGERUN:8
 :: Setting up some envvars
 setx NEOVIDE_FRAMELESS 1
 setx NEOVIDE_MULTIGRID 1
+
+wsl --update
