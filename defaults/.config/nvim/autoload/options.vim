@@ -92,8 +92,6 @@ function! options#Set() abort
   " in order to use <c-j> in cli vim for esc
   " removing it see what happens
   " set ttimeoutlen=0
-  set wrapmargin=2
-  set nowrapscan        " do not wrap search at EOF
   " will look in current directory for tags
 
   if has('cscope')
@@ -106,18 +104,6 @@ function! options#Set() abort
   set linebreak    "Wrap lines at convenient points
   " Sat Feb 22 2020 16:05: Save only what is necessary
   set viewoptions=cursor,curdir
-
-  if has('nvim')
-    set shada='1024,%,s10000,r/tmp,rE:,rF:
-    set inccommand=split
-    set scrollback=-1
-  else
-    set viminfo='1024,%,s10000,r/tmp,rE:,rF:
-    let &viminfofile= stdpath('data') .  '/viminfo'
-    set ttyscroll=3
-    set ttyfast " Had to addit to speed up scrolling
-    set noesckeys " No mappings that start with <esc>
-  endif
 
   " Thu Oct 26 2017 05:13: On small split screens text goes outside of range
   " Fri Jun 15 2018 14:00: These options are better set on case by case basis
@@ -135,10 +121,6 @@ function! options#Set() abort
   " Mon Jun 05 2017 11:59: Suppose to Fix cd to relative paths in windows
   let &cdpath = ',' . substitute(substitute($CDPATH,
         \ '[, ]', '\\\0', 'g'), ':', ',', 'g')
-  " Thu Dec 21 2017 09:56: Properly format comment strings
-  if v:version > 703 || v:version == 703 && has('patch541')
-    set formatoptions+=jw
-  endif
 
   " Status Line
   " If this not and android device and we have no plugins setup "ugly" status

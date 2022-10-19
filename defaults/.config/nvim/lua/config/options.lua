@@ -23,6 +23,19 @@ function M:setup()
   vim.opt.cmdheight = 1
   vim.opt.spell = true
   vim.opt.spelllang = {"en_us", "es"}
+  vim.opt.formatoptions:append('jw')
+  vim.opt.inccommand = "split"
+  vim.opt.wrapscan = false
+  vim.opt.shada = {
+    [['1024]],
+    -- Do not restore buffer list, leave that for sessions
+    -- [[%]],
+    "s10000",
+    -- Removable media below, avoid storing marks on these drivers
+    "r/tmp",  -- Unix
+    "rE:",  -- Windows
+    "rF:"
+  }
 end
 
 return M
