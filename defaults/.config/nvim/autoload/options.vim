@@ -135,13 +135,6 @@ function! options#Set() abort
   " Mon Jun 05 2017 11:59: Suppose to Fix cd to relative paths in windows
   let &cdpath = ',' . substitute(substitute($CDPATH,
         \ '[, ]', '\\\0', 'g'), ':', ',', 'g')
-  " Thu Sep 14 2017 14:45: Security concerns addressed by these options.
-  set secure
-  set noexrc
-  " Wed Oct 18 2017 09:19: Stop annoying bell sound
-  " Tue Feb 25 2020 16:52: Updated from vim-galore
-  set noerrorbells
-  set novisualbell
   " Thu Dec 21 2017 09:56: Properly format comment strings
   if v:version > 703 || v:version == 703 && has('patch541')
     set formatoptions+=jw
