@@ -381,9 +381,9 @@ function! mappings#Set()
   " Add all files
   nnoremap <silent> <leader>vs :call <SID>version_control_command('status')<CR>
   nnoremap <silent> <leader>vl :call <SID>version_control_command('log')<CR>
+  nnoremap <silent> <leader>vL :call <SID>version_control_command('LOG')<CR>
   nnoremap <silent> <leader>vc :call <SID>version_control_command('commit')<CR>
-  nnoremap <silent> <leader>vp :call <SID>version_control_command('push')<CR>
-  nnoremap <silent> <leader>vu :call <SID>version_control_command('pull')<CR>
+  nnoremap <silent> <leader>vd :call <SID>version_control_command('diff')<CR>
 
   " nnoremap <Leader>vA :!svn add . --force<cr>
   " Add specific files
@@ -1219,9 +1219,23 @@ function! s:version_control_command(cmd) abort
       echoerr '[version_control_command]: Please provide a command for status'
       return
     endif
+  elseif a:cmd ==? 'diff'
+    if l:git
+      execute ':DiffviewOpen'
+    else
+      echoerr '[version_control_command]: Please provide a command for log'
+      return
+    endif
+  elseif a:cmd ==? 'LOG'
+    if l:git
+      execute ':DiffviewFileHistory %'
+    else
+      echoerr '[version_control_command]: Please provide a command for log'
+      return
+    endif
   elseif a:cmd ==? 'log'
     if l:git
-      execute ':Git log'
+      execute ':DiffviewFileHistory'
     elseif l:svn
       execute ':SVNLog .'
     else
@@ -1230,28 +1244,13 @@ function! s:version_control_command(cmd) abort
     endif
   elseif a:cmd ==? 'commit'
     if l:git
-      silent execute ':Git write'
-      execute ':Git commit'
+      execute ':!git commit'
+      " silent execute ':Git write'
+      " execute ':Git commit'
     elseif l:svn
       execute ':SVNCommit'
     else
       echoerr '[version_control_command]: Please provide a command for commit'
-      return
-    endif
-  elseif a:cmd ==? 'push'
-    if l:git
-      execute ':Git push'
-    else
-      echoerr '[version_control_command]: Please provide a command for commit'
-      return
-    endif
-  elseif a:cmd ==? 'pull'
-    if l:git
-      execute ':Git pull'
-    elseif l:svn
-      execute ':!svn up .'
-    else
-      echoerr '[version_control_command]: Please provide a command for pull'
       return
     endif
   else
