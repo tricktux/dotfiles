@@ -380,8 +380,8 @@ function! mappings#Set()
   " For all this commands you should be in the svn root folder
   " Add all files
   nnoremap <silent> <leader>vs :call <SID>version_control_command('status')<CR>
-  nnoremap <silent> <leader>vl :call <SID>version_control_command('log')<CR>
-  nnoremap <silent> <leader>vL :call <SID>version_control_command('LOG')<CR>
+  nnoremap <silent> <leader>vl :call <SID>version_control_command('alog')<CR>
+  nnoremap <silent> <leader>vL :call <SID>version_control_command('clog')<CR>
   nnoremap <silent> <leader>vc :call <SID>version_control_command('commit')<CR>
   nnoremap <silent> <leader>vd :call <SID>version_control_command('diff')<CR>
 
@@ -1226,14 +1226,14 @@ function! s:version_control_command(cmd) abort
       echoerr '[version_control_command]: Please provide a command for log'
       return
     endif
-  elseif a:cmd ==? 'LOG'
+  elseif a:cmd ==? 'clog'
     if l:git
       execute ':DiffviewFileHistory %'
     else
       echoerr '[version_control_command]: Please provide a command for log'
       return
     endif
-  elseif a:cmd ==? 'log'
+  elseif a:cmd ==? 'alog'
     if l:git
       execute ':DiffviewFileHistory'
     elseif l:svn
