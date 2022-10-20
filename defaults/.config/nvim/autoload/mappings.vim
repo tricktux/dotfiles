@@ -1201,6 +1201,11 @@ function! s:version_control_command(cmd) abort
   let l:git = !empty(glob('.git', v:true, v:true))
   let l:svn = !empty(glob('.svn', v:true, v:true))
 
+  if !l:git && !l:svn
+    " If both empty, assume it's git
+    let l:git = 1
+  endif
+
   if a:cmd ==? 'status'
     if l:git
       " nmap here is needed for the <C-n> to work. Otherwise it doesnt know what
