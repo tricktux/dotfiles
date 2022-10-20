@@ -294,6 +294,12 @@ function M:setup()
     log.info("NullLs setting up cppcheck...")
     table.insert(sources, null.builtins.diagnostics.cppcheck)
   end
+  if vim.fn.executable("clang-check") > 0 then
+    log.info("NullLs setting up clang-check...")
+    table.insert(sources, null.builtins.diagnostics.clang_check.with({
+      extra_args = { "--extra-args=-std=c++17", '--extra-args=-xc++' },
+    }))
+  end
 
   null.setup({
     debug = false,
