@@ -175,6 +175,8 @@ local function diagnostic_config()
 	})
 end
 
+M.clangd_settings = {}
+
 -- TODO
 -- Maybe set each server to its own function?
 function M:config()
@@ -252,25 +254,25 @@ function M:config()
 		local c = vim.deepcopy(capabilities)
 		c.offsetEncoding = "utf-8" -- Set the same encoding only for clangd
 
-		nvim_lsp.clangd.setup({
-			init_options = { clangdFileStatus = false },
-			on_attach = on_clangd_attach,
-			flags = flags,
-			filetypes = { "c", "cpp" },
-			capabilities = c,
-			cmd = {
-				"clangd",
-				"--all-scopes-completion=true",
-				"--background-index=true",
-				"--clang-tidy=true",
-				"--completion-style=detailed",
-				"--fallback-style=LLVM",
-				"--pch-storage=memory",
-				"--header-insertion=iwyu",
-				"-j=" .. cores,
-				"--header-insertion-decorators=false",
-			},
-		})
+    M.clangd_settings = {
+      init_options = { clangdFileStatus = false },
+      on_attach = on_clangd_attach,
+      flags = flags,
+      filetypes = { "c", "cpp" },
+      capabilities = c,
+      cmd = {
+        "clangd",
+        "--all-scopes-completion=true",
+        "--background-index=true",
+        "--clang-tidy=true",
+        "--completion-style=detailed",
+        "--fallback-style=LLVM",
+        "--pch-storage=memory",
+        "--header-insertion=iwyu",
+        "-j=" .. cores,
+        "--header-insertion-decorators=false",
+      },
+    }
 	end
 
 	if vim.fn.executable("rust-analyzer") > 0 then

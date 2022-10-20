@@ -225,6 +225,13 @@ M.__plugins.common = {
 		end,
 	},
 	{ "weilbith/nvim-code-action-menu", after = "nvim-lspconfig" },
+  {
+    "p00f/clangd_extensions.nvim",
+    after = "nvim-lspconfig",
+    config = function()
+      require("config.plugins.misc").clangd_extensions.setup()
+    end,
+  },
 	------------------
 	{
 		"lewis6991/gitsigns.nvim",
