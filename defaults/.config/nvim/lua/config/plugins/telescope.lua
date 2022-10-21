@@ -286,14 +286,7 @@ function M.set_lsp_mappings(bufnr)
 			"tele_lsp_definition_split",
 		},
 		d = { ts.lsp_definitions, "tele_lsp_definition" },
-		u = { ts.lsp_references, "tele_lsp_references" },
-		U = {
-			function()
-				vim.cmd([[vsplit]])
-				ts.lsp_references()
-			end,
-			"tele_lsp_references_split",
-		},
+		R = { ts.lsp_references, "tele_lsp_references" },
 	}
 
 	map.keymaps_set(mappings, "n", opts, prefix)

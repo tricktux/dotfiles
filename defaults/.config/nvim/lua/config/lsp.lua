@@ -104,11 +104,22 @@ local function set_lsp_mappings(bufnr)
 			end,
 			"lsp_definition_split",
 		},
+    E = {
+      function()
+        vim.cmd([[vsplit]])
+        lsp.buf.declaration()
+      end,
+      lsp.buf.declaration,
+      "lsp_declaration_split"
+    },
+    e = { lsp.buf.declaration, "lsp_declaration" },
+    i = { lsp.buf.implementation, "lsp_implementation" },
+    H = { lsp.buf.signature_help, "lsp_signature_help" },
 		r = { rename, "lsp_rename" },
 		d = { lsp.buf.definition, "lsp_definition" },
-		u = { lsp.buf.references, "references" },
+		R = { lsp.buf.references, "lsp_references" },
 		n = { vim.diagnostic.open_float, "show_line_diagnostics" },
-		h = { lsp.buf.hover, "hover" },
+		h = { lsp.buf.hover, "lsp_hover" },
 	}
 
 	-- Set some keybinds conditional on server capabilities
