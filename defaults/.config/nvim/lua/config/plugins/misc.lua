@@ -671,6 +671,26 @@ local function set_colorscheme(period)
 	log.info(fmt("set_colorscheme: period = '%s'", period))
 	log.info(fmt("set_colorscheme: catppuccin_flavour = '%s'", flavour[period]))
 	vim.cmd("Catppuccin " .. flavour[period])
+  local colors = require("catppuccin.palettes").get_palette()
+  local TelescopeColor = {
+    TelescopeMatching = { fg = colors.flamingo },
+    TelescopeSelection = { fg = colors.text, bg = colors.surface0, bold = true },
+
+    TelescopePromptPrefix = { bg = colors.surface0 },
+    TelescopePromptNormal = { bg = colors.surface0 },
+    TelescopeResultsNormal = { bg = colors.mantle },
+    TelescopePreviewNormal = { bg = colors.mantle },
+    TelescopePromptBorder = { bg = colors.surface0, fg = colors.surface0 },
+    TelescopeResultsBorder = { bg = colors.mantle, fg = colors.mantle },
+    TelescopePreviewBorder = { bg = colors.mantle, fg = colors.mantle },
+    TelescopePromptTitle = { bg = colors.red, fg = colors.mantle },
+    TelescopeResultsTitle = { fg = colors.mantle },
+    TelescopePreviewTitle = { bg = colors.green, fg = colors.mantle },
+  }
+
+  for hl, col in pairs(TelescopeColor) do
+    vim.api.nvim_set_hl(0, hl, col)
+  end
 end
 
 -- This function is called on vim enter
@@ -1004,18 +1024,6 @@ end
 function M.setup_catpuccin()
 	-- Need a way to setup this plugin until after packer finishes
 	M.setup_flux()
-
-	-- Create an autocmd User PackerCompileDone to update it every time packer is compiled
-	vim.api.nvim_create_autocmd("User", {
-		pattern = "PackerCompileDone",
-		callback = function()
-			require("catppuccin").compile()
-			vim.defer_fn(function()
-				vim.cmd("colorscheme catppuccin")
-			end, 0) -- Defered for live reloading
-		end,
-		desc = "Catppuccin compile on PackerCompileDone",
-	})
 end
 
 function M.config_catpuccin()
@@ -1032,6 +1040,28 @@ function M.config_catpuccin()
 				enabled = true,
 				colored_indent_levels = true,
 			},
+      dap = {
+        enabled = vim.fn.has("unix") > 0 and true or false,
+        enable_ui = vim.fn.has("unix") > 0 and true or false,
+      },
+      native_lsp = {
+        enabled = true,
+        virtual_text = {
+          errors = { "italic" },
+          hints = { "italic" },
+          warnings = { "italic" },
+          information = { "italic" },
+        },
+        underlines = {
+          errors = { "underline" },
+          hints = { "underline" },
+          warnings = { "underline" },
+          information = { "underline" },
+        },
+      },
+      noice = true,
+      treesitter_context = true,
+      telescope = true,
 			which_key = true,
 			dashboard = true,
 			vim_sneak = true,

@@ -6,6 +6,9 @@ local M = {}
 
 function M:config_fidget()
 	require("fidget").setup({
+    windows = {
+      blend = 0,
+    },
 		text = {
 			spinner = "dots", -- animation shown when tasks are ongoing
 			done = "✔", -- character shown when all tasks are complete

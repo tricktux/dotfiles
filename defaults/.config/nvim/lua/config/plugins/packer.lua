@@ -620,7 +620,6 @@ M.__plugins.common = {
 		"catppuccin/nvim",
 		as = "catppuccin",
 		module = "catppuccin",
-		run = ":CatppuccinCompile",
 		cmd = { "CatppuccinCompile", "CatppuccinStatus", "Catppuccin", "CatppuccinClean" },
 		tag = "*",
 		setup = function()
