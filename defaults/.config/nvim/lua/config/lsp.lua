@@ -115,9 +115,9 @@ local function set_lsp_mappings(bufnr)
     e = { lsp.buf.declaration, "lsp_declaration" },
     i = { lsp.buf.implementation, "lsp_implementation" },
     H = { lsp.buf.signature_help, "lsp_signature_help" },
-		r = { rename, "lsp_rename" },
+		R = { rename, "lsp_rename" },
 		d = { lsp.buf.definition, "lsp_definition" },
-		R = { lsp.buf.references, "lsp_references" },
+		r = { lsp.buf.references, "lsp_references" },
 		n = { vim.diagnostic.open_float, "show_line_diagnostics" },
 		h = { lsp.buf.hover, "lsp_hover" },
 	}

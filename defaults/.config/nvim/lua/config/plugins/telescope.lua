@@ -266,7 +266,7 @@ function M.set_lsp_mappings(bufnr)
 	local vks = vim.keymap.set
 	local ts = require("telescope.builtin")
 	local mappings = {
-		R = { ts.lsp_references, "tele_references" },
+		r = { ts.lsp_references, "tele_references" },
 		d = { ts.lsp_definitions, "tele_definitions" },
 		i = { ts.lsp_implementations, "tele_implementations" },
 		s = { ts.lsp_document_symbols, "tele_document_symbols" },
