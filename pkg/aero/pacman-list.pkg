@@ -209,6 +209,7 @@ python-cpplint
 python-pillow
 python-pip
 python-pywal
+qbittorrent
 qt5-3d
 qt5-charts
 qt5-connectivity
@@ -373,6 +374,7 @@ xorg-xwininfo
 xorg-xwud
 xss-lock
 youtube-dl
+ytfzf
 zathura
 zathura-pdf-mupdf
 zip
