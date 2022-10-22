@@ -147,7 +147,6 @@ function! options#Set() abort
   set nocursorline
   set scrolljump=5
   set sidescroll=15 " see help for sidescroll
-  set lazyredraw " Had to addit to speed up scrolling
   " Mon May 01 2017 11:21: This breaks split window highliting
   " Tue Jun 13 2017 20:55: Giving it another try
   " Fri Jun 05 2020 16:17: You knew that it breaks highliting with a low number 

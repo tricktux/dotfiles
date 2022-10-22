@@ -204,7 +204,7 @@ M.__plugins.common = {
 	{
 		"neovim/nvim-lspconfig",
 		after = "cmp-nvim-lsp",
-		tag = lsp_version,
+		-- tag = lsp_version,
 		config = function()
 			require("config.lsp"):config()
 		end,
@@ -522,6 +522,17 @@ M.__plugins.common = {
 			require("config.plugins.misc"):config_notify()
 		end,
 	},
+  {
+    "MunifTanjim/nui.nvim",
+    after = { "nvim-notify" },
+  },
+  {
+    "folke/noice.nvim",
+    after = { "nui.nvim" },
+    config = function()
+      require("config.plugins.misc").noice.config()
+    end,
+  },
 	{
 		"danymat/neogen",
 		keys = {
@@ -621,7 +632,7 @@ M.__plugins.common = {
 		as = "catppuccin",
 		module = "catppuccin",
 		cmd = { "CatppuccinCompile", "CatppuccinStatus", "Catppuccin", "CatppuccinClean" },
-		tag = "*",
+		-- tag = "*",
 		setup = function()
 			require("config.plugins.misc"):setup_catpuccin()
 		end,
