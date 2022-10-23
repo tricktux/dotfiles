@@ -522,7 +522,7 @@ M.__plugins.common = {
 			require("config.plugins.misc"):config_notify()
 		end,
 	},
-  {
+  --[[ {
     "MunifTanjim/nui.nvim",
     after = { "nvim-notify" },
   },
@@ -532,7 +532,7 @@ M.__plugins.common = {
     config = function()
       require("config.plugins.misc").noice.config()
     end,
-  },
+  }, ]]
 	{
 		"danymat/neogen",
 		keys = {
@@ -661,6 +661,7 @@ M.__plugins.common = {
 		end,
 	},
 	{ "lewis6991/impatient.nvim" },
+
 }
 M.__plugins.deps = {}
 M.__plugins.deps.executable = {
@@ -699,6 +700,7 @@ M.__plugins.deps.has = {
 			"iamcco/markdown-preview.nvim",
 			ft = "markdown",
 			setup = function()
+
 				vim.g.mkdp_auto_close = 0
 			end,
 			run = "cd app && npm install",
