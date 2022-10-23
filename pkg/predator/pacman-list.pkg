@@ -157,6 +157,7 @@ network-manager-applet
 nextcloud-client
 nfs-utils
 ninja
+nix
 nmap
 noto-fonts-emoji
 ntfs-3g
@@ -216,6 +217,7 @@ shfmt
 simple-scan
 steam
 stow
+strace
 stylua
 sudo
 systemd-resolvconf
