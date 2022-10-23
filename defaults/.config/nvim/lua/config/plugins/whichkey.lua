@@ -58,7 +58,7 @@ M.__config = {
   show_help = true, -- show a help message in the command line for using WhichKey
   triggers = "auto", -- automatically setup triggers
   -- triggers = {"<leader>"} -- or specifiy a list manually
-  triggers_nowait = {}, -- list of triggers, where WhichKey should not wait for timeoutlen and show immediately
+  triggers_nowait = {"<leader>", "<localleader>"}, -- list of triggers, where WhichKey should not wait for timeoutlen and show immediately
   triggers_blacklist = {
     -- list of mode / prefixes that should never be hooked by WhichKey
     -- this is mostly relevant for keymaps that start with a native binding
