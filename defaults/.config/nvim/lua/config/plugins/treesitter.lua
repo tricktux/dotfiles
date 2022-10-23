@@ -47,36 +47,19 @@ local function setup_buf_keymaps_opts()
 end
 
 local function ensure_parser_installed()
-  if vim.b.ts_asked_already then
-    return
-  end
-
   if vim.b.ts_disabled and vim.b.ts_disabled == 1 then
     return
   end
 
-  vim.b.ts_asked_already = true
-
   local parsers = require 'nvim-treesitter.parsers'
   local lang = parsers.get_buf_lang()
 
-  if not parsers.get_parser_configs()[lang] or parsers.has_parser(lang) then
-    setup_buf_keymaps_opts()
+  if parsers.get_parser_configs()[lang] and not parsers.has_parser(lang) then
     return
   end
 
-  vim.schedule_wrap(function()
-    vim.ui.select({ 'Y', 'n' }, {
-      prompt = 'Install treesitter parser for '..lang.. ':',
-    }, 
-    function(choice)
-      if choice == 'n' then
-        return
-      end
-      vim.cmd('TSInstall '..lang)
-      setup_buf_keymaps_opts()
-    end)
-  end)()
+  -- If this is a treesitter buf set it's options
+  setup_buf_keymaps_opts()
 end
 
 M.__config = {
@@ -88,6 +71,9 @@ M.__config = {
     "vim", "markdown", "markdown_inline", "json", "make", "nix", "html", 
     "llvm", "comment", "org", "help"
   },
+  -- Automatically install missing parsers when entering buffer
+  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+  auto_install = true,
   highlight = {
     disable = disable,
     enable = true, -- false will disable the whole extension
