@@ -86,7 +86,7 @@ M.__config = {
     "c", "cpp", "python", "lua", "java", "bash", "c_sharp", "rust", "json",
     "toml", "bash", "cmake", "dockerfile", "json5", "latex", "r", "yaml",
     "vim", "markdown", "markdown_inline", "json", "make", "nix", "html", 
-    "llvm", "comment", "org"
+    "llvm", "comment", "org", "help"
   },
   highlight = {
     disable = disable,
