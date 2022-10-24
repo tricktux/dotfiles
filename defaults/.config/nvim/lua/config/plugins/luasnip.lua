@@ -18,7 +18,7 @@ function M.__setup_orgmode_snippets()
   end
 
   local todo_snips = {}
-  for k = 1, 3 do
+  for k = 1, 5 do
     table.insert(
       todo_snips,
       s(
