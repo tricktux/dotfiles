@@ -130,7 +130,19 @@ function M.__setup_cpp_snippets()
       }
     )
   )
-  ls.add_snippets("cpp", {cout})
+  local clock = s("clock", fmt(
+      [[
+        #include <chrono>
+        auto start = std::chrono::high_resolution_clock::now(); 
+        // function here
+        auto stop = std::chrono::high_resolution_clock::now(); 
+        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start); 
+        std::cout << "Time taken by function: "
+            << duration.count() << " microseconds\n"; 
+      ]], {}
+    )
+  )
+  ls.add_snippets("cpp", {cout, clock})
 end
 
 
