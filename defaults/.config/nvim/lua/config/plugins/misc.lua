@@ -867,7 +867,14 @@ function M.setup_neogit()
 	vks("n", "<leader>vo", require("neogit").open, opts)
 end
 
-function M.config_git_messenger()
+M.git_messenger = {}
+M.git_messenger.cmd = "GitMessenger"
+M.git_messenger.keys = "<leader>vm"
+M.git_messenger.setup = function()
+  vim.g.git_messenger_always_into_popup = true
+  vim.g.git_messenger_floating_win_opts = { border = 'single' }
+end
+M.git_messenger.config = function()
 	local opts = { silent = true, desc = "git_messenger" }
 	vks("n", "<leader>vm", "<cmd>GitMessenger<cr>", opts)
 end

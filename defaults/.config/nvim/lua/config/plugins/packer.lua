@@ -266,12 +266,13 @@ M.__plugins.common = {
 	},
 	{
 		"rhysd/git-messenger.vim",
-		cmd = "GitMessenger",
+		cmd = require("config.plugins.misc").git_messenger.cmd,
+    keys = require("config.plugins.misc").git_messenger.keys,
 		setup = function()
-			vim.g.git_messenger_always_into_popup = true
+      require("config.plugins.misc").git_messenger.setup()
 		end,
 		config = function()
-			require("config.plugins.misc").config_git_messenger()
+			require("config.plugins.misc").git_messenger.config()
 		end,
 	},
 	{
