@@ -36,8 +36,7 @@ function M:setup()
     "rE:",  -- Windows
     "rF:"
   }
-  -- Noice.nvim insisting in it to be off
-  -- vim.opt.lazyredraw = true
+  vim.opt.signcolumn = "yes:1"
 end
 
 return M

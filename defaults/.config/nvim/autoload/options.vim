@@ -32,7 +32,6 @@ function! options#Set() abort
   " t - Truncate message if is too long
   set shortmess=acst
 
-  let &signcolumn='number'
   set guitablabel=%N\ %f
   " Silly, always set cool colors
   set termguicolors
