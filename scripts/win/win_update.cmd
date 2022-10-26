@@ -35,3 +35,5 @@ setx NEOVIDE_FRAMELESS 1
 setx NEOVIDE_MULTIGRID 1
 
 wsl --update
+
+vale sync
