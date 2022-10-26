@@ -297,7 +297,16 @@ function M:setup()
   if vim.fn.executable("clang-check") > 0 then
     log.info("NullLs setting up clang-check...")
     table.insert(sources, null.builtins.diagnostics.clang_check.with({
-      extra_args = { "--extra-args=-std=c++17", '--extra-args=-xc++' },
+      args = {
+        "--analyze",
+        "--extra-arg=-Xclang",
+        "--extra-arg=-analyzer-output=text",
+        "--extra-arg=-fno-color-diagnostics",
+        "--extra-arg=-std=c++20",
+        '--extra-arg=-xc++',
+        "-p", "$DIRNAME", 
+        "$FILENAME",
+      },
     }))
   end
   if vim.fn.executable("cpplint") > 0 then
@@ -306,19 +315,22 @@ function M:setup()
   end
 
   null.setup({
-    debug = false,
+    -- Set to "trace" for really big logs
+    log_level = "info",
     -- Attach only if current buf has certain lines
+    -- TODO: Re-using treesitter's function. It smells funny. Fix it
     should_attach = function()
-      local max = vim.fn.has("unix") > 0 and 50000 or 1000
-      return vim.api.nvim_buf_line_count(0) < max
+      return vim.b.ts_disabled == 0
     end,
     debounce = 250,
-    default_timeout = 2500,
+    default_timeout = 60000,
     diagnostics_format = "(#{s}): #{m}",
     -- TODO: loop through sources to check if there's a formatting source
     -- Only then overwrite mappings.
     -- on_attach = require("config.lsp").on_lsp_attach,
-    on_init = nil,
+    on_attach = function()
+      vim.b.null_enable_vale = 1
+    end,
     on_exit = nil,
     sources = sources,
   })
