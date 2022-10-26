@@ -173,7 +173,7 @@ end
 
 local function diagnostic_config()
 	local opts = {
-		virtual_text = { source = "if_many" },
+		virtual_text = false,
 		underline = true,
 		signs = true,
 		update_in_insert = false,
