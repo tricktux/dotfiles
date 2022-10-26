@@ -300,6 +300,10 @@ function M:setup()
       extra_args = { "--extra-args=-std=c++17", '--extra-args=-xc++' },
     }))
   end
+  if vim.fn.executable("cpplint") > 0 then
+    log.info("NullLs setting up cpplint...")
+    table.insert(sources, null.builtins.diagnostics.cpplint)
+  end
 
   null.setup({
     debug = false,

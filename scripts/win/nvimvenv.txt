@@ -8,3 +8,4 @@ isort
 matplotlib
 numpy
 pandas
+cpplint
