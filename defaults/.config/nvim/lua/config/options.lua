@@ -37,6 +37,9 @@ function M:setup()
     "rF:"
   }
   vim.opt.signcolumn = "yes:1"
+  vim.opt.number = false
+  vim.opt.relativenumber = true
+  vim.opt.numberwidth = 1
 end
 
 return M

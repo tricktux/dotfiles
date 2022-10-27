@@ -49,8 +49,6 @@ function! options#Set() abort
   set ignorecase
   set infercase
   set hlsearch      " highlight search terms
-  set number
-  set relativenumber
   set incsearch     " show search matches as you type
   set history=10000         " remember more commands and search history
   " ignore these files to for completion
