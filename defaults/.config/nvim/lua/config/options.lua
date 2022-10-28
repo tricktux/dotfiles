@@ -40,6 +40,13 @@ function M:setup()
   vim.opt.number = false
   vim.opt.relativenumber = true
   vim.opt.numberwidth = 1
+  -- Supress messages
+  -- a - Usefull abbreviations
+  -- c - Do no show match 1 of 2
+  -- o and O no enter when openning files
+  -- s - Do not show search hit bottom
+  -- t - Truncate message if is too long
+  vim.opt.shortmess = "aoOcst"
 end
 
 return M

@@ -25,12 +25,6 @@ function! options#Set() abort
   " Fri Apr 03 2020 17:07: I cursor blinking really gets on my nerves
   set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
         \,a:blinkon0-Cursor/lCursor
-  " Supress messages
-  " a - Usefull abbreviations
-  " c - Do no show match 1 of 2
-  " s - Do not show search hit bottom
-  " t - Truncate message if is too long
-  set shortmess=acst
 
   set guitablabel=%N\ %f
   " Silly, always set cool colors
