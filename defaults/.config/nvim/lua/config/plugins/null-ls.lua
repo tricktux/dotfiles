@@ -309,7 +309,7 @@ function M:setup()
       },
     }))
   end
-  if vim.fn.executable("cpplint") > 0 then
+  if vim.fn.executable("cpplint") > 0 and vim.fn.has("unix") > 0 then
     log.info("NullLs setting up cpplint...")
     table.insert(sources, null.builtins.diagnostics.cpplint)
   end
