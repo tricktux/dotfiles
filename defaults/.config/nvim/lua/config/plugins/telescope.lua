@@ -286,7 +286,8 @@ function M.set_lsp_mappings(bufnr)
 			"tele_lsp_definition_split",
 		},
 		d = { ts.lsp_definitions, "tele_lsp_definition" },
-		R = { ts.lsp_references, "tele_lsp_references" },
+		r = { ts.lsp_references, "tele_lsp_references" },
+    s = { ts.lsp_workspace_symbols, "tele_workspace_symbols" },
 	}
 
 	map.keymaps_set(mappings, "n", opts, prefix)
