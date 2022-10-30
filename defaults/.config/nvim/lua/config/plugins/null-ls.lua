@@ -329,7 +329,8 @@ function M:setup()
     -- Only then overwrite mappings.
     -- on_attach = require("config.lsp").on_lsp_attach,
     on_attach = function()
-      vim.b.null_enable_vale = 1
+      -- Null ls on demand
+      vim.b.null_enable_vale = 0
     end,
     on_exit = nil,
     sources = sources,
