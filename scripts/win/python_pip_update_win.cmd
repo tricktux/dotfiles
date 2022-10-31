@@ -2,7 +2,7 @@
 
 setlocal enabledelayedexpansion
 
-C:\Python310\python.exe -m pip install --user --upgrade -r nvimvenv.txt
+python.exe -m pip install --user --upgrade -r nvimvenv.txt
 exit %errorlevel%
 
 REM  set modules[4]=isort It's already installed by pylint
