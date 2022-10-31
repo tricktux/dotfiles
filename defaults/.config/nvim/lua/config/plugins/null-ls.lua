@@ -214,7 +214,7 @@ function M:setup()
         runtime_condition = function(params)
           -- It's really annoying and slow on windows
           -- Register source, but enable it manually
-          return vim.b.null_enable_vale
+          return vim.b.null_enable_vale == 1
         end,
       })
     )
