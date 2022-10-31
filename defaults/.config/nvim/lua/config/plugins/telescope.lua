@@ -183,28 +183,11 @@ local function custom_live_grep()
 	ts.live_grep(live_grep_opts)
 end
 
-local function project_bufenter_event()
-	local pr_ok, pr = pcall(require, "project_nvim.project")
-	if not pr_ok then
-		vim.api.nvim_err_writeln("project_nvim not available")
-		return
-	end
-	local root, _ = pr.get_project_root()
-	if root == "" or root == nil then
-		local cwd = Path:new(vim.fn.expand("%:p:h", true))
-		if not cwd:is_dir() then
-			return
-		end
-		root = cwd:absolute()
-	end
-	vim.cmd("lcd " .. root)
-end
-
 function M:config_project()
 	require("project_nvim").setup({
 		-- Manual mode doesn't automatically change your root directory, so you have
 		-- the option to manually do so using `:ProjectRoot` command.
-		manual_mode = true,
+		manual_mode = false,
 
 		-- Methods of detecting the root directory. **"lsp"** uses the native neovim
 		-- lsp, while **"pattern"** uses vim-rooter like glob pattern matching. Here
@@ -229,7 +212,7 @@ function M:config_project()
 
 		-- Table of lsp clients to ignore by name
 		-- eg: { "efm", ... }
-		ignore_lsp = {},
+		ignore_lsp = {"null-ls"},
 
 		-- Don't calculate root dir on specific directories
 		-- Ex: { "~/.cargo/*", ... }
@@ -242,6 +225,12 @@ function M:config_project()
 		-- directory.
 		silent_chdir = true,
 
+    -- What scope to change the directory, valid options are
+    -- * global (default)
+    -- * tab
+    -- * win
+    scope_chdir = 'win',
+
 		-- Path where project.nvim will store the project history for use in
 		-- telescope
 		datapath = vim.fn.stdpath("data"),
@@ -252,12 +241,6 @@ function M:config_project()
 
 	local opts = { silent = true, desc = "projects" }
 	vim.keymap.set("n", "<leader>fp", ts.extensions.projects.projects, opts)
-
-	vim.api.nvim_create_autocmd("BufEnter", {
-		callback = project_bufenter_event,
-		pattern = "*",
-		desc = "My ProjectRoot",
-	})
 end
 
 function M.set_lsp_mappings(bufnr)

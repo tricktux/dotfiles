@@ -153,6 +153,10 @@ M.msbuild = {
   method = null.methods.DIAGNOSTICS,
   generator = null.generator({
     command = "msbuild",
+    cwd = function(params)
+      -- falls back to root if return value is nil
+      return vim.fs.dirname(params.bufname)
+    end,
     args = {},
     to_stdin = true,
     from_stderr = true,
