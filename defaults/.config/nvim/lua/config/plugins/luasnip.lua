@@ -102,7 +102,11 @@ function M.__setup_cpp_snippets()
   local ls = require("luasnip")
   local s = ls.s
   local fmt = require("luasnip.extras.fmt").fmt
+  local fmta = require("luasnip.extras.fmt").fmta
+  local l = require("luasnip.extras").lambda
+  local rep = require("luasnip.extras").rep
   local i = ls.insert_node
+  local t = ls.text_node
 
   local types = {"info", "warn", "error"}
   local log_snippet = {}
@@ -130,7 +134,55 @@ function M.__setup_cpp_snippets()
       }
     )
   )
-  local clock = s("clock", fmt(
+  local singleton = s("singleton", fmta(
+      [[
+        class <name>
+        {
+            <>() {}                    // Constructor? (the {} brackets) are needed here.
+
+            // C++ 03
+            // ========
+            // Don't forget to declare these two. You want to make sure they
+            // are unacceptable otherwise you may accidentally get copies of
+            // your singleton appearing.
+            <>(<> const&);              // Don't Implement
+            void operator=(<> const&);  // Don't implement
+
+        public:
+            static <>& GetInstance()
+            {
+                static <> instance; // Guaranteed to be destroyed.
+                                      // Instantiated on first use.
+                return instance;
+            }
+            // C++ 11
+            // =======
+            // We can use the better technique of deleting the methods
+            // we don't want.
+            // Note: Scott Meyers mentions in his Effective Modern
+            //       C++ book, that deleted functions should generally
+            //       be public as it results in better error messages
+            //       due to the compilers behavior to check accessibility
+            //       before deleted status
+            <>(<> const&)          = delete;
+            void operator=(<> const&)  = delete;
+        };
+      ]],
+      {
+        name = i(1, "name"),
+        rep(1),
+        rep(1),
+        rep(1),
+        rep(1),
+        rep(1),
+        rep(1),
+        rep(1),
+        rep(1),
+        rep(1),
+      }
+    )
+  )
+  local clock = s("clock", { t(
       [[
         #include <chrono>
         auto start = std::chrono::high_resolution_clock::now(); 
@@ -139,10 +191,10 @@ function M.__setup_cpp_snippets()
         auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start); 
         std::cout << "Time taken by function: "
             << duration.count() << " microseconds\n"; 
-      ]], {}
-    )
+      ]]
+    ) }
   )
-  ls.add_snippets("cpp", {cout, clock})
+  ls.add_snippets("cpp", {cout, clock, singleton})
 end
 
 
