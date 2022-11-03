@@ -385,9 +385,9 @@ update_servers() {
 }
 
 pac_maintenance() {
-	msg "${CYAN}${BOLD}" "[RIMP]==> Printing state of all packages to /tmp/pac.log ...     "
-	"$aur_helper" -Qkk /tmp/pac.log 2>&1
-	nvim /tmp/pac.log
+	# msg "${CYAN}${BOLD}" "[RIMP]==> Printing state of all packages to /tmp/pac.log ...     "
+	# "$aur_helper" -Qkk /tmp/pac.log 2>&1
+	# nvim /tmp/pac.log
 
 	msg "${CYAN}${BOLD}" "[RIMP]==> Checking for .pacnew files...     "
 	if [[ $(/usr/bin/pacdiff -o) ]]; then
@@ -624,6 +624,8 @@ msg "${CYAN}${BOLD}" "========== Welcome! To the Arch Maintnance Script! ðŸ’ªðŸ˜
 backup
 
 pac_update_install
+
+pac_maintenance
 
 print_errors
 
