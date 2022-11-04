@@ -194,7 +194,6 @@ playerctl
 polybar
 poppler
 prettier
-pulseaudio-alsa
 pyright
 python-cpplint
 python-pip
