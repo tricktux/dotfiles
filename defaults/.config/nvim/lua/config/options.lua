@@ -22,7 +22,7 @@ function M:setup()
 	vim.opt.laststatus = 3
   vim.opt.cmdheight = 1
   vim.opt.spell = true
-  vim.opt.spelllang = {"en_us", "es"}
+  vim.opt.spelllang = "en_us"
   vim.opt.formatoptions:append('jw')
   vim.opt.inccommand = "split"
   vim.opt.wrapscan = false
