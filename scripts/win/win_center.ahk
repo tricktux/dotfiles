@@ -31,12 +31,13 @@ CapsLock::LCtrl
 ^!k::Send, {Volume_Up}
 ^!h::Send, {Media_Play_Pause}
 
+; Use Window Spy from AutoHotkey to get accurate window names
 #n::ToggleWinMinimize("Double Commander")
 #p::ToggleWinMinimize("Outlook")
 ; Neovide
 ; #o::ToggleWinClass("SDL_app")
 ; nvim-qt
-#o::ToggleWinClass("ConsoleWindowClass")
+#o::ToggleWinClass("Qt5152QWindowIcon")
 ; #p::ToggleWinClass("SUMATRA_PDF_FRAME")
 
 ToggleWinClass(TheWindowClass)
