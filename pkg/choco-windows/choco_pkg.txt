@@ -1,15 +1,15 @@
-Chocolatey v1.1.0
+Chocolatey v1.2.0
 7zip 22.1
 7zip.install 22.1
 AdoptOpenJDKjre 16.0.1.901
 anki 2.1.54
-autohotkey 1.1.34.04
-autohotkey.install 1.1.34.04
-chocolatey 1.1.0
+autohotkey 1.1.35.00
+autohotkey.install 1.1.35.00
+chocolatey 1.2.0
 chocolatey-compatibility.extension 1.0.0
 chocolatey-core.extension 1.4.0
 chocolatey-dotnetfx.extension 1.0.1
-chocolatey-windowsupdate.extension 1.0.4
+chocolatey-windowsupdate.extension 1.0.5
 cmake 3.24.2
 cmake.install 3.24.2
 cppcheck 2.9
@@ -17,9 +17,9 @@ DotNet4.5.2 4.5.2.20140902
 dotnet4.7.2 4.7.2.20210903
 doublecmd 1.0.8
 fd 8.4.0
-git 2.37.3
-git.install 2.37.3
-gpg4win 4.0.3
+git 2.38.1
+git.install 2.38.1
+gpg4win 4.0.4
 graphviz 6.0.2
 ImDisk-Toolkit 22.08.26
 jq 1.6
@@ -29,26 +29,26 @@ KB2999226 1.0.20181019
 KB3033929 1.0.5
 KB3035131 1.0.3
 lazygit 0.35
-llvm 15.0.2
+llvm 15.0.3
 meld 3.22.0
 meson 0.55.0
 neovim 0.8.0
 netfx-4.7.2 4.7.2.0
 nodejs-lts 16.18.0
 nuget.commandline 6.3.1
-omnisharp 1.39.1
+omnisharp 1.39.2
 pandoc 2.19.2
-pass-winmenu 1.13
-plantuml 1.2022.8
-python3 3.10.8
+pass-winmenu 1.13.1.20221018
+plantuml 1.2022.12
+python3 3.11.0
 ripgrep 13.0.0.20220913
 rufus 3.20
-rust-analyzer 2022.10.10
+rust-analyzer 2022.10.31
 rustup.install 1.25.1
 sumatrapdf 3.4.6
 sumatrapdf.install 3.4.6.20220629
 Temurinjre 19.0.0.3600
-vale 2.20.2
+vale 2.21.0
 vcredist140 14.32.31332
 vcredist2015 14.0.24215.20170201
 vcxsrv 1.20.14.0
@@ -57,7 +57,3 @@ vscode.install 1.72.2
 zeal 0.6.1
 zeal.install 0.6.1
 57 packages installed.
-
-Did you know Pro / Business automatically syncs with Programs and
- Features? Learn more about Package Synchronizer at
- https://chocolatey.org/compare
