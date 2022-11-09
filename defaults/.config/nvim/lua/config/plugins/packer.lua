@@ -625,8 +625,8 @@ M.__plugins.common = {
 		end,
 	},
 	{ "antoinemadec/FixCursorHold.nvim", after = "neotest" },
-	{ "nvim-neotest/neotest-python", after = "neotest" },
-	{ "nvim-neotest/neotest-plenary", after = "neotest" },
+	{ "nvim-neotest/neotest-python", after = "neotest", module = "neotest-python" },
+	{ "nvim-neotest/neotest-plenary", after = "neotest", module = "neotest-plenary" },
 	------
 	{
 		"catppuccin/nvim",
