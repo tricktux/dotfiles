@@ -533,29 +533,36 @@ local function windows_os_mappings()
 	M.builtin_terminal.mappings["<A-w>"] = { "<C-Right>" }
 	M.builtin_terminal.mappings["<C-f>"] = { "<Right>" }
 	M.builtin_terminal.mappings["<C-b>"] = { "<Left>" }
-	M.builtin_terminal.mappings["<C-p>"] = { "<Up>" }
-	M.terminal.mappings["<leader>TV"] = {
-		function()
-			local cmd = [[cmd.exe /k "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VC\\vcvarsall.bat"]]
-			utl.term.exec(cmd)
-		end,
-		"terminal_open_visual_studio",
-	}
-	local ms = [[https://docs.microsoft.com/en-us/search/?terms=]]
-	M.help.mappings["wm"] = {
-		function()
-			vim.ui.input({ prompt = "Enter search word for browser: " }, function(input)
-				utl.browser.search(ms .. input)
-			end)
-		end,
-		"help_input_microsoft",
-	}
-	M.help.mappings["cm"] = {
-		function()
-			utl.browser.search(ms .. fn.expand("<cword>"))
-		end,
-		"help_cword_microsoft",
-	}
+  M.builtin_terminal.mappings["<C-p>"] = { "<Up>" }
+  M.terminal.mappings["<leader>Tg"] = {
+    function()
+      local cmd = [[cmd.exe /k "C:\Program Files\\Git\\bin\\bash.exe"]]
+      utl.term.exec(cmd)
+    end,
+    "terminal_open_git_bash",
+  }
+  M.terminal.mappings["<leader>TV"] = {
+    function()
+      local cmd = [[cmd.exe /k "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VC\\vcvarsall.bat"]]
+      utl.term.exec(cmd)
+    end,
+    "terminal_open_visual_studio",
+  }
+  local ms = [[https://docs.microsoft.com/en-us/search/?terms=]]
+  M.help.mappings["wm"] = {
+    function()
+      vim.ui.input({ prompt = "Enter search word for browser: " }, function(input)
+        utl.browser.search(ms .. input)
+      end)
+    end,
+    "help_input_microsoft",
+  }
+  M.help.mappings["cm"] = {
+    function()
+      utl.browser.search(ms .. fn.expand("<cword>"))
+    end,
+    "help_cword_microsoft",
+  }
 end
 
 local function unix_os_mappings()
