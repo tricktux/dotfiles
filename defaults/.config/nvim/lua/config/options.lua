@@ -47,6 +47,14 @@ function M:setup()
   -- s - Do not show search hit bottom
   -- t - Truncate message if is too long
   vim.opt.shortmess = "aoOcst"
+  if vim.fn.has("unix") <= 0 then
+    vim.opt.shell = "powershell"
+    vim.opt.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
+    vim.opt.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
+    vim.opt.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+    vim.opt.shellquote = "" 
+    vim.opt.shellxquote = ""
+  end
 end
 
 return M
