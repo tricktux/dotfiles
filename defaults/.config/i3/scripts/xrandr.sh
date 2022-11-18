@@ -182,6 +182,69 @@ if [[ "$hostname" = "helios" ]]; then
   exit 2
 fi
 
+if [[ "$hostname" = "xps" ]]; then
+  echo "found xps"
+  if [[ "$1" = "main" ]]; then
+    echo "setting up main configuration"
+
+    xrandr \
+        --dpi 200 \
+        --output eDP-1-1 --mode 3456x2160 --rate 60 --pos 0x0 --primary \
+        --output DP-1-1 --off \
+        --output HDMI-1-1 --off \
+        --output DP-1-2 --off \
+        --output DP-1-3 --off \
+        --output DP-1-4 --off
+
+    echo "Xft.dpi: 200" | xrdb -merge
+    # Restart polybar
+    "$HOME/.config/polybar/scripts/launch.sh"
+    i3-msg restart
+
+    notify-send "xrandr" \
+      "Configuration '$1' set!" \
+      -a 'arandr'
+    exit 0
+  fi
+
+  if [[ "$1" = "home_dock" ]]; then
+    echo "setting up home_dock configuration"
+
+    "$HOME"/.screenlayout/home-dock.sh
+
+    echo "Xft.dpi: 156" | xrdb -merge
+    # Restart polybar
+    "$HOME/.config/polybar/scripts/launch.sh"
+    i3-msg restart
+
+    notify-send "xrandr" \
+      "Configuration '$1' set!" \
+      -a 'arandr'
+    exit 0
+  fi
+
+  if [[ "$1" = "work_dock" ]]; then
+    echo "setting up home_dock configuration"
+
+    "$HOME"/.screenlayout/work-dock.sh
+
+    echo "Xft.dpi: 156" | xrdb -merge
+
+    # Restart polybar
+    "$HOME/.config/polybar/scripts/launch.sh"
+    i3-msg restart
+
+    notify-send "xrandr" \
+      "Configuration '$1' set!" \
+      -a 'arandr'
+    exit 0
+  fi
+  notify-send "xrandr" \
+    "Configuration '$1' not valid" \
+    -u critical -a 'Arandr'
+  exit 2
+fi
+
 notify-send "xrandr" \
   "Hostname '$hostname' not valid" \
   -u critical -a 'Arandr'
