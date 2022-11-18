@@ -211,8 +211,9 @@ if [[ "$hostname" = "xps" ]]; then
     echo "setting up home_dock configuration"
 
     "$HOME"/.screenlayout/home-dock.sh
-
+    xrandr --dpi 156
     echo "Xft.dpi: 156" | xrdb -merge
+
     # Restart polybar
     "$HOME/.config/polybar/scripts/launch.sh"
     i3-msg restart
@@ -227,7 +228,7 @@ if [[ "$hostname" = "xps" ]]; then
     echo "setting up home_dock configuration"
 
     "$HOME"/.screenlayout/work-dock.sh
-
+    xrandr --dpi 156
     echo "Xft.dpi: 156" | xrdb -merge
 
     # Restart polybar
