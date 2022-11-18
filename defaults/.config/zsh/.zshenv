@@ -147,4 +147,7 @@ export QT_QPA_PLATFORMTHEME=gtk2
 export LESSHISTFILE="$HOME"/.local/share/lesshst
 export LESSHISTSIZE=1000
 
+# CMAKE always export compile json
+export CMAKE_EXPORT_COMPILE_COMMANDS=ON
+
 # vim: fdm=marker
