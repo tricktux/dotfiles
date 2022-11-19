@@ -82,13 +82,14 @@ function report:edit_weekly_report()
 end
 
 local wikis = {
-	home .. "/Documents/wiki",
-	home .. "/Documents/Drive/wiki",
-	home .. "/External/reinaldo/resilio/wiki",
-	"/mnt/samba/server/resilio/wiki",
-	[[D:\Seafile\KnowledgeIsPower\wiki]],
-	[[D:\wiki]],
-	[[D:\Reinaldo\Documents\src\resilio\wiki]],
+  home .. "/Documents/work/wiki",
+  home .. "/Documents/wiki",
+  home .. "/Documents/Drive/wiki",
+  home .. "/External/reinaldo/resilio/wiki",
+  "/mnt/samba/server/resilio/wiki",
+  [[D:\Seafile\KnowledgeIsPower\wiki]],
+  [[D:\wiki]],
+  [[D:\Reinaldo\Documents\src\resilio\wiki]],
 }
 
 function M:_find_wiki()
