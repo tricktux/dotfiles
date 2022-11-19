@@ -3,14 +3,17 @@
 ; Github settings. In order to keep your email address private
 email = 5428479+tricktux@users.noreply.github.com
 name = Reinaldo Molina
+
 [alias]
 st = status
 co = checkout
 br = branch
 up = rebase
 ci = commit
+
 [core]
 editor = nvim
+autocrlf = input
 
 ; silence some strange warning
 [push]
@@ -18,24 +21,28 @@ default = simple
 
 [diff]
 tool = neovim
+
 [difftool "neovim"]
 cmd = nvim -d $LOCAL $REMOTE
 prompt = false
+
 [merge]
 tool = neovim
 keepBackup = false
 ; conflictstyle = diff3
+;
 [mergetool "neovim"]
 cmd = nvim -c DiffConflicts "$MERGED" "$BASE" "$LOCAL" "$REMOTE"
 trustExitCode = true
 
 [color]
-  ui = true
-  branch = true
-  diff = true
-  interactive = true
-  status = true
-  log = true
+ui = true
+branch = true
+diff = true
+interactive = true
+status = true
+log = true
+
 [filter "ignoreline"]
 clean = cat
 smudge = "sed '/#ignoreline$/'d"

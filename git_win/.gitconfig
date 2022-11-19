@@ -10,6 +10,7 @@
 [core]
 	editor = nvim
 	excludesfile = $USERPROFILE/.gitignore_global
+    autocrlf = true
 
 [credential]
 	helper = wincred
