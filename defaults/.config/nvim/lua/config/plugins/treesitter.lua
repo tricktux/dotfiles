@@ -111,7 +111,6 @@ M.__config = {
 }
 
 function M:setup()
-  require('nvim-treesitter.install').compilers = { "clang" }
   local tsconf = require 'nvim-treesitter.configs'
   tsconf.setup(self.__config)
   vim.api.nvim_create_autocmd('Filetype', {
