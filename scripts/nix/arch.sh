@@ -448,10 +448,11 @@ backup() {
 		srcs=(
 			"$HOME/.gnupg" "$HOME/.ssh" "$HOME/.password-store" "/tmp/pacman_database.tar.bz2"
             "$HOME/.local/share/histfile" "$HOME/.local/share/z" "$HOME/.config/doublecmd"
+            "$HOME/.password-store_work"
 		)
         src=""
         for str in "${srcs[@]}"; do
-        src+="$str "
+            [ -d "$str" ] || [ -f "$str" ] && src+="$str "
         done
 		# Create database backup
 		"$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot.sh" \
