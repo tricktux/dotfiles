@@ -413,7 +413,8 @@ pac_maintenance() {
 
 	if [[ -f /usr/bin/fwupdmgr ]]; then
 		msg "${CYAN}${BOLD}" "[RIMP]==> Update firmware?...     "
-		sudo /usr/bin/fwupdmgr update || echo "...  Or not..."
+		sudo /usr/bin/fwupdmgr get-updates || echo "...  Or not..."
+        sudo /usr/bin/fwupdmgr update || echo "...  Or not..."
 	else
 		msg_not "${CYAN}${BOLD}" "[RIMP]==> Consider installing fwupdmgr?...     "
 	fi
