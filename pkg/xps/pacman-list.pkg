@@ -84,6 +84,7 @@ jdk8-openjdk
 jq
 jre8-openjdk
 keepassxc
+khal
 kitty
 lazygit
 lib32-mesa
@@ -125,7 +126,10 @@ network-manager-applet
 networkmanager
 networkmanager-openvpn
 nfs-utils
+noto-fonts
+noto-fonts-cjk
 noto-fonts-emoji
+noto-fonts-extra
 npm
 ntfs-3g
 ntp
@@ -205,6 +209,7 @@ ttf-inconsolata
 udisks2
 unzip
 urlscan
+vdirsyncer
 virtualbox
 virtualbox-host-dkms
 vulkan-intel
