@@ -653,15 +653,20 @@ M.__plugins.common = {
 				"!*", -- Dont highlight any files
 			})
 		end,
-	},
-	{
-		"monaqa/dial.nvim",
-		event = "CursorHold",
-		config = function()
-			require("config.plugins.misc").dial_nvim.config()
-		end,
-	},
-	{ "lewis6991/impatient.nvim" },
+  },
+  {
+    "editorconfig/editorconfig-vim",
+    event = "CursorHold",
+    setup = function() end,
+  },
+  {
+    "monaqa/dial.nvim",
+    event = "CursorHold",
+    config = function()
+      require("config.plugins.misc").dial_nvim.config()
+    end,
+  },
+  { "lewis6991/impatient.nvim" },
 
 }
 M.__plugins.deps = {}
