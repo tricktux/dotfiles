@@ -281,6 +281,10 @@ function M:setup()
       })
     )
   end
+  if vim.fn.executable("cmake-lint") > 0 then
+    log.info("NullLs setting up cmake-lint...")
+    table.insert(sources, null.builtins.diagnostics.cmake_lint)
+  end
   if vim.fn.executable("cmake-format") > 0 then
     log.info("NullLs setting up cmake-format...")
     table.insert(sources, null.builtins.formatting.cmake_format)

@@ -262,6 +262,11 @@ function M:config()
 		})
 	end
 
+	if vim.fn.executable("cmake-language-server") > 0 then
+		log.info("setting up the cmake-language-server lsp...")
+    nvim_lsp.cmake.setup{}
+	end
+
 	if vim.fn.executable("clangd") > 0 then
 		log.info("setting up the clangd lsp...")
 		local cores = utl.has_win and os.getenv("NUMBER_OF_PROCESSORS") or table.concat(vim.fn.systemlist("nproc"))
