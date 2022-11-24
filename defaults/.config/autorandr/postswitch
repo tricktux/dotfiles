@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+notify-send -i display "Display profile" "$AUTORANDR_CURRENT_PROFILE"
+
+# Restart i3/polybar
+i3-msg restart
+sleep 0.1
+"$HOME/.config/polybar/scripts/launch.sh"
+
+# vim:ft=sh
