@@ -124,7 +124,6 @@ fi
 if [[ -f /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.zsh ]]; then
   function zvm_config() {
     ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
-    ZVM_VI_INSERT_ESCAPE_BINDKEY=\;j
     # Needed for fzf to work
     ZVM_INIT_MODE=sourcing
   }
@@ -274,5 +273,7 @@ typeset -g POWERLEVEL9K_STATUS_ERROR=true
 typeset -g POWERLEVEL9K_STATUS_OK=true
 typeset -g POWERLEVEL9K_VCS_BRANCH_ICON='\uF126 '
 # }}}
+
+eval "$(direnv hook zsh)"
 
 # vim: fdm=marker:ft=bash
