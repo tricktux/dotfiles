@@ -14,8 +14,6 @@ cscope.out
 cscope.in.out
 cscope.po.out
 commit_msg.wiki
-.clang-format
-.clang
 *.out
 *.o
 *.elf
