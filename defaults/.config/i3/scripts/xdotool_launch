@@ -77,7 +77,7 @@ apps["terminal"] = {
   --  Used by i3ipc
   regex = '[title=\\"^terminal$\\" class=\\"^kitty$\\"]',
   -- Command to execute for this window
-  i3cmd = "scratchpad show, resize set 80ppt 60ppt, move position center",
+  i3cmd = "scratchpad show, resize set 100ppt 40ppt, move position 0px 2ppt",
   -- How to start this application if it does not exists
   exec = [[$TERMINAL --title terminal -o background_opacity=0.75&]],
 }
