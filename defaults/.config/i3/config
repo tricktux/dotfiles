@@ -72,8 +72,7 @@ bindsym $mod+o exec --no-startup-id \
   $HOME/.config/i3/scripts/xdotool_launch journal
 bindsym $mod+n exec --no-startup-id \
   $HOME/.config/i3/scripts/xdotool_launch doublecmd
-bindsym $mod+semicolon exec --no-startup-id \
-  $HOME/.config/i3/scripts/xdotool_launch terminal
+bindsym $mod+semicolon exec --no-startup-id tdrop -ma -w -20 -x 10 -h 40% -y 50 kitty
 # bindsym $mod+p exec --no-startup-id \
 #   $HOME/.config/i3/scripts/xdotool_launch neomutt
 # bindsym $mod+apostrophe exec --no-startup-id \

@@ -197,9 +197,9 @@ if [[ "$hostname" = "xps" ]]; then
         --output DP-1-4 --off
 
     echo "Xft.dpi: 232" | xrdb -merge
-    # Restart polybar
-    "$HOME/.config/polybar/scripts/launch.sh"
+    # Restart i3/polybar
     i3-msg restart
+    "$HOME/.config/polybar/scripts/launch.sh"
 
     notify-send "xrandr" \
       "Configuration '$1' set!" \
@@ -214,9 +214,9 @@ if [[ "$hostname" = "xps" ]]; then
     xrandr --dpi 156
     echo "Xft.dpi: 156" | xrdb -merge
 
-    # Restart polybar
-    "$HOME/.config/polybar/scripts/launch.sh"
+    # Restart i3/polybar
     i3-msg restart
+    "$HOME/.config/polybar/scripts/launch.sh"
 
     notify-send "xrandr" \
       "Configuration '$1' set!" \
@@ -231,9 +231,9 @@ if [[ "$hostname" = "xps" ]]; then
     xrandr --dpi 156
     echo "Xft.dpi: 156" | xrdb -merge
 
-    # Restart polybar
-    "$HOME/.config/polybar/scripts/launch.sh"
+    # Restart i3/polybar
     i3-msg restart
+    "$HOME/.config/polybar/scripts/launch.sh"
 
     notify-send "xrandr" \
       "Configuration '$1' set!" \
