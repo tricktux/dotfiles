@@ -421,6 +421,8 @@ client.background       $background
   for_window [class="gsimplecal"] floating enable
   for_window [window_role="pop-up"] floating enable
   for_window [window_role="task_dialog"] floating enable
+  # Double Commander file operations window
+  for_window [window_role="TfrmFileOp"] floating enable
 # by ROLE (WM_WINDOW_ROLE)
 # Note: window_role is Typically useful for effecting child windows
 #       such as instant messaging converstations, email composition
