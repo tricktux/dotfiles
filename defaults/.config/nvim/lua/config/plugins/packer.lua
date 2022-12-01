@@ -758,7 +758,7 @@ M.__plugins.deps.has = {
 		{ "lambdalisue/suda.vim", cmd = { "SudaWrite", "SudaRead" } },
 		{ "chr4/nginx.vim", ft = "nginx" },
 		{ "neomutt/neomutt.vim", ft = "muttrc" },
-		{ "fladson/vim-kitty" },
+		{ "fladson/vim-kitty", ft = 'kitty'},
 	},
 }
 
