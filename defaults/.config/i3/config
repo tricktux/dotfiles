@@ -69,10 +69,12 @@ bindsym mod3+l exec --no-startup-id \
 # bindsym $mod+n exec --no-startup-id \
   # $HOME/.config/i3/scripts/xdotool_launch scratch
 bindsym $mod+o exec --no-startup-id \
-  $HOME/.config/i3/scripts/xdotool_launch journal
+  tdrop -ma -x 20% -y 10% -w 60% -h 80% --class=journal \
+  $TERMINAL --class journal $HOME/.config/i3/scripts/journal.sh
 bindsym $mod+n exec --no-startup-id \
   $HOME/.config/i3/scripts/xdotool_launch doublecmd
 bindsym $mod+semicolon exec --no-startup-id tdrop -ma -w -20 -x 10 -h 40% -y 50 kitty
+bindsym $mod+i exec --no-startup-id tdrop -ma -x 20% -y 10% -w 60% -h 80% firefox
 # bindsym $mod+p exec --no-startup-id \
 #   $HOME/.config/i3/scripts/xdotool_launch neomutt
 # bindsym $mod+apostrophe exec --no-startup-id \
@@ -99,7 +101,8 @@ bindsym control+mod1+m exec --no-startup-id pamixer --toggle-mute
 # bindsym control+mod1+a exec --no-startup-id rofi-pass
 bindsym control+mod1+p exec --no-startup-id rofi-pass
 
-bindsym $mod+m scratchpad show
+# bindsym $mod+m exec --no-startup-id i3-msg scratchpad show && tdrop hide_all
+bindsym $mod+m exec --no-startup-id tdrop hide_all; [title="^Double Commander \d\.\d\.\d.*" class="^Double Commander$"] move to scratchpad
 
 # Comes from arch-wiki for i3. Many other goodies there
 bindsym $mod+x [urgent=latest] focus
@@ -391,14 +394,14 @@ client.background       $background
 
 # Scratchpad
   # for_window [title=".*(WhatsApp|Messages for web).*" class="^firefox$"] mark "msgs", move to scratchpad
-  for_window [title="^ranger$" class="^kitty$"] move to scratchpad
+  # for_window [title="^ranger$" class="^kitty$"] move to scratchpad
   # for_window [title="^tickrs$" class="^kitty$"] move to scratchpad
   # for_window [title="^neomutt$" class="^kitty$"] move to scratchpad
   # for_window [title="^glances$"] move to scratchpad
   # for_window [title="^cmus$"] move to scratchpad
   # for_window [title="^ranger$"] move to scratchpad
-  for_window [title="^journal$" class="^kitty$"] move to scratchpad
-  for_window [title="^terminal$" class="^kitty$"] move to scratchpad
+  # for_window [title="^journal$" class="^kitty$"] move to scratchpad
+  # for_window [title="^terminal$" class="^kitty$"] move to scratchpad
   # for_window [title="^htop$"] move to scratchpad
   # for_window [title="^bottom$" class="^kitty$"] move to scratchpad
   # for_window [title="^scratch$" class="^kitty$"] move to scratchpad
