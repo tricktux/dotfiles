@@ -711,7 +711,7 @@ M.__plugins.deps.has = {
 			end,
 			run = "cd app && npm install",
 		},
-		{ "PotatoesMaster/i3-vim-syntax" },
+		{ "mboughaba/i3config.vim", ft = "i3config"},
 		{
 			"knubie/vim-kitty-navigator",
 			after = "focus.nvim",
