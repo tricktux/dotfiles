@@ -757,19 +757,6 @@ M.__plugins.deps.has = {
 		},
 		{ "lambdalisue/suda.vim", cmd = { "SudaWrite", "SudaRead" } },
 		{ "chr4/nginx.vim", ft = "nginx" },
-		{
-			"rcarriga/nvim-dap",
-			requires = {
-				{ "mfussenegger/nvim-dap-ui" },
-				{ "mfussenegger/nvim-dap-python" },
-				{ "theHamsta/nvim-dap-virtual-text" },
-			},
-			-- Comment next line if you don't want to follow only stable versions
-			tag = "*",
-			config = function()
-				require("config.plugins.dap"):setup()
-			end,
-		},
 		{ "neomutt/neomutt.vim", ft = "muttrc" },
 		{ "fladson/vim-kitty" },
 	},
