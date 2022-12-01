@@ -713,18 +713,6 @@ M.__plugins.deps.has = {
 		},
 		{ "PotatoesMaster/i3-vim-syntax" },
 		{
-			"ThePrimeagen/git-worktree.nvim",
-			after = "telescope.nvim",
-			keys = {
-				{ "n", "<leader>vwa", "git_worktree_create" },
-				{ "n", "<leader>vwd", "git_worktree_delete" },
-				{ "n", "<leader>vws", "git_worktree_switch" },
-			},
-			config = function()
-				require("config.plugins.git_worktree").setup()
-			end,
-		},
-		{
 			"knubie/vim-kitty-navigator",
 			after = "focus.nvim",
 			run = "cp ./*.py ~/.config/kitty/",
