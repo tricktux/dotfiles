@@ -562,7 +562,7 @@ paci --needed --noconfirm jsoncpp polybar alsa-utils paprefs
 paci --needed --noconfirm alsa-lib wireless_tools curl pacman-contrib
 paci --needed --noconfirm ttf-weather-icons jq
 paci --needed --noconfirm nerd-fonts-iosevka
-paci --needed --noconfirm python-pywal
+paci --needed --noconfirm python-pywal galendae-git
 wal --theme base16-google -l -q -o "$HOME/.config/polybar/launch.sh"
 # usb automount
 # There's a polybar module that will be used to mount/umount devices
