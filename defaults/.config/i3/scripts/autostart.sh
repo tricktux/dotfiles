@@ -30,8 +30,6 @@ fi
 # See :Man picom
 if [[ -f /usr/bin/picom ]]; then
   /usr/bin/picom --daemon
-else
-  printf "\n==X Please install picom\n"
 fi
 
 if [[ -f /usr/bin/playerctld ]]; then
@@ -87,9 +85,17 @@ else
   printf "\n==X Please install uair\n"
 fi
 
+if [[ -f /usr/bin/easyeffects ]]; then
+  easyeffects --gapplication-service&
+else
+  printf "\n==X Please install easyeffects\n"
+fi
+
 poly="$HOME"/.config/polybar/scripts/launch.sh
 if [[ -f $poly ]]; then
   source "$poly"
 else
   printf "\n==X Please install '%s'\n" "$poly"
 fi
+
+notify-send 'Work' "Remember to clock in!!" -u critical

@@ -902,9 +902,26 @@ paci --needed --noconfirm pipewire pipewire-{pulse,jack,alsa}
 # paci --needed --noconfirm pulseaudio pulseaudio-{bluetooth,jack,alsa,equalizer}
 
 #Blue
-paci --needed --noconfirm  bluez bluez-libs bluez-utils bluez-firmware
-paci --needed --noconfirm  blueman
+paci --needed --noconfirm bluez bluez-libs bluez-utils bluez-firmware
+paci --needed --noconfirm blueman
 sudo systemctl enable --now bluetooth
+
+# Easyeffects or nice headphones sound
+paru -Syu easyeffects lsp-plugins
+# Download effects from: 
+#   https://github.com/jaakkopasanen/AutoEq/tree/master/results
+#   - Search for your headphones
+#   - Download the parametrics.txt file
+# Apply it to Easyeffects
+#   - Click on the Effects button at the bottom
+#   - Add an equalizer
+#   - Click on Import Preset / Load AOP file
+#   - Search for the txt file downloaded
+# Start the application in the background:
+#   - easyeffects --gapplication-service
+# Ensure it's working:
+#   - Open pavucontrol
+#   - The sink for audio should be Easyeffects Sink
 #}}}
 
 # journal
