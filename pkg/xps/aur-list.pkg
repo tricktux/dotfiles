@@ -7,7 +7,10 @@ bluez-firmware
 brillo
 cava
 cht.sh-git
-cmake-format
+circleci-cli-bin
+cmake-language-server
+cmake-lint
+galendae-git
 gdb-dashboard-git
 google-chrome
 hal
@@ -22,6 +25,7 @@ mimeo
 navi-bin
 nerd-fonts-inconsolata
 networkmanager-dmenu-git
+noisetorch-bin
 numix-gtk-theme
 otf-fira-code-onum-patch
 otf-font-awesome-5
@@ -40,6 +44,7 @@ rofi-dmenu
 rofi-file-browser-extended-git
 shellcheck-bin
 spotify
+tdrop
 termite
 ttf-font-awesome-5
 ttf-weather-icons
