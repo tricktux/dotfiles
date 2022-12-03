@@ -274,6 +274,8 @@ typeset -g POWERLEVEL9K_STATUS_OK=true
 typeset -g POWERLEVEL9K_VCS_BRANCH_ICON='\uF126 '
 # }}}
 
-eval "$(direnv hook zsh)"
+[[ -f /usr/bin/direnv ]] && eval "$(direnv hook zsh)"
+
+[[ -f /usr/bin/atuin ]] && eval "$(atuin init zsh)"
 
 # vim: fdm=marker:ft=bash
