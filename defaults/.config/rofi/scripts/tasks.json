@@ -16,7 +16,7 @@
     "command": "sudo systemctl stop wg-quick@wg0 systemd-resolved"
   },
   {
-    "name": "☀️ flux dforce day",
+    "name": "☀️ flux force day",
     "command": "exec $HOME/.config/polybar/scripts/flux_/flux -v -c $HOME/.config/polybar/scripts/flux_/flux_config.lua -f day>>/tmp/flux.log 2>&1"
   },
   {
