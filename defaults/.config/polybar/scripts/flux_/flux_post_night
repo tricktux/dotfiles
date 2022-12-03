@@ -14,6 +14,7 @@ fi
 if [[ -f /usr/bin/xfconf-query ]]; then
   xfconf-query -c xsettings -p /Net/ThemeName -s "Adapta-Nokto"
   xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus-Dark"
+  xfconf-query -c xsettings -p /Gtk/CursorThemeName -s "Bibata-Modern-DarkRed"
 fi
 
 # https://github.com/ankitects/anki/pull/1905/files
