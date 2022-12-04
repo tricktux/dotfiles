@@ -338,7 +338,7 @@ paci --needed --noconfirm radeontop
 
 # terminal utils{{{
 paci --needed --noconfirm acpi lm_sensors liquidprompt tldr
-paci --needed --noconfirm {ttf,otf}-fira-{code,mono} {ttf,otf}-font-awesome \
+paci --needed --noconfirm {ttf,otf}-fira-{code,mono} {ttf,otf}-font-awesome-5 \
   nerd-fonts-inconsolata {ttf,otf}-cascadia-code
 paci --needed --noconfirm ttf-inconsolata
 paci --needed --noconfirm xorg-xfontsel gtk2fontsel
