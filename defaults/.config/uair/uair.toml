@@ -4,7 +4,7 @@ autostart = false
 
 [[sessions]]
 name = "Work"
-duration = "25m"
+duration = "45m"
 format = "\U0001F345{time} \n"
 command = "notify-send 'Pomodoro' 'Work Done!'"
 
@@ -16,7 +16,7 @@ command = "notify-send 'Pomodoro' 'Rest Done!'"
 
 [[sessions]]
 name = "Work"
-duration = "25m"
+duration = "45m"
 format = "\U0001F345{time} \n"
 command = "notify-send 'Pomodoro' 'Work Done!'"
 
@@ -28,7 +28,7 @@ command = "notify-send 'Pomodoro' 'Rest Done!'"
 
 [[sessions]]
 name = "Work"
-duration = "25m"
+duration = "45m"
 format = "\U0001F345{time} \n"
 command = "notify-send 'Pomodoro' 'Work Done!'"
 
@@ -40,7 +40,7 @@ command = "notify-send 'Pomodoro' 'Rest Done!'"
 
 [[sessions]]
 name = "Work"
-duration = "25m"
+duration = "45m"
 format = "\U0001F345{time} \n"
 command = "notify-send 'Pomodoro' 'Work Done!'"
 
@@ -52,7 +52,7 @@ command = "notify-send 'Pomodoro' 'Rest Done!'"
 
 [[sessions]]
 name = "Work"
-duration = "25m"
+duration = "45m"
 format = "\U0001F345{time} \n"
 command = "notify-send 'Pomodoro' 'Work Done!'"
 
@@ -64,7 +64,7 @@ command = "notify-send 'Pomodoro' 'Rest Done!'"
 
 [[sessions]]
 name = "Work"
-duration = "25m"
+duration = "45m"
 format = "\U0001F345{time} \n"
 command = "notify-send 'Pomodoro' 'Work Done!'"
 
@@ -76,7 +76,7 @@ command = "notify-send 'Pomodoro' 'Rest Done!'"
 
 [[sessions]]
 name = "Work"
-duration = "25m"
+duration = "45m"
 format = "\U0001F345{time} \n"
 command = "notify-send 'Pomodoro' 'Work Done!'"
 
