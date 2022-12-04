@@ -238,6 +238,9 @@ sudo systemctl enable --now reflector.timer
 sudo systemctl start reflector.timer
 sudo systemctl status reflector.timer
 sudo systemctl start reflector.service
+# If service fails, ensure that root owns the file
+sudo chown root:root /etc/pacman.d/mirrorlist
+sudo chmod 644 /etc/pacman.d/mirrorlist
 sudo systemctl status reflector.service
 sudo reflector --country "United States" --latest 30 --number 5 \
   --sort rate --protocol https --save /etc/pacman.d/mirrorlist
