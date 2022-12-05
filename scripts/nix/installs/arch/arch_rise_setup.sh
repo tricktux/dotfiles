@@ -689,7 +689,7 @@ paci --needed --noconfirm jdtls astyle
 #}}}
 
 ## python{{{
-paci --needed --noconfirm python{,-pip} python2{,-pip}
+paci --needed --noconfirm python{,-pip}
 
 # Current python lsp is coded in npm now
 paci --needed --noconfirm pyright
@@ -882,6 +882,7 @@ paci --needed --noconfirm libreoffice-still hunspell hunspell-en_us
 
 paci --needed --noconfirm zathura zathura-pdf-mupdf texlive-most pdfgrep qpdfview
 # PDF annotations use:
+# Don't install depends on python2
 paci --needed --noconfirm xournal
 # PDF searching: `install pdfgrep`
 # PDF Merging:
