@@ -563,7 +563,8 @@ end
 
 local function unix_os_mappings()
   vks({ "x", "n" }, "<a-v>", [=["+p=`]zz]=])
-  vks({ "v", "n" }, "<leader>y", [=["+y]=])
+  vks("n", "<leader>y", [=["+yy]=])
+  vks("v", "<leader>y", [=["+y]=])
 end
 
 function M:setup()
