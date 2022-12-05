@@ -728,6 +728,7 @@ paci --needed --noconfirm powertop powerstat cpupower
 # The seeting for on AC is normally NOLM_AC_X, since laptop-mode is disabled in 
 # If no LaptopMode set your governor at /etc/default/cpupower
 # AC mode
+cpupower frequency-info
 sudo nvim /etc/laptop-mode/conf.d/cpufreq.conf
 sudo powerstat -R -s
 sudo powertop --calibrate
