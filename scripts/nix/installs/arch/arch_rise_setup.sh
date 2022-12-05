@@ -841,7 +841,7 @@ paci --needed --noconfirm neomutt abook urlscan lynx \
   isync goimapnotify
 # Needed to backup emails
 # paci --needed --noconfirm offlineimap
-mkdir -p ~/.local/share/mail/{molinamail,molinamail_meli}/inbox
+mkdir -p ~/.local/share/mail/{molinamail,molinamail_meli,molinamail_mcp}/inbox
 /usr/bin/mbsync -D -ac ~/.config/isync/mbsyncrc
 #}}}
 
