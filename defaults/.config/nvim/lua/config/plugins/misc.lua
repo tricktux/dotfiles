@@ -768,17 +768,6 @@ function M.setup_toggleterm()
 	local maps = {}
 	maps.mappings = {
 		["<plug>terminal_toggle"] = { "<cmd>ToggleTerm<cr>", "terminal_toggle_toggleterm" },
-		["<plug>terminal_send_line"] = { "<cmd>ToggleTermSendCurrentLine<cr>", "term_send_line_toggleterm" },
-		["<plug>terminal_send_line_visual"] = {
-			"<cmd>ToggleTermSendVisualLines<cr>",
-			"terminal_send_line_visual_toggleterm",
-			"x",
-		},
-		["<plug>terminal_send_visual"] = {
-			"<cmd>ToggleTermSendVisualSelection<cr>",
-			"terminal_send_visual_toggleterm",
-			"x",
-		},
 		["<plug>terminal_open_horizontal"] = {
 			"<cmd>ToggleTerm direction=horizontal<cr>",
 			"terminal_open_horizontal_toggleterm",

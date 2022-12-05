@@ -382,11 +382,7 @@ M.terminal.mappings = {
   },
   ["<plug>terminal_send_line"] = {
     function()
-      local csel = utl.get_visual_selection()
-      if csel == "" or csel == nil then
-        return
-      end
-      utl.term.exec(csel)
+      utl.term.exec(vim.fn.getline("."))
     end,
     "terminal_send_line",
     { "n", "x" },
