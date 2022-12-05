@@ -1,78 +1,10 @@
+
+# See man uair(5) for more options
+loop_on_end = true
+
 [defaults]
 format = "{time}\n"
 autostart = false
-
-[[sessions]]
-name = "Work"
-duration = "45m"
-format = "\U0001F345{time} \n"
-command = "notify-send 'Pomodoro' 'Work Done!'"
-
-[[sessions]]
-name = "Rest"
-duration = "5m"
-format = "\U0001F3D6 {time}end \n"
-command = "notify-send 'Pomodoro' 'Rest Done!'"
-
-[[sessions]]
-name = "Work"
-duration = "45m"
-format = "\U0001F345{time} \n"
-command = "notify-send 'Pomodoro' 'Work Done!'"
-
-[[sessions]]
-name = "Rest"
-duration = "5m"
-format = "\U0001F3D6 {time}end \n"
-command = "notify-send 'Pomodoro' 'Rest Done!'"
-
-[[sessions]]
-name = "Work"
-duration = "45m"
-format = "\U0001F345{time} \n"
-command = "notify-send 'Pomodoro' 'Work Done!'"
-
-[[sessions]]
-name = "Rest"
-duration = "5m"
-format = "\U0001F3D6 {time}end \n"
-command = "notify-send 'Pomodoro' 'Rest Done!'"
-
-[[sessions]]
-name = "Work"
-duration = "45m"
-format = "\U0001F345{time} \n"
-command = "notify-send 'Pomodoro' 'Work Done!'"
-
-[[sessions]]
-name = "Rest"
-duration = "5m"
-format = "\U0001F3D6 {time}end \n"
-command = "notify-send 'Pomodoro' 'Rest Done!'"
-
-[[sessions]]
-name = "Work"
-duration = "45m"
-format = "\U0001F345{time} \n"
-command = "notify-send 'Pomodoro' 'Work Done!'"
-
-[[sessions]]
-name = "Rest"
-duration = "5m"
-format = "\U0001F3D6 {time}end \n"
-command = "notify-send 'Pomodoro' 'Rest Done!'"
-
-[[sessions]]
-name = "Work"
-duration = "45m"
-format = "\U0001F345{time} \n"
-command = "notify-send 'Pomodoro' 'Work Done!'"
-
-[[sessions]]
-name = "Rest"
-duration = "5m"
-format = "\U0001F3D6 {time}end \n"
-command = "notify-send 'Pomodoro' 'Rest Done!'"
 
 [[sessions]]
 name = "Work"
