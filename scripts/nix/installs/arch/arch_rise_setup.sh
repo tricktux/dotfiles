@@ -390,9 +390,12 @@ sudo bash -c 'printf "\n//192.168.1.139/music /home/reinaldo/.mnt/skywafer/music
 sudo mount -v -t nfs 192.168.1.139:/volume1/backup /home/reinaldo/.mnt/skynfs \
   -o vers=3
 mv ~/.gnupg{,_orig}
-sudo cp -r \
-  /home/reinaldo/.mnt/skynfs/predator/latest/.{ssh,password-store,gnupg} \
-  /home/reinaldo
+cp -r \
+    /home/reinaldo/.mnt/skywafer/home/bkps/predator/latest/.{ssh,password-store,gnupg} \
+    /home/reinaldo
+cp -r \
+    /home/reinaldo/.mnt/skywafer/home/bkps/predator/latest/doublecmd \
+    /home/reinaldo/.config
 sudo chown -R reinaldo: ~/.{ssh,password-store,gnupg}
 chmod 700 ~/.ssh
 chmod 600 -R ~/.ssh/*
