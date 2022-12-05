@@ -458,9 +458,9 @@ local function misc_mappings()
 
   -- Quickfix/Location list
   opts.desc = "quickfix"
-  vks("n", "<s-q>", "<cmd>copen 20<cr>", opts)
+  vks("n", "<s-q>", "<cmd>copen 20<bar>normal! <c-w>J<cr>", opts)
   opts.desc = "quickfix"
-  vks("n", "<s-u>", "<cmd>lopen 20<cr>", opts)
+  vks("n", "<s-u>", "<cmd>lopen 20<bar>normal! <c-w>J<cr>", opts)
 
   opts.desc = "cwd_files"
   vks("n", "<plug>mru_browser", function()
