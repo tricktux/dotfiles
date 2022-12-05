@@ -652,7 +652,7 @@ git clone https://github.com/hlissner/doom-emacs ~/.config/emacs
 # }}}
 
 ## cmake{{{
-paci --needed --noconfirm cmake{,-lint,-format}
+paci --needed --noconfirm cmake{,-lint,-format,-language-server}
 # ~~`install cmake-language-server`~~
 #}}}
 
