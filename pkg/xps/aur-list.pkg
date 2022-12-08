@@ -10,9 +10,9 @@ cht.sh-git
 circleci-cli-bin
 cmake-language-server
 cmake-lint
+debtap
 galendae-git
 gdb-dashboard-git
-google-chrome
 hal
 htop-vim
 i3lock-fancy-git
@@ -23,6 +23,7 @@ lua-language-server-git
 microsoft-edge-stable-bin
 mimeo
 navi-bin
+neovim-git
 nerd-fonts-inconsolata
 networkmanager-dmenu-git
 noisetorch-bin
@@ -39,11 +40,13 @@ preload
 qpdfview
 qt5-styleplugins
 ranger-git
+remotepcviewer
 rofi-bluetooth-git
 rofi-dmenu
 rofi-file-browser-extended-git
 shellcheck-bin
 spotify
+synology-drive
 tdrop
 termite
 ttf-font-awesome-5
