@@ -56,17 +56,14 @@ function M.keymaps_set(mappings, mode, opts, prefix)
 end
 
 local function refresh_buffer()
-  api.nvim_exec(
-    [[
-  update
-  nohlsearch
-  diffupdate
-  mode
-  edit
-  normal! zzze<cr>
-  ]] ,
-    false
-  )
+  vim.cmd[[
+    update
+    nohlsearch
+    diffupdate
+    mode
+    edit
+    normal! zzze<cr>
+  ]]
 
   local ind_ok, ind = pcall(require, "indent_blankline.commands")
   if ind_ok and ind.refresh ~= nil then
