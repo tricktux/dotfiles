@@ -170,6 +170,10 @@ export KEYTIMEOUT=1
 export _Z_DATA="$HOME/.local/share/z"
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+[[ -d $HOME/.dotnet/tools ]] && export PATH="$PATH":"$HOME"/.dotnet/tools
+
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
 # }}}
 
 # Oh-My-Zsh Options{{{
