@@ -349,6 +349,10 @@ paci --needed --noconfirm xorg-xfontsel gtk2fontsel
 paci --needed --noconfirm atool ranger-git zip unzip w3m ffmpeg highlight libcaca python-pillow
 
 paci --needed --noconfirm atuin direnv
+# Either restore the local/share/atuin folder from the backups
+# or
+# Giving it the path to zhist file
+# HISTFILE=/path/to/history/file atuin import zsh
 
 # Not installing anymore: advcp 
 paci --needed --noconfirm mediainfo odt2txt poppler w3m bat exa fzf fd \
