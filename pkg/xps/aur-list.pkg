@@ -22,12 +22,13 @@ liquidprompt
 lua-language-server-git
 microsoft-edge-stable-bin
 mimeo
+mono-basic
 navi-bin
-neovim-git
 nerd-fonts-inconsolata
 networkmanager-dmenu-git
 noisetorch-bin
 numix-gtk-theme
+omnisharp-roslyn-bin
 otf-fira-code-onum-patch
 otf-font-awesome-5
 paper-gtk-theme-git
@@ -53,6 +54,7 @@ ttf-font-awesome-5
 ttf-weather-icons
 uair
 vale
+virtualbox-ext-oracle
 xdg-utils-mimeo
 xlayoutdisplay
 z-git

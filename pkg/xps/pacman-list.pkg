@@ -38,6 +38,8 @@ direnv
 docker
 docker-compose
 dosfstools
+dotnet-runtime
+dotnet-sdk
 doublecmd-qt5
 dunst
 earlyoom
@@ -80,6 +82,7 @@ hdparm
 highlight
 hunspell-en_us
 hyperfine
+i2c-tools
 i3-wm
 imagemagick
 inetutils
@@ -130,10 +133,13 @@ meld
 mesa-utils
 meson
 mkinitcpio
+mono
+mono-msbuild
 mosh
 mpv
 mpv-mpris
 neomutt
+neovim
 network-manager-applet
 networkmanager
 networkmanager-openvpn
