@@ -621,6 +621,9 @@ paci --needed virtualbox{,-host-dkms}
 sudo modprobe vboxdrv
 sudo groupadd -r vboxdrv
 sudo gpasswd -a reinaldo vboxdrv
+# For USB access
+sudo gpasswd -a reinaldo vboxusers
+paru -Syu virtualbox-ext-oracle
 # }}}
 
 # dotnet {{{
