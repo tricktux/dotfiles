@@ -619,6 +619,14 @@ sudo groupadd -r vboxdrv
 sudo gpasswd -a reinaldo vboxdrv
 # }}}
 
+# dotnet {{{
+paci --needed --noconfirm dotnet-runtime dotnet-sdk
+# Installing other versions, first try the aur, if not there do the below
+# Use the script: from https://dot.net/v1/dotnet-install.sh
+# Use the --dry-run flag if you are not sure
+sudo ./dotnet-install.sh --version "4.5xx" --install-dir "/usr/share/dotnet" --architecture "x64" --os "linux"
+# }}}
+
 # Benchmarking {{{
 paci --needed --noconfirm hyperfine
 # }}}
