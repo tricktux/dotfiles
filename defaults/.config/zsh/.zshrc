@@ -277,5 +277,8 @@ typeset -g POWERLEVEL9K_VCS_BRANCH_ICON='\uF126 '
 
 [[ -f /usr/bin/direnv ]] && eval "$(direnv hook zsh)"
 
+export ATUIN_NOBIND="true"
 [[ -f /usr/bin/atuin ]] && eval "$(atuin init zsh)"
+# Only bind <c-r>, up key is really annoying
+bindkey '^r' _atuin_search_widget
 # vim: fdm=marker:ft=bash
