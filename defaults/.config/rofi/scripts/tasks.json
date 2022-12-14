@@ -8,12 +8,20 @@
     "command": "$TERMINAL $HOME/.config/dotfiles/scripts/nix/arch.sh -c"
   },
   {
-    "name": "🔒 network-wireguard-wg0-home-start",
-    "command": "sudo systemctl start systemd-resolved wg-quick@wg0"
+    "name": "🔒 network-wireguard-home-start",
+    "command": "sudo systemctl start wg-quick@home"
   },
   {
-    "name": "🔓 network-wireguard-wg0-home-stop",
-    "command": "sudo systemctl stop wg-quick@wg0 systemd-resolved"
+    "name": "🔓 network-wireguard-home-stop",
+    "command": "sudo systemctl stop wg-quick@home"
+  },
+  {
+    "name": "🔒 network-wireguard-work-start",
+    "command": "sudo systemctl start wg-quick@work"
+  },
+  {
+    "name": "🔓 network-wireguard-work-stop",
+    "command": "sudo systemctl stop wg-quick@work"
   },
   {
     "name": "☀️ flux force day",

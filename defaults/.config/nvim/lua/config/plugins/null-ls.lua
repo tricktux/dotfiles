@@ -1,5 +1,6 @@
 local log = require("utils.log")
 local map = require("config.mappings")
+local vks = vim.keymap.set
 local null = require("null-ls")
 local helpers = require("null-ls.helpers")
 
@@ -339,6 +340,11 @@ function M:setup()
     on_attach = function()
       -- Null ls on demand
       vim.b.null_enable_vale = 0
+      -- Formatting mappings
+      local opts = {desc = "formatting"}
+      vks("n", "<localleader>f", function() vim.lsp.buf.format({ async = false }) end, opts)
+      opts.desc = "range_formatting"
+      vks("n", "<localleader>F", vim.lsp.buf.range_formatting, opts)
     end,
     on_exit = nil,
     sources = sources,

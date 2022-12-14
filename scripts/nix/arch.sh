@@ -449,14 +449,18 @@ backup() {
 			"$HOME/.gnupg" "$HOME/.ssh" "$HOME/.password-store" "/tmp/pacman_database.tar.bz2"
             "$HOME/.local/share/histfile" "$HOME/.local/share/z" "$HOME/.config/doublecmd"
             "$HOME/.password-store_work" "$HOME/.local/share/atuin"
+            "$HOME/Documents/VirtualBoxSharedFolder"
+            "$HOME/Documents/VirtualBoxVMs"
+            "$HOME/Documents/work"
 		)
         src=""
         for str in "${srcs[@]}"; do
             [ -d "$str" ] || [ -f "$str" ] && src+="$str "
         done
 		# Create database backup
-		"$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot.sh" \
-			-s "$src" -d "$HOME/.mnt/skywafer/home/bkps/$HOSTNAME"
+        "$TERMINAL" \
+            "$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot.sh" \
+			-s "$src" -d "$HOME/.mnt/skywafer/home/bkps/$HOSTNAME" &
 		;;
 	[Qq]*) quit ;;
 	esac

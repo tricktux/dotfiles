@@ -141,7 +141,7 @@ end
 
 -- Abstract function that allows you to hook and set settings on a buffer that
 -- has lsp server support
-local function on_lsp_attach(client_id, bufnr)
+function M.on_lsp_attach(client_id, bufnr)
 	if vim.b.did_on_lsp_attach == 1 then
 		return
 	end
@@ -150,7 +150,6 @@ local function on_lsp_attach(client_id, bufnr)
 
 	set_lsp_mappings(bufnr)
 	set_lsp_options(bufnr)
-	require("config.plugins.dap"):set_mappings(bufnr)
 
 	require("lsp_signature").on_attach()
 end
@@ -168,7 +167,7 @@ local function on_clangd_attach(client_id, bufnr)
 	vim.keymap.set("n", "<localleader>a", [[<cmd>ClangdSwitchSourceHeader<cr>]], opts)
 	opts.desc = "clangd_switch_source_header"
 	vim.keymap.set("n", "<localleader>A", [[<cmd>vs<cr><cmd>ClangdSwitchSourceHeader<cr>]], opts)
-	return on_lsp_attach(client_id, bufnr)
+	return M.on_lsp_attach(client_id, bufnr)
 end
 
 local function diagnostic_config()
@@ -212,7 +211,7 @@ function M:config()
 	if vim.fn.executable("lua-language-server") > 0 then
 		log.info("setting up the lua lsp...")
 		nvim_lsp.sumneko_lua.setup({
-			on_attach = on_lsp_attach,
+			on_attach = self.on_lsp_attach,
 			flags = flags,
 			capabilities = capabilities,
 			settings = {
@@ -242,7 +241,7 @@ function M:config()
 	if vim.fn.executable("omnisharp") > 0 then
 		log.info("setting up the omnisharp lsp...")
 		nvim_lsp.omnisharp.setup({
-			on_attach = on_lsp_attach,
+			on_attach = self.on_lsp_attach,
 			flags = flags,
 			filetypes = { "cs" },
 			cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
@@ -256,7 +255,7 @@ function M:config()
     -- npm install -g pyright
 		log.info("setting up the pyright lsp...")
 		nvim_lsp.pyright.setup({
-			on_attach = on_lsp_attach,
+			on_attach = self.on_lsp_attach,
 			flags = flags,
 			capabilities = capabilities,
 		})
@@ -297,7 +296,7 @@ function M:config()
 	if vim.fn.executable("rust-analyzer") > 0 then
 		log.info("setting up the rust-analyzer...")
 		nvim_lsp.rust_analyzer.setup({
-			on_attach = on_lsp_attach,
+			on_attach = self.on_lsp_attach,
 			flags = flags,
 			capabilities = capabilities,
 			settings = {
