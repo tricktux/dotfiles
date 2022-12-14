@@ -414,7 +414,7 @@ pac_maintenance() {
 	if [[ -f /usr/bin/fwupdmgr ]]; then
 		msg "${CYAN}${BOLD}" "[RIMP]==> Update firmware?...     "
 		sudo /usr/bin/fwupdmgr get-updates || echo "...  Or not..."
-        sudo /usr/bin/fwupdmgr update || echo "...  Or not..."
+		sudo /usr/bin/fwupdmgr update || echo "...  Or not..."
 	else
 		msg_not "${CYAN}${BOLD}" "[RIMP]==> Consider installing fwupdmgr?...     "
 	fi
@@ -425,11 +425,11 @@ update_polybar_scripts() {
 	read -r yn
 	case $yn in
 	[Yy]*)
-        local loc="$HOME"/.config/polybar/scripts/
+		local loc="$HOME"/.config/polybar/scripts/
 		curl -fsSL \
 			https://raw.githubusercontent.com/unode/polypomo/master/polypomo \
 			>"$loc"/polypomo
-        chmod +x "$loc"/polypomo
+		chmod +x "$loc"/polypomo
 		;;
 	[Qq]*) quit ;;
 	esac
@@ -447,19 +447,19 @@ backup() {
 		tar -vcjf /tmp/pacman_database.tar.bz2 /var/lib/pacman/local
 		srcs=(
 			"$HOME/.gnupg" "$HOME/.ssh" "$HOME/.password-store" "/tmp/pacman_database.tar.bz2"
-            "$HOME/.local/share/histfile" "$HOME/.local/share/z" "$HOME/.config/doublecmd"
-            "$HOME/.password-store_work" "$HOME/.local/share/atuin"
-            "$HOME/Documents/VirtualBoxSharedFolder"
-            "$HOME/Documents/VirtualBoxVMs"
-            "$HOME/Documents/work"
+			"$HOME/.local/share/histfile" "$HOME/.local/share/z" "$HOME/.config/doublecmd"
+			"$HOME/.password-store_work" "$HOME/.local/share/atuin"
+			"$HOME/Documents/VirtualBoxSharedFolder"
+			"$HOME/Documents/VirtualBoxVMs"
+			"$HOME/Documents/work"
 		)
-        src=""
-        for str in "${srcs[@]}"; do
-            [ -d "$str" ] || [ -f "$str" ] && src+="$str "
-        done
+		src=""
+		for str in "${srcs[@]}"; do
+			[ -d "$str" ] || [ -f "$str" ] && src+="$str "
+		done
 		# Create database backup
-        "$TERMINAL" \
-            "$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot.sh" \
+		"$TERMINAL" \
+			"$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot.sh" \
 			-s "$src" -d "$HOME/.mnt/skywafer/home/bkps/$HOSTNAME" &
 		;;
 	[Qq]*) quit ;;
@@ -563,7 +563,7 @@ help() {
 	echo "d     Diff configs with new /etc configs"
 	echo "n     Update npm packages"
 	echo "v     Update neovim-git"
-    echo "y     Update polybar scripts"
+	echo "y     Update polybar scripts"
 	echo "h     Print this Help."
 	echo
 }
