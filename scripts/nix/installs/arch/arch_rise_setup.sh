@@ -1117,6 +1117,15 @@ paci --needed --noconfirm android-studio android-sdk
 # - Remember: `~/.bashrc`->`export ANDROID_HOME=<sdk-location>`
 #}}}
 
+# Xilinx {{{
+# Download instructions: https://wiki.hevs.ch/uit/index.php5/Tools/Xilinx_ISE/Installation_Linux
+# Actually follow instructions on wiki
+# Download software from: https://www.xilinx.com/support/download.html
+# Put the software tar file next to the xilinx-ise PKBUILD
+# Then follow instructions for xilinx jtag-usb programmer
+paru -Syu ncurses5-compat-libs xilinx-ise
+# }}}
+
 ## syslog{{{
 ### Fri Oct 25 2019 14:35\
 # - `paci --needed --noconfirm syslog-ng`
