@@ -437,21 +437,22 @@ paci --needed --noconfirm riseup-vpn
 
 # wireguard {{{
 # Get conf file from router linux_pcs
-# Put it at /etc/wireguard/wg0.conf
-paci --needed --noconfirm wireguard-tools systemd-resolvconf
-sudo systemctl enable --now systemd-resolved.service
+# Put it at /etc/wireguard/home.conf
+paru -Syu --needed --noconfirm wireguard-tools systemd-resolvconf
+sudo systemctl status systemd-resolved.service
 # The value for this ip is given by the ip assigned to the peer
 # You can find it in the config file
-sudo bash -c 'echo "nameserver 10.4.0.7" >> /etc/resolv.conf'
-sudo reboot
+# Not needed anymore
+# sudo bash -c 'echo "nameserver 10.4.0.7" >> /etc/resolv.conf'
+# sudo reboot
 # Try it with:
-sudo wg-quick up wg0
-sudo wg-quick down wg0
-sudo systemctl start wg-quick@wg0.service
-sudo systemctl status wg-quick@wg0.service
-sudo systemctl stop wg-quick@wg0.service
-sudo chmod 700 /etc/wireguard/wg0.conf
-sudo chmod 600 /etc/wireguard/wg0.conf
+sudo wg-quick up home
+sudo wg-quick down home
+sudo systemctl start wg-quick@home.service
+sudo systemctl status wg-quick@home.service
+sudo systemctl stop wg-quick@home.service
+sudo chmod 700 /etc/wireguard/home.conf
+sudo chmod 600 /etc/wireguard/home.conf
 # }}}
 
 # openvpn {{{
