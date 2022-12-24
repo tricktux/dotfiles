@@ -281,6 +281,7 @@ chsh -s /usr/bin/zsh
 export ZDOTDIR=$HOME/.config/zsh
 zsh
 
+# Deprecated step
 # pkgfile needs to be updated
 sudo systemctl enable pkgfile-update.timer
 # By default it runs daily
