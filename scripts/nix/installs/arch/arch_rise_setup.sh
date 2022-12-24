@@ -130,9 +130,9 @@ git clone https://github.com/tricktux/dotfiles
 # NOTE: Change link to: ssh://github/tricktux/dotfiles
 nvim "$HOME/.config/dotfiles/.git/config"
 # Install needed software
-paru -S stow
+paru -Syu stow
 # So that you don't loose the hostname command
-paru -S inetutils
+paru -Syu inetutils
 # Backup current setup
 # Make sure no other dotfiles are left
 mv ~/.bash_logout{,_bak}
@@ -190,7 +190,7 @@ sudo nvim /etc/lightdm/lightdm.conf
 # If you don't get a login prompt use Ctrl-Alt-FX to get one
 
 # fix time:{{{
-paci ntp
+paru -S ntp
 sudo timedatectl set-ntp true
 #}}}
 
