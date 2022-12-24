@@ -591,7 +591,7 @@ paci --needed --noconfirm numlockx
 # After this steps you should have a working `i3` setup.
 
 # Network Manager{{{
-paci --needed --noconfirm networkmanager network-manager-applet networkmanager-openvpn
+paci --needed --noconfirm networkmanager network-manager-applet networkmanager-openvpn networkmanager-dmenu-git 
 pacu networkmanager network-manager-applet networkmanager-openvpn networkmanager-dmenu-git 
 sudo systemctl enable --now NetworkManager.service
 sudo systemctl status NetworkManager.service
