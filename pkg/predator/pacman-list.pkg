@@ -214,6 +214,7 @@ scrot
 sed
 shfmt
 simple-scan
+speedtest-cli
 steam
 stow
 strace
