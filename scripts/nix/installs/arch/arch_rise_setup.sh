@@ -304,6 +304,8 @@ sudo bash -c 'printf "\n--sort rate" >> /etc/xdg/reflector/reflector.conf'
 sudo bash -c 'printf "\n--country \"United States\"" >> /etc/xdg/reflector/reflector.conf'
 sudo bash -c 'printf "\n--verbose" >> /etc/xdg/reflector/reflector.conf'
 sudo nvim /etc/xdg/reflector/reflector.conf
+# Ensure root owns mirrorlist, otherwise reflector service will fail
+sudo chown root /etc/pacman.d/mirrorlist
 sudo systemctl enable --now reflector.timer
 sudo systemctl start reflector.timer
 sudo systemctl status reflector.timer
