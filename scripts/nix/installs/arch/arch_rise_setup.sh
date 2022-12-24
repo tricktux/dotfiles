@@ -343,7 +343,7 @@ sudo systemctl status earlyoom
 #}}}
 
 # Video card{{{
-lspci -k | grep -A 2 -i "VGA"
+lspci -k | grep -A 2 -E "(VGA|3D)"
 # If you happen to see 2 cards here, follow instructions at [this](https://wiki.archlinux.org/index.php/Optimus)
 # Should be good
 # With the predator you should also do:
