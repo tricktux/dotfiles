@@ -23,6 +23,7 @@ Defaults rootpw
 # This way you only need to enter your pw once per session
 # `Defaults:<username> timestamp_timeout=-1`
 Defaults:reinaldo timestamp_timeout=7200
+su reinaldo
 # }}}
 
 ## 3. Network{{{
