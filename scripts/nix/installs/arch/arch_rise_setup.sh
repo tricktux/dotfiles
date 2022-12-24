@@ -213,12 +213,19 @@ sudo chmod 600 /etc/samba/credentials/share
 # }}}
 
 # Install old packages: {{{
+# NOTE: ONLY do this on computers already setup, DONOT copy packages from another PC
 # NOTE: Go to `sudo vim /etc/pacman.conf` and uncomment `multilib`
+# Also add the ParallelDownloads = 5 option
+# Also uncomment Color option
+# Also add ILoveCandy option
+# Also add:
+# CacheDir    = /home/reinaldo/.mnt/skywafer/NetBackup/pacman_cache/x86_64
+# CacheDir    = /var/cache/pacman/pkg/
 sudo nvim /etc/pacman.conf
 sudo pacman-key --refresh-keys
-sudo pacman -Sy archlinux-keyring && sudo pacman -Su
-sudo pacman -S --needed - < ~/.config/dotfiles/pkg/surbook/pacman-list.pkg
-paru -S --needed - < ~/.config/dotfiles/pkg/surbook/aur-list.pkg
+sudo pacman -Syu archlinux-keyring && sudo pacman -Syu
+sudo pacman -S --needed - < ~/.config/dotfiles/pkg/aero/pacman-list.pkg
+paru -S --needed - < ~/.config/dotfiles/pkg/aero/aur-list.pkg
 # }}}
 
 # ccache to speed up compilations
