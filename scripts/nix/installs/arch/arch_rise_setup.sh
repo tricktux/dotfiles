@@ -104,7 +104,7 @@ sudo mv /home/reinaldo/mirrorlist /etc/pacman.d/mirrorlist
 # install `paru`{{{
 # From this point on you need to login as your user
 # You should not run `paru` or `makepkg` as `root`
-pacman -S --needed git
+sudo pacman -S --needed git
 # cd /tmp
 # git clone https://aur.archlinux.org/trizen.git --depth 1
 # cd trizen
@@ -116,6 +116,7 @@ makepkg -si
 
 # install dotfiles{{{
 # Download dotfiles
+cd
 mkdir -p ~/.{config,cache}
 mkdir -p ~/Documents
 mkdir -p ~/.local/share/Trash/files
