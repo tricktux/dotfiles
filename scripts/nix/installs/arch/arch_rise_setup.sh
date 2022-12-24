@@ -606,7 +606,7 @@ paci --needed --noconfirm i3-wm i3lock-fancy-git rofi rofi-dmenu alttab-git xdot
 paci --needed --noconfirm feh redshift qrencode xclip dunst libnotify
 paci --needed --noconfirm scrot flameshot
 # Replacement for htop. Execute: btm
-paci --needed --noconfirm bottom htop-vim-git
+paci --needed --noconfirm htop-vim
 # Compton changed name to picom
 paci --needed --noconfirm picom
 paci --needed --noconfirm xss-lock
