@@ -614,12 +614,12 @@ paci --needed --noconfirm xss-lock
 # keyword: xdg-open
 paci --needed --noconfirm mimeo xdg-utils-mimeo
 # determine a file's MIME type
-$ mimeo -m photo.jpeg
+mimeo -m photo.jpeg
 photo.jpeg
   image/jpeg
 
 # choose the default application for this MIME type
-$ mimeo --add image/jpeg feh.desktop
+mimeo --add image/jpeg feh.desktop
 
 # open a file with its default application
 $ mimeo photo.jpeg
