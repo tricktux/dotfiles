@@ -46,4 +46,6 @@ fi
 # Used to move cache directory there
 mkdir -p /tmp/firefox
 
+xset r rate 180 35
+
 # vim:filetype=sh
