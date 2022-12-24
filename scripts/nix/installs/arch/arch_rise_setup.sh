@@ -152,6 +152,43 @@ sudo mkdir -p /root/.config
 sudo ln -s /home/reinaldo/.config/nvim /root/.config
 #}}}
 
+# xorg{{{
+# Multi Monitor setup, or for HiDPI displays it's best to auto calculate 
+# resolution
+# ccache to speed up compilations
+paru -Syu --needed ccache
+paru -Syu --needed xorg-xrandr arandr xlayoutdisplay
+paru -Syu --needed --noconfirm xorg xorg-apps xorg-xinit xorg-drivers xorg-server
+/usr/bin/xlayoutdisplay
+# ACTION: Copy output and paste it there
+nvim "$HOME/.config/xprofile-$(hostname)"
+# ACTION: Now is also a good time to add that hostname there
+nvim "$HOME/.config/i3/scripts/xrandr.sh"
+# `xorg autologin`
+paru -Syu --needed lightdm
+sudo systemctl enable lightdm
+
+# add your user to the autologin group
+sudo groupadd -r autologin
+sudo gpasswd -a reinaldo autologin
+
+# Create
+# Valid session names under /usr/share/xsessions/*.desktop
+sudo nvim /etc/lightdm/lightdm.conf
+
+# [Seat:*]
+# autologin-user=reinaldo
+# autologin-session=i3-with-shmlog
+
+#}}}
+
+#############################################################################
+########## At this point is a good idea to login and continue with ssh ######
+#############################################################################
+# Otherwise, you'll have to enter root password infinitely,
+# also systemctl stuff wont work
+# If you don't get a login prompt use Ctrl-Alt-FX to get one
+
 # fix time:{{{
 paci ntp
 sudo timedatectl set-ntp true
@@ -591,33 +628,6 @@ paci --needed --noconfirm gvfs-mtp gvfs-gphoto2 udisks2 pcmanfm
 sudo install -Dm644 /home/reinaldo/.config/polybar/scripts/95-usb.rules \
   /etc/udev/rules.d/95-usb.rules
 #}}}
-
-# xorg{{{
-# Multi Monitor setup, or for HiDPI displays it's best to auto calculate 
-# resolution
-paci --needed --noconfirm xorg-xrandr arandr xlayoutdisplay
-paci --needed --noconfirm xorg xorg-apps xorg-xinit xorg-drivers xorg-server
-/usr/bin/xlayoutdisplay
-# ACTION: Copy output and paste it there
-nvim "$HOME/.config/xprofile-$(hostname)"
-# ACTION: Now is also a good time to add that hostname there
-nvim "$HOME/.config/i3/scripts/xrandr.sh"
-# `xorg autologin`
-paci --needed --noconfirm lightdm
-sudo systemctl enable lightdm
-#}}}
-
-# add your user to the autologin group
-sudo groupadd -r autologin
-sudo gpasswd -a reinaldo autologin
-
-# Create
-# Valid session names under /usr/share/xsessions/*.desktop
-sudo nvim /etc/lightdm/lightdm.conf
-
-# [Seat:*]
-# autologin-user=reinaldo
-# autologin-session=i3-with-shmlog
 
 # windows virtual machine {{{
 # You can download images from: 
