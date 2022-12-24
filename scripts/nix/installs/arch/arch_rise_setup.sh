@@ -602,7 +602,7 @@ cp "$HOME"/.config/rofi/{predator,"$(hostname)"}.rasi
 nvim "$HOME/.config/rofi/$(hostname).rasi"
 # Action also update the xdotool script for the new hostname
 nvim "$HOME/.config/i3/scripts/xdotool_launch"
-paci --needed --noconfirm i3-gaps i3lock-fancy-git rofi rofi-dmenu alttab-git xdotool 
+paci --needed --noconfirm i3-wm i3lock-fancy-git rofi rofi-dmenu alttab-git xdotool 
 paci --needed --noconfirm feh redshift qrencode xclip dunst libnotify
 paci --needed --noconfirm scrot flameshot
 # Replacement for htop. Execute: btm
