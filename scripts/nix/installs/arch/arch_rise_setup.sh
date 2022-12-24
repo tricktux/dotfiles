@@ -100,6 +100,11 @@ sudo bash -c \
 scp /etc/pacman.d/mirrorlist reinaldo@192.168.1.194:/home/reinaldo/mirrorlist
 sudo mv /etc/pacman.d/mirrorlist{,.bak}
 sudo mv /home/reinaldo/mirrorlist /etc/pacman.d/mirrorlist
+cd
+# On computer that is setting up pc follow these steps
+cp /etc/pacman.d/mirrorlist /tmp/mirrorlist
+scp reinaldo@192.168.1.148:/tmp/mirrorlist .
+sudo mv mirrorlist /etc/pacman.d/mirrorlist
 
 # install `paru`{{{
 # From this point on you need to login as your user
