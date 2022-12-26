@@ -11,6 +11,7 @@ circleci-cli-bin
 cmake-language-server
 cmake-lint
 debtap
+digilent.waveforms
 galendae-git
 gdb-dashboard-git
 hal
@@ -24,6 +25,7 @@ microsoft-edge-stable-bin
 mimeo
 mono-basic
 navi-bin
+ncurses5-compat-libs
 nerd-fonts-inconsolata
 networkmanager-dmenu-git
 noisetorch-bin
@@ -36,12 +38,14 @@ paper-icon-theme
 paru-bin
 pass-import
 pass-update
+picotool
 powerstat
 preload
 qpdfview
 qt5-styleplugins
 ranger-git
 remotepcviewer
+rmview
 rofi-bluetooth-git
 rofi-dmenu
 rofi-file-browser-extended-git
@@ -56,6 +60,7 @@ uair
 vale
 virtualbox-ext-oracle
 xdg-utils-mimeo
+xilinx-ise
 xlayoutdisplay
 z-git
 zeal

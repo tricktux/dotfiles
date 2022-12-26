@@ -59,6 +59,7 @@ flameshot
 flex
 fwupd
 fzf
+galculator
 gawk
 gcc
 gdb
@@ -132,10 +133,12 @@ mediainfo
 meld
 mesa-utils
 meson
+minicom
 mkinitcpio
 mono
 mono-msbuild
 mosh
+most
 mpv
 mpv-mpris
 neomutt
@@ -171,6 +174,7 @@ patch
 pavucontrol
 pcmanfm
 pdfgrep
+pinta
 pipewire
 pipewire-alsa
 pipewire-jack
@@ -206,6 +210,7 @@ shfmt
 stow
 stylua
 sudo
+systemd-resolvconf
 texinfo
 texlive-bibtexextra
 texlive-core
@@ -240,6 +245,7 @@ wavpack
 websocketpp
 wget
 which
+wireguard-tools
 wireless_tools
 words
 wpa_supplicant
