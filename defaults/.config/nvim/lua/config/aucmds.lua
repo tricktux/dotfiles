@@ -151,6 +151,16 @@ local function setup()
       end
     end,
   })
+
+  if vim.fn.has("nvim-0.9") <= 0 then
+    id = api.nvim_create_augroup("Omni", { clear = true })
+    vim.api.nvim_create_autocmd("TextChangedI", {
+      group = id,
+      desc = "Temp fix for omnifunc",
+      pattern = "*",
+      callback = function() vim.opt.omnifunc = "" end,
+    })
+  end
 end
 
 return { create = create, setup = setup }
