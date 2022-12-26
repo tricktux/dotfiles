@@ -345,6 +345,10 @@ function M:setup()
       vks("n", "<localleader>f", function() vim.lsp.buf.format({ async = false }) end, opts)
       opts.desc = "range_formatting"
       vks("n", "<localleader>F", vim.lsp.buf.range_formatting, opts)
+      opts.desc = "show_line_diagnostics"
+      vks("n", "<localleader>n", vim.diagnostic.open_float, opts)
+      opts.desc = "lsp_hover"
+      vks("n", "<localleader>h", vim.lsp.buf.hover, opts)
     end,
     on_exit = nil,
     sources = sources,
