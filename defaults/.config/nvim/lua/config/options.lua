@@ -55,6 +55,8 @@ function M:setup()
     vim.opt.shellquote = "" 
     vim.opt.shellxquote = ""
   end
+  -- https://www.reddit.com/r/neovim/comments/zg44mm/comment/izfdbtw/?utm_source=reddit&utm_medium=web2x&context=3
+  vim.opt.virtualedit = "all"
 end
 
 return M
