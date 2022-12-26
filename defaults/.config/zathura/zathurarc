@@ -12,3 +12,6 @@ set font "monospace normal 14"
 # Mappings
 map d scroll half-down
 map e scroll half-up
+map u scroll half-up
+# night mode
+map <C-i> recolor
