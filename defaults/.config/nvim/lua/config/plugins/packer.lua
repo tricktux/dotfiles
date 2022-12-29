@@ -164,10 +164,10 @@ M.__plugins.common = {
 		end,
 	},
 	{
-		"SmiteshP/nvim-gps",
+		"nvim-treesitter/nvim-treesitter-context",
 		after = "nvim-treesitter",
 		config = function()
-			require("config.plugins.misc"):setup_gpsnvim()
+			require("config.plugins.misc").context.config()
 		end,
 	},
 	------------------------
