@@ -150,13 +150,6 @@ M.__plugins.common = {
 	{ "p00f/nvim-ts-rainbow", after = "nvim-treesitter" },
 	{ "RRethy/nvim-treesitter-textsubjects", after = "nvim-treesitter" },
 	{
-		"mizlan/iswap.nvim",
-		after = "nvim-treesitter",
-		config = function()
-			require("config.plugins.misc").config_iswap()
-		end,
-	},
-	{
 		"s1n7ax/nvim-comment-frame",
 		after = "nvim-treesitter",
 		config = function()
