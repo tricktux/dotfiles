@@ -109,8 +109,7 @@ class z(Command):
             return
 
         # location of .z file
-        h = os.getenv("_Z_DATA") or os.getenv("HOME")
-        z_loc = f"{h}/.local/share/z"
+        z_loc = os.getenv("_Z_DATA") 
 
         if not os.path.isfile(z_loc):
             self.fm.notify(
