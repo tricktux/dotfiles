@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # File:					.xprofile
 # Description:			Its sole purpose is to silence the super annoying terminal beep
 # Author:				Reinaldo Molina <rmolin88@gmail.com>
@@ -45,7 +47,5 @@ fi
 
 # Used to move cache directory there
 mkdir -p /tmp/firefox
-
-xset r rate 180 35
 
 # vim:filetype=sh

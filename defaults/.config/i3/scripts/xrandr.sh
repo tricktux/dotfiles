@@ -246,6 +246,8 @@ if [[ "$hostname" = "xps" ]]; then
   exit 2
 fi
 
+$HOME/.config/i3/scripts/xset.sh
+
 notify-send "xrandr" \
   "Hostname '$hostname' not valid" \
   -u critical -a 'Arandr'
