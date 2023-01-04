@@ -736,6 +736,20 @@ M.__plugins.deps.has = {
 				})
 			end,
 		},
+    {
+      'jedrzejboczar/toggletasks.nvim',
+      after = "telescope.nvim",
+      requires = {
+          'nvim-lua/plenary.nvim',
+          'akinsho/toggleterm.nvim',
+          'nvim-telescope/telescope.nvim/',
+      },
+      config = function()
+        require("config.plugins.misc").toggletasks.config()
+      end,
+      -- To enable YAML config support
+      -- rocks = 'lyaml',
+    },
 		{ "lambdalisue/suda.vim", cmd = { "SudaWrite", "SudaRead" } },
 		{ "chr4/nginx.vim", ft = "nginx" },
 		{ "neomutt/neomutt.vim", ft = "muttrc" },
