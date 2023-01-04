@@ -109,8 +109,11 @@ function M.nvimtree_config()
     },
   })
 
+  if vim.fn.executable("ranger") > 0 then
+    return
+  end
   require("which-key").register({
-    ["<plug>file_browser"] = { require("nvim-tree").toggle, "file_browser" },
+    ["<plug>file_browser"] = { require("nvim-tree").toggle, "file-browser-neotree" },
   })
 end
 

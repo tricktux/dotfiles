@@ -764,6 +764,10 @@ function M.setup_flux()
 	vim.g.flux_day_time = 700
 end
 
+M.toggleterm = {}
+M.toggleterm.ranger = {}
+M.toggleterm.keys = "<plug>file_browser"
+
 function M.setup_toggleterm()
 	local maps = {}
 	maps.mappings = {
@@ -801,6 +805,33 @@ function M.config_toggleterm()
     -- Set this variable below to false for above to have effect
     shade_terminals = false,
 	})
+  if vim.fn.executable("ranger") <= 0 then
+    return
+  end
+
+  local Terminal  = require('toggleterm.terminal').Terminal
+  M.toggleterm.ranger = Terminal:new({
+    cmd = "ranger",
+    close_on_exit = true,
+    clear_env = false,
+    direction = "float",
+    float_opts = {
+      border = "single",
+    },
+    -- function to run on opening the terminal
+    on_open = function(term)
+      vim.cmd.startinsert()
+      vim.keymap.set({'n', 'i'}, 'q', vim.cmd.hide, { buffer=true })
+    end,
+  })
+  local r = function()
+    if M.toggleterm.ranger == nil then
+      vim.notify("ranger is not executable", vim.log.levels.error, {})
+      return
+    end
+    M.toggleterm.ranger:toggle()
+  end
+  vim.keymap.set('n', '<plug>file_browser', r, { desc = 'file-browser-toggleterm' })
 end
 
 function M.setup_neoterm()

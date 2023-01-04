@@ -245,7 +245,6 @@ M.__plugins.common = {
 	},
 	{
 		"kyazdani42/nvim-tree.lua",
-		keys = "<plug>file_browser",
 		config = function()
 			require("config.plugins.tree_explorer").nvimtree_config()
 		end,
@@ -385,137 +384,131 @@ M.__plugins.common = {
 	},
 	{
 		"akinsho/toggleterm.nvim",
-		cmd = {
-			"ToggleTerm",
-			"ToggleTermSendCurrentLine",
-			"ToggleTermSendVisualLines",
-			"ToggleTermSendVisualSelection",
-		},
     tag = '*',
-		setup = function()
-			require("config.plugins.misc"):setup_toggleterm()
-		end,
-		config = function()
-			require("config.plugins.misc"):config_toggleterm()
-		end,
-	},
-	{
-		"ferrine/md-img-paste.vim",
-		ft = { "markdown", "org" },
-		setup = function()
-			require("config.plugins.misc"):setup_img_paste()
-		end,
-	},
-	{
-		"gcmt/taboo.vim",
-		cmd = "TabooRename",
-		config = function()
-			local opts = { silent = true, desc = "TabooRename" }
-			vim.keymap.set("n", "<leader>tr", "<cmd>TabooRename<cr>", opts)
-		end,
-	},
-	{
-		"ironhouzi/starlite-nvim",
-		event = "CursorHold",
-		config = function()
-			require("config.plugins.misc"):config_starlite()
-		end,
-	},
-	{
-		"justinmk/vim-sneak",
-		event = "CursorHold",
-		setup = function()
-			require("config.plugins.misc"):setup_sneak()
-			-- Silly I know, but needs to be here
-			require("config.plugins.misc"):config_sneak()
-		end,
-		config = function()
-			require("config.plugins.misc"):config_sneak()
-		end,
-	},
-	{
-		"kazhala/close-buffers.nvim",
-		event = "CursorHold",
-		config = function()
-			require("config.plugins.misc"):setup_bdelete()
-		end,
-	},
-	{
-		"MattesGroeger/vim-bookmarks",
-		cmd = { "BookmarkToggle", "BookmarkAnnotate", "BookmarkShowAll" },
-		setup = function()
-			require("config.plugins.misc"):setup_bookmarks()
-		end,
-	},
-	{ "aquach/vim-http-client", cmd = "HTTPClientDoRequest" },
-	{
-		"b3nj5m1n/kommentary",
-		keys = {
-			{ "n", "-", "kommentary_line_default" },
-			{ "x", "-", "kommentary_visual_default" },
-			{ "n", "0", "kommentary_motion_default" },
-		},
-		setup = function()
-			vim.g.kommentary_create_default_mappings = false
-		end,
-		config = function()
-			require("config.plugins.misc"):config_kommentary()
-		end,
-	},
-	{
-		"beauwilliams/focus.nvim",
-		event = "CursorHold",
-		config = function()
-			require("config.plugins.misc"):config_focus()
-		end,
-	},
-	{
-		"folke/zen-mode.nvim",
-		cmd = "ZenMode",
-		config = function()
-			require("config.plugins.misc"):setup_zen_mode()
-		end,
-	},
-	{
-		"sindrets/diffview.nvim",
-		cmd = { "DiffviewOpen", "DiffviewFileHistory" },
-		config = function()
-			require("config.plugins.misc"):setup_diffview()
-		end,
-	},
-	{
-		"nicwest/vim-camelsnek",
-		keys = {
-			{ "n", "<localleader>cs", "snek" },
-			{ "v", "<localleader>cs", "snek" },
-			{ "n", "<localleader>cc", "camel" },
-			{ "v", "<localleader>cc", "camel" },
-			{ "n", "<localleader>cb", "camelb" },
-			{ "v", "<localleader>cb", "camelb" },
-			{ "n", "<localleader>ck", "kebak" },
-			{ "v", "<localleader>ck", "kebak" },
-		},
-		setup = function()
-			local opts = {
-				silent = true,
-				desc = "to_snake_case",
-			}
-			vim.keymap.set({ "n", "v" }, "<localleader>cs", "<cmd>Snek<cr>", opts)
-			opts.desc = "to_camel_case"
-			vim.keymap.set({ "n", "v" }, "<localleader>cc", "<cmd>Camel<cr>", opts)
-			opts.desc = "to_camel_back_case"
-			vim.keymap.set({ "n", "v" }, "<localleader>cb", "<cmd>CamelB<cr>", opts)
-			opts.desc = "to_kebak_case"
-			vim.keymap.set({ "n", "v" }, "<localleader>ck", "<cmd>Kebak<cr>", opts)
-		end,
-	},
-	{
-		"rcarriga/nvim-notify",
-		after = { "telescope.nvim" },
-		config = function()
-			require("config.plugins.misc"):config_notify()
-		end,
-	},
+    setup = function()
+      require("config.plugins.misc"):setup_toggleterm()
+    end,
+    config = function()
+      require("config.plugins.misc"):config_toggleterm()
+    end,
+  },
+  {
+    "ferrine/md-img-paste.vim",
+    ft = { "markdown", "org" },
+    setup = function()
+      require("config.plugins.misc"):setup_img_paste()
+    end,
+  },
+  {
+    "gcmt/taboo.vim",
+    cmd = "TabooRename",
+    config = function()
+      local opts = { silent = true, desc = "TabooRename" }
+      vim.keymap.set("n", "<leader>tr", "<cmd>TabooRename<cr>", opts)
+    end,
+  },
+  {
+    "ironhouzi/starlite-nvim",
+    event = "CursorHold",
+    config = function()
+      require("config.plugins.misc"):config_starlite()
+    end,
+  },
+  {
+    "justinmk/vim-sneak",
+    event = "CursorHold",
+    setup = function()
+      require("config.plugins.misc"):setup_sneak()
+      -- Silly I know, but needs to be here
+      require("config.plugins.misc"):config_sneak()
+    end,
+    config = function()
+      require("config.plugins.misc"):config_sneak()
+    end,
+  },
+  {
+    "kazhala/close-buffers.nvim",
+    event = "CursorHold",
+    config = function()
+      require("config.plugins.misc"):setup_bdelete()
+    end,
+  },
+  {
+    "MattesGroeger/vim-bookmarks",
+    cmd = { "BookmarkToggle", "BookmarkAnnotate", "BookmarkShowAll" },
+    setup = function()
+      require("config.plugins.misc"):setup_bookmarks()
+    end,
+  },
+  { "aquach/vim-http-client", cmd = "HTTPClientDoRequest" },
+  {
+    "b3nj5m1n/kommentary",
+    keys = {
+      { "n", "-", "kommentary_line_default" },
+      { "x", "-", "kommentary_visual_default" },
+      { "n", "0", "kommentary_motion_default" },
+    },
+    setup = function()
+      vim.g.kommentary_create_default_mappings = false
+    end,
+    config = function()
+      require("config.plugins.misc"):config_kommentary()
+    end,
+  },
+  {
+    "beauwilliams/focus.nvim",
+    event = "CursorHold",
+    config = function()
+      require("config.plugins.misc"):config_focus()
+    end,
+  },
+  {
+    "folke/zen-mode.nvim",
+    cmd = "ZenMode",
+    config = function()
+      require("config.plugins.misc"):setup_zen_mode()
+    end,
+  },
+  {
+    "sindrets/diffview.nvim",
+    cmd = { "DiffviewOpen", "DiffviewFileHistory" },
+    config = function()
+      require("config.plugins.misc"):setup_diffview()
+    end,
+  },
+  {
+    "nicwest/vim-camelsnek",
+    keys = {
+      { "n", "<localleader>cs", "snek" },
+      { "v", "<localleader>cs", "snek" },
+      { "n", "<localleader>cc", "camel" },
+      { "v", "<localleader>cc", "camel" },
+      { "n", "<localleader>cb", "camelb" },
+      { "v", "<localleader>cb", "camelb" },
+      { "n", "<localleader>ck", "kebak" },
+      { "v", "<localleader>ck", "kebak" },
+    },
+    setup = function()
+      local opts = {
+        silent = true,
+        desc = "to_snake_case",
+      }
+      vim.keymap.set({ "n", "v" }, "<localleader>cs", "<cmd>Snek<cr>", opts)
+      opts.desc = "to_camel_case"
+      vim.keymap.set({ "n", "v" }, "<localleader>cc", "<cmd>Camel<cr>", opts)
+      opts.desc = "to_camel_back_case"
+      vim.keymap.set({ "n", "v" }, "<localleader>cb", "<cmd>CamelB<cr>", opts)
+      opts.desc = "to_kebak_case"
+      vim.keymap.set({ "n", "v" }, "<localleader>ck", "<cmd>Kebak<cr>", opts)
+    end,
+  },
+  {
+    "rcarriga/nvim-notify",
+    after = { "telescope.nvim" },
+    config = function()
+      require("config.plugins.misc"):config_notify()
+    end,
+  },
   --[[ {
     "MunifTanjim/nui.nvim",
     after = { "nvim-notify" },
@@ -527,125 +520,125 @@ M.__plugins.common = {
       require("config.plugins.misc").noice.config()
     end,
   }, ]]
-	{
-		"danymat/neogen",
-		keys = {
-			{ "n", "<leader>og", "generate_neogen" },
-			{ "n", "<leader>oGf", "generate_neogen_function" },
-			{ "n", "<leader>oGc", "generate_neogen_class" },
-			{ "n", "<leader>oGf", "generate_neogen_file" },
-			{ "n", "<leader>oGt", "generate_neogen_type" },
-		},
-		config = function()
-			require("config.plugins.misc"):config_neogen()
-		end,
-		requires = "nvim-treesitter/nvim-treesitter",
-		-- Comment next line if you don't want to follow only stable versions
-		tag = "*",
-	},
-	{
-		"tpope/vim-capslock",
-		keys = {
-			{ "i", "<c-l>", "caps_lock_toggle" },
-		},
-		setup = function()
-			vim.keymap.set("i", [[<c-l>]], "<Plug>CapsLockToggle", { silent = true, desc = "caps_lock_toggle" })
-		end,
-	},
-	{
-		"dhruvasagar/vim-table-mode",
-		cmd = "TableModeToggle",
-		setup = function()
-			vim.g.table_mode_corner = "|"
-			vim.g.table_mode_align_char = ":"
-			vim.g.table_mode_disable_mappings = 1
-			vim.keymap.set(
-				"n",
-				[[<leader>ta]],
-				[[<cmd>TableModeToggle<cr>]],
-				{ silent = true, desc = "table_mode_toggle" }
-			)
-		end,
-	},
-	{
-		"glts/vim-radical",
-		keys = {
-			{ "x", "<leader>nr", "radical_view" },
-			{ "n", "<leader>nr", "radical_view" },
-		},
-		setup = function()
-			vim.g.radical_no_mappings = 1
-			vim.keymap.set({ "n", "x" }, "<leader>nr", "<Plug>RadicalView", {
-				silent = true,
+  {
+    "danymat/neogen",
+    keys = {
+      { "n", "<leader>og", "generate_neogen" },
+      { "n", "<leader>oGf", "generate_neogen_function" },
+      { "n", "<leader>oGc", "generate_neogen_class" },
+      { "n", "<leader>oGf", "generate_neogen_file" },
+      { "n", "<leader>oGt", "generate_neogen_type" },
+    },
+    config = function()
+      require("config.plugins.misc"):config_neogen()
+    end,
+    requires = "nvim-treesitter/nvim-treesitter",
+    -- Comment next line if you don't want to follow only stable versions
+    tag = "*",
+  },
+  {
+    "tpope/vim-capslock",
+    keys = {
+      { "i", "<c-l>", "caps_lock_toggle" },
+    },
+    setup = function()
+      vim.keymap.set("i", [[<c-l>]], "<Plug>CapsLockToggle", { silent = true, desc = "caps_lock_toggle" })
+    end,
+  },
+  {
+    "dhruvasagar/vim-table-mode",
+    cmd = "TableModeToggle",
+    setup = function()
+      vim.g.table_mode_corner = "|"
+      vim.g.table_mode_align_char = ":"
+      vim.g.table_mode_disable_mappings = 1
+      vim.keymap.set(
+        "n",
+        [[<leader>ta]],
+        [[<cmd>TableModeToggle<cr>]],
+        { silent = true, desc = "table_mode_toggle" }
+      )
+    end,
+  },
+  {
+    "glts/vim-radical",
+    keys = {
+      { "x", "<leader>nr", "radical_view" },
+      { "n", "<leader>nr", "radical_view" },
+    },
+    setup = function()
+      vim.g.radical_no_mappings = 1
+      vim.keymap.set({ "n", "x" }, "<leader>nr", "<Plug>RadicalView", {
+        silent = true,
         remap = true,
-				desc = "radical_view",
-			})
-		end,
-	},
-	{ "glts/vim-magnum", after = "vim-radical" },
-	{
-		-- Folder name to give
-		"https://gitlab.com/yorickpeterse/nvim-pqf",
-		as = "nvim-pqf",
-		event = "QuickFixCmdPre",
-		config = function()
-			require("pqf").setup({
-				signs = {
-					error = "E",
-					warning = "W",
-					info = "I",
-					hint = "H",
-				},
-			})
-		end,
-	},
-	{
-		"nvim-lualine/lualine.nvim",
-		config = function()
-			require("config.plugins.lualine"):config()
-		end,
-	},
-	-- These go together
-	{
-		"nvim-neotest/neotest",
-		ft = "python",
-		keys = {
-			{ "n", "<leader>stf", "neotest_run_current_file" },
-			{ "n", "<leader>str", "neotest_run_nearest" },
-		},
-		config = function()
-			require("config.plugins.misc"):config_neotest()
-		end,
-	},
-	{ "antoinemadec/FixCursorHold.nvim", after = "neotest" },
-	{ "nvim-neotest/neotest-python", after = "neotest", module = "neotest-python" },
-	{ "nvim-neotest/neotest-plenary", after = "neotest", module = "neotest-plenary" },
-	------
-	{
-		"catppuccin/nvim",
-		as = "catppuccin",
-		module = "catppuccin",
-		cmd = { "CatppuccinCompile", "CatppuccinStatus", "Catppuccin", "CatppuccinClean" },
-		-- tag = "*",
-		setup = function()
-			require("config.plugins.misc"):setup_catpuccin()
-		end,
-		config = function()
-			require("config.plugins.misc"):config_catpuccin()
-		end,
-	},
-	{
-		"NvChad/nvim-colorizer.lua",
-		cmd = "ColorizerToggle",
-		setup = function()
-			local o = { silent = true, desc = "toggle_highlight" }
-			vim.keymap.set("n", "<leader>tch", "<cmd>ColorizerToggle<cr>", o)
-		end,
-		config = function()
-			require("colorizer").setup({
-				"!*", -- Dont highlight any files
-			})
-		end,
+        desc = "radical_view",
+      })
+    end,
+  },
+  { "glts/vim-magnum", after = "vim-radical" },
+  {
+    -- Folder name to give
+    "https://gitlab.com/yorickpeterse/nvim-pqf",
+    as = "nvim-pqf",
+    event = "QuickFixCmdPre",
+    config = function()
+      require("pqf").setup({
+        signs = {
+          error = "E",
+          warning = "W",
+          info = "I",
+          hint = "H",
+        },
+      })
+    end,
+  },
+  {
+    "nvim-lualine/lualine.nvim",
+    config = function()
+      require("config.plugins.lualine"):config()
+    end,
+  },
+  -- These go together
+{
+    "nvim-neotest/neotest",
+    ft = "python",
+    keys = {
+      { "n", "<leader>stf", "neotest_run_current_file" },
+      { "n", "<leader>str", "neotest_run_nearest" },
+    },
+    config = function()
+      require("config.plugins.misc"):config_neotest()
+    end,
+  },
+  { "antoinemadec/FixCursorHold.nvim", after = "neotest" },
+  { "nvim-neotest/neotest-python", after = "neotest", module = "neotest-python" },
+  { "nvim-neotest/neotest-plenary", after = "neotest", module = "neotest-plenary" },
+  ------
+  {
+    "catppuccin/nvim",
+    as = "catppuccin",
+    module = "catppuccin",
+    cmd = { "CatppuccinCompile", "CatppuccinStatus", "Catppuccin", "CatppuccinClean" },
+    -- tag = "*",
+    setup = function()
+      require("config.plugins.misc"):setup_catpuccin()
+    end,
+    config = function()
+      require("config.plugins.misc"):config_catpuccin()
+    end,
+  },
+  {
+    "NvChad/nvim-colorizer.lua",
+    cmd = "ColorizerToggle",
+    setup = function()
+      local o = { silent = true, desc = "toggle_highlight" }
+      vim.keymap.set("n", "<leader>tch", "<cmd>ColorizerToggle<cr>", o)
+    end,
+    config = function()
+      require("colorizer").setup({
+        "!*", -- Dont highlight any files
+      })
+    end,
   },
   {
     "editorconfig/editorconfig-vim",
