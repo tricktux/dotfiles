@@ -11,6 +11,12 @@ machine=$(hostname)
 server_ip='192.168.128.128'
 aur_helper='paru'
 
+# ytfzf
+alias ytfzf-tonymcguiness="ytfzf -mr -c youtube-playlist 'https://www.youtube.com/playlist?list=PL6RLee9oArCC9V1FlRexG_6F2KNo143I8'"
+alias ytfzf-noraenpure="ytfzf -mr -c youtube-playlist 'https://www.youtube.com/playlist?list=PL-Wt-lDOPUzHBDXm8ODmax9oHhVX6YtEb'"
+alias ytfzf-liquicityyearmixes="ytfzf -mr -c youtube-playlist 'https://www.youtube.com/playlist?list=PLNE3b80YbdklT_fHeWNw99re6ESyIn4DW'"
+alias ytfzf-cercle="ytfzf -mr -c youtube-playlist 'https://www.youtube.com/playlist?list=PLDitloyBcHOm_Q06fztzSfLp19AJYX141'"
+
 alias mv="mv --interactive --verbose"
 alias cp="cp --recursive --interactive --verbose"
 alias mkdir="mkdir --parents --verbose"
