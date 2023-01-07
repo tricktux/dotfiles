@@ -71,7 +71,7 @@ function M.nvimtree_config()
       },
     },
     view = {
-      width = 30,
+      width = 50,
       side = "left",
       mappings = {
         custom_only = false,
@@ -109,12 +109,7 @@ function M.nvimtree_config()
     },
   })
 
-  if vim.fn.executable("ranger") > 0 then
-    return
-  end
-  require("which-key").register({
-    ["<plug>file_browser"] = { require("nvim-tree").toggle, "file-browser-neotree" },
-  })
+  vim.keymap.set('n', '<plug>file_browser', require("nvim-tree").toggle, { desc = 'file-browser-neotree' })
 end
 
 return M

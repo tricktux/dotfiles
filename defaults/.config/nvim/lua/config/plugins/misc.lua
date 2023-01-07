@@ -831,7 +831,8 @@ function M.config_toggleterm()
     end
     M.toggleterm.ranger:toggle()
   end
-  vim.keymap.set('n', '<plug>file_browser', r, { desc = 'file-browser-toggleterm' })
+  -- vim.keymap.set('n', '<plug>file_browser', r, { desc = 'file-browser-toggleterm' })
+  vim.api.nvim_create_user_command('ToggleTermRanger', r, {})
 end
 
 function M.setup_neoterm()
