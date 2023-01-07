@@ -74,6 +74,7 @@ goimapnotify
 google-glog
 grep
 groff
+grpc
 gtest
 gtk2fontsel
 gvfs-gphoto2
@@ -163,6 +164,7 @@ odt2txt
 os-prober
 otf-cascadia-code
 otf-fira-mono
+packer
 pacman
 pacman-contrib
 pamixer
@@ -199,7 +201,6 @@ ripgrep
 ripgrep-all
 rofi-emoji
 rofi-pass
-rsync
 rust-analyzer
 rustup
 sccache
