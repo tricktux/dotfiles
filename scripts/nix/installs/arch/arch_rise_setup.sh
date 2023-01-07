@@ -295,7 +295,7 @@ sudo systemctl start pkgfile-update.service
 #}}}
 
 # Update arch mirrors {{{
-paci --needed --noconfirm reflector
+paru -S --needed --noconfirm reflector
 sudo mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist_king
 # Put options in config file
 sudo bash -c 'printf "\n--latest 30" >> /etc/xdg/reflector/reflector.conf'
@@ -305,17 +305,18 @@ sudo bash -c 'printf "\n--country \"United States\"" >> /etc/xdg/reflector/refle
 sudo bash -c 'printf "\n--verbose" >> /etc/xdg/reflector/reflector.conf'
 sudo nvim /etc/xdg/reflector/reflector.conf
 # Ensure root owns mirrorlist, otherwise reflector service will fail
+# If service fails, ensure that root owns the file
 sudo chown root /etc/pacman.d/mirrorlist
+sudo chown root:root /etc/pacman.d/mirrorlist
+sudo chmod 644 /etc/pacman.d/mirrorlist
 sudo systemctl enable --now reflector.timer
 sudo systemctl start reflector.timer
 sudo systemctl status reflector.timer
 sudo systemctl start reflector.service
-# If service fails, ensure that root owns the file
-sudo chown root:root /etc/pacman.d/mirrorlist
-sudo chmod 644 /etc/pacman.d/mirrorlist
 sudo systemctl status reflector.service
 sudo reflector --country "United States" --latest 30 --number 5 \
   --sort rate --protocol https --save /etc/pacman.d/mirrorlist
+sudo nvim /etc/pacman.d/mirrorlist
 
 #}}}
 
@@ -661,7 +662,7 @@ sudo install -Dm644 /home/reinaldo/.config/polybar/scripts/95-usb.rules \
 # You can download images from: 
 # https://developer.microsoft.com/en-us/windows/downloads/virtual-machines/
 # **NOTE** host-modules-arch is for when you have a linux kernel installed.
-paci --needed virtualbox{,-host-modules-arch}
+paru -Syu --needed vagrant virtualbox{,-host-modules-arch}
 # As opposed to any other kenerl, like lts, zen, etc... use the one below
 paci --needed virtualbox{,-host-dkms}
 sudo modprobe vboxdrv
