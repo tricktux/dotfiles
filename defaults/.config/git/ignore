@@ -48,7 +48,7 @@ defaults/.config/pulse/cookie
 moc_*.cpp
 qrc_*.cpp
 ui_*.h
-*build-*
+# *build-*
 
 # QtCreator
 *.autosave
