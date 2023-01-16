@@ -108,10 +108,6 @@ local function init_os()
 end
 
 local function main()
-  vim.defer_fn(function()
-    pcall(require, "impatient")
-  end, 0)
-
 	local log = require("utils.log")
 	log.info("--- Start Neovim Run ---")
 	set_globals()
