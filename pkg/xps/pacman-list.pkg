@@ -201,6 +201,7 @@ ripgrep
 ripgrep-all
 rofi-emoji
 rofi-pass
+rsync
 rust-analyzer
 rustup
 sccache
@@ -208,6 +209,7 @@ scrot
 sdparm
 sed
 shfmt
+sshfs
 stow
 stylua
 sudo
