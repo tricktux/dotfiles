@@ -449,8 +449,6 @@ backup() {
 			"$HOME/.gnupg" "$HOME/.ssh" "$HOME/.password-store" "/tmp/pacman_database.tar.bz2"
 			"$HOME/.local/share/histfile" "$HOME/.local/share/z" "$HOME/.config/doublecmd"
 			"$HOME/.password-store_work" "$HOME/.local/share/atuin"
-			"$HOME/Documents/VirtualBoxSharedFolder"
-			"$HOME/Documents/VirtualBoxVMs"
 			"$HOME/Documents/work"
 		)
 		src=""
