@@ -163,6 +163,7 @@ M.opts = {
 }
 
 M.setup = function()
+  M.bootstrap()
   require("lazy").setup("plugins", M.opts)
 end
 
