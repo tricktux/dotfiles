@@ -1,8 +1,8 @@
 local log = require("utils.log")
 local fmt = string.format
 local utl = require("utils.utils")
-local line = require("config.plugins.lualine")
-local map = require("config.mappings")
+local line = require("plugins.lualine")
+local map = require("mappings")
 local vks = vim.keymap.set
 local api = vim.api
 
