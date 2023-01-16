@@ -20,71 +20,71 @@ M.path.__compile = data_folder .. [[/site/plugin/packer_compiled.lua]]
 M.__repo = [[https://github.com/wbthomason/packer.nvim]]
 
 function M:__update()
-	local snapshot_time = os.date("%y%m%d_%H%M%S")
-	vim.notify("PackerSnapshot '" .. snapshot_time .. "' started..", vim.log.levels.INFO)
-	local c = [[PackerSnapshot ]] .. snapshot_time
-	vim.cmd(c)
-	local p = require("packer")
-	vim.notify("PackerSync started..", vim.log.levels.INFO)
-	p.sync()
+  local snapshot_time = os.date("%y%m%d_%H%M%S")
+  vim.notify("PackerSnapshot '" .. snapshot_time .. "' started..", vim.log.levels.INFO)
+  local c = [[PackerSnapshot ]] .. snapshot_time
+  vim.cmd(c)
+  local p = require("packer")
+  vim.notify("PackerSync started..", vim.log.levels.INFO)
+  p.sync()
 end
 
 M.maps = { prefix = "<leader>P" }
 M.maps.mappings = {
-	c = { "<cmd>PackerCompile<cr>", "packer_compile" },
-	u = { "<cmd>PackerUpdate<cr>", "packer_update" },
-	U = {
-		function()
-			M.__update()
-		end,
-		"packer_snapshot_update",
-	},
-	r = { "<cmd>UpdateRemotePlugins<cr>", "update_remote_plugins" },
-	i = { "<cmd>PackerInstall<cr>", "packer_install" },
-	s = { "<cmd>PackerSync<cr>", "packer_sync" },
-	a = { "<cmd>PackerStatus<cr>", "packer_status" },
-	l = { "<cmd>PackerClean<cr>", "packer_clean" },
+  c = { "<cmd>PackerCompile<cr>", "packer_compile" },
+  u = { "<cmd>PackerUpdate<cr>", "packer_update" },
+  U = {
+    function()
+      M.__update()
+    end,
+    "packer_snapshot_update",
+  },
+  r = { "<cmd>UpdateRemotePlugins<cr>", "update_remote_plugins" },
+  i = { "<cmd>PackerInstall<cr>", "packer_install" },
+  s = { "<cmd>PackerSync<cr>", "packer_sync" },
+  a = { "<cmd>PackerStatus<cr>", "packer_status" },
+  l = { "<cmd>PackerClean<cr>", "packer_clean" },
 }
 
 function M:setup()
-	map:keymaps_sets(self.maps)
+  map:keymaps_sets(self.maps)
 
-	vim.api.nvim_create_autocmd("User", {
-		pattern = "PackerCompileDone",
-		callback = function()
-			vim.notify("PackerCompile done...", vim.log.levels.INFO)
-		end,
-	})
-	local o = { desc = "packer_snapshot_sync" }
-	vim.api.nvim_create_user_command("PackerUPDATE", self.__update, o)
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "PackerCompileDone",
+    callback = function()
+      vim.notify("PackerCompile done...", vim.log.levels.INFO)
+    end,
+  })
+  local o = { desc = "packer_snapshot_sync" }
+  vim.api.nvim_create_user_command("PackerUPDATE", self.__update, o)
 end
 
 function M:download()
-	if vim.fn.isdirectory(self.path.__this) ~= 0 then
-		-- Already exists
-		return
-	end
+  if vim.fn.isdirectory(self.path.__this) ~= 0 then
+    -- Already exists
+    return
+  end
 
-	vim.fn.mkdir(self.path.__this, "p")
-	if vim.fn.executable("git") == 0 then
-		print("Packer: git is not in your path. Cannot download packer.nvim")
-		return
-	end
+  vim.fn.mkdir(self.path.__this, "p")
+  if vim.fn.executable("git") == 0 then
+    print("Packer: git is not in your path. Cannot download packer.nvim")
+    return
+  end
 
-	local git_cmd = "git clone " .. self.__repo .. " --depth 1 " .. self.path.__this
-	print("Packer: downloading packer.nvim...")
-	vim.fn.system(git_cmd)
-	vim.cmd("packadd packer.nvim")
-	self:config()
-	vim.cmd("PackerSync")
+  local git_cmd = "git clone " .. self.__repo .. " --depth 1 " .. self.path.__this
+  print("Packer: downloading packer.nvim...")
+  vim.fn.system(git_cmd)
+  vim.cmd("packadd packer.nvim")
+  self:config()
+  vim.cmd("PackerSync")
 end
 
 M.__config = {
-	max_jobs = utl.has_unix and nil or 5,
-	snapshot_path = M.path.__snaphots,
-	plugin_package = M.__package_name,
-	log = "trace",
-	compile_path = M.path.__compile,
+  max_jobs = utl.has_unix and nil or 5,
+  snapshot_path = M.path.__snaphots,
+  plugin_package = M.__package_name,
+  log = "trace",
+  compile_path = M.path.__compile,
 }
 
 -- Thu May 13 2021 22:42: After much debuggin, found out that config property
@@ -93,131 +93,131 @@ M.__config = {
 -- TL;DR: no outside of local scope function calling for config
 M.__plugins = {}
 M.__plugins.common = {
-	{
-		"wbthomason/packer.nvim",
-		cmd = {
-			"PackerSnapshot",
-			"PackerSnapshotRollback",
-			"PackerSnapshotDelete",
-			"PackerInstall",
-			"PackerUpdate",
-			"PackerSync",
-			"PackerClean",
-			"PackerCompile",
-			"PackerStatus",
-			"PackerProfile",
-			"PackerLoad",
-		},
-		setup = function()
-			require("config.plugins.packer"):setup()
-		end,
-		config = function()
-			require("config.plugins.packer"):config()
-		end,
-	},
-	{
-		"folke/which-key.nvim",
-		event = "CursorHold",
-		config = function()
-			require("config.plugins.whichkey"):setup()
-		end,
-	},
-	{ "nvim-lua/plenary.nvim", module = "plenary" },
-	-- Telescope
-	{
-		"nvim-lua/telescope.nvim",
-		-- Lazyload once we enter
-		event = "CursorHold",
-		config = function()
-			require("config.plugins.telescope"):setup()
-		end,
-	},
-	{
-		"ahmedkhalf/project.nvim",
-		after = "telescope.nvim",
-		config = function()
-			require("config.plugins.telescope"):config_project()
-		end,
-	},
-	-- Treesitter loading
-	{
-		"nvim-treesitter/nvim-treesitter",
-		event = "CursorHold",
-		config = function()
-			require("config.plugins.treesitter"):setup()
-		end,
-	},
-	{ "p00f/nvim-ts-rainbow", after = "nvim-treesitter" },
-	{ "RRethy/nvim-treesitter-textsubjects", after = "nvim-treesitter" },
-	{
-		"s1n7ax/nvim-comment-frame",
-		after = "nvim-treesitter",
-		config = function()
-			require("config.plugins.misc"):setup_comment_frame()
-		end,
-	},
-	{
-		"nvim-treesitter/nvim-treesitter-context",
-		after = "nvim-treesitter",
-		config = function()
-			require("config.plugins.misc").context.config()
-		end,
-	},
-	------------------------
-	-- This is the order to load completion
-	{
-		"rafamadriz/friendly-snippets",
-		-- Lazyload on start
-		event = "CursorHold",
-	},
-	{
-		"L3MON4D3/LuaSnip",
-		after = "friendly-snippets",
-		config = function()
-			require("config.plugins.luasnip"):config()
-		end,
-	},
-	{
-		"hrsh7th/nvim-cmp",
-		after = "LuaSnip",
-		config = function()
-			require("config.plugins.nvim-cmp"):setup()
-		end,
-	},
-	{ "hrsh7th/cmp-buffer", after = "nvim-cmp" },
-	{ "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
-	{ "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
-	{ "hrsh7th/cmp-path", after = "nvim-cmp" },
-	{ "hrsh7th/cmp-calc", after = "nvim-cmp" },
-	{ "ray-x/cmp-treesitter", after = "nvim-cmp" },
-	{ "onsails/lspkind-nvim", after = "nvim-cmp", module = "lspkind" },
-	{ "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
-	{ "hrsh7th/cmp-omni", after = "nvim-cmp" },
-	-- lspconfig after nvim-cmp
-	{
-		"neovim/nvim-lspconfig",
-		after = "cmp-nvim-lsp",
-		-- tag = lsp_version,
-		config = function()
-			require("config.lsp"):config()
-		end,
-	},
-	{ "ray-x/lsp_signature.nvim", after = "nvim-lspconfig" },
-	{
-		"j-hui/fidget.nvim",
-		after = "nvim-lspconfig",
-		config = function()
-			require("config.lsp"):config_fidget()
-		end,
-	},
-	{
-		"jose-elias-alvarez/null-ls.nvim",
-		after = "nvim-lspconfig",
-		config = function()
-			require("config.plugins.null-ls"):setup()
-		end,
-	},
-	{ "weilbith/nvim-code-action-menu", after = "nvim-lspconfig" },
+  {
+    "wbthomason/packer.nvim",
+    cmd = {
+      "PackerSnapshot",
+      "PackerSnapshotRollback",
+      "PackerSnapshotDelete",
+      "PackerInstall",
+      "PackerUpdate",
+      "PackerSync",
+      "PackerClean",
+      "PackerCompile",
+      "PackerStatus",
+      "PackerProfile",
+      "PackerLoad",
+    },
+    setup = function()
+      require("config.plugins.packer"):setup()
+    end,
+    config = function()
+      require("config.plugins.packer"):config()
+    end,
+  },
+  {
+    "folke/which-key.nvim",
+    event = "CursorHold",
+    config = function()
+      require("config.plugins.whichkey"):setup()
+    end,
+  },
+  { "nvim-lua/plenary.nvim", module = "plenary" },
+  -- Telescope
+  {
+    "nvim-lua/telescope.nvim",
+    -- Lazyload once we enter
+    event = "CursorHold",
+    config = function()
+      require("config.plugins.telescope"):setup()
+    end,
+  },
+  {
+    "ahmedkhalf/project.nvim",
+    after = "telescope.nvim",
+    config = function()
+      require("config.plugins.telescope"):config_project()
+    end,
+  },
+  -- Treesitter loading
+  {
+    "nvim-treesitter/nvim-treesitter",
+    event = "CursorHold",
+    config = function()
+      require("config.plugins.treesitter"):setup()
+    end,
+  },
+  { "p00f/nvim-ts-rainbow", after = "nvim-treesitter" },
+  { "RRethy/nvim-treesitter-textsubjects", after = "nvim-treesitter" },
+  {
+    "s1n7ax/nvim-comment-frame",
+    after = "nvim-treesitter",
+    config = function()
+      require("config.plugins.misc"):setup_comment_frame()
+    end,
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    after = "nvim-treesitter",
+    config = function()
+      require("config.plugins.misc").context.config()
+    end,
+  },
+  ------------------------
+  -- This is the order to load completion
+  {
+    "rafamadriz/friendly-snippets",
+    -- Lazyload on start
+    event = "CursorHold",
+  },
+  {
+    "L3MON4D3/LuaSnip",
+    after = "friendly-snippets",
+    config = function()
+      require("config.plugins.luasnip"):config()
+    end,
+  },
+  {
+    "hrsh7th/nvim-cmp",
+    after = "LuaSnip",
+    config = function()
+      require("config.plugins.nvim-cmp"):setup()
+    end,
+  },
+  { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
+  { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
+  { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
+  { "hrsh7th/cmp-path", after = "nvim-cmp" },
+  { "hrsh7th/cmp-calc", after = "nvim-cmp" },
+  { "ray-x/cmp-treesitter", after = "nvim-cmp" },
+  { "onsails/lspkind-nvim", after = "nvim-cmp", module = "lspkind" },
+  { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
+  { "hrsh7th/cmp-omni", after = "nvim-cmp" },
+  -- lspconfig after nvim-cmp
+  {
+    "neovim/nvim-lspconfig",
+    after = "cmp-nvim-lsp",
+    -- tag = lsp_version,
+    config = function()
+      require("config.lsp"):config()
+    end,
+  },
+  { "ray-x/lsp_signature.nvim", after = "nvim-lspconfig" },
+  {
+    "j-hui/fidget.nvim",
+    after = "nvim-lspconfig",
+    config = function()
+      require("config.lsp"):config_fidget()
+    end,
+  },
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    after = "nvim-lspconfig",
+    config = function()
+      require("config.plugins.null-ls"):setup()
+    end,
+  },
+  { "weilbith/nvim-code-action-menu", after = "nvim-lspconfig" },
   {
     "p00f/clangd_extensions.nvim",
     after = "nvim-lspconfig",
@@ -225,166 +225,166 @@ M.__plugins.common = {
       require("config.plugins.misc").clangd_extensions.setup()
     end,
   },
-	------------------
-	{
-		"lewis6991/gitsigns.nvim",
-		event = "CursorHold",
-		config = function()
-			require("config.plugins.gitsigns").setup()
-		end,
-	},
-	{
-		"kdheepak/lazygit.nvim",
-		cmd = { "LazyGit", "LazyGitConfig", "LazyGitFilter", "LazyGitFilterCurrentFile" },
-		setup = function()
-			vim.g.lazygit_floating_window_winblend = 0 -- transparency of floating window
-			vim.g.lazygit_floating_window_scaling_factor = 0.9 -- scaling factor for floating window
-			vim.g.lazygit_floating_window_corner_chars = { "╭", "╮", "╰", "╯" } -- customize lazygit popup window corner characters
-			vim.g.lazygit_use_neovim_remote = 0
-		end,
-	},
-	{
-		"kyazdani42/nvim-tree.lua",
-		config = function()
-			require("config.plugins.tree_explorer").nvimtree_config()
-		end,
-	},
-	{
-		"lukas-reineke/indent-blankline.nvim",
-		event = "CursorHold",
-		config = function()
-			require("config.plugins.misc").config_indent_blankline()
-		end,
-	},
-	{
-		"rhysd/git-messenger.vim",
-		cmd = require("config.plugins.misc").git_messenger.cmd,
+  ------------------
+  {
+    "lewis6991/gitsigns.nvim",
+    event = "CursorHold",
+    config = function()
+      require("config.plugins.gitsigns").setup()
+    end,
+  },
+  {
+    "kdheepak/lazygit.nvim",
+    cmd = { "LazyGit", "LazyGitConfig", "LazyGitFilter", "LazyGitFilterCurrentFile" },
+    setup = function()
+      vim.g.lazygit_floating_window_winblend = 0 -- transparency of floating window
+      vim.g.lazygit_floating_window_scaling_factor = 0.9 -- scaling factor for floating window
+      vim.g.lazygit_floating_window_corner_chars = { "╭", "╮", "╰", "╯" } -- customize lazygit popup window corner characters
+      vim.g.lazygit_use_neovim_remote = 0
+    end,
+  },
+  {
+    "kyazdani42/nvim-tree.lua",
+    config = function()
+      require("config.plugins.tree_explorer").nvimtree_config()
+    end,
+  },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    event = "CursorHold",
+    config = function()
+      require("config.plugins.misc").config_indent_blankline()
+    end,
+  },
+  {
+    "rhysd/git-messenger.vim",
+    cmd = require("config.plugins.misc").git_messenger.cmd,
     keys = require("config.plugins.misc").git_messenger.keys,
-		setup = function()
+    setup = function()
       require("config.plugins.misc").git_messenger.setup()
-		end,
-		config = function()
-			require("config.plugins.misc").git_messenger.config()
-		end,
-	},
-	{
-		"kristijanhusak/orgmode.nvim",
-		requires = "nvim-treesitter/nvim-treesitter",
-		ft = "org",
-		config = function()
-			require("config.plugins.orgmode"):setup()
-		end,
-	},
-	{
-		"juneedahamed/svnj.vim",
-		cmd = { "SVNStatus", "SVNCommit" },
-		setup = function()
-			vim.g.svnj_allow_leader_mappings = 0
-			vim.g.svnj_cache_dir = vim.fn.stdpath("cache")
-			vim.g.svnj_browse_cache_all = 1
-			vim.g.svnj_custom_statusbar_ops_hide = 0
-			vim.g.svnj_browse_cache_max_cnt = 50
-			vim.g.svnj_custom_fuzzy_match_hl = "Directory"
-			vim.g.svnj_custom_menu_color = "Question"
-			vim.g.svnj_fuzzy_search = 1
-		end,
-	},
-	{
-		"PProvost/vim-ps1",
-		ft = "ps1",
-	},
-	{ "matze/vim-ini-fold", ft = "dosini" },
-	{
-		"chrisbra/csv.vim",
-		ft = "csv",
-		setup = function()
-			vim.g.no_csv_maps = 1
-			vim.g.csv_strict_columns = 1
-		end,
-	},
-	{ "aklt/plantuml-syntax", ft = "plantuml" },
-	{ "MTDL9/vim-log-highlighting", ft = "log" },
-	{
-		"chaoren/vim-wordmotion",
-		event = "CursorHold",
-		setup = function()
-			vim.g.wordmotion_mappings = {
-				w = "L",
-				b = "H",
-				e = "",
-				W = "",
-				B = "",
-				E = "",
-				["ge"] = "",
-				["aw"] = "",
-				["iw"] = "",
-				["<C-R><C-W>"] = "",
-			}
-		end,
-	},
-	{
-		"mhinz/vim-startify",
-		setup = function()
-			vim.g.startify_session_dir = vim.fn.stdpath("data") .. "/sessions/"
+    end,
+    config = function()
+      require("config.plugins.misc").git_messenger.config()
+    end,
+  },
+  {
+    "kristijanhusak/orgmode.nvim",
+    requires = "nvim-treesitter/nvim-treesitter",
+    ft = "org",
+    config = function()
+      require("config.plugins.orgmode"):setup()
+    end,
+  },
+  {
+    "juneedahamed/svnj.vim",
+    cmd = { "SVNStatus", "SVNCommit" },
+    setup = function()
+      vim.g.svnj_allow_leader_mappings = 0
+      vim.g.svnj_cache_dir = vim.fn.stdpath("cache")
+      vim.g.svnj_browse_cache_all = 1
+      vim.g.svnj_custom_statusbar_ops_hide = 0
+      vim.g.svnj_browse_cache_max_cnt = 50
+      vim.g.svnj_custom_fuzzy_match_hl = "Directory"
+      vim.g.svnj_custom_menu_color = "Question"
+      vim.g.svnj_fuzzy_search = 1
+    end,
+  },
+  {
+    "PProvost/vim-ps1",
+    ft = "ps1",
+  },
+  { "matze/vim-ini-fold", ft = "dosini" },
+  {
+    "chrisbra/csv.vim",
+    ft = "csv",
+    setup = function()
+      vim.g.no_csv_maps = 1
+      vim.g.csv_strict_columns = 1
+    end,
+  },
+  { "aklt/plantuml-syntax", ft = "plantuml" },
+  { "MTDL9/vim-log-highlighting", ft = "log" },
+  {
+    "chaoren/vim-wordmotion",
+    event = "CursorHold",
+    setup = function()
+      vim.g.wordmotion_mappings = {
+        w = "L",
+        b = "H",
+        e = "",
+        W = "",
+        B = "",
+        E = "",
+        ["ge"] = "",
+        ["aw"] = "",
+        ["iw"] = "",
+        ["<C-R><C-W>"] = "",
+      }
+    end,
+  },
+  {
+    "mhinz/vim-startify",
+    setup = function()
+      vim.g.startify_session_dir = vim.fn.stdpath("data") .. "/sessions/"
 
-			vim.g.startify_lists = {
-				{ ["type"] = "sessions", ["header"] = { "   Sessions" } },
-				{ ["type"] = "files", ["header"] = { "   MRU" } },
-			}
-			vim.g.startify_change_to_dir = 0
-			vim.g.startify_session_sort = 1
-			vim.g.startify_session_number = 10
-		end,
-	},
-	{
-		"jiangmiao/auto-pairs",
-		event = "CursorHold",
-		setup = function()
-			-- Really annoying option
-			vim.g.AutoPairsFlyMode = 0
-			vim.g.AutoPairsShortcutToggle = ""
-			vim.g.AutoPairsShortcutFastWrap = ""
-			vim.g.AutoPairsShortcutJump = ""
-			vim.g.AutoPairsShortcutBackInsert = ""
-		end,
-	},
-	{
-		"tpope/vim-repeat",
-		event = "CursorHold",
-	},
-	{
-		"kylechui/nvim-surround",
-		event = "CursorHold",
-		config = function()
-			require("config.plugins.misc"):config_surround()
-		end,
-	},
-	{
-		"rmagatti/auto-session",
-		requires = {
-			{
-				"rmagatti/session-lens",
-				after = "telescope.nvim",
-				config = function()
-					require("config.plugins.misc"):config_session_lens()
-				end,
-			},
-			{ "nvim-lua/telescope.nvim" },
-		},
-		config = function()
-			require("config.plugins.misc"):config_auto_session()
-		end,
-	},
-	{
-		"tricktux/pomodoro.vim",
-		cmd = "PomodoroStart",
-		setup = function()
-			require("config.plugins.misc"):setup_pomodoro()
-		end,
-	},
-	{
-		"akinsho/toggleterm.nvim",
-    tag = '*',
+      vim.g.startify_lists = {
+        { ["type"] = "sessions", ["header"] = { "   Sessions" } },
+        { ["type"] = "files", ["header"] = { "   MRU" } },
+      }
+      vim.g.startify_change_to_dir = 0
+      vim.g.startify_session_sort = 1
+      vim.g.startify_session_number = 10
+    end,
+  },
+  {
+    "jiangmiao/auto-pairs",
+    event = "CursorHold",
+    setup = function()
+      -- Really annoying option
+      vim.g.AutoPairsFlyMode = 0
+      vim.g.AutoPairsShortcutToggle = ""
+      vim.g.AutoPairsShortcutFastWrap = ""
+      vim.g.AutoPairsShortcutJump = ""
+      vim.g.AutoPairsShortcutBackInsert = ""
+    end,
+  },
+  {
+    "tpope/vim-repeat",
+    event = "CursorHold",
+  },
+  {
+    "kylechui/nvim-surround",
+    event = "CursorHold",
+    config = function()
+      require("config.plugins.misc"):config_surround()
+    end,
+  },
+  {
+    "rmagatti/auto-session",
+    requires = {
+      {
+        "rmagatti/session-lens",
+        after = "telescope.nvim",
+        config = function()
+          require("config.plugins.misc"):config_session_lens()
+        end,
+      },
+      { "nvim-lua/telescope.nvim" },
+    },
+    config = function()
+      require("config.plugins.misc"):config_auto_session()
+    end,
+  },
+  {
+    "tricktux/pomodoro.vim",
+    cmd = "PomodoroStart",
+    setup = function()
+      require("config.plugins.misc"):setup_pomodoro()
+    end,
+  },
+  {
+    "akinsho/toggleterm.nvim",
+    tag = "*",
     setup = function()
       require("config.plugins.misc"):setup_toggleterm()
     end,
@@ -599,7 +599,7 @@ M.__plugins.common = {
     end,
   },
   -- These go together
-{
+  {
     "nvim-neotest/neotest",
     ft = "python",
     keys = {
@@ -653,89 +653,87 @@ M.__plugins.common = {
     end,
   },
   { "lewis6991/impatient.nvim" },
-
 }
 M.__plugins.deps = {}
 M.__plugins.deps.executable = {
-	["gh"] = {
-		{
-			"pwntester/octo.nvim",
-			after = "telescope.nvim",
-			config = function()
-				require("telescope").load_extension("octo")
-			end,
-		},
-	},
-	["gpg"] = {
-		{
-			"jamessan/vim-gnupg",
-		},
-	},
+  ["gh"] = {
+    {
+      "pwntester/octo.nvim",
+      after = "telescope.nvim",
+      config = function()
+        require("telescope").load_extension("octo")
+      end,
+    },
+  },
+  ["gpg"] = {
+    {
+      "jamessan/vim-gnupg",
+    },
+  },
 }
 M.__plugins.deps.has = {
-	["nvim-0.8"] = {
-		{
-			"smjonas/inc-rename.nvim",
-			after = "nvim-lspconfig",
-			config = function()
-				require("inc_rename").setup()
-			end,
-		},
-	},
-	["unix"] = {
-		{
-			"RishabhRD/nvim-cheat.sh",
-			cmd = "Cheat",
-		},
-		{ "RishabhRD/popfix", after = "nvim-cheat.sh" },
-		{
-			"iamcco/markdown-preview.nvim",
-			ft = "markdown",
-			setup = function()
-
-				vim.g.mkdp_auto_close = 0
-			end,
-			run = "cd app && npm install",
-		},
-		{ "mboughaba/i3config.vim", ft = "i3config"},
-		{
-			"knubie/vim-kitty-navigator",
-			after = "focus.nvim",
-			run = "cp ./*.py ~/.config/kitty/",
-			setup = function()
-				vim.g.kitty_navigator_no_mappings = 1
-			end,
-			config = function()
-				require("config.plugins.misc"):config_kitty_navigator()
-			end,
-		},
-		{
-			"untitled-ai/jupyter_ascending.vim",
-			ft = "python",
-			setup = function()
-				vim.g.jupyter_ascending_default_mappings = false
-				vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-					pattern = "*.sync.py",
-					callback = function()
-						if vim.b.has_jupyter_plugin == true then
-							return
-						end
-						vim.b.has_jupyter_plugin = true
-						local opts = { silent = true, buffer = true, desc = "jupyter_execute" }
-						vim.keymap.set("n", "<localleader>j", "<Plug>JupyterExecute", opts)
-						opts.desc = "jupyter_execute_all"
-						vim.keymap.set("n", "<localleader>k", "<Plug>JupyterExecuteAll", opts)
-					end,
-				})
-			end,
-		},
+  ["nvim-0.8"] = {
     {
-      'jedrzejboczar/toggletasks.nvim',
+      "smjonas/inc-rename.nvim",
+      after = "nvim-lspconfig",
+      config = function()
+        require("inc_rename").setup()
+      end,
+    },
+  },
+  ["unix"] = {
+    {
+      "RishabhRD/nvim-cheat.sh",
+      cmd = "Cheat",
+    },
+    { "RishabhRD/popfix", after = "nvim-cheat.sh" },
+    {
+      "iamcco/markdown-preview.nvim",
+      ft = "markdown",
+      setup = function()
+        vim.g.mkdp_auto_close = 0
+      end,
+      run = "cd app && npm install",
+    },
+    { "mboughaba/i3config.vim", ft = "i3config" },
+    {
+      "knubie/vim-kitty-navigator",
+      after = "focus.nvim",
+      run = "cp ./*.py ~/.config/kitty/",
+      setup = function()
+        vim.g.kitty_navigator_no_mappings = 1
+      end,
+      config = function()
+        require("config.plugins.misc"):config_kitty_navigator()
+      end,
+    },
+    {
+      "untitled-ai/jupyter_ascending.vim",
+      ft = "python",
+      setup = function()
+        vim.g.jupyter_ascending_default_mappings = false
+        vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+          pattern = "*.sync.py",
+          callback = function()
+            if vim.b.has_jupyter_plugin == true then
+              return
+            end
+            vim.b.has_jupyter_plugin = true
+            local opts = { silent = true, buffer = true, desc = "jupyter_execute" }
+            vim.keymap.set("n", "<localleader>j", "<Plug>JupyterExecute", opts)
+            opts.desc = "jupyter_execute_all"
+            vim.keymap.set("n", "<localleader>k", "<Plug>JupyterExecuteAll", opts)
+          end,
+        })
+      end,
+    },
+    {
+      "jedrzejboczar/toggletasks.nvim",
       after = "telescope.nvim",
       requires = {
-          'nvim-lua/plenary.nvim',
-          'akinsho/toggleterm.nvim',
-          'nvim-telescope/telescope.nvim/',
+        "nvim-lua/plenary.nvim",
+        "akinsho/toggleterm.nvim",
+        "nvim-telescope/telescope.nvim/",
       },
       config = function()
         require("config.plugins.misc").toggletasks.config()
@@ -743,34 +741,34 @@ M.__plugins.deps.has = {
       -- To enable YAML config support
       -- rocks = 'lyaml',
     },
-		{ "lambdalisue/suda.vim", cmd = { "SudaWrite", "SudaRead" } },
-		{ "chr4/nginx.vim", ft = "nginx" },
-		{ "neomutt/neomutt.vim", ft = "muttrc" },
-		{ "fladson/vim-kitty", ft = 'kitty'},
-	},
+    { "lambdalisue/suda.vim", cmd = { "SudaWrite", "SudaRead" } },
+    { "chr4/nginx.vim", ft = "nginx" },
+    { "neomutt/neomutt.vim", ft = "muttrc" },
+    { "fladson/vim-kitty", ft = "kitty" },
+  },
 }
 
 function M:config()
-	-- self:download()
-	local packer = require("packer")
-	local plugins = self.__plugins.common
-	for key, exe in pairs(self.__plugins.deps.executable) do
-		if vim.fn.executable(key) > 0 then
-			for _, plug in pairs(exe) do
-				table.insert(plugins, plug)
-			end
-		end
-	end
-	for key, dep in pairs(self.__plugins.deps.has) do
-		if vim.fn.has(key) > 0 then
-			for _, plug in pairs(dep) do
-				table.insert(plugins, plug)
-			end
-		end
-	end
+  -- self:download()
+  local packer = require("packer")
+  local plugins = self.__plugins.common
+  for key, exe in pairs(self.__plugins.deps.executable) do
+    if vim.fn.executable(key) > 0 then
+      for _, plug in pairs(exe) do
+        table.insert(plugins, plug)
+      end
+    end
+  end
+  for key, dep in pairs(self.__plugins.deps.has) do
+    if vim.fn.has(key) > 0 then
+      for _, plug in pairs(dep) do
+        table.insert(plugins, plug)
+      end
+    end
+  end
 
-	log.trace("packer: plugins = ", plugins)
-	packer.startup({ plugins, config = self.__config })
+  log.trace("packer: plugins = ", plugins)
+  packer.startup({ plugins, config = self.__config })
 end
 
 return M
