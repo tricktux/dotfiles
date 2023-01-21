@@ -164,7 +164,6 @@ def main():
     """Main"""
     logging.basicConfig(filename="/tmp/get_wallpaper.log", level=logging.DEBUG)
     random.seed()
-    print("   ")
     # Sat Dec 21 2019 09:28: unsplash is throuwing too many weird wallpapers
     rddit = Reddit()
     # Deleted sources
