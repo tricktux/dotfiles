@@ -227,9 +227,15 @@ cleanup_junk() {
 		"$XDG_CONFIG_HOME/polybar/scripts/rm_junk"
 		mkdir -p ~/.cache
 		# Clean trash
+		msg "${CYAN}${BOLD}" "[RIMP]==> Cleaning trash folder...  "
 		gio trash --empty
 		# Restore pywal cache files
-		"$XDG_CONFIG_HOME/polybar/scripts/flux_/flux" -c \
+		msg "${CYAN}${BOLD}" "[RIMP]==> Restore pywal cache files...  "
+        # Remove forced mode, just in case
+		"$XDG_CONFIG_HOME/polybar/scripts/flux_/flux" -v -c \
+			"$XDG_CONFIG_HOME/polybar/scripts/flux_/flux_config.lua" -r
+        # Force generation of night mode
+		"$XDG_CONFIG_HOME/polybar/scripts/flux_/flux" -v -c \
 			"$XDG_CONFIG_HOME/polybar/scripts/flux_/flux_config.lua" -f night
 		;;
 	esac
