@@ -670,7 +670,8 @@ sudo groupadd -r vboxdrv
 sudo gpasswd -a reinaldo vboxdrv
 # For USB access
 sudo gpasswd -a reinaldo vboxusers
-paru -Syu virtualbox-ext-oracle
+# Not needed anymore for USB3 access
+# paru -Syu virtualbox-ext-oracle
 # }}}
 
 # dotnet {{{
