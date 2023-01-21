@@ -27,7 +27,6 @@ mimeo
 mono-basic
 navi-bin
 ncurses5-compat-libs
-nerd-fonts-inconsolata
 networkmanager-dmenu-git
 noisetorch-bin
 numix-gtk-theme
@@ -39,6 +38,7 @@ paper-icon-theme
 paru-bin
 pass-import
 pass-update
+pico-sdk
 picotool
 powerstat
 preload
@@ -60,7 +60,6 @@ ttf-font-awesome-5
 ttf-weather-icons
 uair
 vale
-virtualbox-ext-oracle
 xdg-utils-mimeo
 xilinx-ise
 xlayoutdisplay
