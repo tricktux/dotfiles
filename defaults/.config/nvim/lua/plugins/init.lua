@@ -293,5 +293,62 @@ return {
 			--[[ on_close = function()
     end, ]]
 		},
+		{
+			"beauwilliams/focus.nvim",
+      cmd = {"FocusToggle"},
+			keys = {
+				{
+					"<leader>tw",
+					"<cmd>FocusToggle<cr>",
+					desc = "focus_mode_toggle_mappings",
+				},
+				{
+					"<a-h>",
+					function()
+						require("focus").split_command("h")
+					end,
+					desc = "window_switch_left",
+				},
+        {
+          "<a-j>",
+          function()
+            require("focus").split_command("j")
+          end,
+          desc = "window_switch_down",
+        },
+        {
+          "<a-k>",
+          function()
+            require("focus").split_command("k")
+          end,
+          desc = "window_switch_up",
+        },
+        {
+          "<a-l>",
+          function()
+            require("focus").split_command("l")
+          end,
+          desc = "window_switch_right",
+        },
+			},
+			opts = {
+				-- Displays line numbers in the focussed window only
+				-- Not displayed in unfocussed windows
+				-- Default: true
+				number = false,
+				excluded_buftypes = { "nofile", "prompt" },
+				relativenumber = false,
+				cursorline = false,
+				signcolumn = false,
+				-- Enable auto highlighting for focussed/unfocussed windows
+				-- Default: false
+				winhighlight = false,
+				-- vim.cmd('hi link UnfocusedWindow CursorLine')
+				-- vim.cmd('hi link FocusedWindow VisualNOS')
+				-- focus.enable = false
+				-- width = 100
+				tmux = true,
+			},
+		},
 	},
 }
