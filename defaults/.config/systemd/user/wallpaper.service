@@ -1,8 +1,8 @@
 ; File:           wallpaper.service
 ; Author:		    Reinaldo Molina
 ; Email:          rmolin88 at gmail dot com
-; Revision:	    1.0.0
-; Note: `systemctl --enable --now --user wallpaper.{service,timer}`
+; Revision:	    1.1.0
+; Note: `systemctl enable --now --user wallpaper.timer`
 [Unit]
 Description=Change wallpaper at regular intervals
 ; Use these below for services that depend network
@@ -12,8 +12,7 @@ After=network-online.target
 [Service]
 Type=oneshot
 Environment=DISPLAY=:0
-ExecStart=/home/reinaldo/.config/dotfiles/scripts/get_nasa_wallpaper.py
-; ExecStart=/usr/bin/feh --bg-fill --randomize /home/reinaldo/Pictures/wallpaper/
+ExecStart=/usr/bin/bash -c '"$HOME"/.config/polybar/scripts/get_wallpaper'
 
 [Install]
 WantedBy=default.target

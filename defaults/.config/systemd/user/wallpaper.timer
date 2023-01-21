@@ -3,7 +3,7 @@ Description=Change wallpapers every 30 minutes
 
 [Timer]
 OnActiveSec=5sec
-OnUnitActiveSec=30min
+OnUnitActiveSec=24h
 
 [Install]
 WantedBy=timers.target
