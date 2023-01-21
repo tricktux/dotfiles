@@ -295,7 +295,7 @@ return {
 		},
 		{
 			"beauwilliams/focus.nvim",
-      cmd = {"FocusToggle"},
+			cmd = { "FocusToggle" },
 			keys = {
 				{
 					"<leader>tw",
@@ -309,27 +309,27 @@ return {
 					end,
 					desc = "window_switch_left",
 				},
-        {
-          "<a-j>",
-          function()
-            require("focus").split_command("j")
-          end,
-          desc = "window_switch_down",
-        },
-        {
-          "<a-k>",
-          function()
-            require("focus").split_command("k")
-          end,
-          desc = "window_switch_up",
-        },
-        {
-          "<a-l>",
-          function()
-            require("focus").split_command("l")
-          end,
-          desc = "window_switch_right",
-        },
+				{
+					"<a-j>",
+					function()
+						require("focus").split_command("j")
+					end,
+					desc = "window_switch_down",
+				},
+				{
+					"<a-k>",
+					function()
+						require("focus").split_command("k")
+					end,
+					desc = "window_switch_up",
+				},
+				{
+					"<a-l>",
+					function()
+						require("focus").split_command("l")
+					end,
+					desc = "window_switch_right",
+				},
 			},
 			opts = {
 				-- Displays line numbers in the focussed window only
@@ -350,5 +350,201 @@ return {
 				tmux = true,
 			},
 		},
+	},
+	{
+		"justinmk/vim-sneak",
+		event = "VeryLazy",
+		init = function()
+			vim.g["sneak#absolute_dir"] = 1
+			vim.g["sneak#label"] = 1
+			-- " repeat motion
+			-- Using : for next f,t is cumbersome, use ' for that, and ` for marks
+			vim.keymap.set("n", "'", "<Plug>Sneak_;")
+			vim.keymap.set("n", ",", "<Plug>Sneak_,")
+
+			-- " 1-character enhanced 'f'
+			vim.keymap.set("n", "f", "<Plug>Sneak_f")
+			vim.keymap.set("n", "F", "<Plug>Sneak_F")
+			-- " 1-character enhanced 't'
+			vim.keymap.set("n", "t", "<Plug>Sneak_t")
+			-- " label-mode
+			vim.keymap.set("n", "s", "<Plug>SneakLabel_s")
+			vim.keymap.set("n", "S", "<Plug>SneakLabel_S")
+
+			-- TODO: See a way not to have to map these
+			-- Wait for: https://github.com/justinmk/vim-sneak/pull/248
+			-- vim.g["sneak#disable_mappings"] = 1
+			-- " visual-mode
+			vim.keymap.set({ "x", "o" }, "s", "s")
+			vim.keymap.set({ "x", "o" }, "S", "S")
+			vim.keymap.set({ "x", "o" }, "f", "f")
+			vim.keymap.set({ "x", "o" }, "F", "F")
+			vim.keymap.set({ "x", "o" }, "t", "t")
+			vim.keymap.set({ "x", "o" }, "T", "%")
+		end,
+	},
+	{
+		"b3nj5m1n/kommentary",
+		keys = {
+			{ "-", "<Plug>kommentary_line_default", desc = "kommentary_line_default" },
+			{ "-", "<Plug>kommentary_visual_default<C-c>", mode = "x", desc = "kommentary_line_visual" },
+			{ "0", "<Plug>kommentary_motion_default", desc = "kommentary_motion_default" },
+		},
+		init = function()
+			vim.g.kommentary_create_default_mappings = false
+		end,
+		config = function()
+			local config = require("kommentary.config")
+			config.configure_language("wings_syntax", {
+				single_line_comment_string = "//",
+				prefer_single_line_comments = true,
+			})
+			config.configure_language("dosini", {
+				single_line_comment_string = ";",
+				prefer_single_line_comments = true,
+			})
+		end,
+	},
+	{
+		"ironhouzi/starlite-nvim",
+		keys = {
+			{
+				"*",
+				function()
+					require("starlite").star()
+				end,
+				desc = "goto_next_abs_word_under_cursor",
+			},
+			{
+				"g*",
+				function()
+					require("starlite").g_star()
+				end,
+				desc = "goto_next_word_under_cursor",
+			},
+			{
+				"#",
+				function()
+					require("starlite").hash()
+				end,
+				desc = "goto_prev_abs_word_under_cursor",
+			},
+			{
+				"g#",
+				function()
+					require("starlite").g_hash()
+				end,
+				desc = "goto_prev_word_under_cursor",
+			},
+		},
+	},
+	{
+		"kazhala/close-buffers.nvim",
+		keys = {
+			{
+				"<leader>bd",
+				function()
+					require("close_buffers").delete({ type = "this" })
+				end,
+				desc = "buffer_delete_current",
+			},
+			{
+				"<leader>bl",
+				function()
+					require("close_buffers").delete({ type = "all", force = true })
+				end,
+				desc = "buffer_delete_all",
+			},
+			{
+				"<leader>bn",
+				function()
+					require("close_buffers").delete({ type = "nameless" })
+				end,
+				desc = "buffer_delete_nameless",
+			},
+			{
+				"<leader>bg",
+				function()
+					require("close_buffers").delete({ glob = vim.fn.input("Please enter glob (ex. *.lua): ") })
+				end,
+				desc = "buffer_delete_glob",
+			},
+		},
+		opts = {
+			filetype_ignore = {}, -- Filetype to ignore when running deletions
+			file_glob_ignore = {}, -- File name glob pattern to ignore when running deletions (e.g. '*.md')
+			file_regex_ignore = {}, -- File name regex pattern to ignore when running deletions (e.g. '.*[.]md')
+			preserve_window_layout = { "this", "nameless" }, -- Types of deletion that should preserve the window layout
+			next_buffer_cmd = nil, -- Custom function to retrieve the next buffer when preserving window layout
+		},
+	},
+	{
+		"akinsho/toggleterm.nvim",
+		event = "VeryLazy",
+		init = function()
+			local maps = {}
+			maps.mappings = {
+				["<plug>terminal_toggle"] = { "<cmd>ToggleTerm<cr>", "terminal_toggle_toggleterm" },
+				["<plug>terminal_open_horizontal"] = {
+					"<cmd>ToggleTerm direction=horizontal<cr>",
+					"terminal_open_horizontal_toggleterm",
+				},
+				["<plug>terminal_open_vertical"] = {
+					"<cmd>ToggleTerm direction=vertical<cr>",
+					"terminal_open_vertical_toggleterm",
+				},
+			}
+			map:keymaps_sets(maps)
+		end,
+		config = function()
+			require("toggleterm").setup({
+				direction = "float",
+				close_on_exit = false,
+				float_opts = {
+					border = "curved",
+				},
+				highlights = {
+					-- highlights which map to a highlight group name and a table of it's values
+					-- NOTE: this is only a subset of values,
+					-- any group placed here will be set for the terminal window split
+					Normal = {
+						guibg = "White",
+					},
+					NormalFloat = {
+						link = "Normal",
+					},
+				},
+				-- Set this variable below to false for above to have effect
+				shade_terminals = false,
+			})
+			if vim.fn.executable("ranger") <= 0 then
+				return
+			end
+
+			local Terminal = require("toggleterm.terminal").Terminal
+			M.toggleterm.ranger = Terminal:new({
+				cmd = "ranger",
+				close_on_exit = true,
+				clear_env = false,
+				direction = "float",
+				float_opts = {
+					border = "single",
+				},
+				-- function to run on opening the terminal
+				on_open = function(term)
+					vim.cmd.startinsert()
+					vim.keymap.set({ "n", "i" }, "q", vim.cmd.hide, { buffer = true })
+				end,
+			})
+			local r = function()
+				if M.toggleterm.ranger == nil then
+					vim.notify("ranger is not executable", vim.log.levels.error, {})
+					return
+				end
+				M.toggleterm.ranger:toggle()
+			end
+			-- vim.keymap.set('n', '<plug>file_browser', r, { desc = 'file-browser-toggleterm' })
+			vim.api.nvim_create_user_command("ToggleTermRanger", r, {})
+		end,
 	},
 }

@@ -6,72 +6,6 @@ local map = require("config.mappings")
 local vks = vim.keymap.set
 local api = vim.api
 
-function M.config_sneak()
-  -- " repeat motion
-  -- Using : for next f,t is cumbersome, use ' for that, and ` for marks
-  vim.keymap.set("n", "'", "<Plug>Sneak_;")
-  vim.keymap.set("n", ",", "<Plug>Sneak_,")
-
-  -- " 1-character enhanced 'f'
-  vim.keymap.set("n", "f", "<Plug>Sneak_f")
-  vim.keymap.set("n", "F", "<Plug>Sneak_F")
-  -- " 1-character enhanced 't'
-  vim.keymap.set("n", "t", "<Plug>Sneak_t")
-  -- " label-mode
-  vim.keymap.set("n", "s", "<Plug>SneakLabel_s")
-  vim.keymap.set("n", "S", "<Plug>SneakLabel_S")
-
-  -- TODO: See a way not to have to map these
-  -- Wait for: https://github.com/justinmk/vim-sneak/pull/248
-  -- vim.g["sneak#disable_mappings"] = 1
-  -- " visual-mode
-  vim.keymap.set({ "x", "o" }, "s", "s")
-  vim.keymap.set({ "x", "o" }, "S", "S")
-  vim.keymap.set({ "x", "o" }, "f", "f")
-  vim.keymap.set({ "x", "o" }, "F", "F")
-  vim.keymap.set({ "x", "o" }, "t", "t")
-  vim.keymap.set({ "x", "o" }, "T", "%")
-end
-
-function M.setup_sneak()
-  vim.g["sneak#absolute_dir"] = 1
-  vim.g["sneak#label"] = 1
-end
-
-function M.config_kommentary()
-  local config = require("kommentary.config")
-  config.configure_language("wings_syntax", {
-    single_line_comment_string = "//",
-    prefer_single_line_comments = true,
-  })
-  config.configure_language("dosini", {
-    single_line_comment_string = ";",
-    prefer_single_line_comments = true,
-  })
-
-  --[[ The default mapping for line-wise operation; will toggle the range from
-  commented to not-commented and vice-versa, will use a single-line comment. ]]
-  vim.api.nvim_set_keymap("n", "-", "<Plug>kommentary_line_default", {})
-  --[[ The default mapping for visual selections; will toggle the range from
-  commented to not-commented and vice-versa, will use multi-line comments when
-  the range is longer than 1 line, otherwise it will use a single-line comment. ]]
-  vim.api.nvim_set_keymap("x", "-", "<Plug>kommentary_visual_default<C-c>", {})
-  --[[ The default mapping for motions; will toggle the range from commented to
-  not-commented and vice-versa, will use multi-line comments when the range
-  is longer than 1 line, otherwise it will use a single-line comment. ]]
-  vim.api.nvim_set_keymap("n", "0", "<Plug>kommentary_motion_default", {})
-
-  --[[--
-  Creates mappings for in/decreasing comment level.
-  ]]
-  --[[ vim.api.nvim_set_keymap("n", "<leader>oic", "<Plug>kommentary_line_increase", {})
-  vim.api.nvim_set_keymap("n", "<leader>oi", "<Plug>kommentary_motion_increase", {})
-  vim.api.nvim_set_keymap("x", "<leader>oi", "<Plug>kommentary_visual_increase", {})
-  vim.api.nvim_set_keymap("n", "<leader>odc", "<Plug>kommentary_line_decrease", {})
-  vim.api.nvim_set_keymap("n", "<leader>od", "<Plug>kommentary_motion_decrease", {})
-  vim.api.nvim_set_keymap("x", "<leader>od", "<Plug>kommentary_visual_decrease", {}) ]]
-end
-
 function M.setup_comment_frame()
   require("nvim-comment-frame").setup({
 
@@ -112,18 +46,6 @@ function M.setup_comment_frame()
   vks("n", p, require("nvim-comment-frame").add_multiline_comment, o)
 end
 
-function M.config_starlite()
-  local opts = { silent = true, desc = "goto_next_abs_word_under_cursor" }
-  local sl = require("starlite")
-  vks("n", "*", sl.star, opts)
-  opts.desc = "goto_next_word_under_cursor"
-  vks("n", "g*", sl.g_star, opts)
-  opts.desc = "goto_prev_abs_word_under_cursor"
-  vks("n", "#", sl.hash, opts)
-  opts.desc = "goto_prev_word_under_cursor"
-  vks("n", "g#", sl.g_hash, opts)
-end
-
 function M.setup_bookmarks()
   vim.g.bookmark_no_default_key_mappings = 1
   vim.g.bookmark_manage_per_buffer = 0
@@ -148,48 +70,6 @@ function M.setup_bookmarks()
     j = { "<Plug>BookmarkMoveDown", "BookmarkMoveDown" },
     o = { "<Plug>BookmarkLoad", "BookmarkLoad" },
     s = { "<Plug>BookmarkSave", "BookmarkSave" },
-  }
-  map.keymaps_set(leader, "n", opts, prefix)
-end
-
-function M.setup_bdelete()
-  local bd = require("close_buffers")
-  bd.setup({
-    filetype_ignore = {}, -- Filetype to ignore when running deletions
-    file_glob_ignore = {}, -- File name glob pattern to ignore when running deletions (e.g. '*.md')
-    file_regex_ignore = {}, -- File name regex pattern to ignore when running deletions (e.g. '.*[.]md')
-    preserve_window_layout = { "this", "nameless" }, -- Types of deletion that should preserve the window layout
-    next_buffer_cmd = nil, -- Custom function to retrieve the next buffer when preserving window layout
-  })
-
-  local opts = { silent = true }
-  local leader = {}
-  local prefix = [[<leader>b]]
-  leader = {
-    d = {
-      function()
-        bd.delete({ type = "this" })
-      end,
-      "buffer_delete_current",
-    },
-    l = {
-      function()
-        bd.delete({ type = "all", force = true })
-      end,
-      "buffer_delete_all",
-    },
-    n = {
-      function()
-        bd.delete({ type = "nameless" })
-      end,
-      "buffer_delete_nameless",
-    },
-    g = {
-      function()
-        bd.delete({ glob = vim.fn.input("Please enter glob (ex. *.lua): ") })
-      end,
-      "buffer_delete_glob",
-    },
   }
   map.keymaps_set(leader, "n", opts, prefix)
 end
