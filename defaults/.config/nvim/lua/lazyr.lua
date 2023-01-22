@@ -37,12 +37,12 @@ M.opts = {
     timeout = 120, -- kill processes that take more than 2 minutes
     url_format = "https://github.com/%s.git",
   },
-  dev = {
+  dev = {},
     -- directory where you store your local plugin projects
-    path = "~/projects",
+    -- path = "~/projects",
     ---@type string[] plugins that match these patterns will use your local versions instead of being fetched from GitHub
-    patterns = {}, -- For example {"folke"}
-  },
+    -- patterns = {}, -- For example {"folke"}
+  -- },
   install = {
     -- install missing plugins on startup. This doesn't increase startup time.
     missing = true,
@@ -81,7 +81,7 @@ M.opts = {
     -- If you want to use a specific browser, you can define it here
     browser = nil, ---@type string?
     throttle = 20, -- how frequently should the ui process render events
-    custom_keys = false,
+    custom_keys = {},
     --[[ {
       -- you can define custom key maps here.
       -- To disable one of the defaults, set it to false
