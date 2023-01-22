@@ -125,7 +125,7 @@ local function main()
   require("options"):setup()
   -- setup wiki early so that path is available
   require("plugin.wiki"):setup()
-  require("lazy").setup()
+  require("lazyr").setup()
 end
 
 main()
