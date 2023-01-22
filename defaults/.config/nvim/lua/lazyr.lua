@@ -4,6 +4,7 @@ M.path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
 M.bootstrap = function()
   if vim.loop.fs_stat(M.path) then
+    vim.opt.rtp:prepend(M.path)
     return
   end
 
