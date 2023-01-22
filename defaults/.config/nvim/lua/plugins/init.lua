@@ -91,7 +91,7 @@ return {
       compile = {
         enabled = true,
         -- .. [[/site/plugin/catppuccin]]
-        path = vim.fn.stdpath("data") .. [[/catppuccin]],
+        path = vim.fn.stdpath("data") .. utl.fs.path.sep .. [[catppuccin]],
         suffix = "_compiled",
       },
       integrations = {
@@ -576,6 +576,69 @@ return {
         pattern = "tex",
         desc = "LatexPasteImageFunction",
         group = id,
+      })
+    end,
+  },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    event = "VeryLazy",
+    opts = {
+      char_highlight_list = { "Comment" },
+      char_list = { "¦", "┆", "┊" },
+      show_first_indent_level = false,
+      show_current_context = true,
+      buftype_exclude = utl.buftype.blacklist,
+      filetype_exclude = vim.tbl_flatten({ utl.filetype.blacklist, "markdown", "org", "mail" }),
+    }
+  },
+  {
+    "kylechui/nvim-surround",
+    event = "VeryLazy",
+    config = true,
+  },
+  {
+    "rmagatti/auto-session",
+    event = "VeryLazy",
+    opts = {
+      log_level = "info",
+      auto_session_enable_last_session = false,
+      auto_session_root_dir = vim.fn.stdpath("data") .. utl.fs.path.sep .. "sessions" .. utl.fs.path.sep,
+      auto_session_enabled = true,
+      auto_session_create_enabled = true,
+      auto_save_enabled = true,
+      auto_restore_enabled = false,
+      auto_session_suppress_dirs = nil,
+      auto_session_use_git_branch = true,
+      -- the configs below are lua only
+      bypass_session_save_file_types = nil,
+    }
+  },
+  {
+    "monaqa/dial.nvim",
+    event = "VeryLazy",
+    config = function()
+      vim.api.nvim_set_keymap("n", "<C-a>", require("dial.map").inc_normal(), { noremap = true })
+      vim.api.nvim_set_keymap("n", "<s-x>", require("dial.map").dec_normal(), { noremap = true })
+      vim.api.nvim_set_keymap("v", "<C-a>", require("dial.map").inc_visual(), { noremap = true })
+      vim.api.nvim_set_keymap("v", "<s-x>", require("dial.map").dec_visual(), { noremap = true })
+      vim.api.nvim_set_keymap("v", "g<C-a>", require("dial.map").inc_gvisual(), { noremap = true })
+      vim.api.nvim_set_keymap("v", "g<s-x>", require("dial.map").dec_gvisual(), { noremap = true })
+      local augend = require("dial.augend")
+      require("dial.config").augends:register_group({
+        -- default augends used when no group name is specified
+        default = {
+          augend.integer.alias.decimal,
+          augend.integer.alias.hex,
+          augend.integer.alias.octal,
+          augend.integer.alias.binary,
+          augend.date.alias["%Y/%m/%d"],
+          augend.date.alias["%Y-%m-%d"],
+          augend.date.alias["%m/%d"],
+          augend.date.alias["%H:%M"],
+          augend.constant.alias.ja_weekday_full,
+          augend.constant.alias.bool,
+          augend.semver.alias.semver,
+        },
       })
     end,
   },
