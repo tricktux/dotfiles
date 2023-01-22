@@ -2,6 +2,7 @@ abook
 aconfmgr-git
 alttab-git
 anki-official-binary-bundle
+atuin-bin
 bibata-cursor-theme-bin
 bibata-extra-cursor-theme
 bluez-firmware
@@ -16,7 +17,6 @@ gdb-dashboard-git
 geekbench
 google-chrome
 htop-vim
-i3ass
 i3help-git
 i3lock-fancy-git
 jdtls
@@ -53,6 +53,7 @@ rofi-file-browser-extended-git
 shellcheck-bin
 steam-fonts
 synology-drive
+tdrop
 termite
 ttf-weather-icons
 tty-clock
