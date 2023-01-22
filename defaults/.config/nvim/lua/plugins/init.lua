@@ -283,7 +283,6 @@ return {
     },
     {
       "beauwilliams/focus.nvim",
-      cmd = { "FocusToggle" },
       keys = {
         {
           "<leader>tw",
@@ -468,22 +467,13 @@ return {
   },
   {
     "akinsho/toggleterm.nvim",
-    event = "VeryLazy",
-    init = function()
-      local maps = {}
-      maps.mappings = {
-        ["<plug>terminal_toggle"] = { "<cmd>ToggleTerm<cr>", "terminal_toggle_toggleterm" },
-        ["<plug>terminal_open_horizontal"] = {
-          "<cmd>ToggleTerm direction=horizontal<cr>",
-          "terminal_open_horizontal_toggleterm",
-        },
-        ["<plug>terminal_open_vertical"] = {
-          "<cmd>ToggleTerm direction=vertical<cr>",
-          "terminal_open_vertical_toggleterm",
-        },
-      }
-      map:keymaps_sets(maps)
-    end,
+    keys = {
+      { "<plug>terminal_toggle", "<cmd>ToggleTerm<cr>", desc = "terminal_toggle_toggleterm" },
+      { "<plug>terminal_open_horizontal", "<cmd>ToggleTerm direction=horizontal<cr>",
+        desc = "terminal_open_horizontal_toggleterm" },
+      { "<plug>terminal_open_vertical", "<cmd>ToggleTerm direction=vertical<cr>",
+        desc = "terminal_open_vertical_toggleterm" },
+    },
     config = function()
       require("toggleterm").setup({
         direction = "float",
@@ -533,6 +523,60 @@ return {
       end
       -- vim.keymap.set('n', '<plug>file_browser', r, { desc = 'file-browser-toggleterm' })
       vim.api.nvim_create_user_command("ToggleTermRanger", r, {})
+    end,
+  },
+  {
+    "ferrine/md-img-paste.vim",
+    ft = { "markdown", "org" },
+    init = function()
+      vim.cmd([=[
+        function! g:OrgmodePasteImage(relpath)
+          execute "normal! i#+CAPTION: H"
+          let ipos = getcurpos()
+          execute "normal! aere"
+          execute "normal! o[[./" . a:relpath . "]]"
+          call setpos('.', ipos)
+          execute "normal! ve\<C-g>"
+        endfunction
+      ]=])
+      local id = api.nvim_create_augroup("ImagePastePlugin", { clear = true })
+      local opts = { silent = true, desc = "image_paste", buffer = 0 }
+      local md = function()
+        vim.g.PasteImageFunction = "g:MarkdownPasteImage"
+        vim.fn["mdip#MarkdownClipboardImage"]()
+      end
+      local tex = function()
+        vim.g.PasteImageFunction = "g:LatexPasteImage"
+        vim.fn["mdip#MarkdownClipboardImage"]()
+      end
+      local org = function()
+        vim.g.PasteImageFunction = "g:OrgmodePasteImage"
+        vim.fn["mdip#MarkdownClipboardImage"]()
+      end
+      api.nvim_create_autocmd("FileType", {
+        callback = function()
+          vks("n", "<localleader>i", org, opts)
+        end,
+        pattern = "org",
+        desc = "OrgModePasteImageFunction",
+        group = id,
+      })
+      api.nvim_create_autocmd("FileType", {
+        callback = function()
+          vks("n", "<localleader>i", md, opts)
+        end,
+        pattern = "markdown",
+        desc = "MarkdownPasteImageFunction",
+        group = id,
+      })
+      api.nvim_create_autocmd("FileType", {
+        callback = function()
+          vks("n", "<localleader>i", tex, opts)
+        end,
+        pattern = "tex",
+        desc = "LatexPasteImageFunction",
+        group = id,
+      })
     end,
   },
 }
