@@ -1,5 +1,5 @@
 local log = require("utils.log")
-local map = require("config.mappings")
+local map = require("mappings")
 local vks = vim.keymap.set
 local null = require("null-ls")
 local helpers = require("null-ls.helpers")

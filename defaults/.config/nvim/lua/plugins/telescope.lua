@@ -1,6 +1,6 @@
 local utl = require("utils.utils")
 local Path = require("plenary.path")
-local map = require("config.mappings")
+local map = require("mappings")
 local vf = vim.fn
 local fmt = string.format
 local log = require("utils.log")

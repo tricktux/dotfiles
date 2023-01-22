@@ -1,5 +1,5 @@
 local utl = require("utils.utils")
-local map = require("config.mappings")
+local map = require("mappings")
 local vks = vim.keymap.set
 
 local M = {}

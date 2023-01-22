@@ -1,6 +1,6 @@
 local utl = require("utils.utils")
-local map = require("config.mappings")
-local line = require("config.plugins.lualine")
+local map = require("mappings")
+local line = require("plugins.lualine")
 local log = require("utils.log")
 
 local M = {}

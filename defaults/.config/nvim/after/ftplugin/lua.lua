@@ -16,7 +16,7 @@ vim.opt_local.suffixesadd:prepend(".lua")
 vim.opt_local.suffixesadd:prepend("init.lua")
 vim.opt_local.path:prepend(vim.fn.stdpath("config") .. "/lua")
 
-local map = require("config.mappings")
+local map = require("mappings")
 local maps = {}
 maps.opts = { silent = true, buffer = true }
 maps.mappings = {
