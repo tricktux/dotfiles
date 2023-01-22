@@ -67,3 +67,5 @@ defaults/.config/doublecmd/highlighters.xml
 defaults/.config/kitty/themes
 defaults/.config/kitty/current-theme.conf
 defaults/.config/kitty/kitty.conf.bak
+defaults/.config/polybar/scripts/google-key.sh
+defaults/.config/polybar/scripts/traffic-info.sh
