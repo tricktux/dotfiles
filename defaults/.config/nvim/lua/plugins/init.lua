@@ -521,7 +521,7 @@ return {
 			end
 
 			local Terminal = require("toggleterm.terminal").Terminal
-			M.toggleterm.ranger = Terminal:new({
+			_G.ranger = Terminal:new({
 				cmd = "ranger",
 				close_on_exit = true,
 				clear_env = false,
@@ -536,11 +536,11 @@ return {
 				end,
 			})
 			local r = function()
-				if M.toggleterm.ranger == nil then
+				if _G.ranger == nil then
 					vim.notify("ranger is not executable", vim.log.levels.error, {})
 					return
 				end
-				M.toggleterm.ranger:toggle()
+				_G.ranger:toggle()
 			end
 			-- vim.keymap.set('n', '<plug>file_browser', r, { desc = 'file-browser-toggleterm' })
 			vim.api.nvim_create_user_command("ToggleTermRanger", r, {})
