@@ -1,7 +1,6 @@
 local log = require("utils.log")
 local fmt = string.format
 local utl = require("utils.utils")
-local line = require("plugins.lualine")
 local map = require("mappings")
 local vks = vim.keymap.set
 local api = vim.api
@@ -48,7 +47,7 @@ local function setup_flux()
 	if vim.fn.has("unix") > 0 and vim.fn.executable("luajit") > 0 then
 		vim.g.flux_enabled = 0
 
-		api.nvim_create_autocmd("VeryLazy", {
+		api.nvim_create_autocmd("CursorHold", {
 			callback = function()
 				vim.defer_fn(function()
 					f:check()
@@ -61,7 +60,7 @@ local function setup_flux()
 		})
 		return
 	end
-	api.nvim_create_autocmd("VeryLazy", {
+	api.nvim_create_autocmd("CursorHold", {
 		callback = function()
 			vim.defer_fn(function()
 				vim.fn["flux#Flux"]()
