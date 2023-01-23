@@ -1,6 +1,6 @@
 local utl = require("utils.utils")
 local map = require("mappings")
-local line = require("plugins.lualine")
+-- local line = require("plugins.lualine")
 local log = require("utils.log")
 
 local M = {}
@@ -104,7 +104,13 @@ function M.setup()
   })
 
   log.info("ins_left(): gitsigns")
-  line:ins_left({ status_line, color = { gui = "bold" } })
+  -- line:ins_left({ status_line, color = { gui = "bold" } })
 end
 
-return M
+return {
+  "lewis6991/gitsigns.nvim",
+  event = "VeryLazy",
+  config = function()
+    M.setup()
+  end,
+}
