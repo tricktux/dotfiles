@@ -693,4 +693,38 @@ return {
       vim.g.AutoPairsShortcutBackInsert = ""
     end,
   },
+  { "aquach/vim-http-client", cmd = "HTTPClientDoRequest" },
+  {
+    "PProvost/vim-ps1",
+    ft = "ps1",
+  },
+  { "matze/vim-ini-fold", ft = "dosini" },
+  {
+    "chrisbra/csv.vim",
+    ft = "csv",
+    init = function()
+      vim.g.no_csv_maps = 1
+      vim.g.csv_strict_columns = 1
+    end,
+  },
+  { "aklt/plantuml-syntax", ft = "plantuml" },
+  { "MTDL9/vim-log-highlighting", ft = "log" },
+  {
+    "chaoren/vim-wordmotion",
+    event = "VeryLazy",
+    init = function()
+      vim.g.wordmotion_mappings = {
+        w = "L",
+        b = "H",
+        e = "",
+        W = "",
+        B = "",
+        E = "",
+        ["ge"] = "",
+        ["aw"] = "",
+        ["iw"] = "",
+        ["<C-R><C-W>"] = "",
+      }
+    end,
+  },
 }
