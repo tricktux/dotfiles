@@ -642,4 +642,55 @@ return {
       })
     end,
   },
+  {
+    "kdheepak/lazygit.nvim",
+    cmd = { "LazyGit", "LazyGitConfig", "LazyGitFilter", "LazyGitFilterCurrentFile" },
+    init = function()
+      vim.g.lazygit_floating_window_winblend = 0 -- transparency of floating window
+      vim.g.lazygit_floating_window_scaling_factor = 0.9 -- scaling factor for floating window
+      vim.g.lazygit_floating_window_corner_chars = { "╭", "╮", "╰", "╯" } -- customize lazygit popup window corner characters
+      vim.g.lazygit_use_neovim_remote = 0
+    end,
+  },
+  {
+    "rhysd/git-messenger.vim",
+    keys = {
+      { "<leader>vm", "<cmd>GitMessenger<cr>", desc = "git_messenger" }
+    },
+    init = function()
+      vim.g.git_messenger_always_into_popup = true
+      vim.g.git_messenger_floating_win_opts = { border = 'single' }
+    end,
+  },
+  {
+    "mhinz/vim-startify",
+    lazy = false,
+    init = function()
+      vim.g.startify_session_dir = vim.fn.stdpath("data") .. "/sessions/"
+
+      vim.g.startify_lists = {
+        { ["type"] = "sessions", ["header"] = { "   Sessions" } },
+        { ["type"] = "files", ["header"] = { "   MRU" } },
+      }
+      vim.g.startify_change_to_dir = 0
+      vim.g.startify_session_sort = 1
+      vim.g.startify_session_number = 10
+    end,
+  },
+  {
+    "tpope/vim-repeat",
+    event = "VeryLazy",
+  },
+  {
+    "jiangmiao/auto-pairs",
+    event = "VeryLazy",
+    init = function()
+      -- Really annoying option
+      vim.g.AutoPairsFlyMode = 0
+      vim.g.AutoPairsShortcutToggle = ""
+      vim.g.AutoPairsShortcutFastWrap = ""
+      vim.g.AutoPairsShortcutJump = ""
+      vim.g.AutoPairsShortcutBackInsert = ""
+    end,
+  },
 }

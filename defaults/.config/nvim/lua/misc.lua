@@ -624,10 +624,10 @@ M.clangd_extensions.setup = function()
       cmp.config.compare.length,
       cmp.config.compare.order,
     },
-  },
-      require("clangd_extensions").setup {
-        server = require("config.lsp").clangd_settings,
-      }
+  }
+  require("clangd_extensions").setup {
+    server = require("config.lsp").clangd_settings,
+  }
 end
 
 M.context = {}
