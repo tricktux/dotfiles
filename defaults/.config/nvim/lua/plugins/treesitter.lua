@@ -139,15 +139,16 @@ return {
         "danymat/neogen",
         -- TODO: fix mappings here
         keys = {
-          {"<leader>og", desc = "generate_neogen" },
-          {"<leader>oGf", desc = "generate_neogen_function" },
-          {"<leader>oGc", desc = "generate_neogen_class" },
-          {"<leader>oGf", desc = "generate_neogen_file" },
-          {"<leader>oGt", desc = "generate_neogen_type" },
+          { "<leader>og", desc = "generate_neogen" },
+          { "<leader>oGf", desc = "generate_neogen_function" },
+          { "<leader>oGc", desc = "generate_neogen_class" },
+          { "<leader>oGf", desc = "generate_neogen_file" },
+          { "<leader>oGt", desc = "generate_neogen_type" },
         },
-        config = function()
-          require("config.plugins.misc"):config_neogen()
-        end,
+        -- TODO: find the config
+        -- config = function()
+          -- require("config.plugins.misc"):config_neogen()
+        -- end,
       },
       {
         "nvim-treesitter/nvim-treesitter-context",

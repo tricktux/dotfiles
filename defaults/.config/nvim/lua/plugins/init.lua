@@ -727,4 +727,37 @@ return {
       }
     end,
   },
+  {
+    "tpope/vim-capslock",
+    keys = {
+      { "<c-l>", "<Plug>CapsLockToggle", mode = "i", desc = "caps_lock_toggle" },
+    },
+  },
+  {
+    "glts/vim-radical",
+    dependencies = {
+      "glts/vim-magnum",
+    },
+    keys = {
+      { "<leader>nr", "<Plug>RadicalView", mode = "x", desc = "radical_view" },
+      { "<leader>nr", "<Plug>RadicalView", desc = "radical_view" },
+    },
+    init = function()
+      vim.g.radical_no_mappings = 1
+    end,
+  },
+  {
+    -- Folder name to give
+    "https://gitlab.com/yorickpeterse/nvim-pqf",
+    as = "nvim-pqf",
+    event = "QuickFixCmdPre",
+    opts = {
+      signs = {
+        error = "E",
+        warning = "W",
+        info = "I",
+        hint = "H",
+      },
+    }
+  },
 }
