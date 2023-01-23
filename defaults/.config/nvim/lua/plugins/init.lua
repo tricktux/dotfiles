@@ -749,7 +749,7 @@ return {
   {
     -- Folder name to give
     "https://gitlab.com/yorickpeterse/nvim-pqf",
-    as = "nvim-pqf",
+    name = "nvim-pqf",
     event = "QuickFixCmdPre",
     opts = {
       signs = {
