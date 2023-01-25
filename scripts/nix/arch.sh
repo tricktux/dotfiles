@@ -231,10 +231,10 @@ cleanup_junk() {
 		gio trash --empty
 		# Restore pywal cache files
 		msg "${CYAN}${BOLD}" "[RIMP]==> Restore pywal cache files...  "
-        # Remove forced mode, just in case
+		# Remove forced mode, just in case
 		"$XDG_CONFIG_HOME/polybar/scripts/flux_/flux" -v -c \
 			"$XDG_CONFIG_HOME/polybar/scripts/flux_/flux_config.lua" -r
-        # Force generation of night mode
+		# Force generation of night mode
 		"$XDG_CONFIG_HOME/polybar/scripts/flux_/flux" -v -c \
 			"$XDG_CONFIG_HOME/polybar/scripts/flux_/flux_config.lua" -f night
 		;;
@@ -455,6 +455,7 @@ backup() {
 			"$HOME/.gnupg" "$HOME/.ssh" "$HOME/.password-store" "/tmp/pacman_database.tar.bz2"
 			"$HOME/.local/share/histfile" "$HOME/.local/share/z" "$HOME/.config/doublecmd"
 			"$HOME/.password-store_work" "$HOME/.local/share/atuin"
+			"$HOME/Documents/VirtualBoxSharedFolder"
 			"$HOME/Documents/work"
 		)
 		src=""
