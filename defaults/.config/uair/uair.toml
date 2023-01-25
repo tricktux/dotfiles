@@ -8,12 +8,12 @@ autostart = false
 
 [[sessions]]
 name = "Work"
-duration = "45m"
+duration = "50m"
 format = "\U0001F345{time} \n"
 command = "notify-send 'Pomodoro' 'Work Done!'"
 
 [[sessions]]
 name = "Rest"
-duration = "5m"
+duration = "10m"
 format = "\U0001F3D6 {time}end \n"
 command = "notify-send 'Pomodoro' 'Rest Done!'"
