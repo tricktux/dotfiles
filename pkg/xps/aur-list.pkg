@@ -6,6 +6,7 @@ bibata-extra-cursor-theme
 bluez-firmware
 brillo
 bvi
+c++-mscl
 cava
 cht.sh-git
 circleci-cli-bin
@@ -20,6 +21,7 @@ htop-vim
 i3lock-fancy-git
 jdtls
 laptop-mode-tools
+lazydocker-bin
 liquidprompt
 lua-language-server-git
 microsoft-edge-stable-bin
@@ -31,6 +33,7 @@ networkmanager-dmenu-git
 noisetorch-bin
 numix-gtk-theme
 omnisharp-roslyn-bin
+onedrive-abraunegg
 otf-fira-code-onum-patch
 otf-font-awesome-5
 paper-gtk-theme-git
