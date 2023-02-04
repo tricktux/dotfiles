@@ -9,6 +9,9 @@ vim.b.did_org_ftplugin = 1
 
 vim.opt_local.shiftwidth = 2
 vim.opt_local.tabstop = 2
+vim.opt_local.wrap = true
+vim.opt_local.wrapmargin = 2
+vim.opt_local.textwidth = 0
 
 vim.b.AutoPairs = {
 	["="] = "=",
