@@ -478,16 +478,7 @@ M.__plugins.common = {
   },
   {
     "nicwest/vim-camelsnek",
-    keys = {
-      { "n", "<localleader>cs", "snek" },
-      { "v", "<localleader>cs", "snek" },
-      { "n", "<localleader>cc", "camel" },
-      { "v", "<localleader>cc", "camel" },
-      { "n", "<localleader>cb", "camelb" },
-      { "v", "<localleader>cb", "camelb" },
-      { "n", "<localleader>ck", "kebak" },
-      { "v", "<localleader>ck", "kebak" },
-    },
+    cmd = { "Snek", "Camel", "CamelB", "Kebak" },
     setup = function()
       local opts = {
         silent = true,
