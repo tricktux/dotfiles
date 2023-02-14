@@ -63,7 +63,8 @@ local function on_attach(bufnr)
   }
   map.keymaps_set(mappings,"n", opts)
 
-  local ts = require("telescope.builtin")
+  -- TODO: fix here
+  --[[ local ts = require("telescope.builtin")
   prefix = "<leader>vt"
   mappings = {
     f = { ts.git_files, "files" },
@@ -73,8 +74,7 @@ local function on_attach(bufnr)
     s = { ts.git_status, "status" },
     S = { ts.git_stash, "stash" },
   }
-  map.keymaps_set(mappings,"n", opts, prefix)
-  return true
+  map.keymaps_set(mappings,"n", opts, prefix) ]]
 end
 
 local function status_line()
