@@ -59,6 +59,7 @@ end
 return {
   "kristijanhusak/orgmode.nvim",
   ft = "org",
+  version = false, -- last release is way too old
   config = function()
     setup()
   end,
