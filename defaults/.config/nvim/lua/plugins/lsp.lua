@@ -97,7 +97,7 @@ local function set_lsp_mappings(bufnr)
     end
   end
 
-  -- require("plugins.telescope").set_lsp_mappings(bufnr)
+  require("plugins.telescope").set_lsp_mappings(bufnr)
 end
 
 -- Abstract function that allows you to hook and set settings on a buffer that
