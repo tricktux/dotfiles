@@ -210,7 +210,7 @@ function M:config()
 
 	if vim.fn.executable("lua-language-server") > 0 then
 		log.info("setting up the lua lsp...")
-		nvim_lsp.sumneko_lua.setup({
+		nvim_lsp.lua_ls.setup({
 			on_attach = self.on_lsp_attach,
 			flags = flags,
 			capabilities = capabilities,
