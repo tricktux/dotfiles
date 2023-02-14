@@ -1,41 +1,25 @@
 local log = require("utils.log")
-local map = require("config.mappings")
+local map = require("mappings")
 local vks = vim.keymap.set
-local null = require("null-ls")
-local helpers = require("null-ls.helpers")
 
-local M = {}
-
-local function get_sources_for_filetype(ft)
-  local srcs = null.get_sources()
-  local ret = {}
-  for _, v in pairs(srcs) do
-    if v.filetypes[ft] == true then
-      table.insert(ret, v.name)
-    end
-  end
-
-  return ret
-end
-
-M.maps = {}
-M.maps.mode = "n"
-M.maps.prefix = "<leader>tn"
-M.maps.opts = { silent = true }
-M.maps.mappings = {
+local maps = {}
+maps.mode = "n"
+maps.prefix = "<leader>tn"
+maps.opts = { silent = true }
+maps.mappings = {
   d = {
     function()
       local ft = vim.opt.filetype:get()
       local srcs = get_sources_for_filetype(ft)
       if vim.tbl_isempty(srcs) then
-        vim.notify("No null-ls sources installed for '" .. ft .."'", vim.log.levels.WARN)
+        vim.notify("No null-ls sources installed for '" .. ft .. "'", vim.log.levels.WARN)
         return
       end
       vim.ui.select(srcs, {
         prompt = "Select source to disable:",
         format_item = nil,
       }, function(choice)
-        null.disable(choice)
+        require("null-ls").disable(choice)
       end)
     end,
     "disable_source",
@@ -45,14 +29,14 @@ M.maps.mappings = {
       local ft = vim.opt.filetype:get()
       local srcs = get_sources_for_filetype(ft)
       if vim.tbl_isempty(srcs) then
-        vim.notify("No null-ls sources installed for '" .. ft .."'", vim.log.levels.WARN)
+        vim.notify("No null-ls sources installed for '" .. ft .. "'", vim.log.levels.WARN)
         return
       end
       vim.ui.select(srcs, {
         prompt = "Select source to enable:",
         format_item = nil,
       }, function(choice)
-        null.enable(choice)
+        require("null-ls").enable(choice)
       end)
     end,
     "enable_source",
@@ -62,14 +46,14 @@ M.maps.mappings = {
       local ft = vim.opt.filetype:get()
       local srcs = get_sources_for_filetype(ft)
       if vim.tbl_isempty(srcs) then
-        vim.notify("No null-ls sources installed for '" .. ft .."'", vim.log.levels.WARN)
+        vim.notify("No null-ls sources installed for '" .. ft .. "'", vim.log.levels.WARN)
         return
       end
       vim.ui.select(srcs, {
         prompt = "Select source to toggle:",
         format_item = nil,
       }, function(choice)
-        null.toggle(choice)
+        require("null-ls").toggle(choice)
       end)
     end,
     "toggle_source",
@@ -79,11 +63,11 @@ M.maps.mappings = {
       local ft = vim.opt.filetype:get()
       local srcs = get_sources_for_filetype(ft)
       if vim.tbl_isempty(srcs) then
-        vim.notify("No null-ls sources installed for '" .. ft .."'", vim.log.levels.WARN)
+        vim.notify("No null-ls sources installed for '" .. ft .. "'", vim.log.levels.WARN)
         return
       end
       for _, v in pairs(srcs) do
-        null.enable(v)
+        require("null-ls").enable(v)
       end
     end,
     "disable_all",
@@ -93,11 +77,11 @@ M.maps.mappings = {
       local ft = vim.opt.filetype:get()
       local srcs = get_sources_for_filetype(ft)
       if vim.tbl_isempty(srcs) then
-        vim.notify("No null-ls sources installed for '" .. ft .."'", vim.log.levels.WARN)
+        vim.notify("No null-ls sources installed for '" .. ft .. "'", vim.log.levels.WARN)
         return
       end
       for _, v in pairs(srcs) do
-        null.disable(v)
+        require("null-ls").disable(v)
       end
     end,
     "disable_all",
@@ -105,95 +89,89 @@ M.maps.mappings = {
   v = {
     function()
       vim.b.null_enable_vale = 1
-      null.enable("vale")
+      require("null-ls").enable("vale")
     end,
     "vale_enable",
   },
   V = {
     function()
       vim.b.null_enable_vale = 0
-      null.disable("vale")
+      require("null-ls").disable("vale")
     end,
     "vale_disable",
   },
 }
 
 --- Dependencies:
-M.plantuml = {
-  name = "plantuml",
-  filetypes = { "plantuml" },
-  method = null.methods.DIAGNOSTICS,
-  generator = null.generator({
-    command = "plantuml",
-    args = { "$FILENAME" },
-    to_stdin = true,
-    from_stderr = true,
-    -- choose an output format (raw, json, or line)
-    format = "raw",
-    check_exit_code = function(code, stderr)
-      local success = code == 0
+local function get_plantuml()
+  return {
+    name = "plantuml",
+    filetypes = { "plantuml" },
+    method = require("null-ls").methods.DIAGNOSTICS,
+    generator = require("null-ls").generator({
+      command = "plantuml",
+      args = { "$FILENAME" },
+      to_stdin = true,
+      from_stderr = true,
+      -- choose an output format (raw, json, or line)
+      format = "raw",
+      check_exit_code = function(code, stderr)
+        local success = code == 0
 
-      if not success then
-        -- can be noisy for things that run often (e.g. diagnostics), but can
-        -- be useful for things that run on demand (e.g. formatting)
-        print(stderr)
-      end
+        if not success then
+          -- can be noisy for things that run often (e.g. diagnostics), but can
+          -- be useful for things that run on demand (e.g. formatting)
+          print(stderr)
+        end
 
-      return success
-    end,
-    -- use helpers to parse the output from string matchers,
-    -- or parse it manually with a function
-    -- 'errorformat': '%EError line %l in file: %f,%Z%m',
-    on_output = helpers.diagnostics.from_errorformat([[%EError line %l in file: %f,%Z%m]], "plantuml"),
-  }),
-}
-
-M.msbuild = {
-  name = "msbuild",
-  filetypes = { "c", "cpp", "cs" },
-  method = null.methods.DIAGNOSTICS,
-  generator = null.generator({
-    command = "msbuild",
-    cwd = function(params)
-      -- falls back to root if return value is nil
-      return vim.fs.dirname(params.bufname)
-    end,
-    args = {},
-    to_stdin = true,
-    from_stderr = true,
-    -- choose an output format (raw, json, or line)
-    format = "raw",
-    check_exit_code = function(code, stderr)
-      local success = code == 0
-
-      if not success then
-        -- can be noisy for things that run often (e.g. diagnostics), but can
-        -- be useful for things that run on demand (e.g. formatting)
-        print(stderr)
-      end
-
-      return success
-    end,
-    -- use helpers to parse the output from string matchers,
-    -- or parse it manually with a function
-    -- 'errorformat': '%EError line %l in file: %f,%Z%m',
-    on_output = helpers.diagnostics.from_errorformat([=[%f(%l): %t%*[^ ] C%n: %m [%.%#]]=], "msbuild"),
-  }),
-}
-
-function M.list_registered_providers_names(filetype)
-  local s = require("null-ls.sources")
-  local available_sources = s.get_available(filetype)
-  local registered = {}
-  for _, source in ipairs(available_sources) do
-    for _ in pairs(source.methods) do
-      table.insert(registered, source.name)
-    end
-  end
-  return require("utils.utils").set.new(registered)
+        return success
+      end,
+      -- use helpers to parse the output from string matchers,
+      -- or parse it manually with a function
+      -- 'errorformat': '%EError line %l in file: %f,%Z%m',
+      on_output = require("null-ls.helpers").diagnostics.from_errorformat([[%EError line %l in file: %f,%Z%m]],
+        "plantuml"),
+    }),
+  }
 end
 
-function M:setup()
+local function get_msbuild()
+  return {
+    name = "msbuild",
+    filetypes = { "c", "cpp", "cs" },
+    method = require("null-ls").methods.DIAGNOSTICS,
+    generator = require("null-ls").generator({
+      command = "msbuild",
+      cwd = function(params)
+        -- falls back to root if return value is nil
+        return vim.fs.dirname(params.bufname)
+      end,
+      args = {},
+      to_stdin = true,
+      from_stderr = true,
+      -- choose an output format (raw, json, or line)
+      format = "raw",
+      check_exit_code = function(code, stderr)
+        local success = code == 0
+
+        if not success then
+          -- can be noisy for things that run often (e.g. diagnostics), but can
+          -- be useful for things that run on demand (e.g. formatting)
+          print(stderr)
+        end
+
+        return success
+      end,
+      -- use helpers to parse the output from string matchers,
+      -- or parse it manually with a function
+      -- 'errorformat': '%EError line %l in file: %f,%Z%m',
+      on_output = require("null-ls.helpers").diagnostics.from_errorformat([=[%f(%l): %t%*[^ ] C%n: %m [%.%#]]=],
+        "msbuild"),
+    }),
+  }
+end
+
+local function setup()
   -- See here for configuring builtins
   -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md
   -- See here for list of builtins
@@ -207,6 +185,7 @@ function M:setup()
 			disabled_filetypes = { "rust" }, -- use rustfmt
 		}), ]]
   }
+  local null = require("null-ls")
   if vim.fn.executable("vale") > 0 then
     -- Initially run 'vale sync' to download style paths
     -- Check config with 'vale ls-config'
@@ -313,7 +292,7 @@ function M:setup()
         "--extra-arg=-fno-color-diagnostics",
         "--extra-arg=-std=c++20",
         '--extra-arg=-xc++',
-        "-p", "$DIRNAME", 
+        "-p", "$DIRNAME",
         "$FILENAME",
       },
     }))
@@ -325,7 +304,7 @@ function M:setup()
 
   null.setup({
     -- Set to "trace" for really big logs
-    log_level = "info",
+    log_level = "trace",
     -- Attach only if current buf has certain lines
     -- TODO: Re-using treesitter's function. It smells funny. Fix it
     should_attach = function()
@@ -341,7 +320,7 @@ function M:setup()
       -- Null ls on demand
       vim.b.null_enable_vale = 0
       -- Formatting mappings
-      local opts = {desc = "formatting"}
+      local opts = { desc = "formatting" }
       vks("n", "<localleader>f", function() vim.lsp.buf.format({ async = false }) end, opts)
       opts.desc = "range_formatting"
       vks("n", "<localleader>F", vim.lsp.buf.range_formatting, opts)
@@ -354,12 +333,18 @@ function M:setup()
     sources = sources,
   })
   if vim.fn.executable("plantuml") > 0 then
-    null.register(self.plantuml)
+    null.register(get_plantuml())
   end
   if vim.fn.executable("msbuild") > 0 then
-    null.register(self.msbuild)
+    null.register(get_msbuild())
   end
-  map:keymaps_sets(self.maps)
+  map:keymaps_sets(maps)
 end
 
-return M
+return {
+  "jose-elias-alvarez/null-ls.nvim",
+  event = "BufReadPre",
+  config = function()
+    setup()
+  end,
+}

@@ -32,7 +32,7 @@ M.__config = {
     -- ["<cr>"] = "RET",
     -- ["<tab>"] = "TAB",
   },
-  motions = {count = true},
+  motions = { count = true },
   icons = {
     breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
     separator = "→", -- symbol used between a key and it's label
@@ -41,12 +41,12 @@ M.__config = {
   window = {
     border = "single", -- none, single, double, shadow
     position = "bottom", -- bottom, top
-    margin = {1, 0, 1, 0}, -- extra window margin [top, right, bottom, left]
-    padding = {1, 2, 1, 2} -- extra window padding [top, right, bottom, left]
+    margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
+    padding = { 1, 2, 1, 2 } -- extra window padding [top, right, bottom, left]
   },
   layout = {
-    height = {min = 4, max = 25}, -- min and max height of the columns
-    width = {min = 20, max = 50}, -- min and max width of the columns
+    height = { min = 4, max = 25 }, -- min and max height of the columns
+    width = { min = 20, max = 50 }, -- min and max width of the columns
     spacing = 3, -- spacing between columns
     align = "left" -- align columns left, center or right
   },
@@ -58,12 +58,12 @@ M.__config = {
   show_help = true, -- show a help message in the command line for using WhichKey
   triggers = "auto", -- automatically setup triggers
   -- triggers = {"<leader>"} -- or specifiy a list manually
-  triggers_nowait = {"<leader>", "<localleader>"}, -- list of triggers, where WhichKey should not wait for timeoutlen and show immediately
+  triggers_nowait = { "<leader>", "<localleader>" }, -- list of triggers, where WhichKey should not wait for timeoutlen and show immediately
   triggers_blacklist = {
     -- list of mode / prefixes that should never be hooked by WhichKey
     -- this is mostly relevant for keymaps that start with a native binding
-    i = {"j", "k"},
-    v = {"j", "k"}
+    i = { "j", "k" },
+    v = { "j", "k" }
   }
 }
 
@@ -85,7 +85,7 @@ leader.e = {
   t = "temporary",
 }
 
-local sessions = {name = 'sessions', s = 'save', l = 'load', e = 'load_default'}
+local sessions = { name = 'sessions', s = 'save', l = 'load', e = 'load_default' }
 leader.j = {
   name = 'misc',
   ['2'] = '2_char_indent',
@@ -95,8 +95,8 @@ leader.j = {
   ['.'] = 'repeat_last_command',
   s = 'sync_from_start',
   c = 'count_last_search',
-  ['-'] = {'<cmd>UtilsFontZoomOut<cr>', 'font_decrease'},
-  ['='] = {'<cmd>UtilsFontZoomIn<cr>', 'font_increase'},
+  ['-'] = { '<cmd>UtilsFontZoomOut<cr>', 'font_decrease' },
+  ['='] = { '<cmd>UtilsFontZoomIn<cr>', 'font_increase' },
   e = sessions
 }
 leader.n = {
@@ -126,21 +126,21 @@ lleader['<lt>'] = 'print_prev_command_output'
 lleader['?'] = 'rot13_encode_motion'
 lleader['q'] = 'format_motion'
 lleader['~'] = 'swap_case_motion'
-lleader.e = {'<plug>terminal_send_line', 'send_line_terminal'}
-lleader.E = {'<plug>terminal_send_file', 'send_file_terminal'}
+lleader.e = { '<plug>terminal_send_line', 'send_line_terminal' }
+lleader.E = { '<plug>terminal_send_file', 'send_file_terminal' }
 lleader.c = {
   name = 'var_case_change',
 }
-lleader.k = {'<plug>make_project', 'make_project'}
-lleader.j = {'<plug>make_file', 'make_file'}
-lleader.f = {'<plug>format_code', 'format_code'}
-lleader.r = {'<plug>refactor_code', 'refactor_code'}
+lleader.k = { '<plug>make_project', 'make_project' }
+lleader.j = { '<plug>make_file', 'make_file' }
+lleader.f = { '<plug>format_code', 'format_code' }
+lleader.r = { '<plug>refactor_code', 'refactor_code' }
 
 local rbracket = {}
 local rbracket_p = ']'
 rbracket.c = 'next_diff'
-rbracket.p = {'<cmd>diffput<cr>', 'diffput'}
-rbracket.g = {'<cmd>diffget<cr>', 'diffget'}
+rbracket.p = { '<cmd>diffput<cr>', 'diffput' }
+rbracket.g = { '<cmd>diffget<cr>', 'diffget' }
 rbracket.y = 'yank_from_next_lines'
 rbracket.d = 'delete_next_lines'
 rbracket.o = 'comment_next_lines'
@@ -163,8 +163,8 @@ rbracket['#'] = 'goto_next_unmatched_defined_if'
 local lbracket = {}
 local lbracket_p = '['
 lbracket.c = 'prev_diff'
-lbracket.p = {'<cmd>diffput<cr>', 'diffput'}
-lbracket.g = {'<cmd>diffget<cr>', 'diffget'}
+lbracket.p = { '<cmd>diffput<cr>', 'diffput' }
+lbracket.g = { '<cmd>diffget<cr>', 'diffget' }
 lbracket.y = 'yank_from_prev_lines'
 lbracket.d = 'delete_prev_lines'
 lbracket.o = 'comment_prev_lines'
@@ -189,11 +189,17 @@ lbracket['/'] = 'goto_prev_comment'
 function M:setup()
   local wk = require("which-key")
   wk.setup(self.__config)
-  wk.register(leader, {prefix = leader_p})
-  wk.register(lleader, {prefix = lleader_p})
-  wk.register(lbracket, {prefix = lbracket_p})
-  wk.register(rbracket, {prefix = rbracket_p})
+  wk.register(leader, { prefix = leader_p })
+  wk.register(lleader, { prefix = lleader_p })
+  wk.register(lbracket, { prefix = lbracket_p })
+  wk.register(rbracket, { prefix = rbracket_p })
   log.info("setup of which key complete")
 end
 
-return M
+return {
+  "folke/which-key.nvim",
+  event = "VeryLazy",
+  config = function()
+    M:setup()
+  end,
+}

@@ -108,10 +108,6 @@ local function init_os()
 end
 
 local function main()
-  vim.defer_fn(function()
-    pcall(require, "impatient")
-  end, 0)
-
 	local log = require("utils.log")
 	log.info("--- Start Neovim Run ---")
 	set_globals()
@@ -121,15 +117,15 @@ local function main()
 	--  This way you can set your default mappings/options and plugins can
 	--  overwrite them later, if they need to. Also get rid of all plugin
 	--  specific stuff. Downside is no which-key
-	require("config.plugins.packer"):download()
 	vim.fn["mappings#Set"]()
-	require("config.mappings"):setup()
-  require("config.aucmds").setup()
+	require("mappings"):setup()
+  require("aucmds").setup()
   vim.fn["options#Set"]()
   vim.fn["commands#Set"]()
-  require("config.options"):setup()
+  require("options"):setup()
   -- setup wiki early so that path is available
   require("plugin.wiki"):setup()
+  require("lazyr").setup()
 end
 
 main()

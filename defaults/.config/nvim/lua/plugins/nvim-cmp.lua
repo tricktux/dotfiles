@@ -38,9 +38,9 @@ function M:setup()
       fallback()
     end
   end, {
-      "i",
-      "s",
-    })
+    "i",
+    "s",
+  })
   local next = cmp.mapping(function(fallback)
     if cmp.visible() then
       cmp.select_next_item()
@@ -50,9 +50,9 @@ function M:setup()
       fallback()
     end
   end, {
-      "i",
-      "s",
-    })
+    "i",
+    "s",
+  })
   local lspkind = require("lspkind")
   cmp.setup({
     snippet = {
@@ -115,4 +115,21 @@ function M:setup()
   })
 end
 
-return M
+return {
+  {
+    "hrsh7th/nvim-cmp",
+    version = false, -- last release is way too old
+    event = "InsertEnter",
+    config = function()
+      M:setup()
+    end,
+    dependencies = {
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-nvim-lua",
+      "onsails/lspkind-nvim",
+      "hrsh7th/cmp-calc",
+      "saadparwaiz1/cmp_luasnip",
+    },
+}
+}

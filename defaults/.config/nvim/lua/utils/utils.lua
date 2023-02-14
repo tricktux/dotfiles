@@ -339,7 +339,7 @@ function M.fs.path.fuzzer(path)
 			vim.notify("utils: path not found: " .. p, vim.log.levels.ERROR)
 			return
 		end
-		require("config.plugins.telescope"):file_fuzzer(p)
+		require("plugins.telescope").file_fuzzer(p)
 		return
 	end
 

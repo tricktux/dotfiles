@@ -1,6 +1,6 @@
 local utl = require("utils.utils")
-local map = require("config.mappings")
-local line = require("config.plugins.lualine")
+local map = require("mappings")
+-- local line = require("plugins.lualine")
 local log = require("utils.log")
 
 local M = {}
@@ -62,19 +62,6 @@ local function on_attach(bufnr)
     ["[c"] = { prev_hunk, "prev_hunk" },
   }
   map.keymaps_set(mappings,"n", opts)
-
-  local ts = require("telescope.builtin")
-  prefix = "<leader>vt"
-  mappings = {
-    f = { ts.git_files, "files" },
-    C = { ts.git_commits, "commits" },
-    c = { ts.git_bcommits, "commits_current_buffer" },
-    b = { ts.git_branches, "branches" },
-    s = { ts.git_status, "status" },
-    S = { ts.git_stash, "stash" },
-  }
-  map.keymaps_set(mappings,"n", opts, prefix)
-  return true
 end
 
 local function status_line()
@@ -104,7 +91,13 @@ function M.setup()
   })
 
   log.info("ins_left(): gitsigns")
-  line:ins_left({ status_line, color = { gui = "bold" } })
+  -- line:ins_left({ status_line, color = { gui = "bold" } })
 end
 
-return M
+return {
+  "lewis6991/gitsigns.nvim",
+  event = "VeryLazy",
+  config = function()
+    M.setup()
+  end,
+}
