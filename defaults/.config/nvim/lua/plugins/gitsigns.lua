@@ -62,19 +62,6 @@ local function on_attach(bufnr)
     ["[c"] = { prev_hunk, "prev_hunk" },
   }
   map.keymaps_set(mappings,"n", opts)
-
-  -- TODO: fix here
-  --[[ local ts = require("telescope.builtin")
-  prefix = "<leader>vt"
-  mappings = {
-    f = { ts.git_files, "files" },
-    C = { ts.git_commits, "commits" },
-    c = { ts.git_bcommits, "commits_current_buffer" },
-    b = { ts.git_branches, "branches" },
-    s = { ts.git_status, "status" },
-    S = { ts.git_stash, "stash" },
-  }
-  map.keymaps_set(mappings,"n", opts, prefix) ]]
 end
 
 local function status_line()

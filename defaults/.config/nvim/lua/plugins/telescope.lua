@@ -290,19 +290,21 @@ end
 
 local cust_layout_config = { height = 0.5, width = 0.6 }
 
-local cust_buff_opts = {
-	show_all_buffers = true,
-	only_cwd = false,
-	sort_mru = true,
-	sort_lastused = true,
-	previewer = false,
-	path_display = cust_path_display,
-	layout_config = cust_layout_config,
-	--[[ mappings = {
-		i = { ["<c-d>"] = require("telescope.actions").delete_buffer },
-		n = { ["<c-d>"] = require("telescope.actions").delete_buffer },
-	}, ]]
-}
+local cust_buff_opts = function()
+	return {
+		show_all_buffers = true,
+		only_cwd = false,
+		sort_mru = true,
+		sort_lastused = true,
+		previewer = false,
+		path_display = cust_path_display,
+		layout_config = cust_layout_config,
+		mappings = {
+			i = { ["<c-d>"] = require("telescope.actions").delete_buffer },
+			n = { ["<c-d>"] = require("telescope.actions").delete_buffer },
+		},
+	}
+end
 
 local cust_files_opts = {
 	previewer = false,
@@ -379,7 +381,7 @@ M.toggletasks.config = function()
 	})
 end
 
-function M:file_fuzzer(path)
+function M.file_fuzzer(path)
 	vim.validate({ path = { path, "s" } })
 	local Path = require("plenary.path")
 
@@ -409,7 +411,7 @@ function M:set_mappings()
 	end, opts)
 	opts.desc = "buffer_browser"
 	vks("n", "<plug>buffer_browser", function()
-		ts.buffers(cust_buff_opts)
+		ts.buffers(cust_buff_opts())
 	end, opts)
 	local git = {}
 	git.prefix = "<leader>fg"
@@ -470,6 +472,17 @@ function M:set_mappings()
 	}
 
 	map:keymaps_sets(leader)
+
+	prefix = "<leader>vt"
+	local mappings = {
+		f = { ts.git_files, "files" },
+		C = { ts.git_commits, "commits" },
+		c = { ts.git_bcommits, "commits_current_buffer" },
+		b = { ts.git_branches, "branches" },
+		s = { ts.git_status, "status" },
+		S = { ts.git_stash, "stash" },
+	}
+	map.keymaps_set(mappings, "n", opts, prefix)
 end
 
 function M:config_session_lens()
@@ -490,7 +503,7 @@ function M:config_session_lens()
 end
 
 function M:setup()
-  local ts = require("telescope")
+	local ts = require("telescope")
 	local actions = require("telescope.actions")
 	local actions_generate = require("telescope.actions.generate")
 	local actions_layout = require("telescope.actions.layout")
@@ -581,8 +594,8 @@ function M:setup()
 	}
 
 	ts.setup(config)
-  self:set_mappings()
-  log.info("[telescope]: called set_mappings")
+	self:set_mappings()
+	log.info("[telescope]: called set_mappings")
 end
 
 return {
@@ -612,4 +625,7 @@ return {
 	config = function()
 		M:setup()
 	end,
+	-- Hooks for other plugins
+	set_lsp_mappings = M.set_lsp_mappings,
+	file_fuzzer = M.file_fuzzer,
 }
