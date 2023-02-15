@@ -67,35 +67,15 @@ alias ....='cd ../../..'
 
 # cp and mv
 if [[ -f /usr/bin/advcp ]]; then
-  alias cp='advcp -gi'
-  alias mv='advmv -gi'
+	alias cp='advcp -gi'
+	alias mv='advmv -gi'
 fi
 
 # cp and mv
 # if [[ -f /usr/bin/rsync ]]; then
-  # alias cp='cpr'
-  # alias mv='mvr'
+# alias cp='cpr'
+# alias mv='mvr'
 # fi
-
-function cpr() {
-  new_args=();
-  for i in "$@"; do
-      case $i in /) i=/;; */) i=${i%/};; esac
-      new_args+=$i;
-  done
-  /usr/bin/rsync --archive -hh --partial --info=stats1 --info=progress2 \
-    --modify-window=1 "${(@)new_args}"
-}
-function mvr() {
-  new_args=();
-  for i in "$@"; do
-    case $i in /) i=/;; */) i=${i%/};; esac
-    new_args+=$i;
-  done
-  /usr/bin/rsync --archive -hh --partial --info=stats1 --info=progress2 \
-    --modify-window=1 --remove-source-files \
-    --backup --backup-dir=/tmp "${(@)new_args}"
-}
 
 # Do not wait interval 1 second, go fast #
 alias ping='ping -c 10 -i .2'
@@ -146,34 +126,34 @@ alias neomutt-psu='neomutt -F ~/.config/neomutt/user.psu'
 
 # ls
 if [[ -f /usr/bin/exa ]]; then
-  alias ll='exa -bghHliSa'
-  alias ls='exa -la'
+	alias ll='exa -bghHliSa'
+	alias ls='exa -la'
 else
-  ## Colorize the ls output ##
-  alias ls='ls --color=auto'
-  ## Use a long listing format ##
-  alias ll='ls -la'
-  ## Show hidden files ##
-  alias l.='ls -d .* --color=auto'
+	## Colorize the ls output ##
+	alias ls='ls --color=auto'
+	## Use a long listing format ##
+	alias ll='ls -la'
+	## Show hidden files ##
+	alias l.='ls -d .* --color=auto'
 fi
 
 alias shred_dir=FuncShredDir
 alias cmakeclean=FuncCmakeCleanBuild
 
 FuncCmakeCleanBuild() {
-  if [ -d ../build ]; then
-    cd ..
-    rm -rf build
-    mkdir build
-    cd build
-  else
-    echo "build directory DOES NOT exist"
-  fi
+	if [ -d ../build ]; then
+		cd ..
+		rm -rf build
+		mkdir build
+		cd build
+	else
+		echo "build directory DOES NOT exist"
+	fi
 }
 
 FuncShredDir() {
-  find $@ -type f -exec shred -n 12 -u {} \;
-  rm -r $@
+	find $@ -type f -exec shred -n 12 -u {} \;
+	rm -r $@
 }
 
 # Default to human readable figures
@@ -186,109 +166,109 @@ alias gitup=FuncUpdate
 alias pass='EDITOR=vi pass'
 
 FuncHelp() {
-  $1 --help 2>&1 | grep $2
+	$1 --help 2>&1 | grep $2
 }
 
 FuncCheckCopy() {
-  if [[ $# -lt 1 ]]; then
-    echo "Usage: provide src dir"
-    return
-  fi
-  echo "Calculating size of src folder. Please wait ..."
-  local total=$(nice -n -0 du -mhs $1)
-  # local total=888888888888
-  # echo $total
-  # return
-  while :; do
-    echo "Press [CTRL+C] to stop.."
-    local dst=$(sudo nice -n -20 du -mhs)
-    echo "$dst of $total"
-    sleep 60
-  done
+	if [[ $# -lt 1 ]]; then
+		echo "Usage: provide src dir"
+		return
+	fi
+	echo "Calculating size of src folder. Please wait ..."
+	local total=$(nice -n -0 du -mhs $1)
+	# local total=888888888888
+	# echo $total
+	# return
+	while :; do
+		echo "Press [CTRL+C] to stop.."
+		local dst=$(sudo nice -n -20 du -mhs)
+		echo "$dst of $total"
+		sleep 60
+	done
 }
 
 # TODO-[RM]-(Wed Jan 09 2019 20:59):
 # Take care of this
 # Not used as anything else other than reference
 FuncSomethingElseUpdate() {
-  # Get rid of unused packages and optimize first
-  sudo pacman -Sc --noconfirm
-  sudo pacman-optimize
-  # Update list of all installed packages
-  sudo pacman -Qnq >~/.config/dotfiles/$machine.native
-  sudo pacman -Qmq >~/.config/dotfiles/$machine.aur
-  # Tue Sep 26 2017 18:40 Update Mirror list. Depends on `reflector`
-  if hash reflector 2>/dev/null; then
-    sudo reflector --protocol https --latest 30 --number 20 \
-      --sort rate --save /etc/pacman.d/mirrorlist \
-      -c 'United States' --verbose
-  fi
-  # Now update packages
-  # When update fails to verify some <package> do:
-  # update --ignore <package1>,<package2>
-  # Devel is required to update <package-git> stuff
-  trizen -Syyu --devel --noconfirm $@
-  # To install packages from list:
-  # trizen -S - < <pgklist.txt>
+	# Get rid of unused packages and optimize first
+	sudo pacman -Sc --noconfirm
+	sudo pacman-optimize
+	# Update list of all installed packages
+	sudo pacman -Qnq >~/.config/dotfiles/$machine.native
+	sudo pacman -Qmq >~/.config/dotfiles/$machine.aur
+	# Tue Sep 26 2017 18:40 Update Mirror list. Depends on `reflector`
+	if hash reflector 2>/dev/null; then
+		sudo reflector --protocol https --latest 30 --number 20 \
+			--sort rate --save /etc/pacman.d/mirrorlist \
+			-c 'United States' --verbose
+	fi
+	# Now update packages
+	# When update fails to verify some <package> do:
+	# update --ignore <package1>,<package2>
+	# Devel is required to update <package-git> stuff
+	trizen -Syyu --devel --noconfirm $@
+	# To install packages from list:
+	# trizen -S - < <pgklist.txt>
 }
 
 FuncNvim() {
-  if hash nvim 2>/dev/null; then
-    nvim "$@"
-  elif hash vim 2>/dev/null; then
-    vim "$@"
-  else
-    vi "$@"
-  fi
+	if hash nvim 2>/dev/null; then
+		nvim "$@"
+	elif hash vim 2>/dev/null; then
+		vim "$@"
+	else
+		vi "$@"
+	fi
 }
 
 FuncSvnCheckout() {
-  svn co svn+ssh://reinaldo@$server_ip/mnt/hq-storage/1.Myn/svn-server/$1 $2
+	svn co svn+ssh://reinaldo@$server_ip/mnt/hq-storage/1.Myn/svn-server/$1 $2
 }
 
 FuncSvnCreate() {
-  ssh reinaldo@$server_ip mkdir -p /mnt/hq-storage/1.Myn/svn-server/$1 $@
-  ssh reinaldo@$server_ip svnadmin create \
-    /mnt/hq-storage/1.Myn/svn-server/$1 $@
+	ssh reinaldo@$server_ip mkdir -p /mnt/hq-storage/1.Myn/svn-server/$1 $@
+	ssh reinaldo@$server_ip svnadmin create \
+		/mnt/hq-storage/1.Myn/svn-server/$1 $@
 }
 
 FuncMkcdir() {
-  mkdir -p -- "$1" &&
-    cd -P -- "$1"
+	mkdir -p -- "$1" &&
+		cd -P -- "$1"
 }
 
 # $1 - Name of output file
 # $@ - Name of pdf files to join
 # gs = ghostscript (dependency)
 FuncPdfJoin() {
-  /usr/bin/gs -q -sPAPERSIZE=a4 -dNOPAUSE -dBATCH \
-    -sDEVICE=pdfwrite -sOutputFile=$1 $@
+	/usr/bin/gs -q -sPAPERSIZE=a4 -dNOPAUSE -dBATCH \
+		-sDEVICE=pdfwrite -sOutputFile=$1 $@
 }
 
 # $@ list of *.jpg first arguments then finally name of output pdf file
 # Depends on imagemagic
 FuncPdfConvert() {
-  convert $@
+	convert $@
 }
 
 FuncUpdate() {
-  local local_gits=(~/.config/dotfiles/
-    ~/.password-store/
-    ~/Documents/scripts)
-  for i in ${local_gits[@]}; do
-    if [[ -d $i ]]; then
-      cd $i
-      git pull origin master
-    else
-      echo "Invalid directory: '$i'"
-    fi
-  done
-  cd
+	local local_gits=(~/.config/dotfiles/
+		~/.password-store/
+		~/Documents/scripts)
+	for i in ${local_gits[@]}; do
+		if [[ -d $i ]]; then
+			cd $i
+			git pull origin master
+		else
+			echo "Invalid directory: '$i'"
+		fi
+	done
+	cd
 }
 
 # mylist.txt looks like this:
 # file '<relative/full file name.mp4>'
 # file '<relative/full file name.mp4>'
 FuncFfmpegConcat() {
-  ffmpeg -f concat -safe 0 -i mylist.txt -c copy output.mp4
+	ffmpeg -f concat -safe 0 -i mylist.txt -c copy output.mp4
 }
