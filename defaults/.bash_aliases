@@ -98,6 +98,7 @@ alias svn-create=FuncSvnCreate
 
 # pdf
 alias pdf_join=FuncPdfJoin
+alias pdf_reduce=FuncPdfReduce
 alias pdf_convert_jpg_pdf=FuncPdfConvert
 
 # mutt
@@ -245,6 +246,14 @@ FuncPdfJoin() {
 		-sDEVICE=pdfwrite -sOutputFile=$1 $@
 }
 
+# $1 - Name of output file
+# $@ - Name of pdf file to reduce
+# gs = ghostscript (dependency)
+FuncPdfReduce() {
+	/usr/bin/gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 \
+        -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET \
+        -dBATCH -sOutputFile="$1" "$@"
+}
 # $@ list of *.jpg first arguments then finally name of output pdf file
 # Depends on imagemagic
 FuncPdfConvert() {
