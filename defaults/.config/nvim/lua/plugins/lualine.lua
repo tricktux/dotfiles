@@ -41,7 +41,7 @@ return {
           },
         },
         lualine_x = {
-          { require("lazy.status").updates, cond = require("lazy.status").updates > 10, color = fg("Special") },
+          { require("lazy.status").updates, cond = require("lazy.status").has_updates, color = fg("Special") },
           {
             "diff",
             symbols = {
