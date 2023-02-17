@@ -116,6 +116,11 @@ function M.on_lsp_attach(client_id, bufnr)
   if sig_ok then
     sig.on_attach()
   end
+
+  local nav_ok, nav = pcall(require, "nvim-navic")
+  if nav_ok and client_id.server_capabilities.documentSymbolProvider then
+    nav.attach(client_id, bufnr)
+  end
 end
 
 local function on_clangd_attach(client_id, bufnr)
