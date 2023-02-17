@@ -31,6 +31,15 @@ M.setup = function()
     group = id,
   })
 
+  -- resize splits if window got resized
+  id = api.nvim_create_augroup("resize_splits", { clear = true })
+  vim.api.nvim_create_autocmd({ "VimResized" }, {
+    group = id,
+    callback = function()
+      vim.cmd("tabdo wincmd =")
+    end,
+  })
+
   id = api.nvim_create_augroup("Terminal", { clear = true })
   api.nvim_create_autocmd("TermOpen", {
     callback = function()
