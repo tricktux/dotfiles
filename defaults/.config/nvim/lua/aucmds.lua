@@ -58,7 +58,7 @@ M.setup = function()
   })
 
   id = api.nvim_create_augroup("FiletypesLua", { clear = true })
-  api.nvim_create_autocmd("Filetype", {
+  api.nvim_create_autocmd("FileType", {
     callback = function()
       vim.keymap.set("n", [[<s-j>]], [[:b#<cr>]], { silent = true, buffer = true, desc = "Remap next buffer" })
       vim.keymap.set("n", [[<C-j>]], [[)]], { silent = true, buffer = true, desc = "Next section" })
@@ -69,7 +69,7 @@ M.setup = function()
     group = id,
   })
 
-  api.nvim_create_autocmd("Filetype", {
+  api.nvim_create_autocmd("FileType", {
     callback = function()
       vim.opt.suffixesadd = { ".scp", ".cmd", ".bat" }
       log.info("wings_syntax autocmd called")
@@ -78,7 +78,7 @@ M.setup = function()
     desc = "Better go to files for wings filetypes",
     group = id,
   })
-  api.nvim_create_autocmd("Filetype", {
+  api.nvim_create_autocmd("FileType", {
     callback = function()
       log.info("markdown autocmd called")
       set_text_settings()
@@ -87,7 +87,7 @@ M.setup = function()
     desc = "Better settings for markdown",
     group = id,
   })
-  api.nvim_create_autocmd("Filetype", {
+  api.nvim_create_autocmd("FileType", {
     callback = function()
       log.info("tex autocmd called")
       set_text_settings()
@@ -97,7 +97,7 @@ M.setup = function()
     desc = "Better settings for tex",
     group = id,
   })
-  api.nvim_create_autocmd("Filetype", {
+  api.nvim_create_autocmd("FileType", {
     callback = function()
       log.info("mail autocmd called")
       vim.opt.textwidth = 72
@@ -106,7 +106,7 @@ M.setup = function()
     desc = "Better settings for mail",
     group = id,
   })
-  api.nvim_create_autocmd("Filetype", {
+  api.nvim_create_autocmd("FileType", {
     callback = function()
       log.info("c autocmd called")
       local tab = vim.fn.has("unix") > 0 and 2 or 4
