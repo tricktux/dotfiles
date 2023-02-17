@@ -51,7 +51,6 @@ function M:setup()
 		"i",
 		"s",
 	})
-	local lspkind = require("lspkind")
 	cmp.setup({
 		snippet = {
 			expand = function(args)
@@ -119,7 +118,6 @@ return {
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-nvim-lua",
-			"onsails/lspkind-nvim",
 			"hrsh7th/cmp-calc",
 			"saadparwaiz1/cmp_luasnip",
 		},
