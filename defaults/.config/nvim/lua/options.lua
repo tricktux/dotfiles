@@ -23,7 +23,6 @@ function M:setup()
   vim.opt.cmdheight = 1
   vim.opt.spell = true
   vim.opt.spelllang = "en_us"
-  vim.opt.formatoptions:append('jw')
   vim.opt.inccommand = "split"
   vim.opt.wrapscan = false
   vim.opt.shada = {
@@ -68,6 +67,27 @@ function M:setup()
   }
   vim.diagnostic.setqflist({ open = false })
   vim.diagnostic.setloclist({ open = false })
+
+  -- Coming from lazyvim
+  vim.opt.clipboard = "unnamedplus" -- Sync with system clipboard
+  vim.opt.autowrite = true -- Enable auto write
+  vim.opt.completeopt = "menu,menuone,noselect"
+  vim.opt.formatoptions = "jcroqlnt" -- tcqj
+  vim.opt.ignorecase = true -- Ignore case
+  vim.opt.pumheight = 10 -- Maximum number of entries in a popup
+  vim.opt.scrolloff = 4 -- Lines of context
+  vim.opt.sidescrolloff = 8 -- Columns of context
+  vim.opt.smartindent = true -- Insert indents automatically
+  vim.opt.termguicolors = true -- True color support
+  vim.opt.wildmode = "longest:full,full" -- Command-line completion mode
+
+  if vim.fn.has("nvim-0.9.0") == 1 then
+    opt.splitkeep = "screen"
+    opt.shortmess:append { C = true }
+  end
+
+  -- Fix markdown indentation settings
+  vim.g.markdown_recommended_style = 0
 end
 
 return M

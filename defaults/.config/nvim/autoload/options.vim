@@ -27,8 +27,6 @@ function! options#Set() abort
         \,a:blinkon0-Cursor/lCursor
 
   set guitablabel=%N\ %f
-  " Silly, always set cool colors
-  set termguicolors
   " Tue Nov 13 2018 22:39: Needed by Shuogo/echodoc.vim
   set noshowmode
   " Useful for the find command
@@ -40,17 +38,11 @@ function! options#Set() abort
   set showcmd       " Show partial commands in the last lines
   set smartcase     " ignore case if search pattern is all lowercase,
   "    case-sensitive otherwise
-  set ignorecase
   set infercase
   set hlsearch      " highlight search terms
   set incsearch     " show search matches as you type
   set history=10000         " remember more commands and search history
-  " ignore these files to for completion
-  " set completeopt=menuone,longest,preview,noselect,noinsert
-  set completeopt=menuone,preview,noselect,noinsert
   " set complete+=kspell " currently not working
-  " set wildmenu " Sun Jul 16 2017 20:24. Dont like this way. Its weird
-  set wildmode=list:longest
   " Mon Aug 31 2020 00:22:
   " For some crazy reason this disables nvim-lsp
   " set wildignore+=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn,.git
