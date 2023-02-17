@@ -65,8 +65,13 @@ function M:setup()
     update_in_insert = false,
     float = { source = "if_many" },
   }
-  vim.diagnostic.setqflist({ open = false })
-  vim.diagnostic.setloclist({ open = false })
+  vim.api.nvim_create_autocmd("DiagnosticChanged", {
+    pattern = "*",
+    callback = function()
+      vim.diagnostic.setqflist({ open = false })
+      vim.diagnostic.setloclist({ open = false })
+    end,
+  })
 
   -- Coming from lazyvim
   vim.opt.clipboard = "unnamedplus" -- Sync with system clipboard
