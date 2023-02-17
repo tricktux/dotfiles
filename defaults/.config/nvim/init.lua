@@ -93,22 +93,15 @@ end
 
 local function init_os()
 	local log = require("utils.log")
-	local utl = require("utils.utils")
 
-	if utl.has_unix then _config_unix() else _config_win() end
+	if vim.fn.has("unix") > 0 then _config_unix() else _config_win() end
 
 	-- Create needed directories if they don't exist already
 	for _, folder in pairs(data_folders) do
-		log.trace(folder .. " = " .. vim.fn.stdpath("data") .. folder)
-		if not utl.isdir(vim.fn.stdpath("data") .. folder) then
-			vim.fn.mkdir(vim.fn.stdpath("data") .. folder, "p")
-		end
+    vim.fn.mkdir(vim.fn.stdpath("data") .. folder, "p")
 	end
 	for _, folder in pairs(cache_folders) do
-		log.trace(folder .. " = " .. vim.fn.stdpath("cache") .. folder)
-		if not utl.isdir(vim.fn.stdpath("cache") .. folder) then
-			vim.fn.mkdir(vim.fn.stdpath("cache") .. folder, "p")
-		end
+    vim.fn.mkdir(vim.fn.stdpath("cache") .. folder, "p")
 	end
 end
 
