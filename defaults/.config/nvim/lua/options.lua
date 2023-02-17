@@ -82,8 +82,8 @@ function M:setup()
   vim.opt.wildmode = "longest:full,full" -- Command-line completion mode
 
   if vim.fn.has("nvim-0.9.0") == 1 then
-    opt.splitkeep = "screen"
-    opt.shortmess:append { C = true }
+    vim.opt.splitkeep = "screen"
+    vim.opt.shortmess:append { C = true }
   end
 
   -- Fix markdown indentation settings
