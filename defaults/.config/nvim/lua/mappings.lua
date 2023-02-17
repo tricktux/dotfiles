@@ -283,7 +283,7 @@ M.edit.mappings = {
   },
   p = {
     function()
-      local p = require("config.plugins.packer").path.plugins
+      local p = vim.fn.stdpath("data") .. "/lazy"
       fs.path.fuzzer(p)
     end,
     "lua_plugins_path",
