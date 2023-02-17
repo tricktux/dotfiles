@@ -97,6 +97,25 @@ M.setup = function()
     desc = "Better settings for tex",
     group = id,
   })
+  -- close some filetypes with <q>
+  vim.api.nvim_create_autocmd("FileType", {
+    group = id,
+    pattern = {
+      "qf",
+      "help",
+      "man",
+      "notify",
+      "lspinfo",
+      "spectre_panel",
+      "startuptime",
+      "tsplayground",
+      "PlenaryTestPopup",
+    },
+    callback = function(event)
+      vim.bo[event.buf].buflisted = false
+      vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
+    end,
+  })
   api.nvim_create_autocmd("FileType", {
     callback = function()
       log.info("mail autocmd called")
