@@ -19,7 +19,6 @@ M.setup = function()
     callback = function()
       vim.highlight.on_yank({ timeout = 250 })
     end,
-    pattern = "*",
     desc = "Highlight text on Yank",
     group = id,
   })
