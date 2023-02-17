@@ -112,7 +112,10 @@ function M.on_lsp_attach(client_id, bufnr)
   set_lsp_mappings(bufnr)
   set_lsp_options(bufnr)
 
-  require("lsp_signature").on_attach()
+  local sig_ok, sig = pcall(require, "lsp_signature")
+  if sig_ok then
+    sig.on_attach()
+  end
 end
 
 local function on_clangd_attach(client_id, bufnr)
@@ -261,7 +264,7 @@ end
 return {
   {
     "neovim/nvim-lspconfig",
-    event = "BufReadPre",
+    event = { "BufReadPre", "BufNewFile" },
     config = function() M:config() end,
     dependencies = {
       "ray-x/lsp_signature.nvim",
