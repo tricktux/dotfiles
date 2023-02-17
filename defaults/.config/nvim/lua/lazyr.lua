@@ -23,7 +23,7 @@ M.opts = {
   root = vim.fn.stdpath("data") .. "/lazy", -- directory where plugins will be installed
   defaults = {
     lazy = true, -- should plugins be lazy-loaded?
-    version = "",
+    version = false,
     -- version = "*", -- enable this to try installing the latest stable versions of plugins
   },
   -- leave nil when passing the spec as the first argument to setup()
