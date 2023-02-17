@@ -786,4 +786,8 @@ return {
 			end
 		end,
 	},
+  {
+    "gpanders/editorconfig.nvim",
+    event = "VeryLazy",
+  }
 }
