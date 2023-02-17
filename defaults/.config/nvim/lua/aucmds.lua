@@ -4,6 +4,8 @@ local api = vim.api
 local M = {}
 
 local function set_text_settings()
+  vim.opt_local.wrap = true
+  vim.opt_local.spell = true
 	vim.opt.conceallevel = 0
 	vim.opt.textwidth = 0
 	vim.opt.foldenable = true
