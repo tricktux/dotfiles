@@ -100,37 +100,37 @@ M.ignore_file = [[--ignore-file=]] .. (M.has_win and win_file or nix_file)
 M.zeal = {}
 M.zeal.path = M.has_unix and "/usr/bin/zeal" or [["C:\\Program Files (x86)\\Zeal\\Zeal.exe"]]
 M.zeal.search = function(word)
-  vim.validate({ word = { word, "s" } })
-  local p = M.zeal.path
-  if fn.filereadable(p) <= 0 then
-    vim.notify("Zeal '" .. p .. "' is not installed", vim.log.levels.ERROR)
-    return
-  end
-  local z = ""
-  if M.has_unix then
-    z = p .. " " .. word .. "&"
-  else
-    z = [[start cmd.exe /k ]] .. p .. " " .. word
-  end
-  M.term.exec(z)
+	vim.validate({ word = { word, "s" } })
+	local p = M.zeal.path
+	if fn.filereadable(p) <= 0 then
+		vim.notify("Zeal '" .. p .. "' is not installed", vim.log.levels.ERROR)
+		return
+	end
+	local z = ""
+	if M.has_unix then
+		z = p .. " " .. word .. "&"
+	else
+		z = [[start cmd.exe /k ]] .. p .. " " .. word
+	end
+	M.term.exec(z)
 end
 
 M.browser = {}
 M.browser.path = M.has_unix and "/usr/bin/firefox" or "firefox.exe"
 M.browser.search = function(word)
-  vim.validate({ word = { word, "s" } })
-  local b = M.browser.path
-  if fn.filereadable(b) <= 0 then
-    vim.notify("Browser '" .. b .. "' is not installed", vim.log.levels.ERROR)
-    return
-  end
-  local z = ""
-  if M.has_unix then
-    z = b .. " " .. word .. "&"
-  else
-    z = [[start cmd.exe /k ]] .. b .. " " .. word
-  end
-  M.term.exec(z)
+	vim.validate({ word = { word, "s" } })
+	local b = M.browser.path
+	if fn.filereadable(b) <= 0 then
+		vim.notify("Browser '" .. b .. "' is not installed", vim.log.levels.ERROR)
+		return
+	end
+	local z = ""
+	if M.has_unix then
+		z = b .. " " .. word .. "&"
+	else
+		z = [[start cmd.exe /k ]] .. b .. " " .. word
+	end
+	M.term.exec(z)
 end
 
 M.fd = {}
@@ -450,11 +450,11 @@ end
 M.term = {}
 M.term.exec = function(cmd)
 	vim.validate({ cmd = { cmd, "s" } })
-  log.info(fmt("term.exec.cmd = %s", cmd))
+	log.info(fmt("term.exec.cmd = %s", cmd))
 	local fcmd = ""
 	if os.getenv("KITTY_WINDOW_ID") ~= nil then
-    local f = {"/usr/bin/kitty", "@", "send-text", "--match", "recent:1", cmd, "\x0d"}
-    log.info(fmt("term.exec.fcmd = %s", vim.inspect(f)))
+		local f = { "/usr/bin/kitty", "@", "send-text", "--match", "recent:1", cmd, "\x0d" }
+		log.info(fmt("term.exec.fcmd = %s", vim.inspect(f)))
 		fn.jobstart(f)
 		return
 	end
