@@ -1,4 +1,5 @@
 ---@brief Neovim's init.lua
+--
 ---@author Reinaldo Molina <me at molina mail dot com>
 ---@license MIT
 
@@ -39,6 +40,10 @@ local function set_globals()
 		"netrwSettings",
 		"netrwFileHandlers",
 		"gzip",
+    "matchit",
+    "matchparen",
+    "tohtml",
+    "tutor",
 		"zip",
 		"zipPlugin",
 		"tar",
@@ -50,7 +55,7 @@ local function set_globals()
 		"2html_plugin",
 		"logipat",
 		"rrhelper",
-		"spellfile_plugin",
+		-- "spellfile_plugin",
 	}
 
 	for _, plugin in pairs(disabled_built_ins) do
