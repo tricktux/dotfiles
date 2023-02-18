@@ -43,7 +43,7 @@ dialog
 discord
 docker
 dosfstools
-doublecmd-gtk2
+doublecmd-qt5
 dunst
 dvdbackup
 earlyoom
@@ -183,7 +183,6 @@ patch
 pavucontrol
 pcmanfm
 pdfgrep
-picom
 pipewire
 pipewire-alsa
 pipewire-jack
@@ -248,6 +247,7 @@ ttf-fira-code
 ttf-fira-mono
 ttf-font-awesome
 ttf-inconsolata
+ttf-inconsolata-nerd
 ttf-iosevka-nerd
 udisks2
 unibilium
