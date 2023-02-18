@@ -131,16 +131,7 @@ if [[ "$hostname" = "predator" ]]; then
   echo "found predator"
   if [[ "$1" = "main" ]]; then
     echo "setting up main configuration"
-    /usr/bin/xrandr \
-      --dpi 156 \
-      --output DVI-D-0 --off \
-      --output HDMI-0 --off \
-      --output DP-2 --mode 3840x2160 --rate 60 --pos 0x0 --primary \
-      --output DP-1 --off \
-      --output DP-4 --mode 3840x2160 --rate 60 --pos 3840x0 \
-      --output DP-3 --off \
-      --output DP-4 --off \
-      --output DP-5 --off
+    "$HOME"/.screenlayout/main.sh
 
     echo "Xft.dpi: 156" | xrdb -merge
 
