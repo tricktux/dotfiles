@@ -176,7 +176,9 @@ local function setup()
   -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md
   -- See here for list of builtins
   -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
+  local null = require("null-ls")
   local sources = {
+    -- null.builtins.diagnostics.editorconfig_checker,
     --[[  null.builtins.diagnostics.editorconfig_checker,
 		null.builtins.formatting.trim_newlines.with({
 			disabled_filetypes = { "rust" }, -- use rustfmt
@@ -185,7 +187,6 @@ local function setup()
 			disabled_filetypes = { "rust" }, -- use rustfmt
 		}), ]]
   }
-  local null = require("null-ls")
   if vim.fn.executable("vale") > 0 then
     -- Initially run 'vale sync' to download style paths
     -- Check config with 'vale ls-config'
@@ -264,6 +265,10 @@ local function setup()
   if vim.fn.executable("cmake-lint") > 0 then
     log.info("NullLs setting up cmake-lint...")
     table.insert(sources, null.builtins.diagnostics.cmake_lint)
+  end
+  if vim.fn.executable("cmake-check") > 0 then
+    log.info("NullLs setting up cmake-check...")
+    table.insert(sources, null.builtins.formatting.cmake_check)
   end
   if vim.fn.executable("cmake-format") > 0 then
     log.info("NullLs setting up cmake-format...")
