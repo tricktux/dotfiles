@@ -58,7 +58,6 @@ function M:setup()
 			end,
 		},
 		completion = {
-			completeopt = "menu,menuone,noinsert",
 			keyword_length = 1,
 		},
 		mapping = cmp.mapping.preset.insert({
