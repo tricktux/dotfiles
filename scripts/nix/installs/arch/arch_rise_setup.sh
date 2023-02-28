@@ -3,6 +3,11 @@
 # You could start here:
 # https://github.com/ahmedelhori/install-arch
 
+# If you have problems with wifi, nvidia, or the kernel restore to a known state
+# by downgrading all of the following packages
+# linux-api-headers linux-lts-headers linux-firmware linux-firware-whence
+# linux-lts nvidia-lts nvidia-utils nvidia-settings
+
 # Add your user {{{
 # useradd -m -g users -G wheel,storage,power,sys -s /bin/bash <USERNAME>
 useradd -m -g users -G wheel,storage,power,sys -s /bin/bash reinaldo
