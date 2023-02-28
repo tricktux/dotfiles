@@ -249,16 +249,16 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
-# Outputs for multimonitor
-workspace $ws1 output DP-1-2 DP-1-4
-workspace $ws2 output DP-1-4 DP-1-2 
+# Outputs for multi-monitor first 2 are home second 2 are work
+workspace $ws1 output DP-1-2 DP-1-4 DP-1-2-2 DP-1-3
+workspace $ws2 output DP-1-4 DP-1-2 DP-1-3 DP-1-2-2
 workspace $ws3 output eDP-1-1
-workspace $ws4 output DP-1-2 DP-1-4
-workspace $ws5 output DP-1-4 DP-1-2 
-workspace $ws6 output DP-1-2 DP-1-4
-workspace $ws7 output DP-1-4 DP-1-2 
-workspace $ws8 output DP-1-2 DP-1-4
-workspace $ws9 output DP-1-4 DP-1-2 
+workspace $ws4 output DP-1-2 DP-1-4 DP-1-2-2 DP-1-3
+workspace $ws5 output DP-1-4 DP-1-2 DP-1-3 DP-1-2-2
+workspace $ws6 output DP-1-2 DP-1-4 DP-1-2-2 DP-1-3
+workspace $ws7 output DP-1-4 DP-1-2 DP-1-3 DP-1-2-2
+workspace $ws8 output DP-1-2 DP-1-4 DP-1-2-2 DP-1-3
+workspace $ws9 output DP-1-4 DP-1-2 DP-1-3 DP-1-2-2
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
