@@ -121,6 +121,21 @@ function M.on_lsp_attach(client_id, bufnr)
   if nav_ok and client_id.server_capabilities.documentSymbolProvider then
     nav.attach(client_id, bufnr)
   end
+
+  -- Highlights references to word under the cursor
+  local id = vim.api.nvim_create_augroup("LspHighlight", { clear = true })
+  vim.api.nvim_create_autocmd({"CursorHold", "CursorHoldI"}, {
+    callback = vim.lsp.buf.document_highlight,
+    buffer = bufnr,
+    desc = "LSP Document Highlight",
+    group = id,
+  })
+  vim.api.nvim_create_autocmd("CursorMoved", {
+    callback = vim.lsp.buf.clear_references,
+    buffer = bufnr,
+    desc = "LSP Document Highlight clear",
+    group = id,
+  })
 end
 
 local function on_clangd_attach(client_id, bufnr)
