@@ -252,7 +252,7 @@ function M.set_lsp_mappings(bufnr)
 		d = { ts.lsp_definitions, "tele_definitions" },
 		i = { ts.lsp_implementations, "tele_implementations" },
 		s = { ts.lsp_document_symbols, "tele_document_symbols" },
-		W = { ts.lsp_workspace_symbols, "tele_workspace_symbols" },
+		w = { ts.lsp_workspace_symbols, "tele_workspace_symbols" },
 	}
 
 	map.keymaps_set(mappings, "n", opts, prefix)
