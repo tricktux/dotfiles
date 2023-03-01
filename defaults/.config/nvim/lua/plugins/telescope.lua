@@ -273,11 +273,6 @@ function M.set_lsp_mappings(bufnr)
 	}
 
 	map.keymaps_set(mappings, "n", opts, prefix)
-
-	for k, v in pairs(mappings) do
-		opts.desc = v[2]
-		vks("n", prefix .. k, v[1], opts)
-	end
 end
 
 local cust_path_display = function(opts, path)
