@@ -788,5 +788,9 @@ return {
   {
     "gpanders/editorconfig.nvim",
     event = "VeryLazy",
+  },
+  {
+    "tjdevries/stackmap.nvim",
+    event = "VeryLazy",
   }
 }
