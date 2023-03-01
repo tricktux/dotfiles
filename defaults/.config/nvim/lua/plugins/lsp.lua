@@ -66,7 +66,6 @@ local function set_lsp_mappings(bufnr)
         vim.cmd([[vsplit]])
         lsp.buf.declaration()
       end,
-      lsp.buf.declaration,
       "lsp_declaration_split"
     },
     e = { lsp.buf.declaration, "lsp_declaration" },
