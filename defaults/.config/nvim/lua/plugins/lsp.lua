@@ -39,9 +39,8 @@ local function set_lsp_mappings(bufnr)
     H = { lsp.buf.signature_help, "signature_help" },
     D = { lsp.buf.type_definition, "type_definition" },
     R = { lsp.buf.references, "references" },
-    S = { lsp.stop_all_clients, "stop_all_clients" },
+    S = { lsp.stop_client, "stop_client" },
     n = { vim.diagnostic.open_float, "show_line_diagnostics" },
-    l = { lsp.diagnostic.setloclist, "set_loclist" },
   }
 
   map.keymaps_set(mappings, "n", opts, prefix)
