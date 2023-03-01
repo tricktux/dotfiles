@@ -65,6 +65,7 @@ local function refresh_buffer()
     normal! zzze<cr>
   ]]
 
+  vim.lsp.buf.clear_references()
   local ind_ok, ind = pcall(require, "indent_blankline.commands")
   if ind_ok and ind.refresh ~= nil then
     ind.refresh(false, true)
