@@ -1,7 +1,6 @@
 local log = require("utils.log")
 local fmt = string.format
 local utl = require("utils.utils")
-local map = require("mappings")
 local vks = vim.keymap.set
 local api = vim.api
 
