@@ -4,9 +4,12 @@ local vks = vim.keymap.set
 
 local M = {}
 
-local function set_lsp_options(bufnr)
-  vim.api.nvim_buf_set_option(bufnr, "omnifunc", "")
-  vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
+local function set_lsp_options(client_id, bufnr)
+  vim.bo[bufnr].formatexpr = "v:lua.vim.lsp.formatexpr"
+  vim.bo[bufnr].omnifunc = ""
+  if client_id.server_capabilities.definitionProvider then
+    vim.bo[bufnr].tagfunc = "v:lua.vim.lsp.tagfunc"
+  end
 end
 
 local function set_lsp_mappings(bufnr)
@@ -110,7 +113,7 @@ function M.on_lsp_attach(client_id, bufnr)
   vim.b.did_on_lsp_attach = 1
 
   set_lsp_mappings(bufnr)
-  set_lsp_options(bufnr)
+  set_lsp_options(client_id, bufnr)
 
   local sig_ok, sig = pcall(require, "lsp_signature")
   if sig_ok then
