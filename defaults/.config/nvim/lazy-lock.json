@@ -53,6 +53,7 @@
   "plenary.nvim": { "branch": "master", "commit": "253d34830709d690f013daf2853a9d21ad7accab" },
   "project.nvim": { "branch": "main", "commit": "685bc8e3890d2feb07ccf919522c97f7d33b94e4" },
   "session-lens": { "branch": "main", "commit": "b15e36782d01abacf6cd44e12f3292632064ab91" },
+  "stackmap.nvim": { "branch": "master", "commit": "e83792ecd770c0ad2abff6a81c3bdf0bdee93bc5" },
   "starlite-nvim": { "branch": "main", "commit": "bc204069859e4e85a057b92ac61700f3f46c3e41" },
   "suda.vim": { "branch": "master", "commit": "08abd39dfe1cee681b8ce3e7321da5fa03e045c1" },
   "telescope.nvim": { "branch": "master", "commit": "a486ac3e8fb2198f3636da1927ed57a28836fbd8" },
