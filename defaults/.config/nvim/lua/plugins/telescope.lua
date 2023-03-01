@@ -245,7 +245,7 @@ end
 
 function M.set_lsp_mappings(bufnr)
 	local opts = { buffer = bufnr, silent = true }
-	local prefix = "<localleader>l"
+	local prefix = "<localleader>lt"
 	local ts = require("telescope.builtin")
 	local mappings = {
 		r = { ts.lsp_references, "tele_references" },
