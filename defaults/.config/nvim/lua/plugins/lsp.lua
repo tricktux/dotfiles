@@ -122,6 +122,13 @@ function M.on_lsp_attach(client_id, bufnr)
     nav.attach(client_id, bufnr)
   end
 
+  local id = vim.api.nvim_create_augroup("LspCodeLens", { clear = true })
+  vim.api.nvim_create_autocmd({"BufEnter", "CursorHold", "InsertLeave"}, {
+    callback = vim.lsp.codelens.refresh,
+    buffer = bufnr,
+    desc = "Refresh codelens for the current buffer",
+    group = id,
+  })
   -- Highlights references to word under the cursor
   local id = vim.api.nvim_create_augroup("LspHighlight", { clear = true })
   vim.api.nvim_create_autocmd({"CursorHold", "CursorHoldI"}, {
