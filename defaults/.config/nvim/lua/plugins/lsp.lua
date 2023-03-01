@@ -41,6 +41,7 @@ local function set_lsp_mappings(bufnr)
     r = { lsp.buf.references, "references" },
     S = { lsp.stop_client, "stop_client" },
     n = { vim.diagnostic.open_float, "show_line_diagnostics" },
+    a = { vim.lsp.buf.code_action, "code_action" },
   }
 
   map.keymaps_set(mappings, "n", opts, prefix)
