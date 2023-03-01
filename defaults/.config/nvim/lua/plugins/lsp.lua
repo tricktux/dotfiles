@@ -31,14 +31,14 @@ local function set_lsp_mappings(bufnr)
   local rename = vim.fn.exists(":IncRename") > 0 and ":IncRename " or lsp.buf.rename
 
   local mappings = {
-    r = { rename, "rename" },
+    R = { rename, "rename" },
     e = { lsp.buf.declaration, "declaration" },
     d = { lsp.buf.definition, "definition" },
     h = { lsp.buf.hover, "hover" },
     i = { lsp.buf.implementation, "implementation" },
     H = { lsp.buf.signature_help, "signature_help" },
     D = { lsp.buf.type_definition, "type_definition" },
-    R = { lsp.buf.references, "references" },
+    r = { lsp.buf.references, "references" },
     S = { lsp.stop_client, "stop_client" },
     n = { vim.diagnostic.open_float, "show_line_diagnostics" },
   }
