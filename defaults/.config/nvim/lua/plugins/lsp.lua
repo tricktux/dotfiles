@@ -1,6 +1,7 @@
 local utl = require("utils.utils")
 local log = require("utils.log")
 local vks = vim.keymap.set
+local map = require("mappings")
 
 local M = {}
 
@@ -25,13 +26,8 @@ local function set_lsp_mappings(bufnr)
     r = { lsp.buf.remove_workspace_folder, "remove_workspace_folder" },
     l = { list, "list_folders" },
   }
-  for k, v in pairs(workspace) do
-    if v[1] ~= nil then
-      opts.desc = v[2]
-      vks("n", prefix .. "w" .. k, v[1], opts)
-    end
-  end
 
+  map.keymaps_set(workspace, "n", opts, prefix)
   local rename = vim.fn.exists(":IncRename") > 0 and ":IncRename " or lsp.buf.rename
 
   local mappings = {
@@ -48,12 +44,7 @@ local function set_lsp_mappings(bufnr)
     l = { lsp.diagnostic.setloclist, "set_loclist" },
   }
 
-  for k, v in pairs(mappings) do
-    if v[1] ~= nil then
-      opts.desc = v[2]
-      vks("n", prefix .. "w" .. k, v[1], opts)
-    end
-  end
+  map.keymaps_set(mappings, "n", opts, prefix)
 
   -- Override default mappings with lsp intelligent analougous
   prefix = "]l"
@@ -93,13 +84,7 @@ local function set_lsp_mappings(bufnr)
   mappings.f = { function() lsp.buf.format({ async = false }) end, "formatting" }
   mappings.F = { lsp.buf.range_formatting, "range_formatting" }
 
-  for k, v in pairs(mappings) do
-    if v[1] ~= nil then
-      opts.desc = v[2]
-      vks("n", prefix .. k, v[1], opts)
-    end
-  end
-
+  map.keymaps_set(mappings, "n", opts, prefix)
   require("plugins.telescope").set_lsp_mappings(bufnr)
 end
 
