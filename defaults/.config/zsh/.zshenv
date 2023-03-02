@@ -155,4 +155,6 @@ export DOTNET_ROOT="$HOME"/.dotnet
 [[ -d $HOME/.dotnet/tools ]] && export PATH="$PATH":"$HOME"/.dotnet/tools
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
+[[ -f $HOME/.local/etc/stuff ]] && source $HOME/.local/etc/stuff
+
 # vim: fdm=marker:ft=bash
