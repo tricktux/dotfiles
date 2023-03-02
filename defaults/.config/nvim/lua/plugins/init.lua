@@ -793,4 +793,13 @@ return {
     "tjdevries/stackmap.nvim",
     event = "VeryLazy",
   },
+  {
+    "jackMort/ChatGPT.nvim",
+    cmd = {"ChatGPTEditWithInstructions", "ChatGPTActAs", "ChatGPT"},
+    opts = {},
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+    },
+  },
 }
