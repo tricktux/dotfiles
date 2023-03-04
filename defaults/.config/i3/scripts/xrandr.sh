@@ -188,7 +188,7 @@ if [[ "$hostname" = "xps" ]]; then
     echo "setting up main configuration"
 
     xrandr \
-        --dpi 232 \
+        --dpi 192 \
         --output eDP-1-1 --mode 3456x2160 --rate 60 --pos 0x0 --primary \
         --output DP-1-1 --off \
         --output HDMI-1-1 --off \
@@ -196,7 +196,7 @@ if [[ "$hostname" = "xps" ]]; then
         --output DP-1-3 --off \
         --output DP-1-4 --off
 
-    echo "Xft.dpi: 232" | xrdb -merge
+    echo "Xft.dpi: 192" | xrdb -merge
     # Restart i3/polybar
     i3-msg restart
     "$HOME/.config/polybar/scripts/launch.sh"
