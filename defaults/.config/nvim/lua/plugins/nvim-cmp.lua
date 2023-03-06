@@ -67,7 +67,11 @@ function M:setup()
       ["<C-n>"] = next,
       -- Move cursor
       ["<C-f>"] = cmp.config.disable,
-      ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+      ["<C-Space>"] = cmp.mapping.confirm({
+        -- this is the important line
+        behavior = cmp.ConfirmBehavior.Replace,
+        select = false,
+      }),
       ["<C-q>"] = cmp.mapping({
         i = cmp.mapping.abort(),
         c = cmp.mapping.close(),
@@ -119,6 +123,20 @@ return {
       "hrsh7th/cmp-nvim-lua",
       "hrsh7th/cmp-calc",
       "saadparwaiz1/cmp_luasnip",
+      {
+        "zbirenbaum/copilot.lua",
+        opts = {
+          suggestion = { enabled = false },
+          panel = { enabled = false },
+        },
+      },
+      {
+        "zbirenbaum/copilot-cmp",
+        after = { "copilot.lua" },
+        config = function()
+          require("copilot_cmp").setup()
+        end,
+      },
     },
   },
 }
