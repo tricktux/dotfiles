@@ -27,7 +27,7 @@ local function set_lsp_mappings(bufnr)
     l = { list, "list_folders" },
   }
 
-  map.keymaps_set(workspace, "n", opts, prefix)
+  map.keymaps_set(workspace, "n", opts, prefix .. "w")
   local rename = vim.fn.exists(":IncRename") > 0 and ":IncRename " or lsp.buf.rename
 
   local mappings = {
