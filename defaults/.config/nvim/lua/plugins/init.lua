@@ -802,4 +802,13 @@ return {
       "nvim-lua/plenary.nvim",
     },
   },
+  {
+    "dpayne/CodeGPT.nvim",
+    cmd = {"Chat"},
+    opts = {},
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+    },
+  }
 }
