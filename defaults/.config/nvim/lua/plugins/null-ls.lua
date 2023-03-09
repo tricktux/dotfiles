@@ -340,7 +340,7 @@ local function setup()
   if vim.fn.executable("plantuml") > 0 then
     null.register(get_plantuml())
   end
-  if vim.fn.executable("msbuild") > 0 then
+  if vim.fn.executable("msbuild") > 0 and vim.fn.has("win32") > 0 then
     null.register(get_msbuild())
   end
   map:keymaps_sets(maps)
