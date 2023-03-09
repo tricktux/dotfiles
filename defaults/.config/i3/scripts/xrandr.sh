@@ -135,7 +135,9 @@ if [[ "$hostname" = "predator" ]]; then
 
     echo "Xft.dpi: 156" | xrdb -merge
 
-    # Restart polybar
+    "$HOME/.config/i3/scripts/i3-workspace-output"
+    # Restart i3/polybar
+    i3-msg restart
     "$HOME/.config/polybar/scripts/launch.sh"
     notify-send "xrandr" \
       "Configuration '$1' set!" \
@@ -178,14 +180,7 @@ if [[ "$hostname" = "xps" ]]; then
   if [[ "$1" = "main" ]]; then
     echo "setting up main configuration"
 
-    xrandr \
-        --dpi 192 \
-        --output eDP-1-1 --mode 3456x2160 --rate 60 --pos 0x0 --primary \
-        --output DP-1-1 --off \
-        --output HDMI-1-1 --off \
-        --output DP-1-2 --off \
-        --output DP-1-3 --off \
-        --output DP-1-4 --off
+    "$HOME"/.screenlayout/main.sh
 
     echo "Xft.dpi: 192" | xrdb -merge
     # Restart i3/polybar
@@ -205,6 +200,7 @@ if [[ "$hostname" = "xps" ]]; then
     xrandr --dpi 156
     echo "Xft.dpi: 156" | xrdb -merge
 
+    "$HOME/.config/i3/scripts/i3-workspace-output"
     # Restart i3/polybar
     i3-msg restart
     "$HOME/.config/polybar/scripts/launch.sh"
@@ -223,6 +219,7 @@ if [[ "$hostname" = "xps" ]]; then
     echo "Xft.dpi: 156" | xrdb -merge
 
     # Restart i3/polybar
+    "$HOME/.config/i3/scripts/i3-workspace-output"
     i3-msg restart
     "$HOME/.config/polybar/scripts/launch.sh"
 
