@@ -65,8 +65,16 @@ int main() {
   }
 
   bool reserve{false};
+  std::string tm;
   if (num_mons == 3)
+  {
+    tm = get_mon_name(lines[2]);
+    if (tm.empty()) {
+      std::cerr << "Error: failed to parse secondary monitor" << std::endl;
+      return 4;
+    }
     reserve = true;
+  }
   auto const pm = get_mon_name(lines[1]);
   if (pm.empty()) {
     std::cerr << "Error: failed to parse primary monitor" << std::endl;
@@ -76,14 +84,13 @@ int main() {
   auto const sm = get_mon_name(lines[num_mons]);
   if (sm.empty()) {
     std::cerr << "Error: failed to parse secondary monitor" << std::endl;
-    return 4;
+    return 5;
   }
 
-  // Print the results
-  std::cout << "Secondary monitor: '" << sm << "'\n";
   for (size_t i = 1; i < 10; ++i) {
     if (i == 3 && reserve) {
-      std::system("i3-msg 'workspace 3, move workspace to output eDP-1-1'");
+      sprintf(buffer, "i3-msg 'workspace 3, move workspace to output %s'", tm.c_str());
+      std::system(buffer);
       continue;
     }
     sprintf(buffer, "i3-msg 'workspace %zu, move workspace to output %s'", i,
