@@ -93,6 +93,12 @@ vim.api.nvim_create_autocmd("User", {
   callback = function()
     require("stackmap").pop("debug", "n")
     vks("n", "<localleader>b", debug, { desc = "start_debug" })
+    -- For some reason, the above keymap is not being restored, so we'll
+    vim.cmd[[
+      nnoremap <expr> n 'Nn'[v:searchforward] . 'zz'
+      xnoremap <expr> n 'Nn'[v:searchforward] . 'zz'
+      onoremap <expr> n 'Nn'[v:searchforward] . 'zz'
+    ]]
   end,
   desc = "Delete debugging keymaps",
   group = id,
