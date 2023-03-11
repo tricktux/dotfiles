@@ -2,22 +2,25 @@
 #include <iostream>
 #include <regex>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
-// Compile with: clang++ i3-workspace-output -std=c++20 -Ofast -o i3-workspace-output && ./i3-workspace-output
+// Compile with: clang++ i3-workspace-output -std=c++20 -Ofast -o
+// i3-workspace-output && ./i3-workspace-output
 
 /**
  * @brief Get the last word after space from the given text.
  *
- * This function takes a string as input and searches for the last word after space in the string
- * using regular expressions. The function returns the last word after space if it is found, otherwise
- * an empty string is returned.
+ * This function takes a string as input and searches for the last word after
+ * space in the string using regular expressions. The function returns the last
+ * word after space if it is found, otherwise an empty string is returned.
  *
  * @param text The string to search for the last word after space. The expected
  * input is a line from the `xrandr --listmonitors` command
  *
- * @return std::string The last word after space if found, otherwise an empty string.
- */ 
+ * @return std::string The last word after space if found, otherwise an empty
+ * string.
+ */
 
 std::string get_mon_name(const std::string &text) {
   // Define regex pattern to match last word after space
@@ -66,8 +69,7 @@ int main() {
 
   bool reserve{false};
   std::string tm;
-  if (num_mons == 3)
-  {
+  if (num_mons == 3) {
     tm = get_mon_name(lines[2]);
     if (tm.empty()) {
       std::cerr << "Error: failed to parse secondary monitor" << std::endl;
@@ -87,14 +89,20 @@ int main() {
     return 5;
   }
 
-  for (size_t i = 1; i < 10; ++i) {
-    if (i == 3 && reserve) {
-      sprintf(buffer, "i3-msg 'workspace 3, move workspace to output %s'", tm.c_str());
-      std::system(buffer);
-      continue;
-    }
-    sprintf(buffer, "i3-msg 'workspace %zu, move workspace to output %s'", i,
-            i % 2 == 0 ? sm.c_str() : pm.c_str());
+  std::unordered_map<uint8_t, std::string> w;
+  w.insert({1, pm});
+  w.insert({2, sm});
+  w.insert({3, reserve ? tm : sm});
+  w.insert({4, pm});
+  w.insert({5, sm});
+  w.insert({6, pm});
+  w.insert({7, sm});
+  w.insert({8, pm});
+  w.insert({9, sm});
+
+  // Loop through the unordered_map while executing the i3 command
+  for (const auto &[key, value] : w) {
+    sprintf(buffer, "i3-msg 'workspace %u, move workspace to output %s'", key, value.c_str());
     std::cout << buffer << "\n";
     std::system(buffer);
   }
