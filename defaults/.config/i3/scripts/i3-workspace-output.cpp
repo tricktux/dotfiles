@@ -102,7 +102,7 @@ int main() {
 
   // Loop through the unordered_map while executing the i3 command
   for (const auto &[key, value] : w) {
-    sprintf(buffer, "i3-msg 'workspace %u, move workspace to output %s'", key, value.c_str());
+    sprintf(buffer, "i3-msg 'workspace number %u output %s'", key, value.c_str());
     std::cout << buffer << "\n";
     std::system(buffer);
   }
