@@ -27,7 +27,3 @@ if vim.fn.exists("*mdip#MarkdownClipboardImage") > 0 then
 		return vim.fn["mdip#MarkdownClipboardImage"]()
 	end, opts)
 end
-
--- Make sure treesitter is not overriding foldexpr/indent in Org buffers
-vim.b.did_fold_settings = 1
-vim.b.did_indent_settings = 1
