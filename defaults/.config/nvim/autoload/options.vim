@@ -31,7 +31,6 @@ function! options#Set() abort
   set noshowmode
   " Useful for the find command
   let &path .='.,,..,../..,./*,./*/*,../*,~/,~/**,/usr/include/*'
-  set showtabline=1 " always show tabs in gvim, but not vim"
   set backspace=indent,eol,start
 
   set showmatch     " set show matching parenthesis

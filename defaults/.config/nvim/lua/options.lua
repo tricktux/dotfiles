@@ -25,6 +25,7 @@ function M:setup()
   vim.opt.spelllang = "en_us"
   vim.opt.inccommand = "split"
   vim.opt.wrapscan = false
+  vim.opt.showtabline = 1
   vim.opt.shada = {
     [['1024]],
     -- Do not restore buffer list, leave that for sessions
