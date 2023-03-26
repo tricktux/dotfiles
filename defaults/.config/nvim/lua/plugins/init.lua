@@ -821,4 +821,22 @@ return {
 			"nvim-lua/plenary.nvim",
 		},
 	},
+	{
+		"JellyApple102/easyread.nvim",
+    ft = { "markdown", "text", "org" },
+		opts = {
+			hlValues = {
+				["1"] = 1,
+				["2"] = 1,
+				["3"] = 2,
+				["4"] = 2,
+				["fallback"] = 0.4,
+			},
+			hlgroupOptions = { link = "Bold" },
+			fileTypes = { "text", "markdown", "org" },
+			saccadeInterval = 0,
+			saccadeReset = false,
+			updateWhileInsert = true,
+		},
+	},
 }
