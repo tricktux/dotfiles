@@ -206,6 +206,7 @@ rsync
 rust-analyzer
 rustup
 sccache
+screen
 scrot
 sdparm
 sed
@@ -324,6 +325,7 @@ xss-lock
 ytfzf
 zathura
 zathura-pdf-mupdf
+zellij
 zip
 zsh
 zsh-autosuggestions

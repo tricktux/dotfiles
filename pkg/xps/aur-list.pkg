@@ -45,6 +45,7 @@ pico-sdk
 picotool
 powerstat
 preload
+pulseaudio-ctl
 qbittorrent-qt5
 qpdfview
 qt5-styleplugins
