@@ -1,4 +1,5 @@
 local utl = require("utils.utils")
+
 local vks = vim.keymap.set
 local map = require("mappings")
 local vf = vim.fn
@@ -205,7 +206,8 @@ function M:config_project()
 			"Makefile",
 			"_darcs",
 			".hg",
-			".bzr",
+			"notes.org",
+      ".bzr",
 			"package.json",
 			"[Cc]argo.toml",
 		},
