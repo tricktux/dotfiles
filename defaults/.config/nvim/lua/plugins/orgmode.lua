@@ -4,7 +4,6 @@ local function setup()
 
   org.setup({
     org_agenda_files = { vim.g.wiki_path .. [[/org/**/*.org]] },
-    org_priority_lowest = "D",
     org_todo_keywords = {
       "TODO",
       "WAITING",
