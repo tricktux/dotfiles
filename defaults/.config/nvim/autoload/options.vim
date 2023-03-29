@@ -229,8 +229,6 @@ function! s:vim_cli() abort
   if !has('clipboard') || !has('xterm_clipboard')
     echomsg 'options#Set(): vim wasnt compiled with clipboard support.'
     echomsg 'Remove vim and install gvim'
-  else
-    set clipboard=unnamedplus
   endif
 
   if exists('g:system_name') && g:system_name ==# 'cygwin'
