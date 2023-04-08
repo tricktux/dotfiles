@@ -1,4 +1,20 @@
 -- statusline
+-- Pretty awful: https://github.com/nvim-lualine/lualine.nvim/issues/921
+vim.api.nvim_create_autocmd("CursorHold", {
+	pattern = "*",
+	callback = function()
+		vim.opt.showtabline = 1
+    -- print("showtabline = " .. vim.opt.showtabline.get())
+	end,
+})
+
+vim.keymap.set("n", "<leader>tr",
+  function()
+    vim.ui.input("Enter Tab name: ", function(text)
+      vim.cmd([[LualineRenameTab ]] .. text)
+    end)
+  end, { silent = true })
+
 return {
 	"nvim-lualine/lualine.nvim",
 	event = "VeryLazy",
@@ -69,6 +85,30 @@ return {
 				},
 			},
 			extensions = { "neo-tree" },
+			tabline = {
+				lualine_a = {},
+				lualine_b = {},
+				lualine_c = {"filename"},
+				lualine_x = {},
+				lualine_y = {},
+				lualine_z = { "tabs" },
+			},
+			winbar = {
+				lualine_a = {},
+				lualine_b = {},
+				lualine_c = { "filename" },
+				lualine_x = {},
+				lualine_y = {},
+				lualine_z = {},
+			},
+			inactive_winbar = {
+				lualine_a = {},
+				lualine_b = {},
+				lualine_c = { "filename" },
+				lualine_x = {},
+				lualine_y = {},
+				lualine_z = {},
+			},
 		}
 	end,
 }
