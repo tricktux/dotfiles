@@ -327,8 +327,6 @@ local function setup()
       -- Formatting mappings
       local opts = { desc = "formatting" }
       vks("n", "<localleader>f", function() vim.lsp.buf.format({ async = false }) end, opts)
-      opts.desc = "range_formatting"
-      vks("n", "<localleader>F", vim.lsp.buf.range_formatting, opts)
       opts.desc = "show_line_diagnostics"
       vks("n", "<localleader>n", vim.diagnostic.open_float, opts)
       opts.desc = "lsp_hover"
