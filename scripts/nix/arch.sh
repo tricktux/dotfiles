@@ -217,6 +217,15 @@ cleanup_junk() {
 			--cachedir=/var/cache/pacman/pkg
 		;;
 	esac
+	msg "${CYAN}${BOLD}" "[RIMP]==> Prune unused Docker objects...     "
+	read -r yn
+	case $yn in
+	[Qq]*) quit ;;
+	[Yy]*)
+        sudo docker volume prune --filter "label!=keep"
+        sudo docker system prune --filter "until=720h"
+		;;
+	esac
 	msg_not "${BLUE}${BOLD}" "[RIMP]==> Remove junk? [y/N/q]"
 	read -r yn
 	case $yn in
