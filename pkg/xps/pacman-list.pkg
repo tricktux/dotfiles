@@ -12,6 +12,7 @@ atool
 atuin
 autoconf
 automake
+autorandr
 baobab
 base
 bat
@@ -57,6 +58,7 @@ findutils
 firefox
 flameshot
 flex
+freerdp
 fwupd
 fzf
 galculator
@@ -198,6 +200,7 @@ python-pywal
 rapidjson
 redshift
 reflector
+remmina
 ripgrep
 ripgrep-all
 rofi-emoji
