@@ -85,8 +85,8 @@ M.setup = function()
       log.info("orgagenda autocmd called")
       vim.opt_local.cursorline = true
     end,
-    pattern = "orgagenda",
-    desc = "Better settings for orgagenda",
+    pattern = {"orgagenda", "csv"},
+    desc = "Set cursor line where it makes sense",
     group = id,
   })
 	api.nvim_create_autocmd("FileType", {
