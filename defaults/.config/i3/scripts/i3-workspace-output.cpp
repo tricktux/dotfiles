@@ -5,8 +5,10 @@
 #include <unordered_map>
 #include <vector>
 
-// Compile with: clang++ i3-workspace-output -std=c++20 -Ofast -o
-// i3-workspace-output && ./i3-workspace-output
+// https://github.com/altdesktop/i3ipc-python/blob/master/examples/app-on-ws-init.py
+// https://github.com/Iskustvo/i3-ipcpp/blob/master/include/i3_ipc.hpp
+
+// Compile with: clang++ i3-workspace-output.cpp -std=c++20 -Ofast -o i3-workspace-output && ./i3-workspace-output
 
 /**
  * @brief Get the last word after space from the given text.
@@ -21,7 +23,6 @@
  * @return std::string The last word after space if found, otherwise an empty
  * string.
  */
-
 std::string get_mon_name(const std::string &text) {
   // Define regex pattern to match last word after space
   std::regex pattern(".*\\s+([A-Za-z0-9]+(-[A-Za-z0-9]+)+)");
@@ -90,7 +91,7 @@ int main() {
   }
 
   std::unordered_map<uint8_t, std::string> w;
-  w.insert({1, pm});
+w.insert({1, pm});
   w.insert({2, sm});
   w.insert({3, reserve ? tm : sm});
   w.insert({4, pm});
@@ -102,7 +103,7 @@ int main() {
 
   // Loop through the unordered_map while executing the i3 command
   for (const auto &[key, value] : w) {
-    sprintf(buffer, "i3-msg 'workspace number %u output %s'", key, value.c_str());
+    sprintf(buffer, "i3-msg 'workspace number %u; move workspace to output %s'", key, value.c_str());
     std::cout << buffer << "\n";
     std::system(buffer);
   }
