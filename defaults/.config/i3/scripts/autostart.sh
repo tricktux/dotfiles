@@ -64,6 +64,7 @@ else
 fi
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
+# TODO: https://www.reddit.com/r/i3wm/comments/12k74pi/is_this_manual_xautolock_command_decent/
 if [[ -f /usr/bin/xss-lock ]]; then
   /usr/bin/xss-lock --transfer-sleep-lock -- i3lock-fancy --nofork&
 else
