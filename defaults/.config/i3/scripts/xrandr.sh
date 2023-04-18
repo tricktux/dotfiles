@@ -176,67 +176,48 @@ if [[ "$hostname" = "helios" ]]; then
 fi
 
 if [[ "$hostname" = "xps" ]]; then
-  echo "found xps"
-  if [[ "$1" = "main" ]]; then
-    echo "setting up main configuration"
+	echo "found xps"
+	case "$1" in
+	"main")
+		echo "\tsetting up main configuration"
+		"$HOME"/.screenlayout/main.sh
+		echo "Xft.dpi: 192" | xrdb -merge
+		;;
 
-    "$HOME"/.screenlayout/main.sh
+	"home_dock")
+		echo "\tsetting up home_dock configuration"
+		"$HOME"/.screenlayout/home-dock.sh
+		xrandr --dpi 156
+		echo "Xft.dpi: 156" | xrdb -merge
+		;;
 
-    echo "Xft.dpi: 192" | xrdb -merge
-    # Restart i3/polybar
-    i3-msg restart
-    "$HOME/.config/polybar/scripts/launch.sh"
+	"work_dock")
+		echo "\tsetting up work_dock configuration"
+		"$HOME"/.screenlayout/work-dock.sh
+		xrandr --dpi 156
+		echo "Xft.dpi: 156" | xrdb -merge
+		;;
 
-    notify-send "xrandr" \
-      "Configuration '$1' set!" \
-      -a 'arandr'
-    exit 0
-  fi
+	*)
+		notify-send "xrandr" \
+			"Configuration '$1' not valid" \
+			-u critical -a 'Arandr'
+		exit 2
+		;;
+	esac
 
-  if [[ "$1" = "home_dock" ]]; then
-    echo "setting up home_dock configuration"
-
-    "$HOME"/.screenlayout/home-dock.sh
-    xrandr --dpi 156
-    echo "Xft.dpi: 156" | xrdb -merge
-
-    "$HOME/.config/i3/scripts/i3-workspace-output"
-    # Restart i3/polybar
-    i3-msg restart
-    "$HOME/.config/polybar/scripts/launch.sh"
-
-    notify-send "xrandr" \
-      "Configuration '$1' set!" \
-      -a 'arandr'
-    exit 0
-  fi
-
-  if [[ "$1" = "work_dock" ]]; then
-    echo "setting up home_dock configuration"
-
-    "$HOME"/.screenlayout/work-dock.sh
-    xrandr --dpi 156
-    echo "Xft.dpi: 156" | xrdb -merge
-
-    # Restart i3/polybar
-    "$HOME/.config/i3/scripts/i3-workspace-output"
-    i3-msg restart
-    "$HOME/.config/polybar/scripts/launch.sh"
-
-    notify-send "xrandr" \
-      "Configuration '$1' set!" \
-      -a 'arandr'
-    exit 0
-  fi
-  notify-send "xrandr" \
-    "Configuration '$1' not valid" \
-    -u critical -a 'Arandr'
-  exit 2
+	# Restart i3/polybar
+	i3-msg restart
+	"$HOME/.config/i3/scripts/i3-workspace-output"
+	"$HOME/.config/i3/scripts/xset.sh"
+	"$HOME/.config/polybar/scripts/launch.sh"
+	notify-send "xrandr" \
+		"Configuration '$1' set!" \
+		-a 'arandr'
+	exit 0
 fi
 
-$HOME/.config/i3/scripts/xset.sh
-
 notify-send "xrandr" \
-  "Hostname '$hostname' not valid" \
-  -u critical -a 'Arandr'
+	"Hostname '$hostname' not valid" \
+	-u critical -a 'Arandr'
 exit 1
