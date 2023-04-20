@@ -621,7 +621,7 @@ return {
 	config = function()
 		M:setup()
 	end,
-	-- Hooks for other plugins
+	-- Hooks for other plugins, will trigger warnings in Lazy.nvim
 	set_lsp_mappings = M.set_lsp_mappings,
 	file_fuzzer = M.file_fuzzer,
 }
