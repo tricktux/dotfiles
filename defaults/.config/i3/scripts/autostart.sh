@@ -1,100 +1,100 @@
 #!/usr/bin/env bash
 
-# This script was created to have more control over startup applications. i3 
+# This script was created to have more control over startup applications. i3
 # starts them all at the same time, here they are synchronous
 
 if [[ -f /usr/bin/feh ]]; then
-  /usr/bin/feh --randomize --no-fehbg --bg-fill \
-    /usr/share/backgrounds/archlinux/*
+	/usr/bin/feh --randomize --no-fehbg --bg-fill \
+		/usr/share/backgrounds/archlinux/*
 else
-  printf "\n==X Please install feh\n"
+	printf "\n==X Please install feh\n"
 fi
 
 # xfsettingsd is needed by flux, must remain before it
 if [[ -f /usr/bin/xfsettingsd ]]; then
-  /usr/bin/xfsettingsd --replace --daemon
+	/usr/bin/xfsettingsd --replace --daemon
 else
-  printf "\n==X Please install xfsettingsd\n"
+	printf "\n==X Please install xfsettingsd\n"
 fi
 # Setup config for current time of day at startup
 [[ -f //tmp/flux ]] && rm /tmp/flux
 flux="$HOME"/.config/polybar/scripts/flux_
 if [[ -f $flux/flux ]]; then
-  "$flux"/flux -v -c "$flux"/flux_init_config.lua \
-    > /tmp/fluxinit.log 2>&1
+	"$flux"/flux -v -c "$flux"/flux_init_config.lua \
+		>/tmp/fluxinit.log 2>&1
 else
-  printf "\n==X Please install '%s'\n" "$flux"
+	printf "\n==X Please install '%s'\n" "$flux"
 fi
 
 # https://pastebin.com/tfqSNjti
 # See :Man picom
 if [[ -f /usr/bin/picom ]]; then
-  /usr/bin/picom --daemon
+	/usr/bin/picom --daemon
 fi
 
 if [[ -f /usr/bin/playerctld ]]; then
-  /usr/bin/playerctld daemon
+	/usr/bin/playerctld daemon
 else
-  printf "\n==X Please install playerctld\n"
+	printf "\n==X Please install playerctld\n"
 fi
 
 if [[ -f /usr/bin/alttab ]]; then
-  /usr/bin/alttab -w 1 -d 2 -frame rgb:26/8b/d2 -bg rgb:f1/f1/f1 \
-    -fg rgb:55/55/55 -t 120x120 -i 120x120&
+	/usr/bin/alttab -w 1 -d 2 -frame rgb:26/8b/d2 -bg rgb:f1/f1/f1 \
+		-fg rgb:55/55/55 -t 120x120 -i 120x120 &
 else
-  printf "\n==X Please install alttab\n"
+	printf "\n==X Please install alttab\n"
 fi
 
 if [[ -f /usr/bin/synology-drive ]]; then
-  /usr/bin/synology-drive
+	/usr/bin/synology-drive
 else
-  printf "\n==X Please install synology-drive\n"
+	printf "\n==X Please install synology-drive\n"
 fi
 
 if [[ -f /usr/bin/blueman-applet ]]; then
-  /usr/bin/blueman-applet&
+	/usr/bin/blueman-applet &
 else
-  printf "\n==X Please install blueman-applet\n"
+	printf "\n==X Please install blueman-applet\n"
 fi
 
 if [[ -f /usr/bin/nm-applet ]]; then
-    /usr/bin/nm-applet&
+	/usr/bin/nm-applet &
 else
-    printf "\n==X Please install network-manager-applet\n"
+	printf "\n==X Please install network-manager-applet\n"
 fi
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
 # TODO: https://www.reddit.com/r/i3wm/comments/12k74pi/is_this_manual_xautolock_command_decent/
 if [[ -f /usr/bin/xss-lock ]]; then
-  /usr/bin/xss-lock --transfer-sleep-lock -- i3lock-fancy --nofork&
+	/usr/bin/xss-lock --transfer-sleep-lock -- i3lock-fancy --nofork &
 else
-  printf "\n==X Please install xss-lock\n"
+	printf "\n==X Please install xss-lock\n"
 fi
 if [[ -f /usr/bin/setxkbmap ]]; then
-  /usr/bin/setxkbmap -option 'caps:ctrl_modifier'
+	/usr/bin/setxkbmap -option 'caps:ctrl_modifier'
 else
-  printf "\n==X Please install setxkbmap\n"
+	printf "\n==X Please install setxkbmap\n"
 fi
 if [[ -f /usr/bin/lxqt-policykit-agent ]]; then
-  /usr/bin/lxqt-policykit-agent&
+	/usr/bin/lxqt-policykit-agent &
 else
-  printf "\n==X Please install lxqt-policykit-agent\n"
+	printf "\n==X Please install lxqt-policykit-agent\n"
 fi
 if [[ -f /usr/bin/uair ]]; then
-  uair --socket /tmp/uair_pomo.socket > /tmp/uair_pomo.file&
+	uair --socket /tmp/uair_pomo.socket >/tmp/uair_pomo.file &
 else
-  printf "\n==X Please install uair\n"
+	printf "\n==X Please install uair\n"
 fi
 
 if [[ -f /usr/bin/easyeffects ]]; then
-  easyeffects --gapplication-service&
+	easyeffects --gapplication-service &
 else
-  printf "\n==X Please install easyeffects\n"
+	printf "\n==X Please install easyeffects\n"
 fi
 
 poly="$HOME"/.config/polybar/scripts/launch.sh
 if [[ -f $poly ]]; then
-  source "$poly"
+	source "$poly"
 else
-  printf "\n==X Please install '%s'\n" "$poly"
+	printf "\n==X Please install '%s'\n" "$poly"
 fi
