@@ -121,7 +121,7 @@ fi
 # }}}
 
 # Source plugins{{{
-if [[ -f /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.zsh ]]; then
+if [[ -f /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh ]]; then
   function zvm_config() {
     ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
     # Needed for fzf to work
@@ -129,7 +129,7 @@ if [[ -f /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.zsh ]]; then
   }
 
   # Inspect the file below for config options
-  source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.zsh
+  source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 fi
 # }}}
 
