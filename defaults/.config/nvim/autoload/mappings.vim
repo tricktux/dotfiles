@@ -7,7 +7,7 @@
 " Created: Aug 22 2017 12:33
 
 function! mappings#Set()
-  let g:esc = [';j']
+  let g:esc = ['jk', 'kj']
   " Terminal mappings
 
   " Sun Jun 07 2020 11:23 

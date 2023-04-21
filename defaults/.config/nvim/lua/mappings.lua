@@ -8,7 +8,8 @@ local fn = vim.fn
 
 local M = {}
 
-M.esc = [[;j]]
+-- jk doesn't work because it introduces massive delay when spamming j or k
+M.esc = {";j"}
 
 --- Abstraction over keymaps_set
 -- @param keys table expects all the arguments to keymaps_set
@@ -434,7 +435,14 @@ function M:window_movement_setup()
 end
 
 local function misc_mappings()
-  vks({ "v", "i" }, M.esc, [[<Esc>zz]])
+  -- Set escape key to work in all modes
+  for _, v in pairs(M.esc) do
+    vks({ "v", "i" }, v, [[<Esc>zz]], { silent = true })
+    -- How to handle zsh-vi-mode escape vs vim escape?
+    -- Which one do you use the most? The other one will have to suffer
+    -- By using the default mapping, the thing is that a-b is much better
+    vks("t", v, [[<C-\><C-n>]], { silent = true })
+  end
   local opts = { nowait = true, desc = "start_cmd" }
   -- Awesome hack, typing a command is used way more often than next
   vks("n", ";", ":", opts)
@@ -504,7 +512,6 @@ M.builtin_terminal = {
 }
 M.builtin_terminal.mappings = {
   ["<M-`>"] = { [[<c-\><c-n>ZZ]], "terminal_toggle" },
-  [M.esc] = { [[<C-\><C-n>]], "terminal_escape" },
   ["<A-h>"] = { [[<C-\><C-n><C-w>h]] },
   ["<A-j>"] = { [[<C-\><C-n><C-w>j]] },
   ["<A-k>"] = { [[<C-\><C-n><C-w>k]] },
