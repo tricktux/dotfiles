@@ -98,5 +98,3 @@ if [[ -f $poly ]]; then
 else
   printf "\n==X Please install '%s'\n" "$poly"
 fi
-
-notify-send 'Work' "Remember to clock in!!" -u critical

@@ -1,0 +1,10 @@
+[Unit]
+Description=Clock-in Reminder
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/notify-send 'Work' "Remember to clock in!!" -u critical
+
+[Install]
+WantedBy=multi-user.target
+
