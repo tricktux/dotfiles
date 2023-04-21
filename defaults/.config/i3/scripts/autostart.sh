@@ -92,6 +92,12 @@ else
 	printf "\n==X Please install easyeffects\n"
 fi
 
+if [[ -f /usr/bin/noisetorch ]]; then
+	noisetorch -i &
+else
+	printf "\n==X Please install noisetorch\n"
+fi
+
 poly="$HOME"/.config/polybar/scripts/launch.sh
 if [[ -f $poly ]]; then
 	source "$poly"
