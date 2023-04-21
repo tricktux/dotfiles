@@ -133,7 +133,6 @@ if [[ -f /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.zsh ]]; then
 fi
 # }}}
 
-
 # zsh-history-substring-search{{{
 
 if [[ -f /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh ]]; then
@@ -159,7 +158,6 @@ if [[ -f /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substri
   source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 fi
 # }}}
-
 
 # Exports {{{
 export IGNORE_FILE="--ignore-file $HOME/.config/ignore-file"
@@ -281,4 +279,4 @@ export ATUIN_NOBIND="true"
 [[ -f /usr/bin/atuin ]] && eval "$(atuin init zsh)"
 # Only bind <c-r>, up key is really annoying
 bindkey '^r' _atuin_search_widget
-# vim: fdm=marker:ft=bash
+# vim: fdm=marker
