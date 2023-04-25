@@ -6,7 +6,7 @@ from datetime import datetime
 import mlbgame
 
 
-class Status():
+class Status:
     # `H: < Team > , R: < Runs > , H: < Hits > , E: < Errors > , A: < Team > , R: < Runs > , H: < Hits > , E: < Errors > , I: < Inning > , S: < Status >`
 
     def __init__(self, team):
@@ -22,17 +22,14 @@ class Status():
         """
 
         try:
-            games = mlbgame.day(year,
-                                month,
-                                day,
-                                home=self.team,
-                                away=self.team)
+            games = mlbgame.day(
+                year, month, day, home=self.team, away=self.team)
         except:
-            print('Failed to get scoreboard data')
+            print("Failed to get scoreboard data")
             return
 
         if not games:
-            print('No games today')
+            print(f"\tNo games today for the '{self.team}'")
             return
 
         for scoreboard in games:
@@ -87,5 +84,5 @@ def main():
 # pp = pprint.PrettyPrinter()
 # print(f"sb = {pp.pprint(sb)}")
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
