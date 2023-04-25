@@ -1070,7 +1070,7 @@ sudo systemctl enable --now cups.socket
 
 # docker
 # https://wiki.archlinux.org/title/docker#With_NVIDIA_Container_Toolkit_(recommended)
-paci --needed --noconfirm docker docker-compose nvidia-container-toolkit
+paci --needed --noconfirm docker docker-buildx docker-compose nvidia-container-toolkit
 # See here for fix performance issue building docker images
 # https://mikeshade.com/posts/docker-native-overlay-diff/
 sudo systemctl enable --now docker
