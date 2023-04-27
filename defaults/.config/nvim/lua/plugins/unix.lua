@@ -9,6 +9,12 @@ return {
   { "neomutt/neomutt.vim", ft = "muttrc" },
   { "fladson/vim-kitty", ft = "kitty" },
   {
+    "kevinhwang91/rnvimr",
+    keys = {
+      {'<plug>file_ranger_browser', "<cmd>RnvimrToggle<cr>", desc = 'file-ranger-browser'}
+    },
+  },
+  {
     "untitled-ai/jupyter_ascending.vim",
     ft = "python",
     init = function()

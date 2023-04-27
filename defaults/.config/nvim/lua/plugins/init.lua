@@ -839,4 +839,10 @@ return {
 			updateWhileInsert = true,
 		},
 	},
+  {
+    "stevearc/oil.nvim",
+    keys = {
+      {'<plug>file_oil_browser', function() require("oil").open() end, desc = 'file-tree-neotree'}
+    },
+  }
 }

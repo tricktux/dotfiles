@@ -72,7 +72,7 @@ end
 return {
   "kyazdani42/nvim-tree.lua",
   keys = {
-    {'<plug>file_browser', "<cmd>NvimTreeToggle<cr>", desc = 'file-browser-neotree'}
+    {'<plug>file_tree_browser', "<cmd>NvimTreeToggle<cr>", desc = 'file-tree-neotree'}
   },
   init = function()
     -- These additional options must be set **BEFORE** calling `require'nvim-tree'` or calling setup.
