@@ -74,7 +74,7 @@ M.setup = function()
       log.info("orgagenda autocmd called")
       vim.opt_local.cursorline = true
     end,
-    pattern = {"orgagenda", "csv"},
+    pattern = {"qf", "csv"},
     desc = "Set cursor line where it makes sense",
     group = id,
   })

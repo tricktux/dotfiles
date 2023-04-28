@@ -1,4 +1,13 @@
 local function setup()
+  local id = vim.api.nvim_create_augroup("Orgmode", { clear = true })
+  vim.api.nvim_create_autocmd("FileType", {
+    callback = function()
+      vim.opt_local.cursorline = true
+    end,
+    pattern = "orgagenda",
+    desc = "Set cursor line",
+    group = id,
+  })
   local org = require("orgmode")
   org.setup_ts_grammar()
 
