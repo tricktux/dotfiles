@@ -62,17 +62,6 @@ M.setup = function()
 	id = api.nvim_create_augroup("FiletypesLua", { clear = true })
 	api.nvim_create_autocmd("FileType", {
 		callback = function()
-			vim.keymap.set("n", [[<s-j>]], [[:b#<cr>]], { silent = true, buffer = true, desc = "Remap next buffer" })
-			vim.keymap.set("n", [[<C-j>]], [[)]], { silent = true, buffer = true, desc = "Next section" })
-			vim.keymap.set("n", [[<C-k>]], [[(]], { silent = true, buffer = true, desc = "Prev section" })
-		end,
-		pattern = "fugitive",
-		desc = "Better mappings for fugitive filetypes",
-		group = id,
-	})
-
-	api.nvim_create_autocmd("FileType", {
-		callback = function()
 			vim.opt.suffixesadd = { ".scp", ".cmd", ".bat" }
 			log.info("wings_syntax autocmd called")
 		end,
