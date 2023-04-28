@@ -484,6 +484,8 @@ M.plug.mappings = {
   ["<leader>rt"] = { "<plug>file_tree_browser", "file_tree_browser" },
   ["<leader>rr"] = { "<plug>file_ranger_browser", "file_ranger_browser" },
   ["<leader>ro"] = { "<plug>file_oil_browser", "file_oil_browser" },
+  -- Default file browser
+  ["<leader>F"] = { "<plug>file_oil_browser", "file_oil_browser" },
   ["<leader>tf"] = { "<plug>focus_toggle", "focus_toggle" },
   ["<s-k>"] = { "<plug>buffer_browser", "buffer_browser" },
   ["<c-p>"] = { "<plug>mru_browser", "mru_browser" },
