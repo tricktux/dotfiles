@@ -918,6 +918,8 @@ mkdir -p ~/.local/share/mail/{molinamail,molinamail_meli,molinamail_mcp}/inbox
 
 # evolution {{{
 paci --needed --noconfirm evolution gnome-keyring libsecret
+# NOTE: you want to setup a "Collection Account", not just a regular email
+# account. This way it pulls calendar and tasks
 # ACTION: setup empty password so that `lightdm` can unlock the `keyring` at login
 # Run through the normal setup and when the "Default Keyring" setup comes, just 
 # leave empty
