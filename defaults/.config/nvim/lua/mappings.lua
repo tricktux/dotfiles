@@ -38,7 +38,7 @@ function M.keymaps_set(mappings, mode, opts, prefix)
   vim.validate({ prefix = { prefix, "s", true } })
 
   for k, v in pairs(mappings) do
-    local o = vim.deepcopy(opts or { silent = true })
+    local o = opts and vim.deepcopy(opts) or { silent = true }
     o.desc = v[2] or nil
     local m = v[3] or vim.deepcopy(mode or "n")
     local lhs = prefix and prefix .. k or k
