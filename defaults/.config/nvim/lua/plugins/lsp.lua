@@ -6,6 +6,9 @@ local map = require("mappings")
 local M = {}
 
 local function set_lsp_options(client_id, bufnr)
+  if client_id == nil or bufnr == nil then
+    return
+  end
   vim.bo[bufnr].formatexpr = "v:lua.vim.lsp.formatexpr"
   vim.bo[bufnr].omnifunc = ""
   if client_id.server_capabilities.definitionProvider then
@@ -13,8 +16,8 @@ local function set_lsp_options(client_id, bufnr)
   end
 end
 
-local function set_lsp_mappings(bufnr)
-  local opts = { silent = true, buffer = bufnr }
+function M.set_lsp_mappings(bufnr)
+  local opts = { silent = true, buffer = true }
   local prefix = "<localleader>l"
   local lsp = vim.lsp
   local diag = vim.diagnostic
@@ -67,7 +70,7 @@ local function set_lsp_mappings(bufnr)
         vim.cmd([[vsplit]])
         lsp.buf.declaration()
       end,
-      "lsp_declaration_split"
+      "lsp_declaration_split",
     },
     e = { lsp.buf.declaration, "lsp_declaration" },
     i = { lsp.buf.implementation, "lsp_implementation" },
@@ -80,8 +83,12 @@ local function set_lsp_mappings(bufnr)
   }
 
   -- Set some keybinds conditional on server capabilities
-  mappings.f = { function() lsp.buf.format({ async = false }) end, "formatting" }
-  mappings.F = { lsp.buf.range_formatting, "range_formatting" }
+  mappings.f = {
+    function()
+      lsp.buf.format({ async = false })
+    end,
+    "formatting",
+  }
 
   map.keymaps_set(mappings, "n", opts, prefix)
   require("plugins.telescope").set_lsp_mappings(bufnr)
@@ -90,13 +97,18 @@ end
 -- Abstract function that allows you to hook and set settings on a buffer that
 -- has lsp server support
 function M.on_lsp_attach(client_id, bufnr)
-  if vim.b.did_on_lsp_attach == 1 then
+  --[[ if client_id == nil or bufnr == nil then
+    return
+  end ]]
+
+  --[[ if vim.b.did_on_lsp_attach == 1 then
     return
   end
 
-  vim.b.did_on_lsp_attach = 1
+  vim.b.did_on_lsp_attach = 1 ]]
 
-  set_lsp_mappings(bufnr)
+  log.warn("bufnr = " .. vim.inspect(bufnr))
+  M.set_lsp_mappings(bufnr)
   set_lsp_options(client_id, bufnr)
 
   local sig_ok, sig = pcall(require, "lsp_signature")
@@ -109,55 +121,45 @@ function M.on_lsp_attach(client_id, bufnr)
     nav.attach(client_id, bufnr)
   end
 
-  local id = vim.api.nvim_create_augroup("LspCodeLens", { clear = true })
-  vim.api.nvim_create_autocmd({"BufEnter", "CursorHold", "InsertLeave"}, {
-    callback = vim.lsp.codelens.refresh,
-    buffer = bufnr,
-    desc = "Refresh codelens for the current buffer",
-    group = id,
-  })
+  local id = vim.api.nvim_create_augroup("LspStuff", { clear = true })
+  if client_id.server_capabilities.codeLensProvider then
+    vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+      callback = vim.lsp.codelens.refresh,
+      buffer = bufnr,
+      desc = "Refresh codelens for the current buffer",
+      group = id,
+    })
+  end
   -- Highlights references to word under the cursor
-  local id = vim.api.nvim_create_augroup("LspHighlight", { clear = true })
-  vim.api.nvim_create_autocmd({"CursorHold", "CursorHoldI"}, {
-    callback = vim.lsp.buf.document_highlight,
-    buffer = bufnr,
-    desc = "LSP Document Highlight",
-    group = id,
-  })
-  vim.api.nvim_create_autocmd("CursorMoved", {
-    callback = vim.lsp.buf.clear_references,
-    buffer = bufnr,
-    desc = "LSP Document Highlight clear",
-    group = id,
-  })
+  if client_id.server_capabilities.documentHighlightProvider then
+    vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+      callback = vim.lsp.buf.document_highlight,
+      buffer = bufnr,
+      desc = "LSP Document Highlight",
+      group = id,
+    })
+    vim.api.nvim_create_autocmd("CursorMoved", {
+      callback = vim.lsp.buf.clear_references,
+      buffer = bufnr,
+      desc = "LSP Document Highlight clear",
+      group = id,
+    })
+  end
 end
 
 local function on_clangd_attach(client_id, bufnr)
-  if vim.b.did_on_lsp_attach == 1 then
-    -- Setup already done in this buffer
-    log.debug("on_lsp_attach already setup")
-    return
-  end
-
-  log.debug("Setting up on_clangd_attach")
-  log.debug("client_id = ", client_id)
-  local opts = { silent = true, buffer = true, desc = "clangd_switch_source_header" }
+  local opts = { silent = true, buffer = bufnr, desc = "clangd_switch_source_header" }
   vim.keymap.set("n", "<localleader>a", [[<cmd>ClangdSwitchSourceHeader<cr>]], opts)
   opts.desc = "clangd_switch_source_header"
   vim.keymap.set("n", "<localleader>A", [[<cmd>vs<cr><cmd>ClangdSwitchSourceHeader<cr>]], opts)
   return M.on_lsp_attach(client_id, bufnr)
 end
 
-M.clangd_settings = {}
-
 -- TODO
 -- Maybe set each server to its own function?
 function M:config()
-  -- Notice not all configs have a `callbacks` setting
   local nvim_lsp = require("lspconfig")
-
   -- vim.lsp.log.set_level("debug")
-
   local cmp_lsp = require("cmp_nvim_lsp")
 
   local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -221,16 +223,16 @@ function M:config()
 
   if vim.fn.executable("cmake-language-server") > 0 then
     log.info("setting up the cmake-language-server lsp...")
-    nvim_lsp.cmake.setup {}
+    nvim_lsp.cmake.setup({})
   end
 
   if vim.fn.executable("clangd") > 0 then
     log.info("setting up the clangd lsp...")
     local cores = utl.has_win and os.getenv("NUMBER_OF_PROCESSORS") or table.concat(vim.fn.systemlist("nproc"))
     local c = vim.deepcopy(capabilities)
-    c.offsetEncoding = "utf-8" -- Set the same encoding only for clangd
+    c.offsetEncoding = "utf-16" -- Set the same encoding only for clangd
 
-    M.clangd_settings = {
+    local settings = {
       init_options = { clangdFileStatus = false },
       on_attach = on_clangd_attach,
       flags = flags,
@@ -248,6 +250,10 @@ function M:config()
         "-j=" .. cores,
         "--header-insertion-decorators=false",
       },
+    }
+
+    require("clangd_extensions").setup{
+      server = settings
     }
   end
 
@@ -276,63 +282,62 @@ function M:config()
 end
 
 return {
-  {
-    "neovim/nvim-lspconfig",
-    event = { "BufReadPre", "BufNewFile" },
-    config = function() M:config() end,
-    dependencies = {
-      "ray-x/lsp_signature.nvim",
-      "hrsh7th/cmp-nvim-lsp",
-      {
-        "smjonas/inc-rename.nvim",
-        config = true,
-      },
-      {
-        -- TODO: cmp setup
-        "p00f/clangd_extensions.nvim",
-        opts = {
-          server = M.clangd_settings,
+  "neovim/nvim-lspconfig",
+  event = { "BufReadPre", "BufNewFile" },
+  config = function()
+    M:config()
+  end,
+  dependencies = {
+    "ray-x/lsp_signature.nvim",
+    "hrsh7th/cmp-nvim-lsp",
+    {
+      "smjonas/inc-rename.nvim",
+      config = true,
+    },
+    {
+      -- TODO: cmp setup
+      "p00f/clangd_extensions.nvim",
+    },
+    {
+      "j-hui/fidget.nvim",
+      opts = {
+        windows = {
+          blend = 0,
         },
-      },
-      {
-        "j-hui/fidget.nvim",
-        opts = {
-          windows = {
-            blend = 0,
-          },
-          text = {
-            spinner = "dots", -- animation shown when tasks are ongoing
-            done = "✔", -- character shown when all tasks are complete
-            commenced = "Started", -- message shown when task starts
-            completed = "Completed", -- message shown when task completes
-          },
-          align = {
-            bottom = true, -- align fidgets along bottom edge of buffer
-            right = true, -- align fidgets along right edge of buffer
-          },
-          timer = {
-            spinner_rate = 125, -- frame rate of spinner animation, in ms
-            fidget_decay = 2000, -- how long to keep around empty fidget, in ms
-            task_decay = 1000, -- how long to keep around completed task, in ms
-          },
-          fmt = {
-            leftpad = true, -- right-justify text in fidget box
-            -- function to format fidget title
-            fidget = function(fidget_name, spinner)
-              return string.format("%s %s", spinner, fidget_name)
-            end,
-            -- function to format each task line
-            task = function(task_name, message, percentage)
-              return string.format(
-                "%s%s [%s]",
-                message,
-                percentage and string.format(" (%s%%)", percentage) or "",
-                task_name
-              )
-            end,
-          },
-        }
+        text = {
+          spinner = "dots", -- animation shown when tasks are ongoing
+          done = "✔", -- character shown when all tasks are complete
+          commenced = "Started", -- message shown when task starts
+          completed = "Completed", -- message shown when task completes
+        },
+        align = {
+          bottom = true, -- align fidgets along bottom edge of buffer
+          right = true, -- align fidgets along right edge of buffer
+        },
+        timer = {
+          spinner_rate = 125, -- frame rate of spinner animation, in ms
+          fidget_decay = 2000, -- how long to keep around empty fidget, in ms
+          task_decay = 1000, -- how long to keep around completed task, in ms
+        },
+        fmt = {
+          leftpad = true, -- right-justify text in fidget box
+          -- function to format fidget title
+          fidget = function(fidget_name, spinner)
+            return string.format("%s %s", spinner, fidget_name)
+          end,
+          -- function to format each task line
+          task = function(task_name, message, percentage)
+            return string.format(
+              "%s%s [%s]",
+              message,
+              percentage and string.format(" (%s%%)", percentage) or "",
+              task_name
+            )
+          end,
+        },
       },
     },
   },
+  set_lsp_mappings = M.set_lsp_mappings,
+  on_attach = M.on_lsp_attach,
 }
