@@ -7,13 +7,13 @@ bluez-firmware
 brillo
 bvi
 c++-mscl
-cava
 cht.sh-git
 circleci-cli-bin
 cmake-language-server
 cmake-lint
 debtap
 digilent.waveforms
+dxvk-bin
 galendae-git
 gdb-dashboard-git
 hal
@@ -43,6 +43,7 @@ paru-bin
 pass-import
 pass-update
 peazip-qt-bin
+pi-hole-standalone
 pico-sdk
 picotool
 powerstat

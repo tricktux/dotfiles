@@ -21,6 +21,7 @@ binutils
 bison
 bleachbit
 blueman
+boost
 bottom
 capitaine-cursors
 ccache
@@ -37,6 +38,7 @@ debugedit
 dhcpcd
 direnv
 docker
+docker-buildx
 docker-compose
 dosfstools
 dotnet-runtime
@@ -103,8 +105,10 @@ khal
 khard
 kitty
 lazygit
+lib32-libpulse
 lib32-mesa
 lib32-nvidia-utils
+lib32-pipewire
 lib32-virtualgl
 lib32-vulkan-icd-loader
 lib32-vulkan-intel
@@ -166,7 +170,6 @@ nvtop
 odt2txt
 os-prober
 otf-cascadia-code
-otf-cascadia-code-nerd
 otf-fira-mono
 packer
 pacman
@@ -201,7 +204,7 @@ python-pywal
 rapidjson
 redshift
 reflector
-remmina
+restic
 ripgrep
 ripgrep-all
 rofi-emoji
@@ -237,11 +240,13 @@ tldr
 tmux
 todoman
 ttf-cascadia-code
+ttf-cascadia-code-nerd
 ttf-fira-code
 ttf-fira-mono
 ttf-inconsolata
 ttf-inconsolata-nerd
 udisks2
+ueberzug
 unzip
 urlscan
 vdirsyncer
@@ -255,8 +260,13 @@ wavpack
 websocketpp
 wget
 which
+wine
+wine-gecko
+wine-mono
+winetricks
 wireguard-tools
 wireless_tools
+wireplumber
 words
 wpa_supplicant
 xclip
