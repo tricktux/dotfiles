@@ -324,13 +324,7 @@ local function setup()
     on_attach = function()
       -- Null ls on demand
       vim.b.null_enable_vale = 0
-      -- Formatting mappings
-      local opts = { desc = "formatting" }
-      vks("n", "<localleader>f", function() vim.lsp.buf.format({ async = false }) end, opts)
-      opts.desc = "show_line_diagnostics"
-      vks("n", "<localleader>n", vim.diagnostic.open_float, opts)
-      opts.desc = "lsp_hover"
-      vks("n", "<localleader>h", vim.lsp.buf.hover, opts)
+      require("plugins.lsp").set_lsp_mappings()
     end,
     on_exit = nil,
     sources = sources,
