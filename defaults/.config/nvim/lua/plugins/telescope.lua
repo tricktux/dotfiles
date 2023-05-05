@@ -246,7 +246,7 @@ function M:config_project()
 end
 
 function M.set_lsp_mappings(bufnr)
-	local opts = { buffer = bufnr, silent = true }
+	local opts = { buffer = true, silent = true }
 	local prefix = "<localleader>lt"
 	local ts = require("telescope.builtin")
 	local mappings = {
@@ -604,12 +604,12 @@ return {
 				M:config_project()
 			end,
 		},
-		{
+		--[[ {
 			"rmagatti/session-lens",
 			config = function()
 				M:config_session_lens()
 			end,
-		},
+		}, ]]
 		{
 			"jedrzejboczar/toggletasks.nvim",
 			config = function()
