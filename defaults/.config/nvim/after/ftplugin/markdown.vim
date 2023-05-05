@@ -73,14 +73,14 @@ if !exists('no_plugin_maps') && !exists('no_markdown_maps')
 		" nnoremap <silent> <buffer> <plug>preview :!qpdfview --unique --quiet %:r.pdf&<cr>
 	" endif
 
-  nnoremap <silent> <buffer> <localleader>p :MarkdownPreview<cr>
+  if exists(':MarkdownPreview')
+    nnoremap <silent> <buffer> <localleader>p :MarkdownPreview<cr>
+  endif
 
-  nnoremap <silent> <buffer> <localleader>ma :lua require('config.linting').set_neomake_anki_maker()<cr>
-  nnoremap <silent> <buffer> <localleader>mp :UtilsMarkdownPandocPdfMaker<cr>
-	nnoremap <silent> <buffer> <localleader>md :UtilsMarkdownPandocDocxMaker<cr>
-	nnoremap <silent> <buffer> <localleader>mh :UtilsMarkdownPandocHtmlMaker<cr>
-	nnoremap <silent> <buffer> <localleader>ms :UtilsMarkdownPandocPdfSlidesMaker<cr>
-	nnoremap <silent> <buffer> <localleader>mx :UtilsMarkdownPandocPptxSlidesMaker<cr>
+	nnoremap <silent> <buffer> <localleader>md :!pandoc % -o %:r.docx<cr>
+	nnoremap <silent> <buffer> <localleader>mh :!pandoc % -o %:r.html<cr>
+	nnoremap <silent> <buffer> <localleader>ms :!pandoc % -o %:r.pdf<cr>
+	nnoremap <silent> <buffer> <localleader>mx :!pandoc % -o %:r.pptx<cr>
 
   let b:AutoPairs = {'(':')', '{':'}',"'":"'",'"':'"', '`':'`', '<': '>'}
   inoremap [ [ ]
