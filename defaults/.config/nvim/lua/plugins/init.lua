@@ -823,7 +823,7 @@ return {
 	},
 	{
 		"JellyApple102/easyread.nvim",
-    ft = { "markdown", "text", "org" },
+		ft = { "markdown", "text", "org" },
 		opts = {
 			hlValues = {
 				["1"] = 1,
@@ -839,69 +839,61 @@ return {
 			updateWhileInsert = true,
 		},
 	},
-  {
-    "stevearc/oil.nvim",
-    keys = {
-      {'<plug>file_oil_browser', function() require("oil").open_float() end, desc = 'file-tree-neotree'}
-    },
-    --[[ init = function()
-      -- Autocomand to set line numbers for the floating window
-      local id = vim.api.nvim_create_augroup("Oil", { clear = true })
-      api.nvim_create_autocmd("FileType", {
-        callback = function()
-          vim.opt_local.number = false
-          vim.opt_local.relativenumber = true
-          vim.opt_local.numberwidth = 1
-        end,
-        pattern = "oil",
-        desc = "Set line numbers for oil buffers",
-        group = id,
-      })
-    end, ]]
-    opts = {
-      win_options = {
-        wrap = false,
-        signcolumn = "no",
-        cursorcolumn = false,
-        foldcolumn = "0",
-        spell = false,
-        list = false,
-        conceallevel = 3,
-        concealcursor = "n",
-        number = false,
-        relativenumber = true,
-        numberwidth = 1,
-        cursorline = true,
-      },
-      columns = {
-        "size",
-        "mtime",
-        "icon",
-        -- "permissions",
-      },
-      -- Configuration for the floating window in oil.open_float
-      float = {
-        -- Padding around the floating window
-        padding = 0,
-        max_width = 80,
-        max_height = 60,
-        border = "rounded",
-        win_options = {
-          winblend = 0,
-        },
-      },
-      view_options = {
-        -- Show files and directories that start with "."
-        show_hidden = true,
-        -- This function defines what is considered a "hidden" file
-        is_hidden_file = function(name, bufnr)
-          return vim.startswith(name, ".")
-        end,
-        -- This function defines what will never be shown, even when `show_hidden` is set
-        is_always_hidden = function(name, bufnr)
-          return false
-        end,
-      },
-    },
-  }
+	{
+		"stevearc/oil.nvim",
+		keys = {
+			{
+				"<plug>file_oil_browser",
+				function()
+					require("oil").open_float()
+				end,
+				desc = "file-tree-neotree",
+			},
+		},
+		opts = {
+			win_options = {
+				wrap = false,
+				signcolumn = "no",
+				cursorcolumn = false,
+				foldcolumn = "0",
+				spell = false,
+				list = false,
+				conceallevel = 3,
+				concealcursor = "n",
+				number = false,
+				relativenumber = true,
+				numberwidth = 1,
+				cursorline = true,
+			},
+			columns = {
+				"size",
+				"mtime",
+				"icon",
+				-- "permissions",
+			},
+			-- Configuration for the floating window in oil.open_float
+			float = {
+				-- Padding around the floating window
+				padding = 0,
+				max_width = 80,
+				max_height = 60,
+				border = "rounded",
+				win_options = {
+					winblend = 0,
+				},
+			},
+			view_options = {
+				-- Show files and directories that start with "."
+				show_hidden = true,
+				-- This function defines what is considered a "hidden" file
+				is_hidden_file = function(name, bufnr)
+					return vim.startswith(name, ".")
+				end,
+				-- This function defines what will never be shown, even when `show_hidden` is set
+				is_always_hidden = function(name, bufnr)
+					return false
+				end,
+			},
+		},
+	},
 }
