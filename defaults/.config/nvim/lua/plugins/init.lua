@@ -896,4 +896,17 @@ return {
 			},
 		},
 	},
+	{
+		"cshuaimin/ssr.nvim",
+		keys = {
+			{
+				"<leader>ss",
+				function()
+					require("ssr").open()
+				end,
+        mode = {"n", "v"},
+				desc = "structured-search-replace",
+			},
+		},
+	},
 }
