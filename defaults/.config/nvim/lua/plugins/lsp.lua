@@ -92,6 +92,11 @@ function M.set_lsp_mappings(bufnr)
 
 	map.keymaps_set(mappings, "n", opts, prefix)
 	require("plugins.telescope").set_lsp_mappings(bufnr)
+
+	local hov_ok, hov = pcall(require, "pretty_hover")
+	if hov_ok then
+    vks("n", "<localleader>h", hov.hover, { silent = true, buffer = true })
+	end
 end
 
 -- Abstract function that allows you to hook and set settings on a buffer that
@@ -297,6 +302,11 @@ return {
 		{
 			-- TODO: cmp setup
 			"p00f/clangd_extensions.nvim",
+		},
+		{
+			"Fildo7525/pretty_hover",
+			event = "LspAttach",
+			opts = {},
 		},
 		{
 			"j-hui/fidget.nvim",
