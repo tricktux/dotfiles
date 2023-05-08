@@ -4,6 +4,7 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <memory>
 
 // https://github.com/altdesktop/i3ipc-python/blob/master/examples/app-on-ws-init.py
 // https://github.com/Iskustvo/i3-ipcpp/blob/master/include/i3_ipc.hpp
@@ -43,18 +44,17 @@ int main() {
   std::vector<std::string> lines;
 
   // Open a pipe to the command and read its output line by line
-  FILE *pipe = popen(command.c_str(), "r");
-  if (!pipe) {
+  std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(command.c_str(), "r"), pclose);
+  
+  if (!pipe && !pipe.get()) {
     std::cerr << "Error: failed to run command \"" << command << "\""
               << std::endl;
     return 1;
   }
   char buffer[256];
-  while (fgets(buffer, sizeof(buffer), pipe) != nullptr) {
+  while (fgets(buffer, sizeof(buffer), pipe.get()) != nullptr) {
     lines.push_back(buffer);
   }
-  pclose(pipe);
-
   // Parse the output and find the main and secondary monitors
   size_t num_mons{lines.size() - 1};
   if (num_mons < 2) {
