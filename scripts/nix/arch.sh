@@ -458,23 +458,27 @@ backup() {
 		# Backup pacman's local database
 		# More info here:
 		# https://wiki.archlinux.org/index.php/Pacman/Restore_local_database
-		[[ -f /tmp/pacman_database.tar.bz2 ]] && rm /tmp/pacman_database.tar.bz2
-		tar -vcjf /tmp/pacman_database.tar.bz2 /var/lib/pacman/local
+		[[ -f /tmp/pacman_database.tar.bz2 ]] || tar -vcjf /tmp/pacman_database.tar.bz2 /var/lib/pacman/local
 		srcs=(
 			"$HOME/.gnupg" "$HOME/.ssh" "$HOME/.password-store" "/tmp/pacman_database.tar.bz2"
 			"$HOME/.local/share/histfile" "$HOME/.local/share/z" "$HOME/.config/doublecmd"
 			"$HOME/.password-store_work" "$HOME/.local/share/atuin"
-			"$HOME/Documents/VirtualBoxSharedFolder"
-			"$HOME/Documents/work"
+            "$HOME/.password-store_mine"
+			"$HOME/Documents"
+			"$HOME/Downloads"
 		)
 		src=""
 		for str in "${srcs[@]}"; do
 			[ -d "$str" ] || [ -f "$str" ] && src+="$str "
 		done
 		# Create database backup
-		"$TERMINAL" \
-			"$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot.sh" \
-			-s "$src" -d "$HOME/.mnt/skywafer/home/bkps/$HOSTNAME" &
+		# "$TERMINAL" \
+        export PASSWORD_STORE_DIR=$HOME/.password-store_work 
+		/usr/bin/restic --verbose \
+            --password-command "pass work/drobo/xps-restic-repo" \
+			--repo "$HOME/.mnt/work/drobo-B810n/Public/rmolina/bkps/$HOSTNAME/restic-repo" \
+			backup $src
+        # --repo "$HOME/.mnt/skywafer/home/bkps/$HOSTNAME/restic-repo" \
 		;;
 	[Qq]*) quit ;;
 	esac
