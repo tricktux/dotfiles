@@ -1,10 +1,10 @@
 #include <cstdio>
 #include <iostream>
+#include <memory>
 #include <regex>
 #include <string>
 #include <unordered_map>
 #include <vector>
-#include <memory>
 
 // https://github.com/altdesktop/i3ipc-python/blob/master/examples/app-on-ws-init.py
 // https://github.com/Iskustvo/i3-ipcpp/blob/master/include/i3_ipc.hpp
@@ -44,8 +44,9 @@ int main() {
   std::vector<std::string> lines;
 
   // Open a pipe to the command and read its output line by line
-  std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(command.c_str(), "r"), pclose);
-  
+  std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(command.c_str(), "r"),
+                                                pclose);
+
   if (!pipe && !pipe.get()) {
     std::cerr << "Error: failed to run command \"" << command << "\""
               << std::endl;
@@ -85,22 +86,17 @@ int main() {
     return 3;
   }
 
-  auto const sm = get_mon_name(lines[num_mons]);
+  auto const sm = get_mon_name(lines[3]);
   if (sm.empty()) {
     std::cerr << "Error: failed to parse secondary monitor" << std::endl;
     return 5;
   }
 
-  std::unordered_map<uint8_t, std::string> w;
-  w.insert({1, pm});
-  w.insert({2, sm});
-  w.insert({3, reserve ? tm : sm});
-  w.insert({4, pm});
-  w.insert({5, sm});
-  w.insert({6, pm});
-  w.insert({7, sm});
-  w.insert({8, pm});
-  w.insert({9, sm});
+  const std::unordered_map<uint8_t, std::string> w{
+      {1, pm}, {2, sm}, {3, reserve ? tm : sm},
+      {4, pm}, {5, sm}, {6, pm},
+      {7, sm}, {8, pm}, {9, sm},
+  };
 
   // Loop through the unordered_map while executing the i3 command
   for (const auto &[key, value] : w) {
