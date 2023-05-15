@@ -909,4 +909,5 @@ return {
       },
     },
   },
+  { "luukvbaal/statuscol.nvim" },
 }
