@@ -37,6 +37,7 @@ ctags
 debugedit
 dhcpcd
 direnv
+distrobox
 docker
 docker-buildx
 docker-compose
@@ -138,7 +139,6 @@ m4
 make
 mediainfo
 meld
-mesa-utils
 meson
 minicom
 mkinitcpio
