@@ -206,8 +206,8 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # fzf setup{{{
 if [[ -f /usr/bin/fzf ]]; then
-  source /usr/share/fzf/key-bindings.zsh
-  source /usr/share/fzf/completion.zsh
+  [[ -f /usr/share/fzf/key-bindings.zsh ]] && source /usr/share/fzf/key-bindings.zsh
+  [[ -f /usr/share/fzf/completion.zsh ]] && source /usr/share/fzf/completion.zsh
 
   # Depends on `install fd`
   if [[ -f /usr/bin/fd ]]; then
@@ -254,7 +254,9 @@ fi
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 # TODO: Don't source this file, but rather: romkatv/powerlevel10k/config/p10k-lean.zsh
 # TODO: Use a suggested font so that there is no that many differences
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+if [[ -f /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme ]]; then
+  source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+fi
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
 typeset -g POWERLEVEL9K_DIR_CLASSES=()
@@ -281,7 +283,10 @@ typeset -g POWERLEVEL9K_VCS_BRANCH_ICON='\uF126 '
 [[ -f /usr/bin/direnv ]] && eval "$(direnv hook zsh)"
 
 export ATUIN_NOBIND="true"
-[[ -f /usr/bin/atuin ]] && eval "$(atuin init zsh)"
-# Only bind <c-r>, up key is really annoying
-bindkey '^r' _atuin_search_widget
+if [[ -f /usr/bin/atuin ]]; then
+  # Only bind <c-r>, up key is really annoying
+  eval "$(atuin init zsh)"
+  bindkey '^r' _atuin_search_widget
+fi
+
 # vim: fdm=marker
