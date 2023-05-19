@@ -39,6 +39,10 @@ std::string get_mon_name(const std::string &text) {
   return std::string();
 }
 
+// This is the index as in which line is it in the output of xrandr --listmonitors
+constexpr auto const sec_mon_idx = 2;
+constexpr auto const thrid_mon_idx = 3;
+
 int main() {
   std::string command = "xrandr --listmonitors";
   std::vector<std::string> lines;
@@ -73,7 +77,7 @@ int main() {
   bool reserve{false};
   std::string tm;
   if (num_mons == 3) {
-    tm = get_mon_name(lines[2]);
+    tm = get_mon_name(lines[thrid_mon_idx]);
     if (tm.empty()) {
       std::cerr << "Error: failed to parse secondary monitor" << std::endl;
       return 4;
@@ -86,7 +90,7 @@ int main() {
     return 3;
   }
 
-  auto const sm = get_mon_name(lines[3]);
+  auto const sm = get_mon_name(lines[sec_mon_idx]);
   if (sm.empty()) {
     std::cerr << "Error: failed to parse secondary monitor" << std::endl;
     return 5;
