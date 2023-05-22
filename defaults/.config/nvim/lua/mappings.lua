@@ -497,6 +497,7 @@ M.plug.mappings = {
 	["<localleader>j"] = { "<plug>make_file", "make_file" },
 	["<leader>cr"] = { "<plug>cd_root", "cd_root" },
   ["<leader>a"] = { "<plug>ai", "ai_help" },
+  ["<localleader>b"] = { "<plug>debug_start", "debug_start" },
 }
 
 M.braces = {}
@@ -577,6 +578,18 @@ local function unix_os_mappings()
 	vks("v", "<leader>y", [=["+y]=])
 end
 
+function M.search_motion()
+  vim.cmd[[
+      nnoremap <expr> n 'Nn'[v:searchforward] . 'zz'
+      xnoremap <expr> n 'Nn'[v:searchforward] . 'zz'
+      onoremap <expr> n 'Nn'[v:searchforward] . 'zz'
+
+      nnoremap <expr> N 'nN'[v:searchforward] . 'zz'
+      xnoremap <expr> N 'nN'[v:searchforward] . 'zz'
+      onoremap <expr> N 'nN'[v:searchforward] . 'zz'
+    ]]
+end
+
 function M:setup()
 	self:keymaps_sets(self.plug)
 	if utl.has_win then
@@ -593,6 +606,7 @@ function M:setup()
 	self:keymaps_sets(self.terminal)
 	self:keymaps_sets(self.toggle)
 	self:keymaps_sets(self.help)
+  self.search_motion()
 end
 
 return M

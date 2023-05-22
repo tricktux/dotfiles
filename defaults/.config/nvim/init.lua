@@ -118,6 +118,7 @@ local function main()
   require("options"):setup()
   -- setup wiki early so that path is available
   require("plugin.wiki"):setup()
+  require("plugin.termdebug"):init()
   require("lazyr").setup()
 end
 

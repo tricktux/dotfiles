@@ -44,15 +44,6 @@ function! mappings#Set()
   " Consistent n N direction seraching
   " Mon Jan 21 2019 17:05
   " Not needed since incsearch.vim plugin
-  " Tue Feb 25 2020 17:03:
-  " Bringing them back, since got rid of incsearch
-  nnoremap <expr> n 'Nn'[v:searchforward] . 'zz'
-  xnoremap <expr> n 'Nn'[v:searchforward] . 'zz'
-  onoremap <expr> n 'Nn'[v:searchforward] . 'zz'
-
-  nnoremap <expr> N 'nN'[v:searchforward] . 'zz'
-  xnoremap <expr> N 'nN'[v:searchforward] . 'zz'
-  onoremap <expr> N 'nN'[v:searchforward] . 'zz'
 
   " Consistent ; and , as well
   " nmap <expr>; getcharsearch().forward ? '<plug>Sneak_;' : '<plug>Sneak_,'
