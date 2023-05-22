@@ -72,7 +72,7 @@ if !exists('no_plugin_maps') && !exists('no_cs_maps')
   nnoremap <buffer> <localleader>m7 :UtilsCompilerMsbuild2017<cr>
 endif
 
-lua require('config.linting').set_neomake_msbuild_compiler('cs', 'vs2017')
+" lua require('config.linting').set_neomake_msbuild_compiler('cs', 'vs2017')
 
 let &cpo = s:keepcpo
 unlet s:keepcpo
