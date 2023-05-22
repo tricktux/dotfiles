@@ -796,7 +796,31 @@ return {
 	{
 		"jackMort/ChatGPT.nvim",
 		cmd = { "ChatGPTEditWithInstructions", "ChatGPTActAs", "ChatGPT" },
-		opts = {},
+		keys = {
+			{
+				"<plug>ai",
+				"<cmd>ChatGPT<cr>",
+				desc = "ai_help",
+			},
+		},
+    opts = {
+      chat = {
+        keymaps = {
+          close = { "<C-c>", "q" },
+        },
+      },
+      popup_layout = {
+        default = "right",
+        center = {
+          width = "80%",
+          height = "80%",
+        },
+        right = {
+          width = "40%",
+          width_settings_open = "50%",
+        },
+      },
+    },
 		dependencies = {
 			"MunifTanjim/nui.nvim",
 			"nvim-lua/plenary.nvim",

@@ -496,6 +496,7 @@ M.plug.mappings = {
 	["<localleader>k"] = { "<plug>make_project", "make_project" },
 	["<localleader>j"] = { "<plug>make_file", "make_file" },
 	["<leader>cr"] = { "<plug>cd_root", "cd_root" },
+  ["<leader>a"] = { "<plug>ai", "ai_help" },
 }
 
 M.braces = {}
