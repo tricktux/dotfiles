@@ -874,6 +874,14 @@ return {
 				desc = "file-tree-neotree",
 			},
 		},
+    init = function()
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "oil",
+        callback = function(args)
+          vim.keymap.set('n', 'q', "<cmd>normal! ZZ<cr>", { buffer = args.buf })
+        end
+      })
+    end,
 		opts = {
 			win_options = {
 				wrap = false,
