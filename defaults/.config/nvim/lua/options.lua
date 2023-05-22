@@ -87,8 +87,8 @@ function M:setup()
   vim.opt.termguicolors = true -- True color support
   vim.opt.wildmode = "longest:full,full" -- Command-line completion mode
 
-  if vim.fn.has("nvim-0.9.0") == 1 then
-    vim.opt.splitkeep = "screen"
+  if vim.fn.has("nvim-0.9.0") >= 1 then
+    vim.opt.splitkeep = "cursor"
     vim.opt.shortmess:append { C = true }
   end
 
