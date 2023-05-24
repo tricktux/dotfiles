@@ -34,10 +34,6 @@ M.debug_keys = {
 }
 
 M.debug_start = function()
-  if vim.fn.exists(":Termdebug") <= 0 then
-    vim.cmd.packadd("termdebug")
-  end
-
   vim.ui.input({
     prompt = "Executable Location: ",
     completion = "file",
@@ -50,14 +46,19 @@ M.debug_start = function()
 end
 
 function M:init()
+  vim.g.termdebug_config = {
+    ['disasm_window'] = 1,
+  }
+  vim.cmd.packadd("termdebug")
+
   local id = vim.api.nvim_create_augroup("TermDebugKeys", { clear = true })
   vim.api.nvim_create_autocmd("User", {
     pattern = "TermdebugStartPost",
     callback = function()
       require("stackmap").push("debug", "n", self.debug_keys)
       -- Jump to the source code window, as opposed to the Gdb window
-      vim.cmd[[Source]]
-      require("focus").focus_maximise()
+      -- vim.cmd[[Source]]
+      -- require("focus").focus_maximise()
     end,
     desc = "Set debugging keymaps",
     group = id,
