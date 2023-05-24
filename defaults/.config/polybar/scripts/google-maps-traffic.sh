@@ -32,7 +32,7 @@ origins=$origin_lat,$origin_lon""\
 &traffic_model=best_guess&departure_time=now" >/dev/null 2>&1
 
 if [[ ! -f $o ]]; then
-	echo "E: no output"
+	# echo "E: no output"
 	exit 0
 fi
 
