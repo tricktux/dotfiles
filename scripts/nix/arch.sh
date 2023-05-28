@@ -463,7 +463,7 @@ backup() {
 			"$HOME/.gnupg" "$HOME/.ssh" "$HOME/.password-store" "/tmp/pacman_database.tar.bz2"
 			"$HOME/.local/share/histfile" "$HOME/.local/share/z" "$HOME/.config/doublecmd"
 			"$HOME/.password-store_work" "$HOME/.local/share/atuin"
-            "$HOME/.password-store_mine"
+			"$HOME/.password-store_mine"
 			"$HOME/Documents"
 			"$HOME/Downloads"
 		)
@@ -471,14 +471,26 @@ backup() {
 		for str in "${srcs[@]}"; do
 			[ -d "$str" ] || [ -f "$str" ] && src+="$str "
 		done
+		repo=""
+		pass=""
+		# Assign repo based on the current hostname
+		case $HOSTNAME in
+		"xps")
+			repo="$HOME/.mnt/work/drobo-B810n/Public/rmolina/bkps/"
+			export PASSWORD_STORE_DIR=$HOME/.password-store_work
+			pass="pass work/drobo/xps-restic-repo"
+			;;
+		# Handle default case
+		*)
+			repo="$HOME/.mnt/skywafer/home/bkps/$HOSTNAME/repo"
+			pass="pass linux/$HOSTNAME/restic"
+			;;
+		esac
 		# Create database backup
-		# "$TERMINAL" \
-        export PASSWORD_STORE_DIR=$HOME/.password-store_work 
-		/usr/bin/restic --verbose \
-            --password-command "pass work/drobo/xps-restic-repo" \
-			--repo "$HOME/.mnt/work/drobo-B810n/Public/rmolina/bkps/$HOSTNAME/restic-repo" \
-			backup $src
-        # --repo "$HOME/.mnt/skywafer/home/bkps/$HOSTNAME/restic-repo" \
+		"$TERMINAL" /usr/bin/restic --verbose \
+			--password-command "$pass" \
+			--repo "repo" \
+			backup $src &
 		;;
 	[Qq]*) quit ;;
 	esac
@@ -497,27 +509,32 @@ backup() {
 	[Qq]*) quit ;;
 	[Yy]*)
 		SRC="$HOME/.local/share/Anki2"
-		SNAP="$HOME/.mnt/skywafer/home/bkps/anki"
+		SNAP="$HOME/.mnt/skywafer/home/bkps/anki/repo"
 		anki --no-sandbox & # Anki sync
 		sleep 10            # Give it time to sync
 		pkill -x anki
 		sleep 3 # Give it time to close
-		"$TERMINAL" \
-			"$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot.sh" -s "$SRC" -d "$SNAP" &
+		"$TERMINAL" /usr/bin/restic --verbose \
+			--password-command "pass websites/ankiweb.net/restic" \
+			--repo "$SNAP" \
+			backup $SRC &
+
 		;;
 	esac
-	msg_not "${BLUE}${BOLD}" "[RIMP]==> Back up emails (~15mins)? [y/N/q]"
+	msg_not "${BLUE}${BOLD}" "[RIMP]==> Back up emails? [y/N/q]"
 	read -r yn
 	case $yn in
 	[Qq]*) quit ;;
 	[Yy]*)
 		SRC="$HOME/.local/share/mail $HOME/.local/share/vdirsyncer"
-		SNAP="$HOME/.mnt/skywafer/home/bkps/mail"
+		SNAP="$HOME/.mnt/skywafer/home/bkps/mail/repo"
 		/usr/bin/mbsync -D -ac "$HOME"/.config/isync/mbsyncrc ||
 			echo "mbsync never retuns code 0..."
 		/usr/bin/vdirsyncer --verbosity debug sync
-		"$TERMINAL" \
-			"$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/rsnapshot.sh" -s "$SRC" -d "$SNAP" &
+		"$TERMINAL" /usr/bin/restic --verbose \
+			--password-command "pass linux/mailserver/restic" \
+			--repo "$SNAP" \
+			backup $SRC &
 		;;
 	esac
 }
