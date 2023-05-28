@@ -703,7 +703,8 @@ paci --needed --noconfirm meld
 # markdown preview
 paci --needed --noconfirm glow
 # for documentation
-paci --needed --noconfirm zeal
+# zeal depends on qt5-webkit; pain in the butt to build, just use git
+paci --needed --noconfirm zeal-git
 paci --needed --noconfirm pandoc-bin
 # - run the `dotfiles/scripts/python_neovim_virtualenv.sh` script
 # to get `/usr/share/dict` completion
