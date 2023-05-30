@@ -101,6 +101,7 @@ local function init_os()
 end
 
 local function main()
+  vim.loader.enable()
 	local log = require("utils.log")
 	log.info("--- Start Neovim Run ---")
 	set_globals()
