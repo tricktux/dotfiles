@@ -476,7 +476,7 @@ backup() {
 		# Assign repo based on the current hostname
 		case $HOSTNAME in
 		"xps")
-			repo="$HOME/.mnt/work/drobo-B810n/Public/rmolina/bkps/"
+			repo="$HOME/.mnt/work/drobo-B810n/Public/rmolina/bkps/$HOSTNAME/restic-repo"
 			export PASSWORD_STORE_DIR=$HOME/.password-store_work
 			pass="pass work/drobo/xps-restic-repo"
 			;;
@@ -489,7 +489,7 @@ backup() {
 		# Create database backup
 		"$TERMINAL" /usr/bin/restic --verbose \
 			--password-command "$pass" \
-			--repo "repo" \
+			--repo "$repo" \
 			backup $src &
 		;;
 	[Qq]*) quit ;;
