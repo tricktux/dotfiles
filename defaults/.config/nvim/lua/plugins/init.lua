@@ -559,24 +559,27 @@ return {
 				vim.fn["mdip#MarkdownClipboardImage"]()
 			end
 			api.nvim_create_autocmd("FileType", {
-				callback = function()
+				callback = function(args)
 					vks("n", "<localleader>i", org, opts)
+          vim.api.nvim_buf_create_user_command(args.buf, 'UtilsOrgPasteImage', org, {})
 				end,
 				pattern = "org",
 				desc = "OrgModePasteImageFunction",
 				group = id,
 			})
 			api.nvim_create_autocmd("FileType", {
-				callback = function()
+				callback = function(args)
 					vks("n", "<localleader>i", md, opts)
+          vim.api.nvim_buf_create_user_command(args.buf, 'UtilsMarkdownPasteImage', md, {})
 				end,
 				pattern = "markdown",
 				desc = "MarkdownPasteImageFunction",
 				group = id,
 			})
 			api.nvim_create_autocmd("FileType", {
-				callback = function()
+				callback = function(args)
 					vks("n", "<localleader>i", tex, opts)
+          vim.api.nvim_buf_create_user_command(args.buf, 'UtilsLatexPasteImage', tex, {})
 				end,
 				pattern = "tex",
 				desc = "LatexPasteImageFunction",
