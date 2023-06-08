@@ -39,11 +39,19 @@ std::string get_mon_name(const std::string &text) {
   return std::string();
 }
 
-// This is the index as in which line is it in the output of xrandr --listmonitors
-constexpr auto const sec_mon_idx = 2;
-constexpr auto const thrid_mon_idx = 3;
+// Function that returns the monitor resolution
+std::string get_mon_resolution(const std::string& text) {
+  std::regex rgx("\\b\\d{4}\\b");
+  std::smatch match;
 
-int main() {
+  if (std::regex_search(text, match, rgx)) {
+    return match[0];
+  }
+
+  return std::string();
+}
+
+int main(int argc, char **argv) {
   std::string command = "xrandr --listmonitors";
   std::vector<std::string> lines;
 
@@ -76,8 +84,14 @@ int main() {
 
   bool reserve{false};
   std::string tm;
+  auto thi_idx = 3;
+  auto sec_idx = 2;
   if (num_mons == 3) {
-    tm = get_mon_name(lines[thrid_mon_idx]);
+    if (const auto r = get_mon_resolution(lines[2]); r != "3840") {
+      sec_idx = 3;
+      thi_idx = 2;
+    }
+    tm = get_mon_name(lines[thi_idx]);
     if (tm.empty()) {
       std::cerr << "Error: failed to parse secondary monitor" << std::endl;
       return 4;
@@ -90,7 +104,7 @@ int main() {
     return 3;
   }
 
-  auto const sm = get_mon_name(lines[sec_mon_idx]);
+  auto const sm = get_mon_name(lines[sec_idx]);
   if (sm.empty()) {
     std::cerr << "Error: failed to parse secondary monitor" << std::endl;
     return 5;
