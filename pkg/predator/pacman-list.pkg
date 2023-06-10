@@ -152,7 +152,6 @@ msgpack-c
 namcap
 neofetch
 neomutt
-neovim
 network-manager-applet
 nextcloud-client
 nfs-utils
@@ -202,6 +201,7 @@ qrencode
 rapidjson
 redshift
 reflector
+restic
 ripgrep
 rofi-emoji
 rofi-pass

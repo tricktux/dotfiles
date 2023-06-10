@@ -27,6 +27,7 @@ mimeo
 mps-youtube-git
 navi-bin
 ncurses5-compat-libs
+neovim-git
 networkmanager-dmenu-git
 numix-gtk-theme
 otf-fira-code-onum-patch
@@ -42,6 +43,7 @@ python-selenium
 python38
 qpdfview
 qt5-styleplugins
+quarto-cli-bin
 ranger-git
 riseup-vpn
 rmapi
@@ -65,6 +67,6 @@ write-good
 xdg-utils-mimeo
 xlayoutdisplay
 z-git
-zeal
+zeal-git
 zoom
 zsh-theme-powerlevel10k-git
