@@ -4,14 +4,14 @@ end
 
 return {
   { "mboughaba/i3config.vim", ft = "i3config" },
-  { "lambdalisue/suda.vim", cmd = { "SudaWrite", "SudaRead" } },
-  { "chr4/nginx.vim", ft = "nginx" },
-  { "neomutt/neomutt.vim", ft = "muttrc" },
-  { "fladson/vim-kitty", ft = "kitty" },
+  { "lambdalisue/suda.vim",   cmd = { "SudaWrite", "SudaRead" } },
+  { "chr4/nginx.vim",         ft = "nginx" },
+  { "neomutt/neomutt.vim",    ft = "muttrc" },
+  { "fladson/vim-kitty",      ft = "kitty" },
   {
     "kevinhwang91/rnvimr",
     keys = {
-      {'<plug>file_ranger_browser', "<cmd>RnvimrToggle<cr>", desc = 'file-ranger-browser'}
+      { "<plug>file_ranger_browser", "<cmd>RnvimrToggle<cr>", desc = "file-ranger-browser" },
     },
   },
   {
