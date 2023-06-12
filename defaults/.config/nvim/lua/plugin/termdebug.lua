@@ -47,7 +47,7 @@ end
 
 function M:init()
   vim.g.termdebug_config = {
-    ['disasm_window'] = 1,
+    ['disasm_window'] = 0,
   }
   vim.cmd.packadd("termdebug")
 
