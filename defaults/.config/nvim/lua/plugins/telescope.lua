@@ -295,10 +295,6 @@ local cust_buff_opts = function()
 		previewer = false,
 		path_display = cust_path_display,
 		layout_config = cust_layout_config,
-		mappings = {
-			i = { ["<c-d>"] = require("telescope.actions").delete_buffer },
-			n = { ["<c-d>"] = require("telescope.actions").delete_buffer },
-		},
 	}
 end
 
@@ -530,6 +526,7 @@ function M:setup()
 					["<c-k>"] = actions.move_selection_previous,
 					["<esc>"] = actions.close,
 					["<c-c>"] = actions.close,
+          ["<c-b>"] = actions.delete_buffer,
 					["<c-q>"] = function(bufnr)
 						actions.smart_send_to_qflist(bufnr)
 						actions.open_qflist(bufnr)
