@@ -1,19 +1,8 @@
--- statusline
--- Pretty awful: https://github.com/nvim-lualine/lualine.nvim/issues/921
-vim.api.nvim_create_autocmd("CursorHold", {
-	pattern = "*",
-	callback = function()
-		vim.opt.showtabline = 1
-    -- print("showtabline = " .. vim.opt.showtabline.get())
-	end,
-})
-
-vim.keymap.set("n", "<leader>tr",
-  function()
-    vim.ui.input("Enter Tab name: ", function(text)
-      vim.cmd([[LualineRenameTab ]] .. text)
-    end)
-  end, { silent = true })
+vim.keymap.set("n", "<leader>tr", function()
+	vim.ui.input("Enter Tab name: ", function(text)
+		vim.cmd([[LualineRenameTab ]] .. text)
+	end)
+end, { silent = true })
 
 return {
 	"nvim-lualine/lualine.nvim",
@@ -88,7 +77,7 @@ return {
 			tabline = {
 				lualine_a = {},
 				lualine_b = {},
-				lualine_c = {"filename"},
+				lualine_c = { "filename" },
 				lualine_x = {},
 				lualine_y = {},
 				lualine_z = { "tabs" },
@@ -109,6 +98,48 @@ return {
 				lualine_y = {},
 				lualine_z = {},
 			},
+			tabline = {
+				lualine_a = {
+					{ "filetype", icon_only = true },
+				},
+				lualine_b = {
+					{ "tabs", mode = 2, max_length = vim.o.columns },
+					{
+            -- Pretty awful hack: https://github.com/nvim-lualine/lualine.nvim/issues/921
+						function()
+							vim.o.showtabline = 1
+							return ""
+						end,
+					},
+				},
+			},
+			winbar = {
+				lualine_a = {
+					{ "filetype", icon_only = true },
+					{ "filename", path = 0 },
+				},
+				lualine_c = {},
+				lualine_x = {
+					function()
+						return " "
+					end,
+					-- this is to avoid annoying highlight (high contrast color)
+					-- when no winbar_symbol, diagnostics and diff is available.
+					{ "diagnostics", sources = { "nvim_diagnostic" } },
+					"diff",
+				},
+			},
+			inactive_winbar = {
+				lualine_a = {
+					{ "filetype", icon_only = true },
+					{ "filename", path = 0 },
+				},
+				lualine_x = {
+					{ "diagnostics", sources = { "nvim_diagnostic" } },
+					"diff",
+				},
+			},
+			extensions = { "neo-tree", "quickfix", "toggleterm" },
 		}
 	end,
 }
