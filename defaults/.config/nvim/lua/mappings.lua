@@ -179,6 +179,10 @@ M.help.mappings = {
 	},
 }
 
+M.scroll = {}
+M.scroll.down = "<c-d>zz"
+M.scroll.up = "<c-u>zz"
+
 -- NOTE: Please update the mappings in flux_post_{day,night,sunrise,sunset}
 -- if updating these mappings below
 M.colors = {}
@@ -601,6 +605,7 @@ function M:setup()
 	self:keymaps_sets(self.builtin_terminal)
 	self:keymaps_sets(self.braces)
 	self:window_movement_setup()
+
 	self:keymaps_sets(self.edit)
 	self:keymaps_sets(self.colors)
 	self:keymaps_sets(self.terminal)
