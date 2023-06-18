@@ -293,7 +293,13 @@ return {
 		M:config()
 	end,
 	dependencies = {
-		"ray-x/lsp_signature.nvim",
+    -- These conflict with noice.nvim
+		-- "ray-x/lsp_signature.nvim",
+    --[[ {
+      "Fildo7525/pretty_hover",
+      event = "LspAttach",
+      opts = {},
+    }, ]]
 		"hrsh7th/cmp-nvim-lsp",
 		{
 			"smjonas/inc-rename.nvim",
@@ -302,11 +308,6 @@ return {
 		{
 			-- TODO: cmp setup
 			"p00f/clangd_extensions.nvim",
-		},
-		{
-			"Fildo7525/pretty_hover",
-			event = "LspAttach",
-			opts = {},
 		},
 		{
 			"j-hui/fidget.nvim",
