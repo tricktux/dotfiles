@@ -310,6 +310,7 @@ return {
 		},
 		{
 			"j-hui/fidget.nvim",
+      tag = "legacy",
 			opts = {
 				windows = {
 					blend = 0,
