@@ -940,7 +940,10 @@ return {
       },
     },
   },
-  { "luukvbaal/statuscol.nvim" },
+  {
+    "luukvbaal/statuscol.nvim",
+    event = "VeryLazy"
+  },
   {
     "folke/noice.nvim",
     event = "VeryLazy",
