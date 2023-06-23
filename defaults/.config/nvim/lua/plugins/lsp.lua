@@ -127,6 +127,16 @@ function M.on_lsp_attach(client_id, bufnr)
 	end
 
 	local id = vim.api.nvim_create_augroup("LspStuff", { clear = true })
+  if vim.fn.has("nvim-0.10") > 0 and client_id.server_capabilities.inlayHintProvider then
+    vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+      callback = function()
+        vim.lsp.buf.inlay_hint(bufnr, true)
+      end,
+      buffer = bufnr,
+      desc = "Highlight inlay hints",
+      group = id,
+    })
+  end
 	if client_id.server_capabilities.codeLensProvider then
 		vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
 			callback = vim.lsp.codelens.refresh,
@@ -191,12 +201,16 @@ function M:config()
 					},
 					workspace = {
 						-- Make the server aware of Neovim runtime files
-						library = os.getenv("VIMRUNTIME"),
+						-- library = os.getenv("VIMRUNTIME"),
+            library = vim.api.nvim_get_runtime_file("", true),
 					},
 					-- Do not send telemetry data containing a randomized but unique identifier
 					telemetry = {
 						enable = false,
 					},
+          hint = {
+            enable = true
+          },
 				},
 			},
 		})
@@ -257,9 +271,7 @@ function M:config()
 			},
 		}
 
-		require("clangd_extensions").setup({
-			server = settings,
-		})
+    nvim_lsp.clangd.setup(settings)
 	end
 
 	if vim.fn.executable("rust-analyzer") > 0 then
@@ -303,10 +315,6 @@ return {
 		{
 			"smjonas/inc-rename.nvim",
 			config = true,
-		},
-		{
-			-- TODO: cmp setup
-			"p00f/clangd_extensions.nvim",
 		},
 		{
 			"j-hui/fidget.nvim",
