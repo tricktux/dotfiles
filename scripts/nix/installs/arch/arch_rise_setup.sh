@@ -361,6 +361,8 @@ lspci -k | grep -A 2 -E "(VGA|3D)"
 # Also add:
 # CacheDir    = /home/reinaldo/.mnt/skywafer/NetBackup/pacman_cache/x86_64
 # CacheDir    = /var/cache/pacman/pkg/
+# Prevent pacman from updating sensitive stuff:
+# IgnorePkg   = linux-api-headers linux-firmware linux-firmware-whence linux-lts linux-lts-headers nvidia-lts nvidia-utils nvidia-settings lib32-nvidia-utils virtualbox virtualbox-host-dkms virtualbox-guest-iso
 sudo nvim /etc/pacman.conf
 sudo pacman -Sy
 # install 32-bit programs
@@ -667,9 +669,10 @@ sudo install -Dm644 /home/reinaldo/.config/polybar/scripts/95-usb.rules \
 # You can download images from: 
 # https://developer.microsoft.com/en-us/windows/downloads/virtual-machines/
 # **NOTE** host-modules-arch is for when you have a linux kernel installed.
+# **NOTE** If you have an intel 11th gen CPU add `ibt=off` to boot kernel params
 paru -Syu --needed vagrant virtualbox{,-host-modules-arch}
 # As opposed to any other kenerl, like lts, zen, etc... use the one below
-paci --needed virtualbox{,-host-dkms}
+paci --needed virtualbox{,-host-dkms} virtualbox-guest-iso
 sudo modprobe vboxdrv
 sudo groupadd -r vboxdrv
 sudo gpasswd -a reinaldo vboxdrv
