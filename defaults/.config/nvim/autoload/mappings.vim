@@ -152,16 +152,6 @@ function! mappings#Set()
   nnoremap <c-t> :tabnew<cr>
   nnoremap <c-h> :nohlsearch<cr>
   nnoremap <C-Space> i<Space><Esc>
-  " move to the beggning of line
-  " Don't make this nnoremap. Breaks stuff
-  nnoremap <s-w> $
-  xnoremap <s-w> $
-  " move to the end of line
-  nnoremap <s-b> ^
-  xnoremap <s-b> ^
-  " jump to corresponding item<Leader> ending {,(, etc..
-  nmap <S-t> %
-  xmap <S-t> %
   " Automatically insert date
   nnoremap <silent> <F5> a<Space><c-r>=strftime("%a %b %d %Y %H:%M")<cr><esc>
   " Designed this way to be used with snippet md header
@@ -171,7 +161,6 @@ function! mappings#Set()
   inoremap <silent> <F7> <c-r>=strftime("%B")<cr>
   " Auto indent pasted text
   nnoremap p :normal! p=`]<cr>
-  nnoremap <s-y> y$
 
   " Vim-unimpaired similar mappings
   " Do not overwrite [s, [c, [f

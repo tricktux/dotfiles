@@ -299,7 +299,7 @@ return {
       vim.g["sneak#label"] = 1
       -- " repeat motion
       -- Using : for next f,t is cumbersome, use ' for that, and ` for marks
-      vim.keymap.set("n", "'", "<Plug>Sneak_;")
+      vim.keymap.set("n", ";", "<Plug>Sneak_;")
       vim.keymap.set("n", ",", "<Plug>Sneak_,")
 
       -- " 1-character enhanced 'f'
@@ -320,7 +320,7 @@ return {
       vim.keymap.set({ "x", "o" }, "f", "f")
       vim.keymap.set({ "x", "o" }, "F", "F")
       vim.keymap.set({ "x", "o" }, "t", "t")
-      vim.keymap.set({ "x", "o" }, "T", "%")
+      vim.keymap.set({ "x", "o" }, "T", "T")
     end,
   },
   {

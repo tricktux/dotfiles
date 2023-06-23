@@ -397,10 +397,10 @@ function M:set_mappings()
 	vks("c", "<c-v>", "<Plug>(TelescopeFuzzyCommandSearch)", opts)
 
 	-- Map <s-;> to commands history
-	opts.desc = "command_history"
+	--[[ opts.desc = "command_history"
 	vks("n", ":", function()
-		ts.command_history({ layout_config = cust_layout_config })
-	end, opts)
+		ts.command_history({ layout_config = cust_layout_config }) ]]
+	-- end, opts)
 	opts.desc = "buffer_browser"
 	vks("n", "<plug>buffer_browser", function()
 		ts.buffers(cust_buff_opts())

@@ -9,7 +9,7 @@ local fn = vim.fn
 local M = {}
 
 -- jk doesn't work because it introduces massive delay when spamming j or k
-M.esc = { ";j" }
+M.esc = { "<c-[>" }
 
 --- Abstraction over keymaps_set
 -- @param keys table expects all the arguments to keymaps_set
@@ -449,19 +449,21 @@ local function misc_mappings()
 	end
 	local opts = { nowait = true, desc = "start_cmd" }
 	-- Awesome hack, typing a command is used way more often than next
-	vks("n", ";", ":", opts)
+  -- Well these hacks make it really painful when using raw vim
+	-- vks("n", ";", ":", opts)
 
-	opts = { silent = true, desc = "visual_end_line" }
+	-- opts = { silent = true, desc = "visual_end_line" }
 	-- Let's make <s-v> consistent as well
-	vks("n", "<s-v>", "v$h", opts)
-	opts = { silent = true, desc = "visual_line" }
-	vks("n", "vv", "<s-v>", opts)
+	-- vks("n", "<s-v>", "v$h", opts)
+	-- opts = { silent = true, desc = "visual_line" }
+	-- vks("n", "vv", "<s-v>", opts)
 	opts = { silent = true, desc = "visual_increment" }
 	vks("v", "gA", "g<c-a>", opts)
 	opts.desc = "visual_decrement"
 	vks("v", "gX", "g<c-x>", opts)
+  vks("v", "<s-y>", "y$", opts)
 
-	vks({ "n", "x", "o" }, "t", "%")
+	-- vks({ "n", "x", "o" }, "t", "%")
 
 	opts.desc = "refresh_buffer"
 	vks("n", "<c-l>", refresh_buffer, opts)
