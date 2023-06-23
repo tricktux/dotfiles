@@ -293,13 +293,12 @@ return {
 		M:config()
 	end,
 	dependencies = {
-    -- These conflict with noice.nvim
-		-- "ray-x/lsp_signature.nvim",
-    --[[ {
+		"ray-x/lsp_signature.nvim",
+    {
       "Fildo7525/pretty_hover",
       event = "LspAttach",
       opts = {},
-    }, ]]
+    },
 		"hrsh7th/cmp-nvim-lsp",
 		{
 			"smjonas/inc-rename.nvim",
