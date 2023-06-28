@@ -9,7 +9,7 @@ local fn = vim.fn
 local M = {}
 
 -- jk doesn't work because it introduces massive delay when spamming j or k
-M.esc = { "<c-[>" }
+M.esc = { "" }
 
 --- Abstraction over keymaps_set
 -- @param keys table expects all the arguments to keymaps_set
@@ -441,11 +441,13 @@ end
 local function misc_mappings()
 	-- Set escape key to work in all modes
 	for _, v in pairs(M.esc) do
-		vks({ "v", "i" }, v, [[<Esc>zz]], { silent = true })
-		-- How to handle zsh-vi-mode escape vs vim escape?
-		-- Which one do you use the most? The other one will have to suffer
-		-- By using the default mapping, the thing is that a-b is much better
-		vks("t", v, [[<C-\><C-n>]], { silent = true })
+    if v ~= "" then
+      vks({ "v", "i" }, v, [[<Esc>zz]], { silent = true })
+      -- How to handle zsh-vi-mode escape vs vim escape?
+      -- Which one do you use the most? The other one will have to suffer
+      -- By using the default mapping, the thing is that a-b is much better
+      vks("t", v, [[<C-\><C-n>]], { silent = true })
+    end
 	end
 	local opts = { nowait = true, desc = "start_cmd" }
 	-- Awesome hack, typing a command is used way more often than next
