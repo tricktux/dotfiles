@@ -35,4 +35,4 @@ vks("n", "<plug>terminal_send_file", repl, o)
 vks("n", "<plug>make_file", "<cmd>make<cr>", {desc = "make_file"})
 
 -- Debugging
-vks("n", "<plug>debug_start", require("plugin.termdebug").debug_start, { desc = "start_debug" })
+vks("n", "<plug>debug_start", function() require("plugin.termdebug").debug_start() end, { desc = "start_debug" })
