@@ -487,7 +487,7 @@ return {
   },
   {
     "ferrine/md-img-paste.vim",
-    ft = { "markdown", "org" },
+    ft = { "markdown", "org", "quarto", "tex" },
     init = function()
       vim.cmd([=[
         function! g:OrgmodePasteImage(relpath)
@@ -527,7 +527,7 @@ return {
           vks("n", "<localleader>i", md, opts)
           vim.api.nvim_buf_create_user_command(args.buf, 'UtilsMarkdownPasteImage', md, {})
         end,
-        pattern = "markdown",
+        pattern = {"markdown", "quarto"},
         desc = "MarkdownPasteImageFunction",
         group = id,
       })
@@ -802,7 +802,7 @@ return {
   },
   {
     "JellyApple102/easyread.nvim",
-    ft = { "markdown", "text", "org" },
+    ft = { "markdown", "text", "org", "quarto" },
     opts = {
       hlValues = {
         ["1"] = 1,
@@ -812,7 +812,7 @@ return {
         ["fallback"] = 0.4,
       },
       hlgroupOptions = { link = "Bold" },
-      fileTypes = { "text", "markdown", "org" },
+      fileTypes = { "text", "markdown", "org", "quarto" },
       saccadeInterval = 0,
       saccadeReset = false,
       updateWhileInsert = true,
