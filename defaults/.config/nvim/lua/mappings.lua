@@ -502,8 +502,9 @@ M.plug.mappings = {
 	["<c-k>"] = { "<plug>snip_expand", "snip_expand", { "x", "i", "s" } },
 	["<leader>G"] = { "<plug>search_internet", "search_internet", { "x", "n" } },
 	["<localleader>k"] = { "<plug>make_project", "make_project" },
-	["<localleader>j"] = { "<plug>make_file", "make_file" },
-	["<leader>cr"] = { "<plug>cd_root", "cd_root" },
+  ["<localleader>j"] = { "<plug>make_file", "make_file" },
+  ["<localleader>p"] = { "<plug>preview", "preview" },
+  ["<leader>cr"] = { "<plug>cd_root", "cd_root" },
   ["<leader>a"] = { "<plug>ai", "ai_help" },
   ["<localleader>b"] = { "<plug>debug_start", "debug_start" },
 }
