@@ -760,7 +760,8 @@ return {
     opts = {
       chat = {
         keymaps = {
-          close = { "<C-c>", "q" },
+          -- Not allowing mappings modes
+          close = { "<C-c>" },
         },
       },
       popup_layout = {
