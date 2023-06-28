@@ -236,6 +236,7 @@ return {
     },
     {
       "beauwilliams/focus.nvim",
+      event = "VeryLazy",
       keys = {
         {
           "<leader>tw",
