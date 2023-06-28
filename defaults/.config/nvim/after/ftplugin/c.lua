@@ -32,6 +32,7 @@ end
 
 local o = { desc = "terminal_send_file" }
 vks("n", "<plug>terminal_send_file", repl, o)
+vks("n", "<plug>make_file", "<cmd>make<cr>", {desc = "make_file"})
 
 -- Debugging
 vks("n", "<plug>debug_start", require("plugin.termdebug").debug_start, { desc = "start_debug" })
