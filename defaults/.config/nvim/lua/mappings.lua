@@ -507,6 +507,7 @@ M.plug.mappings = {
   ["<leader>cr"] = { "<plug>cd_root", "cd_root" },
   ["<leader>a"] = { "<plug>ai", "ai_help" },
   ["<localleader>b"] = { "<plug>debug_start", "debug_start" },
+  ["<bs>"] = { "<plug>comment_line", "comment_line" },
 }
 
 M.braces = {}

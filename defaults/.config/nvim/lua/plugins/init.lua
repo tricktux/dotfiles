@@ -327,9 +327,8 @@ return {
   {
     "b3nj5m1n/kommentary",
     keys = {
-      { "-", "<Plug>kommentary_line_default",        desc = "kommentary_line_default" },
-      { "-", "<Plug>kommentary_visual_default<C-c>", mode = "x",                        desc = "kommentary_line_visual" },
-      { "0", "<Plug>kommentary_motion_default",      desc = "kommentary_motion_default" },
+      { "<plug>comment_line", "<plug>kommentary_line_default",        desc = "kommentary_line_default" },
+      { "<plug>comment_line", "<plug>kommentary_visual_default<C-c>", mode = "x",                        desc = "kommentary_line_visual" },
     },
     init = function()
       vim.g.kommentary_create_default_mappings = false
