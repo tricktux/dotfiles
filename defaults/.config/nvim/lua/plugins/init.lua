@@ -560,21 +560,9 @@ return {
     config = true,
   },
   {
-    "rmagatti/auto-session",
-    event = "VeryLazy",
-    opts = {
-      log_level = "info",
-      auto_session_enable_last_session = false,
-      auto_session_root_dir = vim.fn.stdpath("data") .. utl.fs.path.sep .. "sessions" .. utl.fs.path.sep,
-      auto_session_enabled = true,
-      auto_session_create_enabled = true,
-      auto_save_enabled = true,
-      auto_restore_enabled = false,
-      auto_session_suppress_dirs = nil,
-      auto_session_use_git_branch = true,
-      -- the configs below are lua only
-      bypass_session_save_file_types = nil,
-    },
+    "folke/persistence.nvim",
+    event = "BufReadPre", -- this will only start session saving when an actual file was opened
+    opts = {}
   },
   {
     "monaqa/dial.nvim",
@@ -629,7 +617,7 @@ return {
     "mhinz/vim-startify",
     lazy = false,
     init = function()
-      vim.g.startify_session_dir = vim.fn.stdpath("data") .. "/sessions/"
+      vim.g.startify_session_dir = vim.g.sessions_path
 
       vim.g.startify_lists = {
         { ["type"] = "sessions", ["header"] = { "   Sessions" } },

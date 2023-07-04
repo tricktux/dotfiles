@@ -477,23 +477,6 @@ function M:set_mappings()
 	map.keymaps_set(mappings, "n", opts, prefix)
 end
 
-function M:config_session_lens()
-	require("session-lens").setup({
-		path_display = { "shorten" },
-		-- theme_conf = { border = false },
-		previewer = false,
-	})
-	require("telescope").load_extension("session-lens")
-	local o = { silent = true, desc = "sessions" }
-	log.info("[sessions]: mappings")
-	vks("n", "<leader>fs", "<cmd>SearchSession<cr>", o)
-	--[[ line:ins_left({
-		require("auto-session-library").current_session_name,
-		color = { gui = "bold" },
-		-- left_padding = 0,
-	}) ]]
-end
-
 function M:setup()
 	local ts = require("telescope")
 	local actions = require("telescope.actions")
@@ -601,12 +584,6 @@ return {
 				M:config_project()
 			end,
 		},
-		--[[ {
-			"rmagatti/session-lens",
-			config = function()
-				M:config_session_lens()
-			end,
-		}, ]]
 		{
 			"jedrzejboczar/toggletasks.nvim",
 			config = function()
