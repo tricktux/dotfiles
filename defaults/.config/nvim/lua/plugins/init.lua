@@ -328,7 +328,8 @@ return {
     "b3nj5m1n/kommentary",
     keys = {
       { "<plug>comment_line", "<plug>kommentary_line_default",        desc = "kommentary_line_default" },
-      { "<plug>comment_line", "<plug>kommentary_visual_default<C-c>", mode = "x",                        desc = "kommentary_line_visual" },
+      { "<plug>comment_line", "<plug>kommentary_visual_default<C-c>", mode = "x",                      desc =
+      "kommentary_line_visual" },
     },
     init = function()
       vim.g.kommentary_create_default_mappings = false
@@ -526,7 +527,7 @@ return {
           vks("n", "<localleader>i", md, opts)
           vim.api.nvim_buf_create_user_command(args.buf, 'UtilsMarkdownPasteImage', md, {})
         end,
-        pattern = {"markdown", "quarto"},
+        pattern = { "markdown", "quarto" },
         desc = "MarkdownPasteImageFunction",
         group = id,
       })
