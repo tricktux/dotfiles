@@ -253,8 +253,7 @@ M.edit = {}
 M.edit.prefix = "<leader>e"
 M.edit.edit_temporary_file = function(type)
 	local s = utl.fs.path.sep
-	local t = os.date("%y%m%d_%H%M%S")
-	local f = fmt("%s%stemp_%s", vim.fn.stdpath("cache"), s, t)
+	local f = fmt("%s%stemp", vim.fn.stdpath("cache"), s)
 	local e = type and "." .. type or ""
 	if fn.has("nvim-0.8") > 0 then
 		vim.cmd({ cmd = "edit", args = { fmt("%s%s", f, e) } })
