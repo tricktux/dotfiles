@@ -229,7 +229,7 @@ function M:config()
 		})
 	end
 
-	if vim.fn.executable("pyright-langserver") > 0 then
+  if vim.fn.executable("pyright-langserver") > 0 then
 		-- cinst nodejs-lts -y
 		-- npm install -g pyright
 		log.info("setting up the pyright lsp...")
@@ -239,6 +239,16 @@ function M:config()
 			capabilities = capabilities,
 		})
 	end
+
+  if vim.fn.executable("remark-language-server") > 0 then
+    log.info("setting up the remark-language-server lsp...")
+    nvim_lsp.remark_ls.setup({})
+  end
+
+  if vim.fn.executable("bash-language-server") > 0 then
+    log.info("setting up the bash-language-server lsp...")
+    nvim_lsp.bashls.setup({})
+  end
 
 	if vim.fn.executable("cmake-language-server") > 0 then
 		log.info("setting up the cmake-language-server lsp...")

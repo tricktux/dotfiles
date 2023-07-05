@@ -888,4 +888,10 @@ return {
     "luukvbaal/statuscol.nvim",
     event = "VeryLazy"
   },
+  {
+    "williamboman/mason.nvim",
+    event = "VeryLazy",
+    build = ":MasonUpdate",
+    opts = {}
+  },
 }

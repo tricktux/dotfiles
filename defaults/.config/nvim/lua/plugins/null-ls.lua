@@ -204,6 +204,18 @@ local function setup()
       })
     )
   end
+  if vim.fn.executable("markdownlint") > 0 then
+    log.info("NullLs setting up markdownlint...")
+    table.insert(sources, null.builtins.formatting.markdownlint)
+  end
+  if vim.fn.executable("write-good") > 0 then
+    log.info("NullLs setting up write-good...")
+    table.insert(sources, null.builtins.diagnostics.write_good)
+  end
+  if vim.fn.executable("proselint") > 0 then
+    log.info("NullLs setting up proselint...")
+    table.insert(sources, null.builtins.diagnostics.proselint)
+  end
   if vim.fn.executable("prettierd") > 0 then
     log.info("NullLs setting up prettierd...")
     table.insert(sources, null.builtins.formatting.prettierd)
@@ -225,6 +237,10 @@ local function setup()
     log.info("NullLs setting up isort...")
     table.insert(sources, null.builtins.formatting.isort)
   end
+  if vim.fn.executable("ruff") > 0 then
+    log.info("NullLs setting up ruff...")
+    table.insert(sources, null.builtins.formatting.ruff)
+  end
   if vim.fn.executable("black") > 0 then
     log.info("NullLs setting up black...")
     table.insert(sources, null.builtins.formatting.black)
@@ -245,9 +261,9 @@ local function setup()
     log.info("NullLs setting up stylua...")
     table.insert(sources, null.builtins.formatting.stylua)
   end
-  if vim.fn.executable("shfmt") > 0 then
-    log.info("NullLs setting up shfmt...")
-    table.insert(sources, null.builtins.formatting.shfmt)
+  if vim.fn.executable("beautysh") > 0 then
+    log.info("NullLs setting up beautysh...")
+    table.insert(sources, null.builtins.formatting.beautysh)
   end
   if vim.fn.executable("shellcheck") > 0 then
     log.info("NullLs setting up shellcheck...")
@@ -266,6 +282,10 @@ local function setup()
     log.info("NullLs setting up cmake-lint...")
     table.insert(sources, null.builtins.diagnostics.cmake_lint)
   end
+  if vim.fn.executable("gersemi") > 0 then
+    log.info("NullLs setting up gersemi...")
+    table.insert(sources, null.builtins.formatting.gersemi)
+  end
   if vim.fn.executable("cmake-check") > 0 then
     log.info("NullLs setting up cmake-check...")
     table.insert(sources, null.builtins.formatting.cmake_check)
@@ -282,6 +302,10 @@ local function setup()
         extra_args = { "-style=file", '-fallback-style="LLVM"' },
       })
     )
+  end
+  if vim.fn.executable("selene") > 0 then
+    log.info("NullLs setting up selene...")
+    table.insert(sources, null.builtins.diagnostics.selene)
   end
   if vim.fn.executable("cppcheck") > 0 then
     log.info("NullLs setting up cppcheck...")
