@@ -64,8 +64,6 @@ local function set_globals()
 end
 
 local function _config_win()
-	local log = require("utils.log")
-
 	vim.cmd([[silent! call serverstart('\\.\pipe\nvim-pipe-88888')]])
 
   vim.g.dotfiles = os.getenv("APPDATA") .. "/dotfiles"
@@ -79,8 +77,6 @@ local function _config_win()
 end
 
 local function _config_unix()
-	local log = require("utils.log")
-
 	vim.cmd([[silent! call serverstart('/tmp/nvim.socket')]])
 
   vim.g.dotfiles = home .. "/.config/dotfiles"
