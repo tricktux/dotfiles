@@ -80,6 +80,10 @@ local function _config_unix()
 	vim.cmd([[silent! call serverstart('/tmp/nvim.socket')]])
 
   vim.g.dotfiles = home .. "/.config/dotfiles"
+  local py = vim.fs.normalize('$XDG_DATA_HOME/pyvenv/nvim/bin/python')
+  if vim.uv.fs_stat(py) ~= nil then
+    vim.g.python3_host_prog = py
+  end
 end
 
 local function init_os()
