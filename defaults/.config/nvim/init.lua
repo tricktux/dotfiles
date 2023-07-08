@@ -70,7 +70,7 @@ local function _config_win()
 	-- Find python
 	local py = vim.fn.stdpath("data") .. [[\pyvenv\Scripts]]
 	if vim.fn.isdirectory(py) <= 0 then
-		print("ERROR: Failed to find python venv: " .. py)
+		vim.api.nvim_err_writeln("ERROR: Failed to find python venv: " .. py)
 	else
 		vim.g.python3_host_prog = py .. [[\python.exe]]
 	end
@@ -81,8 +81,10 @@ local function _config_unix()
 
   vim.g.dotfiles = home .. "/.config/dotfiles"
   local py = vim.fs.normalize('$XDG_DATA_HOME/pyvenv/nvim/bin/python')
-  if vim.uv.fs_stat(py) ~= nil then
+  if vim.loop.fs_stat(py) ~= nil then
     vim.g.python3_host_prog = py
+  else
+    vim.api.nvim_err_writeln("ERROR: Failed to find python venv: " .. py)
   end
 end
 
