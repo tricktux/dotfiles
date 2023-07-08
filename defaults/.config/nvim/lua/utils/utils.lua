@@ -503,6 +503,7 @@ M.term.exec = function(cmd)
 	log.info(fmt("term.exec.cmd = %s", cmd))
 	local fcmd = ""
 	if os.getenv("KITTY_WINDOW_ID") ~= nil then
+    -- TODO: detect if there's more than a single window
 		local f = { "/usr/bin/kitty", "@", "send-text", "--match", "recent:1", cmd, "\x0d" }
 		log.info(fmt("term.exec.fcmd = %s", vim.inspect(f)))
 		fn.jobstart(f)
@@ -523,9 +524,18 @@ M.term.exec = function(cmd)
 		return
 	end
 
-	fcmd = "vsplit term://" .. cmd
+	fcmd = ":!" .. cmd
 	log.info(fmt("term.exec.cmd = %s", cmd))
 	vim.cmd(fcmd)
+end
+
+M.term.firefox_preview_async = function(file)
+  if vim.loop.fs_stat(file) == nil then
+    vim.api.nvim_err_writeln("file: '" .. file .. "' does not exists")
+    return
+  end
+  local cmd = { "firefox",  file}
+  vim.system(cmd, { detach = true })
 end
 
 return M
