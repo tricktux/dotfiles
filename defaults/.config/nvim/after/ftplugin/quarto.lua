@@ -12,8 +12,8 @@ vim.opt_local.textwidth = 100
 local u = require("utils.utils")
 
 local preview = function()
-  local o = vim.fn.expand("%:r") .. ".html"
-  u.term.firefox_preview_async(o)
+  local o = vim.fn.expand("%:p:r") .. ".html"
+  u.browser.open_file_async(o)
 end
 
 local _filetype = { "html", "docx", "pdf" }
@@ -24,10 +24,8 @@ end
 local render = function(filetype)
 	vim.validate({ filetype = { filetype, _validate_filetypes, "one of: " .. vim.inspect(_filetype) } })
 	local filename = vim.fn.expand("%:p")
-  -- local cmd = "quarto render '" .. filename .. "' --to " .. filetype
-  local cmd = { "!quarto", "render", filename, "--to", filetype }
-	-- u.term.exec(cmd)
-  vim.cmd(table.concat(cmd, " "))
+  local cmd = { "quarto", "render", filename, "--to", filetype }
+	u.term.exec(cmd)
 end
 
 if vim.g.no_plugin_maps == nil and vim.g.no_quarto_maps == nil then

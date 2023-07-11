@@ -9,8 +9,8 @@ vim.b.did_markdown_ftplugin = 1
 
 local u = require("utils.utils")
 local preview = function()
-  local o = vim.fn.expand("%:r") .. ".html"
-  u.term.firefox_preview_async(o)
+  local o = vim.fn.expand("%:p:r") .. ".html"
+  u.browser.open_file_async(o)
 end
 
 local _filetype = { "html", "docx", "pdf" }
@@ -20,10 +20,10 @@ end
 
 local render = function(filetype)
   vim.validate({ filetype = { filetype, _validate_filetypes, "one of: " .. vim.inspect(_filetype) } })
-  local f = vim.fn.shellescape(vim.fn.expand("%:p"))
-  local o = vim.fn.shellescape(vim.fn.expand("%:r") .. "." .. filetype)
-  local cmd = { "!pandoc", f, "-o", o }
-  vim.cmd(table.concat(cmd, " "))
+  local f = vim.fn.expand("%:p")
+  local o = vim.fn.expand("%:p:r") .. "." .. filetype
+  local cmd = { "pandoc", f, "-o", o }
+  u.term.exec(cmd)
 end
 
 if vim.g.no_plugin_maps == nil and vim.g.no_markdown_maps == nil then
