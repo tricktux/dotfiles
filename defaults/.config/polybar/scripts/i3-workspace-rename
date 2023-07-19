@@ -1,0 +1,33 @@
+#!/home/reinaldo/.local/share/pyvenv/polybar/bin/python
+
+import tkinter as tk
+from tkinter import *
+from tkinter import ttk
+from tkinter import simpledialog
+
+import i3ipc
+
+
+def main():
+    # Connect to i3 IPC socket
+    # tk hello world pop up
+    i3 = i3ipc.Connection()
+    # Get the current workspace number
+    current_workspace = i3.get_tree().find_focused().workspace().name
+    workspace_number = current_workspace[0]
+    # Prompt for a new name using a window
+    root = tk.Tk()
+    root.withdraw()
+    new_name = simpledialog.askstring(
+        "Rename Workspace", "Enter a new name for the workspace"
+    )
+    if new_name == None:
+        exit()
+    name = f"{workspace_number}: {new_name}"
+    # Apply the rename command
+    command = f'rename workspace to "{name}"'
+    i3.command(command)
+
+
+if __name__ == "__main__":
+    main()
