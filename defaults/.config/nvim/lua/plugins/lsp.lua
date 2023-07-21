@@ -168,8 +168,6 @@ local function on_clangd_attach(client_id, bufnr)
 	return M.on_lsp_attach(client_id, bufnr)
 end
 
--- TODO
--- Maybe set each server to its own function?
 function M:config()
 	local nvim_lsp = require("lspconfig")
 	-- vim.lsp.log.set_level("debug")
