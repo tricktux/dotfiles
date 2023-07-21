@@ -11,6 +11,7 @@ astyle
 atool
 autoconf
 automake
+baobab
 base
 bat
 binutils
@@ -192,7 +193,6 @@ playerctl
 polybar
 poppler
 prettier
-pyright
 python-cpplint
 python-pip
 python-pycuda
