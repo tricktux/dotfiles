@@ -72,8 +72,6 @@ function M.set_lsp_mappings(bufnr)
 			end,
 			"lsp_declaration_split",
 		},
-		e = { lsp.buf.declaration, "lsp_declaration" },
-		i = { lsp.buf.implementation, "lsp_implementation" },
 		H = { lsp.buf.signature_help, "lsp_signature_help" },
 		R = { rename, "lsp_rename" },
 		d = { lsp.buf.definition, "lsp_definition" },
