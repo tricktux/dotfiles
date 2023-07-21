@@ -225,7 +225,18 @@ function M:config()
 		})
 	end
 
-  if vim.fn.executable("pyright-langserver") > 0 then
+  if vim.fn.executable("ruff-lsp") > 0 then
+    log.info("setting up the ruff lsp...")
+
+    nvim_lsp.ruff_lsp.setup{
+        init_options = {
+          settings = {
+            -- Any extra CLI arguments for `ruff` go here.
+            args = {},
+          }
+        }
+    }
+  elseif vim.fn.executable("pyright-langserver") > 0 then
 		-- cinst nodejs-lts -y
 		-- npm install -g pyright
 		log.info("setting up the pyright lsp...")
