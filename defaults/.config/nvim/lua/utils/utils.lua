@@ -537,7 +537,7 @@ end
 
 M.term.exec = function(cmd)
   if type(cmd) == "string" then
-    cmd = M.table.string_to_list(cmd)
+    cmd = M.table.string_to_table(cmd)
   end
   vim.validate({ cmd = { cmd, "t" } })
   log.info(fmt("term.exec.cmd = %s", vim.print(cmd)))
