@@ -93,7 +93,8 @@ update_polybar_python_venv() {
 	local venv_loc="$XDG_DATA_HOME/pyvenv"
 	local venv_name="polybar"
 	local pkgs=(
-		requests jinja2 stravalib matplot i3ipc
+		requests jinja2 stravalib matplot 
+    i3ipc pandas plotly plotly_resampler kaleido
 	)
 
 	mkdir -p "$venv_loc"

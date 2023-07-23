@@ -9,6 +9,9 @@ import os
 import sys
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
+import pandas as pd
+import plotly.graph_objects as go
+from plotly_resampler import FigureResampler
 
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
@@ -47,6 +50,31 @@ def plot():
     plt.gcf().autofmt_xdate()
     plt.legend(loc='best')
     plt.savefig(r'/tmp/bike.png')
+
+
+def plotly(data_file, x_col, col_names, plot_name):
+    if (not os.path.isfile(data_file)):
+        print(f"File {data_file} does not exist")
+        return
+    p = pd.read_csv(data_file)
+
+    x = p[x_col] if x_col in p else p.index
+
+    img = FigureResampler(go.Figure())
+    for col in col_names:
+        img.add_trace(go.Scattergl(x=x, y=p[col], name=col))
+    img.update_layout(
+        xaxis=dict(
+            tickformat="%m/%d/%y",
+            type="date"
+        ),
+        height=1080,
+        width=2048,
+        title_text=plot_name
+    )
+    # Save to data_file with png extension
+    data_file_png = os.path.splitext(data_file)[0] + ".html"
+    img.write_html(data_file_png)
 
 
 def seconds_to_hours(seconds):
@@ -282,6 +310,10 @@ if __name__ == '__main__':
     avg_bike_speed = strava.get_last_bike_avg_speed()[:-7]
     print(num_workouts + ' ' + num_hours + ' ' + num_miles + ' m ' +
           avg_bike_speed + ' m/h')
-    if not os.path.isfile(r'/tmp/bike.csv'):
+    root = r"/tmp/bike.csv"
+    html = r"/tmp/bike.html"
+    if os.path.isfile(root) and not os.path.isfile(html):
         strava.get_csv_of_bike_activities()
-        plot()
+        column_names = ("avg heart rate", "avg power", "duration")
+        x_col = "date"
+        plotly(r'/tmp/bike.csv', x_col, column_names, "Bike Progress")
