@@ -9,51 +9,51 @@ import os
 import sys
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
-import pandas as pd
-import plotly.graph_objects as go
-from plotly_resampler import FigureResampler
 
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
+import pandas as pd
+import plotly.graph_objects as go
+from plotly_resampler import FigureResampler
 from stravalib import unithelper
 from stravalib.client import Client
 
 DEBUG = 0
-LOG = 'get_activities'
+LOG = "get_activities"
 
 
 def plot():
-    if not os.path.isfile(r'/tmp/bike.csv'):
+    if not os.path.isfile(r"/tmp/bike.csv"):
         return
     date = []
     power = []
     heart_rate = []
     duration = []
-    with open(r'/tmp/bike.csv') as csvfile:
+    with open(r"/tmp/bike.csv") as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
-            if row['avg power'] == 'N/A':
+            if row["avg power"] == "N/A":
                 continue
-            date.append(row['date'])
-            heart_rate.append(float(row['avg heart rate']))
-            power.append(float(row['avg power']))
-            dur = row['duration']
+            date.append(row["date"])
+            heart_rate.append(float(row["avg heart rate"]))
+            power.append(float(row["avg power"]))
+            dur = row["duration"]
             hours = int(dur[0]) * 60
             duration.append(hours + int(dur[-2:]))
 
-    x = [datetime.datetime.strptime(d, '%m/%d/%y').date() for d in date]
-    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%m/%d/%y'))
+    x = [datetime.datetime.strptime(d, "%m/%d/%y").date() for d in date]
+    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter("%m/%d/%y"))
     plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=5))
-    plt.plot(x, heart_rate, '-', label='Heart Rate')
-    plt.plot(x, power, ':', label='Avg Power (watts)')
-    plt.plot(x, duration, '-.', label='Duration (mins)')
+    plt.plot(x, heart_rate, "-", label="Heart Rate")
+    plt.plot(x, power, ":", label="Avg Power (watts)")
+    plt.plot(x, duration, "-.", label="Duration (mins)")
     plt.gcf().autofmt_xdate()
-    plt.legend(loc='best')
-    plt.savefig(r'/tmp/bike.png')
+    plt.legend(loc="best")
+    plt.savefig(r"/tmp/bike.png")
 
 
 def plotly(data_file, x_col, col_names, plot_name):
-    if (not os.path.isfile(data_file)):
+    if not os.path.isfile(data_file):
         print(f"File {data_file} does not exist")
         return
     p = pd.read_csv(data_file)
@@ -64,13 +64,10 @@ def plotly(data_file, x_col, col_names, plot_name):
     for col in col_names:
         img.add_trace(go.Scattergl(x=x, y=p[col], name=col))
     img.update_layout(
-        xaxis=dict(
-            tickformat="%m/%d/%y",
-            type="date"
-        ),
+        xaxis=dict(tickformat="%m/%d/%y", type="date"),
         height=1080,
         width=2048,
-        title_text=plot_name
+        title_text=plot_name,
     )
     # Save to data_file with png extension
     data_file_png = os.path.splitext(data_file)[0] + ".html"
@@ -84,17 +81,17 @@ def seconds_to_hours(seconds):
     return "%d:%02d" % (h, m)
 
 
-class Config():
+class Config:
     def __init__(self, filename):
         self.config = configparser.ConfigParser()
 
         self.my_file = Path(filename)
         logger = logging.getLogger(LOG)
         if DEBUG > 0:
-            logger.debug('[Config::init]: filename = %s', filename)
+            logger.debug("[Config::init]: filename = %s", filename)
         if not self.my_file.is_file():
             if DEBUG > 0:
-                logger.critical('[Config::init]: filename not found')
+                logger.critical("[Config::init]: filename not found")
             #  print(-1)
             sys.exit(1)
         self.config.read(filenames=self.my_file)
@@ -110,7 +107,8 @@ class Config():
                     '[Config::get_str]: Failed to get option: "%s", section: "%s"',
                     option,
                     section,
-                    exc_info=True)
+                    exc_info=True,
+                )
             return default
 
     def set_str(self, section, option, value):
@@ -118,7 +116,7 @@ class Config():
         logger = logging.getLogger(LOG)
         try:
             self.config[section][option] = value
-            with open(self.my_file, 'w') as configfile:
+            with open(self.my_file, "w") as configfile:
                 self.config.write(configfile)
         except:
             if DEBUG > 0:
@@ -126,25 +124,24 @@ class Config():
                     '[Config::set_str]: Failed to set option: "%s", section: "%s"',
                     option,
                     section,
-                    exc_info=True)
+                    exc_info=True,
+                )
             return
 
 
-class Parser():
+class Parser:
     def __init__(self):
-        self.parser = argparse.ArgumentParser(description='Get strava info')
-        self.parser.add_argument('config',
-                                 default='config.ini',
-                                 help='path to the configuration file')
-        self.parser.add_argument('--debug',
-                                 '-d',
-                                 type=int,
-                                 default=0,
-                                 help='create debug file')
+        self.parser = argparse.ArgumentParser(description="Get strava info")
+        self.parser.add_argument(
+            "config", default="config.ini", help="path to the configuration file"
+        )
+        self.parser.add_argument(
+            "--debug", "-d", type=int, default=0, help="create debug file"
+        )
         self.args = self.parser.parse_args()
 
 
-class Strava():
+class Strava:
     """
     Find activities attributes here:
         https://github.com/hozn/stravalib/blob/master/stravalib/model.py
@@ -156,7 +153,7 @@ class Strava():
             logger.debug('token: "%s", year: "%s"', token, year)
         self.current_year = datetime.date.today().year
         self.config = config
-        if not year or year == 'current':
+        if not year or year == "current":
             year = self.current_year
         try:
             client = Client()
@@ -166,30 +163,33 @@ class Strava():
             # token. which you have to save (update_token_information)
             # Read here: https://developers.strava.com/docs/authentication/
             # Specifically the "Refresh expired access tokens part"
-            access_token = client.refresh_access_token(client_id,
-                                                       client_secret, token)
+            access_token = client.refresh_access_token(client_id, client_secret, token)
             client.access_token = access_token["access_token"]
             self.activities = client.get_activities(
-                after='{}-01-01T00:00:00Z'.format(str(year)),
-                before='{}-01-01T00:00:00Z'.format(str(year + 1)),
-                limit=500)
+                after="{}-01-01T00:00:00Z".format(str(year)),
+                before="{}-01-01T00:00:00Z".format(str(year + 1)),
+                limit=500,
+            )
             if token != access_token["refresh_token"]:
                 if DEBUG > 0:
-                    logger.debug('There is a new token in town!!!')
-                    logger.debug('old token: "%s". new token: "%s"', token,
-                                 access_token["refresh_token"])
+                    logger.debug("There is a new token in town!!!")
+                    logger.debug(
+                        'old token: "%s". new token: "%s"',
+                        token,
+                        access_token["refresh_token"],
+                    )
                 self.update_token_information(access_token)
         except:
             if DEBUG > 0:
-                logger.critical('failed to get activities', exc_info=True)
+                logger.critical("failed to get activities", exc_info=True)
             #  print(-3)
             sys.exit(3)
 
     def update_token_information(self, token):
         """Write the newly recently obtained information"""
-        self.config.set_str('Token', 'access_token', token['access_token'])
-        self.config.set_str('Token', 'refresh_token', token['refresh_token'])
-        self.config.set_str('Token', 'expires_at', str(token['expires_at']))
+        self.config.set_str("Token", "access_token", token["access_token"])
+        self.config.set_str("Token", "refresh_token", token["refresh_token"])
+        self.config.set_str("Token", "expires_at", str(token["expires_at"]))
 
     def get_num_activities(self):
         return str(len(list(self.activities)))
@@ -229,9 +229,10 @@ class Strava():
         avg = 0.0
         for activity in sorted(self.activities, key=self.sortby, reverse=True):
             if DEBUG > 0:
-                logger.debug('[get_last_bike_avg_speed]: type = "%s"',
-                             str(activity.type))
-            if activity.type == 'Ride' and not activity.trainer:
+                logger.debug(
+                    '[get_last_bike_avg_speed]: type = "%s"', str(activity.type)
+                )
+            if activity.type == "Ride" and not activity.trainer:
                 avg = unithelper.miles_per_hour(activity.average_speed)
                 break
 
@@ -239,42 +240,52 @@ class Strava():
 
     def get_csv_of_bike_activities(self):
         """https://pythonhosted.org/stravalib/api.html#stravalib.model.Activity"""
-        logger = logging.getLogger(LOG)
-        file_path = r'/tmp/bike.csv'
+        logging.getLogger(LOG)
+        file_path = r"/tmp/bike.csv"
         print(self.activities)
-        with open(file_path, 'w') as csvfile:
+        with open(file_path, "w") as csvfile:
             fieldnames = [
-                'date', 'duration', 'distance', 'avg heart rate', 'avg power',
-                'avg cadence', 'elevation', 'avg speed', 'trainer'
+                "date",
+                "duration",
+                "distance",
+                "avg heart rate",
+                "avg power",
+                "avg cadence",
+                "elevation",
+                "avg speed",
+                "trainer",
             ]
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writeheader()
             for activity in sorted(self.activities, key=self.sortby):
-                if activity.type not in ('Ride', 'VirtualRide'):
+                if activity.type not in ("Ride", "VirtualRide"):
                     continue
                 date = activity.start_date_local.strftime("%x")
                 print(date)
                 seconds = datetime.timedelta(
-                    seconds=activity.elapsed_time.seconds).total_seconds()
+                    seconds=activity.elapsed_time.seconds
+                ).total_seconds()
                 hrs = seconds_to_hours(seconds)
                 distance = unithelper.miles(activity.distance)
-                hr = activity.average_heartrate if activity.has_heartrate else 'N/A'
-                power = activity.average_watts if activity.device_watts else 'N/A'
+                hr = activity.average_heartrate if activity.has_heartrate else "N/A"
+                power = activity.average_watts if activity.device_watts else "N/A"
                 cadence = activity.average_cadence
                 elevation = unithelper.feet(activity.total_elevation_gain)
                 spd = unithelper.miles_per_hour(activity.average_speed)
-                trainer = 'yes' if activity.type == 'VirtualRide' else 'no'
-                writer.writerow({
-                    'date': date,
-                    'duration': hrs,
-                    'distance': distance,
-                    'avg heart rate': hr,
-                    'avg power': power,
-                    'avg cadence': cadence,
-                    'elevation': elevation,
-                    'avg speed': spd,
-                    'trainer': trainer
-                })
+                trainer = "yes" if activity.type == "VirtualRide" else "no"
+                writer.writerow(
+                    {
+                        "date": date,
+                        "duration": hrs,
+                        "distance": distance,
+                        "avg heart rate": hr,
+                        "avg power": power,
+                        "avg cadence": cadence,
+                        "elevation": elevation,
+                        "avg speed": spd,
+                        "trainer": trainer,
+                    }
+                )
 
         return file_path
 
@@ -282,44 +293,46 @@ class Strava():
 def set_logger():
     """Setups the logger"""
     logger = logging.getLogger(LOG)
-    handler = RotatingFileHandler('/tmp/' + LOG + '.log',
-                                  maxBytes=10**6,
-                                  backupCount=5)
-    formatter = logging.Formatter('%(asctime)s_%(levelname)s: %(message)s')
+    handler = RotatingFileHandler(
+        "/tmp/" + LOG + ".log", maxBytes=10**6, backupCount=5
+    )
+    formatter = logging.Formatter("%(asctime)s_%(levelname)s: %(message)s")
 
     handler.setFormatter(formatter)
     logger.addHandler(handler)
     logger.setLevel(logging.DEBUG)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = Parser()
     DEBUG = int(parser.args.debug)
     set_logger()
     logger = logging.getLogger(LOG)
     config = Config(parser.args.config)
-    token = config.get_str('Token', 'refresh_token', "")
-    client_id = config.get_str('ApiInfo', 'client_id', "")
-    client_secret = config.get_str('ApiInfo', 'client_secret', "")
+    token = config.get_str("Token", "refresh_token", "")
+    client_id = config.get_str("ApiInfo", "client_id", "")
+    client_secret = config.get_str("ApiInfo", "client_secret", "")
     if not token or not client_id or not client_secret:
         if DEBUG > 0:
             logger.critical(
                 'failed to get tokens. token: "%s", client_id: "%s", client_secret: "%s"',
-                token, client_id, client_secret)
-        #  print(-2)
+                token,
+                client_id,
+                client_secret,
+            )
         sys.exit(2)
-    year = config.get_str('Workout', 'year', "")
+    year = config.get_str("Workout", "year", "")
     strava = Strava(token, client_id, client_secret, year, config)
     num_workouts = strava.get_num_activities()
     td = strava.get_total_time()
     num_hours = seconds_to_hours(td)
     num_miles = strava.get_total_distance()
     e = strava.get_total_elevation()
-    print(num_workouts + ' ' + num_hours + ' ' + num_miles + ' m ' + e + ' ft')
+    print(num_workouts + " " + num_hours + " " + num_miles + " m " + e + " ft")
     root = r"/tmp/bike.csv"
     html = r"/tmp/bike.html"
-    if os.path.isfile(root) and not os.path.isfile(html):
+    if not os.path.isfile(root):
         strava.get_csv_of_bike_activities()
         column_names = ("avg heart rate", "avg power", "duration")
         x_col = "date"
-        plotly(r'/tmp/bike.csv', x_col, column_names, "Bike Progress")
+        plotly(r"/tmp/bike.csv", x_col, column_names, "Bike Progress")
