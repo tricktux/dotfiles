@@ -201,6 +201,13 @@ class Strava():
             elapse_time += activity.elapsed_time.seconds
         return datetime.timedelta(seconds=elapse_time).total_seconds()
 
+    def get_total_elevation(self):
+        """Get total elevation in feet for all activities"""
+        e = 0.0
+        for activity in self.activities:
+            e += float(activity.total_elevation_gain)
+        return str(round(e * 3.28084, 1))
+
     def get_total_distance(self):
         """Get total distance in miles for all activities"""
         d = 0.0
@@ -307,9 +314,8 @@ if __name__ == '__main__':
     td = strava.get_total_time()
     num_hours = seconds_to_hours(td)
     num_miles = strava.get_total_distance()
-    avg_bike_speed = strava.get_last_bike_avg_speed()[:-7]
-    print(num_workouts + ' ' + num_hours + ' ' + num_miles + ' m ' +
-          avg_bike_speed + ' m/h')
+    e = strava.get_total_elevation()
+    print(num_workouts + ' ' + num_hours + ' ' + num_miles + ' m ' + e + ' ft')
     root = r"/tmp/bike.csv"
     html = r"/tmp/bike.html"
     if os.path.isfile(root) and not os.path.isfile(html):
