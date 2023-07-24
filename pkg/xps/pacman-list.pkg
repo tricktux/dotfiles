@@ -149,7 +149,6 @@ most
 mpv
 mpv-mpris
 neomutt
-neovim
 network-manager-applet
 networkmanager
 networkmanager-openvpn
@@ -202,6 +201,7 @@ python-pillow
 python-pip
 python-pyqt5
 python-pywal
+python-virtualenv
 rapidjson
 redshift
 reflector
@@ -254,6 +254,7 @@ vdirsyncer
 vi
 vim
 virtualbox
+virtualbox-guest-iso
 virtualbox-host-dkms
 vulkan-intel
 w3m

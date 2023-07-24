@@ -29,6 +29,7 @@ mimeo
 mono-basic
 navi-bin
 ncurses5-compat-libs
+neovim-git
 networkmanager-dmenu-git
 noisetorch-bin
 numix-gtk-theme
@@ -51,6 +52,7 @@ preload
 pulseaudio-ctl
 qpdfview
 qt5-styleplugins
+quarto-cli-bin
 ranger-git
 remotepcviewer
 rmview
