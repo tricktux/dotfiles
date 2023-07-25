@@ -103,6 +103,9 @@ update_polybar_python_venv() {
 	source "$venv_loc/$venv_name/bin/activate"
 	pip3 install --upgrade "${pkgs[@]}"
 	deactivate
+
+    # Download github file with curl
+    curl -fsSL https://raw.githubusercontent.com/dflock/kitty-save-session/main/kitty-convert-dump.py >$HOME/.local/bin/kitty-save-session.py
 }
 
 update_nvim_plugins() {
