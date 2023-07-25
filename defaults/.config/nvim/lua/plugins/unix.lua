@@ -34,4 +34,10 @@ return {
 			})
 		end,
 	},
+	{
+		"giusgad/pets.nvim",
+		opts = {},
+		cmd = { "PetsNewCustom", "PetsNew" },
+		dependencies = { "MunifTanjim/nui.nvim", "giusgad/hologram.nvim" },
+	},
 }
