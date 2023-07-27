@@ -479,6 +479,7 @@ sudo bash -c 'printf "\n//192.168.1.139/music /home/reinaldo/.mnt/skywafer/music
 # Try it with
 sudo mount -v -t nfs 192.168.1.139:/volume1/backup /home/reinaldo/.mnt/skynfs \
   -o vers=3
+sudo mount -t cifs //192.168.1.139/home ~/.mnt/skywafer/home -o credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev,vers=3.0
 mv ~/.gnupg{,_orig}
 cp -r \
     /home/reinaldo/.mnt/skywafer/home/bkps/predator/latest/.{ssh,password-store,gnupg} \
