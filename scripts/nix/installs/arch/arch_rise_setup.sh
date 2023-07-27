@@ -481,12 +481,8 @@ sudo mount -v -t nfs 192.168.1.139:/volume1/backup /home/reinaldo/.mnt/skynfs \
   -o vers=3
 sudo mount -t cifs //192.168.1.139/home ~/.mnt/skywafer/home -o credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev,vers=3.0
 mv ~/.gnupg{,_orig}
-cp -r \
-    /home/reinaldo/.mnt/skywafer/home/bkps/predator/latest/.{ssh,password-store,gnupg} \
-    /home/reinaldo
-cp -r \
-    /home/reinaldo/.mnt/skywafer/home/bkps/predator/latest/doublecmd \
-    /home/reinaldo/.config
+cp -r /home/reinaldo/.mnt/skywafer/home/bkps/aero/latest/.{ssh,password-store,gnupg} /home/reinaldo
+cp -r /home/reinaldo/.mnt/skywafer/home/bkps/aero/latest/doublecmd /home/reinaldo/.config
 sudo chown -R reinaldo: ~/.{ssh,password-store,gnupg}
 chmod 700 ~/.ssh
 chmod 600 -R ~/.ssh/*
@@ -661,8 +657,7 @@ wal --theme base16-google -l -q -o "$HOME/.config/polybar/launch.sh"
 # usb automount
 # There's a polybar module that will be used to mount/umount devices
 paci --needed --noconfirm gvfs-mtp gvfs-gphoto2 udisks2 pcmanfm
-sudo install -Dm644 /home/reinaldo/.config/polybar/scripts/95-usb.rules \
-  /etc/udev/rules.d/95-usb.rules
+sudo install -Dm644 /home/reinaldo/.config/polybar/scripts/95-usb.rules /etc/udev/rules.d/95-usb.rules
 #}}}
 
 # windows virtual machine {{{
