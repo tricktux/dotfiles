@@ -1094,7 +1094,7 @@ cd anki-beta
 # }}}
 # Markdown to anki converter
 paci --needed --noconfirm npm
-npm install -g md2apkg
+npm install -g md2apkg fast-cli
 #}}}
 
 ## 💲 Stonks {{{
