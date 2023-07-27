@@ -42,8 +42,8 @@ ExecStart=/usr/bin/dhcpcd -b -q %I
 EOL
 
 # Run this section as root, not using sudo
-interface="wlp1s0"
 su
+interface="wlp1s0"
 ip link
 ip link set up dev $interface
 dmesg | grep iwlwifi
@@ -184,7 +184,13 @@ sudo nvim /etc/lightdm/lightdm.conf
 # [Seat:*]
 # autologin-user=reinaldo
 # autologin-session=i3-with-shmlog
+#}}}
 
+# Network Manager{{{
+paci --needed --noconfirm networkmanager network-manager-applet networkmanager-openvpn networkmanager-dmenu-git 
+pacu networkmanager network-manager-applet networkmanager-openvpn networkmanager-dmenu-git 
+sudo systemctl enable --now NetworkManager.service
+sudo systemctl status NetworkManager.service
 #}}}
 
 #############################################################################
@@ -597,13 +603,6 @@ paci --needed --noconfirm numlockx
 
 # screenshots, i3
 # After this steps you should have a working `i3` setup.
-
-# Network Manager{{{
-paci --needed --noconfirm networkmanager network-manager-applet networkmanager-openvpn networkmanager-dmenu-git 
-pacu networkmanager network-manager-applet networkmanager-openvpn networkmanager-dmenu-git 
-sudo systemctl enable --now NetworkManager.service
-sudo systemctl status NetworkManager.service
-#}}}
 
 # i3-wm{{{
 cp "$HOME"/.config/rofi/{predator,"$(hostname)"}.rasi
