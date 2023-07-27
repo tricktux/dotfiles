@@ -25,6 +25,16 @@ alias mkdir="mkdir --parents --verbose"
 alias ssh="kitty +kitten ssh"
 alias kstt="kitty @set-tab-title"
 alias kswt="kitty @set-window-title"
+alias kitty-save-session=save_kitty_session
+function save_kitty_session() {
+   if [ -z "\$1" ]
+   then
+       echo "Please provide a session name."
+       return 1
+   else
+       kitty @ ls | python ~/.local/bin/kitty-save-session.py > ~/.config/kitty/"$1".kitty
+   fi
+}
 
 # Install
 alias paci="\$HOME/.config/dotfiles/scripts/nix/arch.sh -i"
