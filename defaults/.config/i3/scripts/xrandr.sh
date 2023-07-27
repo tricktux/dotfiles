@@ -47,13 +47,7 @@ elif [[ "$hostname" = "aero" ]]; then
     case "$1" in
     "main")
 		echo "setting up main configuration"
-		/usr/bin/xrandr \
-			--dpi 192 \
-			--output eDP --mode 2560x1600 --rate 60 --pos 0x0 --primary \
-			--output HDMI-A-0 --off \
-			--output DisplayPort-0 --off
-
-		echo "Xft.dpi: 192" | xrdb -merge
+		"$HOME"/.config/xprofile_aero
         ;;
     "tv")
 		echo "setting up tv configuration"
@@ -67,25 +61,8 @@ elif [[ "$hostname" = "aero" ]]; then
         ;;
         "home_dock")
 		echo "setting up home_dock configuration"
-		/usr/bin/xrandr \
-			--dpi 156 \
-			--output eDP --off \
-			--output HDMI-A-0 --mode 3840x2160 --rate 60 --pos 3840x0 \
-			--output DisplayPort-0 --mode 3840x2160 --rate 60 --pos 0x0 --primary
-
-		echo "Xft.dpi: 156" | xrdb -merge
-        ;;
-        "work_dock")
-		echo "setting up work_dock configuration"
-		xrandr \
-			--dpi 156 \
-			--output eDP --off \
-			--output HDMI-A-0 --off \
-			--output DisplayPort-0 --off \
-			--output DisplayPort-1 --mode 3840x2160 --rate 60 --pos 3840x0 \
-			--output DisplayPort-2 --off \
-			--output DisplayPort-3 --mode 3840x2160 --rate 60 --pos 0x0 --primary
-
+		"$HOME"/.screenlayout/home-dock.sh
+		xrandr --dpi 156
 		echo "Xft.dpi: 156" | xrdb -merge
         ;;
 	*)
