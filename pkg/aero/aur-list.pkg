@@ -11,8 +11,6 @@ chromedriver
 cht.sh-git
 cmake-format
 cmake-lint
-displaylink
-evdi
 gdb-dashboard-git
 google-chrome
 hal
@@ -27,8 +25,8 @@ layan-cursor-theme-git
 liquidprompt
 lua-language-server-git
 masterpdfeditor-free
-mkchromecast
-nerd-fonts-inconsolata
+mkchromecast-git
+neovim-git
 numix-gtk-theme
 otf-fira-code-onum-patch
 otf-font-awesome-5
@@ -36,7 +34,6 @@ pandoc-bin
 paper-gtk-theme-git
 paper-icon-theme
 papirus-folders
-papirus-libreoffice-theme
 paru-bin
 pass-import
 pass-update
@@ -47,18 +44,16 @@ qogir-icon-theme
 ranger-git
 riseup-vpn
 rofi-bluetooth-git
-rofi-dmenu
 rofi-file-browser-extended-git
 spotify
 synology-drive
 termite
 ttf-weather-icons
-uair
 vale
 vdhcoapp-bin
 volantes-cursors
 xlayoutdisplay
 z-git
-zeal
+zeal-git
 zoom
 zsh-vi-mode
