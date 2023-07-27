@@ -1,8 +1,10 @@
 xrandr \
- --dpi 228 \
+ --dpi 168 \
+
  --output eDP --mode 2560x1600 --rate 60 --pos 0x0 --primary \
  --output HDMI-A-0 --off \
  --output DisplayPort-0 --off
 
-echo "Xft.dpi: 228" | xrdb -merge
+echo "Xft.dpi: 168" | xrdb -merge
+
 echo "Xcursor.size: 24" | xrdb -merge
