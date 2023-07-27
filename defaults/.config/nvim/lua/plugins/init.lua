@@ -916,4 +916,16 @@ return {
     build = ":MasonUpdate",
     opts = {},
   },
+  { 
+    'simrat39/symbols-outline.nvim',
+    cmd = "SymbolsOutline",
+    keys = {
+      {
+        "<leader>tS",
+        "<cmd>SymbolsOutline<cr>",
+        desc = "symbols-outline",
+      },
+    },
+    opts = {}
+  }
 }
