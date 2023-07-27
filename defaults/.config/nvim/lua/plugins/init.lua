@@ -927,5 +927,10 @@ return {
       },
     },
     opts = {}
-  }
+  },
+{
+'dgagn/diagflow.nvim',
+      event = {"LspAttach"},
+      opts = {},
+    }
 }
