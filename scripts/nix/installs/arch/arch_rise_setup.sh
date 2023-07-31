@@ -233,6 +233,7 @@ sudo chmod 600 /etc/samba/credentials/share
 # CacheDir    = /home/reinaldo/.mnt/skywafer/NetBackup/pacman_cache/x86_64
 # CacheDir    = /var/cache/pacman/pkg/
 sudo nvim /etc/pacman.conf
+# NOTE: This will take a long time
 sudo pacman-key --refresh-keys
 sudo pacman -Syu archlinux-keyring && sudo pacman -Syu
 sudo pacman -S --needed - < ~/.config/dotfiles/pkg/aero/pacman-list.pkg
