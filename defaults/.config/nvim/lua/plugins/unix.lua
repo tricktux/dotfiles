@@ -44,7 +44,7 @@ return {
     "giusgad/hologram.nvim",
     event = "VeryLazy",
     opts = {
-      auto_display = true
+      auto_display = false
     }
   }
 }

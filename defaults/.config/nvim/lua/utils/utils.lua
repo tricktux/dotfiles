@@ -569,4 +569,16 @@ M.term.exec = function(cmd)
   vim.cmd(fcmd)
 end
 
+function M.get_visible_lines(winid)
+  local cursor_pos = vim.api.nvim_win_get_cursor(winid)
+  local cursor_line = cursor_pos[1]
+  local win_height = vim.api.nvim_win_get_height(winid)
+  local start_line = math.max(cursor_line - math.floor(win_height / 2), 1)
+  local end_line = start_line + win_height - 1
+  local buf = vim.api.nvim_win_get_buf(winid)
+  local visible_lines = vim.api.nvim_buf_get_lines(buf, start_line - 1, end_line - 1, false)
+  return { start_line = start_line, end_line = end_line, visible_lines = visible_lines }
+end
+
+
 return M
