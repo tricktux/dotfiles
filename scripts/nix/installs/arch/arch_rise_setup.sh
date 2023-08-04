@@ -1055,7 +1055,7 @@ paci --noconfirm --needed hplip cups cups-pdf simple-scan gtk3-print-backends
 # install most of the optional software that comes along with hplip
 # Follow arch `cups` instructions.
 # look it up in the arch wiki
-sudo systemctl enable --now cups.socket
+sudo systemctl enable --now cups.socket cups.service
 	# - Then go to the web server interface of cups. Sign in as root.
 	# - There you can add printers. Set their default settings.
 	# - And also you need to set the users that can have access to the printer.
