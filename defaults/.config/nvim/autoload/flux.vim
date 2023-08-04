@@ -72,7 +72,7 @@ function! s:get_api_response_file() abort
 	" echomsg 'url = ' l:url
 
 	if !filereadable(s:api_res_path)
-    silent execute "!curl --create-dirs -kfL -o " . s:api_res_path . " \"" . l:url . "\""
+    silent execute "!curl -m 2 --create-dirs -kfL -o " . s:api_res_path . " \"" . l:url . "\""
 	endif
 
 	if !filereadable(s:api_res_path)
