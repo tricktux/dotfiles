@@ -122,6 +122,16 @@ apps["whatsapp"] = {
   exec = [[/usr/bin/firefox https://web.whatsapp.com https://messages.google.com/web&]],
 }
 
+apps["ncpamixer"] = {
+  -- Expression to find this window
+  --  Used by i3ipc
+  regex = '[title=\\"^ncpamixer$\\" class=\\"^kitty$\\"]',
+  -- Command to execute for this window
+  i3cmd = "scratchpad show, resize set 80ppt 60ppt, move position center",
+  -- How to start this application if it does not exists
+  exec = [[$TERMINAL --title ncpamixer /usr/bin/ncpamixer -t c&]],
+}
+
 local function __check_args()
   if not arg[1] or arg[1] == "" or arg[1] == nil then
     print(_usage)
