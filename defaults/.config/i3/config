@@ -381,7 +381,6 @@ client.background       $background
   for_window [class="Galculator"] floating enable
   for_window [window_role="toolbox_window"] floating enable
   for_window [class="Variety"] floating enable
-  for_window [class="qalculate-qt"] floating enable, move to scratchpad
 
 # My-own
   for_window [class="Seafile Client"] floating enable
@@ -413,7 +412,10 @@ client.background       $background
   # for_window [title="^bottom$" class="^kitty$"] move to scratchpad
   # for_window [title="^scratch$" class="^kitty$"] move to scratchpad
   # for_window [title="^Spotify$" class="^Spotify$"] move to scratchpad
-  for_window [title="^Double Commander \d\.\d\.\d.*" class="^Double Commander$"] floating enable, move to scratchpad
+  for_window [title="^Double Commander \d\.\d\.\d.*" class="^Double Commander$"] move to scratchpad
+  for_window [class="^Double Commander$"] floating enable
+  for_window [title="^Qalculate!$" class="qalculate-qt"] move to scratchpad
+  for_window [class="qalculate-qt"] floating enable
   # for_window [title=".*Evolution$" class="^Evolution$"] move to scratchpad
   # for_window [class="^Evolution-alarm-notify$"] floating enable, focus
 
