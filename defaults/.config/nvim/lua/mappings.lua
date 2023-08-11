@@ -218,7 +218,6 @@ M.toggle = {
 	prefix = "<leader>t",
 	virtual = true, -- Used to toggle virtual_text
 	diagnostic = true, -- Used to toggle diagnostic
-  holograms = {},
 }
 M.toggle.mappings = {
 	s = {
@@ -250,42 +249,9 @@ M.toggle.mappings = {
 	},
   i = {
     function()
-      local hol_ok, hol = pcall(require, "hologram")
-      if not hol_ok then
-        -- echo err
-        vim.api.nvim_err_writeln("hologram not installed")
-        return
-      end
-
-      local buf = vim.api.nvim_get_current_buf()
-      local Image = require("hologram.image")
-      local lines = utl.get_visible_lines(0)
-      for n, line in ipairs(lines.visible_lines) do
-        local source = hol.find_source(line)
-        if source ~= nil then
-          local image = Image:new(source, {}, false)
-          image:display(lines.start_line + n, 0, buf, {})
-          table.insert(M.toggle.holograms, image)
-        end
-      end
-
-      if vim.tbl_isempty(M.toggle.holograms) then
-        return
-      end
-
-      -- Setup autocmd to clean up hologram images
-      vim.api.nvim_create_autocmd({ "BufWinLeave", "CursorMoved" }, {
-        callback = function(au)
-          for _, image in pairs(M.toggle.holograms) do
-            image:delete(buf, {free = true})
-          end
-          M.toggle.holograms = {}
-        end,
-        buffer = buf,
-        once = true,
-      })
+      require("plugins.hologram").toggle_hologram_images()
     end,
-    "toggle_images",
+    "toggle_hologram_images",
   },
 }
 
