@@ -48,6 +48,9 @@ elif [[ "$hostname" = "aero" ]]; then
     "main")
 		echo "setting up main configuration"
 		"$HOME"/.config/xprofile_aero
+        for socket in /tmp/kittysocket*; do
+            kitty @ --to unix:$socket set-font-size --all 9
+        done
         ;;
     "tv")
 		echo "setting up tv configuration"
@@ -59,11 +62,14 @@ elif [[ "$hostname" = "aero" ]]; then
 
 		echo "Xft.dpi: 96" | xrdb -merge
         ;;
-        "home_dock")
+    "home_dock")
 		echo "setting up home_dock configuration"
 		"$HOME"/.screenlayout/home-dock.sh
 		xrandr --dpi 156
 		echo "Xft.dpi: 156" | xrdb -merge
+        for socket in /tmp/kittysocket*; do
+            kitty @ --to unix:$socket set-font-size --all 10
+        done
         ;;
 	*)
 		notify-send "xrandr" \
