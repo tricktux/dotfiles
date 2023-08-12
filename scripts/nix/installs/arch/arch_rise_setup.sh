@@ -979,7 +979,8 @@ paci --needed --noconfirm android-tools android-udev
 
 # Bluetooth/Audio {{{
 ## Pipewire
-paci --needed --noconfirm pipewire pipewire-{pulse,jack,alsa,audio} lib32-pipewire wireplumber
+# Do replace pipewire-media-sessions for wireplumber
+paci --needed pipewire pipewire-{pulse,jack,alsa,audio} lib32-pipewire wireplumber
 ## PulseAudio
 # paci --needed --noconfirm pulseaudio pulseaudio-{bluetooth,jack,alsa,equalizer}
 
