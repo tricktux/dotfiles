@@ -428,8 +428,7 @@ paci --needed --noconfirm radeontop
 
 # terminal utils{{{
 paci --needed --noconfirm acpi lm_sensors liquidprompt tldr
-paci --needed --noconfirm {ttf,otf}-fira-{code,mono} {ttf,otf}-font-awesome-5 \
-  nerd-fonts-inconsolata {ttf,otf}-cascadia-code otf-cascadia-code-nerd
+paci --needed {ttf,otf}-fira-{code,mono} {ttf,otf}-font-awesome-5 {ttf,otf}-cascadia-code
 paci --needed --noconfirm ttf-inconsolata
 paci --needed --noconfirm xorg-xfontsel gtk2fontsel
 # Package doesn't exist anymore thumbnailer 
@@ -609,7 +608,7 @@ nvim "$HOME/.config/rofi/$(hostname).rasi"
 nvim "$HOME/.config/i3/scripts/xdotool_launch"
 paci --needed --noconfirm i3-wm i3lock-fancy-git rofi rofi-dmenu alttab-git xdotool 
 paci --needed --noconfirm feh redshift qrencode xclip dunst libnotify
-paci --needed --noconfirm scrot flameshot
+paci --needed --noconfirm scrot flameshot tdrop ncpamixer qalculate-qt
 # Replacement for htop. Execute: btm
 paci --needed --noconfirm htop-vim
 # Compton changed name to picom
@@ -652,7 +651,7 @@ paci --needed --noconfirm noto-fonts-emoji
 paci --needed --noconfirm jsoncpp polybar alsa-utils paprefs
 paci --needed --noconfirm alsa-lib wireless_tools curl pacman-contrib
 paci --needed --noconfirm ttf-weather-icons jq
-paci --needed --noconfirm nerd-fonts-iosevka
+paci --needed --noconfirm ttf-iosevka
 paci --needed --noconfirm python-pywal galendae-git
 wal --theme base16-google -l -q -o "$HOME/.config/polybar/launch.sh"
 # usb automount
