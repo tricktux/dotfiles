@@ -35,8 +35,9 @@ ctags
 cups
 cups-pdf
 dhcpcd
+direnv
 dosfstools
-doublecmd-gtk2
+doublecmd-qt5
 dunst
 earlyoom
 efibootmgr
@@ -106,6 +107,7 @@ lib32-mesa-vdpau
 lib32-mpg123
 lib32-ocl-icd
 lib32-openal
+lib32-pipewire
 lib32-sqlite
 lib32-v4l-utils
 lib32-vulkan-radeon
@@ -154,6 +156,7 @@ npm
 ntfs-3g
 ntp
 numlockx
+obsidian
 ocl-icd
 odt2txt
 openvpn
@@ -189,6 +192,7 @@ python-cpplint
 python-pillow
 python-pip
 python-pywal
+qalculate-qt
 qbittorrent
 radeontop
 rapidjson
@@ -212,6 +216,7 @@ stow
 strace
 stylua
 sudo
+sysstat
 systemd-resolvconf
 texlive-basic
 texlive-bibtexextra
@@ -252,6 +257,7 @@ wget
 wine-staging
 wireguard-tools
 wireless_tools
+wireplumber
 words
 wpa_supplicant
 xclip
