@@ -129,7 +129,7 @@ apps["ncpamixer"] = {
   -- Command to execute for this window
   i3cmd = "scratchpad show, resize set 80ppt 60ppt, move position center",
   -- How to start this application if it does not exists
-  exec = [[$TERMINAL --title ncpamixer /usr/bin/ncpamixer -t c&]],
+  exec = [[$TERMINAL --title ncpamixer ncpamixer -t c&]],
 }
 
 apps["qalculate"] = {
