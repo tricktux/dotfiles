@@ -52,6 +52,12 @@ def plot():
     plt.savefig(r"/tmp/bike.png")
 
 
+def hours_to_minutes(hours):
+    """Converts hours to minutes"""
+    h, m = hours.split(":")
+    return int(h) * 60 + int(m)
+
+
 def plotly(data_file, x_col, col_names, plot_name):
     if not os.path.isfile(data_file):
         print(f"File {data_file} does not exist")
@@ -59,6 +65,9 @@ def plotly(data_file, x_col, col_names, plot_name):
     p = pd.read_csv(data_file)
 
     x = p[x_col] if x_col in p else p.index
+    # Modify the duration column to convert to minutes
+    if "duration" in p:
+        p["duration"] = p["duration"].apply(hours_to_minutes)
 
     img = FigureResampler(go.Figure())
     for col in col_names:
