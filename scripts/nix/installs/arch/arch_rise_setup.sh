@@ -626,7 +626,7 @@ photo.jpeg
 mimeo --add image/jpeg feh.desktop
 
 # open a file with its default application
-$ mimeo photo.jpeg
+mimeo photo.jpeg
 # Sample usage
 # Deprecated
 # `cbatticon `
@@ -845,9 +845,9 @@ sudo sudo bash -c 'printf "blacklist snd_hda_codec_hdmi" > /etc/modprobe.d/no_hd
 # Dark mode, night
 # NOTE: After installing xfce4-settings open the keyboard application and delete 
 # all the xfce shortcuts, they interfere with i3, then reboot
-paci --needed --noconfirm numix-gtk-theme paper-icon-theme \
-  capitaine-cursors lxappearance adapta-gtk-theme paper-gtk-theme-git \
-  xfce4-settings qt5-styleplugins bibata-extra-cursor-theme
+paru -Syu --needed --noconfirm numix-gtk-theme paper-icon-theme
+paru -Syu --needed --noconfirm capitaine-cursors lxappearance adapta-gtk-theme paper-gtk-theme-git
+paru -Syu --needed --noconfirm xfce4-settings qt5-styleplugins bibata-extra-cursor-theme
 # Also modify all these files:
 nvim ~/.gtkrc-2.0
 # gtk-cursor-theme-name="Bibata-Modern-DarkRed"
@@ -859,7 +859,9 @@ nvim ~/.config/gtk-3.0/settings.ini
 # gtk-cursor-theme-name="Bibata-Modern-DarkRed"
 
 paci --needed --noconfirm papirus-icon-theme
-# And then just go to `Customize Look and Feel` 
+# TODO: then just go to `Customize Look and Feel` 
+# Select the `Icons Theme` tab and select `Paper`
+# This will set the right icons in `rofi`
 
 # Task Manager
 
