@@ -10,7 +10,9 @@ cava
 chromedriver
 cht.sh-git
 cmake-format
+cmake-language-server
 cmake-lint
+galendae-git
 gdb-dashboard-git
 google-chrome
 hal
@@ -25,6 +27,7 @@ layan-cursor-theme-git
 liquidprompt
 lua-language-server-git
 masterpdfeditor-free
+mimeo
 mkchromecast-git
 ncpamixer
 neovim-git
@@ -57,6 +60,7 @@ uair
 vale
 vdhcoapp-bin
 volantes-cursors
+xdg-utils-mimeo
 xlayoutdisplay
 ytmdl
 z-git

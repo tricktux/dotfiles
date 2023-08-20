@@ -27,6 +27,7 @@ ccache
 cheese
 cifs-utils
 clang
+cmake
 cmus
 cppcheck
 cpupower
@@ -125,6 +126,7 @@ linux
 linux-firmware
 linux-headers
 lldb
+llvm
 lsof
 luacheck
 lutris
