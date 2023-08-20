@@ -161,7 +161,7 @@ sudo ln -s /home/reinaldo/.config/nvim /root/.config
 # Multi Monitor setup, or for HiDPI displays it's best to auto calculate 
 # resolution
 # ccache to speed up compilations
-paru -Syu --needed ccache
+paru -Syu --needed ccache mold
 paru -Syu --needed xorg-xrandr arandr xlayoutdisplay
 paru -Syu --needed --noconfirm xorg xorg-apps xorg-xinit xorg-drivers xorg-server
 /usr/bin/xlayoutdisplay
