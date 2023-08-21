@@ -246,8 +246,14 @@ M.toggle.mappings = {
 			print(fmt("toggle: vim_diagnostic '%s'", (M.toggle.diagnostic and "enabled" or "disabled")))
 		end,
 		"toggle_vim_diagnostic",
-	},
+  },
   i = {
+    function()
+      require("plugins.hologram").open_first_visible_image()
+    end,
+    "open_first_visible_image",
+  },
+  I = {
     function()
       require("plugins.hologram").toggle_hologram_images()
     end,
