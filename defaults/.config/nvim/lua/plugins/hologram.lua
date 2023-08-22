@@ -24,9 +24,7 @@ M.open_first_visible_image = function()
     return
   end
 
-  local start = utl.has_unix and "xdg-open" or "start"
-  local cmd = {start, img}
-  vim.system(cmd, { detach = true })
+  utl.term.open_file(img)
 end
 
 M.toggle_hologram_images = function()

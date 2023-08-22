@@ -569,6 +569,14 @@ M.term.exec = function(cmd)
   vim.cmd(fcmd)
 end
 
+M.term.open_file = function(file)
+  vim.validate({ file = { file, "s" } })
+
+  local start = M.has_unix and "xdg-open" or "start"
+  local cmd = {start, file}
+  vim.system(cmd, { detach = true })
+end
+
 function M.get_visible_lines(winid)
   local cursor_pos = vim.api.nvim_win_get_cursor(winid)
   local cursor_line = cursor_pos[1]
