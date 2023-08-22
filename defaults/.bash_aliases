@@ -11,6 +11,9 @@ machine=$(hostname)
 server_ip='192.168.128.128'
 aur_helper='paru'
 
+#ranger
+alias r=ranger_cd
+
 # ytfzf
 alias ytfzf-tonymcguiness="ytfzf -mr -c youtube-playlist 'https://www.youtube.com/playlist?list=PL6RLee9oArCC9V1FlRexG_6F2KNo143I8'"
 alias ytfzf-noraenpure="ytfzf -mr -c youtube-playlist 'https://www.youtube.com/playlist?list=PL-Wt-lDOPUzHBDXm8ODmax9oHhVX6YtEb'"
@@ -283,6 +286,16 @@ FuncUpdate() {
 		fi
 	done
 	cd
+}
+
+# Comes from /usr/share/doc/ranger/examples/shell_automatic_cd.sh
+ranger_cd() {
+    temp_file="$(mktemp -t "ranger_cd.XXXXXXXXXX")"
+    ranger --choosedir="$temp_file" -- "${@:-$PWD}"
+    if chosen_dir="$(cat -- "$temp_file")" && [ -n "$chosen_dir" ] && [ "$chosen_dir" != "$PWD" ]; then
+    cd -- "$chosen_dir"
+    fi
+    rm -f -- "$temp_file"
 }
 
 # mylist.txt looks like this:

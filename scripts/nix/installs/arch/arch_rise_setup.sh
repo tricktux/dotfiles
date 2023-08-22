@@ -433,6 +433,8 @@ paci --needed --noconfirm ttf-inconsolata
 paci --needed --noconfirm xorg-xfontsel gtk2fontsel
 # Package doesn't exist anymore thumbnailer 
 paci --needed --noconfirm atool ranger-git zip unzip w3m ffmpeg highlight libcaca python-pillow
+# TODO: For ranger to have icons
+git clone https://github.com/cdump/ranger-devicons2 ~/.config/ranger/plugins/devicons2
 
 paci --needed --noconfirm atuin direnv
 # Either restore the local/share/atuin folder from the backups
