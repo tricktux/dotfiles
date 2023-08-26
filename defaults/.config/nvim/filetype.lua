@@ -33,6 +33,7 @@ log.info('Setting lua filetypes...')
 vim.filetype.add({
   extension = {
     -- h = is_cpp,
+    Vhd = "vhdl",
     CPP = "cpp",
     ino = "arduino",
     pde = "arduino",
