@@ -19,7 +19,7 @@ local function disable(lang, bufnr)
   end
 
   -- Disable TS for cpp window files bigger than 10kb
-  local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
+  local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(bufnr))
   if ok and stats and stats.size > max_filesize then
     local msg = "[TreeSitter]: Highlight disabled, file is bigger than '" .. max_filesize / 1024 .. "Kb'"
     vim.notify(msg, vim.log.levels.WARN)
@@ -116,11 +116,6 @@ function M:setup()
   end
   local tsconf = require 'nvim-treesitter.configs'
   tsconf.setup(self.__config)
-  vim.api.nvim_create_autocmd('Filetype', {
-    callback = ensure_parser_installed,
-    pattern = '*',
-    desc = 'Ask to install treesitter',
-  })
 end
 
 return {
