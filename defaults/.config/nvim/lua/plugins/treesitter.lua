@@ -124,6 +124,13 @@ return {
     event = "BufReadPost",
     version = false, -- last release is way too old and doesn't work on Windows
     build = ":TSUpdate",
+    init = function()
+      local opts = { silent = true, desc = 'treesitter_toggle_buffer' }
+      vim.keymap.set('n', '<leader>tt', [[<cmd>TSBufToggle<cr>]], opts)
+      vim.opt.foldmethod = "expr"
+      vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+      vim.opt.indentexpr = "nvim_treesitter#indent()"
+    end,
     config = function()
       M:setup()
     end,
