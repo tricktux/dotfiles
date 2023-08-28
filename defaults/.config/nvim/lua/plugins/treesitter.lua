@@ -19,7 +19,8 @@ local function disable(lang, bufnr)
   end
 
   -- Disable TS for cpp window files bigger than 10kb
-  local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(bufnr))
+  local stat = vim.fn.has("0.10.0") > 0 and vim.uv.fs_stat or vim.loop.fs_stat
+  local ok, stats = pcall(stat, vim.api.nvim_buf_get_name(bufnr))
   if ok and stats and stats.size > max_filesize then
     local msg = "[TreeSitter]: Highlight disabled, file is bigger than '" .. max_filesize / 1024 .. "Kb'"
     vim.notify(msg, vim.log.levels.WARN)

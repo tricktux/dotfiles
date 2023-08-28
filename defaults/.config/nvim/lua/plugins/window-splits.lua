@@ -91,6 +91,13 @@ local windows = {
 	"anuvyklack/windows.nvim",
 	event = "VeryLazy",
 	dependencies = "anuvyklack/middleclass",
+	keys = {
+		{
+			"<leader>tw",
+			"<cmd>WindowsToggleAutowidth<cr>",
+			desc = "windows_split_mode_toggle_mappings",
+		},
+	},
 	opts = {
 		autowidth = { --		       |windows.autowidth|
 			enable = true,

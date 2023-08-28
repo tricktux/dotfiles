@@ -234,7 +234,7 @@ return {
 			--[[ on_close = function()
     end, ]]
 		},
-  },
+	},
 	{
 		"justinmk/vim-sneak",
 		event = "VeryLazy",
@@ -797,7 +797,7 @@ return {
 		"folke/zen-mode.nvim",
 		cmd = "ZenMode",
 		keys = {
-			{ "<leader>tz", "<cmd>ZenMode<cr>", desc = "zen-mode" },
+			{ "<plug>focus_toggle", "<cmd>ZenMode<cr>", desc = "zen-mode" },
 		},
 		opts = {
 			plugins = {
