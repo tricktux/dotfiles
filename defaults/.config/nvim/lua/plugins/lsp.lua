@@ -93,7 +93,7 @@ function M.set_lsp_mappings(bufnr)
 
 	local hov_ok, hov = pcall(require, "pretty_hover")
 	if hov_ok then
-    vks("n", "<localleader>h", hov.hover, { silent = true, buffer = true })
+		vks("n", "<localleader>h", hov.hover, { silent = true, buffer = true })
 	end
 end
 
@@ -125,16 +125,16 @@ function M.on_lsp_attach(client_id, bufnr)
 	end
 
 	local id = vim.api.nvim_create_augroup("LspStuff", { clear = true })
-  if vim.fn.has("nvim-0.10") > 0 and client_id.server_capabilities.inlayHintProvider then
-    vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
-      callback = function()
-        vim.lsp.inlay_hint(bufnr, true)
-      end,
-      buffer = bufnr,
-      desc = "Highlight inlay hints",
-      group = id,
-    })
-  end
+	if vim.fn.has("nvim-0.10") > 0 and client_id.server_capabilities.inlayHintProvider then
+		vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+			callback = function()
+				vim.lsp.inlay_hint(bufnr, true)
+			end,
+			buffer = bufnr,
+			desc = "Highlight inlay hints",
+			group = id,
+		})
+	end
 	if client_id.server_capabilities.codeLensProvider then
 		vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
 			callback = vim.lsp.codelens.refresh,
@@ -204,9 +204,9 @@ function M:config()
 					telemetry = {
 						enable = false,
 					},
-          hint = {
-            enable = true
-          },
+					hint = {
+						enable = true,
+					},
 				},
 			},
 		})
@@ -225,18 +225,18 @@ function M:config()
 		})
 	end
 
-  if vim.fn.executable("ruff-lsp") > 0 then
-    log.info("setting up the ruff lsp...")
+	if vim.fn.executable("ruff-lsp") > 0 then
+		log.info("setting up the ruff lsp...")
 
-    nvim_lsp.ruff_lsp.setup{
-        init_options = {
-          settings = {
-            -- Any extra CLI arguments for `ruff` go here.
-            args = {},
-          }
-        }
-    }
-  elseif vim.fn.executable("pyright-langserver") > 0 then
+		nvim_lsp.ruff_lsp.setup({
+			init_options = {
+				settings = {
+					-- Any extra CLI arguments for `ruff` go here.
+					args = {},
+				},
+			},
+		})
+	elseif vim.fn.executable("pyright-langserver") > 0 then
 		-- cinst nodejs-lts -y
 		-- npm install -g pyright
 		log.info("setting up the pyright lsp...")
@@ -247,15 +247,15 @@ function M:config()
 		})
 	end
 
-  if vim.fn.executable("remark-language-server") > 0 then
-    log.info("setting up the remark-language-server lsp...")
-    nvim_lsp.remark_ls.setup({})
-  end
+	if vim.fn.executable("remark-language-server") > 0 then
+		log.info("setting up the remark-language-server lsp...")
+		nvim_lsp.remark_ls.setup({})
+	end
 
-  if vim.fn.executable("bash-language-server") > 0 then
-    log.info("setting up the bash-language-server lsp...")
-    nvim_lsp.bashls.setup({})
-  end
+	if vim.fn.executable("bash-language-server") > 0 then
+		log.info("setting up the bash-language-server lsp...")
+		nvim_lsp.bashls.setup({})
+	end
 
 	if vim.fn.executable("cmake-language-server") > 0 then
 		log.info("setting up the cmake-language-server lsp...")
@@ -288,7 +288,7 @@ function M:config()
 			},
 		}
 
-    nvim_lsp.clangd.setup(settings)
+		nvim_lsp.clangd.setup(settings)
 	end
 
 	if vim.fn.executable("rust-analyzer") > 0 then
@@ -314,9 +314,9 @@ function M:config()
 		})
 	end
 
-  if vim.fn.executable("zig") > 0 then
-    nvim_lsp.zls.setup{}
-  end
+	if vim.fn.executable("zig") > 0 then
+		nvim_lsp.zls.setup({})
+	end
 end
 
 return {
@@ -327,11 +327,11 @@ return {
 	end,
 	dependencies = {
 		"ray-x/lsp_signature.nvim",
-    {
-      "Fildo7525/pretty_hover",
-      event = "LspAttach",
-      opts = {},
-    },
+		{
+			"Fildo7525/pretty_hover",
+			event = "LspAttach",
+			opts = {},
+		},
 		"hrsh7th/cmp-nvim-lsp",
 		{
 			"smjonas/inc-rename.nvim",
@@ -339,7 +339,7 @@ return {
 		},
 		{
 			"j-hui/fidget.nvim",
-      tag = "legacy",
+			tag = "legacy",
 			opts = {
 				windows = {
 					blend = 0,
