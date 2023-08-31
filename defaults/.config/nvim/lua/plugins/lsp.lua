@@ -127,8 +127,8 @@ function M.on_lsp_attach(client_id, bufnr)
 	local id = vim.api.nvim_create_augroup("LspStuff", { clear = true })
 	if vim.fn.has("nvim-0.10") > 0 and client_id.server_capabilities.inlayHintProvider then
 		vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
-			callback = function()
-				vim.lsp.inlay_hint(bufnr, true)
+			callback = function(au)
+				vim.lsp.inlay_hint(au.buf, true)
 			end,
 			buffer = bufnr,
 			desc = "Highlight inlay hints",
