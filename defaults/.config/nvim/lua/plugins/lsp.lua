@@ -128,7 +128,7 @@ function M.on_lsp_attach(client_id, bufnr)
 	if vim.fn.has("nvim-0.10") > 0 and client_id.server_capabilities.inlayHintProvider then
 		vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
 			callback = function(au)
-				vim.lsp.inlay_hint(au.buf, true)
+				vim.lsp.inlay_hint(0, true)
 			end,
 			buffer = bufnr,
 			desc = "Highlight inlay hints",
@@ -299,12 +299,21 @@ function M:config()
 			capabilities = capabilities,
 			settings = {
 				["rust-analyzer"] = {
+					imports = {
+						granularity = {
+							group = "module",
+						},
+						prefix = "self",
+					},
 					assist = {
 						importGranularity = "module",
 						importPrefix = "by_self",
 					},
 					cargo = {
 						loadOutDirsFromCheck = true,
+						buildScripts = {
+							enable = true,
+						},
 					},
 					procMacro = {
 						enable = true,
