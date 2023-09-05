@@ -22,6 +22,14 @@ local oil_start_entry = function()
 	utl.term.open_file(f:absolute())
 end
 
+local nvim_open_win_override = function(conf)
+  local lines = utl.get_visible_lines(0)
+  local s = lines.start_line
+  local e = lines.end_line
+  local h = math.floor((e - s) * 0.8)
+  conf.height = h
+end
+
 return {
 	"stevearc/oil.nvim",
 	keys = {
@@ -75,6 +83,7 @@ return {
 			win_options = {
 				winblend = 0,
 			},
+      override = nvim_open_win_override,
 		},
 		keymaps = {
 			["g?"] = "actions.show_help",
