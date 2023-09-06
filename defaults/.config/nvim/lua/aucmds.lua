@@ -4,8 +4,8 @@ local api = vim.api
 local M = {}
 
 local function set_text_settings()
-  vim.opt_local.wrap = true
-  vim.opt_local.spell = true
+	vim.opt_local.wrap = true
+	vim.opt_local.spell = true
 	vim.opt.conceallevel = 0
 	vim.opt.textwidth = 0
 	vim.opt.foldenable = true
@@ -69,15 +69,15 @@ M.setup = function()
 		desc = "Better go to files for wings filetypes",
 		group = id,
 	})
-  api.nvim_create_autocmd("FileType", {
-    callback = function()
-      log.info("orgagenda autocmd called")
-      vim.opt_local.cursorline = true
-    end,
-    pattern = {"qf", "csv"},
-    desc = "Set cursor line where it makes sense",
-    group = id,
-  })
+	api.nvim_create_autocmd("FileType", {
+		callback = function()
+			log.info("orgagenda autocmd called")
+			vim.opt_local.cursorline = true
+		end,
+		pattern = { "qf", "csv" },
+		desc = "Set cursor line where it makes sense",
+		group = id,
+	})
 	api.nvim_create_autocmd("FileType", {
 		callback = function()
 			log.info("markdown autocmd called")
