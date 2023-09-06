@@ -59,6 +59,18 @@ M.setup = function()
 		group = id,
 	})
 
+	api.nvim_create_autocmd("TermClose", {
+		group = id,
+		callback = function()
+			if vim.v.event.status == 0 then
+				vim.api.nvim_buf_delete(0, {})
+				vim.notify_once("Previous terminal job was successful!")
+			else
+				vim.notify_once("Error code detected in the current terminal job!")
+			end
+		end,
+	})
+
 	id = api.nvim_create_augroup("FiletypesLua", { clear = true })
 	api.nvim_create_autocmd("FileType", {
 		callback = function()
