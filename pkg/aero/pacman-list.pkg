@@ -139,6 +139,7 @@ mediainfo
 meld
 mesa-vdpau
 mkinitcpio
+mold
 mosh
 mplayer
 mpv
@@ -237,10 +238,12 @@ tldr
 tmux
 todoman
 ttf-cascadia-code
+ttf-cascadia-code-nerd
 ttf-fira-code
 ttf-fira-mono
 ttf-font-awesome
 ttf-inconsolata
+ttf-inconsolata-nerd
 udisks2
 unzip
 urlscan
@@ -330,10 +333,10 @@ xorg-xwd
 xorg-xwininfo
 xorg-xwud
 xss-lock
-youtube-dl
 ytfzf
 zathura
 zathura-pdf-mupdf
+zig
 zip
 zsh
 zsh-autosuggestions
