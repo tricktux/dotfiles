@@ -11,7 +11,7 @@ local function set_lsp_options(client_id, bufnr)
 	end
 	vim.bo[bufnr].formatexpr = "v:lua.vim.lsp.formatexpr"
 	vim.bo[bufnr].omnifunc = ""
-  local dp = client_id.server_capabilities.definitionProvider
+	local dp = client_id.server_capabilities.definitionProvider
 	if dp then
 		vim.bo[bufnr].tagfunc = "v:lua.vim.lsp.tagfunc"
 	end
@@ -99,29 +99,30 @@ function M.set_lsp_mappings(bufnr)
 end
 
 local lsp_init_check = function(client_id, bufnr)
-  vim.validate({ client_id = { client_id, "table" }, bufnr = { bufnr, "number" } })
+	vim.validate({ client_id = { client_id, "table" }, bufnr = { bufnr, "number" } })
 
 	if vim.b.did_on_lsp_attach == 1 then
-    return true
-  end
+		return true
+	end
 
-  vim.b.did_on_lsp_attach = 1
-  return false
+	vim.b.did_on_lsp_attach = 1
+	return false
 end
-
 
 -- Abstract function that allows you to hook and set settings on a buffer that
 -- has lsp server support
 function M.on_lsp_attach(client_id, bufnr)
-  if lsp_init_check(client_id, bufnr) then return end
+	if lsp_init_check(client_id, bufnr) then
+		return
+	end
 
 	M.set_lsp_mappings(bufnr)
 	set_lsp_options(client_id, bufnr)
 
-  local dhp = client_id.server_capabilities.documentHighlightProvider
-  local dsp = client_id.server_capabilities.documentSymbolProvider
-  local clp = client_id.server_capabilities.codeLensProvider.resolveProvider
-  local ihp = client_id.server_capabilities.inlayHintProvider.resolveProvider
+	local dhp = client_id.server_capabilities.documentHighlightProvider
+	local dsp = client_id.server_capabilities.documentSymbolProvider
+	local clp = client_id.server_capabilities.codeLensProvider.resolveProvider
+	local ihp = client_id.server_capabilities.inlayHintProvider.resolveProvider
 
 	local sig_ok, sig = pcall(require, "lsp_signature")
 	if sig_ok then
@@ -129,22 +130,22 @@ function M.on_lsp_attach(client_id, bufnr)
 	end
 
 	if dsp then
-    local nav_ok, nav = pcall(require, "nvim-navic")
-    if nav_ok then
-      nav.attach(client_id, bufnr)
-    end
+		local nav_ok, nav = pcall(require, "nvim-navic")
+		if nav_ok then
+			nav.attach(client_id, bufnr)
+		end
 	end
 
 	local id = vim.api.nvim_create_augroup("LspStuff", { clear = true })
-  vim.api.nvim_create_autocmd({"LspDetach"}, {
-    callback = function(au)
-      vim.b.did_on_lsp_attach = nil
-      vim.cmd("setlocal tagfunc< omnifunc< formatexpr<")
-    end,
-    buffer = bufnr,
-    desc = "Detach from buffer",
-    group = id,
-  })
+	vim.api.nvim_create_autocmd({ "LspDetach" }, {
+		callback = function(au)
+			vim.b.did_on_lsp_attach = nil
+			vim.cmd("setlocal tagfunc< omnifunc< formatexpr<")
+		end,
+		buffer = bufnr,
+		desc = "Detach from buffer",
+		group = id,
+	})
 	if vim.fn.has("nvim-0.10") > 0 and ihp then
 		vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
 			callback = function(au)
@@ -181,7 +182,9 @@ function M.on_lsp_attach(client_id, bufnr)
 end
 
 local function on_clangd_attach(client_id, bufnr)
-  if lsp_init_check(client_id, bufnr) then return end
+	if lsp_init_check(client_id, bufnr) then
+		return
+	end
 
 	local opts = { silent = true, buffer = bufnr, desc = "clangd_switch_source_header" }
 	vim.keymap.set("n", "<localleader>a", [[<cmd>ClangdSwitchSourceHeader<cr>]], opts)
@@ -216,11 +219,6 @@ function M:config()
 						-- Get the language server to recognize the `vim` global
 						globals = { "vim" },
 					},
-					--[[ workspace = {
-						-- Make the server aware of Neovim runtime files
-						-- library = os.getenv("VIMRUNTIME"),
-            -- library = vim.api.nvim_get_runtime_file("", true),
-					}, ]]
 					-- Do not send telemetry data containing a randomized but unique identifier
 					telemetry = {
 						enable = false,
