@@ -296,8 +296,9 @@ print_errors() {
 
 update_npm() {
 	if [[ -f /usr/bin/npm ]]; then
-		/usr/bin/npm update -g
-	fi
+        /usr/bin/npm cache verify
+        /usr/bin/npm update -g
+    fi
 }
 
 diff_new_configs() {
