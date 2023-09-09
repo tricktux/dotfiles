@@ -145,6 +145,7 @@ mediainfo
 meld
 meson
 mkinitcpio
+mold
 mono
 mosh
 mpv
@@ -182,6 +183,7 @@ patch
 pavucontrol
 pcmanfm
 pdfgrep
+picom
 pipewire
 pipewire-alsa
 pipewire-jack
@@ -197,6 +199,7 @@ python-cpplint
 python-pip
 python-pycuda
 python-pywal
+qalculate-qt
 qrencode
 rapidjson
 redshift
@@ -323,7 +326,6 @@ xorg-xwd
 xorg-xwininfo
 xorg-xwud
 xss-lock
-youtube-dl
 ytfzf
 zathura
 zathura-pdf-mupdf
