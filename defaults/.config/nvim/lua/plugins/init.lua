@@ -699,6 +699,15 @@ return {
 					close = { "<C-c>" },
 				},
 			},
+			openai_params = {
+				model = "gpt-3.5-turbo",
+				frequency_penalty = 0,
+				presence_penalty = 0,
+				max_tokens = 3000,
+				temperature = 0,
+				top_p = 1,
+				n = 1,
+			},
 			popup_layout = {
 				default = "right",
 				center = {
@@ -714,22 +723,13 @@ return {
 		dependencies = {
 			"MunifTanjim/nui.nvim",
 			"nvim-lua/plenary.nvim",
+			"nvim-lua/telescope.nvim",
 		},
 	},
 	{
 		"dpayne/CodeGPT.nvim",
 		cmd = { "Chat" },
-		opts = {
-			openai_params = {
-				model = "gpt-3.5-turbo",
-				frequency_penalty = 0,
-				presence_penalty = 0,
-				max_tokens = 12000,
-				temperature = 0,
-				top_p = 1,
-				n = 1,
-			},
-		},
+		opts = {},
 		dependencies = {
 			"MunifTanjim/nui.nvim",
 			"nvim-lua/plenary.nvim",
