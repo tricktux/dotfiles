@@ -540,7 +540,7 @@ M.term.exec = function(cmd)
     cmd = M.table.string_to_table(cmd)
   end
   vim.validate({ cmd = { cmd, "t" } })
-  log.info(fmt("term.exec.cmd = %s", vim.print(cmd)))
+  log.info(fmt("term.exec.cmd = %s", vim.inspect(cmd)))
   if os.getenv("KITTY_WINDOW_ID") ~= nil and M.term.kitty_get_number_of_windows_in_current_tab() > 1 then
     local f = { "/usr/bin/kitty", "@", "send-text", "--match", "recent:1" }
     for _, c in ipairs(cmd) do
