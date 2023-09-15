@@ -23,11 +23,12 @@ local oil_start_entry = function()
 end
 
 local nvim_open_win_override = function(conf)
-  local lines = utl.get_visible_lines(0)
-  local s = lines.start_line
-  local e = lines.end_line
-  local h = math.floor((e - s) * 0.8)
-  conf.height = h
+	local lines = utl.get_visible_lines(0)
+	local s = lines.start_line
+	local e = lines.end_line
+	conf.height = math.floor((e - s) * 0.8)
+	conf.row = math.floor((e - s) * 0.1)
+	vim.print(vim.inspect(conf))
 end
 
 return {
@@ -53,6 +54,7 @@ return {
 		})
 	end,
 	opts = {
+		default_file_explorer = true,
 		win_options = {
 			wrap = false,
 			signcolumn = "no",
@@ -83,7 +85,7 @@ return {
 			win_options = {
 				winblend = 0,
 			},
-      override = nvim_open_win_override,
+			override = nvim_open_win_override,
 		},
 		keymaps = {
 			["g?"] = "actions.show_help",
