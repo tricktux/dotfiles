@@ -29,6 +29,7 @@
   "inc-rename.nvim": { "branch": "main", "commit": "ed0f6f2b917cac4eb3259f907da0a481b27a3b7e" },
   "indent-blankline.nvim": { "branch": "master", "commit": "9637670896b68805430e2f72cf5d16be5b97a22a" },
   "jupyter_ascending.vim": { "branch": "master", "commit": "8b0f533fbf7f48d12feddedc10b78c53afa41bc2" },
+  "kitty-scrollback.nvim": { "branch": "main", "commit": "e696951f508ba5a7f726c678028a39ec1c3efaa2" },
   "kommentary": { "branch": "main", "commit": "3a80117148c6798972bb69414423311ab151d368" },
   "lazy.nvim": { "branch": "main", "commit": "2a9354c7d2368d78cbd5575a51a2af5bd8a6ad01" },
   "lazygit.nvim": { "branch": "main", "commit": "75c920883f44243f2bbb172be423e484a58f7c45" },
