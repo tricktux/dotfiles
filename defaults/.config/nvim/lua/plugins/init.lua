@@ -273,7 +273,7 @@ return {
       { "<plug>comment_line", "<plug>kommentary_line_default", desc = "kommentary_line_default" },
       {
         "<bs>",
-        "<Plug>kommentary_visual_default",
+        "<Plug>kommentary_visual_default<C-c>",
         mode = { "x", "v" },
         desc = "kommentary_line_visual",
       },
