@@ -41,7 +41,7 @@
   },
   {
     "name": "📎 polybar relaunch/restart",
-    "command": "exec $HOME/.config/polybar/scripts/launch.sh"
+    "command": "exec polybar-msg cmd restart"
   },
   {
     "name": "📎 dunst relaunch/restart",

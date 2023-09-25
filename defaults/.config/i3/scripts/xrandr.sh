@@ -145,6 +145,6 @@ fi
 i3-msg restart
 "$HOME/.config/i3/scripts/i3-workspace-output"
 "$HOME/.config/i3/scripts/xset.sh"
-"$HOME/.config/polybar/scripts/launch.sh"
+polybar-msg cmd restart
 notify-send "xrandr" "Configuration '$1' set!" -a 'arandr'
 exit 0
