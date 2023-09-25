@@ -6,6 +6,7 @@
 local home = vim.loop.os_homedir()
 local data_folders = { [[/sessions]], [[/ctags]] }
 local cache_folders = { [[/backup]], [[/undo]] }
+local fs = vim.fs
 
 local function set_globals()
 	-- Mon Oct 30 2017 15:24: Patched fonts depend on this option. It also needs
@@ -66,21 +67,21 @@ end
 local function _config_win()
 	vim.cmd([[silent! call serverstart('\\.\pipe\nvim-pipe-88888')]])
 
-  vim.g.dotfiles = os.getenv("APPDATA") .. "/dotfiles"
+  vim.g.dotfiles = fs.joinpath(os.getenv("APPDATA"), "dotfiles")
 	-- Find python
-	local py = vim.fn.stdpath("data") .. [[\pyvenv\Scripts]]
-	if vim.fn.isdirectory(py) <= 0 then
+  local py = fs.joinpath(vim.fn.stdpath("data"), [[pyvenv\Scripts]])
+  if vim.loop.fs_stat(py) == nil then
 		vim.api.nvim_err_writeln("ERROR: Failed to find python venv: " .. py)
 	else
-		vim.g.python3_host_prog = py .. [[\python.exe]]
+    vim.g.python3_host_prog = fs.joinpath(py,  [[python.exe]])
 	end
 end
 
 local function _config_unix()
 	vim.cmd([[silent! call serverstart('/tmp/nvim.socket')]])
 
-  vim.g.dotfiles = home .. "/.config/dotfiles"
-  local py = vim.fs.normalize('$XDG_DATA_HOME/pyvenv/nvim/bin/python')
+  vim.g.dotfiles = fs.joinpath(home, ".config/dotfiles")
+  local py = fs.normalize('$XDG_DATA_HOME/pyvenv/nvim/bin/python')
   if vim.loop.fs_stat(py) ~= nil then
     vim.g.python3_host_prog = py
   else
@@ -95,10 +96,10 @@ local function init_os()
 
 	-- Create needed directories if they don't exist already
 	for _, folder in pairs(data_folders) do
-    vim.fn.mkdir(vim.fn.stdpath("data") .. folder, "p")
+    vim.fn.mkdir(fs.joinpath(vim.fn.stdpath("data"), folder), "p")
 	end
 	for _, folder in pairs(cache_folders) do
-    vim.fn.mkdir(vim.fn.stdpath("cache") .. folder, "p")
+    vim.fn.mkdir(fs.joinpath(vim.fn.stdpath("cache"), folder), "p")
 	end
 end
 
