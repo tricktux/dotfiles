@@ -14,19 +14,23 @@ M.find_source = function(line, sources)
 		return path:exists() and path:is_file()
 	end
 
-	for _, source in pairs(sources) do
-		for _, pattern in pairs(source) do
-			local inline_link = string.match(line, pattern[1])
-			if inline_link then
-				local path = pl:new(string.match(inline_link, pattern[2]))
-				-- Check if we have a root path in a cross platform way
-				if check_file(path) then
-					vim.print("File: '" .. path:absolute() .. "' found")
-					return path:absolute()
-				end
-			end
-		end
-	end
+  local ft = vim.api.nvim_buf_get_option(0, "filetype")
+  if M.sources[ft] == nil then
+    -- vim.api.nvim_err_writeln("No sources for filetype: " .. ft)
+    return nil
+  end
+
+  for _, pattern in pairs(M.sources[ft]) do
+    local inline_link = string.match(line, pattern[1])
+    if inline_link then
+      local path = pl:new(string.match(inline_link, pattern[2]))
+      -- Check if we have a root path in a cross platform way
+      if check_file(path) then
+        vim.print("File: '" .. path:absolute() .. "' found")
+        return path:absolute()
+      end
+    end
+  end
 
 	return nil
 end
