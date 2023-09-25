@@ -569,11 +569,11 @@ M.term.exec = function(cmd)
   vim.cmd(fcmd)
 end
 
-M.term.open_file = function(file)
-  vim.validate({ file = { file, "s", false } })
+M.term.open_uri = function(uri)
+  vim.validate({ uri = { uri, "s", false } })
 
   local start = M.has_unix and "xdg-open" or "start"
-  local cmd = {start, file}
+  local cmd = {start, uri}
   vim.system(cmd, { detach = true })
 end
 

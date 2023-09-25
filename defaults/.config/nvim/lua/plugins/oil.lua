@@ -19,7 +19,7 @@ local oil_start_entry = function()
 		return
 	end
 
-	utl.term.open_file(f:absolute())
+	utl.term.open_uri(f:absolute())
 end
 
 local nvim_open_win_override = function(conf)

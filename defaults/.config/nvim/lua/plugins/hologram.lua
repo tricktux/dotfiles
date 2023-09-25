@@ -11,7 +11,7 @@ M.open_first_visible_image = function()
     return
   end
 
-  utl.term.open_file(img)
+  utl.term.open_uri(img)
 end
 
 M.toggle_hologram_images = function()
