@@ -249,7 +249,8 @@ M.toggle.mappings = {
   },
   i = {
     function()
-      require("plugins.hologram").open_first_visible_image()
+      local line = vim.fn.getline(".")
+      require("utils.filesystem").open_source_in_line(line)
     end,
     "open_first_visible_image",
   },

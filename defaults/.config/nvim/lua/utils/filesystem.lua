@@ -1,6 +1,19 @@
 local M = {}
 local utl = require("utils.utils")
 
+M.sources = {
+  -- First table is find image, second table is extract filename from match
+  md = {
+    { "!%[.-%]%(.-%)", "%((.+)%)" },
+    { "!%[%[.-%]%]", "!%[%[(.-)%]%]" },
+  },
+  org = {
+    { "%[%[.-%]%]", "%[%[(.-)%]%]" },
+    { "%[%[.-%]%[.-%]%]", "%[%[(.-)%]%[.-%]%]" },
+    { "%[%[.-%]%[.-%]%]", "%[%[file:(.-)%]%[.-%]%]" },
+  },
+}
+
 M.find_source = function(line, sources)
 	vim.validate({ line = { line, "s" }, sources = { sources, "t" } })
 
@@ -33,6 +46,23 @@ M.find_source = function(line, sources)
   end
 
 	return nil
+end
+
+M.open_source_in_line = function(line)
+  vim.validate({ line = { line, "s", false } })
+  local source = M.find_source(line, M.sources)
+  if source ~= nil then
+    utl.term.open_file(source)
+    return
+  end
+
+  local plok, pl = pcall(require, "plenary.path")
+  if not plok then
+    vim.api.nvim_err_writeln("Failed to load plenary.path")
+    return
+  end
+  source = pl:new(line):absolute()
+  utl.term.open_file(source)
 end
 
 M.search_for_first_visible_source = function(sources)

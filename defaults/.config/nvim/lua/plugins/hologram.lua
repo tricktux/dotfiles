@@ -2,23 +2,10 @@ local M = {}
 local utl = require("utils.utils")
 local fs = require("utils.filesystem")
 
-M.sources = {
-	-- First table is find image, second table is extract filename from match
-	md = {
-		{ "!%[.-%]%(.-%)", "%((.+)%)" },
-		{ "!%[%[.-%]%]", "!%[%[(.-)%]%]" },
-	},
-	org = {
-		{ "%[%[.-%]%]", "%[%[(.-)%]%]" },
-    { "%[%[.-%]%[.-%]%]", "%[%[(.-)%]%[.-%]%]" },
-    { "%[%[.-%]%[.-%]%]", "%[%[file:(.-)%]%[.-%]%]" },
-	},
-}
-
 M.holograms = {}
 
 M.open_first_visible_image = function()
-  local img = fs.search_for_first_visible_source(M.sources)
+  local img = fs.search_for_first_visible_source(fs.sources)
   if img == nil then
     vim.print("No sources found")
     return
@@ -34,7 +21,7 @@ M.toggle_hologram_images = function()
 		return
 	end
 
-  local img = fs.search_for_first_visible_source(M.sources)
+  local img = fs.search_for_first_visible_source(fs.sources)
   if img == nil then
     vim.print("No sources found")
     return
