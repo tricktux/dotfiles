@@ -2,16 +2,16 @@ local M = {}
 local utl = require("utils.utils")
 
 M.sources = {
-  -- First table is find image, second table is extract filename from match
-  md = {
-    { "!%[.-%]%(.-%)", "%((.+)%)" },
-    { "!%[%[.-%]%]", "!%[%[(.-)%]%]" },
-  },
-  org = {
-    { "%[%[.-%]%]", "%[%[(.-)%]%]" },
-    { "%[%[.-%]%[.-%]%]", "%[%[(.-)%]%[.-%]%]" },
-    { "%[%[.-%]%[.-%]%]", "%[%[file:(.-)%]%[.-%]%]" },
-  },
+	-- First table is find image, second table is extract filename from match
+	md = {
+		"!%[.-%]%((.-)%)",
+		"!%[%[(.-)%]%]",
+	},
+	org = {
+    "%[%[(.-)%]%]",
+    "%[%[(.-)%]%[.-%]%]",
+    "%[%[file: (.-)%]%[.-%]%]",
+	},
 }
 
 M.find_source = function(line, sources)
@@ -27,42 +27,55 @@ M.find_source = function(line, sources)
 		return path:exists() and path:is_file()
 	end
 
-  local ft = vim.api.nvim_buf_get_option(0, "filetype")
-  if M.sources[ft] == nil then
-    -- vim.api.nvim_err_writeln("No sources for filetype: " .. ft)
-    return nil
-  end
+	local ft = vim.api.nvim_buf_get_option(0, "filetype")
+	if M.sources[ft] == nil then
+		vim.api.nvim_err_writeln("No sources for filetype: " .. ft)
+		return nil
+	end
 
-  for _, pattern in pairs(M.sources[ft]) do
-    local inline_link = string.match(line, pattern[1])
-    if inline_link then
-      local path = pl:new(string.match(inline_link, pattern[2]))
-      -- Check if we have a root path in a cross platform way
+  -- vim.print("Filetype: " .. ft)
+	for _, pattern in pairs(M.sources[ft]) do
+    -- vim.print("Pattern: " .. pattern)
+		local match = string.match(line, pattern)
+    if match then
+      local path = pl:new(match)
       if check_file(path) then
         vim.print("File: '" .. path:absolute() .. "' found")
         return path:absolute()
       end
+      -- Make another attempt by constructing a full path
+      local new_path = pl:new(vim.fn.expand("%:p:h"), match)
+      if check_file(new_path) then
+        vim.print("File: '" .. new_path:absolute() .. "' found")
+        return new_path:absolute()
+      end
+      vim.api.nvim_err_writeln("Match found, but file does not exists: '" .. match .. "'")
+      return nil
     end
-  end
+	end
 
+  -- vim.print("No image pattern matched")
 	return nil
 end
 
 M.open_source_in_line = function(line)
-  vim.validate({ line = { line, "s", false } })
-  local source = M.find_source(line, M.sources)
-  if source ~= nil then
-    utl.term.open_file(source)
-    return
-  end
+	vim.validate({ line = { line, "s", false } })
+  -- vim.print("Line: " .. line)
+	local source = M.find_source(line, M.sources)
+	-- vim.print("Source: " .. source and nil "" )
+	if source ~= nil then
+		utl.term.open_file(source)
+		return
+	end
 
-  local plok, pl = pcall(require, "plenary.path")
-  if not plok then
-    vim.api.nvim_err_writeln("Failed to load plenary.path")
-    return
-  end
-  source = pl:new(line):absolute()
-  utl.term.open_file(source)
+	local plok, pl = pcall(require, "plenary.path")
+	if not plok then
+		vim.api.nvim_err_writeln("Failed to load plenary.path")
+		return
+	end
+	source = pl:new(line):absolute()
+	-- vim.print("Source not found, using: " .. vim.inspect(source))
+	utl.term.open_file(source)
 end
 
 M.search_for_first_visible_source = function(sources)
@@ -72,11 +85,13 @@ M.search_for_first_visible_source = function(sources)
 	for _, line in ipairs(lines.visible_lines) do
 		if line ~= nil then
 			local source = M.find_source(line, sources)
-			if source ~= nil then return source end
+			if source ~= nil then
+				return source
+			end
 		end
 	end
 
-  return nil
+	return nil
 end
 
 return M

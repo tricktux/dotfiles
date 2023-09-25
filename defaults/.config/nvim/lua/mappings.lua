@@ -252,7 +252,7 @@ M.toggle.mappings = {
       local line = vim.fn.getline(".")
       require("utils.filesystem").open_source_in_line(line)
     end,
-    "open_first_visible_image",
+    "open_image_in_this_line",
   },
   I = {
     function()

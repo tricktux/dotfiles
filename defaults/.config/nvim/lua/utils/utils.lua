@@ -570,7 +570,7 @@ M.term.exec = function(cmd)
 end
 
 M.term.open_file = function(file)
-  vim.validate({ file = { file, "s" } })
+  vim.validate({ file = { file, "s", false } })
 
   local start = M.has_unix and "xdg-open" or "start"
   local cmd = {start, file}
