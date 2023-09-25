@@ -82,10 +82,10 @@ function report:edit_weekly_report()
 end
 
 local wikis = {
-  home .. "/Documents/work/wiki",
-  home .. "/Documents/wiki",
-  home .. "/Documents/Drive/wiki",
-  home .. "/External/reinaldo/resilio/wiki",
+  vim.fs.joinpath(home, "Documents/work/wiki"),
+  vim.fs.joinpath(home, "Documents/wiki"),
+  vim.fs.joinpath(home, "Documents/Drive/wiki"),
+  vim.fs.joinpath(home, "External/reinaldo/resilio/wiki"),
   "/mnt/samba/server/resilio/wiki",
   [[D:\Seafile\KnowledgeIsPower\wiki]],
   [[D:\wiki]],
@@ -94,8 +94,8 @@ local wikis = {
 
 function M:_find_wiki()
 	for _, dir in pairs(wikis) do
-		if utl.isdir(dir) then
-			self.path.base = dir
+		if luv.fs_stat(dir) ~= nil then
+			self.path.base = vim.fs.normalize(dir)
 			return
 		end
 	end

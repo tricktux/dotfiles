@@ -65,7 +65,7 @@ M.icons = {
 -- >vim.deepcopy
 M.set = {}
 function M.set.new(t)
-  vim.validate({ t = { t, "t" } })
+  vim.validate({ t = { t, "t", false } })
 
   local set = {}
   for _, l in ipairs(t) do
@@ -75,7 +75,7 @@ function M.set.new(t)
 end
 
 function M.set.tostring(set)
-  vim.validate({ set = { set, "t" } })
+  vim.validate({ set = { set, "t", false } })
 
   local s = ""
   local sep = ""
@@ -110,7 +110,7 @@ M.ignore_file = [[--ignore-file=]] .. (M.has_win and win_file or nix_file)
 M.zeal = {}
 M.zeal.path = M.has_unix and "/usr/bin/zeal" or [["C:\\Program Files (x86)\\Zeal\\Zeal.exe"]]
 M.zeal.search = function(word)
-  vim.validate({ word = { word, "s" } })
+  vim.validate({ word = { word, "s", false } })
   local p = M.zeal.path
   if fn.filereadable(p) <= 0 then
     vim.notify("Zeal '" .. p .. "' is not installed", vim.log.levels.ERROR)
@@ -128,7 +128,7 @@ end
 M.browser = {}
 M.browser.path = M.has_unix and "/usr/bin/firefox" or "firefox.exe"
 M.browser.search = function(word)
-  vim.validate({ word = { word, "s" } })
+  vim.validate({ word = { word, "s", false } })
   local b = M.browser.path
   if fn.filereadable(b) <= 0 then
     vim.notify("Browser '" .. b .. "' is not installed", vim.log.levels.ERROR)
@@ -207,7 +207,7 @@ M.rg.vim_to_rg_map = {
 
 M.table = {}
 M.table.string_to_table = function(string)
-  vim.validate({ string = { string, "s" } })
+  vim.validate({ string = { string, "s", false } })
   local t = {}
   for str in string.gmatch(string, "%S+") do
     table.insert(t, str)
@@ -271,7 +271,7 @@ M.fs.file = {}
 --- Creates path for a new file
 ---@param path string Base path from where folder/file will be created
 function M.fs.file.create(path)
-  vim.validate({ path = { path, "s" } })
+  vim.validate({ path = { path, "s", false } })
   local plok, pl = pcall(require, "plenary.path")
   if not plok then
     vim.notify("plenary is not available", vim.log.levels.ERROR)
@@ -328,7 +328,7 @@ function M.isfile(path)
 end
 
 function M.fs.path.native_fuzzer(path)
-  vim.validate({ path = { path, "s" } })
+  vim.validate({ path = { path, "s", false } })
 
   local epath = vim.fn.expand(path)
   if M.isdir(epath) == nil then
@@ -358,7 +358,7 @@ function M.fs.path.native_fuzzer(path)
 end
 
 function M.fs.path.fuzzer(path)
-  vim.validate({ path = { path, "s" } })
+  vim.validate({ path = { path, "s", false } })
 
   local tsok, _ = pcall(require, "telescope")
   if tsok then
@@ -380,8 +380,8 @@ function M.fs.path.fuzzer(path)
 end
 
 function M.tbl_removekey(table, key)
-  vim.validate({ table = { table, "t" } })
-  vim.validate({ key = { key, "s" } })
+  vim.validate({ table = { table, "t", false } })
+  vim.validate({ key = { key, "s", false } })
 
   local element = table[key]
   if element == nil then
@@ -395,8 +395,8 @@ end
 -- Example width = 0.8, height = 0.8
 -- Returns buffer, and window handle
 function M.open_win_centered(width, height)
-  vim.validate({ width = { width, "n" } })
-  vim.validate({ height = { height, "n" } })
+  vim.validate({ width = { width, "n", false } })
+  vim.validate({ height = { height, "n", false } })
   local buf = api.nvim_create_buf(false, true)
 
   local mheight = math.floor((vim.o.lines - 2) * height)
@@ -423,7 +423,7 @@ end
 -- @param closeterm close window when command is done?
 -- @param startinsert start insert mode in terminal
 function M.exec_float_term(cmd, startinsert)
-  vim.validate({ cmd = { cmd, "s" } })
+  vim.validate({ cmd = { cmd, "s", false } })
   -- Last true makes them optional arguments
   vim.validate({ startinsert = { startinsert, "b", true } })
 
@@ -435,7 +435,7 @@ function M.exec_float_term(cmd, startinsert)
 end
 
 function M.read_file(path)
-  vim.validate({ path = { path, "s" } })
+  vim.validate({ path = { path, "s", false } })
   local file = io.open(path)
   if file == nil then
     return ""
@@ -447,7 +447,7 @@ end
 
 -- Execute cmd and return all of its output
 function M.io_popen_read(cmd)
-  vim.validate({ cmd = { cmd, "s" } })
+  vim.validate({ cmd = { cmd, "s", false } })
   local file = assert(io.popen(cmd))
   local output = file:read("*all")
   file:close()
@@ -499,7 +499,7 @@ M.term.exec = function(cmd)
   if type(cmd) == "string" then
     cmd = M.table.string_to_table(cmd)
   end
-  vim.validate({ cmd = { cmd, "t" } })
+  vim.validate({ cmd = { cmd, "t", false } })
   log.info(fmt("term.exec.cmd = %s", vim.inspect(cmd)))
   if os.getenv("KITTY_WINDOW_ID") ~= nil and M.term.kitty_get_number_of_windows_in_current_tab() > 1 then
     local f = { "/usr/bin/kitty", "@", "send-text", "--match", "recent:1" }
