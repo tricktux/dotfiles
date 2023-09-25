@@ -13,20 +13,22 @@ M.is_path = function(path)
 		vim.notify("plenary is not available", vim.log.levels.ERROR)
 		return
 	end
-	local o = p:new(path)
+
+	local npath = vim.fs.normalize(path)
+	local o = p:new(npath)
 	if is_full_path(o) then
 		return o:absolute()
 	end
 	-- vim.print("its not full path")
 	-- Maybe it's relative to the file dir
 	local d = vim.fs.dirname(vim.api.nvim_buf_get_name(0))
-	local f = p:new(d, path)
+	local f = p:new(d, npath)
 	if is_full_path(f) then
 		return f:absolute()
 	end
 	-- vim.print("it's not relative to file")
 	-- Maybe it's relative to the cwd dir
-	local c = p:new(vim.uv.cwd(), path)
+	local c = p:new(vim.uv.cwd(), npath)
 	if is_full_path(c) then
 		return c:absolute()
 	end
