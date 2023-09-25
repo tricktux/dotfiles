@@ -1,4 +1,5 @@
 local log = require("utils.log")
+local fs = require("utils.filesystem")
 local luv = vim.loop
 local api = vim.api
 local fmt = string.format
@@ -547,5 +548,54 @@ function M.get_visible_lines(winid)
   return { start_line = start_line, end_line = end_line, visible_lines = visible_lines }
 end
 
+M.links = {}
+M.links.sources = {
+  -- First table is find image, second table is extract filename from match
+  md = {
+    "!%[.-%]%((.-)%)",
+    "!%[%[(.-)%]%]",
+  },
+  org = {
+    "%[%[(.-)%]%]",
+    "%[%[(.-)%]%[.-%]%]",
+    "%[%[file: (.-)%]%[.-%]%]",
+  },
+}
+
+M.links.find_source = function(line)
+  vim.validate({ line = { line, "s", false } })
+
+  local ft = vim.api.nvim_buf_get_option(0, "filetype")
+  if M.links.sources[ft] == nil then
+    -- vim.api.nvim_err_writeln("No sources for filetype: " .. ft)
+    return nil
+  end
+
+  -- vim.print("Filetype: " .. ft)
+  for _, pattern in pairs(M.links.sources[ft]) do
+    -- vim.print("Pattern: " .. pattern)
+    local match = string.match(line, pattern)
+    if match then
+      return match
+    end
+  end
+
+  -- vim.print("No image pattern matched")
+  return nil
+end
+
+M.links.open_uri_in_line = function(line)
+  vim.validate({ line = { line, "s", false } })
+  -- vim.print("Line: " .. line)
+  local source = M.links.find_source(line)
+  local u = source or line
+  local file = fs.is_path(u)
+  if file then
+    M.term.open_uri(file)
+    return
+  end
+
+  M.term.open_uri(u)
+end
 
 return M

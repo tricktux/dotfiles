@@ -4,8 +4,22 @@ local fs = require("utils.filesystem")
 
 M.holograms = {}
 
+M.search_for_first_visible_source = function()
+  local lines = utl.get_visible_lines(0)
+  for _, line in ipairs(lines.visible_lines) do
+    if line ~= nil then
+      local source = M.links.find_source(line)
+      if source ~= nil then
+        return source
+      end
+    end
+  end
+
+  return nil
+end
+
 M.open_first_visible_image = function()
-  local img = fs.search_for_first_visible_source(fs.sources)
+  local img = M.search_for_first_visible_source()
   if img == nil then
     vim.print("No sources found")
     return
@@ -14,16 +28,22 @@ M.open_first_visible_image = function()
   utl.term.open_uri(img)
 end
 
-M.toggle_hologram_images = function()
+M.toggle_hologram_image_in_line = function(line)
+  vim.validate({ line = { line, "s", false } })
 	local hol_ok, hol = pcall(require, "hologram")
 	if not hol_ok then
 		vim.api.nvim_err_writeln("hologram not installed")
 		return
 	end
 
-  local img = fs.search_for_first_visible_source(fs.sources)
-  if img == nil then
+  local s = utl.links.find_source(line)
+  if s == nil then
     vim.print("No sources found")
+    return
+  end
+  local img = fs.is_path(s)
+  if img == nil then
+    vim.print("File: " .. s .. " not found")
     return
   end
 
@@ -52,6 +72,6 @@ return {
 	opts = {
 		auto_display = false,
 	},
-	toggle_hologram_images = M.toggle_hologram_images,
+	toggle_hologram_image_in_line = M.toggle_hologram_image_in_line,
   open_first_visible_image = M.open_first_visible_image,
 }
