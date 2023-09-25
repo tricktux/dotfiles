@@ -238,15 +238,7 @@ M.fs = {}
 M.fs.path = {}
 M.fs.path.sep = package.config:sub(1, 1)
 function M.fs.path.exists(path)
-  vim.validate({ path = { path, "s" } })
-
-  local plok, pl = pcall(require, "plenary.path")
-  if not plok then
-    vim.notify("plenary is not available", vim.log.levels.ERROR)
-    return
-  end
-
-  return pl:new(path):exists()
+  return fs.is_path(path) ~= nil
 end
 
 M.fs.file = {}
@@ -287,8 +279,9 @@ function M.fs.file.create(path)
 end
 
 function M.isdir(path)
-  vim.validate({ path = { path, "s" } })
-  local stat = luv.fs_stat(path)
+  local p = fs.is_path(path)
+  if p == nil then return false end
+  local stat = luv.fs_stat(p)
   if stat == nil then
     return false
   end
@@ -299,8 +292,9 @@ function M.isdir(path)
 end
 
 function M.isfile(path)
-  vim.validate({ path = { path, "s" } })
-  local stat = luv.fs_stat(path)
+  local p = fs.is_path(path)
+  if p == nil then return false end
+  local stat = luv.fs_stat(p)
   if stat == nil then
     return false
   end
@@ -343,19 +337,20 @@ end
 function M.fs.path.fuzzer(path)
   vim.validate({ path = { path, "s", false } })
 
+  local p = fs.is_path(path)
+  if p == nil then
+    vim.notify("utils: path not found: " .. path, vim.log.levels.ERROR)
+    return
+  end
+
   local tsok, _ = pcall(require, "telescope")
   if tsok then
-    local p = M.fs.path.normalize(path)
-    if not M.fs.path.exists(p) then
-      vim.notify("utils: path not found: " .. p, vim.log.levels.ERROR)
-      return
-    end
     require("plugins.telescope").file_fuzzer(p)
     return
   end
 
   if vim.fn.exists(":Files") > 0 then
-    vim.cmd("Files " .. epath)
+    vim.cmd("Files " .. p)
     return
   end
 
