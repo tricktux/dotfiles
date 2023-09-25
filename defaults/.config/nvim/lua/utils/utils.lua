@@ -85,47 +85,6 @@ function M.set.tostring(set)
   return s
 end
 
--- TODO Fix broken function. Maybe use `plenary`
--- @brief Recurses through a directory in search for a file
--- @param dir Directory to recurse
--- @param file File looking for. Could use wildcards. Will be used by glob()
--- @param ignore Regex with files that will be ignored. Will be used by
--- readdirs(). See help for that function on what can be passed to reduce list
--- of files. Example: [[v:val !~ '^\.\|\~$']]
--- @return Table with all file matches with full path if found. Nil
--- otherwise
-function M.find_file(dir, file, ignore)
-  vim.validate({ dir = { dir, "s" } })
-  vim.validate({ file = { file, "s" } })
-  vim.validate({ ignore = { ignore, "s" } })
-
-  if vim.fn.isdirectory(dir) == 0 then
-    return nil
-  end
-
-  -- Check if the file is in dir
-  log.trace("dir = " .. vim.inspect(dir))
-  local files = vim.fn.glob(dir .. [[\]] .. file, true, false)
-  log.trace("files = " .. vim.inspect(files))
-  if files ~= nil and files ~= "" then
-    return files
-  end
-
-  -- Do not go into backup or dot files
-  local dirs = vim.fn.readdir(dir, ignore)
-  log.trace("dirs = " .. vim.inspect(dirs))
-  for _, d in ipairs(dirs) do
-    if vim.fn.isdirectory(dir) == 1 then
-      files = M._find_file_recurse(dir .. [[\]] .. d, file, ignore)
-      if files ~= nil and files ~= "" then
-        return files
-      end
-    end
-  end
-
-  return nil
-end
-
 function M.is_mod_available(name)
   if package.loaded[name] then
     return true
