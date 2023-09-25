@@ -237,23 +237,6 @@ M.filetype.blacklist_set = M.set.new(M.filetype.blacklist)
 M.fs = {}
 M.fs.path = {}
 M.fs.path.sep = package.config:sub(1, 1)
-function M.fs.path.normalize(path)
-  vim.validate({ path = { path, "s" } })
-
-  local plok, pl = pcall(require, "plenary.path")
-  if not plok then
-    vim.notify("plenary is not available", vim.log.levels.ERROR)
-    return
-  end
-  local sep = {
-    w = { "/", "\\" },
-    u = { "\\", "/" },
-  }
-  local g = M.has_win and sep.w or sep.u
-  local p = string.gsub(path, g[1], g[2])
-  return pl:new(p):absolute()
-end
-
 function M.fs.path.exists(path)
   vim.validate({ path = { path, "s" } })
 
