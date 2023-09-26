@@ -6,6 +6,7 @@
             "$XDG_DATA_HOME/nvim/lazy/nvim-cmp/lua",
             "$XDG_DATA_HOME/nvim/lazy/nui.nvim/lua",
             "$XDG_DATA_HOME/nvim/lazy/plenary.nvim/lua",
+            "${3rd}/luassert/library",
         ],
     },
     "workspace.checkThirdParty": false
