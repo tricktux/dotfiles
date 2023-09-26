@@ -237,10 +237,6 @@ M.filetype.blacklist_set = M.set.new(M.filetype.blacklist)
 M.fs = {}
 M.fs.path = {}
 M.fs.path.sep = package.config:sub(1, 1)
-function M.fs.path.exists(path)
-  return fs.is_path(path) ~= nil
-end
-
 M.fs.file = {}
 
 --- Creates path for a new file
