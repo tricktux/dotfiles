@@ -6,6 +6,29 @@ local is_full_path = function(path)
 	return path:is_absolute() and path:exists()
 end
 
+
+M.mkfile = function(path)
+  vim.validate({ path = { path, "s", false } })
+  local plok, p = pcall(require, "plenary.path")
+  if not plok then
+    vim.notify("plenary is not available", vim.log.levels.ERROR)
+    return
+  end
+
+  return p:new(vim.fs.normalize(path)):touch()
+end
+
+M.mkdir = function(path)
+  vim.validate({ path = { path, "s", false } })
+  local plok, p = pcall(require, "plenary.path")
+  if not plok then
+    vim.notify("plenary is not available", vim.log.levels.ERROR)
+    return
+  end
+
+  return p:new(vim.fs.normalize(path)):mkdir{ parents = true, exist_ok = true }
+end
+
 M.is_path = function(path)
 	vim.validate({ path = { path, "s", false } })
 	local plok, p = pcall(require, "plenary.path")
