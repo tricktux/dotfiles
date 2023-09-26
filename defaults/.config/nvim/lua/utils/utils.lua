@@ -242,36 +242,28 @@ M.fs.file = {}
 --- Creates path for a new file
 ---@param path string Base path from where folder/file will be created
 function M.fs.file.create(path)
-  vim.validate({ path = { path, "s", false } })
-  local plok, pl = pcall(require, "plenary.path")
-  if not plok then
-    vim.notify("plenary is not available", vim.log.levels.ERROR)
+  local p = fs.is_path(path)
+  if p == nil then 
+    vim.notify("utils.fs.file.create: path not found: " .. p, vim.log.levels.ERROR)
     return
   end
 
-  local ppath = pl:new(vim.fn.fnameescape(path))
-  if not ppath:is_dir() then
-    vim.notify("utils.create_file: path not found: " .. ppath:absolute(), vim.log.levels.ERROR)
-    return
-  end
-
-  local p = string.format("Enter name for new file(%s): ", ppath:absolute())
+  local prompt = string.format("Enter name for new file(%s): ", p)
   local i = nil
-  vim.ui.input({ prompt = p, completion = "file" }, function(input)
+  vim.ui.input({ prompt = prompt, completion = "file" }, function(input)
     i = input
   end)
   if i == nil then
     return
   end
 
-  local f = ppath:joinpath(i)
-  local d = f:parent()
-  if not d:mkdir({ parents = true, exists_ok = true }) then
-    vim.notify("utils.create_file: failed to create parent folder: " .. d:absolute(), vim.log.levels.ERROR)
+  local f = vim.fs.joinpath(p, i)
+  if not fs.mkfile(f) then
+    vim.notify("utils.create_file: failed to create parent folder: " .. f, vim.log.levels.ERROR)
     return
   end
 
-  vim.cmd("edit " .. f:absolute())
+  vim.cmd.edit(f)
 end
 
 function M.isdir(path)
