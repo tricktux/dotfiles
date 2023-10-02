@@ -34,6 +34,8 @@ cppcheck
 cpupower
 cscope
 ctags
+cups
+cups-pdf
 debugedit
 dhcpcd
 direnv
@@ -52,7 +54,7 @@ efibootmgr
 emacs
 ethtool
 evolution
-exa
+eza
 f2fs-tools
 fakeroot
 fd
@@ -88,6 +90,7 @@ gvfs-mtp
 gzip
 hdparm
 highlight
+hplip
 hunspell-en_us
 hyperfine
 i2c-tools
@@ -143,6 +146,7 @@ meld
 meson
 minicom
 mkinitcpio
+mold
 mono
 mono-msbuild
 mosh
@@ -203,6 +207,7 @@ python-pip
 python-pyqt5
 python-pywal
 python-virtualenv
+qalculate-qt
 rapidjson
 redshift
 reflector
@@ -221,6 +226,7 @@ scrot
 sdparm
 sed
 shfmt
+simple-scan
 sshfs
 stow
 stylua
