@@ -39,7 +39,8 @@ local function setup_buf_keymaps_opts()
   -- The best place to set these variables is after/ftplugin
   if vim.b.did_fold_settings == nil then
     vim.opt_local.foldmethod = "expr"
-    vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+    vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+    vim.opt_local.foldtext = "v:lua.vim.treesitter.foldtext()"
   end
   if vim.b.did_indent_settings == nil then
     vim.opt_local.indentexpr = "nvim_treesitter#indent()"
