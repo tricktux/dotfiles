@@ -492,13 +492,13 @@ return {
   {
     "lukas-reineke/indent-blankline.nvim",
     event = "VeryLazy",
+    main = "ibl",
     opts = {
-      char_highlight_list = { "Comment" },
-      char_list = { "¦", "┆", "┊" },
-      show_first_indent_level = false,
-      show_current_context = true,
-      buftype_exclude = utl.buftype.blacklist,
-      filetype_exclude = vim.tbl_flatten({ utl.filetype.blacklist, "markdown", "org", "mail" }),
+      debounce = 100,
+      exclude = {
+        filetypes = vim.tbl_flatten({ utl.filetype.blacklist, "markdown", "org", "mail" }),
+        buftypes = utl.buftype.blacklist,
+      }
     },
   },
   {
