@@ -210,7 +210,9 @@ function M:config()
   ls.config.set_config({
     -- This tells LuaSnip to remember to keep around the last snippet.
     -- You can jump back into it even if you move outside of the selection
-    history = true,
+    keep_roots = true,
+    link_roots = true,
+    link_children = true,
 
     -- This one is cool cause if you have dynamic snippets, it updates as you type!
     updateevents = "TextChanged,TextChangedI",
@@ -263,7 +265,9 @@ return {
   dependencies = {
     "rafamadriz/friendly-snippets",
   },
+ 	-- version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
   config = function()
     M:config()
   end,
+	build = "make install_jsregexp"
 }
