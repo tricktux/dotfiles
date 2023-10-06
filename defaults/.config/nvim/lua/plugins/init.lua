@@ -495,6 +495,7 @@ return {
     main = "ibl",
     opts = {
       debounce = 100,
+      indent = { char = { "¦", "┆", "┊" } },
       exclude = {
         filetypes = vim.tbl_flatten({ utl.filetype.blacklist, "markdown", "org", "mail" }),
         buftypes = utl.buftype.blacklist,
