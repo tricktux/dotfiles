@@ -1021,7 +1021,7 @@ sudo nvim /etc/systemd/journald.conf
 
 ## firefox
 
-paci --needed --noconfirm firefox
+paci --needed --noconfirm firefox speech-dispatcher festival festival-us
 # paci --needed --noconfirm firefox-extension-privacybadger`
 # paci --needed --noconfirm libnotify speech-dispatcher festival`
 paci --needed --noconfirm vdhcoapp-bin
