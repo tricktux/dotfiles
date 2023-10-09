@@ -469,6 +469,8 @@ backup() {
 			"$HOME/.local/share/histfile" "$HOME/.local/share/z" "$HOME/.config/doublecmd"
 			"$HOME/.password-store_work" "$HOME/.local/share/atuin"
 			"$HOME/.password-store_mine"
+      "$HOME/.screenshots"
+      "$HOME/.screenlayout"
 			"$HOME/Documents"
 			"$HOME/Downloads"
 		)
