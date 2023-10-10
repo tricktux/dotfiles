@@ -14,7 +14,10 @@ M.mkfile = function(path)
 		return
 	end
 
-	return p:new(vim.fs.normalize(path)):touch()
+	local npath = vim.fs.normalize(path)
+	local parent = p:new(npath):parent()
+	p:new(parent):mkdir({ parents = true, exist_ok = true })
+	return p:new(npath):touch()
 end
 
 M.mkdir = function(path)
