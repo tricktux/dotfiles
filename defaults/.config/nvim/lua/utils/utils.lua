@@ -249,21 +249,22 @@ function M.fs.file.create(path)
   end
 
   local prompt = string.format("Enter name for new file(%s): ", p)
-  local i = nil
-  vim.ui.input({ prompt = prompt, completion = "file" }, function(input)
-    i = input
-  end)
-  if i == nil then
-    return
+  local on_complete = function(input)
+    if input == nil then
+      vim.notify("utils.create_file: no file path provided", vim.log.levels.ERROR)
+      return
+    end
+
+    local f = vim.fs.joinpath(p, input)
+    if not fs.mkfile(f) then
+      vim.notify("utils.create_file: failed to create parent folder: " .. f, vim.log.levels.ERROR)
+      return
+    end
+
+    vim.cmd.edit(f)
   end
 
-  local f = vim.fs.joinpath(p, i)
-  if not fs.mkfile(f) then
-    vim.notify("utils.create_file: failed to create parent folder: " .. f, vim.log.levels.ERROR)
-    return
-  end
-
-  vim.cmd.edit(f)
+  vim.ui.input({ prompt = prompt, completion = "file" }, on_complete)
 end
 
 function M.isdir(path)
