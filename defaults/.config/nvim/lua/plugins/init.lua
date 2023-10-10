@@ -499,6 +499,11 @@ return {
       exclude = {
         filetypes = vim.tbl_flatten({ utl.filetype.blacklist, "markdown", "org", "mail" }),
         buftypes = utl.buftype.blacklist,
+      },
+      scope = {
+        enabled = true,
+        show_start = false,
+        show_end = false,
       }
     },
   },
