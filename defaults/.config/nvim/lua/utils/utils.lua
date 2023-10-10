@@ -499,9 +499,7 @@ end
 M.term.open_uri = function(uri)
   vim.validate({ uri = { uri, "s", false } })
 
-  local start = M.has_unix and "xdg-open" or "start"
-  local cmd = {start, uri}
-  vim.system(cmd, { detach = true })
+  vim.ui.open(uri)
 end
 
 function M.get_visible_lines(winid)
