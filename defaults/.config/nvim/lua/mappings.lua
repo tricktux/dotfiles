@@ -246,21 +246,21 @@ M.toggle.mappings = {
 			print(fmt("toggle: vim_diagnostic '%s'", (M.toggle.diagnostic and "enabled" or "disabled")))
 		end,
 		"toggle_vim_diagnostic",
-  },
-  i = {
-    function()
-      local line = vim.fn.getline(".")
-      require("utils.utils").links.open_uri_in_line(line)
-    end,
-    "open_image_in_this_line",
-  },
-  I = {
-    function()
-      local line = vim.fn.getline(".")
-      require("plugins.hologram").toggle_hologram_image_in_line(line)
-    end,
-    "toggle_hologram_images",
-  },
+	},
+	i = {
+		function()
+			local line = vim.fn.getline(".")
+			require("utils.utils").links.open_uri_in_line(line)
+		end,
+		"open_image_in_this_line",
+	},
+	I = {
+		function()
+			local line = vim.fn.getline(".")
+			require("plugins.hologram").toggle_hologram_image_in_line(line)
+		end,
+		"toggle_hologram_images",
+	},
 }
 
 M.edit = {}
@@ -454,17 +454,17 @@ end
 local function misc_mappings()
 	-- Set escape key to work in all modes
 	for _, v in pairs(M.esc) do
-    if v ~= "" then
-      vks({ "v", "i" }, v, [[<Esc>zz]], { silent = true })
-      -- How to handle zsh-vi-mode escape vs vim escape?
-      -- Which one do you use the most? The other one will have to suffer
-      -- By using the default mapping, the thing is that a-b is much better
-      vks("t", v, [[<C-\><C-n>]], { silent = true })
-    end
+		if v ~= "" then
+			vks({ "v", "i" }, v, [[<Esc>zz]], { silent = true })
+			-- How to handle zsh-vi-mode escape vs vim escape?
+			-- Which one do you use the most? The other one will have to suffer
+			-- By using the default mapping, the thing is that a-b is much better
+			vks("t", v, [[<C-\><C-n>]], { silent = true })
+		end
 	end
 	local opts = { nowait = true, desc = "start_cmd" }
 	-- Awesome hack, typing a command is used way more often than next
-  -- Well these hacks make it really painful when using raw vim
+	-- Well these hacks make it really painful when using raw vim
 	-- vks("n", ";", ":", opts)
 
 	-- opts = { silent = true, desc = "visual_end_line" }
@@ -476,7 +476,7 @@ local function misc_mappings()
 	vks("v", "gA", "g<c-a>", opts)
 	opts.desc = "visual_decrement"
 	vks("v", "gX", "g<c-x>", opts)
-  vks("v", "<s-y>", "y$", opts)
+	vks("v", "<s-y>", "y$", opts)
 
 	-- vks({ "n", "x", "o" }, "t", "%")
 
@@ -515,12 +515,12 @@ M.plug.mappings = {
 	["<c-k>"] = { "<plug>snip_expand", "snip_expand", { "x", "i", "s" } },
 	["<leader>G"] = { "<plug>search_internet", "search_internet", { "x", "n" } },
 	["<localleader>k"] = { "<plug>make_project", "make_project" },
-  ["<localleader>j"] = { "<plug>make_file", "make_file" },
-  ["<localleader>p"] = { "<plug>preview", "preview" },
-  ["<leader>cr"] = { "<plug>cd_root", "cd_root" },
-  ["<leader>a"] = { "<plug>ai", "ai_help" },
-  ["<localleader>b"] = { "<plug>debug_start", "debug_start" },
-  ["<bs>"] = { "<plug>comment_line", "comment_line" },
+	["<localleader>j"] = { "<plug>make_file", "make_file" },
+	["<localleader>p"] = { "<plug>preview", "preview" },
+	["<leader>cr"] = { "<plug>cd_root", "cd_root" },
+	["<leader>a"] = { "<plug>ai", "ai_help" },
+	["<localleader>b"] = { "<plug>debug_start", "debug_start" },
+	["<bs>"] = { "<plug>comment_line", "comment_line" },
 }
 
 M.braces = {}
@@ -602,7 +602,7 @@ local function unix_os_mappings()
 end
 
 function M.search_motion()
-  vim.cmd[[
+	vim.cmd([[
       nnoremap <expr> n 'Nn'[v:searchforward] . 'zz'
       xnoremap <expr> n 'Nn'[v:searchforward] . 'zz'
       onoremap <expr> n 'Nn'[v:searchforward] . 'zz'
@@ -610,7 +610,7 @@ function M.search_motion()
       nnoremap <expr> N 'nN'[v:searchforward] . 'zz'
       xnoremap <expr> N 'nN'[v:searchforward] . 'zz'
       onoremap <expr> N 'nN'[v:searchforward] . 'zz'
-    ]]
+    ]])
 end
 
 function M:setup()
@@ -630,7 +630,7 @@ function M:setup()
 	self:keymaps_sets(self.terminal)
 	self:keymaps_sets(self.toggle)
 	self:keymaps_sets(self.help)
-  self.search_motion()
+	self.search_motion()
 end
 
 return M
