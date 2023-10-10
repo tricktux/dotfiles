@@ -215,6 +215,7 @@ M.colors.mappings = {
 }
 
 M.toggle = {
+	name = "toggle",
 	prefix = "<leader>t",
 	virtual = true, -- Used to toggle virtual_text
 	diagnostic = true, -- Used to toggle diagnostic
@@ -263,8 +264,11 @@ M.toggle.mappings = {
 	},
 }
 
-M.edit = {}
-M.edit.prefix = "<leader>e"
+M.edit = {
+	name = "edit",
+	prefix = "<leader>e",
+	temporary = { name = "temporary" },
+}
 M.edit.edit_temporary_file = function(type)
 	local s = utl.fs.path.sep
 	local f = fmt("%s%stemp", vim.fn.stdpath("cache"), s)
@@ -280,7 +284,7 @@ M.edit.mappings = {
 		function()
 			fs.file.create(vim.fn.getcwd())
 		end,
-		"add_new_file_folder",
+		"add_new_folder",
 	},
 	d = {
 		function()
@@ -536,6 +540,24 @@ M.braces.mappings = {
 	["[E"] = { "<c-w>d<c-w>H", "goto_define_under_cursor_on_left_win" },
 }
 
+M.cd = {
+	name = "cd",
+	prefix = "<leader>c",
+}
+M.cd.cd = function()
+	vim.cmd.lcd("%:h")
+	vim.cmd.pwd()
+end
+M.cd.cu = function()
+	vim.cmd.lcd("..")
+	vim.cmd.pwd()
+end
+M.cd.mappings = {
+	["d"] = { M.cd.cd, "current_file" },
+	["u"] = { M.cd.cu, "one_folder_up" },
+	["c"] = { vim.cmd.pwd, "display_curr_work_dir" },
+}
+
 M.builtin_terminal = {
 	mode = "t",
 }
@@ -630,6 +652,7 @@ function M:setup()
 	self:keymaps_sets(self.terminal)
 	self:keymaps_sets(self.toggle)
 	self:keymaps_sets(self.help)
+	self:keymaps_sets(self.cd)
 	self.search_motion()
 end
 

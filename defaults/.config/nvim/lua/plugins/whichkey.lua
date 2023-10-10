@@ -1,4 +1,5 @@
 local log = require("utils.log")
+local map = require("mappings")
 
 local M = {}
 
@@ -77,20 +78,12 @@ M.__config = {
 
 local leader = {}
 local leader_p = [[<leader>]]
-leader.t = {
-	name = "toggle",
-}
-leader.c = {
-	name = "cd",
-	r = "root",
-	d = "current_file",
-	u = "one_folder_up",
-	c = "display_curr_work_dir",
-}
+leader.t = { name = map.toggle.name }
+leader.c = { name = map.cd.name }
 
 leader.e = {
-	name = "edit",
-	t = "temporary",
+	name = map.edit.name,
+	t = map.edit.temporary.name,
 }
 
 local sessions = { name = "sessions", s = "save", l = "load", e = "load_default" }

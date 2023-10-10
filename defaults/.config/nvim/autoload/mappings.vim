@@ -279,17 +279,6 @@ function! mappings#Set()
   inoremap ; ;<c-g>u
   inoremap = =<c-g>u
 
-  " CD <Leader>c?
-
-  nnoremap <leader>cd :lcd %:h<cr>
-        \:pwd<cr>
-  nnoremap <leader>cu :lcd ..<cr>
-        \:pwd<cr>
-  " cd into dir. press <Tab> after ci to see folders
-  nnoremap <leader>cc :pwd<cr>
-  " TODO.RM-Thu Jun 01 2017 10:10: Create mappings like c21 and c22
-
-
   " Window movement
   " move between windows
   if !has('nvim')
