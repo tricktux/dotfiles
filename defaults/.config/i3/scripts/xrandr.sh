@@ -51,6 +51,7 @@ elif [[ "$hostname" = "aero" ]]; then
         for socket in /tmp/kittysocket*; do
             kitty @ --to unix:$socket set-font-size --all 9
         done
+        xset +dpms && xset dpms 600
         ;;
     "tv")
 		echo "setting up tv configuration"
@@ -70,6 +71,7 @@ elif [[ "$hostname" = "aero" ]]; then
         for socket in /tmp/kittysocket*; do
             kitty @ --to unix:$socket set-font-size --all 10
         done
+        xset -dpms
         ;;
 	*)
 		notify-send "xrandr" \
@@ -119,26 +121,29 @@ elif [[ "$hostname" = "xps" ]]; then
 		"$HOME"/.screenlayout/main.sh
         xrandr --dpi 156
 		echo "Xft.dpi: 192" | xrdb -merge
+        xset +dpms && xset dpms 600
 		;;
 	"home_dock")
 		echo "  setting up home_dock configuration"
 		"$HOME"/.screenlayout/home-dock.sh
 		xrandr --dpi 156
-		echo "Xft.dpi: 156" | xrdb -merge
-		;;
-	"work_dock")
-		echo "  setting up work_dock configuration"
-		"$HOME"/.screenlayout/work-dock.sh
-		xrandr --dpi 156
-		echo "Xft.dpi: 156" | xrdb -merge
-		;;
-	*)
-		notify-send "xrandr" \
-			"Configuration '$1' not valid" \
-			-u critical -a 'Arandr'
-		exit 2
-		;;
-	esac
+        echo "Xft.dpi: 156" | xrdb -merge
+        xset -dpms
+        ;;
+    "work_dock")
+        echo "  setting up work_dock configuration"
+        "$HOME"/.screenlayout/work-dock.sh
+        xrandr --dpi 156
+        echo "Xft.dpi: 156" | xrdb -merge
+        xset -dpms
+        ;;
+    *)
+        notify-send "xrandr" \
+            "Configuration '$1' not valid" \
+            -u critical -a 'Arandr'
+                    exit 2
+                    ;;
+            esac
 fi
 
 # Restart i3/polybar
