@@ -495,7 +495,7 @@ backup() {
 			;;
 		esac
 		# Create database backup
-		"$TERMINAL" /usr/bin/restic --verbose \
+		"$TERMINAL" /usr/bin/restic --verbose --cleanup-cache \
 			--password-command "$pass" \
 			--repo "$repo" \
 			backup $src &
