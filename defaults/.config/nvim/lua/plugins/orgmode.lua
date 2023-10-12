@@ -15,6 +15,7 @@ local function setup()
     org_agenda_files = { vim.g.wiki_path .. [[/org/**/*.org]] },
     org_todo_keywords = {
       "TODO",
+      "IN_PROGRESS",
       "WAITING",
       "BLOCKED",
       "|",
