@@ -122,7 +122,7 @@ M.maps.mappings = {
 	},
 	r = {
 		function()
-      vim.cmd("edit " .. M.path.base .. M.path.random)
+      vim.cmd.edit(vim.fs.joinpath(M.path.base, M.path.random))
 		end,
 		"wiki_random",
 	},
@@ -134,7 +134,7 @@ M.maps.mappings = {
 	},
 	w = {
 		function()
-      vim.cmd("edit " .. M.path.base .. M.path.main)
+      vim.cmd.edit(vim.fs.joinpath(M.path.base, M.path.main))
 		end,
 		"wiki_notes",
 	},
@@ -144,7 +144,7 @@ function M:setup()
 	self:_find_wiki()
 	vim.g.wiki_path = self.path.base
 	map:keymaps_sets(self.maps)
-  vim.api.nvim_create_user_command('UtilsEditJournal', "edit " .. M.path.base .. M.path.main, {})
+  vim.api.nvim_create_user_command('UtilsEditJournal', "edit " .. vim.fs.joinpath(M.path.base, M.path.main), {})
 end
 
 return M

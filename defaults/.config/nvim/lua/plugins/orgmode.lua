@@ -1,3 +1,5 @@
+local w = require("plugin.wiki")
+
 local function setup()
   local id = vim.api.nvim_create_augroup("Orgmode", { clear = true })
   vim.api.nvim_create_autocmd("FileType", {
@@ -12,7 +14,7 @@ local function setup()
   org.setup_ts_grammar()
 
   org.setup({
-    org_agenda_files = { vim.g.wiki_path .. [[/org/**/*.org]] },
+    org_agenda_files = { vim.fs.joinpath(vim.g.wiki_path, [[org/**/*.org]]) },
     org_todo_keywords = {
       "TODO",
       "IN_PROGRESS",
@@ -24,7 +26,7 @@ local function setup()
       "CANCELLED",
     },
     org_highlight_latex_and_related = "entities",
-    org_default_notes_file = vim.g.wiki_path .. [[/org/notes.org]],
+    org_default_notes_file = vim.fs.joinpath(vim.g.wiki_path, w.path.main),
     mappings = {
       global = { org_agenda = "<leader>ma", org_capture = "<leader>mc" },
       org = {
@@ -69,7 +71,5 @@ return {
   "kristijanhusak/orgmode.nvim",
   ft = "org",
   version = false, -- last release is way too old
-  config = function()
-    setup()
-  end,
+  config = setup,
 }
