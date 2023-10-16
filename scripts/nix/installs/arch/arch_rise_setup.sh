@@ -223,6 +223,20 @@ sudo chmod 700 /etc/samba/credentials/share
 sudo chmod 600 /etc/samba/credentials/share
 # }}}
 
+# LVM Snapshots {{{
+# https://gitlab.com/Marcool04/make-lvm-snapshot#default-target
+# https://wiki.archlinux.org/title/Create_root_filesystem_snapshots_with_LVM
+# https://wiki.archlinux.org/title/LVM#Snapshots
+paru -Syu make-lvm-snapshot
+# If this is a desktop change the target to graphical.target
+# Check what it is with: systemctl get-default
+sudo nvim /etc/systemd/system/make-lvm-snapshot.target
+# Add the target at the end of the ExecStart command, as the 3rd argument
+sudo nvim /etc/systemd/system/make-lvm-snapshot.service
+sudo systemctl set-default make-lvm-snapshot.target
+sudo reboot
+# }}}
+
 # Install old packages: {{{
 # NOTE: ONLY do this on computers already setup, DONOT copy packages from another PC
 # NOTE: Go to `sudo vim /etc/pacman.conf` and uncomment `multilib`
