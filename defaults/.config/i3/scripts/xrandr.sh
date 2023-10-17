@@ -2,6 +2,16 @@
 
 hostname=$HOSTNAME
 
+function xset_off() {
+    xset s off
+    xset -dpms
+}
+
+function xset_on() {
+    xset s on
+    xset +dpms
+}
+
 if [[ ! -f /usr/bin/xrandr ]]; then
 	notify-send "xrandr" \
 		"xrandr program not available" \
@@ -51,7 +61,7 @@ elif [[ "$hostname" = "aero" ]]; then
         for socket in /tmp/kittysocket*; do
             kitty @ --to unix:$socket set-font-size --all 9
         done
-        xset +dpms && xset dpms 600
+        xset_on
         ;;
     "tv")
 		echo "setting up tv configuration"
@@ -71,7 +81,7 @@ elif [[ "$hostname" = "aero" ]]; then
         for socket in /tmp/kittysocket*; do
             kitty @ --to unix:$socket set-font-size --all 10
         done
-        xset -dpms
+        xset_off
         ;;
 	*)
 		notify-send "xrandr" \
@@ -121,21 +131,21 @@ elif [[ "$hostname" = "xps" ]]; then
 		"$HOME"/.screenlayout/main.sh
         xrandr --dpi 156
 		echo "Xft.dpi: 192" | xrdb -merge
-        xset +dpms && xset dpms 600
+        xset_on
 		;;
 	"home_dock")
 		echo "  setting up home_dock configuration"
 		"$HOME"/.screenlayout/home-dock.sh
 		xrandr --dpi 156
         echo "Xft.dpi: 156" | xrdb -merge
-        xset -dpms
+        xset_off
         ;;
     "work_dock")
         echo "  setting up work_dock configuration"
         "$HOME"/.screenlayout/work-dock.sh
         xrandr --dpi 156
         echo "Xft.dpi: 156" | xrdb -merge
-        xset -dpms
+        xset_off
         ;;
     *)
         notify-send "xrandr" \
