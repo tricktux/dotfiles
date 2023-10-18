@@ -16,6 +16,7 @@ function M:setup()
   vim.opt.updatetime = 100
   vim.opt.display:append("uhex")
   vim.opt.sessionoptions = { "buffers", "tabpages" }
+  vim.opt.foldlevel = 99  -- Do not fold code at startup
   vim.opt.foldmethod = "syntax"
   vim.opt.mouse = ""
   vim.opt.background = "light" -- This forces lualine to use the right theme
