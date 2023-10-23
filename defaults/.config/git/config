@@ -50,3 +50,8 @@ smudge = "sed '/#ignoreline$/'d"
 [pull]
 rebase = false  # merge (the default strategy)
 ff = only       # fast-forward only
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
