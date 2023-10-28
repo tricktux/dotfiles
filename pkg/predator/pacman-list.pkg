@@ -216,6 +216,7 @@ scrot
 sed
 shfmt
 simple-scan
+speech-dispatcher
 speedtest-cli
 steam
 stow
@@ -326,6 +327,7 @@ xorg-xwd
 xorg-xwininfo
 xorg-xwud
 xss-lock
+yazi
 ytfzf
 zathura
 zathura-pdf-mupdf

@@ -13,6 +13,7 @@ chromedriver
 cht.sh-git
 cmake-format
 cmake-lint
+contour
 downgrade
 gdb-dashboard-git
 google-chrome
@@ -62,7 +63,6 @@ ttf-weather-icons
 tty-clock
 uair
 vale
-valent-git
 vdhcoapp-bin
 vmtouch
 write-good
