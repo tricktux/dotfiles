@@ -1,7 +1,7 @@
 7-zip-bin
 abook
 alttab-git
-anki-official-binary-bundle
+anki-git
 bibata-extra-cursor-theme
 bluez-firmware
 brillo
@@ -25,6 +25,7 @@ laptop-mode-tools
 lazydocker-bin
 liquidprompt
 lua-language-server-git
+make-lvm-snapshot
 microsoft-edge-stable-bin
 mimeo
 mono-basic
