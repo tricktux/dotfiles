@@ -104,14 +104,6 @@
     "command": "flameshot gui"
   },
   {
-    "name": "🎙️ audio select input",
-    "command": "exec $HOME/.config/i3/scripts/pulseaudio-rofi.sh --input"
-  },
-  {
-    "name": "📢 audio select output",
-    "command": "exec $HOME/.config/i3/scripts/pulseaudio-rofi.sh --output"
-  },
-  {
     "name": "🖥️ power off",
     "command": "systemctl poweroff"
   },
