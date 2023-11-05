@@ -88,10 +88,6 @@
     "command": "$TERMINAL /usr/bin/cht.sh --shell"
   },
   {
-    "name": "📯 audio control",
-    "command": "pavucontrol"
-  },
-  {
     "name": "🪟 screenshot full screen",
     "command": "scrot '/tmp/%Y-%m-%d_%T_scrot.png' -e 'xclip -selection clipboard -target image/png -i $f'"
   },
