@@ -728,11 +728,12 @@ return {
         },
       },
       openai_params = {
-        model = "gpt-3.5-turbo",
+        -- gpt-4, gpt-3.5-turbo-16k-0613
+        model = "gpt-4",
         frequency_penalty = 0,
         presence_penalty = 0,
-        max_tokens = 3000,
-        temperature = 0,
+        max_tokens = 4096,
+        temperature = 1,
         top_p = 1,
         n = 1,
       },
