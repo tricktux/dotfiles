@@ -15,6 +15,7 @@ baobab
 base
 base-devel
 bat
+beets
 bleachbit
 blueman
 bluez
@@ -259,7 +260,10 @@ w3m
 wavpack
 websocketpp
 wget
+wine-gecko
+wine-mono
 wine-staging
+winetricks
 wireguard-tools
 wireless_tools
 wireplumber
