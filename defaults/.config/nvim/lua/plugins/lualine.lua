@@ -4,6 +4,10 @@ vim.keymap.set("n", "<leader>tr", function()
 	end)
 end, { silent = true })
 
+local function cwd() 
+  return vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
+end
+
 return {
 	"nvim-lualine/lualine.nvim",
 	event = "VeryLazy",
@@ -28,8 +32,9 @@ return {
 				lualine_a = { "mode" },
 				lualine_b = { "branch" },
 				lualine_c = {
-					{ "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-					{ "filename", path = 1, symbols = { modified = "  ", readonly = "", unnamed = "" } },
+          { cwd, padding = { left = 1, right = 1 } },
+          { "filename", path = 1, separator = "" },
+          { "filetype", icon_only = true, separator = "", padding = { left = 0, right = 0 } },
 				},
 				lualine_x = {
 					{
