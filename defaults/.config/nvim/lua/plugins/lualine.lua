@@ -30,7 +30,7 @@ return {
 			},
 			sections = {
 				lualine_a = { "mode" },
-				lualine_b = { "branch" },
+        lualine_b = { { "branch" }, { "diff" } },
 				lualine_c = {
           { cwd, padding = { left = 1, right = 1 } },
           { "filename", path = 1, separator = "" },
@@ -76,7 +76,6 @@ return {
 					-- this is to avoid annoying highlight (high contrast color)
 					-- when no winbar_symbol, diagnostics and diff is available.
 					{ "diagnostics", sources = { "nvim_diagnostic" } },
-					"diff",
 				},
 			},
 			inactive_winbar = {
@@ -86,7 +85,6 @@ return {
 				},
 				lualine_x = {
 					{ "diagnostics", sources = { "nvim_diagnostic" } },
-					"diff",
 				},
 			},
 			extensions = { "neo-tree", "quickfix", "toggleterm" },
