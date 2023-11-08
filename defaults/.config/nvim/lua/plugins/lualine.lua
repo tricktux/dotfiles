@@ -8,6 +8,12 @@ local function cwd()
   return vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
 end
 
+local function plugin_updates()
+  local u = require("lazy.status").updates()
+  local nums = string.match(u, "(%d+)")
+  return nums and tonumber(nums) > 15 or false
+end
+
 return {
 	"nvim-lualine/lualine.nvim",
 	event = "VeryLazy",
@@ -39,7 +45,7 @@ return {
 				lualine_x = {
 					{
 						require("lazy.status").updates,
-						cond = require("lazy.status").has_updates,
+            cond =  plugin_updates,
 						color = fg("Special"),
 					},
 				},

@@ -112,10 +112,11 @@ M.opts = {
   },
   checker = {
     -- automatically check for plugin updates
-    enabled = false,
-    concurrency = nil, ---@type number? set to 1 to check for updates very slowly
-    notify = true, -- get a notification when new updates are found
-    frequency = 3600, -- check for updates every hour
+    enabled = true,
+    concurrency = 8, ---@type number? set to 1 to check for updates very slowly
+    notify = false, -- get a notification when new updates are found
+    frequency = 43200, -- check for updates every 12 hours
+    check_pinned = true,
   },
   change_detection = {
     -- automatically check for config file changes and reload the ui
