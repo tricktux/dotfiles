@@ -50,9 +50,12 @@ return {
 					},
 				},
 				lualine_y = {
-					{ "progress", separator = "", padding = { left = 1, right = 0 } },
-					{ "location", padding = { left = 0, right = 1 } },
+					{ "diagnostics", sources = { "nvim_diagnostic" } },
 				},
+        lualine_z = {
+          { "progress", separator = "", padding = { left = 1, right = 0 } },
+          { "location", padding = { left = 0, right = 1 } },
+        },
 			},
 			tabline = {
 				lualine_a = {
@@ -79,9 +82,6 @@ return {
 					function()
 						return " "
 					end,
-					-- this is to avoid annoying highlight (high contrast color)
-					-- when no winbar_symbol, diagnostics and diff is available.
-					{ "diagnostics", sources = { "nvim_diagnostic" } },
 				},
 			},
 			inactive_winbar = {
@@ -90,7 +90,6 @@ return {
 					{ "filename", path = 0 },
 				},
 				lualine_x = {
-					{ "diagnostics", sources = { "nvim_diagnostic" } },
 				},
 			},
 			extensions = { "neo-tree", "quickfix", "toggleterm" },
