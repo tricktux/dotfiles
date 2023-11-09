@@ -65,8 +65,12 @@ M.setup = function()
 	api.nvim_create_autocmd("TermClose", {
 		group = id,
 		callback = function()
-      if vim.opt.filetype:get() == "lazygit" then return end
-			if vim.v.event.status == 0 then vim.api.nvim_buf_delete(0, {}) end
+			if vim.opt.filetype:get() == "lazygit" then
+				return
+			end
+			if vim.v.event.status == 0 then
+				vim.api.nvim_buf_delete(0, {})
+			end
 		end,
 	})
 
