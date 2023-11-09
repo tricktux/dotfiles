@@ -815,7 +815,37 @@ return {
         desc = "symbols-outline",
       },
     },
-    opts = {},
+    init = function()
+      local id = api.nvim_create_augroup("Symbols", { clear = true })
+      api.nvim_create_autocmd("FileType", {
+        callback = function(args)
+          vim.opt_local.spell = false
+        end,
+        pattern = "Outline",
+        desc = "SymbolsOutlineSettings",
+        group = id,
+      })
+    end,
+    opts = {
+      auto_preview = false,
+      highlight_hovered_item = false,
+      relative_width = false,
+      width = 40,
+      keymaps = { -- These keymaps can be a string or a table for multiple keys
+        close = {"<Esc>", "q"},
+        goto_location = "<Cr>",
+        focus_location = "o",
+        hover_symbol = "<C-space>",
+        toggle_preview = "K",
+        rename_symbol = "r",
+        code_actions = "a",
+        fold = "x",
+        unfold = "X",
+        fold_all = "<c-z>",
+        unfold_all = "<c-x>",
+        fold_reset = "R",
+      },
+    },
   },
   {
     "dgagn/diagflow.nvim",
