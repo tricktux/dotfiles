@@ -41,7 +41,7 @@ local function nvimtree_config()
     actions = {
       change_dir = { enable = true, global = false },
       open_file = {
-        quit_on_open = true,
+        quit_on_open = false,
         resize_window = false,
         window_picker = {
           enable = false,
@@ -61,7 +61,7 @@ local function nvimtree_config()
       },
     },
     view = {
-      width = 50,
+      width = 30,
       side = "left",
     },
   })
