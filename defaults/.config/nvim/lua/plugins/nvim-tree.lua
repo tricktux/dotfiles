@@ -2,8 +2,6 @@ local utl = require("utils/utils")
 local api = vim.api
 
 local function nvimtree_config()
-  local tree_cb = require("nvim-tree.config").nvim_tree_callback
-
   require("nvim-tree").setup({
     disable_netrw = true,
     hijack_netrw = true,
