@@ -46,7 +46,10 @@ M.setup = function()
 	api.nvim_create_autocmd("TermOpen", {
 		callback = function()
 			log.info("terminal autocmd called")
-			vim.opt.number = false
+			vim.opt_local.wrap = false
+			vim.opt_local.spell = false
+			vim.opt_local.number = false
+			vim.opt_local.relativenumber = false
 			vim.opt.bufhidden = "hide"
 			vim.keymap.set("n", [[q]], [[ZZ]], { silent = true, buffer = true })
 			vim.keymap.set("n", [[<M-`>]], [[ZZ]], { silent = true, buffer = true })
