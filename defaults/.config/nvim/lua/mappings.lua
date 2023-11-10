@@ -221,7 +221,7 @@ M.toggle = {
 	diagnostic = true, -- Used to toggle diagnostic
 }
 M.toggle.mappings = {
-	s = {
+	S = {
 		function()
 			vim.opt_local.spell = not vim.opt_local.spell:get()
 			print(fmt("toggle: spell '%s'", (vim.opt_local.spell:get() and "enabled" or "disabled")))

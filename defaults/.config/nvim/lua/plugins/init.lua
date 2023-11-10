@@ -810,7 +810,7 @@ return {
     cmd = "SymbolsOutline",
     keys = {
       {
-        "<leader>tS",
+        "<leader>ts",
         "<cmd>SymbolsOutline<cr>",
         desc = "symbols-outline",
       },
