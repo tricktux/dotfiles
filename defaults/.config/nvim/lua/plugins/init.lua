@@ -32,6 +32,22 @@ Why is the Dead Sea called Dead?
 Why only simple organisms can live in the Dead Sea? 
 {{c1::because of high salt conten}}
 
+If there's code just use Markdown's code block syntax. For example:
+Text: Here's a simple C++ code implementation of Horner's Rule:
+```cpp
+double horner(int poly[], int n, int x) {
+    double result = poly[0];
+    for (int i = 1; i < n; i++)
+        result = result * x + poly[i];
+    return result;
+}
+```
+
+If there are math formulas involved please use katex syntax for equations. For example:
+
+How can a polynomial be rewritten using Horner's rule?
+{{c1::$$P(x) = a_n + x(a_{n-1} + x(a_{n-2} + ... + x( a_1 + x*a_0)... ))$$}}
+
 Please use anki cards as described above to explain the concept of:
 ]]
 
