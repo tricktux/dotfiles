@@ -50,12 +50,9 @@ M.setup = function()
 			vim.opt_local.spell = false
 			vim.opt_local.number = false
 			vim.opt_local.relativenumber = false
-			vim.opt.bufhidden = "hide"
+			vim.opt_local.bufhidden = "hide"
 			vim.keymap.set("n", [[q]], [[ZZ]], { silent = true, buffer = true })
 			vim.keymap.set("n", [[<M-`>]], [[ZZ]], { silent = true, buffer = true })
-			local color = vim.opt.background:get() == "dark" and "Black" or "White"
-			vim.cmd("highlight Terminal guibg=" .. color)
-			vim.opt.winhighlight = "NormalFloat:Terminal"
 		end,
 		pattern = "*",
 		desc = "Better settings for terminal",
