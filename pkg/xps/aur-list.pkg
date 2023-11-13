@@ -1,7 +1,7 @@
 7-zip-bin
 abook
 alttab-git
-anki-git
+anki
 bibata-extra-cursor-theme
 bluez-firmware
 brillo
@@ -19,7 +19,6 @@ gdb-dashboard-git
 hal
 htop-vim
 i3lock-fancy-git
-jdtls
 kfr
 laptop-mode-tools
 lazydocker-bin
