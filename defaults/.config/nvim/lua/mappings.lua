@@ -466,6 +466,8 @@ local function misc_mappings()
 			vks("t", v, [[<C-\><C-n>]], { silent = true })
 		end
 	end
+  -- Nice one to scroll through output
+  vks("t", "jk", [[<C-\><C-n>]], { silent = true })
 	local opts = { nowait = true, desc = "start_cmd" }
 	-- Awesome hack, typing a command is used way more often than next
 	-- Well these hacks make it really painful when using raw vim
