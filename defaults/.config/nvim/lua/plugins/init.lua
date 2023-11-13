@@ -424,7 +424,7 @@ return {
   {
     "akinsho/toggleterm.nvim",
     keys = {
-      { "<plug>terminal_toggle", "<cmd>ToggleTerm<cr>", desc = "terminal_toggle_toggleterm" },
+      { "<plug>terminal_toggle", "<cmd>ToggleTerm size=20 direction=horizontal<cr>", desc = "terminal_toggle_toggleterm" },
       {
         "<plug>terminal_open_horizontal",
         "<cmd>ToggleTerm direction=horizontal<cr>",
