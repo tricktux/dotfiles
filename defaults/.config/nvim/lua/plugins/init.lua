@@ -43,6 +43,11 @@ double horner(int poly[], int n, int x) {
 }
 ```
 
+Please escape anki's cloze syntax in the answer. Example:
+```
+This is how to escape cloze deletion: \{{c1::text\}} and std\:\:sort
+```
+
 If there are math formulas involved please use katex syntax for equations. For example:
 
 How can a polynomial be rewritten using Horner's rule?
