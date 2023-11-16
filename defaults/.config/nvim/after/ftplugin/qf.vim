@@ -18,6 +18,7 @@ set cpoptions&vim
 
 setlocal cursorline
 setlocal colorcolumn=""
+setlocal nospell
 
 " Taken from 
 " "http://stackoverflow.com/questions/18522086/what-is-the-best-way-to-
@@ -56,3 +57,4 @@ unlet s:keepcpo
 
 let b:undo_ftplugin = 'setlocal cursorline<'
       \ . '|setlocal colorcolumn<'
+      \ . '|setlocal spell<'
