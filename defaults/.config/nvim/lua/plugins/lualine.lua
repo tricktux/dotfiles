@@ -1,5 +1,6 @@
 vim.keymap.set("n", "<leader>tr", function()
 	vim.ui.input("Enter Tab name: ", function(text)
+    if text == "" or text == nil then return end
 		vim.cmd([[LualineRenameTab ]] .. text)
 	end)
 end, { silent = true })
