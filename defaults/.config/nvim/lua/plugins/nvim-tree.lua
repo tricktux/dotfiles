@@ -11,6 +11,7 @@ local function nvimtree_config()
     update_focused_file = { enable = true, update_cwd = true, ignore_list = {} },
     system_open = { cmd = nil, args = {} },
     filters = { dotfiles = false, custom = {} },
+    git = { enable = false },
     renderer = {
       highlight_git = false,
       group_empty = true,
