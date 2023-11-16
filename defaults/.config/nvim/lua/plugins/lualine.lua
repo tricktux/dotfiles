@@ -3,9 +3,9 @@ vim.keymap.set("n", "<leader>tr", function()
     if text == "" or text == nil then return end
 		vim.cmd([[LualineRenameTab ]] .. text)
 	end)
-end, { silent = true })
+end, { silent = true, desc = "tab_rename_lualine" })
 
-local function cwd() 
+local function cwd()
   return vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
 end
 
