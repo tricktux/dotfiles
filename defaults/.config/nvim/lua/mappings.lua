@@ -228,7 +228,7 @@ M.toggle.mappings = {
 		end,
 		"toggle_spell",
 	},
-	v = {
+	V = {
 		function()
 			M.toggle.virtual = not M.toggle.virtual
 			vim.diagnostic.config({ virtual_text = M.toggle.virtual })
@@ -391,8 +391,8 @@ M.terminal.mappings = {
 	["<localleader>e"] = { "<plug>terminal_send_line", "terminal_send_line" },
 	["ge"] = { "<plug>terminal_send_line_visual", "terminal_send_line_visual", "x" },
 	["<localleader>v"] = { "<plug>terminal_send_visual", "terminal_send_visual", "x" },
-	["<leader>Th"] = { "<plug>terminal_open_horizontal", "terminal_open_horizontal" },
-	["<leader>Tv"] = { "<plug>terminal_open_vertical", "terminal_open_vertical" },
+	["<leader>th"] = { "<plug>terminal_open_horizontal", "terminal_open_horizontal" },
+	["<leader>tv"] = { "<plug>terminal_open_vertical", "terminal_open_vertical" },
 	["<a-`>"] = { "<plug>terminal_toggle", "terminal_toggle" },
 	["<plug>terminal_toggle"] = {
 		function()
