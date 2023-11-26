@@ -24,6 +24,7 @@ boost-libs
 bottom
 capitaine-cursors
 ccache
+cdrtools
 cheese
 cifs-utils
 clang
@@ -96,6 +97,7 @@ hyperfine
 i3-wm
 i3blocks
 i3lock
+id3v2
 imagemagick
 inetutils
 intel-ucode
@@ -265,7 +267,9 @@ vlc
 w3m
 wavpack
 websocketpp
+wget
 which
+whipper
 wireguard-tools
 wireless_tools
 words
