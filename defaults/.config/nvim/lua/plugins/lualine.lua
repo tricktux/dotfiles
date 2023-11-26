@@ -11,6 +11,7 @@ end
 
 local function plugin_updates()
   local u = require("lazy.status").updates()
+  if not u or u == nil or u == "" then return false end
   local nums = string.match(u, "(%d+)")
   return nums and tonumber(nums) > 15 or false
 end
