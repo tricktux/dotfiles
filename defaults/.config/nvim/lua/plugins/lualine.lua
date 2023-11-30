@@ -9,6 +9,16 @@ local function cwd()
   return vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
 end
 
+local function get_lsp_client_name()
+  local clients = vim.lsp.get_clients()
+  if next(clients) == nil then return "" end -- If no LSP enabled, return nothing.
+  local formated_clients = {}
+  for _, client in ipairs(clients) do
+    table.insert(formated_clients, client.name)
+  end
+  return table.concat(formated_clients, ', ')
+end
+
 local function plugin_updates()
   local u = require("lazy.status").updates()
   if not u or u == nil or u == "" then return false end
@@ -53,6 +63,7 @@ return {
 				},
 				lualine_y = {
 					{ "diagnostics", sources = { "nvim_diagnostic" } },
+          { get_lsp_client_name },
 				},
         lualine_z = {
           { "progress", separator = "", padding = { left = 1, right = 0 } },
