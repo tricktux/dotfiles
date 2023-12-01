@@ -98,23 +98,20 @@ function M.set_lsp_mappings(bufnr)
 	end
 end
 
-local lsp_init_check = function(client_id, bufnr)
-	vim.validate({ client_id = { client_id, "table" }, bufnr = { bufnr, "number" } })
-
-	if vim.b.did_on_lsp_attach == 1 then
-		return true
-	end
-
-	vim.b.did_on_lsp_attach = 1
-	return false
+local lsp_init_check = function()
+	return vim.b.did_on_lsp_attach == 1 and true or false
 end
 
 -- Abstract function that allows you to hook and set settings on a buffer that
 -- has lsp server support
 function M.on_lsp_attach(client_id, bufnr)
-	if lsp_init_check(client_id, bufnr) then
+	if lsp_init_check() then
 		return
 	end
+
+	vim.validate({ client_id = { client_id, "table" }, bufnr = { bufnr, "number" } })
+
+	vim.b.did_on_lsp_attach = 1
 
 	M.set_lsp_mappings(bufnr)
 	set_lsp_options(client_id, bufnr)
@@ -182,7 +179,7 @@ function M.on_lsp_attach(client_id, bufnr)
 end
 
 local function on_clangd_attach(client_id, bufnr)
-	if lsp_init_check(client_id, bufnr) then
+	if lsp_init_check() then
 		return
 	end
 
