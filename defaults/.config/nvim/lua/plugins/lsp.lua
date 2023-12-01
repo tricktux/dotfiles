@@ -116,21 +116,9 @@ function M.on_lsp_attach(client_id, bufnr)
 	M.set_lsp_mappings(bufnr)
 	set_lsp_options(client_id, bufnr)
 
-	local dhp = client_id.server_capabilities.documentHighlightProvider
-	local dsp = client_id.server_capabilities.documentSymbolProvider
-	local clp = client_id.server_capabilities.codeLensProvider.resolveProvider
-	local ihp = client_id.server_capabilities.inlayHintProvider.resolveProvider
-
 	local sig_ok, sig = pcall(require, "lsp_signature")
 	if sig_ok then
 		sig.on_attach()
-	end
-
-	if dsp then
-		local nav_ok, nav = pcall(require, "nvim-navic")
-		if nav_ok then
-			nav.attach(client_id, bufnr)
-		end
 	end
 
 	local id = vim.api.nvim_create_augroup("LspStuff", { clear = true })
@@ -143,7 +131,7 @@ function M.on_lsp_attach(client_id, bufnr)
 		desc = "Detach from buffer",
 		group = id,
 	})
-	if vim.fn.has("nvim-0.10") > 0 and ihp then
+	if vim.fn.has("nvim-0.10") > 0 and client_id.supports_method("textDocument/inlayHint") then
 		vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
 			callback = function(au)
 				vim.lsp.inlay_hint.enable(au.buf, true)
@@ -153,7 +141,8 @@ function M.on_lsp_attach(client_id, bufnr)
 			group = id,
 		})
 	end
-	if clp then
+	if client_id.supports_method("textDocument/codeLens") then
+    vim.print("codeLens")
 		vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
 			callback = vim.lsp.codelens.refresh,
 			buffer = bufnr,
@@ -162,7 +151,8 @@ function M.on_lsp_attach(client_id, bufnr)
 		})
 	end
 	-- Highlights references to word under the cursor
-	if dhp then
+	if client_id.supports_method("textDocument/documentHighlight") then
+    vim.print("highlight")
 		vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 			callback = vim.lsp.buf.document_highlight,
 			buffer = bufnr,
