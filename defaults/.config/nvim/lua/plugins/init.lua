@@ -51,9 +51,13 @@ This is how to escape cloze deletion: \{{c1::text\}} and std\:\:sort
 If there are math formulas involved please use katex syntax for equations. For example:
 
 How can a polynomial be rewritten using Horner's rule?
-{{c1::$$P(x) = a_n + x(a_{n-1} + x(a_{n-2} + ... + x( a_1 + x*a_0)... ))$$}}
+{{c1::[$]P(x) = a_n + x(a_{n-1} + x(a_{n-2} + ... + x( a_1 + x*a_0)... ))[\$]}}
 
-Please use anki cards as described above to explain the concept of:
+Please focus on comprehensivley capturing the content in cards, 
+as many cards as is necessary, the more the better, as long as content
+is not redundant; while keeping the responses of the cards as brief as possible.
+
+Now please use anki cards as described above to explain the concept of:
 ]]
 
   -- Copy text to buffer
