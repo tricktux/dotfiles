@@ -142,7 +142,6 @@ function M.on_lsp_attach(client_id, bufnr)
 		})
 	end
 	if client_id.supports_method("textDocument/codeLens") then
-    vim.print("codeLens")
 		vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
 			callback = vim.lsp.codelens.refresh,
 			buffer = bufnr,
@@ -152,7 +151,6 @@ function M.on_lsp_attach(client_id, bufnr)
 	end
 	-- Highlights references to word under the cursor
 	if client_id.supports_method("textDocument/documentHighlight") then
-    vim.print("highlight")
 		vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 			callback = vim.lsp.buf.document_highlight,
 			buffer = bufnr,
