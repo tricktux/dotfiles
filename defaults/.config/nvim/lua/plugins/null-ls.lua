@@ -1,6 +1,5 @@
 local log = require("utils.log")
 local map = require("mappings")
-local vks = vim.keymap.set
 
 local maps = {}
 maps.mode = "n"
