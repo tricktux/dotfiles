@@ -17,7 +17,7 @@ M.debug_keys = {
   ["<localleader>bg"] = "<cmd>Gdb<cr>",
   ["<localleader>ba"] = "<cmd>Asm<cr>",
   ["<localleader>bq"] = "<cmd>call TermDebugSendCommand('quit')<cr>",
-  r = "<cmd>Run<cr>",
+  --[[ r = "<cmd>Run<cr>",
   b = "<cmd>Break<cr>",
   d = "<cmd>Clear<cr>",
   c = "<cmd>Continue<cr>",
@@ -30,7 +30,7 @@ M.debug_keys = {
   t = "<cmd>call TermDebugSendCommand('bt')<cr>",
   G = "<cmd>Gdb<cr>",
   a = "<cmd>Asm<cr>",
-  q = "<cmd>call TermDebugSendCommand('quit')<cr>",
+  q = "<cmd>call TermDebugSendCommand('quit')<cr>", ]]
 }
 
 M.debug_start = function()
