@@ -1,4 +1,3 @@
-
 " File:					lldb.vim
 "	Description:	ftplugin to use with the lldb.vim plugin
 " Author:				Reinaldo Molina <rmolin88@gmail.com>
