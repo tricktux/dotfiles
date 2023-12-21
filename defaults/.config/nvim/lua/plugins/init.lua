@@ -199,35 +199,35 @@ return {
     "danymat/neogen",
     keys = {
       {
-        "<leader>og",
+        "<leader>oa",
         function()
           require("neogen").generate()
         end,
         desc = "generate_neogen",
       },
       {
-        "<leader>oGf",
+        "<leader>oAf",
         function()
           require("neogen").generate({ type = "func" })
         end,
         desc = "generate_neogen_function",
       },
       {
-        "<leader>oGc",
+        "<leader>oAc",
         function()
           require("neogen").generate({ type = "class" })
         end,
         desc = "generate_neogen_class",
       },
       {
-        "<leader>oGi",
+        "<leader>oAi",
         function()
           require("neogen").generate({ type = "file" })
         end,
         desc = "generate_neogen_file",
       },
       {
-        "<leader>oGt",
+        "<leader>oAt",
         function()
           require("neogen").generate({ type = "type" })
         end,
