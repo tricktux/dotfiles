@@ -387,6 +387,26 @@ function M.file_fuzzer(path)
 	opts["prompt_title"] = 'Files in "' .. spath .. '"...'
 	opts["cwd"] = spath
 	opts["find_command"] = utl.fd.file_cmd
+  opts["attach_mappings"] = function(_, map)
+    map("i", "<c-y>", function(_prompt_bufnr)
+        local actions = require('telescope.actions')
+        local p = require('telescope.actions.state').get_selected_entry().path
+        -- put the selected entry in the clipboard register
+        vim.fn.setreg('p', p)
+        vim.fn.setreg('*', p)
+        vim.fn.setreg('+', p)
+        -- close search window
+        actions.close(_prompt_bufnr)
+        print("Path copied to clipboard: " .. p)
+        -- Telescope runs async, in case you want to do something with special
+        -- with this filename subscribe to this autocommand, value is in
+        -- register p
+        vim.cmd.doautocmd("User TelescopeFindFilesYankPost")
+    end)
+    -- needs to return true if you want to map default_mappings and
+    -- false if not
+    return true
+  end
 	require("telescope.builtin").find_files(opts)
 end
 
