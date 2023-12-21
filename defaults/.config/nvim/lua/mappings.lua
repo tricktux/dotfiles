@@ -255,13 +255,7 @@ M.toggle.mappings = {
 		end,
 		"open_image_in_this_line",
 	},
-	I = {
-		function()
-			local line = vim.fn.getline(".")
-			require("plugins.hologram").toggle_hologram_image_in_line(line)
-		end,
-		"toggle_hologram_images",
-	},
+  I = { "<plug>toggle_hologram_images", "toggle_hologram_images" },
 }
 
 M.edit = {

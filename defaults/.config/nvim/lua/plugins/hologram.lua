@@ -68,10 +68,17 @@ end
 
 return {
 	"giusgad/hologram.nvim",
-	event = "VeryLazy",
+  keys = {
+    {
+      "<plug>toggle_hologram_images",
+      function()
+        local line = vim.fn.getline(".")
+        M.toggle_hologram_image_in_line(line)
+      end,
+      desc = "toggle_hologram_images",
+    },
+  },
 	opts = {
 		auto_display = false,
 	},
-	toggle_hologram_image_in_line = M.toggle_hologram_image_in_line,
-  open_first_visible_image = M.open_first_visible_image,
 }
