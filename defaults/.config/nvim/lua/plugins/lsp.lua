@@ -366,7 +366,9 @@ return {
   {
     "dgagn/diagflow.nvim",
     event = { "LspAttach" },
-    opts = {},
+    opts = {
+      scope = 'line'
+    },
   },
 	set_lsp_mappings = M.set_lsp_mappings,
 	on_attach = M.on_lsp_attach,
