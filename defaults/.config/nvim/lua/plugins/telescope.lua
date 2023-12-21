@@ -208,7 +208,7 @@ function M:config_project()
 			"_darcs",
 			".hg",
 			"notes.org",
-      ".bzr",
+			".bzr",
 			"package.json",
 			"[Cc]argo.toml",
 		},
@@ -388,26 +388,26 @@ function M.file_fuzzer(path)
 	opts["prompt_title"] = 'Files in "' .. spath .. '"...'
 	opts["cwd"] = spath
 	opts["find_command"] = utl.fd.file_cmd
-  opts["attach_mappings"] = function(_, map)
-    map("i", "<c-y>", function(_prompt_bufnr)
-        local actions = require('telescope.actions')
-        local p = require('telescope.actions.state').get_selected_entry().path
-        -- put the selected entry in the clipboard register
-        vim.fn.setreg('p', p)
-        vim.fn.setreg('*', p)
-        vim.fn.setreg('+', p)
-        -- close search window
-        actions.close(_prompt_bufnr)
-        print("Path copied to clipboard: " .. p)
-        -- Telescope runs async, in case you want to do something with special
-        -- with this filename subscribe to this autocommand, value is in
-        -- register p
-        vim.cmd.doautocmd("User TelescopeFindFilesYankPost")
-    end)
-    -- needs to return true if you want to map default_mappings and
-    -- false if not
-    return true
-  end
+	opts["attach_mappings"] = function(_, map)
+		map("i", "<c-y>", function(_prompt_bufnr)
+			local actions = require("telescope.actions")
+			local p = require("telescope.actions.state").get_selected_entry().path
+			-- put the selected entry in the clipboard register
+			vim.fn.setreg("p", p)
+			vim.fn.setreg("*", p)
+			vim.fn.setreg("+", p)
+			-- close search window
+			actions.close(_prompt_bufnr)
+			print("Path copied to clipboard: " .. p)
+			-- Telescope runs async, in case you want to do something with special
+			-- with this filename subscribe to this autocommand, value is in
+			-- register p
+			vim.cmd.doautocmd("User TelescopeFindFilesYankPost")
+		end)
+		-- needs to return true if you want to map default_mappings and
+		-- false if not
+		return true
+	end
 	require("telescope.builtin").find_files(opts)
 end
 
@@ -530,7 +530,7 @@ function M:setup()
 					["<c-k>"] = actions.move_selection_previous,
 					["<esc>"] = actions.close,
 					["<c-c>"] = actions.close,
-          ["<c-b>"] = actions.delete_buffer,
+					["<c-b>"] = actions.delete_buffer,
 					["<c-q>"] = function(bufnr)
 						actions.smart_send_to_qflist(bufnr)
 						actions.open_qflist(bufnr)
@@ -596,26 +596,42 @@ function M:setup()
 end
 
 return {
-	"nvim-lua/telescope.nvim",
-	event = "VeryLazy",
-	dependencies = {
-		{
-			"ahmedkhalf/project.nvim",
-			config = function()
-				M:config_project()
-			end,
-		},
-		{
-			"jedrzejboczar/toggletasks.nvim",
-			config = function()
-				M.toggletasks.config()
-			end,
-		},
-		{ "nvim-lua/plenary.nvim" },
+	{
+		"nvim-lua/telescope.nvim",
+		event = "VeryLazy",
+		config = function()
+			M:setup()
+		end,
+    dependencies = {
+      {"nvim-lua/plenary.nvim"}
+    },
 	},
-	config = function()
-		M:setup()
-	end,
+	{
+		"ahmedkhalf/project.nvim",
+    event = "VeryLazy",
+		config = function()
+			M:config_project()
+		end,
+    dependencies = {
+      {"nvim-lua/telescope.nvim"}
+    },
+	},
+	{
+		"jedrzejboczar/toggletasks.nvim",
+    keys = {
+      {
+        "<leader>" .. M.leader_key .. "k",
+        [[<cmd>Telescope toggletasks select<cr>]],
+        desc = "toggletasks"
+      }
+    },
+		config = function()
+			M.toggletasks.config()
+		end,
+    dependencies = {
+      {"nvim-lua/telescope.nvim"}
+    },
+	},
 	-- Hooks for other plugins, will trigger warnings in Lazy.nvim
 	set_lsp_mappings = M.set_lsp_mappings,
 	file_fuzzer = M.file_fuzzer,

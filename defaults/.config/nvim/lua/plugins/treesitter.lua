@@ -164,18 +164,22 @@ return {
 	},
 	{
 		"p00f/nvim-ts-rainbow",
+		event = "BufReadPost",
 		dependencies = "nvim-treesitter/nvim-treesitter",
 	},
 	{
 		"ray-x/cmp-treesitter",
+		event = "BufReadPost",
 		dependencies = "nvim-treesitter/nvim-treesitter",
 	},
 	{
 		"RRethy/nvim-treesitter-textsubjects",
+		event = "BufReadPost",
 		dependencies = "nvim-treesitter/nvim-treesitter",
 	},
 	{
 		"nvim-treesitter/nvim-treesitter-context",
+		event = "BufReadPost",
 		dependencies = "nvim-treesitter/nvim-treesitter",
 		opts = {
 			enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
