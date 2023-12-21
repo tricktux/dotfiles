@@ -117,8 +117,6 @@ leader.v = {
 	l = "log",
 }
 leader.d = "duplicate_char"
-leader.p = "paste_from_system"
-leader.y = "yank_to_system"
 
 local lleader = {}
 local lleader_p = [[<localleader>]]

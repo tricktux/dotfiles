@@ -508,11 +508,11 @@ end
 
 M.plug = {}
 M.plug.mappings = {
-	["<leader>rt"] = { "<plug>file_tree_browser", "file_tree_browser" },
-	["<leader>ra"] = { "<plug>file_ranger_browser", "file_ranger_browser" },
-	["<leader>ro"] = { "<plug>file_oil_browser", "file_oil_browser" },
+	["<leader>ft"] = { "<plug>file_tree_browser", "file_tree_browser" },
+	["<leader>fa"] = { "<plug>file_ranger_browser", "file_ranger_browser" },
+	["<leader>fo"] = { "<plug>file_oil_browser", "file_oil_browser" },
 	-- Default file browser
-	["<leader>F"] = { "<plug>file_oil_browser", "file_oil_browser" },
+	["<leader>fj"] = { "<plug>file_oil_browser", "file_oil_browser" },
 	["<leader>tf"] = { "<plug>focus_toggle", "focus_toggle" },
 	["<s-k>"] = { "<plug>buffer_browser", "buffer_browser" },
 	["<c-p>"] = { "<plug>mru_browser", "mru_browser" },
@@ -576,8 +576,6 @@ M.builtin_terminal.mappings = {
 local function windows_os_mappings()
 	vks({ "x", "n" }, "<a-v>", [=["*p=`]zz]=])
 	vks("i", "<a-v>", [=[<c-r>*]=])
-	vks("n", "<leader>y", [=["*yy]=])
-	vks("v", "<leader>y", [=["*y]=])
 	vim.cmd([[silent! vunmap <c-x>]])
 
 	M.builtin_terminal.mappings["<c-a>"] = { "<home>" }
@@ -621,8 +619,6 @@ end
 
 local function unix_os_mappings()
 	vks({ "x", "n" }, "<a-v>", [=["+p=`]zz]=])
-	vks("n", "<leader>y", [=["+yy]=])
-	vks("v", "<leader>y", [=["+y]=])
 end
 
 function M.search_motion()
