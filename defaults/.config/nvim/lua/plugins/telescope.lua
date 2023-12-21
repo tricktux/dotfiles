@@ -632,6 +632,25 @@ return {
       {"nvim-lua/telescope.nvim"}
     },
 	},
+  {
+    "ThePrimeagen/git-worktree.nvim",
+    keys = {
+      {
+        "<leader>vws",
+        function()
+          require("telescope").extensions.git_worktree.git_worktrees()
+        end,
+        desc = "git-worktree-switch",
+      },
+    },
+    dependencies = {
+      "nvim-lua/telescope.nvim",
+    },
+    config = function()
+      require("git-worktree").setup()
+      require("telescope").load_extension("git_worktree")
+    end,
+  },
 	-- Hooks for other plugins, will trigger warnings in Lazy.nvim
 	set_lsp_mappings = M.set_lsp_mappings,
 	file_fuzzer = M.file_fuzzer,
