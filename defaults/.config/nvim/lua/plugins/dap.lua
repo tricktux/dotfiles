@@ -28,4 +28,4 @@ local dap = {
 	},
 }
 
-return dap
+return {}
