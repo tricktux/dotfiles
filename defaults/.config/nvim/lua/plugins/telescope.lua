@@ -7,6 +7,7 @@ local fmt = string.format
 local log = require("utils.log")
 
 local M = {}
+M.leader_key = "y"
 
 local function grep_cword()
 	local ts = require("telescope.builtin")
@@ -242,7 +243,7 @@ function M:config_project()
 	ts.load_extension("projects")
 
 	local opts = { silent = true, desc = "projects" }
-	vim.keymap.set("n", "<leader>fp", ts.extensions.projects.projects, opts)
+	vim.keymap.set("n", "<leader>" .. M.leader_key .. "p", ts.extensions.projects.projects, opts)
 end
 
 function M.set_lsp_mappings(bufnr)
@@ -426,7 +427,7 @@ function M:set_mappings()
 		ts.buffers(cust_buff_opts())
 	end, opts)
 	local git = {}
-	git.prefix = "<leader>fg"
+	git.prefix = "<leader>" .. M.leader_key .. "g"
 	git.mappings = {
 		f = { ts.git_files, "files" },
 		C = { ts.git_commits, "commits" },
@@ -457,7 +458,7 @@ function M:set_mappings()
 
 	map:keymaps_sets(search)
 
-	leader.prefix = "<leader>f"
+	leader.prefix = "<leader>" .. M.leader_key
 	leader.mappings = {
 		b = { ts.buffers, "buffers" },
 		f = { ts.find_files, "files" },
