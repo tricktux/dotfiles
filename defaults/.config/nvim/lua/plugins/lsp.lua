@@ -333,64 +333,41 @@ function M:config()
 end
 
 return {
-	"neovim/nvim-lspconfig",
-	event = { "BufReadPre", "BufNewFile" },
-	config = function()
-		M:config()
-	end,
-	dependencies = {
-		"ray-x/lsp_signature.nvim",
-		{
-			"Fildo7525/pretty_hover",
-			event = "LspAttach",
-			opts = {},
-		},
-		"hrsh7th/cmp-nvim-lsp",
-		{
-			"smjonas/inc-rename.nvim",
-			config = true,
-		},
-		{
-			"j-hui/fidget.nvim",
-			tag = "legacy",
-			opts = {
-				windows = {
-					blend = 0,
-				},
-				text = {
-					spinner = "dots", -- animation shown when tasks are ongoing
-					done = "✔", -- character shown when all tasks are complete
-					commenced = "Started", -- message shown when task starts
-					completed = "Completed", -- message shown when task completes
-				},
-				align = {
-					bottom = true, -- align fidgets along bottom edge of buffer
-					right = true, -- align fidgets along right edge of buffer
-				},
-				timer = {
-					spinner_rate = 125, -- frame rate of spinner animation, in ms
-					fidget_decay = 2000, -- how long to keep around empty fidget, in ms
-					task_decay = 1000, -- how long to keep around completed task, in ms
-				},
-				fmt = {
-					leftpad = true, -- right-justify text in fidget box
-					-- function to format fidget title
-					fidget = function(fidget_name, spinner)
-						return string.format("%s %s", spinner, fidget_name)
-					end,
-					-- function to format each task line
-					task = function(task_name, message, percentage)
-						return string.format(
-							"%s%s [%s]",
-							message,
-							percentage and string.format(" (%s%%)", percentage) or "",
-							task_name
-						)
-					end,
-				},
-			},
-		},
+	{
+		"neovim/nvim-lspconfig",
+		event = { "BufReadPre", "BufNewFile" },
+		config = function()
+			M:config()
+		end,
 	},
+	{
+		"ray-x/lsp_signature.nvim",
+		event = "LspAttach",
+	},
+	{
+		"Fildo7525/pretty_hover",
+		event = "LspAttach",
+		opts = {},
+	},
+	{
+		"hrsh7th/cmp-nvim-lsp",
+		event = "LspAttach",
+	},
+	{
+		"smjonas/inc-rename.nvim",
+		event = "LspAttach",
+		opts = {},
+	},
+	{
+		"j-hui/fidget.nvim",
+		event = "LspAttach",
+		opts = {},
+	},
+  {
+    "dgagn/diagflow.nvim",
+    event = { "LspAttach" },
+    opts = {},
+  },
 	set_lsp_mappings = M.set_lsp_mappings,
 	on_attach = M.on_lsp_attach,
 }

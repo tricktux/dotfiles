@@ -833,11 +833,6 @@ return {
 		},
 	},
 	{
-		"dgagn/diagflow.nvim",
-		event = { "LspAttach" },
-		opts = {},
-	},
-	{
 		"folke/zen-mode.nvim",
 		cmd = "ZenMode",
 		keys = {
