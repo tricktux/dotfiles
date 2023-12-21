@@ -272,6 +272,33 @@ return {
 		},
 	},
 	{
+		"mizlan/iswap.nvim",
+		keys = {
+			{
+				"<leader>rsn",
+				[[<cmd>ISwapNode<cr>]],
+				desc = "swap_node",
+			},
+			{
+				"<leader>rsw",
+				[[<cmd>ISwapWith<cr>]],
+				desc = "swap_with",
+			},
+			{
+				"<leader>rsl",
+				[[<cmd>ISwapNodeWithRight<cr>]],
+				desc = "swap_with_right",
+			},
+			{
+				"<leader>rsh",
+				[[<cmd>ISwapNodeWithLeft<cr>]],
+				desc = "swap_with_left",
+			},
+		},
+		opts = {},
+		dependencies = "nvim-treesitter/nvim-treesitter",
+	},
+	{
 		"danymat/neogen",
 		keys = {
 			{
