@@ -70,7 +70,7 @@ M.__config = {
     "c", "cpp", "python", "lua", "java", "bash", "c_sharp", "rust", "json",
     "toml", "bash", "cmake", "dockerfile", "json5", "latex", "r", "yaml",
     "vim", "markdown", "markdown_inline", "json", "make", "nix", "html",
-    "llvm", "comment", "org", "vimdoc"
+    "llvm", "comment", "org", "vimdoc", "doxygen"
   },
   -- Automatically install missing parsers when entering buffer
   -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
