@@ -6,18 +6,26 @@
 " Created:        Fri Dec 01 2017 10:04
 " Last Modified:  Fri Dec 01 2017 10:04
 
+let s:splitter = has('unix') ? '/' : '\'
+
+function! passwd#OnTextYankPost() abort
+  " Telescope is 
+  return s:copy_passwd_to_clipboard(getreg('p'))
+endfunction
+
 function! s:copy_passwd_to_clipboard(passwd_file) abort
 	if !has('clipboard')
 		echoerr 'No support for clipboard'
 		return -2
 	endif
 
-	if empty(a:passwd_file) || empty(glob(a:passwd_file))
-		echoerr 'Error locating input passwd_file: ' . a:passwd_file
+  let l:p = v:lua.vim.fs.normalize(a:passwd_file)
+	if empty(a:passwd_file) || empty(glob(l:p))
+		echoerr 'Error locating input passwd_file: ' . l:p
 		return -3
 	endif
 
-	let l:decrypt_cmd = 'gpg --decrypt ' . a:passwd_file
+	let l:decrypt_cmd = 'gpg --decrypt ' . l:p
 
 	let l:pass = systemlist(l:decrypt_cmd)
 
@@ -29,6 +37,8 @@ function! s:copy_passwd_to_clipboard(passwd_file) abort
 	" Copy only first line after User info. Should be passwd.
 	let l:passwd = get(l:pass, 2, '')
 	let @* = l:passwd
+  let @+ = l:passwd
+  let @" = l:passwd
 
 	if !has('timers')
 		echoerr 'Vim is missing the "timers" feature.' . "\n" .
@@ -55,22 +65,18 @@ function! passwd#SelectPasswdFile() abort
 		call setreg(v:register, '') " Clean up register
 		" execute 'Denite -default-action=yank -path=' . g:passwd_store_dir . ' file_rec'
 		execute 'Denite -default-action=yank -path=~/.password-store file_rec'
-		let l:passwd_file = getreg()
+    let l:passwd_file = g:passwd_store_dir . s:splitter . getreg()
 	else
-		let l:cwd = getcwd()
-		execute 'lcd ' . g:passwd_store_dir
-		let l:passwd_file = input('Please select (<tab>) password file: ')
-		execute 'lcd ' . l:cwd
+    autocmd User TelescopeFindFilesYankPost ++once call passwd#OnTextYankPost()
+    call v:lua.require'utils.utils'.fs.path.fuzzer(g:passwd_store_dir)
+    return
 	endif
 
 	if empty(l:passwd_file)
 		return
 	endif
 
-	" TODO-[RM]-(Fri Dec 01 2017 11:54): This down here could be a problem. Need to
-	" detect if the '/' was provided in the name. If user provides it could be
-	" duplicated here
-	return s:copy_passwd_to_clipboard(g:passwd_store_dir . '\' . l:passwd_file)
+	return s:copy_passwd_to_clipboard(l:passwd_file)
 endfunction
 
 function! passwd#AddPasswd() abort
@@ -152,6 +158,8 @@ endfunction
 function! s:clear_system_clipboard(timer) abort
 	echomsg 'Clearing clibpboard'
 	let @* = ''
+  let @+ = ''
+  let @" = ''
 endfunction
 
 function! s:add_file(path) abort
@@ -168,10 +176,8 @@ function! s:add_file(path) abort
 		return
 	endif
 
-	let l:splitter = has('unix') ? '/' : '\'
-
-	if l:new_file[0] !=# l:splitter
-		let l:new_file = l:splitter . l:new_file
+	if l:new_file[0] !=# s:splitter
+		let l:new_file = s:splitter . l:new_file
 	endif
 
 	let l:new_file = a:path . l:new_file
@@ -180,7 +186,7 @@ function! s:add_file(path) abort
 	endif
 
 	" Find passed dir
-	let l:last_folder = strridx(l:new_file, l:splitter)
+	let l:last_folder = strridx(l:new_file, s:splitter)
 	let l:new_folder = l:new_file[0:l:last_folder-1]
 	if &verbose > 0
 		echomsg printf('[wiki_add]: l:new_folder = "%s"', l:new_folder)
