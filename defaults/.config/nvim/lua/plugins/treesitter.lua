@@ -167,18 +167,55 @@ return {
 			"RRethy/nvim-treesitter-textsubjects",
 			{
 				"danymat/neogen",
-				-- TODO: fix mappings here
 				keys = {
-					{ "<leader>og", desc = "generate_neogen" },
-					{ "<leader>oGf", desc = "generate_neogen_function" },
-					{ "<leader>oGc", desc = "generate_neogen_class" },
-					{ "<leader>oGf", desc = "generate_neogen_file" },
-					{ "<leader>oGt", desc = "generate_neogen_type" },
+					{
+						"<leader>rD",
+						function()
+							require("neogen").generate()
+						end,
+						desc = "generate_neogen",
+					},
+					{
+						"<leader>rdf",
+						function()
+							require("neogen").generate({ type = "func" })
+						end,
+						desc = "generate_neogen_function",
+					},
+					{
+						"<leader>rdc",
+						function()
+							require("neogen").generate({ type = "class" })
+						end,
+						desc = "generate_neogen_class",
+					},
+					{
+						"<leader>rdi",
+						function()
+							require("neogen").generate({ type = "file" })
+						end,
+						desc = "generate_neogen_file",
+					},
+					{
+						"<leader>rdt",
+						function()
+							require("neogen").generate({ type = "type" })
+						end,
+						desc = "generate_neogen_type",
+					},
 				},
-				-- TODO: find the config
-				-- config = function()
-				-- require("config.plugins.misc"):config_neogen()
-				-- end,
+				opts = {
+					enabled = true,
+					snippet_engine = "luasnip",
+					languages = {
+						csharp = {
+							template = {
+								annotation_convention = "xmldoc",
+							},
+						},
+					},
+				},
+				dependencies = "nvim-treesitter/nvim-treesitter",
 			},
 			{
 				"nvim-treesitter/nvim-treesitter-context",

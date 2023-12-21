@@ -208,59 +208,6 @@ return {
 		opts = {},
 	},
 	{
-		-- TODO: move it to treesitter.nvim
-		"danymat/neogen",
-		keys = {
-			{
-				"<leader>oa",
-				function()
-					require("neogen").generate()
-				end,
-				desc = "generate_neogen",
-			},
-			{
-				"<leader>oAf",
-				function()
-					require("neogen").generate({ type = "func" })
-				end,
-				desc = "generate_neogen_function",
-			},
-			{
-				"<leader>oAc",
-				function()
-					require("neogen").generate({ type = "class" })
-				end,
-				desc = "generate_neogen_class",
-			},
-			{
-				"<leader>oAi",
-				function()
-					require("neogen").generate({ type = "file" })
-				end,
-				desc = "generate_neogen_file",
-			},
-			{
-				"<leader>oAt",
-				function()
-					require("neogen").generate({ type = "type" })
-				end,
-				desc = "generate_neogen_type",
-			},
-		},
-		opts = {
-			enabled = true,
-			snippet_engine = "luasnip",
-			languages = {
-				csharp = {
-					template = {
-						annotation_convention = "xmldoc",
-					},
-				},
-			},
-		},
-		dependencies = "nvim-treesitter/nvim-treesitter",
-	},
-	{
 		"folke/zen-mode.nvim",
 		cmd = "ZenMode",
 		opts = {
