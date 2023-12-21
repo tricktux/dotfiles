@@ -678,7 +678,6 @@ return {
 		},
 	},
 	-- better ui from lazyvim
-	{ "nvim-tree/nvim-web-devicons" },
 	-- ui components
 	{ "MunifTanjim/nui.nvim" },
 	{
