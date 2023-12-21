@@ -509,7 +509,7 @@ end
 M.plug = {}
 M.plug.mappings = {
 	["<leader>rt"] = { "<plug>file_tree_browser", "file_tree_browser" },
-	["<leader>rr"] = { "<plug>file_ranger_browser", "file_ranger_browser" },
+	["<leader>ra"] = { "<plug>file_ranger_browser", "file_ranger_browser" },
 	["<leader>ro"] = { "<plug>file_oil_browser", "file_oil_browser" },
 	-- Default file browser
 	["<leader>F"] = { "<plug>file_oil_browser", "file_oil_browser" },

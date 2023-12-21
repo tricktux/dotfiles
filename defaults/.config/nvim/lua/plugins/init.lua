@@ -194,6 +194,20 @@ return {
 		},
 	},
 	{
+		"ThePrimeagen/refactoring.nvim",
+		keys = {
+			{
+				"<leader>rr",
+				function()
+					require("refactoring").select_refactor()
+				end,
+				mode = { "n", "x" },
+				desc = "refactoring",
+			},
+		},
+		opts = {},
+	},
+	{
 		-- TODO: move it to treesitter.nvim
 		"danymat/neogen",
 		keys = {
