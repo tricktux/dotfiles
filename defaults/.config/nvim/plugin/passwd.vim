@@ -17,7 +17,7 @@ if !exists('g:passwd_clipboard')
 endif
 
 if !exists('g:passwd_store_dir')
-	let g:passwd_store_dir = $HOME . '\.password-store'
+  let g:passwd_store_dir = v:lua.vim.loop.os_homedir() . (has('unix') ? "/" : "\\") . '.password-store'
 endif
 
 " Completely ignores g:passwd_clipboard
