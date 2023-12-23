@@ -153,7 +153,7 @@ end
 
 M.fd = {}
 M.fd.switches = {}
-M.fd.bin = M.has_win and "fd" or [[/usr/bin/fd]]
+M.fd.bin = "fd"
 M.fd.switches.common = vim.tbl_flatten({
   "--color=never",
   "--hidden",
