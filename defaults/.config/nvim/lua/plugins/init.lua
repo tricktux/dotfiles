@@ -677,10 +677,24 @@ return {
 			},
 		},
 	},
-	-- better ui ui components from lazyvim
+	-- better ui from lazyvim
+	-- ui components
+	{ "MunifTanjim/nui.nvim" },
 	{
-		"MunifTanjim/nui.nvim",
-		event = "VeryLazy",
+		"stevearc/dressing.nvim",
+		lazy = true,
+		init = function()
+			---@diagnostic disable-next-line: duplicate-set-field
+			vim.ui.select = function(...)
+				require("lazy").load({ plugins = { "dressing.nvim" } })
+				return vim.ui.select(...)
+			end
+			---@diagnostic disable-next-line: duplicate-set-field
+			vim.ui.input = function(...)
+				require("lazy").load({ plugins = { "dressing.nvim" } })
+				return vim.ui.input(...)
+			end
+		end,
 	},
 	{
 		"tjdevries/stackmap.nvim",
