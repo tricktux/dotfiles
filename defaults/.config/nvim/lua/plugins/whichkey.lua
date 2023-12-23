@@ -197,7 +197,9 @@ end
 
 return {
 	"folke/which-key.nvim",
-	event = "VeryLazy",
+  keys = {
+    { "<leader>", mode = {"n", "x"} }
+  },
 	config = function()
 		M:setup()
 	end,
