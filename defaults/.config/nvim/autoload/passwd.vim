@@ -68,7 +68,7 @@ function! passwd#SelectPasswdFile() abort
     let l:passwd_file = g:passwd_store_dir . s:splitter . getreg()
 	else
     autocmd User TelescopeFindFilesYankPost ++once call passwd#OnTextYankPost()
-    call v:lua.require'utils.utils'.fs.path.fuzzer(g:passwd_store_dir)
+    call v:lua.require'utils.utils'.fs.path.fuzzer_yank(g:passwd_store_dir)
     return
 	endif
 

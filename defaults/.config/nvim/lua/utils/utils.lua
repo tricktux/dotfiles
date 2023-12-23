@@ -323,7 +323,7 @@ function M.fs.path.native_fuzzer(path)
   vim.cmd("lcd " .. dir)
 end
 
-function M.fs.path.fuzzer(path)
+local function fuzzer_sanitize(path)
   vim.validate({ path = { path, "s", false } })
 
   local p = fs.is_path(path)
@@ -331,6 +331,21 @@ function M.fs.path.fuzzer(path)
     vim.notify("utils: path not found: " .. path, vim.log.levels.ERROR)
     return
   end
+
+  return p
+end
+
+
+--- Use this function to yank selected file instead of opening
+function M.fs.path.fuzzer_yank(path)
+  local p = fuzzer_sanitize(path)
+
+  require("plugins.telescope").file_fuzzer_yank(p)
+end
+
+--- Use this function to select file to  open
+function M.fs.path.fuzzer(path)
+  local p = fuzzer_sanitize(path)
 
   local tsok, _ = pcall(require, "telescope")
   if tsok then

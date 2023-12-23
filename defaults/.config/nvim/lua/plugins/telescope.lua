@@ -374,40 +374,61 @@ M.toggletasks.config = function()
 	})
 end
 
-function M.file_fuzzer(path)
-	vim.validate({ path = { path, "s" } })
-	local Path = require("plenary.path")
+function M.find_files_sanitize(path)
+  vim.validate({ path = { path, "s" } })
+  local Path = require("plenary.path")
 
-	local ppath = Path:new(path)
-	if not ppath:is_dir() then
-		vim.notify("telescope.lua: path not found: " .. ppath:absolute(), vim.log.levels.ERROR)
-		return
-	end
-	local opts = cust_files_opts
-	local spath = ppath:absolute()
-	opts["prompt_title"] = 'Files in "' .. spath .. '"...'
-	opts["cwd"] = spath
-	opts["find_command"] = utl.fd.file_cmd
+  local ppath = Path:new(path)
+  if not ppath:is_dir() then
+    vim.notify("telescope.lua: path not found: " .. ppath:absolute(), vim.log.levels.ERROR)
+    return
+  end
+  local opts = cust_files_opts
+  local spath = ppath:absolute()
+  opts["prompt_title"] = 'Files in "' .. spath .. '"...'
+  opts["cwd"] = spath
+  opts["find_command"] = utl.fd.file_cmd
+  return opts
+end
+
+function M.find_files_yank(_prompt_bufnr)
+  local actions = require("telescope.actions")
+  local p = require("telescope.actions.state").get_selected_entry().path
+  -- put the selected entry in the clipboard register
+  vim.fn.setreg("p", p)
+  vim.fn.setreg("*", p)
+  vim.fn.setreg("+", p)
+  -- close search window
+  actions.close(_prompt_bufnr)
+  print("Path copied to clipboard: " .. p)
+  -- Telescope runs async, in case you want to do something with special
+  -- with this filename subscribe to this autocommand, value is in
+  -- register p
+  vim.cmd.doautocmd("User TelescopeFindFilesYankPost")
+end
+
+
+function M.file_fuzzer_yank(path)
+  local opts = M.find_files_sanitize(path)
+
+  opts["attach_mappings"] = function(_, map)
+    map("i", "<cr>", M.find_files_yank)
+    -- needs to return true if you want to map default_mappings and
+    -- false if not
+    return true
+  end
+  require("telescope.builtin").find_files(opts)
+end
+
+function M.file_fuzzer(path)
+  local opts = M.find_files_sanitize(path)
+
 	opts["attach_mappings"] = function(_, map)
-		map("i", "<c-y>", function(_prompt_bufnr)
-			local actions = require("telescope.actions")
-			local p = require("telescope.actions.state").get_selected_entry().path
-			-- put the selected entry in the clipboard register
-			vim.fn.setreg("p", p)
-			vim.fn.setreg("*", p)
-			vim.fn.setreg("+", p)
-			-- close search window
-			actions.close(_prompt_bufnr)
-			print("Path copied to clipboard: " .. p)
-			-- Telescope runs async, in case you want to do something with special
-			-- with this filename subscribe to this autocommand, value is in
-			-- register p
-			vim.cmd.doautocmd("User TelescopeFindFilesYankPost")
-		end)
-		-- needs to return true if you want to map default_mappings and
-		-- false if not
-		return true
-	end
+    map("i", "<c-y>", M.find_files_yank)
+    -- needs to return true if you want to map default_mappings and
+    -- false if not
+    return true
+  end
 	require("telescope.builtin").find_files(opts)
 end
 
@@ -668,4 +689,5 @@ return {
 	-- Hooks for other plugins, will trigger warnings in Lazy.nvim
 	set_lsp_mappings = M.set_lsp_mappings,
 	file_fuzzer = M.file_fuzzer,
+  file_fuzzer_yank = M.file_fuzzer_yank,
 }
