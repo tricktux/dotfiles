@@ -275,22 +275,22 @@ return {
 		"mizlan/iswap.nvim",
 		keys = {
 			{
-				"<leader>rsn",
+				"<leader>rSn",
 				[[<cmd>ISwapNode<cr>]],
 				desc = "swap_node",
 			},
 			{
-				"<leader>rsw",
+				"<leader>rw",
 				[[<cmd>ISwapWith<cr>]],
 				desc = "swap_with",
 			},
 			{
-				"<leader>rsl",
+				"<leader>rSl",
 				[[<cmd>ISwapNodeWithRight<cr>]],
 				desc = "swap_with_right",
 			},
 			{
-				"<leader>rsh",
+				"<leader>rSh",
 				[[<cmd>ISwapNodeWithLeft<cr>]],
 				desc = "swap_with_left",
 			},
