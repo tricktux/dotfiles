@@ -651,6 +651,20 @@ return {
       require("telescope").load_extension("git_worktree")
     end,
   },
+  {
+    "johmsalas/text-case.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    -- Author's Note: If default keymappings fail to register (possible config issue in my local setup),
+    -- verify lazy loading functionality. On failure, disable lazy load and report issue
+    -- lazy = false,
+    config = function()
+      require("textcase").setup({})
+      require("telescope").load_extension("textcase")
+    end,
+    keys = {
+      { "<leader>rc", "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "v" }, desc = "change_case" },
+    },
+  },
 	-- Hooks for other plugins, will trigger warnings in Lazy.nvim
 	set_lsp_mappings = M.set_lsp_mappings,
 	file_fuzzer = M.file_fuzzer,
