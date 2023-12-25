@@ -506,6 +506,13 @@ M.term.exec = function(cmd)
     return
   end
 
+  local ttok, tt = pcall(require, "toggleterm")
+  if ttok then
+    local trim_spaces = true
+    tt.send_lines_to_terminal("single_line", trim_spaces, { args = vim.v.count })
+    return
+  end
+
   local fcmd = ":!" .. table.concat(cmd, " ")
   log.info(fmt("term.exec.cmd = %s", cmd))
   vim.cmd(fcmd)
