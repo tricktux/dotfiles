@@ -29,7 +29,17 @@ end
 return {
 	"nvim-lualine/lualine.nvim",
 	event = "VeryLazy",
-  dependencies = { "nvim-tree/nvim-web-devicons" },
+  dependencies = {
+    {
+      "nvim-tree/nvim-web-devicons",
+      event = "VeryLazy",
+      cond = vim.fn.exists("$TERMUX_VERSION") < 1,
+    },
+    {
+      "AndreM222/copilot-lualine",
+      event = "VeryLazy",
+    } 
+  },
 	opts = function(plugin)
 		local icons = require("utils.utils").icons
 
@@ -61,6 +71,7 @@ return {
             cond =  plugin_updates,
 						color = fg("Special"),
 					},
+          'copilot'
 				},
 				lualine_y = {
 					{ "diagnostics", sources = { "nvim_diagnostic" } },
