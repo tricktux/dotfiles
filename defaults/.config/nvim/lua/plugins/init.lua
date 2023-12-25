@@ -394,6 +394,7 @@ return {
 		"akinsho/toggleterm.nvim",
 		keys = {
 			{ "<plug>terminal_toggle", "<cmd>ToggleTerm<cr>", desc = "terminal_toggle_toggleterm" },
+      { "<plug>file_ranger_browser", "<cmd>ToggleTermRanger<cr>", desc = "file-ranger-browser" },
 			{
 				"<plug>terminal_open_horizontal",
 				"<cmd>ToggleTerm direction=horizontal<cr>",
