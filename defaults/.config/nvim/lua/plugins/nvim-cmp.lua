@@ -117,26 +117,47 @@ return {
     config = function()
       M:setup()
     end,
-    dependencies = {
+  },
+  {
       "hrsh7th/cmp-buffer",
+      event = "InsertEnter",
+  },
+  {
       "hrsh7th/cmp-path",
+      event = "InsertEnter",
+  },
+  {
       "hrsh7th/cmp-nvim-lua",
+      event = "InsertEnter",
+  },
+  {
+      "hrsh7th/cmp-nvim-lua",
+      event = "InsertEnter",
+  },
+  {
       "hrsh7th/cmp-calc",
+      event = "InsertEnter",
+  },
+  {
       "saadparwaiz1/cmp_luasnip",
-      {
-        "zbirenbaum/copilot.lua",
-        opts = {
-          suggestion = { enabled = false },
-          panel = { enabled = false },
-        },
+      event = "InsertEnter",
+  },
+  {
+      "zbirenbaum/copilot.lua",
+      event = "InsertEnter",
+      cond = vim.fn.executable('node') > 0,
+      opts = {
+        suggestion = { enabled = false },
+        panel = { enabled = false },
       },
-      {
-        "zbirenbaum/copilot-cmp",
-        dependencies = { "zbirenbaum/copilot.lua" },
-        config = function()
-          require("copilot_cmp").setup()
-        end,
-      },
-    },
+  },
+  {
+      "zbirenbaum/copilot-cmp",
+      event = "InsertEnter",
+      cond = vim.fn.executable('node') > 0,
+      dependencies = { "zbirenbaum/copilot.lua" },
+      config = function()
+        require("copilot_cmp").setup()
+      end,
   },
 }
