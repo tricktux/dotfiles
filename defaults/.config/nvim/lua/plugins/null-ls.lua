@@ -203,6 +203,10 @@ local function setup()
       })
     )
   end
+  if vim.fn.executable("nixpkgs-fmt") > 0 then
+    log.info("NullLs setting up nixpkgs-fmt...")
+    table.insert(sources, null.builtins.formatting.nixpkgs_fmt)
+  end
   if vim.fn.executable("markdownlint") > 0 then
     log.info("NullLs setting up markdownlint...")
     table.insert(sources, null.builtins.formatting.markdownlint)

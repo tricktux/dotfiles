@@ -283,6 +283,7 @@ function M:config()
 				"--all-scopes-completion=true",
 				"--background-index=true",
 				"--clang-tidy=true",
+        "--cross-file-rename=true",
 				"--completion-style=detailed",
 				"--fallback-style=LLVM",
 				"--pch-storage=memory",
@@ -330,6 +331,10 @@ function M:config()
 	if vim.fn.executable("zig") > 0 then
 		nvim_lsp.zls.setup({})
 	end
+
+  if vim.fn.executable("nil") > 0 then
+    nvim_lsp.nil_ls.setup({})
+  end
 end
 
 return {
