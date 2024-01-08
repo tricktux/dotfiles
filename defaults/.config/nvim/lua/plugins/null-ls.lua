@@ -312,7 +312,13 @@ local function setup()
   end
   if vim.fn.executable("cppcheck") > 0 then
     log.info("NullLs setting up cppcheck...")
-    table.insert(sources, null.builtins.diagnostics.cppcheck)
+    -- table.insert(sources, null.builtins.diagnostics.cppcheck)
+    table.insert(
+      sources,
+      null.builtins.diagnostics.cppcheck.with({
+        extra_args = { "--language=c++", '-j=16' },
+      })
+    )
   end
   if vim.fn.executable("clang-check") > 0 then
     log.info("NullLs setting up clang-check...")
@@ -366,7 +372,7 @@ local function setup()
 end
 
 return {
-  "jose-elias-alvarez/null-ls.nvim",
+  "nvimtools/none-ls.nvim",
   event = "BufReadPre",
   config = function()
     setup()
