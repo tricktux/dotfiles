@@ -4,6 +4,7 @@ local api = vim.api
 local function nvimtree_config()
   require("nvim-tree").setup({
     disable_netrw = true,
+    sync_root_with_cwd = true,
     hijack_netrw = true,
     hijack_cursor = false,
     update_cwd = true,
