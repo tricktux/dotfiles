@@ -390,7 +390,8 @@ M.terminal.mappings = {
 	["<a-`>"] = { "<plug>terminal_toggle", "terminal_toggle" },
 	["<plug>terminal_toggle"] = {
 		function()
-			utl.exec_float_term("term")
+			vim.cmd.vsplit()
+			vim.cmd.terminal()
 		end,
 		"terminal_toggle",
 	},
