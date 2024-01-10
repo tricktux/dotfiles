@@ -127,11 +127,6 @@ if [[ -f /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh ]]; then
     # Needed for fzf to work
     ZVM_INIT_MODE=sourcing
   }
-  # The plugin will auto execute this zvm_after_init function
-  function zvm_after_init() {
-    zvm_bindkey viins 'jk' zvm_exit_insert_mode
-    zvm_bindkey viins 'kj' zvm_exit_insert_mode
-  }
 
   # Inspect the file below for config options
   source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
