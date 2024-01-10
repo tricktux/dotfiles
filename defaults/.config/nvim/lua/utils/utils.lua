@@ -409,7 +409,7 @@ function M.exec_float_term(cmd, startinsert)
   -- Last true makes them optional arguments
   vim.validate({ startinsert = { startinsert, "b", true } })
 
-  M.open_win_centered(0.8, 0.8)
+  M.open_win_centered(0.90, 0.90)
   vim.cmd(cmd)
   if startinsert then
     vim.cmd("startinsert")
