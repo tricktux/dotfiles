@@ -437,12 +437,11 @@ function M:set_mappings()
 	local leader = {}
 	local opts = { silent = true, desc = "telescope_fuzzy_command_search" }
 	vks("c", "<c-v>", "<Plug>(TelescopeFuzzyCommandSearch)", opts)
+  opts.desc = "telescope_command_history"
+  vks("n", "<leader>;", ts.command_history, opts)
+  opts.desc = "telescope"
+  vks("n", "<leader>J", "<cmd>Telescope<cr>", opts)
 
-	-- Map <s-;> to commands history
-	--[[ opts.desc = "command_history"
-	vks("n", ":", function()
-		ts.command_history({ layout_config = cust_layout_config }) ]]
-	-- end, opts)
 	opts.desc = "buffer_browser"
 	vks("n", "<plug>buffer_browser", function()
 		ts.buffers(cust_buff_opts())
@@ -453,6 +452,7 @@ function M:set_mappings()
 		f = { ts.git_files, "files" },
 		C = { ts.git_commits, "commits" },
 		c = { ts.git_bcommits, "commits_current_buffer" },
+    r = { ts.git_bcommits_range, "commits_current_buffer" },
 		b = { ts.git_branches, "branches" },
 		s = { ts.git_status, "status" },
 		S = { ts.git_stash, "stash" },
@@ -506,7 +506,7 @@ function M:set_mappings()
 
 	map:keymaps_sets(leader)
 
-	prefix = "<leader>vt"
+	local prefix = "<leader>vt"
 	local mappings = {
 		f = { ts.git_files, "files" },
 		C = { ts.git_commits, "commits" },
