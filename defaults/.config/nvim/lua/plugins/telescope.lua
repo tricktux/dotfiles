@@ -572,7 +572,6 @@ function M:setup()
 					}),
 				},
 				n = {
-					["<esc>"] = actions.close,
 					["<c-c>"] = actions.close,
 					["q"] = actions.close,
 					-- ["<CR>"] = actions.file_edit,
