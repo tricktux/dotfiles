@@ -255,7 +255,7 @@ M.toggle.mappings = {
 		end,
 		"open_image_in_this_line",
 	},
-  I = { "<plug>toggle_hologram_images", "toggle_hologram_images" },
+	I = { "<plug>toggle_hologram_images", "toggle_hologram_images" },
 }
 
 M.edit = {
