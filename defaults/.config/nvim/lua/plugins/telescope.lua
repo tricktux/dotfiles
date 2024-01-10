@@ -486,7 +486,6 @@ function M:set_mappings()
 		o = { ts.vim_options, "vim_options" },
 		O = { ts.colorscheme, "colorscheme" },
 		l = { ts.current_buffer_fuzzy_find, "lines_current_buffer" },
-		t = { ts.current_buffer_tags, "tags_curr_buffer" },
 		T = { ts.tags, "tags_all_buffers" },
 		r = { ts.registers, "registers" },
 		R = { ts.treesitter, "treesitter" },
