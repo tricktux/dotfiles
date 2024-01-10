@@ -577,7 +577,7 @@ function M:setup()
 					-- ["<CR>"] = actions.file_edit,
 					-- ["<c-m>"] = actions.file_edit,
 					["?"] = actions_generate.which_key({
-						name_width = 20, -- typically leads to smaller floats
+						name_width = 30, -- typically leads to smaller floats
 						max_height = 0.5, -- increase potential maximum height
 						seperator = " > ", -- change sep between mode, keybind, and name
 						close_with_action = true, -- do not close float on action
