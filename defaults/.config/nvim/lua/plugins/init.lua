@@ -561,16 +561,6 @@ return {
 		end,
 	},
 	{
-		"kdheepak/lazygit.nvim",
-		cmd = { "LazyGit", "LazyGitConfig", "LazyGitFilter", "LazyGitFilterCurrentFile" },
-		init = function()
-			vim.g.lazygit_floating_window_winblend = 0 -- transparency of floating window
-			vim.g.lazygit_floating_window_scaling_factor = 0.9 -- scaling factor for floating window
-			vim.g.lazygit_floating_window_border_chars = { "╭", "╮", "╰", "╯" } -- customize lazygit popup window corner characters
-			vim.g.lazygit_use_neovim_remote = 0
-		end,
-	},
-	{
 		"rhysd/git-messenger.vim",
 		keys = {
 			{ "<leader>vm", "<cmd>GitMessenger<cr>", desc = "git_messenger" },
