@@ -540,7 +540,7 @@ function M:setup()
 				vertical = { preview_height = 0.5 },
 			},
 			preview = {
-				hide_on_startup = true,
+				hide_on_startup = false,
 			},
 			mappings = {
 				i = {
