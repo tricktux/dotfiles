@@ -493,6 +493,9 @@ local function misc_mappings()
 	vks("n", "<plug>mru_browser", function()
 		fs.path.fuzzer(fn.getcwd())
 	end, opts)
+	vks("n", "<plug>file_ranger_browser", function()
+		require("utils.utils").exec_float_term("term ranger", true, true)
+	end, opts)
 
 	vks({ "v", "n" }, "<cr>", [=[o<Esc>zz]=])
 
