@@ -482,7 +482,7 @@ function M:set_mappings()
 	leader.prefix = "<leader>" .. M.leader_key
 	leader.mappings = {
 		b = { ts.buffers, "buffers" },
-		f = { ts.find_files, "files" },
+		f = { ts.oldfiles, "oldfiles" },
 		o = { ts.vim_options, "vim_options" },
 		O = { ts.colorscheme, "colorscheme" },
 		l = { ts.current_buffer_fuzzy_find, "lines_current_buffer" },
@@ -492,7 +492,7 @@ function M:set_mappings()
 		e = { ts.resume, "resume_picker" },
 		[";"] = { ts.command_history, "command_history" },
 		["/"] = { ts.search_history, "search_history" },
-		F = { ts.oldfiles, "oldfiles" },
+		F = { ts.find_files, "files" },  -- Use c-p
 		h = { ts.help_tags, "helptags" },
 		y = { ts.filetypes, "filetypes" },
 		a = { ts.autocommands, "autocommands" },
