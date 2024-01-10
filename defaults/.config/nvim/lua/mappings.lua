@@ -495,22 +495,22 @@ function M:window_movement_setup()
 end
 
 local function misc_mappings()
-  -- Set escape key to work in all modes
-  for _, v in pairs(M.esc) do
-    if v ~= "" then
-      vks({ "v", "i" }, v, [[<Esc>zz]], { silent = true })
-      -- How to handle zsh-vi-mode escape vs vim escape?
-      -- Which one do you use the most? The other one will have to suffer
-      -- By using the default mapping, the thing is that a-b is much better
-      vks("t", v, [[<C-\><C-n>]], { silent = true })
-    end
-  end
-  -- Nice one to scroll through output
-  vks("t", "ui", [[<C-\><C-n>]], { silent = true })
-  local opts = { nowait = true, desc = "start_cmd" }
-  -- Awesome hack, typing a command is used way more often than next
-  -- Well these hacks make it really painful when using raw vim
-  -- vks("n", ";", ":", opts)
+	-- Set escape key to work in all modes
+	for _, v in pairs(M.esc) do
+		if v ~= "" then
+			vks({ "v", "i" }, v, [[<Esc>zz]], { silent = true })
+			-- How to handle zsh-vi-mode escape vs vim escape?
+			-- Which one do you use the most? The other one will have to suffer
+			-- By using the default mapping, the thing is that a-b is much better
+			vks("t", v, [[<C-\><C-n>]], { silent = true })
+		end
+	end
+	-- Nice one to scroll through output
+	vks("t", "<c-\\>", [[<C-\><C-n>]], { silent = true })
+	local opts = { nowait = true, desc = "start_cmd" }
+	-- Awesome hack, typing a command is used way more often than next
+	-- Well these hacks make it really painful when using raw vim
+	-- vks("n", ";", ":", opts)
 
   -- opts = { silent = true, desc = "visual_end_line" }
   -- Let's make <s-v> consistent as well
