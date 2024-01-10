@@ -67,9 +67,6 @@ function! options#Set() abort
   " Took out options from here. Makes the session script too long and annoying
   " Fri Jan 11 2019 21:39 Dont add resize, and winpos. It causes problems in
   " linux
-  set hidden
-  set timeout
-  set timeoutlen=200
   " cant remember why I had a timeout len I think it was
   " in order to use <c-j> in cli vim for esc
   " removing it see what happens
