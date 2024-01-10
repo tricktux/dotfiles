@@ -15,6 +15,17 @@ local function set_text_settings()
 	vim.opt.comments:append({ b = "-" })
 end
 
+local function rename_buffer()
+  local o = {
+    prompt = "Please new term name: ",
+    default = "term-"
+  }
+  local i = function(input)
+    vim.cmd("silent keepalt noautocmd file " .. input)
+  end
+  vim.ui.input(o, i)
+end
+
 M.setup = function()
 	local id = api.nvim_create_augroup("highlight_yank", { clear = true })
 	api.nvim_create_autocmd("TextYankPost", {
@@ -53,6 +64,7 @@ M.setup = function()
 			vim.opt_local.bufhidden = "hide"
 			vim.keymap.set("n", [[q]], [[ZZ]], { silent = true, buffer = true })
 			vim.keymap.set("n", [[<M-`>]], [[ZZ]], { silent = true, buffer = true })
+      vim.keymap.set("n", [[<c-r>]], rename_buffer, { silent = true, buffer = true })
 		end,
 		pattern = "*",
 		desc = "Better settings for terminal",
