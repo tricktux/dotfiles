@@ -3,7 +3,7 @@ local M = {}
 function M:setup()
   vim.opt.hidden = true
   vim.opt.timeout = true
-  vim.opt.timeoutlen = 50
+  vim.opt.timeoutlen = 100
   -- Tab management
   -- No tabs in the code. Tabs are expanded to spaces
   vim.opt.expandtab = true
