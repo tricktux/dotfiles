@@ -394,7 +394,9 @@ return {
 		"akinsho/toggleterm.nvim",
 		keys = {
 			{ "<plug>terminal_toggle", "<cmd>ToggleTerm<cr>", desc = "terminal_toggle_toggleterm" },
-      { "<plug>file_ranger_browser", "<cmd>ToggleTermRanger<cr>", desc = "file-ranger-browser" },
+			{ "<c-\\>", "<cmd>ToggleTerm<cr>", desc = "terminal_toggle_toggleterm" },
+			{ "<leader>jt", "<cmd>TermSelect<cr>", desc = "toggleterm_select" },
+			{ "<plug>file_ranger_browser", "<cmd>ToggleTermRanger<cr>", desc = "file-ranger-browser" },
 			{
 				"<plug>terminal_open_horizontal",
 				"<cmd>ToggleTerm direction=horizontal<cr>",
@@ -408,7 +410,8 @@ return {
 		},
 		config = function()
 			require("toggleterm").setup({
-				direction = "float",
+				open_mapping = [[<c-\>]],
+				direction = "vertical",
 				close_on_exit = false,
 				float_opts = {
 					border = "curved",
@@ -416,14 +419,45 @@ return {
 				-- Set this variable below to false for above to have effect
 				shade_terminals = false,
 			})
+			local Terminal = require("toggleterm.terminal").Terminal
+
+			vim.api.nvim_create_autocmd("TermEnter", {
+				pattern = "term://*toggleterm#*",
+				callback = function()
+					vim.keymap.set(
+						{ "t", "n" },
+						"<c-n>",
+						'<Cmd>execute b:toggle_number + 1 . "ToggleTerm"<CR>',
+						{ buffer = true }
+					)
+					vim.keymap.set(
+						{ "n" },
+						"<c-r>",
+						'<Cmd>execute b:toggle_number . "ToggleTermSetName"<CR>',
+						{ buffer = true }
+					)
+				end,
+			})
+
+			if vim.fn.executable("lazygit") > 0 then
+				local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = "float", size = 95 })
+
+				local function lazygit_toggle()
+					lazygit:toggle()
+				end
+
+				vim.api.nvim_create_user_command("ToggleTermLazygit", lazygit_toggle, {})
+			end
+
 			if vim.fn.executable("ranger") <= 0 then
 				return
 			end
 
-			local Terminal = require("toggleterm.terminal").Terminal
-			_G.ranger = Terminal:new({
+			local ranger = Terminal:new({
 				cmd = "ranger",
 				close_on_exit = true,
+				hidden = true,
+				size = 95,
 				clear_env = false,
 				direction = "float",
 				float_opts = {
@@ -435,15 +469,10 @@ return {
 					vim.keymap.set({ "n", "i" }, "q", vim.cmd.hide, { buffer = true })
 				end,
 			})
-			local r = function()
-				if _G.ranger == nil then
-					vim.notify("ranger is not executable", vim.log.levels.error, {})
-					return
-				end
-				_G.ranger:toggle()
+			local ranger_toggle = function()
+				ranger:toggle()
 			end
-			-- vim.keymap.set('n', '<plug>file_browser', r, { desc = 'file-browser-toggleterm' })
-			vim.api.nvim_create_user_command("ToggleTermRanger", r, {})
+			vim.api.nvim_create_user_command("ToggleTermRanger", ranger_toggle, {})
 		end,
 	},
 	{
