@@ -83,6 +83,8 @@ function! mappings#Set()
   " Refer to ~/.dotfiles/vim-utils/after/ftplugin to find these
 
   " Miscelaneous Mappings <Leader>j?
+  " Moved to y instead of j. These are random mappings I haven't used in a long
+  " time. J is too confi of a key, better used with telescope
   " nnoremap <Leader>Ma :Man
   " Most used misc get jk, jj, jl, j;
   " TODO.RM-Fri Apr 28 2017 14:25: Go through mappings and figure out the
@@ -116,29 +118,29 @@ function! mappings#Set()
   " duplicate current char
   nnoremap <leader>d ylp
   " Reload syntax
-  nnoremap <leader>js <Esc>:syntax sync fromstart<cr>
+  nnoremap <leader>ys <Esc>:syntax sync fromstart<cr>
   " Sessions
-  nnoremap <leader>jes :SessionsSave<cr>
-  nnoremap <leader>jeS :SessionsSaveAs<cr>
-  nnoremap <leader>jel :SessionsLoad<cr>
-  nnoremap <leader>jen :SessionsNew<cr>
+  nnoremap <leader>yes :SessionsSave<cr>
+  nnoremap <leader>yeS :SessionsSaveAs<cr>
+  nnoremap <leader>yel :SessionsLoad<cr>
+  nnoremap <leader>yen :SessionsNew<cr>
   " Pause saving session
-  nnoremap <leader>jep :Obsession<cr>
-  nnoremap <leader>jee :call mappings#LoadSession(has('nvim') ?
+  nnoremap <leader>yep :Obsession<cr>
+  nnoremap <leader>yee :call mappings#LoadSession(has('nvim') ?
         \ 'default_nvim.vim' : 'default_vim.vim')<cr>
   " Count occurrances of last search
-  nnoremap <leader>jc :%s///gn<cr>
+  nnoremap <leader>yc :%s///gn<cr>
   " Indenting
-  nnoremap <leader>j2 :setlocal ts=2 sw=2<cr>
-  nnoremap <leader>j4 :setlocal ts=4 sw=4<cr>
-  nnoremap <leader>j8 :setlocal ts=8 sw=8<cr>
+  nnoremap <leader>y2 :setlocal ts=2 sw=2<cr>
+  nnoremap <leader>y4 :setlocal ts=4 sw=4<cr>
+  nnoremap <leader>y8 :setlocal ts=8 sw=8<cr>
 
   " Don't paste the deleted word, paste the last copied word, hopefully
   nnoremap <s-p> :normal! "0p<cr>
   xnoremap <s-p> :normal! "0p<cr>
   " Force wings_syntax on a file
-  nnoremap <leader>jw :set filetype=wings_syntax<cr>
-  nnoremap <leader>j. :call <SID>exec_last_command()<cr>
+  nnoremap <leader>yw :set filetype=wings_syntax<cr>
+  nnoremap <leader>y. :call <SID>exec_last_command()<cr>
   " j mappings taken <swypl;bqruihHdma248eEonf>
   " nnoremap <Leader>Mc :call utils#ManFind()<cr>
   " Tue Dec 19 2017 14:34:

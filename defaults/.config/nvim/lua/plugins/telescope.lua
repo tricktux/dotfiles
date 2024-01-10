@@ -7,7 +7,7 @@ local fmt = string.format
 local log = require("utils.log")
 
 local M = {}
-M.leader_key = "y"
+M.leader_key = "j"
 
 local function grep_cword()
 	local ts = require("telescope.builtin")
