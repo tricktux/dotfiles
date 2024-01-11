@@ -1,3 +1,4 @@
+local utils = require("utils.utils")
 local vcs = {}
 
 -- Based on the current folder determine what's the version control source in
@@ -33,7 +34,7 @@ end
 local git = vcs:new()
 function git:status()
   if vim.fn.executable("lazygit") > 0 then
-    require("utils.utils").exec_float_term("term lazygit", true)
+    utils.exec_float_term("term lazygit", true)
     return
   end
 
@@ -49,6 +50,13 @@ function git:diff()
 end
 
 function git:buffer_commits()
+  if vim.fn.executable("lazygit") > 0 then
+    -- Get path to current buffer
+    local path = vim.api.nvim_buf_get_name(0)
+    utils.exec_float_term('term lazygit -f "' .. path .. '"', true)
+    return
+  end
+
   if vim.fn.exists(":DiffviewFileHistory") > 0 then
     vim.cmd("DiffviewFileHistory %")
     return
