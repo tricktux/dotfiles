@@ -452,7 +452,7 @@ function M:set_mappings()
 		f = { ts.git_files, "files" },
 		C = { ts.git_commits, "commits" },
 		c = { ts.git_bcommits, "commits_current_buffer" },
-    r = { ts.git_bcommits_range, "commits_current_buffer" },
+    r = { ts.git_bcommits_range, "commits_current_buffer_range" },
 		b = { ts.git_branches, "branches" },
 		s = { ts.git_status, "status" },
 		S = { ts.git_stash, "stash" },
