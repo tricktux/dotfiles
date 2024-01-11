@@ -80,6 +80,7 @@ local leader = {}
 local leader_p = [[<leader>]]
 leader.t = { name = map.toggle.name }
 leader.c = { name = map.cd.name }
+leader.v = { name = map.vcs.name }
 
 leader.e = {
 	name = map.edit.name,
@@ -87,7 +88,7 @@ leader.e = {
 }
 
 local sessions = { name = "sessions", s = "save", l = "load", e = "load_default" }
-leader.j = {
+leader.y = {
 	name = "misc",
 	["2"] = "2_char_indent",
 	["4"] = "4_char_indent",
@@ -106,15 +107,6 @@ leader.n = {
 	c = "hex_to_ascii",
 	r = "radical_viewer",
 	a = "get_ascii_cursor",
-}
-leader.v = {
-	name = "version_control",
-	s = "status",
-	a = "add",
-	c = "commit",
-	p = "push",
-	u = "pull/update",
-	l = "log",
 }
 leader.d = "duplicate_char"
 

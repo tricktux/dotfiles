@@ -184,6 +184,49 @@ M.scroll = {}
 M.scroll.down = "<c-d>zz"
 M.scroll.up = "<c-u>zz"
 
+M.vcs = {
+  name = "version_source",
+  prefix = "<leader>v",
+}
+M.vcs.mappings = {
+  s = {
+    function()
+      local v = vcs:factory()
+      if v ~= nil then
+        v:status()
+      end
+    end,
+    "vcs_status",
+  },
+  d = {
+    function()
+      local v = vcs:factory()
+      if v ~= nil then
+        v:diff()
+      end
+    end,
+    "vcs_diff",
+  },
+  c = {
+    function()
+      local v = vcs:factory()
+      if v ~= nil then
+        v:buffer_commits()
+      end
+    end,
+    "vcs_buffer_commits",
+  },
+  b = {
+    function()
+      local v = vcs:factory()
+      if v ~= nil then
+        v:blame()
+      end
+    end,
+    "vcs_blame",
+  },
+}
+
 -- NOTE: Please update the mappings in flux_post_{day,night,sunrise,sunset}
 -- if updating these mappings below
 M.colors = {}
@@ -650,6 +693,7 @@ function M:setup()
   self:keymaps_sets(self.toggle)
   self:keymaps_sets(self.help)
   self:keymaps_sets(self.cd)
+  self:keymaps_sets(self.vcs)
   self.search_motion()
 end
 

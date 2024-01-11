@@ -40,7 +40,7 @@ end
 
 local function on_attach(bufnr)
   local opts = { silent = true, buffer = bufnr }
-  local prefix = "<leader>vg"
+  local prefix = map.vcs.prefix .. "g"
   local gs = require("gitsigns")
   local mappings = {
     l = { gs.select_hunk, "select_hunk" },

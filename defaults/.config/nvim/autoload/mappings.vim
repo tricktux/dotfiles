@@ -350,11 +350,11 @@ function! mappings#Set()
   " Version Control <Leader>v?
   " For all this commands you should be in the svn root folder
   " Add all files
-  nnoremap <silent> <leader>vs :call <SID>version_control_command('status')<CR>
-  nnoremap <silent> <leader>vl :call <SID>version_control_command('alog')<CR>
-  nnoremap <silent> <leader>vL :call <SID>version_control_command('clog')<CR>
-  nnoremap <silent> <leader>vc :call <SID>version_control_command('commit')<CR>
-  nnoremap <silent> <leader>vd :call <SID>version_control_command('diff')<CR>
+  " nnoremap <silent> <leader>vs :call <SID>version_control_command('status')<CR>
+  " nnoremap <silent> <leader>vl :call <SID>version_control_command('alog')<CR>
+  " nnoremap <silent> <leader>vL :call <SID>version_control_command('clog')<CR>
+  " nnoremap <silent> <leader>vc :call <SID>version_control_command('commit')<CR>
+  " nnoremap <silent> <leader>vd :call <SID>version_control_command('diff')<CR>
 
   " nnoremap <Leader>vA :!svn add . --force<cr>
   " Add specific files
