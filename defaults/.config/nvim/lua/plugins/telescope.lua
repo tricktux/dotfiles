@@ -459,6 +459,8 @@ function M:set_mappings()
 	}
 
 	map:keymaps_sets(git)
+  git.prefix = map.vcs.prefix .. "t"
+  map:keymaps_sets(git)
 
 	-- TODO: These should all probably <plug> type
 	local search = { prefix = "<leader>" }
@@ -505,17 +507,6 @@ function M:set_mappings()
 	}
 
 	map:keymaps_sets(leader)
-
-	local prefix = "<leader>vt"
-	local mappings = {
-		f = { ts.git_files, "files" },
-		C = { ts.git_commits, "commits" },
-		c = { ts.git_bcommits, "commits_current_buffer" },
-		b = { ts.git_branches, "branches" },
-		s = { ts.git_status, "status" },
-		S = { ts.git_stash, "stash" },
-	}
-	map.keymaps_set(mappings, "n", opts, prefix)
 end
 
 function M:setup()
