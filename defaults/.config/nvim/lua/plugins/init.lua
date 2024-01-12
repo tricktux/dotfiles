@@ -463,6 +463,7 @@ return {
 	{
 		"mhinz/vim-startify",
 		lazy = false,
+		cond = not vim.g.started_by_firenvim,
 		init = function()
 			vim.g.startify_session_dir = vim.g.sessions_path
 
@@ -754,5 +755,57 @@ return {
 				},
 			},
 		},
+	},
+	{
+
+		"glacambre/firenvim",
+
+		-- Lazy load firenvim
+		-- Explanation: https://github.com/folke/lazy.nvim/discussions/463#discussioncomment-4819297
+		lazy = not vim.g.started_by_firenvim,
+		build = function()
+			vim.fn["firenvim#install"](0)
+		end,
+		init = function()
+			if not vim.g.started_by_firenvim then
+				return
+			end
+
+			local function chat_mappings()
+				vim.cmd([[
+          " for chat apps. Enter sends the message and deletes the buffer.
+          " Shift enter is normal return. Insert mode by default.
+          " Note that slack and gitter probably don't respond appropriately to press_keys. Workarounds might directly call javascript functions to send the messages.
+          normal! i
+          " inoremap <CR> <Esc>:w<CR>:call firenvim#press_keys("<LT>CR>")<CR>ggdGa
+          inoremap <CR> <Esc>:w<CR>:call firenvim#press_keys("<LT>CR>")<CR>ggdGa
+          inoremap <s-CR> <CR>
+        ]])
+			end
+
+			vim.api.nvim_create_autocmd("BufEnter", {
+				pattern = "*",
+				callback = function()
+					vim.opt.lines = 20
+					local bufname = vim.fn.expand("%:t")
+					if string.find(bufname, "github.com") then
+						vim.bo.filetype = "markdown"
+					elseif string.find(bufname, "cocalc.com") or string.find(bufname, "kaggleusercontent.com") then
+						vim.bo.filetype = "python"
+					elseif string.find(bufname, "localhost") then
+						vim.bo.filetype = "python"
+					elseif string.find(bufname, "reddit.com") then
+						vim.bo.filetype = "markdown"
+					elseif string.find(bufname, "stackexchange.com") or string.find(bufname, "stackoverflow.com") then
+						vim.bo.filetype = "markdown"
+					elseif string.find(bufname, "slack.com") or string.find(bufname, "gitter.com") then
+						vim.bo.filetype = "markdown"
+						chat_mappings()
+					elseif string.find(bufname, "web.whatsapp.com") then
+						chat_mappings()
+					end
+				end,
+			})
+		end,
 	},
 }
