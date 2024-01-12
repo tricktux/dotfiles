@@ -145,7 +145,7 @@ return {
   {
       "zbirenbaum/copilot.lua",
       event = "InsertEnter",
-      cond = vim.fn.executable('node') > 0,
+      cond = vim.fn.executable('node') > 0 and not vim.g.started_by_firenvim,
       opts = {
         suggestion = { enabled = false },
         panel = { enabled = false },
@@ -154,7 +154,7 @@ return {
   {
       "zbirenbaum/copilot-cmp",
       event = "InsertEnter",
-      cond = vim.fn.executable('node') > 0,
+      cond = vim.fn.executable('node') > 0 and not vim.g.started_by_firenvim,
       dependencies = { "zbirenbaum/copilot.lua" },
       config = function()
         require("copilot_cmp").setup()

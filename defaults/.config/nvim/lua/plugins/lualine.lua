@@ -35,11 +35,11 @@ end
 return {
 	"nvim-lualine/lualine.nvim",
 	event = "VeryLazy",
+	cond = not vim.g.started_by_firenvim,
 	dependencies = {
 		{
 			"nvim-tree/nvim-web-devicons",
 			event = "VeryLazy",
-			cond = vim.fn.exists("$TERMUX_VERSION") < 1,
 		},
 		{
 			"AndreM222/copilot-lualine",
