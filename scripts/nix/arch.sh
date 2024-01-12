@@ -54,6 +54,37 @@ quit() {
     exit 0
 }
 
+patch_firefox_omni() {
+    (
+        patchfile="$HOME/.config/dotfiles/mozilla/firefox-omni.patch"
+        # /home/reinaldo/.config/dotfiles/mozilla/firefox-omni.patch
+        if [[ ! -f $patchfile ]]; then
+            echo "Patch file not found"
+            return
+        fi
+        echo $patchfile
+        omni=/usr/lib/firefox/browser/omni.ja
+
+        # setopt -o err_exit
+        # setopt -o xtrace
+
+        [[ -d /tmp/firefox-omni ]] && rm -rf /tmp/firefox-omni
+        mkdir /tmp/firefox-omni
+        cd /tmp/firefox-omni
+        unzip -q $omni || true
+
+        patch chrome/browser/content/browser/browser.xhtml $patchfile
+
+        zip -0DXqr /tmp/omni.ja *
+
+        sudo cp -v $omni $omni.orig
+        sudo cp -v /tmp/omni.ja $omni
+
+        rm -rf /tmp/omni.ja /tmp/firefox-omni
+        rm -rf ~/.cache/mozilla/firefox/*/startupCache
+    )
+}
+
 update_machine_learning() {
     # This is all that is needed to have a neat self contained environment
     # All needed is to activate the environment: source bin/activate
@@ -594,7 +625,7 @@ backup() {
         echo "All options are optional"
         echo "If no options are provided all tasks will run optionally"
         echo
-        echo "Syntax: update-arch [-i|b|s|c|p|d|v|n|y|h]"
+        echo "Syntax: update-arch [-i|b|s|c|p|d|v|n|y|f|h]"
         echo "options:"
         echo "i     Install a package"
         echo "b     Run only Backup tasks"
@@ -607,12 +638,13 @@ backup() {
         echo "n     Update npm packages"
         echo "v     Update neovim-git"
         echo "y     Update polybar scripts"
+        echo "f     Patch firefox keymaps"
         echo "h     Print this Help."
         echo
     }
 
     # Get the options
-    while getopts "i:ubcpdmvyhn" option; do
+    while getopts "i:ubcpdmvyfhn" option; do
         case $option in
             h) # display Help
                 help
@@ -654,6 +686,10 @@ backup() {
                 update_npm
                 exit 0
                 ;;
+            f)
+                patch_firefox_omni
+                exit 0
+                ;;
             v)
                 update_neovim_git
                 exit 0
@@ -685,6 +721,13 @@ backup() {
     update_python_venv
 
     update_polybar_scripts
+
+    msg_not "${BLUE}${BOLD}" "[RIMP]==> Patch Firefox Default Mappings? [y/N/q]"
+    read -r yn
+    case $yn in
+        [Qq]*) quit ;;
+        [Yy]*) patch_firefox_omni ;;
+    esac
 
     msg_not "${BLUE}${BOLD}" "[RIMP]==> Update neovim plugins? [y/N/q]"
     read -r yn

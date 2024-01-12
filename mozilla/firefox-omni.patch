@@ -1,0 +1,24 @@
+diff -ru firefox-omni-orig/chrome/browser/content/browser/browser.xhtml ./chrome/browser/content/browser/browser.xhtml
+--- firefox-omni-orig/chrome/browser/content/browser/browser.xhtml	2010-01-01 00:00:00.000000000 -0500
++++ ./chrome/browser/content/browser/browser.xhtml	2022-04-05 20:26:31.880470112 -0400
+@@ -263,9 +263,9 @@
+     <key id="key_newNavigator"
+          data-l10n-id="window-new-shortcut"
+          command="cmd_newNavigator"
+-         modifiers="accel" reserved="true"/>
++         modifiers="accel" reserved="false"/>
+     <key id="key_newNavigatorTab" data-l10n-id="tab-new-shortcut" modifiers="accel"
+-         command="cmd_newNavigatorTabNoEvent" reserved="true"/>
++         command="cmd_newNavigatorTabNoEvent" reserved="false"/>
+     <key id="focusURLBar" data-l10n-id="location-open-shortcut" command="Browser:OpenLocation"
+          modifiers="accel"/>
+     <key id="focusURLBar2" data-l10n-id="location-open-shortcut-alt" command="Browser:OpenLocation"
+@@ -284,7 +284,7 @@
+     <key id="openFileKb" data-l10n-id="file-open-shortcut" command="Browser:OpenFile"  modifiers="accel"/>
+     <key id="key_savePage" data-l10n-id="save-page-shortcut" command="Browser:SavePage" modifiers="accel"/>
+     <key id="printKb" data-l10n-id="print-shortcut" command="cmd_print"  modifiers="accel"/>
+-    <key id="key_close" data-l10n-id="close-shortcut" command="cmd_close" modifiers="accel" reserved="true"/>
++    <key id="key_close" data-l10n-id="close-shortcut" command="cmd_close" modifiers="accel" reserved="false"/>
+     <key id="key_closeWindow" data-l10n-id="close-shortcut" command="cmd_closeWindow" modifiers="accel,shift" reserved="true"/>
+     <key id="key_toggleMute" data-l10n-id="mute-toggle-shortcut" command="cmd_toggleMute" modifiers="control"/>
+     <key id="key_undo"
