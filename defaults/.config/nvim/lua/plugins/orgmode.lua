@@ -26,6 +26,25 @@ local function setup()
 			"CANCELLED",
 		},
 		org_highlight_latex_and_related = "entities",
+    -- TODO: fix this
+		org_capture_templates = {
+			j = {
+				description = "Journal",
+				template = "\n*** %<%Y-%m-%d> %<%A>\n**** %U\n\n%?",
+				target = vim.fs.joinpath(vim.g.wiki_path, w.path.journal),
+			},
+			t = "TODO",
+			tw = {
+				description = "Work Task",
+				template = "* TODO %?\n SCHEDULED: %t",
+				target = "~/core/org-mode/work.org",
+			},
+			sw = {
+				description = "Study Task",
+				template = "* TODO %?\n SCHEDULED: %t",
+				target = "~/core/org-mode/study.org",
+			},
+		},
 		org_default_notes_file = vim.fs.joinpath(vim.g.wiki_path, w.path.main),
 		mappings = {
 			global = { org_agenda = "<leader>ma", org_capture = "<leader>mc" },
