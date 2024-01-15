@@ -159,6 +159,12 @@ if [[ -f /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substri
 fi
 # }}}
 
+# Edit commands with editor{{{
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^e' edit-command-line
+# }}}
+
 # Exports {{{
 export IGNORE_FILE="--ignore-file $HOME/.config/ignore-file"
 
