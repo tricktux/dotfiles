@@ -243,7 +243,7 @@ M.fs.file = {}
 ---@param path string Base path from where folder/file will be created
 function M.fs.file.create(path)
   local p = fs.is_path(path)
-  if p == nil then 
+  if p == nil then
     vim.notify("utils.fs.file.create: path not found: " .. p, vim.log.levels.ERROR)
     return
   end
@@ -334,7 +334,6 @@ local function fuzzer_sanitize(path)
 
   return p
 end
-
 
 --- Use this function to yank selected file instead of opening
 function M.fs.path.fuzzer_yank(path)
@@ -477,15 +476,58 @@ M.term.kitty_get_number_of_windows_in_current_tab = function()
   return 0
 end
 
-M.term.exec = function(cmd)
-  if type(cmd) == "string" then
-    cmd = M.table.string_to_table(cmd)
+M.term.last_terminal_job_id = nil
+M.term.new_vsplit = function()
+  vim.cmd.vsplit()
+  vim.cmd.terminal()
+end
+M.term.validate_channel_id = function(id)
+  vim.validate({ id = { id, "n", false } })
+  local terminal_chans = {}
+
+  for _, chan in pairs(vim.api.nvim_list_chans()) do
+    if chan["mode"] == "terminal" then
+      table.insert(terminal_chans, chan.id)
+    end
   end
-  vim.validate({ cmd = { cmd, "t", false } })
+
+  if #terminal_chans == 0 then
+    return false
+  end
+
+  for _, chan in pairs(terminal_chans) do
+    if chan == id then
+      return true
+    end
+  end
+
+  return false
+end
+
+M.term.send_cmd = function(cmd)
+  vim.validate({ cmd = { cmd, "s", false } })
+  local id = M.term.last_terminal_job_id
+  if id ~= nil and M.term.validate_channel_id(id) then
+    vim.api.nvim_chan_send(M.term.last_terminal_job_id, cmd .. "\n")
+    return true
+  end
+  return false
+end
+
+
+M.term.exec = function(cmd)
+  local lcmd = {}
+  if type(cmd) == "string" then
+    lcmd = M.table.string_to_table(cmd)
+  end
+  vim.validate({ lcmd = { lcmd, "t", false } })
   log.info(fmt("term.exec.cmd = %s", vim.inspect(cmd)))
+
+  if M.term.send_cmd(cmd) then return end
+
   if os.getenv("KITTY_WINDOW_ID") ~= nil and M.term.kitty_get_number_of_windows_in_current_tab() > 1 then
     local f = { "/usr/bin/kitty", "@", "send-text", "--match", "recent:1" }
-    for _, c in ipairs(cmd) do
+    for _, c in ipairs(lcmd) do
       table.insert(f, c)
     end
     table.insert(f, "\x0d")
@@ -497,7 +539,7 @@ M.term.exec = function(cmd)
   if os.getenv("TMUX") ~= nil then
     -- \! = ! which means target (-t) last active tmux pane (!)
     local f = { [[/usr/bin/tmux]], "send", "-t", "!" }
-    for _, c in ipairs(cmd) do
+    for _, c in ipairs(lcmd) do
       table.insert(f, c)
     end
     table.insert(f, "Enter")
@@ -513,9 +555,9 @@ M.term.exec = function(cmd)
     return
   end
 
-  local fcmd = ":!" .. table.concat(cmd, " ")
   log.info(fmt("term.exec.cmd = %s", cmd))
-  vim.cmd(fcmd)
+  M.term.new_vsplit()
+  M.term.send_cmd(cmd)
 end
 
 M.term.open_uri = function(uri)
@@ -583,6 +625,18 @@ M.links.open_uri_in_line = function(line)
   end
 
   M.term.open_uri(u)
+end
+
+M.setup = function()
+  -- Use to set autocommand
+  vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "TermOpen", "TermEnter" }, {
+    pattern = "*",
+    callback = function()
+      if vim.b.terminal_job_id ~= nil then
+        M.term.last_terminal_job_id = vim.b.terminal_job_id
+      end
+    end,
+  })
 end
 
 return M

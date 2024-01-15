@@ -432,13 +432,7 @@ M.terminal.mappings = {
   ["<leader>th"] = { "<plug>terminal_open_horizontal", "terminal_open_horizontal" },
   ["<leader>tv"] = { "<plug>terminal_open_vertical", "terminal_open_vertical" },
   ["<a-`>"] = { "<plug>terminal_toggle", "terminal_toggle" },
-  ["<plug>terminal_toggle"] = {
-    function()
-      vim.cmd.vsplit()
-      vim.cmd.terminal()
-    end,
-    "terminal_toggle",
-  },
+  ["<plug>terminal_toggle"] = { utl.term.new_vsplit, "terminal_toggle" },
   ["<plug>terminal_send_line"] = {
     function()
       utl.term.exec(vim.fn.getline("."))
