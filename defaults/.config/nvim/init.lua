@@ -89,6 +89,16 @@ local function _config_unix()
   end
 end
 
+local function firenvim()
+  vim.g.firenvim_config = {
+      localSettings = {
+          ['.*'] = {
+              takeover = 'never'
+          }
+      }
+  }
+end
+
 local function init_os()
 	local log = require("utils.log")
 
@@ -110,6 +120,8 @@ local function main()
 	set_globals()
 
 	init_os()
+  -- Initialize guis specific config vars here
+  firenvim()
 	-- Rationale for plugins last:
 	--  This way you can set your default mappings/options and plugins can
 	--  overwrite them later, if they need to. Also get rid of all plugin
