@@ -20,10 +20,11 @@ end
 function M.set_lsp_mappings(bufnr)
   local opts = { silent = true, buffer = true }
   local prefix = "<localleader>l"
+  local lprefix = "<leader>l"
   local lsp = vim.lsp
   local diag = vim.diagnostic
   local list = function()
-    vim.pretty_print(vim.lsp.buf.list_workspace_folders())
+    vim.print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end
   local workspace = {
     a = { lsp.buf.add_workspace_folder, "add_workspace_folder" },
@@ -32,6 +33,7 @@ function M.set_lsp_mappings(bufnr)
   }
 
   map.keymaps_set(workspace, "n", opts, prefix .. "w")
+  map.keymaps_set(workspace, "n", opts, lprefix .. "w")
   local rename = vim.fn.exists(":IncRename") > 0 and ":IncRename " or lsp.buf.rename
 
   local mappings = {
@@ -49,6 +51,7 @@ function M.set_lsp_mappings(bufnr)
   }
 
   map.keymaps_set(mappings, "n", opts, prefix)
+  map.keymaps_set(mappings, "n", opts, lprefix)
 
   -- Override default mappings with lsp intelligent analougous
   prefix = "]l"
@@ -95,6 +98,12 @@ function M.set_lsp_mappings(bufnr)
   local hov_ok, hov = pcall(require, "pretty_hover")
   if hov_ok then
     vks("n", "<localleader>h", hov.hover, { silent = true, buffer = true })
+  end
+  local trbl_ok, trbl = pcall(require, "trouble")
+  if trbl_ok then
+    vks("n", "<s-u>", function()
+      trbl.toggle("document_diagnostics")
+    end, { silent = true, buffer = true })
   end
 end
 
@@ -372,7 +381,17 @@ return {
     "dgagn/diagflow.nvim",
     event = { "LspAttach" },
     opts = {
-      scope = 'line'
+      scope = "line",
+    },
+  },
+  {
+    "folke/trouble.nvim",
+    event = { "LspAttach" },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
     },
   },
   set_lsp_mappings = M.set_lsp_mappings,
