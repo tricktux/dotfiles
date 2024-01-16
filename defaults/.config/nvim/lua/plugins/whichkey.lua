@@ -190,7 +190,8 @@ end
 return {
 	"folke/which-key.nvim",
   keys = {
-    { "<leader>", mode = {"n", "x"} }
+    { "<leader>", mode = {"n", "x"} },
+    { "<localleader>", mode = {"n", "x"} }
   },
 	config = function()
 		M:setup()
