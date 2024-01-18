@@ -106,6 +106,10 @@ M.setup = function()
 		callback = function()
 			log.info("markdown autocmd called")
 			set_text_settings()
+      vim.cmd[[
+        vnoremap <buffer> <localleader>Q :s/^/> /<CR>:noh<CR>``
+        nnoremap <buffer> <localleader>Q :.,$s/^/> /<CR>:noh<CR>``
+      ]]
 		end,
 		pattern = { "markdown", "mkd", "text" },
 		desc = "Better settings for markdown",
