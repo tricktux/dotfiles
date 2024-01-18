@@ -107,7 +107,7 @@ M.setup = function()
 			log.info("markdown autocmd called")
 			set_text_settings()
 		end,
-		pattern = { "markdown", "mkd" },
+		pattern = { "markdown", "mkd", "text" },
 		desc = "Better settings for markdown",
 		group = id,
 	})
