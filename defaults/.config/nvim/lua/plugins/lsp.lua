@@ -389,9 +389,7 @@ return {
     event = { "LspAttach" },
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
+      cycle_results = false, -- cycle item list when reaching beginning or end of list
     },
   },
   set_lsp_mappings = M.set_lsp_mappings,
