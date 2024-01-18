@@ -1,5 +1,38 @@
 local M = {}
 
+function M.__setup_text_snippets()
+  local ls = require("luasnip")
+  local s = ls.s
+  local i = ls.insert_node
+  local fmt = require("luasnip.extras.fmt").fmt
+  local t = ls.text_node
+
+  local text_snippet = {}
+  local signature = [[
+  {},
+  Reinaldo Molina
+  ]]
+  table.insert(
+    text_snippet,
+    s(
+      "s",
+      fmt(signature, {
+        i(1, "Regards"),
+      })
+    )
+  )
+  table.insert(
+    text_snippet,
+    s(
+      "h",
+      fmt([[Hi{},]], {
+        i(1, " Juanito"),
+      })
+    )
+  )
+  ls.add_snippets("text", text_snippet)
+end
+
 function M.__setup_orgmode_snippets()
   local ls = require("luasnip")
   local c = ls.choice_node
@@ -206,6 +239,7 @@ function M:config()
 
   self.__setup_orgmode_snippets()
   self.__setup_cpp_snippets()
+  self.__setup_text_snippets()
 
   ls.config.set_config({
     -- This tells LuaSnip to remember to keep around the last snippet.
