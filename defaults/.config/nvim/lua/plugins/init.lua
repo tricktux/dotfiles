@@ -339,61 +339,23 @@ return {
 		},
 	},
 	{
-		"ferrine/md-img-paste.vim",
-		ft = { "markdown", "org", "quarto", "tex" },
-		init = function()
-			vim.cmd([=[
-        function! g:OrgmodePasteImage(relpath)
-          execute "normal! i#+CAPTION: H"
-          let ipos = getcurpos()
-          execute "normal! aere"
-          execute "normal! o[[./" . a:relpath . "]]"
-          call setpos('.', ipos)
-          execute "normal! ve\<C-g>"
-        endfunction
-      ]=])
-			local id = api.nvim_create_augroup("ImagePastePlugin", { clear = true })
-			local opts = { silent = true, desc = "image_paste", buffer = 0 }
-			local md = function()
-				vim.g.PasteImageFunction = "g:MarkdownPasteImage"
-				vim.fn["mdip#MarkdownClipboardImage"]()
-			end
-			local tex = function()
-				vim.g.PasteImageFunction = "g:LatexPasteImage"
-				vim.fn["mdip#MarkdownClipboardImage"]()
-			end
-			local org = function()
-				vim.g.PasteImageFunction = "g:OrgmodePasteImage"
-				vim.fn["mdip#MarkdownClipboardImage"]()
-			end
-			api.nvim_create_autocmd("FileType", {
-				callback = function(args)
-					vks("n", "<localleader>i", org, opts)
-					vim.api.nvim_buf_create_user_command(args.buf, "UtilsOrgPasteImage", org, {})
-				end,
-				pattern = "org",
-				desc = "OrgModePasteImageFunction",
-				group = id,
-			})
-			api.nvim_create_autocmd("FileType", {
-				callback = function(args)
-					vks("n", "<localleader>i", md, opts)
-					vim.api.nvim_buf_create_user_command(args.buf, "UtilsMarkdownPasteImage", md, {})
-				end,
-				pattern = { "markdown", "quarto" },
-				desc = "MarkdownPasteImageFunction",
-				group = id,
-			})
-			api.nvim_create_autocmd("FileType", {
-				callback = function(args)
-					vks("n", "<localleader>i", tex, opts)
-					vim.api.nvim_buf_create_user_command(args.buf, "UtilsLatexPasteImage", tex, {})
-				end,
-				pattern = "tex",
-				desc = "LatexPasteImageFunction",
-				group = id,
-			})
-		end,
+		"HakonHarnes/img-clip.nvim",
+    ft = { "markdown", "org", "quarto", "tex" },
+    cmd = { "PasteImage" },
+		-- event = "BufEnter",
+		opts = {
+      default = {
+        relative_to_current_file = true, -- make dir_path relative to current file rather than the cwd
+        relative_template_path = false, -- make file path in the template relative to current file rather than the cwd
+        dir_path = "attachements",
+      },
+      quarto = {
+        template = "![$CURSOR]($FILE_PATH)",
+      }
+		},
+		keys = {
+			{ "<localleader>i", "<cmd>PasteImage<cr>", desc = "Paste clipboard image" },
+		},
 	},
 	{
 		"lukas-reineke/indent-blankline.nvim",
