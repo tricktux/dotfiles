@@ -803,6 +803,10 @@ return {
 						-- chat_mappings()
 					elseif string.find(bufname, "web.whatsapp.com") then
 						-- chat_mappings()
+          else
+            -- markdown by default, since proselint and markdown lint not
+            -- working on text
+            vim.bo.filetype = "markdown"
 					end
 				end,
 			})
