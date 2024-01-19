@@ -800,9 +800,9 @@ return {
 						vim.bo.filetype = "markdown"
 					elseif string.find(bufname, "slack.com") or string.find(bufname, "gitter.com") then
 						vim.bo.filetype = "markdown"
-						chat_mappings()
+						-- chat_mappings()
 					elseif string.find(bufname, "web.whatsapp.com") then
-						chat_mappings()
+						-- chat_mappings()
 					end
 				end,
 			})
