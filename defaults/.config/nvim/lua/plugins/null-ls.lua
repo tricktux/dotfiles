@@ -209,7 +209,12 @@ local function setup()
   end
   if vim.fn.executable("markdownlint") > 0 then
     log.info("NullLs setting up markdownlint...")
-    table.insert(sources, null.builtins.formatting.markdownlint)
+    table.insert(sources, null.builtins.formatting.markdownlint.with({
+      extra_filetypes = { "text" },
+    }))
+    table.insert(sources, null.builtins.diagnostics.markdownlint.with({
+      extra_filetypes = { "text" },
+    }))
   end
   if vim.fn.executable("write-good") > 0 then
     log.info("NullLs setting up write-good...")
@@ -217,7 +222,9 @@ local function setup()
   end
   if vim.fn.executable("proselint") > 0 then
     log.info("NullLs setting up proselint...")
-    table.insert(sources, null.builtins.diagnostics.proselint)
+    table.insert(sources, null.builtins.diagnostics.proselint.with({
+        extra_filetypes = { "text" },
+    }))
   end
   if vim.fn.executable("prettierd") > 0 then
     log.info("NullLs setting up prettierd...")
