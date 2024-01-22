@@ -275,6 +275,11 @@ function M:config()
     nvim_lsp.cmake.setup({})
   end
 
+  if vim.fn.executable("marksman") > 0 then
+    log.info("setting up the marksman lsp...")
+    nvim_lsp.marksman.setup({})
+  end
+
   if vim.fn.executable("clangd") > 0 then
     log.info("setting up the clangd lsp...")
     local cores = utl.has_win and os.getenv("NUMBER_OF_PROCESSORS") or table.concat(vim.fn.systemlist("nproc"))
