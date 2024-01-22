@@ -143,6 +143,7 @@ M.browser.search = function(word)
   M.term.exec(z)
 end
 M.browser.open_file_async = function(file)
+  vim.validate({ file = { file, "s", false } })
   if vim.loop.fs_stat(file) == nil then
     vim.api.nvim_err_writeln("file: '" .. file .. "' does not exists")
     return
