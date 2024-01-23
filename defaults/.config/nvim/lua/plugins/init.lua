@@ -340,18 +340,18 @@ return {
 	},
 	{
 		"HakonHarnes/img-clip.nvim",
-    ft = { "markdown", "org", "quarto", "tex" },
-    cmd = { "PasteImage" },
+		ft = { "markdown", "org", "quarto", "tex" },
+		cmd = { "PasteImage" },
 		-- event = "BufEnter",
 		opts = {
-      default = {
-        relative_to_current_file = true, -- make dir_path relative to current file rather than the cwd
-        relative_template_path = false, -- make file path in the template relative to current file rather than the cwd
-        dir_path = "attachements",
-      },
-      quarto = {
-        template = "![$CURSOR]($FILE_PATH)",
-      }
+			default = {
+				relative_to_current_file = true, -- make dir_path relative to current file rather than the cwd
+				relative_template_path = false, -- make file path in the template relative to current file rather than the cwd
+				dir_path = "attachements",
+			},
+			quarto = {
+				template = "![$CURSOR]($FILE_PATH)",
+			},
 		},
 		keys = {
 			{ "<localleader>i", "<cmd>PasteImage<cr>", desc = "Paste clipboard image" },
@@ -762,13 +762,13 @@ return {
 						vim.bo.filetype = "markdown"
 					elseif string.find(bufname, "slack.com") or string.find(bufname, "gitter.com") then
 						vim.bo.filetype = "markdown"
-						-- chat_mappings()
+					-- chat_mappings()
 					elseif string.find(bufname, "web.whatsapp.com") then
-						-- chat_mappings()
-          else
-            -- markdown by default, since proselint and markdown lint not
-            -- working on text
-            vim.bo.filetype = "markdown"
+					-- chat_mappings()
+					else
+						-- markdown by default, since proselint and markdown lint not
+						-- working on text
+						vim.bo.filetype = "markdown"
 					end
 				end,
 			})
