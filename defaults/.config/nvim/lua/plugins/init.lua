@@ -3,6 +3,7 @@ local fmt = string.format
 local utl = require("utils.utils")
 local vks = vim.keymap.set
 local api = vim.api
+local home = vim.loop.os_homedir()
 
 -- Lua functions that inserts a text and copies it to the clipboard
 local function anki_prompt()
@@ -773,5 +774,25 @@ return {
 				end,
 			})
 		end,
+	},
+	{
+		"epwalsh/obsidian.nvim",
+		event = "VeryLazy",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		opts = {
+			workspaces = {
+				{
+					name = "work",
+					path = vim.fs.joinpath(home, "Documents/work/wiki"),
+				},
+				{
+					name = "personal",
+					path = vim.fs.joinpath(home, "Documents/Drive/wiki"),
+				},
+			},
+      mappings = {},
+		},
 	},
 }
