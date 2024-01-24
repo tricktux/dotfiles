@@ -778,6 +778,12 @@ return {
 	{
 		"epwalsh/obsidian.nvim",
 		event = "VeryLazy",
+		keys = {
+			{ "<leader>ww", "<cmd>ObsidianToday<cr>", desc = "obsidian_open" },
+			{ "<leader>wp", "<cmd>ObsidianWorkspace personal<cr>", desc = "obsidian_workspace_personal" },
+			{ "<leader>wo", "<cmd>ObsidianWorkspace work<cr>", desc = "obsidian_workspace_work" },
+			{ "<leader>ws", "<cmd>ObsidianSearch<cr>", desc = "obsidian_workspace_work" },
+		},
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 		},
@@ -792,7 +798,10 @@ return {
 					path = vim.fs.joinpath(home, "Documents/Drive/wiki"),
 				},
 			},
-      mappings = {},
+			mappings = {},
+			daily_notes = {
+				folder = "dailies",
+			},
 		},
 	},
 }
