@@ -779,10 +779,11 @@ return {
 		"epwalsh/obsidian.nvim",
 		event = "VeryLazy",
 		keys = {
-			{ "<leader>ww", "<cmd>ObsidianToday<cr>", desc = "obsidian_open" },
+			{ "<leader>ww", "<cmd>ObsidianToday<cr>", desc = "obsidian_daily" },
 			{ "<leader>wp", "<cmd>ObsidianWorkspace personal<cr>", desc = "obsidian_workspace_personal" },
 			{ "<leader>wo", "<cmd>ObsidianWorkspace work<cr>", desc = "obsidian_workspace_work" },
 			{ "<leader>ws", "<cmd>ObsidianSearch<cr>", desc = "obsidian_workspace_work" },
+      { "<leader>wj", "<cmd>ObsidianOpen<cr>", desc = "obsidian_open" },
 		},
 		dependencies = {
 			"nvim-lua/plenary.nvim",
