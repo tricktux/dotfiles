@@ -3,11 +3,16 @@ local home = vim.loop.os_homedir()
 
 local M = {}
 
-M.work_wikis = {
+M.wikis = {}
+M.wikis.default = {
+  name = "personal",
+  path = vim.fs.joinpath(home, "Documents/wiki"),
+}
+M.wikis.work = {
   vim.fs.joinpath(home, "Documents/work/wiki"),
 }
 
-M.personal_wikis = {
+M.wikis.personal = {
   vim.fs.joinpath(home, "Documents/wiki"),
   vim.fs.joinpath(home, "Documents/Nextcloud/wiki"),
   vim.fs.joinpath(home, "Documents/Drive/wiki"),
@@ -50,8 +55,11 @@ return {
     "nvim-lua/plenary.nvim",
   },
   init = function()
-    M.find_workspace(M.work_wikis, "work")
-    M.find_workspace(M.personal_wikis, "personal")
+    M.find_workspace(M.wikis.work, "work")
+    M.find_workspace(M.wikis.personal, "personal")
+    if vim.tbl_isempty(M.opts.workspaces) then
+      M.opts.workspaces = M.wikis.default
+    end
   end,
   opts = M.opts,
 }
