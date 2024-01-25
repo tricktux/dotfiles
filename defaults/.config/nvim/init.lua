@@ -137,8 +137,6 @@ local function main()
   vim.fn["options#Set"]()
   vim.fn["commands#Set"]()
   require("options"):setup()
-  -- setup wiki early so that path is available
-  require("plugin.wiki"):setup()
   require("plugin.termdebug"):init()
   require("lazyr").setup()
 end
