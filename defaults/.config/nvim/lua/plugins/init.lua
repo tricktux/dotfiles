@@ -1,6 +1,7 @@
 local log = require("utils.log")
 local fmt = string.format
 local utl = require("utils.utils")
+local fs = require("utils.filesystem")
 local vks = vim.keymap.set
 local api = vim.api
 local home = vim.loop.os_homedir()
@@ -774,35 +775,5 @@ return {
 				end,
 			})
 		end,
-	},
-	{
-		"epwalsh/obsidian.nvim",
-		event = "VeryLazy",
-		keys = {
-			{ "<leader>ww", "<cmd>ObsidianToday<cr>", desc = "obsidian_daily" },
-			{ "<leader>wp", "<cmd>ObsidianWorkspace personal<cr>", desc = "obsidian_workspace_personal" },
-			{ "<leader>wo", "<cmd>ObsidianWorkspace work<cr>", desc = "obsidian_workspace_work" },
-			{ "<leader>ws", "<cmd>ObsidianSearch<cr>", desc = "obsidian_workspace_work" },
-      { "<leader>wj", "<cmd>ObsidianOpen<cr>", desc = "obsidian_open" },
-		},
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
-		opts = {
-			workspaces = {
-				{
-					name = "work",
-					path = vim.fs.joinpath(home, "Documents/work/wiki"),
-				},
-				{
-					name = "personal",
-					path = vim.fs.joinpath(home, "Documents/Drive/wiki"),
-				},
-			},
-			mappings = {},
-			daily_notes = {
-				folder = "dailies",
-			},
-		},
 	},
 }
