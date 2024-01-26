@@ -60,6 +60,7 @@
     zsh-vi-mode
     htop-vim
     ranger
+    eza
 
     cascadia-code
     wget
@@ -82,6 +83,7 @@
     # Languages
     plantuml
     lua-language-server
+    pandoc
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
