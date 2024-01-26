@@ -313,9 +313,9 @@ local function setup()
       })
     )
   end
-  if vim.fn.executable("selene") > 0 then
-    log.info("NullLs setting up selene...")
-    table.insert(sources, null.builtins.diagnostics.selene)
+  if vim.fn.executable("statix") > 0 then
+    log.info("NullLs setting up statix...")
+    table.insert(sources, null.builtins.diagnostics.statix)
   end
   if vim.fn.executable("cppcheck") > 0 then
     log.info("NullLs setting up cppcheck...")
