@@ -61,29 +61,34 @@
     htop-vim
     ranger
     eza
-
-    cascadia-code
+    luajit
     wget
+
+    # Fonts
+    cascadia-code
 
     # Formatters
     nixpkgs-fmt
-    marksman
     markdownlint-cli
-    luajit
     jq
     shfmt
     stylua
+    cmake-format
+    beautysh
+
+    # Linters
     write-good
     proselint
-    cmake-format
     shellcheck
-    beautysh
     vale
+    statix
 
     # Languages
+    marksman
     plantuml
     lua-language-server
     pandoc
+    nil
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
