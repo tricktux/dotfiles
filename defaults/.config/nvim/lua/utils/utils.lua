@@ -488,15 +488,29 @@ M.buf.is_in_current_tab = function(bufnr)
   end
   return nil
 end
+M.buf.is_valid = function(bufnr)
+  vim.validate({ bufnr = { bufnr, "n", true } })
+  if bufnr == nil then
+    return false
+  end
+  if not vim.api.nvim_buf_is_valid(bufnr) then
+    return false
+  end
+  return vim.api.nvim_buf_is_loaded(bufnr)
+end
 
-M.term.last_terminal_job_id = nil
-M.term.last_terminal_bufnr = nil
+M.term.last = {
+  job_id = nil,
+  bufnr = nil,
+}
+M.term.is_valid = function(job_id, bufnr)
+  return M.term.valid_job_id(job_id) and M.buf.is_valid(bufnr)
+end
 M.term.toggle = function()
-  local id = M.term.last_terminal_job_id
-  local bufnr = M.term.last_terminal_bufnr
-  local term_exists = id ~= nil and M.term.validate_channel_id(id)
+  local bufnr = M.term.last.bufnr
+  local term_valid = M.term.is_valid(M.term.last.job_id, bufnr)
 
-  if not term_exists then
+  if not term_valid then
     M.term.new_vsplit()
     return
   end
@@ -513,22 +527,14 @@ M.term.new_vsplit = function()
   vim.cmd.vsplit()
   vim.cmd.terminal()
 end
-M.term.validate_channel_id = function(id)
-  vim.validate({ id = { id, "n", false } })
-  local terminal_chans = {}
+M.term.valid_job_id = function(id)
+  vim.validate({ id = { id, "n", true } })
 
-  for _, chan in pairs(vim.api.nvim_list_chans()) do
-    if chan["mode"] == "terminal" then
-      table.insert(terminal_chans, chan.id)
-    end
-  end
-
-  if #terminal_chans == 0 then
+  if id == nil then
     return false
   end
-
-  for _, chan in pairs(terminal_chans) do
-    if chan == id then
+  for _, chan in pairs(vim.api.nvim_list_chans()) do
+    if chan["mode"] == "terminal" and chan.id == id then
       return true
     end
   end
@@ -538,9 +544,9 @@ end
 
 M.term.send_cmd = function(cmd)
   vim.validate({ cmd = { cmd, "s", false } })
-  local id = M.term.last_terminal_job_id
-  if id ~= nil and M.term.validate_channel_id(id) then
-    vim.api.nvim_chan_send(M.term.last_terminal_job_id, cmd .. "\n")
+  local id = M.term.last.job_id
+  if id ~= nil and M.term.valid_job_id(id) then
+    vim.api.nvim_chan_send(M.term.last.job_id, cmd .. "\n")
     return true
   end
   return false
@@ -665,8 +671,8 @@ M.setup = function()
     pattern = "*",
     callback = function(ev)
       if vim.b.terminal_job_id ~= nil then
-        M.term.last_terminal_job_id = vim.b.terminal_job_id
-        M.term.last_terminal_bufnr = ev.buf
+        M.term.last.job_id = vim.b.terminal_job_id
+        M.term.last.bufnr = ev.buf
       end
     end,
   })
