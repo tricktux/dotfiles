@@ -50,6 +50,15 @@ return {
     { "<leader>ww", "<cmd>ObsidianWorkspace work<cr>",     desc = "obsidian_workspace_work" },
     { "<leader>ws", "<cmd>ObsidianSearch<cr>",             desc = "obsidian_workspace_work" },
     { "<leader>wo", "<cmd>ObsidianOpen<cr>",               desc = "obsidian_open" },
+    {
+      "<leader>wf",
+      function()
+        vim.print(vim.inspect(M.opts.workspaces))
+        local w = M.opts.workspaces[1].path
+        fs.path.fuzzer(w)
+      end,
+      desc = "obsidian_fuzzy",
+    },
   },
   dependencies = {
     "nvim-lua/plenary.nvim",
