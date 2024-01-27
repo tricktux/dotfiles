@@ -477,7 +477,38 @@ M.term.kitty_get_number_of_windows_in_current_tab = function()
   return 0
 end
 
+M.buf = {}
+M.buf.is_in_current_tab = function(bufnr)
+  local tabpage = vim.api.nvim_get_current_tabpage()
+  local windows = vim.api.nvim_tabpage_list_wins(tabpage)
+  for _, win in ipairs(windows) do
+    if vim.api.nvim_win_get_buf(win) == bufnr then
+      return win
+    end
+  end
+  return nil
+end
+
 M.term.last_terminal_job_id = nil
+M.term.last_terminal_bufnr = nil
+M.term.toggle = function()
+  local id = M.term.last_terminal_job_id
+  local bufnr = M.term.last_terminal_bufnr
+  local term_exists = id ~= nil and M.term.validate_channel_id(id)
+
+  if not term_exists then
+    M.term.new_vsplit()
+    return
+  end
+
+  local term_win = M.buf.is_in_current_tab(bufnr)
+  if term_win ~= nil then
+    vim.api.nvim_set_current_win(term_win)
+    return
+  end
+  vim.cmd.vsplit()
+  vim.cmd.buffer(bufnr)
+end
 M.term.new_vsplit = function()
   vim.cmd.vsplit()
   vim.cmd.terminal()
@@ -632,9 +663,10 @@ M.setup = function()
   -- Use to set autocommand
   vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "TermOpen", "TermEnter" }, {
     pattern = "*",
-    callback = function()
+    callback = function(ev)
       if vim.b.terminal_job_id ~= nil then
         M.term.last_terminal_job_id = vim.b.terminal_job_id
+        M.term.last_terminal_bufnr = ev.buf
       end
     end,
   })
