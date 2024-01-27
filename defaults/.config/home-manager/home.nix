@@ -136,13 +136,18 @@
       vimAlias = true;
     };
 
+    gpg = {
+      enable = true;
+    };
   };
   services = {
+    # gpgconf --kill gpg-agent
     gpg-agent = {
       enable = true;
       defaultCacheTtl = 7200;
       enableSshSupport = true;
       maxCacheTtl = 86400;
+      pinentryFlavor = "qt";
     };
   };
 }
