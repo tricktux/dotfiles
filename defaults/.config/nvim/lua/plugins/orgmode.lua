@@ -13,8 +13,11 @@ local function setup()
 	local org = require("orgmode")
 	org.setup_ts_grammar()
 
+  local wb = w.path.personal or w.path.work
+  local wo = w.path.org
+
 	org.setup({
-		org_agenda_files = { vim.fs.joinpath(vim.g.wiki_path, [[org/**/*.org]]) },
+		org_agenda_files = { vim.fs.joinpath(wb, [[org/**/*.org]]) },
 		org_todo_keywords = {
 			"TODO",
 			"IN_PROGRESS",
@@ -31,7 +34,7 @@ local function setup()
 			j = {
 				description = "Journal",
 				template = "\n*** %<%Y-%m-%d> %<%A>\n**** %U\n\n%?",
-				target = vim.fs.joinpath(vim.g.wiki_path, w.path.journal),
+				target = vim.fs.joinpath(wb, w.path.journal),
 			},
 			t = "TODO",
 			tw = {
@@ -45,7 +48,7 @@ local function setup()
 				target = "~/core/org-mode/study.org",
 			},
 		},
-		org_default_notes_file = vim.fs.joinpath(vim.g.wiki_path, w.path.main),
+		org_default_notes_file = vim.fs.joinpath(wb, wo.main),
 		mappings = {
 			global = { org_agenda = "<leader>ma", org_capture = "<leader>mc" },
 			org = {
@@ -89,6 +92,5 @@ end
 return {
 	"kristijanhusak/orgmode.nvim",
 	ft = "org",
-	version = false, -- last release is way too old
 	config = setup,
 }
