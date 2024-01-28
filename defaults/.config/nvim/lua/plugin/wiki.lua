@@ -3,14 +3,19 @@ local fs = require("utils.utils").fs
 local log = require("utils.log")
 local map = require("mappings")
 local luv = vim.loop
-local home = vim.loop.os_homedir()
+local home = luv.os_homedir()
 
 local M = {}
 
 M.path = {
-  base = "",
-  main = [[/org/notes.org]],
-  random = [[/org/random.org]],
+  list = {},
+  default = vim.fs.joinpath(home, "Documents/wiki"),
+  work = nil,
+  personal = nil,
+  org = {
+    main = [[/org/notes.org]],
+    random = [[/org/random.org]],
+  }
 }
 
 local report = {}
@@ -81,9 +86,13 @@ function report:edit_weekly_report()
 	vim.cmd("edit " .. self.current)
 end
 
-local wikis = {
+M.path.list.work = {
   vim.fs.joinpath(home, "Documents/work/wiki"),
+}
+
+M.path.list.personal = {
   vim.fs.joinpath(home, "Documents/wiki"),
+  vim.fs.joinpath(home, "Documents/Nextcloud/wiki"),
   vim.fs.joinpath(home, "Documents/Drive/wiki"),
   vim.fs.joinpath(home, "External/reinaldo/resilio/wiki"),
   "/mnt/samba/server/resilio/wiki",
@@ -92,15 +101,14 @@ local wikis = {
   [[D:\Reinaldo\Documents\src\resilio\wiki]],
 }
 
-function M:_find_wiki()
-	for _, dir in pairs(wikis) do
-		if luv.fs_stat(dir) ~= nil then
-			self.path.base = vim.fs.normalize(dir)
-			return
-		end
-	end
+M.path.find = function(wikis)
+  vim.validate({ wikis = { wikis, "table", false } })
+  for _, dir in pairs(wikis) do
+    local w = luv.fs_stat(dir)
+    if w and w.type == "directory" then return dir end
+  end
 
-	print("ERROR: Failed to find a wiki folder")
+  return nil
 end
 
 M.maps = {}
@@ -141,10 +149,14 @@ M.maps.mappings = {
 }
 
 function M:setup()
-	self:_find_wiki()
-	vim.g.wiki_path = self.path.base
-	map:keymaps_sets(self.maps)
-  vim.api.nvim_create_user_command('UtilsEditJournal', "edit " .. vim.fs.joinpath(M.path.base, M.path.main), {})
+  local w = self.path.find(self.path.list.work)
+  if w then self.path.work = w end
+  local p = self.path.find(self.path.list.personal)
+  if not p then
+    mkdir(self.path.list.default, "p")
+    p = self.path.list.default
+  end
+  if p then self.path.personal = p end
 end
 
 return M
