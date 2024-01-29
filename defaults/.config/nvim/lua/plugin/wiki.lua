@@ -153,8 +153,8 @@ function M:setup()
   if w then self.path.work = w end
   local p = self.path.find(self.path.list.personal)
   if not p then
-    mkdir(self.path.list.default, "p")
-    p = self.path.list.default
+    vim.fn.mkdir(self.path.default, "p")
+    p = self.path.default
   end
   if p then self.path.personal = p end
 end
