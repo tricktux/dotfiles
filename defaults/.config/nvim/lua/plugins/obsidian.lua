@@ -32,7 +32,7 @@ return {
       desc = "obsidian_fuzzy",
     },
     {
-      "<leader>wt"
+      "<leader>wt",
       function()
         local c = require("obsidian").get_client()
         -- TODO: set arguments
