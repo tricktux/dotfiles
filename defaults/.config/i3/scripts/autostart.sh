@@ -45,10 +45,10 @@ else
 	printf "\n==X Please install alttab\n"
 fi
 
-if [[ -f /usr/bin/synology-drive ]]; then
-	/usr/bin/synology-drive
+if [[ -f /usr/bin/nextcloud ]]; then
+	/usr/bin/nextcloud &
 else
-	printf "\n==X Please install synology-drive\n"
+	printf "\n==X Please install nextcloud\n"
 fi
 
 if [[ -f /usr/bin/blueman-applet ]]; then
