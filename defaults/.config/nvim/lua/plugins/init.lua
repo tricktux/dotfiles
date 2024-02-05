@@ -776,4 +776,8 @@ return {
 			})
 		end,
 	},
+  {
+    "lunarVim/bigfile.nvim",
+    opts = {},
+  }
 }
