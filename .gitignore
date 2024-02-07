@@ -71,3 +71,5 @@ defaults/.config/polybar/scripts/google-key.sh
 defaults/.config/polybar/scripts/traffic-info.sh
 defaults/.config/cava/shaders
 defaults/.config/systemd/user
+defaults/.config/nix/nixos/configuration.nix.etc
+defaults/.config/nix/nixos/hardware-configuration.nix.etc
