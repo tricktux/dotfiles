@@ -92,6 +92,7 @@ M.path.list.work = {
 
 M.path.list.personal = {
   vim.fs.joinpath(home, "Documents/wiki"),
+  vim.fs.joinpath(home, "Nextcloud/wiki"),
   vim.fs.joinpath(home, "Documents/Nextcloud/wiki"),
   vim.fs.joinpath(home, "Documents/Drive/wiki"),
   vim.fs.joinpath(home, "External/reinaldo/resilio/wiki"),
