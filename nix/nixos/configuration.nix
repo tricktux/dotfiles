@@ -137,6 +137,7 @@ in
     reinaldo = {
       isNormalUser = true;
       openssh.authorizedKeys.keys = [ ];
+      extraGroups = ["networkmanager" "wheel" "storage" "power" "sys"];
     };
   };
 
