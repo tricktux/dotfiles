@@ -8,6 +8,11 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
+  # Bootloader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  boot.initrd.luks.devices."luks-d37686cd-b610-413c-91a6-dd19984d0e6a".device = "/dev/disk/by-uuid/d37686cd-b610-413c-91a6-dd19984d0e6a";
   boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "usb_storage" "usbhid" "sd_mod" "sdhci_pci" "rtsx_usb_sdmmc" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];

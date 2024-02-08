@@ -74,12 +74,6 @@ in
     auto-optimise-store = true;
   };
 
-  # FIXME: Add the rest of your current configuration
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  boot.initrd.luks.devices."luks-d37686cd-b610-413c-91a6-dd19984d0e6a".device = "/dev/disk/by-uuid/d37686cd-b610-413c-91a6-dd19984d0e6a";
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -97,6 +91,7 @@ in
     clang
     #  wget
   ];
+
   # Enable networking
   networking.networkmanager.enable = true;
 
