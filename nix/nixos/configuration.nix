@@ -89,7 +89,7 @@ in
     curl
     wget
     clang
-    #  wget
+    gnumake
   ];
 
   # Enable networking
