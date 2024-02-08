@@ -10,7 +10,6 @@
 }: 
 let
   surbook = ./hardware-configuration.surbook.nix;
-  surbookExists = builtins.pathExists surbook;
 in
 {
   # You can import other NixOS modules here
@@ -26,8 +25,8 @@ in
     # ./users.nix
 
     # Import your generated (nixos-generate-config) hardware configuration
-    (if surbookExists then [ surbook ] else [])
-  ];
+    # (if surbookExists then [ surbook ] else []);
+  ] ++ lib.optional (builtins.pathExists surbook) surbook;
 
   nixpkgs = {
     # You can add overlays here
