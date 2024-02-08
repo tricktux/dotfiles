@@ -7,7 +7,12 @@
   config,
   pkgs,
   ...
-}: {
+}: 
+let
+  surbook = ./hardware-configuration.surbook.nix;
+  surbookExists = builtins.pathExists surbook;
+in
+{
   # You can import other NixOS modules here
   imports = [
     # If you want to use modules your own flake exports (from modules/nixos):
@@ -21,7 +26,7 @@
     # ./users.nix
 
     # Import your generated (nixos-generate-config) hardware configuration
-    ./hardware-configuration.nix.etc
+    (if surbookExists then [ surbook ] else [])
   ];
 
   nixpkgs = {
