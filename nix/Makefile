@@ -6,7 +6,7 @@ HOSTNAME := $(shell hostname)
 all: home
 
 home:
-	home-manager switch --flake .#$(USERNAME)@$(HOSTNAME)
+	home-manager switch --flake .#$(USERNAME)
 
 nixos:
 	sudo nixos-rebuild switch --flake .#$(HOSTNAME)
