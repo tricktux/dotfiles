@@ -59,7 +59,7 @@ return {
 		{
 			"<plug>file_oil_browser",
 			function()
-				require("oil").open_float()
+				require("oil").open()
 			end,
 			desc = "file-tree-neotree",
 		},
