@@ -211,6 +211,7 @@ function M:config_project()
       ".bzr",
       "package.json",
       "[Cc]argo.toml",
+      "wiki",
     },
 
     -- Table of lsp clients to ignore by name
