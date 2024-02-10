@@ -48,6 +48,7 @@ local nvim_open_win_override = function(conf)
 	local s = lines.start_line
 	local e = lines.end_line
 	conf.height = math.floor((e - s) * 0.8)
+  conf.width = math.floor(vim.o.columns * 0.6)
 	conf.row = math.floor((e - s) * 0.1)
 end
 
