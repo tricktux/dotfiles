@@ -1,4 +1,4 @@
-.PHONY: home nixos
+.PHONY: home nixos clean
 
 USERNAME := $(shell whoami)
 HOSTNAME := $(shell hostname)
@@ -10,3 +10,7 @@ home:
 
 nixos:
 	sudo nixos-rebuild switch --flake .#$(HOSTNAME)
+
+clean:
+	nix-env --delete-generations +10
+	nix-collect-garbage --delete-old
