@@ -1,11 +1,21 @@
 local M = {}
 
+local time_fmt = {
+  date_time = "%Y-%m-%d %a %H:%M",
+  date = "%Y-%m-%d %a",
+  day_dtime = "%a %b %d %Y %H:%M",
+}
+local function get_date_time(fmt)
+  return os.date(fmt)
+end
+
 function M.__setup_text_snippets()
   local ls = require("luasnip")
   local s = ls.s
   local i = ls.insert_node
   local fmt = require("luasnip.extras.fmt").fmt
   local t = ls.text_node
+  local f = ls.function_node
 
   local text_snippet = {}
   local signature = [[
@@ -30,7 +40,17 @@ function M.__setup_text_snippets()
       })
     )
   )
+  table.insert(
+    text_snippet,
+    s(
+      "d",
+      fmt([[{}]], {
+        f(function() return get_date_time(time_fmt.day_dtime) end),
+      })
+    )
+  )
   ls.add_snippets("text", text_snippet)
+  ls.add_snippets("markdown", text_snippet)
 end
 
 function M.__setup_orgmode_snippets()
@@ -42,13 +62,6 @@ function M.__setup_orgmode_snippets()
   local t = ls.text_node
   local f = ls.function_node
   local e = require("luasnip.extras")
-  local function get_date_time()
-    return os.date("%Y-%m-%d %a %H:%M")
-  end
-
-  local function get_date()
-    return os.date("%Y-%m-%d %a")
-  end
 
   local todo_snips = {}
   for k = 1, 5 do
@@ -61,15 +74,15 @@ function M.__setup_orgmode_snippets()
     {} TODO {}
       {}
       {}
-    ]]     ,
+    ]],
           {
             t(string.rep("*", k)),
             i(1, "description"),
             f(function()
-              return "DEADLINE: <" .. get_date() .. ">"
+              return "DEADLINE: <" .. get_date_time(time_fmt.date) .. ">"
             end, {}),
             f(function()
-              return "[" .. get_date_time() .. "]"
+              return "[" .. get_date_time(time_fmt.date_time) .. "]"
             end, {}),
           }
         )
@@ -84,15 +97,15 @@ function M.__setup_orgmode_snippets()
     {} TODO {}
       {}
       {}
-    ]]     ,
+    ]],
           {
             t(string.rep("*", k)),
             i(1, "description"),
             f(function()
-              return "SCHEDULED: <" .. get_date() .. ">"
+              return "SCHEDULED: <" .. get_date_time(time_fmt.date) .. ">"
             end, {}),
             f(function()
-              return "[" .. get_date_time() .. "]"
+              return "[" .. get_date_time(time_fmt.date_time) .. "]"
             end, {}),
           }
         )
@@ -109,7 +122,7 @@ function M.__setup_orgmode_snippets()
   {} TODO {}
     {}
     {}
-  ]]     ,
+  ]],
         {
           c(1, {
             i(nil, "*"),
@@ -118,10 +131,10 @@ function M.__setup_orgmode_snippets()
           }),
           i(2, "description"),
           f(function()
-            return "SCHEDULED: <" .. get_date() .. ">"
+            return "SCHEDULED: <" .. get_date_time(time_fmt.date) .. ">"
           end, {}),
           f(function()
-            return "[" .. get_date_time() .. "]"
+            return "[" .. get_date_time(time_fmt.date_time) .. "]"
           end, {}),
         }
       )
@@ -216,20 +229,17 @@ function M.__setup_cpp_snippets()
       }
     )
   )
-  local clock = s(
-    "clock",
-    {
-      t([[
+  local clock = s("clock", {
+    t([[
         #include <chrono>
-        auto start = std::chrono::high_resolution_clock::now(); 
+        auto start = std::chrono::high_resolution_clock::now();
         // function here
-        auto stop = std::chrono::high_resolution_clock::now(); 
-        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start); 
+        auto stop = std::chrono::high_resolution_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
         std::cout << "Time taken by function: "
-            << duration.count() << " microseconds\n"; 
+            << duration.count() << " microseconds\n";
       ]]),
-    }
-  )
+  })
   ls.add_snippets("cpp", { cout, clock, singleton })
 end
 
@@ -299,9 +309,9 @@ return {
   dependencies = {
     "rafamadriz/friendly-snippets",
   },
- 	-- version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+  -- version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
   config = function()
     M:config()
   end,
-	build = "make install_jsregexp"
+  build = "make install_jsregexp",
 }
