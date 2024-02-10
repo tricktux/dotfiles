@@ -54,6 +54,7 @@ end
 
 return {
 	"stevearc/oil.nvim",
+  event = "VeryLazy",
 	keys = {
 		{
 			"<plug>file_oil_browser",
