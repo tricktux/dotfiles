@@ -152,6 +152,7 @@ in
       groups = [ "wheel" ];
     }];
     extraConfig = with pkgs; ''
+      Defaults:rootpw
       Defaults:reinaldo timestamp_timeout=7200
     '';
   };
