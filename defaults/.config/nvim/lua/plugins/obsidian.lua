@@ -45,6 +45,13 @@ return {
     "nvim-lua/plenary.nvim",
   },
   config = function()
+    vim.api.nvim_create_autocmd("FileType", {
+      callback = function()
+        vim.opt_local.conceallevel = 1
+      end,
+      pattern = { "markdown", "mkd" },
+      desc = "Set conceallevel for obsidian",
+    })
     if w.path.work ~= nil then table.insert(M.opts.workspaces, { name = "work", path = w.path.work }) end
     if w.path.personal ~= nil then table.insert(M.opts.workspaces, { name = "personal", path = w.path.personal }) end
     -- vim.print(vim.inspect(M.opts.workspaces))
