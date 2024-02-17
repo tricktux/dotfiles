@@ -40,7 +40,7 @@ std::string get_mon_name(const std::string &text) {
 }
 
 // Function that returns the monitor resolution
-std::string get_mon_resolution(const std::string& text) {
+std::string get_mon_resolution(const std::string &text) {
   std::regex rgx("\\b\\d{4}\\b");
   std::smatch match;
 
