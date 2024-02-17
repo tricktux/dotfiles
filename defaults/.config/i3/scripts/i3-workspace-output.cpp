@@ -54,14 +54,16 @@ struct monitors {
     });
   }
 
+  // TODO: check if empty
   const std::string &main() const { return m_mon[0].name; }
   const std::string &secondary() const {
-    return m_mon.size() > 1 ? m_mon[1].name : m_mon[0].name;
+    return m_mon.size() > 1 ? m_mon[1].name : main();
   }
   const std::string &tertiary() const {
-    const auto nm = m_mon.size();
-    return nm > 2 ? m_mon[2].name : (nm > 1 ? m_mon[1].name : m_mon[0].name);
+    return m_mon.size() > 2 ? m_mon[2].name : secondary();
   }
+
+  void add(const monitor &&m) { m_mon.push_back(m); }
 };
 
 std::ostream &operator<<(std::ostream &os, const monitors &m) {
@@ -94,7 +96,7 @@ std::optional<monitor> builder(const std::string &text) {
 }
 
 int main(int argc, char **argv) {
-  constexpr auto command = "xrandr --listmonitors";
+  constexpr auto command{"xrandr --listmonitors"};
 
   // Open a pipe to the command and read its output line by line
   std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(command, "r"), pclose);
@@ -117,7 +119,7 @@ int main(int argc, char **argv) {
     if (const auto mon = builder(line); mon) {
       std::cout << "\t" << mon->name << " " << mon->resolution << ". orig: '"
                 << line << "'";
-      monitors.m_mon.push_back(std::move(*mon));
+      monitors.add(std::move(*mon));
     } else
       std::cout << "\tNOT A MONITOR: " << line;
   }
