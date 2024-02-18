@@ -11,6 +11,10 @@ machine=$(hostname)
 server_ip='192.168.128.128'
 aur_helper='paru'
 
+# gpg
+alias gpg-encrypt="gpg --encrypt --recipient 3D8AA5DEB1ADAA960488A4ED670B48EF8DF28C77"
+alias gpg-decrypt="gpg --decrypt"
+
 #ranger
 alias r=ranger_cd
 
