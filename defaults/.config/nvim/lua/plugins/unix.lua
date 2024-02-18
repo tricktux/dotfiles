@@ -3,6 +3,7 @@ if vim.fn.has("win32") > 0 then
 end
 
 return {
+  { "jamessan/vim-gnupg", event = "VeryLazy"},
   { "mboughaba/i3config.vim", ft = "i3config" },
   { "lambdalisue/suda.vim", cmd = { "SudaWrite", "SudaRead" } },
   { "chr4/nginx.vim", ft = "nginx" },
