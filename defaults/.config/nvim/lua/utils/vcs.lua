@@ -34,7 +34,8 @@ end
 local git = vcs:new()
 function git:status()
   if vim.fn.executable("lazygit") > 0 then
-    utils.exec_float_term("term lazygit", true)
+    local o = { startinsert = true }
+    local b = utils.term.float.exec("term lazygit", o)
     return
   end
 
@@ -52,8 +53,9 @@ end
 function git:buffer_commits()
   if vim.fn.executable("lazygit") > 0 then
     -- Get path to current buffer
+    local o = { startinsert = true }
     local path = vim.api.nvim_buf_get_name(0)
-    utils.exec_float_term('term lazygit -f "' .. path .. '"', true)
+    utils.term.float.exec('term lazygit -f "' .. path .. '"', o)
     return
   end
 

@@ -397,23 +397,10 @@ function M.open_win_centered(width, height)
   }
 
   log.trace("row = ", row, "col = ", col, "width = ", mwidth, "height = ", mheight)
-  return buf, api.nvim_open_win(buf, true, opts)
-end
-
--- @brief Execute program in floating terminal
--- @param cmd vim command, if terminal command is desired append term
--- @param closeterm close window when command is done?
--- @param startinsert start insert mode in terminal
-function M.exec_float_term(cmd, startinsert)
-  vim.validate({ cmd = { cmd, "s", false } })
-  -- Last true makes them optional arguments
-  vim.validate({ startinsert = { startinsert, "b", true } })
-
-  M.open_win_centered(0.90, 0.90)
-  vim.cmd(cmd)
-  if startinsert then
-    vim.cmd("startinsert")
-  end
+  return {
+    bufnr = buf,
+    winnr = api.nvim_open_win(buf, true, opts)
+  }
 end
 
 function M.read_file(path)
@@ -497,6 +484,40 @@ M.buf.is_valid = function(bufnr)
     return false
   end
   return vim.api.nvim_buf_is_loaded(bufnr)
+end
+
+M.term.float = {}
+M.term.float.opts = {
+  startinsert = false,
+  closeterm = true,
+  layout = {
+    width = 0.90,
+    height = 0.90,
+  }
+}
+
+function M.term.float.exec(cmd, opts)
+  vim.validate({ cmd = { cmd, "s", false } })
+  -- Last true makes them optional arguments
+  vim.validate({ startinsert = { opts, "t", true } })
+  -- Merge opts
+  local startinsert = opts and opts.startinsert or M.term.float.opts.startinsert
+  local closeterm = opts and opts.closeterm or M.term.float.opts.closeterm
+  local layout = opts and opts.layout or M.term.float.opts.layout
+
+  local b = M.open_win_centered(layout.width, layout.height)
+  vim.cmd(cmd)
+  if startinsert then
+    vim.cmd("startinsert")
+  end
+  if closeterm then
+    vim.api.nvim_create_autocmd("TermClose", {
+      buffer = b.bufnr,
+      command = "bwipeout!",
+      once = true,
+    })
+  end
+  return b
 end
 
 M.term.last = {
