@@ -7,9 +7,6 @@
 , pkgs
 , ...
 }:
-let
-  surbook = ./hardware-configuration.surbook.nix;
-in
 {
   # You can import other NixOS modules here
   imports = [
@@ -25,7 +22,7 @@ in
 
     # Import your generated (nixos-generate-config) hardware configuration
     # (if surbookExists then [ surbook ] else []);
-  ] ++ lib.optional (builtins.pathExists surbook) surbook;
+  ];
 
   nixpkgs = {
     # You can add overlays here
@@ -152,7 +149,7 @@ in
       groups = [ "wheel" ];
     }];
     extraConfig = with pkgs; ''
-      Defaults:rootpw
+      Defaults rootpw
       Defaults:reinaldo timestamp_timeout=7200
     '';
   };

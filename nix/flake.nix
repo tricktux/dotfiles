@@ -59,7 +59,11 @@
         specialArgs = {inherit inputs outputs;};
         modules = [
           # > Our main nixos configuration file <
+          ./nixos/hardware-configuration.surbook.nix
           ./nixos/configuration.nix
+	        ./nixos/i3.nix
+          ./nixos/video-intel.nix
+          ./nixos/nas-mount.nix
         ];
       };
     };
