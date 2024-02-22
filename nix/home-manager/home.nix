@@ -85,7 +85,6 @@
         unzip
         zip
         xclip
-        zsh
         zsh-autosuggestions
         zsh-completions
         zsh-history-substring-search
@@ -130,8 +129,11 @@
   # programs.neovim.enable = true;
   # home.packages = with pkgs; [ steam ];
 
-  # Enable home-manager and git
-  programs.home-manager.enable = true;
+  programs = {
+    # Enable home-manager
+    home-manager.enable = true;
+    zsh.enable = true;
+  };
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";

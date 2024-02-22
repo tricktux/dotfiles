@@ -117,11 +117,15 @@
     };
   };
 
+  programs = {
+    zsh.enable = true;
+  };
 
   users.users = {
     reinaldo = {
       isNormalUser = true;
       openssh.authorizedKeys.keys = [ ];
+      shell = pkgs.zsh;
       extraGroups = [ "networkmanager" "wheel" "storage" "power" "sys" ];
     };
   };
