@@ -110,21 +110,6 @@ if [[ -f $ZSH_PLUGIN_PATH/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
 fi
 
 if [[ -f $ZSH_PLUGIN_PATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-  #...
-  source $ZSH_PLUGIN_PATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-  #...
-fi
-if [[ -f $ZSH_PLUGIN_PATH/zsh-vi-mode/zsh-vi-mode.plugin.zsh ]]; then
-  #...
-  source $ZSH_PLUGIN_PATH/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-  #...
-fi
-if [[ -f $ZSH_PLUGIN_PATH/zsh-history-substring-search/zsh-history-substring-search.zsh ]]; then
-  #...
-  source $ZSH_PLUGIN_PATH/zsh-history-substring-search/zsh-history-substring-search.zsh
-  #...
-fi
-if [[ -f $ZSH_PLUGIN_PATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
   # See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
   ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor root line)
   # Customize the main highlighter styles.
@@ -280,7 +265,9 @@ fi
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 # TODO: Don't source this file, but rather: romkatv/powerlevel10k/config/p10k-lean.zsh
 # TODO: Use a suggested font so that there is no that many differences
-if [[ -f /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme ]]; then
+if [[ -f $ZSH_PLUGIN_PATH/zhs-powerlevel10k/powerlevel10k.zsh-theme ]]; then
+  source $ZSH_PLUGIN_PATH/zhs-powerlevel10k/powerlevel10k.zsh-theme
+elif [[ -f /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme ]]; then
   source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 fi
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
