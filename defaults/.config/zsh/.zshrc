@@ -88,18 +88,43 @@ zstyle ':zim:duration-info' show-milliseconds yes
 zstyle ':zim:completion' dumpfile "/tmp/zcompdump-${ZSH_VERSION}"
 # }}}
 
+
+NIX_PROFILES_PATH=/home/reinaldo/.nix-profile/share
+LINUX_PATH=/usr/share/zsh/plugins
+ZSH_PLUGIN_PATH=""
+if [[ -d $NIX_PROFILES_PATH ]]; then
+  ZSH_PLUGIN_PATH=$NIX_PROFILES_PATH
+else
+  ZSH_PLUGIN_PATH=$LINUX_PATH
+fi
+
 # Zsh Plugin Opions {{{
 
-if [[ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+if [[ -f $ZSH_PLUGIN_PATH/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
   bindkey '^ ' autosuggest-accept
-  source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+  source $ZSH_PLUGIN_PATH/zsh-autosuggestions/zsh-autosuggestions.zsh
 
   # See https://github.com/zsh-users/zsh-autosuggestions/blob/master/README.md#suggestion-highlight-style
   ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=30'
   ZSH_AUTOSUGGEST_STRATEGY=(history completion match_prev_cmd)
 fi
 
-if [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+if [[ -f $ZSH_PLUGIN_PATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+  #...
+  source $ZSH_PLUGIN_PATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  #...
+fi
+if [[ -f $ZSH_PLUGIN_PATH/zsh-vi-mode/zsh-vi-mode.plugin.zsh ]]; then
+  #...
+  source $ZSH_PLUGIN_PATH/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+  #...
+fi
+if [[ -f $ZSH_PLUGIN_PATH/zsh-history-substring-search/zsh-history-substring-search.zsh ]]; then
+  #...
+  source $ZSH_PLUGIN_PATH/zsh-history-substring-search/zsh-history-substring-search.zsh
+  #...
+fi
+if [[ -f $ZSH_PLUGIN_PATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
   # See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
   ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor root line)
   # Customize the main highlighter styles.
@@ -111,7 +136,7 @@ if [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.
   ZSH_HIGHLIGHT_STYLES[function]='fg=93'
   ZSH_HIGHLIGHT_STYLES[alias]='fg=magenta,bold'
   ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
-  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  source $ZSH_PLUGIN_PATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
 # z setup {{{
@@ -121,7 +146,7 @@ fi
 # }}}
 
 # Source plugins{{{
-if [[ -f /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh ]]; then
+if [[ -f $ZSH_PLUGIN_PATH/zsh-vi-mode/zsh-vi-mode.plugin.zsh ]]; then
   function zvm_config() {
     ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
     # Needed for fzf to work
@@ -129,13 +154,13 @@ if [[ -f /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh ]]; then
   }
 
   # Inspect the file below for config options
-  source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+  source $ZSH_PLUGIN_PATH/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 fi
 # }}}
 
 # zsh-history-substring-search{{{
 
-if [[ -f /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh ]]; then
+if [[ -f $ZSH_PLUGIN_PATH/zsh-history-substring-search/zsh-history-substring-search.zsh ]]; then
   # Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
   bindkey '^[[A' history-substring-search-up
   bindkey '^[[B' history-substring-search-down
@@ -155,7 +180,7 @@ if [[ -f /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substri
   bindkey -M emacs '^N' history-substring-search-down
   bindkey -M vicmd 'k' history-substring-search-up
   bindkey -M vicmd 'j' history-substring-search-down
-  source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+  source $ZSH_PLUGIN_PATH/zsh-history-substring-search/zsh-history-substring-search.zsh
 fi
 # }}}
 
@@ -290,4 +315,4 @@ if [[ -f /usr/bin/atuin ]]; then
   bindkey '^r' _atuin_search_widget
 fi
 
-# vim: fdm=marker
+# vim: fdm=marker ft=sh
