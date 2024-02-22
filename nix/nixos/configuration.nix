@@ -21,7 +21,6 @@
     # ./users.nix
 
     # Import your generated (nixos-generate-config) hardware configuration
-    # (if surbookExists then [ surbook ] else []);
   ];
 
   nixpkgs = {
@@ -118,8 +117,6 @@
     };
   };
 
-  # TODO: Set your hostname
-  networking.hostName = "surbook";
 
   users.users = {
     reinaldo = {

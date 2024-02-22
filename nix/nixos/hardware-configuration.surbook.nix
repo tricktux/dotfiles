@@ -9,6 +9,9 @@
       (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
+  # TODO: set hostname
+  networking.hostName = "surbook";
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
