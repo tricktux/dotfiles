@@ -265,8 +265,8 @@ fi
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 # TODO: Don't source this file, but rather: romkatv/powerlevel10k/config/p10k-lean.zsh
 # TODO: Use a suggested font so that there is no that many differences
-if [[ -f $ZSH_PLUGIN_PATH/zhs-powerlevel10k/powerlevel10k.zsh-theme ]]; then
-  source $ZSH_PLUGIN_PATH/zhs-powerlevel10k/powerlevel10k.zsh-theme
+if [[ -f $ZSH_PLUGIN_PATH/zsh-powerlevel10k/powerlevel10k.zsh-theme ]]; then
+  source $ZSH_PLUGIN_PATH/zsh-powerlevel10k/powerlevel10k.zsh-theme
 elif [[ -f /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme ]]; then
   source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 fi
