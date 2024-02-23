@@ -138,7 +138,7 @@ bindsym $mod+bracketright move container to output right
 bindsym $mod+Mod1+$left focus output left
 bindsym $mod+Mod1+$right focus output right
 
-bindsym $mod+shift+x exec i3lock-fancy
+bindsym $mod+shift+x exec i3lock-fancy-rapid
 
 # start a terminal
 # This is set by the value of $TERMINAL. Which in turn is set inside of .bashrc
