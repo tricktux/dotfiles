@@ -86,6 +86,8 @@
     wget
     clang
     gnumake
+    stow
+    wireguard-tools
   ];
 
   # Enable networking

@@ -61,11 +61,14 @@
           specialArgs = { inherit inputs outputs; };
           modules = [
             # > Our main nixos configuration file <
-            ./nixos/hardware-configuration.surbook.nix
             ./nixos/configuration.nix
+            ./nixos/hardware-configuration.surbook.nix
             ./nixos/i3.nix
             ./nixos/video-intel.nix
             ./nixos/nas-mount.nix
+            ./nixos/accelerated-video-playback.nix
+            ./nixos/hardware-programs.nix
+            ./nixos/fonts.nix
           ];
         };
       };
@@ -80,6 +83,11 @@
           modules = [
             # > Our main home-manager configuration file <
             ./home-manager/home.nix
+            ./home-manager/terminal.nix
+            ./home-manager/pass.nix
+            ./home-manager/services.nix
+            ./home-manager/xfce.nix
+            ./home-manager/polybar.nix
           ];
         };
       };

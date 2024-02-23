@@ -1,7 +1,6 @@
 { config, pkgs, callPackage, ... }:
 {
   environment.systemPackages = with pkgs; [
-    pciutils
+    fwupd
   ];
-  services.xserver.videoDrivers = [ "modesetting" ];
 }
