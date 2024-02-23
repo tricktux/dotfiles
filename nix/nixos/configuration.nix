@@ -158,6 +158,9 @@
   };
 
   services = {
+    # Auto-mount USB drives
+    gvfs.enable = true;
+    earlyoom.enable = true;
     # Enable automatic login for the user.
     getty.autologinUser = "reinaldo";
     # This setups a SSH server. Very important if you're setting up a headless system.
@@ -171,7 +174,6 @@
         PasswordAuthentication = true;
       };
     };
-    earlyoom.enable = true;
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
