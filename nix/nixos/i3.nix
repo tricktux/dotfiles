@@ -27,9 +27,30 @@
         # https://nixos.wiki/wiki/Samba
         lxqt.lxqt-policykit
         xlayoutdisplay
-        # i3status # gives you the default i3 status bar
-        # i3lock #default i3 screen locker
-        # i3blocks #if you are planning on using i3blocks over i3status
+        i3lock-fancy-rapid
+        rofi
+        # rofi-dmenu
+        alttab
+        xdotool
+        feh
+        redshift
+        qrencode
+        xclip
+        dunst
+        libnotify
+        scrot
+        flameshot
+        tdrop
+        ncpamixer
+        qalculate-qt
+        picom
+        xss-lock
+        # mimeo to handle default applications
+        # keyword: xdg-open
+        mimeo
+        xdg-utils
+        # TODO
+        xdg-ninja
       ];
     };
   };
