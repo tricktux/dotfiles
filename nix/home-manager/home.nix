@@ -85,20 +85,20 @@
         unzip
         zip
         xclip
-        zsh-autosuggestions
-        zsh-completions
-        zsh-history-substring-search
-        zsh-syntax-highlighting
-        zsh-powerlevel10k
-        zsh-vi-mode
         htop-vim
         ranger
         eza
         luajit
         wget
 
-        # Fonts
-        cascadia-code
+        # zsh
+        zsh
+        zsh-autosuggestions
+        zsh-completions
+        zsh-history-substring-search
+        zsh-syntax-highlighting
+        zsh-powerlevel10k
+        zsh-vi-mode
 
         # Formatters
         nixpkgs-fmt
@@ -132,7 +132,6 @@
   programs = {
     # Enable home-manager
     home-manager.enable = true;
-    zsh.enable = true;
   };
 
   # Nicely reload system units when changing configs
