@@ -155,19 +155,21 @@
     '';
   };
 
-  # Enable automatic login for the user.
-  services.getty.autologinUser = "reinaldo";
-
-  # This setups a SSH server. Very important if you're setting up a headless system.
-  # Feel free to remove if you don't need it.
-  services.openssh = {
-    enable = true;
-    settings = {
-      # Forbid root login through SSH.
-      PermitRootLogin = "no";
-      # Use keys only. Remove if you want to SSH using password (not recommended)
-      PasswordAuthentication = true;
+  services = {
+    # Enable automatic login for the user.
+    getty.autologinUser = "reinaldo";
+    # This setups a SSH server. Very important if you're setting up a headless system.
+    # Feel free to remove if you don't need it.
+    openssh = {
+      enable = true;
+      settings = {
+        # Forbid root login through SSH.
+        PermitRootLogin = "no";
+        # Use keys only. Remove if you want to SSH using password (not recommended)
+        PasswordAuthentication = true;
+      };
     };
+    earlyoom.enable = true;
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
