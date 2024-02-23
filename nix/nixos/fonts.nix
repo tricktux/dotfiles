@@ -5,7 +5,11 @@
     cascadia-code
     inconsolata
     inconsolata-nerdfont
+    # polybar
     font-awesome_5
+    weather-icons
+    iosevka
+    # ----
     noto-fonts
     noto-fonts-cjk
     noto-fonts-emoji
