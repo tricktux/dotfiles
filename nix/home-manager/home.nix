@@ -1,12 +1,11 @@
 # This is your home-manager configuration file
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
-{
-  inputs,
-  outputs,
-  lib,
-  config,
-  pkgs,
-  ...
+{ inputs
+, outputs
+, lib
+, config
+, pkgs
+, ...
 }: {
   # You can import other home-manager modules here
   imports = [
@@ -51,78 +50,78 @@
   home = {
     username = "reinaldo";
     homeDirectory = "/home/reinaldo";
-      packages = with pkgs; [
-        # # Adds the 'hello' command to your environment. It prints a friendly
-        # # "Hello, world!" when run.
-        # pkgs.hello
+    packages = with pkgs; [
+      # # Adds the 'hello' command to your environment. It prints a friendly
+      # # "Hello, world!" when run.
+      # pkgs.hello
 
-        # It is sometimes useful to fine-tune packages, for example, by applying
-        # # overrides. You can do that directly here, just don't forget the
-        # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-        # # fonts?
-        # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
+      # It is sometimes useful to fine-tune packages, for example, by applying
+      # # overrides. You can do that directly here, just don't forget the
+      # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
+      # # fonts?
+      # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
 
-        # # You can also create simple shell scripts directly inside your
-        # # configuration. For example, this adds a command 'my-hello' to your
-        # # environment:
-        # (pkgs.writeShellScriptBin "my-hello" ''
-        #   echo "Hello, ${config.home.username}!"
-        # '')
-        # tools
-        neovim
-        git
-        bat
-        lazygit
-        direnv
-        fd
-        fzf
-        ripgrep
-        ripgrep-all
-        # https://haseebmajid.dev/posts/2023-08-12-how-sync-your-shell-history-with-atuin-in-nix/
-        atuin
-        stow
-        tldr
-        unzip
-        zip
-        xclip
-        htop-vim
-        ranger
-        eza
-        luajit
-        wget
+      # # You can also create simple shell scripts directly inside your
+      # # configuration. For example, this adds a command 'my-hello' to your
+      # # environment:
+      # (pkgs.writeShellScriptBin "my-hello" ''
+      #   echo "Hello, ${config.home.username}!"
+      # '')
+      # tools
+      neovim
+      git
+      bat
+      lazygit
+      direnv
+      fd
+      fzf
+      ripgrep
+      ripgrep-all
+      # https://haseebmajid.dev/posts/2023-08-12-how-sync-your-shell-history-with-atuin-in-nix/
+      atuin
+      stow
+      tldr
+      unzip
+      zip
+      xclip
+      htop-vim
+      ranger
+      eza
+      luajit
+      wget
 
-        # zsh
-        zsh
-        zsh-autosuggestions
-        zsh-completions
-        zsh-history-substring-search
-        zsh-syntax-highlighting
-        zsh-powerlevel10k
-        zsh-vi-mode
+      # zsh
+      zsh
+      zsh-autosuggestions
+      zsh-completions
+      zsh-history-substring-search
+      zsh-syntax-highlighting
+      zsh-powerlevel10k
+      zsh-vi-mode
 
-        # Formatters
-        nixpkgs-fmt
-        markdownlint-cli
-        jq
-        shfmt
-        stylua
-        cmake-format
-        beautysh
+      # Formatters
+      nixpkgs-fmt
+      markdownlint-cli
+      jq
+      shfmt
+      stylua
+      cmake-format
+      beautysh
 
-        # Linters
-        write-good
-        proselint
-        shellcheck
-        vale
-        statix
+      # Linters
+      write-good
+      proselint
+      shellcheck
+      vale
+      statix
 
-        # Languages
-        marksman
-        plantuml
-        lua-language-server
-        pandoc
-        nil
-      ];
+      # Languages
+      marksman
+      plantuml
+      lua-language-server
+      pandoc
+      nil
+    ];
   };
 
   # Add stuff for your user as you see fit:
