@@ -14,6 +14,7 @@
     wirelesstools
     curl
     pywal
+    killall
     # TODO
     # galendae-git
   ];
