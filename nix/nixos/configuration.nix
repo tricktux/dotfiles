@@ -128,7 +128,7 @@
       isNormalUser = true;
       openssh.authorizedKeys.keys = [ ];
       shell = pkgs.zsh;
-      extraGroups = [ "networkmanager" "wheel" "storage" "power" "sys" ];
+      extraGroups = [ "networkmanager" "wheel" "storage" "power" "sys" "video" ];
     };
   };
 

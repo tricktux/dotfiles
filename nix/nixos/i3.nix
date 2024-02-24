@@ -1,7 +1,8 @@
 { config, pkgs, callPackage, ... }:
 
 {
-  #environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw 
+  # Needed to fix home-manager/guis.nix#gtk.enable
+  programs.dconf.enable = true;
   services.xserver = {
     enable = true;
 
@@ -26,7 +27,6 @@
         rofi #application launcher most people use
         # https://nixos.wiki/wiki/Samba
         lxqt.lxqt-policykit
-        xlayoutdisplay
         i3lock-fancy-rapid
         rofi
         # rofi-dmenu
@@ -51,6 +51,7 @@
         xdg-utils
         # TODO
         xdg-ninja
+        brillo
       ];
     };
   };
