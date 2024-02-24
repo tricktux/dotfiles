@@ -56,7 +56,7 @@
       # NixOS configuration entrypoint
       # Available through 'nixos-rebuild --flake .#your-hostname'
       nixosConfigurations = {
-        # FIXME replace with your hostname
+        # TODO replace with your hostname
         surbook = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs; };
           modules = [
@@ -69,6 +69,10 @@
             ./nixos/accelerated-video-playback.nix
             ./nixos/hardware-programs.nix
             ./nixos/fonts.nix
+            ./nixos/power-management.nix
+            ./nixos/pipewire.nix
+            ./nixos/bluetooth.nix
+            ./nixos/run-executables.nix
           ];
         };
       };
@@ -76,7 +80,7 @@
       # Standalone home-manager configuration entrypoint
       # Available through 'home-manager --flake .#your-username@your-hostname'
       homeConfigurations = {
-        # FIXME replace with your username@hostname
+        # TODO replace with your username@hostname
         reinaldo = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
           extraSpecialArgs = { inherit inputs outputs; };
@@ -88,6 +92,8 @@
             ./home-manager/services.nix
             ./home-manager/xfce.nix
             ./home-manager/polybar.nix
+            ./home-manager/guis.nix
+            ./home-manager/screens-surbook.nix
           ];
         };
       };
