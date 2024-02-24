@@ -87,6 +87,11 @@
           modules = [
             # > Our main home-manager configuration file <
             ./home-manager/home.nix
+            ./home-manager/coding/lua.nix
+            ./home-manager/coding/markdown.nix
+            ./home-manager/coding/nix.nix
+            ./home-manager/coding/cpp.nix
+            ./home-manager/coding/python.nix
             ./home-manager/terminal.nix
             ./home-manager/pass.nix
             ./home-manager/services.nix

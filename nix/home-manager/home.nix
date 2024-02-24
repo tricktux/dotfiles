@@ -69,7 +69,6 @@
       # '')
       # tools
       neovim
-      git
       bat
       lazygit
       direnv
@@ -87,40 +86,7 @@
       htop-vim
       ranger
       eza
-      luajit
       wget
-
-      # zsh
-      zsh
-      zsh-autosuggestions
-      zsh-completions
-      zsh-history-substring-search
-      zsh-syntax-highlighting
-      zsh-powerlevel10k
-      zsh-vi-mode
-
-      # Formatters
-      nixpkgs-fmt
-      markdownlint-cli
-      jq
-      shfmt
-      stylua
-      cmake-format
-      beautysh
-
-      # Linters
-      write-good
-      proselint
-      shellcheck
-      vale
-      statix
-
-      # Languages
-      marksman
-      plantuml
-      lua-language-server
-      pandoc
-      nil
     ];
   };
 
