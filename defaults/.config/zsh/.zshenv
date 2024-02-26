@@ -55,7 +55,7 @@ export SSH_ASKPASS=/usr/bin/lxqt-openssh-askpass
 
 # Exports
 # Man settings
-export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:/usr/man
+# export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:/usr/man
 # export MANPAGER="nvim -c 'set ft=man' -"
 
 # Adb, fastboot
