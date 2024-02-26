@@ -7,7 +7,7 @@
 }:
 
 let
-  pythonPackages = pkgs.python312Packages;
+  pythonPackages = pkgs.python311Packages;
 
   # venvDir = "./env";
 
@@ -48,6 +48,7 @@ in
     pythonPackages.pylint
     pythonPackages.flake8
     pythonPackages.black
+    python3
   ];
 
 
