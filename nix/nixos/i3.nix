@@ -1,4 +1,5 @@
-{ config, pkgs, lib, callPackage, ... }:
+{ config, pkgs, callPackage, ... }:
+
 {
   # Needed to fix home-manager/guis.nix#gtk.enable
   programs.dconf.enable = true;
@@ -24,10 +25,12 @@
     windowManager.i3 = {
       enable = true;
       extraPackages = with pkgs; [
+        rofi #application launcher most people use
         # https://nixos.wiki/wiki/Samba
         lxqt.lxqt-policykit
         i3lock-fancy-rapid
         rofi
+        # rofi-dmenu
         alttab
         xdotool
         feh
