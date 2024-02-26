@@ -12,7 +12,10 @@
     # Home manager
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # Shameless plug: looking for a way to nixify your themes and make
     # everything match nicely? Try nix-colors!
     # nix-colors.url = "github:misterio77/nix-colors";
@@ -29,11 +32,11 @@
       inherit (self) outputs;
       # Supported systems for your flake packages, shell, etc.
       systems = [
-        "aarch64-linux"
-        "i686-linux"
+        # "aarch64-linux"
+        # "i686-linux"
         "x86_64-linux"
-        "aarch64-darwin"
-        "x86_64-darwin"
+        # "aarch64-darwin"
+        # "x86_64-darwin"
       ];
       # This is a function that generates an attribute by calling a function you
       # pass to it, with each system as an argument
@@ -73,6 +76,7 @@
             ./nixos/pipewire.nix
             ./nixos/bluetooth.nix
             ./nixos/run-executables.nix
+            ./nixos/keyboard.nix
           ];
         };
       };
@@ -99,6 +103,8 @@
             ./home-manager/polybar.nix
             ./home-manager/guis.nix
             ./home-manager/screens-surbook.nix
+            ./home-manager/firefox.nix
+            ./home-manager/rofi.nix
           ];
         };
       };
