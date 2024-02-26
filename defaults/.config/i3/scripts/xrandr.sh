@@ -129,7 +129,7 @@ elif [[ "$hostname" = "xps" ]]; then
         "main")
             echo "  setting up main configuration"
             "$HOME"/.screenlayout/main.sh
-            xrandr --dpi 192
+            xrandr --dpi 156
             echo "Xft.dpi: 192" | xrdb -merge
             xset_on
             ;;
