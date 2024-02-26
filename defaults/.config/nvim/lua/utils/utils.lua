@@ -179,7 +179,7 @@ M.fd.file_cmd = vim.tbl_flatten({
 })
 M.rg = {}
 M.rg.switches = {}
-M.rg.bin = M.has_win and "rg" or [[/usr/bin/rg]]
+M.rg.bin = "rg"
 M.rg.switches.common = vim.tbl_flatten({
   "--vimgrep",
   "--hidden",

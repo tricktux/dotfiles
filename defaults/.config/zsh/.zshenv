@@ -27,11 +27,11 @@ export XDG_CONFIG_DIRS="/etc/xdg"
 
 # Sat Oct 14 2017 11:12: This will set the i3-sensible-terminal to be used:
 # Termite has priority over kitty
-[ -f /usr/bin/urxvtc ] && export TERMINAL="/usr/bin/urxvtc"
-[ -f /usr/bin/termite ] && export TERMINAL="/usr/bin/termite"
-[ -f /usr/bin/kitty ] && export TERMINAL="/usr/bin/kitty"
+[ -x $(command -v urxvtc) ] && export TERMINAL="urxvtc"
+[ -x $(command -v termite) ] && export TERMINAL="termite"
+[ -x $(command -v kitty) ] && export TERMINAL="kitty"
 
-[ -f /usr/bin/firefox ] && export BROWSER="/usr/bin/firefox"
+[ -x $(command -v firefox) ] && export BROWSER="firefox"
 
 # Thu Feb 01 2018 05:21: For oracle database crap for school
 if [[ -d  "/home/reinaldo/app" ]]; then

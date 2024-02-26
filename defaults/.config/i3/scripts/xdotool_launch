@@ -21,7 +21,7 @@ apps["ranger"] = {
   -- Command to execute for this window
   i3cmd = "scratchpad show, resize set 80ppt 60ppt, move position center",
   -- How to start this application if it does not exists
-  exec = [[$TERMINAL --title ranger /usr/bin/ranger&]],
+  exec = [[$TERMINAL --title ranger ranger&]],
 }
 
 apps["scratch"] = {
@@ -41,7 +41,7 @@ apps["doublecmd"] = {
   -- Command to execute for this window
   i3cmd = "scratchpad show, resize set 80ppt 60ppt, move position center",
   -- How to start this application if it does not exists
-  exec = [[/usr/bin/doublecmd&]],
+  exec = [[doublecmd&]],
 }
 
 apps["journal"] = {
@@ -69,7 +69,7 @@ apps["evolution"] = {
   -- Command to execute for this window
   i3cmd = "scratchpad show, resize set 80ppt 60ppt, move position center",
   -- How to start this application if it does not exists
-  exec = [[/usr/bin/evolution&]],
+  exec = [[evolution&]],
 }
 
 apps["terminal"] = {
@@ -89,7 +89,7 @@ apps["bottom"] = {
   -- Command to execute for this window
   i3cmd = "scratchpad show, resize set 80ppt 60ppt, move position center",
   -- How to start this application if it does not exists
-  exec = [[$TERMINAL --title bottom /usr/bin/btm&]],
+  exec = [[$TERMINAL --title bottom btm&]],
 }
 
 apps["spotify"] = {
@@ -99,7 +99,7 @@ apps["spotify"] = {
   -- Command to execute for this window
   i3cmd = "scratchpad show, resize set 80ppt 60ppt, move position center",
   -- How to start this application if it does not exists
-  exec = [[/usr/bin/spotify&]],
+  exec = [[spotify&]],
 }
 
 apps["tickrs"] = {
@@ -109,7 +109,7 @@ apps["tickrs"] = {
   -- Command to execute for this window
   i3cmd = "scratchpad show, resize set 80ppt 60ppt, move position center",
   -- How to start this application if it does not exists
-  exec = [[$TERMINAL --title tickrs /usr/bin/tickrs&]],
+  exec = [[$TERMINAL --title tickrs tickrs&]],
 }
 
 apps["whatsapp"] = {
@@ -119,7 +119,7 @@ apps["whatsapp"] = {
   -- Command to execute for this window
   i3cmd = "scratchpad show, resize set 80ppt 60ppt, move position center",
   -- How to start this application if it does not exists
-  exec = [[/usr/bin/firefox https://web.whatsapp.com https://messages.google.com/web&]],
+  exec = [[firefox https://web.whatsapp.com https://messages.google.com/web&]],
 }
 
 apps["ncpamixer"] = {
@@ -175,7 +175,7 @@ local function __exec(cmd)
 end
 
 local i3ipc = {}
-i3ipc.cmd = [[/usr/bin/i3-msg]]
+i3ipc.cmd = [[i3-msg]]
 
 -- app: One of the apps tables
 function i3ipc:show(app)

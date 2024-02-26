@@ -5,14 +5,14 @@ local _config = {}
 -- Redshift command. Basically how to run the command.
 -- Switches are provided as its own table
 _config.redshift = {
-	cmd = "/usr/bin/redshift",
+	cmd = "redshift",
 	switches = { "-p", "-l", "manual" },
 }
 
 -- Wal command. But with switches for day time and switches for night time
 -- Switches are provided as its own table
 _config.pywal = {
-	cmd = "/usr/bin/wal",
+	cmd = "wal",
 	day = {
 		"--theme",
 		"base16-google",
