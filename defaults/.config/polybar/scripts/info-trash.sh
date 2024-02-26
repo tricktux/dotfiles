@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 folder_path="$HOME"/.local/share/Trash/files
 threshold=2.0 # threshold in GB

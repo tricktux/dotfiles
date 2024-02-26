@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 conf="$HOME/.config/rofi/scripts/confirm.sh"
 config_file="$HOME/.config/rofi/scripts/tasks.json"

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # File:           journal.sh
 # Description:    Launch editor for journal

@@ -1,4 +1,4 @@
-#!/bin/luajit
+#!/usr/bin/env luajit
 
 -- TODO: Very obsolete usage
 local _usage = [[

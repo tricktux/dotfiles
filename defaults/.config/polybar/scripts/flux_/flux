@@ -1,4 +1,4 @@
-#!/bin/luajit
+#!/usr/bin/env luajit
 
 local _config = {}
 

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 [ ! -f "$HOME/.local/bin/fast" ] && echo "install fast" && exit 1
 [ ! -f "/usr/bin/jq" ] && echo "install jq" && exit 2
