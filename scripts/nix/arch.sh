@@ -136,6 +136,7 @@ update_polybar_python_venv() {
     deactivate
 
     # Download github file with curl
+    mkdir -p $HOME/.local/bin
     curl -fsSL https://raw.githubusercontent.com/dflock/kitty-save-session/main/kitty-convert-dump.py >$HOME/.local/bin/kitty-save-session.py
 }
 
