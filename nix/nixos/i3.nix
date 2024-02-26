@@ -3,6 +3,7 @@
 {
   # Needed to fix home-manager/guis.nix#gtk.enable
   programs.dconf.enable = true;
+  hardware.brillo.enable = true;
   services.xserver = {
     enable = true;
 
@@ -51,7 +52,6 @@
         xdg-utils
         # TODO
         xdg-ninja
-        brillo
       ];
     };
   };
