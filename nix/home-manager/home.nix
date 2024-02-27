@@ -70,7 +70,6 @@
       # tools
       neovim
       bat
-      lazygit
       direnv
       fd
       fzf
@@ -97,6 +96,10 @@
   programs = {
     # Enable home-manager
     home-manager.enable = true;
+    lazygit = {
+        enable = true;
+        settings = { gui.theme.activeBorderColor = ["yellow" "bold"]; };
+    };
   };
 
   # Nicely reload system units when changing configs
