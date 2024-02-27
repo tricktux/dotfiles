@@ -16,6 +16,7 @@
     pamixer
     python3
     uair
+    procps  # uptime -p
     # uptimerm
     # toybox
     # TODO
