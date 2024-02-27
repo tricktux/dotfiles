@@ -17,8 +17,5 @@
     direnv
     kitty
     termite
-
-    shellcheck
-    shfmt
   ];
 }
