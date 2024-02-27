@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
+# channel setup{{{
+sudo nix-channel --add https://channels.nixos.org/nixos-unstable nixos
+sudo nixos-rebuild switch --upgrade
+
+sudo nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+sudo nix-channel --update
+nix-shell '<home-manager>' -A install
+# }}}
+
 # install dotfiles{{{
 # Download dotfiles
 cd
