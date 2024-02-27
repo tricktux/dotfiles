@@ -11,7 +11,7 @@ let
     mkdir -p $out/share/icons
     ln -s ${pkgs.fetchzip {
     url = "https://github.com/ful1e5/Bibata_Extra_Cursor/releases/download/v1.0.1/Bibata-Modern-DarkRed.tar.gz";
-    hash = "sha256-jpEuovyLr9HBDsShJo1efRxd21Fxi7HIjXtPJmLQaCU=";
+    hash = "sha256-Vqyb0wT7dh3aPdeKqksx/ISxuLQUSLE9V7e9N+FPB6I=";
     }} $out/share/icons/${bibata_name}
   '';
 in
