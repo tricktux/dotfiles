@@ -118,7 +118,6 @@
             ./home-manager/xfce.nix
             ./home-manager/polybar.nix
             ./home-manager/guis.nix
-            ./home-manager/screens-surbook.nix
             ./home-manager/firefox.nix
             ./home-manager/rofi.nix
           ];
@@ -138,7 +137,6 @@
             ./home-manager/xfce.nix
             ./home-manager/polybar.nix
             ./home-manager/guis.nix
-            ./home-manager/screens-surbook.nix
             ./home-manager/firefox.nix
             ./home-manager/rofi.nix
           ];
