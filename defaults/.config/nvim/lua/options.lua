@@ -1,6 +1,53 @@
 local M = {}
 
+function M:unix()
+  if vim.fn.has("unix") <= 0 then
+    return
+  end
+
+  --[[ vim.g.clipboard = {
+    name = 'osc52',
+    copy = {
+      ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+      ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+    },
+    paste = {
+      ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+      ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+    },
+  } ]]
+
+end
+
+function M:windows()
+  if vim.fn.has("win32") <= 0 then
+    return
+  end
+
+  vim.g.clipboard = {
+    name = 'wsl_clipboard',
+    copy = {
+      ['+'] = 'clip.exe',
+      ['*'] = 'clip.exe',
+    },
+    paste = {
+      ['+'] = {'powershell.exe', '-c', '[Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))'},
+      ['*'] = {'powershell.exe', '-c', '[Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))'},
+    },
+    cache_enabled = 0
+  }
+
+  vim.opt.shell = "powershell"
+  vim.opt.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
+  vim.opt.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
+  vim.opt.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+  vim.opt.shellquote = ""
+  vim.opt.shellxquote = ""
+end
+
 function M:setup()
+  self:unix()
+  self:windows()
   vim.opt.hidden = true
   vim.opt.timeout = true
   vim.opt.timeoutlen = 100
@@ -51,14 +98,6 @@ function M:setup()
   -- s - Do not show search hit bottom
   -- t - Truncate message if is too long
   vim.opt.shortmess = "aoOcst"
-  if vim.fn.has("unix") <= 0 then
-    vim.opt.shell = "powershell"
-    vim.opt.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
-    vim.opt.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
-    vim.opt.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
-    vim.opt.shellquote = ""
-    vim.opt.shellxquote = ""
-  end
   -- https://www.reddit.com/r/neovim/comments/zg44mm/comment/izfdbtw/?utm_source=reddit&utm_medium=web2x&context=3
   vim.opt.virtualedit = "block"
 
