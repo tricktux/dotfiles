@@ -79,18 +79,60 @@
             ./nixos/keyboard.nix
           ];
         };
+        aero = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs outputs; };
+          modules = [
+            # > Our main nixos configuration file <
+            ./nixos/configuration.nix
+            ./nixos/hardware-configuration.aero.nix
+            ./nixos/i3.nix
+            ./nixos/nas-mount.nix
+            ./nixos/accelerated-video-playback-amd.nix
+            ./nixos/hardware-programs.nix
+            ./nixos/fonts.nix
+            ./nixos/power-management.nix
+            ./nixos/pipewire.nix
+            ./nixos/bluetooth.nix
+            ./nixos/run-executables.nix
+            ./nixos/keyboard.nix
+          ];
+        };
       };
 
       # Standalone home-manager configuration entrypoint
       # Available through 'home-manager --flake .#your-username@your-hostname'
       homeConfigurations = {
         # TODO replace with your username@hostname
-        reinaldo = home-manager.lib.homeManagerConfiguration {
+        "reinaldo@surbook" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [
             # > Our main home-manager configuration file <
             ./home-manager/home.nix
+            ./home-manager/screens-surbook.nix
+            ./home-manager/coding/lua.nix
+            ./home-manager/coding/markdown.nix
+            ./home-manager/coding/nix.nix
+            ./home-manager/coding/cpp.nix
+            ./home-manager/coding/python.nix
+            ./home-manager/terminal.nix
+            ./home-manager/pass.nix
+            ./home-manager/services.nix
+            ./home-manager/xfce.nix
+            ./home-manager/polybar.nix
+            ./home-manager/guis.nix
+            ./home-manager/screens-surbook.nix
+            ./home-manager/firefox.nix
+            ./home-manager/rofi.nix
+          ];
+        };
+        "reinaldo@aero" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+          extraSpecialArgs = { inherit inputs outputs; };
+          modules = [
+            # > Our main home-manager configuration file <
+            ./home-manager/home.nix
+            ./home-manager/screens-aero.nix
             ./home-manager/coding/lua.nix
             ./home-manager/coding/markdown.nix
             ./home-manager/coding/nix.nix
