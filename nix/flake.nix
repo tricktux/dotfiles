@@ -141,6 +141,19 @@
             ./home-manager/rofi.nix
           ];
         };
+        "reinaldo@xps" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+          extraSpecialArgs = { inherit inputs outputs; };
+          modules = [
+            # > Our main home-manager configuration file <
+            ./home-manager/home.nix
+            ./home-manager/screens-xps.nix
+            ./home-manager/coding
+            ./home-manager/pass.nix
+            ./home-manager/polybar.nix
+            ./home-manager/zsh.nix
+          ];
+        };
       };
     };
 }
