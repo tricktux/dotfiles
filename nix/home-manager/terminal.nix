@@ -18,15 +18,6 @@
     kitty
     termite
 
-    # zsh
-    zsh
-    zsh-autosuggestions
-    zsh-completions
-    zsh-history-substring-search
-    zsh-syntax-highlighting
-    zsh-powerlevel10k
-    zsh-vi-mode
-
     shellcheck
     shfmt
   ];

@@ -111,6 +111,7 @@
             ./home-manager/home.nix
             ./home-manager/screens-surbook.nix
             ./home-manager/coding
+            ./home-manager/zsh.nix
             ./home-manager/terminal.nix
             ./home-manager/pass.nix
             ./home-manager/services.nix
@@ -130,6 +131,7 @@
             ./home-manager/home.nix
             ./home-manager/screens-aero.nix
             ./home-manager/coding
+            ./home-manager/zsh.nix
             ./home-manager/terminal.nix
             ./home-manager/pass.nix
             ./home-manager/services.nix
