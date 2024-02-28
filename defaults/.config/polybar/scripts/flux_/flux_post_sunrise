@@ -2,11 +2,11 @@
 # Polybar is restarted by wal
 
 if [[ -S /tmp/nvim.socket ]]; then
-  /usr/bin/nvim --server /tmp/nvim.socket --remote-send \
+  nvim --server /tmp/nvim.socket --remote-send \
     '<c-\><c-n> tcr'
 fi
 if [[ -S /tmp/nvim_journal.socket ]]; then
-  /usr/bin/nvim --server /tmp/nvim_journal.socket --remote-send \
+  nvim --server /tmp/nvim_journal.socket --remote-send \
     '<c-\><c-n> tcr'
 fi
 
