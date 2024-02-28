@@ -4,8 +4,10 @@
 , config
 , pkgs
 , ...
-}: {
+}:
+{
   home.packages = with pkgs; [
+    polybar-popup-calendar
     jsoncpp
     alsa-utils
     paprefs
@@ -16,11 +18,12 @@
     pamixer
     python3
     uair
-    procps  # uptime -p
-    # uptimerm
-    # toybox
-    # TODO
-    # galendae-git
+    procps # uptime -p
+    fast-cli
+    redshift
+    luajit
+    xdotool
+    galendae
   ];
 
   programs.pywal.enable = true;
