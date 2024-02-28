@@ -7,6 +7,8 @@ sudo nixos-rebuild switch --upgrade
 sudo nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
 sudo nix-channel --update
 nix-shell '<home-manager>' -A install
+cp /etc/nixos/hardware-configuration.nix ~/.config/dotfiles/<X>
+~/.config/dotfiles/scripts/nix/arch.sh -p
 # }}}
 
 # install dotfiles{{{
