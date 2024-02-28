@@ -74,3 +74,4 @@ defaults/.config/systemd/user
 defaults/.config/nix/nixos/configuration.nix.etc
 defaults/.config/nix/nixos/hardware-configuration.nix.etc
 defaults/.config/autorandr/work
+defaults/.config/autorandr/main
