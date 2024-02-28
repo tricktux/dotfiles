@@ -23,7 +23,7 @@
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
         "browser.shell.checkDefaultBrowser" = false;
         "browser.shell.defaultBrowserCheckCount" = 1;
-        "browser.startup.homepage" = "https://web.tabliss.io/";
+        "browser.startup.homepage" = "";
         "browser.uiCustomization.state" = ''{"placements":{"widget-overflow-fixed-list":[],"nav-bar":["back-button","forward-button","stop-reload-button","home-button","urlbar-container","downloads-button","library-button","ublock0_raymondhill_net-browser-action","_testpilot-containers-browser-action"],"toolbar-menubar":["menubar-items"],"TabsToolbar":["tabbrowser-tabs","new-tab-button","alltabs-button"],"PersonalToolbar":["import-button","personal-bookmarks"]},"seen":["save-to-pocket-button","developer-button","ublock0_raymondhill_net-browser-action","_testpilot-containers-browser-action"],"dirtyAreaCache":["nav-bar","PersonalToolbar","toolbar-menubar","TabsToolbar","widget-overflow-fixed-list"],"currentVersion":18,"newElementCount":4}'';
         "dom.security.https_only_mode" = true;
         "identity.fxaccounts.enabled" = false;
@@ -31,7 +31,7 @@
         "signon.rememberSignons" = false;
         "browser.newtabpage.pinned" = [{
           title = "NixOS";
-          url = "https://web.tabliss.io/";
+          url = "";
         }];
       };
       extraConfig = ''
@@ -63,18 +63,18 @@
         // 1000 is user UID, get it with id -u
         // user_perf('browser.cache.disk.parent_directory', "/run/user/1000/firefox");
         // Either or
-        user_perf('browser.cache.disk.enable', false);
-        user_perf('browser.cache.memory.enable', true);
-        user_perf('browser.cache.memory.max_entry_size',-1);
-        user_perf('browser.sessionstore.interval', 600000);
+        // user_perf('browser.cache.disk.enable', false);
+        // user_perf('browser.cache.memory.enable', true);
+        // user_perf('browser.cache.memory.max_entry_size',-1);
+        // user_perf('browser.sessionstore.interval', 600000);
 
         // New tab:
-        user_pref("browser.newtabpage.activity-stream.asrouter.userprefs.cfr";false);
-        user_pref("browser.newtabpage.activity-stream.feeds.section.highlights";false);
-        user_pref("browser.newtabpage.activity-stream.feeds.section.topstories";false);
-        user_pref("browser.newtabpage.activity-stream.feeds.snippets";false);
-        user_pref("browser.newtabpage.activity-stream.feeds.topsites";false);
-        user_pref("browser.newtabpage.activity-stream.prerender";false);
+        user_pref("browser.newtabpage.activity-stream.asrouter.userprefs.cfr",false);
+        user_pref("browser.newtabpage.activity-stream.feeds.system.section.highlights", false);
+        user_pref("browser.newtabpage.activity-stream.feeds.system.section.topstories", false);
+        user_pref("browser.newtabpage.activity-stream.feeds.system.snippets", false);
+        user_pref("browser.newtabpage.activity-stream.feeds.system.topsites", false);
+        user_pref("browser.newtabpage.activity-stream.prerender", false);
       '';
     };
   };
