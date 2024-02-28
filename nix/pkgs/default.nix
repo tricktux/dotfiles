@@ -1,5 +1,6 @@
 # Custom packages, that can be defined similarly to ones from nixpkgs
 # You can build them using 'nix build .#example'
-pkgs: {
-  # uptimerm = pkgs.callPackage ./uptime.nix { };
+{ pkgs ? import <nixpkgs> { } }: rec {
+  polybar-popup-calendar = pkgs.callPackage ./polybar-popup-calendar.nix { };
+  galendae = pkgs.callPackage ./galendae.nix { };
 }
