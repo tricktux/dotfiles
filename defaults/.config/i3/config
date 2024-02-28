@@ -374,7 +374,8 @@ client.background       $background
 # Tip: To find out what these values might be run:
 #       xprop | grep -i 'class'
 #				The actual value is the second name
-	for_window [class="File-roller"] floating enable
+for_window [class="Yad" title="yad-calendar"] floating enable
+for_window [class="File-roller"] floating enable
   for_window [class="Speedcrunch"] floating enable
   for_window [class="Gloobus-preview"] floating enable
   for_window [class="Pavucontrol"] floating enable
