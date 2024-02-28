@@ -9,31 +9,35 @@
       (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
+  networking.hostName = "aero";
+
+  # Bootloader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usb_storage" "sd_mod" "sr_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  networking.hostName = "aero";
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
   fileSystems."/" =
     {
-      device = "/dev/disk/by-uuid/80014395-1bb3-4966-a7fc-86aadd6f941f";
+      device = "/dev/disk/by-uuid/168302db-ac54-44a7-9fd8-d3104d0ca734";
       fsType = "ext4";
     };
 
-  boot.initrd.luks.devices."luks-f6d999d7-6bdf-4002-951c-9dfbd49ab4cb".device = "/dev/disk/by-uuid/f6d999d7-6bdf-4002-951c-9dfbd49ab4cb";
+  boot.initrd.luks.devices."luks-ae0ff676-33be-4343-bde5-2654e8d7251b".device = "/dev/disk/by-uuid/ae0ff676-33be-4343-bde5-2654e8d7251b";
 
   fileSystems."/boot" =
     {
-      device = "/dev/disk/by-uuid/5E97-2467";
+      device = "/dev/disk/by-uuid/4730-FFC5";
       fsType = "vfat";
     };
 
-  swapDevices =
-    [{ device = "/dev/disk/by-uuid/762d38c2-cfb9-40e0-8195-3290e70027c6"; }];
+  swapDevices = [{
+    device = "/var/lib/swapfile";
+    size = 16 * 1024;
+  }];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
