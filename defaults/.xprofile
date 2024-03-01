@@ -30,7 +30,7 @@ export ZDOTDIR=$HOME/.config/zsh
 
 # Concat rofi configs
 if [ -f "$XDG_CONFIG_HOME/rofi/$HOSTNAME.rasi" ]; then
-  /usr/bin/cat "$XDG_CONFIG_HOME/rofi/common.rasi" \
+  cat "$XDG_CONFIG_HOME/rofi/common.rasi" \
     "$XDG_CONFIG_HOME/rofi/$HOSTNAME.rasi" >"$XDG_CONFIG_HOME/rofi/config.rasi"
 elif [ -f "$XDG_CONFIG_HOME/rofi/common.rasi" ]; then
   cp "$XDG_CONFIG_HOME/rofi/common.rasi" "$XDG_CONFIG_HOME/rofi/config.rasi"
