@@ -83,7 +83,7 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 
 # cp and mv
-if [[ -f /usr/bin/advcp ]]; then
+if [[ -f advcp ]]; then
 	alias cp='advcp -gi'
 	alias mv='advmv -gi'
 fi
@@ -143,7 +143,7 @@ alias neomutt-psu='neomutt -F ~/.config/neomutt/user.psu'
 # alias cpstat=FuncCheckCopy
 
 # ls
-if [[ -f /usr/bin/exa ]]; then
+if [[ -f exa ]]; then
 	alias ll='exa -bghHliSa'
 	alias ls='exa -la'
 else
@@ -259,7 +259,7 @@ FuncMkcdir() {
 # $@ - Name of pdf files to join
 # gs = ghostscript (dependency)
 FuncPdfJoin() {
-	/usr/bin/gs -q -sPAPERSIZE=a4 -dNOPAUSE -dBATCH \
+	gs -q -sPAPERSIZE=a4 -dNOPAUSE -dBATCH \
 		-sDEVICE=pdfwrite -sOutputFile=$1 $@
 }
 
@@ -267,7 +267,7 @@ FuncPdfJoin() {
 # $@ - Name of pdf file to reduce
 # gs = ghostscript (dependency)
 FuncPdfReduce() {
-	/usr/bin/gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 \
+	gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 \
         -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET \
         -dBATCH -sOutputFile="$1" "$@"
 }

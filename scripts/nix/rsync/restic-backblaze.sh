@@ -84,7 +84,7 @@ done
 # Command to init repo
 # restic init --repo "$repo" --password-file <(echo "$restic_password")
 # # Backup the source folder
-/usr/bin/restic \
+restic \
   --verbose \
   --repo "$repo" \
   --password-file <(echo "$restic_password") \

@@ -200,7 +200,7 @@ lightdm_fix_xs_errors() {
         return
     fi
 
-    if [[ ! -f /usr/bin/bbe ]]; then
+    if [[ ! -f bbe ]]; then
         return
     fi
 
@@ -233,11 +233,11 @@ cleanup_junk() {
     case $yn in
         [Qq]*) quit ;;
         [Yy]*)
-            sudo /usr/bin/paccache --remove -vvv \
+            sudo paccache --remove -vvv \
                 --cachedir=/home/reinaldo/.mnt/skywafer/NetBackup/pacman_cache/x86_64
             # Remove cache for deleted packages
             # Omit for now, otherwise we are constantly downloading removed files
-            # sudo /usr/bin/paccache -ruk0
+            # sudo paccache -ruk0
             ;;
     esac
     msg "${CYAN}${BOLD}" "[RIMP]==> Clean up pacman's local cache...     "
@@ -246,10 +246,10 @@ cleanup_junk() {
         [Qq]*) quit ;;
         [Yy]*)
             # Leave only the 3 most recent versions of packaages
-            sudo /usr/bin/paccache -r -vvv \
+            sudo paccache -r -vvv \
                 --cachedir=/var/cache/pacman/pkg
             # Remove cache for deleted packages
-            sudo /usr/bin/paccache -ruk0 \
+            sudo paccache -ruk0 \
                 --cachedir=/var/cache/pacman/pkg
             ;;
     esac
@@ -327,9 +327,9 @@ print_errors() {
 }
 
 update_npm() {
-    if [[ -f /usr/bin/npm ]]; then
-        /usr/bin/npm cache verify
-        /usr/bin/npm update -g
+    if [[ -f npm ]]; then
+        npm cache verify
+        npm update -g
     fi
 }
 
@@ -442,13 +442,13 @@ pac_maintenance() {
     # nvim /tmp/pac.log
 
     msg "${CYAN}${BOLD}" "[RIMP]==> Checking for .pacnew files...     "
-    if [[ $(/usr/bin/pacdiff -o) ]]; then
+    if [[ $(pacdiff -o) ]]; then
         msg_not "${CYAN}${BOLD}" "[RIMP]==> Please address .pacnew files...     "
-        sudo DIFFPROG="nvim -d" DIFFSEARCHPATH="/boot /etc /usr" /usr/bin/pacdiff
+        sudo DIFFPROG="nvim -d" DIFFSEARCHPATH="/boot /etc /usr" pacdiff
     fi
 
-    if [[ -f /usr/bin/ancient-packages ]] && [[ $(/usr/bin/ancient-packages -q) ]]; then
-        /usr/bin/ancient-packages
+    if [[ -f ancient-packages ]] && [[ $(ancient-packages -q) ]]; then
+        ancient-packages
         msg_not "${CYAN}${BOLD}" "[RIMP]==> Remove ancient packages? [y/N/q]"
         read -r yn
         case $yn in
@@ -458,15 +458,15 @@ pac_maintenance() {
     fi
 
     msg "${CYAN}${BOLD}" "[RIMP]==> Checking for orphan packages...     "
-    if [[ $(/usr/bin/pacman -Qtdq) ]]; then
+    if [[ $(pacman -Qtdq) ]]; then
         msg_not "${CYAN}${BOLD}" "[RIMP]==> Please clean orphan packages...     "
-        sudo /usr/bin/pacman -Qtdq | sudo /usr/bin/pacman -Rns - || echo "...  Or not..."
+        sudo pacman -Qtdq | sudo pacman -Rns - || echo "...  Or not..."
     fi
 
-    if [[ -f /usr/bin/fwupdmgr ]]; then
+    if [[ -f fwupdmgr ]]; then
         msg "${CYAN}${BOLD}" "[RIMP]==> Update firmware?...     "
-        sudo /usr/bin/fwupdmgr get-updates || echo "...  Or not..."
-        sudo /usr/bin/fwupdmgr update || echo "...  Or not..."
+        sudo fwupdmgr get-updates || echo "...  Or not..."
+        sudo fwupdmgr update || echo "...  Or not..."
     else
         msg_not "${CYAN}${BOLD}" "[RIMP]==> Consider installing fwupdmgr?...     "
     fi
@@ -527,7 +527,7 @@ backup() {
                         ;;
                 esac
                 # Create database backup
-                "$TERMINAL" /usr/bin/restic --verbose --cleanup-cache \
+                "$TERMINAL" restic --verbose --cleanup-cache \
                     --password-command "$pass" \
                     --repo "$repo" \
                     backup $src &
@@ -554,7 +554,7 @@ backup() {
                 sleep 10            # Give it time to sync
                 pkill -x anki
                 sleep 3 # Give it time to close
-                "$TERMINAL" /usr/bin/restic --verbose \
+                "$TERMINAL" restic --verbose \
                     --password-command "pass websites/ankiweb.net/restic" \
                     --repo "$SNAP" \
                     backup $SRC &
@@ -568,10 +568,10 @@ backup() {
             [Yy]*)
                 SRC="$HOME/.local/share/mail $HOME/.local/share/vdirsyncer"
                 SNAP="$HOME/.mnt/skywafer/home/bkps/mail/repo"
-                /usr/bin/mbsync -D -ac "$HOME"/.config/isync/mbsyncrc ||
+                mbsync -D -ac "$HOME"/.config/isync/mbsyncrc ||
                 echo "mbsync never retuns code 0..."
-                /usr/bin/vdirsyncer --verbosity debug sync
-                "$TERMINAL" /usr/bin/restic --verbose \
+                vdirsyncer --verbosity debug sync
+                "$TERMINAL" restic --verbose \
                     --password-command "pass linux/mailserver/restic" \
                     --repo "$SNAP" \
                     backup $SRC &
