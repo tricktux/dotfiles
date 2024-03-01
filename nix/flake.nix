@@ -76,7 +76,6 @@
             ./nixos/i3.nix
             ./nixos/video-intel.nix
             ./nixos/nas-mount.nix
-            ./nixos/accelerated-video-playback.nix
             ./nixos/hardware-programs.nix
             ./nixos/fonts.nix
             ./nixos/power-management.nix
@@ -92,7 +91,6 @@
             # > Our main nixos configuration file <
             ./nixos/configuration.nix
             ./nixos/hardware-configuration.aero.nix
-            ./nixos/accelerated-video-playback-amd.nix
             ./nixos/video-amd.nix
             ./nixos/screens.nix
             ./nixos/thunderbolt.nix
