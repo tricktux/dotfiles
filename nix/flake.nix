@@ -91,9 +91,11 @@
             # > Our main nixos configuration file <
             ./nixos/configuration.nix
             ./nixos/hardware-configuration.aero.nix
+            ./nixos/accelerated-video-playback-amd.nix
+            ./nixos/video-amd.nix
+            ./nixos/thunderbolt.nix
             ./nixos/i3.nix
             ./nixos/nas-mount.nix
-            ./nixos/accelerated-video-playback-amd.nix
             ./nixos/hardware-programs.nix
             ./nixos/fonts.nix
             ./nixos/power-management.nix
@@ -101,6 +103,7 @@
             ./nixos/bluetooth.nix
             ./nixos/run-executables.nix
             ./nixos/keyboard.nix
+            ./nixos/ssh.nix
           ];
         };
       };
