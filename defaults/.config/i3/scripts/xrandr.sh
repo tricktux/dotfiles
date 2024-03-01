@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 hostname=$HOSTNAME
 
@@ -12,7 +12,7 @@ function xset_on() {
     xset +dpms
 }
 
-if [[ ! -f /usr/bin/xrandr ]]; then
+if [[ ! -x $(command -v xrandr) ]]; then
     notify-send "xrandr" \
         "xrandr program not available" \
         -u critical -a 'Arandr'
@@ -24,7 +24,7 @@ if [[ "$hostname" = "surbook" ]]; then
     case "$1" in
         "main")
             echo "setting up main configuration"
-            /usr/bin/xrandr \
+            xrandr \
                 --dpi 192 \
                 --output eDP1 --mode 2736x1824 --rate 60 --pos 0x0 --primary \
                 --output DP1 --off \
@@ -36,7 +36,7 @@ if [[ "$hostname" = "surbook" ]]; then
             ;;
         "tv")
             echo "setting up tv configuration"
-            /usr/bin/xrandr \
+            xrandr \
                 --dpi 96 \
                 --output eDP1 --off \
                 --output DP1 --mode "1920x1080tv" --rate 60 --pos 0x0 --primary \
@@ -65,7 +65,7 @@ elif [[ "$hostname" = "aero" ]]; then
             ;;
         "tv")
             echo "setting up tv configuration"
-            /usr/bin/xrandr \
+            xrandr \
                 --dpi 96 \
                 --output eDP --off \
                 --output HDMI-A-0 --off \
@@ -78,9 +78,9 @@ elif [[ "$hostname" = "aero" ]]; then
             "$HOME"/.screenlayout/home-dock.sh
             xrandr --dpi 156
             echo "Xft.dpi: 156" | xrdb -merge
-            for socket in /tmp/kittysocket*; do
-                kitty @ --to unix:$socket set-font-size --all 10
-            done
+            # for socket in /tmp/kittysocket*; do
+                # kitty @ --to unix:$socket set-font-size --all 10
+            # done
             xset_off
             ;;
         *)
@@ -110,7 +110,7 @@ elif [[ "$hostname" = "helios" ]]; then
     case "$1" in
         "main")
             echo "setting up main configuration"
-            /usr/bin/xrandr \
+            xrandr \
                 --dpi 144 \
                 --output eDP1 --mode 1920x1080 --rate 144 --pos 0x0 --primary \
                 --output VIRTUAL1 --off
