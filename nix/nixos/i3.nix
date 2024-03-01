@@ -29,9 +29,8 @@
         # https://nixos.wiki/wiki/Samba
         lxqt.lxqt-policykit
         i3lock-fancy-rapid
-        rofi
-        # rofi-dmenu
         alttab
+        restic
         xdotool
         feh
         redshift
