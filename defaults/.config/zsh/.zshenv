@@ -47,8 +47,8 @@ export GIT_TERMINAL_PROMPT=1
 # urxvtd
 export RXVT_SOCKET="/tmp/rxvt_socket"
 
-export SUDO_ASKPASS=/usr/bin/lxqt-openssh-askpass
-export SSH_ASKPASS=/usr/bin/lxqt-openssh-askpass
+# export SUDO_ASKPASS=/usr/bin/lxqt-openssh-askpass
+# export SSH_ASKPASS=/usr/bin/lxqt-openssh-askpass
 
 # export GDK_SCALE=1.5
 # export QT_AUTO_SCREEN_SCALE_FACTOR=1
