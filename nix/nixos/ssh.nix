@@ -15,7 +15,8 @@
   };
 
   # Client
-    programs.ssh = { 
-        agentTimeout = "2h";
-    };
+  programs.ssh = {
+    agentTimeout = "2h";
+    startAgent = true;
+  };
 }

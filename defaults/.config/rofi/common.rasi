@@ -151,7 +151,7 @@ combi-modi: "window,drun,tasks:~/.config/rofi/scripts/tasks.sh";
 /*	me-accept-custom: "Control+MouseDPrimary";*/
 }
 
-@import "/usr/share/rofi/themes/Adapta-Nokto.rasi"
+@import "/home/reinaldo/.local/share/rofi/Adapta-Nokto.rasi"
 @import "/home/reinaldo/.cache/wal/colors-rofi-dark.rasi"
 
 // Unique to wal
