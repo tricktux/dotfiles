@@ -6,6 +6,7 @@
 , ...
 }: {
   home.packages = with pkgs; [
+    gnupg
     keepassxc
     rofi-pass
     pass
@@ -19,4 +20,20 @@
     # Pass extension for auditing your password repository
     passExtensions.pass-audit
   ];
+
+  services.ssh-agent = {
+    enable = true;
+  };
+
+  services.gpg-agent = {
+    # gpgconf --kill gpg-agent && make
+    enable = true;
+    enableZshIntegration = true;
+    defaultCacheTtl = 7200;
+    defaultCacheTtlSsh = 7200;
+    maxCacheTtl = 86400;
+    maxCacheTtlSsh = 86400;
+    enableSshSupport = true;
+    pinentryFlavor = "gtk2";
+  };
 }
