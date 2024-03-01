@@ -240,12 +240,13 @@ fi
 
 # ssh agent {{{
 # Start ssh-agent to cache ssh keys passphrases. Or use an existing one
-if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-  ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
-fi
-if [[ ! "$SSH_AUTH_SOCK" ]]; then
-  eval "$(<"$XDG_RUNTIME_DIR/ssh-agent.env")" > /dev/null || echo "Failed to start ssh-agent"
-fi
+# Moved to nix
+# if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+#   ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
+# fi
+# if [[ ! "$SSH_AUTH_SOCK" ]]; then
+#   eval "$(<"$XDG_RUNTIME_DIR/ssh-agent.env")" > /dev/null || echo "Failed to start ssh-agent"
+# fi
 # }}}
 
 # tmux on ssh{{{
