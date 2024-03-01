@@ -72,6 +72,7 @@
             # > Our main nixos configuration file <
             ./nixos/configuration.nix
             ./nixos/hardware-configuration.surbook.nix
+            ./nixos/screens.nix
             ./nixos/i3.nix
             ./nixos/video-intel.nix
             ./nixos/nas-mount.nix
@@ -93,6 +94,7 @@
             ./nixos/hardware-configuration.aero.nix
             ./nixos/accelerated-video-playback-amd.nix
             ./nixos/video-amd.nix
+            ./nixos/screens.nix
             ./nixos/thunderbolt.nix
             ./nixos/i3.nix
             ./nixos/nas-mount.nix
@@ -118,7 +120,6 @@
           modules = [
             # > Our main home-manager configuration file <
             ./home-manager/home.nix
-            ./home-manager/screens-surbook.nix
             ./home-manager/coding
             ./home-manager/zsh.nix
             ./home-manager/terminal.nix
@@ -137,7 +138,6 @@
           modules = [
             # > Our main home-manager configuration file <
             ./home-manager/home.nix
-            ./home-manager/screens-aero.nix
             ./home-manager/coding
             ./home-manager/zsh.nix
             ./home-manager/terminal.nix
@@ -156,7 +156,6 @@
           modules = [
             # > Our main home-manager configuration file <
             ./home-manager/home.nix
-            ./home-manager/screens-xps.nix
             ./home-manager/coding
             ./home-manager/pass.nix
             ./home-manager/polybar.nix

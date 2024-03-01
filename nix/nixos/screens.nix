@@ -1,10 +1,4 @@
-{ inputs
-, outputs
-, lib
-, config
-, pkgs
-, ...
-}:
+{ config, pkgs, callPackage, ... }:
 let
   postSwitch = ''
     notify-send -i display "Display profile" "$AUTORANDR_CURRENT_PROFILE"
@@ -13,8 +7,9 @@ let
     i3-msg restart
     sleep 0.1
     "$HOME/.config/polybar/scripts/launch.sh"
-    "$HOME/.config/i3/scripts/i3-workspace-output";
-    "$HOME/.config/i3/scripts/xset.sh";
+    "$HOME/.config/i3/scripts/i3-workspace-output"
+    "$HOME/.config/i3/scripts/xset.sh"
+    "$HOME/.config/i3/scripts/xrandr.sh" "$AUTORANDR_CURRENT_PROFILE"
   '';
   dpi192 = ''
     xrandr --dpi 192;
@@ -53,19 +48,18 @@ let
   '';
 in
 {
-  home.packages = with pkgs;
+  environment.systemPackages = with pkgs;
     [
       arandr
       xlayoutdisplay
     ];
   # From here
-  services.autorandr.enable = true;
-  programs.autorandr = {
+  services.autorandr = {
     enable = true;
     hooks.postswitch = {
       "shared" = postSwitch;
       # "change-background" = builtins.readFile ./change-background.sh;
-      "change-dpi" = aero;
+      # "change-dpi" = aero;
     };
   };
 }
