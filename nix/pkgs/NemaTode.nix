@@ -6,11 +6,10 @@
 
 let
   llvm = pkgs.llvmPackages_12;
-  clang = llvm.clang;
 in
 with lib;
 
-stdenv.mkDerivation {
+llvm.stdenv.mkDerivation {
   name = "NemaTode";
   version = "1.0";
   src = fetchFromGitHub {
@@ -28,10 +27,4 @@ stdenv.mkDerivation {
   enableParallelBuilding = true;
   buildInputs = [ clang ];
   nativeBuildInputs = with pkgs; [ cmake ninja pkg-config ];
-
-  meta = {
-    description = "Cross platform C++ 11 NMEA Parser & GPS Framework";
-    license = licenses.mit;
-    platforms = platforms.all;
-  };
 }
