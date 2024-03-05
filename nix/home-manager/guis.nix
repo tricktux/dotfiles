@@ -30,8 +30,8 @@ in
     };
 
     theme = {
-        name = "Paper";
-        package = pkgs.paper-icon-theme;
+      name = "Paper";
+      package = pkgs.paper-icon-theme;
     };
 
     cursorTheme = {
