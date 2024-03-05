@@ -20,7 +20,6 @@ in
     meld
     zeal
     dconf
-    lxappearance
   ];
   gtk = {
     enable = true;
