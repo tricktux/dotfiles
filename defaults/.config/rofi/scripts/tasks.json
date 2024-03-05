@@ -177,11 +177,11 @@
   },
   {
     "name": "📺 xrandr home_dock",
-    "command": "exec $HOME/.config/i3/scripts/xrandr.sh home_dock"
+    "command": "exec $HOME/.config/i3/scripts/xrandr.sh home"
   },
   {
     "name": "📺 xrandr work_dock",
-    "command": "exec $HOME/.config/i3/scripts/xrandr.sh work_dock"
+    "command": "exec $HOME/.config/i3/scripts/xrandr.sh work"
   },
   {
     "name": "⌨️ xmodmap reload",
