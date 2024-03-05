@@ -2,9 +2,6 @@
 
 {
   # https://nixos.wiki/wiki/PipeWire
-  environment.systemPackages = with pkgs; [
-    pavucontrol
-  ];
   # rtkit is optional but recommended
   security.rtkit.enable = true;
   services.pipewire = {

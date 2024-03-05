@@ -32,7 +32,7 @@ if [[ -x $(command -v picom) ]]; then
 	picom --daemon
 fi
 
-if [[ -x $(command -v picom) ]]; then
+if [[ -x $(command -v playerctld) ]]; then
 	playerctld daemon
 else
 	printf "\n==X Please install playerctld\n"

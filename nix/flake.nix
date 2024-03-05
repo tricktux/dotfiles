@@ -146,6 +146,7 @@
             ./home-manager/guis.nix
             ./home-manager/firefox.nix
             ./home-manager/rofi.nix
+            ./home-manager/music.nix
           ];
         };
         "reinaldo@xps" = home-manager.lib.homeManagerConfiguration {
