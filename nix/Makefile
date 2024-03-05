@@ -6,7 +6,7 @@ HOSTNAME := $(shell hostname)
 all: home
 
 home:
-	home-manager switch --flake ".#$(USERNAME)@$(HOSTNAME)" --option eval-cache false
+	home-manager switch --flake ".#$(USERNAME)@$(HOSTNAME)" -b bkp --option eval-cache false
 
 nixos:
 	sudo nixos-rebuild switch --flake .#$(HOSTNAME)
