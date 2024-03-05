@@ -6,13 +6,13 @@
 , ...
 }:
 let
-  bibata_name = "Bibata-Modern-DarkRed";
-  bibata_pkg = pkgs.runCommand "moveUp" { } ''
+  cursor_name = "Bibata-Modern-DarkRed";
+  cursor_pkg = pkgs.runCommand "moveUp" { } ''
     mkdir -p $out/share/icons
     ln -s ${pkgs.fetchzip {
     url = "https://github.com/ful1e5/Bibata_Extra_Cursor/releases/download/v1.0.1/Bibata-Modern-DarkRed.tar.gz";
     hash = "sha256-Vqyb0wT7dh3aPdeKqksx/ISxuLQUSLE9V7e9N+FPB6I=";
-    }} $out/share/icons/${bibata_name}
+    }} $out/share/icons/${cursor_name}
   '';
 in
 {
@@ -36,19 +36,19 @@ in
     };
 
     cursorTheme = {
-      name = bibata_name;
-      package = bibata_pkg;
+      name = cursor_name;
+      package = cursor_pkg;
     };
   };
 
   home.file.".icons/default/index.theme".text = ''
     [icon theme]
-    Inherits=${bibata_name}
+    Inherits=${cursor_name}
   '';
 
   home.pointerCursor = {
-    name = bibata_name;
+    name = cursor_name;
     size = 32;
-    package = bibata_pkg;
+    package = cursor_pkg;
   };
 }
