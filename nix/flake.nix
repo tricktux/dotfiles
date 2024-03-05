@@ -157,8 +157,9 @@
             ./home-manager/home.nix
             ./home-manager/coding
             ./home-manager/pass.nix
-            ./home-manager/polybar.nix
+            # ./home-manager/polybar.nix
             ./home-manager/zsh.nix
+            ./home-manager/rofi.nix
           ];
         };
       };
