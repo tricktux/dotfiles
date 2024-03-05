@@ -6,6 +6,8 @@
     pavucontrol
     blueman
   ];
+
+  services.blueman.enable = true;
   hardware = {
     pulseaudio.extraConfig = "
       load-module module-switch-on-connect
