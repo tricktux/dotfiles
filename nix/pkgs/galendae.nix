@@ -9,7 +9,7 @@
 with lib;
 
 stdenv.mkDerivation {
-  name = "galendae";
+  pname = "galendae";
   version = "1.0";
   src = fetchFromGitHub {
     owner = "chris-marsh";
