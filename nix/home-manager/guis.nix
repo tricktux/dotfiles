@@ -17,7 +17,6 @@ let
 in
 {
   services = {
-
     blueman-applet.enable = true;
     network-manager-applet.enable = true;
     nextcloud-client = {
@@ -25,6 +24,7 @@ in
       startInBackground = true;
     };
   };
+
   home.packages = with pkgs; [
     meld
     zeal
