@@ -67,39 +67,15 @@
       # (pkgs.writeShellScriptBin "my-hello" ''
       #   echo "Hello, ${config.home.username}!"
       # '')
-      # tools
-      neovim
-      bat
-      direnv
-      fd
-      fzf
-      ripgrep
-      ripgrep-all
-      # https://haseebmajid.dev/posts/2023-08-12-how-sync-your-shell-history-with-atuin-in-nix/
-      atuin
-      stow
-      tldr
-      unzip
-      zip
-      xclip
-      htop-vim
-      ranger
-      eza
-      wget
     ];
   };
 
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
   # home.packages = with pkgs; [ steam ];
-
   programs = {
     # Enable home-manager
     home-manager.enable = true;
-    lazygit = {
-        enable = true;
-        settings = { gui.theme.activeBorderColor = ["yellow" "bold"]; };
-    };
   };
 
   # Nicely reload system units when changing configs

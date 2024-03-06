@@ -6,5 +6,6 @@
     ./nix.nix
     ./cpp.nix
     ./python.nix
+    ./environment.nix
   ];
 }
