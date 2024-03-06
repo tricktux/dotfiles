@@ -16,15 +16,15 @@ let
   '';
 in
 {
-services = {
+  services = {
 
-  blueman-applet.enable = true;
-  network-manager-applet.enable = true;
-  nextcloud-client = {
-    enable = true;
-    startInBackground = true;
+    blueman-applet.enable = true;
+    network-manager-applet.enable = true;
+    nextcloud-client = {
+      enable = true;
+      startInBackground = true;
+    };
   };
-};
   home.packages = with pkgs; [
     meld
     zeal
@@ -32,6 +32,7 @@ services = {
     teams-for-linux
     networkmanagerapplet
     nextcloud-client
+    remmina
   ];
   gtk = {
     enable = true;
