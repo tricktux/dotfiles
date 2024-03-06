@@ -83,6 +83,8 @@
             ./nixos/bluetooth.nix
             ./nixos/run-executables.nix
             ./nixos/keyboard.nix
+            ./nixos/ssh-server.nix
+            ./nixos/ssh-client.nix
           ];
         };
         aero = nixpkgs.lib.nixosSystem {
@@ -103,7 +105,7 @@
             ./nixos/bluetooth.nix
             ./nixos/run-executables.nix
             ./nixos/keyboard.nix
-            ./nixos/ssh.nix
+            ./nixos/ssh-client.nix
           ];
         };
       };
