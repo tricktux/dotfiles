@@ -1,4 +1,6 @@
-#!/home/reinaldo/.local/share/pyvenv/polybar/bin/python
+#!/usr/bin/env nix-shell
+#! nix-shell -i python3 --pure
+#! nix-shell -p feh python311Packages.requests
 
 import configparser
 import logging
@@ -203,3 +205,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# vim: set ft=python:
