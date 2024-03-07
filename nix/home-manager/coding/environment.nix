@@ -11,7 +11,6 @@
     neovim
     fswatch
     bat
-    direnv
     fd
     fzf
     ripgrep
@@ -19,6 +18,7 @@
 
     # cli related
     # https://haseebmajid.dev/posts/2023-08-12-how-sync-your-shell-history-with-atuin-in-nix/
+    direnv
     atuin
     stow
     tldr
@@ -29,6 +29,7 @@
     ranger
     eza
     wget
+    z-lua
   ];
 
   programs = {
