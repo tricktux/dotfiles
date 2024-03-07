@@ -1,9 +1,11 @@
-.PHONY: home nixos clean log
+.PHONY: home nixos clean upgrade help maintenance doublecmd
 
 USERNAME := $(shell whoami)
 HOSTNAME := $(shell hostname)
 
 all: home
+
+maintenance: upgrade clean
 
 help:
 	nixos-help
@@ -29,3 +31,4 @@ clean:
 	nix-env --delete-generations +10
 	nix-collect-garbage --delete-old
 	nix-store --optimise
+	nix-store --verify --check-contents
