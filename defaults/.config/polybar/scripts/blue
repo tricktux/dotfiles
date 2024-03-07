@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 bluetooth_print() {
   bluetoothctl | while read -r; do
