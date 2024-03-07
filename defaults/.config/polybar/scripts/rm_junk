@@ -1,4 +1,5 @@
-#!/usr/bin/env python
+#!/usr/bin/env nix-shell
+#! nix-shell -i python3 --pure
 
 import glob
 import os
@@ -121,4 +122,5 @@ def rmshit():
 
 if __name__ == '__main__':
     rmshit()
+
 # vim: set ft=python
