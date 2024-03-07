@@ -93,6 +93,48 @@ chmod 700 -R ~/.password-store
 chmod 700 -R ~/.gnupg
 # }}}
 
+# restic restore {{{
+# Auto restore all of these files?
+    restore_srcs=(
+        "$HOME/.gnupg" "$HOME/.ssh" "$HOME/.password-store" "/tmp/pacman_database.tar.bz2"
+        "$HOME/.local/share/histfile" "$HOME/.local/share/z" "$HOME/.config/doublecmd"
+        "$HOME/.password-store_work" "$HOME/.local/share/atuin"
+        "$HOME/.password-store_mine"
+        "$HOME/.screenshots"
+        "$HOME/.screenlayout"
+        "$HOME/.local/share/remmina"
+        "$HOME/Documents"
+        "$HOME/Downloads"
+    )
+    repo=""
+    pass=""
+    # Assign repo based on the current hostname
+    case $HOSTNAME in
+        "xps")
+            repo="$HOME/.mnt/work/drobo-B810n/Public/rmolina/bkps/$HOSTNAME/restic-repo"
+            export PASSWORD_STORE_DIR=$HOME/.password-store_work
+            pass="pass work/drobo/xps-restic-repo"
+            ;;
+        *)
+            repo="$HOME/.mnt/skywafer/home/bkps/$HOSTNAME/repo"
+            pass="pass linux/$HOSTNAME/restic"
+            ;;
+    esac
+    # The latest snapshot can be obtained by running: restic snapshots --json | jq -r '.[-1].id'
+    snap_id=<put_latest_snapshot_id_here>
+    restore_path="$HOME/restore"
+    # Loop through the list of sources and attempt to restore each
+    for src in "${restore_srcs[@]}"; do
+        target_path="$restore_path${src/$HOME/}"
+        if [ -f "$target_path" ] || [ -d "$target_path" ]; then
+            # File/directory already exists in the restore location, add a timestamp to the original.
+            mv "$target_path" "${target_path}_$(date '+%Y-%m-%d_%H-%M-%S')"
+        fi
+        echo "Restoring $src from snapshot $snap_id to $restore_path"
+        $RESTIC --verbose --cleanup-cache --password-command "$pass" --repo "$repo" restore $snap_id --target="$restore_path" --include="$src"
+    done
+# }}}
+
 # wireguard {{{
 # Get conf file from router linux_pcs
 # Put it at /etc/wireguard/home.conf
