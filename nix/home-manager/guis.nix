@@ -34,7 +34,16 @@ in
     nextcloud-client
     remmina
     evolution
+    doublecmd
+    peazip
+    libreoffice-fresh
+    hunspell
+    anki-bin
+    pinta
+    obsidian
+    baobab
   ];
+
   gtk = {
     enable = true;
 
