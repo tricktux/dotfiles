@@ -10,30 +10,23 @@
 
 with lib;
 
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   pname = "doublecmd";
   version = "1.1.10";
   src = builtins.fetchTarball {
     url = "https://github.com/doublecmd/doublecmd/releases/download/v${version}/doublecmd-${version}.qt.x86_64.tar.xz";
-    sha256 = "sha256-qkswDfudTg8b1xkyAG/VPb3KACqUsbwK4x2AUd1jKfg=";
+    sha256 = "sha256:0z7f3rh43vmvxrhqr8m5zz6fwmpmzas77hgi0igvj8i7kcn15dj3";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  buildInputs = with pkgs; [ xorg.libX11 ];
 
   # dontUnpack = true;
   dontBuild = true;
   dontConfigure = true;
 
-  # installPhase = ''
-  #   install -Dm 0755 $src $out/bin/polybar-popup-calendar.sh
-  #   wrapProgram $out/bin/polybar-popup-calendar.sh --set PATH \
-  #   "${
-  #   makeBinPath [
-  #   xdotool
-  #   yad
-  #   coreutils
-  #   ]
-  #   }"
-  # '';
+  installPhase = ''
+    mkdir -p $out/bin
+    cp -r $src/* $out/bin
+  '';
 
 }
