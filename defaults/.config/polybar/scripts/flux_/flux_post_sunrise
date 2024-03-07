@@ -10,14 +10,14 @@ if [[ -S /tmp/nvim_journal.socket ]]; then
     '<c-\><c-n> tcr'
 fi
 
-if [[ -f /usr/bin/xfconf-query ]]; then
+if [[ -x $(command -v xfconf-query) ]]; then
   xfconf-query -c xsettings -p /Net/ThemeName -s "Adapta"
   xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus-Light"
   xfconf-query -c xsettings -p /Gtk/CursorThemeName -s "Bibata-Modern-DarkRed"
 fi
 
 # https://github.com/ankitects/anki/pull/1905/files
-if [[ -f /usr/bin/gsettings ]]; then
+if [[ -x $(command -v gsettings) ]]; then
   gsettings set org.gnome.desktop.interface gtk-theme 'prefer-light'
 fi
 

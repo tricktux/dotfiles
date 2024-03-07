@@ -7,5 +7,7 @@
 }: {
   home.packages = with pkgs; [
     pcmanfm
+    xfconf
+    gsettings-qt
   ];
 }

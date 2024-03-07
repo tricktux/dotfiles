@@ -11,14 +11,14 @@ if [[ -S /tmp/nvim_journal.socket ]]; then
 
 fi
 
-if [[ -f /usr/bin/xfconf-query ]]; then
+if [[ -x $(command -v xfconf-query) ]]; then
   xfconf-query -c xsettings -p /Net/ThemeName -s "Adapta-Nokto"
   xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus-Dark"
   xfconf-query -c xsettings -p /Gtk/CursorThemeName -s "Bibata-Modern-DarkRed"
 fi
 
 # https://github.com/ankitects/anki/pull/1905/files
-if [[ -f /usr/bin/gsettings ]]; then
+if [[ -x $(command -v gsettings) ]]; then
   gsettings set org.gnome.desktop.interface gtk-theme 'prefer-dark'
 fi
 # See here to change the cursor. Not straight forward.
