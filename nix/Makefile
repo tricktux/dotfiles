@@ -7,8 +7,8 @@ all: home
 
 help:
 	nixos-help
-	# man configurattion
-	# man home-comfiguration
+	# man configuration
+	# man home-configuration
 
 doublecmd:
 	nix build ".#doublecmd" -L
