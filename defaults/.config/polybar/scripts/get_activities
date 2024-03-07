@@ -1,5 +1,12 @@
 #!/home/reinaldo/.local/share/pyvenv/polybar/bin/python
 
+
+# stravalib doesn't build
+##!/usr/bin/env nix-shell
+##! nix-shell -i python3 --pure
+##! nix-shell -p python311Packages.requests python311Packages.matplotlib
+##! nix-shell -p python311Packages.pandas python311Packages.stravalib
+
 import argparse
 import configparser
 import csv
@@ -345,3 +352,6 @@ if __name__ == "__main__":
         column_names = ("avg heart rate", "avg power", "duration")
         x_col = "date"
         plotly(r"/tmp/bike.csv", x_col, column_names, "Bike Progress")
+
+
+# vim: ft=python
