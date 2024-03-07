@@ -67,7 +67,7 @@ end
 local function _config_win()
   vim.cmd([[silent! call serverstart('\\.\pipe\nvim-pipe-88888')]])
 
-  vim.g.dotfiles = fs.joinpath(os.getenv("APPDATA"), "dotfiles")
+  vim.g.dotfiles = fs.joinpath(os.getenv("LOCALAPPDATA"), "dotfiles")
   -- Find python
   local py = fs.joinpath(vim.fn.stdpath("data"), [[pyvenv\Scripts]])
   if vim.loop.fs_stat(py) == nil then
