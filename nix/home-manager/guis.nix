@@ -33,6 +33,7 @@ in
     networkmanagerapplet
     nextcloud-client
     remmina
+    evolution
   ];
   gtk = {
     enable = true;
