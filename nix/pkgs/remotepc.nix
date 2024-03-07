@@ -17,7 +17,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = with pkgs; [
     dpkg
     autoPatchelfHook
-    # wrapGAppsHook
+    wrapGAppsHook
   ];
 
   buildInputs = with pkgs; [
@@ -27,12 +27,17 @@ stdenv.mkDerivation {
     nwjs
   ];
 
+  runtimeDependencies = [
+    pkgs.ffmpeg
+  ];
+
   installPhase = ''
     mkdir -p $out/bin
     mkdir -p $out/opt
     cp -r usr $out
     cp -r usr/share $out/share
-    cp -r opt/remotepcviewer/* $out/bin
+    # cp -r opt/remotepcviewer/* $out/bin
     cp -r opt/* $out/opt
+    ln -s $out/opt/remotepcviewer/remotepcviewer $out/bin
   '';
 }
