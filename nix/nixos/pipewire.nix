@@ -1,6 +1,8 @@
 { config, pkgs, callPackage, ... }:
 
 {
+
+  programs.noisetorch.enable = true;
   # https://nixos.wiki/wiki/PipeWire
   # rtkit is optional but recommended
   security.rtkit.enable = true;
