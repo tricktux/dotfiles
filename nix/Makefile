@@ -14,6 +14,7 @@ doublecmd:
 	nix build ".#doublecmd" -L
 
 upgrade:
+	sudo -i nix upgrade-nix
 	sudo nix-channel --update
 	sudo nixos-rebuild switch --upgrade --flake .#$(HOSTNAME)
 	$(MAKE) home
