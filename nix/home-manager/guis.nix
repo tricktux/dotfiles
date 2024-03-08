@@ -17,8 +17,6 @@ let
 in
 {
   services = {
-    blueman-applet.enable = true;
-    network-manager-applet.enable = true;
     nextcloud-client = {
       enable = true;
       startInBackground = true;
@@ -31,7 +29,6 @@ in
     dconf
     teams-for-linux
     networkmanagerapplet
-    nextcloud-client
     remmina
     evolution
     doublecmd

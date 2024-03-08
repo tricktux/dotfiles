@@ -1,9 +1,19 @@
 { config, pkgs, callPackage, ... }:
 
 {
+  programs.noisetorch.enable = true;
   # Needed to fix home-manager/guis.nix#gtk.enable
   programs.dconf.enable = true;
+  programs.nm-applet = {
+    enable = true;
+    indicator = true;
+  };
+  programs.xss-lock = {
+    enable = true;
+    lockerCommand = "${pkgs.i3lock-fancy-rapid}/bin/i3lock-fancy-rapid";
+  };
   hardware.brillo.enable = true;
+  services.picom.enable = true;
   services.xserver = {
     enable = true;
 
@@ -44,7 +54,6 @@
         ncpamixer
         qalculate-qt
         picom
-        xss-lock
         # mimeo to handle default applications
         # keyword: xdg-open
         mimeo
