@@ -116,6 +116,7 @@ case $HOSTNAME in
 esac
 
 backup() {
+    msg_not "${CYAN}${BOLD}" "[RIMP]==> Backing up $HOSTNAME to '$repo'...     "
     restic --verbose --cleanup-cache \
         --password-command "$pass" \
         --repo "$repo" \
