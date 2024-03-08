@@ -495,42 +495,8 @@ backup() {
             # Backup pacman's local database
             # More info here:
             # https://wiki.archlinux.org/index.php/Pacman/Restore_local_database
-            [[ -f /tmp/pacman_database.tar.bz2 ]] || tar -vcjf /tmp/pacman_database.tar.bz2 /var/lib/pacman/local
-            srcs=(
-                "$HOME/.gnupg" "$HOME/.ssh" "$HOME/.password-store" "/tmp/pacman_database.tar.bz2"
-                "$HOME/.local/share/histfile" "$HOME/.local/share/z" "$HOME/.config/doublecmd"
-                "$HOME/.password-store_work" "$HOME/.local/share/atuin"
-                "$HOME/.password-store_mine"
-                "$HOME/.screenshots"
-                "$HOME/.screenlayout"
-                "$HOME/.local/share/remmina"
-                "$HOME/Documents"
-                "$HOME/Downloads"
-            )
-                src=""
-                for str in "${srcs[@]}"; do
-                    [ -d "$str" ] || [ -f "$str" ] && src+="$str "
-                done
-                repo=""
-                pass=""
-                # Assign repo based on the current hostname
-                case $HOSTNAME in
-                    "xps")
-                        repo="$HOME/.mnt/work/drobo-B810n/Public/rmolina/bkps/$HOSTNAME/restic-repo"
-                        export PASSWORD_STORE_DIR=$HOME/.password-store_work
-                        pass="pass work/drobo/xps-restic-repo"
-                        ;;
-                        # Handle default case
-                    *)
-                        repo="$HOME/.mnt/skywafer/home/bkps/$HOSTNAME/repo"
-                        pass="pass linux/$HOSTNAME/restic"
-                        ;;
-                esac
-                # Create database backup
-                "$TERMINAL" restic --verbose --cleanup-cache \
-                    --password-command "$pass" \
-                    --repo "$repo" \
-                    backup $src &
+            "$TERMINAL" \
+                    "$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/restic-backup" &
                 ;;
             [Qq]*) quit ;;
         esac
