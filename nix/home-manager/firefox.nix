@@ -7,6 +7,9 @@
 }:
 {
   # Add chromium just in case something doesn't work
+  home.packages = with pkgs; [
+    pywalfox-native
+  ];
 
   programs.chromium = {
     enable = true;
@@ -79,6 +82,7 @@
         darkreader
         vimium
         firenvim
+        pywalfox
       ];
       settings = {
         "browser.disableResetPrompt" = true;
