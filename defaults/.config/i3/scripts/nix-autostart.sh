@@ -45,6 +45,17 @@ else
 	printf "\n==X Please install noisetorch\n"
 fi
 
+if [[ -x $(command -v blueman-applet) ]]; then
+    blueman-applet &
+else
+    printf "\n==X Please install blueman-applet\n"
+fi
+
+if [[ -x $(command -v nm-applet) ]]; then
+    nm-applet &
+else
+    printf "\n==X Please install network-manager-applet\n"
+fi
 poly="$HOME"/.config/polybar/scripts/launch.sh
 if [[ -f $poly ]]; then
 	source "$poly"
