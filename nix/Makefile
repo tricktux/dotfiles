@@ -9,6 +9,7 @@ maintenance: upgrade clean
 
 help:
 	nixos-help
+	# https://nixos.org/manual/nixpkgs/unstable/
 	# man configuration
 	# man home-configuration
 
