@@ -4,7 +4,6 @@
     pciutils
   ];
   # https://nixos.wiki/wiki/Nvidia
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
   # Enable OpenGL
   hardware.opengl = {
     enable = true;
