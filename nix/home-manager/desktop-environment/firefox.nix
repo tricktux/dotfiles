@@ -85,6 +85,8 @@
         pywalfox
       ];
       settings = {
+        # https://firefox-source-docs.mozilla.org/browser/urlbar/preferences.html
+        "browser.urlbar.showSearchSuggestionsFirst" = false;
         "browser.disableResetPrompt" = true;
         "browser.download.panel.shown" = true;
         "browser.download.useDownloadDir" = false;
