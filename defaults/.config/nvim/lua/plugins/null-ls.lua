@@ -232,9 +232,6 @@ local function setup()
   elseif vim.fn.executable("prettier") > 0 then
     log.info("NullLs setting up prettier...")
     table.insert(sources, null.builtins.formatting.prettier)
-  elseif vim.fn.executable("jq") then
-    log.info("NullLs setting up jq...")
-    table.insert(sources, null.builtins.formatting.jq)
   elseif vim.fn.executable("python") then
     log.info("NullLs setting up python json_tool...")
     table.insert(sources, null.builtins.formatting.json_tool)
@@ -255,38 +252,21 @@ local function setup()
     log.info("NullLs setting up black...")
     table.insert(sources, null.builtins.formatting.black)
   end
-  if vim.fn.executable("autopep8") > 0 then
-    log.info("NullLs setting up autopep8...")
-    table.insert(sources, null.builtins.formatting.autopep8)
-  end
   if vim.fn.executable("pylint") > 0 then
     log.info("NullLs setting up pylint...")
     table.insert(sources, null.builtins.diagnostics.pylint)
-  end
-  if vim.fn.executable("pylama") > 0 then
-    log.info("NullLs setting up pylama...")
-    table.insert(sources, null.builtins.diagnostics.pylama)
   end
   if vim.fn.executable("stylua") > 0 then
     log.info("NullLs setting up stylua...")
     table.insert(sources, null.builtins.formatting.stylua)
   end
-  if vim.fn.executable("beautysh") > 0 then
-    log.info("NullLs setting up beautysh...")
-    table.insert(sources, null.builtins.formatting.beautysh)
+  if vim.fn.executable("shfmt") > 0 then
+    log.info("NullLs setting up shfmt...")
+    table.insert(sources, null.builtins.formatting.shfmt)
   end
   if vim.fn.executable("shellcheck") > 0 then
     log.info("NullLs setting up shellcheck...")
     table.insert(sources, null.builtins.diagnostics.shellcheck)
-  end
-  if vim.fn.executable("rustfmt") > 0 then
-    log.info("NullLs setting up rustfmt...")
-    table.insert(
-      sources,
-      null.builtins.formatting.rustfmt.with({
-        extra_args = { "--edition=2021" },
-      })
-    )
   end
   if vim.fn.executable("cmake-lint") > 0 then
     log.info("NullLs setting up cmake-lint...")
@@ -327,25 +307,6 @@ local function setup()
       })
     )
   end
-  if vim.fn.executable("clang-check") > 0 then
-    log.info("NullLs setting up clang-check...")
-    table.insert(sources, null.builtins.diagnostics.clang_check.with({
-      args = {
-        "--analyze",
-        "--extra-arg=-Xclang",
-        "--extra-arg=-analyzer-output=text",
-        "--extra-arg=-fno-color-diagnostics",
-        "--extra-arg=-std=c++20",
-        '--extra-arg=-xc++',
-        "-p", "$DIRNAME",
-        "$FILENAME",
-      },
-    }))
-  end
-  --[[ if vim.fn.executable("cpplint") > 0 and vim.fn.has("unix") > 0 then
-    log.info("NullLs setting up cpplint...")
-    table.insert(sources, null.builtins.diagnostics.cpplint)
-  end ]]
 
   null.setup({
     -- Set to "trace" for really big logs
