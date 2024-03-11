@@ -14,5 +14,8 @@
     gcc
     # llvmPackages
     clang-tools # for clangd to find the correct headers
+
+    # zig
+    zig
   ];
 }
