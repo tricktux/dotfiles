@@ -33,3 +33,7 @@ clean:
 	nix-collect-garbage --delete-old
 	nix-store --optimise
 	nix-store --verify --check-contents
+	sudo nix-env --delete-generations +10
+	sudo nix-collect-garbage --delete-old
+	sudo nix-store --optimise
+	sudo nix-store --verify --check-contents

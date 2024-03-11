@@ -119,17 +119,7 @@
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [
             # > Our main home-manager configuration file <
-            ./home-manager/home.nix
-            ./home-manager/coding
-            ./home-manager/zsh.nix
-            ./home-manager/terminal.nix
-            ./home-manager/pass.nix
-            ./home-manager/services.nix
-            ./home-manager/xfce.nix
-            ./home-manager/polybar.nix
-            ./home-manager/guis.nix
-            ./home-manager/firefox.nix
-            ./home-manager/rofi.nix
+            ./home-manager
           ];
         };
         "reinaldo@aero" = home-manager.lib.homeManagerConfiguration {
@@ -137,18 +127,7 @@
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [
             # > Our main home-manager configuration file <
-            ./home-manager/home.nix
-            ./home-manager/coding
-            ./home-manager/zsh.nix
-            ./home-manager/terminal.nix
-            ./home-manager/pass.nix
-            ./home-manager/services.nix
-            ./home-manager/xfce.nix
-            ./home-manager/polybar.nix
-            ./home-manager/guis.nix
-            ./home-manager/firefox.nix
-            ./home-manager/rofi.nix
-            ./home-manager/music.nix
+            ./home-manager
           ];
         };
         "reinaldo@xps" = home-manager.lib.homeManagerConfiguration {
@@ -161,7 +140,7 @@
             ./home-manager/pass.nix
             # ./home-manager/polybar.nix
             ./home-manager/zsh.nix
-            ./home-manager/rofi.nix
+            ./home-manager/desktop-environment/rofi.nix
           ];
         };
       };
