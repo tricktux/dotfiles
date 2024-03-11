@@ -6,13 +6,14 @@
   # https://nixos.wiki/wiki/PipeWire
   # rtkit is optional but recommended
   security.rtkit.enable = true;
+  systemd.user.services.pipewire-pulse.path = [ pkgs.pulseaudio ];
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
     # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
+    jack.enable = true;
   };
   environment.etc = {
     "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = ''
