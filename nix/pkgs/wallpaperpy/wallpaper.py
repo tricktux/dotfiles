@@ -1,0 +1,205 @@
+#!/usr/bin/env python
+
+import configparser
+import logging
+import os
+import pprint
+import random
+import subprocess
+import time
+from datetime import datetime
+from pathlib import Path
+from sys import exit as sys_exit
+
+from requests import get
+
+
+def get_pw():
+    """Get password from config file"""
+
+    file = os.path.dirname(os.path.realpath(__file__)) + "/wallpaper.ini"
+
+    cfg_file = Path(file)
+    if not cfg_file.is_file():
+        print("%s does not exists", file)
+        return ""
+
+    cfg = configparser.ConfigParser()
+    cfg.read(file)
+    if not cfg.has_option("unsplash", "key"):
+        print("[unsplash]->key does not exists in ini file")
+        return ""
+
+    return cfg["unsplash"]["key"]
+
+
+def get_request(url):
+    """Use requests.get to make the query to the url"""
+    if not url:
+        return dict()
+
+    try:
+        resp = get(url)
+    except Exception:
+        print("Failed to make get request")
+        return dict()
+
+    try:
+        return resp.json()
+    except Exception:
+        print("Failed to parse json response")
+        return dict()
+
+
+def strTimeProp(start, end, format, prop):
+    """Get a time at a proportion of a range of two formatted times.
+
+    start and end should be strings specifying times formated in the
+    given format (strftime-style), giving an interval [start, end].
+    prop specifies how a proportion of the interval to be taken after
+    start.  The returned time will be in the specified format.
+    """
+
+    stime = time.mktime(time.strptime(start, format))
+    etime = time.mktime(time.strptime(end, format))
+
+    ptime = stime + prop * (etime - stime)
+
+    return time.strftime(format, time.localtime(ptime))
+
+
+def randomDate(start, end, prop):
+    return strTimeProp(start, end, "%Y-%m-%d", prop)
+
+
+class Reddit:
+    def __init__(self):
+        self.user_agent = "Python EarthPorn Wallpaper"
+        self.url_base = "https://www.reddit.com/r/"
+
+    def get_link(self, subreddit, sort_option=None):
+        """Downloads images from subreddit.
+        subreddit="Name of subreddit"
+        sort_option=new/hot/top
+        """
+        subreddit = subreddit.strip("/")
+        if sort_option is None:
+            sort_option = "top"
+
+        url = self.url_base + subreddit + "/" + sort_option + ".json"
+        print(url)
+
+        user = {"User-Agent": self.user_agent}
+        try:
+            res = get(url, headers=user)
+        except:
+            printtion("Failed to make get request")
+            return ""
+
+        if res.status_code != 200:
+            print("Could not download")
+            print(res.status_code)
+            return ""
+        jsonres = res.json()
+        images = jsonres["data"]["children"]
+        num_images = len(images)
+        idx = random.randrange(0, num_images, 1)
+        print('num_images = "%s", idx = "%s"', num_images, idx)
+        image = images[idx]
+        print('jsonres:\n"%s"', pprint.pformat(
+            image, sort_dicts=False))
+        return image["data"]["url"]
+
+
+def nasa():
+    """nasa"""
+    today = datetime.now().strftime("%Y-%m-%d")
+    rdate = randomDate("2008-1-1", today, random.random())
+    api = "https://api.nasa.gov/planetary/apod?hd=true&api_key=DEMO_KEY&date=" + rdate
+    wall_url = ["hdurl", "url"]
+
+    print('api: Getting picture from date: "%s"' % rdate)
+
+    print('api: Get Request: "%s"' % api)
+    response = get_request(api)
+
+    if not response:
+        return ""
+
+    # Download image
+    for _ in wall_url:
+        if _ not in response:
+            continue
+        print('api: Image quality "%s"', _)
+        link = response.get(_)
+        print('api: Downloading "%s"...', link)
+        break
+    return link
+
+
+def unsplash():
+    """unsplash"""
+    api = "https://api.unsplash.com/photos/random/?client_id="
+
+    pw = get_pw()
+    if not pw:
+        sys_exit(1)
+
+    api += pw
+    response = get_request(api)
+    if not response:
+        return ""
+
+    links = response.get("urls")
+    if not links:
+        return ""
+    download = links.get("raw")
+    if not download:
+        return ""
+    print('api: Downloading file: "%s"', download)
+    return download
+
+
+def main():
+    """Main"""
+    # logging.basicConfig(filename="/tmp/get_wallpaper.log", level=logging.DEBUG)
+    random.seed()
+    # Sat Dec 21 2019 09:28: unsplash is throuwing too many weird wallpapers
+    rddit = Reddit()
+    # Deleted sources
+    #  ('pics', 'new'),
+    #  ('pics', 'hot'),
+    #  ('pics', 'top'),
+    #  ('wallpapers', 'new'),
+    #  ('wallpapers', 'hot'),
+    #  ('wallpapers', 'top'),
+    sources = [
+        ("EarthPorn", "new"),
+        ("EarthPorn", "hot"),
+        ("EarthPorn", "top"),
+        (),
+    ]
+    args = sources[random.randrange(0, len(sources), 1)]
+    if not args:
+        link = nasa()
+    else:
+        link = rddit.get_link(args[0], args[1])
+    print('link = "%s"', link)
+
+    if not link:
+        return
+
+    try:
+        proc = subprocess.Popen(
+            ["feh", "--quiet", "--no-fehbg", "--bg-fill", link],
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        proc.wait()
+    except:
+        print("Exception running feh")
+
+
+if __name__ == "__main__":
+    main()
