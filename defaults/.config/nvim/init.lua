@@ -127,6 +127,7 @@ local function main()
   -- Initialize guis specific config vars here
   firenvim()
   require("utils.utils").setup()
+  require("plugins.lsp").cycle_logs()
   -- Rationale for plugins last:
   --  This way you can set your default mappings/options and plugins can
   --  overwrite them later, if they need to. Also get rid of all plugin

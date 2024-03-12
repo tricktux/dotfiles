@@ -6,6 +6,35 @@ local is_full_path = function(path)
 	return path:is_absolute() and path:exists()
 end
 
+M.file_size = function(path)
+  vim.validate({ path = { path, "s", false } })
+  local plok, p = pcall(require, "plenary.path")
+  if not plok then
+    vim.notify("plenary is not available", vim.log.levels.ERROR)
+    return
+  end
+  local npath = vim.fs.normalize(path)
+  local o = p:new(npath)
+  if not is_full_path(o) then
+    return nil
+  end
+  return o:size()
+end
+
+--- Get the size of a file in bytes
+--- Uses native
+---@param path string: The full path to the file
+---@return size in bytes or nil
+M.file_size_native = function(path)
+  vim.validate({ path = { path, "s", false } })
+  local size = vim.uv.fs_stat(path)
+  if not size then
+    return nil
+  end
+
+  return size
+end
+
 M.mkfile = function(path)
 	vim.validate({ path = { path, "s", false } })
 	local plok, p = pcall(require, "plenary.path")
