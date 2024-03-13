@@ -8,6 +8,17 @@ local M = {}
 
 M.logs_max_size = 15728640 -- 15 * 1024 * 1024 Mb
 
+local function do_buffer_clients_support_method(bufnr, capability)
+	local clients = vim.lsp.get_clients({ bufnr = bufnr })
+
+	for _, client in pairs(clients) do
+		if client.supports_method(capability) then
+			return true
+		end
+	end
+	return false
+end
+
 M.cycle_logs = function()
   local filename = vim.lsp.get_log_path()
   local size = fs.file_size_native(filename)
@@ -156,49 +167,65 @@ function M.on_lsp_attach(client_id, bufnr)
     sig.on_attach()
   end
 
-  local id = vim.api.nvim_create_augroup("LspStuff", { clear = true })
-  vim.api.nvim_create_autocmd({ "LspDetach" }, {
-    callback = function(au)
-      vim.b.did_on_lsp_attach = nil
-      vim.cmd("setlocal tagfunc< omnifunc< formatexpr<")
-    end,
-    buffer = bufnr,
-    desc = "Detach from buffer",
-    group = id,
-  })
-  if vim.fn.has("nvim-0.10") > 0 and client_id.supports_method("textDocument/inlayHint") then
-    vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
-      callback = function(au)
-        pcall(vim.lsp.inlay_hint.enable,au.buf, true)
-      end,
-      buffer = bufnr,
-      desc = "Highlight inlay hints",
-      group = id,
-    })
-  end
-  if client_id.supports_method("textDocument/codeLens") then
-    vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
-      callback = pcall(vim.lsp.codelens.refresh),
-      buffer = bufnr,
-      desc = "Refresh codelens for the current buffer",
-      group = id,
-    })
-  end
-  -- Highlights references to word under the cursor
-  if client_id.supports_method("textDocument/documentHighlight") then
-    vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-      callback = pcall(vim.lsp.buf.document_highlight),
-      buffer = bufnr,
-      desc = "LSP Document Highlight",
-      group = id,
-    })
-    vim.api.nvim_create_autocmd("CursorMoved", {
-      callback = pcall(vim.lsp.buf.clear_references),
-      buffer = bufnr,
-      desc = "LSP Document Highlight clear",
-      group = id,
-    })
-  end
+	local id = vim.api.nvim_create_augroup("LspStuff", { clear = true })
+	vim.api.nvim_create_autocmd({ "LspDetach" }, {
+		callback = function(au)
+			vim.b.did_on_lsp_attach = nil
+			vim.cmd("setlocal tagfunc< omnifunc< formatexpr<")
+		end,
+		buffer = bufnr,
+		desc = "Detach from buffer",
+		group = id,
+	})
+	vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+		callback = function(au)
+      if vim.fn.has("nvim-0.10") <= 0 then
+        return
+      end
+			if not do_buffer_clients_support_method(au.buf, "textDocument/inlayHint") then
+				return
+			end
+			vim.lsp.inlay_hint.enable(au.buf, true)
+		end,
+		buffer = bufnr,
+		desc = "Highlight inlay hints",
+		group = id,
+	})
+	vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+		callback = function(au)
+			if not do_buffer_clients_support_method(au.buf, "textDocument/codeLens") then
+				return
+			end
+
+			vim.lsp.codelens.refresh()
+		end,
+		buffer = bufnr,
+		desc = "Refresh codelens for the current buffer",
+		group = id,
+	})
+	-- Highlights references to word under the cursor
+	vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+		callback = function(au)
+			if not do_buffer_clients_support_method(au.buf, "textDocument/documentHighlight") then
+				return
+			end
+			vim.lsp.buf.document_highlight()
+		end,
+		buffer = bufnr,
+		desc = "LSP Document Highlight",
+		group = id,
+	})
+	vim.api.nvim_create_autocmd("CursorMoved", {
+		callback = function(au)
+			if not do_buffer_clients_support_method(au.buf, "textDocument/documentHighlight") then
+				return
+			end
+			vim.lsp.buf.clear_references()
+		end,
+		buffer = bufnr,
+		desc = "LSP Document Highlight clear",
+		group = id,
+	})
 end
 
 local function on_clangd_attach(client_id, bufnr)
