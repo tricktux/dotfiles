@@ -12,13 +12,18 @@
     enable = true;
     lockerCommand = "${pkgs.i3lock-fancy-rapid}/bin/i3lock-fancy-rapid";
   };
+  qt = {
+    enable = true;
+    platformTheme = "gtk2";
+    style = "gtk2";
+  };
   hardware.brillo.enable = true;
   services.picom.enable = true;
   services.xserver = {
     enable = true;
 
     desktopManager = {
-      xterm.enable = false;
+      xfce.enable = true;
     };
 
     # Touchpad
@@ -39,6 +44,7 @@
         # https://nixos.wiki/wiki/Samba
         lxqt.lxqt-policykit
         i3lock-fancy-rapid
+        lxappearance
         alttab
         restic
         xdotool
