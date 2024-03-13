@@ -22,8 +22,6 @@ fi
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_DATA_DIRS="$HOME/.nix-profile/share:/usr/local/share:/usr/share"
-export XDG_CONFIG_DIRS="/etc/xdg"
 
 # Sat Oct 14 2017 11:12: This will set the i3-sensible-terminal to be used:
 # Termite has priority over kitty
