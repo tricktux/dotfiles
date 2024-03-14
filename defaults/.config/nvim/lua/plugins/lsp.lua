@@ -169,7 +169,7 @@ function M.on_lsp_attach(client_id, bufnr)
   if vim.fn.has("nvim-0.10") > 0 and client_id.supports_method("textDocument/inlayHint") then
     vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
       callback = function(au)
-        vim.lsp.inlay_hint.enable(au.buf, true)
+        pcall(vim.lsp.inlay_hint.enable,au.buf, true)
       end,
       buffer = bufnr,
       desc = "Highlight inlay hints",
@@ -178,7 +178,7 @@ function M.on_lsp_attach(client_id, bufnr)
   end
   if client_id.supports_method("textDocument/codeLens") then
     vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
-      callback = vim.lsp.codelens.refresh,
+      callback = pcall(vim.lsp.codelens.refresh),
       buffer = bufnr,
       desc = "Refresh codelens for the current buffer",
       group = id,
@@ -187,13 +187,13 @@ function M.on_lsp_attach(client_id, bufnr)
   -- Highlights references to word under the cursor
   if client_id.supports_method("textDocument/documentHighlight") then
     vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-      callback = vim.lsp.buf.document_highlight,
+      callback = pcall(vim.lsp.buf.document_highlight),
       buffer = bufnr,
       desc = "LSP Document Highlight",
       group = id,
     })
     vim.api.nvim_create_autocmd("CursorMoved", {
-      callback = vim.lsp.buf.clear_references,
+      callback = pcall(vim.lsp.buf.clear_references),
       buffer = bufnr,
       desc = "LSP Document Highlight clear",
       group = id,
