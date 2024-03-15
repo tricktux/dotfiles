@@ -204,6 +204,10 @@
     "command": "pkill -x uair; echo '' > /tmp/uair_pomo.file; uair --socket /tmp/uair_pomo.socket > /tmp/uair_pomo.file&"
   },
   {
+    "name": "📷 text snatcher ocr image",
+    "command": "exec $HOME/.config/polybar/scripts/text-snatcher-native.sh"
+  },
+  {
     "name": "xmodmap kinesis",
     "command": "xmodmap $HOME/.config/XmodmapKinesis"
   }

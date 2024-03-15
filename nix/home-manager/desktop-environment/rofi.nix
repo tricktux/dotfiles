@@ -7,6 +7,11 @@
 }: {
   home.packages = with pkgs; [
     rofi
+
+    # Text Snatcher Native
+    tesseract
+    imagemagick
+    xsel
   ];
   home.file.".local/share/rofi/Adapta-Nokto.rasi".source = pkgs.fetchurl {
     url = "https://raw.githubusercontent.com/davatorium/rofi/next/themes/Adapta-Nokto.rasi";
