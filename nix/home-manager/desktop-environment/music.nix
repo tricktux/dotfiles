@@ -25,6 +25,6 @@
   };
 
 
-  services.easyeffects.enable = true;
+  # services.easyeffects.enable = true;
   services.playerctld.enable = true;
 }
