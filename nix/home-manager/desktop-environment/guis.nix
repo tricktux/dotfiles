@@ -19,7 +19,6 @@ in
   services = {
     nextcloud-client = {
       enable = true;
-      startInBackground = true;
     };
   };
 
@@ -40,6 +39,7 @@ in
     obsidian
     baobab
   ];
+
 
   gtk = {
     enable = true;

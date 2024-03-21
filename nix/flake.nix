@@ -106,6 +106,8 @@
             ./nixos/run-executables.nix
             ./nixos/keyboard.nix
             ./nixos/ssh-client.nix
+            ./nixos/virtualbox.nix
+            ./nixos/services.nix
           ];
         };
       };

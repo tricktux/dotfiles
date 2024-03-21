@@ -2,6 +2,8 @@
 
 USERNAME := $(shell whoami)
 HOSTNAME := $(shell hostname)
+# Variable with date
+bkp := $(shell date +%F_%R)
 
 all: home
 
@@ -23,7 +25,7 @@ upgrade:
 	$(MAKE) home
 
 home:
-	home-manager switch --flake ".#$(USERNAME)@$(HOSTNAME)" -b bkp --option eval-cache false
+	home-manager switch --flake ".#$(USERNAME)@$(HOSTNAME)" -b "$(bkp)" --option eval-cache false
 
 nixos:
 	sudo nixos-rebuild switch --flake .#$(HOSTNAME)
@@ -37,3 +39,6 @@ clean:
 	sudo nix-collect-garbage --delete-old
 	sudo nix-store --optimise
 	sudo nix-store --verify --check-contents
+
+boot-errors:
+	journalctl --user -b
