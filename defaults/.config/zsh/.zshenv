@@ -139,7 +139,7 @@ export DOOMDIR="$XDG_CONFIG_HOME/doom"
 export BAT_THEME="base16"
 
 # QT5 dark mode
-export QT_QPA_PLATFORMTHEME=gtk2
+export QT_QPA_PLATFORMTHEME=gtk3
 
 # Less hist file
 export LESSHISTFILE="$HOME"/.local/share/lesshst
