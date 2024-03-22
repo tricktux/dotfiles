@@ -18,7 +18,12 @@ help:
 doublecmd:
 	nix build ".#doublecmd" -L
 
-upgrade:
+upgrade-home:
+	# nix upgrade-nix
+	nix-channel --update
+	$(MAKE) home
+
+upgrade-nixos:
 	sudo -i nix upgrade-nix
 	sudo nix-channel --update
 	sudo nixos-rebuild switch --upgrade --flake .#$(HOSTNAME)
@@ -35,10 +40,6 @@ clean:
 	nix-collect-garbage --delete-old
 	nix-store --optimise
 	nix-store --verify --check-contents
-	sudo nix-env --delete-generations +10
-	sudo nix-collect-garbage --delete-old
-	sudo nix-store --optimise
-	sudo nix-store --verify --check-contents
 
 boot-errors:
 	journalctl --user -b
