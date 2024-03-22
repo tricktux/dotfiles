@@ -103,9 +103,9 @@ if [[ -x $(command -v autorandr) ]]; then
 else
     printf "\n==X Please install autorandr\n"
 fi
-# poly="$HOME"/.config/polybar/scripts/launch.sh
-# if [[ -f $poly ]]; then
-# 	source "$poly"
-# else
-# 	printf "\n==X Please install '%s'\n" "$poly"
-# fi
+poly="$HOME"/.config/polybar/scripts/launch.sh
+if [[ -f $poly ]]; then
+	source "$poly"
+else
+	printf "\n==X Please install '%s'\n" "$poly"
+fi
