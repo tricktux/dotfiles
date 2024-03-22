@@ -145,6 +145,16 @@
             ./home-manager/desktop-environment/rofi.nix
           ];
         };
+        "reinaldo@predator" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+          extraSpecialArgs = { inherit inputs outputs; };
+          modules = [
+            # > Our main home-manager configuration file <
+            ./home-manager/home.nix
+            ./home-manager/coding
+            ./home-manager/zsh.nix
+          ];
+        };
       };
     };
 }
