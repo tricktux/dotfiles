@@ -17,5 +17,6 @@
 
     # zig
     zig
+    zls
   ];
 }

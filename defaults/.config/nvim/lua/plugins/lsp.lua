@@ -395,7 +395,7 @@ function M:config()
 		})
 	end
 
-	if vim.fn.executable("zig") > 0 then
+	if vim.fn.executable("zls") > 0 then
 		nvim_lsp.zls.setup({})
 	end
 
