@@ -14,8 +14,8 @@
   };
   qt = {
     enable = true;
-    platformTheme = "gtk2";
-    style = "gtk2";
+    platformTheme = "gtk3";
+    style = "gtk3";
   };
 
   # For evolution?
