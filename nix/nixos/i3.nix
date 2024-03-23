@@ -18,9 +18,6 @@
     style = "gtk2";
   };
 
-  # For evolution?
-  security.pam.services.gdm.enableGnomeKeyring = true;
-
   programs.xfconf.enable = true;
   hardware.brillo.enable = true;
   services = {
