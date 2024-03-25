@@ -131,11 +131,6 @@ export npm_config_prefix="$HOME/.local"
 
 export DOOMDIR="$XDG_CONFIG_HOME/doom"
 
-# Thu Feb 22 2018 08:59: Can't figure out how to set locale properly on arch.
-# Result:
-# Wed May 02 2018 04:57: Not needed anymore
-# export LANG=en_US.UTF-8
-
 export BAT_THEME="base16"
 
 # QT5 dark mode

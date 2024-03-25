@@ -532,7 +532,7 @@ local function misc_mappings()
   vks("n", "<plug>mru_browser", function()
     fs.path.fuzzer(fn.getcwd())
   end, opts)
-  vks("n", "<plug>file_ranger_browser", function()
+  vks("n", "<plug>file_ranger_native", function()
     local o = { startinsert = true }
     require("utils.utils").term.float.exec("term ranger", o)
   end, opts)
@@ -546,10 +546,11 @@ end
 M.plug = {}
 M.plug.mappings = {
   ["<leader>ft"] = { "<plug>file_tree_browser", "file_tree_browser" },
-  ["<leader>fa"] = { "<plug>file_ranger_browser", "file_ranger_browser" },
+  ["<leader>fa"] = { "<plug>file_ranger_native", "file_ranger_native" },
   ["<leader>fo"] = { "<plug>file_oil_browser", "file_oil_browser" },
+  ["<leader>fs"] = { "<plug>file_ranger_nvim", "file_ranger_nvim" },
   -- Default file browser
-  ["<leader>fj"] = { "<plug>file_oil_browser", "file_oil_browser" },
+  ["<leader>fj"] = { "<plug>file_ranger_nvim", "file_ranger_nvim" },
   ["<leader>tf"] = { "<plug>focus_toggle", "focus_toggle" },
   ["<s-k>"] = { "<plug>buffer_browser", "buffer_browser" },
   ["<c-p>"] = { "<plug>mru_browser", "mru_browser" },
