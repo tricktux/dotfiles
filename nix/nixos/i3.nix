@@ -12,10 +12,16 @@
     enable = true;
     lockerCommand = "${pkgs.i3lock-fancy-rapid}/bin/i3lock-fancy-rapid";
   };
+
+  environment.systemPackages = with pkgs; [
+    qt5ct
+    adwaita-qt
+  ];
+
   qt = {
     enable = true;
-    platformTheme = "gtk2";
-    style = "gtk2";
+    platformTheme = "qt5ct";
+    style = "adwaita-dark";
   };
 
   programs.xfconf.enable = true;
