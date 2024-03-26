@@ -801,5 +801,6 @@ return {
         y = 0.5,
       }
     },
-  }
+  },
+  {'tpope/vim-sleuth'},
 }

@@ -117,7 +117,7 @@ function M:setup()
   vim.opt.formatoptions = "jcroqlnt" -- tcqj
   vim.opt.ignorecase = true -- Ignore case
   vim.opt.pumheight = 10 -- Maximum number of entries in a popup
-  vim.opt.scrolloff = 4 -- Lines of context
+  vim.opt.scrolloff = 10 -- Lines of context
   vim.opt.sidescrolloff = 8 -- Columns of context
   vim.opt.smartindent = true -- Insert indents automatically
   vim.opt.termguicolors = true -- True color support
@@ -130,6 +130,16 @@ function M:setup()
 
   -- Fix markdown indentation settings
   vim.g.markdown_recommended_style = 0
+
+  -- From kickstart
+  vim.opt.splitright = true
+  vim.opt.splitbelow = true
+
+  -- Sets how neovim will display certain whitespace characters in the editor.
+  --  See `:help 'list'`
+  --  and `:help 'listchars'`
+  vim.opt.list = true
+  vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 end
 
 return M
