@@ -58,6 +58,20 @@ in
       name = cursor_name;
       package = cursor_pkg;
     };
+
+    gtk2 = {
+      configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+      extraConfig = "gtk-cursor-theme-name=\"Bibata-Modern-DarkRed\"\ngtk-icon-theme-name=\"Paper\"";
+    };
+
+    gtk3 = {
+      bookmarks = [
+        "file://${config.home.homeDirectory}/Documents"
+        "file://${config.home.homeDirectory}/Nextcloud/wiki"
+        "file://${config.home.homeDirectory}/.mnt"
+        "file://tmp"
+      ];
+    };
   };
 
   home.file.".icons/default/index.theme".text = ''
