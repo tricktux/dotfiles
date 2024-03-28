@@ -49,7 +49,7 @@ HISTFILESIZE=8888
 [[ -f /etc/bash_completion ]] && . /etc/bash_completion
 
 # fzf setup
-if [[ -f /usr/bin/fzf ]]; then
+if [[ -f /usr/bin/fzf/key-bindings.bash ]]; then
 	source /usr/share/fzf/key-bindings.bash
 	# if we have rg. use it!
 	if [ -f /usr/bin/rg ]; then
