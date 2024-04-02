@@ -13,14 +13,6 @@ function! options#Set() abort
   " Wed Sep 30 2020 22:24: Don't remember why I have this setting. Seems to be 
   " conflicting with telescope.vim
   " set report=0
-  set splitright
-  " set splitbelow looks silly
-  set list                   " Show non-printable characters.
-  if has('multi_byte') && &encoding ==# 'utf-8'
-    let &listchars = 'tab:▸ ,extends:❯,precedes:❮,nbsp:±,trail:-'
-  else
-    let &listchars = 'tab:> ,extends:>,precedes:<,nbsp:.,trail:-'
-  endif
   " ------
   " Fri Apr 03 2020 17:07: I cursor blinking really gets on my nerves
   set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50

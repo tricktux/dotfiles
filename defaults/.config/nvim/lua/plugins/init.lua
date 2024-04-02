@@ -776,30 +776,31 @@ return {
 			})
 		end,
 	},
-	{
-		"lunarVim/bigfile.nvim",
-		opts = {},
-	},
-	{
-		"kelly-lin/ranger.nvim",
-		keys = {
-			{
-				"<plug>file_ranger_nvim",
-				function()
-					require("ranger-nvim").open(true)
-				end,
-				desc = "file_ranger_nvim",
-			},
-		},
-		opts = {
-			replace_netrw = true,
-			ui = {
-				border = "single",
-				height = 0.8,
-				width = 0.8,
-				x = 0.5,
-				y = 0.5,
-			},
-		},
-	},
+  {
+    "lunarVim/bigfile.nvim",
+    opts = {},
+  },
+  {
+  "kelly-lin/ranger.nvim",
+    keys = {
+      {
+        "<plug>file_ranger_nvim",
+        function()
+          require("ranger-nvim").open(true)
+        end,
+        desc = "file_ranger_nvim",
+      },
+    },
+    opts = {
+      replace_netrw = true,
+      ui = {
+        border = "single",
+        height = 0.8,
+        width = 0.8,
+        x = 0.5,
+        y = 0.5,
+      }
+    },
+  },
+  {'tpope/vim-sleuth'},
 }
