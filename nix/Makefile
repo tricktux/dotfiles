@@ -7,7 +7,7 @@ bkp := $(shell date +%F_%R)
 
 all: home
 
-maintenance: upgrade clean
+maintenance: upgrade-nixos clean
 
 help:
 	nixos-help
@@ -24,7 +24,7 @@ upgrade-home:
 	$(MAKE) home
 
 upgrade-nixos:
-	sudo -i nix upgrade-nix
+	# sudo -i nix upgrade-nix
 	sudo nix-channel --update
 	sudo nixos-rebuild switch --upgrade --flake .#$(HOSTNAME)
 	$(MAKE) home
@@ -36,8 +36,10 @@ nixos:
 	sudo nixos-rebuild switch --flake .#$(HOSTNAME)
 
 clean:
-	nix-env --delete-generations +10
+	nix-env --delete-generations +20
 	nix-collect-garbage --delete-old
+
+deep-clean:
 	nix-store --optimise
 	nix-store --verify --check-contents
 
