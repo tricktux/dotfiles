@@ -54,7 +54,7 @@ If there are math formulas involved please use katex syntax for equations. For e
 How can a polynomial be rewritten using Horner's rule?
 {{c1::[$]P(x) = a_n + x(a_{n-1} + x(a_{n-2} + ... + x( a_1 + x*a_0)... ))[\$]}}
 
-Please focus on comprehensivley capturing the content in cards, 
+Please focus on comprehensivley capturing the content in cards,
 as many cards as is necessary, the more the better, as long as content
 is not redundant; while keeping the responses of the cards as brief as possible.
 
