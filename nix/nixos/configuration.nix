@@ -90,6 +90,7 @@
     wireguard-tools
   ];
 
+  boot.tmp.cleanOnBoot = true;
   # Enable networking
   networking.networkmanager.enable = true;
 
