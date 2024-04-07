@@ -73,6 +73,7 @@
             ./nixos/configuration.nix
             ./nixos/hardware-configuration.surbook.nix
             ./nixos/screens.nix
+            ./nixos/docker.nix
             ./nixos/i3.nix
             ./nixos/video-intel.nix
             ./nixos/nas-mount.nix
