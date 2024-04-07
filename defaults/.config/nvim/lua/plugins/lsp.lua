@@ -122,12 +122,7 @@ function M.set_lsp_mappings(bufnr)
 	}
 
 	-- Set some keybinds conditional on server capabilities
-	mappings.f = {
-		function()
-			lsp.buf.format({ async = false })
-		end,
-		"formatting",
-	}
+  vks({"n", "v"}, "<plug>format_code", function() lsp.buf.format({ async = false }) end, { silent = true, buffer = true, desc = "formatting" })
 
 	map.keymaps_set(mappings, "n", opts, prefix)
 	require("plugins.telescope").set_lsp_mappings(bufnr)
