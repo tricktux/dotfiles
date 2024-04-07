@@ -97,7 +97,7 @@ function M:setup()
   -- o and O no enter when openning files
   -- s - Do not show search hit bottom
   -- t - Truncate message if is too long
-  vim.opt.shortmess = "aoOcst"
+  vim.opt.shortmess = "aoOcstF"
   -- https://www.reddit.com/r/neovim/comments/zg44mm/comment/izfdbtw/?utm_source=reddit&utm_medium=web2x&context=3
   vim.opt.virtualedit = "block"
 
