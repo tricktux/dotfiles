@@ -5,7 +5,7 @@
 , pkgs
 , ...
 }: {
-    # Programs for you personal development environment
+  # Programs for you personal development environment
   home.packages = with pkgs; [
     # neovim related
     neovim
@@ -37,8 +37,12 @@
     home-manager.enable = true;
     lazygit = {
       enable = true;
-      settings = { gui.theme.activeBorderColor = [ "yellow" "bold" ]; };
+      settings = {
+        gui = {
+          theme.activeBorderColor = [ "yellow" "bold" ];
+          commandLogSize = 20;
+        };
+      };
     };
   };
-
 }
