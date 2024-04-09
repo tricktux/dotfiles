@@ -5,7 +5,7 @@
 , pkgs
 , ...
 }: {
-    # Programs for you personal development environment
+  # Programs for you personal development environment
   home.packages = with pkgs; [
     # neovim related
     neovim
@@ -15,6 +15,7 @@
     fzf
     ripgrep
     ripgrep-all
+    tree-sitter
 
     # cli related
     # https://haseebmajid.dev/posts/2023-08-12-how-sync-your-shell-history-with-atuin-in-nix/
