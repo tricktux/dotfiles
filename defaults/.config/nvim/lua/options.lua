@@ -125,7 +125,7 @@ function M:setup()
 
   if vim.fn.has("nvim-0.9.0") >= 1 then
     vim.opt.splitkeep = "cursor"
-    vim.opt.shortmess:append { C = true }
+    vim.opt.shortmess:append("C")
   end
 
   -- Fix markdown indentation settings

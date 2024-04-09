@@ -62,6 +62,7 @@ help() {
 # Backup pacman's local database
 # More info here:
 # https://wiki.archlinux.org/index.php/Pacman/Restore_local_database
+[[ -f /tmp/pacman_database.tar.bz2 && -d /var/lib/pacman/local ]] || tar -vcjf /tmp/pacman_database.tar.bz2 /var/lib/pacman/local
 srcs=(
     "$HOME/.gnupg" "$HOME/.ssh" "$HOME/.password-store" "/tmp/pacman_database.tar.bz2"
     "$HOME/.local/share/histfile" "$HOME/.local/share/z" "$HOME/.config/doublecmd"
@@ -89,7 +90,7 @@ case $HOSTNAME in
         pass="work/drobo/xps-restic-repo"
         ;;
         # Handle default case
-        *)
+    *)
         repo="$HOME/.mnt/skywafer/home/bkps/$HOSTNAME/repo"
         pass="linux/$HOSTNAME/restic"
         ;;

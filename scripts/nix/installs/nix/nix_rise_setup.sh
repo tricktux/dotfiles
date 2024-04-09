@@ -44,7 +44,7 @@ sudo ln -s /home/reinaldo/.config/nvim /root/.config
 # Setup NetBackup {{{
 # This is to get the server's cache to install stuff faster
 mkdir -p $HOME/.mnt/skywafer/{home,music,shared,video,NetBackup}
-sudo mount -t cifs //192.168.1.139/NetBackup ~/.mnt/skywafer/NetBackup -o credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev
+sudo mount -t cifs //192.168.1.139/home ~/.mnt/skywafer/home -o credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev
 sudo mkdir -p /etc/samba/credentials
 sudo nvim /etc/samba/credentials/share
 # Just copy the info for now from local pc
@@ -80,7 +80,7 @@ git clone https://github.com/cdump/ranger-devicons2 ~/.config/ranger/plugins/dev
 # }}}
 
 # Restore files {{{
-pc="surbook"
+pc="aero"
 ls -als ~/.mnt/skywafer/home/bkps/${pc}
 mv ~/.gnupg{,_orig}
 cp -r /home/reinaldo/.mnt/skywafer/home/bkps/${pc}/latest/.{ssh,password-store,gnupg} /home/reinaldo
@@ -95,44 +95,7 @@ chmod 700 -R ~/.gnupg
 
 # restic restore {{{
 # Auto restore all of these files?
-    restore_srcs=(
-        "$HOME/.gnupg" "$HOME/.ssh" "$HOME/.password-store" "/tmp/pacman_database.tar.bz2"
-        "$HOME/.local/share/histfile" "$HOME/.local/share/z" "$HOME/.config/doublecmd"
-        "$HOME/.password-store_work" "$HOME/.local/share/atuin"
-        "$HOME/.password-store_mine"
-        "$HOME/.screenshots"
-        "$HOME/.screenlayout"
-        "$HOME/.local/share/remmina"
-        "$HOME/Documents"
-        "$HOME/Downloads"
-    )
-    repo=""
-    pass=""
-    # Assign repo based on the current hostname
-    case $HOSTNAME in
-        "xps")
-            repo="$HOME/.mnt/work/drobo-B810n/Public/rmolina/bkps/$HOSTNAME/restic-repo"
-            export PASSWORD_STORE_DIR=$HOME/.password-store_work
-            pass="pass work/drobo/xps-restic-repo"
-            ;;
-        *)
-            repo="$HOME/.mnt/skywafer/home/bkps/$HOSTNAME/repo"
-            pass="pass linux/$HOSTNAME/restic"
-            ;;
-    esac
-    # The latest snapshot can be obtained by running: restic snapshots --json | jq -r '.[-1].id'
-    snap_id=<put_latest_snapshot_id_here>
-    restore_path="$HOME/restore"
-    # Loop through the list of sources and attempt to restore each
-    for src in "${restore_srcs[@]}"; do
-        target_path="$restore_path${src/$HOME/}"
-        if [ -f "$target_path" ] || [ -d "$target_path" ]; then
-            # File/directory already exists in the restore location, add a timestamp to the original.
-            mv "$target_path" "${target_path}_$(date '+%Y-%m-%d_%H-%M-%S')"
-        fi
-        echo "Restoring $src from snapshot $snap_id to $restore_path"
-        $RESTIC --verbose --cleanup-cache --password-command "$pass" --repo "$repo" restore $snap_id --target="$restore_path" --include="$src"
-    done
+~/.config/dotfiles/scripts/nix/rsync/restic-backup
 # }}}
 
 # wireguard {{{

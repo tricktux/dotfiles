@@ -38,8 +38,12 @@
     home-manager.enable = true;
     lazygit = {
       enable = true;
-      settings = { gui.theme.activeBorderColor = [ "yellow" "bold" ]; };
+      settings = {
+        gui = {
+          theme.activeBorderColor = [ "yellow" "bold" ];
+          commandLogSize = 20;
+        };
+      };
     };
   };
-
 }
