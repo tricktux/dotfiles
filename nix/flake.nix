@@ -129,7 +129,17 @@
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [
             # > Our main home-manager configuration file <
-            ./home-manager
+            ./home-manager/home.nix
+            ./home-manager/coding
+            ./home-manager/terminal.nix
+            ./home-manager/zsh.nix
+            ./home-manager/pass.nix
+            ./home-manager/desktop-environment/i3.nix
+            ./home-manager/desktop-environment/rofi.nix
+            ./home-manager/desktop-environment/polybar.nix
+            # ./home-manager/desktop-environment/guis.nix
+            ./home-manager/desktop-environment/firefox.nix
+            ./home-manager/desktop-environment/music.nix
           ];
         };
         "reinaldo@xps" = home-manager.lib.homeManagerConfiguration {
