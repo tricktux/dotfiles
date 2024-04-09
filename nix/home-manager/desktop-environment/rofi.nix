@@ -6,7 +6,7 @@
 , ...
 }: {
   home.packages = with pkgs; [
-    rofi
+    # rofi
 
     # Text Snatcher Native
     tesseract
