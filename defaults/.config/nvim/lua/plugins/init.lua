@@ -803,4 +803,12 @@ return {
     },
   },
   {'tpope/vim-sleuth'},
+  {
+  {
+    "gbprod/cutlass.nvim",
+      event = "VeryLazy",
+      opts = {
+        cut_key = "x",
+      }
+  }
 }
