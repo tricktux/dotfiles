@@ -5,7 +5,10 @@ set -Eeuo pipefail
 # Execute cleanup() if any of these sig events happen
 trap cleanup SIGINT SIGTERM ERR #EXIT
 
+pass_file="/tmp/pass-file"
+
 cleanup() {
+    [ -f $pass_file ] && rm $pass_file
     trap - SIGINT SIGTERM ERR #EXIT
     msg_error "==> Something went wrong...     "
     read -n1 -r key
@@ -56,30 +59,6 @@ help() {
     echo
 }
 
-# Get the options
-while getopts "b:rh" option; do
-    case $option in
-        h) # display Help
-            help
-            exit
-            ;;
-        b)
-            backup
-            exit 0
-            ;;
-        r)
-            restore
-            exit 0
-            ;;
-        \?) # Invalid option
-            echo "Error: Invalid option"
-            echo
-            help
-            exit
-            ;;
-    esac
-done
-
 # Backup pacman's local database
 # More info here:
 # https://wiki.archlinux.org/index.php/Pacman/Restore_local_database
@@ -108,29 +87,32 @@ case $HOSTNAME in
     "xps")
         repo="$HOME/.mnt/work/drobo-B810n/Public/rmolina/bkps/$HOSTNAME/restic-repo"
         export PASSWORD_STORE_DIR=$HOME/.password-store_work
-        pass="pass work/drobo/xps-restic-repo"
+        pass="work/drobo/xps-restic-repo"
         ;;
         # Handle default case
     *)
         repo="$HOME/.mnt/skywafer/home/bkps/$HOSTNAME/repo"
-        pass="pass linux/$HOSTNAME/restic"
+        pass="linux/$HOSTNAME/restic"
         ;;
 esac
+
+pass $pass > $pass_file
 
 backup() {
     msg_not "${CYAN}${BOLD}" "[RIMP]==> Backing up $HOSTNAME to '$repo'...     "
     restic --verbose --cleanup-cache \
-        --password-command "$pass" \
+        --password-file "$pass_file" \
         --repo "$repo" \
         backup $src
+    shred -u $pass_file
 }
 
-restore() {
+restore_restic() {
     # The latest snapshot can be obtained by running: restic snapshots --json | jq -r '.[-1].id'
     snap_id="latest"
     restore_path="/"
     # Loop through the list of sources and attempt to restore each
-    for src in "${restore_srcs[@]}"; do
+    for src in "${srcs[@]}"; do
         target_path="$restore_path${src}"
         if [ -f "$target_path" ] || [ -d "$target_path" ]; then
             # File/directory already exists in the restore location, add a timestamp to the original.
@@ -138,10 +120,34 @@ restore() {
         fi
 
         msg_not "${CYAN}${BOLD}" "[RIMP]==> Restoring $src from snapshot $snap_id to $restore_path...     "
-        restic --verbose --cleanup-cache --password-command "$pass" --repo "$repo" restore $snap_id --target="$restore_path" --include="$src"
+        restic --verbose --cleanup-cache --password-file "$pass_file" --repo "$repo" restore $snap_id --target="$restore_path" --include="$src"
     done
+    shred -u $pass_file
 }
 
+# Get the options
+while getopts "b:rh" option; do
+  case $option in
+    h) # display Help
+      help
+      exit
+      ;;
+    b)
+      backup
+      exit 0
+      ;;
+    r)
+      restore_restic
+      exit 0
+      ;;
+    \?) # Invalid option
+      echo "Error: Invalid option"
+      echo
+      help
+      exit
+      ;;
+  esac
+done
 
 if [ $# -eq 0 ]; then
     backup

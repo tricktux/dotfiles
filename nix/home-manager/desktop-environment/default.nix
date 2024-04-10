@@ -7,5 +7,6 @@
     ./remotepc.nix
     ./rofi.nix
     ./xfce.nix
+    ./i3.nix
   ];
 }

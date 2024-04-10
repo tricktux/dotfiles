@@ -15,6 +15,7 @@
     fzf
     ripgrep
     ripgrep-all
+    tree-sitter
 
     # cli related
     # https://haseebmajid.dev/posts/2023-08-12-how-sync-your-shell-history-with-atuin-in-nix/
