@@ -802,8 +802,10 @@ return {
       }
     },
   },
-  {'tpope/vim-sleuth'},
   {
+    'tpope/vim-sleuth',
+    event = "VeryLazy",
+  },
   {
     "gbprod/cutlass.nvim",
       event = "VeryLazy",
