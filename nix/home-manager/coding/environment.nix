@@ -31,6 +31,8 @@
     eza
     wget
     z-lua
+
+    nodejs
   ];
 
   programs = {
