@@ -18,18 +18,27 @@ local function _validate_filetypes(filetype)
   return vim.tbl_contains(_filetype, filetype)
 end
 
+local _arguments = {
+  html =  {"--self-contained"},
+  docx = {},
+  pdf = {"--pdf-engine=xelatex"} ,
+}
+
 local render = function(filetype)
   vim.validate({ filetype = { filetype, _validate_filetypes, "one of: " .. vim.inspect(_filetype) } })
   local f = vim.fn.expand("%:p")
-  local o = vim.fn.expand("%:p:r") .. "." .. filetype
-  local cmd = { "pandoc", f, "-o", o }
-  u.term.exec(cmd)
+  local o = { "-o", vim.fn.expand("%:p:r") .. "." .. filetype }
+  local cmd = { "pandoc", f }
+  vim.list_extend(cmd, _arguments[filetype])
+  vim.list_extend(cmd, o)
+  vim.system(cmd, { detach = true })
 end
 
 if vim.g.no_plugin_maps == nil and vim.g.no_markdown_maps == nil then
   local vks = vim.keymap.set
 		vks("n", "<plug>make_file", function()
 			render("html")
-		end, { desc = "pandoc-render-html" })
-  vks("n", "<plug>preview", preview, { desc = "file_preview" })
+			preview()
+		end, { desc = "pandoc-render-html", buffer = true })
+  vks("n", "<plug>preview", preview, { desc = "file_preview", buffer = true })
 end
