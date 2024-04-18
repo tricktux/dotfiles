@@ -8,6 +8,7 @@ arandr
 archlinux-keyring
 archlinux-wallpaper
 astyle
+at
 atool
 atuin
 autoconf
@@ -45,6 +46,7 @@ docker-buildx
 docker-compose
 dosfstools
 dotnet-runtime
+dotnet-runtime-7.0
 dotnet-sdk
 doublecmd-qt5
 dunst
@@ -74,6 +76,7 @@ gdb
 gettext
 ghostscript
 git
+git-delta
 git-lfs
 global
 glow
@@ -102,7 +105,6 @@ intel-gpu-tools
 intel-media-driver
 intel-ucode
 isync
-jdk8-openjdk
 jq
 jre8-openjdk
 keepassxc
@@ -157,8 +159,10 @@ neomutt
 network-manager-applet
 networkmanager
 networkmanager-openvpn
+nextcloud-client
 nfs-utils
 ninja
+nix
 nmap
 noto-fonts
 noto-fonts-cjk
@@ -168,6 +172,7 @@ npm
 ntfs-3g
 ntp
 numlockx
+nvidia-container-toolkit
 nvidia-lts
 nvidia-settings
 nvtop
@@ -257,9 +262,11 @@ udisks2
 ueberzug
 unzip
 urlscan
+valgrind
 vdirsyncer
 vi
 vim
+virt-manager
 virtualbox
 virtualbox-guest-iso
 virtualbox-host-dkms
@@ -290,7 +297,6 @@ xf86-video-dummy
 xf86-video-fbdev
 xf86-video-intel
 xf86-video-nouveau
-xf86-video-openchrome
 xf86-video-qxl
 xf86-video-vesa
 xf86-video-vmware
@@ -299,8 +305,6 @@ xfce4-settings
 xorg-bdftopcf
 xorg-docs
 xorg-font-util
-xorg-fonts-100dpi
-xorg-fonts-75dpi
 xorg-fonts-encodings
 xorg-iceauth
 xorg-mkfontscale
@@ -355,4 +359,3 @@ zsh-autosuggestions
 zsh-completions
 zsh-history-substring-search
 zsh-syntax-highlighting
-zsh-theme-powerlevel10k
