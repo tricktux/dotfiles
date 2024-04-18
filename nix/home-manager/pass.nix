@@ -8,7 +8,7 @@
   home.packages = with pkgs; [
     gnupg
     keepassxc
-    rofi-pass
+    # rofi-pass
     pass
     passExtensions.pass-update
     # A pass extension that allows to add files to password-store
