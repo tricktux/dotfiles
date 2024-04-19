@@ -38,7 +38,6 @@ if vim.g.no_plugin_maps == nil and vim.g.no_markdown_maps == nil then
   local vks = vim.keymap.set
 		vks("n", "<plug>make_file", function()
 			render("html")
-			preview()
 		end, { desc = "pandoc-render-html", buffer = true })
   vks("n", "<plug>preview", preview, { desc = "file_preview", buffer = true })
 end
