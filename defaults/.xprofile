@@ -229,3 +229,11 @@ export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
 mkdir -p "$XDG_CONFIG_HOME"/X11
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
 mkdir -p "$XDG_CONFIG_HOME"/npm
+
+$HOME/.config/i3/scripts/xset.sh
+if [[ -d /etc/nixos ]]; then
+  $HOME/.config/i3/scripts/nix-autostart.sh > /tmp/autostart.log 2>&1
+else
+  $HOME/.config/i3/scripts/autostart.sh > /tmp/autostart.log 2>&1
+fi
+# vim:filetype=sh fdm=marker
