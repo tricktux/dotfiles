@@ -41,4 +41,5 @@ else
 	xsel -b -i <"$SCR_IMG.txt" || die "failed to copy text to clipboard"
 fi
 notify-send "Text extracted at: $SCR_IMG.txt"
+$TERMINAL nvim "$SCR_IMG.txt" || die "failed to open text file"
 exit
