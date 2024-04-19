@@ -157,6 +157,17 @@ sudo mkdir -p /root/.config
 sudo ln -s /home/reinaldo/.config/nvim /root/.config
 #}}}
 
+# nix {{{
+paru -Syu --needed nix
+sudo systemctl enable --now nix-daemon
+sudo gpasswd -a reinaldo nix-users
+sudo nix-channel --add https://nixos.org/channels/nixpkgs-unstable
+sudo nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+sudo nix-channel --update
+sudo nix-shell '<home-manager>' -A install
+export NIX_CONFIG="experimental-features = nix-command flakes"  # if you haven't set flakes yet
+# }}}
+
 # xorg{{{
 # Multi Monitor setup, or for HiDPI displays it's best to auto calculate 
 # resolution
