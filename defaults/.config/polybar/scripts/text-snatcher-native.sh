@@ -14,7 +14,7 @@ cleanup() {
 	[[ -n $1 ]] && rm -rf "$1"
 }
 
-folder="$HOME/.screenshots"
+folder="$XDG_DATA_HOME/screenshots"
 [ -d "$folder" ] || mkdir -p "$folder" || die "failed to create folder"
 SCR_IMG="${folder}/$(date +%Y%m%d%H%M%S)-img2text"
 

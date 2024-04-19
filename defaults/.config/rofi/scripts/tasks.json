@@ -89,15 +89,15 @@
   },
   {
     "name": "🪟 screenshot full screen",
-    "command": "scrot '/$HOME/.screenshots/%Y-%m-%d_%T_scrot.png' -e 'xclip -selection clipboard -target image/png -i $f'"
+    "command": "scrot '/$XDG_DATA_HOME/screenshots/%Y-%m-%d_%T_scrot.png' -e 'xclip -selection clipboard -target image/png -i $f'"
   },
   {
     "name": "🪟 screenshot selection",
-    "command": "scrot -fz -q 10 --line style=dash,width=3,color='red' -s '/$HOME/.screenshots/%Y-%m-%d_%T_scrot.png' -e 'xclip -selection clipboard -target image/png -i $f'"
+    "command": "scrot -fz -q 10 --line style=dash,width=3,color='red' -s '/$XDG_DATA_HOME/screenshots/%Y-%m-%d_%T_scrot.png' -e 'xclip -selection clipboard -target image/png -i $f'"
   },
   {
     "name": "🪟 screenshot window",
-    "command": "scrot -u '$HOME/.screenshots/%Y-%m-%d_%T_scrot.png' -e 'xclip -selection clipboard -target image/png -i $f'"
+    "command": "scrot -u '$XDG_DATA_HOME/screenshots/%Y-%m-%d_%T_scrot.png' -e 'xclip -selection clipboard -target image/png -i $f'"
   },
   {
     "name": "🪟 screenshot flameshot",
