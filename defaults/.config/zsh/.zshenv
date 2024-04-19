@@ -22,6 +22,7 @@ fi
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
 
 # Sat Oct 14 2017 11:12: This will set the i3-sensible-terminal to be used:
 # Termite has priority over kitty
@@ -139,17 +140,50 @@ if [[ ! -d /etc/nixos/ ]]; then
 fi
 
 # Less hist file
-export LESSHISTFILE="$HOME"/.local/share/lesshst
+export LESSHISTFILE="$XDG_DATA_HOME"/lesshst
 export LESSHISTSIZE=1000
 
 # CMAKE always export compile json
 export CMAKE_EXPORT_COMPILE_COMMANDS=ON
 
 # Dotnet
-export DOTNET_ROOT="$HOME"/.dotnet
-[[ -d $HOME/.dotnet/tools ]] && export PATH="$PATH":"$HOME"/.dotnet/tools
+export DOTNET_ROOT="$XDG_DATA_HOME"/dotnet
+export PATH="$PATH":"$DOTNET_ROOT"/tools
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
+export DOTNET_CLI_HOME="$XDG_DATA_HOME"/dotnet
+mkdir -p "$XDG_DATA_HOME"/dotnet
 
 [[ -f $HOME/.local/etc/stuff ]] && source $HOME/.local/etc/stuff
+
+# Cleaning up on home through xdg-ninja
+export HISTFILE="${XDG_STATE_HOME}"/bash/history
+mkdir -p "${XDG_STATE_HOME}"/bash
+export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
+mkdir -p "$XDG_CONFIG_HOME"/docker
+export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
+mkdir -p "$XDG_CACHE_HOME"/nv
+export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
+mkdir -p "$XDG_CONFIG_HOME"/gtk-2.0
+# TODO: nix?
+export XCURSOR_PATH=/usr/share/icons:$XDG_DATA_HOME/icons
+export IPYTHONDIR="$XDG_CONFIG_HOME/ipython"
+mkdir -p "$XDG_CONFIG_HOME/ipython"
+export MYPY_CACHE_DIR="$XDG_CACHE_HOME"/mypy
+mkdir -p "$XDG_CACHE_HOME"/mypy
+export NUGET_PACKAGES="$XDG_CACHE_HOME"/NuGetPackages
+mkdir -p "$XDG_CACHE_HOME"/NuGetPackages
+export OMNISHARPHOME="$XDG_CONFIG_HOME"/omnisharp
+mkdir -p "$XDG_CONFIG_HOME"/omnisharp
+export PASSWORD_STORE_DIR="$XDG_DATA_HOME"/password-store
+mkdir -p "$XDG_DATA_HOME"/password-store
+export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
+mkdir -p "$XDG_CONFIG_HOME"/readline
+export VAGRANT_HOME="$XDG_DATA_HOME"/vagrant
+mkdir -p "$XDG_DATA_HOME"/vagrant
+export W3M_DIR="$XDG_DATA_HOME"/w3m
+mkdir -p "$XDG_DATA_HOME"/w3m
+export XSERVERRC="$XDG_CONFIG_HOME"/X11/xserverrc
+export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
+mkdir -p "$XDG_CONFIG_HOME"/X11
 
 # vim: fdm=marker:ft=bash
