@@ -64,12 +64,15 @@ help() {
 # https://wiki.archlinux.org/index.php/Pacman/Restore_local_database
 [[ -f /tmp/pacman_database.tar.bz2 && -d /var/lib/pacman/local ]] || tar -vcjf /tmp/pacman_database.tar.bz2 /var/lib/pacman/local
 srcs=(
-    "$HOME/.gnupg" "$HOME/.ssh" "$HOME/.password-store" "/tmp/pacman_database.tar.bz2"
+    "$HOME/.gnupg" "$HOME/.ssh" "/tmp/pacman_database.tar.bz2"
     "$HOME/.local/share/histfile" "$HOME/.local/share/z" "$HOME/.config/doublecmd"
     "$HOME/.password-store_work" "$HOME/.local/share/atuin"
     "$HOME/.password-store_mine"
+    "$XDG_DATA_HOME/password-store-work"
+    "$XDG_DATA_HOME/password-store"
     "$HOME/.config/autorandr"
     "$HOME/.screenshots"
+    "$XDG_DATA_HOME/screenshots"
     "$HOME/.screenlayout"
     "$HOME/.local/share/remmina"
     "$HOME/Documents"
@@ -86,7 +89,7 @@ pass=""
 case $HOSTNAME in
     "xps")
         repo="$HOME/.mnt/work/drobo-B810n/Public/rmolina/bkps/$HOSTNAME/restic-repo"
-        export PASSWORD_STORE_DIR=$HOME/.password-store_work
+        export PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store-work"
         pass="work/drobo/xps-restic-repo"
         ;;
         # Handle default case

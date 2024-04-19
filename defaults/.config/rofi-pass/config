@@ -1,6 +1,6 @@
 # permanently set alternative root dir. Use ":" to separate multiple roots
 # which can be switched at runtime with shift+left/right
-root="$HOME"/.password-store:"$HOME"/.password-store_work
+root="$XDG_DATA_HOME"/password-store:"$XDG_DATA_HOME"/password-store-work
 # root="$HOME"/.password-store_work:"$HOME"/.password-store_mine:
 
 # rofi command. Make sure to have "$@" as last argument
