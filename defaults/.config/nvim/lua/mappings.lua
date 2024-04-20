@@ -517,6 +517,10 @@ local function misc_mappings()
   vks("v", "gX", "g<c-x>", opts)
   vks("v", "<s-y>", "y$", opts)
 
+  -- For the love of god, do not overwrite register when pasting over visual
+  -- text
+  vks("x", "p", function() return 'pgv"' .. vim.v.register .. "y" end, { remap = false, expr = true })
+
   -- vks({ "n", "x", "o" }, "t", "%")
 
   opts.desc = "refresh_buffer"

@@ -137,7 +137,6 @@ function! mappings#Set()
 
   " Don't paste the deleted word, paste the last copied word, hopefully
   nnoremap <s-p> :normal! "0p<cr>
-  xnoremap <s-p> :normal! "0p<cr>
   " Force wings_syntax on a file
   nnoremap <leader>yw :set filetype=wings_syntax<cr>
   nnoremap <leader>y. :call <SID>exec_last_command()<cr>
