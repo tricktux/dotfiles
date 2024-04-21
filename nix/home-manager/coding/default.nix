@@ -7,5 +7,6 @@
     ./cpp.nix
     ./python.nix
     ./environment.nix
+    ./tex.nix
   ];
 }
