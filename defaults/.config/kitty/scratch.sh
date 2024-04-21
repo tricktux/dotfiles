@@ -1,21 +1,21 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 # htop
-/usr/bin/kitty @launch --type overlay --window-title 'htop' /usr/bin/htop
+kitty @launch --type overlay --window-title 'htop' htop
 # tab title
-/usr/bin/kitty @set-tab-title 'htop'
+kitty @set-tab-title 'htop'
 # pause htop
-/usr/bin/kitty @send-text 'Z'
+kitty @send-text 'Z'
 # cmus
-/usr/bin/kitty @launch --type tab \
-  --location after --tab-title 'cmus' --window-title 'cmus' /usr/bin/cmus
+kitty @launch --type tab \
+  --location after --tab-title 'cmus' --window-title 'cmus' cmus
 # cava
-if [[ -f /usr/bin/cava ]]; then
-  /usr/bin/kitty @launch --type window --dont-take-focus \
-    --location hsplit --window-title 'cava' /usr/bin/cava
+if [[ -f cava ]]; then
+  kitty @launch --type window --dont-take-focus \
+    --location hsplit --window-title 'cava' cava
 fi
 # calc
-/usr/bin/kitty @launch --type tab --dont-take-focus \
-  --location after --tab-title 'calc' --window-title 'calc' /usr/bin/bc --mathlib
+kitty @launch --type tab --dont-take-focus \
+  --location after --tab-title 'calc' --window-title 'calc' bc --mathlib
 # Bring focus back to htop window
-/usr/bin/kitty @focus-tab --match title:'htop'
+kitty @focus-tab --match title:'htop'
