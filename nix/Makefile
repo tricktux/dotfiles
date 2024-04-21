@@ -7,7 +7,7 @@ bkp := $(shell date +%F_%R)
 
 all: home
 
-maintenance: upgrade-nixos clean
+maintenance: upgrade-home clean
 
 help:
 	nixos-help
@@ -19,7 +19,6 @@ doublecmd:
 	nix build ".#doublecmd" -L
 
 upgrade-home:
-	# nix upgrade-nix
 	nix-channel --update
 	$(MAKE) home
 
