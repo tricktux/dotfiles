@@ -66,7 +66,7 @@ fi
 # screen before suspend. Use loginctl lock-session to lock your screen.
 # TODO: https://www.reddit.com/r/i3wm/comments/12k74pi/is_this_manual_xautolock_command_decent/
 if [[ -x $(command -v xss-lock) ]]; then
-	xss-lock --transfer-sleep-lock -- i3lock-fancy --nofork &
+	xss-lock --transfer-sleep-lock -- i3lock-fancy-rapid 8 1&
 else
 	printf "\n==X Please install xss-lock\n"
 fi
