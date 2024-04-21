@@ -380,7 +380,7 @@ paci --needed --noconfirm radeontop
 #}}}
 
 # nfs/samba {{{
-paci --needed --noconfirm nfs-utils
+paci --needed --noconfirm nfs-utils texlive
 mkdir -p $HOME/.mnt/skynfs
 mkdir -p $HOME/.mnt/skywafer/{home,music,shared,video}
 sudo bash -c 'printf "\n//192.168.1.139/NetBackup /home/reinaldo/.mnt/skywafer/NetBackup cifs workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev 0 0" >> /etc/fstab'
@@ -1036,8 +1036,7 @@ paci --needed --noconfirm thunderbird birdtray
 paci --needed --noconfirm libreoffice-still hunspell hunspell-en_us
 
 # pdf & resume
-
-paci --needed --noconfirm zathura zathura-pdf-mupdf texlive-most pdfgrep qpdfview
+paci --needed --noconfirm zathura zathura-pdf-mupdf texlive pdfgrep qpdfview
 # PDF annotations use:
 # Don't install depends on python2
 paci --needed --noconfirm xournal
