@@ -234,9 +234,5 @@ export TERMINFO_DIRS="$XDG_DATA_HOME"/terminfo:/usr/share/terminfo
 mkdir -p "$XDG_CONFIG_HOME"/terminfo
 
 $HOME/.config/i3/scripts/xset.sh
-if [[ -d /etc/nixos ]]; then
-  $HOME/.config/i3/scripts/nix-autostart.sh > /tmp/autostart.log 2>&1
-else
-  $HOME/.config/i3/scripts/autostart.sh > /tmp/autostart.log 2>&1
-fi
+
 # vim:filetype=sh fdm=marker
