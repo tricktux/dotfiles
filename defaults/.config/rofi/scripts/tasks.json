@@ -137,7 +137,7 @@
   },
   {
     "name": "📂 htop cmus calc",
-    "command": "$TERMINAL $HOME/.config/kitty/scratch.sh"
+    "command": "$TERMINAL cmus"
   },
   {
     "name": "📂 tickrs stonks market",
