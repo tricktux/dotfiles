@@ -222,8 +222,6 @@ pac_update_install() {
 
     msg "${CYAN}${BOLD}" "[RIMP]==> Storing package list...     "
     save_pkg_list_to_dotfiles
-
-    # lightdm_fix_xs_errors
 }
 
 cleanup_junk() {
@@ -251,6 +249,22 @@ cleanup_junk() {
             # Remove cache for deleted packages
             sudo paccache -ruk0 \
                 --cachedir=/var/cache/pacman/pkg
+            ;;
+    esac
+    msg "${CYAN}${BOLD}" "[RIMP]==> Clean up nix store...     "
+    read -r yn
+    case $yn in
+        [Qq]*) quit ;;
+        [Yy]*)
+            make -C ~/.config/dotfiles/nix clean
+            ;;
+    esac
+    msg "${CYAN}${BOLD}" "[RIMP]==> Deep Clean up nix store...     "
+    read -r yn
+    case $yn in
+        [Qq]*) quit ;;
+        [Yy]*)
+            make -C ~/.config/dotfiles/nix deep-clean
             ;;
     esac
     msg "${CYAN}${BOLD}" "[RIMP]==> Prune unused Docker objects...     "
@@ -545,6 +559,17 @@ backup() {
         esac
     }
 
+    update_nix() {
+        msg_not "${BLUE}${BOLD}" "[RIMP]==> Update nix? [y/N/q]"
+        read -r yn
+        case $yn in
+            [Qq]*) quit ;;
+            [Yy]*)
+                make -C ~/.config/dotfiles/nix upgrade-home
+                ;;
+        esac
+    }
+
     update_neovim_git() {
         # Create a subshell to cd locally
         (
@@ -592,7 +617,7 @@ backup() {
         echo "All options are optional"
         echo "If no options are provided all tasks will run optionally"
         echo
-        echo "Syntax: update-arch [-i|b|s|c|p|d|v|n|y|f|h]"
+        echo "Syntax: update-arch [-i|b|s|c|p|d|v|n|y|f|h|x]"
         echo "options:"
         echo "i     Install a package"
         echo "b     Run only Backup tasks"
@@ -606,12 +631,13 @@ backup() {
         echo "v     Update neovim-git"
         echo "y     Update polybar scripts"
         echo "f     Patch firefox keymaps"
+        echo "x     Update nix"
         echo "h     Print this Help."
         echo
     }
 
     # Get the options
-    while getopts "i:ubcpdmvyfhn" option; do
+    while getopts "i:ubcpdmvyfhnx" option; do
         case $option in
             h) # display Help
                 help
@@ -661,6 +687,10 @@ backup() {
                 update_neovim_git
                 exit 0
                 ;;
+            x)
+                update_nix
+                exit 0
+                ;;
             \?) # Invalid option
                 echo "Error: Invalid option"
                 echo
@@ -676,6 +706,8 @@ backup() {
     backup
 
     pac_update_install
+
+    update_nix
 
     pac_maintenance
 
