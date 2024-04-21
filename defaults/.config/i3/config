@@ -25,7 +25,7 @@ font pango:FontAwesome 9
 #}}}
 
 # Movement keys{{{
-  set $up k
+    set $up k
     set $down j
     set $left h
     set $right l
