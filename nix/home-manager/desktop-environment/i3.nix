@@ -7,7 +7,7 @@
 }:
 {
   home.packages = with pkgs; [
-    i3lock-fancy-rapid
+    # i3lock-fancy-rapid
     lxappearance
     alttab
     restic
