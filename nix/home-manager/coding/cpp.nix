@@ -10,9 +10,9 @@
     cmake-format
     cmake-language-server
     gdb
-    
-    gcc
-    # llvmPackages
+
+    # gcc  # collision with clang
+    llvmPackages_latest.clang
     clang-tools # for clangd to find the correct headers
 
     # zig
