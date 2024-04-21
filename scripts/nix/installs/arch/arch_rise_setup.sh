@@ -158,6 +158,9 @@ sudo ln -s /home/reinaldo/.config/nvim /root/.config
 #}}}
 
 # nix {{{
+paru -Syu --needed ccache mold
+paru -Syu --needed nextcloud-client
+paru -Syu --needed ranger
 paru -Syu --needed nix
 sudo systemctl enable --now nix-daemon
 sudo gpasswd -a reinaldo nix-users
@@ -166,6 +169,59 @@ sudo nix-channel --add https://github.com/nix-community/home-manager/archive/mas
 sudo nix-channel --update
 sudo nix-shell '<home-manager>' -A install
 export NIX_CONFIG="experimental-features = nix-command flakes"  # if you haven't set flakes yet
+
+# pipewire
+paci --needed --noconfirm pipewire
+paci --needed --noconfirm pamixer alsa-lib libao libcdio libcddb libvorbis \
+  libmpcdec wavpack libmad libmodplug libmikmod
+# }}}
+
+# Bluetooth/Audio {{{
+## Pipewire
+# Do replace pipewire-media-sessions for wireplumber
+paci --needed pipewire pipewire-{pulse,jack,alsa,audio} lib32-pipewire wireplumber
+## PulseAudio
+# paci --needed --noconfirm pulseaudio pulseaudio-{bluetooth,jack,alsa,equalizer}
+
+#Blue
+paci --needed --noconfirm bluez bluez-libs bluez-utils bluez-firmware
+paci --needed --noconfirm blueman
+sudo systemctl enable --now bluetooth
+
+# Easyeffects or nice headphones sound
+paru -Syu easyeffects lsp-plugins
+# Download effects from: 
+#   https://github.com/jaakkopasanen/AutoEq/tree/master/results
+#   - Search for your headphones
+#   - Download the parametrics.txt file
+# Apply it to Easyeffects
+#   - Click on the Effects button at the bottom
+#   - Add an equalizer
+#   - Click on Import Preset / Load AOP file
+#   - Search for the txt file downloaded
+# Start the application in the background:
+#   - easyeffects --gapplication-service
+# Ensure it's working:
+#   - Open pavucontrol
+#   - The sink for audio should be Easyeffects Sink
+#}}}
+
+# Setup NetBackup {{{
+# This is to get the server's cache to install stuff faster
+mkdir -p $HOME/.mnt/skywafer/{home,music,shared,video,NetBackup}
+sudo bash -c 'printf "\n//192.168.1.139/NetBackup /home/reinaldo/.mnt/skywafer/NetBackup cifs workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev 0 0" >> /etc/fstab'
+paru -Syu --needed cifs-utils
+sudo mount -t cifs //192.168.1.139/NetBackup ~/.mnt/skywafer/NetBackup -o credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev
+sudo mkdir -p /etc/samba/credentials
+sudo nvim /etc/samba/credentials/share
+# Just copy the info for now from local pc
+# - format:
+# - `username=X`
+# - `password=Y`
+# - Obscure the file:
+sudo chown root:root /etc/samba/credentials/share
+sudo chmod 700 /etc/samba/credentials/share
+sudo chmod 600 /etc/samba/credentials/share
 # }}}
 
 # xorg{{{
@@ -215,24 +271,6 @@ sudo systemctl status NetworkManager.service
 paru -S ntp
 sudo timedatectl set-ntp true
 #}}}
-
-# Setup NetBackup {{{
-# This is to get the server's cache to install stuff faster
-mkdir -p $HOME/.mnt/skywafer/{home,music,shared,video,NetBackup}
-sudo bash -c 'printf "\n//192.168.1.139/NetBackup /home/reinaldo/.mnt/skywafer/NetBackup cifs workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev 0 0" >> /etc/fstab'
-paru -Syu --needed cifs-utils
-sudo mount -t cifs //192.168.1.139/NetBackup ~/.mnt/skywafer/NetBackup -o credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev
-sudo mkdir -p /etc/samba/credentials
-sudo nvim /etc/samba/credentials/share
-# Just copy the info for now from local pc
-# - format:
-# - `username=X`
-# - `password=Y`
-# - Obscure the file:
-sudo chown root:root /etc/samba/credentials/share
-sudo chmod 700 /etc/samba/credentials/share
-sudo chmod 600 /etc/samba/credentials/share
-# }}}
 
 # LVM Snapshots {{{
 # https://gitlab.com/Marcool04/make-lvm-snapshot#default-target
@@ -510,11 +548,12 @@ sudo mount -t cifs //192.168.1.139/home ~/.mnt/skywafer/home -o credentials=/etc
 mv ~/.gnupg{,_orig}
 cp -r /home/reinaldo/.mnt/skywafer/home/bkps/aero/latest/.{ssh,password-store,gnupg} /home/reinaldo
 cp -r /home/reinaldo/.mnt/skywafer/home/bkps/aero/latest/doublecmd /home/reinaldo/.config
-sudo chown -R reinaldo: ~/.{ssh,password-store,gnupg}
+sudo chown -R reinaldo: ~/.{ssh,gnupg}
 chmod 700 ~/.ssh
 chmod 600 -R ~/.ssh/*
 chmod 644 -f ~/.ssh/*.pub ~/.ssh/authorized_keys ~/.ssh/known_hosts
-chmod 700 -R ~/.password-store
+sudo chown -R reinaldo: ~/.local/share/password-store
+chmod 700 -R ~/.local/share/password-store
 chmod 700 -R ~/.gnupg
 
 sudo mkdir -p /etc/samba/credentials
@@ -553,7 +592,7 @@ sudo systemctl status systemd-resolved.service
 # The value for this ip is given by the ip assigned to the peer
 # You can find it in the config file
 # Not needed anymore
-# sudo bash -c 'echo "nameserver 10.4.0.7" >> /etc/resolv.conf'
+sudo bash -c 'echo "nameserver 10.4.0.8" >> /etc/resolv.conf'
 # sudo reboot
 # Try it with:
 sudo wg-quick up home
@@ -1005,36 +1044,6 @@ paci --needed --noconfirm ntfs-3g
 
 paci --needed --noconfirm android-tools android-udev
 
-# Bluetooth/Audio {{{
-## Pipewire
-# Do replace pipewire-media-sessions for wireplumber
-paci --needed pipewire pipewire-{pulse,jack,alsa,audio} lib32-pipewire wireplumber
-## PulseAudio
-# paci --needed --noconfirm pulseaudio pulseaudio-{bluetooth,jack,alsa,equalizer}
-
-#Blue
-paci --needed --noconfirm bluez bluez-libs bluez-utils bluez-firmware
-paci --needed --noconfirm blueman
-sudo systemctl enable --now bluetooth
-
-# Easyeffects or nice headphones sound
-paru -Syu easyeffects lsp-plugins
-# Download effects from: 
-#   https://github.com/jaakkopasanen/AutoEq/tree/master/results
-#   - Search for your headphones
-#   - Download the parametrics.txt file
-# Apply it to Easyeffects
-#   - Click on the Effects button at the bottom
-#   - Add an equalizer
-#   - Click on Import Preset / Load AOP file
-#   - Search for the txt file downloaded
-# Start the application in the background:
-#   - easyeffects --gapplication-service
-# Ensure it's working:
-#   - Open pavucontrol
-#   - The sink for audio should be Easyeffects Sink
-#}}}
-
 # journal
 
 # Tue Mar 26 2019 08:58
@@ -1045,8 +1054,8 @@ sudo nvim /etc/systemd/journald.conf
 # Browser{{{
 
 ## firefox
-
 paci --needed --noconfirm firefox speech-dispatcher festival festival-us
+paci --needed --noconfirm hunspell-en_us
 # paci --needed --noconfirm firefox-extension-privacybadger`
 # paci --needed --noconfirm libnotify speech-dispatcher festival`
 paci --needed --noconfirm vdhcoapp-bin

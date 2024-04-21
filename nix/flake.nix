@@ -138,8 +138,7 @@
             ./home-manager/desktop-environment/i3.nix
             ./home-manager/desktop-environment/rofi.nix
             ./home-manager/desktop-environment/polybar.nix
-            # ./home-manager/desktop-environment/guis.nix
-            ./home-manager/desktop-environment/firefox.nix
+            ./home-manager/desktop-environment/guis.nix
             ./home-manager/desktop-environment/music.nix
           ];
         };
