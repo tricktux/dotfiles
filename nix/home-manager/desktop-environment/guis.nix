@@ -23,6 +23,11 @@ in
   };
 
   home.packages = with pkgs; [
+    arandr
+    autorandr
+    xorg.xrandr
+    xorg.libXrandr
+    xlayoutdisplay
     meld
     zeal
     dconf
