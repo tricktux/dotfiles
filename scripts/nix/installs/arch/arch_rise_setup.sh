@@ -234,154 +234,9 @@ sudo chmod 700 /etc/samba/credentials/share
 sudo chmod 600 /etc/samba/credentials/share
 # }}}
 
-# xorg{{{
-# Multi Monitor setup, or for HiDPI displays it's best to auto calculate 
-# resolution
-# ccache to speed up compilations
-paru -Syu --needed ccache mold
-paru -Syu --needed xorg-xrandr arandr xlayoutdisplay
-paru -Syu --needed --noconfirm xorg xorg-apps xorg-xinit xorg-drivers xorg-server
-/usr/bin/xlayoutdisplay
-# ACTION: Copy output and paste it there
-nvim "$HOME/.config/xprofile-$(hostname)"
-# ACTION: Now is also a good time to add that hostname there
-nvim "$HOME/.config/i3/scripts/xrandr.sh"
-# `xorg autologin`
-paru -Syu --needed lightdm
-sudo systemctl enable lightdm
-
-# add your user to the autologin group
-sudo groupadd -r autologin
-sudo gpasswd -a reinaldo autologin
-
-# Create
-# Valid session names under /usr/share/xsessions/*.desktop
-sudo nvim /etc/lightdm/lightdm.conf
-
-# [Seat:*]
-# autologin-user=reinaldo
-# autologin-session=i3-with-shmlog
-#}}}
-
-# Network Manager{{{
-paci --needed --noconfirm networkmanager network-manager-applet networkmanager-openvpn networkmanager-dmenu-git 
-pacu networkmanager network-manager-applet networkmanager-openvpn networkmanager-dmenu-git 
-sudo systemctl enable --now NetworkManager.service
-sudo systemctl status NetworkManager.service
-#}}}
-
-#############################################################################
-########## At this point is a good idea to login and continue with ssh ######
-#############################################################################
-# Otherwise, you'll have to enter root password infinitely,
-# also systemctl stuff wont work
-# If you don't get a login prompt use Ctrl-Alt-FX to get one
-
-# fix time:{{{
-paru -S ntp
-sudo timedatectl set-ntp true
-#}}}
-
-# LVM Snapshots {{{
-# https://gitlab.com/Marcool04/make-lvm-snapshot#default-target
-# https://wiki.archlinux.org/title/Create_root_filesystem_snapshots_with_LVM
-# https://wiki.archlinux.org/title/LVM#Snapshots
-paru -Syu make-lvm-snapshot
-# If this is a desktop change the target to graphical.target
-# Check what it is with: systemctl get-default
-sudo nvim /etc/systemd/system/make-lvm-snapshot.target
-# Add the target at the end of the ExecStart command, as the 3rd argument
-sudo nvim /etc/systemd/system/make-lvm-snapshot.service
-sudo systemctl set-default make-lvm-snapshot.target
-sudo reboot
-# }}}
-
-# Install old packages: {{{
-# NOTE: ONLY do this on computers already setup, DONOT copy packages from another PC
-# NOTE: Go to `sudo vim /etc/pacman.conf` and uncomment `multilib`
-# Also add the ParallelDownloads = 5 option
-# Also uncomment Color option
-# Also add ILoveCandy option
-# Also add:
-# CacheDir    = /home/reinaldo/.mnt/skywafer/NetBackup/pacman_cache/x86_64
-# CacheDir    = /var/cache/pacman/pkg/
-sudo nvim /etc/pacman.conf
-# NOTE: This will take a long time
-sudo pacman-key --refresh-keys
-sudo pacman -Syu archlinux-keyring && sudo pacman -Syu
-sudo pacman -S --needed - < ~/.config/dotfiles/pkg/aero/pacman-list.pkg
-paru -S --needed - < ~/.config/dotfiles/pkg/aero/aur-list.pkg
-# }}}
-
-# ccache to speed up compilations
-paci --needed --noconfirm ccache
-
-# Beautiful arch wallpapers
-paci --needed --noconfirm archlinux-wallpaper
-# TODO
-# optional dependency
-# wallutils: support the simple timed wallpaper format
-
-# `arch-audit`
-paci --needed --noconfirm arch-audit
-# - Enable the `pacman` hook to auto check for vulnerabilities
-# - Not needed anymore:
-# - `sudo cp /usr/share/arch-audit/arch-audit.hook /etc/pacman.d/hooks`
-
-# pacman helpers{{{
-# Thu Apr 08 2021 14:43: NOTE: Don't do this anymore
-paci --needed --noconfirm informant 
-paci --needed --noconfirm ancient-packages
-  informant 
-# NOTE: Add yourself to group "informant" to avoid the need for sudo
-sudo gpasswd -a reinaldo informant
-# List recent news
-sudo informant list
-# Mark them as read
-sudo informant read --all
-#}}}
-
-# `ssh`
-paci --needed --noconfirm openssh mosh
-# - Actually use `mosh` is much faster
-# - If you want this setup to be `ssh` accessible:
-# - `systemctl enable sshd.socket`
-# - `systemctl enable sshd`
-# - Add to `.ssh/config`
-# - `AddKeysToAgent yes`
-
-# install polkit {{{
-paci --needed --noconfirm lxqt-policykit
-# }}}
-
-# zsh{{{
-paci --needed --noconfirm zsh
-# Legacy
-# Install plugins
-paci --needed --noconfirm pkgfile z-git \
-  zsh-theme-powerlevel10k zsh-autosuggestions \
-  zsh-history-substring-search zsh-syntax-highlighting \
-  zsh-completions zsh-vi-mode
-chsh -s /usr/bin/zsh
-export ZDOTDIR=$HOME/.config/zsh
-zsh
-
-# Deprecated step
-# pkgfile needs to be updated
-sudo systemctl enable pkgfile-update.timer
-# By default it runs daily
-# Update /usr/lib/systemd/system/pkgfile-update.timer to run weekly
-# Also update it to wait for network by adding to [Unit]
-# Wants=network-online.target
-# After=network-online.target nss-lookup.target
-sudo nvim /usr/lib/systemd/system/pkgfile-update.timer
-sudo systemctl start pkgfile-update.service
-# symlink all the `zsh*` files
-#}}}
-
 # Update arch mirrors {{{
 paru -S --needed --noconfirm reflector
-sudo mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist_king
+sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist_king
 # Put options in config file
 sudo bash -c 'printf "\n--latest 30" >> /etc/xdg/reflector/reflector.conf'
 sudo bash -c 'printf "\n--number 5" >> /etc/xdg/reflector/reflector.conf'
@@ -401,9 +256,40 @@ sudo systemctl start reflector.service
 sudo systemctl status reflector.service
 sudo reflector --country "United States" --latest 30 --number 5 \
   --sort rate --protocol https --save /etc/pacman.d/mirrorlist
-sudo nvim /etc/pacman.d/mirrorlist
+  sudo nvim /etc/pacman.d/mirrorlist
 
 #}}}
+
+# Protects from running out of memory{{{
+paci --needed --noconfirm earlyoom
+sudo systemctl enable --now earlyoom
+sudo systemctl status earlyoom
+#}}}
+
+# lightdm{{{
+paru -Syu --needed lightdm
+sudo systemctl enable lightdm
+
+# add your user to the autologin group
+sudo groupadd -r autologin
+sudo gpasswd -a reinaldo autologin
+
+# Create
+# Valid session names under /usr/share/xsessions/*.desktop
+sudo nvim /etc/lightdm/lightdm.conf
+
+# [Seat:*]
+# autologin-user=reinaldo
+# autologin-session=i3-with-shmlog
+#}}}
+
+# fix time:{{{
+paru -S ntp
+sudo timedatectl set-ntp true
+#}}}
+
+# Beautiful arch wallpapers
+paci --needed --noconfirm archlinux-wallpaper
 
 # Linux kernel{{{
 # Tue Dec 29 2020 09:44
@@ -420,12 +306,6 @@ sudo nvim /boot/loader/entries/arch.conf
 # linux /vmlinuz-linux-lts
 # initrd /initramfs-linux-lts.img
 # Just remove the -lts for regular linux
-#}}}
-
-# Protects from running out of memory{{{
-paci --needed --noconfirm earlyoom
-sudo systemctl enable --now earlyoom
-sudo systemctl status earlyoom
 #}}}
 
 # Video card{{{
@@ -499,6 +379,197 @@ paci --needed --noconfirm radeontop
 
 #}}}
 
+# nfs/samba {{{
+paci --needed --noconfirm nfs-utils
+mkdir -p $HOME/.mnt/skynfs
+mkdir -p $HOME/.mnt/skywafer/{home,music,shared,video}
+sudo bash -c 'printf "\n//192.168.1.139/NetBackup /home/reinaldo/.mnt/skywafer/NetBackup cifs workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev 0 0" >> /etc/fstab'
+sudo bash -c 'printf "\n//192.168.1.139/home /home/reinaldo/.mnt/skywafer/home cifs credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev 0 0" >> /etc/fstab'
+sudo bash -c 'printf "\n//192.168.1.139/music /home/reinaldo/.mnt/skywafer/music cifs credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev 0 0" >> /etc/fstab'
+
+# Try it with
+sudo mount -v -t nfs 192.168.1.139:/volume1/backup /home/reinaldo/.mnt/skynfs \
+  -o vers=3
+  sudo mount -t cifs //192.168.1.139/home ~/.mnt/skywafer/home -o credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev,vers=3.0
+  mv ~/.gnupg{,_orig}
+  cp -r /home/reinaldo/.mnt/skywafer/home/bkps/aero/latest/.{ssh,password-store,gnupg} /home/reinaldo
+  cp -r /home/reinaldo/.mnt/skywafer/home/bkps/aero/latest/doublecmd /home/reinaldo/.config
+  sudo chown -R reinaldo: ~/.{ssh,gnupg}
+  chmod 700 ~/.ssh
+  chmod 600 -R ~/.ssh/*
+  chmod 644 -f ~/.ssh/*.pub ~/.ssh/authorized_keys ~/.ssh/known_hosts
+  sudo chown -R reinaldo: ~/.local/share/password-store
+  chmod 700 -R ~/.local/share/password-store
+  chmod 700 -R ~/.gnupg
+
+  sudo mkdir -p /etc/samba/credentials
+  sudo nvim /etc/samba/credentials/share
+  # - format:
+  # - `username=X`
+  # - `password=Y`
+  # - Obscure the file:
+  sudo chown root:root /etc/samba/credentials/share
+  sudo chmod 700 /etc/samba/credentials/share
+  sudo chmod 600 /etc/samba/credentials/share
+
+# This is now for the caching of `pacman` packages on the network
+sudo nvim /etc/rsync
+# All the content in this file should just be the password: nas/synology/skywafer/rsync
+sudo chown root:root /etc/rsync
+sudo chmod 700 /etc/rsync
+sudo chmod 600 /etc/rsync
+
+paci --needed --noconfirm cifs-utils
+sudo mount -t cifs //192.168.1.139/home ~/.mnt/skywafer/home -o credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev
+mkdir -p ~/Documents
+# ln -s ~/.mnt/skywafer/home/Drive/wiki ~/Documents
+paci --needed --noconfirm synology-drive
+#}}}
+
+# VPN {{{
+
+paci --needed --noconfirm riseup-vpn
+
+# wireguard {{{
+# Get conf file from router linux_pcs
+# Put it at /etc/wireguard/home.conf
+paru -Syu --needed --noconfirm wireguard-tools systemd-resolvconf
+sudo systemctl status systemd-resolved.service
+# The value for this ip is given by the ip assigned to the peer
+# You can find it in the config file
+# Not needed anymore
+# sudo bash -c 'echo "nameserver 10.4.0.7" >> /etc/resolv.conf'
+# sudo reboot
+# Try it with:
+sudo wg-quick up home
+sudo wg-quick down home
+sudo systemctl start wg-quick@home.service
+sudo systemctl status wg-quick@home.service
+sudo systemctl stop wg-quick@home.service
+sudo chmod 700 /etc/wireguard/home.conf
+sudo chmod 600 /etc/wireguard/home.conf
+# }}}
+
+
+# xorg{{{
+# Multi Monitor setup, or for HiDPI displays it's best to auto calculate 
+# resolution
+# ccache to speed up compilations
+paru -Syu --needed ccache mold
+paru -Syu --needed xorg-xrandr arandr xlayoutdisplay
+paru -Syu --needed --noconfirm xorg xorg-apps xorg-xinit xorg-drivers xorg-server
+/usr/bin/xlayoutdisplay
+# ACTION: Copy output and paste it there
+nvim "$HOME/.config/xprofile-$(hostname)"
+# ACTION: Now is also a good time to add that hostname there
+nvim "$HOME/.config/i3/scripts/xrandr.sh"
+# `xorg autologin`
+# Network Manager{{{
+paci --needed --noconfirm networkmanager network-manager-applet networkmanager-openvpn networkmanager-dmenu-git 
+pacu networkmanager network-manager-applet networkmanager-openvpn networkmanager-dmenu-git 
+sudo systemctl enable --now NetworkManager.service
+sudo systemctl status NetworkManager.service
+#}}}
+
+#############################################################################
+########## At this point is a good idea to login and continue with ssh ######
+#############################################################################
+# Otherwise, you'll have to enter root password infinitely,
+# also systemctl stuff wont work
+# If you don't get a login prompt use Ctrl-Alt-FX to get one
+
+# LVM Snapshots {{{
+# https://gitlab.com/Marcool04/make-lvm-snapshot#default-target
+# https://wiki.archlinux.org/title/Create_root_filesystem_snapshots_with_LVM
+# https://wiki.archlinux.org/title/LVM#Snapshots
+paru -Syu make-lvm-snapshot
+# If this is a desktop change the target to graphical.target
+# Check what it is with: systemctl get-default
+sudo nvim /etc/systemd/system/make-lvm-snapshot.target
+# Add the target at the end of the ExecStart command, as the 3rd argument
+sudo nvim /etc/systemd/system/make-lvm-snapshot.service
+sudo systemctl set-default make-lvm-snapshot.target
+sudo reboot
+# }}}
+
+# Install old packages: {{{
+# NOTE: ONLY do this on computers already setup, DONOT copy packages from another PC
+# NOTE: Go to `sudo vim /etc/pacman.conf` and uncomment `multilib`
+# Also add the ParallelDownloads = 5 option
+# Also uncomment Color option
+# Also add ILoveCandy option
+# Also add:
+# CacheDir    = /home/reinaldo/.mnt/skywafer/NetBackup/pacman_cache/x86_64
+# CacheDir    = /var/cache/pacman/pkg/
+sudo nvim /etc/pacman.conf
+# NOTE: This will take a long time
+sudo pacman-key --refresh-keys
+sudo pacman -Syu archlinux-keyring && sudo pacman -Syu
+sudo pacman -S --needed - < ~/.config/dotfiles/pkg/aero/pacman-list.pkg
+paru -S --needed - < ~/.config/dotfiles/pkg/aero/aur-list.pkg
+# }}}
+
+# TODO
+# optional dependency
+# wallutils: support the simple timed wallpaper format
+
+# `arch-audit`
+paci --needed --noconfirm arch-audit
+# - Enable the `pacman` hook to auto check for vulnerabilities
+# - Not needed anymore:
+# - `sudo cp /usr/share/arch-audit/arch-audit.hook /etc/pacman.d/hooks`
+
+# pacman helpers{{{
+# Thu Apr 08 2021 14:43: NOTE: Don't do this anymore
+paci --needed --noconfirm informant 
+paci --needed --noconfirm ancient-packages
+informant 
+# NOTE: Add yourself to group "informant" to avoid the need for sudo
+sudo gpasswd -a reinaldo informant
+# List recent news
+sudo informant list
+# Mark them as read
+sudo informant read --all
+#}}}
+
+# `ssh`
+paci --needed --noconfirm openssh mosh
+# - Actually use `mosh` is much faster
+# - If you want this setup to be `ssh` accessible:
+# - `systemctl enable sshd.socket`
+# - `systemctl enable sshd`
+# - Add to `.ssh/config`
+# - `AddKeysToAgent yes`
+
+# install polkit {{{
+paci --needed --noconfirm lxqt-policykit
+# }}}
+
+# zsh{{{
+paci --needed --noconfirm zsh
+# Legacy
+# Install plugins
+paci --needed --noconfirm pkgfile z-git \
+  zsh-theme-powerlevel10k zsh-autosuggestions \
+  zsh-history-substring-search zsh-syntax-highlighting \
+  zsh-completions zsh-vi-mode
+  chsh -s /usr/bin/zsh
+  export ZDOTDIR=$HOME/.config/zsh
+  zsh
+
+# Deprecated step
+# pkgfile needs to be updated
+sudo systemctl enable pkgfile-update.timer
+# By default it runs daily
+# Update /usr/lib/systemd/system/pkgfile-update.timer to run weekly
+# Also update it to wait for network by adding to [Unit]
+# Wants=network-online.target
+# After=network-online.target nss-lookup.target
+sudo nvim /usr/lib/systemd/system/pkgfile-update.timer
+sudo systemctl start pkgfile-update.service
+# symlink all the `zsh*` files
+#}}}
+
 # terminal utils{{{
 paci --needed --noconfirm acpi lm_sensors liquidprompt tldr
 paci --needed {ttf,otf}-fira-{code,mono} {ttf,otf}-font-awesome-5 {ttf,otf}-cascadia-code
@@ -542,77 +613,6 @@ nvim "$HOME/.config/kitty/$(hostname).conf"
 # See `random.md resilio` section
 # samba
 # See `random.md samba-manual` section
-
-# nfs/samba {{{
-paci --needed --noconfirm nfs-utils
-mkdir -p $HOME/.mnt/skynfs
-mkdir -p $HOME/.mnt/skywafer/{home,music,shared,video}
-sudo bash -c 'printf "\n//192.168.1.139/NetBackup /home/reinaldo/.mnt/skywafer/NetBackup cifs workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev 0 0" >> /etc/fstab'
-sudo bash -c 'printf "\n//192.168.1.139/home /home/reinaldo/.mnt/skywafer/home cifs credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev 0 0" >> /etc/fstab'
-sudo bash -c 'printf "\n//192.168.1.139/music /home/reinaldo/.mnt/skywafer/music cifs credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev 0 0" >> /etc/fstab'
-
-# Try it with
-sudo mount -v -t nfs 192.168.1.139:/volume1/backup /home/reinaldo/.mnt/skynfs \
-  -o vers=3
-sudo mount -t cifs //192.168.1.139/home ~/.mnt/skywafer/home -o credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev,vers=3.0
-mv ~/.gnupg{,_orig}
-cp -r /home/reinaldo/.mnt/skywafer/home/bkps/aero/latest/.{ssh,password-store,gnupg} /home/reinaldo
-cp -r /home/reinaldo/.mnt/skywafer/home/bkps/aero/latest/doublecmd /home/reinaldo/.config
-sudo chown -R reinaldo: ~/.{ssh,gnupg}
-chmod 700 ~/.ssh
-chmod 600 -R ~/.ssh/*
-chmod 644 -f ~/.ssh/*.pub ~/.ssh/authorized_keys ~/.ssh/known_hosts
-sudo chown -R reinaldo: ~/.local/share/password-store
-chmod 700 -R ~/.local/share/password-store
-chmod 700 -R ~/.gnupg
-
-sudo mkdir -p /etc/samba/credentials
-sudo nvim /etc/samba/credentials/share
-# - format:
-# - `username=X`
-# - `password=Y`
-# - Obscure the file:
-sudo chown root:root /etc/samba/credentials/share
-sudo chmod 700 /etc/samba/credentials/share
-sudo chmod 600 /etc/samba/credentials/share
-
-# This is now for the caching of `pacman` packages on the network
-sudo nvim /etc/rsync
-# All the content in this file should just be the password: nas/synology/skywafer/rsync
-sudo chown root:root /etc/rsync
-sudo chmod 700 /etc/rsync
-sudo chmod 600 /etc/rsync
-
-paci --needed --noconfirm cifs-utils
-sudo mount -t cifs //192.168.1.139/home ~/.mnt/skywafer/home -o credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev
-mkdir -p ~/Documents
-# ln -s ~/.mnt/skywafer/home/Drive/wiki ~/Documents
-paci --needed --noconfirm synology-drive
-#}}}
-
-# VPN {{{
-
-paci --needed --noconfirm riseup-vpn
-
-# wireguard {{{
-# Get conf file from router linux_pcs
-# Put it at /etc/wireguard/home.conf
-paru -Syu --needed --noconfirm wireguard-tools systemd-resolvconf
-sudo systemctl status systemd-resolved.service
-# The value for this ip is given by the ip assigned to the peer
-# You can find it in the config file
-# Not needed anymore
-# sudo bash -c 'echo "nameserver 10.4.0.7" >> /etc/resolv.conf'
-# sudo reboot
-# Try it with:
-sudo wg-quick up home
-sudo wg-quick down home
-sudo systemctl start wg-quick@home.service
-sudo systemctl status wg-quick@home.service
-sudo systemctl stop wg-quick@home.service
-sudo chmod 700 /etc/wireguard/home.conf
-sudo chmod 600 /etc/wireguard/home.conf
-# }}}
 
 # openvpn {{{
 paci --needed --noconfirm openvpn
@@ -753,6 +753,12 @@ sudo gpasswd -a reinaldo vboxusers
 # paru -Syu virtualbox-ext-oracle
 # }}}
 
+# quickemu virtual machines {{{
+paru -Syu quickemu qemu-full
+quickget nixos 23.11 minimal
+quickemu --vm nixos-23.11-minimal.conf --display none
+# }}}
+
 # dotnet {{{
 paci --needed --noconfirm dotnet-runtime dotnet-sdk
 # Installing other versions, first try the aur, if not there do the below
@@ -864,7 +870,8 @@ paci --needed --noconfirm xorg-xinput xf86-input-libinput brillo
 
 ## power{{{
 # keyword: battery, powertop, power
-paci --needed --noconfirm powertop powerstat cpupower
+paci --needed --noconfirm powerstat cpupower
+paci --needed --noconfirm laptop-mode-tools
 # Set cpu governor based on laptop charging or not. Please run `cpupower 
 # frequency-info` to display the governors your cpu supports
 # Read here about cpu governors. Choosing schedutil for battery and performance 
@@ -882,7 +889,6 @@ sudo powertop --calibrate
 # See also `laptop-mode`
 paci --needed --noconfirm acpid
 sudo systemctl enable --now acpid
-paci --needed --noconfirm laptop-mode-tools
 sudo systemctl enable --now laptop-mode
 paci --needed --noconfirm hdparm sdparm ethtool wireless_tools hal python-pyqt5
 #}}}
