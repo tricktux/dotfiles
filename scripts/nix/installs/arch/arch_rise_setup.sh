@@ -146,7 +146,7 @@ mv ~/.bashrc{,_bak}
 # mv ~/.config/paru{,_}
 # Install your configs
 cd ~/.config/dotfiles
-stow -t /home/reinaldo -S defaults 
+make
 # Check that all went well
 ls -als ~/ 
 ls -als ~/.config
@@ -167,8 +167,18 @@ sudo gpasswd -a reinaldo nix-users
 sudo nix-channel --add https://nixos.org/channels/nixpkgs-unstable
 sudo nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
 sudo nix-channel --update
+# Restart session or re-login if you get permission denied
 sudo nix-shell '<home-manager>' -A install
 export NIX_CONFIG="experimental-features = nix-command flakes"  # if you haven't set flakes yet
+cd ~/.config/dotfiles/nix
+make
+chsh -s /usr/bin/zsh
+export ZDOTDIR=$HOME/.config/zsh
+zsh
+~/.config/dotfiles/scripts/nix/arch.sh -p
+paru -Syu --needed --noconfirm xfce4-settings
+# }}}
+
 
 # pipewire
 paci --needed --noconfirm pipewire
@@ -592,7 +602,7 @@ sudo systemctl status systemd-resolved.service
 # The value for this ip is given by the ip assigned to the peer
 # You can find it in the config file
 # Not needed anymore
-sudo bash -c 'echo "nameserver 10.4.0.8" >> /etc/resolv.conf'
+# sudo bash -c 'echo "nameserver 10.4.0.7" >> /etc/resolv.conf'
 # sudo reboot
 # Try it with:
 sudo wg-quick up home
