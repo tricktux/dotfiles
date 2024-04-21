@@ -1,3 +1,4 @@
+acpid
 amd-ucode
 base
 base-devel
@@ -7,7 +8,15 @@ bluez-utils
 btrfs-progs
 ccache
 cifs-utils
+cpupower
+cups
+cups-pdf
+distrobox
 dmenu
+docker
+docker-buildx
+docker-compose
+doublecmd-qt5
 dunst
 earlyoom
 efibootmgr
@@ -17,6 +26,7 @@ firefox
 fwupd
 git
 gst-plugin-pipewire
+hplip
 htop
 hunspell-en_us
 i3-wm
@@ -53,6 +63,7 @@ network-manager-applet
 networkmanager
 nextcloud-client
 nix
+nvidia-container-toolkit
 pamixer
 pipewire
 pipewire-alsa
@@ -60,18 +71,22 @@ pipewire-jack
 pipewire-pulse
 radeontop
 ranger
+reflector
 rofi
 rofi-pass
+simple-scan
 smartmontools
 sof-firmware
 speech-dispatcher
 stow
+systemd-resolvconf
 vim
 vulkan-intel
 vulkan-mesa-layers
 vulkan-radeon
 wavpack
 wget
+wireguard-tools
 wireless_tools
 wireplumber
 xdg-utils
@@ -81,6 +96,7 @@ xf86-video-nouveau
 xf86-video-vmware
 xfce4-settings
 xorg-xinit
+xorg-xinput
 xterm
 zram-generator
 zsh
