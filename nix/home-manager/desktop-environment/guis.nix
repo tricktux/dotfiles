@@ -35,7 +35,7 @@ in
     networkmanagerapplet
     remmina
     evolution
-    doublecmd
+    # doublecmd
     peazip
     libreoffice-fresh
     hunspell
@@ -43,6 +43,7 @@ in
     pinta
     obsidian
     baobab
+    zathura
   ];
 
 
