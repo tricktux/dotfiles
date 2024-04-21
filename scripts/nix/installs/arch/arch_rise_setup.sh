@@ -146,7 +146,7 @@ mv ~/.bashrc{,_bak}
 # mv ~/.config/paru{,_}
 # Install your configs
 cd ~/.config/dotfiles
-stow -t /home/reinaldo -S defaults 
+make
 # Check that all went well
 ls -als ~/ 
 ls -als ~/.config
@@ -158,14 +158,28 @@ sudo ln -s /home/reinaldo/.config/nvim /root/.config
 #}}}
 
 # nix {{{
-paru -Syu --needed nix
+paru -Syu --needed nix rofi rofi-pass kitty ranger dunst brillo
+## Brightness
+paci --needed --noconfirm brillo
+# Add your user to the video group not to have to use sudo
+sudo gpasswd -a reinaldo video
+# see `man brillo`
+
 sudo systemctl enable --now nix-daemon
 sudo gpasswd -a reinaldo nix-users
-sudo nix-channel --add https://nixos.org/channels/nixpkgs-unstable
-sudo nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-sudo nix-channel --update
-sudo nix-shell '<home-manager>' -A install
-export NIX_CONFIG="experimental-features = nix-command flakes"  # if you haven't set flakes yet
+nix-channel --add https://nixos.org/channels/nixpkgs-unstable
+nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+# Restart session or re-login if you get permission denied
+nix-channel --update
+nix-shell '<home-manager>' -A install
+# export NIX_CONFIG="experimental-features = nix-command flakes"  # if you haven't set flakes yet
+cd ~/.config/dotfiles/nix
+make
+chsh -s /usr/bin/zsh
+export ZDOTDIR=$HOME/.config/zsh
+zsh
+~/.config/dotfiles/scripts/nix/arch.sh -p
+paru -Syu --needed --noconfirm xfce4-settings
 # }}}
 
 # xorg{{{
