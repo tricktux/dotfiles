@@ -27,7 +27,7 @@
     zip
     xclip
     htop-vim
-    ranger
+    # ranger
     eza
     wget
     z-lua
