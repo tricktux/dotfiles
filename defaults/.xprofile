@@ -195,8 +195,6 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export DOTNET_CLI_HOME="$XDG_DATA_HOME"/dotnet
 mkdir -p "$XDG_DATA_HOME"/dotnet
 
-[[ -f $HOME/.local/etc/stuff ]] && source $HOME/.local/etc/stuff
-
 # Cleaning up on home through xdg-ninja
 export HISTFILE="${XDG_STATE_HOME}"/bash/history
 mkdir -p "${XDG_STATE_HOME}"/bash
