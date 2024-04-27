@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Polybar is restarted by wal
 
 if [[ -S /tmp/nvim.socket ]]; then
