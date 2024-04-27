@@ -28,13 +28,14 @@ in
     xorg.xrandr
     xorg.libXrandr
     xlayoutdisplay
+    adapta-gtk-theme
     meld
     zeal
     dconf
     teams-for-linux
     networkmanagerapplet
     remmina
-    evolution
+    # evolution
     # doublecmd
     peazip
     libreoffice-fresh
