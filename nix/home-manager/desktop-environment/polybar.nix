@@ -24,19 +24,8 @@
     luajit
     xdotool
     galendae
+    # polybarFull
   ];
 
   programs.pywal.enable = true;
-  services.polybar = {
-    enable = true;
-    package = pkgs.polybar.override {
-      i3Support = true;
-      alsaSupport = true;
-      mpdSupport = true;
-      githubSupport = true;
-    };
-    script = ''
-      "$HOME"/.config/polybar/scripts/launch.sh
-    '';
-  };
 }
