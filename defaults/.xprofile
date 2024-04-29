@@ -10,8 +10,9 @@
 # Uses:					You can start applications from here
 # Note:		Sourced by lightdm
 
-# export GDK_SCALE=1.5
-# export QT_AUTO_SCREEN_SCALE_FACTOR=1
+move() {
+  [[ -d $1 ]] && rsync -a $1 $2 && rm -rf $1
+}
 
 export HOSTNAME=$(hostname)
 
@@ -134,6 +135,7 @@ export EDITOR=$VISUAL
 
 # Don't put stuff in home dir go
 export GOPATH="$XDG_DATA_HOME/go"
+move ~/go/ "$XDG_DATA_HOME"/go/
 
 # Don't put stuff in home dir rust
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
@@ -179,6 +181,7 @@ export BAT_THEME="base16"
 # QT5 dark mode
 if [[ ! -d /etc/nixos/ ]]; then
   export QT_QPA_PLATFORMTHEME=gtk3
+  export QT_STYLE_OVERRIDE=
 fi
 
 # Less hist file
@@ -193,19 +196,20 @@ export DOTNET_ROOT="$XDG_DATA_HOME"/dotnet
 export PATH="$PATH":"$DOTNET_ROOT"/tools
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export DOTNET_CLI_HOME="$XDG_DATA_HOME"/dotnet
-mkdir -p "$XDG_DATA_HOME"/dotnet
+move ~/.dotnet/ "$XDG_DATA_HOME"/dotnet/
 
 # Cleaning up on home through xdg-ninja
 export HISTFILE="${XDG_STATE_HOME}"/bash/history
 mkdir -p "${XDG_STATE_HOME}"/bash
 export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
-mkdir -p "$XDG_CONFIG_HOME"/docker
+move ~/.docker/ "$XDG_CONFIG_HOME"/docker/
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
-mkdir -p "$XDG_CACHE_HOME"/nv
+move ~/.nv "$XDG_CACHE_HOME"/nv/
 export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 mkdir -p "$XDG_CONFIG_HOME"/gtk-2.0
 # TODO: nix?
 export XCURSOR_PATH=/usr/share/icons:$XDG_DATA_HOME/icons
+move ~/.icons/ ${XDG_DATA_HOME}/icons/
 export IPYTHONDIR="$XDG_CONFIG_HOME/ipython"
 mkdir -p "$XDG_CONFIG_HOME/ipython"
 export MYPY_CACHE_DIR="$XDG_CACHE_HOME"/mypy
@@ -213,23 +217,31 @@ mkdir -p "$XDG_CACHE_HOME"/mypy
 export NUGET_PACKAGES="$XDG_CACHE_HOME"/NuGetPackages
 mkdir -p "$XDG_CACHE_HOME"/NuGetPackages
 export OMNISHARPHOME="$XDG_CONFIG_HOME"/omnisharp
-mkdir -p "$XDG_CONFIG_HOME"/omnisharp
+move ~/.omnisharp/ "$XDG_CONFIG_HOME"/omnisharp/
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME"/password-store
-mkdir -p "$XDG_DATA_HOME"/password-store
+move ~/.password-store/ "$XDG_DATA_HOME"/password-store/
 export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
 mkdir -p "$XDG_CONFIG_HOME"/readline
 export VAGRANT_HOME="$XDG_DATA_HOME"/vagrant
 mkdir -p "$XDG_DATA_HOME"/vagrant
 export W3M_DIR="$XDG_DATA_HOME"/w3m
-mkdir -p "$XDG_DATA_HOME"/w3m
+move ~/.w3m/ "$XDG_DATA_HOME"/w3m/
 export XSERVERRC="$XDG_CONFIG_HOME"/X11/xserverrc
 export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
 mkdir -p "$XDG_CONFIG_HOME"/X11
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
-mkdir -p "$XDG_CONFIG_HOME"/npm
+move ~/.npm "$XDG_CONFIG_HOME"/npm
 export TERMINFO="$XDG_DATA_HOME"/terminfo
 export TERMINFO_DIRS="$XDG_DATA_HOME"/terminfo:/usr/share/terminfo
 mkdir -p "$XDG_CONFIG_HOME"/terminfo
+export TEXMFVAR="$XDG_CACHE_HOME"/texlive/texmf-var
+move ~/.texlive/ "$XDG_CACHE_HOME"/texlive/
+
+move ~/.pki "$XDG_DATA_HOME"/pki/
+
+
+# Nix local fix for arch
+export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
 
 $HOME/.config/i3/scripts/xset.sh
 
