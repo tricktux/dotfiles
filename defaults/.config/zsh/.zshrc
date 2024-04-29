@@ -274,7 +274,7 @@ if [[ -f $ZSH_PLUGIN_PATH/zsh-powerlevel10k/powerlevel10k.zsh-theme ]]; then
 elif [[ -f /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme ]]; then
   source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 fi
-[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
+[[ -f ~/.config/zsh/.p10k.zsh ]] && source ~/.config/zsh/.p10k.zsh
 
 typeset -g POWERLEVEL9K_DIR_CLASSES=()
 typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_FOREGROUND=242
