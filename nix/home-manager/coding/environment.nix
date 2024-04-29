@@ -27,12 +27,18 @@
     zip
     xclip
     htop-vim
-    # ranger
+    ranger
     eza
     wget
     z-lua
+    rsync
 
     nodejs
+
+    # Compression
+    atool
+    _7zz
+    unrar
   ];
 
   programs = {
