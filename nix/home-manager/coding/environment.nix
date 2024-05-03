@@ -35,6 +35,8 @@
 
     nodejs
 
+    delta # lazygit
+
     # Compression
     atool
     _7zz
@@ -50,6 +52,11 @@
         gui = {
           theme.activeBorderColor = [ "yellow" "bold" ];
           commandLogSize = 20;
+        };
+
+        git.paging = {
+          colorArg = "always";
+          pager = "delta --dark --paging=never";
         };
       };
     };
