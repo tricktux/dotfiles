@@ -98,7 +98,7 @@ export RXVT_SOCKET="/tmp/rxvt_socket"
 # Exports
 # Man settings
 # export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:/usr/man
-# export MANPAGER="nvim -c 'set ft=man' -"
+export MANPAGER='nvim +Man!'
 
 # Adb, fastboot
 # Fixes vim-javacomplete2 issues
