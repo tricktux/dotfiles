@@ -7,10 +7,13 @@ end
 
 vim.b.did_markdown_ftplugin = 1
 
+local M = { opersistance = "" }
+
+local output = function(filetype) return vim.fn.tempname() .. vim.fn.expand("%:t:r") .. filetype end
+
 local u = require("utils.utils")
 local preview = function()
-  local o = vim.fn.expand("%:p:r") .. ".html"
-  u.browser.open_file_async(o)
+  u.browser.open_file_async(M.opersistance)
 end
 
 local _filetype = { "html", "docx", "pdf" }
@@ -27,10 +30,14 @@ local _arguments = {
 local render = function(filetype)
   vim.validate({ filetype = { filetype, _validate_filetypes, "one of: " .. vim.inspect(_filetype) } })
   local f = vim.fn.expand("%:p")
-  local o = { "-o", vim.fn.expand("%:p:r") .. "." .. filetype }
+  if not u.isfile(M.opersistance) then
+    M.opersistance = output("." .. filetype)
+  end
+  local o = { "-o", M.opersistance }
   local cmd = { "pandoc", f }
   vim.list_extend(cmd, _arguments[filetype])
   vim.list_extend(cmd, o)
+  vim.print(vim.inspect(cmd))
   vim.system(cmd, { detach = true })
 end
 
