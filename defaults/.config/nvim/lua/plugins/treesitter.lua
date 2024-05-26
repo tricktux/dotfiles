@@ -81,7 +81,6 @@ M.__config = {
 		"cmake",
 		"dockerfile",
 		"json5",
-		"latex",
 		"r",
 		"yaml",
 		"vim",
