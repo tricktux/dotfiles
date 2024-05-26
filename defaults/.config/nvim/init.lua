@@ -84,8 +84,6 @@ local function _config_unix()
   local py = fs.normalize("$XDG_DATA_HOME/pyvenv/nvim/bin/python")
   if vim.loop.fs_stat(py) ~= nil then
     vim.g.python3_host_prog = py
-  else
-    vim.api.nvim_err_writeln("ERROR: Failed to find python venv: " .. py)
   end
 end
 
