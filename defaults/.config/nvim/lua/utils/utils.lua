@@ -154,7 +154,7 @@ end
 
 M.fd = {}
 M.fd.switches = {}
-M.fd.bin = "fd"
+M.fd.bin = vim.fn.executable("fd") > 0 and "fd" or "fdfind"
 M.fd.switches.common = vim.tbl_flatten({
   "--color=never",
   "--hidden",
