@@ -420,11 +420,11 @@ return {
 		"hrsh7th/cmp-nvim-lsp",
 		event = "LspAttach",
 	},
-	{
+	vim.g.advanced_plugins > 0 and {
 		"smjonas/inc-rename.nvim",
 		event = "LspAttach",
 		opts = {},
-	},
+	} or {},
 	{
 		"j-hui/fidget.nvim",
 		event = "LspAttach",
@@ -440,7 +440,7 @@ return {
 	{
 		"folke/trouble.nvim",
 		event = { "LspAttach" },
-		dependencies = { "nvim-tree/nvim-web-devicons" },
+		dependencies = vim.g.advanced_plugins > 0 and { "nvim-tree/nvim-web-devicons" } or {},
 		opts = {
 			cycle_results = false, -- cycle item list when reaching beginning or end of list
 		},

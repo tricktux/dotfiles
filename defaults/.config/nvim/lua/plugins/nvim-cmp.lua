@@ -109,6 +109,11 @@ function M:setup()
   })
 end
 
+local node = vim.fn.executable('node') > 0
+local firenvim = vim.g.started_by_firenvim ~= nil and vim.g.started_by_firenvim > 0
+local advanced = vim.g.advanced_plugins > 0
+local copilot_enable = node and not firenvim and advanced
+
 return {
   {
     "hrsh7th/nvim-cmp",
@@ -142,22 +147,22 @@ return {
       "saadparwaiz1/cmp_luasnip",
       event = "InsertEnter",
   },
-  {
+  copilot_enable and {
       "zbirenbaum/copilot.lua",
       event = "InsertEnter",
-      cond = vim.fn.executable('node') > 0 and not vim.g.started_by_firenvim,
+      cond = copilot_enable,
       opts = {
         suggestion = { enabled = false },
         panel = { enabled = false },
       },
-  },
-  {
+  } or {},
+  copilot_enable and {
       "zbirenbaum/copilot-cmp",
       event = "InsertEnter",
-      cond = vim.fn.executable('node') > 0 and not vim.g.started_by_firenvim,
+      cond = copilot_enable,
       dependencies = { "zbirenbaum/copilot.lua" },
       config = function()
         require("copilot_cmp").setup()
       end,
-  },
+  } or {},
 }

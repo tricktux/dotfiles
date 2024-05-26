@@ -1,6 +1,8 @@
 local fs = require("utils.utils").fs
 local w = require("plugin.wiki")
 
+if vim.g.advanced_plugins == 0 then return {} end
+
 local M = {}
 
 M.opts = {

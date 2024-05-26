@@ -2,7 +2,32 @@ if vim.fn.has("win32") > 0 then
   return {}
 end
 
-return {
+local M = {
+  {
+  "kelly-lin/ranger.nvim",
+  keys = {
+    {
+      "<plug>file_ranger_nvim",
+      function()
+        require("ranger-nvim").open(true)
+      end,
+      desc = "file_ranger_nvim",
+    },
+  },
+  opts = {
+    replace_netrw = true,
+    ui = {
+      border = "single",
+      height = 0.8,
+      width = 0.8,
+      x = 0.5,
+      y = 0.5,
+    }
+  },
+  }
+}
+
+local advanced = {
   { "jamessan/vim-gnupg", event = "VeryLazy"},
   { "mboughaba/i3config.vim", ft = "i3config" },
   { "lambdalisue/suda.vim", cmd = { "SudaWrite", "SudaRead" } },
@@ -66,3 +91,10 @@ return {
     }
   }
 }
+
+if vim.g.advanced_plugins > 0 then
+  for _, item in ipairs(advanced) do
+    table.insert(M, item)
+  end
+end
+return M
