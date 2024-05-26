@@ -180,7 +180,7 @@ function M.on_lsp_attach(client_id, bufnr)
 			if not do_buffer_clients_support_method(au.buf, "textDocument/inlayHint") then
 				return
 			end
-			vim.lsp.inlay_hint.enable(au.buf, true)
+			vim.lsp.inlay_hint.enable(true, {bufnr = au.buf})
 		end,
 		buffer = bufnr,
 		desc = "Highlight inlay hints",
