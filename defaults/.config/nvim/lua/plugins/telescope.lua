@@ -520,7 +520,7 @@ function M:setup()
         show_scores = true,
         show_unindexed = true,
         ignore_patterns = { "*.git/*", "*/tmp/*" },
-        disable_devicons = true,
+        disable_devicons = vim.g.advanced_plugins > 0 and false or true,
         workspaces = {
           ["conf"] = "$USER/.config",
           -- ["data"] = "$USER/.local/share",
@@ -556,25 +556,6 @@ return {
     dependencies = {
       { "nvim-lua/telescope.nvim" }
     },
-  },
-  {
-    "ThePrimeagen/git-worktree.nvim",
-    keys = {
-      {
-        "<leader>vws",
-        function()
-          require("telescope").extensions.git_worktree.git_worktrees()
-        end,
-        desc = "git-worktree-switch",
-      },
-    },
-    dependencies = {
-      "nvim-lua/telescope.nvim",
-    },
-    config = function()
-      require("git-worktree").setup()
-      require("telescope").load_extension("git_worktree")
-    end,
   },
   {
     "johmsalas/text-case.nvim",
