@@ -1,4 +1,4 @@
-.PHONY: home nixos clean upgrade help maintenance doublecmd
+.PHONY: home nixos clean upgrade help maintenance doublecmd nix-remove
 
 USERNAME := $(shell whoami)
 HOSTNAME := $(shell hostname)
@@ -29,7 +29,7 @@ upgrade-nixos:
 	$(MAKE) home
 
 home:
-	home-manager switch --flake ".#$(USERNAME)@$(HOSTNAME)" -b "$(bkp)" --option eval-cache false
+	home-manager switch --flake ".#$(USERNAME)@$(HOSTNAME)" -b "$(bkp)" --option eval-cache false --show-trace
 
 nixos:
 	sudo nixos-rebuild switch --flake .#$(HOSTNAME)
@@ -44,3 +44,7 @@ deep-clean:
 
 boot-errors:
 	journalctl --user -b
+
+nix-remove:
+	sudo rm -rf /nix/
+	rm -rf ~/.nix-channels ~/.nix-defexpr ~/.nix-profile
