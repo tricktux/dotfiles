@@ -20,8 +20,6 @@ local function set_globals()
 
   vim.g.copilot_active = false
 
-  -- https://github.com/neovim/neovim/issues/14090#issuecomment-1237820552
-  vim.g.ts_highlight_lua = true
   -- Disable unnecessary providers
   -- Saves on average 3ms (on linux) :D
   vim.g.loaded_python_provider = 0
@@ -30,6 +28,8 @@ local function set_globals()
   vim.g.loaded_node_provider = 0
 
   if vim.fn.has("nvim-0.8") == 0 then
+    -- https://github.com/neovim/neovim/issues/14090#issuecomment-1237820552
+    vim.g.ts_highlight_lua = true
     -- Disable filetypes.vim and enable filetypes.lua
     vim.g.did_load_filetypes = 0
     vim.g.do_filetype_lua = 1
