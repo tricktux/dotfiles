@@ -1,3 +1,6 @@
+
+if vim.fn.has("nvim-0.10") <= 0 then return M end
+
 vim.keymap.set("n", "<leader>tr", function()
 	vim.ui.input("Enter Tab name: ", function(text)
 		if text == "" or text == nil then

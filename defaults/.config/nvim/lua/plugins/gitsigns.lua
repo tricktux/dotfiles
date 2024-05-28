@@ -5,6 +5,8 @@ local log = require("utils.log")
 
 local M = {}
 
+if vim.fn.has("nvim-0.10") <= 0 then return M end
+
 local function format_status(status)
   local added, changed, removed = status.added, status.changed, status.removed
   local status_txt = {}
