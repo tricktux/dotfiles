@@ -313,5 +313,5 @@ return {
   config = function()
     M:config()
   end,
-  build = "make install_jsregexp",
+  build = vim.g.advanced_plugins > 0 and "make install_jsregexp" or "",
 }

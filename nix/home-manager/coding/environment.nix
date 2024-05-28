@@ -8,19 +8,19 @@
   # Programs for you personal development environment
   home.packages = with pkgs; [
     # neovim related
-    neovim
+    # neovim it's at 0.9.5 using arch
     fswatch
-    bat
     fd
-    fzf
     ripgrep
-    ripgrep-all
     tree-sitter
 
     # cli related
     # https://haseebmajid.dev/posts/2023-08-12-how-sync-your-shell-history-with-atuin-in-nix/
+    bat
+    fzf
     direnv
     atuin
+    ripgrep-all
     stow
     tldr
     unzip
@@ -44,8 +44,6 @@
   ];
 
   programs = {
-    # Enable home-manager
-    home-manager.enable = true;
     lazygit = {
       enable = true;
       settings = {
@@ -56,7 +54,7 @@
 
         git.paging = {
           colorArg = "always";
-          pager = "delta --dark --paging=never";
+          pager = "delta --paging=never";
         };
       };
     };

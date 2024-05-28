@@ -164,9 +164,9 @@ paru -Syu --needed ranger
 paru -Syu --needed nix
 sudo systemctl enable --now nix-daemon
 sudo gpasswd -a reinaldo nix-users
-sudo nix-channel --add https://nixos.org/channels/nixpkgs-unstable
-sudo nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-sudo nix-channel --update
+nix-channel --add https://nixos.org/channels/nixpkgs-unstable
+nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+nix-channel --update
 # Restart session or re-login if you get permission denied
 sudo nix-shell '<home-manager>' -A install
 export NIX_CONFIG="experimental-features = nix-command flakes"  # if you haven't set flakes yet

@@ -2,6 +2,8 @@ local M = {}
 local utl = require("utils.utils")
 local fs = require("utils.filesystem")
 
+if vim.g.advanced_plugins == 0 then return {} end
+
 M.holograms = {}
 
 M.search_for_first_visible_source = function()

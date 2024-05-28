@@ -24,6 +24,7 @@ local function get_lsp_client_name()
 end
 
 local function plugin_updates()
+	if vim.g.advanced_plugins == 0 then return false end
 	local u = require("lazy.status").updates()
 	if not u or u == nil or u == "" then
 		return false
@@ -37,14 +38,11 @@ return {
 	event = "VeryLazy",
 	cond = not vim.g.started_by_firenvim,
 	dependencies = {
-		{
-			"nvim-tree/nvim-web-devicons",
-			event = "VeryLazy",
-		},
-		{
+		vim.g.advanced_plugins > 0 and { "nvim-tree/nvim-web-devicons" } or {},
+		vim.g.advanced_plugins > 0 and {
 			"AndreM222/copilot-lualine",
 			event = "VeryLazy",
-		},
+		} or {},
 	},
 	opts = function(plugin)
 		local icons = require("utils.utils").icons

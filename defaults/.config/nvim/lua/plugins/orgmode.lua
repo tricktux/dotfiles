@@ -1,5 +1,7 @@
 local w = require("plugin.wiki")
 
+if vim.g.advanced_plugins == 0 then return {} end
+
 local function setup()
 	local id = vim.api.nvim_create_augroup("Orgmode", { clear = true })
 	vim.api.nvim_create_autocmd("FileType", {

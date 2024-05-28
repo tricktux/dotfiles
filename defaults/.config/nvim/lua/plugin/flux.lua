@@ -22,6 +22,7 @@ M._config = {
 function M:setup(config)
   vim.validate({ config = { config, "t", true } })
   self._config = vim.tbl_deep_extend("force", self._config, config)
+  self:set('day')  -- default
 end
 
 local _periods = {"day", "night", "sunset", "sunrise"}
@@ -39,8 +40,6 @@ end
 function M:check()
   local period = utl.read_file(self._file_location)
   if period == nil or period == '' then
-    api.nvim_err_writeln("Failed to get daytime period from: " ..
-      self._file_location)
     return
   end
 

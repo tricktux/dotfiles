@@ -157,7 +157,9 @@ function M:setup()
     vim.fn.mkdir(self.path.default, "p")
     p = self.path.default
   end
-  if p then self.path.personal = p end
+
+  vim.g.advanced_plugins = string.find(p, "[Nn]extcloud") ~= nil and 1 or 0
+  self.path.personal = p
 end
 
 return M
