@@ -121,7 +121,7 @@ local function setup_flux()
 	})
 end
 
-return {
+local p = {
 	{
 		"catppuccin/nvim",
 		init = function()
@@ -217,32 +217,6 @@ return {
 			vim.keymap.set({ "x", "o" }, "F", "F")
 			vim.keymap.set({ "x", "o" }, "t", "t")
 			vim.keymap.set({ "x", "o" }, "T", "T")
-		end,
-	},
-	{
-		"b3nj5m1n/kommentary",
-		keys = {
-			{ "<plug>comment_line", "<plug>kommentary_line_default", desc = "kommentary_line_default" },
-			{
-				"<bs>",
-				"<Plug>kommentary_visual_default<C-c>",
-				mode = { "x", "v" },
-				desc = "kommentary_line_visual",
-			},
-		},
-		init = function()
-			vim.g.kommentary_create_default_mappings = false
-		end,
-		config = function()
-			local config = require("kommentary.config")
-			config.configure_language("wings_syntax", {
-				single_line_comment_string = "//",
-				prefer_single_line_comments = true,
-			})
-			config.configure_language("dosini", {
-				single_line_comment_string = ";",
-				prefer_single_line_comments = true,
-			})
 		end,
 	},
 	{
@@ -544,3 +518,36 @@ return {
     opts = {},
   },
 }
+
+if vim.fn.has("nvim-0.10") <= 0 then
+  table.insert(p,
+	{
+		"b3nj5m1n/kommentary",
+		keys = {
+			{ "<plug>comment_line", "<plug>kommentary_line_default", desc = "kommentary_line_default" },
+			{
+				"<bs>",
+				"<Plug>kommentary_visual_default<C-c>",
+				mode = { "x", "v" },
+				desc = "kommentary_line_visual",
+			},
+		},
+		init = function()
+			vim.g.kommentary_create_default_mappings = false
+		end,
+		config = function()
+			local config = require("kommentary.config")
+			config.configure_language("wings_syntax", {
+				single_line_comment_string = "//",
+				prefer_single_line_comments = true,
+			})
+			config.configure_language("dosini", {
+				single_line_comment_string = ";",
+				prefer_single_line_comments = true,
+			})
+		end,
+	}
+)
+end
+
+return p

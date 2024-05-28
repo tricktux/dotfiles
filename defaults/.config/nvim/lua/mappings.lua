@@ -523,6 +523,11 @@ local function misc_mappings()
 
   -- vks({ "n", "x", "o" }, "t", "%")
 
+  if vim.fn.has("nvim-0.10") > 0 then
+    vks('n', '<plug>comment_line', ':normal gcc<cr>', { desc = 'toggle_comment_line' })
+    vks('v', '<bs>', '<esc>:normal gvgc<cr>', { desc = 'toggle_comment_block' })
+  end
+
   opts.desc = "refresh_buffer"
   vks("n", "<c-l>", refresh_buffer, opts)
 
