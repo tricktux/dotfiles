@@ -33,13 +33,15 @@ local function plugin_updates()
 	return nums and tonumber(nums) > 15 or false
 end
 
+local c = vim.g.advanced_plugins > 0 and vim.g.copilot_active
+
 return {
 	"nvim-lualine/lualine.nvim",
 	event = "VeryLazy",
 	cond = not vim.g.started_by_firenvim,
 	dependencies = {
 		vim.g.advanced_plugins > 0 and { "nvim-tree/nvim-web-devicons" } or {},
-		vim.g.advanced_plugins > 0 and {
+		c and {
 			"AndreM222/copilot-lualine",
 			event = "VeryLazy",
 		} or {},

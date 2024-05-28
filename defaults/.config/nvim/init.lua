@@ -18,6 +18,8 @@ local function set_globals()
   ]])
   -----------------------
 
+  vim.g.copilot_active = false
+
   -- https://github.com/neovim/neovim/issues/14090#issuecomment-1237820552
   vim.g.ts_highlight_lua = true
   -- Disable unnecessary providers
