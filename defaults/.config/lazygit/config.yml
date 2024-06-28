@@ -1,0 +1,10 @@
+gui:
+  theme:
+    activeBorderColor:
+      - yellow
+      - bold
+  commandLogSize: 20
+git:
+  paging:
+    colorArg: "always"
+    pager: "delta --paging=never"
