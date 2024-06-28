@@ -75,7 +75,7 @@ elif [[ "$hostname" = "aero" ]]; then
             ;;
         "home")
             echo "setting up home_dock configuration"
-            # "$HOME"/.screenlayout/home-dock.sh
+            "$HOME"/.screenlayout/home.sh
             xrandr --dpi 156
             echo "Xft.dpi: 156" | xrdb -merge
             # for socket in /tmp/kittysocket*; do
