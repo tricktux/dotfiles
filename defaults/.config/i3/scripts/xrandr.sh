@@ -57,7 +57,7 @@ elif [[ "$hostname" = "aero" ]]; then
     case "$1" in
         "main")
             echo "setting up main configuration"
-            # "$HOME"/.config/xprofile_aero
+            "$HOME"/.config/xprofile_aero
             # for socket in /tmp/kittysocket*; do
             #     kitty @ --to unix:$socket set-font-size --all 9
             # done
@@ -95,7 +95,7 @@ elif [[ "$hostname" = "predator" ]]; then
     case "$1" in
         "main")
             echo "setting up main configuration"
-            # "$HOME"/.screenlayout/main.sh
+            "$HOME"/.screenlayout/main.sh
             echo "Xft.dpi: 156" | xrdb -merge
             ;;
         *)
@@ -128,21 +128,21 @@ elif [[ "$hostname" = "xps" ]]; then
     case "$1" in
         "main")
             echo "  setting up main configuration"
-            # "$HOME"/.screenlayout/main.sh
+            "$HOME"/.screenlayout/main.sh
             xrandr --dpi 156
             echo "Xft.dpi: 192" | xrdb -merge
             xset_on
             ;;
         "home")
             echo "  setting up home_dock configuration"
-            # "$HOME"/.screenlayout/home-dock.sh
+            "$HOME"/.screenlayout/home-dock.sh
             xrandr --dpi 156
             echo "Xft.dpi: 156" | xrdb -merge
             xset_off
             ;;
         "work")
             echo "  setting up work_dock configuration"
-            # "$HOME"/.screenlayout/work-dock.sh
+            "$HOME"/.screenlayout/work-dock.sh
             xrandr --dpi 156
             echo "Xft.dpi: 156" | xrdb -merge
             xset_off
