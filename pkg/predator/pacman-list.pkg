@@ -143,6 +143,7 @@ lxqt-policykit
 lynx
 m4
 make
+man-pages
 mediainfo
 meld
 meson
@@ -156,6 +157,7 @@ msgpack-c
 namcap
 neofetch
 neomutt
+neovim
 network-manager-applet
 nextcloud-client
 nfs-utils
@@ -172,7 +174,6 @@ nvtop
 obsidian
 odt2txt
 opencl-nvidia
-openvpn
 otf-cascadia-code
 otf-fira-mono
 otf-font-awesome
@@ -180,7 +181,6 @@ pacman
 pacman-contrib
 pamixer
 papirus-icon-theme
-paprefs
 patch
 pavucontrol
 pcmanfm
@@ -202,6 +202,7 @@ python-pip
 python-pycuda
 python-pywal
 qalculate-qt
+qemu-full
 qrencode
 rapidjson
 redshift
@@ -220,6 +221,7 @@ shfmt
 simple-scan
 speech-dispatcher
 speedtest-cli
+sshfs
 steam
 stow
 strace
@@ -246,7 +248,6 @@ tldr
 tmux
 todoman
 transmission-qt
-tree-sitter
 ttf-cascadia-code
 ttf-fira-code
 ttf-fira-mono
@@ -258,6 +259,7 @@ udisks2
 unibilium
 unzip
 urlscan
+vale
 vdirsyncer
 vi
 vim
