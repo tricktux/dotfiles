@@ -1,23 +1,10 @@
 ---
 # List of ticker symbols to start app with
 symbols:
- - WISH
- - CLNE
- - CLF
- - DKNG
- - BB
- - AMC
- - CRSR
- - WKHS
- - PLTR
- - T
- - DOGE-USD
+ - TSLA
   # Market indicators
+ - VUG
  - SPY
- - DIA
- - VTI
- - BND
- - VNQ
 
 # Chart type to start app with
 # Default is line
@@ -27,23 +14,23 @@ chart_type: candle
 # Use specified time frame when starting program and when new stocks are added
 # Default is 1D
 # Possible values: 1D, 1W, 1M, 3M, 6M, 1Y, 5Y
-time_frame: 1W
+time_frame: 1D
 
 # Interval to update data from API (seconds)
 # Default is 1
-#update_interval: 1
+update_interval: 1
 
 # Enable pre / post market hours for graphs
 enable_pre_post: true
 
 # Hide help icon in top right
-hide_help: true
+hide_help: false
 
 # Hide previous close line on 1D chart
-#hide_prev_close: true
+hide_prev_close: false
 
 # Hide toggle block
-#hide_toggle: true
+hide_toggle: false
 
 # Show volumes graph
 show_volumes: true
@@ -52,7 +39,7 @@ show_volumes: true
 show_x_labels: true
 
 # Start in summary mode
-summary: true
+summary: false
 
 # Truncate pre market graphing to only 30 minutes prior to markets opening
 #trunc_pre: true
