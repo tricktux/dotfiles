@@ -192,7 +192,7 @@ function M.on_lsp_attach(client_id, bufnr)
 				return
 			end
 
-			vim.lsp.codelens.refresh()
+			vim.lsp.codelens.refresh({ bufnr = au.buf })
 		end,
 		buffer = bufnr,
 		desc = "Refresh codelens for the current buffer",
