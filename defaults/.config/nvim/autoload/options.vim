@@ -14,10 +14,11 @@ function! options#Set() abort
   " conflicting with telescope.vim
   " set report=0
   " ------
-  " Fri Apr 03 2020 17:07: I cursor blinking really gets on my nerves
+  " Fri Apr 03 2020 17:07: Cursor blinking really gets on my nerves
   set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
         \,a:blinkon0-Cursor/lCursor
 
+  set expandtab
   set guitablabel=%N\ %f
   " Tue Nov 13 2018 22:39: Needed by Shuogo/echodoc.vim
   set noshowmode
