@@ -125,7 +125,7 @@ update_polybar_python_venv() {
     local venv_name="polybar"
     local pkgs=(
         requests jinja2 stravalib matplot
-        i3ipc pandas plotly plotly_resampler kaleido
+        i3ipc pandas plotly plotly_resampler kaleido pip
     )
 
     mkdir -p "$venv_loc"
@@ -140,32 +140,15 @@ update_polybar_python_venv() {
     curl -fsSL https://raw.githubusercontent.com/dflock/kitty-save-session/main/kitty-convert-dump.py >$HOME/.local/bin/kitty-save-session.py
 }
 
-update_nvim_plugins() {
-    nvim +PackerUPDATE
-}
-
 update_pymodules() {
     local venv_loc="$XDG_DATA_HOME/pyvenv"
     local venv_name="pydev"
     local pkgs=(
         mypy debugpy black selenium
-        autopep8 pylint pylama isort
+        autopep8 pylint pylama isort pip
     )
 
     pip3 install --ignore-installed --upgrade "${pkgs[@]}"
-}
-
-update_pynvim() {
-    # source /home/reinaldo/.config/nvim/python_neovim_virtualenv.sh
-    local venv_loc="$XDG_DATA_HOME/pyvenv"
-    local venv_name="nvim"
-
-    mkdir -p "$venv_loc"
-    python -m venv "$venv_loc/$venv_name" \
-        --symlinks --clear
-    source "$venv_loc/$venv_name/bin/activate"
-    pip3 install --ignore-installed --upgrade pynvim
-    deactivate
 }
 
 update_pandoc_bin() {
@@ -411,12 +394,6 @@ update_python_venv() {
         [Qq]*) quit ;;
         [Yy]*) update_pymodules ;;
     esac
-    msg_not "${BLUE}${BOLD}" "[RIMP]==> Update neovim pyvenv? [y/N/q]"
-    read -r yn
-    case $yn in
-        [Qq]*) quit ;;
-        [Yy]*) update_pynvim ;;
-    esac
     msg_not "${BLUE}${BOLD}" "[RIMP]==> Update machine learning pyvenv? [y/N/q]"
     read -r yn
     case $yn in
@@ -570,41 +547,9 @@ backup() {
         esac
     }
 
-    update_neovim_git() {
-        # Create a subshell to cd locally
-        (
-            set -o pipefail
-            # Dependencies
-            sudo pacman -S --needed --noconfirm cmake unzip ninja tree-sitter curl libluv \
-                libtermkey libutf8proc libuv libvterm luajit msgpack-c \
-                unibilium gperf lua51-mpack lua51-lpeg >=0.1.git5
-
-            pkgname=neovim-git
-            srcdir=/tmp
-            pkgdir=
-            cd /tmp/
-            [[ -d /tmp/neovim-git ]] && rm -rf neovim-git
-            git clone --depth=1 https://github.com/neovim/neovim.git "${pkgname}"
-            cmake -S"${pkgname}" -Bbuild \
-                -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-                -DCMAKE_INSTALL_PREFIX=/usr
-            cmake --build build
-            cd "${srcdir}/build"
-            sudo DESTDIR="${pkgdir}" cmake --build . --target install
-
-            cd "${srcdir}/${pkgname}"
-            sudo install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
-            sudo install -Dm644 runtime/nvim.desktop "${pkgdir}/usr/share/applications/nvim.desktop"
-            sudo install -Dm644 runtime/nvim.png "${pkgdir}/usr/share/pixmaps/nvim.png"
-
-            # Make Arch vim packages work
-            sudo mkdir -p "${pkgdir}"/etc/xdg/nvim
-            echo "\" This line makes pacman-installed global Arch Linux vim packages work." >"${pkgdir}"/etc/xdg/nvim/sysinit.vim
-            sudo echo "source /usr/share/nvim/archlinux.vim" >>"${pkgdir}"/etc/xdg/nvim/sysinit.vim
-
-            mkdir -p "${pkgdir}"/usr/share/vim
-            sudo echo "set runtimepath+=/usr/share/vim/vimfiles" >"${pkgdir}"/usr/share/nvim/archlinux.vim
-        )
+    update_neovim() {
+        "$TERMINAL" \
+            "$XDG_CONFIG_HOME/dotfiles/scripts/nix/installs/arch/install_neovim.sh" &
     }
 
     setup_colors
@@ -628,7 +573,7 @@ backup() {
         echo "p     Update python virtual environments"
         echo "d     Diff configs with new /etc configs"
         echo "n     Update npm packages"
-        echo "v     Update neovim-git"
+        echo "v     Update neovim"
         echo "y     Update polybar scripts"
         echo "f     Patch firefox keymaps"
         echo "x     Update nix"
@@ -684,7 +629,7 @@ backup() {
                 exit 0
                 ;;
             v)
-                update_neovim_git
+                update_neovim
                 exit 0
                 ;;
             x)
@@ -728,12 +673,6 @@ backup() {
         [Yy]*) patch_firefox_omni ;;
     esac
 
-    msg_not "${BLUE}${BOLD}" "[RIMP]==> Update neovim plugins? [y/N/q]"
-    read -r yn
-    case $yn in
-        [Qq]*) quit ;;
-        [Yy]*) update_nvim_plugins ;;
-    esac
     msg_not "${BLUE}${BOLD}" "[RIMP]==> Update all rustup packages? [y/N/q]"
     read -r yn
     case $yn in
@@ -750,12 +689,12 @@ backup() {
             update_npm
             ;;
     esac
-    msg_not "${BLUE}${BOLD}" "[RIMP]==> Update neovim nightly? [y/N/q]"
+    msg_not "${BLUE}${BOLD}" "[RIMP]==> Update neovim binary? [y/N/q]"
     read -r yn
     case $yn in
         [Qq]*) quit ;;
         [Yy]*)
-            update_neovim_git
+            update_neovim
             ;;
     esac
 
