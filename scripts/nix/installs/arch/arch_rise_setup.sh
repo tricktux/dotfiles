@@ -772,7 +772,7 @@ paci --needed --noconfirm hyperfine
 # }}}
 
 # Development environment {{{
-paci --needed --noconfirm neovim cscope ripgrep ctags global xclip
+paci --needed --noconfirm neovim cscope ripgrep fd ctags global xclip tree-sitter-cli fswatch
 paci --needed --noconfirm lazygit
 # Cheatsheets
 paci --needed --noconfirm cht.sh-git navi-bin
