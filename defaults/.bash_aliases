@@ -27,6 +27,7 @@ alias ytfzf-noraenpure="ytfzf -mr -c youtube-playlist 'https://www.youtube.com/p
 alias ytfzf-liquicityyearmixes="ytfzf -mr -c youtube-playlist 'https://www.youtube.com/playlist?list=PLNE3b80YbdklT_fHeWNw99re6ESyIn4DW'"
 alias ytfzf-cercle="ytfzf -mr -c youtube-playlist 'https://www.youtube.com/playlist?list=PLDitloyBcHOm_Q06fztzSfLp19AJYX141'"
 alias ytfzf-kushsessions="ytfzf -mr -c youtube-playlist 'https://www.youtube.com/playlist?list=PLC419BC3954CB6D58'"
+alias ytfzf-lofi="ytfzf -mr -c youtube-playlist 'https://www.youtube.com/playlist?list=PLzJ-3MmUlWJnglv91qBj8gfSXdAIfj5Y4'"
 
 alias mv="mv --interactive --verbose"
 alias cp="cp --recursive --interactive --verbose"
