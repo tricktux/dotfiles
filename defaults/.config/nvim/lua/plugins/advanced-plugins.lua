@@ -113,10 +113,10 @@ return {
 		opts = {
 			openai_params = {
 				-- gpt-4, gpt-3.5-turbo-16k-0613
-				model = "gpt-4o",
+				model = "gpt-4o-mini",
 				frequency_penalty = 0,
 				presence_penalty = 0,
-				max_tokens = 4096,
+				max_tokens = 16384,
 				temperature = 1,
 				top_p = 1,
 				n = 1,
