@@ -1,5 +1,5 @@
 local api = vim.api
-local utl = require("utils.utils")
+local utl = require('utils.utils')
 
 local M = {}
 
@@ -20,20 +20,20 @@ M._config = {
 }
 
 function M:setup(config)
-  vim.validate({ config = { config, "t", true } })
-  self._config = vim.tbl_deep_extend("force", self._config, config)
-  self:set('day')  -- default
+  vim.validate({ config = { config, 't', true } })
+  self._config = vim.tbl_deep_extend('force', self._config, config)
+  self:set('day') -- default
 end
 
-local _periods = {"day", "night", "sunset", "sunrise"}
+local _periods = { 'day', 'night', 'sunset', 'sunrise' }
 local function _validate_period(period)
   return vim.tbl_contains(_periods, period)
 end
 
 function M:set(period)
-  vim.validate{period={period, _validate_period, 'one of: ' .. vim.inspect(_periods)}}
+  vim.validate({ period = { period, _validate_period, 'one of: ' .. vim.inspect(_periods) } })
   local cb = self._config.callback
-  vim.validate { cb = { cb, 'f' } }
+  vim.validate({ cb = { cb, 'f' } })
   cb(period)
 end
 

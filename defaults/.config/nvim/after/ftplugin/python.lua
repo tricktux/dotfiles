@@ -13,9 +13,9 @@ local fn = vim.fn
 vim.opt_local.shiftwidth = 4
 vim.opt_local.tabstop = 4
 
-local o = {silent = true, buffer = true, desc = 'terminal_send_file'}
+local o = { silent = true, buffer = true, desc = 'terminal_send_file' }
 local r = function()
-  local filename = fn.expand("%")
-  utl.term.exec(fmt("python %s", filename))
+  local filename = fn.expand('%')
+  utl.term.exec(fmt('python %s', filename))
 end
 vks('n', '<plug>terminal_send_file', r, o)

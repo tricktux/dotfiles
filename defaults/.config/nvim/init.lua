@@ -27,7 +27,7 @@ local function set_globals()
   vim.g.loaded_perl_provider = 0
   vim.g.loaded_node_provider = 0
 
-  if vim.fn.has("nvim-0.8") == 0 then
+  if vim.fn.has('nvim-0.8') == 0 then
     -- https://github.com/neovim/neovim/issues/14090#issuecomment-1237820552
     vim.g.ts_highlight_lua = true
     -- Disable filetypes.vim and enable filetypes.lua
@@ -35,53 +35,53 @@ local function set_globals()
     vim.g.do_filetype_lua = 1
   end
 
-  vim.g.sessions_path = vim.fn.stdpath("state") .. [[/sessions]]
+  vim.g.sessions_path = vim.fn.stdpath('state') .. [[/sessions]]
 
   local disabled_built_ins = {
-    "netrw",
-    "netrwPlugin",
-    "netrwSettings",
-    "netrwFileHandlers",
-    "gzip",
-    "matchit",
-    "matchparen",
-    "tohtml",
-    "tutor",
-    "zip",
-    "zipPlugin",
-    "tar",
-    "tarPlugin",
-    "getscript",
-    "getscriptPlugin",
-    "vimball",
-    "vimballPlugin",
-    "2html_plugin",
-    "logipat",
-    "rrhelper",
+    'netrw',
+    'netrwPlugin',
+    'netrwSettings',
+    'netrwFileHandlers',
+    'gzip',
+    'matchit',
+    'matchparen',
+    'tohtml',
+    'tutor',
+    'zip',
+    'zipPlugin',
+    'tar',
+    'tarPlugin',
+    'getscript',
+    'getscriptPlugin',
+    'vimball',
+    'vimballPlugin',
+    '2html_plugin',
+    'logipat',
+    'rrhelper',
     -- "spellfile_plugin",
   }
 
   for _, plugin in pairs(disabled_built_ins) do
-    vim.g["loaded_" .. plugin] = 1
+    vim.g['loaded_' .. plugin] = 1
   end
 end
 
 local function _config_win()
   vim.cmd([[silent! call serverstart('\\.\pipe\nvim-pipe-88888')]])
 
-  vim.g.dotfiles = fs.joinpath(os.getenv("LOCALAPPDATA"), "dotfiles")
+  vim.g.dotfiles = fs.joinpath(os.getenv('LOCALAPPDATA'), 'dotfiles')
   -- Find python
-  local py = fs.joinpath(vim.fn.stdpath("data"), [[pyvenv\Scripts]])
+  local py = fs.joinpath(vim.fn.stdpath('data'), [[pyvenv\Scripts]])
   if vim.loop.fs_stat(py) == nil then
-    vim.api.nvim_err_writeln("ERROR: Failed to find python venv: " .. py)
+    vim.api.nvim_err_writeln('ERROR: Failed to find python venv: ' .. py)
   else
     vim.g.python3_host_prog = fs.joinpath(py, [[python.exe]])
   end
 end
 
 local function _config_unix()
-  vim.g.dotfiles = fs.joinpath(home, ".config/dotfiles")
-  local py = fs.normalize("$XDG_DATA_HOME/pyvenv/nvim/bin/python")
+  vim.g.dotfiles = fs.joinpath(home, '.config/dotfiles')
+  local py = fs.normalize('$XDG_DATA_HOME/pyvenv/nvim/bin/python')
   if vim.loop.fs_stat(py) ~= nil then
     vim.g.python3_host_prog = py
   end
@@ -90,17 +90,17 @@ end
 local function firenvim()
   vim.g.firenvim_config = {
     localSettings = {
-      [".*"] = {
-        takeover = "never",
+      ['.*'] = {
+        takeover = 'never',
       },
     },
   }
 end
 
 local function init_os()
-  local log = require("utils.log")
+  local log = require('utils.log')
 
-  if vim.fn.has("unix") > 0 then
+  if vim.fn.has('unix') > 0 then
     _config_unix()
   else
     _config_win()
@@ -108,38 +108,38 @@ local function init_os()
 
   -- Create needed directories if they don't exist already
   for _, folder in pairs(data_folders) do
-    vim.fn.mkdir(fs.joinpath(vim.fn.stdpath("data"), folder), "p")
+    vim.fn.mkdir(fs.joinpath(vim.fn.stdpath('data'), folder), 'p')
   end
   for _, folder in pairs(cache_folders) do
-    vim.fn.mkdir(fs.joinpath(vim.fn.stdpath("cache"), folder), "p")
+    vim.fn.mkdir(fs.joinpath(vim.fn.stdpath('cache'), folder), 'p')
   end
 end
 
 local function main()
   vim.loader.enable()
-  local log = require("utils.log")
-  log.info("--- Start Neovim Run ---")
+  local log = require('utils.log')
+  log.info('--- Start Neovim Run ---')
   set_globals()
 
   init_os()
   -- Initialize guis specific config vars here
   firenvim()
-  require("utils.utils").setup()
-  require("plugin.wiki"):setup()
-  require("plugins.lsp").cycle_logs()
+  require('utils.utils').setup()
+  require('plugin.wiki'):setup()
+  require('plugins.lsp').cycle_logs()
   -- Rationale for plugins last:
   --  This way you can set your default mappings/options and plugins can
   --  overwrite them later, if they need to. Also get rid of all plugin
   --  specific stuff. Downside is no which-key
-  vim.fn["mappings#Set"]()
-  require("mappings"):setup()
-  require("aucmds").setup()
-  vim.fn["options#Set"]()
-  vim.fn["commands#Set"]()
-  require("options"):setup()
+  vim.fn['mappings#Set']()
+  require('mappings'):setup()
+  require('aucmds').setup()
+  vim.fn['options#Set']()
+  vim.fn['commands#Set']()
+  require('options'):setup()
   -- setup wiki early so that path is available
-  require("plugin.termdebug"):init()
-  require("lazyr").setup()
+  require('plugin.termdebug'):init()
+  require('lazyr').setup()
 end
 
 main()

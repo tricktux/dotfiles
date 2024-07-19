@@ -8,9 +8,9 @@ local function is_cpp(path, bufnr)
   -- search directory of current bufnr file
   -- it will search for .cpp files
   local names = function(name)
-    local ext = { "cpp", "cc", "cxx" }
+    local ext = { 'cpp', 'cc', 'cxx' }
     for _, v in pairs(ext) do
-      if string.find(name, "." .. v) > 0 then
+      if string.find(name, '.' .. v) > 0 then
         return true
       end
     end
@@ -22,7 +22,7 @@ local function is_cpp(path, bufnr)
     path = vim.fs.dirname(path),
     upward = false,
     limit = 1,
-    type = "file",
+    type = 'file',
   }
   local r = #vim.fs.find(names, opts) > 0 and 'cpp' or 'c'
   vim.api.nvim_echo({ { "r = '" .. r .. "'" } }, true, {})
@@ -33,18 +33,18 @@ log.info('Setting lua filetypes...')
 vim.filetype.add({
   extension = {
     -- h = is_cpp,
-    Vhd = "vhdl",
-    CPP = "cpp",
-    ino = "arduino",
-    pde = "arduino",
-    csv = "csv",
-    bat = "dosbatch",
-    scp = "wings_syntax",
-    set = "dosini",
-    sum = "dosini",
-    ini = "dosini",
-    bin = "xxd",
-    pdf = "xxd",
-    hsr = "xxd",
+    Vhd = 'vhdl',
+    CPP = 'cpp',
+    ino = 'arduino',
+    pde = 'arduino',
+    csv = 'csv',
+    bat = 'dosbatch',
+    scp = 'wings_syntax',
+    set = 'dosini',
+    sum = 'dosini',
+    ini = 'dosini',
+    bin = 'xxd',
+    pdf = 'xxd',
+    hsr = 'xxd',
   },
 })
