@@ -2,10 +2,12 @@
 # Polybar is restarted by wal
 
 # Send the mapping <leader>tn
-if [[ -S /tmp/nvim.socket ]]; then
-  nvim --server /tmp/nvim.socket --remote-send \
+for s in ${XDG_RUNTIME_DIR:-${TMPDIR}nvim.${USER}}/nvim.*.0
+do
+  nvim --server "$s" --remote-send \
     '<c-\><c-n> tcn'
-fi
+done
+
 if [[ -S /tmp/nvim_journal.socket ]]; then
   nvim --server /tmp/nvim_journal.socket --remote-send \
     '<c-\><c-n> tcn'

@@ -80,8 +80,6 @@ local function _config_win()
 end
 
 local function _config_unix()
-  vim.cmd([[silent! call serverstart('/tmp/nvim.socket')]])
-
   vim.g.dotfiles = fs.joinpath(home, ".config/dotfiles")
   local py = fs.normalize("$XDG_DATA_HOME/pyvenv/nvim/bin/python")
   if vim.loop.fs_stat(py) ~= nil then
