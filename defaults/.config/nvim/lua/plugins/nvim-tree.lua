@@ -1,8 +1,8 @@
-local utl = require("utils/utils")
+local utl = require('utils/utils')
 local api = vim.api
 
 local function nvimtree_config()
-  require("nvim-tree").setup({
+  require('nvim-tree').setup({
     disable_netrw = true,
     sync_root_with_cwd = true,
     hijack_netrw = true,
@@ -16,29 +16,29 @@ local function nvimtree_config()
     renderer = {
       highlight_git = false,
       group_empty = true,
-      highlight_opened_files = "all",
+      highlight_opened_files = 'all',
       add_trailing = true,
       special_files = {
-        ["README.md"] = 1,
-        ["Makefile"] = 1,
-        ["MAKEFILE"] = 1,
+        ['README.md'] = 1,
+        ['Makefile'] = 1,
+        ['MAKEFILE'] = 1,
       },
       icons = {
-        padding = " ",
-        show = { ["folder_arrow"] = false, ["folder"] = false, ["file"] = false },
+        padding = ' ',
+        show = { ['folder_arrow'] = false, ['folder'] = false, ['file'] = false },
       },
       indent_markers = {
         enable = true,
         icons = {
-          corner = "└ ",
-          edge = "│ ",
-          none = "  ",
+          corner = '└ ',
+          edge = '│ ',
+          none = '  ',
         },
       },
     },
     diagnostics = {
       enable = false,
-      icons = { hint = "", info = "", warning = "", error = "" },
+      icons = { hint = '', info = '', warning = '', error = '' },
     },
     actions = {
       change_dir = { enable = true, global = false },
@@ -47,32 +47,32 @@ local function nvimtree_config()
         resize_window = false,
         window_picker = {
           enable = false,
-          chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+          chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890',
           exclude = {
             filetype = {
-              "notify",
-              "packer",
-              "qf",
-              "diff",
-              "fugitive",
-              "fugitiveblame",
+              'notify',
+              'packer',
+              'qf',
+              'diff',
+              'fugitive',
+              'fugitiveblame',
             },
-            buftype = { "nofile", "terminal", "help" },
+            buftype = { 'nofile', 'terminal', 'help' },
           },
         },
       },
     },
     view = {
       width = 30,
-      side = "left",
+      side = 'left',
     },
   })
 end
 
 return {
-  "kyazdani42/nvim-tree.lua",
+  'kyazdani42/nvim-tree.lua',
   keys = {
-    {'<plug>file_tree_browser', "<cmd>NvimTreeToggle<cr>", desc = 'file-tree-neotree'}
+    { '<plug>file_tree_browser', '<cmd>NvimTreeToggle<cr>', desc = 'file-tree-neotree' },
   },
   init = function()
     -- These additional options must be set **BEFORE** calling `require'nvim-tree'` or calling setup.

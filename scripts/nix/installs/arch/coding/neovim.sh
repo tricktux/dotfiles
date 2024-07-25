@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Define the branch you want to build
 BRANCH="release-0.10"  # Change this to your desired branch
 NEOVIM_DIR="/tmp/neovim"

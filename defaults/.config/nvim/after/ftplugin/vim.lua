@@ -10,7 +10,7 @@ vim.b.did_vim_ftplugin = 1
 vim.opt_local.shiftwidth = 2
 vim.opt_local.tabstop = 2
 
-vim.cmd[[
+vim.cmd([[
   " Quote text by inserting "> "
   nnoremap <buffer> <plug>make_file :so %<cr>
   nnoremap <buffer> <plug>make_project :so %<cr>
@@ -18,4 +18,4 @@ vim.cmd[[
   vnoremap <buffer> <localleader>e y:echomsg <c-r>"<cr>
   " Evaluate highlighted text
   vnoremap <buffer> <localleader>E y:<c-r>"<cr>
-]]
+]])

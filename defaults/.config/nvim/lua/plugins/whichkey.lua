@@ -1,5 +1,5 @@
-local log = require("utils.log")
-local map = require("mappings")
+local log = require('utils.log')
+local map = require('mappings')
 
 local M = {}
 

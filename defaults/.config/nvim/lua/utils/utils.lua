@@ -1,5 +1,5 @@
-local log = require("utils.log")
-local fs = require("utils.filesystem")
+local log = require('utils.log')
+local fs = require('utils.filesystem')
 local luv = vim.loop
 local api = vim.api
 local fmt = string.format
@@ -9,52 +9,52 @@ local M = {}
 
 M.icons = {
   diagnostics = {
-    Error = " ",
-    Warn = " ",
-    Hint = " ",
-    Info = " ",
+    Error = ' ',
+    Warn = ' ',
+    Hint = ' ',
+    Info = ' ',
   },
   git = {
-    added = " ",
-    modified = " ",
-    removed = " ",
+    added = ' ',
+    modified = ' ',
+    removed = ' ',
   },
   kinds = {
-    Array = " ",
-    Boolean = " ",
-    Class = " ",
-    Color = " ",
-    Constant = " ",
-    Constructor = " ",
-    Copilot = " ",
-    Enum = " ",
-    EnumMember = " ",
-    Event = " ",
-    Field = " ",
-    File = " ",
-    Folder = " ",
-    Function = " ",
-    Interface = " ",
-    Key = " ",
-    Keyword = " ",
-    Method = " ",
-    Module = " ",
-    Namespace = " ",
-    Null = "ﳠ ",
-    Number = " ",
-    Object = " ",
-    Operator = " ",
-    Package = " ",
-    Property = " ",
-    Reference = " ",
-    Snippet = " ",
-    String = " ",
-    Struct = " ",
-    Text = " ",
-    TypeParameter = " ",
-    Unit = " ",
-    Value = " ",
-    Variable = " ",
+    Array = ' ',
+    Boolean = ' ',
+    Class = ' ',
+    Color = ' ',
+    Constant = ' ',
+    Constructor = ' ',
+    Copilot = ' ',
+    Enum = ' ',
+    EnumMember = ' ',
+    Event = ' ',
+    Field = ' ',
+    File = ' ',
+    Folder = ' ',
+    Function = ' ',
+    Interface = ' ',
+    Key = ' ',
+    Keyword = ' ',
+    Method = ' ',
+    Module = ' ',
+    Namespace = ' ',
+    Null = 'ﳠ ',
+    Number = ' ',
+    Object = ' ',
+    Operator = ' ',
+    Package = ' ',
+    Property = ' ',
+    Reference = ' ',
+    Snippet = ' ',
+    String = ' ',
+    Struct = ' ',
+    Text = ' ',
+    TypeParameter = ' ',
+    Unit = ' ',
+    Value = ' ',
+    Variable = ' ',
   },
 }
 
@@ -65,7 +65,7 @@ M.icons = {
 -- >vim.deepcopy
 M.set = {}
 function M.set.new(t)
-  vim.validate({ t = { t, "t", false } })
+  vim.validate({ t = { t, 't', false } })
 
   local set = {}
   for _, l in ipairs(t) do
@@ -75,13 +75,13 @@ function M.set.new(t)
 end
 
 function M.set.tostring(set)
-  vim.validate({ set = { set, "t", false } })
+  vim.validate({ set = { set, 't', false } })
 
-  local s = ""
-  local sep = ""
+  local s = ''
+  local sep = ''
   for e in pairs(set) do
     s = s .. sep .. e
-    sep = ", "
+    sep = ', '
   end
   return s
 end
@@ -92,7 +92,7 @@ function M.is_mod_available(name)
   end
   for _, searcher in ipairs(package.searchers or package.loaders) do
     local loader = searcher(name)
-    if type(loader) == "function" then
+    if type(loader) == 'function' then
       package.preload[name] = loader
       return true
     end
@@ -104,46 +104,46 @@ M.has_unix = package.config:sub(1, 1) == [[/]]
 M.has_win = package.config:sub(1, 1) == [[\]]
 
 local nix_file = vim.loop.os_homedir() .. [[/.config/ignore-file]]
-local win_file = (os.getenv("APPDATA") or "nil") .. [[\ignore-file]]
+local win_file = (os.getenv('APPDATA') or 'nil') .. [[\ignore-file]]
 M.ignore_file = [[--ignore-file=]] .. (M.has_win and win_file or nix_file)
 
 M.zeal = {}
-M.zeal.path = M.has_unix and "/usr/bin/zeal" or [["C:\\Program Files (x86)\\Zeal\\Zeal.exe"]]
+M.zeal.path = M.has_unix and '/usr/bin/zeal' or [["C:\\Program Files (x86)\\Zeal\\Zeal.exe"]]
 M.zeal.search = function(word)
-  vim.validate({ word = { word, "s", false } })
+  vim.validate({ word = { word, 's', false } })
   local p = M.zeal.path
   if fn.filereadable(p) <= 0 then
     vim.notify("Zeal '" .. p .. "' is not installed", vim.log.levels.ERROR)
     return
   end
-  local z = ""
+  local z = ''
   if M.has_unix then
-    z = p .. " " .. word .. "&"
+    z = p .. ' ' .. word .. '&'
   else
-    z = [[start cmd.exe /k ]] .. p .. " " .. word
+    z = [[start cmd.exe /k ]] .. p .. ' ' .. word
   end
   M.term.exec(z)
 end
 
 M.browser = {}
-M.browser.path = M.has_unix and "/usr/bin/firefox" or "firefox.exe"
+M.browser.path = M.has_unix and '/usr/bin/firefox' or 'firefox.exe'
 M.browser.search = function(word)
-  vim.validate({ word = { word, "s", false } })
+  vim.validate({ word = { word, 's', false } })
   local b = M.browser.path
   if fn.filereadable(b) <= 0 then
     vim.notify("Browser '" .. b .. "' is not installed", vim.log.levels.ERROR)
     return
   end
-  local z = ""
+  local z = ''
   if M.has_unix then
-    z = b .. " " .. word .. "&"
+    z = b .. ' ' .. word .. '&'
   else
-    z = [[start cmd.exe /k ]] .. b .. " " .. word
+    z = [[start cmd.exe /k ]] .. b .. ' ' .. word
   end
   M.term.exec(z)
 end
 M.browser.open_file_async = function(file)
-  vim.validate({ file = { file, "s", false } })
+  vim.validate({ file = { file, 's', false } })
   if vim.loop.fs_stat(file) == nil then
     vim.api.nvim_err_writeln("file: '" .. file .. "' does not exists")
     return
@@ -154,20 +154,20 @@ end
 
 M.fd = {}
 M.fd.switches = {}
-M.fd.bin = vim.fn.executable("fd") > 0 and "fd" or "fdfind"
+M.fd.bin = vim.fn.executable('fd') > 0 and 'fd' or 'fdfind'
 M.fd.switches.common = vim.tbl_flatten({
-  "--color=never",
-  "--hidden",
-  "--follow",
+  '--color=never',
+  '--hidden',
+  '--follow',
   M.ignore_file,
 })
 M.fd.switches.file = vim.tbl_flatten({
   M.fd.switches.common,
-  "--type=file",
+  '--type=file',
 })
 M.fd.switches.folder = vim.tbl_flatten({
   M.fd.switches.common,
-  "--type=directory",
+  '--type=directory',
 })
 M.fd.folder_cmd = vim.tbl_flatten({
   M.fd.bin,
@@ -179,18 +179,18 @@ M.fd.file_cmd = vim.tbl_flatten({
 })
 M.rg = {}
 M.rg.switches = {}
-M.rg.bin = "rg"
+M.rg.bin = 'rg'
 M.rg.switches.common = vim.tbl_flatten({
-  "--vimgrep",
-  "--hidden",
-  "--smart-case",
-  "--follow",
-  "--no-ignore-vcs",
+  '--vimgrep',
+  '--hidden',
+  '--smart-case',
+  '--follow',
+  '--no-ignore-vcs',
   M.ignore_file,
 })
 M.rg.switches.file = vim.tbl_flatten({
   M.rg.switches.common,
-  "--files",
+  '--files',
 })
 M.rg.grep_cmd = vim.tbl_flatten({
   M.rg.bin,
@@ -201,35 +201,35 @@ M.rg.file_cmd = vim.tbl_flatten({
   M.rg.switches.file,
 })
 M.rg.vim_to_rg_map = {
-  vim = "vimscript",
-  python = "py",
-  markdown = "md",
+  vim = 'vimscript',
+  python = 'py',
+  markdown = 'md',
 }
 
 M.table = {}
 M.table.string_to_table = function(string)
-  vim.validate({ string = { string, "s", false } })
+  vim.validate({ string = { string, 's', false } })
   local t = {}
-  for str in string.gmatch(string, "%S+") do
+  for str in string.gmatch(string, '%S+') do
     table.insert(t, str)
   end
   return t
 end
 
 M.buftype = {}
-M.buftype.whitelist = { "", "acwrite" }
-M.buftype.blacklist = { "nofile", "prompt", "terminal", "quickfix" }
+M.buftype.whitelist = { '', 'acwrite' }
+M.buftype.blacklist = { 'nofile', 'prompt', 'terminal', 'quickfix' }
 M.buftype.blacklist_set = M.set.new(M.buftype.blacklist)
 M.filetype = {
   blacklist = {
-    "lspinfo",
-    "packer",
-    "checkhealth",
-    "help",
-    "man",
-    "",
-    "NvimTree",
-    "startify",
+    'lspinfo',
+    'packer',
+    'checkhealth',
+    'help',
+    'man',
+    '',
+    'NvimTree',
+    'startify',
   },
 }
 M.filetype.blacklist_set = M.set.new(M.filetype.blacklist)
@@ -245,37 +245,39 @@ M.fs.file = {}
 function M.fs.file.create(path)
   local p = fs.is_path(path)
   if p == nil then
-    vim.notify("utils.fs.file.create: path not found: " .. p, vim.log.levels.ERROR)
+    vim.notify('utils.fs.file.create: path not found: ' .. p, vim.log.levels.ERROR)
     return
   end
 
-  local prompt = string.format("Enter name for new file(%s): ", p)
+  local prompt = string.format('Enter name for new file(%s): ', p)
   local on_complete = function(input)
     if input == nil then
-      vim.notify("utils.create_file: no file path provided", vim.log.levels.ERROR)
+      vim.notify('utils.create_file: no file path provided', vim.log.levels.ERROR)
       return
     end
 
     local f = vim.fs.joinpath(p, input)
     if not fs.mkfile(f) then
-      vim.notify("utils.create_file: failed to create parent folder: " .. f, vim.log.levels.ERROR)
+      vim.notify('utils.create_file: failed to create parent folder: ' .. f, vim.log.levels.ERROR)
       return
     end
 
     vim.cmd.edit(f)
   end
 
-  vim.ui.input({ prompt = prompt, completion = "file" }, on_complete)
+  vim.ui.input({ prompt = prompt, completion = 'file' }, on_complete)
 end
 
 function M.isdir(path)
   local p = fs.is_path(path)
-  if p == nil then return false end
+  if p == nil then
+    return false
+  end
   local stat = luv.fs_stat(p)
   if stat == nil then
     return false
   end
-  if stat.type == "directory" then
+  if stat.type == 'directory' then
     return true
   end
   return false
@@ -283,23 +285,25 @@ end
 
 function M.isfile(path)
   local p = fs.is_path(path)
-  if p == nil then return false end
+  if p == nil then
+    return false
+  end
   local stat = luv.fs_stat(p)
   if stat == nil then
     return false
   end
-  if stat.type == "file" then
+  if stat.type == 'file' then
     return true
   end
   return false
 end
 
 function M.fs.path.native_fuzzer(path)
-  vim.validate({ path = { path, "s", false } })
+  vim.validate({ path = { path, 's', false } })
 
   local epath = vim.fn.expand(path)
   if M.isdir(epath) == nil then
-    vim.notify("Path provided is not valid: " .. epath, vim.log.levels.ERROR)
+    vim.notify('Path provided is not valid: ' .. epath, vim.log.levels.ERROR)
     return
   end
 
@@ -307,29 +311,29 @@ function M.fs.path.native_fuzzer(path)
   -- Save cwd
   local dir = vim.fn.getcwd()
   -- CD to new location
-  vim.cmd("lcd " .. epath)
+  vim.cmd('lcd ' .. epath)
   -- Select file
-  local file = vim.fn.input("e " .. epath, "", "file")
+  local file = vim.fn.input('e ' .. epath, '', 'file')
   -- Sanitize file
   if file == nil then
     return
   end
   if M.isfile(file) == nil then
-    vim.notify("Selected file does not exists" .. file, vim.log.levels.ERROR)
+    vim.notify('Selected file does not exists' .. file, vim.log.levels.ERROR)
     -- Restore working directory
-    vim.cmd("lcd " .. dir)
+    vim.cmd('lcd ' .. dir)
     return
   end
-  vim.cmd("e " .. file)
-  vim.cmd("lcd " .. dir)
+  vim.cmd('e ' .. file)
+  vim.cmd('lcd ' .. dir)
 end
 
 local function fuzzer_sanitize(path)
-  vim.validate({ path = { path, "s", false } })
+  vim.validate({ path = { path, 's', false } })
 
   local p = fs.is_path(path)
   if p == nil then
-    vim.notify("utils: path not found: " .. path, vim.log.levels.ERROR)
+    vim.notify('utils: path not found: ' .. path, vim.log.levels.ERROR)
     return
   end
 
@@ -340,21 +344,21 @@ end
 function M.fs.path.fuzzer_yank(path)
   local p = fuzzer_sanitize(path)
 
-  require("plugins.telescope").file_fuzzer_yank(p)
+  require('plugins.telescope').file_fuzzer_yank(p)
 end
 
 --- Use this function to select file to  open
 function M.fs.path.fuzzer(path)
   local p = fuzzer_sanitize(path)
 
-  local tsok, _ = pcall(require, "telescope")
+  local tsok, _ = pcall(require, 'telescope')
   if tsok then
-    require("plugins.telescope").file_fuzzer(p)
+    require('plugins.telescope').file_fuzzer(p)
     return
   end
 
-  if vim.fn.exists(":Files") > 0 then
-    vim.cmd("Files " .. p)
+  if vim.fn.exists(':Files') > 0 then
+    vim.cmd('Files ' .. p)
     return
   end
 
@@ -362,8 +366,8 @@ function M.fs.path.fuzzer(path)
 end
 
 function M.tbl_removekey(table, key)
-  vim.validate({ table = { table, "t", false } })
-  vim.validate({ key = { key, "s", false } })
+  vim.validate({ table = { table, 't', false } })
+  vim.validate({ key = { key, 's', false } })
 
   local element = table[key]
   if element == nil then
@@ -377,8 +381,8 @@ end
 -- Example width = 0.8, height = 0.8
 -- Returns buffer, and window handle
 function M.open_win_centered(width, height)
-  vim.validate({ width = { width, "n", false } })
-  vim.validate({ height = { height, "n", false } })
+  vim.validate({ width = { width, 'n', false } })
+  vim.validate({ height = { height, 'n', false } })
   local buf = api.nvim_create_buf(false, true)
 
   local mheight = math.floor((vim.o.lines - 2) * height)
@@ -387,45 +391,45 @@ function M.open_win_centered(width, height)
   local col = math.floor((vim.o.columns - mwidth) / 2)
 
   local opts = {
-    relative = "editor",
+    relative = 'editor',
     row = row,
     col = col,
     width = mwidth,
     height = mheight,
-    style = "minimal",
-    border = "rounded",
+    style = 'minimal',
+    border = 'rounded',
   }
 
-  log.trace("row = ", row, "col = ", col, "width = ", mwidth, "height = ", mheight)
+  log.trace('row = ', row, 'col = ', col, 'width = ', mwidth, 'height = ', mheight)
   return {
     bufnr = buf,
-    winnr = api.nvim_open_win(buf, true, opts)
+    winnr = api.nvim_open_win(buf, true, opts),
   }
 end
 
 function M.read_file(path)
-  vim.validate({ path = { path, "s", false } })
+  vim.validate({ path = { path, 's', false } })
   local file = io.open(path)
   if file == nil then
-    return ""
+    return ''
   end
-  local output = file:read("*all")
+  local output = file:read('*all')
   file:close()
   return output
 end
 
 -- Execute cmd and return all of its output
 function M.io_popen_read(cmd)
-  vim.validate({ cmd = { cmd, "s", false } })
+  vim.validate({ cmd = { cmd, 's', false } })
   local file = assert(io.popen(cmd))
-  local output = file:read("*all")
+  local output = file:read('*all')
   file:close()
   -- Strip all spaces from output
-  return output:gsub("%s+", "")
+  return output:gsub('%s+', '')
 end
 
 function M.get_visual_selection()
-  print("get_visual_selection")
+  print('get_visual_selection')
   -- Why is this not a built-in Vim script function?!
   local sline = vim.fn.getpos("'<")
   local line_start = sline[2]
@@ -435,19 +439,19 @@ function M.get_visual_selection()
   local column_end = eline[3]
   local lines = vim.fn.getline(line_start, line_end)
   if lines == nil then
-    return ""
+    return ''
   end
   -- local selection = vim.opt.selection:get() == "inclusive" and 1 or 2
   -- lines[1] = lines[1]:sub(column_start - 1)
   -- lines[#lines] = lines[#lines]:sub(1, column_end - selection)
-  print("ret = " .. vim.inspect(ret))
-  return table.concat(lines, "\n")
+  print('ret = ' .. vim.inspect(ret))
+  return table.concat(lines, '\n')
 end
 
 M.term = {}
 M.term.kitty_get_number_of_windows_in_current_tab = function()
   local json = vim.json
-  local output = vim.system({ "kitty", "@", "ls" }, { text = true }):wait()
+  local output = vim.system({ 'kitty', '@', 'ls' }, { text = true }):wait()
   if output == nil then
     return 0
   end
@@ -476,7 +480,7 @@ M.buf.is_in_current_tab = function(bufnr)
   return nil
 end
 M.buf.is_valid = function(bufnr)
-  vim.validate({ bufnr = { bufnr, "n", true } })
+  vim.validate({ bufnr = { bufnr, 'n', true } })
   if bufnr == nil then
     return false
   end
@@ -493,13 +497,13 @@ M.term.float.opts = {
   layout = {
     width = 0.90,
     height = 0.90,
-  }
+  },
 }
 
 function M.term.float.exec(cmd, opts)
-  vim.validate({ cmd = { cmd, "s", false } })
+  vim.validate({ cmd = { cmd, 's', false } })
   -- Last true makes them optional arguments
-  vim.validate({ startinsert = { opts, "t", true } })
+  vim.validate({ startinsert = { opts, 't', true } })
   -- Merge opts
   local startinsert = opts and opts.startinsert or M.term.float.opts.startinsert
   local closeterm = opts and opts.closeterm or M.term.float.opts.closeterm
@@ -508,12 +512,12 @@ function M.term.float.exec(cmd, opts)
   local b = M.open_win_centered(layout.width, layout.height)
   vim.cmd(cmd)
   if startinsert then
-    vim.cmd("startinsert")
+    vim.cmd('startinsert')
   end
   if closeterm then
-    vim.api.nvim_create_autocmd("TermClose", {
+    vim.api.nvim_create_autocmd('TermClose', {
       buffer = b.bufnr,
-      command = "bwipeout!",
+      command = 'bwipeout!',
       once = true,
     })
   end
@@ -549,13 +553,13 @@ M.term.new_vsplit = function()
   vim.cmd.terminal()
 end
 M.term.valid_job_id = function(id)
-  vim.validate({ id = { id, "n", true } })
+  vim.validate({ id = { id, 'n', true } })
 
   if id == nil then
     return false
   end
   for _, chan in pairs(vim.api.nvim_list_chans()) do
-    if chan["mode"] == "terminal" and chan.id == id then
+    if chan['mode'] == 'terminal' and chan.id == id then
       return true
     end
   end
@@ -564,63 +568,67 @@ M.term.valid_job_id = function(id)
 end
 
 M.term.send_cmd = function(cmd)
-  vim.validate({ cmd = { cmd, "s", false } })
+  vim.validate({ cmd = { cmd, 's', false } })
   local id = M.term.last.job_id
   if id ~= nil and M.term.valid_job_id(id) then
-    vim.api.nvim_chan_send(M.term.last.job_id, cmd .. "\n")
+    vim.api.nvim_chan_send(M.term.last.job_id, cmd .. '\n')
     return true
   end
   return false
 end
 
-
 M.term.exec = function(cmd)
   local lcmd = {}
-  if type(cmd) == "string" then
+  if type(cmd) == 'string' then
     lcmd = M.table.string_to_table(cmd)
   end
-  vim.validate({ lcmd = { lcmd, "t", false } })
-  log.info(fmt("term.exec.cmd = %s", vim.inspect(cmd)))
+  vim.validate({ lcmd = { lcmd, 't', false } })
+  log.info(fmt('term.exec.cmd = %s', vim.inspect(cmd)))
 
-  if M.term.send_cmd(cmd) then return end
+  if M.term.send_cmd(cmd) then
+    return
+  end
 
-  if os.getenv("KITTY_WINDOW_ID") ~= nil and M.term.kitty_get_number_of_windows_in_current_tab() > 1 then
-    local f = { "/usr/bin/kitty", "@", "send-text", "--match", "recent:1" }
+  if
+    os.getenv('KITTY_WINDOW_ID') ~= nil
+    and M.term.kitty_get_number_of_windows_in_current_tab() > 1
+  then
+    local f = { '/usr/bin/kitty', '@', 'send-text', '--match', 'recent:1' }
     for _, c in ipairs(lcmd) do
       table.insert(f, c)
     end
-    table.insert(f, "\x0d")
-    log.info(fmt("term.exec.kitty = %s", vim.inspect(f)))
+    table.insert(f, '\x0d')
+    log.info(fmt('term.exec.kitty = %s', vim.inspect(f)))
     vim.system(f, { detach = true })
     return
   end
 
-  if os.getenv("TMUX") ~= nil then
+  if os.getenv('TMUX') ~= nil then
     -- \! = ! which means target (-t) last active tmux pane (!)
-    local f = { [[/usr/bin/tmux]], "send", "-t", "!" }
+    local f = { [[/usr/bin/tmux]], 'send', '-t', '!' }
     for _, c in ipairs(lcmd) do
       table.insert(f, c)
     end
-    table.insert(f, "Enter")
-    log.info(fmt("term.exec.tmux = %s", vim.inspect(f)))
+    table.insert(f, 'Enter')
+    log.info(fmt('term.exec.tmux = %s', vim.inspect(f)))
     vim.system(f, { detach = true })
     return
   end
 
-  local ttok, tt = pcall(require, "toggleterm")
+  local ttok, tt = pcall(require, 'toggleterm')
   if ttok then
     local trim_spaces = true
-    tt.send_lines_to_terminal("single_line", trim_spaces, { args = vim.v.count })
+    tt.send_lines_to_terminal('single_line', trim_spaces, { args = vim.v.count })
     return
   end
 
-  log.info(fmt("term.exec.cmd = %s", cmd))
+  log.info(fmt('term.exec.cmd = %s', cmd))
   M.term.new_vsplit()
   M.term.send_cmd(cmd)
 end
 
 M.term.open_uri = function(uri)
-  vim.validate({ uri = { uri, "s", false } })
+  vim.validate({ uri = { uri, 's', false } })
 
   vim.ui.open(uri)
 end
@@ -640,20 +648,20 @@ M.links = {}
 M.links.sources = {
   -- First table is find image, second table is extract filename from match
   md = {
-    "!%[.-%]%((.-)%)",
-    "!%[%[(.-)%]%]",
+    '!%[.-%]%((.-)%)',
+    '!%[%[(.-)%]%]',
   },
   org = {
-    "%[%[(.-)%]%]",
-    "%[%[(.-)%]%[.-%]%]",
-    "%[%[file: (.-)%]%[.-%]%]",
+    '%[%[(.-)%]%]',
+    '%[%[(.-)%]%[.-%]%]',
+    '%[%[file: (.-)%]%[.-%]%]',
   },
 }
 
 M.links.find_source = function(line)
-  vim.validate({ line = { line, "s", false } })
+  vim.validate({ line = { line, 's', false } })
 
-  local ft = vim.api.nvim_get_option_value("filetype", { buf = 0 })
+  local ft = vim.api.nvim_get_option_value('filetype', { buf = 0 })
   if M.links.sources[ft] == nil then
     -- vim.api.nvim_err_writeln("No sources for filetype: " .. ft)
     return nil
@@ -673,7 +681,7 @@ M.links.find_source = function(line)
 end
 
 M.links.open_uri_in_line = function(line)
-  vim.validate({ line = { line, "s", false } })
+  vim.validate({ line = { line, 's', false } })
   -- vim.print("Line: " .. line)
   local source = M.links.find_source(line)
   local u = source or line
@@ -688,8 +696,8 @@ end
 
 M.setup = function()
   -- Use to set autocommand
-  vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "TermOpen", "TermEnter" }, {
-    pattern = "*",
+  vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWinEnter', 'TermOpen', 'TermEnter' }, {
+    pattern = '*',
     callback = function(ev)
       if vim.b.terminal_job_id ~= nil then
         M.term.last.job_id = vim.b.terminal_job_id
