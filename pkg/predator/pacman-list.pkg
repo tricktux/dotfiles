@@ -43,6 +43,7 @@ dhcpcd
 dialog
 discord
 docker
+docker-compose
 dosfstools
 doublecmd-qt5
 dunst
@@ -115,7 +116,6 @@ lazygit
 lib32-nvidia-utils
 libao
 libcaca
-libluv
 libmad
 libmikmod
 libmpcdec
@@ -131,7 +131,6 @@ linux-lts-headers
 lldb
 lsof
 lua-language-server
-lua51-lpeg
 lua51-mpack
 luacheck
 luajit
@@ -153,11 +152,10 @@ mono
 mosh
 mpv
 mpv-mpris
-msgpack-c
 namcap
 neofetch
 neomutt
-neovim
+net-tools
 network-manager-applet
 nextcloud-client
 nfs-utils
@@ -185,7 +183,6 @@ patch
 pavucontrol
 pcmanfm
 pdfgrep
-picom
 pipewire
 pipewire-alsa
 pipewire-jack
@@ -248,6 +245,7 @@ tldr
 tmux
 todoman
 transmission-qt
+tree-sitter-cli
 ttf-cascadia-code
 ttf-fira-code
 ttf-fira-mono
