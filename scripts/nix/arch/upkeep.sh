@@ -233,22 +233,6 @@ cleanup_junk() {
 			--cachedir=/var/cache/pacman/pkg
 		;;
 	esac
-	msg "${CYAN}${BOLD}" "[RIMP]==> Clean up nix store...     "
-	read -r yn
-	case $yn in
-	[Qq]*) quit ;;
-	[Yy]*)
-		make -C ~/.config/dotfiles/nix clean
-		;;
-	esac
-	msg "${CYAN}${BOLD}" "[RIMP]==> Deep Clean up nix store...     "
-	read -r yn
-	case $yn in
-	[Qq]*) quit ;;
-	[Yy]*)
-		make -C ~/.config/dotfiles/nix deep-clean
-		;;
-	esac
 	msg "${CYAN}${BOLD}" "[RIMP]==> Prune unused Docker objects...     "
 	read -r yn
 	case $yn in
@@ -309,6 +293,25 @@ cleanup_junk() {
 			chromium.sync \
 			chromium.vacuum
 		;;
+	esac
+}
+
+cleanup_nix() {
+	msg "${CYAN}${BOLD}" "[RIMP]==> Clean up nix store...     "
+	read -r yn
+	case $yn in
+		[Qq]*) quit ;;
+		[Yy]*)
+			make -C ~/.config/dotfiles/nix clean
+			;;
+	esac
+	msg "${CYAN}${BOLD}" "[RIMP]==> Deep Clean up nix store...     "
+	read -r yn
+	case $yn in
+		[Qq]*) quit ;;
+		[Yy]*)
+			make -C ~/.config/dotfiles/nix deep-clean
+			;;
 	esac
 }
 
@@ -650,8 +653,6 @@ msg "${CYAN}${BOLD}" "========== Welcome! To the Arch Maintnance Script! ðŸ’ªðŸ˜
 backup
 
 pac_update_install
-
-update_nix
 
 pac_maintenance
 
