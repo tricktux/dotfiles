@@ -13,6 +13,7 @@ cmake-format
 cmake-lint
 contour
 downgrade
+fswatch
 gdb-dashboard-git
 htop-vim
 i3help-git

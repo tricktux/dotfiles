@@ -170,7 +170,6 @@ namcap
 nano
 neofetch
 neomutt
-neovim
 network-manager-applet
 networkmanager
 nextcloud-client
@@ -385,6 +384,7 @@ tldr
 tmux
 todoman
 transmission-qt
+tree-sitter-cli
 ttf-cascadia-code
 ttf-fira-code
 ttf-fira-mono
