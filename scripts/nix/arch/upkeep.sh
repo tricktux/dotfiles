@@ -507,17 +507,8 @@ backup() {
 	case $yn in
 	[Qq]*) quit ;;
 	[Yy]*)
-		SRC="$HOME/.local/share/Anki2"
-		SNAP="$HOME/.mnt/skywafer/home/bkps/anki/repo"
-		anki --no-sandbox & # Anki sync
-		sleep 10            # Give it time to sync
-		pkill -x anki
-		sleep 3 # Give it time to close
-		"$TERMINAL" restic --verbose \
-			--password-command "pass websites/ankiweb.net/restic" \
-			--repo "$SNAP" \
-			backup $SRC &
-
+		"$TERMINAL" \
+			"$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/restic-anki.sh" &
 		;;
 	esac
 	msg_not "${BLUE}${BOLD}" "[RIMP]==> Back up emails? [y/N/q]"
@@ -525,15 +516,8 @@ backup() {
 	case $yn in
 	[Qq]*) quit ;;
 	[Yy]*)
-		SRC="$HOME/.local/share/mail $HOME/.local/share/vdirsyncer"
-		SNAP="$HOME/.mnt/skywafer/home/bkps/mail/repo"
-		mbsync -D -ac "$HOME"/.config/isync/mbsyncrc ||
-			echo "mbsync never retuns code 0..."
-		vdirsyncer --verbosity debug sync
-		"$TERMINAL" restic --verbose \
-			--password-command "pass linux/mailserver/restic" \
-			--repo "$SNAP" \
-			backup $SRC &
+		"$TERMINAL" \
+			"$XDG_CONFIG_HOME/dotfiles/scripts/nix/rsync/restic-mail.sh" &
 		;;
 	esac
 }
