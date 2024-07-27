@@ -1,11 +1,11 @@
 [
   {
     "name": "📦 arch update",
-    "command": "$TERMINAL $HOME/.config/dotfiles/scripts/nix/arch.sh"
+    "command": "$TERMINAL $HOME/.config/dotfiles/scripts/nix/arch/upkeep.sh"
   },
   {
     "name": "🧹 arch clean",
-    "command": "$TERMINAL $HOME/.config/dotfiles/scripts/nix/arch.sh -c"
+    "command": "$TERMINAL $HOME/.config/dotfiles/scripts/nix/arch/upkeep.sh -c"
   },
   {
     "name": "🔒 network-wireguard-home-start",

@@ -49,9 +49,9 @@ function save_kitty_session() {
 }
 
 # Install
-alias paci="\$HOME/.config/dotfiles/scripts/nix/arch.sh -i"
+alias paci="\$HOME/.config/dotfiles/scripts/nix/arch/upkeep.sh -i"
 # Update
-alias pacu="\$HOME/.config/dotfiles/scripts/nix/arch.sh -u"
+alias pacu="\$HOME/.config/dotfiles/scripts/nix/arch/upkeep.sh -u"
 # Version
 alias pacv="\$aur_helper -Si"
 # Search
