@@ -15,6 +15,7 @@ cht.sh-git
 cmake-format
 cmake-lint
 downgrade
+fswatch
 gdb-dashboard-git
 google-chrome
 htop-vim
@@ -28,6 +29,7 @@ lutris-battlenet-meta
 mimeo
 mps-youtube-git
 navi-bin
+ncpamixer-git
 ncurses5-compat-libs
 networkmanager-dmenu-git
 numix-gtk-theme
