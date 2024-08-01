@@ -53,7 +53,7 @@ quit() {
 setup_colors
 
 lua() {
-	paru -Syu --needed luajit stylua lua-language-server
+	paru -Syu --needed luajit stylua lua-language-server luacheck
 }
 
 neovim() {
@@ -75,9 +75,45 @@ lazygit() {
 }
 
 ranger() {
-	paru -Syu --needed ranger
-	compression
+	paru -Syu --needed ranger w3m ffmpeg highlight libcaca python-pillow
+	git clone https://github.com/cdump/ranger-devicons2 ~/.config/ranger/plugins/devicons2
 }
+
+cpp() {
+	paru -Syu --needed --noconfirm cppcheck cpplint lldb clang gdb gdb-dashboard-git \
+		ninja cmake cmake{,-lint,-format,-language-server} ccache mold perf \
+		valgrind
+}
+
+rust() {
+	paci --needed --noconfirm rustup sccache rust-analyzer
+	rustup toolchain install stable
+	rustup component add rust-src rustfmt clippy
+}
+
+java() {
+	paci --needed --noconfirm j{re,re8,dk,dk8}-openjdk jdtls astyle
+}
+
+zsh() {
+	# Install plugins
+	paci --needed --noconfirm zsh z-git \
+		zsh-theme-powerlevel10k zsh-autosuggestions \
+		zsh-history-substring-search zsh-syntax-highlighting \
+		zsh-completions zsh-vi-mode
+	chsh -s /usr/bin/zsh
+	export ZDOTDIR=$HOME/.config/zsh
+}
+
+markdown() {
+	paci --needed --noconfirm pandoc-bin vale plantuml markdownlint-cli write-good proselint marksman
+}
+
+tex() {
+	paci --needed --noconfirm texlive-bibtexextra texlive-binextra texlive-context texlive-fontsextra texlive-fontsrecommended texlive-fontutils texlive-formatsextra texlive-games texlive-humanities texlive-latex texlive-latexextra texlive-latexrecommended texlive-luatex texlive-mathscience texlive-metapost texlive-music texlive-plaingeneric texlive-pstricks texlive-publishers texlive-xetex
+}
+
+# TODO: zig
 
 help() {
 	# Display Help
@@ -86,19 +122,25 @@ help() {
 	echo "All options are optional"
 	echo "If no options are provided all coding environments will be installed"
 	echo
-	echo "Syntax: update-arch [-h|l|n|e|c|r]"
+	echo "Syntax: update-arch [-h|l|n|e|x|r|c|u|j|z|m|t]"
 	echo "options:"
 	echo "l     lua"
 	echo "n     neovim"
 	echo "e     generic environment"
-	echo "c     compression"
+	echo "x     compression"
 	echo "r     ranger"
+	echo "c     c/c++"
+	echo "u     rust"
+	echo "j     java"
+	echo "z     zsh"
+	echo "m     markdown"
+	echo "t     tex"
 	echo "h     Print this Help."
 	echo
 }
 
 # Get the options
-while getopts "h:lnh" option; do
+while getopts "h:lnexrcujzth" option; do
 	case $option in
 	h) # display Help
 		help
@@ -116,12 +158,37 @@ while getopts "h:lnh" option; do
 		environment
 		exit 0
 		;;
-	c)
+	x)
 		compression
 		exit 0
 		;;
 	r)
 		ranger
+		compression
+		exit 0
+		;;
+	c)
+		cpp
+		exit 0
+		;;
+	u)
+		rust
+		exit 0
+		;;
+	j)
+		java
+		exit 0
+		;;
+	z)
+		zsh
+		exit 0
+		;;
+	m)
+		markdown
+		exit 0
+		;;
+	t)
+		tex
 		exit 0
 		;;
 	\?) # Invalid option

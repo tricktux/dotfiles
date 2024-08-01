@@ -34,7 +34,7 @@ M.cycle_logs = function()
 
   local t = os.date('*t')
   local timestamp =
-    string.format('%04d%02d%02d%02d%02d%02d', t.year, t.month, t.day, t.hour, t.min, t.sec)
+      string.format('%04d%02d%02d%02d%02d%02d', t.year, t.month, t.day, t.hour, t.min, t.sec)
 
   -- Rename it to ".filename.20220123120012" format
   local new_name = string.format('%s.%s', filename, timestamp)
@@ -334,7 +334,7 @@ function M:config()
   if vim.fn.executable('clangd') > 0 then
     log.info('setting up the clangd lsp...')
     local cores = utl.has_win and os.getenv('NUMBER_OF_PROCESSORS')
-      or table.concat(vim.fn.systemlist('nproc'))
+        or table.concat(vim.fn.systemlist('nproc'))
     local c = vim.deepcopy(capabilities)
     c.offsetEncoding = 'utf-16' -- Set the same encoding only for clangd
 

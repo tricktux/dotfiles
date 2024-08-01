@@ -22,6 +22,7 @@ i3lock-fancy-rapid-git
 input-remapper-git
 laptop-mode-tools
 liquidprompt
+markdownlint-cli
 mimeo
 networkmanager-dmenu-git
 numix-gtk-theme
@@ -38,6 +39,7 @@ peazip-qt-bin
 popcorntime-bin
 powerstat
 preload
+proselint
 python-selenium
 qpdfview
 quarto-cli-bin
