@@ -96,15 +96,12 @@ M.path.list.work = {
 }
 
 M.path.list.personal = {
-  vim.fs.joinpath(home, 'Documents/wiki'),
+  vim.fs.joinpath(home, 'Documents/resilio/resilio-rei/wiki'),
   vim.fs.joinpath(home, 'Nextcloud/wiki'),
   vim.fs.joinpath(home, 'Documents/Nextcloud/wiki'),
   vim.fs.joinpath(home, 'Documents/Drive/wiki'),
   vim.fs.joinpath(home, 'External/reinaldo/resilio/wiki'),
-  '/mnt/samba/server/resilio/wiki',
-  [[D:\Seafile\KnowledgeIsPower\wiki]],
-  [[D:\wiki]],
-  [[D:\Reinaldo\Documents\src\resilio\wiki]],
+  vim.fs.joinpath(home, 'Documents/wiki'),
 }
 
 M.path.find = function(wikis)
@@ -167,7 +164,8 @@ function M:setup()
     p = self.path.default
   end
 
-  vim.g.advanced_plugins = string.find(p, '[Nn]extcloud') ~= nil and 1 or 0
+  vim.g.advanced_plugins = string.gmatch(p, 'resilio|[Nn]extcloud|Drive') ~= nil and 1 or 0
+  -- vim.g.advanced_plugins = 1
   self.path.personal = p
 end
 
