@@ -96,7 +96,7 @@ M.path.list.work = {
 }
 
 M.path.list.personal = {
-  vim.fs.joinpath(home, 'Documents/resilio/resilio-rei/wiki'),
+  vim.fs.joinpath(home, 'Documents/resilio/rei/wiki'),
   vim.fs.joinpath(home, 'Nextcloud/wiki'),
   vim.fs.joinpath(home, 'Documents/Nextcloud/wiki'),
   vim.fs.joinpath(home, 'Documents/Drive/wiki'),
