@@ -107,7 +107,7 @@ apps["tickrs"] = {
   --  Used by i3ipc
   regex = '[title=\\"^tickrs$\\" class=\\"^kitty$\\"]',
   -- Command to execute for this window
-  i3cmd = "scratchpad show, resize set 80ppt 60ppt, move position center",
+  i3cmd = "scratchpad show, resize set 80ppt 80ppt, move position center",
   -- How to start this application if it does not exists
   exec = [[$TERMINAL --title tickrs tickrs&]],
 }
@@ -137,7 +137,7 @@ apps["qalculate"] = {
   --  Used by i3ipc
   regex = '[class=\\"^qalculate-qt$\\"]',
   -- Command to execute for this window
-  i3cmd = "scratchpad show, resize set 50ppt 40ppt, move position center",
+  i3cmd = "scratchpad show, resize set 50ppt 60ppt, move position center",
   -- How to start this application if it does not exists
   exec = [[qalculate-qt&]],
 }
