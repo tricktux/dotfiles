@@ -57,8 +57,7 @@ lua() {
 }
 
 neovim() {
-	"$TERMINAL" \
-		"$XDG_CONFIG_HOME/dotfiles/scripts/nix/installs/arch/coding/neovim.sh" &
+	"${XDG_CONFIG_HOME:=$HOME/.config}/dotfiles/scripts/nix/installs/arch/coding/neovim.sh"
 }
 
 environment() {
