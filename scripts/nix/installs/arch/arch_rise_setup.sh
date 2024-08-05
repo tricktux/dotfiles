@@ -889,7 +889,9 @@ sudo powertop --calibrate
 # See also `laptop-mode`
 paci --needed --noconfirm acpid
 sudo systemctl enable --now acpid
+sudo systemctl status acpid
 sudo systemctl enable --now laptop-mode
+sudo systemctl status laptop-mode
 paci --needed --noconfirm hdparm sdparm ethtool wireless_tools hal python-pyqt5
 #}}}
 
