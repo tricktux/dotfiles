@@ -9,6 +9,7 @@ archinstall
 archlinux-wallpaper
 astyle
 atool
+atuin
 autoconf
 automake
 baobab
@@ -76,7 +77,6 @@ git
 glava
 global
 gnome-disk-utility
-gnome-keyring
 go
 goimapnotify
 google-glog
@@ -134,7 +134,6 @@ lua-language-server
 lua51-mpack
 luacheck
 luajit
-lutris
 lvm2
 lxappearance
 lxqt-openssh-askpass
@@ -145,6 +144,7 @@ make
 man-pages
 mediainfo
 meld
+mesa-utils
 meson
 mkinitcpio
 mold
@@ -157,7 +157,6 @@ neofetch
 neomutt
 net-tools
 network-manager-applet
-nextcloud-client
 nfs-utils
 ninja
 nix
@@ -195,6 +194,7 @@ polybar
 poppler
 prettier
 python-cpplint
+python-pillow
 python-pip
 python-pycuda
 python-pywal
