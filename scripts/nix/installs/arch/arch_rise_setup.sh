@@ -21,7 +21,7 @@ passwd
 # }}}
 
 # Allow user to execute sudo commands {{{
-EDITOR=nvim visudo
+sudo EDITOR=nvim visudo
 # Search for wheel and uncomment that line
 # And underneath add the following:
 Defaults rootpw
