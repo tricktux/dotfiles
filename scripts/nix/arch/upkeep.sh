@@ -162,8 +162,10 @@ update_pandoc_bin() {
 }
 
 save_pkg_list_to_dotfiles() {
-	local PACMANFILE="$XDG_CONFIG_HOME/dotfiles/pkg/$(hostname)/pacman-list.pkg"
-	local AURFILE="$XDG_CONFIG_HOME/dotfiles/pkg/$(hostname)/aur-list.pkg"
+	local base="${XDG_CONFIG_HOME:=$HOME/.config}/dotfiles/pkg/$(hostname)"
+	mkdir -p "$base"
+	local PACMANFILE="$base/pacman-list.pkg"
+	local AURFILE="$base/aur-list.pkg"
 	pacman -Qqen >"$PACMANFILE"
 	pacman -Qqem >"$AURFILE"
 }
