@@ -22,11 +22,11 @@ update_pynvim() {
 
 # Install needed dependencies (adjust as necessary)
 paru -Syu --needed git cmake make gcc pkg-config unzip ninja libtool curl gettext \
-  tree-sitter-cli ripgrep fd fswatch
+  tree-sitter-cli ripgrep fd fswatch clang
 
 # Clone the specific branch of Neovim
 echo "Cloning Neovim repository..."
-git clone --branch "$BRANCH" --single-branch https://github.com/neovim/neovim.git "$NEOVIM_DIR" || error "Failed to clone Neovim repository"
+git clone --depth 1 --branch "$BRANCH" --single-branch https://github.com/neovim/neovim.git "$NEOVIM_DIR" || error "Failed to clone Neovim repository"
 # Navigate to the directory
 cd "$NEOVIM_DIR" || error "Failed to navigate to Neovim directory"
 # Build Neovim

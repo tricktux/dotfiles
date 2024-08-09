@@ -21,7 +21,7 @@ passwd
 # }}}
 
 # Allow user to execute sudo commands {{{
-EDITOR=nvim visudo
+sudo EDITOR=nvim visudo
 # Search for wheel and uncomment that line
 # And underneath add the following:
 Defaults rootpw
@@ -101,7 +101,7 @@ sudo bash -c \
   'printf "\nAfter=dbus.service" >> /etc/systemd/system/wpa_supplicant.service.d/override.conf'
 #}}}
 
-# Copy your `mirrorlist`:
+# Copy your `mirrorlist`: {{{
 scp /etc/pacman.d/mirrorlist reinaldo@192.168.1.194:/home/reinaldo/mirrorlist
 sudo mv /etc/pacman.d/mirrorlist{,.bak}
 sudo mv /home/reinaldo/mirrorlist /etc/pacman.d/mirrorlist
@@ -110,6 +110,8 @@ cd
 cp /etc/pacman.d/mirrorlist /tmp/mirrorlist
 scp reinaldo@192.168.1.148:/tmp/mirrorlist .
 sudo mv mirrorlist /etc/pacman.d/mirrorlist
+
+# }}}
 
 # install `paru`{{{
 # From this point on you need to login as your user
@@ -179,8 +181,7 @@ zsh
 paru -Syu --needed --noconfirm xfce4-settings
 # }}}
 
-
-# pipewire
+# pipewire {{{
 paci --needed --noconfirm pipewire
 paci --needed --noconfirm pamixer alsa-lib libao libcdio libcddb libvorbis \
   libmpcdec wavpack libmad libmodplug libmikmod
@@ -219,9 +220,9 @@ paru -Syu easyeffects lsp-plugins
 # Setup NetBackup {{{
 # This is to get the server's cache to install stuff faster
 mkdir -p $HOME/.mnt/skywafer/{home,music,shared,video,NetBackup}
-sudo bash -c 'printf "\n//192.168.1.139/NetBackup /home/reinaldo/.mnt/skywafer/NetBackup cifs workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev 0 0" >> /etc/fstab'
+sudo bash -c 'printf "\n//192.168.1.139/NetBackup /home/reinaldo/.mnt/skywafer/NetBackup cifs credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=1000,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev,vers=3.0 0 0" >> /etc/fstab'
 paru -Syu --needed cifs-utils
-sudo mount -t cifs //192.168.1.139/NetBackup ~/.mnt/skywafer/NetBackup -o credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev
+sudo mount -t cifs //192.168.1.139/NetBackup ~/.mnt/skywafer/NetBackup -o credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=1000,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev,vers=3.0
 sudo mkdir -p /etc/samba/credentials
 sudo nvim /etc/samba/credentials/share
 # Just copy the info for now from local pc
@@ -284,12 +285,14 @@ sudo nvim /etc/lightdm/lightdm.conf
 #}}}
 
 # fix time:{{{
-paru -S ntp
+paru -Syu ntp
 sudo timedatectl set-ntp true
 #}}}
 
-# Beautiful arch wallpapers
+# Beautiful arch wallpapers {{{
 paci --needed --noconfirm archlinux-wallpaper
+
+# }}}
 
 # Linux kernel{{{
 # Tue Dec 29 2020 09:44
@@ -430,7 +433,7 @@ paci --needed --noconfirm synology-drive
 
 paci --needed --noconfirm riseup-vpn
 
-# wireguard {{{
+# wireguard
 # Get conf file from router linux_pcs
 # Put it at /etc/wireguard/home.conf
 paru -Syu --needed --noconfirm wireguard-tools systemd-resolvconf
@@ -450,7 +453,6 @@ sudo chmod 700 /etc/wireguard/home.conf
 sudo chmod 600 /etc/wireguard/home.conf
 # }}}
 
-
 # xorg{{{
 # Multi Monitor setup, or for HiDPI displays it's best to auto calculate 
 # resolution
@@ -464,6 +466,7 @@ nvim "$HOME/.config/xprofile-$(hostname)"
 # ACTION: Now is also a good time to add that hostname there
 nvim "$HOME/.config/i3/scripts/xrandr.sh"
 # `xorg autologin`
+
 # Network Manager{{{
 paci --needed --noconfirm networkmanager network-manager-applet networkmanager-openvpn networkmanager-dmenu-git 
 pacu networkmanager network-manager-applet networkmanager-openvpn networkmanager-dmenu-git 
@@ -634,7 +637,6 @@ sudo chmod 700 /etc/openvpn/client/{home,pass}.conf
 sudo chmod 600 /etc/openvpn/client/{home,pass}.conf
 sudo systemctl start openvpn-client@home
 sudo systemctl status openvpn-client@home
-# }}}
 # }}}
 
 # password-store{{{
@@ -852,7 +854,7 @@ paci --needed --noconfirm pyright
 #}}}
 
 # SSD
-paci --needed --noconfirm util-linux
+paru -Syu --needed --noconfirm util-linux
 sudo systemctl enable --now fstrim.timer
 
 # Laptops
@@ -889,7 +891,9 @@ sudo powertop --calibrate
 # See also `laptop-mode`
 paci --needed --noconfirm acpid
 sudo systemctl enable --now acpid
+sudo systemctl status acpid
 sudo systemctl enable --now laptop-mode
+sudo systemctl status laptop-mode
 paci --needed --noconfirm hdparm sdparm ethtool wireless_tools hal python-pyqt5
 #}}}
 
@@ -1000,7 +1004,7 @@ mkdir -p ~/.local/share/mail/{molinamail,molinamail_meli,molinamail_mcp}/inbox
 #}}}
 
 # evolution {{{
-paci --needed --noconfirm evolution gnome-keyring libsecret
+paru -Syu --needed --noconfirm evolution gnome-keyring libsecret
 # NOTE: you want to setup a "Collection Account", not just a regular email
 # account. This way it pulls calendar and tasks
 # ACTION: setup empty password so that `lightdm` can unlock the `keyring` at login
@@ -1252,5 +1256,53 @@ paru -Syu ncurses5-compat-libs xilinx-ise
 
 # [0]: https://pencil.evolus.vn/
 # [1]: https://wiki.archlinux.org/index.php/Hardware_video_acceleration
+
+# pihole-server {{{
+
+paru -Syu --needed pi-hole-server php-sqlite lighttpd php-cgi
+# Web interface
+# enable relevant sections
+sudo nvim /etc/php/php.ini
+# NOTE: Search extensions, and add these below to the end
+extension=pdo_sqlite
+extension=sockets
+extension=sqlite3
+
+# NOTE: search for open_basedir
+open_basedir = /srv/http/pihole:/run/pihole-ftl/pihole-FTL.port:/run/log/pihole/pihole.log:/run/log/pihole-ftl/pihole-FTL.log:/etc/pihole:/etc/hosts:/etc/hostname:/etc/dnsmasq.d/02-pihole-dhcp.conf:/etc/dnsmasq.d/03-pihole-wildcard.conf:/etc/dnsmasq.d/04-pihole-static-dhcp.conf:/var/log/lighttpd/error-pihole.log:/proc/loadavg:/proc/meminfo:/proc/cpuinfo:/sys/class/thermal/thermal_zone0/temp:/tmp
+
+sudo cp /usr/share/pihole/configs/lighttpd.example.conf /etc/lighttpd/lighttpd.conf
+sudo systemctl enable --now lighttpd
+sudo systemctl status lighttpd
+
+# Fix hosts, NOTE: change surbook for hostname
+sudo nvim /etc/hosts
+127.0.0.1              localhost
+ip.address.of.pihole   pi.hole surbook
+
+# NOTE: make sure the dns service is running fine
+sudo systemctl enable pihole-FTL
+sudo systemctl restart pihole-FTL
+sudo systemctl status pihole-FTL
+# }}}
+
+# unbound {{{
+
+paru -Syu --needed unbound
+wget https://www.internic.net/domain/named.root -qO- | sudo tee /var/lib/unbound/root.hints
+
+# NOTE: ensure unbound main config includes pi hole config
+sudo nvim /etc/unbound/unbound.conf
+# NOTE: By adding the below line if not there
+include: /etc/unbound/unbound.conf.d/*.conf
+
+# Then follow instructions here: https://docs.pi-hole.net/guides/dns/unbound/
+sudo mkdir -p /etc/unbound/unbound.conf.d
+sudo nvim /etc/unbound/unbound.conf.d/pi-hole.conf
+
+sudo systemctl enable --now unbound
+sudo systemctl restart unbound
+sudo systemctl status unbound
+# }}}
 
 # vim: fdm=marker

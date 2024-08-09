@@ -1,4 +1,8 @@
+cmake-format
+cmake-lint
 fswatch
+gdb-dashboard-git
+htop-vim
 laptop-mode-tools
 paru-bin
 paru-bin-debug

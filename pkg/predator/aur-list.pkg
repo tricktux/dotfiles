@@ -3,7 +3,6 @@ abook
 aconfmgr-git
 alttab-git
 anki-bin
-atuin-bin
 bbe
 bibata-cursor-theme-bin
 bibata-extra-cursor-theme
@@ -25,11 +24,7 @@ i3lock-fancy-rapid-git
 input-remapper-git
 liquidprompt
 lua-format
-lutris-battlenet-meta
 mimeo
-mps-youtube-git
-navi-bin
-ncpamixer-git
 ncurses5-compat-libs
 networkmanager-dmenu-git
 numix-gtk-theme
@@ -54,10 +49,9 @@ rmview
 rofi-bluetooth-git
 rofi-dmenu
 rofi-file-browser-extended-git
+rslsync
 shellcheck-bin
 simplescreenrecorder-bin
-steam-fonts
-synology-drive
 tdrop
 teams-for-linux-bin
 termcap
@@ -72,7 +66,6 @@ xdg-ninja
 xdg-utils-mimeo
 xf86-video-openchrome
 xlayoutdisplay
-youtube-dl
 z-git
 zeal-git
 zoom
