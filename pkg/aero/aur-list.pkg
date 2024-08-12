@@ -22,7 +22,6 @@ i3lock-fancy-rapid-git
 input-remapper-git
 laptop-mode-tools
 liquidprompt
-markdownlint-cli
 mimeo
 networkmanager-dmenu-git
 numix-gtk-theme
@@ -49,6 +48,7 @@ rmapi
 rmview
 rofi-bluetooth-git
 rofi-dmenu
+rslsync
 shellcheck-bin
 simplescreenrecorder
 synology-drive
