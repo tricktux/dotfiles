@@ -106,15 +106,35 @@ return {
     },
   },
   {
-    'jackMort/ChatGPT.nvim',
-    cmd = { 'ChatGPTEditWithInstructions', 'ChatGPTActAs', 'ChatGPT' },
+    "robitx/gp.nvim",
     keys = {
       {
         '<plug>ai',
-        '<cmd>ChatGPT<cr>',
+        '<cmd>GpChatNew vsplit<cr>',
         desc = 'ai_help',
       },
     },
+    config = function()
+      local conf = {
+        -- For customization, refer to Install > Configuration in the Documentation/Readme
+        -- default agent names set during startup, if nil last used agent is used
+        default_command_agent = "ChatGPT4o-mini",
+        default_chat_agent = "ChatGPT4o-mini",
+        -- log_sensitive = true,
+      }
+      require("gp").setup(conf)
+    end,
+  },
+  {
+    'jackMort/ChatGPT.nvim',
+    cmd = { 'ChatGPTEditWithInstructions', 'ChatGPTActAs', 'ChatGPT' },
+    -- keys = {
+    --   {
+    --     '<plug>ai',
+    --     '<cmd>ChatGPT<cr>',
+    --     desc = 'ai_help',
+    --   },
+    -- },
     opts = {
       openai_params = {
         -- gpt-4, gpt-3.5-turbo-16k-0613
