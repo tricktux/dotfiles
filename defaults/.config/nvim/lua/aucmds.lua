@@ -153,6 +153,17 @@ M.setup = function()
     group = id,
   })
 
+  id = api.nvim_create_augroup('cmdwin', { clear = true })
+  vim.api.nvim_create_autocmd('CmdwinEnter', {
+    group = id,
+    desc = 'Disable some conflicting mappings',
+    pattern = '*',
+    callback = function()
+      vim.keymap.set('n', [[<c-c>]], [[<c-c>]], { silent = true, buffer = true })
+      vim.keymap.set('n', [[<cr>]], [[<cr>]], { silent = true, buffer = true })
+    end,
+  })
+
   id = api.nvim_create_augroup('Buf', { clear = true })
   vim.api.nvim_create_autocmd('BufReadPost', {
     group = id,
