@@ -62,7 +62,7 @@ neovim() {
 
 environment() {
 	paru -Syu --needed bat fzf direnv atuin ripgrep-all stow \
-		tldr xclip htop-vim eza wget rsync nodejs z
+		tldr xclip htop-vim eza wget rsync nodejs z kitty
 }
 
 compression() {
