@@ -240,7 +240,7 @@ function! mappings#Set()
   cnoremap <C-p> <Up>
 
   cnoremap <silent> <expr> <cr> <SID>center_search()
-  noremap <c-f> <Right>
+  inoremap <c-f> <Right>
   noremap! <c-b> <Left>
   " Sun Sep 17 2017 14:21: this will not work in vim
   noremap! <a-b> <S-Left>
