@@ -142,6 +142,9 @@ function M:setup()
   -- From kickstart
   vim.opt.splitright = true
   vim.opt.splitbelow = true
+  vim.opt.breakindent = true
+  -- Show which line your cursor is on
+  vim.opt.cursorline = true
 
   -- Sets how neovim will display certain whitespace characters in the editor.
   --  See `:help 'list'`
