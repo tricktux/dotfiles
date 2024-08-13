@@ -85,18 +85,18 @@ cpp() {
 }
 
 rust() {
-	paci --needed --noconfirm rustup sccache rust-analyzer
+	paru -Syu --needed --noconfirm rustup sccache rust-analyzer
 	rustup toolchain install stable
 	rustup component add rust-src rustfmt clippy
 }
 
 java() {
-	paci --needed --noconfirm j{re,re8,dk,dk8}-openjdk jdtls astyle
+	paru -Syu --needed --noconfirm j{re,re8,dk,dk8}-openjdk jdtls astyle
 }
 
 zsh() {
 	# Install plugins
-	paci --needed --noconfirm zsh z-git \
+	paru -Syu --needed --noconfirm zsh z-git \
 		zsh-theme-powerlevel10k zsh-autosuggestions \
 		zsh-history-substring-search zsh-syntax-highlighting \
 		zsh-completions zsh-vi-mode
@@ -105,11 +105,11 @@ zsh() {
 }
 
 markdown() {
-	paci --needed --noconfirm pandoc-bin vale plantuml markdownlint-cli write-good proselint marksman
+	paru -Syu --needed --noconfirm pandoc-bin vale plantuml markdownlint-cli write-good proselint marksman
 }
 
 tex() {
-	paci --needed --noconfirm texlive-bibtexextra texlive-binextra texlive-context texlive-fontsextra texlive-fontsrecommended texlive-fontutils texlive-formatsextra texlive-games texlive-humanities texlive-latex texlive-latexextra texlive-latexrecommended texlive-luatex texlive-mathscience texlive-metapost texlive-music texlive-plaingeneric texlive-pstricks texlive-publishers texlive-xetex
+	paru -Syu --needed --noconfirm texlive-bibtexextra texlive-binextra texlive-context texlive-fontsextra texlive-fontsrecommended texlive-fontutils texlive-formatsextra texlive-games texlive-humanities texlive-latex texlive-latexextra texlive-latexrecommended texlive-luatex texlive-mathscience texlive-metapost texlive-music texlive-plaingeneric texlive-pstricks texlive-publishers texlive-xetex
 }
 
 # TODO: zig
