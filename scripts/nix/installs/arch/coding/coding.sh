@@ -70,7 +70,7 @@ compression() {
 }
 
 lazygit() {
-	paru -Syu --needed lazygit delta
+	paru -Syu --needed lazygit git-delta
 }
 
 ranger() {
