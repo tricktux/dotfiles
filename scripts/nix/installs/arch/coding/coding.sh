@@ -112,6 +112,10 @@ tex() {
 	paru -Syu --needed --noconfirm texlive-bibtexextra texlive-binextra texlive-context texlive-fontsextra texlive-fontsrecommended texlive-fontutils texlive-formatsextra texlive-games texlive-humanities texlive-latex texlive-latexextra texlive-latexrecommended texlive-luatex texlive-mathscience texlive-metapost texlive-music texlive-plaingeneric texlive-pstricks texlive-publishers texlive-xetex
 }
 
+python() {
+	paru -Syu --needed --noconfirm python{,-pipx}
+}
+
 # TODO: zig
 
 help() {
@@ -121,7 +125,7 @@ help() {
 	echo "All options are optional"
 	echo "If no options are provided all coding environments will be installed"
 	echo
-	echo "Syntax: update-arch [-h|l|n|e|x|r|c|u|j|z|m|t]"
+	echo "Syntax: update-arch [-h|l|n|e|x|r|c|u|j|z|m|t|p]"
 	echo "options:"
 	echo "l     lua"
 	echo "n     neovim"
@@ -134,12 +138,13 @@ help() {
 	echo "z     zsh"
 	echo "m     markdown"
 	echo "t     tex"
+	echo "p     python"
 	echo "h     Print this Help."
 	echo
 }
 
 # Get the options
-while getopts "h:lnexrcujzth" option; do
+while getopts "h:lnexrcujzthp" option; do
 	case $option in
 	h) # display Help
 		help
@@ -188,6 +193,10 @@ while getopts "h:lnexrcujzth" option; do
 		;;
 	t)
 		tex
+		exit 0
+		;;
+	p)
+		python
 		exit 0
 		;;
 	\?) # Invalid option
