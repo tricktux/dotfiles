@@ -231,6 +231,7 @@ python-iniconfig
 python-outcome
 python-paramiko
 python-pillow
+python-pipx
 python-pluggy
 python-pyaml
 python-pyasn1
