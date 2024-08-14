@@ -335,11 +335,9 @@ local function setup()
     diagnostics_format = '(#{s}): #{m}',
     -- TODO: loop through sources to check if there's a formatting source
     -- Only then overwrite mappings.
-    -- on_attach = require("config.lsp").on_lsp_attach,
     on_attach = function()
       -- Null ls on demand
       vim.b.null_enable_vale = 0
-      require('plugins.lsp').set_lsp_mappings()
     end,
     on_exit = nil,
     sources = sources,

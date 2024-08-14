@@ -142,100 +142,70 @@ function M.set_lsp_mappings(bufnr)
   end
 end
 
-local lsp_init_check = function()
-  return vim.b.did_on_lsp_attach == 1 and true or false
-end
-
 -- Abstract function that allows you to hook and set settings on a buffer that
 -- has lsp server support
-function M.on_lsp_attach(client_id, bufnr)
-  if lsp_init_check() then
-    return
-  end
-
-  vim.validate({ client_id = { client_id, 'table' }, bufnr = { bufnr, 'number' } })
-
-  vim.b.did_on_lsp_attach = 1
-
-  M.set_lsp_mappings(bufnr)
-  set_lsp_options(client_id, bufnr)
-
-  local sig_ok, sig = pcall(require, 'lsp_signature')
-  if sig_ok then
-    sig.on_attach()
-  end
-
-  local id = vim.api.nvim_create_augroup('LspStuff', { clear = true })
+function M.setup_lsp_attach()
+  local la = vim.api.nvim_create_augroup('lsp-attach', { clear = true })
+  local lh = vim.api.nvim_create_augroup('lsp-highlight', { clear = true })
+  local ld = vim.api.nvim_create_augroup('lsp-detach', { clear = true })
   vim.api.nvim_create_autocmd({ 'LspDetach' }, {
     callback = function(au)
-      vim.b.did_on_lsp_attach = nil
       vim.cmd('setlocal tagfunc< omnifunc< formatexpr<')
+      vim.lsp.buf.clear_references()
+      vim.api.nvim_clear_autocmds { group = lh, buffer = au.buf }
     end,
-    buffer = bufnr,
-    desc = 'Detach from buffer',
-    group = id,
+    desc = 'LSP detach from buffer',
+    group = ld,
   })
-  vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
+  vim.api.nvim_create_autocmd({ 'LspAttach' }, {
     callback = function(au)
-      if vim.fn.has('nvim-0.10') <= 0 then
-        return
-      end
-      if not do_buffer_clients_support_method(au.buf, 'textDocument/inlayHint') then
-        return
-      end
-      vim.lsp.inlay_hint.enable(true, { bufnr = au.buf })
-    end,
-    buffer = bufnr,
-    desc = 'Highlight inlay hints',
-    group = id,
-  })
-  vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
-    callback = function(au)
-      if not do_buffer_clients_support_method(au.buf, 'textDocument/codeLens') then
-        return
+      local client = vim.lsp.get_client_by_id(au.data.client_id)
+      M.set_lsp_mappings(au.buf)
+      set_lsp_options(client, au.buf)
+
+      local sig_ok, sig = pcall(require, 'lsp_signature')
+      if sig_ok then
+        sig.on_attach()
       end
 
-      vim.lsp.codelens.refresh({ bufnr = au.buf })
-    end,
-    buffer = bufnr,
-    desc = 'Refresh codelens for the current buffer',
-    group = id,
-  })
-  -- Highlights references to word under the cursor
-  vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-    callback = function(au)
-      if not do_buffer_clients_support_method(au.buf, 'textDocument/documentHighlight') then
-        return
+      if vim.fn.has('nvim-0.10') > 0 and do_buffer_clients_support_method(au.buf, 'textDocument/inlayHint') then
+        vim.lsp.inlay_hint.enable(true, { bufnr = au.buf })
       end
-      vim.lsp.buf.document_highlight()
-    end,
-    buffer = bufnr,
-    desc = 'LSP Document Highlight',
-    group = id,
-  })
-  vim.api.nvim_create_autocmd('CursorMoved', {
-    callback = function(au)
-      if not do_buffer_clients_support_method(au.buf, 'textDocument/documentHighlight') then
-        return
+      if vim.fn.has('nvim-0.10') > 0 and do_buffer_clients_support_method(au.buf, 'textDocument/codeLens') then
+        vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
+          callback = function(nested_au)
+            vim.lsp.codelens.refresh({ bufnr = nested_au.buf })
+          end,
+          buffer = au.buf,
+          desc = 'Refresh codelens for the current buffer',
+          group = lh,
+        })
       end
-      vim.lsp.buf.clear_references()
+      if do_buffer_clients_support_method(au.buf, 'textDocument/documentHighlight') then
+        vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+          callback = vim.lsp.buf.document_highlight,
+          buffer = au.buf,
+          desc = 'LSP Document Highlight',
+          group = lh,
+        })
+        vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorHoldI' }, {
+          callback = vim.lsp.buf.clear_references,
+          buffer = au.buf,
+          desc = 'LSP Document Highlight Clear',
+          group = lh,
+        })
+      end
     end,
-    buffer = bufnr,
-    desc = 'LSP Document Highlight clear',
-    group = id,
+    desc = 'LSP attach to buffer',
+    group = la,
   })
 end
 
 local function on_clangd_attach(client_id, bufnr)
-  if lsp_init_check() then
-    return
-  end
-
   local opts = { silent = true, buffer = bufnr, desc = 'clangd_switch_source_header' }
   vim.keymap.set('n', '<localleader>a', [[<cmd>ClangdSwitchSourceHeader<cr>]], opts)
   opts.desc = 'clangd_switch_source_header'
   vim.keymap.set('n', '<localleader>A', [[<cmd>vs<cr><cmd>ClangdSwitchSourceHeader<cr>]], opts)
-  return M.on_lsp_attach(client_id, bufnr)
 end
 
 function M:config()
@@ -246,12 +216,13 @@ function M:config()
   local capabilities = cmp_lsp.default_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+  self.setup_lsp_attach()
+
   local flags = { allow_incremental_sync = true, debounce_text_changes = 150 }
 
   if vim.fn.executable('lua-language-server') > 0 then
     log.info('setting up the lua lsp...')
     nvim_lsp.lua_ls.setup({
-      on_attach = self.on_lsp_attach,
       flags = flags,
       capabilities = capabilities,
       settings = {
@@ -280,7 +251,6 @@ function M:config()
   if vim.fn.executable('omnisharp') > 0 then
     log.info('setting up the omnisharp lsp...')
     nvim_lsp.omnisharp.setup({
-      on_attach = self.on_lsp_attach,
       flags = flags,
       filetypes = { 'cs' },
       cmd = { 'omnisharp', '--languageserver', '--hostPID', tostring(vim.fn.getpid()) },
@@ -292,6 +262,7 @@ function M:config()
   if vim.fn.executable('ruff-lsp') > 0 then
     log.info('setting up the ruff lsp...')
 
+    -- https://docs.astral.sh/ruff/editors/setup/#neovim
     nvim_lsp.ruff_lsp.setup({
       init_options = {
         settings = {
@@ -300,14 +271,26 @@ function M:config()
         },
       },
     })
-  elseif vim.fn.executable('pyright-langserver') > 0 then
+  end
+  if vim.fn.executable('pyright-langserver') > 0 then
     -- cinst nodejs-lts -y
     -- npm install -g pyright
     log.info('setting up the pyright lsp...')
     nvim_lsp.pyright.setup({
-      on_attach = self.on_lsp_attach,
       flags = flags,
       capabilities = capabilities,
+      settings = {
+        pyright = {
+          -- Using Ruff's import organizer
+          disableOrganizeImports = true,
+        },
+        python = {
+          analysis = {
+            -- Ignore all files for analysis to exclusively use Ruff for linting
+            ignore = { '*' },
+          },
+        },
+      },
     })
   end
 
@@ -365,7 +348,6 @@ function M:config()
   if vim.fn.executable('rust-analyzer') > 0 then
     log.info('setting up the rust-analyzer...')
     nvim_lsp.rust_analyzer.setup({
-      on_attach = self.on_lsp_attach,
       flags = flags,
       capabilities = capabilities,
       settings = {
@@ -449,7 +431,5 @@ return {
       cycle_results = false, -- cycle item list when reaching beginning or end of list
     },
   },
-  set_lsp_mappings = M.set_lsp_mappings,
   cycle_logs = M.cycle_logs,
-  on_attach = M.on_lsp_attach,
 }
