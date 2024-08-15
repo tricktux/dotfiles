@@ -324,10 +324,6 @@ function! s:set_syntax() abort
   " let g:no_man_maps = 1
   let g:ft_man_folding_enable = 1
 
-  " Never load netrw
-  let g:loaded_netrw       = 1
-  let g:loaded_netrwPlugin = 1
-
   " VIM
   let g:vimsyn_embed = 'lPr'  " support embedded lua, python and ruby
   let g:vimsyn_folding = 'afp' "fold augroups functions and python script
