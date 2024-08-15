@@ -113,7 +113,7 @@ tex() {
 }
 
 python() {
-	paru -Syu --needed --noconfirm python{,-pipx} ruff-lsp pyright
+	paru -Syu --needed --noconfirm python{,-pipx} ruff-lsp pyright python-pylint
 }
 
 # TODO: zig
