@@ -5,7 +5,7 @@ M.path = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 M.bootstrap = function()
   if vim.loop.fs_stat(M.path) then
     vim.opt.rtp:prepend(M.path)
-    return
+    return true
   end
 
   vim.fn.system({
@@ -16,7 +16,11 @@ M.bootstrap = function()
     '--branch=stable', -- latest stable release
     M.path,
   })
-  vim.opt.rtp:prepend(M.path)
+  if vim.loop.fs_stat(M.path) then
+    vim.opt.rtp:prepend(M.path)
+    return true
+  end
+  return false
 end
 
 M.opts = {
@@ -165,8 +169,11 @@ M.opts = {
 }
 
 M.setup = function()
-  M.bootstrap()
-  require('lazy').setup('plugins', M.opts)
+  if M.bootstrap() == true then
+    require('lazy').setup('plugins', M.opts)
+    return
+  end
+  print("ERROR: Failed to bootstrap 'lazy.nvim'")
 end
 
 return M
