@@ -58,7 +58,7 @@ function M:setup()
   self:windows()
   vim.opt.hidden = true
   vim.opt.timeout = true
-  vim.opt.timeoutlen = 100
+  vim.opt.timeoutlen = 1000
   -- Tab management
   -- No tabs in the code. Tabs are expanded to spaces
   vim.opt.expandtab = true
