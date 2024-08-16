@@ -543,13 +543,14 @@ local function misc_mappings()
   -- Quickfix/Location list
   opts.desc = 'quickfix'
   vks('n', '<s-q>', '<cmd>copen 20<bar>normal! <c-w>J<cr>', opts)
-  opts.desc = 'quickfix'
+  opts.desc = 'locallist'
   vks('n', '<s-u>', '<cmd>lopen 20<bar>normal! <c-w>J<cr>', opts)
 
   opts.desc = 'cwd_files'
   vks('n', '<plug>mru_browser', function()
     fs.path.fuzzer(fn.getcwd())
   end, opts)
+  opts.desc = 'file_ranger_native'
   vks('n', '<plug>file_ranger_native', function()
     local o = { startinsert = true }
     require('utils.utils').term.float.exec('term ranger', o)
