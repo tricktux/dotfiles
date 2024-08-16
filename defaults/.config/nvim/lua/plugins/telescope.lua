@@ -366,11 +366,7 @@ end
 function M:set_mappings()
   local ts = require('telescope.builtin')
   local leader = {}
-  local opts = { silent = true, desc = 'telescope_fuzzy_command_search' }
-  vks('c', '<c-v>', '<Plug>(TelescopeFuzzyCommandSearch)', opts)
-  opts.desc = 'telescope_command_history'
-  vks('n', '<leader>;', ts.command_history, opts)
-  opts.desc = 'telescope'
+  local opts = { silent = true, desc = 'telescope' }
   vks('n', '<leader>J', '<cmd>Telescope<cr>', opts)
 
   opts.desc = 'buffer_browser'
@@ -392,25 +388,6 @@ function M:set_mappings()
   map:keymaps_sets(git)
   git.prefix = map.vcs.prefix .. 't'
   map:keymaps_sets(git)
-
-  -- TODO: These should all probably <plug> type
-  local search = { prefix = '<leader>' }
-  search.mappings = {
-    ['>'] = { grep_cword, 'grep_cword_all_files' },
-    [','] = { grep_cfilter_cword, 'grep_cfilter_cword' },
-    ['.'] = { ts.resume, 'resume' },
-    ['<'] = { grep_cglob_cword, 'grep_cglob_cword' },
-    ['sca'] = { grep_cword, 'grep_cword_all_files' },
-    ['saa'] = { live_grep, 'live_grep_all_words_all_files' },
-    ['sr'] = { ts.resume, 'ts.resume' },
-    ['su'] = { custom_live_grep, 'custom_live_grep' },
-    ['sag'] = { live_grep_cfile_glob_pattern, 'live_grep_cfile_glob_pattern' },
-    ['saf'] = { live_grep_cfile_type_filter, 'live_grep_cfile_type_filter' },
-    ['scf'] = { grep_cfilter_cword, 'grep_cword_filter' },
-    ['scg'] = { grep_cglob_cword, 'grep_cword_cglob' },
-  }
-
-  map:keymaps_sets(search)
 
   leader.prefix = '<leader>' .. M.leader_key
   leader.mappings = {

@@ -1,4 +1,3 @@
-local api = vim.api
 local log = require('utils.log')
 local fmt = string.format
 local vks = vim.keymap.set
@@ -584,6 +583,13 @@ M.plug.mappings = {
   ['<leader>a'] = { '<plug>ai', 'ai_help' },
   ['<localleader>b'] = { '<plug>debug_start', 'debug_start' },
   ['<bs>'] = { '<plug>comment_line', 'comment_line' },
+  -- Search
+  ['<leader>;'] = { '<plug>cmd_hist_browser', 'command_history_browser' },
+  ['<plug>cmd_hist_browser'] = { 'q:', 'command_history_browser' },
+  ['<leader>,'] = { '<plug>grep_cword', 'grep_cword' },
+  ['<plug>grep_cword'] = { ':G <c-r><c-w><cr>', 'grep_cword' },
+  ['<leader>/'] = { '<plug>grep', 'grep' },
+  ['<plug>grep'] = { ':G ', 'grep' },
 }
 
 M.braces = {}
