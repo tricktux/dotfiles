@@ -546,10 +546,8 @@ local function misc_mappings()
   opts.desc = 'locallist'
   vks('n', '<s-u>', '<cmd>lopen 20<bar>normal! <c-w>J<cr>', opts)
 
-  opts.desc = 'cwd_files'
-  vks('n', '<plug>mru_browser', function()
-    fs.path.fuzzer(fn.getcwd())
-  end, opts)
+  opts.desc = 'mru_browser'
+  vks('n', '<plug>mru_browser', ':F ', opts)
   opts.desc = 'file_ranger_native'
   vks('n', '<plug>file_ranger_native', function()
     local o = { startinsert = true }
