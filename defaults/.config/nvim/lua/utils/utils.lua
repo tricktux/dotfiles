@@ -718,7 +718,7 @@ M.setup = function()
   })
 
   -- Create a custom command 'Find'
-  vim.api.nvim_create_user_command('Fd', function(opts)
+  vim.api.nvim_create_user_command('F', function(opts)
     local filename = opts.args
     vim.cmd('edit ' .. filename)  -- Edit the selected file
   end, {
@@ -728,7 +728,7 @@ M.setup = function()
       end
     })
 
-  vim.api.nvim_create_user_command('Rg', function(args)
+  vim.api.nvim_create_user_command('G', function(args)
     -- Use the 'silent' option to suppress output
     vim.cmd('silent! grep! ' .. args.args)
     -- Open the quickfix window with a specified height
