@@ -1303,6 +1303,19 @@ sudo nvim /etc/unbound/unbound.conf.d/pi-hole.conf
 sudo systemctl enable --now unbound
 sudo systemctl restart unbound
 sudo systemctl status unbound
+
+# Test it
+dig pi-hole.net @127.0.0.1 -p 5335
+# This one should fail
+dig fail01.dnssec.works @127.0.0.1 -p 5335
+# This one should pass
+dig dnssec.works @127.0.0.1 -p 5335
+dig google.com @127.0.0.1 -p 5335
+# NOTE: now configure pihole Upstream DNS Server to
+127.0.0.1#5335
+
+# Ensure not active
+systemctl is-active unbound-resolvconf.service
 # }}}
 
 # vim: fdm=marker
