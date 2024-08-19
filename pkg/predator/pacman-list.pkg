@@ -77,6 +77,7 @@ git
 glava
 global
 gnome-disk-utility
+gnome-keyring
 go
 goimapnotify
 google-glog
@@ -213,6 +214,7 @@ rust-analyzer
 rustup
 sccache
 scrot
+seahorse
 sed
 shfmt
 simple-scan
