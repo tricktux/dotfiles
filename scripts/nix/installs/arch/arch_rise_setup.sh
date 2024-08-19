@@ -1284,6 +1284,11 @@ ip.address.of.pihole   pi.hole surbook
 sudo systemctl enable pihole-FTL
 sudo systemctl restart pihole-FTL
 sudo systemctl status pihole-FTL
+
+# Fix settings
+sudo nvim /etc/pihole/pihole-FTL.conf
+# NOTE: find MAXDBDAYS and set it to 45
+# NOTE: find DBINTERVAL and set it to 10.0
 # }}}
 
 # unbound {{{
