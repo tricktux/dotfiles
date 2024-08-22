@@ -1289,6 +1289,29 @@ sudo systemctl status pihole-FTL
 sudo nvim /etc/pihole/pihole-FTL.conf
 # NOTE: find MAXDBDAYS and set it to 45
 # NOTE: find DBINTERVAL and set it to 10.0
+
+# NOTE: Important fix for forgetting the upstream DNS even though is set in the
+# gui
+pihole_dns="127.0.0.1#5335"
+pihole_srvc="pihole-dns-fix.service"
+pihole_scr="/etc/systemd/system/${pihole_srvc}"
+sudo bash -c "cat >> ${pihole_scr}" << EOL
+[Unit]
+Description=PiHole set upstream DNS
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+ExecStart=/usr/bin/pihole -a setdns ${pihole_dns}
+
+[Install]
+WantedBy=multi-user.target
+EOL
+
+sudo systemctl daemon-reload
+sudo systemctl enable --now ${pihole_srvc}
+sudo systemctl status ${pihole_srvc}
+journalctl -u ${pihole_srvc}
 # }}}
 
 # unbound {{{
@@ -1317,7 +1340,7 @@ dig fail01.dnssec.works @127.0.0.1 -p 5335
 dig dnssec.works @127.0.0.1 -p 5335
 dig google.com @127.0.0.1 -p 5335
 # NOTE: now configure pihole Upstream DNS Server to
-127.0.0.1#5335
+# 127.0.0.1#5335
 
 # Ensure not active
 systemctl is-active unbound-resolvconf.service
