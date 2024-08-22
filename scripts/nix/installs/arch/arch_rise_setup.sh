@@ -1318,6 +1318,46 @@ journalctl -u ${pihole_srvc}
 
 paru -Syu --needed unbound
 wget https://www.internic.net/domain/named.root -qO- | sudo tee /var/lib/unbound/root.hints
+# Automate above setting
+unbound_srvc="unbound-root-hints.service"
+unbound_scr="/etc/systemd/system/${unbound_srvc}"
+sudo bash -c "cat >> ${unbound_scr}" << EOL
+[Unit]
+Description=Unbound download latests root hints
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+ExecStart=/usr/bin/wget https://www.internic.net/domain/named.root -O /var/lib/unbound/root.hints
+
+[Install]
+WantedBy=multi-user.target
+EOL
+
+sudo systemctl daemon-reload
+sudo systemctl start ${unbound_srvc}
+sudo systemctl status ${unbound_srvc}
+journalctl -u ${unbound_srvc}
+
+unbound_timer="unbound-root-hints.timer"
+unbound_scr="/etc/systemd/system/${unbound_timer}"
+sudo bash -c "cat >> ${unbound_scr}" << EOL
+[Unit]
+Description=Unbound download latests root hints once a month
+
+[Timer]
+# Run at midnight on the first day of each month
+OnCalendar=*-*-01 00:00:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+EOL
+
+sudo systemctl daemon-reload
+sudo systemctl enable --now ${unbound_timer}
+sudo systemctl status ${unbound_timer}
+journalctl -u ${unbound_timer}
 
 # NOTE: ensure unbound main config includes pi hole config
 sudo nvim /etc/unbound/unbound.conf
