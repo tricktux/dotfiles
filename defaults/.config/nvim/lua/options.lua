@@ -129,7 +129,8 @@ function M:setup()
   vim.opt.sidescrolloff = 8 -- Columns of context
   vim.opt.smartindent = true -- Insert indents automatically
   vim.opt.termguicolors = true -- True color support
-  vim.opt.wildmode = 'longest:full,full' -- Command-line completion mode
+  vim.opt.wildmode = 'list' -- Command-line completion mode
+  vim.opt.wildoptions = 'fuzzy,pum,tagfile' -- Command-line completion mode
 
   if vim.fn.has('nvim-0.9.0') >= 1 then
     vim.opt.splitkeep = 'cursor'
@@ -141,7 +142,7 @@ function M:setup()
 
   -- From kickstart
   vim.opt.splitright = true
-  vim.opt.splitbelow = true
+  vim.opt.splitbelow = false
   vim.opt.breakindent = true
   -- Show which line your cursor is on
   vim.opt.cursorline = true
