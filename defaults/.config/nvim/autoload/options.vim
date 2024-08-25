@@ -23,7 +23,7 @@ function! options#Set() abort
   " Tue Nov 13 2018 22:39: Needed by Shuogo/echodoc.vim
   set noshowmode
   " Useful for the find command
-  let &path .='.,,..,../..,./*,./*/*,../*,~/,~/**,/usr/include/*,**'
+  let &path .='.,,,/usr/include/*,/usr/local/include/*,**'
   set backspace=indent,eol,start
 
   set showmatch     " set show matching parenthesis
