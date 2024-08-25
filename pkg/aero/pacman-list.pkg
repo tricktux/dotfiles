@@ -214,6 +214,7 @@ playerctl
 polybar
 poppler-qt6
 prettier
+pyright
 python-annotated-types
 python-automat
 python-bcrypt
@@ -241,6 +242,7 @@ python-pydantic
 python-pydantic-core
 python-pydbus
 python-pyjwt
+python-pylint
 python-pynacl
 python-pyopenssl
 python-pyproject-hooks
@@ -307,6 +309,7 @@ ruby-test-unit
 ruby-webrick
 ruby-yard
 rubygems
+ruff-lsp
 rust-analyzer
 rustup
 sccache
