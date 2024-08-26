@@ -22,7 +22,6 @@ local function set_globals()
 
   -- Disable unnecessary providers
   -- Saves on average 3ms (on linux) :D
-  vim.g.loaded_python_provider = 0
   vim.g.loaded_ruby_provider = 0
   vim.g.loaded_perl_provider = 0
   vim.g.loaded_node_provider = 0
