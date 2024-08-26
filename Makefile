@@ -4,6 +4,8 @@ all: stow-default
 
 stow-default:
 	stow -t $(HOME) -S defaults
+stow-default-restow:
+	stow -t $(HOME) -R defaults
 stow-default-delete:
 	stow -t $(HOME) -D defaults
 stow-neovim:
