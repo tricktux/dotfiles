@@ -95,7 +95,7 @@ function! s:find_vim_config_file(...) abort
   "  All lua configs are called from 'config/init.lua' which is sourced below
   call mappings#Set()
   call options#Set()
-  call augroup#Set()
+  "call augroup#Set()
   call commands#Set()
 endfunction
 
