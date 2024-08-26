@@ -36,34 +36,6 @@ local function set_globals()
   end
 
   vim.g.sessions_path = vim.fn.stdpath('state') .. [[/sessions]]
-
-  local disabled_built_ins = {
-    'netrw',
-    'netrwPlugin',
-    'netrwSettings',
-    'netrwFileHandlers',
-    'gzip',
-    'matchit',
-    'matchparen',
-    'tohtml',
-    'tutor',
-    'zip',
-    'zipPlugin',
-    'tar',
-    'tarPlugin',
-    'getscript',
-    'getscriptPlugin',
-    'vimball',
-    'vimballPlugin',
-    '2html_plugin',
-    'logipat',
-    'rrhelper',
-    -- "spellfile_plugin",
-  }
-
-  for _, plugin in pairs(disabled_built_ins) do
-    vim.g['loaded_' .. plugin] = 1
-  end
 end
 
 local function _config_win()
