@@ -11,3 +11,8 @@ stow-neovim:
 	stow -d defaults/.config -t $(HOME)/.config/nvim -S nvim
 stow-neovim-delete:
 	stow -d defaults/.config -t $(HOME)/.config/nvim -D nvim
+stow-neovim-restow:
+	stow -d defaults/.config -t $(HOME)/.config/nvim -R nvim
+stow-vim:
+	@mkdir -p $(HOME)/.config/vim
+	stow -d defaults/.config -t $(HOME)/.config/vim -S nvim
