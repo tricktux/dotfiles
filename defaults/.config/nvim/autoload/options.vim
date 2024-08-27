@@ -150,7 +150,9 @@ function! options#Set() abort
   set tags=./.tags;,.tags;
   set tagbsearch
   set tagrelative
-  set tagcase=smart
+  if v:version >= 802
+    set tagcase=smart
+  endif
 
   " Diff options
   let &diffopt='vertical'
@@ -197,8 +199,10 @@ function! s:vim_cli() abort
 
   set t_vb=
   " Trying to get termguicolors to work on vim
-  let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
-  let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
+  if v:version >= 802
+    let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
+    let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
+  endif
   if $TERM ==? 'linux'
     set t_Co=8
   else
