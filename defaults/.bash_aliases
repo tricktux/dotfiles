@@ -21,6 +21,14 @@ alias gpg-decrypt="gpg --decrypt"
 #ranger
 alias r=ranger_cd
 
+#tar
+alias tar_create="tar -cvf"
+alias tar_extract="tar -xvf"
+alias tar_list="tar -tvf"
+alias tar_create_gz="tar -czvf"
+alias tar_extract_gz="tar -xzvf"
+alias tar_extract_skip="tar --skip-old-files -xvf"
+
 # ytfzf
 alias ytfzf-tonymcguiness="ytfzf -mr -c youtube-playlist 'https://www.youtube.com/playlist?list=PL6RLee9oArCC9V1FlRexG_6F2KNo143I8'"
 alias ytfzf-noraenpure="ytfzf -mr -c youtube-playlist 'https://www.youtube.com/playlist?list=PL-Wt-lDOPUzHBDXm8ODmax9oHhVX6YtEb'"

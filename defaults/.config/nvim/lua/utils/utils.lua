@@ -159,6 +159,7 @@ M.fd.switches.common = vim.tbl_flatten({
   '--color=never',
   '--hidden',
   '--follow',
+  '--full-path',
   M.ignore_file,
 })
 M.fd.switches.file = vim.tbl_flatten({
@@ -179,10 +180,10 @@ M.fd.file_cmd = vim.tbl_flatten({
 })
 M.fd.complete = function(arglead, cmdline, cursorpos)
   -- Get the current working directory
-  local cwd = vim.fn.getcwd()
+  -- local cwd = vim.fn.getcwd()
 
   -- Construct a search command
-  local cmd = vim.iter(M.fd.file_cmd):join(" ") .. " --search-path '" .. cwd .. "' '" .. arglead .. "'"
+  local cmd = vim.iter(M.fd.file_cmd):join(" ") .. " " .. arglead
 
   -- Get the results from the command and return them
   local results = vim.fn.systemlist(cmd)

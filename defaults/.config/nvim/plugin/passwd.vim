@@ -6,6 +6,10 @@
 " Created:        Fri Dec 01 2017 10:14
 " Last Modified:  Fri Dec 01 2017 10:14
 
+if (!has('nvim'))
+	finish
+endif
+
 if exists('g:loaded_passwd')
 	finish
 endif
