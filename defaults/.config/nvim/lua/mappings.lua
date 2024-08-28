@@ -567,9 +567,6 @@ M.plug.mappings = {
   ['<leader>fa'] = { '<plug>file_ranger_native', 'file_ranger_native' },
   ['<leader>fo'] = { '<plug>file_oil_browser', 'file_oil_browser' },
   ['<leader>fs'] = { '<plug>file_ranger_nvim', 'file_ranger_nvim' },
-  -- Default file browser
-  ['<leader>fj'] = { '<plug>file_native_browser', 'native_browser_nvim' },
-  ['<plug>file_native_browser'] = { ':e.<cr>', 'native_browser_nvim' },
   ['<leader>tf'] = { '<plug>focus_toggle', 'focus_toggle' },
   ['<c-p>'] = { '<plug>mru_browser', 'mru_browser' },
   ['<localleader>f'] = { '<plug>format_code', 'format_code', { 'x', 'n' } },

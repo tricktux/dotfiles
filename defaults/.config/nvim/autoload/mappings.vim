@@ -104,6 +104,10 @@ function! mappings#Set()
   " Toggle mappings:
   " - tj, te, ta, tt, tf, ts, to, tn
 
+  " File mappings <leader>f
+  nmap <leader>fj <plug>file_browser
+  nnoremap <plug>file_browser :e .<cr>
+
 
   nnoremap <plug>refactor_code :%s/\<<c-r>=
         \ expand("<cword>")<cr>\>//gc<Left><Left><Left>
