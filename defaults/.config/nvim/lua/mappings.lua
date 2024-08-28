@@ -570,7 +570,6 @@ M.plug.mappings = {
   ['<leader>fj'] = { '<plug>file_native_browser', 'native_browser_nvim' },
   ['<plug>file_native_browser'] = { ':e.<cr>', 'native_browser_nvim' },
   ['<leader>tf'] = { '<plug>focus_toggle', 'focus_toggle' },
-  ['<s-k>'] = { '<plug>buffer_browser', 'buffer_browser' },
   ['<c-p>'] = { '<plug>mru_browser', 'mru_browser' },
   ['<localleader>f'] = { '<plug>format_code', 'format_code', { 'x', 'n' } },
   ['<localleader>r'] = { '<plug>refactor_code', 'refactor_code', { 'x', 'n' } },

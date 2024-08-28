@@ -337,9 +337,8 @@ function! mappings#Set()
   xnoremap // y/<C-R>"<cr>
 
   " Buffers Stuff <Leader>b?
-  if !hasmapto("<s-k>", "n")
-    nnoremap <S-k> :buffers<cr>:buffer<Space>
-  endif
+  nmap <s-k> <plug>buffer_browser
+  nnoremap <plug>buffer_browser :buffers<cr>:buffer<Space>
   nnoremap <leader>bs :buffers<cr>:buffer<Space>
   nnoremap <leader>bd :bp\|bw #\|bd #<cr>
   nnoremap <S-j> :b#<cr>
