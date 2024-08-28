@@ -96,8 +96,6 @@ function! mappings#Set()
   " time. J is too confi of a key, better used with telescope
   " nnoremap <Leader>Ma :Man
   " Most used misc get jk, jj, jl, j;
-  " TODO.RM-Fri Apr 28 2017 14:25: Go through mappings and figure out the
-  " language specific ones so that you can move them into ftplugin
   " nnoremap <Leader>jk :call utils#Make()<cr>
   " ga " prints ascii of char under cursor
   " gA " prints radix of number under cursor
@@ -106,10 +104,6 @@ function! mappings#Set()
   " Toggle mappings:
   " - tj, te, ta, tt, tf, ts, to, tn
 
-  " Tue Feb 12 2019 17:50
-  " Substituted by fzf and which key mappings
-  " nmap <a-;> <plug>fuzzy_command_history
-  " nmap <a-e> <plug>fuzzy_vim_help
 
   nnoremap <plug>refactor_code :%s/\<<c-r>=
         \ expand("<cword>")<cr>\>//gc<Left><Left><Left>
