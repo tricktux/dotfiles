@@ -343,6 +343,8 @@ function! mappings#Set()
   " Search visual selection text
   xnoremap // y/<C-R>"<cr>
 
+  nmap <c-p> <plug>current_folder_file_browser
+  nnoremap <plug>current_folder_file_browser :find<space>
   " Buffers Stuff <Leader>b?
   nmap <s-k> <plug>buffer_browser
   nnoremap <plug>buffer_browser :buffers<cr>:buffer<Space>
