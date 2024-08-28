@@ -525,7 +525,8 @@ local function misc_mappings()
   vks('v', '<s-y>', 'y$', opts)
 
   -- For the love of god, do not overwrite register when pasting over visual
-  -- text
+  -- text. The `xnoremap` mapping does not work in neovim, but it does in vim.
+  -- Keep both
   vks('x', 'p', function()
     return 'pgv"' .. vim.v.register .. 'y'
   end, { remap = false, expr = true })
