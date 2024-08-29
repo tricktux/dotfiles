@@ -50,59 +50,11 @@ function! mappings#Set()
   nnoremap <expr> k v:count ?
         \ (v:count > 5 ? "m'" . v:count : '') . 'kzz' : 'gkzz'
 
-  " Consistent n N direction seraching
-  " Mon Jan 21 2019 17:05
-  " Not needed since incsearch.vim plugin
-
-  " Consistent ; and , as well
-  " nmap <expr>; getcharsearch().forward ? '<plug>Sneak_;' : '<plug>Sneak_,'
-  " nmap <expr>, getcharsearch().forward ? '<plug>Sneak_,' : '<plug>Sneak_;'
-
   nnoremap g; g;zz
   nnoremap g, g,zz
 
   nnoremap <c-o> <c-o>zz
   nnoremap <c-i> <c-i>zz
-  " Sun Dec 09 2018 17:15:
-  " This extends p in visual mode (note the noremap), so that if you paste from
-  " the unnamed (ie. default) register, that register content is not replaced by
-  " the visual selection you just pasted over–which is the default behavior.
-  " This enables the user to yank some text and paste it over several places in
-  " a row, without using a named
-  " Obtained from: https://vimways.org/2018/for-mappings-and-a-tutorial/
-  xnoremap <silent> p p:if v:register == '"'<bar>let @@=@0<bar>endif<cr>zz
-  " Thu Feb 22 2018 07:42: Mind buggling super good mapping from vim-galore
-  " Tue Apr 24 2018 14:06: For some reason in large .cpp files syntax sync takes
-  " away highlight
-  " nnoremap <c-h> :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
-  " Fri Jan 11 2019 11:13
-  " Moving this mapping to <c-l>
-  " Fri Jan 11 2019 13:41
-  " Already settled for the following config
-  " Main reason `:e` resets folds. Kinda annoying
-  " nnoremap <c-l> :call <sid>refresh_buffer()<cr>
-
-  " List of super useful mappings
-  " = fixes indentantion
-  " gq formats code
-  " Free keys: <Leader>fnzxkiy;h
-  " Taken keys: <Leader>qwertasdjcvgp<space>mbolu
-
-  " FileType Specific mappings use <Leader>l
-  " Refer to ~/.dotfiles/vim-utils/after/ftplugin to find these
-
-  " Miscelaneous Mappings <Leader>j?
-  " Moved to y instead of j. These are random mappings I haven't used in a long
-  " time. J is too confi of a key, better used with telescope
-  " nnoremap <Leader>Ma :Man
-  " Most used misc get jk, jj, jl, j;
-  " nnoremap <Leader>jk :call utils#Make()<cr>
-  " ga " prints ascii of char under cursor
-  " gA " prints radix of number under cursor
-  " Untouchable g mappings:
-  " - gd, gD, g;, gq, gs, gl, gA, gT, gg, G, gG, gh, gv, gn, gm, gx, gt, gr
-  " Toggle mappings:
-  " - tj, te, ta, tt, tf, ts, to, tn
 
   " File mappings <leader>f
   nmap <leader>fj <plug>file_browser
