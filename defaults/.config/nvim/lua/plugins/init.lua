@@ -437,18 +437,8 @@ local p = {
     end,
   },
   {
-    -- Folder name to give
-    'https://gitlab.com/yorickpeterse/nvim-pqf',
-    name = 'nvim-pqf',
-    event = 'QuickFixCmdPre',
-    opts = {
-      signs = {
-        error = 'E',
-        warning = 'W',
-        info = 'I',
-        hint = 'H',
-      },
-    },
+    'kevinhwang91/nvim-bqf',
+    ft = 'qf'
   },
   -- better ui from lazyvim
   -- ui components
