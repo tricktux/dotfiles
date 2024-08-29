@@ -576,7 +576,7 @@ M.plug.mappings = {
   ['<localleader>j'] = { '<plug>make_file', 'make_file' },
   ['<localleader>p'] = { '<plug>preview', 'preview' },
   ['<leader>cr'] = { '<plug>cd_root', 'cd_root' },
-  ['<leader>a'] = { '<plug>ai', 'ai_help' },
+  ['<leader>i'] = { '<plug>ai', 'ai_help' },
   ['<localleader>b'] = { '<plug>debug_start', 'debug_start' },
   ['<bs>'] = { '<plug>comment_line', 'comment_line' },
   -- Search

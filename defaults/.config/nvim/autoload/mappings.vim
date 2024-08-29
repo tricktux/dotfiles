@@ -158,6 +158,11 @@ function! mappings#Set()
   inoremap ; ;<c-g>u
   inoremap = =<c-g>u
 
+  nmap <leader>ag <plug>tags_generate
+  nnoremap <silent> <plug>tags_generate :call ctags#NvimSyncCtagsCscope()<cr>
+  nmap <leader>al <plug>tags_load
+  nnoremap <silent> <plug>tags_load :call ctags#LoadCscopeDatabse()<cr>
+
   " Window movement
   " move between windows
   if !has('nvim')
