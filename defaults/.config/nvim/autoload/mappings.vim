@@ -129,16 +129,16 @@ function! mappings#Set()
 
   " These are mappings for Insert, Command-line, and Lang-Arg
   " insert in the middle of whole word search
-  cnoremap <A-w> \<\><Left><Left>
+  cnoremap <a-w> \<\><Left><Left>
   " insert visual selection search
-  cnoremap <C-u> <c-r>=expand("<cword>")<cr>
-  cnoremap <C-s> %s/
-  cnoremap <C-j> <cr>
-  cnoremap <C-p> <Up>
+  cnoremap <c-u> <c-r>=expand("<cword>")<cr>
+  cnoremap <c-s> %s/
+  cnoremap <c-j> <cr>
+  cnoremap <c-p> <up>
 
-  cnoremap <silent> <expr> <cr> <SID>center_search()
-  inoremap <c-f> <Right>
-  noremap! <c-b> <Left>
+  cnoremap <silent> <expr> <cr> <sid>center_search()
+  inoremap <c-f> <right>
+  noremap! <c-b> <left>
   " Sun Sep 17 2017 14:21: this will not work in vim
   noremap! <a-b> <s-left>
   noremap! <a-f> <s-right>
