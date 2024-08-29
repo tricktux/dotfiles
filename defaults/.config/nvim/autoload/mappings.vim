@@ -66,7 +66,6 @@ function! mappings#Set()
   " Don't paste the deleted word, paste the last copied word, hopefully
   nnoremap <s-p> :normal! "0p<cr>
 
-  nnoremap <c-t> :tabnew<cr>
   nnoremap <c-h> :nohlsearch<cr>
   " Automatically insert date
   nnoremap <silent> <F5> a<Space><c-r>=strftime("%a %b %d %Y %H:%M")<cr><esc>
