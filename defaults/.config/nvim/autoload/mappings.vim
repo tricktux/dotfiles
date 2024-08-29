@@ -60,58 +60,14 @@ function! mappings#Set()
   nmap <leader>fj <plug>file_browser
   nnoremap <plug>file_browser :e .<cr>
 
-
-  nnoremap <plug>refactor_code :%s/\<<c-r>=
-        \ expand("<cword>")<cr>\>//gc<Left><Left><Left>
-  xnoremap <plug>refactor_code "hy:%s/<C-r>h//gc<left><left><left>
-
   nmap <leader>W <plug>get_passwd
   nnoremap <plug>get_passwd :silent call passwd#SelectPasswdFile()<cr>
 
-  " TODO-[RM]-(Thu Nov 15 2018 16:58): These two could be combined
-  nmap <localleader>h <plug>help_under_cursor
-  nnoremap <silent> <plug>help_under_cursor K
-  xmap <localleader>h <plug>help_under_cursor
-  xnoremap <silent> <plug>help_under_cursor K
-
-  " duplicate current char
-  nnoremap <leader>d ylp
-  " Reload syntax
-  nnoremap <leader>ys <Esc>:syntax sync fromstart<cr>
-  " Sessions
-  nnoremap <leader>yes :SessionsSave<cr>
-  nnoremap <leader>yeS :SessionsSaveAs<cr>
-  nnoremap <leader>yel :SessionsLoad<cr>
-  nnoremap <leader>yen :SessionsNew<cr>
-  " Pause saving session
-  nnoremap <leader>yep :Obsession<cr>
-  nnoremap <leader>yee :call mappings#LoadSession(has('nvim') ?
-        \ 'default_nvim.vim' : 'default_vim.vim')<cr>
-  " Count occurrances of last search
-  nnoremap <leader>yc :%s///gn<cr>
-  " Indenting
-  nnoremap <leader>y2 :setlocal ts=2 sw=2<cr>
-  nnoremap <leader>y4 :setlocal ts=4 sw=4<cr>
-  nnoremap <leader>y8 :setlocal ts=8 sw=8<cr>
-
   " Don't paste the deleted word, paste the last copied word, hopefully
   nnoremap <s-p> :normal! "0p<cr>
-  " Force wings_syntax on a file
-  nnoremap <leader>yw :set filetype=wings_syntax<cr>
-  nnoremap <leader>y. :call <SID>exec_last_command()<cr>
-  " j mappings taken <swypl;bqruihHdma248eEonf>
-  " nnoremap <Leader>Mc :call utils#ManFind()<cr>
-  " Tue Dec 19 2017 14:34:
-  " - Removing the save all files. Not a good thing to do.
-  "   - Main reason is specially with Neomake running make an multiple files at
-  "   the same time
-  " Wed Dec 12 2018 17:23:
-  " - Reenabling, because why not!
-  "   - Tired of typing :wa<cr>
-  nnoremap <c-s> :wall<cr>
+
   nnoremap <c-t> :tabnew<cr>
   nnoremap <c-h> :nohlsearch<cr>
-  nnoremap <C-Space> i<Space><Esc>
   " Automatically insert date
   nnoremap <silent> <F5> a<Space><c-r>=strftime("%a %b %d %Y %H:%M")<cr><esc>
   " Designed this way to be used with snippet md header
@@ -148,17 +104,11 @@ function! mappings#Set()
 
   nnoremap ]t :exec 'tjump ' . expand('<cword>')<cr>
   nnoremap [t :pop<cr>
-  " Split window and jump to tag
-  " nnoremap ]T :exec 'ptag ' . expand('<cword>')<cr><c-w>R
-  nnoremap ]T :call <SID>goto_tag_on_next_win('l')<cr>
-  nnoremap [T :call <SID>goto_tag_on_next_win('h')<cr>
 
   " Capital F because [f is go to file and this is rarely used
   " ]f native go into file.
   " [f return from file
   nnoremap [f <c-o>
-  nnoremap <silent> ]F :call <SID>goto_file_on_next_win('l')<cr>
-  nnoremap <silent> [F :call <SID>goto_file_on_next_win('h')<cr>
 
   " Scroll to the sides z{l,h} and up and down
   nnoremap ]z 10zl
@@ -166,9 +116,6 @@ function! mappings#Set()
   nnoremap [z 10zh
   nnoremap [Z 10<c-y>
 
-  " TODO-[RM]-(Fri Jun 29 2018 10:10): Make this work
-  " xnoremap <silent> ]F :call <SID>goto_file_on_next_win('l')<cr>
-  " xnoremap <silent> [F :call <SID>goto_file_on_next_win('h')<cr>
   nnoremap <a-s> :vs<cr>
   nnoremap <a-]> gt
   nnoremap <a-[> gT
@@ -179,15 +126,6 @@ function! mappings#Set()
   " Create an undo break point. Mark current possition. Go to word. Fix and come back.
   nnoremap ]S :call <sid>fix_next_word()<cr>
   nnoremap [S :call <sid>fix_previous_word()<cr>
-
-  " <Leader>n
-  " Display highlighted numbers as ascii chars. Only works on highlighted text
-  " Rarely works
-  vnoremap <leader>nc :<c-u>s/<count>\x\x/\=nr2char(printf("%d",
-        \ "0x".submatch(0)))/g<cr><c-l>`<
-  vnoremap <leader>nh :<c-u>s/\%V./\=
-        \ printf("%x",char2nr(submatch(0)))/g<cr><c-l>`<
-  nnoremap <leader>na ga
 
   " These are mappings for Insert, Command-line, and Lang-Arg
   " insert in the middle of whole word search
@@ -202,27 +140,11 @@ function! mappings#Set()
   inoremap <c-f> <Right>
   noremap! <c-b> <Left>
   " Sun Sep 17 2017 14:21: this will not work in vim
-  noremap! <a-b> <S-Left>
-  noremap! <a-f> <S-Right>
-  " inoremap <c-u> delete from beginning of line until cursor
-  " inoremap <a-d> delete from cursor untils end of line
-  " inoremap <c-t> shift entire line a shiftwidth
+  noremap! <a-b> <s-left>
+  noremap! <a-f> <s-right>
   inoremap <c-d> <c-g>u<del>
-  " Mon Apr 06 2020 15:06
-  " Used to expand * in cli
-  " cnoremap <C-A> <Home>
-  " Thu Aug 20 2020 14:24
-  " This mapping is for retyping what you just typed
-  " inoremap <c-a> <home>
   cnoremap <c-d> <del>
   inoremap <a-t> <c-d>
-  " Mon Nov 19 2018 13:33: Sometimes needed. This rarely used
-  " inoremap <c-v> <c-o>:normal! "+p<cr>
-  " inoremap <c-w> delete word up to the cursor
-  " inoremap <c-k> used by neosnippet to expand snippet
-  " inoremap <c-l> used by software caps to toggle caps
-  " Sun Jun 10 2018 13:41: Get rid of annoying <c-space>
-  " inoremap <c-space> <space>
 
   " Fri Sep 29 2017 14:20: Break up long text into smaller, better undo
   " chunks. See :undojoin
@@ -231,9 +153,7 @@ function! mappings#Set()
   inoremap , ,<c-g>u
   inoremap ? ?<c-g>u
   inoremap ! !<c-g>u
-  inoremap <C-H> <C-G>u<C-H>
-  " Tue Mar 05 2019 14:07: For years this mapping messed up with delimate
-  " inoremap <CR> <C-]><C-G>u<CR>
+  inoremap <c-h> <c-g>u<c-h>
 
   " For cpp
   inoremap ; ;<c-g>u
@@ -246,23 +166,13 @@ function! mappings#Set()
     if has('terminal') || has('nvim')
       " See plugin.vim - neoterm
       " There are more mappins in the [,] section
-      nmap <leader>te <plug>terminal_toggle
       nmap <M-`> <plug>terminal_toggle
-      nmap <leader>tE <plug>terminal_new
+      nnoremap <plug>terminal_toggle :vs<cr><bar>:term<cr>
       nmap <localleader>e <plug>terminal_send_line
       xmap <localleader>e <plug>terminal_send
       nmap <localleader>E <plug>terminal_send_file
-      nnoremap <leader>r :call <sid>toggle_zoom_terminal('Ttoggle')<cr>
-      nnoremap <leader>R :call <sid>toggle_zoom_terminal('Tnew')<cr>
-      " Terminal
-      nnoremap <silent> ]r :call <SID>goto_terminal_on_next_win('l', 'Ttoggle')<cr>
-      nnoremap <silent> [r :call <SID>goto_terminal_on_next_win('h', 'Ttoggle')<cr>
-      nnoremap <silent> ]R :call <SID>goto_terminal_on_next_win('l', 'Tnew')<cr>
-      nnoremap <silent> [R :call <SID>goto_terminal_on_next_win('h', 'Tnew')<cr>
     endif
 
-    nmap <leader>T <plug>generate_tags
-    nnoremap <silent> <plug>generate_tags :call ctags#NvimSyncCtags()<cr>
 
    if exists('*Focus') && executable('i3-vim-nav')
       " i3 integration
@@ -534,98 +444,9 @@ function! s:comment_line(sign) abort
   execute "normal! :call NERDComment(\"n\", \"Toggle\")\<CR>`m"
 endfunction
 
-function! s:exec_last_command() abort
-  execute "normal! :\<Up>\<CR>"
-endfunction
-
 function! s:next_match_and_center() abort
   execute 'nN' . v:searchforward
   execute 'normal! zz'
-endfunction
-
-" Opens the tag on new split in the direction specified
-" direction - {h,l}
-function! s:goto_tag_on_next_win(direction) abort
-  " echomsg '[goto_tag_on_next_win]: Got called!'
-  let target = expand('<cword>')
-  call s:create_win_maybe(a:direction)
-
-  exec 'tjump ' . target
-endfunction
-
-" Detect if this is the edge window in the direction specified
-" direction: {h,l}
-" Returns: -1 if this is the only window
-"           1 True
-"           0 False
-function! s:edge_window(direction) abort
-  " If there is only one window
-  let num_wins = winnr('$')
-  if (num_wins == 1)
-    return -1
-  endif
-
-  let num_curr_win = winnr()
-
-  if (a:direction ==? 'h')
-    if (num_curr_win == 1)
-      return 1
-    endif
-    return 0
-  endif
-
-  if (a:direction ==? 'l')
-    if (num_curr_win == num_wins)
-      return 1
-    endif
-    return 0
-  endif
-
-  echoerr 'Invalid direction provided'
-  return -2
-endfunction
-
-" Split window in direction if:
-" - There is only one window
-" - Current window is on the edge
-" Otherwise just move in direction
-" Returns: 1 if new window was created
-"          0 otherwise
-function! s:create_win_maybe(direction) abort
-  let l:split = s:edge_window(a:direction)
-
-  if ((l:split == -1) || (l:split == 1))
-    exec 'vsplit'
-    " Move the window to the proper direction
-    exec 'wincmd ' . toupper(a:direction)
-    return 1
-  endif
-
-  exec 'wincmd ' . a:direction
-endfunction
-
-" Opens the file on new split in the direction specified
-" direction - {h,l}
-" Note: This function depends on the 'splitright' option.
-function! s:goto_file_on_next_win(direction) abort
-  let curr_win_id = win_getid()
-  let new_win = s:create_win_maybe(a:direction)
-
-  " If new window was not created
-  if (new_win == 0)
-    if &verbose > 1
-      echomsg 'No new window was created. Closing current window'
-    endif
-    " We are currently in the window we want to replace. Close it
-    normal! ZZ
-    " Go to the window we came from
-    call win_gotoid(curr_win_id)
-    exec 'vsplit'
-    call win_gotoid(curr_win_id)
-    exec 'wincmd ' . a:direction
-  endif
-
-  normal! gf
 endfunction
 
 function! s:tmux_move(direction) abort
@@ -1276,29 +1097,6 @@ function! s:toggle_zoom_terminal(cmd) abort
 
   execute ':' . a:cmd
   call zoom#toggle()
-endfunction
-
-" Always splits in the direction of the 'splitright' option
-" Depends on:
-" - let g:neoterm_default_mod = ''
-function! s:goto_terminal_on_next_win(direction, cmd) abort
-  if (!exists(':' . a:cmd))
-    echoerr 'Please the kassio/neoterm plugin'
-    return -1
-  endif
-
-  " couldnt use create new window maybe
-  " using <mods> instead
-  let l:split = s:edge_window(a:direction)
-
-  let new_cmd = a:cmd
-  if ((l:split == -1) || (l:split == 1))
-    let new_cmd = 'vert ' . new_cmd
-  else
-    exec 'wincmd ' . a:direction
-  endif
-
-  execute ':' . new_cmd
 endfunction
 
 function! s:todo_add() abort
