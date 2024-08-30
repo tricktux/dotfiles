@@ -24,13 +24,29 @@ if !exists('g:ctags_rg_use_ft')
 	let g:ctags_rg_use_ft = 1
 endif
 
-let s:files_list = tempname()
+let s:files_list = g:ctags_output_dir . 'cscope.files'
+
+let s:cs_cmd = (has('nvim') ? 'Cs' : 'cs')
+let s:cs_kill = (has('nvim') ? 'Cs db rm' : 'cs kill -1')
+let s:cs_add = (has('nvim') ? 'Cs db add' : 'cs add')
 
 let s:ctags = {
 			\ 'files_list' : '',
 			\ 'cwd' : '',
 			\ 'cwd_as_name' : '',
 			\ }
+
+function! s:cscope_load_db(db) abort
+	try
+		execute s:cs_kill
+		execute s:cs_add . " " . a:db
+	catch
+		echoerr 'Failed to add cscope database: ' . a:db
+		return 0
+	endtry
+	echomsg 'Added cscope database: ' . a:db
+	return 1
+endfunction
 
 function! s:get_full_path_as_name(folder) abort
 	" Create unique tag file name based on cwd
@@ -258,9 +274,8 @@ function! s:get_cwd() abort
 endfunction
 
 function! s:create_cscope(tag_name) abort
-	if has('nvim')
-		if exists(':Cs')
-		endif
+	if has('nvim') && exists(':Cs') <= 0
+		echomsg "nvim doesn't have native support for cscope"
 		return
 	endif
 
@@ -293,21 +308,6 @@ function! s:create_cscope(tag_name) abort
 
 	" Create cscope db as well
 	let cs_db = g:ctags_output_dir . a:tag_name . '.out'
-
-	if !empty(glob(cs_db))
-		" If we are updating an existing tag. Silently attempt to close connection
-		try
-			execute 'silent cs kill ' . cs_db
-		catch /^Vim(cscope):/
-		endtry
-	endif
-
-	" Recreate files and now quote them
-	" Redundant
-	" if !s:create_cscope_files(1)
-		" return
-	" endif
-
 	" -b            Build the cross-reference only.
 	" -c            Use only ASCII characters in the cross-ref file (don't compress).
 	" -q            Build an inverted index for quick symbol searching.
@@ -317,16 +317,17 @@ function! s:create_cscope(tag_name) abort
 	if &verbose > 0
 		echomsg 'cscope_cmd = ' . cscope_cmd
 	endif
+	echomsg 'Creating cscope database...'
 	let res_cs = systemlist(cscope_cmd)
 	if v:shell_error
 		if !empty(res_cs)
 			cexpr res_cs
 		endif
-		echomsg 'Cscope command failed'
+		echoerr 'Cscope command failed: ' . cscope_cmd
 		return
 	endif
 
-	execute "cs add " . cs_db
+	call s:cscope_load_db(cs_db)
 endfunction
 
 function! s:load_cscope_db(tag_name) abort
@@ -345,12 +346,7 @@ function! s:load_cscope_db(tag_name) abort
 		return 0
 	endif
 
-	try
-		execute 'silent cs add ' . cs_db
-	catch /^Vim(cscope):/
-		return -2
-	endtry
-	return 1
+	return s:cscope_load_db(cs_db)
 endfunction
 
 function! s:get_filetype_extentions() abort
