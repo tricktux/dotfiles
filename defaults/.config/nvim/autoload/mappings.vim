@@ -215,35 +215,6 @@ function! mappings#Set()
   " deletes all buffers
   nnoremap <leader>bl :%bd<cr>
 
-  " Version Control <Leader>v?
-  " For all this commands you should be in the svn root folder
-  " Add all files
-  " nnoremap <silent> <leader>vs :call <SID>version_control_command('status')<CR>
-  " nnoremap <silent> <leader>vl :call <SID>version_control_command('alog')<CR>
-  " nnoremap <silent> <leader>vL :call <SID>version_control_command('clog')<CR>
-  " nnoremap <silent> <leader>vc :call <SID>version_control_command('commit')<CR>
-  " nnoremap <silent> <leader>vd :call <SID>version_control_command('diff')<CR>
-
-  " nnoremap <Leader>vA :!svn add . --force<cr>
-  " Add specific files
-  " nnoremap <Leader>va :!svn add --force
-  " Commit using typed message
-  " nnoremap <Leader>vc :call <SID>svn_commit()<cr>
-  " Commit using File for commit content
-  " nnoremap <Leader>vC :!svn commit --force-log -F %<cr>
-  " nnoremap <Leader>vd :!svn rm --force
-  " revert previous commit
-  "nnoremap <Leader>vr :!svn revert -R .<cr>
-  " nnoremap <Leader>vl :!svn cleanup .<cr>
-  " use this command line to delete unrevisioned or "?" svn files
-  " nnoremap <Leader>vL :!for /f "tokens=2*" %i in ('svn status ^| find "?"') do
-  " del %i<cr>
-  " nnoremap <Leader>vs :!svn status .<cr>
-  " nnoremap <Leader>vu :!svn update .<cr>
-  " Overwritten from plugin.vim
-  " nnoremap <Leader>vo :!svn log .<cr>
-  " nnoremap <Leader>vi :!svn info<cr>
-
   " Comments <Leader>o
   nnoremap <leader>oI :call utils#CommentReduceIndent()<cr>
   " mapping ol conflicts with mapping o to new line
@@ -503,75 +474,6 @@ function! s:wiki_add() abort
   return s:add_file(g:wiki_path)
 endfunction
 
-" Use current 'grepprg' to search files for text
-"   filteype - Possible values: 1 - Search only files of type 'filetype'. Any
-"               other value search all types of values
-"   word - Possible values: 1 - Search word under the cursor. Otherwise prompt
-"   for search word
-function! s:filetype_search(filetype, word) abort
-  let grep_engine = &grepprg
-
-  if a:word == 1
-    let search = expand("<cword>")
-  else
-    let search = input("Please enter search word:")
-  endif
-
-  if grep_engine =~# 'rg'
-    let file_type_search = '-t ' . ctags#VimFt2RgFt()
-  elseif grep_engine =~# 'ag'
-    let file_type_search = '--' . &filetype
-  else
-    " If it is not a recognized engine do not do file type search
-    exe ":grep! " . search
-    if &verbose > 0
-      echomsg printf("grepprg = %s", grep_engine)
-      echomsg printf("filetype search = %d", a:filetype)
-      echomsg printf("file_type_search = %s", file_type_search)
-      echomsg printf("search word = %s", search)
-      echomsg printf("cwd = %s", getcwd())
-    endif
-    copen 20
-    return
-  endif
-
-  if a:filetype == 1
-    exe ":silent grep! " . file_type_search . ' ' . search
-  else
-    exe ":silent grep! " . search
-  endif
-
-  copen 20
-  if &verbose > 0
-    echomsg printf("grepprg = %s", grep_engine)
-    echomsg printf("filetype search = %d", a:filetype)
-    echomsg printf("file_type_search = %s", file_type_search)
-    echomsg printf("search word = %s", search)
-    echomsg printf("cwd = %s", getcwd())
-  endif
-endfunction
-
-function! s:grep() abort
-  let msg = 'Searching inside "' . getcwd() . '". Choose:'
-  let choice = "&J<cword>/". &ft . "\n&K<any>/". &ft .
-        \ "\n&L<cword>/all_files\n&;<any>/all_files"
-  let c = confirm(msg, choice, 1)
-
-  if c == 1
-    " Search '&filetype' type of files, and word under the cursor
-    call s:filetype_search(1, 1)
-  elseif c == 2
-    " Search '&filetype' type of files, and prompt for search word
-    call s:filetype_search(1, 8)
-  elseif c == 3
-    " Search all type of files, and word under the cursor
-    call s:filetype_search(8, 1)
-  else
-    " Search all type of files, and prompt for search word
-    call s:filetype_search(8, 8)
-  endif
-endfunction
-
 function! s:switch_or_set_tab(tab_num) abort
   let l:tabs_num = len(gettabinfo())
 
@@ -633,78 +535,6 @@ function! s:add_file(path) abort
   execute 'edit ' . l:new_file
 endfunction
 
-function! s:version_control_command(cmd) abort
-  if empty(a:cmd)
-    echoerr '[version_control_command]: Please provide a command'
-    return
-  endif
-
-  let l:git = !empty(glob('.git', v:true, v:true))
-  let l:svn = !empty(glob('.svn', v:true, v:true))
-
-  if !l:git && !l:svn
-    " If both empty, assume it's git
-    let l:git = 1
-  endif
-
-  if a:cmd ==? 'status'
-    if l:git
-      " nmap here is needed for the <C-n> to work. Otherwise it doesnt know what
-      " it means. This below is if you want it horizontal
-      " nmap <leader>gs :Gstatus<CR><C-w>L<C-n>
-      if exists(':LazyGit') > 0
-        LazyGit
-      elseif executable('lazygit')
-        lua require('utils.utils').exec_float_term('term lazygit', true, true)
-      else
-        execute ':Git status'
-      endif
-    elseif l:svn
-      execute ':SVNStatus q'
-    else
-      echoerr '[version_control_command]: Please provide a command for status'
-      return
-    endif
-  elseif a:cmd ==? 'diff'
-    if l:git
-      execute ':DiffviewOpen'
-    else
-      echoerr '[version_control_command]: Please provide a command for log'
-      return
-    endif
-  elseif a:cmd ==? 'clog'
-    if l:git
-      execute ':DiffviewFileHistory %'
-    else
-      echoerr '[version_control_command]: Please provide a command for log'
-      return
-    endif
-  elseif a:cmd ==? 'alog'
-    if l:git
-      execute ':DiffviewFileHistory'
-    elseif l:svn
-      execute ':SVNLog .'
-    else
-      echoerr '[version_control_command]: Please provide a command for log'
-      return
-    endif
-  elseif a:cmd ==? 'commit'
-    if l:git
-      execute ':!git commit'
-      " silent execute ':Git write'
-      " execute ':Git commit'
-    elseif l:svn
-      execute ':SVNCommit'
-    else
-      echoerr '[version_control_command]: Please provide a command for commit'
-      return
-    endif
-  else
-    echoerr '[version_control_command]: Please provide support this command'
-    return
-  endif
-endfunction
-
 function! s:toggle_conceal() abort
   let l:cc = &conceallevel
 
@@ -713,29 +543,6 @@ function! s:toggle_conceal() abort
   else
     set conceallevel=0
   endif
-endfunction
-
-" Creates a terminal and toggles it zoom
-function! s:toggle_zoom_terminal(cmd) abort
-  if (!exists('g:loaded_zoom'))
-    echoerr 'Please the dhruvasagar/vim-zoom plugin'
-    return -1
-  endif
-
-  if (!exists(':' . a:cmd))
-    echoerr 'Please the kassio/neoterm plugin'
-    return -2
-  endif
-
-  if (!empty(zoom#statusline()))
-    " We are in zoom mode
-    call zoom#toggle()
-    normal! ZZ
-    return
-  endif
-
-  execute ':' . a:cmd
-  call zoom#toggle()
 endfunction
 
 function! s:todo_add() abort

@@ -167,24 +167,7 @@ function! options#Set() abort
   call s:vim_cli()
 endfunction
 
-" Called from augroup function s:on_vim_enter
-function! options#SetCli() abort
-  " Detect one of the many gui types
-  if has('gui_running')
-    " echomsg 'Detected Gvim GUI. Nothing to do here'
-    return
-  elseif exists('g:GuiLoaded') && g:GuiLoaded == 1
-    " echomsg 'Detected Neovim-qt GUI. Nothing to do here'
-    return
-  elseif exists('g:gui_oni') && g:gui_oni == 1
-    " In addition disable status bar
-    set laststatus = 0
-    " echomsg 'Detected Oni GUI. Nothing to do here'
-    return
-  elseif exists('g:eovim_running') && g:eovim_running == 1
-    " echomsg 'Detected Eovim GUI. Nothing to do here'
-    return
-  endif
+
 endfunction
 
 " CLI
