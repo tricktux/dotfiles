@@ -108,6 +108,7 @@ function! options#Set() abort
   set statusline+=\ %=\ row:%l/%L\ (%03p%%)\        " Rownumber/total (%)
   set statusline+=\ col:%03c\                       " Colnr
   set statusline+=\ \ %m%r%w\ %P\ \            " Modified? Readonly? Top/bot.
+  set laststatus=2
   " If you want to put color to status line needs to be after command
   " colorscheme. Otherwise this commands clears it the color
   colorscheme morning
