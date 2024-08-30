@@ -549,6 +549,7 @@ local function misc_mappings()
 
   opts.desc = 'current_folder_file_browser'
   vim.cmd.nnoremap[[<plug>current_folder_file_browser :F<space>]]
+  vim.cmd.nnoremap[[<plug>grep :G<space>]]
   opts.desc = 'file_ranger_native'
   vks('n', '<plug>file_ranger_native', function()
     local o = { startinsert = true }
@@ -585,7 +586,6 @@ M.plug.mappings = {
   ['<leader>,'] = { '<plug>grep_cword', 'grep_cword' },
   ['<plug>grep_cword'] = { ':G <c-r><c-w><cr>', 'grep_cword' },
   ['<leader>/'] = { '<plug>grep', 'grep' },
-  ['<plug>grep'] = { ':G ', 'grep' },
 }
 
 M.braces = {}
