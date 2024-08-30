@@ -74,15 +74,6 @@ M.setup = function()
   id = api.nvim_create_augroup('FiletypesLua', { clear = true })
   api.nvim_create_autocmd('FileType', {
     callback = function()
-      vim.opt.suffixesadd = { '.scp', '.cmd', '.bat' }
-      log.info('wings_syntax autocmd called')
-    end,
-    pattern = 'wings_syntax',
-    desc = 'Better go to files for wings filetypes',
-    group = id,
-  })
-  api.nvim_create_autocmd('FileType', {
-    callback = function()
       log.info('orgagenda autocmd called')
       vim.opt_local.cursorline = true
     end,

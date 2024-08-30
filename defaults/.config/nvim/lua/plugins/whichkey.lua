@@ -63,7 +63,6 @@ local leader = {
 	{ "<leader>yel", desc = "load" },
 	{ "<leader>yes", desc = "save" },
 	{ "<leader>ys", desc = "sync_from_start" },
-	{ "<leader>yw", desc = "wings_syntax" },
 }
 local lleader = {
 	{ "<localleader>8", desc = "print_hex" },

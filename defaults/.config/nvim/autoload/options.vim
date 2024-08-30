@@ -316,7 +316,7 @@ function! s:set_syntax() abort
   let g:doxygen_enhanced_colour=1
 
   " ft-markdown-syntax
-  let g:markdown_fenced_languages= [ 'cpp', 'vim', 'dosini', 'wings_syntax' ]
+  let g:markdown_fenced_languages= [ 'cpp', 'vim', 'dosini' ]
   " This is handled now by Plug 'plasticboy/vim-markdown'
   let g:markdown_folding= 0
 

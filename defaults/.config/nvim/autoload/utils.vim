@@ -195,15 +195,6 @@ function! CheatCompletion(ArgLead, CmdLine, CursorPos) abort
 endfunction
 " }}}
 
-function! utils#WingsSymLink(sPath) abort
-	let dir = getcwd()
-	execute "cd " .a:sPath
-	let l:path = input("Enter path to new default.ini:", "", "file")
-	!del default.ini
-	execute "!mklink default.ini " . l:path
-	silent! execute "cd " . dir
-endfunction
-
 function! utils#OpenTerminal() abort
 	let sys = system('uname -o')
 	if sys =~# 'Android'

@@ -39,7 +39,6 @@ vim.filetype.add({
     pde = 'arduino',
     csv = 'csv',
     bat = 'dosbatch',
-    scp = 'wings_syntax',
     set = 'dosini',
     sum = 'dosini',
     ini = 'dosini',
