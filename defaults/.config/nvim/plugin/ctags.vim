@@ -369,7 +369,7 @@ endfunction
 function! s:get_filetype_extentions() abort
 	let l:ft = &filetype
 
-	if l:ft ==# 'cpp'
+	if l:ft ==# 'cpp' || l:ft ==# 'c'
 		return "\"\.(c|cpp|c++|cc|h|hpp)$\""
 	elseif l:ft ==# 'vim'
 		return "\"\.(vim)$\""
@@ -377,5 +377,7 @@ function! s:get_filetype_extentions() abort
 		return "\"\.(py)$\""
 	elseif l:ft ==# 'java'
 		return "\"\.(java)$\""
+	else
+		return ""
 	endif
 endfunction
