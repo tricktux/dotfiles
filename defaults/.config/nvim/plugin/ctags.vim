@@ -161,17 +161,11 @@ function! s:create_cscope_files(quote_files) abort
 	if &verbose > 0
 		echomsg string(l:files_cmd)
 	endif
-	let res = ''
-	if has('nvim')
-		let res = systemlist(l:files_cmd)
-	else
-		silent execute "!" . l:files_cmd
-	endif
 
+	let res = system(l:files_cmd)
 	if v:shell_error
-		if !empty(res)
-			cexpr res
-		endif
+		echoerr "Failed to create cscope.files: " . l:files_cmd
+		echoerr res
 		return 0
 	endif
 
@@ -212,16 +206,11 @@ function! s:create_tags(tags_name) abort
 		echomsg 'ctags_cmd = ' . ctags_cmd
 	endif
 
-	let res = systemlist(ctags_cmd)
+	let res = system(ctags_cmd)
 	if v:shell_error
-		if &verbose > 0
-			echomsg 'cmd failed'
-		endif
-
-		if !empty(res)
-			cexpr res
-		endif
-		return
+		echoerr "Ctag command failed: " . ctags_cmd
+		echoerr res
+		return 0
 	endif
 
 	call s:add_tags(a:tags_name)
@@ -323,12 +312,10 @@ function! s:create_cscope(tag_name) abort
 		echomsg 'cscope_cmd = ' . cscope_cmd
 	endif
 	echomsg 'Creating cscope database...'
-	let res_cs = systemlist(cscope_cmd)
+	let res_cs = system(cscope_cmd)
 	if v:shell_error
-		if !empty(res_cs)
-			cexpr res_cs
-		endif
 		echoerr 'Cscope command failed: ' . cscope_cmd
+		echoerr res
 		return
 	endif
 
