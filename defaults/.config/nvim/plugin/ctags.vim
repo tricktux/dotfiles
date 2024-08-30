@@ -123,32 +123,19 @@ function! s:list_tags_files() abort
 	return potential_tags
 endfunction
 
-" Creates cscope.files in ~\.cache\ctags\
+" Creates cscope.files
 function! s:create_cscope_files(quote_files) abort
 	if !executable('fd')
 		echomsg string("cscope dependens on fd.... I know horrible")
 		return
 	endif
 
-	let l:sed = ' | sed -e ' .
-				\ shellescape("s/\\(.*\\)/\"\\1\"/g", 1) .
-				\ ' '
-				" \ ' -e ' . shellescape("s/\\\\\\\\/\\\\\\\\\\\\\\\\/g", 1) .
-	let rg_ft = ctags#VimFt2RgFt()
-	" Cscope db are not being created properly therefore making cscope.files filetype specific no matter what
-				" \ (!has('unix') ? '--path-separator \\\\' : '') .
-	" let files_cmd = 'rg ' .
-				" \ (g:ctags_rg_use_ft == 1 ? '-t ' . rg_ft : '') .
-				" \ ' --files "' . getcwd() .'"' .
-				" \ ' > ' .	s:files_list
 	let files_cmd = 'fd' . ' ' .
 				\ '--type file' . ' ' .
 				\ '--follow --hidden --absolute-path' . ' ' .
 				\ '--exclude ".{sync,git,svn}"' . ' ' .
 				\ (g:ctags_rg_use_ft == 1 ?  s:get_filetype_extentions() : '') . ' ' .
 				\ '> ' .	s:files_list
-				" \ (!has('unix') ? ' --path-separator /' : '') .
-				" \ (executable('sed') && a:quote_files == 1 ? l:sed : ' ') .
 
 	if &verbose > 0
 		echomsg string(files_cmd)
