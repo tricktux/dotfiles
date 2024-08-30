@@ -110,6 +110,7 @@ function! options#Set() abort
   set statusline+=\ \ %m%r%w\ %P\ \            " Modified? Readonly? Top/bot.
   " If you want to put color to status line needs to be after command
   " colorscheme. Otherwise this commands clears it the color
+  colorscheme morning
 
   " Performance Settings
   " see :h slow-terminal
