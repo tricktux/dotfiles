@@ -1,9 +1,15 @@
 " File:ctags.vim
 "	Description: All functions related to creation/deletion/update/loading of ctags and cscope
-" Author:Reinaldo Molina <rmolin88@gmail.com>
+" Author:Reinaldo Molina
 " Version:1.0.0
-" Last Modified: Thu May 25 2017 08:39
+" Last Modified: Fri Aug 30 2024 09:46
 " Created: Sat Apr 01 2017 17:04
+
+if exists('g:loaded_my_ctags')
+	finish
+endif
+
+let g:loaded_my_ctags = 1
 
 if !exists('g:ctags_use_cscope_for')
 	let g:ctags_use_cscope_for = ['c', 'cpp', 'java']
