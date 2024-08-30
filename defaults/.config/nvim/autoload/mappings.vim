@@ -66,7 +66,7 @@ function! mappings#Set()
   " Don't paste the deleted word, paste the last copied word, hopefully
   nnoremap <s-p> :normal! "0p<cr>
 
-  nnoremap <c-h> :nohlsearch<cr>
+  nnoremap <c-h> :call <SID>refresh_buffer()<cr>
   " Automatically insert date
   nnoremap <silent> <F5> a<Space><c-r>=strftime("%a %b %d %Y %H:%M")<cr><esc>
   " Designed this way to be used with snippet md header
