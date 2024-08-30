@@ -525,7 +525,8 @@ local function misc_mappings()
   vks('v', '<s-y>', 'y$', opts)
 
   -- For the love of god, do not overwrite register when pasting over visual
-  -- text
+  -- text. The `xnoremap` mapping does not work in neovim, but it does in vim.
+  -- Keep both
   vks('x', 'p', function()
     return 'pgv"' .. vim.v.register .. 'y'
   end, { remap = false, expr = true })
@@ -546,8 +547,8 @@ local function misc_mappings()
   opts.desc = 'locallist'
   vks('n', '<s-u>', '<cmd>lopen 20<bar>normal! <c-w>J<cr>', opts)
 
-  opts.desc = 'mru_browser'
-  vks('n', '<plug>mru_browser', ':F ', opts)
+  opts.desc = 'current_folder_file_browser'
+  vim.cmd.nnoremap[[<plug>current_folder_file_browser :F<space>]]
   opts.desc = 'file_ranger_native'
   vks('n', '<plug>file_ranger_native', function()
     local o = { startinsert = true }
@@ -566,12 +567,7 @@ M.plug.mappings = {
   ['<leader>fa'] = { '<plug>file_ranger_native', 'file_ranger_native' },
   ['<leader>fo'] = { '<plug>file_oil_browser', 'file_oil_browser' },
   ['<leader>fs'] = { '<plug>file_ranger_nvim', 'file_ranger_nvim' },
-  -- Default file browser
-  ['<leader>fj'] = { '<plug>file_native_browser', 'native_browser_nvim' },
-  ['<plug>file_native_browser'] = { ':e.<cr>', 'native_browser_nvim' },
   ['<leader>tf'] = { '<plug>focus_toggle', 'focus_toggle' },
-  ['<s-k>'] = { '<plug>buffer_browser', 'buffer_browser' },
-  ['<c-p>'] = { '<plug>mru_browser', 'mru_browser' },
   ['<localleader>f'] = { '<plug>format_code', 'format_code', { 'x', 'n' } },
   ['<localleader>r'] = { '<plug>refactor_code', 'refactor_code', { 'x', 'n' } },
   ['<c-k>'] = { '<plug>snip_expand', 'snip_expand', { 'x', 'i', 's' } },
@@ -580,7 +576,7 @@ M.plug.mappings = {
   ['<localleader>j'] = { '<plug>make_file', 'make_file' },
   ['<localleader>p'] = { '<plug>preview', 'preview' },
   ['<leader>cr'] = { '<plug>cd_root', 'cd_root' },
-  ['<leader>a'] = { '<plug>ai', 'ai_help' },
+  ['<leader>i'] = { '<plug>ai', 'ai_help' },
   ['<localleader>b'] = { '<plug>debug_start', 'debug_start' },
   ['<bs>'] = { '<plug>comment_line', 'comment_line' },
   -- Search
