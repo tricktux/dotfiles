@@ -250,21 +250,8 @@ function! s:add_tags(tags_name) abort
 		return 0
 	endif
 
-	" Add new tag file if not already on the list
-	let list_tags = tagfiles()
-	let tag_present = 0
-	for tag in list_tags
-		if tag ==? a:tags_name
-			let tag_present = 1
-			break
-		endif
-	endfor
-	if tag_present == 0
-		if &verbose > 0
-			echomsg 'Adding tags: ' . g:ctags_output_dir . a:tags_name
-		endif
-		execute "set tags+=" . g:ctags_output_dir . a:tags_name
-	endif
+	execute "set tags=" . g:ctags_output_dir . a:tags_name
+	echomsg "Updated tags: " &tags
 	return 1
 endfunction
 
