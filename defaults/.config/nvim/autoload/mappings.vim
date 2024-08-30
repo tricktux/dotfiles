@@ -158,11 +158,6 @@ function! mappings#Set()
   inoremap ; ;<c-g>u
   inoremap = =<c-g>u
 
-  nmap <leader>ag <plug>tags_generate
-  nnoremap <silent> <plug>tags_generate :call ctags#NvimSyncCtagsCscope()<cr>
-  nmap <leader>al <plug>tags_load
-  nnoremap <silent> <plug>tags_load :call ctags#LoadCscopeDatabse()<cr>
-
   " Window movement
   " move between windows
   if !has('nvim')
@@ -718,57 +713,6 @@ function! s:toggle_conceal() abort
   else
     set conceallevel=0
   endif
-endfunction
-
-function! mappings#SetCscope() abort
-  if !has('cscope')
-    echoerr '[mappings#SetCscope]: cscope not available'
-    return -1
-  endif
-
-  " kill all cscope connections
-  nnoremap <buffer> <localleader>sk :cscope kill -1<cr>
-  nnoremap <buffer> <localleader>sr :cscope reset<cr>
-  nnoremap <buffer> <localleader>sh :cscope show<cr>
-  " 0 or s: Find this C symbol
-  nnoremap <buffer> <localleader>ss :exec 'cscope find s ' .
-        \ expand('<cword>')<cr>
-  " 1 or g: Find this definition
-  nnoremap <buffer> <localleader>sg :exec 'cscope find g ' .
-        \ expand('<cword>')<cr>
-  " 2 or d: Find functions called by this function
-  nnoremap <buffer> <localleader>sd :exec 'cscope find d ' .
-        \ expand('<cword>')<cr>
-  " 3 or c: Find functions calling this function
-  nnoremap <buffer> <localleader>sc :exec 'cscope find c ' .
-        \ expand('<cword>')<cr>
-  " 4 or t: Find this text string
-  nnoremap <buffer> <localleader>st :exec 'cscope find t ' .
-        \ expand('<cword>')<cr>
-  " 6 or e: Find this egrep pattern
-  nnoremap <buffer> <localleader>se :exec 'cscope find e ' .
-        \ expand('<cword>')<cr>
-  " 7 or f: Find this file
-  nnoremap <buffer> <localleader>sf :exec 'cscope find f ' .
-        \ expand('<cword>')<cr>
-  " 8 or i: Find files #including this file
-  nnoremap <buffer> <localleader>si :exec 'cscope find i ' .
-        \ expand('<cword>')<cr>
-  " 9 or a: Find places where this symbol is assigned a value
-  nnoremap <buffer> <localleader>sa :exec 'cscope find a ' .
-        \ expand('<cword>')<cr>
-
-  if !exists(':CCTreeLoadDB')
-    return
-  endif
-
-  nnoremap <buffer> <localleader>el :call <SID>cctree_load_db()<cr>
-  nnoremap <buffer> <localleader>es :call <SID>cctree_save_xrefdb()<cr>
-  nnoremap <buffer> <localleader>ef :exec 'CCTreeTraceForward ' .
-        \ expand('<cword>')<cr>
-  nnoremap <buffer> <localleader>er :exec 'CCTreeTraceReverse ' .
-        \ expand('<cword>')<cr>
-  nnoremap <buffer> <localleader>et :CCTreeWindowToggle<cr>
 endfunction
 
 " Creates a terminal and toggles it zoom
