@@ -509,6 +509,125 @@ local p = {
     'lunarVim/bigfile.nvim',
     opts = {},
   },
+  {
+    "c0r73x/neotags.lua",
+    event = 'VeryLazy',
+    keys = {
+      {
+        '<leader>an',
+        function() require"neotags".toggle() end,
+        desc = 'neotags-toggle',
+      },
+    },
+    opts = {
+      enable = false, -- enable neotags.lua
+      ctags = {
+        run = true, -- run ctags
+        directory = vim.env.HOME .. '/.vim_tags', -- default directory where to store tags
+        verbose = true, -- verbose ctags output
+        binary = 'ctags', -- ctags binary
+        args = { -- ctags arguments
+          '--fields=+l',
+          '--c-kinds=+p',
+          '--c++-kinds=+p',
+          '--sort=no',
+          -- '--recurse=yes',
+          '-a'
+        },
+      },
+      ft_conv = { -- ctags filetypes to vim filetype
+        ['c++'] = 'cpp',
+        ['moonscript'] = 'moon',
+        ['c#'] = 'cs'
+      },
+      ft_map = { -- combine tags from multiple languages (for example header files in c/cpp)
+        cpp = { 'cpp', 'c' },
+        c = { 'c', 'cpp' }
+      },
+      hl = {
+        minlen = 3, -- dont include tags shorter than this
+        patternlength = 2048, -- max syntax length when splitting it into chunks
+        prefix = [[\C\<]], -- default syntax prefix
+        suffix = [[\>]] -- default syntax suffix
+      },
+      tools = {
+        find = nil, -- tool to find files (defaults to running ctags with -R)
+        -- find = { -- example using fd
+        --     binary = 'fd',
+        --     args = {
+        --     '-t', 'f',
+        --     '--hidden',
+        --     '--absolute-path',
+        --     '--follow',
+        --     -- '--exclude .{sync,git,svn}'
+        --   },
+        -- },
+      },
+      ignore = { -- filetypes to ignore
+        'cfg',
+        'conf',
+        'help',
+        'mail',
+        'markdown',
+        'nerdtree',
+        'nofile',
+        'readdir',
+        'qf',
+        'text',
+        'plaintext'
+      },
+      notin = { -- where not to include highlights
+        '.*String.*',
+        '.*Comment.*',
+        'cIncluded',
+        'cCppOut2',
+        'cCppInElse2',
+        'cCppOutIf2',
+        'pythonDocTest',
+        'pythonDocTest2'
+      }
+    }
+  },
+  {
+    "dhananjaylatkar/cscope_maps.nvim",
+    event = 'VeryLazy',
+    opts = {
+      -- maps related defaults
+      disable_maps = false, -- "true" disables default keymaps
+      skip_input_prompt = false, -- "true" doesn't ask for input
+      prefix = "<c-g>", -- prefix to trigger maps
+
+      -- cscope related defaults
+      cscope = {
+        -- location of cscope db file
+        db_file = "./cscope.out", -- DB or table of DBs
+        -- NOTE:
+        --   when table of DBs is provided -
+        --   first DB is "primary" and others are "secondary"
+        --   primary DB is used for build and project_rooter
+        -- cscope executable
+        exec = "cscope", -- "cscope" or "gtags-cscope"
+        -- choose your fav picker
+        picker = "quickfix", -- "quickfix", "telescope", "fzf-lua" or "mini-pick"
+        -- size of quickfix window
+        qf_window_size = 5, -- any positive integer
+        -- position of quickfix window
+        qf_window_pos = "bottom", -- "bottom", "right", "left" or "top"
+        -- "true" does not open picker for single result, just JUMP
+        skip_picker_for_single_result = false, -- "false" or "true"
+        -- these args are directly passed to "cscope -f <db_file> <args>"
+        db_build_cmd_args = { "-bqkv" },
+        -- statusline indicator, default is cscope executable
+        statusline_indicator = nil,
+        -- try to locate db_file in parent dir(s)
+        project_rooter = {
+          enable = false, -- "true" or "false"
+          -- change cwd to where db_file is located
+          change_cwd = false, -- "true" or "false"
+        }
+      },
+    }
+  }
 }
 
 if vim.fn.has('nvim-0.10') <= 0 then
@@ -528,10 +647,6 @@ if vim.fn.has('nvim-0.10') <= 0 then
     end,
     config = function()
       local config = require('kommentary.config')
-      config.configure_language('wings_syntax', {
-        single_line_comment_string = '//',
-        prefer_single_line_comments = true,
-      })
       config.configure_language('dosini', {
         single_line_comment_string = ';',
         prefer_single_line_comments = true,
