@@ -141,26 +141,31 @@ endfunction
 
 " Creates cscope.files
 function! s:create_cscope_files(quote_files) abort
-	if !executable('fd')
-		echomsg string("cscope dependens on fd.... I know horrible")
+	if executable('find')
+		" Unix command with find as fallback
+		let l:ext = s:get_find_ft_ext()
+		let l:cwd = getcwd()
+		let l:files_cmd = 'find ' . l:cwd . ' -type f ' . l:ext . ' > ' . s:files_list
+	elseif executable('fd')
+			" Unix command with fd
+			let l:ext = s:get_fd_ft_ext()
+			let l:files_cmd = 'fd --type file --follow --hidden --absolute-path --exclude ".{sync,git,svn}" ' . l:ext . ' > ' . s:files_list
+	elseif has('win32')
+		" Windows command using dir
+		let l:files_cmd = 'dir /b /s *.java *.cpp *.h *.hpp *.c *.cc *.cs > ' . s:files_list
+	else
+		echomsg string("No suitable file search utility found: fd or find for Unix, dir for Windows")
 		return 0
 	endif
 
-	let files_cmd = 'fd' . ' ' .
-				\ '--type file' . ' ' .
-				\ '--follow --hidden --absolute-path' . ' ' .
-				\ '--exclude ".{sync,git,svn}"' . ' ' .
-				\ (g:ctags_rg_use_ft == 1 ?  s:get_filetype_extentions() : '') . ' ' .
-				\ '> ' .	s:files_list
-
 	if &verbose > 0
-		echomsg string(files_cmd)
+		echomsg string(l:files_cmd)
 	endif
 	let res = ''
 	if has('nvim')
-		let res = systemlist(files_cmd)
+		let res = systemlist(l:files_cmd)
 	else
-		silent execute "!" . files_cmd
+		silent execute "!" . l:files_cmd
 	endif
 
 	if v:shell_error
@@ -349,17 +354,35 @@ function! s:load_cscope_db(tag_name) abort
 	return s:cscope_load_db(cs_db)
 endfunction
 
-function! s:get_filetype_extentions() abort
+function! s:get_fd_ft_ext() abort
 	let l:ft = &filetype
 
 	if l:ft ==# 'cpp' || l:ft ==# 'c'
-		return "\"\.(c|cpp|c++|cc|h|hpp)$\""
+		return "-e c -e cpp -e c++ -e cc -e h -e hpp -e cxx"
 	elseif l:ft ==# 'vim'
+		return "-e vim"
 		return "\"\.(vim)$\""
 	elseif l:ft ==# 'python'
-		return "\"\.(py)$\""
+		return "-e py"
 	elseif l:ft ==# 'java'
-		return "\"\.(java)$\""
+		return "-e java"
+	else
+		return ""
+	endif
+endfunction
+
+function! s:get_find_ft_ext() abort
+	let l:ft = &filetype
+
+	if l:ft ==# 'cpp' || l:ft ==# 'c'
+		return "\\( -name \"*.[ch]\" -o -name \"*.cpp\" -o -name \"*.hpp\" -o -name \"*.cxx\" \\)"
+	elseif l:ft ==# 'vim'
+		return "-name \"*.vim\""
+	elseif l:ft ==# 'python'
+		return "-name \"*.vim\""
+	elseif l:ft ==# 'java'
+		return "-name \"*.java\""
+		" Add more filetypes as necessary.
 	else
 		return ""
 	endif
