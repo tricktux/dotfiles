@@ -143,7 +143,7 @@ endfunction
 function! s:create_cscope_files(quote_files) abort
 	if !executable('fd')
 		echomsg string("cscope dependens on fd.... I know horrible")
-		return
+		return 0
 	endif
 
 	let files_cmd = 'fd' . ' ' .
@@ -167,7 +167,7 @@ function! s:create_cscope_files(quote_files) abort
 		if !empty(res)
 			cexpr res
 		endif
-		return
+		return 0
 	endif
 
 	return 1
