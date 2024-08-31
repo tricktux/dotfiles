@@ -187,10 +187,6 @@ M.help.mappings = {
   },
 }
 
-M.scroll = {}
-M.scroll.down = '<c-d>zz'
-M.scroll.up = '<c-u>zz'
-
 M.vcs = {
   name = 'version_source',
   prefix = '<leader>v',
