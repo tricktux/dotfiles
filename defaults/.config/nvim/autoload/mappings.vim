@@ -33,6 +33,15 @@ function! mappings#Set()
   nnoremap G Gzz
   nnoremap x xzz
 
+  " Unified search
+  nnoremap <expr> n 'Nn'[v:searchforward] . 'zz'
+  xnoremap <expr> n 'Nn'[v:searchforward] . 'zz'
+  onoremap <expr> n 'Nn'[v:searchforward] . 'zz'
+
+  nnoremap <expr> N 'nN'[v:searchforward] . 'zz'
+  xnoremap <expr> N 'nN'[v:searchforward] . 'zz'
+  onoremap <expr> N 'nN'[v:searchforward] . 'zz'
+
   " Sun Dec 09 2018 17:15: 
   " This extends p in visual mode (note the noremap), so that if you paste from 
   " the unnamed (ie. default) register, that register content is not replaced by 
