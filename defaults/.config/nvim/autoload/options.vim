@@ -175,6 +175,9 @@ function! options#Set() abort
           \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit' |
           \   exe "normal! g`\"" |
           \ endif
+    if version >= 702
+      autocmd BufWinLeave * call clearmatches()
+    endif
   augroup END
 
 endfunction
@@ -306,6 +309,7 @@ function! s:set_syntax() abort
   " Automatically highlight doxygen when doing c, c++
   let g:load_doxygen_syntax=1
   let g:doxygen_enhanced_colour=1
+  let g:c_space_errors = 1
 
   " ft-markdown-syntax
   let g:markdown_fenced_languages= [ 'cpp', 'vim', 'dosini' ]
