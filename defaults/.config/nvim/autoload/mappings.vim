@@ -215,15 +215,6 @@ function! mappings#Set()
   " deletes all buffers
   nnoremap <leader>bl :%bd<cr>
 
-  " Comments <Leader>o
-  nnoremap <leader>oI :call utils#CommentReduceIndent()<cr>
-  " mapping ol conflicts with mapping o to new line
-  nnoremap <leader>oe :call utils#EndOfIfComment()<cr>
-  nnoremap <leader>ou :call utils#UpdateHeader()<cr>
-  nnoremap <leader>ot :call utils#TodoAdd()<cr>
-  nnoremap <leader>od :call utils#CommentDelete()<cr>
-  " Comment Indent Increase/Reduce
-  nnoremap <leader>oi :call utils#CommentIndent()<cr>
   nnoremap <leader>cd :cd %:p:h<bar>:pwd<cr>
   nnoremap <leader>cu :cd ..<bar>:pwd<cr>
   nnoremap <leader>cc :pwd<cr>
@@ -260,16 +251,6 @@ if !has('nvim-0.5')
     nnoremap <leader>el :call utils#PathFileFuzzer(input
     \ ('Folder to recurse: ', "", "file"))<cr>
   endif
-  " mnemonic space bar
-  vnoremap <leader>l y:call writefile([@"], '/tmp/todo.txt')<cr>
-  nnoremap <leader>la :call <sid>todo_add()<cr>
-  nnoremap <leader>ld :call <sid>todo_remove()<cr>
-  " nmap <leader>et <plug>edit_todo
-  " if !hasmapto('<plug>edit_todo')
-  " nnoremap <silent> <plug>edit_todo :execute
-  " \ ('edit ' . g:dotfiles . '/TODO.md')<cr>
-  " endif
-
   nnoremap <leader>ei :e
 endfunction
 
