@@ -584,24 +584,6 @@ M.braces.mappings = {
   ['[E'] = { '<c-w>d<c-w>H', 'goto_define_under_cursor_on_left_win' },
 }
 
-M.cd = {
-  name = 'cd',
-  prefix = '<leader>c',
-}
-M.cd.cd = function()
-  vim.cmd.lcd('%:h')
-  vim.cmd.pwd()
-end
-M.cd.cu = function()
-  vim.cmd.lcd('..')
-  vim.cmd.pwd()
-end
-M.cd.mappings = {
-  ['d'] = { M.cd.cd, 'current_file' },
-  ['u'] = { M.cd.cu, 'one_folder_up' },
-  ['c'] = { vim.cmd.pwd, 'display_curr_work_dir' },
-}
-
 M.builtin_terminal = {
   mode = 't',
 }
@@ -693,7 +675,6 @@ function M:setup()
   self:keymaps_sets(self.terminal)
   self:keymaps_sets(self.toggle)
   self:keymaps_sets(self.help)
-  self:keymaps_sets(self.cd)
   self:keymaps_sets(self.vcs)
   self.search_motion()
 end

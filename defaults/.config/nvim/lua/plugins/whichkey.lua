@@ -39,7 +39,7 @@ M.__config = {
 }
 
 local leader = {
-	{ "<leader>c", group = map.cd.name },
+	{ "<leader>c", group = "cd" },
 	{ "<leader>d", desc = "duplicate_char" },
 	{ "<leader>e", group = map.edit.name },
 	{ "<leader>et", desc = map.edit.temporary.name },
