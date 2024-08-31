@@ -224,6 +224,11 @@ function! mappings#Set()
   nnoremap <leader>od :call utils#CommentDelete()<cr>
   " Comment Indent Increase/Reduce
   nnoremap <leader>oi :call utils#CommentIndent()<cr>
+  nnoremap <leader>cd :cd %:p:h<bar>:pwd<cr>
+  nnoremap <leader>cu :cd ..<bar>:pwd<cr>
+  nnoremap <leader>cc :pwd<cr>
+
+  nnoremap <leader>ts :set invspell<cr>
 
   " Edit file at location <Leader>e?
 if !has('nvim-0.5')
@@ -255,8 +260,6 @@ if !has('nvim-0.5')
     nnoremap <leader>el :call utils#PathFileFuzzer(input
     \ ('Folder to recurse: ', "", "file"))<cr>
   endif
-  nnoremap <Leader>ei :e
-
   " mnemonic space bar
   vnoremap <leader>l y:call writefile([@"], '/tmp/todo.txt')<cr>
   nnoremap <leader>la :call <sid>todo_add()<cr>
@@ -267,6 +270,7 @@ if !has('nvim-0.5')
   " \ ('edit ' . g:dotfiles . '/TODO.md')<cr>
   " endif
 
+  nnoremap <leader>ei :e
 endfunction
 
 function! mappings#SaveSession(...) abort
