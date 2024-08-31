@@ -71,12 +71,6 @@ if has('nvim')
 	nnoremap <silent> <plug>cstack_view_toggle :CsStackView toggle<cr>
 endif
 
-let s:ctags = {
-			\ 'files_list' : '',
-			\ 'cwd' : '',
-			\ 'cwd_as_name' : '',
-			\ }
-
 function! s:cscope_load_db(db) abort
 	try
 		execute s:cs_kill
@@ -104,26 +98,6 @@ function! s:list_files(dir) abort
 		return []
 	endif
 	return map(split(l:directory,'\n'), "fnamemodify(v:val, ':t')")
-endfunction
-
-function! s:ctags.update_vars() abort
-	let self.files_list = tempname()
-	let self.cwd = getcwd()
-	let self.cwd_as_name = s:get_full_path_as_name(self.cwd)
-endfunction
-
-function! s:ctags.confirm() abort
-	let msg = 'Create tags for folder:\n' .
-				\ "\"" . self.cwd . "\""
-	return confirm(msg, "&JYes\n&LNo", 2)
-endfunction
-
-function! s:ctags.create() abort
-	if (self.confirm() != 1)
-		return
-	endif
-
-	call self.update_vars()
 endfunction
 
 "	Your current directory should be at the root of you code
