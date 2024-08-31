@@ -15,6 +15,7 @@ function! mappings#Set()
   " Folding
   " Folding select text then S-f to fold or just S-f to toggle folding
   nnoremap <c-d> <c-d>zz
+  nnoremap <c-u> <c-u>zz
   nnoremap * *zz
   nnoremap # #zz
   nnoremap ]c ]czz
