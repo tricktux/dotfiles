@@ -6,14 +6,64 @@
 " Created: Sep 14 2017 14:47
 
 function! options#Set() abort
-  " SET_OPTIONS
-  " Regular stuff
-  "omnicomplete menu
-  " save marks
-  " Wed Sep 30 2020 22:24: Don't remember why I have this setting. Seems to be 
-  " conflicting with telescope.vim
-  " set report=0
-  " ------
+  set hidden
+  set timeout
+  set timeoutlen=2000
+  " Tab management
+  " No tabs in the code. Tabs are expanded to spaces
+  set shiftround
+  set softtabstop=-8 " Use value of shiftwidth
+  set shiftwidth=4  " Always set this two values to the same
+  set tabstop=4
+  " Title
+  set title
+  set titlelen=90 " Percent of columns
+  set updatetime=100
+  let &display .= 'uhex'
+  set sessionoptions=buffers,tabpages
+  set foldlevel=99 "" Do not fold code at startup
+  set foldmethod=syntax
+  set mouse=
+  set background=light " This forces lualine to use the right theme
+  set cmdheight=1
+  set spell
+  set spelllang=en_us
+  set nowrapscan
+  set showtabline=1
+  set nonumber
+  set relativenumber
+  set numberwidth=1
+  " Supress messages
+  " a - Usefull abbreviations
+  " c - Do no show match 1 of 2
+  " o and O no enter when openning files
+  " s - Do not show search hit bottom
+  " t - Truncate message if is too long
+  set shortmess=aoOcstF
+  set clipboard=unnamedplus " Sync with system clipboard
+  set autowrite " Enable auto write
+  set completeopt=menu,menuone,noselect
+  set formatoptions=jcroqlnt " tcqj
+  set ignorecase " Ignore case
+  set pumheight=16 " Maximum number of entries in a popup
+  set scrolloff=16 " Lines of context
+  set sidescrolloff=16 " Columns of context
+  set smartindent " Insert indents automatically
+  set termguicolors " True color support
+  set wildmode=list " Command-line completion mode
+  set wildoptions=fuzzy,pum,tagfile " Command-line completion mode
+  set splitright
+  set nosplitbelow
+  set breakindent
+  " Show which line your cursor is on
+  set cursorline
+
+  " Sets how neovim will display certain whitespace characters in the editor.
+  "  See `:help 'list'`
+  "  and `:help 'listchars'`
+  set list
+  set listchars=tab:»\ ,trail:·
+
   " Fri Apr 03 2020 17:07: Cursor blinking really gets on my nerves
   set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
         \,a:blinkon0-Cursor/lCursor
@@ -118,7 +168,6 @@ function! options#Set() abort
   set conceallevel=0
   set colorcolumn=""
   set nocursorcolumn
-  set nocursorline
   set scrolljump=5
   set sidescroll=15 " see help for sidescroll
   " Mon May 01 2017 11:21: This breaks split window highliting
@@ -214,11 +263,6 @@ function! s:vim_cli() abort
   nnoremap <silent> h <C-w>h
   nnoremap <silent> k <C-w>k
   nnoremap <silent> j <C-w>j
-
-  if !has('clipboard') || !has('xterm_clipboard')
-    echomsg 'options#Set(): vim wasnt compiled with clipboard support.'
-    echomsg 'Remove vim and install gvim'
-  endif
 
   if exists('g:system_name') && g:system_name ==# 'cygwin'
     set term=$TERM
