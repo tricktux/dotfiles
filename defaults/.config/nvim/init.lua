@@ -111,6 +111,7 @@ local function main()
   -- setup wiki early so that path is available
   require('plugin.termdebug'):init()
   require('lazyr').setup()
+  vim.fn['packadds#Set']()
 end
 
 main()
