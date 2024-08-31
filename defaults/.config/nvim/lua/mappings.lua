@@ -530,12 +530,6 @@ local function misc_mappings()
   opts.desc = 'refresh_buffer'
   vks('n', '<c-l>', refresh_buffer, opts)
 
-  -- Quickfix/Location list
-  opts.desc = 'quickfix'
-  vks('n', '<s-q>', '<cmd>copen 20<bar>normal! <c-w>J<cr>', opts)
-  opts.desc = 'locallist'
-  vks('n', '<s-u>', '<cmd>lopen 20<bar>normal! <c-w>J<cr>', opts)
-
   opts.desc = 'current_folder_file_browser'
   vim.cmd.nnoremap[[<plug>current_folder_file_browser :F<space>]]
   vim.cmd.nnoremap[[<plug>grep :G<space>]]

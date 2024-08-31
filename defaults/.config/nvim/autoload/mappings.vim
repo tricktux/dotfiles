@@ -94,11 +94,11 @@ function! mappings#Set()
   nnoremap <silent> [m :m -2<cr>
 
   " Quickfix and Location stuff
-  nnoremap <silent> <s-q> :call <sid>qf_loclist_toggle("Quickfix List", 'c')<cr>
+  nnoremap <silent> <s-q> :copen 20<bar>normal! <c-w>J<cr>
   nnoremap ]q :cnext<cr>
   nnoremap [q :cprevious<cr>
 
-  nnoremap <silent> <s-u> :call <sid>qf_loclist_toggle("Location List", 'l')<cr>
+  nnoremap <silent> <s-u> :lopen 20<bar>normal! <c-w>J<cr>
   nnoremap ]l :lnext<cr>
   nnoremap [l :lprevious<cr>
 
@@ -517,36 +517,6 @@ endfunction
 
 function! s:todo_remove() abort
   return delete('/tmp/todo.txt')
-endfunction
-
-function! s:qf_get_buffer_list() abort
-  redir =>buflist
-  silent! ls!
-  redir END
-  return buflist
-endfunction
-
-function! s:qf_loclist_toggle(bufname, pfx) abort
-  let buflist = <sid>qf_get_buffer_list()
-  for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
-    if bufwinnr(bufnum) != -1
-      exec(a:pfx.'close')
-      return
-    endif
-  endfor
-  if a:pfx == 'l' && len(getloclist(0)) == 0
-    echohl ErrorMsg
-    echo "Location List is Empty."
-    return
-  endif
-  let winnr = winnr()
-  exec(a:pfx.'open')
-  " Move quickfix to bottom of screen
-  wincmd J
-  " Restore cursor to previous window
-  " if winnr() != winnr
-  " wincmd p
-  " endif
 endfunction
 
 function! s:refresh_buffer() abort
