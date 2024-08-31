@@ -167,8 +167,15 @@ function! options#Set() abort
   call s:set_syntax()
 
   call s:vim_cli()
-endfunction
 
+
+  augroup BuffTypes
+    autocmd!
+    autocmd BufReadPost *
+          \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit' |
+          \   exe "normal! g`\"" |
+          \ endif
+  augroup END
 
 endfunction
 
