@@ -223,36 +223,11 @@ function! mappings#Set()
   nnoremap <leader>ts :set invspell<cr>
 
   " Edit file at location <Leader>e?
-if !has('nvim-0.5')
-  nnoremap <leader>ea :call <sid>add_file(getcwd())<cr>
-  nnoremap <leader>tc :call <sid>toggle_conceal<cr>
-  " Wiki mappings <Leader>w?
-  nnoremap <silent> <leader>wo :call <SID>wiki_open()<cr>
-  nnoremap <silent> <leader>wa :call <SID>wiki_add()<cr>
-  nnoremap <silent> <leader>ws :call utils#WikiSearch()<cr>
-  nnoremap <silent> <leader>wi :call <sid>wiki_open('index.md')<cr>
-  nnoremap <silent> <leader>wb :call <sid>wiki_open('brain_dump.md')<cr>
-  nnoremap <silent> <leader>wr :call <sid>wiki_open('random.md')<cr>
-  nnoremap <silent> <leader>ww :call <sid>wiki_open('weekly_log_' .
-  \ strftime('%Y') . '.md')<cr>
-  nnoremap <silent> <leader>wm :call <sid>wiki_open('monthly_log_' .
-  \ strftime('%Y') . '.md')<cr>
-  " Edit plugin
-  nnoremap <leader>ep :call utils#PathFileFuzzer(g:vim_plugins_path)<cr>
-  " Edit Vimruntime
-  nnoremap <leader>ev :call utils#PathFileFuzzer(fnameescape($VIMRUNTIME))<cr>
-  nnoremap <leader>ed :call utils#PathFileFuzzer(g:dotfiles)<cr>
-  nnoremap <leader>eh :call utils#PathFileFuzzer($HOME)<cr>
-  if (!has('unix'))
-    nnoremap <leader>eC :call utils#PathFileFuzzer('C:\')<cr>
-    nnoremap <leader>eD :call utils#PathFileFuzzer('D:\')<cr>
-    nnoremap <leader>eP :e +<cr>
-    endif
-    nnoremap <leader>ec :call utils#PathFileFuzzer(getcwd())<cr>
-    nnoremap <leader>el :call utils#PathFileFuzzer(input
-    \ ('Folder to recurse: ', "", "file"))<cr>
-  endif
-  nnoremap <leader>ei :e
+  nnoremap <silent> <expr> <leader>ed ':e ' . g:dotfiles . '/'
+  nnoremap <silent> <expr> <leader>ep ':e ' . g:std_data_path . '/lazy'
+  nnoremap <silent> <expr> <leader>ev ':e ' . fnameescape($VIMRUNTIME)
+  nnoremap <silent> <leader>wj :e ~/Documents/wiki
+  nnoremap <leader>ei :e 
 endfunction
 
 function! mappings#SaveSession(...) abort
