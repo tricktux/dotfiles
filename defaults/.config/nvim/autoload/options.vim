@@ -19,7 +19,7 @@ function! options#Set() abort
   set title
   set titlelen=90 " Percent of columns
   set updatetime=100
-  let &display .= 'uhex'
+  set display=uhex
   set sessionoptions=buffers,tabpages
   set foldlevel=99 "" Do not fold code at startup
   set foldmethod=syntax
