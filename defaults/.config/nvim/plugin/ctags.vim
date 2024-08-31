@@ -79,7 +79,9 @@ function! s:cscope_load_db(db) abort
 		echoerr 'Failed to add cscope database: ' . a:db
 		return 0
 	endtry
-	echomsg 'Added cscope database: ' . a:db
+	if has('nvim')
+		echomsg 'Added cscope database: ' . a:db
+	endif
 	return 1
 endfunction
 
