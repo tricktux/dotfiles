@@ -128,12 +128,13 @@ endfunction
 
 "	Your current directory should be at the root of you code
 function! ctags#NvimSyncCtagsCscope() abort
-	let response = confirm('Create tags for current folder?', "&Jes\n&Lo", 2)
+	let l:cwd = getcwd()
+	let response = confirm('Create tags for current folder?: '. l:cwd, "&Jes\n&Lo", 2)
 	if response != 1
 		return
 	endif
 
-	let tag_name = s:get_full_path_as_name(getcwd())
+	let tag_name = s:get_full_path_as_name(l:cwd)
 
 	if !s:create_tags(tag_name)
 		echomsg "Failed to create tags file: " . tag_name
