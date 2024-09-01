@@ -172,9 +172,7 @@ function! mappings#Set()
   " move between windows
   if !has('nvim')
 
-    if has('terminal') || has('nvim')
-      " See plugin.vim - neoterm
-      " There are more mappins in the [,] section
+    if has('terminal')
       nmap <M-`> <plug>terminal_toggle
       nnoremap <plug>terminal_toggle :vs<cr><bar>:term<cr>
       nmap <localleader>e <plug>terminal_send_line
