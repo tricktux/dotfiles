@@ -152,13 +152,14 @@ function! options#Set() abort
   " line
   set statusline =
   set statusline+=\ [%n]                            " buffernr
-  set statusline+=\ %<%F\ %m%r%w                    " File+path
+  set statusline+=\ %<%{Stlcwd()}\ %f\ %m%r%w                    " File+path
   set statusline+=\ %y\                             " FileType
   set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''} " Encoding
   " ,BOM\ " :\ " \ " )}\ " Encoding2
   " set statusline+=\ %{(&bomb?\
   set statusline+=\ %{&ff}\                         " FileFormat (dos/unix..)
-  set statusline+=\ %=\ row:%l/%L\ (%03p%%)\        " Rownumber/total (%)
+  set statusline+=\%=\ %{Stlsession()}\ 
+  set statusline+=\ \ row:%l/%L\ (%03p%%)\        " Rownumber/total (%)
   set statusline+=\ col:%03c\                       " Colnr
   set statusline+=\ \ %m%r%w\ %P\ \            " Modified? Readonly? Top/bot.
   set laststatus=2
@@ -384,4 +385,18 @@ endfunction
 function! s:get_titlestring() abort
   return (exists('g:valid_device') && has('unix') ? "\uf02d" : '') .
         \ getcwd() . '->%f%m%r'
+endfunction
+
+function! Stlcwd() abort
+  if &readonly || &buftype == "nofile" || &buftype == "prompt" || &buftype == "terminal"
+    return ''
+  endif
+  return getcwd() . ' >'
+endfunction
+
+function! Stlsession() abort
+  if empty(v:this_session)
+    return ''
+  endif
+  return 's:' . fnamemodify(v:this_session, ':t')  " Return just the filename
 endfunction
