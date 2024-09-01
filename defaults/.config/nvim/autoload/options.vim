@@ -53,7 +53,7 @@ function! options#Set() abort
   set sidescrolloff=16 " Columns of context
   set smartindent " Insert indents automatically
   set termguicolors " True color support
-  set wildmode=list " Command-line completion mode
+  set wildmode=full,lastused,list:full " Command-line completion mode
   set wildoptions=fuzzy,pum,tagfile " Command-line completion mode
   set splitright
   set nosplitbelow
