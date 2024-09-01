@@ -55,12 +55,6 @@ local advanced = {
     end,
   },
   {
-    'giusgad/pets.nvim',
-    opts = {},
-    cmd = { 'PetsNewCustom', 'PetsNew' },
-    dependencies = { 'MunifTanjim/nui.nvim' },
-  },
-  {
     'mikesmithgh/kitty-scrollback.nvim',
     enabled = true,
     lazy = true,
