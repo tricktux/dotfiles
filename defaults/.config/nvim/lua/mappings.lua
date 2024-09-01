@@ -298,128 +298,6 @@ M.toggle.mappings = {
   I = { '<plug>toggle_hologram_images', 'toggle_hologram_images' },
 }
 
-M.edit = {
-  name = 'edit',
-  prefix = '<leader>e',
-  temporary = { name = 'temporary' },
-}
-M.edit.edit_temporary_file = function(type)
-  local s = utl.fs.path.sep
-  local f = fmt('%s%stemp', vim.fn.stdpath('cache'), s)
-  local e = type and '.' .. type or ''
-  if fn.has('nvim-0.8') > 0 then
-    vim.cmd({ cmd = 'edit', args = { fmt('%s%s', f, e) } })
-    return
-  end
-  vim.cmd(fmt('edit %s%s', f, e))
-end
-M.edit.mappings = {
-  a = {
-    function()
-      fs.file.create(vim.fn.getcwd())
-    end,
-    'add_new_folder',
-  },
-  d = {
-    function()
-      fs.path.fuzzer(vim.g.dotfiles)
-    end,
-    'dotfiles',
-  },
-  h = {
-    function()
-      fs.path.fuzzer(os.getenv('HOME'))
-    end,
-    'home',
-  },
-  c = {
-    function()
-      fs.path.fuzzer(fn.getcwd())
-    end,
-    'current_dir',
-  },
-  p = {
-    function()
-      local p = vim.fn.stdpath('data') .. '/lazy'
-      fs.path.fuzzer(p)
-    end,
-    'lua_plugins_path',
-  },
-  v = {
-    function()
-      fs.path.fuzzer(os.getenv('VIMRUNTIME'))
-    end,
-    'vimruntime',
-  },
-  tm = {
-    function()
-      M.edit.edit_temporary_file('md')
-    end,
-    'edit_temporary_markdown',
-  },
-  tc = {
-    function()
-      M.edit.edit_temporary_file('cpp')
-    end,
-    'edit_temporary_cpp',
-  },
-  tC = {
-    function()
-      M.edit.edit_temporary_file('c')
-    end,
-    'edit_temporary_c',
-  },
-  tr = {
-    function()
-      M.edit.edit_temporary_file('rs')
-    end,
-    'edit_temporary_rust',
-  },
-  tl = {
-    function()
-      M.edit.edit_temporary_file('lua')
-    end,
-    'edit_temporary_lua',
-  },
-  tp = {
-    function()
-      M.edit.edit_temporary_file('py')
-    end,
-    'edit_temporary_python',
-  },
-  tv = {
-    function()
-      M.edit.edit_temporary_file('vim')
-    end,
-    'edit_temporary_vim',
-  },
-  tb = {
-    function()
-      M.edit.edit_temporary_file(utl.has_unix and 'sh' or 'bat')
-    end,
-    'edit_temporary_batch',
-  },
-  tg = {
-    function()
-      local o = {
-        prompt = 'Please enter an extention for the file: ',
-        default = 'lua',
-      }
-      local i = function(input)
-        M.edit.edit_temporary_file(input)
-      end
-      vim.ui.input(o, i)
-    end,
-    'edit_temporary_general',
-  },
-  P = {
-    function()
-      vim.api.nvim_exec('edit ' .. vim.fn.getreg('+'), true)
-    end,
-    'edit_file_path_clipboard',
-  },
-}
-
 M.terminal = {}
 M.terminal.mappings = {
   ['<localleader>e'] = { '<plug>terminal_send_line', 'terminal_send_line' },
@@ -658,7 +536,6 @@ function M:setup()
   self:keymaps_sets(self.braces)
   self:window_movement_setup()
 
-  self:keymaps_sets(self.edit)
   self:keymaps_sets(self.colors)
   self:keymaps_sets(self.terminal)
   self:keymaps_sets(self.toggle)
