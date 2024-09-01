@@ -728,13 +728,6 @@ M.setup = function()
         return M.fd.complete(ArgLead)  -- Use custom completion function
       end
     })
-
-  vim.api.nvim_create_user_command('G', function(args)
-    -- Use the 'silent' option to suppress output
-    vim.cmd('silent! grep! ' .. args.args)
-    -- Open the quickfix window with a specified height
-    vim.cmd('copen')
-  end, {nargs = '+'})  -- Define that the command takes one or more arguments
 end
 
 return M

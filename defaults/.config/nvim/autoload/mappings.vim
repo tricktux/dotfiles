@@ -172,6 +172,14 @@ function! mappings#Set()
   nmap <M-`> <plug>terminal_toggle
   nmap <localleader>e <plug>terminal_send_line
 
+  " Search
+  nmap <leader>; <plug>cmd_hist_browser
+  nnoremap <plug>cmd_hist_browser q:
+  nmap <leader>, <plug>grep_cword
+  nnoremap <plug>grep_cword :grep <c-r><c-w><cr>
+  nmap <leader>/ <plug>grep
+  nnoremap <plug>grep :grep 
+
   " Window movement
   " move between windows
   if !has('nvim')
