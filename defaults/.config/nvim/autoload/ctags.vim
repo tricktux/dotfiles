@@ -1,4 +1,4 @@
-let s:files_list = g:ctags_output_dir . 'cscope.files'
+let s:cscope_files = g:ctags_output_dir . 'cscope.files'
 
 let s:cs_cmd = (has('nvim') ? 'Cs' : 'cs')
 let s:cs_kill = (has('nvim') ? 'Cs db rm' : 'cs kill -1')
@@ -96,14 +96,14 @@ function! s:create_cscope_files(quote_files) abort
     " Unix command with find as fallback
     let l:ext = s:get_find_ft_ext()
     let l:cwd = getcwd()
-    let l:files_cmd = 'find ' . l:cwd . ' -type f ' . l:ext . ' > ' . s:files_list
+    let l:files_cmd = 'find ' . l:cwd . ' -type f ' . l:ext . ' > ' . s:cscope_files
   elseif executable('fd')
     " Unix command with fd
     let l:ext = s:get_fd_ft_ext()
-    let l:files_cmd = 'fd --type file --follow --hidden --absolute-path --exclude ".{sync,git,svn}" ' . l:ext . ' > ' . s:files_list
+    let l:files_cmd = 'fd --type file --follow --hidden --absolute-path --exclude ".{sync,git,svn}" ' . l:ext . ' > ' . s:cscope_files
   elseif has('win32')
     " Windows command using dir
-    let l:files_cmd = 'dir /b /s *.java *.cpp *.h *.hpp *.c *.cc *.cs > ' . s:files_list
+    let l:files_cmd = 'dir /b /s *.java *.cpp *.h *.hpp *.c *.cc *.cs > ' . s:cscope_files
   else
     echomsg string("No suitable file search utility found: fd or find for Unix, dir for Windows")
     return 0
@@ -146,7 +146,7 @@ function! s:create_tags(tags_name) abort
   " - NOTE: Keep in mind to leav a space at end of each chunk
   " Tue Jan 29 2019 15:31:
   " - Relative thing doesnt make much sense
-  let ctags_cmd = 'ctags -L ' . s:files_list . ' -f ' . tags_loc .
+  let ctags_cmd = 'ctags -L ' . s:cscope_files . ' -f ' . tags_loc .
         \  ' --sort=yes --recurse=yes --tag-relative=no --output-format=e-ctags '
 
   if ctags_lang ==# 'C++'
@@ -258,7 +258,7 @@ function! s:create_cscope(tag_name) abort
   " -q            Build an inverted index for quick symbol searching.
   " -f reffile    Use reffile as cross-ref file name instead of cscope.out.
   " -i namefile   Browse through files listed in namefile, instead of cscope.files
-  let cscope_cmd = 'cscope -Rbcq -f ' . cs_db . ' -i ' . '"' . s:files_list . '"'
+  let cscope_cmd = 'cscope -Rbcq -f ' . cs_db . ' -i ' . '"' . s:cscope_files . '"'
   if &verbose > 0
     echomsg 'cscope_cmd = ' . cscope_cmd
   endif
