@@ -385,10 +385,7 @@ local function misc_mappings()
   -- vks("n", "<s-v>", "v$h", opts)
   -- opts = { silent = true, desc = "visual_line" }
   -- vks("n", "vv", "<s-v>", opts)
-  opts = { silent = true, desc = 'visual_increment' }
-  vks('v', 'gA', 'g<c-a>', opts)
-  opts.desc = 'visual_decrement'
-  vks('v', 'gX', 'g<c-x>', opts)
+  opts = { silent = true, desc = 'yank_line_end' }
   vks('v', '<s-y>', 'y$', opts)
 
   -- For the love of god, do not overwrite register when pasting over visual
