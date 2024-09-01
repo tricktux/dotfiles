@@ -237,10 +237,15 @@ function! mappings#Set()
   nnoremap <silent> <expr> <leader>ev ':e ' . fnameescape($VIMRUNTIME)
   nnoremap <silent> <leader>wj :e ~/Documents/wiki
   nnoremap <leader>ei :e 
+  nnoremap <leader>et :e ~/.cache/ 
+
+  " sessions
+  nnoremap <leader>ss :call mappings#SaveSession()<cr>
+  nnoremap <leader>sl :call mappings#LoadSession()<cr>
 endfunction
 
-function! mappings#SaveSession(...) abort
-  let session_path = stdpath('data') . '/sessions/'
+function! mappings#SaveSession() abort
+  let session_path = g:std_data_path . '/sessions/'
   " if session name is not provided as function argument ask for it
   silent execute "wall"
   let dir = getcwd()
@@ -256,21 +261,13 @@ function! mappings#SaveSession(...) abort
   endif
   " Restore current dir
   silent! execute "lcd " . dir
-  execute "Obsession " . session_path . session_name
-  " return
-  " endif
-
-  " " If this a session we have saved before. Auto save it
-  " if (empty(v:this_session))
-  " return
-  " endif
-  " silent! execute "mksession! " . v:this_session
+  silent! execute "mksession! " . session_path . session_name
 endfunction
 
-function! mappings#LoadSession(...) abort
-  let l:session_path = stdpath('data') . '/sessions/'
+function! mappings#LoadSession() abort
+  let l:session_path = g:std_data_path . '/sessions/'
 
-  if empty(finddir('sessions', stdpath('data')))
+  if empty(finddir('sessions', g:std_data_path))
     if &verbose > 0
       echoerr '[mappings#LoadSession]: Folder ' .
             \ l:session_path . ' does not exists'
@@ -279,63 +276,18 @@ function! mappings#LoadSession(...) abort
   endif
 
   " Save this current session
-  if exists(':Obsession')
-    " Check if there is an ongoing session
-    if ObsessionStatus() ==# '[$]'
-      " If there is save it before leaving
-      silent execute 'Obsession ' . v:this_session
-    endif
-  else
+  if !empty(v:this_session)
     silent execute 'mksession! ' . v:this_session
   endif
   " Delete all buffers. Otherwise they will be added to the new session
   silent execute ':%bdelete!'
 
-  " If there are more than 10 sessions, use fanzy fuzzers
-  let l:fuzzers = 0
-  let l:sessions = glob(l:session_path . '*.vim', 0, 1)
-  if len(l:sessions) > 10
-    let l:fuzzers = 1
-  endif
-
-  " Logic path when not called at startup
-  if a:0 >= 1
-    let l:session_name = l:session_path . a:1
-    if !filereadable(l:session_name)
-      if &verbose > 0
-        echoerr '[mappings#LoadSession]: File ' .
-              \ l:session_name . ' not readabale'
-      endif
-      return -1
-    endif
-    if &verbose > 0
-      echomsg '[mappings#LoadSession]: Loading session: ' .
-            \ l:session_name . '...'
-    endif
-    silent execute 'source ' . l:session_name
-    return
-  endif
-
-  if l:fuzzers && exists(':FZF')
-    call fzf#run(fzf#wrap({
-          \ 'source': l:sessions,
-          \ 'sink': 'source',
-          \ }))
-    return
-  endif
-
-  if l:fuzzers && exists(':Denite')
-    let l:session_name = utils#DeniteYank(l:session_path)
-    if !filereadable(l:session_path . l:session_name)
-      return
-    endif
-    silent execute 'source ' . l:session_path . l:session_name
-    return
-  endif
-
   let l:dir = getcwd()
   execute 'lcd '. l:session_path
   let l:session_name = input('Load session:', "", 'file')
+  if (empty(l:session_name))
+    return
+  endif
   silent execute 'source ' . l:session_path . l:session_name
   silent execute 'lcd ' . l:dir
 endfunction
