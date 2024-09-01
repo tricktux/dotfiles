@@ -188,10 +188,6 @@ return {
   { 'aklt/plantuml-syntax', ft = 'plantuml' },
   { 'MTDL9/vim-log-highlighting', ft = 'log' },
   {
-    'tpope/vim-sleuth',
-    event = 'VeryLazy',
-  },
-  {
     'PProvost/vim-ps1',
     ft = 'ps1',
   },
