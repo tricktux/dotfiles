@@ -389,19 +389,6 @@ function! s:toggle_conceal() abort
   endif
 endfunction
 
-function! s:todo_add() abort
-  let todo = input('Please enter new item: ')
-  if empty(todo)
-    return
-  endif
-
-  call writefile([todo], '/tmp/todo.txt')
-endfunction
-
-function! s:todo_remove() abort
-  return delete('/tmp/todo.txt')
-endfunction
-
 function! s:refresh_buffer() abort
   nohlsearch
   diffupdate
