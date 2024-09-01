@@ -151,7 +151,7 @@ function! options#Set() abort
   " If this not and android device and we have no plugins setup "ugly" status
   " line
   set statusline =
-  set statusline+=\ [%n]                            " buffernr
+  set statusline+=\ [%n]\ %{Stlgitbranch()}\                             " buffernr
   set statusline+=\ %<%{Stlcwd()}\ %f\ %m%r%w                    " File+path
   set statusline+=\ %y\                             " FileType
   set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''} " Encoding
@@ -159,7 +159,7 @@ function! options#Set() abort
   " set statusline+=\ %{(&bomb?\
   set statusline+=\ %{&ff}\                         " FileFormat (dos/unix..)
   set statusline+=\%=\ %{Stlsession()}\ 
-  set statusline+=\ \ row:%l/%L\ (%03p%%)\        " Rownumber/total (%)
+  set statusline+=\ \ row:%l/%L\        " Rownumber/total (%)
   set statusline+=\ col:%03c\                       " Colnr
   set statusline+=\ \ %m%r%w\ %P\ \            " Modified? Readonly? Top/bot.
   set laststatus=2
@@ -387,16 +387,41 @@ function! s:get_titlestring() abort
         \ getcwd() . '->%f%m%r'
 endfunction
 
+function! Stlexecute() abort
+  let l:ro = !&readonly && !&modified
+  let l:bu = &buftype == "nofile" || &buftype == "prompt" || &buftype == "terminal"
+  if l:ro && !l:bu && filereadable(expand('%'))
+    return 1
+  endif
+  return 0
+endfunction
+
 function! Stlcwd() abort
-  if &readonly || &buftype == "nofile" || &buftype == "prompt" || &buftype == "terminal"
+  if !Stlexecute()
     return ''
   endif
   return getcwd() . ' >'
 endfunction
 
 function! Stlsession() abort
+  if !Stlexecute()
+    return ''
+  endif
+
   if empty(v:this_session)
     return ''
   endif
   return 's:' . fnamemodify(v:this_session, ':t')  " Return just the filename
+endfunction
+
+function! Stlgitbranch()
+  if !Stlexecute()
+    return ''
+  endif
+  if !empty(system('git rev-parse --is-inside-work-tree 2>/dev/null')) " Check if in a git repo
+    let l:branch = substitute(system('git rev-parse --abbrev-ref HEAD 2>/dev/null'), '\n', '', 'g')  " Remove trailing newline
+    let l:branch = 'b:' . fnamemodify(l:branch, ':t')  " Return only the branch name
+    return strpart(l:branch, 0, 10)  " Return only the first 10 characters
+  endif
+  return '' " Return empty if not in git repo
 endfunction
