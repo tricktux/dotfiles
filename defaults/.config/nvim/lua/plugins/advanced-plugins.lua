@@ -126,45 +126,6 @@ return {
     end,
   },
   {
-    'jackMort/ChatGPT.nvim',
-    cmd = { 'ChatGPTEditWithInstructions', 'ChatGPTActAs', 'ChatGPT' },
-    -- keys = {
-    --   {
-    --     '<plug>ai',
-    --     '<cmd>ChatGPT<cr>',
-    --     desc = 'ai_help',
-    --   },
-    -- },
-    opts = {
-      openai_params = {
-        -- gpt-4, gpt-3.5-turbo-16k-0613
-        model = 'gpt-4o-mini',
-        frequency_penalty = 0,
-        presence_penalty = 0,
-        max_tokens = 16384,
-        temperature = 1,
-        top_p = 1,
-        n = 1,
-      },
-      popup_layout = {
-        default = 'right',
-        center = {
-          width = '80%',
-          height = '80%',
-        },
-        right = {
-          width = '40%',
-          width_settings_open = '50%',
-        },
-      },
-    },
-    dependencies = {
-      'MunifTanjim/nui.nvim',
-      'nvim-lua/plenary.nvim',
-      'nvim-lua/telescope.nvim',
-    },
-  },
-  {
     'HakonHarnes/img-clip.nvim',
     ft = { 'markdown', 'org', 'quarto', 'tex' },
     cmd = { 'PasteImage' },
