@@ -27,13 +27,11 @@
 "			win: ~/AppData/Local/nvim
 "			win (data): ~/AppData/Local/nvim-data
 
-if !has('nvim')
-	" Required settings for vim
-	set nocompatible
-	" Thu Sep 28 2017 15:07: This order matters.
-	filetype plugin indent on
-	syntax on
-endif
+" Required settings for vim
+set nocompatible
+" Thu Sep 28 2017 15:07: This order matters.
+filetype plugin indent on
+syntax on
 
 " Needs to be defined before the first <Leader>/<LocalLeader> is used
 " otherwise it goes to "\"
