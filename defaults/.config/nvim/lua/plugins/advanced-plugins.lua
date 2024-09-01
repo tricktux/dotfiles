@@ -146,7 +146,6 @@ return {
   },
   { 'matze/vim-ini-fold', ft = 'dosini' },
   { 'aklt/plantuml-syntax', ft = 'plantuml' },
-  { 'MTDL9/vim-log-highlighting', ft = 'log' },
   {
     'PProvost/vim-ps1',
     ft = 'ps1',
