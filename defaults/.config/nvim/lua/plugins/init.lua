@@ -81,25 +81,6 @@ local function set_colorscheme(period)
   log.info(fmt("set_colorscheme: catppuccin_flavour = '%s'", flavour[period]))
   vim.cmd('Catppuccin ' .. flavour[period])
   local colors = require('catppuccin.palettes').get_palette()
-  local TelescopeColor = {
-    TelescopeMatching = { fg = colors.flamingo },
-    TelescopeSelection = { fg = colors.text, bg = colors.surface0, bold = true },
-
-    TelescopePromptPrefix = { bg = colors.surface0 },
-    TelescopePromptNormal = { bg = colors.surface0 },
-    TelescopeResultsNormal = { bg = colors.mantle },
-    TelescopePreviewNormal = { bg = colors.mantle },
-    TelescopePromptBorder = { bg = colors.surface0, fg = colors.surface0 },
-    TelescopeResultsBorder = { bg = colors.mantle, fg = colors.mantle },
-    TelescopePreviewBorder = { bg = colors.mantle, fg = colors.mantle },
-    TelescopePromptTitle = { bg = colors.red, fg = colors.mantle },
-    TelescopeResultsTitle = { fg = colors.mantle },
-    TelescopePreviewTitle = { bg = colors.green, fg = colors.mantle },
-  }
-
-  for hl, col in pairs(TelescopeColor) do
-    vim.api.nvim_set_hl(0, hl, col)
-  end
 end
 
 local function setup_flux()
@@ -162,7 +143,6 @@ local p = {
         },
         noice = true,
         treesitter_context = true,
-        telescope = true,
         which_key = true,
         dashboard = true,
         vim_sneak = true,
