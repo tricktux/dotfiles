@@ -7,6 +7,7 @@ function! sessions#SaveSession() abort
   if empty(session_name)
     return
   endif
+
   " Ensure session_name ends in .vim
   if match(session_name, '.vim', -4) < 0
     " Append extention if was not provided
@@ -14,9 +15,17 @@ function! sessions#SaveSession() abort
   endif
 
   silent! execute "mksession! " . session_name
+  call s:set_augroup()
 endfunction
 
-function! mappings#AutoSave() abort
+function! s:set_augroup() abort
+  augroup AutoSaveSession
+    autocmd!
+    autocmd BufNewFile,BufNew,BufDelete,BufAdd,BufUnload,BufWipeout * call <sid>auto_save()
+  augroup END
+endfunction
+
+function! s:auto_save() abort
   " Save this current session
   if !empty(v:this_session)
     silent execute 'mksession! ' . v:this_session
@@ -35,9 +44,8 @@ function! sessions#LoadSession() abort
   endif
 
   " Save this current session
-  if !empty(v:this_session)
-    silent execute 'mksession! ' . v:this_session
-  endif
+  call s:auto_save()
+
   " Delete all buffers. Otherwise they will be added to the new session
   silent execute ':%bdelete!'
 
@@ -46,5 +54,6 @@ function! sessions#LoadSession() abort
     return
   endif
   silent execute 'source ' . l:session_name
+  call s:set_augroup()
 endfunction
 
