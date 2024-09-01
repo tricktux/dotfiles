@@ -15,7 +15,7 @@ local M = {
       },
     },
     opts = {
-      replace_netrw = true,
+      replace_netrw = false,
       ui = {
         border = 'single',
         height = 0.8,
