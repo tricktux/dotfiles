@@ -168,20 +168,17 @@ function! mappings#Set()
   inoremap ; ;<c-g>u
   inoremap = =<c-g>u
 
+  " terminal
+  nmap <M-`> <plug>terminal_toggle
+  nmap <localleader>e <plug>terminal_send_line
+
   " Window movement
   " move between windows
   if !has('nvim')
 
     if has('terminal')
-      nmap <M-`> <plug>terminal_toggle
-      nnoremap <plug>terminal_toggle :vs<cr><bar>:term<cr>
-      nmap <localleader>e <plug>terminal_send_line
-      xmap <localleader>e <plug>terminal_send
-      nmap <localleader>E <plug>terminal_send_file
-
       nnoremap <leader>vs :term ++close lazygit<cr>
     endif
-
 
    if exists('*Focus') && executable('i3-vim-nav')
       " i3 integration
