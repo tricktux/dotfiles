@@ -240,56 +240,8 @@ function! mappings#Set()
   nnoremap <leader>et :e ~/.cache/ 
 
   " sessions
-  nnoremap <leader>ss :call mappings#SaveSession()<cr>
-  nnoremap <leader>sl :call mappings#LoadSession()<cr>
-endfunction
-
-function! mappings#SaveSession() abort
-  let session_path = g:std_data_path . '/sessions/'
-  " if session name is not provided as function argument ask for it
-  silent execute "wall"
-  let dir = getcwd()
-  silent execute "lcd ". session_path
-  let session_name = input("Enter save session name:", "", "file")
-  if empty(session_name)
-    return
-  endif
-  " Ensure session_name ends in .vim
-  if match(session_name, '.vim', -4) < 0
-    " Append extention if was not provided
-    let session_name .= '.vim'
-  endif
-  " Restore current dir
-  silent! execute "lcd " . dir
-  silent! execute "mksession! " . session_path . session_name
-endfunction
-
-function! mappings#LoadSession() abort
-  let l:session_path = g:std_data_path . '/sessions/'
-
-  if empty(finddir('sessions', g:std_data_path))
-    if &verbose > 0
-      echoerr '[mappings#LoadSession]: Folder ' .
-            \ l:session_path . ' does not exists'
-    endif
-    return -1
-  endif
-
-  " Save this current session
-  if !empty(v:this_session)
-    silent execute 'mksession! ' . v:this_session
-  endif
-  " Delete all buffers. Otherwise they will be added to the new session
-  silent execute ':%bdelete!'
-
-  let l:dir = getcwd()
-  execute 'lcd '. l:session_path
-  let l:session_name = input('Load session:', "", 'file')
-  if (empty(l:session_name))
-    return
-  endif
-  silent execute 'source ' . l:session_path . l:session_name
-  silent execute 'lcd ' . l:dir
+  nnoremap <leader>ss :call sessions#SaveSession()<cr>
+  nnoremap <leader>sl :call sessions#LoadSession()<cr>
 endfunction
 
 " Tue May 15 2018 09:07: Forced to make it global. <expr> would not work with s:
