@@ -220,7 +220,6 @@ function! options#Set() abort
 
   call s:vim_cli()
 
-
   augroup BuffTypes
     autocmd!
     autocmd BufReadPost *
