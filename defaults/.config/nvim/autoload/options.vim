@@ -6,6 +6,9 @@
 " Created: Sep 14 2017 14:47
 
 function! options#Set() abort
+  " Some global variables
+  let g:sessions_path = g:std_data_path . '/sessions'
+
   set hidden
   set timeout
   set timeoutlen=2000

@@ -34,7 +34,6 @@ local function set_globals()
     vim.g.do_filetype_lua = 1
   end
 
-  vim.g.sessions_path = vim.fn.stdpath('state') .. [[/sessions]]
   vim.g.std_config_path = vim.fn.stdpath('config')
   vim.g.std_data_path = vim.fn.stdpath('data')
   vim.g.std_cache_path = vim.fn.stdpath('cache')
