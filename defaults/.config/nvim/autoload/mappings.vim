@@ -178,6 +178,8 @@ function! mappings#Set()
       nmap <localleader>e <plug>terminal_send_line
       xmap <localleader>e <plug>terminal_send
       nmap <localleader>E <plug>terminal_send_file
+
+      nnoremap <leader>vs :term ++close lazygit<cr>
     endif
 
 
