@@ -100,9 +100,6 @@ function! s:find_vim_config_file(...) abort
 endfunction
 
 function! s:set_stdpaths() abort
-	if has('nvim')
-		return s:set_nvim_stdpaths()
-	endif
 
 	" Fix here. These should be vim std paths. Like vimfiles
 	if has('unix')
@@ -120,12 +117,6 @@ function! s:set_stdpaths() abort
 					\ $TEMP : expand("~\\AppData\\Local\\Temp\\nvim")
 	endif
 
-endfunction
-
-function! s:set_nvim_stdpaths()
-	let g:std_config_path = stdpath('config')
-	let g:std_data_path = stdpath('data')
-	let g:std_cache_path = stdpath('cache')
 endfunction
 
 call s:find_vim_config_file()
