@@ -144,7 +144,6 @@ return {
       { '<localleader>i', '<cmd>PasteImage<cr>', desc = 'Paste clipboard image' },
     },
   },
-  { 'aquach/vim-http-client', cmd = 'HTTPClientDoRequest' },
   { 'matze/vim-ini-fold', ft = 'dosini' },
   { 'aklt/plantuml-syntax', ft = 'plantuml' },
   { 'MTDL9/vim-log-highlighting', ft = 'log' },
