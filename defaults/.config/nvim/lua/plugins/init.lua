@@ -440,10 +440,6 @@ local p = {
     end,
   },
   {
-    'tjdevries/stackmap.nvim',
-    event = 'VeryLazy',
-  },
-  {
     'simrat39/symbols-outline.nvim',
     cmd = 'SymbolsOutline',
     keys = {

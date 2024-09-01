@@ -436,7 +436,6 @@ M.plug.mappings = {
   ['<localleader>p'] = { '<plug>preview', 'preview' },
   ['<leader>cr'] = { '<plug>cd_root', 'cd_root' },
   ['<leader>i'] = { '<plug>ai', 'ai_help' },
-  ['<localleader>b'] = { '<plug>debug_start', 'debug_start' },
   ['<bs>'] = { '<plug>comment_line', 'comment_line' },
   -- Search
   ['<leader>;'] = { '<plug>cmd_hist_browser', 'command_history_browser' },

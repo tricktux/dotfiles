@@ -108,7 +108,6 @@ local function main()
   vim.fn['options#Set']()
   vim.fn['commands#Set']()
   require('options'):setup()
-  require('plugin.termdebug'):init()
   -- Rationale for plugins last:
   --  This way you can set your default mappings/options and plugins can
   --  overwrite them later, if they need to. Also get rid of all plugin
