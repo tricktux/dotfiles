@@ -399,8 +399,6 @@ local function misc_mappings()
   opts.desc = 'refresh_buffer'
   vks('n', '<c-l>', refresh_buffer, opts)
 
-  opts.desc = 'current_folder_file_browser'
-  vim.cmd.nnoremap[[<plug>current_folder_file_browser :F<space>]]
   opts.desc = 'file_ranger_native'
   vks('n', '<plug>file_ranger_native', function()
     local o = { startinsert = true }

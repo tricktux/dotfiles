@@ -178,17 +178,6 @@ M.fd.file_cmd = vim.tbl_flatten({
   M.fd.bin,
   M.fd.switches.file,
 })
-M.fd.complete = function(arglead, cmdline, cursorpos)
-  -- Get the current working directory
-  -- local cwd = vim.fn.getcwd()
-
-  -- Construct a search command
-  local cmd = vim.iter(M.fd.file_cmd):join(" ") .. " " .. arglead
-
-  -- Get the results from the command and return them
-  local results = vim.fn.systemlist(cmd)
-  return results
-end
 M.rg = {}
 M.rg.switches = {}
 M.rg.bin = 'rg'
@@ -717,17 +706,6 @@ M.setup = function()
       end
     end,
   })
-
-  -- Create a custom command 'Find'
-  vim.api.nvim_create_user_command('F', function(opts)
-    local filename = opts.args
-    vim.cmd('edit ' .. filename)  -- Edit the selected file
-  end, {
-      nargs = 1,
-      complete = function(ArgLead)
-        return M.fd.complete(ArgLead)  -- Use custom completion function
-      end
-    })
 end
 
 return M

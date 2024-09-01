@@ -180,6 +180,9 @@ function! mappings#Set()
   nmap <leader>/ <plug>grep
   nnoremap <plug>grep :grep 
 
+  " Custom command :F for searching and opening files using fd
+  command! -nargs=1 -complete=customlist,s:FComplete F execute 'edit' <q-args>
+
   " Window movement
   " move between windows
   if !has('nvim')
@@ -221,6 +224,9 @@ function! mappings#Set()
 
   nmap <c-p> <plug>current_folder_file_browser
   nnoremap <plug>current_folder_file_browser :find<space>
+  if executable('fd')
+    nnoremap <plug>current_folder_file_browser :F<space>
+  endif
   " Buffers Stuff <Leader>b?
   nmap <s-k> <plug>buffer_browser
   nnoremap <plug>buffer_browser :buffers<cr>:buffer<Space>
@@ -356,4 +362,16 @@ function! s:refresh_buffer() abort
   if exists(':SignifyRefresh')
     SignifyRefresh
   endif
+endfunction
+
+" Function to generate file completion using fd
+function! s:FComplete(lead, cmdline, pos)
+  " Construct the fd command
+  let l:cmd = 'fd --type f --color=never --hidden --follow --full-path ' . a:lead
+
+  " Execute fd and store the results
+  let l:results = split(system(l:cmd), "\n")
+
+  " Filter out empty lines and return
+  return filter(l:results, 'v:val != ""')
 endfunction
