@@ -4,7 +4,7 @@
 ---@license MIT
 
 local home = vim.loop.os_homedir()
-local data_folders = { [[/sessions]], [[/ctags]] }
+local data_folders = { [[/sessions]] }
 local cache_folders = { [[/backup]], [[/undo]] }
 local fs = vim.fs
 
