@@ -1,5 +1,5 @@
 
-function! sessions#SaveSession() abort
+function! sessions#Save() abort
   let session_path = g:sessions_path
   " if session name is not provided as function argument ask for it
   silent execute "wall"
@@ -32,7 +32,7 @@ function! s:auto_save() abort
   endif
 endfunction
 
-function! sessions#LoadSession() abort
+function! sessions#Load() abort
   let l:session_path = g:sessions_path
 
   if empty(finddir('sessions', g:std_data_path))
