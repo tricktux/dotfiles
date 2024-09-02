@@ -238,7 +238,15 @@ local p = {
       disable_maps = true, -- "true" disables default keymaps
       skip_input_prompt = false, -- "true" doesn't ask for input
     }
-  }
+  },
+  {
+    'chrisbra/csv.vim',
+    ft = 'csv',
+    init = function()
+      vim.g.no_csv_maps = 1
+      vim.g.csv_strict_columns = 1
+    end,
+  },
 }
 
 if vim.fn.has('nvim-0.10') <= 0 then
