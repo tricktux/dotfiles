@@ -80,6 +80,7 @@ alias gs='git status'
 alias gc='git commit -m'
 alias gps='git push origin master'
 alias gpl='git pull origin master'
+alias glsearch='git log --patch -G '
 
 # network
 # Check opern ports
