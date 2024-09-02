@@ -4,26 +4,6 @@ end
 
 return {
   {
-    "robitx/gp.nvim",
-    keys = {
-      {
-        '<plug>ai',
-        '<cmd>GpChatNew vsplit<cr>',
-        desc = 'ai_help',
-      },
-    },
-    config = function()
-      local conf = {
-        -- For customization, refer to Install > Configuration in the Documentation/Readme
-        -- default agent names set during startup, if nil last used agent is used
-        default_command_agent = "ChatGPT4o-mini",
-        default_chat_agent = "ChatGPT4o-mini",
-        -- log_sensitive = true,
-      }
-      require("gp").setup(conf)
-    end,
-  },
-  {
     'HakonHarnes/img-clip.nvim',
     ft = { 'markdown', 'org', 'quarto', 'tex' },
     cmd = { 'PasteImage' },
@@ -61,5 +41,23 @@ return {
       saccadeReset = false,
       updateWhileInsert = true,
     },
+    {
+      "johmsalas/text-case.nvim",
+      config = function()
+        require("textcase").setup({
+          default_keymappings_enabled = true,
+          prefix = "<leader>rc",
+        })
+      end,
+      cmd = {
+        -- NOTE: The Subs command name can be customized via the option "substitude_command_name"
+        "Subs",
+        "TextCaseStartReplacingCommand",
+      },
+      -- If you want to use the interactive feature of the `Subs` command right away, text-case.nvim
+      -- has to be loaded on startup. Otherwise, the interactive feature of the `Subs` will only be
+      -- available after the first executing of it or after a keymap of text-case.nvim has been used.
+      lazy = false,
+    }
   },
 }

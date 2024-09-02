@@ -6,69 +6,6 @@ local vks = vim.keymap.set
 local api = vim.api
 local home = vim.loop.os_homedir()
 
--- Lua functions that inserts a text and copies it to the clipboard
-local function anki_prompt()
-  local p = [[
-I want you to act as a professional Anki card creator, able to create Anki cards from the text I provide.
-Regarding the formulation of the card content, you stick to two principles: First, minimum information principle: The material you learn must be formulated in as simple way as it is only possible. Simplicity does not have to imply losing information and skipping the difficult part.b Second, optimize wording: The wording of your items must be optimized to make sure that in minimum time the right bulb in your brain lights up. This will reduce error rates, increase specificity, reduce response time, and help your concentration.
-The following is a model card-create template for you to study.
-Text: The characteristics of the Dead Sea: Salt lake located on the border between Israel and Jordan. Its shoreline is the lowest point on the Earth's surface, averaging 396 m below sea level. It is 74 km long. It is seven times as salty (30% by volume) as the ocean. Its density keeps swimmers afloat. Only simple organisms can live in its saline waters
-Create cards based on the above text as follows:
-Where is the Dead Sea located?
-{{c1::On the border between Israel and Jordan}}
-What is the lowest point on the Earth's surface?
-{{c1:The Dead Sea shoreline}}
-What is the average level on which the Dead Sea is located?
-{{c1::400 meters (below sea level)}}
-How long is the Dead Sea?
-{{c1::70 km}}
-How much saltier is the Dead Sea as compared with the oceans? 
-{{c1::7 times}}
-What is the volume content of salt in the Dead Sea?
-{{c1::30%}}
-Why can the Dead Sea keep swimmers afloat?
-{{c1::due to high salt content}}
-Why is the Dead Sea called Dead?
-{{c1::because only simple organisms can live in i}}
-Why only simple organisms can live in the Dead Sea? 
-{{c1::because of high salt conten}}
-
-If there's code just use Markdown's code block syntax. For example:
-Text: Here's a simple C++ code implementation of Horner's Rule:
-```cpp
-double horner(int poly[], int n, int x) {
-    double result = poly[0];
-    for (int i = 1; i < n; i++)
-        result = result * x + poly[i];
-    return result;
-}
-```
-
-Please escape anki's cloze syntax in the answer. Example:
-```
-This is how to escape cloze deletion: \{{c1::text\}} and std\:\:sort
-```
-
-If there are math formulas involved please use katex syntax for equations. For example:
-
-How can a polynomial be rewritten using Horner's rule?
-{{c1::[$]P(x) = a_n + x(a_{n-1} + x(a_{n-2} + ... + x( a_1 + x*a_0)... ))[\$]}}
-
-Please focus on comprehensivley capturing the content in cards,
-as many cards as is necessary, the more the better, as long as content
-is not redundant; while keeping the responses of the cards as brief as possible.
-
-Now please use anki cards as described above to explain the concept of:
-]]
-
-  -- Copy text to buffer
-  vim.fn.setreg('+', p)
-  -- Insert text in buffer
-  vim.cmd('normal! p"+')
-end
-
-vim.api.nvim_create_user_command('UtilsChatGptAnkiPastePrompt', anki_prompt, {})
-
 local function set_colorscheme(period)
   local flavour = {
     day = 'latte',
