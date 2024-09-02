@@ -203,81 +203,6 @@ local p = {
     end,
   },
   {
-    'ironhouzi/starlite-nvim',
-    keys = {
-      {
-        '*',
-        function()
-          require('starlite').star()
-        end,
-        desc = 'goto_next_abs_word_under_cursor',
-      },
-      {
-        'g*',
-        function()
-          require('starlite').g_star()
-        end,
-        desc = 'goto_next_word_under_cursor',
-      },
-      {
-        '#',
-        function()
-          require('starlite').hash()
-        end,
-        desc = 'goto_prev_abs_word_under_cursor',
-      },
-      {
-        'g#',
-        function()
-          require('starlite').g_hash()
-        end,
-        desc = 'goto_prev_word_under_cursor',
-      },
-    },
-  },
-  {
-    'kazhala/close-buffers.nvim',
-    keys = {
-      {
-        '<leader>bd',
-        function()
-          require('close_buffers').delete({ type = 'this' })
-        end,
-        desc = 'buffer_delete_current',
-      },
-      {
-        '<leader>bl',
-        function()
-          require('close_buffers').delete({ type = 'all', force = true })
-        end,
-        desc = 'buffer_delete_all',
-      },
-      {
-        '<leader>bn',
-        function()
-          require('close_buffers').delete({ type = 'nameless' })
-        end,
-        desc = 'buffer_delete_nameless',
-      },
-      {
-        '<leader>bg',
-        function()
-          require('close_buffers').delete({
-            glob = vim.fn.input('Please enter glob (ex. *.lua): '),
-          })
-        end,
-        desc = 'buffer_delete_glob',
-      },
-    },
-    opts = {
-      filetype_ignore = {}, -- Filetype to ignore when running deletions
-      file_glob_ignore = {}, -- File name glob pattern to ignore when running deletions (e.g. '*.md')
-      file_regex_ignore = {}, -- File name regex pattern to ignore when running deletions (e.g. '.*[.]md')
-      preserve_window_layout = { 'this', 'nameless' }, -- Types of deletion that should preserve the window layout
-      next_buffer_cmd = nil, -- Custom function to retrieve the next buffer when preserving window layout
-    },
-  },
-  {
     'lukas-reineke/indent-blankline.nvim',
     event = 'VeryLazy',
     main = 'ibl',
@@ -299,40 +224,6 @@ local p = {
     'kylechui/nvim-surround',
     event = 'VeryLazy',
     config = true,
-  },
-  {
-    'folke/persistence.nvim',
-    event = 'BufReadPre', -- this will only start session saving when an actual file was opened
-    opts = {},
-  },
-  {
-    'monaqa/dial.nvim',
-    event = 'VeryLazy',
-    config = function()
-      vim.api.nvim_set_keymap('n', '<C-a>', require('dial.map').inc_normal(), { noremap = true })
-      vim.api.nvim_set_keymap('n', '<s-x>', require('dial.map').dec_normal(), { noremap = true })
-      vim.api.nvim_set_keymap('v', '<C-a>', require('dial.map').inc_visual(), { noremap = true })
-      vim.api.nvim_set_keymap('v', '<s-x>', require('dial.map').dec_visual(), { noremap = true })
-      vim.api.nvim_set_keymap('v', 'g<C-a>', require('dial.map').inc_gvisual(), { noremap = true })
-      vim.api.nvim_set_keymap('v', 'g<s-x>', require('dial.map').dec_gvisual(), { noremap = true })
-      local augend = require('dial.augend')
-      require('dial.config').augends:register_group({
-        -- default augends used when no group name is specified
-        default = {
-          augend.integer.alias.decimal,
-          augend.integer.alias.hex,
-          augend.integer.alias.octal,
-          augend.integer.alias.binary,
-          augend.date.alias['%Y/%m/%d'],
-          augend.date.alias['%Y-%m-%d'],
-          augend.date.alias['%m/%d'],
-          augend.date.alias['%H:%M'],
-          augend.constant.alias.ja_weekday_full,
-          augend.constant.alias.bool,
-          augend.semver.alias.semver,
-        },
-      })
-    end,
   },
   {
     'rhysd/git-messenger.vim',
@@ -375,14 +266,6 @@ local p = {
     end,
   },
   {
-    'chrisbra/csv.vim',
-    ft = 'csv',
-    init = function()
-      vim.g.no_csv_maps = 1
-      vim.g.csv_strict_columns = 1
-    end,
-  },
-  {
     'chaoren/vim-wordmotion',
     event = 'VeryLazy',
     init = function()
@@ -407,82 +290,8 @@ local p = {
     },
   },
   {
-    'glts/vim-radical',
-    dependencies = {
-      'glts/vim-magnum',
-    },
-    keys = {
-      { '<leader>nr', '<Plug>RadicalView', mode = 'x', desc = 'radical_view' },
-      { '<leader>nr', '<Plug>RadicalView', desc = 'radical_view' },
-    },
-    init = function()
-      vim.g.radical_no_mappings = 1
-    end,
-  },
-  {
     'kevinhwang91/nvim-bqf',
     ft = 'qf'
-  },
-  -- better ui from lazyvim
-  -- ui components
-  { 'MunifTanjim/nui.nvim' },
-  {
-    'stevearc/dressing.nvim',
-    lazy = true,
-    init = function()
-      ---@diagnostic disable-next-line: duplicate-set-field
-      vim.ui.select = function(...)
-        require('lazy').load({ plugins = { 'dressing.nvim' } })
-        return vim.ui.select(...)
-      end
-      ---@diagnostic disable-next-line: duplicate-set-field
-      vim.ui.input = function(...)
-        require('lazy').load({ plugins = { 'dressing.nvim' } })
-        return vim.ui.input(...)
-      end
-    end,
-  },
-  {
-    'simrat39/symbols-outline.nvim',
-    cmd = 'SymbolsOutline',
-    keys = {
-      {
-        '<leader>ts',
-        '<cmd>SymbolsOutline<cr>',
-        desc = 'symbols-outline',
-      },
-    },
-    init = function()
-      local id = api.nvim_create_augroup('Symbols', { clear = true })
-      api.nvim_create_autocmd('FileType', {
-        callback = function(args)
-          vim.opt_local.spell = false
-        end,
-        pattern = 'Outline',
-        desc = 'SymbolsOutlineSettings',
-        group = id,
-      })
-    end,
-    opts = {
-      auto_preview = false,
-      highlight_hovered_item = false,
-      relative_width = false,
-      width = 40,
-      keymaps = { -- These keymaps can be a string or a table for multiple keys
-        close = { '<Esc>', 'q' },
-        goto_location = '<Cr>',
-        focus_location = 'o',
-        hover_symbol = '<C-space>',
-        toggle_preview = 'K',
-        rename_symbol = 'r',
-        code_actions = 'a',
-        fold = 'x',
-        unfold = 'X',
-        fold_all = '<c-z>',
-        unfold_all = '<c-x>',
-        fold_reset = 'R',
-      },
-    },
   },
   {
     'lunarVim/bigfile.nvim',
@@ -490,7 +299,7 @@ local p = {
   },
   {
     "dhananjaylatkar/cscope_maps.nvim",
-    event = 'VeryLazy',
+    cmd = 'Cs',
     opts = {
       -- maps related defaults
       disable_maps = true, -- "true" disables default keymaps
