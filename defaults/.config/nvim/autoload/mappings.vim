@@ -67,6 +67,9 @@ function! mappings#Set()
   nnoremap <c-i> <c-i>zz
 
   " File mappings <leader>f
+  nmap <leader>fa <plug>file_ranger_native
+  nmap <leader>fs <plug>file_ranger_nvim
+  nnoremap <silent> <leader>fo :browse oldfiles<cr>
   nmap <leader>fj <plug>file_browser
   nnoremap <plug>file_browser :e .<cr>
 
@@ -189,6 +192,7 @@ function! mappings#Set()
 
     if has('terminal')
       nnoremap <leader>vs :term ++close lazygit<cr>
+      nnoremap <plug>file_ranger_native :term ++close ranger<cr>
     endif
 
    if exists('*Focus') && executable('i3-vim-nav')

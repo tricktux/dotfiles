@@ -413,10 +413,6 @@ end
 
 M.plug = {}
 M.plug.mappings = {
-  ['<leader>ft'] = { '<plug>file_tree_browser', 'file_tree_browser' },
-  ['<leader>fa'] = { '<plug>file_ranger_native', 'file_ranger_native' },
-  ['<leader>fo'] = { '<plug>file_oil_browser', 'file_oil_browser' },
-  ['<leader>fs'] = { '<plug>file_ranger_nvim', 'file_ranger_nvim' },
   ['<leader>tf'] = { '<plug>focus_toggle', 'focus_toggle' },
   ['<localleader>f'] = { '<plug>format_code', 'format_code', { 'x', 'n' } },
   ['<localleader>r'] = { '<plug>refactor_code', 'refactor_code', { 'x', 'n' } },
