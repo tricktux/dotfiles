@@ -250,10 +250,6 @@ local p = {
     end,
   },
   {
-    'tpope/vim-repeat',
-    event = 'VeryLazy',
-  },
-  {
     'jiangmiao/auto-pairs',
     event = 'VeryLazy',
     init = function()

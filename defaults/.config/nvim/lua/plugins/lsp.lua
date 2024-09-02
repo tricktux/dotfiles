@@ -397,19 +397,9 @@ return {
     event = 'LspAttach',
   },
   {
-    'Fildo7525/pretty_hover',
-    event = 'LspAttach',
-    opts = {},
-  },
-  {
     'hrsh7th/cmp-nvim-lsp',
     event = 'LspAttach',
   },
-  vim.g.advanced_plugins > 0 and {
-    'smjonas/inc-rename.nvim',
-    event = 'LspAttach',
-    opts = {},
-  } or {},
   {
     'j-hui/fidget.nvim',
     event = 'LspAttach',

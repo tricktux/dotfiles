@@ -30,10 +30,6 @@ local M = {
 local advanced = {
   { 'jamessan/vim-gnupg', event = 'VeryLazy' },
   { 'mboughaba/i3config.vim', ft = 'i3config' },
-  { 'lambdalisue/suda.vim', cmd = { 'SudaWrite', 'SudaRead' } },
-  { 'chr4/nginx.vim', ft = 'nginx' },
-  { 'neomutt/neomutt.vim', ft = 'muttrc' },
-  { 'fladson/vim-kitty', ft = 'kitty' },
   {
     'untitled-ai/jupyter_ascending.vim',
     ft = 'python',
