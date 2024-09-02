@@ -23,6 +23,13 @@ function M:windows()
     return
   end
 
+  local gb = "C:/Program Files/Git/bin/bash.exe"
+
+  if vim.fn.filereadable(gb) > 0 then
+    vim.opt.shell = gb
+    return
+  end
+
   vim.g.clipboard = {
     name = 'wsl_clipboard',
     copy = {
@@ -43,7 +50,6 @@ function M:windows()
     },
     cache_enabled = 0,
   }
-
   vim.opt.shell = 'powershell'
   vim.opt.shellcmdflag =
     '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
