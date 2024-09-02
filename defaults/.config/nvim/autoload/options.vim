@@ -415,6 +415,9 @@ function! Stlsession() abort
 endfunction
 
 function! Stlgitbranch()
+  if has('win32')
+    return ''
+  endif
   if !Stlexecute()
     return ''
   endif
