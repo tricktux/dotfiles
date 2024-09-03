@@ -403,6 +403,9 @@ function! Stlgitbranch()
   if has('win32')
     return ''
   endif
+  if isdirectory('C:\Users')
+    return ''
+  endif
   if !Stlexecute()
     return ''
   endif
