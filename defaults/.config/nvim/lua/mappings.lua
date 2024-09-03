@@ -422,6 +422,13 @@ M.plug.mappings = {
   ['<localleader>j'] = { '<plug>make_file', 'make_file' },
   ['<localleader>p'] = { '<plug>preview', 'preview' },
   ['<leader>cr'] = { '<plug>cd_root', 'cd_root' },
+  ['<plug>cd_root'] = {
+    function()
+      local g = vim.fs.root(0, '.git')
+      if g == nil then return end
+      vim.cmd.lcd(g)
+    end, 'cd_git_root'
+  },
   ['<leader>i'] = { '<plug>ai', 'ai_help' },
   ['<bs>'] = { '<plug>comment_line', 'comment_line' },
 }
