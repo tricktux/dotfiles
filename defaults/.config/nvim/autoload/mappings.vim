@@ -106,11 +106,11 @@ function! mappings#Set()
   nnoremap <silent> [m :m -2<cr>
 
   " Quickfix and Location stuff
-  nnoremap <silent> <s-q> :copen 20<bar>normal! <c-w>J<cr>
+  nnoremap <silent> <s-q> :copen 20<cr>:sleep 100m<cr>:normal! <c-w>J<cr>
   nnoremap ]q :cnext<cr>
   nnoremap [q :cprevious<cr>
 
-  nnoremap <silent> <s-u> :lopen 20<bar>normal! <c-w>J<cr>
+  nnoremap <silent> <s-u> :lopen 20<cr>:sleep 100m<cr>:normal! <c-w>J<cr>
   nnoremap ]l :lnext<cr>
   nnoremap [l :lprevious<cr>
 
