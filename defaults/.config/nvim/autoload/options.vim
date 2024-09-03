@@ -305,11 +305,8 @@ function! s:set_grep() abort
     " Use the -t option to search all text files; -a to search all files; and -u
     " to search all,
     " including hidden files.
-    let rg_flags = "rg $* --vimgrep --smart-case " .
-          \ "--follow --fixed-strings --hidden --iglob "
-    let rg_unix_iglob = "'!.{git,svn}'"
-    let rg_win_iglob = "!.{git,svn}"
-    let &grepprg= rg_flags . (has('unix') ? rg_unix_iglob : rg_win_iglob)
+    let &grepprg = "rg $* --vimgrep --smart-case " .
+          \ "--follow --fixed-strings --hidden"
     set grepformat=%f:%l:%c:%m
   elseif executable('ucg')
     " Add the --type-set=markdown:ext:md option to ucg for it to recognize
