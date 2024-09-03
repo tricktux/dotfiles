@@ -308,18 +308,6 @@ function! s:set_grep() abort
     let &grepprg = "rg $* --vimgrep --smart-case " .
           \ "--follow --fixed-strings --hidden"
     set grepformat=%f:%l:%c:%m
-  elseif executable('ucg')
-    " Add the --type-set=markdown:ext:md option to ucg for it to recognize
-    " md files
-    set grepprg=ucg\ --nocolor\ --noenv
-  elseif executable('ag')
-    " ctrlp with ag
-    " see :Man ag for help
-    " to specify a type of file just do `--cpp`
-    let ag_flags = "ag --nogroup --nocolor --smart-case --vimgrep " .
-          \ "--glob !.{git,svn} $*"
-    let &grepprg= ag_flags
-    set grepformat=%f:%l:%c:%m
   endif
 endfunction
 
