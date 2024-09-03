@@ -22,35 +22,6 @@ function M:windows()
   if vim.fn.has('win32') <= 0 then
     return
   end
-
-  vim.g.clipboard = {
-    name = 'wsl_clipboard',
-    copy = {
-      ['+'] = 'clip.exe',
-      ['*'] = 'clip.exe',
-    },
-    paste = {
-      ['+'] = {
-        'powershell.exe',
-        '-c',
-        '[Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-      },
-      ['*'] = {
-        'powershell.exe',
-        '-c',
-        '[Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-      },
-    },
-    cache_enabled = 0,
-  }
-
-  vim.opt.shell = 'powershell'
-  vim.opt.shellcmdflag =
-    '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
-  vim.opt.shellredir = '-RedirectStandardOutput %s -NoNewWindow -Wait'
-  vim.opt.shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
-  vim.opt.shellquote = ''
-  vim.opt.shellxquote = ''
 end
 
 function M:setup()
