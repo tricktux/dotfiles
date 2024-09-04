@@ -1,6 +1,6 @@
 
 function! sessions#Save() abort
-  let session_path = g:sessions_path
+  let session_path = g:sessions_path . '/'
   " if session name is not provided as function argument ask for it
   silent execute "wall"
   let session_name = input("Enter save session name:", session_path, "file")
@@ -33,7 +33,7 @@ function! s:auto_save() abort
 endfunction
 
 function! sessions#Load() abort
-  let l:session_path = g:sessions_path
+  let l:session_path = g:sessions_path . '/'
 
   if empty(finddir('sessions', g:std_data_path))
     if &verbose > 0
