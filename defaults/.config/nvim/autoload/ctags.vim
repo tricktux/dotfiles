@@ -266,7 +266,7 @@ function! s:create_cscope(tag_name) abort
   let res_cs = system(cscope_cmd)
   if v:shell_error
     echoerr 'Cscope command failed: ' . cscope_cmd
-    echoerr res
+    echoerr res_cs
     return
   endif
 
