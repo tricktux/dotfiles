@@ -8,15 +8,7 @@ local check_backspace = function()
 end
 
 function M:setup()
-  local win_sources = {
-    { name = 'nvim_lsp' },
-    { name = 'nvim_lua' },
-    { name = 'buffer', keyword_length = 3 },
-    { name = 'luasnip' },
-    { name = 'calc' },
-    { name = 'orgmode' },
-  }
-  local unix_sources = {
+  local sources = {
     { name = 'nvim_lsp' },
     { name = 'nvim_lua' },
     { name = 'buffer', keyword_length = 3 },
@@ -27,7 +19,7 @@ function M:setup()
   }
   local cp_ok, _ = pcall(require, 'copilot_cmp')
   if cp_ok then
-    table.insert(unix_sources, 1, { name = 'copilot' })
+    table.insert(sources, 1, { name = 'copilot' })
   end
 
   local cmp = require('cmp')
@@ -86,7 +78,7 @@ function M:setup()
       ['<Tab>'] = next,
       ['<S-Tab>'] = prev,
     }),
-    sources = utl.has_unix and unix_sources or win_sources,
+    sources = sources,
     formatting = {
       format = function(_, item)
         local icons = require('utils.utils').icons.kinds
