@@ -17,7 +17,9 @@ let s:keepcpo= &cpoptions
 set cpoptions&vim
 
 setlocal cursorline
-setlocal colorcolumn=""
+if v:version > 704
+  setlocal colorcolumn=""
+endif
 setlocal nospell
 
 " Taken from 
@@ -56,5 +58,5 @@ let &cpoptions = s:keepcpo
 unlet s:keepcpo
 
 let b:undo_ftplugin = 'setlocal cursorline<'
-      \ . '|setlocal colorcolumn<'
+      \ . (v:version > 704 ? '|setlocal colorcolumn<' : '')
       \ . '|setlocal spell<'
