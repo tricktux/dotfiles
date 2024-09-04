@@ -104,11 +104,6 @@ return {
     dependencies = 'nvim-treesitter/nvim-treesitter',
   },
   {
-    'ray-x/cmp-treesitter',
-    event = 'BufReadPost',
-    dependencies = 'nvim-treesitter/nvim-treesitter',
-  },
-  {
     'RRethy/nvim-treesitter-textsubjects',
     event = 'BufReadPost',
     dependencies = 'nvim-treesitter/nvim-treesitter',
