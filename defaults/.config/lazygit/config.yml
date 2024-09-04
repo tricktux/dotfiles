@@ -3,8 +3,8 @@ gui:
     activeBorderColor:
       - yellow
       - bold
-  commandLogSize: 20
+  commandLogSize: 10
 git:
   paging:
     colorArg: "always"
-    pager: "delta --paging=never"
+    # pager: "delta --paging=never"
