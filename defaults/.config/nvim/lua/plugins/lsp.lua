@@ -6,6 +6,26 @@ local map = require('mappings')
 
 local M = {}
 
+local servers = {
+  clangd = vim.fn.executable('clangd'),
+  rust = vim.fn.executable('rust-analyzer'),
+  ruff = vim.fn.executable('ruff-lsp'),
+  pyright = vim.fn.executable('pyright-langserver'),
+}
+
+local activate = false
+
+for _, v in pairs(servers) do
+  if v then
+    activate = true
+    break
+  end
+end
+
+if activate == false and vim.g.advanced_plugins == 0 then
+  return {}
+end
+
 M.logs_max_size = 15728640 -- 15 * 1024 * 1024 Mb
 
 local function do_buffer_clients_support_method(bufnr, capability)
@@ -258,7 +278,7 @@ function M:config()
     })
   end
 
-  if vim.fn.executable('ruff-lsp') > 0 then
+  if servers['ruff'] > 0 then
     log.info('setting up the ruff lsp...')
 
     -- https://docs.astral.sh/ruff/editors/setup/#neovim
@@ -271,7 +291,7 @@ function M:config()
       },
     })
   end
-  if vim.fn.executable('pyright-langserver') > 0 then
+  if servers['pyright'] > 0 then
     -- cinst nodejs-lts -y
     -- npm install -g pyright
     log.info('setting up the pyright lsp...')
@@ -313,7 +333,7 @@ function M:config()
     nvim_lsp.marksman.setup({})
   end
 
-  if vim.fn.executable('clangd') > 0 then
+  if servers['clangd'] > 0 then
     log.info('setting up the clangd lsp...')
     local cores = utl.has_win and os.getenv('NUMBER_OF_PROCESSORS')
         or table.concat(vim.fn.systemlist('nproc'))
@@ -344,7 +364,7 @@ function M:config()
     nvim_lsp.clangd.setup(settings)
   end
 
-  if vim.fn.executable('rust-analyzer') > 0 then
+  if servers['rust'] > 0 then
     log.info('setting up the rust-analyzer...')
     nvim_lsp.rust_analyzer.setup({
       flags = flags,
