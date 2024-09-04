@@ -10,6 +10,7 @@ end
 function M:setup()
   local win_sources = {
     { name = 'nvim_lsp' },
+    { name = 'nvim_lua' },
     { name = 'buffer', keyword_length = 3 },
     { name = 'luasnip' },
     { name = 'calc' },
@@ -17,6 +18,7 @@ function M:setup()
   }
   local unix_sources = {
     { name = 'nvim_lsp' },
+    { name = 'nvim_lua' },
     { name = 'buffer', keyword_length = 3 },
     { name = 'luasnip' },
     { name = 'calc' },
@@ -130,10 +132,6 @@ return {
   },
   {
     'hrsh7th/cmp-path',
-    event = 'InsertEnter',
-  },
-  {
-    'hrsh7th/cmp-nvim-lua',
     event = 'InsertEnter',
   },
   {
