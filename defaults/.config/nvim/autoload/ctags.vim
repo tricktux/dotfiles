@@ -147,7 +147,7 @@ function! s:create_tags(tags_name) abort
   " Tue Jan 29 2019 15:31:
   " - Relative thing doesnt make much sense
   let ctags_cmd = 'ctags -L ' . s:cscope_files . ' -f ' . tags_loc .
-        \  ' --sort=yes --recurse=yes --tag-relative=no --output-format=e-ctags '
+        \  ' --sort=yes --recurse=yes --tag-relative=no '
 
   if ctags_lang ==# 'C++'
     let ctags_cmd .= '--c-kinds=+pl --c++-kinds=+pl --fields=+iaSl --extras=+q '
