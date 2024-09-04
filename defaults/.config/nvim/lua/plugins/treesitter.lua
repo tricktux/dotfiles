@@ -48,7 +48,6 @@ M.__config = {
     additional_vim_regex_highlighting = { 'org' },
   },
   incremental_selection = {
-    disable = disable,
     enable = false, -- superseded by textsubjects
   },
   indent = {
