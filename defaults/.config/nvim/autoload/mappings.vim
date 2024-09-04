@@ -252,7 +252,7 @@ function! mappings#Set()
   nnoremap <silent> <expr> <leader>ev ':e ' . fnameescape($VIMRUNTIME)
   nnoremap <silent> <leader>wj :e ~/Documents/wiki
   nnoremap <leader>ei :e 
-  nnoremap <leader>et :e ~/.cache/ 
+  nnoremap <leader>et :e ~/.cache/
 
   " sessions
   nnoremap <leader>ss :call sessions#Save()<cr>
