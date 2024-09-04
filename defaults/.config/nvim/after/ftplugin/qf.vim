@@ -41,10 +41,6 @@ endfunction
 " Add mappings, unless the user didn't want this.
 if !exists('no_plugin_maps') && !exists('no_qf_maps')
 	if <sid>detect_list() == 1 && exists('b:list_type')
-		exec 'nnoremap <buffer> <c-j> :' . b:list_type . 'next<cr><c-w>j'
-		exec 'nnoremap <buffer> <c-k> :' . b:list_type . 'previous<cr><c-w>j'
-		exec 'nnoremap <buffer> <c-l> :' . b:list_type . 'nf<cr><c-w>j'
-		exec 'nnoremap <buffer> <c-h> :' . b:list_type . 'pf<cr><c-w>j'
 
 		exec 'nnoremap <buffer> <cr> :.' . b:list_type . b:list_type . '<CR>'
 		exec 'nnoremap <buffer> q :' . b:list_type . 'cl<cr><c-w>p'
