@@ -54,7 +54,9 @@ function M:setup()
     p = self.path.default
   end
 
-  vim.g.advanced_plugins = string.gmatch(p, 'resilio|[Nn]extcloud|Drive') ~= nil and 1 or 0
+  vim.g.advanced_plugins = (string.find(p, 'resilio') or
+    string.find(p, 'nextcloud') or
+    string.find(p, 'Drive')) ~= nil and 1 or 0
   -- vim.g.advanced_plugins = 1
   self.path.personal = p
 end
