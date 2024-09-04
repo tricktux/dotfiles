@@ -34,37 +34,6 @@ local function disable(lang, bufnr)
   return false
 end
 
-local function setup_buf_keymaps_opts()
-  local opts = { silent = true, buffer = true, desc = 'treesitter_toggle_buffer' }
-  vim.keymap.set('n', '<leader>tt', [[<cmd>TSBufToggle<cr>]], opts)
-  -- Only overwrite settings when instructed
-  -- The best place to set these variables is after/ftplugin
-  if vim.b.did_fold_settings == nil then
-    vim.opt_local.foldmethod = 'expr'
-    vim.opt_local.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-    vim.opt_local.foldtext = 'v:lua.vim.treesitter.foldtext()'
-  end
-  if vim.b.did_indent_settings == nil then
-    vim.opt_local.indentexpr = 'nvim_treesitter#indent()'
-  end
-end
-
-local function ensure_parser_installed()
-  if vim.b.ts_disabled and vim.b.ts_disabled == 1 then
-    return
-  end
-
-  local parsers = require('nvim-treesitter.parsers')
-  local lang = parsers.get_buf_lang()
-
-  if parsers.get_parser_configs()[lang] and not parsers.has_parser(lang) then
-    return
-  end
-
-  -- If this is a treesitter buf set it's options
-  setup_buf_keymaps_opts()
-end
-
 M.__config = {
   -- This line will install all of them
   -- one of "all", "language", or a list of languages
@@ -97,10 +66,6 @@ M.__config = {
     enable = true,
   },
   iswap = {
-    disable = disable,
-    enable = true,
-  },
-  nvimGPS = {
     disable = disable,
     enable = true,
   },
