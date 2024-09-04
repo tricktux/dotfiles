@@ -37,20 +37,10 @@ end
 M.__config = {
   -- This line will install all of them
   -- one of "all", "language", or a list of languages
-  ensure_installed = {
-    'c',
-    'cpp',
-    'lua',
-    'bash',
-    'vim',
-    'markdown',
-    'markdown_inline',
-    'make',
-    'vimdoc',
-  },
+  ensure_installed = {},
   -- Automatically install missing parsers when entering buffer
   -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-  auto_install = true,
+  auto_install = vim.g.advanced_plugins == 1 and true or false,
   highlight = {
     disable = disable,
     enable = true, -- false will disable the whole extension
