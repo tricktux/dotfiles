@@ -92,15 +92,15 @@ endfunction
 
 " Creates cscope.files
 function! s:create_cscope_files(quote_files) abort
-  if executable('find')
-    " Unix command with find as fallback
-    let l:ext = s:get_find_ft_ext()
-    let l:cwd = getcwd()
-    let l:files_cmd = 'find ' . l:cwd . ' -type f ' . l:ext . ' > ' . s:cscope_files
-  elseif executable('fd')
+  if executable('fd')
     " Unix command with fd
     let l:ext = s:get_fd_ft_ext()
     let l:files_cmd = 'fd --type file --follow --hidden --absolute-path --exclude ".{sync,git,svn}" ' . l:ext . ' > ' . s:cscope_files
+  elseif executable('find')
+      " Unix command with find as fallback
+      let l:ext = s:get_find_ft_ext()
+      let l:cwd = getcwd()
+      let l:files_cmd = 'find ' . l:cwd . ' -type f ' . l:ext . ' > ' . s:cscope_files
   elseif has('win32')
     " Windows command using dir
     let l:files_cmd = 'dir /b /s *.java *.cpp *.h *.hpp *.c *.cc *.cs > ' . s:cscope_files
