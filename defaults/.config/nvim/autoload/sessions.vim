@@ -21,7 +21,7 @@ endfunction
 function! s:set_augroup() abort
   augroup AutoSaveSession
     autocmd!
-    autocmd BufNewFile,BufNew,BufDelete,BufAdd,BufUnload,BufWipeout * call <sid>auto_save()
+    autocmd BufWinEnter * call <sid>auto_save()
   augroup END
 endfunction
 
