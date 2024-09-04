@@ -1,6 +1,10 @@
 local log = require('utils.log')
 local map = require('mappings')
 
+if vim.g.advanced_plugins == 0 then
+  return {}
+end
+
 local maps = {}
 maps.mode = 'n'
 maps.prefix = '<leader>tn'
