@@ -8,17 +8,8 @@ local function disable(lang, bufnr)
   end
 
   -- Max file size for unix files
-  local max_filesize = 2097152 -- 2 * 1024 * 1024 = 2097152 = 2Mb
-  if vim.fn.has('unix') <= 0 then
-    -- Max file size for windows files
-    max_filesize = 1048576 -- 1 * 1024 * 1024 = 1048576 = 1Mb
-    if lang == 'cpp' or lang == 'c' then
-      -- Max file size for windows cpp/c files
-      max_filesize = 512000 -- 500 * 1024 = 512000 500Kb
-    end
-  end
+  local max_filesize = 262144 -- 256 * 1024 Kb
 
-  -- Disable TS for cpp window files bigger than 10kb
   local stat = vim.fn.has('0.10.0') > 0 and vim.uv.fs_stat or vim.loop.fs_stat
   local ok, stats = pcall(stat, vim.api.nvim_buf_get_name(bufnr))
   if ok and stats and stats.size > max_filesize then
