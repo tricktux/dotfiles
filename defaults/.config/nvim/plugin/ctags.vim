@@ -17,7 +17,7 @@ endif
 
 if !exists('g:ctags_output_dir')
 	let g:ctags_output_dir =
-				\ (has('unix') ? '/tmp/' : expand($TMP) . '\ctags\' )
+				\ (has('unix') ? '/tmp/' : 'C:\Temp\' )
 endif
 
 if !exists('g:ctags_rg_use_ft')
