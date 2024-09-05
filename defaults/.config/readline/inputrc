@@ -1,15 +1,55 @@
 $include /etc/inputr
-set convert-meta on
 # Sun Dec 23 2018 15:02
 # Breaks C-r for fzf. Do not enable
 # set editing-mode vi
 # Tue Feb 26 2019 08:43
 # pc speaker disabled in /etc/modprobe.d/nobeep.conf
 # let it bell to get notified
-# set bell-style none
 
-# "\C-x\C-r": re-read-init-file
-"\C-p": history-search-backward
-"\C-n": history-search-forward
-"\e[C": forward-char
-"\e[D": backward-char
+set bell-style none
+set convert-meta on
+set show-mode-in-prompt on
+set show-all-if-ambiguous on
+set enable-bracketed-paste on
+
+# Colors files by types
+# Note that this may cause completion text blink in some terminals (e.g. xterm).
+set colored-stats On
+# Append char to indicate type
+set visible-stats On
+# Mark symlinked directories
+set mark-symlinked-directories On
+# Color the common prefix
+set colored-completion-prefix On
+# Color the common prefix in menu-complete
+
+# Vi mode
+set editing-mode vi
+set menu-complete-display-prefix On
+$if term=linux
+    set vi-ins-mode-string \1\e[?0c\2
+    set vi-cmd-mode-string \1\e[?8c\2
+$else
+    set vi-ins-mode-string \1\e[6 q\2
+    set vi-cmd-mode-string \1\e[2 q\2
+$endif
+$if mode=vi
+    set keymap vi-command
+    # these are for vi-command mode
+    "\e[A": history-search-backward
+    "\e[B": history-search-forward
+    j: history-search-forward
+    k: history-search-backward
+    "\C-p": history-search-backward
+    "\C-n": history-search-forward
+    set keymap vi-insert
+    # these are for vi-insert mode
+    "\e[A": history-search-backward
+    "\e[B": history-search-forward
+    # "\C-x\C-r": re-read-init-file
+    "\C-p": history-search-backward
+    "\C-n": history-search-forward
+    "\C-l": clear-screen
+    "\e[C": forward-char
+    "\e[D": backward-char
+$endif
