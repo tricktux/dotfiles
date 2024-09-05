@@ -147,8 +147,8 @@ function! s:create_tags(tags_name) abort
   " Tue Jan 29 2019 15:31:
   " - Relative thing doesnt make much sense
   let ctags_cmd = 'ctags -L ' . s:cscope_files . ' -f ' . tags_loc .
-        \  ' --sort=yes --recurse=yes --tag-relative=no '
-
+        \  ' --sort=yes --recurse=yes --tag-relative=no --output-format=e-ctags '
+  
   if ctags_lang ==# 'C++'
     let ctags_cmd .= '--c-kinds=+pl --c++-kinds=+pl --fields=+iaSl --extras=+q '
   endif
@@ -159,9 +159,24 @@ function! s:create_tags(tags_name) abort
 
   let res = system(ctags_cmd)
   if v:shell_error
-    echoerr "Ctag command failed: " . ctags_cmd
-    echoerr res
-    return 0
+    " We may be dealing with an older ctags version, try a simplified version of
+    " the command
+    let ctags_cmd = 'ctags -L ' . s:cscope_files . ' -f ' . tags_loc .
+          \  ' --sort=yes --recurse=yes --tag-relative=no '
+
+    if ctags_lang ==# 'C++'
+      let ctags_cmd .= '--c-kinds=+pl --c++-kinds=+pl --fields=+iaSl '
+    endif
+    if &verbose > 0
+      echomsg 'initial ctags command failed with error: ' . res
+      echomsg 'retrying a simpliefied version of the command ctags_cmd = ' . ctags_cmd
+    endif
+    let res = system(ctags_cmd)
+    if v:shell_error
+      echoerr "Ctag command failed: " . ctags_cmd
+      echoerr res
+      return 0
+    endif
   endif
 
   call s:add_tags(a:tags_name)
