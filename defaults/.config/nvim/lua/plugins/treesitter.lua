@@ -60,7 +60,7 @@ M.__config = {
   },
   rainbow = {
     disable = disable,
-    enable = true,
+    enable = vim.fn.has('unix') and true or false,
   },
 }
 
