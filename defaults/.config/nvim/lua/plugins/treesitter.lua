@@ -80,7 +80,7 @@ return {
     build = ':TSUpdate',
     init = function()
       local opts = { silent = true, desc = 'treesitter_toggle_buffer' }
-      vim.keymap.set('n', '<leader>tt', [[<cmd>TSDisable highlight rainbow incremental_selection iswap indent<cr><cmd>syntax off<cr>]], opts)
+      vim.keymap.set('n', '<leader>tt', [[<cmd>TSBufToggle highlight rainbow incremental_selection iswap indent<cr>]], opts)
       vim.opt.foldmethod = 'expr'
       vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
       vim.opt.indentexpr = 'nvim_treesitter#indent()'
