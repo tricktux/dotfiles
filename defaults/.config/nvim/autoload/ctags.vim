@@ -267,13 +267,13 @@ function! s:create_cscope(tag_name) abort
   endif
 
   " Create cscope db as well
-  let cs_db = g:ctags_output_dir . a:tag_name . '.out'
+  let cs_db = (has('unix') ? '-f ' . g:ctags_output_dir . a:tag_name . '.out' : '')
   " -b            Build the cross-reference only.
   " -c            Use only ASCII characters in the cross-ref file (don't compress).
   " -q            Build an inverted index for quick symbol searching.
   " -f reffile    Use reffile as cross-ref file name instead of cscope.out.
   " -i namefile   Browse through files listed in namefile, instead of cscope.files
-  let cscope_cmd = 'cscope -Rbcq -f ' . cs_db . ' -i ' . '"' . s:cscope_files . '"'
+  let cscope_cmd = 'cscope -Rbcq ' . cs_db . ' -i ' . '"' . s:cscope_files . '"'
   if &verbose > 0
     echomsg 'cscope_cmd = ' . cscope_cmd
   endif
