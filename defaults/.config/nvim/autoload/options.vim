@@ -165,7 +165,6 @@ function! options#Set() abort
   set laststatus=2
   " If you want to put color to status line needs to be after command
   " colorscheme. Otherwise this commands clears it the color
-  colorscheme morning
 
   " Performance Settings
   " see :h slow-terminal
@@ -238,6 +237,15 @@ function! options#Set() abort
           \ hi StatusLineNC ctermfg=white ctermbg=black guifg=white guibg=black gui=bold
   augroup END
 
+  let g:flux_daytime_start = 6
+  let g:flux_daytime_end = 20
+  if !has('nvim')
+    augroup Flux
+      autocmd!
+      autocmd CursorHold * call s:set_colorscheme_by_time()
+    augroup END
+    call s:set_colorscheme_by_time()
+  endif
 endfunction
 
 " CLI
@@ -421,4 +429,15 @@ function! Stlgitbranch()
     return strpart(l:branch, 0, 10)  " Return only the first 10 characters
   endif
   return '' " Return empty if not in git repo
+endfunction
+
+
+function! s:set_colorscheme_by_time()
+  let hour = strftime("%H")
+
+  if hour >= g:flux_daytime_start && hour < g:flux_daytime_end
+    colorscheme morning
+  else
+    colorscheme desert
+  endif
 endfunction

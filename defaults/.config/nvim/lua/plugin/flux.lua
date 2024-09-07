@@ -37,10 +37,21 @@ function M:set(period)
   cb(period)
 end
 
+-- Function to set colorscheme based on the time of day
+local function get_period_by_time()
+  local hour = os.date("*t").hour  -- Get the current hour in 24-hour format
+
+  if hour >= vim.g.flux_day_time_start and hour < vim.g.flux_day_time_end then
+    return 'day'
+  end
+  return 'night'
+end
+
 function M:check()
   local period = utl.read_file(self._file_location)
   if period == nil or period == '' then
-    return
+    -- Manually set period then based on time
+    period = get_period_by_time()
   end
 
   self:set(period)
