@@ -8,12 +8,6 @@ function! sessions#Save() abort
     return
   endif
 
-  " Ensure session_name ends in .vim
-  if match(session_name, '.vim', -4) < 0
-    " Append extention if was not provided
-    let session_name .= '.vim'
-  endif
-
   silent! execute "mksession! " . session_name
   call s:set_augroup()
 endfunction
