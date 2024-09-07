@@ -249,4 +249,6 @@ export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
 
 $HOME/.config/i3/scripts/xset.sh
 
+[[ -x "$HOME"/.local/bin/xprofile-extra ]] && "$HOME"/.local/bin/xprofile-extra
+
 # vim:filetype=sh fdm=marker
