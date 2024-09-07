@@ -231,6 +231,12 @@ function! options#Set() abort
       autocmd BufWinLeave * call clearmatches()
     endif
   augroup END
+  augroup Colorscheme
+    autocmd!
+    autocmd ColorScheme *
+          \ hi StatusLine ctermfg=white ctermbg=black guifg=white guibg=black gui=bold |
+          \ hi StatusLineNC ctermfg=white ctermbg=black guifg=white guibg=black gui=bold
+  augroup END
 
 endfunction
 

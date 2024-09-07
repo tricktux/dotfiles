@@ -17,10 +17,6 @@ local function set_colorscheme(period)
   log.info(fmt("set_colorscheme: period = '%s'", period))
   log.info(fmt("set_colorscheme: catppuccin_flavour = '%s'", flavour[period]))
   vim.cmd('Catppuccin ' .. flavour[period])
-  vim.cmd[[
-  hi StatusLine ctermfg=white ctermbg=black guifg=white guibg=black gui=bold
-  hi StatusLineNC ctermfg=white ctermbg=black guifg=white guibg=black gui=bold " For inactive statusline if desired
-        ]]
 end
 
 local function setup_flux()
