@@ -76,7 +76,7 @@ bindsym $mod+semicolon exec --no-startup-id tdrop -ma -w -20 -x 10 -h 40% -y 50 
 bindsym $mod+comma exec --no-startup-id tdrop -ma -x 20% -y 10% -w 60% -h 80% firefox
 bindsym $mod+p exec --no-startup-id \
     $HOME/.config/i3/scripts/xdotool_launch ncpamixer
-bindsym $mod+u exec --no-startup-id polybar-msg cmd toggle
+bindsym $mod+u exec --no-startup-id i3-msg bar mode toggle
 bindsym $mod+c exec --no-startup-id \
     $HOME/.config/i3/scripts/xdotool_launch qalculate
 # bindsym $mod+apostrophe exec --no-startup-id \
@@ -462,6 +462,12 @@ for_window [class="File-roller"] floating enable
   default_floating_border pixel 3
 
 # }}}
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+        status_command i3status
+}
 
 # STARTUP APPLICATIONS  {{{
   # NOTE: These commands are executed in the same order but asynchronously
