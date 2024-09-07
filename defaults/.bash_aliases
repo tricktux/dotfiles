@@ -322,3 +322,17 @@ ranger_cd() {
 FuncFfmpegConcat() {
 	ffmpeg -f concat -safe 0 -i mylist.txt -c copy output.mp4
 }
+
+bkp() {
+  if [ -z "$1" ]; then
+    echo "Usage: bkp <file_directory_path>"
+    return 1
+  fi
+
+  if [ -e "$1" ]; then
+    cp "$1"{,.bkp.`date +%s`}
+  else
+    echo "Error: $1 is not a directory."
+    return 1
+  fi
+}
