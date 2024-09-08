@@ -32,11 +32,11 @@ ethernet _first_ {
 battery all {
         format = "B: %status %percentage %remaining"
         format_down = "B: -"
-        status_chr = "⚡ CHR"
-        status_bat = "🔋 BAT"
+        status_chr = "⚡ "
+        status_bat = "🔋 "
         status_unk = "? UNK"
-        status_full = "☻ FULL"
-        status_idle = "☻ IDLE"
+        status_full = "☻ "
+        status_idle = "☻ "
 }
 
 disk "/" {
