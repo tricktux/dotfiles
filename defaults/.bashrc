@@ -11,3 +11,6 @@ complete -c man which
 
 run-help() { help "$READLINE_LINE" 2>/dev/null || man "$READLINE_LINE"; }
 bind -m vi-insert -x '"\eh": run-help'
+
+shopt -s autocd
+shopt -s checkwinsize
