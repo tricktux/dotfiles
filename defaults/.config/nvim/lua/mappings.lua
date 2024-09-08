@@ -230,37 +230,6 @@ M.vcs.mappings = {
   },
 }
 
--- NOTE: Please update the mappings in flux_post_{day,night,sunrise,sunset}
--- if updating these mappings below
-M.colors = {}
-M.colors.prefix = '<leader>tc'
-M.colors.mappings = {
-  d = {
-    function()
-      require('plugin.flux'):set('day')
-    end,
-    'day',
-  },
-  n = {
-    function()
-      require('plugin.flux'):set('night')
-    end,
-    'night',
-  },
-  r = {
-    function()
-      require('plugin.flux'):set('sunrise')
-    end,
-    'sunrise',
-  },
-  s = {
-    function()
-      require('plugin.flux'):set('sunset')
-    end,
-    'sunset',
-  },
-}
-
 M.toggle = {
   name = 'toggle',
   prefix = '<leader>t',
@@ -520,7 +489,6 @@ function M:setup()
   self:keymaps_sets(self.braces)
   self:window_movement_setup()
 
-  self:keymaps_sets(self.colors)
   self:keymaps_sets(self.terminal)
   self:keymaps_sets(self.toggle)
   self:keymaps_sets(self.help)

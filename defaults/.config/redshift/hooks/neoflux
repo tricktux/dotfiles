@@ -31,7 +31,7 @@ neovim_setup() {
 		key='<c-\><c-n> tcn'
 		;;
 	transition)
-		key='<c-\><c-n> tcr'
+		key='<c-\><c-n> tct'
 		;;
 	esac
 	for s in ${XDG_RUNTIME_DIR:-${TMPDIR}nvim.${USER}}/nvim.*.0; do

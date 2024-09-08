@@ -2,22 +2,53 @@ local log = require('utils.log')
 local fmt = string.format
 local utl = require('utils.utils')
 
+local c = {}
+c.flavour = {
+  daytime = 'latte',
+  night = 'mocha',
+  transition = 'frappe',
+}
+c.change_flavour = function(period)
+  -- Use colorscheme command so that ColorScheme autocmd executes
+  vim.cmd.colorscheme("catppuccin-" .. c.flavour[period])
+end
+
+
 local function setup_flux()
   local period = vim.fn['flux#Check']()
-  local flavour = {
-    daytime = 'latte',
-    night = 'mocha',
-    transition = 'frappe',
-  }
-  vim.g.catppuccin_flavour = flavour[period]
-  log.info(fmt("set_colorscheme: period = '%s'", period))
-  log.info(fmt("set_colorscheme: catppuccin_flavour = '%s'", flavour[period]))
-  vim.cmd.colorscheme("catppuccin-" .. flavour[period])
+  c.change_flavour(period)
 end
 
 local p = {
   {
     'catppuccin/nvim',
+    -- NOTE: These keymaps need to match those in neoflux
+    keys = {
+      {
+        '<leader>tcd',
+        function()
+          c.change_flavour('daytime')
+        end,
+        mode = { 'n' },
+        desc = 'toggle_colors_day',
+      },
+      {
+        '<leader>tcn',
+        function()
+          c.change_flavour('night')
+        end,
+        mode = { 'n' },
+        desc = 'toggle_colors_night',
+      },
+      {
+        '<leader>tct',
+        function()
+          c.change_flavour('transition')
+        end,
+        mode = { 'n' },
+        desc = 'toggle_colors_transition',
+      },
+    },
     init = function()
       setup_flux()
     end,
