@@ -102,9 +102,6 @@ local windows = {
     autowidth = { --		       |windows.autowidth|
       enable = true,
       winwidth = 0.6, --		        |windows.winwidth|
-      filetype = { --	      |windows.autowidth.filetype|
-        help = 0.5,
-      },
     },
     ignore = { --			  |windows.ignore|
       buftype = ignore_buftypes,
