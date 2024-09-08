@@ -1,0 +1,95 @@
+#!/usr/bin/env bash
+
+wal_setup() {
+	if [[ ! -x $(command -v wal) ]]; then
+		echo "wal: not executable"
+		return 1
+	fi
+
+	local period=$1
+	local theme="base16-google -l"
+	echo "wal: period: $period"
+
+	case $period in
+	night)
+        theme="base16-gruvbox-hard"
+		;;
+	transition)
+		theme="solarized -l"
+		;;
+	esac
+
+	wal --theme $theme
+}
+
+neovim_setup() {
+	local period=$1
+	local key="<c-\><c-n> tcd"
+	echo "neovim: period: $period"
+	case $period in
+	night)
+		key='<c-\><c-n> tcn'
+		;;
+	transition)
+		key='<c-\><c-n> tcr'
+		;;
+	esac
+	for s in ${XDG_RUNTIME_DIR:-${TMPDIR}nvim.${USER}}/nvim.*.0; do
+		echo "neovim: found server at $s sending $key"
+		nvim --server "$s" --remote-send "$key"
+	done
+	if [[ -S /tmp/nvim_journal.socket ]]; then
+		echo "neovim: found journal server sending $key"
+		nvim --server /tmp/nvim_journal.socket --remote-send "$key"
+	fi
+}
+
+xfce_setup() {
+    if [[ ! -x $(command -v xfconf-query) ]]; then
+        echo "xfce: xfconf-query not executable"
+        return 1
+    fi
+
+	local period=$1
+	local theme="Adapta"
+	local icons="Paper"
+	local cursor="Bibata-Modern-DarkRed"
+	echo "xfce: period: $period"
+	case $period in
+	night)
+		theme="Adapta-Nokto"
+		;;
+	esac
+	xfconf-query -c xsettings -p /Net/ThemeName -s $theme
+	xfconf-query -c xsettings -p /Net/IconThemeName -s $icons
+	xfconf-query -c xsettings -p /Gtk/CursorThemeName -s $cursor
+}
+
+qt_setup() {
+	if [[ ! -x $(command -v gsettings) ]]; then
+		echo "qt: gsettings not executable"
+		return 1
+	fi
+
+	local period=$1
+	local theme="prefer-light"
+	if [[ ! -x $(command -v gsettings) ]]; then
+		echo "qt: gsettings not executable"
+		return 1
+	fi
+
+	case $period in
+	night)
+		theme="prefer-dark"
+		;;
+	esac
+	gsettings set org.gnome.desktop.interface gtk-theme $theme
+}
+
+if [ "$1" = period-changed ]; then
+	neovim_setup $3
+	xfce_setup $3
+	qt_setup $3
+	wal_setup $3
+    echo $3 > /tmp/flux
+fi

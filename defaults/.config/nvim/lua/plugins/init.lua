@@ -1,41 +1,18 @@
 local log = require('utils.log')
 local fmt = string.format
 local utl = require('utils.utils')
-local fs = require('utils.filesystem')
-local vks = vim.keymap.set
-local api = vim.api
-local home = vim.loop.os_homedir()
 
-local function set_colorscheme(period)
+local function setup_flux()
+  local period = vim.fn['flux#Check']()
   local flavour = {
-    day = 'latte',
+    daytime = 'latte',
     night = 'mocha',
-    sunrise = 'frappe',
-    sunset = 'macchiato',
+    transition = 'frappe',
   }
   vim.g.catppuccin_flavour = flavour[period]
   log.info(fmt("set_colorscheme: period = '%s'", period))
   log.info(fmt("set_colorscheme: catppuccin_flavour = '%s'", flavour[period]))
-  vim.cmd('Catppuccin ' .. flavour[period])
-end
-
-local function setup_flux()
-  local f = require('plugin.flux')
-  f:setup({
-    callback = set_colorscheme,
-  })
-  local id = api.nvim_create_augroup('FluxLike', { clear = true })
-  api.nvim_create_autocmd('CursorHold', {
-    callback = function()
-      vim.defer_fn(function()
-        f:check()
-      end, 0) -- Defered for live reloading
-    end,
-    pattern = '*',
-    desc = 'Flux',
-    once = true,
-    group = id,
-  })
+  vim.cmd.colorscheme("catppuccin-" .. flavour[period])
 end
 
 local p = {

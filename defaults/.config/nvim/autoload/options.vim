@@ -237,13 +237,7 @@ function! options#Set() abort
           \ hi StatusLineNC ctermfg=white ctermbg=black guifg=white guibg=black gui=bold
   augroup END
 
-  let g:flux_daytime_start = 6
-  let g:flux_daytime_end = 20
   if !has('nvim')
-    augroup Flux
-      autocmd!
-      autocmd CursorHold * call s:set_colorscheme_by_time()
-    augroup END
     call s:set_colorscheme_by_time()
   endif
 endfunction
@@ -433,11 +427,11 @@ endfunction
 
 
 function! s:set_colorscheme_by_time()
-  let hour = strftime("%H")
+  let period = flux#Check()
 
-  if hour >= g:flux_daytime_start && hour < g:flux_daytime_end
-    colorscheme morning
-  else
+  if period == 'night'
     colorscheme desert
+  else
+    colorscheme morning
   endif
 endfunction
