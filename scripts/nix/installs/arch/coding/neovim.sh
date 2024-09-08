@@ -22,7 +22,7 @@ update_pynvim() {
 
 # Install needed dependencies (adjust as necessary)
 paru -Syu --needed git cmake make gcc pkg-config unzip ninja libtool curl gettext \
-  tree-sitter-cli ripgrep fd fswatch clang
+  tree-sitter-cli ripgrep fd fswatch zig
 
 # Clone the specific branch of Neovim
 echo "Cloning Neovim repository..."
