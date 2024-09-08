@@ -169,6 +169,15 @@ M.setup = function()
       vim.api.nvim_feedkeys('zz', 'n', true)
     end,
   })
+  vim.api.nvim_create_autocmd('BufEnter', {
+    group = id,
+    desc = 'Set winbar',
+    callback = function()
+      local bufname = vim.api.nvim_buf_get_name(0)  -- Get the name of the current buffer
+      local bufname_no_path = vim.fn.fnamemodify(bufname, ':t')  -- Strips the path, keeping just the file name
+      vim.wo.winbar = bufname_no_path  -- Set the winbar
+    end,  -- Call the function we defined
+  })
 
   if vim.fn.has('nvim-0.9') <= 0 then
     id = api.nvim_create_augroup('Omni', { clear = true })
