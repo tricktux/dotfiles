@@ -11,8 +11,8 @@ let g:flux_periods = ['daytime', 'night', 'transition']
 " Function to determine the period based on the current time
 function! s:get_period_by_time() abort
   let l:hour = strftime("%H")  " Get current hour in 24-hour format
-  let l:day_start = g:flux_day_time_start
-  let l:day_end = g:flux_day_time_end
+  let l:day_start = g:flux_daytime_start
+  let l:day_end = g:flux_daytime_end
 
   if l:hour >= l:day_start && l:hour < l:day_end
     return 'daytime'
@@ -22,7 +22,11 @@ endfunction
 
 " Function to check and set the correct period
 function! flux#Check() abort
-  let l:period = readfile(g:flux_file_location)
+  try
+    let l:period = readfile(g:flux_file_location)
+  catch
+    let l:period = []
+  endtry
 
   if empty(l:period)
     " Manually set period based on time if file is empty
