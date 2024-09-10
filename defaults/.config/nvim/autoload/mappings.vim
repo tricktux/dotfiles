@@ -71,7 +71,7 @@ function! mappings#Set()
   nmap <leader>fs <plug>file_ranger_nvim
   nnoremap <silent> <leader>fo :browse oldfiles<cr>
   nmap <leader>fj <plug>file_browser
-  nnoremap <plug>file_browser :e .<cr>
+  nnoremap <plug>file_browser :Vex<cr>
 
   nmap <leader>W <plug>get_passwd
   nnoremap <plug>get_passwd :silent call passwd#SelectPasswdFile()<cr>
