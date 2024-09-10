@@ -70,10 +70,10 @@ local function mappings()
   local prefix = "<leader>a"
 
   -- Chat commands
-  vim.keymap.set({"n"}, prefix .. "c", "<cmd>GpChatNew<cr>", keymapOptions("New Chat"))
-  vim.keymap.set({"n"}, prefix .. "t", "<cmd>GpChatToggle<cr>", keymapOptions("Toggle Chat"))
-  vim.keymap.set({"n"}, prefix .. "f", "<cmd>GpChatFinder<cr>", keymapOptions("Chat Finder"))
-
+  vim.keymap.set({"n"}, prefix .. "c", "<cmd>%GpChatNew vsplit<cr>", keymapOptions("New Chat"))
+  vim.keymap.set({"n"}, prefix .. "C", "<cmd>GpChatNew vsplit<cr>", keymapOptions("New Chat"))
+  vim.keymap.set({"n"}, prefix .. "t", "<cmd>GpChatToggle vsplit<cr>", keymapOptions("Toggle Chat"))
+  vim.keymap.set({"n"}, prefix .. "f", "<cmd>GpChatFinder vsplit<cr>", keymapOptions("Chat Finder"))
 
   vim.keymap.set({ "n" }, prefix .. "<C-x>", "<cmd>GpChatNew split<cr>", keymapOptions("New Chat split"))
   vim.keymap.set({ "n" }, prefix .. "<C-v>", "<cmd>GpChatNew vsplit<cr>", keymapOptions("New Chat vsplit"))
@@ -111,6 +111,7 @@ return {
   "robitx/gp.nvim",
   event = "VeryLazy",
   config = function()
+    -- sample cool config: https://github.com/frankroeder/dotfiles/blob/ca4be698194e54f02498f85c26324346f2ed37c7/nvim/lua/plugins/gp_nvim.lua#L19
     local conf = {
       -- For customization, refer to Install > Configuration in the Documentation/Readme
       -- default agent names set during startup, if nil last used agent is used
@@ -127,8 +128,22 @@ return {
           system_prompt = anki_prompt,
         },
       },
+      hooks = {
+        BufferChatNew = function(gp, _)
+          -- call GpChatNew command in range mode on whole buffer
+          vim.api.nvim_command("%" .. gp.config.cmd_prefix .. "ChatNew")
+        end,
+      }
     }
     require("gp").setup(conf)
+    -- example of making :%GpChatNew a dedicated command which
+    -- opens new chat with the entire current buffer as a context
     mappings()
+    vim.api.nvim_create_autocmd({ "User" }, {
+      pattern = {"GpDone"},
+      callback = function(event)
+        vim.notify("GPT is done",vim.log.levels.INFO)
+      end,
+    })
   end,
 }
