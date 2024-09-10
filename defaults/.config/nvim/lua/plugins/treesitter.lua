@@ -60,7 +60,7 @@ M.__config = {
   },
   rainbow = {
     disable = disable,
-    enable = vim.fn.has('unix') and true or false,
+    enable = true,
   },
 }
 
@@ -90,7 +90,7 @@ return {
     end,
   },
   {
-    'p00f/nvim-ts-rainbow',
+    'HiPhish/rainbow-delimiters.nvim',
     event = 'BufReadPost',
     dependencies = 'nvim-treesitter/nvim-treesitter',
   },
