@@ -1,0 +1,328 @@
+*Useful Commands*           Useful UNIX commands and Vim commands for quick reference.
+
+==============================================================================
+1. grepping with rg                                  *rg*
+
+>bash
+  rg "pattern"                                 # Search for 'pattern' in the current directory and all subdirectories.
+  rg <pattern> --files                           # List all the files being searched.
+  rg <pattern> <path>                            # Search for 'pattern' within a specific path.
+  rg -t cpp <pat>                            # Search for 'pattern' in type of cpp files
+  rg -T cpp <pat>                            # Search for 'pattern' in NOT type of cpp files
+  rg -g '*.cpp' <pattern> <path>                 # Search for 'pattern' in all `.cpp` files within a specific path.
+  rg -g '**/<dir>' <pattern> <path>                 # Search for 'pattern' in all directory files within a specific path.
+  rg -ig '*.cpp' <pattern> <path>                 # Search for 'pattern' in all BUT `.cpp` files within a specific path.
+  rg --nested <pattern> <directory>              # Search for 'pattern' in nested directories.
+  rg --count <pattern> <path>                    # Count occurrences of 'pattern' instead of printing lines.
+  rg --vimgrep <pattern> <files>                 # Format output for use with Vim's quickfix list.
+<
+
+==============================================================================
+2. grepping with grep                                *my-grep*
+>bash
+  grep -rnw '<path>' -e '<pattern>'             # Recursively search for a pattern in files, matching whole words.
+  grep -i '<pattern>' <file>                     # Case insensitive search in a specific file.
+  grep -v '<pattern>' <file>                     # Display all lines except those containing the pattern.
+  grep -o '<pattern>' <file>                     # Show only the matched parts of the lines.
+  grep --include='*.cpp' -rnw <path> -e '<pattern>'  # Search for 'pattern' only in `.cpp` files.
+  grep -r -A 3 -B 2 '<pattern>' <path>          # Show three lines after and two lines before each match.
+  grep --color=auto '<pattern>' <file>          # Highlight matches in the output.
+<
+
+==============================================================================
+3. file searching with fd                            *fd*
+>bash
+  fd <pattern>                                   # Find files matching 'pattern' in the current directory.
+  fd -H <pattern>                                # Search hidden files along with visible files.
+  fd --extension <ext> <pattern> <path>         # Search for files with a specific extension.
+  fd --type f <pattern> <path>                  # Limit search to files.
+  fd --exclude <dir> <pattern>                   # Exclude specific directories from the search.
+  fd -t d <pattern> <path>                       # Search only for directories.
+<
+
+==============================================================================
+4. file searching with find                          *find*
+>bash
+  find <path> -name '<filename>'                # Search for a file by name in a given path.
+  find <path> -type f -size +100M                # Find files larger than 100MB.
+  find <path> -iname '<filename>'                # Case insensitive search for a filename.
+  find <path> -type f -mtime -1                  # Files modified in the last 1 day.
+  find <path> -type d -empty                     # Find all empty directories.
+  find <path> -exec <command> {} \;              # Execute a command on each found file.
+<
+
+==============================================================================
+5. ssh                                               *ssh*
+>bash
+  ssh <user>@<host>                              # Start an SSH session to a specified user and host.
+  ssh -i <private-key> <user>@<host>            # Specify a private key for authentication.
+  ssh -L <local_port>:<remote_host>:<remote_port> <user>@<host> # Set up port forwarding.
+  ssh -D <port> <user>@<host>                    # Create a SOCKS proxy.
+<
+
+==============================================================================
+6. gpg                                               *gpg*
+>bash
+  gpg --encrypt <file>                           # Encrypt a given file.
+  gpg --decrypt <file.gpg>                       # Decrypt a given file.
+  gpg --gen-key                                   # Generate a new GPG key.
+  gpg --list-keys                                 # List available GPG keys.
+  gpg --sign <file>                              # Sign a file.
+  gpg --verify <file.sig> <file>                 # Verify a signed file.
+<
+
+==============================================================================
+7. vim in general                                    *vim*
+>bash
+  vim <file>                                    # Open a file in Vim.
+  vim -o <file1> <file2>                         # Open files in split view.
+  vim -p <file1> <file2>                         # Open files as tabs.
+  vim +<line> <file>                             # Open a specific line in a file.
+  vim -R <file>                                  # Open file in read-only mode.
+<
+
+==============================================================================
+8. vim commands g/ v/ etc                           *vim-commands*
+
+The `:g` is useful for cleaning up file to leave only stuff of interest. For
+instance copy all contents of `quickfix` to `:enew` and then `:g/<not of interest>/d`
+>vim
+  :g/<pattern>/d                              # Delete all lines matching a pattern.
+  :v/<pattern>/d                              # Delete all lines NOT matching a pattern.
+  :g/^\s*$/d                                  # Delete all empty lines.
+  :g/#.*$/d                                    # Delete all lines containing comments.
+<
+
+==============================================================================
+9. performance measuring commands                    *performance*
+>bash
+  top                                          # Display the dynamic real-time view of system processes.
+  htop                                         # Improved version of top (if installed).
+  vmstat                                      # Report virtual memory statistics.
+  iostat                                      # Report I/O statistics.
+  sar                                          # Report on system activity.
+  free -h                                      # Display memory usage including cache and buffer.
+<
+
+==============================================================================
+10. memory inspection of an application               *memory-inspection*
+>bash
+  ps -o pid,vsz,rss,pmem,comm -p <pid>        # Check memory usage of a specific process.
+  pmap <pid>                                   # Print memory map of a process.
+  smem                                        # Memory usage report, combines shared memory.
+<
+
+==============================================================================
+11. xargs                                            *xargs*
+>bash
+  find . -name '*.txt' | xargs wc -l          # Count lines in all .txt files.
+  echo 'file1 file2' | xargs -n 1 cp {} /destination/path  # Copy files to a specified directory.
+  cat filelist.txt | xargs -I {} cp {} /destination/path # Use placeholders.
+<
+
+==============================================================================
+12. space taken by a folder                          *disk-usage*
+>bash
+  du -sh <folder>                              # Display the total space used by a folder.
+  du -ah <folder>                              # Show sizes of all files and directories.
+  du -sm <folder>                              # Display space used in MB.
+<
+
+==============================================================================
+13. file transfer                                     *file-transfer*
+>bash
+  scp <file> <user>@<host>:<destination>        # Secure file copy to a remote host.
+  rsync -avz <source> <user>@<host>:<destination> # Sync files and directories with an option for compression.
+  sftp <user>@<host>                            # Start an SFTP session for file transfers.
+<
+
+==============================================================================
+14. users and groups                                  *users-groups*
+>bash
+  who                                           # Display current users logged in.
+  groups <username>                             # Display groups to which a user belongs.
+  id <username>                                 # Display all user and group IDs for a specified user.
+<
+
+==============================================================================
+15. bash                                              *bash*
+>bash
+  bash                                          # Start a bash shell.
+  echo $PATH                                   # Display the system `PATH` variable.
+  env                                           # Display the environment variables.
+<
+
+==============================================================================
+16. bash history searching                             *bash-history*
+>bash
+  history | grep '<pattern>'                    # Search command history for a pattern.
+  !n                                            # Repeat command number n from history.
+<
+
+==============================================================================
+17. tar commands                                      *tar*
+>bash
+  tar -cvf <archive.tar> <folder>               # Create a tarball of a folder.
+  tar -xvf <archive.tar>                         # Extract a tarball.
+  tar -czvf <archive.tar.gz> <folder>           # Create a compressed tarball.
+  tar -xzvf <archive.tar.gz>                     # Extract a compressed tarball.
+<
+
+==============================================================================
+18. package installation in CentOS                    *package-installation*
+>bash
+  sudo yum install <package>                    # Install a package using yum.
+  sudo yum remove <package>                     # Remove a package.
+  sudo yum update                                # Update the system packages.
+<
+
+==============================================================================
+19. variables in bash                                 *bash-variables*
+>bash
+  export VAR_NAME='value'                       # Set an environment variable.
+  echo $VAR_NAME                                 # Display the value of the variable.
+  unset VAR_NAME                                 # Remove a variable.
+<
+
+==============================================================================
+20. file permissions                                  *file-permissions*
+>bash
+  ls -l <file>                                 # Show detailed file permissions.
+  chmod 755 <file>                             # Change file permissions.
+  chown <user>:<group> <file>                  # Change owner and group of a file.
+<
+
+==============================================================================
+21. diff commands                                     *diff*
+>bash
+  diff <file1> <file2>                         # Compare two files and show differences.
+  diff -r <dir1> <dir2>                        # Compare two directories recursively.
+  diff -u <file1> <file2>                      # Unified diff format.
+<
+
+==============================================================================
+22. gdb                                               *gdb*
+
+>bash
+  gdb <program>                                  # Start GDB with the specified program.
+  gdb -tui <program>                             # Start GDB with Text User Interface (TUI).
+  run <args>                                     # Start the program with specified arguments.
+  start                                           # Begin execution until the first breakpoint or main function.
+  b <location>                                   # Set a breakpoint at the specified function or line number.
+  b <file>:<line>                                # Set a breakpoint at a specific line in a file.
+  b *<address>                                   # Set a breakpoint at a specific memory address.
+  enable [<breakpoint-number>]                   # Enable a previously set breakpoint.
+  disable [<breakpoint-number>]                  # Disable a previously set breakpoint.
+  delete [<breakpoint-number>]                   # Remove a specific breakpoint.
+  info breakpoints                                # List all current breakpoints and their statuses.
+  cont                                           # Continue running the program until the next breakpoint or exit.
+  next                                           # Step to the next line of code (step over).
+  step                                           # Step into functions to debug line-by-line.
+  finish                                         # Run until the current function returns (good for skipping function internals).
+  last                                           # Move to the last line of the current stack frame.
+  print <variable>                               # Print the value of a variable.
+  display <variable>                             # Automatically show the value of a variable each time the program stops.
+  x/<format> <address>                           # Examine memory at a specific address (use formats like x/4x for hexadecimal).
+  info locals                                     # Show all local variables in the current frame.
+  info args                                       # Show arguments of the current function.
+  backtrace                                       # Display the function call stack (backtrace).
+  set print frame-commands on                    # Display commands executed in the current stack frame.
+  set pagination off                             # Disable pagination in the output (helpful for long outputs).
+  watch <variable>                               # Set a watchpoint to stop execution when the value of a variable changes.
+  rwatch <variable>                              # Set a read watchpoint to stop execution when a variable is read.
+  delete watchpoints [<breakpoint-number>]      # Delete specific watchpoints.
+  file <program>                                 # Load a program into GDB—useful for replacing a loaded executable.
+  info files                                      # Show information about loaded files.
+  file <binary> <source-file>                    # Load an executable, also associate source files.
+  list [<file>:<line>]                           # Display source code around the current execution point.
+  where                                          # Alias for backtrace; shows the call stack.
+  b <location> if <condition>                   # Set a breakpoint that only triggers if a condition is true.
+  gdb <program> core                            # Load a core dump for analysis.
+  source <file>                                 # Run GDB commands from a file.
+  quit                                          # Exit GDB.
+<
+
+==============================================================================
+23. Remote GDB Commands                               *remote-gdb*
+
+>sh
+  gdbserver <address>:<port> <program>          # Start gdbserver on the remote machine with specified program.
+  gdbserver --multi <port>                       # Start gdbserver in multi-client mode on a specified port.
+  gdb <program>                                  # Start GDB on the local machine with the program (optional, but can be helpful).
+  target remote <address>:<port>                 # Connect to the remote GDB server at specified address and port.
+  ssh -L <local_port>:localhost:<remote_port> <user>@<remote_host>  # Forward a port via SSH for secure connections.
+  target remote localhost:<local_port>           # Connect to the port forwarded by SSH.
+<
+
+==============================================================================
+24. SSH Keys Management                             *ssh-keys*
+>bash
+  ssh-keygen -t rsa -b 4096 -C "<comment>"      # Generate an RSA SSH key with a comment.
+  ssh-keygen -t ed25519 -C "<comment>"           # Generate an Ed25519 key (recommended for new keys).
+  ssh-keygen -f ~/.ssh/id_rsa -N ""               # Create a key with no passphrase and store it in a specific file.
+  mv ~/.ssh/id_rsa /path/to/new/location/        # Move the private key to a new location.
+  mv ~/.ssh/id_rsa.pub /path/to/new/location/    # Move the public key to a new location.
+  ssh-copy-id <user>@<host>                       # Copy your public key to a remote server for passwordless SSH access.
+  cat ~/.ssh/id_rsa.pub | ssh <user>@<host> "cat >> ~/.ssh/authorized_keys" # Manually append the public key to authorized keys file.
+  chmod 700 ~/.ssh                               # Set the SSH directory permission to read, write, and execute for the user.
+  chmod 600 ~/.ssh/id_rsa                        # Set the private key permission to read and write for the user only.
+  chmod 644 ~/.ssh/id_rsa.pub                    # Set the public key permission to read for everyone and write for the user.
+  touch ~/.ssh/authorized_keys                   # Create the authorized_keys file if it doesn't exist.
+  chmod 600 ~/.ssh/authorized_keys               # Set permissions for the authorized_keys file.
+  ssh-add -l                                      # List fingerprints of currently loaded keys in the ssh-agent.
+  ssh -T <user>@<host>                            # Test the SSH connection (if key-based login is set properly).
+  ssh-keygen -y -f ~/.ssh/id_rsa                  # Display the public key corresponding to a given private key.
+<
+==============================================================================
+25. Listing Mounted Drives and Filesystems            *mounted-blocks*
+>bash
+  df -h                                           # Display disk space usage in a human-readable format.
+  mount                                           # List all currently mounted filesystems.
+  lsblk                                          # List all block devices (disks, partitions) in a tree-like format.
+  fstab                                           # View the filesystems configured for mounting at boot time.
+  dd if=/dev/zero of=<device> bs=1M count=100    # Create a 100MB file of zeros for disk testing.
+
+==============================================================================
+26. Finding Running Programs and Managing Processes  *process-management*
+>bash
+  ps aux                                       # List all running processes with detailed information.
+  top                                          # Display and manage real-time running processes.
+  htop                                         # Interactive process viewer (better alternative to top).
+  pgrep <pattern>                              # Find process IDs (PIDs) that match the given pattern.
+  pkill <pattern>                              # Kill processes based on the given pattern.
+  kill <pid>                                   # Terminate the process with the specified PID.
+  killall <process-name>                       # Kill all instances of a process by name.
+  kill -9 <pid>                                # Forcefully terminate a process (use with caution).
+  pstree                                       # Display the current processes as a tree.
+  pgrep --list-name <process-name>            # List PIDs and names of processes matching the name.
+  nice <command>                               # Start a command with a modified scheduling priority.
+  renice <priority> <pid>                      # Change the priority of a running process.
+  strace -p <pid>                             # Trace system calls and signals of a running process.
+
+==============================================================================
+27. Network Operations and Connections               *network-operations*
+>bash
+  ifconfig                                       # Display network interfaces and their configurations.
+  ip addr show                                   # Show details of all network interfaces.
+  netstat -tuln                                  # List all listening ports and associated services.
+  ss -tuln                                       # Display detailed network sockets (better alternative to netstat).
+  ping <hostname>                               # Test connectivity to a host.
+  traceroute <hostname>                          # Trace the network route to a host.
+  curl -I <url>                                   # Fetch HTTP headers from a URL.
+  wget <url>                                     # Download files from the internet.
+
+
+==============================================================================
+28. Netrw               *my-netrw*
+>vim
+  :bd<cr>	    " To get back to buffer were you came from
+  :Rex     " To get back to where you were browsing
+
+==============================================================================
+29. Vim grepping               *my-vimgrep*
+>vim
+  :grep /pat/ **/*.{c,h}
+
+
+==============================================================================
+ vim:tw=78:ts=8:noet:ft=help:norl:
