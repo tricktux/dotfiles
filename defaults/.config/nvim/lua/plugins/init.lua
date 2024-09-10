@@ -228,7 +228,14 @@ local p = {
   },
   {
     'kevinhwang91/nvim-bqf',
-    ft = 'qf'
+    ft = 'qf',
+    opts = {
+      preview = {
+        auto_preview = {
+          default = false
+        }
+      }
+    }
   },
   {
     'lunarVim/bigfile.nvim',
