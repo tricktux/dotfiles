@@ -231,9 +231,7 @@ local p = {
     ft = 'qf',
     opts = {
       preview = {
-        auto_preview = {
-          default = false
-        }
+        auto_preview = false
       }
     }
   },
