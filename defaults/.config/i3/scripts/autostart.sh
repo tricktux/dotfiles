@@ -17,14 +17,7 @@ else
 	printf "\n==X Please install xfsettingsd\n"
 fi
 # Setup config for current time of day at startup
-[[ -f //tmp/flux ]] && rm /tmp/flux
-flux="$HOME"/.config/polybar/scripts/flux_
-if [[ -f $flux/flux ]]; then
-	"$flux"/flux -v -c "$flux"/flux_init_config.lua \
-		>/tmp/fluxinit.log 2>&1
-else
-	printf "\n==X Please install '%s'\n" "$flux"
-fi
+"$HOME"/.config/redshift/hooks/period-change daytime
 
 # https://pastebin.com/tfqSNjti
 # See :Man picom
