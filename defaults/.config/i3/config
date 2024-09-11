@@ -477,4 +477,12 @@ bar {
   }
 }
 
+# STARTUP APPLICATIONS  {{{
+  # NOTE: These commands are executed in the same order but asynchronously
+  exec --no-startup-id $HOME/.config/i3/scripts/xset.sh
+  exec --no-startup-id [ -d /etc/nixos ] && $HOME/.config/i3/scripts/nix-autostart.sh ||  \
+    $HOME/.config/i3/scripts/autostart.sh \
+    > /tmp/autostart.log 2>&1
+# }}}
+
 # vim:fdm=marker:ft=i3config
