@@ -9,21 +9,6 @@ function! sessions#Save() abort
   endif
 
   silent! execute "mksession! " . session_name
-  call s:set_augroup()
-endfunction
-
-function! s:set_augroup() abort
-  augroup AutoSaveSession
-    autocmd!
-    autocmd BufWinEnter * call <sid>auto_save()
-  augroup END
-endfunction
-
-function! s:auto_save() abort
-  " Save this current session
-  if !empty(v:this_session)
-    silent execute 'mksession! ' . v:this_session
-  endif
 endfunction
 
 function! sessions#Load() abort
@@ -38,7 +23,9 @@ function! sessions#Load() abort
   endif
 
   " Save this current session
-  call s:auto_save()
+  if !empty(v:this_session)
+    silent execute 'mksession! ' . v:this_session
+  endif
 
   " Delete all buffers. Otherwise they will be added to the new session
   silent execute ':%bdelete!'
@@ -48,6 +35,4 @@ function! sessions#Load() abort
     return
   endif
   silent execute 'source ' . l:session_name
-  call s:set_augroup()
 endfunction
-
