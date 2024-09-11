@@ -381,24 +381,15 @@ function! s:get_titlestring() abort
         \ getcwd() . '->%f%m%r'
 endfunction
 
-function! Stlexecute() abort
-  let l:ro = !&readonly && !&modified
-  let l:bu = &buftype == "nofile" || &buftype == "prompt" || &buftype == "terminal"
-  if l:ro && !l:bu && filereadable(expand('%'))
-    return 1
-  endif
-  return 0
-endfunction
-
 function! Stlcwd() abort
-  if !Stlexecute()
+  if !utils#is_buffer_valid()
     return ''
   endif
   return getcwd() . ' >'
 endfunction
 
 function! Stlsession() abort
-  if !Stlexecute()
+  if !utils#is_buffer_valid()
     return ''
   endif
 
@@ -415,7 +406,7 @@ function! Stlgitbranch()
   if isdirectory('C:\Users')
     return ''
   endif
-  if !Stlexecute()
+  if !utils#is_buffer_valid()
     return ''
   endif
   if !empty(system('git rev-parse --is-inside-work-tree 2>/dev/null')) " Check if in a git repo
