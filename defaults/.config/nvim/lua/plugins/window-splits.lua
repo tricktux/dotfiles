@@ -11,13 +11,27 @@ local windows = {
       '<cmd>WindowsToggleAutowidth<cr>',
       desc = 'windows_split_mode_toggle_mappings',
     },
+    {
+      '<c-w>z',
+      '<cmd>WindowsMaximize<cr>',
+      desc = 'windows_maximize',
+    },
+    {
+      '<c-w>=',
+      '<cmd>WindowsEqualize<cr>',
+      desc = 'windows_equalize',
+    }
   },
   opts = {
-    autowidth = { --		       |windows.autowidth|
+    autowidth = {
       enable = true,
-      winwidth = 0.6, --		        |windows.winwidth|
+      -- NOTE: change help value if the below one changes
+      winwidth = 1.2,
+      filetype = {
+        help = 1.2
+      }
     },
-    ignore = { --			  |windows.ignore|
+    ignore = {
       buftype = ignore_buftypes,
       filetype = ignore_filetypes,
     },
