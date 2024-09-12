@@ -20,6 +20,7 @@ M.opts = {
 
 return {
   'epwalsh/obsidian.nvim',
+  ft = "markdown",
   keys = {
     { '<leader>wj', '<cmd>ObsidianToday<cr>', desc = 'obsidian_daily' },
     { '<leader>wa', '<cmd>ObsidianNew<cr>', desc = 'obsidian_new' },
