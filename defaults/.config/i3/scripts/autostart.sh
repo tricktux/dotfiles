@@ -18,7 +18,7 @@ else
 fi
 
 # Setup config for current time of day at startup
-"$HOME"/.config/redshift/hooks/neoflux-watch > /tmp/flux.log 2>&1 &
+$HOME/.config/dotfiles/scripts/nix/flux/neoflux-watch > /tmp/flux.log 2>&1 &
 
 # https://pastebin.com/tfqSNjti
 # See :Man picom

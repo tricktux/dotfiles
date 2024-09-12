@@ -15,7 +15,7 @@ while [[ 1 ]]; do
 
   # Execute the other script with the contents of the first line
   # Assuming the other script is named 'other_script.sh'
-  $HOME/.config/redshift/hooks/period-changed $first_line
+  $HOME/.config/dotfiles/scripts/nix/flux/period-changed $first_line
 
   rm $trigger
 done
