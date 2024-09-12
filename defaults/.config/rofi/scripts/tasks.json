@@ -25,11 +25,11 @@
   },
   {
     "name": "☀️ flux force day",
-    "command": "exec $HOME/.config/redshift/hooks/period-changed daytime >>/tmp/flux.log 2>&1"
+    "command": "exec $HOME/.config/redshift/hooks/neoflux period-changed 88 daytime >>/tmp/flux.log 2>&1"
   },
   {
     "name": "🌑 flux force night",
-    "command": "exec $HOME/.config/redshift/hooks/period-changed night >>/tmp/flux.log 2>&1"
+    "command": "exec $HOME/.config/redshift/hooks/neoflux period-changed 88 night >>/tmp/flux.log 2>&1"
   },
   {
     "name": "📷 qrencode clipboard",
