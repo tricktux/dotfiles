@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+trigger=/tmp/flux-period-changed
+
+while [[ 1 ]]; do
+  if [[ ! -f $trigger ]]; then
+    sleep 1
+    continue
+  fi
+
+  # Read the first line of the file
+  # Remove newlines and leading/trailing whitespace using `xargs`
+  first_line=$(head -n 1 $trigger | xargs)
+  echo "Found file with period: $first_line"
+
+  # Execute the other script with the contents of the first line
+  # Assuming the other script is named 'other_script.sh'
+  $HOME/.config/redshift/hooks/period-changed $first_line
+
+  rm $trigger
+done
+
+
