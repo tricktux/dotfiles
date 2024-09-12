@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-if pgrep -x "redshift" >/dev/null; then
-  killall redshift
+if [ "$(systemctl --user is-active "redshift")" = "active" ]; then
+  systemctl --user stop redshift
 else
-  redshift -l manual -c ~/.config/redshift.conf &
+  systemctl --user start redshift
 fi
