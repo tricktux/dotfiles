@@ -315,7 +315,7 @@ function! s:set_grep() abort
     " including hidden files.
     let &grepprg = "rg $* --vimgrep --smart-case " .
           \ "--follow --fixed-strings --hidden " .
-          \ "--glob '!tags' --glob '!cscope.*' --glob '!**/.git/*'"
+          \ "--glob \"!tags\" --glob \"!cscope.*\" --glob \"!.git/\""
     set grepformat=%f:%l:%c:%m
   endif
 endfunction
