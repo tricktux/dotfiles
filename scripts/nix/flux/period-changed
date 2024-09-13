@@ -88,3 +88,5 @@ neovim_setup $1
 xfce_setup $1
 qt_setup $1
 wal_setup $1
+i3-msg restart
+notify-send "period-changed" "Configuration '$1' set!"

@@ -18,6 +18,12 @@ else
 fi
 
 # Setup config for current time of day at startup
+# Wal doesn't seem to work sometimes. force it initially
+if [[ -x $(command -v wal) ]]; then
+    wal --theme base16-google -l -q
+else
+    printf "\n==X Please install python-pywal\n"
+fi
 $HOME/.config/dotfiles/scripts/nix/flux/neoflux-watch > /tmp/flux.log 2>&1 &
 
 # https://pastebin.com/tfqSNjti
