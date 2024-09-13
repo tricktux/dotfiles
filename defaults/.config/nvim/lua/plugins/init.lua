@@ -98,20 +98,6 @@ local p = {
     },
   },
   {
-    'ThePrimeagen/refactoring.nvim',
-    keys = {
-      {
-        '<leader>rr',
-        function()
-          require('refactoring').select_refactor()
-        end,
-        mode = { 'n', 'x' },
-        desc = 'refactoring',
-      },
-    },
-    opts = {},
-  },
-  {
     'justinmk/vim-sneak',
     event = 'VeryLazy',
     init = function()
