@@ -29,7 +29,7 @@ function! options#Set() abort
   set mouse=a
   set background=light " This forces lualine to use the right theme
   set cmdheight=1
-  set spell
+  set nospell
   set spelllang=en_us
   set nowrapscan
   set showtabline=1
