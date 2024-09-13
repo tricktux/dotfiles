@@ -23,14 +23,6 @@ export ZDOTDIR=$HOME/.config/zsh
 # Activate numlock
 [ -f /usr/bin/numlockx ] && numlockx on
 
-# Concat rofi configs
-if [ -f "$XDG_CONFIG_HOME/rofi/$HOSTNAME.rasi" ]; then
-  cat "$XDG_CONFIG_HOME/rofi/common.rasi" \
-    "$XDG_CONFIG_HOME/rofi/$HOSTNAME.rasi" >"$XDG_CONFIG_HOME/rofi/config.rasi"
-elif [ -f "$XDG_CONFIG_HOME/rofi/common.rasi" ]; then
-  cp "$XDG_CONFIG_HOME/rofi/common.rasi" "$XDG_CONFIG_HOME/rofi/config.rasi"
-fi
-
 # Commands to run only once at startup specific to hosts
 if [ -f "$HOME/.config/xprofile_$HOSTNAME" ]; then
   source "$HOME/.config/xprofile_$HOSTNAME"

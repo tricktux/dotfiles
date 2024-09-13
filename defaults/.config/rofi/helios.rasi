@@ -1,8 +1,0 @@
-* {
-  font: "monospace 20";
-}
-element-icon {
-  size: 30;
-  margin: 0 20px 0 0;
-}
-

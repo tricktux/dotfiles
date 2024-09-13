@@ -159,3 +159,12 @@ combi-modi: "window,drun,tasks:~/.config/rofi/scripts/tasks.sh";
   text-color: @background;
 }
 
+
+* {
+  font: "Cascadia Mono PL 20";
+}
+
+element-icon {
+  size: 40;
+  margin: 0 10px 0 0;
+}
