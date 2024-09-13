@@ -246,10 +246,10 @@ function! mappings#Set()
   nnoremap <leader>ts :set invspell<cr>
 
   " Edit file at location <Leader>e?
-  nnoremap <silent> <expr> <leader>ed ':e ~/.' . (has('nvim') ? 'config/nvim' : 'vim') . '/'
-  nnoremap <silent> <expr> <leader>ep ':e ' . g:std_data_path . '/lazy'
-  nnoremap <silent> <expr> <leader>ev ':e ' . fnameescape($VIMRUNTIME)
-  nnoremap <silent> <leader>wj :e ~/Documents/wiki
+  nnoremap <silent> <leader>ed :e ~/.config/
+  nnoremap <silent> <expr> <leader>ep ':e ' . g:std_data_path . '/lazy/'
+  nnoremap <silent> <expr> <leader>ev ':e ' . fnameescape($VIMRUNTIME) . '/'
+  nnoremap <silent> <leader>wj :e ~/Documents/wiki/
   nnoremap <leader>ei :e 
   nnoremap <leader>et :e ~/.cache/
 
