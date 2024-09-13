@@ -23,11 +23,6 @@ export ZDOTDIR=$HOME/.config/zsh
 # Activate numlock
 [ -f /usr/bin/numlockx ] && numlockx on
 
-# Commands to run only once at startup specific to hosts
-if [ -f "$HOME/.config/xprofile_$HOSTNAME" ]; then
-  source "$HOME/.config/xprofile_$HOSTNAME"
-fi
-
 # if ! pgrep -u "$USER" ssh-agent >/dev/null; then
   # ssh-agent >"$XDG_RUNTIME_DIR/ssh-agent.env"
 # fi
