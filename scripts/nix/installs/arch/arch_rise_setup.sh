@@ -308,29 +308,28 @@ sudo bash -c 'printf "\n//192.168.1.139/music /home/reinaldo/.mnt/skywafer/music
 # Try it with
 sudo mount -v -t nfs 192.168.1.139:/volume1/backup /home/reinaldo/.mnt/skynfs \
   -o vers=3
-  sudo mount -t cifs //192.168.1.139/home ~/.mnt/skywafer/home -o credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev,vers=3.0
-  mv ~/.gnupg{,_orig}
-  cp -r /home/reinaldo/.mnt/skywafer/home/bkps/aero/latest/.{ssh,password-store,gnupg} /home/reinaldo
-  cp -r /home/reinaldo/.mnt/skywafer/home/bkps/aero/latest/doublecmd /home/reinaldo/.config
-  sudo chown -R reinaldo: ~/.{ssh,gnupg}
-  chmod 700 ~/.ssh
-  chmod 600 -R ~/.ssh/*
-  chmod 644 -f ~/.ssh/*.pub ~/.ssh/authorized_keys ~/.ssh/known_hosts
-  sudo chown -R reinaldo: ~/.local/share/password-store
-  chmod 700 -R ~/.local/share/password-store
-  chmod 700 -R ~/.gnupg
+sudo mount -t cifs //192.168.1.139/home ~/.mnt/skywafer/home -o credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev,vers=3.0
+mv ~/.gnupg{,_orig}
+cp -r /home/reinaldo/.mnt/skywafer/home/bkps/aero/latest/.{ssh,password-store,gnupg} /home/reinaldo
+cp -r /home/reinaldo/.mnt/skywafer/home/bkps/aero/latest/doublecmd /home/reinaldo/.config
+sudo chown -R reinaldo: ~/.{ssh,gnupg}
+chmod 700 ~/.ssh
+chmod 600 -R ~/.ssh/*
+chmod 644 -f ~/.ssh/*.pub ~/.ssh/authorized_keys ~/.ssh/known_hosts
+sudo chown -R reinaldo: ~/.local/share/password-store
+chmod 700 -R ~/.local/share/password-store
+chmod 700 -R ~/.gnupg
 
-  sudo mkdir -p /etc/samba/credentials
-  sudo nvim /etc/samba/credentials/share
-  # - format:
-  # - `username=X`
-  # - `password=Y`
-  # - Obscure the file:
-  sudo chown root:root /etc/samba/credentials/share
-  sudo chmod 700 /etc/samba/credentials/share
-  sudo chmod 600 /etc/samba/credentials/share
+sudo mkdir -p /etc/samba/credentials
+sudo nvim /etc/samba/credentials/share
+# - format:
+# - `username=X`
+# - `password=Y`
+# - Obscure the file:
+sudo chown root:root /etc/samba/credentials/share
+sudo chmod 700 /etc/samba/credentials/share
+sudo chmod 600 /etc/samba/credentials/share
 
-paru -Syu --needed --noconfirm cifs-utils
 sudo mount -t cifs //192.168.1.139/home ~/.mnt/skywafer/home -o credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev
 mkdir -p ~/Documents
 # ln -s ~/.mnt/skywafer/home/Drive/wiki ~/Documents
