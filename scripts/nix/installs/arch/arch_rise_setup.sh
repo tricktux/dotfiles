@@ -89,28 +89,6 @@ ls -als ~/.config
 source ~/.bash_aliases 
 #}}}
 
-# nix {{{
-paru -Syu --needed ccache mold
-paru -Syu --needed nextcloud-client
-paru -Syu --needed ranger
-paru -Syu --needed nix
-sudo systemctl enable --now nix-daemon
-sudo gpasswd -a reinaldo nix-users
-nix-channel --add https://nixos.org/channels/nixpkgs-unstable
-nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-nix-channel --update
-# Restart session or re-login if you get permission denied
-sudo nix-shell '<home-manager>' -A install
-export NIX_CONFIG="experimental-features = nix-command flakes"  # if you haven't set flakes yet
-cd ~/.config/dotfiles/nix
-make
-chsh -s /usr/bin/zsh
-export ZDOTDIR=$HOME/.config/zsh
-zsh
-~/.config/dotfiles/scripts/nix/arch.sh -p
-paru -Syu --needed --noconfirm xfce4-settings
-# }}}
-
 # pipewire {{{
 paci --needed --noconfirm pipewire
 paci --needed --noconfirm pamixer alsa-lib libao libcdio libcddb libvorbis \
