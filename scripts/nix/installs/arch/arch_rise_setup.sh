@@ -137,7 +137,6 @@ sudo systemctl status reflector.service
 sudo reflector --country "United States" --latest 30 --number 5 \
   --sort rate --protocol https --save /etc/pacman.d/mirrorlist
   sudo nvim /etc/pacman.d/mirrorlist
-
 #}}}
 
 # Configure pacman {{{
