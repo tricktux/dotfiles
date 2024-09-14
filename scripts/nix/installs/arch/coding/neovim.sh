@@ -9,7 +9,12 @@ function error() {
 }
 
 update_pynvim() {
-  local venv_loc="$XDG_DATA_HOME/pyvenv"
+  echo "Updating/Installing pynvim"
+  if [[ ! -x $(command -v pip3) ]]; then
+      printf "\n==X Please install python-pip3\n"
+      return 1
+  fi
+  local venv_loc="${XDG_DATA_HOME:=$HOME/.local/share}/pyvenv"
   local venv_name="nvim"
 
   mkdir -p "$venv_loc"
@@ -40,8 +45,6 @@ echo "Cleaning up..."
 rm -rf "$NEOVIM_DIR"
 echo "Neovim has been successfully installed from branch '$BRANCH'."
 
-
-echo "Updating/Installing pynvim"
 update_pynvim
 
 echo "Press any key to exit..."
