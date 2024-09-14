@@ -67,6 +67,14 @@ environment() {
         lazygit termite
 }
 
+atuin() {
+    paru -Syu --needed --noconfirm atuin
+    # Either restore the local/share/atuin folder from the backups
+    # or
+    # Giving it the path to zhist file
+    # HISTFILE=/path/to/history/file atuin import zsh
+}
+
 compression() {
 	paru -Syu --needed 7-zip atool unrar unzip zip
 }
