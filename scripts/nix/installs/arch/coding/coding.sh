@@ -125,6 +125,10 @@ java() {
 	paru -Syu --needed --noconfirm j{re,re8,dk,dk8}-openjdk jdtls astyle
 }
 
+shell() {
+    paru -Syu --needed --noconfirm shellcheck-bin shfmt
+}
+
 zsh() {
 	# Install plugins
 	paru -Syu --needed --noconfirm zsh z-git \
