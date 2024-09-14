@@ -163,10 +163,6 @@ paru -Syu ntp
 sudo timedatectl set-ntp true
 #}}}
 
-# Beautiful arch wallpapers {{{
-paru -Syu --needed --noconfirm archlinux-wallpaper
-# }}}
-
 # Linux kernel{{{
 # Tue Dec 29 2020 09:44
 # Just stay with LTS please. When nvidia is involved is just painful
@@ -592,6 +588,7 @@ nvim "$HOME/.config/rofi/$(hostname).rasi"
 # Action also update the xdotool script for the new hostname
 nvim "$HOME/.config/i3/scripts/xdotool_launch"
 paru -Syu --needed --noconfirm i3-wm i3lock-fancy-git rofi rofi-dmenu alttab-git xdotool 
+paru -Syu --needed --noconfirm archlinux-wallpaper
 paru -Syu --needed --noconfirm feh redshift qrencode xclip dunst libnotify
 paru -Syu --needed --noconfirm scrot flameshot tdrop ncpamixer qalculate-qt
 paru -Syu --needed --noconfirm playerctl xfce4-settings python-pywal
