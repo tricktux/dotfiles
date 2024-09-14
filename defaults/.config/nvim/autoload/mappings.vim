@@ -69,9 +69,12 @@ function! mappings#Set()
   " File mappings <leader>f
   nmap <leader>fa <plug>file_ranger_native
   nmap <leader>fs <plug>file_ranger_nvim
-  nnoremap <silent> <leader>fo :browse oldfiles<cr>
   nmap <leader>fj <plug>file_browser
-  nnoremap <plug>file_browser :Vex<cr>
+  nmap <leader>fv <plug>file_browse_new_vertical_win
+  nmap <leader>fo <plug>file_browse_oldfiles
+  nnoremap <silent> <leader>fo :browse oldfiles<cr>
+  nnoremap <plug>file_browser :Ex<cr>
+  nnoremap <plug>file_browse_new_vertical_win :Vex<cr>
 
   nmap <leader>W <plug>get_passwd
   nnoremap <plug>get_passwd :silent call passwd#SelectPasswdFile()<cr>
