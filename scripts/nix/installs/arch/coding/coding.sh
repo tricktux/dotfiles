@@ -64,7 +64,7 @@ environment() {
 	paru -Syu --needed bat fzf direnv ripgrep-all stow \
         tldr xclip htop-vim eza wget rsync nodejs z kitty \
         {ttf,otf}-cascadia-code {ttf,otf}-fira-{code,mono} \
-        lazygit termite man-db less man-pages meld
+        lazygit termite man-db less man-pages meld hyperfine
     sudo mandb
 }
 
