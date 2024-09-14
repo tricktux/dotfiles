@@ -375,28 +375,6 @@ paru -Syu --needed --noconfirm lxqt-policykit
 # resilio
 # See `random.md resilio` section
 
-# openvpn {{{
-paru -Syu --needed --noconfirm openvpn
-# Test it
-sudo openvpn ~/Documents/Drive/wiki/misc/home.ovpn
-sudo cp /home/reinaldo/Documents/Drive/wiki/misc/home.ovpn /etc/openvpn/client/home.conf
-# Edit config and add pass.conf to the auth-user-pass line
-sudo nvim /etc/openvpn/client/home.conf
-# Then create the file
-sudo nvim /etc/openvpn/client/pass.conf
-# use meli openvpn account
-# - format:
-# - `<username>`
-# - `<password>`
-# - Obscure the file:
-# https://bbs.archlinux.org/viewtopic.php?id=260900
-sudo chown openvpn:openvpn /etc/openvpn/client/{home,pass}.conf
-sudo chmod 700 /etc/openvpn/client/{home,pass}.conf
-sudo chmod 600 /etc/openvpn/client/{home,pass}.conf
-sudo systemctl start openvpn-client@home
-sudo systemctl status openvpn-client@home
-# }}}
-
 # password-store{{{
 paru -Syu --needed --noconfirm --needed pass rofi-pass
 ## Passwords
