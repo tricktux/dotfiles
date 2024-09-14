@@ -148,6 +148,7 @@ function M.set_lsp_mappings(bufnr)
   end, { silent = true, buffer = true, desc = 'formatting' })
 
   map.keymaps_set(mappings, 'n', opts, prefix)
+  -- require('plugins.telescope').set_lsp_mappings(bufnr)
 
   local hov_ok, hov = pcall(require, 'pretty_hover')
   if hov_ok then

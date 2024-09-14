@@ -13,7 +13,6 @@ c.change_flavour = function(period)
   vim.cmd.colorscheme("catppuccin-" .. c.flavour[period])
 end
 
-
 local function setup_flux()
   local period = vim.fn['flux#Check']()
   c.change_flavour(period)
@@ -87,6 +86,7 @@ local p = {
         },
         noice = true,
         treesitter_context = true,
+        telescope = true,
         which_key = true,
         dashboard = true,
         vim_sneak = true,
