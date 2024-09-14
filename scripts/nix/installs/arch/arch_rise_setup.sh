@@ -89,42 +89,6 @@ ls -als ~/.config
 source ~/.bash_aliases 
 #}}}
 
-# pipewire {{{
-paci --needed --noconfirm pipewire
-paci --needed --noconfirm pamixer alsa-lib libao libcdio libcddb libvorbis \
-  libmpcdec wavpack libmad libmodplug libmikmod
-# }}}
-
-# Bluetooth/Audio {{{
-## Pipewire
-# Do replace pipewire-media-sessions for wireplumber
-paci --needed pipewire pipewire-{pulse,jack,alsa,audio} lib32-pipewire wireplumber
-## PulseAudio
-# paci --needed --noconfirm pulseaudio pulseaudio-{bluetooth,jack,alsa,equalizer}
-
-#Blue
-paci --needed --noconfirm bluez bluez-libs bluez-utils bluez-firmware
-paci --needed --noconfirm blueman
-sudo systemctl enable --now bluetooth
-
-# Easyeffects or nice headphones sound
-paru -Syu easyeffects lsp-plugins
-# Download effects from: 
-#   https://github.com/jaakkopasanen/AutoEq/tree/master/results
-#   - Search for your headphones
-#   - Download the parametrics.txt file
-# Apply it to Easyeffects
-#   - Click on the Effects button at the bottom
-#   - Add an equalizer
-#   - Click on Import Preset / Load AOP file
-#   - Search for the txt file downloaded
-# Start the application in the background:
-#   - easyeffects --gapplication-service
-# Ensure it's working:
-#   - Open pavucontrol
-#   - The sink for audio should be Easyeffects Sink
-#}}}
-
 # Setup NetBackup {{{
 # This is to get the server's cache to install stuff faster
 mkdir -p $HOME/.mnt/skywafer/{home,music,shared,video,NetBackup}
@@ -479,6 +443,42 @@ sudo systemctl enable pkgfile-update.timer
 sudo nvim /usr/lib/systemd/system/pkgfile-update.timer
 sudo systemctl start pkgfile-update.service
 # symlink all the `zsh*` files
+#}}}
+
+# pipewire {{{
+paru -Syu --needed --noconfirm pipewire
+paru -Syu --needed --noconfirm pamixer alsa-lib libao libcdio libcddb libvorbis \
+    libmpcdec wavpack libmad libmodplug libmikmod
+    # }}}
+
+# Bluetooth/Audio {{{
+## Pipewire
+# Do replace pipewire-media-sessions for wireplumber
+paru -Syu --needed pipewire pipewire-{pulse,jack,alsa,audio} lib32-pipewire wireplumber
+## PulseAudio
+# paru -Syu --needed --noconfirm pulseaudio pulseaudio-{bluetooth,jack,alsa,equalizer}
+
+#Blue
+paru -Syu --needed --noconfirm bluez bluez-libs bluez-utils bluez-firmware
+paru -Syu --needed --noconfirm blueman
+sudo systemctl enable --now bluetooth
+
+# Easyeffects or nice headphones sound
+paru -Syu easyeffects lsp-plugins
+# Download effects from: 
+#   https://github.com/jaakkopasanen/AutoEq/tree/master/results
+#   - Search for your headphones
+#   - Download the parametrics.txt file
+# Apply it to Easyeffects
+#   - Click on the Effects button at the bottom
+#   - Add an equalizer
+#   - Click on Import Preset / Load AOP file
+#   - Search for the txt file downloaded
+# Start the application in the background:
+#   - easyeffects --gapplication-service
+# Ensure it's working:
+#   - Open pavucontrol
+#   - The sink for audio should be Easyeffects Sink
 #}}}
 
 # terminal utils{{{
