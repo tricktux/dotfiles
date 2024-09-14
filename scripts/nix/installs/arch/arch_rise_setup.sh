@@ -469,6 +469,39 @@ paru -Syu easyeffects lsp-plugins
 # See `random.md resilio` section
 # }}}
 
+## firefox
+paru -Syu --needed --noconfirm firefox speech-dispatcher festival festival-us
+paru -Syu --needed --noconfirm hunspell-en_us
+# paru -Syu --needed --noconfirm firefox-extension-privacybadger`
+# paru -Syu --needed --noconfirm libnotify speech-dispatcher festival`
+paru -Syu --needed --noconfirm vdhcoapp-bin
+# Move profile to ram, for chrome and firefox
+paru -Syu --needed --noconfirm profile-sync-daemon
+sudo EDITOR=nvim visudo
+# Add
+# reinaldo ALL=(ALL) NOPASSWD: /usr/bin/psd-overlay-helper
+systemctl --user enable --now psd
+# `Video Youtube donwloader extension helper app`
+# - Extensions: `noscript, vimium-FF, duckduckgo`
+
+### profiles
+
+# - live at: `~/.mozilla/firefox/XXXXXX.<name>`
+# - `firefox -P <name>`
+# - `firefox -ProfileManager`
+
+### extensions
+
+# - Cookie AutoDelete
+# - NoScript
+# - Vimium
+# - Disconnect
+# - Privacy Badger
+
+# Also I use `qutebrowser` for login website
+paru -Syu --needed --noconfirm qutebrowser pdfjs
+#}}}
+
 # password-store {{{
 paru -Syu --needed --noconfirm --needed pass rofi-pass
 ## Passwords
@@ -696,40 +729,6 @@ sudo nvim /etc/systemd/journald.conf
 # Add or uncomment `SystemMaxUse=2G`
 
 # Browser{{{
-
-## firefox
-paru -Syu --needed --noconfirm firefox speech-dispatcher festival festival-us
-paru -Syu --needed --noconfirm hunspell-en_us
-# paru -Syu --needed --noconfirm firefox-extension-privacybadger`
-# paru -Syu --needed --noconfirm libnotify speech-dispatcher festival`
-paru -Syu --needed --noconfirm vdhcoapp-bin
-# Move profile to ram, for chrome and firefox
-paru -Syu --needed --noconfirm profile-sync-daemon
-sudo EDITOR=nvim visudo
-# Add
-# reinaldo ALL=(ALL) NOPASSWD: /usr/bin/psd-overlay-helper
-systemctl --user enable --now psd
- # `Video Youtube donwloader extension helper app`
-# - Extensions: `noscript, vimium-FF, duckduckgo`
-
-### profiles
-
-# - live at: `~/.mozilla/firefox/XXXXXX.<name>`
-# - `firefox -P <name>`
-# - `firefox -ProfileManager`
-
-### extensions
-
-# - Cookie AutoDelete
-# - NoScript
-# - Vimium
-# - Disconnect
-# - Privacy Badger
-
-# Also I use `qutebrowser` for login website
-paru -Syu --needed --noconfirm qutebrowser pdfjs
-
-#}}}
 
 # Printing{{{
 # keywords: print, hp, cups
