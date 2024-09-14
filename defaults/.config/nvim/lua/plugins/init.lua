@@ -1,5 +1,3 @@
-local log = require('utils.log')
-local fmt = string.format
 local utl = require('utils.utils')
 
 local c = {}
