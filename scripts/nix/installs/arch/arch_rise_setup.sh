@@ -152,6 +152,22 @@ sudo pacman -Sy
 # Mon Sep 18 2017 22:46: Also dont forget to update and uncomment both lines, multilib and Include 
 # }}}
 
+# Linux kernel{{{
+# NOTE: Otherwise you wont be able to boot
+# Update /boot/loader/entries/arch.conf
+sudo nvim /boot/loader/entries/arch.conf
+# Below for lts
+# linux /vmlinuz-linux-lts
+# initrd /initramfs-linux-lts.img
+# Just remove the -lts for regular linux
+# NOTE: while you are there add mitigations=off
+# Installing LTS
+paru -Syu --needed --noconfirm linux-lts{,-headers} nvidia-lts
+paru -Syu --needed --noconfirm linux-lts{,-headers}
+# If you need to remove linux
+pacu linux{,-headers} nvidia
+#}}}
+
 # Setup Terminal {{{
 # Install a decent neovim
 $HOME/.config/dotfiles/scripts/nix/installs/arch/coding/coding.sh -z
@@ -187,25 +203,7 @@ paru -Syu ntp
 sudo timedatectl set-ntp true
 #}}}
 
-# Linux kernel{{{
-# Tue Dec 29 2020 09:44
-# Just stay with LTS please. When nvidia is involved is just painful
-# Installing LTS
-paru -Syu --needed --noconfirm linux-lts{,-headers} nvidia-lts
-paru -Syu --needed --noconfirm linux-lts{,-headers}
-# If you need to remove linux
-pacu linux{,-headers} nvidia
-# **NOTE: Otherwise you wont be able to boot**
-# Update /boot/loader/entries/arch.conf
-sudo nvim /boot/loader/entries/arch.conf
-# Below for lts
-# linux /vmlinuz-linux-lts
-# initrd /initramfs-linux-lts.img
-# Just remove the -lts for regular linux
-#}}}
-
 # Video card{{{
-
 # xorg{{{
 # Multi Monitor setup, or for HiDPI displays it's best to auto calculate 
 # resolution
