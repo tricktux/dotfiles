@@ -345,7 +345,7 @@ end
 function M.fs.path.fuzzer_yank(path)
   local p = fuzzer_sanitize(path)
 
-  require('plugins.telescope').file_fuzzer_yank(p)
+  require('plugin.telescope').file_fuzzer_yank(p)
 end
 
 --- Use this function to select file to  open
@@ -354,7 +354,7 @@ function M.fs.path.fuzzer(path)
 
   local tsok, _ = pcall(require, 'telescope')
   if tsok then
-    require('plugins.telescope').file_fuzzer(p)
+    require('plugin.telescope').file_fuzzer(p)
     return
   end
 
