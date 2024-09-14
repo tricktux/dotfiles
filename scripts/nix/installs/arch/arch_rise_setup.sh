@@ -393,7 +393,7 @@ paru -Syu --needed --noconfirm scrot flameshot tdrop ncpamixer qalculate-qt
 paru -Syu --needed --noconfirm playerctl xfce4-settings python-pywal
 paru -Syu --needed --noconfirm paper-icon-theme
 paru -Syu --needed --noconfirm lxappearance pcmanfm
-paru -Syu --needed --noconfirm bibata-extra-cursor-theme
+paru -Syu --needed --noconfirm bibata-extra-cursor-theme xfce4-settings
 # Replacement for htop. Execute: btm
 paru -Syu --needed --noconfirm htop-vim
 # Compton changed name to picom
@@ -562,33 +562,6 @@ quickemu --vm nixos-23.11-minimal.conf --display none
 
 paru -Syu --needed --noconfirm xorg-xinput xf86-input-libinput brillo
 # Also see `synclient.md`
-
-# Make it pretty
-# Dark mode, night
-# NOTE: After installing xfce4-settings open the keyboard application and delete 
-# all the xfce shortcuts, they interfere with i3, then reboot
-paru -Syu --needed --noconfirm numix-gtk-theme paper-icon-theme
-paru -Syu --needed --noconfirm capitaine-cursors lxappearance adapta-gtk-theme paper-gtk-theme-git
-paru -Syu --needed --noconfirm xfce4-settings qt5-styleplugins bibata-extra-cursor-theme
-# Also modify all these files:
-nvim ~/.gtkrc-2.0
-# gtk-cursor-theme-name="Bibata-Modern-DarkRed"
-mkdir ~/.icons/default
-nvim ~/.icons/default/index.theme
-# [icon theme] 
-# Inherits=Bibata-Modern-DarkRed
-nvim ~/.config/gtk-3.0/settings.ini
-# gtk-cursor-theme-name="Bibata-Modern-DarkRed"
-
-paru -Syu --needed --noconfirm papirus-icon-theme
-# TODO: then just go to `Customize Look and Feel` 
-# Select the `Icons Theme` tab and select `Paper`
-# This will set the right icons in `rofi`
-
-# Task Manager
-
-paru -Syu --needed --noconfirm glances
-# ~~`install lxtask stacer-bin glances`~~
 
 # Audio/Music{{{
 
