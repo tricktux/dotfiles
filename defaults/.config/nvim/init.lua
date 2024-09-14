@@ -45,9 +45,7 @@ local function _config_win()
   vim.g.dotfiles = fs.joinpath(os.getenv('LOCALAPPDATA'), 'dotfiles')
   -- Find python
   local py = fs.joinpath(vim.fn.stdpath('data'), [[pyvenv\Scripts]])
-  if vim.loop.fs_stat(py) == nil then
-    vim.api.nvim_err_writeln('ERROR: Failed to find python venv: ' .. py)
-  else
+  if vim.loop.fs_stat(py) ~= nil then
     vim.g.python3_host_prog = fs.joinpath(py, [[python.exe]])
   end
 end
