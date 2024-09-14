@@ -33,6 +33,13 @@ su reinaldo
 
 ## 3. Network{{{
 # Use nmtui or iwctl
+# Network Manager{{{
+paru -Syu --needed --noconfirm networkmanager network-manager-applet networkmanager-openvpn networkmanager-dmenu-git 
+pacu networkmanager network-manager-applet networkmanager-openvpn networkmanager-dmenu-git 
+sudo systemctl enable --now NetworkManager.service
+sudo systemctl status NetworkManager.service
+# }}}
+
 #}}}
 
 # Copy your `mirrorlist`: {{{
@@ -349,13 +356,6 @@ sudo mount -t cifs //192.168.1.139/home ~/.mnt/skywafer/home -o credentials=/etc
 mkdir -p ~/Documents
 # ln -s ~/.mnt/skywafer/home/Drive/wiki ~/Documents
 paru -Syu --needed --noconfirm synology-drive
-#}}}
-
-# Network Manager{{{
-paru -Syu --needed --noconfirm networkmanager network-manager-applet networkmanager-openvpn networkmanager-dmenu-git 
-pacu networkmanager network-manager-applet networkmanager-openvpn networkmanager-dmenu-git 
-sudo systemctl enable --now NetworkManager.service
-sudo systemctl status NetworkManager.service
 #}}}
 
 #############################################################################
