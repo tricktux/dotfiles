@@ -365,13 +365,6 @@ mkdir -p ~/Documents
 paru -Syu --needed --noconfirm synology-drive
 #}}}
 
-#############################################################################
-########## At this point is a good idea to login and continue with ssh ######
-#############################################################################
-# Otherwise, you'll have to enter root password infinitely,
-# also systemctl stuff wont work
-# If you don't get a login prompt use Ctrl-Alt-FX to get one
-
 # `ssh` {{{
 paru -Syu --needed --noconfirm openssh mosh
 # - Actually use `mosh` is much faster
