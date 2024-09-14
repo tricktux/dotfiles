@@ -44,7 +44,6 @@ cd
 cp /etc/pacman.d/mirrorlist /tmp/mirrorlist
 scp reinaldo@192.168.1.148:/tmp/mirrorlist .
 sudo mv mirrorlist /etc/pacman.d/mirrorlist
-
 # }}}
 
 # install `paru`{{{
@@ -88,9 +87,6 @@ ls -als ~/
 ls -als ~/.config
 # Get your aliases
 source ~/.bash_aliases 
-# Pass nvim config to root user as well to make `sudo nvim` usable
-sudo mkdir -p /root/.config
-sudo ln -s /home/reinaldo/.config/nvim /root/.config
 #}}}
 
 # nix {{{
