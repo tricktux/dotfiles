@@ -661,14 +661,6 @@ sudo chmod 700 /etc/wireguard/home.conf
 sudo chmod 600 /etc/wireguard/home.conf
 # }}}
 
-## Mon Mar 04 2019 22:03 
-
-# I have decided to give `thunderbird` a try.
-# Out of frustration for delayed received notifications in `neomutt`
-# And wonky `ui`
-
-paru -Syu --needed --noconfirm thunderbird birdtray
-
 # windows mount
 
 paru -Syu --needed --noconfirm ntfs-3g
