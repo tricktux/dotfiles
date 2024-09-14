@@ -23,7 +23,7 @@ function! options#Set() abort
   set titlelen=90 " Percent of columns
   set updatetime=100
   set display=uhex
-  set sessionoptions=buffers,tabpages,curdir,skiprtp
+  set sessionoptions=buffers,tabpages,curdir,skiprtp,globals
   set foldlevel=99 "" Do not fold code at startup
   set foldmethod=syntax
   set mouse=a

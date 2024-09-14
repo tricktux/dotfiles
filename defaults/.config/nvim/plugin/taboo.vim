@@ -352,6 +352,9 @@ command! -nargs=1 TabooRename call s:RenameTab(<q-args>)
 command! -nargs=1 TabooOpen call s:OpenNewTab(<q-args>)
 command! -nargs=0 TabooReset call s:ResetTabName()
 
+nnoremap <leader>tr :TabooRename 
+nnoremap <leader>tr :TabooOpen 
+
 " Autocommands
 " =============================================================================
 
