@@ -330,13 +330,6 @@ sudo mount -v -t nfs 192.168.1.139:/volume1/backup /home/reinaldo/.mnt/skynfs \
   sudo chmod 700 /etc/samba/credentials/share
   sudo chmod 600 /etc/samba/credentials/share
 
-# This is now for the caching of `pacman` packages on the network
-sudo nvim /etc/rsync
-# All the content in this file should just be the password: nas/synology/skywafer/rsync
-sudo chown root:root /etc/rsync
-sudo chmod 700 /etc/rsync
-sudo chmod 600 /etc/rsync
-
 paru -Syu --needed --noconfirm cifs-utils
 sudo mount -t cifs //192.168.1.139/home ~/.mnt/skywafer/home -o credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev
 mkdir -p ~/Documents
@@ -357,20 +350,6 @@ sudo systemctl status NetworkManager.service
 # Otherwise, you'll have to enter root password infinitely,
 # also systemctl stuff wont work
 # If you don't get a login prompt use Ctrl-Alt-FX to get one
-
-# LVM Snapshots {{{
-# https://gitlab.com/Marcool04/make-lvm-snapshot#default-target
-# https://wiki.archlinux.org/title/Create_root_filesystem_snapshots_with_LVM
-# https://wiki.archlinux.org/title/LVM#Snapshots
-paru -Syu make-lvm-snapshot
-# If this is a desktop change the target to graphical.target
-# Check what it is with: systemctl get-default
-sudo nvim /etc/systemd/system/make-lvm-snapshot.target
-# Add the target at the end of the ExecStart command, as the 3rd argument
-sudo nvim /etc/systemd/system/make-lvm-snapshot.service
-sudo systemctl set-default make-lvm-snapshot.target
-sudo reboot
-# }}}
 
 # Install old packages: {{{
 # NOTE: ONLY do this on computers already setup, DONOT copy packages from another PC
