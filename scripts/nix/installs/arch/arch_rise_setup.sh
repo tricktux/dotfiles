@@ -151,6 +151,14 @@ sudo pacman -Sy
 # install 32-bit programs
 # Mon Sep 18 2017 22:46: Also dont forget to update and uncomment both lines, multilib and Include 
 # }}}
+
+# Setup Terminal {{{
+# Install a decent neovim
+$HOME/.config/dotfiles/scripts/nix/installs/arch/coding/coding.sh -z
+$HOME/.config/dotfiles/scripts/nix/installs/arch/coding/neovim.sh
+$HOME/.config/dotfiles/scripts/nix/installs/arch/coding/coding.sh -e
+# }}}
+
 # Protects from running out of memory{{{
 paru -Syu --needed --noconfirm earlyoom
 sudo systemctl enable --now earlyoom
