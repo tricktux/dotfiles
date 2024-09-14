@@ -372,31 +372,6 @@ paru -Syu --needed --noconfirm openssh mosh
 paru -Syu --needed --noconfirm lxqt-policykit
 # }}}
 
-# zsh{{{
-paru -Syu --needed --noconfirm zsh
-# Legacy
-# Install plugins
-paru -Syu --needed --noconfirm pkgfile z-git \
-  zsh-theme-powerlevel10k zsh-autosuggestions \
-  zsh-history-substring-search zsh-syntax-highlighting \
-  zsh-completions zsh-vi-mode
-  chsh -s /usr/bin/zsh
-  export ZDOTDIR=$HOME/.config/zsh
-  zsh
-
-# Deprecated step
-# pkgfile needs to be updated
-sudo systemctl enable pkgfile-update.timer
-# By default it runs daily
-# Update /usr/lib/systemd/system/pkgfile-update.timer to run weekly
-# Also update it to wait for network by adding to [Unit]
-# Wants=network-online.target
-# After=network-online.target nss-lookup.target
-sudo nvim /usr/lib/systemd/system/pkgfile-update.timer
-sudo systemctl start pkgfile-update.service
-# symlink all the `zsh*` files
-#}}}
-
 # pipewire {{{
 paru -Syu --needed --noconfirm pipewire
 paru -Syu --needed --noconfirm pamixer alsa-lib libao libcdio libcddb libvorbis \
