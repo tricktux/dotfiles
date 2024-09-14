@@ -504,6 +504,17 @@ systemctl --user enable --now psd
 paru -Syu --needed --noconfirm qutebrowser pdfjs
 #}}}
 
+# evolution {{{
+paru -Syu --needed --noconfirm evolution gnome-keyring libsecret
+# NOTE: you want to setup a "Collection Account", not just a regular email
+# account. This way it pulls calendar and tasks
+# ACTION: setup empty password so that `lightdm` can unlock the `keyring` at login
+# Run through the normal setup and when the "Default Keyring" setup comes, just 
+# leave empty
+evolution
+#}}}
+# }}}
+
 # password-store {{{
 paru -Syu --needed --noconfirm --needed pass rofi-pass
 ## Passwords
@@ -599,17 +610,6 @@ paru -Syu --needed --noconfirm neomutt abook urlscan lynx \
 mkdir -p ~/.local/share/mail/{molinamail,molinamail_meli,molinamail_mcp}/inbox
 /usr/bin/mbsync -D -ac ~/.config/isync/mbsyncrc
 #}}}
-
-# evolution {{{
-paru -Syu --needed --noconfirm evolution gnome-keyring libsecret
-# NOTE: you want to setup a "Collection Account", not just a regular email
-# account. This way it pulls calendar and tasks
-# ACTION: setup empty password so that `lightdm` can unlock the `keyring` at login
-# Run through the normal setup and when the "Default Keyring" setup comes, just 
-# leave empty
-evolution
-#}}}
-# }}}
 
 # calendar/contacts {{{
 paru -Syu --needed vdirsyncer
