@@ -373,40 +373,6 @@ paru -Syu --needed --noconfirm openssh mosh
 paru -Syu --needed --noconfirm lxqt-policykit
 # }}}
 
-# resilio
-# See `random.md resilio` section
-
-# password-store{{{
-paru -Syu --needed --noconfirm --needed pass rofi-pass
-## Passwords
-# pass-import most likely you'll have to download from git page
-gpg --recv-keys 06A26D531D56C42D66805049C5469996F0DF68EC
-paru -Syu --needed --noconfirm python-pykeepass
-paru -Syu --needed --noconfirm pass keepassxc pass-import pass-update
-## Root passwd
-# - ~~`install openssh-askpass`~~
-# - Tue Mar 26 2019 08:53
-paru -Syu --needed --noconfirm lxqt-openssh-askpass
-# import key
-# From a pc containing the keys:
-# `gpg --armor --output mykey.asc --export-secret-key you@example.com`
-# `gpg --armor --output mykey.asc --export-secret-key "Password Store Key"`
-# `scp mykey.asc othermachine:`
-# `scp mykey.asc othermachine:`
-# From client machine:
-# `gpg --import mykey.asc`
-# `gpg --edit-key <Key ID> trust quit`
-# `gpg --edit-key "Password Store Key" trust quit`
-# choose the ultimate trust option
-# save changes.
-# `gpg -K` should list your imported key as trusted ultimate.
-# create and copy ssh key
-# See `random.md key-generation` section
-# import repo
-# See `git.md`
-#}}}
-# numlock on at boot
-
 # Tue Mar 26 2019 21:49
 # The rest is taken care of at `.xinitrc`
 paru -Syu --needed --noconfirm numlockx
@@ -457,6 +423,41 @@ mimeo photo.jpeg
 # fonts {{{
 sudo pacman -S "$(pacman -Ssq noto-fonts-\*)"
 # }}}
+
+# resilio
+# See `random.md resilio` section
+
+# password-store {{{
+paru -Syu --needed --noconfirm --needed pass rofi-pass
+## Passwords
+# pass-import most likely you'll have to download from git page
+gpg --recv-keys 06A26D531D56C42D66805049C5469996F0DF68EC
+paru -Syu --needed --noconfirm python-pykeepass
+paru -Syu --needed --noconfirm pass keepassxc pass-import pass-update
+## Root passwd
+# - ~~`install openssh-askpass`~~
+# - Tue Mar 26 2019 08:53
+paru -Syu --needed --noconfirm lxqt-openssh-askpass
+# import key
+# From a pc containing the keys:
+# `gpg --armor --output mykey.asc --export-secret-key you@example.com`
+# `gpg --armor --output mykey.asc --export-secret-key "Password Store Key"`
+# `scp mykey.asc othermachine:`
+# `scp mykey.asc othermachine:`
+# From client machine:
+# `gpg --import mykey.asc`
+# `gpg --edit-key <Key ID> trust quit`
+# `gpg --edit-key "Password Store Key" trust quit`
+# choose the ultimate trust option
+# save changes.
+# `gpg -K` should list your imported key as trusted ultimate.
+# create and copy ssh key
+# See `random.md key-generation` section
+# import repo
+# See `git.md`
+#}}}
+# numlock on at boot
+
 
 # pipewire {{{
 paru -Syu --needed --noconfirm pipewire
