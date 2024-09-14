@@ -96,6 +96,11 @@ paru -Syu ntp
 sudo timedatectl set-ntp true
 #}}}
 
+# SSD {{{
+paru -Syu --needed --noconfirm util-linux
+sudo systemctl enable --now fstrim.timer
+# }}}
+
 # NOTE: this is from the advanced section
 # But it's useful to do early on if advanced to leverage caching pacman packages
 # Setup NetBackup {{{
@@ -512,10 +517,6 @@ paru -Syu quickemu qemu-full
 quickget nixos 23.11 minimal
 quickemu --vm nixos-23.11-minimal.conf --display none
 # }}}
-
-# SSD
-paru -Syu --needed --noconfirm util-linux
-sudo systemctl enable --now fstrim.timer
 
 # Laptops
 
