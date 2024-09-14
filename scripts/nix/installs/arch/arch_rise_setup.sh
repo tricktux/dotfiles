@@ -418,27 +418,6 @@ mimeo photo.jpeg
 sudo pacman -S "$(pacman -Ssq noto-fonts-\*)"
 # }}}
 
-# resilio
-# See `random.md resilio` section
-
-# password-store {{{
-paru -Syu --needed --noconfirm --needed pass rofi-pass
-## Passwords
-# pass-import most likely you'll have to download from git page
-paru -Syu --needed --noconfirm python-pykeepass
-paru -Syu --needed --noconfirm pass keepassxc pass-import pass-update
-## Root passwd
-# - ~~`install openssh-askpass`~~
-# - Tue Mar 26 2019 08:53
-paru -Syu --needed --noconfirm lxqt-openssh-askpass
-#}}}
-
-# pipewire {{{
-paru -Syu --needed --noconfirm pipewire
-paru -Syu --needed --noconfirm pamixer alsa-lib libao libcdio libcddb libvorbis \
-    libmpcdec wavpack libmad libmodplug libmikmod
-    # }}}
-
 # Bluetooth/Audio {{{
 ## Pipewire
 # Do replace pipewire-media-sessions for wireplumber
@@ -468,6 +447,33 @@ paru -Syu easyeffects lsp-plugins
 #   - Open pavucontrol
 #   - The sink for audio should be Easyeffects Sink
 #}}}
+
+#############################################################################
+########## At this point you should have a basic system ######
+#############################################################################
+# From this point onward everything is considered advanced or fancy
+
+# resilio {{{
+# See `random.md resilio` section
+# }}}
+
+# password-store {{{
+paru -Syu --needed --noconfirm --needed pass rofi-pass
+## Passwords
+# pass-import most likely you'll have to download from git page
+paru -Syu --needed --noconfirm python-pykeepass
+paru -Syu --needed --noconfirm pass keepassxc pass-import pass-update
+## Root passwd
+# - ~~`install openssh-askpass`~~
+# - Tue Mar 26 2019 08:53
+paru -Syu --needed --noconfirm lxqt-openssh-askpass
+#}}}
+
+# pipewire {{{
+paru -Syu --needed --noconfirm pipewire
+paru -Syu --needed --noconfirm pamixer alsa-lib libao libcdio libcddb libvorbis \
+    libmpcdec wavpack libmad libmodplug libmikmod
+    # }}}
 
 # polybar{{{
 # NOTE: For new hostnames you will to tweak polybar/config and 
