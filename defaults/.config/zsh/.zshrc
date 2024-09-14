@@ -254,8 +254,7 @@ fi
 
 # tmux on ssh{{{
 # Run tmux automatically on ssh
-if [[ "$TMUX" == "" ]] &&
-        [[ "$SSH_CONNECTION" != "" ]]; then
+if [[ -x $(command -v tmux) && "$TMUX" == "" && "$SSH_CONNECTION" != "" ]]; then
     WHOAMI=$(whoami)
     if tmux has-session -t $WHOAMI 2>/dev/null; then
 			tmux -2 attach-session -t $WHOAMI
