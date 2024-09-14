@@ -372,49 +372,8 @@ paru -Syu --needed --noconfirm openssh mosh
 paru -Syu --needed --noconfirm lxqt-policykit
 # }}}
 
-# terminal utils{{{
-paru -Syu --needed --noconfirm acpi lm_sensors liquidprompt tldr
-paru -Syu --needed {ttf,otf}-fira-{code,mono} {ttf,otf}-font-awesome-5 {ttf,otf}-cascadia-code
-paru -Syu --needed --noconfirm ttf-inconsolata
-paru -Syu --needed --noconfirm xorg-xfontsel gtk2fontsel
-# Package doesn't exist anymore thumbnailer 
-paru -Syu --needed --noconfirm atool ranger-git zip unzip w3m ffmpeg highlight libcaca python-pillow
-# TODO: For ranger to have icons
-git clone https://github.com/cdump/ranger-devicons2 ~/.config/ranger/plugins/devicons2
-
-paru -Syu --needed --noconfirm atuin direnv
-# Either restore the local/share/atuin folder from the backups
-# or
-# Giving it the path to zhist file
-# HISTFILE=/path/to/history/file atuin import zsh
-
-# Not installing anymore: advcp 
-paru -Syu --needed --noconfirm mediainfo odt2txt poppler w3m bat exa fzf fd \
-  ripgrep tmux imagemagick ghostscript xclip
-
-# Utility to lint aur packages, makepkg, PKGBUILD
-paru -Syu --needed --noconfirm namcap
-
-# Utility to easily handle systemctl
-paru -Syu --needed --noconfirm chkservice
-
-# Main languages
-paru -Syu --needed --noconfirm go
-
-# kitty
-paru -Syu --needed --noconfirm kitty termite
-cp "$HOME"/.config/kitty/{predator,"$(hostname)"}.conf
-nvim "$HOME/.config/kitty/$(hostname).conf"
-# Depends on rust
-# Causes all kinds of problems
-# paru -Syu page-git
-#}}}
-# Essentials
-
 # resilio
 # See `random.md resilio` section
-# samba
-# See `random.md samba-manual` section
 
 # openvpn {{{
 paru -Syu --needed --noconfirm openvpn
