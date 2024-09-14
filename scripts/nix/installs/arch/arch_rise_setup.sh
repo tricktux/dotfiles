@@ -210,6 +210,8 @@ sudo pacman-key --refresh-keys
 sudo pacman -Syu archlinux-keyring && sudo pacman -Syu
 sudo pacman -S --needed - < ~/.config/dotfiles/pkg/aero/pacman-list.pkg
 paru -S --needed - < ~/.config/dotfiles/pkg/aero/aur-list.pkg
+# NOTE: You still need to go through the rest of these steps to enable systemctl
+# stuff
 # }}}
 
 # Setup Terminal {{{
@@ -254,7 +256,8 @@ nvim $HOME/.config/dotfiles/scripts/nix/xorg-monitor-settings
 # Set DPI in .Xresources
 # Set resolution in 52-monitors.conf
 cp $HOME/.config/dotfiles/scripts/nix/xorg-monitor-settings/.Xresources $HOME
-sudo cp $HOME/.config/dotfiles/scripts/nix/xorg-monitor-settings/52-monitors.conf /etc/X11/xorg.conf.d
+sudo cp $HOME/.config/dotfiles/scripts/nix/xorg-monitor-settings/52-monitors.conf \
+    /etc/X11/xorg.conf.d
 #}}}
 
 # Follow instructions and configure xorg
@@ -336,17 +339,6 @@ chmod 644 -f ~/.ssh/*.pub ~/.ssh/authorized_keys ~/.ssh/known_hosts
 sudo chown -R reinaldo: ~/.local/share/password-store
 chmod 700 -R ~/.local/share/password-store
 chmod 700 -R ~/.gnupg
-
-sudo mkdir -p /etc/samba/credentials
-sudo nvim /etc/samba/credentials/share
-# - format:
-# - `username=X`
-# - `password=Y`
-# - Obscure the file:
-sudo chown root:root /etc/samba/credentials/share
-sudo chmod 700 /etc/samba/credentials/share
-sudo chmod 600 /etc/samba/credentials/share
-
 sudo mount -t cifs //192.168.1.139/home ~/.mnt/skywafer/home -o credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev
 mkdir -p ~/Documents
 # ln -s ~/.mnt/skywafer/home/Drive/wiki ~/Documents
