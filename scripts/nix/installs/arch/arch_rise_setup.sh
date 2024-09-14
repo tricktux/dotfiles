@@ -195,6 +195,23 @@ sudo systemctl enable --now laptop-mode
 sudo systemctl status laptop-mode
 #}}}
 
+# Install old packages???: {{{
+# NOTE: ONLY do this on computers already setup, DONOT copy packages from another PC
+# NOTE: Go to `sudo vim /etc/pacman.conf` and uncomment `multilib`
+# Also add the ParallelDownloads = 5 option
+# Also uncomment Color option
+# Also add ILoveCandy option
+# Also add:
+# CacheDir    = /home/reinaldo/.mnt/skywafer/NetBackup/pacman_cache/x86_64
+# CacheDir    = /var/cache/pacman/pkg/
+sudo nvim /etc/pacman.conf
+# NOTE: This will take a long time
+sudo pacman-key --refresh-keys
+sudo pacman -Syu archlinux-keyring && sudo pacman -Syu
+sudo pacman -S --needed - < ~/.config/dotfiles/pkg/aero/pacman-list.pkg
+paru -S --needed - < ~/.config/dotfiles/pkg/aero/aur-list.pkg
+# }}}
+
 # Setup Terminal {{{
 # Install a decent neovim
 $HOME/.config/dotfiles/scripts/nix/installs/arch/coding/coding.sh -z
@@ -349,23 +366,6 @@ sudo systemctl status NetworkManager.service
 # Otherwise, you'll have to enter root password infinitely,
 # also systemctl stuff wont work
 # If you don't get a login prompt use Ctrl-Alt-FX to get one
-
-# Install old packages: {{{
-# NOTE: ONLY do this on computers already setup, DONOT copy packages from another PC
-# NOTE: Go to `sudo vim /etc/pacman.conf` and uncomment `multilib`
-# Also add the ParallelDownloads = 5 option
-# Also uncomment Color option
-# Also add ILoveCandy option
-# Also add:
-# CacheDir    = /home/reinaldo/.mnt/skywafer/NetBackup/pacman_cache/x86_64
-# CacheDir    = /var/cache/pacman/pkg/
-sudo nvim /etc/pacman.conf
-# NOTE: This will take a long time
-sudo pacman-key --refresh-keys
-sudo pacman -Syu archlinux-keyring && sudo pacman -Syu
-sudo pacman -S --needed - < ~/.config/dotfiles/pkg/aero/pacman-list.pkg
-paru -S --needed - < ~/.config/dotfiles/pkg/aero/aur-list.pkg
-# }}}
 
 # TODO
 # optional dependency
