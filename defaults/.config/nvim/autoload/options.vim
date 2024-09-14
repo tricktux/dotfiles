@@ -208,6 +208,17 @@ function! options#Set() abort
     set tagcase=smart
   endif
 
+  " Netrw options
+  " Tree style
+  let g:netrw_liststyle = 3
+  augroup NetrwCustoms
+    autocmd!
+    autocmd FileType netrw
+          \ set nonumber |
+          \ set relativenumber |
+          \ nnoremap <buffer> q :bp<cr>
+  augroup END
+
   " Diff options
   let &diffopt='vertical'
   try
