@@ -273,19 +273,53 @@ function M:setup()
   log.info('[telescope]: called set_mappings')
 end
 
+local set_telescope_colors = function()
+  local catp_ok, catp = pcall(require, 'catppuccin.palettes')
+  if not catp_ok then
+    vim.notify("telescope: catp colors not available", vim.log.levels.ERROR)
+    return
+  end
+  local colors = catp.get_palette()
+  local TelescopeColor = {
+    TelescopeMatching = { fg = colors.flamingo },
+    TelescopeSelection = { fg = colors.text, bg = colors.surface0, bold = true },
+
+    TelescopePromptPrefix = { bg = colors.surface0 },
+    TelescopePromptNormal = { bg = colors.surface0 },
+    TelescopeResultsNormal = { bg = colors.mantle },
+    TelescopePreviewNormal = { bg = colors.mantle },
+    TelescopePromptBorder = { bg = colors.surface0, fg = colors.surface0 },
+    TelescopeResultsBorder = { bg = colors.mantle, fg = colors.mantle },
+    TelescopePreviewBorder = { bg = colors.mantle, fg = colors.mantle },
+    TelescopePromptTitle = { bg = colors.red, fg = colors.mantle },
+    TelescopeResultsTitle = { fg = colors.mantle },
+    TelescopePreviewTitle = { bg = colors.green, fg = colors.mantle },
+  }
+
+  for hl, col in pairs(TelescopeColor) do
+    vim.api.nvim_set_hl(0, hl, col)
+  end
+end
+
 return {
   {
     'nvim-lua/telescope.nvim',
     event = 'VeryLazy',
     config = function()
       M:setup()
+      vim.api.nvim_create_autocmd('ColorScheme', {
+        pattern = "*",
+        callback = set_telescope_colors,
+        desc = 'Set telescope colors for catppuccin',
+      })
+      set_telescope_colors()
     end,
     dependencies = {
       { 'nvim-lua/plenary.nvim' },
     },
   },
   -- Hooks for other plugins, will trigger warnings in Lazy.nvim
-  set_lsp_mappings = M.set_lsp_mappings,
-  file_fuzzer = M.file_fuzzer,
-  file_fuzzer_yank = M.file_fuzzer_yank,
+  -- set_lsp_mappings = M.set_lsp_mappings,
+  -- file_fuzzer = M.file_fuzzer,
+  -- file_fuzzer_yank = M.file_fuzzer_yank,
 }
