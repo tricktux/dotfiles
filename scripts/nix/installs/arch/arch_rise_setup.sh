@@ -320,6 +320,13 @@ sudo tee /proc/acpi/bbswitch <<< {ON,OFF}
 paru -Syu --needed --noconfirm fwupd
 # }}}
 
+# journalctl {{{
+# Tue Mar 26 2019 08:58
+# Auto clean up
+sudo nvim /etc/systemd/journald.conf
+# Add or uncomment `SystemMaxUse=2G`
+# }}}
+
 # AMD
 paru -Syu --needed --noconfirm lib32-mesa mesa
 paru -Syu --needed --noconfirm xf86-video-amdgpu
@@ -672,13 +679,6 @@ paru -Syu --needed --noconfirm ntfs-3g
 # android
 
 paru -Syu --needed --noconfirm android-tools android-udev
-
-# journal
-
-# Tue Mar 26 2019 08:58
-# Auto clean up
-sudo nvim /etc/systemd/journald.conf
-# Add or uncomment `SystemMaxUse=2G`
 
 # Browser{{{
 
