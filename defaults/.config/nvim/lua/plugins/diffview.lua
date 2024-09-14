@@ -1,5 +1,13 @@
 return {
   'sindrets/diffview.nvim',
+  keys = {
+    {
+      '<leader>vc',
+      "<cmd>DiffviewFileHistory %<cr>",
+      mode = { 'n' },
+      desc = 'diffview_file_history',
+    },
+  },
   cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
   config = function()
     local opts = {
