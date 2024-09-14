@@ -5,6 +5,18 @@ if vim.g.advanced_plugins == 0 then
   return {}
 end
 
+local function get_sources_for_filetype(ft)
+  local srcs = require('null-ls').get_sources()
+  local ret = {}
+  for _, v in pairs(srcs) do
+    if v.filetypes[ft] == true then
+      table.insert(ret, v.name)
+    end
+  end
+
+  return ret
+end
+
 local maps = {}
 maps.mode = 'n'
 maps.prefix = '<leader>tn'
