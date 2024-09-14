@@ -387,7 +387,7 @@ paru -Syu --needed --noconfirm feh redshift qrencode xclip dunst libnotify
 paru -Syu --needed --noconfirm scrot flameshot tdrop ncpamixer qalculate-qt
 paru -Syu --needed --noconfirm playerctl xfce4-settings python-pywal
 paru -Syu --needed --noconfirm paper-icon-theme
-paru -Syu --needed --noconfirm lxappearance
+paru -Syu --needed --noconfirm lxappearance pcmanfm
 paru -Syu --needed --noconfirm bibata-extra-cursor-theme
 # Replacement for htop. Execute: btm
 paru -Syu --needed --noconfirm htop-vim
