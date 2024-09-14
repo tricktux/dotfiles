@@ -108,9 +108,9 @@ paru -Syu --needed --noconfirm util-linux
 sudo systemctl enable --now fstrim.timer
 # }}}
 
+# Setup NetBackup {{{
 # NOTE: this is from the advanced section
 # But it's useful to do early on if advanced to leverage caching pacman packages
-# Setup NetBackup {{{
 # This is to get the server's cache to install stuff faster
 mkdir -p $HOME/.mnt/skywafer/{home,music,shared,video,NetBackup}
 sudo bash -c 'printf "\n//192.168.1.139/NetBackup /home/reinaldo/.mnt/skywafer/NetBackup cifs credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=1000,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev,vers=3.0 0 0" >> /etc/fstab'
@@ -365,7 +365,7 @@ paru -Syu --needed --noconfirm synology-drive
 # also systemctl stuff wont work
 # If you don't get a login prompt use Ctrl-Alt-FX to get one
 
-# `ssh`
+# `ssh` {{{
 paru -Syu --needed --noconfirm openssh mosh
 # - Actually use `mosh` is much faster
 # - If you want this setup to be `ssh` accessible:
@@ -373,6 +373,7 @@ paru -Syu --needed --noconfirm openssh mosh
 # - `systemctl enable sshd`
 # - Add to `.ssh/config`
 # - `AddKeysToAgent yes`
+# }}}
 
 # install polkit {{{
 paru -Syu --needed --noconfirm lxqt-policykit
@@ -382,10 +383,10 @@ paru -Syu --needed --noconfirm lxqt-policykit
 # The rest is taken care of at `.xinitrc`
 paru -Syu --needed --noconfirm numlockx
 
+# i3-wm{{{
 # Desktop
 # screenshots, i3
 # After this steps you should have a working `i3` setup.
-# i3-wm{{{
 paru -Syu --needed --noconfirm i3-wm i3lock-fancy-git rofi rofi-dmenu alttab-git xdotool jq
 paru -Syu --needed --noconfirm archlinux-wallpaper
 paru -Syu --needed --noconfirm feh redshift qrencode xclip dunst libnotify
@@ -471,7 +472,7 @@ paru -Syu easyeffects lsp-plugins
 # See `random.md resilio` section
 # }}}
 
-## firefox
+## firefox {{{
 paru -Syu --needed --noconfirm firefox speech-dispatcher festival festival-us
 paru -Syu --needed --noconfirm hunspell-en_us
 # paru -Syu --needed --noconfirm firefox-extension-privacybadger`
@@ -512,7 +513,6 @@ paru -Syu --needed --noconfirm evolution gnome-keyring libsecret
 # Run through the normal setup and when the "Default Keyring" setup comes, just 
 # leave empty
 evolution
-#}}}
 # }}}
 
 # password-store {{{
