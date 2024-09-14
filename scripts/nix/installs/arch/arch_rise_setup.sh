@@ -359,29 +359,6 @@ sudo systemctl status NetworkManager.service
 # also systemctl stuff wont work
 # If you don't get a login prompt use Ctrl-Alt-FX to get one
 
-# TODO
-# optional dependency
-# wallutils: support the simple timed wallpaper format
-
-# `arch-audit`
-paru -Syu --needed --noconfirm arch-audit
-# - Enable the `pacman` hook to auto check for vulnerabilities
-# - Not needed anymore:
-# - `sudo cp /usr/share/arch-audit/arch-audit.hook /etc/pacman.d/hooks`
-
-# pacman helpers{{{
-# Thu Apr 08 2021 14:43: NOTE: Don't do this anymore
-paru -Syu --needed --noconfirm informant 
-paru -Syu --needed --noconfirm ancient-packages
-informant 
-# NOTE: Add yourself to group "informant" to avoid the need for sudo
-sudo gpasswd -a reinaldo informant
-# List recent news
-sudo informant list
-# Mark them as read
-sudo informant read --all
-#}}}
-
 # `ssh`
 paru -Syu --needed --noconfirm openssh mosh
 # - Actually use `mosh` is much faster
