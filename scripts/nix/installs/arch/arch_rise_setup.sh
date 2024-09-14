@@ -494,13 +494,6 @@ paru -Syu easyeffects lsp-plugins
 #   - The sink for audio should be Easyeffects Sink
 #}}}
 
-# rofi extra goodies
-paru -Syu --needed --noconfirm rofi-{emoji,bluetooth-git,file-browser-extended-git}
-paru -Syu --needed --noconfirm noto-fonts-emoji
-
-# synology nfs and backups
-# paru -Syu --needed
-
 # polybar{{{
 # NOTE: For new hostnames you will to tweak polybar/config and 
 # polybar/modules.ini
