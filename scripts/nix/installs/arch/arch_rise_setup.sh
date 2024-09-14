@@ -61,6 +61,8 @@ makepkg -si
 
 # install dotfiles{{{
 # Download dotfiles
+# ccache to speed up compilations
+sudo pacman -Syu --needed ccache mold
 cd
 mkdir -p ~/.{config,cache}
 mkdir -p ~/Documents
@@ -327,8 +329,6 @@ sudo chmod 600 /etc/wireguard/home.conf
 # xorg{{{
 # Multi Monitor setup, or for HiDPI displays it's best to auto calculate 
 # resolution
-# ccache to speed up compilations
-paru -Syu --needed ccache mold
 paru -Syu --needed xorg-xrandr arandr xlayoutdisplay
 paru -Syu --needed --noconfirm xorg xorg-apps xorg-xinit xorg-drivers xorg-server
 /usr/bin/xlayoutdisplay
