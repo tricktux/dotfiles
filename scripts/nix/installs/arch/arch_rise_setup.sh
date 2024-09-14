@@ -134,7 +134,7 @@ sudo reflector --country "United States" --latest 30 --number 5 \
 #}}}
 
 # Protects from running out of memory{{{
-paci --needed --noconfirm earlyoom
+paru -Syu --needed --noconfirm earlyoom
 sudo systemctl enable --now earlyoom
 sudo systemctl status earlyoom
 #}}}
@@ -162,16 +162,15 @@ sudo timedatectl set-ntp true
 #}}}
 
 # Beautiful arch wallpapers {{{
-paci --needed --noconfirm archlinux-wallpaper
-
+paru -Syu --needed --noconfirm archlinux-wallpaper
 # }}}
 
 # Linux kernel{{{
 # Tue Dec 29 2020 09:44
 # Just stay with LTS please. When nvidia is involved is just painful
 # Installing LTS
-paci --needed --noconfirm linux-lts{,-headers} nvidia-lts
-paci --needed --noconfirm linux-lts{,-headers}
+paru -Syu --needed --noconfirm linux-lts{,-headers} nvidia-lts
+paru -Syu --needed --noconfirm linux-lts{,-headers}
 # If you need to remove linux
 pacu linux{,-headers} nvidia
 # **NOTE: Otherwise you wont be able to boot**
@@ -206,10 +205,10 @@ sudo pacman -Sy
 # [Instructions](https://wiki.archlinux.org/index.php/NVIDIA)
 # ***LTS*** needed if you are running linux-lts
 # NVIDIA {{{
-paci --needed --noconfirm nvidia-lts
+paru -Syu --needed --noconfirm nvidia-lts
 # Otherwise use this one....**DO NOT USE BOTH**
-paci --needed --noconfirm nvidia
-paci --needed --noconfirm nvidia-libgl lib32-nvidia-libgl lib32-nvidia-utils \
+paru -Syu --needed --noconfirm nvidia
+paru -Syu --needed --noconfirm nvidia-libgl lib32-nvidia-libgl lib32-nvidia-utils \
   nvidia-utils nvidia-settings nvtop
 # ***Configure DRM*** It should allow for the kernel to control the card
 # Don't do this. I though it caused problems with picom. Now not sure. Better be 
@@ -228,9 +227,9 @@ sudo pacman -S --needed --noconfirm lib32-mesa mesa vulkan-intel \
   lib32-vulkan-intel vulkan-icd-loader lib32-vulkan-icd-loader xf86-video-intel
 # **Hybrid Card**
 # If you have one:
-paci --needed --noconfirm bumblebee mesa \
+paru -Syu --needed --noconfirm bumblebee mesa \
   lib32-{virtualgl,nvidia-utils,primus} primus
-paci --needed --noconfirm bbswitch
+paru -Syu --needed --noconfirm bbswitch
 # Add your user to the `bumblebee` group:
 gpasswd -a <user> bumblebee
 gpasswd -a reinaldo bumblebee
@@ -241,21 +240,21 @@ sudo tee /proc/acpi/bbswitch <<< {ON,OFF}
 #}}}
 
 # hardware {{{
-paci --needed --noconfirm fwupd
+paru -Syu --needed --noconfirm fwupd
 # }}}
 
 # AMD
-paci --needed --noconfirm lib32-mesa mesa
-paci --needed --noconfirm xf86-video-amdgpu
-paci --needed --noconfirm lib32-vulkan-radeon vulkan-radeon vulkan-mesa-layers
-paci --needed --noconfirm lib32-libva-mesa-driver libva-mesa-driver \
+paru -Syu --needed --noconfirm lib32-mesa mesa
+paru -Syu --needed --noconfirm xf86-video-amdgpu
+paru -Syu --needed --noconfirm lib32-vulkan-radeon vulkan-radeon vulkan-mesa-layers
+paru -Syu --needed --noconfirm lib32-libva-mesa-driver libva-mesa-driver \
   mesa-vdpau lib32-mesa-vdpau
-paci --needed --noconfirm radeontop
+paru -Syu --needed --noconfirm radeontop
 
 #}}}
 
 # nfs/samba {{{
-paci --needed --noconfirm nfs-utils texlive
+paru -Syu --needed --noconfirm nfs-utils texlive
 mkdir -p $HOME/.mnt/skynfs
 mkdir -p $HOME/.mnt/skywafer/{home,music,shared,video}
 sudo bash -c 'printf "\n//192.168.1.139/NetBackup /home/reinaldo/.mnt/skywafer/NetBackup cifs workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev 0 0" >> /etc/fstab'
@@ -294,16 +293,16 @@ sudo chown root:root /etc/rsync
 sudo chmod 700 /etc/rsync
 sudo chmod 600 /etc/rsync
 
-paci --needed --noconfirm cifs-utils
+paru -Syu --needed --noconfirm cifs-utils
 sudo mount -t cifs //192.168.1.139/home ~/.mnt/skywafer/home -o credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev
 mkdir -p ~/Documents
 # ln -s ~/.mnt/skywafer/home/Drive/wiki ~/Documents
-paci --needed --noconfirm synology-drive
+paru -Syu --needed --noconfirm synology-drive
 #}}}
 
 # VPN {{{
 
-paci --needed --noconfirm riseup-vpn
+paru -Syu --needed --noconfirm riseup-vpn
 
 # wireguard
 # Get conf file from router linux_pcs
@@ -340,7 +339,7 @@ nvim "$HOME/.config/i3/scripts/xrandr.sh"
 # `xorg autologin`
 
 # Network Manager{{{
-paci --needed --noconfirm networkmanager network-manager-applet networkmanager-openvpn networkmanager-dmenu-git 
+paru -Syu --needed --noconfirm networkmanager network-manager-applet networkmanager-openvpn networkmanager-dmenu-git 
 pacu networkmanager network-manager-applet networkmanager-openvpn networkmanager-dmenu-git 
 sudo systemctl enable --now NetworkManager.service
 sudo systemctl status NetworkManager.service
@@ -389,15 +388,15 @@ paru -S --needed - < ~/.config/dotfiles/pkg/aero/aur-list.pkg
 # wallutils: support the simple timed wallpaper format
 
 # `arch-audit`
-paci --needed --noconfirm arch-audit
+paru -Syu --needed --noconfirm arch-audit
 # - Enable the `pacman` hook to auto check for vulnerabilities
 # - Not needed anymore:
 # - `sudo cp /usr/share/arch-audit/arch-audit.hook /etc/pacman.d/hooks`
 
 # pacman helpers{{{
 # Thu Apr 08 2021 14:43: NOTE: Don't do this anymore
-paci --needed --noconfirm informant 
-paci --needed --noconfirm ancient-packages
+paru -Syu --needed --noconfirm informant 
+paru -Syu --needed --noconfirm ancient-packages
 informant 
 # NOTE: Add yourself to group "informant" to avoid the need for sudo
 sudo gpasswd -a reinaldo informant
@@ -408,7 +407,7 @@ sudo informant read --all
 #}}}
 
 # `ssh`
-paci --needed --noconfirm openssh mosh
+paru -Syu --needed --noconfirm openssh mosh
 # - Actually use `mosh` is much faster
 # - If you want this setup to be `ssh` accessible:
 # - `systemctl enable sshd.socket`
@@ -417,14 +416,14 @@ paci --needed --noconfirm openssh mosh
 # - `AddKeysToAgent yes`
 
 # install polkit {{{
-paci --needed --noconfirm lxqt-policykit
+paru -Syu --needed --noconfirm lxqt-policykit
 # }}}
 
 # zsh{{{
-paci --needed --noconfirm zsh
+paru -Syu --needed --noconfirm zsh
 # Legacy
 # Install plugins
-paci --needed --noconfirm pkgfile z-git \
+paru -Syu --needed --noconfirm pkgfile z-git \
   zsh-theme-powerlevel10k zsh-autosuggestions \
   zsh-history-substring-search zsh-syntax-highlighting \
   zsh-completions zsh-vi-mode
@@ -482,41 +481,41 @@ paru -Syu easyeffects lsp-plugins
 #}}}
 
 # terminal utils{{{
-paci --needed --noconfirm acpi lm_sensors liquidprompt tldr
-paci --needed {ttf,otf}-fira-{code,mono} {ttf,otf}-font-awesome-5 {ttf,otf}-cascadia-code
-paci --needed --noconfirm ttf-inconsolata
-paci --needed --noconfirm xorg-xfontsel gtk2fontsel
+paru -Syu --needed --noconfirm acpi lm_sensors liquidprompt tldr
+paru -Syu --needed {ttf,otf}-fira-{code,mono} {ttf,otf}-font-awesome-5 {ttf,otf}-cascadia-code
+paru -Syu --needed --noconfirm ttf-inconsolata
+paru -Syu --needed --noconfirm xorg-xfontsel gtk2fontsel
 # Package doesn't exist anymore thumbnailer 
-paci --needed --noconfirm atool ranger-git zip unzip w3m ffmpeg highlight libcaca python-pillow
+paru -Syu --needed --noconfirm atool ranger-git zip unzip w3m ffmpeg highlight libcaca python-pillow
 # TODO: For ranger to have icons
 git clone https://github.com/cdump/ranger-devicons2 ~/.config/ranger/plugins/devicons2
 
-paci --needed --noconfirm atuin direnv
+paru -Syu --needed --noconfirm atuin direnv
 # Either restore the local/share/atuin folder from the backups
 # or
 # Giving it the path to zhist file
 # HISTFILE=/path/to/history/file atuin import zsh
 
 # Not installing anymore: advcp 
-paci --needed --noconfirm mediainfo odt2txt poppler w3m bat exa fzf fd \
+paru -Syu --needed --noconfirm mediainfo odt2txt poppler w3m bat exa fzf fd \
   ripgrep tmux imagemagick ghostscript xclip
 
 # Utility to lint aur packages, makepkg, PKGBUILD
-paci --needed --noconfirm namcap
+paru -Syu --needed --noconfirm namcap
 
 # Utility to easily handle systemctl
-paci --needed --noconfirm chkservice
+paru -Syu --needed --noconfirm chkservice
 
 # Main languages
-paci --needed --noconfirm go
+paru -Syu --needed --noconfirm go
 
 # kitty
-paci --needed --noconfirm kitty termite
+paru -Syu --needed --noconfirm kitty termite
 cp "$HOME"/.config/kitty/{predator,"$(hostname)"}.conf
 nvim "$HOME/.config/kitty/$(hostname).conf"
 # Depends on rust
 # Causes all kinds of problems
-# paci page-git
+# paru -Syu page-git
 #}}}
 # Essentials
 
@@ -526,7 +525,7 @@ nvim "$HOME/.config/kitty/$(hostname).conf"
 # See `random.md samba-manual` section
 
 # openvpn {{{
-paci --needed --noconfirm openvpn
+paru -Syu --needed --noconfirm openvpn
 # Test it
 sudo openvpn ~/Documents/Drive/wiki/misc/home.ovpn
 sudo cp /home/reinaldo/Documents/Drive/wiki/misc/home.ovpn /etc/openvpn/client/home.conf
@@ -548,16 +547,16 @@ sudo systemctl status openvpn-client@home
 # }}}
 
 # password-store{{{
-paci --needed --noconfirm --needed pass rofi-pass
+paru -Syu --needed --noconfirm --needed pass rofi-pass
 ## Passwords
 # pass-import most likely you'll have to download from git page
 gpg --recv-keys 06A26D531D56C42D66805049C5469996F0DF68EC
-paci --needed --noconfirm python-pykeepass
-paci --needed --noconfirm pass keepassxc pass-import pass-update
+paru -Syu --needed --noconfirm python-pykeepass
+paru -Syu --needed --noconfirm pass keepassxc pass-import pass-update
 ## Root passwd
 # - ~~`install openssh-askpass`~~
 # - Tue Mar 26 2019 08:53
-paci --needed --noconfirm lxqt-openssh-askpass
+paru -Syu --needed --noconfirm lxqt-openssh-askpass
 # import key
 # From a pc containing the keys:
 # `gpg --armor --output mykey.asc --export-secret-key you@example.com`
@@ -580,7 +579,7 @@ paci --needed --noconfirm lxqt-openssh-askpass
 
 # Tue Mar 26 2019 21:49
 # The rest is taken care of at `.xinitrc`
-paci --needed --noconfirm numlockx
+paru -Syu --needed --noconfirm numlockx
 
 # Desktop
 
@@ -592,21 +591,21 @@ cp "$HOME"/.config/rofi/{predator,"$(hostname)"}.rasi
 nvim "$HOME/.config/rofi/$(hostname).rasi"
 # Action also update the xdotool script for the new hostname
 nvim "$HOME/.config/i3/scripts/xdotool_launch"
-paci --needed --noconfirm i3-wm i3lock-fancy-git rofi rofi-dmenu alttab-git xdotool 
-paci --needed --noconfirm feh redshift qrencode xclip dunst libnotify
-paci --needed --noconfirm scrot flameshot tdrop ncpamixer qalculate-qt
-paci --needed --noconfirm playerctl xfce4-settings python-pywal
+paru -Syu --needed --noconfirm i3-wm i3lock-fancy-git rofi rofi-dmenu alttab-git xdotool 
+paru -Syu --needed --noconfirm feh redshift qrencode xclip dunst libnotify
+paru -Syu --needed --noconfirm scrot flameshot tdrop ncpamixer qalculate-qt
+paru -Syu --needed --noconfirm playerctl xfce4-settings python-pywal
 paru -Syu --needed --noconfirm paper-icon-theme
 paru -Syu --needed --noconfirm lxappearance
 paru -Syu --needed --noconfirm bibata-extra-cursor-theme
 # Replacement for htop. Execute: btm
-paci --needed --noconfirm htop-vim
+paru -Syu --needed --noconfirm htop-vim
 # Compton changed name to picom
-paci --needed --noconfirm picom
-paci --needed --noconfirm xss-lock
+paru -Syu --needed --noconfirm picom
+paru -Syu --needed --noconfirm xss-lock
 # mimeo to handle default applications
 # keyword: xdg-open
-paci --needed --noconfirm mimeo xdg-utils-mimeo
+paru -Syu --needed --noconfirm mimeo xdg-utils-mimeo
 # determine a file's MIME type
 mimeo -m photo.jpeg
 photo.jpeg
@@ -629,24 +628,24 @@ sudo pacman -S "$(pacman -Ssq noto-fonts-\*)"
 # }}}
 
 # rofi extra goodies
-paci --needed --noconfirm rofi-{emoji,bluetooth-git,file-browser-extended-git}
-paci --needed --noconfirm noto-fonts-emoji
+paru -Syu --needed --noconfirm rofi-{emoji,bluetooth-git,file-browser-extended-git}
+paru -Syu --needed --noconfirm noto-fonts-emoji
 
 # synology nfs and backups
-# paci --needed
+# paru -Syu --needed
 
 # polybar{{{
 # NOTE: For new hostnames you will to tweak polybar/config and 
 # polybar/modules.ini
-paci --needed --noconfirm jsoncpp polybar alsa-utils paprefs
-paci --needed --noconfirm alsa-lib wireless_tools curl pacman-contrib
-paci --needed --noconfirm ttf-weather-icons jq
-paci --needed --noconfirm ttf-iosevka
-paci --needed --noconfirm python-pywal galendae-git
+paru -Syu --needed --noconfirm jsoncpp polybar alsa-utils paprefs
+paru -Syu --needed --noconfirm alsa-lib wireless_tools curl pacman-contrib
+paru -Syu --needed --noconfirm ttf-weather-icons jq
+paru -Syu --needed --noconfirm ttf-iosevka
+paru -Syu --needed --noconfirm python-pywal galendae-git
 wal --theme base16-google -l -q -o "$HOME/.config/polybar/launch.sh"
 # usb automount
 # There's a polybar module that will be used to mount/umount devices
-paci --needed --noconfirm gvfs-mtp gvfs-gphoto2 udisks2 pcmanfm
+paru -Syu --needed --noconfirm gvfs-mtp gvfs-gphoto2 udisks2 pcmanfm
 sudo install -Dm644 /home/reinaldo/.config/polybar/scripts/95-usb.rules /etc/udev/rules.d/95-usb.rules
 #}}}
 
@@ -657,7 +656,7 @@ sudo install -Dm644 /home/reinaldo/.config/polybar/scripts/95-usb.rules /etc/ude
 # **NOTE** If you have an intel 11th gen CPU add `ibt=off` to boot kernel params
 paru -Syu --needed vagrant virtualbox{,-host-modules-arch}
 # As opposed to any other kenerl, like lts, zen, etc... use the one below
-paci --needed virtualbox{,-host-dkms} virtualbox-guest-iso
+paru -Syu --needed virtualbox{,-host-dkms} virtualbox-guest-iso
 sudo modprobe vboxdrv
 sudo groupadd -r vboxdrv
 sudo gpasswd -a reinaldo vboxdrv
@@ -674,7 +673,7 @@ quickemu --vm nixos-23.11-minimal.conf --display none
 # }}}
 
 # dotnet {{{
-paci --needed --noconfirm dotnet-runtime dotnet-sdk
+paru -Syu --needed --noconfirm dotnet-runtime dotnet-sdk
 # Installing other versions, first try the aur, if not there do the below
 # Use the script: from https://dot.net/v1/dotnet-install.sh
 # Use the --dry-run flag if you are not sure
@@ -682,35 +681,35 @@ sudo ./dotnet-install.sh --version "4.5xx" --install-dir "/usr/share/dotnet" --a
 # }}}
 
 # Benchmarking {{{
-paci --needed --noconfirm hyperfine
+paru -Syu --needed --noconfirm hyperfine
 # }}}
 
 # Development environment {{{
-paci --needed --noconfirm neovim cscope ripgrep fd ctags global xclip tree-sitter-cli fswatch
-paci --needed --noconfirm lazygit
+paru -Syu --needed --noconfirm neovim cscope ripgrep fd ctags global xclip tree-sitter-cli fswatch
+paru -Syu --needed --noconfirm lazygit
 # Cheatsheets
-paci --needed --noconfirm cht.sh-git navi-bin
+paru -Syu --needed --noconfirm cht.sh-git navi-bin
 # Takes forever, rust compilation
-paci --needed --noconfirm ripgrep-all
+paru -Syu --needed --noconfirm ripgrep-all
 # for diffs
-paci --needed --noconfirm meld
+paru -Syu --needed --noconfirm meld
 # markdown preview
-paci --needed --noconfirm glow
+paru -Syu --needed --noconfirm glow
 # for documentation
 # zeal depends on qt5-webkit; pain in the butt to build, just use git
-paci --needed --noconfirm zeal-git
-paci --needed --noconfirm pandoc-bin
+paru -Syu --needed --noconfirm zeal-git
+paru -Syu --needed --noconfirm pandoc-bin
 # - run the `dotfiles/scripts/python_neovim_virtualenv.sh` script
 # to get `/usr/share/dict` completion
-paci --needed --noconfirm plantuml words
+paru -Syu --needed --noconfirm plantuml words
 
 ## vim
 # Sun Jan 17 2021 07:07: Depracated. Install in the pynvim venv
-# paci --needed --noconfirm vint
+# paru -Syu --needed --noconfirm vint
 
 
 # doomemacs {{{
-paci --needed --noconfirm emacs
+paru -Syu --needed --noconfirm emacs
 # Ensure ~/.emacs* does not exists
 # symlink <dotfiles>/doom to ~/.config/doom
 git clone https://github.com/hlissner/doom-emacs ~/.config/emacs
@@ -718,47 +717,47 @@ git clone https://github.com/hlissner/doom-emacs ~/.config/emacs
 # }}}
 
 ## cmake{{{
-paci --needed --noconfirm cmake{,-lint,-format,-language-server}
+paru -Syu --needed --noconfirm cmake{,-lint,-format,-language-server}
 # ~~`install cmake-language-server`~~
 #}}}
 
 ## rust{{{
-paci --needed --noconfirm rustup sccache rust-analyzer
+paru -Syu --needed --noconfirm rustup sccache rust-analyzer
 rustup toolchain install stable
 rustup component add rust-src rustfmt clippy
 #}}}
 
 ## cpp{{{
-paci --needed --noconfirm gtest google-glog rapidjson boost boost-libs websocketpp cmake ninja
-paci --needed --noconfirm cppcheck cpplint
-paci --needed --noconfirm lldb clang gdb gdb-dashboard-git
+paru -Syu --needed --noconfirm gtest google-glog rapidjson boost boost-libs websocketpp cmake ninja
+paru -Syu --needed --noconfirm cppcheck cpplint
+paru -Syu --needed --noconfirm lldb clang gdb gdb-dashboard-git
 # For coloring gcc and compilers output
-paci --needed --noconfirm colorgcc
+paru -Syu --needed --noconfirm colorgcc
 #}}}
 
 ## shell{{{
-paci --needed --noconfirm shellcheck-bin shfmt
+paru -Syu --needed --noconfirm shellcheck-bin shfmt
 #}}}
 
 ## lua{{{
 ## lua-language-server consumes ton of cpu power. Plus its chinese, don't trust 
 ## it
 ## Tue Jun 15 2021 11:21: Giving it another try
-paci --needed --noconfirm luajit stylua luacheck lua-language-server-git
+paru -Syu --needed --noconfirm luajit stylua luacheck lua-language-server-git
 #}}}
 
 ## java{{{
 # Installs java the latest and version 8, still widely used.
-paci --needed --noconfirm j{re,re8,dk,dk8}-openjdk
+paru -Syu --needed --noconfirm j{re,re8,dk,dk8}-openjdk
 # checkstyle out of date
-paci --needed --noconfirm jdtls astyle
+paru -Syu --needed --noconfirm jdtls astyle
 #}}}
 
 ## python{{{
-paci --needed --noconfirm python{,-pip}
+paru -Syu --needed --noconfirm python{,-pip}
 
 # Current python lsp is coded in npm now
-paci --needed --noconfirm pyright
+paru -Syu --needed --noconfirm pyright
 # Python modules are control via virtual env
 # Run the update-arch.sh script and will create/update such modules
 # install python-language-server flake8 python-pylint yapf --noconfirm
@@ -772,20 +771,20 @@ sudo systemctl enable --now fstrim.timer
 # Laptops
 
 ## Brightness
-paci --needed --noconfirm brillo
+paru -Syu --needed --noconfirm brillo
 # Add your user to the video group not to have to use sudo
 sudo gpasswd -a reinaldo video
 # see `man brillo`
 
 ## Touchpad 
 
-paci --needed --noconfirm xorg-xinput xf86-input-libinput brillo
+paru -Syu --needed --noconfirm xorg-xinput xf86-input-libinput brillo
 # Also see `synclient.md`
 
 ## power{{{
 # keyword: battery, powertop, power
-paci --needed --noconfirm powerstat cpupower
-paci --needed --noconfirm laptop-mode-tools
+paru -Syu --needed --noconfirm powerstat cpupower
+paru -Syu --needed --noconfirm laptop-mode-tools
 # Set cpu governor based on laptop charging or not. Please run `cpupower 
 # frequency-info` to display the governors your cpu supports
 # Read here about cpu governors. Choosing schedutil for battery and performance 
@@ -801,12 +800,12 @@ sudo powerstat -R -s
 sudo powertop --calibrate
 # For more info see: `archwiki powertop`
 # See also `laptop-mode`
-paci --needed --noconfirm acpid
+paru -Syu --needed --noconfirm acpid
 sudo systemctl enable --now acpid
 sudo systemctl status acpid
 sudo systemctl enable --now laptop-mode
 sudo systemctl status laptop-mode
-paci --needed --noconfirm hdparm sdparm ethtool wireless_tools hal python-pyqt5
+paru -Syu --needed --noconfirm hdparm sdparm ethtool wireless_tools hal python-pyqt5
 #}}}
 
 ### tweaking kernel for battery saving
@@ -856,31 +855,31 @@ nvim ~/.icons/default/index.theme
 nvim ~/.config/gtk-3.0/settings.ini
 # gtk-cursor-theme-name="Bibata-Modern-DarkRed"
 
-paci --needed --noconfirm papirus-icon-theme
+paru -Syu --needed --noconfirm papirus-icon-theme
 # TODO: then just go to `Customize Look and Feel` 
 # Select the `Icons Theme` tab and select `Paper`
 # This will set the right icons in `rofi`
 
 # Task Manager
 
-paci --needed --noconfirm glances
+paru -Syu --needed --noconfirm glances
 # ~~`install lxtask stacer-bin glances`~~
 
 # Audio/Music{{{
 
-paci --needed --noconfirm cmus playerctl pipewire
-paci --needed --noconfirm pamixer alsa-lib libao libcdio libcddb libvorbis \
+paru -Syu --needed --noconfirm cmus playerctl pipewire
+paru -Syu --needed --noconfirm pamixer alsa-lib libao libcdio libcddb libvorbis \
   libmpcdec wavpack libmad libmodplug libmikmod pavucontrol
 # mpv-mpris is a plugin that adds mpris support to mpv. This allows playerctl to 
 # control it
-paci --needed --noconfirm mpv mpv-mpris
+paru -Syu --needed --noconfirm mpv mpv-mpris
 
 # Download music
-paci --needed --noconfirm python-spotdl
+paru -Syu --needed --noconfirm python-spotdl
 
-paci --needed --noconfirm spotify
+paru -Syu --needed --noconfirm spotify
 # Spotify theme
-paci --needed --noconfirm spicetify-{cli,themes-git}
+paru -Syu --needed --noconfirm spicetify-{cli,themes-git}
 # https://github.com/morpheusthewhite/spicetify-themes/tree/master/Dribbblish
 # Steps to set the theme
 cd /usr/share/spicetify-cli/Themes/Dribbblish
@@ -901,16 +900,16 @@ spicetify apply
 # Mainly because `cmus` is not working properly in `helios`
 # Gonna give it a try
 # Fri Jan 29 2021 16:20: !Deprecated!
-# paci --needed --noconfirm mpd vimpc-git
+# paru -Syu --needed --noconfirm mpd vimpc-git
 
 #}}}
 
 # email {{{
 # neomutt {{{
-paci --needed --noconfirm neomutt abook urlscan lynx \
+paru -Syu --needed --noconfirm neomutt abook urlscan lynx \
   isync goimapnotify
 # Needed to backup emails
-# paci --needed --noconfirm offlineimap
+# paru -Syu --needed --noconfirm offlineimap
 mkdir -p ~/.local/share/mail/{molinamail,molinamail_meli,molinamail_mcp}/inbox
 /usr/bin/mbsync -D -ac ~/.config/isync/mbsyncrc
 #}}}
@@ -927,7 +926,7 @@ evolution
 # }}}
 
 # calendar/contacts {{{
-paci --needed vdirsyncer
+paru -Syu --needed vdirsyncer
 mkdir -p ~/.local/share/vdirsyncer/{status,calendar,contacts}
 sudo bash -c 'printf "pass show \"\$@\" | head -n 1" > /usr/lib/password-store/extensions/first-line.bash'
 sudo chmod +x /usr/lib/password-store/extensions/first-line.bash
@@ -935,7 +934,7 @@ vdirsyncer discover {contacts,calendars}
 vdirsyncer sync
 
 # Calendar, contacts and todo applications that read from vdir
-paci --needed khal khard todoman
+paru -Syu --needed khal khard todoman
 # }}}
 
 
@@ -945,17 +944,17 @@ paci --needed khal khard todoman
 # Out of frustration for delayed received notifications in `neomutt`
 # And wonky `ui`
 
-paci --needed --noconfirm thunderbird birdtray
+paru -Syu --needed --noconfirm thunderbird birdtray
 
 # Office
 
-paci --needed --noconfirm libreoffice-still hunspell hunspell-en_us
+paru -Syu --needed --noconfirm libreoffice-still hunspell hunspell-en_us
 
 # pdf & resume
-paci --needed --noconfirm zathura zathura-pdf-mupdf texlive pdfgrep qpdfview
+paru -Syu --needed --noconfirm zathura zathura-pdf-mupdf texlive pdfgrep qpdfview
 # PDF annotations use:
 # Don't install depends on python2
-paci --needed --noconfirm xournal
+paru -Syu --needed --noconfirm xournal
 # PDF searching: `install pdfgrep`
 # PDF Merging:
 # Sat Mar 02 2019 21:18
@@ -966,14 +965,14 @@ paci --needed --noconfirm xournal
 
 # windows mount
 
-paci --needed --noconfirm ntfs-3g
+paru -Syu --needed --noconfirm ntfs-3g
 
 ## Then you can just do to mount the windows partition
 # mount /dev/<your_device> /mnt/win
 
 # android
 
-paci --needed --noconfirm android-tools android-udev
+paru -Syu --needed --noconfirm android-tools android-udev
 
 # journal
 
@@ -985,13 +984,13 @@ sudo nvim /etc/systemd/journald.conf
 # Browser{{{
 
 ## firefox
-paci --needed --noconfirm firefox speech-dispatcher festival festival-us
-paci --needed --noconfirm hunspell-en_us
-# paci --needed --noconfirm firefox-extension-privacybadger`
-# paci --needed --noconfirm libnotify speech-dispatcher festival`
-paci --needed --noconfirm vdhcoapp-bin
+paru -Syu --needed --noconfirm firefox speech-dispatcher festival festival-us
+paru -Syu --needed --noconfirm hunspell-en_us
+# paru -Syu --needed --noconfirm firefox-extension-privacybadger`
+# paru -Syu --needed --noconfirm libnotify speech-dispatcher festival`
+paru -Syu --needed --noconfirm vdhcoapp-bin
 # Move profile to ram, for chrome and firefox
-paci --needed --noconfirm profile-sync-daemon
+paru -Syu --needed --noconfirm profile-sync-daemon
 sudo EDITOR=nvim visudo
 # Add
 # reinaldo ALL=(ALL) NOPASSWD: /usr/bin/psd-overlay-helper
@@ -1014,13 +1013,13 @@ systemctl --user enable --now psd
 # - Privacy Badger
 
 # Also I use `qutebrowser` for login website
-paci --needed --noconfirm qutebrowser pdfjs
+paru -Syu --needed --noconfirm qutebrowser pdfjs
 
 #}}}
 
 # Printing{{{
 # keywords: print, hp, cups
-paci --noconfirm --needed hplip cups cups-pdf simple-scan gtk3-print-backends
+paru -Syu --noconfirm --needed hplip cups cups-pdf simple-scan gtk3-print-backends
 # install most of the optional software that comes along with hplip
 # Follow arch `cups` instructions.
 # look it up in the arch wiki
@@ -1041,7 +1040,7 @@ sudo systemctl enable --now cups.socket cups.service
 
 # docker
 # https://wiki.archlinux.org/title/docker#With_NVIDIA_Container_Toolkit_(recommended)
-paci --needed --noconfirm docker docker-buildx docker-compose nvidia-container-toolkit distrobox
+paru -Syu --needed --noconfirm docker docker-buildx docker-compose nvidia-container-toolkit distrobox
 # See here for fix performance issue building docker images
 # https://mikeshade.com/posts/docker-native-overlay-diff/
 sudo systemctl enable --now docker
@@ -1051,7 +1050,7 @@ sudo usermod -aG docker $USER
  
 # anki {{{
 # Official
-paci --needed --noconfirm anki-official-binary-bundle
+paru -Syu --needed --noconfirm anki-official-binary-bundle
 
 # Beta{{{
 # https://betas.ankiweb.net/
@@ -1063,69 +1062,69 @@ cd anki-beta
 ./bin/anki
 # }}}
 # Markdown to anki converter
-paci --needed --noconfirm npm
+paru -Syu --needed --noconfirm npm
 npm install -g md2apkg fast-cli
 #}}}
 
 ## 💲 Stonks {{{
-paci --needed --noconfirm tickrs
+paru -Syu --needed --noconfirm tickrs
 #}}}
 
 ## gui mock ups design{{{
 # - [here][0]
-paci --needed --noconfirm pencil
+paru -Syu --needed --noconfirm pencil
 #}}}
 
 ## check files duplicates{{{
 # - Mon Jun 10 2019 09:59
-paci --needed --noconfirm fdupes
+paru -Syu --needed --noconfirm fdupes
 #}}}
 
 ## Diagrams{{{
 # - Sun Mar 17 2019 18:26
 # - keyword: graphics, graph, editor
 # - Mainly for stuff that `plantuml` cannot do
-paci --needed --noconfirm yed
+paru -Syu --needed --noconfirm yed
 #}}}
 
 ## Preload{{{
 # - Wed May 02 2018 06:04
 # - Cool application.
-paci --needed --noconfirm preload
+paru -Syu --needed --noconfirm preload
 # - Can be done as user level
 sudo systemctl enable --now preload
 #}}}
 
 ## Youtube-dl{{{
-paci --needed --noconfirm youtube-dl ytmdl ytfzf
+paru -Syu --needed --noconfirm youtube-dl ytmdl ytfzf
 #}}}
 
 ## Screen recording{{{
 # -  Application to record and share cools screen captures
-paci --needed --noconfirm asciinema
+paru -Syu --needed --noconfirm asciinema
 #}}}
 
 ## Disk Usage Utility{{{
-paci --needed --noconfirm baobab
+paru -Syu --needed --noconfirm baobab
 #}}}
 
 ## Steam{{{
-paci steam ttf-liberation steam-fonts
+paru -Syu steam ttf-liberation steam-fonts
 ## IF AMD
-paci xf86-video-amdgpu lib32-mesa mesa
+paru -Syu xf86-video-amdgpu lib32-mesa mesa
 # If NVIDIO
-paci lib32-nvidia-utils nvidia-utils
+paru -Syu lib32-nvidia-utils nvidia-utils
 #}}}
 
 ## Video playing{{{
-paci --needed --noconfirm vlc
+paru -Syu --needed --noconfirm vlc
 #}}}
 
 ## wine{{{
 # Make sure WINEPREFIX exists
-paci --needed --noconfirm wine wine-gecko winetricks wine-mono
-paci --needed --noconfirm lib32-lib{pulse,xrandr}
-paci --needed --noconfirm dxvk-bin
+paru -Syu --needed --noconfirm wine wine-gecko winetricks wine-mono
+paru -Syu --needed --noconfirm lib32-lib{pulse,xrandr}
+paru -Syu --needed --noconfirm dxvk-bin
 setup_dxvk install
 # Temp directory on tmpfs
 rm -r "$WINEPREFIX/drive_c/users/$USER/Temp"
@@ -1138,15 +1137,15 @@ winetricks settings fontsmooth=rgb
 #}}}
 
 ## maintenence{{{
-paci --needed --noconfirm bleachbit
+paru -Syu --needed --noconfirm bleachbit
 #}}}
 
 ## Android{{{
-paci --needed --noconfirm android-tools android-udev
+paru -Syu --needed --noconfirm android-tools android-udev
 #}}}
 
 ## Android-Dev{{{
-paci --needed --noconfirm android-studio android-sdk
+paru -Syu --needed --noconfirm android-studio android-sdk
 # - Remember: `~/.bashrc`->`export ANDROID_HOME=<sdk-location>`
 #}}}
 
@@ -1161,7 +1160,7 @@ paru -Syu ncurses5-compat-libs xilinx-ise
 
 ## syslog{{{
 ### Fri Oct 25 2019 14:35\
-# - `paci --needed --noconfirm syslog-ng`
+# - `paru -Syu --needed --noconfirm syslog-ng`
 # - `sudo systemctl enable --now syslog-ng@default.service`
 # - now when you log with `openlog()` and/or `syslog()` you can see it in `journalctl`}}}
 #}}}
