@@ -197,6 +197,22 @@ sudo nvim /boot/loader/entries/arch.conf
 #}}}
 
 # Video card{{{
+
+# xorg{{{
+# Multi Monitor setup, or for HiDPI displays it's best to auto calculate 
+# resolution
+paru -Syu --needed xorg-xrandr arandr xlayoutdisplay
+paru -Syu --needed --noconfirm xorg xorg-apps xorg-xinit xorg-drivers xorg-server
+/usr/bin/xlayoutdisplay
+# NOTE: Follow instructions to setup the 52-monitors.conf and .Xresources
+nvim $HOME/.config/dotfiles/scripts/nix/xorg-monitor-settings
+# Set DPI in .Xresources
+# Set resolution in 52-monitors.conf
+cp $HOME/.config/dotfiles/scripts/nix/xorg-monitor-settings/.Xresources $HOME
+sudo cp $HOME/.config/dotfiles/scripts/nix/xorg-monitor-settings/52-monitors.conf /etc/X11/xorg.conf.d
+#}}}
+
+# Follow instructions and configure xorg
 lspci -k | grep -A 2 -E "(VGA|3D)"
 # If you happen to see 2 cards here, follow instructions at [this](https://wiki.archlinux.org/index.php/Optimus)
 # Should be good
@@ -299,18 +315,6 @@ mkdir -p ~/Documents
 # ln -s ~/.mnt/skywafer/home/Drive/wiki ~/Documents
 paru -Syu --needed --noconfirm synology-drive
 #}}}
-
-# xorg{{{
-# Multi Monitor setup, or for HiDPI displays it's best to auto calculate 
-# resolution
-paru -Syu --needed xorg-xrandr arandr xlayoutdisplay
-paru -Syu --needed --noconfirm xorg xorg-apps xorg-xinit xorg-drivers xorg-server
-/usr/bin/xlayoutdisplay
-# ACTION: Copy output and paste it there
-nvim "$HOME/.config/xprofile-$(hostname)"
-# ACTION: Now is also a good time to add that hostname there
-nvim "$HOME/.config/i3/scripts/xrandr.sh"
-# `xorg autologin`
 
 # Network Manager{{{
 paru -Syu --needed --noconfirm networkmanager network-manager-applet networkmanager-openvpn networkmanager-dmenu-git 
