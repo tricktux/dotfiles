@@ -616,7 +616,6 @@ quickget nixos 23.11 minimal
 quickemu --vm nixos-23.11-minimal.conf --display none
 # }}}
 
-# email {{{
 # neomutt {{{
 paru -Syu --needed --noconfirm neomutt abook urlscan lynx \
   isync goimapnotify
@@ -637,7 +636,6 @@ vdirsyncer sync
 # Calendar, contacts and todo applications that read from vdir
 paru -Syu --needed khal khard todoman
 # }}}
-
 
 # VPN {{{
 paru -Syu --needed --noconfirm riseup-vpn
@@ -661,18 +659,11 @@ sudo chmod 700 /etc/wireguard/home.conf
 sudo chmod 600 /etc/wireguard/home.conf
 # }}}
 
-# windows mount
-
+# windows mount {{{
 paru -Syu --needed --noconfirm ntfs-3g
-
 ## Then you can just do to mount the windows partition
 # mount /dev/<your_device> /mnt/win
-
-# android
-
-paru -Syu --needed --noconfirm android-tools android-udev
-
-# Browser{{{
+# }}}
 
 # Printing{{{
 # keywords: print, hp, cups
@@ -693,9 +684,7 @@ sudo systemctl enable --now cups.socket cups.service
 # - Cups server lives at: `http://localhost:631/`
 #}}}
 
-# Misc{{{
-
-# docker
+# docker {{{
 # https://wiki.archlinux.org/title/docker#With_NVIDIA_Container_Toolkit_(recommended)
 paru -Syu --needed --noconfirm docker docker-buildx docker-compose nvidia-container-toolkit distrobox
 # See here for fix performance issue building docker images
@@ -704,6 +693,7 @@ sudo systemctl enable --now docker
 # Rootless docker, needed for distrobox
 sudo groupadd docker
 sudo usermod -aG docker $USER
+#}}}
  
 # anki {{{
 # Official
@@ -815,14 +805,10 @@ paru -Syu ncurses5-compat-libs xilinx-ise
 ### Fri Oct 25 2019 14:35\
 # - `paru -Syu --needed --noconfirm syslog-ng`
 # - `sudo systemctl enable --now syslog-ng@default.service`
-# - now when you log with `openlog()` and/or `syslog()` you can see it in `journalctl`}}}
+# - now when you log with `openlog()` and/or `syslog()` you can see it in `journalctl`
 #}}}
 
-# [0]: https://pencil.evolus.vn/
-# [1]: https://wiki.archlinux.org/index.php/Hardware_video_acceleration
-
 # pihole-server {{{
-
 paru -Syu --needed pi-hole-server php-sqlite lighttpd php-cgi
 # Web interface
 # enable relevant sections
@@ -949,5 +935,8 @@ dig google.com @127.0.0.1 -p 5335
 # Ensure not active
 systemctl is-active unbound-resolvconf.service
 # }}}
+
+# [0]: https://pencil.evolus.vn/
+# [1]: https://wiki.archlinux.org/index.php/Hardware_video_acceleration
 
 # vim: fdm=marker
