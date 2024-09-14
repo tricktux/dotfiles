@@ -530,36 +530,6 @@ sudo gpasswd -a reinaldo video
 paru -Syu --needed --noconfirm xorg-xinput xf86-input-libinput brillo
 # Also see `synclient.md`
 
-### tweaking kernel for battery saving
-
-# Sun Mar 17 2019 14:14 
-# Taken from [here](https://wiki.archlinux.org/index.php/Power_management)
-
-#### webcam
-
-# blacklist it.
-sudo sudo bash -c 'printf "blacklist uvcvideo" > /etc/modprobe.d/no_webcam.conf'
-
-#### audio power save
-
-# To check audio driver: `lspci -k`
-# Sun Jun 06 2021 22:49: These cause trouble!
-sudo sudo bash -c 'printf "options snd_had_intel power_save=1" > /etc/modprobe.d/audio.conf'
-sudo sudo bash -c 'printf "options snd_had_intel probe_mask=1" > /etc/modprobe.d/audio.conf'
-# Disable hdmi output
-sudo sudo bash -c 'printf "blacklist snd_hda_codec_hdmi" > /etc/modprobe.d/no_hdmi_audio.conf'
-
-#### wifi
-
-# Add to /etc/modprobe.d/iwlwifi.conf
-#options iwlwifi power_save=1 d0i3_disable=0 uapsd_disable=0
-#options iwldvm force_cam=0
-
-#### others
-
-# use [this](https://github.com/Hjdskes/powersave) script
-# examine the script as it disables bluetooth for example
-
 # Make it pretty
 # Dark mode, night
 # NOTE: After installing xfce4-settings open the keyboard application and delete 
