@@ -488,6 +488,11 @@ systemctl --user enable --now psd
 paru -Syu --needed --noconfirm qutebrowser pdfjs
 #}}}
 
+# Office {{{
+paru -Syu --needed --noconfirm libreoffice-still hunspell hunspell-en_us
+paru -Syu --needed --noconfirm zathura zathura-pdf-mupdf pdfgrep qpdfview
+# }}}
+
 # evolution {{{
 paru -Syu --needed --noconfirm evolution gnome-keyring libsecret
 # NOTE: you want to setup a "Collection Account", not just a regular email
@@ -656,23 +661,6 @@ sudo chmod 600 /etc/wireguard/home.conf
 # And wonky `ui`
 
 paru -Syu --needed --noconfirm thunderbird birdtray
-
-# Office
-
-paru -Syu --needed --noconfirm libreoffice-still hunspell hunspell-en_us
-
-# pdf & resume
-paru -Syu --needed --noconfirm zathura zathura-pdf-mupdf texlive pdfgrep qpdfview
-# PDF annotations use:
-# Don't install depends on python2
-paru -Syu --needed --noconfirm xournal
-# PDF searching: `install pdfgrep`
-# PDF Merging:
-# Sat Mar 02 2019 21:18
-# **Please do not use `pdftk`**
-# You seriously have to compile gcc6 for that 
-# pdftk
-# pdftk file1.pdf file2.pdf cat output mergedfile.pdf
 
 # windows mount
 
