@@ -99,6 +99,14 @@ cpp() {
 		valgrind
 }
 
+emacs() {
+    paru -Syu --needed --noconfirm emacs
+    # Ensure ~/.emacs* does not exists
+    # symlink <dotfiles>/doom to ~/.config/doom
+    git clone https://github.com/hlissner/doom-emacs ~/.config/emacs
+    ~/.config/emacs/bin/doom install
+}
+
 rust() {
 	paru -Syu --needed --noconfirm rustup sccache rust-analyzer
 	rustup toolchain install stable
