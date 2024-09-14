@@ -442,6 +442,7 @@ paru -Syu --needed --noconfirm blueman
 sudo systemctl enable --now bluetooth
 #}}}
 
+# Advanced/fancy configs {{{
 #############################################################################
 ########## At this point you should have a basic system ######
 #############################################################################
@@ -924,6 +925,9 @@ dig google.com @127.0.0.1 -p 5335
 # Ensure not active
 systemctl is-active unbound-resolvconf.service
 # }}}
+
+
+# Advanced config}}}
 
 # [0]: https://pencil.evolus.vn/
 # [1]: https://wiki.archlinux.org/index.php/Hardware_video_acceleration
