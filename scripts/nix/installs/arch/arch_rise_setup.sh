@@ -444,23 +444,6 @@ paru -Syu --needed pipewire pipewire-{pulse,jack,alsa,audio} lib32-pipewire wire
 paru -Syu --needed --noconfirm bluez bluez-libs bluez-utils bluez-firmware
 paru -Syu --needed --noconfirm blueman
 sudo systemctl enable --now bluetooth
-
-# Easyeffects or nice headphones sound
-paru -Syu easyeffects lsp-plugins
-# Download effects from: 
-#   https://github.com/jaakkopasanen/AutoEq/tree/master/results
-#   - Search for your headphones
-#   - Download the parametrics.txt file
-# Apply it to Easyeffects
-#   - Click on the Effects button at the bottom
-#   - Add an equalizer
-#   - Click on Import Preset / Load AOP file
-#   - Search for the txt file downloaded
-# Start the application in the background:
-#   - easyeffects --gapplication-service
-# Ensure it's working:
-#   - Open pavucontrol
-#   - The sink for audio should be Easyeffects Sink
 #}}}
 
 #############################################################################
@@ -531,7 +514,57 @@ paru -Syu --needed --noconfirm lxqt-openssh-askpass
 paru -Syu --needed --noconfirm pipewire
 paru -Syu --needed --noconfirm pamixer alsa-lib libao libcdio libcddb libvorbis \
     libmpcdec wavpack libmad libmodplug libmikmod
-    # }}}
+# }}}
+
+# Audio/Music{{{
+paru -Syu --needed --noconfirm cmus playerctl pipewire
+paru -Syu --needed --noconfirm pamixer alsa-lib libao libcdio libcddb libvorbis \
+    libmpcdec wavpack libmad libmodplug libmikmod pavucontrol
+    # mpv-mpris is a plugin that adds mpris support to mpv. This allows playerctl to 
+    # control it
+    paru -Syu --needed --noconfirm mpv mpv-mpris
+
+# Easyeffects or nice headphones sound
+paru -Syu easyeffects lsp-plugins
+# Download effects from: 
+#   https://github.com/jaakkopasanen/AutoEq/tree/master/results
+#   - Search for your headphones
+#   - Download the parametrics.txt file
+# Apply it to Easyeffects
+#   - Click on the Effects button at the bottom
+#   - Add an equalizer
+#   - Click on Import Preset / Load AOP file
+#   - Search for the txt file downloaded
+# Start the application in the background:
+#   - easyeffects --gapplication-service
+# Ensure it's working:
+#   - Open pavucontrol
+#   - The sink for audio should be Easyeffects Sink
+
+## Youtube-dl{{{
+paru -Syu --needed --noconfirm youtube-dl ytmdl ytfzf
+#}}}
+
+## spotify {{{
+paru -Syu --needed --noconfirm spotify
+# Spotify theme
+paru -Syu --needed --noconfirm spicetify-{cli,themes-git}
+# https://github.com/morpheusthewhite/spicetify-themes/tree/master/Dribbblish
+# Steps to set the theme
+cd /usr/share/spicetify-cli/Themes/Dribbblish
+# cp dribbblish.js ../../Extensions
+spicetify config extensions dribbblish.js
+spicetify config current_theme Dribbblish color_scheme base
+spicetify config inject_css 1 replace_colors 1 overwrite_assets 1
+# https://github.com/khanhas/spicetify-cli/wiki/Installation#spotify-installed-from-aur
+sudo chmod a+wr /opt/spotify
+sudo chmod a+wr /opt/spotify/Apps -R
+# spicetify config color_scheme dracula2
+spicetify config color_scheme beach-sunset
+spicetify backup
+spicetify apply
+#}}}
+#}}}
 
 # polybar{{{
 # NOTE: For new hostnames you will to tweak polybar/config and 
@@ -570,36 +603,6 @@ paru -Syu quickemu qemu-full
 quickget nixos 23.11 minimal
 quickemu --vm nixos-23.11-minimal.conf --display none
 # }}}
-
-# Audio/Music{{{
-paru -Syu --needed --noconfirm cmus playerctl pipewire
-paru -Syu --needed --noconfirm pamixer alsa-lib libao libcdio libcddb libvorbis \
-  libmpcdec wavpack libmad libmodplug libmikmod pavucontrol
-# mpv-mpris is a plugin that adds mpris support to mpv. This allows playerctl to 
-# control it
-paru -Syu --needed --noconfirm mpv mpv-mpris
-
-# Download music
-paru -Syu --needed --noconfirm python-spotdl
-
-paru -Syu --needed --noconfirm spotify
-# Spotify theme
-paru -Syu --needed --noconfirm spicetify-{cli,themes-git}
-# https://github.com/morpheusthewhite/spicetify-themes/tree/master/Dribbblish
-# Steps to set the theme
-cd /usr/share/spicetify-cli/Themes/Dribbblish
-# cp dribbblish.js ../../Extensions
-spicetify config extensions dribbblish.js
-spicetify config current_theme Dribbblish color_scheme base
-spicetify config inject_css 1 replace_colors 1 overwrite_assets 1
-# https://github.com/khanhas/spicetify-cli/wiki/Installation#spotify-installed-from-aur
-sudo chmod a+wr /opt/spotify
-sudo chmod a+wr /opt/spotify/Apps -R
-# spicetify config color_scheme dracula2
-spicetify config color_scheme beach-sunset
-spicetify backup
-spicetify apply
-#}}}
 
 # email {{{
 # neomutt {{{
@@ -767,10 +770,6 @@ paru -Syu --needed --noconfirm yed
 paru -Syu --needed --noconfirm preload
 # - Can be done as user level
 sudo systemctl enable --now preload
-#}}}
-
-## Youtube-dl{{{
-paru -Syu --needed --noconfirm youtube-dl ytmdl ytfzf
 #}}}
 
 ## Screen recording{{{
