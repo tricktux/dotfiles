@@ -168,6 +168,28 @@ paru -Syu --needed --noconfirm linux-lts{,-headers}
 pacu linux{,-headers} nvidia
 #}}}
 
+## power{{{
+# keyword: battery, powertop, power
+paru -Syu --needed --noconfirm cpupower laptop-mode-tools
+# Set cpu governor based on laptop charging or not. Please run `cpupower 
+# frequency-info` to display the governors your cpu supports
+# Read here about cpu governors. Choosing schedutil for battery and performance 
+# for charging
+# https://forum.xda-developers.com/t/ref-guide-most-up-to-date-guide-on-cpu-governors-i-o-schedulers-and-more.3048957/
+# **SET GOVERNOR** by adjusting /etc/laptop-mode/conf.d/cpufreq.conf
+# The seeting for on AC is normally NOLM_AC_X, since laptop-mode is disabled in 
+# If no LaptopMode set your governor at /etc/default/cpupower
+# AC mode
+cpupower frequency-info
+sudo nvim /etc/laptop-mode/conf.d/cpufreq.conf
+# See also `laptop-mode`
+paru -Syu --needed --noconfirm acpid
+sudo systemctl enable --now acpid
+sudo systemctl status acpid
+sudo systemctl enable --now laptop-mode
+sudo systemctl status laptop-mode
+#}}}
+
 # Setup Terminal {{{
 # Install a decent neovim
 $HOME/.config/dotfiles/scripts/nix/installs/arch/coding/coding.sh -z
@@ -765,33 +787,6 @@ sudo gpasswd -a reinaldo video
 
 paru -Syu --needed --noconfirm xorg-xinput xf86-input-libinput brillo
 # Also see `synclient.md`
-
-## power{{{
-# keyword: battery, powertop, power
-paru -Syu --needed --noconfirm powerstat cpupower
-paru -Syu --needed --noconfirm laptop-mode-tools
-# Set cpu governor based on laptop charging or not. Please run `cpupower 
-# frequency-info` to display the governors your cpu supports
-# Read here about cpu governors. Choosing schedutil for battery and performance 
-# for charging
-# https://forum.xda-developers.com/t/ref-guide-most-up-to-date-guide-on-cpu-governors-i-o-schedulers-and-more.3048957/
-# **SET GOVERNOR** by adjusting /etc/laptop-mode/conf.d/cpufreq.conf
-# The seeting for on AC is normally NOLM_AC_X, since laptop-mode is disabled in 
-# If no LaptopMode set your governor at /etc/default/cpupower
-# AC mode
-cpupower frequency-info
-sudo nvim /etc/laptop-mode/conf.d/cpufreq.conf
-sudo powerstat -R -s
-sudo powertop --calibrate
-# For more info see: `archwiki powertop`
-# See also `laptop-mode`
-paru -Syu --needed --noconfirm acpid
-sudo systemctl enable --now acpid
-sudo systemctl status acpid
-sudo systemctl enable --now laptop-mode
-sudo systemctl status laptop-mode
-paru -Syu --needed --noconfirm hdparm sdparm ethtool wireless_tools hal python-pyqt5
-#}}}
 
 ### tweaking kernel for battery saving
 
