@@ -135,6 +135,22 @@ sudo reflector --country "United States" --latest 30 --number 5 \
 
 #}}}
 
+# Configure pacman {{{
+# Go to `sudo vim /etc/pacman.conf` and uncomment `multilib` this allows you to
+# Now that you are there also uncomment the Color option
+# Also add the ParallelDownloads = 5 option
+# Also uncomment Color option
+# Also add ILoveCandy option
+# Also add:
+# CacheDir    = /home/reinaldo/.mnt/skywafer/NetBackup/pacman_cache/x86_64
+# CacheDir    = /var/cache/pacman/pkg/
+# Prevent pacman from updating sensitive stuff:
+# IgnorePkg   = linux-api-headers linux-firmware linux-firmware-whence linux-lts linux-lts-headers nvidia-lts nvidia-utils nvidia-settings lib32-nvidia-utils virtualbox virtualbox-host-dkms virtualbox-guest-iso
+sudo nvim /etc/pacman.conf
+sudo pacman -Sy
+# install 32-bit programs
+# Mon Sep 18 2017 22:46: Also dont forget to update and uncomment both lines, multilib and Include 
+# }}}
 # Protects from running out of memory{{{
 paru -Syu --needed --noconfirm earlyoom
 sudo systemctl enable --now earlyoom
@@ -185,20 +201,6 @@ lspci -k | grep -A 2 -E "(VGA|3D)"
 # If you happen to see 2 cards here, follow instructions at [this](https://wiki.archlinux.org/index.php/Optimus)
 # Should be good
 # With the predator you should also do:
-# Go to `sudo vim /etc/pacman.conf` and uncomment `multilib` this allows you to
-# Now that you are there also uncomment the Color option
-# Also add the ParallelDownloads = 5 option
-# Also uncomment Color option
-# Also add ILoveCandy option
-# Also add:
-# CacheDir    = /home/reinaldo/.mnt/skywafer/NetBackup/pacman_cache/x86_64
-# CacheDir    = /var/cache/pacman/pkg/
-# Prevent pacman from updating sensitive stuff:
-# IgnorePkg   = linux-api-headers linux-firmware linux-firmware-whence linux-lts linux-lts-headers nvidia-lts nvidia-utils nvidia-settings lib32-nvidia-utils virtualbox virtualbox-host-dkms virtualbox-guest-iso
-sudo nvim /etc/pacman.conf
-sudo pacman -Sy
-# install 32-bit programs
-# Mon Sep 18 2017 22:46: Also dont forget to update and uncomment both lines, multilib and Include 
 # **Nvidia drivers**
 # [Instructions](https://wiki.archlinux.org/index.php/NVIDIA)
 # ***LTS*** needed if you are running linux-lts
