@@ -32,73 +32,7 @@ su reinaldo
 # }}}
 
 ## 3. Network{{{
-# Fix dhcpcd slow startup
-# https://wiki.archlinux.org/title/dhcpcd#dhcpcd@.service_causes_slow_startup
-sudo mkdir -p /etc/systemd/system/dhcpcd@.service.d
-sudo bash -c 'cat > /etc/systemd/system/dhcpcd@.service.d/no-wait.conf' << EOL
-[Service]
-ExecStart=
-ExecStart=/usr/bin/dhcpcd -b -q %I
-EOL
-
-# Run this section as root, not using sudo
-su
-interface="wlp1s0"
-ip link
-ip link set up dev $interface
-dmesg | grep iwlwifi
-ip link show $interface
-wpa_supplicant -B -i $interface -c <(wpa_passphrase "<SID>" "<passwd>")
-dhcpcd $interface
-# NOTE: Once this works proceed to create the config files and enable 
-# wpa_supplicant and dhcpcd 
-# NOTE: Substitute <wlp1s0> with your interface from ip link show
-sudo bash -c 'wpa_passphrase "05238_5GHz" "<password>" > /etc/wpa_supplicant/wpa_supplicant-wlan0.conf'
-# Delete commented password sudo nvim /etc/wpa_supplicant/wpa_supplicant-wlp1s0.conf
-
-sudo bash -c 'cat >> /etc/wpa_supplicant/wpa_supplicant-${interface}.conf' << EOL
-# Giving configuration update rights to wpa_cli
-ctrl_interface=/run/wpa_supplicant
-ctrl_interface_group=wheel
-update_config=1
-
-# AP scanning
-ap_scan=1
-
-# ISO/IEC alpha2 country code in which the device is operating
-country=US
-
-# auto-connect to any unsecured network as a fallback with the lowest priority:
-network={
-  key_mgmt=NONE
-  priority=-999
-}
-EOL
-# - Check the connection:
-# - `iw dev <interface> link`
-# - Obtain ip address:
-sudo systemctl enable --now wpa_supplicant@$interface 
-sudo systemctl status wpa_supplicant@$interface 
-sudo systemctl enable --now dhcpcd@$interface 
-sudo systemctl status dhcpcd@$interface 
-sudo systemctl restart dhcpcd@$interface 
-
-# Setup wpa_supplicant to wait for dbus to shutdown
-# This is a long story complicated bug
-# When you mount NAS stuff through fstab shutdown is halted for a long time 
-# waiting to unmount NAS mounts
-# The problem is that there's a dbus bug that causes it to shutdown too early: 
-# https://bugs.launchpad.net/ubuntu/+source/dbus/+bug/1438612
-# It's related to network manager which, but switching network manager is not 
-# sane
-# The solution is detailed here:
-# https://wiki.archlinux.org/index.php/Wpa_supplicant
-# There's a section about Problems with mounted network shares:
-sudo mkdir -p /etc/systemd/system/wpa_supplicant.service.d
-sudo bash -c \
-  'printf "[Unit]" >> /etc/systemd/system/wpa_supplicant.service.d/override.conf'
-sudo bash -c \
-  'printf "\nAfter=dbus.service" >> /etc/systemd/system/wpa_supplicant.service.d/override.conf'
+# Use nmtui or iwctl
 #}}}
 
 # Copy your `mirrorlist`: {{{
@@ -687,6 +621,10 @@ nvim "$HOME/.config/i3/scripts/xdotool_launch"
 paci --needed --noconfirm i3-wm i3lock-fancy-git rofi rofi-dmenu alttab-git xdotool 
 paci --needed --noconfirm feh redshift qrencode xclip dunst libnotify
 paci --needed --noconfirm scrot flameshot tdrop ncpamixer qalculate-qt
+paci --needed --noconfirm playerctl xfce4-settings python-pywal
+paru -Syu --needed --noconfirm paper-icon-theme
+paru -Syu --needed --noconfirm lxappearance
+paru -Syu --needed --noconfirm bibata-extra-cursor-theme
 # Replacement for htop. Execute: btm
 paci --needed --noconfirm htop-vim
 # Compton changed name to picom
