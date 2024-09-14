@@ -399,6 +399,8 @@ paru -Syu --needed --noconfirm htop-vim
 # Compton changed name to picom
 paru -Syu --needed --noconfirm picom
 paru -Syu --needed --noconfirm xss-lock
+paru -Syu --needed --noconfirm firefox
+
 # Laptops
 ## Brightness
 paru -Syu --needed --noconfirm brillo
