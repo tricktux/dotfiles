@@ -399,6 +399,13 @@ paru -Syu --needed --noconfirm htop-vim
 # Compton changed name to picom
 paru -Syu --needed --noconfirm picom
 paru -Syu --needed --noconfirm xss-lock
+# Laptops
+## Brightness
+paru -Syu --needed --noconfirm brillo
+# Add your user to the video group not to have to use sudo
+sudo gpasswd -a reinaldo video
+# see `man brillo`
+
 # mimeo to handle default applications
 # keyword: xdg-open
 paru -Syu --needed --noconfirm mimeo xdg-utils-mimeo
@@ -517,14 +524,6 @@ paru -Syu quickemu qemu-full
 quickget nixos 23.11 minimal
 quickemu --vm nixos-23.11-minimal.conf --display none
 # }}}
-
-# Laptops
-
-## Brightness
-paru -Syu --needed --noconfirm brillo
-# Add your user to the video group not to have to use sudo
-sudo gpasswd -a reinaldo video
-# see `man brillo`
 
 ## Touchpad 
 
