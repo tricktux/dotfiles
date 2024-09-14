@@ -68,6 +68,10 @@ environment() {
     sudo mandb
 }
 
+docs() {
+    paru -Syu --needed --noconfirm zeal-git
+}
+
 atuin() {
     paru -Syu --needed --noconfirm atuin
     # Either restore the local/share/atuin folder from the backups
