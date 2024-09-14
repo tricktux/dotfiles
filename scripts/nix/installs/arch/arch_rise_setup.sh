@@ -96,6 +96,8 @@ paru -Syu ntp
 sudo timedatectl set-ntp true
 #}}}
 
+# NOTE: this is from the advanced section
+# But it's useful to do early on if advanced to leverage caching pacman packages
 # Setup NetBackup {{{
 # This is to get the server's cache to install stuff faster
 mkdir -p $HOME/.mnt/skywafer/{home,music,shared,video,NetBackup}
