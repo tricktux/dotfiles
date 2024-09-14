@@ -386,10 +386,6 @@ paru -Syu --needed --noconfirm openssh mosh
 paru -Syu --needed --noconfirm lxqt-policykit
 # }}}
 
-# Tue Mar 26 2019 21:49
-# The rest is taken care of at `.xinitrc`
-paru -Syu --needed --noconfirm numlockx
-
 # i3-wm{{{
 # Desktop
 # screenshots, i3
