@@ -372,42 +372,6 @@ paru -Syu --needed --noconfirm openssh mosh
 paru -Syu --needed --noconfirm lxqt-policykit
 # }}}
 
-# pipewire {{{
-paru -Syu --needed --noconfirm pipewire
-paru -Syu --needed --noconfirm pamixer alsa-lib libao libcdio libcddb libvorbis \
-    libmpcdec wavpack libmad libmodplug libmikmod
-    # }}}
-
-# Bluetooth/Audio {{{
-## Pipewire
-# Do replace pipewire-media-sessions for wireplumber
-paru -Syu --needed pipewire pipewire-{pulse,jack,alsa,audio} lib32-pipewire wireplumber
-## PulseAudio
-# paru -Syu --needed --noconfirm pulseaudio pulseaudio-{bluetooth,jack,alsa,equalizer}
-
-#Blue
-paru -Syu --needed --noconfirm bluez bluez-libs bluez-utils bluez-firmware
-paru -Syu --needed --noconfirm blueman
-sudo systemctl enable --now bluetooth
-
-# Easyeffects or nice headphones sound
-paru -Syu easyeffects lsp-plugins
-# Download effects from: 
-#   https://github.com/jaakkopasanen/AutoEq/tree/master/results
-#   - Search for your headphones
-#   - Download the parametrics.txt file
-# Apply it to Easyeffects
-#   - Click on the Effects button at the bottom
-#   - Add an equalizer
-#   - Click on Import Preset / Load AOP file
-#   - Search for the txt file downloaded
-# Start the application in the background:
-#   - easyeffects --gapplication-service
-# Ensure it's working:
-#   - Open pavucontrol
-#   - The sink for audio should be Easyeffects Sink
-#}}}
-
 # terminal utils{{{
 paru -Syu --needed --noconfirm acpi lm_sensors liquidprompt tldr
 paru -Syu --needed {ttf,otf}-fira-{code,mono} {ttf,otf}-font-awesome-5 {ttf,otf}-cascadia-code
@@ -555,6 +519,42 @@ mimeo photo.jpeg
 # fonts {{{
 sudo pacman -S "$(pacman -Ssq noto-fonts-\*)"
 # }}}
+
+# pipewire {{{
+paru -Syu --needed --noconfirm pipewire
+paru -Syu --needed --noconfirm pamixer alsa-lib libao libcdio libcddb libvorbis \
+    libmpcdec wavpack libmad libmodplug libmikmod
+    # }}}
+
+# Bluetooth/Audio {{{
+## Pipewire
+# Do replace pipewire-media-sessions for wireplumber
+paru -Syu --needed pipewire pipewire-{pulse,jack,alsa,audio} lib32-pipewire wireplumber
+## PulseAudio
+# paru -Syu --needed --noconfirm pulseaudio pulseaudio-{bluetooth,jack,alsa,equalizer}
+
+#Blue
+paru -Syu --needed --noconfirm bluez bluez-libs bluez-utils bluez-firmware
+paru -Syu --needed --noconfirm blueman
+sudo systemctl enable --now bluetooth
+
+# Easyeffects or nice headphones sound
+paru -Syu easyeffects lsp-plugins
+# Download effects from: 
+#   https://github.com/jaakkopasanen/AutoEq/tree/master/results
+#   - Search for your headphones
+#   - Download the parametrics.txt file
+# Apply it to Easyeffects
+#   - Click on the Effects button at the bottom
+#   - Add an equalizer
+#   - Click on Import Preset / Load AOP file
+#   - Search for the txt file downloaded
+# Start the application in the background:
+#   - easyeffects --gapplication-service
+# Ensure it's working:
+#   - Open pavucontrol
+#   - The sink for audio should be Easyeffects Sink
+#}}}
 
 # rofi extra goodies
 paru -Syu --needed --noconfirm rofi-{emoji,bluetooth-git,file-browser-extended-git}
