@@ -149,6 +149,8 @@ function! mappings#Set()
   cnoremap <c-u> <c-r>=expand("<cword>")<cr>
   cnoremap <c-s> %s/
   cnoremap <c-j> <cr>
+  cnoremap <c-n> <down>
+  cnoremap <c-p> <up>
 
   cnoremap <silent> <expr> <cr> <sid>center_search()
   inoremap <c-f> <right>
