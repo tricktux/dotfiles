@@ -310,19 +310,59 @@ instance copy all contents of `quickfix` to `:enew` and then `:g/<not of interes
   traceroute <hostname>                          # Trace the network route to a host.
   curl -I <url>                                   # Fetch HTTP headers from a URL.
   wget <url>                                     # Download files from the internet.
-
+<
 
 ==============================================================================
 28. Netrw               *my-netrw*
 >vim
   :bd<cr>	    " To get back to buffer were you came from
   :Rex     " To get back to where you were browsing
-
+<
 ==============================================================================
 29. Vim grepping               *my-vimgrep*
 >vim
   :grep /pat/ **/*.{c,h}
 
+
+==============================================================================
+30. Version Control with Git              *git-version-control*
+>bash
+  git init                                   # Initialize a new Git repository in the current directory.
+  git clone <repository-url>                 # Create a local copy of a remote repository.
+  git status                                 # Show the status of changes in the working directory and staging area.
+  git add <file>                             # Stage a file for commit.
+  git commit -m "<message>"                  # Commit staged changes with a descriptive message.
+  git log --all -G<search-content>                                    # View the commit history of the repository (detailed log).
+  git log --oneline                          # View a concise, one-line summary of each commit.
+  git show <commit>                          # Show changes introduced by a specific commit (includes the diff).
+  git diff                                   # Show changes between the working directory and the index (staged files).
+  git branch                                 # List branches, or show the current branch.
+  git checkout <branch>                      # Switch to the specified branch.
+  git merge <branch>                         # Merge changes from the specified branch into the current branch.
+  git pull                                   # Fetch changes from the remote repository and merge them into the current branch.
+  git push                                   # Push local commits to the remote repository.
+  git remote -v                              # List remote connections with their URLs.
+  git fetch                                  # Download objects and refs from the remote repository without integrating changes.
+  git worktree add <new-directory> <branch>  # Create a new working tree attached to the specified branch.
+  git stash                                  # Temporarily save changes that are not ready to be committed.
+  git stash pop                              # Restore the most recently stashed changes.
+  git reset <file>                           # Unstage a file while preserving changes in the working directory.
+
+==============================================================================
+30.a Git Worktrees			 *git-worktrees*
+
+>bash
+  # Create directory for worktree
+  mkdir my-project
+  cd my-project
+  git clone "url" master              # Clone an existing repository.
+  # Clone master, do not do --bare
+  # Keep track of this repo as it will be the master branch from which you can
+  # always go back and create worktrees, do not delete it
+  cd master
+  #                  folder                branch name
+  git worktree add ../my-project-feature feature/new-login   # Create a new worktree for a feature branch.
+<
 
 ==============================================================================
  vim:tw=78:ts=8:noet:ft=help:norl:
