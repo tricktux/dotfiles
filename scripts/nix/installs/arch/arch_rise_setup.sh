@@ -560,13 +560,7 @@ quickget nixos 23.11 minimal
 quickemu --vm nixos-23.11-minimal.conf --display none
 # }}}
 
-## Touchpad 
-
-paru -Syu --needed --noconfirm xorg-xinput xf86-input-libinput brillo
-# Also see `synclient.md`
-
 # Audio/Music{{{
-
 paru -Syu --needed --noconfirm cmus playerctl pipewire
 paru -Syu --needed --noconfirm pamixer alsa-lib libao libcdio libcddb libvorbis \
   libmpcdec wavpack libmad libmodplug libmikmod pavucontrol
