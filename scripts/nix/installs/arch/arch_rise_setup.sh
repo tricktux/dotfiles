@@ -588,14 +588,6 @@ sudo chmod a+wr /opt/spotify/Apps -R
 spicetify config color_scheme beach-sunset
 spicetify backup
 spicetify apply
-
-# Tue Mar 12 2019 07:24
-# Gearing towards `mpd`
-# Mainly because `cmus` is not working properly in `helios`
-# Gonna give it a try
-# Fri Jan 29 2021 16:20: !Deprecated!
-# paru -Syu --needed --noconfirm mpd vimpc-git
-
 #}}}
 
 # email {{{
