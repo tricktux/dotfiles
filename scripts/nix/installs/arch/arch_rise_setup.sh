@@ -91,6 +91,11 @@ ls -als ~/.config
 source ~/.bash_aliases 
 #}}}
 
+# fix time:{{{
+paru -Syu ntp
+sudo timedatectl set-ntp true
+#}}}
+
 # Setup NetBackup {{{
 # This is to get the server's cache to install stuff faster
 mkdir -p $HOME/.mnt/skywafer/{home,music,shared,video,NetBackup}
@@ -218,11 +223,6 @@ sudo nvim /etc/lightdm/lightdm.conf
 # [Seat:*]
 # autologin-user=reinaldo
 # autologin-session=i3-with-shmlog
-#}}}
-
-# fix time:{{{
-paru -Syu ntp
-sudo timedatectl set-ntp true
 #}}}
 
 # Video card{{{
