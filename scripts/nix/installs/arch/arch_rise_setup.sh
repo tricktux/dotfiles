@@ -386,6 +386,8 @@ paru -Syu --needed --noconfirm lxqt-policykit
 paru -Syu --needed --noconfirm i3-wm i3lock-fancy-git rofi rofi-dmenu alttab-git xdotool jq
 paru -Syu --needed --noconfirm archlinux-wallpaper
 paru -Syu --needed --noconfirm feh redshift qrencode xclip dunst libnotify
+systemctl --user enable --now redshift
+systemctl --user status redshift
 paru -Syu --needed --noconfirm scrot flameshot tdrop ncpamixer qalculate-qt
 paru -Syu --needed --noconfirm playerctl xfce4-settings python-pywal
 paru -Syu --needed --noconfirm paper-icon-theme
