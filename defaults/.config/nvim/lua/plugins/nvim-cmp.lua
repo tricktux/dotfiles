@@ -23,61 +23,57 @@ function M:setup()
   end
 
   local cmp = require('cmp')
-  local prev = cmp.mapping(function(fallback)
-    if cmp.visible() then
-      cmp.select_prev_item()
-    else
-      fallback()
-    end
-  end, {
-    'i',
-    's',
-  })
-  local next = cmp.mapping(function(fallback)
-    if cmp.visible() then
-      cmp.select_next_item()
-    elseif check_backspace() then
-      fallback()
-    else
-      fallback()
-    end
-  end, {
-    'i',
-    's',
-  })
+  local luasnip = require 'luasnip'
   cmp.setup({
     snippet = {
       expand = function(args)
-        require('luasnip').lsp_expand(args.body)
+        luasnip.lsp_expand(args.body)
       end,
     },
     completion = {
       keyword_length = 1,
     },
-    mapping = cmp.mapping.preset.insert({
-      ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-d>'] = cmp.mapping.scroll_docs(4),
-      ['<C-p>'] = prev,
-      ['<C-n>'] = next,
-      -- Move cursor
-      ['<C-f>'] = cmp.config.disable,
-      ['<C-Space>'] = cmp.mapping.confirm({
-        -- this is the important line
-        behavior = cmp.ConfirmBehavior.Replace,
-        select = false,
-      }),
-      ['<C-q>'] = cmp.mapping({
-        i = cmp.mapping.abort(),
-        c = cmp.mapping.close(),
-      }),
-      -- Used by snipets
-      ['<C-j>'] = cmp.config.disable,
-      ['<C-l>'] = cmp.config.disable,
-      ['<C-k>'] = cmp.config.disable, -- used for snippets
-      ['<CR>'] = cmp.config.disable,
-      ['<Tab>'] = next,
-      ['<S-Tab>'] = prev,
-    }),
+    mapping = cmp.mapping.preset.insert {
+      -- Select the [n]ext item
+      ['<c-n>'] = cmp.mapping.select_next_item(),
+      -- Select the [p]revious item
+      ['<c-p>'] = cmp.mapping.select_prev_item(),
+
+      -- Scroll the documentation window [b]ack / [f]orward
+      ['<c-u>'] = cmp.mapping.scroll_docs(-4),
+      ['<c-d>'] = cmp.mapping.scroll_docs(4),
+
+      -- Accept ([y]es) the completion.
+      --  This will auto-import if your LSP supports it.
+      --  This will expand snippets if the LSP sent a snippet.
+      ['<c-y>'] = cmp.mapping.confirm { select = true },
+
+      -- If you prefer more traditional completion keymaps,
+      -- you can uncomment the following lines
+      ['<cr>'] = cmp.mapping.confirm { select = true },
+      ['<tab>'] = cmp.mapping.select_next_item(),
+      ['<s-Tab>'] = cmp.mapping.select_prev_item(),
+      ['<c-j>'] = cmp.mapping.select_next_item(),
+      ['<c-k>'] = cmp.mapping.select_prev_item(),
+
+      -- Manually trigger a completion from nvim-cmp.
+      --  Generally you don't need this, because nvim-cmp will display
+      --  completions whenever it has completion options available.
+      ['<c-Space>'] = cmp.mapping.complete {},
+      ['<c-l>'] = cmp.mapping(function()
+        if luasnip.expand_or_locally_jumpable() then
+          luasnip.expand_or_jump()
+        end
+      end, { 'i', 's' }),
+      ['<c-h>'] = cmp.mapping(function()
+        if luasnip.locally_jumpable(-1) then
+          luasnip.jump(-1)
+        end
+      end, { 'i', 's' }),
+      ['<c-;>'] = cmp.mapping(function()
+        require('luasnip.extras.select_choice')()
+      end, { 'i', 's' }),
+    },
     sources = sources,
     formatting = {
       format = function(_, item)
