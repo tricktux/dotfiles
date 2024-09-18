@@ -195,7 +195,7 @@ alias du='du -h'
 alias mkcdir=FuncMkcdir
 alias gitup=FuncUpdate
 
-alias pass='EDITOR=vi pass'
+alias pass='EDITOR="nvim --clean" pass'
 
 FuncHelp() {
 	$1 --help 2>&1 | grep $2
