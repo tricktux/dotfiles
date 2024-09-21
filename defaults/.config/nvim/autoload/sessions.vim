@@ -43,12 +43,13 @@ function! sessions#Load() abort
     silent execute 'mksession! ' . v:this_session
   endif
 
-  " Delete all buffers. Otherwise they will be added to the new session
-  silent execute ':%bdelete!'
-
   let l:session_name = input('Load session:', s:session_path, 'file')
   if (empty(l:session_name))
     return
   endif
+
+  " Delete all buffers. Otherwise they will be added to the new session
+  silent execute ':%bdelete!'
+
   silent execute 'source ' . l:session_name
 endfunction
