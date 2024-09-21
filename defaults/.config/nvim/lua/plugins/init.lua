@@ -175,16 +175,9 @@ local p = {
     end,
   },
   {
-    'jiangmiao/auto-pairs',
-    event = 'VeryLazy',
-    init = function()
-      -- Really annoying option
-      vim.g.AutoPairsFlyMode = 0
-      vim.g.AutoPairsShortcutToggle = ''
-      vim.g.AutoPairsShortcutFastWrap = ''
-      vim.g.AutoPairsShortcutJump = ''
-      vim.g.AutoPairsShortcutBackInsert = ''
-    end,
+    'windwp/nvim-autopairs',
+    event = "InsertEnter",
+    opts = {}
   },
   {
     'chaoren/vim-wordmotion',
