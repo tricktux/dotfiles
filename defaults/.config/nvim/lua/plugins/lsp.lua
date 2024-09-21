@@ -410,9 +410,48 @@ return {
   {
     'folke/trouble.nvim',
     event = { 'LspAttach' },
+    cmd = 'Trouble',
+    keys = {
+      {
+        "<leader>oj",
+        "<cmd>Trouble<cr>",
+        desc = "Trouble cmd",
+      },
+      {
+        "<leader>ot",
+        "<cmd>Trouble diagnostics toggle<cr>",
+        desc = "Diagnostics (Trouble)",
+      },
+      {
+        "<leader>od",
+        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+        desc = "Buffer Diagnostics (Trouble)",
+      },
+      {
+        "<leader>ob",
+        "<cmd>Trouble symbols toggle focus=false<cr>",
+        desc = "Symbols sidebar (Trouble)",
+      },
+      {
+        "<leader>os",
+        "<cmd>Trouble lsp_document_symbols<cr>",
+        desc = "Symbols Quickfix (Trouble)",
+      },
+      {
+        "<leader>ol",
+        "<cmd>Trouble loclist toggle<cr>",
+        desc = "Location List (Trouble)",
+      },
+      {
+        "<leader>oq",
+        "<cmd>Trouble qflist toggle<cr>",
+        desc = "Quickfix List (Trouble)",
+      },
+    },
     dependencies = vim.g.advanced_plugins > 0 and { 'nvim-tree/nvim-web-devicons' } or {},
     opts = {
       cycle_results = false, -- cycle item list when reaching beginning or end of list
+      auto_preview = false, -- automatically open preview when on an item
     },
   },
 }
