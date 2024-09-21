@@ -98,7 +98,7 @@ local function main()
   require('utils.utils').setup()
   -- setup wiki early so that path is available
   require('plugin.wiki'):setup()
-  require('plugins.lsp').cycle_logs()
+  require('plugin.lsp').cycle_logs()
   vim.fn['mappings#Set']()
   require('mappings'):setup()
   require('aucmds').setup()

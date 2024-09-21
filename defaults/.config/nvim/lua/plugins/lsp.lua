@@ -1,5 +1,4 @@
 local utl = require('utils.utils')
-local fs = require('utils.filesystem')
 local log = require('utils.log')
 local vks = vim.keymap.set
 local map = require('mappings')
@@ -26,8 +25,6 @@ if activate == false and vim.g.advanced_plugins == 0 then
   return {}
 end
 
-M.logs_max_size = 15728640 -- 15 * 1024 * 1024 Mb
-
 local function do_buffer_clients_support_method(bufnr, capability)
   local clients = vim.lsp.get_clients({ bufnr = bufnr })
 
@@ -37,29 +34,6 @@ local function do_buffer_clients_support_method(bufnr, capability)
     end
   end
   return false
-end
-
-M.cycle_logs = function()
-  local filename = vim.lsp.get_log_path()
-  local size = fs.file_size_native(filename)
-  if not size then
-    -- print("No log file found")
-    return
-  end
-  -- Check if the size of log file is over 15MB
-  if size.size < M.logs_max_size then
-    -- print("Log file size:", size.size)
-    return
-  end
-
-  local t = os.date('*t')
-  local timestamp =
-      string.format('%04d%02d%02d%02d%02d%02d', t.year, t.month, t.day, t.hour, t.min, t.sec)
-
-  -- Rename it to ".filename.20220123120012" format
-  local new_name = string.format('%s.%s', filename, timestamp)
-  -- print("Renaming log file to", new_name)
-  os.rename(filename, new_name)
 end
 
 local function set_lsp_options(client_id, bufnr)
@@ -441,5 +415,4 @@ return {
       cycle_results = false, -- cycle item list when reaching beginning or end of list
     },
   },
-  cycle_logs = M.cycle_logs,
 }
