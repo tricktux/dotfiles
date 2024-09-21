@@ -1,9 +1,21 @@
 
+let s:session_path = g:sessions_path . '/'
+
+function s:validate_session_path()
+  if !isdirectory(s:session_path)
+    return mkdir(s:session_path, 'p')
+  endif
+  return 1
+endfunction
+
 function! sessions#Save() abort
-  let session_path = g:sessions_path . '/'
+  if !s:validate_session_path()
+    echoerr 'sessions: Folder "' . s:session_path . '" is invalid'
+    return -1
+  endif
   " if session name is not provided as function argument ask for it
   silent execute "wall"
-  let session_name = input("Enter save session name:", session_path, "file")
+  let session_name = input("Enter save session name:", s:session_path, "file")
   if empty(session_name)
     return
   endif
@@ -11,14 +23,18 @@ function! sessions#Save() abort
   silent! execute "mksession! " . session_name
 endfunction
 
-function! sessions#Load() abort
-  let l:session_path = g:sessions_path . '/'
+function! sessions#Browse() abort
+  if !s:validate_session_path()
+    echoerr 'sessions: Folder "' . s:session_path . '" is invalid'
+    return -1
+  endif
 
-  if empty(finddir('sessions', g:std_data_path))
-    if &verbose > 0
-      echoerr '[mappings#LoadSession]: Folder ' .
-            \ l:session_path . ' does not exists'
-    endif
+  silent! execute "Ex " . s:session_path
+endfunction
+
+function! sessions#Load() abort
+  if !s:validate_session_path()
+    echoerr 'sessions: Folder "' . s:session_path . '" is invalid'
     return -1
   endif
 
@@ -30,7 +46,7 @@ function! sessions#Load() abort
   " Delete all buffers. Otherwise they will be added to the new session
   silent execute ':%bdelete!'
 
-  let l:session_name = input('Load session:', l:session_path, 'file')
+  let l:session_name = input('Load session:', s:session_path, 'file')
   if (empty(l:session_name))
     return
   endif
