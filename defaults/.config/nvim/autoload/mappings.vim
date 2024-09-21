@@ -259,8 +259,9 @@ function! mappings#Set()
   nnoremap <leader>et :e ~/.cache/
 
   " sessions
-  nnoremap <leader>ss :call sessions#Save()<cr>
-  nnoremap <leader>sl :call sessions#Load()<cr>
+  nnoremap <silent> <leader>ss :call sessions#Save()<cr>
+  nnoremap <silent> <leader>sl :call sessions#Load()<cr>
+  nnoremap <silent> <leader>sb :call sessions#Browse()<cr>
 endfunction
 
 " Tue May 15 2018 09:07: Forced to make it global. <expr> would not work with s:
