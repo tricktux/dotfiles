@@ -116,7 +116,7 @@ M.opts = {
   },
   checker = {
     -- automatically check for plugin updates
-    enabled = true,
+    enabled = false,
     concurrency = 8, ---@type number? set to 1 to check for updates very slowly
     notify = false, -- get a notification when new updates are found
     frequency = 43200, -- check for updates every 12 hours
