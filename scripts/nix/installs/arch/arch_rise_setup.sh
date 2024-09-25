@@ -390,7 +390,7 @@ systemctl --user enable --now redshift
 systemctl --user status redshift
 paru -Syu --needed --noconfirm scrot flameshot tdrop ncpamixer qalculate-qt
 paru -Syu --needed --noconfirm playerctl xfce4-settings python-pywal
-paru -Syu --needed --noconfirm paper-icon-theme
+paru -Syu --needed --noconfirm paper-icon-theme adapta-gtk-theme
 paru -Syu --needed --noconfirm lxappearance pcmanfm
 paru -Syu --needed --noconfirm bibata-extra-cursor-theme xfce4-settings
 # Replacement for htop. Execute: btm
