@@ -365,4 +365,103 @@ instance copy all contents of `quickfix` to `:enew` and then `:g/<not of interes
 <
 
 ==============================================================================
+31. Pandoc			 *pandoc*
+
+>bash
+  # Convert file to PDF (the output format is determined by file extension):
+  pandoc input.md -o output.pdf
+
+  # Force conversion to use a specific format:
+  pandoc input.docx --to gfm -o output.md
+
+  # html
+  pandoc input.md -r markdown+simple_tables+table_captions+yaml_metadata_block -w html -S --filter pandoc-citeproc -o out.html
+  
+  # Possible options to pass to the template
+  # BIB = $(wildcard *.bib)
+  # 	--number-sections
+  # 	--listings
+  # pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block -w latex -s -S --filter pandoc-citeproc --bibliography $(BIB) --template eisvogel -o $@ $<
+
+  # Convert to a standalone file with the appropriate headers/footers (for LaTeX, HTML, etc.):
+  pandoc input.md --self-contained -o output.tex
+
+  # List all supported input formats:
+  pandoc --list-input-formats
+
+  # List all supported output formats:
+  pandoc --list-output-formats
+<
+
+==============================================================================
+32. Python			 *python*
+
+>bash
+  # Create virtual environment
+  venv_loc="$XDG_DATA_HOME/pyvenv"
+  venv_name="polybar"
+  pkgs=(
+    requests jinja2 stravalib matplot
+    i3ipc pandas plotly plotly_resampler kaleido pip
+  )
+
+  mkdir -p "$venv_loc"
+  python -m venv "$venv_loc/$venv_name" --symlinks --clear
+  source "$venv_loc/$venv_name/bin/activate"
+  pip3 install --upgrade "${pkgs[@]}"
+  deactivate
+
+  # Source virtual environment
+  source ~/.local/share/pyvenv/machine_learning/bin/activate
+
+  # Create `jupyter` ascending notebook
+  python -m jupyter_ascending.scripts.make_pair --base random
+
+  # Open notebook on python
+  jupyter notebook notebook.ipynb
+>
+
+==============================================================================
+33. Plantuml			 *plantuml*
+
+Run it with `java -jar plantuml.jar %.uml`
+
+>uml
+  @startuml
+  title Sequency Diagram
+  Alice -> Bob: Authentication Request
+
+  alt successful case
+
+      Bob -> Alice: Authentication Accepted
+
+  else some kind of failure
+
+      Bob -> Alice: Authentication Failure
+      group My own label
+      Alice -> Log : Log attack start
+	  loop 1000 times
+	      Alice -> Bob: DNS Attack
+	  end
+      Alice -> Log : Log attack end
+      end
+
+  else Another type of failure
+
+    Bob -> Alice: Please repeat
+
+  end
+  @enduml
+
+  ' Class diagram
+  @startuml
+  class Car
+
+  Driver - Car : drives >
+  Car *- Wheel : have 4 >
+  Car -- Person : < owns
+  @enduml
+>
+
+==============================================================================
  vim:tw=78:ts=8:noet:ft=help:norl:
