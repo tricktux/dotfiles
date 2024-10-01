@@ -180,10 +180,6 @@
     "command": "exec $HOME/.config/i3/scripts/xrandr.sh work"
   },
   {
-    "name": "⌨️ xmodmap reload",
-    "command": "xmodmap $HOME/.config/Xmodmap"
-  },
-  {
     "name": "⏳ pomodoro toggle",
     "command": "uairctl --socket /tmp/uair_pomo.socket toggle"
   },
@@ -204,7 +200,11 @@
     "command": "exec $HOME/.config/polybar/scripts/text-snatcher-native.sh"
   },
   {
-    "name": "xmodmap kinesis",
-    "command": "xmodmap $HOME/.config/XmodmapKinesis"
+    "name": "⌨️ keyboard xmodmap reload",
+    "command": "xmodmap $HOME/.config/Xmodmap"
+  },
+  {
+    "name": "⌨️ keyboard xset",
+    "command": "exec $HOME/.config/i3/scripts/xset.sh"
   }
 ]
