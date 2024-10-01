@@ -98,7 +98,7 @@ lazygit() {
 }
 
 ranger() {
-	paru -Syu --needed ranger w3m ffmpeg highlight libcaca python-pillow
+	paru -Syu --needed ranger w3m ffmpeg highlight libcaca python-pillow atool
 	git clone https://github.com/cdump/ranger-devicons2 ~/.config/ranger/plugins/devicons2
 }
 
