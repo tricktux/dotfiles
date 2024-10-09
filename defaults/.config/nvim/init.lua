@@ -19,6 +19,7 @@ local function set_globals()
   -----------------------
 
   vim.g.copilot_active = false
+  vim.g.advanced_plugins  = 0
 
   -- Disable unnecessary providers
   -- Saves on average 3ms (on linux) :D
