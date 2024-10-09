@@ -66,5 +66,4 @@ return {
     -- vim.print(vim.inspect(M.opts.workspaces))
     require('obsidian').setup(M.opts)
   end,
-  -- opts = M.opts,
 }
