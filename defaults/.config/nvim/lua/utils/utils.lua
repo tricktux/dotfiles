@@ -1,6 +1,6 @@
 local log = require('utils.log')
 local fs = require('utils.filesystem')
-local luv = vim.loop
+local luv = vim.uv
 local api = vim.api
 local fmt = string.format
 local fn = vim.fn
@@ -103,7 +103,7 @@ end
 M.has_unix = package.config:sub(1, 1) == [[/]]
 M.has_win = package.config:sub(1, 1) == [[\]]
 
-local nix_file = vim.loop.os_homedir() .. [[/.config/ignore-file]]
+local nix_file = vim.uv.os_homedir() .. [[/.config/ignore-file]]
 local win_file = (os.getenv('APPDATA') or 'nil') .. [[\ignore-file]]
 M.ignore_file = [[--ignore-file=]] .. (M.has_win and win_file or nix_file)
 
@@ -144,7 +144,7 @@ M.browser.search = function(word)
 end
 M.browser.open_file_async = function(file)
   vim.validate({ file = { file, 's', false } })
-  if vim.loop.fs_stat(file) == nil then
+  if vim.uv.fs_stat(file) == nil then
     vim.api.nvim_err_writeln("file: '" .. file .. "' does not exists")
     return
   end

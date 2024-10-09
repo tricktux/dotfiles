@@ -3,7 +3,7 @@
 ---@author Reinaldo Molina <me at molina mail dot com>
 ---@license MIT
 
-local home = vim.loop.os_homedir()
+local home = vim.uv.os_homedir()
 local data_folders = { [[/sessions]] }
 local cache_folders = { [[/backup]], [[/undo]] }
 local fs = vim.fs
@@ -45,7 +45,7 @@ local function _config_win()
   vim.g.dotfiles = fs.joinpath(os.getenv('LOCALAPPDATA'), 'dotfiles')
   -- Find python
   local py = fs.joinpath(vim.fn.stdpath('data'), [[pyvenv\Scripts]])
-  if vim.loop.fs_stat(py) ~= nil then
+  if vim.uv.fs_stat(py) ~= nil then
     vim.g.python3_host_prog = fs.joinpath(py, [[python.exe]])
   end
 end
@@ -53,7 +53,7 @@ end
 local function _config_unix()
   vim.g.dotfiles = fs.joinpath(home, '.config/dotfiles')
   local py = fs.normalize('$XDG_DATA_HOME/pyvenv/nvim/bin/python')
-  if vim.loop.fs_stat(py) ~= nil then
+  if vim.uv.fs_stat(py) ~= nil then
     vim.g.python3_host_prog = py
   end
 end

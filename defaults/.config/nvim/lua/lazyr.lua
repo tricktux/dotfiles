@@ -3,7 +3,7 @@ local M = {}
 M.path = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 
 M.bootstrap = function()
-  if vim.loop.fs_stat(M.path) then
+  if vim.uv.fs_stat(M.path) then
     vim.opt.rtp:prepend(M.path)
     return true
   end
@@ -16,7 +16,7 @@ M.bootstrap = function()
     '--branch=stable', -- latest stable release
     M.path,
   })
-  if vim.loop.fs_stat(M.path) then
+  if vim.uv.fs_stat(M.path) then
     vim.opt.rtp:prepend(M.path)
     return true
   end

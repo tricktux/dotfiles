@@ -2,7 +2,7 @@ local utl = require('utils.utils')
 local fs = require('utils.utils').fs
 local log = require('utils.log')
 local map = require('mappings')
-local luv = vim.loop
+local luv = vim.uv
 local home = luv.os_homedir()
 
 local M = {}
