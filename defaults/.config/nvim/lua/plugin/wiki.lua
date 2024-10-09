@@ -1,7 +1,3 @@
-local utl = require('utils.utils')
-local fs = require('utils.utils').fs
-local log = require('utils.log')
-local map = require('mappings')
 local luv = vim.uv
 local home = luv.os_homedir()
 
@@ -57,7 +53,6 @@ function M:setup()
   vim.g.advanced_plugins = (string.find(p, 'resilio') or
     string.find(p, 'nextcloud') or
     string.find(p, 'Drive')) ~= nil and 1 or 0
-  -- vim.g.advanced_plugins = 1
   self.path.personal = p
 end
 
