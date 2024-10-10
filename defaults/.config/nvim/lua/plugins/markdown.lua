@@ -24,7 +24,7 @@ return {
       default = {
         relative_to_current_file = true, -- make dir_path relative to current file rather than the cwd
         relative_template_path = false, -- make file path in the template relative to current file rather than the cwd
-        dir_path = 'attachements',
+        dir_path = 'assets',
       },
       quarto = {
         template = '![$CURSOR]($FILE_PATH)',
