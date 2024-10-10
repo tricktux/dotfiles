@@ -167,7 +167,9 @@ python() {
 	paru -Syu --needed --noconfirm python{,-pipx} ruff-lsp pyright python-pylint
 }
 
-# TODO: zig
+zig() {
+	paru -Syu --needed --noconfirm zig zls
+}
 
 help() {
 	# Display Help
@@ -176,7 +178,7 @@ help() {
 	echo "All options are optional"
 	echo "If no options are provided all coding environments will be installed"
 	echo
-	echo "Syntax: update-arch [-h|l|n|e|x|r|c|u|j|z|m|t|p]"
+	echo "Syntax: update-arch [-h|l|n|e|x|r|c|u|j|z|m|p|i]"
 	echo "options:"
 	echo "l     lua"
 	echo "n     neovim"
@@ -189,12 +191,13 @@ help() {
 	echo "z     zsh"
 	echo "m     markdown"
 	echo "p     python"
+  echo "i     zig"
 	echo "h     Print this Help."
 	echo
 }
 
 # Get the options
-while getopts "h:lnexrcujzthp" option; do
+while getopts "h:lnexrcujzhpi" option; do
 	case $option in
 	h) # display Help
 		help
@@ -233,6 +236,10 @@ while getopts "h:lnexrcujzthp" option; do
 		java
 		exit 0
 		;;
+  i)
+    zig
+    exit 0
+    ;;
 	z)
 		zsh
 		exit 0
