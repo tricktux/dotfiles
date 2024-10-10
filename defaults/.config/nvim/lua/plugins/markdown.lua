@@ -40,9 +40,8 @@ return {
     keys = {
       { '<leader>wj', '<cmd>ObsidianToday<cr>', desc = 'obsidian_daily' },
       { '<leader>wa', '<cmd>ObsidianNew<cr>', desc = 'obsidian_new' },
-      { '<leader>wp', '<cmd>ObsidianWorkspace personal<cr>', desc = 'obsidian_workspace_personal' },
-      { '<leader>ww', '<cmd>ObsidianWorkspace work<cr>', desc = 'obsidian_workspace_work' },
-      { '<leader>ws', '<cmd>ObsidianSearch<cr>', desc = 'obsidian_workspace_work' },
+      { '<leader>ww', '<cmd>ObsidianWorkspace<cr>', desc = 'obsidian_list_workspace' },
+      { '<leader>ws', '<cmd>ObsidianSearch<cr>', desc = 'obsidian_search' },
       { '<leader>wo', '<cmd>ObsidianOpen<cr>', desc = 'obsidian_open' },
       {
         '<leader>wf',
