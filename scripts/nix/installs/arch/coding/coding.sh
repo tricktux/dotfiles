@@ -142,10 +142,25 @@ zsh() {
 
 markdown() {
 	paru -Syu --needed --noconfirm pandoc-bin vale plantuml markdownlint-cli write-good proselint marksman
-}
+  paru -Syu --needed --noconfirm texlive-{basic,latex,latexrecommended,latexextra,fontsrecommended,fontsextra,xetex}
 
-tex() {
-	paru -Syu --needed --noconfirm texlive-bibtexextra texlive-binextra texlive-context texlive-fontsextra texlive-fontsrecommended texlive-fontutils texlive-formatsextra texlive-games texlive-humanities texlive-latex texlive-latexextra texlive-latexrecommended texlive-luatex texlive-mathscience texlive-metapost texlive-music texlive-plaingeneric texlive-pstricks texlive-publishers texlive-xetex
+  # Install templates
+  # Define the destination directory
+  local DEST="$HOME/.local/share/pandoc/templates"
+
+  # Create the destination directory if it does not exist
+  mkdir -p "$DEST"
+
+  # Download the templates by cloning the repositories
+  git clone https://github.com/Wandmalfarbe/pandoc-latex-template --depth 1 /tmp/eisvogel
+  git clone https://github.com/ryangrose/easy-pandoc-templates --depth 1 /tmp/easy-pandoc-templates
+
+  # Copy the template files to the destination directory
+  for file in /tmp/easy-pandoc-templates/html/*.html; do
+    [ -e "$file" ] || continue
+    cp -n $file "$DEST"
+  done
+  cp -R /tmp/eisvogel/eisvogel.tex "$DEST"/eisvogel.latex
 }
 
 python() {
@@ -173,7 +188,6 @@ help() {
 	echo "j     java"
 	echo "z     zsh"
 	echo "m     markdown"
-	echo "t     tex"
 	echo "p     python"
 	echo "h     Print this Help."
 	echo
@@ -227,10 +241,6 @@ while getopts "h:lnexrcujzthp" option; do
 		markdown
 		exit 0
 		;;
-	t)
-		tex
-		exit 0
-		;;
 	p)
 		python
 		exit 0
@@ -244,6 +254,4 @@ while getopts "h:lnexrcujzthp" option; do
 	esac
 done
 
-msg "${CYAN}${BOLD}" "========== Welcome! To the Arch Maintnance Script! 💪😎  =========="
-# Backups first, since most likely they'll be kernel update and that messes up
-# everything
+echo "No option was selected"
