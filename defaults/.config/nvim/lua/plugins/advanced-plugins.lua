@@ -3,25 +3,6 @@ if vim.g.advanced_plugins == 0 then
 end
 
 return {
-  {
-    'HakonHarnes/img-clip.nvim',
-    ft = { 'markdown', 'org', 'quarto', 'tex' },
-    cmd = { 'PasteImage' },
-    -- event = "BufEnter",
-    opts = {
-      default = {
-        relative_to_current_file = true, -- make dir_path relative to current file rather than the cwd
-        relative_template_path = false, -- make file path in the template relative to current file rather than the cwd
-        dir_path = 'attachements',
-      },
-      quarto = {
-        template = '![$CURSOR]($FILE_PATH)',
-      },
-    },
-    keys = {
-      { '<localleader>i', '<cmd>PasteImage<cr>', desc = 'Paste clipboard image' },
-    },
-  },
   { 'matze/vim-ini-fold', ft = 'dosini' },
   { 'aklt/plantuml-syntax', ft = 'plantuml' },
   {
