@@ -232,6 +232,7 @@ export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
 
 $HOME/.config/i3/scripts/xset.sh
 
-[[ -x "$HOME"/.local/bin/xprofile-extra ]] && "$HOME"/.local/bin/xprofile-extra
+mkdir -p $HOME/.local/etc/
+[[ -f "$HOME"/.local/etc/xprofile-extra ]] && source $HOME/.local/etc/xprofile-extra
 
 # vim:filetype=sh fdm=marker

@@ -229,6 +229,13 @@ paru -S --needed - < ~/.config/dotfiles/pkg/aero/aur-list.pkg
 
 # Setup Terminal {{{
 # Install a decent neovim
+
+mkdir -p ~/.local/etc
+sudo bash -c "cat >> ~/.local/etc/xprofile-extra" << EOL
+#!/usr/bin/env sh
+
+export WIKI_PERSONAL=/home/reinaldo/Documents/resilio/rei/wiki/notes
+EOL
 $HOME/.config/dotfiles/scripts/nix/installs/arch/coding/coding.sh -z
 $HOME/.config/dotfiles/scripts/nix/installs/arch/coding/neovim.sh
 $HOME/.config/dotfiles/scripts/nix/installs/arch/coding/coding.sh -e

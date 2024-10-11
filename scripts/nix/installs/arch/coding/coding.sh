@@ -142,17 +142,34 @@ zsh() {
 
 markdown() {
 	paru -Syu --needed --noconfirm pandoc-bin vale plantuml markdownlint-cli write-good proselint marksman
-}
+  paru -Syu --needed --noconfirm texlive-{basic,latex,latexrecommended,latexextra,fontsrecommended,fontsextra,xetex}
 
-tex() {
-	paru -Syu --needed --noconfirm texlive-bibtexextra texlive-binextra texlive-context texlive-fontsextra texlive-fontsrecommended texlive-fontutils texlive-formatsextra texlive-games texlive-humanities texlive-latex texlive-latexextra texlive-latexrecommended texlive-luatex texlive-mathscience texlive-metapost texlive-music texlive-plaingeneric texlive-pstricks texlive-publishers texlive-xetex
+  # Install templates
+  # Define the destination directory
+  local DEST="$HOME/.local/share/pandoc/templates"
+
+  # Create the destination directory if it does not exist
+  mkdir -p "$DEST"
+
+  # Download the templates by cloning the repositories
+  git clone https://github.com/Wandmalfarbe/pandoc-latex-template --depth 1 /tmp/eisvogel
+  git clone https://github.com/ryangrose/easy-pandoc-templates --depth 1 /tmp/easy-pandoc-templates
+
+  # Copy the template files to the destination directory
+  for file in /tmp/easy-pandoc-templates/html/*.html; do
+    [ -e "$file" ] || continue
+    cp -n $file "$DEST"
+  done
+  cp -R /tmp/eisvogel/eisvogel.tex "$DEST"/eisvogel.latex
 }
 
 python() {
 	paru -Syu --needed --noconfirm python{,-pipx} ruff-lsp pyright python-pylint
 }
 
-# TODO: zig
+zig() {
+	paru -Syu --needed --noconfirm zig zls
+}
 
 help() {
 	# Display Help
@@ -161,7 +178,7 @@ help() {
 	echo "All options are optional"
 	echo "If no options are provided all coding environments will be installed"
 	echo
-	echo "Syntax: update-arch [-h|l|n|e|x|r|c|u|j|z|m|t|p]"
+	echo "Syntax: update-arch [-h|l|n|e|x|r|c|u|j|z|m|p|i]"
 	echo "options:"
 	echo "l     lua"
 	echo "n     neovim"
@@ -173,14 +190,14 @@ help() {
 	echo "j     java"
 	echo "z     zsh"
 	echo "m     markdown"
-	echo "t     tex"
 	echo "p     python"
+  echo "i     zig"
 	echo "h     Print this Help."
 	echo
 }
 
 # Get the options
-while getopts "h:lnexrcujzthp" option; do
+while getopts "h:lnexrcujzhpi" option; do
 	case $option in
 	h) # display Help
 		help
@@ -219,16 +236,16 @@ while getopts "h:lnexrcujzthp" option; do
 		java
 		exit 0
 		;;
+  i)
+    zig
+    exit 0
+    ;;
 	z)
 		zsh
 		exit 0
 		;;
 	m)
 		markdown
-		exit 0
-		;;
-	t)
-		tex
 		exit 0
 		;;
 	p)
@@ -244,6 +261,4 @@ while getopts "h:lnexrcujzthp" option; do
 	esac
 done
 
-msg "${CYAN}${BOLD}" "========== Welcome! To the Arch Maintnance Script! 💪😎  =========="
-# Backups first, since most likely they'll be kernel update and that messes up
-# everything
+echo "No option was selected"

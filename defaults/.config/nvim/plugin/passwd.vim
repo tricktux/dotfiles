@@ -21,7 +21,7 @@ if !exists('g:passwd_clipboard')
 endif
 
 if !exists('g:passwd_store_dir')
-	let s:pass = v:lua.vim.loop.os_homedir() . (has('unix') ? "/" : "\\") . '.password-store'
+	let s:pass = v:lua.vim.uv.os_homedir() . (has('unix') ? "/" : "\\") . '.password-store'
 	let g:passwd_store_dir = v:lua.os.getenv('PASSWORD_STORE_DIR', s:pass)
 endif
 
