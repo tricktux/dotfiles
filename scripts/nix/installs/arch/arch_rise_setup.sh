@@ -240,6 +240,36 @@ sudo systemctl enable --now earlyoom
 sudo systemctl status earlyoom
 #}}}
 
+# SDDM {{{
+# NOTE: Disable any others if switching
+# sudo systemctl disable lightdm
+
+paru -Syu --needed sddm sddm-conf-git
+sudo systemctl enable sddm
+
+sudo mkdir -p /etc/sddm.conf.d
+# Autologin
+sudo bash -c "cat >> /etc/sddm.conf.d/autologin.conf" << EOL
+[Autologin]
+User=reinaldo
+Session=i3-with-shmlog
+EOL
+
+# Theme
+ll /usr/share/sddm/themes
+sudo bash -c "cat >> /etc/sddm.conf.d/autologin.conf" << EOL
+[Theme]
+Current=maldives
+EOL
+sudo cat /etc/sddm.conf.d/autologin.conf
+
+# Avatars
+# https://www.flaticon.com/free-icons/avatar/3
+# Download then 
+sudo cp <avatar>.png /usr/share/sddm/faces/<username>.face.icon
+
+# }}}
+
 # lightdm{{{
 paru -Syu --needed lightdm
 sudo systemctl enable lightdm
