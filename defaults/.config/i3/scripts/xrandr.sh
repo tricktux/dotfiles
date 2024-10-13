@@ -19,14 +19,17 @@ if [[ ! -x $(command -v xrandr) ]]; then
     exit 1
 fi
 
-if [[ ! -x "$HOME"/.screenlayout/$1 ]]; then
+layout="$HOME/.screenlayout/${1}.sh"
+
+if [[ ! -x $layout ]]; then
     notify-send "xrandr" \
-        ".screenlayout script for $1 invalid" \
+        ".screenlayout script for $layout invalid" \
         -u critical -a 'Arandr'
     exit 3
 fi
 
-"$HOME"/.screenlayout/$1
+# "$HOME"/.screenlayout/$1
+source $layout
 
 case "$1" in
     "tv-living-room")
@@ -61,6 +64,7 @@ esac
 i3-msg restart
 "$HOME/.config/i3/scripts/i3-workspace-output"
 "$HOME/.config/i3/scripts/xset.sh"
+systemctl --user restart dunst.service
 polybar-msg cmd restart
 notify-send "xrandr" "Configuration '$1' set!" -a 'arandr'
 exit 0
