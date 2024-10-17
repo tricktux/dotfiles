@@ -12,6 +12,7 @@ M.opts = {
     date_format = '%Y-%m',
     alias_format = '%B, %Y',
   },
+  ui = { enable = vim.g.advanced_plugins == 1 and true or false }
 }
 
 return {
@@ -36,7 +37,7 @@ return {
   },
   {
     'epwalsh/obsidian.nvim',
-    ft = "markdown",
+    event = 'VeryLazy',
     keys = {
       { '<leader>wj', '<cmd>ObsidianToday<cr>', desc = 'obsidian_daily' },
       { '<leader>wa', '<cmd>ObsidianNew<cr>', desc = 'obsidian_new' },
