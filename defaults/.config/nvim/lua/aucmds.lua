@@ -6,7 +6,7 @@ local M = {}
 local function set_text_settings()
   vim.opt_local.wrap = false
   vim.opt_local.spell = true
-  vim.opt.conceallevel = 0
+  vim.opt.conceallevel = vim.g.advanced_plugins == 1 and 2 or 0
   vim.opt.textwidth = 0
   vim.opt.foldenable = true
   vim.opt.complete:append('kspell')
@@ -156,6 +156,14 @@ M.setup = function()
   })
 
   id = api.nvim_create_augroup('Buf', { clear = true })
+  vim.api.nvim_create_autocmd('BufEnter', {
+    pattern = {"*.md"},
+    group = id,
+    desc = 'Set text settings',
+    callback = function()
+      set_text_settings()
+    end,  -- Call the function we defined
+  })
   vim.api.nvim_create_autocmd('BufEnter', {
     group = id,
     desc = 'Set winbar',
