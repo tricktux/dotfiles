@@ -99,6 +99,7 @@ hyperfine
 i3-wm
 i3blocks
 i3lock
+i3status
 id3v2
 imagemagick
 inetutils
@@ -191,7 +192,6 @@ pkgconf
 pkgfile
 plantuml
 playerctl
-polybar
 poppler
 prettier
 python-cpplint
@@ -338,7 +338,9 @@ zathura
 zathura-pdf-mupdf
 zbar
 zellij
+zig
 zip
+zls
 zsh
 zsh-autosuggestions
 zsh-completions
