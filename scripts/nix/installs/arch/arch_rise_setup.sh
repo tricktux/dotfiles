@@ -231,7 +231,7 @@ paru -S --needed - < ~/.config/dotfiles/pkg/aero/aur-list.pkg
 # Install a decent neovim
 
 mkdir -p ~/.local/etc
-sudo bash -c "cat >> ~/.local/etc/xprofile-extra" << EOL
+bash -c "cat >> ~/.local/etc/xprofile-extra" << EOL
 #!/usr/bin/env sh
 
 export WIKI_PERSONAL=/home/reinaldo/Documents/resilio/rei/wiki/notes
