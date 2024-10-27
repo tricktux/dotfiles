@@ -109,7 +109,7 @@
   },
   {
     "name": "🔐 power lock",
-    "command": "i3lock-fancy"
+    "command": "dm-tool switch-to-greeter"
   },
   {
     "name": "🔑 pass root",
@@ -168,8 +168,12 @@
     "command": "exec $HOME/.config/i3/scripts/xrandr.sh main"
   },
   {
-    "name": "📺 xrandr tv",
-    "command": "exec $HOME/.config/i3/scripts/xrandr.sh tv"
+      "name": "📺 xrandr main",
+      "command": "exec $HOME/.config/i3/scripts/xrandr.sh main"
+  },
+  {
+    "name": "📺 xrandr tv-living-room",
+    "command": "exec $HOME/.config/i3/scripts/xrandr.sh tv-living-room"
   },
   {
     "name": "📺 xrandr home_dock",
