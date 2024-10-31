@@ -11,13 +11,41 @@ general {
         interval = 5
 }
 
+order += "playerctl"
 order += "wireless _first_"
 order += "ethernet _first_"
+order += "pomodoro"
+order += "dpms"
+order += "volume_status"
 order += "battery all"
 order += "disk /"
 order += "load"
 order += "memory"
 order += "tztime local"
+
+# Set thresholds to rainbow colors
+volume_status {
+    thresholds = [
+        (0, "#FF0000"),
+        (10, "#E2571E"),
+        (20, "#FF7F00"),
+        (30, "#FFFF00"),
+        (40, "#00FF00"),
+        (50, "#96BF33"),
+        (60, "#0000FF"),
+        (70, "#4B0082"),
+        (80, "#8B00FF"),
+        (90, "#FFFFFF")
+    ]
+}
+
+pomodoro {
+    format_active = "P: [{format}]"
+    format_break = "P: [{format}]"
+    format_stopped = "P: [{format}]"
+    timer_pomodoro = 3000
+    format = "{mm}"
+}
 
 wireless _first_ {
         format_up = "W: (%essid)"
