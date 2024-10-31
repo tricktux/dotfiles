@@ -209,8 +209,6 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Source files{{{
 [[ -f ~/.bash_aliases ]] && source ~/.bash_aliases
 
-[[ -f $HOME/.local/etc/stuff ]] && source $HOME/.local/etc/stuff
-
 # context for resume making
 # install context-minimals-git
 # mtxrun --generate
