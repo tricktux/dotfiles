@@ -223,6 +223,8 @@ move ~/.jupyter/ "$XDG_CONFIG_HOME"/jupyter
 export ANDROID_USER_HOME="$XDG_DATA_HOME"/android
 move ~/.android/ "$XDG_DATA_HOME"/android/
 
+# git clone https://github.com/microsoft/vcpkg --depth 1 $VCPKG_ROOT
+export VCPKG_ROOT=$HOME/.local/share/vcpkg
 
 move ~/.pki/ "$XDG_DATA_HOME"/pki/
 
