@@ -115,10 +115,13 @@ return {
     local conf = {
       -- For customization, refer to Install > Configuration in the Documentation/Readme
       -- default agent names set during startup, if nil last used agent is used
-      default_command_agent = "ChatGPT4o-mini",
-      default_chat_agent = "ChatGPT4o-mini",
+      default_command_agent = "ChatGPT4o",
+      default_chat_agent = "ChatGPT4o",
       -- log_sensitive = true,
       providers = {
+        ollama = {
+          endpoint = "http://localhost:8080/v1/chat/completions",
+        },
         openai = {
           secret = vim.fn.isdirectory("C:\\") and os.getenv("OPENAI_API_KEY") or
           { "pass", "show", "websites/openai.com/api-key" },

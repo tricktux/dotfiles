@@ -214,5 +214,9 @@
   {
     "name": "⌨️ fix default application to open url links obsidian firefox",
     "command": "exec xdg-mime default firefox.desktop x-scheme-handler/https x-scheme-handler/http"
+  },
+  {
+    "name": "🎧 airplane mode toggle",
+    "command": "rkill toggle all"
   }
 ]
