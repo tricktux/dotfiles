@@ -118,6 +118,16 @@ return {
       default_command_agent = "ChatGPT4o-mini",
       default_chat_agent = "ChatGPT4o-mini",
       -- log_sensitive = true,
+      providers = {
+        openai = {
+          secret = vim.fn.isdirectory("C:\\") and os.getenv("OPENAI_API_KEY") or
+          { "pass", "show", "websites/openai.com/api-key" },
+        },
+        anthropic = {
+          secret = vim.fn.isdirectory("C:\\") and os.getenv("ANTHROPIC_API_KEY") or
+          { "pass", "show", "websites/anthropic.com/api-key" },
+        },
+      },
       agents = {
         {
           name = "Anki",
