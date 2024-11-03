@@ -12,9 +12,9 @@ general {
 }
 
 order += "playerctl"
-order += "wireless _first_"
-order += "ethernet _first_"
+order += "networkmanager"
 order += "systemd wg-home"
+order += "nvidia_smi"
 order += "pomodoro"
 order += "dpms"
 order += "volume_status"
@@ -23,6 +23,19 @@ order += "disk /"
 order += "load"
 order += "memory"
 order += "tztime local"
+
+nvidia_smi {
+    format_gpu = '{gpu_name} [\?color=temperature.gpu {temperature.gpu}°C] '
+    format_gpu += '[\?color=memory.used_percent {memory.used} {memory.used_unit}'
+    format_gpu += '[\?color=darkgray&show \|]{memory.used_percent:.1f}%]'
+}
+
+networkmanager {
+    format_device = "[\?if=general_connection {general_device} [\?soft ][\?color=ap_signal {ap_ssid} {ap_bars} {ap_signal}%][\?soft ][\?color=good {ip4_address1}]]"
+    # devices = ['e*']    # ethernet only
+    # devices = ['w*']    # wireless only
+    # devices = []        # ethernet, wireless, lo, etc
+}
 
 systemd wg-home {
     hide_if_default = on
