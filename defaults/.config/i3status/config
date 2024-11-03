@@ -14,6 +14,7 @@ general {
 order += "playerctl"
 order += "wireless _first_"
 order += "ethernet _first_"
+order += "systemd wg-home"
 order += "pomodoro"
 order += "dpms"
 order += "volume_status"
@@ -22,6 +23,13 @@ order += "disk /"
 order += "load"
 order += "memory"
 order += "tztime local"
+
+systemd wg-home {
+    hide_if_default = on
+    unit = 'wg-quick@home.service'
+    on_click 1 = 'exec sudo systemctl start wg-quick@home.service'
+    on_click 3 = 'exec sudo systemctl stop wg-quick@home.service'
+}
 
 # Set thresholds to rainbow colors
 volume_status {
