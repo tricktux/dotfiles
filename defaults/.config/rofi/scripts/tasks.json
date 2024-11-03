@@ -212,7 +212,15 @@
     "command": "exec xdg-mime default firefox.desktop x-scheme-handler/https x-scheme-handler/http"
   },
   {
-    "name": "🎧 airplane mode toggle",
-    "command": "rkill toggle all"
+    "name": "🗓️ calendar popup",
+    "command": "galendae"
+  },
+  {
+    "name": "✈️ airplane mode on",
+    "command": "rkill block all"
+  },
+  {
+    "name": "✈️ airplane mode off",
+    "command": "rkill unblock all"
   }
 ]

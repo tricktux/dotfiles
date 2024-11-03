@@ -424,6 +424,7 @@ paru -Syu --needed --noconfirm lxqt-policykit
 # After this steps you should have a working `i3` setup.
 paru -Syu --needed --noconfirm i3-wm i3lock-fancy-git rofi rofi-dmenu \
   alttab-git xdotool jq
+paru -Syu --needed --noconfirm galendae   # calendar
 paru -Syu --needed --noconfirm py3status python-gobject
 paru -Syu --needed --noconfirm archlinux-wallpaper
 paru -Syu --needed --noconfirm feh redshift qrencode xclip dunst libnotify
