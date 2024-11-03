@@ -168,10 +168,6 @@
     "command": "exec $HOME/.config/i3/scripts/xrandr.sh main"
   },
   {
-      "name": "📺 xrandr main",
-      "command": "exec $HOME/.config/i3/scripts/xrandr.sh main"
-  },
-  {
     "name": "📺 xrandr tv-living-room",
     "command": "exec $HOME/.config/i3/scripts/xrandr.sh tv-living-room"
   },
