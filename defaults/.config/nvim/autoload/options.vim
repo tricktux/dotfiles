@@ -411,20 +411,9 @@ function! StlSession() abort
   return 's:' . fnamemodify(v:this_session, ':t')  " Return just the filename
 endfunction
 
-  if has('win32')
-    return ''
-  endif
-  if isdirectory('C:\Users')
-    return ''
-  endif
-  if !utils#is_buffer_valid()
-    return ''
-  endif
-  if !empty(system('git rev-parse --is-inside-work-tree 2>/dev/null')) " Check if in a git repo
-    let l:branch = substitute(system('git rev-parse --abbrev-ref HEAD 2>/dev/null'), '\n', '', 'g')  " Remove trailing newline
-    let l:branch = 'b:' . fnamemodify(l:branch, ':t')  " Return only the branch name
-    return strpart(l:branch, 0, 10)  " Return only the first 10 characters
 function! StlGitBranch() abort
+  if exists("b:gitsigns_head")
+    return 'b:' . b:gitsigns_head . ' ' . b:gitsigns_status
   endif
   return '' " Return empty if not in git repo
 endfunction
