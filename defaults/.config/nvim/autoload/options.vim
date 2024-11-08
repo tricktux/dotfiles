@@ -151,14 +151,15 @@ function! options#Set() abort
   " If this not and android device and we have no plugins setup "ugly" status
   " line
   set statusline =
-  set statusline+=\ [%n]\ %{Stlgitbranch()}\                             " buffernr
   set statusline+=\ %<%{Stlcwd()}\ %f\ %m%r%w                    " File+path
+  set statusline+=\ [%n]\                             " buffernr
   set statusline+=\ %y\                             " FileType
   set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''} " Encoding
   " ,BOM\ " :\ " \ " )}\ " Encoding2
   " set statusline+=\ %{(&bomb?\
   set statusline+=\ %{&ff}\                         " FileFormat (dos/unix..)
   set statusline+=\%=\ %{Stlsession()}\ 
+  set statusline+=\ %{StlGitBranch()}\                             " gitbranch
   set statusline+=\ \ row:%l/%L\        " Rownumber/total (%)
   set statusline+=\ col:%03c\                       " Colnr
   set statusline+=\ \ %m%r%w\ %P\ \            " Modified? Readonly? Top/bot.
@@ -410,7 +411,6 @@ function! Stlsession() abort
   return 's:' . fnamemodify(v:this_session, ':t')  " Return just the filename
 endfunction
 
-function! Stlgitbranch()
   if has('win32')
     return ''
   endif
@@ -424,6 +424,7 @@ function! Stlgitbranch()
     let l:branch = substitute(system('git rev-parse --abbrev-ref HEAD 2>/dev/null'), '\n', '', 'g')  " Remove trailing newline
     let l:branch = 'b:' . fnamemodify(l:branch, ':t')  " Return only the branch name
     return strpart(l:branch, 0, 10)  " Return only the first 10 characters
+function! StlGitBranch() abort
   endif
   return '' " Return empty if not in git repo
 endfunction
