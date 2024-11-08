@@ -1,3 +1,4 @@
+local fmt = string.format
 local Pomodoro = {}
 local timer = nil
 local is_running = false
@@ -44,7 +45,7 @@ local function timer_start()
     time_left = time_left - 1
     if time_left <= 0 then
       timer_stop()
-      notify(string.format("Finished Pomodoro %s session.", session))
+      notify(fmt("Finished Pomodoro %s session.", session))
     end
   end))
 end
@@ -55,17 +56,23 @@ function Pomodoro.toggle()
 
   if is_running then
     timer_stop()
-    notify(string.format("Paused Pomodoro %s session.", session))
+    notify(fmt("Paused Pomodoro %s session.", session))
     return
   end
 
   timer_start()
-  notify(string.format("Started Pomodoro %s session.", session))
+  notify(fmt("Started Pomodoro %s session.", session))
 end
 
 -- Function to get elapsed time in the current session
-function Pomodoro.get_elapsed_time()
-  return math.floor(time_left / 60)
+function Pomodoro.get_session_info()
+  if not is_running then
+    return {}
+  end
+  return {
+    name = session,
+    remaining_time_m = math.floor(time_left / 60)
+  }
 end
 
 -- Function to skip current session and move to next
@@ -81,7 +88,7 @@ function Pomodoro.next()
   end
 
   timer_start()
-  notify(string.format("Started Pomodoro %s session.", session))
+  notify(fmt("Started Pomodoro %s session.", session))
 end
 
 -- Function to configure Pomodoro timings

@@ -159,7 +159,9 @@ function! options#Set() abort
   " set statusline+=\ %{(&bomb?\
   set statusline+=\ %{&ff}\                         " FileFormat (dos/unix..)
   set statusline+=\ %{StlGitBranch()}\                             " gitbranch
-  set statusline+=\%=\ %{StlSession()}\ 
+  set statusline+=\%=\    " section division
+  set statusline+=\ %{StlPomoTime()}\ 
+  set statusline+=\ %{StlSession()}\ 
   set statusline+=\ \ row:%l/%L\        " Rownumber/total (%)
   set statusline+=\ col:%03c\                       " Colnr
   set statusline+=\ \ %m%r%w\ %P\ \            " Modified? Readonly? Top/bot.
@@ -416,6 +418,20 @@ function! StlGitBranch() abort
     return 'b:' . b:gitsigns_head . ' ' . b:gitsigns_status
   endif
   return '' " Return empty if not in git repo
+endfunction
+
+function! StlPomoTime() abort
+  if !exists(":PomodoroToggle")
+    return '' " Return empty if not in git repo
+  endif
+  if !has('nvim')
+    return '' " Return empty if not in git repo
+  endif
+  let l:r = v:lua.require'plugin.pomodoro'.get_session_info()
+  if empty(l:r)
+    return ''
+  endif
+  return 'p:' . l:r.name . ' ['. l:r.remaining_time_m . ']'
 endfunction
 
 
