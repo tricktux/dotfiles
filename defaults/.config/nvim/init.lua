@@ -87,6 +87,11 @@ local function init_os()
   end
 end
 
+local pomo_cfg = {
+  work_duration = 50 * 60,     -- seconds
+  break_duration = 10 * 60      -- seconds
+}
+
 local function main()
   vim.loader.enable()
   local log = require('utils.log')
@@ -99,6 +104,7 @@ local function main()
   require('utils.utils').setup()
   -- setup wiki early so that path is available
   require('plugin.wiki'):setup()
+  require('plugin.pomodoro').setup(pomo_cfg)
   require('plugin.lsp').cycle_logs()
   vim.fn['mappings#Set']()
   require('mappings'):setup()
