@@ -151,15 +151,15 @@ function! options#Set() abort
   " If this not and android device and we have no plugins setup "ugly" status
   " line
   set statusline =
-  set statusline+=\ %<%{Stlcwd()}\ %f\ %m%r%w                    " File+path
   set statusline+=\ [%n]\                             " buffernr
+  set statusline+=\ %<%{StlCwd()}\ %f\ %m%r%w                    " File+path
   set statusline+=\ %y\                             " FileType
   set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''} " Encoding
   " ,BOM\ " :\ " \ " )}\ " Encoding2
   " set statusline+=\ %{(&bomb?\
   set statusline+=\ %{&ff}\                         " FileFormat (dos/unix..)
-  set statusline+=\%=\ %{Stlsession()}\ 
   set statusline+=\ %{StlGitBranch()}\                             " gitbranch
+  set statusline+=\%=\ %{StlSession()}\ 
   set statusline+=\ \ row:%l/%L\        " Rownumber/total (%)
   set statusline+=\ col:%03c\                       " Colnr
   set statusline+=\ \ %m%r%w\ %P\ \            " Modified? Readonly? Top/bot.
@@ -393,14 +393,14 @@ function! s:get_titlestring() abort
         \ getcwd() . '->%f%m%r'
 endfunction
 
-function! Stlcwd() abort
+function! StlCwd() abort
   if !utils#is_buffer_valid()
     return ''
   endif
   return getcwd() . ' >'
 endfunction
 
-function! Stlsession() abort
+function! StlSession() abort
   if !utils#is_buffer_valid()
     return ''
   endif
@@ -430,7 +430,7 @@ function! StlGitBranch() abort
 endfunction
 
 
-function! s:set_colorscheme_by_time()
+function! s:set_colorscheme_by_time() abort
   let period = flux#Check()
 
   if period == 'night'
