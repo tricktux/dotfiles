@@ -48,7 +48,6 @@ docker-compose
 dosfstools
 doublecmd-qt5
 dunst
-dvdbackup
 earlyoom
 easyeffects
 efibootmgr
@@ -72,9 +71,7 @@ gcc
 gdb
 gettext
 ghostscript
-gimagereader-gtk
 git
-glava
 global
 gnome-disk-utility
 gnome-keyring
@@ -90,7 +87,6 @@ gvfs-gphoto2
 gvfs-mtp
 gzip
 hdparm
-helvum
 highlight
 hplip
 hunspell
@@ -100,7 +96,6 @@ i3-wm
 i3blocks
 i3lock
 i3status
-id3v2
 imagemagick
 inetutils
 intel-ucode
@@ -150,7 +145,6 @@ mesa-utils
 meson
 mkinitcpio
 mold
-mono
 mosh
 mpv
 mpv-mpris
@@ -161,7 +155,6 @@ net-tools
 network-manager-applet
 nfs-utils
 ninja
-nix
 nmap
 noto-fonts-emoji
 ntfs-3g
@@ -171,7 +164,6 @@ nvidia-lts
 nvidia-settings
 nvtop
 obsidian
-odt2txt
 opencl-nvidia
 otf-cascadia-code
 otf-fira-mono
@@ -180,7 +172,6 @@ pacman
 pacman-contrib
 pamixer
 papirus-icon-theme
-patch
 pavucontrol
 pcmanfm
 pdfgrep
@@ -194,6 +185,7 @@ plantuml
 playerctl
 poppler
 prettier
+py3status
 python-cpplint
 python-pillow
 python-pip
@@ -219,7 +211,6 @@ sed
 shfmt
 simple-scan
 speech-dispatcher
-speedtest-cli
 sshfs
 steam
 stow
@@ -260,11 +251,10 @@ unibilium
 unzip
 urlscan
 vale
+vcpkg
 vdirsyncer
 vi
 vim
-virtualbox
-virtualbox-host-dkms
 vlc
 w3m
 wavpack
@@ -337,7 +327,6 @@ ytfzf
 zathura
 zathura-pdf-mupdf
 zbar
-zellij
 zig
 zip
 zls
