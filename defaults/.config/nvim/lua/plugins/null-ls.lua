@@ -266,6 +266,10 @@ local function setup()
     log.info('NullLs setting up python json_tool...')
     table.insert(sources, null.builtins.formatting.json_tool)
   end
+  if vim.fn.executable('codespell') > 0 then
+    log.info('NullLs setting up codespell...')
+    table.insert(sources, null.builtins.diagnostics.codespell)
+  end
   if vim.fn.executable('mypy') > 0 then
     log.info('NullLs setting up mypy...')
     table.insert(sources, null.builtins.diagnostics.mypy)
