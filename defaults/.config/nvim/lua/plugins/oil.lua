@@ -68,7 +68,6 @@ return {
     vim.api.nvim_create_autocmd('FileType', {
       pattern = 'oil',
       callback = function(args)
-        vim.keymap.set('n', 'q', '<cmd>normal! ZZ<cr>', { buffer = args.buf })
         vim.keymap.set('n', 's', oil_start_entry, { buffer = args.buf })
         vim.keymap.set('n', 'Y', oil_yank_entry, { buffer = args.buf })
       end,
