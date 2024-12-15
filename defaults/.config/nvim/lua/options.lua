@@ -5,6 +5,14 @@ function M:unix()
     return
   end
 
+  -- Source: https://www.reddit.com/r/neovim/comments/1e9vllk/neovim_weird_issue_when_copypasting_using_osc_52/
+  local function paste()
+    return {
+      vim.fn.split(vim.fn.getreg(""), "\n"),
+      vim.fn.getregtype(""),
+    }
+  end
+
   vim.g.clipboard = {
     name = 'osc52',
     copy = {
@@ -12,8 +20,8 @@ function M:unix()
       ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
     },
     paste = {
-      ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
-      ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+      ['+'] = paste,
+      ['*'] = paste,
     },
   }
 end
