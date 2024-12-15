@@ -384,7 +384,6 @@ M.plug = {}
 M.plug.mappings = {
   ['<leader>tf'] = { '<plug>focus_toggle', 'focus_toggle' },
   ['<localleader>f'] = { '<plug>format_code', 'format_code', { 'x', 'n' } },
-  ['<localleader>r'] = { '<plug>refactor_code', 'refactor_code', { 'x', 'n' } },
   ['<c-k>'] = { '<plug>snip_expand', 'snip_expand', { 'x', 'i', 's' } },
   ['<leader>G'] = { '<plug>search_internet', 'search_internet', { 'x', 'n' } },
   ['<localleader>k'] = { '<plug>make_project', 'make_project' },

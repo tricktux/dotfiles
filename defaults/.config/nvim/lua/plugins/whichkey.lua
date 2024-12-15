@@ -61,7 +61,6 @@ local lleader = {
 	{ "<localleader>j", "<plug>make_file", desc = "make_file" },
 	{ "<localleader>k", "<plug>make_project", desc = "make_project" },
 	{ "<localleader>q", desc = "format_motion" },
-	{ "<localleader>r", "<plug>refactor_code", desc = "refactor_code" },
 	{ "<localleader>~", desc = "swap_case_motion" },
 }
 local rbracket = {
