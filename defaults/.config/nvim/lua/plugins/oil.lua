@@ -57,7 +57,7 @@ return {
   event = 'VeryLazy',
   keys = {
     {
-      '<plug>file_oil_browser',
+      '<plug>file_browser',
       function()
         require('oil').open()
       end,
