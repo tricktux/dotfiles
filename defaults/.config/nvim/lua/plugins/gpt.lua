@@ -1,8 +1,4 @@
 
-if vim.g.advanced_plugins == 0 then
-  return {}
-end
-
 -- Lua functions that inserts a text and copies it to the clipboard
 local anki_prompt = [[
 I want you to act as a professional Anki card creator, able to create Anki cards from the text I provide.
