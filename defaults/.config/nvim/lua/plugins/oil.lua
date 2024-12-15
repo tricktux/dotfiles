@@ -93,7 +93,7 @@ return {
       'size',
       'mtime',
       'icon',
-      -- "permissions",
+      "permissions",
     },
     -- Configuration for the floating window in oil.open_float
     float = {
@@ -123,6 +123,7 @@ return {
       ['_'] = 'actions.open_cwd',
       ['`'] = 'actions.cd',
       ['~'] = 'actions.tcd',
+      ['x'] = 'actions.open_external',
       ['g.'] = 'actions.toggle_hidden',
     },
     view_options = {
