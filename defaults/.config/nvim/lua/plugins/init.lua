@@ -200,7 +200,7 @@ local p = {
   {
     'tpope/vim-capslock',
     keys = {
-      { '<c-l>', '<Plug>CapsLockToggle', mode = 'i', desc = 'caps_lock_toggle' },
+      { '<c-c>', '<Plug>CapsLockToggle', mode = 'i', desc = 'caps_lock_toggle' },
     },
   },
   {
