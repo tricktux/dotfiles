@@ -119,12 +119,10 @@ return {
           endpoint = "http://localhost:8080/v1/chat/completions",
         },
         openai = {
-          secret = vim.fn.isdirectory("C:\\") and os.getenv("OPENAI_API_KEY") or
-          { "pass", "show", "websites/openai.com/api-key" },
+          secret = os.getenv("OPENAI_API_KEY") or { "pass", "show", "websites/openai.com/api-key" },
         },
         anthropic = {
-          secret = vim.fn.isdirectory("C:\\") and os.getenv("ANTHROPIC_API_KEY") or
-          { "pass", "show", "websites/anthropic.com/api-key" },
+          secret = os.getenv("ANTHROPIC_API_KEY") or { "pass", "show", "websites/anthropic.com/api-key" },
         },
       },
       agents = {
