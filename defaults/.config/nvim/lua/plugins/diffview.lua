@@ -13,8 +13,12 @@ return {
     local opts = {
       diff_binaries = false, -- Show diffs for binaries
       use_icons = false, -- Requires nvim-web-devicons
+      icons = {
+        folder_closed = "",
+        folder_open = "",
+      },
+      signs = { fold_closed = '>', fold_open = '' },
       enhanced_diff_hl = false, -- See ':h diffview-config-enhanced_diff_hl'
-      signs = { fold_closed = '', fold_open = '' },
       merge_tool = {
         -- Config for conflicted files in diff views during a merge or rebase.
         layout = 'diff3_mixed',
