@@ -61,7 +61,7 @@ return {
       function()
         require('oil').open()
       end,
-      desc = 'file-tree-neotree',
+      desc = 'file-oil-browser',
     },
   },
   init = function()
