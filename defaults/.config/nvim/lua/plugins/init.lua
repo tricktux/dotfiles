@@ -204,6 +204,25 @@ local p = {
     },
   },
   {
+    "andrewferrier/debugprint.nvim",
+    keys = {
+      { "g?", mode = 'n' },
+      { "g?", mode = 'x' },
+    },
+    opts = {
+      keymaps = {
+        insert = {}
+      },
+      print_tag = "",
+      filetypes = {
+        ["c"] = {
+          left_var = "printf(\""
+        }
+      }
+    },
+    version = "*", -- Remove if you DON'T want to use the stable version
+  },
+  {
     'kevinhwang91/nvim-bqf',
     ft = 'qf',
     opts = {

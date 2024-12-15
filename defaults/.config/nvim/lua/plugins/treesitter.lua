@@ -295,6 +295,14 @@ return {
         mode = { 'n' },
         desc = 'refactoring_printf_debug',
       },
+      {
+        '<leader>rv',
+        function()
+          require('refactoring').debug.print_var()
+        end,
+        mode = { 'n', 'x' },
+        desc = 'refactoring_printf_debug',
+      },
     },
     opts = {},
   },
