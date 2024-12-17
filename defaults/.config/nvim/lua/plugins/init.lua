@@ -277,12 +277,10 @@ local p = {
       -- Smears will blend better on all backgrounds.
       legacy_computing_symbols_support = false,
     },
-  }
-}
-
-if vim.fn.has('nvim-0.10') <= 0 then
-  table.insert(p, {
+  },
+  {
     'b3nj5m1n/kommentary',
+    enabled = vim.fn.has('nvim-0.10') <= 0,
     keys = {
       { '<plug>comment_line', '<plug>kommentary_line_default', desc = 'kommentary_line_default' },
       {
@@ -302,7 +300,7 @@ if vim.fn.has('nvim-0.10') <= 0 then
         prefer_single_line_comments = true,
       })
     end,
-  })
-end
+  }
+}
 
 return p
