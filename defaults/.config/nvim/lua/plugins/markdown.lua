@@ -37,7 +37,7 @@ return {
   },
   {
     'epwalsh/obsidian.nvim',
-    event = 'VeryLazy',
+    ft = { 'markdown', 'org', 'quarto', 'tex' },
     keys = {
       { '<leader>wj', '<cmd>ObsidianToday<cr>', desc = 'obsidian_daily' },
       { '<leader>wa', '<cmd>ObsidianNew<cr>', desc = 'obsidian_new' },
