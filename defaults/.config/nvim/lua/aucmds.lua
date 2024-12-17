@@ -4,7 +4,7 @@ local api = vim.api
 local M = {}
 
 local function set_text_settings()
-  vim.opt_local.wrap = false
+  vim.opt_local.wrap = true
   vim.opt_local.spell = true
   vim.opt.conceallevel = vim.g.advanced_plugins == 1 and 2 or 0
   vim.opt.textwidth = 0
