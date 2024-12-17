@@ -66,8 +66,8 @@ local function mappings()
   local prefix = "<leader>a"
 
   -- Chat commands
-  vim.keymap.set({"n"}, prefix .. "c", "<cmd>%GpChatNew vsplit<cr>", keymapOptions("New Chat"))
-  vim.keymap.set({"n"}, prefix .. "C", "<cmd>GpChatNew vsplit<cr>", keymapOptions("New Chat"))
+  vim.keymap.set({"n"}, prefix .. "C", "<cmd>%GpChatNew vsplit<cr>", keymapOptions("New Chat"))
+  vim.keymap.set({"n"}, prefix .. "c", "<cmd>GpChatNew vsplit<cr>", keymapOptions("New Chat"))
   vim.keymap.set({"n"}, prefix .. "t", "<cmd>GpChatToggle vsplit<cr>", keymapOptions("Toggle Chat"))
   vim.keymap.set({"n"}, prefix .. "f", "<cmd>GpChatFinder vsplit<cr>", keymapOptions("Chat Finder"))
   vim.keymap.set("v", prefix .. "c", ":<C-u>'<,'>GpChatNew vsplit<cr>", keymapOptions("Visual Chat New"))
@@ -111,11 +111,12 @@ return {
   event = "VeryLazy",
   config = function()
     -- sample cool config: https://github.com/frankroeder/dotfiles/blob/ca4be698194e54f02498f85c26324346f2ed37c7/nvim/lua/plugins/gp_nvim.lua#L19
+    -- https://docs.anthropic.com/en/docs/about-claude/models
     local conf = {
       -- For customization, refer to Install > Configuration in the Documentation/Readme
       -- default agent names set during startup, if nil last used agent is used
-      default_command_agent = "ChatGPT4o",
-      default_chat_agent = "ChatGPT4o",
+      default_command_agent = "CodeClaude-3-5-Sonnet",
+      default_chat_agent = "CodeClaude-3-5-Sonnet",
       -- log_sensitive = true,
       providers = {
         ollama = {
@@ -126,15 +127,16 @@ return {
         },
         anthropic = {
           secret = os.getenv("ANTHROPIC_API_KEY") or { "pass", "show", "websites/anthropic.com/api-key" },
+          model = { model = "claude-3-5-sonnet-latest" },
         },
       },
       agents = {
         {
           name = "Anki",
-          provider = "openai",
+          provider = "anthropic",
           chat = true,
           command = true,
-          model = { model = "gpt-4-turbo" },
+          model = { model = "claude-3-opus-latest" },
           system_prompt = anki_prompt,
         },
       },
