@@ -72,7 +72,6 @@ function! options#Set() abort
         \,a:blinkon0-Cursor/lCursor
 
   set expandtab
-  set guitablabel=%N\ %f
   " Tue Nov 13 2018 22:39: Needed by Shuogo/echodoc.vim
   set noshowmode
   " Useful for the find command
@@ -252,6 +251,7 @@ function! options#Set() abort
   augroup END
 
   if !has('nvim')
+    set guitablabel=%N\ %f
     call s:set_colorscheme_by_time()
   endif
 endfunction
