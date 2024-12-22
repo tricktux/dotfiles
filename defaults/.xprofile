@@ -228,7 +228,6 @@ export VCPKG_ROOT=$HOME/.local/share/vcpkg
 
 move ~/.pki/ "$XDG_DATA_HOME"/pki/
 
-
 # Nix local fix for arch
 export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
 
