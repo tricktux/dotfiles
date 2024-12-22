@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Define the branch you want to build
 BRANCH="release-0.10"  # Change this to your desired branch
-NEOVIM_DIR="/tmp/neovim"
+NEOVIM_DIR="/tmp/neovim-${BRANCH}"
+REPO="https://github.com/neovim"
 # Function to print error messages and exit
 function error() {
   echo "Error: $1"
@@ -29,9 +30,11 @@ update_pynvim() {
 paru -Syu --needed git cmake make gcc pkg-config unzip ninja libtool curl gettext \
   tree-sitter-cli ripgrep fd fswatch zig
 
+[[ -d "$NEOVIM_DIR" ]] && $NEOVIM_DIR="$NEOVIM_DIR-`date +%s`"
+
 # Clone the specific branch of Neovim
 echo "Cloning Neovim repository..."
-git clone --depth 1 --branch "$BRANCH" --single-branch https://github.com/neovim/neovim.git "$NEOVIM_DIR" || error "Failed to clone Neovim repository"
+git clone --depth 1 --branch "$BRANCH" --single-branch ${REPO}/neovim.git "$NEOVIM_DIR" || error "Failed to clone Neovim repository"
 # Navigate to the directory
 cd "$NEOVIM_DIR" || error "Failed to navigate to Neovim directory"
 # Build Neovim
