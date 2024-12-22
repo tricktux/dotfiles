@@ -39,7 +39,7 @@ case "$1" in
         ;;
     "main")
         echo "  setting up $1 configuration"
-        xrdb ~/.Xresources
+        xrdb -merge ~/.Xresources
         xset_on
         ;;
     "home")
