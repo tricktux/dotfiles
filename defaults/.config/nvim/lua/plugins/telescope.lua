@@ -75,6 +75,7 @@ function M:setup()
         find_files = { hidden = true },
       },
       sorting_strategy = 'ascending',
+      scroll_strategy = 'limit',
       layout_strategy = 'flex',
       winblend = 5,
       layout_config = {
@@ -104,6 +105,8 @@ function M:setup()
           ['<C-s>'] = actions.file_split,
           ['<C-u>'] = actions.results_scrolling_up,
           ['<C-d>'] = actions.results_scrolling_down,
+          ['<C-h>'] = actions.preview_scrolling_up,
+          ['<C-l>'] = actions.preview_scrolling_down,
           ['<C-v>'] = actions.file_vsplit,
           ['<C-t>'] = actions.file_tab,
           ['<C-e>'] = actions_layout.toggle_preview,
