@@ -10,6 +10,10 @@
 # Uses:					You can start applications from here
 # Note:		Sourced by lightdm
 
+move() {
+  [[ -d $1 ]] && rsync -a $1 $2 && rm -rf $1
+}
+
 export HOSTNAME=$(hostname)
 
 # Tue May 19 2020 06:24:
