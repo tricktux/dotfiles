@@ -70,15 +70,11 @@ qt_setup() {
 	fi
 
 	local period=$1
-	local theme="prefer-light"
-	if [[ ! -x $(command -v gsettings) ]]; then
-		echo "qt: gsettings not executable"
-		return 1
-	fi
+	local theme="Adapta"
 
 	case $period in
 	night)
-		theme="prefer-dark"
+		theme="Adapta-Nokto"
 		;;
 	esac
 	gsettings set org.gnome.desktop.interface gtk-theme $theme
