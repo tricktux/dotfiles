@@ -78,6 +78,9 @@ qt_setup() {
 		;;
 	esac
 	gsettings set org.gnome.desktop.interface gtk-theme $theme
+
+    # Set Qt theme to match GTK
+    export QT_STYLE_OVERRIDE=gtk2
 }
 
 neovim_setup $1
