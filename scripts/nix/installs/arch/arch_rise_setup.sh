@@ -291,6 +291,36 @@ sudo gpasswd -a reinaldo autologin
 # Valid session names under /usr/share/xsessions/*.desktop
 sudo nvim /etc/lightdm/lightdm.conf
 
+# 1. Create a new script file, for example `/usr/local/bin/set-xresources`:
+
+# #!/bin/sh
+#
+# xrdb -merge << EOF
+# ! Adjust DPI here
+# Xft.dpi: 156
+#
+# ! These might also be useful depending on your monitor and personal preference:
+# Xft.autohint: 0
+# Xft.lcdfilter:  lcddefault
+# Xft.hintstyle:  hintfull
+# Xft.hinting: 1
+# Xft.antialias: 1
+# Xft.rgba: rgb
+# EOF
+
+# 2. Make the script executable:
+
+sudo chmod +x /usr/local/bin/set-xresources
+
+# 3. Edit the LightDM configuration file:
+
+sudo nvim /etc/lightdm/lightdm.conf
+
+# 4. In the [Seat:*] section, set the display-setup-script:
+
+# [Seat:*]
+# display-setup-script=/usr/local/bin/set-xresources
+
 # [Seat:*]
 # autologin-user=reinaldo
 # autologin-session=i3-with-shmlog
