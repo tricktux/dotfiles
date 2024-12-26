@@ -175,6 +175,7 @@ papirus-icon-theme
 pavucontrol
 pcmanfm
 pdfgrep
+perf
 pipewire
 pipewire-alsa
 pipewire-jack
@@ -264,6 +265,7 @@ which
 whipper
 wireguard-tools
 wireless_tools
+wireshark-qt
 words
 wpa_supplicant
 xclip
