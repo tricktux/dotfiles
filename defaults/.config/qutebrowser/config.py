@@ -19,9 +19,8 @@ from qutebrowser.config.configfiles import ConfigAPI  # noqa: F401
 config = config  # type: ConfigAPI # noqa: F821 pylint: disable=E0602,C0103
 c = c  # type: ConfigContainer # noqa: F821 pylint: disable=E0602,C0103
 
-
 # Uncomment this to still load settings configured via autoconfig.yml
-# config.load_autoconfig()
+config.load_autoconfig()
 
 # Enable JavaScript.
 # Type: Bool
@@ -38,6 +37,7 @@ c = c  # type: ConfigContainer # noqa: F821 pylint: disable=E0602,C0103
 # Bindings for normal mode
 config.bind('d', 'scroll-page 0 0.5')
 config.bind('e', 'scroll-page 0 -0.5')
+config.bind('u', 'scroll-page 0 -0.5')
 config.bind('q', 'tab-close')
 config.bind('<Shift-t', 'open -t', mode='normal')
 config.bind('<Alt-[>', 'tab-next', mode='normal')
@@ -81,7 +81,7 @@ if (platform.system() != 'Windows'
     c.fonts.messages.info = "8pt monospace"
     c.fonts.messages.warning = "8pt monospace"
     c.fonts.statusbar = "8pt monospace"
-    c.fonts.tabs = "8pt monospace"
+    # c.fonts.tabs = "8pt monospace"
 
 c.downloads.location.directory = '/home/reinaldo/Downloads'
 
