@@ -45,6 +45,8 @@ config.bind('<Alt-]>', 'tab-prev', mode='normal')
 config.bind('<Shift-k>', 'tab-next', mode='normal')
 config.bind('<Shift-j>', 'tab-prev', mode='normal')
 config.bind('<Ctrl-l>', 'messages', mode='normal')
+config.bind('<Ctrl-r>', ':config-source', mode='normal')
+config.bind('<space>tc', 'config-cycle colors.webpage.darkmode.enabled true false')
 
 #  pip install --user tldextract
 config.bind('<z><l>', 'spawn --userscript qute-pass')
@@ -58,33 +60,11 @@ c.content.pdfjs = True
 
 c.spellcheck.languages = ["en-US"]
 
-#  Editor shows under journal scratchpad
-#  Cant use nvr need nvim use it with <c-e>
-c.editor.command = [
-    "nvr", "--remote-tab-silent", "+set bufhidden=delete",
-    "+normal {line}G{column0}l", "--servername", "/tmp/nada", "{file}"
-]
-
-hostname = socket.gethostname()
-if (platform.system() != 'Windows'
-        and (hostname == 'predator' or hostname == 'surbook')):
-    #  hidpi
-    #  c.qt.highdpi = True
-    #  c.zoom.default ="125%"
-    c.fonts.completion.category = "8pt monospace"
-    c.fonts.completion.entry = "8pt monospace"
-    c.fonts.debug_console = "8pt monospace"
-    c.fonts.downloads = "8pt monospace"
-    c.fonts.hints = "8pt monospace"
-    c.fonts.keyhint = "8pt monospace"
-    c.fonts.messages.error = "8pt monospace"
-    c.fonts.messages.info = "8pt monospace"
-    c.fonts.messages.warning = "8pt monospace"
-    c.fonts.statusbar = "8pt monospace"
-    # c.fonts.tabs = "8pt monospace"
-
 c.downloads.location.directory = '/home/reinaldo/Downloads'
 
+c.url.start_pages = ['https://web.tabliss.io/']
+c.url.default_page = 'https://web.tabliss.io/'
+c.url.searchengines['DEFAULT'] = 'https://www.google.com/search?q={}'
 c.url.searchengines['a'] = 'https://wiki.archlinux.org/?search={}'
 c.url.searchengines['y'] = 'https://www.youtube.com/results?search_query={}'
 c.url.searchengines[
@@ -107,3 +87,6 @@ c.url.searchengines['g'] = 'https://github.com/search?q={}&type=Repositories'
 #  https://developer.chrome.com/apps/match_patterns
 #  config.set('content.javascript.enabled', True, 'https://*.twitch.tv/*')
 #  config.set('content.cookies.accept', "all", '*/twitch.tv*')
+
+# colors
+config.source('qutewal.py')
