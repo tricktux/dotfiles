@@ -9,9 +9,6 @@
 #  Ergo not even that light weight
 #  Must protect firefox
 
-import platform
-import socket
-
 from qutebrowser.config.config import ConfigContainer  # noqa: F401
 # pylint: disable=C0111
 from qutebrowser.config.configfiles import ConfigAPI  # noqa: F401
@@ -19,20 +16,7 @@ from qutebrowser.config.configfiles import ConfigAPI  # noqa: F401
 config = config  # type: ConfigAPI # noqa: F821 pylint: disable=E0602,C0103
 c = c  # type: ConfigContainer # noqa: F821 pylint: disable=E0602,C0103
 
-# Uncomment this to still load settings configured via autoconfig.yml
 config.load_autoconfig()
-
-# Enable JavaScript.
-# Type: Bool
-#  config.set('content.javascript.enabled', True, 'file://*')
-
-# Enable JavaScript.
-# Type: Bool
-#  config.set('content.javascript.enabled', True, 'chrome://*/*')
-
-# Enable JavaScript.
-# Type: Bool
-#  config.set('content.javascript.enabled', True, 'qute://*/*')
 
 # Bindings for normal mode
 config.bind('d', 'scroll-page 0 0.5')
@@ -53,9 +37,6 @@ config.bind('<z><l>', 'spawn --userscript qute-pass')
 config.bind('<z><u><l>', 'spawn --userscript qute-pass --username-only')
 config.bind('<z><p><l>', 'spawn --userscript qute-pass --password-only')
 
-#  Will be discontinued
-#  c.backend = "webkit"
-
 c.content.pdfjs = True
 
 c.spellcheck.languages = ["en-US"]
@@ -70,23 +51,6 @@ c.url.searchengines['y'] = 'https://www.youtube.com/results?search_query={}'
 c.url.searchengines[
     'w'] = 'https://secure.wikimedia.org/wikipedia/en/w/index.php?title=Special%%3ASearch&search={}'
 c.url.searchengines['g'] = 'https://github.com/search?q={}&type=Repositories'
-
-#  Privacy settings
-#  Not available while using webengine backend
-#  c.content.notifications = False
-#  c.content.geolocation = False
-#  c.content.canvas_reading = False
-#  c.content.headers.custom = {
-#  "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
-#  }
-#  c.content.webgl = False
-#  c.content.javascript.enabled = False
-#  c.content.cookies.accept = "never"
-#  c.content.cookies.store = False
-
-#  https://developer.chrome.com/apps/match_patterns
-#  config.set('content.javascript.enabled', True, 'https://*.twitch.tv/*')
-#  config.set('content.cookies.accept', "all", '*/twitch.tv*')
 
 # colors
 config.source('qutewal.py')
