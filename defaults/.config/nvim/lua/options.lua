@@ -7,18 +7,15 @@ function M:unix()
 
   -- Source: https://www.reddit.com/r/neovim/comments/1e9vllk/neovim_weird_issue_when_copypasting_using_osc_52/
   local function paste()
-    if os.getenv('KITTY_WINDOW_ID') ~= nil then
-      return {
-        ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
-        ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
-      }
-    end
-
     return {
       vim.fn.split(vim.fn.getreg(""), "\n"),
       vim.fn.getregtype(""),
     }
   end
+
+  local k = os.getenv('KITTY_WINDOW_ID') ~= nil
+  local oscplus = require('vim.ui.clipboard.osc52').paste('+')
+  local oscast = require('vim.ui.clipboard.osc52').paste('*')
 
   vim.g.clipboard = {
     name = 'osc52',
@@ -27,8 +24,8 @@ function M:unix()
       ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
     },
     paste = {
-      ['+'] = paste,
-      ['*'] = paste,
+      ['+'] = k and oscplus or paste,
+      ['*'] = k and oscast or paste,
     },
   }
 end
