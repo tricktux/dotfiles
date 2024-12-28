@@ -8,6 +8,8 @@
 #  Uses the chromium web engine
 #  Ergo not even that light weight
 #  Must protect firefox
+#  2024-12-27 Giving in it another go
+#  2024-12-28 yeah, youtbe eats pc alive
 
 from qutebrowser.config.config import ConfigContainer  # noqa: F401
 # pylint: disable=C0111
@@ -17,6 +19,15 @@ config = config  # type: ConfigAPI # noqa: F821 pylint: disable=E0602,C0103
 c = c  # type: ConfigContainer # noqa: F821 pylint: disable=E0602,C0103
 
 config.load_autoconfig()
+
+## In v2.0.0+, use next if you use Adblock Plus AND hosts blocking 
+c.content.blocking.method = 'both'
+
+c.content.default_encoding = 'utf-8'
+c.content.geolocation = False
+c.content.autoplay = False
+
+c.content.dns_prefetch = False
 
 # Bindings for normal mode
 config.bind('d', 'scroll-page 0 0.5')
@@ -43,8 +54,9 @@ c.spellcheck.languages = ["en-US"]
 
 c.downloads.location.directory = '/home/reinaldo/Downloads'
 
-c.url.start_pages = ['https://web.tabliss.io/']
-c.url.default_page = 'https://web.tabliss.io/'
+## I like my start page(s) and default page to be blank
+c.url.start_pages = ["about:blank"]
+c.url.default_page = "about:blank"
 c.url.searchengines['DEFAULT'] = 'https://www.google.com/search?q={}'
 c.url.searchengines['a'] = 'https://wiki.archlinux.org/?search={}'
 c.url.searchengines['y'] = 'https://www.youtube.com/results?search_query={}'
