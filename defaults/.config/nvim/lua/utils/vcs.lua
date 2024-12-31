@@ -30,6 +30,21 @@ function vcs:blame()
   print('blame: Not implemented')
 end
 
+function vcs:branches()
+  -- This should be overwritten by subclass
+  print('branches: Not implemented')
+end
+
+function vcs:reset_hunk()
+  -- This should be overwritten by subclass
+  print('reset_hunk: Not implemented')
+end
+
+function vcs:reset_buffer()
+  -- This should be overwritten by subclass
+  print('reset_buffer: Not implemented')
+end
+
 -- Git subclass
 local git = vcs:new()
 function git:status()

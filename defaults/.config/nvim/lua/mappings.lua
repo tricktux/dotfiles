@@ -2,7 +2,6 @@ local log = require('utils.log')
 local fmt = string.format
 local vks = vim.keymap.set
 local utl = require('utils.utils')
-local fs = require('utils.utils').fs
 local vcs = require('utils.vcs')
 local fn = vim.fn
 
