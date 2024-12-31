@@ -76,6 +76,24 @@ function git:blame()
   print('Git blame: Not implemented')
 end
 
+function git:reset_hunk()
+  if vim.fn.exists(':Gitsigns') > 0 then
+    vim.cmd('Gitsigns reset_hunk')
+    return
+  end
+
+  print('Git reset_hunk: Not implemented')
+end
+
+function git:reset_buffer()
+  if vim.fn.exists(':Gitsigns') > 0 then
+    vim.cmd('Gitsigns reset_buffer')
+    return
+  end
+
+  print('Git reset_buffer: Not implemented')
+end
+
 function vcs:factory() -- factory method to instantiate appropriate VCS subclass
   local ret = nil
   local g = vim.fs.find('.git', {

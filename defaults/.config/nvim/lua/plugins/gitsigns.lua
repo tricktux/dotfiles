@@ -66,12 +66,6 @@ local function on_attach(bufnr)
     ['[c'] = { prev_hunk, 'prev_hunk' },
   }
   map.keymaps_set(mappings, 'n', opts)
-  prefix = map.vcs.prefix
-  mappings = {
-    r = { gs.reset_hunk, 'reset_hunk' },
-    R = { gs.reset_buffer, 'reset_buffer' },
-  }
-  map.keymaps_set(mappings, 'n', opts, prefix)
 end
 
 local function status_line()
