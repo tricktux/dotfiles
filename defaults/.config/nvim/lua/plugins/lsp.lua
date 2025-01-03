@@ -10,6 +10,8 @@ local servers = {
   rust = vim.fn.executable('rust-analyzer'),
   ruff = vim.fn.executable('ruff-lsp'),
   pyright = vim.fn.executable('pyright-langserver'),
+  omnisharp = vim.fn.executable('omnisharp'),
+  zls = vim.fn.executable('zls'),
 }
 
 local activate = false
@@ -242,7 +244,7 @@ function M:config()
   end
 
   -- Unbearably slow
-  if vim.fn.executable('omnisharp') > 0 then
+  if servers['omnisharp'] > 0 then
     log.info('setting up the omnisharp lsp...')
     nvim_lsp.omnisharp.setup({
       flags = flags,
@@ -257,7 +259,7 @@ function M:config()
     log.info('setting up the ruff lsp...')
 
     -- https://docs.astral.sh/ruff/editors/setup/#neovim
-    nvim_lsp.ruff_lsp.setup({
+    nvim_lsp.ruff.setup({
       init_options = {
         settings = {
           -- Any extra CLI arguments for `ruff` go here.
@@ -370,7 +372,7 @@ function M:config()
     })
   end
 
-  if vim.fn.executable('zls') > 0 then
+  if servers['zls'] > 0 then
     nvim_lsp.zls.setup({})
   end
 
