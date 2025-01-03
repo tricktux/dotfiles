@@ -21,7 +21,7 @@ for _, v in pairs(servers) do
   end
 end
 
-if activate == false and vim.g.advanced_plugins == 0 then
+if activate == false then
   return {}
 end
 
