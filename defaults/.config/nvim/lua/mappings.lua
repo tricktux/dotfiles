@@ -218,6 +218,33 @@ M.vcs.mappings = {
     end,
     'vcs_buffer_commits',
   },
+  r = {
+    function()
+      local v = vcs:factory()
+      if v ~= nil then
+        v:reset_hunk()
+      end
+    end,
+    'vcs_reset_hunk',
+  },
+  R = {
+    function()
+      local v = vcs:factory()
+      if v ~= nil then
+        v:reset_buffer()
+      end
+    end,
+    'vcs_reset_buffer',
+  },
+  B = {
+    function()
+      local v = vcs:factory()
+      if v ~= nil then
+        v:branches()
+      end
+    end,
+    'vcs_branches',
+  },
   b = {
     function()
       local v = vcs:factory()

@@ -48,6 +48,11 @@ end
 -- Git subclass
 local git = vcs:new()
 function git:status()
+  if vim.fn.exists(':Neogit') > 0 then
+    vim.cmd('Neogit kind=floating')
+    return
+  end
+
   if vim.fn.executable('lazygit') > 0 then
     local o = { startinsert = true }
     local b = utils.term.float.exec('term lazygit', o)
@@ -66,6 +71,11 @@ function git:diff()
 end
 
 function git:buffer_commits()
+  if vim.fn.exists(':DiffviewFileHistory') > 0 then
+    vim.cmd('DiffviewFileHistory %')
+    return
+  end
+
   if vim.fn.executable('lazygit') > 0 then
     -- Get path to current buffer
     local o = { startinsert = true }
@@ -74,12 +84,16 @@ function git:buffer_commits()
     return
   end
 
-  if vim.fn.exists(':DiffviewFileHistory') > 0 then
-    vim.cmd('DiffviewFileHistory %')
+  print('Git buffer_commits: Not implemented')
+end
+
+function git:branches()
+  if vim.fn.exists(':Telescope') > 0 then
+    vim.cmd('Telescope git_branches')
     return
   end
 
-  print('Git buffer_commits: Not implemented')
+  print('Git branches: Not implemented')
 end
 
 function git:blame()
