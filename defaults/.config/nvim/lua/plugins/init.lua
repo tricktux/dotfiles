@@ -1,4 +1,5 @@
 local utl = require('utils.utils')
+local map = require('mappings')
 
 local c = {}
 c.flavour = {
@@ -251,6 +252,20 @@ local p = {
       vim.g.no_csv_maps = 1
       vim.g.csv_strict_columns = 1
     end,
+  },
+  {
+    "NeogitOrg/neogit",
+    cmd = "Neogit",
+    keys = {
+      { map.vcs.prefix .. "n", "<cmd>Neogit<cr>", mode = 'n' },
+    },
+    dependencies = {
+      "nvim-lua/plenary.nvim",  -- required
+
+      -- Only one of these is needed.
+      "nvim-telescope/telescope.nvim", -- optional
+    },
+    config = true
   },
   {
     'b3nj5m1n/kommentary',
