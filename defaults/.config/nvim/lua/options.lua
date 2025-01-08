@@ -63,6 +63,8 @@ function M:setup()
     float = { source = 'if_many' },
   })
 
+  vim.opt.exrc = true
+
   -- Coming from lazyvim
   vim.opt.laststatus = 3
 
