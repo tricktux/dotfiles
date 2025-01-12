@@ -10,8 +10,10 @@
 // https://github.com/altdesktop/i3ipc-python/blob/master/examples/app-on-ws-init.py
 // https://github.com/Iskustvo/i3-ipcpp/blob/master/include/i3_ipc.hpp
 
-// Compile with: clang++ i3-workspace-output.cpp -std=c++20 -Ofast -o i3-workspace-output && ./i3-workspace-output
-// Compile with: zig c++ i3-workspace-output.cpp -std=c++20 -Ofast -o i3-workspace-output && ./i3-workspace-output
+// Compile with: clang++ i3-workspace-output.cpp -std=c++20 -Ofast -o
+// i3-workspace-output && ./i3-workspace-output Compile with: zig c++
+// i3-workspace-output.cpp -std=c++20 -Ofast -o i3-workspace-output &&
+// ./i3-workspace-output
 
 /**
  * @brief Get the last word after space from the given text.
@@ -121,7 +123,7 @@ int main(int argc, char **argv) {
                 << line << "'";
       monitors.add(std::move(*mon));
     } else
-      std::cout << "\tNOT A MONITOR: " << line;
+    std::cout << "\tNOT A MONITOR: " << line;
   }
 
   monitors.sort();
