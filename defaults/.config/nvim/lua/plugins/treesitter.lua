@@ -7,10 +7,15 @@ local function disable(lang, bufnr)
     return vim.b.ts_disabled == 1
   end
 
+  if vim.fn.has('nvim-0.10.4') > 0 then  -- async?
+    vim.b.ts_disabled = 0
+    return false
+  end
+
   -- Max file size for unix files
   local max_filesize = 262144 -- 256 * 1024 Kb
 
-  local stat = vim.fn.has('0.10.0') > 0 and vim.uv.fs_stat or vim.loop.fs_stat
+  local stat = vim.fn.has('nvim-0.10.0') > 0 and vim.uv.fs_stat or vim.loop.fs_stat
   local ok, stats = pcall(stat, vim.api.nvim_buf_get_name(bufnr))
   if ok and stats and stats.size > max_filesize then
     local msg = "[TreeSitter]: Highlight disabled, file is bigger than '"

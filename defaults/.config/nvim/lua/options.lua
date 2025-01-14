@@ -64,6 +64,7 @@ function M:setup()
   })
 
   vim.opt.exrc = true
+  vim.opt.redrawtime = 8000
 
   -- Coming from lazyvim
   vim.opt.laststatus = 3
