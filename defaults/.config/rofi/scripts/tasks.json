@@ -222,5 +222,9 @@
   {
     "name": "✈️ airplane mode off",
     "command": "rkill unblock all"
+  },
+  {
+    "name": "✈️ i3 workspace fix monitors",
+    "command": "exec $HOME/.config/i3/scripts/i3-workspace-output"
   }
 ]
