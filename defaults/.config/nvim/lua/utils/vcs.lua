@@ -1,6 +1,11 @@
 local utils = require('utils.utils')
 local vcs = {}
 
+-- NOTE: To extend
+--   1. local svn = vcs:new()
+--   2. Implement all the vcs functions
+--   3. Address the factory function
+
 -- Based on the current folder determine what's the version control source in
 -- use, based on that support some basic commands such as status, commit, etc.
 function vcs:new(o) -- constructor for the VCS class
@@ -124,23 +129,25 @@ function git:reset_buffer()
 end
 
 function vcs:factory() -- factory method to instantiate appropriate VCS subclass
-  local ret = nil
-  local g = vim.fs.find('.git', {
+  local gitdir = ".git"
+  local g = vim.fs.find(gitdir, {
     upward = true,
     stop = vim.uv.os_homedir(),
     path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
   })
+
+  if #g == 0 then
+    vim.notify('Error: Not a Git or SVN repository', vim.log.levels.ERROR)
+    return nil
+  end
+
+  vim.cmd.lcd(vim.fs.dirname(g[1]))
+
   -- Check if current directory is git repository
-  if #g > 0 then
-    ret = git
+  if string.match(g[1], gitdir) ~= nil then
+    return git:new()
   end
 
-  if ret then
-    return ret:new()
-  end
-
-  error('Error: Not a Git or SVN repository')
-  return nil
 end
 
 return vcs
