@@ -33,7 +33,7 @@ function! options#Set() abort
   set spelllang=en_us
   set nowrapscan
   set showtabline=1
-  set nonumber
+  set number
   set relativenumber
   set numberwidth=1
   " Supress messages
