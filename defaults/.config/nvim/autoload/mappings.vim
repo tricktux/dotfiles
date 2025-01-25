@@ -176,6 +176,8 @@ function! mappings#Set()
   inoremap = =<c-g>u
 
   " terminal
+  nmap <localleader>j <plug>make 
+  nnoremap <plug>make :make!<cr>
   nmap <M-`> <plug>terminal_toggle
   nmap <localleader>e <plug>terminal_send_line
 
