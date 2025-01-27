@@ -537,7 +537,7 @@ M.term.toggle = function()
   local term_valid = M.term.is_valid(M.term.last.job_id, bufnr)
 
   if not term_valid then
-    M.term.new_vsplit()
+    vim.cmd.terminal()
     return
   end
 
@@ -546,7 +546,6 @@ M.term.toggle = function()
     vim.api.nvim_set_current_win(term_win)
     return
   end
-  vim.cmd.vsplit()
   vim.cmd.buffer(bufnr)
 end
 M.term.new_vsplit = function()
