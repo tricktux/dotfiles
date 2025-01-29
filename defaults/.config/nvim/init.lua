@@ -18,7 +18,7 @@ local function set_globals()
   ]])
   -----------------------
 
-  vim.g.copilot_active = false
+  vim.g.copilot_active = true
   vim.g.advanced_plugins  = 0
 
   -- Disable unnecessary providers

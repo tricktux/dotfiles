@@ -129,20 +129,33 @@ return {
     'saadparwaiz1/cmp_luasnip',
     event = 'InsertEnter',
   },
-  copilot and {
+  {
     'zbirenbaum/copilot.lua',
+    enabled = copilot,
     event = 'InsertEnter',
+    keys = {
+      {
+        '<leader>ta',
+        "<cmd>Copilot! attach<cr>",
+        mode = { 'n' },
+        desc = 'toggle_copilot_attach',
+      },
+    },
     opts = {
       suggestion = { enabled = false },
       panel = { enabled = false },
+      filetypes = {
+        ["*"] = false, -- enable by Copilot! attach
+      },
     },
-  } or {},
-  copilot and {
+  },
+  {
     'zbirenbaum/copilot-cmp',
+    enabled = copilot,
     event = 'InsertEnter',
     dependencies = { 'zbirenbaum/copilot.lua' },
     config = function()
       require('copilot_cmp').setup()
     end,
-  } or {},
+  },
 }
