@@ -216,7 +216,7 @@ cleanup_junk() {
 	[Qq]*) quit ;;
 	[Yy]*)
 		sudo paccache --remove -vvv \
-			--cachedir=/home/reinaldo/.mnt/skywafer/NetBackup/pacman_cache/x86_64
+			--cachedir=/mnt/skywafer/NetBackup/pacman_cache/x86_64
 		# Remove cache for deleted packages
 		# Omit for now, otherwise we are constantly downloading removed files
 		# sudo paccache -ruk0
