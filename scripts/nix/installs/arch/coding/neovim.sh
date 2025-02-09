@@ -28,7 +28,7 @@ update_pynvim() {
 
 # Install needed dependencies (adjust as necessary)
 paru -Syu --needed git cmake make gcc pkg-config unzip ninja libtool curl gettext \
-  tree-sitter-cli ripgrep fd fswatch zig
+  tree-sitter-cli ripgrep fd inotify-tools
 
 [[ -d "$NEOVIM_DIR" ]] && $NEOVIM_DIR="$NEOVIM_DIR-`date +%s`"
 
