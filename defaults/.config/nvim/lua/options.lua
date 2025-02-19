@@ -50,7 +50,7 @@ function M:setup()
     'rE:', -- Windows
     'rF:',
   }
-  vim.opt.signcolumn = 'yes:1'
+  vim.opt.signcolumn = 'auto:1'
   -- https://www.reddit.com/r/neovim/comments/zg44mm/comment/izfdbtw/?utm_source=reddit&utm_medium=web2x&context=3
   vim.opt.virtualedit = 'block'
 
