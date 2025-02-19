@@ -170,6 +170,10 @@ function M.setup_lsp_attach()
 
       if vim.fn.has('nvim-0.10') > 0 and do_buffer_clients_support_method(au.buf, 'textDocument/inlayHint') then
         vim.lsp.inlay_hint.enable(true, { bufnr = au.buf })
+        local toggle_inlay_hints = function()
+          vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = au.buf })
+        end
+        vks('n', '<leader>ti', toggle_inlay_hints, { silent = true, buffer = true, desc = "toggle_inlay_hints" })
       end
       if vim.fn.has('nvim-0.10') > 0 and do_buffer_clients_support_method(au.buf, 'textDocument/codeLens') then
         vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
