@@ -148,6 +148,8 @@ function M.setup_lsp_attach()
   local la = vim.api.nvim_create_augroup('lsp-attach', { clear = true })
   local lh = vim.api.nvim_create_augroup('lsp-highlight', { clear = true })
   local ld = vim.api.nvim_create_augroup('lsp-detach', { clear = true })
+
+  -- LspDetach
   vim.api.nvim_create_autocmd({ 'LspDetach' }, {
     callback = function(au)
       vim.cmd('setlocal tagfunc< omnifunc< formatexpr<')
@@ -157,6 +159,8 @@ function M.setup_lsp_attach()
     desc = 'LSP detach from buffer',
     group = ld,
   })
+
+  -- LspAttach
   vim.api.nvim_create_autocmd({ 'LspAttach' }, {
     callback = function(au)
       local client = vim.lsp.get_client_by_id(au.data.client_id)
@@ -168,6 +172,7 @@ function M.setup_lsp_attach()
         sig.on_attach()
       end
 
+      -- inlay hints
       if vim.fn.has('nvim-0.10') > 0 and do_buffer_clients_support_method(au.buf, 'textDocument/inlayHint') then
         vim.lsp.inlay_hint.enable(true, { bufnr = au.buf })
         local toggle_inlay_hints = function()
@@ -175,6 +180,8 @@ function M.setup_lsp_attach()
         end
         vks('n', '<leader>ti', toggle_inlay_hints, { silent = true, buffer = true, desc = "toggle_inlay_hints" })
       end
+
+      -- code lens
       if vim.fn.has('nvim-0.10') > 0 and do_buffer_clients_support_method(au.buf, 'textDocument/codeLens') then
         vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
           callback = function(nested_au)
@@ -185,6 +192,8 @@ function M.setup_lsp_attach()
           group = lh,
         })
       end
+
+      -- document highlight
       if do_buffer_clients_support_method(au.buf, 'textDocument/documentHighlight') then
         vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
           callback = vim.lsp.buf.document_highlight,
