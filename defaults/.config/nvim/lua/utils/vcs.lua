@@ -53,14 +53,14 @@ end
 -- Git subclass
 local git = vcs:new()
 function git:status()
-  if vim.fn.exists(':Neogit') > 0 then
-    vim.cmd('Neogit kind=floating')
-    return
-  end
-
   if vim.fn.executable('lazygit') > 0 then
     local o = { startinsert = true }
     local b = utils.term.float.exec('term lazygit', o)
+    return
+  end
+
+  if vim.fn.exists(':Neogit') > 0 then
+    vim.cmd('Neogit kind=floating')
     return
   end
 
