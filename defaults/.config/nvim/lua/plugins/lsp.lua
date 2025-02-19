@@ -31,9 +31,13 @@ local function do_buffer_clients_support_method(bufnr, capability)
   local clients = vim.lsp.get_clients({ bufnr = bufnr })
 
   for _, client in pairs(clients) do
-    if client.supports_method(capability) then
-      return true
+    local supports = false
+    if vim.fn.has 'nvim-0.11' == 1 then
+      supports = client:supports_method(capability, bufnr)
+    else
+      supports = client.supports_method(capability, { bufnr = bufnr })
     end
+    if supports then return true end
   end
   return false
 end
