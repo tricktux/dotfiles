@@ -55,12 +55,14 @@ function M:setup()
   vim.opt.virtualedit = 'block'
 
   -- diagnostics
+  -- See :help vim.diagnostic.Opts
   vim.diagnostic.config({
+    severity_sort = true,
     virtual_text = false,
-    underline = true,
+    underline = { severity = vim.diagnostic.severity.ERROR },
     signs = true,
     update_in_insert = false,
-    float = { source = 'if_many' },
+    float = { border = 'rounded', source = 'if_many' },
   })
 
   vim.opt.exrc = true
