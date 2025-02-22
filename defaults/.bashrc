@@ -16,3 +16,6 @@ shopt -s autocd
 shopt -s checkwinsize
 
 export ZDOTDIR=$HOME/.config/zsh
+
+# Enable vi mode
+set -o vi
