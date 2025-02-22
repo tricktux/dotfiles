@@ -65,7 +65,7 @@ function! options#Set() abort
   "  See `:help 'list'`
   "  and `:help 'listchars'`
   set list
-  set listchars=tab:»\ ,trail:·
+  set listchars=tab:>-,trail:.
 
   " Fri Apr 03 2020 17:07: Cursor blinking really gets on my nerves
   set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
