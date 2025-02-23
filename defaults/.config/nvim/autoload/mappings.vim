@@ -144,6 +144,7 @@ function! mappings#Set()
 
   " These are mappings for Insert, Command-line, and Lang-Arg
   " insert in the middle of whole word search
+  set cedit=<esc>
   cnoremap <a-w> \<\><Left><Left>
   " insert visual selection search
   cnoremap <c-u> <c-r>=expand("<cword>")<cr>
