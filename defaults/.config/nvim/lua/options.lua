@@ -76,6 +76,8 @@ function M:setup()
     vim.opt.shortmess:append('C')
   end
 
+  vim.opt.diffopt:append('linematch:40')
+
   -- Fix markdown indentation settings
   vim.g.markdown_recommended_style = 0
 end
