@@ -78,7 +78,6 @@ function M:setup()
 
   -- Fix markdown indentation settings
   vim.g.markdown_recommended_style = 0
-  vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 end
 
 return M
