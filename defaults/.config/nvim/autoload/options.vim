@@ -5,17 +5,35 @@
 " Last Modified: Mon Mar 16 2020 13:05
 " Created: Sep 14 2017 14:47
 
+function! s:vim8_options() abort
+  if v:version < 800
+    return
+  endif
+
+  set softtabstop=-8  " Use shiftwidth
+  set sessionoptions+=skiprtp
+  set shortmess+=F
+  set completeopt+=noselect
+  set termguicolors " True color support
+  set wildmode+=lastused
+  set wildoptions+=fuzzy,pum
+  set tagcase=followscs
+endfunction
+
 function! options#Set() abort
   " Some global variables
   let g:sessions_path = g:std_data_path . '/sessions'
 
+  " Default options that work across all the different version are set here
+  " Options specific to nvim are set in options.lua
+  " Options specific to vim8 and set in vim8_options()
   set hidden
   set timeout
   set timeoutlen=2000
   " Tab management
   " No tabs in the code. Tabs are expanded to spaces
   set shiftround
-  set softtabstop=-8 " Use value of shiftwidth
+  set softtabstop=4
   set shiftwidth=4  " Always set this two values to the same
   set tabstop=4
   " Title
@@ -23,7 +41,7 @@ function! options#Set() abort
   set titlelen=90 " Percent of columns
   set updatetime=100
   set display=uhex
-  set sessionoptions=buffers,tabpages,curdir,skiprtp,globals
+  set sessionoptions=buffers,tabpages,curdir,globals
   set foldlevel=99 "" Do not fold code at startup
   set foldmethod=syntax
   set mouse=a
@@ -42,19 +60,18 @@ function! options#Set() abort
   " o and O no enter when openning files
   " s - Do not show search hit bottom
   " t - Truncate message if is too long
-  set shortmess=aoOcstF
+  set shortmess=aoOcst
   set clipboard=unnamedplus " Sync with system clipboard
   set autowrite " Enable auto write
-  set completeopt=menu,menuone,noselect
+  set completeopt=menu,menuone
   set formatoptions=jcroqlnt " tcqj
   set ignorecase " Ignore case
   set pumheight=16 " Maximum number of entries in a popup
   set scrolloff=16 " Lines of context
   set sidescrolloff=16 " Columns of context
   set smartindent " Insert indents automatically
-  set termguicolors " True color support
-  set wildmode=full,lastused,list:full " Command-line completion mode
-  set wildoptions=fuzzy,pum,tagfile " Command-line completion mode
+  set wildmode=full,list:full " Command-line completion mode
+  set wildoptions=tagfile " Command-line completion mode
   set splitright
   set nosplitbelow
   set breakindent
@@ -205,9 +222,6 @@ function! options#Set() abort
   set tags=./.tags;,.tags;
   set tagbsearch
   set tagrelative
-  if v:version >= 802
-    set tagcase=smart
-  endif
 
   " Netrw options
   " Tree style
@@ -227,10 +241,6 @@ function! options#Set() abort
   catch
     let g:no_cool_diffopt_available = 1
   endtry
-
-  call s:set_syntax()
-
-  call s:vim_cli()
 
   augroup BuffTypes
     autocmd!
@@ -253,6 +263,10 @@ function! options#Set() abort
     set guitablabel=%N\ %f
     call s:set_colorscheme_by_time()
   endif
+
+  call s:set_syntax()
+  call s:vim_cli()
+  call s:vim8_options()
 endfunction
 
 " CLI
