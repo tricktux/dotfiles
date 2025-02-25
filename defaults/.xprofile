@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
-# File:					.xprofile
-# Author:				Reinaldo Molina <rmolin88@gmail.com>
-# Version:				0.0.0
-# Last Modified:		Fri Nov 24 2017 12:15
-# Created:				Aug 19 2017 13:31
-# Location:				~/.xprofile
-# Help:					See arch wiki xprofile
-# Uses:					You can start applications from here
-# Note:		Sourced by lightdm
+# File:           .xprofile
+# Author:         Reinaldo Molina <rmolin88@gmail.com>
+# Version:        0.0.0
+# Last Modified:  Fri Nov 24 2017 12:15
+# Created:        Aug 19 2017 13:31
+# Location:       ~/.xprofile
+# Help:           See arch wiki xprofile
+# Uses:           You can start applications from here
+# Note:           Sourced by lightdm
 
 move() {
   [[ -d $1 ]] && rsync -a $1 $2 && rm -rf $1
