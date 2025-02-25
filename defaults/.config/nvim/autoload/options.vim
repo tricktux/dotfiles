@@ -448,8 +448,8 @@ function! s:set_colorscheme_by_time() abort
   let period = flux#Check()
 
   if period == 'night'
-    colorscheme desert
-  else
     colorscheme morning
+  else
+    colorscheme desert
   endif
 endfunction
