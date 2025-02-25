@@ -18,6 +18,7 @@ function! s:vim8_options() abort
   set wildmode+=lastused
   set wildoptions+=fuzzy,pum
   set tagcase=followscs
+  set diffopt+=algorithm:patience,linematch:40
 endfunction
 
 function! options#Set() abort
@@ -235,12 +236,7 @@ function! options#Set() abort
   augroup END
 
   " Diff options
-  let &diffopt='vertical'
-  try
-    set diffopt+=internal,filler,algorithm:patience
-  catch
-    let g:no_cool_diffopt_available = 1
-  endtry
+  set diffopt=vertical
 
   augroup BuffTypes
     autocmd!
