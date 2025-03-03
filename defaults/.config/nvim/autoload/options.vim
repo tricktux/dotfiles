@@ -321,7 +321,7 @@ function! s:vim_cli() abort
       let &t_EI = "\<Esc>[1 q"
   endif
 
-  if !has('unix') && !has('nvim')
+  if !has('unix')
       set term=xterm
       let &t_AB="\e[48;5;%dm"
       let &t_AF="\e[38;5;%dm"
