@@ -21,9 +21,31 @@ function! s:vim8_options() abort
   set diffopt+=algorithm:patience,linematch:40
 endfunction
 
+function! s:vim74_options() abort
+  if v:version < 704
+    return
+  endif
+
+  set breakindent
+  set relativenumber
+  set shortmess+=c
+  set formatoptions+=j
+
+  " Ensure folder exists
+  let &undodir= (has('nvim') ? stdpath('cache') : g:std_cache_path) . '/undo//'
+  silent! call mkdir(&undodir, "p")
+  set undofile
+  set conceallevel=0
+  " Mon Oct 16 2017 15:22: This speed ups a lot of plugin. Those that have to
+  " do with highliting.
+  set regexpengine=1
+  set colorcolumn=""
+endfunction
+
 function! options#Set() abort
   " Some global variables
   let g:sessions_path = g:std_data_path . '/sessions'
+  silent! call mkdir(g:sessions_path, "p")
 
   " Default options that work across all the different version are set here
   " Options specific to nvim are set in options.lua
@@ -53,7 +75,6 @@ function! options#Set() abort
   set nowrapscan
   set showtabline=1
   set number
-  set relativenumber
   set numberwidth=1
   " Supress messages
   " a - Usefull abbreviations
@@ -61,11 +82,11 @@ function! options#Set() abort
   " o and O no enter when openning files
   " s - Do not show search hit bottom
   " t - Truncate message if is too long
-  set shortmess=aoOcst
+  set shortmess=aoOst
   set clipboard=unnamedplus " Sync with system clipboard
   set autowrite " Enable auto write
   set completeopt=menu,menuone
-  set formatoptions=jcroqlnt " tcqj
+  set formatoptions=croqlnt " tcqj
   set ignorecase " Ignore case
   set pumheight=16 " Maximum number of entries in a popup
   set scrolloff=16 " Lines of context
@@ -75,7 +96,6 @@ function! options#Set() abort
   set wildoptions=tagfile " Command-line completion mode
   set splitright
   set nosplitbelow
-  set breakindent
   " Show which line your cursor is on
   set cursorline
 
@@ -114,15 +134,15 @@ function! options#Set() abort
   " Do not skip a single backup
   set backupskip=
   let &backupdir= (has('nvim') ? stdpath('cache') : g:std_cache_path) . '/backup//'
+  silent! call mkdir(&backupdir, "p")
   let &backupext='_bkp'
   " Tue May 21 2019 10:28: Swap is very painful
   " Still haven't found a good use for it
   set noswapfile
   let &directory = (has('nvim') ? stdpath('cache') : g:std_cache_path) . '/swap//'
+  silent! call mkdir(&directory, "p")
 
   " Undofiles
-  let &undodir= (has('nvim') ? stdpath('cache') : g:std_cache_path) . '/undo//'
-  set undofile
   set undolevels=10000      " use many muchos levels of undo
 
   "set autochdir " working directory is always the same as the file you are
@@ -187,8 +207,6 @@ function! options#Set() abort
 
   " Performance Settings
   " see :h slow-terminal
-  set conceallevel=0
-  set colorcolumn=""
   set nocursorcolumn
   set scrolljump=5
   set sidescroll=15 " see help for sidescroll
@@ -198,9 +216,6 @@ function! options#Set() abort
   " since 2017 and still went ahead and had this issue for years :/. Please do 
   " not make it lowe than 180
   set synmaxcol=180 " Will not highlight passed this column #
-  " Mon Oct 16 2017 15:22: This speed ups a lot of plugin. Those that have to
-  " do with highliting.
-  set regexpengine=1
   " Fri May 19 2017 11:38 Having a lot of hang ups with the function!
   " s:Highlight_Matching_Pair()
   " on the file C:\Program
@@ -260,9 +275,10 @@ function! options#Set() abort
     call s:set_colorscheme_by_time()
   endif
 
+  call s:vim8_options()
+  call s:vim74_options()
   call s:set_syntax()
   call s:vim_cli()
-  call s:vim8_options()
 endfunction
 
 " CLI
