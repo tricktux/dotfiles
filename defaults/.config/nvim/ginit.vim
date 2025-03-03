@@ -1,9 +1,9 @@
-" File:					ginit.vim
-" Description:	Settings applied before gui is loaded.
-" Author:				Reinaldo Molina <rmolin88 at gmail dot com>
-" Version:				0.0.0
-" Last Modified: Oct 27 2017 08:16
-" Created: Oct 27 2017 08:16
+" File:           ginit.vim
+" Description:    Settings applied before gui is loaded.
+" Author:         Reinaldo Molina <rmolin88 at gmail dot com>
+" Version:        0.0.0
+" Last Modified:  Oct 27 2017 08:16
+" Created:        Oct 27 2017 08:16
 
 let s:font = "Cascadia Code:h8"
 
