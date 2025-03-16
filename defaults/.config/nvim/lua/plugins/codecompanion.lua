@@ -1,0 +1,90 @@
+return {
+  'olimorris/codecompanion.nvim',
+  event = 'VeryLazy',
+  config = function()
+    vim.keymap.set(
+      { 'n', 'v' },
+      '<leader>aa',
+      '<cmd>CodeCompanionActions<cr>',
+      { noremap = true, silent = true, desc = 'code-companion-actions' }
+    )
+    vim.keymap.set(
+      'n',
+      '<leader>ac',
+      '<cmd>CodeCompanionChat Toggle<cr>',
+      { noremap = true, silent = true, desc = 'code-companion-chat' }
+    )
+    vim.keymap.set(
+      'v',
+      '<leader>ac',
+      '<cmd>CodeCompanionChat Add<cr>',
+      { noremap = true, silent = true, desc = 'code-companion-chat-add' }
+    )
+
+    -- Expand 'cc' into 'CodeCompanion' in the command line
+    vim.cmd([[cab cc CodeCompanion]])
+    require('codecompanion').setup({
+      adapters = {
+        anthropic = function()
+          return require('codecompanion.adapters').extend('anthropic', {
+            env = {
+              api_key = os.getenv('ANTHROPIC_API_KEY')
+                or 'cmd:pass show websites/anthropic.com/api-key',
+            },
+          })
+        end,
+        openai = function()
+          return require('codecompanion.adapters').extend('openai', {
+            env = {
+              api_key = os.getenv('OPENAI_API_KEY') or 'cmd:pass show websites/openai.com/api-key',
+            },
+          })
+        end,
+      },
+      display = {
+        chat = {
+          intro_message = 'Welcome to CodeCompanion! Press ? for options',
+          show_header_separator = false, -- Show header separators in the chat buffer? Set this to false if you're using an external markdown formatting plugin
+          separator = '-', -- The separator between the different messages in the chat buffer
+          show_references = true, -- Show references (from slash commands and variables) in the chat buffer?
+          show_settings = true, -- Show LLM settings at the top of the chat buffer?
+          show_token_count = true, -- Show the token count for each response?
+          start_in_insert_mode = false, -- Open the chat buffer in insert mode?
+        },
+      },
+      strategies = {
+        inline = {
+          keymaps = {
+            accept_change = {
+              modes = { n = '<leader>ay' },
+              description = 'Accept the suggested change',
+            },
+            reject_change = {
+              modes = { n = '<leader>ar' },
+              description = 'Reject the suggested change',
+            },
+          },
+        },
+        chat = {
+          adapter = 'anthropic',
+          keymaps = {
+            send = {
+              modes = { n = '<C-g>', i = '<C-g>' },
+            },
+            close = {
+              modes = { n = '<C-c>', i = '<C-c>' },
+            },
+            -- Add further custom keymaps here
+          },
+        },
+        inline = {
+          adapter = 'anthropic',
+        },
+      },
+    })
+  end,
+  dependencies = {
+    'nvim-lua/plenary.nvim',
+    'nvim-treesitter/nvim-treesitter',
+  },
+}

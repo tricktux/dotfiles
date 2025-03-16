@@ -106,7 +106,7 @@ local function mappings()
 
 end
 
-return {
+local x = {
   "robitx/gp.nvim",
   event = "VeryLazy",
   config = function()
@@ -115,8 +115,8 @@ return {
     local conf = {
       -- For customization, refer to Install > Configuration in the Documentation/Readme
       -- default agent names set during startup, if nil last used agent is used
-      default_command_agent = "CodeClaude-3-5-Sonnet",
-      default_chat_agent = "CodeClaude-3-5-Sonnet",
+      default_command_agent = "CodeClaude-3-7-Sonnet",
+      default_chat_agent = "CodeClaude-3-7-Sonnet",
       -- log_sensitive = true,
       providers = {
         ollama = {
@@ -127,7 +127,7 @@ return {
         },
         anthropic = {
           secret = os.getenv("ANTHROPIC_API_KEY") or { "pass", "show", "websites/anthropic.com/api-key" },
-          model = { model = "claude-3-5-sonnet-latest" },
+          model = { model = "claude-3-7-sonnet-latest" },
         },
       },
       agents = {
@@ -159,3 +159,5 @@ return {
     })
   end,
 }
+
+return {}
