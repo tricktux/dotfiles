@@ -243,6 +243,7 @@ local p = {
       -- maps related defaults
       disable_maps = true, -- "true" disables default keymaps
       skip_input_prompt = false, -- "true" doesn't ask for input
+      ski_picker_for_single_result = true,
     }
   },
   {
