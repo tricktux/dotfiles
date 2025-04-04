@@ -172,6 +172,12 @@ function M.setup_lsp_attach()
         sig.on_attach()
       end
 
+      -- folds
+      if vim.fn.has('nvim-0.10') > 0 and do_buffer_clients_support_method(au.buf, 'textDocument/foldingRange') then
+        local win = vim.api.nvim_get_current_win()
+        vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
+      end
+
       -- inlay hints
       if vim.fn.has('nvim-0.10') > 0 and do_buffer_clients_support_method(au.buf, 'textDocument/inlayHint') then
         vim.lsp.inlay_hint.enable(true, { bufnr = au.buf })
