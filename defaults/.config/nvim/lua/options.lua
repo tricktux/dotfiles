@@ -78,6 +78,11 @@ function M:setup()
 
   vim.opt.diffopt:append('linematch:40')
 
+  -- fold
+  vim.o.foldtext = ""
+  vim.opt.foldcolumn = "0"
+  vim.opt.fillchars:append({fold = " "})
+
   -- Fix markdown indentation settings
   vim.g.markdown_recommended_style = 0
 end
