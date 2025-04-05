@@ -125,6 +125,14 @@ M.setup = function()
   })
   api.nvim_create_autocmd('FileType', {
     callback = function()
+      vim.opt.textwidth = 120
+    end,
+    pattern = 'zig',
+    desc = 'Zig has very long luines',
+    group = id,
+  })
+  api.nvim_create_autocmd('FileType', {
+    callback = function()
       log.info('mail autocmd called')
       vim.opt.textwidth = 72
     end,
