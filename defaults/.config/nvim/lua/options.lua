@@ -34,6 +34,11 @@ function M:windows()
   if vim.fn.has('win32') <= 0 then
     return
   end
+
+  -- Fixing git-bash issue 28384
+  vim.opt.shellcmdflag = '-c'
+  vim.opt.shellxquote = ''
+  vim.opt.shellxescape = ''
 end
 
 function M:setup()
