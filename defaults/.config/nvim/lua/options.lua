@@ -45,6 +45,9 @@ function M:setup()
   self:unix()
   self:windows()
 
+  vim.opt.showcmd = false
+  vim.opt.cmdheight = 0
+  vim.opt.cmdwinheight = 15
   local extui_ok, extui = pcall(require, 'vim._extui')
   if extui_ok then
     extui.enable({})
