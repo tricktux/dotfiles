@@ -48,10 +48,10 @@ function M:setup()
   vim.opt.showcmd = false
   vim.opt.cmdheight = 0
   vim.opt.cmdwinheight = 15
-  local extui_ok, extui = pcall(require, 'vim._extui')
-  if extui_ok then
-    extui.enable({})
-  end
+  -- local extui_ok, extui = pcall(require, 'vim._extui')
+  -- if extui_ok then
+  --   extui.enable({})
+  -- end
 
   vim.opt.inccommand = 'split'
   vim.opt.shada = {
