@@ -109,3 +109,5 @@ if [[ -f $poly ]]; then
 else
 	printf "\n==X Please install '%s'\n" "$poly"
 fi
+
+touch /tmp/airplane_mode

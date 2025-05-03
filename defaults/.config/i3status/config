@@ -12,6 +12,7 @@ general {
 }
 
 order += "playerctl"
+order += "read_file airplane_mode"
 order += "networkmanager"
 order += "systemd wg-home"
 order += "nvidia_smi"
@@ -104,4 +105,9 @@ memory {
 
 tztime local {
         format = "%Y-%m-%d %H:%M:%S"
+}
+
+read_file airplane_mode {
+      format = "%content"
+      path = "/tmp/airplane_mode"
 }

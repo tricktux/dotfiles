@@ -217,11 +217,11 @@
   },
   {
     "name": "✈️ airplane mode on",
-    "command": "rkill block all"
+    "command": "rfkill block all && echo '✈️: 1' > /tmp/airplane_mode"
   },
   {
     "name": "✈️ airplane mode off",
-    "command": "rkill unblock all"
+    "command": "rfkill unblock all && echo '' > /tmp/airplane_mode"
   },
   {
     "name": "✈️ i3 workspace fix monitors",
