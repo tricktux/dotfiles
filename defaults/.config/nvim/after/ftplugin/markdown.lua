@@ -15,7 +15,7 @@ end
 
 local u = require('utils.utils')
 local preview = function()
-  u.browser.open_file_async(M.opersistance)
+  vim.ui.open(M.opersistance)
 end
 
 local _filetype = { 'html', 'docx', 'pdf' }
