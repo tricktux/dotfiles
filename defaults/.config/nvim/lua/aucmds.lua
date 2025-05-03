@@ -30,7 +30,7 @@ M.setup = function()
   local id = api.nvim_create_augroup('highlight_yank', { clear = true })
   api.nvim_create_autocmd('TextYankPost', {
     callback = function()
-      vim.highlight.on_yank({ timeout = 250 })
+      vim.hl.on_yank({ timeout = 250 })
     end,
     desc = 'Highlight text on Yank',
     group = id,
