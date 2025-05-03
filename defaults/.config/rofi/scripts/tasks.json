@@ -217,11 +217,11 @@
   },
   {
     "name": "✈️ airplane mode on",
-    "command": "rfkill block all && echo '✈️: 1' > /tmp/airplane_mode"
+    "command": "rfkill block all; echo '✈️' > /tmp/airplane_mode; systemctl --user stop rslsync"
   },
   {
     "name": "✈️ airplane mode off",
-    "command": "rfkill unblock all && echo '' > /tmp/airplane_mode"
+    "command": "rfkill unblock all; echo '' > /tmp/airplane_mode; systemctl --user stop rslsync"
   },
   {
     "name": "✈️ i3 workspace fix monitors",
