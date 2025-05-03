@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Define the branch you want to build
-BRANCH="release-0.10"  # Change this to your desired branch
+BRANCH="release-0.12"  # Change this to your desired branch
 NEOVIM_DIR="/tmp/neovim-${BRANCH}"
 REPO="https://github.com/neovim"
 # Function to print error messages and exit
