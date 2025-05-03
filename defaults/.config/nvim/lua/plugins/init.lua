@@ -136,7 +136,7 @@ local p = {
       debounce = 100,
       indent = { char = { '¦', '┆', '┊' } },
       exclude = {
-        filetypes = vim.tbl_flatten({ utl.filetype.blacklist, 'markdown', 'org', 'mail' }),
+        filetypes = vim.iter({ utl.filetype.blacklist, 'markdown', 'org', 'mail' }):flatten(math.huge):totable(),
         buftypes = utl.buftype.blacklist,
       },
       scope = {

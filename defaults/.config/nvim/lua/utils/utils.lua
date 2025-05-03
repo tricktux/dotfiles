@@ -155,52 +155,52 @@ end
 M.fd = {}
 M.fd.switches = {}
 M.fd.bin = vim.fn.executable('fd') > 0 and 'fd' or 'fdfind'
-M.fd.switches.common = vim.tbl_flatten({
+M.fd.switches.common = vim.iter({
   '--color=never',
   '--hidden',
   '--follow',
   '--full-path',
   M.ignore_file,
-})
-M.fd.switches.file = vim.tbl_flatten({
+}):flatten(math.huge):totable()
+M.fd.switches.file = vim.iter({
   M.fd.switches.common,
   '--type=file',
-})
-M.fd.switches.folder = vim.tbl_flatten({
+}):flatten(math.huge):totable()
+M.fd.switches.folder = vim.iter({
   M.fd.switches.common,
   '--type=directory',
-})
-M.fd.folder_cmd = vim.tbl_flatten({
+}):flatten(math.huge):totable()
+M.fd.folder_cmd = vim.iter({
   M.fd.bin,
   M.fd.switches.folder,
-})
-M.fd.file_cmd = vim.tbl_flatten({
+}):flatten(math.huge):totable()
+M.fd.file_cmd = vim.iter({
   M.fd.bin,
   M.fd.switches.file,
-})
+}):flatten(math.huge):totable()
 M.rg = {}
 M.rg.switches = {}
 M.rg.bin = 'rg'
-M.rg.switches.common = vim.tbl_flatten({
+M.rg.switches.common = vim.iter({
   '--vimgrep',
   '--hidden',
   '--smart-case',
   '--follow',
   '--no-ignore-vcs',
   M.ignore_file,
-})
-M.rg.switches.file = vim.tbl_flatten({
+}):flatten(math.huge):totable()
+M.rg.switches.file = vim.iter({
   M.rg.switches.common,
   '--files',
-})
-M.rg.grep_cmd = vim.tbl_flatten({
+}):flatten(math.huge):totable()
+M.rg.grep_cmd = vim.iter({
   M.rg.bin,
   M.rg.switches.common,
-})
-M.rg.file_cmd = vim.tbl_flatten({
+}):flatten(math.huge):totable()
+M.rg.file_cmd = vim.iter({
   M.rg.bin,
   M.rg.switches.file,
-})
+}):flatten(math.huge):totable()
 M.rg.vim_to_rg_map = {
   vim = 'vimscript',
   python = 'py',
