@@ -31,16 +31,16 @@ function M:setup()
     return stat and stat.type == 'directory' and true or false
   end
 
-  vim.keymap.set('n', '<leader>wt', '<cmd>grep! -t md "[ ]"<cr>', { desc = "find-actions" })
+  vim.keymap.set('n', '<leader>wt', '<cmd>grep! -t md "[ ]"<cr>', { desc = 'find-actions' })
 
-  local w = luv.os_getenv("WIKI_WORK")
+  local w = luv.os_getenv('WIKI_WORK')
   if w then
     M.path.work = exists(w) and w or nil
     if not M.path.work then
-      print("ERROR: Invalid WIKI_WORK directory: " .. w)
+      print('ERROR: Invalid WIKI_WORK directory: ' .. w)
     end
   end
-  local p = luv.os_getenv("WIKI_PERSONAL")
+  local p = luv.os_getenv('WIKI_PERSONAL')
   if not p then
     vim.fn.mkdir(self.path.default, 'p')
     p = self.path.default
@@ -49,7 +49,7 @@ function M:setup()
 
   M.path.personal = exists(p) and p or nil
   if not M.path.personal then
-    print("ERROR: Invalid WIKI_PERSONAL directory: " .. p)
+    print('ERROR: Invalid WIKI_PERSONAL directory: ' .. p)
     return
   end
   vim.g.advanced_plugins = 1

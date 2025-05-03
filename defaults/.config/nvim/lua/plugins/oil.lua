@@ -65,7 +65,7 @@ return {
     },
   },
   init = function()
-    vim.g.loaded_netrw       = 1
+    vim.g.loaded_netrw = 1
     vim.g.loaded_netrwPlugin = 1
     vim.api.nvim_create_autocmd('FileType', {
       pattern = 'oil',
@@ -95,7 +95,7 @@ return {
       'size',
       'mtime',
       'icon',
-      "permissions",
+      'permissions',
     },
     -- Configuration for the floating window in oil.open_float
     float = {

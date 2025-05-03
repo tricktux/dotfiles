@@ -161,7 +161,7 @@ end
 local set_telescope_colors = function()
   local catp_ok, catp = pcall(require, 'catppuccin.palettes')
   if not catp_ok then
-    vim.notify("telescope: catp colors not available", vim.log.levels.ERROR)
+    vim.notify('telescope: catp colors not available', vim.log.levels.ERROR)
     return
   end
   local colors = catp.get_palette()
@@ -193,7 +193,7 @@ return {
     config = function()
       M:setup()
       vim.api.nvim_create_autocmd('ColorScheme', {
-        pattern = "*",
+        pattern = '*',
         callback = set_telescope_colors,
         desc = 'Set telescope colors for catppuccin',
       })

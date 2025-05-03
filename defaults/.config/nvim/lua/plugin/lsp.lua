@@ -19,7 +19,7 @@ M.cycle_logs = function()
 
   local t = os.date('*t')
   local timestamp =
-  string.format('%04d%02d%02d%02d%02d%02d', t.year, t.month, t.day, t.hour, t.min, t.sec)
+    string.format('%04d%02d%02d%02d%02d%02d', t.year, t.month, t.day, t.hour, t.min, t.sec)
 
   -- Rename it to ".filename.20220123120012" format
   local new_name = string.format('%s.%s', filename, timestamp)

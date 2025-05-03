@@ -166,21 +166,21 @@ M.setup = function()
 
   id = api.nvim_create_augroup('Buf', { clear = true })
   vim.api.nvim_create_autocmd('BufEnter', {
-    pattern = {"*.md"},
+    pattern = { '*.md' },
     group = id,
     desc = 'Set text settings',
     callback = function()
       set_text_settings()
-    end,  -- Call the function we defined
+    end, -- Call the function we defined
   })
   vim.api.nvim_create_autocmd('BufEnter', {
     group = id,
     desc = 'Set winbar',
     callback = function()
-      local bufname = vim.api.nvim_buf_get_name(0)  -- Get the name of the current buffer
-      local bufname_no_path = vim.fn.fnamemodify(bufname, ':t')  -- Strips the path, keeping just the file name
-      vim.wo.winbar = bufname_no_path  -- Set the winbar
-    end,  -- Call the function we defined
+      local bufname = vim.api.nvim_buf_get_name(0) -- Get the name of the current buffer
+      local bufname_no_path = vim.fn.fnamemodify(bufname, ':t') -- Strips the path, keeping just the file name
+      vim.wo.winbar = bufname_no_path -- Set the winbar
+    end, -- Call the function we defined
   })
 
   if vim.fn.has('nvim-0.9') <= 0 then

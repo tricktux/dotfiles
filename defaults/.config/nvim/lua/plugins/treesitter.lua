@@ -7,7 +7,7 @@ local function disable(lang, bufnr)
     return vim.b.ts_disabled == 1
   end
 
-  if vim.fn.has('nvim-0.10.4') > 0 then  -- async?
+  if vim.fn.has('nvim-0.10.4') > 0 then -- async?
     vim.b.ts_disabled = 0
     return false
   end
@@ -85,7 +85,12 @@ return {
     build = ':TSUpdate',
     init = function()
       local opts = { silent = true, desc = 'treesitter_toggle_buffer' }
-      vim.keymap.set('n', '<leader>tt', [[<cmd>TSBufToggle highlight rainbow incremental_selection iswap indent<cr>]], opts)
+      vim.keymap.set(
+        'n',
+        '<leader>tt',
+        [[<cmd>TSBufToggle highlight rainbow incremental_selection iswap indent<cr>]],
+        opts
+      )
       vim.opt.foldmethod = 'expr'
       vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
       vim.opt.indentexpr = 'nvim_treesitter#indent()'
@@ -280,8 +285,8 @@ return {
   {
     'ThePrimeagen/refactoring.nvim',
     dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
+      'nvim-lua/plenary.nvim',
+      'nvim-treesitter/nvim-treesitter',
     },
     keys = {
       {
@@ -295,7 +300,7 @@ return {
       {
         '<leader>rp',
         function()
-          require('refactoring').debug.printf({below = false})
+          require('refactoring').debug.printf({ below = false })
         end,
         mode = { 'n' },
         desc = 'refactoring_printf_debug',

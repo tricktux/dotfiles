@@ -9,7 +9,7 @@ c.flavour = {
 }
 c.change_flavour = function(period)
   -- Use colorscheme command so that ColorScheme autocmd executes
-  vim.cmd.colorscheme("catppuccin-" .. c.flavour[period])
+  vim.cmd.colorscheme('catppuccin-' .. c.flavour[period])
 end
 
 local function setup_flux()
@@ -136,7 +136,10 @@ local p = {
       debounce = 100,
       indent = { char = { '¦', '┆', '┊' } },
       exclude = {
-        filetypes = vim.iter({ utl.filetype.blacklist, 'markdown', 'org', 'mail' }):flatten(math.huge):totable(),
+        filetypes = vim
+          .iter({ utl.filetype.blacklist, 'markdown', 'org', 'mail' })
+          :flatten(math.huge)
+          :totable(),
         buftypes = utl.buftype.blacklist,
       },
       scope = {
@@ -177,8 +180,8 @@ local p = {
   },
   {
     'windwp/nvim-autopairs',
-    event = "InsertEnter",
-    opts = {}
+    event = 'InsertEnter',
+    opts = {},
   },
   {
     'chaoren/vim-wordmotion',
@@ -205,46 +208,46 @@ local p = {
     },
   },
   {
-    "andrewferrier/debugprint.nvim",
+    'andrewferrier/debugprint.nvim',
     keys = {
-      { "g?", mode = 'n' },
-      { "g?", mode = 'x' },
+      { 'g?', mode = 'n' },
+      { 'g?', mode = 'x' },
     },
     opts = {
       keymaps = {
-        insert = {}
+        insert = {},
       },
-      print_tag = "",
+      print_tag = '',
       filetypes = {
-        ["c"] = {
-          left_var = "printf(\""
-        }
-      }
+        ['c'] = {
+          left_var = 'printf("',
+        },
+      },
     },
-    version = "*", -- Remove if you DON'T want to use the stable version
+    version = '*', -- Remove if you DON'T want to use the stable version
   },
   {
     'kevinhwang91/nvim-bqf',
     ft = 'qf',
     opts = {
       preview = {
-        auto_preview = false
-      }
-    }
+        auto_preview = false,
+      },
+    },
   },
   {
     'lunarVim/bigfile.nvim',
     opts = {},
   },
   {
-    "dhananjaylatkar/cscope_maps.nvim",
+    'dhananjaylatkar/cscope_maps.nvim',
     cmd = 'Cs',
     opts = {
       -- maps related defaults
       disable_maps = true, -- "true" disables default keymaps
       skip_input_prompt = false, -- "true" doesn't ask for input
       ski_picker_for_single_result = true,
-    }
+    },
   },
   {
     'chrisbra/csv.vim',
@@ -255,18 +258,18 @@ local p = {
     end,
   },
   {
-    "NeogitOrg/neogit",
-    cmd = "Neogit",
+    'NeogitOrg/neogit',
+    cmd = 'Neogit',
     keys = {
-      { map.vcs.prefix .. "n", "<cmd>Neogit<cr>", mode = 'n' },
+      { map.vcs.prefix .. 'n', '<cmd>Neogit<cr>', mode = 'n' },
     },
     dependencies = {
-      "nvim-lua/plenary.nvim",  -- required
+      'nvim-lua/plenary.nvim', -- required
 
       -- Only one of these is needed.
-      "nvim-telescope/telescope.nvim", -- optional
+      'nvim-telescope/telescope.nvim', -- optional
     },
-    config = true
+    config = true,
   },
   {
     'b3nj5m1n/kommentary',
@@ -290,7 +293,7 @@ local p = {
         prefer_single_line_comments = true,
       })
     end,
-  }
+  },
 }
 
 return p

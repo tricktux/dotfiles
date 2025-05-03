@@ -5,15 +5,15 @@ local is_running = false
 
 -- Default Configurations
 local default_config = {
-  work_duration = 25 * 60,     -- 25 minutes
-  break_duration = 5 * 60      -- 5 minutes
+  work_duration = 25 * 60, -- 25 minutes
+  break_duration = 5 * 60, -- 5 minutes
 }
 
 -- Validate nvim version
 local function check_version()
-  local r = vim.fn.has("nvim-0.10") and true or false
+  local r = vim.fn.has('nvim-0.10') and true or false
   if not r then
-    vim.notify("Pomodoro depends on nvim 0.10", vim.log.levels.ERROR)
+    vim.notify('Pomodoro depends on nvim 0.10', vim.log.levels.ERROR)
   end
   return r
 end
@@ -22,7 +22,7 @@ end
 local config = vim.deepcopy(default_config)
 
 -- Current session and time left
-local session = "work"           -- "work" or "break"
+local session = 'work' -- "work" or "break"
 local time_left = config.work_duration
 
 -- Utility function to send notifications
@@ -41,27 +41,33 @@ local function timer_start()
   end
 
   is_running = true
-  timer:start(1000, 1000, vim.schedule_wrap(function()
-    time_left = time_left - 1
-    if time_left <= 0 then
-      timer_stop()
-      notify(fmt("Finished Pomodoro %s session.", session))
-    end
-  end))
+  timer:start(
+    1000,
+    1000,
+    vim.schedule_wrap(function()
+      time_left = time_left - 1
+      if time_left <= 0 then
+        timer_stop()
+        notify(fmt('Finished Pomodoro %s session.', session))
+      end
+    end)
+  )
 end
 
 -- Function to toggle the Pomodoro timer
 function Pomodoro.toggle()
-  if not check_version() then return end
+  if not check_version() then
+    return
+  end
 
   if is_running then
     timer_stop()
-    notify(fmt("Paused Pomodoro %s session.", session))
+    notify(fmt('Paused Pomodoro %s session.', session))
     return
   end
 
   timer_start()
-  notify(fmt("Started Pomodoro %s session.", session))
+  notify(fmt('Started Pomodoro %s session.', session))
 end
 
 -- Function to get elapsed time in the current session
@@ -71,29 +77,33 @@ function Pomodoro.get_session_info()
   end
   return {
     name = session,
-    remaining_time_m = math.floor(time_left / 60)
+    remaining_time_m = math.floor(time_left / 60),
   }
 end
 
 -- Function to skip current session and move to next
 function Pomodoro.next()
-  if not check_version() then return end
+  if not check_version() then
+    return
+  end
 
-  if session == "work" then
-    session = "break"
+  if session == 'work' then
+    session = 'break'
     time_left = config.break_duration
   else
-    session = "work"
+    session = 'work'
     time_left = config.work_duration
   end
 
   timer_start()
-  notify(fmt("Started Pomodoro %s session.", session))
+  notify(fmt('Started Pomodoro %s session.', session))
 end
 
 -- Function to configure Pomodoro timings
 function Pomodoro.setup(user_config)
-  if not check_version() then return end
+  if not check_version() then
+    return
+  end
 
   timer = vim.loop.new_timer()
   config = vim.tbl_extend('force', default_config, user_config)

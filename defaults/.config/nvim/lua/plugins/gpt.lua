@@ -1,4 +1,3 @@
-
 -- Lua functions that inserts a text and copies it to the clipboard
 local anki_prompt = [[
 I want you to act as a professional Anki card creator, able to create Anki cards from the text I provide.
@@ -59,102 +58,162 @@ local function mappings()
       noremap = true,
       silent = true,
       nowait = true,
-      desc = "GPT prompt " .. desc,
+      desc = 'GPT prompt ' .. desc,
     }
   end
 
-  local prefix = "<leader>a"
+  local prefix = '<leader>a'
 
   -- Chat commands
-  vim.keymap.set({"n"}, prefix .. "C", "<cmd>%GpChatNew vsplit<cr>", keymapOptions("New Chat"))
-  vim.keymap.set({"n"}, prefix .. "c", "<cmd>GpChatNew vsplit<cr>", keymapOptions("New Chat"))
-  vim.keymap.set({"n"}, prefix .. "t", "<cmd>GpChatToggle vsplit<cr>", keymapOptions("Toggle Chat"))
-  vim.keymap.set({"n"}, prefix .. "f", "<cmd>GpChatFinder vsplit<cr>", keymapOptions("Chat Finder"))
-  vim.keymap.set("v", prefix .. "c", ":<C-u>'<,'>GpChatNew vsplit<cr>", keymapOptions("Visual Chat New"))
-  vim.keymap.set("v", prefix .. "p", ":<C-u>'<,'>GpChatPaste vsplit<cr>", keymapOptions("Visual Chat Paste"))
-  vim.keymap.set("v", prefix .. "t", ":<C-u>'<,'>GpChatToggle vsplit<cr>", keymapOptions("Visual Toggle Chat"))
+  vim.keymap.set({ 'n' }, prefix .. 'C', '<cmd>%GpChatNew vsplit<cr>', keymapOptions('New Chat'))
+  vim.keymap.set({ 'n' }, prefix .. 'c', '<cmd>GpChatNew vsplit<cr>', keymapOptions('New Chat'))
+  vim.keymap.set(
+    { 'n' },
+    prefix .. 't',
+    '<cmd>GpChatToggle vsplit<cr>',
+    keymapOptions('Toggle Chat')
+  )
+  vim.keymap.set(
+    { 'n' },
+    prefix .. 'f',
+    '<cmd>GpChatFinder vsplit<cr>',
+    keymapOptions('Chat Finder')
+  )
+  vim.keymap.set(
+    'v',
+    prefix .. 'c',
+    ":<C-u>'<,'>GpChatNew vsplit<cr>",
+    keymapOptions('Visual Chat New')
+  )
+  vim.keymap.set(
+    'v',
+    prefix .. 'p',
+    ":<C-u>'<,'>GpChatPaste vsplit<cr>",
+    keymapOptions('Visual Chat Paste')
+  )
+  vim.keymap.set(
+    'v',
+    prefix .. 't',
+    ":<C-u>'<,'>GpChatToggle vsplit<cr>",
+    keymapOptions('Visual Toggle Chat')
+  )
 
-  vim.keymap.set({ "n" }, prefix .. "<C-x>", "<cmd>GpChatNew split<cr>", keymapOptions("New Chat split"))
-  vim.keymap.set({ "n" }, prefix .. "<C-v>", "<cmd>GpChatNew vsplit<cr>", keymapOptions("New Chat vsplit"))
-  vim.keymap.set({ "n" }, prefix .. "<C-t>", "<cmd>GpChatNew tabnew<cr>", keymapOptions("New Chat tabnew"))
+  vim.keymap.set(
+    { 'n' },
+    prefix .. '<C-x>',
+    '<cmd>GpChatNew split<cr>',
+    keymapOptions('New Chat split')
+  )
+  vim.keymap.set(
+    { 'n' },
+    prefix .. '<C-v>',
+    '<cmd>GpChatNew vsplit<cr>',
+    keymapOptions('New Chat vsplit')
+  )
+  vim.keymap.set(
+    { 'n' },
+    prefix .. '<C-t>',
+    '<cmd>GpChatNew tabnew<cr>',
+    keymapOptions('New Chat tabnew')
+  )
 
   -- Prompt commands
-  vim.keymap.set({"n"}, prefix .. "r", "<cmd>GpRewrite<cr>", keymapOptions("Inline Rewrite"))
-  vim.keymap.set({"n"}, prefix .. "a", "<cmd>GpAppend<cr>", keymapOptions("Append (after)"))
-  vim.keymap.set({"n"}, prefix .. "b", "<cmd>GpPrepend<cr>", keymapOptions("Prepend (before)"))
+  vim.keymap.set({ 'n' }, prefix .. 'r', '<cmd>GpRewrite<cr>', keymapOptions('Inline Rewrite'))
+  vim.keymap.set({ 'n' }, prefix .. 'a', '<cmd>GpAppend<cr>', keymapOptions('Append (after)'))
+  vim.keymap.set({ 'n' }, prefix .. 'b', '<cmd>GpPrepend<cr>', keymapOptions('Prepend (before)'))
 
-  vim.keymap.set({"n"}, prefix .. "gp", "<cmd>GpPopup<cr>", keymapOptions("Popup"))
-  vim.keymap.set({"n"}, prefix .. "ge", "<cmd>GpEnew<cr>", keymapOptions("GpEnew"))
-  vim.keymap.set({"n"}, prefix .. "gn", "<cmd>GpNew<cr>", keymapOptions("GpNew"))
-  vim.keymap.set({"n"}, prefix .. "gv", "<cmd>GpVnew<cr>", keymapOptions("GpVnew"))
-  vim.keymap.set({"n"}, prefix .. "gt", "<cmd>GpTabnew<cr>", keymapOptions("GpTabnew"))
+  vim.keymap.set({ 'n' }, prefix .. 'gp', '<cmd>GpPopup<cr>', keymapOptions('Popup'))
+  vim.keymap.set({ 'n' }, prefix .. 'ge', '<cmd>GpEnew<cr>', keymapOptions('GpEnew'))
+  vim.keymap.set({ 'n' }, prefix .. 'gn', '<cmd>GpNew<cr>', keymapOptions('GpNew'))
+  vim.keymap.set({ 'n' }, prefix .. 'gv', '<cmd>GpVnew<cr>', keymapOptions('GpVnew'))
+  vim.keymap.set({ 'n' }, prefix .. 'gt', '<cmd>GpTabnew<cr>', keymapOptions('GpTabnew'))
 
-  vim.keymap.set({"n"}, prefix .. "x", "<cmd>GpContext<cr>", keymapOptions("Toggle Context"))
+  vim.keymap.set({ 'n' }, prefix .. 'x', '<cmd>GpContext<cr>', keymapOptions('Toggle Context'))
 
   -- optional Whisper commands with prefix <C-g>w
-  vim.keymap.set({"n"}, prefix .. "ww", "<cmd>GpWhisper<cr>", keymapOptions("Whisper"))
+  vim.keymap.set({ 'n' }, prefix .. 'ww', '<cmd>GpWhisper<cr>', keymapOptions('Whisper'))
 
-  vim.keymap.set({"n"}, prefix .. "wr", "<cmd>GpWhisperRewrite<cr>", keymapOptions("Whisper Inline Rewrite"))
-  vim.keymap.set({"n"}, prefix .. "wa", "<cmd>GpWhisperAppend<cr>", keymapOptions("Whisper Append (after)"))
-  vim.keymap.set({"n"}, prefix .. "wb", "<cmd>GpWhisperPrepend<cr>", keymapOptions("Whisper Prepend (before) "))
+  vim.keymap.set(
+    { 'n' },
+    prefix .. 'wr',
+    '<cmd>GpWhisperRewrite<cr>',
+    keymapOptions('Whisper Inline Rewrite')
+  )
+  vim.keymap.set(
+    { 'n' },
+    prefix .. 'wa',
+    '<cmd>GpWhisperAppend<cr>',
+    keymapOptions('Whisper Append (after)')
+  )
+  vim.keymap.set(
+    { 'n' },
+    prefix .. 'wb',
+    '<cmd>GpWhisperPrepend<cr>',
+    keymapOptions('Whisper Prepend (before) ')
+  )
 
-  vim.keymap.set({"n"}, prefix .. "wp", "<cmd>GpWhisperPopup<cr>", keymapOptions("Whisper Popup"))
-  vim.keymap.set({"n"}, prefix .. "we", "<cmd>GpWhisperEnew<cr>", keymapOptions("Whisper Enew"))
-  vim.keymap.set({"n"}, prefix .. "wn", "<cmd>GpWhisperNew<cr>", keymapOptions("Whisper New"))
-  vim.keymap.set({"n"}, prefix .. "wv", "<cmd>GpWhisperVnew<cr>", keymapOptions("Whisper Vnew"))
-  vim.keymap.set({"n"}, prefix .. "wt", "<cmd>GpWhisperTabnew<cr>", keymapOptions("Whisper Tabnew"))
-
+  vim.keymap.set({ 'n' }, prefix .. 'wp', '<cmd>GpWhisperPopup<cr>', keymapOptions('Whisper Popup'))
+  vim.keymap.set({ 'n' }, prefix .. 'we', '<cmd>GpWhisperEnew<cr>', keymapOptions('Whisper Enew'))
+  vim.keymap.set({ 'n' }, prefix .. 'wn', '<cmd>GpWhisperNew<cr>', keymapOptions('Whisper New'))
+  vim.keymap.set({ 'n' }, prefix .. 'wv', '<cmd>GpWhisperVnew<cr>', keymapOptions('Whisper Vnew'))
+  vim.keymap.set(
+    { 'n' },
+    prefix .. 'wt',
+    '<cmd>GpWhisperTabnew<cr>',
+    keymapOptions('Whisper Tabnew')
+  )
 end
 
 local x = {
-  "robitx/gp.nvim",
-  event = "VeryLazy",
+  'robitx/gp.nvim',
+  event = 'VeryLazy',
   config = function()
     -- sample cool config: https://github.com/frankroeder/dotfiles/blob/ca4be698194e54f02498f85c26324346f2ed37c7/nvim/lua/plugins/gp_nvim.lua#L19
     -- https://docs.anthropic.com/en/docs/about-claude/models
     local conf = {
       -- For customization, refer to Install > Configuration in the Documentation/Readme
       -- default agent names set during startup, if nil last used agent is used
-      default_command_agent = "CodeClaude-3-7-Sonnet",
-      default_chat_agent = "CodeClaude-3-7-Sonnet",
+      default_command_agent = 'CodeClaude-3-7-Sonnet',
+      default_chat_agent = 'CodeClaude-3-7-Sonnet',
       -- log_sensitive = true,
       providers = {
         ollama = {
-          endpoint = "http://localhost:8080/v1/chat/completions",
+          endpoint = 'http://localhost:8080/v1/chat/completions',
         },
         openai = {
-          secret = os.getenv("OPENAI_API_KEY") or { "pass", "show", "websites/openai.com/api-key" },
+          secret = os.getenv('OPENAI_API_KEY') or { 'pass', 'show', 'websites/openai.com/api-key' },
         },
         anthropic = {
-          secret = os.getenv("ANTHROPIC_API_KEY") or { "pass", "show", "websites/anthropic.com/api-key" },
-          model = { model = "claude-3-7-sonnet-latest" },
+          secret = os.getenv('ANTHROPIC_API_KEY')
+            or { 'pass', 'show', 'websites/anthropic.com/api-key' },
+          model = { model = 'claude-3-7-sonnet-latest' },
         },
       },
       agents = {
         {
-          name = "Anki",
-          provider = "anthropic",
+          name = 'Anki',
+          provider = 'anthropic',
           chat = true,
           command = true,
-          model = { model = "claude-3-opus-latest" },
+          model = { model = 'claude-3-opus-latest' },
           system_prompt = anki_prompt,
         },
       },
       hooks = {
         BufferChatNew = function(gp, _)
           -- call GpChatNew command in range mode on whole buffer
-          vim.api.nvim_command("%" .. gp.config.cmd_prefix .. "ChatNew")
+          vim.api.nvim_command('%' .. gp.config.cmd_prefix .. 'ChatNew')
         end,
-      }
+      },
     }
-    require("gp").setup(conf)
+    require('gp').setup(conf)
     -- example of making :%GpChatNew a dedicated command which
     -- opens new chat with the entire current buffer as a context
     mappings()
-    vim.api.nvim_create_autocmd({ "User" }, {
-      pattern = {"GpDone"},
+    vim.api.nvim_create_autocmd({ 'User' }, {
+      pattern = { 'GpDone' },
       callback = function(event)
-        vim.notify("GPT is done",vim.log.levels.INFO)
+        vim.notify('GPT is done', vim.log.levels.INFO)
       end,
     })
   end,

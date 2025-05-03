@@ -32,7 +32,7 @@ end
 --                Can be nil
 function M.keymaps_set(mappings, mode, opts, prefix)
   vim.validate('mappings', mappings, 'table')
-  vim.validate('mode', mode, {'table', 'string'}, true)
+  vim.validate('mode', mode, { 'table', 'string' }, true)
   vim.validate('opts', opts, 'table', true)
   vim.validate('prefix', prefix, 'string', true)
 
@@ -88,7 +88,9 @@ end
 
 local function tmux_move(direction)
   local valid_dir = 'phjkl'
-  vim.validate('direction', direction, function(d) return (valid_dir):find(d) ~= nil end, 'not one of : ' .. valid_dir)
+  vim.validate('direction', direction, function(d)
+    return (valid_dir):find(d) ~= nil
+  end, 'not one of : ' .. valid_dir)
 
   local curr_win = vim.api.nvim_get_current_win()
   fn.execute('wincmd ' .. direction)
@@ -411,9 +413,12 @@ M.plug.mappings = {
   ['<plug>cd_root'] = {
     function()
       local g = vim.fs.root(0, '.git')
-      if g == nil then return end
+      if g == nil then
+        return
+      end
       vim.cmd.lcd(g)
-    end, 'cd_git_root'
+    end,
+    'cd_git_root',
   },
   ['<leader>i'] = { '<plug>ai', 'ai_help' },
   ['<bs>'] = { '<plug>comment_line', 'comment_line' },

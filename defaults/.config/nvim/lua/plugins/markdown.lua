@@ -12,7 +12,7 @@ M.opts = {
     date_format = '%Y-%m',
     alias_format = '%B, %Y',
   },
-  ui = { enable = vim.g.advanced_plugins == 1 and true or false }
+  ui = { enable = vim.g.advanced_plugins == 1 and true or false },
 }
 
 return {

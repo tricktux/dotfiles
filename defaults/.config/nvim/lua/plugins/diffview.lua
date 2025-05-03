@@ -3,7 +3,7 @@ return {
   keys = {
     {
       '<leader>vc',
-      "<cmd>DiffviewFileHistory %<cr>",
+      '<cmd>DiffviewFileHistory %<cr>',
       mode = { 'n' },
       desc = 'diffview_file_history',
     },
@@ -14,8 +14,8 @@ return {
       diff_binaries = false, -- Show diffs for binaries
       use_icons = false, -- Requires nvim-web-devicons
       icons = {
-        folder_closed = "",
-        folder_open = "",
+        folder_closed = '',
+        folder_open = '',
       },
       signs = { fold_closed = '>', fold_open = '' },
       enhanced_diff_hl = false, -- See ':h diffview-config-enhanced_diff_hl'

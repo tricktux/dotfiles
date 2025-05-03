@@ -129,7 +129,7 @@ function git:reset_buffer()
 end
 
 function vcs:factory() -- factory method to instantiate appropriate VCS subclass
-  local gitdir = ".git"
+  local gitdir = '.git'
   local g = vim.fs.find(gitdir, {
     upward = true,
     stop = vim.uv.os_homedir(),
@@ -147,7 +147,6 @@ function vcs:factory() -- factory method to instantiate appropriate VCS subclass
   if string.match(g[1], gitdir) ~= nil then
     return git:new()
   end
-
 end
 
 return vcs

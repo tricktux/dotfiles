@@ -136,7 +136,7 @@ return {
     keys = {
       {
         '<leader>ta',
-        "<cmd>Copilot! attach<cr>",
+        '<cmd>Copilot! attach<cr>',
         mode = { 'n' },
         desc = 'toggle_copilot_attach',
       },
@@ -145,7 +145,7 @@ return {
       suggestion = { enabled = false },
       panel = { enabled = false },
       filetypes = {
-        ["*"] = false, -- enable by Copilot! attach
+        ['*'] = false, -- enable by Copilot! attach
       },
     },
   },

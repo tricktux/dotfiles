@@ -20,7 +20,7 @@ local windows = {
       '<c-w>=',
       '<cmd>WindowsEqualize<cr>',
       desc = 'windows_equalize',
-    }
+    },
   },
   opts = {
     autowidth = {
@@ -28,8 +28,8 @@ local windows = {
       -- NOTE: change help value if the below one changes
       winwidth = 1.2,
       filetype = {
-        help = 1.2
-      }
+        help = 1.2,
+      },
     },
     ignore = {
       buftype = ignore_buftypes,

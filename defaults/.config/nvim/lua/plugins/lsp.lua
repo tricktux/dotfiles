@@ -37,7 +37,9 @@ local function do_buffer_clients_support_method(bufnr, capability)
     else
       supports = client.supports_method(capability, { bufnr = bufnr })
     end
-    if supports then return true end
+    if supports then
+      return true
+    end
   end
   return false
 end
@@ -173,22 +175,36 @@ function M.setup_lsp_attach()
       end
 
       -- folds
-      if vim.fn.has('nvim-0.10') > 0 and do_buffer_clients_support_method(au.buf, 'textDocument/foldingRange') then
+      if
+        vim.fn.has('nvim-0.10') > 0
+        and do_buffer_clients_support_method(au.buf, 'textDocument/foldingRange')
+      then
         local win = vim.api.nvim_get_current_win()
         vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
       end
 
       -- inlay hints
-      if vim.fn.has('nvim-0.10') > 0 and do_buffer_clients_support_method(au.buf, 'textDocument/inlayHint') then
+      if
+        vim.fn.has('nvim-0.10') > 0
+        and do_buffer_clients_support_method(au.buf, 'textDocument/inlayHint')
+      then
         vim.lsp.inlay_hint.enable(true, { bufnr = au.buf })
         local toggle_inlay_hints = function()
           vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = au.buf })
         end
-        vks('n', '<leader>ti', toggle_inlay_hints, { silent = true, buffer = true, desc = "toggle_inlay_hints" })
+        vks(
+          'n',
+          '<leader>ti',
+          toggle_inlay_hints,
+          { silent = true, buffer = true, desc = 'toggle_inlay_hints' }
+        )
       end
 
       -- code lens
-      if vim.fn.has('nvim-0.10') > 0 and do_buffer_clients_support_method(au.buf, 'textDocument/codeLens') then
+      if
+        vim.fn.has('nvim-0.10') > 0
+        and do_buffer_clients_support_method(au.buf, 'textDocument/codeLens')
+      then
         vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
           callback = function(nested_au)
             vim.lsp.codelens.refresh({ bufnr = nested_au.buf })
@@ -237,7 +253,7 @@ function M:config()
   --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities =
-      vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+    vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
   self.setup_lsp_attach()
 
@@ -340,7 +356,7 @@ function M:config()
   if servers['clangd'] > 0 then
     log.info('setting up the clangd lsp...')
     local cores = utl.has_win and os.getenv('NUMBER_OF_PROCESSORS')
-        or table.concat(vim.fn.systemlist('nproc'))
+      or table.concat(vim.fn.systemlist('nproc'))
     local c = vim.deepcopy(capabilities)
     c.offsetEncoding = 'utf-16' -- Set the same encoding only for clangd
 
@@ -442,39 +458,39 @@ return {
     cmd = 'Trouble',
     keys = {
       {
-        "<leader>oj",
-        "<cmd>Trouble<cr>",
-        desc = "Trouble cmd",
+        '<leader>oj',
+        '<cmd>Trouble<cr>',
+        desc = 'Trouble cmd',
       },
       {
-        "<leader>ot",
-        "<cmd>Trouble diagnostics toggle<cr>",
-        desc = "Diagnostics (Trouble)",
+        '<leader>ot',
+        '<cmd>Trouble diagnostics toggle<cr>',
+        desc = 'Diagnostics (Trouble)',
       },
       {
-        "<leader>od",
-        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-        desc = "Buffer Diagnostics (Trouble)",
+        '<leader>od',
+        '<cmd>Trouble diagnostics toggle filter.buf=0<cr>',
+        desc = 'Buffer Diagnostics (Trouble)',
       },
       {
-        "<leader>ob",
-        "<cmd>Trouble symbols toggle focus=false<cr>",
-        desc = "Symbols sidebar (Trouble)",
+        '<leader>ob',
+        '<cmd>Trouble symbols toggle focus=false<cr>',
+        desc = 'Symbols sidebar (Trouble)',
       },
       {
-        "<leader>os",
-        "<cmd>Trouble lsp_document_symbols<cr>",
-        desc = "Symbols Quickfix (Trouble)",
+        '<leader>os',
+        '<cmd>Trouble lsp_document_symbols<cr>',
+        desc = 'Symbols Quickfix (Trouble)',
       },
       {
-        "<leader>ol",
-        "<cmd>Trouble loclist toggle<cr>",
-        desc = "Location List (Trouble)",
+        '<leader>ol',
+        '<cmd>Trouble loclist toggle<cr>',
+        desc = 'Location List (Trouble)',
       },
       {
-        "<leader>oq",
-        "<cmd>Trouble qflist toggle<cr>",
-        desc = "Quickfix List (Trouble)",
+        '<leader>oq',
+        '<cmd>Trouble qflist toggle<cr>',
+        desc = 'Quickfix List (Trouble)',
       },
     },
     dependencies = vim.g.advanced_plugins > 0 and { 'nvim-tree/nvim-web-devicons' } or {},
