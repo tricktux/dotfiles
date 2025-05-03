@@ -62,9 +62,9 @@ volume_status {
 }
 
 pomodoro {
-    format_active = "P: [{format}]"
-    format_break = "P: [{format}]"
-    format_stopped = "P: [{format}]"
+    format_active = "🖥️: [{format}]"
+    format_break = "🏖️: [{format}]"
+    format_stopped = "⏳: [{format}]"
     timer_pomodoro = 3000
     format = "{mm}"
 }
@@ -90,15 +90,15 @@ battery all {
 }
 
 disk "/" {
-        format = "D:%avail"
+        format = "📂:%avail"
 }
 
 load {
-        format = "L:%1min"
+        format = "💻:%1min"
 }
 
 memory {
-        format = "M:%used"
+        format = "📷:%used"
         threshold_degraded = "10%"
         format_degraded = "M:%free"
 }
