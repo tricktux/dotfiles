@@ -39,6 +39,7 @@ function M:windows()
   vim.opt.shellcmdflag = '-c'
   vim.opt.shellxquote = ''
   vim.opt.shellxescape = ''
+  vim.opt.shelltemp = true
 end
 
 function M:setup()
