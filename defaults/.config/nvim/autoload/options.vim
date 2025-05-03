@@ -186,8 +186,7 @@ function! options#Set() abort
   " Status Line
   " If this not and android device and we have no plugins setup "ugly" status
   " line
-  set statusline =
-  set statusline+=\ [%n]\                             " buffernr
+  set statusline=\ [%n]\                             " buffernr
   set statusline+=\ %<%{StlCwd()}\ %f\ %m%r%w                    " File+path
   set statusline+=\ %y\                             " FileType
   set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''} " Encoding
