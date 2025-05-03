@@ -18,3 +18,5 @@ stow-neovim-restow:
 stow-vim:
 	@mkdir -p $(HOME)/.config/vim
 	stow -d defaults/.config -t $(HOME)/.config/vim -S nvim
+lua-fmt:
+	cd defaults/.config/nvim/lua; stylua -s **/*.lua
