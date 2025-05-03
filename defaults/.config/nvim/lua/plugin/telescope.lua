@@ -63,7 +63,7 @@ function M.set_lsp_mappings()
 end
 
 function M.find_files_sanitize(path)
-  vim.validate({ path = { path, 's' } })
+  vim.validate('path', path, 'string')
   local Path = require('plenary.path')
 
   local ppath = Path:new(path)

@@ -13,7 +13,7 @@ M.esc = { '' }
 --- Abstraction over keymaps_set
 -- @param keys table expects all the arguments to keymaps_set
 function M:keymaps_sets(keys)
-  vim.validate({ keys = { keys, 't' } })
+  vim.validate('keys', keys, 'table')
 
   self.keymaps_set(keys.mappings, keys.mode, keys.opts, keys.prefix)
 end
@@ -31,10 +31,10 @@ end
 ---@param prefix (string) To be prefixed to all the indices of mappings
 --                Can be nil
 function M.keymaps_set(mappings, mode, opts, prefix)
-  vim.validate({ mappings = { mappings, 't' } })
-  vim.validate({ mode = { mode, { 's', 't' }, true } })
-  vim.validate({ opts = { opts, 't', true } })
-  vim.validate({ prefix = { prefix, 's', true } })
+  vim.validate('mappings', mappings, 'table')
+  vim.validate('mode', mode, {'table', 'string'}, true)
+  vim.validate('opts', opts, 'table', true)
+  vim.validate('prefix', prefix, 'string', true)
 
   for k, v in pairs(mappings) do
     local o = opts and vim.deepcopy(opts) or { silent = true }
@@ -42,7 +42,8 @@ function M.keymaps_set(mappings, mode, opts, prefix)
     local m = v[3] or vim.deepcopy(mode or 'n')
     local lhs = prefix and prefix .. k or k
 
-    vim.validate({ ['lhs = ' .. lhs .. ', rhs = '] = { v[1], { 's', 'f' } } })
+    -- TODO:
+    -- vim.validate({ ['lhs = ' .. lhs .. ', rhs = '] = { v[1], { 's', 'f' } } })
     local t = type(v[1])
     if t == 'string' then -- determine if rhs is a <plug> mapping
       local i, j = string.find(v[1], '^<[Pp]lug>')
@@ -87,15 +88,7 @@ end
 
 local function tmux_move(direction)
   local valid_dir = 'phjkl'
-  vim.validate({
-    direction = {
-      direction,
-      function(d)
-        return (valid_dir):find(d)
-      end,
-      valid_dir,
-    },
-  })
+  vim.validate('direction', direction, function(d) return (valid_dir):find(d) ~= nil end, 'not one of : ' .. valid_dir)
 
   local curr_win = vim.api.nvim_get_current_win()
   fn.execute('wincmd ' .. direction)

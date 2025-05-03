@@ -65,7 +65,7 @@ M.icons = {
 -- >vim.deepcopy
 M.set = {}
 function M.set.new(t)
-  vim.validate({ t = { t, 't', false } })
+  vim.validate('t', t, 'table')
 
   local set = {}
   for _, l in ipairs(t) do
@@ -75,7 +75,7 @@ function M.set.new(t)
 end
 
 function M.set.tostring(set)
-  vim.validate({ set = { set, 't', false } })
+  vim.validate('t', t, 'table')
 
   local s = ''
   local sep = ''
@@ -110,7 +110,7 @@ M.ignore_file = [[--ignore-file=]] .. (M.has_win and win_file or nix_file)
 M.zeal = {}
 M.zeal.path = M.has_unix and '/usr/bin/zeal' or [["C:\\Program Files (x86)\\Zeal\\Zeal.exe"]]
 M.zeal.search = function(word)
-  vim.validate({ word = { word, 's', false } })
+  vim.validate('word', word, 'string')
   local p = M.zeal.path
   if fn.filereadable(p) <= 0 then
     vim.notify("Zeal '" .. p .. "' is not installed", vim.log.levels.ERROR)
@@ -128,7 +128,7 @@ end
 M.browser = {}
 M.browser.path = M.has_unix and '/usr/bin/firefox' or 'firefox.exe'
 M.browser.search = function(word)
-  vim.validate({ word = { word, 's', false } })
+  vim.validate('word', word, 'string')
   local b = M.browser.path
   if fn.filereadable(b) <= 0 then
     vim.notify("Browser '" .. b .. "' is not installed", vim.log.levels.ERROR)
@@ -143,7 +143,7 @@ M.browser.search = function(word)
   M.term.exec(z)
 end
 M.browser.open_file_async = function(file)
-  vim.validate({ file = { file, 's', false } })
+  vim.validate('file', file, 'string')
   if vim.uv.fs_stat(file) == nil then
     vim.api.nvim_err_writeln("file: '" .. file .. "' does not exists")
     return
@@ -209,7 +209,7 @@ M.rg.vim_to_rg_map = {
 
 M.table = {}
 M.table.string_to_table = function(string)
-  vim.validate({ string = { string, 's', false } })
+  vim.validate('string', string, 'string')
   local t = {}
   for str in string.gmatch(string, '%S+') do
     table.insert(t, str)
@@ -300,7 +300,7 @@ function M.isfile(path)
 end
 
 function M.fs.path.native_fuzzer(path)
-  vim.validate({ path = { path, 's', false } })
+  vim.validate('path', path, 'string')
 
   local epath = vim.fn.expand(path)
   if M.isdir(epath) == nil then
@@ -330,7 +330,7 @@ function M.fs.path.native_fuzzer(path)
 end
 
 local function fuzzer_sanitize(path)
-  vim.validate({ path = { path, 's', false } })
+  vim.validate('path', path, 'string')
 
   local p = fs.is_path(path)
   if p == nil then
@@ -367,8 +367,8 @@ function M.fs.path.fuzzer(path)
 end
 
 function M.tbl_removekey(table, key)
-  vim.validate({ table = { table, 't', false } })
-  vim.validate({ key = { key, 's', false } })
+  vim.validate('table', table, 'table')
+  vim.validate('key', key, 'string')
 
   local element = table[key]
   if element == nil then
@@ -382,8 +382,8 @@ end
 -- Example width = 0.8, height = 0.8
 -- Returns buffer, and window handle
 function M.open_win_centered(width, height)
-  vim.validate({ width = { width, 'n', false } })
-  vim.validate({ height = { height, 'n', false } })
+  vim.validate('width', width, 'number')
+  vim.validate('height', height, 'number')
   local buf = api.nvim_create_buf(false, true)
 
   local mheight = math.floor((vim.o.lines - 2) * height)
@@ -409,7 +409,7 @@ function M.open_win_centered(width, height)
 end
 
 function M.read_file(path)
-  vim.validate({ path = { path, 's', false } })
+  vim.validate('path', path, 'string')
   local file = io.open(path)
   if file == nil then
     return ''
@@ -421,7 +421,7 @@ end
 
 -- Execute cmd and return all of its output
 function M.io_popen_read(cmd)
-  vim.validate({ cmd = { cmd, 's', false } })
+  vim.validate('cmd', cmd, 'string')
   local file = assert(io.popen(cmd))
   local output = file:read('*all')
   file:close()
@@ -481,7 +481,7 @@ M.buf.is_in_current_tab = function(bufnr)
   return nil
 end
 M.buf.is_valid = function(bufnr)
-  vim.validate({ bufnr = { bufnr, 'n', true } })
+  vim.validate('bufnr', bufnr, 'number')
   if bufnr == nil then
     return false
   end
@@ -502,9 +502,9 @@ M.term.float.opts = {
 }
 
 function M.term.float.exec(cmd, opts)
-  vim.validate({ cmd = { cmd, 's', false } })
+  vim.validate('cmd', cmd, 'string')
   -- Last true makes them optional arguments
-  vim.validate({ startinsert = { opts, 't', true } })
+  vim.validate('startinsert', startinsert, 'table', true)
   -- Merge opts
   local startinsert = opts and opts.startinsert or M.term.float.opts.startinsert
   local closeterm = opts and opts.closeterm or M.term.float.opts.closeterm
@@ -553,7 +553,7 @@ M.term.new_vsplit = function()
   vim.cmd.terminal()
 end
 M.term.valid_job_id = function(id)
-  vim.validate({ id = { id, 'n', true } })
+  vim.validate('id', id, 'number', true)
 
   if id == nil then
     return false
@@ -568,7 +568,7 @@ M.term.valid_job_id = function(id)
 end
 
 M.term.send_cmd = function(cmd)
-  vim.validate({ cmd = { cmd, 's', false } })
+  vim.validate('cmd', cmd, 'string')
   local id = M.term.last.job_id
   if id ~= nil and M.term.valid_job_id(id) then
     vim.api.nvim_chan_send(M.term.last.job_id, cmd .. '\n')
@@ -582,7 +582,7 @@ M.term.exec = function(cmd)
   if type(cmd) == 'string' then
     lcmd = M.table.string_to_table(cmd)
   end
-  vim.validate({ lcmd = { lcmd, 't', false } })
+  vim.validate('lcmd', lcmd, 'table')
   log.info(fmt('term.exec.cmd = %s', vim.inspect(cmd)))
 
   if M.term.send_cmd(cmd) then
@@ -628,8 +628,7 @@ M.term.exec = function(cmd)
 end
 
 M.term.open_uri = function(uri)
-  vim.validate({ uri = { uri, 's', false } })
-
+  -- TODO: remove useless function
   vim.ui.open(uri)
 end
 
@@ -659,7 +658,7 @@ M.links.sources = {
 }
 
 M.links.find_source = function(line)
-  vim.validate({ line = { line, 's', false } })
+  vim.validate('line', line, 'string')
 
   local ft = vim.api.nvim_get_option_value('filetype', { buf = 0 })
   if M.links.sources[ft] == nil then
@@ -681,7 +680,7 @@ M.links.find_source = function(line)
 end
 
 M.links.open_uri_in_line = function(line)
-  vim.validate({ line = { line, 's', false } })
+  vim.validate('line', line, 'string')
   -- vim.print("Line: " .. line)
   local source = M.links.find_source(line)
   local u = source or line

@@ -30,9 +30,7 @@ local _arguments = {
 }
 
 local render = function(filetype)
-  vim.validate({
-    filetype = { filetype, _validate_filetypes, 'one of: ' .. vim.inspect(_filetype) },
-  })
+  vim.validate('filetype', filetype, _validate_filetypes, false, 'one of: ' .. vim.inspect(_filetype))
   local f = vim.fn.expand('%:p')
   if not u.isfile(M.opersistance) then
     M.opersistance = output('.' .. filetype)

@@ -22,9 +22,7 @@ local function _validate_filetypes(filetype)
 end
 
 local render = function(filetype)
-  vim.validate({
-    filetype = { filetype, _validate_filetypes, 'one of: ' .. vim.inspect(_filetype) },
-  })
+  vim.validate('filetype', filetype, _validate_filetypes, false, 'one of: ' .. vim.inspect(_filetype))
   local filename = vim.fn.expand('%:p')
   local cmd = { 'quarto', 'render', filename, '--to', filetype }
   u.term.exec(cmd)

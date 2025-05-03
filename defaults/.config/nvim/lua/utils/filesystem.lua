@@ -2,12 +2,12 @@ local M = {}
 
 -- Path is expected to be plenary:Path
 local is_full_path = function(path)
-  vim.validate({ path = { path, 't', false } })
+  vim.validate('path', path, 'table')
   return path:is_absolute() and path:exists()
 end
 
 M.file_size = function(path)
-  vim.validate({ path = { path, 's', false } })
+  vim.validate('path', path, 'string')
   local plok, p = pcall(require, 'plenary.path')
   if not plok then
     vim.notify('plenary is not available', vim.log.levels.ERROR)
@@ -26,7 +26,7 @@ end
 ---@param path string: The full path to the file
 ---@return size in bytes or nil
 M.file_size_native = function(path)
-  vim.validate({ path = { path, 's', false } })
+  vim.validate('path', path, 'string')
   local size = vim.uv.fs_stat(path)
   if not size then
     return nil
@@ -36,7 +36,7 @@ M.file_size_native = function(path)
 end
 
 M.mkfile = function(path)
-  vim.validate({ path = { path, 's', false } })
+  vim.validate('path', path, 'string')
   local plok, p = pcall(require, 'plenary.path')
   if not plok then
     vim.notify('plenary is not available', vim.log.levels.ERROR)
@@ -50,7 +50,7 @@ M.mkfile = function(path)
 end
 
 M.mkdir = function(path)
-  vim.validate({ path = { path, 's', false } })
+  vim.validate('path', path, 'string')
   local plok, p = pcall(require, 'plenary.path')
   if not plok then
     vim.notify('plenary is not available', vim.log.levels.ERROR)
@@ -61,7 +61,7 @@ M.mkdir = function(path)
 end
 
 M.is_path = function(path)
-  vim.validate({ path = { path, 's', false } })
+  vim.validate('path', path, 'string')
   local plok, p = pcall(require, 'plenary.path')
   if not plok then
     vim.notify('plenary is not available', vim.log.levels.ERROR)

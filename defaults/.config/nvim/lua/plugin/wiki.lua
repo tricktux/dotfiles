@@ -14,7 +14,7 @@ M.path = {
 }
 
 M.path.find = function(wikis)
-  vim.validate({ wikis = { wikis, 'table', false } })
+  vim.validate('wikis', wikis, 'table')
   for _, dir in pairs(wikis) do
     local w = luv.fs_stat(dir)
     if w and w.type == 'directory' then
