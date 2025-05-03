@@ -117,6 +117,7 @@ M.setup = function()
       'startuptime',
       'tsplayground',
       'PlenaryTestPopup',
+      'Messages',
     },
     callback = function(event)
       vim.bo[event.buf].buflisted = false

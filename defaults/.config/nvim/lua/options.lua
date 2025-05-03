@@ -44,6 +44,12 @@ end
 function M:setup()
   self:unix()
   self:windows()
+
+  local extui_ok, extui = pcall(require, 'vim._extui')
+  if extui_ok then
+    extui.enable({})
+  end
+
   vim.opt.inccommand = 'split'
   vim.opt.shada = {
     [['1024]],
