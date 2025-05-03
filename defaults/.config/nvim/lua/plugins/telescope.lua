@@ -83,9 +83,7 @@ function M:setup()
         horizontal = { preview_width = 0.5 },
         vertical = { preview_height = 0.5 },
       },
-      preview = {
-        hide_on_startup = false,
-      },
+      preview = false,
       mappings = {
         i = {
           ['<C-n>'] = actions.cycle_history_next,
