@@ -104,9 +104,6 @@ export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
 export DIFFPROG="nvim -d"
 export DIFFSEARCHPATH="/boot /etc /usr"
 
-# As given by the output of tzselect
-export TZ='America/New_York'
-
 # Wine
 export WINEPREFIX="$XDG_DATA_HOME/wine"
 
