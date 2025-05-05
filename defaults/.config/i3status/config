@@ -99,7 +99,7 @@ load {
 }
 
 memory {
-        format = "📷:%used"
+        format = "🛢:%used"
         threshold_degraded = "10%"
         format_degraded = "M:%free"
 }
