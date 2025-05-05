@@ -101,6 +101,17 @@ source ~/.bash_aliases
 # fix time:{{{
 paru -Syu ntp
 sudo timedatectl set-ntp true
+sudo timedatectl set-timezone "$(curl --fail https://ipapi.co/timezone)"
+timedatectl
+# Automatic time zone changing
+sudo bash -c "cat >> /etc/NetworkManager/dispatcher.d/09-timezone" << EOL
+#!/bin/sh
+case "$2" in
+    up)
+        timedatectl set-timezone "$(curl --fail https://ipapi.co/timezone)"
+    ;;
+esac
+EOL
 #}}}
 
 # SSD {{{
