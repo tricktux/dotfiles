@@ -36,7 +36,7 @@ return {
     },
   },
   {
-    'epwalsh/obsidian.nvim',
+    'obsidian-nvim/obsidian.nvim',
     ft = { 'markdown', 'org', 'quarto', 'tex' },
     keys = {
       { '<leader>wj', '<cmd>ObsidianToday<cr>', desc = 'obsidian_daily' },
