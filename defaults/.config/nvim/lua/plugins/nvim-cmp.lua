@@ -4,9 +4,15 @@ local M = {}
 
 function M:setup()
   local sources = {
+    { name = 'codecompanion_variables' },
+    { name = 'codecompanion_tools' },
+    { name = 'codecompanion_slash_commands' },
+    { name = 'codecompanion_models' },
+    { name = 'copilot' },
+    { name = 'codeium' },
     { name = 'nvim_lsp' },
     { name = 'nvim_lua' },
-    { name = 'buffer', keyword_length = 3 },
+    { name = 'buffer',                      keyword_length = 3 },
     { name = 'luasnip' },
     { name = 'calc' },
     { name = 'path' },
