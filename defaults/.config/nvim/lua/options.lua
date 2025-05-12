@@ -36,10 +36,9 @@ function M:windows()
   end
 
   -- Fixing git-bash issue 28384
-  vim.opt.shellcmdflag = '-c'
-  vim.opt.shellxquote = ''
-  vim.opt.shellxescape = ''
   vim.opt.shelltemp = true
+  vim.opt.shellpipe = '>'
+  vim.opt.shellredir = '>'
 end
 
 function M:setup()
