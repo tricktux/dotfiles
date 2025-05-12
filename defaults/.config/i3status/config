@@ -24,7 +24,7 @@ order += "disk /"
 order += "load"
 order += "memory"
 order += "tztime local"
-order += "tztime home"
+# order += "tztime home"
 
 nvidia_smi {
     format_gpu = '{gpu_name} [\?color=temperature.gpu {temperature.gpu}°C] '
@@ -108,7 +108,7 @@ memory {
 # sudo ln -fs /usr/share/zoneinfo/X /etc/localtime
 tztime local {
         format = "🗓️: %Y-%m-%d %H:%M:%S"
-        hide_if_equals_localtime = true
+        # hide_if_equals_localtime = true
 }
 
 tztime home {
