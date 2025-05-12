@@ -10,7 +10,6 @@ function M:setup()
     { name = 'luasnip' },
     { name = 'calc' },
     { name = 'path' },
-    { name = 'orgmode' },
   }
   local cp_ok, _ = pcall(require, 'copilot_cmp')
   if cp_ok then
