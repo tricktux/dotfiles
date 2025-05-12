@@ -11,9 +11,20 @@ function M:setup()
     { name = 'calc' },
     { name = 'path' },
   }
+  local cd_ok, _ = pcall(require, 'codeium')
+  if cd_ok then
+    table.insert(sources, 1, { name = 'codeium' })
+  end
   local cp_ok, _ = pcall(require, 'copilot_cmp')
   if cp_ok then
     table.insert(sources, 1, { name = 'copilot' })
+  end
+  local cc_ok, _ = pcall(require, 'codecompanion')
+  if cc_ok then
+    table.insert(sources, 3, { name = 'codecompanion_variables' })
+    table.insert(sources, 3, { name = 'codecompanion_tools' })
+    table.insert(sources, 3, { name = 'codecompanion_slash_commands' })
+    table.insert(sources, 3, { name = 'codecompanion_models' })
   end
 
   local cmp = require('cmp')
