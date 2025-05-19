@@ -176,8 +176,8 @@ function M.setup_lsp_attach()
 
       -- folds
       if
-        vim.fn.has('nvim-0.10') > 0
-        and do_buffer_clients_support_method(au.buf, 'textDocument/foldingRange')
+          vim.fn.has('nvim-0.10') > 0
+          and do_buffer_clients_support_method(au.buf, 'textDocument/foldingRange')
       then
         local win = vim.api.nvim_get_current_win()
         vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
@@ -185,8 +185,8 @@ function M.setup_lsp_attach()
 
       -- inlay hints
       if
-        vim.fn.has('nvim-0.10') > 0
-        and do_buffer_clients_support_method(au.buf, 'textDocument/inlayHint')
+          vim.fn.has('nvim-0.10') > 0
+          and do_buffer_clients_support_method(au.buf, 'textDocument/inlayHint')
       then
         vim.lsp.inlay_hint.enable(true, { bufnr = au.buf })
         local toggle_inlay_hints = function()
@@ -202,8 +202,8 @@ function M.setup_lsp_attach()
 
       -- code lens
       if
-        vim.fn.has('nvim-0.10') > 0
-        and do_buffer_clients_support_method(au.buf, 'textDocument/codeLens')
+          vim.fn.has('nvim-0.10') > 0
+          and do_buffer_clients_support_method(au.buf, 'textDocument/codeLens')
       then
         vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
           callback = function(nested_au)
@@ -244,184 +244,7 @@ local function on_clangd_attach(client_id, bufnr)
 end
 
 function M:config()
-  local nvim_lsp = require('lspconfig')
-  -- vim.lsp.log.set_level("debug")
-
-  -- LSP servers and clients are able to communicate to each other what features they support.
-  --  By default, Neovim doesn't support everything that is in the LSP specification.
-  --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
-  --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities =
-    vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
-
   self.setup_lsp_attach()
-
-  local flags = { allow_incremental_sync = true, debounce_text_changes = 150 }
-
-  if vim.fn.executable('lua-language-server') > 0 then
-    log.info('setting up the lua lsp...')
-    nvim_lsp.lua_ls.setup({
-      flags = flags,
-      capabilities = capabilities,
-      settings = {
-        Lua = {
-          runtime = {
-            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-            version = 'LuaJIT',
-          },
-          diagnostics = {
-            -- Get the language server to recognize the `vim` global
-            globals = { 'vim' },
-          },
-          -- Do not send telemetry data containing a randomized but unique identifier
-          telemetry = {
-            enable = false,
-          },
-          hint = {
-            enable = true,
-          },
-        },
-      },
-    })
-  end
-
-  -- Unbearably slow
-  if servers['omnisharp'] > 0 then
-    log.info('setting up the omnisharp lsp...')
-    nvim_lsp.omnisharp.setup({
-      flags = flags,
-      filetypes = { 'cs' },
-      cmd = { 'omnisharp', '--languageserver', '--hostPID', tostring(vim.fn.getpid()) },
-      root_dir = nvim_lsp.util.root_pattern('.vs', '*.csproj', '*.sln'),
-      capabilities = capabilities,
-    })
-  end
-
-  if servers['ruff'] > 0 then
-    log.info('setting up the ruff lsp...')
-
-    -- https://docs.astral.sh/ruff/editors/setup/#neovim
-    nvim_lsp.ruff.setup({
-      init_options = {
-        settings = {
-          -- Any extra CLI arguments for `ruff` go here.
-          args = {},
-        },
-      },
-    })
-  end
-  if servers['pyright'] > 0 then
-    -- cinst nodejs-lts -y
-    -- npm install -g pyright
-    log.info('setting up the pyright lsp...')
-    nvim_lsp.pyright.setup({
-      flags = flags,
-      capabilities = capabilities,
-      settings = {
-        pyright = {
-          -- Using Ruff's import organizer
-          disableOrganizeImports = true,
-        },
-        python = {
-          analysis = {
-            -- Ignore all files for analysis to exclusively use Ruff for linting
-            ignore = { '*' },
-          },
-        },
-      },
-    })
-  end
-
-  if vim.fn.executable('remark-language-server') > 0 then
-    log.info('setting up the remark-language-server lsp...')
-    nvim_lsp.remark_ls.setup({})
-  end
-
-  if vim.fn.executable('bash-language-server') > 0 then
-    log.info('setting up the bash-language-server lsp...')
-    nvim_lsp.bashls.setup({})
-  end
-
-  if vim.fn.executable('cmake-language-server') > 0 then
-    log.info('setting up the cmake-language-server lsp...')
-    nvim_lsp.cmake.setup({})
-  end
-
-  if vim.fn.executable('marksman') > 0 then
-    log.info('setting up the marksman lsp...')
-    nvim_lsp.marksman.setup({})
-  end
-
-  if servers['clangd'] > 0 then
-    log.info('setting up the clangd lsp...')
-    local cores = utl.has_win and os.getenv('NUMBER_OF_PROCESSORS')
-      or table.concat(vim.fn.systemlist('nproc'))
-    local c = vim.deepcopy(capabilities)
-    c.offsetEncoding = 'utf-16' -- Set the same encoding only for clangd
-
-    local settings = {
-      init_options = { clangdFileStatus = false },
-      on_attach = on_clangd_attach,
-      flags = flags,
-      filetypes = { 'c', 'cpp' },
-      capabilities = c,
-      cmd = {
-        'clangd',
-        '--all-scopes-completion=true',
-        '--background-index=true',
-        '--clang-tidy=true',
-        '--cross-file-rename=true',
-        '--completion-style=detailed',
-        '--fallback-style=LLVM',
-        '--pch-storage=memory',
-        '--header-insertion=iwyu',
-        '-j=' .. cores,
-        '--header-insertion-decorators=false',
-      },
-    }
-
-    nvim_lsp.clangd.setup(settings)
-  end
-
-  if servers['rust'] > 0 then
-    log.info('setting up the rust-analyzer...')
-    nvim_lsp.rust_analyzer.setup({
-      flags = flags,
-      capabilities = capabilities,
-      settings = {
-        ['rust-analyzer'] = {
-          imports = {
-            granularity = {
-              group = 'module',
-            },
-            prefix = 'self',
-          },
-          assist = {
-            importGranularity = 'module',
-            importPrefix = 'by_self',
-          },
-          cargo = {
-            loadOutDirsFromCheck = true,
-            buildScripts = {
-              enable = true,
-            },
-          },
-          procMacro = {
-            enable = true,
-          },
-        },
-      },
-    })
-  end
-
-  if servers['zls'] > 0 then
-    nvim_lsp.zls.setup({})
-  end
-
-  if vim.fn.executable('nil') > 0 then
-    nvim_lsp.nil_ls.setup({})
-  end
 end
 
 return {
@@ -431,6 +254,22 @@ return {
     config = function()
       M:config()
     end,
+  },
+  {
+    'mason-org/mason.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    opts = {},
+  },
+  {
+    'mason-org/mason-lspconfig.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = {
+      'neovim/nvim-lspconfig',
+      'mason-org/mason.nvim',
+    },
+    opts = {
+      ensure_installed = {},
+    },
   },
   {
     'ray-x/lsp_signature.nvim',
@@ -496,7 +335,7 @@ return {
     dependencies = vim.g.advanced_plugins > 0 and { 'nvim-tree/nvim-web-devicons' } or {},
     opts = {
       cycle_results = false, -- cycle item list when reaching beginning or end of list
-      auto_preview = false, -- automatically open preview when on an item
+      auto_preview = false,  -- automatically open preview when on an item
     },
   },
 }
