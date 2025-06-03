@@ -37,6 +37,7 @@ return {
   },
   {
     'obsidian-nvim/obsidian.nvim',
+    enabled = w.path.personal ~= nil or w.path.work ~= nil,
     ft = { 'markdown', 'org', 'quarto', 'tex' },
     keys = {
       { '<leader>wj', '<cmd>ObsidianToday<cr>', desc = 'obsidian_daily' },
