@@ -6,20 +6,20 @@ return {
     enabled = w.path.work ~= nil,
     keys = {
       { '<leader>aj', '<cmd>Codeium Toggle<cr>', desc = 'codeium_toggle' },
-      { '<leader>ac', '<cmd>Codeium Chat<cr>', desc = 'codeium_chat' },
-      { '<leader>aa', '<cmd>Codeium Auth<cr>', desc = 'codeium_auth' },
+      { '<leader>ac', '<cmd>Codeium Chat<cr>',   desc = 'codeium_chat' },
+      { '<leader>aa', '<cmd>Codeium Auth<cr>',   desc = 'codeium_auth' },
     },
     dependencies = {
       'nvim-lua/plenary.nvim',
       'hrsh7th/nvim-cmp',
     },
     config = function()
-      require('codeium').setup{
+      require('codeium').setup {
         enterprise_mode = true,
         enable_chat = true,
         api = {
-          host = "windsurf.fedstart.com"
-        }
+          host = 'windsurf.fedstart.com',
+        },
       }
     end,
   },
@@ -76,7 +76,7 @@ return {
             show_token_count = true,       -- Show the token count for each response?
             start_in_insert_mode = false,  -- Open the chat buffer in insert mode?
             window = {
-              layout = "buffer", -- float|vertical|horizontal|buffer
+              layout = 'buffer',           -- float|vertical|horizontal|buffer
             },
           },
         },
