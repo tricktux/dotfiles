@@ -43,7 +43,7 @@ return {
       vim.keymap.set(
         'v',
         '<leader>ac',
-        '<cmd>CodeCompanionChat Add<cr>',
+        '<cmd>CodeCompanionChat Toggle<cr>',
         { noremap = true, silent = true, desc = 'code-companion-chat-add' }
       )
 
@@ -75,6 +75,9 @@ return {
             show_settings = true,          -- Show LLM settings at the top of the chat buffer?
             show_token_count = true,       -- Show the token count for each response?
             start_in_insert_mode = false,  -- Open the chat buffer in insert mode?
+            window = {
+              layout = "buffer", -- float|vertical|horizontal|buffer
+            },
           },
         },
         strategies = {
