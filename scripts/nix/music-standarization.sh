@@ -107,7 +107,7 @@ convert_file() {
   # Convert with threading and output redirected to log
   if ffmpeg -i "$file" \
     -threads 0 \
-    -af loudnorm \
+    -af loudnorm=I=-10:TP=-1.5 \
     -codec:a libmp3lame \
     -b:a "$BITRATE" \
     -map_metadata 0 \
