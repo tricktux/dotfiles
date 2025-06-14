@@ -91,6 +91,7 @@ return {
       end
       -- vim.print(vim.inspect(M.opts.workspaces))
       require('obsidian').setup(M.opts)
+      require('plugin.obsidian').setup()
     end,
   },
 }
