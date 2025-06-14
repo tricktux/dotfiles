@@ -6,11 +6,19 @@ local M = {}
 M.opts = {
   workspaces = {},
   mappings = {},
+  templates = {
+    folder = "templates",
+    date_format = "%Y-%m-%d",
+    time_format = "%H:%M",
+    -- A map for custom variables, the key should be the variable and the value a function
+    substitutions = {},
+  },
   daily_notes = {
-    folder = 'monthlies',
+    folder = 'dailies',
+    template = 'daily.md',
     -- weekly
-    date_format = '%Y-%m',
-    alias_format = '%B, %Y',
+    date_format = '%Y-%m-%d',
+    alias_format = '%B, %Y %d',
   },
   ui = { enable = true },
 }
@@ -41,6 +49,7 @@ return {
     ft = { 'markdown', 'org', 'quarto', 'tex' },
     keys = {
       { '<leader>wj', '<cmd>ObsidianToday<cr>', desc = 'obsidian_daily' },
+      { '<leader>wk', '<cmd>ObsidianQuickSwitch carry.md<cr>', desc = 'obsidian_todo_carry' },
       { '<leader>wa', '<cmd>ObsidianNew<cr>', desc = 'obsidian_new' },
       { '<leader>ww', '<cmd>ObsidianWorkspace<cr>', desc = 'obsidian_list_workspace' },
       { '<leader>ws', '<cmd>ObsidianSearch<cr>', desc = 'obsidian_search' },
