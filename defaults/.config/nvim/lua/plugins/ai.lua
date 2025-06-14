@@ -28,6 +28,18 @@ return {
     enabled = w.path.work == nil,
     event = 'VeryLazy',
     config = function()
+      -- c-l clears the buffer everytime
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = 'codecompanion',
+        callback = function()
+          vim.keymap.set(
+            { 'n' },
+            '<c-l>',
+            'zz',
+            { buffer = true, noremap = true, silent = true }
+          )
+        end,
+      })
       vim.keymap.set(
         { 'n', 'v' },
         '<leader>aa',
