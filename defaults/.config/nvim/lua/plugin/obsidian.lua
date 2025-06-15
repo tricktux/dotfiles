@@ -24,7 +24,7 @@ end
 -- Get list of project directories
 local function get_projects()
   local client = get_obsidian_client()
-  local projects_path = vim.fs.joinpath(tostring(client.dir), 'projects')
+  local projects_path = vim.fs.joinpath(client.dir.filename, 'projects')
 
   -- Check if projects directory exists
   if vim.fn.isdirectory(projects_path) == 0 then
@@ -53,7 +53,7 @@ function M.create_project()
     end
 
     local client = get_obsidian_client()
-    local project_dir = vim.fs.joinpath(tostring(client.dir), 'projects', id)
+    local project_dir = vim.fs.joinpath(client.dir.filename, 'projects', id)
 
     -- Create project directory
     vim.fn.mkdir(project_dir, 'p')
@@ -86,7 +86,7 @@ function M.create_project_full()
     end
 
     local client = get_obsidian_client()
-    local project_dir = vim.fs.joinpath(tostring(client.dir), 'projects', name)
+    local project_dir = vim.fs.joinpath(client.dir.filename, 'projects', name)
 
     -- Create project directory
     vim.fn.mkdir(project_dir, 'p')
@@ -129,7 +129,7 @@ function M.find_daily_notes()
   local client = get_obsidian_client()
   local builtin = require('telescope.builtin')
   local date_suffix = os.date('%Y-%m-%d')
-  local projects_path = vim.fs.joinpath(tostring(client.dir), 'projects')
+  local projects_path = vim.fs.joinpath(client.dir.filename, 'projects')
 
   -- Find all daily notes for today using vim.fs.find
   local daily_files = vim.fs.find(function(name, type)
@@ -163,7 +163,7 @@ function M.find_projects()
 
   builtin.find_files({
     prompt_title = 'Find Projects',
-    search_dirs = { vim.fs.joinpath(tostring(client.dir), 'projects') },
+    search_dirs = { vim.fs.joinpath(client.dir.filename, 'projects') },
     find_command = { 'rg', '--files', '--glob', '*.md' },
   })
 end
@@ -203,7 +203,7 @@ function M.project_daily()
 
               -- Check if daily note already exists
               local daily_path = vim.fs.joinpath('projects', project_name, date_suffix .. '.md')
-              local vault_path = tostring(client.dir)
+              local vault_path = client.dir.filename
               local full_path = vim.fs.joinpath(vault_path, daily_path)
 
               if vim.fn.filereadable(full_path) == 1 then
@@ -237,7 +237,7 @@ end
 -- List project directories and open main project file
 function M.list_projects()
   local client = get_obsidian_client()
-  local projects_path = vim.fs.joinpath(tostring(client.dir), 'projects')
+  local projects_path = vim.fs.joinpath(client.dir.filename, 'projects')
   local projects = get_projects()
 
   if #projects == 0 then
