@@ -53,10 +53,6 @@ function M.create_project()
     end
 
     local client = get_obsidian_client()
-    local project_dir = vim.fs.joinpath(client.dir.filename, 'projects', id)
-
-    -- Create project directory
-    vim.fn.mkdir(project_dir, 'p')
 
     -- Create the main project note
     local project_note = client:create_note({
@@ -86,12 +82,8 @@ function M.create_project_full()
     end
 
     local client = get_obsidian_client()
-    local project_dir = vim.fs.joinpath(client.dir.filename, 'projects', name)
 
-    -- Create project directory
-    vim.fn.mkdir(project_dir, 'p')
-
-    -- Create main project note
+    -- Create main project note. Directories will be created by obsidian
     local project_note = client:create_note({
       title = clean_name,
       id = id,
