@@ -62,7 +62,7 @@ function M.create_project()
     local project_note = client:create_note({
       title = clean_name,
       id = id,
-      dir = vim.fs.joinpath('projects/', id),
+      dir = vim.fs.joinpath('projects', id),
       template = 'project-template',
     })
 
@@ -95,7 +95,7 @@ function M.create_project_full()
     local project_note = client:create_note({
       title = clean_name,
       id = id,
-      dir = vim.fs.joinpath('projects/', id),
+      dir = vim.fs.joinpath('projects', id),
       template = 'project-template',
     })
 
@@ -110,7 +110,7 @@ function M.create_project_full()
       client:create_note({
         title = clean_name .. ' ' .. file.title,
         id = id .. '-' .. string.lower(file.title),
-        dir = vim.fs.joinpath('projects/', id),
+        dir = vim.fs.joinpath('projects', id),
         template = file.template,
       })
     end
