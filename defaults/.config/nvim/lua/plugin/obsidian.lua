@@ -93,7 +93,7 @@ function M.create_project_full()
 
     -- Create additional project files
     local additional_files = {
-      { title = 'Tasks', template = 'project-tasks' },
+      { title = 'Presentation', template = 'project-presentation' },
       -- { title = 'Notes',     template = 'project-notes' },
       -- { title = 'Resources', template = 'project-resources' },
     }
@@ -105,6 +105,18 @@ function M.create_project_full()
         dir = vim.fs.joinpath('projects', id),
         template = file.template,
       })
+    end
+
+    -- Copy makefile if it exists
+    local make_name = 'make.sh'
+    local make_file = vim.fs.joinpath(client.dir.filename, 'templates', make_name)
+    local make_dst = vim.fs.joinpath(client.dir.filename, 'projects', id, make_name)
+    local _, err = vim.uv.fs_stat(make_file)
+    if err == nil then
+      local _, errc = vim.uv.fs_copyfile(make_file, make_dst)
+      if errc ~=nil then
+        print("Failed to copy make_file: '" .. make_file .. "' to: '" .. make_dst .. "'")
+      end
     end
 
     if project_note then
