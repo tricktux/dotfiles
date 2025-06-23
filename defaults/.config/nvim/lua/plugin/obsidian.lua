@@ -203,7 +203,7 @@ function M.project_daily()
               local project_name = selection[1]
               local client = get_obsidian_client()
               local date_suffix = os.date('%Y-%m-%d')
-              local daily_title = project_name .. ' ' .. date_suffix
+              local daily_title = project_name
 
               -- Check if daily note already exists
               local daily_path = vim.fs.joinpath('projects', project_name, date_suffix .. '.md')
