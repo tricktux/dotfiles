@@ -5,8 +5,8 @@ local is_running = false
 
 -- Default Configurations
 local default_config = {
-  work_duration = 25 * 60, -- 25 minutes
-  break_duration = 5 * 60, -- 5 minutes
+  work_duration = 50 * 60,  -- 25 minutes (will be dynamic)
+  break_duration = 10 * 60, -- 5 minutes
 }
 
 -- Validate nvim version
@@ -32,7 +32,9 @@ end
 
 local function timer_stop()
   is_running = false
-  timer:stop()
+  if timer then
+    timer:stop()
+  end
 end
 
 local function timer_start()
@@ -48,10 +50,140 @@ local function timer_start()
       time_left = time_left - 1
       if time_left <= 0 then
         timer_stop()
+        Pomodoro.show_menu()
         notify(fmt('Finished Pomodoro %s session.', session))
       end
     end)
   )
+end
+
+-- Utility function to create floating windows
+local function create_floating_window(content, title, callback)
+  local buf = vim.api.nvim_create_buf(false, true)
+
+  -- Set buffer content
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, content)
+  vim.api.nvim_buf_set_option(buf, 'modifiable', false)
+  vim.api.nvim_buf_set_option(buf, 'bufhidden', 'wipe')
+
+  -- Calculate window size
+  local width = math.max(40, #title + 10)
+  local height = #content + 2
+  local win_opts = {
+    relative = 'editor',
+    width = width,
+    height = height,
+    col = (vim.o.columns - width) / 2,
+    row = (vim.o.lines - height) / 2,
+    style = 'minimal',
+    border = 'rounded',
+    title = title,
+    title_pos = 'center',
+  }
+
+  local win = vim.api.nvim_open_win(buf, true, win_opts)
+
+  -- Set window-local mappings
+  local opts = { noremap = true, silent = true, buffer = buf }
+
+  -- Number key mappings for selections
+  for i = 1, #content do
+    if content[i]:match('^%d+%.') then -- Only map if line starts with number
+      local num = content[i]:match('^(%d+)%.')
+      vim.keymap.set('n', num, function()
+        vim.api.nvim_win_close(win, true)
+        callback(tonumber(num))
+      end, opts)
+    end
+  end
+
+  -- ESC and q to close
+  vim.keymap.set('n', '<Esc>', function()
+    vim.api.nvim_win_close(win, true)
+  end, opts)
+
+  vim.keymap.set('n', 'q', function()
+    vim.api.nvim_win_close(win, true)
+  end, opts)
+
+  return win
+end
+
+-- Function to show pomodoro duration selection
+local function show_duration_menu()
+  local content = {
+    'Select Pomodoro Duration:',
+    '',
+    '1. 25 minutes (Classic)',
+    '2. 50 minutes (Extended)',
+    '',
+    'Press number key or ESC to cancel',
+  }
+
+  create_floating_window(content, ' Pomodoro Duration ', function(choice)
+    local duration
+    local duration_name
+
+    if choice == 1 then
+      duration = 25 * 60
+      duration_name = '25-minute'
+    elseif choice == 2 then
+      duration = 50 * 60
+      duration_name = '50-minute'
+    else
+      return
+    end
+
+    config.work_duration = duration
+    time_left = duration
+    session = 'work'
+    timer_start()
+    notify(fmt('Started %s Pomodoro session.', duration_name))
+  end)
+end
+
+-- Function to show main pomodoro menu
+function Pomodoro.show_menu()
+  if not check_version() then
+    return
+  end
+
+  local status = is_running and 'Running' or 'Stopped'
+  local current_session = session == 'work' and 'Pomodoro' or 'Break'
+  local remaining_min = math.ceil(time_left / 60)
+
+  local content = {
+    fmt('Status: %s %s (%d min left)', status, current_session, remaining_min),
+    '',
+    '1. Start Break (5 min)',
+    '2. Start Pomodoro',
+    '3. Discard/Stop Current',
+    '',
+    'Press number key or ESC to cancel',
+  }
+
+  create_floating_window(content, ' Pomodoro Menu ', function(choice)
+    if choice == 1 then
+      -- Start break
+      timer_stop()
+      session = 'break'
+      time_left = config.break_duration
+      timer_start()
+      notify('Started 5-minute break session.')
+    elseif choice == 2 then
+      -- Start pomodoro - show duration menu
+      timer_stop()
+      show_duration_menu()
+    elseif choice == 3 then
+      -- Discard/Stop current
+      if is_running then
+        timer_stop()
+        notify('Stopped current session.')
+      else
+        notify('No active session to stop.')
+      end
+    end
+  end)
 end
 
 -- Function to toggle the Pomodoro timer
@@ -116,6 +248,22 @@ function Pomodoro.setup(user_config)
   vim.api.nvim_create_user_command('PomodoroNext', function()
     Pomodoro.next()
   end, {})
+
+  -- New command for the floating menu
+  vim.api.nvim_create_user_command('PomodoroMenu', function()
+    Pomodoro.show_menu()
+  end, {})
+
+  -- Setup key mappings
+  vim.keymap.set('n', '<leader>Pm', function()
+    Pomodoro.show_menu()
+  end, { noremap = true, silent = true })
+  vim.keymap.set('n', '<leader>Pt', function()
+    Pomodoro.toggle()
+  end, { noremap = true, silent = true })
+  vim.keymap.set('n', '<leader>Pn', function()
+    Pomodoro.next()
+  end, { noremap = true, silent = true })
 end
 
 return Pomodoro
