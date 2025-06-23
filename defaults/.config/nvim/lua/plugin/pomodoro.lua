@@ -5,8 +5,8 @@ local is_running = false
 
 -- Default Configurations
 local default_config = {
-  work_duration = 50 * 60,  -- 25 minutes (will be dynamic)
-  break_duration = 10 * 60, -- 5 minutes
+  work_duration = 25 * 60, -- 25 minutes (will be dynamic)
+  break_duration = 1 * 60, -- 5 minutes
 }
 
 -- Validate nvim version
@@ -25,6 +25,10 @@ local config = vim.deepcopy(default_config)
 local session = 'work' -- "work" or "break"
 local time_left = config.work_duration
 
+-- Forward declarations to avoid circular dependencies
+local show_completion_menu
+local show_duration_menu
+
 -- Utility function to send notifications
 local function notify(message)
   vim.notify(message, vim.log.levels.INFO)
@@ -37,28 +41,8 @@ local function timer_stop()
   end
 end
 
-local function timer_start()
-  if is_running then
-    timer_stop()
-  end
-
-  is_running = true
-  timer:start(
-    1000,
-    1000,
-    vim.schedule_wrap(function()
-      time_left = time_left - 1
-      if time_left <= 0 then
-        timer_stop()
-        Pomodoro.show_menu()
-        notify(fmt('Finished Pomodoro %s session.', session))
-      end
-    end)
-  )
-end
-
--- Utility function to create floating windows
-local function create_floating_window(content, title, callback)
+-- Generic menu window function (DRY solution)
+local function show_menu_window(content, title, callback)
   local buf = vim.api.nvim_create_buf(false, true)
 
   -- Set buffer content
@@ -67,8 +51,12 @@ local function create_floating_window(content, title, callback)
   vim.api.nvim_buf_set_option(buf, 'bufhidden', 'wipe')
 
   -- Calculate window size
-  local width = math.max(40, #title + 10)
+  local width = math.max(50, #title + 10)
+  for _, line in ipairs(content) do
+    width = math.max(width, #line + 4)
+  end
   local height = #content + 2
+
   local win_opts = {
     relative = 'editor',
     width = width,
@@ -109,18 +97,90 @@ local function create_floating_window(content, title, callback)
   return win
 end
 
+local function timer_start()
+  if is_running then
+    timer_stop()
+  end
+
+  is_running = true
+  timer:start(
+    1000,
+    1000,
+    vim.schedule_wrap(function()
+      time_left = time_left - 1
+      if time_left <= 0 then
+        timer_stop()
+        show_completion_menu()
+      end
+    end)
+  )
+end
+
+-- Function to show completion menu when timer expires
+show_completion_menu = function()
+  local completed_session = session == 'work' and 'Pomodoro' or 'Break'
+  local content = {
+    fmt('✅ %s session completed!', completed_session),
+    '',
+    'What would you like to do next?',
+    '',
+  }
+
+  if session == 'work' then
+    -- Just finished work session
+    table.insert(content, fmt('1. Start Break (%d min)', config.break_duration / 60))
+    table.insert(content, '2. Start Another Pomodoro')
+    table.insert(content, '3. Finish for now')
+  else
+    -- Just finished break session
+    table.insert(content, '1. Start Pomodoro')
+    table.insert(content, fmt('2. Extend Break (%d more min)', config.break_duration / 60))
+    table.insert(content, '3. Finish for now')
+  end
+
+  table.insert(content, '')
+  table.insert(content, 'Press number key or ESC to dismiss')
+
+  show_menu_window(content, ' Session Complete ', function(choice)
+    if session == 'work' then
+      if choice == 1 then
+        -- Start break
+        session = 'break'
+        time_left = config.break_duration
+        timer_start()
+        notify(fmt('Started %d-minute break session.', config.break_duration / 60))
+      elseif choice == 2 then
+        -- Start another pomodoro
+        show_duration_menu()
+      end
+      -- choice == 3 or other: do nothing
+    else
+      if choice == 1 then
+        -- Start pomodoro
+        show_duration_menu()
+      elseif choice == 2 then
+        -- Extend break
+        time_left = config.break_duration
+        timer_start()
+        notify(fmt('Extended break for %d more minutes.', config.break_duration / 60))
+      end
+      -- choice == 3 or other: do nothing
+    end
+  end)
+end
+
 -- Function to show pomodoro duration selection
-local function show_duration_menu()
+show_duration_menu = function()
   local content = {
     'Select Pomodoro Duration:',
     '',
     '1. 25 minutes (Classic)',
-    '2. 50 minutes (Extended)',
+    fmt('2. %d minutes (Configured)', config.work_duration / 60),
     '',
     'Press number key or ESC to cancel',
   }
 
-  create_floating_window(content, ' Pomodoro Duration ', function(choice)
+  show_menu_window(content, ' Pomodoro Duration ', function(choice)
     local duration
     local duration_name
 
@@ -128,13 +188,12 @@ local function show_duration_menu()
       duration = 25 * 60
       duration_name = '25-minute'
     elseif choice == 2 then
-      duration = 50 * 60
-      duration_name = '50-minute'
+      duration = config.work_duration
+      duration_name = fmt('%d-minute', duration / 60)
     else
       return
     end
 
-    config.work_duration = duration
     time_left = duration
     session = 'work'
     timer_start()
@@ -155,21 +214,21 @@ function Pomodoro.show_menu()
   local content = {
     fmt('Status: %s %s (%d min left)', status, current_session, remaining_min),
     '',
-    '1. Start Break (5 min)',
+    fmt('1. Start Break (%d min)', config.break_duration / 60),
     '2. Start Pomodoro',
     '3. Discard/Stop Current',
     '',
     'Press number key or ESC to cancel',
   }
 
-  create_floating_window(content, ' Pomodoro Menu ', function(choice)
+  show_menu_window(content, ' Pomodoro Menu ', function(choice)
     if choice == 1 then
       -- Start break
       timer_stop()
       session = 'break'
       time_left = config.break_duration
       timer_start()
-      notify('Started 5-minute break session.')
+      notify(fmt('Started %d-minute break session.', config.break_duration / 60))
     elseif choice == 2 then
       -- Start pomodoro - show duration menu
       timer_stop()
@@ -238,7 +297,7 @@ function Pomodoro.setup(user_config)
   end
 
   timer = vim.loop.new_timer()
-  config = vim.tbl_extend('force', default_config, user_config)
+  config = vim.tbl_extend('force', default_config, user_config or {})
   time_left = config.work_duration
 
   vim.api.nvim_create_user_command('PomodoroToggle', function()
@@ -249,21 +308,20 @@ function Pomodoro.setup(user_config)
     Pomodoro.next()
   end, {})
 
-  -- New command for the floating menu
   vim.api.nvim_create_user_command('PomodoroMenu', function()
     Pomodoro.show_menu()
   end, {})
 
-  -- Setup key mappings
-  vim.keymap.set('n', '<leader>Pm', function()
-    Pomodoro.show_menu()
-  end, { noremap = true, silent = true })
-  vim.keymap.set('n', '<leader>Pt', function()
+  -- Set up key mappings
+  vim.keymap.set('n', '<Leader>Pt', function()
     Pomodoro.toggle()
-  end, { noremap = true, silent = true })
-  vim.keymap.set('n', '<leader>Pn', function()
+  end, { noremap = true, silent = true, desc = "pomodoro-toggle" })
+  vim.keymap.set('n', '<Leader>Pn', function()
     Pomodoro.next()
-  end, { noremap = true, silent = true })
+  end, { noremap = true, silent = true, desc = "pomodoro-next" })
+  vim.keymap.set('n', '<Leader>Pm', function()
+    Pomodoro.show_menu()
+  end, { noremap = true, silent = true, desc = "pomodoro-show-menu" })
 end
 
 return Pomodoro

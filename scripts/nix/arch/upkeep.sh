@@ -194,6 +194,22 @@ lightdm_fix_xs_errors() {
   sudo mv /tmp/outfile /usr/sbin/lightdm
 }
 
+docker_update() {
+
+  msg_not "${BLUE}${BOLD}" "[RIMP]==> Update all docker images? [y/N/q]"
+  read -r yn
+  case $yn in
+    [Yy]*)
+      # Simpler approach - just pull all images currently used by containers:
+      docker ps --format "table {{.Image}}" | grep -v IMAGE | sort -u | xargs -L1 docker pull
+
+      # Then manually recreate containers, or use this one-liner to restart all:
+      docker restart $(docker ps -q)
+      ;;
+    [Qq]*) quit ;;
+  esac
+}
+
 pac_update_install() {
   # Always update keyring first in case it's been a while you've updated the
   # system
@@ -240,8 +256,8 @@ cleanup_junk() {
   case $yn in
   [Qq]*) quit ;;
   [Yy]*)
-    sudo docker volume prune --filter "label!=keep"
-    sudo docker system prune --filter "until=720h"
+    docker volume prune --filter "label!=keep"
+    docker system prune --filter "until=720h"
     ;;
   esac
   msg_not "${BLUE}${BOLD}" "[RIMP]==> Remove junk? [y/N/q]"
@@ -639,6 +655,8 @@ msg "${CYAN}${BOLD}" "========== Welcome! To the Arch Maintnance Script! ðŸ’ªðŸ˜
 backup
 
 pac_update_install
+
+docker_update
 
 pac_maintenance
 
