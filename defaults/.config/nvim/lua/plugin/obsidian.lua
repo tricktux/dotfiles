@@ -43,6 +43,22 @@ local function get_projects()
   return projects
 end
 
+-- Get the appropriate daily template for a project
+local function get_daily_template(project_name)
+  local client = get_obsidian_client()
+  local project_template = 'project-daily-' .. project_name
+
+  -- Check if project-specific template exists
+  local templates_path = vim.fs.joinpath(client.dir.filename, 'templates')
+  local project_template_file = vim.fs.joinpath(templates_path, project_template .. '.md')
+
+  if vim.fn.filereadable(project_template_file) == 1 then
+    return project_template
+  else
+    return 'project-daily' -- fallback to default
+  end
+end
+
 -- Create a new project from template
 function M.create_project()
   vim.ui.input({ prompt = 'Project name: ' }, function(input_name)
@@ -114,7 +130,7 @@ function M.create_project_full()
     local _, err = vim.uv.fs_stat(make_file)
     if err == nil then
       local _, errc = vim.uv.fs_copyfile(make_file, make_dst)
-      if errc ~=nil then
+      if errc ~= nil then
         print("Failed to copy make_file: '" .. make_file .. "' to: '" .. make_dst .. "'")
       end
     end
@@ -220,7 +236,7 @@ function M.project_daily()
                   title = daily_title,
                   id = date_suffix,
                   dir = vim.fs.joinpath('projects/', project_name),
-                  template = 'project-daily',
+                  template = get_daily_template(project_name),
                 })
 
                 if daily_note then
