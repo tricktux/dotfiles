@@ -81,7 +81,7 @@ function M.create_project()
     if project_note then
       -- Open the new project note
       client:open_note(project_note)
-      print('Created project: ' .. name)
+      print('Created project: ' .. id)
     else
       print('Error creating project')
     end
