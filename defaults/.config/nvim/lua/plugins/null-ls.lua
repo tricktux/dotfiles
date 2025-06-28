@@ -214,7 +214,7 @@ local function setup()
       sources,
       null.builtins.diagnostics.vale.with({
         filetypes = {},
-        extra_args = vim.fn.has('unix') > 0 and { [[--config=/home/reinaldo/.config/.vale.ini]] }
+        extra_args = vim.fn.has('unix') > 0 and { '--config=' .. vim.fs.normalize('$XDG_CONFIG_HOME/.vale.ini') }
           or {},
         runtime_condition = function(params)
           -- It's really annoying and slow on windows
