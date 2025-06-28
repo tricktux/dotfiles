@@ -82,12 +82,11 @@ function M:setup()
   vim.opt.exrc = true
   vim.opt.redrawtime = 8000
 
-  vim.opt.messagesopt = "hit-enter,history:10000"
+  vim.opt.messagesopt = 'hit-enter,history:10000'
   local extui_ok, extui = pcall(require, 'vim._extui')
   if extui_ok then
     extui.enable({})
   end
-
 
   -- Coming from lazyvim
   vim.opt.laststatus = 3
