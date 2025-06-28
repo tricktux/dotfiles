@@ -214,12 +214,12 @@ local function setup()
   local sources = {
     -- null.builtins.diagnostics.editorconfig_checker,
     --[[  null.builtins.diagnostics.editorconfig_checker,
-		null.builtins.formatting.trim_newlines.with({
-			disabled_filetypes = { "rust" }, -- use rustfmt
-		}),
-		null.builtins.formatting.trim_whitespace.with({
-			disabled_filetypes = { "rust" }, -- use rustfmt
-		}), ]]
+    null.builtins.formatting.trim_newlines.with({
+      disabled_filetypes = { "rust" }, -- use rustfmt
+    }),
+    null.builtins.formatting.trim_whitespace.with({
+      disabled_filetypes = { "rust" }, -- use rustfmt
+    }), ]]
   }
   if vim.fn.executable('vale') > 0 then
     -- Initially run 'vale sync' to download style paths
