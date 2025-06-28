@@ -1,3 +1,5 @@
+local utl = require('utils.utils')
+
 local M = {}
 
 -- Get the obsidian client
@@ -52,7 +54,7 @@ local function get_daily_template(project_name)
   local templates_path = vim.fs.joinpath(client.dir.filename, 'templates')
   local project_template_file = vim.fs.joinpath(templates_path, project_template .. '.md')
 
-  if vim.fn.filereadable(project_template_file) == 1 then
+  if utl.isfile(project_template_file) == true then
     return project_template
   else
     return 'project-daily' -- fallback to default
@@ -127,10 +129,9 @@ function M.create_project_full()
     local make_name = 'make.sh'
     local make_file = vim.fs.joinpath(client.dir.filename, 'templates', make_name)
     local make_dst = vim.fs.joinpath(client.dir.filename, 'projects', id, make_name)
-    local _, err = vim.uv.fs_stat(make_file)
-    if err == nil then
-      local _, errc = vim.uv.fs_copyfile(make_file, make_dst)
-      if errc ~= nil then
+    if utl.isfile(make_file) == true then
+      local _, err = vim.uv.fs_copyfile(make_file, make_dst)
+      if err ~= nil then
         print("Failed to copy make_file: '" .. make_file .. "' to: '" .. make_dst .. "'")
       end
     end
@@ -226,7 +227,7 @@ function M.project_daily()
             local vault_path = client.dir.filename
             local full_path = vim.fs.joinpath(vault_path, daily_path)
 
-            if vim.fn.filereadable(full_path) == 1 then
+            if utl.isfile(full_path) == true then
               -- Open existing daily note
               vim.cmd('edit ' .. full_path)
               print('Opened existing daily note for ' .. project_name)
@@ -286,7 +287,7 @@ function M.list_projects()
           if selection then
             -- Open main project file
             local project_file = vim.fs.joinpath(projects_path, selection[1], selection[1] .. '.md')
-            if vim.fn.filereadable(project_file) == 1 then
+            if utl.isfile(project_file) == true then
               vim.cmd('edit ' .. project_file)
             else
               print('Project file not found: ' .. project_file)
