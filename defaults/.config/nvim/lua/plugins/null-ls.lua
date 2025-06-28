@@ -228,7 +228,7 @@ local function get_msbuild()
       from_stderr = false,
       format = 'line', -- Process line by line instead of raw
       check_exit_code = function(code, stderr)
-        return true    -- Always process output for diagnostics
+        return true -- Always process output for diagnostics
       end,
       -- Use the built-in helper instead of custom function
       on_output = require('null-ls.helpers').diagnostics.from_patterns({
@@ -272,7 +272,7 @@ local function setup()
         filetypes = {},
         extra_args = vim.fn.has('unix') > 0
             and { '--config=' .. vim.fs.normalize('$XDG_CONFIG_HOME/.vale.ini') }
-            or {},
+          or {},
         runtime_condition = function(params)
           -- It's really annoying and slow on windows
           -- Register source, but enable it manually
@@ -349,10 +349,9 @@ local function setup()
     table.insert(
       sources,
       null.builtins.formatting.stylua.with({
-        extra_args = {
-          '--config-path='
-          .. vim.fs.joinpath(vim.fn.stdpath('config'), 'stylua.toml'),
-        },
+        cwd = function(params)
+          return vim.fs.dirname(params.bufname)
+        end,
       })
     )
   end
