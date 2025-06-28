@@ -96,7 +96,8 @@ function M:setup()
 end
 
 local node = vim.fn.executable('node') > 0
-local firenvim = vim.g.started_by_firenvim ~= nil and vim.g.started_by_firenvim > 0
+local firenvim = vim.g.started_by_firenvim ~= nil
+  and vim.g.started_by_firenvim > 0
 local advanced = vim.g.advanced_plugins > 0
 local copilot_enable = node and not firenvim and advanced
 local copilot = copilot_enable and vim.g.copilot_active

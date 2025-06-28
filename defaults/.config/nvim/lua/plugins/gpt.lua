@@ -65,8 +65,18 @@ local function mappings()
   local prefix = '<leader>a'
 
   -- Chat commands
-  vim.keymap.set({ 'n' }, prefix .. 'C', '<cmd>%GpChatNew vsplit<cr>', keymapOptions('New Chat'))
-  vim.keymap.set({ 'n' }, prefix .. 'c', '<cmd>GpChatNew vsplit<cr>', keymapOptions('New Chat'))
+  vim.keymap.set(
+    { 'n' },
+    prefix .. 'C',
+    '<cmd>%GpChatNew vsplit<cr>',
+    keymapOptions('New Chat')
+  )
+  vim.keymap.set(
+    { 'n' },
+    prefix .. 'c',
+    '<cmd>GpChatNew vsplit<cr>',
+    keymapOptions('New Chat')
+  )
   vim.keymap.set(
     { 'n' },
     prefix .. 't',
@@ -118,20 +128,70 @@ local function mappings()
   )
 
   -- Prompt commands
-  vim.keymap.set({ 'n' }, prefix .. 'r', '<cmd>GpRewrite<cr>', keymapOptions('Inline Rewrite'))
-  vim.keymap.set({ 'n' }, prefix .. 'a', '<cmd>GpAppend<cr>', keymapOptions('Append (after)'))
-  vim.keymap.set({ 'n' }, prefix .. 'b', '<cmd>GpPrepend<cr>', keymapOptions('Prepend (before)'))
+  vim.keymap.set(
+    { 'n' },
+    prefix .. 'r',
+    '<cmd>GpRewrite<cr>',
+    keymapOptions('Inline Rewrite')
+  )
+  vim.keymap.set(
+    { 'n' },
+    prefix .. 'a',
+    '<cmd>GpAppend<cr>',
+    keymapOptions('Append (after)')
+  )
+  vim.keymap.set(
+    { 'n' },
+    prefix .. 'b',
+    '<cmd>GpPrepend<cr>',
+    keymapOptions('Prepend (before)')
+  )
 
-  vim.keymap.set({ 'n' }, prefix .. 'gp', '<cmd>GpPopup<cr>', keymapOptions('Popup'))
-  vim.keymap.set({ 'n' }, prefix .. 'ge', '<cmd>GpEnew<cr>', keymapOptions('GpEnew'))
-  vim.keymap.set({ 'n' }, prefix .. 'gn', '<cmd>GpNew<cr>', keymapOptions('GpNew'))
-  vim.keymap.set({ 'n' }, prefix .. 'gv', '<cmd>GpVnew<cr>', keymapOptions('GpVnew'))
-  vim.keymap.set({ 'n' }, prefix .. 'gt', '<cmd>GpTabnew<cr>', keymapOptions('GpTabnew'))
+  vim.keymap.set(
+    { 'n' },
+    prefix .. 'gp',
+    '<cmd>GpPopup<cr>',
+    keymapOptions('Popup')
+  )
+  vim.keymap.set(
+    { 'n' },
+    prefix .. 'ge',
+    '<cmd>GpEnew<cr>',
+    keymapOptions('GpEnew')
+  )
+  vim.keymap.set(
+    { 'n' },
+    prefix .. 'gn',
+    '<cmd>GpNew<cr>',
+    keymapOptions('GpNew')
+  )
+  vim.keymap.set(
+    { 'n' },
+    prefix .. 'gv',
+    '<cmd>GpVnew<cr>',
+    keymapOptions('GpVnew')
+  )
+  vim.keymap.set(
+    { 'n' },
+    prefix .. 'gt',
+    '<cmd>GpTabnew<cr>',
+    keymapOptions('GpTabnew')
+  )
 
-  vim.keymap.set({ 'n' }, prefix .. 'x', '<cmd>GpContext<cr>', keymapOptions('Toggle Context'))
+  vim.keymap.set(
+    { 'n' },
+    prefix .. 'x',
+    '<cmd>GpContext<cr>',
+    keymapOptions('Toggle Context')
+  )
 
   -- optional Whisper commands with prefix <C-g>w
-  vim.keymap.set({ 'n' }, prefix .. 'ww', '<cmd>GpWhisper<cr>', keymapOptions('Whisper'))
+  vim.keymap.set(
+    { 'n' },
+    prefix .. 'ww',
+    '<cmd>GpWhisper<cr>',
+    keymapOptions('Whisper')
+  )
 
   vim.keymap.set(
     { 'n' },
@@ -152,10 +212,30 @@ local function mappings()
     keymapOptions('Whisper Prepend (before) ')
   )
 
-  vim.keymap.set({ 'n' }, prefix .. 'wp', '<cmd>GpWhisperPopup<cr>', keymapOptions('Whisper Popup'))
-  vim.keymap.set({ 'n' }, prefix .. 'we', '<cmd>GpWhisperEnew<cr>', keymapOptions('Whisper Enew'))
-  vim.keymap.set({ 'n' }, prefix .. 'wn', '<cmd>GpWhisperNew<cr>', keymapOptions('Whisper New'))
-  vim.keymap.set({ 'n' }, prefix .. 'wv', '<cmd>GpWhisperVnew<cr>', keymapOptions('Whisper Vnew'))
+  vim.keymap.set(
+    { 'n' },
+    prefix .. 'wp',
+    '<cmd>GpWhisperPopup<cr>',
+    keymapOptions('Whisper Popup')
+  )
+  vim.keymap.set(
+    { 'n' },
+    prefix .. 'we',
+    '<cmd>GpWhisperEnew<cr>',
+    keymapOptions('Whisper Enew')
+  )
+  vim.keymap.set(
+    { 'n' },
+    prefix .. 'wn',
+    '<cmd>GpWhisperNew<cr>',
+    keymapOptions('Whisper New')
+  )
+  vim.keymap.set(
+    { 'n' },
+    prefix .. 'wv',
+    '<cmd>GpWhisperVnew<cr>',
+    keymapOptions('Whisper Vnew')
+  )
   vim.keymap.set(
     { 'n' },
     prefix .. 'wt',
@@ -181,7 +261,8 @@ local x = {
           endpoint = 'http://localhost:8080/v1/chat/completions',
         },
         openai = {
-          secret = os.getenv('OPENAI_API_KEY') or { 'pass', 'show', 'websites/openai.com/api-key' },
+          secret = os.getenv('OPENAI_API_KEY')
+            or { 'pass', 'show', 'websites/openai.com/api-key' },
         },
         anthropic = {
           secret = os.getenv('ANTHROPIC_API_KEY')

@@ -108,7 +108,8 @@ local win_file = (os.getenv('APPDATA') or 'nil') .. [[\ignore-file]]
 M.ignore_file = [[--ignore-file=]] .. (M.has_win and win_file or nix_file)
 
 M.zeal = {}
-M.zeal.path = M.has_unix and '/usr/bin/zeal' or [["C:\\Program Files (x86)\\Zeal\\Zeal.exe"]]
+M.zeal.path = M.has_unix and '/usr/bin/zeal'
+  or [["C:\\Program Files (x86)\\Zeal\\Zeal.exe"]]
 M.zeal.search = function(word)
   vim.validate('word', word, 'string')
   local p = M.zeal.path
@@ -274,20 +275,29 @@ function M.fs.file.create(path)
   vim.validate('path', path, 'string')
   local p = fs.is_path(path)
   if p == nil then
-    vim.notify('utils.fs.file.create: path not found: ' .. p, vim.log.levels.ERROR)
+    vim.notify(
+      'utils.fs.file.create: path not found: ' .. p,
+      vim.log.levels.ERROR
+    )
     return
   end
 
   local prompt = string.format('Enter name for new file(%s): ', p)
   local on_complete = function(input)
     if input == nil then
-      vim.notify('utils.create_file: no file path provided', vim.log.levels.ERROR)
+      vim.notify(
+        'utils.create_file: no file path provided',
+        vim.log.levels.ERROR
+      )
       return
     end
 
     local f = vim.fs.joinpath(p, input)
     if not fs.mkfile(f) then
-      vim.notify('utils.create_file: failed to create parent folder: ' .. f, vim.log.levels.ERROR)
+      vim.notify(
+        'utils.create_file: failed to create parent folder: ' .. f,
+        vim.log.levels.ERROR
+      )
       return
     end
 
@@ -431,7 +441,16 @@ function M.open_win_centered(width, height)
     border = 'rounded',
   }
 
-  log.trace('row = ', row, 'col = ', col, 'width = ', mwidth, 'height = ', mheight)
+  log.trace(
+    'row = ',
+    row,
+    'col = ',
+    col,
+    'width = ',
+    mwidth,
+    'height = ',
+    mheight
+  )
   return {
     bufnr = buf,
     winnr = api.nvim_open_win(buf, true, opts),
@@ -648,7 +667,11 @@ M.term.exec = function(cmd)
   local ttok, tt = pcall(require, 'toggleterm')
   if ttok then
     local trim_spaces = true
-    tt.send_lines_to_terminal('single_line', trim_spaces, { args = vim.v.count })
+    tt.send_lines_to_terminal(
+      'single_line',
+      trim_spaces,
+      { args = vim.v.count }
+    )
     return
   end
 
@@ -669,8 +692,13 @@ function M.get_visible_lines(winid)
   local start_line = math.max(cursor_line - math.floor(win_height / 2), 1)
   local end_line = start_line + win_height - 1
   local buf = vim.api.nvim_win_get_buf(winid)
-  local visible_lines = vim.api.nvim_buf_get_lines(buf, start_line - 1, end_line - 1, false)
-  return { start_line = start_line, end_line = end_line, visible_lines = visible_lines }
+  local visible_lines =
+    vim.api.nvim_buf_get_lines(buf, start_line - 1, end_line - 1, false)
+  return {
+    start_line = start_line,
+    end_line = end_line,
+    visible_lines = visible_lines,
+  }
 end
 
 M.links = {}
@@ -725,15 +753,18 @@ end
 
 M.setup = function()
   -- Use to set autocommand
-  vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWinEnter', 'TermOpen', 'TermEnter' }, {
-    pattern = '*',
-    callback = function(ev)
-      if vim.b.terminal_job_id ~= nil then
-        M.term.last.job_id = vim.b.terminal_job_id
-        M.term.last.bufnr = ev.buf
-      end
-    end,
-  })
+  vim.api.nvim_create_autocmd(
+    { 'BufEnter', 'BufWinEnter', 'TermOpen', 'TermEnter' },
+    {
+      pattern = '*',
+      callback = function(ev)
+        if vim.b.terminal_job_id ~= nil then
+          M.term.last.job_id = vim.b.terminal_job_id
+          M.term.last.bufnr = ev.buf
+        end
+      end,
+    }
+  )
 end
 
 return M

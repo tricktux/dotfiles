@@ -73,7 +73,8 @@ function M.set_lsp_mappings(bufnr)
 
   map.keymaps_set(workspace, 'n', opts, prefix .. 'w')
   map.keymaps_set(workspace, 'n', opts, lprefix .. 'w')
-  local rename = vim.fn.exists(':IncRename') > 0 and ':IncRename ' or lsp.buf.rename
+  local rename = vim.fn.exists(':IncRename') > 0 and ':IncRename '
+    or lsp.buf.rename
 
   local mappings = {
     R = { rename, 'rename' },
@@ -177,7 +178,10 @@ function M.setup_lsp_attach()
       -- folds
       if
         vim.fn.has('nvim-0.10') > 0
-        and do_buffer_clients_support_method(au.buf, 'textDocument/foldingRange')
+        and do_buffer_clients_support_method(
+          au.buf,
+          'textDocument/foldingRange'
+        )
       then
         local win = vim.api.nvim_get_current_win()
         vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
@@ -190,7 +194,9 @@ function M.setup_lsp_attach()
       then
         vim.lsp.inlay_hint.enable(true, { bufnr = au.buf })
         local toggle_inlay_hints = function()
-          vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = au.buf })
+          vim.lsp.inlay_hint.enable(
+            not vim.lsp.inlay_hint.is_enabled { bufnr = au.buf }
+          )
         end
         vks(
           'n',
@@ -205,18 +211,26 @@ function M.setup_lsp_attach()
         vim.fn.has('nvim-0.10') > 0
         and do_buffer_clients_support_method(au.buf, 'textDocument/codeLens')
       then
-        vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
-          callback = function(nested_au)
-            vim.lsp.codelens.refresh({ bufnr = nested_au.buf })
-          end,
-          buffer = au.buf,
-          desc = 'Refresh codelens for the current buffer',
-          group = lh,
-        })
+        vim.api.nvim_create_autocmd(
+          { 'BufEnter', 'CursorHold', 'InsertLeave' },
+          {
+            callback = function(nested_au)
+              vim.lsp.codelens.refresh({ bufnr = nested_au.buf })
+            end,
+            buffer = au.buf,
+            desc = 'Refresh codelens for the current buffer',
+            group = lh,
+          }
+        )
       end
 
       -- document highlight
-      if do_buffer_clients_support_method(au.buf, 'textDocument/documentHighlight') then
+      if
+        do_buffer_clients_support_method(
+          au.buf,
+          'textDocument/documentHighlight'
+        )
+      then
         vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
           callback = vim.lsp.buf.document_highlight,
           buffer = au.buf,
@@ -237,10 +251,21 @@ function M.setup_lsp_attach()
 end
 
 local function on_clangd_attach(client_id, bufnr)
-  local opts = { silent = true, buffer = bufnr, desc = 'clangd_switch_source_header' }
-  vim.keymap.set('n', '<localleader>a', [[<cmd>ClangdSwitchSourceHeader<cr>]], opts)
+  local opts =
+    { silent = true, buffer = bufnr, desc = 'clangd_switch_source_header' }
+  vim.keymap.set(
+    'n',
+    '<localleader>a',
+    [[<cmd>ClangdSwitchSourceHeader<cr>]],
+    opts
+  )
   opts.desc = 'clangd_switch_source_header'
-  vim.keymap.set('n', '<localleader>A', [[<cmd>vs<cr><cmd>ClangdSwitchSourceHeader<cr>]], opts)
+  vim.keymap.set(
+    'n',
+    '<localleader>A',
+    [[<cmd>vs<cr><cmd>ClangdSwitchSourceHeader<cr>]],
+    opts
+  )
 end
 
 function M:config()
@@ -332,7 +357,9 @@ return {
         desc = 'Quickfix List (Trouble)',
       },
     },
-    dependencies = vim.g.advanced_plugins > 0 and { 'nvim-tree/nvim-web-devicons' } or {},
+    dependencies = vim.g.advanced_plugins > 0 and {
+      'nvim-tree/nvim-web-devicons',
+    } or {},
     opts = {
       cycle_results = false, -- cycle item list when reaching beginning or end of list
       auto_preview = false, -- automatically open preview when on an item

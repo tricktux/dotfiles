@@ -31,7 +31,12 @@ function M:setup()
     return stat and stat.type == 'directory' and true or false
   end
 
-  vim.keymap.set('n', '<leader>wt', '<cmd>grep! -t md "[ ]"<cr>', { desc = 'find-actions' })
+  vim.keymap.set(
+    'n',
+    '<leader>wt',
+    '<cmd>grep! -t md "[ ]"<cr>',
+    { desc = 'find-actions' }
+  )
 
   local w = luv.os_getenv('WIKI_WORK')
   if w then

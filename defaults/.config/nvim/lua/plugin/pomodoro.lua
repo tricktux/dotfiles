@@ -128,13 +128,19 @@ show_completion_menu = function()
 
   if session == 'work' then
     -- Just finished work session
-    table.insert(content, fmt('1. Start Break (%d min)', config.break_duration / 60))
+    table.insert(
+      content,
+      fmt('1. Start Break (%d min)', config.break_duration / 60)
+    )
     table.insert(content, '2. Start Another Pomodoro')
     table.insert(content, '3. Finish for now')
   else
     -- Just finished break session
     table.insert(content, '1. Start Pomodoro')
-    table.insert(content, fmt('2. Extend Break (%d more min)', config.break_duration / 60))
+    table.insert(
+      content,
+      fmt('2. Extend Break (%d more min)', config.break_duration / 60)
+    )
     table.insert(content, '3. Finish for now')
   end
 
@@ -148,7 +154,9 @@ show_completion_menu = function()
         session = 'break'
         time_left = config.break_duration
         timer_start()
-        notify(fmt('Started %d-minute break session.', config.break_duration / 60))
+        notify(
+          fmt('Started %d-minute break session.', config.break_duration / 60)
+        )
       elseif choice == 2 then
         -- Start another pomodoro
         show_duration_menu()
@@ -162,7 +170,9 @@ show_completion_menu = function()
         -- Extend break
         time_left = config.break_duration
         timer_start()
-        notify(fmt('Extended break for %d more minutes.', config.break_duration / 60))
+        notify(
+          fmt('Extended break for %d more minutes.', config.break_duration / 60)
+        )
       end
       -- choice == 3 or other: do nothing
     end
@@ -228,7 +238,9 @@ function Pomodoro.show_menu()
       session = 'break'
       time_left = config.break_duration
       timer_start()
-      notify(fmt('Started %d-minute break session.', config.break_duration / 60))
+      notify(
+        fmt('Started %d-minute break session.', config.break_duration / 60)
+      )
     elseif choice == 2 then
       -- Start pomodoro - show duration menu
       timer_stop()

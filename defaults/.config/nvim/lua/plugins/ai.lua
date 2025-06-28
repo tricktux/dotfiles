@@ -32,7 +32,12 @@ return {
       vim.api.nvim_create_autocmd('FileType', {
         pattern = 'codecompanion',
         callback = function()
-          vim.keymap.set({ 'n' }, '<c-l>', 'zz', { buffer = true, noremap = true, silent = true })
+          vim.keymap.set(
+            { 'n' },
+            '<c-l>',
+            'zz',
+            { buffer = true, noremap = true, silent = true }
+          )
         end,
       })
       vim.keymap.set(

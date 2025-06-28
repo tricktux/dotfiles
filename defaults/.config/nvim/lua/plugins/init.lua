@@ -51,7 +51,12 @@ local p = {
       setup_flux()
     end,
     name = 'catppuccin',
-    cmd = { 'CatppuccinCompile', 'CatppuccinStatus', 'Catppuccin', 'CatppuccinClean' },
+    cmd = {
+      'CatppuccinCompile',
+      'CatppuccinStatus',
+      'Catppuccin',
+      'CatppuccinClean',
+    },
     opts = {
       compile = {
         enabled = true,
@@ -204,7 +209,12 @@ local p = {
   {
     'tpope/vim-capslock',
     keys = {
-      { '<c-c>', '<Plug>CapsLockToggle', mode = 'i', desc = 'caps_lock_toggle' },
+      {
+        '<c-c>',
+        '<Plug>CapsLockToggle',
+        mode = 'i',
+        desc = 'caps_lock_toggle',
+      },
     },
   },
   {
@@ -275,7 +285,11 @@ local p = {
     'b3nj5m1n/kommentary',
     enabled = vim.fn.has('nvim-0.10') <= 0,
     keys = {
-      { '<plug>comment_line', '<plug>kommentary_line_default', desc = 'kommentary_line_default' },
+      {
+        '<plug>comment_line',
+        '<plug>kommentary_line_default',
+        desc = 'kommentary_line_default',
+      },
       {
         '<bs>',
         '<Plug>kommentary_visual_default<C-c>',

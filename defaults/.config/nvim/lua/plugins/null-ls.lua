@@ -27,7 +27,10 @@ maps.mappings = {
       local ft = vim.opt.filetype:get()
       local srcs = get_sources_for_filetype(ft)
       if vim.tbl_isempty(srcs) then
-        vim.notify("No null-ls sources installed for '" .. ft .. "'", vim.log.levels.WARN)
+        vim.notify(
+          "No null-ls sources installed for '" .. ft .. "'",
+          vim.log.levels.WARN
+        )
         return
       end
       vim.ui.select(srcs, {
@@ -44,7 +47,10 @@ maps.mappings = {
       local ft = vim.opt.filetype:get()
       local srcs = get_sources_for_filetype(ft)
       if vim.tbl_isempty(srcs) then
-        vim.notify("No null-ls sources installed for '" .. ft .. "'", vim.log.levels.WARN)
+        vim.notify(
+          "No null-ls sources installed for '" .. ft .. "'",
+          vim.log.levels.WARN
+        )
         return
       end
       vim.ui.select(srcs, {
@@ -61,7 +67,10 @@ maps.mappings = {
       local ft = vim.opt.filetype:get()
       local srcs = get_sources_for_filetype(ft)
       if vim.tbl_isempty(srcs) then
-        vim.notify("No null-ls sources installed for '" .. ft .. "'", vim.log.levels.WARN)
+        vim.notify(
+          "No null-ls sources installed for '" .. ft .. "'",
+          vim.log.levels.WARN
+        )
         return
       end
       vim.ui.select(srcs, {
@@ -78,7 +87,10 @@ maps.mappings = {
       local ft = vim.opt.filetype:get()
       local srcs = get_sources_for_filetype(ft)
       if vim.tbl_isempty(srcs) then
-        vim.notify("No null-ls sources installed for '" .. ft .. "'", vim.log.levels.WARN)
+        vim.notify(
+          "No null-ls sources installed for '" .. ft .. "'",
+          vim.log.levels.WARN
+        )
         return
       end
       for _, v in pairs(srcs) do
@@ -92,7 +104,10 @@ maps.mappings = {
       local ft = vim.opt.filetype:get()
       local srcs = get_sources_for_filetype(ft)
       if vim.tbl_isempty(srcs) then
-        vim.notify("No null-ls sources installed for '" .. ft .. "'", vim.log.levels.WARN)
+        vim.notify(
+          "No null-ls sources installed for '" .. ft .. "'",
+          vim.log.levels.WARN
+        )
         return
       end
       for _, v in pairs(srcs) do
@@ -214,7 +229,8 @@ local function setup()
       sources,
       null.builtins.diagnostics.vale.with({
         filetypes = {},
-        extra_args = vim.fn.has('unix') > 0 and { '--config=' .. vim.fs.normalize('$XDG_CONFIG_HOME/.vale.ini') }
+        extra_args = vim.fn.has('unix') > 0
+            and { '--config=' .. vim.fs.normalize('$XDG_CONFIG_HOME/.vale.ini') }
           or {},
         runtime_condition = function(params)
           -- It's really annoying and slow on windows

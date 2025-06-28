@@ -40,7 +40,11 @@ return {
       },
     },
     keys = {
-      { '<localleader>i', '<cmd>PasteImage<cr>', desc = 'Paste clipboard image' },
+      {
+        '<localleader>i',
+        '<cmd>PasteImage<cr>',
+        desc = 'Paste clipboard image',
+      },
     },
   },
   {
@@ -49,9 +53,17 @@ return {
     ft = { 'markdown', 'org', 'quarto', 'tex' },
     keys = {
       { '<leader>wj', '<cmd>ObsidianToday<cr>', desc = 'obsidian_daily' },
-      { '<leader>wk', '<cmd>ObsidianQuickSwitch carry.md<cr>', desc = 'obsidian_todo_carry' },
+      {
+        '<leader>wk',
+        '<cmd>ObsidianQuickSwitch carry.md<cr>',
+        desc = 'obsidian_todo_carry',
+      },
       { '<leader>wa', '<cmd>ObsidianNew<cr>', desc = 'obsidian_new' },
-      { '<leader>ww', '<cmd>ObsidianWorkspace<cr>', desc = 'obsidian_list_workspace' },
+      {
+        '<leader>ww',
+        '<cmd>ObsidianWorkspace<cr>',
+        desc = 'obsidian_list_workspace',
+      },
       { '<leader>ws', '<cmd>ObsidianSearch<cr>', desc = 'obsidian_search' },
       { '<leader>wo', '<cmd>ObsidianOpen<cr>', desc = 'obsidian_open' },
       {
@@ -87,7 +99,10 @@ return {
         table.insert(M.opts.workspaces, { name = 'work', path = w.path.work })
       end
       if w.path.personal ~= nil then
-        table.insert(M.opts.workspaces, { name = 'personal', path = w.path.personal })
+        table.insert(
+          M.opts.workspaces,
+          { name = 'personal', path = w.path.personal }
+        )
       end
       -- vim.print(vim.inspect(M.opts.workspaces))
       require('obsidian').setup(M.opts)

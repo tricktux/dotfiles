@@ -68,7 +68,10 @@ function M.find_files_sanitize(path)
 
   local ppath = Path:new(path)
   if not ppath:is_dir() then
-    vim.notify('telescope.lua: path not found: ' .. ppath:absolute(), vim.log.levels.ERROR)
+    vim.notify(
+      'telescope.lua: path not found: ' .. ppath:absolute(),
+      vim.log.levels.ERROR
+    )
     return
   end
   local opts = M.cust_files_opts

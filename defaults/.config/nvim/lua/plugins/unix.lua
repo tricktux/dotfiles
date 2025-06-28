@@ -43,7 +43,8 @@ local M = {
             return
           end
           vim.b.has_jupyter_plugin = true
-          local opts = { silent = true, buffer = true, desc = 'jupyter_execute' }
+          local opts =
+            { silent = true, buffer = true, desc = 'jupyter_execute' }
           vim.keymap.set('n', '<localleader>j', '<Plug>JupyterExecute', opts)
           opts.desc = 'jupyter_execute_all'
           vim.keymap.set('n', '<localleader>k', '<Plug>JupyterExecuteAll', opts)

@@ -269,8 +269,12 @@ function M:config()
     -- Crazy highlights!!
     -- ext_opts = nil,
     ext_opts = {
-      [types.choiceNode] = { active = { virt_text = { { '● (c-;) ', 'GruvboxOrange' } } } },
-      [types.insertNode] = { active = { virt_text = { { '●', 'GruvboxBlue' } } } },
+      [types.choiceNode] = {
+        active = { virt_text = { { '● (c-;) ', 'GruvboxOrange' } } },
+      },
+      [types.insertNode] = {
+        active = { virt_text = { { '●', 'GruvboxBlue' } } },
+      },
     },
   })
 
@@ -300,7 +304,11 @@ return {
     -- Build Step is needed for regex support in snippets.
     -- This step is not supported in many windows environments.
     -- Remove the below condition to re-enable on windows.
-    if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 or vim.g.advanced_plugins == 0 then
+    if
+      vim.fn.has 'win32' == 1
+      or vim.fn.executable 'make' == 0
+      or vim.g.advanced_plugins == 0
+    then
       return
     end
     return 'make install_jsregexp'

@@ -57,7 +57,8 @@ M.mkdir = function(path)
     return
   end
 
-  return p:new(vim.fs.normalize(path)):mkdir({ parents = true, exist_ok = true })
+  return p:new(vim.fs.normalize(path))
+    :mkdir({ parents = true, exist_ok = true })
 end
 
 M.is_path = function(path)

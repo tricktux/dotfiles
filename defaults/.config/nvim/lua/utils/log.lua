@@ -66,10 +66,13 @@ for i, x in ipairs(modes) do
     if log.outfile then
       local fp = io.open(log.outfile, 'a')
       if fp == nil then
-        vim.cmd(string.format([[echomsg "Failed to open file '%s'"]], log.outfile))
+        vim.cmd(
+          string.format([[echomsg "Failed to open file '%s'"]], log.outfile)
+        )
         return
       end
-      local str = string.format('[%-6s%s] %s: %s\n', nameupper, os.date(), lineinfo, msg)
+      local str =
+        string.format('[%-6s%s] %s: %s\n', nameupper, os.date(), lineinfo, msg)
       fp:write(str)
       fp:close()
     end

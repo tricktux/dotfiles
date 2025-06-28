@@ -17,8 +17,12 @@ local function sanitize_name(name)
   local clean_name = name:match('^%s*(.-)%s*$')
 
   -- Create ID (lowercase, alphanumeric + hyphens/underscores only)
-  local id =
-    clean_name:lower():gsub('[^%w%-_]', '-'):gsub('%-+', '-'):gsub('^%-+', ''):gsub('%-+$', '')
+  local id = clean_name
+    :lower()
+    :gsub('[^%w%-_]', '-')
+    :gsub('%-+', '-')
+    :gsub('^%-+', '')
+    :gsub('%-+$', '')
 
   return clean_name, id
 end
@@ -52,7 +56,8 @@ local function get_daily_template(project_name)
 
   -- Check if project-specific template exists
   local templates_path = vim.fs.joinpath(client.dir.filename, 'templates')
-  local project_template_file = vim.fs.joinpath(templates_path, project_template .. '.md')
+  local project_template_file =
+    vim.fs.joinpath(templates_path, project_template .. '.md')
 
   if utl.isfile(project_template_file) == true then
     return project_template
@@ -127,12 +132,20 @@ function M.create_project_full()
 
     -- Copy makefile if it exists
     local make_name = 'make.sh'
-    local make_file = vim.fs.joinpath(client.dir.filename, 'templates', make_name)
-    local make_dst = vim.fs.joinpath(client.dir.filename, 'projects', id, make_name)
+    local make_file =
+      vim.fs.joinpath(client.dir.filename, 'templates', make_name)
+    local make_dst =
+      vim.fs.joinpath(client.dir.filename, 'projects', id, make_name)
     if utl.isfile(make_file) == true then
       local _, err = vim.uv.fs_copyfile(make_file, make_dst)
       if err ~= nil then
-        print("Failed to copy make_file: '" .. make_file .. "' to: '" .. make_dst .. "'")
+        print(
+          "Failed to copy make_file: '"
+            .. make_file
+            .. "' to: '"
+            .. make_dst
+            .. "'"
+        )
       end
     end
 
@@ -223,7 +236,8 @@ function M.project_daily()
             local daily_title = project_name
 
             -- Check if daily note already exists
-            local daily_path = vim.fs.joinpath('projects', project_name, date_suffix .. '.md')
+            local daily_path =
+              vim.fs.joinpath('projects', project_name, date_suffix .. '.md')
             local vault_path = client.dir.filename
             local full_path = vim.fs.joinpath(vault_path, daily_path)
 
@@ -286,7 +300,11 @@ function M.list_projects()
           local selection = action_state.get_selected_entry()
           if selection then
             -- Open main project file
-            local project_file = vim.fs.joinpath(projects_path, selection[1], selection[1] .. '.md')
+            local project_file = vim.fs.joinpath(
+              projects_path,
+              selection[1],
+              selection[1] .. '.md'
+            )
             if utl.isfile(project_file) == true then
               vim.cmd('edit ' .. project_file)
             else
