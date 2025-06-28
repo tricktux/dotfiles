@@ -289,7 +289,15 @@ local function setup()
   end
   if vim.fn.executable('stylua') > 0 then
     log.info('NullLs setting up stylua...')
-    table.insert(sources, null.builtins.formatting.stylua)
+    table.insert(
+      sources,
+      null.builtins.formatting.stylua.with({
+        extra_args = {
+          '--config-path='
+            .. vim.fs.joinpath(vim.fn.stdpath('config'), 'stylua.toml'),
+        },
+      })
+    )
   end
   if vim.fn.executable('shfmt') > 0 then
     log.info('NullLs setting up shfmt...')
