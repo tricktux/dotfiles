@@ -271,6 +271,7 @@ M.fs.file = {}
 --- Creates path for a new file
 ---@param path string Base path from where folder/file will be created
 function M.fs.file.create(path)
+  vim.validate('path', path, 'string')
   local p = fs.is_path(path)
   if p == nil then
     vim.notify('utils.fs.file.create: path not found: ' .. p, vim.log.levels.ERROR)
@@ -297,6 +298,7 @@ function M.fs.file.create(path)
 end
 
 function M.isdir(path)
+  vim.validate('path', path, 'string')
   local p = fs.is_path(path)
   if p == nil then
     return false
@@ -312,6 +314,7 @@ function M.isdir(path)
 end
 
 function M.isfile(path)
+  vim.validate('path', path, 'string')
   local p = fs.is_path(path)
   if p == nil then
     return false
