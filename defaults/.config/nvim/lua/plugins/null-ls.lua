@@ -226,7 +226,7 @@ local function setup()
   end
   if vim.fn.executable('trivy') > 0 then
     log.info('NullLs setting up trivy...')
-    table.insert(sources,  null.builtins.diagnostics.trivy )
+    table.insert(sources, null.builtins.diagnostics.trivy)
   end
   if vim.fn.executable('nixpkgs-fmt') > 0 then
     log.info('NullLs setting up nixpkgs-fmt...')

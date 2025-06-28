@@ -176,8 +176,8 @@ function M.setup_lsp_attach()
 
       -- folds
       if
-          vim.fn.has('nvim-0.10') > 0
-          and do_buffer_clients_support_method(au.buf, 'textDocument/foldingRange')
+        vim.fn.has('nvim-0.10') > 0
+        and do_buffer_clients_support_method(au.buf, 'textDocument/foldingRange')
       then
         local win = vim.api.nvim_get_current_win()
         vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
@@ -185,8 +185,8 @@ function M.setup_lsp_attach()
 
       -- inlay hints
       if
-          vim.fn.has('nvim-0.10') > 0
-          and do_buffer_clients_support_method(au.buf, 'textDocument/inlayHint')
+        vim.fn.has('nvim-0.10') > 0
+        and do_buffer_clients_support_method(au.buf, 'textDocument/inlayHint')
       then
         vim.lsp.inlay_hint.enable(true, { bufnr = au.buf })
         local toggle_inlay_hints = function()
@@ -202,8 +202,8 @@ function M.setup_lsp_attach()
 
       -- code lens
       if
-          vim.fn.has('nvim-0.10') > 0
-          and do_buffer_clients_support_method(au.buf, 'textDocument/codeLens')
+        vim.fn.has('nvim-0.10') > 0
+        and do_buffer_clients_support_method(au.buf, 'textDocument/codeLens')
       then
         vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
           callback = function(nested_au)
@@ -335,7 +335,7 @@ return {
     dependencies = vim.g.advanced_plugins > 0 and { 'nvim-tree/nvim-web-devicons' } or {},
     opts = {
       cycle_results = false, -- cycle item list when reaching beginning or end of list
-      auto_preview = false,  -- automatically open preview when on an item
+      auto_preview = false, -- automatically open preview when on an item
     },
   },
 }

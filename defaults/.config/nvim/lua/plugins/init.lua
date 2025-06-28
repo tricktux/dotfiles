@@ -56,7 +56,7 @@ local p = {
       compile = {
         enabled = true,
         -- .. [[/site/plugin/catppuccin]]
-        path = vim.fn.stdpath('data') .. utl.fs.path.sep .. [[catppuccin]],
+        path = vim.fs.joinpath(vim.fn.stdpath('data'), [[catppuccin]]),
         suffix = '_compiled',
       },
       integrations = {

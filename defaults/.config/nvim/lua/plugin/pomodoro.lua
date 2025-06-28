@@ -315,13 +315,13 @@ function Pomodoro.setup(user_config)
   -- Set up key mappings
   vim.keymap.set('n', '<Leader>Pt', function()
     Pomodoro.toggle()
-  end, { noremap = true, silent = true, desc = "pomodoro-toggle" })
+  end, { noremap = true, silent = true, desc = 'pomodoro-toggle' })
   vim.keymap.set('n', '<Leader>Pn', function()
     Pomodoro.next()
-  end, { noremap = true, silent = true, desc = "pomodoro-next" })
+  end, { noremap = true, silent = true, desc = 'pomodoro-next' })
   vim.keymap.set('n', '<Leader>Pm', function()
     Pomodoro.show_menu()
-  end, { noremap = true, silent = true, desc = "pomodoro-show-menu" })
+  end, { noremap = true, silent = true, desc = 'pomodoro-show-menu' })
 end
 
 return Pomodoro

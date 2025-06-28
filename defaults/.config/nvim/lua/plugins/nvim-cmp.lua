@@ -12,7 +12,7 @@ function M:setup()
     { name = 'codeium' },
     { name = 'nvim_lsp' },
     { name = 'nvim_lua' },
-    { name = 'buffer',                      keyword_length = 3 },
+    { name = 'buffer', keyword_length = 3 },
     { name = 'luasnip' },
     { name = 'calc' },
     { name = 'path' },

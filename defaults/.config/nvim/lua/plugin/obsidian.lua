@@ -16,7 +16,7 @@ local function sanitize_name(name)
 
   -- Create ID (lowercase, alphanumeric + hyphens/underscores only)
   local id =
-      clean_name:lower():gsub('[^%w%-_]', '-'):gsub('%-+', '-'):gsub('^%-+', ''):gsub('%-+$', '')
+    clean_name:lower():gsub('[^%w%-_]', '-'):gsub('%-+', '-'):gsub('^%-+', ''):gsub('%-+$', '')
 
   return clean_name, id
 end
@@ -205,53 +205,53 @@ function M.project_daily()
   local action_state = require('telescope.actions.state')
 
   pickers
-      .new({}, {
-        prompt_title = 'Select Project for Daily Note',
-        finder = finders.new_table({
-          results = projects,
-        }),
-        sorter = conf.generic_sorter({}),
-        attach_mappings = function(prompt_bufnr, map)
-          actions.select_default:replace(function()
-            actions.close(prompt_bufnr)
-            local selection = action_state.get_selected_entry()
-            if selection then
-              local project_name = selection[1]
-              local client = get_obsidian_client()
-              local date_suffix = os.date('%Y-%m-%d')
-              local daily_title = project_name
+    .new({}, {
+      prompt_title = 'Select Project for Daily Note',
+      finder = finders.new_table({
+        results = projects,
+      }),
+      sorter = conf.generic_sorter({}),
+      attach_mappings = function(prompt_bufnr, map)
+        actions.select_default:replace(function()
+          actions.close(prompt_bufnr)
+          local selection = action_state.get_selected_entry()
+          if selection then
+            local project_name = selection[1]
+            local client = get_obsidian_client()
+            local date_suffix = os.date('%Y-%m-%d')
+            local daily_title = project_name
 
-              -- Check if daily note already exists
-              local daily_path = vim.fs.joinpath('projects', project_name, date_suffix .. '.md')
-              local vault_path = client.dir.filename
-              local full_path = vim.fs.joinpath(vault_path, daily_path)
+            -- Check if daily note already exists
+            local daily_path = vim.fs.joinpath('projects', project_name, date_suffix .. '.md')
+            local vault_path = client.dir.filename
+            local full_path = vim.fs.joinpath(vault_path, daily_path)
 
-              if vim.fn.filereadable(full_path) == 1 then
-                -- Open existing daily note
-                vim.cmd('edit ' .. full_path)
-                print('Opened existing daily note for ' .. project_name)
+            if vim.fn.filereadable(full_path) == 1 then
+              -- Open existing daily note
+              vim.cmd('edit ' .. full_path)
+              print('Opened existing daily note for ' .. project_name)
+            else
+              -- Create new daily note
+              local daily_note = client:create_note({
+                title = daily_title,
+                id = date_suffix,
+                dir = vim.fs.joinpath('projects/', project_name),
+                template = get_daily_template(project_name),
+              })
+
+              if daily_note then
+                client:open_note(daily_note)
+                print('Created daily note for ' .. project_name)
               else
-                -- Create new daily note
-                local daily_note = client:create_note({
-                  title = daily_title,
-                  id = date_suffix,
-                  dir = vim.fs.joinpath('projects/', project_name),
-                  template = get_daily_template(project_name),
-                })
-
-                if daily_note then
-                  client:open_note(daily_note)
-                  print('Created daily note for ' .. project_name)
-                else
-                  print('Error creating daily note')
-                end
+                print('Error creating daily note')
               end
             end
-          end)
-          return true
-        end,
-      })
-      :find()
+          end
+        end)
+        return true
+      end,
+    })
+    :find()
 end
 
 -- List project directories and open main project file
@@ -273,30 +273,30 @@ function M.list_projects()
   local action_state = require('telescope.actions.state')
 
   pickers
-      .new({}, {
-        prompt_title = 'Select Project',
-        finder = finders.new_table({
-          results = projects,
-        }),
-        sorter = conf.generic_sorter({}),
-        attach_mappings = function(prompt_bufnr, map)
-          actions.select_default:replace(function()
-            actions.close(prompt_bufnr)
-            local selection = action_state.get_selected_entry()
-            if selection then
-              -- Open main project file
-              local project_file = vim.fs.joinpath(projects_path, selection[1], selection[1] .. '.md')
-              if vim.fn.filereadable(project_file) == 1 then
-                vim.cmd('edit ' .. project_file)
-              else
-                print('Project file not found: ' .. project_file)
-              end
+    .new({}, {
+      prompt_title = 'Select Project',
+      finder = finders.new_table({
+        results = projects,
+      }),
+      sorter = conf.generic_sorter({}),
+      attach_mappings = function(prompt_bufnr, map)
+        actions.select_default:replace(function()
+          actions.close(prompt_bufnr)
+          local selection = action_state.get_selected_entry()
+          if selection then
+            -- Open main project file
+            local project_file = vim.fs.joinpath(projects_path, selection[1], selection[1] .. '.md')
+            if vim.fn.filereadable(project_file) == 1 then
+              vim.cmd('edit ' .. project_file)
+            else
+              print('Project file not found: ' .. project_file)
             end
-          end)
-          return true
-        end,
-      })
-      :find()
+          end
+        end)
+        return true
+      end,
+    })
+    :find()
 end
 
 function M.setup()
