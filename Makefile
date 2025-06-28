@@ -19,4 +19,4 @@ stow-vim:
 	@mkdir -p $(HOME)/.config/vim
 	stow -d defaults/.config -t $(HOME)/.config/vim -S nvim
 lua-fmt:
-	cd defaults/.config/nvim/lua; stylua -s **/*.lua
+	stylua --config-path=defaults/.config/nvim/stylua.toml --glob defaults/.config/nvim/**/*.lua
