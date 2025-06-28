@@ -266,9 +266,6 @@ local function setup()
   elseif vim.fn.executable('prettier') > 0 then
     log.info('NullLs setting up prettier...')
     table.insert(sources, null.builtins.formatting.prettier)
-  elseif vim.fn.executable('python') then
-    log.info('NullLs setting up python json_tool...')
-    table.insert(sources, null.builtins.formatting.json_tool)
   end
   if vim.fn.executable('codespell') > 0 then
     log.info('NullLs setting up codespell...')
@@ -281,10 +278,6 @@ local function setup()
   if vim.fn.executable('isort') > 0 then
     log.info('NullLs setting up isort...')
     table.insert(sources, null.builtins.formatting.isort)
-  end
-  if vim.fn.executable('ruff') > 0 then
-    log.info('NullLs setting up ruff...')
-    table.insert(sources, null.builtins.formatting.ruff)
   end
   if vim.fn.executable('black') > 0 then
     log.info('NullLs setting up black...')
@@ -301,10 +294,6 @@ local function setup()
   if vim.fn.executable('shfmt') > 0 then
     log.info('NullLs setting up shfmt...')
     table.insert(sources, null.builtins.formatting.shfmt)
-  end
-  if vim.fn.executable('shellcheck') > 0 then
-    log.info('NullLs setting up shellcheck...')
-    table.insert(sources, null.builtins.diagnostics.shellcheck)
   end
   if vim.fn.executable('cmake-lint') > 0 then
     log.info('NullLs setting up cmake-lint...')
