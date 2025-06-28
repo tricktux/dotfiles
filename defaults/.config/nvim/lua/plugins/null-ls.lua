@@ -1,4 +1,5 @@
 local log = require('utils.log')
+local utl = require('utils.utils')
 local map = require('mappings')
 
 if vim.g.advanced_plugins == 0 then
@@ -167,40 +168,80 @@ local function get_plantuml()
   }
 end
 
+local function find_msbuild_executable()
+  if vim.fn.executable('dotnet') > 0 then
+    return 'dotnet'
+  end
+
+  -- Paths to check in order of most recent to oldest
+  local msbuild_paths = {
+    -- VS2022 (try different editions)
+    [[C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Current\Bin\MSBuild.exe]],
+    [[C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin\MSBuild.exe]],
+    [[C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe]],
+    -- VS2017 (try different editions)
+    [[C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\MSBuild\15.0\Bin\MSBuild.exe]],
+    [[C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin\MSBuild.exe]],
+    [[C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\MSBuild.exe]],
+    -- VS2015
+    [[C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe]],
+    -- VS2010
+    [[C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe]],
+  }
+
+  for _, path in ipairs(msbuild_paths) do
+    if utl.isfile(path) then
+      return path
+    end
+  end
+
+  -- Fallback to PATH if none of the specific paths work
+  if vim.fn.executable('msbuild') > 0 then
+    return 'msbuild'
+  end
+
+  return nil
+end
+
 local function get_msbuild()
+  local msbuild_cmd = find_msbuild_executable()
+  if not msbuild_cmd then
+    return nil
+  end
+
+  local args = {}
+  if vim.fn.has('unix') > 0 and msbuild_cmd == 'dotnet' then
+    args = { 'msbuild' }
+  end
+
   return {
     name = 'msbuild',
     filetypes = { 'c', 'cpp', 'cs' },
     method = require('null-ls').methods.DIAGNOSTICS,
     generator = require('null-ls').generator({
-      command = 'msbuild',
+      command = msbuild_cmd,
       cwd = function(params)
-        -- falls back to root if return value is nil
         return vim.fs.dirname(params.bufname)
       end,
-      args = {},
-      to_stdin = true,
-      from_stderr = true,
-      -- choose an output format (raw, json, or line)
-      format = 'raw',
+      args = args,
+      to_stdin = false,
+      from_stderr = false,
+      format = 'line', -- Process line by line instead of raw
       check_exit_code = function(code, stderr)
-        local success = code == 0
-
-        if not success then
-          -- can be noisy for things that run often (e.g. diagnostics), but can
-          -- be useful for things that run on demand (e.g. formatting)
-          print(stderr)
-        end
-
-        return success
+        return true    -- Always process output for diagnostics
       end,
-      -- use helpers to parse the output from string matchers,
-      -- or parse it manually with a function
-      -- 'errorformat': '%EError line %l in file: %f,%Z%m',
-      on_output = require('null-ls.helpers').diagnostics.from_errorformat(
-        [=[%f(%l): %t%*[^ ] C%n: %m [%.%#]]=],
-        'msbuild'
-      ),
+      -- Use the built-in helper instead of custom function
+      on_output = require('null-ls.helpers').diagnostics.from_patterns({
+        {
+          -- Pattern: /path/file.cs(line,col): error CScode: message [project]
+          pattern = [=[^(.-)%((%d+),(%d+)%): error (CS%d+): (.-)%s*%[.-%]$]=],
+          groups = { 'filename', 'row', 'col', 'code', 'message' },
+          overrides = {
+            severity = vim.diagnostic.severity.ERROR,
+            source = 'msbuild',
+          },
+        },
+      }),
     }),
   }
 end
@@ -361,7 +402,7 @@ local function setup()
 
   null.setup({
     -- Set to "trace" for really big logs
-    log_level = 'trace',
+    debug = true,
     -- Attach only if current buf has certain lines
     -- TODO: Re-using treesitter's function. It smells funny. Fix it
     should_attach = function()
@@ -382,8 +423,9 @@ local function setup()
   if vim.fn.executable('plantuml') > 0 then
     null.register(get_plantuml())
   end
-  if vim.fn.executable('msbuild') > 0 and vim.fn.has('win32') > 0 then
-    null.register(get_msbuild())
+  local msbuild_generator = get_msbuild()
+  if msbuild_generator then
+    null.register(msbuild_generator)
   end
   map:keymaps_sets(maps)
 end
