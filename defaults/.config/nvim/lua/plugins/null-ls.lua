@@ -231,7 +231,7 @@ local function setup()
         filetypes = {},
         extra_args = vim.fn.has('unix') > 0
             and { '--config=' .. vim.fs.normalize('$XDG_CONFIG_HOME/.vale.ini') }
-          or {},
+            or {},
         runtime_condition = function(params)
           -- It's really annoying and slow on windows
           -- Register source, but enable it manually
@@ -310,7 +310,7 @@ local function setup()
       null.builtins.formatting.stylua.with({
         extra_args = {
           '--config-path='
-            .. vim.fs.joinpath(vim.fn.stdpath('config'), 'stylua.toml'),
+          .. vim.fs.joinpath(vim.fn.stdpath('config'), 'stylua.toml'),
         },
       })
     )

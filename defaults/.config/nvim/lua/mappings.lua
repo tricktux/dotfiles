@@ -125,9 +125,12 @@ M.help = {
 M.help.mappings = {
   wv = {
     function()
-      vim.ui.input({ prompt = 'Enter search word for vimhelp: ' }, function(input)
-        vim.api.nvim_cmd({ cmd = 'h', args = { input } }, {})
-      end)
+      vim.ui.input(
+        { prompt = 'Enter search word for vimhelp: ' },
+        function(input)
+          vim.api.nvim_cmd({ cmd = 'h', args = { input } }, {})
+        end
+      )
     end,
     'help_cword_vimhelp',
   },
@@ -149,9 +152,12 @@ M.help.mappings = {
   },
   wb = {
     function()
-      vim.ui.input({ prompt = 'Enter search word for browser: ' }, function(input)
-        utl.browser.search(input)
-      end)
+      vim.ui.input(
+        { prompt = 'Enter search word for browser: ' },
+        function(input)
+          utl.browser.search(input)
+        end
+      )
     end,
     'help_cword_browser',
   },
@@ -262,7 +268,12 @@ M.toggle.mappings = {
     function()
       M.toggle.virtual = not M.toggle.virtual
       vim.diagnostic.config({ virtual_text = M.toggle.virtual })
-      print(fmt("toggle: virtual_text '%s'", (M.toggle.virtual and 'enabled' or 'disabled')))
+      print(
+        fmt(
+          "toggle: virtual_text '%s'",
+          (M.toggle.virtual and 'enabled' or 'disabled')
+        )
+      )
     end,
     'toggle_virtual_text',
   },
@@ -274,7 +285,12 @@ M.toggle.mappings = {
       else
         vim.diagnostic.enable()
       end
-      print(fmt("toggle: vim_diagnostic '%s'", (M.toggle.diagnostic and 'enabled' or 'disabled')))
+      print(
+        fmt(
+          "toggle: vim_diagnostic '%s'",
+          (M.toggle.diagnostic and 'enabled' or 'disabled')
+        )
+      )
     end,
     'toggle_vim_diagnostic',
   },
@@ -382,7 +398,12 @@ local function misc_mappings()
   -- vks({ "n", "x", "o" }, "t", "%")
 
   if vim.fn.has('nvim-0.10') > 0 then
-    vks('n', '<plug>comment_line', ':normal gcc<cr>', { desc = 'toggle_comment_line' })
+    vks(
+      'n',
+      '<plug>comment_line',
+      ':normal gcc<cr>',
+      { desc = 'toggle_comment_line' }
+    )
     vks('v', '<bs>', '<esc>:normal gvgc<cr>', { desc = 'toggle_comment_block' })
   end
 
@@ -481,9 +502,12 @@ local function windows_os_mappings()
   local ms = [[https://docs.microsoft.com/en-us/search/?terms=]]
   M.help.mappings['wm'] = {
     function()
-      vim.ui.input({ prompt = 'Enter search word for browser: ' }, function(input)
-        utl.browser.search(ms .. input)
-      end)
+      vim.ui.input(
+        { prompt = 'Enter search word for browser: ' },
+        function(input)
+          utl.browser.search(ms .. input)
+        end
+      )
     end,
     'help_input_microsoft',
   }
