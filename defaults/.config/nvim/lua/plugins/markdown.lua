@@ -53,6 +53,8 @@ return {
     ft = { 'markdown', 'org', 'quarto', 'tex' },
     keys = {
       { '<leader>wj', '<cmd>ObsidianToday<cr>', desc = 'obsidian_daily' },
+      { '<leader>wh', '<cmd>ObsidianYesterday<cr>', desc = 'obsidian_daily' },
+      { '<leader>wl', '<cmd>ObsidianTomorrow<cr>', desc = 'obsidian_daily' },
       {
         '<leader>wk',
         '<cmd>ObsidianQuickSwitch carry.md<cr>',
