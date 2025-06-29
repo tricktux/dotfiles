@@ -20,7 +20,7 @@ M.opts = {
     date_format = '%Y-%m-%d',
     alias_format = '%B, %Y %d',
   },
-  ui = { enable = true },
+  ui = { enable = false },
 }
 
 return {
@@ -44,6 +44,18 @@ return {
         '<localleader>i',
         '<cmd>PasteImage<cr>',
         desc = 'Paste clipboard image',
+      },
+    },
+  },
+  {
+    'bngarren/checkmate.nvim',
+    ft = 'markdown', -- Lazy loads for Markdown files matching patterns in 'files'
+    opts = {
+      files = { '*' },
+      -- checkmate.Config
+      todo_markers = {
+        unchecked = "[ ]",
+        checked = "[x]",
       },
     },
   },
