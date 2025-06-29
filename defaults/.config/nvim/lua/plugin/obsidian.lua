@@ -318,6 +318,53 @@ function M.list_projects()
     :find()
 end
 
+-- Define the highlight group
+local function setup_highlight()
+  local bg = vim.o.background
+  if bg == 'light' then
+    vim.api.nvim_set_hl(0, 'ObsidianTag', {
+      fg = '#0f766e', -- teal-700 for light
+      bold = true,
+    })
+  else
+    vim.api.nvim_set_hl(0, 'ObsidianTag', {
+      fg = '#2dd4bf', -- teal-400 for dark
+      bold = true,
+    })
+  end
+end
+
+-- Set up the highlight initially and on colorscheme changes
+setup_highlight()
+vim.api.nvim_create_autocmd('ColorScheme', {
+  pattern = '*',
+  callback = setup_highlight,
+})
+
+-- Function to highlight Obsidian tags using extmarks
+local function highlight_obsidian_tags(bufnr)
+  local ns = vim.api.nvim_create_namespace('obsidian_tags')
+  vim.api.nvim_buf_clear_namespace(bufnr, ns, 0, -1)
+
+  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+
+  for line_nr, line in ipairs(lines) do
+    local col = 1
+    while col <= #line do
+      local start_col, end_col = string.find(line, '#[%w_/-]+', col)
+      if start_col then
+        vim.api.nvim_buf_set_extmark(bufnr, ns, line_nr - 1, start_col - 1, {
+          end_col = end_col,
+          hl_group = 'ObsidianTag',
+        })
+        col = end_col + 1
+      else
+        break
+      end
+    end
+  end
+end
+
 function M.setup()
   vim.keymap.set('n', '<leader>wpc', function()
     M.create_project()
@@ -337,6 +384,20 @@ function M.setup()
   vim.keymap.set('n', '<leader>wpt', function()
     M.find_daily_notes()
   end, { desc = "Find today's daily notes" })
+
+  -- Set up autocmds for markdown files
+  vim.api.nvim_create_autocmd(
+    { 'BufEnter', 'BufWritePost', 'TextChanged', 'TextChangedI' },
+    {
+      pattern = '*.md',
+      callback = function()
+        local bufnr = vim.api.nvim_get_current_buf()
+        if vim.bo[bufnr].filetype == 'markdown' then
+          highlight_obsidian_tags(bufnr)
+        end
+      end,
+    }
+  )
 end
 
 return M
