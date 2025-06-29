@@ -7,6 +7,83 @@ local log = require('utils.log')
 local M = {}
 M.leader_key = 'j'
 
+-- Add this function before your dashboard config
+local function telescope_sessions()
+  local pickers = require('telescope.pickers')
+  local finders = require('telescope.finders')
+  local conf = require('telescope.config').values
+  local actions = require('telescope.actions')
+  local action_state = require('telescope.actions.state')
+
+  local sessions_path = vim.g.sessions_path
+    or vim.fn.stdpath('data') .. '/sessions'
+
+  if vim.fn.isdirectory(sessions_path) == 0 then
+    vim.notify(
+      'Sessions directory not found: ' .. sessions_path,
+      vim.log.levels.WARN
+    )
+    return
+  end
+
+  local session_files = vim.fn.glob(sessions_path .. '/*', false, true)
+
+  if #session_files == 0 then
+    vim.notify(
+      'No session files found in: ' .. sessions_path,
+      vim.log.levels.INFO
+    )
+    return
+  end
+
+  -- Sort by modification time (newest first)
+  table.sort(session_files, function(a, b)
+    return vim.fn.getftime(a) > vim.fn.getftime(b)
+  end)
+
+  -- Create entries with session name and modification time
+  local entries = {}
+  for _, file in ipairs(session_files) do
+    local name = vim.fn.fnamemodify(file, ':t:r')
+    local mtime = os.date('%Y-%m-%d %H:%M', vim.fn.getftime(file))
+    table.insert(entries, {
+      display = name .. ' (' .. mtime .. ')',
+      value = file,
+      ordinal = name,
+    })
+  end
+
+  pickers
+    .new({}, {
+      prompt_title = 'Sessions',
+      finder = finders.new_table({
+        results = entries,
+        entry_maker = function(entry)
+          return {
+            display = entry.display,
+            value = entry.value,
+            ordinal = entry.ordinal,
+          }
+        end,
+      }),
+      sorter = conf.generic_sorter({}),
+      attach_mappings = function(prompt_bufnr, map)
+        actions.select_default:replace(function()
+          actions.close(prompt_bufnr)
+          local selection = action_state.get_selected_entry()
+          if selection then
+            vim.cmd('source ' .. vim.fn.fnameescape(selection.value))
+            vim.notify(
+              'Loaded session: ' .. vim.fn.fnamemodify(selection.value, ':t:r')
+            )
+          end
+        end)
+        return true
+      end,
+    })
+    :find()
+end
+
 function M:set_mappings()
   local ts = require('telescope.builtin')
   local leader = {}
@@ -50,6 +127,7 @@ function M:set_mappings()
     h = { ts.help_tags, 'helptags' },
     y = { ts.filetypes, 'filetypes' },
     a = { ts.autocommands, 'autocommands' },
+    s = { '<cmd>TelescopeSessions<cr>', 'sessions' },
     m = { ts.keymaps, 'keymaps' },
     M = { ts.man_pages, 'man_pages' },
     c = { ts.commands, 'commands' },
@@ -58,6 +136,7 @@ function M:set_mappings()
     d = { ts.reloader, 'reload_lua_modules' },
   }
 
+  vks('n', '<leader>sl', '<cmd>TelescopeSessions<cr>', opts)
   map:keymaps_sets(leader)
 end
 
@@ -191,7 +270,15 @@ return {
     'nvim-lua/telescope.nvim',
     event = 'VeryLazy',
     config = function()
+      -- Create the user command
+      vim.api.nvim_create_user_command(
+        'TelescopeSessions',
+        telescope_sessions,
+        {}
+      )
+
       M:setup()
+
       vim.api.nvim_create_autocmd('ColorScheme', {
         pattern = '*',
         callback = set_telescope_colors,
