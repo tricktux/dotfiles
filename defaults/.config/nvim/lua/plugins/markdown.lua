@@ -32,7 +32,7 @@ return {
     opts = {
       default = {
         relative_to_current_file = true, -- make dir_path relative to current file rather than the cwd
-        relative_template_path = false, -- make file path in the template relative to current file rather than the cwd
+        relative_template_path = false,  -- make file path in the template relative to current file rather than the cwd
         dir_path = 'assets',
       },
       quarto = {
@@ -65,22 +65,22 @@ return {
     ft = { 'markdown', 'org', 'quarto', 'tex' },
     cmd = { 'ObsidianToday' },
     keys = {
-      { '<leader>wj', '<cmd>ObsidianToday<cr>', desc = 'obsidian_daily' },
+      { '<leader>wj', '<cmd>ObsidianToday<cr>',     desc = 'obsidian_daily' },
       { '<leader>wh', '<cmd>ObsidianYesterday<cr>', desc = 'obsidian_daily' },
-      { '<leader>wl', '<cmd>ObsidianTomorrow<cr>', desc = 'obsidian_daily' },
+      { '<leader>wl', '<cmd>ObsidianTomorrow<cr>',  desc = 'obsidian_daily' },
       {
         '<leader>wk',
         '<cmd>ObsidianQuickSwitch carry.md<cr>',
         desc = 'obsidian_todo_carry',
       },
-      { '<leader>wa', '<cmd>ObsidianNew<cr>', desc = 'obsidian_new' },
+      { '<leader>wa', '<cmd>ObsidianNew<cr>',    desc = 'obsidian_new' },
       {
         '<leader>ww',
         '<cmd>ObsidianWorkspace<cr>',
         desc = 'obsidian_list_workspace',
       },
       { '<leader>ws', '<cmd>ObsidianSearch<cr>', desc = 'obsidian_search' },
-      { '<leader>wo', '<cmd>ObsidianOpen<cr>', desc = 'obsidian_open' },
+      { '<leader>wo', '<cmd>ObsidianOpen<cr>',   desc = 'obsidian_open' },
       {
         '<leader>wf',
         function()
