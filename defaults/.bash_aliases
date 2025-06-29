@@ -118,7 +118,7 @@ alias chgrp='chgrp --preserve-root'
 alias diff='diff --color=auto'
 alias grep='grep --color=auto'
 alias ip='ip -color=auto'
-alias cat='bat'
+[[ -f /usr/bin/bat ]] && alias cat='bat'
 
 # svn
 alias va='svn add --force'
