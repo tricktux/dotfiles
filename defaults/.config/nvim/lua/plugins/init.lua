@@ -142,7 +142,7 @@ local p = {
       indent = { char = { '¦', '┆', '┊' } },
       exclude = {
         filetypes = vim
-          .iter({ utl.filetype.blacklist, 'markdown', 'org', 'mail' })
+          .iter({ utl.filetype.blacklist, 'markdown', 'org', 'mail', 'dashboard' })
           :flatten(math.huge)
           :totable(),
         buftypes = utl.buftype.blacklist,
@@ -165,22 +165,6 @@ local p = {
     init = function()
       vim.g.git_messenger_always_into_popup = true
       vim.g.git_messenger_floating_win_opts = { border = 'single' }
-    end,
-  },
-  {
-    'mhinz/vim-startify',
-    lazy = false,
-    cond = not vim.g.started_by_firenvim,
-    init = function()
-      vim.g.startify_session_dir = vim.g.sessions_path
-
-      vim.g.startify_lists = {
-        { ['type'] = 'sessions', ['header'] = { '   Sessions' } },
-        { ['type'] = 'files', ['header'] = { '   MRU' } },
-      }
-      vim.g.startify_change_to_dir = 0
-      vim.g.startify_session_sort = 1
-      vim.g.startify_session_number = 10
     end,
   },
   {
