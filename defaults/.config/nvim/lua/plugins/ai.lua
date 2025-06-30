@@ -111,7 +111,9 @@ return {
               send = {
                 modes = { n = '<C-g>', i = '<C-g>' },
               },
-              close = {},
+              close = {
+                modes = { n = '<nop>', i = '<nop>' },
+              },
               -- Add further custom keymaps here
             },
           },
