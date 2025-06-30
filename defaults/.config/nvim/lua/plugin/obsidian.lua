@@ -133,6 +133,21 @@ end
 
 -- Main refresh function
 function M.refresh_daily_data()
+  if vim.fn.executable('vdirsyncer') == 0 then
+    print('vdirsyncer is not installed or not executable')
+    return
+  end
+
+  if vim.fn.executable('khal') == 0 then
+    print('khal is not installed or not executable')
+    return
+  end
+
+  if vim.fn.executable('todo') == 0 then
+    print('todo is not installed or not executable')
+    return
+  end
+
   local bufnr = vim.api.nvim_get_current_buf()
   local content =
       table.concat(vim.api.nvim_buf_get_lines(bufnr, 0, -1, false), '\n')
