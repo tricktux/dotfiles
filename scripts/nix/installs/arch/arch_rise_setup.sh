@@ -713,7 +713,7 @@ vdirsyncer discover {contacts,calendars}
 vdirsyncer sync
 
 # Calendar, contacts and todo applications that read from vdir
-paru -Syu --needed khal khard todoman
+paru -Syu --needed khal khard todoman python-click-repl
 # }}}
 
 # VPN {{{

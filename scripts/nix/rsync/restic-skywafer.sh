@@ -65,7 +65,7 @@ backblaze_id=$(pass websites/backblaze.com/application-key-restic-id)
 backblaze_key=$(pass websites/backblaze.com/application-key-restic-key)
 folders=""
 # repo="${bucket_type}:${bucket_url}/${bucket_name}"
-repo="/run/media/reinaldo/Seagate Portable Drive/reinaldo/bkps/restic-repo"
+repo="/mnt/usbstick/reinaldo/bkps/restic-repo"
 # Mount the NAS folder if not already mounted
 for folder in "${source_folders[@]}"; do
   last_folder=$(basename "$folder")
