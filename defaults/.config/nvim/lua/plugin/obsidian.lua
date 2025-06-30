@@ -94,23 +94,14 @@ local function format_calendar_markdown(events)
 end
 
 -- Format todo data as markdown
-local function format_todos_markdown(overdue, due_this_week)
+local function format_todos_markdown(todos)
   local lines = { '# ✅ Tasks & Todos', '' }
 
-  if #overdue > 0 then
-    table.insert(lines, '## Overdue')
-    table.insert(lines, '')
-    for _, todo in ipairs(overdue) do
-      table.insert(lines, todo)
-    end
-    table.insert(lines, '')
-  end
-
-  if #due_this_week > 0 then
+  if #todos > 0 then
     table.insert(lines, '## Due This Week')
     table.insert(lines, '')
-    for _, todo in ipairs(due_this_week) do
-      table.insert(lines, todo)
+    for _, todo in ipairs(todos) do
+      table.insert(lines, '- ' .. todo)
     end
     table.insert(lines, '')
   end
@@ -155,26 +146,40 @@ function M.refresh_daily_data()
   local content =
       table.concat(vim.api.nvim_buf_get_lines(bufnr, 0, -1, false), '\n')
 
+  vim.schedule(
+    function()
+      vim.notify('Refreshing daily data...Please wait...')
+    end
+  )
+
   -- Sync calendars
   local sync_cmd = 'vdirsyncer sync'
   local sync_output = vim.fn.system(sync_cmd)
+  if v:error_code() ~= 0 then
+    print('Error syncing calendars: ' .. sync_output)
+    return
+  end
 
   -- Fetch calendar data
   local calendar_cmd =
   "khal list --format '{start-date-long} {start-time} {title}' --day-format '' today 7d"
   local calendar_output = vim.fn.system(calendar_cmd)
+  if v:error_code() ~= 0 then
+    print('Error fetching calendar data: ' .. calendar_output)
+    return
+  end
   local events = parse_calendar_output(calendar_output)
   local calendar_markdown = format_calendar_markdown(events)
 
-  -- Fetch overdue todo data
-  local todo_cmd = 'todo list --sort -due,priority --due=-24'
-  local overdue = vim.fn.system(todo_cmd)
-
   -- Fetch todo data
-  todo_cmd = 'todo list --sort -due,priority --due 72'
-  local due_this_week = vim.fn.system(todo_cmd)
+  local todo_cmd = 'todo list --sort -due,priority --due 72'
+  local todos = vim.fn.systemlist(todo_cmd)
+  if v:error_code() ~= 0 then
+    print('Error fetching todo data: ' .. table.concat(todos, '\n'))
+    return
+  end
 
-  todos_markdown = format_todos_markdown(overdue, due_this_week)
+  todos_markdown = format_todos_markdown(todos)
 
   -- Replace sections
   content = replace_markdown_section(
