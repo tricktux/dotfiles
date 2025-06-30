@@ -166,11 +166,15 @@ function M.refresh_daily_data()
   local events = parse_calendar_output(calendar_output)
   local calendar_markdown = format_calendar_markdown(events)
 
+  -- Fetch overdue todo data
+  local todo_cmd = 'todo list --sort -due,priority --due=-24'
+  local overdue = vim.fn.system(todo_cmd)
+
   -- Fetch todo data
-  local todo_cmd = 'todo list --sort -due,priority --due 72'
-  local todo_output = vim.fn.system(todo_cmd)
-  local overdue, due_this_week = parse_todo_output(todo_output)
-  local todos_markdown = format_todos_markdown(overdue, due_this_week)
+  todo_cmd = 'todo list --sort -due,priority --due 72'
+  local due_this_week = vim.fn.system(todo_cmd)
+
+  todos_markdown = format_todos_markdown(overdue, due_this_week)
 
   -- Replace sections
   content = replace_markdown_section(
