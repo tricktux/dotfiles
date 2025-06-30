@@ -82,6 +82,7 @@ local function format_calendar_markdown(events)
   for _, day in ipairs(day_order) do
     if events[day] and #events[day] > 0 then
       table.insert(lines, '## ' .. day)
+      table.insert(lines, '')
       for _, event in ipairs(events[day]) do
         table.insert(lines, '- ' .. event.time .. ' ' .. event.title)
       end
@@ -98,6 +99,7 @@ local function format_todos_markdown(overdue, due_this_week)
 
   if #overdue > 0 then
     table.insert(lines, '## Overdue')
+    table.insert(lines, '')
     for _, todo in ipairs(overdue) do
       table.insert(lines, todo)
     end
@@ -106,6 +108,7 @@ local function format_todos_markdown(overdue, due_this_week)
 
   if #due_this_week > 0 then
     table.insert(lines, '## Due This Week')
+    table.insert(lines, '')
     for _, todo in ipairs(due_this_week) do
       table.insert(lines, todo)
     end
