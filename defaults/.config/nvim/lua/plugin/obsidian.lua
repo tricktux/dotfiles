@@ -2,6 +2,174 @@ local utl = require('utils.utils')
 
 local M = {}
 
+-- Parse calendar output into structured data
+local function parse_calendar_output(output)
+  local events = {}
+  local today = os.date('%Y-%m-%d')
+  local tomorrow = os.date('%Y-%m-%d', os.time() + 24 * 60 * 60)
+
+  for line in output:gmatch('[^\r\n]+') do
+    local date, time, title =
+        line:match('(%d%d%d%d%-%d%d%-%d%d) (%d%d:%d%d) (.+)')
+    if date and time and title then
+      local day_label
+      if date == today then
+        day_label = 'Today'
+      elseif date == tomorrow then
+        day_label = 'Tomorrow'
+      else
+        -- Convert to day name (Mon, Tue, etc.)
+        local timestamp = os.time({
+          year = tonumber(date:sub(1, 4)),
+          month = tonumber(date:sub(6, 7)),
+          day = tonumber(date:sub(9, 10)),
+        })
+        day_label = os.date('%A', timestamp) -- Full day name
+      end
+
+      if not events[day_label] then
+        events[day_label] = {}
+      end
+      table.insert(events[day_label], {
+        time = time,
+        title = title,
+      })
+    end
+  end
+
+  return events
+end
+
+-- Parse todo output into structured data
+local function parse_todo_output(output)
+  local overdue = {}
+  local due_this_week = {}
+
+  for line in output:gmatch('[^\r\n]+') do
+    if line:match('^%[%s*%]') then -- Lines starting with [ ]
+      local is_overdue = line:match('yesterday')
+          or line:match('in %d+ hours')
+          or line:match('today')
+
+      if is_overdue then
+        table.insert(overdue, '- ' .. line)
+      else
+        table.insert(due_this_week, '- ' .. line)
+      end
+    end
+  end
+
+  return overdue, due_this_week
+end
+
+-- Format calendar data as markdown
+local function format_calendar_markdown(events)
+  local lines = { "# 📅 This Week's Calendar", '' }
+
+  -- Order: Today, Tomorrow, then other days
+  local day_order = {
+    'Today',
+    'Tomorrow',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday',
+  }
+
+  for _, day in ipairs(day_order) do
+    if events[day] and #events[day] > 0 then
+      table.insert(lines, '## ' .. day)
+      for _, event in ipairs(events[day]) do
+        table.insert(lines, '- ' .. event.time .. ' ' .. event.title)
+      end
+      table.insert(lines, '')
+    end
+  end
+
+  return table.concat(lines, '\n')
+end
+
+-- Format todo data as markdown
+local function format_todos_markdown(overdue, due_this_week)
+  local lines = { '# ✅ Tasks & Todos', '' }
+
+  if #overdue > 0 then
+    table.insert(lines, '## Overdue')
+    for _, todo in ipairs(overdue) do
+      table.insert(lines, todo)
+    end
+    table.insert(lines, '')
+  end
+
+  if #due_this_week > 0 then
+    table.insert(lines, '## Due This Week')
+    for _, todo in ipairs(due_this_week) do
+      table.insert(lines, todo)
+    end
+    table.insert(lines, '')
+  end
+
+  return table.concat(lines, '\n')
+end
+
+-- Find and replace a section in markdown content
+local function replace_markdown_section(content, section_header, new_content)
+  local pattern = '(# '
+      .. section_header:gsub('([%^%$%(%)%%%.%[%]%*%+%-%?])', '%%%1')
+      .. '.-\n)(.-)(^#[^#])'
+  local before_section = content:match('^(.-)' .. pattern)
+  local after_section = content:match(pattern .. '(.*)$')
+
+  if before_section and after_section then
+    return before_section .. new_content .. '\n' .. after_section
+  else
+    -- If section not found, append at end
+    return content .. '\n' .. new_content
+  end
+end
+
+-- Main refresh function
+function M.refresh_daily_data()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local content =
+      table.concat(vim.api.nvim_buf_get_lines(bufnr, 0, -1, false), '\n')
+
+  -- Sync calendars
+  local sync_cmd = "vdirsyncer sync"
+  local sync_output = vim.fn.system(sync_cmd)
+
+  -- Fetch calendar data
+  local calendar_cmd =
+  "khal list --format '{start-date-long} {start-time} {title}' --day-format '' today 7d"
+  local calendar_output = vim.fn.system(calendar_cmd)
+  local events = parse_calendar_output(calendar_output)
+  local calendar_markdown = format_calendar_markdown(events)
+
+  -- Fetch todo data
+  local todo_cmd = 'todo list --sort -due,priority --due 72'
+  local todo_output = vim.fn.system(todo_cmd)
+  local overdue, due_this_week = parse_todo_output(todo_output)
+  local todos_markdown = format_todos_markdown(overdue, due_this_week)
+
+  -- Replace sections
+  content = replace_markdown_section(
+    content,
+    "📅 This Week's Calendar",
+    calendar_markdown
+  )
+  content =
+    replace_markdown_section(content, '✅ Tasks & Todos', todos_markdown)
+
+  -- Update buffer
+  local lines = vim.split(content, '\n')
+  vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, lines)
+
+  print('Daily data refreshed!')
+end
+
 -- Get the obsidian client
 local function get_obsidian_client()
   return require('obsidian').get_client()
@@ -384,6 +552,9 @@ function M.setup()
   vim.keymap.set('n', '<leader>wpt', function()
     M.find_daily_notes()
   end, { desc = "Find today's daily notes" })
+  vim.keymap.set('n', '<leader>wpr', function()
+    M.refresh_daily_data()
+  end, { desc = 'Refresh daily calendar and todos' })
 
   -- Set up autocmds for markdown files
   vim.api.nvim_create_autocmd(
