@@ -129,6 +129,7 @@ paru -Syu --needed cifs-utils
 sudo mount -t cifs //192.168.1.139/NetBackup ~/.mnt/skywafer/NetBackup -o credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=1000,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev,vers=3.0
 sudo mkdir -p /etc/samba/credentials
 sudo nvim /etc/samba/credentials/share
+sudo nvim /etc/samba/credentials/apex-vault
 # Just copy the info for now from local pc
 # - format:
 # - `username=X`
@@ -137,6 +138,9 @@ sudo nvim /etc/samba/credentials/share
 sudo chown root:root /etc/samba/credentials/share
 sudo chmod 700 /etc/samba/credentials/share
 sudo chmod 600 /etc/samba/credentials/share
+sudo chown root:root /etc/samba/credentials/apex-vault
+sudo chmod 700 /etc/samba/credentials/apex-vault
+sudo chmod 600 /etc/samba/credentials/apex-vault
 # }}}
 
 # Update arch mirrors {{{
