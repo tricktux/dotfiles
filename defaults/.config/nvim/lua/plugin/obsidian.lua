@@ -155,7 +155,7 @@ function M.refresh_daily_data()
   -- Sync calendars
   local sync_cmd = 'vdirsyncer sync'
   local sync_output = vim.fn.system(sync_cmd)
-  if v:error_code() ~= 0 then
+  if vim.v.shell_error ~= 0 then
     print('Error syncing calendars: ' .. sync_output)
     return
   end
@@ -164,7 +164,7 @@ function M.refresh_daily_data()
   local calendar_cmd =
   "khal list --format '{start-date-long} {start-time} {title}' --day-format '' today 7d"
   local calendar_output = vim.fn.system(calendar_cmd)
-  if v:error_code() ~= 0 then
+  if vim.v.shell_error ~= 0 then
     print('Error fetching calendar data: ' .. calendar_output)
     return
   end
@@ -174,7 +174,7 @@ function M.refresh_daily_data()
   -- Fetch todo data
   local todo_cmd = 'todo list --sort -due,priority --due 72'
   local todos = vim.fn.systemlist(todo_cmd)
-  if v:error_code() ~= 0 then
+  if vim.v.shell_error ~= 0 then
     print('Error fetching todo data: ' .. table.concat(todos, '\n'))
     return
   end
