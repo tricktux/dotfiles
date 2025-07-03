@@ -913,29 +913,6 @@ sudo nvim /etc/pihole/pihole.toml
 # NOTE: find acl under webserver and set to "+192.168.0.0/16"
 # NOTE: find MAXDBDAYS and set it to 45
 # NOTE: find DBINTERVAL and set it to 10.0
-
-# NOTE: Important fix for forgetting the upstream DNS even though is set in the
-# gui
-pihole_dns="127.0.0.1#5335"
-pihole_srvc="pihole-dns-fix.service"
-pihole_scr="/etc/systemd/system/${pihole_srvc}"
-sudo bash -c "cat >> ${pihole_scr}" << EOL
-[Unit]
-Description=PiHole set upstream DNS
-Wants=network-online.target
-After=network-online.target
-
-[Service]
-ExecStart=/usr/bin/pihole -a setdns ${pihole_dns}
-
-[Install]
-WantedBy=multi-user.target
-EOL
-
-sudo systemctl daemon-reload
-sudo systemctl enable --now ${pihole_srvc}
-sudo systemctl status ${pihole_srvc}
-journalctl -u ${pihole_srvc}
 # }}}
 
 # unbound {{{
