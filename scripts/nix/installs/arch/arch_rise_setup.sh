@@ -141,6 +141,7 @@ sudo chmod 600 /etc/samba/credentials/share
 sudo chown root:root /etc/samba/credentials/apex-vault
 sudo chmod 700 /etc/samba/credentials/apex-vault
 sudo chmod 600 /etc/samba/credentials/apex-vault
+sudo mount --mkdir -t cifs //192.168.1.96/pacman /mnt/apex-vault/apps/pacman -o credentials=/etc/samba/credentials/apex-vault,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev,vers=3.1.1,rw,uid=$(id -u),gid=$(id -g),file_mode=0664,dir_mode=0775,iocharset=utf8,cache=strict
 # }}}
 
 # Update arch mirrors {{{
@@ -444,6 +445,10 @@ sudo chown -R reinaldo: ~/.local/share/password-store
 chmod 700 -R ~/.local/share/password-store
 chmod 700 -R ~/.gnupg
 sudo mount -t cifs //192.168.1.139/home ~/.mnt/skywafer/home -o credentials=/etc/samba/credentials/share,workgroup=WORKGROUP,uid=1000,gid=985,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev
+sudo mount --mkdir -t cifs //192.168.1.96/pacman /mnt/apex-vault/apps/pacman -o credentials=/etc/samba/credentials/apex-vault,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev,vers=3.1.1,rw,uid=$(id -u),gid=$(id -g),file_mode=0664,dir_mode=0775,iocharset=utf8,cache=strict
+# id # to get id and guid
+sudo bash -c 'printf "\n//192.168.1.96/pacman /mnt/apex-vault/apps/pacman cifs credentials=/etc/samba/credentials/apex-vault,nofail,x-systemd.device-timeout=10,noauto,x-systemd.automount,_netdev,vers=3.1.1,rw,uid=1000,gid=1000,file_mode=0664,dir_mode=0775,iocharset=utf8,cache=strict" >> /etc/fstab'
+
 mkdir -p ~/Documents
 # ln -s ~/.mnt/skywafer/home/Drive/wiki ~/Documents
 paru -Syu --needed --noconfirm synology-drive
