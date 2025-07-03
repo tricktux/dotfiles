@@ -893,22 +893,9 @@ paru -Syu ncurses5-compat-libs xilinx-ise
 #}}}
 
 # pihole-server {{{
-paru -Syu --needed pi-hole-server php-sqlite lighttpd php-cgi
+paru -Syu --needed pi-hole-server
 # Web interface
-# enable relevant sections
-sudo nvim /etc/php/php.ini
-# NOTE: Search extensions, and add these below to the end
-extension=pdo_sqlite
-extension=sockets
-extension=sqlite3
-
-# NOTE: search for open_basedir
-open_basedir = /srv/http/pihole:/run/pihole-ftl/pihole-FTL.port:/run/log/pihole/pihole.log:/run/log/pihole-ftl/pihole-FTL.log:/etc/pihole:/etc/hosts:/etc/hostname:/etc/dnsmasq.d/02-pihole-dhcp.conf:/etc/dnsmasq.d/03-pihole-wildcard.conf:/etc/dnsmasq.d/04-pihole-static-dhcp.conf:/var/log/lighttpd/error-pihole.log:/proc/loadavg:/proc/meminfo:/proc/cpuinfo:/sys/class/thermal/thermal_zone0/temp:/tmp
-
-sudo cp /usr/share/pihole/configs/lighttpd.example.conf /etc/lighttpd/lighttpd.conf
-sudo systemctl enable --now lighttpd
-sudo systemctl status lighttpd
-
+# NOTE: Now configured in `pihole.toml`
 # Fix hosts, NOTE: change surbook for hostname
 sudo nvim /etc/hosts
 127.0.0.1              localhost
@@ -918,9 +905,12 @@ ip.address.of.pihole   pi.hole surbook
 sudo systemctl enable pihole-FTL
 sudo systemctl restart pihole-FTL
 sudo systemctl status pihole-FTL
+sudo pihole -t
 
 # Fix settings
-sudo nvim /etc/pihole/pihole-FTL.conf
+sudo nvim /etc/pihole/pihole.toml
+# NOTE: find upstreams and set ["127.0.0.1#5335"]
+# NOTE: find acl under webserver and set to "+192.168.0.0/16"
 # NOTE: find MAXDBDAYS and set it to 45
 # NOTE: find DBINTERVAL and set it to 10.0
 
