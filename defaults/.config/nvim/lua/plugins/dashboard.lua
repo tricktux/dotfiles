@@ -114,7 +114,7 @@ return {
       {
         desc = ' Obsidian Today',
         group = '@markup.heading.1.markdown',
-        action = 'ObsidianToday',
+        action = 'Obsidian today',
         key = 'o',
       },
       {

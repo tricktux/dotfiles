@@ -4,6 +4,7 @@ local w = require('plugin.wiki')
 local M = {}
 
 M.opts = {
+  legacy_commands = false,
   workspaces = {},
   templates = {
     folder = 'templates',
@@ -62,7 +63,7 @@ return {
     'obsidian-nvim/obsidian.nvim',
     enabled = w.path.personal ~= nil or w.path.work ~= nil,
     ft = { 'markdown', 'org', 'quarto', 'tex' },
-    cmd = { 'Obsidian today' },
+    cmd = { 'Obsidian' },
     keys = {
       { '<leader>wj', '<cmd>Obsidian today<cr>',     desc = 'obsidian_daily' },
       { '<leader>wh', '<cmd>Obsidian today -1<cr>', desc = 'obsidian_yesterday' },
