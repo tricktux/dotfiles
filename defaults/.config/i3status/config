@@ -63,9 +63,9 @@ volume_status {
 }
 
 pomodoro {
-    format_active = "🖥️: [{format}]"
-    format_break = "🏖️: [{format}]"
-    format_stopped = "⏳: [{format}]"
+    format_active = "🖥️ [{format}]"
+    format_break = "🏖️ [{format}]"
+    format_stopped = "⏳ [{format}]"
     timer_pomodoro = 3000
     format = "{mm}"
 }
@@ -91,23 +91,23 @@ battery all {
 }
 
 disk "/" {
-        format = "📂:%avail"
+        format = "📂 %avail"
 }
 
 load {
-        format = "💻:%1min"
+        format = "💻 %1min"
 }
 
 memory {
-        format = "🛢:%used"
+        format = "🛢 %used"
         threshold_degraded = "10%"
-        format_degraded = "M:%free"
+        format_degraded = "M %free"
 }
 
 # Look in #/usr/share/zoneinfo
 # sudo ln -fs /usr/share/zoneinfo/X /etc/localtime
 tztime local {
-        format = "🗓️: %Y-%m-%d %H:%M:%S"
+        format = "🗓️ %m-%d %H:%M:%S"
         # hide_if_equals_localtime = true
 }
 
