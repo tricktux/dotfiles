@@ -56,7 +56,8 @@ sudo mv mirrorlist /etc/pacman.d/mirrorlist
 # install `paru`{{{
 # From this point on you need to login as your user
 # You should not run `paru` or `makepkg` as `root`
-sudo pacman -S --needed git
+# Patch is needed through out
+sudo pacman -S --needed git patch
 # cd /tmp
 # git clone https://aur.archlinux.org/trizen.git --depth 1
 # cd trizen
