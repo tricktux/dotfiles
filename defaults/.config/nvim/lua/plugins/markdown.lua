@@ -5,7 +5,6 @@ local M = {}
 
 M.opts = {
   workspaces = {},
-  mappings = {},
   templates = {
     folder = 'templates',
     date_format = '%Y-%m-%d',
@@ -63,24 +62,24 @@ return {
     'obsidian-nvim/obsidian.nvim',
     enabled = w.path.personal ~= nil or w.path.work ~= nil,
     ft = { 'markdown', 'org', 'quarto', 'tex' },
-    cmd = { 'ObsidianToday' },
+    cmd = { 'Obsidian today' },
     keys = {
-      { '<leader>wj', '<cmd>ObsidianToday<cr>',     desc = 'obsidian_daily' },
-      { '<leader>wh', '<cmd>ObsidianYesterday<cr>', desc = 'obsidian_daily' },
-      { '<leader>wl', '<cmd>ObsidianTomorrow<cr>',  desc = 'obsidian_daily' },
+      { '<leader>wj', '<cmd>Obsidian today<cr>',     desc = 'obsidian_daily' },
+      { '<leader>wh', '<cmd>Obsidian today -1<cr>', desc = 'obsidian_yesterday' },
+      { '<leader>wl', '<cmd>Obsidian today +1<cr>',  desc = 'obsidian_tomorrow' },
       {
         '<leader>wk',
         '<cmd>ObsidianQuickSwitch carry.md<cr>',
         desc = 'obsidian_todo_carry',
       },
-      { '<leader>wa', '<cmd>ObsidianNew<cr>',    desc = 'obsidian_new' },
+      { '<leader>wa', '<cmd>Obsidian new<cr>',    desc = 'obsidian_new' },
       {
         '<leader>ww',
-        '<cmd>ObsidianWorkspace<cr>',
+        '<cmd>Obsidian workspace<cr>',
         desc = 'obsidian_list_workspace',
       },
-      { '<leader>ws', '<cmd>ObsidianSearch<cr>', desc = 'obsidian_search' },
-      { '<leader>wo', '<cmd>ObsidianOpen<cr>',   desc = 'obsidian_open' },
+      { '<leader>ws', '<cmd>Obsidian search<cr>', desc = 'obsidian_search' },
+      { '<leader>wo', '<cmd>Obsidian open<cr>',   desc = 'obsidian_open' },
       {
         '<leader>wf',
         function()
