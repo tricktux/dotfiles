@@ -1,0 +1,14 @@
+[pyprland]
+plugins = ["scratchpads"]
+
+[scratchpads.term]
+animation = "fromTop"
+command = "kitty --class kitty-scratch"
+class = "kitty-scratch"
+size = "75% 60%"
+
+[scratchpads.browser]
+animation = "fromTop"
+command = "firefox"
+class = "firefox"
+size = "75% 80%"

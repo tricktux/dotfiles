@@ -1,0 +1,160 @@
+{
+    "layer": "top",
+    "position": "bottom",
+    "height": 30,
+    "spacing": 4,
+    "modules-left": ["hyprland/workspaces", "hyprland/mode"],
+    "modules-center": [],
+    "modules-right": [
+        "mpris",
+        "custom/airplane-mode",
+        "network",
+        "custom/wireguard",
+        "custom/nvidia",
+        "custom/pomodoro",
+        "custom/dpms",
+        "pulseaudio",
+        "battery",
+        "disk",
+        "cpu",
+        "memory",
+        "clock"
+    ],
+
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "format": "{name}",
+        "persistent_workspaces": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": [],
+            "6": [],
+            "7": [],
+            "8": [],
+            "9": [],
+            "10": []
+        }
+    },
+
+    "hyprland/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+
+    "mpris": {
+        "format": "🎵 {player_icon} {dynamic}",
+        "format-paused": "🎵 {status_icon} <i>{dynamic}</i>",
+        "player-icons": {
+            "default": "▶",
+            "mpv": "🎵"
+        },
+        "status-icons": {
+            "paused": "⏸"
+        },
+        "ignored-players": ["firefox"]
+    },
+
+    "custom/airplane-mode": {
+        "format": "{}",
+        "exec": "cat /tmp/airplane_mode 2>/dev/null || echo ''",
+        "interval": 5
+    },
+
+    "network": {
+        "format-wifi": "📶 {essid} ({signalStrength}%) {ipaddr}",
+        "format-ethernet": "🔌 {ipaddr}",
+        "tooltip-format": "{ifname} via {gwaddr}",
+        "format-linked": "{ifname} (No IP)",
+        "format-disconnected": "⚠ Disconnected",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+    },
+
+    "custom/wireguard": {
+        "format": "{}",
+        "exec": "~/.config/waybar/scripts/wireguard-status.sh",
+        "interval": 10,
+        "on-click": "sudo systemctl start wg-quick@home.service",
+        "on-click-right": "sudo systemctl stop wg-quick@home.service"
+    },
+
+    "custom/nvidia": {
+        "format": "{}",
+        "exec": "~/.config/waybar/scripts/nvidia-status.sh",
+        "interval": 10
+    },
+
+    "custom/pomodoro": {
+        "format": "{}",
+        "exec": "~/.config/waybar/scripts/pomodoro-status.sh",
+        "interval": 1,
+        "on-click": "~/.config/waybar/scripts/pomodoro-control.sh toggle"
+    },
+
+    "custom/dpms": {
+        "format": "{}",
+        "exec": "~/.config/waybar/scripts/dpms-status.sh",
+        "interval": 60,
+        "on-click": "~/.config/waybar/scripts/dpms-control.sh"
+    },
+
+    "pulseaudio": {
+        "format": "{volume}%",
+        "format-bluetooth": "{volume}% {icon}",
+        "format-bluetooth-muted": " {icon}",
+        "format-muted": "",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "🔋 {capacity}% {time}",
+        "format-charging": "⚡ {capacity}% {time}",
+        "format-plugged": "☻ {capacity}%",
+        "format-alt": "{time} {icon}",
+        "format-full": "☻ {capacity}%",
+        "format-icons": ["", "", "", "", ""]
+    },
+
+    "disk": {
+        "interval": 30,
+        "format": "📂 {free}",
+        "path": "/"
+    },
+
+    "cpu": {
+        "interval": 10,
+        "format": "💻 {load}",
+        "tooltip": false
+    },
+
+    "memory": {
+        "interval": 30,
+        "format": "🛢 {used:0.1f}G",
+        "states": {
+            "warning": 70,
+            "critical": 90
+        }
+    },
+
+    "clock": {
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format": "🗓️ {:%Y-%m-%d %H:%M:%S}",
+        "interval": 1
+    }
+}
