@@ -20,7 +20,7 @@ set cpo&vim
 setlocal tabstop=4
 setlocal shiftwidth=4
 setlocal nospell
-setlocal textwidth=79
+setlocal textwidth=100
 
 function! s:set_omni_mappings() abort
 	" The following commands are contextual, based on the cursor position.
