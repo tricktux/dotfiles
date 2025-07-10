@@ -2,10 +2,6 @@ local log = require('utils.log')
 local utl = require('utils.utils')
 local map = require('mappings')
 
-if vim.g.advanced_plugins == 0 then
-  return {}
-end
-
 local function get_sources_for_filetype(ft)
   local srcs = require('null-ls').get_sources()
   local ret = {}
