@@ -205,11 +205,6 @@ local function get_msbuild()
     return nil
   end
 
-  local args = {}
-  if vim.fn.has('unix') > 0 and msbuild_cmd == 'dotnet' then
-    args = { 'msbuild' }
-  end
-
   return {
     name = 'msbuild',
     filetypes = { 'c', 'cpp', 'cs' },
@@ -219,7 +214,7 @@ local function get_msbuild()
       cwd = function(params)
         return vim.fs.dirname(params.bufname)
       end,
-      args = args,
+      args = msbuild_cmd == 'dotnet' and { 'msbuild' } or {},
       to_stdin = false,
       from_stderr = false,
       format = 'line', -- Process line by line instead of raw
