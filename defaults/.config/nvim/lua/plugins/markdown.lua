@@ -48,18 +48,6 @@ return {
     },
   },
   {
-    'bngarren/checkmate.nvim',
-    ft = 'markdown', -- Lazy loads for Markdown files matching patterns in 'files'
-    opts = {
-      files = { '*' },
-      -- checkmate.Config
-      todo_markers = {
-        unchecked = "[ ]",
-        checked = "[x]",
-      },
-    },
-  },
-  {
     'obsidian-nvim/obsidian.nvim',
     enabled = w.path.personal ~= nil or w.path.work ~= nil,
     ft = { 'markdown', 'org', 'quarto', 'tex' },
