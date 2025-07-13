@@ -30,57 +30,61 @@ alias tar_extract_gz="tar -xzvf"
 alias tar_extract_skip="tar --skip-old-files -xvf"
 
 # ytfzf
-alias ytfzf-tonymcguiness="ytfzf -mr -c youtube-playlist 'https://www.youtube.com/playlist?list=PL6RLee9oArCC9V1FlRexG_6F2KNo143I8'"
-alias ytfzf-noraenpure="ytfzf -mr -c youtube-playlist 'https://www.youtube.com/playlist?list=PL-Wt-lDOPUzHBDXm8ODmax9oHhVX6YtEb'"
-alias ytfzf-liquicityyearmixes="ytfzf -mr -c youtube-playlist 'https://www.youtube.com/playlist?list=PLNE3b80YbdklT_fHeWNw99re6ESyIn4DW'"
-alias ytfzf-cercle="ytfzf -mr -c youtube-playlist 'https://www.youtube.com/playlist?list=PLDitloyBcHOm_Q06fztzSfLp19AJYX141'"
-alias ytfzf-kushsessions="ytfzf -mr -c youtube-playlist 'https://www.youtube.com/playlist?list=PLC419BC3954CB6D58'"
-alias ytfzf-lofi="ytfzf -mr -c youtube-playlist 'https://www.youtube.com/playlist?list=PLzJ-3MmUlWJnglv91qBj8gfSXdAIfj5Y4'"
+if [[ -x /usr/bin/ytfzf ]]; then
+  alias ytfzf-tonymcguiness="ytfzf -mr -c youtube-playlist 'https://www.youtube.com/playlist?list=PL6RLee9oArCC9V1FlRexG_6F2KNo143I8'"
+  alias ytfzf-noraenpure="ytfzf -mr -c youtube-playlist 'https://www.youtube.com/playlist?list=PL-Wt-lDOPUzHBDXm8ODmax9oHhVX6YtEb'"
+  alias ytfzf-liquicityyearmixes="ytfzf -mr -c youtube-playlist 'https://www.youtube.com/playlist?list=PLNE3b80YbdklT_fHeWNw99re6ESyIn4DW'"
+  alias ytfzf-cercle="ytfzf -mr -c youtube-playlist 'https://www.youtube.com/playlist?list=PLDitloyBcHOm_Q06fztzSfLp19AJYX141'"
+  alias ytfzf-kushsessions="ytfzf -mr -c youtube-playlist 'https://www.youtube.com/playlist?list=PLC419BC3954CB6D58'"
+  alias ytfzf-lofi="ytfzf -mr -c youtube-playlist 'https://www.youtube.com/playlist?list=PLzJ-3MmUlWJnglv91qBj8gfSXdAIfj5Y4'"
+fi
 
 alias mv="mv --interactive --verbose"
 alias cp="cp --recursive --interactive --verbose"
 alias mkdir="mkdir --parents --verbose"
 
 # Fix for kitty ssh
-alias ssh="kitty +kitten ssh"
-alias kstt="kitty @set-tab-title"
-alias kswt="kitty @set-window-title"
-alias kitty-save-session=save_kitty_session
-function save_kitty_session() {
-   if [ -z "\$1" ]
-   then
-       echo "Please provide a session name."
-       return 1
-   else
-       kitty @ ls | python ~/.local/bin/kitty-save-session.py > ~/.config/kitty/"$1".kitty
-   fi
-}
+if [[ -f /usr/bin/advcp ]]; then
+  alias cp='advcp -gi'
+  alias mv='advmv -gi'
+fi
 
-# Install
-alias paci="\$HOME/.config/dotfiles/scripts/nix/arch/upkeep.sh -i"
-# Update
-alias pacu="\$HOME/.config/dotfiles/scripts/nix/arch/upkeep.sh -u"
-# Version
-alias pacv="\$aur_helper -Si"
-# Search
-alias pacsf="\$aur_helper -Slq | fzf --multi --preview '\$aur_helper -Si {1}' | xargs -ro \$aur_helper -S"
-alias pacs="\$aur_helper -Ss"
-# Remove
-alias pacr="\$aur_helper -Rscn"
-# Remove only
-alias pacro="\$aur_helper -Rdd"
-alias pacuo="\$aur_helper -Rdd"
-alias pacbroken="\$aur_helper -Qkk"
-# List files of package
-alias pacll="\$aur_helper -Ql"
+if [[ -f /usr/bin/kitty ]]; then
+  alias ssh="kitty +kitten ssh"
+  alias kstt="kitty @set-tab-title"
+  alias kswt="kitty @set-window-title"
+  alias kitty-save-session=save_kitty_session
+  function save_kitty_session() {
+    if [ -z "\$1" ]
+    then
+        echo "Please provide a session name."
+        return 1
+    else
+        kitty @ ls | python ~/.local/bin/kitty-save-session.py > ~/.config/kitty/"$1".kitty
+    fi
+  }
+fi
 
-# git
-alias ga='git add'
-alias gs='git status'
-alias gc='git commit -m'
-alias gps='git push origin master'
-alias gpl='git pull origin master'
-alias glsearch='git log --patch -G '
+
+if [[ -f /usr/bin/paru ]]; then
+  # Install
+  alias paci="\$HOME/.config/dotfiles/scripts/nix/arch/upkeep.sh -i"
+  # Update
+  alias pacu="\$HOME/.config/dotfiles/scripts/nix/arch/upkeep.sh -u"
+  # Version
+  alias pacv="\$aur_helper -Si"
+  # Search
+  alias pacsf="\$aur_helper -Slq | fzf --multi --preview '\$aur_helper -Si {1}' | xargs -ro \$aur_helper -S"
+  alias pacs="\$aur_helper -Ss"
+  # Remove
+  alias pacr="\$aur_helper -Rscn"
+  # Remove only
+  alias pacro="\$aur_helper -Rdd"
+  alias pacuo="\$aur_helper -Rdd"
+  alias pacbroken="\$aur_helper -Qkk"
+  # List files of package
+  alias pacll="\$aur_helper -Ql"
+fi
 
 # network
 # Check opern ports
