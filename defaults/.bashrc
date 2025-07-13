@@ -17,3 +17,6 @@ shopt -s checkwinsize
 
 # Enable vi mode
 set -o vi
+
+[[ -f ~/.zshenv ]] && source ~/.zshenv
+[[ -f ~/.bash_aliases ]] && source ~/.bash_aliases
