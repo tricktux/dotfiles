@@ -189,7 +189,7 @@ FuncPdfReduce() {
 # $@ list of *.jpg first arguments then finally name of output pdf file
 # Depends on imagemagic
 FuncPdfConvert() {
-  convert $@
+  convert "$@"
 }
 
 # Comes from /usr/share/doc/ranger/examples/shell_automatic_cd.sh
