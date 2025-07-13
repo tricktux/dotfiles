@@ -19,7 +19,7 @@ M.opts = {
         local obsidian_utils = require('plugin.obsidian')
         local dailies_path = vim.fs.joinpath(Obsidian.dir.filename, 'dailies')
         local last_date = obsidian_utils.find_last_daily_note(dailies_path)
-        if last_date then
+        if last_date and last_date ~= '' then
           return vim.fs.joinpath('dailies', last_date .. '.md')
         else
           return ''
@@ -31,37 +31,177 @@ M.opts = {
         local dailies_path = vim.fs.joinpath(Obsidian.dir.filename, 'dailies')
         local last_date =
             obsidian_utils.find_last_daily_note(dailies_path, true)
-        if last_date then
+        if last_date and last_date ~= '' then
           return vim.fs.joinpath('dailies', last_date .. '.md')
         else
           return ''
         end
       end,
 
-      -- Link to the last project daily note (for project-daily.md template)
+      -- Link to the last project daily note (updated for nested projects)
       last_project_daily = function(ctx)
         local obsidian_utils = require('plugin.obsidian')
 
-        local project_name = obsidian_utils.get_project_name_from_context(ctx)
-        if not project_name then
+        local project_path = obsidian_utils.get_project_name_from_context(ctx)
+        if not project_path or project_path == '' then
           return ''
         end
 
-        local project_path =
-            vim.fs.joinpath(Obsidian.dir.filename, 'projects', project_name)
-        local last_date = obsidian_utils.find_last_daily_note(project_path)
-        if last_date then
-          return vim.fs.joinpath('projects', project_name, last_date .. '.md')
+        local project_dir =
+            vim.fs.joinpath(Obsidian.dir.filename, 'projects', project_path)
+        local last_date = obsidian_utils.find_last_daily_note(project_dir)
+        if last_date and last_date ~= '' then
+          return vim.fs.joinpath('projects', project_path, last_date .. '.md')
         else
           return ''
         end
       end,
 
-      -- Link to the project main note (for project-daily.md template)
+      -- Link to the project main note (updated for nested projects with verbose naming)
       project_main = function(ctx)
         local obsidian_utils = require('plugin.obsidian')
-        local project_name = obsidian_utils.get_project_name_from_context(ctx)
-        return vim.fs.joinpath('projects', project_name, project_name .. '.md')
+        local project_path = obsidian_utils.get_project_name_from_context(ctx)
+        if not project_path or project_path == '' then
+          return ''
+        end
+
+        -- Use verbose naming for nested projects (e.g., "parent/child" -> "parent-child.md")
+        local verbose_filename = project_path:gsub('/', '-') .. '.md'
+        return vim.fs.joinpath('projects', project_path, verbose_filename)
+      end,
+
+      -- Link to parent project (useful for nested project templates)
+      parent_project = function(ctx)
+        local obsidian_utils = require('plugin.obsidian')
+        local project_path = obsidian_utils.get_project_name_from_context(ctx)
+        if not project_path or project_path == '' then
+          return ''
+        end
+
+        -- Extract parent path (e.g., "parent/child/grandchild" -> "parent/child")
+        local parent_path = project_path:match('(.+)/[^/]+$')
+        if parent_path then
+          local verbose_filename = parent_path:gsub('/', '-') .. '.md'
+          return vim.fs.joinpath('projects', parent_path, verbose_filename)
+        else
+          return '' -- No parent (top-level project)
+        end
+      end,
+
+      -- Get all sibling projects (useful for project navigation)
+      sibling_projects = function(ctx)
+        local obsidian_utils = require('plugin.obsidian')
+        local project_path = obsidian_utils.get_project_name_from_context(ctx)
+        if not project_path or project_path == '' then
+          return ''
+        end
+
+        -- Use cross-platform path operations
+        local parent_path = project_path:match('(.+)/[^/]+$')
+        if not parent_path then
+          return ''
+        end
+
+        local parent_dir =
+            vim.fs.joinpath(Obsidian.dir.filename, 'projects', parent_path)
+        local siblings = {}
+
+        -- Check if directory exists before iterating
+        if vim.fn.isdirectory(parent_dir) == 0 then
+          return ''
+        end
+
+        for name, type in vim.fs.dir(parent_dir) do
+          if type == 'directory' then
+            local sibling_path = parent_path .. '/' .. name -- Keep internal representation as /
+            local verbose_filename = sibling_path:gsub('/', '-') .. '.md'
+            local sibling_file =
+                vim.fs.joinpath(parent_dir, name, verbose_filename)
+
+            if utl.isfile(sibling_file) then
+              -- Use vim.fs.joinpath for cross-platform link generation
+              local link_path =
+                  vim.fs.joinpath('projects', sibling_path, verbose_filename)
+              local sibling_link = '[' .. name .. '](' .. link_path .. ')'
+              table.insert(siblings, sibling_link)
+            end
+          end
+        end
+
+        if #siblings > 0 then
+          return table.concat(siblings, ' • ')
+        else
+          return ''
+        end
+      end,
+
+      -- Get project hierarchy breadcrumbs
+      project_breadcrumbs = function(ctx)
+        local obsidian_utils = require('plugin.obsidian')
+        local project_path = obsidian_utils.get_project_name_from_context(ctx)
+        if not project_path or project_path == '' then
+          return ''
+        end
+
+        local parts = vim.split(project_path, '/')
+        local breadcrumbs = {}
+        local current_path = ''
+
+        for i, part in ipairs(parts) do
+          if i == 1 then
+            current_path = part
+          else
+            current_path = vim.fs.joinpath(current_path, part)
+          end
+
+          local verbose_filename = current_path:gsub('/', '-') .. '.md'
+          local link = '['
+              .. part
+              .. ']('
+              .. vim.fs.joinpath('projects', current_path, verbose_filename)
+              .. ')'
+          table.insert(breadcrumbs, link)
+        end
+
+        return table.concat(breadcrumbs, ' → ')
+      end,
+
+      -- Get child projects (useful for parent project templates)
+      child_projects = function(ctx)
+        local obsidian_utils = require('plugin.obsidian')
+        local project_path = obsidian_utils.get_project_name_from_context(ctx)
+        if not project_path or project_path == '' then
+          return ''
+        end
+
+        local project_dir =
+            vim.fs.joinpath(Obsidian.dir.filename, 'projects', project_path)
+        local children = {}
+
+        -- Find all subdirectories that contain project files
+        for name, type in vim.fs.dir(project_dir) do
+          if type == 'directory' then
+            local child_path = vim.fs.joinpath(project_path, name)
+            local verbose_filename = child_path:gsub('/', '-') .. '.md'
+            local child_file =
+                vim.fs.joinpath(project_dir, name, verbose_filename)
+
+            if utl.isfile(child_file) then
+              local child_link = '['
+                  .. name
+                  .. ']('
+                  .. vim.fs.joinpath('projects', child_path, verbose_filename)
+                  .. ')'
+              table.insert(children, child_link)
+            end
+          end
+        end
+
+        if #children > 0 then
+          return table.concat(children, ' • ')
+        else
+          return ''
+        end
       end,
     },
   },

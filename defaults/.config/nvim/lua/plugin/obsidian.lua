@@ -3,38 +3,51 @@ local log = require('utils.log')
 
 local M = {}
 
--- Extract project name from path or context
+-- Extract project name from path or context (updated for nested projects)
 function M.get_project_name_from_context(ctx)
+  local function extract_project_path(path_str)
+    -- Normalize path separators for cross-platform compatibility
+    local normalized = path_str:gsub('\\', '/')
+
+    -- Try to match nested project paths (deepest first)
+    local match = normalized:match('/projects/([^/]+/[^/]+/[^/]+)/')
+        or normalized:match('/projects/([^/]+/[^/]+)/')
+        or normalized:match('/projects/([^/]+)/')
+    return match
+  end
+
   if ctx.type == 'clone_template' and ctx.destination_path then
     local path_str = tostring(ctx.destination_path)
-    return path_str:match('/projects/([^/]+)/')
+    return extract_project_path(path_str)
   elseif ctx.type == 'insert_template' then
-    -- Try to get project name from current buffer path
     local current_file = vim.api.nvim_buf_get_name(0)
-    return current_file:match('/projects/([^/]+)/')
+    return extract_project_path(current_file)
   end
-  return nil
+  return ''
 end
 
 -- Find the most recent project daily note in a specific project directory
+-- Find the most recent project daily note in a specific project directory
 function M.find_last_daily_note(path, include_today)
   if vim.fn.isdirectory(path) == 0 then
-    return nil
+    return ''
   end
 
   local daily_files = {}
   local today = os.date('%Y-%m-%d') .. '.md'
-  local t = include_today == true
+  local should_include_today = include_today == true
+
   for name, type in vim.fs.dir(path) do
     if type == 'file' and name:match('%d%d%d%d%-%d%d%-%d%d%.md$') then
-      if t or name:match(today) == nil then
+      -- Simple comparison instead of pattern matching
+      if should_include_today or name ~= today then
         table.insert(daily_files, name)
       end
     end
   end
 
   if #daily_files == 0 then
-    return nil
+    return ''
   end
 
   -- Sort by date (filename) in descending order
@@ -43,9 +56,15 @@ function M.find_last_daily_note(path, include_today)
   end)
 
   -- Return the most recent one (first after sorting)
-  local last_file = daily_files[2]
+  local last_file = daily_files[1]
+
+  -- Add safety check in case of unexpected nil
+  if not last_file then
+    return ''
+  end
+
   local date = last_file:match('(%d%d%d%d%-%d%d%-%d%d)%.md$')
-  return date
+  return date or ''
 end
 
 -- Parse calendar output into structured data
@@ -192,7 +211,6 @@ function M.refresh_daily_data()
   local content =
       table.concat(vim.api.nvim_buf_get_lines(bufnr, 0, -1, false), '\n')
 
-
   -- Sync calendars
   local sync_cmd = 'vdirsyncer sync'
   local sync_output = vim.fn.system(sync_cmd)
@@ -258,7 +276,7 @@ local function sanitize_name(name)
   return clean_name, id
 end
 
--- Get list of project directories
+-- Get list of project directories (updated for nested projects)
 local function get_projects()
   local projects_path = vim.fs.joinpath(Obsidian.dir.filename, 'projects')
 
@@ -269,18 +287,53 @@ local function get_projects()
   end
 
   local projects = {}
-  -- Use vim.fs.dir to iterate over directory contents
-  for name, type in vim.fs.dir(projects_path) do
-    if type == 'directory' then
-      table.insert(projects, name)
+
+  -- Recursive function to find projects with depth limit
+  local function find_projects_recursive(path, relative_path, depth)
+    if depth > 3 then
+      return
+    end -- Max 3 levels
+
+    for name, type in vim.fs.dir(path) do
+      if type == 'directory' then
+        local current_path = vim.fs.joinpath(path, name)
+        local current_relative = relative_path
+            and (relative_path .. '/' .. name)
+            or name
+
+        -- Check if this directory contains a project file
+        local project_file_name = current_relative:gsub('/', '-') .. '.md'
+        local project_file_path =
+            vim.fs.joinpath(current_path, project_file_name)
+
+        if utl.isfile(project_file_path) then
+          table.insert(projects, current_relative)
+        end
+
+        -- Recurse into subdirectories
+        find_projects_recursive(current_path, current_relative, depth + 1)
+      end
     end
   end
+
+  find_projects_recursive(projects_path, nil, 1)
 
   return projects
 end
 
+-- Convert project path to tags (e.g., "parent1/child1/child2" -> {"projects", "parent1", "child1", "child2"})
+local function project_path_to_tags(project_path)
+  local tags = { 'projects' }
+  for part in project_path:gmatch('[^/]+') do
+    table.insert(tags, part)
+  end
+  return tags
+end
+
 -- Get the appropriate daily template for a project
-local function get_daily_template(project_name)
+local function get_daily_template(project_path)
+  local project_parts = vim.split(project_path, '/')
+  local project_name = project_parts[#project_parts] -- Get leaf name
   local project_template = 'project-daily-' .. project_name
 
   -- Check if project-specific template exists
@@ -295,7 +348,7 @@ local function get_daily_template(project_name)
   end
 end
 
--- Create a project with additional files
+-- Create a project with additional files (updated for nested projects)
 function M.create_project(full)
   vim.ui.input({ prompt = 'Project name: ' }, function(input_name)
     local clean_name, id = sanitize_name(input_name)
@@ -312,7 +365,7 @@ function M.create_project(full)
       id = id,
       dir = vim.fs.joinpath('projects', id),
       template = 'project-template',
-      tags = {'projects', id},
+      tags = { 'projects', id },
       should_write = true,
     })
 
@@ -329,7 +382,7 @@ function M.create_project(full)
         note.create({
           title = clean_name .. ' ' .. file.title,
           id = id .. '-' .. type,
-          tags = {'projects', id, type },
+          tags = { 'projects', id, type },
           dir = vim.fs.joinpath('projects', id),
           template = file.template,
           should_write = true,
@@ -358,14 +411,162 @@ function M.create_project(full)
 
     if project_note then
       note.open(project_note)
-      print('Created project with structure: ' .. clean_name)
+      print('Created project: ' .. clean_name)
     else
       print('Error creating project')
     end
   end)
 end
 
--- Quick access to today's daily notes across all projects (cross-platform)
+-- Create a nested project with parent selection
+function M.create_nested_project(full)
+  local projects = get_projects()
+
+  if #projects == 0 then
+    print('No existing projects found. Create a top-level project first.')
+    return
+  end
+
+  -- Filter projects that aren't at max depth (3 levels)
+  local available_parents = {}
+  for _, project_path in ipairs(projects) do
+    local depth = select(2, project_path:gsub('/', ''))
+    if depth < 2 then -- Can add children if depth < 2 (so max final depth is 3)
+      table.insert(available_parents, project_path)
+    end
+  end
+
+  if #available_parents == 0 then
+    print('No projects available for nesting (max depth reached)')
+    return
+  end
+
+  -- Use telescope to select parent project
+  local pickers = require('telescope.pickers')
+  local finders = require('telescope.finders')
+  local conf = require('telescope.config').values
+  local actions = require('telescope.actions')
+  local action_state = require('telescope.actions.state')
+
+  pickers
+      .new({}, {
+        prompt_title = 'Select Parent Project',
+        finder = finders.new_table({
+          results = available_parents,
+          entry_maker = function(entry)
+            return {
+              value = entry,
+              display = entry:gsub('/', ' → '), -- Show hierarchy with arrows
+              ordinal = entry,
+            }
+          end,
+        }),
+        sorter = conf.generic_sorter({}),
+        attach_mappings = function(prompt_bufnr, map)
+          actions.select_default:replace(function()
+            actions.close(prompt_bufnr)
+            local selection = action_state.get_selected_entry()
+            if selection then
+              local parent_path = selection.value
+
+              -- Get child project name
+              vim.ui.input(
+                { prompt = 'Child project name: ' },
+                function(input_name)
+                  local clean_name, id = sanitize_name(input_name)
+
+                  if not clean_name then
+                    return
+                  end
+
+                  local note = require 'obsidian.note'
+                  local child_path = parent_path .. '/' .. id
+                  local verbose_id = child_path:gsub('/', '-')
+
+                  -- Create main nested project note
+                  local project_note = note.create({
+                    title = clean_name,
+                    id = verbose_id,
+                    dir = vim.fs.joinpath('projects', child_path),
+                    template = 'project-template',
+                    tags = project_path_to_tags(child_path),
+                    should_write = true,
+                  })
+
+                  if full == true then
+                    -- Create additional project files
+                    local additional_files = {
+                      {
+                        title = 'Presentation',
+                        template = 'project-presentation',
+                      },
+                    }
+
+                    for _, file in ipairs(additional_files) do
+                      local type = string.lower(file.title)
+                      note.create({
+                        title = clean_name .. ' ' .. file.title,
+                        id = verbose_id .. '-' .. type,
+                        tags = vim.tbl_extend(
+                          'force',
+                          project_path_to_tags(child_path),
+                          { type }
+                        ),
+                        dir = vim.fs.joinpath('projects', child_path),
+                        template = file.template,
+                        should_write = true,
+                      })
+                    end
+
+                    -- Copy makefile if it exists
+                    local make_name = 'make.sh'
+                    local make_file = vim.fs.joinpath(
+                      Obsidian.dir.filename,
+                      'templates',
+                      make_name
+                    )
+                    local make_dst = vim.fs.joinpath(
+                      Obsidian.dir.filename,
+                      'projects',
+                      child_path,
+                      make_name
+                    )
+                    if utl.isfile(make_file) == true then
+                      local _, err = vim.uv.fs_copyfile(make_file, make_dst)
+                      if err ~= nil then
+                        print(
+                          "Failed to copy make_file: '"
+                          .. make_file
+                          .. "' to: '"
+                          .. make_dst
+                          .. "'"
+                        )
+                      end
+                    end
+                  end
+
+                  if project_note then
+                    note.open(project_note)
+                    print(
+                      'Created nested project: '
+                      .. parent_path
+                      .. ' → '
+                      .. clean_name
+                    )
+                  else
+                    print('Error creating nested project')
+                  end
+                end
+              )
+            end
+          end)
+          return true
+        end,
+      })
+      :find()
+end
+
+-- Quick access to today's daily notes across all projects (updated for nested projects)
 function M.find_daily_notes()
   local builtin = require('telescope.builtin')
   local date_suffix = os.date('%Y-%m-%d')
@@ -396,7 +597,7 @@ function M.find_daily_notes()
   })
 end
 
--- Fuzzy search all projects (cross-platform)
+-- Fuzzy search all projects (updated for nested projects)
 function M.find_projects()
   local builtin = require('telescope.builtin')
 
@@ -407,7 +608,7 @@ function M.find_projects()
   })
 end
 
--- Rest of the functions remain the same...
+-- Create/open project daily note (updated for nested projects)
 function M.project_daily()
   local projects = get_projects()
 
@@ -428,6 +629,13 @@ function M.project_daily()
         prompt_title = 'Select Project for Daily Note',
         finder = finders.new_table({
           results = projects,
+          entry_maker = function(entry)
+            return {
+              value = entry,
+              display = entry:gsub('/', ' → '), -- Show hierarchy with arrows
+              ordinal = entry,
+            }
+          end,
         }),
         sorter = conf.generic_sorter({}),
         attach_mappings = function(prompt_bufnr, map)
@@ -436,35 +644,46 @@ function M.project_daily()
             local selection = action_state.get_selected_entry()
             if selection then
               local note = require 'obsidian.note'
-              local project_name = selection[1]
+              local project_path = selection.value
+              local project_parts = vim.split(project_path, '/')
+              local project_name = project_parts[#project_parts] -- Get leaf name
               local date_suffix = os.date('%Y-%m-%d')
               local daily_title = project_name
 
               -- Check if daily note already exists
               local daily_path =
-                  vim.fs.joinpath('projects', project_name, date_suffix .. '.md')
+                  vim.fs.joinpath('projects', project_path, date_suffix .. '.md')
               local vault_path = Obsidian.dir.filename
               local full_path = vim.fs.joinpath(vault_path, daily_path)
 
               if utl.isfile(full_path) == true then
                 -- Open existing daily note
                 vim.cmd('edit ' .. full_path)
-                print('Opened existing daily note for ' .. project_name)
+                print(
+                  'Opened existing daily note for '
+                  .. project_path:gsub('/', ' → ')
+                )
               else
                 -- Create new daily note
                 local tn = {
                   title = daily_title,
                   id = date_suffix,
-                  tags = { 'daily-notes', project_name },
-                  dir = vim.fs.joinpath('projects/', project_name),
-                  template = get_daily_template(project_name),
+                  tags = vim.tbl_extend(
+                    'force',
+                    project_path_to_tags(project_path),
+                    { 'daily-notes' }
+                  ),
+                  dir = vim.fs.joinpath('projects', project_path),
+                  template = get_daily_template(project_path),
                   should_write = true,
                 }
                 local daily_note = note.create(tn)
 
                 if daily_note then
                   note.open(daily_note)
-                  print('Created daily note for ' .. project_name)
+                  print(
+                    'Created daily note for ' .. project_path:gsub('/', ' → ')
+                  )
                 else
                   print('Error creating daily note')
                 end
@@ -477,7 +696,7 @@ function M.project_daily()
       :find()
 end
 
--- List project directories and open main project file
+-- List project directories and open main project file (updated for nested projects)
 function M.list_projects()
   local projects_path = vim.fs.joinpath(Obsidian.dir.filename, 'projects')
   local projects = get_projects()
@@ -499,6 +718,13 @@ function M.list_projects()
         prompt_title = 'Select Project',
         finder = finders.new_table({
           results = projects,
+          entry_maker = function(entry)
+            return {
+              value = entry,
+              display = entry:gsub('/', ' → '), -- Show hierarchy with arrows
+              ordinal = entry,
+            }
+          end,
         }),
         sorter = conf.generic_sorter({}),
         attach_mappings = function(prompt_bufnr, map)
@@ -506,12 +732,11 @@ function M.list_projects()
             actions.close(prompt_bufnr)
             local selection = action_state.get_selected_entry()
             if selection then
-              -- Open main project file
-              local project_file = vim.fs.joinpath(
-                projects_path,
-                selection[1],
-                selection[1] .. '.md'
-              )
+              local project_path = selection.value
+              -- Use verbose naming for project file
+              local verbose_name = project_path:gsub('/', '-') .. '.md'
+              local project_file =
+                  vim.fs.joinpath(projects_path, project_path, verbose_name)
               if utl.isfile(project_file) == true then
                 vim.cmd('edit ' .. project_file)
               else
@@ -573,12 +798,18 @@ local function highlight_obsidian_tags(bufnr)
 end
 
 function M.setup()
-  vim.keymap.set('n', '<leader>wpc', function()
+  vim.keymap.set('n', '<leader>wpnc', function()
     M.create_project(false)
   end, { desc = 'Create new project' })
-  vim.keymap.set('n', '<leader>wpf', function()
+  vim.keymap.set('n', '<leader>wpnf', function()
     M.create_project(true)
   end, { desc = 'Create project with full structure' })
+  vim.keymap.set('n', '<leader>wpnn', function()
+    M.create_nested_project(false)
+  end, { desc = 'Create nested project' })
+  vim.keymap.set('n', '<leader>wpnl', function()
+    M.create_nested_project(true)
+  end, { desc = 'Create nested project with full structure' })
   vim.keymap.set('n', '<leader>wpp', function()
     M.list_projects()
   end, { desc = 'List projects' })
