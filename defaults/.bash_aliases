@@ -118,13 +118,20 @@ alias ip='ip -color=auto'
 
 # pdf
 #
-alias pdf_join=FuncPdfJoin
-alias pdf_reduce=FuncPdfReduce
-alias pdf_convert_jpg_pdf=FuncPdfConvert
+if [[ -x /usr/bin/gs ]]; then
+  alias pdf_join=FuncPdfJoin
+  alias pdf_reduce=FuncPdfReduce
+fi
+
+if [[ -x /usr/bin/convert ]]; then
+  alias pdf_convert_jpg_pdf=FuncPdfConvert
+fi
 
 # mutt
-alias neomutt-gmail='neomutt -F ~/.config/neomutt/user.gmail'
-alias neomutt-psu='neomutt -F ~/.config/neomutt/user.psu'
+if [[ -x /usr/bin/neomutt ]]; then
+  alias neomutt-gmail='neomutt -F ~/.config/neomutt/user.gmail'
+  alias neomutt-psu='neomutt -F ~/.config/neomutt/user.psu'
+fi
 
 # Folder
 # UnrealEngineCourse
