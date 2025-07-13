@@ -101,16 +101,10 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 
 # cp and mv
-if [[ -f advcp ]]; then
+if [[ -x /usr/bin/advcp ]]; then
 	alias cp='advcp -gi'
 	alias mv='advmv -gi'
 fi
-
-# cp and mv
-# if [[ -f /usr/bin/rsync ]]; then
-# alias cp='cpr'
-# alias mv='mvr'
-# fi
 
 # Do not wait interval 1 second, go fast #
 alias ping='ping -c 10 -i .2'
@@ -124,14 +118,8 @@ alias grep='grep --color=auto'
 alias ip='ip -color=auto'
 [[ -f /usr/bin/bat ]] && alias cat='bat'
 
-# svn
-alias va='svn add --force'
-alias vs='svn status'
-alias vc='svn commit -m'
-alias svn-checkout=FuncSvnCheckout
-alias svn-create=FuncSvnCreate
-
 # pdf
+#
 alias pdf_join=FuncPdfJoin
 alias pdf_reduce=FuncPdfReduce
 alias pdf_convert_jpg_pdf=FuncPdfConvert
@@ -168,24 +156,12 @@ else
 	## Colorize the ls output ##
 	alias ls='ls --color=auto'
 	## Use a long listing format ##
-	alias ll='ls -la'
+	alias ll='ls -als'
 	## Show hidden files ##
 	alias l.='ls -d .* --color=auto'
 fi
 
 alias shred_dir=FuncShredDir
-alias cmakeclean=FuncCmakeCleanBuild
-
-FuncCmakeCleanBuild() {
-	if [ -d ../build ]; then
-		cd ..
-		rm -rf build
-		mkdir build
-		cd build
-	else
-		echo "build directory DOES NOT exist"
-	fi
-}
 
 FuncShredDir() {
 	find $@ -type f -exec shred -n 12 -u {} \;
@@ -256,21 +232,6 @@ FuncNvim() {
 	else
 		vi "$@"
 	fi
-}
-
-FuncSvnCheckout() {
-	svn co svn+ssh://reinaldo@$server_ip/mnt/hq-storage/1.Myn/svn-server/$1 $2
-}
-
-FuncSvnCreate() {
-	ssh reinaldo@$server_ip mkdir -p /mnt/hq-storage/1.Myn/svn-server/$1 $@
-	ssh reinaldo@$server_ip svnadmin create \
-		/mnt/hq-storage/1.Myn/svn-server/$1 $@
-}
-
-FuncMkcdir() {
-	mkdir -p -- "$1" &&
-		cd -P -- "$1"
 }
 
 # $1 - Name of output file
