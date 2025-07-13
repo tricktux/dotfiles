@@ -295,38 +295,8 @@ local function get_daily_template(project_name)
   end
 end
 
--- Create a new project from template
-function M.create_project()
-  vim.ui.input({ prompt = 'Project name: ' }, function(input_name)
-    local clean_name, id = sanitize_name(input_name)
-
-    if not clean_name then
-      return
-    end
-
-    local note = require 'obsidian.note'
-
-    -- Create the main project note
-    local project_note = note.create({
-      title = clean_name,
-      id = id,
-      dir = vim.fs.joinpath('projects', id),
-      template = 'project-template',
-      should_write = true,
-    })
-
-    if project_note then
-      -- Open the new project note
-      note.open(project_note)
-      print('Created project: ' .. id)
-    else
-      print('Error creating project')
-    end
-  end)
-end
-
 -- Create a project with additional files
-function M.create_project_full()
+function M.create_project(full)
   vim.ui.input({ prompt = 'Project name: ' }, function(input_name)
     local clean_name, id = sanitize_name(input_name)
 
@@ -342,42 +312,47 @@ function M.create_project_full()
       id = id,
       dir = vim.fs.joinpath('projects', id),
       template = 'project-template',
+      tags = {'projects', id},
       should_write = true,
     })
 
-    -- Create additional project files
-    local additional_files = {
-      { title = 'Presentation', template = 'project-presentation' },
-      -- { title = 'Notes',     template = 'project-notes' },
-      -- { title = 'Resources', template = 'project-resources' },
-    }
+    if full == true then
+      -- Create additional project files
+      local additional_files = {
+        { title = 'Presentation', template = 'project-presentation' },
+        -- { title = 'Notes',     template = 'project-notes' },
+        -- { title = 'Resources', template = 'project-resources' },
+      }
 
-    for _, file in ipairs(additional_files) do
-      note.create({
-        title = clean_name .. ' ' .. file.title,
-        id = id .. '-' .. string.lower(file.title),
-        dir = vim.fs.joinpath('projects', id),
-        template = file.template,
-        should_write = true,
-      })
-    end
+      for _, file in ipairs(additional_files) do
+        local type = string.lower(file.title)
+        note.create({
+          title = clean_name .. ' ' .. file.title,
+          id = id .. '-' .. type,
+          tags = {'projects', id, type },
+          dir = vim.fs.joinpath('projects', id),
+          template = file.template,
+          should_write = true,
+        })
+      end
 
-    -- Copy makefile if it exists
-    local make_name = 'make.sh'
-    local make_file =
-        vim.fs.joinpath(Obsidian.dir.filename, 'templates', make_name)
-    local make_dst =
-        vim.fs.joinpath(Obsidian.dir.filename, 'projects', id, make_name)
-    if utl.isfile(make_file) == true then
-      local _, err = vim.uv.fs_copyfile(make_file, make_dst)
-      if err ~= nil then
-        print(
-          "Failed to copy make_file: '"
-          .. make_file
-          .. "' to: '"
-          .. make_dst
-          .. "'"
-        )
+      -- Copy makefile if it exists
+      local make_name = 'make.sh'
+      local make_file =
+          vim.fs.joinpath(Obsidian.dir.filename, 'templates', make_name)
+      local make_dst =
+          vim.fs.joinpath(Obsidian.dir.filename, 'projects', id, make_name)
+      if utl.isfile(make_file) == true then
+        local _, err = vim.uv.fs_copyfile(make_file, make_dst)
+        if err ~= nil then
+          print(
+            "Failed to copy make_file: '"
+            .. make_file
+            .. "' to: '"
+            .. make_dst
+            .. "'"
+          )
+        end
       end
     end
 
@@ -599,10 +574,10 @@ end
 
 function M.setup()
   vim.keymap.set('n', '<leader>wpc', function()
-    M.create_project()
+    M.create_project(false)
   end, { desc = 'Create new project' })
   vim.keymap.set('n', '<leader>wpf', function()
-    M.create_project_full()
+    M.create_project(true)
   end, { desc = 'Create project with full structure' })
   vim.keymap.set('n', '<leader>wpp', function()
     M.list_projects()
