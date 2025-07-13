@@ -271,6 +271,7 @@ function M.create_project()
       id = id,
       dir = vim.fs.joinpath('projects', id),
       template = 'project-template',
+      should_write = true,
     })
 
     if project_note then
@@ -300,6 +301,7 @@ function M.create_project_full()
       id = id,
       dir = vim.fs.joinpath('projects', id),
       template = 'project-template',
+      should_write = true,
     })
 
     -- Create additional project files
@@ -315,6 +317,7 @@ function M.create_project_full()
         id = id .. '-' .. string.lower(file.title),
         dir = vim.fs.joinpath('projects', id),
         template = file.template,
+        should_write = true,
       })
     end
 
@@ -433,12 +436,15 @@ function M.project_daily()
                 print('Opened existing daily note for ' .. project_name)
               else
                 -- Create new daily note
-                local daily_note = client:create_note({
+                local tn = {
                   title = daily_title,
                   id = date_suffix,
+                  tags = { 'daily-notes', project_name },
                   dir = vim.fs.joinpath('projects/', project_name),
                   template = get_daily_template(project_name),
-                })
+                  should_write = true,
+                }
+                local daily_note = note.create(tn)
 
                 if daily_note then
                   note.open(daily_note)
