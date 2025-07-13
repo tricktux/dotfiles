@@ -146,11 +146,6 @@ function M.refresh_daily_data()
   local content =
       table.concat(vim.api.nvim_buf_get_lines(bufnr, 0, -1, false), '\n')
 
-  vim.schedule(
-    function()
-      vim.notify('Refreshing daily data...Please wait...')
-    end
-  )
 
   -- Sync calendars
   local sync_cmd = 'vdirsyncer sync'
