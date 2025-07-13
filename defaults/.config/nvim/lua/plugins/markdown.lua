@@ -53,15 +53,23 @@ return {
     ft = { 'markdown', 'org', 'quarto', 'tex' },
     cmd = { 'Obsidian' },
     keys = {
-      { '<leader>wj', '<cmd>Obsidian today<cr>',     desc = 'obsidian_daily' },
-      { '<leader>wh', '<cmd>Obsidian today -1<cr>', desc = 'obsidian_yesterday' },
-      { '<leader>wl', '<cmd>Obsidian today +1<cr>',  desc = 'obsidian_tomorrow' },
+      { '<leader>wj', '<cmd>Obsidian today<cr>', desc = 'obsidian_daily' },
+      {
+        '<leader>wh',
+        '<cmd>Obsidian today -1<cr>',
+        desc = 'obsidian_yesterday',
+      },
+      {
+        '<leader>wl',
+        '<cmd>Obsidian today +1<cr>',
+        desc = 'obsidian_tomorrow',
+      },
       {
         '<leader>wk',
-        '<cmd>ObsidianQuickSwitch carry.md<cr>',
+        '<cmd>Obsidian quick_switch carry.md<cr>',
         desc = 'obsidian_todo_carry',
       },
-      { '<leader>wa', '<cmd>Obsidian new<cr>',    desc = 'obsidian_new' },
+      { '<leader>wa', '<cmd>Obsidian new<cr>',   desc = 'obsidian_new' },
       {
         '<leader>ww',
         '<cmd>Obsidian workspace<cr>',
