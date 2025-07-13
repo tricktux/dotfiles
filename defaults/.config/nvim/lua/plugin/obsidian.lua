@@ -1,6 +1,52 @@
 local utl = require('utils.utils')
+local log = require('utils.log')
 
 local M = {}
+
+-- Extract project name from path or context
+function M.get_project_name_from_context(ctx)
+  if ctx.type == 'clone_template' and ctx.destination_path then
+    local path_str = tostring(ctx.destination_path)
+    return path_str:match('/projects/([^/]+)/')
+  elseif ctx.type == 'insert_template' then
+    -- Try to get project name from current buffer path
+    local current_file = vim.api.nvim_buf_get_name(0)
+    return current_file:match('/projects/([^/]+)/')
+  end
+  return nil
+end
+
+-- Find the most recent project daily note in a specific project directory
+function M.find_last_daily_note(path, include_today)
+  if vim.fn.isdirectory(path) == 0 then
+    return nil
+  end
+
+  local daily_files = {}
+  local today = os.date('%Y-%m-%d') .. '.md'
+  local t = include_today == true
+  for name, type in vim.fs.dir(path) do
+    if type == 'file' and name:match('%d%d%d%d%-%d%d%-%d%d%.md$') then
+      if t or name:match(today) == nil then
+        table.insert(daily_files, name)
+      end
+    end
+  end
+
+  if #daily_files == 0 then
+    return nil
+  end
+
+  -- Sort by date (filename) in descending order
+  table.sort(daily_files, function(a, b)
+    return a > b
+  end)
+
+  -- Return the most recent one (first after sorting)
+  local last_file = daily_files[2]
+  local date = last_file:match('(%d%d%d%d%-%d%d%-%d%d)%.md$')
+  return date
+end
 
 -- Parse calendar output into structured data
 local function parse_calendar_output(output)
