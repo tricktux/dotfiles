@@ -1,5 +1,7 @@
 local fs = require('utils.utils').fs
 local w = require('plugin.wiki')
+local utl = require('utils.utils')
+local log = require('utils.log')
 
 local M = {}
 
@@ -11,7 +13,57 @@ M.opts = {
     date_format = '%Y-%m-%d',
     time_format = '%H:%M',
     -- A map for custom variables, the key should be the variable and the value a function
-    substitutions = {},
+    substitutions = {
+      -- Link to the last daily note (for daily.md template)
+      last_daily = function(ctx)
+        local obsidian_utils = require('plugin.obsidian')
+        local dailies_path = vim.fs.joinpath(Obsidian.dir.filename, 'dailies')
+        local last_date = obsidian_utils.find_last_daily_note(dailies_path)
+        if last_date then
+          return vim.fs.joinpath('dailies', last_date .. '.md')
+        else
+          return ''
+        end
+      end,
+
+      todays_daily = function(ctx)
+        local obsidian_utils = require('plugin.obsidian')
+        local dailies_path = vim.fs.joinpath(Obsidian.dir.filename, 'dailies')
+        local last_date =
+            obsidian_utils.find_last_daily_note(dailies_path, true)
+        if last_date then
+          return vim.fs.joinpath('dailies', last_date .. '.md')
+        else
+          return ''
+        end
+      end,
+
+      -- Link to the last project daily note (for project-daily.md template)
+      last_project_daily = function(ctx)
+        local obsidian_utils = require('plugin.obsidian')
+
+        local project_name = obsidian_utils.get_project_name_from_context(ctx)
+        if not project_name then
+          return ''
+        end
+
+        local project_path =
+            vim.fs.joinpath(Obsidian.dir.filename, 'projects', project_name)
+        local last_date = obsidian_utils.find_last_daily_note(project_path)
+        if last_date then
+          return vim.fs.joinpath('projects', project_name, last_date .. '.md')
+        else
+          return ''
+        end
+      end,
+
+      -- Link to the project main note (for project-daily.md template)
+      project_main = function(ctx)
+        local obsidian_utils = require('plugin.obsidian')
+        local project_name = obsidian_utils.get_project_name_from_context(ctx)
+        return vim.fs.joinpath('projects', project_name, project_name .. '.md')
+      end,
+    },
   },
   daily_notes = {
     folder = 'dailies',
