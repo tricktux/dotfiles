@@ -15,7 +15,7 @@ alias wget="wget --hsts-file=\"$XDG_DATA_HOME/wget-hsts\""
 alias yarn="yarn --use-yarnrc $XDG_CONFIG_HOME/yarn/config"
 
 # gpg
-alias gpg-encrypt="gpg --encrypt --recipient 3D8AA5DEB1ADAA960488A4ED670B48EF8DF28C77"
+alias gpg-encrypt="gpg --encrypt"
 alias gpg-decrypt="gpg --decrypt"
 
 #ranger
@@ -133,26 +133,6 @@ if [[ -x /usr/bin/neomutt ]]; then
   alias neomutt-psu='neomutt -F ~/.config/neomutt/user.psu'
 fi
 
-# Folder
-# UnrealEngineCourse
-# alias svn-server=\
-# 'cd /home/reinaldo/.mnt/copter-server/mnt/hq-storage/1.Myn/svn-server'
-
-# Mounting remote servers
-# alias mount-truck='sshfs reinaldo@truck-server:/ ~/.mnt/truck-server/'
-# alias mount-copter='sshfs reinaldo@${server_ip}:/ ~/.mnt/copter-server/'
-# alias mount-hq='sshfs reinaldo@HQ:/ ~/.mnt/HQ-server/'
-
-# Misc
-# Removing -2 from tmux in order to get truecolor
-# alias tmux='tmux -f ~/.config/tmux/conf'
-# This is for alt mappings, but it makes zsh hang
-# alias vim='stty -ixon && vim'
-# Reload rxvt and deamon
-# Search help
-# alias help=FuncHelp
-# alias cpstat=FuncCheckCopy
-
 # ls
 if [[ -f exa ]]; then
   alias ll='exa -bghHliSa'
@@ -177,57 +157,7 @@ FuncShredDir() {
 alias df='df -h'
 alias du='du -h'
 
-alias mkcdir=FuncMkcdir
-alias gitup=FuncUpdate
-
 alias pass='EDITOR="nvim --clean" pass'
-
-FuncHelp() {
-  $1 --help 2>&1 | grep $2
-}
-
-FuncCheckCopy() {
-  if [[ $# -lt 1 ]]; then
-    echo "Usage: provide src dir"
-    return
-  fi
-  echo "Calculating size of src folder. Please wait ..."
-  local total=$(nice -n -0 du -mhs $1)
-  # local total=888888888888
-  # echo $total
-  # return
-  while :; do
-    echo "Press [CTRL+C] to stop.."
-    local dst=$(sudo nice -n -20 du -mhs)
-    echo "$dst of $total"
-    sleep 60
-  done
-}
-
-# TODO-[RM]-(Wed Jan 09 2019 20:59):
-# Take care of this
-# Not used as anything else other than reference
-FuncSomethingElseUpdate() {
-  # Get rid of unused packages and optimize first
-  sudo pacman -Sc --noconfirm
-  sudo pacman-optimize
-  # Update list of all installed packages
-  sudo pacman -Qnq >~/.config/dotfiles/$machine.native
-  sudo pacman -Qmq >~/.config/dotfiles/$machine.aur
-  # Tue Sep 26 2017 18:40 Update Mirror list. Depends on `reflector`
-  if hash reflector 2>/dev/null; then
-    sudo reflector --protocol https --latest 30 --number 20 \
-      --sort rate --save /etc/pacman.d/mirrorlist \
-      -c 'United States' --verbose
-  fi
-  # Now update packages
-  # When update fails to verify some <package> do:
-  # update --ignore <package1>,<package2>
-  # Devel is required to update <package-git> stuff
-  trizen -Syyu --devel --noconfirm $@
-  # To install packages from list:
-  # trizen -S - < <pgklist.txt>
-}
 
 FuncNvim() {
   if hash nvim 2>/dev/null; then
@@ -259,21 +189,6 @@ FuncPdfReduce() {
 # Depends on imagemagic
 FuncPdfConvert() {
   convert $@
-}
-
-FuncUpdate() {
-  local local_gits=(~/.config/dotfiles/
-    ~/.password-store/
-    ~/Documents/scripts)
-  for i in ${local_gits[@]}; do
-    if [[ -d $i ]]; then
-      cd $i
-      git pull origin master
-    else
-      echo "Invalid directory: '$i'"
-    fi
-  done
-  cd
 }
 
 # Comes from /usr/share/doc/ranger/examples/shell_automatic_cd.sh
