@@ -55,16 +55,14 @@ if [[ -f /usr/bin/kitty ]]; then
   alias kswt="kitty @set-window-title"
   alias kitty-save-session=save_kitty_session
   function save_kitty_session() {
-    if [ -z "\$1" ]
-    then
-        echo "Please provide a session name."
-        return 1
+    if [ -z "\$1" ]; then
+      echo "Please provide a session name."
+      return 1
     else
-        kitty @ ls | python ~/.local/bin/kitty-save-session.py > ~/.config/kitty/"$1".kitty
+      kitty @ ls | python ~/.local/bin/kitty-save-session.py >~/.config/kitty/"$1".kitty
     fi
   }
 fi
-
 
 if [[ -f /usr/bin/paru ]]; then
   # Install
@@ -102,8 +100,8 @@ alias ....='cd ../../..'
 
 # cp and mv
 if [[ -x /usr/bin/advcp ]]; then
-	alias cp='advcp -gi'
-	alias mv='advmv -gi'
+  alias cp='advcp -gi'
+  alias mv='advmv -gi'
 fi
 
 # Do not wait interval 1 second, go fast #
@@ -150,22 +148,22 @@ alias neomutt-psu='neomutt -F ~/.config/neomutt/user.psu'
 
 # ls
 if [[ -f exa ]]; then
-	alias ll='exa -bghHliSa'
-	alias ls='exa -la'
+  alias ll='exa -bghHliSa'
+  alias ls='exa -la'
 else
-	## Colorize the ls output ##
-	alias ls='ls --color=auto'
-	## Use a long listing format ##
-	alias ll='ls -als'
-	## Show hidden files ##
-	alias l.='ls -d .* --color=auto'
+  ## Colorize the ls output ##
+  alias ls='ls --color=auto'
+  ## Use a long listing format ##
+  alias ll='ls -als'
+  ## Show hidden files ##
+  alias l.='ls -d .* --color=auto'
 fi
 
 alias shred_dir=FuncShredDir
 
 FuncShredDir() {
-	find $@ -type f -exec shred -n 12 -u {} \;
-	rm -r $@
+  find $@ -type f -exec shred -n 12 -u {} \;
+  rm -r $@
 }
 
 # Default to human readable figures
@@ -178,114 +176,114 @@ alias gitup=FuncUpdate
 alias pass='EDITOR="nvim --clean" pass'
 
 FuncHelp() {
-	$1 --help 2>&1 | grep $2
+  $1 --help 2>&1 | grep $2
 }
 
 FuncCheckCopy() {
-	if [[ $# -lt 1 ]]; then
-		echo "Usage: provide src dir"
-		return
-	fi
-	echo "Calculating size of src folder. Please wait ..."
-	local total=$(nice -n -0 du -mhs $1)
-	# local total=888888888888
-	# echo $total
-	# return
-	while :; do
-		echo "Press [CTRL+C] to stop.."
-		local dst=$(sudo nice -n -20 du -mhs)
-		echo "$dst of $total"
-		sleep 60
-	done
+  if [[ $# -lt 1 ]]; then
+    echo "Usage: provide src dir"
+    return
+  fi
+  echo "Calculating size of src folder. Please wait ..."
+  local total=$(nice -n -0 du -mhs $1)
+  # local total=888888888888
+  # echo $total
+  # return
+  while :; do
+    echo "Press [CTRL+C] to stop.."
+    local dst=$(sudo nice -n -20 du -mhs)
+    echo "$dst of $total"
+    sleep 60
+  done
 }
 
 # TODO-[RM]-(Wed Jan 09 2019 20:59):
 # Take care of this
 # Not used as anything else other than reference
 FuncSomethingElseUpdate() {
-	# Get rid of unused packages and optimize first
-	sudo pacman -Sc --noconfirm
-	sudo pacman-optimize
-	# Update list of all installed packages
-	sudo pacman -Qnq >~/.config/dotfiles/$machine.native
-	sudo pacman -Qmq >~/.config/dotfiles/$machine.aur
-	# Tue Sep 26 2017 18:40 Update Mirror list. Depends on `reflector`
-	if hash reflector 2>/dev/null; then
-		sudo reflector --protocol https --latest 30 --number 20 \
-			--sort rate --save /etc/pacman.d/mirrorlist \
-			-c 'United States' --verbose
-	fi
-	# Now update packages
-	# When update fails to verify some <package> do:
-	# update --ignore <package1>,<package2>
-	# Devel is required to update <package-git> stuff
-	trizen -Syyu --devel --noconfirm $@
-	# To install packages from list:
-	# trizen -S - < <pgklist.txt>
+  # Get rid of unused packages and optimize first
+  sudo pacman -Sc --noconfirm
+  sudo pacman-optimize
+  # Update list of all installed packages
+  sudo pacman -Qnq >~/.config/dotfiles/$machine.native
+  sudo pacman -Qmq >~/.config/dotfiles/$machine.aur
+  # Tue Sep 26 2017 18:40 Update Mirror list. Depends on `reflector`
+  if hash reflector 2>/dev/null; then
+    sudo reflector --protocol https --latest 30 --number 20 \
+      --sort rate --save /etc/pacman.d/mirrorlist \
+      -c 'United States' --verbose
+  fi
+  # Now update packages
+  # When update fails to verify some <package> do:
+  # update --ignore <package1>,<package2>
+  # Devel is required to update <package-git> stuff
+  trizen -Syyu --devel --noconfirm $@
+  # To install packages from list:
+  # trizen -S - < <pgklist.txt>
 }
 
 FuncNvim() {
-	if hash nvim 2>/dev/null; then
-		nvim "$@"
-	elif hash vim 2>/dev/null; then
-		vim "$@"
-	else
-		vi "$@"
-	fi
+  if hash nvim 2>/dev/null; then
+    nvim "$@"
+  elif hash vim 2>/dev/null; then
+    vim "$@"
+  else
+    vi "$@"
+  fi
 }
 
 # $1 - Name of output file
 # $@ - Name of pdf files to join
 # gs = ghostscript (dependency)
 FuncPdfJoin() {
-	gs -q -sPAPERSIZE=a4 -dNOPAUSE -dBATCH \
-		-sDEVICE=pdfwrite -sOutputFile=$1 $@
+  gs -q -sPAPERSIZE=a4 -dNOPAUSE -dBATCH \
+    -sDEVICE=pdfwrite -sOutputFile=$1 $@
 }
 
 # $1 - Name of output file
 # $@ - Name of pdf file to reduce
 # gs = ghostscript (dependency)
 FuncPdfReduce() {
-	gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 \
-        -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET \
-        -dBATCH -sOutputFile="$1" "$@"
+  gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 \
+    -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET \
+    -dBATCH -sOutputFile="$1" "$@"
 }
 # $@ list of *.jpg first arguments then finally name of output pdf file
 # Depends on imagemagic
 FuncPdfConvert() {
-	convert $@
+  convert $@
 }
 
 FuncUpdate() {
-	local local_gits=(~/.config/dotfiles/
-		~/.password-store/
-		~/Documents/scripts)
-	for i in ${local_gits[@]}; do
-		if [[ -d $i ]]; then
-			cd $i
-			git pull origin master
-		else
-			echo "Invalid directory: '$i'"
-		fi
-	done
-	cd
+  local local_gits=(~/.config/dotfiles/
+    ~/.password-store/
+    ~/Documents/scripts)
+  for i in ${local_gits[@]}; do
+    if [[ -d $i ]]; then
+      cd $i
+      git pull origin master
+    else
+      echo "Invalid directory: '$i'"
+    fi
+  done
+  cd
 }
 
 # Comes from /usr/share/doc/ranger/examples/shell_automatic_cd.sh
 ranger_cd() {
-    temp_file="$(mktemp -t "ranger_cd.XXXXXXXXXX")"
-    ranger --choosedir="$temp_file" -- "${@:-$PWD}"
-    if chosen_dir="$(cat -- "$temp_file")" && [ -n "$chosen_dir" ] && [ "$chosen_dir" != "$PWD" ]; then
+  temp_file="$(mktemp -t "ranger_cd.XXXXXXXXXX")"
+  ranger --choosedir="$temp_file" -- "${@:-$PWD}"
+  if chosen_dir="$(cat -- "$temp_file")" && [ -n "$chosen_dir" ] && [ "$chosen_dir" != "$PWD" ]; then
     cd -- "$chosen_dir"
-    fi
-    rm -f -- "$temp_file"
+  fi
+  rm -f -- "$temp_file"
 }
 
 # mylist.txt looks like this:
 # file '<relative/full file name.mp4>'
 # file '<relative/full file name.mp4>'
 FuncFfmpegConcat() {
-	ffmpeg -f concat -safe 0 -i mylist.txt -c copy output.mp4
+  ffmpeg -f concat -safe 0 -i mylist.txt -c copy output.mp4
 }
 
 bkp() {
@@ -295,7 +293,7 @@ bkp() {
   fi
 
   if [ -e "$1" ]; then
-    cp "$1"{,.bkp.`date +%s`}
+    cp "$1"{,.bkp.$(date +%s)}
   else
     echo "Error: $1 is not a directory."
     return 1
