@@ -8,18 +8,19 @@
 # alias update='sudo apt update'
 
 machine=$(hostname)
-server_ip='192.168.128.128'
 aur_helper='paru'
 
-alias wget="wget --hsts-file=\"$XDG_DATA_HOME/wget-hsts\""
-alias yarn="yarn --use-yarnrc $XDG_CONFIG_HOME/yarn/config"
+[[ -x /usr/bin/wget ]] && alias wget="wget --hsts-file=\"$XDG_DATA_HOME/wget-hsts\""
+[[ -x /usr/bin/yarn ]] && alias yarn="yarn --use-yarnrc $XDG_CONFIG_HOME/yarn/config"
 
 # gpg
-alias gpg-encrypt="gpg --encrypt"
-alias gpg-decrypt="gpg --decrypt"
+if [[ -x /usr/bin/gpg ]]; then
+  alias gpg-encrypt="gpg --encrypt"
+  alias gpg-decrypt="gpg --decrypt"
+fi
 
 #ranger
-alias r=ranger_cd
+[[ -x /usr/bin/ranger ]] && alias r=ranger_cd
 
 #tar
 alias tar_create="tar -cvf"
