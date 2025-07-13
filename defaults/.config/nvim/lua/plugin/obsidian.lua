@@ -197,11 +197,6 @@ function M.refresh_daily_data()
   print('Daily data refreshed!')
 end
 
--- Get the obsidian client
-local function get_obsidian_client()
-  return require('obsidian').get_client()
-end
-
 -- Sanitize name and create ID
 local function sanitize_name(name)
   if not name or name == '' then
@@ -224,8 +219,7 @@ end
 
 -- Get list of project directories
 local function get_projects()
-  local client = get_obsidian_client()
-  local projects_path = vim.fs.joinpath(client.dir.filename, 'projects')
+  local projects_path = vim.fs.joinpath(Obsidian.dir.filename, 'projects')
 
   -- Check if projects directory exists
   if vim.fn.isdirectory(projects_path) == 0 then
@@ -246,11 +240,10 @@ end
 
 -- Get the appropriate daily template for a project
 local function get_daily_template(project_name)
-  local client = get_obsidian_client()
   local project_template = 'project-daily-' .. project_name
 
   -- Check if project-specific template exists
-  local templates_path = vim.fs.joinpath(client.dir.filename, 'templates')
+  local templates_path = vim.fs.joinpath(Obsidian.dir.filename, 'templates')
   local project_template_file =
       vim.fs.joinpath(templates_path, project_template .. '.md')
 
@@ -270,10 +263,10 @@ function M.create_project()
       return
     end
 
-    local client = get_obsidian_client()
+    local note = require 'obsidian.note'
 
     -- Create the main project note
-    local project_note = client:create_note({
+    local project_note = note.create({
       title = clean_name,
       id = id,
       dir = vim.fs.joinpath('projects', id),
@@ -282,7 +275,7 @@ function M.create_project()
 
     if project_note then
       -- Open the new project note
-      client:open_note(project_note)
+      note.open(project_note)
       print('Created project: ' .. id)
     else
       print('Error creating project')
@@ -299,10 +292,10 @@ function M.create_project_full()
       return
     end
 
-    local client = get_obsidian_client()
+    local note = require 'obsidian.note'
 
     -- Create main project note. Directories will be created by obsidian
-    local project_note = client:create_note({
+    local project_note = note.create({
       title = clean_name,
       id = id,
       dir = vim.fs.joinpath('projects', id),
@@ -317,7 +310,7 @@ function M.create_project_full()
     }
 
     for _, file in ipairs(additional_files) do
-      client:create_note({
+      note.create({
         title = clean_name .. ' ' .. file.title,
         id = id .. '-' .. string.lower(file.title),
         dir = vim.fs.joinpath('projects', id),
@@ -328,9 +321,9 @@ function M.create_project_full()
     -- Copy makefile if it exists
     local make_name = 'make.sh'
     local make_file =
-        vim.fs.joinpath(client.dir.filename, 'templates', make_name)
+        vim.fs.joinpath(Obsidian.dir.filename, 'templates', make_name)
     local make_dst =
-        vim.fs.joinpath(client.dir.filename, 'projects', id, make_name)
+        vim.fs.joinpath(Obsidian.dir.filename, 'projects', id, make_name)
     if utl.isfile(make_file) == true then
       local _, err = vim.uv.fs_copyfile(make_file, make_dst)
       if err ~= nil then
@@ -345,7 +338,7 @@ function M.create_project_full()
     end
 
     if project_note then
-      client:open_note(project_note)
+      note.open(project_note)
       print('Created project with structure: ' .. clean_name)
     else
       print('Error creating project')
@@ -355,10 +348,9 @@ end
 
 -- Quick access to today's daily notes across all projects (cross-platform)
 function M.find_daily_notes()
-  local client = get_obsidian_client()
   local builtin = require('telescope.builtin')
   local date_suffix = os.date('%Y-%m-%d')
-  local projects_path = vim.fs.joinpath(client.dir.filename, 'projects')
+  local projects_path = vim.fs.joinpath(Obsidian.dir.filename, 'projects')
 
   -- Find all daily notes for today using vim.fs.find
   local daily_files = vim.fs.find(function(name, type)
@@ -387,12 +379,11 @@ end
 
 -- Fuzzy search all projects (cross-platform)
 function M.find_projects()
-  local client = get_obsidian_client()
   local builtin = require('telescope.builtin')
 
   builtin.find_files({
     prompt_title = 'Find Projects',
-    search_dirs = { vim.fs.joinpath(client.dir.filename, 'projects') },
+    search_dirs = { vim.fs.joinpath(Obsidian.dir.filename, 'projects') },
     find_command = { 'rg', '--files', '--glob', '*.md' },
   })
 end
@@ -425,15 +416,15 @@ function M.project_daily()
             actions.close(prompt_bufnr)
             local selection = action_state.get_selected_entry()
             if selection then
+              local note = require 'obsidian.note'
               local project_name = selection[1]
-              local client = get_obsidian_client()
               local date_suffix = os.date('%Y-%m-%d')
               local daily_title = project_name
 
               -- Check if daily note already exists
               local daily_path =
                   vim.fs.joinpath('projects', project_name, date_suffix .. '.md')
-              local vault_path = client.dir.filename
+              local vault_path = Obsidian.dir.filename
               local full_path = vim.fs.joinpath(vault_path, daily_path)
 
               if utl.isfile(full_path) == true then
@@ -450,7 +441,7 @@ function M.project_daily()
                 })
 
                 if daily_note then
-                  client:open_note(daily_note)
+                  note.open(daily_note)
                   print('Created daily note for ' .. project_name)
                 else
                   print('Error creating daily note')
@@ -466,8 +457,7 @@ end
 
 -- List project directories and open main project file
 function M.list_projects()
-  local client = get_obsidian_client()
-  local projects_path = vim.fs.joinpath(client.dir.filename, 'projects')
+  local projects_path = vim.fs.joinpath(Obsidian.dir.filename, 'projects')
   local projects = get_projects()
 
   if #projects == 0 then

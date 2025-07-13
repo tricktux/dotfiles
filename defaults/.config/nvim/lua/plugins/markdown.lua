@@ -72,18 +72,13 @@ return {
       {
         '<leader>wf',
         function()
-          local c = require('obsidian').get_client()
-          fs.path.fuzzer(c:vault_root().filename)
+          fs.path.fuzzer(Obsidian.dir.filename)
         end,
         desc = 'obsidian_fuzzy',
       },
       {
         '<leader>wt',
-        function()
-          local c = require('obsidian').get_client()
-          -- TODO: set arguments
-          print(vim.inspect(c:list_tags()))
-        end,
+        '<cmd>Obsidian tags<cr>',
         desc = 'obsidian_tags',
       },
     },
