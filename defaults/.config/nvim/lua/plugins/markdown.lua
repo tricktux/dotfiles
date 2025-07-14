@@ -267,6 +267,7 @@ return {
         '<cmd>Obsidian workspace<cr>',
         desc = 'obsidian_list_workspace',
       },
+      { '<leader>wb', '<cmd>Obsidian backlinks<cr>', desc = 'obsidian_backlinks' },
       { '<leader>ws', '<cmd>Obsidian search<cr>', desc = 'obsidian_search' },
       { '<leader>wo', '<cmd>Obsidian open<cr>',   desc = 'obsidian_open' },
       {
