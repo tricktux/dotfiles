@@ -118,24 +118,36 @@ return {
         key = 'o',
       },
       {
-        desc = '󰊳 Update',
-        group = '@markup.heading.2.markdown',
-        action = 'Lazy update',
-        key = 'u',
-      },
-      {
         icon = ' ',
         icon_hl = '@variable',
-        desc = 'Sessions',
-        group = '@markup.heading.3.markdown',
+        desc = ' Sessions',
+        group = '@markup.heading.2.markdown',
         action = 'TelescopeSessions',
         key = 's',
       },
       {
+        desc = ' oldfiles',
+        group = '@markup.heading.3.markdown',
+        action = 'Telescope oldfiles',
+        key = 'f',
+      },
+      {
         desc = ' dotfiles',
-        group = '@markup.heading.5.markdown',
+        group = '@markup.heading.4.markdown',
         action = 'Telescope find_files cwd=' .. dotfiles_path,
         key = 'd',
+      },
+      {
+        desc = '󰊳 Update',
+        group = '@markup.heading.5.markdown',
+        action = 'Lazy update',
+        key = 'u',
+      },
+      {
+        desc = ' quit',
+        group = '@markup.heading.6.markdown',
+        action = 'quit',
+        key = 'q',
       },
     }
 
