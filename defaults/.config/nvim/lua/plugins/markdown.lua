@@ -8,6 +8,7 @@ local M = {}
 M.opts = {
   legacy_commands = false,
   workspaces = {},
+  footer = { enabled = false },
   templates = {
     folder = 'templates',
     date_format = '%Y-%m-%d',
