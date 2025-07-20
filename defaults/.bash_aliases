@@ -44,7 +44,10 @@ alias mv="mv --interactive --verbose"
 alias cp="cp --recursive --interactive --verbose"
 alias mkdir="mkdir --parents --verbose"
 
-# Fix for kitty ssh
+if [[ -f /usr/bin/todo ]]; then
+  alias todomine='vdirsyncer sync && todo list --sort -due,priority --due 72'
+fi
+
 if [[ -f /usr/bin/advcp ]]; then
   alias cp='advcp -gi'
   alias mv='advmv -gi'
