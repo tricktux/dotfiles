@@ -48,6 +48,10 @@ if [[ -f /usr/bin/todo ]]; then
   alias todomine='vdirsyncer sync && todo list --sort -due,priority --due 72'
 fi
 
+if [[ -f /usr/bin/khal ]]; then
+  alias cal='vdirsyncer sync && khal list --format "{start-date-long} {start-time} {title}" --day-format "" today 7d'
+fi
+
 if [[ -f /usr/bin/advcp ]]; then
   alias cp='advcp -gi'
   alias mv='advmv -gi'
