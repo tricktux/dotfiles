@@ -239,7 +239,6 @@ function write_to_backlog(collected_tasks)
         for _, context_line in ipairs(context) do
           table.insert(final_content, context_line)
         end
-        table.insert(final_content, '')
       end
     end
   end
@@ -255,12 +254,5 @@ function write_to_backlog(collected_tasks)
   end
   file:close()
 end
-
--- Create the command
-vim.api.nvim_create_user_command('ObsidianCollectTasks', function()
-  M.collect_tasks()
-end, {
-  desc = 'Collect uncompleted tasks from daily files to backlog',
-})
 
 return M
