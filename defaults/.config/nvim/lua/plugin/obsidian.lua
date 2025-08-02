@@ -826,6 +826,11 @@ function M.setup()
     M.refresh_daily_data()
   end, { desc = 'Refresh daily calendar and todos' })
 
+  vim.api.nvim_create_user_command('ObsidianCollectTasks', function()
+    require('plugin.tasks').collect_tasks()
+  end, {
+    desc = 'Collect uncompleted tasks from daily files to backlog',
+  })
   -- Set up autocmds for markdown files
   vim.api.nvim_create_autocmd(
     { 'BufEnter', 'BufWritePost', 'TextChanged', 'TextChangedI' },
