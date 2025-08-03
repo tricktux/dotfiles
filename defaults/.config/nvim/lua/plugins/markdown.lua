@@ -123,14 +123,14 @@ M.opts = {
               -- Use vim.fs.joinpath for cross-platform link generation
               local link_path =
                   vim.fs.joinpath('projects', sibling_path, verbose_filename)
-              local sibling_link = '[' .. name .. '](' .. link_path .. ')'
+              local sibling_link = '- [' .. name .. '](' .. link_path .. ')'
               table.insert(siblings, sibling_link)
             end
           end
         end
 
         if #siblings > 0 then
-          return table.concat(siblings, ' • ')
+          return '\n  ' .. table.concat(siblings, '\n  ')
         else
           return ''
         end
@@ -188,7 +188,7 @@ M.opts = {
                 vim.fs.joinpath(project_dir, name, verbose_filename)
 
             if utl.isfile(child_file) then
-              local child_link = '['
+              local child_link = '- ['
                   .. name
                   .. ']('
                   .. vim.fs.joinpath('projects', child_path, verbose_filename)
@@ -199,7 +199,7 @@ M.opts = {
         end
 
         if #children > 0 then
-          return table.concat(children, ' • ')
+          return '\n  ' .. table.concat(children, '\n  ')
         else
           return ''
         end
