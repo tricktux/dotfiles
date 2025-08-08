@@ -16,6 +16,7 @@ automake
 baobab
 base
 bat
+bind
 binutils
 bison
 blueman
@@ -23,6 +24,7 @@ bluez
 boost
 boost-libs
 bottom
+caddy
 capitaine-cursors
 ccache
 cdrtools
@@ -170,6 +172,8 @@ nvidia-lts
 nvidia-settings
 nvtop
 obsidian
+ollama
+ollama-cuda
 opencl-nvidia
 otf-cascadia-code
 otf-fira-mono
@@ -260,7 +264,6 @@ tree-sitter-cli
 ttf-cascadia-code
 ttf-fira-code
 ttf-fira-mono
-ttf-font-awesome
 ttf-inconsolata
 ttf-inconsolata-nerd
 ttf-iosevka-nerd
@@ -285,6 +288,7 @@ whipper
 wireguard-tools
 wireless_tools
 wireshark-qt
+woff2-font-awesome
 words
 wpa_supplicant
 xclip
