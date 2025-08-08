@@ -1,3 +1,4 @@
+7zip
 acpi
 adapta-gtk-theme
 alsa-utils
@@ -23,7 +24,6 @@ blueman
 bluez
 boost
 boost-libs
-bottom
 caddy
 capitaine-cursors
 ccache
@@ -44,7 +44,6 @@ cups
 cups-pdf
 dhcpcd
 dialog
-discord
 docker
 docker-compose
 dosfstools
@@ -76,11 +75,9 @@ gdb
 gettext
 ghostscript
 git
-github-cli
 global
 gnome-disk-utility
 gnome-keyring
-go
 goimapnotify
 google-glog
 gperf
@@ -283,7 +280,6 @@ w3m
 wavpack
 websocketpp
 wget
-which
 whipper
 wireguard-tools
 wireless_tools
