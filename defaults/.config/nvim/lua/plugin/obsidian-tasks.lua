@@ -1,18 +1,42 @@
 local M = {}
 
--- Main function to collect tasks from daily files
+-- Main function to collect tasks from all markdown files in current buffer's directory
 function M.collect_tasks()
-  local current_dir = vim.fn.getcwd()
-  local cache_dir = vim.fn.stdpath('cache') .. '/dailies'
+  -- Get the directory of the current buffer instead of cwd
+  local current_file = vim.api.nvim_buf_get_name(0)
+  if current_file == '' then
+    vim.notify('No file in current buffer', vim.log.levels.WARN)
+    return
+  end
+
+  local current_dir = vim.fn.fnamemodify(current_file, ':h')
+  local cache_dir = vim.fs.joinpath(vim.fn.stdpath('cache'), 'dailies')
 
   -- Create cache directory if it doesn't exist
   vim.fn.mkdir(cache_dir, 'p')
 
-  -- Find all daily files in current directory
-  local daily_files = vim.fn.glob('????-??-??.md', false, true)
+  -- Get today's date to exclude it
+  local today = os.date('%Y-%m-%d') .. '.md'
 
-  if #daily_files == 0 then
-    vim.notify('No daily files found in current directory', vim.log.levels.WARN)
+  -- Find all .md files in current buffer's directory
+  -- Use vim.fn.glob with proper path joining for cross-platform compatibility
+  local glob_pattern = vim.fs.joinpath(current_dir, '*.md')
+  local all_files = vim.fn.glob(glob_pattern, false, true)
+
+  local files_to_process = {}
+
+  for _, filepath in ipairs(all_files) do
+    local filename = vim.fn.fnamemodify(filepath, ':t')
+    if filename ~= today and filename ~= 'backlog.md' then
+      table.insert(files_to_process, filepath)
+    end
+  end
+
+  if #files_to_process == 0 then
+    vim.notify(
+      'No files to process in current directory (excluding today)',
+      vim.log.levels.WARN
+    )
     return
   end
 
@@ -20,25 +44,27 @@ function M.collect_tasks()
   local processed_files = 0
   local total_tasks = 0
 
-  -- Process each daily file
-  for _, filename in ipairs(daily_files) do
-    local date = filename:match('^(%d%d%d%d%-%d%d%-%d%d)%.md$')
+  -- Process each file
+  for _, filepath in ipairs(files_to_process) do
+    local filename = vim.fn.fnamemodify(filepath, ':t')
+    -- Try to extract date from filename, otherwise use filename without extension
+    local file_key = filename:match('^(%d%d%d%d%-%d%d%-%d%d)%.md$')
+        or filename:match('^(.+)%.md$')
+        or filename
 
-    if date then
-      local success, tasks_found =
-          pcall(process_daily_file, filename, date, cache_dir, collected_tasks)
-      if not success then
-        vim.notify(
-          'Error processing ' .. filename .. ': ' .. tasks_found,
-          vim.log.levels.ERROR
-        )
-        return
-      end
+    local success, tasks_found =
+        pcall(process_file, filepath, file_key, cache_dir, collected_tasks)
+    if not success then
+      vim.notify(
+        'Error processing ' .. filename .. ': ' .. tasks_found,
+        vim.log.levels.ERROR
+      )
+      return
+    end
 
-      if tasks_found > 0 then
-        processed_files = processed_files + 1
-        total_tasks = total_tasks + tasks_found
-      end
+    if tasks_found > 0 then
+      processed_files = processed_files + 1
+      total_tasks = total_tasks + tasks_found
     end
   end
 
@@ -54,21 +80,22 @@ function M.collect_tasks()
   -- Show summary
   vim.notify(
     string.format(
-      'Collected %d tasks from %d files',
+      'Collected %d tasks from %d files in %s (excluding today)',
       total_tasks,
-      processed_files
+      processed_files,
+      vim.fn.fnamemodify(current_dir, ':t')
     ),
     vim.log.levels.INFO
   )
 end
 
--- Process a single daily file
-function process_daily_file(filename, date, cache_dir, collected_tasks)
+-- Process a single file (updated to handle full file paths)
+function process_file(filepath, file_key, cache_dir, collected_tasks)
   -- Read file content
   local lines = {}
-  local file = io.open(filename, 'r')
+  local file = io.open(filepath, 'r')
   if not file then
-    error('Could not read file: ' .. filename)
+    error('Could not read file: ' .. filepath)
   end
 
   for line in file:lines() do
@@ -80,8 +107,9 @@ function process_daily_file(filename, date, cache_dir, collected_tasks)
     return 0
   end
 
-  -- Create backup
-  local backup_path = cache_dir .. '/' .. filename
+  -- Create backup using proper path joining
+  local filename = vim.fn.fnamemodify(filepath, ':t')
+  local backup_path = vim.fs.joinpath(cache_dir, filename)
   local backup_file = io.open(backup_path, 'w')
   if not backup_file then
     error('Could not create backup file: ' .. backup_path)
@@ -111,13 +139,13 @@ function process_daily_file(filename, date, cache_dir, collected_tasks)
         table.insert(context_lines, lines[j])
       end
 
-      -- Store context for this date
-      if not collected_tasks[date] then
-        collected_tasks[date] = {}
+      -- Store context for this file_key
+      if not collected_tasks[file_key] then
+        collected_tasks[file_key] = {}
       end
-      table.insert(collected_tasks[date], context_lines)
+      table.insert(collected_tasks[file_key], context_lines)
 
-      -- Mark ALL tasks within the context as processed (this is the key fix)
+      -- Mark ALL tasks within the context as processed
       for j = context_start, context_end do
         if lines[j]:match('%- %[ %]') then
           lines[j] = lines[j]:gsub('%- %[ %]', '- [>]')
@@ -129,9 +157,9 @@ function process_daily_file(filename, date, cache_dir, collected_tasks)
 
   -- Write modified file if we found tasks
   if modified then
-    local file = io.open(filename, 'w')
+    local file = io.open(filepath, 'w')
     if not file then
-      error('Could not write to file: ' .. filename)
+      error('Could not write to file: ' .. filepath)
     end
 
     for _, line in ipairs(lines) do
@@ -167,29 +195,46 @@ function find_context_end(lines, task_line)
   return #lines -- End of file
 end
 
--- Write contexts to backlog file
+-- Write contexts to backlog file (updated to handle non-date keys)
 function write_to_backlog(collected_tasks)
-  local backlog_path = 'backlog.md'
+  -- Get backlog path in the same directory as current buffer
+  local current_file = vim.api.nvim_buf_get_name(0)
+  local current_dir = vim.fn.fnamemodify(current_file, ':h')
+  local backlog_path = vim.fs.joinpath(current_dir, 'backlog.md')
 
-  -- Sort dates (oldest first)
-  local sorted_dates = {}
-  for date, _ in pairs(collected_tasks) do
-    table.insert(sorted_dates, date)
+  -- Sort keys (dates first, then alphabetical for other files)
+  local sorted_keys = {}
+  for key, _ in pairs(collected_tasks) do
+    table.insert(sorted_keys, key)
   end
-  table.sort(sorted_dates)
+
+  table.sort(sorted_keys, function(a, b)
+    local a_is_date = a:match('^%d%d%d%d%-%d%d%-%d%d$')
+    local b_is_date = b:match('^%d%d%d%d%-%d%d%-%d%d$')
+
+    if a_is_date and b_is_date then
+      return a < b -- Sort dates chronologically
+    elseif a_is_date and not b_is_date then
+      return true  -- Dates come first
+    elseif not a_is_date and b_is_date then
+      return false -- Dates come first
+    else
+      return a < b -- Sort non-dates alphabetically
+    end
+  end)
 
   -- Read existing backlog content
   local existing_content = {}
-  local existing_dates = {}
+  local existing_keys = {}
 
   local backlog_file = io.open(backlog_path, 'r')
   if backlog_file then
     for line in backlog_file:lines() do
       table.insert(existing_content, line)
-      -- Track existing date headers
-      local date_match = line:match('^## (%d%d%d%d%-%d%d%-%d%d)$')
-      if date_match then
-        existing_dates[date_match] = #existing_content
+      -- Track existing headers (both date and non-date)
+      local key_match = line:match('^## (.+)$')
+      if key_match then
+        existing_keys[key_match] = #existing_content
       end
     end
     backlog_file:close()
@@ -210,19 +255,19 @@ function write_to_backlog(collected_tasks)
   end
 
   -- Add new tasks
-  for _, date in ipairs(sorted_dates) do
-    if existing_dates[date] then
-      -- Find insertion point after existing date section
+  for _, key in ipairs(sorted_keys) do
+    if existing_keys[key] then
+      -- Find insertion point after existing section
       local insert_pos = #final_content + 1
-      for j = existing_dates[date] + 1, #final_content do
-        if final_content[j]:match('^## %d%d%d%d%-%d%d%-%d%d$') then
+      for j = existing_keys[key] + 1, #final_content do
+        if final_content[j]:match('^## .+$') then
           insert_pos = j
           break
         end
       end
 
-      -- Insert tasks at the end of this date section
-      for _, context in ipairs(collected_tasks[date]) do
+      -- Insert tasks at the end of this section
+      for _, context in ipairs(collected_tasks[key]) do
         table.insert(final_content, insert_pos, '')
         insert_pos = insert_pos + 1
         for _, context_line in ipairs(context) do
@@ -231,11 +276,11 @@ function write_to_backlog(collected_tasks)
         end
       end
     else
-      -- Add new date section at the end
+      -- Add new section at the end
       table.insert(final_content, '')
-      table.insert(final_content, '## ' .. date)
+      table.insert(final_content, '## ' .. key)
       table.insert(final_content, '')
-      for _, context in ipairs(collected_tasks[date]) do
+      for _, context in ipairs(collected_tasks[key]) do
         for _, context_line in ipairs(context) do
           table.insert(final_content, context_line)
         end
