@@ -827,7 +827,7 @@ function M.setup()
   end, { desc = 'Refresh daily calendar and todos' })
 
   vim.keymap.set('n', '<leader>wd', function()
-    require('plugin.tasks').collect_tasks()
+    require('plugin.obsidian-tasks').collect_tasks()
   end, {
     desc = 'Collect uncompleted tasks from daily files to backlog',
   })
