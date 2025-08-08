@@ -64,6 +64,10 @@
     "command": "exec $HOME/.config/i3/scripts/bluetooth.lua 'disconnect'"
   },
   {
+    "name": "🏖️ clearwater weather radar",
+    "command": "$BROWSER https://www.accuweather.com/en/us/clearwater/33755/weather-radar/332295"
+  },
+  {
     "name": "🏖️ clearwater beach camera",
     "command": "$BROWSER https://www.visitstpeteclearwater.com/webcams"
   },
