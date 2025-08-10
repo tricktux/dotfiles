@@ -95,8 +95,8 @@ return {
     enabled = w.path.work ~= nil,
     keys = {
       { '<leader>aj', '<cmd>Codeium Toggle<cr>', desc = 'codeium_toggle' },
-      { '<leader>ac', '<cmd>Codeium Chat<cr>', desc = 'codeium_chat' },
-      { '<leader>aa', '<cmd>Codeium Auth<cr>', desc = 'codeium_auth' },
+      { '<leader>ac', '<cmd>Codeium Chat<cr>',   desc = 'codeium_chat' },
+      { '<leader>aa', '<cmd>Codeium Auth<cr>',   desc = 'codeium_auth' },
     },
     dependencies = {
       'nvim-lua/plenary.nvim',
@@ -187,13 +187,13 @@ return {
           chat = {
             intro_message = 'Welcome to CodeCompanion! Press ? for options',
             show_header_separator = false, -- Show header separators in the chat buffer? Set this to false if you're using an external markdown formatting plugin
-            separator = '-', -- The separator between the different messages in the chat buffer
-            show_references = true, -- Show references (from slash commands and variables) in the chat buffer?
-            show_settings = true, -- Show LLM settings at the top of the chat buffer?
-            show_token_count = true, -- Show the token count for each response?
-            start_in_insert_mode = false, -- Open the chat buffer in insert mode?
+            separator = '-',               -- The separator between the different messages in the chat buffer
+            show_references = true,        -- Show references (from slash commands and variables) in the chat buffer?
+            show_settings = true,          -- Show LLM settings at the top of the chat buffer?
+            show_token_count = true,       -- Show the token count for each response?
+            start_in_insert_mode = false,  -- Open the chat buffer in insert mode?
             window = {
-              layout = 'buffer', -- float|vertical|horizontal|buffer
+              layout = 'buffer',           -- float|vertical|horizontal|buffer
             },
           },
         },
