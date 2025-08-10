@@ -64,14 +64,17 @@ return {
       require('codecompanion').setup({
         adapters = {
           lmstudio = function()
-            return require("codecompanion.adapters").extend("openai_compatible", {
-              env = {
-                url = "http://192.168.1.96:11435", -- default ollama endpoint
-              },
-              parameters = {
-                model = "gpt-oss:20b", -- or whichever model you chose
-              },
-            })
+            return require('codecompanion.adapters').extend(
+              'openai_compatible',
+              {
+                env = {
+                  url = 'http://192.168.1.96:11435', -- default ollama endpoint
+                },
+                parameters = {
+                  model = 'gpt-oss:20b', -- or whichever model you chose
+                },
+              }
+            )
           end,
           anthropic = function()
             return require('codecompanion.adapters').extend('anthropic', {
