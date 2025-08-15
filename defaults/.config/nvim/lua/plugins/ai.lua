@@ -73,6 +73,18 @@ return {
               },
             })
           end,
+          xai = function()
+            return require("codecompanion.adapters").extend("xai", {
+              env = {
+                api_key = "XAI_API_KEY",
+              },
+              schema = {
+                model = {
+                  default = "grok-4",
+                },
+              },
+            })
+          end,
           anthropic = function()
             return require('codecompanion.adapters').extend('anthropic', {
               env = {
