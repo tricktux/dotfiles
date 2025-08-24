@@ -215,6 +215,7 @@ python-bcrypt
 python-build
 python-certifi
 python-cffi
+python-click-repl
 python-constantly
 python-cpplint
 python-cryptography
@@ -267,9 +268,9 @@ reflector
 restic
 rhash
 ripgrep
-rofi
 rofi-emoji
 rofi-pass
+rofi-wayland
 rsync
 ruby
 ruby-bundled-gems
@@ -333,7 +334,6 @@ tree-sitter-cli
 ttf-cascadia-code
 ttf-fira-code
 ttf-fira-mono
-ttf-font-awesome
 ttf-inconsolata
 ttf-inconsolata-nerd
 ttf-iosevka-nerd
@@ -357,6 +357,7 @@ vulkan-mesa-layers
 vulkan-radeon
 w3m
 wavpack
+waybar
 websocketpp
 wget
 whipper
@@ -364,6 +365,7 @@ wireguard-tools
 wireless_tools
 wireplumber
 wireshark-qt
+woff2-font-awesome
 words
 xf86-input-evdev
 xf86-input-synaptics
