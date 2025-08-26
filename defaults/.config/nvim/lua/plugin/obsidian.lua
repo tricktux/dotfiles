@@ -825,10 +825,15 @@ function M.setup()
     M.refresh_daily_data()
   end, { desc = 'Refresh daily calendar and todos' })
 
-  vim.keymap.set('n', '<leader>wd', function()
-    require('plugin.obsidian-tasks').collect_tasks()
+  vim.keymap.set('n', '<leader>wl', function()
+    -- Get backlog path in the same directory as current buffer
+    local current_file = vim.api.nvim_buf_get_name(0)
+    local current_dir = vim.fs.dirname(current_file)
+    local backlog_path = vim.fs.joinpath(current_dir, 'backlog.md')
+
+    vim.cmd('edit ' .. backlog_path)
   end, {
-    desc = 'Collect uncompleted tasks from daily files to backlog',
+    desc = 'Go to backlog for current project',
   })
   -- Set up autocmds for markdown files
   vim.api.nvim_create_autocmd(
