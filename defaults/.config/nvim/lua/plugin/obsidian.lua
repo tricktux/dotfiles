@@ -822,7 +822,7 @@ function M.setup()
   vim.keymap.set('n', '<leader>wpt', function()
     M.find_daily_notes()
   end, { desc = "Find today's daily notes" })
-  vim.keymap.set('n', '<leader>wpr', function()
+  vim.keymap.set('n', '<leader>wr', function()
     M.refresh_daily_data()
   end, { desc = 'Refresh daily calendar and todos' })
 
