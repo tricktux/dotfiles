@@ -27,7 +27,6 @@ function M.get_project_name_from_context(ctx)
 end
 
 -- Find the most recent project daily note in a specific project directory
--- Find the most recent project daily note in a specific project directory
 function M.find_last_daily_note(path, include_today)
   if vim.fn.isdirectory(path) == 0 then
     return ''
