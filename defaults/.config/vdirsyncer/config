@@ -6,7 +6,7 @@ status_path = "~/.local/share/vdirsyncer/status/"
 a = "contacts_local"
 b = "contacts_remote"
 collections = ["from a", "from b"]
-conflict_resolution = ["command", "nvim", "-d"]
+conflict_resolution = "b wins"
 
 [storage contacts_local]
 type = "filesystem"
@@ -26,7 +26,6 @@ a = "calendars_local"
 b = "calendars_remote"
 collections = ["from a", "from b"]
 metadata = ["color", "displayname"]
-conflict_resolution = ["command", "nvim", "-d"]
 
 [storage calendars_local]
 type = "filesystem"
