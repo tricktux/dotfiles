@@ -7,6 +7,15 @@ local fn = vim.fn
 
 local M = {}
 
+function _G.RgFindFiles(cmdarg, _cmdcomplete)
+  local fnames = vim.fn.systemlist('fd --type f --color=never --hidden --follow --full-path ' .. cmdarg)
+  if #cmdarg == 0 then
+    return fnames
+  else
+    return vim.fn.matchfuzzy(fnames, cmdarg)
+  end
+end
+
 -- jk doesn't work because it introduces massive delay when spamming j or k
 M.esc = { '' }
 
@@ -539,6 +548,9 @@ function M:setup()
   self:keymaps_sets(self.toggle)
   self:keymaps_sets(self.help)
   self:keymaps_sets(self.vcs)
+
+  vim.opt.findfunc = 'v:lua.RgFindFiles'
+  vim.cmd("nnoremap <plug>current_folder_file_browser :find<space>")
 end
 
 return M
