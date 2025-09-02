@@ -5,7 +5,7 @@ local M = {}
 M.logs_max_size = 15728640 -- 15 * 1024 * 1024 Mb
 
 M.cycle_logs = function()
-  local filename = vim.lsp.get_log_path()
+  local filename = vim.lsp.log.get_filename()
   local size = fs.file_size_native(filename)
   if size == nil then
     return
