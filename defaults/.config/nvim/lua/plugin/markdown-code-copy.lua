@@ -142,6 +142,7 @@ function M.copy_code_to_markdown(use_current_visual)
   -- Get selection based on whether we're in visual mode or not
   if use_current_visual then
     selected_lines, start_line = get_current_visual_selection()
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, false, true), 'n', true)
   else
     selected_lines, start_line = get_visual_selection_from_marks()
   end
@@ -170,7 +171,8 @@ function M.copy_code_to_markdown(use_current_visual)
 
   -- Format code block
   local language = get_language_from_filetype(filetype, is_terminal)
-  local code_block = { '```' .. language }
+  local code_block = { '' }   -- Empty line initially for spacing
+  table.insert(code_block, '```' .. language)
 
   -- Add file reference comment only for non-terminal buffers
   if not is_terminal then
