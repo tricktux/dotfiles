@@ -1,20 +1,21 @@
 
+if exists(':packadd') == 0
+  finish
+endif
+
 if exists('g:loaded_my_debug')
   finish
 endif
 
 let g:loaded_my_debug = 1
 
+" Termdebug config
 let g:termdebug_config = {}
 let g:termdebug_config["disasm_window"] = 0
 
-silent! packadd termdebug
+silent! packadd! termdebug
 
-if !exists(':Termdebug')
-  nnoremap <leader>d :echoerr "Termdebug not available"<cr>
-  finish
-endif
-
+nnoremap <leader>dL :packadd termdebug<cr>
 nnoremap <leader>dl :Termdebug 
 nnoremap <leader>dr :Run<cr>
 nnoremap <leader>db :Break<cr>
@@ -30,3 +31,9 @@ nnoremap <leader>dt :call TermDebugSendCommand('bt')<cr>
 nnoremap <leader>dg :Gdb<cr>
 nnoremap <leader>da :Asm<cr>
 nnoremap <leader>dq :call TermDebugSendCommand('quit')<cr>
+
+" Others
+silent! packadd! comment
+nmap <bs> gcc
+xmap <bs> gc
+silent! packadd! editorconfig

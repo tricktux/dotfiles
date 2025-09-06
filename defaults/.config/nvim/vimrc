@@ -94,7 +94,6 @@ function! s:find_vim_config_file(...) abort
   call mappings#Set()
   call options#Set()
   call commands#Set()
-  call packadds#Set()
 endfunction
 
 function! s:set_stdpaths() abort
