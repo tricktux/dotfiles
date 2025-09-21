@@ -133,6 +133,7 @@ function M:set_mappings()
     c = { ts.commands, 'commands' },
     q = { ts.quickfix, 'quickfix' },
     u = { ts.loclist, 'locationlist' },
+    k = { ts.marks, 'marks' },
     d = { ts.reloader, 'reload_lua_modules' },
   }
 
