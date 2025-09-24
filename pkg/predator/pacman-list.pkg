@@ -45,6 +45,7 @@ cups-pdf
 dhcpcd
 dialog
 docker
+docker-buildx
 docker-compose
 dosfstools
 dotnet-sdk
@@ -56,6 +57,7 @@ efibootmgr
 evolution
 eza
 f2fs-tools
+fail2ban
 fakeroot
 fd
 fdupes
@@ -123,7 +125,6 @@ libnotify
 libreoffice-still
 libtermkey
 libtool
-libutf8proc
 lightdm
 linux-firmware
 linux-lts
@@ -154,7 +155,6 @@ mpv-mpris
 namcap
 ncdu
 neomutt
-neovide
 net-tools
 network-manager-applet
 nfs-utils
@@ -218,6 +218,7 @@ rsync
 rust-analyzer
 rustup
 sccache
+scrcpy
 scrot
 sddm
 seahorse
@@ -281,6 +282,7 @@ wavpack
 websocketpp
 wget
 whipper
+wine
 wireguard-tools
 wireless_tools
 wireshark-qt
