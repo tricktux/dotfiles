@@ -42,7 +42,7 @@ M.__config = {
     disable = disable,
     enable = true, -- false will disable the whole extension
     -- Required for spellcheck, some LaTex highlights and code block highlights that do not have ts grammar
-    additional_vim_regex_highlighting = { 'org' },
+    additional_vim_regex_highlighting = {},
   },
   incremental_selection = {
     enable = false, -- superseded by textsubjects
