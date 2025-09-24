@@ -37,7 +37,7 @@ M.__config = {
   ensure_installed = {},
   -- Automatically install missing parsers when entering buffer
   -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-  auto_install = vim.g.advanced_plugins == 1 and true or false,
+  auto_install = vim.fn.executable('tree-sitter') > 0 and true or false,
   highlight = {
     disable = disable,
     enable = true, -- false will disable the whole extension
