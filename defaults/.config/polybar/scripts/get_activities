@@ -22,7 +22,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import plotly.graph_objects as go
 from plotly_resampler import FigureResampler
-from stravalib import unithelper
+from stravalib import unit_helper as unithelper
 from stravalib.client import Client
 
 DEBUG = 0
@@ -183,7 +183,7 @@ class Strava:
             client.access_token = access_token["access_token"]
             self.activities = client.get_activities(
                 after="{}-01-01T00:00:00Z".format(str(year)),
-                before="{}-01-01T00:00:00Z".format(str(year + 1)),
+                before="{}-01-01T00:00:00Z".format(str(int(year) + 1)),
                 limit=500,
             )
             if token != access_token["refresh_token"]:
@@ -214,7 +214,7 @@ class Strava:
         """Get time for all activities"""
         elapse_time = 0
         for activity in self.activities:
-            elapse_time += activity.elapsed_time.seconds
+            elapse_time += activity.elapsed_time
         return datetime.timedelta(seconds=elapse_time).total_seconds()
 
     def get_total_elevation(self):
@@ -279,7 +279,7 @@ class Strava:
                 date = activity.start_date_local.strftime("%x")
                 print(date)
                 seconds = datetime.timedelta(
-                    seconds=activity.elapsed_time.seconds
+                    seconds=activity.elapsed_time
                 ).total_seconds()
                 hrs = seconds_to_hours(seconds)
                 distance = unithelper.miles(activity.distance)
