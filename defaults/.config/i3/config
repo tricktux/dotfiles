@@ -21,7 +21,7 @@ font pango:Cascadia Mono PL 9
 # Mod1 = Alt_L
 # Mod3 = Alt_R
 # Mod4 = Window key
-	set $mod Mod4
+  set $mod Mod4
 #}}}
 
 # Movement keys{{{
@@ -373,9 +373,9 @@ client.background       $background
 #       isn't want you want see the ROLE section, below.
 # Tip: To find out what these values might be run:
 #       xprop | grep -i 'class'
-#				The actual value is the second name
-for_window [class="Yad" title="yad-calendar"] floating enable
-for_window [class="File-roller"] floating enable
+#       The actual value is the second name
+  for_window [class="Yad" title="yad-calendar"] floating enable
+  for_window [class="File-roller"] floating enable
   for_window [class="Speedcrunch"] floating enable
   for_window [class="Gloobus-preview"] floating enable
   for_window [class="Pavucontrol"] floating enable
