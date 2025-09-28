@@ -71,7 +71,7 @@ bindsym mod3+l exec --no-startup-id \
 bindsym $mod+o exec --no-startup-id \
   $HOME/.config/i3/scripts/xdotool_launch journal
 bindsym $mod+n exec --no-startup-id \
-  $HOME/.config/i3/scripts/xdotool_launch doublecmd
+  $HOME/.config/i3/scripts/xdotool_launch ranger
 bindsym $mod+semicolon exec --no-startup-id tdrop -ma -w -20 -x 10 -h 40% -y 10 kitty
 bindsym $mod+comma exec --no-startup-id tdrop -ma -x 20% -y 10% -w 60% -h 80% firefox
 bindsym $mod+p exec --no-startup-id \
@@ -108,6 +108,7 @@ bindsym control+mod1+p exec --no-startup-id rofi-pass
 # bindsym $mod+m exec --no-startup-id i3-msg scratchpad show && tdrop hide_all
 bindsym $mod+m exec --no-startup-id tdrop hide_all; \
     [class="^doublecmd$" title=".*Double Commander.*"] move to scratchpad; \
+    [title="^ranger-scratchpad$" class="^kitty$"] move to scratchpad; \
     [title="^journal$" class="^kitty$"] move to scratchpad; \
     [class="^qalculate-qt$"] move to scratchpad; \
     [title="^tickrs$"] move to scratchpad; \
@@ -401,13 +402,12 @@ client.background       $background
 
 # Scratchpad
   # for_window [title=".*(WhatsApp|Messages for web).*" class="^firefox$"] mark "msgs", move to scratchpad
-  # for_window [title="^ranger$" class="^kitty$"] move to scratchpad
+  for_window [title="^ranger-scratchpad$" class="^kitty$"] move to scratchpad
   for_window [title="^tickrs$" class="^kitty$"] move to scratchpad
   for_window [title="^ncpamixer$" class="^kitty$"] move to scratchpad
   # for_window [title="^neomutt$" class="^kitty$"] move to scratchpad
   # for_window [title="^glances$"] move to scratchpad
   # for_window [title="^cmus$"] move to scratchpad
-  # for_window [title="^ranger$"] move to scratchpad
   for_window [title="^journal$" class="^kitty$"] move to scratchpad
   # for_window [title="^terminal$" class="^kitty$"] move to scratchpad
   # for_window [title="^htop$"] move to scratchpad
