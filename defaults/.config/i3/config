@@ -107,7 +107,7 @@ bindsym control+mod1+p exec --no-startup-id rofi-pass
 
 # bindsym $mod+m exec --no-startup-id i3-msg scratchpad show && tdrop hide_all
 bindsym $mod+m exec --no-startup-id tdrop hide_all; \
-    [title="^Double Commander \d\.\d\.\d.*" class="^Double Commander$"] move to scratchpad; \
+    [class="^doublecmd$" title=".*Double Commander.*"] move to scratchpad; \
     [title="^journal$" class="^kitty$"] move to scratchpad; \
     [class="^qalculate-qt$"] move to scratchpad; \
     [title="^tickrs$"] move to scratchpad; \
@@ -414,8 +414,8 @@ client.background       $background
   # for_window [title="^bottom$" class="^kitty$"] move to scratchpad
   # for_window [title="^scratch$" class="^kitty$"] move to scratchpad
   # for_window [title="^Spotify$" class="^Spotify$"] move to scratchpad
-  for_window [title="^Double Commander \d\.\d\.\d.*" class="^Double Commander$"] move to scratchpad
-  for_window [class="^Double Commander$"] floating enable
+  for_window [class="^doublecmd$" title=".*Double Commander.*"] move to scratchpad
+  for_window [class="^doublecmd$"] floating enable
   for_window [title="^Qalculate!$" class="qalculate-qt"] move to scratchpad
   for_window [class="qalculate-qt"] floating enable
   # for_window [title=".*Evolution$" class="^Evolution$"] move to scratchpad

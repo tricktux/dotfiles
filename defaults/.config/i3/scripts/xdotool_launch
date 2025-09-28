@@ -37,7 +37,7 @@ apps["scratch"] = {
 apps["doublecmd"] = {
   -- Expression to find this window
   --  Used by i3ipc
-  regex = '[title=\\"^Double Commander.*\\" class=\\"^Double Commander$\\"]',
+  regex = '[class=\\"^doublecmd$\\" title=\\".*Double Commander.*\\"]',
   -- Command to execute for this window
   i3cmd = "scratchpad show, resize set 80ppt 60ppt, move position center",
   -- How to start this application if it does not exists
