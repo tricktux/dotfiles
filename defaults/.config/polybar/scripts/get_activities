@@ -258,7 +258,8 @@ class Strava:
         """https://pythonhosted.org/stravalib/api.html#stravalib.model.Activity"""
         logging.getLogger(LOG)
         file_path = r"/tmp/bike.csv"
-        print(self.activities)
+        if DEBUG > 0:
+            logger.info("[get_csv_of_bike_activities]: activities = %s", self.activities)
         with open(file_path, "w") as csvfile:
             fieldnames = [
                 "date",
@@ -277,7 +278,8 @@ class Strava:
                 if activity.type not in ("Ride", "VirtualRide"):
                     continue
                 date = activity.start_date_local.strftime("%x")
-                print(date)
+                if DEBUG > 0:
+                    logger.info("[get_csv_of_bike_activities]: date = %s", date)
                 seconds = datetime.timedelta(
                     seconds=activity.elapsed_time
                 ).total_seconds()
