@@ -16,6 +16,7 @@ order += "read_file airplane_mode"
 order += "networkmanager"
 order += "systemd wg-home"
 order += "nvidia_smi"
+order += "read_file bike"
 order += "pomodoro"
 order += "dpms"
 order += "volume_status"
@@ -120,4 +121,9 @@ tztime home {
 read_file airplane_mode {
       format = "%content"
       path = "/tmp/airplane_mode"
+}
+
+read_file bike {
+      format = "🚲 %content"
+      path = "/tmp/bike"
 }

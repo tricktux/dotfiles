@@ -346,7 +346,8 @@ if __name__ == "__main__":
     num_hours = seconds_to_hours(td)
     num_miles = strava.get_total_distance()
     e = strava.get_total_elevation()
-    print(num_workouts + " " + num_hours + " " + num_miles + " m " + e + " ft")
+    with open("/tmp/bike", "w") as f:
+        f.write(num_workouts + " " + num_hours + " " + num_miles + "m ")
     root = r"/tmp/bike.csv"
     html = r"/tmp/bike.html"
     if not os.path.isfile(root):
