@@ -64,6 +64,10 @@
     "command": "exec $HOME/.config/i3/scripts/bluetooth.lua 'disconnect'"
   },
   {
+    "name": "🚲 bike activities strava plot progress",
+    "command": "rm /tmp/bike.{csv,html}; $HOME/.config/polybar/scripts/get_activities -d 10 $HOME/.config/polybar/scripts/strava.ini; $BROWSER /tmp/bike.html"
+  },
+  {
     "name": "🏖️ clearwater weather radar",
     "command": "$BROWSER https://www.accuweather.com/en/us/clearwater/33755/weather-radar/332295"
   },
