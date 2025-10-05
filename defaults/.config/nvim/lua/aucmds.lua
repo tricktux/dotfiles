@@ -143,6 +143,16 @@ M.setup = function()
   })
   api.nvim_create_autocmd('FileType', {
     callback = function()
+      log.info('json autocmd called')
+      vim.opt.tabstop = 2
+      vim.opt.shiftwidth = 2
+    end,
+    pattern = { 'json' },
+    desc = 'Better settings for json',
+    group = id,
+  })
+  api.nvim_create_autocmd('FileType', {
+    callback = function()
       log.info('c autocmd called')
       local tab = vim.fn.has('unix') > 0 and 2 or 4
       vim.opt.tabstop = tab
