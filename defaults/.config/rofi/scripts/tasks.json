@@ -4,24 +4,12 @@
     "command": "$TERMINAL $HOME/.config/dotfiles/scripts/nix/arch/upkeep.sh"
   },
   {
-    "name": "🧹 arch clean",
-    "command": "$TERMINAL $HOME/.config/dotfiles/scripts/nix/arch/upkeep.sh -c"
-  },
-  {
     "name": "🔒 network-wireguard-home-start",
     "command": "sudo systemctl start wg-quick@home"
   },
   {
     "name": "🔓 network-wireguard-home-stop",
     "command": "sudo systemctl stop wg-quick@home"
-  },
-  {
-    "name": "🔒 network-wireguard-work-start",
-    "command": "sudo systemctl start wg-quick@work"
-  },
-  {
-    "name": "🔓 network-wireguard-work-stop",
-    "command": "sudo systemctl stop wg-quick@work"
   },
   {
     "name": "☀️ flux force day",
@@ -36,14 +24,6 @@
     "command": "xclip -selection clipboard -o | qrencode -o - |  feh -FZ -"
   },
   {
-    "name": "📎 polybar relaunch/restart",
-    "command": "exec $HOME/.config/polybar/scripts/launch.sh"
-  },
-  {
-    "name": "📎 dunst relaunch/restart",
-    "command": "exec $HOME/.config/dunst/restart.sh"
-  },
-  {
     "name": "🎧 bluetooth wh-1000xm4",
     "command": "exec $HOME/.config/i3/scripts/bluetooth.lua 'connect' '14:3F:A6:EA:F5:D1'"
   },
@@ -54,10 +34,6 @@
   {
     "name": "🎧 bluetooth philips pn402",
     "command": "exec $HOME/.config/i3/scripts/bluetooth.lua 'connect' '88:D0:39:48:7D:00'"
-  },
-  {
-    "name": "💙 bluetooth rofi",
-    "command": "rofi-bluetooth"
   },
   {
     "name": "📴 bluetooth disconnect",
@@ -76,38 +52,6 @@
     "command": "$BROWSER https://www.visitstpeteclearwater.com/webcams"
   },
   {
-    "name": "⚾ tampa bay rays livestream",
-    "command": "python $HOME/Documents/scripts/selenium-chrome-buffstreams.py > /tmp/sel.log"
-  },
-  {
-    "name": "📔 cheatsheet pdf",
-    "command": "rofi -show file-browser-extended -file-browser-dir $HOME/Documents/Drive/wiki/cheatsheet"
-  },
-  {
-    "name": "📔 cheatsheet navi",
-    "command": "$TERMINAL --hold /usr/bin/navi --print"
-  },
-  {
-    "name": "📔 cheatsheet cheat.sh",
-    "command": "$TERMINAL /usr/bin/cht.sh --shell"
-  },
-  {
-    "name": "🪟 screenshot full screen",
-    "command": "scrot '/$XDG_DATA_HOME/screenshots/%Y-%m-%d_%T_scrot.png' -e 'xclip -selection clipboard -target image/png -i $f'"
-  },
-  {
-    "name": "🪟 screenshot selection",
-    "command": "scrot -fz -q 10 --line style=dash,width=3,color='red' -s '/$XDG_DATA_HOME/screenshots/%Y-%m-%d_%T_scrot.png' -e 'xclip -selection clipboard -target image/png -i $f'"
-  },
-  {
-    "name": "🪟 screenshot window",
-    "command": "scrot -u '$XDG_DATA_HOME/screenshots/%Y-%m-%d_%T_scrot.png' -e 'xclip -selection clipboard -target image/png -i $f'"
-  },
-  {
-    "name": "🪟 screenshot flameshot",
-    "command": "flameshot gui"
-  },
-  {
     "name": "🖥️ power off",
     "command": "systemctl poweroff"
   },
@@ -124,20 +68,8 @@
     "command": "pass --clip linux/`hostname`/user/root"
   },
   {
-    "name": "🔑 pass skywafer",
-    "command": "pass --clip nas/synology/skywafer/rei_login"
-  },
-  {
     "name": "🔑 pass ssh key github",
     "command": "pass --clip linux/`hostname`/ssh_key/id_ed25519_github"
-  },
-  {
-    "name": "🔑 pass ssh key digitalocean",
-    "command": "pass --clip linux/`hostname`/ssh_key/id_ed25519_digitalocean"
-  },
-  {
-    "name": "🔑 pass ssh key gitlab",
-    "command": "pass --clip linux/`hostname`/ssh_key/id_ed25519_gitlab"
   },
   {
     "name": "📂 htop cmus calc",
@@ -146,10 +78,6 @@
   {
     "name": "📂 whatsapp text",
     "command": "exec $BROWSER https://web.whatsapp.com"
-  },
-  {
-    "name": "📧 email neomutt",
-    "command": "$TERMINAL --hold $HOME/.config/kitty/neomutt.sh"
   },
   {
     "name": "🖼️ wallpaper internet random",
