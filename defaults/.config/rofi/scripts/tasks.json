@@ -144,10 +144,6 @@
     "command": "$TERMINAL cmus"
   },
   {
-    "name": "📂 tickrs stonks market",
-    "command": "$TERMINAL /usr/bin/tickrs"
-  },
-  {
     "name": "📂 whatsapp text",
     "command": "exec $BROWSER https://web.whatsapp.com"
   },
