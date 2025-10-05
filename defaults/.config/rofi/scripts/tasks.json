@@ -188,22 +188,6 @@
     "command": "exec $HOME/.config/i3/scripts/xrandr.sh work"
   },
   {
-    "name": "⏳ pomodoro toggle",
-    "command": "uairctl --socket /tmp/uair_pomo.socket toggle"
-  },
-  {
-    "name": "⏳ pomodoro next",
-    "command": "uairctl --socket /tmp/uair_pomo.socket next; uairctl --socket /tmp/uair_pomo.socket toggle"
-  },
-  {
-    "name": "⏳ pomodoro prev",
-    "command": "uairctl --socket /tmp/uair_pomo.socket prev; uairctl --socket /tmp/uair_pomo.socket toggle"
-  },
-  {
-    "name": "⏳ pomodoro restart",
-    "command": "pkill -x uair; echo '' > /tmp/uair_pomo.file; uair --socket /tmp/uair_pomo.socket > /tmp/uair_pomo.file&"
-  },
-  {
     "name": "📷 text snatcher ocr image",
     "command": "exec $HOME/.config/polybar/scripts/text-snatcher-native.sh"
   },
