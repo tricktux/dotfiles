@@ -149,7 +149,7 @@
   },
   {
     "name": "📂 whatsapp text",
-    "command": "exec /usr/bin/firefox https://web.whatsapp.com https://messages.google.com/web"
+    "command": "exec $BROWSER https://web.whatsapp.com"
   },
   {
     "name": "📧 email neomutt",
