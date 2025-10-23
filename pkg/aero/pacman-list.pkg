@@ -26,6 +26,7 @@ boost
 bottom
 btrfs-progs
 c-ares
+cage
 capitaine-cursors
 catch2
 ccache
@@ -139,7 +140,6 @@ libraqm
 libreoffice-still
 libspectre
 libunrar
-libutf8proc
 libva-intel-driver
 lightdm
 lightdm-gtk-greeter
@@ -173,7 +173,6 @@ namcap
 nano
 ncdu
 neomutt
-neovide
 network-manager-applet
 networkmanager
 nfs-utils
@@ -185,6 +184,7 @@ ntp
 numlockx
 obsidian
 odt2txt
+openresolv
 openvpn
 opusfile
 otf-cascadia-code
@@ -268,9 +268,9 @@ reflector
 restic
 rhash
 ripgrep
+rofi
 rofi-emoji
 rofi-pass
-rofi-wayland
 rsync
 ruby
 ruby-bundled-gems
@@ -299,8 +299,8 @@ rust-analyzer
 rustup
 sccache
 scdoc
+scrcpy
 scrot
-shellcheck
 shfmt
 simple-scan
 smartmontools
@@ -312,7 +312,6 @@ steam
 stow
 strace
 stylua
-systemd-resolvconf
 tcl
 tcpdump
 tesseract-data-eng
