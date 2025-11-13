@@ -155,45 +155,47 @@ return {
           history = h,
         },
         adapters = {
-          lmstudio = function()
-            return require('codecompanion.adapters').extend(
-              'openai_compatible',
-              {
+          http = {
+            lmstudio = function()
+              return require('codecompanion.adapters').extend(
+                'openai_compatible',
+                {
+                  env = {
+                    url = 'http://192.168.1.96:11435', -- default ollama endpoint
+                  },
+                  parameters = {
+                    model = 'gpt-oss:20b', -- or whichever model you chose
+                  },
+                }
+              )
+            end,
+            xai = function()
+              return require("codecompanion.adapters").extend("xai", {
                 env = {
-                  url = 'http://192.168.1.96:11435', -- default ollama endpoint
+                  api_key = "XAI_API_KEY",
                 },
-                parameters = {
-                  model = 'gpt-oss:20b', -- or whichever model you chose
+                schema = {
+                  model = {
+                    default = "grok-4",
+                  },
                 },
-              }
-            )
-          end,
-          xai = function()
-            return require("codecompanion.adapters").extend("xai", {
-              env = {
-                api_key = "XAI_API_KEY",
-              },
-              schema = {
-                model = {
-                  default = "grok-4",
+              })
+            end,
+            anthropic = function()
+              return require('codecompanion.adapters').extend('anthropic', {
+                env = {
+                  api_key = os.getenv('ANTHROPIC_API_KEY'),
                 },
-              },
-            })
-          end,
-          anthropic = function()
-            return require('codecompanion.adapters').extend('anthropic', {
-              env = {
-                api_key = os.getenv('ANTHROPIC_API_KEY'),
-              },
-            })
-          end,
-          openai = function()
-            return require('codecompanion.adapters').extend('openai', {
-              env = {
-                api_key = os.getenv('OPENAI_API_KEY'),
-              },
-            })
-          end,
+              })
+            end,
+            openai = function()
+              return require('codecompanion.adapters').extend('openai', {
+                env = {
+                  api_key = os.getenv('OPENAI_API_KEY'),
+                },
+              })
+            end,
+          },
         },
         display = {
           chat = {
