@@ -1,0 +1,41 @@
+[mgr]
+prepend_keymap = [
+    # Trash files (matching your DD keybinding)
+{ on = [ "D", "D" ], run = "shell 'gio trash \"$@\"' --confirm", desc = "Move to trash" },
+
+    # Get cumulative size (matching your dc keybinding)
+{ on = [ "d", "c" ], run = "shell 'du -sh \"$@\"' --block", desc = "Get directory size" },
+
+    # FZF integration (matching your <C-r> keybinding)
+{ on = [ "<C-r>" ], run = "plugin fzf", desc = "Find with fzf" },
+
+    # Directory jumping with z (matching your z keybinding)
+{ on = [ "z" ], run = "plugin zoxide", desc = "Jump with zoxide" },
+
+    # Additional useful keybindings similar to your ranger setup
+{ on = [ "c", "w" ], run = "rename", desc = "Rename" },
+{ on = [ "c", "r" ], run = "shell 'mkdir -p \"$@\"' --confirm", desc = "Create directory" },
+{ on = [ "c", "f" ], run = "shell 'touch \"$@\"' --confirm", desc = "Create file" },
+
+    # Tab management (similar to ranger)
+{ on = [ "g", "n" ], run = "tab_create --current", desc = "New tab" },
+{ on = [ "g", "c" ], run = "tab_close", desc = "Close tab" },
+
+    # Quick navigation (similar to your ranger bindings)
+{ on = [ "g", "h" ], run = "cd ~", desc = "Go to home" },
+{ on = [ "g", "e" ], run = "cd /etc", desc = "Go to /etc" },
+{ on = [ "g", "r" ], run = "cd /", desc = "Go to root" },
+{ on = [ "g", "v" ], run = "cd /var", desc = "Go to /var" },
+{ on = [ "g", "u" ], run = "cd /usr", desc = "Go to /usr" },
+{ on = [ "g", "o" ], run = "cd /opt", desc = "Go to /opt" },
+{ on = [ "g", "m" ], run = "cd /media", desc = "Go to /media" },
+{ on = [ "g", "M" ], run = "cd /mnt", desc = "Go to /mnt" },
+]
+
+[input]
+prepend_keymap = [
+    # Emacs-like editing (matching your console keybindings)
+{ on = [ "<C-a>" ], run = "move -999", desc = "Move to beginning" },
+{ on = [ "<C-e>" ], run = "move 999", desc = "Move to end" },
+{ on = [ "<C-w>" ], run = "kill backward", desc = "Kill word backward" },
+]

@@ -1,0 +1,44 @@
+[mgr]
+# Column ratios (similar to ranger's 1,3,4)
+ratio = [1, 3, 4]
+
+# Show hidden files (like ranger's show_hidden true)
+show_hidden = true
+
+# Show line numbers in relative mode
+show_linenum = "relative"
+
+# Sort settings (natural sort like ranger)
+sort_by = "natural"
+sort_sensitive = false
+sort_reverse = false
+sort_dir_first = true
+
+# Layout and display
+scrolloff = 8
+
+[preview]
+# Enable previews (like ranger's preview_files true)
+tab_size = 4
+max_width = 600
+max_height = 900
+
+# Use kitty protocol for images (matching your ranger config)
+image_filter = "triangle"
+image_quality = 75
+
+# Enable video thumbnails
+video_thumbnails = "enabled"
+
+[opener]
+# File opening behavior
+edit = [
+{ run = '$EDITOR "$@"', desc = "Edit", block = true, for = "unix" },
+]
+
+[which]
+# Key hint settings
+sort_by = "key"
+
+[log]
+enabled = false

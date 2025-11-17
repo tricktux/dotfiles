@@ -1,0 +1,112 @@
+
+[flavor]
+use = ""
+
+[mgr]
+# Colors similar to ranger's jungle theme
+cwd = { fg = "#83a83a" }
+
+# Hovered item
+hovered = { fg = "#1c1c1c", bg = "#83a83a" }
+preview_hovered = { underline = true }
+
+# Find results
+find_keyword = { fg = "#f4bf75", italic = true }
+find_position = { fg = "#fe8019", bg = "reset", italic = true }
+
+# Marker
+marker_selected = { fg = "#98bc37", bg = "#98bc37" }
+marker_copied = { fg = "#f4bf75", bg = "#f4bf75" }
+marker_cut = { fg = "#fb4934", bg = "#fb4934" }
+
+# Tab bar
+tab_active = { fg = "#1c1c1c", bg = "#83a83a" }
+tab_inactive = { fg = "#a89984", bg = "#3c3836" }
+tab_width = 1
+
+# Border (set to none like your ranger config)
+border_symbol = "│"
+border_style = { fg = "#665c54" }
+
+# Highlighting
+syntect_theme = ""
+
+[status]
+separator_open = ""
+separator_close = ""
+separator_style = { fg = "#3c3836", bg = "#3c3836" }
+
+# Mode indicators
+mode_normal = { fg = "#1c1c1c", bg = "#83a83a", bold = true }
+mode_select = { fg = "#1c1c1c", bg = "#f4bf75", bold = true }
+mode_unset = { fg = "#1c1c1c", bg = "#fb4934", bold = true }
+
+# Progress bar
+progress_label = { fg = "#ebdbb2", bold = true }
+progress_normal = { fg = "#83a83a", bg = "#3c3836" }
+progress_error = { fg = "#fb4934", bg = "#3c3836" }
+
+[input]
+border = { fg = "#83a83a" }
+title = {}
+value = {}
+selected = { reversed = true }
+
+[select]
+border = { fg = "#83a83a" }
+active = { fg = "#fe8019" }
+inactive = {}
+
+[tasks]
+border = { fg = "#83a83a" }
+title = {}
+hovered = { underline = true }
+
+[which]
+mask = { bg = "#1c1c1c" }
+cand = { fg = "#fabd2f" }
+rest = { fg = "#928374" }
+desc = { fg = "#fe8019" }
+separator = "  "
+separator_style = { fg = "#504945" }
+
+[help]
+on = { fg = "#fe8019" }
+exec = { fg = "#fabd2f" }
+desc = { fg = "#928374" }
+hovered = { bg = "#504945", bold = true }
+footer = { fg = "#1c1c1c", bg = "#a89984" }
+
+[filetype]
+rules = [
+    # Images
+{ mime = "image/*", fg = "#fe8019" },
+
+    # Videos  
+{ mime = "video/*", fg = "#b16286" },
+
+    # Audio
+{ mime = "audio/*", fg = "#d3869b" },
+
+    # Archives
+{ mime = "application/*zip*", fg = "#f4bf75" },
+{ mime = "application/x-tar", fg = "#f4bf75" },
+{ mime = "application/x-bzip2", fg = "#f4bf75" },
+{ mime = "application/x-7z-compressed", fg = "#f4bf75" },
+
+    # Documents
+{ mime = "application/pdf", fg = "#fb4934" },
+{ mime = "text/*", fg = "#b8bb26" },
+]
+
+[icon]
+# Enable devicons (similar to your devicons2 linemode)
+rules = [
+{ name = "*/", text = "📁" },
+{ mime = "image/*", text = "🖼️" },
+{ mime = "video/*", text = "🎬" },
+{ mime = "audio/*", text = "🎵" },
+{ mime = "application/*zip*", text = "📦" },
+{ mime = "application/x-tar", text = "📦" },
+{ mime = "application/pdf", text = "📄" },
+]
