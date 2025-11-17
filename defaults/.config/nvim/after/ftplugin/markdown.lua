@@ -24,7 +24,7 @@ local function _validate_filetypes(filetype)
 end
 
 local _arguments = {
-  html = { '--self-contained' },
+  html = { '--embed-resources', '--standalone' },
   docx = {},
   pdf = { '--pdf-engine=xelatex' },
 }
