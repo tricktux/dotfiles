@@ -392,8 +392,7 @@ function! s:set_syntax() abort
 
   " ft-markdown-syntax
   let g:markdown_fenced_languages= [ 'cpp', 'vim', 'dosini' ]
-  " This is handled now by Plug 'plasticboy/vim-markdown'
-  let g:markdown_folding= 0
+  let g:markdown_folding=1
 
   " ft-python-syntax
   " This option also highlights erroneous whitespaces
