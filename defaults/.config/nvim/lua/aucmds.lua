@@ -129,7 +129,7 @@ M.setup = function()
       vim.opt.textwidth = 120
     end,
     pattern = 'zig',
-    desc = 'Zig has very long luines',
+    desc = 'Zig has very long lines',
     group = id,
   })
   api.nvim_create_autocmd('FileType', {
