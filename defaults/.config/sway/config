@@ -94,7 +94,6 @@ bindsym mod3+l exec \
 bindsym $mod+o exec ~/.config/sway/scripts/sway_scratchpad journal
 bindsym $mod+n exec ~/.config/sway/scripts/sway_scratchpad ranger
 bindsym $mod+semicolon exec ~/.config/sway/scripts/sway_scratchpad terminal
-bindsym $mod+comma exec ~/.config/sway/scripts/sway_scratchpad firefox
 bindsym $mod+p exec ~/.config/sway/scripts/sway_scratchpad ncpamixer
 bindsym $mod+u exec swaymsg bar mode toggle
 bindsym $mod+c exec ~/.config/sway/scripts/sway_scratchpad qalculate
@@ -111,11 +110,7 @@ bindsym ctrl+shift+m exec pamixer --default-source -t
 bindsym ctrl+mod1+p exec rofi-pass
 
 # Hide all scratchpads
-bindsym $mod+m exec swaymsg '[app_id="org.qalculate.qalculate-qt"] move scratchpad'; \
-    exec swaymsg '[title="^ranger-scratchpad$" app_id="kitty"] move scratchpad'; \
-    exec swaymsg '[title="^journal$" app_id="kitty"] move scratchpad'; \
-    exec swaymsg '[title="^tickrs$"] move scratchpad'; \
-    exec swaymsg '[title="^ncpamixer$" app_id="kitty"] move scratchpad'
+bindsym $mod+m scratchpad show
 
 bindsym $mod+x [urgent=latest] focus
 

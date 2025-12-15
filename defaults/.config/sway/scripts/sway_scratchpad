@@ -1,0 +1,117 @@
+# filepath: ~/.config/sway/scripts/sway_scratchpad
+#!/bin/bash
+
+APP="$1"
+
+case "$APP" in
+"journal")
+  TITLE="journal"
+  APP_ID="kitty"
+  CMD="kitty -T journal -e sh -c 'cd ~/Documents && nvim journal.md'"
+  RESIZE="resize set 80ppt 60ppt"
+  POSITION="move position center"
+  ;;
+"ranger")
+  TITLE="ranger-scratchpad"
+  APP_ID="kitty"
+  CMD="kitty -T ranger-scratchpad -e ranger"
+  RESIZE="resize set 80ppt 60ppt"
+  POSITION="move position center"
+  ;;
+"terminal")
+  TITLE="terminal"
+  APP_ID="kitty"
+  CMD="kitty -T terminal -o background_opacity=0.75"
+  RESIZE="resize set 100ppt 40ppt"
+  POSITION="move position 0px 2ppt"
+  ;;
+"neomutt")
+  TITLE="neomutt"
+  APP_ID="kitty"
+  CMD="kitty -T neomutt -e neomutt"
+  RESIZE="resize set 80ppt 60ppt"
+  POSITION="move position center"
+  ;;
+"firefox")
+  TITLE="firefox-scratchpad"
+  APP_ID="firefox"
+  CMD="firefox --new-window"
+  RESIZE="resize set 80ppt 60ppt"
+  POSITION="move position center"
+  ;;
+"ncpamixer")
+  TITLE="ncpamixer"
+  APP_ID="kitty"
+  CMD="kitty -T ncpamixer -e ncpamixer -t c"
+  RESIZE="resize set 80ppt 60ppt"
+  POSITION="move position center"
+  ;;
+"qalculate")
+  TITLE=""
+  APP_ID="org.qalculate.qalculate-qt"
+  CMD="qalculate-qt"
+  RESIZE="resize set 50ppt 60ppt"
+  POSITION="move position center"
+  ;;
+"tickrs")
+  TITLE="tickrs"
+  APP_ID="kitty"
+  CMD="kitty -T tickrs -e tickrs"
+  RESIZE="resize set 80ppt 80ppt"
+  POSITION="move position center"
+  ;;
+"bottom")
+  TITLE="bottom"
+  APP_ID="kitty"
+  CMD="kitty -T bottom -e btm"
+  RESIZE="resize set 80ppt 60ppt"
+  POSITION="move position center"
+  ;;
+"spotify")
+  TITLE="Spotify"
+  APP_ID="spotify"
+  CMD="spotify"
+  RESIZE="resize set 80ppt 60ppt"
+  POSITION="move position center"
+  ;;
+*)
+  echo "Unknown app: $APP"
+  exit 1
+  ;;
+esac
+
+# Function to check if window exists
+window_exists() {
+  if [ -n "$TITLE" ]; then
+    swaymsg -t get_tree | jq -e ".. | select(.app_id? == \"$APP_ID\" and (.name? == \"$TITLE\" or .title? == \"$TITLE\"))" >/dev/null 2>&1
+  else
+    swaymsg -t get_tree | jq -e ".. | select(.app_id? == \"$APP_ID\")" >/dev/null 2>&1
+  fi
+}
+
+# Build selector
+if [ -n "$TITLE" ]; then
+  SELECTOR="[title=\"^${TITLE}$\" app_id=\"${APP_ID}\"]"
+else
+  SELECTOR="[app_id=\"${APP_ID}\"]"
+fi
+
+if window_exists; then
+  # Window exists, toggle scratchpad
+  swaymsg "$SELECTOR scratchpad show, $RESIZE, $POSITION"
+else
+  # Window doesn't exist, create it
+  eval "$CMD" &
+
+  # Wait for window to appear
+  for i in {1..20}; do
+    sleep 0.1
+    if window_exists; then
+      sleep 0.2
+      swaymsg "$SELECTOR move scratchpad"
+      sleep 0.1
+      swaymsg "$SELECTOR scratchpad show, $RESIZE, $POSITION"
+      break
+    fi
+  done
+fi
