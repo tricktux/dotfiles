@@ -1,24 +1,39 @@
 {
     "layer": "top",
     "position": "bottom",
-    "height": 30,
-    "spacing": 4,
+    "height": 35,
+    "spacing": 0,
+    "margin-top": 5,
+    "margin-bottom": 5,
+    "margin-left": 10,
+    "margin-right": 10,
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": [],
     "modules-right": [
         "mpris",
+        "custom/separator",
         "custom/airplane-mode",
         "network",
         "custom/wireguard",
+        "custom/separator",
         "custom/nvidia",
         "custom/dpms",
+        "custom/separator",
         "pulseaudio",
         "battery",
+        "custom/separator",
         "disk",
         "cpu",
         "memory",
+        "custom/separator",
         "clock"
     ],
+
+    // Custom separator
+    "custom/separator": {
+        "format": "|",
+        "tooltip": false
+    },
 
     "sway/workspaces": {
         "disable-scroll": true,
@@ -101,12 +116,12 @@
     },
 
     "pulseaudio": {
-        "format": "{volume}%",
-        "format-bluetooth": "{volume}% {icon}",
-        "format-bluetooth-muted": " {icon}",
-        "format-muted": "",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
+        "format": "🔊 {volume}%",
+        "format-bluetooth": "🎧 {volume}%",
+        "format-bluetooth-muted": "🎧 ",
+        "format-muted": "🔇",
+        "format-source": "🎤 {volume}%",
+        "format-source-muted": "🎤",
         "format-icons": {
             "headphone": "",
             "hands-free": "",
@@ -114,7 +129,7 @@
             "phone": "",
             "portable": "",
             "car": "",
-            "default": ["", "", ""]
+            "default": ["🔈", "🔉", "🔊"]
         },
         "on-click": "pavucontrol"
     },
@@ -126,27 +141,27 @@
         },
         "format": "🔋 {capacity}% {time}",
         "format-charging": "⚡ {capacity}% {time}",
-        "format-plugged": "☻ {capacity}%",
+        "format-plugged": "🔌 {capacity}%",
         "format-alt": "{time} {icon}",
-        "format-full": "☻ {capacity}%",
+        "format-full": "🔋 {capacity}%",
         "format-icons": ["", "", "", "", ""]
     },
 
     "disk": {
         "interval": 30,
-        "format": "📂 {free}",
+        "format": "💾 {free}",
         "path": "/"
     },
 
     "cpu": {
         "interval": 10,
-        "format": "💻 {load}",
+        "format": "⚡ {usage}%",
         "tooltip": false
     },
 
     "memory": {
         "interval": 30,
-        "format": "🛢 {used:0.1f}G",
+        "format": "🧠 {used:0.1f}G",
         "states": {
             "warning": 70,
             "critical": 90
