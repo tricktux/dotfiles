@@ -3,7 +3,7 @@
     "position": "bottom",
     "height": 30,
     "spacing": 4,
-    "modules-left": ["hyprland/workspaces", "hyprland/mode"],
+    "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": [],
     "modules-right": [
         "mpris",
@@ -11,7 +11,6 @@
         "network",
         "custom/wireguard",
         "custom/nvidia",
-        "custom/pomodoro",
         "custom/dpms",
         "pulseaudio",
         "battery",
@@ -21,7 +20,7 @@
         "clock"
     ],
 
-    "hyprland/workspaces": {
+    "sway/workspaces": {
         "disable-scroll": true,
         "all-outputs": true,
         "format": "{name}",
@@ -39,13 +38,15 @@
         }
     },
 
-    "hyprland/mode": {
+    "sway/mode": {
         "format": "<span style=\"italic\">{}</span>"
     },
 
     "mpris": {
         "format": "🎵 {player_icon} {dynamic}",
         "format-paused": "🎵 {status_icon} <i>{dynamic}</i>",
+        "max-length": 40,
+        "ellipsis": "...",
         "player-icons": {
             "default": "▶",
             "mpv": "🎵"
