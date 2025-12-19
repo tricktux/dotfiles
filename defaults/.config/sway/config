@@ -74,21 +74,6 @@ bindsym ctrl+shift+period exec dunstctl context
 bindsym ctrl+grave exec dunstctl history-pop
 # }}}
 
-# New cool mod3 bindings
-bindsym mod3+r exec pass --clip linux/`hostname`/user/root && \
-  notify-send 'pass' 'root password copied'
-bindsym mod3+h exec \
-  pass --clip linux/`hostname`/ssh_key/id_ed25519_github && \
-  notify-send 'pass' 'github ssh key copied'
-bindsym mod3+d exec \
-  pass --clip linux/`hostname`/ssh_key/id_ed25519_digitalocean && \
-  notify-send 'pass' 'digitalocean ssh key copied'
-bindsym mod3+s exec \
-  pass --clip nas/synology/skywafer/rei_login && \
-  notify-send 'pass' 'skywafer rei_login copied'
-bindsym mod3+l exec \
-  pass --clip linux/`hostname`/ssh_key/id_ed25519_gitlab && \
-  notify-send 'pass' 'gitlab ssh key copied'
 
 # Launch scratchpads (replacing tdrop with native sway scratchpad)
 bindsym $mod+o exec ~/.config/sway/scripts/sway_scratchpad journal
