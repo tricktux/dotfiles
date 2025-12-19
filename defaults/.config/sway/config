@@ -107,7 +107,7 @@ bindsym ctrl+mod1+j exec pamixer --decrease 5
 bindsym ctrl+mod1+m exec pamixer --toggle-mute
 bindsym ctrl+shift+m exec pamixer --default-source -t
 
-bindsym ctrl+mod1+p exec rofi-pass
+bindsym ctrl+mod1+p exec ~/.config/rofi-pass/rofi-pass
 
 # Hide all scratchpads
 bindsym $mod+m scratchpad show

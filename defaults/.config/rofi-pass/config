@@ -59,6 +59,8 @@ default_do='copyPass' # menu, autotype, copyPass, typeUser, typePass, copyUser, 
 auto_enter='true'
 notify='true'
 default_autotype='user :tab pass'
+clipboard_backend="wl_clipboard"
+backend=wtype
 
 # color of the help messages
 # leave empty for autodetection
