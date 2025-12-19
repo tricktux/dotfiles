@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # filepath: scripts/nix/installs/arch/coding/neovim.sh
 # Define the branch you want to build
-BRANCH="master"  # Change this to your desired branch
+BRANCH="release-0.11"  # Change this to your desired branch
 NEOVIM_DIR="/tmp/neovim-${BRANCH}"
 REPO="https://github.com/neovim"
 
