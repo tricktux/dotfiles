@@ -95,7 +95,7 @@ bindsym $mod+o exec ~/.config/sway/scripts/sway_scratchpad journal
 bindsym $mod+n exec ~/.config/sway/scripts/sway_scratchpad ranger
 bindsym $mod+semicolon exec ~/.config/sway/scripts/sway_scratchpad terminal
 bindsym $mod+p exec ~/.config/sway/scripts/sway_scratchpad ncpamixer
-bindsym $mod+u exec swaymsg bar mode toggle
+bindsym $mod+u exec killall -SIGUSR1 waybar
 bindsym $mod+c exec ~/.config/sway/scripts/sway_scratchpad qalculate
 bindsym $mod+i exec ~/.config/sway/scripts/sway_scratchpad tickrs
 
