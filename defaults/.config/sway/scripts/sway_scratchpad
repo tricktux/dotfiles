@@ -1,4 +1,3 @@
-# filepath: ~/.config/sway/scripts/sway_scratchpad
 #!/bin/bash
 
 APP="$1"
@@ -48,7 +47,7 @@ case "$APP" in
   ;;
 "qalculate")
   TITLE=""
-  APP_ID="org.qalculate.qalculate-qt"
+  CLASS="qalculate-qt"
   CMD="qalculate-qt"
   RESIZE="resize set 50ppt 60ppt"
   POSITION="move position center"
@@ -82,18 +81,38 @@ esac
 
 # Function to check if window exists
 window_exists() {
-  if [ -n "$TITLE" ]; then
-    swaymsg -t get_tree | jq -e ".. | select(.app_id? == \"$APP_ID\" and (.name? == \"$TITLE\" or .title? == \"$TITLE\"))" >/dev/null 2>&1
-  else
-    swaymsg -t get_tree | jq -e ".. | select(.app_id? == \"$APP_ID\")" >/dev/null 2>&1
+  if [ -n "$CLASS" ]; then
+    # XWayland window (uses class)
+    if [ -n "$TITLE" ]; then
+      swaymsg -t get_tree | jq -e ".. | select(.window_properties?.class? == \"$CLASS\" and (.name? == \"$TITLE\" or .title? == \"$TITLE\"))" >/dev/null 2>&1
+    else
+      swaymsg -t get_tree | jq -e ".. | select(.window_properties?.class? == \"$CLASS\")" >/dev/null 2>&1
+    fi
+  elif [ -n "$APP_ID" ]; then
+    # Wayland window (uses app_id)
+    if [ -n "$TITLE" ]; then
+      swaymsg -t get_tree | jq -e ".. | select(.app_id? == \"$APP_ID\" and (.name? == \"$TITLE\" or .title? == \"$TITLE\"))" >/dev/null 2>&1
+    else
+      swaymsg -t get_tree | jq -e ".. | select(.app_id? == \"$APP_ID\")" >/dev/null 2>&1
+    fi
   fi
 }
 
 # Build selector
-if [ -n "$TITLE" ]; then
-  SELECTOR="[title=\"^${TITLE}$\" app_id=\"${APP_ID}\"]"
-else
-  SELECTOR="[app_id=\"${APP_ID}\"]"
+if [ -n "$CLASS" ]; then
+  # XWayland window selector
+  if [ -n "$TITLE" ]; then
+    SELECTOR="[title=\"^${TITLE}$\" class=\"${CLASS}\"]"
+  else
+    SELECTOR="[class=\"${CLASS}\"]"
+  fi
+elif [ -n "$APP_ID" ]; then
+  # Wayland window selector
+  if [ -n "$TITLE" ]; then
+    SELECTOR="[title=\"^${TITLE}$\" app_id=\"${APP_ID}\"]"
+  else
+    SELECTOR="[app_id=\"${APP_ID}\"]"
+  fi
 fi
 
 if window_exists; then
