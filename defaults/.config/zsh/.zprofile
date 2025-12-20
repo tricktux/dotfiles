@@ -15,7 +15,7 @@ if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
     # Set desktop environment for Sway
     export XDG_CURRENT_DESKTOP=sway
     export XDG_SESSION_DESKTOP=sway
-    exec sway
+    exec sway > /tmp/sway_debug.log 2>&1
 
     # Xorg
     # Will source ~/.xinitrc and ~/.xserverrc
