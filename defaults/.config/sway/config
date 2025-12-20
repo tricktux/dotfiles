@@ -164,9 +164,6 @@ bindsym $mod+Shift+Right move right
 # Split vertical
 bindsym $mod+v split v
 
-# Help
-bindsym $mod+question exec i3help
-
 # Fullscreen
 bindsym $mod+f fullscreen toggle
 
@@ -301,6 +298,7 @@ client.placeholder      $color7     #0000ff     $foreground  $background  $backg
 
 client.background       $background
 # }}}
+
 
 #### WINDOW RULES ####{{{
 for_window [app_id="org.gnome.FileRoller"] floating enable
