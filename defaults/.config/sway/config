@@ -116,7 +116,7 @@ bindsym $mod+Mod1+$left focus output left
 bindsym $mod+Mod1+$right focus output right
 
 # Screen lock
-bindsym $mod+shift+x exec swaylock-effects \
+bindsym $mod+shift+x exec swaylock \
     --screenshots \
     --clock \
     --indicator \
@@ -377,9 +377,9 @@ bar {
 
 # Idle configuration
 exec swayidle -w \
-    timeout 300 'swaylock-effects --screenshots --clock --indicator --effect-blur 7x5' \
+    timeout 300 'swaylock --screenshots --clock --indicator --effect-blur 7x5' \
     timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-    before-sleep 'swaylock-effects --screenshots --clock --indicator --effect-blur 7x5'
+    before-sleep 'swaylock --screenshots --clock --indicator --effect-blur 7x5'
 
 # STARTUP APPLICATIONS  {{{
 exec $HOME/.config/sway/scripts/autostart.sh > /tmp/autostart.log 2>&1
