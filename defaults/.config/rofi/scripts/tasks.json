@@ -21,6 +21,10 @@
   },
   {
     "name": "📷 qrencode clipboard",
+    "command": "wl-paste | qrencode -o - | swayimg -"
+  },
+  {
+    "name": "📷 qrencode x11 clipboard",
     "command": "xclip -selection clipboard -o | qrencode -o - |  feh -FZ -"
   },
   {
