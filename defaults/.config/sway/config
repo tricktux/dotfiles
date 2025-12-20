@@ -224,7 +224,6 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 
 # Config management
 bindsym $mod+shift+r reload
-bindsym $mod+shift+d exec $HOME/.config/waybar/scripts/workspace-rename
 bindsym $mod+shift+s exec mkdir -p $XDG_DATA_HOME/screenshots && \
     grim -g "$(slurp)" - | \
     tee $XDG_DATA_HOME/screenshots/$(date +'%Y-%m-%d_%T.png') | \
