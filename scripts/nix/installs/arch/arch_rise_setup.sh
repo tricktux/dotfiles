@@ -469,6 +469,12 @@ paru -Syu --needed --noconfirm openssh mosh
 paru -Syu --needed --noconfirm lxqt-policykit
 # }}}
 
+# install sway {{{
+paru -Syu --needed --noconfirm sway xdg-desktop-portal xdg-desktop-portal-wlr swayimg \
+  swaylock-effects swayidle waybar
+# grim slurp sw
+# }}}
+
 # i3-wm{{{
 # Desktop
 # screenshots, i3
