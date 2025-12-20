@@ -381,6 +381,8 @@ exec swayidle -w \
     before-sleep 'swaylock --screenshots --clock --indicator --effect-blur 7x5'
 
 # STARTUP APPLICATIONS  {{{
+# Set wallpaper
+output '*' bg "$(find /usr/share/backgrounds/archlinux/ -type f -name '*.jpg' -o -name '*.png' | shuf -n 1)" fill
 exec $HOME/.config/sway/scripts/autostart.sh > /tmp/autostart.log 2>&1
 # }}}
 
