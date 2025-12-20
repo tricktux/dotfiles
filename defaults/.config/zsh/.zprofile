@@ -12,7 +12,12 @@ if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
     #   exec uwsm start hyprland.desktop
     # fi
 
+    # Set desktop environment for Sway
+    export XDG_CURRENT_DESKTOP=sway
+    export XDG_SESSION_DESKTOP=sway
+    exec sway
+
     # Xorg
     # Will source ~/.xinitrc and ~/.xserverrc
-    exec startx
+    # exec startx
 fi
