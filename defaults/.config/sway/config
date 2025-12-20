@@ -20,6 +20,7 @@ set $left h
 set $right l
 #}}}
 
+include /etc/sway/config.d/*
 include ~/.config/sway/config.d/*
 include "~/.config/sway/$(cat /etc/hostname).conf"
 
@@ -229,6 +230,7 @@ bindsym $mod+shift+s exec mkdir -p $XDG_DATA_HOME/screenshots && \
     tee $XDG_DATA_HOME/screenshots/$(date +'%Y-%m-%d_%T.png') | \
     wl-copy
 
+
 # Resize mode
 mode "resize" {
     bindsym $left resize shrink width 10 px
@@ -383,7 +385,5 @@ exec swayidle -w \
 # STARTUP APPLICATIONS  {{{
 exec $HOME/.config/sway/scripts/autostart.sh > /tmp/autostart.log 2>&1
 # }}}
-
-include /etc/sway/config.d/*
 
 # vim:fdm=marker:ft=swayconfig
