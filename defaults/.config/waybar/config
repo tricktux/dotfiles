@@ -1,7 +1,7 @@
 {
     "layer": "top",
     "position": "bottom",
-    "height": 35,
+    "height": 28,
     "spacing": 0,
     "margin-top": 5,
     "margin-bottom": 5,
@@ -17,8 +17,6 @@
         "custom/wireguard",
         "custom/separator",
         "custom/nvidia",
-        "custom/dpms",
-        "custom/separator",
         "pulseaudio",
         "battery",
         "custom/separator",
@@ -26,6 +24,7 @@
         "cpu",
         "memory",
         "custom/separator",
+        "tray",
         "clock"
     ],
 
@@ -172,5 +171,10 @@
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format": "🗓️ {:%m-%d %H:%M:%S}",
         "interval": 1
-    }
+    },
+
+    "tray": {
+      "icon-size": 18,
+      "spacing": 10
+    },
 }
