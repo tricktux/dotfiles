@@ -121,27 +121,6 @@ if [[ ! -d /etc/nixos/ ]]; then
   export QT_STYLE_OVERRIDE=
 fi
 
-# Detect Wayland vs Xorg and set appropriate variables
-if [[ "$XDG_SESSION_TYPE" == "wayland" ]] || [[ -n "$WAYLAND_DISPLAY" ]]; then
-  # Wayland-specific settings
-  export QT_QPA_PLATFORM=wayland
-  export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
-  export MOZ_ENABLE_WAYLAND=1
-  export SDL_VIDEODRIVER=wayland
-  export CLUTTER_BACKEND=wayland
-  export XDG_SESSION_TYPE=wayland
-  export GDK_BACKEND=wayland
-
-  # For Sway specifically
-  if [[ "$XDG_CURRENT_DESKTOP" == "sway" ]] || pgrep -x sway > /dev/null 2>&1; then
-    export _JAVA_AWT_WM_NONREPARENTING=1
-  fi
-else
-  # Xorg-specific settings
-  export QT_QPA_PLATFORM=xcb
-  export MOZ_X11_EGL=1
-fi
-
 # Less hist file
 export LESSHISTFILE="$XDG_DATA_HOME"/lesshst
 export LESSHISTSIZE=1000
