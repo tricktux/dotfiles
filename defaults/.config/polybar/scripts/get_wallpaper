@@ -160,10 +160,101 @@ def unsplash():
     return download
 
 
+def detect_wm():
+    """Detect if running i3 or sway"""
+    # Check for SWAYSOCK environment variable (most reliable)
+    if os.environ.get('SWAYSOCK'):
+        logging.info("Detected sway via SWAYSOCK")
+        return 'sway'
+    
+    # Check if sway process is running
+    try:
+        result = subprocess.run(['pgrep', '-x', 'sway'], 
+                              capture_output=True, 
+                              timeout=2)
+        if result.returncode == 0:
+            logging.info("Detected sway via pgrep")
+            return 'sway'
+    except:
+        pass
+    
+    # Default to i3
+    logging.info("Defaulting to i3")
+    return 'i3'
+
+
+def download_image(url, filepath):
+    """Download image from URL to filepath"""
+    try:
+        logging.info('Downloading image to "%s"', filepath)
+        response = get(url, stream=True, timeout=30)
+        if response.status_code == 200:
+            with open(filepath, 'wb') as f:
+                for chunk in response.iter_content(8192):
+                    if chunk:
+                        f.write(chunk)
+            logging.info("Image downloaded successfully")
+            return True
+        else:
+            logging.error("Download failed with status code: %s", response.status_code)
+    except Exception:
+        logging.exception("Failed to download image")
+    return False
+
+
+def set_wallpaper_i3(link):
+    """Set wallpaper using feh for i3"""
+    try:
+        logging.info("Setting wallpaper with feh")
+        proc = subprocess.Popen(
+            ["feh", "--quiet", "--no-fehbg", "--bg-fill", link],
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        proc.wait()
+        logging.info("Wallpaper set successfully with feh")
+        return True
+    except Exception:
+        logging.exception("Exception running feh")
+        return False
+
+
+def set_wallpaper_sway(link):
+    """Set wallpaper using swaymsg for sway"""
+    wallpaper_path = "/tmp/wallpaper"
+
+    # Download the image first
+    if not download_image(link, wallpaper_path):
+        logging.error("Failed to download wallpaper")
+        return False
+
+    # Set wallpaper using swaymsg
+    try:
+        logging.info("Setting wallpaper with swaymsg")
+        proc = subprocess.Popen(
+            ["swaymsg", "output", "*", "bg", wallpaper_path, "fill"],
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        proc.wait()
+        logging.info("Wallpaper set successfully with swaymsg")
+        return True
+    except Exception:
+        logging.exception("Exception running swaymsg")
+        return False
+
+
 def main():
     """Main"""
     logging.basicConfig(filename="/tmp/get_wallpaper.log", level=logging.DEBUG)
     random.seed()
+
+    # Detect window manager
+    wm = detect_wm()
+    logging.info('Detected window manager: "%s"', wm)
+
     # Sat Dec 21 2019 09:28: unsplash is throuwing too many weird wallpapers
     rddit = Reddit()
     # Deleted sources
@@ -189,16 +280,11 @@ def main():
     if not link:
         return
 
-    try:
-        proc = subprocess.Popen(
-            ["feh", "--quiet", "--no-fehbg", "--bg-fill", link],
-            stdin=subprocess.DEVNULL,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-        )
-        proc.wait()
-    except:
-        logging.exception("Exception running feh")
+    # Set wallpaper based on window manager
+    if wm == 'sway':
+        set_wallpaper_sway(link)
+    else:
+        set_wallpaper_i3(link)
 
 
 if __name__ == "__main__":
