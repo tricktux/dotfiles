@@ -34,6 +34,11 @@ input type:keyboard {
     repeat_rate 40
 }
 
+input type:touchpad {
+    tap enabled
+    natural_scroll enabled
+}
+
 # Cursor
 seat seat0 xcursor_theme Bibata-Modern-DarkRed 20
 
