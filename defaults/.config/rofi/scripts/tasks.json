@@ -92,36 +92,8 @@
     "command": "exec ~/.config/polybar/scripts/redshift-toggle.sh"
   },
   {
-    "name": "✍ compositor toggle",
-    "command": "exec ~/.config/polybar/scripts/compton-toggle.sh"
-  },
-  {
-    "name": "💻 xrandr main",
-    "command": "exec $HOME/.config/i3/scripts/xrandr.sh main"
-  },
-  {
-    "name": "📺 xrandr tv-living-room",
-    "command": "exec $HOME/.config/i3/scripts/xrandr.sh tv-living-room"
-  },
-  {
-    "name": "📺 xrandr home_dock",
-    "command": "exec $HOME/.config/i3/scripts/xrandr.sh home"
-  },
-  {
-    "name": "📺 xrandr work_dock",
-    "command": "exec $HOME/.config/i3/scripts/xrandr.sh work"
-  },
-  {
     "name": "📷 text snatcher ocr image",
     "command": "exec $HOME/.config/polybar/scripts/text-snatcher-native.sh"
-  },
-  {
-    "name": "⌨️ keyboard xmodmap reload",
-    "command": "xmodmap $HOME/.config/Xmodmap"
-  },
-  {
-    "name": "⌨️ keyboard xset",
-    "command": "exec $HOME/.config/i3/scripts/xset.sh"
   },
   {
     "name": "⌨️ fix default application to open url links obsidian firefox",
