@@ -85,7 +85,7 @@
   },
   {
     "name": "🖼️ wallpaper arch random",
-    "command": "exec feh --randomize --no-fehbg --bg-fill /usr/share/backgrounds/archlinux/*"
+    "command": "exec ~/.config/sway/scripts/random-arch-wallpaper.sh"
   },
   {
     "name": "🌃 redshift toggle night",
