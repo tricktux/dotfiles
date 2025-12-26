@@ -140,8 +140,8 @@
     "command": "rfkill unblock all; echo '' > /tmp/airplane_mode; systemctl --user stop rslsync"
   },
   {
-    "name": "✈️ i3 workspace fix monitors",
-    "command": "exec $HOME/.config/i3/scripts/i3-workspace-output"
+    "name": "✈️ sway workspace organize fix monitors",
+    "command": "exec $HOME/.config/sway/scripts/organize-workspaces.sh > /tmp/organize-workspaces.log"
   },
   {
     "name": "🎵 music drum.bass all",
