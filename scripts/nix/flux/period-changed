@@ -1,91 +1,233 @@
 #!/usr/bin/env bash
 
-wal_setup() {
-	if [[ ! -x $(command -v wal) ]]; then
-		echo "wal: not executable"
-		return 1
-	fi
-
-	local period=$1
-	local theme="base16-google -l"
-	echo "wal: period: $period"
-
-	case $period in
-	night)
-        theme="base16-gruvbox-hard"
-		;;
-	transition)
-		theme="solarized -l"
-		;;
-	esac
-
-	wal --theme $theme
-}
-
 neovim_setup() {
-	local period=$1
-	local key="<c-\><c-n> tcd"
-	echo "neovim: period: $period"
-	case $period in
-	night)
-		key="<c-\><c-n> tcn"
-		;;
-	transition)
-		key="<c-\><c-n> tct"
-		;;
-	esac
-	for s in ${XDG_RUNTIME_DIR:-${TMPDIR}nvim.${USER}}/nvim.*.0; do
-		nvim --server "$s" --remote-send "$key"
-	done
-	if [[ -S /tmp/nvim_journal.socket ]]; then
-		nvim --server /tmp/nvim_journal.socket --remote-send "$key"
-	fi
+  local period=$1
+  local key="<c-\><c-n> tcd"
+  echo "neovim: period: $period"
+  case $period in
+  night)
+    key="<c-\><c-n> tcn"
+    ;;
+  transition)
+    key="<c-\><c-n> tct"
+    ;;
+  esac
+  for s in ${XDG_RUNTIME_DIR:-${TMPDIR}nvim.${USER}}/nvim.*.0; do
+    [[ -S "$s" ]] && nvim --server "$s" --remote-send "$key"
+  done
+  if [[ -S /tmp/nvim_journal.socket ]]; then
+    nvim --server /tmp/nvim_journal.socket --remote-send "$key"
+  fi
 }
 
-xfce_setup() {
-    if [[ ! -x $(command -v xfconf-query) ]]; then
-        echo "xfce: xfconf-query not executable"
-        return 1
+sway_setup() {
+  if [[ ! -x $(command -v swaymsg) ]]; then
+    echo "sway: swaymsg not executable"
+    return 1
+  fi
+
+  local period=$1
+  echo "sway: period: $period"
+
+  # Define color schemes
+  local bg_color="#ffffff"
+  local fg_color="#000000"
+  local accent="#4285f4"
+  local inactive="#cccccc"
+
+  case $period in
+  night)
+    bg_color="#1d2021"
+    fg_color="#ebdbb2"
+    accent="#fb4934"
+    inactive="#3c3836"
+    ;;
+  transition)
+    bg_color="#fdf6e3"
+    fg_color="#657b83"
+    accent="#cb4b16"
+    inactive="#eee8d5"
+    ;;
+  esac
+
+  # Apply sway colors
+  swaymsg "client.focused $accent $accent $fg_color $accent $accent"
+  swaymsg "client.focused_inactive $inactive $inactive $fg_color $inactive $inactive"
+  swaymsg "client.unfocused $bg_color $bg_color $fg_color $bg_color $bg_color"
+}
+
+kitty_setup() {
+  if [[ ! -x $(command -v kitty) ]]; then
+    echo "kitty: not executable"
+    return 1
+  fi
+
+  local period=$1
+  echo "kitty: period: $period"
+
+  local theme="default"
+  case $period in
+  night)
+    theme="gruvbox_dark"
+    ;;
+  transition)
+    theme="solarized_light"
+    ;;
+  *)
+    theme="default"
+    ;;
+  esac
+
+  # Change theme for all running kitty instances
+  kitty @ --to unix:/tmp/kitty set-colors --configured ~/.config/kitty/themes/${theme}.conf 2>/dev/null || {
+    # Fallback: direct color setting if theme files don't exist
+    case $period in
+    night)
+      kitty @ --to unix:/tmp/kitty set-colors \
+        foreground=#ebdbb2 background=#1d2021 \
+        cursor=#ebdbb2 selection_background=#665c54 2>/dev/null
+      ;;
+    transition)
+      kitty @ --to unix:/tmp/kitty set-colors \
+        foreground=#657b83 background=#fdf6e3 \
+        cursor=#657b83 selection_background=#eee8d5 2>/dev/null
+      ;;
+    *)
+      kitty @ --to unix:/tmp/kitty set-colors \
+        foreground=#000000 background=#ffffff \
+        cursor=#000000 selection_background=#cccccc 2>/dev/null
+      ;;
+    esac
+  }
+}
+
+gtk_setup() {
+  if [[ ! -x $(command -v gsettings) ]]; then
+    echo "gtk: gsettings not executable"
+    return 1
+  fi
+
+  local period=$1
+  local theme="Adwaita"
+  local icons="Adwaita"
+  local cursor="Adwaita"
+
+  echo "gtk: period: $period"
+  case $period in
+  night)
+    theme="Adwaita-dark"
+    ;;
+  esac
+
+  gsettings set org.gnome.desktop.interface gtk-theme "$theme"
+  gsettings set org.gnome.desktop.interface icon-theme "$icons"
+  gsettings set org.gnome.desktop.interface cursor-theme "$cursor"
+  gsettings set org.gnome.desktop.interface color-scheme "$([ "$period" = "night" ] && echo "prefer-dark" || echo "prefer-light")"
+}
+
+waybar_setup() {
+  if [[ ! -x $(command -v waybar) ]]; then
+    echo "waybar: not executable"
+    return 1
+  fi
+
+  local period=$1
+  echo "waybar: period: $period"
+
+  # Check if waybar is running
+  if ! pgrep -x waybar >/dev/null; then
+    echo "waybar: not running"
+    return 1
+  fi
+
+  # Option 1: If you have different waybar CSS files for each period
+  local waybar_config_dir="$HOME/.config/waybar"
+  local style_file="style.css"
+
+  case $period in
+  night)
+    style_file="style-night.css"
+    ;;
+  transition)
+    style_file="style-transition.css"
+    ;;
+  *)
+    style_file="style-day.css"
+    ;;
+  esac
+
+  # Check if theme-specific style exists, otherwise use default
+  if [[ -f "$waybar_config_dir/$style_file" ]]; then
+    ln -sf "$waybar_config_dir/$style_file" "$waybar_config_dir/style.css"
+  fi
+
+  # Restart waybar to apply new styles
+  pkill -SIGUSR2 waybar || {
+    pkill waybar
+    sleep 0.5
+    waybar &
+  }
+}
+
+dunst_setup() {
+  if [[ ! -x $(command -v dunst) ]]; then
+    echo "dunst: not executable"
+    return 1
+  fi
+
+  local period=$1
+  echo "dunst: period: $period"
+
+  # Define dunst config directory
+  local dunst_config_dir="$HOME/.config/dunst"
+  local config_file="dunstrc"
+
+  case $period in
+  night)
+    config_file="dunstrc-night"
+    ;;
+  transition)
+    config_file="dunstrc-transition"
+    ;;
+  *)
+    config_file="dunstrc-day"
+    ;;
+  esac
+
+  # Check if theme-specific config exists
+  if [[ -f "$dunst_config_dir/$config_file" ]]; then
+    ln -sf "$dunst_config_dir/$config_file" "$dunst_config_dir/dunstrc"
+    # Restart dunst to apply new config
+    pkill dunst
+    dunst &
+  else
+    # Fallback: use dunstctl if available (dunst 1.9.0+)
+    if command -v dunstctl >/dev/null 2>&1; then
+      case $period in
+      night)
+        dunstctl set-paused false 2>/dev/null || true
+        ;;
+      transition)
+        dunstctl set-paused false 2>/dev/null || true
+        ;;
+      *)
+        dunstctl set-paused false 2>/dev/null || true
+        ;;
+      esac
     fi
-
-	local period=$1
-	local theme="Adapta"
-	local icons="Paper"
-	cursor="Bibata-Modern-DarkRed"
-	echo "xfce: period: $period"
-	case $period in
-	night)
-		theme="Adapta-Nokto"
-		;;
-	esac
-	xfconf-query -c xsettings -p /Net/ThemeName -s $theme
-	xfconf-query -c xsettings -p /Net/IconThemeName -s $icons
-	xfconf-query -c xsettings -p /Gtk/CursorThemeName -s $cursor
+  fi
 }
 
-qt_setup() {
-	if [[ ! -x $(command -v gsettings) ]]; then
-		echo "qt: gsettings not executable"
-		return 1
-	fi
+# Execute setups
+neovim_setup "$1"
+sway_setup "$1"
+gtk_setup "$1"
+kitty_setup "$1"
+waybar_setup "$1"
+dunst_setup "$1"
 
-	local period=$1
-	local theme="Adapta"
+# Reload sway config to apply changes
+swaymsg reload
 
-	case $period in
-	night)
-		theme="Adapta-Nokto"
-		;;
-	esac
-	gsettings set org.gnome.desktop.interface gtk-theme $theme
-
-    # Set Qt theme to match GTK
-    export QT_STYLE_OVERRIDE=gtk2
-}
-
-neovim_setup $1
-xfce_setup $1
-qt_setup $1
-wal_setup $1
-i3-msg restart
-notify-send "period-changed" "Configuration '$1' set!"
+# Send notification
+notify-send "period-changed" "Configuration '$1' applied for sway!" -t 3000
