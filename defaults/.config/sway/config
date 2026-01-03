@@ -357,8 +357,7 @@ bar {
 # Idle configuration
 exec swayidle -w \
     timeout 300 '~/.config/sway/scripts/lock.sh' \
-    timeout 600 'swaymsg "output * disable"' resume 'swaymsg "output * enable"' \
-    before-sleep '~/.config/sway/scripts/lock.sh'
+    timeout 600 'swaymsg "output * disable"' resume 'swaymsg "output * enable"'
 
 # STARTUP APPLICATIONS  {{{
 # Set wallpaper
