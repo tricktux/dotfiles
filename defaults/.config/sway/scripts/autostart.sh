@@ -54,4 +54,6 @@ else
 fi
 
 touch /tmp/airplane_mode
+$HOME/.config/dotfiles/scripts/nix/flux/neoflux-watch > /tmp/flux.log 2>&1 &
+systemctl --user restart dunst.service redshift.service
 $HOME/.config/polybar/scripts/get_activities -d 10 $HOME/.config/polybar/scripts/strava.ini
