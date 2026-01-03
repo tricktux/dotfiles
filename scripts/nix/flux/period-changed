@@ -48,23 +48,9 @@ sway_setup() {
     return 1
   fi
 
-  local period=$1
-  echo "sway: reloading config to pick up wal colors"
-  
   # Sway will automatically pick up the new colors from the include statement
   # We just need to reload the config
   swaymsg reload
-}
-
-kitty_setup() {
-  if [[ ! -x $(command -v kitty) ]]; then
-    echo "kitty: not executable, skipping"
-    return 0
-  fi
-
-  echo "kitty: reloading config to pick up wal colors"
-  # Kitty will automatically pick up colors from wal via your existing include
-  kitty @ --to unix:/tmp/kitty load-config 2>/dev/null || true
 }
 
 gtk_setup() {
@@ -133,7 +119,6 @@ wal_setup "$1"           # Run wal first to generate colors
 neovim_setup "$1"
 sway_setup "$1"          # Reload sway config after wal generates colors
 gtk_setup "$1"
-kitty_setup "$1"
 waybar_setup "$1"
 dunst_setup "$1"
 
