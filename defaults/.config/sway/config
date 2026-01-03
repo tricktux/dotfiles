@@ -266,18 +266,8 @@ bindsym XF86PowerDown exec "swaymsg '[app_id=\".*\"]' kill && systemctl poweroff
 # }}}
 
 # Window colors{{{
-set $background #1d2021
-set $foreground #cbddeb
-set $color0     #1d2021
-set $color1     #2e2d2d
-set $color2     #08A2FB
-set $color3     #63B1F1
-set $color4     #6BC6F8
-set $color5     #979695
-set $color6     #D5BE97
-set $color7     #95B6DD
-set $color8     #cbddeb
-set $color9     #8e9aa4
+# Load colors from pywal
+include "$HOME/.cache/wal/colors-sway"
 
 # class                 border      backgr.     text         indicator    child_border
 client.focused          $color6     $color6     $background  $foreground  $color6
