@@ -42,17 +42,6 @@ neovim_setup() {
   fi
 }
 
-sway_setup() {
-  if [[ ! -x $(command -v swaymsg) ]]; then
-    echo "sway: swaymsg not executable"
-    return 1
-  fi
-
-  # Sway will automatically pick up the new colors from the include statement
-  # We just need to reload the config
-  swaymsg reload
-}
-
 gtk_setup() {
   if [[ ! -x $(command -v gsettings) ]]; then
     echo "gtk: gsettings not executable"
@@ -60,67 +49,26 @@ gtk_setup() {
   fi
 
   local period=$1
-  local theme="Adwaita"
-  local icons="Adwaita"
-  local cursor="Adwaita"
+  local theme="Adapta"
+  local icons="Papirus"
 
   echo "gtk: period: $period"
   case $period in
   night)
-    theme="Adwaita-dark"
+    theme="Adapta-Nokto"
     ;;
   esac
 
   gsettings set org.gnome.desktop.interface gtk-theme "$theme"
   gsettings set org.gnome.desktop.interface icon-theme "$icons"
-  gsettings set org.gnome.desktop.interface cursor-theme "$cursor"
   gsettings set org.gnome.desktop.interface color-scheme "$([ "$period" = "night" ] && echo "prefer-dark" || echo "prefer-light")"
 }
 
-waybar_setup() {
-  if [[ ! -x $(command -v waybar) ]]; then
-    echo "waybar: not executable"
-    return 1
-  fi
-
-  local period=$1
-  echo "waybar: period: $period"
-
-  # Check if waybar is running
-  if ! pgrep -x waybar >/dev/null; then
-    echo "waybar: not running"
-    return 1
-  fi
-
-  # Restart waybar to pick up wal colors
-  pkill -SIGUSR2 waybar || {
-    pkill waybar
-    sleep 0.5
-    waybar &
-  }
-}
-
-dunst_setup() {
-  if [[ ! -x $(command -v dunst) ]]; then
-    echo "dunst: not executable"
-    return 1
-  fi
-
-  local period=$1
-  echo "dunst: restarting to pick up wal colors"
-
-  # Restart dunst to pick up wal-generated colors
-  pkill dunst
-  dunst &
-}
 
 # Execute setups in the right order
-wal_setup "$1"           # Run wal first to generate colors
+wal_setup "$1" # Run wal first to generate colors
 neovim_setup "$1"
-sway_setup "$1"          # Reload sway config after wal generates colors
 gtk_setup "$1"
-waybar_setup "$1"
-dunst_setup "$1"
 
 # Send notification
 notify-send "period-changed" "Configuration '$1' applied with pywal!" -t 3000
