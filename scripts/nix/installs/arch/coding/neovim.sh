@@ -51,7 +51,7 @@ update_pynvim() {
 }
 
 # Install needed dependencies (adjust as necessary)
-paru -Syu --needed git cmake make gcc pkg-config unzip ninja libtool curl gettext \
+yay -Syu --needed git cmake make gcc pkg-config unzip ninja libtool curl gettext \
   tree-sitter-cli ripgrep fd inotify-tools
 
 # Clean up previous installation first

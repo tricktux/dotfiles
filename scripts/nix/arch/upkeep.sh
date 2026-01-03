@@ -2,7 +2,7 @@
 # Inspiration from:
 # https://betterdev.blog/minimal-safe-bash-script-template/
 
-aur_helper='paru'
+aur_helper='yay'
 # Fail as soon as a command fails
 set -Eeuo pipefail
 
