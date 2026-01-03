@@ -14,6 +14,7 @@ end
 
 local function setup_flux()
   local period = vim.fn['flux#Check']()
+  if (period == 'none' or period == nil) then period = 'daytime' end
   c.change_flavour(period)
 end
 
