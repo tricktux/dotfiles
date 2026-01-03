@@ -29,18 +29,14 @@ caddy
 capitaine-cursors
 ccache
 cdrtools
-cheese
 cifs-utils
 clang
 cmake
 cmus
-colorgcc
 cppcheck
 cpupower
 cscope
 ctags
-cuda
-cudnn
 cups
 cups-pdf
 dhcpcd
@@ -54,7 +50,6 @@ dotnet-sdk
 doublecmd-qt5
 dunst
 earlyoom
-easyeffects
 efibootmgr
 evolution
 eza
@@ -63,7 +58,6 @@ fail2ban
 fakeroot
 fd
 fdupes
-feh
 ffmpeg
 file
 findutils
@@ -99,10 +93,6 @@ hplip
 hunspell
 hunspell-en_us
 hyperfine
-i3-wm
-i3blocks
-i3lock
-i3status
 imagemagick
 inetutils
 inotify-tools
@@ -170,9 +160,6 @@ nvidia-container-toolkit
 nvtop
 nwg-displays
 obsidian
-ollama
-ollama-cuda
-opencl-nvidia
 openresolv
 otf-cascadia-code
 otf-fira-mono
@@ -198,7 +185,6 @@ plantuml
 playerctl
 poppler
 py3status
-python-click-repl
 python-cpplint
 python-pip
 python-pipx
@@ -219,7 +205,6 @@ rustup
 sccache
 scrcpy
 scrot
-sddm
 seahorse
 sed
 shfmt
@@ -272,7 +257,6 @@ udisks2
 unibilium
 unzip
 urlscan
-uwsm
 vale
 vcpkg
 vdirsyncer
@@ -357,10 +341,8 @@ xorg-xsetroot
 xorg-xvinfo
 xorg-xwayland
 xorg-xwd
-xorg-xwininfo
 xorg-xwud
 xss-lock
-yazi
 ytfzf
 zathura
 zathura-pdf-mupdf
