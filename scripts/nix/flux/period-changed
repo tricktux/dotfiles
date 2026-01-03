@@ -1,5 +1,35 @@
 #!/usr/bin/env bash
 
+wal_setup() {
+  if [[ ! -x $(command -v wal) ]]; then
+    echo "wal: not executable"
+    return 1
+  fi
+
+  local period=$1
+  local theme="base16-google"
+  echo "wal: period: $period"
+
+  case $period in
+  night)
+    theme="base16-gruvbox-hard"
+    ;;
+  transition)
+    theme="base16-solarized-light"
+    ;;
+  *)
+    theme="base16-google"
+    ;;
+  esac
+
+  wal --theme $theme
+  
+  # Generate sway colors after wal runs
+  if [[ -f ~/.cache/wal/colors.json ]]; then
+    echo "wal: generated colors for sway"
+  fi
+}
+
 neovim_setup() {
   local period=$1
   local key="<c-\><c-n> tcd"
@@ -27,78 +57,22 @@ sway_setup() {
   fi
 
   local period=$1
-  echo "sway: period: $period"
-
-  # Define color schemes
-  local bg_color="#ffffff"
-  local fg_color="#000000"
-  local accent="#4285f4"
-  local inactive="#cccccc"
-
-  case $period in
-  night)
-    bg_color="#1d2021"
-    fg_color="#ebdbb2"
-    accent="#fb4934"
-    inactive="#3c3836"
-    ;;
-  transition)
-    bg_color="#fdf6e3"
-    fg_color="#657b83"
-    accent="#cb4b16"
-    inactive="#eee8d5"
-    ;;
-  esac
-
-  # Apply sway colors
-  swaymsg "client.focused $accent $accent $fg_color $accent $accent"
-  swaymsg "client.focused_inactive $inactive $inactive $fg_color $inactive $inactive"
-  swaymsg "client.unfocused $bg_color $bg_color $fg_color $bg_color $bg_color"
+  echo "sway: reloading config to pick up wal colors"
+  
+  # Sway will automatically pick up the new colors from the include statement
+  # We just need to reload the config
+  swaymsg reload
 }
 
 kitty_setup() {
   if [[ ! -x $(command -v kitty) ]]; then
-    echo "kitty: not executable"
-    return 1
+    echo "kitty: not executable, skipping"
+    return 0
   fi
 
-  local period=$1
-  echo "kitty: period: $period"
-
-  local theme="default"
-  case $period in
-  night)
-    theme="gruvbox_dark"
-    ;;
-  transition)
-    theme="solarized_light"
-    ;;
-  *)
-    theme="default"
-    ;;
-  esac
-
-  # Change theme for all running kitty instances
-  kitty @ --to unix:/tmp/kitty set-colors --configured ~/.config/kitty/themes/${theme}.conf 2>/dev/null || {
-    # Fallback: direct color setting if theme files don't exist
-    case $period in
-    night)
-      kitty @ --to unix:/tmp/kitty set-colors \
-        foreground=#ebdbb2 background=#1d2021 \
-        cursor=#ebdbb2 selection_background=#665c54 2>/dev/null
-      ;;
-    transition)
-      kitty @ --to unix:/tmp/kitty set-colors \
-        foreground=#657b83 background=#fdf6e3 \
-        cursor=#657b83 selection_background=#eee8d5 2>/dev/null
-      ;;
-    *)
-      kitty @ --to unix:/tmp/kitty set-colors \
-        foreground=#000000 background=#ffffff \
-        cursor=#000000 selection_background=#cccccc 2>/dev/null
-      ;;
-    esac
-  }
+  echo "kitty: reloading config to pick up wal colors"
+  # Kitty will automatically pick up colors from wal via your existing include
+  kitty @ --to unix:/tmp/kitty load-config 2>/dev/null || true
 }
 
 gtk_setup() {
@@ -140,28 +114,7 @@ waybar_setup() {
     return 1
   fi
 
-  # Option 1: If you have different waybar CSS files for each period
-  local waybar_config_dir="$HOME/.config/waybar"
-  local style_file="style.css"
-
-  case $period in
-  night)
-    style_file="style-night.css"
-    ;;
-  transition)
-    style_file="style-transition.css"
-    ;;
-  *)
-    style_file="style-day.css"
-    ;;
-  esac
-
-  # Check if theme-specific style exists, otherwise use default
-  if [[ -f "$waybar_config_dir/$style_file" ]]; then
-    ln -sf "$waybar_config_dir/$style_file" "$waybar_config_dir/style.css"
-  fi
-
-  # Restart waybar to apply new styles
+  # Restart waybar to pick up wal colors
   pkill -SIGUSR2 waybar || {
     pkill waybar
     sleep 0.5
@@ -176,58 +129,21 @@ dunst_setup() {
   fi
 
   local period=$1
-  echo "dunst: period: $period"
+  echo "dunst: restarting to pick up wal colors"
 
-  # Define dunst config directory
-  local dunst_config_dir="$HOME/.config/dunst"
-  local config_file="dunstrc"
-
-  case $period in
-  night)
-    config_file="dunstrc-night"
-    ;;
-  transition)
-    config_file="dunstrc-transition"
-    ;;
-  *)
-    config_file="dunstrc-day"
-    ;;
-  esac
-
-  # Check if theme-specific config exists
-  if [[ -f "$dunst_config_dir/$config_file" ]]; then
-    ln -sf "$dunst_config_dir/$config_file" "$dunst_config_dir/dunstrc"
-    # Restart dunst to apply new config
-    pkill dunst
-    dunst &
-  else
-    # Fallback: use dunstctl if available (dunst 1.9.0+)
-    if command -v dunstctl >/dev/null 2>&1; then
-      case $period in
-      night)
-        dunstctl set-paused false 2>/dev/null || true
-        ;;
-      transition)
-        dunstctl set-paused false 2>/dev/null || true
-        ;;
-      *)
-        dunstctl set-paused false 2>/dev/null || true
-        ;;
-      esac
-    fi
-  fi
+  # Restart dunst to pick up wal-generated colors
+  pkill dunst
+  dunst &
 }
 
-# Execute setups
+# Execute setups in the right order
+wal_setup "$1"           # Run wal first to generate colors
 neovim_setup "$1"
-sway_setup "$1"
+sway_setup "$1"          # Reload sway config after wal generates colors
 gtk_setup "$1"
 kitty_setup "$1"
 waybar_setup "$1"
 dunst_setup "$1"
 
-# Reload sway config to apply changes
-swaymsg reload
-
 # Send notification
-notify-send "period-changed" "Configuration '$1' applied for sway!" -t 3000
+notify-send "period-changed" "Configuration '$1' applied with pywal!" -t 3000
