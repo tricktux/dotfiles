@@ -1,3 +1,6 @@
+/* Import pywal colors */
+@import url("file:///home/reinaldo/.cache/wal/colors-waybar.css");
+
 * {
     font-family: 'Fira Code', monospace;
     font-size: 13px;
@@ -7,14 +10,14 @@
 }
 
 window#waybar {
-    background: rgba(30, 30, 46, 0.9);
-    border: 2px solid rgba(137, 180, 250, 0.3);
+    background: alpha(@background, 0.9);
+    border: 2px solid alpha(@color4, 0.3);
     border-radius: 12px;
-    color: #cdd6f4;
+    color: @foreground;
 }
 
 #workspaces {
-    background: rgba(137, 180, 250, 0.1);
+    background: alpha(@color4, 0.1);
     border-radius: 8px;
     margin: 4px;
     padding: 0;
@@ -24,25 +27,25 @@ window#waybar {
     padding: 4px 12px;
     margin: 2px;
     background: transparent;
-    color: #a6adc8;
+    color: alpha(@foreground, 0.7);
     border-radius: 6px;
 }
 
 #workspaces button.focused,
 #workspaces button.active {
-    background: #89b4fa;
-    color: #1e1e2e;
+    background: @color4;
+    color: @background;
     font-weight: bold;
 }
 
 #workspaces button:hover {
-    background: rgba(137, 180, 250, 0.2);
-    color: #cdd6f4;
+    background: alpha(@color4, 0.2);
+    color: @foreground;
 }
 
 #mode {
-    background: #f38ba8;
-    color: #1e1e2e;
+    background: @color1;
+    color: @background;
     padding: 4px 12px;
     margin: 4px;
     border-radius: 8px;
@@ -50,64 +53,64 @@ window#waybar {
 }
 
 #mpris {
-    background: rgba(49, 50, 68, 0.8);
-    color: #cdd6f4;
+    background: alpha(@color8, 0.8);
+    color: @foreground;
     padding: 4px 12px;
     margin: 2px 1px;
     border-radius: 6px;
 }
 
 #network {
-    background: rgba(49, 50, 68, 0.8);
-    color: #cdd6f4;
+    background: alpha(@color8, 0.8);
+    color: @foreground;
     padding: 4px 12px;
     margin: 2px 1px;
     border-radius: 6px;
 }
 
 #pulseaudio {
-    background: rgba(49, 50, 68, 0.8);
-    color: #cdd6f4;
+    background: alpha(@color8, 0.8);
+    color: @foreground;
     padding: 4px 12px;
     margin: 2px 1px;
     border-radius: 6px;
 }
 
 #battery {
-    background: rgba(49, 50, 68, 0.8);
-    color: #cdd6f4;
+    background: alpha(@color8, 0.8);
+    color: @foreground;
     padding: 4px 12px;
     margin: 2px 1px;
     border-radius: 6px;
 }
 
 #disk {
-    background: rgba(49, 50, 68, 0.8);
-    color: #cdd6f4;
+    background: alpha(@color8, 0.8);
+    color: @foreground;
     padding: 4px 12px;
     margin: 2px 1px;
     border-radius: 6px;
 }
 
 #cpu {
-    background: rgba(49, 50, 68, 0.8);
-    color: #cdd6f4;
+    background: alpha(@color8, 0.8);
+    color: @foreground;
     padding: 4px 12px;
     margin: 2px 1px;
     border-radius: 6px;
 }
 
 #memory {
-    background: rgba(49, 50, 68, 0.8);
-    color: #cdd6f4;
+    background: alpha(@color8, 0.8);
+    color: @foreground;
     padding: 4px 12px;
     margin: 2px 1px;
     border-radius: 6px;
 }
 
 #clock {
-    background: rgba(166, 227, 161, 0.8);
-    color: #1e1e2e;
+    background: alpha(@color2, 0.8);
+    color: @background;
     font-weight: bold;
     padding: 4px 12px;
     margin: 2px 1px;
@@ -118,46 +121,46 @@ window#waybar {
 #custom-wireguard,
 #custom-nvidia,
 #custom-dpms {
-    background: rgba(49, 50, 68, 0.8);
-    color: #cdd6f4;
+    background: alpha(@color8, 0.8);
+    color: @foreground;
     padding: 4px 12px;
     margin: 2px 1px;
     border-radius: 6px;
 }
 
 #custom-separator {
-    color: rgba(137, 180, 250, 0.3);
+    color: alpha(@color4, 0.3);
     background: transparent;
     padding: 4px 8px;
     margin: 0;
 }
 
 #battery.warning {
-    background: #fab387;
-    color: #1e1e2e;
+    background: @color3;
+    color: @background;
 }
 
 #battery.critical {
-    background: #f38ba8;
-    color: #1e1e2e;
+    background: @color1;
+    color: @background;
 }
 
 #memory.warning {
-    background: #fab387;
-    color: #1e1e2e;
+    background: @color3;
+    color: @background;
 }
 
 #memory.critical {
-    background: #f38ba8;
-    color: #1e1e2e;
+    background: @color1;
+    color: @background;
 }
 
 #pulseaudio.muted {
-    background: #6c7086;
-    color: #f38ba8;
+    background: @color8;
+    color: @color1;
 }
 
 #network.disconnected {
-    background: #f38ba8;
-    color: #1e1e2e;
+    background: @color1;
+    color: @background;
 }
