@@ -16,12 +16,14 @@ else
 	printf "\n==X Please install playerctld\n"
 fi
 
-if [[ -x $(command -v alttab) ]]; then
-	alttab -w 1 -d 2 -frame rgb:26/8b/d2 -bg rgb:f1/f1/f1 \
-		-fg rgb:55/55/55 -t 120x120 -i 120x120 &
+# Setup config for current time of day at startup
+# Wal doesn't seem to work sometimes. force it initially
+if [[ -x $(command -v wal) ]]; then
+  wal --theme base16-google -l -q
 else
-	printf "\n==X Please install alttab\n"
+  printf "\n==X Please install python-pywal\n"
 fi
+$HOME/.config/dotfiles/scripts/nix/flux/neoflux-watch > /tmp/flux.log 2>&1 &
 
 if [[ -x $(command -v blueman-applet) ]]; then
 	blueman-applet &
@@ -54,6 +56,5 @@ else
 fi
 
 touch /tmp/airplane_mode
-$HOME/.config/dotfiles/scripts/nix/flux/neoflux-watch > /tmp/flux.log 2>&1 &
 systemctl --user restart dunst.service redshift.service
 $HOME/.config/polybar/scripts/get_activities -d 10 $HOME/.config/polybar/scripts/strava.ini
