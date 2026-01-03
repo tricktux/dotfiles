@@ -7,7 +7,7 @@ wal_setup() {
   fi
 
   local period=$1
-  local theme="base16-google"
+  local theme="base16-google -l"
   echo "wal: period: $period"
 
   case $period in
@@ -15,19 +15,11 @@ wal_setup() {
     theme="base16-gruvbox-hard"
     ;;
   transition)
-    theme="base16-solarized-light"
-    ;;
-  *)
-    theme="base16-google"
+    theme="solarized -l"
     ;;
   esac
 
   wal --theme $theme
-  
-  # Generate sway colors after wal runs
-  if [[ -f ~/.cache/wal/colors.json ]]; then
-    echo "wal: generated colors for sway"
-  fi
 }
 
 neovim_setup() {
