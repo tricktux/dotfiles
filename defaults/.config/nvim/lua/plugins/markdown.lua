@@ -9,6 +9,16 @@ M.opts = {
   legacy_commands = false,
   workspaces = {},
   footer = { enabled = false },
+  -- Override the default zettel_id function to use the title as-is
+  -- For daily notes, the title will be the date (e.g., "2026-01-07")
+  note_id_func = function(title)
+    if title ~= nil then
+      -- Use the provided title (which includes the date for daily notes)
+      return title
+    end
+    -- Fallback to zettel ID for notes created without a title
+    return tostring(os.time())
+  end,
   templates = {
     folder = 'templates',
     date_format = '%Y-%m-%d',
