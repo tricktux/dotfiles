@@ -9,6 +9,23 @@ local M = {}
 
 function _G.RgFindFiles(cmdarg, _cmdcomplete)
   local fnames = vim.fn.systemlist('fd --type f --color=never --hidden --follow --full-path ' .. cmdarg)
+
+  -- Handle command errors
+  if vim.v.shell_error ~= 0 then
+    return {}
+  end
+
+  -- Trim whitespace and normalize paths on Windows
+  if utl.has_win then
+    for i, fname in ipairs(fnames) do
+      fnames[i] = vim.fn.trim(fname)  -- Remove any trailing/leading whitespace including \r
+      -- Optional: normalize path separators on Windows
+      if vim.fn.has('win32') == 1 then
+        fnames[i] = fnames[i]:gsub('/', '\\')
+      end
+    end
+  end
+
   if #cmdarg == 0 then
     return fnames
   else
