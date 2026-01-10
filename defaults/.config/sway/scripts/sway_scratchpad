@@ -6,28 +6,28 @@ case "$APP" in
 "journal")
   TITLE="journal"
   APP_ID="kitty"
-  CMD="kitty -T journal -e sh -c 'cd ~/Documents && nvim journal.md'"
-  RESIZE="resize set 80ppt 60ppt"
+  CMD="$TERMINAL --title journal $HOME/.config/i3/scripts/journal.sh"
+  RESIZE="resize set 60ppt 60ppt"
   POSITION="move position center"
   ;;
 "ranger")
   TITLE="ranger-scratchpad"
   APP_ID="kitty"
-  CMD="kitty -T ranger-scratchpad -e ranger"
+  CMD="$TERMINAL --title ranger-scratchpad ranger --cmd=\"set viewmode multipane\" --cmd=\"set column_ratios 1,1\" --cmd=\"tab_new\""
   RESIZE="resize set 80ppt 60ppt"
   POSITION="move position center"
   ;;
 "terminal")
   TITLE="terminal"
   APP_ID="kitty"
-  CMD="kitty -T terminal -o background_opacity=0.75"
+  CMD="$TERMINAL -T terminal -o background_opacity=0.75"
   RESIZE="resize set 100ppt 40ppt"
   POSITION="move position 0px 2ppt"
   ;;
 "neomutt")
   TITLE="neomutt"
   APP_ID="kitty"
-  CMD="kitty -T neomutt -e neomutt"
+  CMD="$TERMINAL -T neomutt -e neomutt"
   RESIZE="resize set 80ppt 60ppt"
   POSITION="move position center"
   ;;
@@ -41,7 +41,7 @@ case "$APP" in
 "ncpamixer")
   TITLE="ncpamixer"
   APP_ID="kitty"
-  CMD="kitty -T ncpamixer -e ncpamixer -t c"
+  CMD="$TERMINAL -T ncpamixer -e ncpamixer -t o"
   RESIZE="resize set 80ppt 60ppt"
   POSITION="move position center"
   ;;
@@ -55,14 +55,14 @@ case "$APP" in
 "tickrs")
   TITLE="tickrs"
   APP_ID="kitty"
-  CMD="kitty -T tickrs -e tickrs"
+  CMD="$TERMINAL -T tickrs -e tickrs"
   RESIZE="resize set 80ppt 80ppt"
   POSITION="move position center"
   ;;
 "bottom")
   TITLE="bottom"
   APP_ID="kitty"
-  CMD="kitty -T bottom -e btm"
+  CMD="$TERMINAL -T bottom -e btm"
   RESIZE="resize set 80ppt 60ppt"
   POSITION="move position center"
   ;;
