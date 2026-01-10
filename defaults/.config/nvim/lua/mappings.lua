@@ -8,7 +8,7 @@ local fn = vim.fn
 local M = {}
 
 function _G.RgFindFiles(cmdarg, _cmdcomplete)
-  local fnames = vim.fn.systemlist('fd --type f --color=never --hidden --follow --full-path ' .. cmdarg)
+  local fnames = vim.fn.systemlist(utl.fd.file_cmd)
 
   -- Handle command errors
   if vim.v.shell_error ~= 0 then
