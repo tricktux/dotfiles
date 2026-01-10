@@ -297,7 +297,7 @@ local p = {
     'folke/zen-mode.nvim',
     keys = {
       {
-        '<leader>tf',
+        '<plug>focus_toggle',
         '<cmd>ZenMode<cr>',
         desc = 'focus-mode-zen-mode-toggle',
       },
