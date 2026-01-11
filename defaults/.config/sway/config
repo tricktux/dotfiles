@@ -343,7 +343,7 @@ for_window [app_id=".*"] title_format "%title (%app_id)"
 # Options{{{
 focus_follows_mouse no
 smart_borders on
-workspace_layout tabbed
+workspace_layout default
 title_align center
 default_border pixel 4
 default_floating_border pixel 3
