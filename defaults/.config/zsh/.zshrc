@@ -303,4 +303,6 @@ if [[ -x $(command -v atuin) ]]; then
   bindkey '^r' _atuin_search_widget
 fi
 
+# Tempting. yay -Syu starship
+# eval "$(starship init zsh)"
 # vim: fdm=marker ft=sh
