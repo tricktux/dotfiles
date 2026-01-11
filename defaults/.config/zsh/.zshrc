@@ -2,13 +2,6 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block, everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 #{{{compinstall
 # The following lines were added by compinstall
 
@@ -262,38 +255,6 @@ if [[ -x $(command -v tmux) && "$TMUX" == "" && "$SSH_CONNECTION" != "" ]]; then
 fi
 # }}}
 
-# p10k setup {{{
-# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
-# TODO: Don't source this file, but rather: romkatv/powerlevel10k/config/p10k-lean.zsh
-# TODO: Use a suggested font so that there is no that many differences
-if [[ -f $ZSH_PLUGIN_PATH/zsh-powerlevel10k/powerlevel10k.zsh-theme ]]; then
-  source $ZSH_PLUGIN_PATH/zsh-powerlevel10k/powerlevel10k.zsh-theme
-elif [[ -f /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme ]]; then
-  source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
-fi
-[[ -f ~/.config/zsh/.p10k.zsh ]] && source ~/.config/zsh/.p10k.zsh
-
-typeset -g POWERLEVEL9K_DIR_CLASSES=()
-typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_FOREGROUND=242
-typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_CHAR=' '
-# Extra line after command runs
-typeset -g POWERLEVEL9K_SHOW_RULER=false
-typeset -g POWERLEVEL9K_RULER_CHAR=' '
-typeset -g POWERLEVEL9K_RULER_FOREGROUND=242
-typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=false
-typeset -g POWERLEVEL9K_MODE=ascii
-typeset -g POWERLEVEL9K_VIM_SHELL_VISUAL_IDENTIFIER_EXPANSION='nvim'
-typeset -g POWERLEVEL9K_INSTANT_PROMPT=verbose
-typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=off
-typeset -g POWERLEVEL9K_BACKGROUND_JOBS_VERBOSE=true
-typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_PRECISION=2
-typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=0
-typeset -g POWERLEVEL9K_STATUS_VERBOSE_SIGNAME=true
-typeset -g POWERLEVEL9K_STATUS_ERROR=true
-typeset -g POWERLEVEL9K_STATUS_OK=true
-typeset -g POWERLEVEL9K_VCS_BRANCH_ICON='\uF126 '
-# }}}
-
 [[ -x $(command -v direnv) ]] && eval "$(direnv hook zsh)"
 
 if [[ -x $(command -v atuin) ]]; then
@@ -304,5 +265,5 @@ if [[ -x $(command -v atuin) ]]; then
 fi
 
 # Tempting. yay -Syu starship
-# eval "$(starship init zsh)"
+eval "$(starship init zsh)"
 # vim: fdm=marker ft=sh

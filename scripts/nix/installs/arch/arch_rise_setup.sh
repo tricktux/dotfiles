@@ -8,6 +8,8 @@
 # linux-api-headers linux-lts-headers linux-firmware linux-firware-whence
 # linux-lts nvidia-lts nvidia-utils nvidia-settings
 
+# Some stuff has been moved to the `installs` folder
+
 # Add your user {{{
 # useradd -m -g users -G wheel,storage,power,sys -s /bin/bash <USERNAME>
 useradd -m -g users -G wheel,storage,power,sys -s /bin/bash reinaldo

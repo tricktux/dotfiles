@@ -133,7 +133,7 @@ shell() {
 zsh() {
 	# Install plugins
 	paru -Syu --needed --noconfirm zsh z-git \
-		zsh-theme-powerlevel10k zsh-autosuggestions \
+		starship zsh-autosuggestions \
 		zsh-history-substring-search zsh-syntax-highlighting \
 		zsh-completions zsh-vi-mode
 	chsh -s /usr/bin/zsh

@@ -1,0 +1,45 @@
+# Main prompt format (left side)
+format = '$all'
+
+# Right side format - shows status, duration, and time
+right_format = '$status$cmd_duration$time'
+
+# Directory module - smart path display
+[directory]
+truncation_length = 3
+truncate_to_repo = true
+fish_style_pwd_dir_length = 1
+use_logical_path = true
+format = '[$path]($style)[$read_only]($read_only_style) '
+style = 'bold cyan'
+read_only = '🔒'
+read_only_style = 'red'
+home_symbol = '~'
+
+# Status module - shows exit codes for failed commands
+[status]
+style = 'bold red'
+symbol = 'err'
+success_symbol = ''
+not_executable_symbol = 'exec'
+not_found_symbol = '404'
+sigint_symbol = 'int'
+signal_symbol = 'sig'
+format = '[$symbol$status]($style) '
+map_symbol = true
+disabled = false
+
+# Command duration - shows how long commands took
+[cmd_duration]
+min_time = 0
+show_milliseconds = true
+format = 'took [$duration]($style) '
+style = 'yellow bold'
+disabled = false
+
+# Time module - shows current time
+[time]
+disabled = false
+format = 'at [$time]($style)'
+time_format = '%I:%M:%S %p'
+style = 'bold blue'
