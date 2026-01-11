@@ -88,6 +88,7 @@ bindsym $mod+p exec ~/.config/sway/scripts/sway_scratchpad ncpamixer
 bindsym $mod+u exec killall -SIGUSR1 waybar
 bindsym $mod+c exec ~/.config/sway/scripts/sway_scratchpad qalculate
 bindsym $mod+i exec ~/.config/sway/scripts/sway_scratchpad tickrs
+bindsym $mod+y exec ~/.config/sway/scripts/sway_scratchpad htop
 
 # Media controls
 bindsym ctrl+mod1+h exec playerctl play-pause
@@ -310,6 +311,7 @@ for_window [app_id="lutris"] floating enable
 # Scratchpads
 for_window [title="^ranger-scratchpad$" app_id="kitty"] move scratchpad
 for_window [title="^tickrs$"] move scratchpad
+for_window [title="^htop$"] move scratchpad
 for_window [title="^ncpamixer$" app_id="kitty"] move scratchpad
 for_window [title="^cmus-fixed-title$"] move container to workspace number $ws8
 for_window [title="^journal$" app_id="kitty"] move scratchpad

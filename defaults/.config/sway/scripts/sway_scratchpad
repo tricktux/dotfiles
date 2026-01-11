@@ -73,6 +73,13 @@ case "$APP" in
   RESIZE="resize set 80ppt 60ppt"
   POSITION="move position center"
   ;;
+"htop")
+  TITLE="htop"
+  APP_ID="kitty"
+  CMD="$TERMINAL -T htop -e htop"
+  RESIZE="resize set 80ppt 60ppt"
+  POSITION="move position center"
+  ;;
 *)
   echo "Unknown app: $APP"
   exit 1
