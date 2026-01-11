@@ -222,8 +222,8 @@ if [[ -f /usr/bin/fzf ]]; then
 
   # Depends on `install fd`
   if [[ -f /usr/bin/fd ]]; then
-    export FZF_ALT_C_COMMAND="fd --type directory --hidden --no-ignore-vcs $IGNORE_FILE . $(pwd)"
-    export FZF_DEFAULT_COMMAND="fd --type file --hidden --follow $IGNORE_FILE 2> /dev/null"
+    export FZF_ALT_C_COMMAND="fd --type directory --hidden --no-ignore-vcs ${IGNORE_FILE} . \$PWD"
+    export FZF_DEFAULT_COMMAND="fd --type file --hidden --follow ${IGNORE_FILE} 2> /dev/null"
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
     export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
     # Taken from: https://github.com/junegunn/fzf/wiki/Color-schemes
@@ -241,11 +241,11 @@ fi
 # ssh agent {{{
 # Start ssh-agent to cache ssh keys passphrases. Or use an existing one
 if [[ ! -d /etc/nixos ]]; then
-    if [[ ! -f  "$XDG_RUNTIME_DIR/ssh-agent.env" ]]; then
-        ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
+    if [[ -n "$XDG_RUNTIME_DIR" && ! -f "$XDG_RUNTIME_DIR/ssh-agent.env" ]]; then
+        ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env" 2>/dev/null
     fi
-    if [[ ! "$SSH_AUTH_SOCK" ]]; then
-        eval "$(<"$XDG_RUNTIME_DIR/ssh-agent.env")" > /dev/null || echo "Failed to start ssh-agent"
+    if [[ -z "$SSH_AUTH_SOCK" && -f "$XDG_RUNTIME_DIR/ssh-agent.env" ]]; then
+        eval "$(<"$XDG_RUNTIME_DIR/ssh-agent.env")" > /dev/null 2>&1 || echo "Failed to start ssh-agent"
     fi
 fi
 # }}}
