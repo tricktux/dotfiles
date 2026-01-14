@@ -391,8 +391,9 @@ function! s:set_syntax() abort
   let g:c_space_errors = 1
 
   " ft-markdown-syntax
-  let g:markdown_fenced_languages= [ 'cpp', 'vim', 'dosini' ]
+  let g:markdown_fenced_languages= [ 'c', 'cpp', 'vim', 'dosini' ]
   let g:markdown_folding=1
+  let g:markdown_recommended_style=1
 
   " ft-python-syntax
   " This option also highlights erroneous whitespaces
@@ -409,7 +410,7 @@ function! s:set_syntax() abort
   " Latex
   let g:tex_fold_enabled=1
   let g:tex_comment_nospell= 1
-  let g:tex_verbspell= 0
+  let g:tex_verbspell=0
   let g:tex_conceal=''
 endfunction
 
