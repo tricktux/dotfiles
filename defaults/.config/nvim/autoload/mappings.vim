@@ -20,7 +20,6 @@ function! mappings#Set()
   nnoremap # #zz
   nnoremap ]c ]czz
   nnoremap [c [czz
-  nnoremap <C-z> zzze
   nnoremap <C-c> zMzz
   nnoremap <C-n> zRzz
   nnoremap <C-x> zazz

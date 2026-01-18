@@ -126,7 +126,8 @@ function M:set_mappings()
     F = { ts.find_files, 'files' }, -- Use c-p
     h = { ts.help_tags, 'helptags' },
     y = { ts.filetypes, 'filetypes' },
-    a = { ts.autocommands, 'autocommands' },
+    A = { ts.autocommands, 'autocommands' },
+    a = { ts.marks, 'marks' },
     s = { '<cmd>TelescopeSessions<cr>', 'sessions' },
     m = { ts.keymaps, 'keymaps' },
     M = { ts.man_pages, 'man_pages' },

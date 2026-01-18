@@ -67,7 +67,7 @@ function! options#Set() abort
   set sessionoptions=buffers,tabpages,curdir,globals
   set foldlevel=99 "" Do not fold code at startup
   set foldmethod=syntax
-  set mouse=a
+  set mouse=
   set background=light " This forces lualine to use the right theme
   set cmdheight=1
   set nospell
