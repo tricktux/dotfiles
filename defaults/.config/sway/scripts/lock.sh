@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# Kill any existing swaylock instances to prevent conflicts
-pkill -f swaylock 2>/dev/null
-
-# Wait a moment for cleanup
-sleep 0.1
-
 # Launch swaylock with consistent settings
 exec swaylock \
     --color 1a0000 \
