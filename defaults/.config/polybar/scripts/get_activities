@@ -18,11 +18,8 @@ import webbrowser
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
 
-import matplotlib.dates as mdates
-import matplotlib.pyplot as plt
 import pandas as pd
 import plotly.graph_objects as go
-from plotly_resampler import FigureResampler
 from stravalib import unit_helper as unithelper
 from stravalib.client import Client
 
@@ -72,12 +69,16 @@ def plotly(data_file, x_col, col_names, plot_name):
         return
     p = pd.read_csv(data_file)
 
+    # Convert date column to datetime if it exists
+    if x_col in p:
+        p[x_col] = pd.to_datetime(p[x_col])
+
     x = p[x_col] if x_col in p else p.index
     # Modify the duration column to convert to minutes
     if "duration" in p:
         p["duration"] = p["duration"].apply(hours_to_minutes)
 
-    img = FigureResampler(go.Figure())
+    img = go.Figure()
     for col in col_names:
         img.add_trace(go.Scattergl(x=x, y=p[col], name=col))
     img.update_layout(
@@ -283,10 +284,18 @@ class Strava:
                 date = activity.start_date_local.strftime("%x")
                 if DEBUG > 0:
                     logger.info("[get_csv_of_bike_activities]: date = %s", date)
-                seconds = datetime.timedelta(
-                    seconds=activity.elapsed_time
-                ).total_seconds()
+                    logger.info("[get_csv_of_bike_activities]: elapsed_time = %s, type = %s", 
+                                activity.elapsed_time, type(activity.elapsed_time))
+
+                # Handle both int (seconds) and timedelta objects
+                if isinstance(activity.moving_time, datetime.timedelta):
+                    seconds = activity.moving_time.total_seconds()
+                else:
+                    seconds = float(activity.moving_time)
+
                 hrs = seconds_to_hours(seconds)
+                if DEBUG > 0:
+                    logger.info("[get_csv_of_bike_activities]: seconds = %s, hrs = %s", seconds, hrs)
                 distance = unithelper.miles(activity.distance)
                 hr = activity.average_heartrate if activity.has_heartrate else "N/A"
                 power = activity.average_watts if activity.device_watts else "N/A"
