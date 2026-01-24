@@ -12,6 +12,7 @@
     "modules-right": [
         "mpris",
         "custom/separator",
+        "custom/bike",
         "custom/airplane-mode",
         "network",
         "custom/wireguard",
@@ -59,7 +60,7 @@
     "mpris": {
         "format": "🎵 {player_icon} {dynamic}",
         "format-paused": "🎵 {status_icon} <i>{dynamic}</i>",
-        "max-length": 40,
+        "max-length": 80,
         "ellipsis": "...",
         "player-icons": {
             "default": "▶",
@@ -75,6 +76,13 @@
         "format": "{}",
         "exec": "cat /tmp/airplane_mode 2>/dev/null || echo ''",
         "interval": 5
+    },
+
+    "custom/bike": {
+        "format": "🚴 {}",
+        "exec": "cat /tmp/bike 2>/dev/null || echo 'No data'",
+        "interval": 300,
+        "on-click": "xdg-open /tmp/bike.html"
     },
 
     "network": {
@@ -154,8 +162,9 @@
 
     "cpu": {
         "interval": 10,
-        "format": "⚡ {usage}%",
-        "tooltip": false
+        "format": "⚡ {usage}% | {load}",
+        "tooltip": true,
+        "tooltip-format": "Load: {load}\nCPU: {usage}%"
     },
 
     "memory": {
