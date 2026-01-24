@@ -58,6 +58,7 @@ window#waybar {
     padding: 4px 12px;
     margin: 2px 1px;
     border-radius: 6px;
+    min-width: 300px;
 }
 
 #network {
