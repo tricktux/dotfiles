@@ -92,6 +92,9 @@ function! mappings#Set()
   " Auto indent pasted text
   nnoremap p :normal! p=`]<cr>
 
+  " Best mapping in many years
+  nnoremap : q:
+
   " Vim-unimpaired similar mappings
   " Do not overwrite [s, [c, [f
 
@@ -253,12 +256,12 @@ function! mappings#Set()
   nnoremap <leader>ts :set invspell<cr>
 
   " Edit file at location <Leader>e?
-  nnoremap <silent> <leader>ed :e ~/.config/
-  nnoremap <silent> <expr> <leader>ep ':e ' . g:std_data_path . '/lazy/'
-  nnoremap <silent> <expr> <leader>ev ':e ' . fnameescape($VIMRUNTIME) . '/'
-  nnoremap <silent> <leader>wj :e ~/Documents/wiki/
-  nnoremap <leader>ei :e 
-  nnoremap <leader>et :e ~/.cache/
+  nnoremap <silent> <leader>ed q:ie ~/.config/
+  nnoremap <silent> <expr> <leader>ep 'q:ie ' . g:std_data_path . '/lazy/'
+  nnoremap <silent> <expr> <leader>ev 'q:ie ' . fnameescape($VIMRUNTIME) . '/'
+  nnoremap <silent> <leader>wj q:ie ~/Documents/wiki/
+  nnoremap <leader>ei q:ie 
+  nnoremap <leader>et q:ie ~/.cache/
 
   " sessions
   nnoremap <silent> <leader>ss :call sessions#Save()<cr>
