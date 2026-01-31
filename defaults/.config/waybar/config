@@ -14,7 +14,6 @@
         "custom/separator",
         "custom/bike",
         "custom/airplane-mode",
-        "network",
         "custom/wireguard",
         "custom/separator",
         "custom/nvidia",
@@ -83,15 +82,6 @@
         "exec": "cat /tmp/bike 2>/dev/null || echo 'No data'",
         "interval": 300,
         "on-click": "xdg-open /tmp/bike.html"
-    },
-
-    "network": {
-        "format-wifi": "📶 {essid} ({signalStrength}%) {ipaddr}",
-        "format-ethernet": "🔌 {ipaddr}",
-        "tooltip-format": "{ifname} via {gwaddr}",
-        "format-linked": "{ifname} (No IP)",
-        "format-disconnected": "⚠ Disconnected",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
 
     "custom/wireguard": {
