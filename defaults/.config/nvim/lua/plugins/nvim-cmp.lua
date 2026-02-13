@@ -149,6 +149,13 @@ return {
       filetypes = {
         ['*'] = false, -- enable by Copilot! attach
       },
+      server_opts_overrides = {
+        settings = {
+          telemetry = {
+            telemetryLevel = 'off',
+          },
+        },
+      },
     },
   },
   {
