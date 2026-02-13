@@ -93,7 +93,7 @@ function! mappings#Set()
   nnoremap p :normal! p=`]<cr>
 
   " Best mapping in many years
-  nnoremap : q:
+  nnoremap : q:i
 
   " Vim-unimpaired similar mappings
   " Do not overwrite [s, [c, [f
