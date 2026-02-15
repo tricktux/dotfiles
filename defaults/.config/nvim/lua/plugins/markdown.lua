@@ -25,6 +25,13 @@ M.opts = {
     time_format = '%H:%M',
     -- A map for custom variables, the key should be the variable and the value a function
     substitutions = {
+      -- The built-in date and time substitutions where not being picked up
+      date = function()
+        return os.date('%Y-%m-%d')
+      end,
+      time = function()
+        return os.date('%H:%M')
+      end,
       -- Link to the last daily note (for daily.md template)
       last_daily = function(ctx)
         local obsidian_utils = require('plugin.obsidian')
