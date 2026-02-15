@@ -48,7 +48,7 @@ M.opts = {
         local obsidian_utils = require('plugin.obsidian')
         local dailies_path = vim.fs.joinpath(Obsidian.dir.filename, 'dailies')
         local last_date =
-            obsidian_utils.find_last_daily_note(dailies_path, true)
+          obsidian_utils.find_last_daily_note(dailies_path, true)
         if last_date and last_date ~= '' then
           return vim.fs.joinpath('dailies', last_date .. '.md')
         else
@@ -66,7 +66,7 @@ M.opts = {
         end
 
         local project_dir =
-            vim.fs.joinpath(Obsidian.dir.filename, 'projects', project_path)
+          vim.fs.joinpath(Obsidian.dir.filename, 'projects', project_path)
         local last_date = obsidian_utils.find_last_daily_note(project_dir)
         if last_date and last_date ~= '' then
           return vim.fs.joinpath('projects', project_path, last_date .. '.md')
@@ -121,7 +121,7 @@ M.opts = {
         end
 
         local parent_dir =
-            vim.fs.joinpath(Obsidian.dir.filename, 'projects', parent_path)
+          vim.fs.joinpath(Obsidian.dir.filename, 'projects', parent_path)
         local siblings = {}
 
         -- Check if directory exists before iterating
@@ -134,12 +134,12 @@ M.opts = {
             local sibling_path = parent_path .. '/' .. name -- Keep internal representation as /
             local verbose_filename = sibling_path:gsub('/', '-') .. '.md'
             local sibling_file =
-                vim.fs.joinpath(parent_dir, name, verbose_filename)
+              vim.fs.joinpath(parent_dir, name, verbose_filename)
 
             if utl.isfile(sibling_file) then
               -- Use vim.fs.joinpath for cross-platform link generation
               local link_path =
-                  vim.fs.joinpath('projects', sibling_path, verbose_filename)
+                vim.fs.joinpath('projects', sibling_path, verbose_filename)
               local sibling_link = '- [' .. name .. '](' .. link_path .. ')'
               table.insert(siblings, sibling_link)
             end
@@ -174,10 +174,10 @@ M.opts = {
 
           local verbose_filename = current_path:gsub('/', '-') .. '.md'
           local link = '['
-              .. part
-              .. ']('
-              .. vim.fs.joinpath('projects', current_path, verbose_filename)
-              .. ')'
+            .. part
+            .. ']('
+            .. vim.fs.joinpath('projects', current_path, verbose_filename)
+            .. ')'
           table.insert(breadcrumbs, link)
         end
 
@@ -193,7 +193,7 @@ M.opts = {
         end
 
         local project_dir =
-            vim.fs.joinpath(Obsidian.dir.filename, 'projects', project_path)
+          vim.fs.joinpath(Obsidian.dir.filename, 'projects', project_path)
         local children = {}
 
         -- Find all subdirectories that contain project files
@@ -202,14 +202,14 @@ M.opts = {
             local child_path = vim.fs.joinpath(project_path, name)
             local verbose_filename = child_path:gsub('/', '-') .. '.md'
             local child_file =
-                vim.fs.joinpath(project_dir, name, verbose_filename)
+              vim.fs.joinpath(project_dir, name, verbose_filename)
 
             if utl.isfile(child_file) then
               local child_link = '- ['
-                  .. name
-                  .. ']('
-                  .. vim.fs.joinpath('projects', child_path, verbose_filename)
-                  .. ')'
+                .. name
+                .. ']('
+                .. vim.fs.joinpath('projects', child_path, verbose_filename)
+                .. ')'
               table.insert(children, child_link)
             end
           end
@@ -242,7 +242,7 @@ return {
     opts = {
       default = {
         relative_to_current_file = true, -- make dir_path relative to current file rather than the cwd
-        relative_template_path = false,  -- make file path in the template relative to current file rather than the cwd
+        relative_template_path = false, -- make file path in the template relative to current file rather than the cwd
         dir_path = 'assets',
       },
       quarto = {
@@ -279,15 +279,19 @@ return {
         '<cmd>Obsidian quick_switch carry.md<cr>',
         desc = 'obsidian_todo_carry',
       },
-      { '<leader>wa', '<cmd>Obsidian new<cr>',   desc = 'obsidian_new' },
+      { '<leader>wa', '<cmd>Obsidian new<cr>', desc = 'obsidian_new' },
       {
         '<leader>ww',
         '<cmd>Obsidian workspace<cr>',
         desc = 'obsidian_list_workspace',
       },
-      { '<leader>wb', '<cmd>Obsidian backlinks<cr>', desc = 'obsidian_backlinks' },
+      {
+        '<leader>wb',
+        '<cmd>Obsidian backlinks<cr>',
+        desc = 'obsidian_backlinks',
+      },
       { '<leader>ws', '<cmd>Obsidian search<cr>', desc = 'obsidian_search' },
-      { '<leader>wo', '<cmd>Obsidian open<cr>',   desc = 'obsidian_open' },
+      { '<leader>wo', '<cmd>Obsidian open<cr>', desc = 'obsidian_open' },
       {
         '<leader>wf',
         function()
