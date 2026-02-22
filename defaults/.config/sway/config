@@ -89,6 +89,7 @@ bindsym $mod+u exec killall -SIGUSR1 waybar
 bindsym $mod+c exec ~/.config/sway/scripts/sway_scratchpad qalculate
 bindsym $mod+i exec ~/.config/sway/scripts/sway_scratchpad tickrs
 bindsym $mod+y exec ~/.config/sway/scripts/sway_scratchpad htop
+bindsym $mod+b exec ~/.config/sway/scripts/sway_scratchpad supersonic
 
 # Media controls
 bindsym ctrl+mod1+h exec playerctl play-pause
@@ -282,6 +283,7 @@ client.background       $background
 
 
 #### WINDOW RULES ####{{{
+# swaymsg -t subscribe -m '["window"]' | jq '.container | {app_id, class, name, window_properties}'
 for_window [app_id="org.gnome.FileRoller"] floating enable
 for_window [app_id="speedcrunch"] floating enable
 for_window [app_id="pavucontrol"] floating enable
@@ -320,6 +322,8 @@ for_window [class="^doublecmd$"] floating enable
 for_window [class="^qalculate-qt$"] move scratchpad
 
 # More floating rules
+for_window [title=".*Supersonic$"] move scratchpad
+for_window [app_id="^feishin$"] move scratchpad
 for_window [app_id="nitrogen"] floating enable
 for_window [app_id="arandr"] floating enable
 for_window [app_id="lxappearance"] floating enable

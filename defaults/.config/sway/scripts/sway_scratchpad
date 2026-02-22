@@ -73,6 +73,13 @@ case "$APP" in
   RESIZE="resize set 80ppt 60ppt"
   POSITION="move position center"
   ;;
+"supersonic")
+  TITLE="Supersonic"
+  APP_ID="supersonic"
+  CMD="supersonic"
+  RESIZE="resize set 80ppt 60ppt"
+  POSITION="move position center"
+  ;;
 "htop")
   TITLE="htop"
   APP_ID="kitty"
