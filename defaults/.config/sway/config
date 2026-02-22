@@ -283,7 +283,7 @@ client.background       $background
 
 #### WINDOW RULES ####{{{
 for_window [app_id="org.gnome.FileRoller"] floating enable
-for_window [app_id="speedcrunch"] floating enable  
+for_window [app_id="speedcrunch"] floating enable
 for_window [app_id="pavucontrol"] floating enable
 for_window [app_id="blueberry.py"] floating enable
 for_window [app_id="galculator"] floating enable
