@@ -1,6 +1,7 @@
 #!/bin/bash
 
 APP="$1"
+MARK="scratchpad_${APP}" # Unique mark for each scratchpad
 
 case "$APP" in
 "journal")
@@ -18,30 +19,16 @@ case "$APP" in
   POSITION="move position center"
   ;;
 "terminal")
-  TITLE="terminal"
+  TITLE="terminal-scratchpad" # Changed to avoid conflicts
   APP_ID="kitty"
-  CMD="$TERMINAL -T terminal -o background_opacity=0.75"
+  CMD="$TERMINAL -T terminal-scratchpad -o background_opacity=0.75"
   RESIZE="resize set 100ppt 40ppt"
   POSITION="move position 0px 2ppt"
   ;;
-"neomutt")
-  TITLE="neomutt"
-  APP_ID="kitty"
-  CMD="$TERMINAL -T neomutt -e neomutt"
-  RESIZE="resize set 80ppt 60ppt"
-  POSITION="move position center"
-  ;;
-"firefox")
-  TITLE="firefox-scratchpad"
-  APP_ID="firefox"
-  CMD="firefox --new-window"
-  RESIZE="resize set 80ppt 60ppt"
-  POSITION="move position center"
-  ;;
 "ncpamixer")
-  TITLE="ncpamixer"
+  TITLE="ncpamixer-scratchpad" # Changed to avoid conflicts
   APP_ID="kitty"
-  CMD="$TERMINAL -T ncpamixer -e ncpamixer -t o"
+  CMD="$TERMINAL -T ncpamixer-scratchpad -e ncpamixer -t o"
   RESIZE="resize set 80ppt 60ppt"
   POSITION="move position center"
   ;;
@@ -53,37 +40,30 @@ case "$APP" in
   POSITION="move position center"
   ;;
 "tickrs")
-  TITLE="tickrs"
+  TITLE="tickrs-scratchpad" # Changed to avoid conflicts
   APP_ID="kitty"
-  CMD="$TERMINAL -T tickrs -e tickrs"
+  CMD="$TERMINAL -T tickrs-scratchpad -e tickrs"
   RESIZE="resize set 80ppt 80ppt"
   POSITION="move position center"
   ;;
-"bottom")
-  TITLE="bottom"
-  APP_ID="kitty"
-  CMD="$TERMINAL -T bottom -e btm"
-  RESIZE="resize set 80ppt 60ppt"
-  POSITION="move position center"
-  ;;
-"spotify")
-  TITLE="Spotify"
-  APP_ID="spotify"
-  CMD="spotify"
-  RESIZE="resize set 80ppt 60ppt"
-  POSITION="move position center"
-  ;;
 "supersonic")
-  TITLE="Supersonic"
-  APP_ID="supersonic"
+  TITLE=""           # Don't rely on title for XWayland
+  CLASS="Supersonic" # Use class for XWayland app
   CMD="supersonic"
   RESIZE="resize set 80ppt 60ppt"
   POSITION="move position center"
   ;;
+"feishin")
+  TITLE=""
+  APP_ID="feishin"
+  CMD="feishin"
+  RESIZE="resize set 80ppt 60ppt"
+  POSITION="move position center"
+  ;;
 "htop")
-  TITLE="htop"
+  TITLE="htop-scratchpad" # Changed to avoid conflicts
   APP_ID="kitty"
-  CMD="$TERMINAL -T htop -e htop"
+  CMD="$TERMINAL -T htop-scratchpad -e htop"
   RESIZE="resize set 80ppt 60ppt"
   POSITION="move position center"
   ;;
@@ -93,58 +73,51 @@ case "$APP" in
   ;;
 esac
 
-# Function to check if window exists
+# Check if marked window exists
 window_exists() {
-  if [ -n "$CLASS" ]; then
-    # XWayland window (uses class)
-    if [ -n "$TITLE" ]; then
-      swaymsg -t get_tree | jq -e ".. | select(.window_properties?.class? == \"$CLASS\" and (.name? == \"$TITLE\" or .title? == \"$TITLE\"))" >/dev/null 2>&1
-    else
-      swaymsg -t get_tree | jq -e ".. | select(.window_properties?.class? == \"$CLASS\")" >/dev/null 2>&1
-    fi
-  elif [ -n "$APP_ID" ]; then
-    # Wayland window (uses app_id)
-    if [ -n "$TITLE" ]; then
-      swaymsg -t get_tree | jq -e ".. | select(.app_id? == \"$APP_ID\" and (.name? == \"$TITLE\" or .title? == \"$TITLE\"))" >/dev/null 2>&1
-    else
-      swaymsg -t get_tree | jq -e ".. | select(.app_id? == \"$APP_ID\")" >/dev/null 2>&1
-    fi
-  fi
+  swaymsg -t get_tree | jq -e ".. | select(.marks? // [] | index(\"$MARK\"))" >/dev/null 2>&1
 }
 
-# Build selector
-if [ -n "$CLASS" ]; then
-  # XWayland window selector
-  if [ -n "$TITLE" ]; then
-    SELECTOR="[title=\"^${TITLE}$\" class=\"${CLASS}\"]"
-  else
-    SELECTOR="[class=\"${CLASS}\"]"
-  fi
-elif [ -n "$APP_ID" ]; then
-  # Wayland window selector
-  if [ -n "$TITLE" ]; then
-    SELECTOR="[title=\"^${TITLE}$\" app_id=\"${APP_ID}\"]"
-  else
-    SELECTOR="[app_id=\"${APP_ID}\"]"
-  fi
-fi
-
 if window_exists; then
-  # Window exists, toggle scratchpad
-  swaymsg "$SELECTOR scratchpad show, $RESIZE, $POSITION"
+  # Window exists, toggle scratchpad using mark
+  swaymsg "[con_mark=\"$MARK\"] scratchpad show, $RESIZE, $POSITION"
 else
-  # Window doesn't exist, create it
+  # Launch the application
   eval "$CMD" &
 
-  # Wait for window to appear
-  for i in {1..20}; do
+  # Wait for window to appear and mark it
+  for i in {1..30}; do
     sleep 0.1
-    if window_exists; then
-      sleep 0.2
-      swaymsg "$SELECTOR move scratchpad"
-      sleep 0.1
-      swaymsg "$SELECTOR scratchpad show, $RESIZE, $POSITION"
-      break
+
+    # Try to find and mark the window
+    if [ -n "$CLASS" ]; then
+      # XWayland app - match by class
+      if swaymsg -t get_tree | jq -e ".. | select(.window_properties?.class? == \"$CLASS\")" >/dev/null 2>&1; then
+        sleep 0.2
+        swaymsg "[class=\"$CLASS\"] mark --add \"$MARK\", move scratchpad"
+        sleep 0.1
+        swaymsg "[con_mark=\"$MARK\"] scratchpad show, $RESIZE, $POSITION"
+        break
+      fi
+    elif [ -n "$APP_ID" ]; then
+      # Wayland app - match by app_id and title if specified
+      if [ -n "$TITLE" ]; then
+        if swaymsg -t get_tree | jq -e ".. | select(.app_id? == \"$APP_ID\" and .name? == \"$TITLE\")" >/dev/null 2>&1; then
+          sleep 0.2
+          swaymsg "[app_id=\"$APP_ID\" title=\"$TITLE\"] mark --add \"$MARK\", move scratchpad"
+          sleep 0.1
+          swaymsg "[con_mark=\"$MARK\"] scratchpad show, $RESIZE, $POSITION"
+          break
+        fi
+      else
+        if swaymsg -t get_tree | jq -e ".. | select(.app_id? == \"$APP_ID\")" >/dev/null 2>&1; then
+          sleep 0.2
+          swaymsg "[app_id=\"$APP_ID\"] mark --add \"$MARK\", move scratchpad"
+          sleep 0.1
+          swaymsg "[con_mark=\"$MARK\"] scratchpad show, $RESIZE, $POSITION"
+          break
+        fi
+      fi
     fi
   done
 fi
