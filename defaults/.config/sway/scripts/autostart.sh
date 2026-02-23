@@ -23,7 +23,7 @@ if [[ -x $(command -v wal) ]]; then
 else
   printf "\n==X Please install python-pywal\n"
 fi
-$HOME/.config/dotfiles/scripts/nix/flux/neoflux-watch > /tmp/flux.log 2>&1 &
+neoflux-watch > /tmp/flux.log 2>&1 &
 
 if [[ -x $(command -v blueman-applet) ]]; then
 	blueman-applet &

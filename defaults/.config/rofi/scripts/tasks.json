@@ -1,7 +1,7 @@
 [
   {
     "name": "📦 arch update",
-    "command": "$TERMINAL $HOME/.config/dotfiles/scripts/nix/arch/upkeep.sh"
+    "command": "$TERMINAL arch-upkeep.sh"
   },
   {
     "name": "🔒 network-wireguard-home-start",
@@ -45,7 +45,7 @@
   },
   {
     "name": "🚲 bike activities strava plot progress",
-    "command": "rm /tmp/bike.{csv,html}; $HOME/.config/polybar/scripts/get_activities -d 10 $HOME/.config/polybar/scripts/strava.ini; $BROWSER /tmp/bike.html"
+    "command": "rm /tmp/bike.{csv,html}; strava-activities -d 10 $HOME/.local/bin/strava.ini; $BROWSER /tmp/bike.html"
   },
   {
     "name": "🏖️ clearwater weather radar",
@@ -81,11 +81,11 @@
   },
   {
     "name": "🖼️ wallpaper internet random",
-    "command": "exec ~/.config/polybar/scripts/get_wallpaper"
+    "command": "exec reddit-wallpaper"
   },
   {
     "name": "🖼️ wallpaper arch random",
-    "command": "exec ~/.config/sway/scripts/random-arch-wallpaper.sh"
+    "command": "exec sway-random-arch-wallpaper.sh"
   },
   {
     "name": "🌃 redshift toggle night",
@@ -113,7 +113,7 @@
   },
   {
     "name": "✈️ sway workspace organize fix monitors",
-    "command": "exec $HOME/.config/sway/scripts/organize-workspaces.sh > /tmp/organize-workspaces.log"
+    "command": "exec sway-organize-workspaces.sh > /tmp/organize-workspaces.log"
   },
   {
     "name": "🎵 music drum.bass all",

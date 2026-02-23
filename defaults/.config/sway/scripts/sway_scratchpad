@@ -67,6 +67,13 @@ case "$APP" in
   RESIZE="resize set 80ppt 60ppt"
   POSITION="move position center"
   ;;
+"glances")
+  TITLE="glances-scratchpad" # Changed to avoid conflicts
+  APP_ID="kitty"
+  CMD="$TERMINAL -T glances-scratchpad -e glances"
+  RESIZE="resize set 80ppt 60ppt"
+  POSITION="move position center"
+  ;;
 *)
   echo "Unknown app: $APP"
   exit 1
