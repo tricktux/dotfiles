@@ -1,4 +1,5 @@
 local w = require('plugin.wiki')
+local opt = require('options')
 
 local hsavedir = w.path.personal ~= nil
     and vim.fs.joinpath(w.path.personal, 'ai-history/codecommpanion.nvim')
@@ -121,6 +122,7 @@ return {
       vim.api.nvim_create_autocmd('FileType', {
         pattern = 'codecompanion',
         callback = function()
+          opt.set_text_settings()
           vim.keymap.set(
             { 'n' },
             '<c-l>',
