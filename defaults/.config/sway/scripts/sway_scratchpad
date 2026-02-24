@@ -74,6 +74,13 @@ case "$APP" in
   RESIZE="resize set 80ppt 60ppt"
   POSITION="move position center"
   ;;
+"whatsapp")
+  TITLE="WhatsApp"
+  APP_ID="firefox"
+  CMD="firefox --new-window https://web.whatsapp.com"
+  RESIZE="resize set 80ppt 80ppt"
+  POSITION="move position center"
+  ;;
 *)
   echo "Unknown app: $APP"
   exit 1
@@ -91,9 +98,10 @@ if window_exists; then
 else
   # Launch the application
   eval "$CMD" &
+  disown
 
   # Wait for window to appear and mark it
-  for i in {1..30}; do
+  for i in {1..120}; do
     sleep 0.1
 
     # Try to find and mark the window
@@ -109,7 +117,7 @@ else
     elif [ -n "$APP_ID" ]; then
       # Wayland app - match by app_id and title if specified
       if [ -n "$TITLE" ]; then
-        if swaymsg -t get_tree | jq -e ".. | select(.app_id? == \"$APP_ID\" and .name? == \"$TITLE\")" >/dev/null 2>&1; then
+        if swaymsg -t get_tree | jq -e ".. | select(.app_id? == \"$APP_ID\" and (.name? // \"\" | test(\"$TITLE\")))" >/dev/null 2>&1; then
           sleep 0.2
           swaymsg "[app_id=\"$APP_ID\" title=\"$TITLE\"] mark --add \"$MARK\", move scratchpad"
           sleep 0.1
