@@ -101,6 +101,7 @@ local firenvim = vim.g.started_by_firenvim ~= nil
 local advanced = vim.g.advanced_plugins > 0
 local copilot_enable = node and not firenvim and advanced
 local copilot = copilot_enable and vim.g.copilot_active
+copilot = false
 
 return {
   {
