@@ -1,0 +1,11 @@
+#!/bin/bash
+
+notify-send -t 4000 "Scratchpad" \
+"o journal
+n ranger
+semicolon terminal
+p ncpamixer
+c qalculate
+i tickrs
+y htop
+b feishin"
