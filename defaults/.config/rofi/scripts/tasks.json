@@ -114,37 +114,5 @@
   {
     "name": "✈️ sway workspace organize fix monitors",
     "command": "exec sway-organize-workspaces.sh > /tmp/organize-workspaces.log"
-  },
-  {
-    "name": "🎵 music drum.bass all",
-    "command": "$HOME/.config/rofi/scripts/cmus-load-play.sh '/mnt/skywafer/music/drum.bass'"
-  },
-  {
-    "name": "🎵 music liquicity",
-    "command": "$HOME/.config/rofi/scripts/cmus-load-play.sh '/mnt/skywafer/music/drum.bass/Liquicity Yearmixes'"
-  },
-  {
-    "name": "🎵 music noraenpure",
-    "command": "$HOME/.config/rofi/scripts/cmus-load-play.sh '/mnt/skywafer/music/drum.bass/Purified Radioshow Episodes'"
-  },
-  {
-    "name": "🎵 music lofi",
-    "command": "$HOME/.config/rofi/scripts/cmus-load-play.sh '/mnt/skywafer/music/drum.bass/Study with Little Soul ☕📚/'"
-  },
-  {
-    "name": "🎵 music favorites",
-    "command": "$HOME/.config/rofi/scripts/cmus-load-play.sh '/mnt/skywafer/music/favorites-selected'"
-  },
-  {
-    "name": "🎵 music motivational",
-    "command": "$HOME/.config/rofi/scripts/cmus-load-play.sh '/mnt/skywafer/music/moti'"
-  },
-  {
-    "name": "🎵 music tony",
-    "command": "$HOME/.config/rofi/scripts/cmus-load-play.sh '/mnt/skywafer/music/drum.bass/Tony's Deep Sets'"
-  },
-  {
-    "name": "🎵 music kushsessions",
-    "command": "$HOME/.config/rofi/scripts/cmus-load-play.sh '/mnt/skywafer/music/drum.bass/KushSessions'"
   }
 ]
