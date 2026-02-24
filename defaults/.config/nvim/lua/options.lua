@@ -1,5 +1,17 @@
 local M = {}
 
+M.set_text_settings = function()
+  vim.opt_local.wrap = true
+  vim.opt_local.spell = true
+  vim.opt.conceallevel = vim.g.advanced_plugins == 1 and 2 or 0
+  vim.opt.textwidth = 0
+  vim.opt.foldenable = true
+  vim.opt.complete:append('kspell')
+  vim.opt.tabstop = 2
+  vim.opt.shiftwidth = 2
+  vim.opt.comments:append({ b = '-' })
+end
+
 function M:unix()
   if vim.fn.has('unix') <= 0 then
     return
@@ -102,4 +114,5 @@ function M:setup()
   -- Fix markdown indentation settings
   vim.g.markdown_recommended_style = 0
 end
+
 return M

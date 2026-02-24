@@ -1,19 +1,8 @@
 local log = require('utils.log')
 local api = vim.api
+local opt = require('options')
 
 local M = {}
-
-local function set_text_settings()
-  vim.opt_local.wrap = true
-  vim.opt_local.spell = true
-  vim.opt.conceallevel = vim.g.advanced_plugins == 1 and 2 or 0
-  vim.opt.textwidth = 0
-  vim.opt.foldenable = true
-  vim.opt.complete:append('kspell')
-  vim.opt.tabstop = 2
-  vim.opt.shiftwidth = 2
-  vim.opt.comments:append({ b = '-' })
-end
 
 local function rename_buffer()
   local o = {
@@ -84,7 +73,7 @@ M.setup = function()
   api.nvim_create_autocmd('FileType', {
     callback = function()
       log.info('markdown autocmd called')
-      set_text_settings()
+      opt.set_text_settings()
       vim.cmd([[
         vnoremap <buffer> <localleader>Q :s/^/> /<CR>:noh<CR>``
         nnoremap <buffer> <localleader>Q :.,$s/^/> /<CR>:noh<CR>``
@@ -97,7 +86,7 @@ M.setup = function()
   api.nvim_create_autocmd('FileType', {
     callback = function()
       log.info('tex autocmd called')
-      set_text_settings()
+      opt.set_text_settings()
       vim.opt.formatoptions:remove('tc')
     end,
     pattern = 'tex',
@@ -180,7 +169,7 @@ M.setup = function()
     group = id,
     desc = 'Set text settings',
     callback = function()
-      set_text_settings()
+      opt.set_text_settings()
     end, -- Call the function we defined
   })
   vim.api.nvim_create_autocmd('BufEnter', {
