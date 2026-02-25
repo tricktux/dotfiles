@@ -94,6 +94,7 @@ mode "scratchpad" {
     bindsym y exec ~/.config/sway/scripts/sway_scratchpad htop;       mode "default"
     bindsym b exec ~/.config/sway/scripts/sway_scratchpad feishin;    mode "default"
     bindsym w exec ~/.config/sway/scripts/sway_scratchpad whatsapp;    mode "default"
+    bindsym k exec ~/.config/sway/scripts/sway_scratchpad keepass;    mode "default"
     bindsym e exec ~/.config/sway/scripts/sway_scratchpad evolution;    mode "default"
 
     bindsym Escape mode "default"

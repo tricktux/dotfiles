@@ -88,6 +88,13 @@ case "$APP" in
   RESIZE="resize set 80ppt 80ppt"
   POSITION="move position center"
   ;;
+"keepass")
+  TITLE=""
+  APP_ID="org.keepassxc.KeePassXC"
+  CMD="keepassxc"
+  RESIZE="resize set 80ppt 80ppt"
+  POSITION="move position center"
+  ;;
 *)
   echo "Unknown app: $APP"
   exit 1

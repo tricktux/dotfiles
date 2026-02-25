@@ -1,6 +1,6 @@
 #!/bin/bash
 
-notify-send -t 4000 "Scratchpad" \
+notify-send -t 888 "Scratchpad" \
 "o journal
 n ranger
 semicolon terminal
@@ -9,5 +9,6 @@ c qalculate
 i tickrs
 y htop
 w whatsapp
+k keepass
 e evolution
 b feishin"
