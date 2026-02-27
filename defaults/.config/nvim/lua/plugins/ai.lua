@@ -5,6 +5,61 @@ local hsavedir = w.path.personal ~= nil
     and vim.fs.joinpath(w.path.personal, 'ai-history/codecommpanion.nvim')
   or vim.fs.joinpath(vim.fn.stdpath('data'), '/codecompanion-history')
 
+local personas = {
+  {
+    id = 'neovim_dev',
+    label = '󰧑  Software Developer',
+    prompt = [[
+    You are an expert software developer and helpful coding assistant. Primary
+    languages: Zig, Rust, C, C++, Python, and Lua — but comfortable across the
+    broader ecosystem. You also assist with Neovim configuration, plugin
+    development, shell scripting, debugging, and general tooling. Be concise
+    and precise. Use idiomatic patterns for the language at hand. Show only the
+    relevant changed parts of any code. Ask clarifying questions often when
+    helpful
+    ]],
+  },
+  {
+    id = 'general',
+    label = '󱊡  General Assistant',
+    prompt = [[
+    You are a helpful, thoughtful, and knowledgeable assistant. You engage
+    openly with any topic: life advice, philosophy, science, creativity,
+    productivity, or casual conversation. Be warm, empathetic, and thorough.
+    Ask clarifying questions often when helpful.
+    ]],
+  },
+}
+
+local current_persona = personas[1]
+local adapters_list = { 'anthropic', 'openai', 'xai', 'lmstudio' }
+
+local function open_chat_picker()
+  vim.ui.select(personas, {
+    prompt = 'Persona:',
+    format_item = function(p)
+      return p.label
+    end,
+  }, function(persona)
+    if not persona then
+      return
+    end
+    current_persona = persona
+    vim.schedule(function()
+      vim.ui.select(adapters_list, {
+        prompt = 'Adapter:',
+      }, function(adapter)
+        if not adapter then
+          return
+        end
+        vim.schedule(function()
+          vim.cmd('CodeCompanionChat adapter=' .. adapter)
+        end)
+      end)
+    end)
+  end)
+end
+
 local h = {
   enabled = true,
   opts = {
@@ -149,12 +204,23 @@ return {
         '<cmd>CodeCompanionChat Toggle<cr>',
         { noremap = true, silent = true, desc = 'code-companion-chat-add' }
       )
+      vim.keymap.set(
+        'n',
+        '<leader>ap',
+        open_chat_picker,
+        { noremap = true, silent = true, desc = 'code-companion-pick-persona' }
+      )
 
       -- Expand 'cc' into 'CodeCompanion' in the command line
       vim.cmd([[cab cc CodeCompanionChat]])
       require('codecompanion').setup({
         extensions = {
           history = h,
+        },
+        opts = {
+          system_prompt = function(_opts)
+            return current_persona.prompt
+          end,
         },
         adapters = {
           http = {
