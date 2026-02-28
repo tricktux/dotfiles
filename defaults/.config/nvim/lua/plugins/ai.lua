@@ -214,7 +214,7 @@ return {
           )
           -- Set path to recent screenshots for easy `/images` integration
           if vim.fn.has('unix') > 0 then
-            vim.fn.mkdir('/tmp/screenshots')
+            vim.fn.mkdir('/tmp/screenshots', 'p')
             vim.cmd.cd('/tmp/screenshots')
           end
         end,
