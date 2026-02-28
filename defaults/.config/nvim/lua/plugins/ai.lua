@@ -5,90 +5,88 @@ local hsavedir = w.path.personal ~= nil
     and vim.fs.joinpath(w.path.personal, 'ai/ai-history/codecommpanion.nvim')
   or vim.fs.joinpath(vim.fn.stdpath('data'), '/codecompanion-history')
 
-local personas = {
-  {
-    id = 'neovim_dev',
-    label = '󰧑  Software Developer',
-    prompt = [[
-    You are an expert software developer and helpful coding assistant. Primary
-    languages: Zig, Rust, C, C++, Python, and Lua — but comfortable across the
-    broader ecosystem. You also assist with Neovim configuration, plugin
-    development, shell scripting, debugging, and general tooling. Be concise
-    and precise. Use idiomatic patterns for the language at hand. Show only the
-    relevant changed parts of any code. Ask clarifying questions often when
-    helpful
-    ]],
+local prompts_dir = w.path.personal ~= nil
+    and vim.fs.joinpath(w.path.personal, 'ai/prompts')
+  or nil
+
+--- Read a prompt file from the prompts directory.
+--- Returns nil if prompts_dir is not set or file doesn't exist.
+---@param filename string
+---@return string|nil
+local function read_prompt(filename)
+  if not prompts_dir then
+    return nil
+  end
+  local path = vim.fs.joinpath(prompts_dir, filename)
+  local ok, lines = pcall(vim.fn.readfile, path)
+  if not ok or not lines then
+    return nil
+  end
+  return table.concat(lines, '\n')
+end
+
+local prompt_library = {
+  ['Software Developer'] = {
+    interaction = 'chat',
+    description = 'Expert software developer and helpful coding assistant',
+    opts = {
+      alias = 'dev',
+    },
+    prompts = {
+      {
+        role = 'system',
+        content = function()
+          return read_prompt('dev.md')
+            or [[
+You are an expert software developer and helpful coding assistant.
+Primary languages: Zig, Rust, C, C++, Python, and Lua.
+Be concise and precise. Show only the relevant changed parts of any code.
+Ask clarifying questions when helpful.
+          ]]
+        end,
+      },
+    },
   },
-  {
-    id = 'general',
-    label = '󱊡  General Assistant',
-    prompt = [[
-    You are a helpful, thoughtful, and knowledgeable assistant. You engage
-    openly with any topic: life advice, philosophy, science, creativity,
-    productivity, or casual conversation. Be warm, empathetic, and thorough.
-    Ask clarifying questions often when helpful.
-    ]],
+  ['General Assistant'] = {
+    interaction = 'chat',
+    description = 'Helpful, thoughtful, and knowledgeable assistant for any topic',
+    opts = {
+      alias = 'general',
+    },
+    prompts = {
+      {
+        role = 'system',
+        content = function()
+          return read_prompt('general.md')
+            or [[
+You are a helpful, thoughtful, and knowledgeable assistant.
+Be warm, empathetic, and thorough. Ask clarifying questions when helpful.
+          ]]
+        end,
+      },
+    },
   },
-  {
-    id = 'anki',
-    label = '󰃚  Anki Flashcard Creator',
-    prompt = [[
-    You are an expert at creating Anki flashcards for software engineers.
-    You follow Piotr Wozniak's "Twenty Rules of Formulating Knowledge" strictly.
-    The user is a software engineer creating cards for knowledge retention and
-    technical interviews.
-
-    Core rules to always follow:
-    - Keep answers SHORT — one fact, one concept, one line
-    - Do NOT card low-level trivia (e.g. exact function argument order) — card
-    the concept and purpose instead - Prefer "what does X do / why does X
-    exist" over "what are the exact parameters of X"
-    - Use cloze deletions or simple Q&A format
-    - When given a topic, produce a focused, minimal set of high-value cards —
-    do not try to card everything - If the user provides a source or topic,
-    identify the 20% of concepts that give 80% of value
-
-    Output format per card:
-    Q: <question>
-    A: <short answer>
-
-    Focus on "Can I reconstruct this?" vs "Can I recall this?"
-    Provide Interview-Driven Cards
-    Also provide a very easy to understand section before the flashcard to
-    make sure the user fully understands the knowledgeable before going
-    through the flashcards
-    ]],
+  ['Anki Flashcard Creator'] = {
+    interaction = 'chat',
+    description = 'Creates focused Anki flashcards for software engineers',
+    opts = {
+      alias = 'anki',
+    },
+    prompts = {
+      {
+        role = 'system',
+        content = function()
+          return read_prompt('anki.md')
+            or [[
+You are an expert at creating Anki flashcards for software engineers.
+Follow Piotr Wozniak's "Twenty Rules of Formulating Knowledge" strictly.
+Keep answers SHORT. Output format: Q: <question> / A: <short answer>.
+          ]]
+        end,
+      },
+    },
   },
 }
-
-local current_persona = personas[1]
-local adapters_list = { 'anthropic', 'openai', 'xai', 'lmstudio' }
-
-local function open_chat_picker()
-  vim.ui.select(personas, {
-    prompt = 'Persona:',
-    format_item = function(p)
-      return p.label
-    end,
-  }, function(persona)
-    if not persona then
-      return
-    end
-    current_persona = persona
-    vim.schedule(function()
-      vim.ui.select(adapters_list, {
-        prompt = 'Adapter:',
-      }, function(adapter)
-        if not adapter then
-          return
-        end
-        vim.schedule(function()
-          vim.cmd('CodeCompanionChat adapter=' .. adapter)
-        end)
-      end)
-    end)
-  end)
-end
 
 local h = {
   enabled = true,
@@ -234,12 +232,6 @@ return {
         '<cmd>CodeCompanionChat Toggle<cr>',
         { noremap = true, silent = true, desc = 'code-companion-chat-add' }
       )
-      vim.keymap.set(
-        'n',
-        '<leader>ap',
-        open_chat_picker,
-        { noremap = true, silent = true, desc = 'code-companion-pick-persona' }
-      )
 
       -- Expand 'cc' into 'CodeCompanion' in the command line
       vim.cmd([[cab cc CodeCompanionChat]])
@@ -247,44 +239,7 @@ return {
         extensions = {
           history = h,
         },
-        interactions = {
-          chat = {
-            opts = {
-              -- system_prompt = {
-              --   enabled = true, -- Enable the tools system prompt?
-              --   replace_main_system_prompt = false, -- Replace the main system prompt with the tools system prompt?
-              --
-              --   ---The tool system prompt
-              --   ---@param args { tools: string[]} The tools available
-              --   ---@return string
-              --   prompt = function(args)
-              --     return "My custom tools prompt"
-              --   end,
-              -- },
-              system_prompt = function(ctx)
-                -- return current_persona.prompt
-                return ctx.default_system_prompt
-                  .. string.format(
-                    [[
-                      Additional context:
-                      The current date is %s.
-                      The user's Neovim version is %s.
-                      The user is working on a %s machine. Please respond with
-                      system specific commands if applicable.
-                      If this additional context conflicts with previous one
-                      obey this one that follows
-                      Also %s
-                    ]],
-                    ctx.language,
-                    ctx.date,
-                    ctx.nvim_version,
-                    ctx.os,
-                    current_persona.prompt
-                  )
-              end,
-            },
-          },
-        },
+        prompt_library = prompt_library,
         adapters = {
           http = {
             lmstudio = function()
@@ -366,9 +321,6 @@ return {
               },
               -- Add further custom keymaps here
             },
-          },
-          inline = {
-            adapter = 'anthropic',
           },
         },
       })
