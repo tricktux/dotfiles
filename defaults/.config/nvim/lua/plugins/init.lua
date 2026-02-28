@@ -308,6 +308,33 @@ local p = {
       },
     },
   },
+  {
+    'tiagovla/scope.nvim',
+    event = 'VeryLazy',
+    dependencies = {
+      'nvim-telescope/telescope.nvim',
+    },
+    config = function()
+      require('scope').setup({})
+
+      -- registers the telescope extension
+      require('telescope').load_extension('scope')
+      vim.keymap.set('n', '<leader>k', function()
+        require('telescope').extensions.scope.buffers()
+      end, { desc = 'Buffers (tab-scoped)' })
+      local group =
+        vim.api.nvim_create_augroup('ScopeSession', { clear = true })
+
+      -- Flush scope state into vim global before mksession captures it
+      vim.api.nvim_create_autocmd('User', {
+        pattern = 'SessionSavePre',
+        group = group,
+        callback = function()
+          require('scope.session').save_state()
+        end,
+      })
+    end,
+  },
 }
 
 return p

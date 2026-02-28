@@ -13,6 +13,10 @@ function! sessions#Save() abort
     echoerr 'sessions: Folder "' . s:session_path . '" is invalid'
     return -1
   endif
+
+  " Announce intent to save — subscribers handle their own state
+  doautocmd User SessionSavePre
+
   " if session name is not provided as function argument ask for it
   silent execute "wall"
   let session_name = input("Enter save session name:", s:session_path, "file")
