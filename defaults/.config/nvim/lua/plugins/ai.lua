@@ -3,11 +3,11 @@ local opt = require('options')
 
 local hsavedir = w.path.personal ~= nil
     and vim.fs.joinpath(w.path.personal, 'ai/ai-history/codecommpanion.nvim')
-  or vim.fs.joinpath(vim.fn.stdpath('data'), '/codecompanion-history')
+    or vim.fs.joinpath(vim.fn.stdpath('data'), '/codecompanion-history')
 
 local prompts_dir = w.path.personal ~= nil
     and vim.fs.joinpath(w.path.personal, 'ai/prompts')
-  or nil
+    or nil
 
 --- Read a prompt file from the prompts directory.
 --- Returns nil if prompts_dir is not set or file doesn't exist.
@@ -37,7 +37,7 @@ local prompt_library = {
         role = 'system',
         content = function()
           return read_prompt('dev.md')
-            or [[
+              or [[
 You are an expert software developer and helpful coding assistant.
 Primary languages: Zig, Rust, C, C++, Python, and Lua.
 Be concise and precise. Show only the relevant changed parts of any code.
@@ -58,7 +58,7 @@ Ask clarifying questions when helpful.
         role = 'system',
         content = function()
           return read_prompt('general.md')
-            or [[
+              or [[
 You are a helpful, thoughtful, and knowledgeable assistant.
 Be warm, empathetic, and thorough. Ask clarifying questions when helpful.
           ]]
@@ -77,7 +77,7 @@ Be warm, empathetic, and thorough. Ask clarifying questions when helpful.
         role = 'system',
         content = function()
           return read_prompt('anki.md')
-            or [[
+              or [[
 You are an expert at creating Anki flashcards for software engineers.
 Follow Piotr Wozniak's "Twenty Rules of Formulating Knowledge" strictly.
 Keep answers SHORT. Output format: Q: <question> / A: <short answer>.
@@ -102,7 +102,7 @@ local h = {
     -- Picker interface (auto resolved to a valid picker)
     picker = 'telescope', --- ("telescope", "snacks", "fzf-lua", or "default")
     ---Optional filter function to control which chats are shown when browsing
-    chat_filter = nil, -- function(chat_data) return boolean end
+    chat_filter = nil,    -- function(chat_data) return boolean end
     -- Customize picker keymaps (optional)
     picker_keymaps = {
       rename = { n = 'r', i = '<M-r>' },
@@ -113,9 +113,9 @@ local h = {
     auto_generate_title = true,
     title_generation_opts = {
       ---Adapter for generating titles (defaults to current chat adapter)
-      adapter = nil, -- "copilot"
+      adapter = nil,               -- "copilot"
       ---Model for generating titles (defaults to current chat model)
-      model = nil, -- "gpt-4o"
+      model = nil,                 -- "gpt-4o"
       ---Number of user prompts after which to refresh the title (0 to disable)
       refresh_every_n_prompts = 0, -- e.g., 3 to refresh after every 3rd user prompt
       ---Maximum number of times to refresh the title (default: 3)
@@ -143,13 +143,13 @@ local h = {
       browse_summaries_keymap = 'gbs',
 
       generation_opts = {
-        adapter = nil, -- defaults to current chat adapter
-        model = nil, -- defaults to current chat model
-        context_size = 90000, -- max tokens that the model supports
-        include_references = true, -- include slash command content
+        adapter = nil,               -- defaults to current chat adapter
+        model = nil,                 -- defaults to current chat model
+        context_size = 90000,        -- max tokens that the model supports
+        include_references = true,   -- include slash command content
         include_tool_outputs = true, -- include tool execution results
-        system_prompt = nil, -- custom system prompt (string or function)
-        format_summary = nil, -- custom function to format generated summary e.g to remove <think/> tags from summary
+        system_prompt = nil,         -- custom system prompt (string or function)
+        format_summary = nil,        -- custom function to format generated summary e.g to remove <think/> tags from summary
       },
     },
 
@@ -179,8 +179,8 @@ return {
     enabled = w.path.work ~= nil,
     keys = {
       { '<leader>aj', '<cmd>Codeium Toggle<cr>', desc = 'codeium_toggle' },
-      { '<leader>ac', '<cmd>Codeium Chat<cr>', desc = 'codeium_chat' },
-      { '<leader>aa', '<cmd>Codeium Auth<cr>', desc = 'codeium_auth' },
+      { '<leader>ac', '<cmd>Codeium Chat<cr>',   desc = 'codeium_chat' },
+      { '<leader>aa', '<cmd>Codeium Auth<cr>',   desc = 'codeium_auth' },
     },
     dependencies = {
       'nvim-lua/plenary.nvim',
@@ -292,13 +292,13 @@ return {
           chat = {
             intro_message = 'Welcome to CodeCompanion! Press ? for options',
             show_header_separator = false, -- Show header separators in the chat buffer? Set this to false if you're using an external markdown formatting plugin
-            separator = '-', -- The separator between the different messages in the chat buffer
-            show_references = true, -- Show references (from slash commands and variables) in the chat buffer?
-            show_settings = true, -- Show LLM settings at the top of the chat buffer?
-            show_token_count = true, -- Show the token count for each response?
-            start_in_insert_mode = false, -- Open the chat buffer in insert mode?
+            separator = '-',               -- The separator between the different messages in the chat buffer
+            show_references = true,        -- Show references (from slash commands and variables) in the chat buffer?
+            show_settings = true,          -- Show LLM settings at the top of the chat buffer?
+            show_token_count = true,       -- Show the token count for each response?
+            start_in_insert_mode = false,  -- Open the chat buffer in insert mode?
             window = {
-              layout = 'buffer', -- float|vertical|horizontal|buffer
+              layout = 'buffer',           -- float|vertical|horizontal|buffer
             },
           },
         },
