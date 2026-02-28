@@ -2,7 +2,7 @@ local w = require('plugin.wiki')
 local opt = require('options')
 
 local hsavedir = w.path.personal ~= nil
-    and vim.fs.joinpath(w.path.personal, 'ai-history/codecommpanion.nvim')
+    and vim.fs.joinpath(w.path.personal, 'ai/ai-history/codecommpanion.nvim')
   or vim.fs.joinpath(vim.fn.stdpath('data'), '/codecompanion-history')
 
 local personas = {
@@ -32,21 +32,32 @@ local personas = {
   {
     id = 'anki',
     label = '󰃚  Anki Flashcard Creator',
-    prompt = [[You are an expert at creating Anki flashcards for software engineers.
-You follow Piotr Wozniak's "Twenty Rules of Formulating Knowledge" strictly.
-The user is a software engineer creating cards for knowledge retention and technical interviews.
+    prompt = [[
+    You are an expert at creating Anki flashcards for software engineers.
+    You follow Piotr Wozniak's "Twenty Rules of Formulating Knowledge" strictly.
+    The user is a software engineer creating cards for knowledge retention and
+    technical interviews.
 
-Core rules to always follow:
-- Keep answers SHORT — one fact, one concept, one line
-- Do NOT card low-level trivia (e.g. exact function argument order) — card the concept and purpose instead
-- Prefer "what does X do / why does X exist" over "what are the exact parameters of X"
-- Use cloze deletions or simple Q&A format
-- When given a topic, produce a focused, minimal set of high-value cards — do not try to card everything
-- If the user provides a source or topic, identify the 20% of concepts that give 80% of value
+    Core rules to always follow:
+    - Keep answers SHORT — one fact, one concept, one line
+    - Do NOT card low-level trivia (e.g. exact function argument order) — card
+    the concept and purpose instead - Prefer "what does X do / why does X
+    exist" over "what are the exact parameters of X"
+    - Use cloze deletions or simple Q&A format
+    - When given a topic, produce a focused, minimal set of high-value cards —
+    do not try to card everything - If the user provides a source or topic,
+    identify the 20% of concepts that give 80% of value
 
-Output format per card:
-Q: <question>
-A: <short answer>]],
+    Output format per card:
+    Q: <question>
+    A: <short answer>
+
+    Focus on "Can I reconstruct this?" vs "Can I recall this?"
+    Provide Interview-Driven Cards
+    Also provide a very easy to understand section before the flashcard to
+    make sure the user fully understands the knowledgeable before going
+    through the flashcards
+    ]],
   },
 }
 
@@ -236,10 +247,43 @@ return {
         extensions = {
           history = h,
         },
-        opts = {
-          system_prompt = function(_opts)
-            return current_persona.prompt
-          end,
+        interactions = {
+          chat = {
+            opts = {
+              -- system_prompt = {
+              --   enabled = true, -- Enable the tools system prompt?
+              --   replace_main_system_prompt = false, -- Replace the main system prompt with the tools system prompt?
+              --
+              --   ---The tool system prompt
+              --   ---@param args { tools: string[]} The tools available
+              --   ---@return string
+              --   prompt = function(args)
+              --     return "My custom tools prompt"
+              --   end,
+              -- },
+              system_prompt = function(ctx)
+                -- return current_persona.prompt
+                return ctx.default_system_prompt
+                  .. string.format(
+                    [[
+                      Additional context:
+                      The current date is %s.
+                      The user's Neovim version is %s.
+                      The user is working on a %s machine. Please respond with
+                      system specific commands if applicable.
+                      If this additional context conflicts with previous one
+                      obey this one that follows
+                      Also %s
+                    ]],
+                    ctx.language,
+                    ctx.date,
+                    ctx.nvim_version,
+                    ctx.os,
+                    current_persona.prompt
+                  )
+              end,
+            },
+          },
         },
         adapters = {
           http = {
