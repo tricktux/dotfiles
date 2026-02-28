@@ -236,17 +236,26 @@ M.opts = {
 return {
   {
     'HakonHarnes/img-clip.nvim',
-    ft = { 'markdown', 'org', 'quarto', 'tex' },
+    ft = { 'markdown', 'org', 'quarto', 'tex', 'codecompanion' },
     cmd = { 'PasteImage' },
-    -- event = "BufEnter",
-    opts = {
+   opts = {
       default = {
-        relative_to_current_file = true, -- make dir_path relative to current file rather than the cwd
-        relative_template_path = false, -- make file path in the template relative to current file rather than the cwd
         dir_path = 'assets',
+        relative_to_current_file = true,
+        relative_template_path = false,
       },
-      quarto = {
-        template = '![$CURSOR]($FILE_PATH)',
+      filetypes = {
+        quarto = {
+          template = '![$CURSOR]($FILE_PATH)',
+        },
+        codecompanion = {
+          dir_path = vim.fn.stdpath('cache'),
+          use_absolute_path = true,
+          relative_to_current_file = false,
+          relative_template_path = false,
+          prompt_for_file_name = false,
+          template = '![$CURSOR]($FILE_PATH)',
+        },
       },
     },
     keys = {
