@@ -224,9 +224,13 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 
 # Config management
 bindsym $mod+shift+r reload
-bindsym $mod+shift+s exec mkdir -p $XDG_DATA_HOME/screenshots && \
+# Make a copy of screenshots in /tmp for easy access to recent screenshots
+bindsym $mod+shift+s exec \
+    mkdir -p $XDG_DATA_HOME/screenshots && \
+    mkdir -p /tmp/screenshots && \
     grim -g "$(slurp)" - | \
     tee $XDG_DATA_HOME/screenshots/$(date +'%Y-%m-%d_%T.png') | \
+    tee /tmp/screenshots/$(date +'%Y-%m-%d_%T.png') | \
     wl-copy
 
 

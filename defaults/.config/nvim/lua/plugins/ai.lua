@@ -212,6 +212,11 @@ return {
             'zz',
             { buffer = true, noremap = true, silent = true }
           )
+          -- Set path to recent screenshots for easy `/images` integration
+          if vim.fn.has('unix') > 0 then
+            vim.fn.mkdir('/tmp/screenshots')
+            vim.cmd.cd('/tmp/screenshots')
+          end
         end,
       })
       vim.keymap.set(
