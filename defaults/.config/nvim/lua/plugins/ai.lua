@@ -246,6 +246,22 @@ return {
         },
         prompt_library = prompt_library,
         adapters = {
+          acp = {
+            -- Dependency:
+            --  1. https://github.com/zed-industries/codex-acp/releases
+            --  2. Install actual codex and authenticate
+            -- This below is not necessary but serves as reminder
+            codex = function()
+              return require('codecompanion.adapters').extend('codex', {
+                defaults = {
+                  auth_method = 'openai-api-key', -- "openai-api-key"|"codex-api-key"|"chatgpt"
+                },
+                env = {
+                  OPENAI_API_KEY = os.getenv('OPENAI_API_KEY'),
+                },
+              })
+            end,
+          },
           http = {
             lmstudio = function()
               return require('codecompanion.adapters').extend(
@@ -294,7 +310,7 @@ return {
             show_header_separator = false, -- Show header separators in the chat buffer? Set this to false if you're using an external markdown formatting plugin
             separator = '-', -- The separator between the different messages in the chat buffer
             show_references = true, -- Show references (from slash commands and variables) in the chat buffer?
-            show_settings = true, -- Show LLM settings at the top of the chat buffer?
+            show_settings = false, -- Show LLM settings at the top of the chat buffer?
             show_token_count = true, -- Show the token count for each response?
             start_in_insert_mode = false, -- Open the chat buffer in insert mode?
             window = {
