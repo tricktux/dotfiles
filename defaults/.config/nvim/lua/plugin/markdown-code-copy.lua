@@ -1,8 +1,8 @@
 local M = {}
 
--- Pinned targets
+-- Pinned target (any buffer)
 M.targets = {
-  markdown = nil,
+  pinned = nil,
 }
 
 -- Function to get visual selection using current visual mode
@@ -12,8 +12,8 @@ local function get_current_visual_selection()
 
   local start_line, end_line
   if
-    start_pos[2] > end_pos[2]
-    or (start_pos[2] == end_pos[2] and start_pos[3] > end_pos[3])
+      start_pos[2] > end_pos[2]
+      or (start_pos[2] == end_pos[2] and start_pos[3] > end_pos[3])
   then
     start_line = end_pos[2]
     end_line = start_pos[2]
@@ -100,33 +100,19 @@ local function ensure_buffer_visible(bufnr)
     end
   end
 
-  -- Not visible: open in a vertical split
   vim.cmd('vsplit')
   local new_win = vim.api.nvim_get_current_win()
   vim.api.nvim_win_set_buf(new_win, bufnr)
   return new_win
 end
 
--- Auto-detect the codecompanion buffer
-local function find_codecompanion_buffer()
-  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-    if
-      vim.api.nvim_buf_is_loaded(bufnr)
-      and vim.bo[bufnr].filetype == 'codecompanion'
-    then
-      return bufnr
-    end
-  end
-  return nil
-end
-
 -- Build the markdown code block lines
 local function build_code_block(
-  selected_lines,
-  start_line,
-  filetype,
-  current_file,
-  is_terminal
+    selected_lines,
+    start_line,
+    filetype,
+    current_file,
+    is_terminal
 )
   local language = get_language_from_filetype(filetype, is_terminal)
   local code_block = { '' }
@@ -168,10 +154,71 @@ local function insert_into_buffer(target_bufnr, code_block)
   vim.api.nvim_win_set_cursor(target_win, { insert_line + #code_block, 0 })
 end
 
--- Shared copy logic used by both markdown and codecompanion
-local function copy_to_target(use_current_visual, target_bufnr, target_label)
-  local selected_lines, start_line
+-- Telescope picker listing ALL loaded buffers (including codecompanion)
+local function pick_target_buffer(callback)
+  local ok, pickers = pcall(require, 'telescope.pickers')
+  if not ok then
+    vim.notify('Telescope is required for buffer picking', vim.log.levels.ERROR)
+    return
+  end
+  local finders = require('telescope.finders')
+  local conf = require('telescope.config').values
+  local actions = require('telescope.actions')
+  local action_state = require('telescope.actions.state')
 
+  local entries = {}
+  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+    if
+        vim.api.nvim_buf_is_loaded(bufnr) and vim.api.nvim_buf_is_valid(bufnr)
+    then
+      local name = vim.api.nvim_buf_get_name(bufnr)
+      local ft = vim.bo[bufnr].filetype
+      -- Skip truly anonymous/empty buffers
+      if name ~= '' or ft ~= '' then
+        local display_name = name ~= '' and vim.fn.fnamemodify(name, ':.')
+            or '[No Name]'
+        table.insert(entries, {
+          bufnr = bufnr,
+          name = display_name,
+          ft = ft ~= '' and ft or '?',
+        })
+      end
+    end
+  end
+
+  pickers
+      .new({}, {
+        prompt_title = 'Pin Target Buffer',
+        finder = finders.new_table({
+          results = entries,
+          entry_maker = function(entry)
+            local display =
+                string.format('[%d] %s  (%s)', entry.bufnr, entry.name, entry.ft)
+            return {
+              value = entry,
+              display = display,
+              ordinal = display,
+            }
+          end,
+        }),
+        sorter = conf.generic_sorter({}),
+        attach_mappings = function(prompt_bufnr, _)
+          actions.select_default:replace(function()
+            actions.close(prompt_bufnr)
+            local sel = action_state.get_selected_entry()
+            if sel then
+              callback(sel.value.bufnr)
+            end
+          end)
+          return true
+        end,
+      })
+      :find()
+end
+
+-- Capture selection context BEFORE any mode/state changes
+local function capture_selection(use_current_visual)
+  local selected_lines, start_line
   if use_current_visual then
     selected_lines, start_line = get_current_visual_selection()
     vim.api.nvim_feedkeys(
@@ -183,130 +230,106 @@ local function copy_to_target(use_current_visual, target_bufnr, target_label)
     selected_lines, start_line = get_visual_selection_from_marks()
   end
 
-  local current_file = vim.api.nvim_buf_get_name(0)
-  local filetype = vim.bo.filetype
-  local is_terminal = is_terminal_buffer(0)
+  return {
+    lines = selected_lines,
+    start_line = start_line,
+    file = vim.api.nvim_buf_get_name(0),
+    filetype = vim.bo.filetype,
+    is_terminal = is_terminal_buffer(0),
+    comment_prefix = get_comment_prefix(),
+  }
+end
 
-  if not is_terminal and current_file == '' then
+-- Pin a target buffer via Telescope
+function M.set_target()
+  pick_target_buffer(function(bufnr)
+    M.targets.pinned = bufnr
+    local name = vim.api.nvim_buf_get_name(bufnr)
+    local label = name ~= '' and vim.fn.fnamemodify(name, ':t')
+        or vim.bo[bufnr].filetype
+    vim.notify('Target pinned: ' .. label, vim.log.levels.INFO)
+  end)
+end
+
+-- Send selection to pinned target; prompt to pick one if none is set
+function M.copy_to_pinned(use_current_visual)
+  local ctx = capture_selection(use_current_visual)
+
+  if not ctx.is_terminal and ctx.file == '' then
     vim.notify('Current buffer has no file path', vim.log.levels.WARN)
     return
   end
 
-  if #selected_lines == 0 then
+  if #ctx.lines == 0 then
     vim.notify('No text selected', vim.log.levels.WARN)
     return
   end
 
   local code_block = build_code_block(
-    selected_lines,
-    start_line,
-    filetype,
-    current_file,
-    is_terminal
+    ctx.lines,
+    ctx.start_line,
+    ctx.filetype,
+    ctx.file,
+    ctx.is_terminal
   )
-  insert_into_buffer(target_bufnr, code_block)
 
-  local source_label = is_terminal and 'terminal'
-    or vim.fn.fnamemodify(current_file, ':t')
-  vim.notify(
-    string.format('Code from %s → %s', source_label, target_label),
-    vim.log.levels.INFO
-  )
-end
+  local function do_send(target_bufnr)
+    M.targets.pinned = target_bufnr
+    insert_into_buffer(target_bufnr, code_block)
 
--- Pin current buffer as markdown target
-function M.set_markdown_target()
-  local bufnr = vim.api.nvim_get_current_buf()
-  local ft = vim.bo[bufnr].filetype
-
-  if ft ~= 'markdown' then
+    local source_label = ctx.is_terminal and 'terminal'
+        or vim.fn.fnamemodify(ctx.file, ':t')
+    local tname = vim.api.nvim_buf_get_name(target_bufnr)
+    local target_label = tname ~= '' and vim.fn.fnamemodify(tname, ':t')
+        or vim.bo[target_bufnr].filetype
     vim.notify(
-      string.format('Cannot pin: filetype is "%s", expected "markdown"', ft),
-      vim.log.levels.WARN
+      string.format('Code from %s → %s', source_label, target_label),
+      vim.log.levels.INFO
     )
-    return
   end
 
-  M.targets.markdown = bufnr
-  local name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ':t')
-  vim.notify('Markdown target pinned: ' .. name, vim.log.levels.INFO)
-end
-
--- Send selection to pinned markdown buffer
-function M.copy_to_markdown(use_current_visual)
-  if
-    not M.targets.markdown or not vim.api.nvim_buf_is_valid(M.targets.markdown)
-  then
-    vim.notify(
-      'No markdown target pinned. Use <leader>cm from a markdown buffer.',
-      vim.log.levels.WARN
-    )
-    return
+  if M.targets.pinned and vim.api.nvim_buf_is_valid(M.targets.pinned) then
+    do_send(M.targets.pinned)
+  else
+    -- No valid target: pick one, then send
+    pick_target_buffer(function(bufnr)
+      do_send(bufnr)
+    end)
   end
-
-  local name =
-    vim.fn.fnamemodify(vim.api.nvim_buf_get_name(M.targets.markdown), ':t')
-  copy_to_target(use_current_visual, M.targets.markdown, name)
-end
-
--- Send selection to codecompanion buffer (auto-detected)
-function M.copy_to_codecompanion(use_current_visual)
-  local bufnr = find_codecompanion_buffer()
-  if not bufnr then
-    vim.notify(
-      'No CodeCompanion buffer found. Open a chat first.',
-      vim.log.levels.WARN
-    )
-    return
-  end
-
-  copy_to_target(use_current_visual, bufnr, 'CodeCompanion')
 end
 
 function M.setup()
-  -- Pin current markdown buffer as the target
-  vim.keymap.set('n', '<leader>cm', M.set_markdown_target, {
-    desc = 'Pin current buffer as markdown target',
+  -- Pick and pin any buffer as target
+  vim.keymap.set('n', '<leader>cm', M.set_target, {
+    desc = 'Pin a buffer as copy target',
   })
 
-  -- Send to pinned markdown buffer
+  -- Send visual selection to pinned target (prompt if none)
   vim.keymap.set('v', '<leader>cc', function()
-    M.copy_to_markdown(true)
-  end, { desc = 'Copy selection to pinned markdown buffer' })
+    M.copy_to_pinned(true)
+  end, { desc = 'Copy selection to pinned target buffer' })
 
+  -- Send current line to pinned target (prompt if none)
   vim.keymap.set('n', '<leader>cc', function()
     local line_nr = vim.api.nvim_win_get_cursor(0)[1]
     local current_line = vim.api.nvim_get_current_line()
     vim.api.nvim_buf_set_mark(0, '<', line_nr, 0, {})
     vim.api.nvim_buf_set_mark(0, '>', line_nr, #current_line, {})
-    M.copy_to_markdown(false)
-  end, { desc = 'Copy current line to pinned markdown buffer' })
-
-  -- Send to codecompanion buffer
-  vim.keymap.set('v', '<leader>ca', function()
-    M.copy_to_codecompanion(true)
-  end, { desc = 'Copy selection to CodeCompanion buffer' })
-
-  vim.keymap.set('n', '<leader>ca', function()
-    local line_nr = vim.api.nvim_win_get_cursor(0)[1]
-    local current_line = vim.api.nvim_get_current_line()
-    vim.api.nvim_buf_set_mark(0, '<', line_nr, 0, {})
-    vim.api.nvim_buf_set_mark(0, '>', line_nr, #current_line, {})
-    M.copy_to_codecompanion(false)
-  end, { desc = 'Copy current line to CodeCompanion buffer' })
+    M.copy_to_pinned(false)
+  end, { desc = 'Copy current line to pinned target buffer' })
 
   -- Auto-clear pinned target if the buffer is deleted
   vim.api.nvim_create_autocmd('BufDelete', {
     callback = function(ev)
-      if M.targets.markdown == ev.buf then
-        M.targets.markdown = nil
+      if M.targets.pinned == ev.buf then
+        M.targets.pinned = nil
         vim.notify(
-          'Pinned markdown target was closed and cleared',
+          'Pinned target buffer was closed and cleared',
           vim.log.levels.WARN
         )
       end
     end,
-    desc = 'Clear pinned markdown target on buffer delete',
+    desc = 'Clear pinned target on buffer delete',
   })
 end
 
