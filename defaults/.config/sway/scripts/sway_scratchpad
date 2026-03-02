@@ -74,6 +74,13 @@ case "$APP" in
   RESIZE="resize set 80ppt 60ppt"
   POSITION="move position center"
   ;;
+"caldav-tui")
+  TITLE="caldav-tui-scratchpad"
+  APP_ID="kitty"
+  CMD="$TERMINAL -T caldav-tui-scratchpad -e caldav-tui"
+  RESIZE="resize set 80ppt 60ppt"
+  POSITION="move position center"
+  ;;
 "whatsapp")
   TITLE="WhatsApp"
   APP_ID="firefox"
