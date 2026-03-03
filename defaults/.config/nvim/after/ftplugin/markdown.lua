@@ -49,19 +49,19 @@ end
 
 if vim.g.no_plugin_maps == nil and vim.g.no_markdown_maps == nil then
   local vks = vim.keymap.set
-  vks('n', '<plug>make_html', function()
+  vks('n', '<localleader>mk', function()
     render('html')
   end, { desc = 'pandoc-render-html', buffer = true })
-  vks('n', '<localleader>gjp', function()
+  vks('n', '<localleader>mp', function()
     render('revealjs')
   end, { desc = 'pandoc-render-revealjs', buffer = true })
-  vks('n', '<localleader>gjw', function()
+  vks('n', '<localleader>mw', function()
     render('pptx')
   end, { desc = 'pandoc-render-pptx', buffer = true })
-  vks('n', '<localleader>gjf', function()
+  vks('n', '<localleader>mf', function()
     render('pdf')
   end, { desc = 'pandoc-render-pdf', buffer = true })
-  vks('n', '<localleader>gjx', function()
+  vks('n', '<localleader>mx', function()
     render('docx')
   end, { desc = 'pandoc-render-docx', buffer = true })
   vks('n', '<plug>preview', preview, {
