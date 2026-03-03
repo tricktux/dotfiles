@@ -1,0 +1,3 @@
+layout tall
+launch caldav-tui
+launch khal interactive

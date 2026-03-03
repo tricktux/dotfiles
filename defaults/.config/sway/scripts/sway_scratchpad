@@ -77,7 +77,7 @@ case "$APP" in
 "caldav-tui")
   TITLE="caldav-tui-scratchpad"
   APP_ID="kitty"
-  CMD="$TERMINAL -T caldav-tui-scratchpad -e caldav-tui"
+  CMD="$TERMINAL -T caldav-tui-scratchpad --session $XDG_CONFIG_HOME/kitty/caldav-tui.session"
   RESIZE="resize set 80ppt 60ppt"
   POSITION="move position center"
   ;;
