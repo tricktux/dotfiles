@@ -372,6 +372,7 @@ exec swayidle -w -d \
 # STARTUP APPLICATIONS  {{{
 # Set wallpaper
 exec $HOME/.config/sway/scripts/autostart.sh > /tmp/autostart.log 2>&1
+exec_always pkill kanshi; sleep 0.5 && kanshi
 # }}}
 
 # vim:fdm=marker:ft=swayconfig
