@@ -263,15 +263,12 @@ return {
             end,
           },
           http = {
-            lmstudio = function()
+            ollama = function()
               return require('codecompanion.adapters').extend(
-                'openai_compatible',
+                'ollama',
                 {
                   env = {
-                    url = 'http://192.168.1.96:11435', -- default ollama endpoint
-                  },
-                  parameters = {
-                    model = 'gpt-oss:20b', -- or whichever model you chose
+                    url = 'http://192.168.1.96:11434', -- default ollama endpoint
                   },
                 }
               )
