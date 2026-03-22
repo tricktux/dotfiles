@@ -85,6 +85,9 @@ function M:setup()
     signs = true,
     update_in_insert = false,
     float = { border = 'rounded', source = 'if_many' },
+
+    -- Auto open the float, so you can easily read the errors when jumping with `[d` and `]d`
+    jump = { float = true },
   })
 
   vim.opt.exrc = true
