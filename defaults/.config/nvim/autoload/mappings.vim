@@ -6,6 +6,18 @@
 " Last Modified: Aug 22 2017 12:33
 " Created: Aug 22 2017 12:33
 
+function! s:cmd_win_mappings() abort
+  inoremap <buffer> <a-w> \<\><Left><Left>
+  inoremap <buffer> <c-s> %s/
+  inoremap <buffer> <c-j> <cr>
+  inoremap <buffer> <c-n> <down>
+  inoremap <buffer> <c-p> <up>
+
+  inoremap <buffer> <c-c> <esc>:q<cr>
+  nnoremap <buffer> q :q<cr>
+  nnoremap <buffer> <c-c> :q<cr>
+endfunction
+
 function! mappings#Set()
   let g:esc = ['jk', 'kj']
   " Terminal mappings
@@ -267,6 +279,12 @@ function! mappings#Set()
   nnoremap <silent> <leader>ss :call sessions#Save()<cr>
   nnoremap <silent> <leader>sl :call sessions#Load()<cr>
   nnoremap <silent> <leader>sb :call sessions#Browse()<cr>
+
+  augroup CommandWindow
+    autocmd!
+    autocmd CmdwinEnter * call s:cmd_win_mappings()
+augroup END
+
 endfunction
 
 " Tue May 15 2018 09:07: Forced to make it global. <expr> would not work with s:
