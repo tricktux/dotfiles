@@ -2,6 +2,7 @@ local log = require('utils.log')
 local fmt = string.format
 local vks = vim.keymap.set
 local utl = require('utils.utils')
+local run = require('utils.runner')
 local vcs = require('utils.vcs')
 local fn = vim.fn
 
@@ -568,6 +569,8 @@ function M:setup()
 
   vim.opt.findfunc = 'v:lua.RgFindFiles'
   vim.cmd("nnoremap <plug>current_folder_file_browser :find<space>")
+
+  vim.keymap.set('n', '<leader>R', function() run.runner.run({ float = false }) end, { desc = 'Run file (float)' })
 end
 
 return M
