@@ -80,12 +80,8 @@
     "command": "exec $BROWSER https://web.whatsapp.com"
   },
   {
-    "name": "🖼️ wallpaper internet random",
-    "command": "exec reddit-wallpaper"
-  },
-  {
-    "name": "🖼️ wallpaper arch random",
-    "command": "exec sway-random-arch-wallpaper.sh"
+    "name": "🖼️ wallpaper random",
+    "command": "exec arch-random-wallpaper.sh"
   },
   {
     "name": "🌃 redshift toggle night",
