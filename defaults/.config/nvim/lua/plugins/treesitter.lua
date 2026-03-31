@@ -208,8 +208,8 @@ function M:setup()
 
       vim.treesitter.start(buf, lang)
 
-      vim.wo.foldmethod = 'expr'
-      vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+      vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+      vim.wo[0][0].foldmethod = 'expr'
       vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 
       set_textobject_mappings()
