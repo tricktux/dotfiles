@@ -1,81 +1,61 @@
 local M = {}
 
-M.c_max_lines = vim.fn.has('unix') > 0 and 50000 or 1000
+local max_filesize = 262144 -- 256 KB
 
-local function disable(lang, bufnr)
-  if vim.b.ts_disabled then -- buffer result
-    return vim.b.ts_disabled == 1
-  end
-
-  if vim.fn.has('nvim-0.10.4') > 0 then -- async?
-    vim.b.ts_disabled = 0
+local function should_disable(buf)
+  if vim.fn.has('unix') > 0 then
     return false
   end
 
-  -- Max file size for unix files
-  local max_filesize = 262144 -- 256 * 1024 Kb
-
-  local stat = vim.fn.has('nvim-0.10.0') > 0 and vim.uv.fs_stat
-    or vim.loop.fs_stat
-  local ok, stats = pcall(stat, vim.api.nvim_buf_get_name(bufnr))
+  local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
   if ok and stats and stats.size > max_filesize then
-    local msg = "[TreeSitter]: Highlight disabled, file is bigger than '"
-      .. max_filesize / 1024
-      .. "Kb'"
-    vim.notify(msg, vim.log.levels.WARN)
-    vim.b.ts_disabled = 1
+    vim.notify("[TreeSitter] Disabled (file too large)", vim.log.levels.WARN)
+    vim.treesitter.stop(buf)
     return true
   end
 
-  vim.b.ts_disabled = 0
   return false
 end
 
-M.__config = {
-  -- This line will install all of them
-  -- one of "all", "language", or a list of languages
-  ensure_installed = {},
-  -- Automatically install missing parsers when entering buffer
-  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-  auto_install = vim.fn.executable('tree-sitter') > 0 and true or false,
-  highlight = {
-    disable = disable,
-    enable = true, -- false will disable the whole extension
-    -- Required for spellcheck, some LaTex highlights and code block highlights that do not have ts grammar
-    additional_vim_regex_highlighting = {},
-  },
-  incremental_selection = {
-    enable = false, -- superseded by textsubjects
-  },
-  indent = {
-    disable = disable,
-    enable = true,
-  },
-  iswap = {
-    disable = disable,
-    enable = true,
-  },
-  textsubjects = {
-    disable = disable,
-    enable = true,
-    prev_selection = ',', -- (Optional) keymap to select the previous selection
-    keymaps = {
-      ['.'] = 'textsubjects-smart',
-      [';'] = 'textsubjects-container-outer',
-    },
-  },
-  rainbow = {
-    disable = disable,
-    enable = true,
-  },
-}
-
 function M:setup()
-  if vim.fn.executable('clang') > 0 then
-    require('nvim-treesitter.install').compilers = { 'clang' }
-  end
-  local tsconf = require('nvim-treesitter.configs')
-  tsconf.setup(self.__config)
+  -- install parsers (like kickstart)
+  -- TODO: Fix this
+  -- require('nvim-treesitter').install({
+  --   'lua',
+  --   'vim',
+  --   'vimdoc',
+  --   'query',
+  --   'bash',
+  --   'c',
+  --   'html',
+  --   'markdown',
+  --   'markdown_inline',
+  -- })
+
+  vim.api.nvim_create_autocmd('FileType', {
+    callback = function(args)
+      local buf = args.buf
+      if should_disable(buf) then
+        return
+      end
+
+      local ft = args.match
+      local lang = vim.treesitter.language.get_lang(ft)
+      if not lang then
+        return
+      end
+
+      if not vim.treesitter.language.add(lang) then
+        return
+      end
+
+      vim.treesitter.start(buf, lang)
+
+      vim.wo.foldmethod = 'expr'
+      vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+      vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end,
+  })
 end
 
 return {
@@ -84,6 +64,7 @@ return {
     event = 'BufReadPost',
     version = false, -- last release is way too old and doesn't work on Windows
     build = ':TSUpdate',
+    branch = 'main',
     init = function()
       local opts = { silent = true, desc = 'treesitter_toggle_buffer' }
       vim.keymap.set(
@@ -92,9 +73,6 @@ return {
         [[<cmd>TSBufToggle highlight rainbow incremental_selection iswap indent<cr>]],
         opts
       )
-      vim.opt.foldmethod = 'expr'
-      vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
-      vim.opt.indentexpr = 'nvim_treesitter#indent()'
     end,
     config = function()
       M:setup()
@@ -106,17 +84,12 @@ return {
     dependencies = 'nvim-treesitter/nvim-treesitter',
   },
   {
-    'RRethy/nvim-treesitter-textsubjects',
-    event = 'BufReadPost',
-    dependencies = 'nvim-treesitter/nvim-treesitter',
-  },
-  {
     'nvim-treesitter/nvim-treesitter-context',
     event = 'BufReadPost',
     dependencies = 'nvim-treesitter/nvim-treesitter',
     opts = {
       enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-      max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+      max_lines = '30%', -- How many lines the window should span. Values <= 0 mean no limit.
       trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
       min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
       patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
