@@ -83,7 +83,9 @@ local function telescope_sessions()
     })
     :find()
 end
-
+local function frecency()
+  require 'telescope'.extensions.frecency.frecency {}
+end
 function M:set_mappings()
   local ts = require('telescope.builtin')
   local leader = {}
@@ -113,7 +115,7 @@ function M:set_mappings()
   leader.prefix = '<leader>' .. M.leader_key
   leader.mappings = {
     b = { ts.buffers, 'buffers' },
-    f = { ts.oldfiles, 'oldfiles' },
+    f = { frecency, 'frecency' },
     o = { ts.vim_options, 'vim_options' },
     O = { ts.colorscheme, 'colorscheme' },
     l = { ts.current_buffer_fuzzy_find, 'lines_current_buffer' },
@@ -291,5 +293,11 @@ return {
     dependencies = {
       { 'nvim-lua/plenary.nvim' },
     },
+  },
+  {
+    'nvim-telescope/telescope-frecency.nvim',
+    config = function()
+      require('telescope').load_extension 'frecency'
+    end,
   },
 }
