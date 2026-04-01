@@ -89,7 +89,7 @@ local function init_os()
 end
 
 local pomo_cfg = {
-  work_duration = 50 * 60, -- seconds
+  work_duration = 50 * 60,  -- seconds
   break_duration = 10 * 60, -- seconds
 }
 
@@ -119,6 +119,7 @@ local function main()
   --  overwrite them later, if they need to. Also get rid of all plugin
   --  specific stuff. Downside is no which-key
   require('lazyr').setup()
+  require('plugin.packadd').setup()
 end
 
 main()
