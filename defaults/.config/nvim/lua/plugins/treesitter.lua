@@ -17,7 +17,7 @@ local function should_disable(buf)
   return false
 end
 
-local function set_textobject_mappings()
+local function set_textobject_mappings(ft)
   -- You can use the capture groups defined in `textobjects.scm`
   vim.keymap.set({ 'x', 'o' }, 'am', function()
     require 'nvim-treesitter-textobjects.select'.select_textobject(
@@ -172,6 +172,15 @@ local function set_textobject_mappings()
     ',',
     ts_repeat_move.repeat_last_move_previous
   )
+
+  if ft == 'markdown' then
+    vim.keymap.set('n', '<c-j>', function()
+      require('vim.treesitter._headings').jump({ count = 1 })
+    end, { buf = 0, silent = false, desc = 'Jump to next section' })
+    vim.keymap.set('n', '<c-k>', function()
+      require('vim.treesitter._headings').jump({ count = -1 })
+    end, { buf = 0, silent = false, desc = 'Jump to previous section' })
+  end
 end
 
 function M:setup()
@@ -212,7 +221,7 @@ function M:setup()
       vim.wo[0][0].foldmethod = 'expr'
       vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 
-      set_textobject_mappings()
+      set_textobject_mappings(ft)
     end,
   })
 end
