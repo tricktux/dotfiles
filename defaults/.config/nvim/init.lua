@@ -19,7 +19,7 @@ local function set_globals()
   -----------------------
 
   vim.g.copilot_active = true
-  vim.g.advanced_plugins  = 0
+  vim.g.advanced_plugins = 0
 
   -- Disable unnecessary providers
   -- Saves on average 3ms (on linux) :D
@@ -41,14 +41,15 @@ local function set_globals()
 end
 
 local function _config_win()
-  vim.cmd([[silent! call serverstart('\\.\pipe\nvim-pipe-88888')]])
-
   vim.g.dotfiles = fs.joinpath(os.getenv('LOCALAPPDATA'), 'dotfiles')
   -- Find python
   local py = fs.joinpath(vim.fn.stdpath('data'), [[pyvenv\Scripts]])
   if vim.uv.fs_stat(py) ~= nil then
     vim.g.python3_host_prog = fs.joinpath(py, [[python.exe]])
   end
+
+  vim.env.TEMP = vim.fn.stdpath('cache')
+  vim.env.TMP = vim.fn.stdpath('cache')
 end
 
 local function _config_unix()
@@ -88,8 +89,8 @@ local function init_os()
 end
 
 local pomo_cfg = {
-  work_duration = 50 * 60,     -- seconds
-  break_duration = 10 * 60      -- seconds
+  work_duration = 50 * 60, -- seconds
+  break_duration = 10 * 60, -- seconds
 }
 
 local function main()
