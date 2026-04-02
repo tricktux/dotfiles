@@ -571,6 +571,8 @@ function M:setup()
   vim.cmd("nnoremap <plug>current_folder_file_browser :find<space>")
 
   vim.keymap.set('n', '<leader>R', function() run.runner.run({ float = false }) end, { desc = 'Run file (float)' })
+
+  -- For incremental selection see help v_an and v_in
 end
 
 return M
