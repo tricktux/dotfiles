@@ -19,7 +19,7 @@ function _G.RgFindFiles(cmdarg, _cmdcomplete)
   -- Trim whitespace and normalize paths on Windows
   if utl.has_win then
     for i, fname in ipairs(fnames) do
-      fnames[i] = vim.fn.trim(fname)  -- Remove any trailing/leading whitespace including \r
+      fnames[i] = vim.fn.trim(fname) -- Remove any trailing/leading whitespace including \r
       -- Optional: normalize path separators on Windows
       if vim.fn.has('win32') == 1 then
         fnames[i] = fnames[i]:gsub('/', '\\')
@@ -287,7 +287,7 @@ M.vcs.mappings = {
 M.toggle = {
   name = 'toggle',
   prefix = '<leader>t',
-  virtual = true, -- Used to toggle virtual_text
+  virtual = true,    -- Used to toggle virtual_text
   diagnostic = true, -- Used to toggle diagnostic
 }
 M.toggle.mappings = {
@@ -521,7 +521,7 @@ local function windows_os_mappings()
   M.terminal.mappings['<leader>TV'] = {
     function()
       local cmd =
-        [[cmd.exe /k "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VC\\vcvarsall.bat"]]
+      [[cmd.exe /k "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VC\\vcvarsall.bat"]]
       utl.term.exec(cmd)
     end,
     'terminal_open_visual_studio',
@@ -568,9 +568,11 @@ function M:setup()
   self:keymaps_sets(self.vcs)
 
   vim.opt.findfunc = 'v:lua.RgFindFiles'
-  vim.cmd("nnoremap <plug>current_folder_file_browser :find<space>")
+  vim.cmd('nnoremap <plug>current_folder_file_browser :find<space>')
 
-  vim.keymap.set('n', '<leader>R', function() run.runner.run({ float = false }) end, { desc = 'Run file (float)' })
+  vim.keymap.set('n', '<leader>R', function()
+    run.runner.run({ float = false })
+  end, { desc = 'Run file (float)' })
 
   -- For incremental selection see help v_an and v_in
 end
