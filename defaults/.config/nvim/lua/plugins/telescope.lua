@@ -96,6 +96,18 @@ function M:set_mappings()
   vks('n', '<plug>buffer_browser', function()
     ts.buffers(tl.cust_buff_opts())
   end, opts)
+  vks(
+    'n',
+    '<plug>cmd_hist_browser',
+    ts.command_history,
+    { desc = 'command_history' }
+  )
+  vks(
+    'n',
+    '<plug>search_hist_browser',
+    ts.search_history,
+    { desc = 'command_history' }
+  )
   local git = {}
   git.prefix = '<leader>' .. M.leader_key .. 'g'
   git.mappings = {

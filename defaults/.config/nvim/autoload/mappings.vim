@@ -201,8 +201,8 @@ function! mappings#Set()
   nnoremap <plug>cmd_hist_browser q:
   nmap <leader>, <plug>grep_cword
   nnoremap <plug>grep_cword :grep <c-r><c-w><cr>
-  nmap <leader>/ <plug>grep
-  nnoremap <plug>grep :grep 
+  nmap <leader>/ <plug>search_hist_browser
+  nnoremap <plug>search_hist_browser q/
 
   " Custom command :F for searching and opening files using fd
   command! -nargs=1 -complete=customlist,s:FComplete F execute 'edit' <q-args>
