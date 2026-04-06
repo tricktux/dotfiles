@@ -145,6 +145,7 @@ fi
 if [[ -d /usr/lib/distcc/bin ]]; then
   export PATH="/usr/lib/distcc/bin/:$PATH"
   export DISTCC_HOSTS="192.168.1.249,cpp,lzo 192.168.1.96,cpp,lzo"
+  eval $(pump --startup)
 fi
 
 # Dotnet
