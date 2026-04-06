@@ -64,6 +64,11 @@ function git:status()
     return
   end
 
+  if vim.fn.exists(':Gstatus') > 0 then
+    vim.cmd('Neogit kind=floating')
+    return
+  end
+
   print('Git Status: Not implemented')
 end
 
@@ -72,6 +77,12 @@ function git:diff()
     vim.cmd('DiffviewOpen')
     return
   end
+
+  if vim.fn.exists(':Git') > 0 then
+    vim.cmd('Git diff')
+    return
+  end
+
   print('Git Diff: Not implemented')
 end
 
@@ -89,6 +100,11 @@ function git:buffer_commits()
     return
   end
 
+  if vim.fn.exists(':Telescope') > 0 then
+    vim.cmd('Telescope git_bcommits')
+    return
+  end
+
   print('Git buffer_commits: Not implemented')
 end
 
@@ -103,6 +119,11 @@ end
 
 function git:blame()
   if vim.fn.exists(':GitMessenger') > 0 then
+    vim.cmd('GitMessenger')
+    return
+  end
+
+  if vim.fn.exists(':Git') > 0 then
     vim.cmd('GitMessenger')
     return
   end

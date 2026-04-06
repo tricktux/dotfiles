@@ -250,20 +250,6 @@ local p = {
     cmd = { 'CsvViewEnable', 'CsvViewDisable', 'CsvViewToggle' },
   },
   {
-    'NeogitOrg/neogit',
-    cmd = 'Neogit',
-    keys = {
-      { map.vcs.prefix .. 'n', '<cmd>Neogit<cr>', mode = 'n' },
-    },
-    dependencies = {
-      'nvim-lua/plenary.nvim', -- required
-
-      -- Only one of these is needed.
-      'nvim-telescope/telescope.nvim', -- optional
-    },
-    config = true,
-  },
-  {
     'b3nj5m1n/kommentary',
     enabled = vim.fn.has('nvim-0.10') <= 0,
     keys = {
