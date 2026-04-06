@@ -142,6 +142,10 @@ if [[ -d /usr/lib/ccache/bin ]]; then
   export CCACHE_MAXSIZE=5.0G
 fi
 
+if [[ -d /usr/lib/distcc/bin ]]; then
+  export PATH="/usr/lib/distcc/bin/:$PATH"
+  export DISTCC_HOSTS="192.168.1.249,cpp,lzo 192.168.1.96,cpp,lzo"
+fi
 
 # Dotnet
 export DOTNET_ROOT="$XDG_DATA_HOME"/dotnet
