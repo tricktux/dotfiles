@@ -81,7 +81,7 @@
   },
   {
     "name": "🖼️ wallpaper random",
-    "command": "exec arch-random-wallpaper.sh"
+    "command": "exec arch-random-wallpaper"
   },
   {
     "name": "🌃 redshift toggle night",
