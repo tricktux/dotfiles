@@ -263,15 +263,29 @@ return {
             end,
           },
           http = {
-            ollama = function()
+            llama_local = function()
               return require('codecompanion.adapters').extend(
-                'ollama',
+                'openai_compatible',
                 {
                   env = {
-                    url = 'http://192.168.1.96:11434', -- default ollama endpoint
+                    url = 'http://192.168.1.96:9274',
+                    api_key = 'dummy',
+                    chat_url = '/v1/chat/completions',
+                  },
+                  schema = {
+                    model = {
+                      default = 'local',
+                    },
                   },
                 }
               )
+            end,
+            ollama = function()
+              return require('codecompanion.adapters').extend('ollama', {
+                env = {
+                  url = 'http://192.168.1.96:11434', -- default ollama endpoint
+                },
+              })
             end,
             xai = function()
               return require('codecompanion.adapters').extend('xai', {
