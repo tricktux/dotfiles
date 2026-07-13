@@ -1,0 +1,47 @@
+profile home-dock {
+  output "LG Display 0x06AD Unknown" disable
+
+    output "Samsung Electric Company LS27D80xE HCNYB00410" {
+      enable
+        mode 3840x2160@60Hz
+        scale 1.5
+        transform normal
+        position 1280,1016
+    }
+
+  output "AOC U2790B 0x0000F264" {
+    enable
+      mode 3840x2160@59.997Hz
+      scale 1.5
+      transform normal
+      position 3840,1016
+  }
+
+  exec ~/.local/bin/sway-organize-workspaces.sh samsung
+}
+
+profile tv {
+  output "LG Display 0x06AD Unknown" disable
+
+    output "LG Electronics LG TV 0x01010101" {
+      enable
+        mode 3840x2160@30Hz
+        scale 2.5
+        transform normal
+        position 0,0
+    }
+
+  exec ~/.local/bin/sway-organize-workspaces.sh samsung
+}
+
+profile laptop-only {
+  output "LG Display 0x06AD Unknown" {
+    enable
+      mode 2560x1600@59.994Hz
+      scale 1.75
+      transform normal
+      position 0,0
+  }
+
+  exec ~/.local/bin/sway-organize-workspaces.sh
+}
