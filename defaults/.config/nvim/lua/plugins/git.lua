@@ -21,7 +21,11 @@ return {
         function()
           local base = vim.fn.input('Base branch: ', 'develop')
           if base ~= '' then
-            vim.cmd('DiffviewFileHistory --range=' .. base .. '...HEAD --right-only --no-merges')
+            vim.cmd(
+              'DiffviewFileHistory --range='
+                .. base
+                .. '...HEAD --right-only --no-merges'
+            )
           end
         end,
         mode = { 'n' },
