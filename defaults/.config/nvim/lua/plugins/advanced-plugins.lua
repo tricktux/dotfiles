@@ -3,7 +3,9 @@ if vim.g.advanced_plugins == 0 then
 end
 
 return {
-  { 'matze/vim-ini-fold',   ft = 'dosini' },
+  -- Github Pull Request Octo Alternative Git
+  { 'justinmk/guh.nvim' },
+  { 'matze/vim-ini-fold', ft = 'dosini' },
   { 'aklt/plantuml-syntax', ft = 'plantuml' },
   {
     'johmsalas/text-case.nvim',
