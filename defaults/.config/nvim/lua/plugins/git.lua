@@ -57,6 +57,8 @@ return {
       require('diffview').setup(opts)
     end,
   },
-  'tpope/vim-fugitive',
-  cmd = 'Git',
+  {
+    'tpope/vim-fugitive',
+    cmd = 'Git',
+  },
 }
