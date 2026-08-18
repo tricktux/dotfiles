@@ -321,6 +321,18 @@ local p = {
       })
     end,
   },
+  {
+    'benoror/gpg.nvim',
+    init = function()
+      vim.filetype.add({
+        extension = {
+          gpg = 'gpg',
+          asc = 'asc',
+        },
+      })
+    end,
+    ft = { 'gpg', 'asc', 'pgp' },
+  },
 }
 
 return p
