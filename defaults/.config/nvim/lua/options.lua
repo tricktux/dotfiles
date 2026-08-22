@@ -18,30 +18,35 @@ function M:unix()
   end
 
   -- Source: https://www.reddit.com/r/neovim/comments/1e9vllk/neovim_weird_issue_when_copypasting_using_osc_52/
-  local function paste()
-    return {
-      vim.fn.split(vim.fn.getreg(''), '\n'),
-      vim.fn.getregtype(''),
-    }
-  end
-
-  local k = os.getenv('KITTY_WINDOW_ID') ~= nil
-  local oscplus = require('vim.ui.clipboard.osc52').paste('+')
-  local oscast = require('vim.ui.clipboard.osc52').paste('*')
-
-  vim.g.clipboard = {
-    name = 'osc52',
-    copy = {
-      ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
-      ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
-    },
-    paste = {
-      ['+'] = k and oscplus or paste,
-      ['*'] = k and oscast or paste,
-    },
+local function paste()
+  return {
+    vim.fn.split(vim.fn.getreg(''), '\n'),
+    vim.fn.getregtype(''),
   }
 end
 
+local is_ssh = os.getenv('SSH_TTY') ~= nil or os.getenv('SSH_CONNECTION') ~= nil
+local has_kitty_osc52 = os.getenv('KITTY_WINDOW_ID') ~= nil
+
+-- Only trust the OSC52 *paste* round-trip when we're local (not over SSH),
+-- since the terminal response often can't make it back through SSH/tmux.
+local use_osc52_paste = has_kitty_osc52 and not is_ssh
+
+local oscplus = require('vim.ui.clipboard.osc52').paste('+')
+local oscast = require('vim.ui.clipboard.osc52').paste('*')
+
+vim.g.clipboard = {
+  name = 'osc52',
+  copy = {
+    ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+  },
+  paste = {
+    ['+'] = use_osc52_paste and oscplus or paste,
+    ['*'] = use_osc52_paste and oscast or paste,
+  },
+}
+end
 function M:windows()
   if vim.fn.has('win32') <= 0 then
     return
