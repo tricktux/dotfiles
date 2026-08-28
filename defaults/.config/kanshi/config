@@ -13,7 +13,7 @@ profile home-dock {
     enable
       mode 3840x2160@59.997Hz
       scale 1.5
-      transform normal
+      transform 90
       position 3840,1016
   }
 
