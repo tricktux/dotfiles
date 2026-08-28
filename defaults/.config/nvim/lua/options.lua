@@ -9,7 +9,7 @@ M.set_text_settings = function()
   vim.opt.complete:append('kspell')
   vim.opt.tabstop = 2
   vim.opt.shiftwidth = 2
-  vim.opt.comments:append({ b = '-' })
+  -- vim.opt.comments:append({ b = '-' })
 end
 
 function M:unix()
