@@ -1,16 +1,16 @@
 
 configuration {
   modi: "window,ssh,drun,combi,tasks:~/.config/rofi/scripts/tasks.sh";
-	width: 40;
-	show-icons: true;
-combi-modi: "window,drun,tasks:~/.config/rofi/scripts/tasks.sh";
-	kb-remove-to-eol: "Control+u";
-	kb-remove-to-sol: "Control+shift+u";
-	kb-accept-entry: "Control+m,Return,KP_Enter";
-	kb-mode-next: "Shift+Right,Control+n";
-	kb-mode-previous: "Shift+Left,Control+p";
-	kb-row-up: "Up,Control+k";
-	kb-row-down: "Down,Control+j";
+  width: 40;
+  show-icons: true;
+  combi-modi: "window,drun,tasks:~/.config/rofi/scripts/tasks.sh";
+  kb-remove-to-eol: "Control+u";
+  kb-remove-to-sol: "Control+shift+u";
+  kb-accept-entry: "Control+m,Return,KP_Enter";
+  kb-mode-next: "Shift+Right,Control+n";
+  kb-mode-previous: "Shift+Left,Control+p";
+  kb-row-up: "Up,Control+k";
+  kb-row-down: "Down,Control+j";
   kb-secondary-copy: "Shift+Control+c";
   kb-cancel: "Escape,Control+c,Control+bracketleft";
 }
