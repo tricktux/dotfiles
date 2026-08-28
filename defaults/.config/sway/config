@@ -69,18 +69,17 @@ input type:touchpad {
 # output * bg ~/.config/sway/wallpaper.jpg fill
 #}}}
 
+set $ipc noctalia msg
+
 # Bindings{{{
 floating_modifier $mod normal
 
 # dunst mappings {{{
-bindsym ctrl+semicolon exec dunstctl close
-bindsym ctrl+shift+space exec dunstctl close-all
-bindsym ctrl+shift+period exec dunstctl context
-bindsym ctrl+grave exec dunstctl history-pop
+bindsym ctrl+semicolon exec $ipc notification-clear-active
 # }}}
 
 # Keep non-scratchpad actions accessible too
-bindsym $mod+u exec killall -SIGUSR1 waybar
+bindsym $mod+u exec $ipc bar-toggle
 
 # Launch scratchpads (replacing tdrop with native sway scratchpad)
 bindsym $mod+o exec ~/.config/sway/scripts/scratchpad-hint; mode "scratchpad"
@@ -97,6 +96,7 @@ mode "scratchpad" {
     bindsym k exec ~/.config/sway/scripts/sway_scratchpad keepass;    mode "default"
     bindsym t exec ~/.config/sway/scripts/sway_scratchpad caldav-tui;    mode "default"
     bindsym e exec ~/.config/sway/scripts/sway_scratchpad evolution;    mode "default"
+    bindsym d exec $ipc theme-mode-toggle;    mode "default"
 
     bindsym Escape mode "default"
     bindsym Return mode "default"
@@ -134,7 +134,7 @@ bindsym $mod+Mod1+$left focus output left
 bindsym $mod+Mod1+$right focus output right
 
 # Screen lock
-bindsym $mod+shift+x exec ~/.config/sway/scripts/lock.sh
+bindsym $mod+shift+x exec $ipc session lock
 
 # Terminal and browser
 bindsym $mod+Return exec $TERMINAL
@@ -144,6 +144,7 @@ bindsym $mod+shift+Return exec $BROWSER
 bindsym $mod+q kill
 
 # Program launcher
+bindsym $mod+shift+d exec $ipc panel-toggle launcher
 bindsym $mod+d exec "rofi -show combi -theme-str 'window {width: 55%;}'"
 
 # Focus controls
@@ -266,17 +267,20 @@ bindsym $mod+Up exec brillo -A 10
 bindsym $mod+Down exec brillo -U 10
 
 # Volume
-bindsym $mod+Right exec pactl set-sink-volume @DEFAULT_SINK@ +10%
-bindsym $mod+Left exec pactl set-sink-volume @DEFAULT_SINK@ -10%
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +10%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -10%
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym $mod+Right exec $ipc volume-up
+bindsym $mod+Left exec $ipc volume-down
+bindsym --locked XF86AudioRaiseVolume exec $ipc volume-up
+bindsym --locked XF86AudioLowerVolume exec $ipc volume-down
+bindsym --locked XF86AudioMute exec $ipc volume-mute
+bindsym --locked XF86MonBrightnessUp exec $ipc brightness-up
+bindsym --locked XF86MonBrightnessDown exec $ipc brightness-down
+bindsym XF86AudioMute exec $ipc volume-mute
+bindsym XF86AudioMicMute exec $ipc mic-mute
 
 # Media keys
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioPlay exec $ipc media toggle
+bindsym XF86AudioNext exec $ipc media next
+bindsym XF86AudioPrev exec $ipc media previous
 bindsym XF86PowerOff exec "swaymsg '[app_id=\".*\"]' kill && systemctl poweroff"
 bindsym XF86PowerDown exec "swaymsg '[app_id=\".*\"]' kill && systemctl poweroff"
 
@@ -358,9 +362,9 @@ default_floating_border pixel 3
 # }}}
 
 # Bar configuration - using waybar
-bar {
-    swaybar_command waybar
-}
+# bar {
+#     swaybar_command waybar
+# }
 
 # Idle configuration
 exec swayidle -w -d \
