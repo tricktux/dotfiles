@@ -5,6 +5,8 @@ gui:
       - bold
   commandLogSize: 10
 git:
-  pagers:
+  diffRenderers:
     - colorArg: "always"
       # pager: "delta --paging=never"
+
+      type: rawGit
