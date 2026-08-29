@@ -63,6 +63,3 @@ systemctl --user restart dunst.service redshift.service
 # Set random wallpaper
 wallpaper="$(find /usr/share/backgrounds/archlinux/ -type f -name '*.jpg' -o -name '*.png' | shuf -n 1)"
 swaymsg "output '*' bg $wallpaper fill"
-
-# Go and compute the bike statistics
-strava-activities -d 10 $HOME/.local/bin/strava.ini
