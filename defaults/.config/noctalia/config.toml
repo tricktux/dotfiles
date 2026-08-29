@@ -1,0 +1,25 @@
+[theme]
+mode = "auto"
+
+[bar.default]
+position = "top"
+# auto_hide = true
+# smart_auto_hide = true
+
+# # Generic CalDAV discovery root (Nextcloud, Fastmail, Radicale, mailbox.org, …)
+[calendar.account.molinamail]
+type       = "caldav"
+name       = "molinamail"
+provider   = "custom"
+server_url = "https://box.molinamail.com/remote.php/dav/"
+username   = "me@molinamail.com"
+calendars  = []   # optional discovered collection ids; empty = all
+credential_source = "file"
+password_file = "/tmp/noctalia-caldav"
+
+[nightlight]
+enabled              = true
+force                = false   # hold night temperature, ignoring the schedule
+
+temperature_day   = 6500       # Kelvin (must be > temperature_night by at least 100)
+temperature_night = 4000       # Kelvin
