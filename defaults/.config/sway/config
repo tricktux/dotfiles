@@ -81,6 +81,8 @@ bindsym ctrl+semicolon exec $ipc notification-clear-active
 # Keep non-scratchpad actions accessible too
 bindsym $mod+u exec $ipc bar-toggle
 
+bindsym mod1+tab exec $ipc window-switcher
+
 # Launch scratchpads (replacing tdrop with native sway scratchpad)
 bindsym $mod+o exec ~/.config/sway/scripts/scratchpad-hint; mode "scratchpad"
 mode "scratchpad" {
@@ -378,6 +380,7 @@ exec swayidle -w -d \
 exec $HOME/.config/sway/scripts/autostart.sh > /tmp/autostart.log 2>&1
 exec_always pkill kanshi; sleep 0.5 && kanshi
 exec_always pkill arch-random-wallpaper; sleep 0.5 && arch-random-wallpaper
+exec noctalia
 # }}}
 
 # vim:fdm=marker:ft=swayconfig
