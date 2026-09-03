@@ -294,6 +294,13 @@ return {
                 },
               })
             end,
+            openrouter = function()
+              return require('codecompanion.adapters').extend('openrouter', {
+                env = {
+                  api_key = os.getenv('OPENROUTER_API_KEY'),
+                },
+              })
+            end,
             anthropic = function()
               return require('codecompanion.adapters').extend('anthropic', {
                 env = {
@@ -338,7 +345,7 @@ return {
             },
           },
           chat = {
-            adapter = 'anthropic',
+            adapter = 'openrouter',
             keymaps = {
               send = {
                 modes = { n = '<C-g>', i = '<C-g>' },
