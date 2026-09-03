@@ -170,6 +170,14 @@ local function set_textobject_mappings(ft)
       require('vim.treesitter._headings').jump({ count = -1 })
     end, { buf = 0, silent = false, desc = 'Jump to previous section' })
   end
+
+  -- Incremental selection awesomeness
+  vim.keymap.set({ 'x', 'o' }, ';', function()
+    vim.treesitter.select('parent')
+  end)
+  vim.keymap.set({ 'x', 'o' }, ',', function()
+    vim.treesitter.select('child')
+  end)
 end
 
 function M:setup()
