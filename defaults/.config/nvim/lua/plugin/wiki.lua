@@ -48,13 +48,6 @@ function M:add_rtp()
 end
 
 function M:setup()
-  vim.keymap.set(
-    'n',
-    '<leader>wt',
-    '<cmd>grep! -t md "[ ]"<cr>',
-    { desc = 'find-actions' }
-  )
-
   local w = luv.os_getenv('WIKI_WORK')
   if w then
     M.path.work = exists(w) and w or nil
