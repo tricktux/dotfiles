@@ -25,12 +25,29 @@ M.path.find = function(wikis)
   return nil
 end
 
-function M:setup()
-  local exists = function(folder)
-    local stat = luv.fs_stat(folder)
-    return stat and stat.type == 'directory' and true or false
+local exists = function(folder)
+  local stat = luv.fs_stat(folder)
+  return stat and stat.type == 'directory' and true or false
+end
+
+function M:add_rtp()
+  local work = luv.os_getenv('WIKI_WORK')
+  if not work then
+    return
   end
 
+  local lua_dir = vim.fs.joinpath(work, 'projects', 'dev', 'lua')
+  if not exists(lua_dir) then
+    return
+  end
+
+  lua_dir = vim.fs.joinpath(work, 'projects', 'dev')
+  if not vim.tbl_contains(vim.opt.runtimepath:get(), lua_dir) then
+    vim.opt.runtimepath:append(lua_dir)
+  end
+end
+
+function M:setup()
   vim.keymap.set(
     'n',
     '<leader>wt',

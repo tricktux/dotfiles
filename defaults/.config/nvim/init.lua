@@ -104,7 +104,8 @@ local function main()
   firenvim()
   require('utils.utils').setup()
   -- setup wiki early so that path is available
-  require('plugin.wiki'):setup()
+  local w = require('plugin.wiki')
+  w:setup()
   require('plugin.pomodoro').setup(pomo_cfg)
   require('plugin.lsp').cycle_logs()
   require('plugin.markdown-code-copy').setup()
@@ -121,6 +122,9 @@ local function main()
   --  overwrite them later, if they need to. Also get rid of all plugin
   --  specific stuff. Downside is no which-key
   require('lazyr').setup()
+
+  -- Hook in work wiki lua folder
+  w:add_rtp()
 end
 
 main()
