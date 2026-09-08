@@ -6,16 +6,11 @@ position = "top"
 # auto_hide = true
 # smart_auto_hide = true
 
-# # Generic CalDAV discovery root (Nextcloud, Fastmail, Radicale, mailbox.org, …)
-[calendar.account.molinamail]
-type       = "caldav"
+[calendar.account.local_vdir]
+type       = "vdir"
 name       = "molinamail"
-provider   = "custom"
-server_url = "https://box.molinamail.com/remote.php/dav/"
-username   = "me@molinamail.com"
+path       = "~/.local/share/vdirsyncer"
 calendars  = []   # optional discovered collection ids; empty = all
-credential_source = "file"
-password_file = "/tmp/noctalia-caldav"
 
 [nightlight]
 enabled              = true
@@ -23,3 +18,15 @@ force                = false   # hold night temperature, ignoring the schedule
 
 temperature_day   = 6500       # Kelvin (must be > temperature_night by at least 100)
 temperature_night = 4000       # Kelvin
+
+[location]
+auto_locate = true            # resolve coordinates from your IP address when true
+
+[weather]
+enabled         = true
+refresh_minutes = 30
+unit            = "imperial"      # metric | imperial
+effects         = true          # visual weather effects
+
+[hooks]
+theme_mode_changed = "~/.local/bin/system-theme-changed.sh $NOCTALIA_THEME_MODE"
