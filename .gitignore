@@ -76,3 +76,7 @@ defaults/.config/autorandr/work
 defaults/.config/autorandr/main
 defaults/.config/autorandr/home
 defaults/.config/qutebrowser/autoconfig.yml
+/defaults/.config/sway/noctalia
+/defaults/.config/rofi/noctalia.rasi
+/defaults/.config/gtk-3.0/noctalia.css
+/defaults/.config/gtk-3.0/gtk.css
