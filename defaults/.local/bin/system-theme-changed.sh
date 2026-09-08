@@ -24,4 +24,6 @@ neovim_setup() {
 
 neovim_setup "$mode"
 
+swaymsg reload
+
 notify-send "theme-changed" "Mode '$mode' applied" -t 3000

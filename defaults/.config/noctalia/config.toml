@@ -1,5 +1,17 @@
 [theme]
-mode = "auto"
+mode              = "auto"
+shell_mode        = "follow"      # follow | dark | light | auto
+source            = "builtin"     # builtin | wallpaper | community | custom
+builtin           = "Tokyo-Night"    # bundled palette name
+wallpaper_scheme  = "m3-content"  # generator used when source = "wallpaper"
+pure_black_dark   = false         # replace dark-mode backgrounds with pure black
+
+[theme.templates]
+enable_builtin_templates = true
+enable_community_templates = true
+# opt-in; run: noctalia theme --list-templates
+builtin_ids              = ["sway", "gtk3", "gtk4", "qt", "kitty"]
+community_ids              = ["rofi"]
 
 [bar.default]
 position = "top"

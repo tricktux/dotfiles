@@ -289,17 +289,18 @@ bindsym XF86PowerDown exec "swaymsg '[app_id=\".*\"]' kill && systemctl poweroff
 # }}}
 
 # Window colors{{{
-# Load colors from pywal
-include "$HOME/.cache/wal/colors-sway"
+# Load colors from noctalia
+include ~/.config/sway/noctalia
 
-# class                 border      backgr.     text         indicator    child_border
-client.focused          $color6     $color6     $background  $foreground  $color6
-client.focused_inactive $color8     $color8     $background  $background  $color8
-client.unfocused        $background $background $foreground  $background  $color8
-client.urgent           $foreground $color9     $foreground  $background  $color9
-client.placeholder      $color7     #0000ff     $foreground  $background  $background
+## Window Colours
+# class                 border      backgr.     text                indicator   child_border
+client.focused          $primary    $primary    $on_primary         $secondary  $primary
+client.focused_inactive $outline    $surface    $on_surface_variant $outline    $outline
+client.unfocused        $surface    $surface    $on_surface_variant $surface    $outline
+client.urgent           $error      $error      $on_primary         $error      $error
+client.placeholder      $surface    $surface    $on_surface_variant $surface    $surface
 
-client.background       $background
+client.background       $surface
 # }}}
 
 
