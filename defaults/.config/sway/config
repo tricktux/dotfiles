@@ -365,6 +365,18 @@ default_border pixel 4
 default_floating_border pixel 3
 # }}}
 
+# Bar configuration - using waybar
+# bar {
+#     swaybar_command waybar
+# }
+
+# Idle configuration
+exec swayidle -w -d \
+    timeout 300 'swaylock -f -c 000000' \
+    timeout 1200 'swaymsg "output * power off"' \
+            resume 'swaymsg "output * power on"' \
+    before-sleep 'swaylock -f -c 000000'
+
 # STARTUP APPLICATIONS  {{{
 # Set wallpaper
 exec $HOME/.config/sway/scripts/autostart.sh > /tmp/autostart.log 2>&1
