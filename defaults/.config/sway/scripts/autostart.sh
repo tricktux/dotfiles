@@ -45,7 +45,3 @@ if [[ -x $(command -v noisetorch) ]]; then
 else
 	printf "\n==X Please install noisetorch\n"
 fi
-
-# Set random wallpaper
-wallpaper="$(find /usr/share/backgrounds/archlinux/ -type f -name '*.jpg' -o -name '*.png' | shuf -n 1)"
-swaymsg "output '*' bg $wallpaper fill"
