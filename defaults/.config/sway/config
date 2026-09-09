@@ -74,7 +74,7 @@ set $ipc noctalia msg
 # Bindings{{{
 floating_modifier $mod normal
 
-# dunst mappings {{{
+# notification mappings {{{
 bindsym ctrl+semicolon exec $ipc notification-clear-active
 # }}}
 
@@ -365,17 +365,12 @@ default_border pixel 4
 default_floating_border pixel 3
 # }}}
 
-# Bar configuration - using waybar
-# bar {
-#     swaybar_command waybar
-# }
-
 # Idle configuration
 exec swayidle -w -d \
-    timeout 300 'swaylock -f -c 000000' \
+    timeout 300 'noctalia msg session lock' \
     timeout 1200 'swaymsg "output * power off"' \
-            resume 'swaymsg "output * power on"' \
-    before-sleep 'swaylock -f -c 000000'
+    resume 'swaymsg "output * power on"' \
+    before-sleep 'noctalia msg session lock'
 
 # STARTUP APPLICATIONS  {{{
 # Set wallpaper
