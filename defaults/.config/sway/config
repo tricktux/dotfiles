@@ -99,6 +99,7 @@ mode "scratchpad" {
     bindsym t exec ~/.config/sway/scripts/sway_scratchpad caldav-tui;    mode "default"
     bindsym e exec ~/.config/sway/scripts/sway_scratchpad evolution;    mode "default"
     bindsym d exec $ipc theme-mode-toggle;    mode "default"
+    bindsym a exec $ipc wallpaper-random;    mode "default"
 
     bindsym Escape mode "default"
     bindsym Return mode "default"
