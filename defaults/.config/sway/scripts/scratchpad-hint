@@ -11,7 +11,13 @@ y htop
 w whatsapp
 k keepass
 t todos (caldav-tui)
-d theme-mode-toggle
 e evolution
-w wallpaper-random
+d theme-mode-toggle
+a wallpaper-random
+g nightlight-toggle
+u bluetooth-toggle
+f caffeine-toggle
+r keyboard-backlight-toggle
+q network-toggle
+s osd-toggle
 b feishin"

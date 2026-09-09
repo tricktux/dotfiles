@@ -100,6 +100,12 @@ mode "scratchpad" {
     bindsym e exec ~/.config/sway/scripts/sway_scratchpad evolution;    mode "default"
     bindsym d exec $ipc theme-mode-toggle;    mode "default"
     bindsym a exec $ipc wallpaper-random;    mode "default"
+    bindsym g exec $ipc nightlight-toggle;    mode "default"
+    bindsym u exec $ipc bluetooth-toggle;    mode "default"
+    bindsym f exec $ipc caffeine-toggle;    mode "default"
+    bindsym r exec $ipc keyboard-backlight-toggle;    mode "default"
+    bindsym q exec $ipc network-toggle;    mode "default"
+    bindsym s exec $ipc osd-toggle;    mode "default"
 
     bindsym Escape mode "default"
     bindsym Return mode "default"
