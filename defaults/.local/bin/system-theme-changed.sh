@@ -24,6 +24,8 @@ neovim_setup() {
 
 neovim_setup "$mode"
 
+# The reload has not been taking effect
+sleep 1
 swaymsg reload
 
 notify-send "theme-changed" "Mode '$mode' applied" -t 3000
