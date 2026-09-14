@@ -106,53 +106,6 @@ M.opts = {
         end
       end,
 
-      -- Get all sibling projects (useful for project navigation)
-      sibling_projects = function(ctx)
-        local obsidian_utils = require('plugin.obsidian')
-        local project_path = obsidian_utils.get_project_name_from_context(ctx)
-        if not project_path or project_path == '' then
-          return ''
-        end
-
-        -- Use cross-platform path operations
-        local parent_path = project_path:match('(.+)/[^/]+$')
-        if not parent_path then
-          return ''
-        end
-
-        local parent_dir =
-          vim.fs.joinpath(Obsidian.dir.filename, 'projects', parent_path)
-        local siblings = {}
-
-        -- Check if directory exists before iterating
-        if vim.fn.isdirectory(parent_dir) == 0 then
-          return ''
-        end
-
-        for name, type in vim.fs.dir(parent_dir) do
-          if type == 'directory' then
-            local sibling_path = parent_path .. '/' .. name -- Keep internal representation as /
-            local verbose_filename = sibling_path:gsub('/', '-') .. '.md'
-            local sibling_file =
-              vim.fs.joinpath(parent_dir, name, verbose_filename)
-
-            if utl.isfile(sibling_file) then
-              -- Use vim.fs.joinpath for cross-platform link generation
-              local link_path =
-                vim.fs.joinpath('projects', sibling_path, verbose_filename)
-              local sibling_link = '- [' .. name .. '](' .. link_path .. ')'
-              table.insert(siblings, sibling_link)
-            end
-          end
-        end
-
-        if #siblings > 0 then
-          return '\n  ' .. table.concat(siblings, '\n  ')
-        else
-          return ''
-        end
-      end,
-
       -- Get project hierarchy breadcrumbs
       project_breadcrumbs = function(ctx)
         local obsidian_utils = require('plugin.obsidian')
