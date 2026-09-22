@@ -1,0 +1,72 @@
+[theme]
+mode              = "auto"
+shell_mode        = "follow"      # follow | dark | light | auto
+source            = "builtin"     # builtin | wallpaper | community | custom
+builtin           = "Tokyo-Night"    # bundled palette name
+wallpaper_scheme  = "m3-content"  # generator used when source = "wallpaper"
+pure_black_dark   = false         # replace dark-mode backgrounds with pure black
+
+[theme.templates]
+enable_builtin_templates = true
+enable_community_templates = true
+# opt-in; run: noctalia theme --list-templates
+builtin_ids              = ["sway", "gtk3", "gtk4", "qt", "kitty"]
+community_ids              = ["rofi"]
+
+[bar.default]
+position = "top"
+# auto_hide = true
+# smart_auto_hide = true
+
+[calendar.account.local_vdir]
+type       = "vdir"
+name       = "molinamail"
+path       = "~/.local/share/vdirsyncer"
+calendars  = []   # optional discovered collection ids; empty = all
+
+[nightlight]
+enabled              = true
+force                = false   # hold night temperature, ignoring the schedule
+
+temperature_day   = 6500       # Kelvin (must be > temperature_night by at least 100)
+temperature_night = 4000       # Kelvin
+
+[location]
+auto_locate = true            # resolve coordinates from your IP address when true
+
+[weather]
+enabled         = true
+refresh_minutes = 30
+unit            = "imperial"      # metric | imperial
+effects         = true          # visual weather effects
+
+[hooks]
+theme_mode_changed = "~/.local/bin/system-theme-changed.sh $NOCTALIA_THEME_MODE"
+
+[wallpaper]
+enabled             = true
+fill_mode           = "crop"    # center | crop | fit | stretch | repeat | span
+fill_color          = "#111111" # optional fallback/fill color; image wallpapers take priority
+transition          = ["fade", "wipe", "disc", "stripes", "zoom", "honeycomb"]
+                                # array of effects picked at random each transition
+                                # omit to use all effects
+transition_duration = 1500      # milliseconds
+edge_smoothness     = 0.3       # 0.0 – 1.0
+transition_on_startup = false   # animate the first wallpaper at shell startup (v4-style)
+
+# Directory browsed by the wallpaper picker panel. Leave empty to use the
+# standard XDG Pictures directory (from `XDG_PICTURES_DIR` or `user-dirs.dirs`).
+directory           = "/usr/share/backgrounds"
+# Enable per-monitor directory overrides (default: false)
+per_monitor_directories = false
+
+[wallpaper.automation]
+enabled                      = true
+interval_seconds             = 1800
+order                        = "random" # random | alphabetical
+recursive                    = true     # scan subdirectories when selecting random wallpapers
+
+[backdrop]
+enabled        = true
+blur_intensity = 0.5    # 0.0 = no blur, 1.0 = maximum blur
+tint_intensity = 0.3    # 0.0 = no tint, 1.0 = fully opaque tint

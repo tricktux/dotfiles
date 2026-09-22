@@ -12,14 +12,6 @@
     "command": "sudo systemctl stop wg-quick@home"
   },
   {
-    "name": "☀️ flux force day",
-    "command": "exec $HOME/.config/redshift/hooks/neoflux period-changed 88 daytime >>/tmp/flux.log 2>&1"
-  },
-  {
-    "name": "🌑 flux force night",
-    "command": "exec $HOME/.config/redshift/hooks/neoflux period-changed 88 night >>/tmp/flux.log 2>&1"
-  },
-  {
     "name": "📷 qrencode clipboard",
     "command": "wl-paste | qrencode -o - | swayimg -"
   },
@@ -80,24 +72,12 @@
     "command": "exec $BROWSER https://web.whatsapp.com"
   },
   {
-    "name": "🖼️ wallpaper random",
-    "command": "exec arch-random-wallpaper"
-  },
-  {
-    "name": "🌃 redshift toggle night",
-    "command": "exec ~/.config/polybar/scripts/redshift-toggle.sh"
-  },
-  {
     "name": "📷 text snatcher ocr image",
     "command": "exec $HOME/.config/polybar/scripts/text-snatcher-native.sh"
   },
   {
     "name": "⌨️ fix default application to open url links obsidian firefox",
     "command": "exec xdg-mime default firefox.desktop x-scheme-handler/https x-scheme-handler/http"
-  },
-  {
-    "name": "🗓️ calendar popup",
-    "command": "galendae"
   },
   {
     "name": "✈️ airplane mode on",
