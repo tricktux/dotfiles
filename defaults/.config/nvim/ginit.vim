@@ -9,8 +9,8 @@ let s:font = "Cascadia Code:h8"
 
 function! s:set_nvim_qt() abort
   execute "GuiFont " . s:font
-	GuiTabline 0
-	GuiPopupmenu 0
+  GuiTabline 0
+  GuiPopupmenu 0
 endfunction
 
 function! s:set_gui() abort
@@ -18,7 +18,7 @@ function! s:set_gui() abort
     call s:set_nvim_qt()
     return
   end
-	if exists('g:neovide')
+  if exists('g:neovide')
     call v:lua.require'plugin.neovide'.setup()
     return
   end
