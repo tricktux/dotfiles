@@ -149,7 +149,7 @@ else
   ## Colorize the ls output ##
   alias ls='ls --color=auto'
   ## Use a long listing format ##
-  alias ll='ls -als'
+  alias ll='ls -alsh'
   ## Show hidden files ##
   alias l.='ls -d .* --color=auto'
 fi
