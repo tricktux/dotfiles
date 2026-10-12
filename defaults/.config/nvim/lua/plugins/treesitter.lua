@@ -212,8 +212,6 @@ function M:setup()
         return
       end
 
-      vim.treesitter.start(buf, lang)
-
       vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
       vim.wo[0][0].foldmethod = 'expr'
       vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
