@@ -84,28 +84,15 @@ bindsym $mod+u exec $ipc bar-toggle
 bindsym mod1+tab exec $ipc window-switcher
 
 # Launch scratchpads (replacing tdrop with native sway scratchpad)
-bindsym $mod+o exec ~/.config/sway/scripts/scratchpad-hint; mode "scratchpad"
+bindsym $mod+Shift+o exec ~/.config/sway/scripts/scratchpad-hint
+
+bindsym $mod+o mode "scratchpad"
 mode "scratchpad" {
-    bindsym o exec ~/.config/sway/scripts/sway_scratchpad journal;    mode "default"
-    bindsym n exec ~/.config/sway/scripts/sway_scratchpad ranger;     mode "default"
+    bindsym o exec ~/.config/sway/scripts/sway_scratchpad journal; mode "default"
+    bindsym n exec ~/.config/sway/scripts/sway_scratchpad ranger; mode "default"
     bindsym semicolon exec ~/.config/sway/scripts/sway_scratchpad terminal; mode "default"
-    bindsym p exec ~/.config/sway/scripts/sway_scratchpad ncpamixer;  mode "default"
-    bindsym c exec ~/.config/sway/scripts/sway_scratchpad qalculate;  mode "default"
-    bindsym i exec ~/.config/sway/scripts/sway_scratchpad tickrs;     mode "default"
-    bindsym y exec ~/.config/sway/scripts/sway_scratchpad htop;       mode "default"
-    bindsym b exec ~/.config/sway/scripts/sway_scratchpad feishin;    mode "default"
-    bindsym w exec ~/.config/sway/scripts/sway_scratchpad whatsapp;    mode "default"
-    bindsym k exec ~/.config/sway/scripts/sway_scratchpad keepass;    mode "default"
-    bindsym t exec ~/.config/sway/scripts/sway_scratchpad caldav-tui;    mode "default"
-    bindsym e exec ~/.config/sway/scripts/sway_scratchpad evolution;    mode "default"
-    bindsym d exec $ipc theme-mode-toggle;    mode "default"
-    bindsym a exec $ipc wallpaper-random;    mode "default"
-    bindsym g exec $ipc nightlight-toggle;    mode "default"
-    bindsym u exec $ipc bluetooth-toggle;    mode "default"
-    bindsym f exec $ipc caffeine-toggle;    mode "default"
-    bindsym r exec $ipc keyboard-backlight-toggle;    mode "default"
-    bindsym q exec $ipc network-toggle;    mode "default"
-    bindsym s exec $ipc osd-toggle;    mode "default"
+    bindsym p exec ~/.config/sway/scripts/sway_scratchpad ncpamixer; mode "default"
+    bindsym c exec ~/.config/sway/scripts/sway_scratchpad qalculate; mode "default"
 
     bindsym Escape mode "default"
     bindsym Return mode "default"

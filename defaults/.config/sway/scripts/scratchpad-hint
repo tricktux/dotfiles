@@ -1,23 +1,57 @@
-#!/bin/bash
+#!/bin/sh
+set -eu
 
-notify-send -t 2000 "Scratchpad" \
-"o journal
-n ranger
-semicolon terminal
-p ncpamixer
-c qalculate
-i tickrs
-y htop
-w whatsapp
-k keepass
-t todos (caldav-tui)
-e evolution
-d theme-mode-toggle
-a wallpaper-random
-g nightlight-toggle
-u bluetooth-toggle
-f caffeine-toggle
-r keyboard-backlight-toggle
-q network-toggle
-s osd-toggle
-b feishin"
+choice=$(
+  printf '%s\n' \
+    'y  htop' \
+    'w  whatsapp' \
+    'k  keepass' \
+    't  todos (caldav-tui)' \
+    'e  evolution' \
+    'd  theme-mode-toggle' \
+    'a  wallpaper-random' \
+    'g  nightlight-toggle' \
+    'u  bluetooth-toggle' \
+    'f  caffeine-toggle' \
+    'r  keyboard-backlight-toggle' \
+    'q  network-toggle' \
+    's  osd-toggle' \
+    'b  feishin' \
+    '' \
+    'o  journal' \
+    'n  ranger' \
+    ';  terminal' \
+    'p  ncpamixer' \
+    'c  qalculate' \
+    'i  tickrs' \
+    'v  vpn-random' \
+    'h  vpn-home' \
+  | rofi -dmenu -i -p 'Scratchpad' \
+    -theme-str 'window { width: 55%; location: center; anchor: center; } listview { lines: 8; } entry { padding: 8px; }'
+)
+
+[ -n "${choice:-}" ] || exit 0
+
+case "$choice" in
+  'o  journal') exec ~/.config/sway/scripts/sway_scratchpad journal ;;
+  'n  ranger') exec ~/.config/sway/scripts/sway_scratchpad ranger ;;
+  ';  terminal') exec ~/.config/sway/scripts/sway_scratchpad terminal ;;
+  'p  ncpamixer') exec ~/.config/sway/scripts/sway_scratchpad ncpamixer ;;
+  'c  qalculate') exec ~/.config/sway/scripts/sway_scratchpad qalculate ;;
+  'i  tickrs') exec ~/.config/sway/scripts/sway_scratchpad tickrs ;;
+  'y  htop') exec ~/.config/sway/scripts/sway_scratchpad htop ;;
+  'w  whatsapp') exec ~/.config/sway/scripts/sway_scratchpad whatsapp ;;
+  'k  keepass') exec ~/.config/sway/scripts/sway_scratchpad keepass ;;
+  't  todos (caldav-tui)') exec ~/.config/sway/scripts/sway_scratchpad caldav-tui ;;
+  'e  evolution') exec ~/.config/sway/scripts/sway_scratchpad evolution ;;
+  'd  theme-mode-toggle') exec $ipc theme-mode-toggle ;;
+  'a  wallpaper-random') exec $ipc wallpaper-random ;;
+  'g  nightlight-toggle') exec $ipc nightlight-toggle ;;
+  'u  bluetooth-toggle') exec $ipc bluetooth-toggle ;;
+  'f  caffeine-toggle') exec $ipc caffeine-toggle ;;
+  'r  keyboard-backlight-toggle') exec $ipc keyboard-backlight-toggle ;;
+  'q  network-toggle') exec $ipc network-toggle ;;
+  's  osd-toggle') exec $ipc osd-toggle ;;
+  'b  feishin') exec ~/.config/sway/scripts/sway_scratchpad feishin ;;
+  'v  vpn-random') exec ~/.local/bin/wireguard-vpn-random-toggle > /tmp/vpn.log 2>&1 ;;
+esac
