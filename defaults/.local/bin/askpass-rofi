@@ -1,0 +1,3 @@
+#!/bin/sh
+prompt=${1:-Password}
+printf '\n' | rofi -dmenu -password -i -p "$prompt" -no-fixed-num-lines
