@@ -56,4 +56,5 @@ case "$choice" in
   's  osd-toggle') exec $ipc osd-toggle ;;
   'b  feishin') exec ~/.config/sway/scripts/sway_scratchpad feishin ;;
   'v  vpn-random') exec ~/.local/bin/wireguard-vpn-random-toggle > /tmp/vpn.log 2>&1 ;;
+  'h  vpn-home') exec sudo -A resolvconf -u && wg-quick up home ;;
 esac
