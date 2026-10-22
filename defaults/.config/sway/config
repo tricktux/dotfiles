@@ -84,19 +84,10 @@ bindsym $mod+u exec $ipc bar-toggle
 bindsym mod1+tab exec $ipc window-switcher
 
 # Launch scratchpads (replacing tdrop with native sway scratchpad)
-bindsym $mod+Shift+o exec ~/.config/sway/scripts/scratchpad-hint
-
-bindsym $mod+o mode "scratchpad"
-mode "scratchpad" {
-    bindsym o exec ~/.config/sway/scripts/sway_scratchpad journal; mode "default"
-    bindsym n exec ~/.config/sway/scripts/sway_scratchpad ranger; mode "default"
-    bindsym semicolon exec ~/.config/sway/scripts/sway_scratchpad terminal; mode "default"
-    bindsym p exec ~/.config/sway/scripts/sway_scratchpad ncpamixer; mode "default"
-    bindsym c exec ~/.config/sway/scripts/sway_scratchpad qalculate; mode "default"
-
-    bindsym Escape mode "default"
-    bindsym Return mode "default"
-}
+bindsym $mod+o exec ~/.config/sway/scripts/scratchpad-hint
+bindsym $mod+n exec ~/.config/sway/scripts/sway_scratchpad ranger
+bindsym $mod+semicolon exec ~/.config/sway/scripts/sway_scratchpad terminal
+bindsym $mod+p exec ~/.config/sway/scripts/sway_scratchpad ncpamixer
 
 # Media controls
 bindsym ctrl+mod1+h exec playerctl play-pause
