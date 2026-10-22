@@ -32,6 +32,8 @@ choice=$(
 
 [ -n "${choice:-}" ] || exit 0
 
+ipc="noctalia msg"
+
 case "$choice" in
   'o  journal') exec ~/.config/sway/scripts/sway_scratchpad journal ;;
   'n  ranger') exec ~/.config/sway/scripts/sway_scratchpad ranger ;;
