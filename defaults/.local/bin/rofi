@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+scheme="$(gsettings get org.gnome.desktop.interface color-scheme 2>/dev/null | tr -d "'")"
+
+case "$scheme" in
+  prefer-light)
+    theme="$HOME/.config/rofi/theme-light.rasi"
+    ;;
+  *)
+    theme="$HOME/.config/rofi/theme-dark.rasi"
+    ;;
+esac
+
+exec rofi -theme "$theme" "$@"
