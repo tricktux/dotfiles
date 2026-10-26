@@ -15,6 +15,7 @@ community_ids              = ["rofi"]
 
 [bar.default]
 position = "top"
+margin_ends = 0
 # auto_hide = true
 # smart_auto_hide = true
 
