@@ -21,7 +21,7 @@ hide_when_idle = true
 [bar.default]
 position = "top"
 margin_ends = 0
-start  = ["launcher", "wallpaper", "workspaces"]
+start  = ["launcher", "wallpaper", "workspaces", "noctalia/timer:bar"]
 center = []
 end    = ["media", "tray", "notifications", "clipboard", "network", "bluetooth", "volume", "brightness", "battery", "clock", "session"]
 # auto_hide = true
@@ -84,3 +84,8 @@ recursive                    = true     # scan subdirectories when selecting ran
 enabled        = true
 blur_intensity = 0.5    # 0.0 = no blur, 1.0 = maximum blur
 tint_intensity = 0.3    # 0.0 = no tint, 1.0 = fully opaque tint
+
+[plugins]
+# Fully-qualified ids ("<author>/<plugin>") that are active.
+enabled = ["noctalia/screen_recorder", "noctalia/timer"]
+auto_update = "all" # "all" | "official" | "none"; background git updates on startup and every 6 hours

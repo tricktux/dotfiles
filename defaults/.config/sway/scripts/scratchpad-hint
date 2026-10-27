@@ -16,6 +16,9 @@ choice=$(
     'keyboard-backlight-toggle' \
     'network-toggle' \
     'osd-toggle' \
+    'pomo-start-50' \
+    'pomo-start-10' \
+    'pomo-cancel' \
     'feishin' \
     '' \
     'journal' \
@@ -61,4 +64,7 @@ case "$choice" in
   'feishin') exec ~/.config/sway/scripts/sway_scratchpad feishin ;;
   'vpn-random') exec ~/.local/bin/wireguard-vpn-random-toggle > /tmp/vpn.log 2>&1 ;;
   'vpn-home') exec sudo -A resolvconf -u && wg-quick up home ;;
+  'pomo-start-50') exec $ipc plugin noctalia/timer:timer all start 50 ;;
+  'pomo-start-10') exec $ipc plugin noctalia/timer:timer all start 10 ;;
+  'pomo-cancel') exec $ipc plugin noctalia/timer:timer all cancel ;;
 esac
