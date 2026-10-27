@@ -13,6 +13,11 @@ enable_community_templates = true
 builtin_ids              = ["sway", "gtk3", "gtk4", "qt", "kitty"]
 community_ids              = ["rofi"]
 
+[widget.media]
+max_length = 440
+hide_when_no_media = true
+hide_when_idle = true
+
 [bar.default]
 position = "top"
 margin_ends = 0
