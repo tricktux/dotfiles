@@ -21,6 +21,9 @@ hide_when_idle = true
 [bar.default]
 position = "top"
 margin_ends = 0
+start  = ["launcher", "wallpaper", "workspaces"]
+center = []
+end    = ["media", "tray", "notifications", "clipboard", "network", "bluetooth", "volume", "brightness", "battery", "clock", "session"]
 # auto_hide = true
 # smart_auto_hide = true
 
@@ -39,6 +42,11 @@ temperature_night = 4000       # Kelvin
 
 [location]
 auto_locate = true            # resolve coordinates from your IP address when true
+
+[widget.clock]
+format = "{:%H:%M}\n{:%d/%m}"
+vertical_format = "{:%H\n%M}"
+tooltip_format = "{:%A, %B %d, %Y}"
 
 [weather]
 enabled         = true
