@@ -24,6 +24,8 @@ choice=$(
     'p  ncpamixer' \
     'c  qalculate' \
     'i  tickrs' \
+    'notification-dnd-toggle' \
+    'mic-mute' \
     'v  vpn-random' \
     'h  vpn-home' \
   | rofi -dmenu -i -p 'Scratchpad' \
@@ -51,6 +53,8 @@ case "$choice" in
   'g  nightlight-toggle') exec $ipc nightlight-toggle ;;
   'u  bluetooth-toggle') exec $ipc bluetooth-toggle ;;
   'f  caffeine-toggle') exec $ipc caffeine-toggle ;;
+  'notification-dnd-toggle') exec $ipc notification-dnd-toggle ;;
+  'mic-mute') exec $ipc mic-mute ;;
   'r  keyboard-backlight-toggle') exec $ipc keyboard-backlight-toggle ;;
   'q  network-toggle') exec $ipc network-toggle ;;
   's  osd-toggle') exec $ipc osd-toggle ;;
