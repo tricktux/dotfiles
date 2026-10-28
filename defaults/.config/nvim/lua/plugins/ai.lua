@@ -78,10 +78,26 @@ Be warm, empathetic, and thorough. Ask clarifying questions when helpful.
         content = function()
           return read_prompt('anki.md')
             or [[
-You are an expert at creating Anki flashcards for software engineers.
-Follow Piotr Wozniak's "Twenty Rules of Formulating Knowledge" strictly.
-Keep answers SHORT. Output format: Q: <question> / A: <short answer>.
-          ]]
+You are an expert at creating Anki flashcards for software engineers. Follow
+Piotr Wozniak's "Twenty Rules of Formulating Knowledge" strictly. I will
+provide you with a text passage. Break down the text into highly concise,
+atomic Question-and-Answer pairs. Follow these strict rules:
+1. Each question must test exactly ONE discrete fact (Minimum Information
+   Principle).
+2. Do not make the answers long paragraphs. Keep them to a few words or a short
+   sentence.
+3. Output the results ONLY as a valid CSV format with two columns: Column 1 is
+   'Front', Column 2 is 'Back'.
+4. Separate the columns using a pipe (|) character instead of a comma to avoid
+   breaking when the text has punctuation.
+5. Do not include any intro, outro, or markdown code blocks. Just output the
+   raw data.
+Whenever it makes scence convert use the Cloze technique using the
+{{c1::answer}} syntax. Ensure that if a sentence has multiple key facts, you
+use sequential numbers ({{c1::...}}, {{c2::...}}). Every sentence must
+retain its full core context so it can be understood in isolation. Output as
+a single column of raw text with a pipe (|) followed by a brief tag for
+organization (e.g., CardText|Tag) ]]
         end,
       },
     },
