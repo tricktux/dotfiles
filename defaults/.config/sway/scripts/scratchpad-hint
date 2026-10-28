@@ -26,6 +26,8 @@ choice=$(
     'osd-toggle' \
     'notification-do-not-disturbe-toggle' \
     'mic-mute' \
+    'bar-control-panel-home' \
+    'bar-control-panel-audio' \
     'pomo-start-50' \
     'pomo-start-25' \
     'pomo-start-10' \
@@ -61,6 +63,8 @@ case "$choice" in
   'keyboard-backlight-toggle') exec $ipc keyboard-backlight-toggle ;;
   'network-toggle') exec $ipc network-toggle ;;
   'osd-toggle') exec $ipc osd-toggle ;;
+  'bar-control-panel-home') exec $ipc panel-toggle control-center home ;;
+  'bar-control-panel-audio') exec $ipc panel-toggle control-center audio ;;
   'feishin') exec ~/.config/sway/scripts/sway_scratchpad feishin ;;
   'vpn-random') exec ~/.local/bin/wireguard-vpn-random-toggle > /tmp/vpn.log 2>&1 ;;
   'vpn-home') exec sudo -A resolvconf -u && wg-quick up home ;;
