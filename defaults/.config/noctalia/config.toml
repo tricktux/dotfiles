@@ -23,7 +23,7 @@ position = "top"
 margin_ends = 0
 start  = ["launcher", "wallpaper", "workspaces", "noctalia/timer:bar", "clock"]
 center = []
-end    = ["media", "tray", "notifications", "clipboard", "network", "bluetooth", "volume", "brightness", "battery", "session"]
+end    = ["media", "tray", "notifications", "clipboard", "network", "bluetooth", "volume", "brightness", "battery", "control-center", "session"]
 # auto_hide = true
 # smart_auto_hide = true
 
