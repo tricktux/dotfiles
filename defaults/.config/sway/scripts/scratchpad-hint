@@ -3,11 +3,17 @@ set -eu
 
 choice=$(
   printf '%s\n' \
+    'tasks' \
+    'feishin' \
     'htop' \
+    'vpn-random' \
+    'vpn-home' \
+    'journal' \
+    'qalculate' \
+    'tickrs' \
     'whatsapp' \
     'keepass' \
     'todos (caldav-tui)' \
-    'tasks' \
     'evolution' \
     'theme-mode-toggle' \
     'wallpaper-random' \
@@ -17,21 +23,11 @@ choice=$(
     'keyboard-backlight-toggle' \
     'network-toggle' \
     'osd-toggle' \
+    'notification-dnd-toggle' \
+    'mic-mute' \
     'pomo-start-50' \
     'pomo-start-10' \
     'pomo-cancel' \
-    'feishin' \
-    '' \
-    'journal' \
-    'ranger' \
-    'terminal' \
-    'ncpamixer' \
-    'qalculate' \
-    'tickrs' \
-    'notification-dnd-toggle' \
-    'mic-mute' \
-    'vpn-random' \
-    'vpn-home' \
   | rofi -dmenu -i -p 'Scratchpad' \
     -theme-str 'window { width: 55%; location: center; anchor: center; } listview { lines: 8; } entry { padding: 8px; }'
 )
