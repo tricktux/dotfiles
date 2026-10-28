@@ -89,3 +89,7 @@ tint_intensity = 0.3    # 0.0 = no tint, 1.0 = fully opaque tint
 # Fully-qualified ids ("<author>/<plugin>") that are active.
 enabled = ["noctalia/screen_recorder", "noctalia/timer"]
 auto_update = "all" # "all" | "official" | "none"; background git updates on startup and every 6 hours
+
+[shell]
+# Fixes system try icons colors on light theme
+app_icon_colorize = true
