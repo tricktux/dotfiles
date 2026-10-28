@@ -45,3 +45,11 @@ if [[ -x $(command -v noisetorch) ]]; then
 else
 	printf "\n==X Please install noisetorch\n"
 fi
+
+if [[ -x $(command -v kdeconnect-indicator) ]]; then
+  kdeconnect-indicator&
+fi
+
+if [[ -x $(command -v kdeconnectd) ]]; then
+  kdeconnectd&
+fi
