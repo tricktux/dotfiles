@@ -21,9 +21,9 @@ hide_when_idle = true
 [bar.default]
 position = "top"
 margin_ends = 0
-start  = ["launcher", "wallpaper", "workspaces", "noctalia/timer:bar"]
+start  = ["launcher", "wallpaper", "workspaces", "noctalia/timer:bar", "clock"]
 center = []
-end    = ["media", "tray", "notifications", "clipboard", "network", "bluetooth", "volume", "brightness", "battery", "clock", "session"]
+end    = ["media", "tray", "notifications", "clipboard", "network", "bluetooth", "volume", "brightness", "battery", "session"]
 # auto_hide = true
 # smart_auto_hide = true
 
