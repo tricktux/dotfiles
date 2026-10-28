@@ -7,6 +7,7 @@ choice=$(
     'whatsapp' \
     'keepass' \
     'todos (caldav-tui)' \
+    'tasks' \
     'evolution' \
     'theme-mode-toggle' \
     'wallpaper-random' \
@@ -50,6 +51,7 @@ case "$choice" in
   'whatsapp') exec ~/.config/sway/scripts/sway_scratchpad whatsapp ;;
   'keepass') exec ~/.config/sway/scripts/sway_scratchpad keepass ;;
   'todos (caldav-tui)') exec ~/.config/sway/scripts/sway_scratchpad caldav-tui ;;
+  'tasks') exec ~/.config/sway/scripts/sway_scratchpad tasks ;;
   'evolution') exec ~/.config/sway/scripts/sway_scratchpad evolution ;;
   'theme-mode-toggle') exec $ipc theme-mode-toggle ;;
   'wallpaper-random') exec $ipc wallpaper-random ;;

@@ -81,6 +81,13 @@ case "$APP" in
   RESIZE="resize set 80ppt 60ppt"
   POSITION="move position center"
   ;;
+"tasks")
+  TITLE="tasks-org"
+  CLASS="MainKt"
+  CMD="$HOME/.local/bin/tasks-org"
+  RESIZE="resize set 90ppt 75ppt"
+  POSITION="move position center"
+  ;;
 "whatsapp")
   TITLE="WhatsApp"
   APP_ID="firefox"
