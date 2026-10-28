@@ -23,7 +23,7 @@ choice=$(
     'keyboard-backlight-toggle' \
     'network-toggle' \
     'osd-toggle' \
-    'notification-dnd-toggle' \
+    'notification-do-not-disturbe-toggle' \
     'mic-mute' \
     'pomo-start-50' \
     'pomo-start-10' \
@@ -54,7 +54,7 @@ case "$choice" in
   'nightlight-toggle') exec $ipc nightlight-toggle ;;
   'bluetooth-toggle') exec $ipc bluetooth-toggle ;;
   'caffeine-toggle') exec $ipc caffeine-toggle ;;
-  'notification-dnd-toggle') exec $ipc notification-dnd-toggle ;;
+  'notification-do-not-disturbe-toggle') exec $ipc notification-dnd-toggle ;;
   'mic-mute') exec $ipc mic-mute ;;
   'keyboard-backlight-toggle') exec $ipc keyboard-backlight-toggle ;;
   'network-toggle') exec $ipc network-toggle ;;
