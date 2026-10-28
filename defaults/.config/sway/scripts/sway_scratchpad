@@ -102,6 +102,13 @@ case "$APP" in
   RESIZE="resize set 80ppt 80ppt"
   POSITION="move position center"
   ;;
+"text-sms-kdeconnect")
+  TITLE=""
+  APP_ID="org.kde.kdeconnect.sms"
+  CMD="kdeconnect-sms"
+  RESIZE="resize set 80ppt 80ppt"
+  POSITION="move position center"
+  ;;
 "keepass")
   TITLE=""
   APP_ID="org.keepassxc.KeePassXC"

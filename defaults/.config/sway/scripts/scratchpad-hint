@@ -8,6 +8,7 @@ choice=$(
     'htop' \
     'vpn-random' \
     'vpn-home' \
+    'text-sms-kdeconnect' \
     'journal' \
     'qalculate' \
     'tickrs' \
@@ -65,4 +66,5 @@ case "$choice" in
   'pomo-start-50') exec $ipc plugin noctalia/timer:timer all start 50 ;;
   'pomo-start-10') exec $ipc plugin noctalia/timer:timer all start 10 ;;
   'pomo-cancel') exec $ipc plugin noctalia/timer:timer all cancel ;;
+  'text-sms-kdeconnect') exec ~/.config/sway/scripts/sway_scratchpad text-sms-kdeconnect ;;
 esac
