@@ -27,6 +27,7 @@ choice=$(
     'notification-do-not-disturbe-toggle' \
     'mic-mute' \
     'pomo-start-50' \
+    'pomo-start-25' \
     'pomo-start-10' \
     'pomo-cancel' \
   | rofi -dmenu -i -p 'Scratchpad' \
@@ -64,6 +65,7 @@ case "$choice" in
   'vpn-random') exec ~/.local/bin/wireguard-vpn-random-toggle > /tmp/vpn.log 2>&1 ;;
   'vpn-home') exec sudo -A resolvconf -u && wg-quick up home ;;
   'pomo-start-50') exec $ipc plugin noctalia/timer:timer all start 50 ;;
+  'pomo-start-25') exec $ipc plugin noctalia/timer:timer all start 25 ;;
   'pomo-start-10') exec $ipc plugin noctalia/timer:timer all start 10 ;;
   'pomo-cancel') exec $ipc plugin noctalia/timer:timer all cancel ;;
   'text-sms-kdeconnect') exec ~/.config/sway/scripts/sway_scratchpad text-sms-kdeconnect ;;
